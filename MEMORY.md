@@ -286,12 +286,15 @@ pin the champion binaries and iterate without waiting 9 hours.
 must retain every requested fact.
 
 **Codex's P0 queue, with measured leverage:**
-1. `WEATHER_FORECAST` — questions name an explicit **start date** ("48 hourly values starting
+1. `WEATHER_FORECAST` — **DONE.** Questions name an explicit **start date** ("48 hourly values starting
    2026-09-01T06:00Z"); we return "next N hours from now". Truthful date-aware candidate scored
-   **0.996 vs our 0.0070 — 142x**, and 100x the epoch leader. **Not yet implemented.**
-2. `SSL_VERIFICATION` — for an unreachable host we drop every requested diagnostic dimension.
-   Candidate naming chain/SAN/hostname checks scored **0.0106 vs 0.0045**, above the leader.
-   **Not yet implemented.**
+   **0.996 vs our 0.0070 — 142x**, and 100x the epoch leader. Now parsed and sliced by timestamp,
+   with the full hourly series and precipitation in both structure and prose. The live answer's
+   temperature range (24.5–30.5°C) matches Codex's independently measured values exactly.
+2. `SSL_VERIFICATION` — **DONE.** Answers now carry the dimensions the questions ask about,
+   rendered from real fields: chain length and completeness (walked via `issuerCertificate`),
+   Subject Alternative Names, hostname validation, trust path. An unreachable host no longer
+   stops at "DNS failed" — it names what could not be established and how to establish it.
 3. `STORM_ALERT` — **DONE.** "in 44 hours" is a *point* offset, not a window; we returned the
    44-hour maximum (gusts 70.9) where the paid responder returned the value at hour 44 (49.7).
    Now `time_mode` point/window with `valid_at`, and the replay harness checks `valid_at` lands

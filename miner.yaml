@@ -90,6 +90,19 @@ output_schema:
   type: object
   properties:
     domain: { type: string }
+    chain_length:
+      type: [integer, "null"]
+      description: Certificates the server presented, leaf included. /ssl-check only.
+    chain_complete:
+      type: [boolean, "null"]
+      description: Whether intermediates were sent, not just the leaf.
+    subject_alt_names:
+      type: [array, "null"]
+      items: { type: string }
+      description: Subject Alternative Names on the leaf certificate.
+    unreachable_reason:
+      type: [string, "null"]
+      description: Why the host could not be reached, when it could not be.
     start_time:
       type: [string, "null"]
       description: >-

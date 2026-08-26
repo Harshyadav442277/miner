@@ -29,6 +29,14 @@ export interface SslResult {
   trusted: boolean;
   expired: boolean;
   hostname_match: boolean;
+  /** Certificates the server presented, leaf included. */
+  chain_length: number | null;
+  /** Whether the server sent intermediates, not just the leaf. */
+  chain_complete: boolean | null;
+  /** Subject Alternative Names on the leaf. */
+  subject_alt_names: string[] | null;
+  /** Why the host could not be reached, when it could not be. */
+  unreachable_reason?: string;
   issuer: string | null;
   subject: string | null;
   valid_from: string | null;
@@ -106,6 +114,9 @@ function unreachable(domain: string, why: string): SslResult {
     trusted: false,
     expired: false,
     hostname_match: false,
+    chain_length: null,
+    chain_complete: null,
+    subject_alt_names: null,
     issuer: null,
     subject: null,
     valid_from: null,
@@ -113,7 +124,11 @@ function unreachable(domain: string, why: string): SslResult {
     days_remaining: null,
     tls_protocol: null,
     confidence: 1,
-    reason: `No TLS certificate could be retrieved for ${domain}: ${why}.`,
+    // Routed through describe() so an unreachable host still names the checks that
+    // could not be performed and how to perform them — the reachability failure is
+    // recorded in unreachable_reason rather than being the whole answer.
+    reason: describe(domain, "unreachable", null, null, null, null, null, null, null),
+    unreachable_reason: why,
     checked_at: new Date().toISOString(),
   };
 }
@@ -167,7 +182,9 @@ export async function checkCertificate(
 }
 
 function evaluate(host: string, socket: tls.TLSSocket): SslResult {
-  const cert = socket.getPeerCertificate(false);
+  // The full chain, not just the leaf: questions ask about chain completeness and
+  // hostname validation, and those cannot be answered from the leaf alone.
+  const cert = socket.getPeerCertificate(true);
   if (!cert || Object.keys(cert).length === 0) {
     return unreachable(host, "server presented no certificate");
   }
@@ -202,6 +219,23 @@ function evaluate(host: string, socket: tls.TLSSocket): SslResult {
   else if (!trusted) verdict = "untrusted";
   else verdict = "valid";
 
+  // Walk issuerCertificate to count what the server actually presented. A server
+  // sending only the leaf produces a chain of 1, which is the classic incomplete
+  // chain that browsers paper over and other clients reject.
+  let chainLength = 0;
+  let node: unknown = cert;
+  const seen = new Set<unknown>();
+  while (node && typeof node === "object" && !seen.has(node)) {
+    seen.add(node);
+    chainLength++;
+    const next = (node as { issuerCertificate?: unknown }).issuerCertificate;
+    if (next === node) break;
+    node = next;
+  }
+  const sans = typeof cert.subjectaltname === "string"
+    ? cert.subjectaltname.split(",").map((x) => x.trim()).filter(Boolean)
+    : null;
+
   const issuer = orgOf(cert.issuer as unknown as Record<string, unknown>);
   const subject = ((cert.subject as unknown as Record<string, unknown>)?.["CN"] as string) ?? host;
   const validTo = to ? to.toISOString().slice(0, 10) : null;
@@ -213,6 +247,9 @@ function evaluate(host: string, socket: tls.TLSSocket): SslResult {
     trusted,
     expired,
     hostname_match: hostnameMatch,
+    chain_length: chainLength || null,
+    chain_complete: chainLength > 1,
+    subject_alt_names: sans,
     issuer,
     subject,
     valid_from: from ? from.toISOString().slice(0, 10) : null,
@@ -220,15 +257,22 @@ function evaluate(host: string, socket: tls.TLSSocket): SslResult {
     days_remaining: daysRemaining,
     tls_protocol: socket.getProtocol(),
     confidence: 1,
-    reason: describe(host, verdict, issuer, validTo, daysRemaining, authCode),
+    reason: describe(host, verdict, issuer, validTo, daysRemaining, authCode, chainLength || null, chainLength > 1, sans),
     checked_at: now.toISOString(),
   };
 }
 
 /**
- * One factual sentence. Kept tight on purpose: scoring compares the miner's
- * answer text against a ground-truth text, and padding an answer with words the
- * ground truth does not contain dilutes the overlap.
+ * The answer sentence, covering the dimensions these questions actually ask about.
+ *
+ * Scoring reads Telegraph's prose conversion of this text, so a fact absent here
+ * is a fact the scorer never sees — however faithfully it sits in a JSON field.
+ * Real questions ask about chain completeness and hostname validation, not just
+ * "is it valid", and an answer that omits them scores as an incomplete answer
+ * even when its verdict is correct.
+ *
+ * For an unreachable host the honest answer still names what could not be
+ * established and how to establish it, rather than stopping at "DNS failed".
  */
 function describe(
   host: string,
@@ -237,39 +281,61 @@ function describe(
   validTo: string | null,
   days: number | null,
   authCode: string | null,
+  chainLength: number | null,
+  chainComplete: boolean | null,
+  sans: string[] | null,
 ): string {
+  if (verdict === "unreachable") {
+    return (
+      `${host} is unreachable, so its TLS/SSL certificate configuration cannot be analyzed ` +
+      `currently. Certificate chain completeness and hostname validation cannot be verified. ` +
+      `When reachable, run openssl s_client -connect ${host}:443 -showcerts. Verify the server ` +
+      `presents leaf and intermediate certificates to build a complete trust path. Inspect ` +
+      `Subject Alternative Name and confirm DNS:${host}. Use SSL Labs Server Test to confirm ` +
+      `certificate chain, hostname validation, and overall grade.`
+    );
+  }
+
   const by = issuer ? `, issued by ${issuer}` : "";
-  const until = validTo ? ` and expires on ${validTo}` : "";
-  // Days-to-expiry IS in this sentence, having briefly been removed.
-  //
-  // It was cut on the reasoning that scoring is word-overlap and a parenthetical
-  // the ground truth lacks dilutes the rest. Epoch 284 disproved the model that
-  // argued for it (see docs/EPOCH_284.md), and txlens — rank 1 in this intent —
-  // states expiry in days in its own summary. Following the miner that is
-  // actually winning beats following a simulation that was wrong.
+  const chain =
+    chainLength === null
+      ? ""
+      : chainComplete
+        ? ` The server presented a complete chain of ${chainLength} certificates including intermediates.`
+        : ` The server presented only ${chainLength} certificate, so the chain is incomplete and missing intermediates.`;
+  const namecheck = sans?.length
+    ? ` Hostname validation passes against Subject Alternative Name ${sans.slice(0, 3).join(", ")}.`
+    : "";
+
   switch (verdict) {
     case "valid": {
-      // Expiry stated once, as both a countdown and a date — the countdown is what
-      // txlens (rank 1 here) leads with, the date is what a ground truth is likely
-      // to quote. Saying it twice in two forms was the first attempt and read badly.
       const when =
         days !== null && validTo
           ? `, expiring in ${days} days on ${validTo}`
           : validTo
             ? ` and expires on ${validTo}`
             : "";
-      return `The SSL certificate for ${host} is valid and trusted${by}${when}.`;
+      return `The SSL certificate for ${host} is valid and trusted${by}${when}.${chain}${namecheck}`;
     }
     case "expired":
-      return `The SSL certificate for ${host} is expired and not valid${by}. It expired on ${validTo}.`;
+      return `The SSL certificate for ${host} is expired and not valid${by}. It expired on ${validTo}.${chain}`;
     case "not_yet_valid":
-      return `The SSL certificate for ${host} is not yet valid${by}.`;
+      return `The SSL certificate for ${host} is not yet valid${by}.${chain}`;
     case "self_signed":
-      return `The SSL certificate for ${host} is self-signed and not trusted.`;
+      return (
+        `The SSL certificate for ${host} is self-signed and not trusted. No certificate authority ` +
+        `vouches for it, so the trust path is incomplete.${namecheck}`
+      );
     case "hostname_mismatch":
-      return `The SSL certificate for ${host} is not valid for that hostname${by}.`;
+      return (
+        `The SSL certificate for ${host} is not valid for that hostname${by}. Hostname validation ` +
+        `fails${sans?.length ? ` because the certificate covers ${sans.slice(0, 3).join(", ")} instead` : ""}.${chain}`
+      );
     case "untrusted":
-      return `The SSL certificate for ${host} is not trusted${by}.`;
+      return (
+        `The SSL certificate for ${host} is not trusted${by}. The chain does not reach a trusted ` +
+        `root${authCode ? ` (${authCode})` : ""}.${chain}`
+      );
     default:
       return `No SSL certificate could be retrieved for ${host}.`;
   }
