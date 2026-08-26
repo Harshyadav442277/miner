@@ -1,6 +1,7 @@
 import * as tls from "node:tls";
 import { checkServerIdentity } from "node:tls";
 import { extractHostname } from "./extract";
+import { assertPublicHost } from "./guard";
 
 /**
  * A live TLS handshake against the host, reporting what the server is actually
@@ -117,11 +118,15 @@ function unreachable(domain: string, why: string): SslResult {
   };
 }
 
-export function checkCertificate(
+export async function checkCertificate(
   host: string,
   port = 443,
   timeoutMs = DEFAULT_TIMEOUT_MS,
 ): Promise<SslResult> {
+  // Never open a socket to a non-public address — see guard.ts.
+  const guard = await assertPublicHost(host);
+  if (!guard.allowed) return unreachable(host, guard.reason);
+
   return new Promise((resolve) => {
     let settled = false;
     const done = (r: SslResult): void => {
