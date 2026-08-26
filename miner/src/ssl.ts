@@ -240,14 +240,26 @@ function describe(
 ): string {
   const by = issuer ? `, issued by ${issuer}` : "";
   const until = validTo ? ` and expires on ${validTo}` : "";
-  // days_remaining stays in the structured response, deliberately not in this
-  // sentence. Scoring is word-overlap over the answer text, so a parenthetical
-  // the ground truth will not contain dilutes every other word in it — measured
-  // at 0.68 -> 0.93 on a representative case. Agents read the field; the scorer
-  // reads the prose.
+  // Days-to-expiry IS in this sentence, having briefly been removed.
+  //
+  // It was cut on the reasoning that scoring is word-overlap and a parenthetical
+  // the ground truth lacks dilutes the rest. Epoch 284 disproved the model that
+  // argued for it (see docs/EPOCH_284.md), and txlens — rank 1 in this intent —
+  // states expiry in days in its own summary. Following the miner that is
+  // actually winning beats following a simulation that was wrong.
   switch (verdict) {
-    case "valid":
-      return `The SSL certificate for ${host} is valid and trusted${by}${until}.`;
+    case "valid": {
+      // Expiry stated once, as both a countdown and a date — the countdown is what
+      // txlens (rank 1 here) leads with, the date is what a ground truth is likely
+      // to quote. Saying it twice in two forms was the first attempt and read badly.
+      const when =
+        days !== null && validTo
+          ? `, expiring in ${days} days on ${validTo}`
+          : validTo
+            ? ` and expires on ${validTo}`
+            : "";
+      return `The SSL certificate for ${host} is valid and trusted${by}${when}.`;
+    }
     case "expired":
       return `The SSL certificate for ${host} is expired and not valid${by}. It expired on ${validTo}.`;
     case "not_yet_valid":

@@ -64,3 +64,37 @@ but not worth optimising.
 Epoch 285. Watch whether `STORM_ALERT` moves off zero. That single number tells us whether the
 recent fixes reached the scorer, and it is the difference between a straightforward rank-1 path
 and needing a new theory.
+
+
+---
+
+## What the rank-1 miner actually returns
+
+`txlens`, rank 1 in `SSL_VERIFICATION`, on the same question:
+
+```json
+"status":    "ok",
+"summary":   "github.com has a valid certificate, expiring in 35 days (issued by Sectigo Limited)",
+"canonical": "ssl:github.com:valid:35",
+"confidence": 1
+```
+
+Two things worth noting.
+
+**It states days-to-expiry — which I had deliberately removed from ours.** The removal was
+justified by `tools/score-sim.mjs`, the model epoch 284 disproved. Restored, because following the
+miner that is actually winning beats following a simulation that was wrong. Our valid-certificate
+sentence now reads:
+
+> The SSL certificate for github.com is valid and trusted, issued by Sectigo Limited, expiring in
+> 35 days on 2026-09-30.
+
+**Its `label_field` points at `status`, which is the constant `"ok"`.** That is not an answer to
+anything, and it ranks first regardless — which is the strongest counter-evidence against the
+label-field theory in [LABEL_FIELD_HYPOTHESIS.md](LABEL_FIELD_HYPOTHESIS.md). Whatever the scorer
+weighs, it is evidently not the label alone.
+
+**Also present in both `txlens` and `onlookout-weather` (rank 1 in `WEATHER_FORECAST` at the
+previous epoch): a `canonical` field** — a compact machine fingerprint like `ssl:github.com:valid:35`.
+Two rank-1 miners carrying the same unusual field is a pattern, though two is not many, and after
+being wrong twice today I am recording it rather than acting on it.

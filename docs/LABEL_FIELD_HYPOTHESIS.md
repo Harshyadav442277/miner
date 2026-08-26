@@ -43,7 +43,12 @@ category, exactly the shape the hypothesis says should score badly.
 | 4 | `certspotter` | `has_valid_cert` (a boolean) | 0.0 |
 
 `ssllabs` ranking 2 with `label_field: host` — which is not an answer to anything — argues the
-label may matter less than assumed, or that SSL scoring is noisy. Note `SSL_VERIFICATION` had
+label may matter less than assumed, or that SSL scoring is noisy.
+
+**Stronger counter-evidence, found afterwards:** `txlens`'s `label_field` is `status`, and calling
+its endpoint shows `status` is the constant `"ok"`. The rank-1 miner in that intent maps its label
+to a value that carries no information at all. Whatever the scorer weighs, the label alone is
+plainly not it. Note `SSL_VERIFICATION` had
 **zero real questions in 72 hours**, so its scores likely come from few synthetic probes and should
 carry less weight than storm, which has 15 real ones.
 
