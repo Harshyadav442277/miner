@@ -178,7 +178,33 @@ cadence is ~2900/month. Either make the repo public (unlimited Actions) or widen
 Secrets scan before the push came back clean — no `.env` tracked, no key-shaped strings, no
 password in history.
 
-### Next action — blocked on the user
+### REGISTERED ON-CHAIN — 2026-08-26 ~20:20 IST
+```
+registrationId   225
+tx               0x55b4d8e736c9625e…503348bc   (Base Sepolia, CONFIRMED)
+slug             livecert
+id               4433
+base_url         https://miner-wine.vercel.app
+fee address      0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e
+floor price      0.01 USDC
+intents          SSL_VERIFICATION, STORM_ALERT, WEATHER_FORECAST
+IPFS             QmWmgbY7pbUdWo1ZPVHEh7Bbq1hGQGwVCCcyLxZToEzW2c
+```
+Registered via the console's **Import & Upload** path (card 02), not the from-scratch wizard —
+it takes the existing miner.yaml, sandbox-tests every endpoint, and pins to Pinata.
+
+Sandbox results: all three endpoints green. `/ssl-check` reported HTTP 405 because the probe used
+OPTIONS (not GET as labelled); real GET traffic returns 200. Hardened anyway — the server now
+answers OPTIONS with 204 + Allow. That redeploy does **not** change base_url or the pinned hash,
+so it did not disturb the registration.
+
+`REGISTRATION_ID=225` is set as a repo variable, so the uptime workflow now watches
+`activation_status` as well as the endpoint.
+
+**Grace period runs ~7 days from activation** — unranked during it, sharing 5% of routed traffic
+equally with other new miners. The score earned there sets the opening leaderboard position.
+
+### Next action
 2. **Create an EVM wallet + Base Sepolia testnet ETH** — user has no wallet yet. Claude cannot do
    this: no wallet creation, no seed phrases, no signing. Steps are in SETUP.md.
 

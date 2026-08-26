@@ -14,11 +14,11 @@ Tick these off in order; the ordering is dependency order, not preference.
 | 3 | Deployed to a public HTTPS URL | Claude | **done** — `https://miner-wine.vercel.app` |
 | 4 | `node tools/verify-deploy.mjs <url>` exits 0 | Claude | **done** — all 18 checks pass |
 | 5 | `base_url` updated in `miner.yaml` | Claude | **done** |
-| 6 | Sandbox validation at integrate.telegraphprotocol.com | Claude | ready to run — needs the console |
-| 7 | EVM wallet created, Base Sepolia ETH funded | **User** | not started |
-| 8 | `registerMiner` sent | **User** (signs) | blocked on 6, 7 |
-| 9 | `registrationId` recorded; `activation_status: active` | Claude | blocked on 8 |
-| 10 | Uptime workflow armed | Claude | **`MINER_BASE_URL` set and verified green**; add `REGISTRATION_ID` after step 8 |
+| 6 | Sandbox validation | — | **done** — all 3 endpoints green, pinned to IPFS |
+| 7 | EVM wallet created, Base Sepolia ETH funded | **User** | **done** — 0.005 ETH |
+| 8 | `registerMiner` sent | **User** | **done** — registrationId **225**, tx confirmed |
+| 9 | `activation_status: active` | Claude | **polling** — indexing takes 3–5 min |
+| 10 | Uptime workflow armed | Claude | **done** — `MINER_BASE_URL` + `REGISTRATION_ID=225` |
 | 11 | Posts on X, tagged `@Telegraphprotoc` | **User** | **can start now** — drafts 1–3 need nothing deployed |
 
 **Register as early as possible.** The 7-day grace-period score sets the opening leaderboard
