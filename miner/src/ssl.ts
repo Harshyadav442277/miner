@@ -1,5 +1,6 @@
 import * as tls from "node:tls";
 import { checkServerIdentity } from "node:tls";
+import { extractHostname } from "./extract";
 
 /**
  * A live TLS handshake against the host, reporting what the server is actually
@@ -49,7 +50,14 @@ export function normalizeTarget(raw: string): { host: string; port: number } | n
       const u = new URL(s);
       s = u.hostname + (u.port ? `:${u.port}` : "");
     } catch {
-      return null;
+      // A sentence that merely *contains* a URL is not itself a URL. Fall
+      // through to extraction rather than giving up here.
+      const inner = extractHostname(raw);
+      if (inner) {
+        s = inner;
+      } else {
+        return null;
+      }
     }
   }
   s = s.replace(/^\/+|\/+$/g, "").split("/")[0] ?? "";
@@ -63,7 +71,16 @@ export function normalizeTarget(raw: string): { host: string; port: number } | n
   // Hostname sanity: labels of alphanumerics/hyphens, or a bare IPv4.
   const isHost = /^(?=.{1,253}$)([a-z0-9](-?[a-z0-9])*)(\.[a-z0-9](-?[a-z0-9])*)+$/.test(s);
   const isIpv4 = /^(\d{1,3}\.){3}\d{1,3}$/.test(s);
-  if (!isHost && !isIpv4) return null;
+  if (!isHost && !isIpv4) {
+    // The caller may have handed us a whole sentence. Rather than 400 on a
+    // question we can obviously answer, find the hostname inside it.
+    const found = extractHostname(raw);
+    if (found && found !== s) {
+      const retry = normalizeTarget(found);
+      if (retry) return retry;
+    }
+    return null;
+  }
   if (!Number.isInteger(port) || port < 1 || port > 65535) return null;
   return { host: s, port };
 }

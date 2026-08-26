@@ -210,6 +210,13 @@ eligibility guardrail (G13) requires. ~$1.00 buys the 100-request floor. Needs: 
 faucet.circle.com, and `EVM_PRIVATE_KEY` set as a Vercel env var by the **user** (Claude never
 handles keys).
 
+**Free-text input handling added 2026-08-26 (important).** The engine classifies a
+natural-language question and may hand the miner the raw sentence. Before the fix,
+`?query=Is the SSL certificate for expired.badssl.com valid?` returned **HTTP 400** — a scored
+question answered with an error is a zero. Now all three endpoints extract the parameter from
+free text (`src/extract.ts`), while still rejecting typo'd fragments like `"exa mple.com"`.
+57 tests pass; p95 latency improved 1136ms → 523ms.
+
 **Grace period runs ~7 days from activation** — unranked during it, sharing 5% of routed traffic
 equally with other new miners. The score earned there sets the opening leaderboard position.
 

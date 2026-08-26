@@ -9,6 +9,8 @@
  * an upstream quota becomes our Routing Revocation (ARCHITECTURE A3/A4).
  */
 
+import { placeCandidates } from "./extract";
+
 const GEOCODE = "https://geocoding-api.open-meteo.com/v1/search";
 const FORECAST = "https://api.open-meteo.com/v1/forecast";
 const DEFAULT_TIMEOUT_MS = 8000;
@@ -55,7 +57,19 @@ export interface Place {
 }
 
 /** Accepts a place name, or "lat,lon" directly. */
+/**
+ * Geocode the query, falling back to candidates extracted from a natural-language
+ * question. The geocoder is the arbiter — we just give it better strings to try.
+ */
 export async function resolvePlace(query: string, timeoutMs = DEFAULT_TIMEOUT_MS): Promise<Place | null> {
+  for (const candidate of placeCandidates(query)) {
+    const hit = await geocodeOnce(candidate, timeoutMs);
+    if (hit) return hit;
+  }
+  return null;
+}
+
+async function geocodeOnce(query: string, timeoutMs = DEFAULT_TIMEOUT_MS): Promise<Place | null> {
   const q = (query ?? "").trim();
   if (!q) return null;
 
