@@ -18,7 +18,10 @@ jobs:
           node-version: "22"
       - run: npm install --no-audit --no-fund
       - run: npm run typecheck
-      - run: npm test
+      # Unit tests only. The live suite calls badssl.com and Open-Meteo directly,
+      # and an outage at either fails CI with a red herring — that happened once
+      # during development. Those run on a schedule instead (uptime.yml).
+      - run: npm run test:unit
 
   app:
     runs-on: ubuntu-latest

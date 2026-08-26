@@ -7,7 +7,7 @@ import { assertPublicHost } from "../src/guard";
  * caller. Without this guard the miner is an SSRF primitive — a way to probe
  * private ranges and cloud metadata from our infrastructure.
  */
-describe("assertPublicHost", () => {
+describe("assertPublicHost (live)", () => {
   const blocked = [
     ["127.0.0.1", "loopback literal"],
     ["localhost", "a public NAME resolving to loopback"],

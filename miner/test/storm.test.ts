@@ -2,7 +2,7 @@ import { test, describe } from "node:test";
 import assert from "node:assert/strict";
 import { resolvePlace, checkStorm } from "../src/storm";
 
-describe("resolvePlace", () => {
+describe("resolvePlace (live)", () => {
   test("parses bare coordinates without a network call", async () => {
     const p = await resolvePlace("13.08,80.27");
     assert.deepEqual(p, { name: "13.08,80.27", latitude: 13.08, longitude: 80.27 });

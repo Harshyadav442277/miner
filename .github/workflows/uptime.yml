@@ -73,3 +73,17 @@ jobs:
                 issue_number: existing[0].number, body,
               });
             }
+
+  live-tests:
+    # The network-dependent half of the suite, on the uptime cadence rather than
+    # on every push, so an upstream blip never blocks a merge.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npm install --no-audit --no-fund
+        working-directory: miner
+      - run: npm run test:live
+        working-directory: miner
