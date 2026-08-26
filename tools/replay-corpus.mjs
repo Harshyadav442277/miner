@@ -66,9 +66,28 @@ const PROBES = {
       const problems = [];
       if (!j.verdict || j.verdict === "unknown") problems.push(`verdict=${j.verdict}`);
       if (typeof j.risk_score !== "number") problems.push("no risk_score");
-      const m = q.match(/\bin (\d+) hours?\b/i);
-      const want = m ? Math.max(1, Number(m[1])) : /right now/i.test(q) ? 1 : null;
-      if (want !== null && j.window_hours !== want) problems.push(`window ${j.window_hours} != ${want}`);
+
+      // "in N hours" names a moment; "over the next N hours" names a span. Checking
+      // only that window_hours echoes the number cannot tell those apart, and a
+      // point question answered with a span maximum is wrong even though it looks
+      // well-formed.
+      const point = q.match(/in\s+(\d{1,3})\s*hours?/i);
+      const span = /(?:over|within|during|across)\s+(?:the\s+)?next/i.test(q);
+      const now = /right now/i.test(q);
+
+      if (span) {
+        if (j.time_mode !== "window") problems.push(`expected window, got ${j.time_mode}`);
+      } else if (point || now) {
+        if (j.time_mode !== "point") problems.push(`expected point, got ${j.time_mode}`);
+        if (!j.valid_at) problems.push("point answer has no valid_at");
+        else {
+          // valid_at must actually land near the hour the question named.
+          const wantH = point ? Number(point[1]) : 0;
+          const drift = Math.abs((new Date(`${j.valid_at}Z`).getTime() - Date.now()) / 3_600_000 - wantH);
+          if (drift > 2) problems.push(`valid_at is ${drift.toFixed(1)}h from the ${wantH}h asked`);
+        }
+      }
+
       const bands = { none: [0, 0.2], low: [0.2, 0.4], moderate: [0.4, 0.65], high: [0.65, 0.85], severe: [0.85, 1.01] };
       const b = bands[j.verdict];
       if (b && (j.risk_score < b[0] || j.risk_score >= b[1])) problems.push(`risk ${j.risk_score} outside ${j.verdict}`);

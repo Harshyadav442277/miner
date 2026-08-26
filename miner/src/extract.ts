@@ -158,6 +158,52 @@ export function extractCoords(text: string): { lat: number; lon: number } | null
   return null;
 }
 
+export type TimeMode = "point" | "window";
+
+export interface TimeRequest {
+  /** "point" asks about one moment; "window" asks about a span. */
+  mode: TimeMode;
+  /** Hours ahead of now — for a window its length, for a point its offset. */
+  hours: number;
+}
+
+/**
+ * How the question frames time, not merely how many hours it names.
+ *
+ * "in 44 hours" and "over the next 44 hours" are different questions. The first
+ * asks what conditions will be at one moment; the second asks for the worst of
+ * everything between now and then. Answering a point question with a window
+ * maximum reports weather that has not happened yet as though it were the
+ * forecast — on a real paid question the responder gave gusts of 49.7 at hour
+ * 44 where we returned 70.9 from somewhere in between.
+ */
+export function extractTimeRequest(text: string): TimeRequest | null {
+  const s = String(text ?? "");
+  if (!s.trim()) return null;
+
+  const hrs = (n: number, unit: string): number => (/^d/i.test(unit) ? n * 24 : n);
+
+  // Explicit span wording always means a window.
+  const span = s.match(/\b(?:over|within|during|across)\s+(?:the\s+)?(?:next\s+)?(\d{1,3})\s*(hours?|hrs?|h|days?|d)\b/i);
+  if (span?.[1] && span[2]) return { mode: "window", hours: hrs(Number(span[1]), span[2]) };
+
+  // "right now" is a point at the current hour.
+  if (/\b(?:right now|at present|currently|at the moment)\b/i.test(s)) return { mode: "point", hours: 0 };
+
+  // "in N hours" / "N hours ahead" / "N hours from now" name one moment.
+  const point =
+    s.match(/\bin\s+(\d{1,3})\s*(hours?|hrs?|h|days?|d)\b/i) ??
+    s.match(/\b(\d{1,3})\s*(hours?|hrs?|h|days?|d)\s+(?:ahead|from now|out)\b/i);
+  if (point?.[1] && point[2]) return { mode: "point", hours: hrs(Number(point[1]), point[2]) };
+
+  // Bare "next N hours" is ambiguous — treat as a window and label the maxima.
+  const next = s.match(/\b(?:the\s+)?next\s+(\d{1,3})\s*(hours?|hrs?|h|days?|d)\b/i);
+  if (next?.[1] && next[2]) return { mode: "window", hours: hrs(Number(next[1]), next[2]) };
+
+  return null;
+}
+
+
 /**
  * A requested forecast window in hours.
  *

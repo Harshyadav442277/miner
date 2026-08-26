@@ -176,6 +176,8 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
       send(res, 200, hit);
       return;
     }
+    // Only an explicit ?hours= forces a window; otherwise the question's wording
+    // decides whether it is asking about a moment or a span.
     const stormHours = Number(url.searchParams.get("hours") ?? NaN);
     checkStorm(q, undefined, Number.isFinite(stormHours) ? stormHours : undefined)
       .then((result) => {

@@ -9,7 +9,7 @@
  * an upstream quota becomes our Routing Revocation (ARCHITECTURE A3/A4).
  */
 
-import { placeCandidates, shortPlaceName, extractCoords, extractHours } from "./extract";
+import { placeCandidates, shortPlaceName, extractCoords, extractHours, extractTimeRequest } from "./extract";
 
 const GEOCODE = "https://geocoding-api.open-meteo.com/v1/search";
 const FORECAST = "https://api.open-meteo.com/v1/forecast";
@@ -23,6 +23,10 @@ export interface StormResult {
   verdict: StormVerdict;
   /** Overall storm risk from 0 (none) to 1 (severe). */
   risk_score: number;
+  /** "point" answers one moment; "window" aggregates a span. */
+  time_mode: "point" | "window";
+  /** For a point answer, the hour the values describe. */
+  valid_at: string | null;
   storm_expected: boolean;
   max_wind_gust_kmh: number | null;
   max_wind_speed_kmh: number | null;
@@ -150,12 +154,22 @@ export async function checkStorm(
 ): Promise<StormResult> {
   // "over the next 44 hours" is part of the question. Reporting a 48-hour
   // maximum answers about six hours the caller did not ask about.
-  const windowHours = Math.max(1, Math.min(168, requestedHours ?? extractHours(query) ?? WINDOW_HOURS));
+  // "in 44 hours" names a moment; "over the next 44 hours" names a span. Reporting
+  // a span maximum for a point question describes weather that has not happened.
+  const asked = extractTimeRequest(query);
+  const mode: "point" | "window" = requestedHours !== undefined ? "window" : (asked?.mode ?? "window");
+  const offsetHours = Math.max(0, Math.min(168, asked?.hours ?? 0));
+  const windowHours = Math.max(
+    1,
+    Math.min(168, requestedHours ?? (mode === "window" ? (asked?.hours ?? WINDOW_HOURS) : offsetHours + 1)),
+  );
   const now = new Date().toISOString();
   const base: StormResult = {
     location: query,
     verdict: "unknown",
     risk_score: 0,
+    time_mode: mode,
+    valid_at: null,
     storm_expected: false,
     max_wind_gust_kmh: null,
     max_wind_speed_kmh: null,
@@ -212,14 +226,23 @@ export async function checkStorm(
       reason: `No forecast data available for ${place.name}.` };
   }
 
+  // A point question is answered by one row; a window question by the worst row.
   let peakIdx = 0;
-  for (let i = 1; i < gusts.length; i++) {
-    if ((gusts[i] ?? -1) > (gusts[peakIdx] ?? -1)) peakIdx = i;
+  if (mode === "point") {
+    peakIdx = Math.min(Math.max(0, offsetHours), Math.max(0, times.length - 1));
+  } else {
+    for (let i = 1; i < gusts.length; i++) {
+      if ((gusts[i] ?? -1) > (gusts[peakIdx] ?? -1)) peakIdx = i;
+    }
   }
-  const maxGust = gusts[peakIdx] ?? 0;
-  const maxWind = winds.length ? Math.max(...winds) : null;
-  const maxPrecip = precip.length ? Math.max(...precip) : null;
-  const thunder = codes.some((c) => THUNDER.has(c));
+
+  const maxGust = mode === "point" ? (gusts[peakIdx] ?? 0) : (gusts[peakIdx] ?? 0);
+  const maxWind =
+    mode === "point" ? (winds[peakIdx] ?? null) : winds.length ? Math.max(...winds) : null;
+  const maxPrecip =
+    mode === "point" ? (precip[peakIdx] ?? null) : precip.length ? Math.max(...precip) : null;
+  const thunder =
+    mode === "point" ? THUNDER.has(codes[peakIdx] ?? -1) : codes.some((c) => THUNDER.has(c));
 
   // One number, one label, derived from it. Previously the verdict escalated in
   // discrete steps while the score added a continuous bonus, so a "low" could
@@ -238,13 +261,20 @@ export async function checkStorm(
     max_precipitation_mm: maxPrecip === null ? null : Math.round(maxPrecip * 10) / 10,
     thunderstorm: thunder,
     window_hours: windowHours,
+    time_mode: mode,
+    valid_at: mode === "point" ? (times[peakIdx] ?? null) : null,
     peak_at: times[peakIdx] ?? null,
     latitude: place.latitude,
     longitude: place.longitude,
     confidence: 1,
-    reason: describe(shortPlaceName(place.name), verdict, maxGust, thunder, maxPrecip, windowHours),
+    reason: describe(shortPlaceName(place.name), verdict, maxGust, thunder, maxPrecip, windowHours, mode, offsetHours),
     checked_at: now,
   };
+}
+
+/** How a point in time reads in prose: "right now" or "in N hours". */
+function when(offsetHours: number): string {
+  return offsetHours <= 0 ? "right now" : `in ${offsetHours} hours`;
 }
 
 /** One factual sentence — terse for the same word-overlap reason as the SSL path. */
@@ -255,12 +285,19 @@ function describe(
   thunder: boolean,
   precip: number | null,
   hours: number,
+  mode: "point" | "window",
+  offsetHours: number,
 ): string {
   if (verdict === "none") {
-    return `No storm risk for ${place} in the next ${hours} hours, with peak wind gusts of ${Math.round(gust)} km/h.`;
+    return mode === "point"
+      ? `No storm risk for ${place} ${when(offsetHours)}, with wind gusts of ${Math.round(gust)} km/h.`
+      : `No storm risk for ${place} in the next ${hours} hours, with peak wind gusts of ${Math.round(gust)} km/h.`;
   }
-  const bits = [`peak wind gusts of ${Math.round(gust)} km/h`];
+  // Nothing about a single hour is a "peak".
+  const bits = [`${mode === "point" ? "wind gusts" : "peak wind gusts"} of ${Math.round(gust)} km/h`];
   if (thunder) bits.push("thunderstorms forecast");
   if ((precip ?? 0) >= 10) bits.push(`heavy rain up to ${Math.round(precip ?? 0)} mm/h`);
-  return `${place} has a ${verdict} storm risk in the next ${hours} hours: ${bits.join(", ")}.`;
+  return mode === "point"
+    ? `${place} has a ${verdict} storm risk ${when(offsetHours)}: ${bits.join(", ")}.`
+    : `${place} has a ${verdict} storm risk in the next ${hours} hours: ${bits.join(", ")}.`;
 }

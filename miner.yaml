@@ -90,6 +90,16 @@ output_schema:
   type: object
   properties:
     domain: { type: string }
+    time_mode:
+      type: string
+      description: >-
+        "point" when the question asked about one moment ("in 44 hours", "right
+        now"); "window" when it asked about a span ("over the next 44 hours").
+      enum: [point, window]
+    valid_at:
+      type: [string, "null"]
+      description: >-
+        For a point answer, the UTC hour the values describe. Null for a window.
     risk_score:
       type: number
       description: >-
