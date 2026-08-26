@@ -58,7 +58,11 @@ mid-section — the tail of the validation-failures table and the troubleshootin
 Something in the cut region may matter.
 **Resolve:** re-read the tails, or pull the markdown from the docs repo.
 
-### G7 · Base Sepolia access not set up — `OPEN`
+### G7 · Base Sepolia access — `CLOSED`
+Wallet funded (0.005 ETH), registration sent and confirmed, miner active. The console handled RPC,
+so no Alchemy key was ever needed.
+
+### ~~G7 (original)~~ — `OPEN`
 Registration needs an RPC endpoint (docs show Alchemy) and testnet ETH for gas. Neither exists yet.
 Also unverified: whether the web console handles RPC itself, making this moot for the console path.
 

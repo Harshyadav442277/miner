@@ -17,7 +17,7 @@ Tick these off in order; the ordering is dependency order, not preference.
 | 6 | Sandbox validation | — | **done** — all 3 endpoints green, pinned to IPFS |
 | 7 | EVM wallet created, Base Sepolia ETH funded | **User** | **done** — 0.005 ETH |
 | 8 | `registerMiner` sent | **User** | **done** — registrationId **225**, tx confirmed |
-| 9 | `activation_status: active` | Claude | **polling** — indexing takes 3–5 min |
+| 9 | `activation_status: active` | Claude | **done** — active, present in all 3 intent listings |
 | 10 | Uptime workflow armed | Claude | **done** — `MINER_BASE_URL` + `REGISTRATION_ID=225` |
 | 11 | Posts on X, tagged `@Telegraphprotoc` | **User** | **can start now** — drafts 1–3 need nothing deployed |
 

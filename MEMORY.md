@@ -201,6 +201,9 @@ so it did not disturb the registration.
 `REGISTRATION_ID=225` is set as a repo variable, so the uptime workflow now watches
 `activation_status` as well as the endpoint.
 
+**`activation_status: active` confirmed 2026-08-26 14:51 UTC.** Present in all three intent
+listings: SSL_VERIFICATION 3→4 miners, STORM_ALERT 3→4, WEATHER_FORECAST 10→11. Network 90→91.
+
 **Grace period runs ~7 days from activation** — unranked during it, sharing 5% of routed traffic
 equally with other new miners. The score earned there sets the opening leaderboard position.
 

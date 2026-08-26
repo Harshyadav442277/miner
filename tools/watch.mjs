@@ -111,7 +111,8 @@ async function tick() {
   if (registration?.reason) console.error(`  !! rejection_reason: ${registration.reason}`);
   if (registration?.terminal) {
     console.error("  !! TERMINAL rejection — fix the cause, then updateMiner. The slug is released meanwhile.");
-    process.exit(1);
+    process.exitCode = 1;
+    return false;
   }
 
   return (endpoint === null || endpoint.ok) && (registration === null || !registration.terminal);
@@ -119,8 +120,13 @@ async function tick() {
 
 const first = await tick();
 if (once) {
-  process.exit(first ? 0 : 1);
+  // Set exitCode and let the loop drain rather than calling process.exit().
+  // A hard exit while fetch's sockets are still closing trips a libuv assertion
+  // on Windows and returns 127 — a monitor reporting a false failure is worse
+  // than no monitor at all.
+  process.exitCode = first ? 0 : 1;
+} else {
+  setInterval(() => {
+    tick().catch((e) => console.error(`[${stamp()}] watcher error: ${e.message}`));
+  }, intervalMs);
 }
-setInterval(() => {
-  tick().catch((e) => console.error(`[${stamp()}] watcher error: ${e.message}`));
-}, intervalMs);
