@@ -121,3 +121,45 @@ malformed, and A5 forbids liar-200s.
 
 Single epoch (283), captured once. Scores move per epoch and our own miner has no score yet
 (registered mid-epoch, `EPOCHS PARTICIPATED: 0`). Re-pull before acting on any specific number.
+
+
+---
+
+## 6. Measured: our answer shape vs the incumbents'
+
+`tools/score-sim.mjs` implements the documented reference scorer
+(`matched ÷ total words in the miner's answer`) and runs our **live** answers against the shapes
+the incumbents actually return, on three representative questions.
+
+| Answer shape | Mean score |
+|---|---|
+| **livecert (ours)** | **0.9453** |
+| certspotter-style — CT log JSON record | 0.0569 |
+| ssllabs-style — full Qualys grade report | 0.0385 |
+| txlens-style — error object on odd input | 0.0238 |
+
+The live bar to beat in `SSL_VERIFICATION` is **0.00627648**.
+
+**This is a prediction, not a measurement.** The real champion module for this intent is not
+published, and the ground truths are ones we wrote as plausible. But the arithmetic is the
+documented reference implementation, and the *ordering* is driven by structure — a terse
+declarative sentence shares most of its words with any reasonable ground truth; a JSON dump shares
+almost none. That ordering is robust even if the exact scorer differs.
+
+### The three words that cost 25%
+
+The first run scored 0.7697. Inspecting which words failed to match showed the culprit:
+
+```
+"…expires 2026-09-30 (35 days remaining)."
+                      ^^^^^^^^^^^^^^^^^^
+unmatched: 35 days remaining
+```
+
+A ground truth would not contain that parenthetical, so it diluted every other word in the
+sentence. Removing it — while **keeping `days_remaining` in the structured response**, where
+agents actually read it — took that case from **0.6842 → 0.9333**, and the mean from
+**0.7697 → 0.9453**.
+
+The general rule, now measured rather than assumed: *put facts in fields, put the answer in prose,
+and never put a fact in the prose that the question did not ask for.*

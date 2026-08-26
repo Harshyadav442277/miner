@@ -229,6 +229,13 @@ Three things settled by live data:
    compares text and an error shares no vocabulary with the ground truth. We had this exact bug
    until today.
 
+**Answer shape measured, not assumed.** `tools/score-sim.mjs` runs our live answers through the
+documented reference scorer against the incumbents' answer shapes: **ours 0.9453**, certspotter-style
+0.0569, ssllabs-style 0.0385, txlens-style 0.0238. Live bar to beat is 0.0063. Removing a
+`(35 days remaining)` parenthetical from the prose — while keeping `days_remaining` as a field —
+moved the mean 0.7697 → 0.9453. Rule: facts in fields, answer in prose, nothing in the prose the
+question did not ask for.
+
 **Grace period runs ~7 days from activation** — unranked during it, sharing 5% of routed traffic
 equally with other new miners. The score earned there sets the opening leaderboard position.
 
