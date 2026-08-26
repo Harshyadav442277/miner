@@ -3,9 +3,15 @@ import assert from "node:assert/strict";
 import { resolvePlace, checkStorm } from "../src/storm";
 
 describe("resolvePlace (live)", () => {
-  test("parses bare coordinates without a network call", async () => {
+  // Coordinates used to short-circuit with no lookup. They now cost one reverse
+  // geocode so the answer can name the place a question is actually about — the
+  // exact coordinates must still survive that, and the name must degrade to the
+  // pair if the lookup fails.
+  test("keeps exact coordinates and names the place", async () => {
     const p = await resolvePlace("13.08,80.27");
-    assert.deepEqual(p, { name: "13.08,80.27", latitude: 13.08, longitude: 80.27 });
+    assert.equal(p?.latitude, 13.08);
+    assert.equal(p?.longitude, 80.27);
+    assert.ok(typeof p?.name === "string" && p.name.length > 0);
   });
 
   test("rejects out-of-range coordinates", async () => {

@@ -274,3 +274,62 @@ export function extractDateRequest(text: string): DateRequest | null {
 
   return null;
 }
+
+export interface WindThreshold {
+  /** The number the question asked about. */
+  value: number;
+  /** Unit as the question expressed it. */
+  unit: "knots" | "kmh" | "mph" | "ms";
+}
+
+/**
+ * A wind threshold the question asks us to flag, e.g. "above 25 knots".
+ *
+ * Real paid questions do not just ask "what is the wind" — they ask whether it
+ * crosses an operational limit. An answer that reports wind speed but never says
+ * whether the limit is exceeded has not answered the question, and measuring
+ * against the live champion scorer shows the difference is large.
+ */
+export function extractWindThreshold(text: string): WindThreshold | null {
+  const s = String(text ?? "");
+  const m = s.match(
+    /\b(?:above|over|exceed(?:ing|s)?|greater than|more than|beyond|>)\s*(\d{1,3}(?:\.\d+)?)\s*(knots?|kts?|km\/h|kph|kmh|mph|m\/s)\b/i,
+  );
+  if (!m?.[1] || !m[2]) return null;
+  const u = m[2].toLowerCase();
+  const unit: WindThreshold["unit"] = /^k(?:no|t)/.test(u)
+    ? "knots"
+    : /mph/.test(u)
+      ? "mph"
+      : /m\/s/.test(u)
+        ? "ms"
+        : "kmh";
+  return { value: Number(m[1]), unit };
+}
+
+/** Whether the question wants speeds expressed in knots. */
+export function asksForKnots(text: string): boolean {
+  return /\bkn(?:ot|)s?\b|\bkts?\b/i.test(String(text ?? ""));
+}
+
+/**
+ * A threshold expressed in some unit, converted TO km/h for comparison against
+ * forecast values.
+ *
+ * The direction matters and is easy to invert: 25 knots is 46.3 km/h, not 13.5.
+ * Getting it backwards produced an answer claiming winds of 13.2 knots exceeded
+ * a 25-knot limit — a confidently stated falsehood, which is worse than
+ * declining to answer.
+ */
+export function toKmh(value: number, unit: WindThreshold["unit"]): number {
+  switch (unit) {
+    case "knots":
+      return value * 1.852;
+    case "mph":
+      return value * 1.60934;
+    case "ms":
+      return value * 3.6;
+    default:
+      return value;
+  }
+}

@@ -134,3 +134,42 @@ weighs, it is evidently not the label alone.
 previous epoch): a `canonical` field** — a compact machine fingerprint like `ssl:github.com:valid:35`.
 Two rank-1 miners carrying the same unusual field is a pattern, though two is not many, and after
 being wrong twice today I am recording it rather than acting on it.
+
+
+---
+
+## Measured against the real champion, not a simulation
+
+Codex found the champion scorers are public, commit-pinned WASM binaries and left
+`docs/codex-worklog/probe-champion.mjs` to run them. The storm champion (24 MB) reproduces reported
+scores exactly, so candidate answers can be measured offline in seconds instead of waiting 9 hours.
+
+Scoring the epoch-284 storm question against the real binary:
+
+| Answer | Score | vs leader |
+|---|---|---|
+| what actually scored (HTTP 400 → nothing) | **0.00000000** | 0% |
+| terse answer | 0.00657617 | 1.01× |
+| full answer — wind, gusts, precipitation, risk, threshold | 0.00753051 | 1.16× |
+| **+ place named via reverse geocoding** | **0.00818542** | **1.26×** |
+| epoch-284 leader `amanat-weather-risk` | 0.00651249 | — |
+
+Each step is a real improvement in *answering the question*, verified against the actual scorer:
+
+- **Answer everything asked.** The question wanted wind speed, gusts, precipitation, a 0–1 risk,
+  and any period above 25 knots flagged. We reported a verdict and a gust figure.
+- **Resolve the operational threshold explicitly.** "No period with sustained winds above 25 knots
+  is forecast" answers the question; leaving the caller to compare numbers does not.
+- **Name the place.** A question about "latitude 40.7128, longitude -74.0060" is about New York
+  City. Answering with the coordinate pair echoes the question back.
+
+**This also kills the terse-answer theory** — the third scoring model of mine the data has
+disproven today. Fuller answers score better here, provided every added fact was asked for and is
+true. `tools/score-sim.mjs` should not be trusted; the champion binary should.
+
+### A falsehood caught on the way
+
+The first threshold implementation inverted the unit conversion — dividing by 1.852 instead of
+multiplying — and produced *"sustained wind speeds up to 13.2 knots … winds are forecast to exceed
+25 knots during 17 hours"*. Internally contradictory and confidently wrong, which is worse than
+declining to answer. Pinned with a regression test.

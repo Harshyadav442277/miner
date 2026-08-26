@@ -307,6 +307,13 @@ returns 4xx any more** — an unanswerable request gets an honest 200.
    Now `time_mode` point/window with `valid_at`, and the replay harness checks `valid_at` lands
    near the hour asked rather than just echoing a number.
 
+**OFFLINE SCORING LOOP EXISTS.** Champion scorers are public commit-pinned WASM (24 MB each, from
+`/api/wasm`), and `docs/codex-worklog/probe-champion.mjs` runs them. Measured on the epoch-284 storm
+question: what actually scored **0.0** (our 400), terse **0.00658**, full answer **0.00753**, plus
+reverse-geocoded place name **0.00819** — against a leader of **0.00651**, so **1.26x**.
+**Fuller answers score better**, disproving the terse-answer theory. Trust the champion binary, not
+`tools/score-sim.mjs`.
+
 **Grace period runs ~7 days from activation** — unranked during it, sharing 5% of routed traffic
 equally with other new miners. The score earned there sets the opening leaderboard position.
 

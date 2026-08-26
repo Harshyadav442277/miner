@@ -1,6 +1,6 @@
 import { test, describe } from "node:test";
 import assert from "node:assert/strict";
-import { extractHostname, placeCandidates } from "../src/extract";
+import { extractHostname, placeCandidates, extractWindThreshold, toKmh, asksForKnots } from "../src/extract";
 import { normalizeTarget } from "../src/ssl";
 
 /**
@@ -76,5 +76,33 @@ describe("placeCandidates", () => {
   test("tries extracted candidates before the raw sentence — latency is scored", () => {
     const c = placeCandidates("Will there be a storm in Chennai in the next 48 hours?");
     assert.ok(c.indexOf("Chennai") < c.indexOf("Will there be a storm in Chennai in the next 48 hours?"));
+  });
+});
+
+describe("wind thresholds", () => {
+  test("reads an operational limit from a question", () => {
+    assert.deepEqual(
+      extractWindThreshold("flag any periods with sustained winds above 25 knots"),
+      { value: 25, unit: "knots" },
+    );
+  });
+
+  test("returns null when no limit is named", () => {
+    assert.equal(extractWindThreshold("what is the wind speed"), null);
+  });
+
+  // The direction is easy to invert, and inverting it produced an answer claiming
+  // 13.2-knot winds exceeded a 25-knot limit. A confident falsehood is worse than
+  // no answer, so this is pinned.
+  test("converts a threshold TO km/h, not from it", () => {
+    assert.ok(Math.abs(toKmh(25, "knots") - 46.3) < 0.1);
+    assert.ok(Math.abs(toKmh(30, "mph") - 48.28) < 0.1);
+    assert.ok(Math.abs(toKmh(10, "ms") - 36) < 0.1);
+    assert.equal(toKmh(40, "kmh"), 40);
+  });
+
+  test("detects that a question wants knots", () => {
+    assert.equal(asksForKnots("winds above 25 knots"), true);
+    assert.equal(asksForKnots("winds above 25 km/h"), false);
   });
 });
