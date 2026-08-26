@@ -5,6 +5,7 @@ import { record } from "./store.js";
 import { payerAddress } from "./telegraph.js";
 import { DASHBOARD_HTML } from "./dashboard.js";
 import { bearerFrom, tokenMatches, RateLimiter, checkCap, emptySpend, rollDay, type SpendState } from "./limits.js";
+import { loadCommittedHistory } from "./store.js";
 
 const PORT = Number(process.env.PORT ?? 3000);
 const INTERVAL_MS = Number(process.env.CHECK_INTERVAL_MS ?? 6 * 60 * 60 * 1000);
@@ -41,10 +42,14 @@ export function handleRequest(req: http.IncomingMessage, res: http.ServerRespons
       }
 
       if (path === "/api/state" && req.method === "GET") {
+        const durable = await loadCommittedHistory();
         json(res, 200, {
-          domains: state.domains,
-          latest: latest(state),
-          totals: state.totals,
+          domains: durable?.domains?.length ? durable.domains : state.domains,
+          // Committed history is the durable record; in-instance state is whatever
+          // this particular serverless instance happens to remember.
+          latest: latest(durable ?? state),
+          totals: (durable ?? state).totals,
+          historySource: durable ? "committed" : "instance",
           payer: payerAddress(),
           keyConfigured: Boolean(process.env.EVM_PRIVATE_KEY),
           writesEnabled: Boolean(ADMIN_TOKEN),

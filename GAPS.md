@@ -170,7 +170,17 @@ deployment without a deliberate budget cannot spend anything at all.
 Verified in production: all three paid routes return 503 while `ADMIN_TOKEN` is unset, and
 `/api/state` now publishes `writesEnabled`, `paidCallsToday`, `paidCallsPerDayCap`.
 
-### G18 · CertWatch state is ephemeral and sweeps do not run on Vercel — `OPEN`
+### G18 · CertWatch state is ephemeral and sweeps do not run on Vercel — `CLOSED`
+Fixed by moving both responsibilities out of the serverless app rather than adding a database.
+The sweep runs in `.github/workflows/certwatch.yml` on a 6-hourly cron and **commits its results
+to `app/data/history.json`** — git is the durable record, Actions is the scheduler, and neither can
+silently lose a paid result. The app now reads that committed file over HTTP and reports
+`historySource: "committed" | "instance"` so it is obvious which it is showing.
+
+The workflow gates on `EVM_PRIVATE_KEY` being present as a repository secret and exits cleanly when
+it is not, so an unfunded repo does not fail a scheduled run every six hours.
+
+### ~~G18 (original)~~
 Also from the Codex review. `app/src/store.ts` writes to `/tmp`, which a serverless instance does
 not keep, and `app/src/server.ts` disables the background sweep loop under Vercel because a frozen
 instance never fires an interval. So CertWatch currently has no durable history and no scheduler.

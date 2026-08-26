@@ -25,11 +25,46 @@ export interface State {
 }
 
 /**
+ * Where durable history lives.
+ *
  * Serverless filesystems are read-only apart from /tmp, and /tmp does not survive
- * between cold starts. So on Vercel the watchlist is seeded from WATCH_DOMAINS and
- * state is best-effort — the app still makes real, paid, verifiable Telegraph calls,
- * it just does not remember them across instances. Locally it persists normally.
+ * a cold start — so paid calls made on Vercel were being forgotten, which made
+ * spending money on them pointless.
+ *
+ * Rather than add a database, the scheduled sweep runs in GitHub Actions and
+ * commits its results to `app/data/history.json` in this repo. Git becomes the
+ * durable store and Actions the scheduler, both of which already exist and neither
+ * of which can silently lose a paid result. The serverless app reads that file
+ * over HTTP and renders it, falling back to local state when it cannot.
  */
+const HISTORY_URL =
+  process.env.HISTORY_URL ??
+  "https://raw.githubusercontent.com/Harshyadav442277/miner/main/app/data/history.json";
+
+/** Committed history, or null if it is unreachable or absent. */
+export async function loadCommittedHistory(timeoutMs = 6000): Promise<State | null> {
+  const ac = new AbortController();
+  const t = setTimeout(() => ac.abort(), timeoutMs);
+  try {
+    const res = await fetch(`${HISTORY_URL}?t=${Date.now()}`, {
+      signal: ac.signal,
+      headers: { accept: "application/json" },
+    });
+    if (!res.ok) return null;
+    const body = (await res.json()) as Partial<State>;
+    if (!Array.isArray(body.checks)) return null;
+    return {
+      domains: Array.isArray(body.domains) ? body.domains : [],
+      checks: body.checks,
+      totals: body.totals ?? { requests: 0, spentUsd: 0, sslVerificationRequests: 0 },
+    };
+  } catch {
+    return null;
+  } finally {
+    clearTimeout(t);
+  }
+}
+
 const ON_SERVERLESS = Boolean(process.env.VERCEL);
 const FILE = resolve(process.env.STATE_FILE ?? (ON_SERVERLESS ? "/tmp/state.json" : "data/state.json"));
 const MAX_CHECKS = 500;
