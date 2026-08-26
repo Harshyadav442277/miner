@@ -241,6 +241,20 @@ question did not ask for.
 Not our outage. While it lasts: no scoring, no catalog reads, and the registration console likely
 cannot complete an `updateMiner`. Re-check before assuming anything is wrong on our side.
 
+**Codex review landed 2026-08-26** → `docs/codex-worklog/`. It found two real defects that local
+tests could not: (1) the natural-language regexes were built from strings, so `\s` `\d` `` were
+corrupted and the scaffolding stripper was dead — now regex literals; (2) real *paid* storm
+questions ask for coordinates in prose with a stated window and a 0–1 risk, and we returned
+`unknown` — now handled, with the hourly series actually truncated to the requested window.
+
+It also corrected two of our claims: `total_requests_served` is per **miner**, not per intent, so
+the demand attribution in MARKET_DATA was unsound; and the cross-intent prize aggregation is
+genuinely undefined in the rules, so **do not `updateMiner` to add intents** until the organisers
+answer. The IP_GEOLOCATION endpoint is built and deployed but that intent is NOT registered.
+
+**Do not fund CertWatch's wallet** until G18 is closed — its endpoints are now authenticated
+(G17) but state is still ephemeral and sweeps do not run on Vercel.
+
 **Grace period runs ~7 days from activation** — unranked during it, sharing 5% of routed traffic
 equally with other new miners. The score earned there sets the opening leaderboard position.
 

@@ -157,3 +157,22 @@ Implications we cannot engineer away:
 - `updateMiner` (the pending IP_GEOLOCATION addition) cannot be executed while it is down.
 - Our uptime workflow polls `activation_status` through the same host, so a node outage will look
   like a miner problem in our own alerting. Worth distinguishing in `tools/watch.mjs` if it recurs.
+
+### G17 · CertWatch paid endpoints were unauthenticated — `CLOSED`
+Found by the Codex review: `POST /api/check` and `POST /api/domains` triggered paid Telegraph
+calls with no authentication, so a funded wallet was a public drain button.
+
+Three independent layers now, because each fails differently: a constant-time `ADMIN_TOKEN`
+check stops strangers; a fixed-window rate limiter stops a loop from whoever holds the token; and
+`MAX_PAID_CALLS_PER_DAY` bounds the worst case regardless. **The cap defaults to 0**, so a
+deployment without a deliberate budget cannot spend anything at all.
+
+Verified in production: all three paid routes return 503 while `ADMIN_TOKEN` is unset, and
+`/api/state` now publishes `writesEnabled`, `paidCallsToday`, `paidCallsPerDayCap`.
+
+### G18 · CertWatch state is ephemeral and sweeps do not run on Vercel — `OPEN`
+Also from the Codex review. `app/src/store.ts` writes to `/tmp`, which a serverless instance does
+not keep, and `app/src/server.ts` disables the background sweep loop under Vercel because a frozen
+instance never fires an interval. So CertWatch currently has no durable history and no scheduler.
+**Fix:** move state to a real store and drive sweeps from a scheduled GitHub Action hitting the
+authenticated endpoint, rather than an in-process timer.
