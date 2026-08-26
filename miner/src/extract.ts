@@ -147,6 +147,10 @@ export function extractCoords(text: string): { lat: number; lon: number } | null
   const s = String(text ?? "");
   if (!s.trim()) return null;
 
+  // Degree-and-hemisphere notation first — it carries signs that a bare pair does not.
+  const hemi = extractHemisphereCoords(s);
+  if (hemi) return hemi;
+
   const ok = (lat: number, lon: number): { lat: number; lon: number } | null =>
     Number.isFinite(lat) && Number.isFinite(lon) && Math.abs(lat) <= 90 && Math.abs(lon) <= 180
       ? { lat, lon }
@@ -430,4 +434,41 @@ export function resolveDateRequest(text: string): DateRequest | null {
   if (written) return { startIso: written, hours };
   if (hours !== null) return { startIso: new Date().toISOString(), hours };
   return null;
+}
+
+/**
+ * Coordinates written with degree symbols and hemisphere letters.
+ *
+ * A real paid question gave "39.6438° N, 104.8669° W" and we resolved nothing at
+ * all. The hemisphere letter is not decoration: 104.8669° W is -104.8669, and
+ * reading it as positive puts the answer in China rather than Colorado.
+ *
+ * Also tolerates the mojibake that appears when a degree sign survives a
+ * round-trip through the wrong encoding.
+ */
+export function extractHemisphereCoords(text: string): { lat: number; lon: number } | null {
+  const s = String(text ?? "");
+  // The separator between the number and the hemisphere letter is usually a
+  // degree sign, but it survives encoding round-trips badly — real traffic
+  // carries "°", "Â°", and the U+FFFD replacement character. Accept a few
+  // characters of whatever it became rather than requiring one exact symbol.
+  const PART = /(\d{1,3}(?:\.\d+)?)\s*[^\dA-Za-z,;]{0,4}\s*([NSEW])\b/i;
+  const re = new RegExp(PART.source + /\s*[,;]?\s*/.source + PART.source, "i");
+  const m = s.match(re);
+  if (!m?.[1] || !m[2] || !m[3] || !m[4]) return null;
+
+  const signed = (v: string, hemi: string): number => {
+    const n = Number(v);
+    const h = hemi.toUpperCase();
+    return h === "S" || h === "W" ? -n : n;
+  };
+  const a = { v: signed(m[1], m[2]), h: m[2].toUpperCase() };
+  const b = { v: signed(m[3], m[4]), h: m[4].toUpperCase() };
+
+  // Whichever carries N/S is the latitude, regardless of the order written.
+  const lat = "NS".includes(a.h) ? a.v : b.v;
+  const lon = "NS".includes(a.h) ? b.v : a.v;
+  if (!Number.isFinite(lat) || !Number.isFinite(lon)) return null;
+  if (Math.abs(lat) > 90 || Math.abs(lon) > 180) return null;
+  return { lat, lon };
 }

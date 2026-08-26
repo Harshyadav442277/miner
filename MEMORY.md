@@ -333,6 +333,12 @@ scored 0.99 on the one question it was written against and ~0.008 on eleven othe
 conversion, score 0. A transient Open-Meteo rate limit was returning **502** and costing whole
 questions. All upstream failures now return 200 with an honest "temporarily unavailable" answer.
 
+**Coordinates with hemisphere letters** (`39.6438° N, 104.8669° W`) now parse, including the
+mangled `Â°` and U+FFFD forms real traffic carries. W/S are negative — reading `104.8669° W` as
+positive answers for China instead of Colorado. The storm benchmark mean dipped slightly
+(0.00938 -> 0.00912) because two questions previously *failed* and now resolve; correctness beats
+the benchmark, so this was kept.
+
 **Grace period runs ~7 days from activation** — unranked during it, sharing 5% of routed traffic
 equally with other new miners. The score earned there sets the opening leaderboard position.
 

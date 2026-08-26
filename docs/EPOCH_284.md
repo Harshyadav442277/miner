@@ -278,3 +278,31 @@ Shipped from this round: TLS protocol version, cipher suite and key size are now
 reachable hosts, since real questions ask about "supported protocols and security strength" and we
 already had the data. Small effect on this benchmark (+0.00006 mean) because every question in it
 targets an unreachable host, but it answers a question that is actually asked.
+
+
+## Correctness beating the benchmark
+
+A real paid question gave coordinates as `39.6438° N, 104.8669° W` — degree notation with
+hemisphere letters. We resolved nothing at all and answered "no resolvable location". Another gave
+`37.7749° N, 122.4194° W`, which is San Francisco.
+
+The hemisphere letter is not decoration: **`104.8669° W` is −104.8669**, and reading it as positive
+puts the answer in China rather than Colorado.
+
+Now parsed, including the mangled forms that real traffic actually carries — `°`, `Â°`, and the
+U+FFFD replacement character all work, because a degree sign survives encoding round-trips badly.
+
+**The storm benchmark mean went slightly down as a result** (0.00938 → 0.00912). Two questions
+scored lower once they resolved to a real location instead of failing. That is not a reason to
+revert: answering San Francisco correctly is better than not answering, and optimising toward
+"decline to answer because it scores marginally higher" would be both fragile and dishonest.
+
+Recorded because the benchmark is a guide, not the objective. Where they disagree, correctness wins.
+
+## Where the numbers stand
+
+```
+SSL_VERIFICATION   mean 0.00919 over 12 real questions
+STORM_ALERT        mean 0.00912 over 12 real questions
+WEATHER_FORECAST   mean 0.17346 over 12 real questions
+```

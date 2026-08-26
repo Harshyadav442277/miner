@@ -176,10 +176,26 @@ Why competitors will not do it: everyone in these intents sits at `0.004–0.011
 
 This is Claude-side work. It is a change to `miner/src/*.ts` response prose, not to any data path.
 
-### A2 — Breadth, because the prize sums across intents · leverage: decisive · MEASURED (arithmetic) / INFERRED (rule reading)
+### A2 — Breadth, because the prize sums across intents · leverage: decisive · **MEASURED**
 
-`docs/JUDGING.md` quotes the rules: *"Top 3 miners by **total normalized score across all
-intents**."* Computing both readings from live `/api/miners` data (91 scored miners):
+**Confirmed against the live rules page 2026-08-26** (`hackathon.telegraphprotocol.com/rules`,
+fetched with a browser user-agent — it 403s otherwise). Two independent verbatim statements:
+
+> "The Top 3 Miners with the highest **total normalized scores across all intents**"
+
+> "Cash prizes are awarded to the Top 3 Miners with the highest **overall normalized scores across
+> all intents**"
+
+"Total" and "overall", twice, with no averaging language anywhere. **Breadth is the confirmed
+dominant term.** This was flagged INFERRED in my first draft; it is now measured, and it is the
+single most consequential fact in this document.
+
+Note also the per-intent half: *"Your **average** Canonical Score divided by the highest average
+score achieved inside your specific Intent."* Per-intent scoring is an **average over epochs**, so
+epoch 284's `0.0` in `STORM_ALERT` is permanently in our mean and every further epoch spent
+un-fixed dilutes more slowly. With ~13 epochs left, delay compounds against us.
+
+Computing both readings from live `/api/miners` data (91 scored miners):
 
 ```
 SUMMED (breadth wins)                    AVERAGED (depth wins)
@@ -190,10 +206,10 @@ SUMMED (breadth wins)                    AVERAGED (depth wins)
     livecert            1.452  (3)           livecert                 0.484  (3)
 ```
 
-The averaged reading produces a **seven-way tie at 1.000** and cannot rank a top 3 — so summing is
-the far more likely intent of the rule (INFERRED, and the single most valuable question to put to
-the organisers). Under summing, **breadth dominates**: perfecting our three intents caps us at
-`3.0`, while the current leader already holds `7.73`.
+The averaged column is shown only to make the point that it cannot be the rule: it produces a
+**seven-way tie at 1.000** and cannot rank a top 3. The rule text says total/overall, and the data
+agrees. Under summing, **breadth dominates**: perfecting our three intents caps us at `3.0`, while
+the current leader already holds `7.73`.
 
 Combined with A1, the arithmetic is stark. Three intents answered well ≈ 3.0. Nine intents answered
 with the A1 template ≈ 9.0.
@@ -266,9 +282,17 @@ Session `local_8fb8e152` ("Telegraph Protocol registration flow"), still running
 
 ### What it is missing
 
-1. **It has the offline loop and is using it one candidate at a time.** It has `probe-champion.mjs`
-   and pinned binaries — the hard part — but is hand-writing single candidates and reporting
-   factors. It never ran the length sweep or the mutation test, so it never found the gate. Its
+1. **It built the right rig, then pointed it at the wrong input.** *Updated mid-audit:* while I was
+   writing this, it committed `tools/bench-champion.mjs` plus `ssl_bench.json` / `storm_bench.json` /
+   `wf_bench.json` — a proper multi-question harness that scores answers against the champion WASM,
+   with a well-reasoned docstring about not trusting a single question. That is exactly the right
+   instrument and it converged on it independently.
+
+   The gap is what it feeds in: the harness fetches **our live endpoint** and scores whatever comes
+   back. It measures the answers we already produce; it does not *search over candidate phrasings*.
+   So it will confirm we score `0.006` without surfacing that a restated question scores `0.99`.
+   One loop over candidate templates, using the rig it already has, closes this. It never ran the
+   length sweep or the mutation test, so it never found the gate. Its
    measured wins (`0.996` weather, `0.0106` SSL) were **real but not understood**: both were
    accidental question-echoes. Because it does not know *why* they worked, it cannot reproduce them
    deliberately — and it is spending its effort on the intent where the mechanism pays least (SSL,
@@ -284,6 +308,22 @@ Session `local_8fb8e152` ("Telegraph Protocol registration flow"), still running
 5. **Chasing absolute score where only rank matters** — and simultaneously under-reading how much
    headroom exists. Both errors at once, in opposite directions.
 
+### One hygiene problem worth fixing today — MEASURED
+
+**It is committing with `git add -A` semantics.** Two demonstrations, both from today:
+
+- `5928570` swept in `e.json`, `n.json`, `r.json` — scratch `curl` output left in the repo root.
+- `33fd7df` ("Parse written dates and day spans…") swept in **this audit file**, 372 lines of
+  unrelated content, under a commit message describing something else.
+
+The three JSON files are harmless (miner responses, no secrets — I checked). The *practice* is not.
+`CLAUDE.md` rule 2 is "never commit secrets," and a blanket add is precisely how a `.env`, a token
+in a scratch response, or a key-bearing debug dump reaches a public repo. The repo is currently
+private, which is the only reason this has been free so far.
+
+**Fix:** stage explicit paths. Add `*.json` scratch patterns at the repo root to `.gitignore`, and
+delete `e.json` / `n.json` / `r.json`.
+
 ### The error pattern worth knowing
 
 Its three retracted claims share one shape: **a mechanism was inferred from one observation, then
@@ -298,8 +338,10 @@ reused as a premise.** The current claims fitting that shape — treat as unprov
 
 ## 5. What to stop doing
 
-- **Stop hand-tuning individual answers.** Batch the probe. The ABI takes 6 integers; thousands of
-  candidates per minute is a twenty-line script.
+- **Stop hand-tuning individual answers.** `tools/bench-champion.mjs` already exists — extend it to
+  loop over *candidate phrasings* instead of only scoring the live endpoint's current output. The
+  ABI takes six integers; searching thousands of candidates is a twenty-line change to a file that
+  is already written.
 - **Stop deepening domain logic for score.** Keep it for product honesty; it is not where the points
   are.
 - **Stop treating the 9-hour epoch as the loop.** Use it to *validate*, not to iterate.
@@ -334,7 +376,7 @@ Epoch 284 closes **2026-08-27T00:36:55Z**; epochs are 9h, so roughly **13 scored
 | When | What | Who |
 |---|---|---|
 | Now | Post to X. Three drafts in `docs/X_POSTS.md` are postable as-is. Tag `@Telegraphprotoc`. | **User** |
-| Now | Ask Discord the aggregation question verbatim (`docs/codex-worklog/…recon.md` has it drafted) — it unblocks A2. | **User** |
+| Now | Ask Discord only the **remaining** question: does a rank-1 in an intent that misses the 100-request guardrail still contribute to the Track 1 total? Aggregation itself is now settled from the rules page — do not spend the ask on it. | **User** |
 | Today | **`WEATHER_FORECAST` first** — A1 template, verified `0.99` in 6/6 offline. Our worst intent (rank 7/11) becomes our strongest. | Claude |
 | Today | Then storm and SSL: A1 gives a reliable ~2×, enough for rank 1 in both. Batch-search phrasings offline against the pinned binaries rather than hand-writing candidates. | Claude |
 | Epoch 285 | Validate live. **If A1 does not reproduce, everything in §2 is wrong** — treat that as the test. | — |
@@ -361,12 +403,22 @@ Epoch 284 closes **2026-08-27T00:36:55Z**; epochs are 9h, so roughly **13 scored
 - Why the `subagent` family (SSL) resists the template while the `xfmr` family (weather, storm)
   yields to it is **not** established. The storm scorer is `xfmr` yet never reached `0.99` either,
   so "family" is not a complete explanation.
-- The summed-vs-averaged reading of the prize rule is **inferred** from the tie-breaking argument,
-  not confirmed. Ask the organisers.
+- ~~The summed-vs-averaged reading is inferred~~ — **resolved 2026-08-26 against the live rules
+  page**: "total normalized scores across all intents" and "overall normalized scores across all
+  intents", stated twice, no averaging language. Summing confirmed. See A2.
+- **No submission form or separate submission step appears anywhere on the rules page.** The
+  numbered rules (01–05) describe being registered, staying live, and posting on X; none mention a
+  form. That is reassuring but it is an *absence of evidence* — a form could still be announced on
+  Discord, which is worth a glance before Aug 31.
+- The rules are **silent** on authoring a Track 2 evaluation script for an intent you also mine.
+  Silence is not permission; ask before doing it in one of our own intents.
 - Whether thin-intent rank-1s count toward Track 1 when the intent misses the 100-request
-  guardrail is **unknown** and material to A3.
+  guardrail is **unknown** and material to A3. This is now the only question worth spending the
+  Discord ask on.
 - `iplocate`'s routing bug is measured from its failure strings; that it will stay broken is an
   assumption.
-- Six deeper recon lanes (rules forensics, full intent board, ops fragility, corpus mining) were
-  still running when this was written. Findings that contradict anything here should win, on
-  evidence.
+- A six-lane recon workflow was launched alongside this audit and **never completed** — it hung on
+  one agent after five of six lanes and was killed. Its rules-forensics lane was the valuable one,
+  and I answered its main questions directly from the rules page instead (A2 and the two bullets
+  above). The intent-board, corpus-mining and ops-fragility lanes were superseded by the direct
+  measurement in §2. Nothing in this document depends on workflow output.

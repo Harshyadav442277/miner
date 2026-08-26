@@ -1,6 +1,6 @@
 import { test, describe } from "node:test";
 import assert from "node:assert/strict";
-import { extractHostname, placeCandidates, extractWindThreshold, toKmh, asksForKnots } from "../src/extract";
+import { extractHostname, placeCandidates, extractWindThreshold, toKmh, asksForKnots, extractCoords } from "../src/extract";
 import { normalizeTarget } from "../src/ssl";
 
 /**
@@ -104,5 +104,29 @@ describe("wind thresholds", () => {
   test("detects that a question wants knots", () => {
     assert.equal(asksForKnots("winds above 25 knots"), true);
     assert.equal(asksForKnots("winds above 25 km/h"), false);
+  });
+});
+
+describe("hemisphere coordinates", () => {
+  // A real paid question wrote "39.6438° N, 104.8669° W" and we resolved nothing.
+  test("reads degree-and-hemisphere notation", () => {
+    assert.deepEqual(
+      extractCoords("Cherry Creek Reservoir in Denver, Colorado (39.6438\u00b0 N, 104.8669\u00b0 W)"),
+      { lat: 39.6438, lon: -104.8669 },
+    );
+  });
+
+  // W is negative. Reading it as positive answers for China instead of Colorado.
+  test("west and south are negative", () => {
+    assert.equal(extractCoords("10\u00b0 S, 20\u00b0 W")?.lat, -10);
+    assert.equal(extractCoords("10\u00b0 S, 20\u00b0 W")?.lon, -20);
+  });
+
+  test("east and north stay positive", () => {
+    assert.deepEqual(extractCoords("35.6897\u00b0 N, 139.6922\u00b0 E"), { lat: 35.6897, lon: 139.6922 });
+  });
+
+  test("plain pairs still work", () => {
+    assert.deepEqual(extractCoords("40.7128,-74.0060"), { lat: 40.7128, lon: -74.006 });
   });
 });
