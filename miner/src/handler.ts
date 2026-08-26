@@ -2,6 +2,7 @@ import type { IncomingMessage, ServerResponse } from "node:http";
 import { checkCertificate, normalizeTarget, type SslResult } from "./ssl";
 import { checkStorm, type StormResult } from "./storm";
 import { getForecast, type ForecastResult } from "./forecast";
+import { geolocate, type GeoResult } from "./geo";
 
 const CACHE_TTL_MS = Number(process.env.CACHE_TTL_MS ?? 60_000);
 const MAX_CACHE = 500;
@@ -11,7 +12,7 @@ const MAX_CACHE = 500;
  * repeat checks of the same host sub-millisecond without ever serving a stale
  * verdict for longer than the spot-check interval.
  */
-type Answer = SslResult | StormResult | ForecastResult;
+type Answer = SslResult | StormResult | ForecastResult | GeoResult;
 const cache = new Map<string, { at: number; value: Answer }>();
 
 function fromCache(key: string): Answer | null {
@@ -119,6 +120,39 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
     return;
   }
 
+  if (path === "/ip-geolocate") {
+    const q =
+      url.searchParams.get("ip") ??
+      url.searchParams.get("address") ??
+      url.searchParams.get("query") ??
+      "";
+    if (!q.trim()) {
+      send(res, 400, {
+        ip: "",
+        verdict: "unknown",
+        confidence: 0,
+        reason: "No IP address could be read from the request, so its location could not be determined. Supply an address such as 8.8.8.8.",
+        error: "invalid_ip",
+      });
+      return;
+    }
+    const key = `geo:${q.trim().toLowerCase()}`;
+    const hit = fromCache(key);
+    if (hit) {
+      send(res, 200, hit);
+      return;
+    }
+    geolocate(q)
+      .then((result) => {
+        toCache(key, result);
+        send(res, 200, result);
+      })
+      .catch((e: unknown) => {
+        send(res, 502, { error: "check_failed", message: (e as Error).message });
+      });
+    return;
+  }
+
   if (path === "/storm-alert") {
     const q =
       url.searchParams.get("location") ??
@@ -156,7 +190,7 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
   if (path !== "/ssl-check") {
     send(res, 404, {
       error: "not_found",
-      message: "Try /ssl-check?domain=example.com, /storm-alert?location=Chennai, or /weather-forecast?location=London",
+      message: "Try /ssl-check?domain=example.com, /storm-alert?location=Chennai, /weather-forecast?location=London, or /ip-geolocate?ip=8.8.8.8",
     });
     return;
   }

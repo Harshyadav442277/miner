@@ -34,6 +34,13 @@ endpoints:
       Severe-weather risk for a location over the next 48 hours. Accepts a place
       name or "lat,lon".
 
+  - path: /ip-geolocate
+    external_path: /ip-geolocate
+    method: GET
+    description: >-
+      Live IP geolocation. Accepts an IPv4 or IPv6 address, or a whole question
+      containing one.
+
   - path: /weather-forecast
     external_path: /weather-forecast
     method: GET
@@ -50,6 +57,7 @@ semantics:
     - SSL_VERIFICATION
     - STORM_ALERT
     - WEATHER_FORECAST
+    - IP_GEOLOCATION
 
 # input_schema is a single top-level block covering every endpoint — the schema
 # refuses it inside endpoints[], and the node does not enforce it against requests.
@@ -62,6 +70,11 @@ input_schema:
         /ssl-check. Hostname to check. Accepts "example.com",
         "https://example.com/path", or "example.com:8443".
       examples: ["example.com", "expired.badssl.com"]
+    ip:
+      type: string
+      description: >-
+        /ip-geolocate. IPv4 or IPv6 address, e.g. "8.8.8.8".
+      examples: ["8.8.8.8", "1.1.1.1"]
     location:
       type: string
       description: >-
