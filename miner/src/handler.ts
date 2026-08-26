@@ -170,13 +170,14 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
       });
       return;
     }
-    const key = `storm:${q.trim().toLowerCase()}`;
+    const key = `storm:${q.trim().toLowerCase()}:${url.searchParams.get("hours") ?? ""}`;
     const hit = fromCache(key);
     if (hit) {
       send(res, 200, hit);
       return;
     }
-    checkStorm(q)
+    const stormHours = Number(url.searchParams.get("hours") ?? NaN);
+    checkStorm(q, undefined, Number.isFinite(stormHours) ? stormHours : undefined)
       .then((result) => {
         toCache(key, result);
         send(res, 200, result);

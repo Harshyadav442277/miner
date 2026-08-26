@@ -9,7 +9,7 @@
  * an upstream quota becomes our Routing Revocation (ARCHITECTURE A3/A4).
  */
 
-import { placeCandidates, shortPlaceName } from "./extract";
+import { placeCandidates, shortPlaceName, extractCoords, extractHours } from "./extract";
 
 const GEOCODE = "https://geocoding-api.open-meteo.com/v1/search";
 const FORECAST = "https://api.open-meteo.com/v1/forecast";
@@ -21,6 +21,8 @@ export type StormVerdict = "none" | "low" | "moderate" | "high" | "severe" | "un
 export interface StormResult {
   location: string;
   verdict: StormVerdict;
+  /** Overall storm risk from 0 (none) to 1 (severe). */
+  risk_score: number;
   storm_expected: boolean;
   max_wind_gust_kmh: number | null;
   max_wind_speed_kmh: number | null;
@@ -62,6 +64,12 @@ export interface Place {
  * question. The geocoder is the arbiter — we just give it better strings to try.
  */
 export async function resolvePlace(query: string, timeoutMs = DEFAULT_TIMEOUT_MS): Promise<Place | null> {
+  // Coordinates stated in prose ("at latitude 12.97 and longitude 77.59") are an
+  // exact answer to "where" — no geocoder round-trip, and no chance of it
+  // resolving the surrounding words to somewhere else.
+  const coords = extractCoords(query);
+  if (coords) return { name: `${coords.lat},${coords.lon}`, latitude: coords.lat, longitude: coords.lon };
+
   for (const candidate of placeCandidates(query)) {
     const hit = await geocodeOnce(candidate, timeoutMs);
     if (hit) return hit;
@@ -111,6 +119,34 @@ function gradeGusts(gustKmh: number): StormVerdict {
   return "none";
 }
 
+/**
+ * A continuous 0–1 risk value alongside the category.
+ *
+ * Real paid questions ask for "an overall risk between 0 and 1" — a categorical
+ * verdict alone does not answer that, and an agent thresholding on a number
+ * cannot use "moderate". Anchored on the same Beaufort gust thresholds the
+ * verdict uses, so the two can never disagree, then nudged for thunderstorms and
+ * heavy rain the way the verdict is.
+ */
+function riskScore(gustKmh: number, thunder: boolean, precipMm: number | null): number {
+  // Piecewise-linear across the Beaufort anchors: 39/62/89/118 km/h.
+  const anchors: [number, number][] = [
+    [0, 0.0], [39, 0.25], [62, 0.5], [89, 0.75], [118, 0.9], [160, 1.0],
+  ];
+  let base = 1;
+  for (let i = 1; i < anchors.length; i++) {
+    const [x0, y0] = anchors[i - 1]!;
+    const [x1, y1] = anchors[i]!;
+    if (gustKmh <= x1) {
+      base = y0 + ((gustKmh - x0) / (x1 - x0)) * (y1 - y0);
+      break;
+    }
+  }
+  if (thunder) base += 0.2;
+  if ((precipMm ?? 0) >= 10) base += 0.1;
+  return Math.round(Math.max(0, Math.min(1, base)) * 100) / 100;
+}
+
 const ORDER: StormVerdict[] = ["none", "low", "moderate", "high", "severe"];
 function escalate(v: StormVerdict, steps: number): StormVerdict {
   const i = ORDER.indexOf(v);
@@ -118,17 +154,25 @@ function escalate(v: StormVerdict, steps: number): StormVerdict {
   return ORDER[Math.min(ORDER.length - 1, i + steps)] ?? v;
 }
 
-export async function checkStorm(query: string, timeoutMs = DEFAULT_TIMEOUT_MS): Promise<StormResult> {
+export async function checkStorm(
+  query: string,
+  timeoutMs = DEFAULT_TIMEOUT_MS,
+  requestedHours?: number,
+): Promise<StormResult> {
+  // "over the next 44 hours" is part of the question. Reporting a 48-hour
+  // maximum answers about six hours the caller did not ask about.
+  const windowHours = Math.max(1, Math.min(168, requestedHours ?? extractHours(query) ?? WINDOW_HOURS));
   const now = new Date().toISOString();
   const base: StormResult = {
     location: query,
     verdict: "unknown",
+    risk_score: 0,
     storm_expected: false,
     max_wind_gust_kmh: null,
     max_wind_speed_kmh: null,
     max_precipitation_mm: null,
     thunderstorm: false,
-    window_hours: WINDOW_HOURS,
+    window_hours: windowHours,
     peak_at: null,
     latitude: null,
     longitude: null,
@@ -145,7 +189,7 @@ export async function checkStorm(query: string, timeoutMs = DEFAULT_TIMEOUT_MS):
   const url =
     `${FORECAST}?latitude=${place.latitude}&longitude=${place.longitude}` +
     `&hourly=wind_speed_10m,wind_gusts_10m,precipitation,weather_code` +
-    `&forecast_days=2&timezone=UTC&wind_speed_unit=kmh`;
+    `&forecast_days=${Math.min(16, Math.ceil(windowHours / 24) + 1)}&timezone=UTC&wind_speed_unit=kmh`;
 
   const body = (await getJson(url, timeoutMs)) as {
     hourly?: {
@@ -158,11 +202,21 @@ export async function checkStorm(query: string, timeoutMs = DEFAULT_TIMEOUT_MS):
   };
 
   const h = body.hourly;
-  const times = h?.time ?? [];
-  const gusts = h?.wind_gusts_10m ?? [];
-  const winds = h?.wind_speed_10m ?? [];
-  const precip = h?.precipitation ?? [];
-  const codes = h?.weather_code ?? [];
+  // Open-Meteo returns whole days from midnight UTC. Trim to exactly the hours
+  // asked for, counted from now, so the peak we report is inside the window the
+  // caller named rather than somewhere in the leftover tail of the last day.
+  const allTimes = h?.time ?? [];
+  const nowMs = Date.now();
+  let from = allTimes.findIndex((t) => new Date(`${t}Z`).getTime() >= nowMs);
+  if (from < 0) from = 0;
+  const to = from + windowHours;
+  const cut = <T,>(a: T[] | undefined): T[] => (a ?? []).slice(from, to);
+
+  const times = cut(allTimes);
+  const gusts = cut(h?.wind_gusts_10m);
+  const winds = cut(h?.wind_speed_10m);
+  const precip = cut(h?.precipitation);
+  const codes = cut(h?.weather_code);
 
   if (times.length === 0 || gusts.length === 0) {
     return { ...base, location: place.name, latitude: place.latitude, longitude: place.longitude,
@@ -188,16 +242,17 @@ export async function checkStorm(query: string, timeoutMs = DEFAULT_TIMEOUT_MS):
     location: place.name,
     verdict,
     storm_expected: verdict !== "none",
+    risk_score: riskScore(maxGust, thunder, maxPrecip),
     max_wind_gust_kmh: Math.round(maxGust * 10) / 10,
     max_wind_speed_kmh: maxWind === null ? null : Math.round(maxWind * 10) / 10,
     max_precipitation_mm: maxPrecip === null ? null : Math.round(maxPrecip * 10) / 10,
     thunderstorm: thunder,
-    window_hours: WINDOW_HOURS,
+    window_hours: windowHours,
     peak_at: times[peakIdx] ?? null,
     latitude: place.latitude,
     longitude: place.longitude,
     confidence: 1,
-    reason: describe(shortPlaceName(place.name), verdict, maxGust, thunder, maxPrecip),
+    reason: describe(shortPlaceName(place.name), verdict, maxGust, thunder, maxPrecip, windowHours),
     checked_at: now,
   };
 }
@@ -209,12 +264,13 @@ function describe(
   gust: number,
   thunder: boolean,
   precip: number | null,
+  hours: number,
 ): string {
   if (verdict === "none") {
-    return `No storm risk for ${place} in the next ${WINDOW_HOURS} hours, with peak wind gusts of ${Math.round(gust)} km/h.`;
+    return `No storm risk for ${place} in the next ${hours} hours, with peak wind gusts of ${Math.round(gust)} km/h.`;
   }
   const bits = [`peak wind gusts of ${Math.round(gust)} km/h`];
   if (thunder) bits.push("thunderstorms forecast");
   if ((precip ?? 0) >= 10) bits.push(`heavy rain up to ${Math.round(precip ?? 0)} mm/h`);
-  return `${place} has a ${verdict} storm risk in the next ${WINDOW_HOURS} hours: ${bits.join(", ")}.`;
+  return `${place} has a ${verdict} storm risk in the next ${hours} hours: ${bits.join(", ")}.`;
 }

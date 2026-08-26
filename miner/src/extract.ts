@@ -50,33 +50,19 @@ export function extractHostname(text: string): string | null {
 }
 
 /** Question scaffolding that surrounds a place name but is not part of it. */
-const LEADING = new RegExp(
-  "^\s*(?:" +
-    [
-      "will there (?:be|is)( a)?", "is there( a)?", "are there( any)?",
-      "what(?:'s| is| are)?", "how(?:'s| is)?", "tell me( about)?",
-      "give me", "show me", "check", "get", "find",
-      "the (?:current )?(?:weather|forecast|storm|conditions?)",
-      "weather|forecast|storm|conditions?|alerts?|risk|warnings?",
-      "for|in|at|near|around|of|about|any",
-    ].join("|") +
-    ")\b[\s,]*",
-  "i",
-);
+/**
+ * Question scaffolding that surrounds a place name but is not part of it.
+ *
+ * Written as regex literals, not strings passed to `new RegExp`. In a JS string
+ * "\s" is just "s", "\d" is "d", and "\b" is a backspace character — an earlier
+ * version built these from strings and silently stripped nothing at all.
+ */
+const LEADING =
+  /^\s*(?:will there (?:be|is)( a)?|is there( a)?|are there( any)?|what(?:'s| is| are)?|how(?:'s| is)?|tell me( about)?|give me|show me|check|get|find|the (?:current )?(?:weather|forecast|storm|conditions?)|weather|forecast|storm|conditions?|alerts?|risk|warnings?|for|in|at|near|around|of|about|any)\b[\s,]*/i;
 
 /** Trailing time windows and politeness that follow a place name. */
-const TRAILING = new RegExp(
-  "[\s,]*\b(?:" +
-    [
-      "over the next \d+ (?:hours?|days?)", "in the next \d+ (?:hours?|days?)",
-      "next \d+ (?:hours?|days?)", "for the next \d+ (?:hours?|days?)",
-      "\d+ ?(?:h|hr|hrs|hours?|days?)",
-      "today|tomorrow|tonight|this (?:week|weekend|evening|morning|afternoon)",
-      "right now|currently|now|please|thanks?( you)?",
-    ].join("|") +
-    ")\b[\s,.!?]*$",
-  "i",
-);
+const TRAILING =
+  /[\s,]*\b(?:over the next \d+ (?:hours?|days?)|in the next \d+ (?:hours?|days?)|next \d+ (?:hours?|days?)|for the next \d+ (?:hours?|days?)|\d+ ?(?:h|hr|hrs|hours?|days?)|today|tomorrow|tonight|this (?:week|weekend|evening|morning|afternoon)|right now|currently|now|please|thanks?( you)?)\b[\s,.!?]*$/i;
 
 /**
  * Best-effort place name from free text.
@@ -129,6 +115,67 @@ export function placeCandidates(text: string): string[] {
  * for the prose a scorer reads.
  */
 export function shortPlaceName(resolved: string): string {
-  const first = String(resolved ?? "").split(",")[0]?.trim();
-  return first && first.length > 0 ? first : String(resolved ?? "").trim();
+  const s = String(resolved ?? "").trim();
+  // A coordinate pair is one value, not a place hierarchy — splitting it on the
+  // comma leaves a bare latitude, which reads as nonsense in an answer.
+  if (/^-?\d+(\.\d+)?\s*,\s*-?\d+(\.\d+)?$/.test(s)) return s;
+  const first = s.split(",")[0]?.trim();
+  return first && first.length > 0 ? first : s;
+}
+
+
+/**
+ * Latitude/longitude from free text.
+ *
+ * Real paid questions name coordinates in prose — "at latitude 12.97 and
+ * longitude 77.59", "lat 12.97 lon 77.59", "12.97, 77.59" — not only as the bare
+ * `lat,lon` pair a parser is tempted to accept. A miner that recognises just the
+ * bare form answers `unknown` to a question it holds all the data for.
+ */
+export function extractCoords(text: string): { lat: number; lon: number } | null {
+  const s = String(text ?? "");
+  if (!s.trim()) return null;
+
+  const ok = (lat: number, lon: number): { lat: number; lon: number } | null =>
+    Number.isFinite(lat) && Number.isFinite(lon) && Math.abs(lat) <= 90 && Math.abs(lon) <= 180
+      ? { lat, lon }
+      : null;
+
+  // Labelled, in either order: "latitude 12.97 ... longitude 77.59".
+  const lat = s.match(/\blat(?:itude)?\b[^\d+-]{0,12}(-?\d{1,3}(?:\.\d+)?)/i);
+  const lon = s.match(/\blon(?:g|gitude)?\b[^\d+-]{0,12}(-?\d{1,3}(?:\.\d+)?)/i);
+  if (lat?.[1] && lon?.[1]) {
+    const hit = ok(Number(lat[1]), Number(lon[1]));
+    if (hit) return hit;
+  }
+
+  // A comma-separated pair anywhere in the sentence.
+  const pair = s.match(/(-?\d{1,3}(?:\.\d+)?)\s*,\s*(-?\d{1,3}(?:\.\d+)?)/);
+  if (pair?.[1] && pair[2]) {
+    const hit = ok(Number(pair[1]), Number(pair[2]));
+    if (hit) return hit;
+  }
+  return null;
+}
+
+/**
+ * A requested forecast window in hours.
+ *
+ * "over the next 44 hours" is part of the question, not decoration: answering a
+ * 48-hour maximum to a 44-hour question reports a risk the caller did not ask
+ * about. Returns null when no window is stated, so the caller keeps its default.
+ */
+export function extractHours(text: string): number | null {
+  const s = String(text ?? "");
+  const m =
+    s.match(/\b(?:over |in |for |within )?the next\s+(\d{1,3})\s*(hours?|hrs?|h|days?|d)\b/i) ??
+    s.match(/\bnext\s+(\d{1,3})\s*(hours?|hrs?|h|days?|d)\b/i) ??
+    s.match(/\b(\d{1,3})\s*(hours?|hrs?|h|days?|d)\s+(?:ahead|out|from now)\b/i) ??
+    // Bare "in 44 hours" / "within 3 days", with no "the next" in front.
+    s.match(/\b(?:in|within|over)\s+(\d{1,3})\s*(hours?|hrs?|h|days?|d)\b/i);
+  if (!m?.[1] || !m[2]) return null;
+  const n = Number(m[1]);
+  if (!Number.isFinite(n) || n <= 0) return null;
+  const hours = /^d/i.test(m[2]) ? n * 24 : n;
+  return hours >= 1 && hours <= 384 ? Math.round(hours) : null;
 }

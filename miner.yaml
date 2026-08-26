@@ -90,6 +90,12 @@ output_schema:
   type: object
   properties:
     domain: { type: string }
+    risk_score:
+      type: number
+      description: >-
+        Storm risk from 0 (none) to 1 (severe). /storm-alert only.
+      minimum: 0
+      maximum: 1
     verdict:
       type: string
       description: >-
