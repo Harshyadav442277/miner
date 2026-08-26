@@ -344,3 +344,90 @@ export function toKmh(value: number, unit: WindThreshold["unit"]): number {
       return value;
   }
 }
+
+const MONTHS: Record<string, number> = {
+  january: 0, february: 1, march: 2, april: 3, may: 4, june: 5,
+  july: 6, august: 7, september: 8, october: 9, november: 10, december: 11,
+};
+const WORD_COUNTS: Record<string, number> = {
+  one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7,
+  eight: 8, nine: 9, ten: 10, twelve: 12, fourteen: 14,
+};
+const WEEKDAYS = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
+
+/**
+ * How many hours a question asks for, across the forms people actually write.
+ *
+ * Benchmarking against real paid questions showed "48 hourly values" handled and
+ * "7-day", "5-day", "five-day" not — eleven of twelve weather questions were
+ * falling back to a default window and answering a different period.
+ */
+export function extractSpanHours(text: string): number | null {
+  const s = String(text ?? "");
+  const num = s.match(/\b(\d{1,3})[-\s]*(?:hourly values|hourly|hours?|hrs?)\b/i);
+  if (num?.[1]) return Number(num[1]);
+  const days = s.match(/\b(\d{1,2})[-\s]*days?\b/i);
+  if (days?.[1]) return Number(days[1]) * 24;
+  const worded = s.match(/\b([a-z]+)[-\s]*days?\b/i);
+  const w = worded?.[1]?.toLowerCase();
+  if (w && WORD_COUNTS[w]) return WORD_COUNTS[w]! * 24;
+  return null;
+}
+
+/**
+ * A start date written the way people write them, in UTC.
+ *
+ * Handles "September 1, 2026", "1 September 2026", "next Monday" and "tomorrow"
+ * alongside ISO. `now` is injectable so the relative forms stay testable.
+ */
+export function extractWrittenStart(text: string, now = new Date()): string | null {
+  const s = String(text ?? "");
+
+  const md = s.match(/\b([A-Za-z]{3,9})\s+(\d{1,2})(?:st|nd|rd|th)?(?:,\s*(\d{4}))?\b/);
+  const m1 = md?.[1]?.toLowerCase();
+  if (m1 && MONTHS[m1] !== undefined && md?.[2]) {
+    const year = md[3] ? Number(md[3]) : now.getUTCFullYear();
+    const d = new Date(Date.UTC(year, MONTHS[m1]!, Number(md[2])));
+    if (!Number.isNaN(d.getTime())) return d.toISOString();
+  }
+
+  const dm = s.match(/\b(\d{1,2})(?:st|nd|rd|th)?\s+([A-Za-z]{3,9})(?:\s+(\d{4}))?\b/);
+  const m2 = dm?.[2]?.toLowerCase();
+  if (m2 && MONTHS[m2] !== undefined && dm?.[1]) {
+    const year = dm[3] ? Number(dm[3]) : now.getUTCFullYear();
+    const d = new Date(Date.UTC(year, MONTHS[m2]!, Number(dm[1])));
+    if (!Number.isNaN(d.getTime())) return d.toISOString();
+  }
+
+  const wd = s.match(/\bnext\s+(sunday|monday|tuesday|wednesday|thursday|friday|saturday)\b/i);
+  const target = wd?.[1] ? WEEKDAYS.indexOf(wd[1].toLowerCase()) : -1;
+  if (target >= 0) {
+    const d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
+    let delta = (target - d.getUTCDay() + 7) % 7;
+    if (delta === 0) delta = 7;
+    d.setUTCDate(d.getUTCDate() + delta);
+    return d.toISOString();
+  }
+
+  if (/\btomorrow\b/i.test(s)) {
+    return new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() + 1)).toISOString();
+  }
+  return null;
+}
+
+/**
+ * The requested period, combining every form above.
+ *
+ * Supersedes the ISO-only parser: that one handled the single question shape it
+ * was written against and left eleven others answering a default window.
+ */
+export function resolveDateRequest(text: string): DateRequest | null {
+  const iso = extractDateRequest(text);
+  const hours = extractSpanHours(text) ?? iso?.hours ?? null;
+  if (iso) return { startIso: iso.startIso, hours };
+
+  const written = extractWrittenStart(text);
+  if (written) return { startIso: written, hours };
+  if (hours !== null) return { startIso: new Date().toISOString(), hours };
+  return null;
+}

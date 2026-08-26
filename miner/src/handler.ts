@@ -85,6 +85,28 @@ function firstValue(url: URL, ...names: string[]): string {
   return "";
 }
 
+
+/**
+ * An upstream failure, reported as an answer rather than a 502.
+ *
+ * Any non-2xx from a miner is recorded by the engine as `upstream error`, stores
+ * an empty miner_answer, produces no converted answer, and scores 0. A transient
+ * rate limit from a weather provider therefore cost the whole question. Saying
+ * "this could not be retrieved right now" is truthful and at least scoreable.
+ */
+function upstreamUnavailable(res: ServerResponse, what: string, subject: string, e: unknown): void {
+  send(res, 200, {
+    verdict: "unknown",
+    confidence: 0,
+    reason:
+      `${what} for ${subject} could not be retrieved right now because the upstream data ` +
+      `provider did not respond successfully. This is a temporary data availability problem, ` +
+      `not a statement about ${subject}. Retrying shortly should succeed.`,
+    error: "upstream_unavailable",
+    detail: (e as Error).message,
+  });
+}
+
 export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
 
   // Base is only needed so URL can parse a path-relative request line.
@@ -146,9 +168,7 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
         toCache(key, result);
         send(res, 200, result);
       })
-      .catch((e: unknown) => {
-        send(res, 502, { error: "check_failed", message: (e as Error).message });
-      });
+      .catch((e: unknown) => upstreamUnavailable(res, "A weather forecast", q.slice(0, 80), e));
     return;
   }
 
@@ -179,7 +199,7 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
         send(res, 200, result);
       })
       .catch((e: unknown) => {
-        send(res, 502, { error: "check_failed", message: (e as Error).message });
+        upstreamUnavailable(res, "IP geolocation", q.slice(0, 80), e);
       });
     return;
   }
@@ -214,9 +234,7 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
         toCache(key, result);
         send(res, 200, result);
       })
-      .catch((e: unknown) => {
-        send(res, 502, { error: "check_failed", message: (e as Error).message });
-      });
+      .catch((e: unknown) => upstreamUnavailable(res, "A storm risk forecast", q.slice(0, 80), e));
     return;
   }
 
@@ -263,7 +281,5 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
       toCache(key, result);
       send(res, 200, result);
     })
-    .catch((e: unknown) => {
-      send(res, 502, { error: "check_failed", message: (e as Error).message });
-    });
+    .catch((e: unknown) => upstreamUnavailable(res, "A TLS certificate check", target.host, e));
 }

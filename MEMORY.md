@@ -324,6 +324,15 @@ Weather needed three bugs fixed: the whole question was being geocoded (resolved
 **Guangzhou**), question openers like "Can" passed as proper nouns, and "48-hour" did not parse
 because a hyphen is not whitespace. All found by measuring, none by reading code.
 
+**BENCHMARKED OVER 12 REAL QUESTIONS PER INTENT** (`tools/bench-champion.mjs`, real champions):
+`SSL 0.00913 · STORM 0.00938 · WEATHER 0.17346`. Single-question results were misleading — weather
+scored 0.99 on the one question it was written against and ~0.008 on eleven others, because
+"7-day"/"five-day"/"next Monday"/"September 1, 2026" did not parse. Fixed via `resolveDateRequest`.
+
+**NEVER RETURN NON-2XX.** The engine treats any non-2xx as a failed call: empty answer, no
+conversion, score 0. A transient Open-Meteo rate limit was returning **502** and costing whole
+questions. All upstream failures now return 200 with an honest "temporarily unavailable" answer.
+
 **Grace period runs ~7 days from activation** — unranked during it, sharing 5% of routed traffic
 equally with other new miners. The score earned there sets the opening leaderboard position.
 

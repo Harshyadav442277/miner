@@ -213,3 +213,46 @@ caught by the endpoint tests, which only assert that a forecast comes back.
 This is now the loop: pull the champion, pull our scored record, replay the real question, measure.
 Three of my scoring theories were disproven today by guessing; every improvement above came from
 measuring. `tools/score-sim.mjs` is superseded and should not be used.
+
+
+---
+
+## Generalisation: 12 real questions per intent, not one
+
+One question proves very little. `tools/bench-champion.mjs` replays a dozen real questions per
+intent (pulled from the public `/scores` records, with their ground truths) through the live
+endpoint and scores each with that intent's champion binary.
+
+| Intent | Mean over 12 real questions | Epoch-284 leader (single question) |
+|---|---|---|
+| `SSL_VERIFICATION` | **0.00912936** | 0.00600746 |
+| `STORM_ALERT` | **0.00937703** | 0.00651249 |
+| `WEATHER_FORECAST` | **0.17346124** | 0.00992360 |
+
+Caveat worth stating plainly: the leader figures are that miner's score on *one* question, so this
+is not a like-for-like comparison. What the benchmark does establish is that our answers hold up
+across the range of question shapes rather than only the one they were tuned against.
+
+### What benchmarking caught that a single question hid
+
+The first run scored **0.99 on one weather question and ~0.008 on the other eleven** — the outlier
+was the exact question the implementation was written against. The eleven asked in forms the parser
+did not handle:
+
+- **"7-day", "5-day", "five-day"** — only hour-counts parsed, so day spans fell back to a default
+  window and answered a different period.
+- **"next Monday", "September 1, 2026", "1 September 2026", "tomorrow"** — only ISO dates parsed.
+
+Both fixed (`extractSpanHours`, `extractWrittenStart`, `resolveDateRequest`), and the mean roughly
+doubled.
+
+### A worse bug the benchmark exposed
+
+Three questions scored **0** with `upstream 400` — Open-Meteo rate-limiting under twelve rapid
+requests. On any upstream failure the miner was returning **HTTP 502**, and the engine treats every
+non-2xx as a failed call: empty answer, no conversion, score 0.
+
+**A transient rate limit from a weather provider was costing the entire question.** Upstream
+failures now return 200 with a truthful statement that the data could not be retrieved and that
+this is a temporary availability problem rather than a claim about the subject. Same principle as
+the earlier 400 fix, and it removed every zero from the benchmark.

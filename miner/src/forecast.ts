@@ -10,7 +10,7 @@
  */
 
 import { resolvePlace } from "./storm";
-import { shortPlaceName, extractDateRequest } from "./extract";
+import { shortPlaceName, resolveDateRequest } from "./extract";
 
 const FORECAST = "https://api.open-meteo.com/v1/forecast";
 const DEFAULT_TIMEOUT_MS = 8000;
@@ -81,7 +81,7 @@ export async function getForecast(
   // 2026-09-01T06:00:00Z"). Answering that with "the next N hours from now"
   // describes a different period entirely, so fetch the interval that actually
   // contains it and slice by timestamp rather than from index zero.
-  const asked = extractDateRequest(query);
+  const asked = resolveDateRequest(query);
   const startMs = asked ? Date.parse(asked.startIso) : Date.now();
   const wantHours = asked?.hours ?? window;
 
