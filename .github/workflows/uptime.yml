@@ -11,12 +11,13 @@
 
 name: uptime
 
-# Every 30 minutes: ~1,450 minutes/month, inside the 2,000 free-tier allowance for a
-# PRIVATE repo. Public repos get unlimited Actions minutes — if this repo is made
-# public, tighten this to "*/10 * * * *" for faster revocation detection.
+# Every 10 minutes. Public repos get unlimited Actions minutes, so the cadence is
+# set for fast revocation detection rather than to fit a quota. Telegraph spot-checks
+# every ~20s and revokes routing on a 20% score drop with no notification, so the
+# window between a failure starting and us knowing about it is what this minimises.
 on:
   schedule:
-    - cron: "*/30 * * * *"
+    - cron: "*/10 * * * *"
   workflow_dispatch:
 
 jobs:

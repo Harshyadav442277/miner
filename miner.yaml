@@ -115,6 +115,9 @@ output_schema:
     total_precipitation_mm: { type: [number, "null"] }
     precipitation_hours: { type: [integer, "null"] }
 
+docs:
+  repository: https://github.com/Harshyadav442277/miner
+
 rate_limit_per_sec: 20
 cache_ttl_sec: 60
 circuit_threshold: 5
