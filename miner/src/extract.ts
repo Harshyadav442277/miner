@@ -180,7 +180,11 @@ export function extractHours(text: string): number | null {
   if (!m && /\b(right now|at present|currently|at the moment)\b/i.test(s)) return 1;
   if (!m?.[1] || !m[2]) return null;
   const n = Number(m[1]);
-  if (!Number.isFinite(n) || n <= 0) return null;
+  if (!Number.isFinite(n) || n < 0) return null;
+  // A real paid question asks for storm risk "in 0 hours" — that is "right now",
+  // not an absent window. Falling through to the 48-hour default answered a
+  // question about the next two days instead.
+  if (n === 0) return 1;
   const hours = /^d/i.test(m[2]) ? n * 24 : n;
   return hours >= 1 && hours <= 384 ? Math.round(hours) : null;
 }

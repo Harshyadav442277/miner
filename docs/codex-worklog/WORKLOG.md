@@ -77,3 +77,67 @@ the first repository mutation resulting from the review.
 See [`2026-08-26-strategy-review.md`](2026-08-26-strategy-review.md) for detailed
 evidence and unresolved questions.
 
+## 2026-08-26 — live scoring reconnaissance
+
+### Request
+
+Improvise beyond the initial review while continuing to document the work in
+this folder. Seek a legitimate asymmetric advantage capable of reaching rank
+one.
+
+### Work performed
+
+- Downloaded the active, commit-pinned SSL, Storm, and Weather champion WASM
+  binaries from the public scorer registry and executed them locally.
+- Downloaded public score records and proved that the reported live score is
+  computed from `converted_answer`, not the raw miner JSON.
+- Measured truthful counterfactual converted answers against the exact
+  epoch-284 question, ground truth, and active binary.
+- Queried Open-Meteo for the exact Weather dates to reject an apparently
+  high-scoring but false "unavailable" shortcut.
+- Inspected public paid Storm receipts and replayed one exact coordinate/offset
+  request against LiveCert.
+- Audited concurrent Storm, SSL, score-history, and CertWatch changes without
+  overwriting them.
+- Rechecked the canonical CertWatch deployment and workflow history.
+- Added `probe-champion.mjs` as a network-free reproduction tool.
+- Re-ran validation at current HEAD: miner `73/73` passed; the app's repo-local
+  TypeScript compiler passed.
+
+### Main outcomes
+
+- Weather is now the highest measured rank-one lever. LiveCert answers the next
+  48 hours instead of the explicitly requested future 48 hours. A truthful,
+  date-aware converted summary scored `0.9963806868` offline versus the reported
+  `0.0069898367`, a `142.55x` counterfactual improvement.
+- A complete but truthful SSL unreachable diagnostic scored `0.0106115844`
+  offline versus LiveCert's `0.0044928235` and the epoch leader's
+  `0.0060074595`.
+- Storm's new replay is structurally green but semantically incomplete: "in 44
+  hours" is still evaluated as the maximum "over the next 44 hours." The
+  corpus test does not compare the returned weather values with the paid result.
+- The direct scorer input is converted prose. Changing `label_field` remains a
+  hypothesis, not the first move.
+- CertWatch is safe-disabled and empty in production; its in-memory API cap is
+  not a global serverless budget, the workflow has not run, and bearer-token
+  protection currently has no compatible dashboard flow.
+
+### Recommended execution order
+
+1. Implement the Weather temporal router and preserve the complete hourly
+   series plus requested variables through conversion.
+2. Enrich SSL explanations from real diagnostic fields.
+3. Split Storm point-offset and duration-window semantics, then strengthen the
+   real-question fixture.
+4. Deploy once and capture the exact output/conversion before changing
+   registration metadata.
+5. Obtain a written ruling on score aggregation and scorer replacement.
+6. Make CertWatch's budget durable and its user flow intentional before funding.
+
+### Mutation and verification boundary
+
+Only files in `docs/codex-worklog` were added or updated. No product code,
+deployment, registration, wallet, paid request, or external account was
+mutated. See
+[`2026-08-26-live-scoring-recon.md`](2026-08-26-live-scoring-recon.md) for the
+evidence, exact candidates, integrity boundary, and reproduction procedure.

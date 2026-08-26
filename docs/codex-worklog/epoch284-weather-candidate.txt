@@ -1,0 +1,1 @@
+A 48-hour hourly model forecast is available for Tokyo starting 2026-09-01T06:00:00Z, with the complete hourly temperature and precipitation series included. Temperatures range from 24.5 to 30.5 degrees Celsius and hourly precipitation ranges from 0.0 to 0.3 millimeters. Recheck the Japan Meteorological Agency closer to the cutoff because forecasts change.
