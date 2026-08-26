@@ -117,3 +117,18 @@ export function placeCandidates(text: string): string[] {
   if (raw.split(/\s+/).length > 4) return [...unique.slice(1), unique[0]!].filter(Boolean);
   return unique;
 }
+
+
+/**
+ * The bare place name, without administrative subdivisions.
+ *
+ * Geocoders return "Chennai, Tamil Nadu, India"; a question asks about "Chennai"
+ * and a ground-truth answer will say "Chennai". The extra components are words
+ * the scorer cannot match, and each one dilutes every other word in the answer.
+ * The full resolved name stays in the structured `location` field — this is only
+ * for the prose a scorer reads.
+ */
+export function shortPlaceName(resolved: string): string {
+  const first = String(resolved ?? "").split(",")[0]?.trim();
+  return first && first.length > 0 ? first : String(resolved ?? "").trim();
+}

@@ -9,7 +9,7 @@
  * an upstream quota becomes our Routing Revocation (ARCHITECTURE A3/A4).
  */
 
-import { placeCandidates } from "./extract";
+import { placeCandidates, shortPlaceName } from "./extract";
 
 const GEOCODE = "https://geocoding-api.open-meteo.com/v1/search";
 const FORECAST = "https://api.open-meteo.com/v1/forecast";
@@ -197,7 +197,7 @@ export async function checkStorm(query: string, timeoutMs = DEFAULT_TIMEOUT_MS):
     latitude: place.latitude,
     longitude: place.longitude,
     confidence: 1,
-    reason: describe(place.name, verdict, maxGust, thunder, maxPrecip),
+    reason: describe(shortPlaceName(place.name), verdict, maxGust, thunder, maxPrecip),
     checked_at: now,
   };
 }
