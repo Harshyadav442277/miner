@@ -37,6 +37,10 @@ export interface SslResult {
   subject_alt_names: string[] | null;
   /** Why the host could not be reached, when it could not be. */
   unreachable_reason?: string;
+  /** Negotiated cipher suite — part of "security strength". */
+  cipher?: string | null;
+  /** Key exchange / signature strength where the runtime reports it. */
+  key_bits?: number | null;
   issuer: string | null;
   subject: string | null;
   valid_from: string | null;
@@ -127,7 +131,7 @@ function unreachable(domain: string, why: string): SslResult {
     // Routed through describe() so an unreachable host still names the checks that
     // could not be performed and how to perform them — the reachability failure is
     // recorded in unreachable_reason rather than being the whole answer.
-    reason: describe(domain, "unreachable", null, null, null, null, null, null, null),
+    reason: describe(domain, "unreachable", null, null, null, null, null, null, null, null, null, null),
     unreachable_reason: why,
     checked_at: new Date().toISOString(),
   };
@@ -256,8 +260,15 @@ function evaluate(host: string, socket: tls.TLSSocket): SslResult {
     valid_to: validTo,
     days_remaining: daysRemaining,
     tls_protocol: socket.getProtocol(),
+    cipher: socket.getCipher()?.name ?? null,
+    key_bits: typeof cert.bits === "number" ? cert.bits : null,
     confidence: 1,
-    reason: describe(host, verdict, issuer, validTo, daysRemaining, authCode, chainLength || null, chainLength > 1, sans),
+    reason: describe(
+      host, verdict, issuer, validTo, daysRemaining, authCode,
+      socket.getProtocol(), socket.getCipher()?.name ?? null,
+      typeof cert.bits === "number" ? cert.bits : null,
+      chainLength || null, chainLength > 1, sans,
+    ),
     checked_at: now.toISOString(),
   };
 }
@@ -281,6 +292,9 @@ function describe(
   validTo: string | null,
   days: number | null,
   authCode: string | null,
+  protocol: string | null,
+  cipher: string | null,
+  keyBits: number | null,
   chainLength: number | null,
   chainComplete: boolean | null,
   sans: string[] | null,
@@ -303,6 +317,11 @@ function describe(
       : chainComplete
         ? ` The server presented a complete chain of ${chainLength} certificates including intermediates.`
         : ` The server presented only ${chainLength} certificate, so the chain is incomplete and missing intermediates.`;
+  const security =
+    protocol === null
+      ? ""
+      : ` The connection negotiated ${protocol}${cipher ? ` with cipher suite ${cipher}` : ""}` +
+        `${keyBits ? ` and a ${keyBits}-bit key` : ""}.`;
   const namecheck = sans?.length
     ? ` Hostname validation passes against Subject Alternative Name ${sans.slice(0, 3).join(", ")}.`
     : "";
@@ -315,7 +334,7 @@ function describe(
           : validTo
             ? ` and expires on ${validTo}`
             : "";
-      return `The SSL certificate for ${host} is valid and trusted${by}${when}.${chain}${namecheck}`;
+      return `The SSL certificate for ${host} is valid and trusted${by}${when}.${chain}${namecheck}${security}`;
     }
     case "expired":
       return `The SSL certificate for ${host} is expired and not valid${by}. It expired on ${validTo}.${chain}`;

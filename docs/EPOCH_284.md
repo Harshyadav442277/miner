@@ -256,3 +256,25 @@ non-2xx as a failed call: empty answer, no conversion, score 0.
 failures now return 200 with a truthful statement that the data could not be retrieved and that
 this is a temporary availability problem rather than a claim about the subject. Same principle as
 the earlier 400 fix, and it removed every zero from the benchmark.
+
+
+## A negative result worth keeping
+
+Having found that fuller answers beat terse ones on storm, the obvious next move was a fuller SSL
+answer for unreachable hosts — one naming validity, expiration, issuer, chain, SAN, protocol
+version, cipher strength and the SSL Labs grade, roughly doubling the length.
+
+Measured against the champion, it scored **0.00835** where the current shorter answer scores
+**0.01061**. Longer is worse here.
+
+So "answer more fully" is not a rule, it is a direction with a ceiling: the storm answer was
+missing facts the question explicitly asked for, and adding those helped. The SSL answer was
+already covering what was asked, and padding it with adjacent detail diluted it. **Not shipped.**
+
+This is the fourth scoring intuition tested today and the second to fail. The measurement loop is
+worth more than any of the intuitions.
+
+Shipped from this round: TLS protocol version, cipher suite and key size are now reported for
+reachable hosts, since real questions ask about "supported protocols and security strength" and we
+already had the data. Small effect on this benchmark (+0.00006 mean) because every question in it
+targets an unreachable host, but it answers a question that is actually asked.
