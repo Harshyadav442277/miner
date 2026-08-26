@@ -87,3 +87,29 @@ jobs:
         working-directory: miner
       - run: npm run test:live
         working-directory: miner
+
+  scores:
+    # Scoring runs on the network's schedule and the API exposes only the latest
+    # epoch, so a score not captured when it appears is lost. This keeps a durable
+    # per-epoch record to reason from instead of polling by hand.
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Record this epoch
+        run: node tools/record-scores.mjs
+      - name: Commit if new
+        run: |
+          if git diff --quiet -- docs/score-history.jsonl; then
+            echo "nothing new"
+            exit 0
+          fi
+          git config user.name "Harshyadav442277"
+          git config user.email "theageofprimes@gmail.com"
+          git add docs/score-history.jsonl
+          git commit -m "Record epoch scores"
+          git push
