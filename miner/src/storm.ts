@@ -107,19 +107,6 @@ async function geocodeOnce(query: string, timeoutMs = DEFAULT_TIMEOUT_MS): Promi
 }
 
 /**
- * Gust thresholds follow the Beaufort scale, which is what meteorological
- * warnings are actually issued against — not an invented scale.
- *   >=118 km/h hurricane force · >=89 storm · >=62 gale · >=39 strong breeze
- */
-function gradeGusts(gustKmh: number): StormVerdict {
-  if (gustKmh >= 118) return "severe";
-  if (gustKmh >= 89) return "high";
-  if (gustKmh >= 62) return "moderate";
-  if (gustKmh >= 39) return "low";
-  return "none";
-}
-
-/**
  * A continuous 0–1 risk value alongside the category.
  *
  * Real paid questions ask for "an overall risk between 0 and 1" — a categorical
@@ -147,11 +134,13 @@ function riskScore(gustKmh: number, thunder: boolean, precipMm: number | null): 
   return Math.round(Math.max(0, Math.min(1, base)) * 100) / 100;
 }
 
-const ORDER: StormVerdict[] = ["none", "low", "moderate", "high", "severe"];
-function escalate(v: StormVerdict, steps: number): StormVerdict {
-  const i = ORDER.indexOf(v);
-  if (i < 0) return v;
-  return ORDER[Math.min(ORDER.length - 1, i + steps)] ?? v;
+/** The categorical view of the same number, so the two can never contradict. */
+function gradeRisk(risk: number): StormVerdict {
+  if (risk >= 0.85) return "severe";
+  if (risk >= 0.65) return "high";
+  if (risk >= 0.4) return "moderate";
+  if (risk >= 0.2) return "low";
+  return "none";
 }
 
 export async function checkStorm(
@@ -232,17 +221,18 @@ export async function checkStorm(
   const maxPrecip = precip.length ? Math.max(...precip) : null;
   const thunder = codes.some((c) => THUNDER.has(c));
 
-  let verdict = gradeGusts(maxGust);
-  // A thunderstorm is disruption in its own right, independent of wind speed.
-  if (thunder) verdict = escalate(verdict, verdict === "none" ? 2 : 1);
-  // Heavy rain compounds it.
-  if ((maxPrecip ?? 0) >= 10) verdict = escalate(verdict, 1);
+  // One number, one label, derived from it. Previously the verdict escalated in
+  // discrete steps while the score added a continuous bonus, so a "low" could
+  // carry a higher risk_score than a "moderate" — incoherent to any consumer
+  // reading both fields.
+  const risk = riskScore(maxGust, thunder, maxPrecip);
+  const verdict = gradeRisk(risk);
 
   return {
     location: place.name,
     verdict,
     storm_expected: verdict !== "none",
-    risk_score: riskScore(maxGust, thunder, maxPrecip),
+    risk_score: risk,
     max_wind_gust_kmh: Math.round(maxGust * 10) / 10,
     max_wind_speed_kmh: maxWind === null ? null : Math.round(maxWind * 10) / 10,
     max_precipitation_mm: maxPrecip === null ? null : Math.round(maxPrecip * 10) / 10,

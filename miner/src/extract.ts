@@ -173,6 +173,11 @@ export function extractHours(text: string): number | null {
     s.match(/\b(\d{1,3})\s*(hours?|hrs?|h|days?|d)\s+(?:ahead|out|from now)\b/i) ??
     // Bare "in 44 hours" / "within 3 days", with no "the next" in front.
     s.match(/\b(?:in|within|over)\s+(\d{1,3})\s*(hours?|hrs?|h|days?|d)\b/i);
+
+  // "right now" is a window too — the shortest one. Real paid questions use it,
+  // and answering them with a 48-hour outlook reports a risk that has not
+  // happened yet as though it were current.
+  if (!m && /\b(right now|at present|currently|at the moment)\b/i.test(s)) return 1;
   if (!m?.[1] || !m[2]) return null;
   const n = Number(m[1]);
   if (!Number.isFinite(n) || n <= 0) return null;
