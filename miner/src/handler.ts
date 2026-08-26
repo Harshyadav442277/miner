@@ -56,7 +56,22 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
   const url = new URL(req.url ?? "/", "http://localhost");
   const path = url.pathname.replace(/\/+$/, "") || "/";
 
+  // Answer CORS/capability preflights rather than 405ing them. Telegraph's sandbox
+  // probes endpoints before pinning and a bare 405 reads as a broken endpoint even
+  // though real GET traffic is fine.
+  if (req.method === "OPTIONS") {
+    res.writeHead(204, {
+      allow: "GET, HEAD, OPTIONS",
+      "access-control-allow-origin": "*",
+      "access-control-allow-methods": "GET, HEAD, OPTIONS",
+      "access-control-max-age": "86400",
+    });
+    res.end();
+    return;
+  }
+
   if (req.method !== "GET" && req.method !== "HEAD") {
+    res.setHeader("allow", "GET, HEAD, OPTIONS");
     send(res, 405, { error: "method_not_allowed", message: "Use GET." });
     return;
   }
