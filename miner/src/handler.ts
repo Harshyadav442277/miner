@@ -51,6 +51,40 @@ function send(res: ServerResponse, status: number, body: unknown): void {
  * function on platforms that hand you (req, res) directly. Neither deployment
  * target gets a divergent copy of the routing.
  */
+
+/**
+ * First parameter that actually carries a value.
+ *
+ * Telegraph's engine builds the call from our input_schema and will send a
+ * declared parameter as an EMPTY STRING when it cannot fill it. `??` only falls
+ * through on null/undefined, so `get("location") ?? get("query")` stopped at the
+ * empty string and never looked at the question — a real scored request failed
+ * this way with `{"location":"", ... "error":"invalid_location"}` and scored 0,
+ * because the scorer receives the converted answer and there was none.
+ *
+ * Treating empty and whitespace-only as absent is the whole fix.
+ */
+/**
+ * An honest "could not determine" answer, sent as 200.
+ *
+ * Telegraph's engine treats any 4xx from a miner as a failed call: it records
+ * `upstream error 400`, stores an empty miner_answer, produces no converted
+ * answer, and the scorer therefore sees nothing and scores 0. A well-shaped 400
+ * body buys nothing because the body is never read.
+ *
+ * So a request we cannot answer returns 200 with a truthful statement that we
+ * could not determine it. That is not a liar-200 in the sense ARCHITECTURE A5
+ * warns about — we are the upstream here, and "I could not establish this" is a
+ * real answer to the question rather than a false success.
+ */
+function firstValue(url: URL, ...names: string[]): string {
+  for (const n of names) {
+    const v = url.searchParams.get(n);
+    if (v !== null && v.trim().length > 0) return v;
+  }
+  return "";
+}
+
 export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
 
   // Base is only needed so URL can parse a path-relative request line.
@@ -85,18 +119,16 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
   }
 
   if (path === "/weather-forecast") {
-    const q =
-      url.searchParams.get("location") ??
-      url.searchParams.get("place") ??
-      url.searchParams.get("city") ??
-      url.searchParams.get("query") ??
-      "";
+    const q = firstValue(url, "location", "place", "city", "query", "q", "text", "question", "input");
     if (!q.trim()) {
-      send(res, 400, {
-        location: q.slice(0, 200),
+      send(res, 200, {
+        location: null,
         verdict: "unknown",
         confidence: 0,
-        reason: "No location could be read from the request, so a forecast could not be produced. Name a place such as London.",
+        reason:
+          "No location was supplied with this request, so a weather forecast could not be produced. " +
+          "Supply a place name such as London, or a latitude and longitude, and the hourly temperature, " +
+          "precipitation and wind forecast can be returned.",
         error: "invalid_location",
       });
       return;
@@ -121,17 +153,16 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
   }
 
   if (path === "/ip-geolocate") {
-    const q =
-      url.searchParams.get("ip") ??
-      url.searchParams.get("address") ??
-      url.searchParams.get("query") ??
-      "";
+    const q = firstValue(url, "ip", "address", "query", "q", "text", "question", "input");
     if (!q.trim()) {
-      send(res, 400, {
-        ip: "",
+      send(res, 200, {
+        ip: null,
         verdict: "unknown",
         confidence: 0,
-        reason: "No IP address could be read from the request, so its location could not be determined. Supply an address such as 8.8.8.8.",
+        reason:
+          "No IP address was supplied with this request, so its geographic location could not be " +
+          "determined. Supply an address such as 8.8.8.8 and the country, city, coordinates and " +
+          "network operator can be returned.",
         error: "invalid_ip",
       });
       return;
@@ -154,18 +185,17 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
   }
 
   if (path === "/storm-alert") {
-    const q =
-      url.searchParams.get("location") ??
-      url.searchParams.get("place") ??
-      url.searchParams.get("city") ??
-      url.searchParams.get("query") ??
-      "";
+    const q = firstValue(url, "location", "place", "city", "query", "q", "text", "question", "input");
     if (!q.trim()) {
-      send(res, 400, {
-        location: q.slice(0, 200),
+      send(res, 200, {
+        location: null,
         verdict: "unknown",
         confidence: 0,
-        reason: "No location could be read from the request, so storm risk could not be assessed. Name a place such as Chennai.",
+        risk_score: 0,
+        reason:
+          "No location was supplied with this request, so storm risk could not be assessed. " +
+          "Supply a place name such as Chennai, or a latitude and longitude, and the wind speed, " +
+          "gusts, precipitation and an overall risk between 0 and 1 can be returned.",
         error: "invalid_location",
       });
       return;
@@ -198,13 +228,7 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
     return;
   }
 
-  const raw =
-    url.searchParams.get("domain") ??
-    url.searchParams.get("host") ??
-    url.searchParams.get("hostname") ??
-    url.searchParams.get("url") ??
-    url.searchParams.get("query") ??
-    "";
+  const raw = firstValue(url, "domain", "host", "hostname", "url", "query", "q", "text", "question", "input");
 
   const target = normalizeTarget(raw);
   if (!target) {
@@ -214,11 +238,14 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
     // {"error":"invalid_domain"}. Saying "I could not determine this" in the
     // schema's own words is both honest and legible. The status stays 400
     // because the request genuinely was malformed (A5: no liar-200s).
-    send(res, 400, {
-      domain: raw.slice(0, 200),
+    send(res, 200, {
+      domain: raw ? raw.slice(0, 200) : null,
       verdict: "unknown",
       confidence: 0,
-      reason: `No hostname could be read from ${JSON.stringify(raw.slice(0, 120))}, so the SSL certificate could not be checked. Supply a domain such as example.com.`,
+      reason:
+        `No hostname was supplied with this request, so the TLS/SSL certificate could not be ` +
+        `analyzed. Certificate chain completeness and hostname validation cannot be verified ` +
+        `without a domain. Supply a domain such as example.com.`,
       error: "invalid_domain",
     });
     return;

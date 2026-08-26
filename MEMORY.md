@@ -295,6 +295,13 @@ must retain every requested fact.
    rendered from real fields: chain length and completeness (walked via `issuerCertificate`),
    Subject Alternative Names, hostname validation, trust path. An unreachable host no longer
    stops at "DNS failed" — it names what could not be established and how to establish it.
+**THE STORM ZERO'S ROOT CAUSE** — the `/scores` API gives the actual record. The engine called us
+with `location=""` (present but empty); our `??` chain does not fall through on an empty string, so
+we never read `query`, never saw the question, and returned **400**. The engine treats any 4xx as a
+failed call: empty `miner_answer`, no `converted_answer`, score **0**. A well-shaped 400 body is
+worthless because it is never read. Fixed: empty params treated as absent, and **no endpoint
+returns 4xx any more** — an unanswerable request gets an honest 200.
+
 3. `STORM_ALERT` — **DONE.** "in 44 hours" is a *point* offset, not a window; we returned the
    44-hour maximum (gusts 70.9) where the paid responder returned the value at hour 44 (49.7).
    Now `time_mode` point/window with `valid_at`, and the replay harness checks `valid_at` lands

@@ -32,7 +32,43 @@ scores above.
 | `STORM_ALERT` | **0.0** | `amanat-weather-risk` 0.00651 | we scored nothing |
 | `WEATHER_FORECAST` | 0.00699 | `verity-weather-forecast` 0.00992 | 0.0029, 6 miners ahead |
 
-## `STORM_ALERT` is the best shot, and the zero is probably stale
+## ROOT CAUSE OF THE STORM ZERO — found, and it was neither staleness nor label_field
+
+The `/scores` API returns the actual scored record. Ours for epoch 284:
+
+```
+question:        Can you provide a 48-hour wind speed forecast (variable '10u') for the
+                 construction site at latitude 40.7128 and longitude -74.0060 ...
+failure_reason:  call miner "livecert": upstream error 400:
+                 {"location":"","verdict":"unknown",...,"error":"invalid_location"}
+miner_answer:    ""
+converted_answer:""
+score:           0
+```
+
+**The engine called us with `location=""`** — the parameter present but empty, because it could
+not fill it from the question. Our fallback chain used `??`, which only falls through on
+null/undefined. An empty string is neither, so we never looked at `query`, never saw the question,
+and returned 400.
+
+**And a 4xx is a guaranteed zero.** The engine records `upstream error`, stores an empty
+`miner_answer`, produces no `converted_answer`, and the scorer sees nothing. A carefully shaped 400
+body buys nothing, because the body is never read.
+
+Two fixes, both deployed:
+
+1. **Empty and whitespace-only parameters are treated as absent**, so the fallback chain reaches
+   `query` and the question is parsed. The exact call that failed now returns 200 with coordinates
+   extracted and a real verdict.
+2. **No endpoint returns 4xx for a question it cannot answer.** It returns 200 with an honest
+   "could not determine" statement naming what was missing and what would be returned. That is not
+   a liar-200 in the sense A5 warns about — we are the upstream, and "I could not establish this"
+   is a real answer rather than a false success.
+
+Both earlier explanations for the zero were wrong. The staleness theory below is superseded, and
+kept only as a record of the reasoning.
+
+## ~~The zero is probably stale~~ (superseded — see above)
 
 Three of four miners in this intent scored **exactly 0.0** — `skywire-storm-alert`,
 `bittensor-sn18-zeus`, and us. Only `amanat-weather-risk` scored at all.

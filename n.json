@@ -1,0 +1,1 @@
+{"ip":null,"verdict":"unknown","confidence":0,"reason":"No IP address was supplied with this request, so its geographic location could not be determined. Supply an address such as 8.8.8.8 and the country, city, coordinates and network operator can be returned.","error":"invalid_ip"}

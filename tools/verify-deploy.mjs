@@ -95,9 +95,9 @@ try {
 }
 try {
   const { res } = await get(`/storm-alert`);
-  report(res.status === 400, "missing location -> 400", `got ${res.status}`);
+  report(res.status === 200 && (await res.clone().json()).verdict === "unknown", "missing location -> honest 200", `got ${res.status}`);
 } catch (e) {
-  report(false, "missing location -> 400", e.message);
+  report(false, "missing location -> honest 200", e.message);
 }
 
 // 5. Weather forecast — the third declared intent.
@@ -113,18 +113,18 @@ try {
 }
 try {
   const { res } = await get(`/weather-forecast`);
-  report(res.status === 400, "missing location -> 400", `got ${res.status}`);
+  report(res.status === 200 && (await res.clone().json()).verdict === "unknown", "missing location -> honest 200", `got ${res.status}`);
 } catch (e) {
-  report(false, "missing location -> 400", e.message);
+  report(false, "missing location -> honest 200", e.message);
 }
 
 // 6. Input handling.
 console.log("\n  input handling:");
 try {
   const { res } = await get(`/ssl-check?domain=${encodeURIComponent("not a domain")}`);
-  report(res.status === 400, "rejects a malformed domain with 400", `got ${res.status}`);
+  report(res.status === 200 && (await res.clone().json()).verdict === "unknown", "malformed domain -> honest 200", `got ${res.status}`);
 } catch (e) {
-  report(false, "rejects a malformed domain with 400", e.message);
+  report(false, "malformed domain -> honest 200", e.message);
 }
 try {
   const { res } = await get(`/ssl-check?url=${encodeURIComponent("https://cloudflare.com/x")}`);
