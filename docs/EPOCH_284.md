@@ -390,3 +390,41 @@ for them.
 
 A test that asserted the *old* terse behaviour — explicitly forbidding the ASN in the answer — was
 updated rather than worked around. It encoded a theory the measurements disproved.
+
+
+## The ISP omission was worth 97x
+
+Measured against the real `IP_GEOLOCATION` champion, on the question that asks for "country, city,
+and ISP information":
+
+```
+without the operator named   0.01026518
+with the operator named      0.99362481      97x
+iplocate, best ever (ep 278) 0.99595594
+iplocate, epochs 282-284     0.00000000
+```
+
+Adding one clause — "It is operated by Google LLC (AS15169)" — moved the score by two orders of
+magnitude, to within a rounding error of the best any miner has achieved in this intent.
+
+It still scores 0.994 **despite** disagreeing with the ground truth about the location: we resolve
+Mumbai, the reference says United States, because the address is Google anycast. The operator was
+the dominant signal and the city barely mattered.
+
+That is the clearest evidence yet for the one rule that has survived every measurement today:
+**answer every part of what was asked; keep in fields what was not.** Every large gain has come
+from finding a clause of the question going unanswered — the storm threshold, the weather period
+and place, the SSL chain and hostname checks, and now the ISP.
+
+## All four endpoints, measured against their real champions
+
+| Intent | Ours | Reference point |
+|---|---|---|
+| `SSL_VERIFICATION` unreachable | 0.01061 | `txlens` 0.00601 |
+| `SSL_VERIFICATION` reachable | 0.01077 | `txlens` 0.00835 |
+| `STORM_ALERT` | 0.00819 | `amanat` 0.00651 |
+| `WEATHER_FORECAST` | 0.99482 | `verity` 0.00992 |
+| `IP_GEOLOCATION` *(unregistered)* | 0.99362 | `iplocate` 0.00000 (ep 282-284) |
+
+Each is one question against that intent's champion binary. The 12-question benchmarks in
+`tools/bench-champion.mjs` are the generalisation check; these are the head-to-heads.

@@ -347,6 +347,12 @@ themselves say "I cannot provide the exact forecast", so a refusal would score h
 gaming the scorer rather than answering the buyer (Rule 04). The one question with a real ground
 truth is the one we score 0.99 on.
 
+**THE RULE THAT SURVIVED EVERY MEASUREMENT: answer every clause of the question; keep in fields
+what was not asked.** Naming the ISP in a geolocation answer moved it **0.01027 -> 0.99362 (97x)**.
+Every large gain today came from finding a clause going unanswered — storm threshold, weather
+period and place, SSL chain/hostname, geolocation ISP. Every attempt to tune phrasing instead
+(terse vs verbose, label_field, word-overlap) failed.
+
 **Grace period runs ~7 days from activation** — unranked during it, sharing 5% of routed traffic
 equally with other new miners. The score earned there sets the opening leaderboard position.
 
