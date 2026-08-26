@@ -270,6 +270,11 @@ intents with real recurring demand (15 real questions in 72h; SSL had **zero**).
 plausibly stale — the coordinate/window fixes landed around the 15:52 scoring time and `"right now"`
 after it. We now answer 15/15 of the real corpus. **Epoch 285 is the test.**
 
+**EPOCHS ARE 9 HOURS LONG.** `/api/epoch` on the explorer: `epoch_duration: 9h0m0s`. Scoring lands
+~3× a day, not every few minutes — the landing-page ticker misleads. Epoch 285 lands
+**2026-08-27T00:36:55Z**. Do not poll for score changes shortly after deploying; verify with
+`tools/replay-corpus.mjs` instead, which answers in seconds.
+
 **Grace period runs ~7 days from activation** — unranked during it, sharing 5% of routed traffic
 equally with other new miners. The score earned there sets the opening leaderboard position.
 

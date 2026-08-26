@@ -208,3 +208,29 @@ Two consequences that matter:
 
 Base Sepolia USDC: `0x036CbD53842c5426634e7929541eC2318f3dCF7e`
 Faucet: https://faucet.circle.com
+
+
+---
+
+## Epochs are 9 hours long (verified 2026-08-26)
+
+```
+GET https://explorer.telegraphprotocol.com/api/epoch
+{"current_epoch":284,"epoch_duration":"9h0m0s","epoch_duration_seconds":32400, ...}
+```
+
+This matters more than it looks, and I wasted several checks not knowing it.
+
+The landing page's epoch ticker counts down in minutes, which reads as though epochs turn
+constantly. They do not — **scoring lands roughly three times a day.** So:
+
+- A fix deployed just after an epoch is scored will not show up for up to 9 hours.
+- There is no fast feedback loop. Polling for a new score minutes after a change is pointless.
+- Across the whole Track 1 window (Aug 17 – Aug 31) there are only ~40 scored epochs total, and we
+  registered with ~5 days left — roughly **13 scoring opportunities**.
+- Any change that requires `updateMiner` costs a fraction of the remaining feedback cycles, which
+  raises the bar for making one on a hypothesis rather than evidence.
+
+Corollary for working method: prefer changes justified by **replaying real paid questions**
+(`tools/replay-corpus.mjs`), which gives an answer in seconds, over changes justified by a scoring
+theory, which take up to 9 hours to test and have twice been wrong.
