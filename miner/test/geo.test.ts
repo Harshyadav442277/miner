@@ -24,11 +24,20 @@ describe("geolocate (live)", () => {
     assert.ok(r.confidence > 0);
   });
 
-  test("the answer sentence names the address and the place, and stops", async () => {
+  // This test previously asserted the opposite — that network context stayed out
+  // of the prose — on the theory that terser answers score better. Measuring
+  // against the live champion disproved that, and real questions ask for
+  // "country, city, and ISP information", so the operator belongs in the answer.
+  test("the answer names the place and the network operator", async () => {
     const r = await geolocate("8.8.8.8");
-    assert.match(r.reason, /^The IP address 8\.8\.8\.8 is located in .+\.$/);
-    // Network context belongs in fields, not in the scored prose.
-    assert.doesNotMatch(r.reason, /\bAS\d+/);
+    assert.match(r.reason, /^The IP address 8\.8\.8\.8 is located in /);
+    assert.match(r.reason, /operated by /i);
+  });
+
+  test("coordinates stay in fields — nobody asked for them in prose", async () => {
+    const r = await geolocate("8.8.8.8");
+    assert.ok(r.latitude !== null);
+    assert.doesNotMatch(r.reason, /-?\d+\.\d{3,}/);
   });
 
   test("unparseable input degrades to a shaped answer, not a crash", async () => {

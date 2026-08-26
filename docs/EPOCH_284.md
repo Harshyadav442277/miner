@@ -361,3 +361,32 @@ today.
 We are reporting the current truth against a stale reference, and losing word-overlap for it. That
 is the correct behaviour for a question asking "as of August 26, 2026" — and it is worth recording
 that the scorer cannot distinguish "wrong" from "more current than the ground truth".
+
+
+## IP_GEOLOCATION — built, unregistered, and worth knowing about
+
+The endpoint exists and is deployed; the intent is deliberately **not registered**, pending the
+organiser answer on cross-intent aggregation.
+
+Its scored history is unusual: `iplocate`, the sole miner, scored **0.99595594** in epoch 278,
+**0.00846378** in 279, and **0.00000000** in epochs 282, 283 and 284. So the intent is winnable at
+a high score, and the incumbent has been failing for three consecutive epochs.
+
+Checking our answer against a real question surfaced the same defect class as the storm threshold.
+The question asks for *"the country, city, and **ISP** information"*; we answered:
+
+> The IP address 142.251.42.174 is located in Mumbai, Maharashtra, India.
+
+`Google LLC` and `AS15169` were sitting in structured fields, unmentioned. A third of the question
+went unanswered. Now:
+
+> The IP address 142.251.42.174 is located in Mumbai, Maharashtra, India. It is operated by
+> Google LLC (AS15169). The local timezone is Asia/Kolkata.
+
+**A limitation worth stating:** that address is Google anycast, and geolocation providers genuinely
+disagree about it — ours resolves Mumbai, the ground truth says United States. That is not a bug we
+can fix; anycast has no single location. Coordinates stay out of the prose, since no question asks
+for them.
+
+A test that asserted the *old* terse behaviour — explicitly forbidding the ASN in the answer — was
+updated rather than worked around. It encoded a theory the measurements disproved.

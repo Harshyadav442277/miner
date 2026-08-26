@@ -139,9 +139,13 @@ export async function geolocate(rawIp: string, timeoutMs = DEFAULT_TIMEOUT_MS): 
     asn,
     organisation: org,
     confidence: city ? 0.95 : 0.7,
-    // Names the address and the place, and stops. ASN and coordinates are in the
-    // fields above — words the question did not ask for dilute the ones it did.
-    reason: `The IP address ${ip} is located in ${place}.`,
+    // Real questions ask for "country, city, and ISP information" — naming the
+    // place and stopping leaves a third of that unanswered, with the operator
+    // sitting unused in a field. Coordinates stay in the fields: nobody asked.
+    reason:
+      `The IP address ${ip} is located in ${place}.` +
+      (org ? ` It is operated by ${org}${asn ? ` (${asn})` : ""}.` : "") +
+      (tz ? ` The local timezone is ${tz}.` : ""),
     checked_at: new Date().toISOString(),
   };
 }
