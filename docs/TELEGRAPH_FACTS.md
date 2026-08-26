@@ -182,3 +182,29 @@ https://devnode.telegraphprotocol.com/engine/v1/intents   canonical intents + mi
 - [Intents](https://docs.telegraphprotocol.com/docs/using/intents)
 - [Build a Scoring Module](https://docs.telegraphprotocol.com/docs/scoring/build-a-scoring-module)
 - Repo of examples: https://github.com/telegraphprotocol/telegraph-usecases
+
+---
+
+## Routed queries are payment-gated (verified 2026-08-26)
+
+`POST /engine/v1/ask` returns **HTTP 402** without a payment payload:
+
+```json
+{ "error": "payment required",
+  "accepts": [{ "scheme":"exact", "price":"$0.01",
+                "network":"eip155:84532",
+                "payTo":"0x5a2324aA18613FAD4e44bDF0d6c73Ec1f6D87ff8" }] }
+```
+
+**$0.01 USDC per routed request**, on Base Sepolia, paid to the Diamond contract.
+
+Two consequences that matter:
+
+1. **We cannot test end-to-end routing for free.** Verifying that the engine constructs a correct
+   call against our YAML costs a real (testnet) payment.
+2. **The eligibility guardrail has a price.** An intent needs ≥100 real Track 3 requests to be
+   prize-eligible (G13). At $0.01 each that is **~$1.00 of testnet USDC** — trivially cheap, but
+   it must actually be spent, and testnet USDC must be obtained from a faucet first.
+
+Base Sepolia USDC: `0x036CbD53842c5426634e7929541eC2318f3dCF7e`
+Faucet: https://faucet.circle.com

@@ -204,6 +204,12 @@ so it did not disturb the registration.
 **`activation_status: active` confirmed 2026-08-26 14:51 UTC.** Present in all three intent
 listings: SSL_VERIFICATION 3→4 miners, STORM_ALERT 3→4, WEATHER_FORECAST 10→11. Network 90→91.
 
+**Routed queries cost $0.01 USDC (x402, Base Sepolia).** `/engine/v1/ask` returns 402 without
+payment. The wallet holds **0 USDC** — so CertWatch cannot yet generate the routed demand that the
+eligibility guardrail (G13) requires. ~$1.00 buys the 100-request floor. Needs: testnet USDC from
+faucet.circle.com, and `EVM_PRIVATE_KEY` set as a Vercel env var by the **user** (Claude never
+handles keys).
+
 **Grace period runs ~7 days from activation** — unranked during it, sharing 5% of routed traffic
 equally with other new miners. The score earned there sets the opening leaderboard position.
 
