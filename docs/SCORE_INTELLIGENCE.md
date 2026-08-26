@@ -79,9 +79,32 @@ scores **0.0000** — same intent, same scorer, 0 vs 0.99. That is not the score
 is one miner answering in a form the scorer recognises and the other not. If the same dynamic
 holds in `SSL_VERIFICATION`, a well-shaped answer could score ~0.99 against a field stuck at 0.006.
 
-The `chainwire` vs `txlens` pair is strong evidence for **(b)**, at least in that intent. Their
-`signal_mapping` differs (`label_field: symbol` vs `status`) but that alone is unlikely to explain
-0 vs 0.99 — worth determining what else differs, because it is the highest-value unknown we have.
+**Resolved in favour of (b), by direct test.** `chainwire`'s own endpoint description says it
+"accepts an ENS name and **a whole question in `?query=`**" and that "an unsubstituted template
+resolves to ethereum rather than erroring." Calling both miners confirms it:
+
+| Input | `chainwire` (0.992) | `txlens` (0.000) |
+|---|---|---|
+| `?query=What is the ETH balance of vitalik.eth on ethereum?` | parsed the ENS name, resolved to `0xd8dA6BF…96045` | `{"status":"error","summary":"must include a valid address query parameter"}` |
+| unsubstituted `/{chain}/{address}` template | full valid answer, defaulted to ethereum | — |
+
+**The scorer compares text.** An error message shares no vocabulary with a ground-truth answer, so
+it scores ~0. A miner that refuses natural language does not score badly — it scores *nothing*.
+
+This is the same failure our own miner had until 2026-08-26, when free-text extraction was added
+(`src/extract.ts`). We were one untested assumption away from the `txlens` outcome.
+
+Note the shape of chainwire's winning answer, which our `reason` field already mirrors:
+
+> `"summary": "0x0000…0000 holds 14,148.7383 ETH on Ethereum."`   `"confidence": 0.98`
+
+One plain declarative sentence containing the entities and the value. Not a JSON dump, not a grade
+report. Compare `ssllabs`, which returns a full Qualys assessment and scores 0.0042.
+
+**Applied 2026-08-26:** error responses now carry `verdict` / `confidence` / `reason` rather than a
+bare `{error, message}` blob, so a borderline request still resolves through `signal_mapping`
+instead of returning text a scorer cannot read. The HTTP status stays 400 — the request really was
+malformed, and A5 forbids liar-200s.
 
 ## 5. What this changes
 

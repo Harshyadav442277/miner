@@ -92,8 +92,11 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
       "";
     if (!q.trim()) {
       send(res, 400, {
+        location: q.slice(0, 200),
+        verdict: "unknown",
+        confidence: 0,
+        reason: "No location could be read from the request, so a forecast could not be produced. Name a place such as London.",
         error: "invalid_location",
-        message: "Name a location. Example: /weather-forecast?location=London&hours=24",
       });
       return;
     }
@@ -125,8 +128,11 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
       "";
     if (!q.trim()) {
       send(res, 400, {
+        location: q.slice(0, 200),
+        verdict: "unknown",
+        confidence: 0,
+        reason: "No location could be read from the request, so storm risk could not be assessed. Name a place such as Chennai.",
         error: "invalid_location",
-        message: "Name a location. Example: /storm-alert?location=Chennai",
       });
       return;
     }
@@ -165,9 +171,18 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
 
   const target = normalizeTarget(raw);
   if (!target) {
+    // Shaped like an answer, not a bare error. semantics.signal_mapping points at
+    // verdict/confidence/reason, and a body without those fields resolves to
+    // nothing at all — a scorer comparing text finds no vocabulary in
+    // {"error":"invalid_domain"}. Saying "I could not determine this" in the
+    // schema's own words is both honest and legible. The status stays 400
+    // because the request genuinely was malformed (A5: no liar-200s).
     send(res, 400, {
+      domain: raw.slice(0, 200),
+      verdict: "unknown",
+      confidence: 0,
+      reason: `No hostname could be read from ${JSON.stringify(raw.slice(0, 120))}, so the SSL certificate could not be checked. Supply a domain such as example.com.`,
       error: "invalid_domain",
-      message: `Could not read a hostname from ${JSON.stringify(raw)}. Example: /ssl-check?domain=example.com`,
     });
     return;
   }

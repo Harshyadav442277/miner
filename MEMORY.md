@@ -217,6 +217,18 @@ question answered with an error is a zero. Now all three endpoints extract the p
 free text (`src/extract.ts`), while still rejecting typo'd fragments like `"exa mple.com"`.
 57 tests pass; p95 latency improved 1136ms → 523ms.
 
+**Scoring intelligence (2026-08-26)** → [docs/SCORE_INTELLIGENCE.md](docs/SCORE_INTELLIGENCE.md).
+Three things settled by live data:
+1. **Multi-intent miners are scored independently per intent** — `txlens` holds rank 1 in three
+   intents and rank 5 in another simultaneously. Breadth is free upside; a weak intent cannot drag
+   down a strong one.
+2. **Only rank matters, not absolute score.** Rank 1 gets the full 75 whether the score is 0.99 or
+   0.006. The bars to beat: SSL **0.00627648**, STORM **0.00657676**, FORECAST **0.00800136**.
+3. **Refusing natural language scores zero, not badly.** `chainwire` (0.992) parses a whole
+   question from `?query=`; `txlens` (0.000, same intent) returns an error object. The scorer
+   compares text and an error shares no vocabulary with the ground truth. We had this exact bug
+   until today.
+
 **Grace period runs ~7 days from activation** — unranked during it, sharing 5% of routed traffic
 equally with other new miners. The score earned there sets the opening leaderboard position.
 
