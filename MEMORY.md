@@ -255,6 +255,21 @@ answer. The IP_GEOLOCATION endpoint is built and deployed but that intent is NOT
 **Do not fund CertWatch's wallet** until G18 is closed — its endpoints are now authenticated
 (G17) but state is still ephemeral and sweeps do not run on Vercel.
 
+**FIRST SCORED EPOCH 284 (2026-08-26)** → [docs/EPOCH_284.md](docs/EPOCH_284.md)
+```
+SSL_VERIFICATION   rank 3 of 4    0.00449282   (rank 1 txlens 0.00601)
+STORM_ALERT        rank 3 of 4    0.00000000   (rank 1 amanat  0.00651)
+WEATHER_FORECAST   rank 7 of 11   0.00698984   (rank 1 verity  0.00992)
+```
+**`tools/score-sim.mjs` was wrong.** It predicted 0.9453 for us vs 0.02–0.06 for the incumbents;
+reality has txlens ahead of us. It used the documented *reference* scorer and ground truths written
+by hand — neither is what runs. Do not make decisions from it.
+
+**Focus `STORM_ALERT`.** Three of four miners there scored exactly 0.0. It is the only one of our
+intents with real recurring demand (15 real questions in 72h; SSL had **zero**). Our zero is
+plausibly stale — the coordinate/window fixes landed around the 15:52 scoring time and `"right now"`
+after it. We now answer 15/15 of the real corpus. **Epoch 285 is the test.**
+
 **Grace period runs ~7 days from activation** — unranked during it, sharing 5% of routed traffic
 equally with other new miners. The score earned there sets the opening leaderboard position.
 
