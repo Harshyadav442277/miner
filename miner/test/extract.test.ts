@@ -130,3 +130,26 @@ describe("hemisphere coordinates", () => {
     assert.deepEqual(extractCoords("40.7128,-74.0060"), { lat: 40.7128, lon: -74.006 });
   });
 });
+
+describe("time words are not places", () => {
+  // "next Monday" geocoded to Munday, a real town, and produced a confident
+  // forecast for the wrong continent while the question named New York City.
+  test("a weekday does not become the location", () => {
+    const c = placeCandidates(
+      "7-day weather forecast with hourly temperature and precipitation details for New York City starting next Monday",
+    );
+    assert.ok(c.includes("New York City"));
+    assert.ok(!c.some((x) => /monday/i.test(x)));
+  });
+
+  test("a month name does not become the location", () => {
+    const c = placeCandidates("forecast for Chennai starting September 1");
+    assert.ok(!c.some((x) => x.trim().toLowerCase() === "september"));
+  });
+
+  test("relative days do not become the location", () => {
+    const c = placeCandidates("storm risk in Chennai tomorrow");
+    assert.ok(c.includes("Chennai"));
+    assert.ok(!c.some((x) => x.trim().toLowerCase() === "tomorrow"));
+  });
+});

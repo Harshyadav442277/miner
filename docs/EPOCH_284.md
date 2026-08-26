@@ -306,3 +306,29 @@ SSL_VERIFICATION   mean 0.00919 over 12 real questions
 STORM_ALERT        mean 0.00912 over 12 real questions
 WEATHER_FORECAST   mean 0.17346 over 12 real questions
 ```
+
+
+## "next Monday" was being treated as a place
+
+Inspecting why eleven weather questions scored ~0.008 while one scored 0.99 surfaced a bug the
+score alone would never have named. For:
+
+> "7-day weather forecast with hourly temperature and precipitation details for **New York City**
+> starting **next Monday**"
+
+we answered for **Munḏay** — a real town that fuzzy-matches "Monday". A confident, well-formed
+forecast for the wrong continent.
+
+Weekday names, month names, and relative day words are time expressions, not locations, and are now
+excluded from place candidates. The same question now resolves to New York.
+
+Score effect is small (0.17346 → 0.17366) because the ground truths for most of these questions
+themselves decline to answer — but a forecast for the wrong continent is wrong regardless of what
+it scores, and the next question that names a weekday would have hit it too.
+
+### Why the eleven score low, and why not to chase it
+
+Their ground truths mostly read *"Unfortunately, I cannot provide the exact forecast…"*. The
+reference answer declines. We could score higher by declining too — and that would be gaming a
+scorer rather than answering a buyer, exactly the Rule-04 line Codex warned about. **Not doing it.**
+The one question with a real ground truth is the one we score 0.99 on.

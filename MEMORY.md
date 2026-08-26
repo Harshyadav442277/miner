@@ -339,6 +339,14 @@ positive answers for China instead of Colorado. The storm benchmark mean dipped 
 (0.00938 -> 0.00912) because two questions previously *failed* and now resolve; correctness beats
 the benchmark, so this was kept.
 
+**Weekday/month names are no longer treated as places.** "New York City starting next Monday"
+resolved to **Munḏay**, a real town — a confident forecast for the wrong continent. Fixed.
+
+**Do not chase the low weather scores by declining to answer.** Most of those ground truths
+themselves say "I cannot provide the exact forecast", so a refusal would score higher. That is
+gaming the scorer rather than answering the buyer (Rule 04). The one question with a real ground
+truth is the one we score 0.99 on.
+
 **Grace period runs ~7 days from activation** — unranked during it, sharing 5% of routed traffic
 equally with other new miners. The score earned there sets the opening leaderboard position.
 

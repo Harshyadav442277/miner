@@ -94,6 +94,13 @@ export function placeCandidates(text: string): string[] {
       "will", "what", "how", "is", "are", "the", "a", "an", "i", "can", "could",
       "would", "please", "give", "show", "tell", "provide", "report", "include",
       "celsius", "fahrenheit", "utc", "gmt",
+      // Weekdays and months are time expressions, not places. "next Monday"
+      // geocoded to Munday, a real town, and produced a confident forecast for
+      // the wrong continent.
+      "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday",
+      "january", "february", "march", "april", "may", "june", "july",
+      "august", "september", "october", "november", "december",
+      "today", "tomorrow", "tonight", "morning", "afternoon", "evening",
     ]);
     const kept = proper.filter((p) => !stop.has(p.toLowerCase()));
     // "Tokyo, Japan" reads as one place; the pair beats either half alone.
