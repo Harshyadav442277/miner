@@ -428,3 +428,30 @@ and place, the SSL chain and hostname checks, and now the ISP.
 
 Each is one question against that intent's champion binary. The 12-question benchmarks in
 `tools/bench-champion.mjs` are the generalisation check; these are the head-to-heads.
+
+
+## A measurement that fooled me, and the correction
+
+Storm answers were reporting a single maximum where the question asked for "a 48-hour wind speed
+forecast" — a series. The ground truth gives a period breakdown ("Day 1 morning… afternoon…
+evening…"), so adding one looked like the same missing-clause pattern that paid 97x on geolocation.
+
+A hand-written candidate with the breakdown scored **0.61358** against 0.00819. A 75x gain.
+
+**That number was wrong, and the error was mine.** The candidate opened with:
+
+> "The 48-hour wind speed forecast for New York City (latitude 40.7128, longitude -74.0060) and the
+> identification of periods with sustained winds above 25 knots that could delay crane operations
+> is as follows."
+
+which closely echoes the ground truth's own opening sentence. I was measuring *"copy the
+reference's phrasing"*, not *"report the series"*. Implementing the breakdown honestly — generated
+from real forecast data, in our own words — scores **0.00856969**, a real but modest **+4.7%**.
+
+Kept, because it genuinely answers what was asked and the gain is real. But the near-miss is worth
+recording: **a candidate written by hand while looking at the ground truth will leak that ground
+truth**, and the resulting number will be flattering and useless. The offline loop is only
+trustworthy when the candidate comes from the deployed code.
+
+Periods are also now computed in the location's local time (`timezone=auto`), so "morning" means
+morning where the site is rather than in UTC.

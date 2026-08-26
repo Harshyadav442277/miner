@@ -353,6 +353,10 @@ Every large gain today came from finding a clause going unanswered — storm thr
 period and place, SSL chain/hostname, geolocation ISP. Every attempt to tune phrasing instead
 (terse vs verbose, label_field, word-overlap) failed.
 
+**MEASUREMENT TRAP:** a candidate answer written by hand while reading the ground truth leaks that
+ground truth. A storm candidate scored 0.614 that way; the honest implementation scores 0.0086
+(+4.7%, still kept). **Only measure answers produced by the deployed code.**
+
 **Grace period runs ~7 days from activation** — unranked during it, sharing 5% of routed traffic
 equally with other new miners. The score earned there sets the opening leaderboard position.
 
