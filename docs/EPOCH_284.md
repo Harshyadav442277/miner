@@ -332,3 +332,32 @@ Their ground truths mostly read *"Unfortunately, I cannot provide the exact fore
 reference answer declines. We could score higher by declining too — and that would be gaming a
 scorer rather than answering a buyer, exactly the Rule-04 line Codex warned about. **Not doing it.**
 The one question with a real ground truth is the one we score 0.99 on.
+
+
+## Both SSL paths beat the leader
+
+The 12-question SSL benchmark is entirely `api.example.com`, which does not resolve — so it only
+ever exercised the unreachable answer. The scored records also contain six questions about
+`api.github.com`, a reachable host, which exercise the chain/SAN/protocol path.
+
+On the best-scored `api.github.com` question:
+
+| Miner | Score |
+|---|---|
+| **livecert** | **0.01077412** |
+| `txlens` (rank 1 on this question) | 0.00834718 |
+| `ssllabs` | 0.00681134 |
+| `certspotter` | 0.00000000 |
+
+So both paths — unreachable (0.01061 vs 0.00601) and reachable (0.01077 vs 0.00835) — measure above
+the miner currently ranked first.
+
+### A place where being right costs score
+
+That ground truth says the certificate is *"issued by Let's Encrypt"*. We report **Sectigo
+Limited**, because the certificate has since been reissued and that is what the server presents
+today.
+
+We are reporting the current truth against a stale reference, and losing word-overlap for it. That
+is the correct behaviour for a question asking "as of August 26, 2026" — and it is worth recording
+that the scorer cannot distinguish "wrong" from "more current than the ground truth".

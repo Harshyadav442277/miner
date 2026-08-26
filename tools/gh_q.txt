@@ -1,0 +1,1 @@
+Can you analyze the TLS/SSL certificate configuration and chain for api.github.com to verify its validity, issuer, and hostname match as of August 26, 2026?

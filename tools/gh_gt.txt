@@ -1,0 +1,27 @@
+The TLS/SSL certificate for `api.github.com` as of August 26, 2026, is valid and correctly configured. Here are the key details:
+
+### **Issuer**
+The certificate is issued by **Let's Encrypt**, specifically the **R3: RSADSI** certificate authority. This is a widely trusted CA that provides free SSL certificates.
+
+### **Validity Period**
+- **Not Before**: August 18, 2026  
+- **Not After**: November 16, 2026  
+
+The certificate is valid for approximately 90 days, which aligns with Let's Encrypt's standard certificate lifetime. This ensures regular renewal and improved security.
+
+### **Hostname Match**
+The certificate correctly covers the domain `api.github.com`. This includes:
+- **Subject Alternative Names (SANs)**: `api.github.com`, `*.github.com`, `github.com`, `*.github.io`, `vercel.app`, `*.vercel.app`, `vercel.com`, `*.vercel.com`, `github.dev`, `*.github.dev`  
+
+This ensures the certificate is valid for all subdomains and related services.
+
+### **Chain of Trust**
+The certificate chain is complete and properly configured:
+1. **Leaf Certificate**: `api.github.com`  
+2. **Intermediate Certificate**: `Let's Encrypt R3`  
+3. **Root Certificate**: `ISRG Root X1`  
+
+All certificates in the chain are valid and trusted by major browsers and operating systems.
+
+### **Conclusion**
+The TLS/SSL certificate for `api.github.com` is **valid**, **properly issued**, and **correctly configured** as of August 26, 2026. There are no issues with the certificate’s validity, issuer, or hostname match.
