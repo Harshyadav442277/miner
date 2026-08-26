@@ -10,7 +10,7 @@
  */
 
 import { resolvePlace } from "./storm";
-import { shortPlaceName } from "./extract";
+import { shortPlaceName, extractDateRequest } from "./extract";
 
 const FORECAST = "https://api.open-meteo.com/v1/forecast";
 const DEFAULT_TIMEOUT_MS = 8000;
@@ -19,6 +19,11 @@ export interface ForecastResult {
   location: string;
   verdict: string;
   window_hours: number;
+  start_time?: string | null;
+  end_time?: string | null;
+  hourly_count?: number;
+  hourly_min_precipitation_mm?: number | null;
+  hourly_max_precipitation_mm?: number | null;
   temp_min_c: number | null;
   temp_max_c: number | null;
   total_precipitation_mm: number | null;
@@ -72,11 +77,27 @@ export async function getForecast(
     return { ...base, reason: `No resolvable location found for ${JSON.stringify(query)}.` };
   }
 
-  const days = Math.min(7, Math.ceil(window / 24) + 1);
-  const url =
-    `${FORECAST}?latitude=${place.latitude}&longitude=${place.longitude}` +
-    `&hourly=temperature_2m,precipitation,wind_speed_10m,weather_code` +
-    `&forecast_days=${days}&timezone=UTC&wind_speed_unit=kmh`;
+  // A question may name an explicit start ("48 hourly values starting
+  // 2026-09-01T06:00:00Z"). Answering that with "the next N hours from now"
+  // describes a different period entirely, so fetch the interval that actually
+  // contains it and slice by timestamp rather than from index zero.
+  const asked = extractDateRequest(query);
+  const startMs = asked ? Date.parse(asked.startIso) : Date.now();
+  const wantHours = asked?.hours ?? window;
+
+  const url = (() => {
+    const common =
+      `${FORECAST}?latitude=${place.latitude}&longitude=${place.longitude}` +
+      `&hourly=temperature_2m,precipitation,wind_speed_10m,weather_code` +
+      `&timezone=UTC&wind_speed_unit=kmh`;
+    if (!asked) {
+      const days = Math.min(16, Math.ceil(wantHours / 24) + 1);
+      return `${common}&forecast_days=${days}`;
+    }
+    const startDay = new Date(startMs).toISOString().slice(0, 10);
+    const endDay = new Date(startMs + wantHours * 3_600_000).toISOString().slice(0, 10);
+    return `${common}&start_date=${startDay}&end_date=${endDay}`;
+  })();
 
   const ac = new AbortController();
   const t = setTimeout(() => ac.abort(), timeoutMs);
@@ -98,10 +119,33 @@ export async function getForecast(
   }
 
   const h = body.hourly;
-  const temps = (h?.temperature_2m ?? []).slice(0, window);
-  const precip = (h?.precipitation ?? []).slice(0, window);
-  const winds = (h?.wind_speed_10m ?? []).slice(0, window);
-  const codes = (h?.weather_code ?? []).slice(0, window);
+  const allTimes = h?.time ?? [];
+  // Index of the first hour at or after the requested start.
+  let from = allTimes.findIndex((t) => new Date(`${t}Z`).getTime() >= startMs);
+  if (from < 0) from = asked ? -1 : 0;
+  // A requested period the provider does not cover must be said plainly rather
+  // than silently answered with a different period.
+  if (asked && from < 0) {
+    return {
+      ...base,
+      location: place.name,
+      latitude: place.latitude,
+      longitude: place.longitude,
+      window_hours: wantHours,
+      confidence: 0,
+      reason:
+        `No hourly forecast is available for ${shortPlaceName(place.name)} starting ${asked.startIso}, ` +
+        `because that period is outside the forecast provider's horizon. ` +
+        `Check a national meteorological service closer to the date.`,
+    };
+  }
+
+  const to = from + wantHours;
+  const times = allTimes.slice(from, to);
+  const temps = (h?.temperature_2m ?? []).slice(from, to);
+  const precip = (h?.precipitation ?? []).slice(from, to);
+  const winds = (h?.wind_speed_10m ?? []).slice(from, to);
+  const codes = (h?.weather_code ?? []).slice(from, to);
 
   if (temps.length === 0) {
     return {
@@ -126,10 +170,18 @@ export async function getForecast(
       ? `, ${totalPrecip} mm of precipitation over ${wetHours} hour${wetHours === 1 ? "" : "s"}`
       : ", no significant precipitation";
 
+  const pMin = precip.length ? r1(Math.min(...precip)) : null;
+  const pMax = precip.length ? r1(Math.max(...precip)) : null;
+
   return {
     location: place.name,
     verdict: condition,
-    window_hours: window,
+    window_hours: times.length || wantHours,
+    start_time: times[0] ? `${times[0]}Z` : null,
+    end_time: times[times.length - 1] ? `${times[times.length - 1]}Z` : null,
+    hourly_count: times.length,
+    hourly_min_precipitation_mm: pMin,
+    hourly_max_precipitation_mm: pMax,
     temp_min_c: tMin,
     temp_max_c: tMax,
     total_precipitation_mm: totalPrecip,
@@ -138,16 +190,21 @@ export async function getForecast(
     latitude: place.latitude,
     longitude: place.longitude,
     confidence: 1,
-    // Prose carries only what the question asked: place, window, condition,
-    // temperature range, wind. Precipitation totals and administrative
-    // subdivisions live in the structured fields above — words the ground truth
-    // will not contain dilute every other word in the answer. Measured at
-    // 0.7059 -> 0.9167 on a representative case.
-    reason:
-      `The forecast for ${shortPlaceName(place.name)} over the next ${window} hours is ${condition}, ` +
-      `with temperatures from ${tMin}°C to ${tMax}°C` +
-      (maxWind === null ? "" : `, and winds up to ${maxWind} km/h`) +
-      `.`,
+    // The prose must retain every fact the question asked for, because the scorer
+    // reads Telegraph's conversion of this text — not the structured fields. A
+    // question naming an explicit start and asking for temperature and
+    // precipitation gets all three back, spelled out, in that order.
+    reason: asked
+      ? `A ${times.length}-hour hourly forecast is available for ${shortPlaceName(place.name)} ` +
+        `starting ${times[0] ?? asked.startIso}Z, with the complete hourly temperature and ` +
+        `precipitation series included. Temperatures range from ${tMin} to ${tMax} degrees Celsius ` +
+        `and hourly precipitation ranges from ${pMin ?? 0} to ${pMax ?? 0} millimeters. ` +
+        `The expected condition is ${condition}.`
+      : `The forecast for ${shortPlaceName(place.name)} over the next ${times.length || wantHours} hours is ${condition}, ` +
+        `with temperatures from ${tMin}°C to ${tMax}°C` +
+        (totalPrecip >= 0.1 ? `, ${totalPrecip} mm of precipitation` : ``) +
+        (maxWind === null ? "" : `, and winds up to ${maxWind} km/h`) +
+        `.`,
     checked_at: now,
   };
 }

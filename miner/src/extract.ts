@@ -234,3 +234,43 @@ export function extractHours(text: string): number | null {
   const hours = /^d/i.test(m[2]) ? n * 24 : n;
   return hours >= 1 && hours <= 384 ? Math.round(hours) : null;
 }
+
+export interface DateRequest {
+  /** UTC start of the requested period. */
+  startIso: string;
+  /** How many hourly values were asked for, if stated. */
+  hours: number | null;
+}
+
+/**
+ * An explicit start time named in the question.
+ *
+ * Real paid weather questions say things like "48 hourly values starting
+ * 2026-09-01T06:00:00Z". Answering those with "the next 48 hours from now"
+ * describes a different period entirely — the single largest scoring defect
+ * found so far. Returns null when the question names no start, so the caller
+ * keeps its "from now" default.
+ */
+export function extractDateRequest(text: string): DateRequest | null {
+  const s = String(text ?? "");
+  if (!s.trim()) return null;
+
+  const count = s.match(/\b(\d{1,3})\s*(?:hourly values|hourly|hours?)\b/i);
+  const hours = count?.[1] ? Number(count[1]) : null;
+
+  // Full ISO 8601, with or without the Z.
+  const iso = s.match(/\b(\d{4}-\d{2}-\d{2})[T ](\d{2}):(\d{2})(?::\d{2})?\s*(Z|UTC)?/i);
+  if (iso?.[1] && iso[2] && iso[3]) {
+    const d = new Date(`${iso[1]}T${iso[2]}:${iso[3]}:00Z`);
+    if (!Number.isNaN(d.getTime())) return { startIso: d.toISOString(), hours };
+  }
+
+  // A bare date, optionally with "starting"/"from"/"on". Midnight UTC.
+  const day = s.match(/\b(?:start(?:ing)?|from|on|for)?\s*(\d{4}-\d{2}-\d{2})\b/i);
+  if (day?.[1]) {
+    const d = new Date(`${day[1]}T00:00:00Z`);
+    if (!Number.isNaN(d.getTime())) return { startIso: d.toISOString(), hours };
+  }
+
+  return null;
+}

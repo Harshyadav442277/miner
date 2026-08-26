@@ -90,6 +90,20 @@ output_schema:
   type: object
   properties:
     domain: { type: string }
+    start_time:
+      type: [string, "null"]
+      description: >-
+        First hour of the returned series, UTC. /weather-forecast honours an
+        explicit start named in the question.
+    end_time:
+      type: [string, "null"]
+    hourly_count:
+      type: integer
+      description: Number of hourly values returned.
+    hourly_min_precipitation_mm:
+      type: [number, "null"]
+    hourly_max_precipitation_mm:
+      type: [number, "null"]
     time_mode:
       type: string
       description: >-
