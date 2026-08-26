@@ -236,6 +236,11 @@ documented reference scorer against the incumbents' answer shapes: **ours 0.9453
 moved the mean 0.7697 → 0.9453. Rule: facts in fields, answer in prose, nothing in the prose the
 question did not ask for.
 
+**Telegraph devnode was DOWN at 2026-08-26 ~15:45 UTC** — three consecutive 20s timeouts on
+`devnode.telegraphprotocol.com` while our miner answered in 0.5s and the wider internet was fine.
+Not our outage. While it lasts: no scoring, no catalog reads, and the registration console likely
+cannot complete an `updateMiner`. Re-check before assuming anything is wrong on our side.
+
 **Grace period runs ~7 days from activation** — unranked during it, sharing 5% of routed traffic
 equally with other new miners. The score earned there sets the opening leaderboard position.
 

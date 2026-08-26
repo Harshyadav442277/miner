@@ -145,3 +145,15 @@ The docs show `createSigner` from `@x402/evm`; the published package (2.23.0) ex
 needs `viem`, which is ESM-only — so the app is ESM while the miner stays CommonJS.
 Resolved by reading the shipped `.d.ts` files rather than the docs. Worth remembering: **the
 Telegraph docs lag their own SDK**, so verify against the package, not the page.
+
+### G16 · The protocol node is a single point of failure for us — `OPEN`
+`devnode.telegraphprotocol.com` was fully unreachable for at least three consecutive 20s probes on
+2026-08-26 while our own miner served normally. Everything we depend on for *observability* —
+activation status, catalog, intents, scores — runs through that one host, and so does the
+registration console.
+
+Implications we cannot engineer away:
+- A node outage during the grace period may cost us scored epochs through no fault of ours.
+- `updateMiner` (the pending IP_GEOLOCATION addition) cannot be executed while it is down.
+- Our uptime workflow polls `activation_status` through the same host, so a node outage will look
+  like a miner problem in our own alerting. Worth distinguishing in `tools/watch.mjs` if it recurs.
