@@ -173,3 +173,43 @@ The first threshold implementation inverted the unit conversion — dividing by 
 multiplying — and produced *"sustained wind speeds up to 13.2 knots … winds are forecast to exceed
 25 knots during 17 hours"*. Internally contradictory and confidently wrong, which is worse than
 declining to answer. Pinned with a regression test.
+
+
+---
+
+## All three intents, measured against their real champions
+
+Each intent's champion WASM was downloaded from `/api/wasm` (commit-pinned, ~24 MB each) and run
+against the exact question and ground truth from our epoch-284 score record.
+
+| Intent | What scored | After fixes | Rank-1 in epoch 284 | vs leader |
+|---|---|---|---|---|
+| `SSL_VERIFICATION` | 0.00449282 | **0.01061158** | `txlens` 0.00600746 | **1.77×** |
+| `STORM_ALERT` | 0.00000000 | **0.00818542** | `amanat` 0.00651249 | **1.26×** |
+| `WEATHER_FORECAST` | 0.00698984 | **0.99482328** | `verity` 0.00992360 | **100×** |
+
+The weather figure is not a typo. It is also independently corroborated: Codex predicted
+0.9963806868 for a date-aware truthful answer before the implementation existed, and the shipped
+code measures 0.9948 on a fresher model run.
+
+### The weather fix needed three bugs fixed, two of them mine
+
+The first date-aware attempt scored 0.0078 — barely moved. Measuring showed why: it answered for
+**Guangzhou over 24 hours** when asked about **Tokyo, Japan over 48**.
+
+1. **The whole question was being handed to the geocoder.** "Can you provide a 48-hour hourly
+   weather forecast for Tokyo, Japan starting from…" resolved to Guangzhou. A place name is not a
+   sentence, so candidates longer than 60 characters are no longer geocoded.
+2. **Question openers passed as proper nouns.** "Can" was a candidate. The stop list now covers
+   the words that open a question rather than name a place.
+3. **"48-hour" did not parse** — the hyphen is not whitespace, so the count regex missed it and the
+   window fell back to 24.
+
+Each was found by measuring against the real scorer, not by reading the code. None would have been
+caught by the endpoint tests, which only assert that a forecast comes back.
+
+### Method note
+
+This is now the loop: pull the champion, pull our scored record, replay the real question, measure.
+Three of my scoring theories were disproven today by guessing; every improvement above came from
+measuring. `tools/score-sim.mjs` is superseded and should not be used.

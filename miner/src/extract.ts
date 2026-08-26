@@ -90,12 +90,23 @@ export function placeCandidates(text: string): string[] {
   // Proper-noun runs are the strongest signal in an English question.
   const proper = raw.match(/\b[A-Z][a-z]+(?:[ -][A-Z][a-z]+)*/g);
   if (proper) {
-    const stop = new Set(["will", "what", "how", "is", "the", "a", "an", "i"]);
-    for (const p of proper) {
-      if (!stop.has(p.toLowerCase()) && !out.includes(p)) out.push(p);
+    const stop = new Set([
+      "will", "what", "how", "is", "are", "the", "a", "an", "i", "can", "could",
+      "would", "please", "give", "show", "tell", "provide", "report", "include",
+      "celsius", "fahrenheit", "utc", "gmt",
+    ]);
+    const kept = proper.filter((p) => !stop.has(p.toLowerCase()));
+    // "Tokyo, Japan" reads as one place; the pair beats either half alone.
+    for (let i = 0; i + 1 < kept.length; i++) {
+      const joined = `${kept[i]}, ${kept[i + 1]}`;
+      if (raw.includes(joined) && !out.includes(joined)) out.push(joined);
     }
+    for (const p of kept) if (!out.includes(p)) out.push(p);
   }
-  const unique = [...new Set(out.filter(Boolean))];
+  // A place name is not a sentence. Handing the geocoder 90 characters of
+  // question resolved "Can you provide a 48-hour forecast for Tokyo, Japan..."
+  // to Guangzhou — a confident answer about the wrong city.
+  const unique = [...new Set(out.filter(Boolean))].filter((c) => c.length <= 60);
 
   // Each candidate costs a geocode round-trip, and latency is scored. For a long
   // sentence the raw string is the least likely to resolve, so try the extracted
@@ -255,7 +266,7 @@ export function extractDateRequest(text: string): DateRequest | null {
   const s = String(text ?? "");
   if (!s.trim()) return null;
 
-  const count = s.match(/\b(\d{1,3})\s*(?:hourly values|hourly|hours?)\b/i);
+  const count = s.match(/\b(\d{1,3})[-\s]*(?:hourly values|hourly|hours?)\b/i);
   const hours = count?.[1] ? Number(count[1]) : null;
 
   // Full ISO 8601, with or without the Z.

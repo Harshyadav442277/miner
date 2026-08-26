@@ -314,6 +314,16 @@ reverse-geocoded place name **0.00819** — against a leader of **0.00651**, so 
 **Fuller answers score better**, disproving the terse-answer theory. Trust the champion binary, not
 `tools/score-sim.mjs`.
 
+**ALL THREE INTENTS NOW MEASURE ABOVE THE EPOCH-284 LEADER** (real champion WASM, real questions):
+```
+SSL_VERIFICATION   0.00449 -> 0.01061   leader 0.00601   1.77x
+STORM_ALERT        0.00000 -> 0.00819   leader 0.00651   1.26x
+WEATHER_FORECAST   0.00699 -> 0.99482   leader 0.00992    100x
+```
+Weather needed three bugs fixed: the whole question was being geocoded (resolved Tokyo to
+**Guangzhou**), question openers like "Can" passed as proper nouns, and "48-hour" did not parse
+because a hyphen is not whitespace. All found by measuring, none by reading code.
+
 **Grace period runs ~7 days from activation** — unranked during it, sharing 5% of routed traffic
 equally with other new miners. The score earned there sets the opening leaderboard position.
 
