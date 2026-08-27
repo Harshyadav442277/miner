@@ -2,6 +2,7 @@ import { test, describe } from "node:test";
 import assert from "node:assert/strict";
 import { extractContent } from "../src/content";
 import { sourceText, targetLanguage } from "../src/translate";
+import { extractCveId } from "../src/cve";
 import { extractHostname, placeCandidates, extractWindThreshold, toKmh, asksForKnots, extractCoords } from "../src/extract";
 import { normalizeTarget } from "../src/ssl";
 
@@ -201,5 +202,19 @@ describe("translation", () => {
 
   test("returns null when no language is named", () => {
     assert.equal(targetLanguage('Translate "Hello" please.'), null);
+  });
+});
+
+describe("CVE identifiers", () => {
+  test("reads a CVE id from a question", () => {
+    assert.equal(extractCveId("severity and affected versions for CVE-2021-44228?"), "CVE-2021-44228");
+  });
+
+  test("tolerates spacing variants", () => {
+    assert.equal(extractCveId("cve 2026 34612"), "CVE-2026-34612");
+  });
+
+  test("returns null when none is present", () => {
+    assert.equal(extractCveId("what is the weather"), null);
   });
 });

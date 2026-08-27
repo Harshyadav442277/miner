@@ -4,6 +4,7 @@ import { checkStorm, type StormResult } from "./storm";
 import { extractContent } from "./content";
 import { getHeadlines } from "./news";
 import { translate } from "./translate";
+import { lookupCve } from "./cve";
 import { getForecast, type ForecastResult } from "./forecast";
 import { geolocate, type GeoResult } from "./geo";
 
@@ -277,6 +278,24 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
         send(res, 200, result);
       })
       .catch((e: unknown) => upstreamUnavailable(res, "A storm risk forecast", q.slice(0, 80), e));
+    return;
+  }
+
+  if (path === "/cve") {
+    const q = firstValue(url, "query", "q", "question", "cve", "id", "text", "input");
+    if (!q.trim()) {
+      send(res, 200, {
+        verdict: "unknown",
+        confidence: 0,
+        reason:
+          "No CVE identifier was supplied with this request. Name one, for example CVE-2021-44228.",
+        error: "invalid_input",
+      });
+      return;
+    }
+    lookupCve(q)
+      .then((r) => send(res, 200, r))
+      .catch((e: unknown) => upstreamUnavailable(res, "A CVE lookup", q.slice(0, 40), e));
     return;
   }
 

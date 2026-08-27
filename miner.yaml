@@ -34,6 +34,13 @@ endpoints:
       Severe-weather risk for a location over the next 48 hours. Accepts a place
       name or "lat,lon".
 
+  - path: /cve
+    external_path: /cve
+    method: GET
+    description: >-
+      Looks up a CVE in the NIST National Vulnerability Database and reports its
+      severity, CVSS score and vector, and the affected versions.
+
   - path: /translate
     external_path: /translate
     method: GET
@@ -83,6 +90,7 @@ semantics:
     - CONTENT_EXTRACTION
     - NEWS_HEADLINES
     - LANGUAGE_TRANSLATION
+    - CVE_LOOKUP
 
 # input_schema is a single top-level block covering every endpoint — the schema
 # refuses it inside endpoints[], and the node does not enforce it against requests.
@@ -159,6 +167,9 @@ input_schema:
     content:
       type: string
       description: /extract. The text to extract fields from, or the whole question.
+    cve:
+      type: string
+      description: /cve. A CVE identifier, e.g. CVE-2021-44228.
     ip:
       type: string
       description: /ip-geolocate. IPv4 or IPv6 address.
@@ -251,6 +262,13 @@ output_schema:
 
 docs:
   repository: https://github.com/Harshyadav442277/miner
+
+limitations:
+  - code: ACCOUNT_QUOTA
+    message: The NVD API allows roughly 5 requests per 30 seconds without a key
+    property: rate
+    value_num: 5
+    window_seconds: 30
 
 rate_limit_per_sec: 20
 cache_ttl_sec: 60
