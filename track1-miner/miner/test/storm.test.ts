@@ -72,7 +72,7 @@ describe("checkStorm (live)", () => {
   });
 });
 
-describe("answer completeness", () => {
+describe("answer completeness (live)", () => {
   // Was a size-budget assertion; the size theory was wrong (see ssl.test.ts).
   // The period breakdown stays out on its own merits: measured 0.00892 with it
   // and 0.00902 without.

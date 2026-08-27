@@ -135,14 +135,17 @@ function coordsFromParams(url: URL): string {
 }
 
 export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
-  // Log the query string so we can see what Telegraph's engine actually sends.
-  // Epoch-285 answers suggest it passes structured parameters derived from our
-  // input_schema rather than the original question — which would mean our
-  // natural-language parsing never sees "starting next Monday". Worth proving
-  // before spending an updateMiner on a schema change.
+  // Log which parameters the engine fills, but not their values: translation
+  // and extraction requests carry whole user texts, and a default that copies
+  // them into platform logs is a privacy leak. Set LOG_QUERY=full only while
+  // actively debugging what the engine sends.
   if (process.env.LOG_QUERY !== "off") {
-    process.stdout.write(`REQ ${req.method ?? "?"} ${req.url ?? "?"}
-`);
+    const u = new URL(req.url ?? "/", "http://localhost");
+    const line =
+      process.env.LOG_QUERY === "full"
+        ? (req.url ?? "?")
+        : `${u.pathname}?${[...u.searchParams.keys()].join(",")}`;
+    process.stdout.write(`REQ ${req.method ?? "?"} ${line}\n`);
   }
 
   // Base is only needed so URL can parse a path-relative request line.

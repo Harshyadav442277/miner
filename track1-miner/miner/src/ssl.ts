@@ -144,7 +144,11 @@ export async function checkCertificate(
 
     const socket = tls.connect(
       {
-        host,
+        // Connect to the exact address the guard vetted. Passing the hostname
+        // here would resolve DNS a second time, and a rebinding host can answer
+        // the guard's lookup with a public address and the connect's lookup
+        // with a private one. SNI and identity checks still use the hostname.
+        host: guard.address,
         port,
         servername: host,
         // Report on bad certificates instead of refusing to talk about them.
