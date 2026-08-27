@@ -34,6 +34,13 @@ endpoints:
       Severe-weather risk for a location over the next 48 hours. Accepts a place
       name or "lat,lon".
 
+  - path: /headlines
+    external_path: /headlines
+    method: GET
+    description: >-
+      Current news headlines for a topic and optional region, from Google News.
+      Returns real articles published now, with their sources.
+
   - path: /extract
     external_path: /extract
     method: GET
@@ -67,6 +74,7 @@ semantics:
     - WEATHER_FORECAST
     - IP_GEOLOCATION
     - CONTENT_EXTRACTION
+    - NEWS_HEADLINES
 
 # input_schema is a single top-level block covering every endpoint — the schema
 # refuses it inside endpoints[], and the node does not enforce it against requests.
@@ -137,6 +145,9 @@ input_schema:
     forecast_days:
       type: integer
       description: Alias for days.
+    topic:
+      type: string
+      description: /headlines. Subject to fetch headlines for, e.g. "technology".
     content:
       type: string
       description: /extract. The text to extract fields from, or the whole question.

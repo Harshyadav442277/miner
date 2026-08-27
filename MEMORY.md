@@ -389,6 +389,17 @@ answer that visibly addresses each clause reads as answering it.
 actually ran **once every 2-3 hours**. Changed to hourly, which is honest and ample against
 9-hour epochs. Do not trust a sub-hourly GitHub cron to fire.
 
+**BREADTH IS THE STRATEGY** — `chainsight-oracle` holds **11 intents and is #1 in four**, mostly
+with small scores in quiet corners. It won by covering ground, not by answering better. We went
+3 -> 4 (registration 236, live) and the YAML now declares **6**.
+
+**Two new endpoints, both targeting intents whose only miner scores ~0:**
+- `/extract` -> `CONTENT_EXTRACTION` (1 miner, **0.000 on all 6 questions** — it is a URL extractor
+  and the questions supply text inline). Deterministic regex extraction; **5 of 6 reproduce the
+  ground truth exactly.**
+- `/headlines` -> `NEWS_HEADLINES` (1 miner, 0.000-0.003). Google News RSS, keyless. Gotcha: the
+  `hl`/`gl`/`ceid` locale params make the feed return an **empty channel**; drop them.
+
 **Grace period runs ~7 days from activation** — unranked during it, sharing 5% of routed traffic
 equally with other new miners. The score earned there sets the opening leaderboard position.
 

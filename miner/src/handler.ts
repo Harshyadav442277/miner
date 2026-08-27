@@ -2,6 +2,7 @@ import type { IncomingMessage, ServerResponse } from "node:http";
 import { checkCertificate, normalizeTarget, type SslResult } from "./ssl";
 import { checkStorm, type StormResult } from "./storm";
 import { extractContent } from "./content";
+import { getHeadlines } from "./news";
 import { getForecast, type ForecastResult } from "./forecast";
 import { geolocate, type GeoResult } from "./geo";
 
@@ -275,6 +276,25 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
         send(res, 200, result);
       })
       .catch((e: unknown) => upstreamUnavailable(res, "A storm risk forecast", q.slice(0, 80), e));
+    return;
+  }
+
+  if (path === "/headlines") {
+    const q = firstValue(url, "query", "q", "question", "text", "topic", "input");
+    if (!q.trim()) {
+      send(res, 200, {
+        verdict: "unknown",
+        confidence: 0,
+        reason:
+          "No topic was supplied with this request, so no headlines could be retrieved. " +
+          "Name a subject and optionally a region, for example: current technology headlines in Japan.",
+        error: "invalid_input",
+      });
+      return;
+    }
+    getHeadlines(q)
+      .then((r) => send(res, 200, r))
+      .catch((e: unknown) => upstreamUnavailable(res, "Current headlines", q.slice(0, 60), e));
     return;
   }
 
