@@ -141,3 +141,40 @@ deployment, registration, wallet, paid request, or external account was
 mutated. See
 [`2026-08-26-live-scoring-recon.md`](2026-08-26-live-scoring-recon.md) for the
 evidence, exact candidates, integrity boundary, and reproduction procedure.
+
+## 2026-08-28 — protect the Track 1 lead
+
+### Request
+
+Re-audit Track 1 for legitimate asymmetric advantages after the miner reached
+live ranks, preserving all active work and continuing the Codex evidence log.
+
+### Main outcomes
+
+- Registration 236 is active and epoch 287 places LiveCert first in SSL, Storm,
+  and IP; Weather is fourth.
+- The pending nine-intent manifest must not be signed: its NVD 5-per-30-second
+  rate limitation applies node-wide to the whole miner.
+- Translation and Academic are the two strongest additions because LiveCert's
+  prior deployed-code scores clear the current low bars and joining creates the
+  third miner. CVE's new 0.9847 leader removes that opening.
+- CertWatch durability is not closed: the workflow's history file is ignored by
+  `data/`, and the public app remains unfunded with zero requests.
+- Scheduled live tests fail before execution because the workflow points at a
+  nonexistent `miner` directory; the actual package is `track1-miner/miner`.
+- The explicit 25% X term and 100-request Track 3 guardrail now dominate further
+  incremental scorer tuning.
+
+### Verification
+
+- TypeScript typecheck passed.
+- Full miner suite passed 109/109 with network access.
+- Production verification passed 18/18, median 552ms and p95 1219ms.
+- All five deployed but unregistered endpoints returned HTTP 200 in smoke tests.
+
+### Mutation boundary
+
+Only audit documentation was added or indexed. Product code, manifest,
+workflows, deployment, registration, wallet, X, GitHub, paid requests, and the
+concurrent `fable_review_audit.md` change were not modified. See
+[`2026-08-28-track1-audit.md`](2026-08-28-track1-audit.md).

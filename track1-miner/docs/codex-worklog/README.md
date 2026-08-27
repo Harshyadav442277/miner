@@ -13,6 +13,8 @@ documentation.
   evidence from the initial adversarial strategy review.
 - [`2026-08-26-live-scoring-recon.md`](2026-08-26-live-scoring-recon.md) — exact
   production-scorer, public-ground-truth, buyer-contract, and next-epoch analysis.
+- [`2026-08-28-track1-audit.md`](2026-08-28-track1-audit.md) — current rank,
+  pending-manifest, eligibility, workflow, public-proof, and security evidence.
 - [`probe-champion.mjs`](probe-champion.mjs) — offline reproduction tool for a
   downloaded champion WASM and public score records.
 - [`epoch284-weather-candidate.txt`](epoch284-weather-candidate.txt) and
