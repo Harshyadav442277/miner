@@ -55,13 +55,21 @@ a measurement, not a guaranteed promotion.
 Published: **https://github.com/Harshyadav442277/telegraph-factscore** (public, MIT, disclosure
 section in the README, commit `4031111`). Pinned wasm URLs for the console:
 
+**Register #1 — IP_GEOLOCATION** (structurally safe: Spearman skipped)
+
 ```
-IP_GEOLOCATION (current cleared build — register this one):
-https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/bc448b5e25b97fda0e97fd501607bca66f5256da/dist/ip_geolocation.wasm
+https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/c8ec872ff4a07fa01abd40433083b1ee607929a3/dist/ip_geolocation.wasm
 ```
 
-Repo commit `bc448b5`. Anonymous fetch returns HTTP 200, 19,628 bytes, byte-identical to the
-local build — so the console's keccak256 of what it downloads will match what was tested.
+**Register #2 — STORM_ALERT** (passes by 0.0005; cheap second attempt, may fail on check C)
+
+```
+https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/c8ec872ff4a07fa01abd40433083b1ee607929a3/dist/storm_alert.wasm
+```
+
+Repo commit `c8ec872`. Both verified by anonymous fetch: HTTP 200, 19,628 / 19,647 bytes,
+byte-identical to the local builds — so the console's keccak256 of what it downloads matches
+exactly what was tested.
 
 (STORM_ALERT is deliberately not offered for registration — see the hold-lifted note above.)
 
