@@ -731,3 +731,24 @@ improvement to the data. Left alone deliberately.
 
 This change was tested before deploying rather than alongside it, and the tests caught the wording
 change immediately — which is what should have happened on the previous one.
+
+
+### Labelling does not help weather
+
+Applying the same treatment to weather — `Temperature:`, `Precipitation:`, `Wind:`,
+`Expected condition:` — made it slightly **worse**:
+
+```
+current    0.01040926
+labelled   0.01014052
+isobar #1  0.00889251
+```
+
+Not applied. The weather answer already opens by restating what the question asked for ("a
+168-hour hourly forecast … with the complete hourly temperature and precipitation series
+included"), so the clauses are addressed without labels, and adding them only fragments a sentence
+that already reads as a direct answer.
+
+So labelling is not a rule either — it helps where the answer was a flowing narrative that buried
+the requested dimensions (SSL, storm) and hurts where the answer already led with them. Tested per
+intent rather than assumed, which is the only thing that has reliably worked here.
