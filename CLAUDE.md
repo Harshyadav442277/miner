@@ -3,6 +3,10 @@
 **Goal:** register and operate a Telegraph miner that reaches rank 1 in its intent by
 **2026-09-07 12:00 UTC** (Telegraph Hackathon Season I, H1, Track 1).
 
+**Track 2 pivot (2026-08-27):** active build focus is **Track 2 (Script Author)** — rank 1 by
+**2026-08-31**. Its rules and state live in [track2/](track2/CLAUDE.md) (own MEMORY, TASKS,
+GAPS, ARCHITECTURE). The Track 1 miner stays live per the rules; this file still governs it.
+
 **Not this project:** the Midnight / Brainwave hackathon (NightSeal) is separate and unrelated.
 
 ## Docs — read at session start, keep current
@@ -51,7 +55,7 @@ cast call "$DIAMOND" "isCanonicalIntent(string)(bool)" "WEATHER_CHECK" --rpc-url
 cast call "$DIAMOND" "getCanonicalIntents()(string[])" --rpc-url "$RPC"
 
 # YAML hash for registration — SHA-256, NOT keccak256
-sha256sum miner.yaml | awk '{print "0x"$1}'
+sha256sum track1-miner/miner.yaml | awk '{print "0x"$1}'
 ```
 
 ## Standing orders

@@ -83,7 +83,7 @@ Deliberately excluded to protect the deadline:
 ## Open decisions
 
 **D1 — Which intent? — CLOSED: `SSL_VERIFICATION`**
-Full reasoning in [docs/INTENT_OCCUPANCY.md](docs/INTENT_OCCUPANCY.md). In short: it is
+Full reasoning in [track1-track1-miner/miner/docs/INTENT_OCCUPANCY.md](track1-track1-miner/miner/docs/INTENT_OCCUPANCY.md). In short: it is
 **Tier A (deterministic, WASM exact match)**, has only **3 incumbents**, and each of the three has
 a specific weakness — one on Render with cold starts, one answering from certificate-transparency
 logs rather than the live server, one running 60–120s Qualys assessments against a 20s spot-check
@@ -97,7 +97,7 @@ under a judge we cannot influence is worth less than third place under exact mat
 Reading a peer certificate needs a live TLS handshake (`tls.connect` + `getPeerCertificate`), which
 no free upstream provides in the form this intent wants. Building it also removes every third-party
 dependency, so no upstream rate limit or outage can trigger a Routing Revocation against us.
-Implementation in [miner/](miner/) — Node, zero runtime dependencies.
+Implementation in [track1-miner/miner/](track1-miner/miner/) — Node, zero runtime dependencies.
 
 **D3 — Slug and numeric `id`. — CLOSED**
 `slug: livecert`, `id: 4433`. Both verified free against the live catalog of 89 miners on

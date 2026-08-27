@@ -39,7 +39,7 @@ export interface State {
  */
 const HISTORY_URL =
   process.env.HISTORY_URL ??
-  "https://raw.githubusercontent.com/Harshyadav442277/miner/main/app/data/history.json";
+  "https://raw.githubusercontent.com/Harshyadav442277/miner/main/track3-certwatch/data/history.json";
 
 /** Committed history, or null if it is unreachable or absent. */
 export async function loadCommittedHistory(timeoutMs = 6000): Promise<State | null> {

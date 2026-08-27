@@ -1,124 +1,76 @@
-# livecert — a Telegraph miner for `SSL_VERIFICATION`, `STORM_ALERT`, and `WEATHER_FORECAST`
+# Telegraph Hackathon — Season I
 
-Three deterministic operational signals for the [Telegraph protocol](https://telegraphprotocol.com):
-live TLS certificate status, 48-hour severe-weather risk, and weather forecasts. Built for
-Telegraph Hackathon Season I, Track 1 (Miners).
+One repository, three tracks, one shared body of protocol knowledge.
 
-**Status:** **deployed and verified**; not yet registered on-chain. See [SETUP.md](SETUP.md).
-
-| | |
-|---|---|
-| Miner | `https://miner-wine.vercel.app` — all 18 acceptance checks pass |
-| Track 3 app | `https://app-five-blond-45.vercel.app` |
+**Deadline:** Track 1 and Track 2 close **2026-08-31**. Track 3 runs Aug 31 – Sep 7.
+Miners must stay live and operational through **2026-09-07** — that is a rule, not just scoring.
 
 ---
 
-## What it does
+## Who is working where
 
-``GET /ssl-check?domain=example.com` performs a real TLS handshake and reports the certificate that
-host is serving **right now**:
-
-```json
-{
-  "domain": "expired.badssl.com",
-  "verdict": "expired",
-  "issuer": "COMODO CA Limited",
-  "valid_to": "2015-04-12",
-  "days_remaining": -4154,
-  "reason": "The SSL certificate for expired.badssl.com is expired issued by COMODO CA Limited, it expired on 2015-04-12."
-}
-```
-
-Verdicts: `valid` `expired` `not_yet_valid` `hostname_mismatch` `self_signed` `untrusted` `unreachable`
-
-`GET /storm-alert?location=Chennai` grades 48-hour severe-weather disruption risk on Beaufort gust
-thresholds plus thunderstorm and heavy-rain forecasts:
-
-```json
-{
-  "location": "Chennai, Tamil Nadu, India",
-  "verdict": "moderate",
-  "max_wind_gust_kmh": 41,
-  "thunderstorm": true,
-  "reason": "Chennai, Tamil Nadu, India has a moderate storm risk in the next 48 hours: peak wind gusts of 41 km/h, thunderstorms forecast."
-}
-```
-
-Verdicts: `none` `low` `moderate` `high` `severe` `unknown`
-
-`GET /weather-forecast?location=London&hours=24` reports future conditions over a stated window —
-the intent is explicitly about *future* conditions, not current ones:
-
-```json
-{
-  "location": "London, England, United Kingdom",
-  "verdict": "thunderstorms",
-  "window_hours": 24,
-  "temp_min_c": 18.5,
-  "temp_max_c": 23.8,
-  "reason": "The forecast for London, England, United Kingdom over the next 24 hours is thunderstorms, with temperatures from 18.5°C to 23.8°C..."
-}
-```
-
-## Why this, and why this way
-
-**Both intents were chosen from live network data** — see
-[docs/INTENT_OCCUPANCY.md](docs/INTENT_OCCUPANCY.md) and [docs/MARKET_DATA.md](docs/MARKET_DATA.md).
-Both are **Tier A** (deterministic, exact-match scoring) with only three incumbents each and a top
-score under 0.007 — nobody is doing well in either.
-
-Intents were added by measuring demand, because prize eligibility requires **≥100 real Track 3
-requests to the intent** — ranking first in a dead intent pays nothing:
-
-| Intent | Network requests | Miners | Bar to beat for rank 1 |
+| Folder | Track | Owner | State |
 |---|---|---|---|
-| `WEATHER_FORECAST` | **941** | 9 | 0.0080 |
-| `STORM_ALERT` | 334 | 3 | 0.0066 |
-| `SSL_VERIFICATION` | 17 | 3 | 0.0063 |
+| [`track1-miner/`](track1-miner/) | **1 — Miner** | Track 1 agent | **live**, registration 236, 4 intents registered / 9 built |
+| [`track2/`](track2/) | **2 — Scoring module** | Track 2 agent | planning |
+| [`track3-certwatch/`](track3-certwatch/) | **3 — Application** | Track 1 agent | deployed, not funded |
+| [`docs/`](docs/) | shared | everyone | protocol facts, rules, social |
 
-Judging normalizes to the best miner *within* each intent, so rank 1 is worth the full 75 points
-regardless of absolute score. These are among the lowest bars on the board.
+**Do not edit another track's folder.** Everything a track owns lives inside its folder; anything
+shared lives in `docs/` at the root.
 
-**A handshake is not a CT lookup.** Certificate transparency reports what was *issued* for a
-domain. It cannot report what the server has *deployed*. Those disagree precisely when the question
-matters — a host still serving an expired certificate. Only a handshake sees it.
+## The shared documents — read these first, whichever track you are on
 
-**No upstream API.** Nothing third-party to rate-limit us, go down, or trigger a Routing Revocation.
+| File | Why it matters |
+|---|---|
+| [docs/TELEGRAPH_FACTS.md](docs/TELEGRAPH_FACTS.md) | Verified protocol mechanics, each with a source and a date. Re-verify before trusting anything older than a few days. |
+| [docs/JUDGING.md](docs/JUDGING.md) | **75% performance + 25% X engagement.** The eligibility guardrail. Track dates. |
+| [docs/X_POSTS.md](docs/X_POSTS.md) | 25% of every track's score. Drafts, and how to actually get reach. |
+| [docs/SUBMISSION_CHECKLIST.md](docs/SUBMISSION_CHECKLIST.md) | What has to be true before the deadline. |
+| [MEMORY.md](MEMORY.md) | Session continuity. **Read first, update at session end.** |
+| [CLAUDE.md](CLAUDE.md) | Operating rules. Wallet safety, secrets, validation-before-send. |
 
-**Terse answers on purpose.** Telegraph's scoring compares the miner's answer against a
-ground-truth *string*; the reference module scores matched ÷ total words in the answer, so padding
-dilutes the score. The `reason` field is one factual sentence.
+## Facts that apply to every track
 
-## Layout
+- **Epochs are 9 hours.** Scoring lands about three times a day. The landing-page ticker counts down
+  in minutes and misleads. Do not poll for a score after deploying — build an offline loop instead.
+- **Any non-2xx from a miner scores 0.** The engine records `upstream error`, stores an empty
+  answer, and the scorer never sees the body. Return 200 with an honest "could not determine".
+- **The engine sends only the parameters a miner declares** in `input_schema`, never the raw
+  question, unless you declare `q`/`query`. This cost Track 1 two epochs.
+- **The champion scorers are public, commit-pinned WASM.** `/api/wasm` lists them; `/scores` gives
+  real questions with ground truths and the exact converted answer that was scored. You can
+  reproduce any score offline in seconds.
+- **Judging is 75/25.** The X half is the one most likely to be neglected and it is worth a quarter.
+
+## Scoreboard, epoch 285
 
 ```
-miner/            the service — Node, zero runtime dependencies
-miner.yaml        Telegraph miner configuration
-tools/watch.mjs   uptime + routing-revocation watcher
-SETUP.md          the manual steps (deploy, wallet, register)
-docs/             protocol facts, intent analysis, judging criteria, X drafts
+SSL_VERIFICATION    #2 of 4     0.00745   (txlens 0.00826)
+STORM_ALERT         #2 of 4     0.00635   (bittensor-sn18-zeus 0.00802)
+WEATHER_FORECAST    #8 of 11    0.00761   (isobar-weather 0.00889)
 ```
 
-## Run it
+Live: https://explorer.telegraphprotocol.com/miners/livecert
 
-```bash
-cd miner && npm install && npm run build && npm start
-curl "http://127.0.0.1:8080/ssl-check?domain=expired.badssl.com"
-```
+## Workflow
 
-## Assumptions and limitations
+1. **Session start** — read `MEMORY.md`, then your track's `MEMORY`/`TASKS`.
+2. **Verify protocol facts against live docs, never memory.** The canonical intent set changes
+   on-chain. Record what you checked and when.
+3. **Measure, do not theorise.** Six scoring theories were tested in this repo and four were wrong.
+   Every real gain came from replaying actual paid questions.
+4. **Wallet actions are the operator's.** No agent connects a wallet, signs, or sends a transaction.
+   Prepare and validate; the human clicks.
+5. **Session end** — update `MEMORY.md`, `GAPS.md`, `TASKS.md`; commit.
 
-Tracked honestly in [GAPS.md](GAPS.md). The ones that matter:
+## Automation
 
-- **Prize eligibility is not fully in our control.** An intent needs ≥3 active miners *and* ≥100
-  real requests from Track 3 applications to be eligible. We meet the first; the second depends on
-  other people building against `SSL_VERIFICATION`. Mitigated by planning a Track 3 app ourselves.
-- **The exact champion scoring module for this intent is not published.** We know the mechanism —
-  a WASM module comparing three plain strings — but not the specific comparison. Terse canonical
-  phrasing is a hedge, not a certainty.
-- **`on_chain` is deliberately omitted**, so the miner cannot be targeted by ERC-8183 on-chain jobs.
-  It serves HTTP and WebSocket traffic only. A real capability traded for schema simplicity.
-- **We got one thing wrong and corrected it.** We claimed the incumbent was beatable on Render
-  cold starts; measurement showed 675ms cold / 324ms warm — ~20s spot checks keep it warm. The
-  claim is retracted in [docs/MARKET_DATA.md](docs/MARKET_DATA.md).
-- Not yet measured under real routed load.
+| Workflow | Cadence | Does |
+|---|---|---|
+| `ci.yml` | on push | typecheck + tests for track1-miner and track3-certwatch |
+| `uptime.yml` | hourly | polls the miner, records each new epoch's scores to `track1-miner/docs/score-history.jsonl` |
+| `certwatch.yml` | 6-hourly | CertWatch sweep — inert until `EVM_PRIVATE_KEY` is set |
+
+GitHub throttles scheduled workflows; a `*/10` cron actually ran every 2–3 hours, so these are
+hourly and honest about it.

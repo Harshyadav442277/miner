@@ -5,6 +5,15 @@ sessions and between models.
 
 ---
 
+## 2026-08-27 — TRACK 2 PIVOT
+
+Build focus moved to **Track 2 (Script Authors)** by user directive: rank 1 is the goal, Fable
+orchestrates and plans, Opus 5 executes (all security-domain work on Opus). All Track 2 state
+lives in [track2/MEMORY.md](track2/MEMORY.md) — read that first when working Track 2. The miner
+(registration 225) stays live and untouched; everything below remains true for Track 1 operations.
+
+---
+
 ## Where things stand — 2026-08-26
 
 **Day 1.** Planning only. No code, no YAML, no registration. Repo is docs and a fresh `git init`.
@@ -25,7 +34,7 @@ wrong as a *requirement*. Hosting our own endpoint is now a strategic option (di
 latency control), not a gate. See PRD **D2**.
 
 ### Intent decided: `SSL_VERIFICATION` — and why
-Chosen on **occupancy × scoring tier** → [docs/INTENT_OCCUPANCY.md](docs/INTENT_OCCUPANCY.md).
+Chosen on **occupancy × scoring tier** → [track1-miner/docs/INTENT_OCCUPANCY.md](track1-miner/docs/INTENT_OCCUPANCY.md).
 
 Scoring has two tiers. **Tier A = deterministic WASM exact match** (one right answer).
 **Tier B = LLM-judge** (open-ended). Tier A is strictly better for winning rank 1 — we can be
@@ -41,10 +50,10 @@ being the occupancy front-runner.
 - **ssllabs** (227) — a full Qualys assessment takes **60–120s** on an uncached host
 
 ### Built: `livecert`
-[miner/](miner/) — Node, **zero runtime dependencies**, live TLS handshake. All six verdicts
+[miner/](track1-miner/miner/) — Node, **zero runtime dependencies**, live TLS handshake. All six verdicts
 verified against badssl.com (valid / expired / self_signed / hostname_mismatch / untrusted /
 unreachable). ~100ms cold, **12ms cached**. Typecheck clean.
-[miner.yaml](miner.yaml) written and passing a local strict-schema precheck.
+[track1-miner/miner.yaml](track1-miner/miner.yaml) written and passing a local strict-schema precheck.
 `slug: livecert`, `id: 4433` — both verified free.
 
 **Scoring insight driving the response shape:** the WASM scorer compares *plain strings* and the
@@ -69,7 +78,7 @@ that genuinely consumes it** (a real TLS expiry monitor, not a request generator
 artificial inflation). That also competes for a second $2,000 pool.
 
 ### Also built
-- `tools/watch.mjs` — uptime + routing-revocation watcher. `--once` mode for cron; exits non-zero
+- `track1-miner/tools/watch.mjs` — uptime + routing-revocation watcher. `--once` mode for cron; exits non-zero
   on failure or terminal rejection.
 - [SETUP.md](SETUP.md) — the two manual steps, written out precisely.
 - [docs/X_POSTS.md](docs/X_POSTS.md) — 8 drafts. Posts 1–3 are postable now (they are insights,
@@ -140,7 +149,7 @@ Two serverless adaptations were needed, both real bugs that would only have appe
   literal was a bug farm: the dashboard's own client script contains backticks and `${...}`).
 
 ### Built: `CertWatch` (Track 3 app)
-[app/](app/) — TLS expiry monitor. ESM Node + viem + `@x402/fetch`/`@x402/evm`, dashboard tested
+[app/](track3-certwatch/) — TLS expiry monitor. ESM Node + viem + `@x402/fetch`/`@x402/evm`, dashboard tested
 and rendering. Uses the **auto-routed** `/engine/v1/ask` so Telegraph's router classifies the
 query and demand lands on the *intent* (what the G13 guardrail counts), not on our miner directly.
 Counts `SSL_VERIFICATION`-classified requests separately.
@@ -150,7 +159,7 @@ Counts `SSL_VERIFICATION`-classified requests separately.
 and wants an `x402Client.fromConfig({schemes})`. Read the `.d.ts`, not the page.
 
 ### DEPLOYED 2026-08-26 — `https://miner-wine.vercel.app`
-Live on Vercel, **all 18 acceptance checks pass** (`node tools/verify-deploy.mjs <url>`).
+Live on Vercel, **all 18 acceptance checks pass** (`node track1-miner/tools/verify-deploy.mjs <url>`).
 Median 482ms, p95 1200ms. TLS handshake works from serverless — that was the main technical risk.
 
 Fly.io was tried first and rejected: it now demands a payment method before placing any machine.
@@ -159,7 +168,7 @@ The miner was refactored for it — routing lives in `src/handler.ts`, shared by
 (local) and `api/index.ts` (serverless), so neither target has a divergent copy. Fly config stays
 committed if a card is ever added.
 
-`miner.yaml` now points at the deployed URL and re-passes the schema precheck. Re-verified
+`track1-miner/miner.yaml` now points at the deployed URL and re-passes the schema precheck. Re-verified
 2026-08-26: all three intents canonical, `id 4433` and `slug livecert` both still free.
 
 ### Repo + monitoring live — 2026-08-26
@@ -191,7 +200,7 @@ intents          SSL_VERIFICATION, STORM_ALERT, WEATHER_FORECAST
 IPFS             QmWmgbY7pbUdWo1ZPVHEh7Bbq1hGQGwVCCcyLxZToEzW2c
 ```
 Registered via the console's **Import & Upload** path (card 02), not the from-scratch wizard —
-it takes the existing miner.yaml, sandbox-tests every endpoint, and pins to Pinata.
+it takes the existing track1-miner/miner.yaml, sandbox-tests every endpoint, and pins to Pinata.
 
 Sandbox results: all three endpoints green. `/ssl-check` reported HTTP 405 because the probe used
 OPTIONS (not GET as labelled); real GET traffic returns 200. Hardened anyway — the server now
@@ -229,7 +238,7 @@ Three things settled by live data:
    compares text and an error shares no vocabulary with the ground truth. We had this exact bug
    until today.
 
-**Answer shape measured, not assumed.** `tools/score-sim.mjs` runs our live answers through the
+**Answer shape measured, not assumed.** `track1-miner/tools/score-sim.mjs` runs our live answers through the
 documented reference scorer against the incumbents' answer shapes: **ours 0.9453**, certspotter-style
 0.0569, ssllabs-style 0.0385, txlens-style 0.0238. Live bar to beat is 0.0063. Removing a
 `(35 days remaining)` parenthetical from the prose — while keeping `days_remaining` as a field —
@@ -241,7 +250,7 @@ question did not ask for.
 Not our outage. While it lasts: no scoring, no catalog reads, and the registration console likely
 cannot complete an `updateMiner`. Re-check before assuming anything is wrong on our side.
 
-**Codex review landed 2026-08-26** → `docs/codex-worklog/`. It found two real defects that local
+**Codex review landed 2026-08-26** → `track1-miner/docs/codex-worklog/`. It found two real defects that local
 tests could not: (1) the natural-language regexes were built from strings, so `\s` `\d` `` were
 corrupted and the scaffolding stripper was dead — now regex literals; (2) real *paid* storm
 questions ask for coordinates in prose with a stated window and a 0–1 risk, and we returned
@@ -255,13 +264,13 @@ answer. The IP_GEOLOCATION endpoint is built and deployed but that intent is NOT
 **Do not fund CertWatch's wallet** until G18 is closed — its endpoints are now authenticated
 (G17) but state is still ephemeral and sweeps do not run on Vercel.
 
-**FIRST SCORED EPOCH 284 (2026-08-26)** → [docs/EPOCH_284.md](docs/EPOCH_284.md)
+**FIRST SCORED EPOCH 284 (2026-08-26)** → [track1-miner/docs/EPOCH_284.md](track1-miner/docs/EPOCH_284.md)
 ```
 SSL_VERIFICATION   rank 3 of 4    0.00449282   (rank 1 txlens 0.00601)
 STORM_ALERT        rank 3 of 4    0.00000000   (rank 1 amanat  0.00651)
 WEATHER_FORECAST   rank 7 of 11   0.00698984   (rank 1 verity  0.00992)
 ```
-**`tools/score-sim.mjs` was wrong.** It predicted 0.9453 for us vs 0.02–0.06 for the incumbents;
+**`track1-miner/tools/score-sim.mjs` was wrong.** It predicted 0.9453 for us vs 0.02–0.06 for the incumbents;
 reality has txlens ahead of us. It used the documented *reference* scorer and ground truths written
 by hand — neither is what runs. Do not make decisions from it.
 
@@ -273,9 +282,9 @@ after it. We now answer 15/15 of the real corpus. **Epoch 285 is the test.**
 **EPOCHS ARE 9 HOURS LONG.** `/api/epoch` on the explorer: `epoch_duration: 9h0m0s`. Scoring lands
 ~3× a day, not every few minutes — the landing-page ticker misleads. Epoch 285 lands
 **2026-08-27T00:36:55Z**. Do not poll for score changes shortly after deploying; verify with
-`tools/replay-corpus.mjs` instead, which answers in seconds.
+`track1-miner/tools/replay-corpus.mjs` instead, which answers in seconds.
 
-**HOW SCORING ACTUALLY WORKS** (Codex recon, `docs/codex-worklog/2026-08-26-live-scoring-recon.md`)
+**HOW SCORING ACTUALLY WORKS** (Codex recon, `track1-miner/docs/codex-worklog/2026-08-26-live-scoring-recon.md`)
 The score API exposes `question`, `ground_truth`, `miner_answer`, **`converted_answer`**, and
 `score`. Running the live champion WASM locally reproduces the reported score **exactly** from
 `converted_answer` — the natural-language conversion of our JSON, not the raw JSON and not
@@ -308,11 +317,11 @@ returns 4xx any more** — an unanswerable request gets an honest 200.
    near the hour asked rather than just echoing a number.
 
 **OFFLINE SCORING LOOP EXISTS.** Champion scorers are public commit-pinned WASM (24 MB each, from
-`/api/wasm`), and `docs/codex-worklog/probe-champion.mjs` runs them. Measured on the epoch-284 storm
+`/api/wasm`), and `track1-miner/docs/codex-worklog/probe-champion.mjs` runs them. Measured on the epoch-284 storm
 question: what actually scored **0.0** (our 400), terse **0.00658**, full answer **0.00753**, plus
 reverse-geocoded place name **0.00819** — against a leader of **0.00651**, so **1.26x**.
 **Fuller answers score better**, disproving the terse-answer theory. Trust the champion binary, not
-`tools/score-sim.mjs`.
+`track1-miner/tools/score-sim.mjs`.
 
 **ALL THREE INTENTS NOW MEASURE ABOVE THE EPOCH-284 LEADER** (real champion WASM, real questions):
 ```
@@ -324,7 +333,7 @@ Weather needed three bugs fixed: the whole question was being geocoded (resolved
 **Guangzhou**), question openers like "Can" passed as proper nouns, and "48-hour" did not parse
 because a hyphen is not whitespace. All found by measuring, none by reading code.
 
-**BENCHMARKED OVER 12 REAL QUESTIONS PER INTENT** (`tools/bench-champion.mjs`, real champions):
+**BENCHMARKED OVER 12 REAL QUESTIONS PER INTENT** (`track1-miner/tools/bench-champion.mjs`, real champions):
 `SSL 0.00913 · STORM 0.00938 · WEATHER 0.17346`. Single-question results were misleading — weather
 scored 0.99 on the one question it was written against and ~0.008 on eleven others, because
 "7-day"/"five-day"/"next Monday"/"September 1, 2026" did not parse. Fixed via `resolveDateRequest`.
@@ -418,7 +427,7 @@ equally with other new miners. The score earned there sets the opening leaderboa
 2. **Create an EVM wallet + Base Sepolia testnet ETH** — user has no wallet yet. Claude cannot do
    this: no wallet creation, no seed phrases, no signing. Steps are in SETUP.md.
 
-Once the URL exists: put it in `miner.yaml`, sandbox-validate at integrate.telegraphprotocol.com,
+Once the URL exists: put it in `track1-miner/miner.yaml`, sandbox-validate at integrate.telegraphprotocol.com,
 then the **user** sends `registerMiner`. Capture `registrationId` into the table below.
 
 ---

@@ -22,7 +22,7 @@ routing lives in `src/handler.ts` so the local server and the serverless deploym
 npm i -g vercel && vercel login
 ```
 
-**1b. Deploy from the `miner/` directory:**
+**1b. Deploy from the `track1-miner/miner/` directory:**
 
 ```bash
 cd miner && vercel --prod
@@ -34,10 +34,10 @@ Accept the defaults. It will print a URL like `https://livecert.vercel.app`.
 everything passes. Registration is effectively immutable, so this runs *first*:
 
 ```bash
-node ../tools/verify-deploy.mjs https://livecert.vercel.app
+node ../track1-miner/tools/verify-deploy.mjs https://livecert.vercel.app
 ```
 
-**Send me that URL** and I will put it into `miner.yaml` and run the console's sandbox validation.
+**Send me that URL** and I will put it into `track1-miner/miner.yaml` and run the console's sandbox validation.
 
 ### On cold starts
 
@@ -51,7 +51,7 @@ workflow polls every 15 minutes, which covers it.
 
 ### If you would rather use Fly.io
 
-Everything for it is still committed (`miner/Dockerfile`, `miner/fly.toml` with
+Everything for it is still committed (`track1-miner/miner/Dockerfile`, `track1-miner/miner/fly.toml` with
 `min_machines_running = 1`). It only needs a card on file. Vercel is the no-card path.
 
 ## Step 2 — Create an EVM wallet and get Base Sepolia ETH
@@ -98,7 +98,7 @@ $5–10 of testnet USDC covers hundreds of calls.
 
 Once steps 1 and 2 are done:
 
-1. I put your deployed URL into `miner.yaml` as `base_url`
+1. I put your deployed URL into `track1-miner/miner.yaml` as `base_url`
 2. I run the sandbox validation at `integrate.telegraphprotocol.com` and fix anything it flags
 3. **You** connect the wallet, review, and send the `registerMiner` transaction
 4. I capture the `registrationId` and confirm `activation_status: active`
@@ -110,7 +110,7 @@ reviewing and clicking.
 
 ## Step 5 — Run CertWatch (the Track 3 app)
 
-Built and working: [app/](app/) — a TLS expiry monitor that asks Telegraph about certificates.
+Built and working: [track3-certwatch/](track3-certwatch/) — a TLS expiry monitor that asks Telegraph about certificates.
 This exists because of the eligibility guardrail: our intent needs **≥100 real Track 3 requests**
 or it wins nothing regardless of rank.
 
@@ -148,14 +148,14 @@ burst on the last day.
 
 ## What's already done
 
-- `miner/` — the service. Node, zero runtime dependencies, all six verdicts verified against
+- `track1-miner/miner/` — the service. Node, zero runtime dependencies, all six verdicts verified against
   badssl.com. ~100ms cold, 12ms cached.
-- `miner.yaml` — passes a local strict-schema precheck. `slug: livecert`, `id: 4433`, both verified free.
-- `tools/watch.mjs` — uptime and revocation watcher, with a `--once` mode for cron.
-- `tools/verify-deploy.mjs` — post-deploy acceptance check. Run before registering.
+- `track1-miner/miner.yaml` — passes a local strict-schema precheck. `slug: livecert`, `id: 4433`, both verified free.
+- `track1-miner/tools/watch.mjs` — uptime and revocation watcher, with a `--once` mode for cron.
+- `track1-miner/tools/verify-deploy.mjs` — post-deploy acceptance check. Run before registering.
 - `.github/workflows/` — CI (typecheck + tests on every push) and a 15-minute uptime watch that
   opens an issue if the miner goes down. Set repo variables `MINER_BASE_URL` and
   `REGISTRATION_ID` to arm it — it no-ops until then, so pushing now is safe.
-- `app/` — **CertWatch**, the Track 3 application. Dashboard renders, all endpoints tested,
+- `track3-certwatch/` — **CertWatch**, the Track 3 application. Dashboard renders, all endpoints tested,
   x402 payment wired against the real SDK.
 - Full planning docs, judging analysis, and the intent decision with its reasoning.

@@ -10,7 +10,7 @@ Status: `OPEN` unresolved · `CHECKING` in progress · `CLOSED` resolved, with t
 ## Blocking
 
 ### G1 · Which intent to claim — `CLOSED: SSL_VERIFICATION`
-Decided on occupancy **and scoring tier** → [docs/INTENT_OCCUPANCY.md](docs/INTENT_OCCUPANCY.md).
+Decided on occupancy **and scoring tier** → [track1-track1-miner/miner/docs/INTENT_OCCUPANCY.md](track1-track1-miner/miner/docs/INTENT_OCCUPANCY.md).
 Tier A (exact match), 3 incumbents, all three with exploitable weaknesses. The zero-occupancy
 intents turned out to be Tier B (LLM-judged) and were rejected for it.
 
@@ -115,7 +115,7 @@ giving three independent eligibility paths instead of one. See [docs/MARKET_DATA
 **entirely outside our control**: it depends on other people choosing to build applications that
 check SSL certificates. We can hold rank 1 with a flawless score and win nothing.
 
-**Mitigation built:** [app/](app/) — CertWatch, a TLS expiry monitor. It uses the **auto-routed**
+**Mitigation built:** [app/](track3-certwatch/) — CertWatch, a TLS expiry monitor. It uses the **auto-routed**
 engine endpoint so Telegraph's own router classifies each query, meaning demand lands on the intent
 rather than being aimed at our miner. It counts `SSL_VERIFICATION`-classified requests separately.
 Bounded honestly per rule 04: a certificate monitor has a real reason to check certificates
@@ -181,8 +181,8 @@ The workflow gates on `EVM_PRIVATE_KEY` being present as a repository secret and
 it is not, so an unfunded repo does not fail a scheduled run every six hours.
 
 ### ~~G18 (original)~~
-Also from the Codex review. `app/src/store.ts` writes to `/tmp`, which a serverless instance does
-not keep, and `app/src/server.ts` disables the background sweep loop under Vercel because a frozen
+Also from the Codex review. `track3-certwatch/src/store.ts` writes to `/tmp`, which a serverless instance does
+not keep, and `track3-certwatch/src/server.ts` disables the background sweep loop under Vercel because a frozen
 instance never fires an interval. So CertWatch currently has no durable history and no scheduler.
 **Fix:** move state to a real store and drive sweeps from a scheduled GitHub Action hitting the
 authenticated endpoint, rather than an in-process timer.

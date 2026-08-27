@@ -12,14 +12,14 @@ position, so every day of delay shortens the record we are judged on.
 
 ## Phase 0 — Decide (blocking; nothing else starts until this closes)
 
-- [x] **T0.1** Fetch live intent occupancy → [docs/INTENT_OCCUPANCY.md](docs/INTENT_OCCUPANCY.md).
+- [x] **T0.1** Fetch live intent occupancy → [track1-track1-miner/miner/docs/INTENT_OCCUPANCY.md](track1-track1-miner/miner/docs/INTENT_OCCUPANCY.md).
       45 canonical intents; 3 at zero. (closes G3; narrows G1)
 - [x] **T0.2** Read Intents + Build a Scoring Module. Scoring is a WASM module over three plain
       strings; verbose answers are penalised by word-overlap. (closes G4)
 - [x] **T0.3** Read the hackathon rules → [docs/JUDGING.md](docs/JUDGING.md). Found three things that
       changed the plan: Track 1 closes **Aug 31** not Sep 7; scoring is **75% performance + 25% X**;
       and an intent needs **≥100 Track 3 requests** to be prize-eligible. (closes G12, opens G13)
-- [x] **T0.4** `example-miner.yaml` is **not** in telegraph-usecases — that repo holds six reference
+- [x] **T0.4** `example-track1-track1-miner/miner/miner.yaml` is **not** in telegraph-usecases — that repo holds six reference
       Track 3 *applications* (truthwire, trustfilter, scholarguard, adguard, reviewradar,
       supersignal). `telegraph-examples` 404s. Our YAML was validated against the field reference
       instead. (closes G5)
@@ -29,17 +29,17 @@ position, so every day of delay shortens the record we are judged on.
 ## Phase 1 — Prove the upstream
 
 - [x] **T1.1** Runtime spike: Node `tls.connect()` required; Workers cannot read peer certs. (closes G2)
-- [x] **T1.2** Built [miner/](miner/) — Node, zero runtime deps. **23 tests passing** (`npm test`),
+- [x] **T1.2** Built [track1-miner/miner/](track1-miner/miner/) — Node, zero runtime deps. **23 tests passing** (`npm test`),
       covering the target parser and all six verdicts live against badssl.com. Typecheck clean.
 - [ ] **T1.3** *User:* deploy and get the public HTTPS URL. **This is the `base_url`.**
-      `fly.toml` + `Dockerfile` are ready; needs a host account. Then update `base_url` in miner.yaml.
+      `fly.toml` + `Dockerfile` are ready; needs a host account. Then update `base_url` in track1-track1-miner/miner/miner.yaml.
 - [ ] **T1.4** Measure deployed cold-start and p95 latency against the ~20s cadence (A3).
       Local baseline: ~100ms cold handshake, **12ms cached**.
 
 ## Phase 2 — Author the YAML
 
 - [x] **T2.1** `slug: livecert`, `id: 4433` — both verified free against the live 89-miner catalog.
-- [x] **T2.2** [miner.yaml](miner.yaml) written; passes a local strict-schema precheck.
+- [x] **T2.2** [track1-track1-miner/miner/miner.yaml](track1-track1-miner/miner/miner.yaml) written; passes a local strict-schema precheck.
 - [x] **T2.3** No `limitations[]` needed — we have no third-party upstream, so no account quota
       to declare. This is a direct benefit of D2.
 - [x] **T2.4** No `errors` block — our service uses real HTTP status codes, never a liar-200 (A5).
@@ -81,7 +81,7 @@ Added to scope 2026-08-26. The eligibility guardrail (G13) means our intent need
 Track 3 requests or it wins nothing regardless of rank. A genuine app that consumes
 `SSL_VERIFICATION` is the mitigation — and a second $2,000 prize pool.
 
-- [x] **T4b.1** Built **CertWatch** → [app/](app/). TLS expiry monitor with a dashboard: watchlist,
+- [x] **T4b.1** Built **CertWatch** → [app/](track3-certwatch/). TLS expiry monitor with a dashboard: watchlist,
       verdict, days-remaining, issuer, serving miner, and a link to each answer's on-chain signal.
 - [x] **T4b.2** Uses the **auto-routed** `/engine/v1/ask`, not `ask/{minerId}` — so Telegraph's own
       router classifies the query and the demand lands on the *intent*, which is what the guardrail

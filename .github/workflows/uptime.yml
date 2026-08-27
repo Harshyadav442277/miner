@@ -45,11 +45,11 @@ jobs:
           fi
           ARGS="--base-url $MINER_BASE_URL --once"
           if [ -n "$REGISTRATION_ID" ]; then ARGS="$ARGS --registration-id $REGISTRATION_ID"; fi
-          node tools/watch.mjs $ARGS
+          node track1-miner/tools/watch.mjs $ARGS
 
       - name: Full acceptance check
         if: success() && vars.MINER_BASE_URL != ''
-        run: node tools/verify-deploy.mjs "${{ vars.MINER_BASE_URL }}"
+        run: node track1-miner/tools/verify-deploy.mjs "${{ vars.MINER_BASE_URL }}"
 
       - name: Open an issue if the miner is down
         if: failure()
@@ -104,7 +104,7 @@ jobs:
         with:
           node-version: "22"
       - name: Record this epoch
-        run: node tools/record-scores.mjs
+        run: node track1-miner/tools/record-scores.mjs
       - name: Commit if new
         run: |
           if git diff --quiet -- docs/score-history.jsonl; then
