@@ -697,3 +697,37 @@ Two tests were asserting the previous wording, and I deployed before reading the
 the deploy and the test run were chained in one command and I looked only at the score. The tests
 were correct to fail; the answer had changed. Fixed, but the sequencing was wrong: **deploy after
 the tests pass, not alongside them.**
+
+
+## The same labelling applied to storm
+
+Storm questions say *"Report wind speed, gusts, precipitation and an overall risk between 0 and 1"*.
+We reported all four, unlabelled. Now:
+
+> The wind and storm forecast for latitude 40.7128, longitude -74.006 near New York City over the
+> next 48 hours is as follows. **Wind speed:** sustained winds up to 25.8 km/h, which is 7.2 metres
+> per second, approximately 13.9 knots. **Gusts:** peak wind gusts of 43.6 km/h… **Precipitation:**
+> 4 mm. **Wind direction:** prevailing from the west. **Overall risk:** 0.3 on a scale of 0 to 1,
+> graded low. No period with sustained winds above 25 knots is forecast.
+
+```
+before    0.00835002
+deployed  0.00862310   +3.3%
+zeus      0.00802336
+```
+
+Benchmark mean across twelve real storm questions: 0.00938 -> 0.00946.
+
+### Not chased: echoing the question's purpose
+
+A hand-written candidate scored 0.00932 — higher than the deployed 0.00862 — because it ended
+*"so no wind-related delay to crane operations is expected"*, echoing the question's stated purpose.
+
+That generalises badly. "Crane operations" is specific to one question, and building a purpose-echo
+would either be a lookup table of activities or an LLM call, neither of which is a truthful
+improvement to the data. Left alone deliberately.
+
+### Sequencing, corrected
+
+This change was tested before deploying rather than alongside it, and the tests caught the wording
+change immediately — which is what should have happened on the previous one.

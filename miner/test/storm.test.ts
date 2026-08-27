@@ -78,7 +78,10 @@ describe("answer completeness", () => {
   // and 0.00902 without.
   test("a window answer reports wind, gusts and an overall risk", async () => {
     const r = await checkStorm("storm risk at 37.7749,-122.4194 over the next 48 hours");
-    assert.match(r.reason, /gusts/i);
-    assert.match(r.reason, /risk is 0/i);
+    // Labelled by the terms the questions use: "Report wind speed, gusts,
+    // precipitation and an overall risk between 0 and 1".
+    assert.match(r.reason, /wind speed:/i);
+    assert.match(r.reason, /gusts:/i);
+    assert.match(r.reason, /overall risk: 0/i);
   });
 });

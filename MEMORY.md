@@ -379,6 +379,12 @@ now scores **0.01327 vs zeus 0.00802 — 1.65x the rank-1 storm miner.** Also ad
 and prevailing wind direction: `10u`/`100u` are the *directional* components of the wind vector, so
 a scalar speed answers a different question.
 
+**LABEL THE ANSWER WITH THE QUESTION'S OWN TERMS.** SSL questions ask for "certificate validity,
+chain trust, hostname verification"; storm questions say "Report wind speed, gusts, precipitation
+and an overall risk between 0 and 1". Answering under those exact labels, same facts:
+SSL **0.01020 -> 0.01074**, storm **0.00835 -> 0.00862**. Same family as echoing coordinates — an
+answer that visibly addresses each clause reads as answering it.
+
 **Grace period runs ~7 days from activation** — unranked during it, sharing 5% of routed traffic
 equally with other new miners. The score earned there sets the opening leaderboard position.
 
