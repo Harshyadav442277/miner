@@ -366,6 +366,11 @@ ground truth. A storm candidate scored 0.614 that way; the honest implementation
    509-638 bytes; measured score barely moved (0.00949/0.01064 vs txlens 0.00826). A test pins
    the response under 650 bytes.
 
+**ALL FOUR ENDPOINTS NOW FIT THE CONVERSION BUDGET:** SSL 509b, STORM 648b (was **1076**),
+WEATHER 488b, GEO 500b. Storm's per-period wind breakdown was removed after measuring it on the
+deployed answer: **0.00892 with it, 0.00902 without** — slightly worse for 147 extra characters.
+Tests pin SSL and storm under budget.
+
 **Grace period runs ~7 days from activation** — unranked during it, sharing 5% of routed traffic
 equally with other new miners. The score earned there sets the opening leaderboard position.
 

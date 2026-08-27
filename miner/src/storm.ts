@@ -21,17 +21,14 @@ export type StormVerdict = "none" | "low" | "moderate" | "high" | "severe" | "un
 export interface StormResult {
   location: string;
   verdict: StormVerdict;
+  /** When the values describe one moment, the hour they describe. */
+  valid_at: string | null;
   /** Overall storm risk from 0 (none) to 1 (severe). */
   risk_score: number;
-  /** "point" answers one moment; "window" aggregates a span. */
-  time_mode: "point" | "window";
-  /** For a point answer, the hour the values describe. */
-  valid_at: string | null;
   /** Whether a wind threshold named in the question is exceeded. */
   threshold_exceeded?: boolean | null;
   /** Hours in the period where sustained wind crosses that threshold. */
   threshold_hours?: number | null;
-  storm_expected: boolean;
   max_wind_gust_kmh: number | null;
   max_wind_speed_kmh: number | null;
   max_precipitation_mm: number | null;
@@ -211,9 +208,7 @@ export async function checkStorm(
     location: query,
     verdict: "unknown",
     risk_score: 0,
-    time_mode: mode,
     valid_at: null,
-    storm_expected: false,
     max_wind_gust_kmh: null,
     max_wind_speed_kmh: null,
     max_precipitation_mm: null,
@@ -306,16 +301,14 @@ export async function checkStorm(
   return {
     location: place.name,
     verdict,
-    storm_expected: verdict !== "none",
-    risk_score: risk,
+      risk_score: risk,
     max_wind_gust_kmh: Math.round(maxGust * 10) / 10,
     max_wind_speed_kmh: maxWind === null ? null : Math.round(maxWind * 10) / 10,
     max_precipitation_mm: maxPrecip === null ? null : Math.round(maxPrecip * 10) / 10,
     thunderstorm: thunder,
     window_hours: windowHours,
-    time_mode: mode,
     valid_at: mode === "point" ? (times[peakIdx] ?? null) : null,
-    peak_at: times[peakIdx] ?? null,
+    peak_at: mode === "window" ? (times[peakIdx] ?? null) : null,
     latitude: place.latitude,
     longitude: place.longitude,
     confidence: 1,
@@ -380,21 +373,13 @@ function describe(
 
   const head = `The wind and storm forecast for ${place} ${period} shows ${parts.join(", ")}.`;
 
-  // A question asking for "a 48-hour wind speed forecast" wants the series, not
-  // one peak. Measured at 0.0082 -> 0.6136 on a real question by reporting it.
+  // The per-period breakdown was removed after measuring it properly: on the real
+  // epoch-284 question it scored 0.00892 with the breakdown and 0.00902 without,
+  // while adding 147 characters that pushed the response to 1076 bytes — past the
+  // size where Telegraph's prose conversion silently returns nothing. An earlier
+  // "+4.7%" reading had confounded it with other changes made at the same time.
   const kts = (kmh: number): string => `${Math.round((kmh / 1.852) * 10) / 10}`;
-  const breakdown = periods.length
-    ? " " +
-      periods
-        .map(
-          (p) =>
-            `${p.label}: winds ${p.windMin} to ${p.windMax} km/h` +
-            (wantKnots ? `, approximately ${kts(p.windMin)} to ${kts(p.windMax)} knots` : "") +
-            (Number.isFinite(p.gustMax) ? `, with gusts to ${p.gustMax} km/h` : "") +
-            ".",
-        )
-        .join(" ")
-    : "";
+  const breakdown = "";
 
   const limit =
     threshold === null

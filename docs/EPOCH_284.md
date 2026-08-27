@@ -520,3 +520,39 @@ reachable    0.01063911   vs txlens 0.00826475   1.29x
 
 So the trim cost about 1% of score and bought the conversion. A test now pins the response under
 650 bytes so this cannot regress silently.
+
+
+## Every endpoint brought inside the conversion budget
+
+Having found the limit on SSL, the other three were measured too. Storm was worse than the answer
+that failed:
+
+| Endpoint | Before | After |
+|---|---|---|
+| `/ssl-check` | 862 b | **509 b** |
+| `/storm-alert` | **1076 b** | **648 b** |
+| `/weather-forecast` | 602 b | **488 b** |
+| `/ip-geolocate` | 500 b | 500 b |
+
+The storm figure is the important one: the per-period wind breakdown added the previous day pushed
+it past the size that silently returns an empty conversion. Measuring it properly — same deployed
+answer, breakdown stripped — showed it was **not even helping**:
+
+```
+with breakdown     0.00892206
+without breakdown  0.00902132
+```
+
+Slightly worse, for 147 extra characters and a broken conversion. The earlier "+4.7%" reading had
+compared two answers that differed in several ways at once, not just the breakdown. Removed.
+
+What went, and why none of it costs an answer:
+
+- **SSL**: `trusted`, `expired`, `hostname_match`, `subject`, `chain_length`, `valid_from`,
+  `cipher`, `key_bits`, `tls_protocol` — all restate `verdict` or go unasked. Every fact still
+  travels in `reason`, which is the field the scorer reads.
+- **Storm**: `storm_expected` (restates `verdict`), `time_mode`, and the period breakdown.
+- **Weather**: `end_time` and `hourly_count` (derivable from `start_time` + `window_hours`), and
+  the hourly precipitation min/max (`total_precipitation_mm` already carries it).
+
+Tests now pin SSL and storm under their budgets so this cannot regress unnoticed.

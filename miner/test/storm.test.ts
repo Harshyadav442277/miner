@@ -44,15 +44,22 @@ describe("checkStorm (live)", () => {
     assert.ok(r.latitude !== null && r.longitude !== null);
   });
 
-  test("storm_expected agrees with the verdict", async () => {
+  // storm_expected was dropped: it restated verdict, and the response had to fit
+  // Telegraph's prose-conversion size limit. risk_score and verdict must still
+  // agree, since they are two views of one number.
+  test("risk_score and verdict agree", async () => {
     const r = await checkStorm("Reykjavik");
-    assert.equal(r.storm_expected, r.verdict !== "none" && r.verdict !== "unknown");
+    const bands: Record<string, [number, number]> = {
+      none: [0, 0.2], low: [0.2, 0.4], moderate: [0.4, 0.65], high: [0.65, 0.85], severe: [0.85, 1.01],
+    };
+    const b = bands[r.verdict];
+    if (b) assert.ok(r.risk_score >= b[0] && r.risk_score < b[1], `${r.verdict} vs ${r.risk_score}`);
   });
 
   test("an unresolvable place is 'unknown', not a crash", async () => {
     const r = await checkStorm("Nowhereville XYZ123 QQQ");
     assert.equal(r.verdict, "unknown");
-    assert.equal(r.storm_expected, false);
+    assert.equal(r.risk_score, 0);
     assert.match(r.reason, /No resolvable location/);
   });
 
@@ -62,5 +69,16 @@ describe("checkStorm (live)", () => {
     const peak = new Date(r.peak_at).getTime();
     const now = Date.now();
     assert.ok(peak > now - 36e5 * 26 && peak < now + 36e5 * 50, `peak_at out of window: ${r.peak_at}`);
+  });
+});
+
+describe("conversion budget", () => {
+  // Telegraph converts a miner's JSON to prose before scoring it, and returns
+  // nothing when the response is too large — our epoch-285 SSL answer was 862
+  // bytes and converted to an empty string. Storm reached 1076 bytes with a
+  // per-period breakdown that measured no better than leaving it out.
+  test("a window answer stays within the conversion budget", async () => {
+    const r = await checkStorm("storm risk at 37.7749,-122.4194 over the next 48 hours");
+    assert.ok(JSON.stringify(r).length < 700, `${JSON.stringify(r).length} bytes`);
   });
 });

@@ -19,11 +19,10 @@ export interface ForecastResult {
   location: string;
   verdict: string;
   window_hours: number;
+  /** First hour of the returned series. end_time and hourly_count were dropped:
+   *  both are derivable from this plus window_hours, and the response has to fit
+   *  Telegraph's prose-conversion size limit. */
   start_time?: string | null;
-  end_time?: string | null;
-  hourly_count?: number;
-  hourly_min_precipitation_mm?: number | null;
-  hourly_max_precipitation_mm?: number | null;
   temp_min_c: number | null;
   temp_max_c: number | null;
   total_precipitation_mm: number | null;
@@ -178,10 +177,6 @@ export async function getForecast(
     verdict: condition,
     window_hours: times.length || wantHours,
     start_time: times[0] ? `${times[0]}Z` : null,
-    end_time: times[times.length - 1] ? `${times[times.length - 1]}Z` : null,
-    hourly_count: times.length,
-    hourly_min_precipitation_mm: pMin,
-    hourly_max_precipitation_mm: pMax,
     temp_min_c: tMin,
     temp_max_c: tMax,
     total_precipitation_mm: totalPrecip,
