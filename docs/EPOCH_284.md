@@ -662,3 +662,38 @@ rank-1 score, and on zeus's own question our deployed answer scores 0.01327 agai
 **All of it is inert until the schema declares `q`, `lat` and `lon`.** In the live epoch the engine
 sent an empty `location` for a coordinate question and dropped "starting next Monday" from a dated
 one, so none of this reached the scorer.
+
+
+## Labelling the answer with the question's own terms
+
+The epoch-285 SSL question asked for *"certificate validity, chain trust, and hostname
+verification"*. We reported all three facts, but as one flowing sentence using our own vocabulary —
+"valid and trusted", "a complete chain", "Hostname validation passes".
+
+Restating them under the question's own labels:
+
+> The TLS/SSL certificate configuration for api.github.com is valid. **Certificate validity:** the
+> certificate is currently valid, expiring in 33 days on 2026-09-29, issued by Sectigo Limited.
+> **Chain trust:** the server presented a complete chain of 4 certificates including intermediates,
+> building a trusted path to a root. **Hostname verification:** passes against DNS:*.github.com.
+
+Same facts, same data. Measured from the deployed endpoint on the real epoch-285 question:
+
+```
+before  0.01019928
+after   0.01073542   +5.3%
+txlens  0.00826475
+```
+
+Benchmark mean across twelve real SSL questions moved 0.00913 -> 0.00921.
+
+This is the same principle as echoing coordinates: **an answer that visibly addresses each clause
+of the question reads as answering it.** Not scorer-gaming — the labels come from the question, and
+every fact under them was already true.
+
+### A process failure worth recording
+
+Two tests were asserting the previous wording, and I deployed before reading the test output —
+the deploy and the test run were chained in one command and I looked only at the score. The tests
+were correct to fail; the answer had changed. Fixed, but the sequencing was wrong: **deploy after
+the tests pass, not alongside them.**

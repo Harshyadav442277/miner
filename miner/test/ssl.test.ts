@@ -82,7 +82,9 @@ describe("checkCertificate (live)", { concurrency: 4 }, () => {
     assert.equal(r.verdict, "valid");
     assert.equal(r.valid, true);
     assert.match(r.reason, /trusted/i);
-    assert.match(r.reason, /Hostname validation passes/i);
+    // The answer labels its parts with the wording the questions use —
+    // "certificate validity", "chain trust", "hostname verification".
+    assert.match(r.reason, /hostname verification: passes/i);
   });
 
   test("expired certificates report a negative days_remaining", async () => {
@@ -101,8 +103,9 @@ describe("answer completeness", () => {
   // what the question asked about.
   test("a reachable answer names chain and hostname validation", async () => {
     const r = await checkCertificate("github.com", 443, 12_000);
-    assert.match(r.reason, /chain/i);
-    assert.match(r.reason, /hostname validation/i);
+    assert.match(r.reason, /chain trust/i);
+    assert.match(r.reason, /hostname verification/i);
+    assert.match(r.reason, /certificate validity/i);
   });
 
   test("an unreachable answer still names the checks it could not perform", async () => {
