@@ -20,7 +20,6 @@ const SLUG = process.env.MINER_SLUG ?? "livecert";
 // track1-miner/, silently splitting the history in two.
 const OUT =
   process.env.SCORE_HISTORY ?? fileURLToPath(new URL("../docs/score-history.jsonl", import.meta.url));
-const INTENTS = ["SSL_VERIFICATION", "STORM_ALERT", "WEATHER_FORECAST"];
 
 const res = await fetch(`${NODE}/api/miners`, { signal: AbortSignal.timeout(25_000) });
 if (!res.ok) {
@@ -42,6 +41,9 @@ if (scores.length === 0) {
 }
 
 const epoch = Math.max(...scores.map((s) => s.epoch_id));
+// Every intent our registration serves — intents score at different moments
+// inside an epoch, so this list must not be hard-coded to a subset.
+const INTENTS = us.supported_intents ?? [...new Set(scores.map((s) => s.intent_id))];
 
 let existing = "";
 try {
@@ -49,7 +51,25 @@ try {
 } catch {
   /* first run */
 }
-if (existing.includes(`"epoch":${epoch},`)) {
+
+const ours = Object.fromEntries(
+  scores.filter((s) => s.epoch_id === epoch).map((s) => [s.intent_id, { rank: s.rank, score: s.score }]),
+);
+
+// Intents score at different moments inside an epoch. If a line for this epoch
+// exists but this snapshot carries intents it lacks, append the fuller row —
+// readers take the LAST line per epoch. Skip only when nothing new appeared.
+let prior = null;
+for (const line of existing.split("\n")) {
+  if (!line.trim()) continue;
+  try {
+    const r = JSON.parse(line);
+    if (r.epoch === epoch) prior = r;
+  } catch {
+    /* malformed line, ignore */
+  }
+}
+if (prior && Object.keys(ours).every((k) => k in (prior.ours ?? {}))) {
   console.log(`epoch ${epoch} already recorded`);
   process.exit(0);
 }
@@ -68,14 +88,7 @@ for (const intent of INTENTS) {
   if (best) leaders[intent] = best;
 }
 
-const row = {
-  epoch,
-  at: new Date().toISOString(),
-  ours: Object.fromEntries(
-    scores.filter((s) => s.epoch_id === epoch).map((s) => [s.intent_id, { rank: s.rank, score: s.score }]),
-  ),
-  leaders,
-};
+const row = { epoch, at: new Date().toISOString(), ours, leaders };
 
 await mkdir(dirname(OUT), { recursive: true });
 await writeFile(OUT, existing + JSON.stringify(row) + "\n");

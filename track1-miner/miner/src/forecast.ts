@@ -19,6 +19,9 @@ export interface ForecastResult {
   location: string;
   verdict: string;
   window_hours: number;
+  /** The window in days when it is a clean multiple — the form most questions
+   *  use, and a field Telegraph's converter can pick up directly. */
+  span_days?: number | null;
   start_time?: string | null;
   end_time?: string | null;
   hourly_count?: number | null;
@@ -190,10 +193,13 @@ export async function getForecast(
   // precipitation probability", so the prose states the window in the same
   // day-count form it was requested in, and names hourly, Celsius and the
   // precipitation probability explicitly. Every phrase is backed by a field.
+  // Epoch 287's request arrived as hours=168 for a question that said "7-day",
+  // so the answer named the window in hours and the question's own form was
+  // lost. A window that is a clean number of days is stated in BOTH forms —
+  // "7-day (168-hour)" — so whichever form the question used, it is echoed.
   const daysEcho =
-    daysRequested ??
-    (wantHours % 24 === 0 && /\b(?:\d{1,2}|[a-z]+)[-\s]*days?\b/i.test(query) ? wantHours / 24 : null);
-  const span = daysEcho && daysEcho * 24 === wantHours ? `${daysEcho}-day` : `${n}-hour`;
+    daysRequested ?? (wantHours >= 48 && wantHours % 24 === 0 ? wantHours / 24 : null);
+  const span = daysEcho && daysEcho * 24 === wantHours ? `${daysEcho}-day (${wantHours}-hour)` : `${n}-hour`;
   const probClause = probMax === null ? "" : `, a precipitation probability of up to ${probMax}%`;
 
   // Name the dates the series actually covers, the way a person would write them.
@@ -212,6 +218,7 @@ export async function getForecast(
     location: place.name,
     verdict: condition,
     window_hours: n,
+    span_days: daysEcho ?? null,
     start_time: times[0] ? `${times[0]}Z` : null,
     end_time: times.length ? `${times[times.length - 1]}Z` : null,
     hourly_count: times.length || null,

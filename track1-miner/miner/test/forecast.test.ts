@@ -13,17 +13,18 @@ describe("getForecast (live)", () => {
     assert.match(r.reason, /temperature in Celsius/);
   });
 
-  test("honours a custom window", async () => {
+  test("honours a custom window, stating both day and hour forms", async () => {
     const r = await getForecast("Tokyo", 48);
     assert.equal(r.window_hours, 48);
-    assert.match(r.reason, /A 48-hour hourly weather forecast/);
+    assert.match(r.reason, /A 2-day \(48-hour\) hourly weather forecast/);
   });
 
   test("echoes a day-count request in day form, with precipitation probability", async () => {
     const r = await getForecast("Tokyo", 168, undefined, 7);
     assert.equal(r.window_hours, 168);
     assert.equal(r.hourly_count, 168);
-    assert.match(r.reason, /A 7-day hourly weather forecast/);
+    assert.equal(r.span_days, 7);
+    assert.match(r.reason, /A 7-day \(168-hour\) hourly weather forecast/);
     if (r.precipitation_probability_max_pct !== null) {
       assert.match(r.reason, /precipitation probability of up to \d+%/);
       assert.ok(r.precipitation_probability_max_pct >= 0 && r.precipitation_probability_max_pct <= 100);
