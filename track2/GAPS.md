@@ -69,6 +69,15 @@ can't see it, so build steps should prepend it or use full paths; (2) use
 exhaustion and `rank_answer` treats `ma_len <= 0` as blank rather than trapping — a deliberate
 choice to keep malformed host calls at 0.0 instead of a hung `loop {}` panic handler.
 
+### G12 · The binding constraints are self-match and Spearman, not margin — `CLOSED (measured)` — 2026-08-27
+Harness validation over real challenger records: challengers with **better margins** than the
+incumbent still failed on (a) the self-match **ratchet** — incumbents self-match at exactly 1.0
+(exact-match short-circuit), so 0.9933 was a rejection — and (b) Spearman (a 0.284 seen). Design
+consequences (relayed to the scorer build): normalized exact match MUST return exactly 1.0; and
+anti-parrot defense must be answered-ness, **not** question-overlap penalty — measured across 554
+rows, question-overlap correlates *negatively* (−0.258) with champion score; the parrot effect is
+positional (prefix), so penalizing overlap would destroy Spearman for nothing.
+
 ### G9 · Spearman-agreement tension — `OPEN but bounded` — sharpened 2026-08-27
 Threshold is **0.60** (not high), gated on **≥2 distinct miners** (row count is irrelevant; a
 single-miner intent skips it entirely). The tension is real — we deliberately disagree with the

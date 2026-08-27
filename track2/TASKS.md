@@ -21,8 +21,6 @@ One task = one change = one commit. Work top-down. Owner in brackets.
 - [x] **T-A.6** [User] Both Discord questions answered 2026-08-27 → G10 closed (overlap OK with
       disclosure), G1 residual closed (registerWasm + X posts), review measures the module vs the
       incumbent directly (depth over breadth). Recorded in MEMORY/GAPS/ARCHITECTURE.
-- [ ] **T-E.4** [Fable+User] Disclosure artifact: scorer README section + the required X post must
-      state the livecert (registration 225) overlap plainly — mandatory per the organizer answer.
 - [x] **T-A.7** [Opus] Node gate recovered → `recon/2026-08-27-node-gate-analysis.md`. All
       constants pinned; `telegraph-subnet` was a dead end, gate found in git-history docs + live
       rejections.
@@ -32,16 +30,19 @@ One task = one change = one commit. Work top-down. Owner in brackets.
 
 ## Phase B — Design + fixtures
 
-- [ ] **T-B.1** [Opus] Fixture corpus v1: real recorded traffic per target intent pulled from
-      public `/scores` (question / ground_truth / answers / scores), pinned to files, per
-      [FIXTURES.md](FIXTURES.md) class REAL.
-- [ ] **T-B.2** [Opus] Synthetic fixture set per [FIXTURES.md](FIXTURES.md) classes 2–10
-      (fact-swap, refusal, stuffing, contradiction, format-equivalence, unit/form, temporal,
-      length, our-style-wrong).
-- [ ] **T-B.3** [Opus] Side-by-side harness: run any two scorer WASMs over the corpus, emit
-      pairwise ranking accuracy + per-class breakdown (extends `probe-champion.mjs`).
-- [ ] **T-B.4** [Fable] Review harness output on baseline alone — it must reproduce the known
-      mis-rankings before any candidate exists.
+- [x] **T-B.1** [Opus] Fixture corpus v1 built: 94 REAL + 119 synth + 56 probe fixtures across
+      7 intents (3.6 MB), provenance pinned.
+- [x] **T-B.2** [Opus] Synthetic + probe fixtures per [FIXTURES.md](FIXTURES.md); class 3
+      (REFUSAL) corrected after measurement — refusals are GTs in real traffic, not answers.
+- [x] **T-B.3** [Opus] `track2/harness/run-eval.mjs` + 8 support modules: full gate proxy
+      (Stage 1 + Stage 2 constants as measured) + per-class accuracy + Spearman proxy.
+      Validated: reproduces live node scores to 6 s.f. (20/20 rows) and replays the real
+      WEATHER 636-vs-442 promotion 6/6.
+- [x] **T-B.4** [Fable] Reviewed `recon/2026-08-27-harness-validation.md`: PREFIX-PARROT
+      reproduced (0.993 echo vs 0.0089 real data, 100–124×); refusal archetype
+      corrected (refusals are GTs, not answers) → FIXTURES.md class 3 rewritten; binding
+      design corrections relayed to the scorer build (exact-match→1.0 ratchet; answered-ness
+      not overlap-penalty; GT-conditional refusal handling). → GAPS G12.
 
 ## Phase C — Build
 
@@ -73,3 +74,5 @@ One task = one change = one commit. Work top-down. Owner in brackets.
 - [ ] **T-E.3** [Opus] Package the harness + fixtures as a reusable kit for other script authors
       (the 10% adoption play).
 - [ ] **T-E.4** [User] Submit before **2026-08-31**; confirmation recorded in MEMORY.md.
+- [ ] **T-E.5** [Fable+User] Disclosure artifact: scorer README section + the required X post
+      state the livecert (registration 225) overlap plainly — mandatory per the organizer answer.

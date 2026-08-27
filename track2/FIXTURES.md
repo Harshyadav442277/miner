@@ -37,10 +37,13 @@ noise and must be caught even when it luckily orders them.
 2. **FACT-SWAP** — a correct answer duplicated with one decisive fact changed (number, verdict,
    identifier, date). Embedding cosine barely moves; a fact-aware scorer must invert the order.
    The core demonstration of the thesis.
-3. **REFUSAL** — "I cannot provide the exact …" phrased in ground-truth-adjacent boilerplate vs a
-   correct factual answer. Archetype: the recorded epoch where a refusal scored 0.99 and a correct
-   48-hour forecast 0.007. A refusal must score near zero whenever the ground truth contains an
-   answer.
+3. **REFUSAL** — *corrected 2026-08-27 by harness validation:* in 554 recorded rows, zero cases
+   of a refusal **answer** outscoring a correct one — the earlier archetype was inverted. In real
+   traffic the refusal is the **ground truth** (8/15 weather GTs are hedged/refusal-shaped; 40 of
+   58 sub-0.02 rows), and against such a GT a contentless question-echo earns 0.99. The class
+   therefore splits: (a) GT carries decisive data + answer is a refusal → refusal must score near
+   zero; (b) GT is itself refusal-shaped → a hedged answer is *correct* and must score high,
+   while a contentless echo must not outscore it. Both directions carry fixtures.
 4. **STUFFING** — question vocabulary + intent keywords concatenated with no decisive facts (or
    hedged ranges covering every outcome). Must lose to any factually correct answer.
 5. **CONTRADICTION** — contains both the right and a wrong value for the same fact. Must not beat
