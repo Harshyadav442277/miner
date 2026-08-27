@@ -53,7 +53,7 @@ Everything below is measured and true. Do not post a number that has not happene
 >
 > Resolving an identifier is not the same as answering about it. 2x for one clause.
 
-### 5. Four theories, four wrong
+### 5. Five theories, five wrong
 
 > Things I believed about @Telegraphprotoc scoring that measurement killed:
 >
@@ -61,6 +61,8 @@ Everything below is measured and true. Do not post a number that has not happene
 > · `label_field` drives the score — wrong, rank 1 maps it to a constant "ok"
 > · there's a response size limit — wrong, one miner converts 52KB fine
 > · a hand-written test candidate is a valid measurement — wrong, it leaks the ground truth
+> · declaring `q` in your schema gets you the question text — wrong, weather still arrives as
+>   `location` + `days` and nothing else
 >
 > Every real gain came from answering more of what was actually asked.
 
@@ -68,24 +70,39 @@ Everything below is measured and true. Do not post a number that has not happene
 
 > The @Telegraphprotoc epoch ticker counts down in minutes, so I assumed fast feedback.
 >
-> Epochs are 9 hours. Scoring lands ~3x a day. Across the whole Track 1 window that's roughly 40
-> scoring opportunities, and any `updateMiner` costs you a chunk of the remaining ones.
+> Epochs are 9 hours. Scoring lands ~3x a day, and only a handful of epochs remain before the
+> Aug 31 close — any `updateMiner` costs you a chunk of them.
 >
-> Build your feedback loop offline. Don't poll the leaderboard.
+> Build your feedback loop offline: the champion scorer WASMs are public and reproduce reported
+> scores exactly. Seconds per iteration instead of 9 hours. Don't poll the leaderboard.
 
 ---
 
-## After the schema update lands
+## Milestone + eligibility — post these now, a day apart
 
-### 7. Result post
+### 7. Result post — rank 1 in three intents
 
-> Updated my @Telegraphprotoc miner's `input_schema` to declare `q`, `lat` and `lon`.
+> Two days of measuring instead of guessing, and my @Telegraphprotoc miner livecert went from
+> #3 / #3 / #7 in its first scored epoch to **#1 in three intents**: IP_GEOLOCATION (0.992),
+> SSL_VERIFICATION, STORM_ALERT.
 >
-> Before: coordinate questions arrived with an empty location, dated questions lost "starting next
-> Monday".
-> After: <the actual numbers>
+> No model, no API keys. A live TLS handshake, one weather API, and one rule that survived every
+> measurement: answer every clause the question asks, in the question's own terms.
 >
-> The parser was never the problem. The declaration was.
+> The two big unlocks: declare your input params (the engine drops everything you don't), and
+> never return a 4xx — an error body scores a literal zero.
+
+### 8. The recruitment post — eligibility work, not marketing
+
+> My @Telegraphprotoc miner is #1 in IP_GEOLOCATION at 0.992 — and it might be worth exactly $0.
+>
+> Prize eligibility needs ≥3 active miners per intent. IP_GEOLOCATION has 2.
+>
+> So, genuinely: if you're still picking a Track 1 intent, there's an open podium slot here, and
+> your registration alone makes the intent payable for both of us. Come compete with me.
+>
+> Track 3 builders — same math: an intent also needs 100+ real requests from applications before
+> anyone gets paid. Geolocation, SSL checks and storm alerts are live and answering.
 
 ---
 
