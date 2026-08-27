@@ -76,12 +76,16 @@ hatches: **IP_GEOLOCATION is single-miner → no Spearman**; and the harness com
 Spearman vs the live champion over real `/scores` rows per intent before any registration. Where it
 can't clear 0.60 while fixing the pathologies, prefer a single-miner intent.
 
-### G10 · Authoring a scorer for an intent we also mine — `OPEN, organizer question`
-The rules are silent (fable_review_audit.md §8, read 2026-08-27), and the Track 1 session's
-breadth expansion means `livecert` now mines many Tier A intents — overlapping most scorer
-targets. Posture: general-correctness design, our-style-wrong fixtures, public disclosure, and
-**ask the organizers before registering a scorer on a mined intent** (user, Discord). If
-unanswered, prefer non-mined intents for the first registration.
+### G10 · Authoring a scorer for an intent we also mine — `OPEN, organizer question` · sharpened
+The rules are silent (fable_review_audit.md §8), and it is now **verified** that livecert's
+committed manifest declares ALL five natural scorer targets (`SSL_VERIFICATION, STORM_ALERT,
+WEATHER_FORECAST, IP_GEOLOCATION, CVE_LOOKUP`) — "pick a non-mined target" cannot cover those
+five. Resolution (ARCHITECTURE A6): mined intents are used freely for the **proof corpus**
+(analysis affects nothing on-chain); the **first champion registration** goes to a non-mined
+Tier A intent (URL_SCAN is the narrative fit) unless the organizers clear overlap-with-disclosure
+first. Residual to confirm at registration: which intents the CURRENT on-chain registration is
+actively scored on (declared-in-YAML may lag or lead the live set — check `/api/miners`, by
+registrationId, never slug).
 
 ### G7 · What "remain live and operational throughout Track 3" means for a script — `OPEN`
 For miners it means uptime. For a submitted scorer it presumably means the script stays

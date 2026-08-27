@@ -102,19 +102,27 @@ Registration is gas-only and reversible, so multiple champion slots are the real
 not fixed** — the champion_margin bar drifts with fixture rotation (weather swung 0.53→0.99 in
 48 h), so poll `/api/wasm` for the target's current bar and register at a local low.
 
-Priority order for the first registration (revisit against live polls + the harness's measured
-separation):
+**Correction 2026-08-27:** the committed `track1-miner/miner.yaml` declares `supported_intents:
+SSL_VERIFICATION, STORM_ALERT, WEATHER_FORECAST, IP_GEOLOCATION, CVE_LOOKUP` — so **all five
+natural targets are mined by livecert.** Registration and proof therefore split:
 
-1. **IP_GEOLOCATION** — single miner → **Spearman skipped** (removes the gate most in tension with
-   our thesis), only 5 entries, and **livecert does not mine it** (no conflict, G10). Cost: highest
-   margin bar (~0.992) = little headroom, so it needs near-perfect separation.
-2. **STORM_ALERT** — **lowest margin bar (~0.859)** = most headroom, 11 entries. Cost: ~4 miners so
-   Spearman (≥0.60) is enforced, and livecert mines it (G10 disclosure question first).
-3. **SSL_VERIFICATION** — bar ~0.913, 9 entries; livecert mines it (G10).
+- **Proof corpus (the 50% exhibit): any Tier A intent, mined ones included.** Demonstrating our
+  scorer out-ranks the champion is analysis, not self-dealing — a scorer only affects an intent it
+  is *registered* on. Use the mined intents freely here; that is where our data is richest.
+- **On-chain champion registration: prefer a NON-mined Tier A intent** until the organizer clears
+  overlap (G10). A scorer registered on, e.g., URL_SCAN cannot touch how livecert is scored on
+  SSL, so it is unimpeachable *and* still wins Track 2 (a held champion slot + a demonstrated
+  improvement). Non-mined Tier A set to survey at registration time (poll `/api/wasm` for the
+  softest gate — lowest `champion_margin`, single-miner → Spearman-skipped): URL_SCAN (security,
+  deterministic — best narrative fit), STOCK_PRICE, CRYPTO_PRICE, FINANCIAL_DATA, CURRENCY_EXCHANGE,
+  WALLET_BALANCE_CHECK, GAS_PRICE, TOKEN_HOLDER_COUNT, TVL_LOOKUP, ONCHAIN_TX_LOOKUP, WEATHER_CHECK,
+  SPORTS_SCORE, GAME_RESULT.
 
-WEATHER_FORECAST (bar ~0.989, Spearman enforced, 67 entries) and CVE_LOOKUP (~0.933, 53 entries,
-churning) are hardest — deprioritized for *registration*, but still first-class for the **50%
-proof corpus** (the side-by-side improvement exhibit does not require holding the slot).
+Build/validation still starts on **IP_GEOLOCATION + STORM_ALERT** (richest data, single-miner
+IP_GEO gives a Spearman-free validation of the core); those double as proof intents. If G10 is
+answered "overlap is fine with disclosure," they also become registration targets — their gates
+are known (STORM bar ~0.859 is the softest measured). Register on whichever intent's gate is
+lowest at the moment, mined-status permitting.
 
 ## A8 — The gate we must clear · reference (`recon/2026-08-27-node-gate-analysis.md`)
 

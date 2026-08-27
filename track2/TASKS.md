@@ -52,6 +52,11 @@ One task = one change = one commit. Work top-down. Owner in brackets.
 - [ ] **T-C.4** [Opus] Candidate beats baseline on every target intent's fixtures; iterate until
       adversarial set is clean.
 
+- [ ] **T-C.5** [Opus] Registration-target survey at candidate-ready time: poll `/api/wasm` for
+      every NON-mined Tier A intent (URL_SCAN first) — champion_margin, entry count, miner count
+      (Spearman on/off) — and pick the softest gate. Bars drift; poll again immediately before
+      the user registers. (A6, G10, G11)
+
 ## Phase D — Proof
 
 - [ ] **T-D.1** [Opus] One-command reproducible report (baseline vs candidate, receipts inline).
