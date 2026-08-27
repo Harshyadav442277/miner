@@ -1,6 +1,7 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
 import { checkCertificate, normalizeTarget, type SslResult } from "./ssl";
 import { checkStorm, type StormResult } from "./storm";
+import { extractContent } from "./content";
 import { getForecast, type ForecastResult } from "./forecast";
 import { geolocate, type GeoResult } from "./geo";
 
@@ -274,6 +275,34 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
         send(res, 200, result);
       })
       .catch((e: unknown) => upstreamUnavailable(res, "A storm risk forecast", q.slice(0, 80), e));
+    return;
+  }
+
+  if (path === "/extract") {
+    // CONTENT_EXTRACTION questions carry their payload inline, so the whole
+    // question text is the input — there is nothing to fetch.
+    const q = firstValue(url, "query", "q", "question", "text", "input", "content");
+    if (!q.trim()) {
+      send(res, 200, {
+        verdict: "unknown",
+        confidence: 0,
+        reason:
+          "No text was supplied with this request, so no fields could be extracted. " +
+          "Supply the text to extract from, for example: Extract the contact details from: " +
+          "\"Reach us at support@example.com or call 555-0192.\"",
+        error: "invalid_input",
+      });
+      return;
+    }
+    const e = extractContent(q);
+    send(res, 200, {
+      verdict: e.want,
+      extracted: e.fields,
+      source_text: e.source.slice(0, 400),
+      confidence: 1,
+      reason: e.summary,
+      checked_at: new Date().toISOString(),
+    });
     return;
   }
 

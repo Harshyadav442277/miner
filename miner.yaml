@@ -34,6 +34,14 @@ endpoints:
       Severe-weather risk for a location over the next 48 hours. Accepts a place
       name or "lat,lon".
 
+  - path: /extract
+    external_path: /extract
+    method: GET
+    description: >-
+      Structured extraction from text supplied inline in the question — contact
+      details, named entities, quantities and units, action items, dates and
+      events, numeric values. Deterministic; no model involved.
+
   - path: /ip-geolocate
     external_path: /ip-geolocate
     method: GET
@@ -58,6 +66,7 @@ semantics:
     - STORM_ALERT
     - WEATHER_FORECAST
     - IP_GEOLOCATION
+    - CONTENT_EXTRACTION
 
 # input_schema is a single top-level block covering every endpoint — the schema
 # refuses it inside endpoints[], and the node does not enforce it against requests.
@@ -128,6 +137,9 @@ input_schema:
     forecast_days:
       type: integer
       description: Alias for days.
+    content:
+      type: string
+      description: /extract. The text to extract fields from, or the whole question.
     ip:
       type: string
       description: /ip-geolocate. IPv4 or IPv6 address.
