@@ -1,0 +1,3073 @@
+{
+ "fixtures": [
+  {
+   "id": "ip_geolocation-cleanpair-01",
+   "intent": "IP_GEOLOCATION",
+   "class": "CLEAN-PAIR",
+   "rationale": "mirrors the node's own benchmark shape: one clearly-correct answer in four phrasings against one clearly-wrong answer. The adversarial classes measured the incumbent at margin 0.438 where the node measured 0.992 (rejection of registration 1377), because a lexically generous scorer only fails on pathologies. This class is where the gate actually lives, and where a precision term that charges a correct answer for its own wording costs us the ordering.",
+   "question": "Can you determine the geographic location and abuse history for the IP address 192.168.1.10?",
+   "ground_truth": "The IP address 192.168.1.10 is a private/internal network address commonly used for local area networks (LANs). Geographic Location: Private IP addresses like 192.168.x.x do not have a public geographic location because they are not routable on the internet. They are used only within private networks. Abuse History: Since this is a private IP address, it does not appear in public abuse databases or blacklists. Abuse reports and histories are typically tracked for public IP addresses that are exposed on the internet. In summary, 192.168.1.10 has no public geographic location and no abuse history because it is designed for internal use only.",
+   "answers": [
+    {
+     "id": "correct-verbatim",
+     "text": "The IP address 192.168.1.10 is a private/internal network address commonly used for local area networks (LANs). Geographic Location: Private IP addresses like 192.168.x.x do not have a public geographic location because they are not routable on the internet. They are used only within private networks. Abuse History: Since this is a private IP address, it does not appear in public abuse databases or blacklists. Abuse reports and histories are typically tracked for public IP addresses that are exposed on the internet. In summary, 192.168.1.10 has no public geographic location and no abuse history because it is designed for internal use only.",
+     "quality": 1,
+     "note": "the ground truth as the miner would state it, markdown stripped"
+    },
+    {
+     "id": "correct-reworded",
+     "text": "The address 192.168.1.10 is a private/internal network address commonly used for local area networks (LANs). Geographic Location: Private IP addresses like 192.168.x.x do not have a public geographic location because they are not routable on the internet. They are used only within private networks. Abuse History: Since this is a private IP address, it does not appear in public abuse databases or blacklists. Abuse reports and histories are typically tracked for public IP addresses that are exposed on the internet. 192.168.1.10 has no public geographic location and no abuse history because it is designed for internal use only.",
+     "quality": 1,
+     "note": "connective substitution only; no entity or figure touched"
+    },
+    {
+     "id": "correct-terse",
+     "text": "IP address 192.168.1.10 private/internal network address local area networks (LANs). Geographic Location: Private IP addresses like 192.168.x.x not public geographic location because they not routable internet. They only within private networks. Abuse History: Since private IP address, not appear public abuse databases blacklists. Abuse reports histories tracked public IP addresses exposed internet. summary, 192.168.1.10 no public geographic location no abuse history because designed internal use only.",
+     "quality": 1,
+     "note": "fixed filler list deleted; every decisive token kept, in order"
+    },
+    {
+     "id": "correct-verbose",
+     "text": "According to the record that was retrieved, the IP address 192.168.1.10 is a private/internal network address commonly used for local area networks (LANs). Geographic Location: Private IP addresses like 192.168.x.x do not have a public geographic location because they are not routable on the internet. They are used only within private networks. Abuse History: Since this is a private IP address, it does not appear in public abuse databases or blacklists. Abuse reports and histories are typically tracked for public IP addresses that are exposed on the internet. In summary, 192.168.1.10 has no public geographic location and no abuse history because it is designed for internal use only. These figures come from the provider's own dataset and are reproduced here without further adjustment; readers who need a second opinion should consult the authoritative registry directly rather than relying on this summary alone.",
+     "quality": 1,
+     "note": "fixed preamble and fact-free caveat wrapped around the verbatim form"
+    },
+    {
+     "id": "wrong-unrelated",
+     "text": "The IP address 142.251.42.174 resolves to Mountain View, California, United States. It is announced by Google LLC (AS15169).",
+     "quality": 0,
+     "note": "the next record's ground truth: a real answer to a different question"
+    },
+    {
+     "id": "wrong-swapped",
+     "text": "The Google LLC address 142.251.42.174 is a private/internal network address commonly used for local area networks (Mountain View). Geographic Location: California addresses like 15169.x.x do not have a public geographic location because they are not routable on the internet. They are used only within private networks. Abuse History: United States. It this is a private Google LLC address, it does not appear in public abuse databases or blacklists. Abuse reports and histories are typically tracked for public Google LLC addresses that are exposed on the internet. In summary, 142.251.42.174 has no public geographic location and no abuse history because it is designed for internal use only.",
+     "quality": 0,
+     "note": "same prose skeleton, entities and figures replaced positionally by the donor's"
+    }
+   ],
+   "pairs": [
+    [
+     "correct-verbatim",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbatim",
+     "wrong-swapped"
+    ],
+    [
+     "correct-reworded",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-reworded",
+     "wrong-swapped"
+    ],
+    [
+     "correct-terse",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-terse",
+     "wrong-swapped"
+    ],
+    [
+     "correct-verbose",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbose",
+     "wrong-swapped"
+    ]
+   ],
+   "constraints": [
+    {
+     "type": "near_equal",
+     "ids": [
+      "correct-verbatim",
+      "correct-reworded",
+      "correct-terse",
+      "correct-verbose"
+     ],
+     "tolerance": 0.05,
+     "note": "every phrasing of the same correct answer must score alike; the reworded/verbose gap was the measured defect"
+    }
+   ],
+   "provenance": {
+    "source": "synthetic",
+    "derived_from": "real/ip_geolocation-real-01",
+    "method": "mechanical transform of existing fixture text (gen-clean-pairs.mjs); no answer authored against a ground truth",
+    "captured": "2026-08-27"
+   }
+  },
+  {
+   "id": "ip_geolocation-cleanpair-02",
+   "intent": "IP_GEOLOCATION",
+   "class": "CLEAN-PAIR",
+   "rationale": "mirrors the node's own benchmark shape: one clearly-correct answer in four phrasings against one clearly-wrong answer. The adversarial classes measured the incumbent at margin 0.438 where the node measured 0.992 (rejection of registration 1377), because a lexically generous scorer only fails on pathologies. This class is where the gate actually lives, and where a precision term that charges a correct answer for its own wording costs us the ordering.",
+   "question": "Can you look up the geolocation details for the IP address 142.251.42.174 and provide the country, city, and ISP information?",
+   "ground_truth": "The IP address 142.251.42.174 is associated with Google LLC and is located in the United States. The specific city and other details are not provided in the search results, but the ISP is clearly identified as Google LLC, indicating this is likely a Google server or service IP address.",
+   "answers": [
+    {
+     "id": "correct-verbatim",
+     "text": "The IP address 142.251.42.174 is associated with Google LLC and is located in the United States. The specific city and other details are not provided in the search results, but the ISP is clearly identified as Google LLC, indicating this is likely a Google server or service IP address.",
+     "quality": 1,
+     "note": "the ground truth as the miner would state it, markdown stripped"
+    },
+    {
+     "id": "correct-reworded",
+     "text": "The address 142.251.42.174 belongs to Google LLC and maps to the United States. The specific city and other details are not provided in the search results, but the ISP is clearly identified as Google LLC, indicating this is likely a Google server or service IP address.",
+     "quality": 1,
+     "note": "connective substitution only; no entity or figure touched"
+    },
+    {
+     "id": "correct-terse",
+     "text": "IP address 142.251.42.174 associated Google LLC located United States. specific city other details not provided search results, ISP clearly identified Google LLC, indicating likely Google server service IP address.",
+     "quality": 1,
+     "note": "fixed filler list deleted; every decisive token kept, in order"
+    },
+    {
+     "id": "correct-verbose",
+     "text": "According to the record that was retrieved, the IP address 142.251.42.174 is associated with Google LLC and is located in the United States. The specific city and other details are not provided in the search results, but the ISP is clearly identified as Google LLC, indicating this is likely a Google server or service IP address. These figures come from the provider's own dataset and are reproduced here without further adjustment; readers who need a second opinion should consult the authoritative registry directly rather than relying on this summary alone.",
+     "quality": 1,
+     "note": "fixed preamble and fact-free caveat wrapped around the verbatim form"
+    },
+    {
+     "id": "wrong-unrelated",
+     "text": "The IP address 91.146.179.123 resolves to Reykjavik, Capital Region, Iceland. It is announced by Ljosleidarinn ehf (AS22057).",
+     "quality": 0,
+     "note": "the next record's ground truth: a real answer to a different question"
+    },
+    {
+     "id": "wrong-swapped",
+     "text": "The Reykjavik address 91.146.179.123 is associated with Reykjavik and is located in the Capital Region specific city and other details are not provided in the search results, but the Iceland. It is clearly identified as Reykjavik, indicating this is likely a Ljosleidarinn server or service Reykjavik address.",
+     "quality": 0,
+     "note": "same prose skeleton, entities and figures replaced positionally by the donor's"
+    }
+   ],
+   "pairs": [
+    [
+     "correct-verbatim",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbatim",
+     "wrong-swapped"
+    ],
+    [
+     "correct-reworded",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-reworded",
+     "wrong-swapped"
+    ],
+    [
+     "correct-terse",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-terse",
+     "wrong-swapped"
+    ],
+    [
+     "correct-verbose",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbose",
+     "wrong-swapped"
+    ]
+   ],
+   "constraints": [
+    {
+     "type": "near_equal",
+     "ids": [
+      "correct-verbatim",
+      "correct-reworded",
+      "correct-terse",
+      "correct-verbose"
+     ],
+     "tolerance": 0.05,
+     "note": "every phrasing of the same correct answer must score alike; the reworded/verbose gap was the measured defect"
+    }
+   ],
+   "provenance": {
+    "source": "synthetic",
+    "derived_from": "real/ip_geolocation-real-02",
+    "method": "mechanical transform of existing fixture text (gen-clean-pairs.mjs); no answer authored against a ground truth",
+    "captured": "2026-08-27"
+   }
+  },
+  {
+   "id": "ip_geolocation-cleanpair-03",
+   "intent": "IP_GEOLOCATION",
+   "class": "CLEAN-PAIR",
+   "rationale": "mirrors the node's own benchmark shape: one clearly-correct answer in four phrasings against one clearly-wrong answer. The adversarial classes measured the incumbent at margin 0.438 where the node measured 0.992 (rejection of registration 1377), because a lexically generous scorer only fails on pathologies. This class is where the gate actually lives, and where a precision term that charges a correct answer for its own wording costs us the ordering.",
+   "question": "Can you look up the geographic location and abuse history for the IP address 192.0.2.1 and report any suspicious activity detected?",
+   "ground_truth": "The IP address 192.0.2.1 is part of the TEST-NET-1 range (192.0.2.0/24), which is explicitly reserved for documentation and examples purposes and should never appear on the public internet. This IP range is not assigned to any real user or network and is used only in technical documentation, tutorials, and examples to avoid conflicts with real IP addresses. If you see traffic to or from this address in logs or network monitoring tools, it typically indicates one of the following: Misconfigured or simulated traffic: The traffic may originate from a device or script using placeholder documentation addresses. Internal testing: The address might be used in a lab environment or during internal network testing. False positive or misinterpretation: Monitoring tools or security systems might incorrectly flag or misinterpret the traffic. There is no geographic location associated with this IP because it is not a routable address on the public internet. Similarly, there is no abuse history or suspicious activity linked to it, as it is not used for real-world communications. If you continue to see this address in your logs or security alerts, investigate the source within your internal network or review any configurations that might be using placeholder addresses inappropriately.",
+   "answers": [
+    {
+     "id": "correct-verbatim",
+     "text": "The IP address 192.0.2.1 is part of the TEST-NET-1 range (192.0.2.0/24), which is explicitly reserved for documentation and examples purposes and should never appear on the public internet. This IP range is not assigned to any real user or network and is used only in technical documentation, tutorials, and examples to avoid conflicts with real IP addresses. If you see traffic to or from this address in logs or network monitoring tools, it typically indicates one of the following: Misconfigured or simulated traffic: The traffic may originate from a device or script using placeholder documentation addresses. Internal testing: The address might be used in a lab environment or during internal network testing. False positive or misinterpretation: Monitoring tools or security systems might incorrectly flag or misinterpret the traffic. There is no geographic location associated with this IP because it is not a routable address on the public internet. Similarly, there is no abuse history or suspicious activity linked to it, as it is not used for real-world communications. If you continue to see this address in your logs or security alerts, investigate the source within your internal network or review any configurations that might be using placeholder addresses inappropriately.",
+     "quality": 1,
+     "note": "the ground truth as the miner would state it, markdown stripped"
+    },
+    {
+     "id": "correct-reworded",
+     "text": "The address 192.0.2.1 is part of the TEST-NET-1 range (192.0.2.0/24), which is explicitly reserved for documentation and examples purposes and should never appear on the public internet. This IP range is not assigned to any real user or network and is used only in technical documentation, tutorials, and examples to avoid conflicts with real IP addresses. If you see traffic to or from this address in logs or network monitoring tools, it typically shows one of the following: Misconfigured or simulated traffic: The traffic may originate from a device or script using placeholder documentation addresses. Internal testing: The address might be used in a lab environment or during internal network testing. False positive or misinterpretation: Monitoring tools or security systems might incorrectly flag or misinterpret the traffic. There is no geographic location associated with this IP because it is not a routable address on the public internet. Similarly, there is no abuse history or suspicious activity linked to it, as it is not used for real-world communications. If you continue to see this address in your logs or security alerts, investigate the source within your internal network or review any configurations that might be using placeholder addresses inappropriately.",
+     "quality": 1,
+     "note": "connective substitution only; no entity or figure touched"
+    },
+    {
+     "id": "correct-terse",
+     "text": "IP address 192.0.2.1 part TEST-NET-1 range (192.0.2.0/24), explicitly reserved documentation examples purposes never appear public internet. IP range not assigned any real user network only technical documentation, tutorials, examples avoid conflicts real IP addresses. If you see traffic address logs network monitoring tools, indicates one following: Misconfigured simulated traffic: traffic originate device script placeholder documentation addresses. Internal testing: address lab environment during internal network testing. False positive misinterpretation: Monitoring tools security systems incorrectly flag misinterpret traffic. no geographic location associated IP because not routable address public internet. Similarly, no abuse history suspicious activity linked, not real-world communications. If you continue see address your logs security alerts, investigate source within your internal network review any configurations placeholder addresses inappropriately.",
+     "quality": 1,
+     "note": "fixed filler list deleted; every decisive token kept, in order"
+    },
+    {
+     "id": "correct-verbose",
+     "text": "According to the record that was retrieved, the IP address 192.0.2.1 is part of the TEST-NET-1 range (192.0.2.0/24), which is explicitly reserved for documentation and examples purposes and should never appear on the public internet. This IP range is not assigned to any real user or network and is used only in technical documentation, tutorials, and examples to avoid conflicts with real IP addresses. If you see traffic to or from this address in logs or network monitoring tools, it typically indicates one of the following: Misconfigured or simulated traffic: The traffic may originate from a device or script using placeholder documentation addresses. Internal testing: The address might be used in a lab environment or during internal network testing. False positive or misinterpretation: Monitoring tools or security systems might incorrectly flag or misinterpret the traffic. There is no geographic location associated with this IP because it is not a routable address on the public internet. Similarly, there is no abuse history or suspicious activity linked to it, as it is not used for real-world communications. If you continue to see this address in your logs or security alerts, investigate the source within your internal network or review any configurations that might be using placeholder addresses inappropriately. These figures come from the provider's own dataset and are reproduced here without further adjustment; readers who need a second opinion should consult the authoritative registry directly rather than relying on this summary alone.",
+     "quality": 1,
+     "note": "fixed preamble and fact-free caveat wrapped around the verbatim form"
+    },
+    {
+     "id": "wrong-unrelated",
+     "text": "The IP address 13.1.34.152 resolves to Reykjavik, Capital Region, Iceland. It is announced by Ljosleidarinn ehf (AS10448). Approximate coordinates are 64.1466, -21.9426.",
+     "quality": 0,
+     "note": "the next record's ground truth: a real answer to a different question"
+    },
+    {
+     "id": "wrong-swapped",
+     "text": "Ljosleidarinn Capital Region address 13.1.34.152 is part of the Reykjavik10448 range (64.1466.-21.9426/13.1), which is explicitly reserved for documentation and examples purposes and should never appear on the public internet. This Capital Region range is not assigned to any real user or network and is used only in technical documentation, tutorials, and examples to avoid conflicts with real Capital Region addresses. If you see traffic to or from this address in logs or network monitoring tools, it typically indicates one of the following: Iceland. It or simulated traffic: Ljosleidarinn traffic may originate from a device or script using placeholder documentation addresses. Internal testing: Ljosleidarinn address might be used in a lab environment or during internal network testing. False positive or misinterpretation: Reykjavik tools or security systems might incorrectly flag or misinterpret the traffic. Ljosleidarinnre is no geographic location associated with this Capital Region because it is not a routable address on the public internet. Similarly, there is no abuse history or suspicious activity linked to it, as it is not used for real-world communications. If you continue to see this address in your logs or security alerts, investigate the source within your internal network or review any configurations that might be using placeholder addresses inappropriately.",
+     "quality": 0,
+     "note": "same prose skeleton, entities and figures replaced positionally by the donor's"
+    }
+   ],
+   "pairs": [
+    [
+     "correct-verbatim",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbatim",
+     "wrong-swapped"
+    ],
+    [
+     "correct-reworded",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-reworded",
+     "wrong-swapped"
+    ],
+    [
+     "correct-terse",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-terse",
+     "wrong-swapped"
+    ],
+    [
+     "correct-verbose",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbose",
+     "wrong-swapped"
+    ]
+   ],
+   "constraints": [
+    {
+     "type": "near_equal",
+     "ids": [
+      "correct-verbatim",
+      "correct-reworded",
+      "correct-terse",
+      "correct-verbose"
+     ],
+     "tolerance": 0.05,
+     "note": "every phrasing of the same correct answer must score alike; the reworded/verbose gap was the measured defect"
+    }
+   ],
+   "provenance": {
+    "source": "synthetic",
+    "derived_from": "real/ip_geolocation-real-03",
+    "method": "mechanical transform of existing fixture text (gen-clean-pairs.mjs); no answer authored against a ground truth",
+    "captured": "2026-08-27"
+   }
+  },
+  {
+   "id": "ip_geolocation-cleanpair-04",
+   "intent": "IP_GEOLOCATION",
+   "class": "CLEAN-PAIR",
+   "rationale": "mirrors the node's own benchmark shape: one clearly-correct answer in four phrasings against one clearly-wrong answer. The adversarial classes measured the incumbent at margin 0.438 where the node measured 0.992 (rejection of registration 1377), because a lexically generous scorer only fails on pathologies. This class is where the gate actually lives, and where a precision term that charges a correct answer for its own wording costs us the ordering.",
+   "question": "Can you check the abuse history and geographic location for the IP address 192.168.1.10 and tell me if it's been flagged for any malicious activity recently?",
+   "ground_truth": "The IP address 192.168.1.10 is a private/internal network address commonly used in home and small office networks. It does not have a public presence on the internet and therefore cannot be tracked for abuse or malicious activity in the same way public IPs can. Key Points: 1. Private IP Range: 192.168.1.0 – 192.168.1.255 is part of the private IP address range defined in RFC 1918. These addresses are not routable on the public internet and are used exclusively for internal network communication. 2. No Public Abuse History: Since this is a private address, it cannot appear in public abuse databases (e.g., AbuseIPDB, Spamhaus) or be flagged for malicious activity on the open internet. 3. Geographic Location: Private IPs have no geographic location associated with them because they are not exposed to the internet. Tools that claim to geolocate private IPs are either misrepresenting data or simply showing placeholder information. 4. Potential Misinterpretation: If you encountered this IP in logs or security tools, it likely originated from a device within your own network (e.g., a computer, phone, or IoT device). It does not indicate external malicious activity. What to Do Instead: Investigate Internal Activity: If you suspect malicious behavior, focus on the device using this IP (e.g., scan for malware, review firewall logs, or isolate the device for inspection). Monitor for Anomalies: Use tools like Wireshark or IDS solutions to detect unusual traffic patterns from devices on your internal network. In summary, 192.168.1.10 has no abuse history and no geographic location because it is a private IP address used only within your local network. Any security concerns should be addressed internally.",
+   "answers": [
+    {
+     "id": "correct-verbatim",
+     "text": "The IP address 192.168.1.10 is a private/internal network address commonly used in home and small office networks. It does not have a public presence on the internet and therefore cannot be tracked for abuse or malicious activity in the same way public IPs can. Key Points: 1. Private IP Range: 192.168.1.0 – 192.168.1.255 is part of the private IP address range defined in RFC 1918. These addresses are not routable on the public internet and are used exclusively for internal network communication. 2. No Public Abuse History: Since this is a private address, it cannot appear in public abuse databases (e.g., AbuseIPDB, Spamhaus) or be flagged for malicious activity on the open internet. 3. Geographic Location: Private IPs have no geographic location associated with them because they are not exposed to the internet. Tools that claim to geolocate private IPs are either misrepresenting data or simply showing placeholder information. 4. Potential Misinterpretation: If you encountered this IP in logs or security tools, it likely originated from a device within your own network (e.g., a computer, phone, or IoT device). It does not indicate external malicious activity. What to Do Instead: Investigate Internal Activity: If you suspect malicious behavior, focus on the device using this IP (e.g., scan for malware, review firewall logs, or isolate the device for inspection). Monitor for Anomalies: Use tools like Wireshark or IDS solutions to detect unusual traffic patterns from devices on your internal network. In summary, 192.168.1.10 has no abuse history and no geographic location because it is a private IP address used only within your local network. Any security concerns should be addressed internally.",
+     "quality": 1,
+     "note": "the ground truth as the miner would state it, markdown stripped"
+    },
+    {
+     "id": "correct-reworded",
+     "text": "The address 192.168.1.10 is a private/internal network address commonly used in home and small office networks. It does not have a public presence on the internet and therefore cannot be tracked for abuse or malicious activity in the same way public IPs can. Key Points: 1. Private IP Range: 192.168.1.0 – 192.168.1.255 is part of the private IP address range defined in RFC 1918. These addresses are not routable on the public internet and are used exclusively for internal network communication. 2. No Public Abuse History: Since this is a private address, it cannot appear in public abuse databases (e.g., AbuseIPDB, Spamhaus) or be flagged for malicious activity on the open internet. 3. Geographic Location: Private IPs have no geographic location associated with them because they are not exposed to the internet. Tools that claim to geolocate private IPs are either misrepresenting data or simply showing placeholder information. 4. Potential Misinterpretation: If you encountered this IP in logs or security tools, it likely originated from a device within your own network (e.g., a computer, phone, or IoT device). It does not shows external malicious activity. What to Do Instead: Investigate Internal Activity: If you suspect malicious behavior, focus on the device using this IP (e.g., scan for malware, review firewall logs, or isolate the device for inspection). Monitor for Anomalies: Use tools like Wireshark or IDS solutions to detect unusual traffic patterns from devices on your internal network. 192.168.1.10 has no abuse history and no geographic location because it is a private IP address used only within your local network. Any security concerns should be addressed internally.",
+     "quality": 1,
+     "note": "connective substitution only; no entity or figure touched"
+    },
+    {
+     "id": "correct-terse",
+     "text": "IP address 192.168.1.10 private/internal network address home small office networks. not public presence internet cannot tracked abuse malicious activity same way public IPs. Key Points: 1. Private IP Range: 192.168.1.0 – 192.168.1.255 part private IP address range defined RFC 1918. addresses not routable public internet exclusively internal network communication. 2. No Public Abuse History: Since private address, cannot appear public abuse databases (e.g., AbuseIPDB, Spamhaus) flagged malicious activity open internet. 3. Geographic Location: Private IPs no geographic location associated them because they not exposed internet. Tools claim geolocate private IPs either misrepresenting data simply showing placeholder information. 4. Potential Misinterpretation: If you encountered IP logs security tools, likely originated device within your own network (e.g., computer, phone, IoT device). not indicate external malicious activity. What Instead: Investigate Internal Activity: If you suspect malicious behavior, focus device IP (e.g., scan malware, review firewall logs, isolate device inspection). Monitor Anomalies: Use tools like Wireshark IDS solutions detect unusual traffic patterns devices your internal network. summary, 192.168.1.10 no abuse history no geographic location because private IP address only within your local network. Any security concerns addressed internally.",
+     "quality": 1,
+     "note": "fixed filler list deleted; every decisive token kept, in order"
+    },
+    {
+     "id": "correct-verbose",
+     "text": "According to the record that was retrieved, the IP address 192.168.1.10 is a private/internal network address commonly used in home and small office networks. It does not have a public presence on the internet and therefore cannot be tracked for abuse or malicious activity in the same way public IPs can. Key Points: 1. Private IP Range: 192.168.1.0 – 192.168.1.255 is part of the private IP address range defined in RFC 1918. These addresses are not routable on the public internet and are used exclusively for internal network communication. 2. No Public Abuse History: Since this is a private address, it cannot appear in public abuse databases (e.g., AbuseIPDB, Spamhaus) or be flagged for malicious activity on the open internet. 3. Geographic Location: Private IPs have no geographic location associated with them because they are not exposed to the internet. Tools that claim to geolocate private IPs are either misrepresenting data or simply showing placeholder information. 4. Potential Misinterpretation: If you encountered this IP in logs or security tools, it likely originated from a device within your own network (e.g., a computer, phone, or IoT device). It does not indicate external malicious activity. What to Do Instead: Investigate Internal Activity: If you suspect malicious behavior, focus on the device using this IP (e.g., scan for malware, review firewall logs, or isolate the device for inspection). Monitor for Anomalies: Use tools like Wireshark or IDS solutions to detect unusual traffic patterns from devices on your internal network. In summary, 192.168.1.10 has no abuse history and no geographic location because it is a private IP address used only within your local network. Any security concerns should be addressed internally. These figures come from the provider's own dataset and are reproduced here without further adjustment; readers who need a second opinion should consult the authoritative registry directly rather than relying on this summary alone.",
+     "quality": 1,
+     "note": "fixed preamble and fact-free caveat wrapped around the verbatim form"
+    },
+    {
+     "id": "wrong-unrelated",
+     "text": "The IP address 142.251.42.174 resolves to Mountain View, California, United States. It is announced by Google LLC (AS15169).",
+     "quality": 0,
+     "note": "the next record's ground truth: a real answer to a different question"
+    },
+    {
+     "id": "wrong-swapped",
+     "text": "The California address 142.251.42.174 is a private/internal network address commonly used in home and small office networks. It does not have a public presence on the internet and therefore cannot be tracked for abuse or malicious activity in the same way public Mountain View can. Key Points: 15169. Private California Range: 142.251.42.174 – 15169.142.251 is part of the private California address range defined in United States. It 42.174. These addresses are not routable on the public internet and are used exclusively for internal network communication. 15169. No Public Abuse History: Google LLC this is a private address, it cannot appear in public abuse databases (e.g., AbuseCaliforniaDB, California) or be flagged for malicious activity on the open internet. 142.251. Geographic Location: Private Mountain View have no geographic location associated with them because they are not exposed to the internet. Tools that claim to geolocate private Mountain View are either misrepresenting data or simply showing placeholder information. 42.174. Potential Misinterpretation: Google LLC you encountered this California in logs or security tools, it likely originated from a device within your own network (e.g., a computer, phone, or Mountain View device). It does not indicate external malicious activity. What to California: United States. It: Google LLC you suspect malicious behavior, focus on the device using this California (e.g., scan for malware, review firewall logs, or isolate the device for inspection). Monitor for Google LLC: Mountain View tools like California or United States. It solutions to detect unusual traffic patterns from devices on your internal network. In summary, 15169.142.251 has no abuse history and no geographic location because it is a private California address used only within your local network. Any security concerns should be addressed internally.",
+     "quality": 0,
+     "note": "same prose skeleton, entities and figures replaced positionally by the donor's"
+    }
+   ],
+   "pairs": [
+    [
+     "correct-verbatim",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbatim",
+     "wrong-swapped"
+    ],
+    [
+     "correct-reworded",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-reworded",
+     "wrong-swapped"
+    ],
+    [
+     "correct-terse",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-terse",
+     "wrong-swapped"
+    ],
+    [
+     "correct-verbose",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbose",
+     "wrong-swapped"
+    ]
+   ],
+   "constraints": [
+    {
+     "type": "near_equal",
+     "ids": [
+      "correct-verbatim",
+      "correct-reworded",
+      "correct-terse",
+      "correct-verbose"
+     ],
+     "tolerance": 0.05,
+     "note": "every phrasing of the same correct answer must score alike; the reworded/verbose gap was the measured defect"
+    }
+   ],
+   "provenance": {
+    "source": "synthetic",
+    "derived_from": "real/ip_geolocation-real-04",
+    "method": "mechanical transform of existing fixture text (gen-clean-pairs.mjs); no answer authored against a ground truth",
+    "captured": "2026-08-27"
+   }
+  },
+  {
+   "id": "ip_geolocation-cleanpair-05",
+   "intent": "IP_GEOLOCATION",
+   "class": "CLEAN-PAIR",
+   "rationale": "mirrors the node's own benchmark shape: one clearly-correct answer in four phrasings against one clearly-wrong answer. The adversarial classes measured the incumbent at margin 0.438 where the node measured 0.992 (rejection of registration 1377), because a lexically generous scorer only fails on pathologies. This class is where the gate actually lives, and where a precision term that charges a correct answer for its own wording costs us the ordering.",
+   "question": "Can you check the abuse history and geographic location for IP address 192.0.2.1 and summarize what you find?",
+   "ground_truth": "The IP address 192.0.2.1 is part of a special range designated for documentation and examples, specifically known as TEST-NET-1 (192.0.2.0/24). Abuse History This IP address does not have an abuse history because it is reserved for documentation and should not appear on the public internet. It is explicitly mentioned that addresses in this range should not be used in real-world scenarios and are meant for examples in documentation, tutorials, or testing environments. Geographic Location Since this IP address is reserved for documentation and not routable on the public internet, it does not have a geographic location. It will not resolve to any real-world country, city, or ISP. Summary Abuse History: None, as it is a reserved documentation IP and should not be used in production or appear in logs. Geographic Location: None, because it is not a public IP and cannot be geolocated. This IP is safe to use in examples but should never be encountered in real network traffic.",
+   "answers": [
+    {
+     "id": "correct-verbatim",
+     "text": "The IP address 192.0.2.1 is part of a special range designated for documentation and examples, specifically known as TEST-NET-1 (192.0.2.0/24). Abuse History This IP address does not have an abuse history because it is reserved for documentation and should not appear on the public internet. It is explicitly mentioned that addresses in this range should not be used in real-world scenarios and are meant for examples in documentation, tutorials, or testing environments. Geographic Location Since this IP address is reserved for documentation and not routable on the public internet, it does not have a geographic location. It will not resolve to any real-world country, city, or ISP. Summary Abuse History: None, as it is a reserved documentation IP and should not be used in production or appear in logs. Geographic Location: None, because it is not a public IP and cannot be geolocated. This IP is safe to use in examples but should never be encountered in real network traffic.",
+     "quality": 1,
+     "note": "the ground truth as the miner would state it, markdown stripped"
+    },
+    {
+     "id": "correct-reworded",
+     "text": "The address 192.0.2.1 is part of a special range designated for documentation and examples, specifically known as TEST-NET-1 (192.0.2.0/24). Abuse History This IP address does not have an abuse history because it is reserved for documentation and should not appear on the public internet. It is explicitly mentioned that addresses in this range should not be used in real-world scenarios and are meant for examples in documentation, tutorials, or testing environments. Geographic Location Since this IP address is reserved for documentation and not routable on the public internet, it does not have a geographic location. It will not resolve to any real-world country, city, or ISP. Summary Abuse History: None, as it is a reserved documentation IP and should not be used in production or appear in logs. Geographic Location: None, because it is not a public IP and cannot be geolocated. This IP is safe to use in examples but should never be encountered in real network traffic.",
+     "quality": 1,
+     "note": "connective substitution only; no entity or figure touched"
+    },
+    {
+     "id": "correct-terse",
+     "text": "IP address 192.0.2.1 part special range designated documentation examples, specifically known TEST-NET-1 (192.0.2.0/24). Abuse History IP address not abuse history because reserved documentation not appear public internet. explicitly mentioned addresses range not real-world scenarios meant examples documentation, tutorials, testing environments. Geographic Location Since IP address reserved documentation not routable public internet, not geographic location. not resolve any real-world country, city, ISP. Summary Abuse History: None, reserved documentation IP not production appear logs. Geographic Location: None, because not public IP cannot geolocated. IP safe use examples never encountered real network traffic.",
+     "quality": 1,
+     "note": "fixed filler list deleted; every decisive token kept, in order"
+    },
+    {
+     "id": "correct-verbose",
+     "text": "According to the record that was retrieved, the IP address 192.0.2.1 is part of a special range designated for documentation and examples, specifically known as TEST-NET-1 (192.0.2.0/24). Abuse History This IP address does not have an abuse history because it is reserved for documentation and should not appear on the public internet. It is explicitly mentioned that addresses in this range should not be used in real-world scenarios and are meant for examples in documentation, tutorials, or testing environments. Geographic Location Since this IP address is reserved for documentation and not routable on the public internet, it does not have a geographic location. It will not resolve to any real-world country, city, or ISP. Summary Abuse History: None, as it is a reserved documentation IP and should not be used in production or appear in logs. Geographic Location: None, because it is not a public IP and cannot be geolocated. This IP is safe to use in examples but should never be encountered in real network traffic. These figures come from the provider's own dataset and are reproduced here without further adjustment; readers who need a second opinion should consult the authoritative registry directly rather than relying on this summary alone.",
+     "quality": 1,
+     "note": "fixed preamble and fact-free caveat wrapped around the verbatim form"
+    },
+    {
+     "id": "wrong-unrelated",
+     "text": "The IP address 142.251.42.174 resolves to Mountain View, California, United States. It is announced by Google LLC (AS15169).",
+     "quality": 0,
+     "note": "the next record's ground truth: a real answer to a different question"
+    },
+    {
+     "id": "wrong-swapped",
+     "text": "The California address 142.251.42.174 is part of a special range designated for documentation and examples, specifically known as Mountain View15169 (142.251.42.174/15169). Abuse History This California address does not have an abuse history because it is reserved for documentation and should not appear on the public internet. It is explicitly mentioned that addresses in this range should not be used in real-world scenarios and are meant for examples in documentation, tutorials, or testing environments. Geographic Location Since this California address is reserved for documentation and not routable on the public internet, it does not have a geographic location. It will not resolve to any real-world country, city, or United States. It: Google LLC, as it is a reserved documentation California and should not be used in production or appear in logs. Geographic Location: Google LLC, because it is not a public California and cannot be geolocated. This California is safe to use in examples but should never be encountered in real network traffic.",
+     "quality": 0,
+     "note": "same prose skeleton, entities and figures replaced positionally by the donor's"
+    }
+   ],
+   "pairs": [
+    [
+     "correct-verbatim",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbatim",
+     "wrong-swapped"
+    ],
+    [
+     "correct-reworded",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-reworded",
+     "wrong-swapped"
+    ],
+    [
+     "correct-terse",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-terse",
+     "wrong-swapped"
+    ],
+    [
+     "correct-verbose",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbose",
+     "wrong-swapped"
+    ]
+   ],
+   "constraints": [
+    {
+     "type": "near_equal",
+     "ids": [
+      "correct-verbatim",
+      "correct-reworded",
+      "correct-terse",
+      "correct-verbose"
+     ],
+     "tolerance": 0.05,
+     "note": "every phrasing of the same correct answer must score alike; the reworded/verbose gap was the measured defect"
+    }
+   ],
+   "provenance": {
+    "source": "synthetic",
+    "derived_from": "real/ip_geolocation-real-05",
+    "method": "mechanical transform of existing fixture text (gen-clean-pairs.mjs); no answer authored against a ground truth",
+    "captured": "2026-08-27"
+   }
+  },
+  {
+   "id": "ip_geolocation-cleanpair-06",
+   "intent": "IP_GEOLOCATION",
+   "class": "CLEAN-PAIR",
+   "rationale": "mirrors the node's own benchmark shape: one clearly-correct answer in four phrasings against one clearly-wrong answer. The adversarial classes measured the incumbent at margin 0.438 where the node measured 0.992 (rejection of registration 1377), because a lexically generous scorer only fails on pathologies. This class is where the gate actually lives, and where a precision term that charges a correct answer for its own wording costs us the ordering.",
+   "question": "Can you determine the geographic location for the IP address 208.67.222.222 and check its abuse history?",
+   "ground_truth": "The IP address 208.67.222.222 is associated with OpenDNS, now known as Cisco Umbrella, a DNS resolution service provided by Cisco. This IP is one of the public DNS resolver addresses offered by OpenDNS, alongside 208.67.220.220, and is used for resolving domain names into IP addresses. Abuse History: Regarding the abuse history, the IP address 208.67.222.222 does not appear to have any notable abuse reports or malicious activity associated with it in publicly available databases such as AbuseIPDB or other IP reputation services. This IP is a well-known and legitimate service used by millions of users worldwide for DNS resolution. It is not typically flagged for abuse or malicious behavior. Summary: Location: The IP is associated with Cisco's infrastructure, likely located in Ashburn, Virginia, USA, where many large tech companies have data centers. Abuse History: No significant abuse reports are found for this IP. It is a trusted and widely used public DNS service. This IP is safe for general use and is not linked to any malicious activity.",
+   "answers": [
+    {
+     "id": "correct-verbatim",
+     "text": "The IP address 208.67.222.222 is associated with OpenDNS, now known as Cisco Umbrella, a DNS resolution service provided by Cisco. This IP is one of the public DNS resolver addresses offered by OpenDNS, alongside 208.67.220.220, and is used for resolving domain names into IP addresses. Abuse History: Regarding the abuse history, the IP address 208.67.222.222 does not appear to have any notable abuse reports or malicious activity associated with it in publicly available databases such as AbuseIPDB or other IP reputation services. This IP is a well-known and legitimate service used by millions of users worldwide for DNS resolution. It is not typically flagged for abuse or malicious behavior. Summary: Location: The IP is associated with Cisco's infrastructure, likely located in Ashburn, Virginia, USA, where many large tech companies have data centers. Abuse History: No significant abuse reports are found for this IP. It is a trusted and widely used public DNS service. This IP is safe for general use and is not linked to any malicious activity.",
+     "quality": 1,
+     "note": "the ground truth as the miner would state it, markdown stripped"
+    },
+    {
+     "id": "correct-reworded",
+     "text": "The address 208.67.222.222 belongs to OpenDNS, now known as Cisco Umbrella, a DNS resolution service provided by Cisco. This IP is one of the public DNS resolver addresses offered by OpenDNS, alongside 208.67.220.220, and is used for resolving domain names into IP addresses. Abuse History: Regarding the abuse history, the IP address 208.67.222.222 does not appear to have any notable abuse reports or malicious activity associated with it in publicly available databases such as AbuseIPDB or other IP reputation services. This IP is a well-known and legitimate service used by millions of users worldwide for DNS resolution. It is not typically flagged for abuse or malicious behavior. Summary: Location: The IP belongs to Cisco's infrastructure, likely located in Ashburn, Virginia, USA, where many large tech companies have data centers. Abuse History: No significant abuse reports are found for this IP. It is a trusted and widely used public DNS service. This IP is safe for general use and is not linked to any malicious activity.",
+     "quality": 1,
+     "note": "connective substitution only; no entity or figure touched"
+    },
+    {
+     "id": "correct-terse",
+     "text": "IP address 208.67.222.222 associated OpenDNS, now known Cisco Umbrella, DNS resolution service provided Cisco. IP one public DNS resolver addresses offered OpenDNS, alongside 208.67.220.220, resolving domain names into IP addresses. Abuse History: Regarding abuse history, IP address 208.67.222.222 not appear any notable abuse reports malicious activity associated publicly available databases such AbuseIPDB other IP reputation services. IP well-known legitimate service millions users worldwide DNS resolution. not flagged abuse malicious behavior. Summary: Location: IP associated Cisco's infrastructure, likely located Ashburn, Virginia, USA, where many large tech companies data centers. Abuse History: No significant abuse reports found IP. trusted widely public DNS service. IP safe general use not linked any malicious activity.",
+     "quality": 1,
+     "note": "fixed filler list deleted; every decisive token kept, in order"
+    },
+    {
+     "id": "correct-verbose",
+     "text": "According to the record that was retrieved, the IP address 208.67.222.222 is associated with OpenDNS, now known as Cisco Umbrella, a DNS resolution service provided by Cisco. This IP is one of the public DNS resolver addresses offered by OpenDNS, alongside 208.67.220.220, and is used for resolving domain names into IP addresses. Abuse History: Regarding the abuse history, the IP address 208.67.222.222 does not appear to have any notable abuse reports or malicious activity associated with it in publicly available databases such as AbuseIPDB or other IP reputation services. This IP is a well-known and legitimate service used by millions of users worldwide for DNS resolution. It is not typically flagged for abuse or malicious behavior. Summary: Location: The IP is associated with Cisco's infrastructure, likely located in Ashburn, Virginia, USA, where many large tech companies have data centers. Abuse History: No significant abuse reports are found for this IP. It is a trusted and widely used public DNS service. This IP is safe for general use and is not linked to any malicious activity. These figures come from the provider's own dataset and are reproduced here without further adjustment; readers who need a second opinion should consult the authoritative registry directly rather than relying on this summary alone.",
+     "quality": 1,
+     "note": "fixed preamble and fact-free caveat wrapped around the verbatim form"
+    },
+    {
+     "id": "wrong-unrelated",
+     "text": "The IP address 142.251.42.174 resolves to Mountain View, California, United States. It is announced by Google LLC (AS15169).",
+     "quality": 0,
+     "note": "the next record's ground truth: a real answer to a different question"
+    },
+    {
+     "id": "wrong-swapped",
+     "text": "The Mountain View address 142.251.42.174 is associated with Mountain View, now known as California, a United States. It resolution service provided by Google LLC is one of the public United States. It resolver addresses offered by Mountain View, alongside 15169.142.251, and is used for resolving domain names into Mountain View addresses. Abuse History: California the abuse history, the Mountain View address 42.174.15169 does not appear to have any notable abuse reports or malicious activity associated with it in publicly available databases such as AbuseMountain ViewDB or other Mountain View reputation services. This Mountain View is a well-known and legitimate service used by millions of users worldwide for United States. It resolution. It is not typically flagged for abuse or malicious behavior. Summary: Google LLC: The Mountain View is associated with California infrastructure, likely located in United States. It, Google LLC, Mountain View, where many large tech companies have data centers. Abuse History: California significant abuse reports are found for this Mountain View. It is a trusted and widely used public United States. It service. This Mountain View is safe for general use and is not linked to any malicious activity.",
+     "quality": 0,
+     "note": "same prose skeleton, entities and figures replaced positionally by the donor's"
+    }
+   ],
+   "pairs": [
+    [
+     "correct-verbatim",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbatim",
+     "wrong-swapped"
+    ],
+    [
+     "correct-reworded",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-reworded",
+     "wrong-swapped"
+    ],
+    [
+     "correct-terse",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-terse",
+     "wrong-swapped"
+    ],
+    [
+     "correct-verbose",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbose",
+     "wrong-swapped"
+    ]
+   ],
+   "constraints": [
+    {
+     "type": "near_equal",
+     "ids": [
+      "correct-verbatim",
+      "correct-reworded",
+      "correct-terse",
+      "correct-verbose"
+     ],
+     "tolerance": 0.05,
+     "note": "every phrasing of the same correct answer must score alike; the reworded/verbose gap was the measured defect"
+    }
+   ],
+   "provenance": {
+    "source": "synthetic",
+    "derived_from": "real/ip_geolocation-real-06",
+    "method": "mechanical transform of existing fixture text (gen-clean-pairs.mjs); no answer authored against a ground truth",
+    "captured": "2026-08-27"
+   }
+  },
+  {
+   "id": "ip_geolocation-cleanpair-07",
+   "intent": "IP_GEOLOCATION",
+   "class": "CLEAN-PAIR",
+   "rationale": "mirrors the node's own benchmark shape: one clearly-correct answer in four phrasings against one clearly-wrong answer. The adversarial classes measured the incumbent at margin 0.438 where the node measured 0.992 (rejection of registration 1377), because a lexically generous scorer only fails on pathologies. This class is where the gate actually lives, and where a precision term that charges a correct answer for its own wording costs us the ordering.",
+   "question": "Can you check the abuse history and geographic location for the IP address 193.142.144.10 and advise if it's safe to allow access from this IP?",
+   "ground_truth": "The IP address 193.142.144.10 is associated with Gigabit LLC in Russia. There is no clear evidence of abuse or malicious activity linked to this IP in the databases I checked, but it originates from a Russian network provider, which may raise concerns depending on your security policies regarding traffic from certain geographic regions. Consider reviewing your organization's policies on allowing access from Russian IP addresses before granting access. If needed, conduct deeper investigation using specialized threat intelligence platforms.",
+   "answers": [
+    {
+     "id": "correct-verbatim",
+     "text": "The IP address 193.142.144.10 is associated with Gigabit LLC in Russia. There is no clear evidence of abuse or malicious activity linked to this IP in the databases I checked, but it originates from a Russian network provider, which may raise concerns depending on your security policies regarding traffic from certain geographic regions. Consider reviewing your organization's policies on allowing access from Russian IP addresses before granting access. If needed, conduct deeper investigation using specialized threat intelligence platforms.",
+     "quality": 1,
+     "note": "the ground truth as the miner would state it, markdown stripped"
+    },
+    {
+     "id": "correct-reworded",
+     "text": "The address 193.142.144.10 belongs to Gigabit LLC in Russia. There is no clear evidence of abuse or malicious activity linked to this IP in the databases I checked, but it originates from a Russian network provider, which may raise concerns depending on your security policies regarding traffic from certain geographic regions. Consider reviewing your organization's policies on allowing access from Russian IP addresses before granting access. If needed, conduct deeper investigation using specialized threat intelligence platforms.",
+     "quality": 1,
+     "note": "connective substitution only; no entity or figure touched"
+    },
+    {
+     "id": "correct-terse",
+     "text": "IP address 193.142.144.10 associated Gigabit LLC Russia. no clear evidence abuse malicious activity linked IP databases I checked, originates Russian network provider, raise concerns depending your security policies regarding traffic certain geographic regions. Consider reviewing your organization's policies allowing access Russian IP addresses before granting access. If needed, conduct deeper investigation specialized threat intelligence platforms.",
+     "quality": 1,
+     "note": "fixed filler list deleted; every decisive token kept, in order"
+    },
+    {
+     "id": "correct-verbose",
+     "text": "According to the record that was retrieved, the IP address 193.142.144.10 is associated with Gigabit LLC in Russia. There is no clear evidence of abuse or malicious activity linked to this IP in the databases I checked, but it originates from a Russian network provider, which may raise concerns depending on your security policies regarding traffic from certain geographic regions. Consider reviewing your organization's policies on allowing access from Russian IP addresses before granting access. If needed, conduct deeper investigation using specialized threat intelligence platforms. These figures come from the provider's own dataset and are reproduced here without further adjustment; readers who need a second opinion should consult the authoritative registry directly rather than relying on this summary alone.",
+     "quality": 1,
+     "note": "fixed preamble and fact-free caveat wrapped around the verbatim form"
+    },
+    {
+     "id": "wrong-unrelated",
+     "text": "The IP address 13.1.34.152 resolves to Reykjavik, Capital Region, Iceland. It is announced by Ljosleidarinn ehf (AS10448). Approximate coordinates are 64.1466, -21.9426.",
+     "quality": 0,
+     "note": "the next record's ground truth: a real answer to a different question"
+    },
+    {
+     "id": "wrong-swapped",
+     "text": "The Ljosleidarinnceland. Ljosleidarinnt address 13.1.34.152 is associated with Reykjavik in Capital Region is no clear evidence of abuse or malicious activity linked to this Ljosleidarinnceland. Ljosleidarinnt in the databases Ljosleidarinn checked, but it originates from a Reykjavik network provider, which may raise concerns depending on your security policies regarding traffic from certain geographic regions. Consider reviewing your organization's policies on allowing access from Reykjavik Ljosleidarinnceland. Ljosleidarinnt addresses before granting access. Ljosleidarinnf needed, conduct deeper investigation using specialized threat intelligence platforms.",
+     "quality": 0,
+     "note": "same prose skeleton, entities and figures replaced positionally by the donor's"
+    }
+   ],
+   "pairs": [
+    [
+     "correct-verbatim",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbatim",
+     "wrong-swapped"
+    ],
+    [
+     "correct-reworded",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-reworded",
+     "wrong-swapped"
+    ],
+    [
+     "correct-terse",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-terse",
+     "wrong-swapped"
+    ],
+    [
+     "correct-verbose",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbose",
+     "wrong-swapped"
+    ]
+   ],
+   "constraints": [
+    {
+     "type": "near_equal",
+     "ids": [
+      "correct-verbatim",
+      "correct-reworded",
+      "correct-terse",
+      "correct-verbose"
+     ],
+     "tolerance": 0.05,
+     "note": "every phrasing of the same correct answer must score alike; the reworded/verbose gap was the measured defect"
+    }
+   ],
+   "provenance": {
+    "source": "synthetic",
+    "derived_from": "real/ip_geolocation-real-07",
+    "method": "mechanical transform of existing fixture text (gen-clean-pairs.mjs); no answer authored against a ground truth",
+    "captured": "2026-08-27"
+   }
+  },
+  {
+   "id": "ip_geolocation-cleanpair-08",
+   "intent": "IP_GEOLOCATION",
+   "class": "CLEAN-PAIR",
+   "rationale": "mirrors the node's own benchmark shape: one clearly-correct answer in four phrasings against one clearly-wrong answer. The adversarial classes measured the incumbent at margin 0.438 where the node measured 0.992 (rejection of registration 1377), because a lexically generous scorer only fails on pathologies. This class is where the gate actually lives, and where a precision term that charges a correct answer for its own wording costs us the ordering.",
+   "question": "Can you look up the geographic location and abuse history for the IP address 208.67.222.222 and tell me where it's located and if it has any known abuse reports?",
+   "ground_truth": "The IP address 208.67.222.222 is associated with OpenDNS (now Cisco Umbrella), a public DNS service. Geographically, it is located in Ashburn, Virginia, USA, operated by Cisco Systems, Inc.. Regarding abuse history, searches across multiple abuse databases (such as AbuseIPDB, IPQS, and others) did not return any recent or historical reports of malicious activity directly linked to this specific IP address. This IP is part of a well-known infrastructure used for DNS resolution and does not appear to have any documented abuse reports.",
+   "answers": [
+    {
+     "id": "correct-verbatim",
+     "text": "The IP address 208.67.222.222 is associated with OpenDNS (now Cisco Umbrella), a public DNS service. Geographically, it is located in Ashburn, Virginia, USA, operated by Cisco Systems, Inc.. Regarding abuse history, searches across multiple abuse databases (such as AbuseIPDB, IPQS, and others) did not return any recent or historical reports of malicious activity directly linked to this specific IP address. This IP is part of a well-known infrastructure used for DNS resolution and does not appear to have any documented abuse reports.",
+     "quality": 1,
+     "note": "the ground truth as the miner would state it, markdown stripped"
+    },
+    {
+     "id": "correct-reworded",
+     "text": "The address 208.67.222.222 belongs to OpenDNS (now Cisco Umbrella), a public DNS service. Geographically, it maps to Ashburn, Virginia, USA, run by Cisco Systems, Inc.. Regarding abuse history, searches across multiple abuse databases (such as AbuseIPDB, IPQS, and others) did not return any recent or historical reports of malicious activity directly linked to this specific IP address. This IP is part of a well-known infrastructure used for DNS resolution and does not appear to have any documented abuse reports.",
+     "quality": 1,
+     "note": "connective substitution only; no entity or figure touched"
+    },
+    {
+     "id": "correct-terse",
+     "text": "IP address 208.67.222.222 associated OpenDNS (now Cisco Umbrella), public DNS service. Geographically, located Ashburn, Virginia, USA, operated Cisco Systems, Inc.. Regarding abuse history, searches across multiple abuse databases (such AbuseIPDB, IPQS, others) not return any recent historical reports malicious activity directly linked specific IP address. IP part well-known infrastructure DNS resolution not appear any documented abuse reports.",
+     "quality": 1,
+     "note": "fixed filler list deleted; every decisive token kept, in order"
+    },
+    {
+     "id": "correct-verbose",
+     "text": "According to the record that was retrieved, the IP address 208.67.222.222 is associated with OpenDNS (now Cisco Umbrella), a public DNS service. Geographically, it is located in Ashburn, Virginia, USA, operated by Cisco Systems, Inc.. Regarding abuse history, searches across multiple abuse databases (such as AbuseIPDB, IPQS, and others) did not return any recent or historical reports of malicious activity directly linked to this specific IP address. This IP is part of a well-known infrastructure used for DNS resolution and does not appear to have any documented abuse reports. These figures come from the provider's own dataset and are reproduced here without further adjustment; readers who need a second opinion should consult the authoritative registry directly rather than relying on this summary alone.",
+     "quality": 1,
+     "note": "fixed preamble and fact-free caveat wrapped around the verbatim form"
+    },
+    {
+     "id": "wrong-unrelated",
+     "text": "The IP address 13.1.34.152 resolves to Reykjavik, Capital Region, Iceland. It is announced by Ljosleidarinn ehf (AS10448). Approximate coordinates are 64.1466, -21.9426.",
+     "quality": 0,
+     "note": "the next record's ground truth: a real answer to a different question"
+    },
+    {
+     "id": "wrong-swapped",
+     "text": "The Iceland. It address 13.1.34.152 is associated with Reykjavik (now Capital Region), a public Iceland. It service. Geographically, it is located in Ljosleidarinn, Reykjavik, Capital Region, operated by Iceland. It, Ljosleidarinn abuse history, searches across multiple abuse databases (such as Reykjavik, Capital Region, and others) did not return any recent or historical reports of malicious activity directly linked to this specific Iceland. It address. This Iceland. It is part of a well-known infrastructure used for Iceland. It resolution and does not appear to have any documented abuse reports.",
+     "quality": 0,
+     "note": "same prose skeleton, entities and figures replaced positionally by the donor's"
+    }
+   ],
+   "pairs": [
+    [
+     "correct-verbatim",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbatim",
+     "wrong-swapped"
+    ],
+    [
+     "correct-reworded",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-reworded",
+     "wrong-swapped"
+    ],
+    [
+     "correct-terse",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-terse",
+     "wrong-swapped"
+    ],
+    [
+     "correct-verbose",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbose",
+     "wrong-swapped"
+    ]
+   ],
+   "constraints": [
+    {
+     "type": "near_equal",
+     "ids": [
+      "correct-verbatim",
+      "correct-reworded",
+      "correct-terse",
+      "correct-verbose"
+     ],
+     "tolerance": 0.05,
+     "note": "every phrasing of the same correct answer must score alike; the reworded/verbose gap was the measured defect"
+    }
+   ],
+   "provenance": {
+    "source": "synthetic",
+    "derived_from": "real/ip_geolocation-real-08",
+    "method": "mechanical transform of existing fixture text (gen-clean-pairs.mjs); no answer authored against a ground truth",
+    "captured": "2026-08-27"
+   }
+  },
+  {
+   "id": "ip_geolocation-cleanpair-09",
+   "intent": "IP_GEOLOCATION",
+   "class": "CLEAN-PAIR",
+   "rationale": "mirrors the node's own benchmark shape: one clearly-correct answer in four phrasings against one clearly-wrong answer. The adversarial classes measured the incumbent at margin 0.438 where the node measured 0.992 (rejection of registration 1377), because a lexically generous scorer only fails on pathologies. This class is where the gate actually lives, and where a precision term that charges a correct answer for its own wording costs us the ordering.",
+   "question": "Can you determine the geographic location of the IP address 208.67.222.222 and check its abuse history using IP_REPUTATION?",
+   "ground_truth": "The IP address 208.67.222.222 is associated with OpenDNS, a service provided by Cisco. Geographically, this IP is located in Ashburn, Virginia, United States. This IP is commonly used for DNS resolution and internet security services, and it generally does not have an abuse history, as it is part of a reputable service. However, like any IP, it could potentially be misused or exploited, so monitoring and proper configuration are always recommended.",
+   "answers": [
+    {
+     "id": "correct-verbatim",
+     "text": "The IP address 208.67.222.222 is associated with OpenDNS, a service provided by Cisco. Geographically, this IP is located in Ashburn, Virginia, United States. This IP is commonly used for DNS resolution and internet security services, and it generally does not have an abuse history, as it is part of a reputable service. However, like any IP, it could potentially be misused or exploited, so monitoring and proper configuration are always recommended.",
+     "quality": 1,
+     "note": "the ground truth as the miner would state it, markdown stripped"
+    },
+    {
+     "id": "correct-reworded",
+     "text": "The address 208.67.222.222 belongs to OpenDNS, a service provided by Cisco. Geographically, this IP maps to Ashburn, Virginia, United States. This IP is commonly used for DNS resolution and internet security services, and it generally does not have an abuse history, as it is part of a reputable service. However, like any IP, it could potentially be misused or exploited, so monitoring and proper configuration are always recommended.",
+     "quality": 1,
+     "note": "connective substitution only; no entity or figure touched"
+    },
+    {
+     "id": "correct-terse",
+     "text": "IP address 208.67.222.222 associated OpenDNS, service provided Cisco. Geographically, IP located Ashburn, Virginia, United States. IP DNS resolution internet security services, not abuse history, part reputable service., like any IP, potentially misused exploited, monitoring proper configuration always recommended.",
+     "quality": 1,
+     "note": "fixed filler list deleted; every decisive token kept, in order"
+    },
+    {
+     "id": "correct-verbose",
+     "text": "According to the record that was retrieved, the IP address 208.67.222.222 is associated with OpenDNS, a service provided by Cisco. Geographically, this IP is located in Ashburn, Virginia, United States. This IP is commonly used for DNS resolution and internet security services, and it generally does not have an abuse history, as it is part of a reputable service. However, like any IP, it could potentially be misused or exploited, so monitoring and proper configuration are always recommended. These figures come from the provider's own dataset and are reproduced here without further adjustment; readers who need a second opinion should consult the authoritative registry directly rather than relying on this summary alone.",
+     "quality": 1,
+     "note": "fixed preamble and fact-free caveat wrapped around the verbatim form"
+    },
+    {
+     "id": "wrong-unrelated",
+     "text": "The IP address 91.146.179.123 resolves to Reykjavik, Capital Region, Iceland. It is announced by Ljosleidarinn ehf (AS22057).",
+     "quality": 0,
+     "note": "the next record's ground truth: a real answer to a different question"
+    },
+    {
+     "id": "wrong-swapped",
+     "text": "The Iceland. It address 91.146.179.123 is associated with Reykjavik, a service provided by Capital Region, this Iceland. It is located in Ljosleidarinn, Reykjavik, United States. This Iceland. It is commonly used for Iceland. It resolution and internet security services, and it generally does not have an abuse history, as it is part of a reputable service. However, like any Iceland. It, it could potentially be misused or exploited, so monitoring and proper configuration are always recommended.",
+     "quality": 0,
+     "note": "same prose skeleton, entities and figures replaced positionally by the donor's"
+    }
+   ],
+   "pairs": [
+    [
+     "correct-verbatim",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbatim",
+     "wrong-swapped"
+    ],
+    [
+     "correct-reworded",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-reworded",
+     "wrong-swapped"
+    ],
+    [
+     "correct-terse",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-terse",
+     "wrong-swapped"
+    ],
+    [
+     "correct-verbose",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbose",
+     "wrong-swapped"
+    ]
+   ],
+   "constraints": [
+    {
+     "type": "near_equal",
+     "ids": [
+      "correct-verbatim",
+      "correct-reworded",
+      "correct-terse",
+      "correct-verbose"
+     ],
+     "tolerance": 0.05,
+     "note": "every phrasing of the same correct answer must score alike; the reworded/verbose gap was the measured defect"
+    }
+   ],
+   "provenance": {
+    "source": "synthetic",
+    "derived_from": "real/ip_geolocation-real-09",
+    "method": "mechanical transform of existing fixture text (gen-clean-pairs.mjs); no answer authored against a ground truth",
+    "captured": "2026-08-27"
+   }
+  },
+  {
+   "id": "ip_geolocation-cleanpair-10",
+   "intent": "IP_GEOLOCATION",
+   "class": "CLEAN-PAIR",
+   "rationale": "mirrors the node's own benchmark shape: one clearly-correct answer in four phrasings against one clearly-wrong answer. The adversarial classes measured the incumbent at margin 0.438 where the node measured 0.992 (rejection of registration 1377), because a lexically generous scorer only fails on pathologies. This class is where the gate actually lives, and where a precision term that charges a correct answer for its own wording costs us the ordering.",
+   "question": "Can you tell me the geographic location and any abuse history for the IP address 142.251.42.174?",
+   "ground_truth": "The IP address 142.251.42.174 is associated with Google LLC and is located in Japan, specifically in the Shimo’ochiai area (postal code 162-0843). There is no abuse history reported for this IP address across multiple reputable sources, including AbuseIPDB, IPQS, and LiveIPMap. The IP is categorized as unsuspicious, with no known malicious activity such as spam, brute-force attacks, or fraud. This IP is part of Google's infrastructure, commonly used for services like search, cloud, and advertising, and is not flagged for any malicious behavior.",
+   "answers": [
+    {
+     "id": "correct-verbatim",
+     "text": "The IP address 142.251.42.174 is associated with Google LLC and is located in Japan, specifically in the Shimo’ochiai area (postal code 162-0843). There is no abuse history reported for this IP address across multiple reputable sources, including AbuseIPDB, IPQS, and LiveIPMap. The IP is categorized as unsuspicious, with no known malicious activity such as spam, brute-force attacks, or fraud. This IP is part of Google's infrastructure, commonly used for services like search, cloud, and advertising, and is not flagged for any malicious behavior.",
+     "quality": 1,
+     "note": "the ground truth as the miner would state it, markdown stripped"
+    },
+    {
+     "id": "correct-reworded",
+     "text": "The address 142.251.42.174 belongs to Google LLC and maps to Japan, specifically in the Shimo’ochiai area (postal code 162-0843). There is no abuse history reported for this IP address across multiple reputable sources, including AbuseIPDB, IPQS, and LiveIPMap. The IP is categorized as unsuspicious, with no known malicious activity such as spam, brute-force attacks, or fraud. This IP is part of Google's infrastructure, commonly used for services like search, cloud, and advertising, and is not flagged for any malicious behavior.",
+     "quality": 1,
+     "note": "connective substitution only; no entity or figure touched"
+    },
+    {
+     "id": "correct-terse",
+     "text": "IP address 142.251.42.174 associated Google LLC located Japan, specifically Shimo’ochiai area (postal code 162-0843). no abuse history reported IP address across multiple reputable sources, including AbuseIPDB, IPQS, LiveIPMap. IP categorized unsuspicious, no known malicious activity such spam, brute-force attacks, fraud. IP part Google's infrastructure, services like search, cloud, advertising, not flagged any malicious behavior.",
+     "quality": 1,
+     "note": "fixed filler list deleted; every decisive token kept, in order"
+    },
+    {
+     "id": "correct-verbose",
+     "text": "According to the record that was retrieved, the IP address 142.251.42.174 is associated with Google LLC and is located in Japan, specifically in the Shimo’ochiai area (postal code 162-0843). There is no abuse history reported for this IP address across multiple reputable sources, including AbuseIPDB, IPQS, and LiveIPMap. The IP is categorized as unsuspicious, with no known malicious activity such as spam, brute-force attacks, or fraud. This IP is part of Google's infrastructure, commonly used for services like search, cloud, and advertising, and is not flagged for any malicious behavior. These figures come from the provider's own dataset and are reproduced here without further adjustment; readers who need a second opinion should consult the authoritative registry directly rather than relying on this summary alone.",
+     "quality": 1,
+     "note": "fixed preamble and fact-free caveat wrapped around the verbatim form"
+    },
+    {
+     "id": "wrong-unrelated",
+     "text": "The IP address 13.1.34.152 resolves to Reykjavik, Capital Region, Iceland. It is announced by Ljosleidarinn ehf (AS10448). Approximate coordinates are 64.1466, -21.9426.",
+     "quality": 0,
+     "note": "the next record's ground truth: a real answer to a different question"
+    },
+    {
+     "id": "wrong-swapped",
+     "text": "The Ljosleidarinn address 13.1.34.152 is associated with Reykjavik and is located in Capital Region, specifically in the Iceland. It’ochiai area (postal code 1044864.1466). There is no abuse history reported for this Ljosleidarinn address across multiple reputable sources, including AbuseLjosleidarinnDB, LjosleidarinnQS, and LiveLjosleidarinnMap. The Ljosleidarinn is categorized as unsuspicious, with no known malicious activity such as spam, brute-force attacks, or fraud. This Ljosleidarinn is part of Ljosleidarinn infrastructure, commonly used for services like search, cloud, and advertising, and is not flagged for any malicious behavior.",
+     "quality": 0,
+     "note": "same prose skeleton, entities and figures replaced positionally by the donor's"
+    }
+   ],
+   "pairs": [
+    [
+     "correct-verbatim",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbatim",
+     "wrong-swapped"
+    ],
+    [
+     "correct-reworded",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-reworded",
+     "wrong-swapped"
+    ],
+    [
+     "correct-terse",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-terse",
+     "wrong-swapped"
+    ],
+    [
+     "correct-verbose",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbose",
+     "wrong-swapped"
+    ]
+   ],
+   "constraints": [
+    {
+     "type": "near_equal",
+     "ids": [
+      "correct-verbatim",
+      "correct-reworded",
+      "correct-terse",
+      "correct-verbose"
+     ],
+     "tolerance": 0.05,
+     "note": "every phrasing of the same correct answer must score alike; the reworded/verbose gap was the measured defect"
+    }
+   ],
+   "provenance": {
+    "source": "synthetic",
+    "derived_from": "real/ip_geolocation-real-10",
+    "method": "mechanical transform of existing fixture text (gen-clean-pairs.mjs); no answer authored against a ground truth",
+    "captured": "2026-08-27"
+   }
+  },
+  {
+   "id": "ip_geolocation-cleanpair-11",
+   "intent": "IP_GEOLOCATION",
+   "class": "CLEAN-PAIR",
+   "rationale": "mirrors the node's own benchmark shape: one clearly-correct answer in four phrasings against one clearly-wrong answer. The adversarial classes measured the incumbent at margin 0.438 where the node measured 0.992 (rejection of registration 1377), because a lexically generous scorer only fails on pathologies. This class is where the gate actually lives, and where a precision term that charges a correct answer for its own wording costs us the ordering.",
+   "question": "Can you look up the geographic location and any available abuse history for the IP address 142.251.42.174 and return the results in a structured format?",
+   "ground_truth": "The IP address 142.251.42.174 is associated with Google LLC and is located in Tokyo, Japan. Geolocation Details: Country: Japan City: Tokyo (Shimo’ochiai) Latitude/Longitude: Approximately 35.6963° N, 139.7386° E ISP: Google LLC ASN: AS15169 (Google LLC) Abuse History: There is no publicly reported abuse history for this specific IP address based on available databases like AbuseIPDB. However, the IP belongs to Google, which operates many infrastructure services (e.g., search, cloud, YouTube). Such IPs are generally not flagged for abuse unless involved in malicious activities, which is uncommon for infrastructure-level IPs. If you suspect abuse from this IP, consider: 1. Checking timestamps/logs for suspicious activity. 2. Using tools like VirusTotal to scan associated URLs or files. 3. Reporting to AbuseIPDB if evidence of misuse is found. For ongoing monitoring, you can use services like AbuseIPDB or integrate API checks into your security tools.",
+   "answers": [
+    {
+     "id": "correct-verbatim",
+     "text": "The IP address 142.251.42.174 is associated with Google LLC and is located in Tokyo, Japan. Geolocation Details: Country: Japan City: Tokyo (Shimo’ochiai) Latitude/Longitude: Approximately 35.6963° N, 139.7386° E ISP: Google LLC ASN: AS15169 (Google LLC) Abuse History: There is no publicly reported abuse history for this specific IP address based on available databases like AbuseIPDB. However, the IP belongs to Google, which operates many infrastructure services (e.g., search, cloud, YouTube). Such IPs are generally not flagged for abuse unless involved in malicious activities, which is uncommon for infrastructure-level IPs. If you suspect abuse from this IP, consider: 1. Checking timestamps/logs for suspicious activity. 2. Using tools like VirusTotal to scan associated URLs or files. 3. Reporting to AbuseIPDB if evidence of misuse is found. For ongoing monitoring, you can use services like AbuseIPDB or integrate API checks into your security tools.",
+     "quality": 1,
+     "note": "the ground truth as the miner would state it, markdown stripped"
+    },
+    {
+     "id": "correct-reworded",
+     "text": "The address 142.251.42.174 belongs to Google LLC and maps to Tokyo, Japan. Geolocation Details: Country: Japan City: Tokyo (Shimo’ochiai) Latitude/Longitude: about 35.6963° N, 139.7386° E ISP: Google LLC ASN: AS15169 (Google LLC) Abuse History: There is no publicly reported abuse history for this specific IP address based on available databases like AbuseIPDB. However, the IP belongs to Google, which operates many infrastructure services (e.g., search, cloud, YouTube). Such IPs are generally not flagged for abuse unless involved in malicious activities, which is uncommon for infrastructure-level IPs. If you suspect abuse from this IP, consider: 1. Checking timestamps/logs for suspicious activity. 2. Using tools like VirusTotal to scan associated URLs or files. 3. Reporting to AbuseIPDB if evidence of misuse is found. For ongoing monitoring, you can use services like AbuseIPDB or integrate API checks into your security tools.",
+     "quality": 1,
+     "note": "connective substitution only; no entity or figure touched"
+    },
+    {
+     "id": "correct-terse",
+     "text": "IP address 142.251.42.174 associated Google LLC located Tokyo, Japan. Geolocation Details: Country: Japan City: Tokyo (Shimo’ochiai) Latitude/Longitude: 35.6963° N, 139.7386° E ISP: Google LLC ASN: AS15169 (Google LLC) Abuse History: no publicly reported abuse history specific IP address based available databases like AbuseIPDB., IP belongs Google, operates many infrastructure services (e.g., search, cloud, YouTube). Such IPs not flagged abuse unless involved malicious activities, uncommon infrastructure-level IPs. If you suspect abuse IP, consider: 1. Checking timestamps/logs suspicious activity. 2. tools like VirusTotal scan associated URLs files. 3. Reporting AbuseIPDB if evidence misuse found. ongoing monitoring, you use services like AbuseIPDB integrate API checks into your security tools.",
+     "quality": 1,
+     "note": "fixed filler list deleted; every decisive token kept, in order"
+    },
+    {
+     "id": "correct-verbose",
+     "text": "According to the record that was retrieved, the IP address 142.251.42.174 is associated with Google LLC and is located in Tokyo, Japan. Geolocation Details: Country: Japan City: Tokyo (Shimo’ochiai) Latitude/Longitude: Approximately 35.6963° N, 139.7386° E ISP: Google LLC ASN: AS15169 (Google LLC) Abuse History: There is no publicly reported abuse history for this specific IP address based on available databases like AbuseIPDB. However, the IP belongs to Google, which operates many infrastructure services (e.g., search, cloud, YouTube). Such IPs are generally not flagged for abuse unless involved in malicious activities, which is uncommon for infrastructure-level IPs. If you suspect abuse from this IP, consider: 1. Checking timestamps/logs for suspicious activity. 2. Using tools like VirusTotal to scan associated URLs or files. 3. Reporting to AbuseIPDB if evidence of misuse is found. For ongoing monitoring, you can use services like AbuseIPDB or integrate API checks into your security tools. These figures come from the provider's own dataset and are reproduced here without further adjustment; readers who need a second opinion should consult the authoritative registry directly rather than relying on this summary alone.",
+     "quality": 1,
+     "note": "fixed preamble and fact-free caveat wrapped around the verbatim form"
+    },
+    {
+     "id": "wrong-unrelated",
+     "text": "The IP address 91.146.179.123 resolves to Reykjavik, Capital Region, Iceland. It is announced by Ljosleidarinn ehf (AS22057).",
+     "quality": 0,
+     "note": "the next record's ground truth: a real answer to a different question"
+    },
+    {
+     "id": "wrong-swapped",
+     "text": "The Iceland. It address 91.146.179.123 is associated with Reykjavik and is located in Capital Region, Iceland. It: Ljosleidarinn: Reykjavik: Capital Region (Capital Region’ochiai) Iceland. It/Ljosleidarinn: Reykjavik 22057° Capital Region, 91.146° Iceland. It: Reykjavik ASCapital Region: AS179.123 (Reykjavik) Reykjavik: Capital Region is no publicly reported abuse history for this specific Iceland. It address based on available databases like AbuseIceland. ItDB. However, the Iceland. It belongs to Reykjavik, which operates many infrastructure services (e.g., search, cloud, Capital Region). Such Iceland. Its are generally not flagged for abuse unless involved in malicious activities, which is uncommon for infrastructure-level Iceland. Its. If you suspect abuse from this Iceland. It, consider: 22057. Checking timestamps/logs for suspicious activity. 91.146. Using tools like Ljosleidarinn to scan associated Reykjavik or files. 179.123. Reporting to AbuseIceland. ItDB if evidence of misuse is found. For ongoing monitoring, you can use services like AbuseIceland. ItDB or integrate Iceland. It checks into your security tools.",
+     "quality": 0,
+     "note": "same prose skeleton, entities and figures replaced positionally by the donor's"
+    }
+   ],
+   "pairs": [
+    [
+     "correct-verbatim",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbatim",
+     "wrong-swapped"
+    ],
+    [
+     "correct-reworded",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-reworded",
+     "wrong-swapped"
+    ],
+    [
+     "correct-terse",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-terse",
+     "wrong-swapped"
+    ],
+    [
+     "correct-verbose",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbose",
+     "wrong-swapped"
+    ]
+   ],
+   "constraints": [
+    {
+     "type": "near_equal",
+     "ids": [
+      "correct-verbatim",
+      "correct-reworded",
+      "correct-terse",
+      "correct-verbose"
+     ],
+     "tolerance": 0.05,
+     "note": "every phrasing of the same correct answer must score alike; the reworded/verbose gap was the measured defect"
+    }
+   ],
+   "provenance": {
+    "source": "synthetic",
+    "derived_from": "real/ip_geolocation-real-11",
+    "method": "mechanical transform of existing fixture text (gen-clean-pairs.mjs); no answer authored against a ground truth",
+    "captured": "2026-08-27"
+   }
+  },
+  {
+   "id": "ip_geolocation-cleanpair-12",
+   "intent": "IP_GEOLOCATION",
+   "class": "CLEAN-PAIR",
+   "rationale": "mirrors the node's own benchmark shape: one clearly-correct answer in four phrasings against one clearly-wrong answer. The adversarial classes measured the incumbent at margin 0.438 where the node measured 0.992 (rejection of registration 1377), because a lexically generous scorer only fails on pathologies. This class is where the gate actually lives, and where a precision term that charges a correct answer for its own wording costs us the ordering.",
+   "question": "Geolocate the IP address 159.203.205.57: which country, region and city does it resolve to, which ISP or organisation announces it, and what are its approximate coordinates?",
+   "ground_truth": "The IP address 159.203.205.57 resolves to Montevideo, Montevideo, Uruguay. It is announced by Administracion Nacional (AS30978). Approximate coordinates are -34.9011, -56.1645.",
+   "answers": [
+    {
+     "id": "correct-verbatim",
+     "text": "The IP address 159.203.205.57 resolves to Montevideo, Montevideo, Uruguay. It is announced by Administracion Nacional (AS30978). Approximate coordinates are -34.9011, -56.1645.",
+     "quality": 1,
+     "note": "the ground truth as the miner would state it, markdown stripped"
+    },
+    {
+     "id": "correct-reworded",
+     "text": "The address 159.203.205.57 maps to Montevideo, Montevideo, Uruguay. It is advertised by Administracion Nacional (AS30978). rough coordinates are -34.9011, -56.1645.",
+     "quality": 1,
+     "note": "connective substitution only; no entity or figure touched"
+    },
+    {
+     "id": "correct-terse",
+     "text": "IP address 159.203.205.57 resolves Montevideo, Montevideo, Uruguay. announced Administracion Nacional (AS30978). Approximate coordinates -34.9011, -56.1645.",
+     "quality": 1,
+     "note": "fixed filler list deleted; every decisive token kept, in order"
+    },
+    {
+     "id": "correct-verbose",
+     "text": "According to the record that was retrieved, the IP address 159.203.205.57 resolves to Montevideo, Montevideo, Uruguay. It is announced by Administracion Nacional (AS30978). Approximate coordinates are -34.9011, -56.1645. These figures come from the provider's own dataset and are reproduced here without further adjustment; readers who need a second opinion should consult the authoritative registry directly rather than relying on this summary alone.",
+     "quality": 1,
+     "note": "fixed preamble and fact-free caveat wrapped around the verbatim form"
+    },
+    {
+     "id": "wrong-unrelated",
+     "text": "The IP address 192.0.2.1 is part of the TEST-NET-1 range (192.0.2.0/24), which is explicitly reserved for documentation and examples purposes and should never appear on the public internet. This IP range is not assigned to any real user or network and is used only in technical documentation, tutorials, and examples to avoid conflicts with real IP addresses. If you see traffic to or from this address in logs or network monitoring tools, it typically indicates one of the following: Misconfigured or simulated traffic: The traffic may originate from a device or script using placeholder documentation addresses. Internal testing: The address might be used in a lab environment or during internal network testing. False positive or misinterpretation: Monitoring tools or security systems might incorrectly flag or misinterpret the traffic. There is no geographic location associated with this IP because it is not a routable address on the public internet. Similarly, there is no abuse history or suspicious activity linked to it, as it is not used for real-world communications. If you continue to see this address in your logs or security alerts, investigate the source within your internal network or review any configurations that might be using placeholder addresses inappropriately.",
+     "quality": 0,
+     "note": "the next record's ground truth: a real answer to a different question"
+    },
+    {
+     "id": "wrong-swapped",
+     "text": "The IP address 192.0.2.1 resolves to TEST-NET-, TEST-NET-, IP is announced by Misconfigured (AS-1). Approximate coordinates are 192.0, 2.0.",
+     "quality": 0,
+     "note": "same prose skeleton, entities and figures replaced positionally by the donor's"
+    }
+   ],
+   "pairs": [
+    [
+     "correct-verbatim",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbatim",
+     "wrong-swapped"
+    ],
+    [
+     "correct-reworded",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-reworded",
+     "wrong-swapped"
+    ],
+    [
+     "correct-terse",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-terse",
+     "wrong-swapped"
+    ],
+    [
+     "correct-verbose",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbose",
+     "wrong-swapped"
+    ]
+   ],
+   "constraints": [
+    {
+     "type": "near_equal",
+     "ids": [
+      "correct-verbatim",
+      "correct-reworded",
+      "correct-terse",
+      "correct-verbose"
+     ],
+     "tolerance": 0.05,
+     "note": "every phrasing of the same correct answer must score alike; the reworded/verbose gap was the measured defect"
+    }
+   ],
+   "provenance": {
+    "source": "synthetic",
+    "derived_from": "synth/ip_geolocation-synth-01",
+    "method": "mechanical transform of existing fixture text (gen-clean-pairs.mjs); no answer authored against a ground truth",
+    "captured": "2026-08-27"
+   }
+  },
+  {
+   "id": "ip_geolocation-cleanpair-13",
+   "intent": "IP_GEOLOCATION",
+   "class": "CLEAN-PAIR",
+   "rationale": "mirrors the node's own benchmark shape: one clearly-correct answer in four phrasings against one clearly-wrong answer. The adversarial classes measured the incumbent at margin 0.438 where the node measured 0.992 (rejection of registration 1377), because a lexically generous scorer only fails on pathologies. This class is where the gate actually lives, and where a precision term that charges a correct answer for its own wording costs us the ordering.",
+   "question": "Geolocate the IP address 13.36.15.128: which country, region and city does it resolve to, which ISP or organisation announces it, and what are its approximate coordinates?",
+   "ground_truth": "The IP address 13.36.15.128 resolves to Montevideo, Montevideo, Uruguay. It is announced by Administracion Nacional (AS1616). Approximate coordinates are -34.9011, -56.1645.",
+   "answers": [
+    {
+     "id": "correct-verbatim",
+     "text": "The IP address 13.36.15.128 resolves to Montevideo, Montevideo, Uruguay. It is announced by Administracion Nacional (AS1616). Approximate coordinates are -34.9011, -56.1645.",
+     "quality": 1,
+     "note": "the ground truth as the miner would state it, markdown stripped"
+    },
+    {
+     "id": "correct-reworded",
+     "text": "The address 13.36.15.128 maps to Montevideo, Montevideo, Uruguay. It is advertised by Administracion Nacional (AS1616). rough coordinates are -34.9011, -56.1645.",
+     "quality": 1,
+     "note": "connective substitution only; no entity or figure touched"
+    },
+    {
+     "id": "correct-terse",
+     "text": "IP address 13.36.15.128 resolves Montevideo, Montevideo, Uruguay. announced Administracion Nacional (AS1616). Approximate coordinates -34.9011, -56.1645.",
+     "quality": 1,
+     "note": "fixed filler list deleted; every decisive token kept, in order"
+    },
+    {
+     "id": "correct-verbose",
+     "text": "According to the record that was retrieved, the IP address 13.36.15.128 resolves to Montevideo, Montevideo, Uruguay. It is announced by Administracion Nacional (AS1616). Approximate coordinates are -34.9011, -56.1645. These figures come from the provider's own dataset and are reproduced here without further adjustment; readers who need a second opinion should consult the authoritative registry directly rather than relying on this summary alone.",
+     "quality": 1,
+     "note": "fixed preamble and fact-free caveat wrapped around the verbatim form"
+    },
+    {
+     "id": "wrong-unrelated",
+     "text": "The IP address 192.0.2.1 is part of the TEST-NET-1 range (192.0.2.0/24), which is explicitly reserved for documentation and examples purposes and should never appear on the public internet. This IP range is not assigned to any real user or network and is used only in technical documentation, tutorials, and examples to avoid conflicts with real IP addresses. If you see traffic to or from this address in logs or network monitoring tools, it typically indicates one of the following: Misconfigured or simulated traffic: The traffic may originate from a device or script using placeholder documentation addresses. Internal testing: The address might be used in a lab environment or during internal network testing. False positive or misinterpretation: Monitoring tools or security systems might incorrectly flag or misinterpret the traffic. There is no geographic location associated with this IP because it is not a routable address on the public internet. Similarly, there is no abuse history or suspicious activity linked to it, as it is not used for real-world communications. If you continue to see this address in your logs or security alerts, investigate the source within your internal network or review any configurations that might be using placeholder addresses inappropriately.",
+     "quality": 0,
+     "note": "the next record's ground truth: a real answer to a different question"
+    },
+    {
+     "id": "wrong-swapped",
+     "text": "The IP address 192.0.2.1 resolves to TEST-NET-, TEST-NET-, IP is announced by Misconfigured (AS-1). Approximate coordinates are 192.0, 2.0.",
+     "quality": 0,
+     "note": "same prose skeleton, entities and figures replaced positionally by the donor's"
+    }
+   ],
+   "pairs": [
+    [
+     "correct-verbatim",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbatim",
+     "wrong-swapped"
+    ],
+    [
+     "correct-reworded",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-reworded",
+     "wrong-swapped"
+    ],
+    [
+     "correct-terse",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-terse",
+     "wrong-swapped"
+    ],
+    [
+     "correct-verbose",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbose",
+     "wrong-swapped"
+    ]
+   ],
+   "constraints": [
+    {
+     "type": "near_equal",
+     "ids": [
+      "correct-verbatim",
+      "correct-reworded",
+      "correct-terse",
+      "correct-verbose"
+     ],
+     "tolerance": 0.05,
+     "note": "every phrasing of the same correct answer must score alike; the reworded/verbose gap was the measured defect"
+    }
+   ],
+   "provenance": {
+    "source": "synthetic",
+    "derived_from": "synth/ip_geolocation-synth-02",
+    "method": "mechanical transform of existing fixture text (gen-clean-pairs.mjs); no answer authored against a ground truth",
+    "captured": "2026-08-27"
+   }
+  },
+  {
+   "id": "ip_geolocation-cleanpair-14",
+   "intent": "IP_GEOLOCATION",
+   "class": "CLEAN-PAIR",
+   "rationale": "mirrors the node's own benchmark shape: one clearly-correct answer in four phrasings against one clearly-wrong answer. The adversarial classes measured the incumbent at margin 0.438 where the node measured 0.992 (rejection of registration 1377), because a lexically generous scorer only fails on pathologies. This class is where the gate actually lives, and where a precision term that charges a correct answer for its own wording costs us the ordering.",
+   "question": "Geolocate the IP address 208.240.195.55: which country, region and city does it resolve to, which ISP or organisation announces it, and what are its approximate coordinates?",
+   "ground_truth": "The IP address 208.240.195.55 resolves to Porto, Norte, Portugal. It is announced by NOS Comunicacoes (AS57580). Approximate coordinates are 41.1579, -8.6291.",
+   "answers": [
+    {
+     "id": "correct-verbatim",
+     "text": "The IP address 208.240.195.55 resolves to Porto, Norte, Portugal. It is announced by NOS Comunicacoes (AS57580). Approximate coordinates are 41.1579, -8.6291.",
+     "quality": 1,
+     "note": "the ground truth as the miner would state it, markdown stripped"
+    },
+    {
+     "id": "correct-reworded",
+     "text": "The address 208.240.195.55 maps to Porto, Norte, Portugal. It is advertised by NOS Comunicacoes (AS57580). rough coordinates are 41.1579, -8.6291.",
+     "quality": 1,
+     "note": "connective substitution only; no entity or figure touched"
+    },
+    {
+     "id": "correct-terse",
+     "text": "IP address 208.240.195.55 resolves Porto, Norte, Portugal. announced NOS Comunicacoes (AS57580). Approximate coordinates 41.1579, -8.6291.",
+     "quality": 1,
+     "note": "fixed filler list deleted; every decisive token kept, in order"
+    },
+    {
+     "id": "correct-verbose",
+     "text": "According to the record that was retrieved, the IP address 208.240.195.55 resolves to Porto, Norte, Portugal. It is announced by NOS Comunicacoes (AS57580). Approximate coordinates are 41.1579, -8.6291. These figures come from the provider's own dataset and are reproduced here without further adjustment; readers who need a second opinion should consult the authoritative registry directly rather than relying on this summary alone.",
+     "quality": 1,
+     "note": "fixed preamble and fact-free caveat wrapped around the verbatim form"
+    },
+    {
+     "id": "wrong-unrelated",
+     "text": "The IP address 192.0.2.1 is part of the TEST-NET-1 range (192.0.2.0/24), which is explicitly reserved for documentation and examples purposes and should never appear on the public internet. This IP range is not assigned to any real user or network and is used only in technical documentation, tutorials, and examples to avoid conflicts with real IP addresses. If you see traffic to or from this address in logs or network monitoring tools, it typically indicates one of the following: Misconfigured or simulated traffic: The traffic may originate from a device or script using placeholder documentation addresses. Internal testing: The address might be used in a lab environment or during internal network testing. False positive or misinterpretation: Monitoring tools or security systems might incorrectly flag or misinterpret the traffic. There is no geographic location associated with this IP because it is not a routable address on the public internet. Similarly, there is no abuse history or suspicious activity linked to it, as it is not used for real-world communications. If you continue to see this address in your logs or security alerts, investigate the source within your internal network or review any configurations that might be using placeholder addresses inappropriately.",
+     "quality": 0,
+     "note": "the next record's ground truth: a real answer to a different question"
+    },
+    {
+     "id": "wrong-swapped",
+     "text": "The IP address 192.0.2.1 resolves to TEST-NET-, IP, Misconfigured is announced by The (AS-1). Approximate coordinates are 192.0, 2.0.",
+     "quality": 0,
+     "note": "same prose skeleton, entities and figures replaced positionally by the donor's"
+    }
+   ],
+   "pairs": [
+    [
+     "correct-verbatim",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbatim",
+     "wrong-swapped"
+    ],
+    [
+     "correct-reworded",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-reworded",
+     "wrong-swapped"
+    ],
+    [
+     "correct-terse",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-terse",
+     "wrong-swapped"
+    ],
+    [
+     "correct-verbose",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbose",
+     "wrong-swapped"
+    ]
+   ],
+   "constraints": [
+    {
+     "type": "near_equal",
+     "ids": [
+      "correct-verbatim",
+      "correct-reworded",
+      "correct-terse",
+      "correct-verbose"
+     ],
+     "tolerance": 0.05,
+     "note": "every phrasing of the same correct answer must score alike; the reworded/verbose gap was the measured defect"
+    }
+   ],
+   "provenance": {
+    "source": "synthetic",
+    "derived_from": "synth/ip_geolocation-synth-03",
+    "method": "mechanical transform of existing fixture text (gen-clean-pairs.mjs); no answer authored against a ground truth",
+    "captured": "2026-08-27"
+   }
+  },
+  {
+   "id": "ip_geolocation-cleanpair-15",
+   "intent": "IP_GEOLOCATION",
+   "class": "CLEAN-PAIR",
+   "rationale": "mirrors the node's own benchmark shape: one clearly-correct answer in four phrasings against one clearly-wrong answer. The adversarial classes measured the incumbent at margin 0.438 where the node measured 0.992 (rejection of registration 1377), because a lexically generous scorer only fails on pathologies. This class is where the gate actually lives, and where a precision term that charges a correct answer for its own wording costs us the ordering.",
+   "question": "Geolocate the IP address 114.67.143.37: which country, region and city does it resolve to, which ISP or organisation announces it, and what are its approximate coordinates?",
+   "ground_truth": "The IP address 114.67.143.37 resolves to Montevideo, Montevideo, Uruguay. It is announced by Administracion Nacional (AS9091). Approximate coordinates are -34.9011, -56.1645.",
+   "answers": [
+    {
+     "id": "correct-verbatim",
+     "text": "The IP address 114.67.143.37 resolves to Montevideo, Montevideo, Uruguay. It is announced by Administracion Nacional (AS9091). Approximate coordinates are -34.9011, -56.1645.",
+     "quality": 1,
+     "note": "the ground truth as the miner would state it, markdown stripped"
+    },
+    {
+     "id": "correct-reworded",
+     "text": "The address 114.67.143.37 maps to Montevideo, Montevideo, Uruguay. It is advertised by Administracion Nacional (AS9091). rough coordinates are -34.9011, -56.1645.",
+     "quality": 1,
+     "note": "connective substitution only; no entity or figure touched"
+    },
+    {
+     "id": "correct-terse",
+     "text": "IP address 114.67.143.37 resolves Montevideo, Montevideo, Uruguay. announced Administracion Nacional (AS9091). Approximate coordinates -34.9011, -56.1645.",
+     "quality": 1,
+     "note": "fixed filler list deleted; every decisive token kept, in order"
+    },
+    {
+     "id": "correct-verbose",
+     "text": "According to the record that was retrieved, the IP address 114.67.143.37 resolves to Montevideo, Montevideo, Uruguay. It is announced by Administracion Nacional (AS9091). Approximate coordinates are -34.9011, -56.1645. These figures come from the provider's own dataset and are reproduced here without further adjustment; readers who need a second opinion should consult the authoritative registry directly rather than relying on this summary alone.",
+     "quality": 1,
+     "note": "fixed preamble and fact-free caveat wrapped around the verbatim form"
+    },
+    {
+     "id": "wrong-unrelated",
+     "text": "The IP address 192.0.2.1 is part of the TEST-NET-1 range (192.0.2.0/24), which is explicitly reserved for documentation and examples purposes and should never appear on the public internet. This IP range is not assigned to any real user or network and is used only in technical documentation, tutorials, and examples to avoid conflicts with real IP addresses. If you see traffic to or from this address in logs or network monitoring tools, it typically indicates one of the following: Misconfigured or simulated traffic: The traffic may originate from a device or script using placeholder documentation addresses. Internal testing: The address might be used in a lab environment or during internal network testing. False positive or misinterpretation: Monitoring tools or security systems might incorrectly flag or misinterpret the traffic. There is no geographic location associated with this IP because it is not a routable address on the public internet. Similarly, there is no abuse history or suspicious activity linked to it, as it is not used for real-world communications. If you continue to see this address in your logs or security alerts, investigate the source within your internal network or review any configurations that might be using placeholder addresses inappropriately.",
+     "quality": 0,
+     "note": "the next record's ground truth: a real answer to a different question"
+    },
+    {
+     "id": "wrong-swapped",
+     "text": "The IP address 192.0.2.1 resolves to TEST-NET-, TEST-NET-, IP is announced by Misconfigured (AS-1). Approximate coordinates are 192.0, 2.0.",
+     "quality": 0,
+     "note": "same prose skeleton, entities and figures replaced positionally by the donor's"
+    }
+   ],
+   "pairs": [
+    [
+     "correct-verbatim",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbatim",
+     "wrong-swapped"
+    ],
+    [
+     "correct-reworded",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-reworded",
+     "wrong-swapped"
+    ],
+    [
+     "correct-terse",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-terse",
+     "wrong-swapped"
+    ],
+    [
+     "correct-verbose",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbose",
+     "wrong-swapped"
+    ]
+   ],
+   "constraints": [
+    {
+     "type": "near_equal",
+     "ids": [
+      "correct-verbatim",
+      "correct-reworded",
+      "correct-terse",
+      "correct-verbose"
+     ],
+     "tolerance": 0.05,
+     "note": "every phrasing of the same correct answer must score alike; the reworded/verbose gap was the measured defect"
+    }
+   ],
+   "provenance": {
+    "source": "synthetic",
+    "derived_from": "synth/ip_geolocation-synth-04",
+    "method": "mechanical transform of existing fixture text (gen-clean-pairs.mjs); no answer authored against a ground truth",
+    "captured": "2026-08-27"
+   }
+  },
+  {
+   "id": "ip_geolocation-cleanpair-16",
+   "intent": "IP_GEOLOCATION",
+   "class": "CLEAN-PAIR",
+   "rationale": "mirrors the node's own benchmark shape: one clearly-correct answer in four phrasings against one clearly-wrong answer. The adversarial classes measured the incumbent at margin 0.438 where the node measured 0.992 (rejection of registration 1377), because a lexically generous scorer only fails on pathologies. This class is where the gate actually lives, and where a precision term that charges a correct answer for its own wording costs us the ordering.",
+   "question": "Geolocate the IP address 195.54.252.85: which country, region and city does it resolve to, which ISP or organisation announces it, and what are its approximate coordinates?",
+   "ground_truth": "The IP address 195.54.252.85 resolves to Porto, Norte, Portugal. It is announced by NOS Comunicacoes (AS42232). Approximate coordinates are 41.1579, -8.6291.",
+   "answers": [
+    {
+     "id": "correct-verbatim",
+     "text": "The IP address 195.54.252.85 resolves to Porto, Norte, Portugal. It is announced by NOS Comunicacoes (AS42232). Approximate coordinates are 41.1579, -8.6291.",
+     "quality": 1,
+     "note": "the ground truth as the miner would state it, markdown stripped"
+    },
+    {
+     "id": "correct-reworded",
+     "text": "The address 195.54.252.85 maps to Porto, Norte, Portugal. It is advertised by NOS Comunicacoes (AS42232). rough coordinates are 41.1579, -8.6291.",
+     "quality": 1,
+     "note": "connective substitution only; no entity or figure touched"
+    },
+    {
+     "id": "correct-terse",
+     "text": "IP address 195.54.252.85 resolves Porto, Norte, Portugal. announced NOS Comunicacoes (AS42232). Approximate coordinates 41.1579, -8.6291.",
+     "quality": 1,
+     "note": "fixed filler list deleted; every decisive token kept, in order"
+    },
+    {
+     "id": "correct-verbose",
+     "text": "According to the record that was retrieved, the IP address 195.54.252.85 resolves to Porto, Norte, Portugal. It is announced by NOS Comunicacoes (AS42232). Approximate coordinates are 41.1579, -8.6291. These figures come from the provider's own dataset and are reproduced here without further adjustment; readers who need a second opinion should consult the authoritative registry directly rather than relying on this summary alone.",
+     "quality": 1,
+     "note": "fixed preamble and fact-free caveat wrapped around the verbatim form"
+    },
+    {
+     "id": "wrong-unrelated",
+     "text": "The IP address 192.0.2.1 is part of the TEST-NET-1 range (192.0.2.0/24), which is explicitly reserved for documentation and examples purposes and should never appear on the public internet. This IP range is not assigned to any real user or network and is used only in technical documentation, tutorials, and examples to avoid conflicts with real IP addresses. If you see traffic to or from this address in logs or network monitoring tools, it typically indicates one of the following: Misconfigured or simulated traffic: The traffic may originate from a device or script using placeholder documentation addresses. Internal testing: The address might be used in a lab environment or during internal network testing. False positive or misinterpretation: Monitoring tools or security systems might incorrectly flag or misinterpret the traffic. There is no geographic location associated with this IP because it is not a routable address on the public internet. Similarly, there is no abuse history or suspicious activity linked to it, as it is not used for real-world communications. If you continue to see this address in your logs or security alerts, investigate the source within your internal network or review any configurations that might be using placeholder addresses inappropriately.",
+     "quality": 0,
+     "note": "the next record's ground truth: a real answer to a different question"
+    },
+    {
+     "id": "wrong-swapped",
+     "text": "The IP address 192.0.2.1 resolves to TEST-NET-, IP, Misconfigured is announced by The (AS-1). Approximate coordinates are 192.0, 2.0.",
+     "quality": 0,
+     "note": "same prose skeleton, entities and figures replaced positionally by the donor's"
+    }
+   ],
+   "pairs": [
+    [
+     "correct-verbatim",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbatim",
+     "wrong-swapped"
+    ],
+    [
+     "correct-reworded",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-reworded",
+     "wrong-swapped"
+    ],
+    [
+     "correct-terse",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-terse",
+     "wrong-swapped"
+    ],
+    [
+     "correct-verbose",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbose",
+     "wrong-swapped"
+    ]
+   ],
+   "constraints": [
+    {
+     "type": "near_equal",
+     "ids": [
+      "correct-verbatim",
+      "correct-reworded",
+      "correct-terse",
+      "correct-verbose"
+     ],
+     "tolerance": 0.05,
+     "note": "every phrasing of the same correct answer must score alike; the reworded/verbose gap was the measured defect"
+    }
+   ],
+   "provenance": {
+    "source": "synthetic",
+    "derived_from": "synth/ip_geolocation-synth-05",
+    "method": "mechanical transform of existing fixture text (gen-clean-pairs.mjs); no answer authored against a ground truth",
+    "captured": "2026-08-27"
+   }
+  },
+  {
+   "id": "ip_geolocation-cleanpair-17",
+   "intent": "IP_GEOLOCATION",
+   "class": "CLEAN-PAIR",
+   "rationale": "mirrors the node's own benchmark shape: one clearly-correct answer in four phrasings against one clearly-wrong answer. The adversarial classes measured the incumbent at margin 0.438 where the node measured 0.992 (rejection of registration 1377), because a lexically generous scorer only fails on pathologies. This class is where the gate actually lives, and where a precision term that charges a correct answer for its own wording costs us the ordering.",
+   "question": "Geolocate the IP address 106.183.105.201: which country, region and city does it resolve to, which ISP or organisation announces it, and what are its approximate coordinates?",
+   "ground_truth": "The IP address 106.183.105.201 resolves to Da Nang, Da Nang, Vietnam. It is announced by Viettel Group (AS56662). Approximate coordinates are 16.0544, 108.2022.",
+   "answers": [
+    {
+     "id": "correct-verbatim",
+     "text": "The IP address 106.183.105.201 resolves to Da Nang, Da Nang, Vietnam. It is announced by Viettel Group (AS56662). Approximate coordinates are 16.0544, 108.2022.",
+     "quality": 1,
+     "note": "the ground truth as the miner would state it, markdown stripped"
+    },
+    {
+     "id": "correct-reworded",
+     "text": "The address 106.183.105.201 maps to Da Nang, Da Nang, Vietnam. It is advertised by Viettel Group (AS56662). rough coordinates are 16.0544, 108.2022.",
+     "quality": 1,
+     "note": "connective substitution only; no entity or figure touched"
+    },
+    {
+     "id": "correct-terse",
+     "text": "IP address 106.183.105.201 resolves Da Nang, Da Nang, Vietnam. announced Viettel Group (AS56662). Approximate coordinates 16.0544, 108.2022.",
+     "quality": 1,
+     "note": "fixed filler list deleted; every decisive token kept, in order"
+    },
+    {
+     "id": "correct-verbose",
+     "text": "According to the record that was retrieved, the IP address 106.183.105.201 resolves to Da Nang, Da Nang, Vietnam. It is announced by Viettel Group (AS56662). Approximate coordinates are 16.0544, 108.2022. These figures come from the provider's own dataset and are reproduced here without further adjustment; readers who need a second opinion should consult the authoritative registry directly rather than relying on this summary alone.",
+     "quality": 1,
+     "note": "fixed preamble and fact-free caveat wrapped around the verbatim form"
+    },
+    {
+     "id": "wrong-unrelated",
+     "text": "The IP address 192.0.2.1 is part of the TEST-NET-1 range (192.0.2.0/24), which is explicitly reserved for documentation and examples purposes and should never appear on the public internet. This IP range is not assigned to any real user or network and is used only in technical documentation, tutorials, and examples to avoid conflicts with real IP addresses. If you see traffic to or from this address in logs or network monitoring tools, it typically indicates one of the following: Misconfigured or simulated traffic: The traffic may originate from a device or script using placeholder documentation addresses. Internal testing: The address might be used in a lab environment or during internal network testing. False positive or misinterpretation: Monitoring tools or security systems might incorrectly flag or misinterpret the traffic. There is no geographic location associated with this IP because it is not a routable address on the public internet. Similarly, there is no abuse history or suspicious activity linked to it, as it is not used for real-world communications. If you continue to see this address in your logs or security alerts, investigate the source within your internal network or review any configurations that might be using placeholder addresses inappropriately.",
+     "quality": 0,
+     "note": "the next record's ground truth: a real answer to a different question"
+    },
+    {
+     "id": "wrong-swapped",
+     "text": "The IP address 192.0.2.1 resolves to TEST-NET-, TEST-NET-, IP is announced by Misconfigured (AS-1). Approximate coordinates are 192.0, 2.0.",
+     "quality": 0,
+     "note": "same prose skeleton, entities and figures replaced positionally by the donor's"
+    }
+   ],
+   "pairs": [
+    [
+     "correct-verbatim",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbatim",
+     "wrong-swapped"
+    ],
+    [
+     "correct-reworded",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-reworded",
+     "wrong-swapped"
+    ],
+    [
+     "correct-terse",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-terse",
+     "wrong-swapped"
+    ],
+    [
+     "correct-verbose",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbose",
+     "wrong-swapped"
+    ]
+   ],
+   "constraints": [
+    {
+     "type": "near_equal",
+     "ids": [
+      "correct-verbatim",
+      "correct-reworded",
+      "correct-terse",
+      "correct-verbose"
+     ],
+     "tolerance": 0.05,
+     "note": "every phrasing of the same correct answer must score alike; the reworded/verbose gap was the measured defect"
+    }
+   ],
+   "provenance": {
+    "source": "synthetic",
+    "derived_from": "synth/ip_geolocation-synth-06",
+    "method": "mechanical transform of existing fixture text (gen-clean-pairs.mjs); no answer authored against a ground truth",
+    "captured": "2026-08-27"
+   }
+  },
+  {
+   "id": "ip_geolocation-cleanpair-18",
+   "intent": "IP_GEOLOCATION",
+   "class": "CLEAN-PAIR",
+   "rationale": "mirrors the node's own benchmark shape: one clearly-correct answer in four phrasings against one clearly-wrong answer. The adversarial classes measured the incumbent at margin 0.438 where the node measured 0.992 (rejection of registration 1377), because a lexically generous scorer only fails on pathologies. This class is where the gate actually lives, and where a precision term that charges a correct answer for its own wording costs us the ordering.",
+   "question": "Geolocate the IP address 94.110.80.66: which country, region and city does it resolve to, which ISP or organisation announces it, and what are its approximate coordinates?",
+   "ground_truth": "The IP address 94.110.80.66 resolves to Nairobi, Nairobi County, Kenya. It is announced by Safaricom PLC (AS19220). Approximate coordinates are -1.2921, 36.8219.",
+   "answers": [
+    {
+     "id": "correct-verbatim",
+     "text": "The IP address 94.110.80.66 resolves to Nairobi, Nairobi County, Kenya. It is announced by Safaricom PLC (AS19220). Approximate coordinates are -1.2921, 36.8219.",
+     "quality": 1,
+     "note": "the ground truth as the miner would state it, markdown stripped"
+    },
+    {
+     "id": "correct-reworded",
+     "text": "The address 94.110.80.66 maps to Nairobi, Nairobi County, Kenya. It is advertised by Safaricom PLC (AS19220). rough coordinates are -1.2921, 36.8219.",
+     "quality": 1,
+     "note": "connective substitution only; no entity or figure touched"
+    },
+    {
+     "id": "correct-terse",
+     "text": "IP address 94.110.80.66 resolves Nairobi, Nairobi County, Kenya. announced Safaricom PLC (AS19220). Approximate coordinates -1.2921, 36.8219.",
+     "quality": 1,
+     "note": "fixed filler list deleted; every decisive token kept, in order"
+    },
+    {
+     "id": "correct-verbose",
+     "text": "According to the record that was retrieved, the IP address 94.110.80.66 resolves to Nairobi, Nairobi County, Kenya. It is announced by Safaricom PLC (AS19220). Approximate coordinates are -1.2921, 36.8219. These figures come from the provider's own dataset and are reproduced here without further adjustment; readers who need a second opinion should consult the authoritative registry directly rather than relying on this summary alone.",
+     "quality": 1,
+     "note": "fixed preamble and fact-free caveat wrapped around the verbatim form"
+    },
+    {
+     "id": "wrong-unrelated",
+     "text": "The IP address 192.0.2.1 is part of the TEST-NET-1 range (192.0.2.0/24), which is explicitly reserved for documentation and examples purposes and should never appear on the public internet. This IP range is not assigned to any real user or network and is used only in technical documentation, tutorials, and examples to avoid conflicts with real IP addresses. If you see traffic to or from this address in logs or network monitoring tools, it typically indicates one of the following: Misconfigured or simulated traffic: The traffic may originate from a device or script using placeholder documentation addresses. Internal testing: The address might be used in a lab environment or during internal network testing. False positive or misinterpretation: Monitoring tools or security systems might incorrectly flag or misinterpret the traffic. There is no geographic location associated with this IP because it is not a routable address on the public internet. Similarly, there is no abuse history or suspicious activity linked to it, as it is not used for real-world communications. If you continue to see this address in your logs or security alerts, investigate the source within your internal network or review any configurations that might be using placeholder addresses inappropriately.",
+     "quality": 0,
+     "note": "the next record's ground truth: a real answer to a different question"
+    },
+    {
+     "id": "wrong-swapped",
+     "text": "The IP address 192.0.2.1 resolves to TEST-NET-, TEST-NET- County, Misconfigured is announced by The (AS-1). Approximate coordinates are 192.0, 2.0.",
+     "quality": 0,
+     "note": "same prose skeleton, entities and figures replaced positionally by the donor's"
+    }
+   ],
+   "pairs": [
+    [
+     "correct-verbatim",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbatim",
+     "wrong-swapped"
+    ],
+    [
+     "correct-reworded",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-reworded",
+     "wrong-swapped"
+    ],
+    [
+     "correct-terse",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-terse",
+     "wrong-swapped"
+    ],
+    [
+     "correct-verbose",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbose",
+     "wrong-swapped"
+    ]
+   ],
+   "constraints": [
+    {
+     "type": "near_equal",
+     "ids": [
+      "correct-verbatim",
+      "correct-reworded",
+      "correct-terse",
+      "correct-verbose"
+     ],
+     "tolerance": 0.05,
+     "note": "every phrasing of the same correct answer must score alike; the reworded/verbose gap was the measured defect"
+    }
+   ],
+   "provenance": {
+    "source": "synthetic",
+    "derived_from": "synth/ip_geolocation-synth-07",
+    "method": "mechanical transform of existing fixture text (gen-clean-pairs.mjs); no answer authored against a ground truth",
+    "captured": "2026-08-27"
+   }
+  },
+  {
+   "id": "ip_geolocation-cleanpair-19",
+   "intent": "IP_GEOLOCATION",
+   "class": "CLEAN-PAIR",
+   "rationale": "mirrors the node's own benchmark shape: one clearly-correct answer in four phrasings against one clearly-wrong answer. The adversarial classes measured the incumbent at margin 0.438 where the node measured 0.992 (rejection of registration 1377), because a lexically generous scorer only fails on pathologies. This class is where the gate actually lives, and where a precision term that charges a correct answer for its own wording costs us the ordering.",
+   "question": "Geolocate the IP address 33.117.125.139: which country, region and city does it resolve to, which ISP or organisation announces it, and what are its approximate coordinates?",
+   "ground_truth": "The IP address 33.117.125.139 resolves to Da Nang, Da Nang, Vietnam. It is announced by Viettel Group (AS57012). Approximate coordinates are 16.0544, 108.2022.",
+   "answers": [
+    {
+     "id": "correct-verbatim",
+     "text": "The IP address 33.117.125.139 resolves to Da Nang, Da Nang, Vietnam. It is announced by Viettel Group (AS57012). Approximate coordinates are 16.0544, 108.2022.",
+     "quality": 1,
+     "note": "the ground truth as the miner would state it, markdown stripped"
+    },
+    {
+     "id": "correct-reworded",
+     "text": "The address 33.117.125.139 maps to Da Nang, Da Nang, Vietnam. It is advertised by Viettel Group (AS57012). rough coordinates are 16.0544, 108.2022.",
+     "quality": 1,
+     "note": "connective substitution only; no entity or figure touched"
+    },
+    {
+     "id": "correct-terse",
+     "text": "IP address 33.117.125.139 resolves Da Nang, Da Nang, Vietnam. announced Viettel Group (AS57012). Approximate coordinates 16.0544, 108.2022.",
+     "quality": 1,
+     "note": "fixed filler list deleted; every decisive token kept, in order"
+    },
+    {
+     "id": "correct-verbose",
+     "text": "According to the record that was retrieved, the IP address 33.117.125.139 resolves to Da Nang, Da Nang, Vietnam. It is announced by Viettel Group (AS57012). Approximate coordinates are 16.0544, 108.2022. These figures come from the provider's own dataset and are reproduced here without further adjustment; readers who need a second opinion should consult the authoritative registry directly rather than relying on this summary alone.",
+     "quality": 1,
+     "note": "fixed preamble and fact-free caveat wrapped around the verbatim form"
+    },
+    {
+     "id": "wrong-unrelated",
+     "text": "The IP address 192.0.2.1 is part of the TEST-NET-1 range (192.0.2.0/24), which is explicitly reserved for documentation and examples purposes and should never appear on the public internet. This IP range is not assigned to any real user or network and is used only in technical documentation, tutorials, and examples to avoid conflicts with real IP addresses. If you see traffic to or from this address in logs or network monitoring tools, it typically indicates one of the following: Misconfigured or simulated traffic: The traffic may originate from a device or script using placeholder documentation addresses. Internal testing: The address might be used in a lab environment or during internal network testing. False positive or misinterpretation: Monitoring tools or security systems might incorrectly flag or misinterpret the traffic. There is no geographic location associated with this IP because it is not a routable address on the public internet. Similarly, there is no abuse history or suspicious activity linked to it, as it is not used for real-world communications. If you continue to see this address in your logs or security alerts, investigate the source within your internal network or review any configurations that might be using placeholder addresses inappropriately.",
+     "quality": 0,
+     "note": "the next record's ground truth: a real answer to a different question"
+    },
+    {
+     "id": "wrong-swapped",
+     "text": "The IP address 192.0.2.1 resolves to TEST-NET-, TEST-NET-, IP is announced by Misconfigured (AS-1). Approximate coordinates are 192.0, 2.0.",
+     "quality": 0,
+     "note": "same prose skeleton, entities and figures replaced positionally by the donor's"
+    }
+   ],
+   "pairs": [
+    [
+     "correct-verbatim",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbatim",
+     "wrong-swapped"
+    ],
+    [
+     "correct-reworded",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-reworded",
+     "wrong-swapped"
+    ],
+    [
+     "correct-terse",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-terse",
+     "wrong-swapped"
+    ],
+    [
+     "correct-verbose",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbose",
+     "wrong-swapped"
+    ]
+   ],
+   "constraints": [
+    {
+     "type": "near_equal",
+     "ids": [
+      "correct-verbatim",
+      "correct-reworded",
+      "correct-terse",
+      "correct-verbose"
+     ],
+     "tolerance": 0.05,
+     "note": "every phrasing of the same correct answer must score alike; the reworded/verbose gap was the measured defect"
+    }
+   ],
+   "provenance": {
+    "source": "synthetic",
+    "derived_from": "synth/ip_geolocation-synth-08",
+    "method": "mechanical transform of existing fixture text (gen-clean-pairs.mjs); no answer authored against a ground truth",
+    "captured": "2026-08-27"
+   }
+  },
+  {
+   "id": "ip_geolocation-cleanpair-20",
+   "intent": "IP_GEOLOCATION",
+   "class": "CLEAN-PAIR",
+   "rationale": "mirrors the node's own benchmark shape: one clearly-correct answer in four phrasings against one clearly-wrong answer. The adversarial classes measured the incumbent at margin 0.438 where the node measured 0.992 (rejection of registration 1377), because a lexically generous scorer only fails on pathologies. This class is where the gate actually lives, and where a precision term that charges a correct answer for its own wording costs us the ordering.",
+   "question": "Geolocate the IP address 210.153.183.246: which country, region and city does it resolve to, which ISP or organisation announces it, and what are its approximate coordinates?",
+   "ground_truth": "The IP address 210.153.183.246 resolves to Nairobi, Nairobi County, Kenya. It is announced by Safaricom PLC (AS34910). Approximate coordinates are -1.2921, 36.8219.",
+   "answers": [
+    {
+     "id": "correct-verbatim",
+     "text": "The IP address 210.153.183.246 resolves to Nairobi, Nairobi County, Kenya. It is announced by Safaricom PLC (AS34910). Approximate coordinates are -1.2921, 36.8219.",
+     "quality": 1,
+     "note": "the ground truth as the miner would state it, markdown stripped"
+    },
+    {
+     "id": "correct-reworded",
+     "text": "The address 210.153.183.246 maps to Nairobi, Nairobi County, Kenya. It is advertised by Safaricom PLC (AS34910). rough coordinates are -1.2921, 36.8219.",
+     "quality": 1,
+     "note": "connective substitution only; no entity or figure touched"
+    },
+    {
+     "id": "correct-terse",
+     "text": "IP address 210.153.183.246 resolves Nairobi, Nairobi County, Kenya. announced Safaricom PLC (AS34910). Approximate coordinates -1.2921, 36.8219.",
+     "quality": 1,
+     "note": "fixed filler list deleted; every decisive token kept, in order"
+    },
+    {
+     "id": "correct-verbose",
+     "text": "According to the record that was retrieved, the IP address 210.153.183.246 resolves to Nairobi, Nairobi County, Kenya. It is announced by Safaricom PLC (AS34910). Approximate coordinates are -1.2921, 36.8219. These figures come from the provider's own dataset and are reproduced here without further adjustment; readers who need a second opinion should consult the authoritative registry directly rather than relying on this summary alone.",
+     "quality": 1,
+     "note": "fixed preamble and fact-free caveat wrapped around the verbatim form"
+    },
+    {
+     "id": "wrong-unrelated",
+     "text": "The IP address 192.0.2.1 is part of the TEST-NET-1 range (192.0.2.0/24), which is explicitly reserved for documentation and examples purposes and should never appear on the public internet. This IP range is not assigned to any real user or network and is used only in technical documentation, tutorials, and examples to avoid conflicts with real IP addresses. If you see traffic to or from this address in logs or network monitoring tools, it typically indicates one of the following: Misconfigured or simulated traffic: The traffic may originate from a device or script using placeholder documentation addresses. Internal testing: The address might be used in a lab environment or during internal network testing. False positive or misinterpretation: Monitoring tools or security systems might incorrectly flag or misinterpret the traffic. There is no geographic location associated with this IP because it is not a routable address on the public internet. Similarly, there is no abuse history or suspicious activity linked to it, as it is not used for real-world communications. If you continue to see this address in your logs or security alerts, investigate the source within your internal network or review any configurations that might be using placeholder addresses inappropriately.",
+     "quality": 0,
+     "note": "the next record's ground truth: a real answer to a different question"
+    },
+    {
+     "id": "wrong-swapped",
+     "text": "The IP address 192.0.2.1 resolves to TEST-NET-, TEST-NET- County, Misconfigured is announced by The (AS-1). Approximate coordinates are 192.0, 2.0.",
+     "quality": 0,
+     "note": "same prose skeleton, entities and figures replaced positionally by the donor's"
+    }
+   ],
+   "pairs": [
+    [
+     "correct-verbatim",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbatim",
+     "wrong-swapped"
+    ],
+    [
+     "correct-reworded",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-reworded",
+     "wrong-swapped"
+    ],
+    [
+     "correct-terse",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-terse",
+     "wrong-swapped"
+    ],
+    [
+     "correct-verbose",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbose",
+     "wrong-swapped"
+    ]
+   ],
+   "constraints": [
+    {
+     "type": "near_equal",
+     "ids": [
+      "correct-verbatim",
+      "correct-reworded",
+      "correct-terse",
+      "correct-verbose"
+     ],
+     "tolerance": 0.05,
+     "note": "every phrasing of the same correct answer must score alike; the reworded/verbose gap was the measured defect"
+    }
+   ],
+   "provenance": {
+    "source": "synthetic",
+    "derived_from": "synth/ip_geolocation-synth-09",
+    "method": "mechanical transform of existing fixture text (gen-clean-pairs.mjs); no answer authored against a ground truth",
+    "captured": "2026-08-27"
+   }
+  },
+  {
+   "id": "ip_geolocation-cleanpair-21",
+   "intent": "IP_GEOLOCATION",
+   "class": "CLEAN-PAIR",
+   "rationale": "mirrors the node's own benchmark shape: one clearly-correct answer in four phrasings against one clearly-wrong answer. The adversarial classes measured the incumbent at margin 0.438 where the node measured 0.992 (rejection of registration 1377), because a lexically generous scorer only fails on pathologies. This class is where the gate actually lives, and where a precision term that charges a correct answer for its own wording costs us the ordering.",
+   "question": "Geolocate the IP address 13.218.45.142: which country, region and city does it resolve to, which ISP or organisation announces it, and what are its approximate coordinates?",
+   "ground_truth": "The IP address 13.218.45.142 resolves to Da Nang, Da Nang, Vietnam. It is announced by Viettel Group (AS32701). Approximate coordinates are 16.0544, 108.2022.",
+   "answers": [
+    {
+     "id": "correct-verbatim",
+     "text": "The IP address 13.218.45.142 resolves to Da Nang, Da Nang, Vietnam. It is announced by Viettel Group (AS32701). Approximate coordinates are 16.0544, 108.2022.",
+     "quality": 1,
+     "note": "the ground truth as the miner would state it, markdown stripped"
+    },
+    {
+     "id": "correct-reworded",
+     "text": "The address 13.218.45.142 maps to Da Nang, Da Nang, Vietnam. It is advertised by Viettel Group (AS32701). rough coordinates are 16.0544, 108.2022.",
+     "quality": 1,
+     "note": "connective substitution only; no entity or figure touched"
+    },
+    {
+     "id": "correct-terse",
+     "text": "IP address 13.218.45.142 resolves Da Nang, Da Nang, Vietnam. announced Viettel Group (AS32701). Approximate coordinates 16.0544, 108.2022.",
+     "quality": 1,
+     "note": "fixed filler list deleted; every decisive token kept, in order"
+    },
+    {
+     "id": "correct-verbose",
+     "text": "According to the record that was retrieved, the IP address 13.218.45.142 resolves to Da Nang, Da Nang, Vietnam. It is announced by Viettel Group (AS32701). Approximate coordinates are 16.0544, 108.2022. These figures come from the provider's own dataset and are reproduced here without further adjustment; readers who need a second opinion should consult the authoritative registry directly rather than relying on this summary alone.",
+     "quality": 1,
+     "note": "fixed preamble and fact-free caveat wrapped around the verbatim form"
+    },
+    {
+     "id": "wrong-unrelated",
+     "text": "The IP address 192.0.2.1 is part of the TEST-NET-1 range (192.0.2.0/24), which is explicitly reserved for documentation and examples purposes and should never appear on the public internet. This IP range is not assigned to any real user or network and is used only in technical documentation, tutorials, and examples to avoid conflicts with real IP addresses. If you see traffic to or from this address in logs or network monitoring tools, it typically indicates one of the following: Misconfigured or simulated traffic: The traffic may originate from a device or script using placeholder documentation addresses. Internal testing: The address might be used in a lab environment or during internal network testing. False positive or misinterpretation: Monitoring tools or security systems might incorrectly flag or misinterpret the traffic. There is no geographic location associated with this IP because it is not a routable address on the public internet. Similarly, there is no abuse history or suspicious activity linked to it, as it is not used for real-world communications. If you continue to see this address in your logs or security alerts, investigate the source within your internal network or review any configurations that might be using placeholder addresses inappropriately.",
+     "quality": 0,
+     "note": "the next record's ground truth: a real answer to a different question"
+    },
+    {
+     "id": "wrong-swapped",
+     "text": "The IP address 192.0.2.1 resolves to TEST-NET-, TEST-NET-, IP is announced by Misconfigured (AS-1). Approximate coordinates are 192.0, 2.0.",
+     "quality": 0,
+     "note": "same prose skeleton, entities and figures replaced positionally by the donor's"
+    }
+   ],
+   "pairs": [
+    [
+     "correct-verbatim",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbatim",
+     "wrong-swapped"
+    ],
+    [
+     "correct-reworded",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-reworded",
+     "wrong-swapped"
+    ],
+    [
+     "correct-terse",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-terse",
+     "wrong-swapped"
+    ],
+    [
+     "correct-verbose",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbose",
+     "wrong-swapped"
+    ]
+   ],
+   "constraints": [
+    {
+     "type": "near_equal",
+     "ids": [
+      "correct-verbatim",
+      "correct-reworded",
+      "correct-terse",
+      "correct-verbose"
+     ],
+     "tolerance": 0.05,
+     "note": "every phrasing of the same correct answer must score alike; the reworded/verbose gap was the measured defect"
+    }
+   ],
+   "provenance": {
+    "source": "synthetic",
+    "derived_from": "synth/ip_geolocation-synth-10",
+    "method": "mechanical transform of existing fixture text (gen-clean-pairs.mjs); no answer authored against a ground truth",
+    "captured": "2026-08-27"
+   }
+  },
+  {
+   "id": "ip_geolocation-cleanpair-22",
+   "intent": "IP_GEOLOCATION",
+   "class": "CLEAN-PAIR",
+   "rationale": "mirrors the node's own benchmark shape: one clearly-correct answer in four phrasings against one clearly-wrong answer. The adversarial classes measured the incumbent at margin 0.438 where the node measured 0.992 (rejection of registration 1377), because a lexically generous scorer only fails on pathologies. This class is where the gate actually lives, and where a precision term that charges a correct answer for its own wording costs us the ordering.",
+   "question": "Geolocate the IP address 198.24.129.239: which country, region and city does it resolve to, which ISP or organisation announces it, and what are its approximate coordinates?",
+   "ground_truth": "The IP address 198.24.129.239 resolves to Da Nang, Da Nang, Vietnam. It is announced by Viettel Group (AS39960). Approximate coordinates are 16.0544, 108.2022.",
+   "answers": [
+    {
+     "id": "correct-verbatim",
+     "text": "The IP address 198.24.129.239 resolves to Da Nang, Da Nang, Vietnam. It is announced by Viettel Group (AS39960). Approximate coordinates are 16.0544, 108.2022.",
+     "quality": 1,
+     "note": "the ground truth as the miner would state it, markdown stripped"
+    },
+    {
+     "id": "correct-reworded",
+     "text": "The address 198.24.129.239 maps to Da Nang, Da Nang, Vietnam. It is advertised by Viettel Group (AS39960). rough coordinates are 16.0544, 108.2022.",
+     "quality": 1,
+     "note": "connective substitution only; no entity or figure touched"
+    },
+    {
+     "id": "correct-terse",
+     "text": "IP address 198.24.129.239 resolves Da Nang, Da Nang, Vietnam. announced Viettel Group (AS39960). Approximate coordinates 16.0544, 108.2022.",
+     "quality": 1,
+     "note": "fixed filler list deleted; every decisive token kept, in order"
+    },
+    {
+     "id": "correct-verbose",
+     "text": "According to the record that was retrieved, the IP address 198.24.129.239 resolves to Da Nang, Da Nang, Vietnam. It is announced by Viettel Group (AS39960). Approximate coordinates are 16.0544, 108.2022. These figures come from the provider's own dataset and are reproduced here without further adjustment; readers who need a second opinion should consult the authoritative registry directly rather than relying on this summary alone.",
+     "quality": 1,
+     "note": "fixed preamble and fact-free caveat wrapped around the verbatim form"
+    },
+    {
+     "id": "wrong-unrelated",
+     "text": "The IP address 192.0.2.1 is part of the TEST-NET-1 range (192.0.2.0/24), which is explicitly reserved for documentation and examples purposes and should never appear on the public internet. This IP range is not assigned to any real user or network and is used only in technical documentation, tutorials, and examples to avoid conflicts with real IP addresses. If you see traffic to or from this address in logs or network monitoring tools, it typically indicates one of the following: Misconfigured or simulated traffic: The traffic may originate from a device or script using placeholder documentation addresses. Internal testing: The address might be used in a lab environment or during internal network testing. False positive or misinterpretation: Monitoring tools or security systems might incorrectly flag or misinterpret the traffic. There is no geographic location associated with this IP because it is not a routable address on the public internet. Similarly, there is no abuse history or suspicious activity linked to it, as it is not used for real-world communications. If you continue to see this address in your logs or security alerts, investigate the source within your internal network or review any configurations that might be using placeholder addresses inappropriately.",
+     "quality": 0,
+     "note": "the next record's ground truth: a real answer to a different question"
+    },
+    {
+     "id": "wrong-swapped",
+     "text": "The IP address 192.0.2.1 resolves to TEST-NET-, TEST-NET-, IP is announced by Misconfigured (AS-1). Approximate coordinates are 192.0, 2.0.",
+     "quality": 0,
+     "note": "same prose skeleton, entities and figures replaced positionally by the donor's"
+    }
+   ],
+   "pairs": [
+    [
+     "correct-verbatim",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbatim",
+     "wrong-swapped"
+    ],
+    [
+     "correct-reworded",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-reworded",
+     "wrong-swapped"
+    ],
+    [
+     "correct-terse",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-terse",
+     "wrong-swapped"
+    ],
+    [
+     "correct-verbose",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbose",
+     "wrong-swapped"
+    ]
+   ],
+   "constraints": [
+    {
+     "type": "near_equal",
+     "ids": [
+      "correct-verbatim",
+      "correct-reworded",
+      "correct-terse",
+      "correct-verbose"
+     ],
+     "tolerance": 0.05,
+     "note": "every phrasing of the same correct answer must score alike; the reworded/verbose gap was the measured defect"
+    }
+   ],
+   "provenance": {
+    "source": "synthetic",
+    "derived_from": "synth/ip_geolocation-synth-11",
+    "method": "mechanical transform of existing fixture text (gen-clean-pairs.mjs); no answer authored against a ground truth",
+    "captured": "2026-08-27"
+   }
+  },
+  {
+   "id": "ip_geolocation-cleanpair-23",
+   "intent": "IP_GEOLOCATION",
+   "class": "CLEAN-PAIR",
+   "rationale": "mirrors the node's own benchmark shape: one clearly-correct answer in four phrasings against one clearly-wrong answer. The adversarial classes measured the incumbent at margin 0.438 where the node measured 0.992 (rejection of registration 1377), because a lexically generous scorer only fails on pathologies. This class is where the gate actually lives, and where a precision term that charges a correct answer for its own wording costs us the ordering.",
+   "question": "Geolocate the IP address 13.1.34.152: which country, region and city does it resolve to, which ISP or organisation announces it, and what are its approximate coordinates?",
+   "ground_truth": "The IP address 13.1.34.152 resolves to Reykjavik, Capital Region, Iceland. It is announced by Ljosleidarinn ehf (AS10448). Approximate coordinates are 64.1466, -21.9426.",
+   "answers": [
+    {
+     "id": "correct-verbatim",
+     "text": "The IP address 13.1.34.152 resolves to Reykjavik, Capital Region, Iceland. It is announced by Ljosleidarinn ehf (AS10448). Approximate coordinates are 64.1466, -21.9426.",
+     "quality": 1,
+     "note": "the ground truth as the miner would state it, markdown stripped"
+    },
+    {
+     "id": "correct-reworded",
+     "text": "The address 13.1.34.152 maps to Reykjavik, Capital Region, Iceland. It is advertised by Ljosleidarinn ehf (AS10448). rough coordinates are 64.1466, -21.9426.",
+     "quality": 1,
+     "note": "connective substitution only; no entity or figure touched"
+    },
+    {
+     "id": "correct-terse",
+     "text": "IP address 13.1.34.152 resolves Reykjavik, Capital Region, Iceland. announced Ljosleidarinn ehf (AS10448). Approximate coordinates 64.1466, -21.9426.",
+     "quality": 1,
+     "note": "fixed filler list deleted; every decisive token kept, in order"
+    },
+    {
+     "id": "correct-verbose",
+     "text": "According to the record that was retrieved, the IP address 13.1.34.152 resolves to Reykjavik, Capital Region, Iceland. It is announced by Ljosleidarinn ehf (AS10448). Approximate coordinates are 64.1466, -21.9426. These figures come from the provider's own dataset and are reproduced here without further adjustment; readers who need a second opinion should consult the authoritative registry directly rather than relying on this summary alone.",
+     "quality": 1,
+     "note": "fixed preamble and fact-free caveat wrapped around the verbatim form"
+    },
+    {
+     "id": "wrong-unrelated",
+     "text": "The IP address 192.0.2.1 is part of the TEST-NET-1 range (192.0.2.0/24), which is explicitly reserved for documentation and examples purposes and should never appear on the public internet. This IP range is not assigned to any real user or network and is used only in technical documentation, tutorials, and examples to avoid conflicts with real IP addresses. If you see traffic to or from this address in logs or network monitoring tools, it typically indicates one of the following: Misconfigured or simulated traffic: The traffic may originate from a device or script using placeholder documentation addresses. Internal testing: The address might be used in a lab environment or during internal network testing. False positive or misinterpretation: Monitoring tools or security systems might incorrectly flag or misinterpret the traffic. There is no geographic location associated with this IP because it is not a routable address on the public internet. Similarly, there is no abuse history or suspicious activity linked to it, as it is not used for real-world communications. If you continue to see this address in your logs or security alerts, investigate the source within your internal network or review any configurations that might be using placeholder addresses inappropriately.",
+     "quality": 0,
+     "note": "the next record's ground truth: a real answer to a different question"
+    },
+    {
+     "id": "wrong-swapped",
+     "text": "The IP address 192.0.2.1 resolves to TEST-NET-, IP, Misconfigured is announced by The ehf (AS-1). Approximate coordinates are 192.0, 2.0.",
+     "quality": 0,
+     "note": "same prose skeleton, entities and figures replaced positionally by the donor's"
+    }
+   ],
+   "pairs": [
+    [
+     "correct-verbatim",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbatim",
+     "wrong-swapped"
+    ],
+    [
+     "correct-reworded",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-reworded",
+     "wrong-swapped"
+    ],
+    [
+     "correct-terse",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-terse",
+     "wrong-swapped"
+    ],
+    [
+     "correct-verbose",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbose",
+     "wrong-swapped"
+    ]
+   ],
+   "constraints": [
+    {
+     "type": "near_equal",
+     "ids": [
+      "correct-verbatim",
+      "correct-reworded",
+      "correct-terse",
+      "correct-verbose"
+     ],
+     "tolerance": 0.05,
+     "note": "every phrasing of the same correct answer must score alike; the reworded/verbose gap was the measured defect"
+    }
+   ],
+   "provenance": {
+    "source": "synthetic",
+    "derived_from": "synth/ip_geolocation-synth-12",
+    "method": "mechanical transform of existing fixture text (gen-clean-pairs.mjs); no answer authored against a ground truth",
+    "captured": "2026-08-27"
+   }
+  },
+  {
+   "id": "ip_geolocation-cleanpair-24",
+   "intent": "IP_GEOLOCATION",
+   "class": "CLEAN-PAIR",
+   "rationale": "mirrors the node's own benchmark shape: one clearly-correct answer in four phrasings against one clearly-wrong answer. The adversarial classes measured the incumbent at margin 0.438 where the node measured 0.992 (rejection of registration 1377), because a lexically generous scorer only fails on pathologies. This class is where the gate actually lives, and where a precision term that charges a correct answer for its own wording costs us the ordering.",
+   "question": "Geolocate the IP address 64.174.64.96: which country, region and city does it resolve to, which ISP or organisation announces it, and what are its approximate coordinates?",
+   "ground_truth": "The IP address 64.174.64.96 resolves to Porto, Norte, Portugal. It is announced by NOS Comunicacoes (AS63375). Approximate coordinates are 41.1579, -8.6291.",
+   "answers": [
+    {
+     "id": "correct-verbatim",
+     "text": "The IP address 64.174.64.96 resolves to Porto, Norte, Portugal. It is announced by NOS Comunicacoes (AS63375). Approximate coordinates are 41.1579, -8.6291.",
+     "quality": 1,
+     "note": "the ground truth as the miner would state it, markdown stripped"
+    },
+    {
+     "id": "correct-reworded",
+     "text": "The address 64.174.64.96 maps to Porto, Norte, Portugal. It is advertised by NOS Comunicacoes (AS63375). rough coordinates are 41.1579, -8.6291.",
+     "quality": 1,
+     "note": "connective substitution only; no entity or figure touched"
+    },
+    {
+     "id": "correct-terse",
+     "text": "IP address 64.174.64.96 resolves Porto, Norte, Portugal. announced NOS Comunicacoes (AS63375). Approximate coordinates 41.1579, -8.6291.",
+     "quality": 1,
+     "note": "fixed filler list deleted; every decisive token kept, in order"
+    },
+    {
+     "id": "correct-verbose",
+     "text": "According to the record that was retrieved, the IP address 64.174.64.96 resolves to Porto, Norte, Portugal. It is announced by NOS Comunicacoes (AS63375). Approximate coordinates are 41.1579, -8.6291. These figures come from the provider's own dataset and are reproduced here without further adjustment; readers who need a second opinion should consult the authoritative registry directly rather than relying on this summary alone.",
+     "quality": 1,
+     "note": "fixed preamble and fact-free caveat wrapped around the verbatim form"
+    },
+    {
+     "id": "wrong-unrelated",
+     "text": "The IP address 192.0.2.1 is part of the TEST-NET-1 range (192.0.2.0/24), which is explicitly reserved for documentation and examples purposes and should never appear on the public internet. This IP range is not assigned to any real user or network and is used only in technical documentation, tutorials, and examples to avoid conflicts with real IP addresses. If you see traffic to or from this address in logs or network monitoring tools, it typically indicates one of the following: Misconfigured or simulated traffic: The traffic may originate from a device or script using placeholder documentation addresses. Internal testing: The address might be used in a lab environment or during internal network testing. False positive or misinterpretation: Monitoring tools or security systems might incorrectly flag or misinterpret the traffic. There is no geographic location associated with this IP because it is not a routable address on the public internet. Similarly, there is no abuse history or suspicious activity linked to it, as it is not used for real-world communications. If you continue to see this address in your logs or security alerts, investigate the source within your internal network or review any configurations that might be using placeholder addresses inappropriately.",
+     "quality": 0,
+     "note": "the next record's ground truth: a real answer to a different question"
+    },
+    {
+     "id": "wrong-swapped",
+     "text": "The IP address 192.0.2.1 resolves to TEST-NET-, IP, Misconfigured is announced by The (AS-1). Approximate coordinates are 192.0, 2.0.",
+     "quality": 0,
+     "note": "same prose skeleton, entities and figures replaced positionally by the donor's"
+    }
+   ],
+   "pairs": [
+    [
+     "correct-verbatim",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbatim",
+     "wrong-swapped"
+    ],
+    [
+     "correct-reworded",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-reworded",
+     "wrong-swapped"
+    ],
+    [
+     "correct-terse",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-terse",
+     "wrong-swapped"
+    ],
+    [
+     "correct-verbose",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbose",
+     "wrong-swapped"
+    ]
+   ],
+   "constraints": [
+    {
+     "type": "near_equal",
+     "ids": [
+      "correct-verbatim",
+      "correct-reworded",
+      "correct-terse",
+      "correct-verbose"
+     ],
+     "tolerance": 0.05,
+     "note": "every phrasing of the same correct answer must score alike; the reworded/verbose gap was the measured defect"
+    }
+   ],
+   "provenance": {
+    "source": "synthetic",
+    "derived_from": "synth/ip_geolocation-synth-13",
+    "method": "mechanical transform of existing fixture text (gen-clean-pairs.mjs); no answer authored against a ground truth",
+    "captured": "2026-08-27"
+   }
+  },
+  {
+   "id": "ip_geolocation-cleanpair-25",
+   "intent": "IP_GEOLOCATION",
+   "class": "CLEAN-PAIR",
+   "rationale": "mirrors the node's own benchmark shape: one clearly-correct answer in four phrasings against one clearly-wrong answer. The adversarial classes measured the incumbent at margin 0.438 where the node measured 0.992 (rejection of registration 1377), because a lexically generous scorer only fails on pathologies. This class is where the gate actually lives, and where a precision term that charges a correct answer for its own wording costs us the ordering.",
+   "question": "Geolocate the IP address 99.237.13.69: which country, region and city does it resolve to, which ISP or organisation announces it, and what are its approximate coordinates?",
+   "ground_truth": "The IP address 99.237.13.69 resolves to Montevideo, Montevideo, Uruguay. It is announced by Administracion Nacional (AS8207). Approximate coordinates are -34.9011, -56.1645.",
+   "answers": [
+    {
+     "id": "correct-verbatim",
+     "text": "The IP address 99.237.13.69 resolves to Montevideo, Montevideo, Uruguay. It is announced by Administracion Nacional (AS8207). Approximate coordinates are -34.9011, -56.1645.",
+     "quality": 1,
+     "note": "the ground truth as the miner would state it, markdown stripped"
+    },
+    {
+     "id": "correct-reworded",
+     "text": "The address 99.237.13.69 maps to Montevideo, Montevideo, Uruguay. It is advertised by Administracion Nacional (AS8207). rough coordinates are -34.9011, -56.1645.",
+     "quality": 1,
+     "note": "connective substitution only; no entity or figure touched"
+    },
+    {
+     "id": "correct-terse",
+     "text": "IP address 99.237.13.69 resolves Montevideo, Montevideo, Uruguay. announced Administracion Nacional (AS8207). Approximate coordinates -34.9011, -56.1645.",
+     "quality": 1,
+     "note": "fixed filler list deleted; every decisive token kept, in order"
+    },
+    {
+     "id": "correct-verbose",
+     "text": "According to the record that was retrieved, the IP address 99.237.13.69 resolves to Montevideo, Montevideo, Uruguay. It is announced by Administracion Nacional (AS8207). Approximate coordinates are -34.9011, -56.1645. These figures come from the provider's own dataset and are reproduced here without further adjustment; readers who need a second opinion should consult the authoritative registry directly rather than relying on this summary alone.",
+     "quality": 1,
+     "note": "fixed preamble and fact-free caveat wrapped around the verbatim form"
+    },
+    {
+     "id": "wrong-unrelated",
+     "text": "The IP address 192.0.2.1 is part of the TEST-NET-1 range (192.0.2.0/24), which is explicitly reserved for documentation and examples purposes and should never appear on the public internet. This IP range is not assigned to any real user or network and is used only in technical documentation, tutorials, and examples to avoid conflicts with real IP addresses. If you see traffic to or from this address in logs or network monitoring tools, it typically indicates one of the following: Misconfigured or simulated traffic: The traffic may originate from a device or script using placeholder documentation addresses. Internal testing: The address might be used in a lab environment or during internal network testing. False positive or misinterpretation: Monitoring tools or security systems might incorrectly flag or misinterpret the traffic. There is no geographic location associated with this IP because it is not a routable address on the public internet. Similarly, there is no abuse history or suspicious activity linked to it, as it is not used for real-world communications. If you continue to see this address in your logs or security alerts, investigate the source within your internal network or review any configurations that might be using placeholder addresses inappropriately.",
+     "quality": 0,
+     "note": "the next record's ground truth: a real answer to a different question"
+    },
+    {
+     "id": "wrong-swapped",
+     "text": "The IP address 192.0.2.1 resolves to TEST-NET-, TEST-NET-, IP is announced by Misconfigured (AS-1). Approximate coordinates are 192.0, 2.0.",
+     "quality": 0,
+     "note": "same prose skeleton, entities and figures replaced positionally by the donor's"
+    }
+   ],
+   "pairs": [
+    [
+     "correct-verbatim",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbatim",
+     "wrong-swapped"
+    ],
+    [
+     "correct-reworded",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-reworded",
+     "wrong-swapped"
+    ],
+    [
+     "correct-terse",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-terse",
+     "wrong-swapped"
+    ],
+    [
+     "correct-verbose",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbose",
+     "wrong-swapped"
+    ]
+   ],
+   "constraints": [
+    {
+     "type": "near_equal",
+     "ids": [
+      "correct-verbatim",
+      "correct-reworded",
+      "correct-terse",
+      "correct-verbose"
+     ],
+     "tolerance": 0.05,
+     "note": "every phrasing of the same correct answer must score alike; the reworded/verbose gap was the measured defect"
+    }
+   ],
+   "provenance": {
+    "source": "synthetic",
+    "derived_from": "synth/ip_geolocation-synth-14",
+    "method": "mechanical transform of existing fixture text (gen-clean-pairs.mjs); no answer authored against a ground truth",
+    "captured": "2026-08-27"
+   }
+  },
+  {
+   "id": "ip_geolocation-cleanpair-26",
+   "intent": "IP_GEOLOCATION",
+   "class": "CLEAN-PAIR",
+   "rationale": "mirrors the node's own benchmark shape: one clearly-correct answer in four phrasings against one clearly-wrong answer. The adversarial classes measured the incumbent at margin 0.438 where the node measured 0.992 (rejection of registration 1377), because a lexically generous scorer only fails on pathologies. This class is where the gate actually lives, and where a precision term that charges a correct answer for its own wording costs us the ordering.",
+   "question": "Geolocate the IP address 160.243.51.36: which country, region and city does it resolve to, which ISP or organisation announces it, and what are its approximate coordinates?",
+   "ground_truth": "The IP address 160.243.51.36 resolves to Porto, Norte, Portugal. It is announced by NOS Comunicacoes (AS20078). Approximate coordinates are 41.1579, -8.6291.",
+   "answers": [
+    {
+     "id": "correct-verbatim",
+     "text": "The IP address 160.243.51.36 resolves to Porto, Norte, Portugal. It is announced by NOS Comunicacoes (AS20078). Approximate coordinates are 41.1579, -8.6291.",
+     "quality": 1,
+     "note": "the ground truth as the miner would state it, markdown stripped"
+    },
+    {
+     "id": "correct-reworded",
+     "text": "The address 160.243.51.36 maps to Porto, Norte, Portugal. It is advertised by NOS Comunicacoes (AS20078). rough coordinates are 41.1579, -8.6291.",
+     "quality": 1,
+     "note": "connective substitution only; no entity or figure touched"
+    },
+    {
+     "id": "correct-terse",
+     "text": "IP address 160.243.51.36 resolves Porto, Norte, Portugal. announced NOS Comunicacoes (AS20078). Approximate coordinates 41.1579, -8.6291.",
+     "quality": 1,
+     "note": "fixed filler list deleted; every decisive token kept, in order"
+    },
+    {
+     "id": "correct-verbose",
+     "text": "According to the record that was retrieved, the IP address 160.243.51.36 resolves to Porto, Norte, Portugal. It is announced by NOS Comunicacoes (AS20078). Approximate coordinates are 41.1579, -8.6291. These figures come from the provider's own dataset and are reproduced here without further adjustment; readers who need a second opinion should consult the authoritative registry directly rather than relying on this summary alone.",
+     "quality": 1,
+     "note": "fixed preamble and fact-free caveat wrapped around the verbatim form"
+    },
+    {
+     "id": "wrong-unrelated",
+     "text": "The IP address 192.0.2.1 is part of the TEST-NET-1 range (192.0.2.0/24), which is explicitly reserved for documentation and examples purposes and should never appear on the public internet. This IP range is not assigned to any real user or network and is used only in technical documentation, tutorials, and examples to avoid conflicts with real IP addresses. If you see traffic to or from this address in logs or network monitoring tools, it typically indicates one of the following: Misconfigured or simulated traffic: The traffic may originate from a device or script using placeholder documentation addresses. Internal testing: The address might be used in a lab environment or during internal network testing. False positive or misinterpretation: Monitoring tools or security systems might incorrectly flag or misinterpret the traffic. There is no geographic location associated with this IP because it is not a routable address on the public internet. Similarly, there is no abuse history or suspicious activity linked to it, as it is not used for real-world communications. If you continue to see this address in your logs or security alerts, investigate the source within your internal network or review any configurations that might be using placeholder addresses inappropriately.",
+     "quality": 0,
+     "note": "the next record's ground truth: a real answer to a different question"
+    },
+    {
+     "id": "wrong-swapped",
+     "text": "The IP address 192.0.2.1 resolves to TEST-NET-, IP, Misconfigured is announced by The (AS-1). Approximate coordinates are 192.0, 2.0.",
+     "quality": 0,
+     "note": "same prose skeleton, entities and figures replaced positionally by the donor's"
+    }
+   ],
+   "pairs": [
+    [
+     "correct-verbatim",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbatim",
+     "wrong-swapped"
+    ],
+    [
+     "correct-reworded",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-reworded",
+     "wrong-swapped"
+    ],
+    [
+     "correct-terse",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-terse",
+     "wrong-swapped"
+    ],
+    [
+     "correct-verbose",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbose",
+     "wrong-swapped"
+    ]
+   ],
+   "constraints": [
+    {
+     "type": "near_equal",
+     "ids": [
+      "correct-verbatim",
+      "correct-reworded",
+      "correct-terse",
+      "correct-verbose"
+     ],
+     "tolerance": 0.05,
+     "note": "every phrasing of the same correct answer must score alike; the reworded/verbose gap was the measured defect"
+    }
+   ],
+   "provenance": {
+    "source": "synthetic",
+    "derived_from": "synth/ip_geolocation-synth-15",
+    "method": "mechanical transform of existing fixture text (gen-clean-pairs.mjs); no answer authored against a ground truth",
+    "captured": "2026-08-27"
+   }
+  },
+  {
+   "id": "ip_geolocation-cleanpair-27",
+   "intent": "IP_GEOLOCATION",
+   "class": "CLEAN-PAIR",
+   "rationale": "mirrors the node's own benchmark shape: one clearly-correct answer in four phrasings against one clearly-wrong answer. The adversarial classes measured the incumbent at margin 0.438 where the node measured 0.992 (rejection of registration 1377), because a lexically generous scorer only fails on pathologies. This class is where the gate actually lives, and where a precision term that charges a correct answer for its own wording costs us the ordering.",
+   "question": "Geolocate the IP address 91.146.179.123: which country, region and city does it resolve to, which ISP or organisation announces it, and what are its approximate coordinates?",
+   "ground_truth": "The IP address 91.146.179.123 resolves to Reykjavik, Capital Region, Iceland. It is announced by Ljosleidarinn ehf (AS22057). Approximate coordinates are 64.1466, -21.9426.",
+   "answers": [
+    {
+     "id": "correct-verbatim",
+     "text": "The IP address 91.146.179.123 resolves to Reykjavik, Capital Region, Iceland. It is announced by Ljosleidarinn ehf (AS22057). Approximate coordinates are 64.1466, -21.9426.",
+     "quality": 1,
+     "note": "the ground truth as the miner would state it, markdown stripped"
+    },
+    {
+     "id": "correct-reworded",
+     "text": "The address 91.146.179.123 maps to Reykjavik, Capital Region, Iceland. It is advertised by Ljosleidarinn ehf (AS22057). rough coordinates are 64.1466, -21.9426.",
+     "quality": 1,
+     "note": "connective substitution only; no entity or figure touched"
+    },
+    {
+     "id": "correct-terse",
+     "text": "IP address 91.146.179.123 resolves Reykjavik, Capital Region, Iceland. announced Ljosleidarinn ehf (AS22057). Approximate coordinates 64.1466, -21.9426.",
+     "quality": 1,
+     "note": "fixed filler list deleted; every decisive token kept, in order"
+    },
+    {
+     "id": "correct-verbose",
+     "text": "According to the record that was retrieved, the IP address 91.146.179.123 resolves to Reykjavik, Capital Region, Iceland. It is announced by Ljosleidarinn ehf (AS22057). Approximate coordinates are 64.1466, -21.9426. These figures come from the provider's own dataset and are reproduced here without further adjustment; readers who need a second opinion should consult the authoritative registry directly rather than relying on this summary alone.",
+     "quality": 1,
+     "note": "fixed preamble and fact-free caveat wrapped around the verbatim form"
+    },
+    {
+     "id": "wrong-unrelated",
+     "text": "The IP address 192.0.2.1 is part of the TEST-NET-1 range (192.0.2.0/24), which is explicitly reserved for documentation and examples purposes and should never appear on the public internet. This IP range is not assigned to any real user or network and is used only in technical documentation, tutorials, and examples to avoid conflicts with real IP addresses. If you see traffic to or from this address in logs or network monitoring tools, it typically indicates one of the following: Misconfigured or simulated traffic: The traffic may originate from a device or script using placeholder documentation addresses. Internal testing: The address might be used in a lab environment or during internal network testing. False positive or misinterpretation: Monitoring tools or security systems might incorrectly flag or misinterpret the traffic. There is no geographic location associated with this IP because it is not a routable address on the public internet. Similarly, there is no abuse history or suspicious activity linked to it, as it is not used for real-world communications. If you continue to see this address in your logs or security alerts, investigate the source within your internal network or review any configurations that might be using placeholder addresses inappropriately.",
+     "quality": 0,
+     "note": "the next record's ground truth: a real answer to a different question"
+    },
+    {
+     "id": "wrong-swapped",
+     "text": "The IP address 192.0.2.1 resolves to TEST-NET-, IP, Misconfigured is announced by The ehf (AS-1). Approximate coordinates are 192.0, 2.0.",
+     "quality": 0,
+     "note": "same prose skeleton, entities and figures replaced positionally by the donor's"
+    }
+   ],
+   "pairs": [
+    [
+     "correct-verbatim",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbatim",
+     "wrong-swapped"
+    ],
+    [
+     "correct-reworded",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-reworded",
+     "wrong-swapped"
+    ],
+    [
+     "correct-terse",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-terse",
+     "wrong-swapped"
+    ],
+    [
+     "correct-verbose",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbose",
+     "wrong-swapped"
+    ]
+   ],
+   "constraints": [
+    {
+     "type": "near_equal",
+     "ids": [
+      "correct-verbatim",
+      "correct-reworded",
+      "correct-terse",
+      "correct-verbose"
+     ],
+     "tolerance": 0.05,
+     "note": "every phrasing of the same correct answer must score alike; the reworded/verbose gap was the measured defect"
+    }
+   ],
+   "provenance": {
+    "source": "synthetic",
+    "derived_from": "synth/ip_geolocation-synth-16",
+    "method": "mechanical transform of existing fixture text (gen-clean-pairs.mjs); no answer authored against a ground truth",
+    "captured": "2026-08-27"
+   }
+  },
+  {
+   "id": "ip_geolocation-cleanpair-28",
+   "intent": "IP_GEOLOCATION",
+   "class": "CLEAN-PAIR",
+   "rationale": "mirrors the node's own benchmark shape: one clearly-correct answer in four phrasings against one clearly-wrong answer. The adversarial classes measured the incumbent at margin 0.438 where the node measured 0.992 (rejection of registration 1377), because a lexically generous scorer only fails on pathologies. This class is where the gate actually lives, and where a precision term that charges a correct answer for its own wording costs us the ordering.",
+   "question": "Geolocate the IP address 126.42.187.216: which country, region and city does it resolve to, which ISP or organisation announces it, and what are its approximate coordinates?",
+   "ground_truth": "The IP address 126.42.187.216 resolves to Porto, Norte, Portugal. It is announced by NOS Comunicacoes (AS3035). Approximate coordinates are 41.1579, -8.6291.",
+   "answers": [
+    {
+     "id": "correct-verbatim",
+     "text": "The IP address 126.42.187.216 resolves to Porto, Norte, Portugal. It is announced by NOS Comunicacoes (AS3035). Approximate coordinates are 41.1579, -8.6291.",
+     "quality": 1,
+     "note": "the ground truth as the miner would state it, markdown stripped"
+    },
+    {
+     "id": "correct-reworded",
+     "text": "The address 126.42.187.216 maps to Porto, Norte, Portugal. It is advertised by NOS Comunicacoes (AS3035). rough coordinates are 41.1579, -8.6291.",
+     "quality": 1,
+     "note": "connective substitution only; no entity or figure touched"
+    },
+    {
+     "id": "correct-terse",
+     "text": "IP address 126.42.187.216 resolves Porto, Norte, Portugal. announced NOS Comunicacoes (AS3035). Approximate coordinates 41.1579, -8.6291.",
+     "quality": 1,
+     "note": "fixed filler list deleted; every decisive token kept, in order"
+    },
+    {
+     "id": "correct-verbose",
+     "text": "According to the record that was retrieved, the IP address 126.42.187.216 resolves to Porto, Norte, Portugal. It is announced by NOS Comunicacoes (AS3035). Approximate coordinates are 41.1579, -8.6291. These figures come from the provider's own dataset and are reproduced here without further adjustment; readers who need a second opinion should consult the authoritative registry directly rather than relying on this summary alone.",
+     "quality": 1,
+     "note": "fixed preamble and fact-free caveat wrapped around the verbatim form"
+    },
+    {
+     "id": "wrong-unrelated",
+     "text": "The IP address 192.0.2.1 is part of the TEST-NET-1 range (192.0.2.0/24), which is explicitly reserved for documentation and examples purposes and should never appear on the public internet. This IP range is not assigned to any real user or network and is used only in technical documentation, tutorials, and examples to avoid conflicts with real IP addresses. If you see traffic to or from this address in logs or network monitoring tools, it typically indicates one of the following: Misconfigured or simulated traffic: The traffic may originate from a device or script using placeholder documentation addresses. Internal testing: The address might be used in a lab environment or during internal network testing. False positive or misinterpretation: Monitoring tools or security systems might incorrectly flag or misinterpret the traffic. There is no geographic location associated with this IP because it is not a routable address on the public internet. Similarly, there is no abuse history or suspicious activity linked to it, as it is not used for real-world communications. If you continue to see this address in your logs or security alerts, investigate the source within your internal network or review any configurations that might be using placeholder addresses inappropriately.",
+     "quality": 0,
+     "note": "the next record's ground truth: a real answer to a different question"
+    },
+    {
+     "id": "wrong-swapped",
+     "text": "The IP address 192.0.2.1 resolves to TEST-NET-, IP, Misconfigured is announced by The (AS-1). Approximate coordinates are 192.0, 2.0.",
+     "quality": 0,
+     "note": "same prose skeleton, entities and figures replaced positionally by the donor's"
+    }
+   ],
+   "pairs": [
+    [
+     "correct-verbatim",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbatim",
+     "wrong-swapped"
+    ],
+    [
+     "correct-reworded",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-reworded",
+     "wrong-swapped"
+    ],
+    [
+     "correct-terse",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-terse",
+     "wrong-swapped"
+    ],
+    [
+     "correct-verbose",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbose",
+     "wrong-swapped"
+    ]
+   ],
+   "constraints": [
+    {
+     "type": "near_equal",
+     "ids": [
+      "correct-verbatim",
+      "correct-reworded",
+      "correct-terse",
+      "correct-verbose"
+     ],
+     "tolerance": 0.05,
+     "note": "every phrasing of the same correct answer must score alike; the reworded/verbose gap was the measured defect"
+    }
+   ],
+   "provenance": {
+    "source": "synthetic",
+    "derived_from": "synth/ip_geolocation-synth-17",
+    "method": "mechanical transform of existing fixture text (gen-clean-pairs.mjs); no answer authored against a ground truth",
+    "captured": "2026-08-27"
+   }
+  },
+  {
+   "id": "ip_geolocation-cleanpair-29",
+   "intent": "IP_GEOLOCATION",
+   "class": "CLEAN-PAIR",
+   "rationale": "mirrors the node's own benchmark shape: one clearly-correct answer in four phrasings against one clearly-wrong answer. The adversarial classes measured the incumbent at margin 0.438 where the node measured 0.992 (rejection of registration 1377), because a lexically generous scorer only fails on pathologies. This class is where the gate actually lives, and where a precision term that charges a correct answer for its own wording costs us the ordering.",
+   "question": "Can you look up the geolocation for the IP address 142.251.42.174 and provide the city, region, country and announcing organisation?",
+   "ground_truth": "The IP address 142.251.42.174 resolves to Mountain View, California, United States. It is announced by Google LLC (AS15169).",
+   "answers": [
+    {
+     "id": "correct-verbatim",
+     "text": "The IP address 142.251.42.174 resolves to Mountain View, California, United States. It is announced by Google LLC (AS15169).",
+     "quality": 1,
+     "note": "the ground truth as the miner would state it, markdown stripped"
+    },
+    {
+     "id": "correct-reworded",
+     "text": "The address 142.251.42.174 maps to Mountain View, California, United States. It is advertised by Google LLC (AS15169).",
+     "quality": 1,
+     "note": "connective substitution only; no entity or figure touched"
+    },
+    {
+     "id": "correct-terse",
+     "text": "IP address 142.251.42.174 resolves Mountain View, California, United States. announced Google LLC (AS15169).",
+     "quality": 1,
+     "note": "fixed filler list deleted; every decisive token kept, in order"
+    },
+    {
+     "id": "correct-verbose",
+     "text": "According to the record that was retrieved, the IP address 142.251.42.174 resolves to Mountain View, California, United States. It is announced by Google LLC (AS15169). These figures come from the provider's own dataset and are reproduced here without further adjustment; readers who need a second opinion should consult the authoritative registry directly rather than relying on this summary alone.",
+     "quality": 1,
+     "note": "fixed preamble and fact-free caveat wrapped around the verbatim form"
+    },
+    {
+     "id": "wrong-unrelated",
+     "text": "The IP address 192.168.1.10 is a private/internal network address commonly used in home and small office networks. It does not have a public presence on the internet and therefore cannot be tracked for abuse or malicious activity in the same way public IPs can. Key Points: 1. Private IP Range: 192.168.1.0 – 192.168.1.255 is part of the private IP address range defined in RFC 1918. These addresses are not routable on the public internet and are used exclusively for internal network communication. 2. No Public Abuse History: Since this is a private address, it cannot appear in public abuse databases (e.g., AbuseIPDB, Spamhaus) or be flagged for malicious activity on the open internet. 3. Geographic Location: Private IPs have no geographic location associated with them because they are not exposed to the internet. Tools that claim to geolocate private IPs are either misrepresenting data or simply showing placeholder information. 4. Potential Misinterpretation: If you encountered this IP in logs or security tools, it likely originated from a device within your own network (e.g., a computer, phone, or IoT device). It does not indicate external malicious activity. What to Do Instead: Investigate Internal Activity: If you suspect malicious behavior, focus on the device using this IP (e.g., scan for malware, review firewall logs, or isolate the device for inspection). Monitor for Anomalies: Use tools like Wireshark or IDS solutions to detect unusual traffic patterns from devices on your internal network. In summary, 192.168.1.10 has no abuse history and no geographic location because it is a private IP address used only within your local network. Any security concerns should be addressed internally.",
+     "quality": 0,
+     "note": "the next record's ground truth: a real answer to a different question"
+    },
+    {
+     "id": "wrong-swapped",
+     "text": "The IP address 192.168.1.10 resolves to IPs, IP, RFC is announced by Since (AS1).",
+     "quality": 0,
+     "note": "same prose skeleton, entities and figures replaced positionally by the donor's"
+    }
+   ],
+   "pairs": [
+    [
+     "correct-verbatim",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbatim",
+     "wrong-swapped"
+    ],
+    [
+     "correct-reworded",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-reworded",
+     "wrong-swapped"
+    ],
+    [
+     "correct-terse",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-terse",
+     "wrong-swapped"
+    ],
+    [
+     "correct-verbose",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbose",
+     "wrong-swapped"
+    ]
+   ],
+   "constraints": [
+    {
+     "type": "near_equal",
+     "ids": [
+      "correct-verbatim",
+      "correct-reworded",
+      "correct-terse",
+      "correct-verbose"
+     ],
+     "tolerance": 0.05,
+     "note": "every phrasing of the same correct answer must score alike; the reworded/verbose gap was the measured defect"
+    }
+   ],
+   "provenance": {
+    "source": "synthetic",
+    "derived_from": "synth/ip_geolocation-synth-es-01",
+    "method": "mechanical transform of existing fixture text (gen-clean-pairs.mjs); no answer authored against a ground truth",
+    "captured": "2026-08-27"
+   }
+  },
+  {
+   "id": "ip_geolocation-cleanpair-30",
+   "intent": "IP_GEOLOCATION",
+   "class": "CLEAN-PAIR",
+   "rationale": "mirrors the node's own benchmark shape: one clearly-correct answer in four phrasings against one clearly-wrong answer. The adversarial classes measured the incumbent at margin 0.438 where the node measured 0.992 (rejection of registration 1377), because a lexically generous scorer only fails on pathologies. This class is where the gate actually lives, and where a precision term that charges a correct answer for its own wording costs us the ordering.",
+   "question": "Can you look up the geolocation for the IP address 91.146.179.123 and provide the city, region, country and announcing organisation?",
+   "ground_truth": "The IP address 91.146.179.123 resolves to Reykjavik, Capital Region, Iceland. It is announced by Ljosleidarinn ehf (AS22057).",
+   "answers": [
+    {
+     "id": "correct-verbatim",
+     "text": "The IP address 91.146.179.123 resolves to Reykjavik, Capital Region, Iceland. It is announced by Ljosleidarinn ehf (AS22057).",
+     "quality": 1,
+     "note": "the ground truth as the miner would state it, markdown stripped"
+    },
+    {
+     "id": "correct-reworded",
+     "text": "The address 91.146.179.123 maps to Reykjavik, Capital Region, Iceland. It is advertised by Ljosleidarinn ehf (AS22057).",
+     "quality": 1,
+     "note": "connective substitution only; no entity or figure touched"
+    },
+    {
+     "id": "correct-terse",
+     "text": "IP address 91.146.179.123 resolves Reykjavik, Capital Region, Iceland. announced Ljosleidarinn ehf (AS22057).",
+     "quality": 1,
+     "note": "fixed filler list deleted; every decisive token kept, in order"
+    },
+    {
+     "id": "correct-verbose",
+     "text": "According to the record that was retrieved, the IP address 91.146.179.123 resolves to Reykjavik, Capital Region, Iceland. It is announced by Ljosleidarinn ehf (AS22057). These figures come from the provider's own dataset and are reproduced here without further adjustment; readers who need a second opinion should consult the authoritative registry directly rather than relying on this summary alone.",
+     "quality": 1,
+     "note": "fixed preamble and fact-free caveat wrapped around the verbatim form"
+    },
+    {
+     "id": "wrong-unrelated",
+     "text": "The IP address 192.168.1.10 is a private/internal network address commonly used in home and small office networks. It does not have a public presence on the internet and therefore cannot be tracked for abuse or malicious activity in the same way public IPs can. Key Points: 1. Private IP Range: 192.168.1.0 – 192.168.1.255 is part of the private IP address range defined in RFC 1918. These addresses are not routable on the public internet and are used exclusively for internal network communication. 2. No Public Abuse History: Since this is a private address, it cannot appear in public abuse databases (e.g., AbuseIPDB, Spamhaus) or be flagged for malicious activity on the open internet. 3. Geographic Location: Private IPs have no geographic location associated with them because they are not exposed to the internet. Tools that claim to geolocate private IPs are either misrepresenting data or simply showing placeholder information. 4. Potential Misinterpretation: If you encountered this IP in logs or security tools, it likely originated from a device within your own network (e.g., a computer, phone, or IoT device). It does not indicate external malicious activity. What to Do Instead: Investigate Internal Activity: If you suspect malicious behavior, focus on the device using this IP (e.g., scan for malware, review firewall logs, or isolate the device for inspection). Monitor for Anomalies: Use tools like Wireshark or IDS solutions to detect unusual traffic patterns from devices on your internal network. In summary, 192.168.1.10 has no abuse history and no geographic location because it is a private IP address used only within your local network. Any security concerns should be addressed internally.",
+     "quality": 0,
+     "note": "the next record's ground truth: a real answer to a different question"
+    },
+    {
+     "id": "wrong-swapped",
+     "text": "The IP address 192.168.1.10 resolves to IPs, IP, RFC is announced by Since ehf (AS1).",
+     "quality": 0,
+     "note": "same prose skeleton, entities and figures replaced positionally by the donor's"
+    }
+   ],
+   "pairs": [
+    [
+     "correct-verbatim",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbatim",
+     "wrong-swapped"
+    ],
+    [
+     "correct-reworded",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-reworded",
+     "wrong-swapped"
+    ],
+    [
+     "correct-terse",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-terse",
+     "wrong-swapped"
+    ],
+    [
+     "correct-verbose",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbose",
+     "wrong-swapped"
+    ]
+   ],
+   "constraints": [
+    {
+     "type": "near_equal",
+     "ids": [
+      "correct-verbatim",
+      "correct-reworded",
+      "correct-terse",
+      "correct-verbose"
+     ],
+     "tolerance": 0.05,
+     "note": "every phrasing of the same correct answer must score alike; the reworded/verbose gap was the measured defect"
+    }
+   ],
+   "provenance": {
+    "source": "synthetic",
+    "derived_from": "synth/ip_geolocation-synth-es-02",
+    "method": "mechanical transform of existing fixture text (gen-clean-pairs.mjs); no answer authored against a ground truth",
+    "captured": "2026-08-27"
+   }
+  },
+  {
+   "id": "ip_geolocation-cleanpair-31",
+   "intent": "IP_GEOLOCATION",
+   "class": "CLEAN-PAIR",
+   "rationale": "mirrors the node's own benchmark shape: one clearly-correct answer in four phrasings against one clearly-wrong answer. The adversarial classes measured the incumbent at margin 0.438 where the node measured 0.992 (rejection of registration 1377), because a lexically generous scorer only fails on pathologies. This class is where the gate actually lives, and where a precision term that charges a correct answer for its own wording costs us the ordering.",
+   "question": "Can you look up the geolocation for the IP address 13.36.15.128 and provide the city, region, country and announcing organisation?",
+   "ground_truth": "The IP address 13.36.15.128 resolves to Montevideo, Montevideo, Uruguay. It is announced by Administracion Nacional (AS1616).",
+   "answers": [
+    {
+     "id": "correct-verbatim",
+     "text": "The IP address 13.36.15.128 resolves to Montevideo, Montevideo, Uruguay. It is announced by Administracion Nacional (AS1616).",
+     "quality": 1,
+     "note": "the ground truth as the miner would state it, markdown stripped"
+    },
+    {
+     "id": "correct-reworded",
+     "text": "The address 13.36.15.128 maps to Montevideo, Montevideo, Uruguay. It is advertised by Administracion Nacional (AS1616).",
+     "quality": 1,
+     "note": "connective substitution only; no entity or figure touched"
+    },
+    {
+     "id": "correct-terse",
+     "text": "IP address 13.36.15.128 resolves Montevideo, Montevideo, Uruguay. announced Administracion Nacional (AS1616).",
+     "quality": 1,
+     "note": "fixed filler list deleted; every decisive token kept, in order"
+    },
+    {
+     "id": "correct-verbose",
+     "text": "According to the record that was retrieved, the IP address 13.36.15.128 resolves to Montevideo, Montevideo, Uruguay. It is announced by Administracion Nacional (AS1616). These figures come from the provider's own dataset and are reproduced here without further adjustment; readers who need a second opinion should consult the authoritative registry directly rather than relying on this summary alone.",
+     "quality": 1,
+     "note": "fixed preamble and fact-free caveat wrapped around the verbatim form"
+    },
+    {
+     "id": "wrong-unrelated",
+     "text": "The IP address 192.168.1.10 is a private/internal network address commonly used in home and small office networks. It does not have a public presence on the internet and therefore cannot be tracked for abuse or malicious activity in the same way public IPs can. Key Points: 1. Private IP Range: 192.168.1.0 – 192.168.1.255 is part of the private IP address range defined in RFC 1918. These addresses are not routable on the public internet and are used exclusively for internal network communication. 2. No Public Abuse History: Since this is a private address, it cannot appear in public abuse databases (e.g., AbuseIPDB, Spamhaus) or be flagged for malicious activity on the open internet. 3. Geographic Location: Private IPs have no geographic location associated with them because they are not exposed to the internet. Tools that claim to geolocate private IPs are either misrepresenting data or simply showing placeholder information. 4. Potential Misinterpretation: If you encountered this IP in logs or security tools, it likely originated from a device within your own network (e.g., a computer, phone, or IoT device). It does not indicate external malicious activity. What to Do Instead: Investigate Internal Activity: If you suspect malicious behavior, focus on the device using this IP (e.g., scan for malware, review firewall logs, or isolate the device for inspection). Monitor for Anomalies: Use tools like Wireshark or IDS solutions to detect unusual traffic patterns from devices on your internal network. In summary, 192.168.1.10 has no abuse history and no geographic location because it is a private IP address used only within your local network. Any security concerns should be addressed internally.",
+     "quality": 0,
+     "note": "the next record's ground truth: a real answer to a different question"
+    },
+    {
+     "id": "wrong-swapped",
+     "text": "The IP address 192.168.1.10 resolves to IPs, IPs, IP is announced by RFC (AS1).",
+     "quality": 0,
+     "note": "same prose skeleton, entities and figures replaced positionally by the donor's"
+    }
+   ],
+   "pairs": [
+    [
+     "correct-verbatim",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbatim",
+     "wrong-swapped"
+    ],
+    [
+     "correct-reworded",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-reworded",
+     "wrong-swapped"
+    ],
+    [
+     "correct-terse",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-terse",
+     "wrong-swapped"
+    ],
+    [
+     "correct-verbose",
+     "wrong-unrelated"
+    ],
+    [
+     "correct-verbose",
+     "wrong-swapped"
+    ]
+   ],
+   "constraints": [
+    {
+     "type": "near_equal",
+     "ids": [
+      "correct-verbatim",
+      "correct-reworded",
+      "correct-terse",
+      "correct-verbose"
+     ],
+     "tolerance": 0.05,
+     "note": "every phrasing of the same correct answer must score alike; the reworded/verbose gap was the measured defect"
+    }
+   ],
+   "provenance": {
+    "source": "synthetic",
+    "derived_from": "synth/ip_geolocation-synth-es-03",
+    "method": "mechanical transform of existing fixture text (gen-clean-pairs.mjs); no answer authored against a ground truth",
+    "captured": "2026-08-27"
+   }
+  }
+ ]
+}

@@ -51,6 +51,36 @@ IP_GEOLOCATION   registrationId 1377   status REJECTED   is_champion false
                  registered 2026-08-27 23:27:17 IST; incumbent champion is reg 630 (zkasuran)
 ```
 
+### ⚠ CODEX AUDIT 2026-08-28 — a claim I made repeatedly was STALE and wrong
+
+`track2/codex_audit.md` (+ `codex_review/field_notes.md`). **IP_GEOLOCATION is NO LONGER
+"Spearman-free / structurally safe."** Verified independently: `/scores?intent=IP_GEOLOCATION`
+now returns 25 rows across **2 distinct miners** (`iplocate` and — the irony — **`livecert`, our
+own Track 1 miner**) over 23 epochs. Two miners ⇒ **the Spearman gate applies.** Codex's fresh
+local replay measured rho **0.6573** — passing 0.60, but with only 0.0573 of cushion.
+
+Why I got it wrong: reg 1377's eval showed `historical_rows_evaluated: 0`, and I read that as
+"Spearman skipped." Codex's correction is right — we failed on the **wins** check (D3), so the gate
+plausibly never reached the traffic check at all. **A zero there proves nothing about
+applicability.** Our own miner's breadth expansion into IP_GEOLOCATION is what armed this gate
+against our own scorer — a cross-track interaction neither session anticipated.
+
+**Codex verdict: HOLD registration.** Not because the build is bad, but because it still fails
+locally-visible cases, and a registration spends scarce public feedback. Five known failure
+classes to close first: hemisphere notation vs signed coordinates; country aliases (`UY`);
+curly Unicode punctuation (`Shimo'ochiai`); CLEAN-PAIR cases 10/11 (correct paraphrases scoring
+far below equivalent forms); and appended unsupported identifiers being too cheap.
+
+Also flagged and now FIXED (2026-08-28): `cargo fmt` failed and `cargo clippy -D warnings` had 4
+findings — both clean now, 63 tests pass, all three wasms rebuilt (20,103–20,127 B, 0 imports,
+validate OK, ABI verify passes). Still open from the audit: PROOF.md contradicts itself (says
+STORM both clears and fails; rho quoted as both 0.5926 and 0.6005) and predates reg 1377 — it
+must be regenerated from ONE commit + ONE wasm hash; the CLEAN-PAIR 248/248 headline is
+overstated because the generated wrong-answers are mechanically corrupted ("The Iceland. It
+address…") rather than fluent minimal counterfactuals; no CI workflow; zero adoption evidence.
+**TVL_LOOKUP is the recommended fallback target** — separation bar only ~0.504 vs IP's 0.992 —
+but needs a protocol/chain-aware profile, not the generic build.
+
 **Next action (concrete):** rebuild with a higher ceiling for correct rewordings — target
 verbatim-correct **and** reworded-correct both ≈1.0, while a wrong city stays ~0.30 and a wrong
 figure stays ~0.002. Validate with the *existing* harness (it still guards the anti-gaming

@@ -173,7 +173,18 @@ pub const fn base() -> Profile {
         ent_channel_w: 0.9,
         fact_floor: 0.10,
 
-        prose_w: 0.25,
+        // Unsupported prose is very nearly free. Prose the ground truth does not
+        // restate is neither a decisive fact nor a contradiction, so it is not
+        // evidence of a wrong answer, and none of the three anti-gaming channels
+        // depends on it: parroting is caught by the answered-ness gate (novel
+        // *supported* mass), wrong facts by the multiplicative fact/entity term,
+        // contradictions by the polarity term. At the old 0.25 a *correct*
+        // answer lost 12 points for wording the truth differently -- verbatim
+        // 1.0000, reworded 0.8785 -- which is what cost registration 1377 the
+        // ordering on the node's clean fixtures. Not literally zero, so padding
+        // an answer with filler still dilutes it slightly. STORM_ALERT overrides
+        // this back up; see the block below and tune.md for that trade.
+        prose_w: 0.02,
 
         p_concave: 0.5,
         // Knots deliberately short of 0 and 1: clipping either end piles real
@@ -212,6 +223,12 @@ pub const fn profile() -> Profile {
     // Concave shaping compounded it, lifting 0.80 to 0.96 before the smoothstep
     // saw it. Keep precision closer to linear so the top of the range ranks.
     p.p_concave = 0.15;
+    // `prose_w` is the base 0.02 -- the fix that this intent's rejection
+    // (registration 1377) paid for. Left in `base()` rather than restated here
+    // because the finding is general: only STORM_ALERT, which must agree with a
+    // lexical incumbent to clear Spearman, overrides it. Measured on this
+    // profile: every correct phrasing >= 0.999 (was 0.8785 reworded) while a
+    // wrong city, a wrong ISP and a swapped country all moved DOWN.
     p
 }
 
@@ -258,7 +275,11 @@ pub const fn profile() -> Profile {
     p
 }
 
-#[cfg(all(feature = "generic", not(feature = "ip-geolocation"), not(feature = "storm-alert")))]
+#[cfg(all(
+    feature = "generic",
+    not(feature = "ip-geolocation"),
+    not(feature = "storm-alert")
+))]
 pub const fn profile() -> Profile {
     base()
 }
@@ -268,7 +289,11 @@ const fn intent_tag() -> [u8; 32] {
     let name = b"IP_GEOLOCATION";
     #[cfg(feature = "storm-alert")]
     let name = b"STORM_ALERT";
-    #[cfg(all(feature = "generic", not(feature = "ip-geolocation"), not(feature = "storm-alert")))]
+    #[cfg(all(
+        feature = "generic",
+        not(feature = "ip-geolocation"),
+        not(feature = "storm-alert")
+    ))]
     let name = b"GENERIC";
 
     let mut out = [0u8; 32];

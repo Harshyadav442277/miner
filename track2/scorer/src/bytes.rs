@@ -150,8 +150,17 @@ pub fn normalized_equal(a: &[u8], b: &[u8]) -> bool {
 /// Punctuation that ends a noun phrase. "Mountain View, California" is two
 /// phrases, not one five-word name.
 pub const fn is_phrase_break(b: u8) -> bool {
-    b == b',' || b == b'.' || b == b';' || b == b':' || b == b'!' || b == b'?'
-        || b == b'(' || b == b')' || b == b'\n' || b == b'|' || b == b'/'
+    b == b','
+        || b == b'.'
+        || b == b';'
+        || b == b':'
+        || b == b'!'
+        || b == b'?'
+        || b == b'('
+        || b == b')'
+        || b == b'\n'
+        || b == b'|'
+        || b == b'/'
 }
 
 /// A lone compass letter, which after a decimal marks a coordinate hemisphere.
@@ -246,7 +255,10 @@ mod tests {
 
     #[test]
     fn normalized_equal_folds_case_and_whitespace_only() {
-        assert!(normalized_equal(b"The IP is 1.2.3.4.", b"the   ip is 1.2.3.4."));
+        assert!(normalized_equal(
+            b"The IP is 1.2.3.4.",
+            b"the   ip is 1.2.3.4."
+        ));
         assert!(normalized_equal(b"  Paris ", b"paris"));
         assert!(!normalized_equal(b"valid", b"invalid"));
         assert!(normalized_equal(b"", b"   "));
@@ -258,7 +270,10 @@ mod tests {
         // a different claim. Folding these fired the exact-match shortcut and
         // returned a literal 1.0 for a wrong answer (adversarial review C1).
         assert!(!normalized_equal(b"The IP is 1.2.3.4.", b"the ip is 1234"));
-        assert!(!normalized_equal(b"The CVSS score is 10.", b"The CVSS score is 1.0"));
+        assert!(!normalized_equal(
+            b"The CVSS score is 10.",
+            b"The CVSS score is 1.0"
+        ));
         assert!(!normalized_equal(b"winds of 5.9 m/s", b"winds of 59 m/s"));
         assert!(!normalized_equal(b"23.1 C", b"231 C"));
         assert!(!normalized_equal(b"-122.4194", b"122.4194"));

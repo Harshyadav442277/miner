@@ -10,6 +10,16 @@
 > **42/47 vs 31/47**, all gate checks PASS. 58 unit tests, 0 imports, `wasm-tools validate` OK,
 > `dist` byte-identical to a clean source rebuild.
 >
+> **⛔ HOLD — Codex audit 2026-08-28.** Do not register again yet. Two corrections:
+> (1) **IP_GEOLOCATION is no longer Spearman-free.** It now has 2 distinct miners (`iplocate` and
+> our own `livecert`) over 23 epochs, so the traffic-agreement gate applies; fresh rho ~0.6573,
+> only 0.057 above the 0.60 floor. Reg 1377's `historical_rows_evaluated: 0` did **not** mean
+> "skipped" — we failed the wins check first, so the gate likely never reached it.
+> (2) Five known failure classes remain locally visible (hemisphere coordinates, country aliases
+> like `UY`, curly Unicode, CLEAN-PAIR cases 10/11, cheap appended identifiers). Close those, and
+> regenerate PROOF.md from one commit + one hash, before spending another registration.
+> Target rho ≥0.70 for cushion, not 0.60. See `codex_audit.md`.
+>
 > **STORM_ALERT reversal:** it now passes **all six** checks — Spearman came in at **0.6005**
 > (n=29, 4 miners) against the 0.60 floor, margin 0.804 vs 0.385, wins 31/37. The entity-swap fix
 > incidentally lifted agreement past the 0.593 ceiling the earlier 72-build sweep found. But

@@ -32,18 +32,27 @@ incumbent rather than a stylistic preference:
    entity only counts as a *substitution* to the extent the ground truth names entities the answer
    never mentions, so extra true detail stays neutral. Legitimate variation survives — a run of
    proper nouns is also indexed by its acronym, so `US` matches `United States` with no synonym
-   table, and ALL-CAPS acronyms the answer merely mentions (`WHOIS`, `RIR`) abstain rather than
-   counting as claims.
+   table, and a **two-letter** code the answer uses instead of a name (`UY` for Uruguay, which no
+   lexical rule reaches) abstains rather than counting as a claim. The exemption is bounded at two
+   letters on purpose: it used to cover every ALL-CAPS token, and a wrong ISP written `AWS` scored
+   **0.9829** where the same swap spelled `Cloudflare Inc.` scored 0.2248.
 
 3. **A wrong fact is hard to hide.** Channels combine multiplicatively and the numeric channel
    leans on its *worst* figure, so quoting the right CVE id does not rescue a wrong CVSS score, and
    a polarity flip on supported content is scored as contradiction rather than coverage. Measured
    against the ground truth *"8.8.8.8 is located in Mountain View, California, United States,
    operated by Google LLC"*: swapping **one** entity (city → Berlin) scores **0.3047**, swapping
-   three (city, state, country) scores **0.0702**, and the wrong ISP alone scores **0.2016** —
-   against a verbatim-correct 1.0000 and a *reworded*-correct 0.8785. Legitimate variation is
-   untouched: `US` for `United States` scores **1.0000**, and appending true detail the ground
-   truth never mentions still scores **0.8911**.
+   three (city, state, country) scores **0.0514**, and the wrong ISP alone scores **0.2030** —
+   against a verbatim-correct 1.0000 and a *reworded*-correct **0.9992**. Legitimate variation is
+   untouched: `US` for `United States` scores **0.9992**, appending true detail the ground truth
+   never mentions scores **0.9999**, and adding one true identifier the truth omits (`AS15169`)
+   scores **1.0000**.
+
+   That reworded figure used to be 0.8785, and it is what cost registration 1377 its promotion:
+   the node's benchmark is **clean good-vs-bad pairs**, where the incumbent is lexically generous
+   and any recognisably-correct answer earns ~1.0, so charging a correct answer for its own wording
+   is the whole gap. See `tune.md`, "The clean-pair round", for the five mechanisms and their
+   before/after.
 
    An earlier build of this module failed exactly here — a lone swapped city scored a perfect
    1.0000, tying a verbatim-correct answer. It was caught by probing the *hosted binary* rather
@@ -51,10 +60,12 @@ incumbent rather than a stylistic preference:
    class (18 cases) exists so that gap cannot reopen.
 4. **Unasserted facts are neutral.** A figure the ground truth never discusses is unverifiable,
    not wrong, so a terse-but-correct answer is not punished for omission. Measured on the review's
-   own strings: terse-correct 1.0000, verbose-correct-all-true 0.9995, verbose-correct-and-hedged
-   0.9716 — close, but a long answer still pays a little for prose the ground truth does not
-   restate. Precision-of-answer without a recall term cannot fully separate "true but unrestated"
-   from "unsupported"; the residual gap is the honest size of that limit.
+   own strings: terse-correct 1.0000, verbose-correct 0.9994, JSON-formatted correct 0.9991,
+   reordered correct 0.9995. An unsupported figure the truth never discusses stays neutral, and so
+   does an unsupported identifier — but only to the extent the answer has already covered the
+   identifiers the truth *does* name. That pairing rule is what separates "true but unrestated"
+   from "substituted"; without it, an answer that quoted the right IP and added the right AS
+   number scored 0.4876.
 5. **Answered-ness is first-class.** After the boilerplate opener is struck, an answer that
    asserts nothing beyond the question's own content scores near zero — *when the ground truth
    carries an answer to be found*.
@@ -76,6 +87,13 @@ incumbent rather than a stylistic preference:
 - **No miner fingerprints.** No slug, wallet, field name or phrasing is matched, favourably
   or otherwise. The `OUR-STYLE-WRONG` fixture class exists to prove it: a `livecert`-shaped answer
   with wrong facts loses to a competitor-shaped answer with right facts, 1/1 on both intents.
+- **It does not charge a correct answer for prose the ground truth omits.** `prose_w` is 0.02:
+  unsupported prose that is neither a decisive fact nor a contradiction is very nearly free. That
+  is safe because none of the anti-gaming properties rests on it — parroting is caught by the
+  answered-ness gate (novel *supported* mass), wrong facts by the multiplicative fact and entity
+  channels, contradictions by the polarity term. Measured after the change, every wrong answer in
+  the regression set scored the same or **lower**, while every correct rephrasing reached ≥0.999.
+  It is not literally zero, so padding still dilutes slightly.
 
 ## Pipeline
 
@@ -87,9 +105,21 @@ rank_answer(q, gt, ma)
        P     precision of assertion   decisive facts, plus prose at prose_w
        ans   answered-ness gate       novel supported mass, conditioned on the GT
        fmul  typed fact agreement     numbers graded, identifiers exact, multiplicative
-       raw   = shaped(P) * fmul * ans
+       ent   entity agreement       proper nouns, multiplicative, substitution-paired
+       pol   polarity               a flip on supported content is a contradiction
+       raw   = shaped(P) * fmul * ent * ans * pol
        score = smoothstep(ss_lo, ss_hi, raw)
 ```
+
+`ent`, the identifier half of `fmul`, and the decisive pool of `P` all read the same
+**substitution-versus-addition** rule: an unsupported entity or identifier only counts against the
+answer to the extent the ground truth names ones the answer never mentions. An answer that says
+everything the truth says and then says more has contradicted nothing (A3.8).
+
+Note the `normalized_equal` short-circuit above: a **verbatim** answer never reaches the pipeline.
+That is why four separate defects that only ever charged *reworded* correct answers survived every
+earlier test round, and why the `CLEAN-PAIR` fixture class — which rewords each ground truth four
+ways — exists.
 
 Every constant is documented in [tune.md](tune.md) and lives in one block in
 [`src/profile.rs`](src/profile.rs), so a reviewer sees the whole decision surface at once.
@@ -130,9 +160,9 @@ All three builds pass `verify.mjs` in full. Artefacts:
 
 | Build | Size | Imports | `wasm-tools validate` |
 |---|---|---|---|
-| `dist/generic.wasm` | 19,652 B | **0** | OK |
-| `dist/ip_geolocation.wasm` | 19,628 B | **0** | OK |
-| `dist/storm_alert.wasm` | 19,647 B | **0** | OK |
+| `dist/generic.wasm` | 20,127 B | **0** | OK |
+| `dist/ip_geolocation.wasm` | 20,103 B | **0** | OK |
+| `dist/storm_alert.wasm` | 20,123 B | **0** | OK |
 
 Exported signatures, read back off the binary — `rank_answer` is **exactly six `i32` returning
 `f32`** (a 3-param build was rejected live):

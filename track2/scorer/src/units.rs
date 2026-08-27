@@ -360,7 +360,19 @@ pub fn annotate_units(t: &mut Toks) {
             // key=value answer as a category error.
             let followed_by_figure = (k + 2 < t.n && t.kind[k + 2] == K_NUMBER)
                 || (k + 3 < t.n && t.kind[k + 3] == K_NUMBER);
-            if t.kind[nxt] == K_WORD
+            // A unit abuts its figure: "47 km/h", "47bananas". Punctuation
+            // between them means the word begins a new clause and is not a unit
+            // at all. Without this test every enumerated list poisoned its own
+            // markers -- "2. Using tools" read as "2 <Using>", a figure in an
+            // unknown category, so a correct answer that wrote "2. tools"
+            // instead disagreed with the ground truth on a made-up dimension and
+            // the whole numeric channel collapsed to 0.145 (measured, CLEAN-PAIR
+            // fixture ip_geolocation-cleanpair-11: a faithful terse answer
+            // scored 0.5241). Verbatim copies never showed it because the
+            // exact-match short-circuit returns before this runs.
+            let abuts = t.nb[k] == b' ' || is_alpha(t.nb[k]);
+            if abuts
+                && t.kind[nxt] == K_WORD
                 && t.uword[nxt] == U_NONE
                 && t.w[nxt] > 0.1
                 && !followed_by_figure
