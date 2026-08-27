@@ -3,7 +3,7 @@
 **Read this first. Everything Track 1 needs is in this folder.**
 Shared protocol facts are in `../docs/`. Do not edit `../track2/` or `../track3-certwatch/`.
 
-Last updated: 2026-08-27, after epoch 285.
+Last updated: 2026-08-27 ~08:30 UTC, before epoch 286 (lands ~09:37 UTC).
 
 ---
 
@@ -25,6 +25,10 @@ The console creates a **new registration** rather than editing 236. That is fine
 
 **Claude never signs.** No wallet connect, no transaction, no seed phrase. Prepare and validate;
 the operator clicks.
+
+Package re-verified 2026-08-27 ~08:07 UTC: `miner.yaml` hashes to exactly the value above, and
+**all 9 declared intents are `canonical: true`** on the live engine list (`/engine/v1/intents`,
+45 canonical on-chain). Nothing blocks the signature.
 
 **Second thing that needs a human: X.** 25% of the Track 1 score, judged on quality, consistency
 and reach. Drafts in `../docs/X_POSTS.md`. Replying under Telegraph posts reaches an existing
@@ -50,6 +54,14 @@ WEATHER_FORECAST    #8 of 11    0.00761   gap 0.00128 to isobar-weather
 
 Epoch 284 was #3 / #3 / #7 with storm at **0.0**, so this was real movement. The storm zero had a
 specific cause, in section 7.
+
+**2026-08-27 (session 1 continuation):** registration 236 `active`, verify-deploy 18/18, replay
+corpus 34/34. Found and fixed a `/papers` refusal bug before it could cost a scored question: a
+bare topic with no question scaffolding (exactly what the engine sends when it fills the declared
+`topic` parameter) returned "No research topic was supplied" — a guaranteed zero. `searchTopic`
+now falls back to the cleaned input itself; "since/after YYYY" and bare year-pair date windows now
+parse; a trailing date clause no longer leaks into the topic. 108 tests, deployed to production,
+verified live. `miner.yaml` untouched — the operator package and its hash are unchanged.
 
 ## 3. Endpoints — 9 built, all live, all keyless
 
