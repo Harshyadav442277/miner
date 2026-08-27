@@ -1,17 +1,17 @@
 # REGISTRATION.md — the user's runbook for registering the scorer
 
-> **⛔ RE-HELD 2026-08-27 (pre-flight probe) — do not register yet.** Scoring the *hosted* bytes
-> directly found an entity-swap blind spot: against GT "…located in **Mountain View**, California,
-> United States, operated by Google LLC", an answer with **only the city changed to Berlin scores
-> 1.0000** — tying a verbatim-correct answer and *beating* a correctly-reworded one (0.9606).
-> Swapping city+state+country only reaches 0.9507. Figures and identifiers are punished hard
-> (wrong ISP too → 0.0002), but a lone swapped **proper noun** is nearly free. For IP_GEOLOCATION
-> the place name *is* the answer, and this is the same inversion class we accuse the incumbent of —
-> it is also the first thing a reviewer will try. The FACT-SWAP fixtures missed it because they
-> swap several tokens at once. Fix in flight; this notice lifts when a single-entity swap is
-> punished and the gate still passes.
+> **✅ CLEARED 2026-08-27 (entity-swap fix verified).** The blind spot found by pre-flight — a
+> lone swapped city scoring a perfect 1.0000 — is fixed and independently re-verified:
+> wrong city **0.3047**, wrong city+state+country **0.0702**, wrong ISP **0.2016**, against
+> verbatim-correct 1.0000 and reworded-correct 0.8785; `US` ≡ `United States` still 1.0000 and
+> extra true detail still 0.8911. A new **ENTITY-SWAP** fixture class (18 cases) passes 18/18 so
+> the gap cannot reopen. The fix made the candidate *stronger*: IP_GEOLOCATION margin
+> **0.8139 vs the incumbent's 0.4379** (delta 0.376, nearly double the previous 0.190), wins
+> **42/47 vs 31/47**, all gate checks PASS. 58 unit tests, 0 imports, `wasm-tools validate` OK,
+> `dist` byte-identical to a clean source rebuild.
 >
-> ~~**✅ HOLD LIFTED 2026-08-27.**~~ The adversarial review's 6 CRITICALs are fixed with
+> **Register IP_GEOLOCATION only.** STORM_ALERT still cannot pass the automated gate (Spearman
+> ceiling 0.593 < 0.60) and is submitted as a finding instead. The adversarial review's 6 CRITICALs are fixed with
 > before/after receipts (`recon/2026-08-27-adversarial-review.md` + the fix-round summary in
 > MEMORY.md); the rebuilt module passes the full IP_GEOLOCATION gate proxy —
 > **independently re-verified** (margin 0.786 vs 0.596, wins 24/29 vs 22/29, self-match 1.0).
@@ -48,9 +48,12 @@ Published: **https://github.com/Harshyadav442277/telegraph-factscore** (public, 
 section in the README, commit `4031111`). Pinned wasm URLs for the console:
 
 ```
-IP_GEOLOCATION (the FIXED build — register this one):
-https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/f89d380a906dc7e377614038cdcf62f03e6131ca/dist/ip_geolocation.wasm
+IP_GEOLOCATION (current cleared build — register this one):
+https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/bc448b5e25b97fda0e97fd501607bca66f5256da/dist/ip_geolocation.wasm
 ```
+
+Repo commit `bc448b5`. Anonymous fetch returns HTTP 200, 19,628 bytes, byte-identical to the
+local build — so the console's keccak256 of what it downloads will match what was tested.
 
 (STORM_ALERT is deliberately not offered for registration — see the hold-lifted note above.)
 
