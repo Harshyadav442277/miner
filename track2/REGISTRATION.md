@@ -10,8 +10,16 @@
 > **42/47 vs 31/47**, all gate checks PASS. 58 unit tests, 0 imports, `wasm-tools validate` OK,
 > `dist` byte-identical to a clean source rebuild.
 >
-> **Register IP_GEOLOCATION only.** STORM_ALERT still cannot pass the automated gate (Spearman
-> ceiling 0.593 < 0.60) and is submitted as a finding instead. The adversarial review's 6 CRITICALs are fixed with
+> **STORM_ALERT reversal:** it now passes **all six** checks — Spearman came in at **0.6005**
+> (n=29, 4 miners) against the 0.60 floor, margin 0.804 vs 0.385, wins 31/37. The entity-swap fix
+> incidentally lifted agreement past the 0.593 ceiling the earlier 72-build sweep found. But
+> **0.6005 clears the floor by 0.0005**, measured on our proxy corpus — the node uses its own
+> hidden, rotating fixtures, so this one could genuinely fail on-chain.
+>
+> **Order: register IP_GEOLOCATION first** (Spearman is *skipped* there — structurally safe, not
+> marginally safe), then STORM_ALERT as a cheap second attempt. If STORM fails, it fails on check
+> C and costs only gas — and the rejection hands us the node's real Spearman number, which is
+> itself worth having. The adversarial review's 6 CRITICALs are fixed with
 > before/after receipts (`recon/2026-08-27-adversarial-review.md` + the fix-round summary in
 > MEMORY.md); the rebuilt module passes the full IP_GEOLOCATION gate proxy —
 > **independently re-verified** (margin 0.786 vs 0.596, wins 24/29 vs 22/29, self-match 1.0).

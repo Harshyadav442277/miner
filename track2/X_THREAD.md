@@ -53,14 +53,18 @@ Worst: "CVSS 1.0" scored identical to "CVSS 10". Fake units ("47 bananas") beat 
 All fixed, receipts in repo.
 ```
 
-## POST 3 — the gate finding [278] · the sharpest technical insight
+## POST 3 — the gate finding [268] · the sharpest technical insight
+
+> **Rewritten 2026-08-27.** The earlier draft claimed agreement "ceilings at 0.593" — true of the
+> pre-entity-swap build, **falsified** by the fixed one, which measures 0.6005 and passes. The
+> tension is real; the wall is not absolute. Never post the old version.
 
 ```
-Structural finding, @Telegraphprotoc Track 2: promotion needs 0.60+ Spearman agreement with the incumbent champion.
+@Telegraphprotoc scorer promotion needs 0.60+ Spearman agreement with the incumbent.
 
-On STORM_ALERT the incumbent rewards question-echoes. I swept 72 builds: refuse to reward parroting and agreement ceilings at 0.593.
+But on STORM_ALERT the incumbent rewards contentless question-echoes. Refusing to reward them costs agreement: 72 builds, best 0.593.
 
-The gate protects the flaw.
+An unrelated bugfix pushed it to 0.6005. Passes by 0.0005.
 ```
 
 ## POST 4 — the kit release [263] · adoption axis
