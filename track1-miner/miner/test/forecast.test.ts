@@ -9,13 +9,25 @@ describe("getForecast (live)", () => {
     assert.ok(r.temp_min_c !== null && r.temp_max_c !== null);
     assert.ok(r.temp_max_c >= r.temp_min_c, "max should not be below min");
     assert.equal(r.window_hours, 24);
-    assert.match(r.reason, /next 24 hours/);
+    assert.match(r.reason, /A 24-hour hourly weather forecast/);
+    assert.match(r.reason, /temperature in Celsius/);
   });
 
   test("honours a custom window", async () => {
     const r = await getForecast("Tokyo", 48);
     assert.equal(r.window_hours, 48);
-    assert.match(r.reason, /next 48 hours/);
+    assert.match(r.reason, /A 48-hour hourly weather forecast/);
+  });
+
+  test("echoes a day-count request in day form, with precipitation probability", async () => {
+    const r = await getForecast("Tokyo", 168, undefined, 7);
+    assert.equal(r.window_hours, 168);
+    assert.equal(r.hourly_count, 168);
+    assert.match(r.reason, /A 7-day hourly weather forecast/);
+    if (r.precipitation_probability_max_pct !== null) {
+      assert.match(r.reason, /precipitation probability of up to \d+%/);
+      assert.ok(r.precipitation_probability_max_pct >= 0 && r.precipitation_probability_max_pct <= 100);
+    }
   });
 
   test("clamps an absurd window rather than failing", async () => {

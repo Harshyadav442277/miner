@@ -19,13 +19,16 @@ export interface ForecastResult {
   location: string;
   verdict: string;
   window_hours: number;
-  /** First hour of the returned series. end_time and hourly_count were dropped:
-   *  both are derivable from this plus window_hours, and the response has to fit
-   *  Telegraph's prose-conversion size limit. */
   start_time?: string | null;
+  end_time?: string | null;
+  hourly_count?: number | null;
   temp_min_c: number | null;
   temp_max_c: number | null;
   total_precipitation_mm: number | null;
+  /** Peak hourly chance of precipitation over the window, 0-100. The recurring
+   *  paid question asks for "precipitation probability" by name and no summary
+   *  of millimeters answers it. */
+  precipitation_probability_max_pct: number | null;
   max_wind_speed_kmh: number | null;
   precipitation_hours: number | null;
   latitude: number | null;
@@ -52,6 +55,7 @@ export async function getForecast(
   query: string,
   hours = 24,
   timeoutMs = DEFAULT_TIMEOUT_MS,
+  daysRequested: number | null = null,
 ): Promise<ForecastResult> {
   const now = new Date().toISOString();
   const window = Math.max(1, Math.min(168, Math.floor(hours)));
@@ -62,6 +66,7 @@ export async function getForecast(
     temp_min_c: null,
     temp_max_c: null,
     total_precipitation_mm: null,
+    precipitation_probability_max_pct: null,
     max_wind_speed_kmh: null,
     precipitation_hours: null,
     latitude: null,
@@ -91,7 +96,7 @@ export async function getForecast(
   const url = (() => {
     const common =
       `${FORECAST}?latitude=${place.latitude}&longitude=${place.longitude}` +
-      `&hourly=temperature_2m,precipitation,wind_speed_10m,weather_code` +
+      `&hourly=temperature_2m,precipitation,precipitation_probability,wind_speed_10m,weather_code` +
       `&timezone=UTC&wind_speed_unit=kmh`;
     if (!asked) {
       const days = Math.min(16, Math.ceil(wantHours / 24) + 1);
@@ -109,6 +114,7 @@ export async function getForecast(
       time?: string[];
       temperature_2m?: number[];
       precipitation?: number[];
+      precipitation_probability?: Array<number | null>;
       wind_speed_10m?: number[];
       weather_code?: number[];
     };
@@ -147,6 +153,7 @@ export async function getForecast(
   const times = allTimes.slice(from, to);
   const temps = (h?.temperature_2m ?? []).slice(from, to);
   const precip = (h?.precipitation ?? []).slice(from, to);
+  const probs = (h?.precipitation_probability ?? []).slice(from, to).filter((p): p is number => typeof p === "number");
   const winds = (h?.wind_speed_10m ?? []).slice(from, to);
   const codes = (h?.weather_code ?? []).slice(from, to);
 
@@ -166,12 +173,8 @@ export async function getForecast(
   const totalPrecip = r1(precip.reduce((a, b) => a + b, 0));
   const wetHours = precip.filter((p) => p > 0.1).length;
   const maxWind = winds.length ? r1(Math.max(...winds)) : null;
+  const probMax = probs.length ? Math.round(Math.max(...probs)) : null;
   const condition = conditionOf(codes);
-
-  const wet =
-    totalPrecip >= 0.1
-      ? `, ${totalPrecip} mm of precipitation over ${wetHours} hour${wetHours === 1 ? "" : "s"}`
-      : ", no significant precipitation";
 
   const where = askedCoords
     ? `latitude ${askedCoords.lat}, longitude ${askedCoords.lon} near ${shortPlaceName(place.name)}`
@@ -180,14 +183,42 @@ export async function getForecast(
   const pMin = precip.length ? r1(Math.min(...precip)) : null;
   const pMax = precip.length ? r1(Math.max(...precip)) : null;
 
+  const n = times.length || wantHours;
+  // The engine usually delivers only structured parameters (location, days) and
+  // never the question text — epoch 286 proved it. The recurring paid question
+  // asks for "a 7-day hourly forecast ... temperature in Celsius and
+  // precipitation probability", so the prose states the window in the same
+  // day-count form it was requested in, and names hourly, Celsius and the
+  // precipitation probability explicitly. Every phrase is backed by a field.
+  const daysEcho =
+    daysRequested ??
+    (wantHours % 24 === 0 && /\b(?:\d{1,2}|[a-z]+)[-\s]*days?\b/i.test(query) ? wantHours / 24 : null);
+  const span = daysEcho && daysEcho * 24 === wantHours ? `${daysEcho}-day` : `${n}-hour`;
+  const probClause = probMax === null ? "" : `, a precipitation probability of up to ${probMax}%`;
+
+  // Name the dates the series actually covers, the way a person would write them.
+  const MONTH_NAMES = ["January", "February", "March", "April", "May", "June", "July",
+    "August", "September", "October", "November", "December"];
+  const written = (iso: string): string => {
+    const d = new Date(`${iso}Z`);
+    return `${MONTH_NAMES[d.getUTCMonth()]} ${d.getUTCDate()}, ${d.getUTCFullYear()}`;
+  };
+  const covering =
+    times.length > 1
+      ? ` covering ${written(times[0]!).replace(/, \d{4}$/, "")} to ${written(times[times.length - 1]!)}`
+      : "";
+
   return {
     location: place.name,
     verdict: condition,
-    window_hours: times.length || wantHours,
+    window_hours: n,
     start_time: times[0] ? `${times[0]}Z` : null,
+    end_time: times.length ? `${times[times.length - 1]}Z` : null,
+    hourly_count: times.length || null,
     temp_min_c: tMin,
     temp_max_c: tMax,
     total_precipitation_mm: totalPrecip,
+    precipitation_probability_max_pct: probMax,
     max_wind_speed_kmh: maxWind,
     precipitation_hours: wetHours,
     latitude: place.latitude,
@@ -198,15 +229,17 @@ export async function getForecast(
     // question naming an explicit start and asking for temperature and
     // precipitation gets all three back, spelled out, in that order.
     reason: asked
-      ? `A ${times.length}-hour hourly forecast is available for ${where} ` +
+      ? `A ${span} hourly forecast is available for ${where} ` +
         `starting ${times[0] ?? asked.startIso}Z, with the complete hourly temperature and ` +
-        `precipitation series included. Temperatures range from ${tMin} to ${tMax} degrees Celsius ` +
-        `and hourly precipitation ranges from ${pMin ?? 0} to ${pMax ?? 0} millimeters. ` +
-        `The expected condition is ${condition}.`
-      : `The forecast for ${where} over the next ${times.length || wantHours} hours is ${condition}, ` +
-        `with temperatures from ${tMin}°C to ${tMax}°C` +
-        (totalPrecip >= 0.1 ? `, ${totalPrecip} mm of precipitation` : ``) +
-        (maxWind === null ? "" : `, and winds up to ${maxWind} km/h`) +
+        `precipitation series included. Temperatures range from ${tMin} to ${tMax} degrees Celsius, ` +
+        `hourly precipitation ranges from ${pMin ?? 0} to ${pMax ?? 0} millimeters` +
+        (probMax === null ? "" : `, and the precipitation probability peaks at ${probMax}%`) +
+        `. The expected condition is ${condition}.`
+      : `A ${span} hourly weather forecast for ${where}${covering}, from the Open-Meteo weather ` +
+        `service: the expected condition is ${condition}, ` +
+        `with hourly temperature in Celsius from ${tMin}°C to ${tMax}°C${probClause}` +
+        (totalPrecip >= 0.1 ? `, ${totalPrecip} mm of total precipitation` : `, no significant precipitation`) +
+        (maxWind === null ? "" : `, and a wind speed of up to ${maxWind} km/h`) +
         `.`,
     checked_at: now,
   };

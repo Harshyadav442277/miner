@@ -194,15 +194,16 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
       return;
     }
     const days = Number(firstValue(url, "days", "forecast_days"));
-    const hours = Number(firstValue(url, "hours")) || (Number.isFinite(days) && days > 0 ? days * 24 : 24);
+    const daysRequested = Number.isFinite(days) && days > 0 ? Math.floor(days) : null;
+    const hours = Number(firstValue(url, "hours")) || (daysRequested ? daysRequested * 24 : 24);
     const window = Number.isFinite(hours) ? hours : 24;
-    const key = `fc:${q.trim().toLowerCase()}:${Math.floor(window)}`;
+    const key = `fc:${q.trim().toLowerCase()}:${Math.floor(window)}:${daysRequested ?? ""}`;
     const hit = fromCache(key);
     if (hit) {
       send(res, 200, hit);
       return;
     }
-    getForecast(q, window)
+    getForecast(q, window, undefined, daysRequested)
       .then((result) => {
         toCache(key, result);
         send(res, 200, result);
