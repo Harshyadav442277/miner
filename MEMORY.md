@@ -393,12 +393,23 @@ actually ran **once every 2-3 hours**. Changed to hourly, which is honest and am
 with small scores in quiet corners. It won by covering ground, not by answering better. We went
 3 -> 4 (registration 236, live) and the YAML now declares **6**.
 
-**Two new endpoints, both targeting intents whose only miner scores ~0:**
-- `/extract` -> `CONTENT_EXTRACTION` (1 miner, **0.000 on all 6 questions** — it is a URL extractor
-  and the questions supply text inline). Deterministic regex extraction; **5 of 6 reproduce the
-  ground truth exactly.**
-- `/headlines` -> `NEWS_HEADLINES` (1 miner, 0.000-0.003). Google News RSS, keyless. Gotcha: the
-  `hl`/`gl`/`ceid` locale params make the feed return an **empty channel**; drop them.
+**FIVE new endpoints, every one targeting an intent whose incumbents are failing:**
+- `/extract` -> `CONTENT_EXTRACTION` (1 miner, **0.000 on all 6**; it is a URL extractor and the
+  questions supply text inline). Deterministic regex; **5 of 6 reproduce the ground truth exactly.**
+- `/translate` -> `LANGUAGE_TRANSLATION` (2 miners, **best 0.000**). MyMemory, keyless — the same
+  API both incumbents are named after. Russian comes back exact, Mandarin off by one character.
+- `/cve` -> `CVE_LOOKUP` (3 miners, **all 0.000**). NVD, authoritative and deterministic.
+  Its 5-req/30s limit is declared in `limitations`.
+- `/papers` -> `ACADEMIC_SEARCH` (2 miners, 0.000-0.015). OpenAlex, keyless.
+- `/headlines` -> `NEWS_HEADLINES` (1 miner, 0.000-0.003). Google News RSS, keyless.
+
+**Gotchas found building these:**
+- Google News RSS returns an **empty channel** if you pass `hl`/`gl`/`ceid`. Drop them.
+- OpenAlex sorted by `cited_by_count` returns a 6G survey for a blockchain query. Use default
+  relevance.
+- **SPORTS_SCORE was deliberately skipped**: the free sports API returned a friendly against AC
+  Milan when asked for the most recent Premier League meeting. A confidently wrong score is worse
+  than not serving the intent.
 
 **Grace period runs ~7 days from activation** — unranked during it, sharing 5% of routed traffic
 equally with other new miners. The score earned there sets the opening leaderboard position.
