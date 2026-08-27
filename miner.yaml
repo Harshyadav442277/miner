@@ -63,28 +63,75 @@ semantics:
 # refuses it inside endpoints[], and the node does not enforce it against requests.
 input_schema:
   type: object
+  description: >-
+    Telegraph's engine fills the parameters a miner declares here and does not
+    pass the rest of the question, so anything not declared is invisible. The
+    query field is declared first because it carries the wording the structured
+    fields cannot — an explicit start date, a time window, a wind threshold.
   properties:
+    query:
+      type: string
+      description: >-
+        The user's original question, verbatim. Preferred over the structured
+        fields: it carries detail they cannot, such as "starting next Monday",
+        "in 44 hours", or "flag winds above 25 knots".
+      examples:
+        - "What is the storm risk at latitude 12.97, longitude 77.59 in 44 hours?"
+        - "Can you analyze the TLS certificate chain and hostname match for api.github.com?"
+    q:
+      type: string
+      description: Alias for query.
     domain:
       type: string
       description: >-
         /ssl-check. Hostname to check. Accepts "example.com",
         "https://example.com/path", or "example.com:8443".
       examples: ["example.com", "expired.badssl.com"]
-    ip:
-      type: string
-      description: >-
-        /ip-geolocate. IPv4 or IPv6 address, e.g. "8.8.8.8".
-      examples: ["8.8.8.8", "1.1.1.1"]
     location:
       type: string
       description: >-
-        /storm-alert and /weather-forecast. Place name or "lat,lon".
-      examples: ["Chennai", "13.08,80.27"]
+        /storm-alert and /weather-forecast. Place name, e.g. "Chennai" or
+        "Tokyo, Japan".
+      examples: ["Chennai", "Tokyo, Japan"]
+    latitude:
+      type: number
+      description: >-
+        /storm-alert and /weather-forecast. Use with longitude when the question
+        names coordinates rather than a place.
+      minimum: -90
+      maximum: 90
+    longitude:
+      type: number
+      minimum: -180
+      maximum: 180
+    lat:
+      type: number
+      description: Alias for latitude.
+    lon:
+      type: number
+      description: Alias for longitude.
     hours:
       type: integer
       description: >-
-        /weather-forecast only. Forecast window in hours; default 24, max 168.
-      examples: [24, 48]
+        /storm-alert and /weather-forecast. Forecast window in hours. Also read
+        from the question itself, e.g. "over the next 44 hours".
+      minimum: 1
+      maximum: 384
+    forecast_hours:
+      type: integer
+      description: Alias for hours.
+    days:
+      type: integer
+      description: Forecast span in days, converted to hours.
+      minimum: 1
+      maximum: 16
+    forecast_days:
+      type: integer
+      description: Alias for days.
+    ip:
+      type: string
+      description: /ip-geolocate. IPv4 or IPv6 address.
+      examples: ["8.8.8.8"]
 
 output_schema:
   type: object

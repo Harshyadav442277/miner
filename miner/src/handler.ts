@@ -107,7 +107,38 @@ function upstreamUnavailable(res: ServerResponse, what: string, subject: string,
   });
 }
 
+
+/**
+ * Coordinates supplied as separate parameters.
+ *
+ * Telegraph's engine fills the parameters a miner *declares* in its input_schema
+ * and drops the rest of the question. The rank-1 storm miner declares lat/lon and
+ * receives coordinate questions; we declared only `location` and received an
+ * empty string for "latitude 37.7749 and longitude -122.4194", then answered
+ * "no location was provided". Accepting the pair costs nothing and is ready for
+ * the schema change.
+ */
+function coordsFromParams(url: URL): string {
+  const lat = firstValue(url, "latitude", "lat");
+  const lon = firstValue(url, "longitude", "lon", "lng");
+  if (!lat || !lon) return "";
+  const a = Number(lat);
+  const b = Number(lon);
+  if (!Number.isFinite(a) || !Number.isFinite(b)) return "";
+  if (Math.abs(a) > 90 || Math.abs(b) > 180) return "";
+  return `${a},${b}`;
+}
+
 export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
+  // Log the query string so we can see what Telegraph's engine actually sends.
+  // Epoch-285 answers suggest it passes structured parameters derived from our
+  // input_schema rather than the original question — which would mean our
+  // natural-language parsing never sees "starting next Monday". Worth proving
+  // before spending an updateMiner on a schema change.
+  if (process.env.LOG_QUERY !== "off") {
+    process.stdout.write(`REQ ${req.method ?? "?"} ${req.url ?? "?"}
+`);
+  }
 
   // Base is only needed so URL can parse a path-relative request line.
   const url = new URL(req.url ?? "/", "http://localhost");
@@ -141,7 +172,9 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
   }
 
   if (path === "/weather-forecast") {
-    const q = firstValue(url, "location", "place", "city", "query", "q", "text", "question", "input");
+    const q =
+      firstValue(url, "query", "q", "question", "text", "input", "location", "place", "city") ||
+      coordsFromParams(url);
     if (!q.trim()) {
       send(res, 200, {
         location: null,
@@ -155,7 +188,8 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
       });
       return;
     }
-    const hours = Number(url.searchParams.get("hours") ?? 24);
+    const days = Number(firstValue(url, "days", "forecast_days"));
+    const hours = Number(firstValue(url, "hours")) || (Number.isFinite(days) && days > 0 ? days * 24 : 24);
     const window = Number.isFinite(hours) ? hours : 24;
     const key = `fc:${q.trim().toLowerCase()}:${Math.floor(window)}`;
     const hit = fromCache(key);
@@ -173,7 +207,7 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
   }
 
   if (path === "/ip-geolocate") {
-    const q = firstValue(url, "ip", "address", "query", "q", "text", "question", "input");
+    const q = firstValue(url, "ip", "address", "query", "q", "question", "text", "input");
     if (!q.trim()) {
       send(res, 200, {
         ip: null,
@@ -205,7 +239,9 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
   }
 
   if (path === "/storm-alert") {
-    const q = firstValue(url, "location", "place", "city", "query", "q", "text", "question", "input");
+    const q =
+      firstValue(url, "query", "q", "question", "text", "input", "location", "place", "city") ||
+      coordsFromParams(url);
     if (!q.trim()) {
       send(res, 200, {
         location: null,
@@ -228,7 +264,10 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
     }
     // Only an explicit ?hours= forces a window; otherwise the question's wording
     // decides whether it is asking about a moment or a span.
-    const stormHours = Number(url.searchParams.get("hours") ?? NaN);
+    const stormDays = Number(firstValue(url, "days", "forecast_days"));
+    const stormHours =
+      Number(firstValue(url, "hours", "forecast_hours")) ||
+      (Number.isFinite(stormDays) && stormDays > 0 ? stormDays * 24 : NaN);
     checkStorm(q, undefined, Number.isFinite(stormHours) ? stormHours : undefined)
       .then((result) => {
         toCache(key, result);
@@ -246,7 +285,7 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
     return;
   }
 
-  const raw = firstValue(url, "domain", "host", "hostname", "url", "query", "q", "text", "question", "input");
+  const raw = firstValue(url, "domain", "host", "hostname", "url", "query", "q", "question", "text", "input");
 
   const target = normalizeTarget(raw);
   if (!target) {
