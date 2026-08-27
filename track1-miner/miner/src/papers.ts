@@ -56,6 +56,12 @@ export function dateWindow(text: string): { from: string | null; to: string | nu
       };
     }
   }
+  const yearPair = s.match(/\b(?:between|from)\s+(\d{4})\s+(?:and|to)\s+(\d{4})\b/i);
+  if (yearPair?.[1] && yearPair[2]) {
+    return { from: `${yearPair[1]}-01-01`, to: `${yearPair[2]}-12-31` };
+  }
+  const since = s.match(/\b(?:since|after)\s+(\d{4})\b/i);
+  if (since?.[1]) return { from: `${since[1]}-01-01`, to: null };
   const year = s.match(/\b(?:published\s+in|in)\s+(\d{4})\b/i);
   if (year?.[1]) return { from: `${year[1]}-01-01`, to: `${year[1]}-12-31` };
   return { from: null, to: null };
@@ -63,12 +69,28 @@ export function dateWindow(text: string): { from: string | null; to: string | nu
 
 /** The subject, with the search scaffolding stripped off. */
 export function searchTopic(text: string): string | null {
-  const s = String(text ?? "");
+  const s = String(text ?? "").trim();
   const m =
-    s.match(/\bthat\s+discuss(?:es)?\s+(.+?)(?:[,.?]|\s+returning\b|\s+with\b|\s+where\b|$)/i) ??
-    s.match(/\bon\s+(.+?)(?:[,.?]|\s+returning\b|\s+published\b|$)/i) ??
-    s.match(/\babout\s+(.+?)(?:[,.?]|$)/i);
-  const t = m?.[1]?.trim();
+    s.match(/\bthat\s+discuss(?:es)?\s+(.+?)(?:[,.?]|\s+returning\b|\s+published\b|\s+since\b|\s+with\b|\s+where\b|$)/i) ??
+    s.match(/\b(?:on|about|regarding|covering)\s+(.+?)(?:[,.?]|\s+returning\b|\s+published\b|\s+since\b|\s+with\b|\s+where\b|$)/i);
+  let t = m?.[1]?.trim();
+  if (!t) {
+    // No scaffolding matched. The input may already be the bare subject — the
+    // engine fills a declared `topic` parameter with just "zero knowledge
+    // proofs", no question around it. Refusing here is a guaranteed zero, so
+    // strip generic search words and date clauses and search for what remains.
+    t = s
+      .replace(/^\s*(?:please\s+)?(?:find|search(?:\s+for)?|look\s+up|get|list|show\s+me|give\s+me|what\s+are|which\s+are)\b/i, "")
+      .replace(/\b(?:the\s+)?most\s+(?:cited|influential|recent)\b/gi, "")
+      .replace(/\bpeer[-\s]?reviewed\b/gi, "")
+      .replace(/\b(?:academic|scholarly)\b/gi, "")
+      .replace(/\b(?:papers?|articles?|studies|research|literature|publications?)\b/gi, "")
+      .replace(/\b(?:published\s+)?(?:since|after|before|until|between|in)\s+\d{4}.*$/i, "")
+      .replace(/[?.!]+\s*$/, "")
+      .trim();
+  } else {
+    t = t.replace(/\b(?:published\s+)?(?:since|after)\s+\d{4}.*$/i, "").trim();
+  }
   return t && t.length > 3 ? t.replace(/\s+/g, " ") : null;
 }
 

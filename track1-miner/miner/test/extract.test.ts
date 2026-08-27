@@ -237,4 +237,34 @@ describe("academic search parsing", () => {
       "machine learning applications in renewable energy systems",
     );
   });
+
+  test("a bare topic with no scaffolding is the topic", () => {
+    assert.equal(searchTopic("zero knowledge proofs"), "zero knowledge proofs");
+  });
+
+  test("a date clause is not part of the topic", () => {
+    assert.equal(
+      searchTopic("What are the most cited papers about transformer models published since 2023?"),
+      "transformer models",
+    );
+  });
+
+  test("scaffolding words are stripped when no pattern matches", () => {
+    assert.equal(
+      searchTopic("Find recent peer-reviewed papers quantum error correction"),
+      "recent quantum error correction",
+    );
+  });
+
+  test("reads a since-year window as open-ended", () => {
+    const w = dateWindow("papers about transformer models published since 2023");
+    assert.equal(w.from, "2023-01-01");
+    assert.equal(w.to, null);
+  });
+
+  test("reads a bare year pair", () => {
+    const w = dateWindow("research between 2019 and 2022 on batteries");
+    assert.equal(w.from, "2019-01-01");
+    assert.equal(w.to, "2022-12-31");
+  });
 });
