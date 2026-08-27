@@ -11,13 +11,16 @@
 
 name: uptime
 
-# Every 10 minutes. Public repos get unlimited Actions minutes, so the cadence is
-# set for fast revocation detection rather than to fit a quota. Telegraph spot-checks
-# every ~20s and revokes routing on a 20% score drop with no notification, so the
-# window between a failure starting and us knowing about it is what this minimises.
+# Hourly, and honestly labelled.
+#
+# This was set to "*/10" on the assumption it would run every ten minutes. It did
+# not: GitHub heavily throttles scheduled workflows, and the observed cadence was
+# one run every two to three hours. A schedule that lies about its frequency is
+# worse than a slower one that does not, and epochs are nine hours long, so hourly
+# is ample for catching a new score and more likely to actually be honoured.
 on:
   schedule:
-    - cron: "*/10 * * * *"
+    - cron: "17 * * * *"
   workflow_dispatch:
 
 jobs:

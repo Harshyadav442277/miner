@@ -385,6 +385,10 @@ and an overall risk between 0 and 1". Answering under those exact labels, same f
 SSL **0.01020 -> 0.01074**, storm **0.00835 -> 0.00862**. Same family as echoing coordinates — an
 answer that visibly addresses each clause reads as answering it.
 
+**GitHub throttles scheduled workflows.** The uptime/score-recording cron was set to `*/10` and
+actually ran **once every 2-3 hours**. Changed to hourly, which is honest and ample against
+9-hour epochs. Do not trust a sub-hourly GitHub cron to fire.
+
 **Grace period runs ~7 days from activation** — unranked during it, sharing 5% of routed traffic
 equally with other new miners. The score earned there sets the opening leaderboard position.
 
