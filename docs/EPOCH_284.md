@@ -630,3 +630,35 @@ twice): **0.01327** on zeus's question, against zeus's 0.00802 — **1.65x the r
 
 This is legitimate, not scorer-gaming: the coordinates come from the question, and the direction and
 unit conversion are real data we were withholding.
+
+
+## The same fix applied to weather
+
+Weather resolved coordinates to a place name and answered with only the place, exactly as storm
+did — a question naming `Tokyo, Japan (latitude 35.6897, longitude 139.6922)` got back "for Tokyo",
+dropping both the country and the coordinates the caller supplied. Now:
+
+> A 168-hour hourly forecast is available for **latitude 35.6897, longitude 139.6922 near Tokyo**
+> starting 2026-08-27T07:00Z…
+
+and where no coordinates were given, the full resolved name rather than a truncation:
+
+> The forecast for **London, England, United Kingdom** over the next 48 hours is heavy rain…
+
+Geolocation already echoed the IP address it was asked about, so it needed nothing.
+
+## Where the benchmarks stand
+
+```
+SSL_VERIFICATION   mean 0.00913   epoch-285 rank 1: txlens 0.00826
+STORM_ALERT        mean 0.00938   epoch-285 rank 1: zeus   0.00802
+WEATHER_FORECAST   mean 0.17364   epoch-285 rank 1: isobar 0.00889
+```
+
+The means are over twelve real questions each, with the question supplied. The rank-1 figures are
+that miner's score on one question, so this is not like-for-like — but every mean sits above every
+rank-1 score, and on zeus's own question our deployed answer scores 0.01327 against its 0.00802.
+
+**All of it is inert until the schema declares `q`, `lat` and `lon`.** In the live epoch the engine
+sent an empty `location` for a coordinate question and dropped "starting next Monday" from a dated
+one, so none of this reached the scorer.

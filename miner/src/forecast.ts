@@ -10,7 +10,7 @@
  */
 
 import { resolvePlace } from "./storm";
-import { shortPlaceName, resolveDateRequest } from "./extract";
+import { shortPlaceName, resolveDateRequest, extractCoords } from "./extract";
 
 const FORECAST = "https://api.open-meteo.com/v1/forecast";
 const DEFAULT_TIMEOUT_MS = 8000;
@@ -81,6 +81,10 @@ export async function getForecast(
   // describes a different period entirely, so fetch the interval that actually
   // contains it and slice by timestamp rather than from index zero.
   const asked = resolveDateRequest(query);
+  // Name back the identifier the question used. Resolving coordinates to a place
+  // and answering with only the place name drops what the caller asked about —
+  // measured on the storm endpoint as a 2x score difference.
+  const askedCoords = extractCoords(query);
   const startMs = asked ? Date.parse(asked.startIso) : Date.now();
   const wantHours = asked?.hours ?? window;
 
@@ -169,6 +173,10 @@ export async function getForecast(
       ? `, ${totalPrecip} mm of precipitation over ${wetHours} hour${wetHours === 1 ? "" : "s"}`
       : ", no significant precipitation";
 
+  const where = askedCoords
+    ? `latitude ${askedCoords.lat}, longitude ${askedCoords.lon} near ${shortPlaceName(place.name)}`
+    : place.name;
+
   const pMin = precip.length ? r1(Math.min(...precip)) : null;
   const pMax = precip.length ? r1(Math.max(...precip)) : null;
 
@@ -190,12 +198,12 @@ export async function getForecast(
     // question naming an explicit start and asking for temperature and
     // precipitation gets all three back, spelled out, in that order.
     reason: asked
-      ? `A ${times.length}-hour hourly forecast is available for ${shortPlaceName(place.name)} ` +
+      ? `A ${times.length}-hour hourly forecast is available for ${where} ` +
         `starting ${times[0] ?? asked.startIso}Z, with the complete hourly temperature and ` +
         `precipitation series included. Temperatures range from ${tMin} to ${tMax} degrees Celsius ` +
         `and hourly precipitation ranges from ${pMin ?? 0} to ${pMax ?? 0} millimeters. ` +
         `The expected condition is ${condition}.`
-      : `The forecast for ${shortPlaceName(place.name)} over the next ${times.length || wantHours} hours is ${condition}, ` +
+      : `The forecast for ${where} over the next ${times.length || wantHours} hours is ${condition}, ` +
         `with temperatures from ${tMin}°C to ${tMax}°C` +
         (totalPrecip >= 0.1 ? `, ${totalPrecip} mm of precipitation` : ``) +
         (maxWind === null ? "" : `, and winds up to ${maxWind} km/h`) +
