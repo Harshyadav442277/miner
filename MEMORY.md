@@ -357,6 +357,15 @@ period and place, SSL chain/hostname, geolocation ISP. Every attempt to tune phr
 ground truth. A storm candidate scored 0.614 that way; the honest implementation scores 0.0086
 (+4.7%, still kept). **Only measure answers produced by the deployed code.**
 
+**TWO STRUCTURAL FINDINGS FROM EPOCH 285:**
+1. **The engine sends only declared parameters, never the question.** #1 weather declares `q`,
+   #1 storm declares `lat`/`lon`; we declared neither and failed exactly those question types.
+   Code now accepts them; **the YAML change needs an updateMiner (wallet action, pending).**
+2. **Prose conversion has a size limit.** Our epoch-285 SSL answer was 862 bytes and
+   `converted_answer` came back **EMPTY** — every miner that converts is under ~430. Trimmed to
+   509-638 bytes; measured score barely moved (0.00949/0.01064 vs txlens 0.00826). A test pins
+   the response under 650 bytes.
+
 **Grace period runs ~7 days from activation** — unranked during it, sharing 5% of routed traffic
 equally with other new miners. The score earned there sets the opening leaderboard position.
 

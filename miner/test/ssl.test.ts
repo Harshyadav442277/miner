@@ -76,13 +76,35 @@ describe("checkCertificate (live)", { concurrency: 4 }, () => {
   test("valid certificates report a positive days_remaining", async () => {
     const r = await checkCertificate("github.com", 443, 12_000);
     assert.ok(r.days_remaining !== null && r.days_remaining > 0, `days_remaining=${r.days_remaining}`);
-    assert.ok(r.trusted);
-    assert.ok(r.hostname_match);
+    // trusted/hostname_match were dropped as separate fields: they duplicated
+    // what verdict already says, and the response had to fit Telegraph's prose
+    // conversion budget. verdict is the single source of truth.
+    assert.equal(r.verdict, "valid");
+    assert.equal(r.valid, true);
+    assert.match(r.reason, /trusted/i);
+    assert.match(r.reason, /Hostname validation passes/i);
   });
 
   test("expired certificates report a negative days_remaining", async () => {
     const r = await checkCertificate("expired.badssl.com", 443, 12_000);
     assert.ok(r.days_remaining !== null && r.days_remaining < 0, `days_remaining=${r.days_remaining}`);
-    assert.equal(r.expired, true);
+    assert.equal(r.verdict, "expired");
+    assert.equal(r.valid, false);
+  });
+});
+
+describe("conversion budget", () => {
+  // Telegraph converts a miner's JSON to prose before scoring it, and that
+  // conversion produced NOTHING when our response reached 862 bytes in epoch 285
+  // — every miner whose conversion succeeded was under ~430. This pins the
+  // response small so the sentence that actually gets scored reaches the scorer.
+  test("a reachable answer stays within the conversion budget", async () => {
+    const r = await checkCertificate("github.com", 443, 12_000);
+    assert.ok(JSON.stringify(r).length < 650, `${JSON.stringify(r).length} bytes`);
+  });
+
+  test("an unreachable answer stays within the conversion budget", async () => {
+    const r = await checkCertificate("no-such-host-xyz123-telegraph.invalid", 443, 8_000);
+    assert.ok(JSON.stringify(r).length < 650, `${JSON.stringify(r).length} bytes`);
   });
 });

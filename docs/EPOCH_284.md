@@ -455,3 +455,68 @@ trustworthy when the candidate comes from the deployed code.
 
 Periods are also now computed in the location's local time (`timezone=auto`), so "morning" means
 morning where the site is rather than in UTC.
+
+
+---
+
+# Epoch 285 — and the conversion size limit
+
+```
+SSL_VERIFICATION   rank 3 -> 2    0.00449 -> 0.00745   (txlens 0.00826)
+STORM_ALERT        rank 3 -> 2    0.00000 -> 0.00635   (zeus   0.00802)
+WEATHER_FORECAST   rank 7 -> 8    0.00699 -> 0.00761   (isobar 0.00889)
+```
+
+The storm zero is gone and we beat `amanat-weather-risk`, epoch 284's rank 1. But two findings
+explain why we are second rather than first.
+
+## 1. The engine sends only the parameters a miner declares
+
+It does not send the question. Comparing `input_schema` across the leaders:
+
+| Miner | Rank | Declares |
+|---|---|---|
+| `isobar-weather` | #1 weather | `days`, **`q`** |
+| `bittensor-sn18-zeus` | #1 storm | **`lat`**, **`lon`**, `forecast_hours` |
+| `livecert` (before) | 2nd | `domain`, `hours`, `location` |
+
+The epoch-285 records show the consequence directly. A storm question naming
+`latitude 37.7749 and longitude -122.4194` produced our answer *"no location was provided"* — the
+engine could not fit coordinates into `location` and sent an empty string. A weather question
+saying *"starting next Monday"* produced a forecast from **now**, because only `location=Tokyo`
+arrived.
+
+Every coordinate, date and threshold parser built for this miner was unreachable. The code now
+accepts `query`, `q`, `lat`, `lon`, `days`, `forecast_days` and `forecast_hours`, and the YAML
+declares them — but declaring them requires an `updateMiner`, which is a wallet action.
+
+## 2. Telegraph's prose conversion has a size limit, and we exceeded it
+
+Every scored record carries a `converted_answer`. Ours for epoch-285 SSL was **empty**:
+
+| Miner | epoch | answer bytes | converted |
+|---|---|---|---|
+| `txlens` | 285 | 383 | 124 chars |
+| `ssllabs` | 285 | 427 | 155 chars |
+| **`livecert`** | **285** | **862** | **EMPTY** |
+| `livecert` | 284 | 377 | 193 chars |
+| `certspotter` | 285 | 0 | EMPTY *(returns nothing)* |
+
+Every other empty conversion belongs to a miner returning **zero bytes**. We were the only miner
+with a real answer that failed to convert — and our response had doubled from 377 to 862 bytes the
+day before, when fields were added.
+
+**The prose the scorer reads is produced by that conversion.** All of yesterday's work on chain
+completeness, hostname validation and protocol reporting never reached it.
+
+Trimmed to 509 bytes (reachable) and 572-638 (unreachable) by removing fields that duplicated
+`verdict`, dropping cipher and key size from the sentence, and cutting one of three hostname
+repetitions. Measured against the champion afterwards:
+
+```
+unreachable  0.00949136   vs txlens 0.00826475   1.15x
+reachable    0.01063911   vs txlens 0.00826475   1.29x
+```
+
+So the trim cost about 1% of score and bought the conversion. A test now pins the response under
+650 bytes so this cannot regress silently.
