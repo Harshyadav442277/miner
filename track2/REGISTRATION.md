@@ -1,11 +1,14 @@
 # REGISTRATION.md — the user's runbook for registering the scorer
 
-> **⛔ ON HOLD 2026-08-27 — do not register yet.** The adversarial self-review
-> (`recon/2026-08-27-adversarial-review.md`) found 6 CRITICAL defects (punctuation-blind
-> exact-match, negation blindness, STORM answered-ness gate pinned open, IP_GEO score
-> saturation, unit-faking). A fix round is in flight; this notice is removed when the rebuilt
-> module passes the gate proxy AND the adversarial repro suite. The pinned URLs below will
-> change with the fixed build.
+> **✅ HOLD LIFTED 2026-08-27.** The adversarial review's 6 CRITICALs are fixed with
+> before/after receipts (`recon/2026-08-27-adversarial-review.md` + the fix-round summary in
+> MEMORY.md); the rebuilt module passes the full IP_GEOLOCATION gate proxy —
+> **independently re-verified** (margin 0.786 vs 0.596, wins 24/29 vs 22/29, self-match 1.0).
+> **Register IP_GEOLOCATION only.** STORM_ALERT structurally cannot pass the automated gate
+> (Spearman ceiling 0.593 < 0.60 after the anti-gaming fixes — a 72-build sweep; the agreement
+> gate entrenches the parrot-rewarding incumbent) and is part of the review narrative instead.
+> The pinned URL below is the FIXED build (repo commit `f89d380`), byte-verified against the
+> hosted copy.
 
 Claude prepares; **the user clicks**. Registration is `registerWasm` on the Diamond — gas-only,
 no bond, reversible (`deregisterEntity(<id>, 2)`). Even a rejection returns the node's official
@@ -34,12 +37,11 @@ Published: **https://github.com/Harshyadav442277/telegraph-factscore** (public, 
 section in the README, commit `4031111`). Pinned wasm URLs for the console:
 
 ```
-IP_GEOLOCATION:
-https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/4031111d62d53f4cd753aad261fd5a17287bece9/dist/ip_geolocation.wasm
-
-STORM_ALERT:
-https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/4031111d62d53f4cd753aad261fd5a17287bece9/dist/storm_alert.wasm
+IP_GEOLOCATION (the FIXED build — register this one):
+https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/f89d380a906dc7e377614038cdcf62f03e6131ca/dist/ip_geolocation.wasm
 ```
+
+(STORM_ALERT is deliberately not offered for registration — see the hold-lifted note above.)
 
 ## Step 1 — hosted bytes verified — **DONE 2026-08-27**
 
