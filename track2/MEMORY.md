@@ -4,6 +4,61 @@
 
 ---
 
+## ⇢ HANDOVER — 2026-08-27 23:30 IST · read this before anything else
+
+**Status: registered on-chain, verdict NOT yet known.** Nothing has gone wrong; nothing is won.
+
+```
+IP_GEOLOCATION   registrationId 1377   status PENDING   is_champion false   eval: (none yet)
+                 tx 0x0c79f0766ed82001…c9286a7a  ·  Base Sepolia
+                 wallet 0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e
+                 keccak256 0xe427a7f0417a9563eeef53a3bd63a5f139…
+                 wasm: telegraph-factscore @ c8ec872 /dist/ip_geolocation.wasm (19,628 B)
+                 registered 2026-08-27 23:27:17 IST; incumbent champion is reg 630 (zkasuran)
+```
+
+**The one thing to check first:**
+```bash
+curl -s "https://devnode.telegraphprotocol.com/api/wasm?intent=IP_GEOLOCATION" \
+  | node -e "let d='';process.stdin.on('data',c=>d+=c).on('end',()=>{const j=JSON.parse(d);const r=j.intents.IP_GEOLOCATION;const o=[r.champion,...(r.entries||[])].filter(Boolean).find(e=>String(e.registration_id)==='1377');console.log(o?JSON.stringify({status:o.activation_status,champion:o.is_champion,eval:o.eval,reason:o.rejection_reason},null,1):'not listed')})"
+```
+Look up by **registrationId 1377**, never by slug or by the console dashboard (it lags 2–3 min).
+
+**Three outcomes and what each means:**
+- `active` + `is_champion: true` → **we hold the IP_GEOLOCATION champion slot. That is rank 1.**
+  Record the eval block, update REGISTRATION.md's table, and post the result on X.
+- `rejected` → read `rejection_reason` + `eval`. Those are the node's numbers on its **hidden**
+  fixtures — the calibration we could never get offline (GAPS G11). Feed `candidate_margin` vs
+  `champion_margin` back into the tuning loop; re-registering costs only gas.
+- still `pending` after ~30 min → the fixture gate has a 10-minute budget and a 3-attempt cap;
+  a much longer pending is unusual, re-poll before assuming anything.
+
+**Do NOT press DEREGISTER** in the console unless deliberately withdrawing.
+
+**Second registration is queued but deliberately held:** `STORM_ALERT` (URL in REGISTRATION.md,
+same commit). Held until 1377 resolves, because STORM passes our proxy by only 0.0005 on the
+Spearman check (0.6005 vs the 0.60 floor) and 1377's verdict is the only evidence of how our proxy
+corpus maps to the node's real fixtures. **Do not register SSL_VERIFICATION** — measured loss
+(GAPS G13).
+
+**User actions still outstanding:** post the X thread ([X_THREAD.md](X_THREAD.md), 1a→1b→1c, all
+verified ≤280 chars, 1c carries the mandatory disclosure). Nothing else.
+
+**For a reviewing agent — where the substance is:**
+- [PROOF.md](PROOF.md) — the reviewer-facing measured case (hash-guarded, one-command regenerable
+  via `harness/make-proof.mjs`).
+- [recon/2026-08-27-node-gate-analysis.md](recon/2026-08-27-node-gate-analysis.md) — the promotion
+  gate and every constant, recovered from redacted docs + 1,033 live rejections.
+- [recon/2026-08-27-adversarial-review.md](recon/2026-08-27-adversarial-review.md) — our own
+  red-team: 6 CRITICAL found and fixed.
+- [scorer/README.md](scorer/README.md) — design, honest limitations, disclosure.
+- **Known-weak spots to probe if reviewing:** the entity-swap class was a *late* catch (a wrong
+  city scored a perfect 1.0000 until the final fix — found by probing the hosted binary, not the
+  corpus); IP_GEO REAL-PARROT is 3/8, below the incumbent's 4/8; the SSL generic build loses
+  outright (Spearman −0.22). All three are documented, none are hidden.
+
+---
+
 ## Where things stand — 2026-08-27
 
 **Day 1 of the Track 2 pivot.** User directive: go for **rank 1 in Track 2 (Script Authors)**;
