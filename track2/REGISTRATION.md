@@ -133,9 +133,17 @@ Include in the scorer README and the X post, verbatim or equivalent:
 
 ```
 intent            registrationId    status      candidate_margin    bar faced    date
-IP_GEOLOCATION    1377              pending     —                   —            2026-08-27
-STORM_ALERT       —                 —           —                   —            —
+IP_GEOLOCATION    1377              REJECTED    0.87751794          0.99185944   2026-08-27
+STORM_ALERT       —                 (held)      —                   —            —
 ```
+
+**Rejection detail (reg 1377)** — lost on ordering, 14/15 vs the champion's 15/15:
+> "lost to the current champion on ordering: your scorer ranked the good answer above the bad one
+> on fewer fixture cases than the champion (you: 14 of 15, champion: 15 of 15)."
+
+Passed: `worst_self_match 1.0`, `score_stddev 0.4654`. Spearman **skipped**
+(`historical_rows_evaluated: 0`) exactly as predicted for a single-miner intent.
+**The real bar is 15/15 wins and margin > 0.99186** — measured, not inferred.
 
 **IP_GEOLOCATION — registered 2026-08-27**
 ```

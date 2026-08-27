@@ -6,16 +6,57 @@
 
 ## ⇢ HANDOVER — 2026-08-27 23:30 IST · read this before anything else
 
-**Status: registered on-chain, verdict NOT yet known.** Nothing has gone wrong; nothing is won.
+**Status: REG 1377 REJECTED — and it returned the calibration data we could not get offline.**
+Lost on **ordering by one fixture case**: 14 of 15 vs the champion's 15 of 15.
 
 ```
-IP_GEOLOCATION   registrationId 1377   status PENDING   is_champion false   eval: (none yet)
+VERDICT reg 1377 (2026-08-27 ~23:45 IST)   REJECTED
+  candidate_margin  0.87751794      champion_margin  0.99185944
+  candidate_wins    14 / 15         champion_wins    15 / 15
+  worst_self_match  1.0  PASS       score_stddev     0.4654  PASS
+  historical_rows_evaluated  0  →  Spearman SKIPPED (predicted correctly)
+  reason: "lost to the current champion on ordering: your scorer ranked the good answer above
+           the bad one on fewer fixture cases than the champion (you: 14 of 15, champion: 15 of
+           15). Score correct answers above wrong ones more consistently."
+```
+
+### THE FINDING THAT CHANGES THE STRATEGY — our proxy corpus mismeasured the incumbent
+
+| | our proxy said | the node measured |
+|---|---|---|
+| **our** margin | 0.814 | **0.878** (proxy was conservative — fine) |
+| **champion's** margin | 0.438 | **0.992** (proxy understated them by 2.3×) |
+
+The node's fixtures are **clean good-vs-bad pairs**, not adversarial ones. On those the incumbent
+is near-perfect (0.992, 15/15). Our corpus is full of parrots, entity swaps and refusals — cases
+where the incumbent genuinely fails — so it made them look weak (0.438) and flattered our relative
+position. **The gate does not test the pathologies our whole thesis is about.**
+
+**Therefore the fix is not "punish wrong answers harder" — we already do. It is "score
+correct-but-differently-worded answers closer to 1.0."** Our own measurements show the gap:
+verbatim-correct 1.0000 but *reworded*-correct only **0.8785**. A precision-of-answer scorer
+charges an answer for prose the ground truth does not restate; the incumbent, being lexically
+generous, gives such answers ~1.0. That single behaviour explains both the lost case and the
+margin shortfall. **Raise the ceiling for genuinely-correct rewordings without loosening the
+wrong-fact penalties, then re-register (gas only).**
+
+The bar to beat is now known exactly: **15/15 wins and margin > 0.99186.**
+
+```
+IP_GEOLOCATION   registrationId 1377   status REJECTED   is_champion false
                  tx 0x0c79f0766ed82001…c9286a7a  ·  Base Sepolia
                  wallet 0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e
                  keccak256 0xe427a7f0417a9563eeef53a3bd63a5f139…
                  wasm: telegraph-factscore @ c8ec872 /dist/ip_geolocation.wasm (19,628 B)
                  registered 2026-08-27 23:27:17 IST; incumbent champion is reg 630 (zkasuran)
 ```
+
+**Next action (concrete):** rebuild with a higher ceiling for correct rewordings — target
+verbatim-correct **and** reworded-correct both ≈1.0, while a wrong city stays ~0.30 and a wrong
+figure stays ~0.002. Validate with the *existing* harness (it still guards the anti-gaming
+classes), then re-register. Re-registration is a fresh `registerWasm` — a new registrationId,
+gas only. Also: **rebuild the proxy corpus to include clean good-vs-bad pairs** so it stops
+flattering us; add a fixture class CLEAN-PAIR mirroring what the node actually tests.
 
 **The one thing to check first:**
 ```bash
