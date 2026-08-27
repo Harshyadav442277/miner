@@ -64,6 +64,18 @@ Live: https://explorer.telegraphprotocol.com/miners/livecert
    Prepare and validate; the human clicks.
 5. **Session end** — update `MEMORY.md`, `GAPS.md`, `TASKS.md`; commit.
 
+## Git hygiene in a shared repo
+
+Agents write into this repo concurrently, some of them incrementally in the background.
+
+- **Stage explicit paths. Never `git add -A` or `git commit -a`.** A blanket add captures another
+  agent's half-written files — that has already happened once here, sweeping Track 2's in-progress
+  planning docs into a Track 1 commit.
+- **`fable_review_audit.md` belongs to the read-only audit session.** Leave it unstaged.
+- **Fetch before assuming you are behind.** `git fetch` then `git log HEAD..origin/main` shows
+  another agent's work without touching your working tree, which matters when someone else has a
+  file open mid-write.
+
 ## Automation
 
 | Workflow | Cadence | Does |
