@@ -101,6 +101,32 @@ now falls back to the cleaned input itself; "since/after YYYY" and bare year-pai
 parse; a trailing date clause no longer leaks into the topic. 108 tests, deployed to production,
 verified live. `miner.yaml` untouched — the operator package and its hash are unchanged.
 
+**PRE-TUNED THE FIVE UNREGISTERED INTENTS — 2026-08-27 ~18:30 UTC.** Champion WASMs for all five
+downloaded and validated (`tools/pretune-intents.mjs` runs the whole loop; set `PRETUNE_DIR` to a
+folder with `<name>.wasm` + `scores_<INTENT>.json`). Means over every distinct real recorded
+question, deployed code only:
+
+```
+CVE_LOOKUP            0.00218 -> 0.32609   150x. Beats patchsignal-cve on 9 of 11 scoreable Qs.
+CONTENT_EXTRACTION    1.00000              6/6 perfect vs incumbent 0.0000.
+LANGUAGE_TRANSLATION  0.61434              9/9 wins vs the two mymemory incumbents.
+ACADEMIC_SEARCH       0.02952              18/19 wins.
+NEWS_HEADLINES        0.00626              18/22; stale-GT ceiling — headlines rotated since GT.
+```
+
+**THE CVE CHAMPION IS A DIFFERENT REGIME.** It is patchsignal's own scorer (same author as the
+rank-1 CVE miner), and unlike the zkasuran salience family it **collapses on detail**: the same
+facts scored 0.98 as three compact sentences and 0.009 with the multi-range version list or the
+NVD description appended. "Fuller answers score better" does NOT hold there — facts in fields,
+answer in prose, and the prose opens in the question's own shape ("The CVSS score for X is 10,
+indicating a Critical severity level. Affected versions include Apache Log4j versions before
+2.15.0. It is listed in CISA's KEV catalog…"). CVE answers now also carry `affected_versions`
+(detailed ranges, description-named product first) and `known_exploited` as fields, and /cve
+caches by CVE id so rephrasings cannot burn NVD's 5-per-30s limit.
+
+Headlines answers are now numbered, honor "top N" counts, and frame as "The top 5 business
+headlines from Great Britain today, as of <date>, are: 1. …" — the questions' own wording.
+
 ## 3. Endpoints — 9 built, all live, all keyless
 
 | Path | Intent | Registered? | Source |
