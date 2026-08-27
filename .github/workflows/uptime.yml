@@ -107,12 +107,12 @@ jobs:
         run: node track1-miner/tools/record-scores.mjs
       - name: Commit if new
         run: |
-          if git diff --quiet -- docs/score-history.jsonl; then
+          if git diff --quiet -- track1-miner/docs/score-history.jsonl; then
             echo "nothing new"
             exit 0
           fi
           git config user.name "Harshyadav442277"
           git config user.email "theageofprimes@gmail.com"
-          git add docs/score-history.jsonl
+          git add track1-miner/docs/score-history.jsonl
           git commit -m "Record epoch scores"
           git push

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Appends this epoch's per-intent scores to docs/score-history.jsonl.
+ * Appends this epoch's per-intent scores to track1-miner/docs/score-history.jsonl.
  *
  * Scoring is the only feedback loop we have, it runs on the network's schedule
  * rather than ours, and the API only exposes the latest epoch — so a score not
@@ -10,11 +10,16 @@
  * Writes nothing when the epoch is already recorded, so it is safe to run often.
  */
 import { readFile, writeFile, mkdir } from "node:fs/promises";
+import { fileURLToPath } from "node:url";
 import { dirname } from "node:path";
 
 const NODE = process.env.TELEGRAPH_NODE ?? "https://devnode.telegraphprotocol.com";
 const SLUG = process.env.MINER_SLUG ?? "livecert";
-const OUT = process.env.SCORE_HISTORY ?? "docs/score-history.jsonl";
+// Resolved against this file, not the working directory. A relative default wrote
+// a stray docs/score-history.jsonl at the repo root when run from anywhere but
+// track1-miner/, silently splitting the history in two.
+const OUT =
+  process.env.SCORE_HISTORY ?? fileURLToPath(new URL("../docs/score-history.jsonl", import.meta.url));
 const INTENTS = ["SSL_VERIFICATION", "STORM_ALERT", "WEATHER_FORECAST"];
 
 const res = await fetch(`${NODE}/api/miners`, { signal: AbortSignal.timeout(25_000) });
