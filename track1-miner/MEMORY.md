@@ -9,26 +9,36 @@ Last updated: 2026-08-27 ~08:30 UTC, before epoch 286 (lands ~09:37 UTC).
 
 ## 1. What needs the operator, right now
 
-**One signature.** `miner.yaml` declares **9 intents**; registration 236 has **4**. The other five
-are built, deployed, tested, and answering — they are simply not declared on-chain, so no traffic
-routes to them.
+**One signature — but on the CORRECTED manifest.** The Codex audit
+([codex_audit.md](codex_audit.md), 2026-08-28) found the old 9-intent YAML unsafe to sign: its
+NVD `limitations` block counts **node-wide per miner**, which would throttle every intent —
+including all three rank-1 paths — to 5 requests per 30 s.
+
+**NEVER sign hash `0xf8eea144…5236803` (the 9-intent version).**
+
+`miner.yaml` is now the **six-intent manifest**: the current four + `LANGUAGE_TRANSLATION` +
+`ACADEMIC_SEARCH`. CVE dropped (patchsignal now scores 0.9847 there — the opening closed);
+CONTENT_EXTRACTION and NEWS_HEADLINES deferred (below the 3-miner floor even with us). No
+`limitations` block. `/cve`, `/extract`, `/headlines` stay deployed but undeclared.
 
 ```
-hash to expect: 0xf8eea144c2a4f10a0e347caeb2a503a9590274b011fa4444ddca7982b5236803
+hash to expect: 0x50b036adf9c1faa65b1eb55efc3c089e025117028df8dde4ec701a016d07fd8d
 ```
+
+Go/no-go gates, all passed 2026-08-27 ~19:3x UTC: every declared endpoint has an acceptance
+check (verify-deploy, 24 checks green), fresh champion replay — translation mean 0.614, 9/9 wins
+(leader mean 0.161); academic 0.028, 19/20 (leader 0.002) — 109 tests + typecheck pass, hash
+recorded above. Remaining: **sandbox-validate the exact file at the console, then the user signs.**
 
 integrate.telegraphprotocol.com -> **Connect** (Base Sepolia) -> **Import & Upload** -> upload
 `miner.yaml` -> **REQUIRES API KEY toggle OFF** -> **Validate** -> sign.
 
 The console creates a **new registration** rather than editing 236. That is fine for our own slug:
 225 went `superseded` when 236 activated. Capture the new `registrationId` and record it here.
+Registration 236 stays active and untouched until the replacement is confirmed `active`.
 
 **Claude never signs.** No wallet connect, no transaction, no seed phrase. Prepare and validate;
 the operator clicks.
-
-Package re-verified 2026-08-27 ~08:07 UTC: `miner.yaml` hashes to exactly the value above, and
-**all 9 declared intents are `canonical: true`** on the live engine list (`/engine/v1/intents`,
-45 canonical on-chain). Nothing blocks the signature.
 
 **Second thing that needs a human: X.** 25% of the Track 1 score, judged on quality, consistency
 and reach. Drafts in `../docs/X_POSTS.md`. Replying under Telegraph posts reaches an existing
@@ -44,14 +54,21 @@ explorer       https://explorer.telegraphprotocol.com/miners/livecert
 repo           https://github.com/Harshyadav442277/miner
 ```
 
-**Epoch 286 scores** (landed 2026-08-27 ~09:37 UTC; see `docs/score-history.jsonl`):
+**Epoch 287 scores** (landed 2026-08-27 ~18:37-19:00 UTC; see `docs/score-history.jsonl`):
 
 ```
-IP_GEOLOCATION      #1          0.99209   <-- RANK 1
-SSL_VERIFICATION    #1          0.00973   <-- RANK 1
-STORM_ALERT         #1          0.00968   <-- RANK 1
-WEATHER_FORECAST    #6          0.00749   gap 0.00234 to leader
+IP_GEOLOCATION      #1          0.99204   <-- RANK 1 held
+SSL_VERIFICATION    #1          0.00973   <-- RANK 1 held
+STORM_ALERT         #1          0.01045   <-- RANK 1 held, score up
+WEATHER_FORECAST    #4          0.00870   gap 0.00207 to verity (was #6)
 ```
+
+Epoch 287's weather question moved to New York with explicit lat/lon; the engine sent
+`?hours=168&lat=40.7128&lon=-74.0060` (captured live in Vercel logs — the definitive proof of
+params-only delivery). The dual-form span fix ("7-day (168-hour) hourly") plus `span_days` is
+deployed for epoch 288 (~03:37 UTC).
+
+Epoch 286 was #1/#1/#1 with weather #6 (0.00749).
 
 The explorer's "Top miners" page now lists livecert as **#1 in three intents**. Caveats that keep
 this honest: IP_GEOLOCATION has only **2 miners**, below the 3-miner eligibility floor, and every
