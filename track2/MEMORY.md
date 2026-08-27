@@ -82,11 +82,20 @@ GAME_RESULT, SSL_VERIFICATION, CVE_LOOKUP, IP_GEOLOCATION, URL_SCAN.
   scores 0.011, at 17 words 0.992; one synonym swap collapses it; **a contentless question-echo
   scores 0.9933, identical to a real answer**. The scorer cannot tell answered from unanswered.
   This is the definitive 50%-axis exhibit AND the hole our scorer must provably close.
-- **Agent C (running)** — hunting `telegraph-subnet` for the node's gate implementation, the
-  unpublished benchmark, exact floors, and the `converted_answer` generator →
-  `recon/2026-08-27-node-gate-analysis.md`.
-- **Toolchain**: absent locally (no cargo/rustc/wasm32). Install agent running (rustup + target +
-  ABI-skeleton proof build).
+- **`recon/2026-08-27-node-gate-analysis.md`** (Agent C) — **the whole gate recovered.** Constants
+  (all pinned, two sources): stddev **>0.05**, self-match **≥max(0.75,incumbent)**, Spearman
+  **≥0.60** (skipped <2 miners), margin **strictly > champion** AND **≥0.15** (docs wrongly say ≥),
+  wins **≥** champion, whole gate **<10 min**. Scored text is `converted_answer` (flat, "The data…",
+  2.25× shorter than GT) → **score precision-of-answer, not recall-of-truth**; empty answers (~47%)
+  and content-filter refusals → ~0. Bar **drifts with fixture rotation** → timing registration is a
+  lever. Current champion_margin bars: IP_GEOLOCATION 0.992 (single miner, no Spearman), STORM 0.859
+  (lowest), SSL 0.913, CVE 0.933, WEATHER 0.989 (Spearman on). Fixture CONTENTS unrecoverable (G11).
+- **Target locked (ARCHITECTURE A6):** 1) IP_GEOLOCATION (no Spearman, not mined → no conflict; high
+  bar), 2) STORM_ALERT (lowest bar; Spearman + mined), 3) SSL. Decide final by live poll at
+  registration. One generic scorer tuned per intent; register on several soft targets.
+- **Toolchain**: INSTALLED and proven 2026-08-27 (rustc 1.98, wasm32-unknown-unknown, wasm-tools;
+  274-byte ABI proof wasm, 0 imports, Node-verified). Build gotchas in GAPS G6 — PATH freshness,
+  `addr_of_mut!`, non-trapping alloc. Seed crate: scratchpad `abi_probe`.
 
 **Repo state:** the user's per-track reorg is committed and pushed (`938002a`); an earlier sweep
 committed track2/ docs, so track2/ is tracked — commit scoped (`git add track2 …`), never `-A`

@@ -37,29 +37,44 @@ Prizes are per script ("Top 3 scripts win"). If multiple entries are allowed, a 
 per-intent scripts is multiple lottery tickets under one manual review; if not, one script must
 carry everything. Changes ARCHITECTURE A6.
 
-### G5 · The node's built-in benchmark is unpublished — `CHECKING (Opus agent C)` · **highest-leverage unknown**
-Stage 2 runs on a **fixed built-in benchmark** (questions with known-good/known-bad answers) whose
-contents are not in the docs. If Agent C finds it in `telegraph-subnet` (the likely node source),
-we can run the true gate offline and iterate to a guaranteed-pass candidate before any
-transaction. If not found: build our gate-proxy from FIXTURES.md + real `/scores` traffic, and
-use cheap real registrations as authoritative feedback. Also missing: the absolute margin floor,
-stddev floor, Spearman threshold/window — Agent C hunting all of them.
+### G5 · The node's promotion gate — `CLOSED (mechanism + all constants)` — 2026-08-27
+Fully recovered (`recon/2026-08-27-node-gate-analysis.md`) from a redacted-then-restored
+`telegraph-docs` page in git history + 1,033 live rejection strings, two sources agreeing on every
+number. Constants: stddev **>0.05**, self-match **≥max(0.75, incumbent)**, Spearman **≥0.60**
+(skipped <2 miners), margin **strictly > champion** AND **≥0.15**, wins **≥** champion (ties OK),
+whole-gate **<10 min** (3 attempts). Corrected a wrong public doc: margin is strict `>`, not `≥`.
+The real node is closed-source Go (`AnomalyFi/Telegraph`); `telegraph-subnet` was a dead end
+(abandoned Bittensor repo). See ARCHITECTURE A8.
 
-### G6 · Local Rust/WASM toolchain — `CLOSED (absent; install running)` — 2026-08-27
-Agent B: no cargo/rustc, no wasm32 target on this machine. An Opus agent is installing rustup +
-`wasm32-unknown-unknown` + wasm-tools and proving the pipeline with an ABI-skeleton crate verified
-from Node. Until it lands, no local builds.
+### G11 · Fixture CONTENTS are unrecoverable — `OPEN (accepted, mitigated)` · **the residual risk**
+The ~15 per-intent benchmark fixtures live only inside the closed Go node; no endpoint serves
+them and they rotate (weather bar swung 0.53→0.99 in 48 h). We therefore optimize against a
+**proxy corpus** built from real `/scores` traffic — which §3.1 argues is plausibly the fixtures'
+actual source, but this is inference. Mitigations: (1) build the proxy from the same distribution;
+(2) register at a champion_margin local low (timing lever); (3) a real registration is gas-only
+and reversible, so the on-chain gate is the final, cheap confirmation. This is the single most
+likely way an excellent scorer still fails to promote.
 
-### G9 · Spearman-agreement tension — `OPEN, design-critical`
-To dethrone an incumbent where traffic history exists, a candidate must "broadly agree" (Spearman;
-threshold unknown → G5) with the champion's ranking of real answers — but our scorer deliberately
-disagrees exactly where the champion is wrong (contentless echo ≈ real answer, parrot over
-substance). Feasibility signals: the current WEATHER champion was promoted with `spearman 0.813`
-on 21 rows, so ~0.8 sufficed there; and `historical_rows_evaluated: 0` **skips the traffic check
-entirely** — SSL had 1 row, STORM 10, WEATHER 21, and thin intents (CVE_LOOKUP, IP_GEOLOCATION…)
-likely 0. Mitigation: the harness must compute our candidate's Spearman vs the live champion over
-real `/scores` rows per intent BEFORE any registration; where agreement can't clear the bar while
-fixing the pathologies, prefer zero-history intents.
+### G6 · Local Rust/WASM toolchain — `CLOSED (installed and proven)` — 2026-08-27
+rustup 1.29.0 / rustc 1.98.0 / cargo 1.98.0 / wasm-tools 1.258.0 via winget; MSVC host linker
+verified; `wasm32-unknown-unknown` target added. Proof build: a `#![no_std]` ABI-skeleton crate
+(`scratchpad/abi_probe`) compiling to a **274-byte** wasm with **0 imports**, passing Node checks
+(blank→0.0, unicode OK, bump allocator sane). Gotchas recorded for the build: (1)
+`C:\Users\hyada\.cargo\bin` was added to the **User** PATH — shells opened before the install
+can't see it, so build steps should prepend it or use full paths; (2) use
+`core::ptr::addr_of_mut!(HEAP)` (edition-2024 denies `static_mut_refs`); (3) `alloc` returns 0 on
+exhaustion and `rank_answer` treats `ma_len <= 0` as blank rather than trapping — a deliberate
+choice to keep malformed host calls at 0.0 instead of a hung `loop {}` panic handler.
+
+### G9 · Spearman-agreement tension — `OPEN but bounded` — sharpened 2026-08-27
+Threshold is **0.60** (not high), gated on **≥2 distinct miners** (row count is irrelevant; a
+single-miner intent skips it entirely). The tension is real — we deliberately disagree with the
+champion on the parrot/refusal cases — but bounded: a scorer that ranks the broad mass of answers
+similarly (correct high, garbage low) and diverges on only a handful of adversarial rows keeps a
+rank correlation well above 0.60 over ~15 rows; the champion itself only scored 0.81. Two escape
+hatches: **IP_GEOLOCATION is single-miner → no Spearman**; and the harness computes our candidate's
+Spearman vs the live champion over real `/scores` rows per intent before any registration. Where it
+can't clear 0.60 while fixing the pathologies, prefer a single-miner intent.
 
 ### G10 · Authoring a scorer for an intent we also mine — `OPEN, organizer question`
 The rules are silent (fable_review_audit.md §8, read 2026-08-27), and the Track 1 session's

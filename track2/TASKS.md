@@ -16,13 +16,17 @@ One task = one change = one commit. Work top-down. Owner in brackets.
       `recon/2026-08-27-track2-scorer-spec.md`. G1/G3 closed.
 - [x] **T-A.4** [Opus] Baseline source analysis → `recon/2026-08-27-baseline-analysis.md`.
       G6 answered (toolchain absent).
-- [ ] **T-A.5** [Fable] After Agent C: close G5, lock ARCHITECTURE A6 + target portfolio.
+- [x] **T-A.5** [Fable] G5 closed (gate + all constants), G11 opened (fixtures unrecoverable),
+      ARCHITECTURE A1/A2/A3/A6/A8 locked, target portfolio ordered (IP_GEOLOCATION → STORM → SSL).
 - [ ] **T-A.6** [User] Two Discord questions: Track 2 ranking formula; scorer-for-mined-intent
       legitimacy (G10). Also glance for any extra submission artifact the judges expect (G1
       residual).
-- [ ] **T-A.7** [Opus·running] Node gate + benchmark + converted_answer hunt in
-      `telegraph-subnet` → `recon/2026-08-27-node-gate-analysis.md`. (G5)
-- [ ] **T-A.8** [Opus·running] Rust→WASM toolchain install + ABI-skeleton proof build. (G6)
+- [x] **T-A.7** [Opus] Node gate recovered → `recon/2026-08-27-node-gate-analysis.md`. All
+      constants pinned; `telegraph-subnet` was a dead end, gate found in git-history docs + live
+      rejections.
+- [x] **T-A.8** [Opus] Rust→WASM toolchain installed + ABI-skeleton proof build passing
+      (274-byte wasm, 0 imports; seed crate in scratchpad `abi_probe`). G6 closed with
+      build gotchas recorded.
 
 ## Phase B — Design + fixtures
 
