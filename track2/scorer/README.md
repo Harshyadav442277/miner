@@ -2,7 +2,7 @@
 
 A freestanding `wasm32-unknown-unknown` scoring module, ~13.9 KB, **zero imports**, no allocator,
 no clock, no randomness, no transcendental maths. One Rust source tree compiled once per intent
-(ARCHITECTURE A6), the same shape the incumbent uses.
+via constant profiles, the same shape the incumbent uses.
 
 **Scoring in one line:** weight each token by how much it decides the answer, measure how much of
 what the *answer asserts* the ground truth supports, gate on whether the answer said anything the
@@ -15,7 +15,7 @@ calibrate with a smoothstep instead of a step.
 
 The text actually scored is `converted_answer` — a flat third-person summary, 86.9% of which opens
 literally `"The data …"`, and a median **2.25× shorter** than the markdown ground truth
-(`recon/2026-08-27-node-gate-analysis.md` §4.1). Any scorer built on symmetric overlap or on
+(measured over 515 public score records). Any scorer built on symmetric overlap or on
 *recall of the truth* is structurally penalised, which is why live medians sit near 0.006.
 
 So this module scores **precision of the answer**: of what the answer asserts, how much does the
@@ -45,10 +45,10 @@ incumbent rather than a stylistic preference:
   truths*, not the answers (8 of 15 weather GTs are hedged; 40 of 58 sub-0.02 rows). When the
   ground truth is itself refusal-shaped, a hedged answer is the correct answer and the gate opens
   fully rather than zeroing everything.
-- **No embedding in the hot path** (A2). The whole pipeline is integer and `f32` arithmetic —
+- **No embedding in the hot path.** The whole pipeline is integer and `f32` arithmetic —
   `core` has no `powf`/`exp`/`sqrt` and pulling in libm would add host imports. It also means the
   full fixture gate projects to ~10 s of the node's 600 s budget.
-- **No miner fingerprints** (A4). No slug, wallet, field name or phrasing is matched, favourably
+- **No miner fingerprints.** No slug, wallet, field name or phrasing is matched, favourably
   or otherwise. The `OUR-STYLE-WRONG` fixture class exists to prove it: a `livecert`-shaped answer
   with wrong facts loses to a competitor-shaped answer with right facts, 1/1 on both intents.
 
@@ -190,7 +190,7 @@ mode a Tier-A deterministic intent cannot tolerate.
 ## Honest limitations
 
 - **The corpus is a proxy, not the node's benchmark.** The node's fixtures are closed-source and
-  unrecoverable (GAPS G11). What transfers is the *comparison* against a pinned incumbent binary,
+  unrecoverable. What transfers is the *comparison* against a pinned incumbent binary,
   not the absolute numbers.
 - **STORM_ALERT trades the parrot exhibit for Spearman.** That intent has ~4 miners, so gate C is
   enforced, and the incumbent is a lexical scorer that *rewards* contentless echoes. Agreeing with
@@ -200,9 +200,28 @@ mode a Tier-A deterministic intent cannot tolerate.
 - **If only one intent is registered first, register IP_GEOLOCATION.** It has no Spearman
   constraint, the larger margin delta (+0.188 vs +0.156), and it is where the thesis is fully
   expressed. Its live margin bar is also the highest of any target (~0.992), so re-poll
-  `/api/wasm` for the current bar and register at a local low (A6).
+  `/api/wasm` for the current bar and register at a local low.
 - **Tuning was measured, not guessed**, but only against this corpus. The sweep imports the
   harness's own `corpus.mjs` so the Spearman set optimised is byte-identical to the one the gate
   reads — an earlier sweep against a hand-rolled proxy reported ρ 0.639 where the harness measured
   0.538, which is precisely the error that makes a candidate fail on-chain after passing locally.
 - `breakdown_answer` is debug-only and is never called by either gate.
+
+## Prior art and method
+
+The incumbent champion — `zkasuran/telegraph-salience-scorer` (MIT) — was studied openly, both
+its published source and its compiled behaviour, and several of its sound ideas (salience
+weighting, a normalized exact-match short-circuit, multiplicative penalties for decisive-fact
+disagreement) shaped this design. This module is an independent implementation, not a fork; where
+the two disagree — precision-of-answer vs recall-of-truth, smoothstep vs step calibration, typed
+unit normalisation, the answered-ness gate — the choice was made by measurement against public
+score records and the incumbent's own binaries, and the reasoning is recorded in `tune.md`.
+
+## Disclosure
+
+The author of this scoring module also operates the Track 1 miner `livecert` (registration 225),
+which serves intents including STORM_ALERT and IP_GEOLOCATION. The module encodes general intent
+correctness — its test corpus includes cases where livecert's own answer style is scored **down**
+when factually wrong (the `OUR-STYLE-WRONG` class) — and the overlap was proactively disclosed to
+the hackathon organizers, who will flag it for transparent review. No slug, wallet, field name or
+phrasing is matched by the scoring logic, favourably or otherwise.

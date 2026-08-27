@@ -21,24 +21,24 @@ The proxy is apples-to-apples on our corpus; the node measures on ~15 hidden, ro
 (GAPS G11). The bar column is what the last real challenger faced. Expect the first attempt to be
 a measurement, not a guaranteed promotion.
 
-## Step 0 — hosting (user decision, one-time)
+## Step 0 — hosting — **DONE 2026-08-27**
 
-The wasm needs a stable public URL. **Recommended:** a new small public GitHub repo (e.g.
-`telegraph-factscore`) containing `dist/*.wasm`, `src/`, `README.md` (with the disclosure section
-below), and `tune.md`. Use a **commit-pinned raw URL** (`raw.githubusercontent.com/<user>/<repo>/
-<commit-sha>/dist/ip_geolocation.wasm`) — the champion uses the same pattern. This also serves the
-30% code-quality axis (public, reviewable source) and the 10% adoption axis.
+Published: **https://github.com/Harshyadav442277/telegraph-factscore** (public, MIT, disclosure
+section in the README, commit `4031111`). Pinned wasm URLs for the console:
 
-Do **not** make the main hackathon repo public for this — it contains competitive analysis.
+```
+IP_GEOLOCATION:
+https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/4031111d62d53f4cd753aad261fd5a17287bece9/dist/ip_geolocation.wasm
 
-## Step 1 — verify the hosted bytes (Claude can run this once the URL exists)
-
-```bash
-curl -sL "<raw-url>/dist/ip_geolocation.wasm" -o /tmp/hosted.wasm && cmp /tmp/hosted.wasm track2/scorer/dist/ip_geolocation.wasm && echo BYTES MATCH
+STORM_ALERT:
+https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/4031111d62d53f4cd753aad261fd5a17287bece9/dist/storm_alert.wasm
 ```
 
-4 live registrations died on `wasm hash mismatch` — this catches that class entirely. (The
-console computes keccak256 of what it fetches; if bytes match, the hash matches.)
+## Step 1 — hosted bytes verified — **DONE 2026-08-27**
+
+All three hosted binaries byte-match the local builds (`cmp` clean: 13,870 / 13,852 / 13,869
+bytes). The `wasm hash mismatch` rejection class (4 live occurrences) is eliminated — the console
+hashes what it fetches, and what it fetches equals what we tested.
 
 ## Step 2 — register IP_GEOLOCATION first
 
