@@ -7,9 +7,13 @@ Everything in this folder is Track 1. Nothing outside it is.
 
 ---
 
+**New session? Read [MEMORY.md](MEMORY.md) first** — current state, what needs the operator, and
+the findings that would otherwise cost you a day to rediscover.
+
 ## Layout
 
 ```
+MEMORY.md       session handoff — READ FIRST
 miner/          the service — Node, zero runtime dependencies, TypeScript
 miner.yaml      the registered manifest (public, pinned to IPFS, hashed on-chain)
 tools/          measurement and operations

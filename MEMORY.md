@@ -5,7 +5,23 @@ sessions and between models.
 
 ---
 
+## Where to go, by track
+
+| Working on | Read |
+|---|---|
+| **Track 1 — miner** | **[track1-miner/MEMORY.md](track1-miner/MEMORY.md)** — the authoritative Track 1 handoff. Current state, what needs the operator, the rules that survived measurement, and the theories that did not. |
+| **Track 2 — scorer** | [track2/MEMORY.md](track2/MEMORY.md) |
+| **Track 3 — app** | [track3-certwatch/](track3-certwatch/), plus G17/G18 in [GAPS.md](GAPS.md) |
+| Anything | [README.md](README.md) for ownership and shared facts, [docs/](docs/) for protocol and rules |
+
+Everything below this line is **historical** — the day-by-day record of how Track 1 got here. It is
+kept because the reasoning is often more useful than the conclusion, but for current Track 1 state
+read `track1-miner/MEMORY.md` instead. Registration **225 is superseded**; the live one is **236**.
+
+---
+
 ## 2026-08-27 — TRACK 2 PIVOT
+
 
 Build focus moved to **Track 2 (Script Authors)** by user directive: rank 1 is the goal, Fable
 orchestrates and plans, Opus 5 executes (all security-domain work on Opus). All Track 2 state
@@ -88,7 +104,7 @@ artificial inflation). That also competes for a second $2,000 pool.
 
 ### Major correction: demand, not just occupancy → now serving TWO intents
 Live data from `/api/miners` (89 miners, exposes `total_requests_served` + `scores`) →
-[docs/MARKET_DATA.md](docs/MARKET_DATA.md).
+[track1-miner/docs/MARKET_DATA.md](track1-miner/docs/MARKET_DATA.md).
 
 **The whole network has served 1,574 requests. `SSL_VERIFICATION` has 17.**
 `STORM_ALERT` has **334** with the same 3-miner field and the same near-zero top score (0.0066).
@@ -173,7 +189,7 @@ committed if a card is ever added.
 
 ### Repo + monitoring live — 2026-08-26
 `https://github.com/Harshyadav442277/livecert` — **PRIVATE**. Created private deliberately:
-publishing is the user's call, and `docs/MARKET_DATA.md` contains competitive analysis of other
+publishing is the user's call, and `track1-miner/docs/MARKET_DATA.md` contains competitive analysis of other
 hackathon entrants' weaknesses. Publishing that under their name mid-competition is a judgement
 they should make, not me.
 
@@ -226,7 +242,7 @@ question answered with an error is a zero. Now all three endpoints extract the p
 free text (`src/extract.ts`), while still rejecting typo'd fragments like `"exa mple.com"`.
 57 tests pass; p95 latency improved 1136ms → 523ms.
 
-**Scoring intelligence (2026-08-26)** → [docs/SCORE_INTELLIGENCE.md](docs/SCORE_INTELLIGENCE.md).
+**Scoring intelligence (2026-08-26)** → [track1-miner/docs/SCORE_INTELLIGENCE.md](track1-miner/docs/SCORE_INTELLIGENCE.md).
 Three things settled by live data:
 1. **Multi-intent miners are scored independently per intent** — `txlens` holds rank 1 in three
    intents and rank 5 in another simultaneously. Breadth is free upside; a weak intent cannot drag
