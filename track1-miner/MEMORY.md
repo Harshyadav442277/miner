@@ -44,13 +44,22 @@ explorer       https://explorer.telegraphprotocol.com/miners/livecert
 repo           https://github.com/Harshyadav442277/miner
 ```
 
-**Epoch 285 scores** (see `docs/score-history.jsonl`, recorded hourly by CI):
+**Epoch 286 scores** (landed 2026-08-27 ~09:37 UTC; see `docs/score-history.jsonl`):
 
 ```
-SSL_VERIFICATION    #2 of 4     0.00745   gap 0.00081 to txlens
-STORM_ALERT         #2 of 4     0.00635   gap 0.00168 to bittensor-sn18-zeus
-WEATHER_FORECAST    #8 of 11    0.00761   gap 0.00128 to isobar-weather
+IP_GEOLOCATION      #1          0.99209   <-- RANK 1
+SSL_VERIFICATION    #1          0.00973   <-- RANK 1
+STORM_ALERT         #1          0.00968   <-- RANK 1
+WEATHER_FORECAST    #6          0.00749   gap 0.00234 to leader
 ```
+
+The explorer's "Top miners" page now lists livecert as **#1 in three intents**. Caveats that keep
+this honest: IP_GEOLOCATION has only **2 miners**, below the 3-miner eligibility floor, and every
+intent still needs **100+ real Track 3 requests** to pay out. Rank 1 must also *hold* through the
+Aug 31 close — spot-checks continue and epoch 287 lands ~18:37 UTC.
+
+Epoch 285 was #2 / #2 / #8 (SSL 0.00745, STORM 0.00635, WEATHER 0.00761); epoch 284 was
+#3 / #3 / #7 with storm at 0.0.
 
 Epoch 284 was #3 / #3 / #7 with storm at **0.0**, so this was real movement. The storm zero had a
 specific cause, in section 7.
