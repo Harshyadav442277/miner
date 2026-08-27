@@ -78,6 +78,15 @@ anti-parrot defense must be answered-ness, **not** question-overlap penalty — 
 rows, question-overlap correlates *negatively* (−0.258) with champion score; the parrot effect is
 positional (prefix), so penalizing overlap would destroy Spearman for nothing.
 
+### G13 · The generic build LOSES on SSL_VERIFICATION — `OPEN (measured, not explained)` — 2026-08-27
+Generic build vs champion reg 631: **fails the gate** — wins 16/29 vs 17/29, Spearman **−0.2222**
+over 18 real answers (a near-inverse ranking of live traffic). Margin still beats the incumbent
+(0.655 vs 0.474), so the loss is in *ordering real answers*, not in separating good from bad on
+fixtures. Unresolved which cause dominates: (a) the SSL champion captures something fact-precision
+misses, or (b) SSL has no per-intent extractor, so chain/SAN/expiry facts are invisible to us.
+**Do not register SSL.** Recorded in the scorer README as a published limitation — a submission
+that shows where it loses is more credible than one that claims universal superiority.
+
 ### G9 · Spearman-agreement tension — `OPEN but bounded` — sharpened 2026-08-27
 Threshold is **0.60** (not high), gated on **≥2 distinct miners** (row count is irrelevant; a
 single-miner intent skips it entirely). The tension is real — we deliberately disagree with the
