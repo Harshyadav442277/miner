@@ -62,27 +62,51 @@ GAME_RESULT, SSL_VERIFICATION, CVE_LOOKUP, IP_GEOLOCATION, URL_SCAN.
 - Deep Tier A domain code in `miner/src/` (TLS handshake, storm/weather temporal parsing, CVE,
   geolocation).
 
-### Recon in flight (two Opus agents, launched 2026-08-27)
+### Recon LANDED — 2026-08-27 (read these before designing anything)
 
-- **Agent A** — champion repo `zkasuran/telegraph-salience-scorer`, `/api/wasm` registry shape,
-  scorer submission/registration flow, scoring docs → writes
-  `track2/recon/2026-08-27-track2-scorer-spec.md`.
-- **Agent B** — official baseline source: exact formula/weights, precise `rank_answer` ABI,
-  projection-vs-real_weights, local Rust toolchain check, concrete mis-ranking scenarios for
-  Tier A intents, submission instructions in the org repos → writes
-  `track2/recon/2026-08-27-baseline-analysis.md`.
+- **`recon/2026-08-27-track2-scorer-spec.md`** (Agent A): the full authoritative spec — ABI
+  (`rank_answer(q,gt,ma) → f32 [0,1]`, blank→0.0, freestanding `wasm32-unknown-unknown`, no
+  imports, ≤32 MB), submission (`registerWasm(keccak256, url, intent)` on the Diamond or the
+  integrate console; gas-only, reversible via `deregisterEntity(id, 2)`), the two-stage promotion
+  gate (self-match ≥0.75, stddev floor, wins ≥ champion, margin ≥ champion + absolute floor,
+  Spearman on real traffic when history exists), and the landscape: **zkasuran holds champion on
+  all 45 intents** with one salience scorer tuned per intent (~700 builds; MIT, source public,
+  build tooling private). Weakest slot: WEATHER_FORECAST margin ~0.5065.
+- **`recon/2026-08-27-baseline-analysis.md`** (Agent B): org baseline =
+  `0.25·cos(Q,A) + 0.50·cos(GT,A) + 0.15·bm25(GT,A) + 0.10·lenq(A)` — 65% resemblance-to-GT-text;
+  **BM25 drops single-digit tokens so "CVSS 9.8" ≡ "CVSS 3.1" exactly**; the "length penalty" is
+  a verbosity **bonus**; default "projection" embeddings are non-semantic hashes. Live receipts:
+  CVE rank-1 asserts 9.9 vs GT 8.8; CRYPTO_PRICE rank-1 gives **no price** and wins.
+- **`../fable_review_audit.md` §2** (peer audit session, MEASURED offline n=27, not
+  live-validated): the champion is a **cliff, not a gradient** — GT-opening echo at 16 words
+  scores 0.011, at 17 words 0.992; one synonym swap collapses it; **a contentless question-echo
+  scores 0.9933, identical to a real answer**. The scorer cannot tell answered from unanswered.
+  This is the definitive 50%-axis exhibit AND the hole our scorer must provably close.
+- **Agent C (running)** — hunting `telegraph-subnet` for the node's gate implementation, the
+  unpublished benchmark, exact floors, and the `converted_answer` generator →
+  `recon/2026-08-27-node-gate-analysis.md`.
+- **Toolchain**: absent locally (no cargo/rustc/wasm32). Install agent running (rustup + target +
+  ABI-skeleton proof build).
 
-**Repo reorg landed mid-session 2026-08-27 (user's, staged not committed):** `miner/`, `tools/`,
-and track-1 docs → `track1-miner/`; `app/` → `track3-certwatch/`. Old `docs/codex-worklog/…`
-paths in earlier notes now live under `track1-miner/docs/codex-worklog/…`.
+**Repo state:** the user's per-track reorg is committed and pushed (`938002a`); an earlier sweep
+committed track2/ docs, so track2/ is tracked — commit scoped (`git add track2 …`), never `-A`
+(the Track 1 session's blanket adds have swept unrelated files three times; boundaries agreed
+with telegraph-60 and the read-only audit session telegraph-fd; `fable_review_audit.md` at root
+is the audit session's file — never stage it).
 
 ### Next actions
 
-1. Read both agent reports; close [GAPS.md](GAPS.md) G1–G5.
-2. Lock [ARCHITECTURE.md](ARCHITECTURE.md) A-decisions (generic fact-aware vs per-intent; target
-   portfolio) — currently PENDING markers.
-3. Delegate Phase C build to Opus per [PHASES.md](PHASES.md); fixtures + harness first.
-4. Draft the Track 2 X thread (10% of score) once there is a real finding to show.
+1. Agent C report → close G5 (benchmark/floors/converter) if found.
+2. Lock ARCHITECTURE A6 target portfolio: WEATHER_FORECAST is the weakest champion slot but is
+   mined by livecert (G10 conflict question) and has 21 Spearman rows (G9); zero-history thin
+   intents (CVE_LOOKUP, IP_GEOLOCATION…) skip the traffic gate and minimize conflict — leading
+   candidates for first registration.
+3. Phase B build (Opus): gate-proxy harness (Stage 1 + Stage 2 emulation + Spearman proxy over
+   real `/scores` rows) + fixture corpus per [FIXTURES.md](FIXTURES.md).
+4. Phase C build (Opus): the scorer itself, once toolchain lands.
+5. **User actions queued**: two Discord questions — (a) Track 2 ranking formula (champion slots?
+   margins? stacking?), (b) is a scorer for an intent you also mine acceptable with disclosure?
+   Plus the X thread once there's a finding to show (drafts to come from us).
 
 ## Key numbers
 

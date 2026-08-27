@@ -37,6 +37,18 @@ units, identifiers (CVE ids, hostnames, coordinates), timestamps. The scorer:
 A refusal or error must score near zero when the ground truth contains a real answer — the
 measured baseline failure (refusal 0.99 vs correct 0.007) is the canonical counter-example.
 
+Two requirements added from measurement (2026-08-27):
+
+6. **Answered-vs-unanswered detection is first-class.** The live champion scores a contentless
+   question-echo 0.9933 — identical to a real answer (fable_review_audit.md §2, measured). Our
+   scorer must score an answer near zero when it contributes no information beyond the question's
+   own content and the ground truth contains an answer. This single property, demonstrated
+   side-by-side, is the strongest improvement exhibit we hold.
+7. **Continuity over cliffs.** The champion is a step function (16 words 0.011 → 17 words 0.992;
+   one synonym swap collapses it). Ours must degrade smoothly with factual disagreement — cliffs
+   are what make parroting dominant and near-misses indistinguishable from garbage. Calibration
+   for the gate (stddev, margin) must come from genuine spread, not a step band.
+
 ## A4 — The legitimacy boundary is a design constraint
 
 General intent correctness only. JSON and prose answers with equal facts score equally. No

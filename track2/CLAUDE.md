@@ -14,6 +14,7 @@ may break it — it shares this repo.
 - [GAPS.md](GAPS.md) — honesty ledger. Unverified things live here, not rounded to "fine."
 - [ADVANTAGE.md](ADVANTAGE.md) — the asymmetric edge, mapped to the judging rubric.
 - [PHASES.md](PHASES.md) — phase plan with exit criteria.
+- [FIXTURES.md](FIXTURES.md) — evaluation corpus spec; the proof for the 50% axis is built here.
 
 ## Division of labor (user directive, 2026-08-27)
 

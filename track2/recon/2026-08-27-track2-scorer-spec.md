@@ -15,8 +15,8 @@ Primary sources used this session:
 - **Live champion registry**: `https://devnode.telegraphprotocol.com/api/wasm` (full, 1220 entries)
   and `?intent=SSL_VERIFICATION` etc.
 - **Rules**: `https://hackathon.telegraphprotocol.com/rules` (HTTP 200 via curl; `scratchpad/rules.txt`).
-- **Our head-start harness**: `docs/codex-worklog/probe-champion.mjs`.
-- **Our prior notes**: `docs/codex-worklog/2026-08-26-live-scoring-recon.md`, `docs/JUDGING.md`,
+- **Our head-start harness**: `track1-miner/docs/codex-worklog/probe-champion.mjs`.
+- **Our prior notes**: `track1-miner/docs/codex-worklog/2026-08-26-live-scoring-recon.md`, `docs/JUDGING.md`,
   `docs/TELEGRAPH_FACTS.md`.
 
 ---
@@ -385,7 +385,7 @@ session — **UNVERIFIED by recompute**, but asserted identically by two indepen
 
 ## 8. Our head start — `probe-champion.mjs` (exact behavior)
 
-`docs/codex-worklog/probe-champion.mjs` reproduces the node's call path offline, no network. It:
+`track1-miner/docs/codex-worklog/probe-champion.mjs` reproduces the node's call path offline, no network. It:
 
 1. Reads a champion `.wasm` and instantiates it **with empty imports**:
    `WebAssembly.instantiate(wasm, {})` (`probe-champion.mjs:120-121`) — proving the module is
@@ -401,14 +401,14 @@ session — **UNVERIFIED by recompute**, but asserted identically by two indepen
    scores that record's **`converted_answer`** (`:112-114,151-157`), and also scores the raw
    `miner_answer` and reports `candidate_vs_reported_factor`.
 
-This is why our 2026-08-26 recon (`docs/codex-worklog/2026-08-26-live-scoring-recon.md:63-81`)
+This is why our 2026-08-26 recon (`track1-miner/docs/codex-worklog/2026-08-26-live-scoring-recon.md:63-81`)
 could show the reported live score matching the **`converted_answer`** score to ~10 decimals and
 **not** the raw `miner_answer` score — i.e. the scorer's real answer input is Telegraph's
 natural-language `converted_answer`, not the raw miner JSON. That finding is the key wrinkle for
 any Track-2 scorer we author: the thing being scored is the converted prose.
 
 **Practical loop we already own**: download a champion `wasm_url` + a `/scores` response, then
-`node docs/codex-worklog/probe-champion.mjs --wasm champ.wasm --scores scores.json --miner
+`node track1-miner/docs/codex-worklog/probe-champion.mjs --wasm champ.wasm --scores scores.json --miner
 <slug> --epoch <n>` to reproduce/counterfactual scores deterministically. To iterate on *our own*
 candidate scorer we additionally need the **wazero go-tester** (docs §Testing) or an equivalent,
 because the promotion gate (§5) is what actually decides champion — `probe-champion.mjs` scores

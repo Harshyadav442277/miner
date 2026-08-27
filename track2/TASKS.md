@@ -12,21 +12,26 @@ One task = one change = one commit. Work top-down. Owner in brackets.
       rules page (tabbed content). → MEMORY.md, 2026-08-27.
 - [x] **T-A.2** [Fable] Locate the official baseline repo (`telegraph-wasm-baseline`) and the
       intent catalog (40 intents, 18 Tier A). → MEMORY.md.
-- [ ] **T-A.3** [Opus·running] Champion repo + `/api/wasm` registry + submission flow spec →
-      `track2/recon/2026-08-27-track2-scorer-spec.md`.
-- [ ] **T-A.4** [Opus·running] Baseline source analysis: exact formula, ABI, toolchain check,
-      mis-ranking scenarios → `track2/recon/2026-08-27-baseline-analysis.md`.
-- [ ] **T-A.5** [Fable] Read both reports; close GAPS G1–G5; lock ARCHITECTURE A1/A2/A6 and the
-      target portfolio.
-- [ ] **T-A.6** [User, if needed] Check Discord for the official hackathon repo announcement /
-      Track 2 submission instructions if agents cannot verify G1/G2 from public sources.
+- [x] **T-A.3** [Opus] Champion repo + `/api/wasm` registry + submission flow spec →
+      `recon/2026-08-27-track2-scorer-spec.md`. G1/G3 closed.
+- [x] **T-A.4** [Opus] Baseline source analysis → `recon/2026-08-27-baseline-analysis.md`.
+      G6 answered (toolchain absent).
+- [ ] **T-A.5** [Fable] After Agent C: close G5, lock ARCHITECTURE A6 + target portfolio.
+- [ ] **T-A.6** [User] Two Discord questions: Track 2 ranking formula; scorer-for-mined-intent
+      legitimacy (G10). Also glance for any extra submission artifact the judges expect (G1
+      residual).
+- [ ] **T-A.7** [Opus·running] Node gate + benchmark + converted_answer hunt in
+      `telegraph-subnet` → `recon/2026-08-27-node-gate-analysis.md`. (G5)
+- [ ] **T-A.8** [Opus·running] Rust→WASM toolchain install + ABI-skeleton proof build. (G6)
 
 ## Phase B — Design + fixtures
 
 - [ ] **T-B.1** [Opus] Fixture corpus v1: real recorded traffic per target intent pulled from
-      public `/scores` (question / ground_truth / answers / scores), pinned to files.
-- [ ] **T-B.2** [Opus] Adversarial fixture set: refusals, keyword stuffing, contradiction,
-      length-gaming, JSON-vs-prose equivalence pairs, wrong-number/wrong-verdict swaps.
+      public `/scores` (question / ground_truth / answers / scores), pinned to files, per
+      [FIXTURES.md](FIXTURES.md) class REAL.
+- [ ] **T-B.2** [Opus] Synthetic fixture set per [FIXTURES.md](FIXTURES.md) classes 2–10
+      (fact-swap, refusal, stuffing, contradiction, format-equivalence, unit/form, temporal,
+      length, our-style-wrong).
 - [ ] **T-B.3** [Opus] Side-by-side harness: run any two scorer WASMs over the corpus, emit
       pairwise ranking accuracy + per-class breakdown (extends `probe-champion.mjs`).
 - [ ] **T-B.4** [Fable] Review harness output on baseline alone — it must reproduce the known
