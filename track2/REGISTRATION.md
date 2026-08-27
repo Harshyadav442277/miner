@@ -133,6 +133,20 @@ Include in the scorer README and the X post, verbatim or equivalent:
 
 ```
 intent            registrationId    status      candidate_margin    bar faced    date
-IP_GEOLOCATION    —                 —           —                   —            —
+IP_GEOLOCATION    1377              pending     —                   —            2026-08-27
 STORM_ALERT       —                 —           —                   —            —
 ```
+
+**IP_GEOLOCATION — registered 2026-08-27**
+```
+registrationId   1377
+intentId         0x31981bafec99054e7e97478d7c6e4d078f…
+serves intent    IP_GEOLOCATION
+tx hash          0x0c79f0766ed82001…c9286a7a   (Base Sepolia)
+wallet           0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e
+keccak256        0xe427a7f0417a9563eeef53a3bd63a5f139…
+wasm             telegraph-factscore @ c8ec872 /dist/ip_geolocation.wasm  (19,628 B)
+```
+Stage 1 runs in seconds; Stage 2 against the incumbent takes several minutes. The console
+dashboard lags the chain by 2–3 minutes (its own indexing notice) — read the verdict from
+`/api/wasm?intent=IP_GEOLOCATION` by `registration_id`, never from the dashboard's emptiness.
