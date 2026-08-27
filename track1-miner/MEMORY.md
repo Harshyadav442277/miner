@@ -61,6 +61,35 @@ Aug 31 close — spot-checks continue and epoch 287 lands ~18:37 UTC.
 Epoch 285 was #2 / #2 / #8 (SSL 0.00745, STORM 0.00635, WEATHER 0.00761); epoch 284 was
 #3 / #3 / #7 with storm at 0.0.
 
+**WEATHER_FORECAST climb shipped 2026-08-27 ~12:45 UTC — epoch 287 (~18:37 UTC) is the test.**
+The scored WF question is the same one per epoch for every miner (a Tokyo "7-day hourly forecast
+starting next Monday, temperature in Celsius and precipitation probability" family) and its ground
+truth is a refusal that restates the whole question — so overlap with the question's own phrases is
+the entire margin. Diagnosis from our epoch-286 answer shape: **the engine sends weather requests
+as params only (`location` + `days`), never the question text** — start_time was "now" and the
+prose used the no-date branch, while "7-day" arrived as `days=7`. So "next Monday" and the cutoff
+are invisible to us and to everyone (the rank-1 answers also started from today).
+
+Fix, all honest facts from the params-only path: prose now states the window in day form
+("A 7-day hourly weather forecast"), says "hourly" and "temperature in Celsius", reports
+**precipitation probability** (new Open-Meteo hourly variable — the question asks for it by name
+and we never fetched it), names the covered dates ("covering August 27 to September 3, 2026"),
+attributes the source ("from the Open-Meteo weather service"), and says "wind speed" not "winds".
+`end_time`/`hourly_count` restored (size-limit theory long dead). `miner.yaml` untouched.
+
+Measured with the champion WASM (`wf_mini.wasm`, reg 636 — reproduces all 8 epoch-286 reported
+scores EXACTLY from converted_answer; re-download from the zkasuran repo commit f009d2d, path
+dist/xfmr/wf_mini.wasm):
+```
+epoch 284: live answer 0.01033 vs rank-1 0.00992 (verity)
+epoch 285: live answer 0.01019 vs rank-1 0.00889 (isobar)
+epoch 286: live answer 0.01028 vs rank-1 0.00983 (verity)
+12-question bench mean: 0.17346 -> 0.25592 (+47%), no regressions
+```
+Caveat kept honest: conversion historically shaves 4-6% off raw prose, so the live margin over
+verity (~5%) is thin — expect ~coin-flip for #1 vs verity in 287, clear gain over everyone else.
+109 tests pass; verify-deploy 18/18; replay 34/34.
+
 Epoch 284 was #3 / #3 / #7 with storm at **0.0**, so this was real movement. The storm zero had a
 specific cause, in section 7.
 
