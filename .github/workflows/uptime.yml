@@ -87,9 +87,9 @@ jobs:
         with:
           node-version: "22"
       - run: npm install --no-audit --no-fund
-        working-directory: miner
+        working-directory: track1-miner/miner
       - run: npm run test:live
-        working-directory: miner
+        working-directory: track1-miner/miner
 
   scores:
     # Scoring runs on the network's schedule and the API exposes only the latest
