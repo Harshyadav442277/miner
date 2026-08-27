@@ -117,6 +117,29 @@ measurement, not a guaranteed win, and a rejection returns the node's official e
 **→ [REGISTRATION.md](REGISTRATION.md) is the user runbook** (hosting decision, verify-bytes,
 console clicks, verdict reading, disclosure text, X draft).
 
+### ADVERSARIAL REVIEW + FIX ROUND — 2026-08-27 (late)
+
+A fresh-eyes Opus review (`recon/2026-08-27-adversarial-review.md`) found **6 CRITICAL / 9 MAJOR**
+before any registration: punctuation-blind exact-match ("CVSS 1.0"=="CVSS 10"→1.0), negation
+invisible, STORM answered-ness pinned open (`ans_floor 0.75` → echoes beat every real answer,
+44× worse than the incumbent), IP saturation (P≥0.80→1.0), unit-faking ("47 bananas" 65× better
+than honest-wrong). **All six fixed with before/after receipts** (echo 0.747→0.0058, now 2.9×
+better than champion; fake units →0.0005; contradiction 1.0-tie→0.061). Panic handler now traps
+(`unreachable`), support graded, ranges parsed, weather openers removed. 19,734-call fuzz stayed
+clean throughout.
+
+**THE STORM FINDING (submission narrative, not a defect):** after the anti-gaming fixes, a
+72-build sweep proves the storm profile's Spearman vs the incumbent **ceilings at 0.593 < 0.60**
+— agreeing with a parrot-rewarding ranking and refusing to reward parrots are structurally
+incompatible. The automated agreement gate entrenches the incumbent's failure mode. STORM is
+submitted as evidence about the gate; **IP_GEOLOCATION is the registration** (full gate PASS,
+margin 0.786 vs 0.596, independently re-verified by Fable).
+
+**Fixed build published**: `telegraph-factscore` commit `f89d380`, hosted bytes verified
+(17,884 B). REGISTRATION.md hold lifted — IP_GEOLOCATION only, pinned URL updated. Proof pack
+(`track2/PROOF.md`, one-command `harness/make-proof.mjs` with a build-hash guard) regenerating
+against the settled build. Kit README for other authors: `harness/README.md` (adoption axis).
+
 ### Next actions
 
 1. Agent C report → close G5 (benchmark/floors/converter) if found.

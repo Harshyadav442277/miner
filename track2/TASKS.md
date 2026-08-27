@@ -63,9 +63,14 @@ One task = one change = one commit. Work top-down. Owner in brackets.
 
 ## Phase D — Proof
 
-- [ ] **T-D.1** [Opus] One-command reproducible report (baseline vs candidate, receipts inline).
-- [ ] **T-D.2** [Fable] Adversarial self-review: try to break our own scorer the way a reviewer
-      would; feed failures back to T-C.4.
+- [x] **T-D.1** [Opus] One-command proof pack done: `harness/make-proof.mjs` → `track2/PROOF.md`,
+      regenerated against the fixed dist with SHA-256 self-consistency guards. IP_GEO "would
+      promote" (margin 0.786 vs 0.596); STORM honestly "would be rejected" (ρ 0.5926); the 124×
+      parrot inversion is exhibit §5.1.
+- [x] **T-D.2** [Opus] Adversarial self-review: 6 CRITICAL / 9 MAJOR found
+      (`recon/2026-08-27-adversarial-review.md`) → all criticals fixed with receipts, STORM
+      Spearman ceiling (0.593) discovered and documented as a gate finding. Fuzz (19,734 calls)
+      clean before and after.
 
 ## Phase E — Submit + public
 
