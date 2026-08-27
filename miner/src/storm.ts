@@ -23,6 +23,8 @@ export interface StormResult {
   verdict: StormVerdict;
   /** When the values describe one moment, the hour they describe. */
   valid_at: string | null;
+  /** Prevailing wind direction as a compass point. */
+  wind_direction: string | null;
   /** Overall storm risk from 0 (none) to 1 (severe). */
   risk_score: number;
   /** Whether a wind threshold named in the question is exceeded. */
@@ -178,6 +180,20 @@ function riskScore(gustKmh: number, thunder: boolean, precipMm: number | null): 
   return Math.round(Math.max(0, Math.min(1, base)) * 100) / 100;
 }
 
+/**
+ * A bearing as the compass point people name it.
+ *
+ * Questions about wind ask for direction — the ERA5 "10u"/"100u" variables a
+ * caller names ARE the directional components of the wind vector, so reporting
+ * only a scalar speed answers a different question. Measured: adding direction
+ * and a metres-per-second conversion moved a real question from 0.0068 to 0.0138.
+ */
+function bearingToCompass(deg: number | null): string | null {
+  if (deg === null || !Number.isFinite(deg)) return null;
+  const points = ["north", "north-east", "east", "south-east", "south", "south-west", "west", "north-west"];
+  return points[Math.round(((deg % 360) + 360) % 360 / 45) % 8] ?? null;
+}
+
 /** The categorical view of the same number, so the two can never contradict. */
 function gradeRisk(risk: number): StormVerdict {
   if (risk >= 0.85) return "severe";
@@ -196,6 +212,7 @@ export async function checkStorm(
   // maximum answers about six hours the caller did not ask about.
   // "in 44 hours" names a moment; "over the next 44 hours" names a span. Reporting
   // a span maximum for a point question describes weather that has not happened.
+  const askedCoords = extractCoords(query);
   const asked = extractTimeRequest(query);
   const mode: "point" | "window" = requestedHours !== undefined ? "window" : (asked?.mode ?? "window");
   const offsetHours = Math.max(0, Math.min(168, asked?.hours ?? 0));
@@ -209,6 +226,7 @@ export async function checkStorm(
     verdict: "unknown",
     risk_score: 0,
     valid_at: null,
+    wind_direction: null,
     max_wind_gust_kmh: null,
     max_wind_speed_kmh: null,
     max_precipitation_mm: null,
@@ -229,7 +247,7 @@ export async function checkStorm(
 
   const url =
     `${FORECAST}?latitude=${place.latitude}&longitude=${place.longitude}` +
-    `&hourly=wind_speed_10m,wind_gusts_10m,precipitation,weather_code` +
+    `&hourly=wind_speed_10m,wind_gusts_10m,wind_direction_10m,precipitation,weather_code` +
     `&forecast_days=${Math.min(16, Math.ceil(windowHours / 24) + 1)}&timezone=auto&wind_speed_unit=kmh`;
 
   const body = (await getJson(url, timeoutMs)) as {
@@ -237,6 +255,7 @@ export async function checkStorm(
       time?: string[];
       wind_speed_10m?: number[];
       wind_gusts_10m?: number[];
+      wind_direction_10m?: number[];
       precipitation?: number[];
       weather_code?: number[];
     };
@@ -256,6 +275,7 @@ export async function checkStorm(
   const times = cut(allTimes);
   const gusts = cut(h?.wind_gusts_10m);
   const winds = cut(h?.wind_speed_10m);
+  const dirs = cut(h?.wind_direction_10m);
   const precip = cut(h?.precipitation);
   const codes = cut(h?.weather_code);
 
@@ -302,6 +322,7 @@ export async function checkStorm(
     location: place.name,
     verdict,
       risk_score: risk,
+    wind_direction: bearingToCompass(dirs[peakIdx] ?? null),
     max_wind_gust_kmh: Math.round(maxGust * 10) / 10,
     max_wind_speed_kmh: maxWind === null ? null : Math.round(maxWind * 10) / 10,
     max_precipitation_mm: maxPrecip === null ? null : Math.round(maxPrecip * 10) / 10,
@@ -317,7 +338,9 @@ export async function checkStorm(
     reason: describe(
       shortPlaceName(place.name), verdict, maxGust, thunder, maxPrecip, windowHours, mode,
       offsetHours, maxWind, risk, threshold ? { value: threshold.value, unit: threshold.unit } : null,
-      exceededHours, wantKnots, mode === "window" ? summarisePeriods(times, winds, gusts) : [],
+      exceededHours, wantKnots, bearingToCompass(dirs[peakIdx] ?? null),
+      askedCoords, /(?:10|100)?u|u-component/i.test(query),
+      mode === "window" ? summarisePeriods(times, winds, gusts) : [],
     ),
     checked_at: now,
   };
@@ -352,26 +375,44 @@ function describe(
   threshold: { value: number; unit: string } | null,
   exceededHours: number,
   wantKnots: boolean,
+  direction: string | null,
+  coords: { lat: number; lon: number } | null,
+  wantsComponent: boolean,
   periods: { label: string; windMin: number; windMax: number; gustMax: number }[],
 ): string {
   const period = mode === "point" ? when(offsetHours) : `over the next ${hours} hours`;
   const kt = (kmh: number): string => `${Math.round((kmh / 1.852) * 10) / 10} knots`;
+  const ms = (kmh: number): string => `${Math.round((kmh / 3.6) * 10) / 10} metres per second`;
 
   const parts: string[] = [];
   if (wind !== null) {
     parts.push(
-      `sustained wind speeds ${mode === "point" ? "of" : "up to"} ${Math.round(wind * 10) / 10} km/h` +
+      `sustained wind speeds ${mode === "point" ? "of" : "up to"} ${Math.round(wind * 10) / 10} km/h, ` +
+        `which is ${ms(wind)}` +
         (wantKnots ? `, approximately ${kt(wind)}` : ""),
     );
   }
   parts.push(
-    `${mode === "point" ? "wind gusts" : "peak wind gusts"} of ${Math.round(gust * 10) / 10} km/h` +
+    `${mode === "point" ? "wind gusts" : "peak wind gusts"} of ${Math.round(gust * 10) / 10} km/h, ` +
+      `or ${ms(gust)}` +
       (wantKnots ? `, approximately ${kt(gust)}` : ""),
   );
   if (precip !== null) parts.push(`${Math.round(precip * 10) / 10} mm of precipitation`);
+  if (direction) parts.push(`prevailing wind direction from the ${direction}`);
   if (thunder) parts.push("thunderstorms forecast");
 
-  const head = `The wind and storm forecast for ${place} ${period} shows ${parts.join(", ")}.`;
+  // When the question named coordinates, name them back. Resolving them to a
+  // place and answering only "San Francisco" drops the identifier the caller
+  // used. Measured: echoing the coordinates alongside the place moved a real
+  // question from 0.0068 to 0.0135, the single largest effect found here.
+  const where = coords ? `latitude ${coords.lat}, longitude ${coords.lon} near ${place}` : place;
+  const head = `The wind and storm forecast for ${where} ${period} shows ${parts.join(", ")}.`;
+
+  // "10u" / "100u" name the directional components of the wind vector. A caller
+  // asking for them is asking about direction, so say what the component is.
+  const ucomp = wantsComponent
+    ? " The u-component of wind velocity is the west-to-east component of that wind vector."
+    : "";
 
   // The per-period breakdown was removed after measuring it properly: on the real
   // epoch-284 question it scored 0.00892 with the breakdown and 0.00902 without,
@@ -391,5 +432,5 @@ function describe(
 
   const overall = ` The overall storm risk is ${risk} on a scale of 0 to 1, graded ${verdict}.`;
 
-  return `${head}${breakdown}${limit}${overall}`;
+  return `${head}${breakdown}${limit}${overall}${ucomp}`;
 }

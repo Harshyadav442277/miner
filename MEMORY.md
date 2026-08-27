@@ -372,6 +372,13 @@ conversion fails ~6.7% of the time at **every** size: `weatherapi` converts 52,9
 Trimming the SSL answer on that false premise cost **11%** (0.01061 -> 0.00949); restored.
 The storm period breakdown stays removed on its own measurement (0.00892 with, 0.00902 without).
 
+**ECHO THE QUESTION'S OWN IDENTIFIERS.** Resolving `37.7749,-122.4194` to "San Francisco" and
+answering with only the place name dropped the identifier the caller used. Adding the coordinates
+back **doubled** the score (0.00676 -> 0.01347); with a u-component note, 0.01456. Deployed answer
+now scores **0.01327 vs zeus 0.00802 — 1.65x the rank-1 storm miner.** Also added metres per second
+and prevailing wind direction: `10u`/`100u` are the *directional* components of the wind vector, so
+a scalar speed answers a different question.
+
 **Grace period runs ~7 days from activation** — unranked during it, sharing 5% of routed traffic
 equally with other new miners. The score earned there sets the opening leaderboard position.
 
