@@ -11,8 +11,11 @@ On-chain `registerWasm(wasmHash, wasmUrl, intent)` on the Diamond — **keccak25
 bytes (NOT sha256 like the miner YAML), public URL ≤ 32 MB, gas-only, no bond, returns a
 `registrationId`; reversible via `deregisterEntity(registrationId, 2)`. Console path:
 `integrate.telegraphprotocol.com` does hash+tx in one flow. **User sends; Claude prepares.**
-Source: `recon/2026-08-27-track2-scorer-spec.md` §6. **Residual:** whether the hackathon judges
-additionally want a form/Discord submission artifact — ask organizers (T-E.1).
+Source: `recon/2026-08-27-track2-scorer-spec.md` §6. **Residual CLOSED 2026-08-27 (organizer
+answer via user):** the required submission is the on-chain `registerWasm` **plus the required
+public X post(s)** — no form; the review team will request additional evaluation material itself
+if needed (keep the proof pack ready to hand over). The empty
+`telegraph-hackathon-submissions` repo stays on watch but is not a required artifact.
 
 ### G2 · Which intents "participate" — `OPEN, softened`
 The live registry accepts scorers for all 45 canonical intents (1220 registrations, 36 authors),
@@ -76,16 +79,17 @@ hatches: **IP_GEOLOCATION is single-miner → no Spearman**; and the harness com
 Spearman vs the live champion over real `/scores` rows per intent before any registration. Where it
 can't clear 0.60 while fixing the pathologies, prefer a single-miner intent.
 
-### G10 · Authoring a scorer for an intent we also mine — `OPEN, organizer question` · sharpened
-The rules are silent (fable_review_audit.md §8), and it is now **verified** that livecert's
-committed manifest declares ALL five natural scorer targets (`SSL_VERIFICATION, STORM_ALERT,
-WEATHER_FORECAST, IP_GEOLOCATION, CVE_LOOKUP`) — "pick a non-mined target" cannot cover those
-five. Resolution (ARCHITECTURE A6): mined intents are used freely for the **proof corpus**
-(analysis affects nothing on-chain); the **first champion registration** goes to a non-mined
-Tier A intent (URL_SCAN is the narrative fit) unless the organizers clear overlap-with-disclosure
-first. Residual to confirm at registration: which intents the CURRENT on-chain registration is
-actively scored on (declared-in-YAML may lag or lead the live set — check `/api/miners`, by
-registrationId, never slug).
+### G10 · Authoring a scorer for an intent we also mine — `CLOSED (allowed with disclosure)` — 2026-08-27
+**Organizer answer (via user, Discord):** operating a Track 1 miner "does not by itself prevent"
+registering a Track 2 module for the same intent, **provided the relationship is fully disclosed
+and the module is evaluated independently and consistently**; they explicitly called our
+general-correctness approach and score-our-own-miner-down tests "aligned with that principle,"
+and will flag the overlap for transparent review. Binding consequences: (1) **disclosure is
+mandatory** — in the required X post(s) and the scorer README (T-E.4); (2) mined intents
+(STORM_ALERT first) are now legitimate registration targets; (3) the our-style-wrong fixture
+class is no longer optional hygiene — it is the evidence the review was promised. Residual kept:
+confirm at registration which intents the live registration is actively scored on
+(`/api/miners/<registrationId>`, never by slug).
 
 ### G7 · What "remain live and operational throughout Track 3" means for a script — `OPEN`
 For miners it means uptime. For a submitted scorer it presumably means the script stays

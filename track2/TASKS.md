@@ -18,9 +18,11 @@ One task = one change = one commit. Work top-down. Owner in brackets.
       G6 answered (toolchain absent).
 - [x] **T-A.5** [Fable] G5 closed (gate + all constants), G11 opened (fixtures unrecoverable),
       ARCHITECTURE A1/A2/A3/A6/A8 locked, target portfolio ordered (IP_GEOLOCATION → STORM → SSL).
-- [ ] **T-A.6** [User] Two Discord questions: Track 2 ranking formula; scorer-for-mined-intent
-      legitimacy (G10). Also glance for any extra submission artifact the judges expect (G1
-      residual).
+- [x] **T-A.6** [User] Both Discord questions answered 2026-08-27 → G10 closed (overlap OK with
+      disclosure), G1 residual closed (registerWasm + X posts), review measures the module vs the
+      incumbent directly (depth over breadth). Recorded in MEMORY/GAPS/ARCHITECTURE.
+- [ ] **T-E.4** [Fable+User] Disclosure artifact: scorer README section + the required X post must
+      state the livecert (registration 225) overlap plainly — mandatory per the organizer answer.
 - [x] **T-A.7** [Opus] Node gate recovered → `recon/2026-08-27-node-gate-analysis.md`. All
       constants pinned; `telegraph-subnet` was a dead end, gate found in git-history docs + live
       rejections.

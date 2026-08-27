@@ -113,9 +113,15 @@ is the audit session's file — never stage it).
 3. Phase B build (Opus): gate-proxy harness (Stage 1 + Stage 2 emulation + Spearman proxy over
    real `/scores` rows) + fixture corpus per [FIXTURES.md](FIXTURES.md).
 4. Phase C build (Opus): the scorer itself, once toolchain lands.
-5. **User actions queued**: two Discord questions — (a) Track 2 ranking formula (champion slots?
-   margins? stacking?), (b) is a scorer for an intent you also mine acceptable with disclosure?
-   Plus the X thread once there's a finding to show (drafts to come from us).
+5. **ORGANIZER ANSWERS LANDED 2026-08-27 (via user, Discord)** — all three strategy-relevant:
+   (a) the 50% axis = **measured performance vs the incumbent/baseline during review**; champion
+   slots do NOT auto-stack → depth over breadth, the proof pack is the deliverable;
+   (b) submission = **registerWasm + required public X post(s)**, no form; review may request the
+   evaluation material → keep the proof pack handover-ready;
+   (c) **mined-intent overlap allowed with full disclosure**; our general-correctness +
+   score-own-miner-down design explicitly endorsed; they'll flag the overlap for review →
+   STORM_ALERT unlocked as primary registration target; disclosure text mandatory in README + X.
+   Remaining user actions: the X post(s) (drafts from us once harness numbers land).
 
 ## Key numbers
 
