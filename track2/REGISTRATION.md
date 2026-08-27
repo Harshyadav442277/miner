@@ -1,5 +1,12 @@
 # REGISTRATION.md — the user's runbook for registering the scorer
 
+> **⛔ ON HOLD 2026-08-27 — do not register yet.** The adversarial self-review
+> (`recon/2026-08-27-adversarial-review.md`) found 6 CRITICAL defects (punctuation-blind
+> exact-match, negation blindness, STORM answered-ness gate pinned open, IP_GEO score
+> saturation, unit-faking). A fix round is in flight; this notice is removed when the rebuilt
+> module passes the gate proxy AND the adversarial repro suite. The pinned URLs below will
+> change with the fixed build.
+
 Claude prepares; **the user clicks**. Registration is `registerWasm` on the Diamond — gas-only,
 no bond, reversible (`deregisterEntity(<id>, 2)`). Even a rejection returns the node's official
 `eval` block — our margin measured on its hidden fixtures — which is exactly the "measured
