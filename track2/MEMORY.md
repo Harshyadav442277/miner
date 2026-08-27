@@ -103,6 +103,20 @@ committed track2/ docs, so track2/ is tracked — commit scoped (`git add track2
 with telegraph-60 and the read-only audit session telegraph-fd; `fable_review_audit.md` at root
 is the audit session's file — never stage it).
 
+### SCORER v1 BUILT AND GATE-PROXY-PASSING — 2026-08-27
+
+`track2/scorer/` — Rust no_std, 3 builds 13.9 KB / 0 imports / 44 tests. **Independently
+verified by Fable rerunning the harness**: IP_GEOLOCATION all applicable gate checks PASS
+(margin 0.784 vs champion 0.596 on the same corpus, wins 27/29 vs 22/29, self-match exactly 1.0,
+Spearman skipped — single miner); STORM_ALERT passes incl. Spearman 0.632. FACT-SWAP margin
+0.458 vs champion 0.004. ~1500× faster than the incumbent (10s of the 600s budget). Honest
+tradeoff (in scorer/README + tune.md): STORM sacrifices the anti-parrot exhibit to keep Spearman;
+IP_GEO expresses it fully (6/8). **Live bars at poll time: IP_GEO 0.992 (drifted from 0.51!),
+STORM 0.859** — the node's hidden fixtures ≠ our corpus (G11); first registration is a
+measurement, not a guaranteed win, and a rejection returns the node's official eval numbers.
+**→ [REGISTRATION.md](REGISTRATION.md) is the user runbook** (hosting decision, verify-bytes,
+console clicks, verdict reading, disclosure text, X draft).
+
 ### Next actions
 
 1. Agent C report → close G5 (benchmark/floors/converter) if found.

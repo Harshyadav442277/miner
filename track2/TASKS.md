@@ -46,14 +46,15 @@ One task = one change = one commit. Work top-down. Owner in brackets.
 
 ## Phase C — Build
 
-- [ ] **T-C.1** [Opus] Rust workspace for the scorer module; ABI skeleton + edge-case tests
-      (empty/huge/non-UTF8 inputs) building to `wasm32-unknown-unknown`.
-- [ ] **T-C.2** [Opus] Generic fact-aware core: typed fact extraction + tolerant comparison +
-      low-weight lexical tie-breaker (ARCHITECTURE A3).
-- [ ] **T-C.3** [Opus] Per-intent extractors for the locked portfolio (security-domain ones —
-      SSL / CVE / URL — Opus only).
-- [ ] **T-C.4** [Opus] Candidate beats baseline on every target intent's fixtures; iterate until
-      adversarial set is clean.
+- [x] **T-C.1** [Opus] `track2/scorer/` crate: no_std ABI + all Stage-1 traps unit-tested;
+      3 builds, 13.9 KB, 0 imports.
+- [x] **T-C.2** [Opus] Fact-aware core: typed facts (units, %, coordinates, identifiers) +
+      answered-ness gate + smoothstep; constants swept against the harness (tune.md).
+- [x] **T-C.3** [Opus] Extractors: generic + ip_geolocation + storm_alert. (SSL/CVE/URL later
+      if targeted.)
+- [x] **T-C.4** [Fable-verified] Both targets PASS the offline gate proxy vs live champions —
+      IP_GEO margin 0.784 vs 0.596 (27/29 wins), STORM 0.581 vs 0.425 (Spearman 0.632).
+      FACT-SWAP 4/4 at margin 0.458 vs champion 0.004.
 
 - [ ] **T-C.5** [Opus] Registration-target survey at candidate-ready time: poll `/api/wasm` for
       every NON-mined Tier A intent (URL_SCAN first) — champion_margin, entry count, miner count
