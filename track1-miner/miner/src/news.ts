@@ -86,6 +86,9 @@ export async function getHeadlines(query: string, limit = 6, timeoutMs = DEFAULT
   const now = new Date().toISOString();
   const topic = extractTopic(query);
   const region = extractRegion(query);
+  // "top 5 headlines" is a count, and an answer with six items did not honour it.
+  const askedN = String(query ?? "").match(/\b(?:top|latest|first)\s+(\d{1,2})\b/i);
+  const wantN = askedN?.[1] ? Math.max(1, Math.min(10, Number(askedN[1]))) : null;
   const terms = [topic, region].filter(Boolean).join(" ") || "top stories";
 
   const url = `${FEED}?q=${encodeURIComponent(terms)}`;
@@ -100,7 +103,7 @@ export async function getHeadlines(query: string, limit = 6, timeoutMs = DEFAULT
     clearTimeout(t);
   }
 
-  const items = [...xml.matchAll(/<item>([\s\S]*?)<\/item>/g)].slice(0, limit);
+  const items = [...xml.matchAll(/<item>([\s\S]*?)<\/item>/g)].slice(0, wantN ?? limit);
   const headlines: Headline[] = [];
   for (const it of items) {
     const block = it[1] ?? "";
@@ -112,13 +115,16 @@ export async function getHeadlines(query: string, limit = 6, timeoutMs = DEFAULT
   }
 
   const day = new Date().toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
-  // "top technology headlines in Japan", not "top technology in Japan headlines".
+  // "top 5 technology headlines from Japan", numbered like a person would list
+  // them — the questions ask "top N ... from <place> as of today" in exactly
+  // those words, and the answer should read as directly addressing each one.
   const subject = topic ? `${topic} ` : "";
-  const where = region ? ` in ${region}` : "";
+  const where = region ? ` from ${region}` : "";
+  const countWord = wantN ? `${wantN} ` : "";
 
   const reason = headlines.length
-    ? `Here are the current top ${subject}headlines${where} as of ${day}: ` +
-      headlines.map((h) => `${h.title}${h.source ? ` (${h.source})` : ""}.`).join(" ")
+    ? `The top ${countWord}${subject}headlines${where} today, as of ${day}, are: ` +
+      headlines.map((h, i) => `${i + 1}. ${h.title}${h.source ? ` (${h.source})` : ""}.`).join(" ")
     : `No current ${subject}headlines${where} could be retrieved as of ${day}.`;
 
   return {

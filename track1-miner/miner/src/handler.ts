@@ -4,7 +4,7 @@ import { checkStorm, type StormResult } from "./storm";
 import { extractContent } from "./content";
 import { getHeadlines } from "./news";
 import { translate } from "./translate";
-import { lookupCve } from "./cve";
+import { lookupCve, extractCveId, type CveResult } from "./cve";
 import { findPapers } from "./papers";
 import { getForecast, type ForecastResult } from "./forecast";
 import { geolocate, type GeoResult } from "./geo";
@@ -17,7 +17,7 @@ const MAX_CACHE = 500;
  * repeat checks of the same host sub-millisecond without ever serving a stale
  * verdict for longer than the spot-check interval.
  */
-type Answer = SslResult | StormResult | ForecastResult | GeoResult;
+type Answer = SslResult | StormResult | ForecastResult | GeoResult | CveResult;
 const cache = new Map<string, { at: number; value: Answer }>();
 
 function fromCache(key: string): Answer | null {
@@ -312,8 +312,19 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
       });
       return;
     }
+    // Key the cache on the CVE id, not the phrasing: NVD allows ~5 requests per
+    // 30 seconds, and every rephrasing of the same CVE must not spend one.
+    const cveKey = `cve:${(extractCveId(q) ?? q.trim().toLowerCase()).toLowerCase()}`;
+    const cveHit = fromCache(cveKey);
+    if (cveHit) {
+      send(res, 200, cveHit);
+      return;
+    }
     lookupCve(q)
-      .then((r) => send(res, 200, r))
+      .then((r) => {
+        toCache(cveKey, r);
+        send(res, 200, r);
+      })
       .catch((e: unknown) => upstreamUnavailable(res, "A CVE lookup", q.slice(0, 40), e));
     return;
   }
