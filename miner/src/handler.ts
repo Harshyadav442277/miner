@@ -3,6 +3,7 @@ import { checkCertificate, normalizeTarget, type SslResult } from "./ssl";
 import { checkStorm, type StormResult } from "./storm";
 import { extractContent } from "./content";
 import { getHeadlines } from "./news";
+import { translate } from "./translate";
 import { getForecast, type ForecastResult } from "./forecast";
 import { geolocate, type GeoResult } from "./geo";
 
@@ -276,6 +277,25 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
         send(res, 200, result);
       })
       .catch((e: unknown) => upstreamUnavailable(res, "A storm risk forecast", q.slice(0, 80), e));
+    return;
+  }
+
+  if (path === "/translate") {
+    const q = firstValue(url, "query", "q", "question", "text", "input");
+    if (!q.trim()) {
+      send(res, 200, {
+        verdict: "unknown",
+        confidence: 0,
+        reason:
+          "No text was supplied to translate. Quote the text and name a target language, " +
+          "for example: Translate \"Good morning\" into French.",
+        error: "invalid_input",
+      });
+      return;
+    }
+    translate(q)
+      .then((r) => send(res, 200, r))
+      .catch((e: unknown) => upstreamUnavailable(res, "A translation", q.slice(0, 60), e));
     return;
   }
 

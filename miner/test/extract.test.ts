@@ -1,6 +1,7 @@
 import { test, describe } from "node:test";
 import assert from "node:assert/strict";
 import { extractContent } from "../src/content";
+import { sourceText, targetLanguage } from "../src/translate";
 import { extractHostname, placeCandidates, extractWindThreshold, toKmh, asksForKnots, extractCoords } from "../src/extract";
 import { normalizeTarget } from "../src/ssl";
 
@@ -181,5 +182,24 @@ describe("content extraction", () => {
   test("says so plainly when nothing matches", () => {
     const r = extractContent('Extract the contact details from: "There is nothing here."');
     assert.match(r.summary, /No contact details were found/);
+  });
+});
+
+describe("translation", () => {
+  // Both registered LANGUAGE_TRANSLATION miners are named after the same API and
+  // score 0.000 on most questions, including ones where that API returns the
+  // ground truth verbatim.
+  test("reads the quoted text and the target language", () => {
+    const q = 'Translate "See you tomorrow morning." into Russian.';
+    assert.equal(sourceText(q), "See you tomorrow morning.");
+    assert.equal(targetLanguage(q)?.code, "ru");
+  });
+
+  test("handles a two-word language name", () => {
+    assert.equal(targetLanguage('Translate "Hello" into Mandarin Chinese.')?.code, "zh-CN");
+  });
+
+  test("returns null when no language is named", () => {
+    assert.equal(targetLanguage('Translate "Hello" please.'), null);
   });
 });

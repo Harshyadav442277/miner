@@ -34,6 +34,13 @@ endpoints:
       Severe-weather risk for a location over the next 48 hours. Accepts a place
       name or "lat,lon".
 
+  - path: /translate
+    external_path: /translate
+    method: GET
+    description: >-
+      Translates quoted text into a named target language. Returns the
+      translation itself, in the target script.
+
   - path: /headlines
     external_path: /headlines
     method: GET
@@ -75,6 +82,7 @@ semantics:
     - IP_GEOLOCATION
     - CONTENT_EXTRACTION
     - NEWS_HEADLINES
+    - LANGUAGE_TRANSLATION
 
 # input_schema is a single top-level block covering every endpoint — the schema
 # refuses it inside endpoints[], and the node does not enforce it against requests.
