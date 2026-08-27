@@ -1,6 +1,17 @@
 # REGISTRATION.md — the user's runbook for registering the scorer
 
-> **✅ HOLD LIFTED 2026-08-27.** The adversarial review's 6 CRITICALs are fixed with
+> **⛔ RE-HELD 2026-08-27 (pre-flight probe) — do not register yet.** Scoring the *hosted* bytes
+> directly found an entity-swap blind spot: against GT "…located in **Mountain View**, California,
+> United States, operated by Google LLC", an answer with **only the city changed to Berlin scores
+> 1.0000** — tying a verbatim-correct answer and *beating* a correctly-reworded one (0.9606).
+> Swapping city+state+country only reaches 0.9507. Figures and identifiers are punished hard
+> (wrong ISP too → 0.0002), but a lone swapped **proper noun** is nearly free. For IP_GEOLOCATION
+> the place name *is* the answer, and this is the same inversion class we accuse the incumbent of —
+> it is also the first thing a reviewer will try. The FACT-SWAP fixtures missed it because they
+> swap several tokens at once. Fix in flight; this notice lifts when a single-entity swap is
+> punished and the gate still passes.
+>
+> ~~**✅ HOLD LIFTED 2026-08-27.**~~ The adversarial review's 6 CRITICALs are fixed with
 > before/after receipts (`recon/2026-08-27-adversarial-review.md` + the fix-round summary in
 > MEMORY.md); the rebuilt module passes the full IP_GEOLOCATION gate proxy —
 > **independently re-verified** (margin 0.786 vs 0.596, wins 24/29 vs 22/29, self-match 1.0).
