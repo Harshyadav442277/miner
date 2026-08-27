@@ -366,10 +366,11 @@ ground truth. A storm candidate scored 0.614 that way; the honest implementation
    509-638 bytes; measured score barely moved (0.00949/0.01064 vs txlens 0.00826). A test pins
    the response under 650 bytes.
 
-**ALL FOUR ENDPOINTS NOW FIT THE CONVERSION BUDGET:** SSL 509b, STORM 648b (was **1076**),
-WEATHER 488b, GEO 500b. Storm's per-period wind breakdown was removed after measuring it on the
-deployed answer: **0.00892 with it, 0.00902 without** — slightly worse for 147 extra characters.
-Tests pin SSL and storm under budget.
+**THERE IS NO CONVERSION SIZE LIMIT — that theory was wrong.** Across 480 scored answers,
+conversion fails ~6.7% of the time at **every** size: `weatherapi` converts 52,943 bytes fine,
+`ssllabs` failed at 161 bytes. Our 862-byte empty conversion was intermittency, not a threshold.
+Trimming the SSL answer on that false premise cost **11%** (0.01061 -> 0.00949); restored.
+The storm period breakdown stays removed on its own measurement (0.00892 with, 0.00902 without).
 
 **Grace period runs ~7 days from activation** — unranked during it, sharing 5% of routed traffic
 equally with other new miners. The score earned there sets the opening leaderboard position.

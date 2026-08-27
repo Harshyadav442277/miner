@@ -72,13 +72,13 @@ describe("checkStorm (live)", () => {
   });
 });
 
-describe("conversion budget", () => {
-  // Telegraph converts a miner's JSON to prose before scoring it, and returns
-  // nothing when the response is too large — our epoch-285 SSL answer was 862
-  // bytes and converted to an empty string. Storm reached 1076 bytes with a
-  // per-period breakdown that measured no better than leaving it out.
-  test("a window answer stays within the conversion budget", async () => {
+describe("answer completeness", () => {
+  // Was a size-budget assertion; the size theory was wrong (see ssl.test.ts).
+  // The period breakdown stays out on its own merits: measured 0.00892 with it
+  // and 0.00902 without.
+  test("a window answer reports wind, gusts and an overall risk", async () => {
     const r = await checkStorm("storm risk at 37.7749,-122.4194 over the next 48 hours");
-    assert.ok(JSON.stringify(r).length < 700, `${JSON.stringify(r).length} bytes`);
+    assert.match(r.reason, /gusts/i);
+    assert.match(r.reason, /risk is 0/i);
   });
 });

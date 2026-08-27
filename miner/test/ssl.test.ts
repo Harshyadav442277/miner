@@ -93,18 +93,22 @@ describe("checkCertificate (live)", { concurrency: 4 }, () => {
   });
 });
 
-describe("conversion budget", () => {
-  // Telegraph converts a miner's JSON to prose before scoring it, and that
-  // conversion produced NOTHING when our response reached 862 bytes in epoch 285
-  // — every miner whose conversion succeeded was under ~430. This pins the
-  // response small so the sentence that actually gets scored reaches the scorer.
-  test("a reachable answer stays within the conversion budget", async () => {
+describe("answer completeness", () => {
+  // These previously asserted a response size budget, on the theory that
+  // Telegraph's prose conversion had a size limit. It does not: across 480 scored
+  // answers, conversion failed 6.7% of the time at every size — a 161-byte answer
+  // failed and a 52,943-byte one succeeded. What matters is that the answer names
+  // what the question asked about.
+  test("a reachable answer names chain and hostname validation", async () => {
     const r = await checkCertificate("github.com", 443, 12_000);
-    assert.ok(JSON.stringify(r).length < 650, `${JSON.stringify(r).length} bytes`);
+    assert.match(r.reason, /chain/i);
+    assert.match(r.reason, /hostname validation/i);
   });
 
-  test("an unreachable answer stays within the conversion budget", async () => {
+  test("an unreachable answer still names the checks it could not perform", async () => {
     const r = await checkCertificate("no-such-host-xyz123-telegraph.invalid", 443, 8_000);
-    assert.ok(JSON.stringify(r).length < 650, `${JSON.stringify(r).length} bytes`);
+    assert.match(r.reason, /chain completeness/i);
+    assert.match(r.reason, /hostname validation/i);
+    assert.match(r.reason, /openssl/i);
   });
 });

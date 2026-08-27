@@ -556,3 +556,42 @@ What went, and why none of it costs an answer:
   the hourly precipitation min/max (`total_precipitation_mm` already carries it).
 
 Tests now pin SSL and storm under their budgets so this cannot regress unnoticed.
+
+
+## Correction: there is no conversion size limit
+
+The section above is **wrong**, and I am leaving it in place with this correction rather than
+quietly editing it.
+
+I inferred a size limit from three data points: 383 and 427 bytes converted, 862 did not. Testing
+it against all 480 scored non-empty answers instead:
+
+```
+non-empty answers   480
+converted OK        448   largest that converted:  52,943 bytes
+converted EMPTY      32   smallest that failed  :      161 bytes
+```
+
+`weatherapi` converts a **52,943-byte** response. `ssllabs` failed at **161 bytes**. Conversion
+fails about **6.7% of the time at every size**, to every miner, including both rank-1 miners in a
+single epoch. Our 862-byte failure was that intermittency, not a threshold.
+
+**What the false theory cost.** The SSL unreachable answer was cut from 511 to 313 characters for
+no reason:
+
+```
+511 chars  0.01061158
+313 chars  0.00949136   -11%
+```
+
+Restored, and the size-budget tests replaced with ones asserting that the answer names what the
+question asked about — chain completeness, hostname validation, the verification method.
+
+**What survives the correction.** The storm period breakdown stays removed: that was measured on
+its own merits (0.00892 with, 0.00902 without) and does not depend on the size theory. The field
+trimming stays too — those fields genuinely restated `verdict` or were derivable — but it was kept
+for tidiness, not because it buys anything.
+
+This is the sixth scoring theory tested here and the fourth to fail. The pattern in the failures is
+consistent: **every theory about how the scorer works has been wrong, and every gain has come from
+answering more of what the question actually asked.**
