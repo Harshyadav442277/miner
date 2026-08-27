@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import { extractContent } from "../src/content";
 import { sourceText, targetLanguage } from "../src/translate";
 import { extractCveId } from "../src/cve";
+import { dateWindow, searchTopic } from "../src/papers";
 import { extractHostname, placeCandidates, extractWindThreshold, toKmh, asksForKnots, extractCoords } from "../src/extract";
 import { normalizeTarget } from "../src/ssl";
 
@@ -216,5 +217,24 @@ describe("CVE identifiers", () => {
 
   test("returns null when none is present", () => {
     assert.equal(extractCveId("what is the weather"), null);
+  });
+});
+
+describe("academic search parsing", () => {
+  test("reads a month-range window", () => {
+    const w = dateWindow("published between January 2023 and June 2026 that discuss blockchain");
+    assert.equal(w.from, "2023-01-01");
+    assert.equal(w.to, "2026-06-30");
+  });
+
+  test("reads a bare year", () => {
+    assert.equal(dateWindow("all papers published in 2024 that discuss X").from, "2024-01-01");
+  });
+
+  test("strips the search scaffolding from the topic", () => {
+    assert.equal(
+      searchTopic("Find all papers published in 2024 that discuss machine learning applications in renewable energy systems, returning the paper title"),
+      "machine learning applications in renewable energy systems",
+    );
   });
 });

@@ -34,6 +34,13 @@ endpoints:
       Severe-weather risk for a location over the next 48 hours. Accepts a place
       name or "lat,lon".
 
+  - path: /papers
+    external_path: /papers
+    method: GET
+    description: >-
+      Finds peer-reviewed papers on a topic, optionally within a date range, via
+      OpenAlex. Returns title, authors, year and citation count for each.
+
   - path: /cve
     external_path: /cve
     method: GET
@@ -91,6 +98,7 @@ semantics:
     - NEWS_HEADLINES
     - LANGUAGE_TRANSLATION
     - CVE_LOOKUP
+    - ACADEMIC_SEARCH
 
 # input_schema is a single top-level block covering every endpoint — the schema
 # refuses it inside endpoints[], and the node does not enforce it against requests.
