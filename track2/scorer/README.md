@@ -69,6 +69,16 @@ incumbent rather than a stylistic preference:
 5. **Answered-ness is first-class.** After the boilerplate opener is struck, an answer that
    asserts nothing beyond the question's own content scores near zero — *when the ground truth
    carries an answer to be found*.
+6. **Notation is not content.** Three normalisations exist because each one was measured punishing
+   a *correct* answer for how it was typed rather than what it said. Unicode punctuation folds to
+   ASCII before tokenising — bytes ≥ 0x80 are opaque, so `Shimo’ochiai` with a curly apostrophe and
+   the same name with `'` were different tokens, and the ASCII form scored **0.2592** against a
+   curly ground truth (now 0.9998). A lone hemisphere letter is read as a coordinate sign before
+   the unit table sees it, because `s`, `n` and `e` all name units and only `W` had ever worked:
+   `34.9011 S, 56.1645 W` scored **0.2055** against a signed ground truth (now 1.0000), while
+   `30 s` is still a duration and `47 bananas` still 0.0005. ISO 3166 alpha-2 codes are indexed in
+   both directions, so `UY` is Uruguay — and, unlike the blanket abstention it replaced, a *wrong*
+   two-letter country code now costs (0.97 → 0.2796).
 
 ### What the module deliberately does **not** do
 
@@ -160,9 +170,13 @@ All three builds pass `verify.mjs` in full. Artefacts:
 
 | Build | Size | Imports | `wasm-tools validate` |
 |---|---|---|---|
-| `dist/generic.wasm` | 20,127 B | **0** | OK |
-| `dist/ip_geolocation.wasm` | 20,103 B | **0** | OK |
-| `dist/storm_alert.wasm` | 20,123 B | **0** | OK |
+| `dist/generic.wasm` | 22,482 B | **0** | OK |
+| `dist/ip_geolocation.wasm` | 22,486 B | **0** | OK |
+| `dist/storm_alert.wasm` | 22,494 B | **0** | OK |
+
+`cargo fmt --check` and `cargo clippy --all-targets -- -D warnings` are both clean; 66 unit tests
+pass under the generic and IP profiles, 61 under STORM (five assertions are gated off there, where
+`prose_w = 0.7` deliberately changes the behaviour they pin).
 
 Exported signatures, read back off the binary — `rank_answer` is **exactly six `i32` returning
 `f32`** (a 3-param build was rejected live):
@@ -218,7 +232,27 @@ Hand cases on the `ip_geolocation` build:
 ## Measured against the live champions
 
 `track2/harness/run-eval.mjs` reproduces the node's two-stage gate offline against the incumbent
-binaries (`ipgeo_reg630`, `storm_rpen_reg453`). **Both intents clear every check.**
+binaries (`ipgeo_reg630`, `storm_rpen_reg453`).
+
+> **The table below is superseded.** It predates registration 1377's rejection, the repaired
+> CLEAN-PAIR corpus, and — most importantly — the discovery that IP_GEOLOCATION's public history
+> now has two miners, so check C is **not** skipped there. See "IP_GEOLOCATION is no longer
+> Spearman-free" under *Honest limitations*, and `tune.md` for the current numbers.
+
+Current IP_GEOLOCATION figures against `ipgeo_reg630`, on the repaired corpus:
+
+| | candidate | incumbent |
+|---|---|---|
+| pairwise wins, whole corpus | **786/791** | 485/791 |
+| margin | **0.7221** | 0.2934 |
+| CLEAN-PAIR (fluent one-fact counterfactuals) | **744/744** | 454/744 (61.0%) |
+| ENTITY-SWAP | **18/18** | 9/18 |
+| UNIT/FORM | **4/4** | 2/4 |
+| REAL-PARROT | 3/8 | 4/8 |
+| correct-form spread ≤ 0.05 | **31/31** (worst 0.0280) | 31/31 |
+
+`REAL-PARROT` is the one class where the incumbent still leads, and it is the class the public
+story used to lead with. It is reported, not hidden.
 
 | Check | IP_GEOLOCATION | STORM_ALERT |
 |---|---|---|
@@ -271,7 +305,21 @@ mode a Tier-A deterministic intent cannot tolerate.
 
 - **The corpus is a proxy, not the node's benchmark.** The node's fixtures are closed-source and
   unrecoverable. What transfers is the *comparison* against a pinned incumbent binary,
-  not the absolute numbers.
+  not the absolute numbers. One point of contact exists: on the CLEAN-PAIR class the incumbent
+  measures margin **0.99210**, and the node reported that same incumbent at **0.99186** on its own
+  hidden fixtures.
+- **An appended false fact costs, but far less than a wrong one — and an appended *true* fact pays
+  the same price.** Nothing in the text separates them without slot-aware extraction, which this
+  module does not have. `add_w = 0.35` prices an unpaired assertion so padding is not free
+  (a false extra IP 0.9999 → 0.8100, a false ASN 1.0000 → 0.8154), and the identical discount lands
+  on a *correct* answer that volunteers a true AS number (1.0000 → 0.8154). Appended false
+  countries and cities still cost under a point, because the entity channel is worst-case-leaning
+  and a pure addition is not a contradiction. This is the sharpest unresolved limitation.
+- **The CLEAN-PAIR headline was overstated until the generator was repaired.** Its wrong answers
+  were positional substitutions over the whole text, which produced corrupted strings a scorer can
+  reject on fluency alone. Rebuilt as fluent one-fact counterfactuals, the same build scores
+  744/744 with margin **0.698** where the corrupted corpus reported 248/248 and 0.999. The lower
+  number is the real one.
 - **It does not beat the incumbent everywhere, and here is a case where it loses.** Run the
   *generic* build against `SSL_VERIFICATION` (champion reg 631) and it **fails the gate**: wins
   16/29 against the incumbent's 17/29, and Spearman **−0.2222** over 18 real answers — our ranking
@@ -296,9 +344,22 @@ mode a Tier-A deterministic intent cannot tolerate.
   the pressure is real: every step away from rewarding parroting costs agreement with a scorer
   that rewards it. IP_GEOLOCATION, where the check is *skipped* outright, is the structurally safe
   registration; STORM is a cheap, informative second attempt.
-- **Register IP_GEOLOCATION.** No Spearman constraint (single miner with history), margin delta
-  +0.190, and the thesis fully expressed. Its live margin bar is the highest of any target
-  (~0.992 at last poll), so re-poll `/api/wasm` for the current bar before sending.
+- **IP_GEOLOCATION is no longer Spearman-free, and that now blocks registration.** Everything
+  above and below that calls this intent "single miner, check skipped" is stale. Public history
+  now carries 25 rows (13 scorable) across **two** miners, `iplocate` and `livecert`, so check C
+  applies. Replayed against the live champion on that history this build scores **ρ 0.5934** per
+  row and **0.6503** per distinct question, against a floor of 0.60. The rejected registration
+  1377 scored 0.5824, so this round improved agreement *and* correctness — but not enough.
+
+  It is not a tuning problem. All 13 scores are distinct on both sides, so there are no ties to
+  break; the gap is concentrated on rows where the champion scores a **factually wrong** answer at
+  ~0.99 — "located in Mumbai, India" against a ground truth of Tokyo, Japan (champion 0.9918, ours
+  0.0855), and against a ground truth of the United States (champion 0.9960, ours 0.0156). Raising
+  ρ means scoring those closer to the champion. The agreement check, on this intent's current
+  traffic, asks a candidate to reproduce the incumbent's errors.
+
+  We report this rather than tune around it. Registration is a judgement about whether to spend a
+  gate attempt on a check we can only pass by getting answers wrong.
 - **Tuning was measured, not guessed**, but only against this corpus. The sweep imports the
   harness's own `corpus.mjs` so the Spearman set optimised is byte-identical to the one the gate
   reads — an earlier sweep against a hand-rolled proxy reported ρ 0.639 where the harness measured

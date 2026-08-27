@@ -273,10 +273,14 @@ pub fn fact_multiplier(ta: &Toks, tg: &Toks, sa: &Set, p: &Profile) -> (f32, f32
         let agree = (1.0 - p.num_min_bias) * mean + p.num_min_bias * num_min;
         f *= clamp01(1.0 - p.num_channel_w * (1.0 - agree));
     }
-    // Only the paired part of the unsupported mass is a substitution; the excess
-    // is a pure addition and stays neutral.
+    // Only the paired part of the unsupported mass is a substitution. The excess
+    // is a pure addition: it displaced nothing, but at `add_w = 0` an answer
+    // could append an invented IP or ASN to an otherwise perfect answer for
+    // free (measured >= 0.9999), so it enters the denominator at a reduced
+    // weight rather than not at all.
     let id_sub = fmin(id_uns, gt_id_uncovered);
-    let id_w = id_sup + id_sub;
+    let id_add = fmax(id_uns - id_sub, 0.0);
+    let id_w = id_sup + id_sub + p.add_w * id_add;
     if id_w > 0.0 {
         f *= clamp01(1.0 - p.id_channel_w * (1.0 - id_sup / id_w));
     }

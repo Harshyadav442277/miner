@@ -23,6 +23,7 @@
 
 #![cfg_attr(target_arch = "wasm32", no_std)]
 
+mod aliases;
 mod bytes;
 mod facts;
 mod profile;

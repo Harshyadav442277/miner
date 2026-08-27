@@ -138,6 +138,66 @@ with matching polarity, rather than trusting the single hash-set index. It is a 
 acronym- or stem-matched tokens, so it read `US` against `United States` as a contradiction and
 dropped a correct rewording from 0.9992 to 0.9441. Recorded here rather than shipped.
 
+## The audit round — five semantic failure classes, and a repaired benchmark
+
+An independent audit (`track2/codex_audit.md`) held registration and named five
+locally-reproducible failures plus a defect in the benchmark itself. All five are closed. The
+first three are **defects**: each punished a *correct* answer for something that carries no
+information about correctness.
+
+| # | Failure | Mechanism | Before → after |
+|---|---|---|---|
+| 1 | Curly Unicode punctuation | Bytes ≥ 0x80 are opaque *word* bytes, so `Shimo’ochiai` (U+2019) is one token where the ASCII `Shimo'ochiai` is two. `bytes::fold_punct` now folds quotes, dashes, ellipses and exotic spaces to ASCII before tokenising. | ASCII apostrophe against a curly ground truth **0.2592 → 0.9998** |
+| 2 | Hemisphere ≠ signed coordinate | Three of the four hemisphere letters name units — `s` seconds, `n` and `e` SI prefixes — so the unit-word table claimed them first and only `W` ever worked. The hemisphere reading now runs **before** the unit table, guarded on a fractional magnitude within ±180 so `30 s` stays a duration. The letter is also marked as notation, not content. | `34.9011 S, 56.1645 W` **0.2055 → 1.0000**; wrong hemisphere still 0.0458; `30 s`, `12.5 m/s`, `47 bananas` unchanged |
+| 3 | Country aliases | The initials rule reaches `US` from `United States` but nothing lexical reaches `UY` from `Uruguay`. [`src/aliases.rs`](src/aliases.rs) adds ISO 3166 alpha-2 in both directions. | correct `UY` **0.9696 → 0.9992**; and a **wrong** code, previously free, **0.97 → 0.2796** |
+| 4 | Correct paraphrases far below equivalents (CLEAN-PAIR 01/10/11) | Three separate causes: the range-width and list-marker defects above, then the polarity channel comparing against whichever ground-truth occurrence the hash set happened to store. A contradiction now requires that the token occur in the truth and *never* with the answer's polarity; a token matched through an alias has no polarity to compare and abstains. | correct-form spread **28/31 → 31/31 within 0.05** |
+| 5 | Appended false facts were free | `add_w`, new. An unsupported assertion that displaced nothing entered no channel at all. | false extra IP **0.9999 → 0.8100**, false ASN **1.0000 → 0.8154**, false country **0.9999 → 0.9912**, false city **0.9999 → 0.9906** |
+
+**Class 5 is a trade, not a fix, and the price is symmetric.** Nothing in the text distinguishes an
+appended *true* fact from an appended *false* one — that needs slot-aware extraction the module
+does not have. So the same `add_w = 0.35` that costs a false ASN 0.18 costs a **true** one the
+same 0.18: extra-true-`AS15169` went 1.0000 → 0.8154 and extra true detail 0.9999 → 0.9492. The
+value was swept over {0, 0.2, 0.35, 0.5, 0.7, 1.0}; the CLEAN-PAIR margin is *flat* across all of
+them, so the corpus cannot choose it and it is a judgement call, recorded here rather than
+presented as measured. Appended false **country** and **city** still cost under a point, because
+the entity channel is worst-case-leaning and a pure addition is not a contradiction.
+
+### The benchmark was repaired first, and the honest number is lower
+
+The generator's wrong answers were built by positional proper-noun substitution over the whole
+text, which produced corrupted strings ("The Iceland. It address …"). A scorer can reject those on
+fluency alone, so **248/248 was not a real result**. `gen-clean-pairs.mjs` now emits **fluent
+one-fact counterfactuals**: exactly one typed slot (ip, asn, postal, coordinate, speed, country,
+organisation, city) replaced by another fixture's value for the same slot, prose untouched. Each
+corpus carries a `corpus_version` hash over the generator and every source ground truth.
+
+| IP_GEOLOCATION CLEAN-PAIR | corrupted corpus | repaired corpus |
+|---|---|---|
+| pairs | 248 | **744** |
+| wins | 248/248 | **744/744** |
+| margin | 0.99855 | **0.69848** |
+| correct-form spread ≤ 0.05 | 28/31 | **31/31** |
+| mean of the wrong answers | 0.0000 | 0.3010 (wrong-city 0.2469, wrong-org 0.2427, wrong-country 0.2973, wrong-coordinate 0.3885, wrong-ip 0.4559, wrong-asn 0.5387) |
+
+The margin fell by 0.30 and that is the point: a fluent near-miss *should* score above unrelated
+text, so a corpus whose wrong answers are all near-zero cannot measure ordering. Ordering itself is
+now perfect (744/744) on the harder set.
+
+**And the harder set is what finally separates the two scorers.** On the corrupted corpus the
+incumbent also scored 248/248 — the class discriminated nothing. On fluent one-fact
+counterfactuals the incumbent (reg 630) drops to **454/744, 61.0%**, against our 744/744. Over the
+whole IP_GEOLOCATION corpus the gate proxy now reads **786/791 wins against 485/791**, margin
+**0.7221 vs 0.2934**. That gap — a lexical scorer cannot tell "Tokyo" from "Mumbai" in an otherwise
+identical sentence — is the improvement claim, and it only became visible once the benchmark stopped
+handing both scorers broken strings to reject.
+
+**One defect the repaired benchmark caught in this round's own work.** The first version of the ISO
+table looked codes up by hash alone, and alpha-2 codes collide with English words — `is` is
+Iceland, `it` Italy, `in` India, `no` Norway. Every ground truth containing the verb "is" therefore
+had "iceland" in its key set, and a counterfactual swapping Uruguay for Iceland scored a perfect
+**1.0000**. The fix is a case test (a code must be written ALL-CAPS, a name capitalised
+mid-sentence). Nothing but the fluent counterfactuals would have found it.
+
 ### Measured result — CLEAN-PAIR, IP_GEOLOCATION
 
 | | reg-1377 build | this build |
@@ -150,8 +210,65 @@ dropped a correct rewording from 0.9992 to 0.9441. Recorded here rather than shi
 | correct-verbose | 0.9196 | **0.9989** |
 | wrong-unrelated / wrong-swapped | 0.0000 | 0.0000 |
 
-The bar the node set is **margin > 0.99186 and 15/15**. 0.99855 clears it on this class; the class
-is a proxy for the node's hidden fixtures, not a copy of them (GAPS G11).
+The bar the node set is **margin > 0.99186 and 15/15**. Those figures are on the *corrupted*
+corpus and are superseded by the repaired one above; they are kept because the incumbent's number
+on the same corrupted corpus, **0.99210**, is the one point of contact between this harness and the
+node's own measurement (0.99186 — a difference of 0.00024).
+
+## IP_GEOLOCATION is no longer Spearman-free, and that is the blocking finding
+
+Every earlier note here calls this intent "single miner, Spearman skipped". **That is stale.**
+Public history now carries 25 rows, 13 of them scorable, across **2 miners** (`iplocate` and
+`livecert`) and 13 epochs, so check C applies. Registration 1377's
+`historical_rows_evaluated: 0` does not prove otherwise — the gate stops at the first failure and
+that candidate had already lost the wins check.
+
+Replayed against the live champion (reg 630) on the current public history:
+
+| Build | rho, per row (n=13) | rho, per distinct question (n=12) |
+|---|---|---|
+| reg 1377 (rejected) | 0.5824 | — |
+| **this build** | **0.5934** | **0.6503** |
+| floor / target | 0.60 / 0.70 | 0.60 / 0.70 |
+
+This round *improved* rho while also improving correctness, but it does not clear the floor on the
+per-row reading, and neither reading reaches the 0.70 target.
+
+**It is not reachable by tuning, and the evidence is in the disagreements themselves.** There are
+no ties to break — all 13 scores are distinct on both sides — so the gap is genuine disagreement,
+and it is concentrated on four rows where the champion scores a **factually wrong** answer at
+~0.99:
+
+| row | ground truth says | answer says | champion | ours |
+|---|---|---|---|---|
+| 0 | OpenDNS / Cisco, Ashburn VA | "San Jose, California" | 0.9920 | 0.0086 |
+| 3 | Google LLC, **United States** | "located in **Mumbai, India**" | 0.9960 | 0.0156 |
+| 12 | Google LLC, **Tokyo, Japan** | "located in **Mumbai, India**" | 0.9918 | 0.0855 |
+| 11 | Google LLC, **Japan** | "hosted by Google Cloud in **Mumbai, India**" | 0.0111 | 0.1735 |
+
+Raising rho means scoring "Mumbai, India" closer to 0.99 against a ground truth of Tokyo. That is
+the whole thesis inverted. The same structural conflict was already recorded for STORM_ALERT; the
+fresh history shows it now binds on IP_GEOLOCATION too, and the honest statement is that **the
+release gate's rho ≥ 0.70 is not achievable by a scorer that ranks these four rows correctly.**
+
+n = 13 is also small enough that a single rank swap moves rho by ~0.05, and the reading depends on
+whether the node samples rows or distinct questions — 0.5934 against 0.6503 on the same build.
+
+### Release-gate status (audit go/no-go for IP_GEOLOCATION)
+
+| Gate | Required | Measured | |
+|---|---|---|---|
+| unit tests / fmt / clippy | green | 66 pass (61 under STORM), `fmt --check` clean, `clippy -D warnings` clean | PASS |
+| WASM structural | 0 imports, `verify.mjs` full | 0 imports, validate + verify pass on all three builds | PASS |
+| ENTITY-SWAP | 18/18 | 18/18 | PASS |
+| UNIT/FORM | 2/2 | 2/2 | PASS |
+| CLEAN-PAIR correct-form spread | ≤ 0.05 on 31/31 | 31/31 | PASS |
+| fluent one-fact counterfactuals | every one below every correct phrasing | 744/744 | PASS |
+| appended false IP / ASN / country / city / coordinate | not free | 0.8100 / 0.8154 / 0.9912 / 0.9906 / 0.9001 vs a 1.0000 baseline | PASS, weakly |
+| fresh public-history rho | ≥ 0.70 preferred, never < 0.60 | **0.5934 (per row), 0.6503 (per question)** | **FAIL** |
+
+Everything the audit asked for is closed except the last line, and the last line is closed only by
+agreeing with the incumbent about answers it gets wrong. **No-go on rho alone.**
 
 ---
 

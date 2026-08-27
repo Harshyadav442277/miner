@@ -51,6 +51,48 @@ IP_GEOLOCATION   registrationId 1377   status REJECTED   is_champion false
                  registered 2026-08-27 23:27:17 IST; incumbent champion is reg 630 (zkasuran)
 ```
 
+### ★ THE CENTRAL FINDING — the agreement gate requires reproducing the champion's errors
+
+**2026-08-28, measured twice on two intents. This is the project's headline result.**
+
+The post-audit build closed all five failure classes and improved rho — and is still **NO-GO at
+rho 0.5934 < 0.60**, *and the gap is not tunable.* All 13 scorable rows are distinct on both
+sides, so there are no ties to break. The deficit sits entirely on rows where the **champion
+scores a factually wrong answer at ~0.99**:
+
+| ground truth | answer | champion | ours |
+|---|---|---|---|
+| Google LLC, **Tokyo, Japan** | "located in **Mumbai, India**" | **0.9918** | 0.0855 |
+| Google LLC, **United States** | "**Mumbai, India**" | **0.9960** | 0.0156 |
+| OpenDNS/Cisco, **Ashburn VA** | "**San Jose, California**" | **0.9920** | 0.0086 |
+
+**Reaching rho ≥ 0.70 means scoring "Mumbai" like "Tokyo."** We did not and will not. STORM_ALERT
+has the identical shape (`prose_w` buys Spearman and costs verbose correctness; the two are
+directly opposed). So the finding generalises: **on any intent with ≥2 miners, the promotion gate
+structurally protects the incumbent by requiring agreement with its factual errors.** A scorer
+cannot both fix the errors and agree with them.
+
+This is the submission's centrepiece, and it is *stronger* than a champion slot would have been:
+the 50% "improvement over baseline" axis is judged by **manual review**, which does not require
+winning the automated gate. We can show measured superiority plus receipts for why the gate
+cannot recognise it.
+
+### THE ONE REMAINING REGISTRABLE TARGET (scanned all 45 intents, 2026-08-28)
+
+Spearman is skipped only when an intent has **<2 miners** with scoring history. Of the low-bar
+intents, exactly two qualify:
+
+| intent | bar | entries | rows | miners | gate |
+|---|---|---|---|---|---|
+| **CONTENT_VERIFICATION** | **0.6877** | **3** | 28 | **1** | **SPEARMAN SKIPPED** |
+| RESEARCH_SYNTHESIS | 0.7928 | 3 | 1 | 1 | skipped, but ~no history to build on |
+| GAS_PRICE / TVL_LOOKUP / STOCK_PRICE / ACADEMIC_SEARCH / GAME_RESULT / LANGUAGE_TRANSLATION | 0.485–0.700 | — | — | 2–7 | applies (blocked by the finding above) |
+
+**CONTENT_VERIFICATION is the only viable registration**: lowest bar among Spearman-free intents,
+only 3 competing entries, and 28 rows of real traffic to build against. Caveat: it is Tier B
+(LLM-context) and we have no extractor for it, so it needs a new per-intent profile. Codex's TVL
+recommendation is superseded — TVL has 7 miners, so it is gated by the finding above.
+
 ### ⚠ CODEX AUDIT 2026-08-28 — a claim I made repeatedly was STALE and wrong
 
 `track2/codex_audit.md` (+ `codex_review/field_notes.md`). **IP_GEOLOCATION is NO LONGER

@@ -14,6 +14,7 @@
 //!   6. **fmul** — typed fact agreement, multiplicative (A3.4);
 //!   7. smoothstep calibration for genuine spread, never a cliff (A3.7).
 
+use crate::aliases::{code_for_name, is_country_code, name_for_code};
 use crate::bytes::*;
 use crate::facts::{best_agreement, fact_multiplier};
 use crate::profile::{profile, Profile};
@@ -29,6 +30,15 @@ static mut TA: Toks = EMPTY_TOKS;
 static mut SQ: Set = EMPTY_SET;
 static mut SG: Set = EMPTY_SET;
 static mut SA: Set = EMPTY_SET;
+
+/// Scratch for `fold_punct`. Three buffers, one per text, because `Toks` keeps
+/// no reference to the source but the three tokenise calls read their slices in
+/// turn. Sized for the longest real text by a wide margin — a live
+/// `converted_answer` runs a few hundred bytes and the longest ground truth in
+/// the corpus is ~2 KB. A text beyond this is an adversarial Stage-1 probe and
+/// is tokenised raw, where the only requirement is not to trap.
+const FOLD_CAP: usize = 8192;
+static mut FOLDED: [[u8; FOLD_CAP]; 3] = [[0; FOLD_CAP]; 3];
 
 /// The shipped module is single-threaded wasm, where these statics are simply
 /// scratch. `cargo test` on the host runs tests in parallel threads against the
@@ -84,9 +94,22 @@ pub fn breakdown(q: &[u8], gt: &[u8], ma: &[u8]) -> Breakdown {
         )
     };
 
-    tokenize(q, tq);
-    tokenize(gt, tg);
-    tokenize(ma, ta);
+    // Fold Unicode punctuation to ASCII before tokenising. Bytes >= 0x80 are
+    // opaque word bytes, so a curly apostrophe glues its neighbours into one
+    // token where the ASCII one splits them, and a correct answer failed on
+    // typography alone: against a ground truth reading `Shimo\u{2019}ochiai`,
+    // the same answer written with `'` scored 0.2592 and the curly form 0.9997.
+    // SAFETY: single-threaded wasm (host test builds serialise on SCRATCH_LOCK);
+    // the three fold slots are distinct statics and each is written before read.
+    let (fq, fg, fa) = unsafe {
+        let all = &mut *core::ptr::addr_of_mut!(FOLDED);
+        let (a, rest) = all.split_at_mut(1);
+        let (b, c) = rest.split_at_mut(1);
+        (&mut a[0], &mut b[0], &mut c[0])
+    };
+    tokenize(fold(q, fq), tq);
+    tokenize(fold(gt, fg), tg);
+    tokenize(fold(ma, fa), ta);
     annotate_units(tq);
     annotate_units(tg);
     annotate_units(ta);
@@ -103,6 +126,10 @@ pub fn breakdown(q: &[u8], gt: &[u8], ma: &[u8]) -> Breakdown {
     // phrasing match, and Rule-04 says we do not do those).
     add_acronyms(sg, tg);
     add_acronyms(sa, ta);
+    // The initials rule cannot reach a single-word country, so ISO 3166 alpha-2
+    // codes are indexed explicitly, in both directions.
+    add_country_aliases(sg, tg);
+    add_country_aliases(sa, ta);
     mark_boilerplate(ta);
 
     // Mark echo and support. Support is **graded**, not boolean: collapsing the
@@ -153,6 +180,69 @@ pub fn breakdown(q: &[u8], gt: &[u8], ma: &[u8]) -> Breakdown {
         answered,
         raw,
         final_score,
+    }
+}
+
+/// Fold Unicode punctuation into slot `slot`'s scratch buffer and return a view
+/// of it. Falls back to the raw bytes when the text does not fit.
+fn fold<'a>(src: &'a [u8], buf: &'a mut [u8; FOLD_CAP]) -> &'a [u8] {
+    match fold_punct(src, buf) {
+        Some(len) => &buf[..len],
+        None => src,
+    }
+}
+
+/// Does this unsupported token abstain rather than count as a wrong entity?
+///
+/// Only a two-letter ALL-CAPS token we cannot check: `IP`, `AS`, `RIR` name a
+/// method or a field, not a value, and their expansion cannot be verified
+/// lexically. The exemption used to cover *every* ALL-CAPS token, which let a
+/// wrong ISP written "AWS" score 0.9829 against a truth of "Google LLC" while
+/// the same swap spelled "Cloudflare Inc." scored 0.2248; bounding it at two
+/// letters put organisation acronyms back in the channel.
+///
+/// A two-letter token that IS a known ISO 3166 code does **not** abstain. It is
+/// a checkable claim about a country: `UY` against a truth of Uruguay is support
+/// (the alias table matched it), and `DE` against that truth is a wrong entity.
+/// Abstaining on those made an appended false country free.
+fn abstains(t: &Toks, i: usize) -> bool {
+    t.abbrev[i] && !is_country_code(t.hash[i])
+}
+
+/// Index each token by its ISO 3166 counterpart, in both directions.
+///
+/// The acronym rule below turns a *run* of proper nouns into its initials, which
+/// is how `US` finds `United States`. It cannot reach a single-word country:
+/// nothing lexical turns `Uruguay` into `UY`. Measured before this, a correct
+/// paraphrase writing `UY` scored 0.9696 against 1.0000 for the spelled-out
+/// form, and — worse — a *wrong* code cost nothing, because unknown two-letter
+/// tokens abstained wholesale.
+fn add_country_aliases(set: &mut Set, t: &Toks) {
+    let mut i = 0usize;
+    while i < t.n {
+        // Case matters, and getting this wrong is worse than having no table at
+        // all. Alpha-2 codes collide with ordinary English words — `is` is
+        // Iceland, `it` Italy, `in` India, `no` Norway, `at` Austria. Reading
+        // them by hash alone put "iceland" into the ground truth's key set for
+        // every sentence containing the verb "is", and a counterfactual that
+        // swapped Uruguay for Iceland then scored a perfect **1.0000**.
+        //
+        // A code is only a code when it is written as one (ALL-CAPS, two
+        // letters), and a name is only a name when it is capitalised
+        // mid-sentence. Both flags come straight from the tokeniser.
+        if t.kind[i] == crate::tokens::K_WORD {
+            if t.proper[i] {
+                if let Some(code) = code_for_name(t.hash[i]) {
+                    set.insert_key(code, i);
+                }
+            }
+            if t.abbrev[i] {
+                if let Some(name) = name_for_code(t.hash[i]) {
+                    set.insert_key(name, i);
+                }
+            }
+        }
+        i += 1;
     }
 }
 
@@ -263,23 +353,22 @@ fn entity_agreement(ta: &Toks, gt_uncovered: f32, p: &Profile) -> f32 {
         if ta.proper[i] && !ta.boiler[i] && !ta.echo[i] {
             if ta.supw[i] > 0.0 {
                 supported += ta.w[i];
-            } else if !ta.abbrev[i] {
+            } else if !abstains(ta, i) {
                 unsupported += ta.w[i];
             }
-            // A two-letter ALL-CAPS code abstains: "UY" for Uruguay is a
-            // legitimate rendering the acronym pass cannot derive (see
-            // `Toks::abbrev`). The exemption used to cover *every* ALL-CAPS
-            // token, which let a wrong ISP written "AWS" score 0.9829 against a
-            // truth of "Google LLC" while the same swap spelled "Cloudflare
-            // Inc." scored 0.2248. Bounding it at two letters keeps the country
-            // codes safe and puts organisation acronyms back in the channel.
         }
         i += 1;
     }
 
-    // Only the paired part is a substitution; the excess is a pure addition.
+    // Only the paired part is a substitution. The excess is a pure addition: it
+    // displaced nothing, so it cannot be a contradiction — but it is not free
+    // either. At `add_w = 0` an answer could append an invented city, country or
+    // organisation to an otherwise perfect answer for nothing (all measured
+    // >= 0.9999). It enters the denominator at a reduced weight, so padding
+    // costs, while an answer volunteering *true* extra detail stays near the top.
     let substituted = fmin(unsupported, gt_uncovered);
-    let total = supported + substituted;
+    let addition = fmax(unsupported - substituted, 0.0);
+    let total = supported + substituted + p.add_w * addition;
     if total <= 0.0 {
         return 1.0;
     }
@@ -320,7 +409,35 @@ fn polarity_of(ta: &Toks, tg: &Toks, p: &Profile) -> f32 {
             if k < tg.n {
                 let w = ta.w[i] * ta.supw[i];
                 sup_mass += w;
-                if ta.neg[i] != tg.neg[k] {
+                // `supi` is whichever occurrence the hash set happened to
+                // store, not the one the answer meant, so a ground truth that
+                // uses a word both ways reported a correct answer as
+                // contradicting itself. An abuse-history record uses several:
+                // "do not have a public geographic location ... are used only
+                // ... does not appear". Measured on CLEAN-PAIR fixture 01, a
+                // faithful terse answer scored polarity 0.8558 and the fixture
+                // 0.9436, breaking the equivalence tolerance.
+                //
+                // A contradiction is real only when the ground truth states this
+                // token *somewhere* and nowhere with the answer's polarity. If
+                // the token has no literal occurrence at all it was matched
+                // through an alias — the acronym rule, the ISO table, a stem —
+                // and there is no polarity to compare, so it abstains. Scanning
+                // without that guard read `US` against `United States` as a
+                // contradiction and cost a correct rewording 0.055.
+                let (mut literal, mut agrees) = (false, false);
+                let mut j = 0usize;
+                while j < tg.n {
+                    if tg.hash[j] == ta.hash[i] || tg.stem[j] == ta.stem[i] {
+                        literal = true;
+                        if tg.neg[j] == ta.neg[i] {
+                            agrees = true;
+                            break;
+                        }
+                    }
+                    j += 1;
+                }
+                if literal && !agrees {
                     contra_mass += w;
                 }
             }
@@ -374,10 +491,14 @@ fn precision_of(ta: &Toks, gt_uncovered: f32, p: &Profile) -> f32 {
             // Figures are exempt: the numeric channel grades them by value and
             // has its own comparability rule, so leaving them in precision costs
             // a correct answer nothing and keeps a bare wrong figure visible.
-            if ta.supw[i] <= 0.0 && ta.kind[i] != K_NUMBER && gt_uncovered <= 0.0 {
-                i += 1;
-                continue;
-            }
+            // A pure addition enters the denominator at `add_w` rather than in
+            // full, so it dilutes precision a little instead of reading as a
+            // wrong claim. At the previous full abstain it cost nothing at all.
+            let w = if ta.supw[i] <= 0.0 && ta.kind[i] != K_NUMBER && gt_uncovered <= 0.0 {
+                w * p.add_w
+            } else {
+                w
+            };
             fact_d += w;
             fact_n += w * ta.supw[i];
         } else {
@@ -823,14 +944,39 @@ mod tests {
 
     #[cfg(not(feature = "storm-alert"))]
     #[test]
-    fn one_extra_true_identifier_is_unverifiable_not_wrong() {
+    fn one_extra_true_identifier_costs_far_less_than_a_swapped_one() {
         // The identifier channel had no substitution rule, so an answer that
-        // quoted the truth's IP *and* added the AS number scored 0.4876.
-        let s = score(EQ, EGT, b"The data shows 8.8.8.8 is located in Mountain View, California, United States, operated by Google LLC (AS15169).");
-        assert!(s > 0.99, "extra true identifier scored {}", s);
-        // ...but naming a different IP still is.
-        let wrong = score(EQ, EGT, b"The data shows 1.1.1.1 is located in Mountain View, California, United States, operated by Google LLC.");
-        assert!(wrong < 0.5, "a swapped IP scored {}", wrong);
+        // quoted the truth's IP *and* added the AS number scored 0.4876 — the
+        // same column as a wrong fact. It is now an *addition*, which costs
+        // `add_w` rather than reading as a substitution.
+        //
+        // It is deliberately not free. At add_w = 0 an answer could append an
+        // invented IP or ASN for nothing (measured 0.9999), and nothing in the
+        // text distinguishes an invented identifier from a true one the ground
+        // truth omits. So the price is paid by both, and the test pins the
+        // *ordering* rather than a ceiling: adding true detail must cost far
+        // less than getting the identifier wrong.
+        let extra = score(EQ, EGT, b"The data shows 8.8.8.8 is located in Mountain View, California, United States, operated by Google LLC (AS15169).");
+        let swapped = score(EQ, EGT, b"The data shows 1.1.1.1 is located in Mountain View, California, United States, operated by Google LLC.");
+        let clean = score(
+            EQ,
+            EGT,
+            b"The data shows 8.8.8.8 resolves to Mountain View, California, US, run by Google LLC.",
+        );
+        assert!(extra > 0.75, "extra true identifier scored {}", extra);
+        assert!(swapped < 0.5, "a swapped IP scored {}", swapped);
+        assert!(
+            extra > swapped * 1.5,
+            "extra {} vs swapped {}",
+            extra,
+            swapped
+        );
+        assert!(
+            clean > extra,
+            "an answer that adds nothing {} should lead {}",
+            clean,
+            extra
+        );
     }
 
     #[cfg(not(feature = "storm-alert"))]
@@ -914,6 +1060,99 @@ mod tests {
             fake,
             honest
         );
+    }
+
+    // ---- the audit round: notation must not decide correctness -------------
+
+    #[cfg(not(feature = "storm-alert"))]
+    #[test]
+    fn typography_does_not_decide_correctness() {
+        // Bytes >= 0x80 are opaque word bytes, so a curly apostrophe glued its
+        // neighbours into one token where the ASCII one split them: the same
+        // answer scored 0.9997 curly and 0.2592 with `'`.
+        let q = b"Where is 142.251.42.174?";
+        let gt = "The IP 142.251.42.174 is located in the Shimo\u{2019}ochiai area of Tokyo, Japan, operated by Google LLC.".as_bytes();
+        let curly = score(q, gt, "The data shows 142.251.42.174 sits in the Shimo\u{2019}ochiai area of Tokyo, Japan, run by Google LLC.".as_bytes());
+        let ascii = score(q, gt, b"The data shows 142.251.42.174 sits in the Shimo'ochiai area of Tokyo, Japan, run by Google LLC.");
+        assert!(ascii > 0.99, "the ASCII apostrophe form scored {}", ascii);
+        assert!(
+            fabs(curly - ascii) < 0.01,
+            "curly {} vs ascii {}",
+            curly,
+            ascii
+        );
+    }
+
+    #[cfg(not(feature = "storm-alert"))]
+    #[test]
+    fn hemisphere_notation_equals_a_signed_coordinate() {
+        // `s`, `n` and `e` all name units, so the unit table claimed them and
+        // only `W` ever read as a hemisphere: a correct southern latitude scored
+        // 0.2055 against a signed ground truth.
+        let q = b"What are the coordinates?";
+        let gt = b"Approximate coordinates are -34.9011, -56.1645 in Montevideo, Uruguay.";
+        for form in [
+            &b"The data shows coordinates 34.9011 S, 56.1645 W in Montevideo, Uruguay."[..],
+            &b"The data shows coordinates 34.9011S, 56.1645W in Montevideo, Uruguay."[..],
+            &b"The data shows latitude -34.9011 and longitude -56.1645 in Montevideo, Uruguay."[..],
+        ] {
+            let s = score(q, gt, form);
+            assert!(s > 0.99, "an equivalent coordinate form scored {}", s);
+        }
+        let wrong = score(
+            q,
+            gt,
+            b"The data shows coordinates 34.9011 N, 56.1645 E in Montevideo, Uruguay.",
+        );
+        assert!(wrong < 0.25, "the wrong hemisphere scored {}", wrong);
+        // The guard that keeps a duration a duration.
+        let dq = b"How long is the window?";
+        let dgt = b"The window is 30 s.";
+        assert!(score(dq, dgt, b"The window is 30 seconds.") > 0.9);
+        assert!(score(dq, dgt, b"The window is 45 s.") < 0.1);
+    }
+
+    #[cfg(not(feature = "storm-alert"))]
+    #[test]
+    fn a_country_code_is_checked_not_ignored() {
+        let q = b"Where does 13.36.15.128 resolve to?";
+        let gt = b"The IP address 13.36.15.128 resolves to Montevideo, Montevideo, Uruguay, announced by Administracion Nacional.";
+        let right = score(q, gt, b"The data shows 13.36.15.128 is located in Montevideo in Montevideo, UY, and is run by Administracion Nacional.");
+        let wrong = score(q, gt, b"The data shows 13.36.15.128 is located in Montevideo in Montevideo, DE, and is run by Administracion Nacional.");
+        assert!(right > 0.99, "the correct ISO code scored {}", right);
+        assert!(wrong < 0.5, "a wrong ISO code scored {}", wrong);
+        // Method vocabulary is not a country: two-letter tokens we cannot check
+        // must still abstain rather than read as wrong entities.
+        let method = score(q, gt, b"The data shows the IP address 13.36.15.128 resolves to Montevideo, Montevideo, Uruguay, announced by Administracion Nacional per the RIR WHOIS record.");
+        assert!(method > 0.95, "method vocabulary cost {}", method);
+        // And the collision that made this dangerous: `is` is Iceland's code.
+        // Reading codes without a case test put "iceland" in every ground truth
+        // containing the verb, and a swapped country scored a perfect 1.0.
+        let swapped = score(q, gt, b"The data shows the IP address 13.36.15.128 resolves to Montevideo, Montevideo, Iceland, announced by Administracion Nacional.");
+        assert!(swapped < 0.5, "a swapped country scored {}", swapped);
+    }
+
+    // The generic profile keeps `ss_hi` at 0.92, so both sides saturate to
+    // exactly 1.0 and the comparison cannot be made there. Asserted on the
+    // registration target, whose smoothstep runs the full range.
+    #[cfg(feature = "ip-geolocation")]
+    #[test]
+    fn an_appended_false_fact_is_not_free() {
+        let base = &b"The data shows 8.8.8.8 is located in Mountain View, California, United States, operated by Google LLC"[..];
+        let clean = score(EQ, EGT, b"The data shows 8.8.8.8 is located in Mountain View, California, United States, operated by Google LLC.");
+        for (label, tail) in [
+            ("extra IP", &b", alongside 203.0.113.9."[..]),
+            ("extra ASN", &b" (AS64512)."[..]),
+            ("extra country", &b", within Germany."[..]),
+            ("extra city", &b", in the Pyongyang area."[..]),
+        ] {
+            let mut buf = [0u8; 256];
+            let n = base.len();
+            buf[..n].copy_from_slice(base);
+            buf[n..n + tail.len()].copy_from_slice(tail);
+            let s = score(EQ, EGT, &buf[..n + tail.len()]);
+            assert!(s < clean, "appending an {label} was free: {s} vs {clean}");
+        }
     }
 
     #[test]

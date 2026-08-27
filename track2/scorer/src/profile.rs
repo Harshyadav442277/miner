@@ -118,6 +118,24 @@ pub struct Profile {
     /// Floor of the fact multiplier. Keeps a wholly-wrong-figure answer above a
     /// cliff so near-misses stay distinguishable from garbage.
     pub fact_floor: f32,
+    /// What an unsupported assertion costs when it displaced nothing — the
+    /// answer already covers every entity and identifier the ground truth names,
+    /// and then asserts one more.
+    ///
+    /// 0.0 makes such an addition free, which is the pure precision-of-answer
+    /// reading (A3.8) and how this scorer behaved until it was measured:
+    /// appending a false IP, a false ASN, a false country or a false city to an
+    /// otherwise perfect answer all scored >= 0.9999. That is a real hole — an
+    /// answer can pad itself with invented facts at no cost.
+    ///
+    /// 1.0 would treat the addition as a substitution, which is the recall
+    /// reading and punishes an answer for volunteering *true* detail the ground
+    /// truth happens not to restate. Nothing in the text distinguishes the two:
+    /// with no slot schema, an extra true city and an extra false city look
+    /// identical. So this is deliberately small — enough that padding is not
+    /// free, small enough that a correct, generous answer stays at the top of
+    /// the range. The asymmetry we cannot resolve is recorded in the README.
+    pub add_w: f32,
 
     // ---- prose vs assertion (A3.4) ------------------------------------
     /// Share of precision carried by ordinary prose rather than by decisive
@@ -172,6 +190,7 @@ pub const fn base() -> Profile {
         ent_min_bias: 0.6,
         ent_channel_w: 0.9,
         fact_floor: 0.10,
+        add_w: 0.35,
 
         // Unsupported prose is very nearly free. Prose the ground truth does not
         // restate is neither a decisive fact nor a contradiction, so it is not
