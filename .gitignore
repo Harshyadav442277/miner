@@ -7,3 +7,9 @@ data/
 dist-test/
 dist/
 node_modules/
+
+# scratch from local probing
+/e.json
+/n.json
+/r.json
+*.tmp
