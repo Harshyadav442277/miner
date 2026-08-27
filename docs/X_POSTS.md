@@ -1,123 +1,105 @@
 # X_POSTS.md — drafts
 
-**25% of the Track 1 score.** Tag `@Telegraphprotoc` on every post. Judged on *"quality,
-consistency, reach, and meaningful engagement"* — so cadence matters as much as content, and a
-burst on the final day scores badly.
+**25% of the Track 1 score.** Tag `@Telegraphprotoc`. Judged on *"quality, consistency, reach, and
+meaningful engagement"*.
 
-**I draft, you post.** These go out from your account, in your voice — edit freely.
+The first attempt got ~11 impressions. That is what a cold account looks like, not a content
+problem. Two things change it: **post findings other builders need**, and **reply on posts that
+already have an audience** — Telegraph's own, and other entrants' — rather than broadcasting.
 
-Every claim below is verified. Do not post a number that has not actually happened yet.
+Everything below is measured and true. Do not post a number that has not happened.
+
+---
+
+## Ready now — each one is a real gotcha
+
+### 1. The engine only sends parameters you declare
+
+> Spent a day building natural-language parsing for my @Telegraphprotoc miner. Coordinates, dates,
+> unit thresholds. None of it ran.
+>
+> The engine fills the params you declare in `input_schema` and drops the rest of the question.
+> Declare `location` only, and a question naming latitude/longitude arrives as an empty string.
+>
+> Rank 1 in weather declares `q`. Rank 1 in storm declares `lat`/`lon`. Check what the leaders
+> declare before you build a parser.
+
+### 2. Returning 4xx scores you zero
+
+> A @Telegraphprotoc miner returning HTTP 400 gets a guaranteed 0 for that question.
+>
+> The engine records `upstream error`, stores an empty answer, and the scorer never sees the body —
+> however well-shaped your error JSON is.
+>
+> Mine 400'd on a param the engine sent as an empty string. Scored 0. Now every unanswerable
+> request returns 200 with an honest "could not determine".
+
+### 3. You can run the real scorer offline
+
+> You don't have to guess how @Telegraphprotoc scores you.
+>
+> `/api/wasm` lists each intent's champion scorer as a commit-pinned WASM. `/scores` gives you real
+> questions, ground truths, and the exact converted answer that was scored.
+>
+> Download both, run them locally, and you get an answer in seconds instead of waiting 9 hours for
+> the next epoch.
+
+### 4. Echo the identifiers the question used
+
+> Measured on @Telegraphprotoc: a question asked about "latitude 37.7749, longitude -122.4194".
+>
+> My miner reverse-geocoded it and answered "San Francisco". Score 0.0068.
+> Answering "latitude 37.7749, longitude -122.4194 near San Francisco" — same data — scored 0.0135.
+>
+> Resolving an identifier is not the same as answering about it. 2x for one clause.
+
+### 5. Four theories, four wrong
+
+> Things I believed about @Telegraphprotoc scoring that measurement killed:
+>
+> · terse answers beat verbose ones — wrong
+> · `label_field` drives the score — wrong, rank 1 maps it to a constant "ok"
+> · there's a response size limit — wrong, one miner converts 52KB fine
+> · a hand-written test candidate is a valid measurement — wrong, it leaks the ground truth
+>
+> Every real gain came from answering more of what was actually asked.
+
+### 6. Epochs are 9 hours, not minutes
+
+> The @Telegraphprotoc epoch ticker counts down in minutes, so I assumed fast feedback.
+>
+> Epochs are 9 hours. Scoring lands ~3x a day. Across the whole Track 1 window that's roughly 40
+> scoring opportunities, and any `updateMiner` costs you a chunk of the remaining ones.
+>
+> Build your feedback loop offline. Don't poll the leaderboard.
 
 ---
 
-## Post 1 — the correction (ready now)
+## After the schema update lands
 
-The strongest opener is a genuinely useful correction, not a "day 1, starting my build" post.
-This one helps every other entrant, which is what actually earns reach.
+### 7. Result post
 
-> Most people registering a @Telegraphprotoc miner think they have to build and host an API.
+> Updated my @Telegraphprotoc miner's `input_schema` to declare `q`, `lat` and `lon`.
 >
-> You don't. `base_url` points at the **upstream** — the protocol proxies to it. A valid miner
-> can be pure YAML, zero code.
+> Before: coordinate questions arrived with an empty location, dated questions lost "starting next
+> Monday".
+> After: <the actual numbers>
 >
-> Took me two hours and a read of the spec to figure that out.
-
-## Post 2 — the strategy insight (ready now)
-
-> Reading @Telegraphprotoc's routing rules before picking an intent, and it completely changed
-> what I built.
->
-> Routing is 70/20/10 to ranks 1/2/3. **4th place gets nothing.**
->
-> So intent selection matters more than implementation quality. Rank 1 in a quiet intent beats
-> rank 4 in a popular one — by infinity.
->
-> Pulled the live occupancy numbers before choosing.
-
-## Post 3 — the tier insight (ready now)
-
-> Subtle thing in the @Telegraphprotoc docs that decided my whole build:
->
-> Intents are scored in two tiers.
-> **Tier A** — deterministic, WASM exact match. One right answer.
-> **Tier B** — LLM-judge. Open-ended.
->
-> Three intents had ZERO miners. All three were Tier B.
->
-> I took a Tier A intent with 3 incumbents instead. I'd rather solve a problem than hope a judge
-> agrees with me.
-
-## Post 4 — endpoint live (**after** Step 1 deploys)
-
-> `livecert` is live — a TLS certificate miner for @Telegraphprotoc.
->
-> Live handshake against the host, ~100ms cold / 12ms cached.
->
-> The differentiator: the existing cert miner answers from **certificate-transparency logs**.
-> CT tells you what was *issued*. It cannot tell you what the server actually has *deployed*.
-> Those disagree exactly when you care — a host still serving an expired cert.
->
-> [screenshot of expired.badssl.com returning verdict=expired]
-
-## Post 5 — registered (**after** Step 3)
-
-> Registered on-chain. `livecert`, id 4433, serving SSL_VERIFICATION on @Telegraphprotoc.
->
-> registrationId: `<fill in>`
-> tx: `<basescan link>`
->
-> No bond, no stake, no permission needed. Gas on Base Sepolia and that's it.
-
-## Post 6 — first traffic (**after** grace period traffic arrives)
-
-> First routed requests hitting `livecert`.
->
-> Grace period on @Telegraphprotoc gives new miners an equal share of 5% of traffic for 7 days,
-> so you build a track record before you're ranked.
->
-> Genuinely good design — new miners aren't dead on arrival.
-
-## Post 7 — open invitation (post **before Aug 31**, when Track 3 opens)
-
-This one is doing real work: an intent needs **≥100 real Track 3 requests** to be prize-eligible
-(G13). Track 3 builders pick miners that look alive and maintained.
-
-> Track 3 opens Aug 31 on @Telegraphprotoc — build apps on live miners.
->
-> If you're building anything that touches domains, `livecert` gives you real TLS cert status:
-> valid / expired / self-signed / hostname-mismatch / untrusted, with issuer and days-remaining.
-> It also does 48h severe-weather risk for any location, graded on Beaufort gust thresholds.
->
-> Intents: `SSL_VERIFICATION` and `STORM_ALERT`. Free to call. Ask me anything.
-
-## Post 4b — the measurement that proved me wrong (ready now)
-
-The most credible post available, because it costs something to make.
-
-> I assumed the incumbent SSL miner on @Telegraphprotoc was beatable because it runs on Render
-> and would cold-start.
->
-> Measured it: 675ms cold, 324ms warm. No cold start at all.
->
-> Obvious in hindsight — validators spot-check every ~20s, so the instance never goes idle.
-> The cadence I thought was a threat to them is what protects them.
->
-> Had to rewrite my whole pitch.
-
-## Post 8 — ranked (**after** grace period ends)
-
-> `livecert` is ranked #<n> for SSL_VERIFICATION on @Telegraphprotoc.
->
-> <one honest sentence about what moved the score>
+> The parser was never the problem. The declaration was.
 
 ---
+
+## How to actually get reach
+
+- **Reply, don't broadcast.** Replies on `@Telegraphprotoc`'s posts and on other entrants' posts
+  reach an existing audience. A standalone post from a new account reaches nobody.
+- **Answer questions in the hackathon Discord**, then post the answer. People who were helped engage.
+- **One post per finding, spaced out.** Consistency is named in the criteria; six posts in an hour
+  reads as a dump.
+- **Reply to everyone who responds.** "Meaningful engagement" is in the rules.
 
 ## Rules
 
-- **Verified claims only.** A wrong claim about the protocol, in public, under your name, is worse
-  than not posting. Every latency number here came from an actual measurement.
-- **Never** post a key, seed phrase, private key, or `.env` contents. Crop screenshots and check
-  them before sending.
-- Tag `@Telegraphprotoc` every time — the rules require it for judging.
-- Reply to people who engage. *"Meaningful engagement"* is in the criteria, and a thread that
-  answers questions outperforms a broadcast.
+- Verified claims only. Every number above came from a measurement in this repo.
+- Never post a key, seed, or `.env` contents. Crop screenshots.
+- Tag `@Telegraphprotoc` every time — required for judging.
