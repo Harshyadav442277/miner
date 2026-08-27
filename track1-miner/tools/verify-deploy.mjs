@@ -134,6 +134,59 @@ try {
   report(false, "accepts a full URL via ?url=", e.message);
 }
 
+// 6b. The other declared intents — every endpoint in the manifest gets a
+// semantic check here, or "safe to register" is a lie.
+console.log("\n  ip-geolocate:");
+try {
+  const { res, ms } = await get(`/ip-geolocate?ip=8.8.8.8`);
+  timings.push(ms);
+  const body = await res.json();
+  report(res.ok && body.country_code === "US" && typeof body.latitude === "number",
+    "8.8.8.8 -> US with coordinates", res.ok ? `got ${body.city}, ${body.country_code}, ${ms}ms` : `HTTP ${res.status}`);
+} catch (e) {
+  report(false, "8.8.8.8 -> US with coordinates", e.message);
+}
+try {
+  const { res } = await get(`/ip-geolocate`);
+  report(res.status === 200 && (await res.clone().json()).verdict === "unknown", "missing ip -> honest 200", `got ${res.status}`);
+} catch (e) {
+  report(false, "missing ip -> honest 200", e.message);
+}
+
+console.log("\n  translate:");
+try {
+  const { res, ms } = await get(`/translate?query=${encodeURIComponent('Translate "good morning" into French')}`);
+  timings.push(ms);
+  const body = await res.json();
+  report(res.ok && /bonjour/i.test(body.translation ?? ""), 'French "good morning" -> Bonjour',
+    res.ok ? `got ${body.translation}, ${ms}ms` : `HTTP ${res.status}`);
+} catch (e) {
+  report(false, 'French "good morning" -> Bonjour', e.message);
+}
+try {
+  const { res } = await get(`/translate`);
+  report(res.status === 200 && (await res.clone().json()).verdict === "unknown", "missing text -> honest 200", `got ${res.status}`);
+} catch (e) {
+  report(false, "missing text -> honest 200", e.message);
+}
+
+console.log("\n  papers:");
+try {
+  const { res, ms } = await get(`/papers?topic=${encodeURIComponent("zero knowledge proofs")}`);
+  timings.push(ms);
+  const body = await res.json();
+  report(res.ok && body.count > 0 && Array.isArray(body.papers) && body.papers[0].title,
+    "bare topic -> real papers", res.ok ? `${body.count} papers, ${ms}ms` : `HTTP ${res.status}`);
+} catch (e) {
+  report(false, "bare topic -> real papers", e.message);
+}
+try {
+  const { res } = await get(`/papers`);
+  report(res.status === 200 && (await res.clone().json()).verdict === "unknown", "missing topic -> honest 200", `got ${res.status}`);
+} catch (e) {
+  report(false, "missing topic -> honest 200", e.message);
+}
+
 // 7. Latency. Spot checks run every ~20s and latency feeds the score.
 if (timings.length) {
   const sorted = [...timings].sort((a, b) => a - b);

@@ -5,7 +5,7 @@ slug: livecert
 protocol: generic
 name: LiveCert Operational Signals
 description: >-
-  Three deterministic operational signals. /ssl-check performs a live TLS handshake
+  Deterministic operational signals. /ssl-check performs a live TLS handshake
   against a domain and reports the certificate that host is actually serving right
   now: valid, expired, self-signed, untrusted, or issued for a different hostname,
   with issuer, validity window and days remaining. Unlike certificate-transparency
@@ -41,34 +41,12 @@ endpoints:
       Finds peer-reviewed papers on a topic, optionally within a date range, via
       OpenAlex. Returns title, authors, year and citation count for each.
 
-  - path: /cve
-    external_path: /cve
-    method: GET
-    description: >-
-      Looks up a CVE in the NIST National Vulnerability Database and reports its
-      severity, CVSS score and vector, and the affected versions.
-
   - path: /translate
     external_path: /translate
     method: GET
     description: >-
       Translates quoted text into a named target language. Returns the
       translation itself, in the target script.
-
-  - path: /headlines
-    external_path: /headlines
-    method: GET
-    description: >-
-      Current news headlines for a topic and optional region, from Google News.
-      Returns real articles published now, with their sources.
-
-  - path: /extract
-    external_path: /extract
-    method: GET
-    description: >-
-      Structured extraction from text supplied inline in the question — contact
-      details, named entities, quantities and units, action items, dates and
-      events, numeric values. Deterministic; no model involved.
 
   - path: /ip-geolocate
     external_path: /ip-geolocate
@@ -94,10 +72,7 @@ semantics:
     - STORM_ALERT
     - WEATHER_FORECAST
     - IP_GEOLOCATION
-    - CONTENT_EXTRACTION
-    - NEWS_HEADLINES
     - LANGUAGE_TRANSLATION
-    - CVE_LOOKUP
     - ACADEMIC_SEARCH
 
 # input_schema is a single top-level block covering every endpoint — the schema
@@ -171,13 +146,7 @@ input_schema:
       description: Alias for days.
     topic:
       type: string
-      description: /headlines. Subject to fetch headlines for, e.g. "technology".
-    content:
-      type: string
-      description: /extract. The text to extract fields from, or the whole question.
-    cve:
-      type: string
-      description: /cve. A CVE identifier, e.g. CVE-2021-44228.
+      description: /papers. Research subject to search for, e.g. "zero knowledge proofs".
     ip:
       type: string
       description: /ip-geolocate. IPv4 or IPv6 address.
@@ -270,13 +239,6 @@ output_schema:
 
 docs:
   repository: https://github.com/Harshyadav442277/miner
-
-limitations:
-  - code: ACCOUNT_QUOTA
-    message: The NVD API allows roughly 5 requests per 30 seconds without a key
-    property: rate
-    value_num: 5
-    window_seconds: 30
 
 rate_limit_per_sec: 20
 cache_ttl_sec: 60
