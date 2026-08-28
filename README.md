@@ -25,7 +25,7 @@ shared lives in `docs/` at the root.
 |---|---|
 | [docs/TELEGRAPH_FACTS.md](docs/TELEGRAPH_FACTS.md) | Verified protocol mechanics, each with a source and a date. Re-verify before trusting anything older than a few days. |
 | [docs/JUDGING.md](docs/JUDGING.md) | **75% performance + 25% X engagement.** The eligibility guardrail. Track dates. |
-| [docs/X_POSTS.md](docs/X_POSTS.md) | 25% of every track's score. Drafts, and how to actually get reach. |
+| [docs/X_POSTS.md](docs/X_POSTS.md) | 25% of every track's score. The 13 ready-to-post updates, the organizers' stated criteria, and how to get reach. |
 | [docs/SUBMISSION_CHECKLIST.md](docs/SUBMISSION_CHECKLIST.md) | What has to be true before the deadline. |
 | [MEMORY.md](MEMORY.md) | Session continuity. **Read first, update at session end.** |
 | [CLAUDE.md](CLAUDE.md) | Operating rules. Wallet safety, secrets, validation-before-send. |

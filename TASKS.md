@@ -116,7 +116,7 @@ Track 3 requests or it wins nothing regardless of rank. A genuine app that consu
 
 - [x] **T5.1** X account live and linked to the hackathon account: `@hyadav42774`, 29 posts. Best
       performer so far is **188 impressions**. (G11)
-- [ ] **T5.2** **Post the series** → [docs/X_FLAGSHIP.md](docs/X_FLAGSHIP.md). Ten posts, each
+- [ ] **T5.2** **Post the series** → [docs/X_POSTS.md](docs/X_POSTS.md). Thirteen posts, each
       verified under 280 characters and tagged, roughly two a day through Aug 31 and continuing
       through Track 3. Covers both tracks. *Blocked on the operator.*
 - [x] **T5.2b** Confirmed by the organizers: the X term is scored on the **single

@@ -1,122 +1,201 @@
-# X_POSTS.md — drafts
+# X_POSTS.md — the posting plan
 
-**25% of the Track 1 score.** Tag `@Telegraphprotoc`. Judged on *"quality, consistency, reach, and
-meaningful engagement"*.
-
-The first attempt got ~11 impressions. That is what a cold account looks like, not a content
-problem. Two things change it: **post findings other builders need**, and **reply on posts that
-already have an audience** — Telegraph's own, and other entrants' — rather than broadcasting.
-
-Everything below is measured and true. Do not post a number that has not happened.
+**The single X file.** Rewritten 2026-08-28; replaces the earlier drafts here and the separate
+`X_FLAGSHIP.md`, both of which were built on a scoring rule that turned out to be wrong.
 
 ---
 
-## Ready now — each one is a real gotcha
+## 1. What the organizers actually said
 
-### 1. The engine only sends parameters you declare
+Confirmed 2026-08-28:
 
-> Spent a day building natural-language parsing for my @Telegraphprotoc miner. Coordinates, dates,
-> unit thresholds. None of it ran.
+> "there's no fixed formula like likes/reposts = x points. we'll look at quality, consistency,
+> reach, likes, reposts, comments and meaningful engagement of your updates"
 >
-> The engine fills the params you declare in `input_schema` and drops the rest of the question.
-> Declare `location` only, and a question naming latitude/longitude arrives as an empty string.
+> "so you can post about both your track 1 and track 2, experiments, results, improvements,
+> journey, learnings, edge cases you faced, etc"
 >
-> Rank 1 in weather declares `q`. Rank 1 in storm declares `lat`/`lon`. Check what the leaders
-> declare before you build a parser.
+> "just make sure to tag @Telegraphprotoc in the updates and keep them genuine, we mainly want to
+> see the actual work and progress"
 
-### 2. Returning 4xx scores you zero
+What that changes:
 
-> A @Telegraphprotoc miner returning HTTP 400 gets a guaranteed 0 for that question.
+1. **Consistency is counted.** A Discord message had claimed only the single highest-engagement
+   post mattered. It was wrong — and it came from the same account that later sent malware. The
+   one-flagship plan built on it is withdrawn. **A steady series wins.**
+2. **Track 2 counts too.** The scorer work is as postable as the miner work.
+3. **They want the actual work.** So the failures and edge cases are the content, not filler
+   around it. That is what we have most of.
+
+**Do not post a number that has not happened.** Every figure below is measured and traceable to
+something in this repo.
+
+## 2. Baseline
+
+`@hyadav42774`. Best post to date: **188 impressions, 8 likes, 7 reposts, 6 replies** — the
+"base_url points at the upstream" post. The two posts with real reply counts are the two that told
+other builders something that would have cost them time. That is the format that works.
+
+## 3. The posts
+
+All 13 verified under X's 280-character limit and tagged. Two a day through Aug 31, then keep
+going through Track 3 — updates posted then are still updates.
+
+---
+
+### Aug 28
+
+**P1 — the near-miss** (277)
+
+> Declaring your upstream's rate limit in a @Telegraphprotoc miner YAML throttles your ENTIRE miner — not just that endpoint.
 >
-> The engine records `upstream error`, stores an empty answer, and the scorer never sees the body —
-> however well-shaped your error JSON is.
+> I nearly shipped a 5-per-30s quota across 4 intents I'm #1 in.
 >
-> Mine 400'd on a param the engine sent as an empty string. Scored 0. Now every unanswerable
-> request returns 200 with an honest "could not determine".
-
-### 3. You can run the real scorer offline
-
-> You don't have to guess how @Telegraphprotoc scores you.
+> The docs: "Counts are node-wide per miner."
 >
-> `/api/wasm` lists each intent's champion scorer as a commit-pinned WASM. `/scores` gives you real
-> questions, ground truths, and the exact converted answer that was scored.
->
-> Download both, run them locally, and you get an answer in seconds instead of waiting 9 hours for
-> the next epoch.
+> There is no endpoint scope on a limitation.
 
-### 4. Echo the identifiers the question used
+**P2 — the finding I'm most sure of** (275)
+
+> Measured on @Telegraphprotoc: the text that gets scored isn't your answer — it's a ~32-word summary of it. It expands short answers and compresses long ones.
+>
+> One SSL answer of mine scored 0.99 as raw prose. The summary that got scored: 0.0097.
+>
+> You don't pick what survives.
+
+---
+
+### Aug 29
+
+**P3 — the two rules that cost real score** (280)
+
+> Two @Telegraphprotoc rules I learned the expensive way:
+>
+> · The engine only sends the params you declare in input_schema — never the raw question, unless you declare q or query.
+>
+> · A non-2xx is a guaranteed 0. The engine stores an empty answer and the scorer never reads your body.
+
+**P4 — the registration edge case** (271)
+
+> A @Telegraphprotoc registration edge case, in case it saves you an hour:
+>
+> I put twitter: "@handle" in my miner YAML. Valid YAML.
+>
+> The console re-serialises before validating and drops the quotes. @ can't start a plain scalar, so its own parser rejected the file it wrote.
+
+---
+
+### Aug 30
+
+**P5 — the journey, with numbers** (256)
+
+> @Telegraphprotoc miner progress, epoch 284 → 289:
+>
+> SSL_VERIFICATION #3 → #1
+> IP_GEOLOCATION → #1
+> LANGUAGE_TRANSLATION → #1
+> ACADEMIC_SEARCH → #1
+>
+> No clever idea. I replayed the real scored questions offline and fixed whatever each answer had left unanswered.
+
+**P6 — an edge case worth the reply thread** (271)
+
+> Replayed 21 real @Telegraphprotoc ACADEMIC_SEARCH questions against the live scorer.
+>
+> My parser was answering "no topic supplied" on 2 of the 4 newest — a date clause mid-sentence was deleting the subject.
+>
+> Fixed, now 19/21 beat the field's best. Replay your own answers.
+
+---
+
+### Aug 31
+
+**P7 — Track 2** (265)
+
+> Track 2 on @Telegraphprotoc: wrote a scoring module for TEXT_AUTHENTICITY_CHECK.
+>
+> On my corpus it separates good answers from bad at margin 0.9634 and 144/144 wins, against the live champion's 0.0915 and 104/144.
+>
+> Writing the judge is harder than writing the miner.
+
+**P8 — the Track 2 learning** (276)
+
+> Learned the hard way on @Telegraphprotoc Track 2: a scorer that separates answers better can still be rejected.
+>
+> Promotion also checks agreement with how miners are already ranked. You can beat the champion on margin and still fail the correlation gate.
+>
+> Two targets, not one.
+
+---
+
+### Track 3 window — keep going
+
+**P9 — what measurement killed** (272)
+
+> Four @Telegraphprotoc scoring beliefs that measurement killed:
+>
+> · terse beats verbose — wrong
+> · label_field drives the score — wrong
+> · there's a response size limit — wrong
+> · hand-written test answers are valid — wrong, they leak the ground truth
+>
+> Measure, don't theorise.
+
+**P10 — honesty as content** (260)
+
+> Odd one from @Telegraphprotoc: my miner reported api.shopify.com's cert as Google Trust Services, expiring Oct 2026. The ground truth said DigiCert, valid to 2028.
+>
+> The host actually serves GTS. We're right; the ground truth is stale.
+>
+> Kept the correct answer.
+
+**P11 — echo the identifiers** (246)
 
 > Measured on @Telegraphprotoc: a question asked about "latitude 37.7749, longitude -122.4194".
 >
-> My miner reverse-geocoded it and answered "San Francisco". Score 0.0068.
-> Answering "latitude 37.7749, longitude -122.4194 near San Francisco" — same data — scored 0.0135.
+> My miner reverse-geocoded it and answered "San Francisco". Scored 0.0068.
 >
-> Resolving an identifier is not the same as answering about it. 2x for one clause.
-
-### 5. Five theories, five wrong
-
-> Things I believed about @Telegraphprotoc scoring that measurement killed:
+> Naming the coordinates back — same data — scored 0.0135.
 >
-> · terse answers beat verbose ones — wrong
-> · `label_field` drives the score — wrong, rank 1 maps it to a constant "ok"
-> · there's a response size limit — wrong, one miner converts 52KB fine
-> · a hand-written test candidate is a valid measurement — wrong, it leaks the ground truth
-> · declaring `q` in your schema gets you the question text — wrong, weather still arrives as
->   `location` + `days` and nothing else
->
-> Every real gain came from answering more of what was actually asked.
+> 2x for one clause.
 
-### 6. Epochs are 9 hours, not minutes
+**P12 — the feedback loop** (263)
 
 > The @Telegraphprotoc epoch ticker counts down in minutes, so I assumed fast feedback.
 >
-> Epochs are 9 hours. Scoring lands ~3x a day, and only a handful of epochs remain before the
-> Aug 31 close — any `updateMiner` costs you a chunk of them.
+> Epochs are 9 hours. Scoring lands ~3x a day.
 >
-> Build your feedback loop offline: the champion scorer WASMs are public and reproduce reported
-> scores exactly. Seconds per iteration instead of 9 hours. Don't poll the leaderboard.
+> Build the loop offline instead: the champion scorers are public WASM and reproduce reported scores exactly. Seconds per iteration.
+
+**P13 — the recruitment post** (280)
+
+> My @Telegraphprotoc miner is #1 in IP_GEOLOCATION — and might be worth exactly $0.
+>
+> Prize eligibility needs 3+ active miners per intent. This one has 2.
+>
+> So genuinely: if you're picking a Track 1 intent, there's an open podium here, and your entry makes it payable for both of us.
 
 ---
 
-## Milestone + eligibility — post these now, a day apart
+## 4. How to post them
 
-### 7. Result post — rank 1 in three intents
+- **Tag `@Telegraphprotoc` in every one.** Rule 03 requires it; an untagged post may not count.
+- **Re-count characters if you edit.** X truncates, and the cut lands on your last line. Two of
+  these drafts were silently over 280 before being checked.
+- **Stay in the replies for the first two hours.** Comments are explicitly scored, and threads die
+  when the author leaves.
+- **Reply under Telegraph's own posts and other entrants' miner posts** where a finding applies.
+  That is where reach comes from — a cold account posting into its own timeline gets ~80
+  impressions.
+- **No hashtag spam.** `#hackathon #tech #trending` on the Aug 27 post did not help — 71
+  impressions, the worst of three.
+- **Do not buy engagement or arrange reciprocal likes.** Rule 04 makes artificial inflation
+  disqualifying, and "keep them genuine" was said explicitly.
+- **Do not claim IP_GEOLOCATION is prize-eligible.** It has 2 miners and needs 3 — which is exactly
+  what P13 says out loud. See [ELIGIBILITY.md](../track1-miner/docs/ELIGIBILITY.md).
 
-> Two days of measuring instead of guessing, and my @Telegraphprotoc miner livecert went from
-> #3 / #3 / #7 in its first scored epoch to **#1 in three intents**: IP_GEOLOCATION (0.992),
-> SSL_VERIFICATION, STORM_ALERT.
->
-> No model, no API keys. A live TLS handshake, one weather API, and one rule that survived every
-> measurement: answer every clause the question asks, in the question's own terms.
->
-> The two big unlocks: declare your input params (the engine drops everything you don't), and
-> never return a 4xx — an error body scores a literal zero.
+## 5. Still unanswered
 
-### 8. The recruitment post — eligibility work, not marketing
-
-> My @Telegraphprotoc miner is #1 in IP_GEOLOCATION at 0.992 — and it might be worth exactly $0.
->
-> Prize eligibility needs ≥3 active miners per intent. IP_GEOLOCATION has 2.
->
-> So, genuinely: if you're still picking a Track 1 intent, there's an open podium slot here, and
-> your registration alone makes the intent payable for both of us. Come compete with me.
->
-> Track 3 builders — same math: an intent also needs 100+ real requests from applications before
-> anyone gets paid. Geolocation, SSL checks and storm alerts are live and answering.
-
----
-
-## How to actually get reach
-
-- **Reply, don't broadcast.** Replies on `@Telegraphprotoc`'s posts and on other entrants' posts
-  reach an existing audience. A standalone post from a new account reaches nobody.
-- **Answer questions in the hackathon Discord**, then post the answer. People who were helped engage.
-- **One post per finding, spaced out.** Consistency is named in the criteria; six posts in an hour
-  reads as a dump.
-- **Reply to everyone who responds.** "Meaningful engagement" is in the rules.
-
-## Rules
-
-- Verified claims only. Every number above came from a measurement in this repo.
-- Never post a key, seed, or `.env` contents. Crop screenshots.
-- Tag `@Telegraphprotoc` every time — required for judging.
+Track 3 has not opened, so no intent can have its 100 real Track 3 requests before the Aug 31
+close. Whether that guardrail is waived, measured later, or binding is unknown, and it decides
+whether rank 1 converts into anything. Worth asking the same officials who clarified the X scoring.

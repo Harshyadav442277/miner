@@ -36,9 +36,9 @@ withdrawn — **consistency is scored, so a steady series wins.** It also revers
 hold the offline-scorer and converter-budget findings until Sept 1: judging rewards showing real
 work, and those endpoints are public and already described in our own public README.
 
-Ten posts, each verified under X's 280-character limit and tagged, scheduled roughly two a day
+Thirteen posts, each verified under X's 280-character limit and tagged, roughly two a day
 through Aug 31 and continuing into the Track 3 window:
-**[../docs/X_FLAGSHIP.md](../docs/X_FLAGSHIP.md)**. Best post so far is 188 impressions.
+**[../docs/X_POSTS.md](../docs/X_POSTS.md)**. Best post so far is 188 impressions.
 
 **2. One question left for the organizers**, and it decides where the remaining effort goes:
 - Track 3 has not opened, so no intent can have its 100 real requests by the Aug 31 close. Is that

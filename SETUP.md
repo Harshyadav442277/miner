@@ -147,9 +147,9 @@ demand from real users counts for far more than demand you generate yourself.
 
 ## Step 4 — Ongoing: post on X  ← **the main open item**
 
-**25% of the score, and currently near zero.** Ten ready-to-post updates, each verified under X's
-280-character limit and tagged, are in **[docs/X_FLAGSHIP.md](docs/X_FLAGSHIP.md)** — that file
-supersedes the older drafts in [docs/X_POSTS.md](docs/X_POSTS.md).
+**25% of the score, and currently near zero.** Thirteen ready-to-post updates, each verified under X's
+280-character limit and tagged, are in **[docs/X_POSTS.md](docs/X_POSTS.md)** — now the single X
+file.
 
 The organizers confirmed on 2026-08-28 that there is no fixed formula: they weigh *"quality,
 consistency, reach, likes, reposts, comments and meaningful engagement"*, they want posts covering

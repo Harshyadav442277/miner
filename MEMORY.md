@@ -32,9 +32,9 @@ WEATHER_FORECAST      #3   0.00976552    gap 0.00027
 
 ### The three things that need a human, in order
 
-1. **Post the X series.** 25% of the Track 1 score and the largest unclaimed block. Ten posts,
+1. **Post the X series.** 25% of the Track 1 score and the largest unclaimed block. Thirteen posts,
    each verified under 280 characters and tagged, covering both tracks:
-   **[docs/X_FLAGSHIP.md](docs/X_FLAGSHIP.md)**. Best post to date is 188 impressions.
+   **[docs/X_POSTS.md](docs/X_POSTS.md)**. Best post to date is 188 impressions.
 2. **Register Track 2's scorer.** One wallet signature; see [track2/REGISTRATION.md](track2/REGISTRATION.md).
 3. **Ask the organizers one question** — Track 3 has not opened, so no intent can have its 100 real
    Track 3 requests before the Aug 31 close. Is that guardrail waived, measured later, or binding?
