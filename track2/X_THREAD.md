@@ -1,87 +1,185 @@
-# X_THREAD.md — Track 2 posts (user posts, tag @Telegraphprotoc)
+# X_THREAD.md — posts for both tracks
 
-**Every post below is verified ≤280 characters** (URLs counted as X counts them: 23 chars).
-Figures re-verified 2026-08-28 against the final build: 23.2KB module, 348-fixture corpus
-(both were stale from an earlier build; the substitutions are same-length, so counts hold).
-Post them exactly as written; adding a word may push one over. Character counts in brackets.
+**Every post below is verified ≤280 characters.** Post them as written; adding a word may push one
+over. Count in brackets.
 
-Post 1 is the required submission artifact — post 1a/1b/1c as a single thread (reply chain), and
-the disclosure in 1c is mandatory per the organizers' answer. Posts 2–4 are the consistency
-cadence, one per day through Aug 31.
+## What the organizers actually said (confirmed 2026-08-28, via the user)
+
+> "there's no fixed formula like likes/reposts = x points. we'll look at quality, consistency,
+> reach, likes, reposts, comments and meaningful engagement of your updates … you can post about
+> both your track 1 and track 2, experiments, results, improvements, journey, learnings, edge
+> cases you faced, etc … just make sure to tag @Telegraphprotoc and keep them genuine, we mainly
+> want to see the actual work and progress"
+
+Four things follow, and they reshape the plan:
+
+1. **Both tracks count.** Track 1 has the wins (three #1 slots); Track 2 has the findings.
+2. **Consistency is named.** A steady cadence beats one big thread. Space these out.
+3. **Journey, learnings and edge cases are explicitly wanted** — so the rejection, the bug we
+   shipped and caught, and the failed assumptions are *assets*, not things to hide.
+4. **Genuine over polished.** No thread-bro voice, no fake milestones. Measured numbers only.
+
+**Already posted:** a thread on the account with ~200 engagements. This file is the follow-on
+cadence, not a replacement.
 
 ---
 
-## POST 1 — the submission thread (post all three as a reply chain)
+## TRACK 1 — the wins and the debugging
 
-**1a** [271]
-
-```
-@Telegraphprotoc Track 2 finding: the canonical scorer cannot tell whether a miner answered.
-
-Contentless restatement of the question: 0.993
-Real answer carrying correct data: 0.008
-
-A 124x inversion. Measured against the on-chain WASM. 16 of 24 probes ordered backwards.
-```
-
-**1b** [252] — reply to 1a
+**T1-1** [243] · the result
 
 ```
-So I wrote one that scores what an answer asserts - figures, identifiers, units, verdicts - against the ground truth.
+Track 1 update: livecert is #1 in SSL_VERIFICATION, STORM_ALERT and IP_GEOLOCATION on @Telegraphprotoc.
+
+The thing that moved the needle was not better data. It was answering every clause the question actually asked, in the question own terms.
+```
+
+**T1-2** [264] · the lesson others will hit
+
+```
+Debugging a miner on @Telegraphprotoc taught me something blunt: any non-2xx is a zero.
+
+Our storm endpoint got called with location="" and returned 400. The engine stores an empty answer, the scorer sees nothing, score 0.
+
+An honest 200 beats a well-shaped error.
+```
+
+**T1-3** [280] · edge cases
+
+```
+Edge cases that cost real score on @Telegraphprotoc, all found by replaying actual paid questions:
+
+- "39.6438 N, 104.8669 W" read as positive -> answered for China, not Colorado
+- "next Monday" geocoded to Munday, a real town
+- "48-hour" did not parse: a hyphen is not whitespace
+```
+
+## TRACK 2 — the journey, in order
+
+**T2-1** [270] · the finding that started it
+
+```
+Switched to Track 2 on @Telegraphprotoc: writing the WASM module that grades miner answers.
+
+First finding, measured against the live on-chain scorer: a contentless restatement of the question scores 0.993. A real answer with correct data scores 0.008.
+
+124x, backwards.
+```
+
+**T2-2** [256] · what I built
+
+```
+So I wrote a scorer that grades what an answer asserts - figures, identifiers, units, verdicts - against the ground truth.
 
 Wrong CVSS: 0.23
 Wrong wind speed: 0.002
-18 km/h vs 5 m/s: identical
+18 km/h vs 5 m/s: identical, same claim
 
-23.2KB no_std Rust, zero imports, ~10s of the gate 600s budget.
+17.9KB no_std Rust, zero imports. @Telegraphprotoc
 ```
 
-**1c** [260] — reply to 1b · **contains the mandatory disclosure**
+**T2-3** [268] · the rejection
 
 ```
-Source, 348-fixture corpus, offline gate harness, full measured proof:
-github.com/Harshyadav442277/telegraph-factscore
+Registered it on @Telegraphprotoc. Rejected.
 
-Disclosure: I also operate the Track 1 miner livecert (reg 225). My test suite scores my own miner style DOWN when factually wrong. Overlap disclosed to organizers.
+14 of 15 fixture cases vs the champion 15 of 15. Lost by one.
+
+The rejection was worth more than a pass: it returned the node measurement of my module on its hidden fixtures. First real calibration I could not get offline.
 ```
 
-## POST 2 — the red-team story [278] · robustness axis
+**T2-4** [277] · being wrong in public
 
 ```
-Before registering my @Telegraphprotoc Track 2 scorer I red-teamed it. A 19,734-call fuzz + gaming suite found 6 critical bugs in my own module.
+What the rejection taught me, @Telegraphprotoc:
 
-Worst: "CVSS 1.0" scored identical to "CVSS 10". Fake units ("47 bananas") beat honest-wrong ones 65x.
+My corpus said the champion scored 0.438. The node measured it at 0.992.
 
-All fixed, receipts in repo.
+Mine was full of adversarial cases where it fails. The real gate uses clean good-vs-bad pairs, where it is near perfect.
+
+I optimised for the wrong thing.
 ```
 
-## POST 3 — the gate finding [268] · the sharpest technical insight
-
-> **Rewritten 2026-08-27.** The earlier draft claimed agreement "ceilings at 0.593" — true of the
-> pre-entity-swap build, **falsified** by the fixed one, which measures 0.6005 and passes. The
-> tension is real; the wall is not absolute. Never post the old version.
+**T2-5** [268] · attacking my own work
 
 ```
-@Telegraphprotoc scorer promotion needs 0.60+ Spearman agreement with the incumbent.
+Before re-registering I attacked my own scorer. 19,734-call fuzz plus a gaming suite.
 
-But on STORM_ALERT the incumbent rewards contentless question-echoes. Refusing to reward them costs agreement: 72 builds, best 0.593.
+Found 6 critical bugs in my own code. Worst: "CVSS 1.0" scored identical to "CVSS 10" because the normaliser stripped punctuation.
 
-An unrelated bugfix pushed it to 0.6005. Passes by 0.0005.
+All fixed, receipts in the repo. @Telegraphprotoc
 ```
 
-## POST 4 — the kit release [263] · adoption axis
+**T2-6** [277] · the bug that nearly shipped
 
 ```
-Released for @Telegraphprotoc Track 2 authors: an offline harness reproducing the node promotion gate (validated to 6 sig figs against live scores) + a 348-fixture corpus.
+The one that nearly shipped, @Telegraphprotoc:
 
-Test your module against the real champions before spending a tx.
+Ground truth said Mountain View. An answer saying Berlin - one word changed - scored a perfect 1.0000. Tied a verbatim-correct answer.
 
-github.com/Harshyadav442277/telegraph-factscore
+My fixtures never tested a single-entity swap. Found it by probing the hosted binary instead.
 ```
+
+**T2-7** [266] · the structural finding, part 1
+
+```
+Structural finding on @Telegraphprotoc Track 2, and I think it matters.
+
+Promotion needs 0.60+ rank agreement with the incumbent. But I measured that incumbent scoring a wrong answer at 0.99.
+
+Ground truth Tokyo. Answer "Mumbai, India". Champion 0.9918. Mine 0.0855.
+```
+
+**T2-8** [271] · part 2 — reply to T2-7
+
+```
+Which means: to pass the agreement gate I would have to score Mumbai like Tokyo.
+
+Agreeing with a scorer and correcting it are the same axis, pointed opposite ways. On every intent with 2+ miners, the gate protects the incumbent errors.
+
+I did not do it. @Telegraphprotoc
+```
+
+**T2-9** [275] · the sharpest single measurement
+
+```
+Measured the AI-text-detection champion on its own domain, @Telegraphprotoc.
+
+Flip "AI-generated" to "human-written" - one word, rest identical - and it scores the WRONG verdict 0.9999.
+
+Its separation margin is negative: -0.165. It prefers the wrong answer 219 times in 240.
+```
+
+**T2-10** [272] · the giveaway, which also earns the adoption criterion
+
+```
+Open-sourced the harness, @Telegraphprotoc Track 2.
+
+It reproduces the node promotion gate offline - structural traps, separation, wins, self-match, Spearman - validated to 6 significant figures against live scores. 269 fixtures. MIT.
+
+Test before you spend a transaction.
+```
+
+Attach the repo link to T2-10: `github.com/Harshyadav442277/telegraph-factscore`
 
 ---
 
-## If you have X Premium
+## Suggested order and pacing
 
-Premium raises the limit to 25,000 characters, so 1a+1b+1c can be **one** post — just concatenate
-them with blank lines between. The disclosure paragraph must still appear.
+Consistency is explicitly scored, so spread these rather than dumping them.
+
+| when | post | why |
+|---|---|---|
+| now | T2-10 | the giveaway; it also recruits harness users for the 10% adoption criterion |
+| now | T1-1 | a concrete win, good reach |
+| +3h | T2-9 | the sharpest measurement in the whole project |
+| +1d | T2-7 → T2-8 as a reply chain | the structural argument, needs two posts |
+| +1d | T2-3 → T2-4 | the rejection and being wrong in public |
+| +2d | T2-5 → T2-6 | self-attack and the bug that nearly shipped |
+| spare | T1-2, T1-3, T2-1, T2-2 | fillers, any order |
+
+**Reply to anyone who engages.** "Comments and meaningful engagement" is named in the criteria,
+and a real back-and-forth about a measurement is worth more than another broadcast.
+
+**Do not claim a champion slot until one is actually held.** Every number above is measured and
+holds up; the moment one doesn't, the whole account is worth less.
