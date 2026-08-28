@@ -1,7 +1,10 @@
-# ELIGIBILITY.md — the guardrail, and the only safe way through it
+# ELIGIBILITY.md — the guardrail, and what actually clears it
 
 Written 2026-08-28, after epoch 288. Numbers verified live the same day against
 `devnode.telegraphprotocol.com`.
+
+**Decided 2026-08-28: we are not registering a second miner ourselves.** That analysis has been
+removed rather than left to be re-argued. Recovering it: `git show 2b66add -- track1-miner/docs/ELIGIBILITY.md`.
 
 ---
 
@@ -25,85 +28,7 @@ does not rescue an ineligible intent.
 **Track 3 has not opened yet.** Nothing we serve today counts toward any intent's 100. That half is
 zero everywhere, and it is the half that decides whether the money is real.
 
-## 3. Read this before registering a second account
-
-You offered to create another account so `IP_GEOLOCATION` clears the 3-miner floor. Before you
-spend an evening on it, here is the arithmetic, because I think it goes the wrong way.
-
-**What it buys:** the miner-count half of exactly one intent — and it is now our *weakest* one.
-`IP_GEOLOCATION` scored 0.992 in epoch 287 and 0.0098 in epoch 288. That collapse was the question
-changing, not our code. We hold #1 there against a field of two. It is the least durable of our
-three first places.
-
-**What it does not buy:** anything on the 100-request half. A second miner adds a supplier, not a
-customer. The binding constraint is untouched.
-
-**What it risks:** the entry. Our own audit red lines, which we wrote before this came up, say it
-plainly — *"Do not create fake apps, users, miners, stars, issues, posts, or requests… sockpuppet
-registration is disqualifying."* Miner registration is an on-chain transaction from a funded
-wallet, pointing at a hosted `base_url`. A second one is linkable to the first through the funding
-path, the host account, and the repo. This is not a subtle trail.
-
-**And the second miner competes with us.** To make the intent eligible it must be *active*. Then
-either it scores well and threatens our own #1, or it scores ~0 and is transparently a placeholder.
-There is no version of this that is both effective and unremarkable.
-
-So the asymmetry is: upside is the miner-count half of our shakiest intent; downside is the whole
-submission. I would not take that trade, and I would rather spend the same evening on §4 and §5,
-which are worth more and cost nothing.
-
-### "What if I run it locally, on a different MetaMask account?"
-
-Asked 2026-08-28. Three separate answers, because they fail in three different ways.
-
-**First, a correction to what I wrote above.** I cited "sockpuppet registration is disqualifying"
-as a rule. It is not — it comes from our own audit doc. I checked the live rules page today; there
-are six non-negotiable rules and **none of them says one participant may register only one miner.**
-The one that actually applies is:
-
-> **04** — *"Artificial inflation of metrics or gaming the system will result in disqualification."*
-
-So this is not a bright line you would be crossing. It is a judgement call about whether
-manufacturing the third miner in an intent that is one short counts as gaming the guardrail. I
-think a reviewer would say yes, because the guardrail exists to establish that real competition
-happened. But you should know it is an interpretation, not a quoted prohibition.
-
-**Second: "locally" is not available.** `base_url` must be a public HTTPS endpoint — Telegraph's
-node proxies requests to it, so a laptop-only miner cannot be reached at all. You would need a
-tunnel or a host. And then rule **02** applies:
-
-> **02** — *"Miners and Script Authors must remain live and operational throughout Track 3."*
-
-That runs to **2026-09-07**, with spot checks roughly every 20 seconds. `base_url` is immutable
-after registration, and a free tunnel rotates its URL on restart. So the first time the laptop
-sleeps, the network changes, or the tunnel restarts, that miner is permanently unreachable — not
-"active" — and stops counting toward the 3-miner floor it was created for. The local version
-fails at its own purpose, usually within a day.
-
-**Third: a different MetaMask does not decouple much.** Base Sepolia faucets rate-limit per IP and
-usually require a GitHub or social login, so funding wallet B from the same machine leaves a trail;
-funding B from A instead writes a permanent, public, on-chain edge between them. Both miners would
-answer from the same egress IP. And the shape is what gets noticed first: a brand-new miner
-appearing in the one intent that was one short, days before judging, serving the same intent as the
-current leader.
-
-**The arithmetic that settles it.** Downside is rule 04 — disqualification of the whole entry,
-including three legitimate rank-1 positions and all of Track 2. Upside is the miner-count half of
-our weakest intent. And that upside is currently **zero**, because `IP_GEOLOCATION` still has 0 of
-its 100 Track 3 requests and Track 3 has not opened. A third miner does not move that. You would be
-taking the entire downside for a benefit that is blocked on a different requirement.
-
-**The move that gets you the same thing with none of this: ask.** Put it to the organizers
-directly — *"IP_GEOLOCATION has 2 miners and needs 3. Is it acceptable for me to register a second
-miner there myself, or should I recruit someone?"* If they say yes, you are clean and you can do it
-today. If they say no, you have lost nothing and learned it for free. Asking converts a
-disqualification risk into a decision someone else is accountable for.
-
-**If you read it differently, say so and I will write the registration package for you** — this is
-your call, not mine, and I am not going to keep relitigating it. I just want you making it with the
-numbers in front of you.
-
-## 4. The legitimate version: recruit a real third miner
+## 3. Recruit a real third miner
 
 A third `IP_GEOLOCATION` miner run by someone who is not us makes the intent eligible and is
 entirely above board. Competition that unlocks a prize pool is not a loophole — it is the
@@ -181,7 +106,7 @@ the whole pitch — *an intent is one miner short of being prize-eligible, it ta
 and no code, and here is the working YAML.* People join a live prize pool. They do not join a
 favour.
 
-## 5. The half that actually decides this — 100 real requests
+## 4. The half that actually decides this — 100 real requests
 
 No account can be created to fix this one. It needs applications making genuine calls.
 
@@ -198,7 +123,7 @@ Note the ordering this implies: SSL and Storm already clear the miner half, so t
 two intents where the 100 requests would immediately convert into an eligible rank 1. That is where
 outreach effort pays first — not IP.
 
-## 6. One thing still unresolved
+## 5. One thing still unresolved
 
 The published rules do not define how the 25% X term is applied across multiple intent entries, or
 whether ineligible intents are excluded from the "total normalized scores across all intents" that

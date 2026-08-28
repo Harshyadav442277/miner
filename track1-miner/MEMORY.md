@@ -47,9 +47,15 @@ one flagship. Ready-to-post thread and the amplification plan:
 **[../docs/X_FLAGSHIP.md](../docs/X_FLAGSHIP.md)**. Current best post is 188 impressions.
 
 **Third: eligibility.** `IP_GEOLOCATION` has 2 miners and needs 3, and no intent has any Track 3
-requests because Track 3 has not opened. The operator offered to register a second miner from
-another account; the argument against, and the legitimate recruitment path, are in
+requests because Track 3 has not opened. **The operator decided on 2026-08-28 not to register a
+second miner from another account — do not reopen this.** The remaining paths are recruiting a real
+third miner and generating real Track 3 demand, both in
 **[docs/ELIGIBILITY.md](docs/ELIGIBILITY.md)**.
+
+Note for anyone re-deriving the rules: the published rules contain **no** ban on one participant
+registering multiple miners. The applicable rule is **04**, *"Artificial inflation of metrics or
+gaming the system will result in disqualification."* An earlier draft of ELIGIBILITY.md cited our
+own audit doc as though it were a hackathon rule; it is not.
 
 **Claude never signs.** No wallet connect, no transaction, no seed phrase. Prepare and validate;
 the operator clicks.
