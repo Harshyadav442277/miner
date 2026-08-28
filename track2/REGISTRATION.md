@@ -26,6 +26,26 @@ https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/867fd15cb
 
 Commit `867fd15`, **23,232 bytes**, hosted bytes verified byte-identical to the tested build.
 
+### Measured on NATIVE AI-detection fixtures (2026-08-28, 12 fixtures / 240 pairs)
+
+The earlier 0.9634 was measured on plagiarism-framed fixtures. Re-measured in the register this
+intent actually asks in (verdict / detector confidence / attributed model / perplexity /
+burstiness), with fluent one-fact counterfactuals:
+
+| | wins | mean correct | mean wrong | margin |
+|---|---|---|---|---|
+| **ours** | **234/240** | 0.9965 | 0.2755 | **+0.7211** |
+| `tn_t70` (champion, reg 850) | 21/240 | 0.8347 | **0.9999** | **-0.1652** |
+
+**The incumbent's margin is NEGATIVE on its own domain.** Flipping "AI-generated" to
+"human-written" changes one word and leaves the rest of the sentence identical, so a lexical
+scorer reads near-perfect overlap and returns 0.9999 for the wrong verdict. The champion of an
+AI-detection intent cannot tell AI-generated from human-written.
+
+Honest revision: **0.7211 is the number to quote for this intent**, not 0.9634. It still clears
+the 0.6586 bar, but by 0.06 rather than 0.30. Six of our 240 pairs are losses, all on the
+confidence-percentage slot where a near-miss is genuinely close.
+
 **Cross-check before signing:** the console's VERIFY & HASH step must display keccak256
 
 ```
