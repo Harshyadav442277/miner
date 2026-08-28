@@ -12,14 +12,14 @@ position, so every day of delay shortens the record we are judged on.
 
 ## Phase 0 — Decide (blocking; nothing else starts until this closes)
 
-- [x] **T0.1** Fetch live intent occupancy → [track1-track1-miner/miner/docs/INTENT_OCCUPANCY.md](track1-track1-miner/miner/docs/INTENT_OCCUPANCY.md).
+- [x] **T0.1** Fetch live intent occupancy → [track1-miner/docs/INTENT_OCCUPANCY.md](track1-miner/docs/INTENT_OCCUPANCY.md).
       45 canonical intents; 3 at zero. (closes G3; narrows G1)
 - [x] **T0.2** Read Intents + Build a Scoring Module. Scoring is a WASM module over three plain
       strings; verbose answers are penalised by word-overlap. (closes G4)
 - [x] **T0.3** Read the hackathon rules → [docs/JUDGING.md](docs/JUDGING.md). Found three things that
       changed the plan: Track 1 closes **Aug 31** not Sep 7; scoring is **75% performance + 25% X**;
       and an intent needs **≥100 Track 3 requests** to be prize-eligible. (closes G12, opens G13)
-- [x] **T0.4** `example-track1-track1-miner/miner/miner.yaml` is **not** in telegraph-usecases — that repo holds six reference
+- [x] **T0.4** `example-track1-miner/miner.yaml` is **not** in telegraph-usecases — that repo holds six reference
       Track 3 *applications* (truthwire, trustfilter, scholarguard, adguard, reviewradar,
       supersignal). `telegraph-examples` 404s. Our YAML was validated against the field reference
       instead. (closes G5)
@@ -39,7 +39,7 @@ position, so every day of delay shortens the record we are judged on.
 ## Phase 2 — Author the YAML
 
 - [x] **T2.1** `slug: livecert`, `id: 4433` — both verified free against the live 89-miner catalog.
-- [x] **T2.2** [track1-track1-miner/miner/miner.yaml](track1-track1-miner/miner/miner.yaml) written; passes a local strict-schema precheck.
+- [x] **T2.2** [track1-miner/miner.yaml](track1-miner/miner.yaml) written; passes a local strict-schema precheck.
 - [x] **T2.3** No `limitations[]` needed — we have no third-party upstream, so no account quota
       to declare. This is a direct benefit of D2.
 - [x] **T2.4** No `errors` block — our service uses real HTTP status codes, never a liar-200 (A5).
@@ -47,7 +47,7 @@ position, so every day of delay shortens the record we are judged on.
       `/engine/v1/intents` set (45 intents). Re-verify with `isCanonicalIntent` before sending —
       one bad string reverts the whole transaction.
 - [x] **T2.7** Added `STORM_ALERT` and `WEATHER_FORECAST` after measuring demand →
-      [docs/MARKET_DATA.md](docs/MARKET_DATA.md). Three endpoints, **37 tests passing**, YAML
+      [docs/MARKET_DATA.md](track1-miner/docs/MARKET_DATA.md). Three endpoints, **37 tests passing**, YAML
       declares all three intents. `WEATHER_FORECAST` carries the network's highest demand (941
       requests) with all nine incumbents under 0.008.
 - [x] **T2.6** Sandbox-validated and registered as **236** (four intents). (A2)

@@ -83,7 +83,7 @@ Deliberately excluded to protect the deadline:
 ## Open decisions
 
 **D1 — Which intent? — CLOSED: `SSL_VERIFICATION`**
-Full reasoning in [track1-track1-miner/miner/docs/INTENT_OCCUPANCY.md](track1-track1-miner/miner/docs/INTENT_OCCUPANCY.md). In short: it is
+Full reasoning in [track1-miner/docs/INTENT_OCCUPANCY.md](track1-miner/docs/INTENT_OCCUPANCY.md). In short: it is
 **Tier A (deterministic, WASM exact match)**, has only **3 incumbents**, and each of the three has
 a specific weakness — one on Render with cold starts, one answering from certificate-transparency
 logs rather than the live server, one running 60–120s Qualys assessments against a 20s spot-check

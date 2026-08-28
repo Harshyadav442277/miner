@@ -10,7 +10,7 @@ Status: `OPEN` unresolved · `CHECKING` in progress · `CLOSED` resolved, with t
 ## Blocking
 
 ### G1 · Which intent to claim — `CLOSED: SSL_VERIFICATION`
-Decided on occupancy **and scoring tier** → [track1-track1-miner/miner/docs/INTENT_OCCUPANCY.md](track1-track1-miner/miner/docs/INTENT_OCCUPANCY.md).
+Decided on occupancy **and scoring tier** → [track1-miner/docs/INTENT_OCCUPANCY.md](track1-miner/docs/INTENT_OCCUPANCY.md).
 Tier A (exact match), 3 incumbents, all three with exploitable weaknesses. The zero-occupancy
 intents turned out to be Tier B (LLM-judged) and were rejected for it.
 
@@ -116,7 +116,7 @@ revealed the exact scoring split (**75% performance / 25% X**), and surfaced G13
 whole network. The 100-request floor is not a formality there — it is most likely unreachable
 without manufacturing the traffic ourselves. Mitigated by breadth: the miner now also serves **`STORM_ALERT`** (334 requests, 3 miners) and
 **`WEATHER_FORECAST`** (941 requests — the network's highest — 9 miners, all scoring under 0.008),
-giving three independent eligibility paths instead of one. See [docs/MARKET_DATA.md](docs/MARKET_DATA.md).
+giving three independent eligibility paths instead of one. See [docs/MARKET_DATA.md](track1-miner/docs/MARKET_DATA.md).
 
 > An Intent must have at least 3 active Miners **and receive at least 100 real requests from
 > Track 3 applications** to be eligible for global cash prizes.

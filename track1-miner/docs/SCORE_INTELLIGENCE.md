@@ -115,7 +115,7 @@ malformed, and A5 forbids liar-200s.
 3. **Investigate the chainwire/txlens gap.** If answer shape explains 0 vs 0.99, that is the
    difference between rank 1 and unassailable.
 4. **Track 2 becomes strategically interesting**, not just a second prize — see the honesty caveat
-   in [CODEX_REVIEW_PROMPT.md](CODEX_REVIEW_PROMPT.md) about authoring the scorer for one's own intent.
+   in [CODEX_REVIEW_PROMPT.md](../../docs/CODEX_REVIEW_PROMPT.md) about authoring the scorer for one's own intent.
 
 ## Caveat
 
