@@ -112,7 +112,8 @@ Track 3 requests or it wins nothing regardless of rank. A genuine app that consu
       the amplification list. The X term appears to be scored on the single highest-engagement
       post rather than the sum, so this replaces the milestone-cadence plan. *Blocked on the
       operator.*
-- [ ] **T5.2b** Get the max-vs-sum scoring question answered by an organizer in writing.
+- [x] **T5.2b** Confirmed by the organizers: the X term is scored on the **single
+      highest-engagement post**, not the sum, and scoring is automated.
 - [x] **T5.3** README written with an honest Assumptions & Limitations section sourced from GAPS.md.
 - [x] **T5.3b** [docs/SUBMISSION_CHECKLIST.md](docs/SUBMISSION_CHECKLIST.md) — every item to close,
       in dependency order, with who owns each.

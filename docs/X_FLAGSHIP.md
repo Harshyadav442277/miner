@@ -6,25 +6,27 @@ is right.
 
 ---
 
-## 1. What changed
+## 1. The metric, confirmed
 
-From the hackathon Discord, asked directly and answered by `Plex Plural`:
+**The X term is scored on your single highest-engagement post, not the sum.** Confirmed by the
+organizers, who also stated the scoring is automated — bots scan the tagged posts. Your X account
+is linked to the hackathon account (required, and done).
 
-> **Q:** do they measure one single highest engagement post, or the sum of all posts tagging
-> @Telegraphprotoc?
-> **A:** *"Highest engagement matters."*
+That settles the plan. The published wording — *"quality, consistency, reach, and meaningful
+engagement"* — reads like it rewards a cadence, but consistency is not what gets counted. One post
+carries the whole 25%.
 
-Also stated there: engagement is measured by bots/automation, and **your X account must be linked
-to your hackathon account** (ours is — confirmed).
+Three consequences, and they are the whole strategy:
 
-**Treat this as strong but unofficial.** It came from a community member in chat, not from the
-published rules, which say only *"quality, consistency, reach, and meaningful engagement."* Note
-that "consistency" in the official wording pulls the other way — toward a cadence.
-
-**Get it in writing before the 31st.** Ask in the official channel: *"Is the X portion scored on a
-single best-performing post or on aggregate engagement across posts?"* A screenshot of an
-organizer answering settles how we spend the last three days. Until then, §3 hedges: it costs one
-extra post to satisfy both readings.
+1. **Post 1 of the thread is the scored unit.** Impressions decay steeply after the first post in a
+   thread, so the opening post has to be a complete, quotable finding that works with nothing after
+   it. Do not open with a teaser and bury the payoff in post 3.
+2. **Concentrate amplification on one post.** Every reply, every Discord share, every link should
+   drive the same post. Spreading effort across several posts splits the engagement that is being
+   measured and raises none of them.
+3. **Extra posts are lottery tickets, not additive score.** Publishing the other drafts costs
+   little and each is another chance to be the top post, but it earns nothing on its own. Effort
+   belongs in amplifying the flagship, not in producing more of them.
 
 ## 2. The baseline to beat
 
@@ -188,9 +190,9 @@ this and it is detectable.
    Ask them to spell it out. If it is an official campaign or leaderboard portal, being on it is
    probably free reach and worth doing.
 
-## 7. If the metric turns out to be aggregate after all
+## 7. The other drafts
 
-The hedge costs one post. Keep the flagship as the centrepiece, and post the remaining
-[X_POSTS.md](X_POSTS.md) drafts at roughly one a day through the 31st — they are already written and
-each is a real gotcha. Consistency then reads as consistency, and the flagship still carries the
-max. Nothing about §3's hold list changes: the offline scorer waits for Sept 1 either way.
+[X_POSTS.md](X_POSTS.md) holds the remaining drafts, each a real gotcha. They are worth posting —
+every one is another chance to be the top post, and they cost little. But they add nothing on their
+own, so post them only after the flagship is out and amplified. Nothing about §3's hold list
+changes: the offline scorer and the converter budget wait until Sept 1 either way.
