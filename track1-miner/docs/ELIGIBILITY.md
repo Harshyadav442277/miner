@@ -52,6 +52,53 @@ So the asymmetry is: upside is the miner-count half of our shakiest intent; down
 submission. I would not take that trade, and I would rather spend the same evening on §4 and §5,
 which are worth more and cost nothing.
 
+### "What if I run it locally, on a different MetaMask account?"
+
+Asked 2026-08-28. Three separate answers, because they fail in three different ways.
+
+**First, a correction to what I wrote above.** I cited "sockpuppet registration is disqualifying"
+as a rule. It is not — it comes from our own audit doc. I checked the live rules page today; there
+are six non-negotiable rules and **none of them says one participant may register only one miner.**
+The one that actually applies is:
+
+> **04** — *"Artificial inflation of metrics or gaming the system will result in disqualification."*
+
+So this is not a bright line you would be crossing. It is a judgement call about whether
+manufacturing the third miner in an intent that is one short counts as gaming the guardrail. I
+think a reviewer would say yes, because the guardrail exists to establish that real competition
+happened. But you should know it is an interpretation, not a quoted prohibition.
+
+**Second: "locally" is not available.** `base_url` must be a public HTTPS endpoint — Telegraph's
+node proxies requests to it, so a laptop-only miner cannot be reached at all. You would need a
+tunnel or a host. And then rule **02** applies:
+
+> **02** — *"Miners and Script Authors must remain live and operational throughout Track 3."*
+
+That runs to **2026-09-07**, with spot checks roughly every 20 seconds. `base_url` is immutable
+after registration, and a free tunnel rotates its URL on restart. So the first time the laptop
+sleeps, the network changes, or the tunnel restarts, that miner is permanently unreachable — not
+"active" — and stops counting toward the 3-miner floor it was created for. The local version
+fails at its own purpose, usually within a day.
+
+**Third: a different MetaMask does not decouple much.** Base Sepolia faucets rate-limit per IP and
+usually require a GitHub or social login, so funding wallet B from the same machine leaves a trail;
+funding B from A instead writes a permanent, public, on-chain edge between them. Both miners would
+answer from the same egress IP. And the shape is what gets noticed first: a brand-new miner
+appearing in the one intent that was one short, days before judging, serving the same intent as the
+current leader.
+
+**The arithmetic that settles it.** Downside is rule 04 — disqualification of the whole entry,
+including three legitimate rank-1 positions and all of Track 2. Upside is the miner-count half of
+our weakest intent. And that upside is currently **zero**, because `IP_GEOLOCATION` still has 0 of
+its 100 Track 3 requests and Track 3 has not opened. A third miner does not move that. You would be
+taking the entire downside for a benefit that is blocked on a different requirement.
+
+**The move that gets you the same thing with none of this: ask.** Put it to the organizers
+directly — *"IP_GEOLOCATION has 2 miners and needs 3. Is it acceptable for me to register a second
+miner there myself, or should I recruit someone?"* If they say yes, you are clean and you can do it
+today. If they say no, you have lost nothing and learned it for free. Asking converts a
+disqualification risk into a decision someone else is accountable for.
+
 **If you read it differently, say so and I will write the registration package for you** — this is
 your call, not mine, and I am not going to keep relitigating it. I just want you making it with the
 numbers in front of you.
