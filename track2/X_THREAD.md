@@ -1,6 +1,8 @@
 # X_THREAD.md — Track 2 posts (user posts, tag @Telegraphprotoc)
 
 **Every post below is verified ≤280 characters** (URLs counted as X counts them: 23 chars).
+Figures re-verified 2026-08-28 against the final build: 23.2KB module, 348-fixture corpus
+(both were stale from an earlier build; the substitutions are same-length, so counts hold).
 Post them exactly as written; adding a word may push one over. Character counts in brackets.
 
 Post 1 is the required submission artifact — post 1a/1b/1c as a single thread (reply chain), and
@@ -31,13 +33,13 @@ Wrong CVSS: 0.23
 Wrong wind speed: 0.002
 18 km/h vs 5 m/s: identical
 
-17.9KB no_std Rust, zero imports, ~10s of the gate 600s budget.
+23.2KB no_std Rust, zero imports, ~10s of the gate 600s budget.
 ```
 
 **1c** [260] — reply to 1b · **contains the mandatory disclosure**
 
 ```
-Source, 269-fixture corpus, offline gate harness, full measured proof:
+Source, 348-fixture corpus, offline gate harness, full measured proof:
 github.com/Harshyadav442277/telegraph-factscore
 
 Disclosure: I also operate the Track 1 miner livecert (reg 225). My test suite scores my own miner style DOWN when factually wrong. Overlap disclosed to organizers.
@@ -70,7 +72,7 @@ An unrelated bugfix pushed it to 0.6005. Passes by 0.0005.
 ## POST 4 — the kit release [263] · adoption axis
 
 ```
-Released for @Telegraphprotoc Track 2 authors: an offline harness reproducing the node promotion gate (validated to 6 sig figs against live scores) + a 269-fixture corpus.
+Released for @Telegraphprotoc Track 2 authors: an offline harness reproducing the node promotion gate (validated to 6 sig figs against live scores) + a 348-fixture corpus.
 
 Test your module against the real champions before spending a tx.
 

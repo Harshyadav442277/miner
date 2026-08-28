@@ -8,11 +8,38 @@ target.** Read this block only; everything below is history.
 `integrate.telegraphprotocol.com` → Submit WASM → paste the link → VERIFY & HASH → intent
 **`TEXT_AUTHENTICITY_CHECK`** → REGISTER WASM MODULE → approve in MetaMask.
 
+After the tx confirms, note the `registrationId` and read the verdict from the API (the console
+dashboard lags 2–3 min):
+
+```bash
+curl -s "https://devnode.telegraphprotocol.com/api/wasm?intent=TEXT_AUTHENTICITY_CHECK"
+```
+
+Find our registration_id in `entries`. `pending` → wait minutes, not epochs. `active` +
+`is_champion: true` → **the champion slot — rank 1 — is ours**; record the eval block below.
+`rejected` → the `eval` numbers are the node's own measurement on its hidden fixtures; hand them
+back for one calibration round and re-register (gas only).
+
 ```
 https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/867fd15cbf3efbd081c885d7e9783a0a700903ec/dist/text_authenticity.wasm
 ```
 
 Commit `867fd15`, **23,232 bytes**, hosted bytes verified byte-identical to the tested build.
+
+**Cross-check before signing:** the console's VERIFY & HASH step must display keccak256
+
+```
+0xaaea446b894a2190858739339e0dc200f72c69c7a4bb9af62c6584f359cb0e01
+```
+
+If it shows anything else, stop — it fetched different bytes than the ones every number in this
+runbook was measured on.
+
+**Re-verified 2026-08-28 ~11:15 IST**, all green: live bar still 0.65861213 (champion reg 850
+unchanged since Aug 25); hosted bytes byte-identical; gate proxy reproduced digit-for-digit
+(margin 0.963445, wins 144/144) against the authentic champion binary — its keccak256 matches
+the registry's on-chain `wasm_hash` exactly, so the incumbent we measured is the incumbent the
+node runs.
 
 ## Why this target, not CONTENT_VERIFICATION
 

@@ -16,6 +16,11 @@ answer via user):** the required submission is the on-chain `registerWasm` **plu
 public X post(s)** — no form; the review team will request additional evaluation material itself
 if needed (keep the proof pack ready to hand over). The empty
 `telegraph-hackathon-submissions` repo stays on watch but is not a required artifact.
+**keccak-by-recompute CLOSED 2026-08-28:** the spec recon's one unverified assertion (registry
+`wasm_hash` = keccak256 of the hosted bytes, asserted from docs, skipped as a 24 MB download) is
+now verified: `tn_t70.wasm` (reg 850) downloaded and its keccak256 matches the registry's
+`wasm_hash` exactly. Our `text_authenticity.wasm` keccak256 is pinned in REGISTRATION.md for the
+console cross-check.
 
 ### G2 · Which intents "participate" — `OPEN, softened`
 The live registry accepts scorers for all 45 canonical intents (1220 registrations, 36 authors),

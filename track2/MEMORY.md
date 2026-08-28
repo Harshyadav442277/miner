@@ -4,12 +4,42 @@
 
 ---
 
-## ⇢ HANDOVER — 2026-08-28 · BLOCKED ON ONE USER ACTION
+## ⇢ HANDOVER — 2026-08-28 midday · TARGET IS TEXT_AUTHENTICITY_CHECK · BLOCKED ON ONE USER ACTION
+
+**The registration target moved from CONTENT_VERIFICATION to TEXT_AUTHENTICITY_CHECK**
+(commit `d20b823`): same domain, same profile family, but the live bar is **0.6586** instead of
+CV's 0.9904, and the champion itself only manages **14/15 wins** on the node's own fixtures —
+so our corpus-measured 0.9634 / 144-144 clears it with room instead of falling 0.027 short.
+[REGISTRATION.md](REGISTRATION.md) is the runbook; read only its top block.
+
+### Feedback loop re-run 2026-08-28 ~11:15 IST — every check green
+- Live bar re-polled: still **0.65861213**, champion reg 850 (`tn_t70`), unchanged since Aug 25.
+- Hosted bytes at the pinned raw URL: **byte-identical** to `dist/text_authenticity.wasm`
+  (23,232 B). keccak256 of our build: **`0xaaea446b894a2190858739339e0dc200f72c69c7a4bb9af62c6584f359cb0e01`**
+  — the console's VERIFY & HASH must show exactly this; anything else means wrong bytes.
+- Champion binary authenticity: downloaded `tn_t70.wasm`, its keccak256 **matches the registry's
+  `wasm_hash` exactly** — first live confirmation of that assertion (the recon had it UNVERIFIED).
+- Gate proxy reproduced from the pinned bytes vs the authentic champion: **margin 0.963445,
+  wins 144/144** (champion 0.091509, 104/144), self-match 1.0, stddev PASS, Spearman SKIPPED
+  (0 miners with history) → **would promote**. Matches REGISTRATION.md digit-for-digit.
+- 72 tests / `fmt --check` / `clippy -D warnings` / `verify.mjs` all clean.
+- PROOF.md regenerated to cover the actual registration target: `make-proof.mjs` + `proof-doc.mjs`
+  now take a `corpusIntent` (TA is measured on the CV fixture family, against TA's own champion),
+  and all five champion binaries now live repo-local in `harness/champions/` (gitignored).
+
+### The single outstanding action
+Register **TEXT_AUTHENTICITY_CHECK** at `integrate.telegraphprotocol.com` with the URL pinned in
+[REGISTRATION.md](REGISTRATION.md) (commit `867fd15`, 23,232 B). Gas only, verdict in minutes.
+That is the whole remaining path to an on-chain champion slot — which is rank 1 in the intent.
+
+---
+
+## ⇢ (earlier, superseded same day) HANDOVER — 2026-08-28 morning
 
 **Everything buildable is built, verified, published and pushed. The project cannot advance
 further without a wallet signature, which Claude does not perform (CLAUDE.md rule 1).**
 
-### The single outstanding action
+### The single outstanding action (SUPERSEDED — target is now TEXT_AUTHENTICITY_CHECK, above)
 Register **CONTENT_VERIFICATION** at `integrate.telegraphprotocol.com` with the URL pinned in
 [REGISTRATION.md](REGISTRATION.md) (commit `c9df884`, 23,230 B, hosted bytes verified). Gas only,
 verdict in minutes. That is the whole remaining path to an on-chain champion slot.
