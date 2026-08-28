@@ -52,6 +52,13 @@ before the close**, because 75% of the score is performance and some of these ar
 | A 4xx is a guaranteed **0** | High | Barely | **Now** |
 | Engine sends **only declared params** | Very high | Somewhat | Now, in the flagship |
 | **Run the champion scorer offline** (`/api/wasm` + `/scores`) | Highest of all | **Yes — directly** | **Hold until Sept 1** |
+| **The converter is a ~32-word budget** (measured 2026-08-28) | Highest of all | **Yes — directly** | **Hold until Sept 1** |
+
+The converter finding is the newest and probably the most valuable: `converted_answer` lands at
+~32 words whatever you send, so anything past that is summarised away by a model you do not
+control. It cost us a measured 0.992 → 0.0097 on one SSL row. Every miner in the network is losing
+score to this and none of them appear to know. Publishing it on the 28th hands eleven weather
+miners a direct scoring improvement during the exact window that decides the 75%.
 
 The offline-scorer loop is how we went #3/#3 → #1/#1/#1 in three epochs. It converts a 9-hour
 feedback cycle into seconds. Handing that to eleven weather miners on Aug 28 is handing them our
