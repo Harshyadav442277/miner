@@ -74,7 +74,15 @@ position, so every day of delay shortens the record we are judged on.
 - [x] **T4.1b** `tools/verify-deploy.mjs` — post-deploy acceptance check across all six verdict
       paths plus latency, so a broken deploy is caught *before* the immutable registration.
 - [ ] **T4.2** Watch through **2026-09-07** — staying live is a rule, not just scoring. Zero
-      revocations so far. (S2)
+      revocations so far. **Now doubly load-bearing: the miner wallet's seed is compromised
+      (GAPS G19), so the uptime workflow's activation check is the tripwire for a malicious
+      `deregisterMiner`.** (S2)
+- [x] **T4.5** Hardened the miner to exactly the six registered routes; extended the SSRF guard;
+      made query logging opt-in and value-free. Fixed the academic parser refusing two of four real
+      questions, and the weather/storm refusals discarding the window the engine did send.
+      **123 tests.**
+- [x] **T4.6** Measured both new intents offline before their first scored epoch, and both took
+      rank 1 exactly as predicted — translation 9/9 wins, academic 19/21.
 - [x] **T4.3** Tuned from real scored rows, not from code review: the params-only delivery fix, the
       never-return-4xx rule, echoing the question's own identifiers, and the `/papers` bare-topic
       refusal bug. Every large gain came from a clause going unanswered.
@@ -108,10 +116,9 @@ Track 3 requests or it wins nothing regardless of rank. A genuine app that consu
 
 - [x] **T5.1** X account live and linked to the hackathon account: `@hyadav42774`, 29 posts. Best
       performer so far is **188 impressions**. (G11)
-- [ ] **T5.2** **Post the flagship thread** → [docs/X_FLAGSHIP.md](docs/X_FLAGSHIP.md), then work
-      the amplification list. The X term appears to be scored on the single highest-engagement
-      post rather than the sum, so this replaces the milestone-cadence plan. *Blocked on the
-      operator.*
+- [ ] **T5.2** **Post the series** → [docs/X_FLAGSHIP.md](docs/X_FLAGSHIP.md). Ten posts, each
+      verified under 280 characters and tagged, roughly two a day through Aug 31 and continuing
+      through Track 3. Covers both tracks. *Blocked on the operator.*
 - [x] **T5.2b** Confirmed by the organizers: the X term is scored on the **single
       highest-engagement post**, not the sum, and scoring is automated.
 - [x] **T5.3** README written with an honest Assumptions & Limitations section sourced from GAPS.md.
@@ -129,3 +136,25 @@ Track 3 requests or it wins nothing regardless of rank. A genuine app that consu
 - [x] Hackathon account registered; Discord joined
 - [x] Track 1 (Miner) chosen
 - [x] Planning docs written
+
+---
+
+## Where this stands — 2026-08-28
+
+**Rank 1 in four of six intents** (epoch 289): SSL_VERIFICATION, IP_GEOLOCATION,
+LANGUAGE_TRANSLATION, ACADEMIC_SEARCH. Storm #2 by 0.00023, Weather #3 by 0.00027.
+
+**Open, in priority order:**
+
+1. **T5.2 — post the X series.** 25% of the score, currently near zero. Operator only.
+2. **Track 2 registration** — one signature, see `track2/REGISTRATION.md`. Operator only.
+3. **The eligibility question** — Track 3 has not opened, so the 100-request half is zero
+   everywhere. Ask the organizers whether it is waived, deferred or binding.
+4. **T4b.3/T4b.4 — CertWatch.** Durable history is fixed (G18) but no sweep has yet written a
+   record through the real path, and it has no outside users. Do not fund before that is proven.
+5. **A third IP_GEOLOCATION miner** must come from an independent party, or that intent stays
+   ineligible. `track1-miner/docs/ELIGIBILITY.md` has a working keyless YAML to hand out.
+
+**Do not retry:** shortening answers toward the converter's ~32-word budget, reordering `reason`
+to front-load asked-for variables, or any of the six disproven scoring theories in
+`track1-miner/MEMORY.md` §6. All measured worse than what is deployed.

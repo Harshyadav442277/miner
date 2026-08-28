@@ -14,6 +14,54 @@ sessions and between models.
 | **Track 3 — app** | [track3-certwatch/](track3-certwatch/), plus G17/G18 in [GAPS.md](GAPS.md) |
 | Anything | [README.md](README.md) for ownership and shared facts, [docs/](docs/) for protocol and rules |
 
+## State at 2026-08-28 end of session
+
+**Track 1 is live and winning.** Registration **260**, `active`, six intents, `livecert`,
+`https://miner-wine.vercel.app`. Epoch 289:
+
+```
+SSL_VERIFICATION      #1   0.01014868
+IP_GEOLOCATION        #1   0.01000050
+LANGUAGE_TRANSLATION  #1   0.00899709    first epoch ever scored
+ACADEMIC_SEARCH       #1   0.00654745    first epoch ever scored
+STORM_ALERT           #2   0.00405170    gap 0.00023
+WEATHER_FORECAST      #3   0.00976552    gap 0.00027
+```
+
+**Rank 1 in four of six.** 123 tests green, deploy gate green, watcher green.
+
+### The three things that need a human, in order
+
+1. **Post the X series.** 25% of the Track 1 score and the largest unclaimed block. Ten posts,
+   each verified under 280 characters and tagged, covering both tracks:
+   **[docs/X_FLAGSHIP.md](docs/X_FLAGSHIP.md)**. Best post to date is 188 impressions.
+2. **Register Track 2's scorer.** One wallet signature; see [track2/REGISTRATION.md](track2/REGISTRATION.md).
+3. **Ask the organizers one question** — Track 3 has not opened, so no intent can have its 100 real
+   Track 3 requests before the Aug 31 close. Is that guardrail waived, measured later, or binding?
+   It decides whether rank 1 converts into anything. Still unanswered.
+
+### Read these before touching anything
+
+- **[GAPS.md](GAPS.md) G19 — the miner wallet's seed phrase is compromised.** The operator ran a
+  wallet-stealer from a Discord scam on 2026-08-28. The risk was assessed and **accepted**, not
+  mitigated. If the miner is ever found deregistered, that is the likely cause. Nothing else on the
+  machine was touched and no tokens needed rotating.
+- **[track1-miner/MEMORY.md](track1-miner/MEMORY.md) §5-§7** — the rules that survived measurement
+  and the theories that did not. Six scoring theories have now been disproven in this repo. Do not
+  re-derive them; every one cost real time.
+- The offline replay loop is the only thing that has ever produced a gain. `/api/wasm` gives each
+  intent's champion scorer as commit-pinned WASM; `/scores?intent=X` gives real questions, ground
+  truths and the exact `converted_answer` that was scored. **Measure before changing anything** —
+  three weather rewordings were tested this session and all scored *worse* than what is deployed.
+
+### Eligibility is still the binding constraint
+
+Five of six intents now clear the 3-miner half; `IP_GEOLOCATION` has 2 and needs an outside party.
+**No intent has any Track 3 requests**, because Track 3 has not opened. Rank 1 in an ineligible
+intent wins nothing → [track1-miner/docs/ELIGIBILITY.md](track1-miner/docs/ELIGIBILITY.md).
+
+---
+
 Everything below this line is **historical** — the day-by-day record of how Track 1 got here. It is
 kept because the reasoning is often more useful than the conclusion, but for current Track 1 state
 read `track1-miner/MEMORY.md` instead. Registrations **225 and 236 are superseded**; the live one is
