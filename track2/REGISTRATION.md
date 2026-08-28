@@ -14,17 +14,17 @@ At `integrate.telegraphprotocol.com` → Submit WASM → paste the link → VERI
 **`CONTENT_VERIFICATION`** → REGISTER WASM MODULE → approve in MetaMask.
 
 ```
-https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/c9df8849efc335a624ee7c6f98072c33f7f2a788/dist/content_verification.wasm
+https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/a633793b847d2561eca05c1b65519e2fed89b49a/dist/content_verification.wasm
 ```
 
-Commit `c9df884`, **23,230 bytes**, hosted bytes verified byte-identical to the tested build.
+Commit `a633793`, **23,230 bytes**, hosted bytes verified byte-identical to the tested build.
 
 | gate check | result |
 |---|---|
 | A stddev > 0.05 | PASS 0.4034 |
 | B self-match ≥ max(0.75, incumbent) | PASS 1.0 |
 | **C Spearman ≥ 0.60** | **SKIPPED** — single miner, `historical_rows_evaluated: 0` |
-| D1 margin > champion (strict) | PASS **0.8668** vs **0.2976** |
+| D1 margin > champion (strict) | PASS **0.8793** vs **0.2976** |
 | D2 margin ≥ 0.15 | PASS |
 | D3 wins ≥ champion | PASS **144/144** vs 110/144 |
 | near-equality (correct phrasings agree) | **12/12**, worst spread 0.0003 |
