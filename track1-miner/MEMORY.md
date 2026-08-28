@@ -9,54 +9,32 @@ Last updated: 2026-08-27 ~08:30 UTC, before epoch 286 (lands ~09:37 UTC).
 
 ## 1. What needs the operator, right now
 
-**One signature.** The six-intent `miner.yaml` is staged, re-verified against the pinned YAML of
-the live registration, and gated. The full package — what changed, what to click, what to check
-afterwards — is in **[docs/SIGNING.md](docs/SIGNING.md)**. Read that, not this section, before
-going to the console.
+**The six-intent update is SIGNED AND LIVE — registration 260, `active`, 2026-08-28 ~05:00 UTC.**
+Nothing about the manifest needs the operator any more. See section 2 for the verified state and
+[docs/SIGNING.md](docs/SIGNING.md) for what was checked.
 
-Short version: current four intents + `LANGUAGE_TRANSLATION` + `ACADEMIC_SEARCH`. No `limitations`
-block. CVE stays dropped (patchsignal now scores 0.9847 there). `/cve`, `/extract`, `/headlines`
-stay deployed but undeclared.
+What still needs a human:
 
-**NEVER sign the old 9-intent version** (hash `0xf8eea144…5236803`). Its NVD `limitations` block
-counts node-wide per miner, which would throttle every intent to 5 requests per 30 s. Confirmed
-verbatim against the live YAML docs on 2026-08-28: *"Counts are node-wide per miner, not per
-caller: the node holds one upstream account for you, so all traffic draws on the same allowance."*
-There is no endpoint scope on a limitation entry.
+**1. X — 25% of the score, and it is the largest unclaimed block on the board.** New information
+from the hackathon Discord: **the X term appears to be scored on the single highest-engagement
+post, not the sum** (unofficial, from a community member — get it in writing). That replaces the
+cadence plan with one flagship. Ready-to-post thread, every post verified under X's 280-character
+limit: **[../docs/X_FLAGSHIP.md](../docs/X_FLAGSHIP.md)**. Best post so far is 188 impressions.
 
-```
-local sha256 of the file to upload:
-0xe35e3e46b92e611781d5adf18f7ab30d5d0e6d9eb2c61698f0de1f5b1a98a3f5
-```
+**2. Two questions for the organizers**, both unanswered and both change how the last days are spent:
+- Track 3 has not opened, so no intent can have its 100 real requests by the Aug 31 close. Is that
+  requirement waived, measured later, or binding?
+- Is the X portion scored on a single best post or aggregate engagement?
 
-**The hash-matching ritual in the old version of this section was wrong.** The console
-re-serializes the YAML before pinning, so a local SHA-256 can never equal the on-chain
-`yaml_hash` — proved by checking every committed `miner.yaml` against 236's on-chain hash and
-matching none of them. The local hash only confirms the operator uploads the file that was
-verified. The real check is reading back the pinned content after registration. See SIGNING.md §3.
-
-**Fixed while preparing the package (2026-08-28):** the pending file was missing the `auth:
-{type: none}` block that the live pinned registration carries. Restored, so the only differences
-from a proven-good registration are the intended ones. Also tried `docs.twitter` and **the sandbox rejected it** — the
-console strips quotes when it re-serializes, and `@` cannot start an unquoted YAML scalar. Removed.
-Never put a quote-dependent value in this YAML: `@`, backtick, `%`, `&`, `*`, `!`.
-
-**Second thing that needs a human: X.** 25% of the Track 1 score. New information from the
-hackathon Discord — **the X term is scored on your single highest-engagement post, not the sum**
-(unofficial, from a community member; get it in writing). That changes the plan from cadence to
-one flagship. Ready-to-post thread and the amplification plan:
-**[../docs/X_FLAGSHIP.md](../docs/X_FLAGSHIP.md)**. Current best post is 188 impressions.
-
-**Third: eligibility.** `IP_GEOLOCATION` has 2 miners and needs 3, and no intent has any Track 3
-requests because Track 3 has not opened. **The operator decided on 2026-08-28 not to register a
-second miner from another account — do not reopen this.** The remaining paths are recruiting a real
-third miner and generating real Track 3 demand, both in
-**[docs/ELIGIBILITY.md](docs/ELIGIBILITY.md)**.
+**3. Eligibility.** `IP_GEOLOCATION` has 2 miners and needs 3. **The operator decided on 2026-08-28
+not to register a second miner from another account — do not reopen this.** Registering the
+six-intent update already took `LANGUAGE_TRANSLATION` and `ACADEMIC_SEARCH` from 2 miners to 3, so
+five of our six intents now clear the miner-count half. The remaining paths are recruiting a real
+third IP miner and generating real Track 3 demand → [docs/ELIGIBILITY.md](docs/ELIGIBILITY.md).
 
 Note for anyone re-deriving the rules: the published rules contain **no** ban on one participant
 registering multiple miners. The applicable rule is **04**, *"Artificial inflation of metrics or
-gaming the system will result in disqualification."* An earlier draft of ELIGIBILITY.md cited our
-own audit doc as though it were a hackathon rule; it is not.
+gaming the system will result in disqualification."*
 
 **Claude never signs.** No wallet connect, no transaction, no seed phrase. Prepare and validate;
 the operator clicks.
@@ -64,12 +42,38 @@ the operator clicks.
 ## 2. Live state
 
 ```
-registration   236     active      wallet 0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e
+registration   260     active      wallet 0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e
 slug           livecert            id 4433
 base_url       https://miner-wine.vercel.app
 explorer       https://explorer.telegraphprotocol.com/miners/livecert
 repo           https://github.com/Harshyadav442277/miner
+yaml (pinned)  https://gateway.pinata.cloud/ipfs/QmURJomd4AeRBxHoDtGPtZ2Z9kxFVXVdVQC6xvVvPgr4Z8
+yaml_hash      e6c5171bf59291e2473d2dfcfb50a7e501300b483121ca0219afa5ee3ce5bb50
+tx             0x61440cd683525134...53b64a56
 ```
+
+**225 and 236 are superseded.** 236 kept serving until 260 activated — there was no gap.
+
+**Six intents registered** as of 2026-08-28: SSL_VERIFICATION, STORM_ALERT, WEATHER_FORECAST,
+IP_GEOLOCATION, **LANGUAGE_TRANSLATION**, **ACADEMIC_SEARCH**. Six endpoints: `/ssl-check`,
+`/storm-alert`, `/papers`, `/translate`, `/ip-geolocate`, `/weather-forecast`.
+
+Verified after signing, against the pinned IPFS file rather than the local one:
+- `sha256(pinned) == on-chain yaml_hash` exactly
+- **no `limitations` block** (the P0 that would have throttled every intent node-wide)
+- all 14 declared input params survived the console's re-serialization, including `topic` (the one
+  ACADEMIC_SEARCH needs) and `query`/`q` (the params-only delivery fix)
+- no `output_schema` field dropped
+- `auth: {type: none}`, `base_url`, `rate_limit_per_sec`, `cache_ttl_sec` and both circuit settings
+  **unchanged from 236**, the configuration this miner has always been accepted under
+
+The console strips documentation keys (`examples`, top-level `description` on input_schema) and
+re-serializes everything. That is normal and 236 registered the same way.
+
+**The uptime workflow's `REGISTRATION_ID` repo variable was still `225`** — two registrations
+stale, so activation monitoring had been watching a superseded record since before 236. Set to
+**260** on 2026-08-28 (`gh variable set REGISTRATION_ID --body 260`). **Whenever a new registration
+is signed, update that variable in the same session** — nothing in CI catches it being wrong.
 
 **Epoch 288 scores** (landed 2026-08-28 ~03:50 UTC — recorded via `tools/record-scores.mjs`):
 

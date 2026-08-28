@@ -51,15 +51,17 @@ position, so every day of delay shortens the record we are judged on.
       declares all three intents. `WEATHER_FORECAST` carries the network's highest demand (941
       requests) with all nine incumbents under 0.008.
 - [x] **T2.6** Sandbox-validated and registered as **236** (four intents). (A2)
-- [ ] **T2.8** Sandbox-validate the **six-intent** update and sign it →
-      [track1-miner/docs/SIGNING.md](track1-miner/docs/SIGNING.md). *Blocked on the operator.*
+- [x] **T2.8** Six-intent update sandbox-validated and signed 2026-08-28 → registration **260**,
+      `active`, all six intents. The sandbox caught a `docs.twitter` parse failure first; field
+      removed and re-validated clean. 236 → `superseded`, no serving gap.
+
 
 ## Phase 3 — Register (user drives all wallet steps)
 
 - [x] **T3.1** Wallet funded on Base Sepolia. (closes G7)
 - [x] **T3.2** Fee address = the miner address `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e`. (D4)
-- [x] **T3.3** Registered. Registration **1377 was rejected**; **225** superseded; **236** is live.
-- [x] **T3.4** `registrationId: 236` recorded. Every lookup uses it, never the slug.
+- [x] **T3.3** Registered. **1377** rejected; **225** and **236** superseded; **260** is live.
+- [x] **T3.4** `registrationId: 260` recorded (was 236). Every lookup uses it, never the slug.
 - [x] **T3.5** `activation_status: active`, `rejection_reason: null`. (closes S1)
 - [x] **T3.6** Not applicable — `auth: {type: none}`. No API key exists anywhere in this miner, so
       no upstream quota can revoke us.

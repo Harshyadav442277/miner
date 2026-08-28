@@ -16,7 +16,8 @@ sessions and between models.
 
 Everything below this line is **historical** — the day-by-day record of how Track 1 got here. It is
 kept because the reasoning is often more useful than the conclusion, but for current Track 1 state
-read `track1-miner/MEMORY.md` instead. Registration **225 is superseded**; the live one is **236**.
+read `track1-miner/MEMORY.md` instead. Registrations **225 and 236 are superseded**; the live one is
+**260** (six intents, active 2026-08-28).
 
 ---
 
