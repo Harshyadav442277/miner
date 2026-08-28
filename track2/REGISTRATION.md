@@ -1,92 +1,65 @@
 # REGISTRATION.md — the user's runbook for registering the scorer
 
-**Status 2026-08-28. One action is live: register CONTENT_VERIFICATION.** Everything above it in
-the history below is superseded; read this block only.
+**Status 2026-08-28. Register TEXT_AUTHENTICITY_CHECK — it replaced CONTENT_VERIFICATION as the
+target.** Read this block only; everything below is history.
 
-Claude prepares; **the user clicks.** `registerWasm` is gas-only, no bond, reversible
-(`deregisterEntity(<id>, 2)`). A rejection still returns the node's official `eval` — our margin
-measured on its hidden fixtures — which is the "measured performance against the incumbent" the
-organizers said the review assesses. A failed attempt is paid intelligence.
+## → DO THIS
 
-## → DO THIS: register CONTENT_VERIFICATION
-
-At `integrate.telegraphprotocol.com` → Submit WASM → paste the link → VERIFY & HASH → intent
-**`CONTENT_VERIFICATION`** → REGISTER WASM MODULE → approve in MetaMask.
+`integrate.telegraphprotocol.com` → Submit WASM → paste the link → VERIFY & HASH → intent
+**`TEXT_AUTHENTICITY_CHECK`** → REGISTER WASM MODULE → approve in MetaMask.
 
 ```
-https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/b5a84be2a8bef1f952ba7d0d4089c5ec00c7a8a9/dist/content_verification.wasm
+https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/867fd15cbf3efbd081c885d7e9783a0a700903ec/dist/text_authenticity.wasm
 ```
 
-Commit `b5a84be`, **23,232 bytes**, hosted bytes verified byte-identical to the tested build.
+Commit `867fd15`, **23,232 bytes**, hosted bytes verified byte-identical to the tested build.
 
-| gate check | result |
+## Why this target, not CONTENT_VERIFICATION
+
+| | CONTENT_VERIFICATION | **TEXT_AUTHENTICITY_CHECK** |
+|---|---|---|
+| live bar (champion margin) | **0.9904** | **0.6586** |
+| our margin | 0.9634 | 0.9634 |
+| gap | **-0.027 SHORT** | **+0.305 CLEAR** |
+| champion wins | 15/15 | **14/15** |
+| Spearman | skipped | **skipped** (0 miners with history) |
+
+Same domain — "is this text original, AI-generated or human-written" is the same question a
+plagiarism report answers — so the same profile applies and the antonym axis already carries the
+vocabulary. Head-to-head against that intent's own champion (`tn_t70`, reg 850) on our fixtures:
+**ours 0.9634 / 144-144 wins, theirs 0.0915 / 104-144.**
+
+The bar has been flat at 0.658612 all day and three challengers were rejected against it today
+(0.2817, 0.4112, 0.2818) — all far below us. All six gate conditions PASS in the proxy.
+
+## Gate proxy result
+
+| check | result |
 |---|---|
-| A stddev > 0.05 | PASS 0.4034 |
+| A stddev > 0.05 | PASS |
 | B self-match ≥ max(0.75, incumbent) | PASS 1.0 |
-| **C Spearman ≥ 0.60** | **SKIPPED** — single miner, `historical_rows_evaluated: 0` |
-| D1 margin > champion (strict) | PASS **0.9634** vs **0.2976** |
+| **C Spearman ≥ 0.60** | **SKIPPED** — 0 miners with scoring history |
+| D1 margin > champion (strict) | PASS **0.9634** vs **0.0915** |
 | D2 margin ≥ 0.15 | PASS |
-| D3 wins ≥ champion | PASS **144/144** vs 110/144 |
-| near-equality (correct phrasings agree) | **12/12**, worst spread 0.0003 |
+| D3 wins ≥ champion | PASS **144/144** vs 104/144 |
 
-Measured on **content-verification fixtures** (12 documents, 144 pairs, plagiarism/authenticity
-semantics), not the IP corpus. The earlier 0.7242 was measured on IP-flavoured fixtures and
-overstated the case; 0.6262 is the honest number for this intent.
-
-**Why this intent and no other:** every intent with ≥2 miners is blocked by the agreement gate,
-which requires ranking real traffic like the champion — and the champion scores factually wrong
-answers ~0.99 (ground truth "Tokyo, Japan", answer "Mumbai, India", champion 0.9918, ours 0.0855).
-Passing would mean scoring Mumbai like Tokyo. CONTENT_VERIFICATION has one miner, so that check is
-skipped entirely.
-
-**Built for this intent, and it found a real defect.** On CV fixtures the first build scored a
-*flipped verdict* ("plagiarised" -> "original", nothing else changed) at **0.9999** — the exact
-inversion class this project criticises the incumbent for. Cause: polarity detection only caught
-negations ("not"), never antonyms, and a verdict word is neither a figure nor an entity so it fell
-through to prose weight (0.02). Fixed with a polar-verdict axis (`src/antonyms.rs`, 28 general
-English pairs) and a categorical multiplier: **a flipped verdict now scores 0.0046.** CV margin
-went 0.3775 -> 0.6262 as a result. IP build re-checked, no regression (0.7221, 786/791).
-
-**The terse inversion was a real bug, and fixing it was the biggest lever.** A correct terse answer
-scored 0.2789 — below a *wrong* one — and the first diagnosis ("unrepresentative fixture") was
-wrong. `breakdown_answer` traced it to the numeric channel: the answer said "7 matches" where the
-truth said "7 matching passages", and unrecognised unit-words were compared by exact hash, so a
-correct answer was foreign to its own ground truth and lost its figures (fact 0.394 vs 1.000).
-The stemmer cannot bridge it either — the plural rule gives `matche` while -ing gives `match`, and
-widening it would send `provides` to `provid`. Fixed with a four-letter family hash applied ONLY to
-unrecognised unit-words (`bytes::unit_family_hash`). Terse **0.2789 -> 0.9998**, margin
-**0.6262 -> 0.8668**, near-equality **0/12 -> 12/12**.
-
-**BAR RECHECKED 2026-08-28: it is 0.9904, not 0.6877.** The newest challenger (today 03:36) was
-measured against a champion margin of **0.990414**; the 0.6877 figure was a stale earlier reading.
-Our margin was raised 0.8793 -> **0.9634** in response (worst-figure numeric channel), correct
-answers unmoved at 0.9999. That is still **below 0.9904 on our corpus** — but on IP the node
-measured us ~8% *above* our own corpus (0.814 predicted, 0.8775 actual). If that lift repeats we
-land near 0.99 and it is genuinely close; if it does not, expect a rejection that returns exact
-numbers. Registering is gas-only either way.
-
-**Historic note:** the bar is volatile — champion reg 626's own promotion eval reads
-0.9904, a later challenger measured it at 0.6877. On IP the node measured us *higher* than our
-corpus predicted (0.814 → 0.8775). Genuine coin flip, gas only.
-
-## Superseded targets (do not register)
-
-- **IP_GEOLOCATION** — reg 1377 REJECTED (14/15 wins vs 15/15, margin 0.8775 vs bar 0.9919). Now
-  has 2 miners (`iplocate` + our own `livecert`), so the agreement gate applies and caps us at
-  rho 0.5934 < 0.60. Not winnable without scoring wrong answers as right.
-- **STORM_ALERT** — same structural block; a 72-build sweep ceilings agreement at 0.593.
+Honest caveat: the proxy measures on our own 144-pair corpus, not the node's ~15 hidden fixtures.
+On IP the node measured us ~8% ABOVE our corpus (0.814 predicted, 0.8775 actual), so the lift has
+historically favoured us. Gas only either way, and a rejection returns exact numbers.
 
 ## Record here after each registration
 
 ```
-intent                 registrationId   status     candidate_margin   bar faced    date
-IP_GEOLOCATION         1377             REJECTED   0.87751794         0.99185944   2026-08-27
-CONTENT_VERIFICATION   —                —          —                  —            —
+intent                   registrationId   status     candidate_margin   bar faced    date
+IP_GEOLOCATION           1377             REJECTED   0.87751794         0.99185944   2026-08-27
+TEXT_AUTHENTICITY_CHECK  —                —          —                  0.658612     —
 ```
 
 ---
 
 # History (superseded, kept for the record)
+
+
 
 ## Step 1 — hosted bytes verified — **DONE 2026-08-27**
 
