@@ -1,9 +1,18 @@
 # SETUP.md — the manual steps
 
-Two things need your accounts and your hands. Everything else is done and committed.
+> **Status 2026-08-28 — steps 1, 2 and 3 are DONE.** The miner is deployed at
+> `https://miner-wine.vercel.app` and registered as **260**, active with six intents and rank 1 in
+> four of them. The wallet is funded. **Do not re-run steps 1-3.** They are kept below as the
+> record of how it was set up.
+>
+> **What is still open is step 4 (X) and step 5 (CertWatch)** — plus registering the Track 2
+> scorer, which lives in [track2/REGISTRATION.md](track2/REGISTRATION.md).
+>
+> **Read [GAPS.md](GAPS.md) G19 before touching the wallet.** Its seed phrase was compromised by a
+> Discord scam on 2026-08-28. The risk was assessed and accepted; the wallet must not be reused
+> after the hackathon.
 
-**Do step 1 today.** Track 1 closes **2026-08-31**, and the 7-day grace-period score sets our
-opening leaderboard position — every day of delay shortens the record we are judged on.
+Everything else is done and committed.
 
 ---
 
@@ -136,13 +145,16 @@ demand from real users counts for far more than demand you generate yourself.
 
 ---
 
-## Step 4 — Ongoing: post on X
+## Step 4 — Ongoing: post on X  ← **the main open item**
 
-**25% of the score.** Tag `@Telegraphprotoc` on every update. Drafts are in
-[docs/X_POSTS.md](docs/X_POSTS.md) — I write them, you post them from your account.
+**25% of the score, and currently near zero.** Ten ready-to-post updates, each verified under X's
+280-character limit and tagged, are in **[docs/X_FLAGSHIP.md](docs/X_FLAGSHIP.md)** — that file
+supersedes the older drafts in [docs/X_POSTS.md](docs/X_POSTS.md).
 
-Judged on *"quality, consistency, reach, and meaningful engagement"*, so a steady cadence beats a
-burst on the last day.
+The organizers confirmed on 2026-08-28 that there is no fixed formula: they weigh *"quality,
+consistency, reach, likes, reposts, comments and meaningful engagement"*, they want posts covering
+**both Track 1 and Track 2**, and they want them genuine — *"we mainly want to see the actual work
+and progress."* So a steady cadence does beat a burst on the last day.
 
 ---
 
