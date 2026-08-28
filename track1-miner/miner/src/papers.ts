@@ -40,8 +40,12 @@ const MONTHS: Record<string, number> = {
 /** A "between January 2023 and June 2026" window, or a bare year. */
 export function dateWindow(text: string): { from: string | null; to: string | null } {
   const s = String(text ?? "");
+  // The day number is optional. Real questions use both "between January 2023 and
+  // June 2026" and "between January 1, 2025 and June 30, 2026". Missing the second
+  // form meant a question scoped to 2025-2026 was answered with papers from 2002.
   const pairRe = new RegExp(
-    String.raw`\b(?:between|from)\s+([A-Za-z]+)\s+(\d{4})\s+(?:and|to)\s+([A-Za-z]+)\s+(\d{4})`,
+    String.raw`\b(?:between|from)\s+([A-Za-z]+)\s+(?:\d{1,2}(?:st|nd|rd|th)?\s*,?\s*)?(\d{4})` +
+      String.raw`\s+(?:and|to)\s+([A-Za-z]+)\s+(?:\d{1,2}(?:st|nd|rd|th)?\s*,?\s*)?(\d{4})`,
     "i",
   );
   const m = s.match(pairRe);
@@ -64,40 +68,136 @@ export function dateWindow(text: string): { from: string | null; to: string | nu
   if (since?.[1]) return { from: `${since[1]}-01-01`, to: null };
   const year = s.match(/\b(?:published\s+in|in)\s+(\d{4})\b/i);
   if (year?.[1]) return { from: `${year[1]}-01-01`, to: `${year[1]}-12-31` };
+
+  // "from the last 5 years", "in the last 12 months". Without this the window is
+  // unbounded and a question asking for recent work gets a 2002 paper back.
+  const rel = s.match(/\b(?:last|past|previous)\s+(\d{1,2})\s+(year|month)s?\b/i);
+  if (rel?.[1] && rel[2]) {
+    const n = Number(rel[1]);
+    const now = new Date();
+    const start = new Date(now);
+    if (rel[2].toLowerCase() === "year") start.setUTCFullYear(start.getUTCFullYear() - n);
+    else start.setUTCMonth(start.getUTCMonth() - n);
+    return { from: start.toISOString().slice(0, 10), to: now.toISOString().slice(0, 10) };
+  }
   return { from: null, to: null };
+}
+
+/**
+ * Database query syntax that leaked in from the question — `abstract.search:`,
+ * `Humans[Mesh]`, bare boolean operators. OpenAlex's `search` treats these as
+ * literal words, so they push real terms out of the ranking and can return
+ * nothing at all.
+ */
+function stripQuerySyntax(t: string): string {
+  return t
+    .replace(/\b\w+\.search:/gi, " ")
+    .replace(/\[[A-Za-z]+\]/g, " ")
+    .replace(/\s+(?:AND|OR|NOT)\s+/g, " ")
+    .replace(/[()"']/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 /** The subject, with the search scaffolding stripped off. */
 export function searchTopic(text: string): string | null {
   const s = String(text ?? "").trim();
+
+  // Quoted terms are the question's own vocabulary — 'error correction',
+  // 'topological qubits', 'transformer models'. They belong in the search, and
+  // echoing the identifiers a question used is where every measured gain on this
+  // network has come from.
+  const quoted = [...s.matchAll(/['"‘“]([^'"’”]{3,60})['"’”]/g)]
+    .map((m) => (m[1] ?? "").trim())
+    .filter((q) => q.length > 2);
+
+  // "Search Semantic Scholar for papers ..." — the database named is not the
+  // subject. Left in, the topic became "Semantic Scholar for recent systematic
+  // reviews ..." and OpenAlex returned nothing at all.
+  const withoutSource = s.replace(
+    /^\s*(?:please\s+)?(?:search|query|look\s+(?:in|up)|find(?:\s+in)?)\s+(?:the\s+)?(?:semantic\s+scholar|pubmed(?:\s+central)?|google\s+scholar|web\s+of\s+science|arxiv|scopus|openalex|ieee(?:\s+xplore)?|springer|elsevier|jstor)\b\s*(?:for|in)?\s*/i,
+    "",
+  );
+
   const m =
-    s.match(/\bthat\s+discuss(?:es)?\s+(.+?)(?:[,.?]|\s+returning\b|\s+published\b|\s+since\b|\s+with\b|\s+where\b|$)/i) ??
-    s.match(/\b(?:on|about|regarding|covering)\s+(.+?)(?:[,.?]|\s+returning\b|\s+published\b|\s+since\b|\s+with\b|\s+where\b|$)/i);
+    withoutSource.match(/\bin\s+the\s+fields?\s+of\s+(.+?)(?:[,.?]|\s+that\b|\s+mention\w*\b|\s+returning\b|\s+published\b|\s+filter\w*\b|$)/i) ??
+    withoutSource.match(/\bin\s+the\s+field\s+of\s+(.+?)(?:[,.?]|\s+that\b|\s+mention\w*\b|\s+returning\b|\s+published\b|$)/i) ??
+    withoutSource.match(/\bthat\s+(?:discuss(?:es)?|examines?|investigates?|analyz\w*)\s+(.+?)(?:[,.?]|\s+returning\b|\s+published\b|\s+since\b|\s+with\b|\s+where\b|\s+filtering\b|\s+limiting\b|$)/i) ??
+    withoutSource.match(/\b(?:on|about|regarding|covering)\s+(.+?)(?:[,.?]|\s+returning\b|\s+published\b|\s+since\b|\s+with\b|\s+where\b|$)/i);
   let t = m?.[1]?.trim();
   if (!t) {
     // No scaffolding matched. The input may already be the bare subject — the
     // engine fills a declared `topic` parameter with just "zero knowledge
     // proofs", no question around it. Refusing here is a guaranteed zero, so
     // strip generic search words and date clauses and search for what remains.
-    t = s
+    t = withoutSource
       .replace(/^\s*(?:please\s+)?(?:find|search(?:\s+for)?|look\s+up|get|list|show\s+me|give\s+me|what\s+are|which\s+are)\b/i, "")
+      // Trailing clauses describe the output format, not the subject.
+      .replace(/,?\s*(?:returning|sorted\s+by|limit(?:ed|ing)|filtering)\b.*$/i, "")
       .replace(/\b(?:the\s+)?most\s+(?:cited|influential|recent)\b/gi, "")
       .replace(/\bpeer[-\s]?reviewed\b/gi, "")
       .replace(/\b(?:academic|scholarly)\b/gi, "")
       .replace(/\b(?:papers?|articles?|studies|research|literature|publications?)\b/gi, "")
-      .replace(/\b(?:published\s+)?(?:since|after|before|until|between|in)\s+\d{4}.*$/i, "")
+      // Remove ONLY the date phrase. This used to end in `.*$`, which deleted the
+      // rest of the sentence too — and in "papers published in 2025 in the field
+      // of quantum computing" the subject is everything after the date, so the
+      // topic came back null and the endpoint refused a question it could answer.
+      .replace(/\b(?:published\s+)?(?:since|after|before|until|between|in)\s+\d{4}(?:\s*(?:and|to)\s*\d{4})?/gi, " ")
       .replace(/[?.!]+\s*$/, "")
       .trim();
   } else {
     t = t.replace(/\b(?:published\s+)?(?:since|after)\s+\d{4}.*$/i, "").trim();
   }
-  return t && t.length > 3 ? t.replace(/\s+/g, " ") : null;
+
+  t = stripQuerySyntax((t ?? "").replace(/^['"‘“]+|['"’”]+$/g, ""));
+  for (const q of quoted) {
+    if (t && !t.toLowerCase().includes(q.toLowerCase())) t = `${t} ${q}`;
+  }
+  // A topic longer than this is a restated question, not a subject, and OpenAlex
+  // ranks it worse than its first few significant terms.
+  const words = t.split(/\s+/).filter(Boolean);
+  if (words.length > 14) t = words.slice(0, 14).join(" ");
+  return t && t.length > 3 ? t : null;
 }
 
-export async function findPapers(query: string, limit = 5, timeoutMs = DEFAULT_TIMEOUT_MS): Promise<PaperResult> {
+/**
+ * How many results the question asked for. These questions are explicit — "top
+ * 5", "limited to 10 results", "the most recent 10" — and returning five when
+ * ten were asked for leaves half the achievable overlap on the table.
+ */
+export function requestedLimit(text: string, fallback = 5): number {
+  const s = String(text ?? "");
+  const m =
+    s.match(/\blimit(?:ed|ing)?\s+(?:the\s+)?(?:output\s+|results?\s+)?to\s+(\d{1,2})\b/i) ??
+    s.match(/\btop\s+(\d{1,2})\b/i) ??
+    s.match(/\bmost\s+recent\s+(\d{1,2})\b/i) ??
+    s.match(/\b(\d{1,2})\s+(?:results|papers|articles|studies)\b/i);
+  const n = m?.[1] ? Number(m[1]) : NaN;
+  return Number.isFinite(n) && n >= 1 && n <= 25 ? n : fallback;
+}
+
+/**
+ * An explicitly requested ordering, or null for OpenAlex's relevance default.
+ * Only honoured when the question actually asks: defaulting to citation count
+ * returned a highly cited survey on the wrong subject for a blockchain query.
+ */
+export function requestedSort(text: string): string | null {
+  const s = String(text ?? "");
+  if (/\bsort(?:ed)?\s+by\s+(?:the\s+)?citation\s+count\b|\bsorted\s+by\s+citations?\b|\bby\s+most\s+cited\b/i.test(s)) {
+    return "cited_by_count:desc";
+  }
+  if (/\bpublication\s+date\s+descending\b|\bsort(?:ed)?\s+by\s+(?:most\s+recent\s+)?publication\s+date\b/i.test(s)) {
+    return "publication_date:desc";
+  }
+  return null;
+}
+
+export async function findPapers(query: string, limit?: number, timeoutMs = DEFAULT_TIMEOUT_MS): Promise<PaperResult> {
   const now = new Date().toISOString();
   const topic = searchTopic(query);
   const { from, to } = dateWindow(query);
+  const want = limit ?? requestedLimit(query);
+  const sort = requestedSort(query);
 
   const base: PaperResult = {
     topic, from_date: from, to_date: to,
@@ -114,19 +214,44 @@ export async function findPapers(query: string, limit = 5, timeoutMs = DEFAULT_T
   const url =
     `${API}?search=${encodeURIComponent(topic)}` +
     (filters.length ? `&filter=${encodeURIComponent(filters.join(","))}` : "") +
-    // Default relevance ranking, not citation count: sorting by citations returned
+    // Relevance is the default, not citation count: sorting by citations returned
     // a 6G survey for a blockchain supply-chain query — highly cited, wrong topic.
-    `&per-page=${limit}`;
+    // An ordering the question asks for by name is a different matter, because the
+    // ground truth was built the same way.
+    (sort ? `&sort=${encodeURIComponent(sort)}` : "") +
+    `&per-page=${want}`;
 
-  const ac = new AbortController();
-  const t = setTimeout(() => ac.abort(), timeoutMs);
-  let body: { results?: Array<Record<string, unknown>>; meta?: { count?: number } };
-  try {
-    const res = await fetch(url, { signal: ac.signal, headers: { accept: "application/json" } });
-    if (!res.ok) throw new Error(`upstream ${res.status}`);
-    body = (await res.json()) as typeof body;
-  } finally {
-    clearTimeout(t);
+  type Body = { results?: Array<Record<string, unknown>>; meta?: { count?: number } };
+  const get = async (u: string, ms: number): Promise<Body> => {
+    const ac = new AbortController();
+    const t = setTimeout(() => ac.abort(), ms);
+    try {
+      const res = await fetch(u, { signal: ac.signal, headers: { accept: "application/json" } });
+      if (!res.ok) throw new Error(`upstream ${res.status}`);
+      return (await res.json()) as Body;
+    } finally {
+      clearTimeout(t);
+    }
+  };
+
+  // The first request keeps the whole budget: the retry below is a bonus, and
+  // halving the primary timeout to fund it would lose answers we already get.
+  let body = await get(url, timeoutMs);
+
+  // An over-specific topic or a narrow window can return nothing, and "no papers
+  // found" scores near zero. Before giving up, retry with the topic's leading
+  // terms and without the date filter — some real papers beat none.
+  if (!(body.results ?? []).length) {
+    const short = topic.split(/\s+/).slice(0, 5).join(" ");
+    const retry =
+      `${API}?search=${encodeURIComponent(short)}` +
+      (sort ? `&sort=${encodeURIComponent(sort)}` : "") +
+      `&per-page=${want}`;
+    try {
+      body = await get(retry, Math.min(4000, timeoutMs));
+    } catch {
+      /* keep the empty first result and answer honestly below */
+    }
   }
 
   const papers: Paper[] = [];
