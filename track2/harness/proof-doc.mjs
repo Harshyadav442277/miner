@@ -60,13 +60,16 @@ const table = (head, rows) =>
 const bytes = (n) => Number(n).toLocaleString("en-US");
 const clip = (s, n = 420) => (s.length <= n ? s : `${s.slice(0, n).trimEnd()} …`);
 const quote = (s, n = 420) => clip(String(s).replace(/\s+/g, " ").trim(), n);
+// Gate metrics are keyed by the fixtures' own intent field, so a target measured on a
+// sibling family's corpus (target.corpusIntent) reads its block under that family's name.
+const gateBlock = (r) => r.report.gate_proxy[r.target.corpusIntent ?? r.target.intent];
 
 function verdictSection(runs) {
   const lines = [];
   const summary = runs
     .filter((r) => r.target.role === "gate")
     .map((r) => {
-      const block = r.report.gate_proxy[r.target.intent];
+      const block = gateBlock(r);
       const counts = block.verdict.checks.reduce((a, c) => ({ ...a, [c.state]: (a[c.state] ?? 0) + 1 }), {});
       return [
         `**${r.target.intent}**`,
@@ -88,7 +91,7 @@ function verdictSection(runs) {
   );
   for (const run of runs) {
     if (run.target.role !== "gate") continue;
-    const block = run.report.gate_proxy[run.target.intent];
+    const block = gateBlock(run);
     lines.push(
       `### ${run.target.intent} — ${block.verdict.pass ? "would promote" : "WOULD BE REJECTED"}`,
       "",
@@ -96,6 +99,16 @@ function verdictSection(runs) {
         `SHA-256 \`${run.report.against.sha256.slice(0, 16)}…\`. ` +
         `${block.distinct_miners} distinct miner(s) with scoring history in this intent's recorded traffic.`,
       "",
+      ...(run.target.corpusIntent
+        ? [
+            `This target registers under ${run.target.intent} but is measured on the ` +
+              `${run.target.corpusIntent} fixture family: the intent has no recorded traffic to build ` +
+              `fixtures from, and the two ask the same question (is this text original, AI-generated or ` +
+              `plagiarised, with what similarity figure and source), so the family transfers. The incumbent ` +
+              `in this table is ${run.target.intent}'s own on-chain champion, not ${run.target.corpusIntent}'s.`,
+            "",
+          ]
+        : []),
       table(
         ["", "Condition", "State", "Measured"],
         block.verdict.checks.map((c) => [c.name.slice(0, 2).trim(), c.name.slice(2).trim(), `**${c.state}**`, c.detail]),
@@ -110,7 +123,7 @@ function classSection(runs) {
   const lines = [];
   for (const run of runs) {
     if (run.target.role !== "gate") continue;
-    const block = run.report.gate_proxy[run.target.intent];
+    const block = gateBlock(run);
     const classes = [...new Set([...Object.keys(block.candidate.per_class), ...Object.keys(block.against.per_class)])].sort();
     const rows = classes.map((k) => {
       const c = block.candidate.per_class[k];
@@ -245,7 +258,7 @@ function parrotSection(runs) {
   for (const run of runs) {
     const mine = probes.filter((p) => p.run === run);
     if (mine.length === 0) continue;
-    const cls = run.report.gate_proxy[run.target.intent];
+    const cls = gateBlock(run);
     const candClass = cls?.candidate?.per_class?.["REAL-PARROT"];
     const refClass = cls?.against?.per_class?.["REAL-PARROT"];
     byIntent.push([
@@ -346,9 +359,9 @@ export function renderProof(ctx) {
       "all**. Measured offline against the incumbent's own on-chain binaries over a labelled corpus of " +
       `${fixtureRange} fixtures per intent — recorded network traffic, schema-generated adversarial cases, and ` +
       "controlled probes on real questions — our module " +
-      (gateRuns.every((r) => r.report.gate_proxy[r.target.intent].verdict.pass)
+      (gateRuns.every((r) => gateBlock(r).verdict.pass)
         ? `clears every applicable condition of the node's two-stage promotion gate on ${gateRuns.length === 2 ? "both" : `all ${gateRuns.length}`} target intents`
-        : `clears the node's two-stage promotion gate on ${gateRuns.filter((r) => r.report.gate_proxy[r.target.intent].verdict.pass).length} of ${gateRuns.length} target intents (§3 has the failures)`) +
+        : `clears the node's two-stage promotion gate on ${gateRuns.filter((r) => gateBlock(r).verdict.pass).length} of ${gateRuns.length} target intents (§3 has the failures)`) +
       ", while separating correct from incorrect answers by a " +
       "margin the incumbent does not approach on the classes that test factual correctness. The sharpest " +
       "single exhibit is §5.1: on a real question with a real ground truth, the incumbent scores a contentless " +
@@ -392,7 +405,7 @@ export function renderProof(ctx) {
     ...runs.map(
       (r) =>
         `node track2/harness/run-eval.mjs --scorer ${r.target.scorerRel} \\\n` +
-        `  --against <${r.target.championName}> --intent ${r.target.intent} --workers ${r.report.corpus.workers}`,
+        `  --against <${r.target.championName}> --intent ${r.target.corpusIntent ?? r.target.intent} --workers ${r.report.corpus.workers}`,
     ),
     "```",
     "",
@@ -530,7 +543,9 @@ export function renderProof(ctx) {
         f(l.candidate, 6),
         f(l.reference, 4),
         l.candidate > 0 && l.reference > 0
-          ? `**~${bytes(Math.round(l.reference / l.candidate / 1000) * 1000)}×** faster`
+          ? l.reference / l.candidate >= 1000
+            ? `**~${bytes(Math.round(l.reference / l.candidate / 1000) * 1000)}×** faster`
+            : `**~${bytes(Math.round(l.reference / l.candidate))}×** faster`
           : "—",
       ]),
     ),
@@ -669,7 +684,7 @@ export function renderProof(ctx) {
       "it is, straight from this run — " +
       gateRuns
         .map((r) => {
-          const c = r.report.gate_proxy[r.target.intent].candidate.per_class["OUR-STYLE-WRONG"];
+          const c = gateBlock(r).candidate.per_class["OUR-STYLE-WRONG"];
           return `**${r.target.intent} ${c ? `${c.wins}/${c.pairs}` : "n/a"}** (margin ${f(c?.mean_margin)})`;
         })
         .join(", ") +
@@ -677,7 +692,7 @@ export function renderProof(ctx) {
     "",
     ...(() => {
       const failing = gateRuns.filter((r) => {
-        const c = r.report.gate_proxy[r.target.intent].candidate.per_class["OUR-STYLE-WRONG"];
+        const c = gateBlock(r).candidate.per_class["OUR-STYLE-WRONG"];
         return c && c.wins < c.pairs;
       });
       if (failing.length === 0) return [];

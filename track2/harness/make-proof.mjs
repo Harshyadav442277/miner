@@ -57,6 +57,15 @@ const REGISTRY_PINS = {
     wasm_url:
       "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/b0807b7bf048729951b6f8ef722d2ff55e735914/dist/xfmr/cv_mini.wasm",
   },
+  TEXT_AUTHENTICITY_CHECK: {
+    registration_id: 850,
+    // keccak256 recomputed from the downloaded bytes 2026-08-28 and it matches the
+    // registry's wasm_hash exactly -- the first live confirmation that the registry
+    // hash is the on-chain keccak of the hosted file.
+    wasm_hash: "14f7076c4b4931efd33573ab3f2c9f3ee0eb6585101f0c238663e9340c004f57",
+    wasm_url:
+      "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/85381b739a9d047f068dc2b3642ceef9a569f48d/dist/xfmr/tn_t70.wasm",
+  },
   WEATHER_FORECAST: {
     registration_id: 636,
     wasm_hash: "dd7dc9e9adab581c6f124050bd76a5f88b6f4bcdedf64dbc79993bc055f963ff",
@@ -105,7 +114,7 @@ async function runEval(target, workers, reportsDir) {
     join(HERE, "run-eval.mjs"),
     "--scorer", target.scorer,
     "--against", target.champion,
-    "--intent", target.intent,
+    "--intent", target.corpusIntent ?? target.intent,
     "--fixtures", FIXTURE_DIRS.join(","),
     "--workers", String(workers),
     "--out", reportsDir,
@@ -132,10 +141,15 @@ async function reuseReports(targets, reportsDir) {
   const out = [];
   for (const target of targets) {
     let found = null;
+    // Two targets can share a corpus intent (TEXT_AUTHENTICITY_CHECK is measured on the
+    // CONTENT_VERIFICATION family), so the scorer filename disambiguates.
+    const scorerName = target.scorer.split(/[\\/]/).pop();
     for (const name of names) {
       const path = join(reportsDir, name);
       const report = JSON.parse(await readFile(path, "utf8"));
-      if (report.corpus.intent === target.intent) found = { report, reportPath: path };
+      const sameCorpus = report.corpus.intent === (target.corpusIntent ?? target.intent);
+      const sameScorer = report.candidate.path.split(/[\\/]/).pop() === scorerName;
+      if (sameCorpus && sameScorer) found = { report, reportPath: path };
     }
     if (!found) throw new Error(`--reuse: no report for ${target.intent} in ${reportsDir}`);
     out.push({ target, ...found });
@@ -224,13 +238,16 @@ function scorePairs(cand, ref, block) {
  * Serial, single-threaded latency — the number the node's 600 s budget is spent in.
  * Scores an ordinary answer, never the ground truth: both modules short-circuit an
  * exact self-match, so timing that would measure the short-circuit, not the work.
+ * "Never the ground truth" must mean the TEXT, not the slot — CLEAN-PAIR fixtures
+ * put a verbatim copy of the ground truth first, and timing that once reported a
+ * 24 MB incumbent at 0.0001 s/call.
  */
 function latency(scorer, records) {
-  const sample = records.filter((r) => r.answers.some((a) => a.text.trim().length > 0)).slice(0, 6);
+  const ordinary = (r) => r.answers.find((a) => a.text.trim().length > 0 && a.text.trim() !== r.ground_truth.trim());
+  const sample = records.filter((r) => ordinary(r)).slice(0, 6);
   const start = process.hrtime.bigint();
   for (const record of sample) {
-    const answer = record.answers.find((a) => a.text.trim().length > 0);
-    scorer.score(record.question, record.ground_truth, answer.text);
+    scorer.score(record.question, record.ground_truth, ordinary(record).text);
   }
   return Number(process.hrtime.bigint() - start) / 1e9 / Math.max(1, sample.length);
 }
@@ -260,7 +277,7 @@ async function inProcessExhibits(runs) {
     if (run.target.role !== "gate") continue;
     const cand = await loadScorer(run.target.scorer, "candidate");
     const ref = await loadScorer(run.target.champion, "incumbent");
-    const { records } = await loadCorpus(FIXTURE_DIRS, run.target.intent);
+    const { records } = await loadCorpus(FIXTURE_DIRS, run.target.corpusIntent ?? run.target.intent);
     for (const klass of ["FACT-SWAP", "UNIT/FORM"]) {
       const record = records.find((r) => r.class === klass);
       if (record) out.verbatim.push(verbatim(cand, ref, record));
@@ -288,6 +305,8 @@ const HELP = `make-proof.mjs — regenerate track2/PROOF.md from a live run
   --ipgeo-champion PATH    default champions/ipgeo_reg630.wasm, then the scratchpad copy
   --storm-scorer PATH      default track2/scorer/dist/storm_alert.wasm
   --storm-champion PATH    default champions/storm_rpen_reg453.wasm, then the scratchpad copy
+  --ta-scorer PATH         default track2/scorer/dist/text_authenticity.wasm
+  --ta-champion PATH       default champions/tn_t70_reg850.wasm, then the scratchpad copy
   --weather-scorer PATH    default track2/scorer/dist/generic.wasm      (exhibit only)
   --weather-champion PATH  default champions/wf_mini_reg636.wasm        (exhibit only)
   --no-weather             skip the WEATHER_FORECAST exhibit run
@@ -322,6 +341,17 @@ async function main() {
       scorer: scorerPath(args, "--cv-scorer", "track2/scorer/dist/content_verification.wasm"),
       champion: champion(args, "--cv-champion", "cv_mini_reg626.wasm"),
       championName: "cv_mini_reg626.wasm",
+    },
+    {
+      intent: "TEXT_AUTHENTICITY_CHECK",
+      role: "gate",
+      // No recorded traffic exists for this intent, so it is measured on the
+      // CONTENT_VERIFICATION fixture family (same question domain); the incumbent
+      // it is measured AGAINST is this intent's own on-chain champion, reg 850.
+      corpusIntent: "CONTENT_VERIFICATION",
+      scorer: scorerPath(args, "--ta-scorer", "track2/scorer/dist/text_authenticity.wasm"),
+      champion: champion(args, "--ta-champion", "tn_t70_reg850.wasm"),
+      championName: "tn_t70_reg850.wasm",
     },
     {
       intent: "STORM_ALERT",
