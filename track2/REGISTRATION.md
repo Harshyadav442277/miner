@@ -66,15 +66,16 @@ node runs.
 | | CONTENT_VERIFICATION | **TEXT_AUTHENTICITY_CHECK** |
 |---|---|---|
 | live bar (champion margin) | **0.9904** | **0.6586** |
-| our margin | 0.9634 | 0.9634 |
-| gap | **-0.027 SHORT** | **+0.305 CLEAR** |
+| our margin (native fixtures) | 0.9634 (CV register) | **0.7211** |
+| gap | **-0.027 SHORT** | **+0.063 CLEAR** |
 | champion wins | 15/15 | **14/15** |
 | Spearman | skipped | **skipped** (0 miners with history) |
 
 Same domain — "is this text original, AI-generated or human-written" is the same question a
 plagiarism report answers — so the same profile applies and the antonym axis already carries the
 vocabulary. Head-to-head against that intent's own champion (`tn_t70`, reg 850) on our fixtures:
-**ours 0.9634 / 144-144 wins, theirs 0.0915 / 104-144.**
+**ours 0.9634 / 144-144 wins, theirs 0.0915 / 104-144** — and on native AI-detection fixtures
+**ours 0.7211 / 234-240, theirs -0.1652 / 21-240.**
 
 The bar has been flat at 0.658612 all day and three challengers were rejected against it today
 (0.2817, 0.4112, 0.2818) — all far below us. All six gate conditions PASS in the proxy.
@@ -90,9 +91,12 @@ The bar has been flat at 0.658612 all day and three challengers were rejected ag
 | D2 margin ≥ 0.15 | PASS |
 | D3 wins ≥ champion | PASS **144/144** vs 104/144 |
 
-Honest caveat: the proxy measures on our own 144-pair corpus, not the node's ~15 hidden fixtures.
-On IP the node measured us ~8% ABOVE our corpus (0.814 predicted, 0.8775 actual), so the lift has
-historically favoured us. Gas only either way, and a rejection returns exact numbers.
+Honest caveat: both corpora are ours, not the node's ~15 hidden fixtures. **Quote 0.7211** — the
+native-register number and the more conservative one. It clears the 0.6586 bar by 0.063, a real
+but thin cushion; the plagiarism-register 0.9634 flatters us because that vocabulary is further
+from the counterfactual. On IP the node measured us ~8% ABOVE our corpus (0.814 predicted,
+0.8775 actual), so the lift has historically favoured us. Gas only either way, and a rejection
+returns exact numbers.
 
 ## Record here after each registration
 
