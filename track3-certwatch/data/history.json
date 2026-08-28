@@ -1,0 +1,6 @@
+{
+  "domains": [],
+  "checks": [],
+  "totals": { "requests": 0, "spentUsd": 0, "sslVerificationRequests": 0 },
+  "note": "Durable CertWatch history. Written by .github/workflows/certwatch.yml, not by hand."
+}

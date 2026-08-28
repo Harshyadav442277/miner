@@ -32,16 +32,26 @@ intents are where crypto-native entrants cluster.
 
 ## Unverified protocol facts
 
-### G4 · How answers are scored — `CLOSED (with one residual unknown)`
-Both docs read. Scoring is a sandboxed WASM module receiving **three plain strings** —
-`question`, `ground_truth`, `miner_answer` — and returning an f32 in [0,1]. The reference module
-scores `matched ÷ total words in the miner's answer`, so **verbose answers are penalised**: every
-word the ground truth lacks lowers the fraction. Our `reason` is one tight factual sentence for
-exactly this reason.
+### G4 · How answers are scored — `CLOSED (and the original answer was wrong)`
+Scoring is a sandboxed WASM module receiving **three plain strings** — `question`, `ground_truth`,
+`miner_answer` — and returning an f32 in [0,1]. That much held.
 
-**Residual unknown:** the *actual champion module* for `SSL_VERIFICATION` is not published, so we
-know the mechanism but not the specific comparison. Terseness and canonical phrasing are the right
-hedge under any word-overlap or embedding-similarity scheme, but this is inference, not fact.
+**Both conclusions drawn from it were wrong, and measurement killed them (2026-08-27):**
+
+- *"Verbose answers are penalised, so keep `reason` terse."* Wrong. Fuller answers win, provided
+  every added fact was asked for. Naming the ISP in a geolocation answer moved it 0.0103 → 0.9936.
+  Trimming the SSL answer on the terseness premise cost 11% and was reverted.
+- *"The champion module is not published, so this is inference, not fact."* Wrong. Every intent's
+  champion is listed at `/api/wasm` as commit-pinned WASM, and `/scores?intent=X` returns the real
+  questions, ground truths and the exact `converted_answer` that was scored. Running the champion
+  locally **reproduces the reported score exactly** — we matched all 8 epoch-286 scores. It is now
+  fact, and it is our main tool.
+
+One correction that matters more than either: the scorer reads **`converted_answer`**, Telegraph's
+prose conversion of our JSON — not the raw JSON and not `label_field`.
+
+Superseded scoring model: `track1-miner/tools/score-sim.mjs` encodes the dead terseness theory. Do
+not use it. Use `tools/bench-champion.mjs`.
 
 ### G5 · `example-miner.yaml` — `CLOSED (does not exist where the docs say)`
 Not in `telegraph-usecases` — that repo contains six reference **Track 3 applications**, not miner
@@ -170,7 +180,7 @@ deployment without a deliberate budget cannot spend anything at all.
 Verified in production: all three paid routes return 503 while `ADMIN_TOKEN` is unset, and
 `/api/state` now publishes `writesEnabled`, `paidCallsToday`, `paidCallsPerDayCap`.
 
-### G18 · CertWatch state is ephemeral and sweeps do not run on Vercel — `CLOSED`
+### G18 · CertWatch state is ephemeral and sweeps do not run on Vercel — `CLOSED (reopened 2026-08-28, then actually closed)`
 Fixed by moving both responsibilities out of the serverless app rather than adding a database.
 The sweep runs in `.github/workflows/certwatch.yml` on a 6-hourly cron and **commits its results
 to `app/data/history.json`** — git is the durable record, Actions is the scheduler, and neither can
@@ -179,6 +189,27 @@ silently lose a paid result. The app now reads that committed file over HTTP and
 
 The workflow gates on `EVM_PRIVATE_KEY` being present as a repository secret and exits cleanly when
 it is not, so an unfunded repo does not fail a scheduled run every six hours.
+
+**Reopened 2026-08-28 — the above was true of the design and false of the deployment.** Root
+`.gitignore` contained a bare `data/`, which matches `track3-certwatch/data/` at any depth. So the
+committed-history mechanism could never have worked: `git add` silently refused the file,
+`git diff --quiet` saw no tracked change and the workflow logged "no change" on every run. The file
+was never pushed, `raw.githubusercontent.com/.../track3-certwatch/data/history.json` returned
+**404**, `loadCommittedHistory()` fell through to `null`, and production reported
+`historySource: "instance"` — ephemeral, exactly the condition G18 claimed to have fixed. The
+workflow was green only because no wallet is configured and it skips the paid work entirely.
+
+A green CI check and a closed gap are not the same thing. This one was closed on the strength of
+the design without a read-back through the real path.
+
+**Actually fixed 2026-08-28:** `.gitignore` now negates the path (`!track3-certwatch/data/` then
+`!track3-certwatch/data/history.json` — the directory must be re-included first or the file
+negation cannot apply), and `history.json` is tracked, so the raw URL resolves. Verified: the file
+is staged as `A`, where before the same `git add` was a no-op.
+
+**Still open, and it is the part that matters:** no sweep has yet written a record through the real
+path, because `EVM_PRIVATE_KEY` is unset and CertWatch has no outside users. The mechanism is
+proven; the demand is not. See `track1-miner/docs/ELIGIBILITY.md` §5.
 
 ### ~~G18 (original)~~
 Also from the Codex review. `track3-certwatch/src/store.ts` writes to `/tmp`, which a serverless instance does
