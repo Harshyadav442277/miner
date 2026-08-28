@@ -14,19 +14,20 @@ At `integrate.telegraphprotocol.com` → Submit WASM → paste the link → VERI
 **`CONTENT_VERIFICATION`** → REGISTER WASM MODULE → approve in MetaMask.
 
 ```
-https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/209aa309006efad914e49e80a223decefee16625/dist/content_verification.wasm
+https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/c9df8849efc335a624ee7c6f98072c33f7f2a788/dist/content_verification.wasm
 ```
 
-Commit `209aa30`, **23,151 bytes**, hosted bytes verified byte-identical to the tested build.
+Commit `c9df884`, **23,230 bytes**, hosted bytes verified byte-identical to the tested build.
 
 | gate check | result |
 |---|---|
 | A stddev > 0.05 | PASS 0.4034 |
 | B self-match ≥ max(0.75, incumbent) | PASS 1.0 |
 | **C Spearman ≥ 0.60** | **SKIPPED** — single miner, `historical_rows_evaluated: 0` |
-| D1 margin > champion (strict) | PASS **0.6262** vs **0.2976** |
+| D1 margin > champion (strict) | PASS **0.8668** vs **0.2976** |
 | D2 margin ≥ 0.15 | PASS |
-| D3 wins ≥ champion | PASS 132/144 vs 110/144 |
+| D3 wins ≥ champion | PASS **144/144** vs 110/144 |
+| near-equality (correct phrasings agree) | **12/12**, worst spread 0.0003 |
 
 Measured on **content-verification fixtures** (12 documents, 144 pairs, plagiarism/authenticity
 semantics), not the IP corpus. The earlier 0.7242 was measured on IP-flavoured fixtures and
@@ -46,10 +47,15 @@ through to prose weight (0.02). Fixed with a polar-verdict axis (`src/antonyms.r
 English pairs) and a categorical multiplier: **a flipped verdict now scores 0.0046.** CV margin
 went 0.3775 -> 0.6262 as a result. IP build re-checked, no regression (0.7221, 786/791).
 
-**Known limitation, not tuned away:** a correct *terse* answer (semicolon fragments) scores 0.2789,
-below a wrong-similarity answer at 0.3527 — an inversion. `ans_sat` is flat against it, so it is
-not a gate-tuning miss. Real `converted_answer` text is always "The data shows..." prose, never
-fragments, so this is judged unrepresentative rather than fixed by force. Recorded honestly.
+**The terse inversion was a real bug, and fixing it was the biggest lever.** A correct terse answer
+scored 0.2789 — below a *wrong* one — and the first diagnosis ("unrepresentative fixture") was
+wrong. `breakdown_answer` traced it to the numeric channel: the answer said "7 matches" where the
+truth said "7 matching passages", and unrecognised unit-words were compared by exact hash, so a
+correct answer was foreign to its own ground truth and lost its figures (fact 0.394 vs 1.000).
+The stemmer cannot bridge it either — the plural rule gives `matche` while -ing gives `match`, and
+widening it would send `provides` to `provid`. Fixed with a four-letter family hash applied ONLY to
+unrecognised unit-words (`bytes::unit_family_hash`). Terse **0.2789 -> 0.9998**, margin
+**0.6262 -> 0.8668**, near-equality **0/12 -> 12/12**.
 
 **Honest odds:** the bar is volatile — champion reg 626's own promotion eval reads
 0.9904, a later challenger measured it at 0.6877. On IP the node measured us *higher* than our
