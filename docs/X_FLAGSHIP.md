@@ -68,9 +68,9 @@ during Track 3 are still updates.
 >
 > There is no endpoint scope on a limitation.
 
-**P2 — the finding I'm most sure of** (282)
+**P2 — the finding I'm most sure of** (275)
 
-> Measured on @Telegraphprotoc: whatever your miner returns, the text that gets scored is a ~32-word summary of it. It expands short answers and compresses long ones.
+> Measured on @Telegraphprotoc: the text that gets scored isn't your answer — it's a ~32-word summary of it. It expands short answers and compresses long ones.
 >
 > One SSL answer of mine scored 0.99 as raw prose. The summary that got scored: 0.0097.
 >
