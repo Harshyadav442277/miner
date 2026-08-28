@@ -51,6 +51,12 @@ const REGISTRY_PINS = {
     wasm_url:
       "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/72616195155200974eac9982e3121aa48f5f8373/dist/xfmr/storm_rpen.wasm",
   },
+  CONTENT_VERIFICATION: {
+    registration_id: 626,
+    wasm_hash: "dc8659845943f6c22fd665dff9b0263c6042f4fa9ca141b2d883d178362a415e",
+    wasm_url:
+      "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/b0807b7bf048729951b6f8ef722d2ff55e735914/dist/xfmr/cv_mini.wasm",
+  },
   WEATHER_FORECAST: {
     registration_id: 636,
     wasm_hash: "dd7dc9e9adab581c6f124050bd76a5f88b6f4bcdedf64dbc79993bc055f963ff",
@@ -309,6 +315,13 @@ async function main() {
       scorer: scorerPath(args, "--ipgeo-scorer", "track2/scorer/dist/ip_geolocation.wasm"),
       champion: champion(args, "--ipgeo-champion", "ipgeo_reg630.wasm"),
       championName: "ipgeo_reg630.wasm",
+    },
+    {
+      intent: "CONTENT_VERIFICATION",
+      role: "gate",
+      scorer: scorerPath(args, "--cv-scorer", "track2/scorer/dist/content_verification.wasm"),
+      champion: champion(args, "--cv-champion", "cv_mini_reg626.wasm"),
+      championName: "cv_mini_reg626.wasm",
     },
     {
       intent: "STORM_ALERT",
