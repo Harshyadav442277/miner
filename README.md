@@ -12,7 +12,7 @@ Miners must stay live and operational through **2026-09-07** — that is a rule,
 | Folder | Track | Owner | State |
 |---|---|---|---|
 | [`track1-miner/`](track1-miner/) | **1 — Miner** | Track 1 agent | **live**, registration 236, 4 intents registered / 9 built |
-| [`track2/`](track2/) | **2 — Scoring module** | Track 2 agent | planning |
+| [`track2/`](track2/) | **2 — Scoring module** | Track 2 agent | active build |
 | [`track3-certwatch/`](track3-certwatch/) | **3 — Application** | Track 1 agent | deployed, not funded |
 | [`docs/`](docs/) | shared | everyone | protocol facts, rules, social |
 
@@ -43,13 +43,21 @@ shared lives in `docs/` at the root.
   reproduce any score offline in seconds.
 - **Judging is 75/25.** The X half is the one most likely to be neglected and it is worth a quarter.
 
-## Scoreboard, epoch 285
+## Scoreboard, epoch 288 (2026-08-28)
 
 ```
-SSL_VERIFICATION    #2 of 4     0.00745   (txlens 0.00826)
-STORM_ALERT         #2 of 4     0.00635   (bittensor-sn18-zeus 0.00802)
-WEATHER_FORECAST    #8 of 11    0.00761   (isobar-weather 0.00889)
+STORM_ALERT         #1 of 5     0.01061   <-- rank 1
+IP_GEOLOCATION      #1 of 2     0.00976   <-- rank 1
+SSL_VERIFICATION    #1 of 4     0.00935   <-- rank 1
+WEATHER_FORECAST    #3 of 11    0.00678   (amanat-weather-risk 0.00989)
 ```
+
+Rank 1 in three intents for three consecutive epochs (286, 287, 288), from #3/#3/#7 in epoch 284.
+
+Two honest caveats, because rank is not the same as a prize. `IP_GEOLOCATION` has **2 miners and
+needs 3** to be prize-eligible, and **no intent has any Track 3 requests** toward the 100-request
+floor, because Track 3 has not opened. See
+[track1-miner/docs/ELIGIBILITY.md](track1-miner/docs/ELIGIBILITY.md).
 
 Live: https://explorer.telegraphprotocol.com/miners/livecert
 

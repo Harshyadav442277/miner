@@ -31,10 +31,10 @@ position, so every day of delay shortens the record we are judged on.
 - [x] **T1.1** Runtime spike: Node `tls.connect()` required; Workers cannot read peer certs. (closes G2)
 - [x] **T1.2** Built [track1-miner/miner/](track1-miner/miner/) — Node, zero runtime deps. **23 tests passing** (`npm test`),
       covering the target parser and all six verdicts live against badssl.com. Typecheck clean.
-- [ ] **T1.3** *User:* deploy and get the public HTTPS URL. **This is the `base_url`.**
-      `fly.toml` + `Dockerfile` are ready; needs a host account. Then update `base_url` in track1-track1-miner/miner/miner.yaml.
-- [ ] **T1.4** Measure deployed cold-start and p95 latency against the ~20s cadence (A3).
-      Local baseline: ~100ms cold handshake, **12ms cached**.
+- [x] **T1.3** Deployed to Vercel: **https://miner-wine.vercel.app**, and set as `base_url`.
+- [x] **T1.4** Measured live via `tools/verify-deploy.mjs`: **median 488ms, p95 1180ms** across all
+      six declared endpoints — well inside the ~20s spot-check cadence. Telegraph's own spot checks
+      keep the function warm once registered, so cold start is not the operating case.
 
 ## Phase 2 — Author the YAML
 
@@ -50,18 +50,19 @@ position, so every day of delay shortens the record we are judged on.
       [docs/MARKET_DATA.md](docs/MARKET_DATA.md). Three endpoints, **37 tests passing**, YAML
       declares all three intents. `WEATHER_FORECAST` carries the network's highest demand (941
       requests) with all nine incumbents under 0.008.
-- [ ] **T2.6** Sandbox-validate at `integrate.telegraphprotocol.com` until every endpoint passes. (A2)
+- [x] **T2.6** Sandbox-validated and registered as **236** (four intents). (A2)
+- [ ] **T2.8** Sandbox-validate the **six-intent** update and sign it →
+      [track1-miner/docs/SIGNING.md](track1-miner/docs/SIGNING.md). *Blocked on the operator.*
 
 ## Phase 3 — Register (user drives all wallet steps)
 
-- [ ] **T3.1** *User:* fund a Base Sepolia wallet with testnet ETH for gas. (closes G7)
-- [ ] **T3.2** *User:* decide the fee address. (D4)
-- [ ] **T3.3** *User:* connect wallet at the console, pin YAML to IPFS, send `registerMiner`.
-- [ ] **T3.4** Capture the `registrationId` from the receipt. Record it in MEMORY.md — every
-      lookup from here uses it, never the slug.
-- [ ] **T3.5** Confirm `activation_status: active` at `/api/miners/<registrationId>`. (closes S1)
-- [ ] **T3.6** If the upstream needs an API key: install it via the EIP-191 challenge flow. Only
-      possible after registration. *User signs.*
+- [x] **T3.1** Wallet funded on Base Sepolia. (closes G7)
+- [x] **T3.2** Fee address = the miner address `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e`. (D4)
+- [x] **T3.3** Registered. Registration **1377 was rejected**; **225** superseded; **236** is live.
+- [x] **T3.4** `registrationId: 236` recorded. Every lookup uses it, never the slug.
+- [x] **T3.5** `activation_status: active`, `rejection_reason: null`. (closes S1)
+- [x] **T3.6** Not applicable — `auth: {type: none}`. No API key exists anywhere in this miner, so
+      no upstream quota can revoke us.
 
 ## Phase 4 — Operate through the grace period
 
@@ -70,10 +71,14 @@ position, so every day of delay shortens the record we are judged on.
       being closed, which matters given the miner must stay live to Sep 7). (closes G10)
 - [x] **T4.1b** `tools/verify-deploy.mjs` — post-deploy acceptance check across all six verdict
       paths plus latency, so a broken deploy is caught *before* the immutable registration.
-- [ ] **T4.2** Watch the first 7 days. Grace period gives an equal share of 5% of traffic; the score
-      earned here sets the opening leaderboard position. Zero revocations is the target. (S2)
-- [ ] **T4.3** Tune latency and correctness from observed spot-check behaviour.
-- [ ] **T4.4** Track rank once ranked. (S3, S4)
+- [ ] **T4.2** Watch through **2026-09-07** — staying live is a rule, not just scoring. Zero
+      revocations so far. (S2)
+- [x] **T4.3** Tuned from real scored rows, not from code review: the params-only delivery fix, the
+      never-return-4xx rule, echoing the question's own identifiers, and the `/papers` bare-topic
+      refusal bug. Every large gain came from a clause going unanswered.
+- [x] **T4.4** Ranked and tracked each epoch → `track1-miner/docs/score-history.jsonl`, appended by
+      `tools/record-scores.mjs`. **Rank 1 in SSL_VERIFICATION, STORM_ALERT and IP_GEOLOCATION for
+      epochs 286, 287 and 288.** (S3, S4)
 
 ## Phase 4b — Track 3 application (Aug 31 – Sep 7)
 
@@ -86,18 +91,26 @@ Track 3 requests or it wins nothing regardless of rank. A genuine app that consu
 - [x] **T4b.2** Uses the **auto-routed** `/engine/v1/ask`, not `ask/{minerId}` — so Telegraph's own
       router classifies the query and the demand lands on the *intent*, which is what the guardrail
       counts. x402 payment wired via `@x402/fetch` + `@x402/evm` on Base Sepolia.
+- [x] **T4b.5** Fixed the durable-history path: root `.gitignore` matched
+      `track3-certwatch/data/`, so the sweep's commit was a silent no-op and the app stayed on
+      ephemeral state. Negated and tracked; the raw URL now resolves once pushed. (reopens/closes G18)
 - [ ] **T4b.3** *User:* fund a throwaway Base Sepolia wallet with testnet **USDC** and set
       `EVM_PRIVATE_KEY` in `app/.env`. The dashboard already counts `SSL_VERIFICATION`-classified
-      requests separately, toward the 100 floor.
+      requests separately, toward the 100 floor. **Do not fund before T4b.5 is proven end to end
+      through a real sweep** — that was the whole point of the durability gate.
 - [ ] **T4b.4** *User:* deploy CertWatch publicly. Config ready (`app/Dockerfile`, `app/fly.toml`,
       scale-to-zero is fine here — nothing spot-checks the app). Then get **other people** using it;
       real demand counts for far more than self-generated traffic.
 
 ## Phase 5 — Build in public (runs in parallel from day 1, not at the end)
 
-- [ ] **T5.1** Start the X log — see [docs/BUILD_IN_PUBLIC.md](docs/BUILD_IN_PUBLIC.md). Judged on
-      every track. (G11)
-- [ ] **T5.2** Post at each milestone: intent chosen, endpoint live, registered, first traffic, ranked.
+- [x] **T5.1** X account live and linked to the hackathon account: `@hyadav42774`, 29 posts. Best
+      performer so far is **188 impressions**. (G11)
+- [ ] **T5.2** **Post the flagship thread** → [docs/X_FLAGSHIP.md](docs/X_FLAGSHIP.md), then work
+      the amplification list. The X term appears to be scored on the single highest-engagement
+      post rather than the sum, so this replaces the milestone-cadence plan. *Blocked on the
+      operator.*
+- [ ] **T5.2b** Get the max-vs-sum scoring question answered by an organizer in writing.
 - [x] **T5.3** README written with an honest Assumptions & Limitations section sourced from GAPS.md.
 - [x] **T5.3b** [docs/SUBMISSION_CHECKLIST.md](docs/SUBMISSION_CHECKLIST.md) — every item to close,
       in dependency order, with who owns each.

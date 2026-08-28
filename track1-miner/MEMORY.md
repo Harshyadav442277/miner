@@ -246,6 +246,42 @@ The only generalisations that held. Everything else was disproven.
 
 ## 7. How scoring actually works
 
+- **The converter is a ~32-word budget, and it is the real bottleneck. Measured 2026-08-28 over
+  all 16 of our scored rows across four intents.** `converted_answer` is an LLM summary of our
+  whole JSON, and it lands at 32.1 words on average whatever we send: it **expands** short reasons
+  (12 -> 32, 17 -> 22, 25 -> 35 words) and **compresses** long ones (69 -> 33, 68 -> 32, 64 -> 37).
+  Median ratio 0.79.
+
+  So writing a 69-word `reason` does not produce a 69-word scored answer. It produces a 33-word
+  summary in which **the converter, not us, chose what survived.**
+
+  What that cost, concretely — SSL epoch 286, `api.example.com` (unreachable host, and a ground
+  truth that is a generic "how to analyse a TLS chain" essay):
+
+  ```
+  our reason (64 w), scored directly with the champion   0.992301
+  the converted_answer that was actually scored (37 w)   0.009730     100x loss
+  ```
+
+  Our reason named `openssl s_client`, Subject Alternative Name, SSL Labs, and leaf/intermediate
+  chain building — all of it in the ground truth. The converter cut every one of those and wrote
+  "The system suggests running a command to verify the certificate chain."
+
+  **This qualifies rule 1 in section 5.** "Answer every clause" is right, but only inside the
+  converter's budget. Past roughly 35 words you are not adding scored content, you are handing a
+  summariser the choice of what gets scored. The hypothesis worth testing is to write `reason` at
+  the converter's own budget with the question's vocabulary front-loaded, so there is nothing to
+  cut — **not yet tested live**, and note the confounder: our two 0.99 scores are both
+  IP_GEOLOCATION, whose ground truth is short and factual, while SSL's is a long essay.
+
+  Reproduce with `../../scratchpad/conversion-loss.mjs` (see the codex worklog) or by pulling
+  `/scores` and comparing `json.loads(miner_answer).reason` against `converted_answer`.
+
+  **We cannot run the converter offline.** That is the gap that makes this hard to tune: the
+  champion scorer is public, the converter is not. Do not rewrite answer generation on theory
+  three days from the close — the repo's own rule is that only deployed-code answers count as
+  measurement, and here even that only tells us the result, not the mechanism.
+
 - The scorer reads **`converted_answer`**, Telegraph prose conversion of the miner JSON. Not the
   raw JSON, not `label_field`. Running the champion WASM on `converted_answer` reproduces the
   reported score exactly.

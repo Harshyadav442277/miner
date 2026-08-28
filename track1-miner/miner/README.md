@@ -39,9 +39,13 @@ curl "http://127.0.0.1:8080/ssl-check?domain=expired.badssl.com"
 npm test
 ```
 
-23 tests: unit coverage of the target parser, plus live checks against badssl.com asserting every
-verdict path. The live ones need network access and are deliberately not mocked — they are what
-actually proves the verdict logic.
+**109 tests**, covering all nine endpoints: the target parser, every SSL verdict path, the
+storm/weather window and coordinate handling, IP geolocation, and the translation, papers, CVE,
+extraction and headlines answer shapes.
+
+Some suites make live calls (badssl.com, Open-Meteo, GitHub TLS) and are deliberately not mocked —
+they are what actually proves the verdict logic. The cost is that an upstream hiccup can make the
+run red without anything being wrong with the code; re-run before investigating.
 
 ## Deploy
 
