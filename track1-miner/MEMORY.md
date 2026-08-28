@@ -24,16 +24,18 @@ This is a code-only repair: do not re-sign `miner.yaml`.
 A later pre-deploy retry passed after MyMemory's quota recovered. That proves the incident is
 intermittent; it does not mean the local fallback has reached production.
 
-**1. X — 25% of the score, and it is the largest unclaimed block on the board.** New information
-from the hackathon Discord: **the X term appears to be scored on the single highest-engagement
-post, not the sum** (unofficial, from a community member — get it in writing). That replaces the
-cadence plan with one flagship. Ready-to-post thread, every post verified under X's 280-character
-limit: **[../docs/X_FLAGSHIP.md](../docs/X_FLAGSHIP.md)**. Best post so far is 188 impressions.
+**1. X — 25% of the score, and it is the largest unclaimed block on the board.** **Confirmed by
+the organizers: the term is scored on the single highest-engagement post, not the sum, and scoring
+is automated.** So post 1 of a thread is the scored unit — it must be a complete finding, not a
+hook — and every reply, share and link should drive that one post rather than being spread across
+several. Extra posts are lottery tickets, not additive score. Ready-to-post thread, every post
+verified under X's 280-character limit:
+**[../docs/X_FLAGSHIP.md](../docs/X_FLAGSHIP.md)**. Best post so far is 188 impressions.
 
-**2. Two questions for the organizers**, both unanswered and both change how the last days are spent:
+**2. One question left for the organizers**, and it decides where the remaining effort goes:
 - Track 3 has not opened, so no intent can have its 100 real requests by the Aug 31 close. Is that
-  requirement waived, measured later, or binding?
-- Is the X portion scored on a single best post or aggregate engagement?
+  requirement waived, measured later against a post-Track-3 deadline, or binding on Aug 31 — in
+  which case no intent qualifies for cash? **Unanswered.**
 
 **3. Eligibility.** `IP_GEOLOCATION` has 2 miners and needs 3. **The operator decided on 2026-08-28
 not to register a second miner from another account — do not reopen this.** Registering the
