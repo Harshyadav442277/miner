@@ -1,0 +1,159 @@
+# ELIGIBILITY.md — the guardrail, and the only safe way through it
+
+Written 2026-08-28, after epoch 288. Numbers verified live the same day against
+`devnode.telegraphprotocol.com`.
+
+---
+
+## 1. The rule
+
+> An Intent must have at least **3 active Miners** and receive at least **100 real requests from
+> Track 3 applications** to be eligible for global cash prizes.
+
+Two halves, both required. Rank 1 in an intent that fails either half wins nothing. Performance
+does not rescue an ineligible intent.
+
+## 2. Where we actually stand
+
+| Intent | Our rank (ep. 288) | Our score | Miners | Miner half | 100-request half |
+|---|---|---:|---:|---|---|
+| `SSL_VERIFICATION` | **#1** | 0.00935 | 4 | **clear** | not started |
+| `STORM_ALERT` | **#1** | 0.01061 | 5 | **clear** | not started |
+| `IP_GEOLOCATION` | **#1** | 0.00976 | **2** | **FAILS** | not started |
+| `WEATHER_FORECAST` | #3 | 0.00678 | 11 | clear | not started |
+
+**Track 3 has not opened yet.** Nothing we serve today counts toward any intent's 100. That half is
+zero everywhere, and it is the half that decides whether the money is real.
+
+## 3. Read this before registering a second account
+
+You offered to create another account so `IP_GEOLOCATION` clears the 3-miner floor. Before you
+spend an evening on it, here is the arithmetic, because I think it goes the wrong way.
+
+**What it buys:** the miner-count half of exactly one intent — and it is now our *weakest* one.
+`IP_GEOLOCATION` scored 0.992 in epoch 287 and 0.0098 in epoch 288. That collapse was the question
+changing, not our code. We hold #1 there against a field of two. It is the least durable of our
+three first places.
+
+**What it does not buy:** anything on the 100-request half. A second miner adds a supplier, not a
+customer. The binding constraint is untouched.
+
+**What it risks:** the entry. Our own audit red lines, which we wrote before this came up, say it
+plainly — *"Do not create fake apps, users, miners, stars, issues, posts, or requests… sockpuppet
+registration is disqualifying."* Miner registration is an on-chain transaction from a funded
+wallet, pointing at a hosted `base_url`. A second one is linkable to the first through the funding
+path, the host account, and the repo. This is not a subtle trail.
+
+**And the second miner competes with us.** To make the intent eligible it must be *active*. Then
+either it scores well and threatens our own #1, or it scores ~0 and is transparently a placeholder.
+There is no version of this that is both effective and unremarkable.
+
+So the asymmetry is: upside is the miner-count half of our shakiest intent; downside is the whole
+submission. I would not take that trade, and I would rather spend the same evening on §4 and §5,
+which are worth more and cost nothing.
+
+**If you read it differently, say so and I will write the registration package for you** — this is
+your call, not mine, and I am not going to keep relitigating it. I just want you making it with the
+numbers in front of you.
+
+## 4. The legitimate version: recruit a real third miner
+
+A third `IP_GEOLOCATION` miner run by someone who is not us makes the intent eligible and is
+entirely above board. Competition that unlocks a prize pool is not a loophole — it is the
+mechanism working as designed.
+
+The recruiting pitch is unusually strong here, because **an IP geolocation miner needs no code**.
+`base_url` points at the upstream API you are wrapping; Telegraph nodes proxy to it. A valid miner
+can be pure YAML.
+
+I verified this exact upstream today — keyless, no signup, query-parameter shaped, and it even
+returns the abuse fields the scored questions ask about:
+
+```bash
+curl "https://api.ipapi.is/?q=8.8.8.8"
+# {"ip":"8.8.8.8","is_datacenter":true,"is_vpn":true,"is_abuser":true,
+#  "company_name":"Google LLC","cc":"US","lat":37.38605,"lon":-122.08385}
+```
+
+Which makes a complete miner roughly this:
+
+```yaml
+version: "1"
+kind: miner
+id: <any unused integer>
+slug: <any unused slug>
+protocol: generic
+name: <their name for it>
+description: >-
+  Live IP address geolocation and reputation. Returns country, city, coordinates,
+  the operating company and ASN, and whether the address is a datacenter, VPN,
+  proxy or known abuser.
+base_url: https://api.ipapi.is
+
+endpoints:
+  - path: /
+    external_path: /
+    method: GET
+    description: Geolocation and reputation for one IPv4 or IPv6 address.
+
+semantics:
+  signal_mapping:
+    label_field: cc
+  supported_intents:
+    - IP_GEOLOCATION
+```
+
+**Do not hand anyone a pre-filled file with our wallet, our slug, or our host in it.** Send them
+this document and let them fill in their own. A miner they configured, funded and signed is a real
+third miner. One we assembled and they clicked is the same sockpuppet with extra steps.
+
+### The 20-minute path, for whoever takes it up
+
+1. **Wallet** — MetaMask, new wallet, Base Sepolia (chain ID `84532`, RPC `https://sepolia.base.org`).
+2. **Gas** — free testnet ETH from `alchemy.com/faucets/base-sepolia`. There is no bond or stake;
+   registration is one transaction.
+3. **Pick a free slug and id** — both must be unused:
+   ```bash
+   curl -s https://devnode.telegraphprotocol.com/api/miners | grep -o '"slug":"[^"]*"'
+   ```
+4. **Check the intent string is canonical** — one wrong string reverts the whole registration:
+   ```bash
+   curl -s https://devnode.telegraphprotocol.com/engine/v1/intents
+   ```
+5. **Sandbox first.** `integrate.telegraphprotocol.com` → Connect → Import & Upload → the YAML →
+   **REQUIRES API KEY off** → Validate. Registration is effectively immutable and a rejection
+   releases the slug, so nothing gets signed before this is clean.
+6. **Sign** `registerMiner`, then confirm activation:
+   ```bash
+   curl -s https://devnode.telegraphprotocol.com/api/miners/<registrationId> \
+     | jq '.miner | {activation_status, rejection_reason}'
+   ```
+
+Where to ask: the hackathon Discord, and replies under Telegraph's own posts. The honest framing is
+the whole pitch — *an intent is one miner short of being prize-eligible, it takes twenty minutes
+and no code, and here is the working YAML.* People join a live prize pool. They do not join a
+favour.
+
+## 5. The half that actually decides this — 100 real requests
+
+No account can be created to fix this one. It needs applications making genuine calls.
+
+- **CertWatch** (`track3-certwatch/`) is our own recurring SSL need. Its durable-history bug is
+  fixed as of today — the sweep's record is tracked in git and readable at the raw URL, so paid
+  results survive a cold start instead of vanishing. It still needs a funded wallet and, more
+  importantly, **users who are not us**.
+- **Storm needs an outside integrator** — a weather, travel, logistics or field-ops app. Publish an
+  integration recipe and support whoever picks it up.
+- Requests must come from real usage. Looping questions to reach 100 is the same red line as §3,
+  and it fails for the same reason.
+
+Note the ordering this implies: SSL and Storm already clear the miner half, so they are the only
+two intents where the 100 requests would immediately convert into an eligible rank 1. That is where
+outreach effort pays first — not IP.
+
+## 6. One thing still unresolved
+
+The published rules do not define how the 25% X term is applied across multiple intent entries, or
+whether ineligible intents are excluded from the "total normalized scores across all intents" that
+decides winners. We are optimising against an underspecified formula. **Worth asking the organizers
+in writing**, and worth doing before the 31st rather than after.
