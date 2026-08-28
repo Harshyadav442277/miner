@@ -294,10 +294,44 @@ pub const fn profile() -> Profile {
     p
 }
 
+#[cfg(feature = "content-verification")]
+pub const fn profile() -> Profile {
+    let mut p = base();
+    // Plagiarism / authenticity checking. The decisive content is a polar
+    // verdict (plagiarised vs original, AI-generated vs human), a similarity
+    // percentage, and the matched source. All three are things an answer either
+    // gets right or gets backwards, so this profile leans on the polarity and
+    // identifier channels rather than on prose.
+    //
+    // A verdict flip is the characteristic wrong answer here, and it shares
+    // almost all its vocabulary with the correct one ("the text IS original" vs
+    // "the text is NOT original"), so the contradiction path must dominate.
+    p.w_ident = 4.0;
+    p.id_channel_w = 1.0;
+    // Similarity is a bounded percentage: an absolute epsilon, not a relative
+    // one, or "12%" and "82%" both read as near-misses of a 47% truth.
+    p.num_abs_tol = 0.02;
+    p.num_rel_k = 10.0;
+    p.num_channel_w = 1.0;
+    // Single miner with no scoring history (historical_rows_evaluated: 0), so
+    // the Spearman traffic check is SKIPPED for this intent. That frees this
+    // build to calibrate for separation outright, exactly as IP_GEOLOCATION
+    // does, without the agreement tax that STORM_ALERT pays.
+    p.ss_lo = 0.0;
+    p.ss_hi = 1.0;
+    p.p_concave = 0.15;
+    // The matched source and the verdict are the answer; a fluent restatement
+    // of the submitted passage is not. Demand real novel mass before the
+    // answered-ness gate opens.
+    p.ans_sat = 3.5;
+    p
+}
+
 #[cfg(all(
     feature = "generic",
     not(feature = "ip-geolocation"),
-    not(feature = "storm-alert")
+    not(feature = "storm-alert"),
+    not(feature = "content-verification")
 ))]
 pub const fn profile() -> Profile {
     base()
@@ -308,10 +342,13 @@ const fn intent_tag() -> [u8; 32] {
     let name = b"IP_GEOLOCATION";
     #[cfg(feature = "storm-alert")]
     let name = b"STORM_ALERT";
+    #[cfg(feature = "content-verification")]
+    let name = b"CONTENT_VERIFICATION";
     #[cfg(all(
         feature = "generic",
         not(feature = "ip-geolocation"),
-        not(feature = "storm-alert")
+        not(feature = "storm-alert"),
+        not(feature = "content-verification")
     ))]
     let name = b"GENERIC";
 

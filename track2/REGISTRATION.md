@@ -65,6 +65,23 @@ a measurement, not a guaranteed promotion.
 Published: **https://github.com/Harshyadav442277/telegraph-factscore** (public, MIT, disclosure
 section in the README, commit `4031111`). Pinned wasm URLs for the console:
 
+**Register NOW — CONTENT_VERIFICATION** (the one Spearman-free target left)
+
+```
+https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/ca13aef74d6f6c303d78a5e13ef9cedb942cbf20/dist/content_verification.wasm
+```
+
+Intent: **CONTENT_VERIFICATION**. Repo commit `ca13aef`, 22,466 bytes, hosted bytes verified
+byte-identical to the tested build. Gate proxy: all six checks PASS — margin **0.7242** vs the
+champion's **0.2560**, wins 786/791 vs 485/791, self-match 1.0, stddev 0.4034, **Spearman SKIPPED**
+(single miner, `historical_rows_evaluated: 0`).
+
+Honest odds: our corpus is not content-verification-flavoured, so this measures general separation
+ability, not CV semantics. The bar is volatile — champion reg 626's own promotion eval reads
+0.9904, a later challenger measured it at 0.6877. When we registered IP the node measured us
+*higher* than our corpus predicted (0.814 predicted → 0.8775 actual). Coin flip, costs gas, and
+it is the only intent where the agreement gate cannot block us.
+
 **Register #1 — IP_GEOLOCATION** (structurally safe: Spearman skipped)
 
 ```
