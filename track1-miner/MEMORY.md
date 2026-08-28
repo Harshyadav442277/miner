@@ -9,40 +9,50 @@ Last updated: 2026-08-27 ~08:30 UTC, before epoch 286 (lands ~09:37 UTC).
 
 ## 1. What needs the operator, right now
 
-**One signature — but on the CORRECTED manifest.** The Codex audit
-([codex_audit.md](codex_audit.md), 2026-08-28) found the old 9-intent YAML unsafe to sign: its
-NVD `limitations` block counts **node-wide per miner**, which would throttle every intent —
-including all three rank-1 paths — to 5 requests per 30 s.
+**One signature.** The six-intent `miner.yaml` is staged, re-verified against the pinned YAML of
+the live registration, and gated. The full package — what changed, what to click, what to check
+afterwards — is in **[docs/SIGNING.md](docs/SIGNING.md)**. Read that, not this section, before
+going to the console.
 
-**NEVER sign hash `0xf8eea144…5236803` (the 9-intent version).**
+Short version: current four intents + `LANGUAGE_TRANSLATION` + `ACADEMIC_SEARCH`. No `limitations`
+block. CVE stays dropped (patchsignal now scores 0.9847 there). `/cve`, `/extract`, `/headlines`
+stay deployed but undeclared.
 
-`miner.yaml` is now the **six-intent manifest**: the current four + `LANGUAGE_TRANSLATION` +
-`ACADEMIC_SEARCH`. CVE dropped (patchsignal now scores 0.9847 there — the opening closed);
-CONTENT_EXTRACTION and NEWS_HEADLINES deferred (below the 3-miner floor even with us). No
-`limitations` block. `/cve`, `/extract`, `/headlines` stay deployed but undeclared.
+**NEVER sign the old 9-intent version** (hash `0xf8eea144…5236803`). Its NVD `limitations` block
+counts node-wide per miner, which would throttle every intent to 5 requests per 30 s. Confirmed
+verbatim against the live YAML docs on 2026-08-28: *"Counts are node-wide per miner, not per
+caller: the node holds one upstream account for you, so all traffic draws on the same allowance."*
+There is no endpoint scope on a limitation entry.
 
 ```
-hash to expect: 0x50b036adf9c1faa65b1eb55efc3c089e025117028df8dde4ec701a016d07fd8d
+local sha256 of the file to upload:
+0x05a504f60fe4b3194fb3f7b8fb8985601a7b9cf163911514c4b9098edecb3b91
 ```
 
-Go/no-go gates, all passed 2026-08-27 ~19:3x UTC: every declared endpoint has an acceptance
-check (verify-deploy, 24 checks green), fresh champion replay — translation mean 0.614, 9/9 wins
-(leader mean 0.161); academic 0.028, 19/20 (leader 0.002) — 109 tests + typecheck pass, hash
-recorded above. Remaining: **sandbox-validate the exact file at the console, then the user signs.**
+**The hash-matching ritual in the old version of this section was wrong.** The console
+re-serializes the YAML before pinning, so a local SHA-256 can never equal the on-chain
+`yaml_hash` — proved by checking every committed `miner.yaml` against 236's on-chain hash and
+matching none of them. The local hash only confirms the operator uploads the file that was
+verified. The real check is reading back the pinned content after registration. See SIGNING.md §3.
 
-integrate.telegraphprotocol.com -> **Connect** (Base Sepolia) -> **Import & Upload** -> upload
-`miner.yaml` -> **REQUIRES API KEY toggle OFF** -> **Validate** -> sign.
+**Fixed while preparing the package (2026-08-28):** the pending file was missing the `auth:
+{type: none}` block that the live pinned registration carries. Restored, so the only differences
+from a proven-good registration are the intended ones. Also added `docs.twitter` — flagged in
+SIGNING.md §6 as the one field not yet seen accepted live; the sandbox decides.
 
-The console creates a **new registration** rather than editing 236. That is fine for our own slug:
-225 went `superseded` when 236 activated. Capture the new `registrationId` and record it here.
-Registration 236 stays active and untouched until the replacement is confirmed `active`.
+**Second thing that needs a human: X.** 25% of the Track 1 score. New information from the
+hackathon Discord — **the X term is scored on your single highest-engagement post, not the sum**
+(unofficial, from a community member; get it in writing). That changes the plan from cadence to
+one flagship. Ready-to-post thread and the amplification plan:
+**[../docs/X_FLAGSHIP.md](../docs/X_FLAGSHIP.md)**. Current best post is 188 impressions.
+
+**Third: eligibility.** `IP_GEOLOCATION` has 2 miners and needs 3, and no intent has any Track 3
+requests because Track 3 has not opened. The operator offered to register a second miner from
+another account; the argument against, and the legitimate recruitment path, are in
+**[docs/ELIGIBILITY.md](docs/ELIGIBILITY.md)**.
 
 **Claude never signs.** No wallet connect, no transaction, no seed phrase. Prepare and validate;
 the operator clicks.
-
-**Second thing that needs a human: X.** 25% of the Track 1 score, judged on quality, consistency
-and reach. Drafts in `../docs/X_POSTS.md`. Replying under Telegraph posts reaches an existing
-audience; posting cold from a new account does not.
 
 ## 2. Live state
 
@@ -53,6 +63,27 @@ base_url       https://miner-wine.vercel.app
 explorer       https://explorer.telegraphprotocol.com/miners/livecert
 repo           https://github.com/Harshyadav442277/miner
 ```
+
+**Epoch 288 scores** (landed 2026-08-28 ~03:50 UTC — recorded via `tools/record-scores.mjs`):
+
+```
+STORM_ALERT         #1          0.01061   <-- RANK 1 held, score up again
+IP_GEOLOCATION      #1          0.00976   <-- RANK 1 held
+SSL_VERIFICATION    #1          0.00935   <-- RANK 1 held
+WEATHER_FORECAST    #3          0.00678   leader amanat-weather-risk 0.00989
+```
+
+Three epochs of rank 1 in three intents (286, 287, 288). Weather climbed #6 -> #4 -> #3 but the
+leader changed (verity -> amanat) and our gap widened to 0.00311, so the epoch-287 read that we
+were near coin-flip for #1 was too optimistic. **IP_GEOLOCATION fell 0.992 -> 0.00976 on the
+question changing, not on anything we did** — it is the least durable of the three firsts, which
+matters for the eligibility argument in `docs/ELIGIBILITY.md`.
+
+Worth reading before chasing SSL score: in epoch 288 the ground truth for `api.shopify.com` claimed
+a DigiCert certificate valid to January 2028. The host actually serves Google Trust Services,
+expiring 2026-10-17, which is what we reported. **We are being scored against a stale ground
+truth**, which is why every SSL score in the field sits near 0.009. Correctness and score diverge
+here; do not "fix" the miner toward the wrong answer.
 
 **Epoch 287 scores** (landed 2026-08-27 ~18:37-19:00 UTC; see `docs/score-history.jsonl`):
 
