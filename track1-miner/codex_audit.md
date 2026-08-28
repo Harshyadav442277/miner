@@ -4,6 +4,24 @@ Captured: 2026-08-28 (Asia/Calcutta)
 Scope: live registration, current leaderboards, pending intent expansion, miner reliability, public proof, X, and Track 3 eligibility.
 Evidence log: [`docs/codex-worklog/2026-08-28-track1-audit.md`](docs/codex-worklog/2026-08-28-track1-audit.md)
 
+## Remediation update — later on 2026-08-28
+
+Registration 260 is now active with the six-intent manifest. The dangerous
+node-wide NVD limitation is absent, all six endpoints have release checks, and
+the live-test workflow path and DNS TOCTOU issue were fixed before this pass.
+
+The subsequent hardening pass removed the three undeclared implementations,
+made logs private by default, blocked IPv4-mapped IPv6 SSRF bypasses, aligned
+routes with the manifest, and added cache coverage. Its acceptance run also
+found a new production blocker: MyMemory returned 429 from Vercel for the now
+registered Translation endpoint. A later retry passed after the quota recovered;
+a tested failover is implemented locally but must still be deployed and
+re-verified. See
+[`docs/codex-worklog/2026-08-28-track1-hardening.md`](docs/codex-worklog/2026-08-28-track1-hardening.md).
+
+Everything below is the point-in-time pre-registration audit; resolved findings
+remain for provenance rather than as current instructions.
+
 ## Executive decision
 
 Track 1 is no longer primarily a miner-quality problem. Registration 236 is active and epoch 287 confirms rank 1 in `SSL_VERIFICATION`, `STORM_ALERT`, and `IP_GEOLOCATION`. The main risk is winning leaderboards that do not become prize-eligible, while leaving the explicit 25% X term nearly unused.

@@ -1,7 +1,7 @@
-# livecert — live TLS certificate verification miner
+# livecert — six operational-signal endpoints
 
-A Telegraph miner for the **`SSL_VERIFICATION`** intent. It performs a real TLS
-handshake against the target host and reports what that server is serving *right now*.
+A zero-runtime-dependency Telegraph miner. Active registration 260 routes SSL, Storm,
+Weather, IP Geolocation, Translation, and Academic Search.
 
 ## Why a handshake, and not a CT lookup
 
@@ -10,14 +10,19 @@ logs. CT tells you what was **issued** for a domain; it cannot tell you what the
 **deployed**. A host still serving an expired certificate while a fresh one sits in CT is
 exactly the case this intent is asked about, and only a live handshake sees it.
 
-## Endpoint
+## Endpoints
 
-```
-GET /ssl-check?domain=example.com
-```
+| Path | Intent |
+|---|---|
+| `/ssl-check` | `SSL_VERIFICATION` |
+| `/storm-alert` | `STORM_ALERT` |
+| `/weather-forecast` | `WEATHER_FORECAST` |
+| `/ip-geolocate` | `IP_GEOLOCATION` |
+| `/translate` | `LANGUAGE_TRANSLATION` |
+| `/papers` | `ACADEMIC_SEARCH` |
 
-Also accepts `host`, `hostname`, `url`, or `query`. Handles `https://example.com/path`
-and `example.com:8443`. `GET /health` is a liveness probe that does no outbound work.
+`GET /health` is a liveness probe that does no outbound work. See `../miner.yaml` for
+the complete input and output contract.
 
 ### Verdicts
 
@@ -39,9 +44,8 @@ curl "http://127.0.0.1:8080/ssl-check?domain=expired.badssl.com"
 npm test
 ```
 
-**109 tests**, covering all nine endpoints: the target parser, every SSL verdict path, the
-storm/weather window and coordinate handling, IP geolocation, and the translation, papers, CVE,
-extraction and headlines answer shapes.
+**111 tests** cover the six endpoints, including target parsing, every SSL verdict path,
+storm/weather windows and coordinates, IP geolocation, Translation, and Academic Search.
 
 Some suites make live calls (badssl.com, Open-Meteo, GitHub TLS) and are deliberately not mocked —
 they are what actually proves the verdict logic. The cost is that an upstream hiccup can make the
@@ -60,7 +64,7 @@ routing is revoked on a 20% score drop, so a cold start reads as a failure.
 ## Design notes
 
 - **Zero runtime dependencies** — Node standard library only. Nothing to break, small image, fast start.
-- **60s response cache** — never longer than the spot-check interval, so a verdict cannot go stale between checks.
+- **60s bounded cache** — absorbs repeated validation traffic and upstream jitter.
 - **8s handshake timeout** — a slow host fails fast as `unreachable` rather than hanging a spot check.
-- **Terse `reason` text** — scoring compares the answer against a ground-truth *string*, and
-  padding with words the ground truth lacks dilutes the overlap.
+- **Private-by-default logs** — query values are never logged; `LOG_QUERY=on` records parameter names only.
+- **Translation failover** — MyMemory remains primary; a second provider covers shared-egress 429s.

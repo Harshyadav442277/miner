@@ -11,7 +11,8 @@
  * would bury the only part being compared.
  */
 
-const API = "https://api.mymemory.translated.net/get";
+const MEMORY_API = "https://api.mymemory.translated.net/get";
+const CHROME_API = "https://clients5.google.com/translate_a/t";
 const DEFAULT_TIMEOUT_MS = 8000;
 
 export interface TranslationResult {
@@ -91,30 +92,61 @@ export async function translate(question: string, timeoutMs = DEFAULT_TIMEOUT_MS
     return { ...base, reason: `No target language was named for ${JSON.stringify(text)}. Name a language, for example: into French.` };
   }
 
-  const url = `${API}?q=${encodeURIComponent(text)}&langpair=${encodeURIComponent(`en|${lang.code}`)}`;
-  const ac = new AbortController();
-  const t = setTimeout(() => ac.abort(), timeoutMs);
-  let body: { responseData?: { translatedText?: string } };
-  try {
-    const res = await fetch(url, { signal: ac.signal, headers: { accept: "application/json" } });
-    if (!res.ok) throw new Error(`upstream ${res.status}`);
-    body = (await res.json()) as typeof body;
-  } finally {
-    clearTimeout(t);
-  }
+  const memory = new URL(MEMORY_API);
+  memory.searchParams.set("q", text);
+  memory.searchParams.set("langpair", `en|${lang.code}`);
+  const email = process.env.MYMEMORY_EMAIL?.trim();
+  if (email) memory.searchParams.set("de", email);
 
-  const out = (body.responseData?.translatedText ?? "").trim();
-  if (!out) {
-    return { ...base, reason: `No translation into ${lang.name} could be retrieved for ${JSON.stringify(text)}.` };
-  }
+  // MyMemory exhausted the shared Vercel egress quota while direct clients still
+  // succeeded. Use a second real translation provider rather than returning a
+  // confident guess or a benchmark-specific phrase table.
+  let out = await fetchMyMemory(memory, Math.ceil(timeoutMs / 2));
+  if (!out) out = await fetchChrome(text, lang.code, Math.floor(timeoutMs / 2));
+  if (!out) throw new Error("translation providers unavailable");
 
   return {
     ...base,
     translation: out,
     verdict: "translated",
     confidence: 1,
-    // The ground truth is the bare translation, so that is the answer. Anything
-    // wrapped around it dilutes the only text being compared.
     reason: out,
   };
+}
+
+async function fetchMyMemory(url: URL, timeoutMs: number): Promise<string | null> {
+  const ac = new AbortController();
+  const t = setTimeout(() => ac.abort(), timeoutMs);
+  try {
+    const res = await fetch(url, { signal: ac.signal, headers: { accept: "application/json" } });
+    if (!res.ok) return null;
+    const body = (await res.json()) as { responseData?: { translatedText?: string } };
+    return body.responseData?.translatedText?.trim() || null;
+  } catch {
+    return null;
+  } finally {
+    clearTimeout(t);
+  }
+}
+
+async function fetchChrome(text: string, target: string, timeoutMs: number): Promise<string | null> {
+  const url = new URL(CHROME_API);
+  url.searchParams.set("client", "dict-chrome-ex");
+  url.searchParams.set("sl", "en");
+  url.searchParams.set("tl", target);
+  url.searchParams.set("q", text);
+  const ac = new AbortController();
+  const t = setTimeout(() => ac.abort(), timeoutMs);
+  try {
+    const res = await fetch(url, { signal: ac.signal, headers: { accept: "application/json" } });
+    if (!res.ok) return null;
+    const body = (await res.json()) as unknown;
+    if (!Array.isArray(body)) return null;
+    const translated = body.filter((part): part is string => typeof part === "string").join("").trim();
+    return translated || null;
+  } catch {
+    return null;
+  } finally {
+    clearTimeout(t);
+  }
 }

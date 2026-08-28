@@ -1,5 +1,6 @@
 import * as tls from "node:tls";
 import { checkServerIdentity } from "node:tls";
+import { isIP } from "node:net";
 import { extractHostname } from "./extract";
 import { assertPublicHost } from "./guard";
 
@@ -150,7 +151,7 @@ export async function checkCertificate(
         // with a private one. SNI and identity checks still use the hostname.
         host: guard.address,
         port,
-        servername: host,
+        servername: isIP(host) ? undefined : host,
         // Report on bad certificates instead of refusing to talk about them.
         rejectUnauthorized: false,
         ALPNProtocols: ["http/1.1"],

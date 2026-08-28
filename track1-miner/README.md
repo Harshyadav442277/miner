@@ -2,7 +2,7 @@
 
 Everything in this folder is Track 1. Nothing outside it is.
 
-**Live:** https://miner-wine.vercel.app · registration **236** · slug `livecert` · id `4433`
+**Live:** https://miner-wine.vercel.app · registration **260** · slug `livecert` · id `4433`
 **Explorer:** https://explorer.telegraphprotocol.com/miners/livecert
 
 ---
@@ -15,7 +15,7 @@ the findings that would otherwise cost you a day to rediscover.
 ```
 MEMORY.md       session handoff — READ FIRST
 miner/          the service — Node, zero runtime dependencies, TypeScript
-miner.yaml      the registered manifest (public, pinned to IPFS, hashed on-chain)
+miner.yaml      active registration 260 manifest (public and pinned to IPFS)
 tools/          measurement and operations
 docs/           Track 1 analysis and history
 ```
@@ -24,13 +24,13 @@ docs/           Track 1 analysis and history
 
 | | |
 |---|---|
-| Registered intents | **4** — SSL_VERIFICATION, STORM_ALERT, WEATHER_FORECAST, IP_GEOLOCATION |
-| Built and deployed | **9** — the above plus CONTENT_EXTRACTION, NEWS_HEADLINES, LANGUAGE_TRANSLATION, CVE_LOOKUP, ACADEMIC_SEARCH |
-| Pending | one `updateMiner` signature registers the other five |
-| Tests | 103 passing |
+| Registered intents | **6** — SSL, Storm, Weather, IP, Translation, Academic Search |
+| Built and deployed | **6** — exactly the registered surface |
+| Pending | deploy the Translation quota fallback, then re-run acceptance |
+| Tests | 111 passing (79 network-free, 32 live) |
 
-The five unregistered intents are built, live, and tested — the endpoints answer today. They just
-are not declared on-chain yet, so no traffic is routed to them.
+Registration 260 is active. The three discarded candidates—Content, News, and CVE—were removed
+from the router and source rather than kept as undeclared maintenance surface.
 
 ## Endpoints
 
@@ -40,14 +40,12 @@ are not declared on-chain yet, so no traffic is routed to them.
 | `/storm-alert` | STORM_ALERT | Open-Meteo |
 | `/weather-forecast` | WEATHER_FORECAST | Open-Meteo |
 | `/ip-geolocate` | IP_GEOLOCATION | ipapi + BigDataCloud |
-| `/extract` | CONTENT_EXTRACTION | none — deterministic parsing |
-| `/headlines` | NEWS_HEADLINES | Google News RSS |
 | `/translate` | LANGUAGE_TRANSLATION | MyMemory |
-| `/cve` | CVE_LOOKUP | NIST NVD |
 | `/papers` | ACADEMIC_SEARCH | OpenAlex |
 
-Every source is free and keyless. There is no API key anywhere in this miner, which is why
-`auth.type` is `none` and why no upstream quota can revoke us.
+Every source is free and keyless, so `auth.type` is `none`. Keyless does not mean
+quota-free: MyMemory returned 429 from shared Vercel egress, which is why Translation now
+has provider failover and a live fallback test.
 
 ## Tools
 
@@ -66,11 +64,11 @@ node tools/bench-champion.mjs --wasm champ.wasm --bench ssl_bench.json --path ss
 node tools/record-scores.mjs
 
 # watch uptime and routing revocation
-node tools/watch.mjs --base-url https://miner-wine.vercel.app --registration-id 236 --once
+node tools/watch.mjs --base-url https://miner-wine.vercel.app --registration-id 260 --once
 ```
 
-`tools/score-sim.mjs` is **superseded and should not be used** — its model of the scorer was
-disproven. Use `bench-champion.mjs` against the real binaries instead.
+Use `bench-champion.mjs` against the real scorer binaries. The disproven hand-written score
+simulator and the three low-EV endpoint implementations were removed on 2026-08-28.
 
 ## What was learned the hard way
 

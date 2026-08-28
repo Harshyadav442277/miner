@@ -15,6 +15,8 @@ documentation.
   production-scorer, public-ground-truth, buyer-contract, and next-epoch analysis.
 - [`2026-08-28-track1-audit.md`](2026-08-28-track1-audit.md) — current rank,
   pending-manifest, eligibility, workflow, public-proof, and security evidence.
+- [`2026-08-28-track1-hardening.md`](2026-08-28-track1-hardening.md) — registered
+  surface debloat, Translation quota incident, security fixes, and deploy gate.
 - [`probe-champion.mjs`](probe-champion.mjs) — offline reproduction tool for a
   downloaded champion WASM and public score records.
 - [`epoch284-weather-candidate.txt`](epoch284-weather-candidate.txt) and

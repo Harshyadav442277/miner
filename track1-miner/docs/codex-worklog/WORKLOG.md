@@ -178,3 +178,33 @@ Only audit documentation was added or indexed. Product code, manifest,
 workflows, deployment, registration, wallet, X, GitHub, paid requests, and the
 concurrent `fable_review_audit.md` change were not modified. See
 [`2026-08-28-track1-audit.md`](2026-08-28-track1-audit.md).
+
+## 2026-08-28 — registered-surface hardening
+
+### Request
+
+Improve Track 1, review strategy, code, and `miner.yaml`, and remove everything
+that does not increase the legitimate probability of rank one.
+
+### Main outcomes
+
+- Registration 260 became active concurrently and was verified with all six
+  intended intents, so the already-signed manifest was preserved exactly.
+- Removed the undeclared Content, News, and CVE implementations plus the
+  disproven score simulator.
+- The production release gate exposed MyMemory 429s on Vercel after signing.
+  Translation now has a tested fallback and a real live fallback test.
+- Request logs are private by default, upstream exceptions are not exposed,
+  Academic and Translation use the bounded cache, and IPv4-mapped IPv6 cannot
+  bypass the SSRF guard.
+- A manifest/route parity test prevents another split-brain deployment.
+
+### Verification boundary
+
+Typecheck, 79 network-free tests, and 111 full tests passed. The first production
+verifier failed Translation; a later retry passed after the upstream quota
+recovered, but the fallback is still local. Deployment and a fully green
+post-deploy verifier remain required. No deployment, wallet, registration, paid
+request, or external account was changed.
+
+See [`2026-08-28-track1-hardening.md`](2026-08-28-track1-hardening.md).

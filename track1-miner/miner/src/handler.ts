@@ -1,23 +1,23 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
 import { checkCertificate, normalizeTarget, type SslResult } from "./ssl";
 import { checkStorm, type StormResult } from "./storm";
-import { extractContent } from "./content";
-import { getHeadlines } from "./news";
-import { translate } from "./translate";
-import { lookupCve, extractCveId, type CveResult } from "./cve";
-import { findPapers } from "./papers";
+import { translate, type TranslationResult } from "./translate";
+import { findPapers, type PaperResult } from "./papers";
 import { getForecast, type ForecastResult } from "./forecast";
 import { geolocate, type GeoResult } from "./geo";
 
 const CACHE_TTL_MS = Number(process.env.CACHE_TTL_MS ?? 60_000);
 const MAX_CACHE = 500;
+export const ENDPOINTS = [
+  "/ssl-check", "/storm-alert", "/weather-forecast",
+  "/ip-geolocate", "/translate", "/papers",
+] as const;
 
 /**
- * Telegraph validators spot-check roughly every 20 seconds. A short cache keeps
- * repeat checks of the same host sub-millisecond without ever serving a stale
- * verdict for longer than the spot-check interval.
+ * A one-minute cache matches miner.yaml, absorbs repeated spot checks, and
+ * reduces dependence on free upstreams. Callers can lower it with CACHE_TTL_MS.
  */
-type Answer = SslResult | StormResult | ForecastResult | GeoResult | CveResult;
+type Answer = SslResult | StormResult | ForecastResult | GeoResult | TranslationResult | PaperResult;
 const cache = new Map<string, { at: number; value: Answer }>();
 
 function fromCache(key: string): Answer | null {
@@ -99,7 +99,7 @@ function firstValue(url: URL, ...names: string[]): string {
  * rate limit from a weather provider therefore cost the whole question. Saying
  * "this could not be retrieved right now" is truthful and at least scoreable.
  */
-function upstreamUnavailable(res: ServerResponse, what: string, subject: string, e: unknown): void {
+function upstreamUnavailable(res: ServerResponse, what: string, subject: string): void {
   send(res, 200, {
     verdict: "unknown",
     confidence: 0,
@@ -108,7 +108,6 @@ function upstreamUnavailable(res: ServerResponse, what: string, subject: string,
       `provider did not respond successfully. This is a temporary data availability problem, ` +
       `not a statement about ${subject}. Retrying shortly should succeed.`,
     error: "upstream_unavailable",
-    detail: (e as Error).message,
   });
 }
 
@@ -135,16 +134,11 @@ function coordsFromParams(url: URL): string {
 }
 
 export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
-  // Log which parameters the engine fills, but not their values: translation
-  // and extraction requests carry whole user texts, and a default that copies
-  // them into platform logs is a privacy leak. Set LOG_QUERY=full only while
-  // actively debugging what the engine sends.
-  if (process.env.LOG_QUERY !== "off") {
+  // Off by default. When enabled, record parameter names only—never user text.
+  if (process.env.LOG_QUERY === "on") {
     const u = new URL(req.url ?? "/", "http://localhost");
-    const line =
-      process.env.LOG_QUERY === "full"
-        ? (req.url ?? "?")
-        : `${u.pathname}?${[...u.searchParams.keys()].join(",")}`;
+    const names = [...new Set(u.searchParams.keys())].join(",");
+    const line = names ? `${u.pathname}?[${names}]` : u.pathname;
     process.stdout.write(`REQ ${req.method ?? "?"} ${line}\n`);
   }
 
@@ -211,7 +205,7 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
         toCache(key, result);
         send(res, 200, result);
       })
-      .catch((e: unknown) => upstreamUnavailable(res, "A weather forecast", q.slice(0, 80), e));
+      .catch(() => upstreamUnavailable(res, "A weather forecast", q.slice(0, 80)));
     return;
   }
 
@@ -241,8 +235,8 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
         toCache(key, result);
         send(res, 200, result);
       })
-      .catch((e: unknown) => {
-        upstreamUnavailable(res, "IP geolocation", q.slice(0, 80), e);
+      .catch(() => {
+        upstreamUnavailable(res, "IP geolocation", q.slice(0, 80));
       });
     return;
   }
@@ -282,12 +276,13 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
         toCache(key, result);
         send(res, 200, result);
       })
-      .catch((e: unknown) => upstreamUnavailable(res, "A storm risk forecast", q.slice(0, 80), e));
+      .catch(() => upstreamUnavailable(res, "A storm risk forecast", q.slice(0, 80)));
     return;
   }
 
   if (path === "/papers") {
-    const q = firstValue(url, "query", "q", "question", "topic", "text", "input");
+    const topic = firstValue(url, "topic", "text", "input");
+    const q = firstValue(url, "query", "q", "question") || topic;
     if (!q.trim()) {
       send(res, 200, {
         verdict: "unknown",
@@ -297,43 +292,26 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
       });
       return;
     }
+    const key = `papers:${q.trim().toLowerCase()}`;
+    const hit = fromCache(key);
+    if (hit) {
+      send(res, 200, hit);
+      return;
+    }
     findPapers(q)
-      .then((r) => send(res, 200, r))
-      .catch((e: unknown) => upstreamUnavailable(res, "A paper search", q.slice(0, 50), e));
-    return;
-  }
-
-  if (path === "/cve") {
-    const q = firstValue(url, "query", "q", "question", "cve", "id", "text", "input");
-    if (!q.trim()) {
-      send(res, 200, {
-        verdict: "unknown",
-        confidence: 0,
-        reason:
-          "No CVE identifier was supplied with this request. Name one, for example CVE-2021-44228.",
-        error: "invalid_input",
-      });
-      return;
-    }
-    // Key the cache on the CVE id, not the phrasing: NVD allows ~5 requests per
-    // 30 seconds, and every rephrasing of the same CVE must not spend one.
-    const cveKey = `cve:${(extractCveId(q) ?? q.trim().toLowerCase()).toLowerCase()}`;
-    const cveHit = fromCache(cveKey);
-    if (cveHit) {
-      send(res, 200, cveHit);
-      return;
-    }
-    lookupCve(q)
       .then((r) => {
-        toCache(cveKey, r);
+        toCache(key, r);
         send(res, 200, r);
       })
-      .catch((e: unknown) => upstreamUnavailable(res, "A CVE lookup", q.slice(0, 40), e));
+      .catch(() => upstreamUnavailable(res, "A paper search", q.slice(0, 50)));
     return;
   }
 
   if (path === "/translate") {
-    const q = firstValue(url, "query", "q", "question", "text", "input");
+    const text = firstValue(url, "text", "input");
+    const language = firstValue(url, "target_language", "language", "target");
+    const q = firstValue(url, "query", "q", "question") ||
+      (text && language ? `Translate ${JSON.stringify(text)} into ${language}.` : text);
     if (!q.trim()) {
       send(res, 200, {
         verdict: "unknown",
@@ -345,63 +323,25 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
       });
       return;
     }
+    const key = `translate:${q.trim().toLowerCase()}`;
+    const hit = fromCache(key);
+    if (hit) {
+      send(res, 200, hit);
+      return;
+    }
     translate(q)
-      .then((r) => send(res, 200, r))
-      .catch((e: unknown) => upstreamUnavailable(res, "A translation", q.slice(0, 60), e));
+      .then((r) => {
+        toCache(key, r);
+        send(res, 200, r);
+      })
+      .catch(() => upstreamUnavailable(res, "A translation", "the supplied text"));
     return;
   }
 
-  if (path === "/headlines") {
-    const q = firstValue(url, "query", "q", "question", "text", "topic", "input");
-    if (!q.trim()) {
-      send(res, 200, {
-        verdict: "unknown",
-        confidence: 0,
-        reason:
-          "No topic was supplied with this request, so no headlines could be retrieved. " +
-          "Name a subject and optionally a region, for example: current technology headlines in Japan.",
-        error: "invalid_input",
-      });
-      return;
-    }
-    getHeadlines(q)
-      .then((r) => send(res, 200, r))
-      .catch((e: unknown) => upstreamUnavailable(res, "Current headlines", q.slice(0, 60), e));
-    return;
-  }
-
-  if (path === "/extract") {
-    // CONTENT_EXTRACTION questions carry their payload inline, so the whole
-    // question text is the input — there is nothing to fetch.
-    const q = firstValue(url, "query", "q", "question", "text", "input", "content");
-    if (!q.trim()) {
-      send(res, 200, {
-        verdict: "unknown",
-        confidence: 0,
-        reason:
-          "No text was supplied with this request, so no fields could be extracted. " +
-          "Supply the text to extract from, for example: Extract the contact details from: " +
-          "\"Reach us at support@example.com or call 555-0192.\"",
-        error: "invalid_input",
-      });
-      return;
-    }
-    const e = extractContent(q);
-    send(res, 200, {
-      verdict: e.want,
-      extracted: e.fields,
-      source_text: e.source.slice(0, 400),
-      confidence: 1,
-      reason: e.summary,
-      checked_at: new Date().toISOString(),
-    });
-    return;
-  }
-
-  if (path !== "/ssl-check") {
+  if (!(ENDPOINTS as readonly string[]).includes(path)) {
     send(res, 404, {
       error: "not_found",
-      message: "Try /ssl-check?domain=example.com, /storm-alert?location=Chennai, /weather-forecast?location=London, or /ip-geolocate?ip=8.8.8.8",
+      message: "Use one of the six endpoints declared in miner.yaml.",
     });
     return;
   }
@@ -414,8 +354,10 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
     // verdict/confidence/reason, and a body without those fields resolves to
     // nothing at all — a scorer comparing text finds no vocabulary in
     // {"error":"invalid_domain"}. Saying "I could not determine this" in the
-    // schema's own words is both honest and legible. The status stays 400
-    // because the request genuinely was malformed (A5: no liar-200s).
+    // schema's own words is both honest and legible. The status is 200 and must
+    // stay 200: a non-2xx makes the engine record `upstream error`, store an
+    // empty answer and never read this body, which is a guaranteed 0. Being
+    // explicit that we could not determine the answer is not a liar-200 (A5).
     send(res, 200, {
       domain: raw ? raw.slice(0, 200) : null,
       verdict: "unknown",
@@ -441,5 +383,5 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
       toCache(key, result);
       send(res, 200, result);
     })
-    .catch((e: unknown) => upstreamUnavailable(res, "A TLS certificate check", target.host, e));
+    .catch(() => upstreamUnavailable(res, "A TLS certificate check", target.host));
 }

@@ -1,4 +1,4 @@
-// Pre-tuning bench for the five unregistered intents.
+// Pre-tuning bench for the two newest intents in miner.yaml.
 // For each intent: validate the champion WASM reproduces reported scores,
 // then score OUR live endpoint's answer for every recorded real question.
 import { readFile } from "node:fs/promises";
@@ -7,11 +7,8 @@ const SCRATCH = process.env.PRETUNE_DIR ?? ".";
 const BASE = process.env.BASE ?? "https://miner-wine.vercel.app";
 
 const INTENTS = [
-  { name: "CVE_LOOKUP", wasm: "cve.wasm", path: "/cve", param: "query" },
-  { name: "CONTENT_EXTRACTION", wasm: "extract.wasm", path: "/extract", param: "query" },
   { name: "LANGUAGE_TRANSLATION", wasm: "translate.wasm", path: "/translate", param: "query" },
   { name: "ACADEMIC_SEARCH", wasm: "papers.wasm", path: "/papers", param: "query" },
-  { name: "NEWS_HEADLINES", wasm: "headlines.wasm", path: "/headlines", param: "query" },
 ];
 
 async function loadScorer(file) {

@@ -1,11 +1,11 @@
-# SIGNING.md — the six-intent update, ready for the operator
+# SIGNING.md — registration 260 completion record
 
-Prepared 2026-08-28. **Claude does not connect wallets or sign anything.** Everything below is
-staged and verified; the last two steps are yours.
+Prepared and completed 2026-08-28. Registration 260 is active with all six intents.
+The checklist below is retained as the validation record; do not sign it again.
 
 ---
 
-## 1. What you are signing, in one line
+## 1. What was signed, in one line
 
 The same miner that is #1 in three intents, plus **`LANGUAGE_TRANSLATION`** and
 **`ACADEMIC_SEARCH`**.
@@ -111,9 +111,9 @@ SSL row was roughly half the length of our `reason`. So treat those figures as o
 decision survives it anyway: in epoch 288 **all four incumbents across both intents scored 0**, so
 even a heavily discounted answer wins. That is why this is still worth signing.
 
-## 5. Your part
+## 5. Completed operator sequence
 
-**Before:** confirm the file you are about to upload is the verified one.
+**Before signing, the operator confirmed the uploaded file was the verified one.**
 
 PowerShell (this repo's normal shell — there is no `sha256sum` on Windows):
 
@@ -179,7 +179,7 @@ its serializer does not preserve quoting. So **never put a value in this YAML th
 quoted to parse** — anything starting with `@`, a backtick, `%`, `&`, `*`, or `!`. Write values that
 are valid unquoted, or leave them out.
 
-## 7. If it is rejected
+## 7. Historical rejection procedure
 
 Do not re-sign in a hurry. Send me `rejection_reason` verbatim. Registration 1377 was rejected
 before and the calibration from reading its reason is what produced a clean 236. 236 keeps serving

@@ -3,7 +3,7 @@
 **Read this first. Everything Track 1 needs is in this folder.**
 Shared protocol facts are in `../docs/`. Do not edit `../track2/` or `../track3-certwatch/`.
 
-Last updated: 2026-08-27 ~08:30 UTC, before epoch 286 (lands ~09:37 UTC).
+Last updated: 2026-08-28, after registration 260 and the Track 1 hardening pass.
 
 ---
 
@@ -14,6 +14,15 @@ Nothing about the manifest needs the operator any more. See section 2 for the ve
 [docs/SIGNING.md](docs/SIGNING.md) for what was checked.
 
 What still needs a human:
+
+**0. Deploy the current Track 1 code and re-run acceptance.** The first post-registration
+acceptance run found `/translate` returning MyMemory `429` from Vercel. A tested provider
+fallback is implemented locally, but production resilience is not closed until this exact code is
+deployed and `node track1-miner/tools/verify-deploy.mjs https://miner-wine.vercel.app` exits 0.
+This is a code-only repair: do not re-sign `miner.yaml`.
+
+A later pre-deploy retry passed after MyMemory's quota recovered. That proves the incident is
+intermittent; it does not mean the local fallback has reached production.
 
 **1. X — 25% of the score, and it is the largest unclaimed block on the board.** New information
 from the hackathon Discord: **the X term appears to be scored on the single highest-engagement
@@ -186,7 +195,7 @@ caches by CVE id so rephrasings cannot burn NVD's 5-per-30s limit.
 Headlines answers are now numbered, honor "top N" counts, and frame as "The top 5 business
 headlines from Great Britain today, as of <date>, are: 1. …" — the questions' own wording.
 
-## 3. Endpoints — 9 built, all live, all keyless
+## 3. Endpoints — 6 registered; code now matches the manifest
 
 | Path | Intent | Registered? | Source |
 |---|---|---|---|
@@ -194,26 +203,16 @@ headlines from Great Britain today, as of <date>, are: 1. …" — the questions
 | `/storm-alert` | STORM_ALERT | yes | Open-Meteo |
 | `/weather-forecast` | WEATHER_FORECAST | yes | Open-Meteo |
 | `/ip-geolocate` | IP_GEOLOCATION | yes | ipapi + BigDataCloud |
-| `/extract` | CONTENT_EXTRACTION | **no** | none, deterministic parsing |
-| `/headlines` | NEWS_HEADLINES | **no** | Google News RSS |
-| `/translate` | LANGUAGE_TRANSLATION | **no** | MyMemory |
-| `/cve` | CVE_LOOKUP | **no** | NIST NVD |
-| `/papers` | ACADEMIC_SEARCH | **no** | OpenAlex |
+| `/translate` | LANGUAGE_TRANSLATION | yes | MyMemory + failover |
+| `/papers` | ACADEMIC_SEARCH | yes | OpenAlex |
 
-No API key exists anywhere in this miner. That is why `auth.type: none`, and why no upstream quota
-can revoke us.
+No API key exists anywhere in this miner, so `auth.type: none`. Keyless upstreams can still impose
+shared-IP quotas: the post-registration MyMemory 429 is the concrete example, and Translation now
+has a tested failover for it.
 
-**Why those five:** every one has incumbents that are failing.
-
-```
-CONTENT_EXTRACTION    1 miner   0.000 on ALL 6 questions  (URL extractor; questions supply text inline)
-LANGUAGE_TRANSLATION  2 miners  best 0.000                (both named after the API we call)
-CVE_LOOKUP            3 miners  ALL 0.000 in epoch 285
-ACADEMIC_SEARCH       2 miners  0.000 - 0.015
-NEWS_HEADLINES        1 miner   0.000 - 0.003
-```
-
-On CONTENT_EXTRACTION, **5 of the 6 real questions reproduce the ground truth exactly.**
+Content, News, and CVE were measured candidates, not registered strategy. Their source and routes
+were removed after registration 260 to eliminate dead surface. The historical measurements above
+remain only to explain how the candidate decision evolved.
 
 ## 4. The strategy, and the evidence for it
 
@@ -245,7 +244,7 @@ The only generalisations that held. Everything else was disproven.
 ## 6. Theories tested and WRONG — do not retry
 
 1. **Terse answers score better.** Wrong. Fuller answers win, provided every added fact was asked
-   for. `tools/score-sim.mjs` encodes this dead model — **superseded, do not use it.**
+   for. The superseded `tools/score-sim.mjs` was deleted in the hardening pass.
 2. **`label_field` drives the score.** Wrong. `txlens` is #1 in SSL with `label_field: status`,
    which is the constant "ok".
 3. **There is a response size limit.** Wrong. Conversion fails about 6.7% of the time at **every**
@@ -324,7 +323,7 @@ node tools/bench-champion.mjs --wasm champ_ssl.wasm --bench ssl_bench.json --pat
 node tools/record-scores.mjs
 
 # uptime and routing revocation
-node tools/watch.mjs --base-url https://miner-wine.vercel.app --registration-id 236 --once
+node tools/watch.mjs --base-url https://miner-wine.vercel.app --registration-id 260 --once
 ```
 
 Windows note: Git Bash rewrites a leading slash argument into a Windows path, so pass `ssl-check`
@@ -363,8 +362,8 @@ fund it until its durable-budget story is closed (see `../GAPS.md` G17/G18).
 ## 11. First actions for a fresh session
 
 1. `node tools/record-scores.mjs` — has a new epoch landed? Compare against section 2.
-2. `curl -s https://devnode.telegraphprotocol.com/api/miners/236 | jq .miner.activation_status`
-   — still `active`? If a newer registration exists, that id supersedes 236 everywhere.
+2. `curl -s https://devnode.telegraphprotocol.com/api/miners/260 | jq .miner.activation_status`
+   — still `active`? If a newer registration exists, that id supersedes 260 everywhere.
 3. `node tools/verify-deploy.mjs https://miner-wine.vercel.app` — must exit 0.
 4. If a new epoch landed, read what actually scored:
    `curl -s "https://devnode.telegraphprotocol.com/scores?intent=SSL_VERIFICATION&limit=100"`

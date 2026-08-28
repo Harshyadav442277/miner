@@ -1,8 +1,6 @@
 import { test, describe } from "node:test";
 import assert from "node:assert/strict";
-import { extractContent } from "../src/content";
 import { sourceText, targetLanguage } from "../src/translate";
-import { extractCveId } from "../src/cve";
 import { dateWindow, searchTopic } from "../src/papers";
 import { extractHostname, placeCandidates, extractWindThreshold, toKmh, asksForKnots, extractCoords } from "../src/extract";
 import { normalizeTarget } from "../src/ssl";
@@ -158,39 +156,7 @@ describe("time words are not places", () => {
   });
 });
 
-describe("content extraction", () => {
-  // The only registered CONTENT_EXTRACTION miner is a URL extractor and scores
-  // 0.000 on every real question, because the questions supply their text inline.
-  // These six are the real scored questions; five reproduce the ground truth exactly.
-  const cases: [string, string][] = [
-    ['Extract the quantities and units from: "The recipe calls for 2 cups of flour and 1 teaspoon of salt."',
-     "2 cups of flour, 1 teaspoon of salt."],
-    ['Extract the contact details from: "Reach us at support@example.com or call 555-0192."',
-     "Email: support@example.com. Phone number: 555-0192."],
-    ['Extract the key entities (people, places, organizations) from: "Tim Cook, CEO of Apple, announced a new product in Cupertino."',
-     "Person: Tim Cook. Organization: Apple. Place: Cupertino."],
-    ['Extract the key action items from: "Please submit the report by Friday and schedule a follow-up call."',
-     "1) Submit the report by Friday. 2) Schedule a follow-up call."],
-    ['Extract the date and event from: "The conference will be held on March 15th, 2027, in Berlin."',
-     "Date: March 15, 2027. Event: a conference held in Berlin."],
-  ];
-
-  for (const [q, expected] of cases) {
-    test(q.slice(0, 46), () => {
-      assert.equal(extractContent(q).summary, expected);
-    });
-  }
-
-  test("says so plainly when nothing matches", () => {
-    const r = extractContent('Extract the contact details from: "There is nothing here."');
-    assert.match(r.summary, /No contact details were found/);
-  });
-});
-
 describe("translation", () => {
-  // Both registered LANGUAGE_TRANSLATION miners are named after the same API and
-  // score 0.000 on most questions, including ones where that API returns the
-  // ground truth verbatim.
   test("reads the quoted text and the target language", () => {
     const q = 'Translate "See you tomorrow morning." into Russian.';
     assert.equal(sourceText(q), "See you tomorrow morning.");
@@ -203,20 +169,6 @@ describe("translation", () => {
 
   test("returns null when no language is named", () => {
     assert.equal(targetLanguage('Translate "Hello" please.'), null);
-  });
-});
-
-describe("CVE identifiers", () => {
-  test("reads a CVE id from a question", () => {
-    assert.equal(extractCveId("severity and affected versions for CVE-2021-44228?"), "CVE-2021-44228");
-  });
-
-  test("tolerates spacing variants", () => {
-    assert.equal(extractCveId("cve 2026 34612"), "CVE-2026-34612");
-  });
-
-  test("returns null when none is present", () => {
-    assert.equal(extractCveId("what is the weather"), null);
   });
 });
 
