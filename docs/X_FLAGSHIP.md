@@ -1,93 +1,64 @@
-# X_FLAGSHIP.md — one post to maximise, not a cadence to maintain
+# X_FLAGSHIP.md — the posting plan
 
-Written 2026-08-28. Supersedes the "steady cadence" advice in
-[BUILD_IN_PUBLIC.md](BUILD_IN_PUBLIC.md) and [X_POSTS.md](X_POSTS.md) **if** the scoring note in §1
-is right.
-
----
-
-## 1. The metric, confirmed
-
-**The X term is scored on your single highest-engagement post, not the sum.** Confirmed by the
-organizers, who also stated the scoring is automated — bots scan the tagged posts. Your X account
-is linked to the hackathon account (required, and done).
-
-That settles the plan. The published wording — *"quality, consistency, reach, and meaningful
-engagement"* — reads like it rewards a cadence, but consistency is not what gets counted. One post
-carries the whole 25%.
-
-Three consequences, and they are the whole strategy:
-
-1. **Post 1 of the thread is the scored unit.** Impressions decay steeply after the first post in a
-   thread, so the opening post has to be a complete, quotable finding that works with nothing after
-   it. Do not open with a teaser and bury the payoff in post 3.
-2. **Concentrate amplification on one post.** Every reply, every Discord share, every link should
-   drive the same post. Spreading effort across several posts splits the engagement that is being
-   measured and raises none of them.
-3. **Extra posts are lottery tickets, not additive score.** Publishing the other drafts costs
-   little and each is another chance to be the top post, but it earns nothing on its own. Effort
-   belongs in amplifying the flagship, not in producing more of them.
-
-## 2. The baseline to beat
-
-Current account `@hyadav42774`, 29 posts. Best performers so far:
-
-| Post | Impressions | Likes | Reposts | Replies |
-|---|---:|---:|---:|---:|
-| "base_url points at the upstream" (Aug 26) | **188** | 8 | 7 | 6 |
-| "Subtle line in the docs — Tier A vs Tier B" | 83 | 7 | 6 | — |
-| "4th place gets nothing / 70-20-10" (Aug 27) | 71 | 3 | — | — |
-
-**188 impressions is the number to beat.** That is a cold-account number, not a content problem —
-the two posts with real reply counts are the two that told builders something that would have cost
-them time. That is the format that works. Keep using it.
-
-## 3. What to publish now, and what to hold
-
-We have four genuinely non-obvious findings. They are not equally safe to publish **three days
-before the close**, because 75% of the score is performance and some of these are our own edge.
-
-| Finding | Value to others | Helps a rival outscore us? | Publish |
-|---|---|---|---|
-| `limitations` rate is **node-wide per miner** | Very high — silently throttles everything | No | **Now — flagship** |
-| Undeclared miners still get a **600/min backstop** | High — nobody knows this | No | **Now — in the flagship** |
-| A 4xx is a guaranteed **0** | High | Barely | **Now** |
-| Engine sends **only declared params** | Very high | Somewhat | Now, in the flagship |
-| **Run the champion scorer offline** (`/api/wasm` + `/scores`) | Highest of all | **Yes — directly** | **Hold until Sept 1** |
-| **The converter is a ~32-word budget** (measured 2026-08-28) | Highest of all | **Yes — directly** | **Hold until Sept 1** |
-
-The converter finding is the newest and probably the most valuable: `converted_answer` lands at
-~32 words whatever you send, so anything past that is summarised away by a model you do not
-control. It cost us a measured 0.992 → 0.0097 on one SSL row. Every miner in the network is losing
-score to this and none of them appear to know. Publishing it on the 28th hands eleven weather
-miners a direct scoring improvement during the exact window that decides the 75%.
-
-The offline-scorer loop is how we went #3/#3 → #1/#1/#1 in three epochs. It converts a 9-hour
-feedback cycle into seconds. Handing that to eleven weather miners on Aug 28 is handing them our
-iteration speed during the exact window that decides the performance term. It is also our best
-piece of content — so it becomes the flagship for the Track 3 window and the final write-up, on
-**Sept 1**, when publishing it costs us nothing.
-
-Everything below is measured and true. Do not post a number that has not happened.
-
-## 4. The flagship — 280 characters per post, and post 1 has to stand alone
-
-**Every post below is under X's 280-character limit** (counts noted). The earlier drafts ran to
-412 characters and would have been rejected or silently truncated. If the account has Premium the
-limit is 25,000, but do not rely on it — long posts collapse behind "show more", which costs the
-scroll-stopping first line.
-
-**The consequence of §1 that matters most:** if the X term is scored on the single
-highest-engagement *post*, a thread does not pool its engagement — impressions decay steeply after
-post 1, so **post 1 is effectively the scored unit.** That changes the shape: post 1 must be a
-complete, quotable finding that works with nothing after it. The rest is supporting evidence for
-people who want it, and it is what makes replies happen.
-
-So: write post 1 as if it were the only post. Post it. Then reply to yourself with 1–6.
+Rewritten 2026-08-28 after the organizers clarified the scoring. **This supersedes the earlier
+"one flagship post" version of this file, which was wrong.**
 
 ---
 
-**POST 1 — standalone. This is the one being scored.** (279 chars)
+## 1. What the organizers actually said
+
+> "there's no fixed formula like likes/reposts = x points. we'll look at quality, consistency,
+> reach, likes, reposts, comments and meaningful engagement of your updates"
+>
+> "so you can post about both your track 1 and track 2, experiments, results, improvements,
+> journey, learnings, edge cases you faced, etc"
+>
+> "just make sure to tag @Telegraphprotoc in the updates and keep them genuine, we mainly want to
+> see the actual work and progress"
+
+Three corrections to what this file used to say:
+
+1. **Consistency is counted.** An earlier Discord message said only the single highest-engagement
+   post mattered. That was wrong, and the one-flagship plan built on it is withdrawn. A steady
+   series beats one post.
+2. **Track 2 is in scope.** The scorer work counts as much as the miner work.
+3. **Judging is holistic and human-readable — "we mainly want to see the actual work and
+   progress."** Which means the journey, the failures and the edge cases are the content, not
+   filler around it. That is genuinely good news: it is what we actually have.
+
+## 2. This also reverses the hold list
+
+The previous version held back the two best findings — running the champion scorer offline, and
+the converter's word budget — on the theory that they would help rivals during the last three days.
+
+**Publish them.** The reasoning changed:
+
+- Judging explicitly rewards showing real work. Withholding our best findings costs the exact thing
+  being scored.
+- The `/api/wasm` and `/scores` endpoints are public and documented, and our own public README
+  already describes the offline replay loop. We were "protecting" something already published.
+- Three days is not enough time for a rival to find the post, build a replay harness, diagnose
+  their answers and redeploy.
+
+What stays true: **do not post a number that has not happened.** Everything below is measured.
+
+## 3. Baseline
+
+`@hyadav42774`, 29 posts. Best so far: **188 impressions, 8 likes, 7 reposts, 6 replies** on the
+"base_url points at the upstream" post. The two posts with real reply counts are the two that told
+builders something that would have cost them time. That is the format that works.
+
+## 4. The posts
+
+Every one is under X's 280-character limit (counts verified). Tag `@Telegraphprotoc` in each.
+Roughly two a day through Aug 31, then keep going through the Track 3 window — updates posted
+during Track 3 are still updates.
+
+---
+
+### Aug 28
+
+**P1 — the near-miss** (277)
 
 > Declaring your upstream's rate limit in a @Telegraphprotoc miner YAML throttles your ENTIRE miner — not just that endpoint.
 >
@@ -95,104 +66,123 @@ So: write post 1 as if it were the only post. Post it. Then reply to yourself wi
 >
 > The docs: "Counts are node-wide per miner."
 >
-> There is no endpoint scope on a limitation. 🧵
+> There is no endpoint scope on a limitation.
 
-**1/** (216 chars)
+**P2 — the finding I'm most sure of** (273)
 
-> I added a CVE endpoint. Its upstream (NIST NVD) allows 5 requests per 30s, so I declared that honestly:
+> Measured on @Telegraphprotoc: whatever your miner returns, the text that actually gets scored lands at ~32 words. It expands short answers and compresses long ones.
 >
-> limitations:
->  - property: rate
->    value_num: 5
->    window_seconds: 30
+> One SSL answer of mine scored 0.99 as raw prose. The summary that got scored: 0.0097.
 >
-> Looks like good citizenship. It isn't.
-
-**2/** (257 chars)
-
-> A limitation entry's fields are: code, message, param, property, value_bytes, value_num, operator, window_seconds.
->
-> Note what's missing — anything naming an endpoint.
->
-> So the quota belongs to one upstream, but the ceiling applies to everything you serve.
-
-**3/** (235 chars)
-
-> That would have taken SSL_VERIFICATION, STORM_ALERT and IP_GEOLOCATION — all three of them #1 — down to 0.167 requests/second.
->
-> In the same week I need demand to prove eligibility.
->
-> Caught it in review. Dropped the endpoint instead.
-
-**4/** (253 chars)
-
-> The part nobody seems to know: declaring nothing doesn't mean unlimited.
->
-> "A miner that declares no rate limit still gets one. The node applies a default backstop of 600 calls/minute per miner."
->
-> Tunable via MINER_DEFAULT_RATE_PER_MIN. 0 disables it.
-
-**5/** (277 chars)
-
-> Two more that cost me real score:
->
-> · Never return a non-2xx. The engine stores an empty answer and the scorer never reads your body. A 400 is a guaranteed 0.
->
-> · The engine only sends params you declare in input_schema — never the raw question, unless you declare q or query.
-
-**6/** (264 chars)
-
-> I built coordinate parsing that never ran. A lat/lon question arrived as location="" and my miner answered "no location provided".
->
-> Scored 0.0.
->
-> Fixing these took me from #3 to #1 in three intents in three epochs.
->
-> explorer.telegraphprotocol.com/miners/livecert
+> Write to the budget.
 
 ---
 
-**Before posting**
+### Aug 29
 
-- `@Telegraphprotoc` is in **post 1** — rule 03 requires update posts to be tagged, and post 1 is
-  the one that has to carry the score on its own.
-- Re-count if you edit. A post that runs long gets cut, and the cut lands on your last line.
-- Check the explorer link renders a preview card before you commit to it.
-- No hashtag spam. `#hackathon #tech #trending` on the Aug 27 post did not help — 71 impressions
-  was the worst of the three.
-- Do **not** claim IP_GEOLOCATION is prize-eligible. It has 2 miners and needs 3. If asked, say so
-  plainly — that honesty is itself the recruiting pitch in
-  [ELIGIBILITY.md](../track1-miner/docs/ELIGIBILITY.md).
+**P3 — the two rules that cost real score** (280)
 
-## 5. Amplification — where the impressions actually come from
+> Two @Telegraphprotoc rules I learned the expensive way:
+>
+> · The engine only sends the params you declare in input_schema — never the raw question, unless you declare q or query.
+>
+> · A non-2xx is a guaranteed 0. The engine stores an empty answer and the scorer never reads your body.
 
-A cold account posting into its own timeline gets ~80 impressions. The three levers that change
-that, in order of effect:
+**P4 — the registration edge case** (271)
 
-1. **Reply under Telegraph's own posts** with the finding, then link the thread. Their audience is
-   the audience. One useful reply under a busy post beats five original posts.
-2. **Reply to other entrants' miner posts** where the finding applies — anyone showing a
-   multi-intent YAML, anyone debugging a zero score. Genuinely helpful, genuinely on-topic.
-3. **Post it in the hackathon Discord** with the X link, framed as the finding, not as a request
-   for likes. People who found it useful share it.
+> A @Telegraphprotoc registration edge case, in case it saves you an hour:
+>
+> I put twitter: "@handle" in my miner YAML. Valid YAML.
+>
+> The console re-serialises before validating and drops the quotes. @ can't start a plain scalar, so its own parser rejected the file it wrote.
 
-Then **stay in the replies for the first two hours.** Reply engagement is engagement, and threads
-die when the author leaves.
+---
 
-**Do not** buy engagement, run reciprocal like-for-like, or ask for boosts. Our own red lines cover
-this and it is detectable.
+### Aug 30
 
-## 6. Two things to clarify with the organizers
+**P5 — the journey, with numbers** (239)
 
-1. **The scoring question in §1** — single best post or aggregate.
-2. Plex's last line was *"add the pc portal with your main account to boost profile."* I don't know
-   what "pc portal" refers to and I'm not going to guess at something that touches account setup.
-   Ask them to spell it out. If it is an official campaign or leaderboard portal, being on it is
-   probably free reach and worth doing.
+> @Telegraphprotoc miner progress, epoch 284 → 288:
+>
+> SSL_VERIFICATION #3 → #1
+> STORM_ALERT #3 → #1
+> IP_GEOLOCATION → #1
+>
+> No clever idea behind it. I replayed the real scored questions offline and fixed whatever each answer had left unanswered.
 
-## 7. The other drafts
+**P6 — an edge case worth the reply thread** (271)
 
-[X_POSTS.md](X_POSTS.md) holds the remaining drafts, each a real gotcha. They are worth posting —
-every one is another chance to be the top post, and they cost little. But they add nothing on their
-own, so post them only after the flagship is out and amplified. Nothing about §3's hold list
-changes: the offline scorer and the converter budget wait until Sept 1 either way.
+> Replayed 21 real @Telegraphprotoc ACADEMIC_SEARCH questions against the live scorer.
+>
+> My parser was answering "no topic supplied" on 2 of the 4 newest — a date clause mid-sentence was deleting the subject.
+>
+> Fixed, now 19/21 beat the field's best. Replay your own answers.
+
+---
+
+### Aug 31
+
+**P7 — Track 2** (265)
+
+> Track 2 on @Telegraphprotoc: wrote a scoring module for TEXT_AUTHENTICITY_CHECK.
+>
+> On my corpus it separates good answers from bad at margin 0.9634 and 144/144 wins, against the live champion's 0.0915 and 104/144.
+>
+> Writing the judge is harder than writing the miner.
+
+**P8 — the Track 2 learning** (276)
+
+> Learned the hard way on @Telegraphprotoc Track 2: a scorer that separates answers better can still be rejected.
+>
+> Promotion also checks agreement with how miners are already ranked. You can beat the champion on margin and still fail the correlation gate.
+>
+> Two targets, not one.
+
+---
+
+### Track 3 window — keep going
+
+**P9 — what measurement killed** (272)
+
+> Four @Telegraphprotoc scoring beliefs that measurement killed:
+>
+> · terse beats verbose — wrong
+> · label_field drives the score — wrong
+> · there's a response size limit — wrong
+> · hand-written test answers are valid — wrong, they leak the ground truth
+>
+> Measure, don't theorise.
+
+**P10 — honesty as content** (260)
+
+> Odd one from @Telegraphprotoc: my miner reported api.shopify.com's cert as Google Trust Services, expiring Oct 2026. The ground truth said DigiCert, valid to 2028.
+>
+> The host actually serves GTS. We're right; the ground truth is stale.
+>
+> Kept the correct answer.
+
+---
+
+## 5. How to post them
+
+- **Tag `@Telegraphprotoc` in every one.** Rule 03 requires it, and an untagged post may not be
+  counted at all.
+- **Re-count characters if you edit.** X truncates, and the cut lands on your last line.
+- **Stay in the replies for the first two hours.** Comments are explicitly listed as scored, and
+  threads die when the author leaves.
+- **Reply under Telegraph's own posts and other entrants' miner posts** where a finding applies.
+  That is where the reach comes from — a cold account posting into its own timeline gets ~80
+  impressions.
+- **No hashtag spam.** `#hackathon #tech #trending` on the Aug 27 post did not help — 71
+  impressions, the worst of the three.
+- **Do not buy engagement or arrange reciprocal likes.** Rule 04 makes artificial inflation
+  disqualifying, and "keep them genuine" was said explicitly.
+- **Do not claim IP_GEOLOCATION is prize-eligible.** It has 2 miners and needs 3. If asked, say so
+  plainly — see [ELIGIBILITY.md](../track1-miner/docs/ELIGIBILITY.md).
+
+## 6. Still unanswered
+
+Track 3 has not opened, so no intent can have its 100 real Track 3 requests before the Aug 31
+close. Whether that guardrail is waived, measured later, or binding is still unknown, and it
+decides whether rank 1 converts into anything. Worth asking the same officials who clarified the X
+scoring.

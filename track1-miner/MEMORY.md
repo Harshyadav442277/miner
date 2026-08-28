@@ -24,12 +24,20 @@ This is a code-only repair: do not re-sign `miner.yaml`.
 A later pre-deploy retry passed after MyMemory's quota recovered. That proves the incident is
 intermittent; it does not mean the local fallback has reached production.
 
-**1. X — 25% of the score, and it is the largest unclaimed block on the board.** **Confirmed by
-the organizers: the term is scored on the single highest-engagement post, not the sum, and scoring
-is automated.** So post 1 of a thread is the scored unit — it must be a complete finding, not a
-hook — and every reply, share and link should drive that one post rather than being spread across
-several. Extra posts are lottery tickets, not additive score. Ready-to-post thread, every post
-verified under X's 280-character limit:
+**1. X — 25% of the score, and it is the largest unclaimed block on the board.** **Clarified by
+the organizers 2026-08-28:** there is no fixed formula. They weigh *"quality, consistency, reach,
+likes, reposts, comments and meaningful engagement"*, they want posts about **both Track 1 and
+Track 2** — experiments, results, improvements, journey, learnings, edge cases — and they want
+them genuine: *"we mainly want to see the actual work and progress."*
+
+**This retracted two earlier plans.** An earlier Discord message said only the single
+highest-engagement post counted; that was wrong, and the one-flagship plan built on it is
+withdrawn — **consistency is scored, so a steady series wins.** It also reversed the decision to
+hold the offline-scorer and converter-budget findings until Sept 1: judging rewards showing real
+work, and those endpoints are public and already described in our own public README.
+
+Ten posts, each verified under X's 280-character limit and tagged, scheduled roughly two a day
+through Aug 31 and continuing into the Track 3 window:
 **[../docs/X_FLAGSHIP.md](../docs/X_FLAGSHIP.md)**. Best post so far is 188 impressions.
 
 **2. One question left for the organizers**, and it decides where the remaining effort goes:
