@@ -122,6 +122,20 @@ function upstreamUnavailable(res: ServerResponse, what: string, subject: string)
  * "no location was provided". Accepting the pair costs nothing and is ready for
  * the schema change.
  */
+/**
+ * The forecast window the request asked for, as "48-hour", or "" if none was
+ * given. Used when we cannot answer: the engine fills only the parameters it
+ * chooses, and when it sends a window but no location that window is the only
+ * piece of the question we have to echo back.
+ */
+function requestedWindow(url: URL): string {
+  const hours = Number(firstValue(url, "hours", "forecast_hours"));
+  if (Number.isFinite(hours) && hours > 0) return `${Math.floor(hours)}-hour`;
+  const days = Number(firstValue(url, "days", "forecast_days"));
+  if (Number.isFinite(days) && days > 0) return `${Math.floor(days) * 24}-hour`;
+  return "";
+}
+
 function coordsFromParams(url: URL): string {
   const lat = firstValue(url, "latitude", "lat");
   const lon = firstValue(url, "longitude", "lon", "lng");
@@ -178,14 +192,22 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
       firstValue(url, "query", "q", "question", "text", "input", "location", "place", "city") ||
       coordsFromParams(url);
     if (!q.trim()) {
+      // The engine sometimes fills `location` with an empty string and sends no
+      // coordinates and no question — that is what happened in epoch 288, on a
+      // question that named latitude 37.7749 and longitude -122.4194. We cannot
+      // invent a location, but we can answer with the part of the request we did
+      // receive: naming the window it asked for is the question's own vocabulary,
+      // and throwing it away was leaving the only available overlap on the table.
+      const w = requestedWindow(url);
       send(res, 200, {
         location: null,
         verdict: "unknown",
         confidence: 0,
         reason:
-          "No location was supplied with this request, so a weather forecast could not be produced. " +
-          "Supply a place name such as London, or a latitude and longitude, and the hourly temperature, " +
-          "precipitation and wind forecast can be returned.",
+          `A${w ? ` ${w}` : ""} hourly weather forecast could not be produced because no location was ` +
+          "supplied with this request. Supply a place name such as London, or a latitude and longitude, " +
+          `and the hourly temperature in Celsius, precipitation probability and wind speed${w ? ` over the next ${w.replace("-hour", " hours")}` : ""} ` +
+          "can be returned.",
         error: "invalid_location",
       });
       return;
@@ -252,7 +274,8 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
         confidence: 0,
         risk_score: 0,
         reason:
-          "No location was supplied with this request, so storm risk could not be assessed. " +
+          `Storm risk${requestedWindow(url) ? ` over the next ${requestedWindow(url).replace("-hour", " hours")}` : ""} ` +
+          "could not be assessed because no location was supplied with this request. " +
           "Supply a place name such as Chennai, or a latitude and longitude, and the wind speed, " +
           "gusts, precipitation and an overall risk between 0 and 1 can be returned.",
         error: "invalid_location",
