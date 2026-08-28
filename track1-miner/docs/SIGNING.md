@@ -8,9 +8,30 @@ staged and verified; the last two steps are yours.
 ## 1. What you are signing, in one line
 
 The same miner that is #1 in three intents, plus **`LANGUAGE_TRANSLATION`** and
-**`ACADEMIC_SEARCH`** — two intents whose current miners score at or near zero.
+**`ACADEMIC_SEARCH`**.
 
 File: [`track1-miner/miner.yaml`](../miner.yaml)
+
+**Checked again on 2026-08-28, epoch 288 — every incumbent in both intents scored zero:**
+
+```
+LANGUAGE_TRANSLATION   test-mymemory-translate  0.0      mymemory-translate  0.0
+ACADEMIC_SEARCH        openalex                 0.0      semanticscholar     0.0
+```
+
+Any non-zero answer takes rank 1 in both. Our deployed `/translate` and `/papers` were verified
+returning real data this session.
+
+**There is a second benefit I understated earlier.** Both intents currently have **2 miners**, and
+the guardrail needs 3. Registering makes each of them a 3-miner intent — so signing does not just
+add two likely rank-1 positions, it clears the miner-count half of the eligibility guardrail for
+both, without needing anyone else's cooperation. That is the opposite of `IP_GEOLOCATION`, which
+stays stuck at 2 unless an outside party registers.
+
+After signing we would clear the miner-count half in **five** intents (SSL 4, Storm 5, Weather 11,
+Translation 3, Academic 3) instead of three. Rule 05 awards prizes on *"the highest overall
+normalized scores across all intents"*, so breadth compounds — and the best miner in each intent
+takes full points for that intent.
 
 ## 2. What changed against the registration that is live and working
 
@@ -76,6 +97,13 @@ The real post-registration check is in §5 — fetch the pinned content and read
 - Registration 236 → `activation_status: active`, unchanged and untouched.
 - `/translate` and `/papers` verified live this session, returning real data.
 - YAML parses, and the semantic diff in §2 is the whole diff.
+
+**One gate I could not close for you.** I probed for a wallet-free validation endpoint so the
+sandbox check could run before you touch the console. There is none — `/api/miners/validate` just
+matches the `/api/miners/:id` route, and the reference registration script confirms the node only
+schema-validates *after* registration, at the next epoch boundary. So the console's Validate button
+is the only pre-flight that exists, and it sits behind wallet connect. That step is genuinely
+yours; everything ahead of it is done.
 
 **Not gated, and you should know it:** the pretune numbers that justified these two intents
 (translation 0.614, academic 0.0295) were measured against our endpoint's raw `reason` string,
