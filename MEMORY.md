@@ -14,7 +14,7 @@ sessions and between models.
 | **Track 3 — app** | [track3-certwatch/](track3-certwatch/), plus G17/G18 in [GAPS.md](GAPS.md) |
 | Anything | [README.md](README.md) for ownership and shared facts, [docs/](docs/) for protocol and rules |
 
-## State at 2026-08-28 end of session
+## State at 2026-08-29
 
 **Track 1 is live and winning.** Registration **260**, `active`, six intents, `livecert`,
 `https://miner-wine.vercel.app`. Epoch 289:
@@ -28,15 +28,29 @@ STORM_ALERT           #2   0.00405170    gap 0.00023
 WEATHER_FORECAST      #3   0.00976552    gap 0.00027
 ```
 
-**Rank 1 in four of six.** 123 tests green, deploy gate green, watcher green.
+**Rank 1 in four of six.** Re-verified live 2026-08-29: registration `active` with
+`rejection_reason: null`, all six endpoints 200 (0.33–1.28s), **123/123 tests**, `verify-deploy`
+**exit 0** (median 372ms, p95 1172ms), epoch 289 still the network's latest and only 5.8h old.
+Nothing is broken.
 
-### The three things that need a human, in order
+**Two watch items found in that pass**, both recorded rather than fixed: the branch has diverged
+(G20, above), and the uptime alarm is weaker than it reads — the cron is honoured at **9–13 hour**
+gaps, not hourly, and only 1 of its 3 jobs opens an issue, so the tripwire G19 leans on has never
+once been observed to fire (**GAPS G21**, TASKS T4.8).
 
-1. **Post the X series.** 25% of the Track 1 score and the largest unclaimed block. Thirteen posts,
+### The four things that need a human, in order
+
+1. **Reconcile the diverged branch.** New 2026-08-29, and it blocks every other commit. The
+   `scores` CI job pushes to `main` by itself; a local session recorded the same epoch 289 by
+   hand. `main` is **local 8 ahead / remote 1 ahead**, both appending to the end of
+   `track1-miner/docs/score-history.jsonl`. Rebase, keep both epoch-289 lines, push — **never
+   force-push**, the API only exposes the latest epoch. Until then eight commits of session work
+   live only on the operator's laptop, the machine G19 is about. (GAPS G20, TASKS T4.7)
+2. **Post the X series.** 25% of the Track 1 score and the largest unclaimed block. Thirteen posts,
    each verified under 280 characters and tagged, covering both tracks:
-   **[docs/X_POSTS.md](docs/X_POSTS.md)**. Best post to date is 188 impressions.
-2. **Register Track 2's scorer.** One wallet signature; see [track2/REGISTRATION.md](track2/REGISTRATION.md).
-3. **Ask the organizers one question** — Track 3 has not opened, so no intent can have its 100 real
+   **[docs/X_POSTS.md](docs/X_POSTS.md)**. Best post to date is 188 impressions. Close is Aug 31.
+3. **Register Track 2's scorer.** One wallet signature; see [track2/REGISTRATION.md](track2/REGISTRATION.md).
+4. **Ask the organizers one question** — Track 3 has not opened, so no intent can have its 100 real
    Track 3 requests before the Aug 31 close. Is that guardrail waived, measured later, or binding?
    It decides whether rank 1 converts into anything. Still unanswered.
 
@@ -45,7 +59,8 @@ WEATHER_FORECAST      #3   0.00976552    gap 0.00027
 - **[GAPS.md](GAPS.md) G19 — the miner wallet's seed phrase is compromised.** The operator ran a
   wallet-stealer from a Discord scam on 2026-08-28. The risk was assessed and **accepted**, not
   mitigated. If the miner is ever found deregistered, that is the likely cause. Nothing else on the
-  machine was touched and no tokens needed rotating.
+  machine was touched and no tokens needed rotating. **Its tripwire is weaker than G19 assumes** —
+  see G21: 9–13h detection gaps and only one of three jobs alerts at all.
 - **[track1-miner/MEMORY.md](track1-miner/MEMORY.md) §5-§7** — the rules that survived measurement
   and the theories that did not. Six scoring theories have now been disproven in this repo. Do not
   re-derive them; every one cost real time.
@@ -56,9 +71,12 @@ WEATHER_FORECAST      #3   0.00976552    gap 0.00027
 
 ### Eligibility is still the binding constraint
 
-Five of six intents now clear the 3-miner half; `IP_GEOLOCATION` has 2 and needs an outside party.
-**No intent has any Track 3 requests**, because Track 3 has not opened. Rank 1 in an ineligible
-intent wins nothing → [track1-miner/docs/ELIGIBILITY.md](track1-miner/docs/ELIGIBILITY.md).
+Five of six intents now clear the 3-miner half; `IP_GEOLOCATION` has **exactly 2** (`livecert`,
+`iplocate`) and needs an outside party — so our rank 1 there is worth nothing on its own terms.
+**No intent has its 100 Track 3 requests**, because Track 3 has not opened: measured 2026-08-29,
+`total_requests_served` is **42** for the whole miner across all six intents, against a floor of
+**100 per intent**. Rank 1 in an ineligible intent wins nothing →
+[track1-miner/docs/ELIGIBILITY.md](track1-miner/docs/ELIGIBILITY.md).
 
 ---
 

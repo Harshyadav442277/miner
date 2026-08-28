@@ -89,6 +89,19 @@ position, so every day of delay shortens the record we are judged on.
 - [x] **T4.4** Ranked and tracked each epoch → `track1-miner/docs/score-history.jsonl`, appended by
       `tools/record-scores.mjs`. **Rank 1 in SSL_VERIFICATION, STORM_ALERT and IP_GEOLOCATION for
       epochs 286, 287 and 288.** (S3, S4)
+- [ ] **T4.7** **Reconcile the diverged branch before anything else touches git.** The `scores` CI
+      job pushed epoch 289 at 16:41Z while a local commit recorded the same epoch at 13:15Z, so
+      `main` is **local 8 ahead / remote 1 ahead**, both appending to the end of
+      `track1-miner/docs/score-history.jsonl`. Rebase onto `origin/main`, keep **both** epoch-289
+      lines in timestamp order, push. **Do not force-push** — that deletes the runner's record, and
+      the API only exposes the latest epoch, so it cannot be recovered. Then decide who owns that
+      file so this cannot recur. (G20)
+- [ ] **T4.8** **Make the uptime alarm cover every job, and prove it fires once.** Only `check`
+      opens an issue; `live-tests` failed on 2026-08-27 and alerted nobody, and the repo has never
+      had a single issue created. Move the step to a `needs: [check, live-tests, scores]` job with
+      `if: failure()`, and trigger it deliberately to watch it work. Also correct the workflow's
+      cadence comment: it claims "two to three hours", the measured gaps are 9h and 13h. This is
+      the tripwire G19 relies on, so it is worth more than a green tick. (G21)
 
 ## Phase 4b — Track 3 application (Aug 31 – Sep 7)
 
@@ -119,8 +132,13 @@ Track 3 requests or it wins nothing regardless of rank. A genuine app that consu
 - [ ] **T5.2** **Post the series** → [docs/X_POSTS.md](docs/X_POSTS.md). Thirteen posts, each
       verified under 280 characters and tagged, roughly two a day through Aug 31 and continuing
       through Track 3. Covers both tracks. *Blocked on the operator.*
-- [x] **T5.2b** Confirmed by the organizers: the X term is scored on the **single
-      highest-engagement post**, not the sum, and scoring is automated.
+- [x] **T5.2b** ~~Confirmed by the organizers: the X term is scored on the single
+      highest-engagement post, not the sum, and scoring is automated.~~ **Retracted 2026-08-28 —
+      this was wrong and it changed the plan.** The organizers later stated there is **no fixed
+      formula**: they weigh *"quality, consistency, reach, likes, reposts, comments and meaningful
+      engagement"*, they want both tracks covered, and they want the real work shown. **Consistency
+      is scored, so a steady series beats one flagship post.** The one-flagship plan built on the
+      earlier message is withdrawn; `docs/X_POSTS.md` is the current series.
 - [x] **T5.3** README written with an honest Assumptions & Limitations section sourced from GAPS.md.
 - [x] **T5.3b** [docs/SUBMISSION_CHECKLIST.md](docs/SUBMISSION_CHECKLIST.md) — every item to close,
       in dependency order, with who owns each.
@@ -139,21 +157,42 @@ Track 3 requests or it wins nothing regardless of rank. A genuine app that consu
 
 ---
 
-## Where this stands — 2026-08-28
+## Where this stands — 2026-08-29
+
+**Re-verified live this session** (UTC 2026-08-28T18:4xZ): registration **260** `active`,
+`rejection_reason: null`, `fetch_attempts: 0`, `retrying: false`; all six endpoints 200 in
+0.33–1.28s; **123/123 tests pass**; `verify-deploy.mjs` **exit 0** against production (median
+372ms, p95 1172ms). Epoch 289 is still the network's latest — 5.8h old against a ~9h epoch, so
+scoring is on schedule, not stalled.
 
 **Rank 1 in four of six intents** (epoch 289): SSL_VERIFICATION, IP_GEOLOCATION,
-LANGUAGE_TRANSLATION, ACADEMIC_SEARCH. Storm #2 by 0.00023, Weather #3 by 0.00027.
+LANGUAGE_TRANSLATION, ACADEMIC_SEARCH. Storm #2 by 0.00023, Weather #3 by 0.00027 — and the
+WEATHER_FORECAST field has grown to **12** miners.
 
 **Open, in priority order:**
 
-1. **T5.2 — post the X series.** 25% of the score, currently near zero. Operator only.
-2. **Track 2 registration** — one signature, see `track2/REGISTRATION.md`. Operator only.
-3. **The eligibility question** — Track 3 has not opened, so the 100-request half is zero
-   everywhere. Ask the organizers whether it is waived, deferred or binding.
-4. **T4b.3/T4b.4 — CertWatch.** Durable history is fixed (G18) but no sweep has yet written a
-   record through the real path, and it has no outside users. Do not fund before that is proven.
-5. **A third IP_GEOLOCATION miner** must come from an independent party, or that intent stays
-   ineligible. `track1-miner/docs/ELIGIBILITY.md` has a working keyless YAML to hand out.
+1. **T4.7 — reconcile the diverged branch.** Mechanical, and it blocks every other commit. Eight
+   commits of session work are currently only on the operator's laptop, which is the machine whose
+   wallet seed is compromised (G19). (G20)
+2. **T5.2 — post the X series.** 25% of the score, still near zero, and the close is **Aug 31**.
+   Largest controllable block on the board. Operator only.
+3. **Track 2 registration** — one signature, see `track2/REGISTRATION.md`. Operator only.
+4. **The eligibility question** — measured again 2026-08-29 and it is not improving:
+   `total_requests_served` is **42** across all six intents combined, against a floor of **100 per
+   intent**, with Track 3 not yet open. Ask the organizers whether that half is waived, deferred or
+   binding. It decides whether any of the rank 1s convert. (G13)
+5. **T4.8 — the uptime alarm only covers one of three jobs** and has never once been observed to
+   fire. It is what G19 leans on. (G21)
+6. **T4b.3/T4b.4 — CertWatch.** Durable history is fixed and the raw history URL now resolves
+   (200), but no sweep has written a record through the real path and it has no outside users.
+   Do not fund before that is proven.
+7. **A third IP_GEOLOCATION miner** must come from an independent party — the intent has exactly
+   **2** (`livecert`, `iplocate`) and so fails the miner-count half outright, which makes our rank 1
+   there worth nothing on its own. `track1-miner/docs/ELIGIBILITY.md` has a keyless YAML to hand out.
+
+**Watch item, not yet a task:** the uncommitted `.github/workflows/ci.yml` change adds a Track 2
+Rust job to the shared CI, so once pushed it runs on every Track 1 commit too. If that build is
+not reproducible on a runner, Track 1 commits start carrying red checks in a repo the judges read.
 
 **Do not retry:** shortening answers toward the converter's ~32-word budget, reordering `reason`
 to front-load asked-for variables, or any of the six disproven scoring theories in

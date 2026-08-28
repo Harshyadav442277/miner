@@ -3,7 +3,7 @@
 **Read this first. Everything Track 1 needs is in this folder.**
 Shared protocol facts are in `../docs/`. Do not edit `../track2/` or `../track3-certwatch/`.
 
-Last updated: 2026-08-28, after registration 260 and the Track 1 hardening pass.
+Last updated: 2026-08-29, after a full live re-verification of registration 260 and the deploy.
 
 ---
 
@@ -15,14 +15,34 @@ Nothing about the manifest needs the operator any more. See section 2 for the ve
 
 What still needs a human:
 
-**0. Deploy the current Track 1 code and re-run acceptance.** The first post-registration
-acceptance run found `/translate` returning MyMemory `429` from Vercel. A tested provider
-fallback is implemented locally, but production resilience is not closed until this exact code is
-deployed and `node track1-miner/tools/verify-deploy.mjs https://miner-wine.vercel.app` exits 0.
-This is a code-only repair: do not re-sign `miner.yaml`.
+**0. Reconcile the diverged branch — do this before any other git operation.** Found 2026-08-29.
+The `scores` job in `.github/workflows/uptime.yml` records an epoch, commits
+`docs/score-history.jsonl` and **pushes to `main`** on its own. A local session recorded the same
+epoch 289 by hand. Result: **local 8 ahead, remote 1 ahead**, both appending to the end of the
+same file.
 
-A later pre-deploy retry passed after MyMemory's quota recovered. That proves the incident is
-intermittent; it does not mean the local fallback has reached production.
+```
+local  HEAD       21fd328  Record epoch 289 in the score history   (at 13:15Z)
+origin/main       6e09b90  Record epoch scores                     (at 16:41Z, from the runner)
+```
+
+Rebase onto `origin/main`, keep **both** epoch-289 lines in timestamp order — readers take the
+last line per epoch and the score data is identical — then push. **Never force-push here:** the
+API exposes only the latest epoch, so the runner's line cannot be re-derived once discarded.
+Until this is done, eight commits of session work exist only on the operator's laptop, which is
+the machine G19 covers. (GAPS G20, TASKS T4.7)
+
+**0b. The old item 0 — deploy and re-run acceptance — is CLOSED.** Verified 2026-08-29:
+`node track1-miner/tools/verify-deploy.mjs https://miner-wine.vercel.app` exits **0**, all six
+routes 200, median 372ms / p95 1172ms, and `/translate` answered live in 808ms. The MyMemory
+fallback (`fetchChrome` in `src/translate.ts`) landed in **fd9a27d**, which is an ancestor of
+`origin/main`, and Vercel builds `api/index.ts` from source on push — so the fallback is on the
+deployed branch. Note the local `dist/` is a stale untracked build artifact and does **not**
+contain it; do not read production state from `dist/`.
+
+Stated precisely, because this is the kind of claim G18 punished: the fallback **code** is
+deployed and acceptance is green. The fallback **path** has still never been observed firing
+against a real production 429 — MyMemory has been healthy every time it has been checked since.
 
 **1. X — 25% of the score, and it is the largest unclaimed block on the board.** **Clarified by
 the organizers 2026-08-28:** there is no fixed formula. They weigh *"quality, consistency, reach,
@@ -93,6 +113,36 @@ re-serializes everything. That is normal and 236 registered the same way.
 stale, so activation monitoring had been watching a superseded record since before 236. Set to
 **260** on 2026-08-28 (`gh variable set REGISTRATION_ID --body 260`). **Whenever a new registration
 is signed, update that variable in the same session** — nothing in CI catches it being wrong.
+
+### Re-verified live 2026-08-29 (UTC 2026-08-28T18:4xZ)
+
+Everything below was measured this session, not carried forward:
+
+```
+registration 260   active   rejection_reason null   fetch_attempts 0   retrying false
+six endpoints      all 200, 0.33s - 1.28s
+verify-deploy      exit 0   median 372ms   p95 1172ms
+test suite         123/123 pass (offline + live)
+epoch 289          still the network's latest, 5.8h old against a ~9h epoch — on schedule
+total_requests_served  42   (all six intents combined, lifetime)
+
+SSL_VERIFICATION      #1  0.01014868                                   field 4
+IP_GEOLOCATION        #1  0.01000050                                   field 2
+LANGUAGE_TRANSLATION  #1  0.00899709                                   field 3
+ACADEMIC_SEARCH       #1  0.00654745                                   field 3
+STORM_ALERT           #2  0.00405170  gap 0.00022750 amanat-weather-risk   field 5
+WEATHER_FORECAST      #3  0.00976552  gap 0.00026778 onlookout-weather     field 11
+```
+
+`WEATHER_FORECAST`'s field is now **12 active miners** — it was 9 when we entered it. That intent
+carries the network's highest demand and is attracting entrants accordingly; the 0.00027 gap is
+being contested by more people each epoch.
+
+**Monitoring is weaker than it reads.** The uptime cron is honoured far less often than hourly —
+observed gaps of **9h 17m** and **13h 06m** — and only the `check` job opens an issue, so
+`live-tests` and `scores` failures are silent. The repository has never had an issue created, so
+the alarm half of this has never been seen to work. This is the tripwire G19's accepted risk
+depends on. (GAPS G21, TASKS T4.8)
 
 **Weather tuning after epoch 289 — three variants tested, all lost. Nothing was changed.**
 Scored against the WEATHER_FORECAST champion (`wf_mini.wasm`, reg 636) on epoch 289's own question
@@ -466,11 +516,33 @@ Judging                       75% normalized performance + 25% X engagement
 **100+ real requests from Track 3 applications** to be prize-eligible. `SSL_VERIFICATION` had
 **zero** real questions in 72 hours. Rank 1 in a silent intent may win nothing.
 
+**Measured 2026-08-29, and neither half is moving:**
+
+```
+intent                 active miners   3-miner half
+SSL_VERIFICATION             5          OK
+STORM_ALERT                  6          OK
+WEATHER_FORECAST            12          OK
+IP_GEOLOCATION               2          FAILS   livecert + iplocate only
+LANGUAGE_TRANSLATION         3          OK
+ACADEMIC_SEARCH              3          OK
+
+total_requests_served, all six intents combined, lifetime:   42
+```
+
+Two things worth stating plainly. The **42** is the whole miner's lifetime total, while the floor
+is **100 per intent** — so the shortfall is not 58 requests, it is on the order of 600, two days
+before the close, with Track 3 not yet open. And `IP_GEOLOCATION` fails the *miner-count* half
+outright, so a rank 1 there is worth nothing regardless of demand.
+
 Breadth is the hedge. `../track3-certwatch/` is the other half of it and is **not funded** — do not
 fund it until its durable-budget story is closed (see `../GAPS.md` G17/G18).
 
 ## 11. First actions for a fresh session
 
+0. `git fetch origin && git rev-list --left-right --count origin/main...HEAD` — **do this first.**
+   The `scores` CI job pushes to `main` on its own, so the branch can be diverged before you have
+   typed anything. Reconcile by rebase, never by force-push. (G20)
 1. `node tools/record-scores.mjs` — has a new epoch landed? Compare against section 2.
 2. `curl -s https://devnode.telegraphprotocol.com/api/miners/260 | jq .miner.activation_status`
    — still `active`? If a newer registration exists, that id supersedes 260 everywhere.

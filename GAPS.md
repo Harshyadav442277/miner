@@ -87,15 +87,17 @@ Per ARCHITECTURE A9. Cost: our miner **cannot be targeted by ERC-8183 on-chain j
 node has no way to build the call without `on_chain.request`. We serve HTTP and WebSocket traffic
 only. Accepted for H1; this is a real capability we are giving up, not a no-op.
 
-### G10 · Monitoring — `CLOSED`
+### G10 · Monitoring — `CLOSED, with a corrected residual`
 `tools/watch.mjs` polls both our endpoint and `/api/miners/<registrationId>`; exits non-zero on a
-terminal rejection. `.github/workflows/uptime.yml` runs it every 15 minutes from outside our
-machine and opens an issue on failure — the rules require the miner live through Sep 7, and a
-closed laptop is not a monitoring strategy. `tools/verify-deploy.mjs` gates registration on a full
-acceptance pass.
+terminal rejection. `.github/workflows/uptime.yml` runs it from outside our machine and opens an
+issue on failure — the rules require the miner live through Sep 7, and a closed laptop is not a
+monitoring strategy. `tools/verify-deploy.mjs` gates registration on a full acceptance pass and
+was re-run green against production on 2026-08-29 (exit 0, median 372ms, p95 1172ms).
 
-**Residual:** 15-minute polling against a ~20s spot-check cadence means a revocation can still go
-unnoticed for up to 15 minutes. Acceptable, but not instant.
+**Residual — and the earlier number here was wrong.** This entry claimed "15-minute polling …
+unnoticed for up to 15 minutes". The workflow has since been changed to an hourly cron precisely
+because GitHub throttles schedules, and the *observed* cadence is slower still. Measured gaps
+are in **G21**, which supersedes this paragraph.
 
 ## Process risks
 
@@ -137,6 +139,27 @@ applications", which we satisfy literally, but the spirit is real adoption. Gett
 use CertWatch (T4b.4) matters more than running it ourselves. We also still cannot verify the
 current per-intent count — no public counter has been found. This remains the single most likely
 way the project produces excellent work and zero prize.
+
+**Measured again 2026-08-29 — both halves confirmed, neither improving.**
+
+```
+intent                 miners   floor
+SSL_VERIFICATION          5     OK
+STORM_ALERT               6     OK
+WEATHER_FORECAST         12     OK
+IP_GEOLOCATION            2     BELOW 3      livecert + iplocate only
+LANGUAGE_TRANSLATION      3     OK
+ACADEMIC_SEARCH           3     OK
+
+total_requests_served (our registration, all six intents combined): 42
+```
+
+Two things that entry did not previously state plainly. The **42** is the miner's lifetime total
+across *all six* intents, while the floor is **100 per intent** — so the shortfall is not "58 more
+requests", it is roughly 600 across the board, two days before the Aug 31 close, with Track 3 not
+yet open. And `IP_GEOLOCATION` fails the *first* half of the rule as well, so our rank 1 there is
+worth nothing on its own terms regardless of demand. The operator decided on 2026-08-28 not to
+register a second miner from another account; that decision stands and this is its cost, recorded.
 
 ### G15 · We published a wrong competitive claim internally — `CLOSED (retracted)`
 We asserted across three documents and a draft X post that the rank-1 incumbent was beatable
@@ -217,6 +240,52 @@ not keep, and `track3-certwatch/src/server.ts` disables the background sweep loo
 instance never fires an interval. So CertWatch currently has no durable history and no scheduler.
 **Fix:** move state to a real store and drive sweeps from a scheduled GitHub Action hitting the
 authenticated endpoint, rather than an in-process timer.
+
+### G20 · The `scores` CI job and local sessions both commit to `main` — `OPEN, hit once`
+Found 2026-08-29. The `scores` job in `.github/workflows/uptime.yml` runs `record-scores.mjs`,
+commits `track1-miner/docs/score-history.jsonl` and **pushes to `main`**. A local session that
+records the same epoch by hand writes the same file. On 2026-08-29 both happened: the runner
+pushed epoch 289 at 16:41Z, a local commit recorded epoch 289 at 13:15Z, and the branches
+diverged — **local 8 ahead, remote 1 ahead**, with both sides appending a line to the end of the
+same file. The data was identical; only the `at` timestamps differed.
+
+Why it matters more than it looks:
+- The next `git push` is rejected, and the obvious reflex — `--force` — silently deletes the
+  runner's epoch record. The score history is the only durable per-epoch evidence we have, because
+  the API exposes just the latest epoch.
+- Until it is reconciled, eight commits of session work exist **only on the operator's laptop**,
+  and that is the machine whose wallet seed is compromised (G19).
+
+**Resolve:** rebase local onto `origin/main`, keep *both* epoch-289 lines in timestamp order
+(readers take the last line per epoch, and the data agrees), then push. Do not force-push.
+**Prevent:** either stop recording epochs by hand and let CI own that file, or have the job write
+to a per-run file instead of appending to a shared one.
+
+### G21 · The uptime tripwire is slower and narrower than it claims — `OPEN`
+Found 2026-08-29, while checking that G19's accepted risk is actually covered.
+
+**Slower.** `uptime.yml` is an hourly cron and its own comment says the observed cadence is "one
+run every two to three hours". Measured from the run history, the real gaps are worse:
+
+```
+2026-08-27T18:18Z  ->  2026-08-28T03:35Z    9h 17m
+2026-08-28T03:35Z  ->  2026-08-28T16:41Z   13h 06m
+```
+
+So the detection window for a malicious `deregisterMiner` — the specific event G19 accepts the
+risk of — is up to **half a day**, not the "hourly" the file implies. GitHub throttles scheduled
+workflows on free runners and there is no way to buy back that latency with cron syntax alone.
+
+**Narrower.** Only the `check` job has the "Open an issue if the miner is down" step. The
+`live-tests` and `scores` jobs have no alerting path at all: `live-tests` failed on 2026-08-27
+(stale `working-directory: miner`, left behind by the per-track folder split) and produced nothing
+but a red tick. The repository has **never had an issue created, open or closed** — so the alerting
+half of this mechanism has never once been observed to work end to end.
+
+**Resolve:** move the issue-opening step to a `needs: [check, live-tests, scores]` job with
+`if: failure()` so any job alerts; and fire the alert once deliberately to prove the path works,
+rather than trusting it on first use. Correct the cadence comment in the workflow to the measured
+figures. A green tick is not evidence of a working alarm — the same lesson G18 already cost us.
 
 ---
 
