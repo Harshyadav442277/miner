@@ -26,7 +26,7 @@ There is no endpoint scope on a limitation entry.
 
 ```
 local sha256 of the file to upload:
-0x05a504f60fe4b3194fb3f7b8fb8985601a7b9cf163911514c4b9098edecb3b91
+0xe35e3e46b92e611781d5adf18f7ab30d5d0e6d9eb2c61698f0de1f5b1a98a3f5
 ```
 
 **The hash-matching ritual in the old version of this section was wrong.** The console
@@ -37,8 +37,9 @@ verified. The real check is reading back the pinned content after registration. 
 
 **Fixed while preparing the package (2026-08-28):** the pending file was missing the `auth:
 {type: none}` block that the live pinned registration carries. Restored, so the only differences
-from a proven-good registration are the intended ones. Also added `docs.twitter` — flagged in
-SIGNING.md §6 as the one field not yet seen accepted live; the sandbox decides.
+from a proven-good registration are the intended ones. Also tried `docs.twitter` and **the sandbox rejected it** — the
+console strips quotes when it re-serializes, and `@` cannot start an unquoted YAML scalar. Removed.
+Never put a quote-dependent value in this YAML: `@`, backtick, `%`, `&`, `*`, `!`.
 
 **Second thing that needs a human: X.** 25% of the Track 1 score. New information from the
 hackathon Discord — **the X term is scored on your single highest-engagement post, not the sum**

@@ -45,7 +45,6 @@ semantically rather than by line. The complete set of differences:
 | **+2 endpoints** | `/translate`, `/papers` — both already deployed, live and keyless |
 | **+1 input param** | `topic` (what the engine fills for an academic query) |
 | **description** | rewritten to cover six intents instead of three |
-| **+`docs.twitter`** | `"@hyadav42774"` — see §6 |
 
 Everything else is byte-identical in meaning to the working registration: same `id` 4433, same slug
 `livecert`, same `base_url`, same `auth: {type: none}`, same `rate_limit_per_sec: 20`,
@@ -84,7 +83,7 @@ verified. Record it, then stop using it.
 
 ```
 local sha256 of the file to upload:
-0x05a504f60fe4b3194fb3f7b8fb8985601a7b9cf163911514c4b9098edecb3b91
+0xe35e3e46b92e611781d5adf18f7ab30d5d0e6d9eb2c61698f0de1f5b1a98a3f5
 ```
 
 The real post-registration check is in §5 — fetch the pinned content and read what it says.
@@ -128,7 +127,7 @@ Git Bash:
 sha256sum track1-miner/miner.yaml
 ```
 
-Either must print `05a504f60fe4b3194fb3f7b8fb8985601a7b9cf163911514c4b9098edecb3b91`.
+Either must print `e35e3e46b92e611781d5adf18f7ab30d5d0e6d9eb2c61698f0de1f5b1a98a3f5`.
 
 **At the console** — `integrate.telegraphprotocol.com`:
 
@@ -157,16 +156,28 @@ curl -s "<yaml_url from above>" | grep -A2 "supported_intents" && \
 curl -s "<yaml_url from above>" | grep -c "limitations"   # must be 0
 ```
 
-## 6. One judgement call, flag it if you disagree
+## 6. The twitter field — tried, rejected by the sandbox, removed
 
-I added `docs.twitter: "@hyadav42774"` to the YAML. Reasons: the field is in Telegraph's own
-annotated reference file; the miner catalog shows `docs` links to agents and people browsing it;
-X engagement is 25% of the score and the organizers told you to link your account; and this is the
-only public link between the miner and your handle. It changes no behaviour.
+I added `docs.twitter: "@hyadav42774"` on the theory that the miner catalog is the only public link
+between the miner and the X account. **The sandbox rejected it on 2026-08-28:**
 
-The cost is that it is the one field here I have not seen a live registration accept. **The sandbox
-in step 4 will tell us** — if validation complains about it, delete those two lines, re-run
-the hash command, and upload again. That is the whole downside.
+```
+VALIDATION FAILED
+· parse YAML: yaml: line 14: found character that cannot start any token
+```
+
+Our file had it correctly quoted, which is valid YAML. The console's own preview showed it
+re-serialized as `twitter: @hyadav42774` — **quotes stripped**. `@` is a reserved indicator in YAML
+and cannot start a plain scalar, so the console produced a file its own parser then refused. Line
+14 matches: in the console's serialization, `docs:` → `repository:` → `twitter:` lands there.
+
+Field removed. Nothing was wrong with the miner, and no transaction was sent — this is exactly what
+the sandbox gate is for.
+
+**The general lesson, worth keeping:** the console re-serializes before validating and pinning, and
+its serializer does not preserve quoting. So **never put a value in this YAML that depends on being
+quoted to parse** — anything starting with `@`, a backtick, `%`, `&`, `*`, or `!`. Write values that
+are valid unquoted, or leave them out.
 
 ## 7. If it is rejected
 

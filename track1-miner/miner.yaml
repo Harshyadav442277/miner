@@ -239,7 +239,6 @@ output_schema:
 
 docs:
   repository: https://github.com/Harshyadav442277/miner
-  twitter: "@hyadav42774"
 
 # Explicit, and matching the pinned YAML of registration 236, which is the only
 # configuration this miner has ever been accepted under. No API key exists
