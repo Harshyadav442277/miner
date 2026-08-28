@@ -68,90 +68,98 @@ piece of content — so it becomes the flagship for the Track 3 window and the f
 
 Everything below is measured and true. Do not post a number that has not happened.
 
-## 4. The flagship — post this one, then push it
+## 4. The flagship — 280 characters per post, and post 1 has to stand alone
 
-A thread. The hook is a near-miss, which travels; the payoff is a rule nobody has read.
+**Every post below is under X's 280-character limit** (counts noted). The earlier drafts ran to
+412 characters and would have been rejected or silently truncated. If the account has Premium the
+limit is 25,000, but do not rely on it — long posts collapse behind "show more", which costs the
+scroll-stopping first line.
 
-> **1/**
-> I almost shipped a one-line @Telegraphprotoc config change that would have throttled my entire
-> miner to 5 requests per 30 seconds.
->
-> Not one endpoint. All of them. Including three I'm currently ranked #1 in.
->
-> The docs say why, and I think most multi-intent miners have this wrong 👇
+**The consequence of §1 that matters most:** if the X term is scored on the single
+highest-engagement *post*, a thread does not pool its engagement — impressions decay steeply after
+post 1, so **post 1 is effectively the scored unit.** That changes the shape: post 1 must be a
+complete, quotable finding that works with nothing after it. The rest is supporting evidence for
+people who want it, and it is what makes replies happen.
 
-> **2/**
-> I added a CVE endpoint. Its upstream (NIST NVD) allows 5 requests per 30s unauthenticated, so I
-> declared that honestly in the YAML:
+So: write post 1 as if it were the only post. Post it. Then reply to yourself with 1–6.
+
+---
+
+**POST 1 — standalone. This is the one being scored.** (279 chars)
+
+> Declaring your upstream's rate limit in a @Telegraphprotoc miner YAML throttles your ENTIRE miner — not just that endpoint.
 >
-> ```yaml
+> I nearly shipped a 5-per-30s quota across 3 intents I'm #1 in.
+>
+> The docs: "Counts are node-wide per miner."
+>
+> There is no endpoint scope on a limitation. 🧵
+
+**1/** (216 chars)
+
+> I added a CVE endpoint. Its upstream (NIST NVD) allows 5 requests per 30s, so I declared that honestly:
+>
 > limitations:
->   - property: rate
->     value_num: 5
->     window_seconds: 30
-> ```
+>  - property: rate
+>    value_num: 5
+>    window_seconds: 30
 >
 > Looks like good citizenship. It isn't.
 
-> **3/**
-> There is no endpoint scope on a `limitations` entry. The fields are `code`, `message`, `param`,
-> `property`, `value_bytes`, `value_num`, `operator`, `window_seconds`.
->
-> Note what's missing: anything that says *which endpoint*.
->
-> Straight from the YAML config docs:
->
-> "Counts are **node-wide per miner**, not per caller: the node holds one upstream account for you,
-> so all traffic draws on the same allowance."
+**2/** (257 chars)
 
-> **4/**
-> So a quota that belongs to one upstream becomes the ceiling for every intent you serve.
+> A limitation entry's fields are: code, message, param, property, value_bytes, value_num, operator, window_seconds.
 >
-> I'd have taken SSL_VERIFICATION, STORM_ALERT and IP_GEOLOCATION — all three of them #1 — down to
-> 0.167 requests/second, in the same week I need demand to prove eligibility.
+> Note what's missing — anything naming an endpoint.
+>
+> So the quota belongs to one upstream, but the ceiling applies to everything you serve.
+
+**3/** (235 chars)
+
+> That would have taken SSL_VERIFICATION, STORM_ALERT and IP_GEOLOCATION — all three of them #1 — down to 0.167 requests/second.
+>
+> In the same week I need demand to prove eligibility.
 >
 > Caught it in review. Dropped the endpoint instead.
 
-> **5/**
-> The part nobody seems to know: **declaring nothing doesn't mean unlimited.**
->
-> "A miner that declares no rate limit still gets one. The node applies a default backstop of 600
-> calls/minute per miner."
->
-> Operator-tunable via `MINER_DEFAULT_RATE_PER_MIN`. `0` disables it.
+**4/** (253 chars)
 
-> **6/**
-> Two rules I'd give any @Telegraphprotoc miner:
+> The part nobody seems to know: declaring nothing doesn't mean unlimited.
 >
-> · Declare a rate limit only if you're willing to apply it to your whole miner. Otherwise isolate
->   that upstream in a separate registration.
-> · Never return a non-2xx. The engine records `upstream error`, stores an empty answer, and the
->   scorer never reads your body. A 400 is a guaranteed 0 — however well-shaped your error JSON is.
+> "A miner that declares no rate limit still gets one. The node applies a default backstop of 600 calls/minute per miner."
+>
+> Tunable via MINER_DEFAULT_RATE_PER_MIN. 0 disables it.
 
-> **7/**
-> Third one, which cost me a scored question: **the engine only sends the parameters you declare in
-> `input_schema`.** Never the raw question, unless you declare `q` or `query`.
->
-> I built coordinate parsing that never ran. A lat/lon question arrived as `location=""` and my
-> miner answered "no location provided". Scored 0.0.
+**5/** (277 chars)
 
-> **8/**
-> Fixing those took me from #3/#3 to #1 in three intents in three scoring epochs.
+> Two more that cost me real score:
 >
-> Currently #1 in SSL_VERIFICATION, STORM_ALERT and IP_GEOLOCATION as `livecert`.
+> · Never return a non-2xx. The engine stores an empty answer and the scorer never reads your body. A 400 is a guaranteed 0.
+>
+> · The engine only sends params you declare in input_schema — never the raw question, unless you declare q or query.
+
+**6/** (264 chars)
+
+> I built coordinate parsing that never ran. A lat/lon question arrived as location="" and my miner answered "no location provided".
+>
+> Scored 0.0.
+>
+> Fixing these took me from #3 to #1 in three intents in three epochs.
 >
 > explorer.telegraphprotocol.com/miners/livecert
->
-> Everything above is reproducible from the public feeds. Ask me anything — I'll answer.
 
-**Post-time checklist**
+---
 
-- Tag `@Telegraphprotoc` in tweet 1 (it is what makes it countable) and once more in the last.
-- Verify the explorer link renders before posting.
-- No hashtag spam. `#hackathon #tech #trending` on the Aug 27 post did not help it — 71 impressions
+**Before posting**
+
+- `@Telegraphprotoc` is in **post 1** — rule 03 requires update posts to be tagged, and post 1 is
+  the one that has to carry the score on its own.
+- Re-count if you edit. A post that runs long gets cut, and the cut lands on your last line.
+- Check the explorer link renders a preview card before you commit to it.
+- No hashtag spam. `#hackathon #tech #trending` on the Aug 27 post did not help — 71 impressions
   was the worst of the three.
-- Do **not** claim IP_GEOLOCATION is prize-eligible. It has 2 miners and needs 3. If someone asks,
-  say so plainly — that honesty is itself a recruiting pitch for
+- Do **not** claim IP_GEOLOCATION is prize-eligible. It has 2 miners and needs 3. If asked, say so
+  plainly — that honesty is itself the recruiting pitch in
   [ELIGIBILITY.md](../track1-miner/docs/ELIGIBILITY.md).
 
 ## 5. Amplification — where the impressions actually come from
