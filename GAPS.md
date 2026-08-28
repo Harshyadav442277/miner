@@ -209,7 +209,7 @@ is staged as `A`, where before the same `git add` was a no-op.
 
 **Still open, and it is the part that matters:** no sweep has yet written a record through the real
 path, because `EVM_PRIVATE_KEY` is unset and CertWatch has no outside users. The mechanism is
-proven; the demand is not. See `track1-miner/docs/ELIGIBILITY.md` §5.
+proven; the demand is not. See `track1-miner/docs/ELIGIBILITY.md` §4.
 
 ### ~~G18 (original)~~
 Also from the Codex review. `track3-certwatch/src/store.ts` writes to `/tmp`, which a serverless instance does
