@@ -116,10 +116,19 @@ even a heavily discounted answer wins. That is why this is still worth signing.
 
 **Before:** confirm the file you are about to upload is the verified one.
 
+PowerShell (this repo's normal shell — there is no `sha256sum` on Windows):
+
+```powershell
+(Get-FileHash track1-miner/miner.yaml -Algorithm SHA256).Hash.ToLower()
+```
+
+Git Bash:
+
 ```bash
 sha256sum track1-miner/miner.yaml
-# must be 05a504f60fe4b3194fb3f7b8fb8985601a7b9cf163911514c4b9098edecb3b91
 ```
+
+Either must print `05a504f60fe4b3194fb3f7b8fb8985601a7b9cf163911514c4b9098edecb3b91`.
 
 **At the console** — `integrate.telegraphprotocol.com`:
 
@@ -157,7 +166,7 @@ only public link between the miner and your handle. It changes no behaviour.
 
 The cost is that it is the one field here I have not seen a live registration accept. **The sandbox
 in step 4 will tell us** — if validation complains about it, delete those two lines, re-run
-`sha256sum`, and upload again. That is the whole downside.
+the hash command, and upload again. That is the whole downside.
 
 ## 7. If it is rejected
 

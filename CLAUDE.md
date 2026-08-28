@@ -54,8 +54,10 @@ curl -s https://devnode.telegraphprotocol.com/api/miners/<registrationId> \
 cast call "$DIAMOND" "isCanonicalIntent(string)(bool)" "WEATHER_CHECK" --rpc-url "$RPC"
 cast call "$DIAMOND" "getCanonicalIntents()(string[])" --rpc-url "$RPC"
 
-# YAML hash for registration — SHA-256, NOT keccak256
-sha256sum track1-miner/miner.yaml | awk '{print "0x"$1}'
+# YAML hash for registration — SHA-256, NOT keccak256.
+# PowerShell is the default shell here and has no sha256sum:
+#   (Get-FileHash track1-miner/miner.yaml -Algorithm SHA256).Hash.ToLower()
+sha256sum track1-miner/miner.yaml | awk '{print "0x"$1}'   # Git Bash only
 ```
 
 ## Standing orders
