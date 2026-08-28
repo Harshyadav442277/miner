@@ -14,17 +14,17 @@ At `integrate.telegraphprotocol.com` → Submit WASM → paste the link → VERI
 **`CONTENT_VERIFICATION`** → REGISTER WASM MODULE → approve in MetaMask.
 
 ```
-https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/a633793b847d2561eca05c1b65519e2fed89b49a/dist/content_verification.wasm
+https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/b5a84be2a8bef1f952ba7d0d4089c5ec00c7a8a9/dist/content_verification.wasm
 ```
 
-Commit `a633793`, **23,230 bytes**, hosted bytes verified byte-identical to the tested build.
+Commit `b5a84be`, **23,232 bytes**, hosted bytes verified byte-identical to the tested build.
 
 | gate check | result |
 |---|---|
 | A stddev > 0.05 | PASS 0.4034 |
 | B self-match ≥ max(0.75, incumbent) | PASS 1.0 |
 | **C Spearman ≥ 0.60** | **SKIPPED** — single miner, `historical_rows_evaluated: 0` |
-| D1 margin > champion (strict) | PASS **0.8793** vs **0.2976** |
+| D1 margin > champion (strict) | PASS **0.9634** vs **0.2976** |
 | D2 margin ≥ 0.15 | PASS |
 | D3 wins ≥ champion | PASS **144/144** vs 110/144 |
 | near-equality (correct phrasings agree) | **12/12**, worst spread 0.0003 |
@@ -57,7 +57,15 @@ widening it would send `provides` to `provid`. Fixed with a four-letter family h
 unrecognised unit-words (`bytes::unit_family_hash`). Terse **0.2789 -> 0.9998**, margin
 **0.6262 -> 0.8668**, near-equality **0/12 -> 12/12**.
 
-**Honest odds:** the bar is volatile — champion reg 626's own promotion eval reads
+**BAR RECHECKED 2026-08-28: it is 0.9904, not 0.6877.** The newest challenger (today 03:36) was
+measured against a champion margin of **0.990414**; the 0.6877 figure was a stale earlier reading.
+Our margin was raised 0.8793 -> **0.9634** in response (worst-figure numeric channel), correct
+answers unmoved at 0.9999. That is still **below 0.9904 on our corpus** — but on IP the node
+measured us ~8% *above* our own corpus (0.814 predicted, 0.8775 actual). If that lift repeats we
+land near 0.99 and it is genuinely close; if it does not, expect a rejection that returns exact
+numbers. Registering is gas-only either way.
+
+**Historic note:** the bar is volatile — champion reg 626's own promotion eval reads
 0.9904, a later challenger measured it at 0.6877. On IP the node measured us *higher* than our
 corpus predicted (0.814 → 0.8775). Genuine coin flip, gas only.
 
