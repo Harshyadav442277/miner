@@ -4,7 +4,55 @@
 
 ---
 
-## ⇢ HANDOVER — 2026-08-27 23:30 IST · read this before anything else
+## ⇢ HANDOVER — 2026-08-28 · BLOCKED ON ONE USER ACTION
+
+**Everything buildable is built, verified, published and pushed. The project cannot advance
+further without a wallet signature, which Claude does not perform (CLAUDE.md rule 1).**
+
+### The single outstanding action
+Register **CONTENT_VERIFICATION** at `integrate.telegraphprotocol.com` with the URL pinned in
+[REGISTRATION.md](REGISTRATION.md) (commit `c9df884`, 23,230 B, hosted bytes verified). Gas only,
+verdict in minutes. That is the whole remaining path to an on-chain champion slot.
+
+### State of the three targets
+
+| intent | proxy verdict | our margin | incumbent | status |
+|---|---|---|---|---|
+| **CONTENT_VERIFICATION** | would promote | **0.8668** | 0.2976 | **READY — unregistered** |
+| IP_GEOLOCATION | would promote on corpus | 0.7221 | 0.2934 | reg 1377 REJECTED; now blocked by rho 0.5934 |
+| STORM_ALERT | would be rejected | 0.6224 | 0.4105 | blocked by the agreement gate |
+
+### Why rank 1 is still reachable without winning the gate
+The organizers stated the 50% axis is **measured performance vs the incumbent, assessed by manual
+review**, and that champion slots do not auto-stack. [PROOF.md](PROOF.md) is that case, regenerated
+2026-08-28 from ONE run with matching SHA-256s across all targets — including STORM shown as
+**rejected**, kept deliberately so the wins are credible. Supporting evidence:
+`recon/2026-08-27-adversarial-review.md` (6 criticals found in our own module and fixed) and the
+agreement-gate finding above.
+
+### Two defects fixed 2026-08-28 (both general, not corpus-fitting)
+1. **Flipped polar verdict scored 0.9999.** Polarity caught negations, never antonyms, and a
+   verdict word is neither figure nor entity so it fell through to `prose_w = 0.02`. Fixed with
+   `src/antonyms.rs` (28 general pairs) + a categorical multiplier → **0.0046**.
+2. **Correct terse answers lost their figures.** `7 matches` vs `7 matching passages` compared
+   unrecognised unit-words by exact hash, firing the foreign-unit discount on a CORRECT answer
+   (fact 0.394 vs 1.000). The stemmer cannot bridge it (`matche` vs `match`). Fixed with a
+   four-letter family hash for unit-words only → terse **0.2789 → 0.9998**, CV margin
+   **0.6262 → 0.8668**, near-equality **0/12 → 12/12**.
+
+### Unclaimed, and only the user can claim it
+**20% of the rubric**: 10% X engagement (posts written and character-verified in
+[X_THREAD.md](X_THREAD.md), none posted) + 10% adoption (zero external use of the published
+harness). This is the cheapest remaining score on the board.
+
+### Build state
+72 tests, `cargo fmt --check` clean, `clippy -D warnings` clean, four builds at ~23.2 KB each with
+**0 imports**, `wasm-tools validate` OK, `verify.mjs` ALL CHECKS PASSED. Public repo
+`telegraph-factscore`; champion binaries gitignored under `harness/champions/`.
+
+---
+
+## ⇢ (earlier) HANDOVER — 2026-08-27 23:30 IST
 
 **Status: REG 1377 REJECTED — and it returned the calibration data we could not get offline.**
 Lost on **ordering by one fixture case**: 14 of 15 vs the champion's 15 of 15.
