@@ -109,8 +109,8 @@ yours; everything ahead of it is done.
 (translation 0.614, academic 0.0295) were measured against our endpoint's raw `reason` string,
 but the live scorer reads `converted_answer` — an LLM summary of our JSON, which in the epoch-288
 SSL row was roughly half the length of our `reason`. So treat those figures as optimistic. The
-decision survives it anyway: the translation leader scores **0.0035** and both academic incumbents
-returned **0**, so even a heavily discounted answer wins. That is why this is still worth signing.
+decision survives it anyway: in epoch 288 **all four incumbents across both intents scored 0**, so
+even a heavily discounted answer wins. That is why this is still worth signing.
 
 ## 5. Your part
 
