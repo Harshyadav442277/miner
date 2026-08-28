@@ -14,19 +14,23 @@ At `integrate.telegraphprotocol.com` → Submit WASM → paste the link → VERI
 **`CONTENT_VERIFICATION`** → REGISTER WASM MODULE → approve in MetaMask.
 
 ```
-https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/ca13aef74d6f6c303d78a5e13ef9cedb942cbf20/dist/content_verification.wasm
+https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/209aa309006efad914e49e80a223decefee16625/dist/content_verification.wasm
 ```
 
-Commit `ca13aef`, **22,466 bytes**, hosted bytes verified byte-identical to the tested build.
+Commit `209aa30`, **23,151 bytes**, hosted bytes verified byte-identical to the tested build.
 
 | gate check | result |
 |---|---|
 | A stddev > 0.05 | PASS 0.4034 |
 | B self-match ≥ max(0.75, incumbent) | PASS 1.0 |
 | **C Spearman ≥ 0.60** | **SKIPPED** — single miner, `historical_rows_evaluated: 0` |
-| D1 margin > champion (strict) | PASS **0.7242** vs **0.2560** |
+| D1 margin > champion (strict) | PASS **0.6262** vs **0.2976** |
 | D2 margin ≥ 0.15 | PASS |
-| D3 wins ≥ champion | PASS 786/791 vs 485/791 |
+| D3 wins ≥ champion | PASS 132/144 vs 110/144 |
+
+Measured on **content-verification fixtures** (12 documents, 144 pairs, plagiarism/authenticity
+semantics), not the IP corpus. The earlier 0.7242 was measured on IP-flavoured fixtures and
+overstated the case; 0.6262 is the honest number for this intent.
 
 **Why this intent and no other:** every intent with ≥2 miners is blocked by the agreement gate,
 which requires ranking real traffic like the champion — and the champion scores factually wrong
@@ -34,8 +38,20 @@ answers ~0.99 (ground truth "Tokyo, Japan", answer "Mumbai, India", champion 0.9
 Passing would mean scoring Mumbai like Tokyo. CONTENT_VERIFICATION has one miner, so that check is
 skipped entirely.
 
-**Honest odds:** our corpus is not content-verification-flavoured, so the 0.7242 measures general
-separation, not CV semantics. The bar is volatile — champion reg 626's own promotion eval reads
+**Built for this intent, and it found a real defect.** On CV fixtures the first build scored a
+*flipped verdict* ("plagiarised" -> "original", nothing else changed) at **0.9999** — the exact
+inversion class this project criticises the incumbent for. Cause: polarity detection only caught
+negations ("not"), never antonyms, and a verdict word is neither a figure nor an entity so it fell
+through to prose weight (0.02). Fixed with a polar-verdict axis (`src/antonyms.rs`, 28 general
+English pairs) and a categorical multiplier: **a flipped verdict now scores 0.0046.** CV margin
+went 0.3775 -> 0.6262 as a result. IP build re-checked, no regression (0.7221, 786/791).
+
+**Known limitation, not tuned away:** a correct *terse* answer (semicolon fragments) scores 0.2789,
+below a wrong-similarity answer at 0.3527 — an inversion. `ans_sat` is flat against it, so it is
+not a gate-tuning miss. Real `converted_answer` text is always "The data shows..." prose, never
+fragments, so this is judged unrepresentative rather than fixed by force. Recorded honestly.
+
+**Honest odds:** the bar is volatile — champion reg 626's own promotion eval reads
 0.9904, a later challenger measured it at 0.6877. On IP the node measured us *higher* than our
 corpus predicted (0.814 → 0.8775). Genuine coin flip, gas only.
 
