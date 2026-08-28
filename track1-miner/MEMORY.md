@@ -94,6 +94,68 @@ stale, so activation monitoring had been watching a superseded record since befo
 **260** on 2026-08-28 (`gh variable set REGISTRATION_ID --body 260`). **Whenever a new registration
 is signed, update that variable in the same session** — nothing in CI catches it being wrong.
 
+**Weather tuning after epoch 289 — three variants tested, all lost. Nothing was changed.**
+Scored against the WEATHER_FORECAST champion (`wf_mini.wasm`, reg 636) on epoch 289's own question
+and ground truth:
+
+```
+deployed prose            58w   0.010514   <-- best, kept
+temperature reordered first 57w 0.010448
+short                     29w   0.010035
+shorter                   22w   0.007708
+our converted answer                0.009766   (leader onlookout 0.010033)
+```
+
+Two hypotheses died here, and both are worth not retrying:
+
+1. **Reordering `reason` so the asked-for variables come first** — motivated by the real
+   observation that epoch 289's conversion kept wind speed and cut the temperature range. Measured
+   *worse*. What the converter keeps is not controlled by our ordering, and we cannot run the
+   converter offline to test it, so this is unfalsifiable from here.
+2. **Writing to the converter's ~32-word budget** — measurably wrong. Shortening cost score
+   monotonically (0.0105 -> 0.0100 at 29 words -> 0.0077 at 22). The converter lands at ~32 words
+   whatever we send, but that is *not* a reason to send 32 words. Fuller prose still scores better.
+
+The ~32-word budget finding stands as an observation. The advice people would naturally draw from
+it — write shorter — is false, at least here. Conversion costs us about 7% (0.010514 prose ->
+0.009766 scored) and no wording change tested recovers it.
+
+**Epoch 289 scores** (recorded 2026-08-28 via `tools/record-scores.mjs`) — **RANK 1 IN FOUR**:
+
+```
+SSL_VERIFICATION      #1   0.01014868   <-- held
+IP_GEOLOCATION        #1   0.01000050   <-- held
+LANGUAGE_TRANSLATION  #1   0.00899709   <-- NEW, first epoch scored
+ACADEMIC_SEARCH       #1   0.00654745   <-- NEW, first epoch scored
+STORM_ALERT           #2   0.00405170   gap 0.00022750 to amanat
+WEATHER_FORECAST      #3   0.00976552   gap 0.00026778 to onlookout
+```
+
+**Both newly registered intents took rank 1 on their first scored epoch**, which is what the
+offline replay predicted (translation 9/9 wins, academic 19/21). The academic parser fixes shipped
+hours earlier — two of the four newest questions had been answered "no research topic was supplied".
+
+**WEATHER climbed from 0.00678 to 0.00977 and the gap fell from 0.00311 to 0.00027** — the
+refusal/window fix worked, and the intent is now within 2.7% of rank 1.
+
+**STORM fell to #2, and it was not a regression.** Our answer was a normal forecast, not a refusal,
+so today's refusal change was not involved. The question changed shape: it asked what *operational
+adjustments* an open-pit mine should make ahead of high winds, and the ground truth is a personnel
+and equipment safety checklist. We answered with wind, gust and precipitation figures; so did the
+leader, 0.00428 to our 0.00405. Both are answering a different question from the one asked.
+
+**What the epoch-289 weather row shows, and it is the general lesson:** the question asked for
+temperature and precipitation. Our `reason` contained both — but the ~32-word conversion kept the
+**wind speed**, which nothing had asked for, and cut the **temperature range**, which the question
+named. Ordering inside `reason` is therefore load-bearing: what the converter reaches last is what
+it drops. Temperature and precipitation now lead that sentence; condition and source attribution
+moved to the tail.
+
+Also confirmed on that row: our code *does* parse "starting from September 1st, 2026" correctly
+when it receives the question, but the engine sent only `location` and `days`, so we forecast from
+today. `isobar-weather` answered September 1-7, so the engine gave *them* the question text. Param
+filling differs per miner and we cannot force it.
+
 **Epoch 288 scores** (landed 2026-08-28 ~03:50 UTC — recorded via `tools/record-scores.mjs`):
 
 ```

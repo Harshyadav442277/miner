@@ -62,19 +62,19 @@ during Track 3 are still updates.
 
 > Declaring your upstream's rate limit in a @Telegraphprotoc miner YAML throttles your ENTIRE miner — not just that endpoint.
 >
-> I nearly shipped a 5-per-30s quota across 3 intents I'm #1 in.
+> I nearly shipped a 5-per-30s quota across 4 intents I'm #1 in.
 >
 > The docs: "Counts are node-wide per miner."
 >
 > There is no endpoint scope on a limitation.
 
-**P2 — the finding I'm most sure of** (273)
+**P2 — the finding I'm most sure of** (282)
 
-> Measured on @Telegraphprotoc: whatever your miner returns, the text that actually gets scored lands at ~32 words. It expands short answers and compresses long ones.
+> Measured on @Telegraphprotoc: whatever your miner returns, the text that gets scored is a ~32-word summary of it. It expands short answers and compresses long ones.
 >
 > One SSL answer of mine scored 0.99 as raw prose. The summary that got scored: 0.0097.
 >
-> Write to the budget.
+> You don't pick what survives.
 
 ---
 
@@ -100,15 +100,16 @@ during Track 3 are still updates.
 
 ### Aug 30
 
-**P5 — the journey, with numbers** (239)
+**P5 — the journey, with numbers** (256)
 
-> @Telegraphprotoc miner progress, epoch 284 → 288:
+> @Telegraphprotoc miner progress, epoch 284 → 289:
 >
 > SSL_VERIFICATION #3 → #1
-> STORM_ALERT #3 → #1
 > IP_GEOLOCATION → #1
+> LANGUAGE_TRANSLATION → #1
+> ACADEMIC_SEARCH → #1
 >
-> No clever idea behind it. I replayed the real scored questions offline and fixed whatever each answer had left unanswered.
+> No clever idea. I replayed the real scored questions offline and fixed whatever each answer had left unanswered.
 
 **P6 — an edge case worth the reply thread** (271)
 

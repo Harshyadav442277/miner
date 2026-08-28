@@ -18,12 +18,18 @@ does not rescue an ineligible intent.
 
 ## 2. Where we actually stand
 
-| Intent | Our rank (ep. 288) | Our score | Miners | Miner half | 100-request half |
+| Intent | Our rank (ep. 289) | Our score | Miners | Miner half | 100-request half |
 |---|---|---:|---:|---|---|
-| `SSL_VERIFICATION` | **#1** | 0.00935 | 4 | **clear** | not started |
-| `STORM_ALERT` | **#1** | 0.01061 | 5 | **clear** | not started |
-| `IP_GEOLOCATION` | **#1** | 0.00976 | **2** | **FAILS** | not started |
-| `WEATHER_FORECAST` | #3 | 0.00678 | 11 | clear | not started |
+| `SSL_VERIFICATION` | **#1** | 0.01015 | 4 | **clear** | not started |
+| `IP_GEOLOCATION` | **#1** | 0.01000 | **2** | **FAILS** | not started |
+| `LANGUAGE_TRANSLATION` | **#1** | 0.00900 | 3 | **clear** | not started |
+| `ACADEMIC_SEARCH` | **#1** | 0.00655 | 3 | **clear** | not started |
+| `STORM_ALERT` | #2 | 0.00405 | 5 | clear | not started |
+| `WEATHER_FORECAST` | #3 | 0.00977 | 11 | clear | not started |
+
+Registering the six-intent manifest took `LANGUAGE_TRANSLATION` and `ACADEMIC_SEARCH` from 2 miners
+to 3 each, so **five of six now clear the miner half**. `IP_GEOLOCATION` is the only one that
+does not, and it is the one we cannot fix alone.
 
 **Track 3 has not opened yet.** Nothing we serve today counts toward any intent's 100. That half is
 zero everywhere, and it is the half that decides whether the money is real.
