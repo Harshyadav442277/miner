@@ -195,6 +195,44 @@ caches by CVE id so rephrasings cannot burn NVD's 5-per-30s limit.
 Headlines answers are now numbered, honor "top N" counts, and frame as "The top 5 business
 headlines from Great Britain today, as of <date>, are: 1. …" — the questions' own wording.
 
+## 2b. The two new intents — measured, not assumed (2026-08-28)
+
+Both were scored offline against their own champion WASM before epoch 289, using
+`tools/pretune-intents.mjs`-style replay over every distinct real recorded question.
+
+**LANGUAGE_TRANSLATION — 9/9 wins, mean 0.61434. Champion reproduces 55/55 reported scores
+exactly, so this is trustworthy.**
+
+```
+best incumbent per question: 0.000, 0.066, 0.000, 0.150, 0.333, 0.025, 0.264, 0.589, 0.023
+ours:                        0.918, 0.190, 0.034, 0.150, 0.979, 0.965, 1.000, 0.996, 0.298
+```
+
+Crucially our translation answers are **1-9 words**, so the converter's ~32-word budget never
+binds — clipping to 32 words changes nothing. That is why `reason` is the bare translation and
+must stay that way: anything wrapped around it dilutes the only text being compared.
+
+**ACADEMIC_SEARCH — mean 0.00953, 19/21 above the best incumbent score.** The champion only
+reproduces 3/4 here, so treat these as indicative. Four real defects were found by replaying the
+questions, all fixed and deployed:
+
+1. **A mid-sentence date clause deleted the subject.** The scaffolding strip ended in `.*$`, so
+   "papers published in 2025 in the field of quantum computing" lost everything after the year and
+   `searchTopic` returned null — the endpoint refused with "No research topic was supplied", a
+   guaranteed near-zero. **Two of the four newest questions hit this.** This is the second time
+   this endpoint has refused an answerable question; there are now regression tests over the real
+   question strings.
+2. **"between January 1, 2025 and June 30, 2026" did not parse** — the day number was not allowed,
+   so a question scoped to 2025-2026 was answered with a paper from **2002**.
+3. **The requested count and ordering were ignored.** Questions say "limited to 10 results" and
+   "sorted by citation count" by name; we returned 5 in relevance order.
+4. **Named databases and query syntax leaked into the topic** ("Semantic Scholar for recent…",
+   `Humans[Mesh]`), and three questions returned **zero papers**. Sources are stripped, relative
+   windows ("last 5 years") resolve, and an empty result now retries on the leading terms.
+
+Relevance stays the **default** ordering — sorting by citations unasked still returns a highly
+cited survey on the wrong subject. Only an ordering the question names is honoured.
+
 ## 3. Endpoints — 6 registered; code now matches the manifest
 
 | Path | Intent | Registered? | Source |
