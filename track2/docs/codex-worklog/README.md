@@ -14,3 +14,5 @@ Entries:
 - [2026-08-29 release-surface debloat](2026-08-29-release-surface-debloat.md)
 - [2026-08-29 unseen-negation hardening and cross-platform refreeze](2026-08-29-negation-hardening.md)
 - [2026-08-29 public conversion and adoption audit](2026-08-29-public-conversion.md)
+- [2026-08-29 model-alias hardening](2026-08-29-model-alias-hardening.md)
+- [2026-08-29 completion audit](2026-08-29-completion-audit.md)

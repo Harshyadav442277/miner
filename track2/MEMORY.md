@@ -30,9 +30,9 @@ Current candidate (published and hosted-byte verified; unregistered):
 - local verifier green; independent verifier commit `f537c7c` validated superseded v1.0.0,
   not the current v1.1.0 bytes
 - Rust 1.98.0 Windows and Linux builds are byte-identical after normalizing embedded source paths;
-  latest public CI run `33227694014` passed the full matrix and frozen-byte comparison
+  latest public CI run `33227758415` passed the full matrix and frozen-byte comparison
 - public artifact commit: `409911f351b4778555ac5bb03c9a6d6bba69ae58`
-- public metadata HEAD: `c20a6a0`
+- public metadata HEAD: `c20a6a040d340cdba91abb3ca8d635ce221a54bd`
 - stable release: `tac-v1.1.0`; attached WASM independently re-downloaded and hash-verified
 - a fresh v1.1.0 release download reproduced 30,011 bytes, SHA-256 and Keccak-256 exactly
 - community reuse: one external fork (`shreshth006/telegraph-factscore`) has nine measured
