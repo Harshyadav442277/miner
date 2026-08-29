@@ -235,26 +235,24 @@ export async function getForecast(
     // reads Telegraph's conversion of this text — not the structured fields. A
     // question naming an explicit start and asking for temperature and
     // precipitation gets all three back, spelled out, in that order.
-    reason: asked
-      ? `A ${span} hourly forecast is available for ${where} ` +
-        `starting ${times[0] ?? asked.startIso}Z, with the complete hourly temperature and ` +
-        `precipitation series included. Temperatures range from ${tMin} to ${tMax} degrees Celsius, ` +
-        `hourly precipitation ranges from ${pMin ?? 0} to ${pMax ?? 0} millimeters` +
-        (probMax === null ? "" : `, and the precipitation probability peaks at ${probMax}%`) +
-        `. The expected condition is ${condition}.`
-      // Temperature leads. In epochs 289 and 290 the question asked for
-      // temperature by name and Telegraph's ~32-word conversion kept condition,
-      // precipitation and wind while dropping the mid-sentence temperature
-      // range — both times. Raw champion scoring says leading with temperature
-      // costs ~0.6%; two consecutive conversions dropping the asked-for fact
-      // costs the whole clause. What the converter reaches last is what it
-      // drops, so the unasked-for source attribution moves to the tail.
-      : `A ${span} hourly weather forecast for ${where}${covering}: hourly temperature in ` +
-        `Celsius from ${tMin}°C to ${tMax}°C${probClause}` +
-        (totalPrecip >= 0.1 ? `, ${totalPrecip} mm of total precipitation` : `, no significant precipitation`) +
-        `, the expected condition is ${condition}` +
-        (maxWind === null ? "" : `, and a wind speed of up to ${maxWind} km/h`) +
-        `, from the Open-Meteo weather service.`,
+    // One template for both branches. The explicit-start branch used to carry
+    // its own prose and measured 0.00761 against the main template's 0.01080
+    // on the same question — the shape, not the honest window, was the loss.
+    // The covering clause already names the actual dates served, so an asked
+    // start is visible either way.
+    //
+    // Temperature leads. In epochs 289 and 290 the question asked for
+    // temperature by name and Telegraph's ~32-word conversion kept condition,
+    // precipitation and wind while dropping the mid-sentence temperature
+    // range — both times. What the converter reaches last is what it drops,
+    // so the unasked-for source attribution sits at the tail.
+    reason:
+      `A ${span} hourly weather forecast for ${where}${covering}: hourly temperature in ` +
+      `Celsius from ${tMin}°C to ${tMax}°C${probClause}` +
+      (totalPrecip >= 0.1 ? `, ${totalPrecip} mm of total precipitation` : `, no significant precipitation`) +
+      `, the expected condition is ${condition}` +
+      (maxWind === null ? "" : `, and a wind speed of up to ${maxWind} km/h`) +
+      `, from the Open-Meteo weather service.`,
     checked_at: now,
   };
 }
