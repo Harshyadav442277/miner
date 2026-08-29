@@ -23,6 +23,7 @@ endpoints:
   - path: /ssl-check
     external_path: /ssl-check
     method: GET
+    intents: [SSL_VERIFICATION]
     description: >-
       Live TLS certificate check for one domain. Accepts a bare hostname, a full
       URL, or host:port.
@@ -30,6 +31,7 @@ endpoints:
   - path: /storm-alert
     external_path: /storm-alert
     method: GET
+    intents: [STORM_ALERT]
     description: >-
       Severe-weather risk for a location over the next 48 hours. Accepts a place
       name or "lat,lon".
@@ -37,6 +39,7 @@ endpoints:
   - path: /papers
     external_path: /papers
     method: GET
+    intents: [ACADEMIC_SEARCH]
     description: >-
       Finds peer-reviewed papers on a topic, optionally within a date range, via
       OpenAlex. Returns title, authors, year and citation count for each.
@@ -44,6 +47,7 @@ endpoints:
   - path: /translate
     external_path: /translate
     method: GET
+    intents: [LANGUAGE_TRANSLATION]
     description: >-
       Translates quoted text into a named target language. Returns the
       translation itself, in the target script.
@@ -51,6 +55,7 @@ endpoints:
   - path: /ip-geolocate
     external_path: /ip-geolocate
     method: GET
+    intents: [IP_GEOLOCATION]
     description: >-
       Live IP geolocation. Accepts an IPv4 or IPv6 address, or a whole question
       containing one.
@@ -58,6 +63,7 @@ endpoints:
   - path: /weather-forecast
     external_path: /weather-forecast
     method: GET
+    intents: [WEATHER_FORECAST]
     description: >-
       Future conditions for a location over a stated window (default 24h, max
       168h). Accepts a place name or "lat,lon", plus an optional hours parameter.
