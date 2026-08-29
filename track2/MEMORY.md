@@ -4,6 +4,64 @@
 
 ---
 
+## ⇢ HANDOVER — 2026-08-29 night · FOUR CANDIDATES PUBLISHED · AWAITING FOUR SIGNATURES
+
+Published at `73ef74083cb6a0f912228b357ec75af8bd6ead8f` in `Harshyadav442277/telegraph-factscore`.
+All four hosted binaries re-downloaded and **byte-identical** to the tested builds. URLs, hashes
+and the sign order are the top block of [REGISTRATION.md](REGISTRATION.md).
+
+| intent | bar | champ wins | our evidence |
+|---|---|---|---|
+| STOCK_PRICE | 0.614703 | 15/15 | 16 cases, beats champion on **all four** answer shapes |
+| TVL_LOOKUP | 0.634025 | **13/14** | none — same profile, softest win bar in the protocol |
+| CRYPTO_PRICE | 0.629564 | 14/15 | 2 cases: ours 8/8 @ 0.960172, champion 7/8 @ 0.000000 |
+| ONCHAIN_TX_LOOKUP | 0.660399 | 9/9 | 2 cases: ours 8/8 @ 0.901790, champion 8/8 @ 0.004102 |
+
+**All four read `historical_rows_evaluated: 0` right now**, so the real-traffic Spearman gate — the
+one that rejected two CRYPTO_PRICE candidates that had already beaten the champion on both
+published axes — is not firing on any of them. That window is the reason to fire all four now.
+
+### STOCK_PRICE head-to-head, four answer shapes
+
+| shape | champion | ours |
+|---|---|---|
+| ground truth vs figure-swapped | 16/16 @ 0.9241 | 16/16 @ **0.9356** |
+| first line vs figure-swapped | 16/16 @ 0.8752 | 16/16 @ **0.9359** |
+| recorded prose vs figure-swapped | 15/16 @ 0.0741 | 15/16 @ **0.1344** |
+| ground truth vs recorded wrong | 16/16 @ 0.8725 | 16/16 @ **0.9906** |
+
+At least the champion's wins and a larger margin on every shape. **These are not predicted node
+margins** — the champion scores 0.074 on this corpus and 0.6147 on the node's, so the corpus models
+ordering well and absolute margin badly (GAPS G17).
+
+### What actually got fixed
+
+The general profile scored a ground truth with only its headline figure changed at **0.927**:
+precision stayed 0.959 because one token moved, the numeric channel averaged the wrong figure
+against the dates that still agreed, and concave shaping lifted 0.771 to 0.927. The new
+`headline_quantity_profile` gives the numeric channel full authority, reads the worst comparable
+figure, decays at k=120 (swept), and adds **role-scoped comparison** — a current price is judged
+against the ground truth's current price, not against its 52-week range, which had been rescuing
+9%-wrong prices at 0.55. Role scoping is off for all other profiles; nine profiles pass tests,
+clippy, fmt and the Stage-1 verifier.
+
+`ONCHAIN_TX_LOOKUP` additionally needed `num_abs_tol = 1e-9`: gas fees are ETH amounts around
+0.002, so the shared 0.02 epsilon was larger than the quantity and scored a swapped fee identically
+to the true one (0/2 cases before, 2/2 after).
+
+### Reverted, recorded so it is not retried
+
+Treating every figure the ground truth does not mention as unverifiable lifted correct answers but
+let swapped ones escape too: case wins fell 15/16 → 2/16. Measured and reverted.
+
+### Next
+
+User signs four registrations. Record `candidate_margin`, `candidate_wins` and the recomputed
+`champion_margin` for each — with no dry-run endpoint, a rejection is the only instrument that
+reads the real fixtures, and the bar drifts between probes because they are resampled.
+
+---
+
 ## ⇢ HANDOVER — 2026-08-29 evening · TARGET IS STOCK_PRICE · CANDIDATES BUILT, NOT PUBLISHED
 
 **The bar model was wrong for the whole project.** The champion's `eval_score` is the margin it

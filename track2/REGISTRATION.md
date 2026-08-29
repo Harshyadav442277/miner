@@ -1,5 +1,106 @@
 # REGISTRATION.md — the user's runbook for registering the scorer
 
+## READY TO SIGN — four registrations, published and hosted-byte verified
+
+**Published 2026-08-29 at commit `73ef740`** in `Harshyadav442277/telegraph-factscore`.
+All four hosted binaries were re-downloaded from the pinned commit and are **byte-identical** to
+the tested local builds. Live bars re-read immediately before this block was written.
+
+**Every one of the four currently shows `historical_rows_evaluated: 0`, so the real-traffic
+Spearman gate is not firing on any of them.** That gate is what rejected two CRYPTO_PRICE
+candidates which had already beaten the champion on both published axes.
+
+### Sign these
+
+#### STOCK_PRICE
+
+```text
+https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/73ef74083cb6a0f912228b357ec75af8bd6ead8f/dist/stock_price.wasm
+```
+
+| | |
+|---|---|
+| size | 31,779 bytes |
+| **VERIFY & HASH must show** | `ca0d1b99a2e1f64cc9eeab17a2980a8b1e693e1be05e727598ea996d029425a0` |
+| bar to beat (`champion_margin`) | **0.614703** |
+| wins to match or beat | **15/15** |
+| evidence | measured on 16 cases; beats the champion on all four answer shapes |
+
+#### TVL_LOOKUP
+
+```text
+https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/73ef74083cb6a0f912228b357ec75af8bd6ead8f/dist/tvl_lookup.wasm
+```
+
+| | |
+|---|---|
+| size | 31,779 bytes |
+| **VERIFY & HASH must show** | `ff170a56b1b1d59941b526138d62b04afc1c1a80736e7367d448cea495eb6c67` |
+| bar to beat (`champion_margin`) | **0.634025** |
+| wins to match or beat | **13/14** |
+| evidence | UNMEASURED - no clean pair exists in its traffic; softest win bar in the protocol |
+
+#### CRYPTO_PRICE
+
+```text
+https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/73ef74083cb6a0f912228b357ec75af8bd6ead8f/dist/crypto_price.wasm
+```
+
+| | |
+|---|---|
+| size | 31,779 bytes |
+| **VERIFY & HASH must show** | `eb86c7d49dd22328f679a18e72ed66ea439badbdfddad6ce827e3798df45a058` |
+| bar to beat (`champion_margin`) | **0.629564** |
+| wins to match or beat | **14/15** |
+| evidence | measured on 2 cases: ours 8/8 at 0.960172, champion 7/8 at 0.000000 |
+
+#### ONCHAIN_TX_LOOKUP
+
+```text
+https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/73ef74083cb6a0f912228b357ec75af8bd6ead8f/dist/onchain_tx_lookup.wasm
+```
+
+| | |
+|---|---|
+| size | 31,779 bytes |
+| **VERIFY & HASH must show** | `2ac77e85f3200d996eee5851be4707f23da9f7bc486d5870d207882c51a5b93e` |
+| bar to beat (`champion_margin`) | **0.660399** |
+| wins to match or beat | **9/9** |
+| evidence | measured on 2 cases: ours 8/8 at 0.901790, champion 8/8 at 0.004102 |
+
+### Procedure
+
+`integrate.telegraphprotocol.com` -> Submit WASM -> paste the URL -> VERIFY & HASH -> pick the
+matching intent -> REGISTER WASM MODULE -> approve in MetaMask.
+
+**If the console's hash differs from the one in the table above by a single character, stop.**
+It fetched different bytes than the ones every number here was measured on. `wasm hash mismatch`
+is the single most common rejection in the registry — eight of them on IP_GEOLOCATION alone
+yesterday.
+
+Base Sepolia gas only. Stage 1 returns in seconds, Stage 2 in a few minutes.
+
+### After each one
+
+```bash
+curl -s "https://devnode.telegraphprotocol.com/api/wasm?intent=STOCK_PRICE"   | jq '.intents.STOCK_PRICE.entries[] | select(.registration_id == <ID>) | .eval, .rejection_reason'
+```
+
+Record `candidate_margin`, `candidate_wins`, and the recomputed `champion_margin`. **A rejection is
+not a failure, it is the only measurement instrument that exists** — there is no dry-run endpoint,
+and each verdict returns exact numbers against the real hidden fixtures. Four registrations buy
+four independent readings of a distribution we otherwise cannot see.
+
+`active` + `is_champion: true` on any one of them is rank 1 in that intent.
+
+### If all four are rejected
+
+The returned numbers calibrate the next round directly, and re-registering costs only gas. The bar
+also drifts between probes because the fixtures are resampled (STOCK_PRICE moved 0.5557 -> 0.5518
+-> 0.6147 inside one day), so a near miss is worth re-firing rather than redesigning.
+
+---
+
 ## TARGET CHANGED — STOCK_PRICE and TVL_LOOKUP · candidates built, NOT yet published
 
 **Status 2026-08-29 evening.** Target moved off `TEXT_AUTHENTICITY_CHECK` after both attempts

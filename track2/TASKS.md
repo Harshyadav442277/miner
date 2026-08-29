@@ -156,10 +156,12 @@ vendored at `scorer-v2/` with provenance.
       `harness/build-factswap.mjs`, `harness/run-numeric.mjs`.
 - [x] **T-F.10** `headline_quantity_profile` + role-scoped figure comparison. Champion 15/16 @
       0.074155, ours 15/16 @ 0.143524. All seven profiles green.
-- [ ] **T-F.11** [User go-ahead] Publish `stock_price.wasm` and `tvl_lookup.wasm` to an immutable
+- [x] **T-F.11** [User go-ahead] Publish `stock_price.wasm` and `tvl_lookup.wasm` to an immutable
       commit; verify hosted bytes against both hashes.
 - [ ] **T-F.12** [User] Re-read the live bar, then sign both registrations in one batch.
 - [ ] **T-F.13** Record returned `candidate_margin` / `candidate_wins` / recomputed
       `champion_margin` — the only measurement loop available.
 - [ ] **T-F.14** Close the last shape gap: GT-verbatim vs GT-swapped is 0.882 for us against 0.926
       for the champion. Everything else already leads.
+- [x] **T-F.15** Extend the profile to CRYPTO_PRICE and ONCHAIN_TX_LOOKUP; publish all four at
+      `73ef740` and verify hosted bytes byte-identical.
