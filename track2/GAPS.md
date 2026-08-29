@@ -23,6 +23,14 @@ the same Keccak before signing.
 GitHub source updates do not update an existing on-chain byte hash; changed WASM needs a new
 registration.
 
+### G15 · Community adoption evidence — `CHECKING (one verified downstream fork)` — 2026-08-29
+The public repository has one external fork, `shreshth006/telegraph-factscore`, with nine
+downstream commits and measured IP-geolocation changes. This is stronger than a star or untouched
+fork and legitimately demonstrates reuse of the shared scorer kernel. It does **not** prove the
+fork ran the current TAC benchmark, validate this registration artifact, or make every downstream
+claim correct. No issue, testimonial, or TAC result is claimed. A structured benchmark-report
+issue form lowers the friction for additional genuine evidence without manufacturing it.
+
 ### G1 · Submission mechanism — `CLOSED (protocol path), small residual` — 2026-08-27
 On-chain `registerWasm(wasmHash, wasmUrl, intent)` on the Diamond — **keccak256** of the hosted
 bytes (NOT sha256 like the miner YAML), public URL ≤ 32 MB, gas-only, no bond, returns a

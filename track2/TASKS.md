@@ -91,14 +91,17 @@ One task = one change = one commit. Work top-down. Owner in brackets.
       green. The standalone repository at commit `5728366e…f1c727` contains one WASM, a TAC-only
       README/proof, and a release audit with positive and negative controls. A fresh raw GitHub
       download reproduced both hashes and Linux CI rebuilt the tracked bytes. The old `867fd15`
-      and `25ff808` releases are superseded and must not be registered.
+      and `25ff808` releases are superseded and must not be registered. Stable GitHub release
+      `tac-v1.0.0` attaches the verified artifact and preserves the reviewer entry point.
 - [ ] **T-E.1** [Fable] Submission package per verified flow; user confirms/sends anything
       requiring accounts or signatures.
 - [ ] **T-E.2** [Fable] X thread drafts (insight-led, tagged `@Telegraphprotoc`) → user posts.
 - [x] **T-E.3** [Opus+Codex] Package the harness + fixtures as a reusable kit for other script
       authors, including an incumbent-free `check-tac.mjs` command with text/JSON output. It
-      passes this release 256/256 and rejects incumbent 850 at 33/256. Genuine third-party use is
-      still unclaimed until a real external link exists.
+      passes this release 256/256 and rejects incumbent 850 at 33/256. One external fork now has
+      nine downstream measured commits using the kernel; a benchmark-result issue form captures
+      additional genuine runs without manufacturing engagement.
 - [ ] **T-E.4** [User] Submit before **2026-08-31**; confirmation recorded in MEMORY.md.
-- [ ] **T-E.5** [Fable+User] Disclosure artifact: scorer README section + the required X post
-      state the livecert (registration 225) overlap plainly — mandatory per the organizer answer.
+- [ ] **T-E.5** [Codex+User] Disclosure artifact: public scorer README now states the livecert
+      (registration 225) overlap plainly; the matching X post is drafted and still requires the
+      user's account — mandatory per the organizer answer.

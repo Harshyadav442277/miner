@@ -50,6 +50,12 @@ disqualifies; everything below survives that filter.
    scorer passes 20/20 while preserving both public corpora. Publishing that before/after is a
    stronger robustness claim than adding more cases only after implementation.
 
+8. **Genuine reuse with a visible development trail.** The first external fork is not an empty
+   mirror: `shreshth006/telegraph-factscore` has nine measured downstream commits adapting the
+   fact-aware kernel to IP geolocation. We count that narrowly as code adoption, not as TAC
+   validation, and explicitly do not inherit the fork's claims. That boundary makes the evidence
+   credible under Rule 04.
+
 ## Mapping to the rubric
 
 | Axis | How the edge lands |
@@ -57,7 +63,7 @@ disqualifies; everything below survives that filter.
 | 50% improvement over baseline | Side-by-side harness: pairwise ranking accuracy on neutral + adversarial + real-traffic fixtures, baseline vs ours, one command, pinned binaries. Claims carry receipts, not vibes. |
 | 30% robustness & code quality | Small, typed, dependency-light Rust; exhaustive edge-case tests (empty answer, huge answer, non-UTF8, stuffing, contradiction, refusal); strict sandbox adherence (no imports, no nondeterminism). |
 | 10% X engagement | The Track 1 X playbook (insight-posts over status-posts) applied to genuinely interesting material: "the canonical scorer gives 0.99 to a refusal — here's the fix, reproducible." |
-| 10% adoption | Ship the harness + fixture corpus as a reusable kit any script author can run against their own scorer; that is the thing other entrants will actually want. |
+| 10% adoption | One external fork already contains nine downstream commits; the public issue form now converts additional real checker runs into auditable reports. |
 
 ## The rank-1 counter-position
 

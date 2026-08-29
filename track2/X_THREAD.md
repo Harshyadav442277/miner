@@ -66,16 +66,16 @@ First finding, measured against the live on-chain scorer: a contentless restatem
 124x, backwards.
 ```
 
-**T2-2** [256] · what I built
+**T2-2** [237] · what I built
 
 ```
-So I wrote a scorer that grades what an answer asserts - figures, identifiers, units, verdicts - against the ground truth.
+So I wrote a 25,887-byte no_std scorer that grades what an answer asserts - verdicts, figures, identifiers and units - against the truth.
 
-Wrong CVSS: 0.23
-Wrong wind speed: 0.002
-18 km/h vs 5 m/s: identical, same claim
+Wrong AI verdict: ~0
+Wrong CVSS: 0.03
+18 km/h vs 5 m/s: same claim
 
-17.9KB no_std Rust, zero imports. @Telegraphprotoc
+Zero imports. @Telegraphprotoc
 ```
 
 **T2-3** [268] · the rejection
@@ -150,22 +150,24 @@ Flip "AI-generated" to "human-written" - one word, rest identical - and it score
 Its separation margin is negative: -0.165. It prefers the wrong answer 219 times in 240.
 ```
 
-**T2-10** [272] · the giveaway, which also earns the adoption criterion
+**T2-10** [278] · the giveaway, which also earns the adoption criterion
 
 ```
-Open-sourced the harness, @Telegraphprotoc Track 2.
+Open-sourced my @Telegraphprotoc Track 2 benchmark: 256 pairs plus 20 held-out negation checks, one command, no install.
 
-It reproduces the node promotion gate offline - structural traps, separation, wins, self-match, Spearman - validated to 6 significant figures against live scores. 364 fixtures. MIT.
+It catches verdict flips, model swaps and confidence errors before a registration transaction.
+
+MIT. Failures welcome.
 
 Test before you spend a transaction.
 ```
 
 Attach the repo link to T2-10: `github.com/Harshyadav442277/telegraph-factscore`
 
-**T2-11** [273] · independent review found what our own corpus missed
+**T2-11** [256] · independent review found what our own corpus missed
 
 ```
-An independent Telegraph WASM verifier found 2 holes in my Track 2 scorer: AI did not equal machine-generated, and Paris-to-Berlin at sentence start was nearly free.
+An independent review found 2 holes in my Track 2 scorer: AI did not equal machine-generated, and Paris-to-Berlin at sentence start was nearly free.
 
 Fixed both generally. Final TAC corpus: 256/256, margin 0.974. External fuzz: 0 failures. @Telegraphprotoc
 ```
@@ -200,6 +202,24 @@ Last red-team before registering found our scorer inverted negation: truth "not 
 Fixed semantics, not the fixture: unseen negation set 10/20 → 20/20. Public corpus stays 256/256. @Telegraphprotoc
 ```
 
+**T2-15** [268] · mandatory overlap disclosure
+
+```
+Disclosure for @Telegraphprotoc review: I also operate Track 1 miner livecert (registration 225).
+
+The Track 2 scorer contains no miner slug, wallet or response fingerprint. It applies the same public semantic checks to every answer. The overlap is stated in the repo.
+```
+
+**T2-16** [264] · genuine adoption receipt
+
+```
+Adoption receipt: an external fork is 9 commits ahead, adapting my fact-aware scorer kernel to IP geolocation with measured tests.
+
+That is real code reuse, not independent validation of my TAC artifact.
+
+github.com/shreshth006/telegraph-factscore @Telegraphprotoc
+```
+
 ---
 
 ## Suggested order and pacing
@@ -210,7 +230,9 @@ Consistency is explicitly scored, so spread these rather than dumping them.
 |---|---|---|
 | immediately after the repository update | T2-14 | strongest held-out failure and measured repair |
 | reply to T2-14 | T2-12 | exact current release, proof and hashes |
-| reply to T2-12 | T2-13 | asks for real use; replies/issues become adoption evidence only if they happen |
+| reply to T2-12 | T2-15 | mandatory Track 1/Track 2 overlap disclosure |
+| reply to T2-15 | T2-13 | asks for real use; replies/issues become adoption evidence only if they happen |
+| next | T2-16 | links the first genuine downstream development trail without overstating it |
 | next | T2-11 | independent criticism and the earlier measured fix |
 | after that | T2-10 | the broader giveaway; recruits harness users for the 10% adoption criterion |
 | now | T1-1 | a concrete win, good reach |

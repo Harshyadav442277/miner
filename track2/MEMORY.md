@@ -30,10 +30,13 @@ Current candidate (published and hosted-byte verified; unregistered):
 - local verifier green; independent verifier commit `f537c7c`: 0 hard, 0 soft failures,
   500 fuzz triples, all 16 custom cases pass
 - Rust 1.98.0 Windows and Linux builds are byte-identical after normalizing embedded source paths;
-  public CI runs `33226710992` and `33226839747` passed the frozen-byte comparison
+  latest public CI run `33227235399` passed the full matrix and frozen-byte comparison
 - public artifact commit: `5728366ebc846faf2b81814be3b1dbec35f1c727`
-- public metadata HEAD: `4dfacb4b2faea10286819b5ebcc584c2cc7275d1`
+- public metadata HEAD: `1c74af5d54e177d97c75687feff9c197eccfd9fc`
+- stable release: `tac-v1.0.0`; attached WASM independently re-downloaded and hash-verified
 - a fresh commit-pinned raw download reproduced 25,887 bytes, SHA-256 and Keccak-256 exactly
+- community reuse: one external fork (`shreshth006/telegraph-factscore`) has nine measured
+  downstream IP-geolocation commits; count as kernel adoption only, not TAC validation
 
 The earlier `25ff808` artifact behaved identically but embedded Windows backslashes where the
 Linux build embedded slashes, so its failed cross-platform byte check supersedes it. It was never
@@ -43,6 +46,7 @@ The only remaining activation sequence is user verifies the same Keccak in the T
 → user signs the TAC registration → record the returned registration/evaluation state. Source can
 change on GitHub later; changed WASM bytes require a new on-chain registration. Full current
 evidence: `docs/codex-worklog/2026-08-29-negation-hardening.md`.
+Public conversion/adoption evidence: `docs/codex-worklog/2026-08-29-public-conversion.md`.
 
 ---
 

@@ -12,4 +12,5 @@ Entries:
 - [2026-08-28 submission update semantics](2026-08-28-submission-update-semantics.md)
 - [2026-08-29 adoption checker](2026-08-29-adoption-checker.md)
 - [2026-08-29 release-surface debloat](2026-08-29-release-surface-debloat.md)
-- [2026-08-29 unseen-negation hardening and final local refreeze](2026-08-29-negation-hardening.md)
+- [2026-08-29 unseen-negation hardening and cross-platform refreeze](2026-08-29-negation-hardening.md)
+- [2026-08-29 public conversion and adoption audit](2026-08-29-public-conversion.md)

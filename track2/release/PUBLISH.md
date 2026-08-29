@@ -5,12 +5,14 @@
 Published 2026-08-29 to `Harshyadav442277/telegraph-factscore`:
 
 - cross-platform artifact commit: `5728366ebc846faf2b81814be3b1dbec35f1c727`
-- public metadata HEAD: `4dfacb4b2faea10286819b5ebcc584c2cc7275d1`
+- public metadata HEAD: `1c74af5d54e177d97c75687feff9c197eccfd9fc`
+- stable release: `tac-v1.0.0`, with `text_authenticity.wasm` attached
 - `dist/text_authenticity.wasm`: 25,887 bytes
 - SHA-256: `1a0f191b57ed06421bf2ad067863261f515927b9d8bbc53e4e01ed99aa5fc634`
 - Keccak-256: `67da3ac8c06529a4ac44044bcf04471dd7d6c62fc97ca34fdd364a8feceb53aa`
 - fresh commit-pinned raw download: byte length and both hashes verified
-- GitHub Linux CI runs `33226710992` and `33226839747`: all profiles green and build byte-identical
+- GitHub Linux CI run `33227235399`: all profiles green and build byte-identical
+- downloaded release asset: byte length, SHA-256, and Keccak-256 verified
 - on-chain state: not registered
 
 Registration URL:
@@ -43,6 +45,7 @@ The monorepo remains the editing source. Sync these paths into the standalone re
 | Monorepo path | Standalone path |
 |---|---|
 | `track2/scorer/.cargo/config.toml` | `.cargo/config.toml` |
+| `track2/release/benchmark-result-issue.yml` | `.github/ISSUE_TEMPLATE/benchmark-result.yml` |
 | `track2/scorer/Cargo.toml` | `Cargo.toml` |
 | `track2/scorer/Cargo.lock` | `Cargo.lock` |
 | `track2/scorer/rust-toolchain.toml` | `rust-toolchain.toml` |
