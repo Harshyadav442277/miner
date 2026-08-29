@@ -99,9 +99,10 @@ One task = one change = one commit. Work top-down. Owner in brackets.
       authenticity axes and a second vocabulary probe. The frozen local candidate passes
       256/256 public TAC, 20/20 negation, 10/10 model aliases, 20/20 axes, and 12/12 vocabulary;
       all profile tests/clippy and Stage 1 verification pass.
-- [ ] **T-E.1c** [Codex+User] v1.2 is published at artifact commit `638dae4`, tagged
-      `tac-v1.2.0`, fresh-download verified, and Linux CI run `33236230467` passed. Only the new
-      user-signed registration remains.
+- [x] **T-E.1c** [Codex+User] v1.2 published at `638dae4`, tagged `tac-v1.2.0`, CI green — and
+      **registered as reg 1673 at 05:37:55Z, rejected at 05:41:53Z: 8/15 wins, margin 0.2702413**
+      against the 0.65861213 bar. Worse than v1.1.0's 9/15. The task note claiming only a signature
+      remained was written eight minutes before that signature and never updated.
 - [ ] **T-E.2** [Fable] X thread drafts (insight-led, tagged `@Telegraphprotoc`) → user posts.
 - [x] **T-E.3** [Opus+Codex] Package the harness + fixtures as a reusable kit for other script
       authors, including an incumbent-free `check-tac.mjs` command with text/JSON output. It
@@ -113,3 +114,30 @@ One task = one change = one commit. Work top-down. Owner in brackets.
 - [ ] **T-E.5** [Codex+User] Disclosure artifact: public scorer README now states the livecert
       (registration 225) overlap plainly; the matching X post is drafted and still requires the
       user's account — mandatory per the organizer answer.
+
+## Phase F — Rebuild on the organizers' baseline (post-rejection)
+
+Root cause of both rejections: `TEXT_AUTHENTICITY_CHECK` has `miner_count: 0` and zero score
+records, so every fixture we owned for it was self-authored — and the champion scores 13% on our
+corpus versus 93% on the node's. We optimised against an anti-correlated corpus.
+
+**Standing acceptance test:** no corpus may be used as evidence unless the champion `tn_t70`
+scores ~14/15 on it.
+
+- [ ] **T-F.1** Vendor `telegraphprotocol/telegraph-wasm-baseline` (MIT) as the scoring core;
+      record the licence and attribution. Builds here with Rust 1.98 `--features real_weights`.
+- [ ] **T-F.2** Replace the composite: drop `cos(question, answer)` (8/18 wins — worthless) and the
+      length term (~0.99 for everything, rewards filler); keep `cos(GT, answer)` and `bm25`.
+- [ ] **T-F.3** Add the two terms neither the baseline nor the champion has — a verdict-pole
+      agreement term over the authenticity axes, and a hard non-answer penalty for restatement,
+      refusal and generic filler. This is the honest edge and it is what the intent actually asks.
+- [ ] **T-F.4** Sharpen to a binariser. Margin is the axis we lose on; the champion reaches 0.6586
+      by pushing to ~0.996 / ~0.010. Beat it by *also* crediting the correct paraphrases it dumps
+      to ~0.010.
+- [ ] **T-F.5** Build a held-out corpus the opposite way — correct answers with LOW lexical overlap
+      with the ground truth, wrong answers with HIGH overlap — to test the paraphrase-credit claim
+      instead of assuming it. Guards against the G14 authoring bias.
+- [ ] **T-F.6** Stage-1 traps on the new core: empty answer exactly 0.0, exact match 1.0, zero
+      imports, determinism, bounded memory, fuzz.
+- [ ] **T-F.7** Publish, verify hosted bytes and both hashes, then a single user signature.
+      **No wallet action until T-F.5 passes.**

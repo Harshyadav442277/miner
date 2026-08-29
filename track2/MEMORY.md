@@ -4,6 +4,106 @@
 
 ---
 
+## ⇢ HANDOVER — 2026-08-29 late · BOTH REGISTRATIONS REJECTED · THE CORPUS WAS THE BUG
+
+**Read the live registry, not the previous handovers.** They were written before the verdicts
+landed and they are wrong.
+
+### What actually happened
+
+| reg | bytes | wins | margin | bar | verdict |
+|---|---|---|---|---|---|
+| 1671 | v1.1.0 `409911f` | 9/15 | 0.3274022 | 0.65861213 | rejected — ordering |
+| 1673 | v1.2 `638dae4` | 8/15 | 0.2702413 | 0.65861213 | rejected — ordering |
+
+The v1.2 bytes that the previous handover, REGISTRATION.md and TASKS.md T-E.1c all described as
+"published, not yet registered" **were registered** at 05:37:55Z as reg 1673 and rejected at
+05:41:53Z. Codex committed `e12d09c` at 05:29Z, eight minutes before the signature, and never saw
+the result. **The v1.2 semantic repair moved us backwards: 8/15 versus 9/15.**
+
+### The promotion rule, measured from all 86 entries
+
+Reg **855 scored 15/15 wins and was still rejected** at margin 0.5076. Eleven more scored 14/15 and
+were rejected at margins 0.26–0.53. Champion 850 took the slot with 14 wins vs 14 on a *higher
+margin*. So promotion is **`wins >= 14/15` AND `margin > 0.65861213` — both**, and margin is the
+axis we have never been close on.
+
+### Root cause — our corpus is anti-correlated with the node's
+
+`TEXT_AUTHENTICITY_CHECK` has **`miner_count: 0`** and `/scores` returns **zero records**. No live
+traffic exists, so the node's 15 fixtures are organizer-curated and every TAC fixture we owned was
+written by us.
+
+| corpus | champion `tn_t70` wins |
+|---|---|
+| ours (256 TAC pairs) | 33/256 — **13%** |
+| the node's | 14/15 — **93%** |
+
+We spent two days optimising against a corpus built to break the incumbent. **Acceptance test for
+any future corpus: the champion must score ~14/15 on it.** Nothing may be claimed from a corpus
+that fails this.
+
+### The unlock — the organizers' baseline is the champion's architecture
+
+`github.com/telegraphprotocol/telegraph-wasm-baseline` (MIT) builds here with Rust 1.98 and
+`--features real_weights` in about a minute → 24,184,589 B, real INT8 MiniLM-L6-v2.
+
+- Champion binaries `cv_mini_reg626` / `ipgeo_reg630` / `wf_mini_reg636` differ from each other in
+  **24 bytes** — the embedded intent name plus two f32 constants. The whole champion field is one
+  MiniLM program, re-pointed per intent.
+- `tn_t70_reg850` is 23,987,851 B, 21 functions, 5 exports (`memory`, `alloc`, `dealloc`,
+  `rank_answer`, and a `TELEGRAPH_INTENT` global), data section 23,956,199 B — same architecture.
+- **A ~24 MB module is accepted on-chain.** Our 30 KB hand-rolled lexical scorer was competing
+  without the one component that decides this intent.
+
+### Measured on an 18-case corpus written to the canonical intent definition
+
+(`scratchpad/diag/` — good/bad answers are what a weak miner emits, not minimal pairs)
+
+| scorer | wins | margin | mean good | mean bad |
+|---|---|---|---|---|
+| champion `tn_t70` | 18/18 | 0.7135 | 0.7229 | 0.0094 |
+| official baseline | 15/18 | 0.1083 | 0.6427 | 0.5344 |
+| **ours v1.2** | **14/18** | **0.2739** | 0.4695 | 0.1956 |
+
+Our v1.2 margin here (0.2739) reproduces its live margin (0.2702) to two decimals, and the
+champion's (0.7135) tracks its live 0.6586. **This corpus is in the right family and is the first
+one we have owned that is.**
+
+### The champion's exploitable weakness
+
+It is a **binariser**: good answers score ~0.996, everything else ~0.010. On 5 of 18 cases it
+scored the *correct* answer at ~0.010 too — it only "wins" those by 0.001. Its live numbers imply
+the same shape: roughly 10 of 15 correct answers at ~1.0, 5 dumped to ~0.01, all wrong answers at
+~0.01, which arithmetically lands on 0.6586.
+
+**So the opening is to credit the correct paraphrases the champion's lexical threshold throws
+away.** Score 15/15 correct answers near 1.0 and wrong ones near 0.01 and the margin is ~0.98
+against a bar of 0.6586.
+
+### Baseline signal separability on the same 18 cases
+
+| signal | wins | margin |
+|---|---|---|
+| bm25(GT, answer) | 18/18 | 0.1304 |
+| cos(GT, answer) | 13/18 | 0.1725 |
+| cos(question, answer) | 8/18 | 0.0026 |
+| composite | 15/18 | 0.1083 |
+
+`cos(question, answer)` is worthless here (both answers address the question) yet the baseline
+spends 0.25 of its weight on it, and the length term is ~0.99 for everything. Caveat in GAPS G14:
+the 18 cases were hand-written while reading their ground truth, so bm25's 18/18 is partly an
+artefact of how the good answers were phrased. It is a development corpus, not proof.
+
+### Next
+
+T-E.6: rebuild on the baseline core (MiniLM) + a verdict-pole term + a non-answer penalty, then
+sharpen hard. Validate against a held-out corpus built the opposite way — low-overlap correct
+paraphrases and high-overlap wrong verdicts — so the paraphrase-credit claim is tested, not
+assumed. **No wallet action until a candidate clears the bar on a champion-validated corpus.**
+
+---
+
 ## ⇢ HANDOVER — 2026-08-29 · v1.2 LOCAL CANDIDATE FROZEN · PUBLISH BEFORE RESUBMITTING
 
 Registration `1671` submitted the exact v1.1.0 bytes from wallet

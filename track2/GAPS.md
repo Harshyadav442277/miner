@@ -150,3 +150,37 @@ record the exact obligation.
 Track 2 opened Aug 17; we enter Aug 27. Competitors may have 10 days of X history (10% axis) and
 established scripts. Mitigation: the 50% axis is where the weight is, our evidence is stronger,
 and insight-led posts can compress reach into days. Accepted as the cost of the pivot.
+
+---
+
+## G13 — our TAC corpus is anti-correlated with the node's (ROOT CAUSE, 2026-08-29)
+
+`TEXT_AUTHENTICITY_CHECK` reports `miner_count: 0` and `/scores` returns zero records, so no live
+traffic exists and every TAC fixture we own was written by us. The champion scores **33/256 (13%)**
+on our corpus and **14/15 (93%)** on the node's. Two days of tuning ran against a corpus built to
+break the incumbent, which is the opposite of the one being judged. Registrations 1671 (9/15) and
+1673 (8/15) are the cost.
+
+**Standing rule from now on:** a corpus is admissible only if the champion scores ~14/15 on it.
+
+## G14 — the 18-case development corpus was authored while reading its ground truth
+
+`scratchpad/diag/tac-cases.mjs` was hand-written to the canonical intent definition, but the good
+and bad answers were composed with the ground truth visible. That is exactly the trap root
+CLAUDE.md rule 3 names. Consequence: `bm25(GT, answer)` separating **18/18** is partly an artefact
+of the good answers reusing ground-truth vocabulary, and must not be quoted as a property of the
+intent.
+
+What *is* externally anchored, because neither number was available to the author while writing:
+the champion reproduces 0.7135 here against 0.65861213 live, and our v1.2 reproduces 0.2739 here
+against 0.2702413 live. That makes it a usable development corpus and not a proof corpus.
+Mitigation is T-F.5: a held-out set built by the inverse rule.
+
+## G15 — we do not know the shape of the node's 15 curated fixtures
+
+Zero traffic means they are organizer-authored and unobtainable. Every claim about "what the
+fixtures look like" is inference from the 86-entry rejection record, not observation. The
+inference that the champion binarises (~0.996 / ~0.010, with roughly a third of correct answers
+dumped to ~0.010) is arithmetic consistent with its 14/15 at margin 0.6586, and matches its
+measured behaviour on our 18 cases — but it remains inference. Two questions are with the
+organizers to close this.

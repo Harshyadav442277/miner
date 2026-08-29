@@ -1,71 +1,56 @@
 # REGISTRATION.md — the user's runbook for registering the scorer
 
-## READY FOR v1.2 REGISTRATION — USE ONLY THE URL AND HASH BELOW
+## STOP — DO NOT REGISTER ANYTHING RIGHT NOW
 
-**Status 2026-08-29. Target remains `TEXT_AUTHENTICITY_CHECK`.** Registration 1671 submitted
-v1.1.0 successfully through Stage 1 but was rejected in Stage 2 at 9/15 wins and margin 0.3274022;
-the champion scored 14/15 and 0.65861213. Do not resubmit that URL or hash.
+**Status 2026-08-29 (corrected from the live registry).** Two registrations were signed today
+against `TEXT_AUTHENTICITY_CHECK` and **both were rejected**. The v1.2 block that used to sit here
+described its bytes as "not yet registered." That was wrong: those exact bytes are registration
+**1673**, and the node rejected them.
 
-The v1.2 repair was driven by two probes written and hashed before their corresponding changes.
-It separates authorship, originality, genuineness, integrity, and verification; it also treats a
-supported semantic verdict as answer-bearing rather than weak prose. Local results are 256/256
-public TAC, 20/20 negation, 10/10 model aliases, 20/20 independent axes, and 12/12 vocabulary.
+| reg | artifact commit | keccak256 | wins | margin | bar | verdict |
+|---|---|---|---|---|---|---|
+| 1671 | `409911f` (v1.1.0) | `8599d78b…6e9938` | 9/15 | 0.3274022 | 0.65861213 | rejected — ordering |
+| 1673 | `638dae4` (v1.2) | `8cfc5456…c58a07` | 8/15 | 0.2702413 | 0.65861213 | rejected — ordering |
 
-Current published and hosted-byte-verified candidate (not yet registered):
+Registration 1673 was signed at 2026-08-29 05:37:55Z and rejected at 05:41:53Z, from wallet
+`0xdad201ef02f5c1fbb8f9e931ae9b7c1bf493a39e`. **The v1.2 semantic repair made the module worse on
+the node's fixtures, not better** (8/15 versus 9/15). Neither URL may be resubmitted.
 
-```
-track2/scorer/dist/text_authenticity.wasm
-size      30,897 bytes
-sha256    3bb3bb82e0f6e2db9948e8ce96c8f1796835858d4b0a78332ec0b624501628a9
-keccak256 8cfc5456b08363d281878b59f587ad9c44b7296b211a6a4bab4ec794a3c58a07
-```
+### The promotion rule, now measured rather than inferred
 
-The Keccak was computed locally with OpenSSL `KECCAK-256`; the same command reproduced champion
-reg 850's known on-chain hash `14f7076c…04f57`, validating the algorithm choice. The pinned Rust
-1.98.0 Windows build, all profile tests/clippy, and the Stage-1 verifier pass. Linux reproduction
-and fresh hosted-byte verification are still required before registration.
+Read off the full 86-entry registry for this intent:
 
-Independent `telegraph-wasm-check` commit `f537c7c` reports **0 hard failures, 0 soft failures**,
-fresh-instance determinism, 500 seeded fuzz cases, bounded memory, and all 16 native TAC cases for
-the superseded v1.0.0 bytes. It is historical evidence, not verification of v1.2.
+- Registration **855 scored 15/15 wins** and was still rejected, on "separation", at margin 0.5076.
+- Registrations 849, 856, 854, 848, 853, 847, 851, 832, 831, 830, 833 all scored **14/15** and were
+  rejected the same way, at margins 0.26–0.53.
+- Champion 850 took the slot with **14 wins against the prior champion's 14**, on a higher margin
+  (0.65861213 versus 0.4044904).
 
-Published artifact URL:
+> **Promotion requires `wins >= 14/15` AND `candidate_margin > 0.65861213`. Both. Winning on wins
+> alone is a documented, repeated rejection.**
 
-```text
-https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/638dae46ba31c1bf3a30e9d0e541b7c56f3fe48b/dist/text_authenticity.wasm
-```
+### Why every local number we had was measuring the wrong thing
 
-### Next action — user wallet confirmation
+`TEXT_AUTHENTICITY_CHECK` reports **`miner_count: 0`** and `/scores?intent=TEXT_AUTHENTICITY_CHECK`
+returns **zero records**. There is no live traffic on this intent, so the node's 15 fixtures are
+curated by the organizers, and every fixture we owned for it was written by us.
 
-Use `integrate.telegraphprotocol.com` to submit the URL above for **`TEXT_AUTHENTICITY_CHECK`**.
-The commit-pinned download reproduced both hashes and Linux CI run `33236230467` passed. The website's
-VERIFY & HASH value must equal
-`8cfc5456b08363d281878b59f587ad9c44b7296b211a6a4bab4ec794a3c58a07` exactly before the user
-approves the wallet transaction. Stop if it differs.
+The corpus we tuned on is anti-correlated with theirs:
 
-GitHub code can be updated later. The on-chain registration is different: it binds one hosted URL
-and byte hash. A changed WASM needs a new registration transaction. Track 1's website intent
-metadata is separate from this Track 2 release flow.
-
-| What changed? | Required action |
+| corpus | champion `tn_t70` wins |
 |---|---|
-| Track 1 intent details / published `miner.yaml` | Update the website flow; a changed YAML is published and submitted through `updateMiner`, producing new IDs. |
-| GitHub README, source, tests, fixtures, proof, or harness only | Push normally. No website or chain update. |
-| Compiled Track 2 WASM bytes | Publish the exact new bytes, verify both hashes, then submit a fresh `registerWasm`. |
+| ours (`track2/fixtures`, 256 TAC pairs) | 33/256 — **13%** |
+| the node's hidden fixtures | 14/15 — **93%** |
 
-Therefore the website only needs the intent-detail update the user identified. GitHub code remains
-editable; just do not describe source changes as live scorer changes until their compiled WASM is
-separately registered.
+We built a corpus engineered to break the incumbent, then optimised against it for two days.
+**A corpus is only admissible evidence if the champion scores ~14/15 on it.** That is the
+acceptance test every future fixture set must pass before any claim is made from it.
 
-After confirmation, record the `registrationId` and query:
+### Next action
 
-```bash
-curl -s "https://devnode.telegraphprotocol.com/api/wasm?intent=TEXT_AUTHENTICITY_CHECK"
-```
-
-The 2026-08-29 06:53 IST live recheck still showed 83 entries, champion reg 850, bar
-0.65861213, 14/15 wins, no history, and no registration for this new hash. Poll again
-immediately before signing.
+None involving the wallet. Do not open `integrate.telegraphprotocol.com`. The rebuild is tracked in
+[TASKS.md](TASKS.md) T-E.6; a new runbook block replaces this one only when a candidate clears the
+measured bar on a corpus that passes the champion acceptance test above.
 
 ---
 
@@ -177,7 +162,8 @@ returns exact numbers.
 ```
 intent                   registrationId   status     candidate_margin   bar faced    date
 IP_GEOLOCATION           1377             REJECTED   0.87751794         0.99185944   2026-08-27
-TEXT_AUTHENTICITY_CHECK  1671             REJECTED   0.3274022          0.65861213  2026-08-29
+TEXT_AUTHENTICITY_CHECK  1671             REJECTED   0.3274022          0.65861213   2026-08-29
+TEXT_AUTHENTICITY_CHECK  1673             REJECTED   0.2702413          0.65861213   2026-08-29
 ```
 
 **Registration 1671 terminal result** — exact v1.1.0 URL/hash, wallet
