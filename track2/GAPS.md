@@ -256,3 +256,44 @@ Our results on it: 20/20 cases, 69/69 pairs, margin 0.968154, against the
 champion's 19/20, 67/69 and 0.612070. If that transfers, it clears the 0.634025
 bar and the 13/14 win requirement with room. The honest caveat remains that a
 corpus resembling the fixtures is not the fixtures.
+
+## G19 — a pure restatement of the question still scores ~1.0 (accepted, measured)
+
+`scratchpad` probe, TVL_LOOKUP: the answer *"You are asking about the current
+total value locked in the Aave V3 protocol on the Ethereum chain as of August 29,
+2026."* scores **0.999973**. It states no quantity at all; its only figures are
+the date, and those match the ground truth's date exactly, so the numeric channel
+reports perfect agreement about nothing while prose overlap carries precision to
+0.996.
+
+This is the same class of defect our own project was founded on exposing in the
+incumbent, so it is not comfortable to leave open. It is left open because the
+fix was built, measured, and cost more than it saved:
+
+| variant | TVL gt-vs-real |
+|---|---|
+| shipped (scale words only) | **20/20, margin 0.957407** |
+| + calendar figures excluded from the numeric channel | 13/20, margin 0.375687 |
+| + missing-quantity penalty only | 16/20, margin 0.433633 |
+
+Excluding calendar figures removes agreement mass that correct answers
+legitimately earn, and the missing-quantity penalty fires on correct answers that
+state their figure outside the sentence it inspects. Eight measured cases is too
+much to pay for one synthetic exposure, so the exposure is recorded instead.
+
+**What would actually fix it:** identifying the ground truth's *headline* figure
+by role and requiring an answer to address that specific figure, rather than any
+figure. The role machinery for it already exists (`tokens::role_overlap`); wiring
+it to the answeredness gate is the open task.
+
+## G20 — the finance suffix form `$12.5B` is not recognised
+
+`$12.5 billion`, `$12,500,000,000` and `12,500,000,000 dollars` are now all one
+quantity (`scale_words`, plus a currency-word exemption from the foreign-unit
+penalty). `$12.5B` still scores **0.000002** against a truth of `$12.5 billion`.
+
+Single-letter magnitudes were implemented and then removed: reading `m` as
+*million* broke unit normalisation outright, scoring `5 m/s` and `18 km/h` as
+different quantities and failing the Stage-1 equivalence check. Recognising `B`
+safely needs the suffix consumed during number parsing, where the neighbouring
+bytes are still visible, not in a post-pass.
