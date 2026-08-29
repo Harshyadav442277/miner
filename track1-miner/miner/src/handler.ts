@@ -5,20 +5,19 @@ import { translate, type TranslationResult } from "./translate";
 import { findPapers, type PaperResult } from "./papers";
 import { getForecast, type ForecastResult } from "./forecast";
 import { geolocate, type GeoResult } from "./geo";
-import { lookupCve, extractCveId, type CveResult } from "./cve";
 
 const CACHE_TTL_MS = Number(process.env.CACHE_TTL_MS ?? 60_000);
 const MAX_CACHE = 500;
 export const ENDPOINTS = [
   "/ssl-check", "/storm-alert", "/weather-forecast",
-  "/ip-geolocate", "/translate", "/papers", "/cve",
+  "/ip-geolocate", "/translate", "/papers",
 ] as const;
 
 /**
  * A one-minute cache matches miner.yaml, absorbs repeated spot checks, and
  * reduces dependence on free upstreams. Callers can lower it with CACHE_TTL_MS.
  */
-type Answer = SslResult | StormResult | ForecastResult | GeoResult | TranslationResult | PaperResult | CveResult;
+type Answer = SslResult | StormResult | ForecastResult | GeoResult | TranslationResult | PaperResult;
 const cache = new Map<string, { at: number; value: Answer }>();
 
 function fromCache(key: string): Answer | null {
@@ -363,35 +362,6 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
         send(res, 200, r);
       })
       .catch(() => upstreamUnavailable(res, "A translation", "the supplied text"));
-    return;
-  }
-
-  if (path === "/cve") {
-    const q = firstValue(url, "query", "q", "question", "cve", "cve_id", "id", "text", "input");
-    if (!q.trim()) {
-      send(res, 200, {
-        verdict: "unknown",
-        confidence: 0,
-        reason:
-          "No CVE identifier was supplied with this request. Name one, for example CVE-2021-44228.",
-        error: "invalid_input",
-      });
-      return;
-    }
-    // Key the cache on the CVE id, not the phrasing: NVD allows ~5 requests per
-    // 30 seconds, and every rephrasing of the same CVE must not spend one.
-    const cveKey = `cve:${(extractCveId(q) ?? q.trim().toLowerCase()).toLowerCase()}`;
-    const cveHit = fromCache(cveKey);
-    if (cveHit) {
-      send(res, 200, cveHit);
-      return;
-    }
-    lookupCve(q)
-      .then((r) => {
-        toCache(cveKey, r);
-        send(res, 200, r);
-      })
-      .catch(() => upstreamUnavailable(res, "A CVE lookup", q.slice(0, 40)));
     return;
   }
 

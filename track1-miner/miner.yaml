@@ -62,15 +62,6 @@ endpoints:
       Future conditions for a location over a stated window (default 24h, max
       168h). Accepts a place name or "lat,lon", plus an optional hours parameter.
 
-  - path: /cve
-    external_path: /cve
-    method: GET
-    description: >-
-      CVE vulnerability lookup via the National Vulnerability Database. Accepts a
-      CVE identifier or a question naming one. Returns CVSS score and vector,
-      severity, affected versions and CISA known-exploited status. NVD allows
-      about 5 requests per 30 seconds; answers are cached by CVE id.
-
 semantics:
   signal_mapping:
     label_field: verdict
@@ -83,7 +74,6 @@ semantics:
     - IP_GEOLOCATION
     - LANGUAGE_TRANSLATION
     - ACADEMIC_SEARCH
-    - CVE_LOOKUP
 
 # input_schema is a single top-level block covering every endpoint — the schema
 # refuses it inside endpoints[], and the node does not enforce it against requests.
@@ -161,29 +151,6 @@ input_schema:
       type: string
       description: /ip-geolocate. IPv4 or IPv6 address.
       examples: ["8.8.8.8"]
-    text:
-      type: string
-      description: >-
-        /translate. The text to translate, with or without quotes. Registration
-        260 declared no translation-shaped parameter, and both scored epochs
-        arrived empty — the engine fills only parameters that are declared.
-      examples: ["The weather is beautiful today."]
-    target_language:
-      type: string
-      description: >-
-        /translate. The language to translate into, by name or ISO 639-1 code.
-      examples: ["Spanish", "fr"]
-    source_language:
-      type: string
-      description: /translate. The language of the source text, when stated.
-      examples: ["English"]
-    cve:
-      type: string
-      description: /cve. A CVE identifier, e.g. CVE-2021-44228.
-      examples: ["CVE-2021-44228"]
-    cve_id:
-      type: string
-      description: Alias for cve.
 
 output_schema:
   type: object
@@ -269,19 +236,6 @@ output_schema:
     temp_max_c: { type: [number, "null"] }
     total_precipitation_mm: { type: [number, "null"] }
     precipitation_hours: { type: [integer, "null"] }
-    cve_id: { type: [string, "null"] }
-    severity:
-      type: [string, "null"]
-      description: CVSS severity band. /cve only.
-    cvss_score: { type: [number, "null"] }
-    cvss_vector: { type: [string, "null"] }
-    published: { type: [string, "null"] }
-    affected_versions:
-      type: [string, "null"]
-      description: Vulnerable product and version ranges, description-named product first.
-    known_exploited:
-      type: boolean
-      description: Whether the CVE is in CISA's Known Exploited Vulnerabilities catalog.
 
 docs:
   repository: https://github.com/Harshyadav442277/miner
