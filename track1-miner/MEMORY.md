@@ -145,6 +145,49 @@ permissions explicit; `live-tests` uses `npm ci` + cache to conserve the Actions
 the suspected cause of the 9–13h cron gaps. Proven live with the `test_alarm` dispatch input →
 issue #1, closed as a drill. (T4.8, G21)
 
+### Session 2 continued — epoch 290 landed 06:31Z and rewrote the priorities
+
+```
+SSL_VERIFICATION   #1  0.01020   held; margin narrowed to +17% (txlens 0.00869; new entrant
+                                 preflight-ssl-verification #3)
+IP_GEOLOCATION     #1  0.00971   held; iplocate scored 0.0
+STORM_ALERT        #2  0.00680   amanat 0.00783; the guidance SURVIVED conversion ("advising to
+                                 secure equipment and move personnel to safe shelters") and
+                                 measured +3.8% raw even on this forecast question (G23 half-
+                                 closed). Loss cause: amanat's day-by-day outlook shape.
+                                 Temp/humidity grafting was measured -1.2%/-26% and REJECTED.
+WEATHER_FORECAST   #5  —         the converter dropped the asked-for temperature AGAIN (2nd
+                                 epoch running). Fix deployed ~09:00Z: temperature now leads,
+                                 source attribution at the tail. Raw 0.011418 vs the winner's
+                                 converted 0.011638. Session 1's "reorder measured worse" was
+                                 specific to its wording, not to leading with temperature.
+LANGUAGE_TRANSL.   #3  0.00525   A REFUSAL — and epoch 289's #1 was ALSO a refusal (luck).
+                                 The engine has never delivered the text: registration 260
+                                 declares no text/target_language, and the engine fills only
+                                 declared params (mymemory incumbents receive the text; their
+                                 manifests declare text-shaped slots). Endpoint verified fine
+                                 through every param. FIX = manifest update, operator signature:
+                                 see REGISTRATION_UPDATE.md. LOG_QUERY=on is live in production
+                                 (param names + emptiness, never values) to confirm delivery.
+ACADEMIC_SEARCH    —             not scored as of ~09:45Z.
+```
+
+**CVE_LOOKUP was re-evaluated and is now a CAPTURED intent — do not enter, do not re-measure.**
+The champion scorer changed to `cve_ms_10.wasm` (reg 1446). Under it, patchsignal-cve scores
+0.999993, our best honest answer measures 0.24, and appending NVD's own description — content
+equivalent to what patchsignal's scoring answer contains — measures exactly 0.0000. The scorer
+author is the #1 miner. The 150x pre-tune measurement was real but belongs to the dead scorer
+regime. The /cve restoration was reverted the same hour (commit 5172b07, reverted; the
+translation params were re-added alone in 3a52370).
+
+**IMAGE_VERIFICATION / GAME_RESULT / TEXT_CLASSIFICATION evaluated for entry, all declined**
+(2-miner fields below the eligibility floor or unservable honestly) — the reasoning is in
+REGISTRATION_UPDATE.md and docs/LOSSES.md.
+
+**docs/LOSSES.md** now holds the full autopsy of every rank not held, by root cause. The
+three fixable species: refusing instead of answering; the asked-for fact not surviving the
+~32-word conversion; the engine not delivering the question.
+
 ### Re-verified live 2026-08-29 (UTC 2026-08-28T18:4xZ)
 
 Everything below was measured this session, not carried forward:

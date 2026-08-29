@@ -98,6 +98,20 @@ position, so every day of delay shortens the record we are judged on.
       permissions, npm cache on `live-tests`, honest cadence comment — and **proven live**: a
       forced failure via the new `test_alarm` dispatch input created issue #1, closed as a
       documented drill. (G21)
+- [ ] **T4.10** **OPERATOR: sign the translation-parameters manifest update.** Epoch 290 proved
+      both scored LANGUAGE_TRANSLATION epochs were refusals — the engine fills only declared
+      parameters and registration 260 declares no text/target_language. The YAML is ready and
+      production is green; the steps, evidence and risks are in
+      [track1-miner/REGISTRATION_UPDATE.md](track1-miner/REGISTRATION_UPDATE.md). Ten minutes,
+      sandbox first, then `gh variable set REGISTRATION_ID --body <newId>`.
+- [x] **T4.11** **Weather temperature-first reorder, deployed 2026-08-29 ~09:00Z.** The converter
+      dropped the asked-for temperature in epochs 289 AND 290. Temperature now opens the prose,
+      source attribution moved to the tail. Raw 0.011418 on epoch 290's question vs the winner's
+      converted 0.011638. Epoch 291 is the test.
+- [x] **T4.12** **CVE_LOOKUP evaluated and declined 2026-08-29.** Captured intent: the new
+      champion scorer (`cve_ms_10.wasm`) scores its author's miner 0.9999, our best 0.24, and
+      any enrichment 0.0000. Restoration was reverted; only the translation params survived
+      into the manifest. Do not re-enter.
 - [x] **T4.9** **Storm advisory hedge, measured and deployed 2026-08-29.** Epoch 289's storm
       question was operational ("what adjustments should miners implement") and the whole field
       answered with forecast numbers — we lost #1 by 0.00023. The engine sends storm only
