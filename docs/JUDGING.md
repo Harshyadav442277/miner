@@ -1,6 +1,7 @@
 # JUDGING.md — how Track 1 is actually scored
 
-Source: https://hackathon.telegraphprotocol.com/rules — read **2026-08-26**.
+Published source: https://hackathon.telegraphprotocol.com/rules — re-read **2026-08-29**.
+Organizer clarification supplied directly by the operator on **2026-08-29**.
 
 Three findings here contradict earlier assumptions. All three change the plan.
 
@@ -24,7 +25,7 @@ And separately: *"Miners and Script Authors must remain live and operational thr
 So the miner must keep serving until **Sep 7** even though building stops Aug 31. Uptime is a
 rule, not just a scoring input.
 
-## 2. The scoring formula is published and explicit
+## 2. Per-intent scoring is published; final cross-intent aggregation is not
 
 Every miner is scored out of 100:
 
@@ -36,11 +37,15 @@ Every miner is scored out of 100:
 25 pts  Engagement & Updates on X  (quality, consistency, reach; tag @Telegraphprotoc)
 ```
 
-**The best miner in every intent automatically gets the full 75.** Leaderboards are per-intent and
-independent — *"Miners solving completely different tasks do not affect your ranking."*
+**The best miner in every intent automatically gets the full 75 within that intent.** Leaderboards
+are per-intent and independent — *"Miners solving completely different tasks do not affect your
+ranking."*
 
-This is the strongest possible confirmation of the intent strategy: rank 1 in a quiet intent scores
-identically to rank 1 in a crowded one. There is no bonus for beating a harder field.
+The organizer clarified on 2026-08-29 that Track 1 winner judging will use an **average across all
+intents**, but that the exact formula will only be finalized during judging. Therefore the former
+claim that one quiet-intent rank 1 alone maxes the entire performance component is withdrawn. The
+published intradomain normalization is still the per-intent input; the cross-intent denominator,
+eligibility treatment, and averaging details remain unfinalized.
 
 **X is 25% of the score.** Not a tiebreaker — a quarter of the total, from a standing start.
 
@@ -79,6 +84,10 @@ exists only to manufacture 100 calls would be gaming, and is out of bounds.
 
 Top 3 miners **by total normalized score across all intents** take the Miner pool.
 
+Treat that published wording together with the organizer's later clarification: the aggregate will
+be an average across intents, but its exact implementation is still TBD. Do not present a locally
+reconstructed formula as final.
+
 ## Other binding rules
 
 - All participants **must join the official Discord**, and *"staying active is expected."* (Done.)
@@ -90,6 +99,11 @@ Top 3 miners **by total normalized score across all intents** take the Miner poo
 
 > "We are not looking for the best demo. We are looking for real evidence that the quality
 > flywheel works."
+
+The organizer also stressed that the hackathon reward is only the cold-start incentive. In normal
+operation, agent requests route toward top-ranked miners; ranking first in more intents should
+therefore increase the range of demand and per-query revenue available to the miner. Track 1 should
+optimize for durable service quality, uptime, and useful intent coverage—not a one-time prize only.
 
 They name "surface-level integrations" as what will *not* stand out. The stated high-value areas
 are on-chain intelligence pipelines, autonomous agents, multi-intent combinations, confidence

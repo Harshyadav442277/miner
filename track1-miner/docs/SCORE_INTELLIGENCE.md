@@ -44,7 +44,10 @@ This matters because the absolute numbers look alarming and are not:
 | `WEATHER_FORECAST` (onlookout) | **0.0080** |
 | `STORM_ALERT` (bittensor-sn18-zeus) | **0.0066** |
 
-A 150× spread. But rank 1 at 0.0063 scores exactly as many judging points as rank 1 at 0.996.
+A 150× spread. Published intradomain normalization gives both rank-1 entries the same per-intent
+performance input. The organizer clarified on 2026-08-29 that final Track 1 judging averages across
+all intents using a formula still to be finalized, so this is not a claim that either miner's whole
+Track 1 score is already known.
 
 ## 3. The bars we actually have to clear
 
@@ -110,8 +113,9 @@ malformed, and A5 forbids liar-200s.
 
 1. **Add thin Tier A intents.** Breadth is confirmed free. `IP_GEOLOCATION` (1 competitor),
    `CVE_LOOKUP` (2), `SPORTS_SCORE` (2), `GAME_RESULT` (2) are each an independent shot at rank 1.
-2. **Stop optimising the absolute score.** Beat 0.0063 / 0.0066 / 0.0080 and the judging half is
-   maxed. Everything beyond that is wasted effort.
+2. **Prioritize rank, then reliability.** Beat 0.0063 / 0.0066 / 0.0080 to maximize the published
+   per-intent normalized-performance input. Keep improving only where it protects rank, uptime, or
+   real agent usefulness; the exact cross-intent judging average is not final.
 3. **Investigate the chainwire/txlens gap.** If answer shape explains 0 vs 0.99, that is the
    difference between rank 1 and unassailable.
 4. **Track 2 becomes strategically interesting**, not just a second prize — see the honesty caveat

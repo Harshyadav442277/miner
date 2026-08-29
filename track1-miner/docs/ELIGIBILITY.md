@@ -129,9 +129,15 @@ Note the ordering this implies: SSL and Storm already clear the miner half, so t
 two intents where the 100 requests would immediately convert into an eligible rank 1. That is where
 outreach effort pays first — not IP.
 
-## 5. One thing still unresolved
+## 5. Cross-intent formula — partially answered, still not final
 
-The published rules do not define how the 25% X term is applied across multiple intent entries, or
-whether ineligible intents are excluded from the "total normalized scores across all intents" that
-decides winners. We are optimising against an underspecified formula. **Worth asking the organizers
-in writing**, and worth doing before the 31st rather than after.
+Organizer clarification received 2026-08-29: Track 1 judging will use an **average of all intents**,
+but the exact formula will be finalized later during judging. The published rules still do not say
+how the 25% X term is combined across entries, whether ineligible intents are excluded, or exactly
+which intents form the average. We are still optimizing against an underspecified aggregate; do
+not turn "average" into a fabricated equation.
+
+The same clarification shifts the long-term objective. The hackathon is a cold start for a ranked
+intelligence market: agent requests route toward top-ranked miners, so holding rank 1 in more
+genuinely served intents expands the demand that can reach this miner. Durable uptime and useful
+coverage matter beyond the prize window.

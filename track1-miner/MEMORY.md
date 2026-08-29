@@ -3,7 +3,7 @@
 **Read this first. Everything Track 1 needs is in this folder.**
 Shared protocol facts are in `../docs/`. Do not edit `../track2/` or `../track3-certwatch/`.
 
-Last updated: 2026-08-29 session 2 — storm advisory hedge deployed, alarm proven, branch clean.
+Last updated: 2026-08-29 session 3 — organizer clarified cross-intent averaging and demand routing.
 
 ---
 
@@ -47,6 +47,16 @@ work, and those endpoints are public and already described in our own public REA
 Thirteen posts, each verified under X's 280-character limit and tagged, roughly two a day
 through Aug 31 and continuing into the Track 3 window:
 **[../docs/X_POSTS.md](../docs/X_POSTS.md)**. Best post so far is 188 impressions.
+
+**1b. Track 1 aggregate and the real economic objective — organizer clarification 2026-08-29.**
+Winner judging will use an **average across all intents**; the exact formula will be finalized later
+during judging. Do not claim that one quiet-intent rank 1 automatically determines the Track 1
+winner, and do not invent how ineligible intents or the X term enter the average.
+
+The organizer's larger point: the hackathon is only a cold start. Agent demand routes toward the
+top-ranked miners, so more genuinely served rank-1 intents should expose LiveCert to more paid
+queries. Protect uptime, useful coverage, and answer quality beyond Aug 31 instead of optimizing
+only for the one-time prize.
 
 **2. One question left for the organizers**, and it decides where the remaining effort goes:
 - Track 3 has not opened, so no intent can have its 100 real requests by the Aug 31 close. Is that
