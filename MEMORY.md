@@ -16,7 +16,7 @@ sessions and between models.
 
 ## State at 2026-08-29
 
-**Track 1 is live and winning.** Registration **260**, `active`, six intents, `livecert`,
+**Track 1 is live and winning.** Registration **297** (updated 2026-08-29 via manual cast updateMiner; 260 superseded), `active`, six intents, `livecert`,
 `https://miner-wine.vercel.app`. Epoch 289:
 
 ```

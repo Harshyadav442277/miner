@@ -98,12 +98,13 @@ position, so every day of delay shortens the record we are judged on.
       permissions, npm cache on `live-tests`, honest cadence comment — and **proven live**: a
       forced failure via the new `test_alarm` dispatch input created issue #1, closed as a
       documented drill. (G21)
-- [ ] **T4.10** **OPERATOR: sign the translation-parameters manifest update.** Epoch 290 proved
-      both scored LANGUAGE_TRANSLATION epochs were refusals — the engine fills only declared
-      parameters and registration 260 declares no text/target_language. The YAML is ready and
-      production is green; the steps, evidence and risks are in
-      [track1-miner/REGISTRATION_UPDATE.md](track1-miner/REGISTRATION_UPDATE.md). Ten minutes,
-      sandbox first, then `gh variable set REGISTRATION_ID --body <newId>`.
+- [x] **T4.10** **Manifest update SIGNED AND ACTIVE — registration 297, 2026-08-29 ~08:30Z.**
+      Done via the docs' manual `cast send updateMiner` path because the console was broken (its
+      importer strips the per-endpoint `intents`/`params` keys its own validator requires — worth
+      reporting in Discord). YAML hosted as a revision-pinned public gist, hash verified against
+      hosted bytes, all six intents canonical-checked before sending, activation ~1 minute with
+      no serving gap, `REGISTRATION_ID` repo variable updated to 297 in the same hour. The
+      `/translate` contract now REQUIRES `text` + `target_language`; epoch 291+ tests delivery.
 - [x] **T4.11** **Weather temperature-first reorder, deployed 2026-08-29 ~09:00Z.** The converter
       dropped the asked-for temperature in epochs 289 AND 290. Temperature now opens the prose,
       source attribution moved to the tail. Raw 0.011418 on epoch 290's question vs the winner's

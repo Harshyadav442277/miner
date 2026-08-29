@@ -69,17 +69,29 @@ the operator clicks.
 ## 2. Live state
 
 ```
-registration   260     active      wallet 0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e
+registration   297     active      wallet 0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e
 slug           livecert            id 4433
 base_url       https://miner-wine.vercel.app
 explorer       https://explorer.telegraphprotocol.com/miners/livecert
 repo           https://github.com/Harshyadav442277/miner
-yaml (pinned)  https://gateway.pinata.cloud/ipfs/QmURJomd4AeRBxHoDtGPtZ2Z9kxFVXVdVQC6xvVvPgr4Z8
-yaml_hash      e6c5171bf59291e2473d2dfcfb50a7e501300b483121ca0219afa5ee3ce5bb50
-tx             0x61440cd683525134...53b64a56
+yaml (hosted)  https://gist.githubusercontent.com/Harshyadav442277/006335cf54242bf98548535ec44632c7/raw/f4e7ae59f8f6e332d9c26325314749b0cea44f97/miner.yaml
+yaml_hash      68ed69be30d3e91a9de0fa9c9046101f472f90af806e5a109a3128e3241852aa
+tx             0xb7ff6f790c45440147789ba78d8129f5a1e68d2715a2823796689fde566c4f0a
 ```
 
-**225 and 236 are superseded.** 236 kept serving until 260 activated — there was no gap.
+**Registered 2026-08-29 ~08:30Z via the docs' manual `cast send updateMiner` path** — the console
+was broken that day (importer strips per-endpoint `intents`/`params` its own validator requires;
+reproduced client-side, no network call). The YAML is hosted as a public gist pinned to its
+revision (HTTPS hosting is officially acceptable per the 2026-08-29 docs). This registration
+carries the per-endpoint request contract: `/translate` REQUIRES `text` + `target_language`, which
+is the delivery fix for the refusal losses in epochs 289/290. Activation was ~1 minute, no gap,
+all six intents carried, verify-deploy green after. `REGISTRATION_ID` repo variable set to 297 in
+the same hour. **225, 236 and 260 are superseded.**
+
+**If the YAML ever needs changing again:** edit `track1-miner/miner.yaml`, publish a NEW gist (or
+revision), hash the exact hosted bytes, and run the same `cast send updateMiner` with the new URL
++ hash (command in REGISTRATION_UPDATE.md). Never edit the gist in place without updating the
+on-chain hash — a hash mismatch is a rejection.
 
 **Six intents registered** as of 2026-08-28: SSL_VERIFICATION, STORM_ALERT, WEATHER_FORECAST,
 IP_GEOLOCATION, **LANGUAGE_TRANSLATION**, **ACADEMIC_SEARCH**. Six endpoints: `/ssl-check`,
