@@ -157,6 +157,28 @@ permissions explicit; `live-tests` uses `npm ci` + cache to conserve the Actions
 the suspected cause of the 9–13h cron gaps. Proven live with the `test_alarm` dispatch input →
 issue #1, closed as a drill. (T4.8, G21)
 
+### Session 2, part 3 (~09:00-10:00Z) — registration 297 unlocked the question text; three deploys
+
+The activation probes at 08:36Z showed the request builder READING the new contract —
+`/translate?[query]` arrived filled (impossible under 260), every endpoint probed with sensible
+params. Three changes shipped on the back of that, each champion-measured before deploy:
+
+1. **Storm advisory-first mode** (`ADVISORY` regex in `src/storm.ts`): when the question text
+   arrives and asks what to DO, the answer opens with the safeguard guidance. 0.006856 on epoch
+   289's question — 1.6x the epoch winner — vs 0.005440 for the trailing form. The trigger
+   matches exactly 1 of the 30 recorded storm questions; forecast answers unchanged.
+2. **Weather explicit-start branch unified with the measured template** (`src/forecast.ts`):
+   the old asked-branch prose scored 0.007613 vs the main template's 0.010798 — a regression
+   waiting to fire the moment the engine delivers "starting September 1st" questions. One
+   template now serves both branches; with the question text, 0.010919 on epoch 289 (ABOVE the
+   0.010033 winner, honestly covering Sep 1-8) and 0.011414 on epoch 290 (winner 0.011638).
+3. Both deployed via `vercel --prod`, verify-deploy green after each.
+
+**Goal standing (user directive): #1 in at least 5 of 6.** The paths: hold SSL/IP/ACADEMIC,
+translation recovers via the 297 contract (replay: 9/9 wins, mean 0.614 when text arrives),
+and weather or storm flips on the new question-text answers. Epoch 291 (~15:31Z) is the test
+of everything above.
+
 ### Session 2 continued — epoch 290 landed 06:31Z and rewrote the priorities
 
 ```
