@@ -157,6 +157,28 @@ permissions explicit; `live-tests` uses `npm ci` + cache to conserve the Actions
 the suspected cause of the 9–13h cron gaps. Proven live with the `test_alarm` dispatch input →
 issue #1, closed as a drill. (T4.8, G21)
 
+### EPOCH 291 (~13:50Z 2026-08-29) — RANK 1 IN ALL SIX INTENTS
+
+```
+SSL_VERIFICATION      #1  0.010483   margin 1.0% — preflight-ssl-verification 0.010379 is a REAL
+                                     threat now; watch every epoch
+STORM_ALERT           #1  0.010295   beat amanat 0.007353 by 40% after losing 289/290 to them
+WEATHER_FORECAST      #1  0.009871   FIRST EVER weather #1, field of 12 — the temperature-first
+                                     reorder's first scored epoch (chainsight 0.009380)
+IP_GEOLOCATION        #1  0.009166   held
+ACADEMIC_SEARCH       #1  0.010742   held; openalex woke up (0.009333) but beaten
+LANGUAGE_TRANSLATION  #1  0.000000   ALL THREE miners scored zero — a tie-at-zero, not a win.
+                                     Our row shows source_text "" again. Do not claim this one
+                                     as durable; check the request log for what arrived.
+```
+
+This is the registration-297 + measured-deploys epoch: the storm guidance, temperature-first
+weather prose and the request contract all scored for the first time, and every contested intent
+flipped our way. Caveats that keep it honest: SSL's margin collapsed from 17% to **1%** (new
+entrant), and translation's #1 is a zero-tie. The user's directive (≥5 real #1s) is met at
+**5 real + 1 tie**. Both epoch-291 history lines (CI runner + local) are pushed after a G20-style
+append conflict resolved by keeping both in timestamp order.
+
 ### Session 2, part 3 (~09:00-10:00Z) — registration 297 unlocked the question text; three deploys
 
 The activation probes at 08:36Z showed the request builder READING the new contract —
