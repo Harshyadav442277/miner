@@ -149,9 +149,13 @@ function coordsFromParams(url: URL): string {
 
 export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
   // Off by default. When enabled, record parameter names only—never user text.
+  // An empty value is marked, because "the engine sent text=" and "the engine
+  // sent nothing" are different diagnoses (epoch 290's translate refusal).
   if (process.env.LOG_QUERY === "on") {
     const u = new URL(req.url ?? "/", "http://localhost");
-    const names = [...new Set(u.searchParams.keys())].join(",");
+    const names = [...new Set(u.searchParams.keys())]
+      .map((k) => ((u.searchParams.get(k) ?? "").trim() ? k : `${k}=EMPTY`))
+      .join(",");
     const line = names ? `${u.pathname}?[${names}]` : u.pathname;
     process.stdout.write(`REQ ${req.method ?? "?"} ${line}\n`);
   }

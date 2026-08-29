@@ -242,12 +242,19 @@ export async function getForecast(
         `hourly precipitation ranges from ${pMin ?? 0} to ${pMax ?? 0} millimeters` +
         (probMax === null ? "" : `, and the precipitation probability peaks at ${probMax}%`) +
         `. The expected condition is ${condition}.`
-      : `A ${span} hourly weather forecast for ${where}${covering}, from the Open-Meteo weather ` +
-        `service: the expected condition is ${condition}, ` +
-        `with hourly temperature in Celsius from ${tMin}°C to ${tMax}°C${probClause}` +
+      // Temperature leads. In epochs 289 and 290 the question asked for
+      // temperature by name and Telegraph's ~32-word conversion kept condition,
+      // precipitation and wind while dropping the mid-sentence temperature
+      // range — both times. Raw champion scoring says leading with temperature
+      // costs ~0.6%; two consecutive conversions dropping the asked-for fact
+      // costs the whole clause. What the converter reaches last is what it
+      // drops, so the unasked-for source attribution moves to the tail.
+      : `A ${span} hourly weather forecast for ${where}${covering}: hourly temperature in ` +
+        `Celsius from ${tMin}°C to ${tMax}°C${probClause}` +
         (totalPrecip >= 0.1 ? `, ${totalPrecip} mm of total precipitation` : `, no significant precipitation`) +
+        `, the expected condition is ${condition}` +
         (maxWind === null ? "" : `, and a wind speed of up to ${maxWind} km/h`) +
-        `.`,
+        `, from the Open-Meteo weather service.`,
     checked_at: now,
   };
 }
