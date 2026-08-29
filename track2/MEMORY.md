@@ -4,6 +4,26 @@
 
 ---
 
+## CURRENT — 2026-08-29 night · LANGUAGE_TRANSLATION CHAMPION, FOCUS ONE INTENT
+
+Registration **1774** is authoritative rank **1** for `LANGUAGE_TRANSLATION`: `active`,
+`is_champion: true`, wallet `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e`, 15/15 ordering,
+margin `0.7590201` versus `0.75895786`, Spearman `0.7246522` over 66 historical rows. Registered
+artifact: commit `ec9c6c4870272bf68474d8b72602ec94663431ab`, Keccak-256
+`37fa2368c4d1b5ba5820ef73889fa3ab18581e6cc4458f6919cf963eb05340d7`.
+
+Registration 1765 (`alpha=0.9`) is rejected and must not be reused; the conservative `0.61`
+calibration is the live winner. Keep registration 1774 and its public URL operational through
+Track 3 (Sep 7).
+
+This champion slot is automated performance evidence, **not automatic Track 2 prize victory**.
+The current official manual-review rubric is: 50% improvement over baseline, 30% robustness and
+code quality, 10% tagged X updates, 10% community engagement/adoption. Focus the submission story
+on this one intent: auditable calibration, the 1765 failure and measured repair, deterministic
+builder/tests, continued uptime, public progress, and genuine adoption evidence.
+
+---
+
 ## ⇢ HANDOVER — 2026-08-29 night · FOUR CANDIDATES PUBLISHED · AWAITING FOUR SIGNATURES
 
 Published at `73ef74083cb6a0f912228b357ec75af8bd6ead8f` in `Harshyadav442277/telegraph-factscore`.
