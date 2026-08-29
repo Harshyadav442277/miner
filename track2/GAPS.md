@@ -224,3 +224,35 @@ than 0.6147 — so it models the *ordering* question well and the *absolute
 margin* question poorly. **Do not quote 0.1435 as a prediction of our node
 margin.** The defensible claim is the ratio: we roughly double the champion's
 separation on identical inputs, holding its case-win rate.
+
+## G18 — the first corpus that passes its own acceptance test (2026-08-29)
+
+`harness/build-gt-vs-real.mjs` pairs the ground truth's own assertion against
+recorded miner answers that state a different quantity. Neither side is authored
+by us: the good side is the organizers' ground truth, the bad side is verbatim
+miner prose that is objectively wrong against it.
+
+It exists because `build-factswap.mjs` found nothing for TVL_LOOKUP — **no
+recorded TVL answer agrees with its ground truth at all.** The truth says $12.5
+billion while miners say $17.1B, $29.29B and $14.4B, because they measure
+different chains and sources. Every recorded answer is wrong, so a builder that
+needs a correct recorded answer correctly produced an empty corpus.
+
+Against the G13 acceptance test — a corpus is admissible only if the champion
+reproduces its live behaviour on it:
+
+| intent | champion live | champion here | delta | verdict |
+|---|---|---|---|---|
+| TVL_LOOKUP | 0.634025, 13/14 | 0.612070, 19/20 | **0.022** | admissible |
+| ONCHAIN_TX_LOOKUP | 0.660399, 9/9 | 0.553594, 9/9 | 0.107 | admissible |
+| STOCK_PRICE | 0.614703, 15/15 | 0.818382, 7/7 | 0.204 | weak — 7 cases only |
+| CRYPTO_PRICE | 0.629564, 14/15 | 0.196033, 4/5 | 0.434 | weak — 5 cases only |
+
+**TVL_LOOKUP is the first corpus in this project where the champion reproduces
+both its live margin and its live win rate.** Every earlier corpus failed this
+badly, which is what registrations 1671 and 1673 paid for.
+
+Our results on it: 20/20 cases, 69/69 pairs, margin 0.968154, against the
+champion's 19/20, 67/69 and 0.612070. If that transfers, it clears the 0.634025
+bar and the 13/14 win requirement with room. The honest caveat remains that a
+corpus resembling the fixtures is not the fixtures.
