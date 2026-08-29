@@ -56,10 +56,22 @@ One task = one change = one commit. Work top-down. Owner in brackets.
       IP_GEO margin 0.784 vs 0.596 (27/29 wins), STORM 0.581 vs 0.425 (Spearman 0.632).
       FACT-SWAP 4/4 at margin 0.458 vs champion 0.004.
 
-- [ ] **T-C.5** [Opus] Registration-target survey at candidate-ready time: poll `/api/wasm` for
-      every NON-mined Tier A intent (URL_SCAN first) — champion_margin, entry count, miner count
-      (Spearman on/off) — and pick the softest gate. Bars drift; poll again immediately before
-      the user registers. (A6, G10, G11)
+- [x] **T-C.5** [Opus+Codex] Registration-target survey completed; `TEXT_AUTHENTICITY_CHECK` is
+      the selected target. Live recheck 2026-08-28: champion reg 850, margin 0.65861213, 14/15,
+      zero historical rows, and no registration from our wallet. Poll again before signing.
+- [x] **T-C.6** [Codex] Compile/test the actual release feature, repair question-option verdict
+      masking + named-model attribution mismatch + foreign-unit ordering, and add regressions.
+      Native TAC result: 234/240 → **240/240**, margin 0.721069 → **0.971687**.
+- [x] **T-C.7** [Codex] Remove dead profile knobs/method/suppressions, deduplicate the two text
+      profiles, repair TAC fixture provenance/proof routing, and add all-profile CI.
+- [x] **T-C.8** [Codex] Close terse authenticity-label equivalence and sentence-initial subject
+      substitution; add four label fixtures. Intermediate TAC checkpoint: **256/256**, separation
+      **0.974996**; CV holdout retained **144/144**, **0.963445**.
+- [x] **T-C.9** [Codex] Red-team unseen negation and categorical phrasing; repair semantic-pole
+      comparison, reject an over-broad sentence shortcut, and repair presentation-label
+      equivalence exposed by the clean standalone all-profile matrix. Unseen probe:
+      **10/20 → 20/20**; public TAC retained **256/256**, separation **0.973844**; CV retained
+      **144/144**, **0.963445**.
 
 ## Phase D — Proof
 
@@ -74,11 +86,19 @@ One task = one change = one commit. Work top-down. Owner in brackets.
 
 ## Phase E — Submit + public
 
+- [x] **T-E.0** [Codex] Release complete: 25,887 B, SHA-256 `e7bb15f1…ae52b6`, Keccak-256
+      `bdd3fea5…cdca0f`, pinned Rust 1.98.0 reproducible build, manifest and proof green. The
+      standalone repository at commit `25ff8089…6313cc1` contains one WASM, a TAC-only
+      README/proof, and a release audit with positive and negative controls. A fresh raw GitHub
+      download reproduced both hashes. The old `867fd15` release is superseded and must not be
+      registered.
 - [ ] **T-E.1** [Fable] Submission package per verified flow; user confirms/sends anything
       requiring accounts or signatures.
 - [ ] **T-E.2** [Fable] X thread drafts (insight-led, tagged `@Telegraphprotoc`) → user posts.
-- [ ] **T-E.3** [Opus] Package the harness + fixtures as a reusable kit for other script authors
-      (the 10% adoption play).
+- [x] **T-E.3** [Opus+Codex] Package the harness + fixtures as a reusable kit for other script
+      authors, including an incumbent-free `check-tac.mjs` command with text/JSON output. It
+      passes this release 256/256 and rejects incumbent 850 at 33/256. Genuine third-party use is
+      still unclaimed until a real external link exists.
 - [ ] **T-E.4** [User] Submit before **2026-08-31**; confirmation recorded in MEMORY.md.
 - [ ] **T-E.5** [Fable+User] Disclosure artifact: scorer README section + the required X post
       state the livecert (registration 225) overlap plainly — mandatory per the organizer answer.

@@ -6,6 +6,40 @@ on:
   pull_request:
 
 jobs:
+  track2-scorer:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: track2/scorer
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: dtolnay/rust-toolchain@1.98.0
+        with:
+          targets: wasm32-unknown-unknown
+      - run: cargo fmt --check
+      - name: Test and lint every intent profile
+        shell: bash
+        run: |
+          cargo test
+          cargo clippy --all-targets -- -D warnings
+          for feature in ip-geolocation storm-alert content-verification text-authenticity; do
+            cargo test --no-default-features --features "$feature"
+            cargo clippy --all-targets --no-default-features --features "$feature" -- -D warnings
+          done
+      - name: Verify the registration target as freestanding WASM
+        shell: bash
+        run: |
+          cargo build --release --target wasm32-unknown-unknown --no-default-features --features text-authenticity
+          mkdir -p dist
+          cp target/wasm32-unknown-unknown/release/scorer.wasm dist/text_authenticity.wasm
+          node verify.mjs dist/text_authenticity.wasm
+          node ../harness/check-tac.mjs dist/text_authenticity.wasm
+          node ../release/probe-negation.mjs dist/text_authenticity.wasm
+          node -e 'const fs=require("fs"),c=require("crypto"),m=require("../release/text-authenticity.json"),b=fs.readFileSync("dist/text_authenticity.wasm"),h=c.createHash("sha256").update(b).digest("hex"); if(b.length!==m.bytes||h!==m.sha256) throw new Error(`release identity mismatch: ${b.length} bytes ${h}`); console.log(`release identity verified: ${b.length} bytes ${h}`)'
+
   miner:
     runs-on: ubuntu-latest
     defaults:

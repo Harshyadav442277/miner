@@ -4,6 +4,44 @@
 
 ---
 
+## ⇢ HANDOVER — 2026-08-29 · NEGATION-HARDENED TAC RELEASE · PUBLISHED, READY TO REGISTER
+
+Do **not** register the old `867fd15` binary or the 25,488-byte intermediate candidate. After the
+native and independent review rounds were green, a deliberately unseen semantic probe exposed a
+general negation error: `not original` could agree with `original`, and `no AI evidence` could
+support the positive AI label. The fix compares each verdict token's semantic pole together with
+its negation state. It contains no fixture strings or author/miner fingerprints.
+
+Current candidate (published and hosted-byte verified; unregistered):
+
+- `scorer/dist/text_authenticity.wasm` (gitignored), **25,887 B**
+- SHA-256 `e7bb15f12e55aa5a0cb8fa30f5d2d5a21a3027d026b207d3d8563d2ae2ae52b6`
+- local Keccak-256 `bdd3fea5deb7ce2a48663aa7ec63d5a295ade30c4c2bb2d3254031cb04cdca0f`
+  (algorithm validated by reproducing reg 850's known on-chain hash)
+- native TAC: **256/256**, separation **0.973844** (old 234/240, 0.721069)
+- unseen negation/metamorphic probe: **20/20**, mean margin **0.757994**, worst **0.007009**
+  (pre-fix: 10/20, mean 0.211152, worst -0.999137)
+- CV holdout: **144/144**, margin **0.963445**
+- 2026-08-29 06:53 IST live TAC recheck: **0.65861213**, reg 850, 14/15, zero history,
+  83 entries, and this release hash not yet present
+- five profile test/clippy combinations green: 79 / 80 / 71 / 79 / 79 tests
+- the standalone clean-build matrix caught and repaired presentation-label inconsistency across
+  profiles (`Assessment` versus `Verdict`) before this final refreeze
+- local verifier green; independent verifier commit `f537c7c`: 0 hard, 0 soft failures,
+  500 fuzz triples, all 16 custom cases pass
+- Rust 1.98.0 build is byte-identical; CI checks the frozen SHA against
+  `release/text-authenticity.json`
+- public artifact commit: `25ff8089d4d3f1cfcc639115e14464d7d6313cc1`
+- public metadata HEAD: `2da85486be186eaf7fd822edccd232e06fc74f33`
+- a fresh commit-pinned raw download reproduced 25,887 bytes, SHA-256 and Keccak-256 exactly
+
+The only remaining activation sequence is user verifies the same Keccak in the Telegraph console
+→ user signs the TAC registration → record the returned registration/evaluation state. Source can
+change on GitHub later; changed WASM bytes require a new on-chain registration. Full current
+evidence: `docs/codex-worklog/2026-08-29-negation-hardening.md`.
+
+---
+
 ## ⇢ HANDOVER — 2026-08-28 midday · TARGET IS TEXT_AUTHENTICITY_CHECK · BLOCKED ON ONE USER ACTION
 
 **The registration target moved from CONTENT_VERIFICATION to TEXT_AUTHENTICITY_CHECK**

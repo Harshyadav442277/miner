@@ -30,9 +30,11 @@ checks offline. The objective is two-sided and the two sides pull against each o
 
 ## Anti-parrot
 
-| Constant | Default | Rationale |
-|---|---|---|
-| `echo_discount` | 0.25 (unused) | **Reserved, currently unused.** Measured across 554 real rows, bag-of-words question overlap correlates *negatively* (−0.258) with the champion's score: the parrot effect is positional, not an overlap effect. A general echo penalty would therefore buy nothing and would wreck Spearman agreement. The echo flag survives only as a boolean inside the answered-ness gate. Kept as a constant so a future sweep can re-test the hypothesis cheaply. |
+There is deliberately no global echo-discount constant. Measured across 554 real rows,
+bag-of-words question overlap correlates *negatively* (−0.258) with the champion's score: the
+parrot effect is positional, not an overlap effect. Echo membership survives only as an input to
+the answered-ness gate. The formerly unused `echo_discount` knob was removed during the
+2026-08-28 dead-code pass.
 
 ## Answered-ness gate
 
@@ -62,7 +64,7 @@ answer assert anything the question did not already contain?
 | `num_channel_w` | 0.9 | How far a wrong numeric channel may pull the fact term down. 1.0 lets it zero the term; 0.0 disables the channel. |
 | `id_channel_w` | 0.9 | Same, for identifiers. **Now gated by the substitution rule** (clean-pair round, change 3): an unsupported identifier only enters the channel to the extent the ground truth names identifiers the answer never mentions. Before that, `tg.has_ident` alone put every unmatched identifier in the wrong column, so a correct answer that added one true `AS15169` scored 0.4876. |
 | `fact_floor` | 0.10 | Floor of the fact multiplier, so a wholly-wrong-figure answer degrades rather than falling off a cliff and near-misses stay distinguishable from garbage. |
-| `m_foreign_unit` | 0.05 | **New (review C6).** Multiplier on a figure whose unit we could not identify, when the ground truth named a real one. Calibrated so a category error ("47 bananas") scores no better than an honest wrong value ("47 m/s" against a truth of 47 km/h ≈ 0.046). |
+| `m_foreign_unit` | 0.05 base / 0.005 text verification | Multiplier on a figure whose unit we could not identify when the ground truth named a real one. Text verification uses a steeper numeric decay, so it needs the lower override to preserve the invariant that a category error (`47 bananas`) ranks below an honestly but grossly wrong value in the expected unit. |
 | `m_bare_unit` | 0.85 | **New (review C6).** Multiplier on a *bare* figure matched against a united one. Weaker evidence, but a legitimate shape (`wind_kmh=128.7`), so only a light discount. Asymmetric: applied only when the **answer** is the side missing the unit, so `42%` against a bare `0.42` is not punished for being explicit. |
 | `ent_min_bias` | 0.6 | **New (pre-flight ENTITY-SWAP defect).** How much the *worst* entity decides the entity channel rather than the average one. Mirrors `num_min_bias`: swapping one city out of six correct entities must not average away. |
 | `ent_channel_w` | 0.9 | **New.** How far a wrong entity may pull the score down. Paired with the substitution rule, which only counts an unsupported entity against the answer to the extent the ground truth names entities the answer never mentions — so extra true detail stays neutral. |
@@ -85,6 +87,106 @@ a wrong CVSS score.
 |---|---|---|
 | `p_concave` | 0.5 | Blend between linear precision and concave `p·(2−p)`. Pulls a mostly-right answer up without flattening the middle. 0 = linear. |
 | `ss_lo` / `ss_hi` | 0.02 / 0.92 | Smoothstep knots on the raw composite. **The primary lever on `score_stddev`** (gate needs > 0.05) and the main trade between margin and Spearman. Knots short of 0 and 1 saturate the ends, which maximises margin; knots at the full range preserve ordering, which protects Spearman. |
+
+---
+
+## The native TAC semantic round — 2026-08-28
+
+The old report attributed six losses to confidence near-misses. Replaying the exact cases showed
+five wrong verdicts and one wrong attributed model instead. A question such as “human-written or
+AI-generated?” contains both option tokens; excluding all question-echoed tokens therefore hid
+the answer's asserted verdict. `Claude` also tokenizes as a word while `GPT-4` is an identifier,
+so the generic same-category comparison missed that contradiction.
+
+The scorer now recognizes an asserted verdict even when it appeared among the question choices,
+and compares values named by `Attribution:`/`Model:` clauses across token categories. These are
+general response semantics; neither rule contains fixture text, author identity, or miner
+fingerprints.
+
+| build | wins | mean correct | mean wrong | margin |
+|---|---:|---:|---:|---:|
+| superseded TAC | 234/240 | 0.9965 | 0.2755 | 0.721069 |
+| repaired TAC | **240/240** | 0.9965 | **0.0248** | **0.971687** |
+| incumbent reg 850 | 21/240 | 0.8347 | 0.9999 | -0.165231 |
+
+The repaired TAC build also retained 144/144 and 0.963445 margin on the content-verification
+holdout. This round changed categorical semantics, not calibration against the incumbent.
+
+---
+
+## The independent semantic round — 2026-08-28
+
+An external generic verifier exposed two weaknesses that our native corpus had not exercised:
+
+1. a one-word capitalized subject swap at the start of an otherwise identical sentence was nearly
+   free (`Paris is ...` versus `Berlin is ...`), because sentence-initial capitalization had been
+   excluded from the proper-entity channel; and
+2. a terse ground truth such as `AI` did not recognize the equivalent answer `machine generated`,
+   even though both are the same closed-set verdict.
+
+The fix is narrow. Subject substitution fires only for one changed capitalized opener followed by
+an identical copular tail, excluding structural labels such as `Verdict` and `Assessment`.
+Authenticity equivalence is a small closed set (`AI`/`machine`/`synthetic`, `human`/`person`,
+`original`/`authentic`/`genuine`, `copied`/`duplicate`/plagiarism spelling variants). An
+unambiguous equivalent answer gets full categorical credit, an opposite gets zero, and a mixed or
+hedged answer falls through to the normal scorer.
+
+| intermediate TAC checkpoint | result |
+|---|---:|
+| native clean pairs | 240/240, margin 0.971687 |
+| label equivalence | 16/16, margin 0.999072 |
+| combined separation | **0.974996** |
+| content-verification holdout | **144/144, 0.963445** |
+| independent verifier | **0 hard, 0 soft failures; 16/16 custom cases** |
+
+This round adds general semantic invariants rather than fixture strings or author fingerprints.
+It is retained as an intermediate checkpoint; the current release identity is recorded in
+`../release/text-authenticity.json`.
+
+---
+
+## The unseen negation round — 2026-08-29
+
+The public 256-pair corpus was fully green, so the next probe was deliberately written outside it
+and run unchanged against the intermediate binary. Twenty pair comparisons exercised negative
+authenticity claims, negative answers, probability/confidence wording, model attribution,
+originality synonyms, and two independent categorical axes.
+
+The intermediate scorer won only **10/20**. This was not a calibration near-miss: it gave the
+wrong `original` answer 0.997858 when the truth said `not original`, and gave the wrong positive
+AI answer 0.999137 for `no AI evidence`. Root cause: verdict-antonym comparison ignored each
+token's negation state, while literal support could match a positive answer against a negated
+ground-truth token.
+
+The accepted fix gives verdict tokens a semantic pole defined by both the base relation and
+negation. Equivalent labels agree when their negation state matches; opposite labels agree only
+when exactly one side is negated. Verdict assertions also enter the precision channel even in
+short answers. A broader full-sentence categorical shortcut was tested and rejected because it
+gave a perfect score to an answer that invented `GPT-4` against `human-authored; no model
+detected`. That rejected branch is evidence that the selection criterion remained general
+semantic precision, not merely making the new probe green.
+
+| release TAC | result |
+|---|---:|
+| native clean pairs | 240/240, mean margin 0.970427 |
+| label equivalence | 16/16, mean margin 0.998724 |
+| combined separation | **0.973844** |
+| unseen negation/metamorphic probe | **20/20, mean 0.757994, worst 0.007009** |
+| content-verification holdout | **144/144, 0.963445** |
+| independent verifier | **0 hard, 0 soft; 500 fuzz triples; 16/16 custom cases** |
+
+The 0.001152 change in public-corpus separation is the cost of correctly routing terse verdicts
+through semantic precision rather than a prose-only tie-breaker. It buys ten additional unseen
+wins and eliminates two near-total polarity inversions, so the robustness gain dominates the
+negligible public metric movement.
+
+The first clean standalone all-profile run then found one pre-existing cross-profile inconsistency:
+under the high-prose STORM profile, `Assessment is human-written` versus `Verdict is
+human-written` scored only 0.400526. Sentence-initial structural labels now alias only when they
+introduce a closed-set verdict. The context restriction avoids equating substantive uses such as
+`Response is delayed`; the targeted invariant passes all five profiles. TAC and holdout metrics
+above are unchanged. The final build grows from 25,535 to 25,887 bytes and is the identity pinned
+in the release manifest.
 
 ---
 

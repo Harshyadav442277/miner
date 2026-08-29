@@ -6,6 +6,21 @@ What we do not know or have not verified. Status: `OPEN` · `CHECKING` · `CLOSE
 
 ## Blocking
 
+### G14 · Frozen TAC release identity — `CLOSED (hosted bytes verified)` — 2026-08-29
+The frozen local artifact is 25,887 B with SHA-256
+`e7bb15f12e55aa5a0cb8fa30f5d2d5a21a3027d026b207d3d8563d2ae2ae52b6` and local Keccak-256
+`bdd3fea5deb7ce2a48663aa7ec63d5a295ade30c4c2bb2d3254031cb04cdca0f`.
+The final pre-publication red team found a general negation-semantics defect outside the public
+corpus; the repaired artifact moves that unseen probe from 10/20 to 20/20 strict wins while
+retaining 256/256 public TAC wins and the 144/144 content-verification holdout.
+The OpenSSL Keccak path was validated by reproducing champion reg 850's on-chain hash. The exact
+candidate was published at commit `25ff8089d4d3f1cfcc639115e14464d7d6313cc1`; a fresh raw GitHub
+download reproduced 25,887 bytes, the SHA-256 above and the Keccak above. The pinned `867fd15`
+URL/hash describe the weaker old binary and remain superseded. Residual user gate: the website's
+VERIFY & HASH display must show the same Keccak before signing.
+GitHub source updates do not update an existing on-chain byte hash; changed WASM needs a new
+registration.
+
 ### G1 · Submission mechanism — `CLOSED (protocol path), small residual` — 2026-08-27
 On-chain `registerWasm(wasmHash, wasmUrl, intent)` on the Diamond — **keccak256** of the hosted
 bytes (NOT sha256 like the miner YAML), public URL ≤ 32 MB, gas-only, no bond, returns a

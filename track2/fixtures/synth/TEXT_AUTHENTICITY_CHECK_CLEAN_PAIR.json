@@ -1,12 +1,17 @@
 {
-  "corpus_version": "9582d48431b031bb",
+  "corpus_version": "3a30a0fff08c62a3",
   "generator": "gen-tac-pairs.mjs",
   "class": "CLEAN-PAIR",
+  "provenance": {
+    "source": "synthetic",
+    "generated_from": "TRUTHS table (12 independent documents)"
+  },
   "note": "Fluent one-fact counterfactuals in AI-detection register. Wrong answers differ from the ground truth by exactly one slot.",
   "fixtures": [
     {
       "intent": "TEXT_AUTHENTICITY_CHECK",
       "id": "tac-cleanpair-01",
+      "class": "CLEAN-PAIR",
       "question": "Is the essay 'The Ethics of Autonomous Weapons' authentic human writing or AI-generated?",
       "ground_truth": "The submitted essay 'The Ethics of Autonomous Weapons' is assessed as AI-generated with 93% detector confidence. Attribution: GPT-4. Mean perplexity 18.4, burstiness 0.21.",
       "answers": [
@@ -137,11 +142,25 @@
           "correct-verbatim",
           "wrong-burstiness"
         ]
+      ],
+      "constraints": [
+        {
+          "type": "near_equal",
+          "ids": [
+            "correct-0",
+            "correct-1",
+            "correct-2",
+            "correct-verbatim"
+          ],
+          "tolerance": 0.05,
+          "note": "all correct phrasings carry the same verdict, model and figures"
+        }
       ]
     },
     {
       "intent": "TEXT_AUTHENTICITY_CHECK",
       "id": "tac-cleanpair-02",
+      "class": "CLEAN-PAIR",
       "question": "Is the short story 'The Lighthouse at Vizhinjam' authentic human writing or AI-generated?",
       "ground_truth": "The submitted short story 'The Lighthouse at Vizhinjam' is assessed as human-written with 88% detector confidence. Attribution: no model detected. Mean perplexity 74.6, burstiness 0.83.",
       "answers": [
@@ -272,11 +291,25 @@
           "correct-verbatim",
           "wrong-burstiness"
         ]
+      ],
+      "constraints": [
+        {
+          "type": "near_equal",
+          "ids": [
+            "correct-0",
+            "correct-1",
+            "correct-2",
+            "correct-verbatim"
+          ],
+          "tolerance": 0.05,
+          "note": "all correct phrasings carry the same verdict, model and figures"
+        }
       ]
     },
     {
       "intent": "TEXT_AUTHENTICITY_CHECK",
       "id": "tac-cleanpair-03",
+      "class": "CLEAN-PAIR",
       "question": "Is the product review for a wireless keyboard authentic human writing or AI-generated?",
       "ground_truth": "The submitted product review for a wireless keyboard is assessed as AI-generated with 96% detector confidence. Attribution: GPT-3.5. Mean perplexity 12.1, burstiness 0.14.",
       "answers": [
@@ -407,11 +440,25 @@
           "correct-verbatim",
           "wrong-burstiness"
         ]
+      ],
+      "constraints": [
+        {
+          "type": "near_equal",
+          "ids": [
+            "correct-0",
+            "correct-1",
+            "correct-2",
+            "correct-verbatim"
+          ],
+          "tolerance": 0.05,
+          "note": "all correct phrasings carry the same verdict, model and figures"
+        }
       ]
     },
     {
       "intent": "TEXT_AUTHENTICITY_CHECK",
       "id": "tac-cleanpair-04",
+      "class": "CLEAN-PAIR",
       "question": "Is the cover letter for a data analyst role authentic human writing or AI-generated?",
       "ground_truth": "The submitted cover letter for a data analyst role is assessed as AI-generated with 79% detector confidence. Attribution: Claude. Mean perplexity 22.7, burstiness 0.29.",
       "answers": [
@@ -542,11 +589,25 @@
           "correct-verbatim",
           "wrong-burstiness"
         ]
+      ],
+      "constraints": [
+        {
+          "type": "near_equal",
+          "ids": [
+            "correct-0",
+            "correct-1",
+            "correct-2",
+            "correct-verbatim"
+          ],
+          "tolerance": 0.05,
+          "note": "all correct phrasings carry the same verdict, model and figures"
+        }
       ]
     },
     {
       "intent": "TEXT_AUTHENTICITY_CHECK",
       "id": "tac-cleanpair-05",
+      "class": "CLEAN-PAIR",
       "question": "Is the personal blog entry about training for a marathon authentic human writing or AI-generated?",
       "ground_truth": "The submitted personal blog entry about training for a marathon is assessed as human-written with 91% detector confidence. Attribution: no model detected. Mean perplexity 88.2, burstiness 0.91.",
       "answers": [
@@ -677,11 +738,25 @@
           "correct-verbatim",
           "wrong-burstiness"
         ]
+      ],
+      "constraints": [
+        {
+          "type": "near_equal",
+          "ids": [
+            "correct-0",
+            "correct-1",
+            "correct-2",
+            "correct-verbatim"
+          ],
+          "tolerance": 0.05,
+          "note": "all correct phrasings carry the same verdict, model and figures"
+        }
       ]
     },
     {
       "intent": "TEXT_AUTHENTICITY_CHECK",
       "id": "tac-cleanpair-06",
+      "class": "CLEAN-PAIR",
       "question": "Is the news summary of a municipal budget vote authentic human writing or AI-generated?",
       "ground_truth": "The submitted news summary of a municipal budget vote is assessed as AI-generated with 84% detector confidence. Attribution: GPT-4. Mean perplexity 16.9, burstiness 0.19.",
       "answers": [
@@ -812,11 +887,25 @@
           "correct-verbatim",
           "wrong-burstiness"
         ]
+      ],
+      "constraints": [
+        {
+          "type": "near_equal",
+          "ids": [
+            "correct-0",
+            "correct-1",
+            "correct-2",
+            "correct-verbatim"
+          ],
+          "tolerance": 0.05,
+          "note": "all correct phrasings carry the same verdict, model and figures"
+        }
       ]
     },
     {
       "intent": "TEXT_AUTHENTICITY_CHECK",
       "id": "tac-cleanpair-07",
+      "class": "CLEAN-PAIR",
       "question": "Is the academic abstract on protein folding authentic human writing or AI-generated?",
       "ground_truth": "The submitted academic abstract on protein folding is assessed as human-written with 72% detector confidence. Attribution: no model detected. Mean perplexity 61.3, burstiness 0.68.",
       "answers": [
@@ -947,11 +1036,25 @@
           "correct-verbatim",
           "wrong-burstiness"
         ]
+      ],
+      "constraints": [
+        {
+          "type": "near_equal",
+          "ids": [
+            "correct-0",
+            "correct-1",
+            "correct-2",
+            "correct-verbatim"
+          ],
+          "tolerance": 0.05,
+          "note": "all correct phrasings carry the same verdict, model and figures"
+        }
       ]
     },
     {
       "intent": "TEXT_AUTHENTICITY_CHECK",
       "id": "tac-cleanpair-08",
+      "class": "CLEAN-PAIR",
       "question": "Is the marketing email announcing a summer sale authentic human writing or AI-generated?",
       "ground_truth": "The submitted marketing email announcing a summer sale is assessed as AI-generated with 97% detector confidence. Attribution: GPT-3.5. Mean perplexity 10.5, burstiness 0.11.",
       "answers": [
@@ -1082,11 +1185,25 @@
           "correct-verbatim",
           "wrong-burstiness"
         ]
+      ],
+      "constraints": [
+        {
+          "type": "near_equal",
+          "ids": [
+            "correct-0",
+            "correct-1",
+            "correct-2",
+            "correct-verbatim"
+          ],
+          "tolerance": 0.05,
+          "note": "all correct phrasings carry the same verdict, model and figures"
+        }
       ]
     },
     {
       "intent": "TEXT_AUTHENTICITY_CHECK",
       "id": "tac-cleanpair-09",
+      "class": "CLEAN-PAIR",
       "question": "Is the forum reply about diesel engine maintenance authentic human writing or AI-generated?",
       "ground_truth": "The submitted forum reply about diesel engine maintenance is assessed as human-written with 94% detector confidence. Attribution: no model detected. Mean perplexity 96.4, burstiness 0.88.",
       "answers": [
@@ -1217,11 +1334,25 @@
           "correct-verbatim",
           "wrong-burstiness"
         ]
+      ],
+      "constraints": [
+        {
+          "type": "near_equal",
+          "ids": [
+            "correct-0",
+            "correct-1",
+            "correct-2",
+            "correct-verbatim"
+          ],
+          "tolerance": 0.05,
+          "note": "all correct phrasings carry the same verdict, model and figures"
+        }
       ]
     },
     {
       "intent": "TEXT_AUTHENTICITY_CHECK",
       "id": "tac-cleanpair-10",
+      "class": "CLEAN-PAIR",
       "question": "Is the travel guide section on Hampi authentic human writing or AI-generated?",
       "ground_truth": "The submitted travel guide section on Hampi is assessed as AI-generated with 81% detector confidence. Attribution: Gemini. Mean perplexity 20.3, burstiness 0.24.",
       "answers": [
@@ -1352,11 +1483,25 @@
           "correct-verbatim",
           "wrong-burstiness"
         ]
+      ],
+      "constraints": [
+        {
+          "type": "near_equal",
+          "ids": [
+            "correct-0",
+            "correct-1",
+            "correct-2",
+            "correct-verbatim"
+          ],
+          "tolerance": 0.05,
+          "note": "all correct phrasings carry the same verdict, model and figures"
+        }
       ]
     },
     {
       "intent": "TEXT_AUTHENTICITY_CHECK",
       "id": "tac-cleanpair-11",
+      "class": "CLEAN-PAIR",
       "question": "Is the obituary published in a regional paper authentic human writing or AI-generated?",
       "ground_truth": "The submitted obituary published in a regional paper is assessed as human-written with 86% detector confidence. Attribution: no model detected. Mean perplexity 70.1, burstiness 0.79.",
       "answers": [
@@ -1487,11 +1632,25 @@
           "correct-verbatim",
           "wrong-burstiness"
         ]
+      ],
+      "constraints": [
+        {
+          "type": "near_equal",
+          "ids": [
+            "correct-0",
+            "correct-1",
+            "correct-2",
+            "correct-verbatim"
+          ],
+          "tolerance": 0.05,
+          "note": "all correct phrasings carry the same verdict, model and figures"
+        }
       ]
     },
     {
       "intent": "TEXT_AUTHENTICITY_CHECK",
       "id": "tac-cleanpair-12",
+      "class": "CLEAN-PAIR",
       "question": "Is the technical README for a Rust crate authentic human writing or AI-generated?",
       "ground_truth": "The submitted technical README for a Rust crate is assessed as AI-generated with 76% detector confidence. Attribution: Claude. Mean perplexity 24.8, burstiness 0.33.",
       "answers": [
@@ -1622,6 +1781,19 @@
           "correct-verbatim",
           "wrong-burstiness"
         ]
+      ],
+      "constraints": [
+        {
+          "type": "near_equal",
+          "ids": [
+            "correct-0",
+            "correct-1",
+            "correct-2",
+            "correct-verbatim"
+          ],
+          "tolerance": 0.05,
+          "note": "all correct phrasings carry the same verdict, model and figures"
+        }
       ]
     }
   ]

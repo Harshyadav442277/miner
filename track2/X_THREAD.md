@@ -155,12 +155,50 @@ Its separation margin is negative: -0.165. It prefers the wrong answer 219 times
 ```
 Open-sourced the harness, @Telegraphprotoc Track 2.
 
-It reproduces the node promotion gate offline - structural traps, separation, wins, self-match, Spearman - validated to 6 significant figures against live scores. 269 fixtures. MIT.
+It reproduces the node promotion gate offline - structural traps, separation, wins, self-match, Spearman - validated to 6 significant figures against live scores. 364 fixtures. MIT.
 
 Test before you spend a transaction.
 ```
 
 Attach the repo link to T2-10: `github.com/Harshyadav442277/telegraph-factscore`
+
+**T2-11** [273] · independent review found what our own corpus missed
+
+```
+An independent Telegraph WASM verifier found 2 holes in my Track 2 scorer: AI did not equal machine-generated, and Paris-to-Berlin at sentence start was nearly free.
+
+Fixed both generally. Final TAC corpus: 256/256, margin 0.974. External fuzz: 0 failures. @Telegraphprotoc
+```
+
+**T2-12** [266] · frozen release identity
+
+```
+Release frozen: 25,887-byte no_std WASM, zero imports, deterministic, under 1 millisecond at 128 KiB.
+
+It catches a one-word AI verdict flip that the live champion scores 0.9999 wrong.
+
+Proof + hashes: github.com/Harshyadav442277/telegraph-factscore @Telegraphprotoc
+```
+
+**T2-13** [278] · genuine adoption invitation
+
+```
+Telegraph script authors: test any AI-authenticity WASM on 256 public pairs—no incumbent, install, network or transaction:
+
+node harness/check-tac.mjs dist/your.wasm
+
+Open an issue with results. Failures welcome.
+
+github.com/Harshyadav442277/telegraph-factscore @Telegraphprotoc
+```
+
+**T2-14** [265] · the final held-out red team
+
+```
+Last red-team before registering found our scorer inverted negation: truth "not original" gave wrong "original" 0.9979 and correct "copied" 0.000007.
+
+Fixed semantics, not the fixture: unseen negation set 10/20 → 20/20. Public corpus stays 256/256. @Telegraphprotoc
+```
 
 ---
 
@@ -170,7 +208,11 @@ Consistency is explicitly scored, so spread these rather than dumping them.
 
 | when | post | why |
 |---|---|---|
-| now | T2-10 | the giveaway; it also recruits harness users for the 10% adoption criterion |
+| immediately after the repository update | T2-14 | strongest held-out failure and measured repair |
+| reply to T2-14 | T2-12 | exact current release, proof and hashes |
+| reply to T2-12 | T2-13 | asks for real use; replies/issues become adoption evidence only if they happen |
+| next | T2-11 | independent criticism and the earlier measured fix |
+| after that | T2-10 | the broader giveaway; recruits harness users for the 10% adoption criterion |
 | now | T1-1 | a concrete win, good reach |
 | +3h | T2-9 | the sharpest measurement in the whole project |
 | +1d | T2-7 → T2-8 as a reply chain | the structural argument, needs two posts |

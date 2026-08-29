@@ -30,6 +30,26 @@ disqualifies; everything below survives that filter.
    are near in embedding space and opposite in fact. Fact-aware comparison (A3) attacks the root
    cause, and we can demonstrate every claim with a fixture the baseline fails.
 
+5. **Independent evidence without rebuilding somebody else's tool.** The public
+   [`telegraph-wasm-check`](https://github.com/neromtoobad/telegraph-wasm-check) project is better
+   packaged as a generic adoption utility than our harness. Competing by cloning that surface
+   would dilute the submission. We use its pinned commit as an independent runtime/fuzz/memory
+   check, then spend our effort on the target-specific semantic corpus and proof it does not have.
+   The frozen TAC artifact passes its generic suite with zero hard or soft failures and all 16 of
+   our custom cases.
+
+6. **A reviewer path with no abandoned-target noise.** The editing monorepo retains broad
+   multi-intent evidence, but the standalone release leads with one intent, one binary, one
+   90-second brief, and one focused proof. A read-only release audit rejects extra WASM files,
+   stale development documents, leaked local paths, corpus/manifest drift, and hash mismatch.
+   This turns packaging from presentation polish into a reproducible invariant.
+
+7. **A held-out semantic failure we found before the node could.** A 20-case probe used unseen
+   negated phrasing rather than corpus mutations. It made the green intermediate scorer fail
+   10/20—including assigning `original` 0.997858 when the truth said `not original`. The repaired
+   scorer passes 20/20 while preserving both public corpora. Publishing that before/after is a
+   stronger robustness claim than adding more cases only after implementation.
+
 ## Mapping to the rubric
 
 | Axis | How the edge lands |
@@ -38,6 +58,21 @@ disqualifies; everything below survives that filter.
 | 30% robustness & code quality | Small, typed, dependency-light Rust; exhaustive edge-case tests (empty answer, huge answer, non-UTF8, stuffing, contradiction, refusal); strict sandbox adherence (no imports, no nondeterminism). |
 | 10% X engagement | The Track 1 X playbook (insight-posts over status-posts) applied to genuinely interesting material: "the canonical scorer gives 0.99 to a refusal — here's the fix, reproducible." |
 | 10% adoption | Ship the harness + fixture corpus as a reusable kit any script author can run against their own scorer; that is the thing other entrants will actually want. |
+
+## The rank-1 counter-position
+
+Another entrant can win the packaging story with a generic verifier. Our strongest position is
+different and harder to copy before the deadline:
+
+1. publish one tiny, reproducible scorer that targets the weakest live semantic blind spot;
+2. show the incumbent scoring wrong categorical answers above right ones on pinned bytes;
+3. show the fix surviving an external verifier, a native semantic corpus, and a cross-intent
+   holdout;
+4. make the exact WASM/hash/proof identity immutable and easy to audit; and
+5. earn genuine adoption by inviting real authors to run the public corpus and report results.
+
+The last step must be real. No synthetic issues, reciprocal stars, sockpuppets, or tiny
+registration spam: those would trade a small engagement gain for Rule-04 disqualification risk.
 
 ## The guardrail
 

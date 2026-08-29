@@ -1,8 +1,12 @@
 # scorer — a fact-aware Telegraph scoring module
 
-A freestanding `wasm32-unknown-unknown` scoring module, ~19.6 KB, **zero imports**, no allocator,
-no clock, no randomness, no transcendental maths. One Rust source tree compiled once per intent
-via constant profiles, the same shape the incumbent uses.
+**Reviewing the submission? Start with [JUDGE_BRIEF.md](JUDGE_BRIEF.md).** It maps the evidence to
+the live Track 2 rubric and separates offline measurements from network-confirmed results.
+
+A freestanding `wasm32-unknown-unknown` scoring module, currently **25,887 bytes** for the frozen
+TAC release, with **zero imports**, no imported allocator, no clock, no randomness, and no
+transcendental maths. One Rust source tree is compiled once per intent via constant profiles, the
+same shape the incumbent uses.
 
 **Scoring in one line:** weight each token by how much it decides the answer, measure how much of
 what the *answer asserts* the ground truth supports, gate on whether the answer said anything the
@@ -148,12 +152,12 @@ Every constant is documented in [tune.md](tune.md) and lives in one block in
 ## Build
 
 ```bash
-export PATH="/c/Users/hyada/.cargo/bin:$PATH"
-
-cargo test                                                     # 58 unit tests, host target
+cargo test                                                     # generic host profile
 cargo build --release --target wasm32-unknown-unknown          # generic
 cargo build --release --target wasm32-unknown-unknown --no-default-features --features ip-geolocation
 cargo build --release --target wasm32-unknown-unknown --no-default-features --features storm-alert
+cargo build --release --target wasm32-unknown-unknown --no-default-features --features content-verification
+cargo build --release --target wasm32-unknown-unknown --no-default-features --features text-authenticity
 
 wasm-tools print target/wasm32-unknown-unknown/release/scorer.wasm | grep -c '(import'   # must be 0
 wasm-tools validate target/wasm32-unknown-unknown/release/scorer.wasm
@@ -166,17 +170,34 @@ proves it — a WASI or `wasm-bindgen` build is an instant registration reject.
 
 ## Verification
 
-All three builds pass `verify.mjs` in full. Artefacts:
+The 2026-08-28 feature matrix is clean under both tests and `clippy -D warnings`: generic 77 tests,
+IP geolocation 78, storm alert 69, content verification 77, and text authenticity 77.
+`cargo fmt --check` also passes. GitHub Actions repeats that whole matrix and then builds the real
+registration target from scratch, runs `verify.mjs`, and checks the bytes against the frozen
+release manifest. The repository pins Rust 1.98.0 locally and in CI.
 
-| Build | Size | Imports | `wasm-tools validate` |
-|---|---|---|---|
-| `dist/generic.wasm` | 22,482 B | **0** | OK |
-| `dist/ip_geolocation.wasm` | 22,486 B | **0** | OK |
-| `dist/storm_alert.wasm` | 22,494 B | **0** | OK |
+Current repaired registration candidate (local and not yet published):
 
-`cargo fmt --check` and `cargo clippy --all-targets -- -D warnings` are both clean; 66 unit tests
-pass under the generic and IP profiles, 61 under STORM (five assertions are gated off there, where
-`prose_w = 0.7` deliberately changes the behaviour they pin).
+| Build | Size | SHA-256 | Imports | verifier |
+|---|---:|---|---:|---|
+| `dist/text_authenticity.wasm` | 25,887 B | `e7bb15f1…ae52b6` | **0** | pass |
+
+Local Keccak-256 is
+`bdd3fea5deb7ce2a48663aa7ec63d5a295ade30c4c2bb2d3254031cb04cdca0f`; OpenSSL's algorithm was
+validated by reproducing champion reg 850's known on-chain hash. This value must still be
+recomputed from the final hosted bytes. The previous public `867fd15` artifact is superseded; see
+`../REGISTRATION.md` before signing anything.
+
+The native TAC proxy reports **256/256** pairwise wins with **0.973844** separation, while the
+content-verification holdout remains **144/144** at **0.963445**. Independent
+`telegraph-wasm-check` commit `f537c7c` reports 0 hard/soft failures, fresh-instance determinism,
+500 seeded fuzz cases, bounded memory, and all 16 native intent cases passing. These are offline
+tests against public/pinned artifacts, not a claim about the node's hidden fixtures.
+
+A separate 20-case probe was written before the final semantic change and kept outside the public
+TAC corpus. It exposed inverted negation (`not original`, `no AI evidence`, `did not classify as
+AI`): the intermediate candidate won 10/20 comparisons; this release wins **20/20**, mean margin
+**0.757994**, without changing the probe cases after seeing the result.
 
 Exported signatures, read back off the binary — `rank_answer` is **exactly six `i32` returning
 `f32`** (a 3-param build was rejected live):

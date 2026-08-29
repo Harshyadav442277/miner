@@ -14,10 +14,10 @@
  * figure behind. The document is written for a reviewer who has never seen this
  * repository, so it repeats context the rest of track2/ takes for granted.
  *
- * Champion binaries are NOT in the repo (24 MB each). Default lookup order per
- * target: track2/harness/champions/<name>.wasm, then the session scratchpad copy.
- * Either can be overridden with the flags above. Fetch instructions, and the
- * registry URLs the bytes came from, are printed into PROOF.md itself.
+ * Champion binaries are NOT in the repo (24 MB each). The default location is
+ * track2/harness/champions/<name>.wasm; every path can be overridden with the
+ * flags above. Fetch instructions and commit-pinned registry URLs are printed
+ * into PROOF.md itself.
  */
 
 import { spawn } from "node:child_process";
@@ -32,8 +32,6 @@ import { HAND_CASES, renderProof } from "./proof-doc.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(HERE, "..", "..");
-const SCRATCH =
-  "C:/Users/hyada/AppData/Local/Temp/claude/C--Users-hyada-OneDrive-Documents-Work-Related-Hackathons-Telegraph/5bf15b88-ade8-4ce4-9eee-7676eea0666d/scratchpad";
 const FIXTURE_DIRS = ["real", "synth", "probe"].map((d) => join(ROOT, "track2", "fixtures", d));
 const REGISTRY = "https://devnode.telegraphprotocol.com/api/wasm";
 
@@ -95,13 +93,11 @@ function parseArgs(argv) {
   return args;
 }
 
-/** First existing of: explicit flag, repo-local champions/, session scratchpad. */
+/** Explicit flag, otherwise the documented repo-local champions directory. */
 function champion(args, flag, basename) {
   const explicit = args.get(flag);
   if (explicit && explicit !== "true") return resolve(ROOT, explicit);
-  const local = join(HERE, "champions", basename);
-  if (existsSync(local)) return local;
-  return join(SCRATCH, "wasm", basename);
+  return join(HERE, "champions", basename);
 }
 
 function scorerPath(args, flag, relative) {
@@ -141,8 +137,8 @@ async function reuseReports(targets, reportsDir) {
   const out = [];
   for (const target of targets) {
     let found = null;
-    // Two targets can share a corpus intent (TEXT_AUTHENTICITY_CHECK is measured on the
-    // CONTENT_VERIFICATION family), so the scorer filename disambiguates.
+    // A target may explicitly reuse a sibling corpus, so the scorer filename
+    // remains part of the report identity.
     const scorerName = target.scorer.split(/[\\/]/).pop();
     for (const name of names) {
       const path = join(reportsDir, name);
@@ -302,11 +298,11 @@ async function inProcessExhibits(runs) {
 const HELP = `make-proof.mjs — regenerate track2/PROOF.md from a live run
 
   --ipgeo-scorer PATH      default track2/scorer/dist/ip_geolocation.wasm
-  --ipgeo-champion PATH    default champions/ipgeo_reg630.wasm, then the scratchpad copy
+  --ipgeo-champion PATH    default champions/ipgeo_reg630.wasm
   --storm-scorer PATH      default track2/scorer/dist/storm_alert.wasm
-  --storm-champion PATH    default champions/storm_rpen_reg453.wasm, then the scratchpad copy
+  --storm-champion PATH    default champions/storm_rpen_reg453.wasm
   --ta-scorer PATH         default track2/scorer/dist/text_authenticity.wasm
-  --ta-champion PATH       default champions/tn_t70_reg850.wasm, then the scratchpad copy
+  --ta-champion PATH       default champions/tn_t70_reg850.wasm
   --weather-scorer PATH    default track2/scorer/dist/generic.wasm      (exhibit only)
   --weather-champion PATH  default champions/wf_mini_reg636.wasm        (exhibit only)
   --no-weather             skip the WEATHER_FORECAST exhibit run
@@ -345,10 +341,6 @@ async function main() {
     {
       intent: "TEXT_AUTHENTICITY_CHECK",
       role: "gate",
-      // No recorded traffic exists for this intent, so it is measured on the
-      // CONTENT_VERIFICATION fixture family (same question domain); the incumbent
-      // it is measured AGAINST is this intent's own on-chain champion, reg 850.
-      corpusIntent: "CONTENT_VERIFICATION",
       scorer: scorerPath(args, "--ta-scorer", "track2/scorer/dist/text_authenticity.wasm"),
       champion: champion(args, "--ta-champion", "tn_t70_reg850.wasm"),
       championName: "tn_t70_reg850.wasm",

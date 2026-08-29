@@ -74,6 +74,25 @@ Paths in the examples are written from the repository root; every script also ac
 
 ## Quickstart
 
+### Fast TAC-only check — no incumbent or network
+
+For `TEXT_AUTHENTICITY_CHECK`, run the focused public semantic gate first:
+
+```bash
+node track2/harness/check-tac.mjs path/to/your_module.wasm
+node track2/harness/check-tac.mjs path/to/your_module.wasm --json
+```
+
+It loads the module through the real six-argument ABI and checks required exports, blank answers,
+range, self-match, all 256 public correct-vs-counterfactual orderings, and 16 equivalent-wording
+constraints. Exit code `0` means every public check passed; `1` means a semantic check failed;
+`2` means the file, ABI invocation, or command was invalid. It needs only Node, the two TAC fixture
+files, `corpus.mjs`, and `wasm-abi.mjs`—no incumbent download, package install, network, Rust, or
+transaction.
+
+This is a deliberately strict, inspectable regression proxy. It is not Telegraph's hidden,
+rotating node gate and does not predict promotion.
+
 ### 1. Get the incumbent's exact bytes
 
 The registry is public. Ask it who holds the intent, then download the commit-pinned URL it names:
@@ -350,6 +369,7 @@ Three rules the generator enforces on itself, and which any fork should keep:
 | File | Role |
 |---|---|
 | `wasm-abi.mjs` | Loads a module through the node's exact call path (`instantiate(bytes, {})`, `alloc` → write → `rank_answer`), and works around the bump allocator's wrap |
+| `check-tac.mjs` | One-command, incumbent-free public TAC semantic regression gate with text or JSON output |
 | `score-pool.mjs` | Worker pool; deterministic by index |
 | `corpus.mjs` | Fixture loading, validation, mean/stddev/Spearman |
 | `synth-schemas.mjs` | Per-intent fact schemas — the only place answer text is defined |

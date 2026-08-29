@@ -1,7 +1,81 @@
 # REGISTRATION.md — the user's runbook for registering the scorer
 
-**Status 2026-08-28. Register TEXT_AUTHENTICITY_CHECK — it replaced CONTENT_VERIFICATION as the
-target.** Read this block only; everything below is history.
+## READY FOR USER REGISTRATION — use only the commit-pinned URL below
+
+**Status 2026-08-29. Target remains `TEXT_AUTHENTICITY_CHECK`, but commit `867fd15` and Keccak
+`0xaaea…0e01` are superseded.** A code review found that five of the old build's six losses were
+wrong-verdict failures, not confidence near-misses, and the sixth was a missed named-model
+contradiction. A second independent review then closed terse-label equivalence and sentence-initial
+subject substitution. A third, deliberately unseen probe then exposed and repaired inverted
+negation semantics. The frozen release measures **256/256 wins, +0.973844 separation** on the
+native TAC corpus versus the old build's 234/240 and +0.721069, plus **20/20** on the unseen
+negation/metamorphic probe versus 10/20 before the fix.
+
+Current published, hosted-byte-verified candidate (not yet registered):
+
+```
+track2/scorer/dist/text_authenticity.wasm
+size      25,887 bytes
+sha256    e7bb15f12e55aa5a0cb8fa30f5d2d5a21a3027d026b207d3d8563d2ae2ae52b6
+keccak256 bdd3fea5deb7ce2a48663aa7ec63d5a295ade30c4c2bb2d3254031cb04cdca0f
+```
+
+The Keccak was computed locally with OpenSSL `KECCAK-256`; the same command reproduced champion
+reg 850's known on-chain hash `14f7076c…04f57`, validating the algorithm choice. A fresh download
+from the commit-pinned raw GitHub URL reproduced all 25,887 bytes, the SHA-256 and the Keccak.
+The pinned Rust 1.98.0 build also reproduced this SHA-256 byte-for-byte;
+`release/text-authenticity.json` is the manifest.
+
+Independent `telegraph-wasm-check` commit `f537c7c` also reports **0 hard failures, 0 soft
+failures**, fresh-instance determinism, 500 seeded fuzz cases, bounded memory, and all 16 native
+TAC cases passing. These remain offline results, not the node's hidden-fixture verdict.
+
+Published artifact URL:
+
+```text
+https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/25ff8089d4d3f1cfcc639115e14464d7d6313cc1/dist/text_authenticity.wasm
+```
+
+### Next action — user wallet confirmation required
+
+Use `integrate.telegraphprotocol.com` to submit the URL above for intent
+**`TEXT_AUTHENTICITY_CHECK`**. The website's VERIFY & HASH value must equal
+`bdd3fea5deb7ce2a48663aa7ec63d5a295ade30c4c2bb2d3254031cb04cdca0f` exactly before the user
+approves the wallet transaction. Stop if it differs.
+
+GitHub code can be updated later. The on-chain registration is different: it binds one hosted URL
+and byte hash. A changed WASM needs a new registration transaction. Track 1's website intent
+metadata is separate from this Track 2 release flow.
+
+| What changed? | Required action |
+|---|---|
+| Track 1 intent details / published `miner.yaml` | Update the website flow; a changed YAML is published and submitted through `updateMiner`, producing new IDs. |
+| GitHub README, source, tests, fixtures, proof, or harness only | Push normally. No website or chain update. |
+| Compiled Track 2 WASM bytes | Publish the exact new bytes, verify both hashes, then submit a fresh `registerWasm`. |
+
+Therefore the website only needs the intent-detail update the user identified. GitHub code remains
+editable; just do not describe source changes as live scorer changes until their compiled WASM is
+separately registered.
+
+After confirmation, record the `registrationId` and query:
+
+```bash
+curl -s "https://devnode.telegraphprotocol.com/api/wasm?intent=TEXT_AUTHENTICITY_CHECK"
+```
+
+The 2026-08-29 06:53 IST live recheck still showed 83 entries, champion reg 850, bar
+0.65861213, 14/15 wins, no history, and no registration for this new hash. Poll again
+immediately before signing.
+
+---
+
+## Superseded release record — do not execute
+
+The block below documents the prior candidate. It is retained for auditability and must not be
+used for a new registration.
+
+**Prior status:** register TEXT_AUTHENTICITY_CHECK — it replaced CONTENT_VERIFICATION as the
+target.
 
 ## → DO THIS
 
