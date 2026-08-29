@@ -38,7 +38,7 @@ crypto_price_b3.wasm
 | wins to match or beat | **14/15** |
 | measured | 5/5 cases, margin 0.934438 vs 4/5 and 0.196033 |
 
-### 3. ONCHAIN_TX_LOOKUP
+### 4. ONCHAIN_TX_LOOKUP — sign this LAST, it got much harder
 
 ```text
 onchain_tx_lookup_b3.wasm
@@ -48,11 +48,11 @@ onchain_tx_lookup_b3.wasm
 |---|---|
 | set intent chip to | **`ONCHAIN_TX_LOOKUP`** |
 | VERIFY & HASH must show | `0fd44c697fb4a3ac302093514de39b4432525c250a4e3086c1b89e089eec7b7e` |
-| bar to beat | **0.660399** |
-| wins to match or beat | **9/9** |
+| bar to beat | **0.792271** — RAISED from 0.660399 at 09:41 by another team's probe (reg 1696) |
+| wins to match or beat | **15/15** — raised from 9/9 |
 | measured | 9/9 cases, margin 0.862541 vs 9/9 and 0.553594 |
 
-### 4. STOCK_PRICE
+### 3. STOCK_PRICE
 
 ```text
 stock_price_b3.wasm
@@ -78,6 +78,11 @@ loudly — it registers against the wrong intent's fixtures and binds the hash, 
 `stock_price.wasm` needed rebuilding.
 
 ### Why this order
+
+**Bar movement observed 2026-08-29 ~11:00.** ONCHAIN_TX_LOOKUP moved from 0.660399/9-9 to
+0.792271/15-15 within three hours, because the fixtures are resampled per evaluation and another
+team probed it. TVL_LOOKUP (0.634025, 13/14) and CRYPTO_PRICE (0.629564, 14/15) are unchanged and
+remain the two best targets. Re-read the bar before signing; the query is below.
 
 Registration 1695 accidentally measured our module against a foreign intent's real fixtures and
 returned **margin 0.81625664 at 14/15 wins**. Every corpus we own predicted ~0.14 for it, so margin
