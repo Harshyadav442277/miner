@@ -33,24 +33,21 @@ WEATHER_FORECAST      #3   0.00976552    gap 0.00027
 **exit 0** (median 372ms, p95 1172ms), epoch 289 still the network's latest and only 5.8h old.
 Nothing is broken.
 
-**Two watch items found in that pass**, both recorded rather than fixed: the branch has diverged
-(G20, above), and the uptime alarm is weaker than it reads — the cron is honoured at **9–13 hour**
-gaps, not hourly, and only 1 of its 3 jobs opens an issue, so the tripwire G19 leans on has never
-once been observed to fire (**GAPS G21**, TASKS T4.8).
+**2026-08-29 session 2 closed both watch items and deployed a storm hedge:** the branch is
+reconciled (`0 0`, G20), the uptime alarm now covers all three jobs and was **proven to fire**
+(drill issue #1, G21/T4.8), and every storm answer now ends with standing operational-safety
+guidance — measured **+36%** on epoch 289's advisory question, −2 to −3% on forecast questions
+where margins are 11–105%, +2.7% bench mean (T4.9, conversion survival unmeasured → G23).
+**Also: pushes do NOT deploy — production only updates via `vercel --prod` (G22).** Epoch 290
+lands 06:31Z on 08-29 and tests both the storm guidance and session 1's weather reorder.
 
-### The four things that need a human, in order
+### The three things that need a human, in order
 
-1. **Reconcile the diverged branch.** New 2026-08-29, and it blocks every other commit. The
-   `scores` CI job pushes to `main` by itself; a local session recorded the same epoch 289 by
-   hand. `main` is **local 8 ahead / remote 1 ahead**, both appending to the end of
-   `track1-miner/docs/score-history.jsonl`. Rebase, keep both epoch-289 lines, push — **never
-   force-push**, the API only exposes the latest epoch. Until then eight commits of session work
-   live only on the operator's laptop, the machine G19 is about. (GAPS G20, TASKS T4.7)
-2. **Post the X series.** 25% of the Track 1 score and the largest unclaimed block. Thirteen posts,
+1. **Post the X series.** 25% of the Track 1 score and the largest unclaimed block. Thirteen posts,
    each verified under 280 characters and tagged, covering both tracks:
    **[docs/X_POSTS.md](docs/X_POSTS.md)**. Best post to date is 188 impressions. Close is Aug 31.
-3. **Register Track 2's scorer.** One wallet signature; see [track2/REGISTRATION.md](track2/REGISTRATION.md).
-4. **Ask the organizers one question** — Track 3 has not opened, so no intent can have its 100 real
+2. **Register Track 2's scorer.** One wallet signature; see [track2/REGISTRATION.md](track2/REGISTRATION.md).
+3. **Ask the organizers one question** — Track 3 has not opened, so no intent can have its 100 real
    Track 3 requests before the Aug 31 close. Is that guardrail waived, measured later, or binding?
    It decides whether rank 1 converts into anything. Still unanswered.
 

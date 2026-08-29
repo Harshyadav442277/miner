@@ -241,7 +241,12 @@ instance never fires an interval. So CertWatch currently has no durable history 
 **Fix:** move state to a real store and drive sweeps from a scheduled GitHub Action hitting the
 authenticated endpoint, rather than an in-process timer.
 
-### G20 · The `scores` CI job and local sessions both commit to `main` — `OPEN, hit once`
+### G20 · The `scores` CI job and local sessions both commit to `main` — `RESOLVED 2026-08-29, prevention still open`
+Verified 2026-08-29 (session 2): `git rev-list --left-right --count origin/main...HEAD` returns
+`0 0` — the divergence was reconciled and pushed; both epoch-289 lines are in the history. The
+**prevention** half remains: nothing stops the same race recurring. Until CI solely owns
+`score-history.jsonl`, run the divergence check before any git operation. The original record:
+
 Found 2026-08-29. The `scores` job in `.github/workflows/uptime.yml` runs `record-scores.mjs`,
 commits `track1-miner/docs/score-history.jsonl` and **pushes to `main`**. A local session that
 records the same epoch by hand writes the same file. On 2026-08-29 both happened: the runner
@@ -261,7 +266,16 @@ Why it matters more than it looks:
 **Prevent:** either stop recording epochs by hand and let CI own that file, or have the job write
 to a per-run file instead of appending to a shared one.
 
-### G21 · The uptime tripwire is slower and narrower than it claims — `OPEN`
+### G21 · The uptime tripwire is slower and narrower than it claims — `NARROWER half RESOLVED 2026-08-29; SLOWER half accepted`
+Resolved 2026-08-29 (session 2): a single `alarm` job with
+`needs: [check, live-tests, scores]` now opens or extends the `uptime`-labelled issue when **any**
+job fails, permissions are explicit, and the path was **proven live** — a forced failure via the
+new `test_alarm` dispatch input created issue #1 (the repo's first ever), which was then closed as
+a documented drill. The **slower** half stands: the cron's real cadence is still up to ~13h and
+cannot be bought back with cron syntax; `live-tests` now caches its npm install to conserve the
+private-repo Actions quota, which is the suspected throttling cause but is unproven. The original
+record:
+
 Found 2026-08-29, while checking that G19's accepted risk is actually covered.
 
 **Slower.** `uptime.yml` is an hourly cron and its own comment says the observed cadence is "one
@@ -287,9 +301,23 @@ half of this mechanism has never once been observed to work end to end.
 rather than trusting it on first use. Correct the cadence comment in the workflow to the measured
 figures. A green tick is not evidence of a working alarm — the same lesson G18 already cost us.
 
----
+### G22 · Pushing to `main` does NOT deploy — production only updates via `vercel --prod` — `CLOSED as a fact, recorded so it is never re-assumed`
+Found 2026-08-29 (session 2): the storm-guidance commit was pushed and production still served the
+old answer 10 minutes later; `vercel ls` showed the newest deployment was **23 hours old**. There
+is no GitHub→Vercel integration on this repo. Every deploy is an explicit
+`vercel --prod` from `track1-miner/miner` (CLI is authenticated as the operator's team `wukong4`).
+This corrects MEMORY's earlier claim that "Vercel builds api/index.ts from source on push" — code
+merged to `main` is NOT live until someone runs the CLI. Any session that lands a scoring-relevant
+change must deploy and then re-run `verify-deploy` against production, or the change does nothing.
 
-## Security
+### G23 · The storm advisory guidance's survival through the prose converter is unmeasured — `OPEN`
+2026-08-29 (session 2). The standing operational-guidance sentence appended to storm answers
+measured +36% on the epoch-289 advisory question and −2 to −3% on the three prior forecast
+questions — but those are **raw-prose** scores. What is actually scored is `converted_answer`, a
+~32-word LLM summary we cannot run offline, and MEMORY records that what the converter reaches
+last is what it drops. The guidance sits at the tail, so the likeliest live outcome on forecast
+questions is "dropped, no effect", and on advisory questions "partially kept, some gain" — but
+neither is measured. Epoch 290+ storm rows are the evidence; read them before concluding anything.
 
 ### G19 · The miner wallet's seed phrase is compromised — `OPEN, accepted risk`
 2026-08-28. The operator was social-engineered in a hackathon Discord DM by an account named

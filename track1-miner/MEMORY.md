@@ -3,7 +3,7 @@
 **Read this first. Everything Track 1 needs is in this folder.**
 Shared protocol facts are in `../docs/`. Do not edit `../track2/` or `../track3-certwatch/`.
 
-Last updated: 2026-08-29, after a full live re-verification of registration 260 and the deploy.
+Last updated: 2026-08-29 session 2 — storm advisory hedge deployed, alarm proven, branch clean.
 
 ---
 
@@ -15,22 +15,10 @@ Nothing about the manifest needs the operator any more. See section 2 for the ve
 
 What still needs a human:
 
-**0. Reconcile the diverged branch — do this before any other git operation.** Found 2026-08-29.
-The `scores` job in `.github/workflows/uptime.yml` records an epoch, commits
-`docs/score-history.jsonl` and **pushes to `main`** on its own. A local session recorded the same
-epoch 289 by hand. Result: **local 8 ahead, remote 1 ahead**, both appending to the end of the
-same file.
-
-```
-local  HEAD       21fd328  Record epoch 289 in the score history   (at 13:15Z)
-origin/main       6e09b90  Record epoch scores                     (at 16:41Z, from the runner)
-```
-
-Rebase onto `origin/main`, keep **both** epoch-289 lines in timestamp order — readers take the
-last line per epoch and the score data is identical — then push. **Never force-push here:** the
-API exposes only the latest epoch, so the runner's line cannot be re-derived once discarded.
-Until this is done, eight commits of session work exist only on the operator's laptop, which is
-the machine G19 covers. (GAPS G20, TASKS T4.7)
+**0. The diverged branch is RECONCILED** (verified `0 0` on 2026-08-29 session 2) and the uptime
+alarm now covers all three jobs and has been **proven to fire** (issue #1, a documented drill —
+G21). Nothing here needs the operator any more; the divergence check at session start stays until
+score-history ownership is settled (G20 prevention half).
 
 **0b. The old item 0 — deploy and re-run acceptance — is CLOSED.** Verified 2026-08-29:
 `node track1-miner/tools/verify-deploy.mjs https://miner-wine.vercel.app` exits **0**, all six
@@ -113,6 +101,49 @@ re-serializes everything. That is normal and 236 registered the same way.
 stale, so activation monitoring had been watching a superseded record since before 236. Set to
 **260** on 2026-08-28 (`gh variable set REGISTRATION_ID --body 260`). **Whenever a new registration
 is signed, update that variable in the same session** — nothing in CI catches it being wrong.
+
+### Session 2, 2026-08-29 (~05:30Z) — the storm advisory hedge, and two structural fixes
+
+**Epoch 290 lands 2026-08-29T06:31Z** (the epoch stretched: 289 landed ~12:55Z on 08-28, so this
+one took ~17.5h, not 9 — do not trust the 9h figure for timing decisions). Registration 260
+`active`, verify-deploy exit 0 (twice), 124/124 tests, no new entrants in any of our six fields.
+
+**STORM (#2, gap 0.00023): a standing operational-guidance sentence now ends every storm answer.**
+Epoch 289's question asked what adjustments a mine site should make ahead of high winds; the
+ground truth is a personnel/equipment safety checklist, and the entire field — including the
+rank-1 — answered with forecast numbers. The engine sends this endpoint **only coordinates**
+(verified across all six scored epochs: every answer used the 48h default window whatever the
+question said), so the guidance cannot be conditional on being asked. Measured with the storm
+champion (`storm_rpen.wasm`, reg 453, reproduces all five epoch-289 reported scores exactly):
+
+```
+epoch 289 (advisory):  base 0.004233 -> +guidance 0.005767   +36%, leader amanat 0.004279
+epoch 288 (forecast):  -3.2%    epoch 287: +2.2%    epoch 286: -1.9%
+12-question bench:     mean 0.00944 -> 0.00969   +2.7%, no per-question collapse
+```
+
+Variants that LOST, do not retry: advisory-first prose (+81% on 289 but −5 to −14% on forecast
+questions), an even longer guidance with evacuation-route detail (+11% only — over-stuffing
+dilutes), trimmed medium/short tails (+21%/+9%). The deployed sentence is the T2 variant in
+`describe()` in `src/storm.ts`. **Conversion survival is unmeasured (GAPS G23)** — the converter
+drops tails, so the likeliest outcomes are "no effect" on forecast questions and "partial gain" on
+advisory ones. Read the epoch 290+ storm rows before concluding anything.
+
+**WEATHER (#3, gap 0.00027): nothing further was changed.** The temperature-first reorder from
+session 1 is live and untested by any epoch yet; the current live answer measures **0.010713**
+against epoch 289's Q/GT vs the leader's converted 0.010033 (+6.8% raw, ~coin-flip after the
+usual conversion haircut). Epoch 290 is its test. Three rewordings already lost this week.
+
+**DEPLOYS ARE MANUAL — pushing to `main` deploys NOTHING (GAPS G22).** Production was 23h stale
+while `main` carried the storm change; there is no GitHub→Vercel integration. Deploy with
+`vercel --prod` from `track1-miner/miner` (CLI authenticated, team `wukong4`), then re-run
+verify-deploy against production. MEMORY's earlier "Vercel builds on push" claim was wrong.
+
+**The uptime alarm is real now.** One `alarm` job (`needs: [check, live-tests, scores]`,
+`if: contains(needs.*.result, 'failure')`) opens/extends the `uptime` issue for any failing job;
+permissions explicit; `live-tests` uses `npm ci` + cache to conserve the Actions quota that is
+the suspected cause of the 9–13h cron gaps. Proven live with the `test_alarm` dispatch input →
+issue #1, closed as a drill. (T4.8, G21)
 
 ### Re-verified live 2026-08-29 (UTC 2026-08-28T18:4xZ)
 

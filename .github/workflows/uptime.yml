@@ -11,13 +11,14 @@
 
 name: uptime
 
-# Hourly, and honestly labelled.
+# Scheduled hourly; honoured far less often.
 #
 # This was set to "*/10" on the assumption it would run every ten minutes. It did
-# not: GitHub heavily throttles scheduled workflows, and the observed cadence was
-# one run every two to three hours. A schedule that lies about its frequency is
-# worse than a slower one that does not, and epochs are nine hours long, so hourly
-# is ample for catching a new score and more likely to actually be honoured.
+# not: GitHub heavily throttles scheduled workflows. The measured gaps between
+# runs are 9h 17m and 13h 06m (2026-08-27/28) — treat the real detection window
+# as up to half a day, not an hour. Epochs are nine hours long, so even that
+# catches most epochs; the alarm job below is what turns a failure into a
+# notification.
 on:
   schedule:
     - cron: "17 * * * *"

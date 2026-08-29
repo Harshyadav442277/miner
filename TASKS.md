@@ -89,19 +89,22 @@ position, so every day of delay shortens the record we are judged on.
 - [x] **T4.4** Ranked and tracked each epoch → `track1-miner/docs/score-history.jsonl`, appended by
       `tools/record-scores.mjs`. **Rank 1 in SSL_VERIFICATION, STORM_ALERT and IP_GEOLOCATION for
       epochs 286, 287 and 288.** (S3, S4)
-- [ ] **T4.7** **Reconcile the diverged branch before anything else touches git.** The `scores` CI
-      job pushed epoch 289 at 16:41Z while a local commit recorded the same epoch at 13:15Z, so
-      `main` is **local 8 ahead / remote 1 ahead**, both appending to the end of
-      `track1-miner/docs/score-history.jsonl`. Rebase onto `origin/main`, keep **both** epoch-289
-      lines in timestamp order, push. **Do not force-push** — that deletes the runner's record, and
-      the API only exposes the latest epoch, so it cannot be recovered. Then decide who owns that
-      file so this cannot recur. (G20)
-- [ ] **T4.8** **Make the uptime alarm cover every job, and prove it fires once.** Only `check`
-      opens an issue; `live-tests` failed on 2026-08-27 and alerted nobody, and the repo has never
-      had a single issue created. Move the step to a `needs: [check, live-tests, scores]` job with
-      `if: failure()`, and trigger it deliberately to watch it work. Also correct the workflow's
-      cadence comment: it claims "two to three hours", the measured gaps are 9h and 13h. This is
-      the tripwire G19 relies on, so it is worth more than a green tick. (G21)
+- [x] **T4.7** **Reconcile the diverged branch before anything else touches git.** Done by
+      2026-08-29 session 2: `origin/main...HEAD` measures `0 0`, both epoch-289 lines are in the
+      pushed history. The prevention half (who owns `score-history.jsonl`) is still open — run the
+      divergence check at session start until it is settled. (G20)
+- [x] **T4.8** **Make the uptime alarm cover every job, and prove it fires once.** Done 2026-08-29
+      session 2: single `alarm` job with `needs: [check, live-tests, scores]`, explicit
+      permissions, npm cache on `live-tests`, honest cadence comment — and **proven live**: a
+      forced failure via the new `test_alarm` dispatch input created issue #1, closed as a
+      documented drill. (G21)
+- [x] **T4.9** **Storm advisory hedge, measured and deployed 2026-08-29.** Epoch 289's storm
+      question was operational ("what adjustments should miners implement") and the whole field
+      answered with forecast numbers — we lost #1 by 0.00023. The engine sends storm only
+      coordinates, so a standing guidance sentence was appended to every storm answer: **+36%** on
+      the advisory question, **−2 to −3%** on the three forecast questions (winning margins there
+      are 11–105%), **+2.7%** mean over the 12-question bench. Deployed via `vercel --prod` and
+      verified live; conversion survival unmeasured (G23). Epoch 290+ rows are the test.
 
 ## Phase 4b — Track 3 application (Aug 31 – Sep 7)
 
