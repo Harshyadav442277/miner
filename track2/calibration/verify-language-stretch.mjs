@@ -10,11 +10,14 @@ function arg(name) {
   return resolve(process.argv[index + 1]);
 }
 
-const [alpha03, alpha06, alpha09] = await Promise.all([
+const [alpha03, alpha06, candidate] = await Promise.all([
   loadScorer(arg("--alpha03"), "alpha=0.3"),
   loadScorer(arg("--alpha06"), "alpha=0.6"),
-  loadScorer(arg("--candidate"), "alpha=0.9"),
+  loadScorer(arg("--candidate"), "candidate"),
 ]);
+const alphaIndex = process.argv.indexOf("--alpha");
+const alpha = alphaIndex < 0 ? 0.9 : Number(process.argv[alphaIndex + 1]);
+if (!(alpha > 0.6 && alpha <= 0.9)) throw new Error("--alpha must be in (0.6, 0.9]");
 
 const rows = [
   ["Translate 'hello' to Spanish.", "hola", "hola"],
@@ -35,15 +38,15 @@ let maxError = 0;
 for (const row of rows) {
   const s03 = alpha03.score(...row);
   const s06 = alpha06.score(...row);
-  const s09 = alpha09.score(...row);
-  const expected = 2 * s06 - s03;
-  const error = Math.abs(s09 - expected);
+  const candidateScore = candidate.score(...row);
+  const expected = s06 + ((alpha - 0.6) / 0.3) * (s06 - s03);
+  const error = Math.abs(candidateScore - expected);
   maxError = Math.max(maxError, error);
-  assert.ok(Number.isFinite(s09) && s09 >= 0 && s09 <= 1, `invalid score ${s09}`);
-  assert.ok(error <= 2e-6, `calibration mismatch: got ${s09}, expected ${expected}`);
+  assert.ok(Number.isFinite(candidateScore) && candidateScore >= 0 && candidateScore <= 1, `invalid score ${candidateScore}`);
+  assert.ok(error <= 2e-6, `calibration mismatch: got ${candidateScore}, expected ${expected}`);
 }
 
-assert.equal(alpha09.score("q", "answer", ""), 0, "blank answer must remain exactly zero");
-assert.equal(alpha09.score("q", "answer", "answer"), 1, "exact match must remain exactly one");
+assert.equal(candidate.score("q", "answer", ""), 0, "blank answer must remain exactly zero");
+assert.equal(candidate.score("q", "answer", "answer"), 1, "exact match must remain exactly one");
 
-console.log(JSON.stringify({ fixtures: rows.length, maxAffineError: maxError, blank: 0, exactMatch: 1 }, null, 2));
+console.log(JSON.stringify({ fixtures: rows.length, alpha, maxAffineError: maxError, blank: 0, exactMatch: 1 }, null, 2));
