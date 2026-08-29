@@ -151,6 +151,23 @@ input_schema:
       type: string
       description: /ip-geolocate. IPv4 or IPv6 address.
       examples: ["8.8.8.8"]
+    text:
+      type: string
+      description: >-
+        /translate. The text to translate, with or without quotes. Registration
+        260 declared no translation-shaped parameter and both scored epochs
+        arrived with none filled — the engine fills only parameters a miner
+        declares, so this field is what makes translation questions reach us.
+      examples: ["The weather is beautiful today."]
+    target_language:
+      type: string
+      description: >-
+        /translate. The language to translate into, by name or ISO 639-1 code.
+      examples: ["Spanish", "fr"]
+    source_language:
+      type: string
+      description: /translate. The language of the source text, when stated.
+      examples: ["English"]
 
 output_schema:
   type: object
