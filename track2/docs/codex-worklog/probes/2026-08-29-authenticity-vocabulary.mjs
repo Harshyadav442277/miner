@@ -7,7 +7,9 @@
  */
 
 import { resolve } from "node:path";
-import { loadScorer } from "../../../harness/wasm-abi.mjs";
+const { loadScorer } = await import(
+  import.meta.url.includes("/release/") ? "../harness/wasm-abi.mjs" : "../../../harness/wasm-abi.mjs"
+);
 
 if (!process.argv[2]) {
   console.error("usage: node 2026-08-29-authenticity-vocabulary.mjs <scorer.wasm>");

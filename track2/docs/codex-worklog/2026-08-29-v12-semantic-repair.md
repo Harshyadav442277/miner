@@ -17,7 +17,9 @@ slot at 14/15 and 0.65861213. No hidden fixture content was exposed.
   candidate scored 8/12 with mean margin 0.000003.
 
 Both probes were written and hashed before the corresponding scorer change. They are derived from
-the public intent definition, not Telegraph's hidden cases.
+the public intent definition, not Telegraph's hidden cases. Checkpoint `e002b7d` preserves those
+exact hashed versions; a later packaging-only edit made their harness import work from both the
+monorepo and standalone `release/` directory without changing any case.
 
 ## Repairs
 
