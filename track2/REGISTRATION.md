@@ -1,4 +1,90 @@
-# REGISTRATION.md — the user's runbook for registering the scorer
+## SIGN THESE — b3 builds, published and hosted-byte verified
+
+**Artifact commit `a0318af`.** All four re-downloaded from the pinned commit and byte-identical to
+the tested builds. Sign in the order listed: the ranking is by how beatable the champion's *win
+count* is, which registration 1695 proved is the binding axis, not margin.
+
+**Every URL shares this prefix:**
+
+```text
+https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/a0318afd0faed3c519fae4dab63b7a238e6e8031/dist/
+```
+
+### 1. TVL_LOOKUP
+
+```text
+tvl_lookup_b3.wasm
+```
+
+| | |
+|---|---|
+| set intent chip to | **`TVL_LOOKUP`** |
+| VERIFY & HASH must show | `4d4523cf4d091ff2f23060d57f032cae92fd625d5f4f0dbdb55a1de18dad8c4d` |
+| bar to beat | **0.634025** |
+| wins to match or beat | **13/14** |
+| measured | 20/20 cases, margin 0.957407 vs champion 19/20 and 0.612070 |
+
+### 2. CRYPTO_PRICE
+
+```text
+crypto_price_b3.wasm
+```
+
+| | |
+|---|---|
+| set intent chip to | **`CRYPTO_PRICE`** |
+| VERIFY & HASH must show | `ff85089ad0308ab5dcf52280ce582aaa65e0cf6cb9a2d715d440aca28728219e` |
+| bar to beat | **0.629564** |
+| wins to match or beat | **14/15** |
+| measured | 5/5 cases, margin 0.934438 vs 4/5 and 0.196033 |
+
+### 3. ONCHAIN_TX_LOOKUP
+
+```text
+onchain_tx_lookup_b3.wasm
+```
+
+| | |
+|---|---|
+| set intent chip to | **`ONCHAIN_TX_LOOKUP`** |
+| VERIFY & HASH must show | `0fd44c697fb4a3ac302093514de39b4432525c250a4e3086c1b89e089eec7b7e` |
+| bar to beat | **0.660399** |
+| wins to match or beat | **9/9** |
+| measured | 9/9 cases, margin 0.862541 vs 9/9 and 0.553594 |
+
+### 4. STOCK_PRICE
+
+```text
+stock_price_b3.wasm
+```
+
+| | |
+|---|---|
+| set intent chip to | **`STOCK_PRICE`** |
+| VERIFY & HASH must show | `7206439d96b512e33fedd5480040361916c57d16aeeb03945953f7ecb9a15ecf` |
+| bar to beat | **0.614703** |
+| wins to match or beat | **15/15** |
+| measured | 7/7 cases, margin 0.995831 vs 7/7 and 0.818382 |
+
+### Before every single one
+
+1. **Reload the console page.** The intent chip carried over last time and put our STOCK_PRICE
+   module on LANGUAGE_GENERATION (registration 1695).
+2. **Check step 3 shows the intent in bold above**, not whatever was there before.
+3. **Stop if VERIFY & HASH differs by one character.**
+
+Every module declares its own intent in a `TELEGRAPH_INTENT` global. A mismatch does not fail
+loudly — it registers against the wrong intent's fixtures and binds the hash, which is why
+`stock_price.wasm` needed rebuilding.
+
+### Why this order
+
+Registration 1695 accidentally measured our module against a foreign intent's real fixtures and
+returned **margin 0.81625664 at 14/15 wins**. Every corpus we own predicted ~0.14 for it, so margin
+is not the constraint — all four bars are below 0.67. Wins is. TVL_LOOKUP needs only 13/14 and
+CRYPTO_PRICE 14/15, while ONCHAIN and STOCK need a perfect run.
+
+---
 
 ## REGISTRATION 1695 — a mis-filed registration that turned into the best data we have
 
