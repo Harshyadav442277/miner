@@ -4,12 +4,12 @@
 
 Published 2026-08-29 to `Harshyadav442277/telegraph-factscore`:
 
-- cross-platform artifact commit: `5728366ebc846faf2b81814be3b1dbec35f1c727`
+- cross-platform artifact commit: `409911f351b4778555ac5bb03c9a6d6bba69ae58`
 - public metadata HEAD: `1c74af5d54e177d97c75687feff9c197eccfd9fc`
-- stable release: `tac-v1.0.0`, with `text_authenticity.wasm` attached
-- `dist/text_authenticity.wasm`: 25,887 bytes
-- SHA-256: `1a0f191b57ed06421bf2ad067863261f515927b9d8bbc53e4e01ed99aa5fc634`
-- Keccak-256: `67da3ac8c06529a4ac44044bcf04471dd7d6c62fc97ca34fdd364a8feceb53aa`
+- stable release: `tac-v1.1.0`, with `text_authenticity.wasm` attached
+- `dist/text_authenticity.wasm`: 30,011 bytes
+- SHA-256: `8d8d690628d2cfcd52359f1bb1bfcd882456fc1198b80237ad74c1276a4ae8fe`
+- Keccak-256: `8599d78b039870628b67bb8e855cd6f93fc337eb0e569d786d16fa13036e9938`
 - fresh commit-pinned raw download: byte length and both hashes verified
 - GitHub Linux CI run `33227235399`: all profiles green and build byte-identical
 - downloaded release asset: byte length, SHA-256, and Keccak-256 verified
@@ -18,7 +18,7 @@ Published 2026-08-29 to `Harshyadav442277/telegraph-factscore`:
 Registration URL:
 
 ```text
-https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/5728366ebc846faf2b81814be3b1dbec35f1c727/dist/text_authenticity.wasm
+https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/409911f351b4778555ac5bb03c9a6d6bba69ae58/dist/text_authenticity.wasm
 ```
 
 ## Superseded public state
@@ -35,7 +35,7 @@ Do not register those bytes.
 
 The later `25ff808` artifact (metadata HEAD `2da8548`) had the final scorer behavior but embedded
 Windows backslashes in Rust source-span strings while Linux embedded forward slashes. GitHub CI
-correctly rejected the byte comparison. It was never registered and is superseded by `5728366`,
+correctly rejected the byte comparison. It was never registered and is superseded by `409911f`,
 which normalizes the paths during compilation.
 
 ## Files to publish
@@ -66,6 +66,7 @@ The monorepo remains the editing source. Sync these paths into the standalone re
 | `track2/release/TAC_PROOF.md` | `PROOF.md` |
 | `track2/release/README.md` | `release/README.md` |
 | `track2/release/probe-negation.mjs` | `release/probe-negation.mjs` |
+| `track2/docs/codex-worklog/probes/2026-08-29-model-aliases.mjs` | `release/probe-model-aliases.mjs` |
 | `track2/release/text-authenticity.json` | `release/text-authenticity.json` |
 | `track2/release/verify-standalone.mjs` | `release/verify-standalone.mjs` |
 | `track2/release/standalone-ci.yml` | `.github/workflows/ci.yml` |
@@ -101,9 +102,9 @@ openssl dgst -keccak-256 dist/text_authenticity.wasm
 Expected identity:
 
 ```text
-bytes      25887
-sha256     1a0f191b57ed06421bf2ad067863261f515927b9d8bbc53e4e01ed99aa5fc634
-keccak256  67da3ac8c06529a4ac44044bcf04471dd7d6c62fc97ca34fdd364a8feceb53aa
+bytes      30011
+sha256     8d8d690628d2cfcd52359f1bb1bfcd882456fc1198b80237ad74c1276a4ae8fe
+keccak256  8599d78b039870628b67bb8e855cd6f93fc337eb0e569d786d16fa13036e9938
 ```
 
 The commit-pinned raw URL was downloaded to a fresh file and both hashes reproduced. The release

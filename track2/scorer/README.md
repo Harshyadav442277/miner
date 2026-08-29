@@ -3,7 +3,7 @@
 **Reviewing the submission? Start with [JUDGE_BRIEF.md](JUDGE_BRIEF.md).** It maps the evidence to
 the live Track 2 rubric and separates offline measurements from network-confirmed results.
 
-A freestanding `wasm32-unknown-unknown` scoring module, currently **25,887 bytes** for the frozen
+A freestanding `wasm32-unknown-unknown` scoring module, currently **30,011 bytes** for the frozen
 TAC release, with **zero imports**, no imported allocator, no clock, no randomness, and no
 transcendental maths. One Rust source tree is compiled once per intent via constant profiles, the
 same shape the incumbent uses.
@@ -180,15 +180,15 @@ Current repaired registration candidate (published, hosted-byte verified, not ye
 
 | Build | Size | SHA-256 | Imports | verifier |
 |---|---:|---|---:|---|
-| `dist/text_authenticity.wasm` | 25,887 B | `1a0f191b…5fc634` | **0** | pass |
+| `dist/text_authenticity.wasm` | 30,011 B | `8d8d6906…4ae8fe` | **0** | pass |
 
 Local Keccak-256 is
-`67da3ac8c06529a4ac44044bcf04471dd7d6c62fc97ca34fdd364a8feceb53aa`; OpenSSL's algorithm was
+`8599d78b039870628b67bb8e855cd6f93fc337eb0e569d786d16fa13036e9938`; OpenSSL's algorithm was
 validated by reproducing champion reg 850's known on-chain hash. The hosted bytes reproduce this
 value, and Linux CI reproduces the tracked binary from source. The previous public `867fd15` and
 `25ff808` artifacts are superseded; see `../REGISTRATION.md` before signing anything.
 
-The native TAC proxy reports **256/256** pairwise wins with **0.973844** separation, while the
+The native TAC proxy reports **256/256** pairwise wins with **0.973658** separation, while the
 content-verification holdout remains **144/144** at **0.963445**. Independent
 `telegraph-wasm-check` commit `f537c7c` reports 0 hard/soft failures, fresh-instance determinism,
 500 seeded fuzz cases, bounded memory, and all 16 native intent cases passing. These are offline
@@ -197,7 +197,7 @@ tests against public/pinned artifacts, not a claim about the node's hidden fixtu
 A separate 20-case probe was written before the final semantic change and kept outside the public
 TAC corpus. It exposed inverted negation (`not original`, `no AI evidence`, `did not classify as
 AI`): the intermediate candidate won 10/20 comparisons; this release wins **20/20**, mean margin
-**0.757994**, without changing the probe cases after seeing the result.
+**0.757995**, without changing the probe cases after seeing the result.
 
 Exported signatures, read back off the binary — `rank_answer` is **exactly six `i32` returning
 `f32`** (a 3-param build was rejected live):

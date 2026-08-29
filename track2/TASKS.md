@@ -70,7 +70,7 @@ One task = one change = one commit. Work top-down. Owner in brackets.
 - [x] **T-C.9** [Codex] Red-team unseen negation and categorical phrasing; repair semantic-pole
       comparison, reject an over-broad sentence shortcut, and repair presentation-label
       equivalence exposed by the clean standalone all-profile matrix. Unseen probe:
-      **10/20 → 20/20**; public TAC retained **256/256**, separation **0.973844**; CV retained
+      **10/20 → 20/20**; public TAC retained **256/256**, separation **0.973658**; CV retained
       **144/144**, **0.963445**.
 
 ## Phase D — Proof
@@ -86,13 +86,13 @@ One task = one change = one commit. Work top-down. Owner in brackets.
 
 ## Phase E — Submit + public
 
-- [x] **T-E.0** [Codex] Release complete: 25,887 B, SHA-256 `1a0f191b…5fc634`, Keccak-256
-      `67da3ac8…eb53aa`, pinned Rust 1.98.0 cross-platform reproducible build, manifest and proof
-      green. The standalone repository at commit `5728366e…f1c727` contains one WASM, a TAC-only
-      README/proof, and a release audit with positive and negative controls. A fresh raw GitHub
+- [x] **T-E.0** [Codex] Release complete: 30,011 B, SHA-256 `8d8d6906…4ae8fe`, Keccak-256
+      `8599d78b…6e9938`, pinned Rust 1.98.0 cross-platform reproducible build, manifest and proof
+      green. The standalone repository at commit `409911f…a69ae58` contains one WASM, a TAC-only
+      README/proof, and a release audit with positive and negative controls. A GitHub release
       download reproduced both hashes and Linux CI rebuilt the tracked bytes. The old `867fd15`
       and `25ff808` releases are superseded and must not be registered. Stable GitHub release
-      `tac-v1.0.0` attaches the verified artifact and preserves the reviewer entry point.
+      `tac-v1.1.0` attaches the verified artifact and preserves the reviewer entry point.
 - [ ] **T-E.1** [Fable] Submission package per verified flow; user confirms/sends anything
       requiring accounts or signatures.
 - [ ] **T-E.2** [Fable] X thread drafts (insight-led, tagged `@Telegraphprotoc`) → user posts.

@@ -14,12 +14,12 @@ its negation state. It contains no fixture strings or author/miner fingerprints.
 
 Current candidate (published and hosted-byte verified; unregistered):
 
-- `scorer/dist/text_authenticity.wasm` (gitignored), **25,887 B**
-- SHA-256 `1a0f191b57ed06421bf2ad067863261f515927b9d8bbc53e4e01ed99aa5fc634`
-- local Keccak-256 `67da3ac8c06529a4ac44044bcf04471dd7d6c62fc97ca34fdd364a8feceb53aa`
+- `scorer/dist/text_authenticity.wasm` (gitignored), **30,011 B**
+- SHA-256 `8d8d690628d2cfcd52359f1bb1bfcd882456fc1198b80237ad74c1276a4ae8fe`
+- local Keccak-256 `8599d78b039870628b67bb8e855cd6f93fc337eb0e569d786d16fa13036e9938`
   (algorithm validated by reproducing reg 850's known on-chain hash)
-- native TAC: **256/256**, separation **0.973844** (old 234/240, 0.721069)
-- unseen negation/metamorphic probe: **20/20**, mean margin **0.757994**, worst **0.007009**
+- native TAC: **256/256**, separation **0.973658** (old 234/240, 0.721069)
+- unseen negation/metamorphic probe: **20/20**, mean margin **0.757995**, worst **0.007009**
   (pre-fix: 10/20, mean 0.211152, worst -0.999137)
 - CV holdout: **144/144**, margin **0.963445**
 - 2026-08-29 06:53 IST live TAC recheck: **0.65861213**, reg 850, 14/15, zero history,
@@ -27,14 +27,14 @@ Current candidate (published and hosted-byte verified; unregistered):
 - five profile test/clippy combinations green: 79 / 80 / 71 / 79 / 79 tests
 - the standalone clean-build matrix caught and repaired presentation-label inconsistency across
   profiles (`Assessment` versus `Verdict`) before this final refreeze
-- local verifier green; independent verifier commit `f537c7c`: 0 hard, 0 soft failures,
-  500 fuzz triples, all 16 custom cases pass
+- local verifier green; independent verifier commit `f537c7c` validated superseded v1.0.0,
+  not the current v1.1.0 bytes
 - Rust 1.98.0 Windows and Linux builds are byte-identical after normalizing embedded source paths;
-  latest public CI run `33227235399` passed the full matrix and frozen-byte comparison
-- public artifact commit: `5728366ebc846faf2b81814be3b1dbec35f1c727`
-- public metadata HEAD: `1c74af5d54e177d97c75687feff9c197eccfd9fc`
-- stable release: `tac-v1.0.0`; attached WASM independently re-downloaded and hash-verified
-- a fresh commit-pinned raw download reproduced 25,887 bytes, SHA-256 and Keccak-256 exactly
+  latest public CI run `33227694014` passed the full matrix and frozen-byte comparison
+- public artifact commit: `409911f351b4778555ac5bb03c9a6d6bba69ae58`
+- public metadata HEAD: `c20a6a0`
+- stable release: `tac-v1.1.0`; attached WASM independently re-downloaded and hash-verified
+- a fresh v1.1.0 release download reproduced 30,011 bytes, SHA-256 and Keccak-256 exactly
 - community reuse: one external fork (`shreshth006/telegraph-factscore`) has nine measured
   downstream IP-geolocation commits; count as kernel adoption only, not TAC validation
 

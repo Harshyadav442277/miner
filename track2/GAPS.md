@@ -7,17 +7,17 @@ What we do not know or have not verified. Status: `OPEN` · `CHECKING` · `CLOSE
 ## Blocking
 
 ### G14 · Frozen TAC release identity — `CLOSED (hosted bytes verified)` — 2026-08-29
-The frozen local artifact is 25,887 B with SHA-256
-`1a0f191b57ed06421bf2ad067863261f515927b9d8bbc53e4e01ed99aa5fc634` and local Keccak-256
-`67da3ac8c06529a4ac44044bcf04471dd7d6c62fc97ca34fdd364a8feceb53aa`.
+The frozen local artifact is 30,011 B with SHA-256
+`8d8d690628d2cfcd52359f1bb1bfcd882456fc1198b80237ad74c1276a4ae8fe` and local Keccak-256
+`8599d78b039870628b67bb8e855cd6f93fc337eb0e569d786d16fa13036e9938`.
 The final pre-publication red team found a general negation-semantics defect outside the public
 corpus; the repaired artifact moves that unseen probe from 10/20 to 20/20 strict wins while
 retaining 256/256 public TAC wins and the 144/144 content-verification holdout.
 The OpenSSL Keccak path was validated by reproducing champion reg 850's on-chain hash. GitHub CI
 then exposed OS-specific source-path bytes in the otherwise identical Windows/Linux builds. The
 tracked Cargo remap fixes that release flaw. The exact cross-platform candidate was published at
-commit `5728366ebc846faf2b81814be3b1dbec35f1c727`; Linux CI rebuilt it byte-for-byte, and a fresh
-raw GitHub download reproduced 25,887 bytes and both hashes above. The `867fd15` and `25ff808`
+commit `409911f351b4778555ac5bb03c9a6d6bba69ae58`; Linux CI rebuilt it byte-for-byte, and a fresh
+GitHub release download reproduced 30,011 bytes and both hashes above. The `867fd15` and `25ff808`
 URLs/hashes remain superseded. Residual user gate: the website's VERIFY & HASH display must show
 the same Keccak before signing.
 GitHub source updates do not update an existing on-chain byte hash; changed WASM needs a new
