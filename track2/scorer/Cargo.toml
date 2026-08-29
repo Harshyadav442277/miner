@@ -21,6 +21,8 @@ ip-geolocation = []
 storm-alert = []
 content-verification = []
 text-authenticity = []
+stock-price = []
+tvl-lookup = []
 
 [profile.release]
 opt-level = "s"

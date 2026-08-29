@@ -1,0 +1,7 @@
+# The 22 MB MiniLM weight blob and the 262 KB vocab are vendored verbatim from
+# the upstream MIT baseline at the commit pinned in VENDOR.md. They are fetched
+# by ../vendor-baseline.sh rather than tracked here, so this repo stays clonable.
+weights/
+vocab.txt
+target/
+dist/

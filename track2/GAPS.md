@@ -184,3 +184,43 @@ inference that the champion binarises (~0.996 / ~0.010, with roughly a third of 
 dumped to ~0.010) is arithmetic consistent with its 14/15 at margin 0.6586, and matches its
 measured behaviour on our 18 cases — but it remains inference. Two questions are with the
 organizers to close this.
+
+## G16 — TVL_LOOKUP cannot be validated offline (2026-08-29)
+
+`/scores?intent=TVL_LOOKUP` returns 150 rows, but only 82 carry a
+`converted_answer`, and none of those is an answer whose quantity matches its
+ground truth within 0.5%. So no clean good/bad pair can be built, and the
+`TVL_LOOKUP-factswap.json` corpus is **empty**.
+
+`dist/tvl_lookup.wasm` therefore ships the same `headline_quantity_profile` as
+STOCK_PRICE with **no intent-specific measurement behind it**. It passes the
+Stage-1 verifier and all 85 unit tests, and the profile is principled, but no
+claim may be made that it beats the TVL champion. Registering it is a cheap
+probe for the node's own numbers, not a validated candidate — and that is the
+only honest way to describe it.
+
+Related: TVL registrations 1587 and 1681 both errored with
+`miner_answer too large` on a 10 MB raw payload from miner `optivis-tvl` after
+otherwise beating the champion. The harness now truncates every text at the
+host's documented 128 KiB `MaxTextBytes` cap so a corpus row can never hand a
+module more than the node would.
+
+## G17 — the STOCK_PRICE corpus is 16 cases, and real traffic has no clean pairs
+
+Every recorded STOCK_PRICE answer is slightly stale — the ground truth says
+491.54 and the miners say 491.71 — because the price moves between the ground
+truth being written and the answer being served. So the REAL-NUMERIC corpus
+holds only 6 usable cases and its labels separate "less stale" from "more
+stale", not right from wrong. The champion's own margin there is 0.074 against
+the 0.6147 it earns on the node's fixtures, which by the G13 acceptance test
+means recorded traffic alone is **not** representative of what Stage 2 asks.
+
+The FACT-SWAP corpus (16 cases) is the one measurements are quoted from. Its
+good side is verbatim recorded miner prose and its bad side is the same prose
+with only the headline quantity rescaled, so exactly one objective thing differs
+per pair. That is legitimate for an intent whose whole question is a number, but
+it is still a corpus we constructed, and the champion scores 0.074 on it rather
+than 0.6147 — so it models the *ordering* question well and the *absolute
+margin* question poorly. **Do not quote 0.1435 as a prediction of our node
+margin.** The defensible claim is the ratio: we roughly double the champion's
+separation on identical inputs, holding its case-win rate.
