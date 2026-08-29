@@ -347,7 +347,12 @@ pub const fn profile() -> Profile {
 /// decisive figure is a wrong answer. `num_rel_k = 60` makes the decay steep
 /// enough that a rounding difference survives while a genuinely different price
 /// does not.
-#[cfg(any(feature = "stock-price", feature = "tvl-lookup"))]
+#[cfg(any(
+    feature = "stock-price",
+    feature = "tvl-lookup",
+    feature = "crypto-price",
+    feature = "onchain-tx-lookup"
+))]
 const fn headline_quantity_profile() -> Profile {
     let mut p = base();
     // The decisive figure must be able to zero the fact term on its own.
@@ -395,6 +400,22 @@ pub const fn profile() -> Profile {
     headline_quantity_profile()
 }
 
+#[cfg(feature = "crypto-price")]
+pub const fn profile() -> Profile {
+    headline_quantity_profile()
+}
+
+#[cfg(feature = "onchain-tx-lookup")]
+pub const fn profile() -> Profile {
+    let mut p = headline_quantity_profile();
+    // Gas fees and transfer values are ETH amounts around 0.002, so the shared
+    // absolute epsilon of 0.02 is larger than the quantity itself: a swapped
+    // fee and the true one both fell inside it and scored identically (measured
+    // 0.9236 for both, 0/2 cases). Relative decay must decide here.
+    p.num_abs_tol = 1e-9;
+    p
+}
+
 #[cfg(all(
     feature = "generic",
     not(feature = "ip-geolocation"),
@@ -402,7 +423,9 @@ pub const fn profile() -> Profile {
     not(feature = "content-verification"),
     not(feature = "text-authenticity"),
     not(feature = "stock-price"),
-    not(feature = "tvl-lookup")
+    not(feature = "tvl-lookup"),
+    not(feature = "crypto-price"),
+    not(feature = "onchain-tx-lookup")
 ))]
 pub const fn profile() -> Profile {
     base()
@@ -421,6 +444,10 @@ const fn intent_tag() -> [u8; 32] {
     let name = b"STOCK_PRICE";
     #[cfg(feature = "tvl-lookup")]
     let name = b"TVL_LOOKUP";
+    #[cfg(feature = "crypto-price")]
+    let name = b"CRYPTO_PRICE";
+    #[cfg(feature = "onchain-tx-lookup")]
+    let name = b"ONCHAIN_TX_LOOKUP";
     #[cfg(all(
         feature = "generic",
         not(feature = "ip-geolocation"),
@@ -428,7 +455,9 @@ const fn intent_tag() -> [u8; 32] {
         not(feature = "content-verification"),
         not(feature = "text-authenticity"),
         not(feature = "stock-price"),
-        not(feature = "tvl-lookup")
+        not(feature = "tvl-lookup"),
+        not(feature = "crypto-price"),
+        not(feature = "onchain-tx-lookup")
     ))]
     let name = b"GENERIC";
 

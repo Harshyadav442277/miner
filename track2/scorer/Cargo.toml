@@ -23,6 +23,8 @@ content-verification = []
 text-authenticity = []
 stock-price = []
 tvl-lookup = []
+crypto-price = []
+onchain-tx-lookup = []
 
 [profile.release]
 opt-level = "s"
