@@ -353,7 +353,12 @@ const fn headline_quantity_profile() -> Profile {
     // The decisive figure must be able to zero the fact term on its own.
     p.num_channel_w = 1.0;
     p.num_min_bias = 1.0;
-    p.num_rel_k = 60.0;
+    // Swept against both fixture shapes (tune.md): 120 maximises separation on
+    // ground-truth-like answers, which is where the node's own fixtures sit --
+    // the champion scores 0.074 on recorded prose, 0.926 on ground-truth-like
+    // pairs, and 0.6147 on the real fixtures, so they are roughly two thirds of
+    // the way toward the latter. A 0.02% display rounding still agrees at 0.976.
+    p.num_rel_k = 120.0;
     // These ground truths quote a current price, a day's range, a 52-week range
     // and a market cap side by side, so "best match over every figure" is the
     // wrong question. Compare like with like.
