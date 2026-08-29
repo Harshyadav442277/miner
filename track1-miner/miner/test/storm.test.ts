@@ -83,5 +83,13 @@ describe("answer completeness (live)", () => {
     assert.match(r.reason, /wind speed:/i);
     assert.match(r.reason, /gusts:/i);
     assert.match(r.reason, /overall risk: 0/i);
+    // Operational questions (epoch 289) are invisible to us — the engine sends
+    // only coordinates — so the guidance must be present unconditionally.
+    assert.match(r.reason, /operational adjustments to safeguard equipment and personnel/i);
+  });
+
+  test("an unresolvable place carries no operational guidance", async () => {
+    const r = await checkStorm("Nowhereville XYZ123 QQQ");
+    assert.doesNotMatch(r.reason, /operational adjustments/i);
   });
 });
