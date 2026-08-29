@@ -27,6 +27,18 @@ endpoints:
     description: >-
       Live TLS certificate check for one domain. Accepts a bare hostname, a full
       URL, or host:port.
+    params:
+      query:
+        required:
+          - name: domain
+            type: string
+            intents: ["*"]
+            description: "Hostname to check. Accepts example.com, https://example.com/path, or example.com:8443."
+        optional:
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim. The hostname is extracted from it."
 
   - path: /storm-alert
     external_path: /storm-alert
@@ -35,6 +47,29 @@ endpoints:
     description: >-
       Severe-weather risk for a location over the next 48 hours. Accepts a place
       name or "lat,lon".
+    params:
+      query:
+        optional:
+          - name: location
+            type: string
+            intents: ["*"]
+            description: "Place name, e.g. Chennai or Tokyo, Japan. Provide either location, or lat and lon together."
+          - name: lat
+            type: number
+            intents: ["*"]
+            description: "Latitude in decimal degrees, -90 to 90. Use with lon when the question names coordinates."
+          - name: lon
+            type: number
+            intents: ["*"]
+            description: "Longitude in decimal degrees, -180 to 180."
+          - name: hours
+            type: integer
+            intents: ["*"]
+            description: "Forecast window in hours, 1 to 168. Defaults to 48."
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim. Carries wording the structured fields cannot: a point in time such as 'in 44 hours', a wind threshold such as 'above 25 knots', or an operational context."
 
   - path: /papers
     external_path: /papers
@@ -43,6 +78,18 @@ endpoints:
     description: >-
       Finds peer-reviewed papers on a topic, optionally within a date range, via
       OpenAlex. Returns title, authors, year and citation count for each.
+    params:
+      query:
+        required:
+          - name: topic
+            type: string
+            intents: ["*"]
+            description: "Research subject to search for, e.g. zero knowledge proofs. A bare topic with no question scaffolding is fine."
+        optional:
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim. Carries constraints the topic alone cannot: a date range, a result count, or a requested ordering."
 
   - path: /translate
     external_path: /translate
@@ -51,6 +98,26 @@ endpoints:
     description: >-
       Translates quoted text into a named target language. Returns the
       translation itself, in the target script.
+    params:
+      query:
+        required:
+          - name: text
+            type: string
+            intents: ["*"]
+            description: "The text to translate, exactly as given, without surrounding quotes."
+          - name: target_language
+            type: string
+            intents: ["*"]
+            description: "The language to translate into, by name or ISO 639-1 code, e.g. Spanish or fr."
+        optional:
+          - name: source_language
+            type: string
+            intents: ["*"]
+            description: "The language of the source text, when stated. Detected automatically when omitted."
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim, e.g. Translate \"Good morning\" into French."
 
   - path: /ip-geolocate
     external_path: /ip-geolocate
@@ -59,6 +126,18 @@ endpoints:
     description: >-
       Live IP geolocation. Accepts an IPv4 or IPv6 address, or a whole question
       containing one.
+    params:
+      query:
+        required:
+          - name: ip
+            type: string
+            intents: ["*"]
+            description: "IPv4 or IPv6 address to geolocate, e.g. 8.8.8.8."
+        optional:
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim. The address is extracted from it."
 
   - path: /weather-forecast
     external_path: /weather-forecast
@@ -67,6 +146,33 @@ endpoints:
     description: >-
       Future conditions for a location over a stated window (default 24h, max
       168h). Accepts a place name or "lat,lon", plus an optional hours parameter.
+    params:
+      query:
+        optional:
+          - name: location
+            type: string
+            intents: ["*"]
+            description: "Place name, e.g. New York City. Provide either location, or lat and lon together."
+          - name: lat
+            type: number
+            intents: ["*"]
+            description: "Latitude in decimal degrees, -90 to 90. Use with lon when the question names coordinates."
+          - name: lon
+            type: number
+            intents: ["*"]
+            description: "Longitude in decimal degrees, -180 to 180."
+          - name: days
+            type: integer
+            intents: ["*"]
+            description: "Forecast span in days, 1 to 16, e.g. 7 for a 7-day forecast."
+          - name: hours
+            type: integer
+            intents: ["*"]
+            description: "Forecast window in hours, 1 to 168. An alternative to days."
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim. Carries wording the structured fields cannot, such as an explicit start date like 'starting September 1st' — without it the forecast starts today."
 
 semantics:
   signal_mapping:
