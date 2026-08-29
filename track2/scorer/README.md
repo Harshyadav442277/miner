@@ -176,17 +176,17 @@ IP geolocation 78, storm alert 69, content verification 77, and text authenticit
 registration target from scratch, runs `verify.mjs`, and checks the bytes against the frozen
 release manifest. The repository pins Rust 1.98.0 locally and in CI.
 
-Current repaired registration candidate (local and not yet published):
+Current repaired registration candidate (published, hosted-byte verified, not yet registered):
 
 | Build | Size | SHA-256 | Imports | verifier |
 |---|---:|---|---:|---|
-| `dist/text_authenticity.wasm` | 25,887 B | `e7bb15f1…ae52b6` | **0** | pass |
+| `dist/text_authenticity.wasm` | 25,887 B | `1a0f191b…5fc634` | **0** | pass |
 
 Local Keccak-256 is
-`bdd3fea5deb7ce2a48663aa7ec63d5a295ade30c4c2bb2d3254031cb04cdca0f`; OpenSSL's algorithm was
-validated by reproducing champion reg 850's known on-chain hash. This value must still be
-recomputed from the final hosted bytes. The previous public `867fd15` artifact is superseded; see
-`../REGISTRATION.md` before signing anything.
+`67da3ac8c06529a4ac44044bcf04471dd7d6c62fc97ca34fdd364a8feceb53aa`; OpenSSL's algorithm was
+validated by reproducing champion reg 850's known on-chain hash. The hosted bytes reproduce this
+value, and Linux CI reproduces the tracked binary from source. The previous public `867fd15` and
+`25ff808` artifacts are superseded; see `../REGISTRATION.md` before signing anything.
 
 The native TAC proxy reports **256/256** pairwise wins with **0.973844** separation, while the
 content-verification holdout remains **144/144** at **0.963445**. Independent

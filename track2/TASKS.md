@@ -86,12 +86,12 @@ One task = one change = one commit. Work top-down. Owner in brackets.
 
 ## Phase E — Submit + public
 
-- [x] **T-E.0** [Codex] Release complete: 25,887 B, SHA-256 `e7bb15f1…ae52b6`, Keccak-256
-      `bdd3fea5…cdca0f`, pinned Rust 1.98.0 reproducible build, manifest and proof green. The
-      standalone repository at commit `25ff8089…6313cc1` contains one WASM, a TAC-only
+- [x] **T-E.0** [Codex] Release complete: 25,887 B, SHA-256 `1a0f191b…5fc634`, Keccak-256
+      `67da3ac8…eb53aa`, pinned Rust 1.98.0 cross-platform reproducible build, manifest and proof
+      green. The standalone repository at commit `5728366e…f1c727` contains one WASM, a TAC-only
       README/proof, and a release audit with positive and negative controls. A fresh raw GitHub
-      download reproduced both hashes. The old `867fd15` release is superseded and must not be
-      registered.
+      download reproduced both hashes and Linux CI rebuilt the tracked bytes. The old `867fd15`
+      and `25ff808` releases are superseded and must not be registered.
 - [ ] **T-E.1** [Fable] Submission package per verified flow; user confirms/sends anything
       requiring accounts or signatures.
 - [ ] **T-E.2** [Fable] X thread drafts (insight-led, tagged `@Telegraphprotoc`) → user posts.

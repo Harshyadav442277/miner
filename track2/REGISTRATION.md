@@ -2,8 +2,8 @@
 
 ## READY FOR USER REGISTRATION — use only the commit-pinned URL below
 
-**Status 2026-08-29. Target remains `TEXT_AUTHENTICITY_CHECK`, but commit `867fd15` and Keccak
-`0xaaea…0e01` are superseded.** A code review found that five of the old build's six losses were
+**Status 2026-08-29. Target remains `TEXT_AUTHENTICITY_CHECK`; commits `867fd15` and `25ff808`
+are superseded.** A code review found that five of the old build's six losses were
 wrong-verdict failures, not confidence near-misses, and the sixth was a missed named-model
 contradiction. A second independent review then closed terse-label equivalence and sentence-initial
 subject substitution. A third, deliberately unseen probe then exposed and repaired inverted
@@ -16,15 +16,16 @@ Current published, hosted-byte-verified candidate (not yet registered):
 ```
 track2/scorer/dist/text_authenticity.wasm
 size      25,887 bytes
-sha256    e7bb15f12e55aa5a0cb8fa30f5d2d5a21a3027d026b207d3d8563d2ae2ae52b6
-keccak256 bdd3fea5deb7ce2a48663aa7ec63d5a295ade30c4c2bb2d3254031cb04cdca0f
+sha256    1a0f191b57ed06421bf2ad067863261f515927b9d8bbc53e4e01ed99aa5fc634
+keccak256 67da3ac8c06529a4ac44044bcf04471dd7d6c62fc97ca34fdd364a8feceb53aa
 ```
 
 The Keccak was computed locally with OpenSSL `KECCAK-256`; the same command reproduced champion
 reg 850's known on-chain hash `14f7076c…04f57`, validating the algorithm choice. A fresh download
 from the commit-pinned raw GitHub URL reproduced all 25,887 bytes, the SHA-256 and the Keccak.
-The pinned Rust 1.98.0 build also reproduced this SHA-256 byte-for-byte;
-`release/text-authenticity.json` is the manifest.
+The pinned Rust 1.98.0 build reproduced this SHA-256 byte-for-byte on Windows and GitHub Linux;
+`release/text-authenticity.json` is the manifest. The earlier `25ff808` artifact was behaviorally
+identical but not byte-reproducible across OS path separators, so it must not be registered.
 
 Independent `telegraph-wasm-check` commit `f537c7c` also reports **0 hard failures, 0 soft
 failures**, fresh-instance determinism, 500 seeded fuzz cases, bounded memory, and all 16 native
@@ -33,14 +34,14 @@ TAC cases passing. These remain offline results, not the node's hidden-fixture v
 Published artifact URL:
 
 ```text
-https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/25ff8089d4d3f1cfcc639115e14464d7d6313cc1/dist/text_authenticity.wasm
+https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/5728366ebc846faf2b81814be3b1dbec35f1c727/dist/text_authenticity.wasm
 ```
 
 ### Next action — user wallet confirmation required
 
 Use `integrate.telegraphprotocol.com` to submit the URL above for intent
 **`TEXT_AUTHENTICITY_CHECK`**. The website's VERIFY & HASH value must equal
-`bdd3fea5deb7ce2a48663aa7ec63d5a295ade30c4c2bb2d3254031cb04cdca0f` exactly before the user
+`67da3ac8c06529a4ac44044bcf04471dd7d6c62fc97ca34fdd364a8feceb53aa` exactly before the user
 approves the wallet transaction. Stop if it differs.
 
 GitHub code can be updated later. The on-chain registration is different: it binds one hosted URL

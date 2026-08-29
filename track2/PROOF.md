@@ -12,7 +12,7 @@ The scoring module in [`track2/scorer/`](scorer/) ranks miner answers more accur
 |---|---|---|---|---|---|---|---|
 | IP_GEOLOCATION | gate target | `ip_geolocation.wasm` (23,862 B) | `a4cb230431796317…` | `ipgeo_reg630.wasm` (23,989,222 B) | 630 | `84d6b1dc03453df2…` | 70 / 540 |
 | CONTENT_VERIFICATION | gate target | `content_verification.wasm` (23,845 B) | `5d057b1da52f6628…` | `cv_mini_reg626.wasm` (23,989,222 B) | 626 | `7eb21c04d5dd2f1e…` | 12 / 108 |
-| TEXT_AUTHENTICITY_CHECK | gate target | `text_authenticity.wasm` (25,887 B) | `e7bb15f12e55aa5a…` | `tn_t70_reg850.wasm` (23,987,851 B) | 850 | `432ae4423edd24ea…` | 16 / 156 |
+| TEXT_AUTHENTICITY_CHECK | gate target | `text_authenticity.wasm` (25,887 B) | `1a0f191b57ed0642…` | `tn_t70_reg850.wasm` (23,987,851 B) | 850 | `432ae4423edd24ea…` | 16 / 156 |
 | STORM_ALERT | gate target | `storm_alert.wasm` (23,865 B) | `a8a9c6934ecdd3e9…` | `storm_rpen_reg453.wasm` (23,987,892 B) | 453 | `dcfe36c9c84c58ce…` | 71 / 470 |
 | WEATHER_FORECAST | exhibit only | `generic.wasm` (23,861 B) | `35b4a57d5060586f…` | `wf_mini_reg636.wasm` (23,989,222 B) | 636 | `61db5f04aff9cba3…` | 40 / 229 |
 

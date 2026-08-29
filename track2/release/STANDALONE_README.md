@@ -4,9 +4,9 @@ This repository contains one registration artifact: a 25,887-byte freestanding W
 scorer for Telegraph's `TEXT_AUTHENTICITY_CHECK` intent.
 
 Published artifact commit:
-[`25ff808`](https://github.com/Harshyadav442277/telegraph-factscore/commit/25ff8089d4d3f1cfcc639115e14464d7d6313cc1).
+[`5728366`](https://github.com/Harshyadav442277/telegraph-factscore/commit/5728366ebc846faf2b81814be3b1dbec35f1c727).
 The commit-pinned raw download was independently re-fetched and reproduced the byte length and
-both hashes shown below.
+both hashes shown below. GitHub's Linux workflow rebuilt those exact bytes from source.
 
 The incumbent can score a one-word wrong verdict almost identically to the truth. This scorer
 compares assertion meaning instead: verdict polarity, equivalent labels, named-model attribution,
@@ -63,14 +63,14 @@ Frozen identity:
 
 ```text
 bytes      25887
-sha256     e7bb15f12e55aa5a0cb8fa30f5d2d5a21a3027d026b207d3d8563d2ae2ae52b6
-keccak256  bdd3fea5deb7ce2a48663aa7ec63d5a295ade30c4c2bb2d3254031cb04cdca0f
+sha256     1a0f191b57ed06421bf2ad067863261f515927b9d8bbc53e4e01ed99aa5fc634
+keccak256  67da3ac8c06529a4ac44044bcf04471dd7d6c62fc97ca34fdd364a8feceb53aa
 ```
 
 Commit-pinned registration URL:
 
 ```text
-https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/25ff8089d4d3f1cfcc639115e14464d7d6313cc1/dist/text_authenticity.wasm
+https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/5728366ebc846faf2b81814be3b1dbec35f1c727/dist/text_authenticity.wasm
 ```
 
 ## Design

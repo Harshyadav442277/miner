@@ -15,8 +15,8 @@ its negation state. It contains no fixture strings or author/miner fingerprints.
 Current candidate (published and hosted-byte verified; unregistered):
 
 - `scorer/dist/text_authenticity.wasm` (gitignored), **25,887 B**
-- SHA-256 `e7bb15f12e55aa5a0cb8fa30f5d2d5a21a3027d026b207d3d8563d2ae2ae52b6`
-- local Keccak-256 `bdd3fea5deb7ce2a48663aa7ec63d5a295ade30c4c2bb2d3254031cb04cdca0f`
+- SHA-256 `1a0f191b57ed06421bf2ad067863261f515927b9d8bbc53e4e01ed99aa5fc634`
+- local Keccak-256 `67da3ac8c06529a4ac44044bcf04471dd7d6c62fc97ca34fdd364a8feceb53aa`
   (algorithm validated by reproducing reg 850's known on-chain hash)
 - native TAC: **256/256**, separation **0.973844** (old 234/240, 0.721069)
 - unseen negation/metamorphic probe: **20/20**, mean margin **0.757994**, worst **0.007009**
@@ -29,11 +29,15 @@ Current candidate (published and hosted-byte verified; unregistered):
   profiles (`Assessment` versus `Verdict`) before this final refreeze
 - local verifier green; independent verifier commit `f537c7c`: 0 hard, 0 soft failures,
   500 fuzz triples, all 16 custom cases pass
-- Rust 1.98.0 build is byte-identical; CI checks the frozen SHA against
-  `release/text-authenticity.json`
-- public artifact commit: `25ff8089d4d3f1cfcc639115e14464d7d6313cc1`
-- public metadata HEAD: `2da85486be186eaf7fd822edccd232e06fc74f33`
+- Rust 1.98.0 Windows and Linux builds are byte-identical after normalizing embedded source paths;
+  public CI runs `33226710992` and `33226839747` passed the frozen-byte comparison
+- public artifact commit: `5728366ebc846faf2b81814be3b1dbec35f1c727`
+- public metadata HEAD: `4dfacb4b2faea10286819b5ebcc584c2cc7275d1`
 - a fresh commit-pinned raw download reproduced 25,887 bytes, SHA-256 and Keccak-256 exactly
+
+The earlier `25ff808` artifact behaved identically but embedded Windows backslashes where the
+Linux build embedded slashes, so its failed cross-platform byte check supersedes it. It was never
+registered.
 
 The only remaining activation sequence is user verifies the same Keccak in the Telegraph console
 → user signs the TAC registration → record the returned registration/evaluation state. Source can

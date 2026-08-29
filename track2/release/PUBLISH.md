@@ -4,18 +4,19 @@
 
 Published 2026-08-29 to `Harshyadav442277/telegraph-factscore`:
 
-- artifact commit: `25ff8089d4d3f1cfcc639115e14464d7d6313cc1`
-- public repository HEAD after the metadata-only publication record: `2da85486be186eaf7fd822edccd232e06fc74f33`
+- cross-platform artifact commit: `5728366ebc846faf2b81814be3b1dbec35f1c727`
+- public metadata HEAD: `4dfacb4b2faea10286819b5ebcc584c2cc7275d1`
 - `dist/text_authenticity.wasm`: 25,887 bytes
-- SHA-256: `e7bb15f12e55aa5a0cb8fa30f5d2d5a21a3027d026b207d3d8563d2ae2ae52b6`
-- Keccak-256: `bdd3fea5deb7ce2a48663aa7ec63d5a295ade30c4c2bb2d3254031cb04cdca0f`
+- SHA-256: `1a0f191b57ed06421bf2ad067863261f515927b9d8bbc53e4e01ed99aa5fc634`
+- Keccak-256: `67da3ac8c06529a4ac44044bcf04471dd7d6c62fc97ca34fdd364a8feceb53aa`
 - fresh commit-pinned raw download: byte length and both hashes verified
+- GitHub Linux CI runs `33226710992` and `33226839747`: all profiles green and build byte-identical
 - on-chain state: not registered
 
 Registration URL:
 
 ```text
-https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/25ff8089d4d3f1cfcc639115e14464d7d6313cc1/dist/text_authenticity.wasm
+https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/5728366ebc846faf2b81814be3b1dbec35f1c727/dist/text_authenticity.wasm
 ```
 
 ## Superseded public state
@@ -30,12 +31,18 @@ Checked 2026-08-28 against `Harshyadav442277/telegraph-factscore`:
 
 Do not register those bytes.
 
+The later `25ff808` artifact (metadata HEAD `2da8548`) had the final scorer behavior but embedded
+Windows backslashes in Rust source-span strings while Linux embedded forward slashes. GitHub CI
+correctly rejected the byte comparison. It was never registered and is superseded by `5728366`,
+which normalizes the paths during compilation.
+
 ## Files to publish
 
 The monorepo remains the editing source. Sync these paths into the standalone repository:
 
 | Monorepo path | Standalone path |
 |---|---|
+| `track2/scorer/.cargo/config.toml` | `.cargo/config.toml` |
 | `track2/scorer/Cargo.toml` | `Cargo.toml` |
 | `track2/scorer/Cargo.lock` | `Cargo.lock` |
 | `track2/scorer/rust-toolchain.toml` | `rust-toolchain.toml` |
@@ -92,8 +99,8 @@ Expected identity:
 
 ```text
 bytes      25887
-sha256     e7bb15f12e55aa5a0cb8fa30f5d2d5a21a3027d026b207d3d8563d2ae2ae52b6
-keccak256  bdd3fea5deb7ce2a48663aa7ec63d5a295ade30c4c2bb2d3254031cb04cdca0f
+sha256     1a0f191b57ed06421bf2ad067863261f515927b9d8bbc53e4e01ed99aa5fc634
+keccak256  67da3ac8c06529a4ac44044bcf04471dd7d6c62fc97ca34fdd364a8feceb53aa
 ```
 
 The commit-pinned raw URL was downloaded to a fresh file and both hashes reproduced. The release

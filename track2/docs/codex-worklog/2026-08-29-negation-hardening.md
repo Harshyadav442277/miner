@@ -1,4 +1,4 @@
-# 2026-08-29 — unseen-negation hardening and final local refreeze
+# 2026-08-29 — unseen-negation hardening and cross-platform refreeze
 
 ## Outcome
 
@@ -51,11 +51,11 @@ unchanged, and this more general build became the final local freeze.
 ```text
 path       track2/scorer/dist/text_authenticity.wasm
 bytes      25887
-sha256     e7bb15f12e55aa5a0cb8fa30f5d2d5a21a3027d026b207d3d8563d2ae2ae52b6
-keccak256  bdd3fea5deb7ce2a48663aa7ec63d5a295ade30c4c2bb2d3254031cb04cdca0f
+sha256     1a0f191b57ed06421bf2ad067863261f515927b9d8bbc53e4e01ed99aa5fc634
+keccak256  67da3ac8c06529a4ac44044bcf04471dd7d6c62fc97ca34fdd364a8feceb53aa
 ```
 
-- A clean Rust 1.98.0 build in a separate target directory reproduced the SHA-256 byte-for-byte.
+- Rust 1.98.0 builds on Windows and GitHub Linux reproduce the SHA-256 byte-for-byte.
 - Public TAC corpus: **256/256**, separation **0.973844**; clean 240/240, mean margin 0.970427;
   label equivalence 16/16, mean margin 0.998724; constraints 16/16.
 - Exact incumbent reg 850: 33/256, separation -0.124818.
@@ -90,11 +90,15 @@ standalone CI additionally enforces the release allowlist.
 
 ## Boundary
 
-The focused standalone release was committed and pushed to the public repository at
-`25ff8089d4d3f1cfcc639115e14464d7d6313cc1`. A fresh download from its commit-pinned raw URL
-reproduced 25,887 bytes, SHA-256
-`e7bb15f12e55aa5a0cb8fa30f5d2d5a21a3027d026b207d3d8563d2ae2ae52b6`, and Keccak-256
-`bdd3fea5deb7ce2a48663aa7ec63d5a295ade30c4c2bb2d3254031cb04cdca0f` exactly.
+The first focused publication at `25ff808` passed the Windows clean build, but GitHub CI exposed a
+release-only reproducibility flaw: Rust embedded backslash source paths on Windows and
+forward-slash paths on Linux. The code and scores were identical, but the bytes and hash were
+not. A tracked Cargo
+remap now normalizes those paths. The cross-platform artifact was committed at
+`5728366ebc846faf2b81814be3b1dbec35f1c727`; CI run `33226710992` passed every profile and rebuilt
+the tracked WASM byte-for-byte. A fresh commit-pinned download reproduced 25,887 bytes, SHA-256
+`1a0f191b57ed06421bf2ad067863261f515927b9d8bbc53e4e01ed99aa5fc634`, and Keccak-256
+`67da3ac8c06529a4ac44044bcf04471dd7d6c62fc97ca34fdd364a8feceb53aa` exactly.
 
 No website action, wallet signature or Telegraph registration was performed. The release is
 ready for the user to paste the verified raw URL, compare the console's hash with the Keccak
@@ -104,7 +108,7 @@ The public TAC registry was rechecked at 2026-08-29 06:53 IST: 83 entries, incum
 850 still champion at margin 0.65861213 and 14/15 wins, zero historical rows, and the new release
 hash absent as expected before registration.
 
-A metadata-only follow-up was pushed at `2da85486be186eaf7fd822edccd232e06fc74f33`; remote `main`
-resolved to that commit and its public manifest records `published_verified`. The registration URL
-remains pinned to artifact commit `25ff8089d4d3f1cfcc639115e14464d7d6313cc1`. A final direct
-download after the metadata push again reproduced 25,887 bytes and the expected SHA-256.
+The earlier metadata-only follow-up `2da8548` is historical. The canonical registration URL now
+pins `5728366`. Final public metadata HEAD `4dfacb4b2faea10286819b5ebcc584c2cc7275d1` records
+`published_verified`, and its CI run `33226839747` also passed. The manifest's
+`publication.onchain_registration_id` remains null until the user's wallet transaction.
