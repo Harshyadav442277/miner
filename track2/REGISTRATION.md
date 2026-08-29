@@ -1,5 +1,96 @@
 # REGISTRATION.md — the user's runbook for registering the scorer
 
+## TARGET CHANGED — STOCK_PRICE and TVL_LOOKUP · candidates built, NOT yet published
+
+**Status 2026-08-29 evening.** Target moved off `TEXT_AUTHENTICITY_CHECK` after both attempts
+there failed and the true-bar survey showed we had been reading every bar wrong. See
+[recon/2026-08-29-true-bars.md](recon/2026-08-29-true-bars.md).
+
+### Why the target moved
+
+Our two node-measured data points say what this scorer is good at:
+
+| intent | kind | our margin | our wins |
+|---|---|---|---|
+| IP_GEOLOCATION (reg 1377) | numeric facts | **0.8775** | 14/15 |
+| TEXT_AUTHENTICITY_CHECK (1671/1673) | semantic verdict | 0.3274 / 0.2702 | 9/15, 8/15 |
+
+We spent two days on the one shape the architecture is worst at. STOCK_PRICE and TVL_LOOKUP have
+the two softest **true** bars in the protocol and are the shape it is best at.
+
+### Local candidates — built, tested, NOT published and NOT registered
+
+```
+track2/scorer/dist/stock_price.wasm
+size      31,779 bytes
+sha256    ea961d3ec960cac4183c762c711c5bee130ac9be849d69ecc3482a169cc7ac40
+keccak256 92135c215e1805e4c6a56dd35b818ddcfcf401e8b3d99f3367da891deba8af36
+
+track2/scorer/dist/tvl_lookup.wasm
+size      31,779 bytes
+sha256    427d5ed66e5a12ef7f07923c897b006ca81eb59df47e58f88f75724802396567
+keccak256 2f309b16d8a558c2a12ba10c782f644a1032e823feb07fde643114a5a99c6e33
+```
+
+Both are the new `headline_quantity_profile`. Zero imports, Stage-1 verifier green, 85 unit tests,
+clippy and fmt clean across all seven profiles.
+
+### What is measured, and what is not
+
+**STOCK_PRICE — measured**, on 16 counterfactual pairs built from recorded traffic (good side is
+verbatim miner prose, bad side is the same prose with only the headline figure rescaled):
+
+| scorer | case wins | margin |
+|---|---|---|
+| champion `reg 48` | 15/16 | 0.074155 |
+| **ours** | **15/16** | **0.143524** |
+
+We hold the champion's case-win rate and roughly double its separation. Across four fixture shapes
+we beat it on three and trail on one (GT-verbatim vs GT-swapped, 0.882 against 0.926).
+
+**Do not quote 0.1435 as a predicted node margin** — the champion scores 0.074 on this corpus and
+0.6147 on the node's, so this corpus models ordering well and absolute margin badly (GAPS G17).
+
+**TVL_LOOKUP — NOT measured.** Only 82 of 150 recorded rows carry a converted answer and none of
+them states its ground truth's quantity, so no clean pair exists and the corpus is empty. That
+build ships the same principled profile with no intent-specific evidence (GAPS G16). Registering it
+is a cheap probe for the node's own numbers, not a validated candidate.
+
+### The live bar drifts — re-read it immediately before signing
+
+```bash
+curl -s "https://devnode.telegraphprotocol.com/api/wasm?intent=STOCK_PRICE"   | jq '[.intents.STOCK_PRICE.entries[] | select(.eval.champion_margin != null)]
+        | sort_by(.registered_at) | last | .eval'
+```
+
+The `champion_margin` in that object is the real bar, **not** the champion's `eval_score`. It moved
+0.555662 → 0.551831 → 0.614703 for STOCK_PRICE inside one day.
+
+### Next steps, in order
+
+1. **Publish** both binaries to an immutable commit in `Harshyadav442277/telegraph-factscore`,
+   then verify the hosted bytes reproduce the hashes above. *Awaiting the user's go-ahead — this
+   publishes public content.*
+2. Re-read the live bar for both intents.
+3. **User signs** at `integrate.telegraphprotocol.com`. The console's VERIFY & HASH must show the
+   keccak above exactly, or stop.
+4. Record `registrationId`, `candidate_margin`, `candidate_wins` and the recomputed
+   `champion_margin` for each, and feed them back — a rejection is the only measurement loop that
+   exists, since there is no dry-run endpoint.
+
+### Guards learned from other teams' live rejections
+
+- **Ten-minute evaluation budget.** Our module scores in microseconds; this is why the 24 MB
+  MiniLM route was not taken.
+- **Oversized answers.** TVL regs 1587 and 1681 errored on a 10 MB payload. The host caps each text
+  at 128 KiB and our arena is 1 MiB, so the cap is respected with room.
+- **Real-traffic agreement.** Two CRYPTO_PRICE candidates beat the champion on both published axes
+  and were still rejected for disagreeing with it on real traffic. STOCK_PRICE has shown
+  `historical_rows_evaluated: 0` on every recent evaluation, which is why it was chosen over
+  CRYPTO_PRICE despite a similar bar.
+
+---
+
 ## STOP — DO NOT REGISTER ANYTHING RIGHT NOW
 
 **Status 2026-08-29 (corrected from the live registry).** Two registrations were signed today

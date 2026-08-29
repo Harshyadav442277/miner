@@ -124,9 +124,9 @@ corpus versus 93% on the node's. We optimised against an anti-correlated corpus.
 **Standing acceptance test:** no corpus may be used as evidence unless the champion `tn_t70`
 scores ~14/15 on it.
 
-- [ ] **T-F.1** Vendor `telegraphprotocol/telegraph-wasm-baseline` (MIT) as the scoring core;
+- [x] **T-F.1** Vendor `telegraphprotocol/telegraph-wasm-baseline` (MIT) as the scoring core;
       record the licence and attribution. Builds here with Rust 1.98 `--features real_weights`.
-- [ ] **T-F.2** Replace the composite: drop `cos(question, answer)` (8/18 wins — worthless) and the
+- [~] **T-F.2** Replace the composite: drop `cos(question, answer)` (8/18 wins — worthless) and the
       length term (~0.99 for everything, rewards filler); keep `cos(GT, answer)` and `bm25`.
 - [ ] **T-F.3** Add the two terms neither the baseline nor the champion has — a verdict-pole
       agreement term over the authenticity axes, and a hard non-answer penalty for restatement,
@@ -141,3 +141,25 @@ scores ~14/15 on it.
       imports, determinism, bounded memory, fuzz.
 - [ ] **T-F.7** Publish, verify hosted bytes and both hashes, then a single user signature.
       **No wallet action until T-F.5 passes.**
+
+### Phase F outcome (2026-08-29 evening)
+
+T-F.1–T-F.4 were overtaken by the true-bar survey: the MiniLM rebuild was dropped once the live
+rejection record showed a ten-minute evaluation budget that a 24 MB module risks, and the target
+moved to the numeric intents where this scorer already measures strongest. The baseline stays
+vendored at `scorer-v2/` with provenance.
+
+- [x] **T-F.8** True-bar survey across all 45 intents; `champion_margin` recomputed per evaluation
+      is the real bar, not the stored `eval_score`. → `recon/2026-08-29-true-bars.md`.
+- [x] **T-F.9** Corpus builders for the numeric intents from recorded traffic, with objective
+      numeric labelling that never reads the live score → `harness/build-numeric-corpus.mjs`,
+      `harness/build-factswap.mjs`, `harness/run-numeric.mjs`.
+- [x] **T-F.10** `headline_quantity_profile` + role-scoped figure comparison. Champion 15/16 @
+      0.074155, ours 15/16 @ 0.143524. All seven profiles green.
+- [ ] **T-F.11** [User go-ahead] Publish `stock_price.wasm` and `tvl_lookup.wasm` to an immutable
+      commit; verify hosted bytes against both hashes.
+- [ ] **T-F.12** [User] Re-read the live bar, then sign both registrations in one batch.
+- [ ] **T-F.13** Record returned `candidate_margin` / `candidate_wins` / recomputed
+      `champion_margin` — the only measurement loop available.
+- [ ] **T-F.14** Close the last shape gap: GT-verbatim vs GT-swapped is 0.882 for us against 0.926
+      for the champion. Everything else already leads.

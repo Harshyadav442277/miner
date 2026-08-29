@@ -4,6 +4,65 @@
 
 ---
 
+## ⇢ HANDOVER — 2026-08-29 evening · TARGET IS STOCK_PRICE · CANDIDATES BUILT, NOT PUBLISHED
+
+**The bar model was wrong for the whole project.** The champion's `eval_score` is the margin it
+earned at its own promotion, not what a candidate faces. The real bar is `champion_margin`
+recomputed inside a fresh candidate's eval. WEATHER_FORECAST reads 0.5302 and is really **0.9897**;
+IP_GEOLOCATION reads 0.8574 and is really **0.9250**. Full table:
+[recon/2026-08-29-true-bars.md](recon/2026-08-29-true-bars.md), with the 1,512-entry snapshot beside
+it. The bar also drifts between probes because fixtures are resampled — re-read it before signing.
+
+**Two more gates, both seen in other teams' live rejections.** Two CRYPTO_PRICE candidates beat the
+champion on margin *and* wins and were still rejected for disagreeing with it on real traffic, so
+`historical_rows_evaluated: 0` is a first-class selection criterion. There is also a hard ten-minute
+evaluation budget, which is why the 24 MB MiniLM route was rejected, and an oversized-answer error
+that killed two TVL candidates.
+
+**Target moved to STOCK_PRICE (+ TVL_LOOKUP), user-approved.** Our own two node measurements say
+this scorer is strong on numeric facts (IP_GEO reg 1377: margin 0.8775) and weak on semantic
+verdicts (TAC: 0.2702–0.3274). STOCK_PRICE and TVL_LOOKUP hold the two softest true bars in the
+protocol and are the shape it is best at. We had spent two days on the worst-fit intent.
+
+**The defect that was actually fixed.** The generic profile scored a copy of the ground truth with
+only its headline figure changed at **0.927** — precision stayed 0.959 because one token moved, the
+numeric channel averaged the wrong figure against the dates that still agreed, and concave shaping
+lifted 0.771 to 0.927. The new `headline_quantity_profile` gives the numeric channel full authority,
+reads the worst comparable figure rather than the mean, and adds **role-scoped figure comparison**:
+these ground truths quote a current price, a day's range, a 52-week range and a market cap side by
+side, and a 9%-wrong price landing near the 52-week high was scored as nearly right. Role scoping is
+off for every other profile, so nothing already tuned moved.
+
+Measured on 16 counterfactual pairs from recorded traffic:
+
+| scorer | case wins | margin |
+|---|---|---|
+| champion reg 48 | 15/16 | 0.074155 |
+| **ours** | **15/16** | **0.143524** |
+
+Across four fixture shapes we beat the champion on three and trail on one. **The 0.1435 is not a
+predicted node margin** — the champion scores 0.074 here and 0.6147 there (GAPS G17).
+
+Local, unpublished, unregistered:
+
+- `dist/stock_price.wasm` 31,779 B keccak `92135c215e1805e4c6a56dd35b818ddcfcf401e8b3d99f3367da891deba8af36`
+- `dist/tvl_lookup.wasm` 31,779 B keccak `2f309b16d8a558c2a12ba10c782f644a1032e823feb07fde643114a5a99c6e33`
+
+All seven profiles: 85 tests, clippy, fmt, Stage-1 verifier, zero imports.
+
+**TVL_LOOKUP is unmeasured** — no clean pair exists in its traffic (GAPS G16). Treat a TVL
+registration as a probe, not a candidate.
+
+**Next:** publish to an immutable commit (needs the user's go-ahead — it is public), re-read the
+live bar, user signs, record the returned numbers. Runbook: [REGISTRATION.md](REGISTRATION.md).
+
+Also vendored: the organizers' MIT baseline at `track2/scorer-v2/` with `vendor-baseline.sh`. Not
+used for these candidates — kept because it is the architecture the entire 24 MB champion field runs
+(three champions differ from each other in **24 bytes**), and because the time-budget finding is the
+reason we did not ship it.
+
+---
+
 ## ⇢ HANDOVER — 2026-08-29 late · BOTH REGISTRATIONS REJECTED · THE CORPUS WAS THE BUG
 
 **Read the live registry, not the previous handovers.** They were written before the verdicts
