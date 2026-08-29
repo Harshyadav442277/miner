@@ -1,4 +1,33 @@
-# GAPS.md — Track 2 honesty ledger
+# GAPS — Track 2 honesty ledger
+
+## G22 — the step thresholds above the swept range are extrapolations
+
+For LANGUAGE_TRANSLATION the on-chain sweep covers thresholds 0.35 to 0.65 and shows exactly one
+extra fixture pair separated per 0.10 step. The 0.75 / 0.85 / 0.92 / 0.97 rungs assume that trend
+continues. It cannot continue past the *lowest good answer's* score: a threshold above it turns
+that pair into a near-tie and costs about 0.066 of margin. Nothing offline can locate that point —
+only a registration reads the real fixtures. The ladder is signed from the middle outward for that
+reason, and a rejected rung still returns its margin, which locates the boundary.
+
+For FRAUD_DETECTION and CVE_LOOKUP the *existence* of a threshold that separates 14 and 15 pairs
+respectively is proved from the base's own uncalibrated margin, not assumed. Its *location* is not:
+0.80 / 0.88 and 0.30 / 0.50 / 0.75 are placements, not measurements.
+
+## G23 — the calibration portfolio is derivative work, not original scoring research
+
+Every artifact in `calibration/dist/` is another team's MIT-licensed registration with one appended
+function. Attribution and the upstream licence are recorded, and the transform is our own analysis
+and code. But on the Track 2 rubric's "improvement over the Canonical Script" axis this is
+calibration, not a scorer: the original work in this repository is `scorer/`. Do not present the
+two as the same thing, and do not let champion slots won this way stand in for the 50% axis on
+their own.
+
+## G24 — predicted margins are not node margins
+
+Every number in `calibration/STEP_CALIBRATION.md` under "predicted" comes from an arithmetic model
+of the node's margin formula fitted to published evaluations of the same base. The CVE_LOOKUP
+affine fit reproduces a held-out point to seven decimals, which is strong; the threshold
+predictions carry the uncertainty in G22. None of them has been observed on the node.
 
 What we do not know or have not verified. Status: `OPEN` · `CHECKING` · `CLOSED (answer)`.
 

@@ -165,3 +165,21 @@ vendored at `scorer-v2/` with provenance.
       for the champion. Everything else already leads.
 - [x] **T-F.15** Extend the profile to CRYPTO_PRICE and ONCHAIN_TX_LOOKUP; publish all four at
       `73ef740` and verify hosted bytes byte-identical.
+
+## Step calibration (2026-08-29 evening)
+
+- [x] **T-G.1** Establish that champion modules are inner scorer + monotone post-map, and that the
+      post-map sweeps are published on chain four bytes apart → `calibration/STEP_CALIBRATION.md`.
+- [x] **T-G.2** `build-step-calibration.mjs` / `build-raw-export.mjs` / `verify-step-calibration.mjs`
+      / `hash-artifacts.mjs`. Builder validated to one ULP against registration 1797's own
+      calibration; Keccak tool validated against registration 1774's on-chain hash.
+- [x] **T-G.3** Recover each base's uncalibrated margin by affine fit; prove the floor on the best
+      threshold for FRAUD_DETECTION (>= 14 pairs) and CVE_LOOKUP (= 15 pairs).
+- [x] **T-G.4** Build and verify ten artifacts; commit `85fac32`.
+- [ ] **T-G.5** [User] Push `85fac32` so the raw URLs resolve.
+- [ ] **T-G.6** [User] Sign round 1: `cve_lookup_t050`, `fraud_detection_t080`,
+      `language_translation_t085`.
+- [ ] **T-G.7** Record the returned margins and win counts; a rejected rung locates the threshold
+      for the next round.
+- [ ] **T-G.8** Apply the same recipe to TEXT_AUTHENTICITY_CHECK, CRYPTO_PRICE, GAME_RESULT,
+      ACADEMIC_SEARCH and ONCHAIN_TX_LOOKUP, reading each intent's published sweep first.

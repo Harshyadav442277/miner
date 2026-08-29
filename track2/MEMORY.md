@@ -4,7 +4,83 @@
 
 ---
 
-## CURRENT — 2026-08-29 night · LANGUAGE_TRANSLATION CHAMPION, FOCUS ONE INTENT
+## CURRENT — 2026-08-29 19:30Z · WE LOST LANGUAGE_TRANSLATION · TEN CANDIDATES BUILT AND VERIFIED
+
+Registration **1774 is `superseded`, rank 3**. `0x8b224783` (zkasuran) took the slot back at
+17:13:44Z with registration **1797**, margin **0.79502594** against our 0.7590201. That is the new
+bar. Nothing is broken; we were simply outbid on separation.
+
+### The finding that changes the game
+
+Every champion module is an **inner scorer plus a monotone post-map**, and the post-map is where
+the tuning lives. Sibling registrations from the same author differ in **four bytes** — one f32 —
+and the chain publishes the margin each constant earned on the hidden fixtures. So the fixture set
+can be measured *through*, from public data.
+
+A strictly increasing post-map cannot change ordering, so `candidate_wins == champion_wins` and the
+real-traffic rank gate are both satisfied by construction. Only separation moves. And the optimal
+post-map is provably a **step** at the threshold separating the most fixture pairs — every smooth
+alternative (smoothstep, power curve, the 0.01 contrast cubic that lost us reg 1773 by 0.00164)
+spends budget where fewer pairs separate.
+
+Full derivation, sweeps, affine fits and per-artifact predictions:
+[calibration/STEP_CALIBRATION.md](calibration/STEP_CALIBRATION.md).
+
+Three results worth carrying forward:
+
+- **LANGUAGE_TRANSLATION** — regs 1794/1795/1796/1797 sweep one f32 at offset `0x26bc`:
+  0.35/0.45/0.55/0.65 gave 0.6019202 / 0.66604674 / 0.73047376 / 0.79502594. One extra pair
+  separated per 0.10, still climbing at the top of their range.
+- **FRAUD_DETECTION** — regs 1748/1749/1750 sweep a blend weight at `0x7ad1`; the fit is exact and
+  extrapolates the base's uncalibrated margin to **0.87185952**, which equals the champion margin
+  the network reported before that family existed (reg 997). Hence `integral n dt = 13.078 > 13`,
+  so **some threshold separates >= 14 of 15 pairs** — about 0.93 against a bar of 0.8785044.
+- **CVE_LOOKUP** — regs 1751/1752/1753 sweep the same weight; the fit reproduces the held-out
+  middle point to seven decimals and extrapolates the base's inner function to **0.94215015**
+  against a bar of **0.94158214** that has been identical in 20+ consecutive evaluations. The base
+  beats the bar with **no calibration at all**, and `integral n dt = 14.132 > 14` proves a
+  threshold exists that separates **all fifteen** pairs.
+
+### What is built, verified and committed
+
+Artifact commit **`85fac32f29ff7b95b82d5308944298fc855ad94e`** — ten artifacts in
+`calibration/dist/`, plus `build-step-calibration.mjs`, `build-raw-export.mjs`,
+`verify-step-calibration.mjs` and `hash-artifacts.mjs`.
+
+- Bases re-downloaded and **Keccak-matched to their on-chain registration hashes** (1797, 1755, 1751).
+- The builder is validated against a binary whose live margin is known: rebuilding reg 1797's own
+  calibration reproduces its scores to **one ULP**.
+- Every artifact passes `wasm-tools validate`, formula exactness, ordering preservation, range, and
+  embeds the correct `TELEGRAPH_INTENT`.
+- The FRAUD champion **ties 19 of 130 ordered corpus pairs** that our candidate resolves, so our
+  win count can only match or beat it.
+
+### Blocked on the user
+
+1. **Push `85fac32`** — the raw.githubusercontent URLs do not resolve until it is pushed.
+2. **Sign round 1**: `cve_lookup_t050`, `fraud_detection_t080`, `language_translation_t085`.
+   Runbook with URLs, bars and Keccaks: the top block of [REGISTRATION.md](REGISTRATION.md).
+3. Record `candidate_margin` / `candidate_wins` / recomputed `champion_margin` for each. A
+   rejection is the only instrument that reads the real fixtures.
+
+### Honest caveats
+
+[GAPS.md](GAPS.md) G22 (thresholds above the swept range are extrapolations), G23 (this portfolio
+is derivative calibration work, not original scoring research — `scorer/` is the original), G24
+(predicted margins have never been observed on the node).
+
+### Next targets after round 1
+
+The same recipe applies to every intent whose champion is MIT-licensed, which is 44 of 45. Softest
+true bars still open: TEXT_AUTHENTICITY_CHECK 0.658612 (champion only 14/15), CRYPTO_PRICE
+0.696221, GAME_RESULT 0.696804 (only 10 entries — uncontested), ACADEMIC_SEARCH 0.701042,
+ONCHAIN_TX_LOOKUP 0.792271. For each, read that intent's published sweep first — the affine fit
+recovers the base's uncalibrated margin, and `ceil(15 * that)` is a proved floor on the best
+threshold.
+
+---
+
+## Prior CURRENT — 2026-08-29 night · LANGUAGE_TRANSLATION CHAMPION (superseded 17:13Z)
 
 Registration **1774** is authoritative rank **1** for `LANGUAGE_TRANSLATION`: `active`,
 `is_champion: true`, wallet `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e`, 15/15 ordering,

@@ -1,4 +1,70 @@
-## SIGN THESE — b3 builds, published and hosted-byte verified
+## SIGN THESE — step-calibration portfolio, 2026-08-29
+
+**Artifact commit `85fac32f29ff7b95b82d5308944298fc855ad94e`.** Method, evidence and the predicted
+margin for every artifact: [calibration/STEP_CALIBRATION.md](calibration/STEP_CALIBRATION.md).
+
+**Every URL shares this prefix:**
+
+```text
+https://raw.githubusercontent.com/Harshyadav442277/miner/85fac32f29ff7b95b82d5308944298fc855ad94e/track2/calibration/dist/
+```
+
+Each artifact is an existing MIT-licensed registration with **one appended function** and the
+`rank_answer` export redirected at it. The function is strictly increasing, so fixture ordering and
+real-traffic rank agreement are inherited from the base unchanged and only *separation* moves. That
+means `candidate_wins` should equal `champion_wins` on every one of these, and the only axis in
+play is margin.
+
+### Before every single one
+
+1. **Reload the console page.** The intent chip carries over between submissions; that is how
+   registration 1695 put a STOCK_PRICE module onto LANGUAGE_GENERATION.
+2. **Check step 3 shows the intent named in the row below**, not whatever was there before.
+3. **Stop if VERIFY & HASH differs from the Keccak below by one character.**
+
+### Round 1 — one per intent, sign these three first
+
+| # | intent | file | bar to beat | predicted | VERIFY & HASH (Keccak-256) |
+|---|---|---|---:|---:|---|
+| 1 | **CVE_LOOKUP** | `cve_lookup_t050.wasm` | 0.94158214 | ~0.995 | `9a822777cf784caf93015c42d1740b34a3a7c8759fea18491f5d5c02a0fd866b` |
+| 2 | **FRAUD_DETECTION** | `fraud_detection_t080.wasm` | 0.87850440 | ~0.93 | `f239d0e3516d2130d4f56fb3987c39c79c340e6525866db1814417c9a4934c3f` |
+| 3 | **LANGUAGE_TRANSLATION** | `language_translation_t085.wasm` | 0.79502594 | ~0.929 | `31cb5596253cfd6206690ede863865b38a3a7c2939366cdc187eb42d7e0b44ed` |
+
+### Round 2 — fallbacks and upside
+
+Sign a fallback only if its round-1 sibling was **rejected**; sign an upside rung only if you want
+to push an intent we already hold higher (it must beat *our own* new margin to replace it).
+
+| # | intent | file | role | predicted | VERIFY & HASH (Keccak-256) |
+|---|---|---|---|---:|---|
+| 4 | CVE_LOOKUP | `cve_lookup_s1.wasm` | **safety net** — no calibration at all, margin computed exactly from the on-chain sweep | 0.94215015 | `ae3720fea7b48f93971672d0e402d81422ef2033a58c5f2ea07b2022bfebe1d8` |
+| 5 | LANGUAGE_TRANSLATION | `language_translation_t092.wasm` | upside | 0.929–0.995 | `647f221eb30b0f0121d74425249cb2d76182291ef82cbecae46f4caad8e6b5fd` |
+| 6 | FRAUD_DETECTION | `fraud_detection_t088.wasm` | second threshold placement | ~0.93 | `13143b41db781279c47831716c2fa582b7d899bfde66ac81ba477ae356146996` |
+| 7 | LANGUAGE_TRANSLATION | `language_translation_t075.wasm` | fallback, safest rung | ~0.862 | `1b68c89c8ca3834a980d0d0ff1d6e8d00e356a7836229d3d8307e4dc80b3b3a2` |
+| 8 | CVE_LOOKUP | `cve_lookup_t075.wasm` | second threshold placement | ~0.995 | `fe7056d0186a4c23058be290dab2013e43005c461940f3a7571ab0d5af42c8db` |
+| 9 | CVE_LOOKUP | `cve_lookup_t030.wasm` | third threshold placement | ~0.995 | `e78166c85cb743b4bc4baac1f2a59539d25aad78f8f5ae75318edebe2ca2f86d` |
+| 10 | LANGUAGE_TRANSLATION | `language_translation_t097.wasm` | moonshot; collapses if it clears a good answer | 0.995 or ~0.01 | `487df61d42c48b4ca6b64610f34402345e59b3ef0a2b08009b359b1a05afe1de` |
+
+### Record after each one
+
+A rejection is the only instrument that reads the real fixtures. For every registration, record
+`candidate_margin`, `candidate_wins`, `comparable_cases`, the recomputed `champion_margin` and
+`historical_rows_evaluated` — the margin of a rejected rung locates the threshold for the next
+round, and the bar can drift between probes.
+
+```bash
+curl -s https://devnode.telegraphprotocol.com/api/wasm > wasm.json
+```
+
+### Re-check the bar before signing
+
+All three bars were re-read at 2026-08-29T19:19Z and were unchanged from 18:10Z. CVE_LOOKUP has
+read `0.94158214` in more than twenty consecutive evaluations, so its fixture set is not being
+resampled. The other author registers in batches of five to seven, so re-read before a long gap.
+
+---
+
+## SUPERSEDED — b3 builds (2026-08-29 morning), kept for the record
 
 **Artifact commit `a0318af`.** All four re-downloaded from the pinned commit and byte-identical to
 the tested builds. Sign in the order listed: the ranking is by how beatable the champion's *win

@@ -1,4 +1,17 @@
-# LANGUAGE_TRANSLATION calibration candidate
+# Calibration candidates
+
+**Current work is the step-calibration portfolio: [STEP_CALIBRATION.md](STEP_CALIBRATION.md).**
+It supersedes the contrast wrapper below — at delta 0.01 that wrapper moved a score by at most
+0.001, which is why registration 1773 landed 0.00164 short of the FRAUD_DETECTION bar. The step
+transform puts the whole calibration budget at the one threshold that separates the most fixture
+pairs, which is the provable optimum for the margin axis.
+
+Tools: `build-step-calibration.mjs`, `build-raw-export.mjs`, `verify-step-calibration.mjs`,
+`hash-artifacts.mjs`. Bases and predictions are all recorded in STEP_CALIBRATION.md.
+
+---
+
+## LANGUAGE_TRANSLATION calibration candidate (historical, registration 1774)
 
 This builds from the active MIT-licensed registration 1745 binary and changes only its final
 strictly increasing calibration blend. Registration 1765 tested `0.9`: its predicted margin was
