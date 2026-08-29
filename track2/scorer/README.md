@@ -3,7 +3,7 @@
 **Reviewing the submission? Start with [JUDGE_BRIEF.md](JUDGE_BRIEF.md).** It maps the evidence to
 the live Track 2 rubric and separates offline measurements from network-confirmed results.
 
-A freestanding `wasm32-unknown-unknown` scoring module, currently **30,011 bytes** for the frozen
+A freestanding `wasm32-unknown-unknown` scoring module, currently **30,897 bytes** for the frozen
 TAC release, with **zero imports**, no imported allocator, no clock, no randomness, and no
 transcendental maths. One Rust source tree is compiled once per intent via constant profiles, the
 same shape the incumbent uses.
@@ -170,34 +170,35 @@ proves it — a WASI or `wasm-bindgen` build is an instant registration reject.
 
 ## Verification
 
-The 2026-08-28 feature matrix is clean under both tests and `clippy -D warnings`: generic 77 tests,
-IP geolocation 78, storm alert 69, content verification 77, and text authenticity 77.
+The 2026-08-29 feature matrix is clean under both tests and `clippy -D warnings`: generic 85 tests,
+IP geolocation 86, storm alert 77, content verification 85, and text authenticity 85.
 `cargo fmt --check` also passes. GitHub Actions repeats that whole matrix and then builds the real
 registration target from scratch, runs `verify.mjs`, and checks the bytes against the frozen
 release manifest. The repository pins Rust 1.98.0 locally and in CI.
 
-Current repaired registration candidate (published, hosted-byte verified, not yet registered):
+Current repaired registration candidate (frozen locally, publication pending):
 
 | Build | Size | SHA-256 | Imports | verifier |
 |---|---:|---|---:|---|
-| `dist/text_authenticity.wasm` | 30,011 B | `8d8d6906…4ae8fe` | **0** | pass |
+| `dist/text_authenticity.wasm` | 30,897 B | `3bb3bb82…1628a9` | **0** | pass |
 
 Local Keccak-256 is
-`8599d78b039870628b67bb8e855cd6f93fc337eb0e569d786d16fa13036e9938`; OpenSSL's algorithm was
-validated by reproducing champion reg 850's known on-chain hash. The hosted bytes reproduce this
-value, and Linux CI reproduces the tracked binary from source. The previous public `867fd15` and
-`25ff808` artifacts are superseded; see `../REGISTRATION.md` before signing anything.
+`8cfc5456b08363d281878b59f587ad9c44b7296b211a6a4bab4ec794a3c58a07`; OpenSSL's algorithm was
+validated by reproducing champion reg 850's known on-chain hash. Hosted-byte and Linux CI
+reproduction are required before this candidate is submitted. The v1.1.0 artifact reached Stage 2
+as registration 1671 but lost 9/15 orderings at margin 0.3274022; it must not be resubmitted.
 
-The native TAC proxy reports **256/256** pairwise wins with **0.973658** separation, while the
-content-verification holdout remains **144/144** at **0.963445**. Independent
-`telegraph-wasm-check` commit `f537c7c` reports 0 hard/soft failures, fresh-instance determinism,
-500 seeded fuzz cases, bounded memory, and all 16 native intent cases passing. These are offline
-tests against public/pinned artifacts, not a claim about the node's hidden fixtures.
+The native TAC proxy reports **256/256** pairwise wins with **0.973696** separation. Separate
+predeclared probes report 20/20 negation at 0.945619 mean margin, 10/10 model aliases at 0.960045,
+20/20 independent authenticity axes at 0.974294, and 12/12 ordinary vocabulary at 0.999465.
+Independent `telegraph-wasm-check` commit `f537c7c` applies only to superseded v1.0.0 bytes. These
+are offline tests against public inputs, not a claim about the node's hidden fixtures.
 
-A separate 20-case probe was written before the final semantic change and kept outside the public
+A separate 20-case probe was written before the negation change and kept outside the public
 TAC corpus. It exposed inverted negation (`not original`, `no AI evidence`, `did not classify as
 AI`): the intermediate candidate won 10/20 comparisons; this release wins **20/20**, mean margin
-**0.757995**, without changing the probe cases after seeing the result.
+**0.945619**. Two later predeclared probes independently cover semantic axes and ordinary
+vocabulary; their frozen hashes and before/after results are recorded in the v1.2 worklog.
 
 Exported signatures, read back off the binary — `rank_answer` is **exactly six `i32` returning
 `f32`** (a 3-param build was rejected live):

@@ -1,24 +1,23 @@
 # Standalone repository publication
 
-## Current public state — published and byte-verified
+## Current local state — v1.2 publication pending
 
-Published 2026-08-29 to `Harshyadav442277/telegraph-factscore`:
+Frozen v1.2 candidate:
 
-- cross-platform artifact commit: `409911f351b4778555ac5bb03c9a6d6bba69ae58`
-- public metadata HEAD: `1c74af5d54e177d97c75687feff9c197eccfd9fc`
-- stable release: `tac-v1.1.0`, with `text_authenticity.wasm` attached
-- `dist/text_authenticity.wasm`: 30,011 bytes
-- SHA-256: `8d8d690628d2cfcd52359f1bb1bfcd882456fc1198b80237ad74c1276a4ae8fe`
-- Keccak-256: `8599d78b039870628b67bb8e855cd6f93fc337eb0e569d786d16fa13036e9938`
-- fresh commit-pinned raw download: byte length and both hashes verified
-- GitHub Linux CI run `33227235399`: all profiles green and build byte-identical
-- downloaded release asset: byte length, SHA-256, and Keccak-256 verified
-- on-chain state: not registered
+- `dist/text_authenticity.wasm`: 30,897 bytes
+- SHA-256: `3bb3bb82e0f6e2db9948e8ce96c8f1796835858d4b0a78332ec0b624501628a9`
+- Keccak-256: `8cfc5456b08363d281878b59f587ad9c44b7296b211a6a4bab4ec794a3c58a07`
+- local five-profile matrix, Stage-1 verifier, and five semantic suites pass
+- immutable commit, Linux reproduction, fresh download, and GitHub release still pending
 
-Registration URL:
+The currently public v1.1.0 artifact is historical. It was submitted as registration 1671 and
+rejected at 9/15 wins, margin 0.3274022. Its artifact commit was
+`409911f351b4778555ac5bb03c9a6d6bba69ae58`; do not register that URL again.
+
+v1.2 registration URL:
 
 ```text
-https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/409911f351b4778555ac5bb03c9a6d6bba69ae58/dist/text_authenticity.wasm
+PENDING
 ```
 
 ## Superseded public state
@@ -67,6 +66,8 @@ The monorepo remains the editing source. Sync these paths into the standalone re
 | `track2/release/README.md` | `release/README.md` |
 | `track2/release/probe-negation.mjs` | `release/probe-negation.mjs` |
 | `track2/docs/codex-worklog/probes/2026-08-29-model-aliases.mjs` | `release/probe-model-aliases.mjs` |
+| `track2/docs/codex-worklog/probes/2026-08-29-authenticity-axes.mjs` | `release/probe-authenticity-axes.mjs` |
+| `track2/docs/codex-worklog/probes/2026-08-29-authenticity-vocabulary.mjs` | `release/probe-authenticity-vocabulary.mjs` |
 | `track2/release/text-authenticity.json` | `release/text-authenticity.json` |
 | `track2/release/verify-standalone.mjs` | `release/verify-standalone.mjs` |
 | `track2/release/standalone-ci.yml` | `.github/workflows/ci.yml` |
@@ -102,11 +103,10 @@ openssl dgst -keccak-256 dist/text_authenticity.wasm
 Expected identity:
 
 ```text
-bytes      30011
-sha256     8d8d690628d2cfcd52359f1bb1bfcd882456fc1198b80237ad74c1276a4ae8fe
-keccak256  8599d78b039870628b67bb8e855cd6f93fc337eb0e569d786d16fa13036e9938
+bytes      30897
+sha256     3bb3bb82e0f6e2db9948e8ce96c8f1796835858d4b0a78332ec0b624501628a9
+keccak256  8cfc5456b08363d281878b59f587ad9c44b7296b211a6a4bab4ec794a3c58a07
 ```
 
-The commit-pinned raw URL was downloaded to a fresh file and both hashes reproduced. The release
-manifest records the artifact commit/URL. Proceed to the website's VERIFY & HASH step; the wallet
-signature remains a user-only action.
+Do not proceed to the website until the commit-pinned raw URL is inserted and a fresh download
+reproduces both hashes. The wallet signature remains a user-only action.

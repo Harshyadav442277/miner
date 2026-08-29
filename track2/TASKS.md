@@ -93,15 +93,22 @@ One task = one change = one commit. Work top-down. Owner in brackets.
       download reproduced both hashes and Linux CI rebuilt the tracked bytes. The old `867fd15`
       and `25ff808` releases are superseded and must not be registered. Stable GitHub release
       `tac-v1.1.0` attaches the verified artifact and preserves the reviewer entry point.
-- [ ] **T-E.1** [Fable] Submission package per verified flow; user confirms/sends anything
-      requiring accounts or signatures.
+- [x] **T-E.1** [Fable+User] v1.1.0 submitted as registration 1671; Stage 1 passed and Stage 2
+      rejected it at 9/15 wins, margin 0.3274022 versus champion 14/15 and 0.65861213.
+- [x] **T-E.1b** [Codex] Replaced the AI-metric-heavy proxy with predeclared independent
+      authenticity axes and a second vocabulary probe. The frozen local candidate passes
+      256/256 public TAC, 20/20 negation, 10/10 model aliases, 20/20 axes, and 12/12 vocabulary;
+      all profile tests/clippy and Stage 1 verification pass.
+- [ ] **T-E.1c** [Codex+User] Publish the 30,897-byte v1.2 candidate at an immutable commit,
+      reproduce it in Linux CI and from a fresh download, then user submits a new registration.
 - [ ] **T-E.2** [Fable] X thread drafts (insight-led, tagged `@Telegraphprotoc`) → user posts.
 - [x] **T-E.3** [Opus+Codex] Package the harness + fixtures as a reusable kit for other script
       authors, including an incumbent-free `check-tac.mjs` command with text/JSON output. It
       passes this release 256/256 and rejects incumbent 850 at 33/256. One external fork now has
       nine downstream measured commits using the kernel; a benchmark-result issue form captures
       additional genuine runs without manufacturing engagement.
-- [ ] **T-E.4** [User] Submit before **2026-08-31**; confirmation recorded in MEMORY.md.
+- [x] **T-E.4** [User] Submitted v1.1.0 before deadline; registration 1671 recorded. A repaired
+      candidate still requires a new transaction because the registered hash is immutable.
 - [ ] **T-E.5** [Codex+User] Disclosure artifact: public scorer README now states the livecert
       (registration 225) overlap plainly; the matching X post is drafted and still requires the
       user's account — mandatory per the organizer answer.

@@ -4,7 +4,37 @@
 
 ---
 
-## ⇢ HANDOVER — 2026-08-29 · NEGATION-HARDENED TAC RELEASE · PUBLISHED, READY TO REGISTER
+## ⇢ HANDOVER — 2026-08-29 · v1.2 LOCAL CANDIDATE FROZEN · PUBLISH BEFORE RESUBMITTING
+
+Registration `1671` submitted the exact v1.1.0 bytes from wallet
+`0xdad201ef02f5c1fbb8f9e931ae9b7c1bf493a39e` in transaction
+`0xf9fbc5486338d8b683ff0ee542753ad10bfc04797fec4fc673ff3ee4c531efa4`.
+Stage 1 passed, but Stage 2 rejected it: **9/15 wins**, candidate margin **0.3274022**, champion
+**14/15** and **0.65861213**. Self-match was 1 and score spread 0.4814627. The failure is semantic
+generalization, not ABI, hosting, hashing, or calibration. Do not resubmit v1.1.0.
+
+The repair is complete locally. Two predeclared probes exposed independent-axis conflation and a
+weak answeredness/vocabulary channel. The candidate now keeps originality, genuineness, integrity,
+authorship, and verification distinct; a supported unambiguous verdict opens the answeredness gate.
+
+Frozen local candidate (not yet hosted or registered):
+
+- 30,897 bytes
+- SHA-256 `3bb3bb82e0f6e2db9948e8ce96c8f1796835858d4b0a78332ec0b624501628a9`
+- Keccak-256 `8cfc5456b08363d281878b59f587ad9c44b7296b211a6a4bab4ec794a3c58a07`
+- public TAC 256/256, margin 0.973696
+- negation 20/20, margin 0.945619; model aliases 10/10, margin 0.960045
+- independent axes 20/20, margin 0.974294; vocabulary 12/12, margin 0.999465
+- all five profile test/clippy combinations and Stage-1 verifier green
+
+Next: publish at an immutable standalone-repository commit, verify Linux reproduction and a fresh
+download, then ask the user to create a new registration. Do not reuse registration 1671 or its
+v1.1.0 URL/hash. Full evidence is in
+`docs/codex-worklog/2026-08-29-v12-semantic-repair.md`.
+
+---
+
+## Prior handover — 2026-08-29 · NEGATION-HARDENED TAC RELEASE · REGISTERED, REJECTED
 
 Do **not** register the old `867fd15` binary or the 25,488-byte intermediate candidate. After the
 native and independent review rounds were green, a deliberately unseen semantic probe exposed a
@@ -12,7 +42,7 @@ general negation error: `not original` could agree with `original`, and `no AI e
 support the positive AI label. The fix compares each verdict token's semantic pole together with
 its negation state. It contains no fixture strings or author/miner fingerprints.
 
-Current candidate (published and hosted-byte verified; unregistered):
+Superseded candidate (published and hosted-byte verified; registration 1671 rejected):
 
 - `scorer/dist/text_authenticity.wasm` (gitignored), **30,011 B**
 - SHA-256 `8d8d690628d2cfcd52359f1bb1bfcd882456fc1198b80237ad74c1276a4ae8fe`

@@ -38,6 +38,9 @@ jobs:
           node verify.mjs dist/text_authenticity.wasm
           node ../harness/check-tac.mjs dist/text_authenticity.wasm
           node ../release/probe-negation.mjs dist/text_authenticity.wasm
+          node ../docs/codex-worklog/probes/2026-08-29-model-aliases.mjs dist/text_authenticity.wasm
+          node ../docs/codex-worklog/probes/2026-08-29-authenticity-axes.mjs dist/text_authenticity.wasm
+          node ../docs/codex-worklog/probes/2026-08-29-authenticity-vocabulary.mjs dist/text_authenticity.wasm
           node -e 'const fs=require("fs"),c=require("crypto"),m=require("../release/text-authenticity.json"),b=fs.readFileSync("dist/text_authenticity.wasm"),h=c.createHash("sha256").update(b).digest("hex"); if(b.length!==m.bytes||h!==m.sha256) throw new Error(`release identity mismatch: ${b.length} bytes ${h}`); console.log(`release identity verified: ${b.length} bytes ${h}`)'
 
   miner:

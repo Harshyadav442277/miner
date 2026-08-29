@@ -1,47 +1,46 @@
 # REGISTRATION.md — the user's runbook for registering the scorer
 
-## READY FOR USER REGISTRATION — use only the commit-pinned URL below
+## v1.2 CANDIDATE — DO NOT REGISTER UNTIL THE URL BELOW IS REPLACED
 
-**Status 2026-08-29. Target remains `TEXT_AUTHENTICITY_CHECK`; commits `867fd15` and `25ff808`
-are superseded.** A code review found that five of the old build's six losses were
-wrong-verdict failures, not confidence near-misses, and the sixth was a missed named-model
-contradiction. A second independent review then closed terse-label equivalence and sentence-initial
-subject substitution. A third, deliberately unseen probe then exposed and repaired inverted
-negation semantics. The frozen release measures **256/256 wins, +0.973658 separation** on the
-native TAC corpus versus the old build's 234/240 and +0.721069, plus **20/20** on the unseen
-negation/metamorphic probe versus 10/20 before the fix.
+**Status 2026-08-29. Target remains `TEXT_AUTHENTICITY_CHECK`.** Registration 1671 submitted
+v1.1.0 successfully through Stage 1 but was rejected in Stage 2 at 9/15 wins and margin 0.3274022;
+the champion scored 14/15 and 0.65861213. Do not resubmit that URL or hash.
 
-Current published, hosted-byte-verified candidate (not yet registered):
+The v1.2 repair was driven by two probes written and hashed before their corresponding changes.
+It separates authorship, originality, genuineness, integrity, and verification; it also treats a
+supported semantic verdict as answer-bearing rather than weak prose. Local results are 256/256
+public TAC, 20/20 negation, 10/10 model aliases, 20/20 independent axes, and 12/12 vocabulary.
+
+Current frozen local candidate (not yet published or registered):
 
 ```
 track2/scorer/dist/text_authenticity.wasm
-size      30,011 bytes
-sha256    8d8d690628d2cfcd52359f1bb1bfcd882456fc1198b80237ad74c1276a4ae8fe
-keccak256 8599d78b039870628b67bb8e855cd6f93fc337eb0e569d786d16fa13036e9938
+size      30,897 bytes
+sha256    3bb3bb82e0f6e2db9948e8ce96c8f1796835858d4b0a78332ec0b624501628a9
+keccak256 8cfc5456b08363d281878b59f587ad9c44b7296b211a6a4bab4ec794a3c58a07
 ```
 
 The Keccak was computed locally with OpenSSL `KECCAK-256`; the same command reproduced champion
-reg 850's known on-chain hash `14f7076c…04f57`, validating the algorithm choice. A fresh download
-from the v1.1.0 GitHub release reproduced all 30,011 bytes, the SHA-256 and the Keccak.
-The pinned Rust 1.98.0 build reproduced this SHA-256 byte-for-byte on Windows and GitHub Linux;
-`release/text-authenticity.json` is the manifest. The earlier `25ff808` artifact was behaviorally
-identical but not byte-reproducible across OS path separators, so it must not be registered.
+reg 850's known on-chain hash `14f7076c…04f57`, validating the algorithm choice. The pinned Rust
+1.98.0 Windows build, all profile tests/clippy, and the Stage-1 verifier pass. Linux reproduction
+and fresh hosted-byte verification are still required before registration.
 
-Independent `telegraph-wasm-check` commit `f537c7c` also reports **0 hard failures, 0 soft
-failures**, fresh-instance determinism, 500 seeded fuzz cases, bounded memory, and all 16 native
-TAC cases passing. These remain offline results, not the node's hidden-fixture verdict.
+Independent `telegraph-wasm-check` commit `f537c7c` reports **0 hard failures, 0 soft failures**,
+fresh-instance determinism, 500 seeded fuzz cases, bounded memory, and all 16 native TAC cases for
+the superseded v1.0.0 bytes. It is historical evidence, not verification of v1.2.
 
 Published artifact URL:
 
 ```text
-https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/409911f351b4778555ac5bb03c9a6d6bba69ae58/dist/text_authenticity.wasm
+PENDING — do not use the v1.1.0 URL
 ```
 
-### Next action — user wallet confirmation required
+### Next action — publication checks, then user wallet confirmation
 
-Use `integrate.telegraphprotocol.com` to submit the URL above for intent
-**`TEXT_AUTHENTICITY_CHECK`**. The website's VERIFY & HASH value must equal
-`8599d78b039870628b67bb8e855cd6f93fc337eb0e569d786d16fa13036e9938` exactly before the user
+After an immutable URL is inserted above and its hosted bytes pass both hashes, use
+`integrate.telegraphprotocol.com` to submit it for **`TEXT_AUTHENTICITY_CHECK`**. The website's
+VERIFY & HASH value must equal
+`8cfc5456b08363d281878b59f587ad9c44b7296b211a6a4bab4ec794a3c58a07` exactly before the user
 approves the wallet transaction. Stop if it differs.
 
 GitHub code can be updated later. The on-chain registration is different: it binds one hosted URL
@@ -178,8 +177,18 @@ returns exact numbers.
 ```
 intent                   registrationId   status     candidate_margin   bar faced    date
 IP_GEOLOCATION           1377             REJECTED   0.87751794         0.99185944   2026-08-27
-TEXT_AUTHENTICITY_CHECK  —                —          —                  0.658612     —
+TEXT_AUTHENTICITY_CHECK  1671             REJECTED   0.3274022          0.65861213  2026-08-29
 ```
+
+**Registration 1671 terminal result** — exact v1.1.0 URL/hash, wallet
+`0xdad201ef02f5c1fbb8f9e931ae9b7c1bf493a39e`, transaction
+`0xf9fbc5486338d8b683ff0ee542753ad10bfc04797fec4fc673ff3ee4c531efa4`:
+
+> lost to the current champion on ordering: your scorer ranked the good answer above the bad one
+> on fewer fixture cases than the champion (you: 9 of 15, champion: 14 of 15).
+
+Stage 1 evidence: self-match 1.0 and score standard deviation 0.4814627. This artifact must not be
+resubmitted unchanged.
 
 ---
 
