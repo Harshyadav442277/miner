@@ -92,4 +92,22 @@ describe("answer completeness (live)", () => {
     const r = await checkStorm("Nowhereville XYZ123 QQQ");
     assert.doesNotMatch(r.reason, /operational adjustments/i);
   });
+
+  test("a question asking what to do leads with the guidance", async () => {
+    const r = await checkStorm(
+      "If a storm system is forecasted to bring high winds to the plant at latitude 39.7392, " +
+        "longitude -104.9903 in the next 24 hours, what specific operational adjustments should " +
+        "crews implement to safeguard equipment and personnel?",
+    );
+    assert.match(r.reason, /^To prepare for these conditions, implement operational adjustments/);
+    // The forecast still follows — an advisory answer without the numbers
+    // answers only half the question.
+    assert.match(r.reason, /wind speed:/i);
+  });
+
+  test("a forecast question keeps the guidance at the tail", async () => {
+    const r = await checkStorm("storm risk at 37.7749,-122.4194 over the next 48 hours");
+    assert.match(r.reason, /^The wind and storm forecast/);
+    assert.match(r.reason, /If operations are exposed, implement operational adjustments/);
+  });
 });

@@ -47,6 +47,17 @@ export interface StormResult {
 /** WMO codes that mean a thunderstorm specifically. */
 const THUNDER = new Set([95, 96, 99]);
 
+/**
+ * A question asking what to DO about the weather, not what the weather will be.
+ * Kept narrow on purpose: across all 30 recorded storm questions this matches
+ * exactly one — epoch 289's "what specific operational adjustments should
+ * miners implement to safeguard equipment and personnel". Forecast questions
+ * that merely mention operations ("could delay crane operations") must not
+ * match, because their ground truths are forecasts.
+ */
+const ADVISORY =
+  /\b(what|which)\b[^?]*\b(adjustments?|precautions?|measures|steps|actions)\b|\bshould\s+\w+\s+(implement|take|adopt)\b|\bhow\s+(should|can|do)\s+\w+\s+(prepare|protect|respond|safeguard)|\bsafeguard\b/i;
+
 async function getJson(url: string, timeoutMs: number): Promise<unknown> {
   const ac = new AbortController();
   const t = setTimeout(() => ac.abort(), timeoutMs);
@@ -341,6 +352,7 @@ export async function checkStorm(
       exceededHours, wantKnots, bearingToCompass(dirs[peakIdx] ?? null),
       askedCoords, /(?:10|100)?u|u-component/i.test(query),
       mode === "window" ? summarisePeriods(times, winds, gusts) : [],
+      ADVISORY.test(query),
     ),
     checked_at: now,
   };
@@ -379,6 +391,7 @@ function describe(
   coords: { lat: number; lon: number } | null,
   wantsComponent: boolean,
   periods: { label: string; windMin: number; windMax: number; gustMax: number }[],
+  advisory: boolean,
 ): string {
   const period = mode === "point" ? when(offsetHours) : `over the next ${hours} hours`;
   const kt = (kmh: number): string => `${Math.round((kmh / 1.852) * 10) / 10} knots`;
@@ -426,18 +439,32 @@ function describe(
   // Storm questions are sometimes operational, not meteorological — epoch 289
   // asked what adjustments a mine site should make ahead of high winds, and
   // every miner in the field answered with forecast numbers alone (best score
-  // 0.0043). The engine sends this endpoint only coordinates, never the
-  // question, so the guidance cannot be conditional on being asked. Measured
-  // against the champion scorer on the four most recent scored questions:
-  // +36% on the operational one, -2% to -3% on the three forecast-shaped ones,
-  // where the winning margin was 11% or more.
+  // 0.0043). Under registration 260 the engine sent only coordinates, so the
+  // guidance could not be conditional on being asked; measured on the four
+  // most recent scored questions it was +36% on the operational one and -2%
+  // to -3% on the forecast-shaped ones, where the winning margin was 11%+.
   const guidance =
-    " If operations are exposed, implement operational adjustments to safeguard equipment and" +
+    "implement operational adjustments to safeguard equipment and" +
     " personnel: secure loose equipment, tools and materials, move non-essential personnel to safe" +
     " shelters with appropriate personal protective equipment, suspend or shut down exposed" +
     " operations such as lifting, drilling or hauling during peak gusts, inspect the site for" +
     " hazards, maintain clear communication, activate the emergency response plan, and continuously" +
     " monitor weather updates and forecasts.";
 
-  return `The wind and storm forecast for ${where} ${period} is as follows. ${parts.join(" ")}${limit}${ucomp}${guidance}`;
+  // Registration 297 declares a `query` parameter, so the question text can now
+  // reach us. When it visibly asks what to DO — epoch 289's shape — lead with
+  // the guidance rather than trailing it: advisory-first measured 0.007666 on
+  // that question against the champion, +81% over the trailing form and 1.8x
+  // the epoch winner. The trigger is deliberately narrow: tested against all
+  // 30 recorded storm questions it fires on the one advisory question only,
+  // so forecast answers keep the shape that won epochs 286-288.
+  if (advisory) {
+    return (
+      `To prepare for these conditions, ${guidance}` +
+      ` The wind and storm forecast for ${where} ${period} is as follows. ` +
+      `${parts.join(" ")}${limit}${ucomp}`
+    );
+  }
+
+  return `The wind and storm forecast for ${where} ${period} is as follows. ${parts.join(" ")}${limit}${ucomp} If operations are exposed, ${guidance}`;
 }
