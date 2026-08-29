@@ -1,6 +1,6 @@
 # REGISTRATION.md — the user's runbook for registering the scorer
 
-## v1.2 CANDIDATE — DO NOT REGISTER UNTIL THE URL BELOW IS REPLACED
+## READY FOR v1.2 REGISTRATION — USE ONLY THE URL AND HASH BELOW
 
 **Status 2026-08-29. Target remains `TEXT_AUTHENTICITY_CHECK`.** Registration 1671 submitted
 v1.1.0 successfully through Stage 1 but was rejected in Stage 2 at 9/15 wins and margin 0.3274022;
@@ -11,7 +11,7 @@ It separates authorship, originality, genuineness, integrity, and verification; 
 supported semantic verdict as answer-bearing rather than weak prose. Local results are 256/256
 public TAC, 20/20 negation, 10/10 model aliases, 20/20 independent axes, and 12/12 vocabulary.
 
-Current frozen local candidate (not yet published or registered):
+Current published and hosted-byte-verified candidate (not yet registered):
 
 ```
 track2/scorer/dist/text_authenticity.wasm
@@ -32,13 +32,13 @@ the superseded v1.0.0 bytes. It is historical evidence, not verification of v1.2
 Published artifact URL:
 
 ```text
-PENDING — do not use the v1.1.0 URL
+https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/638dae46ba31c1bf3a30e9d0e541b7c56f3fe48b/dist/text_authenticity.wasm
 ```
 
-### Next action — publication checks, then user wallet confirmation
+### Next action — user wallet confirmation
 
-After an immutable URL is inserted above and its hosted bytes pass both hashes, use
-`integrate.telegraphprotocol.com` to submit it for **`TEXT_AUTHENTICITY_CHECK`**. The website's
+Use `integrate.telegraphprotocol.com` to submit the URL above for **`TEXT_AUTHENTICITY_CHECK`**.
+The commit-pinned download reproduced both hashes and Linux CI run `33236230467` passed. The website's
 VERIFY & HASH value must equal
 `8cfc5456b08363d281878b59f587ad9c44b7296b211a6a4bab4ec794a3c58a07` exactly before the user
 approves the wallet transaction. Stop if it differs.

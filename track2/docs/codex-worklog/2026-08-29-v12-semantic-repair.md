@@ -51,5 +51,6 @@ keccak256  8cfc5456b08363d281878b59f587ad9c44b7296b211a6a4bab4ec794a3c58a07
 - A 10:54 IST live registry read still showed champion 850 at 14/15 and margin 0.65861213, zero
   historical rows, and 85 entries.
 
-This is still offline evidence. It must be published at an immutable commit, reproduced by Linux
-CI, re-downloaded and hash-checked, then submitted in a new registration before any rank claim.
+Published at artifact commit `638dae46ba31c1bf3a30e9d0e541b7c56f3fe48b`, tagged `tac-v1.2.0`.
+A fresh commit-pinned download reproduced both hashes and Linux CI run `33236230467` passed every
+release gate. Only a new user-signed registration remains before any network rank claim.

@@ -99,8 +99,9 @@ One task = one change = one commit. Work top-down. Owner in brackets.
       authenticity axes and a second vocabulary probe. The frozen local candidate passes
       256/256 public TAC, 20/20 negation, 10/10 model aliases, 20/20 axes, and 12/12 vocabulary;
       all profile tests/clippy and Stage 1 verification pass.
-- [ ] **T-E.1c** [Codex+User] Publish the 30,897-byte v1.2 candidate at an immutable commit,
-      reproduce it in Linux CI and from a fresh download, then user submits a new registration.
+- [ ] **T-E.1c** [Codex+User] v1.2 is published at artifact commit `638dae4`, tagged
+      `tac-v1.2.0`, fresh-download verified, and Linux CI run `33236230467` passed. Only the new
+      user-signed registration remains.
 - [ ] **T-E.2** [Fable] X thread drafts (insight-led, tagged `@Telegraphprotoc`) → user posts.
 - [x] **T-E.3** [Opus+Codex] Package the harness + fixtures as a reusable kit for other script
       authors, including an incumbent-free `check-tac.mjs` command with text/JSON output. It

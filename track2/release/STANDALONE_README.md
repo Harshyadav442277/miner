@@ -6,6 +6,8 @@ scorer for Telegraph's `TEXT_AUTHENTICITY_CHECK` intent.
 This is the v1.2 semantic repair. Its predecessor was registered as 1671: Stage 1 passed, but
 Stage 2 rejected it at 9/15 orderings and margin 0.3274022. v1.2 separates independent
 authenticity axes and expands ordinary paraphrase coverage rather than hiding that result.
+The commit-pinned download reproduces both hashes below; Linux CI run `33236230467` rebuilds it
+byte-for-byte from source.
 
 The incumbent can score a one-word wrong verdict almost identically to the truth. This scorer
 compares assertion meaning instead: verdict polarity, equivalent labels, named-model attribution,
@@ -74,10 +76,10 @@ sha256     3bb3bb82e0f6e2db9948e8ce96c8f1796835858d4b0a78332ec0b624501628a9
 keccak256  8cfc5456b08363d281878b59f587ad9c44b7296b211a6a4bab4ec794a3c58a07
 ```
 
-Commit-pinned registration URL (inserted after publication):
+Commit-pinned registration URL:
 
 ```text
-PENDING
+https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/638dae46ba31c1bf3a30e9d0e541b7c56f3fe48b/dist/text_authenticity.wasm
 ```
 
 ## Design
