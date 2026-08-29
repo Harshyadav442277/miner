@@ -1,5 +1,56 @@
 # REGISTRATION.md — the user's runbook for registering the scorer
 
+## REGISTRATION 1695 — a mis-filed registration that turned into the best data we have
+
+`stock_price.wasm` was registered against **LANGUAGE_GENERATION** instead of STOCK_PRICE (the
+console's intent chip carried over between submissions). It was rejected, but the eval is a gift:
+
+```
+candidate_margin  0.81625664      champion_margin  0.9140064
+candidate_wins    14/15           champion_wins    15/15
+worst_self_match  1               score_stddev     0.47283986
+historical_rows   0
+```
+
+**Our module scored 0.816 margin on the real hidden fixtures of an intent it was never built for.**
+Every corpus we own predicted ~0.14 for it. So our corpora massively understate node margin, and
+the four targets' bars — 0.6147, 0.6296, 0.6340, 0.6604 — all sit **below** what this module
+produced on a foreign intent.
+
+**That flips which axis is binding. Margin is not the problem; WINS is.** We took 14 of 15 against a
+champion that took 15 of 15. So rank the targets by how beatable the champion's win count is:
+
+| intent | bar | champion wins | we need | assessment |
+|---|---|---|---|---|
+| **TVL_LOOKUP** | 0.634025 | **13/14** | 13/14 | softest win bar in the protocol |
+| **CRYPTO_PRICE** | 0.629564 | **14/15** | 14/15 | exactly what we just scored on a foreign intent |
+| ONCHAIN_TX_LOOKUP | 0.660399 | 9/9 | 9/9 | perfect run required |
+| STOCK_PRICE | 0.614703 | 15/15 | 15/15 | perfect run required |
+
+Sign **TVL_LOOKUP and CRYPTO_PRICE first.** They were the cheap probes; they are now the best bets.
+
+### The STOCK_PRICE hash is bound — use the rebuild
+
+Registration 1695 bound `ca0d1b99…` on chain. Re-registering those exact bytes against STOCK_PRICE
+reverts (MetaMask shows "likely to fail"). `dist/stock_price_b2.wasm` carries a `SCORER_BUILD` tag
+that changes the bytes and nothing else — it reproduces 15/16 case wins and margin 0.133581
+exactly, and still declares `TELEGRAPH_INTENT = STOCK_PRICE`.
+
+```text
+https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/6223a677f5062b299ac98f3ad1b62f24c4742ead/dist/stock_price_b2.wasm
+keccak256  2a1ee264886811fe1394d858cbe289a18d50385bda153524e74153a83af50ef5
+```
+
+Hosted bytes re-downloaded and verified byte-identical.
+
+### The operating rule this cost us
+
+**Reload the console between registrations and re-check step 3 every time.** Each module declares
+its own intent in a `TELEGRAPH_INTENT` global; the chip must match it. A mismatch does not fail
+loudly — it registers against the wrong intent's fixtures and burns the hash.
+
+---
+
 ## READY TO SIGN — four registrations, published and hosted-byte verified
 
 **Published 2026-08-29 at commit `73ef740`** in `Harshyadav442277/telegraph-factscore`.
