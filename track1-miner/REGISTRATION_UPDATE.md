@@ -3,6 +3,46 @@
 Written 2026-08-29 (~09:30Z). Status: **ready for the operator.** Code is deployed and green;
 only the on-chain step remains, and only the operator can do it.
 
+## UPDATE 2026-08-29 (~13:45 IST): the console is broken — use the manual path below
+
+The console at `integrate.telegraphprotocol.com` cannot register ANY miner today. Verified by
+reproduction in a clean session: its importer **silently strips the per-endpoint `intents:` and
+`params:` keys** (its endpoint editor has no field for either), then its client-side validator —
+updated for the schema published in today's docs — rejects its own stripped output with
+"no endpoint declares any intents". No network request is even made. Every YAML fails,
+including the docs' own examples. **Report this in the hackathon Discord** — every other miner
+registering today hits it too.
+
+The docs' own manual path works and is fully prepared:
+
+- `cast` v1.8.1 is downloaded and checksum-verified in the session scratchpad.
+- All six intents re-verified canonical on-chain (`isCanonicalIntent` → true for each), so the
+  update cannot revert on an intent string.
+- Today's docs state `updateMiner` is **atomic** — a revert leaves registration 260 untouched —
+  and that HTTPS hosting for the YAML is acceptable (IPFS recommended, not required).
+- A node-side rejection after activation is fixed by another `updateMiner` with a corrected
+  URL+hash (per today's docs) — not a from-scratch re-registration.
+
+**Steps:** (1) host the YAML at a stable public HTTPS URL, (2) hash the exact hosted bytes,
+(3) the operator runs, with the scratchpad `cast.exe`:
+
+```
+cast send 0x5a2324aA18613FAD4e44bDF0d6c73Ec1f6D87ff8 \
+  "updateMiner(uint256,string,bytes32,address,uint256,string[])" \
+  260 "<YAML_URL>" "<YAML_HASH>" \
+  0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e 10000 \
+  '["SSL_VERIFICATION","STORM_ALERT","WEATHER_FORECAST","IP_GEOLOCATION","LANGUAGE_TRANSLATION","ACADEMIC_SEARCH"]' \
+  --rpc-url https://sepolia.base.org --interactive
+```
+
+`--interactive` prompts for the private key so it never lands in shell history or any file.
+The remaining risk is node-side YAML validation after activation: our YAML follows today's
+published schema exactly (per-endpoint `intents` + `params`, closed-set fields only), and a
+rejection is recoverable per above, at the cost of downtime until the corrected update. After
+sending: watch `/api/miners/<newId>` for `active`, then set the `REGISTRATION_ID` repo variable.
+
+The section below is the original console flow, kept for when the console is fixed.
+
 ## What this update does
 
 **It makes translation questions reach the miner.** That is all it changes.
