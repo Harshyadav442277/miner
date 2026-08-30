@@ -12,7 +12,7 @@ Miners must stay live and operational through **2026-09-07** — that is a rule,
 | Folder | Track | Owner | State |
 |---|---|---|---|
 | [`track1-miner/`](track1-miner/) | **1 — Miner** | Track 1 agent | **live**, registration 260, 6 intents registered / 9 built |
-| [`track2/`](track2/) | **2 — Scoring module** | Track 2 agent | active build |
+| [`track2/`](track2/) | **2 — Scoring module** | Track 2 agent | active — **[submission](track2/SUBMISSION.md)** |
 | [`track3-certwatch/`](track3-certwatch/) | **3 — Application** | Track 1 agent | deployed, not funded |
 | [`docs/`](docs/) | shared | everyone | protocol facts, rules, social |
 

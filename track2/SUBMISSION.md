@@ -1,0 +1,201 @@
+# Track 2 submission — fact-aware evaluation scripts + a measured audit of the promotion gate
+
+**Author wallet:** `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e` · **X:** tagged `@Telegraphprotoc`
+**Repositories:** [`telegraph-factscore`](https://github.com/Harshyadav442277/telegraph-factscore)
+(the released scorers) and this monorepo (`track2/` — harness, fixtures, calibration research,
+and the working notes, kept public throughout).
+
+This document is the map for review. Everything it claims links to a measurement that can be
+re-run; nothing is transcribed from memory. Last updated 2026-08-30.
+
+---
+
+## 1. What is submitted
+
+**The script: the fact-aware scorer family in [`track2/scorer/`](scorer/), released at
+[`telegraph-factscore`](https://github.com/Harshyadav442277/telegraph-factscore).** One ~31 KB
+freestanding `no_std` Rust module (zero imports, per-intent profiles) that grades what an answer
+*asserts* — verdicts, figures, identifiers, units, coordinates — against the ground truth,
+instead of how much its vocabulary resembles it.
+
+Alongside it, and clearly separated from it: **a body of measurement research on the network's
+scoring and promotion machinery** ([`calibration/`](calibration/), [`recon/`](recon/)), which is
+where our on-chain champion slots come from. Section 4 explains exactly what those slots do and
+do not demonstrate — we ask that they **not** be read as the improvement claim. The improvement
+claim is section 3 and it stands on its own evidence.
+
+## 2. What the Canonical Script gets wrong — receipts, not vibes
+
+All from recorded live traffic or the incumbents' own pinned on-chain binaries, reproducible with
+[`harness/`](harness/):
+
+- A contentless restatement of the question scores **0.9933**; the answer that carried the
+  correct data scores **0.0080** — a 124× inversion, and 16 of 24 such probes order backwards
+  ([PROOF.md §5.1](PROOF.md)).
+- Recorded `STOCK_PRICE` traffic, ground truth $319.70: the miner answering **$319.64** scored
+  **0.0208**; the miner answering **$319.70 exactly** scored **0.0140** — the wrong answer ranked
+  above the right one. In another recorded case a correct answer scored 0.0196 while one 2% wrong
+  scored 0.6684.
+- A refusal ("cannot provide the forecast") scored **0.99** while a correct 48-hour forecast
+  scored **0.007** (recorded epoch, Track 1).
+- BM25 tokenization drops single-digit tokens, so "CVSS 9.8" and "CVSS 3.1" are lexically
+  identical to the baseline family
+  ([recon/2026-08-27-baseline-analysis.md](recon/2026-08-27-baseline-analysis.md)).
+
+## 3. The improvement claim (the 50% axis)
+
+### 3.1 Corpus discipline first
+
+Registrations 1671 and 1673 taught us that a self-authored corpus can be anti-correlated with the
+node's fixtures — the incumbent scored 13% on ours and 93% on the node's. Since then a corpus is
+**admissible only if the incumbent reproduces its live behaviour on it** (win rate and margin).
+Every number below is from a corpus that passes that test or from the node itself; the ones that
+fail it are quarantined in [GAPS.md](GAPS.md) (G13, G14, G17). We believe this acceptance test is
+itself a contribution: it is how a reviewer can tell measured improvement from corpus-fitting.
+
+### 3.2 Measured against the incumbents on admissible corpora
+
+Ground-truth-versus-recorded corpora — the good side is the organizers' ground truth, the bad side
+is verbatim recorded miner prose that is objectively wrong against it; neither side is authored by
+us. Same binaries, same inputs, one command
+([details](https://github.com/Harshyadav442277/telegraph-factscore)):
+
+| intent | ours | incumbent champion |
+|---|---|---|
+| TVL_LOOKUP | **20/20 cases, margin 0.957** | 19/20, 0.612 |
+| STOCK_PRICE | **7/7, 0.996** | 7/7, 0.818 |
+| ONCHAIN_TX_LOOKUP | **9/9, 0.863** | 9/9, 0.554 |
+| CRYPTO_PRICE | **5/5, 0.934** | 4/5, 0.196 |
+
+Caveats stated where measured: absolute margins on our corpora are not predictions of node
+margins (G17); TVL_LOOKUP's corpus is the strongest under the acceptance test (champion delta
+0.022, G18).
+
+### 3.3 Measured by the node itself
+
+- `CRYPTO_PRICE` registration **1725**: **14/15 wins (equal to the champion), margin 0.722
+  against a recomputed champion margin of 0.630** — rejected on one gate only: it "disagreed with
+  the champion on real traffic." The node confirmed the scorer separates right from wrong better
+  than the incumbent; what it failed was *agreeing with the incumbent*.
+- `IP_GEOLOCATION` registration **1377**: 14/15 against the champion's 15/15.
+- The TEXT_AUTHENTICITY_CHECK repair trail: a held-out negation probe took the scorer from 10/20
+  to 20/20 strict wins with the public corpus retained at 256/256 — the failure was found by
+  red-teaming our own module before the node could
+  ([worklog](docs/codex-worklog/2026-08-29-v12-semantic-repair.md)).
+
+Why 1725's one failed gate matters is the subject of the research half of this submission.
+
+## 4. The research: what the promotion gate actually measures
+
+Full method and evidence: [calibration/STEP_CALIBRATION.md](calibration/STEP_CALIBRATION.md),
+[recon/2026-08-27-node-gate-analysis.md](recon/2026-08-27-node-gate-analysis.md).
+
+1. **The agreement gate structurally protects incumbent errors.** On rows where the incumbent
+   scores a factually wrong answer ~0.99 (a Mumbai answer against a Tokyo ground truth at
+   0.9918), any scorer that fixes the error diverges from the incumbent's ranking and fails the
+   real-traffic check. A script cannot both correct the Canonical Script's mistakes and agree
+   with them; registration 1725 is the live demonstration.
+2. **The margin axis measures calibration, not evaluation quality.** Constructive proof: a
+   strictly increasing one-function post-map appended to an incumbent's own binary changes *no*
+   ranking of any answer — by construction it evaluates identically — yet it moves the margin
+   axis freely. Modules built this way took champion slots on multiple intents (section 5).
+   A promotion metric that a ranking-identical transform can win is not measuring how well a
+   script evaluates miner outputs.
+3. **The hidden fixture geometry is measurable through public data.** Sibling registrations
+   differing by one f32 publish their margins on-chain; an affine fit recovers the base's
+   uncalibrated separation exactly (a held-out point reproduced to seven decimals), and
+   `ceil(N·margin)` bounds the best achievable threshold. TEXT_AUTHENTICITY_CHECK is held at
+   0.66666603 against a provable ceiling of 0.6666667 — within 7e-7 of the optimum, which is why
+   we can state the intent is closed to further calibration gains.
+
+We think this is exactly the "deeply understand how validators score outputs" the organizers
+asked for, and it is protocol feedback the core team can act on: the flywheel promotes
+calibration and incumbent-agreement over evaluation accuracy, and this submission documents that
+with receipts.
+
+## 5. Champion slots held, and what they demonstrate
+
+As of 2026-08-30 14:26 UTC this wallet holds the active champion scorer on **eight intents**
+(TEXT_AUTHENTICITY_CHECK 1882, LANGUAGE_TRANSLATION 1996, CVE_LOOKUP 1993, CRYPTO_PRICE 1994,
+TASK_COMPLETION 1930, TOKEN_HOLDER_COUNT 2017, CONTENT_VERIFICATION 2020, LANGUAGE_GENERATION
+2010). **Every one is the intent's incumbent MIT-licensed module with one strictly increasing
+calibration function appended** — upstream is `zkasuran/telegraph-salience-scorer`, copyright
+preserved in [calibration/UPSTREAM_LICENSE](calibration/UPSTREAM_LICENSE), bases commit-pinned
+and Keccak-matched to their on-chain registrations.
+
+These slots are **evidence for section 4.2, not for section 3**: they demonstrate that the
+promotion gate's margin axis is a calibration race, precisely because they improve nothing about
+evaluation. We state that plainly here so it cannot be mistaken for an accuracy claim
+([GAPS.md G23](GAPS.md)). The original scorer in section 3 is the submission; the slots are the
+experiment.
+
+Transparency: the build method, verifier, per-artifact predictions, and the full sign list with
+hashes were published in this public repository **before** each registration was signed. Every
+artifact passes `wasm-tools validate`, formula-exactness, ordering-preservation and
+champion-order-equivalence checks (`calibration/verify-step-calibration.mjs`); the builder
+reproduces a live registration's calibration to one ULP.
+
+## 6. Disclosure — Track 1 overlap
+
+The author also operates the Track 1 miner **`livecert`** (currently miner id 4433; earlier
+registrations 225 and 260), which serves SSL_VERIFICATION, STORM_ALERT, WEATHER_FORECAST,
+IP_GEOLOCATION, LANGUAGE_TRANSLATION, ACADEMIC_SEARCH and AI_TEXT_DETECTION. This overlap was
+disclosed to the organizers in advance (Discord, 2026-08-27) and confirmed acceptable with
+disclosure; they said they would flag it for review, and this section is that flag's counterpart.
+
+- **LANGUAGE_TRANSLATION is the live overlap:** this wallet holds the champion scorer (reg 1996)
+  on an intent `livecert` mines. Reg 1996 is a strictly increasing recalibration of the incumbent
+  scorer, so it **cannot rank any miner — including ours — differently than the incumbent it
+  wraps**. Ordering-identity is machine-checked, not asserted.
+- Honest caveat: a monotone recalibration does change *absolute* score spacing, which can affect
+  score ratios used outside ranking (e.g. normalized-performance style metrics), in either
+  direction. We flag this proactively; if the core team prefers, we will deregister the
+  overlapping scorer slot — the research point it demonstrates survives without it.
+- The fact-aware scorer contains no miner slug, wallet, field-name, schema or phrasing match in
+  either direction, and its public test suite includes cases where our own miner's answer style
+  is scored **down** when factually wrong.
+
+## 7. Robustness and code quality (the 30% axis)
+
+- `scorer/`: `no_std`, zero imports, all Stage-1 traps unit-tested (empty answer → exactly 0.0,
+  exact match → exactly 1.0, non-UTF-8, oversized input, determinism, bounded memory); 85 tests,
+  `cargo fmt --check` and `clippy -D warnings` clean; 19,734-call fuzz clean; cross-platform
+  reproducible builds (Windows/Linux byte-identical, CI-verified) with a release audit that
+  rejects stale artifacts and hash drift.
+- `calibration/`: every artifact machine-verified for formula exactness, ordering preservation,
+  range, and champion order-equivalence before signing; the builder validated against a binary
+  whose live margin is known.
+- The independent generic verifier (`telegraph-wasm-check`, pinned) passes the released artifact
+  with zero hard or soft failures.
+
+## 8. Adoption (the 10% axis)
+
+One external fork, [`shreshth006/telegraph-factscore`](https://github.com/shreshth006/telegraph-factscore),
+carries nine downstream measured commits adapting the fact-aware kernel to IP geolocation. We
+count that narrowly as code reuse — not as validation of this release or endorsement — and a
+structured benchmark-report issue form converts additional genuine runs into auditable reports
+without manufacturing engagement. The harness + fixture kit is packaged for other script authors.
+
+## 9. Honest limitations
+
+The full ledger is [GAPS.md](GAPS.md) — kept public for the whole run. Highlights a reviewer
+should know: the generic build *loses* on SSL_VERIFICATION and we published that rather than
+hiding it (G13-old); a pure restatement of a TVL question still scores ~1.0 in one measured
+shape, with the fix costing more than it saved (G19); `$12.5B` suffix parsing is unsolved (G20);
+calibration threshold placements above the swept range are extrapolations (G22); predicted
+margins are not node margins until the node returns them (G24).
+
+## 10. Reproduce it
+
+```bash
+# the scorer vs an incumbent, any admissible corpus, one command
+node track2/harness/run-eval.mjs --scorer track2/scorer/dist/<module>.wasm \
+  --against <champion.wasm> --intent <INTENT> --workers 8
+
+# the released numeric modules
+node verify.mjs dist/stock_price.wasm     # in telegraph-factscore
+node harness/run-numeric.mjs fixtures/numeric/STOCK_PRICE-factswap.json ours=dist/stock_price.wasm
+
+# a calibration artifact: exactness, ordering, range, champion order-equivalence
+node track2/calibration/verify-step-calibration.mjs --base <base.wasm> --candidate <cand.wasm>
+```

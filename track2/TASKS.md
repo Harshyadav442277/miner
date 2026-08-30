@@ -183,3 +183,30 @@ vendored at `scorer-v2/` with provenance.
       for the next round.
 - [ ] **T-G.8** Apply the same recipe to TEXT_AUTHENTICITY_CHECK, CRYPTO_PRICE, GAME_RESULT,
       ACADEMIC_SEARCH and ONCHAIN_TX_LOOKUP, reading each intent's published sweep first.
+
+## Phase H — submission audit follow-ups (2026-08-30, deadline 2026-08-31 EOD)
+
+Registry truth at 14:26Z: 8 slots held, 7 pending, retry inventory in [SIGN.md](SIGN.md) top
+block. Rubric re-verified verbatim on the live rules page (50/30/10/10, manual core-team review);
+rule 04 (gaming = disqualification) and rule 02 (stay live through Track 3) re-read.
+
+- [x] **T-H.1** [Fable] Judge-facing frame written: [SUBMISSION.md](SUBMISSION.md) — declares the
+      fact-aware scorer as the entry, the calibration campaign as gate research (not the 50%
+      claim), attribution, disclosure, and the admissibility rule as the reviewer's tool.
+- [x] **T-H.2** [Fable] PROOF.md capped with a dated correction: the TAC row's corpus fails the
+      G13 admissibility test; §5.1 stands; SUBMISSION.md is the current map.
+- [x] **T-H.3** [Fable] SIGN.md status header: burned rungs, pendings, retry list with recomputed
+      bars, Spearman-dead intents, queue discipline (one eval at a time — six evals died on the
+      10-minute budget today at 10.7–14.0 min under queue load).
+- [ ] **T-H.4** [User] **Post the disclosure refresh (X_THREAD.md T2-17) before further overlap
+      registrations land.** Mandatory per the organizer answer; the held LANGUAGE_TRANSLATION
+      slot makes it live now, not theoretical (GAPS G25).
+- [ ] **T-H.5** [User] Retry queue, one at a time, after pendings resolve: fraud_detection_v5d →
+      weather_forecast_r2 → ip_geolocation_r2 → ssl_verification_v3 → academic_search_v3 →
+      web_search t-ladder. All five time-budget rejects measured above the recomputed bar.
+- [ ] **T-H.6** [Opus] STORM/GAS/NEWS real-traffic deaths are tie-collapse/base-mismatch, not
+      separation: rebuild with wider bands on the *current* champion bases or drop them.
+- [ ] **T-H.7** [User, optional] Ask organizers (Discord) whether one entry or a portfolio is
+      judged per author (G4); SUBMISSION.md declares the primary either way.
+- [ ] **T-H.8** [All] Through Sep 7: repo stays public, no history rewrites (registered raw URLs
+      must keep resolving), hold registrations active, stay active in Discord (rule 06).

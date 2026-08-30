@@ -29,6 +29,23 @@ of the node's margin formula fitted to published evaluations of the same base. T
 affine fit reproduces a held-out point to seven decimals, which is strong; the threshold
 predictions carry the uncertainty in G22. None of them has been observed on the node.
 
+## G25 — we hold the canonical scorer on an intent our own miner serves (2026-08-30)
+
+Registration 1996 (ours) is the champion scorer for LANGUAGE_TRANSLATION, and livecert (miner id
+4433, ours) mines LANGUAGE_TRANSLATION at rank 2. Promoted champions score live epochs, so our
+scorer now grades our own miner. The organizers allow this with full disclosure; the defense is
+structural — 1996 is a strictly increasing recalibration of the incumbent, machine-checked, so it
+cannot rank livecert differently than the incumbent would.
+
+The honest residual: a monotone map preserves rank but changes *absolute* score spacing, and
+anything computed from score ratios rather than ranks (normalized-performance-style metrics) can
+move in either direction. Whether reg 1996's bands help or hurt livecert's normalized
+LANGUAGE_TRANSLATION score has **not been measured**. Mitigations: disclosed in
+[SUBMISSION.md](SUBMISSION.md) §6 with a standing offer to deregister the overlapping slot if the
+core team prefers; the X disclosure refresh (X_THREAD.md T2-17) covers it. The same exposure will
+apply to any retry that promotes on SSL_VERIFICATION, IP_GEOLOCATION, WEATHER_FORECAST,
+STORM_ALERT or ACADEMIC_SEARCH — all mined by livecert.
+
 What we do not know or have not verified. Status: `OPEN` · `CHECKING` · `CLOSED (answer)`.
 
 ---

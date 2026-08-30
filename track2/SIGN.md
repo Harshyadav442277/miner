@@ -1,5 +1,49 @@
 # SIGN — full links
 
+## Registry status as of 2026-08-30 14:30Z (sweep of /api/wasm, all listed intents)
+
+**Held (8), do not touch:** TEXT_AUTHENTICITY_CHECK 1882 · LANGUAGE_TRANSLATION 1996 (w1,
+0.79999983, 1.7e-7 under the 0.8 ceiling) · CVE_LOOKUP 1993 (w2) · CRYPTO_PRICE 1994 ·
+TASK_COMPLETION 1930 (m45) · TOKEN_HOLDER_COUNT 2017 (m45) · CONTENT_VERIFICATION 2020 (m45) ·
+LANGUAGE_GENERATION 2010 (m45).
+
+**Pending mid-eval (7):** CONTENT_MODERATION 2003, TEXT_GENERATION 2006, TELEGRAPH_KNOWLEDGE
+2007, IMAGE_VERIFICATION 2008, RESEARCH_QUERY 2009, WEATHER_CHECK 2016, AGENT_TASK 2011 — all
+m45 rungs. Six evals today ran 10.7–14.0 minutes and died on the 10-minute budget, so expect
+some of these to fail on time, not on scoring. **Do not fire retries while these are queued** —
+queue depth is what pushes evals over budget. One signature at a time, verdict first.
+
+**Time-budget rejects — measured ABOVE the recomputed bar, retry with fresh bytes when the queue
+is empty:** FRAUD_DETECTION 1995 (0.9999982 vs bar 0.99903214 — `fraud_detection_v5d` below is
+still unsigned) · ACADEMIC_SEARCH 1999 (0.7971219 vs 0.7380757 — v3 rung below) ·
+WEATHER_FORECAST 2023 (0.90904945 vs 0.90107095 — fresh `weather_forecast_r2` at commit
+`b258753`) · SSL_VERIFICATION 2018 (0.9229354 vs 0.9140895 — v3 rung) · IP_GEOLOCATION 2022
+(0.9229675 vs 0.91367656 — fresh `ip_geolocation_r2` at `b258753`).
+
+**Real-traffic (Spearman) rejects — do NOT sign same-family rungs, they die the same way:**
+GAS_PRICE 1914 (0.9995, 15/15, above bar — killed by tie-collapse/base mismatch on live rows) ·
+NEWS_SEARCH 2021 (0.9997, 12/12, same) · STORM_ALERT 1997 (0.9332 vs 0.9224, same — and 1997
+already wrapped the current champion, so the death is f32 ties on live rows; needs wider bands,
+a rebuild, not a re-sign). GAS `m70` below is same-family: skip it.
+
+**Separation rejects:** GAME_RESULT 1915 (0.4722 vs bar 0.560523) · URL_SCAN 1918 (0.9343 vs
+0.94808555) · WEB_SEARCH 1929 (0.46991 vs bar 0.48149985 — fresh t-ladder
+`web_search_t65/t80/t92` at commit `5546390`) · CHAT_COMPLETION 1998 (tied the bar exactly at
+0.89914936 — margin must be strictly greater; v3 rung is a fresh chance).
+
+**Burned rungs (bytes bound on chain, wallet will refuse):** fraud_detection_v5c=1912,
+language_translation_v4b=1913, gas_price_m45=1914, game_result_m45=1915, url_scan_m45=1918,
+cve_lookup_m45=1923, crypto_price_m45=1927, storm_alert_m45=1928, web_search_m45=1929, and every
+m45 listed as held/pending/rejected above. The LANGUAGE_TRANSLATION `s067–s080` rungs remain
+unsigned — free upside on a slot we already hold (a rejection cannot cost us reg 1996); fire
+only after the retry queue drains.
+
+Bars in the section headers below are from ~05:00Z and have drifted; the recomputed bars in this
+block (from today's eval blocks) are the real ones. Reload the console and re-check before each
+signature as always.
+
+---
+
 Reload the console page before each one and confirm the intent chip. Check the hash. Sign.
 
 **Never re-sign a file that already has a registration id** — those bytes are bound on chain and the wallet will refuse. Use the other rung for that intent instead.

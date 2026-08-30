@@ -210,6 +210,15 @@ Disclosure for @Telegraphprotoc review: I also operate Track 1 miner livecert (r
 The Track 2 scorer contains no miner slug, wallet or response fingerprint. It applies the same public semantic checks to every answer. The overlap is stated in the repo.
 ```
 
+**T2-17** [278] · disclosure refresh — POST THIS ONE (2026-08-30: supersedes T2-15's
+registration number — livecert re-registered as miner 4433 — and covers the held scorer slots,
+which T2-15 predates; the LANGUAGE_TRANSLATION overlap is live and must be disclosed before
+judging, not after)
+
+```
+Disclosure update for @Telegraphprotoc: my Track 2 modules now hold scorer slots incl. LANGUAGE_TRANSLATION, an intent my Track 1 miner livecert serves. Each is a strictly increasing recalibration of the incumbent scorer - it cannot re-rank any miner. Method public in the repo.
+```
+
 **T2-16** [264] · genuine adoption receipt
 
 ```

@@ -6,7 +6,58 @@
 
 ---
 
-## CURRENT — 2026-08-30 05:00Z · TWO SLOTS HELD · FIFTEEN CANDIDATES PUBLISHED
+## CURRENT — 2026-08-30 ~15:00Z · EIGHT SLOTS HELD · SUBMISSION FRAME WRITTEN · DISCLOSURE IS THE OPEN COMPLIANCE ITEM
+
+Full-registry sweep at 14:26Z (scripts in scratchpad; results in [SIGN.md](SIGN.md) top block):
+
+- **Held (8):** TEXT_AUTHENTICITY_CHECK 1882 · LANGUAGE_TRANSLATION 1996 (`language_translation_w1`,
+  0.79999983 — 1.7e-7 under the 0.8 ceiling) · CVE_LOOKUP 1993 (`cve_lookup_w2`, 0.99992263) ·
+  CRYPTO_PRICE 1994 (0.79999846) · TASK_COMPLETION 1930 · TOKEN_HOLDER_COUNT 2017 ·
+  CONTENT_VERIFICATION 2020 · LANGUAGE_GENERATION 2010. The last four are m45 rungs with real
+  headroom left (TASK 0.0018, LANG_GEN 0.0014) — retakeable by zkasuran; the first four are at or
+  near ceilings.
+- **Pending (7):** m45 rungs on CONTENT_MODERATION 2003, TEXT_GENERATION 2006, TELEGRAPH_KNOWLEDGE
+  2007, IMAGE_VERIFICATION 2008, RESEARCH_QUERY 2009, WEATHER_CHECK 2016, AGENT_TASK 2011.
+- **Retryable (time-budget deaths, all measured ABOVE the recomputed bar):** FRAUD 1995
+  (0.9999982 vs 0.99903214), ACADEMIC 1999, WEATHER_FORECAST 2023, SSL 2018, IP_GEO 2022. Six
+  evals ran 10.7–14.0 min today — the budget deaths track queue depth, so retries go one at a
+  time after the pendings drain. Fresh bytes exist: `fraud_detection_v5d` (unsigned),
+  `weather_forecast_r2`/`ip_geolocation_r2` (commit `b258753`), `web_search_t65/t80/t92`
+  (`5546390`), v3 rungs for the rest.
+- **Real-traffic (Spearman) deaths — not signable with same-family bytes:** GAS 1914, NEWS 2021,
+  STORM 1997. 1997 wrapped the *current* champion and still died ⇒ f32 tie-collapse on live rows;
+  needs wider bands (rebuild, T-H.6).
+- **No front-running observed:** no foreign wallet has registered any hash from our public sign
+  list. zkasuran reacts by rebuilding their own bytes, not copying ours.
+
+**Audit against the live rules page (re-verified verbatim today, browser):** Track 2 rubric
+unchanged — 50 improvement / 30 robustness / 10 X / 10 adoption, "Top 3 **scripts**", "focused
+manual review by the core team"; timeline "Aug 17 – Aug 31, 15 days" (Aug 31 inclusive; no hour
+published — treat 23:59 UTC as the wall, aim half a day earlier); rule 02 = stay live through
+Sep 7; rule 04 = gaming disqualifies; rule 06 = active Discord expected.
+
+**What was fixed for the manual review** (the 50% axis is judged by humans reading the repo):
+
+1. **[SUBMISSION.md](SUBMISSION.md)** — the missing judge-facing frame. Declares the fact-aware
+   scorer the entry; the calibration campaign is presented as gate research (margin axis rewards
+   ranking-identical post-maps ⇒ it does not measure evaluation quality) with attribution, and
+   explicitly not as the improvement claim (G23 discipline). Also the disclosure section.
+2. **PROOF.md** capped with a dated correction — its TAC "would promote" row sat on the
+   anti-correlated corpus (G13) and was publicly wrong; §5.1 stands.
+3. **SIGN.md** top block = registry truth (burned rungs, bars recomputed from today's evals).
+4. **GAPS G25** — the live conflict: we hold the LT canonical scorer while livecert (re-registered
+   today as miner id **4433**, rank 1 in five intents, rank 2 in LT) mines LT. Ordering-identity
+   is the defense; the absolute-score/normalized-metric residual is stated, deregistration
+   offered.
+5. **X_THREAD.md T2-17** [278] — the disclosure refresh. **T-E.5/T-H.4: the user must post it
+   before more overlap registrations land.** T2-15's miner registration number (225) is stale.
+
+**Open user actions, in order:** post T2-17 → let pendings resolve → retry ladder one-at-a-time
+(T-H.5) → optional G4 question to organizers → keep everything live and public through Sep 7.
+
+---
+
+## Prior CURRENT — 2026-08-30 05:00Z · TWO SLOTS HELD · FIFTEEN CANDIDATES PUBLISHED
 
 ### Held
 
