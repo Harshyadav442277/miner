@@ -174,6 +174,30 @@ endpoints:
             intents: ["*"]
             description: "The user's original question, verbatim. Carries wording the structured fields cannot, such as an explicit start date like 'starting September 1st' — without it the forecast starts today."
 
+  - path: /ai-detect
+    external_path: /ai-detect
+    method: GET
+    intents: [AI_TEXT_DETECTION]
+    description: >-
+      Statistical authorship analysis of a supplied passage. Measures sentence-length
+      burstiness, type-token ratio, repeated word pairs and formulaic connectives, and
+      reports what they indicate with a calibrated confidence that is capped at 0.6.
+      Authorship detection is not reliable enough to treat as proof and the answer says
+      so; when no passage long enough to analyse is supplied it says that instead of
+      guessing.
+    params:
+      query:
+        required:
+          - name: text
+            type: string
+            intents: ["*"]
+            description: "The passage to analyse for authorship. At least about 40 words of continuous prose; below that no statistic is meaningful."
+        optional:
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim, e.g. Is the following text written by an AI or a human?"
+
 semantics:
   signal_mapping:
     label_field: verdict
@@ -186,6 +210,7 @@ semantics:
     - IP_GEOLOCATION
     - LANGUAGE_TRANSLATION
     - ACADEMIC_SEARCH
+    - AI_TEXT_DETECTION
 
 # input_schema is a single top-level block covering every endpoint — the schema
 # refuses it inside endpoints[], and the node does not enforce it against requests.
@@ -266,7 +291,8 @@ input_schema:
     text:
       type: string
       description: >-
-        /translate. The text to translate, with or without quotes. Registration
+        /translate and /ai-detect. The text to translate, or the passage whose
+        authorship is to be analysed, with or without quotes. Registration
         260 declared no translation-shaped parameter and both scored epochs
         arrived with none filled — the engine fills only parameters a miner
         declares, so this field is what makes translation questions reach us.

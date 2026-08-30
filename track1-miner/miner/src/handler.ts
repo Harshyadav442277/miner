@@ -5,6 +5,7 @@ import { translate, type TranslationResult } from "./translate";
 import { findPapers, type PaperResult } from "./papers";
 import { getForecast, type ForecastResult } from "./forecast";
 import { geolocate, type GeoResult } from "./geo";
+import { detectAiText, type AiDetectResult } from "./aidetect";
 import { withRestatement, isAnswered } from "./restate";
 
 const CACHE_TTL_MS = Number(process.env.CACHE_TTL_MS ?? 60_000);
@@ -12,13 +13,16 @@ const MAX_CACHE = 500;
 export const ENDPOINTS = [
   "/ssl-check", "/storm-alert", "/weather-forecast",
   "/ip-geolocate", "/translate", "/papers",
+  "/ai-detect",
 ] as const;
 
 /**
  * A one-minute cache matches miner.yaml, absorbs repeated spot checks, and
  * reduces dependence on free upstreams. Callers can lower it with CACHE_TTL_MS.
  */
-type Answer = SslResult | StormResult | ForecastResult | GeoResult | TranslationResult | PaperResult;
+type Answer =
+  | SslResult | StormResult | ForecastResult | GeoResult | TranslationResult | PaperResult
+  | AiDetectResult;
 const cache = new Map<string, { at: number; value: Answer }>();
 
 function fromCache(key: string): Answer | null {
@@ -324,6 +328,16 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
         sendAnswer(res, q, result);
       })
       .catch(() => upstreamUnavailable(res, "A storm risk forecast", q.slice(0, 80), q));
+    return;
+  }
+
+  // AI_TEXT_DETECTION and TEXT_AUTHENTICITY_CHECK share this endpoint: both ask
+  // whether a supplied passage was machine generated, and the honest answer is
+  // the same measurement either way.
+  if (path === "/ai-detect") {
+    const asked = firstValue(url, "query", "q", "question");
+    const subject = firstValue(url, "text", "content", "passage", "input") || asked;
+    sendAnswer(res, asked, detectAiText(subject));
     return;
   }
 
