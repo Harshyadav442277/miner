@@ -86,6 +86,37 @@ now with both champion scorers run locally, which is the part that matters.
   rounding 1.674e-10 to zero. Only SENTIMENT_ANALYSIS, NEWS_HEADLINES and CONTENT_EXTRACTION have a
   genuine 0.0.
 
+## 0b. REGISTRATION 334 — SEVEN INTENTS, SIGNED 2026-08-30
+
+`updateMiner(297, …)` sent and mined: tx
+`0x978e0951dce00e440107e700f25eccdee522c1eaa85a7c5a9719da266d8605e9`, status 1. The receipt logs
+carry a supersession event pairing **297 → 334**, so 297 is explicitly replaced rather than left
+running alongside. `REGISTRATION_ID` repo variable set to **334** the same hour.
+
+```
+registration  334
+yaml (IPFS)   https://gateway.pinata.cloud/ipfs/QmbKp37VmaLBQriGcX45HSQEBByXJLUPoV7C6rFSbUp2Ug
+yaml_hash     0x1ab5296f2af016db002f5281e72b938460cd7d2549b74b9ed5af18889452139c
+intents (7)   SSL_VERIFICATION STORM_ALERT WEATHER_FORECAST IP_GEOLOCATION
+              LANGUAGE_TRANSLATION ACADEMIC_SEARCH AI_TEXT_DETECTION
+```
+
+**The console works again.** The importer bug of 2026-08-29 (silently stripping per-endpoint
+`intents:` and `params:`) is fixed — the pinned bytes were fetched and verified before signing:
+7 endpoints, 7 per-endpoint `intents:`, 7 `params:` blocks, no `limitations` block, and `id`,
+`slug`, `base_url`, `auth`, rate limit, cache TTL and both circuit settings identical to 297. The
+console re-serialises formatting, which is why its hash differs from the local file — that is
+cosmetic, not content loss. **Always fetch and check the pinned bytes; never hash the local file.**
+
+Both `updateMiner(297,…)` and `registerMiner(…)` were simulated read-only with `cast call` first
+and both returned `0x14e` (334) without reverting — the slug lives inside the YAML, not in the
+contract arguments, so a duplicate slug does not revert. `updateMiner` was chosen because it names
+the registration being replaced.
+
+**Watch item:** the node had not indexed 334 several minutes after the tx. 297 stayed `active` and
+serving throughout, so there was no outage. Confirm `activation_status: active` and
+`rejection_reason: null` on 334 before trusting the seventh intent.
+
 ## 1. What needs the operator, right now
 
 **The six-intent update is SIGNED AND LIVE — registration 260, `active`, 2026-08-28 ~05:00 UTC.**
@@ -158,7 +189,7 @@ the operator clicks.
 ## 2. Live state
 
 ```
-registration   297     active      wallet 0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e
+registration   334     (297 superseded 2026-08-30)   wallet 0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e
 slug           livecert            id 4433
 base_url       https://miner-wine.vercel.app
 explorer       https://explorer.telegraphprotocol.com/miners/livecert
