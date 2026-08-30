@@ -553,3 +553,41 @@ back-to-back made `verify-deploy` fail once on a transient upstream, then pass t
 unchanged. The upstreams flap under concurrent load. That is precisely the case the 11s watchdog
 (G31) and the honest-200 rule exist to absorb — but it means a single red run is not evidence of a
 defect, and a gate should be re-run before it is believed.
+
+### G35 · `/ip-geolocate` loses the restatement when the engine fills `ip` — `OPEN, deliberately not changed before the close`
+
+It is the only route that reuses its subject parameter as the question it restates:
+
+```
+const q = firstValue(url, "ip", "address", "query", "q", "question", "text", "input");
+```
+
+so when the engine fills the **required** `ip` parameter, `q` is the bare string `"8.8.8.8"` and
+`sendAnswer` restates against that rather than against the question. Measured on production, the
+same question answered two ways:
+
+```
+query only        "Regarding where is 8.8.8.8 located and does it have any abuse history: The IP
+                   address 8.8.8.8 is associated with Google Public DNS (AS15169)..."
+query + ip        "The IP address 8.8.8.8 is associated with Google Public DNS (AS15169)..."
+```
+
+`/ssl-check` and `/ai-detect` both separate these two deliberately, with comments saying why, so
+geo is the odd one out in its own codebase.
+
+**Not changed, and the reasons are the point.** The restatement is this project's largest measured
+scoring effect (18.8x on SSL, epoch 292's autopsy) — but IP_GEOLOCATION is rank 1 by **+0.1%**, the
+thinnest margin on the board, and it already scores **0.9956**, well above the cliff, with whatever
+shape the engine elicits today. If the engine sends `ip`, then geo is crossing the cliff *without*
+a restatement, and adding one is a wording change of unknown sign — and the tail-trim sweep already
+established that geo wording changes can *lose* crossings. G24 removed the ability to measure it
+offline. Changing a held rank-1 on an unverifiable theory hours before scoring is the trade the
+seven-intent audit explicitly warns against.
+
+**The experiment to run after the close, not before it:** turn on `LOG_QUERY=on` for one epoch and
+read which parameters the engine actually fills on this route. That single fact decides it — if the
+engine sends `query`, this is already a no-op and the divergence is theoretical; if it sends `ip`,
+the fix is to separate subject from question exactly as `/ssl-check` does, and it should then be
+benched before shipping.
+
+Guarded by `tools/no-regression.mjs`, which expects **7 identical, 1 differing** until then.
