@@ -145,7 +145,16 @@ export async function geolocate(rawIp: string, timeoutMs = DEFAULT_TIMEOUT_MS): 
     reason:
       `The IP address ${ip} is located in ${place}.` +
       (org ? ` It is operated by ${org}${asn ? ` (${asn})` : ""}.` : "") +
-      (tz ? ` The local timezone is ${tz}.` : ""),
+      (tz ? ` The local timezone is ${tz}.` : "") +
+      // True of every IP, not just anycast addresses, and it is the caveat a
+      // user of this answer actually needs. Measured +0.035% against the live
+      // champion (reg 630) over three cases — marginal, and shipped mainly
+      // because the answer is more honest with it than without. An earlier
+      // variant naming anycast explicitly scored better and was rejected: it is
+      // only true of public resolvers, so asserting it generally would be wrong.
+      ` This location is derived from the network's autonomous system` +
+      ` registration, so it identifies the operator's serving infrastructure` +
+      ` rather than a precise physical address, and it can vary by region.`,
     checked_at: new Date().toISOString(),
   };
 }
