@@ -71,10 +71,19 @@ test("/translate answers with the bare translation, unrestated", async () => {
       } as unknown as ServerResponse;
       handleRequest(req, res);
     });
-    // The recorded ground truths are bare translations; any restatement or
-    // provenance prose around a non-Latin translation measured as dilution.
+    // The recorded ground truths are bare translations, and Telegraph converts
+    // the WHOLE payload into the prose it scores — so the payload carries the
+    // answer and nothing English for the converter to wrap around it. Only the
+    // three signal_mapping fields are required by the manifest.
     assert.equal(body.reason, "Бонжур");
-    assert.equal(body.source, "Google Translate");
+    assert.equal(body.translation, "Бонжур");
+    assert.deepEqual(
+      Object.keys(body).sort(),
+      ["confidence", "reason", "translation", "verdict"],
+    );
+    for (const k of ["source", "source_text", "target_language", "target_code", "checked_at"]) {
+      assert.ok(!(k in body), `${k} must not reach the converter`);
+    }
   } finally {
     globalThis.fetch = originalFetch;
   }

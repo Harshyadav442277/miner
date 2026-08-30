@@ -3,6 +3,88 @@
 **Read this first. Everything Track 1 needs is in this folder.**
 Shared protocol facts are in `../docs/`. Do not edit `../track2/` or `../track3-certwatch/`.
 
+Last updated: 2026-08-31 (early hours) — epoch 295 was a bad epoch on a DEGRADED NETWORK; the
+translation payload was cut to the answer alone and deployed. Read § 000 first.
+
+---
+
+## 000. EPOCH 295 AND THE NETWORK OUTAGE (2026-08-30 ~21:00Z)
+
+**Three #1s, weather zeroed, and Telegraph's backend then went down entirely.** Sequence:
+
+```
+WEATHER_FORECAST   #10  0.0   failure_reason: "wasm/runtime pool: context cancelled:
+                                context deadline exceeded"  -- a SCORER-SIDE timeout.
+                                weatherapi took the same failure in the same epoch.
+LANGUAGE_TRANSLATION #4  1.83e-10   whole field in a ~1e-10 band; we were LAST and
+                                     had the SHORTEST answer.
+```
+
+**The network is down as of ~21:00Z.** `devnode.telegraphprotocol.com` times out on every path
+(3/3 probes, 20-25s); `explorer.telegraphprotocol.com/api/daemon/*` also times out while the
+explorer's own routes answer in 0.3s. So the backend, not just one host, is unavailable. Epoch 295
+was scored by a node already failing — the weather zero is the same class of symptom. **Do not
+rewrite a winning answer on the evidence of epoch 295.** Epoch 296 lands 2026-08-31T03:53:43Z.
+
+Our own miner was verified healthy throughout: all 7 routes 200, median 564ms, verify-deploy
+**ALL CHECKS PASSED**, and all 7 declared intents confirmed canonical by reading
+`getCanonicalIntents()` **directly from the diamond over Base Sepolia RPC** — which works when
+devnode does not. Use that path (`scratchpad/ci.mjs`, viem via track3's node_modules) whenever the
+node is down; it is the only independent check of registration validity we have.
+
+### The scorer-timeout question, measured and settled
+
+Timing the weather champion (reg 636) locally, with unique inputs to defeat its input memoization:
+
+```
+compile 24MB module   5 ms        instantiate  4 ms
+rank_answer:  16w 287ms | 32w 513 | 48w 765 | 64w 1025 | 96w 1550 | 128w 1776 | 192w 1780 | 256w 1790
+```
+
+**Scoring costs ~16 ms per answer word and saturates at ~1.8 s past ~128 words**, with a slow band
+around 4.4 s. So a scorer timeout is real and input-length-sensitive — but our payloads are
+225-1835 bytes and our answers 52-131 words, nowhere near weatherapi's 52,943-byte answers. **We
+did not cause the timeout and cannot prevent it by trimming.** Recorded so nobody re-opens it.
+
+### LANGUAGE_TRANSLATION — the converter was the whole problem, and it is now starved
+
+The bare-translation change (epoch 295) crossed 9/10 offline and still came LAST live. Reason:
+**Telegraph converts the WHOLE miner JSON into the ~32 words it scores**, so our metadata fields
+(source_text, target_language, target_code, source, checked_at) became English prose wrapped
+around the translation. Measured against the live champion (reg 1996) over the ten recorded
+questions, crossings fall monotonically as that wrapper grows:
+
+```
+bare translation                              10/10
+"The translation is X."                        8/10
+"The <lang> translation of "<src>" is X."      8/10
++ provider and confidence clauses              5/10
+full converter-style paragraph                 0/10   <-- reproduces the live 1.83e-10 exactly
+```
+
+**Fix deployed 2026-08-30 ~21:30Z:** `/translate` now returns ONLY
+`{verdict, confidence, reason, translation}`, where `reason` and `translation` are the bare
+translated string and nothing else. `output_schema` has **no required list** and
+`semantics.signal_mapping` names only `confidence`/`verdict`/`reason`, so this is
+manifest-conformant with no `updateMiner`. Live payload is now 118 bytes:
+`{"verdict":"translated","confidence":1,"reason":"コーヒーを一杯お願いします。","translation":"..."}`
+— byte-identical to the recorded ground truth for that question. 173/173 tests.
+
+**The general principle this establishes, and it applies to every intent:** the scored text is the
+converter's summary of the WHOLE payload, so *every field is scored surface*. Match the payload's
+shape to the ground truth's shape — bare-string GTs want a bare-string payload; essay GTs want
+prose. This is why the same "shorter is better" advice is right here and wrong for SSL.
+
+**Deliberately NOT changed:** the five intents we were winning. The same field-starving logic
+plausibly applies to them (our storm `reason` is 131 words against a ~32-word budget), but it is
+untestable offline — we cannot run the converter — and gambling three days of held ranks on an
+unverifiable theory the night before the close is the wrong trade. Try it on one intent after the
+close, not on all five before it.
+
+---
+
+## 00. EPOCH 294 (superseded by the above, kept for the fix record)
+
 Last updated: 2026-08-30 (evening) — epoch 294 gave five #1s of seven; the two losers were
 diagnosed, fixed, measured and DEPLOYED the same day. Read § 00 first.
 
