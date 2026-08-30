@@ -109,3 +109,56 @@ They name "surface-level integrations" as what will *not* stand out. The stated 
 are on-chain intelligence pipelines, autonomous agents, multi-intent combinations, confidence
 threshold experiments, signal-quality work, and real-time streaming. Worth reading as guidance for
 the Track 3 application, where creativity is scored.
+
+---
+
+# Track 2 — Script Authors, verbatim from the live rules
+
+Read from https://hackathon.telegraphprotocol.com/rules on **2026-08-30** by clicking the
+"Track 2: Script Authors" tab in the Judging Criteria section. A plain text dump of the page shows
+only the Track 1 tab, which is why this was missed earlier.
+
+| Weight | Criterion | Published wording |
+|---:|---|---|
+| **50%** | Improvement over Baseline | "How accurately and effectively the script evaluates Miner outputs vs the current Canonical Script." |
+| **30%** | Robustness & Code Quality | "Clean code structure, proper handling of edge cases, and adherence to WASM/sandbox constraints." |
+| **10%** | Engagement & Updates on X | "Quality, consistency, reach, and engagement of updates posted on X. Tag @Telegraphprotoc in all update posts." |
+| **10%** | Community Engagement & Adoption | "Mentions, feedback, and actual adoption of your script by others." |
+
+> "The Top 3 **scripts** with the highest overall scores win the global cash prizes
+> ($500 / $300 / $200). Winners are determined through a **focused manual review by the core
+> team**."
+
+Track 2 runs **Aug 17 – Aug 31**, and rule 02 requires script authors to stay live and operational
+through Track 3, i.e. to **Sep 7**.
+
+## What this does and does not say about breadth
+
+**The unit of judging is a script, not a portfolio.** The wording is singular throughout — "the
+script", "your script", "the Top 3 scripts". Nothing awards points for the number of intents held,
+and nothing deducts points for holding many. Champion slots are automated evidence a human reviewer
+may weigh under the 50% axis; they are not themselves a scored quantity.
+
+**The 50% axis asks about evaluation accuracy, which a monotone recalibration does not change.**
+A strictly increasing post-map preserves the incumbent's ordering exactly — that is the property
+that makes it safe to register. So on "how accurately the script evaluates Miner outputs", a
+recalibrated fork ranks good against bad answers *identically* to the script it replaced. It wins
+the on-chain slot because the protocol's promotion rule also rewards separation, but a reviewer
+asking the rubric's question would find no accuracy improvement to point at.
+
+**The 30% axis rewards the code, and a fork is thin there.** A 24 MB binary from another author
+with one appended function is not "clean code structure" in the sense the rubric means. The
+original work in `track2/scorer/` is.
+
+**Rule 04 is a judgement call held by a human.** "Artificial inflation of metrics or gaming the
+system will result in disqualification." Registering MIT-licensed derivatives is permitted by the
+protocol, done openly, and attributed in `calibration/`. It is not obviously a violation. But a
+portfolio whose method is "take the incumbent's binary, change one constant, take the slot" is
+closer to optimising the metric than to improving evaluation quality, and that is the distinction
+rule 04 draws. Record it as a risk, do not pretend it is zero, and do not let the calibration work
+be presented as the answer to the 50% axis.
+
+**Consequence for how the remaining time is spent:** slots are worth having and cheap to keep, but
+they are evidence, not score. The 80% of the rubric that is actually scored — accuracy improvement
+and code quality — is answered by `track2/scorer/`, and the last 20% by X updates and by the
+adoption already visible in the external fork.
