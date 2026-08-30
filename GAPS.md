@@ -371,6 +371,26 @@ request (per-provider budget is 4s; worst case three providers = 12s against Ver
 Remember the benches for this intent cannot exercise ip-api from this machine — measure against
 production, not localhost, whenever the provider matters.
 
+### G28 · Three new intents are declared in the manifest but not yet signed on-chain — `OPEN, operator action`
+2026-08-31. `/extract`, `/headlines` and `/wallet-balance` are **live in production and verified**,
+and `miner.yaml` declares CONTENT_EXTRACTION, NEWS_HEADLINES and WALLET_BALANCE_CHECK — but
+registration **334 still carries only seven intents** until an `updateMiner` is signed. Until then
+the three routes serve nothing: no traffic is routed to an intent a registration does not declare.
+The gap is deliberate (Claude never signs) and the runbook is
+`track1-miner/docs/ADD_THREE_INTENTS.md`. **Risk if it is never signed:** none to the seven live
+intents; the work simply sits idle. **Risk if signed badly:** a rejected activation takes all ten
+offline, which is why the code went live first and why a manifest test now fails the build when
+endpoint intents and `supported_intents` disagree.
+
+### G29 · Two intents we serve are scored by champions authored from our own wallet — `OPEN, disclosure`
+2026-08-31. The LANGUAGE_TRANSLATION champion (reg 1996) and the CVE_LOOKUP champion (reg 1993) are
+authored by `0xdad201ef02…`, which is **the same wallet that operates this miner**. That is a
+legitimate consequence of competing in Track 2 as well as Track 1, and Track 2's own rules forbid
+miner-favouring scorers — but it should be disclosed rather than discovered. The strongest evidence
+that these scorers are not tuned for us: **our own translation miner ranked LAST (4 of 4) under our
+own translation champion in epoch 295**, and we declined to enter CVE_LOOKUP after measuring only
+0.4998 under our own CVE champion. Worth stating plainly in any submission write-up.
+
 ### G19 · The miner wallet's seed phrase is compromised — `OPEN, accepted risk`
 2026-08-28. The operator was social-engineered in a hackathon Discord DM by an account named
 `ADMINS {NEVER DM FIRST}` — the name copies the label real servers use to warn that admins never

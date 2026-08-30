@@ -3,6 +3,106 @@
 **Read this first. Everything Track 1 needs is in this folder.**
 Shared protocol facts are in `../docs/`. Do not edit `../track2/` or `../track3-certwatch/`.
 
+Last updated: 2026-08-31 — epoch 295 read in full, translation payload starved, and TWO new
+intents measured and made ready to sign. Read § 0000 first.
+
+---
+
+## 0000. EPOCH 295 IN FULL, AND THE EXPANSION DECISION (2026-08-31)
+
+```
+STORM_ALERT          #1   0.0114102    +14.4% over skywire-storm-alert
+IP_GEOLOCATION       #1   0.995564     +0.1% over preflight -- WE CROSSED THE CLIFF
+AI_TEXT_DETECTION    #1   2.17544e-10  +20.6% over veritarach
+SSL_VERIFICATION     #2   0.00976908   -6.8% vs preflight
+ACADEMIC_SEARCH      #4/5 0.0110293    -26.0% vs scholarwire (was #1 in 294)
+LANGUAGE_TRANSLATION #4/4 1.82907e-10  -61.2% vs mymemory
+WEATHER_FORECAST     #10  0            "wasm/runtime pool: context deadline exceeded" -- NOT OURS
+```
+
+**IP_GEOLOCATION crossed the cliff at 0.9956** — the abuse clause, the live Tor exit-node check and
+the ip-api provider switch did exactly what they were meant to. That is the template: a fact-rich
+payload against a factual ground truth.
+
+**Weather's zero was Telegraph-side** and the node then went down entirely for hours (devnode timing
+out on every path; the explorer's `/api/daemon/*` proxies too). Registration 334 stayed `active`
+with no rejection throughout — no routing revocation. Verified weather is healthy: production
+scores clip32 **0.583689**, matching the autopsy's recorded 0.5836894 exactly, 0 failures over 12
+questions. **Do not rewrite weather on the evidence of epoch 295.**
+
+### The three intents being added (measured, ready for ONE signature)
+
+Runbook: **[docs/ADD_THREE_INTENTS.md](docs/ADD_THREE_INTENTS.md)**. Code is DEPLOYED already, so
+activation cannot find a missing route.
+
+```
+CONTENT_EXTRACTION   /extract         2 miners  bar 0.0         ours 1.000000 on 6/6, raw AND clipped
+NEWS_HEADLINES       /headlines       2 miners  bar 0.00262926  ours 0.006447 mean, all 22 above bar
+WALLET_BALANCE_CHECK /wallet-balance  8 miners  bar 0.000109    ours 0.230285 mean, 3/13 cross at 0.99
+```
+
+**THE DECISION RULE, and it changed the answer twice.** Judging normalises as *our score ÷ the best
+score in that intent*, averaged across intents. Our epoch-295 ratios average about **0.72**. So an
+intent is worth entering when our expected ratio there **beats 0.72** — winning outright is
+sufficient but not necessary. `WALLET_BALANCE_CHECK` has EIGHT miners and we will not always be
+first, but the field sat at ~1e-4 in epoch 295 with an all-time best of 0.00747 against our
+measured 0.23, so it lifts the average even from mid-pack. Conversely an uncontested rank 1 at a
+score of 0.0 does NOT help, which is why TEXT_AUTHENTICITY_CHECK was dropped after being prepared.
+
+**Wallet gotcha that cost real time:** the obvious public Ethereum RPCs are dead —
+`eth.llamarpc.com` returns HTTP 521, `rpc.ankr.com/eth` now demands authentication, and
+`cloudflare-eth.com` returns an internal error. All three were in the first draft. Working and
+verified 2026-08-31: `ethereum-rpc.publicnode.com`, `eth.drpc.org`, `rpc.flashbots.net`,
+`eth.merkle.io`. Re-test before adding any endpoint to that list.
+
+`CONTENT_EXTRACTION` is the best opportunity this project has found. The questions carry their text
+inline, our answer reproduces the reference nearly verbatim, and because it is short and
+reference-shaped it survives the ~32-word conversion clip at 1.0. Both incumbents score 0.0.
+
+### Measured and REJECTED — the reasons are the value, do not re-open
+
+- **TEXT_AUTHENTICITY_CHECK** (0 miners, uncontested): its champion reg 1882 IS reachable — a GT
+  paraphrase scores 1.0 — but the ground truths assert facts **absent from the supplied text**
+  ("a reviewer history of 40 five-star reviews posted in one day"). Our honest verdict-plus-evidence
+  answer measures **0.000001**. Crossing requires fabricating reviewer history. An uncontested rank
+  1 at 0.0 is not a win and may drag the cross-intent average.
+- **CONTENT_VERIFICATION** (1 miner, never scored above 0 in 36 rows, currently failing at
+  request-build): its questions are general-knowledge items about famous verification cases, and
+  its scorer is binary — GT 1.0, Wikipedia-retrieved answer **0.0**, refusal 0.0. We would tie at
+  zero.
+- **TOKEN_HOLDER_COUNT** (4 miners): **no data edge.** `chainsight-oracle` reads the same keyless
+  Blockscout endpoint and returns identical counts (USDC 9,039,953 on both). Its transient zeros
+  are real — USDC and DAI came back 0 on a first probe — but reliability alone is thin against the
+  two strongest generalists, and no recorded questions survive to measure with.
+- **FACT_CHECK / IMAGE_VERIFICATION**: zero recorded questions, so their scorers cannot be run.
+  Entering on incumbent weakness alone is what SENTIMENT_ANALYSIS cost. Image verification also
+  cannot be answered honestly without real forensics (SPORTS_SCORE precedent).
+- **CVE_LOOKUP** — **re-measured 2026-08-31 and still a no, for a NEW reason.** The champion
+  changed on 2026-08-30 to reg 1993 `cve_lookup_w2.wasm`, so the old 0.24 figure was stale. Under
+  the new one our answers score raw mean **0.499757**: eleven questions at ~0.999 and eleven at
+  exactly 0.000. **The zeros are not a data problem — the same CVE with our byte-identical answer
+  scores 0.998742 on one phrasing and 0.000000 on another.** The scorer is a step function keyed on
+  question and ground-truth phrasing. `patchsignal-cve` scored 1.0 in epoch 295, so our ratio would
+  be ~0.50, below the 0.72 threshold. It would dilute the average. Do not re-enter.
+- **SPORTS_SCORE**: zero recorded questions, and the standing precedent stands — a free sports API
+  returned a friendly against AC Milan when asked for the most recent Premier League meeting.
+
+**The rule this round establishes: occupancy and a weak incumbent identify where to LOOK; only the
+intent's own scorer decides whether to ENTER.** Four of the six candidates died on that test.
+
+### Full-network opportunity scan (2026-08-31)
+
+All 45 canonical intents were swept for occupancy and, crucially, for whether recorded questions
+survive to measure with. The measurable-and-unclaimed set is now exhausted: everything with <=5
+miners and question data has been either entered or rejected above. The remaining low-occupancy
+intents (TWITTER_SEARCH 0, CONTENT_MODERATION 1, DEEPFAKE_DETECTION 1, MEDIA_AUTHENTICITY_CHECK 1,
+VIDEO_VERIFICATION 1, TELEGRAPH_KNOWLEDGE 1) all have **zero** recorded questions — unmeasurable,
+and mostly media forensics we cannot do honestly. **Do not enter them blind.**
+
+---
+
+## 000. THE NETWORK OUTAGE AND CONVERTER MODEL (2026-08-30 evening)
+
 Last updated: 2026-08-31 (early hours) — epoch 295 was a bad epoch on a DEGRADED NETWORK; the
 translation payload was cut to the answer alone and deployed. Read § 000 first.
 

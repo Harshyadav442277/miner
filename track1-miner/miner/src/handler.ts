@@ -8,6 +8,7 @@ import { geolocate, SPECIAL_GEO_VERDICTS, type GeoResult } from "./geo";
 import { detectAiText, type AiDetectResult } from "./aidetect";
 import { extractContent } from "./content";
 import { getHeadlines } from "./news";
+import { checkBalance, type WalletResult } from "./wallet";
 import { withRestatement, isAnswered } from "./restate";
 
 const CACHE_TTL_MS = Number(process.env.CACHE_TTL_MS ?? 60_000);
@@ -15,7 +16,7 @@ const MAX_CACHE = 500;
 export const ENDPOINTS = [
   "/ssl-check", "/storm-alert", "/weather-forecast",
   "/ip-geolocate", "/translate", "/papers",
-  "/ai-detect", "/extract", "/headlines",
+  "/ai-detect", "/extract", "/headlines", "/wallet-balance",
 ] as const;
 
 /**
@@ -24,7 +25,7 @@ export const ENDPOINTS = [
  */
 type Answer =
   | SslResult | StormResult | ForecastResult | GeoResult | TranslationResult | PaperResult
-  | AiDetectResult;
+  | AiDetectResult | WalletResult;
 const cache = new Map<string, { at: number; value: Answer }>();
 
 function fromCache(key: string): Answer | null {
@@ -388,6 +389,35 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
     const asked = firstValue(url, "query", "q", "question");
     const subject = firstValue(url, "text", "content", "passage", "input") || asked;
     sendAnswer(res, asked, detectAiText(subject));
+    return;
+  }
+
+  if (path === "/wallet-balance") {
+    const q = firstValue(url, "query", "q", "question", "address", "wallet", "text", "input");
+    if (!q.trim()) {
+      sendAnswer(res, q, {
+        verdict: "unknown",
+        confidence: 0,
+        reason:
+          "No wallet address was supplied with this request, so no balance could be read. " +
+          "Supply a 20-byte EVM address such as 0x742d35Cc6634C0532925a3b844Bc454e4438f44e, " +
+          "and name a chain such as Base or Arbitrum.",
+        error: "invalid_address",
+      }, false);
+      return;
+    }
+    const key = `wallet:${q.trim().toLowerCase()}`;
+    const hit = fromCache(key);
+    if (hit) {
+      sendAnswer(res, q, hit, false);
+      return;
+    }
+    checkBalance(q)
+      .then((r) => {
+        toCache(key, r);
+        sendAnswer(res, q, r, false);
+      })
+      .catch(() => upstreamUnavailable(res, "A wallet balance", q.slice(0, 60), q));
     return;
   }
 

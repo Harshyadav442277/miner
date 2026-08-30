@@ -154,6 +154,23 @@ position, so every day of delay shortens the record we are judged on.
       is the live test. Measurement note: score only through track2/harness/wasm-abi.mjs — naive
       WASM loaders corrupt silently (bump allocator wrap).
 
+- [x] **T4.17** **Expansion round measured and decided, 2026-08-31.** All 45 canonical intents swept
+      for occupancy AND for whether recorded questions survive to measure with. Entering three:
+      **CONTENT_EXTRACTION** (bar 0.0, ours 1.000000 on 6/6 raw and clipped), **NEWS_HEADLINES**
+      (bar 0.00262926, ours 0.006447 with all 22 questions above the bar) and
+      **WALLET_BALANCE_CHECK** (field ~1e-4, all-time best 0.00747, ours 0.230285 with 3/13
+      crossing at 0.99). Code deployed and verified; 190/190 tests; awaiting ONE `updateMiner`
+      signature → `track1-miner/docs/ADD_THREE_INTENTS.md`.
+      **Rejected on measurement, with reasons recorded so nobody re-opens them:**
+      TEXT_AUTHENTICITY_CHECK (uncontested but our honest answer scores 0.000001 — its ground
+      truths assert facts absent from the supplied text), CONTENT_VERIFICATION (binary scorer;
+      Wikipedia-retrieved answer 0.0), CVE_LOOKUP (re-measured under the new champion: 0.4998, a
+      phrasing-keyed coin flip — the same answer scores 0.999 and 0.000 on two phrasings of the
+      same CVE), TOKEN_HOLDER_COUNT (no data edge; chainsight reads the same Blockscout numbers),
+      FACT_CHECK / IMAGE_VERIFICATION / SPORTS_SCORE (zero recorded questions, unmeasurable).
+      **The rule: judging averages our-score-over-best-score, our current average is ~0.72, so an
+      intent must beat 0.72 to be worth entering — an uncontested rank 1 at 0.0 does not help.**
+
 ## Phase 4b — Track 3 application (Aug 31 – Sep 7)
 
 Added to scope 2026-08-26. The eligibility guardrail (G13) means our intent needs ≥100 real
