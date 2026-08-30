@@ -239,7 +239,9 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
         verdict: "unknown",
         confidence: 0,
         reason:
-          `A${w ? ` ${w}` : ""} hourly weather forecast could not be produced because no location was ` +
+          // "A hourly" when no window was named. The article has to follow the
+          // window word, not precede a fixed "A".
+          `${w ? `A ${w}` : "An"} hourly weather forecast could not be produced because no location was ` +
           "supplied with this request. Supply a place name such as London, or a latitude and longitude, " +
           `and the hourly temperature in Celsius, precipitation probability and wind speed${w ? ` over the next ${w.replace("-hour", " hours")}` : ""} ` +
           "can be returned.",
