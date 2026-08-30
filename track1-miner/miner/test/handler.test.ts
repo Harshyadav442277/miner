@@ -49,3 +49,33 @@ test("opt-in logging records parameter names, never values", () => {
     else process.env.LOG_QUERY = prior;
   }
 });
+
+test("/translate answers with the bare translation, unrestated", async () => {
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = (async () =>
+    new Response(JSON.stringify(["Бонжур"]), {
+      status: 200,
+      headers: { "content-type": "application/json" },
+    })) as typeof globalThis.fetch;
+  try {
+    const body = await new Promise<Record<string, unknown>>((resolve) => {
+      const req = {
+        method: "GET",
+        url: `/translate?query=${encodeURIComponent('Translate "good morning" into Russian.')}`,
+      } as IncomingMessage;
+      const res = {
+        writeHead() {},
+        end(payload?: unknown) {
+          resolve(JSON.parse(String(payload)) as Record<string, unknown>);
+        },
+      } as unknown as ServerResponse;
+      handleRequest(req, res);
+    });
+    // The recorded ground truths are bare translations; any restatement or
+    // provenance prose around a non-Latin translation measured as dilution.
+    assert.equal(body.reason, "Бонжур");
+    assert.equal(body.source, "Google Translate");
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});

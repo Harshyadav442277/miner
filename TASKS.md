@@ -142,6 +142,17 @@ position, so every day of delay shortens the record we are judged on.
       Recommended order and the honesty constraints per intent:
       `track1-miner/docs/EXPANSION_TARGETS.md`. Any entry is a manifest change and one
       `updateMiner` signature — batch them into a single update, sandbox-validate first.
+- [x] **T4.16** **Fix the two non-#1 intents of epoch 294, measured and deployed 2026-08-30.**
+      IP_GEOLOCATION: special-range classifier (private/TEST-NET/loopback/… answered
+      definitionally), an abuse-history clause on every public answer backed by a live Tor DNSEL
+      check, ip-api.com as primary provider (geofeed accuracy; verified on production — G27), and
+      operator-first prose; frozen-bench clip32 vs preflight 0.384→0.807, wins 4/21→14/21 (the
+      floor — four remaining losses are provider rows the local bench cannot exercise, G27).
+      LANGUAGE_TRANSLATION: champion changed to reg 1996 (w1, two-cluster cut); bare-translation
+      answers, Google primary/MyMemory failover, restatement skipped — 9/10 crossings vs
+      langwire's 8/10 (G26: shape is w1-specific). 173/173 tests, verify-deploy green, epoch 295
+      is the live test. Measurement note: score only through track2/harness/wasm-abi.mjs — naive
+      WASM loaders corrupt silently (bump allocator wrap).
 
 ## Phase 4b — Track 3 application (Aug 31 – Sep 7)
 
@@ -197,24 +208,25 @@ Track 3 requests or it wins nothing regardless of rank. A genuine app that consu
 
 ---
 
-## Where this stands — 2026-08-30
+## Where this stands — 2026-08-30 (evening)
 
-**Re-verified live this session:** registration **297** `active`, `rejection_reason: null`,
-`fetch_attempts: 0`; all six endpoints 200; **102/102 tests pass**; `verify-deploy.mjs` green
-against the patched local build (only the localhost HTTPS check fails, as expected). Epoch **292**
-is the network's latest, scored 2026-08-29T22:18Z.
+**Re-verified live this session:** registration **334** `active`, `rejection_reason: null`,
+`fetch_attempts: 0`; all seven endpoints 200; **173/173 tests pass**; `verify-deploy.mjs` green
+against production after today's deploy (median 487ms, p95 1086ms). Epoch **294** is the
+network's latest recorded, scored 2026-08-30 ~11:59Z.
 
-**Rank 1 in three of six** (epoch 292): STORM_ALERT, IP_GEOLOCATION, LANGUAGE_TRANSLATION.
-SSL #2 by 1.75%, WEATHER #5 in a field that has grown to **14**, ACADEMIC_SEARCH not scored.
+**Rank 1 in five of seven** (epoch 294): SSL_VERIFICATION, STORM_ALERT, WEATHER_FORECAST,
+ACADEMIC_SEARCH, AI_TEXT_DETECTION. IP_GEOLOCATION #2 by 5.2% and LANGUAGE_TRANSLATION #2 in a
+near-zero field — **both diagnosed, fixed, measured against their champions and DEPLOYED today
+(T4.16)**. Epoch 295 is the test of 7/7.
 
 **Open, in priority order:**
 
-1. **T4.14 — deploy the restatement fix.** The largest measured gain the project has produced
-   (8-19x offline) is sitting undeployed. Operator only; the close is **Aug 31**.
-2. **T5.2 — post the X series.** 25% of the score, still near zero. The scorer-cliff finding is
-   new, genuine research and is the strongest post material available. Operator only.
+1. **Read epoch 295's IP and translation rows** — the T4.16 fixes' live test. If translation is
+   still losing, check whether the champion changed again first (G26).
+2. **T5.2 — post the X series.** 25% of the score. Operator only.
 3. **T4.15 — decide on the undefended intents** (`docs/EXPANSION_TARGETS.md`). One batched
    `updateMiner` signature if yes.
-4. **The eligibility question** — `total_requests_served` is **57** across all six intents combined
-   against a floor of **100 per intent**, with Track 3 not yet open. Ask the organizers whether that
-   half is waived, deferred or binding on Aug 31.
+4. **The eligibility question** — `total_requests_served` remains far below the 100-per-intent
+   floor with Track 3 not yet open. Ask the organizers whether that half is waived, deferred or
+   binding on Aug 31.

@@ -3,9 +3,79 @@
 **Read this first. Everything Track 1 needs is in this folder.**
 Shared protocol facts are in `../docs/`. Do not edit `../track2/` or `../track3-certwatch/`.
 
-Last updated: 2026-08-30 — epoch 292 lost SSL and weather; root cause found and fixed. Read § 0.
+Last updated: 2026-08-30 (evening) — epoch 294 gave five #1s of seven; the two losers were
+diagnosed, fixed, measured and DEPLOYED the same day. Read § 00 first.
 
 ---
+
+## 00. EPOCH 294 → THE PUSH FOR 7/7 (2026-08-30, deployed ~15:45Z)
+
+```
+epoch 294:  SSL #1  STORM #1  WEATHER #1  ACADEMIC #1  AI_TEXT #1
+            IP_GEOLOCATION #2   0.009541 vs preflight 0.010062   (-5.2%)
+            LANGUAGE_TRANSLATION #2   2.7e-5 vs langwire 7.1e-5  (both ~zero)
+```
+
+Both losers were fixed with measured, deployed changes. **Epoch 295 is the test.**
+
+**LANGUAGE_TRANSLATION — the champion changed again, and the answer shape inverted with it.**
+The champion is now **reg 1996 `language_translation_w1.wasm`** (activated 2026-08-30 ~13:41Z,
+after epoch 294 scored — it is the Track 2 wrapper submission, pinned in our own repo at commit
+6a3e01c). It is a hard two-cluster cut: answers score ~1.0 or ~0.0, nothing between. Measured over
+all ten distinct recorded questions, variants built only from live provider output:
+
+```
+bare translation                       9/10 crossings   <- DEPLOYED
+single sentence around it              8/10
+sentence + provenance clause           3/10
+old deployed pipeline (restated)       4-5/10
+langwire (current #1) live summaries   8/10
+```
+
+The recorded ground truths are BARE translations ("コーヒーを一杯お願いします。"); for non-Latin
+scripts every English word around the translation dilutes the one string compared. Three changes
+deployed: `reason` is now the bare translation (provenance moved to a `source` field);
+**Google's endpoint is primary and MyMemory the failover** (Google's neural output matches the
+LLM ground truths nearly verbatim — MyMemory's "El tiempo es estupendo." vs ground truth
+"El clima está hermoso hoy.", which is exactly Google's output); and **/translate skips the
+restatement prefix** (`sendAnswer(..., false)`). GAPS **G26**: this shape is w1-specific — under
+the previous champion the same bare shape scored 8.5e-5. If the champion changes again,
+re-measure before touching anything.
+
+**IP_GEOLOCATION — three defects, all fixed, clip32 mean 0.384 → 0.807, wins 4/21 → 14/21
+against preflight on the frozen 21-question bench (and 14/21 is the FLOOR — see G27):**
+1. **~10 of 21 recorded questions ask about private/reserved IPs** (192.168.1.10, 192.0.2.1) and
+   we answered "could not be determined" — a guaranteed cliff miss while every ground truth
+   explains the range. `specialRange()` in geo.ts now classifies RFC 1918 / TEST-NET / loopback /
+   link-local / CGNAT / multicast / benchmarking / IPv6 special ranges locally, no provider call,
+   confidence 1. The private template uses labeled sections ("Geographic location: none — …
+   Abuse history: none …") — swept 4/4 raw AND clip vs 1/4 for running prose. Special-range
+   answers **skip the restatement** (same measured reason as translate: the prefix pushed the
+   range semantics past the ~32-word budget). TEST-NET template needed no change: 7/7 both.
+2. **~19 of 21 questions ask about abuse history and we never answered that clause.** Every
+   public-IP answer now carries an abuse sentence stating exactly what was checked: a live **Tor
+   exit-node DNSEL lookup** (`torExitNode()`, dnsel.torproject.org, 1.5s timeout, fails open to
+   silence) plus the honest note that the consulted sources include no reputation database such
+   as AbuseIPDB. The Tor check flipped the recorded 185.220.101.34 question from 0.011 to 0.995
+   raw — the ground truth is entirely about Tor exit risk.
+3. **Provider accuracy is scoring margin.** ipwho.is placed Google's 142.251.42.174 in Mumbai;
+   the ground truth (and ip-api.com, which honours operator geofeeds) says Japan. **ip-api.com is
+   now primary** (verified live post-deploy: production answers "Chiyoda City, Tokyo, Japan"),
+   ipwho.is then ipapi.co as failover, 4s per-provider budget. Prose is now operator-first
+   ("associated with Google LLC (AS15169) and is located in…") — the shape every recorded ground
+   truth opens with. NOTE G27: ip-api is TCP-blocked from the dev machine, so local benches
+   silently exercise the fallback — measure IP changes against production.
+
+**Measurement infrastructure warning that cost an hour:** the champion WASMs use a bump allocator
+that WRAPS silently when many answers are scored in one instance — a naive
+instantiate-once loader (like tools/bench-champion.mjs) produces corrupted, run-order-dependent
+scores. **Always score through `../track2/harness/wasm-abi.mjs` `loadScorer`** (wrap-guarded,
+mirrors the node's call path). The scratchpad `hh.mjs` / `lt_sweep.mjs` / `special_sweep.mjs`
+from this session do it right.
+
+Production state after deploy: verify-deploy **ALL CHECKS PASSED**, median 487ms / p95 1086ms,
+**173/173 tests**, registration 334 active and untouched (all changes are code-only; the manifest
+names no upstream provider, so no updateMiner was needed).
 
 ## 0. EPOCH 292 (2026-08-29T22:18Z) — SSL AND WEATHER LOST, ROOT CAUSE FOUND
 

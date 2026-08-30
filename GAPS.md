@@ -343,6 +343,34 @@ all improve SSL and storm), so the sign of the effect is not in doubt; the magni
 is the measurement. **Storm is the one to watch**: four of twelve storm questions score 7-15% lower
 on full prose, we hold storm by 0.7%, and only the 32-word column is unanimous there.
 
+### G26 · The bare-translation answer shape is tuned to a champion that has changed twice in a week — `OPEN`
+2026-08-30. `/translate` now answers with the bare translation and no restatement — measured 9/10
+cliff crossings under the current champion (reg 1996, `language_translation_w1.wasm`, activated
+2026-08-30) against 8/10 for the rank-1 incumbent, over all ten distinct recorded questions. Two
+caveats. First, this intent's champion has now changed twice (c2_r1cut reg 1885 → w1 reg 1996),
+and the two regimes **invert** each other: under c2_r1cut the bare shape measured 8.5e-5 and the
+sentence form 0.33; under w1 the sentence-plus-provenance form crosses 3/10 and bare 9/10. If the
+champion changes again, re-measure before trusting anything in `translate.ts`. Second, epoch 294
+was scored before w1 activated, so **epoch 295 is the first live test** — and the converter (G25)
+applies here too: nobody has measured what an English prose summarizer does to a bare CJK reason.
+Note the current champion is our own Track 2 submission; the miner answer was tuned to it the same
+way every miner tunes to every champion — by measuring — and the answer itself is exactly the
+translation the question asked for.
+
+### G27 · ip-api.com is unreachable from the dev machine, so its production behaviour is verified only on production — `CLOSED 2026-08-30: verified live`
+2026-08-30. `geo.ts` now tries ip-api.com first (it honours operator geofeeds; ipwho.is placed
+Google's 142.251.42.174 in Mumbai where the recorded ground truth and Google's own geofeed say
+Japan). The dev machine's ISP blocks TCP to ip-api.com entirely — DNS resolves, connections time
+out, on both 80 and 443 — so **every local bench row for public IPs exercised the ipwho.is
+fallback**, and the local 14/21 result is the floor, not the measurement, for the deployed chain.
+Verified after deploy the same day: production answers 142.251.42.174 with "Chiyoda City, Tokyo,
+Japan" via ip-api, and verify-deploy passes with median 487ms — ip-api is reachable from Vercel.
+Residual: if ip-api ever becomes unreachable from Vercel, the chain falls through to ipwho.is and
+behaviour matches pre-change production plus up to 4s of added latency per uncached public-IP
+request (per-provider budget is 4s; worst case three providers = 12s against Vercel's 15s ceiling).
+Remember the benches for this intent cannot exercise ip-api from this machine — measure against
+production, not localhost, whenever the provider matters.
+
 ### G19 · The miner wallet's seed phrase is compromised — `OPEN, accepted risk`
 2026-08-28. The operator was social-engineered in a hackathon Discord DM by an account named
 `ADMINS {NEVER DM FIRST}` — the name copies the label real servers use to warn that admins never

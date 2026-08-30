@@ -14,31 +14,37 @@ sessions and between models.
 | **Track 3 — app** | [track3-certwatch/](track3-certwatch/), plus G17/G18 in [GAPS.md](GAPS.md) |
 | Anything | [README.md](README.md) for ownership and shared facts, [docs/](docs/) for protocol and rules |
 
-## State at 2026-08-30
+## State at 2026-08-30 (evening)
 
-**Epoch 292 took back two firsts, and the reason turned out to be the biggest single finding of the
-project.** Registration **297** is `active`, healthy, six intents, `https://miner-wine.vercel.app`.
+**Epoch 294: rank 1 in five of seven. The two losers were diagnosed, fixed, measured and DEPLOYED
+the same day — epoch 295 tests 7/7.** Registration **334** is `active`, healthy, seven intents,
+`https://miner-wine.vercel.app`. (The restatement fix went live earlier the same day and is
+confirmed by epoch 293/294 rows: SSL recovered #1 at +25.7%, weather reached #1.)
 
 ```
-SSL_VERIFICATION      #2   0.00885159   lost by 1.75%
-WEATHER_FORECAST      #5   0.00908315   field is now 14 miners
-STORM_ALERT           #1   0.01003684   held by 0.7%
-IP_GEOLOCATION        #1   0.00933759   held
-LANGUAGE_TRANSLATION  #1   0.00010760   held
-ACADEMIC_SEARCH        -   not scored this epoch
+SSL_VERIFICATION      #1   held        STORM_ALERT        #1   held
+WEATHER_FORECAST      #1   held        ACADEMIC_SEARCH    #1   held
+AI_TEXT_DETECTION     #1   held (debut 293)
+IP_GEOLOCATION        #2   -5.2% to preflight      -> FIXED + DEPLOYED ~15:45Z
+LANGUAGE_TRANSLATION  #2   2.7e-5, near-zero field -> FIXED + DEPLOYED ~15:45Z
 ```
 
-**Root cause, shared by both losses:** every ground truth in these intents is an LLM answer that
-**restates the request before answering it**, and ours did not. The champion scorers are a cliff on
-that resemblance — about 0.99 above it, about 0.01 below — and the whole weather field has always
-been on the losing side, which is why its leader changes nearly every epoch.
+**The two fixes (173/173 tests, verify-deploy green, production probed):**
+- **IP_GEOLOCATION** — three defects: half the recorded questions are private/reserved IPs we
+  answered as lookup failures (now classified definitionally, restatement skipped there);
+  nearly all ask about abuse history we never addressed (now answered honestly, with a live Tor
+  exit-node DNSEL check); and ipwho.is misplaces geofeed-published infrastructure IPs (ip-api.com
+  is now primary — verified live, GAPS G27). Frozen-bench clip32 vs the rank-1: **0.384 → 0.807
+  mean, 4/21 → 14/21 wins — the floor, since local benches cannot reach ip-api (G27)**.
+- **LANGUAGE_TRANSLATION** — the champion changed again (reg 1996 `w1`, a binary cliff; GAPS
+  G26). Ground truths are bare translations, so the answer is now the bare translation, Google
+  primary / MyMemory failover, no restatement: **9/10 crossings vs the leader's 8/10**.
 
-**Fixed and measured, not yet deployed.** `miner/src/restate.ts` + `sendAnswer` in
-`miner/src/handler.ts`. Built miner A/B'd against live production on the same questions and the live
-champion scorers: **weather 8.10x, SSL 18.84x, storm 20.44x**; under a 32-word conversion budget
-**6.36x / 11.15x / 1.51x**. 102/102 tests pass.
+**Measurement rule:** score champion WASMs only through `track2/harness/wasm-abi.mjs` — their
+bump allocator wraps silently and a naive loader returns run-order-dependent garbage.
 
-Full autopsy: **[track1-miner/docs/EPOCH_292_AUTOPSY.md](track1-miner/docs/EPOCH_292_AUTOPSY.md)**.
+Read **§ 00 of [track1-miner/MEMORY.md](track1-miner/MEMORY.md)** for the full record.
+Full autopsy of 292: **[track1-miner/docs/EPOCH_292_AUTOPSY.md](track1-miner/docs/EPOCH_292_AUTOPSY.md)**.
 Expansion recon: **[track1-miner/docs/EXPANSION_TARGETS.md](track1-miner/docs/EXPANSION_TARGETS.md)**.
 
 ### Organizer answers landed 2026-08-30 (via user) → recorded in [docs/TELEGRAPH_FACTS.md](docs/TELEGRAPH_FACTS.md)
@@ -55,11 +61,11 @@ question itself is still open. (Track 2 note, same date: the live miner registra
 it; if Track 1 re-registers again, tell the Track 2 session so GAPS G25 and SUBMISSION.md stay
 correct.)
 
-### The three things that need a human, in order
+### The things that need a human, in order
 
-1. **Deploy the restatement fix** — `vercel --prod` from `track1-miner/miner`, then re-run
-   `node tools/verify-deploy.mjs https://miner-wine.vercel.app`. Pushing does not deploy (G22).
-   Epoch 293 is the measurement.
+1. **Read epoch 295's IP_GEOLOCATION and LANGUAGE_TRANSLATION rows** — the live test of the
+   2026-08-30 fixes. If translation still loses, check whether its champion changed again before
+   touching anything (GAPS G26).
 2. **Post the X series.** 25% of the Track 1 score and the largest unclaimed block. Thirteen posts,
    each verified under 280 characters and tagged: **[docs/X_POSTS.md](docs/X_POSTS.md)**. The
    scorer-cliff finding is genuinely new material and should be posted with the fix.

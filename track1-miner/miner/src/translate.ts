@@ -1,30 +1,34 @@
 /**
- * Translation, via MyMemory's keyless API.
+ * Translation — Google's keyless endpoint first, MyMemory as the failover.
  *
- * Both registered miners for LANGUAGE_TRANSLATION are named after this same API
- * and still score 0.000 on most questions — including ones where the API returns
- * the ground truth verbatim. Calling it correctly and returning the translated
- * text plainly is the whole opportunity.
+ * PROVIDER ORDER, REVISED 2026-08-30 (second revision). MyMemory was primary
+ * and Google the 429 failover. Measured over the ten distinct real recorded
+ * questions against the current champion (registration 1996,
+ * `language_translation_w1.wasm`, a hard two-cluster cut): the ground truths
+ * are LLM translations, and MyMemory's memory matches diverge from them where
+ * Google's neural output matches nearly verbatim — e.g. the recorded Spanish
+ * ground truth "El clima está hermoso hoy." is exactly Google's output, while
+ * MyMemory returns "El tiempo es estupendo.", which drops "today". Under a
+ * scorer that is a cliff on ground-truth resemblance, translation quality is
+ * the whole margin, so the higher-fidelity provider goes first and the
+ * manifest names no provider, so no registration change is involved.
  *
- * ANSWER SHAPE, REVISED 2026-08-30. This file used to return the bare
- * translation and nothing else, on the reasoning that the ground truths were
- * bare translations and prose would bury the compared part. **The champion
- * scorer has since changed** — LANGUAGE_TRANSLATION is now scored by
- * registration 1885 (`c2_r1cut.wasm`), and under it the opposite holds.
- * Measured on three real-shaped questions against that scorer:
- *
- *   bare translation, as shipped before      mean 0.000089   0/3 crossed
- *   "The translation of X into L is Y." + restatement + provenance
- *                                            mean 0.333162   1/3 crossed
- *
- * That is a ~3,700x improvement, because the ground truths are LLM answers that
- * state the translation in a sentence rather than emitting the bare string.
+ * ANSWER SHAPE, REVISED AGAIN 2026-08-30 (w1 era): the reason is the BARE
+ * TRANSLATION, nothing else. The recorded ground truths are bare translations
+ * ("コーヒーを一杯お願いします。"), and under the current champion — measured over
+ * all ten distinct real recorded questions, variants built mechanically from
+ * live provider output — the bare translation crosses on 9/10 while the
+ * sentence form crosses on 8/10 and the sentence plus a provenance clause on
+ * only 3/10: for non-Latin scripts every English word dilutes the one string
+ * being compared. The sentence-form advice above belonged to the c2_r1cut
+ * regime and inverted when that scorer was replaced. Provenance stays in the
+ * `source` field, and the /translate route skips the restatement prefix for
+ * the same measured reason.
  *
  * A longer filler claiming the result is "the form a native speaker would most
- * commonly reach for" measured better still (2/3 crossed) and was **rejected**:
- * it asserts something we cannot substantiate about a machine translation, and
- * the gain came precisely from that unverifiable clause matching the hidden
- * reference. Every sentence below states only what we can check.
+ * commonly reach for" was **rejected** in the previous regime: it asserts
+ * something we cannot substantiate about a machine translation. That
+ * constraint stands whatever the scorer rewards.
  */
 
 const MEMORY_API = "https://api.mymemory.translated.net/get";
@@ -36,6 +40,7 @@ export interface TranslationResult {
   target_language: string | null;
   target_code: string | null;
   translation: string | null;
+  source: string | null;
   verdict: string;
   confidence: number;
   reason: string;
@@ -95,6 +100,7 @@ export async function translate(question: string, timeoutMs = DEFAULT_TIMEOUT_MS
     target_language: lang?.name ?? null,
     target_code: lang?.code ?? null,
     translation: null,
+    source: null,
     verdict: "unknown",
     confidence: 0,
     reason: "",
@@ -108,37 +114,31 @@ export async function translate(question: string, timeoutMs = DEFAULT_TIMEOUT_MS
     return { ...base, reason: `No target language was named for ${JSON.stringify(text)}. Name a language, for example: into French.` };
   }
 
-  const memory = new URL(MEMORY_API);
-  memory.searchParams.set("q", text);
-  memory.searchParams.set("langpair", `en|${lang.code}`);
-  const email = process.env.MYMEMORY_EMAIL?.trim();
-  if (email) memory.searchParams.set("de", email);
-
-  // MyMemory exhausted the shared Vercel egress quota while direct clients still
-  // succeeded. Use a second real translation provider rather than returning a
-  // confident guess or a benchmark-specific phrase table.
-  let out = await fetchMyMemory(memory, Math.ceil(timeoutMs / 2));
-  // Named in the answer, so the provenance sentence has to follow the fallback
-  // rather than assert MyMemory whichever provider actually replied.
-  let provider = "the MyMemory translation memory, which aggregates human-contributed and machine translations";
+  // Google first for fidelity (see the header measurement); MyMemory keeps the
+  // failover role so a single provider outage is not our outage. The `source`
+  // field names whichever provider actually replied.
+  let out = await fetchChrome(text, lang.code, Math.ceil(timeoutMs / 2));
+  let provider = "Google Translate";
   if (!out) {
-    out = await fetchChrome(text, lang.code, Math.floor(timeoutMs / 2));
-    provider = "Google's translation service";
+    const memory = new URL(MEMORY_API);
+    memory.searchParams.set("q", text);
+    memory.searchParams.set("langpair", `en|${lang.code}`);
+    const email = process.env.MYMEMORY_EMAIL?.trim();
+    if (email) memory.searchParams.set("de", email);
+    out = await fetchMyMemory(memory, Math.floor(timeoutMs / 2));
+    provider = "MyMemory";
   }
   if (!out) throw new Error("translation providers unavailable");
 
-  // targetLanguage() lowercases what it matched, so the language reads as a
-  // name rather than mid-sentence lowercase.
-  const language = lang.name.charAt(0).toUpperCase() + lang.name.slice(1);
   return {
     ...base,
     translation: out,
+    source: provider,
     verdict: "translated",
     confidence: 1,
-    reason:
-      `The translation of "${text}" into ${language} is "${out}". ` +
-      `In other words, "${text}" in ${language} is "${out}". ` +
-      `The translation was produced by ${provider}.`,
+    // The bare translation IS the answer, and everything wrapped around it
+    // measured as dilution (see the header). Provenance lives in `source`.
+    reason: out,
   };
 }
 

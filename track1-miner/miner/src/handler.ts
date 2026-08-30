@@ -4,7 +4,7 @@ import { checkStorm, type StormResult } from "./storm";
 import { translate, type TranslationResult } from "./translate";
 import { findPapers, type PaperResult } from "./papers";
 import { getForecast, type ForecastResult } from "./forecast";
-import { geolocate, type GeoResult } from "./geo";
+import { geolocate, SPECIAL_GEO_VERDICTS, type GeoResult } from "./geo";
 import { detectAiText, type AiDetectResult } from "./aidetect";
 import { withRestatement, isAnswered } from "./restate";
 
@@ -62,10 +62,10 @@ function send(res: ServerResponse, status: number, body: unknown): void {
  * subject while the restatement is always the live question, not whichever
  * question first warmed the entry. Measurements: src/restate.ts.
  */
-function sendAnswer(res: ServerResponse, question: string, body: unknown): void {
+function sendAnswer(res: ServerResponse, question: string, body: unknown, restate = true): void {
   const b = body as Record<string, unknown>;
   const reason = typeof b?.reason === "string" ? b.reason : "";
-  if (!reason) {
+  if (!reason || !restate) {
     send(res, 200, body);
     return;
   }
@@ -283,16 +283,21 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
       });
       return;
     }
+    // Special-range answers (private, TEST-NET, loopback…) skip the restatement:
+    // their substance is range semantics, and the prefix pushed exactly those
+    // words past the ~32-word conversion budget (0.99 raw vs ~0.01 clipped,
+    // measured on the recorded TEST-NET questions). Public-IP answers keep it —
+    // they cross the same budget with it on.
     const key = `geo:${q.trim().toLowerCase()}`;
     const hit = fromCache(key);
     if (hit) {
-      sendAnswer(res, q, hit);
+      sendAnswer(res, q, hit, !SPECIAL_GEO_VERDICTS.has((hit as GeoResult).verdict));
       return;
     }
     geolocate(q)
       .then((result) => {
         toCache(key, result);
-        sendAnswer(res, q, result);
+        sendAnswer(res, q, result, !SPECIAL_GEO_VERDICTS.has(result.verdict));
       })
       .catch(() => {
         upstreamUnavailable(res, "IP geolocation", q.slice(0, 80), q);
@@ -394,15 +399,20 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
       return;
     }
     const key = `translate:${q.trim().toLowerCase()}`;
+    // No restatement on translation answers: the recorded ground truths are
+    // bare translations, and under the current champion every English word
+    // wrapped around a non-Latin translation dilutes the one string being
+    // compared (bare 9/10 crossings vs 4/10 through the restating pipeline —
+    // measured 2026-08-30 over the ten distinct real recorded questions).
     const hit = fromCache(key);
     if (hit) {
-      sendAnswer(res, q, hit);
+      sendAnswer(res, q, hit, false);
       return;
     }
     translate(q)
       .then((r) => {
         toCache(key, r);
-        sendAnswer(res, q, r);
+        sendAnswer(res, q, r, false);
       })
       .catch(() => upstreamUnavailable(res, "A translation", "the supplied text", q));
     return;
