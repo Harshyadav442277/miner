@@ -202,3 +202,25 @@ test("the first answer wins and a late upstream cannot write twice", async () =>
   });
   assert.equal(writes, 1);
 });
+
+test("a synchronous throw becomes an honest 200, never a 500", async () => {
+  // A request line URL cannot parse: the very first statement in route() throws.
+  const { body, status } = await new Promise<{ body: Record<string, unknown>; status: number }>(
+    (resolve) => {
+      const req = { method: "GET", url: undefined } as unknown as IncomingMessage;
+      let code = 200;
+      const res = {
+        writeHead(c: number) { code = c; },
+        end(payload?: unknown) {
+          resolve({ body: JSON.parse(String(payload)) as Record<string, unknown>, status: code });
+        },
+      } as unknown as ServerResponse;
+      // Force the throw: a getter that explodes when route() reads req.url.
+      Object.defineProperty(req, "url", { get() { throw new Error("boom"); } });
+      handleRequest(req, res);
+    },
+  );
+  assert.equal(status, 200);
+  assert.equal(body.error, "internal_error");
+  assert.ok(String(body.reason).trim().length > 0, "an empty answer scores zero");
+});

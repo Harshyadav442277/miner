@@ -294,7 +294,36 @@ function minimalTranslation(r: TranslationResult): Record<string, unknown> {
   };
 }
 
+/**
+ * The last line between a bug and a scored zero.
+ *
+ * Every asynchronous path already ends in a `.catch()` that answers honestly,
+ * but the synchronous ones had nothing: `new URL()` on a malformed request line,
+ * a parser in extractContent or detectAiText, a regex on hostile input. Any
+ * throw there becomes a 500, and Telegraph scores a 500 exactly as it scores a
+ * 400 — upstream error, empty miner_answer, nothing for the scorer to read.
+ *
+ * 180 hostile inputs across all ten routes found nothing that throws today.
+ * This exists so that a future parser change cannot quietly cost an epoch, and
+ * because an honest 200 is always worth more here than a correct-looking 500.
+ */
 export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
+  try {
+    route(req, res);
+  } catch {
+    send(res, 200, {
+      verdict: "unknown",
+      confidence: 0,
+      reason:
+        "This request could not be processed because of an internal error while parsing it. " +
+        "This is a fault in this service, not a statement about the subject of the question, " +
+        "and retrying shortly may succeed.",
+      error: "internal_error",
+    });
+  }
+}
+
+function route(req: IncomingMessage, res: ServerResponse): void {
   // Off by default. When enabled, record parameter names only—never user text.
   // An empty value is marked, because "the engine sent text=" and "the engine
   // sent nothing" are different diagnoses (epoch 290's translate refusal).

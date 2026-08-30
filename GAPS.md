@@ -507,3 +507,24 @@ each other on the same address. Also dead and named in the code so they are not 
 next geolocation outage has one fewer endpoint behind it than the code implies.
 
 Guarded by `tools/upstream-health.mjs` (23 providers, exits non-zero when a primary is down).
+
+### G33 · The synchronous paths had no error boundary — `CLOSED 2026-08-30: boundary added; nothing was actually throwing`
+
+Every asynchronous path in `handler.ts` already ended in a `.catch()` that answers honestly, but
+the synchronous ones had nothing: `new URL()` on a malformed request line, a parser inside
+`extractContent` or `detectAiText`, a regex on hostile input. Any throw there becomes a **500**,
+and Telegraph scores a 500 exactly as it scores a 400 — upstream error, empty `miner_answer`,
+nothing for the scorer to read.
+
+**Nothing is throwing today.** 180 hostile inputs across all ten routes — 8KB payloads, mixed
+scripts and RTL overrides, lone surrogates, control characters, script tags, 400-digit numbers,
+malformed percent-encoding — all returned 200 with a non-empty answer. The boundary is insurance
+against a future parser change, not a diagnosis of a known loss, and it is recorded that way.
+
+**Tested and NOT a risk, so nobody re-opens it:** a single parameter carries **32KB** fine, far
+past any realistic inline `CONTENT_EXTRACTION` or `AI_TEXT_DETECTION` payload; a real 5,940-character
+passage is served in under 700ms. The 414s an earlier version of the probe produced were its own
+artifact — it put the same 8KB into twelve parameter names at once, building a URL Vercel's edge
+rejects before our function is ever invoked. The engine does not do that.
+
+Guarded by `tools/hostile-inputs.mjs` (180 probes, exits non-zero).
