@@ -31,8 +31,8 @@ predictions carry the uncertainty in G22. None of them has been observed on the 
 
 ## G25 — we hold the canonical scorer on an intent our own miner serves (2026-08-30)
 
-Registration 1996 (ours) is the champion scorer for LANGUAGE_TRANSLATION, and livecert (miner id
-4433, ours) mines LANGUAGE_TRANSLATION at rank 2. Promoted champions score live epochs, so our
+Registration 1996 (ours) is the champion scorer for LANGUAGE_TRANSLATION, and livecert (miner
+registration 334, ours) mines LANGUAGE_TRANSLATION at rank 2. Promoted champions score live epochs, so our
 scorer now grades our own miner. The organizers allow this with full disclosure; the defense is
 structural — 1996 is a strictly increasing recalibration of the incumbent, machine-checked, so it
 cannot rank livecert differently than the incumbent would.

@@ -36,6 +36,18 @@ manual review by the core team"; timeline "Aug 17 – Aug 31, 15 days" (Aug 31 i
 published — treat 23:59 UTC as the wall, aim half a day earlier); rule 02 = stay live through
 Sep 7; rule 04 = gaming disqualifies; rule 06 = active Discord expected.
 
+**Organizer answers, Discord 2026-08-30 (via user → [docs/TELEGRAPH_FACTS.md](../docs/TELEGRAPH_FACTS.md)):**
+the **exact deadline hour is posted in Discord `#announcements`** — user to read and paste it;
+until then keep the 23:59 UTC assumption. Building stays **permissionless through and after the
+close**, and **rankings persist after the hackathon: Track 3 agent requests route to
+higher-ranked intelligence and are counted in judging**. Consequences for this track: the retry
+ladder and slot defense do not hard-stop on Aug 31 — held champion scorers keep scoring the
+miners that Track 3 traffic routes by, so reliability (hosted bytes resolving, slots held) stays
+part of the judged record through Sep 7. Integrated APIs are allowed but their uptime is the
+participant's responsibility (a Track 1 obligation; recorded here because livecert's rank feeds
+the same routing). Also corrected today: the live miner registration is **334** (225/260/297
+superseded/deregistered) — GAPS G25, SUBMISSION.md §6 and the T2-17 note now say 334.
+
 **What was fixed for the manual review** (the 50% axis is judged by humans reading the repo):
 
 1. **[SUBMISSION.md](SUBMISSION.md)** — the missing judge-facing frame. Declares the fact-aware

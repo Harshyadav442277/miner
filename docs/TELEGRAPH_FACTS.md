@@ -8,6 +8,27 @@ Verified **2026-08-26** against https://docs.telegraphprotocol.com (docs updated
 
 ---
 
+## Organizer answers — Discord, 2026-08-30 (via the user)
+
+1. **Third-party APIs are allowed** — build your own or integrate any external one — but the
+   participant is "responsible for making sure your integrated api is uninterrupted, and
+   reliable." Upstream reliability (Open-Meteo, OpenAlex, geolocation feeds…) is our obligation,
+   not an excuse.
+2. **The exact submission deadline is posted in the Discord `#announcements` channel.** The
+   rules page gives only "Aug 17 – Aug 31" with no hour. Not yet transcribed here — whoever
+   reads `#announcements` next should paste the exact wording and timestamp into this section.
+3. **Continued building is allowed and encouraged — "all of this is permissionless."** Code and
+   registrations may keep improving during and after the track windows; Track 3 agents "need a
+   reliable, best api and intelligence to make decisions."
+4. **Rankings persist after the hackathon, and Track 3 traffic is judged.** Agent requests are
+   routed only to the higher-ranked intelligence, "and those requests will be counted when
+   submissions are being judged." Consequences: rank held at the moment Track 3 opens (Aug 31)
+   compounds into routed — and therefore judged — traffic; this routing is what feeds the
+   ≥100-real-requests eligibility guardrail; and reliability through Sep 7 is part of the judged
+   record, not passive uptime.
+
+---
+
 ## The single most important fact
 
 **`base_url` is the UPSTREAM API you are wrapping — not a server you must write.**

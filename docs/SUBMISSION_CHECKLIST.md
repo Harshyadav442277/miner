@@ -43,6 +43,14 @@ position. Registering on Aug 30 leaves one day of record to be judged on.
 - **Stay active in the Telegraph Discord** — the rules say it is expected.
 - **No artificial metric inflation.** CertWatch is a real monitor with a real reason to check
   certificates. Keep it that way.
+- **Integrated third-party APIs are our responsibility** — allowed explicitly (organizer,
+  Discord 2026-08-30), but "uninterrupted, and reliable" is on us. Monitor upstreams, keep
+  fallbacks.
+- **The exact deadline hour is in Discord `#announcements`** — the rules page gives only the
+  date. Read it before planning the final day.
+- **Building does not stop on Aug 31.** Everything is permissionless; rankings persist after the
+  hackathon; Track 3 requests route by rank and are **counted in judging** (organizer,
+  2026-08-30). Improvements during Track 3 still move the judged record.
 
 ## The one thing that can still sink it
 

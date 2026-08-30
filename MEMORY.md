@@ -41,6 +41,20 @@ champion scorers: **weather 8.10x, SSL 18.84x, storm 20.44x**; under a 32-word c
 Full autopsy: **[track1-miner/docs/EPOCH_292_AUTOPSY.md](track1-miner/docs/EPOCH_292_AUTOPSY.md)**.
 Expansion recon: **[track1-miner/docs/EXPANSION_TARGETS.md](track1-miner/docs/EXPANSION_TARGETS.md)**.
 
+### Organizer answers landed 2026-08-30 (via user) → recorded in [docs/TELEGRAPH_FACTS.md](docs/TELEGRAPH_FACTS.md)
+
+Third-party upstreams are explicitly allowed but their uptime is **our responsibility**; the
+exact submission deadline is posted in Discord `#announcements` (read and transcribe it before
+planning the last day); building may continue permissionlessly through and after the close; and
+**rankings persist after the hackathon — Track 3 agent requests route to the higher-ranked miner
+and are counted in judging**. That sharpens item 1 below: the restatement fix should be live
+before Track 3 opens on Aug 31, because rank at that moment compounds into judged traffic. It
+also half-answers item 3: the routing/counting mechanism is now confirmed; the guardrail-waiver
+question itself is still open. (Track 2 note, same date: the live miner registration is now
+**334** — 225/260/297 are superseded or deregistered — and Track 2's disclosure docs reference
+it; if Track 1 re-registers again, tell the Track 2 session so GAPS G25 and SUBMISSION.md stay
+correct.)
+
 ### The three things that need a human, in order
 
 1. **Deploy the restatement fix** — `vercel --prod` from `track1-miner/miner`, then re-run

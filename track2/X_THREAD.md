@@ -211,7 +211,7 @@ The Track 2 scorer contains no miner slug, wallet or response fingerprint. It ap
 ```
 
 **T2-17** [278] · disclosure refresh — POST THIS ONE (2026-08-30: supersedes T2-15's
-registration number — livecert re-registered as miner 4433 — and covers the held scorer slots,
+registration number — livecert re-registered as registration 334 — and covers the held scorer slots,
 which T2-15 predates; the LANGUAGE_TRANSLATION overlap is live and must be disclosed before
 judging, not after)
 

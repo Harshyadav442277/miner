@@ -184,7 +184,7 @@ vendored at `scorer-v2/` with provenance.
 - [ ] **T-G.8** Apply the same recipe to TEXT_AUTHENTICITY_CHECK, CRYPTO_PRICE, GAME_RESULT,
       ACADEMIC_SEARCH and ONCHAIN_TX_LOOKUP, reading each intent's published sweep first.
 
-## Phase H — submission audit follow-ups (2026-08-30, deadline 2026-08-31 EOD)
+## Phase H — submission audit follow-ups (2026-08-30, deadline Aug 31 — exact hour in Discord `#announcements`, see T-H.9)
 
 Registry truth at 14:26Z: 8 slots held, 7 pending, retry inventory in [SIGN.md](SIGN.md) top
 block. Rubric re-verified verbatim on the live rules page (50/30/10/10, manual core-team review);
@@ -208,5 +208,11 @@ rule 04 (gaming = disqualification) and rule 02 (stay live through Track 3) re-r
       separation: rebuild with wider bands on the *current* champion bases or drop them.
 - [ ] **T-H.7** [User, optional] Ask organizers (Discord) whether one entry or a portfolio is
       judged per author (G4); SUBMISSION.md declares the primary either way.
-- [ ] **T-H.8** [All] Through Sep 7: repo stays public, no history rewrites (registered raw URLs
-      must keep resolving), hold registrations active, stay active in Discord (rule 06).
+- [ ] **T-H.8** [All] Through Sep 7 and beyond: repo stays public, no history rewrites
+      (registered raw URLs must keep resolving), hold registrations active, stay active in
+      Discord (rule 06). Organizer (2026-08-30): rankings persist after the hackathon and
+      Track 3 requests route by rank **and are counted in judging** — so post-Aug-31 building
+      and slot defense still move the judged record.
+- [ ] **T-H.9** [User] Read Discord `#announcements` and paste the exact submission deadline
+      (wording + timestamp) into docs/TELEGRAPH_FACTS.md §"Organizer answers". Until then the
+      working assumption stays 23:59 UTC Aug 31.
