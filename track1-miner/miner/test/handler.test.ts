@@ -88,3 +88,76 @@ test("/translate answers with the bare translation, unrestated", async () => {
     globalThis.fetch = originalFetch;
   }
 });
+
+/**
+ * The engine fills the parameters the manifest declares and may also send a
+ * `query` that only refers back to them — "this wallet", "there", "this
+ * subject". Six of the ten routes used to drop the declared subject in that
+ * case: four refused outright and two answered about the wrong thing entirely
+ * (`/papers` returned neuroimaging papers for a CRISPR topic; `/storm-alert`
+ * asked about Chennai reported Teresópolis, Brazil).
+ *
+ * These pin both halves of the contract: the subject survives a paraphrasing
+ * query, and a verbatim query is left exactly as it was — no scored surface on
+ * the intents we lead may move.
+ */
+function capture(url: string): Promise<{ body: Record<string, unknown>; status: number }> {
+  return new Promise((resolve) => {
+    const req = { method: "GET", url } as IncomingMessage;
+    let status = 200;
+    const res = {
+      writeHead(code: number) { status = code; },
+      end(payload?: unknown) {
+        resolve({ body: JSON.parse(String(payload)) as Record<string, unknown>, status });
+      },
+    } as unknown as ServerResponse;
+    handleRequest(req, res);
+  });
+}
+
+const WALLET = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045";
+
+test("a paraphrasing query does not discard the declared address (live)", async () => {
+  const { body, status } = await capture(
+    `/wallet-balance?address=${WALLET}&query=${encodeURIComponent("What is the balance of this wallet?")}`,
+  );
+  assert.equal(status, 200);
+  assert.notEqual(body.error, "invalid_address");
+  assert.equal(body.address, WALLET);
+});
+
+test("a paraphrasing query does not discard the declared text to translate", async () => {
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = (async () =>
+    new Response(JSON.stringify(["Bonjour"]), {
+      status: 200,
+      headers: { "content-type": "application/json" },
+    })) as typeof globalThis.fetch;
+  try {
+    const { body } = await capture(
+      "/translate?text=Good%20morning&target_language=French&query=" +
+        encodeURIComponent("Translate it."),
+    );
+    assert.equal(body.reason, "Bonjour");
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("a paraphrasing query does not discard the declared text to extract", async () => {
+  const { body } = await capture(
+    "/extract?text=" + encodeURIComponent("Reach us at support@example.com or call 555-0192.") +
+      "&query=" + encodeURIComponent("Extract the contact details."),
+  );
+  assert.match(String(body.reason), /support@example\.com/);
+});
+
+test("a verbatim query is passed through unchanged, so scored answers do not move", async () => {
+  // Both requests carry the subject inside the question already. The declared
+  // parameter must add nothing — byte-identical output is what makes this
+  // change safe to ship onto intents we currently lead.
+  const q = "Is the SSL certificate for github.com valid?";
+  const withParam = await capture(`/ssl-check?domain=github.com&query=${encodeURIComponent(q)}`);
+  const withoutParam = await capture(`/ssl-check?query=${encodeURIComponent(q)}`);
+  assert.equal(withParam.body.reason, withoutParam.body.reason);
+});

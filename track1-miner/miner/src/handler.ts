@@ -117,6 +117,34 @@ function firstValue(url: URL, ...names: string[]): string {
   return "";
 }
 
+/**
+ * The question text, guaranteed to still contain the subject the engine parsed out.
+ *
+ * `firstValue` returns the FIRST populated parameter, so a route that lists
+ * `query` ahead of its declared subject silently discards that subject whenever
+ * both arrive. That is fine while `query` is the verbatim question — it contains
+ * the subject already — and catastrophic when it is a paraphrase: the engine
+ * fills the required parameter from the question and sends a `query` that refers
+ * back to it as "this wallet", "there", "this subject".
+ *
+ * Measured against production on 2026-08-30, six of the ten routes failed this
+ * way. Four refused outright (a guaranteed 0 for the epoch, the same shape as
+ * epoch 288's weather refusal), and two answered CONFIDENTLY WRONG: `/papers`
+ * returned neuroimaging papers for a CRISPR topic, and `/storm-alert` asked
+ * about Chennai reported the risk for Teresópolis, Brazil.
+ *
+ * Restoring the subject only when it is ABSENT is what makes this safe to ship
+ * onto intents we lead: when the engine sends the verbatim question the result
+ * is byte-identical, so no scored surface moves.
+ */
+function withSubject(question: string, subject: string): string {
+  const q = question.trim();
+  const s = subject.trim();
+  if (!s) return q;
+  if (!q) return s;
+  return q.toLowerCase().includes(s.toLowerCase()) ? q : `${q} ${s}`;
+}
+
 
 /**
  * An upstream failure, reported as an answer rather than a 502.
@@ -261,8 +289,10 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
 
   if (path === "/weather-forecast") {
     const q =
-      firstValue(url, "query", "q", "question", "text", "input", "location", "place", "city") ||
-      coordsFromParams(url);
+      withSubject(
+        firstValue(url, "query", "q", "question", "text", "input"),
+        firstValue(url, "location", "place", "city"),
+      ) || coordsFromParams(url);
     if (!q.trim()) {
       // The engine sometimes fills `location` with an empty string and sends no
       // coordinates and no question — that is what happened in epoch 288, on a
@@ -344,8 +374,10 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
 
   if (path === "/storm-alert") {
     const q =
-      firstValue(url, "query", "q", "question", "text", "input", "location", "place", "city") ||
-      coordsFromParams(url);
+      withSubject(
+        firstValue(url, "query", "q", "question", "text", "input"),
+        firstValue(url, "location", "place", "city"),
+      ) || coordsFromParams(url);
     if (!q.trim()) {
       sendAnswer(res, q, {
         location: null,
@@ -393,7 +425,10 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
   }
 
   if (path === "/wallet-balance") {
-    const q = firstValue(url, "query", "q", "question", "address", "wallet", "text", "input");
+    const q = withSubject(
+      firstValue(url, "query", "q", "question", "text", "input"),
+      firstValue(url, "address", "wallet"),
+    );
     if (!q.trim()) {
       sendAnswer(res, q, {
         verdict: "unknown",
@@ -422,7 +457,10 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
   }
 
   if (path === "/headlines") {
-    const q = firstValue(url, "query", "q", "question", "text", "topic", "input");
+    const q = withSubject(
+      firstValue(url, "query", "q", "question", "text", "input"),
+      firstValue(url, "topic"),
+    );
     if (!q.trim()) {
       sendAnswer(res, q, {
         verdict: "unknown",
@@ -443,7 +481,10 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
   if (path === "/extract") {
     // CONTENT_EXTRACTION questions carry their payload inline, so the whole
     // question text is the input — there is nothing to fetch.
-    const q = firstValue(url, "query", "q", "question", "text", "input", "content");
+    const q = withSubject(
+      firstValue(url, "query", "q", "question", "input"),
+      firstValue(url, "text", "content"),
+    );
     if (!q.trim()) {
       sendAnswer(res, q, {
         verdict: "unknown",
@@ -468,7 +509,7 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
 
   if (path === "/papers") {
     const topic = firstValue(url, "topic", "text", "input");
-    const q = firstValue(url, "query", "q", "question") || topic;
+    const q = withSubject(firstValue(url, "query", "q", "question"), topic);
     if (!q.trim()) {
       sendAnswer(res, q, {
         verdict: "unknown",
@@ -496,8 +537,15 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
   if (path === "/translate") {
     const text = firstValue(url, "text", "input");
     const language = firstValue(url, "target_language", "language", "target");
-    const q = firstValue(url, "query", "q", "question") ||
-      (text && language ? `Translate ${JSON.stringify(text)} into ${language}.` : text);
+    const asked = firstValue(url, "query", "q", "question");
+    const composed = text && language ? `Translate ${JSON.stringify(text)} into ${language}.` : text;
+    // Unlike the other routes this one cannot simply append the subject: the
+    // request has two halves and a paraphrasing query ("Translate it.") loses
+    // both. So the query is used only while it still carries the declared text,
+    // and the composed form takes over when it does not.
+    const q = asked && (!text || asked.toLowerCase().includes(text.toLowerCase()))
+      ? asked
+      : (composed || asked);
     if (!q.trim()) {
       sendAnswer(res, q, {
         verdict: "unknown",
