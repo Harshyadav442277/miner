@@ -186,7 +186,13 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
 
   // Base is only needed so URL can parse a path-relative request line.
   const url = new URL(req.url ?? "/", "http://localhost");
-  const path = url.pathname.replace(/\/+$/, "") || "/";
+  // Lowercased as well as trailing-slash tolerant. The engine builds this URL
+  // from our manifest, but any mismatch at all — a trailing slash, a capital
+  // letter — falls through to the 404 below, and a non-2xx is recorded as an
+  // upstream error with an empty answer, which scores 0 for the whole epoch. In
+  // epoch 293, 8 of 36 scored rows across the field carried an infrastructure
+  // failure of exactly this family. Being permissive here costs nothing.
+  const path = (url.pathname.replace(/\/+$/, "") || "/").toLowerCase();
 
   // Answer CORS/capability preflights rather than 405ing them. Telegraph's sandbox
   // probes endpoints before pinning and a bare 405 reads as a broken endpoint even
@@ -202,11 +208,12 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
     return;
   }
 
-  if (req.method !== "GET" && req.method !== "HEAD") {
-    res.setHeader("allow", "GET, HEAD, OPTIONS");
-    send(res, 405, { error: "method_not_allowed", message: "Use GET." });
-    return;
-  }
+  // Any method is answered as a GET, so there is no 405 branch at all. The
+  // manifest declares GET and that is what the engine sends today, but a 405 is
+  // a guaranteed zero for the epoch, and this service has nothing to protect:
+  // every route is a pure read with no side effects, so serving a POST the same
+  // answer is safe. `skywire-storm-alert` and `iplocate` both lost epoch 293 to
+  // endpoint-shape errors of this family.
 
   // Liveness. Deliberately does no outbound work so it can never fail for a
   // reason outside this process.
