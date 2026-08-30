@@ -1,28 +1,31 @@
 # Expansion targets — the undefended intents, measured 2026-08-30
 
 Recon prompted by the observation that FACT_CHECK and AI_TEXT_DETECTION have only two miners each
-and both look weak. They do, and they are not the only ones. This is what the live node says.
+and both look weak. They do, and they are not the only ones. This is what the live node says, and
+what the two champion scorers say when run locally.
 
 Sources: `/engine/v1/intents` (miner counts), `/scores?intent=X` (per-epoch results), `/api/miners`
-(base URLs and manifests), `/api/wasm` (champion scorers). All read 2026-08-30.
+(base URLs and manifests), `/api/wasm` (champion scorers),
+`explorer.telegraphprotocol.com/api/daemon/api/questions` (real routed traffic). All read 2026-08-30.
 
-## 1. The undefended intents, ranked
+## 1. The undefended intents
 
-Every intent below has two or fewer miners, and every incumbent has scored **0.0 in the most recent
-epochs**. A miner that returns any scoreable answer takes rank 1 outright.
+**Correction, second pass.** The first version of this table said every incumbent scores 0.0. That
+was a formatting error on my side — `toFixed(8)` rounded real values like `1.674e-10` to
+`0.00000000`. The FACT_CHECK and AI_TEXT_DETECTION incumbents **do** score; they score minutely. The
+intents with a genuine 0.0 are the ones whose incumbents fail with an upstream error. The conclusion
+does not change, but the bar to beat is a number, not zero.
 
-| intent | miners | incumbents and what they are doing |
-|---|---:|---|
-| **SENTIMENT_ANALYSIS** | 2 | `telegraph-ai-miner-node` — upstream 404. `textprocessing-sentiment` — upstream 405. Both 0.0 for four straight epochs. |
-| **AI_TEXT_DETECTION** | 2 | `veritarach-ai-text-detector` — answers, scores 0.0 every epoch. `bittensor-sn32-itsai` — upstream 400. |
-| **FACT_CHECK** | 2 | `tavily` — 0.0 at epochs 291 and 292; scored 0.99999994 once at 289, so it *can* land. `assay-miner` — upstream **403 every epoch**, structurally broken (see §2). |
-| **NEWS_HEADLINES** | 2 | `newsapi` — upstream 400 every epoch. Only one miner appears in the score rows at all. |
-| **CONTENT_EXTRACTION** | 2 | `microlink-url-extraction` — 0.0 every epoch. |
-| **TEXT_AUTHENTICITY_CHECK** | **0** | **Never scored. No miner has ever served it.** |
+| intent | miners | bar to beat (epoch 292) | incumbents |
+|---|---:|---|---|
+| **SENTIMENT_ANALYSIS** | 2 | **0.0** (genuine) | `telegraph-ai-miner-node` upstream 404, `textprocessing-sentiment` upstream 405. Both failing four straight epochs. |
+| **NEWS_HEADLINES** | 2 | **0.0** (genuine) | `newsapi` upstream 400 every epoch; only one miner appears in the rows at all. |
+| **CONTENT_EXTRACTION** | 2 | **0.0** (genuine) | `microlink-url-extraction` answers and still scores 0.0. |
+| **AI_TEXT_DETECTION** | 2 | **1.674e-10** | `veritarach-ai-text-detector` — flat at 1.67e-10 for five epochs. `bittensor-sn32-itsai` upstream 400. |
+| **FACT_CHECK** | 2 | **3.799e-9** | `tavily` — 3.4–3.8e-9 recently, but spiked to **1.0** at epoch 289 and 0.0035 / 0.0098 at epochs 282 / 284. `assay-miner` upstream **403 every epoch** (see §2). |
+| **TEXT_AUTHENTICITY_CHECK** | **0** | — | **Never scored. No miner has ever served it.** |
 
 ## 2. Why the incumbents are failing
-
-Two are worth reading, because they show the bar is genuinely low.
 
 **`assay-miner` (FACT_CHECK) cannot ever score.** Its manifest sets
 `base_url: https://raw.githubusercontent.com/GreatSage-dev/Assay/main` and declares its endpoint as
@@ -30,90 +33,135 @@ Two are worth reading, because they show the bar is genuinely low.
 403. It has failed identically in every epoch on record. This is not a miner that is losing; it is a
 manifest pointed at a source-code file.
 
-**`veritarach-ai-text-detector` (AI_TEXT_DETECTION)** answers without an upstream error and still
-scores exactly 0.0 every epoch, which is what an empty or filtered `converted_answer` produces.
+**`veritarach-ai-text-detector` returns a classification, not an answer.** Its live output is
+`{"confidence":0.9998700618743896,"label":"human_written"}` — no prose, so there is nothing for
+Telegraph's converter to turn into a scoreable answer. It used to score **0.33** at epochs 263–267
+and collapsed to ~1e-10 from epoch 268 onward, which is when the champion scorer changed underneath
+it. It has not adapted since.
 
-`tavily` is the only genuine competitor in the group, and it is intermittent.
+`tavily` is the only genuine competitor in the group.
 
-## 3. What this is worth, honestly
+## 3. Measured: what actually scores in these two intents
 
-**The upside.** Rank 1 in an intent nobody is contesting, immediately, and each entry takes its
-intent from 2 miners to 3 — which is exactly the miner-count half of the eligibility rule. Entering
-two of these clears that half for both.
+Both champion scorers were downloaded and run locally. Neither resembles the 24 MB MiniLM modules
+that score weather, SSL and storm — `fact_s01.wasm` (reg 1582) is **11 KB** and `aidet_s2.wasm`
+(reg 1286) is **1 MB**. They behave completely differently, and the restatement fix from
+[EPOCH_292_AUTOPSY.md](EPOCH_292_AUTOPSY.md) does **not** transfer unchanged.
+
+### AI_TEXT_DETECTION — the incumbent's answer shape is the whole problem
+
+Scored against `aidet_s2.wasm` on the real routed question observed on this intent
+("Was the AI copyright notice against Luanti valid?") with an LLM-style ground truth:
+
+```
+answer shape                                          score
+the incumbent's exact live output shape               0.0000000000
+  {"confidence":0.99987,"label":"human_written"}
+bare label "human_written"                            0.0000000000
+"This text appears to be human written."              0.0000000000
+hedged statistical-detector prose                     0.0000000003
+prose that answers the routed question                1.0000000000
+restated + prose that answers the question            1.0000000000
+```
+
+**The bar is 1.674e-10. A prose answer measures 1.0.** That is a margin of roughly six billion
+times. Even the hedged detector prose, at 3e-10, already beats the incumbent.
+
+### FACT_CHECK — winnable, but `tavily` is a real competitor
+
+`fact_s01.wasm` is a **step function with disjoint bands**, not a gradient. Appending true filler to
+a correct short verdict: 13–17 words scores 0.99999994, **19–33 words collapses to 2e-8**, and 35+
+words returns to 1.0. Small wording changes flip between about 0 and about 1. That is exactly what
+`tavily`'s history looks like — 1.0 once, 0.0098 once, 0.0035 once, and about 3.5e-9 the rest of the
+time. It is a lottery, and the incumbent buys one ticket per epoch.
+
+Scored across five claim-check questions with LLM-style ground truths:
+
+```
+answer shape                        beats the 3.8e-9 bar
+empty answer                        0/5   (the only shape that scores an exact 0.0)
+bare verdict label                  0/5
+label + confidence JSON             0/5
+short verdict only                  0/5
+verdict + one evidence sentence     3/5   (4.5e-9, 7.1e-9, 1.0, 1.3e-9, 6.1e-9)
+full ground-truth-style answer      5/5   (1.0 every question — but this IS the GT, an upper bound)
+restated + verdict + evidence       3/5   — the restatement prefix HURTS here
+"insufficient evidence" boilerplate 0/5   (1.5–2.4e-9, just under the bar)
+```
+
+**Two things follow.** A genuine verdict-plus-evidence answer beats `tavily` in most epochs but not
+all, and it must carry real evidence prose — a bare verdict loses. And **FACT_CHECK must be exempted
+from the `sendAnswer` restatement**: the prefix took a 5/5 shape down to 3/5. A per-route opt-out in
+`restate.ts` is a prerequisite for that endpoint, not an afterthought.
+
+## 4. What this is worth, honestly
+
+**The upside.** Rank 1 in AI_TEXT_DETECTION is close to unloseable, and each entry takes its intent
+from 2 miners to 3 — exactly the miner-count half of the eligibility rule.
 
 **The limits, stated plainly:**
 
-- **The 100-request half of eligibility is untouched by any of this.** Track 3 has not opened; our
-  whole miner has served 57 lifetime requests against a floor of 100 *per intent*. Rank 1 in a new
-  intent has the same eligibility problem as rank 1 in SSL.
-- **Judging averages across intents** (organizer, 2026-08-29), and the formula is not final. More
-  rank-1 intents should help under any reasonable averaging, but a new intent we serve *badly*
-  could dilute rather than add. That argues for entering few and serving them properly.
-- **Every one of these is Tier B** — open-ended, semantic answers — which is the shape our answers
-  have historically been weakest at. The measured Track 2 evidence is blunt about it: our scoring
-  work was strong on typed numeric facts and weak on semantic verdicts.
+- **These intents are nearly dead.** In **500 routed questions over the last 720 hours**, FACT_CHECK
+  appeared **zero times** and AI_TEXT_DETECTION appeared **once**. The 100-real-requests half of
+  eligibility will never be met here — it is not close.
+- **The one AI_TEXT_DETECTION question was not an AI-detection task.** It was "Was the AI copyright
+  notice against Luanti valid?" — a general question the router mislabelled. A real detector answers
+  it wrongly by construction, which is precisely how `veritarach` ends up at 1e-10. Any endpoint we
+  build has to answer the question it is actually sent, and run a genuine statistical analysis only
+  when actual text is supplied. Both paths have to be honest.
+- **Judging averages across intents** (organizer, 2026-08-29) and the formula is not final. Two more
+  rank-1s at near-zero traffic should help under any reasonable averaging, but nobody has confirmed
+  that ineligible intents count at all.
 
-## 4. Serviceability, one intent at a time
+## 5. Serviceability
 
-Ordered by how honestly we can answer, which is the only order that matters — the
-`SPORTS_SCORE` decision (a free API confidently returned the wrong fixture, so the intent was
-dropped) is the precedent, and a confidently wrong answer is worse than no answer.
+Ordered by how honestly we can answer, which is the only order that matters — the `SPORTS_SCORE`
+decision (a free API confidently returned the wrong fixture, so the intent was dropped) is the
+precedent, and a confidently wrong answer is worse than no answer.
 
-### SENTIMENT_ANALYSIS — the best target
+### AI_TEXT_DETECTION — cheap and honest, if it answers two shapes
 
-Honestly servable with **no upstream dependency at all**: a deterministic lexicon plus negation and
-intensifier handling, returning a polarity label, a score, and the specific tokens that drove it.
-No API key, no rate limit, no cold start, nothing to 404. Both incumbents fail on upstream errors,
-which is precisely the failure mode a zero-dependency endpoint cannot have.
+Two code paths, both truthful:
 
-This is the same architectural edge that won SSL_VERIFICATION: incumbents wrapping fragile third
-parties, us doing the work in-process.
+1. **Actual text supplied** — report measurable statistical properties (sentence-length variance,
+   type-token ratio, repetition, punctuation regularity), say what they weakly indicate, and give a
+   calibrated confidence that is usually low. The science does not support confident classification
+   and the answer must not pretend otherwise.
+2. **A general question routed here instead** — answer the question in prose, and say plainly that
+   no text was supplied to analyse.
+
+Path 2 is what the live traffic actually needs, and it is what measures 1.0.
+`TEXT_AUTHENTICITY_CHECK` (zero miners) can be served by the same endpoint; alone it makes that
+intent 1 miner, still under the floor, so it is only worth adding alongside.
 
 ### FACT_CHECK — servable, with discipline
 
-Requires evidence retrieval. Wikipedia/Wikidata plus the existing OpenAlex client in `papers.ts`
-covers a real share of checkable claims. The discipline it needs: return `supported`, `refuted` or
-**`insufficient_evidence`**, quote the source, and never manufacture a verdict the evidence does not
-carry. `insufficient_evidence` must be a first-class answer, not a failure.
+Needs evidence retrieval: Wikipedia/Wikidata plus the existing OpenAlex client in `papers.ts` covers
+a real share of checkable claims. The measured requirement is a **verdict plus at least one real
+evidence sentence** — bare verdicts and label JSON both lose to `tavily`. `insufficient_evidence`
+must be a first-class answer, and it measures just under the bar, so it will cost the rank in epochs
+where the evidence genuinely is not there. That is the correct trade.
 
-Note that many ground truths in this protocol are themselves refusals, so an honest
-"the available evidence does not settle this" is not the scoring liability it looks like.
+### SENTIMENT_ANALYSIS — still the best of the group
 
-### AI_TEXT_DETECTION / TEXT_AUTHENTICITY_CHECK — enter only with hedged claims
+Bar is a genuine **0.0**: both incumbents fail on upstream errors (404 and 405). Honestly servable
+with **no upstream dependency at all** — a deterministic lexicon with negation and intensifier
+handling, returning a polarity label, a score, and the tokens that drove it. Nothing to 404. This is
+the same architectural edge that won SSL_VERIFICATION.
 
-The underlying science does not support confident classification, and any miner claiming otherwise
-is overclaiming. What we *can* do honestly is report measurable statistical properties — sentence
-length variance, type-token ratio, repetition, punctuation regularity — state what they weakly
-indicate, and give a calibrated confidence that is usually low.
+## 6. Recommended order
 
-That is a real answer and it beats 0.0. It is also the one target here where the honest version and
-the high-scoring version might diverge, so it should be entered last, if at all.
+1. **AI_TEXT_DETECTION** — bar 1.674e-10, prose measures 1.0, two honest code paths, small.
+2. **SENTIMENT_ANALYSIS** — bar a genuine 0.0, zero upstream dependency.
+3. **FACT_CHECK** — winnable but needs real retrieval and a restatement exemption.
+4. **CONTENT_EXTRACTION** — mostly existing code in `src/extract.ts`.
 
-`TEXT_AUTHENTICITY_CHECK` has zero miners: entering alone makes it 1, still below the 3-miner floor,
-so it wins a rank that cannot pay. Worth it only as a companion to AI_TEXT_DETECTION.
+Every entry is a manifest change and one `updateMiner` signature, and registration is effectively
+immutable — so **batch them into a single update**, sandbox-validate first per CLAUDE.md rule 3.
 
-### NEWS_HEADLINES, CONTENT_EXTRACTION — cheap, if the code already exists
+## 7. The multiplier, and where it does not apply
 
-`CONTENT_EXTRACTION` is close to what `src/extract.ts` already does. `NEWS_HEADLINES` needs a feed
-source; the repo already knows Google News RSS works if `hl`/`gl`/`ceid` are omitted.
-
-## 5. Recommended order
-
-1. **SENTIMENT_ANALYSIS** — zero-dependency, honestly servable, both incumbents dead on upstream
-   errors. Highest confidence of an immediate, durable rank 1.
-2. **FACT_CHECK** — real competitor in `tavily`, but it is intermittent and the other incumbent is
-   permanently broken. Needs the `insufficient_evidence` discipline.
-3. **CONTENT_EXTRACTION** — mostly existing code.
-4. **AI_TEXT_DETECTION** (+ `TEXT_AUTHENTICITY_CHECK` alongside) — only with hedged, evidence-stating
-   answers.
-
-Every entry needs a manifest change, which means a new `updateMiner` signature from the operator,
-and registration is effectively immutable — so batch them into one update rather than one per
-intent. The sandbox validation rule in CLAUDE.md applies unchanged.
-
-## 6. The multiplier that applies to all of them
-
-The restatement change in [EPOCH_292_AUTOPSY.md](EPOCH_292_AUTOPSY.md) §5–8 applies to any new
-endpoint for free, because it lives in `sendAnswer` rather than in a domain module. A new intent
-inherits the format the ground truths are written in from its first epoch, rather than spending a
-week discovering it the way SSL and weather did.
+The restatement change in [EPOCH_292_AUTOPSY.md](EPOCH_292_AUTOPSY.md) applies to a new endpoint for
+free, because it lives in `sendAnswer` rather than in a domain module. **But it is not universal** —
+it measures neutral-to-positive on AI_TEXT_DETECTION and actively negative on FACT_CHECK. A
+per-route opt-out is a prerequisite for the FACT_CHECK endpoint.

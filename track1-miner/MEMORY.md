@@ -48,12 +48,29 @@ the risky one, 4/12 questions worse on full prose and we hold it by 0.7%), and *
 offline benches can never be refreshed and the champion WASM can no longer be validated against
 reported scores.
 
-**Also scouted, per operator request: [docs/EXPANSION_TARGETS.md](docs/EXPANSION_TARGETS.md).**
-Six intents have <=2 miners with every incumbent scoring 0.0. `assay-miner` (FACT_CHECK) points its
-`base_url` at a GitHub raw repo and POSTs to `/miner.py` — 403 forever, it can never score.
-Recommended order: SENTIMENT_ANALYSIS (zero upstream dependency, both incumbents dead on upstream
-errors), then FACT_CHECK, then CONTENT_EXTRACTION, then AI_TEXT_DETECTION. Entry does not fix the
-100-request eligibility half.
+**Also scouted, per operator request: [docs/EXPANSION_TARGETS.md](docs/EXPANSION_TARGETS.md)** —
+now with both champion scorers run locally, which is the part that matters.
+
+- **AI_TEXT_DETECTION is close to unloseable.** Bar is **1.674e-10** (`veritarach`, flat five
+  epochs). Its live output is `{"confidence":…,"label":"human_written"}` — a label, no prose, so
+  the converter has nothing to score; that exact shape measures **0.0** locally. A prose answer to
+  the routed question measures **1.0**. Note the traffic: the one real question ever routed here was
+  "Was the AI copyright notice against Luanti valid?", which is not an AI-detection task at all, so
+  the endpoint must answer the question it is sent and only run a real detector when text is
+  supplied.
+- **FACT_CHECK is winnable but contested.** Bar is **3.799e-9** (`tavily`), which has spiked to 1.0
+  once. `fact_s01.wasm` is 11 KB and is a **step function with disjoint bands** — 13-17 words scores
+  ~1.0, 19-33 words collapses to 2e-8, 35+ words returns to 1.0. A verdict-plus-evidence answer beat
+  the bar on 3 of 5 test claims. **The restatement prefix HURTS here** (5/5 -> 3/5), so `sendAnswer`
+  needs a per-route opt-out before this endpoint ships.
+- **SENTIMENT_ANALYSIS is the softest of all**: bar is a genuine 0.0, both incumbents fail on
+  upstream 404/405, and it is servable with no upstream dependency at all.
+- **The catch:** in 500 routed questions over 720 hours, FACT_CHECK appeared **0** times and
+  AI_TEXT_DETECTION **once**. Entry clears the 3-miner half of eligibility but the 100-request half
+  is unreachable in these intents.
+- **Earlier note corrected:** the first pass said every incumbent scored 0.0. That was `toFixed(8)`
+  rounding 1.674e-10 to zero. Only SENTIMENT_ANALYSIS, NEWS_HEADLINES and CONTENT_EXTRACTION have a
+  genuine 0.0.
 
 ## 1. What needs the operator, right now
 
