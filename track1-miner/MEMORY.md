@@ -86,6 +86,32 @@ now with both champion scorers run locally, which is the part that matters.
   rounding 1.674e-10 to zero. Only SENTIMENT_ANALYSIS, NEWS_HEADLINES and CONTENT_EXTRACTION have a
   genuine 0.0.
 
+## 0. HARDENED AGAINST ZERO-SCORING FAILURES — 2026-08-30
+
+**The asymmetric edge, quantified: in epoch 293, 8 of 36 scored rows across the field (22%) carried
+an infrastructure failure rather than a bad answer.** `skywire-storm-alert`, `iplocate`,
+`netwire-ip-geolocation`, `weathertop-v3`, `oathcast-weather`, `lacre-meteo`,
+`tempest-storm-intelligence` and `certspotter-cert-verification` all scored 0.0 on plumbing. A
+non-2xx is recorded as an upstream error with an empty answer, which is a zero for the whole epoch
+— worth more than any wording gain.
+
+**Two of our own paths could produce one, both now closed:**
+- A method other than GET returned **405**. Every route is a pure read with no side effects, so all
+  methods are answered identically and the 405 branch is deleted.
+- A path differing only in **case** fell through to the 404. Paths are now lowercased as well as
+  trailing-slash tolerant.
+- A genuinely unknown path is still a 404 **on purpose** — answering it would mean returning a
+  nonsense answer to a question we do not serve.
+- Pinned by `test/zero-paths.test.ts`. **128/128 tests.**
+
+**Degradation audit, all seven routes against the inputs the engine actually sends when it cannot
+fill a parameter** (empty string, junk value, out-of-range coordinates, unknown language): every
+one returns **200 with 15-52 words of real prose**. No route can emit an empty `reason`, and every
+`throw` site is caught into `upstreamUnavailable`, which answers 200. Upstream timeouts are all
+bounded at 6-9s against Vercel's 15s ceiling; measured p95 is 1.2s.
+
+Also fixed: the no-location weather answer read "A hourly weather forecast".
+
 ## 0a. EPOCH 293 — THREE FIRSTS, TWO NEAR-MISSES, ONE SYSTEMIC ZERO
 
 **Full report: [docs/EPOCH_293_REPORT.md](docs/EPOCH_293_REPORT.md).**
