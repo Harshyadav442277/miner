@@ -440,3 +440,70 @@ automated and profit-motivated; deleting a testnet miner earns them nothing.
 - Do not use those seeds for anything after the hackathon.
 - The same Discord contact also pushed a fake "Vercel dapps mainnet wallet validation" flow. There
   is no such thing. No legitimate Telegraph step needs a PowerShell script or a seed phrase.
+
+---
+
+### G30 · Six routes discarded the engine's declared subject when `query` paraphrased it — `CLOSED 2026-08-30: fixed, deployed, regression-tested`
+
+Telegraph fills the parameters `miner.yaml` declares **and** may send `query`. `firstValue`
+returns the first populated parameter, so every route listing `query` ahead of its own declared
+subject threw that subject away whenever both arrived. Harmless while `query` is the verbatim
+question. Wrong when it is a paraphrase — "this wallet", "there", "this subject".
+
+Found by calling production the way the engine does, not the way a human does — which is why
+neither the unit tests nor `verify-deploy` had ever caught it. Measured on the live deployment:
+
+```
+/wallet-balance   address + "balance of this wallet?"      -> refused: invalid_address
+/weather-forecast location=London + "forecast there?"      -> refused: invalid_location
+/translate        text+lang + "Translate it."              -> refused: invalid_input
+/extract          text + "Extract the contact details."    -> "no contact details were found"
+/papers           topic=CRISPR + "papers on this subject"  -> NEUROIMAGING papers, confidently
+/storm-alert      location=Chennai + "storm risk there?"   -> TERESOPOLIS, BRAZIL, confidently
+```
+
+The four refusals are guaranteed zeros — the same shape as epoch 288's weather loss. The last two
+are worse than zeros: they are the confidently-wrong answers ARCHITECTURE A5 and the SPORTS_SCORE
+precedent exist to prevent, and they were being served on `STORM_ALERT`, an intent we lead.
+
+**Fix:** `withSubject` restores the subject only when it is **absent** from the question, so a
+verbatim query yields byte-identical output and no scored surface moves on the intents we lead.
+A regression test pins that byte-identity. `/translate` cannot append — its request has two halves
+— so it falls back to the composed form when the query no longer carries the text.
+
+**Unproven but worth stating: this may be the ACADEMIC_SEARCH regression.** `/papers` returned
+unrelated papers on paraphrased questions, and that intent fell from ratio 1.000 across epochs
+289/291/294 to **0.740** in 295. Consistent with the data, but G24 hides the converted answers, so
+it cannot be confirmed — only watched in epoch 296.
+
+Guarded by `tools/param-shapes.mjs` (55 cases, exits non-zero).
+
+### G31 · A hung upstream became a platform 504, which scores the same as a 400 — `CLOSED 2026-08-30: fixed and deployed`
+
+`vercel.json` caps the function at 15s. Past that Vercel returns a **504**, and Telegraph records
+any non-2xx as an upstream error with an empty `miner_answer` — a guaranteed 0. Several routes
+could reach that ceiling when an upstream hung rather than failed: `/storm-alert` geocodes
+candidates sequentially at 8s each *before* fetching a forecast, `/wallet-balance` walks four RPCs
+at 6s, `/translate` tries two providers at 8s.
+
+A watchdog armed at 11s now answers honestly that the upstream did not respond in time — truthful,
+a 200, and scoreable text. `send()` is idempotent so a late provider cannot write a second response
+to a closed socket.
+
+**Not measured:** how often this actually fired in past epochs. Production median is ~430ms and no
+recorded failure row names a timeout on our side, so this is insurance against a tail, not a
+diagnosis of a known loss.
+
+### G32 · `polygon-rpc.com` is dead and was the primary Polygon endpoint — `CLOSED 2026-08-30: replaced`
+
+HTTP 401, "API key disabled, reason: tenant disabled". Every Polygon or MATIC wallet question was
+one failover away from unanswerable. Replaced with publicnode / drpc / 1rpc, cross-checked against
+each other on the same address. Also dead and named in the code so they are not retried:
+`rpc.ankr.com/polygon` (auth), `polygon.llamarpc.com` (no response),
+`polygon.blockpi.network` (521), `polygon-mainnet.public.blastapi.io` (retired).
+
+**Still degraded:** `ipapi.co`, the **third**-tier geolocation failover, answers 429. The primary
+(`ip-api.com`) and second (`ipwho.is`) are healthy, so this is recorded, not acted on. It means the
+next geolocation outage has one fewer endpoint behind it than the code implies.
+
+Guarded by `tools/upstream-health.mjs` (23 providers, exits non-zero when a primary is down).

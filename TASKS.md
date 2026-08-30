@@ -247,3 +247,34 @@ near-zero field — **both diagnosed, fixed, measured against their champions an
 4. **The eligibility question** — `total_requests_served` remains far below the 100-per-intent
    floor with Track 3 not yet open. Ask the organizers whether that half is waived, deferred or
    binding on Aug 31.
+
+---
+
+## Production audit — 2026-08-30 ~21:45 UTC
+
+- [x] **TA.1** Call every route the way the **engine** does, not the way a human does.
+      Found six routes discarding their declared subject when `query` paraphrases it: four
+      refused (guaranteed zeros), and `/papers` and `/storm-alert` answered **confidently wrong**
+      on intents we lead. Fixed with `withSubject`, which is a no-op on verbatim questions so no
+      scored surface moves. New guard: `tools/param-shapes.mjs`. (opens+closes G30)
+- [x] **TA.2** Bound every route inside Vercel's 15s `maxDuration`. A hung upstream became a 504,
+      which Telegraph scores exactly as it scores a 400. Watchdog at 11s answers honestly instead;
+      `send()` made idempotent. (opens+closes G31)
+- [x] **TA.3** Probe all 23 upstream providers — the organizers made their uptime ours.
+      `polygon-rpc.com` is dead (401, "tenant disabled") and was the **primary** for Polygon.
+      Replaced and cross-checked. New guard: `tools/upstream-health.mjs`. (opens+closes G32)
+
+### Next, in order
+
+- [ ] **TA.4** **Read the epoch-296 rows** (lands 2026-08-31T03:53:43Z). It is the acceptance test
+      for four separate changes: the translation payload starve, and TA.1–TA.3. Watch
+      `ACADEMIC_SEARCH` specifically — if it returns toward 1.000, the `/papers` subject bug was
+      the 295 regression; if it does not, that hypothesis is dead and the cause is elsewhere.
+- [ ] **TA.5** **Operator: sign the three-intent `updateMiner`** — still the largest available
+      score lever and only a human can do it. Occupancy re-checked and unchanged; all three routes
+      verified live in production. Runbook: [track1-miner/docs/ADD_THREE_INTENTS.md](track1-miner/docs/ADD_THREE_INTENTS.md). (G28)
+- [ ] **TA.6** **Operator: post the X series** — 25% of the Track 1 score and still the largest
+      unclaimed block. Thirteen drafts, each verified under 280 characters:
+      [docs/X_POSTS.md](docs/X_POSTS.md). The subject-dropping bug is genuinely new material.
+- [ ] **TA.7** Run `param-shapes.mjs` and `upstream-health.mjs` before every future deploy.
+      `verify-deploy` passed green through all three defects above and is not sufficient alone.

@@ -3,8 +3,79 @@
 **Read this first. Everything Track 1 needs is in this folder.**
 Shared protocol facts are in `../docs/`. Do not edit `../track2/` or `../track3-certwatch/`.
 
-Last updated: 2026-08-31 — epoch 295 read in full, translation payload starved, and TWO new
-intents measured and made ready to sign. Read § 0000 first.
+Last updated: 2026-08-31 (2026-08-30 ~21:45 UTC) — a production audit found and fixed THREE live
+defects, two of which were serving wrong answers on intents we lead. Read § 00000 first.
+
+---
+
+## 00000. THE PRODUCTION AUDIT (2026-08-30 ~21:45 UTC / 2026-08-31 IST)
+
+Network is **back up** — devnode answers in 0.87s after being unreachable for hours. Registration
+**334** `active`, `rejection_reason: null`, seven intents, 87 requests served. Latest epoch is still
+**295**; **296 lands 2026-08-31T03:53:43Z**. All three fixes below are DEPLOYED and verified live,
+196/196 tests, typecheck clean, `verify-deploy` ALL CHECKS PASSED, median 424ms.
+
+### The finding that matters most: we were serving confidently wrong answers
+
+Telegraph fills the parameters `miner.yaml` declares **and** may send `query`. `firstValue` returns
+the first populated parameter, so six of the ten routes discarded their own declared subject
+whenever both arrived. Fine while `query` is verbatim; wrong when it paraphrases.
+
+```
+/wallet-balance   address + "balance of this wallet?"      refused: invalid_address
+/weather-forecast location=London + "forecast there?"      refused: invalid_location
+/translate        text+lang + "Translate it."              refused: invalid_input
+/extract          text + "Extract the contact details."    "no contact details were found"
+/papers           topic=CRISPR + "papers on this subject"  NEUROIMAGING papers, confidently
+/storm-alert      location=Chennai + "storm risk there?"   TERESOPOLIS, BRAZIL, confidently
+```
+
+Four guaranteed zeros and **two confidently-wrong answers on STORM_ALERT and ACADEMIC_SEARCH,
+intents we lead**. Nothing caught it because the unit tests and `verify-deploy` both call the
+endpoints the way a human would, not the way the engine does.
+
+`withSubject` restores the subject **only when it is absent**, so a verbatim query gives
+byte-identical output — that byte-identity is pinned by a test and is what made this safe to ship
+onto winning intents hours before an epoch.
+
+**A hypothesis worth watching, not believing:** `/papers` returning unrelated papers on paraphrased
+questions would explain ACADEMIC_SEARCH falling from ratio 1.000 (epochs 289/291/294) to **0.740**
+in 295. G24 hides the converted answers so it cannot be confirmed. **Read the epoch-296 ACADEMIC
+row before crediting the fix.**
+
+### Two more live defects, both fixed
+
+- **A hung upstream became a 504, which scores exactly what a 400 scores.** `vercel.json` caps the
+  function at 15s; `/storm-alert` geocodes candidates sequentially at 8s each *before* fetching a
+  forecast, `/wallet-balance` walks four RPCs at 6s, `/translate` tries two providers at 8s. A
+  watchdog at 11s now answers honestly instead, and `send()` is idempotent so a late provider
+  cannot write twice. (G31)
+- **`polygon-rpc.com` is dead** — HTTP 401, "tenant disabled" — and it was the *primary* for Polygon
+  balances. Replaced with publicnode / drpc / 1rpc, cross-checked against each other. Live and
+  correct: 592.7198 **POL**. (G32)
+
+### Two new tools, because both defects were invisible to the existing ones
+
+```
+node track1-miner/tools/param-shapes.mjs      55 cases, calls every route the way the ENGINE does
+node track1-miner/tools/upstream-health.mjs   23 providers, non-zero exit when a PRIMARY is down
+```
+
+Run both before any deploy. `param-shapes` is what found the subject bug; `upstream-health` is what
+found the dead Polygon RPC. **`verify-deploy` alone is not sufficient and never was** — it passed
+green through all three defects.
+
+### Still true, still not ours to fix
+
+- **`/scores` still omits `question`, `ground_truth`, `converted_answer`** (G24). Benches stay
+  frozen. Verified again this session.
+- **`ipapi.co` answers 429** — third-tier geolocation failover only; primary and second are healthy.
+- **Eligibility unchanged:** 87 requests across the whole miner against a floor of 100 *per intent*.
+  Rank 1 in an ineligible intent still wins no cash.
+- **The three-intent signature is still the operator's** and still unsigned. Occupancy re-checked
+  this session and unchanged: CONTENT_EXTRACTION 2, NEWS_HEADLINES 2, WALLET_BALANCE_CHECK 8.
+  Runbook: [docs/ADD_THREE_INTENTS.md](docs/ADD_THREE_INTENTS.md). All three routes verified live
+  in production, so activation cannot find a missing route.
 
 ---
 

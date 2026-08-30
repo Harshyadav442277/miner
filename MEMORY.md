@@ -14,6 +14,26 @@ sessions and between models.
 | **Track 3 — app** | [track3-certwatch/](track3-certwatch/), plus G17/G18 in [GAPS.md](GAPS.md) |
 | Anything | [README.md](README.md) for ownership and shared facts, [docs/](docs/) for protocol and rules |
 
+## State at 2026-08-30 ~21:45 UTC — PRODUCTION AUDIT
+
+**Three live defects found and fixed today, two of them serving confidently wrong answers on
+intents we lead.** The engine fills the parameters we declare *and* may send a paraphrasing
+`query`; six of ten routes discarded their own declared subject in that case. `/storm-alert` asked
+about Chennai reported **Teresopolis, Brazil**; `/papers` asked about CRISPR returned neuroimaging.
+Four other routes refused outright, which is a guaranteed zero. Also fixed: a hung upstream could
+become a Vercel 504 (scores the same as a 400), and `polygon-rpc.com`, the primary for Polygon
+balances, is dead. All deployed and verified live — 196/196 tests, `verify-deploy` green.
+
+Two new tools, because `verify-deploy` passed green through all three:
+`tools/param-shapes.mjs` calls every route the way the **engine** does; `tools/upstream-health.mjs`
+probes all 23 providers. Full record: **§ 00000 of [track1-miner/MEMORY.md](track1-miner/MEMORY.md)**
+and GAPS **G30–G32**.
+
+Network is back up. Registration 334 active, 7 intents. Latest epoch still 295; **296 lands
+2026-08-31T03:53:43Z** and is the acceptance test for these fixes plus the translation payload fix.
+
+---
+
 ## State at 2026-08-30 (evening)
 
 **Epoch 294: rank 1 in five of seven. The two losers were diagnosed, fixed, measured and DEPLOYED

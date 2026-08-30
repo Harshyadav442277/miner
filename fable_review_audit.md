@@ -144,7 +144,7 @@ table in §1. Weather is the reliable `0.99`; storm and SSL are reliable `~2×`.
 curl -s https://devnode.telegraphprotocol.com/api/wasm > wasm.json          # champion per intent
 curl -sL "<wasm_url from wasm.json>" -o champ.wasm                          # ~24 MB
 curl -s "https://devnode.telegraphprotocol.com/scores?intent=SSL_VERIFICATION&limit=200" -o scores.json
-node docs/codex-worklog/probe-champion.mjs --wasm champ.wasm --scores scores.json \
+node track1-miner/docs/codex-worklog/probe-champion.mjs --wasm champ.wasm --scores scores.json \
      --miner livecert --epoch 284 --answer "<candidate text>"
 ```
 
@@ -171,7 +171,7 @@ families do not respond the same way.
 
 Why competitors will not do it: everyone in these intents sits at `0.004–0.011` and reads that as
 "the scorer is harsh." The bimodal distribution the repo flagged as an open question in
-`SCORE_INTELLIGENCE.md` §4 — a `~0.99` cluster and a `~0.006` cluster, 77 of 173 records at exactly
+`track1-miner/docs/SCORE_INTELLIGENCE.md` §4 — a `~0.99` cluster and a `~0.006` cluster, 77 of 173 records at exactly
 `0.0` — is now explained: the `0.99` group echoes its questions and the `0.006` group does not.
 
 This is Claude-side work. It is a change to `miner/src/*.ts` response prose, not to any data path.
@@ -283,8 +283,8 @@ Session `local_8fb8e152` ("Telegraph Protocol registration flow"), still running
 ### What it is missing
 
 1. **It built the right rig, then pointed it at the wrong input.** *Updated mid-audit:* while I was
-   writing this, it committed `tools/bench-champion.mjs` plus `ssl_bench.json` / `storm_bench.json` /
-   `wf_bench.json` — a proper multi-question harness that scores answers against the champion WASM,
+   writing this, it committed `track1-miner/tools/bench-champion.mjs` plus `ssl_bench.json` /
+   `storm_bench.json` / `wf_bench.json` alongside it — a proper multi-question harness that scores answers against the champion WASM,
    with a well-reasoned docstring about not trusting a single question. That is exactly the right
    instrument and it converged on it independently.
 
@@ -324,6 +324,10 @@ private, which is the only reason this has been free so far.
 **Fix:** stage explicit paths. Add `*.json` scratch patterns at the repo root to `.gitignore`, and
 delete `e.json` / `n.json` / `r.json`.
 
+*Update 2026-08-26, later:* the three scratch files were deleted in `b644513`, so that half is
+resolved. The `git add -A` practice was not changed — `633bbc6` swept this audit file again, the
+second time under an unrelated commit message. The recommendation stands.
+
 ### The error pattern worth knowing
 
 Its three retracted claims share one shape: **a mechanism was inferred from one observation, then
@@ -338,7 +342,7 @@ reused as a premise.** The current claims fitting that shape — treat as unprov
 
 ## 5. What to stop doing
 
-- **Stop hand-tuning individual answers.** `tools/bench-champion.mjs` already exists — extend it to
+- **Stop hand-tuning individual answers.** `track1-miner/tools/bench-champion.mjs` already exists — extend it to
   loop over *candidate phrasings* instead of only scoring the live endpoint's current output. The
   ABI takes six integers; searching thousands of candidates is a twenty-line change to a file that
   is already written.
