@@ -244,12 +244,13 @@ export function specialRange(ip: string): { verdict: string; reason: string } | 
 export async function torExitNode(
   ip: string,
   timeoutMs = TOR_DNSEL_TIMEOUT_MS,
+  resolve4?: (hostname: string) => Promise<string[]>,
 ): Promise<boolean | null> {
   if (ip.includes(":")) return null; // DNSEL answers for IPv4 exits only
   const name = `${ip.split(".").reverse().join(".")}.dnsel.torproject.org`;
-  const resolver = new Resolver({ timeout: timeoutMs, tries: 1 });
+  const resolver = resolve4 ? null : new Resolver({ timeout: timeoutMs, tries: 1 });
   try {
-    const addrs = await resolver.resolve4(name);
+    const addrs = await (resolve4 ? resolve4(name) : resolver!.resolve4(name));
     return addrs.some((addr) => addr.startsWith("127.0.0."));
   } catch (e) {
     const code = (e as NodeJS.ErrnoException).code;

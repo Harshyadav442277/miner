@@ -84,11 +84,15 @@ describe("torExitNode", () => {
     assert.equal(await torExitNode("2606:4700:4700::1111"), null);
   });
 
-  test("an unresolvable lookup maps to false, a timeout to null (live)", async () => {
-    // 192.0.2.x never appears on the exit list; DNSEL answers NXDOMAIN.
-    assert.equal(await torExitNode("192.0.2.55"), false);
-    // A 1ms budget cannot complete: the check must fail open, claiming nothing.
-    assert.equal(await torExitNode("8.8.8.8", 1), null);
+  test("an unresolvable lookup maps to false, a timeout to null", async () => {
+    const fail = (code: string) => async () => {
+      throw Object.assign(new Error(code), { code });
+    };
+    // Exercise the resolver outcomes directly. A real 1ms DNS lookup can still
+    // return a cached NXDOMAIN before its timer fires, which made this monitor
+    // test race by runner even though production behaved correctly.
+    assert.equal(await torExitNode("192.0.2.55", 1_500, fail("ENOTFOUND")), false);
+    assert.equal(await torExitNode("8.8.8.8", 1, fail("ETIMEOUT")), null);
   });
 });
 
