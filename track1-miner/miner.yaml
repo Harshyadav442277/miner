@@ -177,7 +177,7 @@ endpoints:
   - path: /ai-detect
     external_path: /ai-detect
     method: GET
-    intents: [AI_TEXT_DETECTION]
+    intents: [AI_TEXT_DETECTION, TEXT_AUTHENTICITY_CHECK]
     description: >-
       Statistical authorship analysis of a supplied passage. Measures sentence-length
       burstiness, type-token ratio, repeated word pairs and formulaic connectives, and
@@ -211,6 +211,7 @@ semantics:
     - LANGUAGE_TRANSLATION
     - ACADEMIC_SEARCH
     - AI_TEXT_DETECTION
+    - TEXT_AUTHENTICITY_CHECK
 
 # input_schema is a single top-level block covering every endpoint — the schema
 # refuses it inside endpoints[], and the node does not enforce it against requests.
