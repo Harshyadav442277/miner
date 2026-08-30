@@ -6,6 +6,8 @@ import { findPapers, type PaperResult } from "./papers";
 import { getForecast, type ForecastResult } from "./forecast";
 import { geolocate, SPECIAL_GEO_VERDICTS, type GeoResult } from "./geo";
 import { detectAiText, type AiDetectResult } from "./aidetect";
+import { extractContent } from "./content";
+import { getHeadlines } from "./news";
 import { withRestatement, isAnswered } from "./restate";
 
 const CACHE_TTL_MS = Number(process.env.CACHE_TTL_MS ?? 60_000);
@@ -13,7 +15,7 @@ const MAX_CACHE = 500;
 export const ENDPOINTS = [
   "/ssl-check", "/storm-alert", "/weather-forecast",
   "/ip-geolocate", "/translate", "/papers",
-  "/ai-detect",
+  "/ai-detect", "/extract", "/headlines",
 ] as const;
 
 /**
@@ -386,6 +388,51 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
     const asked = firstValue(url, "query", "q", "question");
     const subject = firstValue(url, "text", "content", "passage", "input") || asked;
     sendAnswer(res, asked, detectAiText(subject));
+    return;
+  }
+
+  if (path === "/headlines") {
+    const q = firstValue(url, "query", "q", "question", "text", "topic", "input");
+    if (!q.trim()) {
+      sendAnswer(res, q, {
+        verdict: "unknown",
+        confidence: 0,
+        reason:
+          "No topic was supplied with this request, so no headlines could be retrieved. " +
+          "Name a subject and optionally a region, for example: current technology headlines in Japan.",
+        error: "invalid_input",
+      }, false);
+      return;
+    }
+    getHeadlines(q)
+      .then((r) => sendAnswer(res, q, r, false))
+      .catch(() => upstreamUnavailable(res, "Current headlines", q.slice(0, 60), q));
+    return;
+  }
+
+  if (path === "/extract") {
+    // CONTENT_EXTRACTION questions carry their payload inline, so the whole
+    // question text is the input — there is nothing to fetch.
+    const q = firstValue(url, "query", "q", "question", "text", "input", "content");
+    if (!q.trim()) {
+      sendAnswer(res, q, {
+        verdict: "unknown",
+        confidence: 0,
+        reason:
+          "No text was supplied with this request, so no fields could be extracted. " +
+          "Supply the text to extract from, for example: Extract the contact details from: " +
+          "\"Reach us at support@example.com or call 555-0192.\"",
+        error: "invalid_input",
+      }, false);
+      return;
+    }
+    const e = extractContent(q);
+    sendAnswer(res, q, {
+      verdict: e.want,
+      extracted: e.fields,
+      confidence: 1,
+      reason: e.summary,
+    }, false);
     return;
   }
 

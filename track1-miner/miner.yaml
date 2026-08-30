@@ -174,6 +174,51 @@ endpoints:
             intents: ["*"]
             description: "The user's original question, verbatim. Carries wording the structured fields cannot, such as an explicit start date like 'starting September 1st' — without it the forecast starts today."
 
+  - path: /extract
+    external_path: /extract
+    method: GET
+    intents: [CONTENT_EXTRACTION]
+    description: >-
+      Structured extraction from text supplied inline in the question. Reads quantities
+      and units, contact details, named entities, action items, dates and events, or
+      bare numeric values, and answers with the extracted fields themselves. The text
+      is carried in the question, so nothing is fetched and the answer is deterministic
+      and checkable against the input.
+    params:
+      query:
+        required:
+          - name: text
+            type: string
+            intents: ["*"]
+            description: "The text to extract from, usually quoted after a colon in the question."
+        optional:
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim. It names which fields to extract, e.g. Extract the contact details from: \"...\"."
+
+  - path: /headlines
+    external_path: /headlines
+    method: GET
+    intents: [NEWS_HEADLINES]
+    description: >-
+      Current news headlines for a topic and optional region, read live from Google
+      News at request time and returned as a numbered list with each source named.
+      Honours a requested count such as "top 5". Headlines rotate, so the answer states
+      the date it was read.
+    params:
+      query:
+        required:
+          - name: topic
+            type: string
+            intents: ["*"]
+            description: "Subject to fetch headlines for, e.g. technology, business."
+        optional:
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim. Carries the region and any requested count."
+
   - path: /ai-detect
     external_path: /ai-detect
     method: GET
@@ -212,6 +257,8 @@ semantics:
     - ACADEMIC_SEARCH
     - AI_TEXT_DETECTION
     - TEXT_AUTHENTICITY_CHECK
+    - CONTENT_EXTRACTION
+    - NEWS_HEADLINES
 
 # input_schema is a single top-level block covering every endpoint — the schema
 # refuses it inside endpoints[], and the node does not enforce it against requests.
