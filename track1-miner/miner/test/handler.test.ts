@@ -161,3 +161,44 @@ test("a verbatim query is passed through unchanged, so scored answers do not mov
   const withoutParam = await capture(`/ssl-check?query=${encodeURIComponent(q)}`);
   assert.equal(withParam.body.reason, withoutParam.body.reason);
 });
+
+/**
+ * Vercel kills the function at maxDuration and returns a 504, and Telegraph
+ * scores any non-2xx as zero with an empty answer. The routes can outlast that
+ * ceiling when upstreams hang instead of failing, so the miner keeps its own
+ * deadline inside the platform's.
+ */
+test("a hung upstream is answered honestly, not left to become a 504", async () => {
+  const originalFetch = globalThis.fetch;
+  const prior = process.env.WATCHDOG_MS;
+  process.env.WATCHDOG_MS = "60";
+  // A fetch that never settles is exactly the case the platform turns into a 504.
+  globalThis.fetch = (() => new Promise(() => {})) as typeof globalThis.fetch;
+  try {
+    const { body, status } = await capture(
+      "/wallet-balance?address=" + WALLET + "&query=" + encodeURIComponent("balance of this wallet"),
+    );
+    assert.equal(status, 200);
+    assert.ok(String(body.reason).trim().length > 0, "an empty answer scores zero");
+  } finally {
+    globalThis.fetch = originalFetch;
+    if (prior === undefined) delete process.env.WATCHDOG_MS;
+    else process.env.WATCHDOG_MS = prior;
+  }
+});
+
+test("the first answer wins and a late upstream cannot write twice", async () => {
+  // Two writes to one response throw in production; the guard must be on send,
+  // not on the watchdog alone.
+  let writes = 0;
+  await new Promise<void>((resolve) => {
+    const req = { method: "GET", url: "/health" } as IncomingMessage;
+    const res = {
+      writeHead() {},
+      end() { writes++; resolve(); },
+    } as unknown as ServerResponse;
+    handleRequest(req, res);
+    handleRequest(req, res);
+  });
+  assert.equal(writes, 1);
+});

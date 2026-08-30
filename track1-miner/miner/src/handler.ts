@@ -46,7 +46,65 @@ function toCache(key: string, value: Answer): void {
   cache.set(key, { at: Date.now(), value });
 }
 
+/**
+ * Our own deadline, set inside the platform's.
+ *
+ * Vercel kills the function at `maxDuration` — 15s in vercel.json — and returns
+ * a 504. Telegraph records any non-2xx as `upstream error`, stores an empty
+ * miner_answer, and the scorer sees nothing: a guaranteed 0 for the epoch,
+ * costing exactly what a 400 costs. Several routes can reach that ceiling when
+ * upstreams hang rather than fail — `/storm-alert` geocodes candidates
+ * sequentially at 8s each before it even fetches a forecast, `/wallet-balance`
+ * walks four RPC endpoints at 6s, `/translate` tries two providers at 8s.
+ *
+ * So the deadline has to be ours. At 11s we answer honestly that the upstream
+ * did not respond in time, which is truthful, is a 200, and is scoreable text.
+ * A provider that replies afterwards finds the response already sent and is
+ * dropped, which is why `send` is idempotent rather than merely guarded here.
+ *
+ * Read per call rather than once at load, so it stays configurable and testable.
+ */
+function watchdogMs(): number {
+  const v = Number(process.env.WATCHDOG_MS);
+  return Number.isFinite(v) && v > 0 ? v : 11_000;
+}
+const pending = new WeakMap<ServerResponse, ReturnType<typeof setTimeout>>();
+const answered = new WeakSet<ServerResponse>();
+
+/** What each route is fetching, for the watchdog's sentence. */
+const SUBJECT_OF: Record<string, string> = {
+  "/ssl-check": "A TLS certificate check",
+  "/storm-alert": "A storm risk forecast",
+  "/weather-forecast": "A weather forecast",
+  "/ip-geolocate": "An IP geolocation lookup",
+  "/translate": "A translation",
+  "/papers": "A paper search",
+  "/ai-detect": "An authorship analysis",
+  "/extract": "A field extraction",
+  "/headlines": "Current headlines",
+  "/wallet-balance": "A wallet balance lookup",
+};
+
+function armWatchdog(res: ServerResponse, path: string, question: string): void {
+  const timer = setTimeout(() => {
+    if (answered.has(res)) return;
+    upstreamUnavailable(res, SUBJECT_OF[path] ?? "This answer", question.trim() ? question.slice(0, 80) : "this request", question);
+  }, watchdogMs());
+  // Never keep a process alive for the watchdog alone.
+  timer.unref?.();
+  pending.set(res, timer);
+}
+
 function send(res: ServerResponse, status: number, body: unknown): void {
+  // The first answer wins. Both the watchdog and the route itself can reach
+  // here, and writing a second response to a closed socket throws.
+  if (answered.has(res)) return;
+  answered.add(res);
+  const timer = pending.get(res);
+  if (timer) {
+    clearTimeout(timer);
+    pending.delete(res);
+  }
   const payload = JSON.stringify(body);
   res.writeHead(status, {
     "content-type": "application/json; charset=utf-8",
@@ -285,6 +343,13 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
   if (path === "/" || path === "/health") {
     send(res, 200, { status: "ok", service: "livecert", uptime_s: Math.floor(process.uptime()) });
     return;
+  }
+
+  // Every route below reaches an upstream, so every route below can hang. Armed
+  // once here rather than in ten places; a route that answers normally clears it
+  // through `send`.
+  if ((ENDPOINTS as readonly string[]).includes(path)) {
+    armWatchdog(res, path, firstValue(url, "query", "q", "question", "text", "input"));
   }
 
   if (path === "/weather-forecast") {
