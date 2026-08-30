@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { searchTopic, dateWindow, requestedLimit, requestedSort } from "../src/papers";
+import { searchTopic, dateWindow, requestedLimit, requestedSort, findPapers } from "../src/papers";
 
 // The four questions below are the real recorded ACADEMIC_SEARCH questions from
 // the public score feed, verbatim. Two of them used to make searchTopic return
@@ -88,4 +88,30 @@ test("an explicitly requested ordering is honoured, and only then", () => {
   // Relevance stays the default: sorting by citations unasked returned a highly
   // cited survey on the wrong subject for a blockchain supply-chain query.
   assert.equal(requestedSort("zero knowledge proofs"), null);
+});
+
+test("a title's hard wrapping never reaches the scored prose", async () => {
+  // OpenAlex passes through what the publisher deposited; arXiv records keep
+  // their line breaks, and one live answer carried a literal backslash-n inside
+  // the sentence. Every field is converted into the prose the scorer reads.
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = (async () =>
+    new Response(
+      JSON.stringify({
+        results: [{
+          title: "Exploring the Limits of Transfer Learning with a Unified Text-to-Text\n Transformer",
+          publication_year: 2019,
+          cited_by_count: 1,
+          authorships: [],
+        }],
+      }),
+      { status: 200, headers: { "content-type": "application/json" } },
+    )) as typeof globalThis.fetch;
+  try {
+    const r = await findPapers("transformers");
+    assert.equal(r.papers[0]?.title, "Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer");
+    assert.doesNotMatch(r.reason, /\n|\s{2,}/);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
 });

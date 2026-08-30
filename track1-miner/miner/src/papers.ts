@@ -11,6 +11,23 @@
 const API = "https://api.openalex.org/works";
 const DEFAULT_TIMEOUT_MS = 9000;
 
+/**
+ * A title fit to appear in scored prose.
+ *
+ * OpenAlex passes through whatever the publisher deposited, and arXiv-sourced
+ * records keep their hard wrapping — one live answer read "...with a Unified
+ * Text-to-Text\n Transformer", with a literal backslash-n inside the sentence.
+ * `.trim()` never touched it because it sits in the middle. Every field we
+ * return is converted into the prose the scorer reads, so escape sequences and
+ * stray line breaks are noise in the one place noise is expensive.
+ */
+function cleanTitle(raw: unknown): string {
+  return String(raw ?? "")
+    .replace(/\\[nrt]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 export interface Paper {
   title: string;
   year: number | null;
@@ -259,7 +276,7 @@ export async function findPapers(query: string, limit?: number, timeoutMs = DEFA
     const authorships = (w["authorships"] as Array<{ author?: { display_name?: string } }> | undefined) ?? [];
     const loc = w["primary_location"] as { source?: { display_name?: string } } | undefined;
     papers.push({
-      title: String(w["title"] ?? "").trim(),
+      title: cleanTitle(w["title"]),
       year: typeof w["publication_year"] === "number" ? (w["publication_year"] as number) : null,
       authors: authorships.map((a) => a.author?.display_name).filter((x): x is string => Boolean(x)).slice(0, 4),
       citations: typeof w["cited_by_count"] === "number" ? (w["cited_by_count"] as number) : null,
