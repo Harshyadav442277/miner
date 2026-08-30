@@ -528,3 +528,28 @@ artifact — it put the same 8KB into twelve parameter names at once, building a
 rejects before our function is ever invoked. The engine does not do that.
 
 Guarded by `tools/hostile-inputs.mjs` (180 probes, exits non-zero).
+
+### G34 · The uptime tripwire was red for two days because a test fix was never pushed — `CLOSED 2026-08-30: pushed, workflow green`
+
+`uptime` runs `check`, `live-tests` and `scores`, and its `alarm` job opens an issue when any of
+them fails. G19 calls that alerting **load-bearing** — it is the tripwire for the compromised
+wallet seed. It had been failing on `live-tests` (44 pass, 1 fail) since 2026-08-29 on the DNS
+timeout race the seven-intent audit describes. The fix existed locally and had simply never been
+pushed, so the alarm was firing on its own broken test rather than watching the miner.
+
+Pushed with this session's six commits. `uptime` is now green end to end — check, live-tests and
+scores all pass, alarm correctly skipped. Locally `npm run test:live` is 52/52.
+
+**Separate and still red, and deliberately not touched:** the `ci` workflow fails in its
+`track2-scorer` job on `release identity mismatch: 32311 bytes e5faf4ca…` — the built
+`dist/text_authenticity.wasm` no longer matches the sha256 pinned in
+`track2/release/text-authenticity.json`. **Track 1's `miner` job passes green**, as does `app`; only
+Track 2's job is red, and this file's rules forbid editing `../track2/`. It is recorded here so the
+red X on `ci` is not mistaken for a Track 1 failure — but a Track 2 session should fix it, because a
+release-identity mismatch on a submitted scorer is not cosmetic.
+
+**Also observed, and it is the reason the design is what it is:** running all five gates
+back-to-back made `verify-deploy` fail once on a transient upstream, then pass three times in a row
+unchanged. The upstreams flap under concurrent load. That is precisely the case the 11s watchdog
+(G31) and the honest-200 rule exist to absorb — but it means a single red run is not evidence of a
+defect, and a gate should be re-run before it is believed.
