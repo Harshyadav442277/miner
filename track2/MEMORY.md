@@ -2,9 +2,86 @@
 
 **Read this first every Track 2 session.** Update at session end.
 
+**Sign list, always current: [SIGN.md](SIGN.md).**
+
 ---
 
-## CURRENT — 2026-08-29 19:30Z · WE LOST LANGUAGE_TRANSLATION · TEN CANDIDATES BUILT AND VERIFIED
+## CURRENT — 2026-08-30 04:30Z · THE MODEL IS CONFIRMED · V2 CANDIDATES BUILT
+
+**Registration 1829 (`fraud_detection_t080`) took FRAUD_DETECTION** at margin **0.93289727**,
+15/15, against a bar of 0.8785044 — the prediction was ~0.93. It held from 20:46Z until
+23:13Z, when `frq_c65` (reg 1852) retook it at **0.9985664**. The step-calibration model works;
+we are simply in a live race with an opponent who reacts within about two and a half hours.
+
+**Registration 1831 (`language_translation_t085`) was rejected** at margin 0.6658629, 15/15. That
+is a measurement, not a failure: it places the separated-pair count at **10 at threshold 0.85**
+against **12 at 0.65**. The threshold is already near its optimum; two good answers sit between
+0.65 and 0.85. Remaining headroom is in the *bands*, not the threshold.
+
+**Registration 1828 (`cve_lookup_t050`) was rejected** at 0.93342143 — separated-pair count 14, not
+the 15 the integral argument guarantees exists. The n=15 window is elsewhere. CVE_LOOKUP has since
+moved to 0.97286785, so it is no longer a soft target.
+
+### The finding that makes v2 work
+
+Reading the new champions' code: **`frq_c65` and `ta_r1cut` both use an identity high band.**
+
+```text
+frq_c65:   f(s) = s               if s >= 0.65   else 0.01 * s
+ta_r1cut:  f(s) = sqrt(s)         if sqrt(s) >= 0.30 else 0.005 * sqrt(s)
+```
+
+An identity high band caps a separated pair at the good answer's *own raw score*, so every point
+by which a good answer falls short of 1.0 is margin thrown away. Our affine band
+`(1-high) + high*s` maps every above-threshold answer to essentially 1.0 regardless. Measured on
+the FRAUD base, good answers score 0.994–1.0 and wrong ones 0.006–0.012, and the champion's own
+margin implies mean(good) = 0.99866 — so the discarded headroom is about **0.00134 per pair**,
+which is the whole gap we need.
+
+Same threshold, same ordering, same win count; only the band changes.
+
+### Fixtures are resampled per evaluation
+
+`frq_c45` and `frq_c55` were evaluated on **10 and 11** comparable cases while `frq_c65` got 15,
+all in one batch. Margins therefore bounce between probes. The candidate and the champion are
+always scored on the *same* sample, so a transform that dominates pointwise still wins — but do
+not read a single margin as a fixed property of a binary.
+
+### Built, verified, committed at `72474bd7514735b53b823bdab390c9721219bd18`
+
+Seven artifacts, all `wasm-tools`-valid, formula-exact, ordering-preserving, correct
+`TELEGRAPH_INTENT`, bases Keccak-matched to their on-chain registrations (1852, 1797, 1867).
+Predictions and links: [SIGN.md](SIGN.md).
+
+| artifact | intent | bar | predicted |
+|---|---|---:|---:|
+| `fraud_detection_v2_tight` | FRAUD_DETECTION | 0.9985664 | 0.99997 |
+| `language_translation_v2_tight` | LANGUAGE_TRANSLATION | 0.79502594 | 0.7996 |
+| `text_authenticity_v2` | TEXT_AUTHENTICITY_CHECK | 0.6663348 | 0.66665 |
+
+Plus safe-band fallbacks and two LANGUAGE_TRANSLATION threshold long shots.
+
+### Ceilings, so nobody chases a slot that cannot move
+
+With a perfect step the margin is `separated pairs / 15`. LANGUAGE_TRANSLATION separates 12 at its
+best known threshold, so **0.8000 is the ceiling** and 0.7996 is nearly all of it.
+TEXT_AUTHENTICITY_CHECK's base is close to an exact-match detector — 1.0 on a verbatim answer,
+~0.002 on everything else — so it separates 10 and **0.66667 is the ceiling**; the champion is
+0.00033 below it and there is nothing else to win there. FRAUD_DETECTION separates all 15, so its
+ceiling is ~1.0 and it is worth defending.
+
+### Who we are racing
+
+`0x8b224783fe5b3c52b7db0cb9b1754f8812b75287` ("zkasuran"). First registration 2026-08-17T13:54Z,
+reg 24 — two days after the network opened, so **not a seed or organizer account**; the organizers'
+baseline is the separate `telegraphprotocol/telegraph-wasm-baseline` repo. 804 of the network's
+1,639 registrations and **45 of 45 champion slots**. Works in batches of five to seven constant
+sweeps and retakes a lost slot within hours. Their code is MIT-licensed, which is what makes the
+calibration route legal.
+
+---
+
+## Prior CURRENT — 2026-08-29 19:30Z · WE LOST LANGUAGE_TRANSLATION · TEN CANDIDATES BUILT AND VERIFIED
 
 Registration **1774 is `superseded`, rank 3**. `0x8b224783` (zkasuran) took the slot back at
 17:13:44Z with registration **1797**, margin **0.79502594** against our 0.7590201. That is the new
