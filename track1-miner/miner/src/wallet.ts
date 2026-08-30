@@ -56,7 +56,17 @@ const RPCS: Record<string, string[]> = {
   base: ["https://mainnet.base.org", "https://base-rpc.publicnode.com"],
   arbitrum: ["https://arb1.arbitrum.io/rpc", "https://arbitrum-one-rpc.publicnode.com"],
   optimism: ["https://mainnet.optimism.io", "https://optimism-rpc.publicnode.com"],
-  polygon: ["https://polygon-rpc.com", "https://polygon-bor-rpc.publicnode.com"],
+  // polygon-rpc.com was primary here and is DEAD as of 2026-08-30: it answers
+  // HTTP 401, "API key disabled, reason: tenant disabled". Its replacements were
+  // cross-checked against each other on the same address and agree exactly.
+  // Also dead and deliberately absent: rpc.ankr.com/polygon (needs auth),
+  // polygon.llamarpc.com (no response), polygon.blockpi.network (521), and
+  // polygon-mainnet.public.blastapi.io (service retired).
+  polygon: [
+    "https://polygon-bor-rpc.publicnode.com",
+    "https://polygon.drpc.org",
+    "https://1rpc.io/matic",
+  ],
 };
 
 /** Native coin per chain. Polygon's is POL, not ETH. */
