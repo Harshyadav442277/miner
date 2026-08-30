@@ -3,9 +3,57 @@
 **Read this first. Everything Track 1 needs is in this folder.**
 Shared protocol facts are in `../docs/`. Do not edit `../track2/` or `../track3-certwatch/`.
 
-Last updated: 2026-08-29 session 3 — organizer clarified cross-intent averaging and demand routing.
+Last updated: 2026-08-30 — epoch 292 lost SSL and weather; root cause found and fixed. Read § 0.
 
 ---
+
+## 0. EPOCH 292 (2026-08-29T22:18Z) — SSL AND WEATHER LOST, ROOT CAUSE FOUND
+
+```
+SSL_VERIFICATION      #2  0.00885159   lost by 1.75% to preflight-ssl-verification 0.00900906
+WEATHER_FORECAST      #5  0.00908315   chainsight-oracle 0.01173830, field now 14
+STORM_ALERT           #1  0.01003684   held, by 0.7% over chainsight-oracle
+IP_GEOLOCATION        #1  0.00933759   held
+LANGUAGE_TRANSLATION  #1  0.00010760   held (all three miners near zero again)
+ACADEMIC_SEARCH        -  not scored this epoch
+```
+
+**Full autopsy: [docs/EPOCH_292_AUTOPSY.md](docs/EPOCH_292_AUTOPSY.md).** Read it before touching
+any answer template. Summary:
+
+- **SSL**: not broken, passed. `preflight-ssl-verification` tuned +74% in one epoch. Our ratio to
+  the next-best miner has fallen every epoch: 1.63 / 1.50 / 1.11 / 1.60 / 1.17 / 1.01 / **0.98**.
+- **WEATHER**: we never led. Against the field best each epoch we run 0.76 / 0.81 / 0.69 / 0.97 /
+  0.82 / **1.05** / 0.77. **Epoch 291's #1 was the field collapsing, not the temperature-first
+  reorder working** — the earlier note in this file claiming otherwise was wrong and is corrected
+  below.
+- **The root cause, shared, and missed for six epochs**: every ground truth is an LLM answer that
+  **restates the request before answering it**, and ours did not. The champion scorers are a cliff
+  on that resemblance — ~0.99 above, ~0.01 below — and the entire weather field, all 14 miners, has
+  always been on the losing side. Our own accidental proof: the one bench question whose upstream
+  fails makes us quote the question back verbatim, and that answer scores **0.9932** against ~0.011
+  for every correct forecast we return.
+- **FIXED, measured, committed, NOT YET DEPLOYED**: `src/restate.ts` + `sendAnswer` in
+  `src/handler.ts`. Built miner A/B'd against live production on the same questions and the live
+  champion scorers: **weather 8.10x (12/12 improved), SSL 18.84x (11/12), storm 20.44x (8/12)**;
+  under a 32-word conversion budget **6.36x / 11.15x / 1.51x (12/12)**. 102/102 tests, typecheck
+  clean, verify-deploy green except the localhost HTTPS check.
+
+**What needs the operator:** `vercel --prod` from `track1-miner/miner`, then re-run verify-deploy
+against production. Deploys are manual (G22). Epoch 293 is the measurement.
+
+**Two honest caveats**, both in GAPS: the converter is simulated not measured (**G25** — storm is
+the risky one, 4/12 questions worse on full prose and we hold it by 0.7%), and **G24**, the
+`/scores` feed has stopped returning `question` / `ground_truth` / `converted_answer`, so the
+offline benches can never be refreshed and the champion WASM can no longer be validated against
+reported scores.
+
+**Also scouted, per operator request: [docs/EXPANSION_TARGETS.md](docs/EXPANSION_TARGETS.md).**
+Six intents have <=2 miners with every incumbent scoring 0.0. `assay-miner` (FACT_CHECK) points its
+`base_url` at a GitHub raw repo and POSTs to `/miner.py` — 403 forever, it can never score.
+Recommended order: SENTIMENT_ANALYSIS (zero upstream dependency, both incumbents dead on upstream
+errors), then FACT_CHECK, then CONTENT_EXTRACTION, then AI_TEXT_DETECTION. Entry does not fix the
+100-request eligibility half.
 
 ## 1. What needs the operator, right now
 
@@ -173,8 +221,11 @@ issue #1, closed as a drill. (T4.8, G21)
 SSL_VERIFICATION      #1  0.010483   margin 1.0% — preflight-ssl-verification 0.010379 is a REAL
                                      threat now; watch every epoch
 STORM_ALERT           #1  0.010295   beat amanat 0.007353 by 40% after losing 289/290 to them
-WEATHER_FORECAST      #1  0.009871   FIRST EVER weather #1, field of 12 — the temperature-first
-                                     reorder's first scored epoch (chainsight 0.009380)
+WEATHER_FORECAST      #1  0.009871   FIRST EVER weather #1, field of 12 (chainsight 0.009380)
+                                     CORRECTED 2026-08-30: this was NOT the temperature-first
+                                     reorder working. Our score moved +3.8% while the field best
+                                     fell 19%; every other miner collapsed this epoch and
+                                     recovered in 292. See docs/EPOCH_292_AUTOPSY.md §4.
 IP_GEOLOCATION        #1  0.009166   held
 ACADEMIC_SEARCH       #1  0.010742   held; openalex woke up (0.009333) but beaten
 LANGUAGE_TRANSLATION  #1  0.000000   ALL THREE miners scored zero — a tie-at-zero, not a win.

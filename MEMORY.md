@@ -14,66 +14,65 @@ sessions and between models.
 | **Track 3 — app** | [track3-certwatch/](track3-certwatch/), plus G17/G18 in [GAPS.md](GAPS.md) |
 | Anything | [README.md](README.md) for ownership and shared facts, [docs/](docs/) for protocol and rules |
 
-## State at 2026-08-29
+## State at 2026-08-30
 
-**Track 1 is live and winning.** Registration **297** (updated 2026-08-29 via manual cast updateMiner; 260 superseded), `active`, six intents, `livecert`,
-`https://miner-wine.vercel.app`. Epoch 289:
+**Epoch 292 took back two firsts, and the reason turned out to be the biggest single finding of the
+project.** Registration **297** is `active`, healthy, six intents, `https://miner-wine.vercel.app`.
 
 ```
-SSL_VERIFICATION      #1   0.01014868
-IP_GEOLOCATION        #1   0.01000050
-LANGUAGE_TRANSLATION  #1   0.00899709    first epoch ever scored
-ACADEMIC_SEARCH       #1   0.00654745    first epoch ever scored
-STORM_ALERT           #2   0.00405170    gap 0.00023
-WEATHER_FORECAST      #3   0.00976552    gap 0.00027
+SSL_VERIFICATION      #2   0.00885159   lost by 1.75%
+WEATHER_FORECAST      #5   0.00908315   field is now 14 miners
+STORM_ALERT           #1   0.01003684   held by 0.7%
+IP_GEOLOCATION        #1   0.00933759   held
+LANGUAGE_TRANSLATION  #1   0.00010760   held
+ACADEMIC_SEARCH        -   not scored this epoch
 ```
 
-**Rank 1 in four of six.** Re-verified live 2026-08-29: registration `active` with
-`rejection_reason: null`, all six endpoints 200 (0.33–1.28s), **123/123 tests**, `verify-deploy`
-**exit 0** (median 372ms, p95 1172ms), epoch 289 still the network's latest and only 5.8h old.
-Nothing is broken.
+**Root cause, shared by both losses:** every ground truth in these intents is an LLM answer that
+**restates the request before answering it**, and ours did not. The champion scorers are a cliff on
+that resemblance — about 0.99 above it, about 0.01 below — and the whole weather field has always
+been on the losing side, which is why its leader changes nearly every epoch.
 
-**2026-08-29 session 2 closed both watch items and deployed a storm hedge:** the branch is
-reconciled (`0 0`, G20), the uptime alarm now covers all three jobs and was **proven to fire**
-(drill issue #1, G21/T4.8), and every storm answer now ends with standing operational-safety
-guidance — measured **+36%** on epoch 289's advisory question, −2 to −3% on forecast questions
-where margins are 11–105%, +2.7% bench mean (T4.9, conversion survival unmeasured → G23).
-**Also: pushes do NOT deploy — production only updates via `vercel --prod` (G22).** Epoch 290
-lands 06:31Z on 08-29 and tests both the storm guidance and session 1's weather reorder.
+**Fixed and measured, not yet deployed.** `miner/src/restate.ts` + `sendAnswer` in
+`miner/src/handler.ts`. Built miner A/B'd against live production on the same questions and the live
+champion scorers: **weather 8.10x, SSL 18.84x, storm 20.44x**; under a 32-word conversion budget
+**6.36x / 11.15x / 1.51x**. 102/102 tests pass.
+
+Full autopsy: **[track1-miner/docs/EPOCH_292_AUTOPSY.md](track1-miner/docs/EPOCH_292_AUTOPSY.md)**.
+Expansion recon: **[track1-miner/docs/EXPANSION_TARGETS.md](track1-miner/docs/EXPANSION_TARGETS.md)**.
 
 ### The three things that need a human, in order
 
-1. **Post the X series.** 25% of the Track 1 score and the largest unclaimed block. Thirteen posts,
-   each verified under 280 characters and tagged, covering both tracks:
-   **[docs/X_POSTS.md](docs/X_POSTS.md)**. Best post to date is 188 impressions. Close is Aug 31.
-2. **Register Track 2's scorer.** One wallet signature; see [track2/REGISTRATION.md](track2/REGISTRATION.md).
-3. **Ask the organizers one question** — Track 3 has not opened, so no intent can have its 100 real
-   Track 3 requests before the Aug 31 close. Is that guardrail waived, measured later, or binding?
-   It decides whether rank 1 converts into anything. Still unanswered.
+1. **Deploy the restatement fix** — `vercel --prod` from `track1-miner/miner`, then re-run
+   `node tools/verify-deploy.mjs https://miner-wine.vercel.app`. Pushing does not deploy (G22).
+   Epoch 293 is the measurement.
+2. **Post the X series.** 25% of the Track 1 score and the largest unclaimed block. Thirteen posts,
+   each verified under 280 characters and tagged: **[docs/X_POSTS.md](docs/X_POSTS.md)**. The
+   scorer-cliff finding is genuinely new material and should be posted with the fix.
+3. **Ask the organizers** whether the 100-request Track 3 guardrail is waived, measured later, or
+   binding on Aug 31 — Track 3 has not opened, so no intent can meet it. Still unanswered.
 
 ### Read these before touching anything
 
-- **[GAPS.md](GAPS.md) G19 — the miner wallet's seed phrase is compromised.** The operator ran a
-  wallet-stealer from a Discord scam on 2026-08-28. The risk was assessed and **accepted**, not
-  mitigated. If the miner is ever found deregistered, that is the likely cause. Nothing else on the
-  machine was touched and no tokens needed rotating. **Its tripwire is weaker than G19 assumes** —
-  see G21: 9–13h detection gaps and only one of three jobs alerts at all.
-- **[track1-miner/MEMORY.md](track1-miner/MEMORY.md) §5-§7** — the rules that survived measurement
-  and the theories that did not. Six scoring theories have now been disproven in this repo. Do not
-  re-derive them; every one cost real time.
-- The offline replay loop is the only thing that has ever produced a gain. `/api/wasm` gives each
-  intent's champion scorer as commit-pinned WASM; `/scores?intent=X` gives real questions, ground
-  truths and the exact `converted_answer` that was scored. **Measure before changing anything** —
-  three weather rewordings were tested this session and all scored *worse* than what is deployed.
+- **[GAPS.md](GAPS.md) G24 — the `/scores` feed has stopped returning `question`, `ground_truth`
+  and `converted_answer`.** Every real finding in this repo came from that feed. The offline benches
+  are now a frozen snapshot that **cannot be refreshed**, and the champion WASM can no longer be
+  validated against reported scores.
+- **[GAPS.md](GAPS.md) G25** — the restatement's survival through the ~32-word converter is
+  simulated, not measured. Storm is the risky one: 4 of 12 questions score lower on full prose and
+  we hold storm by 0.7%.
+- **[GAPS.md](GAPS.md) G19 — the miner wallet's seed phrase is compromised.** Risk assessed and
+  **accepted**, not mitigated. If the miner is ever found deregistered, that is the likely cause.
+  Its tripwire is weaker than G19 assumes — see G21.
+- **[track1-miner/MEMORY.md](track1-miner/MEMORY.md)** — the authoritative Track 1 handoff.
+  Seven scoring theories have now been disproven in this repo. Do not re-derive them.
 
 ### Eligibility is still the binding constraint
 
-Five of six intents now clear the 3-miner half; `IP_GEOLOCATION` has **exactly 2** (`livecert`,
-`iplocate`) and needs an outside party — so our rank 1 there is worth nothing on its own terms.
-**No intent has its 100 Track 3 requests**, because Track 3 has not opened: measured 2026-08-29,
-`total_requests_served` is **42** for the whole miner across all six intents, against a floor of
-**100 per intent**. Rank 1 in an ineligible intent wins nothing →
-[track1-miner/docs/ELIGIBILITY.md](track1-miner/docs/ELIGIBILITY.md).
+Five of six intents clear the 3-miner half; `IP_GEOLOCATION` has 4 now but **no intent has its 100
+Track 3 requests**, because Track 3 has not opened — `total_requests_served` is **57** for the whole
+miner across all six intents, against a floor of **100 per intent**. Rank 1 in an ineligible intent
+wins nothing → [track1-miner/docs/ELIGIBILITY.md](track1-miner/docs/ELIGIBILITY.md).
 
 ---
 

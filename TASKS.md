@@ -121,6 +121,28 @@ position, so every day of delay shortens the record we are judged on.
       are 11–105%), **+2.7%** mean over the 12-question bench. Deployed via `vercel --prod` and
       verified live; conversion survival unmeasured (G23). Epoch 290+ rows are the test.
 
+- [x] **T4.13** **Epoch 292 autopsy and the restatement fix, 2026-08-30.** SSL lost #1 by 1.75% to a
+      competitor that tuned +74% in one epoch; weather back to #5 in a 14-miner field, and the
+      seven-epoch series shows epoch 291's weather #1 was the field collapsing, not our reorder
+      working. Root cause of both: **every ground truth restates the request before answering it and
+      ours did not**, and the champion scorers are a cliff on that resemblance (~0.99 above, ~0.01
+      below) that the entire weather field has always been on the wrong side of. Fix shipped as
+      `src/restate.ts` + `sendAnswer` in `src/handler.ts`, A/B'd against live production on the live
+      champion scorers: **weather 8.10x (12/12), SSL 18.84x (11/12), storm 20.44x (8/12)**; under a
+      32-word conversion budget **6.36x / 11.15x / 1.51x (12/12)**. 102/102 tests, typecheck clean.
+      Report: `track1-miner/docs/EPOCH_292_AUTOPSY.md`. Caveats: G25 (converter simulated), G24
+      (`/scores` no longer returns question/ground_truth/converted_answer).
+- [ ] **T4.14** **Deploy the restatement fix and read epoch 293.** `vercel --prod` from
+      `track1-miner/miner`, then `node tools/verify-deploy.mjs https://miner-wine.vercel.app`.
+      Pushing does not deploy (G22). **Read storm's row first** — it is the one intent where 4 of 12
+      bench questions score lower on full prose and we hold rank 1 by 0.7%. Operator drives the
+      deploy.
+- [ ] **T4.15** **Decide on the undefended intents.** Six intents have <=2 miners and every
+      incumbent scoring 0.0; `assay-miner` (FACT_CHECK) is structurally incapable of ever scoring.
+      Recommended order and the honesty constraints per intent:
+      `track1-miner/docs/EXPANSION_TARGETS.md`. Any entry is a manifest change and one
+      `updateMiner` signature — batch them into a single update, sandbox-validate first.
+
 ## Phase 4b — Track 3 application (Aug 31 – Sep 7)
 
 Added to scope 2026-08-26. The eligibility guardrail (G13) means our intent needs ≥100 real
@@ -175,43 +197,24 @@ Track 3 requests or it wins nothing regardless of rank. A genuine app that consu
 
 ---
 
-## Where this stands — 2026-08-29
+## Where this stands — 2026-08-30
 
-**Re-verified live this session** (UTC 2026-08-28T18:4xZ): registration **260** `active`,
-`rejection_reason: null`, `fetch_attempts: 0`, `retrying: false`; all six endpoints 200 in
-0.33–1.28s; **123/123 tests pass**; `verify-deploy.mjs` **exit 0** against production (median
-372ms, p95 1172ms). Epoch 289 is still the network's latest — 5.8h old against a ~9h epoch, so
-scoring is on schedule, not stalled.
+**Re-verified live this session:** registration **297** `active`, `rejection_reason: null`,
+`fetch_attempts: 0`; all six endpoints 200; **102/102 tests pass**; `verify-deploy.mjs` green
+against the patched local build (only the localhost HTTPS check fails, as expected). Epoch **292**
+is the network's latest, scored 2026-08-29T22:18Z.
 
-**Rank 1 in four of six intents** (epoch 289): SSL_VERIFICATION, IP_GEOLOCATION,
-LANGUAGE_TRANSLATION, ACADEMIC_SEARCH. Storm #2 by 0.00023, Weather #3 by 0.00027 — and the
-WEATHER_FORECAST field has grown to **12** miners.
+**Rank 1 in three of six** (epoch 292): STORM_ALERT, IP_GEOLOCATION, LANGUAGE_TRANSLATION.
+SSL #2 by 1.75%, WEATHER #5 in a field that has grown to **14**, ACADEMIC_SEARCH not scored.
 
 **Open, in priority order:**
 
-1. **T4.7 — reconcile the diverged branch.** Mechanical, and it blocks every other commit. Eight
-   commits of session work are currently only on the operator's laptop, which is the machine whose
-   wallet seed is compromised (G19). (G20)
-2. **T5.2 — post the X series.** 25% of the score, still near zero, and the close is **Aug 31**.
-   Largest controllable block on the board. Operator only.
-3. **Track 2 registration** — one signature, see `track2/REGISTRATION.md`. Operator only.
-4. **The eligibility question** — measured again 2026-08-29 and it is not improving:
-   `total_requests_served` is **42** across all six intents combined, against a floor of **100 per
-   intent**, with Track 3 not yet open. Ask the organizers whether that half is waived, deferred or
-   binding. It decides whether any of the rank 1s convert. (G13)
-5. **T4.8 — the uptime alarm only covers one of three jobs** and has never once been observed to
-   fire. It is what G19 leans on. (G21)
-6. **T4b.3/T4b.4 — CertWatch.** Durable history is fixed and the raw history URL now resolves
-   (200), but no sweep has written a record through the real path and it has no outside users.
-   Do not fund before that is proven.
-7. **A third IP_GEOLOCATION miner** must come from an independent party — the intent has exactly
-   **2** (`livecert`, `iplocate`) and so fails the miner-count half outright, which makes our rank 1
-   there worth nothing on its own. `track1-miner/docs/ELIGIBILITY.md` has a keyless YAML to hand out.
-
-**Watch item, not yet a task:** the uncommitted `.github/workflows/ci.yml` change adds a Track 2
-Rust job to the shared CI, so once pushed it runs on every Track 1 commit too. If that build is
-not reproducible on a runner, Track 1 commits start carrying red checks in a repo the judges read.
-
-**Do not retry:** shortening answers toward the converter's ~32-word budget, reordering `reason`
-to front-load asked-for variables, or any of the six disproven scoring theories in
-`track1-miner/MEMORY.md` §6. All measured worse than what is deployed.
+1. **T4.14 — deploy the restatement fix.** The largest measured gain the project has produced
+   (8-19x offline) is sitting undeployed. Operator only; the close is **Aug 31**.
+2. **T5.2 — post the X series.** 25% of the score, still near zero. The scorer-cliff finding is
+   new, genuine research and is the strongest post material available. Operator only.
+3. **T4.15 — decide on the undefended intents** (`docs/EXPANSION_TARGETS.md`). One batched
+   `updateMiner` signature if yes.
+4. **The eligibility question** — `total_requests_served` is **57** across all six intents combined
+   against a floor of **100 per intent**, with Track 3 not yet open. Ask the organizers whether that
+   half is waived, deferred or binding on Aug 31.

@@ -17,6 +17,8 @@ epoch   SSL      STORM    WEATHER   IP       TRANSL   ACADEMIC
 288     #1       #1       #3        #1       —        —
 289     #1       #2       #3        #1       #1       #1
 290     #1       #2       #5        #1       #3       (pending)
+291     #1       #1       #1        #1       #1(tie)  #1
+292     #2       #1       #5        #1       #1       (not scored)
 ```
 
 ## Loss 1 — STORM_ALERT epoch 284: scored 0.0 (a hard zero)
@@ -118,6 +120,34 @@ measured +3.8% on this question.
 measured change beats the current shape on the recorded questions; the difference rides on which
 species of ground truth the epoch draws. This one is variance, not a defect.
 
+## Loss 7 — SSL_VERIFICATION epoch 292: #1 → #2 by 1.75%, and WEATHER back to #5
+
+Full autopsy, with the seven-epoch series and the fix: **[EPOCH_292_AUTOPSY.md](EPOCH_292_AUTOPSY.md)**.
+
+**SSL:** we were not broken, we were passed. `preflight-ssl-verification` entered at epoch 290 on
+0.005965, tuned to 0.010379 by 291 and held 0.009009 in 292. Our ratio to the next-best miner has
+fallen every epoch it has been measured — 1.63x, 1.50x, 1.11x, 1.60x, 1.17x, 1.01x, **0.98x**. The
+SSL answer has not been touched since registration 236 while three other intents got the tuning
+hours.
+
+**Weather:** epoch 291's #1 was the field collapsing, not us improving. Against the best score in
+the field each epoch we run at 0.76, 0.81, 0.69, 0.97, 0.82, **1.05**, 0.77 — one crossing in seven,
+on the epoch where the field best fell 19% and our own score moved +3.8%. Attributing that #1 to the
+temperature-first reorder was wrong, and the note in MEMORY has been corrected.
+
+**The shared root cause, and the first real fix in a week.** Every ground truth in these intents is
+an LLM answer that opens by restating the request; our answers open with bare data. The champion
+scorers behave as a cliff on that resemblance — about 0.99 above it, about 0.01 below — and the
+entire weather field, all fourteen miners, has always been on the losing side. Restating the request
+at the head of the answer, with the data unchanged behind it, measured on the built miner against
+the live scorers: **weather 8.1x, SSL 18.8x, storm 20.4x**; under a 32-word conversion budget
+**6.4x / 11.2x / 1.5x**. Shipped as `src/restate.ts` + `sendAnswer` in `src/handler.ts`.
+
+This is a **fourth species** for the list below: *not writing in the format the ground truths are
+written in*. It cost more than the other three combined and went unnoticed for six epochs, because
+every previous investigation compared our answer to the winner's answer — both of which were on the
+same losing side of the cliff — rather than to the ground truth.
+
 ## Losses that are not ours to fix
 
 - **SSL epoch 288 ground truth was stale** — it claimed a DigiCert certificate valid to 2028 for
@@ -140,5 +170,10 @@ Every loss with a fixable cause was one of three species:
    fixable only by declaring parameters the filler can populate, which is a manifest change and
    a wallet signature, or by making the answer robust to blindness (the storm guidance).
 
+4. **Not answering in the ground truth's format** (SSL and weather, epochs 286-292) — see Loss 7.
+   The scorer compares us to the ground truth, not to the winner, and the ground truths restate
+   the request before answering it.
+
 Imitating a winner's phrasing has never once survived measurement. Finding an unanswered clause
-has never once failed to help.
+has never once failed to help. And comparing our answer to the **ground truth** rather than to the
+rank-1 answer is what finally found the thing that was worth 8x.

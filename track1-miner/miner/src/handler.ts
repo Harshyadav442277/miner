@@ -5,6 +5,7 @@ import { translate, type TranslationResult } from "./translate";
 import { findPapers, type PaperResult } from "./papers";
 import { getForecast, type ForecastResult } from "./forecast";
 import { geolocate, type GeoResult } from "./geo";
+import { withRestatement, isAnswered } from "./restate";
 
 const CACHE_TTL_MS = Number(process.env.CACHE_TTL_MS ?? 60_000);
 const MAX_CACHE = 500;
@@ -46,6 +47,25 @@ function send(res: ServerResponse, status: number, body: unknown): void {
     "cache-control": "no-store",
   });
   res.end(payload);
+}
+
+/**
+ * An answer, with the request restated at the head of its prose.
+ *
+ * Every ground truth in these intents restates the request before answering it,
+ * and the scorer weights resemblance to that text heavily. Applied here rather
+ * than inside each domain module so the cache keeps one canonical answer per
+ * subject while the restatement is always the live question, not whichever
+ * question first warmed the entry. Measurements: src/restate.ts.
+ */
+function sendAnswer(res: ServerResponse, question: string, body: unknown): void {
+  const b = body as Record<string, unknown>;
+  const reason = typeof b?.reason === "string" ? b.reason : "";
+  if (!reason) {
+    send(res, 200, body);
+    return;
+  }
+  send(res, 200, { ...b, reason: withRestatement(question, reason, isAnswered(b)) });
 }
 
 /**
@@ -99,8 +119,8 @@ function firstValue(url: URL, ...names: string[]): string {
  * rate limit from a weather provider therefore cost the whole question. Saying
  * "this could not be retrieved right now" is truthful and at least scoreable.
  */
-function upstreamUnavailable(res: ServerResponse, what: string, subject: string): void {
-  send(res, 200, {
+function upstreamUnavailable(res: ServerResponse, what: string, subject: string, question = ""): void {
+  sendAnswer(res, question, {
     verdict: "unknown",
     confidence: 0,
     reason:
@@ -203,7 +223,7 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
       // receive: naming the window it asked for is the question's own vocabulary,
       // and throwing it away was leaving the only available overlap on the table.
       const w = requestedWindow(url);
-      send(res, 200, {
+      sendAnswer(res, q, {
         location: null,
         verdict: "unknown",
         confidence: 0,
@@ -223,22 +243,22 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
     const key = `fc:${q.trim().toLowerCase()}:${Math.floor(window)}:${daysRequested ?? ""}`;
     const hit = fromCache(key);
     if (hit) {
-      send(res, 200, hit);
+      sendAnswer(res, q, hit);
       return;
     }
     getForecast(q, window, undefined, daysRequested)
       .then((result) => {
         toCache(key, result);
-        send(res, 200, result);
+        sendAnswer(res, q, result);
       })
-      .catch(() => upstreamUnavailable(res, "A weather forecast", q.slice(0, 80)));
+      .catch(() => upstreamUnavailable(res, "A weather forecast", q.slice(0, 80), q));
     return;
   }
 
   if (path === "/ip-geolocate") {
     const q = firstValue(url, "ip", "address", "query", "q", "question", "text", "input");
     if (!q.trim()) {
-      send(res, 200, {
+      sendAnswer(res, q, {
         ip: null,
         verdict: "unknown",
         confidence: 0,
@@ -253,16 +273,16 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
     const key = `geo:${q.trim().toLowerCase()}`;
     const hit = fromCache(key);
     if (hit) {
-      send(res, 200, hit);
+      sendAnswer(res, q, hit);
       return;
     }
     geolocate(q)
       .then((result) => {
         toCache(key, result);
-        send(res, 200, result);
+        sendAnswer(res, q, result);
       })
       .catch(() => {
-        upstreamUnavailable(res, "IP geolocation", q.slice(0, 80));
+        upstreamUnavailable(res, "IP geolocation", q.slice(0, 80), q);
       });
     return;
   }
@@ -272,7 +292,7 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
       firstValue(url, "query", "q", "question", "text", "input", "location", "place", "city") ||
       coordsFromParams(url);
     if (!q.trim()) {
-      send(res, 200, {
+      sendAnswer(res, q, {
         location: null,
         verdict: "unknown",
         confidence: 0,
@@ -289,7 +309,7 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
     const key = `storm:${q.trim().toLowerCase()}:${url.searchParams.get("hours") ?? ""}`;
     const hit = fromCache(key);
     if (hit) {
-      send(res, 200, hit);
+      sendAnswer(res, q, hit);
       return;
     }
     // Only an explicit ?hours= forces a window; otherwise the question's wording
@@ -301,9 +321,9 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
     checkStorm(q, undefined, Number.isFinite(stormHours) ? stormHours : undefined)
       .then((result) => {
         toCache(key, result);
-        send(res, 200, result);
+        sendAnswer(res, q, result);
       })
-      .catch(() => upstreamUnavailable(res, "A storm risk forecast", q.slice(0, 80)));
+      .catch(() => upstreamUnavailable(res, "A storm risk forecast", q.slice(0, 80), q));
     return;
   }
 
@@ -311,7 +331,7 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
     const topic = firstValue(url, "topic", "text", "input");
     const q = firstValue(url, "query", "q", "question") || topic;
     if (!q.trim()) {
-      send(res, 200, {
+      sendAnswer(res, q, {
         verdict: "unknown",
         confidence: 0,
         reason: "No research topic was supplied with this request, so no papers could be found. Name a subject to search for.",
@@ -322,15 +342,15 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
     const key = `papers:${q.trim().toLowerCase()}`;
     const hit = fromCache(key);
     if (hit) {
-      send(res, 200, hit);
+      sendAnswer(res, q, hit);
       return;
     }
     findPapers(q)
       .then((r) => {
         toCache(key, r);
-        send(res, 200, r);
+        sendAnswer(res, q, r);
       })
-      .catch(() => upstreamUnavailable(res, "A paper search", q.slice(0, 50)));
+      .catch(() => upstreamUnavailable(res, "A paper search", q.slice(0, 50), q));
     return;
   }
 
@@ -340,7 +360,7 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
     const q = firstValue(url, "query", "q", "question") ||
       (text && language ? `Translate ${JSON.stringify(text)} into ${language}.` : text);
     if (!q.trim()) {
-      send(res, 200, {
+      sendAnswer(res, q, {
         verdict: "unknown",
         confidence: 0,
         reason:
@@ -353,15 +373,15 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
     const key = `translate:${q.trim().toLowerCase()}`;
     const hit = fromCache(key);
     if (hit) {
-      send(res, 200, hit);
+      sendAnswer(res, q, hit);
       return;
     }
     translate(q)
       .then((r) => {
         toCache(key, r);
-        send(res, 200, r);
+        sendAnswer(res, q, r);
       })
-      .catch(() => upstreamUnavailable(res, "A translation", "the supplied text"));
+      .catch(() => upstreamUnavailable(res, "A translation", "the supplied text", q));
     return;
   }
 
@@ -375,6 +395,10 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
 
   const raw = firstValue(url, "domain", "host", "hostname", "url", "query", "q", "question", "text", "input");
 
+  // The question text itself, when the engine delivered it. `raw` may be a bare
+  // hostname, which is not a sentence to restate.
+  const question = firstValue(url, "query", "q", "question", "text", "input");
+
   const target = normalizeTarget(raw);
   if (!target) {
     // Shaped like an answer, not a bare error. semantics.signal_mapping points at
@@ -385,7 +409,7 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
     // stay 200: a non-2xx makes the engine record `upstream error`, store an
     // empty answer and never read this body, which is a guaranteed 0. Being
     // explicit that we could not determine the answer is not a liar-200 (A5).
-    send(res, 200, {
+    sendAnswer(res, question, {
       domain: raw ? raw.slice(0, 200) : null,
       verdict: "unknown",
       confidence: 0,
@@ -401,14 +425,14 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
   const key = `ssl:${target.host}:${target.port}`;
   const cached = fromCache(key);
   if (cached) {
-    send(res, 200, cached);
+    sendAnswer(res, question, cached);
     return;
   }
 
   checkCertificate(target.host, target.port)
     .then((result) => {
       toCache(key, result);
-      send(res, 200, result);
+      sendAnswer(res, question, result);
     })
-    .catch(() => upstreamUnavailable(res, "A TLS certificate check", target.host));
+    .catch(() => upstreamUnavailable(res, "A TLS certificate check", target.host, question));
 }

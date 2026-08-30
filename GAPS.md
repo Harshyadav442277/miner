@@ -319,6 +319,30 @@ last is what it drops. The guidance sits at the tail, so the likeliest live outc
 questions is "dropped, no effect", and on advisory questions "partially kept, some gain" — but
 neither is measured. Epoch 290+ storm rows are the evidence; read them before concluding anything.
 
+### G24 · The `/scores` feed no longer returns questions, ground truths or converted answers — `OPEN, and it is the worst of these`
+2026-08-30. Every real finding in this repo came from `/scores?intent=X`, which returned
+`question`, `ground_truth`, `miner_answer` and `converted_answer` alongside the score — documented
+in `track1-miner/docs/codex-worklog/2026-08-26-live-scoring-recon.md`. **As of 2026-08-30 it returns
+only** `id, epoch_id, intent_id, miner_slug, rank, score, failure_reason, scored_at, created_at`.
+Checked and failed: `?verbose=1`, `?include=answers`, `/scores/<id>`, `/api/scores`,
+`/engine/v1/scores`. Consequences: the champion WASM can no longer be validated against reported
+scores; epoch questions cannot be read after the fact; `tools/*_bench.json` and `tools/corpus.json`
+are now a frozen snapshot of questions captured while the feed was open and **cannot be refreshed**.
+All offline tuning from here is against a fixed corpus that may drift away from the node's live
+fixtures. The `explorer.telegraphprotocol.com/api/daemon/api/questions` feed still carries real
+routed questions with answers and is the only remaining live source of question text — it is not a
+substitute, because it is not the scoring fixture set.
+
+### G25 · The restatement's survival through the prose converter is simulated, not measured — `OPEN`
+2026-08-30. The restate-the-request change (EPOCH_292_AUTOPSY.md) measures 8.1x / 18.8x / 20.4x on
+raw prose against the live champion scorers. What is actually scored is `converted_answer`, a
+~32-word summary we cannot run offline — the same limitation as G23. The proxy used was naive
+first-32-words truncation, which is **not** what the converter does: it rewrites into flat "The
+data…" prose. The direction is consistent at every truncation length tested (32, 24 and 17 words
+all improve SSL and storm), so the sign of the effect is not in doubt; the magnitude is. Epoch 293
+is the measurement. **Storm is the one to watch**: four of twelve storm questions score 7-15% lower
+on full prose, we hold storm by 0.7%, and only the 32-word column is unanimous there.
+
 ### G19 · The miner wallet's seed phrase is compromised — `OPEN, accepted risk`
 2026-08-28. The operator was social-engineered in a hackathon Discord DM by an account named
 `ADMINS {NEVER DM FIRST}` — the name copies the label real servers use to warn that admins never
