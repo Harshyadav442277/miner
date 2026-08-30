@@ -113,9 +113,15 @@ and both returned `0x14e` (334) without reverting — the slug lives inside the 
 contract arguments, so a duplicate slug does not revert. `updateMiner` was chosen because it names
 the registration being replaced.
 
-**Watch item:** the node had not indexed 334 several minutes after the tx. 297 stayed `active` and
-serving throughout, so there was no outage. Confirm `activation_status: active` and
-`rejection_reason: null` on 334 before trusting the seventh intent.
+**ACTIVATED AND VERIFIED.** 334 is `active`, `rejection_reason: null`, `retrying: false`,
+`fetch_attempts: 0`, seven intents listed. 297 now reads `deregistered`, and the catalog shows
+exactly **one** `livecert` entry with 7 intents — no duplicate registration. `verify-deploy` against
+production: **ALL CHECKS PASSED**; all seven routes 200 (0.32–1.29s).
+
+Indexing took noticeably longer than 297's ~1 minute — several minutes with `/api/miners/334`
+returning "not found" the whole time. 297 stayed active and serving throughout, so there was no
+outage. Do not panic on that gap next time; check that the old registration is still serving and
+wait.
 
 ## 1. What needs the operator, right now
 
