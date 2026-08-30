@@ -77,6 +77,23 @@ Production state after deploy: verify-deploy **ALL CHECKS PASSED**, median 487ms
 **173/173 tests**, registration 334 active and untouched (all changes are code-only; the manifest
 names no upstream provider, so no updateMiner was needed).
 
+**Margin audit of the five #1s (epoch 294) and the two defensive sweeps that followed:**
+SSL **+0.4%** over preflight (the thin one), ACADEMIC +2.3%, WEATHER +6.0%, AI_TEXT +11.2%,
+STORM +12.4%. Two defensive measurements, both settling on "no change":
+- **SSL vs preflight, 12-question bench:** their raw answers cross the unreachable-host cliff on
+  7/9 questions where ours cross on 2 (raw means 0.747 vs 0.173) — but **clip32 is dead even
+  (0.0924 vs 0.0922)** and the live epochs match the clip column: we beat them +25.7% (293) and
+  +0.4% (294) live. The obvious fix — naming the verification dimensions ours omits (expiration
+  dates, root CA trust, signature algorithm, key strength) — was swept over all 9 unreachable
+  questions: **+0.0003 mean, zero crossings flipped. Dead theory, do not retry.** Whatever keys
+  their raw crossing, the converter erases it; going further means copying their sentences for
+  no measured live gain. SSL stays as deployed; watch the margin each epoch.
+- **ACADEMIC vs scholarwire (same author as langwire), 8 rows scored:** **8/8 wins**, we cross
+  raw on 3 (up to 0.993), they cross on none. The +2.3% live margin is real dominance flattened
+  by conversion. No change needed.
+Also: **run WASM scoring in the FOREGROUND** — a backgrounded node process was throttled to ~7%
+CPU on this machine (Windows efficiency mode) and a 25-minute sweep became hours.
+
 **Production bench, post-deploy (the numbers that matter):** IP vs preflight raw **0.8544 vs
 0.8539**, clip32 **0.8067 vs 0.8065**, wins 14/21, crossings 18/21 raw; translation 9/10
 crossings, 10/10 wins. **Tail-trim theory tested and dead, do not retry:** dropping the
