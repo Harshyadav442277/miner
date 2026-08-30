@@ -85,10 +85,17 @@ export function withRestatement(question: string, reason: string, answered: bool
   if (!phrase || !reason.trim()) return reason;
   // Doubling the restatement measured worse than one (weather 0.667 against
   // 0.830 — a second copy pushes some answers back off the cliff), so never
-  // stack them. The opener has to be stripped before the comparison: an already
-  // restated answer starts "Here is <phrase>", not "<phrase>".
-  const head = reason.replace(/^(?:here is|regarding)\s+/i, "").toLowerCase();
-  if (head.startsWith(phrase.slice(0, 40).toLowerCase())) return reason;
+  // stack them. A stacked answer is one WE already prefixed, so it must carry
+  // one of our own openers; requiring the opener is what keeps this from
+  // firing on an answer that merely happens to start with the question's
+  // words. The looser prefix-only check silently disabled the restatement for
+  // every SSL answer in production, because `ssl.ts` opens with "The TLS/SSL
+  // certificate configuration for <domain>" and the question asks for exactly
+  // that — the first 40 characters matched and the prefix was dropped.
+  const opened = /^(?:here is|regarding)\s+/i.exec(reason);
+  if (opened && reason.slice(opened[0].length).toLowerCase().startsWith(phrase.slice(0, 40).toLowerCase())) {
+    return reason;
+  }
   return answered && nounPhrase ? `Here is ${phrase}: ${reason}` : `Regarding ${phrase}: ${reason}`;
 }
 

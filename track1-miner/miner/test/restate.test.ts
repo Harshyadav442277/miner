@@ -65,6 +65,19 @@ describe("withRestatement", () => {
     assert.equal(withRestatement(q, once, true), once);
   });
 
+  test("still restates when the answer merely opens with the question's own words", () => {
+    // This shipped broken once. `ssl.ts` opens with "The TLS/SSL certificate
+    // configuration for <domain> is valid", the question asks for exactly that,
+    // and a prefix-only stack guard matched the first 40 characters and dropped
+    // the restatement from every SSL answer in production.
+    const sslQ =
+      "Can you analyze the TLS/SSL certificate configuration for api.github.com to verify its validity?";
+    const sslReason = "The TLS/SSL certificate configuration for api.github.com is valid.";
+    const out = withRestatement(sslQ, sslReason, true);
+    assert.ok(out.startsWith("Here is the TLS/SSL certificate configuration for api.github.com"), out);
+    assert.ok(out.endsWith(sslReason), out);
+  });
+
   test("passes the answer through untouched when there is no question", () => {
     const reason = "The TLS/SSL certificate for github.com is valid.";
     assert.equal(withRestatement("github.com", reason, true), reason);
