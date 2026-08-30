@@ -112,6 +112,14 @@ bounded at 6-9s against Vercel's 15s ceiling; measured p95 is 1.2s.
 
 Also fixed: the no-location weather answer read "A hourly weather forecast".
 
+**STORM_ALERT swept and deliberately unchanged.** Best data-carrying variant at the 32-word budget
+is +2.4% over deployed — inside 12-question bench noise, and it states the question twice, which
+measured *harmful* on weather. **The finding:** at that budget the question echoed back with **no
+data at all** scores 0.014459, higher than every variant carrying a real forecast (deployed:
+0.014035). Declined, and recorded — it is the sharpest exhibit yet that these scorers cannot tell
+an answered question from a restated one. SSL came out the opposite way (question-alone 0.010430
+against 0.173476), so the pathology is per-intent, not universal.
+
 ## 0a. EPOCH 293 — THREE FIRSTS, TWO NEAR-MISSES, ONE SYSTEMIC ZERO
 
 **Full report: [docs/EPOCH_293_REPORT.md](docs/EPOCH_293_REPORT.md).**

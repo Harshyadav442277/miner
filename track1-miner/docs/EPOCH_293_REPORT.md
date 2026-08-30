@@ -148,6 +148,41 @@ is the caveat a user of this answer actually needs, and was shipped. At +0.08% a
 deficit it is roughly the size of the gap — which makes it a coin flip, not a fix. Recorded as
 such.
 
+## 5b. STORM_ALERT — swept, and deliberately not changed
+
+Storm is our thinnest lead (#1 by 1.4% over `txlens`), so the same eight variants were swept
+against its live champion:
+
+```
+variant                        mean(full)  crossed    mean(32w)  crossed
+A deployed (live now)            0.198255    2/12      0.014035    0/12
+C verbatim question + answer     0.206558    2/12      0.014093    0/12
+D question twice + answer        0.207641    2/12      0.014374    0/12
+E cleaned question + answer      0.194364    2/12      0.014219    0/12
+B bare answer, no restatement    0.009707    0/12      0.009353    0/12
+H question echoed alone, NO DATA 0.015069    0/12      0.014459    0/12   <- highest 32w of all
+```
+
+**Nothing was changed**, for two reasons.
+
+The best data-carrying variant at the 32-word conversion budget is D at 0.014374 against the
+deployed 0.014035 — **+2.4%, inside the noise of a 12-question bench**. D also states the question
+twice, which reads badly and which measured *harmful* on WEATHER_FORECAST (0.667 against 0.830).
+Changing the answer shape of an intent we already hold, for a noise-level gain, is a risk rather
+than a de-risking.
+
+**The second reason is the finding.** At the 32-word budget, `H` — the question echoed back with
+**no data at all** — scores **0.014459, higher than every variant that carries a real storm
+forecast.** That is the cliff pathology in its purest form: on this intent, at the length the
+converter actually produces, a contentless echo out-scores a correct answer. It will not be
+shipped. It is recorded because it is the sharpest exhibit yet that these scorers cannot
+distinguish an answered question from a restated one, and because anyone reading this repo should
+know the gap was measured and declined rather than missed.
+
+Compare SSL_VERIFICATION, where the same test came out the other way: question-alone scored
+0.010430 against the deployed answer's 0.173476, so there the data is doing the work. The
+pathology is per-intent, not universal.
+
 ## 6. Should the all-zero epochs be reported to the organizers?
 
 **Yes**, and the case is strong because it is not a complaint about our own score.
