@@ -20,6 +20,23 @@ No new endpoint, no new code, no `base_url` change. `/ai-detect` already serves 
 question shape — `src/aidetect.ts` has been written for both intents since it was created, and
 its header says so.
 
+## A second fix rides along in the same signature
+
+While preparing this, the manifest turned out to constrain `verdict` to a **closed enum that four
+of our seven endpoints violate**: `/translate` returns `"translated"`, `/papers` returns
+`"papers"`, `/ai-detect` returns `likely_human` / `likely_ai` / `inconclusive`, and
+`/ip-geolocate` returns the resolved **place name** — which cannot be enumerated at all — plus the
+special-range classes added 2026-08-30 (`private`, `reserved`, `loopback`, …).
+
+This has never bitten: the node clearly does not hard-enforce the enum, and our IP answers scored
+**0.9920** with a place-name verdict. But it is a real manifest-versus-behaviour mismatch, it is
+exactly the sort of thing a judge reading the manifest would flag, and it would become a genuine
+hazard if the node ever started validating. The enum is therefore **replaced with a per-endpoint
+description of the actual vocabulary** rather than extended, because `/ip-geolocate` makes a closed
+set impossible.
+
+Both changes are in `track1-miner/miner.yaml` now and cost **one** signature between them.
+
 ## Why it is worth a signature
 
 **TEXT_AUTHENTICITY_CHECK has zero miners and has never been scored by anyone** (recon

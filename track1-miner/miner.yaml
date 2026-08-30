@@ -358,13 +358,18 @@ output_schema:
     verdict:
       type: string
       description: >-
-        Canonical status. /ssl-check returns a certificate state; /storm-alert
-        returns a storm-risk grade.
-      enum:
-        [valid, expired, not_yet_valid, hostname_mismatch, self_signed, untrusted,
-         unreachable, none, low, moderate, high, severe, unknown, clear,
-         "mostly clear", cloudy, fog, drizzle, rain, "heavy rain", snow,
-         thunderstorms]
+        The answer's label, and its vocabulary is per endpoint. /ssl-check returns a
+        certificate state (valid, expired, not_yet_valid, hostname_mismatch,
+        self_signed, untrusted, unreachable); /storm-alert a storm-risk grade (none,
+        low, moderate, high, severe); /weather-forecast a condition (clear, mostly
+        clear, cloudy, fog, drizzle, rain, heavy rain, snow, thunderstorms);
+        /translate "translated"; /papers "papers"; /ai-detect likely_human, likely_ai
+        or inconclusive; and /ip-geolocate the resolved place itself, or the class of
+        a special-use range (private, reserved, loopback, link_local, shared,
+        multicast, broadcast). Any endpoint returns "unknown" when it could not
+        answer. A closed enum was declared here previously and four endpoints did not
+        conform to it, /ip-geolocate least of all because a place name cannot be
+        enumerated.
     valid: { type: boolean }
     trusted: { type: boolean }
     expired: { type: boolean }
