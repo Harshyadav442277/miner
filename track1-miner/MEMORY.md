@@ -77,6 +77,15 @@ Production state after deploy: verify-deploy **ALL CHECKS PASSED**, median 487ms
 **173/173 tests**, registration 334 active and untouched (all changes are code-only; the manifest
 names no upstream provider, so no updateMiner was needed).
 
+**Production bench, post-deploy (the numbers that matter):** IP vs preflight raw **0.8544 vs
+0.8539**, clip32 **0.8067 vs 0.8065**, wins 14/21, crossings 18/21 raw; translation 9/10
+crossings, 10/10 wins. **Tail-trim theory tested and dead, do not retry:** dropping the
+timezone and/or AS-registration caveat sentences from public-IP answers was swept mechanically
+over all 21 questions — no variant beat deployed, and dropping the caveat LOST a raw crossing
+(18→17). The 4 stubborn IP rows (Q2/Q4/Q14/Q17-clip) fail on cliff wording that is opaque from
+here (G24 hides the converted answers); both miners' factually-equivalent sentences score 0.99
+vs 0.01 on them, so chasing these risks regressing the 17-18 crossing rows for noise.
+
 ## 0. EPOCH 292 (2026-08-29T22:18Z) — SSL AND WEATHER LOST, ROOT CAUSE FOUND
 
 ```
