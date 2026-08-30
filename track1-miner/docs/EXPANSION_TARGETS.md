@@ -142,19 +142,53 @@ evidence sentence** — bare verdicts and label JSON both lose to `tavily`. `ins
 must be a first-class answer, and it measures just under the bar, so it will cost the rank in epochs
 where the evidence genuinely is not there. That is the correct trade.
 
-### SENTIMENT_ANALYSIS — still the best of the group
+### SENTIMENT_ANALYSIS — BUILT, MEASURED, AND REJECTED (2026-08-30)
 
-Bar is a genuine **0.0**: both incumbents fail on upstream errors (404 and 405). Honestly servable
-with **no upstream dependency at all** — a deterministic lexicon with negation and intensifier
-handling, returning a polarity label, a score, and the tokens that drove it. Nothing to 404. This is
-the same architectural edge that won SSL_VERIFICATION.
+**This was my recommended first target and the measurement killed it.** Recorded in full because
+the reasoning was wrong in an instructive way.
+
+The endpoint was built: a deterministic lexicon with negation and intensifier handling, no upstream
+dependency, 8 passing tests. It works. Then it was scored against the live champion
+(`sa_pure.wasm`, reg 1286's sibling for this intent), and the scorer turned out to be **binary** —
+1.0 for an answer close to the ground truth, 0.0 for everything else:
+
+```
+answer shape                                case1  case2  case3
+our shipped lexicon answer                  0.000  0.000  0.000
+the same, without the restatement prefix    0.000  0.000  0.000
+GT-style opener first                       0.000  0.000  0.000
+question echoed, then verdict               0.000  0.000  0.000
+a close paraphrase of the ground truth      1.000  0.000  0.000
+the verbatim ground truth                   1.000  1.000  1.000
+```
+
+**The bar is not "beat 0.0".** Both incumbents score 0.0, so an answer that also scores 0.0 *ties*
+with them and takes whatever rank the tie-break gives — not a win we control. Crossing requires
+reproducing the ground truth, which we cannot do generically.
+
+Worse, two of the three real questions ever routed here ask for sentiment **toward a token
+contract** (`0x28C6c0…`, `CVE-2021-44228`) — that needs social data we do not have. This is the
+`SPORTS_SCORE` situation exactly: most of the traffic is what we cannot honestly answer.
+
+The endpoint and its tests were deleted rather than left as dead code. Declaring an intent we score
+0.0 on would also drag the cross-intent average the organizers say judging uses.
 
 ## 6. Recommended order
 
-1. **AI_TEXT_DETECTION** — bar 1.674e-10, prose measures 1.0, two honest code paths, small.
-2. **SENTIMENT_ANALYSIS** — bar a genuine 0.0, zero upstream dependency.
-3. **FACT_CHECK** — winnable but needs real retrieval and a restatement exemption.
-4. **CONTENT_EXTRACTION** — mostly existing code in `src/extract.ts`.
+1. **AI_TEXT_DETECTION** — **DONE.** Built, measured (4.5e-10 / 1.0 / 1.0 against a 1.674e-10
+   bar), deployed, and declared in `miner.yaml`. Awaiting the operator's `updateMiner` signature —
+   runbook at the top of [../REGISTRATION_UPDATE.md](../REGISTRATION_UPDATE.md).
+2. ~~**SENTIMENT_ANALYSIS**~~ — **rejected on measurement**, see above. Do not revisit without
+   re-running the scorer: the conclusion rests entirely on `sa_pure.wasm` being binary.
+3. **FACT_CHECK** — winnable but needs real retrieval and a restatement exemption. Not attempted:
+   with four or five epochs left it is more work than AI_TEXT_DETECTION for a contested slot.
+4. **CONTENT_EXTRACTION** — mostly existing code in `src/extract.ts`. Untested against its scorer;
+   assume nothing until it is measured, which is the lesson SENTIMENT_ANALYSIS just taught.
+
+**The general lesson from this round:** every intent's champion scorer behaves differently, and
+three of the four examined so far are step functions with disjoint bands. Miner counts and
+incumbent scores tell you where the opportunity *might* be; only running the intent's own scorer
+tells you whether you can take it.
 
 Every entry is a manifest change and one `updateMiner` signature, and registration is effectively
 immutable — so **batch them into a single update**, sandbox-validate first per CLAUDE.md rule 3.

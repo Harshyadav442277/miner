@@ -39,8 +39,22 @@ any answer template. Summary:
   under a 32-word conversion budget **6.36x / 11.15x / 1.51x (12/12)**. 102/102 tests, typecheck
   clean, verify-deploy green except the localhost HTTPS check.
 
-**What needs the operator:** `vercel --prod` from `track1-miner/miner`, then re-run verify-deploy
-against production. Deploys are manual (G22). Epoch 293 is the measurement.
+**DEPLOYED 2026-08-30.** `vercel --prod --scope wukong4` (the bare `vercel --prod` fails with
+"Not authorized" because `.vercel/project.json` carries a stale orgId — always pass `--scope`).
+Production verified restating on all six routes, `verify-deploy` **ALL CHECKS PASSED**.
+
+**A bug the deploy caught.** The first deploy restated weather but **not SSL**: the stack guard
+matched on the request phrase's first 40 characters alone, and `ssl.ts` opens every answer with
+"The TLS/SSL certificate configuration for <domain>", which the questions ask for verbatim. Fixed
+by requiring one of our own openers before suppressing. Production SSL now measures **0.17348**
+against **0.00921** before — the full 18.8x is live. Regression test added.
+
+**Feedback loop run on the deployed answers (2026-08-30).** Eight restatement variants swept
+against the live SSL champion: the deployed shape (0.173476) is within noise of the best found
+(0.173544, verbatim question). **No further change is worth making.** Two results worth keeping:
+the bare answer with no restatement scores 0.009208 (19x worse, so the restatement is the whole
+gain), and the question echoed *alone* with no data scores 0.010430 — far below our 0.173476, so
+this is not a contentless echo exploit; the data is doing real work.
 
 **Two honest caveats**, both in GAPS: the converter is simulated not measured (**G25** — storm is
 the risky one, 4/12 questions worse on full prose and we hold it by 0.7%), and **G24**, the

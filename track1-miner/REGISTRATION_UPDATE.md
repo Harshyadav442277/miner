@@ -1,3 +1,84 @@
+# Registration update — adding AI_TEXT_DETECTION to registration 297
+
+**Written 2026-08-30. Status: code deployed and green; only the on-chain step remains, and only
+the operator can do it.** Claude never touches the wallet.
+
+## What this update changes
+
+`miner.yaml` gains **one endpoint** (`/ai-detect`) and **one intent** (`AI_TEXT_DETECTION`). The
+`text` parameter description now mentions both endpoints that use it. Nothing else moves —
+`base_url`, slug, id, fee address, min price, auth, rate limits, circuit settings and all six
+existing endpoints are unchanged.
+
+The endpoint is **already live and verified** at `https://miner-wine.vercel.app/ai-detect`, so
+activation cannot find a missing route. `verify-deploy.mjs` exits 0 against production.
+
+## Why it is worth a signature
+
+AI_TEXT_DETECTION has two miners and the leader sits at **1.674e-10**. That is not a typo: the
+incumbent `veritarach-ai-text-detector` returns `{"confidence":0.99987,"label":"human_written"}`,
+a classification with no prose, and Telegraph scores a natural-language conversion of the answer,
+so there is nothing to convert. Run against the live champion scorer (`aidet_s2.wasm`, reg 1286)
+that exact shape returns **0.0**.
+
+Our `/ai-detect` answers measured **4.5e-10, 1.0 and 1.0** on three cases — including the only
+real question ever observed routed to this intent — beating the incumbent on all three. Entry also
+takes the intent from 2 miners to 3, which clears the miner-count half of the eligibility rule.
+
+## The risk, stated plainly
+
+`updateMiner` is atomic: a **revert** leaves registration 297 untouched and costs nothing but gas.
+The real risk is a **node-side YAML rejection after activation**, which would take all six current
+intents offline until a corrected update lands — and we are rank 1 in three of them with four or
+five epochs left. The change follows the same schema registration 297 was accepted under
+(per-endpoint `intents` + `params`, closed-set fields only), so the risk is low, but it is not
+zero. **Sandbox-validate first** — CLAUDE.md rule 3 is not optional here.
+
+## Steps
+
+**1. Publish a new gist revision.** Paste the current `track1-miner/miner.yaml` into the existing
+gist (`006335cf54242bf98548535ec44632c7`) as a new revision, or create a new gist. Copy the
+**revision-pinned** raw URL — the one containing the commit sha, not `/raw/miner.yaml`, so the
+bytes can never change under the on-chain hash.
+
+**2. Hash the exact hosted bytes** — not the local file. From the repo root:
+
+```bash
+curl -s "<NEW_RAW_GIST_URL>" -o /tmp/hosted.yaml && node -e "const c=require('crypto'),f=require('fs');const b=f.readFileSync('/tmp/hosted.yaml');console.log('bytes',b.length);console.log('0x'+c.createHash('sha256').update(b).digest('hex'))"
+```
+
+Local file for reference: **15,832 bytes**, sha256
+`0xd04bc0492beb2e559c89f8556d62ba4efa20637ef96f6cfd285e0115fd9dbaf5`. If the hosted hash differs,
+the gist re-wrapped the bytes — use the hosted one, always.
+
+**3. Sandbox-validate** at `integrate.telegraphprotocol.com` before sending. Note the console
+importer was broken on 2026-08-29 (it strips per-endpoint `intents`/`params` its own validator then
+demands). If it is still broken, that is a console defect and not a signal about our YAML — but
+check, because a clean run is the only pre-flight we have.
+
+**4. Send the update.** Registration id is **297**, and the intent array now has **seven** entries:
+
+```bash
+cast send 0x5a2324aA18613FAD4e44bDF0d6c73Ec1f6D87ff8   "updateMiner(uint256,string,bytes32,address,uint256,string[])"   297 "<NEW_RAW_GIST_URL>" "<0xHOSTED_SHA256>"   0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e 10000   '["SSL_VERIFICATION","STORM_ALERT","WEATHER_FORECAST","IP_GEOLOCATION","LANGUAGE_TRANSLATION","ACADEMIC_SEARCH","AI_TEXT_DETECTION"]'   --rpc-url https://sepolia.base.org --interactive
+```
+
+`--interactive` prompts for the private key so it never lands in shell history or any file. The
+hash argument is `bytes32` and **needs the `0x` prefix**; the value the API displays does not have
+one.
+
+**5. After sending.** Note the new `registrationId` — it supersedes 297 everywhere. Then:
+
+```bash
+curl -s https://devnode.telegraphprotocol.com/api/miners/<newId> | jq '.miner | {activation_status, rejection_reason, retrying, supported_intents}'
+gh variable set REGISTRATION_ID --body <newId>
+node track1-miner/tools/verify-deploy.mjs https://miner-wine.vercel.app
+```
+
+Activation took about a minute for 297. If `rejection_reason` is non-null, read it and send a
+corrected update immediately — that window is downtime on all seven intents.
+
+---
+
 # Registration update — one signature, one purpose
 
 Written 2026-08-29 (~09:30Z). Status: **ready for the operator.** Code is deployed and green;
