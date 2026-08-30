@@ -1,5 +1,40 @@
 # SIGN — full links
 
+## ACTIVE BATCH — 2026-08-30 ~16:00Z · sign in this order, ONE AT A TIME
+
+Registry at 15:45Z: **11 intents held** (TEXT_AUTHENTICITY 1882, LANGUAGE_TRANSLATION 1996,
+CVE_LOOKUP 1993, CRYPTO_PRICE 1994, CONTENT_MODERATION 2003, TEXT_GENERATION 2006,
+TELEGRAPH_KNOWLEDGE 2007, IMAGE_VERIFICATION 2008, TOKEN_HOLDER_COUNT 2017,
+CONTENT_VERIFICATION 2020, LANGUAGE_GENERATION 2010). TASK_COMPLETION was retaken by reg 2000
+(0.99913317). WEATHER_CHECK 2016 still pending. All 14 files below were hosted-byte verified
+(download == local build) at 15:55Z; every hash below is the Keccak the console must show.
+Wait for each verdict before the next signature — every time-budget death today happened under
+queue load.
+
+| # | intent | file | commit | why |
+|---|---|---|---|---|
+| 1 | FRAUD_DETECTION | `fraud_detection_v5d` | `97b47b48` | measured 0.9999982 vs bar 0.99903, clock death |
+| 2 | WEATHER_FORECAST | `weather_forecast_r2` | `b258753e` | 0.90905 vs 0.90107, clock death |
+| 3 | IP_GEOLOCATION | `ip_geolocation_r2` | `b258753e` | 0.92297 vs 0.91368, clock death |
+| 4 | SSL_VERIFICATION | `ssl_verification_v3` | `97b47b48` | 0.92294 vs 0.91409, clock death |
+| 5 | ACADEMIC_SEARCH | `academic_search_v3` | `97b47b48` | 0.79712 vs 0.73808, clock death |
+| 6 | RESEARCH_QUERY | `research_query_v3` | `97b47b48` | 32/32 @ 0.99983 vs 0.99001, node died on a 451 KB row |
+| 7 | CHAT_COMPLETION | `chat_completion_v3` | `97b47b48` | m45 tied the bar exactly |
+| 8 | AGENT_TASK | `agent_task_v3` | `97b47b48` | m45 lost by 0.0115 |
+| 9 | TASK_COMPLETION | `task_completion_v3` | `97b47b48` | retake attempt vs 0.99913317 |
+| 10 | URL_SCAN | `url_scan_v3` | `97b47b48` | m45 lost by 0.0138 |
+| 11 | WEB_SEARCH | `web_search_t65` | `55463904` | ladder mid rung; rejected margin locates t80/t22 |
+| 12 | GAME_RESULT | `game_result_v3` | `97b47b48` | lottery, biggest gap |
+
+New hashes not in the sections below: `weather_forecast_r2`
+`34c3b01b316da0c4476b7752c3f64d5c5bd0fefa056785b3708204d46eb2c86b` · `ip_geolocation_r2`
+`832b02ba7e178fefc2ecba41b9cb869cb6012410538c617a5e0877bfd6381935` · `web_search_t65`
+`efb250ad015952aa7f6b5eb65a5e3774efe36c77fc67a2bd02f778332ab760eb` · `web_search_t80`
+`ca83697c44508a5f4863207f0bff9e5401d1a106e9479bdc5830642524ec0345` · `web_search_t92`
+`4984b4eb9f18f82dcc3ddea09f8203494f3921d71c15d3ba51f957133d3a0384`. The rest match their
+entries below. **Still dead, do not sign: every GAS_PRICE / NEWS_SEARCH / STORM_ALERT rung**
+(real-traffic gate; needs rebuilt bands, T-H.6).
+
 ## Registry status as of 2026-08-30 14:30Z (sweep of /api/wasm, all listed intents)
 
 **Held (8), do not touch:** TEXT_AUTHENTICITY_CHECK 1882 · LANGUAGE_TRANSLATION 1996 (w1,
