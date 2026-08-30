@@ -65,6 +65,19 @@ Run both before any deploy. `param-shapes` is what found the subject bug; `upstr
 found the dead Polygon RPC. **`verify-deploy` alone is not sufficient and never was** — it passed
 green through all three defects.
 
+### One divergence found and DELIBERATELY LEFT ALONE — read before touching geo
+
+`/ip-geolocate` is the only route that reuses its subject parameter as the question it restates, so
+when the engine fills the required `ip` it loses the restatement prefix. `/ssl-check` and
+`/ai-detect` both separate the two on purpose. **It was not changed.** IP is rank 1 by **+0.1%**
+and already scores 0.9956 — above the cliff — so if the engine sends `ip` then geo is crossing
+*without* a restatement and adding one is a wording change of unknown sign, on the thinnest margin
+on the board, hours before scoring, with G24 blocking any offline measurement. Full reasoning and
+the one experiment that settles it (`LOG_QUERY=on` for a single epoch): GAPS **G35**.
+
+`tools/no-regression.mjs` proves the other seven routes are byte-identical on verbatim questions
+and expects **7 identical, 1 differing** until that experiment is run.
+
 ### Still true, still not ours to fix
 
 - **`/scores` still omits `question`, `ground_truth`, `converted_answer`** (G24). Benches stay

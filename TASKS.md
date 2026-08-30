@@ -278,3 +278,7 @@ near-zero field — **both diagnosed, fixed, measured against their champions an
       [docs/X_POSTS.md](docs/X_POSTS.md). The subject-dropping bug is genuinely new material.
 - [ ] **TA.7** Run `param-shapes.mjs` and `upstream-health.mjs` before every future deploy.
       `verify-deploy` passed green through all three defects above and is not sufficient alone.
+- [ ] **TA.8** **After the close, not before:** run one epoch with `LOG_QUERY=on` and read which
+      parameters the engine actually fills. It settles GAPS **G35** (`/ip-geolocate` losing its
+      restatement when `ip` is filled) and would retire the guesswork behind `withSubject` for
+      every route at once. It is the single highest-value unknown left in Track 1.
