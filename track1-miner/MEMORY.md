@@ -86,6 +86,46 @@ now with both champion scorers run locally, which is the part that matters.
   rounding 1.674e-10 to zero. Only SENTIMENT_ANALYSIS, NEWS_HEADLINES and CONTENT_EXTRACTION have a
   genuine 0.0.
 
+## 0a. EPOCH 293 — THREE FIRSTS, TWO NEAR-MISSES, ONE SYSTEMIC ZERO
+
+**Full report: [docs/EPOCH_293_REPORT.md](docs/EPOCH_293_REPORT.md).**
+
+```
+SSL_VERIFICATION      #1  1.0418e-2   +25.7% over ssllabs   RECOVERED from #2
+STORM_ALERT           #1  1.0336e-2   +1.4% over txlens     held
+AI_TEXT_DETECTION     #1  2.0789e-10  +22% over veritarach  won on its debut epoch
+WEATHER_FORECAST      #2  1.0407e-2   -0.21% to weatherapi  UP FROM #5 OF 14
+IP_GEOLOCATION        #2  9.9253e-1   -0.09% to preflight   whole intent saturated ~0.99
+LANGUAGE_TRANSLATION  #3  0.0         all four miners 0.0
+ACADEMIC_SEARCH        -  not scored (organizer-side, reported, recurring)
+```
+
+**The restatement fix is confirmed live.** Our score as a fraction of the field best:
+SSL 0.983 -> **1.257**, weather 0.774 -> **0.998**, storm 1.007 -> 1.014. The live movement matches
+the 32-word conversion-budget column of the offline prediction rather than the raw-prose column,
+which is the honest reading: the converter absorbs most of the raw gain and what survives was still
+enough to flip SSL and move weather three places. G25's sign is settled; its magnitude is not.
+
+**LANGUAGE_TRANSLATION has two separate problems.**
+1. *Systemic, not ours:* **14 of 34 scored epochs are all-zero for every miner**, starting at epoch
+   260 — roughly 30 epochs before we entered. It hits the specialist mymemory miners identically.
+   An exact 0.0 across a whole field is the signature of an empty scored answer, not bad answers.
+   **Worth reporting to the organizers**; the specific ask is in the report's §6.
+2. *Ours, and fixed:* the champion scorer changed to **reg 1885 `c2_r1cut.wasm`** (the second
+   scorer change to invalidate tuning here, after CVE_LOOKUP). `translate.ts` returned the bare
+   translation, which now scores 8.5e-5; stating it in a sentence with one restatement and the
+   provider named scores 3.3e-1 — **x3905**, measured end to end. Deployed.
+
+**A better-scoring variant was rejected on honesty.** Claiming the output is "the form a native
+speaker would most commonly reach for" scored 0.666 (2/3 crossing) versus 0.333 (1/3). It asserts
+something unverifiable about a MyMemory result, and the extra gain came precisely from that clause
+matching the hidden reference. Same call on IP: an explicit anycast note scored +0.26% and is only
+true of public resolvers, so the shipped caveat is the autonomous-system one at +0.08%.
+
+**Weather wording is exhausted.** Eight variants swept; two beat the deployed shape by ~11% on raw
+prose but are identical or worse at the 32-word budget that the node actually scores. Nothing
+changed. The remaining 0.21% is question-draw luck in a 14-miner field.
+
 ## 0b. REGISTRATION 334 — SEVEN INTENTS, SIGNED 2026-08-30
 
 `updateMiner(297, …)` sent and mined: tx
