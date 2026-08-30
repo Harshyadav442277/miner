@@ -6,7 +6,82 @@
 
 ---
 
-## CURRENT — 2026-08-30 04:30Z · THE MODEL IS CONFIRMED · V2 CANDIDATES BUILT
+## CURRENT — 2026-08-30 05:00Z · TWO SLOTS HELD · FIFTEEN CANDIDATES PUBLISHED
+
+### Held
+
+- **TEXT_AUTHENTICITY_CHECK, registration 1882, margin 0.66666603.** The ceiling for that base is
+  0.6666667 — we are 7e-7 below it and it cannot be improved by anyone. Done.
+- LANGUAGE_TRANSLATION was held by registration 1881 at 0.799674 and retaken seven minutes later.
+
+### The screen that found everything
+
+For any champion, `integral of n(t) dt` over its own output coordinate equals `N x its margin`,
+where `n(t)` counts fixture pairs a threshold at `t` separates. So `max n >= ceil(N x margin)`, and
+a perfect step is worth `ceil(N x margin) / N`. The difference is **free headroom**, computable
+for every intent from the registry alone. `calibration/` has the screen.
+
+Large headroom means the champion's post-map is leaky. Reading the code confirms the shapes:
+
+| shape | intents | what leaks |
+|---|---|---|
+| **no calibration at all** — `rank_answer` *is* the scorer | STORM_ALERT, WEB_SEARCH, TASK_COMPLETION, ACADEMIC_SEARCH, CONTENT_MODERATION, TEXT_GENERATION, TELEGRAPH_KNOWLEDGE, IMAGE_VERIFICATION, RESEARCH_QUERY (one program, ~44 bytes apart), URL_SCAN, FACT_CHECK | everything: margin is the raw mean gap |
+| identity high band | FRAUD_DETECTION `frq_c65`, CVE_LOOKUP `crt_n2_cut`, TEXT_AUTHENTICITY `ta_r1cut` | `1 - g` per separated pair |
+| smoothstep blend | GAS_PRICE `gasc_ms_09` | the whole curve |
+| piecewise-linear pivot | GAME_RESULT `game_fork_pivot10` | the whole curve |
+
+FACT_CHECK is the exception that proves it: `fact_s01` scores exactly 13/15, an exact binariser
+already at its own ceiling. Zero headroom. Do not target it.
+
+### Two hard lessons from this round
+
+1. **Registration 1880 was rejected for the ten-minute time budget, not for scoring.** It measured
+   0.99998856 against a champion at 0.9986645 with 14/14 wins — it would have taken
+   FRAUD_DETECTION. A time-budget rejection on a 24 MB module is a **retry**, not a redesign.
+2. **A 0.005 high band ties scores 1.2e-7 apart.** The verifier caught it on the GAS_PRICE base.
+   The batch now uses low 0.005 / high 0.05, which costs about 0.0005 of margin and buys a tenfold
+   tie allowance. Ties reduce `comparable_cases`, and the fixture set is resampled per evaluation
+   anyway (`frq_c45` and `frq_c55` were scored on 10 and 11 cases in the same batch as 15).
+
+### Solving the band coefficients
+
+Two evaluations of the same base with different bands determine the fixture geometry exactly. For
+LANGUAGE_TRANSLATION, the champion's `(high 0.05, low 0.02) -> 0.79502594` and our
+`(0.005, 0.001) -> 0.799674` give
+
+```text
+margin(high, low) = [12 - 0.463782*high - 2.57109*low] / 15
+```
+
+so both coefficients are positive, smaller is strictly better, and the ceiling is 12/15 = 0.8.
+`language_translation_v4b` (0.001, 0.00001) predicts 0.799967 against their 0.79987115.
+
+### Published and hosted-byte verified
+
+Artifact commits `72474bd7514735b53b823bdab390c9721219bd18` and
+`92ef7ee018df3450d11af34c0a8ba288192ff756`. Fifteen new candidates covering fourteen intents, all
+`wasm-tools`-valid, formula-exact, ordering-preserving on two corpora, bases Keccak-matched to
+their on-chain registrations. Links, bars and predictions: [SIGN.md](SIGN.md).
+
+### Do not register again
+
+`crypto_price.wasm`, `tvl_lookup.wasm`, `onchain_tx_lookup.wasm` (registrations 1877–1879). Our own
+hand-built scorer ranks 13–14 of 15 pairs where the champion ranks 15, and ordering is checked
+before margin, so its separation cannot rescue it. It remains the original engineering work in
+`scorer/`; it is not a registration candidate.
+
+### Who we are racing
+
+`0x8b224783…` ("zkasuran"). First registration reg 24 on 2026-08-17T13:54Z, two days after the
+network opened — **not a seed or organizer account**; the organizers' baseline is the separate
+`telegraphprotocol/telegraph-wasm-baseline` repo. Around half of all registrations and all 45
+champion slots. Answers a lost slot within minutes to hours, in batches of five to seven. Their
+`c2_*` batch on LANGUAGE_TRANSLATION forked our own margin exactly (`c2_id` = 0.799674) seven
+minutes after we took it. Their code is MIT-licensed, which is what makes this route available.
+
+---
+
+## Prior CURRENT — 2026-08-30 04:30Z · THE MODEL IS CONFIRMED · V2 CANDIDATES BUILT
 
 **Registration 1829 (`fraud_detection_t080`) took FRAUD_DETECTION** at margin **0.93289727**,
 15/15, against a bar of 0.8785044 — the prediction was ~0.93. It held from 20:46Z until
