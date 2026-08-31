@@ -49,6 +49,39 @@ export interface PaperResult {
   checked_at: string;
 }
 
+/**
+ * The body served for an ACADEMIC_SEARCH answer, assembled from a PaperResult.
+ *
+ * Telegraph re-serialises our JSON with keys sorted alphabetically and converts
+ * the WHOLE payload into the ~32 words it scores — every field is scored
+ * surface (docs/CONVERTER_MODEL.md; `reason` contributes a median 36% of the
+ * converted answer). The full PaperResult opens, alphabetized, with
+ * `checked_at` and ~200 words of paper JSON that duplicate what `reason`
+ * already says in prose, so the converter's summary described bookkeeping while
+ * the restated request — the one surface every measured gain on this network
+ * came from — sat at the tail. The epoch-289 row proved it live: our payload
+ * converted to "The data shows a list of 5 peer-reviewed papers…" with the
+ * question's own words gone, and scored 0.0065.
+ *
+ * Measured in track1-miner/bench/acad_shape.mjs against champion 688 over the
+ * 22 frozen questions, real route assembly, live OpenAlex (2026-08-31):
+ *
+ *   shape                       reason32   flat32     wins vs full
+ *   full PaperResult            0.013329   0.006041        —
+ *   lean (this)                 0.013329   0.013419      22/22
+ *   lean + question echo        0.013329   0.013552      22/22  (vs lean: noise)
+ *   slim papers[title,yr,cit]   0.013329   0.006307      15/22
+ *
+ * The prose surface is identical in all four — this changes only what competes
+ * with it. Same shape that fixed LANGUAGE_TRANSLATION, and the shape of the
+ * epoch-297 leader (txlens: status + prose summary, nothing else). `"full"` is
+ * kept solely so the bench can keep scoring the old payload beside the new one.
+ */
+export function academicAnswer(r: PaperResult, shape: "full" | "lean" = "lean"): Record<string, unknown> {
+  if (shape === "full") return { ...r };
+  return { verdict: r.verdict, confidence: r.confidence, reason: r.reason };
+}
+
 const MONTHS: Record<string, number> = {
   january: 1, february: 2, march: 3, april: 4, may: 5, june: 6,
   july: 7, august: 8, september: 9, october: 10, november: 11, december: 12,

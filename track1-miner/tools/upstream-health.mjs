@@ -37,16 +37,16 @@ const PROBES = [
       encodeURIComponent("Find recent peer-reviewed papers on CRISPR gene editing"),
     expect: /"reason":"[^"]{20,}/,
   }],
-  // Whether OpenAlex is actually YIELDING papers is only failover severity, and
-  // the reason is measured rather than assumed: an answer saying no papers were
-  // found scores 0.013257 against 0.013234 for one listing real papers (GAPS
-  // G42) — the papers sit outside the 32-word conversion clip, so an empty
-  // result costs essentially nothing in rank. It is a visible product
-  // degradation and worth seeing, not a reason to block a deploy.
+  // Whether OpenAlex is actually YIELDING papers is only failover severity.
+  // The payload is lean — the papers live in the numbered prose list, so a
+  // "1) <title>" entry in `reason` is what proves papers came back. An empty
+  // result is a visible product degradation and worth seeing, not a reason to
+  // block a deploy (the honest none-found answer still restates the question,
+  // which is most of what the converter keeps — bench/acad_shape.mjs).
   ["openalex yielding papers", "failover", {
     url: "https://miner-wine.vercel.app/papers?query=" +
       encodeURIComponent("Find recent peer-reviewed papers on CRISPR gene editing"),
-    expect: /"papers":\s*\[\s*\{/,
+    expect: /1\)\s[^"]{5,}/,
   }],
   ["google translate (keyless)", "primary", { url: "https://clients5.google.com/translate_a/t?client=dict-chrome-ex&sl=en&tl=fr&q=good%20morning" }],
   ["mymemory", "failover", { url: "https://api.mymemory.translated.net/get?q=good%20morning&langpair=en|fr" }],

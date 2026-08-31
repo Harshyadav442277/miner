@@ -89,6 +89,50 @@ test("/translate answers with the bare translation, unrestated", async () => {
   }
 });
 
+test("/papers serves only the signal fields around the restated prose", async () => {
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = (async () =>
+    new Response(
+      JSON.stringify({
+        results: [{
+          title: "CRISPR-based gene therapy advances",
+          publication_year: 2024,
+          cited_by_count: 42,
+          authorships: [{ author: { display_name: "A. Researcher" } }],
+        }],
+      }),
+      { status: 200, headers: { "content-type": "application/json" } },
+    )) as typeof globalThis.fetch;
+  try {
+    const body = await new Promise<Record<string, unknown>>((resolve) => {
+      const req = {
+        method: "GET",
+        url: `/papers?query=${encodeURIComponent("Find recent peer-reviewed papers on CRISPR gene editing")}`,
+      } as IncomingMessage;
+      const res = {
+        writeHead() {},
+        end(payload?: unknown) {
+          resolve(JSON.parse(String(payload)) as Record<string, unknown>);
+        },
+      } as unknown as ServerResponse;
+      handleRequest(req, res);
+    });
+    // The converter summarises the WHOLE payload with keys re-sorted, so the
+    // full PaperResult buried the restated question behind checked_at and the
+    // papers JSON — measured 0.006041 vs 0.013419 for this shape (22/22 rows,
+    // champion 688, bench/acad_shape.mjs). Only the signal_mapping fields and
+    // the prose reach the converter now; the prose still names every paper.
+    assert.deepEqual(Object.keys(body).sort(), ["confidence", "reason", "verdict"]);
+    assert.match(String(body.reason), /^Regarding find recent peer-reviewed papers on CRISPR gene editing:/);
+    assert.match(String(body.reason), /CRISPR-based gene therapy advances by A\. Researcher \(2024\), cited 42 times/);
+    for (const k of ["papers", "count", "topic", "from_date", "to_date", "checked_at"]) {
+      assert.ok(!(k in body), `${k} must not reach the converter`);
+    }
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
 /**
  * The engine fills the parameters the manifest declares and may also send a
  * `query` that only refers back to them — "this wallet", "there", "this

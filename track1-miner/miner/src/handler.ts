@@ -2,7 +2,7 @@ import type { IncomingMessage, ServerResponse } from "node:http";
 import { checkCertificate, normalizeTarget, type SslResult } from "./ssl";
 import { checkStorm, type StormResult } from "./storm";
 import { translate, type TranslationResult } from "./translate";
-import { findPapers, type PaperResult } from "./papers";
+import { academicAnswer, findPapers, type PaperResult } from "./papers";
 import { getForecast, type ForecastResult } from "./forecast";
 import { geolocate, SPECIAL_GEO_VERDICTS, type GeoResult } from "./geo";
 import { detectAiText, type AiDetectResult } from "./aidetect";
@@ -709,13 +709,13 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     const key = `papers:${q.trim().toLowerCase()}`;
     const hit = fromCache(key);
     if (hit) {
-      sendAnswer(res, q, hit);
+      sendAnswer(res, q, academicAnswer(hit as PaperResult));
       return;
     }
     findPapers(q)
       .then((r) => {
         toCache(key, r);
-        sendAnswer(res, q, r);
+        sendAnswer(res, q, academicAnswer(r));
       })
       .catch(() => upstreamUnavailable(res, "A paper search", q.slice(0, 50), q));
     return;

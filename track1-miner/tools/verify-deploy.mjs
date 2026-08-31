@@ -175,8 +175,12 @@ try {
   const { res, ms } = await get(`/papers?topic=${encodeURIComponent("zero knowledge proofs")}`);
   timings.push(ms);
   const body = await res.json();
-  report(res.ok && body.count > 0 && Array.isArray(body.papers) && body.papers[0].title,
-    "bare topic -> real papers", res.ok ? `${body.count} papers, ${ms}ms` : `HTTP ${res.status}`);
+  // The payload is lean on purpose — the papers live in the prose, where the
+  // converter reads them (bench/acad_shape.mjs). A real answer names a count
+  // and lists numbered entries.
+  const listed = (String(body.reason ?? "").match(/\d+\)\s/g) ?? []).length;
+  report(res.ok && body.verdict === "papers" && /Here are \d+ peer-reviewed papers/i.test(String(body.reason)) && listed > 0,
+    "bare topic -> real papers", res.ok ? `${listed} papers in prose, ${ms}ms` : `HTTP ${res.status}`);
 } catch (e) {
   report(false, "bare topic -> real papers", e.message);
 }
