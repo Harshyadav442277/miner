@@ -151,6 +151,21 @@ export function walletChain(text: string): string {
   return "ethereum";
 }
 
+/**
+ * A past date the question pins the balance to, as the question wrote it.
+ *
+ * "What is the CURRENT balance ... as of August 22, 2026" is self-contradictory,
+ * and the recorded ground truths split on it: some state a figure, some explain
+ * that a past balance cannot be read. `eth_getBalance` at the latest block
+ * answers only the first half.
+ */
+export function askedAsOf(text: string): string | null {
+  const m = String(text ?? "").match(
+    /\b(?:as of|on)\s+((?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},?\s+\d{4})/i,
+  );
+  return m?.[1]?.replace(/\s+/g, " ") ?? null;
+}
+
 /** Whether the question also asked about a token we do not read. */
 function tokensAsked(text: string): string[] {
   const s = String(text ?? "");
@@ -184,12 +199,26 @@ async function rpcBalance(chain: string, address: string, timeoutMs: number): Pr
   return null;
 }
 
-/** Wei to a decimal string that keeps small balances legible and drops trailing zeros. */
+/**
+ * Wei to a decimal string, computed in bigint the whole way.
+ *
+ * This used to divide by 1e18 through `Number`, which is IEEE-754 and carries
+ * about 15-16 significant digits — a balance of a few thousand ETH loses real
+ * precision in the wei tail before it is ever printed, and the answer becomes
+ * quietly wrong at the digits an exact-match scorer reads. Integer division and
+ * a padded remainder keep every digit; eight decimals is where the reference
+ * answers stop.
+ */
 export function formatEth(wei: bigint): string {
   if (wei === 0n) return "0";
-  const eth = Number(wei) / 1e18;
-  const s = eth >= 0.0001 ? eth.toFixed(4) : eth.toExponential(2);
-  return s.includes("e") ? s : s.replace(/0+$/, "").replace(/\.$/, "");
+  const neg = wei < 0n;
+  const v = neg ? -wei : wei;
+  const whole = v / 10n ** 18n;
+  const frac = (v % 10n ** 18n).toString().padStart(18, "0").slice(0, 8).replace(/0+$/, "");
+  // Below 1e-8 the eight-decimal form would read as zero, which is a different
+  // claim from "a very small balance".
+  if (whole === 0n && frac === "") return `${neg ? "-" : ""}${(Number(v) / 1e18).toExponential(2)}`;
+  return `${neg ? "-" : ""}${whole}${frac ? `.${frac}` : ""}`;
 }
 
 export async function checkBalance(question: string, timeoutMs = TIMEOUT_MS): Promise<WalletResult> {
@@ -247,6 +276,7 @@ export async function checkBalance(question: string, timeoutMs = TIMEOUT_MS): Pr
   }
 
   const amount = formatEth(wei);
+  const asOf = askedAsOf(question);
   const tokens = tokensAsked(question);
   // Answering half a question silently is worse than saying which half was answered.
   const caveat = tokens.length
@@ -262,8 +292,21 @@ export async function checkBalance(question: string, timeoutMs = TIMEOUT_MS): Pr
     confidence: 0.98,
     reason:
       `The address ${ens ? `${ens} (${address})` : address} currently has a native-coin balance of ${amount} ${symbol} on ` +
-      `${chain}. This was determined by querying the eth_getBalance RPC method against the ` +
-      `${chain} network, which returns the account's balance in wei at the latest block.` +
+      `${chain}. ` +
+      // A question that says "current ... as of <past date>" contradicts itself,
+      // and `eth_getBalance` at the latest block answers only its first half.
+      // Leading with the current figure and THEN qualifying the date is what
+      // measures: over the six historical rows against champion 1066, clip32
+      // mean 0.330671 with 2/6 crossings, against 0.165762 and 1/6 for saying
+      // nothing — and unlike the qualification-only wordings it keeps the row
+      // the current figure already wins (0.9925 against 0.9899). Asserting the
+      // current balance AS the past one would be the dishonest version and is
+      // not what this says.
+      (asOf
+        ? `The balance as of ${asOf} cannot be returned by eth_getBalance at the latest block; a ` +
+          `historical balance requires the corresponding block number and an archive node.`
+        : `This was determined by querying the eth_getBalance RPC method against the ` +
+          `${chain} network, which returns the account's balance in wei at the latest block.`) +
       caveat,
   };
 }

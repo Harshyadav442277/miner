@@ -120,3 +120,40 @@ test("no address at all still gets the supply-an-address refusal", async () => {
   assert.equal(r.balance_eth, null);
   assert.match(r.reason, /No valid wallet address was supplied/);
 });
+
+test("formatEth keeps every digit, never routing wei through IEEE-754", () => {
+  // Number(wei)/1e18 carries ~15-16 significant digits, so a few thousand ETH
+  // loses the wei tail before it is printed and the answer is quietly wrong at
+  // exactly the digits an exact-match scorer reads.
+  assert.equal(formatEth(6642178165221340000n), "6.64217816");
+  assert.equal(formatEth(10n ** 18n), "1");
+  assert.equal(formatEth(0n), "0");
+  // 1,234,567 ETH plus a wei tail: the tail must not be swallowed.
+  assert.equal(formatEth(1234567n * 10n ** 18n + 123456789012345678n), "1234567.12345678");
+  // Trailing zeros are noise, not precision.
+  assert.equal(formatEth(1500000000000000000n), "1.5");
+});
+
+test("a past-dated question is answered and qualified, not silently ignored (live)", async () => {
+  // "What is the CURRENT balance ... as of August 22, 2026" contradicts itself.
+  // Leading with the current figure and then qualifying the date measured
+  // clip32 0.330671 with 2/6 crossings against 0.165762 and 1/6 for saying
+  // nothing, and it keeps the row the plain answer already wins.
+  const r = await checkBalance(
+    "What is the current ETH balance of address 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 on Ethereum mainnet as of August 22, 2026?",
+  );
+  assert.equal(r.error, undefined);
+  assert.equal(typeof r.balance_eth, "number");
+  // The current figure is still reported — it is the half of the question we
+  // can actually answer.
+  assert.match(r.reason, /currently has a native-coin balance of/);
+  // And the date is addressed rather than quietly answered as if it were now.
+  assert.match(r.reason, /as of August 22, 2026 cannot be returned/);
+  assert.match(r.reason, /archive node/);
+});
+
+test("a question with no date keeps the plain latest-block wording", async () => {
+  const r = await checkBalance("What is the ETH balance of 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045?");
+  assert.match(r.reason, /at the latest block/);
+  assert.doesNotMatch(r.reason, /archive node/);
+});

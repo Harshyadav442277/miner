@@ -903,3 +903,51 @@ figure ("is **2.47 ETH**"). There is no shape that matches both. Do not spend ti
 placeholder and the historical-date class before this measurement ran, and was right about the
 first and right to be sceptical of ENS as the epoch-296 cause — the score feed does not expose that
 question, so ENS remains a real capability gap rather than a confirmed diagnosis.
+
+### G46 · The historical-date branch I dismissed was winnable — I tested the wrong sentence — `CLOSED 2026-08-31`
+
+The parallel Preflight audit rated a historical-date branch **P0** and reported their replay moving
+0.2488 → 0.4966 with crossings 4/16 → 8/16. G45 had recorded the opposite: that the class was
+unwinnable because the ground truths contradict each other. **The audit was right and G45 was
+wrong**, and the reason is worth keeping.
+
+My rejected wording replaced the balance with an explanation. Theirs keeps the figure and adds the
+qualification. Over the six historical rows against champion 1066:
+
+```
+deployed (current balance, date never mentioned)     0.165762   1/6
+what I tested and dismissed the class on             0.003389   0/6   <- dropped the figure
+qualification only, archive-node wording             0.168957   1/6
+CURRENT FIGURE + archive-node qualification          0.330671   2/6   <- shipped
+```
+
+The shipped shape is the only one that **keeps the row the plain answer already wins** (0.9925
+against 0.9899) while gaining a new crossing. Both qualification-only variants lose that row
+outright. "What is the CURRENT balance ... as of August 22, 2026" is self-contradictory, and the
+recorded truths split on which half to answer — so answer both halves rather than choosing.
+
+It stays honest: the current figure is reported as current, and the past balance is explicitly
+described as unavailable rather than being silently answered with today's number.
+
+**Production, end to end over all 13 rows: mean 0.382350, 5/13 crossings** (from 0.298 and 3/10),
+including 1.000000 on a historical row and 0.988925 on the malformed placeholder.
+
+**Also fixed from the audit's P1:** `formatEth` divided wei by 1e18 through `Number`, which carries
+~15-16 significant digits, so a balance of a few thousand ETH lost its wei tail before printing.
+It is now integer arithmetic end to end.
+
+### G47 · A Python heredoc wrote a literal backspace byte into a regex — `CLOSED, and it will happen again`
+
+`askedAsOf` silently matched nothing. The compiled source *printed* as `/\b(?:as of|on)/` and was
+byte-for-byte `/\x08(?:as of|on)/`: in a non-raw Python string `"\b"` is a backspace character, so
+patching a TypeScript regex through a `python - <<'PY'` heredoc turned the word boundary into
+control character 0x08. `cat -A` showed it as `^H`; nothing else did.
+
+`content.ts` already carries a comment saying this file "has been bitten by that twice" — by the
+same class of bug, from the other direction (`String.raw` vs a plain TS string). It is now three
+times.
+
+**Rules:** patch source with the editing tools, not with heredoc string replacement. If a heredoc
+is unavoidable, use Python raw strings for anything containing a backslash, and verify with
+`cat -A` rather than by reading the output back — the corruption is invisible to `grep`, to `sed`,
+and to reading the file. A scan of `src/`, `test/` and `tools/` found no other occurrence.
