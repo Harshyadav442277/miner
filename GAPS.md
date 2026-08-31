@@ -635,3 +635,30 @@ Guarded by `tools/no-regression.mjs`, which expects **7 identical, 1 differing**
 false alarm. It is now checked *through production*, where the answer identifies the provider:
 only ip-api honours operator geofeeds and places `142.251.42.174` in Tokyo, where the ipwho.is
 fallback misplaces it in Mumbai. Production returns Tokyo, so the primary is answering.
+
+### G37 · `/papers` has one upstream and no failover — `OPEN, and adding one was measured and REJECTED`
+
+`findPapers` calls OpenAlex alone. When it fails, the handler answers honestly that the search
+could not be retrieved, which scores ~0 for that question — and `ACADEMIC_SEARCH` is contested
+(ratio 0.740 in epoch 295). A failover looked obviously worth adding. **It is not.** Every
+candidate was measured on 2026-08-31:
+
+- **Crossref** — reachable and keyless, but neither sort mode is usable. `sort=relevance` returns
+  metadata-poor stubs ("CRISPR/Cas9 gene editing", no authors, no year, 1 citation) where OpenAlex
+  returns the real literature. `sort=is-referenced-by-count` returns hugely-cited papers that are
+  **off topic**: for a CRISPR query it gave qPCR analysis (164,146 cites), GSEA, and edgeR. That is
+  the confidently-wrong failure mode the `SPORTS_SCORE` precedent exists to refuse. It also leaks
+  markup into titles (`<tt>edgeR</tt>`).
+- **Semantic Scholar** — **HTTP 429 without an API key.** This is not a guess: the
+  `semanticscholar` miner fails in the live leaderboard with `upstream call failed: status 4xx`.
+- **arXiv** — preprints only, and no citation counts. The recorded questions ask for peer-reviewed
+  work and cite counts.
+
+**And the premise was wrong anyway.** OpenAlex looked flaky because it failed twice during this
+session — but both failures happened while five gates hammered it concurrently. Probed properly:
+**6/6 sequential 200s**, and production `/papers` returned 5 papers on 4 of 4 topics with no error.
+The flakiness was self-inflicted, the same effect noted in G34.
+
+So an honest "could not be retrieved" from a reliable single provider beats a second provider that
+answers off-topic. Revisit only with a provider that matches OpenAlex on relevance AND metadata —
+or with an API key, which introduces a revocable dependency the manifest currently has none of.
