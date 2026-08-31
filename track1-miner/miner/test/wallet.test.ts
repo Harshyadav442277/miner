@@ -76,14 +76,14 @@ test("an ENS name is resolved rather than refused (live)", async () => {
   assert.match(r.reason, /vitalik\.eth/);
 });
 
-test("an unresolvable ENS name says so, and does not claim a zero balance", async () => {
+test("an unresolvable ENS name says so, and does not claim a zero balance (live)", async () => {
   const r = await checkBalance("What is the balance of this-name-does-not-exist-xyz123.eth?");
   assert.equal(r.error, "invalid_address");
   assert.equal(r.balance_eth, null);
   assert.match(r.reason, /could not be resolved/i);
 });
 
-test("a plain address is unaffected by ENS handling", async () => {
+test("a plain address is unaffected by ENS handling (live)", async () => {
   const r = await checkBalance("What is the ETH balance of 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045?");
   assert.equal(r.error, undefined);
   assert.doesNotMatch(r.reason, /\.eth/);
@@ -152,8 +152,60 @@ test("a past-dated question is answered and qualified, not silently ignored (liv
   assert.match(r.reason, /archive node/);
 });
 
-test("a question with no date keeps the plain latest-block wording", async () => {
+test("a question with no date keeps the plain latest-block wording (live)", async () => {
   const r = await checkBalance("What is the ETH balance of 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045?");
   assert.match(r.reason, /at the latest block/);
   assert.doesNotMatch(r.reason, /archive node/);
+});
+
+test("the structured chain parameter is honoured, not just the prose (live)", async () => {
+  // A request carrying address + chain=base returned the ETHEREUM balance
+  // labelled `ethereum`. The two are different numbers for the same address
+  // (6.6422 against 3.1286), so this was a wrong answer whenever the engine
+  // supplied the chain structurally rather than inside the sentence — the same
+  // engine-facing parameter loss withSubject fixed for the subject.
+  const r = await checkBalance("What is the balance of this wallet?", undefined, "base");
+  assert.equal(r.chain, "base");
+});
+
+test("a chain we cannot read is NAMED, and the figure we can read is kept (live)", async () => {
+  // Silently swapping Sepolia for Ethereum was wrong. Refusing outright was
+  // worse and measurably so: the recovered ground truths for these questions do
+  // answer ("...on the Sepolia chain is **0 ETH**"), so a refusal throws the
+  // figure away — wallet mean fell 0.310694 to 0.187253 and crossings 5/16 to
+  // 3/16. Keep the figure, name the network it came from, and say the asked-for
+  // chain was not read. Same shape as the past-date branch.
+  for (const [q, label] of [
+    ["What is the balance of 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 on Sepolia?", /test networks/i],
+    ["What is the balance of 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 on BNB Chain?", /BNB Chain/],
+    ["What is the balance of 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 on Avalanche?", /Avalanche/],
+  ] as Array<[string, RegExp]>) {
+    const r = await checkBalance(q);
+    // The figure we CAN read is still reported...
+    assert.equal(typeof r.balance_eth, "number", q);
+    // ...labelled as the network it actually came from...
+    assert.match(r.reason, /mainnet balance/i, q);
+    // ...and the chain we could not read is named, not silently dropped.
+    assert.match(r.reason, label);
+    assert.match(r.reason, /not among the networks this service reads/i);
+  }
+});
+
+test("a transaction hash is not a zero-balance wallet", async () => {
+  // 64 hex characters is a transaction hash. Classifying it as a malformed
+  // address asserted a balance for something that has none.
+  const r = await checkBalance(
+    "What is the status of transaction 0x88df016429689c079f3b2f6ad39fa052532c56795b733da78a91ebe6a713944b?",
+  );
+  assert.notEqual(r.balance_eth, 0, "a tx hash must not be reported as holding zero");
+  assert.equal(r.error, "invalid_address");
+});
+
+test("a malformed address is reported in full, not as a truncated prefix", async () => {
+  const r = await checkBalance(
+    "What is the ETH balance for wallet address 0x742d35Cc6634C0377D5DEm4D9B439C55C3F5d7A2?",
+  );
+  assert.equal(r.balance_eth, 0);
+  // The whole token the question used, not the hex prefix before the stray letter.
+  assert.match(String(r.address), /m4D9B439C55C3F5d7A2$/i);
 });

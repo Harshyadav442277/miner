@@ -172,3 +172,43 @@ describe("the third geolocation provider", () => {
     }
   });
 });
+
+describe("provider field precedence", () => {
+  test("names the network operator (isp), not the service label (org)", async () => {
+    // THE regression test for epoch 296. ip-api returns BOTH for 8.8.8.8:
+    //   isp = "Google LLC"          <- the network operator, what references name
+    //   org = "Google Public DNS"   <- the service label
+    // We preferred `org` and scored 0.010600 where preflight, saying "Google
+    // LLC", scored 0.993927 — a 93x loss on one field. The live test only
+    // asserts an operator-shaped phrase, so reversing this precedence would
+    // recreate the failure while still passing. This pins the exact split.
+    const originalFetch = globalThis.fetch;
+    globalThis.fetch = (async (input: unknown) => {
+      const url = String(input);
+      if (url.includes("ip-api.com")) {
+        return new Response(
+          JSON.stringify({
+            status: "success", city: "Ashburn", regionName: "Virginia",
+            country: "United States", countryCode: "US", lat: 39.03, lon: -77.5,
+            timezone: "America/New_York",
+            isp: "Google LLC", org: "Google Public DNS", as: "AS15169 Google LLC",
+          }),
+          { status: 200, headers: { "content-type": "application/json" } },
+        );
+      }
+      // No Tor DNSEL, no fallback providers: this test is about one field.
+      return new Response("{}", { status: 503 });
+    }) as typeof globalThis.fetch;
+    try {
+      const r = await geolocate("8.8.8.8");
+      assert.equal(r.organisation, "Google LLC", "must be the operator, not the service label");
+      assert.notEqual(r.organisation, "Google Public DNS");
+      assert.match(r.reason, /Google LLC/);
+      assert.doesNotMatch(r.reason, /Google Public DNS/);
+      assert.equal(r.asn, "AS15169");
+      assert.equal(r.city, "Ashburn");
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+});

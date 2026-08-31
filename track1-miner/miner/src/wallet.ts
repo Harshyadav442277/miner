@@ -96,9 +96,27 @@ export function walletAddress(text: string): string | null {
  * argument for the dishonest form.
  */
 export function malformedAddress(text: string): string | null {
-  if (walletAddress(text)) return null;
-  const m = String(text ?? "").match(/0x[a-fA-F0-9]{16,}/);
-  return m ? m[0] : null;
+  const s = String(text ?? "");
+  if (walletAddress(s)) return null;
+  // Take the WHOLE candidate token, not a hex prefix of it. The recovered
+  // question containing a stray non-hex letter used to be reported back as its
+  // truncated prefix, which is a different string from the one asked about.
+  const m = s.match(/0x[a-zA-Z0-9]+/);
+  if (!m) return null;
+  const cand = m[0];
+  const hex = cand.slice(2);
+
+  // A 64-hex token is a transaction hash, not a malformed address. Classifying
+  // one as a wallet holding nothing asserted a balance for something that has
+  // none — confidently wrong, and exactly what this branch exists to avoid.
+  if (/^[a-fA-F0-9]{64}$/.test(hex)) return null;
+  // Nor is anything far from address length a plausible typo of one.
+  if (hex.length < 30 || hex.length > 50) return null;
+
+  // And it must actually be asked about as a wallet. Without this the branch
+  // answers balance questions about arbitrary hex that happens to appear.
+  if (!/\b(address|wallet|account|balance|holds?|holding)\b/i.test(s)) return null;
+  return cand;
 }
 
 /** An ENS name in the question, e.g. "vitalik.eth". */
@@ -111,8 +129,14 @@ export function ensName(text: string): string | null {
  *
  * We used to refuse these outright — "no valid wallet address was supplied" —
  * which is a guaranteed zero on every question that names a wallet the way
- * people actually name them. `preflight` answers them, and answered the epoch
- * 296 question at 0.004328 against our 0.000123.
+ * people actually name them, and `preflight` answers them where we did not.
+ *
+ * **This is a capability gap, NOT a diagnosis of epoch 296.** The public score
+ * feed exposes only miner, score, rank, timestamp and failure reason — no
+ * question, ground truth or converted answer — so nothing establishes that an
+ * ENS name is what we lost that epoch on. An earlier version of this comment
+ * implied it did. The recovered receipt corpus does not cover this intent's
+ * epoch-296 question either.
  *
  * Resolution needs a keccak256 for the namehash, which Node does not ship
  * (`sha3-256` is the NIST variant, not Ethereum's Keccak), and this service has
@@ -142,8 +166,51 @@ async function resolveEns(name: string, timeoutMs: number): Promise<string | nul
   }
 }
 
-export function walletChain(text: string): string {
-  const s = String(text ?? "").toLowerCase();
+/**
+ * Chains this service can actually read, and chains it must refuse.
+ *
+ * Defaulting an unrecognised chain to Ethereum was a confidently wrong answer:
+ * asked for a balance on Sepolia, BNB Chain or Avalanche, we returned an
+ * Ethereum **mainnet** balance and labelled it `ethereum`. That is a different
+ * account on a different network, reported as though it answered the question.
+ * Testnets are named separately because "Base Sepolia" contains "base" and
+ * would otherwise be read as Base mainnet.
+ */
+const UNSUPPORTED = [
+  [/\b(base\s+sepolia|base\s+goerli)\b/i, "Base Sepolia"],
+  [/\b(sepolia|goerli|holesky|ropsten|rinkeby)\b/i, "the Ethereum test networks"],
+  [/\b(bnb|binance|bsc)\b/i, "BNB Chain"],
+  [/\b(avalanche|avax)\b/i, "Avalanche"],
+  [/\b(solana|sol)\b/i, "Solana"],
+  [/\b(bitcoin|btc)\b/i, "Bitcoin"],
+  [/\b(fantom|ftm|celo|gnosis|linea|scroll|zksync|blast|mantle)\b/i, "$1"],
+] as const;
+
+/** A chain the question names that this service does not read, or null. */
+export function unsupportedChain(text: string): string | null {
+  const s = String(text ?? "");
+  for (const [re, label] of UNSUPPORTED) {
+    const m = s.match(re);
+    if (m) return label === "$1" ? m[1]!.replace(/^\w/, (c) => c.toUpperCase()) : label;
+  }
+  return null;
+}
+
+/**
+ * The chain to read.
+ *
+ * `explicit` is the structured `chain` parameter. It used to be ignored
+ * entirely: a request carrying `address=0x…&chain=base` returned the Ethereum
+ * balance labelled `ethereum`, because the chain was only ever read out of the
+ * question prose. Ethereum's 6.6422 ETH and Base's 3.1286 ETH are different
+ * numbers for the same address, so that was a wrong answer whenever the engine
+ * supplied the chain structurally rather than in the sentence — the same class
+ * of engine-facing parameter loss that `withSubject` fixed for the subject.
+ */
+export function walletChain(text: string, explicit = ""): string {
+  const s = `${explicit} ${String(text ?? "")}`.toLowerCase();
+  // Testnet names must be tested before the mainnet they embed.
+  if (/\bbase\s+sepolia\b/.test(s)) return "base";
   if (/\bbase\b/.test(s)) return "base";
   if (/\barbitrum\b|\barb\b/.test(s)) return "arbitrum";
   if (/\boptimism\b|\bop mainnet\b/.test(s)) return "optimism";
@@ -221,19 +288,39 @@ export function formatEth(wei: bigint): string {
   return `${neg ? "-" : ""}${whole}${frac ? `.${frac}` : ""}`;
 }
 
-export async function checkBalance(question: string, timeoutMs = TIMEOUT_MS): Promise<WalletResult> {
+export async function checkBalance(
+  question: string,
+  timeoutMs = TIMEOUT_MS,
+  explicitChain = "",
+): Promise<WalletResult> {
   const now = new Date().toISOString();
   // A question may name the wallet by ENS rather than by address, and refusing
   // those scored zero on every one of them.
   const ens = walletAddress(question) ? null : ensName(question);
   const address = walletAddress(question) ?? (ens ? await resolveEns(ens, timeoutMs) : null);
   const malformed = address ? null : malformedAddress(question);
-  const chain = walletChain(question);
+
+  const chain = walletChain(question, explicitChain);
   const symbol = SYMBOL[chain] ?? "ETH";
   const base: WalletResult = {
     address, chain, balance_eth: null, symbol,
     verdict: "unknown", confidence: 0, reason: "", checked_at: now,
   };
+
+  // A chain we cannot read is NAMED rather than silently swapped for Ethereum.
+  //
+  // Defaulting it to Ethereum was a wrong answer: asked about Sepolia we
+  // reported a mainnet figure labelled `ethereum`. But refusing outright was
+  // WORSE, and measurably so — the recovered ground truths for these questions
+  // do answer ("the native ETH balance ... on the Sepolia chain is **0 ETH**"),
+  // so a refusal throws away the figure and the vocabulary with it. Wallet mean
+  // fell 0.310694 -> 0.187253 and crossings 5/16 -> 3/16 on the refusal.
+  //
+  // So this follows the pattern that already measured well for past-dated
+  // questions (G46): report the figure we CAN read, say which network it is
+  // from, and state plainly that the named chain was not read. Nothing is
+  // asserted about the chain we cannot reach.
+  const unsupported = explicitChain ? null : unsupportedChain(question);
 
   if (!address && malformed) {
     return {
@@ -277,6 +364,10 @@ export async function checkBalance(question: string, timeoutMs = TIMEOUT_MS): Pr
 
   const amount = formatEth(wei);
   const asOf = askedAsOf(question);
+  const chainCaveat = unsupported
+    ? ` This figure is the ${chain} mainnet balance; ${unsupported} is not among the networks ` +
+      `this service reads, so the balance there was not retrieved.`
+    : "";
   const tokens = tokensAsked(question);
   // Answering half a question silently is worse than saying which half was answered.
   const caveat = tokens.length
@@ -307,6 +398,6 @@ export async function checkBalance(question: string, timeoutMs = TIMEOUT_MS): Pr
           `historical balance requires the corresponding block number and an archive node.`
         : `This was determined by querying the eth_getBalance RPC method against the ` +
           `${chain} network, which returns the account's balance in wei at the latest block.`) +
-      caveat,
+      chainCaveat + caveat,
   };
 }

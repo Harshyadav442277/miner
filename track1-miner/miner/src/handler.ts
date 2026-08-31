@@ -615,13 +615,16 @@ function route(req: IncomingMessage, res: ServerResponse): void {
       }, false);
       return;
     }
-    const key = `wallet:${q.trim().toLowerCase()}`;
+    const key = `wallet:${q.trim().toLowerCase()}:${firstValue(url, "chain", "network").toLowerCase()}`;
     const hit = fromCache(key);
     if (hit) {
       sendAnswer(res, q, hit, false);
       return;
     }
-    checkBalance(q)
+    // The structured `chain` parameter is read here, not just out of the prose:
+    // a request carrying address + chain=base used to return the Ethereum
+    // balance labelled `ethereum`.
+    checkBalance(q, undefined, firstValue(url, "chain", "network"))
       .then((r) => {
         toCache(key, r);
         sendAnswer(res, q, r, false);

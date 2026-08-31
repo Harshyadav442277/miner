@@ -1088,3 +1088,49 @@ positions. Unlike the three intents added this morning, neither of these could b
 its own champion scorer first — the recovered receipt corpus covers eight intents and neither of
 these is among them. The upside is asymmetric in our favour (the incumbents score 0.0, so any
 positive score is rank 1) but it is a judgement call about risk, and it belongs to the operator.
+
+### G51 · Codex post-fix audit — three confidently-wrong wallet paths found and fixed — `CLOSED 2026-08-31`
+
+An independent review (`track1-miner/docs/POST_FIX_IP_WALLET_AUDIT_2026-08-31.md`) found three
+defects in the wallet route that I had introduced or left. All three were verified by direct probe
+before being fixed, and all three were **confidently wrong answers** rather than scoring gaps:
+
+```
+address=0x…&chain=base      -> chain "ethereum", 6.6422 ETH   (Base holds 3.1286 — wrong network)
+64-hex transaction hash     -> "wallet holding 0 ETH"          (a tx hash has no balance)
+"...on Sepolia / BNB / Avalanche" -> Ethereum MAINNET figure    (a different account entirely)
+```
+
+**The chain parameter** is now read structurally, not only out of the prose — the same
+engine-facing parameter loss `withSubject` fixed for the subject, and the cache key includes it so
+Base and Ethereum cannot share an entry. **The malformed-address branch** now requires an
+address-length error (30–50 hex), wallet context, and rejects 64-hex transaction hashes; it also
+reports the whole token rather than the hex prefix before a stray letter.
+
+**The third fix I got wrong first, in a way worth recording.** I made an unsupported chain a flat
+refusal. That is honest but it **measurably destroyed score**: mean 0.310694 → 0.187253 and
+crossings 5/16 → 3/16 on the recovered corpus, because the ground truths for those questions *do*
+answer — "the native ETH balance of wallet address `0x742d35…` on the Sepolia chain is **0 ETH**".
+A refusal throws the figure and its vocabulary away.
+
+The fix was the pattern G46 had already established and I failed to apply: **keep the figure, add
+the qualification.** The answer now reports the mainnet balance, says which network it came from,
+and states that the named chain was not read. Restored to **0.310695 / 5 of 16**, with the honesty
+defect gone. *Silently swapping the chain was wrong; refusing was worse; naming both is right.*
+
+**Also from the audit:** a mocked regression test now pins the `isp`-before-`org` precedence — the
+one field that cost 93x in epoch 296 — because the live test only asserted an operator-shaped
+phrase and would have passed if the precedence were reversed. Three wallet tests that made real
+RPC calls without the `(live)` marker are now labelled, so `npm run test:unit` is genuinely offline
+(176/176). And the ENS comment claiming an epoch-296 cause is corrected: the public feed exposes no
+question or ground truth, so ENS is a capability gap, **not** a diagnosis.
+
+**Accepted, not fixed:** sequential RPC failover cannot fit four 6s attempts inside the 11s
+watchdog, so the later spares are decorative under a hanging provider; and `balance_eth` still
+passes through `Number` even though the prose is bigint-derived. Both are recorded rather than
+changed hours before the final epoch, with production healthy.
+
+**Known local flake, not a defect:** `expired.badssl.com` handshakes exceed the live test's 12s
+budget from this dev machine. Production classifies it correctly (`expired`, −4159 days) and
+`verify-deploy` confirms it independently — the same dev-machine artefact class as G27 (ip-api) and
+G43 (OpenAlex).
