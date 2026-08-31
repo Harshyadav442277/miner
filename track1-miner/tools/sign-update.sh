@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Add the three measured intents to the live registration, in one command.
+# Add WEATHER_CHECK, FACT_CHECK and TELEGRAPH_KNOWLEDGE to the live registration.
 #
 #   bash track1-miner/tools/sign-update.sh
 #
@@ -16,14 +16,14 @@
 set -uo pipefail
 
 DIAMOND=0x5a2324aA18613FAD4e44bDF0d6c73Ec1f6D87ff8
-REG=334
+REG=389
 WALLET=0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e
 PRICE=10000
 RPC=https://sepolia.base.org
 NODE=https://devnode.telegraphprotocol.com
 REPO=Harshyadav442277/miner
 SIG='updateMiner(uint256,string,bytes32,address,uint256,string[])'
-INTENTS='["SSL_VERIFICATION","STORM_ALERT","WEATHER_FORECAST","IP_GEOLOCATION","LANGUAGE_TRANSLATION","ACADEMIC_SEARCH","AI_TEXT_DETECTION","CONTENT_EXTRACTION","NEWS_HEADLINES","WALLET_BALANCE_CHECK"]'
+INTENTS='["SSL_VERIFICATION","STORM_ALERT","WEATHER_FORECAST","IP_GEOLOCATION","LANGUAGE_TRANSLATION","ACADEMIC_SEARCH","AI_TEXT_DETECTION","CONTENT_EXTRACTION","NEWS_HEADLINES","WALLET_BALANCE_CHECK","WEATHER_CHECK","FACT_CHECK","TELEGRAPH_KNOWLEDGE"]'
 
 cd "$(dirname "$0")/../.." || exit 1
 die() { printf '\n  STOP: %s\n' "$1" >&2; exit 1; }
@@ -60,11 +60,11 @@ python -c "
 import yaml,sys
 m=yaml.safe_load(open('$TMP',encoding='utf8'))
 i=m['semantics']['supported_intents']; e=m['endpoints']
-assert len(i)==10, f'expected 10 intents, found {len(i)}'
-assert len(e)==10, f'expected 10 endpoints, found {len(e)}'
+assert len(i)==13, f'expected 13 intents, found {len(i)}'
+assert len(e)==12, f'expected 12 endpoints, found {len(e)}'
 assert m['base_url']=='https://miner-wine.vercel.app', m['base_url']
-" || die "the hosted manifest is not the ten-intent manifest."
-ok "manifest parses: 10 intents, 10 endpoints"
+" || die "the hosted manifest is not the thirteen-intent manifest."
+ok "manifest parses: 13 intents, 12 endpoints"
 
 # One non-canonical string reverts the whole registration. Written to a file
 # rather than interpolated: the feed is 45 records of prose and embedding it in
@@ -82,7 +82,7 @@ want=json.loads('''$INTENTS''')
 bad=[w for w in want if w not in canon]
 sys.exit('non-canonical: '+', '.join(bad) if bad else 0)
 " || die "a declared intent is not canonical — the send would revert."
-ok "all 10 intents are canonical"
+ok "all 13 intents are canonical"
 
 BAL=$(cast balance "$WALLET" --rpc-url "$RPC" 2>/dev/null || echo 0)
 [ "$BAL" != "0" ] || die "no gas on Base Sepolia for $WALLET"
@@ -102,8 +102,8 @@ ok "simulation passed"
 cat <<EOF
 
   About to REPLACE registration $REG. This deregisters and re-registers
-  atomically and issues a NEW registration id. If activation fails, all ten
-  intents go offline — including the five currently at rank 1.
+  atomically and issues a NEW registration id. If activation fails, all thirteen
+  intents go offline — including the four currently at rank 1.
 
     url    $URL
     hash   0x$HASH
@@ -126,7 +126,7 @@ cat <<EOF
 
     curl -s $NODE/api/miners/<NEW_ID> | python -m json.tool
 
-  Want: activation_status active, rejection_reason null, 10 supported_intents.
+  Want: activation_status active, rejection_reason null, 13 supported_intents.
   Then: gh variable set REGISTRATION_ID --body <NEW_ID>
         node track1-miner/tools/preflight.mjs
   And tell the Track 2 session — its disclosure docs still cite $REG.
