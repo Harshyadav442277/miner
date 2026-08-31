@@ -736,7 +736,13 @@ dimensions — expiration, root CA trust, signature algorithm, key strength — 
 and flipped no crossings. Naming dimensions is not the same as supplying the ground truth's
 structure, and only the second one worked.
 
-### G40 · ACADEMIC_SEARCH could NOT be improved — `OPEN: ten variants measured, all lost`
+### G40 · ACADEMIC_SEARCH could NOT be improved — `ANNOTATED 2026-08-31: the sweeps tuned ~36% of the scored surface`
+
+**2026-08-31 addendum:** every variant below tuned the `reason` prose — but archived real
+conversions show the converter summarizes the WHOLE alphabetized payload, of which `reason` is
+only ~36%. The prose IS optimal (this gap's conclusion stands for the surface it measured); the
+`papers[]` array diluting the other ~64% was the movable part, measured +122% payload-proxy and
+shipped 2026-08-31 as the lean `{verdict, confidence, reason}` body (`bench/acad_shape.mjs`).
 
 The deployed shape is at a local optimum under champion 688 and I could not beat it. Recorded so
 the same ground is not re-walked.
@@ -801,7 +807,14 @@ G35 can now be closed on evidence rather than caution.
 and we still lost the epoch — because the epoch asked something the bench does not contain. A
 bench frozen by G24 measures the answer shape, not the question distribution.
 
-### G42 · ACADEMIC_SEARCH cannot be won on paper quality — `CLOSED as a finding: only the preamble is scored`
+### G42 · ACADEMIC_SEARCH cannot be won on paper quality — `CLOSED, but "empty ≈ full" was a proxy artifact`
+
+**2026-08-31 correction:** "an empty result scores the same as a full one" came from the reason32
+proxy. Archived REAL conversions split them 16x: a bare no-results conversion scored 0.00094
+(semanticscholar e286) while a no-results conversion echoing the question's criteria scored
+0.01488 (openalex e285 — the second-best score ever on this intent). The question echo is what
+scores; paper quality still is not. The lean-payload change (G40 addendum) makes our no-results
+path degrade into exactly that question-echo shape.
 
 The measurement that reframes this intent. Two answers built identically apart from the clause
 that differs, scored over the 22 frozen rows against champion 688:
@@ -1176,3 +1189,24 @@ such bench row — score-neutral, honesty-positive. And an explicit `chain=` par
 supported set (the engine sent `chain=sepolia` in epoch 287) silently became a caveat-free mainnet
 answer; the unsupported-chain caveat now applies to the structural parameter too, clip32-identical
 scores (0.977656 / 0.985383 before and after) with the honest tail restored. 221/221 tests.
+
+### G53 · LANGUAGE_TRANSLATION refused the ISO-code shape its own manifest promises — `CLOSED 2026-08-31: fixed, verified live`
+
+Our last-place 2.4e-11 in epoch 297 was the refusal band, reproduced offline to the printed
+digit. `miner.yaml` tells the engine `target_language` accepts a name **or ISO 639-1 code**
+(examples `["Spanish","fr"]`), but `targetLanguage()` resolved names only, so the engine's
+code-shaped calls (`target_language=de`) were refused as naming no language. Under the current
+champion — reg 2296 `ltr_v5_75.wasm`, activated 2026-08-31T03:12Z, superseding reg 1996 which
+superseded our 10/10 baseline — a refusal-style conversion scores 2.461538e-11 (live: 2.4e-11)
+where a healthy conversion quoting the translation scores ~3.5e-10, nine times epoch 297's
+leader. The fix consults a code map only after every name resolution fails; name- and query-shaped
+answers are byte-identical before and after, pinned by tests and by a new code-shaped case in
+`param-shapes.mjs`. Crossings on the engine's code shape: 0/9 → 8/9 (recovered questions, real
+route code). Verified live 2026-08-31: `target_language=de` returns the German translation.
+
+Also settled with data: the mymemory-provider hypothesis is REFUTED — the recovered ground truths
+are Google-verbatim on 8/9, so Google stays primary. The champion's source is public
+(`zkasuran/telegraph-salience-scorer`): a three-band cut whose sub-cliff floor is a smooth lexical
+similarity times 1e-9 — ordering inside the "noise" band is real and movable. The scorer family
+has rotated three times this week; the fix is scorer-agnostic (a correct translation can never
+score worse than a refusal of an answerable request).

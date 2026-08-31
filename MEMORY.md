@@ -14,6 +14,16 @@ sessions and between models.
 | **Track 3 — app** | [track3-certwatch/](track3-certwatch/), plus G17/G18 in [GAPS.md](GAPS.md) |
 | Anything | [README.md](README.md) for ownership and shared facts, [docs/](docs/) for protocol and rules |
 
+## Three-intent push deployed (2026-08-31 ~15:45 UTC) — epoch 298 is the acceptance test
+
+The three intents epoch 297 lost were each diagnosed by measurement and fixed the same day:
+WALLET's field-wide zero was a champion swap (score² — nothing was wrong with us, G52);
+TRANSLATION was refusing the engine's ISO-code shape our manifest promises (0/9 → 8/9 crossings,
+verified live, G53); ACADEMIC's `papers[]` was diluting the converted payload the scorer actually
+reads (+122% payload-proxy, 22/22 rows, G40/G42 corrected). All deployed via `vercel --prod`,
+preflight 7/7, 237/237 tests. **Champions rotated 3x today — always check `/api/wasm?intent=…`
+before touching answers.** Full record: § 00000000 of [track1-miner/MEMORY.md](track1-miner/MEMORY.md).
+
 ## Epochs 296/297 scored — likely the closing Track 1 record (2026-08-31 ~14:30 UTC)
 
 Epoch 297 (the last one scored inside the Aug-31 window): **4 × #1** (STORM, AI_TEXT,

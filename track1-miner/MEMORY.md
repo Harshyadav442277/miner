@@ -3,8 +3,47 @@
 **Read this first. Everything Track 1 needs is in this folder.**
 Shared protocol facts are in `../docs/`. Do not edit `../track2/` or `../track3-certwatch/`.
 
-Last updated: 2026-08-31 ~14:30 UTC — epochs 296 and 297 are scored and recorded. Read § 0000000
-first: 297 was almost certainly the last epoch scored inside Track 1's window.
+Last updated: 2026-08-31 ~15:45 UTC — the three-losing-intent push is DEPLOYED and verified.
+Read § 00000000 first; epoch 298 (starts 23:02Z, spot-scored ~00:15Z Sep 1) is its acceptance test.
+
+---
+
+## 00000000. THE THREE-INTENT PUSH (2026-08-31 ~15:40 UTC, deployed + preflight 7/7)
+
+Three parallel investigations into the intents epoch 297 lost, each measured before shipped.
+All live at `miner-wine.vercel.app` (G22: deploy is `vercel --prod --scope wukong4` from
+`track1-miner/miner` — pushing to main does NOT deploy). Commits `fad5c0b`, `8344902`, `2dc7033`.
+
+**1. WALLET (was #4 in a 1e-8 field) — the field-wide zero was a CHAMPION SWAP, not a question
+change.** Reg 2575 = reg 1066 with score² applied (verified by hash, by squaring all 13 bench
+rows digit-exact, and by un-squaring the live field). Noise floor moved 1e-4 → 1e-8; ordering
+preserved; our 297 ratio actually improved 0.028 → 0.574. Shipped: the engine's zero-address
+filler is no longer answered with the burn address's real balance, and `chain=sepolia` gets its
+caveat. Scored surface clip32-identical. G52. Rewording was measured and REJECTED again (G44
+stands); the "2.47 ETH on Base" rows are GT fabrications, winnable only dishonestly — left lost.
+
+**2. TRANSLATION (was #3 at 2.4e-11) — we were REFUSING the engine's ISO-code shape our own
+manifest promises.** `target_language=de` → "no language named" refusal; refusal conversions
+score exactly our live 2.4e-11, healthy ones ~3.5e-10 = 9x the 297 leader. Champion is now reg
+2296 (rotated 03:12Z; source public — sub-cliff band ordering is lexical similarity × 1e-9, real
+and movable). Fixed additively (codes tried only after names fail; byte-identical otherwise),
+0/9 → 8/9 code-shape crossings, verified live. MyMemory hypothesis REFUTED — GTs are
+Google-verbatim 8/9; Google stays primary. G53.
+
+**3. ACADEMIC (was #4) — champion 688 stands, but G40's sweeps tuned only ~36% of the scored
+surface.** The engine alphabetizes the payload and converts ALL of it; `papers[]` was diluting
+the prose the scorer reads. Archived real conversions kill G42's "empty ≈ full" (0.00094 bare vs
+0.01488 question-echo — 16x). Shipped: `/papers` serves `{verdict, confidence, reason}`, reason
+byte-identical (G40's optimum untouched), payload-proxy mean 0.006041 → 0.013419, 22/22 rows,
+same shape the 297 winner serves (txlens won with empty results on 10/22 — echo beats papers).
+No updateMiner needed. G40/G42 annotated, `bench/acad_shape.mjs` reproduces.
+
+**Meta-lesson, third confirmation this week: when a whole field's scores shift together, check
+the champion registry (`/api/wasm?intent=…`) BEFORE touching answers.** Champions rotated 3x on
+2026-08-31 alone (translation 03:12Z, wallet 05:58Z). Registry `wasm_hash` is keccak256.
+
+Test suite is now 237/237; preflight 7/7 against the deployed build (one MyMemory-fallback flake
+re-ran green — MyMemory rate-limits after heavy probing days, same family as G43).
 
 ---
 
