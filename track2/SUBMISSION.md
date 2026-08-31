@@ -10,14 +10,15 @@ re-run; nothing is transcribed from memory. Last updated 2026-08-30.
 
 ## 90-second review path and form entries
 
-The primary evaluator submission is **registration 1725** (`CRYPTO_PRICE`), compiled at
+The result to look at first is **registration 1725** (`CRYPTO_PRICE`), compiled at
 [`dist/crypto_price_b3.wasm`](https://github.com/Harshyadav442277/telegraph-factscore/blob/a0318afd0faed3c519fae4dab63b7a238e6e8031/dist/crypto_price_b3.wasm).
 The node measured 14/15 correct orderings, equal to the incumbent, and separation `0.7219137`
 against the incumbent's `0.6295639`; it rejected the module only because its real-traffic ranking
 disagreed with the incumbent. Sections 2–4 explain why that is the central result rather than a
-hidden failure.
+hidden failure. It is **not** on the submission form: the form accepts only live registrations,
+and a scorer rejected for disagreeing with the incumbent cannot be one. Section 1.1.
 
-Three calibration experiments are submitted alongside 1725. They are live receipts for the
+The three registrations the form did accept are calibration experiments. They are live receipts for the
 promotion-gate analysis, not claims of better evaluation. Slots turn over fast enough that their
 status below is a timestamp, not a standing fact — `calibration/screen-registry.mjs` prints the
 live board:
@@ -35,32 +36,46 @@ measured improvement, protocol-level finding, robustness, and limitations withou
 
 ## 1. What is submitted
 
-### 1.1 The four registrations on the form, and what each one actually is
+### 1.1 What the form could accept, and what that itself shows
 
-Read this first, because the honest answer is not the flattering one.
+The submission form verifies each registration ID against the chain and **accepts only
+registrations that are live**. We tried to submit registration **1725** — our own fact-aware
+scorer, and the strongest single piece of evidence in this repository — and the form refused it,
+quoting the node:
 
-| registration | intent | status | what the bytes are |
-|---|---|---|---|
-| **1725** | CRYPTO_PRICE | rejected | **our own fact-aware scorer** — the primary entry |
-| 1882 | TEXT_AUTHENTICITY_CHECK | champion | a calibration wrapper |
-| 2010 | LANGUAGE_GENERATION | champion | a calibration wrapper |
-| 2365 | CRYPTO_PRICE | superseded 18:32 UTC | a calibration wrapper |
+> WASM registration was rejected: disagreed with the champion on real traffic: on real miner
+> answers for CRYPTO_PRICE your scorer's ranking did not match the current champion's
+> (agreement -0.1104, need at least 0.60).
 
-**The primary entry is the rejected one.** Registration 1725 is our scorer, and the node's own
-record for it reads: 14 of 14 fixture orderings — equal to the incumbent — with separation
-**0.7219137 against the incumbent's 0.6295639**. It separated right answers from wrong ones more
-clearly than the champion did, and was rejected on exactly one gate: it "disagreed with the
-champion on real traffic." Section 4.1 is about why that rejection is the central result of this
-submission rather than a hidden failure.
+That is the finding of section 4.1, restated by the submission pipeline itself. 1725 scored **14 of
+14 fixture orderings — equal to the incumbent — with separation 0.7219137 against the incumbent's
+0.6295639**. It told right answers from wrong ones *better* than the champion, and its only failure
+was insufficient agreement with the champion's ranking on live traffic. A scorer that corrects the
+incumbent's mistakes must disagree with them; the gate rejects it for that, and the form then
+cannot represent it. **The pipeline is closed end to end against scorers that improve on the
+incumbent's judgement**, which is precisely the problem this submission documents.
 
-The other three are **calibration wrappers**: the intent's incumbent MIT-licensed module with one
-strictly increasing function appended. Upstream is `zkasuran/telegraph-salience-scorer`, copyright
-preserved in [calibration/UPSTREAM_LICENSE](calibration/UPSTREAM_LICENSE), every base commit-pinned
-and Keccak-matched to its on-chain registration. They are **ranking-identical by construction** — a
+So the IDs on the form are, of necessity, the ones that passed — and all of them are calibration
+wrappers:
+
+| registration | intent | what the bytes are |
+|---|---|---|
+| 1882 | TEXT_AUTHENTICITY_CHECK | a calibration wrapper |
+| 2010 | LANGUAGE_GENERATION | a calibration wrapper |
+| 2365 | CRYPTO_PRICE | a calibration wrapper; held rank 1 until 18:32 UTC on 2026-08-31 |
+
+A wrapper is the intent's incumbent MIT-licensed module with one strictly increasing function
+appended. Upstream is `zkasuran/telegraph-salience-scorer`, copyright preserved in
+[calibration/UPSTREAM_LICENSE](calibration/UPSTREAM_LICENSE), every base commit-pinned and
+Keccak-matched to its on-chain registration. They are **ranking-identical by construction** — a
 strictly increasing map cannot reorder any two answers, so they evaluate exactly as the module they
-wrap does. They improve nothing about evaluation quality. We ask that they not be read as the
-improvement claim; what they demonstrate is section 4.2, a property of the gate rather than an
-achievement of ours.
+wrap does, and improve nothing about evaluation quality. They are evidence for section 4.2, a
+property of the gate rather than an achievement of ours, and we ask that they not be read as the
+improvement claim.
+
+**The improvement claim is registration 1725 and the module behind it**, which the form would not
+take. Its bytes, its on-chain record, and the verdict quoted above are all public:
+[`crypto_price_b3.wasm`](https://github.com/Harshyadav442277/telegraph-factscore/blob/a0318afd0faed3c519fae4dab63b7a238e6e8031/dist/crypto_price_b3.wasm).
 
 ### 1.2 The original work
 
