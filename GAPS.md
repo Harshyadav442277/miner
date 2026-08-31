@@ -1377,7 +1377,32 @@ update was signed on the reading that an epoch beginning inside the window plaus
 that the downside if it does not is the gas plus a re-activation, not a lost position.
 
 
-### G62 · The SSL bench predicted 67x and live scoring fell 33% — `OPEN, do not act on the bench alone`
+### G62 · SSL: the bench and live disagreed, resolved on 64 real rows — `CLOSED 2026-08-31 22:30Z: keep deployed`
+
+**RESOLVED 22:30Z on 64 recovered receipts — the deployed shape is right and was not the cause.**
+`shreshth006/Preflight` publishes 1,056 pre-G24 receipts with `question` + `ground_truth`, of which
+**64 are SSL_VERIFICATION** — five times our 12-question frozen bench. Scored against the live
+champion 631, clip32, engine-shaped calls, our real production answers:
+
+```
+DEPLOYED (method-first, 3a5b74a)   mean 0.469906   30/64 crossings
+REVERT   (failure-first, pre-commit) mean 0.008053    0/64 crossings
+rows the revert would win: 14/64
+our deployed vs the recorded answers: mean 0.469906 vs 0.003624, 60/64 row-wins
+```
+
+The commit is **58x better** on real questions and crosses 30 rows where the old shape crosses
+none. It is not the cause of the epoch-297 drop, and it was not reverted. G54's independent
+reading — question-flavour rotation outside the bench — stands, now on five times the data.
+
+**What this changes about method:** the 12-question frozen bench was too small to be trusted in
+either direction, and the recovered receipts are the better instrument for SSL, IP and WALLET. The
+rule from TELEGRAPH_FACTS still holds, but sharpened: prefer **real recorded questions** over both
+scoring theory and small frozen benches. `scratchpad/ssl_ab.mjs` reproduces this A/B.
+
+**Left open:** 34 of 64 rows still do not cross. That is real headroom, but finding it needs more
+than one epoch's notice, and no untested change should ship into a scored epoch to chase it.
+
 
 Commit `3a5b74a` (05:34Z, 2026-08-31) reordered the unreachable-host SSL answer to lead with the
 method. It was measured against champion 631 over the 12-question frozen bench: failure-first
