@@ -322,6 +322,25 @@ async function getJson(url: string, timeoutMs: number): Promise<Record<string, u
 const str = (v: unknown): string | null =>
   typeof v === "string" && v.trim().length > 0 ? v.trim() : null;
 const num = (v: unknown): number | null => (typeof v === "number" && Number.isFinite(v) ? v : null);
+/** Coordinates that arrive as strings, e.g. ipinfo's "38.0088,-122.1175". */
+const parseNum = (v: unknown): number | null => {
+  const n = Number(String(v ?? "").trim());
+  return String(v ?? "").trim() !== "" && Number.isFinite(n) ? n : null;
+};
+/**
+ * "US" -> "United States". ipinfo returns an ISO code where the other providers
+ * return a name, and the answer's prose reads "located in Mountain View,
+ * California, United States" — a bare code there would be a visible downgrade.
+ * Intl is built into Node, so this costs no dependency; an unknown code falls
+ * back to itself rather than throwing.
+ */
+function countryName(code: string): string {
+  try {
+    return new Intl.DisplayNames(["en"], { type: "region" }).of(code.toUpperCase()) ?? code;
+  } catch {
+    return code;
+  }
+}
 
 export async function geolocate(rawIp: string, timeoutMs = DEFAULT_TIMEOUT_MS): Promise<GeoResult> {
   const ip = extractIp(rawIp);
@@ -399,17 +418,27 @@ export async function geolocate(rawIp: string, timeoutMs = DEFAULT_TIMEOUT_MS): 
       asn = conn?.["asn"] != null ? `AS${String(conn["asn"])}` : null;
       org = str(conn?.["org"]) ?? str(conn?.["isp"]);
     } else {
-      const b = await getJson(`https://ipapi.co/${encodeURIComponent(ip)}/json/`, perProviderMs);
+      // Third provider, replacing ipapi.co, which answers HTTP 429 to keyless
+      // callers (measured 2026-08-31) and so was not a failover at all.
+      const b = await getJson(`https://ipinfo.io/${encodeURIComponent(ip)}/json`, perProviderMs);
       if (!b || b["error"]) return unknown(ip, "no geolocation provider returned a result");
       city = str(b["city"]);
       region = str(b["region"]);
-      country = str(b["country_name"]);
-      cc = str(b["country_code"]);
-      lat = num(b["latitude"]);
-      lon = num(b["longitude"]);
+      // ipinfo returns an ISO code where the others return a name, and the
+      // answer's prose reads "located in Mountain View, California, United
+      // States" — a bare "US" there would be a visible downgrade.
+      cc = str(b["country"]);
+      country = cc ? countryName(cc) : null;
+      // Coordinates arrive as one "lat,lon" string rather than two numbers.
+      const loc = str(b["loc"])?.split(",") ?? [];
+      lat = loc.length === 2 ? parseNum(loc[0]) : null;
+      lon = loc.length === 2 ? parseNum(loc[1]) : null;
       tz = str(b["timezone"]);
-      asn = str(b["asn"]);
-      org = str(b["org"]);
+      // And the operator arrives as one "AS15169 Google LLC" string.
+      const orgField = str(b["org"]) ?? "";
+      const asMatch = orgField.match(/^(AS\d+)\s*(.*)$/);
+      asn = asMatch?.[1] ?? null;
+      org = (asMatch?.[2] || orgField) || null;
     }
   }
 

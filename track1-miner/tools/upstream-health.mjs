@@ -36,7 +36,7 @@ const PROBES = [
     expect: /tokyo|japan/i,
   }],
   ["ipwho.is", "failover", { url: "https://ipwho.is/8.8.8.8" }],
-  ["ipapi.co", "failover", { url: "https://ipapi.co/8.8.8.8/json/" }],
+  ["ipinfo.io", "failover", { url: "https://ipinfo.io/8.8.8.8/json" }],
   ["google news rss", "primary", { url: "https://news.google.com/rss/search?q=technology&hl=en-US&gl=US&ceid=US:en" }],
   ["publicnode eth rpc", "primary", { rpc: "https://ethereum-rpc.publicnode.com" }],
   ["drpc eth rpc", "failover", { rpc: "https://eth.drpc.org" }],

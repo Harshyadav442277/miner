@@ -88,7 +88,8 @@ ladder and slot defense do not hard-stop on Aug 31 — held champion scorers kee
 miners that Track 3 traffic routes by, so reliability (hosted bytes resolving, slots held) stays
 part of the judged record through Sep 7. Integrated APIs are allowed but their uptime is the
 participant's responsibility (a Track 1 obligation; recorded here because livecert's rank feeds
-the same routing). Also corrected today: the live miner registration is **334** (225/260/297
+the same routing). Also corrected today: the live miner registration is **334** (SUPERSEDED — it is
+**389** as of 2026-08-31T04:01Z, with ten intents; see the root GAPS G36) (225/260/297
 superseded/deregistered) — GAPS G25, SUBMISSION.md §6 and the T2-17 note now say 334.
 
 **What was fixed for the manual review** (the 50% axis is judged by humans reading the repo):

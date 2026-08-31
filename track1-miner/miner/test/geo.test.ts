@@ -127,3 +127,48 @@ describe("geolocate (live)", () => {
     assert.ok(r.reason.length > 0);
   });
 });
+
+describe("the third geolocation provider", () => {
+  // ipapi.co answers 429 to keyless callers, so it was not a failover at all;
+  // ipinfo.io replaced it. Its shape differs from both providers above it — an
+  // ISO country code rather than a name, coordinates as one "lat,lon" string,
+  // and the operator as one "AS15169 Google LLC" string — so the parsing only
+  // runs when the two providers ahead of it are BOTH down, which is exactly
+  // when a mistake here would cost the most.
+  test("parses ipinfo's shape when the two providers above it fail", async () => {
+    const originalFetch = globalThis.fetch;
+    globalThis.fetch = (async (input: unknown) => {
+      const url = String(input);
+      if (url.includes("ipinfo.io")) {
+        return new Response(
+          JSON.stringify({
+            ip: "8.8.8.8", city: "Mountain View", region: "California",
+            country: "US", loc: "38.0088,-122.1175",
+            org: "AS15169 Google LLC", timezone: "America/Los_Angeles",
+          }),
+          { status: 200, headers: { "content-type": "application/json" } },
+        );
+      }
+      // ip-api.com and ipwho.is both unavailable.
+      return new Response("upstream down", { status: 503 });
+    }) as typeof globalThis.fetch;
+    try {
+      const r = await geolocate("8.8.8.8");
+      assert.equal(r.city, "Mountain View");
+      assert.equal(r.region, "California");
+      assert.equal(r.country_code, "US");
+      // The code must be rendered as a name: the prose says "located in
+      // Mountain View, California, United States", and a bare "US" there is a
+      // visible downgrade.
+      assert.equal(r.country, "United States");
+      assert.equal(r.latitude, 38.0088);
+      assert.equal(r.longitude, -122.1175);
+      assert.equal(r.asn, "AS15169");
+      assert.equal(r.organisation, "Google LLC");
+      assert.match(r.reason, /Google LLC/);
+      assert.match(r.reason, /United States/);
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+});

@@ -1,5 +1,10 @@
 # Track 1 seven-intent rank-1 audit
 
+> **Superseded 2026-08-31.** This audit describes registration **334** and seven intents. The live
+> registration is now **389** with **ten** — CONTENT_EXTRACTION, NEWS_HEADLINES and
+> WALLET_BALANCE_CHECK were added. Its per-intent findings still stand; its registration id, intent
+> count and "epoch-295 go/no-go" section do not. Current state: `track1-miner/MEMORY.md` § 000000.
+
 - **Audit time:** 2026-08-30 18:43 UTC / 2026-08-31 00:13 IST
 - **Miner:** `livecert`
 - **Registration:** `334`

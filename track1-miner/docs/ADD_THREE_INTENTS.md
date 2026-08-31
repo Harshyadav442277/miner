@@ -1,4 +1,17 @@
-# Ready to sign — three new intents on registration 334
+# DONE — three new intents, signed 2026-08-31
+
+> **Executed.** `updateMiner(334, …)` mined at 2026-08-31T04:01Z, tx
+> `0x5de3965e2b08cd74b7e240faccb626d41e1003e9e5ec51cf220f76a5fe4ffe1d`. Registration **389** is
+> active with all ten intents, `rejection_reason: null`, `fetch_attempts: 0`. **334 no longer
+> exists.** The manifest is served from a commit-pinned GitHub raw URL, hash
+> `78932fb1…` — the HOSTED bytes, which differ from the local file because the working copy is
+> CRLF and git stores LF. Two things that briefly looked like failure and were not are recorded in
+> root GAPS **G36**: the indexer lagged ~4 minutes, and `ip-api.com` reads as down from the dev
+> machine but is answering in production.
+>
+> Kept below as the record of how the decision was made and what was rejected.
+
+# (original) Ready to sign — three new intents on registration 334
 
 **Written 2026-08-31. Code is DEPLOYED and verified in production; only the on-chain step remains,
 and only the operator can do it.** Claude never touches the wallet.

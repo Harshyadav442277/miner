@@ -137,9 +137,10 @@ reproduces a live registration's calibration to one ULP.
 
 ## 6. Disclosure — Track 1 overlap
 
-The author also operates the Track 1 miner **`livecert`** (currently registration 334; earlier
-registrations 225, 260 and 297), which serves SSL_VERIFICATION, STORM_ALERT, WEATHER_FORECAST,
-IP_GEOLOCATION, LANGUAGE_TRANSLATION, ACADEMIC_SEARCH and AI_TEXT_DETECTION. This overlap was
+The author also operates the Track 1 miner **`livecert`** (currently registration **389**; earlier
+registrations 225, 260, 297 and 334), which serves SSL_VERIFICATION, STORM_ALERT, WEATHER_FORECAST,
+IP_GEOLOCATION, LANGUAGE_TRANSLATION, ACADEMIC_SEARCH, AI_TEXT_DETECTION, CONTENT_EXTRACTION,
+NEWS_HEADLINES and WALLET_BALANCE_CHECK. This overlap was
 disclosed to the organizers in advance (Discord, 2026-08-27) and confirmed acceptable with
 disclosure; they said they would flag it for review, and this section is that flag's counterpart.
 
