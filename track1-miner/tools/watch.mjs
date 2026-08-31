@@ -72,6 +72,17 @@ async function checkRegistration() {
   if (!registrationId) return null;
   try {
     const res = await withTimeout(`${NODE_API}/api/miners/${registrationId}`);
+    // A 404 means this registration no longer exists — updateMiner deregisters
+    // the old id atomically, so watching a stale REGISTRATION_ID looked exactly
+    // like health. It is terminal: nothing recovers a deregistered id, and the
+    // watcher must fail loudly rather than report a green tick forever.
+    if (res.status === 404) {
+      return {
+        status: `registration ${registrationId} DOES NOT EXIST (HTTP 404)`,
+        reason: "deregistered or never registered - check REGISTRATION_ID against the latest updateMiner",
+        terminal: true,
+      };
+    }
     if (!res.ok) return { status: `lookup HTTP ${res.status}`, terminal: false };
     const body = await res.json();
     const m = body.miner ?? body;
@@ -79,7 +90,10 @@ async function checkRegistration() {
       status: m.activation_status ?? "unknown",
       reason: m.rejection_reason ?? null,
       retrying: m.retrying ?? null,
-      terminal: m.activation_status === "rejected",
+      // "deregistered" is what updateMiner leaves behind on the OLD id, and the
+      // API serves it as a 200 -- so watching a stale REGISTRATION_ID reported a
+      // green tick forever. Nothing recovers a deregistered id; it is terminal.
+      terminal: m.activation_status === "rejected" || m.activation_status === "deregistered",
     };
   } catch (e) {
     return { status: `lookup failed: ${e.message}`, terminal: false };

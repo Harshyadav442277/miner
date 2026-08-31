@@ -1431,3 +1431,47 @@ the revert is a one-line change to `ssl.ts`.
 
 **Method rule this reinforces:** the frozen bench is a filter for obviously-bad changes, not
 evidence a change wins. Only a scored epoch is that.
+
+
+### G63 · Codex audit of 2026-08-31 22:30Z — four real findings, one by design
+
+Five findings, each checked against the code rather than taken at face value.
+
+**P0 · The submission claim in TASKS.md was asserted before it was verified — FIXED.** TB.9 was
+written as "Submitted to submissions.telegraphprotocol.com" and ticked `[x]` while Claude had only
+prepared the values; the operator had not yet said they had submitted. Corrected to record what is
+actually known: the operator reported both tracks submitted at ~22:20Z, and Claude cannot verify it
+because the submissions site needs a wallet-signed session. **A claim about an action Claude did not
+take and cannot observe must name its source.**
+
+**P1 · A deregistered registration passed monitoring — FIXED, and the first fix was wrong.**
+`watch.mjs` marked only `activation_status === "rejected"` terminal, so a stale `REGISTRATION_ID`
+reported a green tick forever. The first patch handled HTTP 404; measuring it showed the API
+actually serves a **200 with `activation_status: "deregistered"`**, so that patch would not have
+caught it. `deregistered` is now terminal. Verified both ways: id 389 fires
+`!! TERMINAL rejection`, id 402 stays clean. This was live — `REGISTRATION_ID` is still 389.
+
+**P1 · WEATHER_CHECK has no correctness check — OPEN, and the check itself is the problem.**
+A `WEATHER_CHECK` case was added asserting the `hours=0` current-hour form, and the correctness
+gate raised to 13/13. It failed **inside the gate** while passing in **four separate isolated
+reproductions** (bare curl twice, a scripted single call, and a sequential replay of the preceding
+gate calls) — all returning "A 1-hour hourly weather forecast". A single retry did not clear it.
+The miner is correct; the check is not, and its cause was not isolated before epoch 298.
+**Both changes were reverted** rather than leave preflight red on a false negative, which would
+mask a genuine failure. Re-add with the flake understood, not with another retry.
+
+**P1 · WEATHER_CHECK still defaults to a 24-hour forecast — OPEN, deliberately not shipped.**
+With no `hours` parameter a WEATHER_CHECK question gets a day-long range rather than current
+conditions. The fix is a conditional: current-conditions wording plus no explicit window implies
+`hours=0`. It was **not shipped**, because `/weather-forecast` also serves WEATHER_FORECAST where
+we hold #3 at 95% of the leader, there are no recovered receipts for WEATHER_CHECK to measure
+against, and an unmeasured change to a shared endpoint minutes before a scored epoch is the exact
+mistake G62 and TELEGRAPH_FACTS both record. Ship it after epoch 298, measured.
+
+**P2 · FACT_CHECK cannot confirm true claims — BY DESIGN, not changed.** There is deliberately no
+`supported` verdict. The code comment records why: word overlap cannot separate an article *about*
+a claim from one that *supports* it, and at a 0.75 threshold this rated **"vaccines cause autism"**
+as supported, because `Vaccines_and_autism` contains every word of the claim it exists to refute.
+`contradicted` survives only on explicit source markers ("myth", "debunked", "no evidence").
+Adding a `supported` verdict to gain score would make the miner assert medical misinformation.
+Declined. If FACT_CHECK scores poorly in epoch 298, the honest lever is retrieval quality.

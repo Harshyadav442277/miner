@@ -1,0 +1,616 @@
+version: "1"
+kind: miner
+id: 4433
+slug: livecert
+protocol: generic
+name: LiveCert Operational Signals
+description: >-
+  Deterministic operational signals. /ssl-check performs a live TLS handshake
+  against a domain and reports the certificate that host is actually serving right
+  now: valid, expired, self-signed, untrusted, or issued for a different hostname,
+  with issuer, validity window and days remaining. Unlike certificate-transparency
+  lookups, which report what was issued, this reports what is deployed — the two
+  disagree whenever a host still serves an old certificate. /storm-alert reports
+  severe-weather disruption risk for a named location over the next 48 hours,
+  graded on Beaufort gust thresholds and thunderstorm forecasts, for logistics and
+  risk agents that need to know about storms rather than current conditions.
+  /weather-forecast reports future conditions for a location over a stated window:
+  the expected condition in plain words, temperature range, total precipitation and
+  peak wind. All three answers are deterministic and independently checkable.
+base_url: https://miner-wine.vercel.app
+
+endpoints:
+  - path: /ssl-check
+    external_path: /ssl-check
+    method: GET
+    intents: [SSL_VERIFICATION]
+    description: >-
+      Live TLS certificate check for one domain. Accepts a bare hostname, a full
+      URL, or host:port.
+    params:
+      query:
+        required:
+          - name: domain
+            type: string
+            intents: ["*"]
+            description: "Hostname to check. Accepts example.com, https://example.com/path, or example.com:8443."
+        optional:
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim. The hostname is extracted from it."
+
+  - path: /storm-alert
+    external_path: /storm-alert
+    method: GET
+    intents: [STORM_ALERT]
+    description: >-
+      Severe-weather risk for a location over the next 48 hours. Accepts a place
+      name or "lat,lon".
+    params:
+      query:
+        optional:
+          - name: location
+            type: string
+            intents: ["*"]
+            description: "Place name, e.g. Chennai or Tokyo, Japan. Provide either location, or lat and lon together."
+          - name: lat
+            type: number
+            intents: ["*"]
+            description: "Latitude in decimal degrees, -90 to 90. Use with lon when the question names coordinates."
+          - name: lon
+            type: number
+            intents: ["*"]
+            description: "Longitude in decimal degrees, -180 to 180."
+          - name: hours
+            type: integer
+            intents: ["*"]
+            description: "Forecast window in hours, 1 to 168. Defaults to 48."
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim. Carries wording the structured fields cannot: a point in time such as 'in 44 hours', a wind threshold such as 'above 25 knots', or an operational context."
+
+  - path: /papers
+    external_path: /papers
+    method: GET
+    intents: [ACADEMIC_SEARCH]
+    description: >-
+      Finds peer-reviewed papers on a topic, optionally within a date range, via
+      OpenAlex. Returns title, authors, year and citation count for each.
+    params:
+      query:
+        required:
+          - name: topic
+            type: string
+            intents: ["*"]
+            description: "Research subject to search for, e.g. zero knowledge proofs. A bare topic with no question scaffolding is fine."
+        optional:
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim. Carries constraints the topic alone cannot: a date range, a result count, or a requested ordering."
+
+  - path: /translate
+    external_path: /translate
+    method: GET
+    intents: [LANGUAGE_TRANSLATION]
+    description: >-
+      Translates quoted text into a named target language. Returns the
+      translation itself, in the target script.
+    params:
+      query:
+        required:
+          - name: text
+            type: string
+            intents: ["*"]
+            description: "The text to translate, exactly as given, without surrounding quotes."
+          - name: target_language
+            type: string
+            intents: ["*"]
+            description: "The language to translate into, by name or ISO 639-1 code, e.g. Spanish or fr."
+        optional:
+          - name: source_language
+            type: string
+            intents: ["*"]
+            description: "The language of the source text, when stated. Detected automatically when omitted."
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim, e.g. Translate \"Good morning\" into French."
+
+  - path: /ip-geolocate
+    external_path: /ip-geolocate
+    method: GET
+    intents: [IP_GEOLOCATION]
+    description: >-
+      Live IP geolocation. Accepts an IPv4 or IPv6 address, or a whole question
+      containing one.
+    params:
+      query:
+        required:
+          - name: ip
+            type: string
+            intents: ["*"]
+            description: "IPv4 or IPv6 address to geolocate, e.g. 8.8.8.8."
+        optional:
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim. The address is extracted from it."
+
+  - path: /weather-forecast
+    external_path: /weather-forecast
+    method: GET
+    intents: [WEATHER_FORECAST, WEATHER_CHECK]
+    description: >-
+      Current and future conditions for a location. hours=0 reports the present
+      hour; any other value gives a window of up to 168h, and the default with no
+      hours parameter is 24h. Accepts a place name or "lat,lon".
+    params:
+      query:
+        optional:
+          - name: location
+            type: string
+            intents: ["*"]
+            description: "Place name, e.g. New York City. Provide either location, or lat and lon together."
+          - name: lat
+            type: number
+            intents: ["*"]
+            description: "Latitude in decimal degrees, -90 to 90. Use with lon when the question names coordinates."
+          - name: lon
+            type: number
+            intents: ["*"]
+            description: "Longitude in decimal degrees, -180 to 180."
+          - name: days
+            type: integer
+            intents: ["*"]
+            description: "Forecast span in days, 1 to 16, e.g. 7 for a 7-day forecast."
+          - name: hours
+            type: integer
+            intents: ["*"]
+            description: "Forecast window in hours, 1 to 168. An alternative to days."
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim. Carries wording the structured fields cannot, such as an explicit start date like 'starting September 1st' — without it the forecast starts today."
+
+  - path: /extract
+    external_path: /extract
+    method: GET
+    intents: [CONTENT_EXTRACTION]
+    description: >-
+      Structured extraction from text supplied inline in the question. Reads quantities
+      and units, contact details, named entities, action items, dates and events, or
+      bare numeric values, and answers with the extracted fields themselves. The text
+      is carried in the question, so nothing is fetched and the answer is deterministic
+      and checkable against the input.
+    params:
+      query:
+        required:
+          - name: text
+            type: string
+            intents: ["*"]
+            description: "The text to extract from, usually quoted after a colon in the question."
+        optional:
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim. It names which fields to extract, e.g. Extract the contact details from: \"...\"."
+
+  - path: /headlines
+    external_path: /headlines
+    method: GET
+    intents: [NEWS_HEADLINES]
+    description: >-
+      Current news headlines for a topic and optional region, read live from Google
+      News at request time and returned as a numbered list with each source named.
+      Honours a requested count such as "top 5". Headlines rotate, so the answer states
+      the date it was read.
+    params:
+      query:
+        required:
+          - name: topic
+            type: string
+            intents: ["*"]
+            description: "Subject to fetch headlines for, e.g. technology, business."
+        optional:
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim. Carries the region and any requested count."
+
+  - path: /wallet-balance
+    external_path: /wallet-balance
+    method: GET
+    intents: [WALLET_BALANCE_CHECK]
+    description: >-
+      Native-coin balance of an EVM address, read with eth_getBalance at the latest
+      block from public JSON-RPC on the chain the question names — Ethereum, Base,
+      Arbitrum, Optimism or Polygon. A zero balance is reported as zero; an RPC that
+      does not answer is reported as unavailable rather than as zero. Token balances
+      such as USDT are not included, and the answer says so when one was asked about.
+    params:
+      query:
+        required:
+          - name: address
+            type: string
+            intents: ["*"]
+            description: "The 20-byte EVM address to read, e.g. 0x742d35Cc6634C0532925a3b844Bc454e4438f44e."
+        optional:
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim. It names the chain and any token asked about alongside the native coin."
+
+  - path: /fact-check
+    external_path: /fact-check
+    method: GET
+    intents: [FACT_CHECK]
+    description: >-
+      A specific claim, looked up against a citable encyclopaedic reference and
+      reported with the article named and quoted. Reports an explicit refutation when
+      the source states one, and otherwise says plainly that the source does not settle
+      the claim. It does not adjudicate contested claims and never asserts that a claim
+      is true on the strength of a topical match.
+    params:
+      query:
+        required:
+          - name: claim
+            type: string
+            intents: ["*"]
+            description: "The claim to check, e.g. The Eiffel Tower is located in Paris."
+        optional:
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim. The claim is extracted from it."
+
+  - path: /telegraph
+    external_path: /telegraph
+    method: GET
+    intents: [TELEGRAPH_KNOWLEDGE]
+    description: >-
+      Questions about Telegraph itself — miner registration and the YAML registry,
+      the canonical intent set, how answers are scored, the Explorer and leaderboard,
+      and the hackathon. Live figures such as the number of registered miners or the
+      miners serving a named intent are read from the protocol at request time rather
+      than recalled. Questions outside those areas are answered as not covered, with a
+      pointer to the protocol documentation, rather than guessed.
+    params:
+      query:
+        required:
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The question about Telegraph, verbatim."
+
+  - path: /ai-detect
+    external_path: /ai-detect
+    method: GET
+    intents: [AI_TEXT_DETECTION]
+    description: >-
+      Statistical authorship analysis of a supplied passage. Measures sentence-length
+      burstiness, type-token ratio, repeated word pairs and formulaic connectives, and
+      reports what they indicate with a calibrated confidence that is capped at 0.6.
+      Authorship detection is not reliable enough to treat as proof and the answer says
+      so; when no passage long enough to analyse is supplied it says that instead of
+      guessing.
+    params:
+      query:
+        required:
+          - name: text
+            type: string
+            intents: ["*"]
+            description: "The passage to analyse for authorship. At least about 40 words of continuous prose; below that no statistic is meaningful."
+        optional:
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim, e.g. Is the following text written by an AI or a human?"
+
+semantics:
+  signal_mapping:
+    label_field: verdict
+    confidence_field: confidence
+    reason_field: reason
+  supported_intents:
+    - SSL_VERIFICATION
+    - STORM_ALERT
+    - WEATHER_FORECAST
+    - IP_GEOLOCATION
+    - LANGUAGE_TRANSLATION
+    - ACADEMIC_SEARCH
+    - AI_TEXT_DETECTION
+    - CONTENT_EXTRACTION
+    - NEWS_HEADLINES
+    - WALLET_BALANCE_CHECK
+    - WEATHER_CHECK
+    - FACT_CHECK
+    - TELEGRAPH_KNOWLEDGE
+
+# input_schema is a single top-level block covering every endpoint — the schema
+# refuses it inside endpoints[], and the node does not enforce it against requests.
+input_schema:
+  type: object
+  description: >-
+    Telegraph's engine fills the parameters a miner declares here and does not
+    pass the rest of the question, so anything not declared is invisible. The
+    query field is declared first because it carries the wording the structured
+    fields cannot — an explicit start date, a time window, a wind threshold.
+  properties:
+    query:
+      type: string
+      description: >-
+        The user's original question, verbatim. Preferred over the structured
+        fields: it carries detail they cannot, such as "starting next Monday",
+        "in 44 hours", or "flag winds above 25 knots".
+      examples:
+        - "What is the storm risk at latitude 12.97, longitude 77.59 in 44 hours?"
+        - "Can you analyze the TLS certificate chain and hostname match for api.github.com?"
+    q:
+      type: string
+      description: Alias for query.
+    domain:
+      type: string
+      description: >-
+        /ssl-check. Hostname to check. Accepts "example.com",
+        "https://example.com/path", or "example.com:8443".
+      examples: ["example.com", "expired.badssl.com"]
+    location:
+      type: string
+      description: >-
+        /storm-alert and /weather-forecast. Place name, e.g. "Chennai" or
+        "Tokyo, Japan".
+      examples: ["Chennai", "Tokyo, Japan"]
+    latitude:
+      type: number
+      description: >-
+        /storm-alert and /weather-forecast. Use with longitude when the question
+        names coordinates rather than a place.
+      minimum: -90
+      maximum: 90
+    longitude:
+      type: number
+      minimum: -180
+      maximum: 180
+    lat:
+      type: number
+      description: Alias for latitude.
+    lon:
+      type: number
+      description: Alias for longitude.
+    hours:
+      type: integer
+      description: >-
+        /storm-alert and /weather-forecast. Forecast window in hours. Also read
+        from the question itself, e.g. "over the next 44 hours".
+      minimum: 1
+      maximum: 384
+    forecast_hours:
+      type: integer
+      description: Alias for hours.
+    days:
+      type: integer
+      description: Forecast span in days, converted to hours.
+      minimum: 1
+      maximum: 16
+    forecast_days:
+      type: integer
+      description: Alias for days.
+    topic:
+      type: string
+      description: /papers. Research subject to search for, e.g. "zero knowledge proofs".
+    ip:
+      type: string
+      description: /ip-geolocate. IPv4 or IPv6 address.
+      examples: ["8.8.8.8"]
+    text:
+      type: string
+      description: >-
+        /translate and /ai-detect. The text to translate, or the passage whose
+        authorship is to be analysed, with or without quotes. Registration
+        260 declared no translation-shaped parameter and both scored epochs
+        arrived with none filled — the engine fills only parameters a miner
+        declares, so this field is what makes translation questions reach us.
+      examples: ["The weather is beautiful today."]
+    target_language:
+      type: string
+      description: >-
+        /translate. The language to translate into, by name or ISO 639-1 code.
+      examples: ["Spanish", "fr"]
+    source_language:
+      type: string
+      description: /translate. The language of the source text, when stated.
+      examples: ["English"]
+
+output_schema:
+  type: object
+  properties:
+    domain: { type: string }
+    chain_length:
+      type: [integer, "null"]
+      description: Certificates the server presented, leaf included. /ssl-check only.
+    chain_complete:
+      type: [boolean, "null"]
+      description: Whether intermediates were sent, not just the leaf.
+    subject_alt_names:
+      type: [array, "null"]
+      items: { type: string }
+      description: Subject Alternative Names on the leaf certificate.
+    unreachable_reason:
+      type: [string, "null"]
+      description: Why the host could not be reached, when it could not be.
+    start_time:
+      type: [string, "null"]
+      description: >-
+        First hour of the returned series, UTC. /weather-forecast honours an
+        explicit start named in the question.
+    end_time:
+      type: [string, "null"]
+    hourly_count:
+      type: integer
+      description: Number of hourly values returned.
+    hourly_min_precipitation_mm:
+      type: [number, "null"]
+    hourly_max_precipitation_mm:
+      type: [number, "null"]
+    time_mode:
+      type: string
+      description: >-
+        "point" when the question asked about one moment ("in 44 hours", "right
+        now"); "window" when it asked about a span ("over the next 44 hours").
+      enum: [point, window]
+    valid_at:
+      type: [string, "null"]
+      description: >-
+        For a point answer, the UTC hour the values describe. Null for a window.
+    risk_score:
+      type: number
+      description: >-
+        Storm risk from 0 (none) to 1 (severe). /storm-alert only.
+      minimum: 0
+      maximum: 1
+    verdict:
+      type: string
+      description: >-
+        The answer's label, and its vocabulary is per endpoint. /ssl-check returns a
+        certificate state (valid, expired, not_yet_valid, hostname_mismatch,
+        self_signed, untrusted, unreachable); /storm-alert a storm-risk grade (none,
+        low, moderate, high, severe); /weather-forecast a condition (clear, mostly
+        clear, cloudy, fog, drizzle, rain, heavy rain, snow, thunderstorms);
+        /translate "translated"; /papers "papers"; /ai-detect likely_human, likely_ai
+        or inconclusive; and /ip-geolocate the resolved place itself, or the class of
+        a special-use range (private, reserved, loopback, link_local, shared,
+        multicast, broadcast). Any endpoint returns "unknown" when it could not
+        answer. A closed enum was declared here previously and four endpoints did not
+        conform to it, /ip-geolocate least of all because a place name cannot be
+        enumerated.
+    valid: { type: boolean }
+    trusted: { type: boolean }
+    expired: { type: boolean }
+    hostname_match: { type: boolean }
+    issuer: { type: [string, "null"] }
+    subject: { type: [string, "null"] }
+    valid_from: { type: [string, "null"] }
+    valid_to: { type: [string, "null"] }
+    days_remaining: { type: [integer, "null"] }
+    tls_protocol: { type: [string, "null"] }
+    confidence: { type: number }
+    reason: { type: string }
+    checked_at: { type: string }
+    location: { type: [string, "null"] }
+    storm_expected: { type: boolean }
+    max_wind_gust_kmh: { type: [number, "null"] }
+    max_wind_speed_kmh: { type: [number, "null"] }
+    max_precipitation_mm: { type: [number, "null"] }
+    thunderstorm: { type: boolean }
+    window_hours: { type: [integer, "null"] }
+    peak_at: { type: [string, "null"] }
+    latitude: { type: [number, "null"] }
+    longitude: { type: [number, "null"] }
+    temp_min_c: { type: [number, "null"] }
+    temp_max_c: { type: [number, "null"] }
+    total_precipitation_mm: { type: [number, "null"] }
+    precipitation_hours: { type: [integer, "null"] }
+
+    # Everything below was returned by a live endpoint but described nowhere, on
+    # nine of the ten routes. Nothing enforces this schema — there is no required
+    # list, additionalProperties is not false, and our IP answers scored 0.9920
+    # while violating the verdict enum that used to be here — so this was never a
+    # functional fault. It is the same inaccuracy that enum was, and it is fixed
+    # in the same signature rather than left to describe a service we stopped
+    # being.
+
+    # /storm-alert
+    wind_direction: { type: [string, "null"], description: "Compass direction of the peak wind." }
+    threshold_exceeded: { type: [boolean, "null"], description: "Whether a wind threshold named in the question was crossed." }
+    threshold_hours: { type: [array, "null"], items: { type: string }, description: "The UTC hours at which it was crossed." }
+
+    # /weather-forecast
+    precipitation_probability_max_pct: { type: [number, "null"] }
+    span_days: { type: [integer, "null"], description: "Forecast span in days when the question asked in days." }
+
+    # /ip-geolocate. `verdict` carries the resolved place, so these are its parts.
+    ip: { type: [string, "null"] }
+    city: { type: [string, "null"] }
+    region: { type: [string, "null"], description: "Subdivision for an IP; requested news region for /headlines." }
+    country: { type: [string, "null"] }
+    country_code: { type: [string, "null"] }
+    timezone: { type: [string, "null"] }
+    asn: { type: [string, "null"], description: "Autonomous system number of the announcing network." }
+    organisation: { type: [string, "null"], description: "Network operator the address is registered to." }
+
+    # /translate. `reason` is the bare translation; this repeats it explicitly.
+    translation: { type: [string, "null"] }
+
+    # /papers
+    papers:
+      type: [array, "null"]
+      description: "Each entry carries title, authors, year, citations, venue and doi."
+      items:
+        type: object
+        properties:
+          title: { type: string }
+          year: { type: [integer, "null"] }
+          authors: { type: array, items: { type: string } }
+          citations: { type: [integer, "null"] }
+          venue: { type: [string, "null"] }
+          doi: { type: [string, "null"] }
+    topic: { type: [string, "null"], description: "Subject actually searched for, after parsing the question." }
+    from_date: { type: [string, "null"] }
+    to_date: { type: [string, "null"] }
+    count: { type: [integer, "null"], description: "Number of papers or headlines returned." }
+
+    # /ai-detect. The measurements behind the verdict, so a reader can disagree
+    # with it — the confidence is deliberately low and these are why.
+    words: { type: [integer, "null"] }
+    sentences: { type: [integer, "null"] }
+    mean_sentence_words: { type: [number, "null"] }
+    sentence_length_stdev: { type: [number, "null"] }
+    type_token_ratio: { type: [number, "null"] }
+    repeated_bigrams: { type: [integer, "null"] }
+    formulaic_markers: { type: [array, "null"], items: { type: string } }
+
+    # /extract
+    extracted:
+      type: [object, "null"]
+      description: "The fields the question asked for. Keys vary with the request — emails, phones, urls, quantities, dates, entities, action items."
+
+    # /headlines
+    headlines:
+      type: [array, "null"]
+      items:
+        type: object
+        properties:
+          title: { type: string }
+          source: { type: [string, "null"] }
+          published: { type: [string, "null"] }
+
+    # /wallet-balance
+    # /fact-check
+    claim: { type: [string, "null"] }
+    source: { type: [string, "null"], description: "The reference consulted, named so a reader can weigh it." }
+    source_url: { type: [string, "null"] }
+    evidence: { type: [string, "null"], description: "The passage the verdict was read from." }
+
+    # /wallet-balance
+    address: { type: [string, "null"] }
+    chain: { type: [string, "null"], description: "ethereum, base, arbitrum, optimism or polygon." }
+    balance_eth: { type: [number, "null"], description: "Native-coin balance. Null when the RPC did not answer, which is not the same as zero." }
+    symbol: { type: [string, "null"], description: "Native coin of the chain — POL on polygon, ETH elsewhere." }
+
+docs:
+  repository: https://github.com/Harshyadav442277/miner
+
+# Explicit, and matching the pinned YAML of registration 236, which is the only
+# configuration this miner has ever been accepted under. No API key exists
+# anywhere in this service, so nothing upstream can revoke us. Keep the console's
+# "REQUIRES API KEY" toggle OFF, which produces exactly this block.
+auth:
+  type: none
+
+rate_limit_per_sec: 20
+cache_ttl_sec: 60
+circuit_threshold: 5
+circuit_cooldown_seconds: 30

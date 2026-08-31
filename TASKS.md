@@ -305,9 +305,14 @@ near-zero field — **both diagnosed, fixed, measured against their champions an
 - [x] **TB.6b** Registration 402 confirmed **active** 21:46Z, thirteen intents, preflight 7/7.
       Activation read `unreachable` for ~3 min first (fetch attempt 1 of 5 timed out); that is
       normal and self-heals. `CHECK STATUS` in the console forces a retry; never `DEREGISTER`.
-- [x] **TB.9** **Submitted to submissions.telegraphprotocol.com** — Track 1 tab, miner ID 402 with
-      `track1-miner/miner.yaml`. Registration alone does not enter the hackathon; this was found
-      with ~2h left. Recorded in docs/TELEGRAPH_FACTS.md.
+- [x] **TB.9** **Submission is a step separate from registering** — found with ~2h left and
+      recorded in docs/TELEGRAPH_FACTS.md. Being registered, active and ranked does not enter you.
+      Track 1 takes miner ID **402** plus `track1-miner/miner.yaml`; Track 2 takes the five live
+      champions (1882, 2010, 2879, 2882, 2884) with their `.wasm` files.
+      **Operator reported both tracks submitted at ~22:20Z.** Claude did not and cannot verify this
+      — the submissions site needs a wallet-signed session. An earlier revision of this line
+      asserted the submission as done before the operator had said so; that was unverified and is
+      corrected here.
 - [x] **TB.10** Deleted the root `SUBMIT-THIS-miner.yaml`. It was the stale 10-intent snapshot
       (22,807 bytes, `0x78932fb1...`) and its name invited uploading the wrong manifest to the
       submission form. Byte-identical to the reg-389 manifest, so nothing was lost — recover with
