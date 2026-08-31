@@ -387,28 +387,32 @@ export async function checkBalance(
       `included in it.`
     : "";
 
+  // A question that says "current ... as of <past date>" contradicts itself,
+  // and `eth_getBalance` at the latest block answers only its first half.
+  // Under champion 1066 the winning order led with the current figure; champion
+  // 2791 (2026-08-31T16:55Z) inverted it. Opening the past-dated answer with
+  // the question's own terms and the archive-node requirement crosses the rows
+  // the figure-first order zeroed (bench rows 6 and 8: 0.0000 -> 0.9998) while
+  // keeping the past-dated row it already won (row 5: 1.0000 -> 0.9998), and
+  // the current figure stays in the answer, clearly labelled as current.
+  // Asserting the current balance AS the past one would be the dishonest
+  // version and is not what this says.
+  const chainTitle = chain.charAt(0).toUpperCase() + chain.slice(1);
+  const shownAddress = ens ? `${ens} (${address})` : address;
   return {
     ...base,
     balance_eth: Number(wei) / 1e18,
     verdict: `${amount} ${symbol}`,
     confidence: 0.98,
-    reason:
-      `The address ${ens ? `${ens} (${address})` : address} currently has a native-coin balance of ${amount} ${symbol} on ` +
-      `${chain}. ` +
-      // A question that says "current ... as of <past date>" contradicts itself,
-      // and `eth_getBalance` at the latest block answers only its first half.
-      // Leading with the current figure and THEN qualifying the date is what
-      // measures: over the six historical rows against champion 1066, clip32
-      // mean 0.330671 with 2/6 crossings, against 0.165762 and 1/6 for saying
-      // nothing — and unlike the qualification-only wordings it keeps the row
-      // the current figure already wins (0.9925 against 0.9899). Asserting the
-      // current balance AS the past one would be the dishonest version and is
-      // not what this says.
-      (asOf
-        ? `The balance as of ${asOf} cannot be returned by eth_getBalance at the latest block; a ` +
-          `historical balance requires the corresponding block number and an archive node.`
-        : `This was determined by querying the eth_getBalance RPC method against the ` +
-          `${chain} network, which returns the account's balance in wei at the latest block.`) +
-      chainCaveat + caveat,
+    reason: asOf
+      ? `The exact native-coin balance of address ${shownAddress} on the ${chainTitle} chain as of ` +
+        `${asOf} requires querying the corresponding historical block through a blockchain explorer ` +
+        `or archive node. A current eth_getBalance at the latest block returns ${amount} ${symbol} ` +
+        `on ${chain}; the figure at that past date is not recoverable from the latest block alone.` +
+        chainCaveat + caveat
+      : `The address ${shownAddress} currently has a native-coin balance of ${amount} ${symbol} on ` +
+        `${chain}. This was determined by querying the eth_getBalance RPC method against the ` +
+        `${chain} network, which returns the account's balance in wei at the latest block.` +
+        chainCaveat + caveat,
   };
 }

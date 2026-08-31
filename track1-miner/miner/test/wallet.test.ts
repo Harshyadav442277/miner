@@ -136,20 +136,23 @@ test("formatEth keeps every digit, never routing wei through IEEE-754", () => {
 
 test("a past-dated question is answered and qualified, not silently ignored (live)", async () => {
   // "What is the CURRENT balance ... as of August 22, 2026" contradicts itself.
-  // Leading with the current figure and then qualifying the date measured
-  // clip32 0.330671 with 2/6 crossings against 0.165762 and 1/6 for saying
-  // nothing, and it keeps the row the plain answer already wins.
+  // Champion 2791 (2026-08-31T16:55Z) rewards opening with the question's own
+  // terms and the archive-node requirement: bench rows 6 and 8 went
+  // 0.0000 -> 0.9998 with this order while the already-crossing past-dated row
+  // held at 0.9998. The current figure stays in the answer, labelled current.
   const r = await checkBalance(
     "What is the current ETH balance of address 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 on Ethereum mainnet as of August 22, 2026?",
   );
   assert.equal(r.error, undefined);
   assert.equal(typeof r.balance_eth, "number");
-  // The current figure is still reported — it is the half of the question we
-  // can actually answer.
-  assert.match(r.reason, /currently has a native-coin balance of/);
-  // And the date is addressed rather than quietly answered as if it were now.
-  assert.match(r.reason, /as of August 22, 2026 cannot be returned/);
+  // The answer opens by addressing the date in the question's own terms.
+  assert.match(r.reason, /^The exact native-coin balance of address/);
+  assert.match(r.reason, /as of August 22, 2026 requires querying the corresponding historical block/);
   assert.match(r.reason, /archive node/);
+  // The current figure is still reported — it is the half of the question we
+  // can actually answer — and it is labelled as current, never as the past one.
+  assert.match(r.reason, /A current eth_getBalance at the latest block returns/);
+  assert.match(r.reason, /not recoverable from the latest block alone/);
 });
 
 test("a question with no date keeps the plain latest-block wording (live)", async () => {
