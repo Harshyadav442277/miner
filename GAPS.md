@@ -1210,3 +1210,38 @@ are Google-verbatim on 8/9, so Google stays primary. The champion's source is pu
 similarity times 1e-9 — ordering inside the "noise" band is real and movable. The scorer family
 has rotated three times this week; the fix is scorer-agnostic (a correct translation can never
 score worse than a refusal of an answerable request).
+
+### G54 · SSL and IP vs preflight, measured head-to-head — `CLOSED 2026-08-31: no change; deployed shapes are the measured optimum`
+
+Epoch 297 lost SSL (−37%) and IP (−0.094%) to `preflight-ssl-verification`, and the final-epoch
+question was whether any change could win them back. Both intents' champions are UNROTATED (SSL
+reg 631, IP reg 630 — same author and repo as the academic/translation scorers; source public).
+The per-intent profiles explain the regimes: SSL is a "verdict" build (contradiction ×0.15,
+agreement +0.45 — polarity is everything); IP is a "reference" build (recall-weighted — coverage
+beats brevity, which is why our fact-rich answer crosses).
+
+**Head-to-head under the live champions, engine-shaped calls, real production answers both sides
+(`bench/h2h_preflight.mjs`):**
+
+```
+IP  (21 rows)  livecert mean 0.994302, 21/21 crossings, 19/21 row-wins
+               preflight mean 0.806506, 17/21 crossings (fails ALL private-range and Tor rows)
+SSL (12 rows)  livecert mean 0.665020, 8/12 crossings, 9/12 row-wins
+               preflight mean 0.092361, 1/12 crossings
+```
+
+**Our deployed answers beat preflight's own live answers on the recorded distribution in both
+intents.** The 297 losses were single-question flavor rotations outside the bench (the G41
+lesson): SSL's GTs split into a tutorial flavor (our method-first shape crosses at 0.99), a
+cannot-analyze flavor (their lead crosses row 9 at 0.993 where we sit at 0.009), and one
+fabricated-verdict row (GT hallucinates a DigiCert cert for api.example.com — unwinnable
+honestly). A lead-sentence sweep (`bench/ssl_lead_sweep.mjs`) shows the trade is one-for-one:
+the cannot-lead gains row 7 and loses row 8, 7/10 crossings either way — the first 32 words pick
+WHICH flavor crosses, the flavor of the next epoch is unknowable, and G39's shape also holds the
+higher floor pedigree (old shape: 1/12). IP micro-tuning was rejected on the cliff asymmetry:
+chasing +0.001 on an above-cliff answer risks −0.98, and we already hold 21/21 crossings.
+
+**Decision: ship nothing.** The measured optimum was already deployed; changing it on the eve of
+the final epoch would be the unmeasured wording gamble this ledger exists to prevent (see the
+translation trim, G26). What rides into 298: five same-day improvements (G41 operator name, G52
+wallet honesty, G53 ISO codes, the academic lean payload, SSL method-first), preflight 7/7.
