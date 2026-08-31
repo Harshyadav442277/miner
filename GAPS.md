@@ -1275,3 +1275,21 @@ The other three are at their honest ceilings, now with evidence rather than assu
   query-shaped call at all; chainsight never crosses. No honest change exists.
 - **TRANSLATION**: champion 2296 unrotated; the ISO-code fix (G53) is the fix. Epoch 298 tests it.
 - **ACADEMIC**: champion 688 unrotated; the lean payload is the fix. Epoch 298 tests it.
+
+### G56 · SSL, weather and wallet served lean for epoch 298 — `CLOSED 2026-09-01: 4.6x / 2.9x / 1.25x payload surface, prose byte-identical`
+
+The last shape change before the freeze, and the evidence that justified shipping it hours before
+scoring. The engine's converted summary of the WHOLE alphabetized payload is the only text scored,
+and the payload proxy (flat32, the machinery G40's annendum built) showed all three losing intents
+serving prose far above their payload surface: SSL crosses 8/12 offline on prose yet NEVER crossed
+live in any epoch; weather 7/12 offline, never live; preflight's wallet payload surface (0.3845)
+beat ours (0.3076) — and our lean projection lands at 0.38454, matching the leader's payload
+surface to four decimals, which is strong evidence their live edge WAS the lean shape. Measured
+per-row before shipping: every lean regression is floor-band jitter (±0.0002) except one weather
+refusal-GT row traded for ~5 newly-crossing payload rows. Responses project to
+{verdict, confidence, reason} (+error on honest failures) at the send; caches, internal functions
+and the deploy gates keep or parse every fact; IP, STORM, NEWS, CONTENT, AI_TEXT, TRANSLATION and
+ACADEMIC are untouched. 237/237 tests, preflight 7/7 against the deployed build. The residual
+risk, stated plainly: the converter is still not runnable offline (G24), so flat32 is a proxy —
+but it is the proxy that reproduced the academic live ordering, and the intents it changed were
+losing under the old shape in every live epoch on record.
