@@ -308,8 +308,12 @@ near-zero field — **both diagnosed, fixed, measured against their champions an
 - [x] **TB.9** **Submitted to submissions.telegraphprotocol.com** — Track 1 tab, miner ID 402 with
       `track1-miner/miner.yaml`. Registration alone does not enter the hackathon; this was found
       with ~2h left. Recorded in docs/TELEGRAPH_FACTS.md.
-- [ ] **TB.10** Delete or rename the root `SUBMIT-THIS-miner.yaml` — it is the stale 10-intent
-      snapshot and its name invites uploading the wrong manifest.
+- [x] **TB.10** Deleted the root `SUBMIT-THIS-miner.yaml`. It was the stale 10-intent snapshot
+      (22,807 bytes, `0x78932fb1...`) and its name invited uploading the wrong manifest to the
+      submission form. Byte-identical to the reg-389 manifest, so nothing was lost — recover with
+      `git show 74ad4a19f41b922a5183dc26d6f405c8557dc9ba:track1-miner/miner.yaml` if ever needed.
+      The manifest to submit is always `track1-miner/miner.yaml`, whose bytes hash to the
+      registered `yaml_hash`.
 - [ ] **TB.6a** **Operator: `gh variable set REGISTRATION_ID --body 402`** — the uptime tripwire
       still watches 389, which no longer exists, so it is currently blind.
 - [ ] **TB.6-old** Original signing step, retained for the runbook: `export PATH="$HOME/.foundry/bin:$PATH" && bash
