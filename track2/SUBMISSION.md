@@ -108,6 +108,21 @@ Full method and evidence: [calibration/STEP_CALIBRATION.md](calibration/STEP_CAL
    0.66666603 against a provable ceiling of 0.6666667 — within 7e-7 of the optimum, which is why
    we can state the intent is closed to further calibration gains.
 
+4. **The gate's own time budget freezes six intents.** The champion on most intents is a ~24 MB
+   sentence-transformer, and it costs ~1.1 s per short `rank_answer` call and ~3.3 s at a 30 KB
+   answer — roughly 11,000x a 1 MB base. On six intents (ACADEMIC_SEARCH, IP_GEOLOCATION,
+   WEATHER_FORECAST, SSL_VERIFICATION, WEATHER_CHECK, WEB_SEARCH) that family has **never once**
+   completed the ten-minute gate: fourteen attempts, zero verdicts, while the same family
+   completes routinely on the twenty-one intents with shorter corpora. A calibration derivative
+   inherits its base's runtime, so **nobody can improve those six intents while building on the
+   incumbent — including the incumbent**. WEATHER_FORECAST is the weakest champion on the whole
+   board at margin 0.53020585 and is unreachable for this reason alone. Across our 73
+   registrations the split is exact: 19 timeouts on 24 MB artifacts, **0 in 28 small-module
+   registrations**, under both an empty queue and a 200-deep one. Full method, per-intent counts
+   and timings: [recon/2026-08-31-runtime-budget-lock.md](recon/2026-08-31-runtime-budget-lock.md).
+   The fix is cheap — scale the budget with corpus size, or report per-row cost in the rejection
+   so an author can tell a slow module from an unlucky one.
+
 We think this is exactly the "deeply understand how validators score outputs" the organizers
 asked for, and it is protocol feedback the core team can act on: the flywheel promotes
 calibration and incumbent-agreement over evaluation accuracy, and this submission documents that
@@ -115,13 +130,24 @@ with receipts.
 
 ## 5. Champion slots held, and what they demonstrate
 
-As of 2026-08-30 14:26 UTC this wallet holds the active champion scorer on **eight intents**
-(TEXT_AUTHENTICITY_CHECK 1882, LANGUAGE_TRANSLATION 1996, CVE_LOOKUP 1993, CRYPTO_PRICE 1994,
-TASK_COMPLETION 1930, TOKEN_HOLDER_COUNT 2017, CONTENT_VERIFICATION 2020, LANGUAGE_GENERATION
-2010). **Every one is the intent's incumbent MIT-licensed module with one strictly increasing
-calibration function appended** — upstream is `zkasuran/telegraph-salience-scorer`, copyright
-preserved in [calibration/UPSTREAM_LICENSE](calibration/UPSTREAM_LICENSE), bases commit-pinned
-and Keccak-matched to their on-chain registrations.
+Slot holdings move hourly — at least eight wallets are now contesting the board, and this wallet
+has held as many as eleven intents and as few as three on the same day. Any fixed list here would
+be stale before it is read, so the live answer is one command:
+
+```bash
+node calibration/screen-registry.mjs
+```
+
+It prints, for all 45 canonical intents, the champion, its margin, how many fixture pairs that
+margin implies it separates, and what a module separating one more would have to score. Nine
+intents sit at an unbeatable 1.0 and are closed to everyone permanently; the reachable board is
+smaller than it looks. As of 2026-08-31 13:30 UTC this wallet held CRYPTO_PRICE (2365),
+LANGUAGE_GENERATION (2010) and TEXT_AUTHENTICITY_CHECK (1882).
+
+**Every slot won this way is the intent's incumbent MIT-licensed module with one strictly
+increasing calibration function appended** — upstream is `zkasuran/telegraph-salience-scorer`,
+copyright preserved in [calibration/UPSTREAM_LICENSE](calibration/UPSTREAM_LICENSE), bases
+commit-pinned and Keccak-matched to their on-chain registrations.
 
 These slots are **evidence for section 4.2, not for section 3**: they demonstrate that the
 promotion gate's margin axis is a calibration race, precisely because they improve nothing about
