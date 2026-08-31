@@ -299,7 +299,12 @@ near-zero field — **both diagnosed, fixed, measured against their champions an
       Preflight 7/7, 182 unit + 67 live green, `cast call` simulation clean.
 - [x] **TB.5** `tools/sign-update.sh` repointed from the retired reg 334 to **389** and thirteen
       intents. It had been left pinned to a registration that no longer exists.
-- [ ] **TB.6** **Operator: sign it.** `export PATH="$HOME/.foundry/bin:$PATH" && bash
+- [x] **TB.6** **Signed and mined 2026-08-31 ~21:37Z — registration is now 402.** Tx
+      `0x0e54dcc7b31b7f30b110f77f09e7719267d1179fbac8e4795a9649ff20f27fd3`, status 1. Receipt logs
+      decode to id 402, the signed hash, the pinned URL and all thirteen intents. **389 is gone.**
+- [ ] **TB.6a** **Operator: `gh variable set REGISTRATION_ID --body 402`** — the uptime tripwire
+      still watches 389, which no longer exists, so it is currently blind.
+- [ ] **TB.6-old** Original signing step, retained for the runbook: `export PATH="$HOME/.foundry/bin:$PATH" && bash
       track1-miner/tools/sign-update.sh` — cast prompts for the key directly; the script never
       sees it. Then read the NEW registration id from the receipt logs (not the API — the indexer
       lags ~4 min), `gh variable set REGISTRATION_ID --body <NEW_ID>`, and re-run preflight.

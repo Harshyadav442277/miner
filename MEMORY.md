@@ -23,7 +23,11 @@ corrected, and every deadline there is now stated in UTC with an instruction to 
 `date -u`. A second claim from the same note — that a new registration sits unranked for 7 days —
 is also false (G58): `txlens` registered 13:34Z and was scored across 13 intents ~40 minutes later.
 
-`updateMiner(389, ...)` was prepared taking the miner from ten intents to **thirteen**:
+**Signed and mined at ~21:37Z: registration is now 402, and 389 no longer exists.** Tx
+`0x0e54dcc7b31b7f30b110f77f09e7719267d1179fbac8e4795a9649ff20f27fd3`, status 1, thirteen intents
+decoded from the receipt logs and matched against what was signed.
+
+`updateMiner(389, ...)` took the miner from ten intents to **thirteen**:
 `WEATHER_CHECK`, `FACT_CHECK`, `TELEGRAPH_KNOWLEDGE`. Two needed **no new code** — `/fact-check`
 and `/telegraph` were already built, tested and deployed, but reg 389 was pinned to a commit that
 predated them, so this was mostly a re-pin. One real bug was fixed on the way: `hours=0` meant "the

@@ -25,11 +25,22 @@ unranked for 7 days; that is false and is now G58.
 `miner.yaml`, and then never registered — reg 389 was pinned to a commit that predated them. This
 was a re-pin, not a build.
 
+**SIGNED AND MINED 2026-08-31 ~21:37Z. REGISTRATION IS NOW 402 — 389 IS GONE. Look up 402.**
+
 ```
-url    .../miner/6b0d176048313cc6fec2788d18cb9ae24f3e2adc/track1-miner/miner.yaml
-hash   0x7538082784c4b20849aeb54cfb6c2cf74100cf074dff3e0f8d8b268e12e47640   (24,996 hosted bytes)
-gates  preflight 7/7 · 182 unit + 67 live green · manifest parse + orphan check · cast call simulated OK
+tx        0x0e54dcc7b31b7f30b110f77f09e7719267d1179fbac8e4795a9649ff20f27fd3
+status    1 (success), block 46222019, gas 776,488
+reg       389 -> 402   (receipt log 3 carries the migration, topics 0x185 -> 0x192)
+url       .../miner/6b0d176048313cc6fec2788d18cb9ae24f3e2adc/track1-miner/miner.yaml   (121 bytes, verified)
+hash      0x7538082784c4b20849aeb54cfb6c2cf74100cf074dff3e0f8d8b268e12e47640   (24,996 hosted bytes)
+intents   13, decoded from the receipt and matched one by one
+gates     preflight 7/7 - 182 unit + 67 live green - manifest parse + orphan check - cast call simulated OK
 ```
+
+**The receipt was decoded rather than trusted to the API**, per the lesson from the 334 -> 389
+update: `/api/miners/402` returned nothing for minutes after the mine while `/api/miners/389` still
+served the OLD ten-intent record. Neither is evidence of failure. Read the logs in the first five
+minutes; the chain is authoritative and was correct immediately.
 
 **The one real bug fixed: `hours=0` was being swallowed.** Our own `input_schema` promises "0 is the
 current hour", but `Number(firstValue(url,"hours")) || 24` is falsy at zero, so a "what is it doing
