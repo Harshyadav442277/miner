@@ -64,3 +64,27 @@ describe("checkBalance (live)", () => {
     assert.ok(r.reason.length > 0);
   });
 });
+
+test("an ENS name is resolved rather than refused (live)", async () => {
+  // Refusing these was a guaranteed zero on every question that names a wallet
+  // the way people actually name them; preflight answers them and we did not.
+  const r = await checkBalance("What is the balance of vitalik.eth?");
+  assert.equal(r.error, undefined, r.reason);
+  assert.equal(r.address?.toLowerCase(), "0xd8da6bf26964af9d7eed9e03e53415d37aa96045");
+  assert.equal(typeof r.balance_eth, "number");
+  // The answer should name the wallet the way the question did.
+  assert.match(r.reason, /vitalik\.eth/);
+});
+
+test("an unresolvable ENS name says so, and does not claim a zero balance", async () => {
+  const r = await checkBalance("What is the balance of this-name-does-not-exist-xyz123.eth?");
+  assert.equal(r.error, "invalid_address");
+  assert.equal(r.balance_eth, null);
+  assert.match(r.reason, /could not be resolved/i);
+});
+
+test("a plain address is unaffected by ENS handling", async () => {
+  const r = await checkBalance("What is the ETH balance of 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045?");
+  assert.equal(r.error, undefined);
+  assert.doesNotMatch(r.reason, /\.eth/);
+});

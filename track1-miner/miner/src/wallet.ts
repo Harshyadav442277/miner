@@ -78,6 +78,47 @@ export function walletAddress(text: string): string | null {
   return String(text ?? "").match(/0x[a-fA-F0-9]{40}\b/)?.[0] ?? null;
 }
 
+/** An ENS name in the question, e.g. "vitalik.eth". */
+export function ensName(text: string): string | null {
+  return String(text ?? "").match(/\b([a-z0-9][a-z0-9-]{2,}\.eth)\b/i)?.[1]?.toLowerCase() ?? null;
+}
+
+/**
+ * An ENS name resolved to the address it points at.
+ *
+ * We used to refuse these outright — "no valid wallet address was supplied" —
+ * which is a guaranteed zero on every question that names a wallet the way
+ * people actually name them. `preflight` answers them, and answered the epoch
+ * 296 question at 0.004328 against our 0.000123.
+ *
+ * Resolution needs a keccak256 for the namehash, which Node does not ship
+ * (`sha3-256` is the NIST variant, not Ethereum's Keccak), and this service has
+ * no runtime dependencies. So it uses a keyless HTTP resolver instead. There is
+ * only one, verified 2026-08-31 on vitalik.eth and nick.eth; `api.ensdata.net`
+ * sits behind a Cloudflare challenge and is not usable. If it fails we fall
+ * back to the honest refusal we already gave, so this is strictly additive.
+ */
+async function resolveEns(name: string, timeoutMs: number): Promise<string | null> {
+  const ac = new AbortController();
+  const t = setTimeout(() => ac.abort(), Math.min(timeoutMs, 4000));
+  try {
+    const res = await fetch(`https://api.ensideas.com/ens/resolve/${encodeURIComponent(name)}`, {
+      signal: ac.signal,
+      headers: { accept: "application/json" },
+    });
+    if (!res.ok) return null;
+    const body = (await res.json()) as { address?: unknown };
+    const addr = typeof body.address === "string" ? body.address : "";
+    // A name that exists but points nowhere resolves to the zero address; that
+    // is not an answer, it is an unset record.
+    return /^0x[a-fA-F0-9]{40}$/.test(addr) && !/^0x0{40}$/.test(addr) ? addr : null;
+  } catch {
+    return null;
+  } finally {
+    clearTimeout(t);
+  }
+}
+
 export function walletChain(text: string): string {
   const s = String(text ?? "").toLowerCase();
   if (/\bbase\b/.test(s)) return "base";
@@ -130,7 +171,10 @@ export function formatEth(wei: bigint): string {
 
 export async function checkBalance(question: string, timeoutMs = TIMEOUT_MS): Promise<WalletResult> {
   const now = new Date().toISOString();
-  const address = walletAddress(question);
+  // A question may name the wallet by ENS rather than by address, and refusing
+  // those scored zero on every one of them.
+  const ens = walletAddress(question) ? null : ensName(question);
+  const address = walletAddress(question) ?? (ens ? await resolveEns(ens, timeoutMs) : null);
   const chain = walletChain(question);
   const symbol = SYMBOL[chain] ?? "ETH";
   const base: WalletResult = {
@@ -141,10 +185,13 @@ export async function checkBalance(question: string, timeoutMs = TIMEOUT_MS): Pr
   if (!address) {
     return {
       ...base,
-      reason:
-        `No valid wallet address was supplied with this request, so the native-coin balance on ` +
-        `${chain} could not be read. Supply a 20-byte EVM address such as ` +
-        `0x742d35Cc6634C0532925a3b844Bc454e4438f44e.`,
+      reason: ens
+        ? `The ENS name ${ens} could not be resolved to an address, so the native-coin balance ` +
+          `on ${chain} could not be read. The name may be unregistered, expired, or have no ` +
+          `address record set.`
+        : `No valid wallet address was supplied with this request, so the native-coin balance on ` +
+          `${chain} could not be read. Supply a 20-byte EVM address such as ` +
+          `0x742d35Cc6634C0532925a3b844Bc454e4438f44e.`,
       error: "invalid_address",
     };
   }
@@ -176,7 +223,7 @@ export async function checkBalance(question: string, timeoutMs = TIMEOUT_MS): Pr
     verdict: `${amount} ${symbol}`,
     confidence: 0.98,
     reason:
-      `The address ${address} currently has a native-coin balance of ${amount} ${symbol} on ` +
+      `The address ${ens ? `${ens} (${address})` : address} currently has a native-coin balance of ${amount} ${symbol} on ` +
       `${chain}. This was determined by querying the eth_getBalance RPC method against the ` +
       `${chain} network, which returns the account's balance in wei at the latest block.` +
       caveat,
