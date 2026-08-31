@@ -49,6 +49,10 @@ const SHAPES = [
   ["/translate", { text: "Good morning", target_language: "French", query: "" }, true],
   ["/translate", { text: "Good morning", target_language: "French", query: "Translate this into French." }, true],
   ["/translate", { text: "", target_language: "French", query: 'Translate "Good morning" into French.' }, true],
+  // The manifest offers "by name or ISO 639-1 code, e.g. Spanish or fr"; the
+  // engine takes the offer. Refusing a code cost epoch 297 (2.4e-11 live).
+  ["/translate", { text: "Good morning", target_language: "fr" }, true],
+  ["/translate", { text: "Thank you very much for your help.", target_language: "de", query: "" }, true],
 
   ["/ip-geolocate", { ip: "8.8.8.8" }, true],
   ["/ip-geolocate", { query: "Where is 8.8.8.8 located and does it have abuse history?" }, true],
@@ -110,7 +114,7 @@ const SUBJECTS = [
 ];
 
 const REFUSAL =
-  /(could not be|no (valid )?\w+ was supplied|was supplied with this request|supply a|name a subject|no text was supplied|no resolvable location|were found in the supplied)/i;
+  /(could not be|no (valid )?\w+ was supplied|was supplied with this request|supply a|name a subject|no text was supplied|no resolvable location|were found in the supplied|was named for)/i;
 const ERRORS = new Set([
   "invalid_input", "invalid_address", "invalid_location", "invalid_ip", "invalid_domain",
 ]);

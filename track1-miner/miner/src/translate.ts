@@ -29,6 +29,17 @@
  * commonly reach for" was **rejected** in the previous regime: it asserts
  * something we cannot substantiate about a machine translation. That
  * constraint stands whatever the scorer rewards.
+ *
+ * ISO CODES, ADDED 2026-08-31 (epoch 297 post-mortem): miner.yaml tells the
+ * engine `target_language` may be "by name or ISO 639-1 code, e.g. Spanish or
+ * fr", but this file resolved names only, so `target_language=de` produced a
+ * "No target language was named" refusal. Measured under the current champion
+ * (reg 2296, ltr_v5_75.wasm): a refusal converts to English-only prose scoring
+ * ~1-2.5e-11 — exactly the band of our live 2.4e-11 in epoch 297 — while a
+ * conversion that quotes the translation scores ~3.5e-10, ninefold above that
+ * epoch's leader (3.876923e-11, itself reproduced offline byte-for-score from
+ * the recorded mymemory converted answer). Codes are now resolved through
+ * CODES below; name-shaped requests are byte-identical to before.
  */
 
 const MEMORY_API = "https://api.mymemory.translated.net/get";
@@ -62,6 +73,18 @@ const LANGS: Record<string, string> = {
   thai: "th", turkish: "tr", ukrainian: "uk", urdu: "ur", vietnamese: "vi",
 };
 
+/**
+ * ISO 639-1 codes, as the manifest invites ("Spanish or fr"), lowercased and
+ * mapped back to the name/code pair. Built from LANGS so the two can never
+ * disagree; "zh" is added by hand because our Chinese value is "zh-CN".
+ */
+const CODES: Record<string, { name: string; code: string }> = {};
+for (const [name, code] of Object.entries(LANGS)) {
+  const key = code.toLowerCase();
+  if (!CODES[key]) CODES[key] = { name, code };
+}
+CODES["zh"] = { name: "chinese", code: "zh-CN" };
+
 /** The text to translate — questions quote it. */
 export function sourceText(question: string): string | null {
   const s = String(question ?? "");
@@ -71,7 +94,7 @@ export function sourceText(question: string): string | null {
   return after?.[1]?.trim() ?? null;
 }
 
-/** The language asked for, as a name and a code. */
+/** The language asked for, as a name or an ISO 639-1 code. */
 export function targetLanguage(question: string): { name: string; code: string } | null {
   const s = String(question ?? "").toLowerCase();
   const m = s.match(/\b(?:in)?to\s+([a-z][a-z\s]{2,24}?)(?:[.,?!]|$)/);
@@ -86,6 +109,16 @@ export function targetLanguage(question: string): { name: string; code: string }
   }
   for (const [name, code] of Object.entries(LANGS)) {
     if (new RegExp(String.raw`\b` + name + String.raw`\b`).test(s)) return { name, code };
+  }
+  // Codes are tried only after every name resolution has failed, so every
+  // question that resolved before still resolves to the byte-identical answer,
+  // and the only behaviour change is that requests we previously REFUSED —
+  // `target_language=de` composed into `into de.` — now translate. Two-letter
+  // 639-1 codes double as English words ("it", "no"), which is why this pass
+  // never outranks a name found anywhere in the question.
+  for (const c of s.matchAll(/\b(?:in)?to\s+([a-z]{2}(?:-[a-z]{2})?)(?=[.,?!\s]|$)/g)) {
+    const hit = CODES[c[1]!];
+    if (hit) return hit;
   }
   return null;
 }
