@@ -1,5 +1,23 @@
 # GAPS — Track 2 honesty ledger
 
+## G27 — the fact-check profile inverts a negation pair (2026-08-31)
+
+Probing the head builds before publishing them, `fact_check` scored a correct refutation of
+"the Great Wall is visible from space" at **0.004** and the false affirmation at **0.007** — a
+real inversion, on exactly the polarity handling that T-C.9 was supposed to have repaired for the
+text profiles. `academic_search` also dropped a correct paraphrase to 0.260 where the verbatim
+answer scored 1.000, and `generic` dropped an SSL paraphrase to 0.209.
+
+Consequence: **do not register `fact_check.wasm`**, and treat the paraphrase softness as the
+likely source of the one-to-two-pair ordering gap that has cost every original-scorer
+registration so far (1377, 1728, 1731, 1878). The failure is that a fact-aware scorer keyed on
+figures and identifiers under-credits a correct answer that restates them in different words,
+which is precisely what the incumbent sentence-transformer is good at.
+
+The probe corpus behind this is six sets of two to five self-authored pairs, so it is subject to
+G13 and G14: it locates a defect but its absolute numbers predict nothing about node margins.
+A defect it finds is real; a pass it reports is not evidence.
+
 ## G26 — the released TAC scorer is not the registered TAC scorer (2026-08-31)
 
 `release/text-authenticity.json` freezes the published scorer at 30,897 bytes, sha256 `3bb3bb82…`.
