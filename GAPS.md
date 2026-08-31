@@ -1134,3 +1134,45 @@ changed hours before the final epoch, with production healthy.
 budget from this dev machine. Production classifies it correctly (`expired`, −4159 days) and
 `verify-deploy` confirms it independently — the same dev-machine artefact class as G27 (ip-api) and
 G43 (OpenAlex).
+
+### G52 · Epoch 297's field-wide wallet "zero" was a champion swap that SQUARES the old scorer — `CLOSED 2026-08-31`
+
+Epoch 297 put the whole WALLET_BALANCE_CHECK field at ~1e-8 (leader 4.25e-8, us 2.44e-8) where 296
+sat at ~1e-4. That is not a question class every miner failed. **The champion rotated between the
+two scorings**: reg **2575** (`degenlens_wallet_balance_check_v2.wasm`, author 0xdde7…d133e,
+repo `drained69/DegenLens`) activated **2026-08-31T05:58:42Z** — after 296 scored (~05:03Z), before
+297 did (~14:25Z) — superseding reg 1066. Its own README documents what it is: **the exact live
+champion (1066, `wl_penstep40.wasm`) with `score²` applied to its output**, registered because
+squaring "expands the high-confidence separation that Telegraph's promotion gate measures" while
+preserving ordering.
+
+Verified three ways, not taken from the README: the hosted bytes' keccak256 matches the registry's
+`wasm_hash` (`0x2947266b…`); our 13 production answers scored under both binaries satisfy
+`new = old²` to every printed digit (0.988925→0.977972, 0.002517→0.000006, 0.005028→0.000025 …);
+and 297's live scores un-square into 1066's familiar sub-cliff band (preflight 4.25e-8 → 2.06e-4,
+us 2.44e-8 → 1.56e-4). **Squaring maps the ~1e-4 nobody-crossed band to ~1e-8.** Same regime as
+every prior epoch — no miner has ever crossed live in this intent — only the floor moved. Ranking
+within the band is unchanged in kind; our normalised ratio actually rose, 0.028 (296) → 0.574
+(297), which is the morning's G44/G45/G46/G51 fixes showing up live, not the swap.
+
+Consequences. (1) Benches are re-pinned to `wallet_reg2575.wasm` (download via
+`/api/wasm?intent=WALLET_BALANCE_CHECK`; binaries stay gitignored). Because the map is monotone,
+every ordering-based conclusion measured under 1066 — G44 wording, G45 placeholders, G46
+historical dates, G51 chains — carries over unchanged; only absolute means shift (bench mean
+0.382350 under 1066 reads 0.378726 under 2575, same 5/13 crossings). (2) The three bench rows whose
+ground truth asserts a fabricated figure ("2.47 ETH" on Base, where both public RPCs agree the
+address holds 0.0322) were probed under 2575: swapping our real figure for the ground truth's flips
+0.000000 → 1.000000. **Those rows are winnable only by fabricating the figure, so they stay
+lost on purpose.** A question-echo re-wording was also measured and REJECTED: it flips the one
+as-of row we win at 1.000000 down to 0.000021. Wording stays as deployed.
+
+**Fixed in the same pass, from the engine's own leaked upstream calls** (failure_reason strings in
+`/scores` epochs 280-295 expose full request URLs): the engine sends
+`address=0x0000000000000000000000000000000000000000` as a null filler when the question names no
+wallet, and our handler injected it as the subject — production answered the BURN address's real
+25.99 ETH on Arbitrum as though it were the asked-about wallet. The filler is now dropped (the EVM
+null-marker convention `resolveEns` already applies), measured 0.0000038 → 0.0000063 on the one
+such bench row — score-neutral, honesty-positive. And an explicit `chain=` parameter outside the
+supported set (the engine sent `chain=sepolia` in epoch 287) silently became a caveat-free mainnet
+answer; the unsupported-chain caveat now applies to the structural parameter too, clip32-identical
+scores (0.977656 / 0.985383 before and after) with the honest tail restored. 221/221 tests.

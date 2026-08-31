@@ -126,6 +126,29 @@ test("a paraphrasing query does not discard the declared address (live)", async 
   assert.equal(body.address, WALLET);
 });
 
+test("the engine's zero-address filler is not reported as the asked-about wallet (live)", async () => {
+  // The engine fills `address` with the zero address when the question names no
+  // wallet (its leaked upstream calls in epochs 281, 292 and 295). Before the
+  // filter, that filler was injected as the subject and this route answered
+  // with the burn address's real holdings — a confidently wrong answer to a
+  // question that supplied no wallet at all.
+  const { body, status } = await capture(
+    "/wallet-balance?address=0x0000000000000000000000000000000000000000&chain=arbitrum&query=" +
+      encodeURIComponent("What is the current ETH balance for wallet address on the Arbitrum chain?"),
+  );
+  assert.equal(status, 200);
+  assert.equal(body.error, "invalid_address");
+  assert.doesNotMatch(String(body.reason), /currently has a native-coin balance/);
+  // A question whose own TEXT asks about the zero address is still answered:
+  // the filter drops only the structured filler, never the question's subject.
+  const asked = await capture(
+    "/wallet-balance?query=" +
+      encodeURIComponent("What is the ETH balance of 0x0000000000000000000000000000000000000000?"),
+  );
+  assert.equal(asked.body.address, "0x0000000000000000000000000000000000000000");
+  assert.notEqual(asked.body.error, "invalid_address");
+});
+
 test("a paraphrasing query does not discard the declared text to translate", async () => {
   const originalFetch = globalThis.fetch;
   globalThis.fetch = (async () =>

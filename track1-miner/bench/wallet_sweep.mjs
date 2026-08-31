@@ -1,5 +1,6 @@
 /**
- * WALLET_BALANCE_CHECK shape sweep against champion 1066.
+ * WALLET_BALANCE_CHECK shape sweep against the current champion.
+ * (2575 since 2026-08-31T05:58Z — reg 1066 with score² applied, GAPS G52.)
  *
  * Epoch 296: preflight 0.004328, livecert 0.000123 — a 35x gap on answers whose
  * WORDING is nearly identical. Side by side on the same question:
@@ -24,7 +25,7 @@ const { loadScorer } = await import(pathToFileURL(
 
 const DIR = new URL(".", import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, "$1");
 const scorer = await loadScorer(
-  "C:/Users/hyada/OneDrive/Documents/Work-Related/Hackathons/Telegraph/track2/harness/champions/wallet_reg1066.wasm");
+  "C:/Users/hyada/OneDrive/Documents/Work-Related/Hackathons/Telegraph/track2/harness/champions/wallet_reg2575.wasm");
 const bench = JSON.parse(await readFile(`${DIR}bench_WALLET_BALANCE_CHECK.json`, "utf8"));
 const rows = Array.isArray(bench) ? bench : (bench.rows ?? Object.values(bench)[0]);
 const clip32 = (s) => s.split(/\s+/).slice(0, 32).join(" ");
@@ -80,7 +81,7 @@ for (const row of rows) {
   wins[Object.entries(sc).sort((a, b) => b[1] - a[1])[0][0]]++;
 }
 
-console.log(`\nWALLET_BALANCE_CHECK — ${n} rows, champion 1066, clip32\n`);
+console.log(`\nWALLET_BALANCE_CHECK — ${n} rows, champion 2575, clip32\n`);
 console.log("  variant             mean          best-on   crossings");
 for (const k of Object.keys(VARIANTS)) {
   console.log(`  ${k.padEnd(18)}  ${(tot[k] / n).toFixed(8)}    ${String(wins[k]).padStart(3)}       ${cross[k]}/${n}`);

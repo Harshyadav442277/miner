@@ -9,7 +9,8 @@ const { loadScorer } = await import(pathToFileURL(
   "C:/Users/hyada/OneDrive/Documents/Work-Related/Hackathons/Telegraph/track2/harness/wasm-abi.mjs").href);
 const DIR = new URL(".", import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, "$1");
 const scorer = await loadScorer(
-  "C:/Users/hyada/OneDrive/Documents/Work-Related/Hackathons/Telegraph/track2/harness/champions/wallet_reg1066.wasm");
+  // Champion rotated 2026-08-31T05:58Z: reg 2575 = reg 1066 with score² (GAPS G52).
+  "C:/Users/hyada/OneDrive/Documents/Work-Related/Hackathons/Telegraph/track2/harness/champions/wallet_reg2575.wasm");
 const raw = JSON.parse(await readFile(`${DIR}bench_WALLET_BALANCE_CHECK.json`, "utf8"));
 const rows = Array.isArray(raw) ? raw : Object.values(raw)[0];
 const clip32 = (s) => s.split(/\s+/).slice(0, 32).join(" ");
@@ -27,6 +28,6 @@ for (const r of rows) {
   tot += c; n++; if (c > 0.5) cross++;
   console.log(`  ${c.toFixed(6)}  ${q.slice(0, 74)}`);
 }
-console.log(`\nPRODUCTION wallet answers — ${n} rows, champion 1066, clip32`);
+console.log(`\nPRODUCTION wallet answers — ${n} rows, champion 2575, clip32`);
 console.log(`  mean ${(tot / n).toFixed(6)}   crossings ${cross}/${n}`);
 console.log(`  (rebuilt-sentence baseline before today's branches: 0.298, 3/10)`);

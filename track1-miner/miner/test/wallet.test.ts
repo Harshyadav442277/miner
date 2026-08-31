@@ -168,6 +168,34 @@ test("the structured chain parameter is honoured, not just the prose (live)", as
   assert.equal(r.chain, "base");
 });
 
+test("an explicit chain parameter outside the supported set is named, not silently mainnetted (live)", async () => {
+  // The engine sends the chain structurally too — its leaked epoch-287 upstream
+  // call carried `chain=sepolia` as a parameter. walletChain falls back to
+  // ethereum for any name outside the supported set, and the caveat used to be
+  // suppressed whenever an explicit chain arrived at all — so the answer read
+  // as a plain mainnet balance for a Sepolia question, with Sepolia never
+  // mentioned anywhere in it.
+  const r = await checkBalance(
+    "What is the ETH balance of 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045?",
+    undefined,
+    "sepolia",
+  );
+  assert.equal(r.chain, "ethereum");
+  assert.equal(typeof r.balance_eth, "number");
+  assert.match(r.reason, /test networks/i);
+  assert.match(r.reason, /not among the networks this service reads/i);
+
+  // A SUPPORTED explicit chain still suppresses the prose check: the engine
+  // resolved the question's ambiguity, and no caveat second-guesses it.
+  const base = await checkBalance(
+    "What is the ETH balance of 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045?",
+    undefined,
+    "base",
+  );
+  assert.equal(base.chain, "base");
+  assert.doesNotMatch(base.reason, /not among the networks/i);
+});
+
 test("a chain we cannot read is NAMED, and the figure we can read is kept (live)", async () => {
   // Silently swapping Sepolia for Ethereum was wrong. Refusing outright was
   // worse and measurably so: the recovered ground truths for these questions do

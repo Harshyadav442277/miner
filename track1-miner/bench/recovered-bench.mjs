@@ -44,7 +44,9 @@ if (!RECEIPTS) {
 
 const CHAMPIONS = "C:/Users/hyada/OneDrive/Documents/Work-Related/Hackathons/Telegraph/track2/harness/champions";
 const INTENTS = {
-  WALLET_BALANCE_CHECK: { wasm: `${CHAMPIONS}/wallet_reg1066.wasm`, path: "/wallet-balance" },
+  // Champion rotated 2026-08-31T05:58Z: reg 2575 is reg 1066 with score² applied
+  // (GAPS G52). Re-download: /api/wasm?intent=WALLET_BALANCE_CHECK -> wasm_url.
+  WALLET_BALANCE_CHECK: { wasm: `${CHAMPIONS}/wallet_reg2575.wasm`, path: "/wallet-balance" },
   IP_GEOLOCATION: { wasm: `${CHAMPIONS}/ipgeo_reg630.wasm`, path: "/ip-geolocate" },
 };
 

@@ -599,9 +599,19 @@ function route(req: IncomingMessage, res: ServerResponse): void {
   }
 
   if (path === "/wallet-balance") {
+    // The engine fills `address` with the ZERO address when the question names
+    // no wallet — its own leaked upstream calls show
+    // `address=0x0000000000000000000000000000000000000000` being sent in epochs
+    // 281, 292 and 295. Injecting that filler as the subject made this route
+    // report the burn address's real holdings (25.99 ETH on Arbitrum, measured
+    // live) as though they were the wallet asked about. The zero address is the
+    // EVM null marker — the convention resolveEns already treats as "unset" —
+    // so the filler is dropped; a question whose own text names 0x000…0 is
+    // unaffected, because the text path still reads it.
+    const addressParam = firstValue(url, "address", "wallet");
     const q = withSubject(
       firstValue(url, "query", "q", "question", "text", "input"),
-      firstValue(url, "address", "wallet"),
+      /^0x0{40}$/.test(addressParam) ? "" : addressParam,
     );
     if (!q.trim()) {
       sendAnswer(res, q, {

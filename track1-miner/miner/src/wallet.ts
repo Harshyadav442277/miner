@@ -320,7 +320,18 @@ export async function checkBalance(
   // questions (G46): report the figure we CAN read, say which network it is
   // from, and state plainly that the named chain was not read. Nothing is
   // asserted about the chain we cannot reach.
-  const unsupported = explicitChain ? null : unsupportedChain(question);
+  //
+  // When the engine supplies the chain STRUCTURALLY, its value wins over the
+  // prose — but only a chain this service can actually read suppresses the
+  // caveat. The engine has sent `chain=sepolia` as a parameter (its leaked
+  // upstream call in epoch 287), and `walletChain` falls back to ethereum for
+  // any name outside the supported set — so without this check the answer read
+  // as a plain mainnet balance for a Sepolia question, with Sepolia never
+  // mentioned. The prose check is still skipped when the explicit chain is
+  // supported: the engine already resolved the question's ambiguity for us.
+  const unsupported = explicitChain
+    ? unsupportedChain(explicitChain)
+    : unsupportedChain(question);
 
   if (!address && malformed) {
     return {

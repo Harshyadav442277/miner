@@ -20,7 +20,8 @@ const { loadScorer } = await import(pathToFileURL(
 
 const DIR = new URL(".", import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, "$1");
 const scorer = await loadScorer(
-  "C:/Users/hyada/OneDrive/Documents/Work-Related/Hackathons/Telegraph/track2/harness/champions/wallet_reg1066.wasm");
+  // Champion rotated 2026-08-31T05:58Z: reg 2575 = reg 1066 with score² (GAPS G52).
+  "C:/Users/hyada/OneDrive/Documents/Work-Related/Hackathons/Telegraph/track2/harness/champions/wallet_reg2575.wasm");
 const raw = JSON.parse(await readFile(`${DIR}bench_WALLET_BALANCE_CHECK.json`, "utf8"));
 const rows = Array.isArray(raw) ? raw : Object.values(raw)[0];
 const clip32 = (s) => s.split(/\s+/).slice(0, 32).join(" ");
@@ -84,7 +85,7 @@ for (const r of rows) {
   console.log(`  ${date.padEnd(20)} ${Object.entries(sc).map(([k, v]) => `${k}:${v.toFixed(4)}`).join("  ")}`);
 }
 
-console.log(`\nWALLET historical-date rows — ${n} rows, champion 1066, clip32\n`);
+console.log(`\nWALLET historical-date rows — ${n} rows, champion 2575, clip32\n`);
 console.log("  variant              mean        best-on   crossings");
 for (const k of Object.keys(VARIANTS)) {
   console.log(`  ${k.padEnd(19)}  ${(tot[k] / n).toFixed(6)}    ${String(wins[k]).padStart(3)}       ${cross[k]}/${n}`);
