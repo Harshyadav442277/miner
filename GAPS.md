@@ -1475,3 +1475,8 @@ as supported, because `Vaccines_and_autism` contains every word of the claim it 
 `contradicted` survives only on explicit source markers ("myth", "debunked", "no evidence").
 Adding a `supported` verdict to gain score would make the miner assert medical misinformation.
 Declined. If FACT_CHECK scores poorly in epoch 298, the honest lever is retrieval quality.
+
+**G57 addendum (2026-09-01 ~00:45Z):** registration 2882 was dethroned by reg 3064 shortly after
+epoch 298 was scored — the sixth wallet-champion rotation in a day. Our scorer judged exactly one
+epoch of our own intent, with the fairness receipt above showing it treated the whole field
+identically. The conflict surface is retired for every epoch after the close.
