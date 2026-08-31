@@ -1003,3 +1003,47 @@ blind on incumbent weakness alone is precisely what `SENTIMENT_ANALYSIS` cost th
 (question, ground_truth) pairs, or obtain its champion scorer, and measure an honest answer built
 from `docs/TELEGRAPH_FACTS.md` against it. If that clears the bar, it is the cheapest rank-1 on the
 board. Until then it is a guess with the whole registration as the stake.
+
+### G49 · IP and WALLET re-validated on RECOVERED receipts — both are as good as this data can show — `CLOSED 2026-08-31`
+
+G24 froze our benches by removing `question`, `ground_truth` and `converted_answer` from the feed.
+A competitor's public repository retained **1,056 receipts** captured before that change
+(`shreshth006/Preflight`, `fixtures/live/scored-receipts.json`) — public protocol records, not their
+implementation. They restore measurement for three of our intents and, for the first time, expose
+the converted text the scorer actually reads. `bench/recovered-bench.mjs` scores production against
+them.
+
+```
+                      distinct Qs   our mean    our crossings   we match/beat the best recorded
+IP_GEOLOCATION            23        0.780171       18/23                 20/23
+WALLET_BALANCE_CHECK      16        0.310694        5/16                 10/16
+```
+
+**Wallet is at its ceiling on this corpus.** Only **1 of 16** questions was ever crossable by
+anyone — the 41-hex malformed placeholder — and after today's branch we score 0.988925 on it
+against the best-ever 0.991997. We cross **5 of 16**, more than any recorded miner managed, so the
+remaining losses are all in the sub-cliff noise band (0.0004 against 0.015, and similar).
+
+**IP holds 2 of the 3 crossable questions outright**, both already won by `livecert`. The third is
+the only genuine loss and it must NOT be chased:
+
+```
+Q     "...geolocation details for 142.251.42.174 ... country, city, and ISP"
+GT    "...located in the United States. The specific city and other details are
+       NOT PROVIDED in the search results..."
+won   iplocate, 0.995956, whose converted answer says "located in Mumbai, India"
+ours  0.010289 — we say Chiyoda City, Tokyo, which is CORRECT per Google's geofeed
+```
+
+The winning answer was geographically wrong and the ground truth admits it had no city data. Across
+the four recovered ground truths for this same address, **three say Japan and one says United
+States**. Our answer matches the majority and is factually right; switching to "United States" would
+win that one row and lose the other three while making the miner less accurate. This is the
+"opaque wording cliff" the epoch-294 audit already warned against chasing, now with the evidence to
+close it rather than merely suspect it.
+
+**One assumption the receipts overturned.** A crossing wallet answer at 0.99199706 has the converted
+text *"...has a balance of **0.0091 ETH** on the Arbitrum network..."* where its ground truth says
+**0 ETH**. The winner reported a different figure and still crossed. **The number is not what is
+scored** — shape and identifiers are — which independently confirms G44's finding that balance
+precision moved nothing.

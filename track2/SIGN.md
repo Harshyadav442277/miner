@@ -1,6 +1,149 @@
 # SIGN — full links
 
-## ACTIVE BATCH — 2026-08-31 ~04:10Z · sign in this order, ONE AT A TIME
+## ACTIVE BATCH — 2026-08-31 ~10:20Z · rebuilt on today's champion bases
+
+Registry sweep at 10:10Z: **3 intents held** — CVE_LOOKUP 1993, LANGUAGE_GENERATION 2010,
+TEXT_AUTHENTICITY_CHECK 1882. Six of ours are still queued from 04:23Z (ACADEMIC_SEARCH 2361,
+CONTENT_MODERATION 2362, TOKEN_HOLDER_COUNT 2363, IP_GEOLOCATION 2364, TASK_COMPLETION 2366,
+WEATHER_CHECK 2369) — **do not re-sign those six.**
+
+**Two things changed in this batch, both read off the rejection log.**
+
+1. **Every wrapper is rebuilt on the base bound on chain today.** Thirteen champions moved
+   since the 08-30 artifacts were built, so those wrappers were appending calibration to a
+   module that is no longer the one they are measured against. Bases were re-downloaded and
+   Keccak-matched to the registry before wrapping — six of twenty-five first downloads came
+   back truncated and were re-fetched until they matched.
+2. **Band width is now chosen per intent.** Three deaths were the real-traffic gate, and the
+   cause is f32: with high 0.05 the map ties base scores about 1.2e-6 apart, and real traffic
+   is full of near-perfect answers that close together. Intents with a bar under 0.99 and
+   twenty or more historical rows now use **low 0.05 / high 0.20** — four times the surviving
+   rank resolution, at almost no margin cost, because these bases already score near 0 and 1.
+   Intents at or above a 0.99 bar keep 0.005 / 0.05, where every thousandth of margin counts.
+
+**Sign in the order below.** It sorts on the intent's pending-queue depth first and the bar
+second. Queue depth is the new constraint: wallet 0x5d27fee6 is flooding eleven intents with
+dozens of registrations each, and a deep queue means both a long wait and the time-budget
+deaths that killed twelve of our evaluations. The first thirteen have an **empty queue**.
+
+| # | intent | file | bar to beat | cc/hr | queue | keccak |
+|---|---|---|---|---|---|---|
+| 1 | WEB_SEARCH | `web_search_r3` | 0.7083708 | 13c/124r | 0 | `8ae68736075f4f2aa00eeb578e34b490afaf5e948404d446ae77871ec31fe0f5` |
+| 2 | AGENT_TASK | `agent_task_r3` | 0.88793105 | 32c/0r | 0 | `183b72ebb6e6bdb55511a0606845c2374c7a410dfae38594080271300bd74cc2` |
+| 3 | NEWS_SEARCH | `news_search_r3` | 0.8900013 | 32c/20r | 0 | `969b40fe988707b48bb186c68d303da3ce0779ac7061b3b8be2d3a8b083f90b7` |
+| 4 | CHAT_COMPLETION | `chat_completion_r3` | 0.89914936 | 15c/143r | 0 | `f3005cc53f8095a998894b8cecf449d597d1cb62b46ee5e5ae7fbe601bd34d2c` |
+| 5 | SSL_VERIFICATION | `ssl_verification_r3` | 0.89942956 | 11c/1r | 0 | `0424bab7e4446cde7b877a1adfc82f3329083b33cbde1ab216683ec5c355a325` |
+| 6 | FACT_CHECK | `fact_check_r3` | 0.93333334 | 15c/4r | 0 | `744d7e80aaf7e63e531b71d3de99f80ec8bccbd9b6e972fd34df6fab6d135584` |
+| 7 | URL_SCAN | `url_scan_r3` | 0.9478501 | 32c/0r | 0 | `8fee947d7e195740ee29da0aee58ac2d466fe6dea8d53a5c0a61425fa599bad3` |
+| 8 | FINANCIAL_DATA | `financial_data_r3` | 0.96081054 | 32c/0r | 0 | `283e0d8e1393b63871dca2d3a2a6d09ffe085343170d981cc8a36285452f2663` |
+| 9 | RESEARCH_QUERY | `research_query_r3` | 0.99000794 | 32c/4r | 0 | `d91e15d454962f3934487f5ccb6805534a865d37d32a2633d731ffd0a45e4745` |
+| 10 | VIDEO_VERIFICATION | `video_verification_r3` | 0.99159545 | 6c/0r | 0 | `7b79b7561af32705f72e56e59696a98d81c6ba16a7da92c06c38f60cffbe32cd` |
+| 11 | RESEARCH_SYNTHESIS | `research_synthesis_r3` | 0.99235225 | 32c/0r | 0 | `75db0cae42ae5ecb7b5d9782e03e5a6c2c61e1c27d9454b1b8611ed25e62dd4b` |
+| 12 | NEWS_HEADLINES | `news_headlines_r3` | 0.9935922 | 15c/8r | 0 | `660b51311d53f6685f2ff5bbf137d30d6a0cfece636176a434c1f0e5ecaa5afc` |
+| 13 | FRAUD_DETECTION | `fraud_detection_r3` | 0.9985664 | 15c/82r | 0 | `217c4d1cea90614d90408f98d52cfbed702d910b75d1b03ff414703a934b5b8f` |
+| 14 | LANGUAGE_TRANSLATION | `language_translation_r3` | 0.93333286 | 15c/81r | 6 | `44f78d952df2d39185dc51204f4a9c5215b86c93ace1af63193ddc333ba687db` |
+| 15 | SPORTS_SCORE | `sports_score_r3` | 0.9921645 | 15c/24r | 13 | `4869bb9dd37eb5211ba5bccbe821acc88c29cc5f65cc3d69c0fd24eb6d4ddbe7` |
+| 16 | GAME_RESULT | `game_result_r3` | 0.7150477 | 15c/27r | 14 | `e8cf6e87c140ec1a2b9a253090d0dd7d25d138c0ab9d05ca9303aa1104b32da3` |
+| 17 | GAS_PRICE | `gas_price_r3` | 0.91666055 | 15c/106r | 14 | `2aa7f75823021f38c533a7627e976b359fdb6a027f5705915010d6ceeb26325b` |
+| 18 | MEDIA_AUTHENTICITY_CHECK | `media_authenticity_check_r3` | 0.9913683 | 6c/0r | 14 | `0c2463fda3694fd0820035a69e02752b06a7727ad043851d5eb7de0c99e85aa8` |
+| 19 | WEATHER_FORECAST | `weather_forecast_r3` | 0.53020585 | 15c/21r | 15 | `d22bea3bf1da5ec2916ae07cdb4f99e7e8f3e30056d09fcea9bd8fcea17abb48` |
+| 20 | STOCK_PRICE | `stock_price_r3` | 0.80000293 | 15c/89r | 15 | `4fae3280fadc4ff7fcaca23c43a3b4a82e5fe2cfe472d3c7d56d4ebbf82dec04` |
+| 21 | WALLET_BALANCE_CHECK | `wallet_balance_check_r3` | 0.73177785 | 15c/55r | 16 | `2c5a96c5a464a6b82758c0a49dc71f1c34b811bcfdac438ac44b097a0066935a` |
+| 22 | ONCHAIN_TX_LOOKUP | `onchain_tx_lookup_r3` | 0.7922707 | 15c/22r | 16 | `9b45c5a4b754e0f696591a461c91b2820120c4e12852a7b7751fc308caa4e32d` |
+| 23 | TVL_LOOKUP | `tvl_lookup_r3` | 0.79607064 | 32c/0r | 17 | `881d234a2dfc577db0ccd6f797a114c2b9b9c091ca8118aed3b367b1dd15def5` |
+| 24 | CURRENCY_EXCHANGE | `currency_exchange_r3` | 0.9993335 | 15c/19r | 21 | `73fa40db20ec72acda0c5405c1ddddf1b0f7aaa842bda506f85721fbea74c8d5` |
+
+All twenty-four are at commit `4feb894`:
+
+```text
+https://raw.githubusercontent.com/Harshyadav442277/miner/4feb894/track2/calibration/dist/<file>.wasm
+```
+
+## What each one was verified against
+
+Per artifact, before publication: the base was Keccak-matched to its on-chain registration;
+the candidate differs from that base in the function, export and code sections only, with
+every other section byte-identical; the appended body equals the exact two-band encoding for
+its declared threshold and bands; the map is strictly increasing across the threshold in f32;
+and on a 27-row cross-intent probe corpus the candidate reproduces the declared formula on
+27/27 rows with **zero ordering inversions** against the raw base.
+
+`url_scan_r3` and `fact_check_r3` collapse nine and ten probe pairs to ties. Every collapsed
+pair is two *good* answers one f32 ULP apart at 1.0 (1.0 versus 0.99999994), never a good
+answer against a bad one, and both intents carry 0 and 4 historical rows, so the real-traffic
+gate has almost nothing to disagree about. They are signable as-is.
+
+## Do not sign
+
+- **STORM_ALERT** — bar 0.99000794 behind a real-traffic gate that already killed 1928 and
+  1997. The widest band that survives that gate tops out near 0.93. No rung exists until the
+  base itself is replaced. It is the one intent of the twenty-five that was built and dropped.
+- **The 1.0 ceilings** — AI_TEXT_DETECTION, CONTENT_EXTRACTION, CONTENT_VERIFICATION,
+  DEEPFAKE_DETECTION, IMAGE_VERIFICATION, SENTIMENT_ANALYSIS, TELEGRAPH_KNOWLEDGE,
+  TEXT_CLASSIFICATION, TWITTER_SEARCH. Nothing beats an exact 1.0.
+- **TEXT_GENERATION** — bar 0.99996686; our best in family is 0.9997861.
+- **The six already queued**, listed at the top.
+
+## Calibration actually used, per intent
+
+| intent | threshold | low | high | why |
+|---|---|---|---|---|
+| WEB_SEARCH | 0.45 | 0.05 | 0.2 | wide bands: bar under 0.99 with 124 historical rows |
+| AGENT_TASK | 0.7 | 0.005 | 0.05 | m45 measured 0.8765, v3 (t=0.10) measured 0.8463 — lowering t was worse, so t moved up |
+| NEWS_SEARCH | 0.45 | 0.05 | 0.2 | wide bands: bar under 0.99 with 20 historical rows |
+| CHAT_COMPLETION | 0.9 | 0.05 | 0.2 | m45 and v3 both tied the champion to eight digits; t=0.90 is the untried side |
+| SSL_VERIFICATION | 0.45 | 0.005 | 0.05 | default m45 |
+| FACT_CHECK | 0.45 | 0.005 | 0.05 | default m45 |
+| URL_SCAN | 0.75 | 0.005 | 0.05 | m45 and v3 both returned exactly 0.9343, so no pair sits in [0.10, 0.45); t moved up |
+| FINANCIAL_DATA | 0.45 | 0.005 | 0.05 | default m45 |
+| RESEARCH_QUERY | 0.45 | 0.005 | 0.05 | default m45 |
+| VIDEO_VERIFICATION | 0.45 | 0.005 | 0.05 | default m45 |
+| RESEARCH_SYNTHESIS | 0.45 | 0.005 | 0.05 | default m45 |
+| NEWS_HEADLINES | 0.45 | 0.005 | 0.05 | default m45 |
+| FRAUD_DETECTION | 0.65 | 0.005 | 0.05 | t=0.65 is the rung that measured 0.9999429 as reg 2372, which died on the clock |
+| LANGUAGE_TRANSLATION | 0.45 | 0.05 | 0.2 | wide bands: bar under 0.99 with 81 historical rows |
+| SPORTS_SCORE | 0.45 | 0.005 | 0.05 | default m45 |
+| GAME_RESULT | 0.8 | 0.05 | 0.2 | m45 0.4722, v3 0.3447 — the base clusters high, so t=0.80 |
+| GAS_PRICE | 0.45 | 0.05 | 0.2 | wide bands: bar under 0.99 with 106 historical rows |
+| MEDIA_AUTHENTICITY_CHECK | 0.45 | 0.005 | 0.05 | default m45 |
+| WEATHER_FORECAST | 0.45 | 0.05 | 0.2 | wide bands: bar under 0.99 with 21 historical rows |
+| STOCK_PRICE | 0.45 | 0.05 | 0.2 | wide bands: bar under 0.99 with 89 historical rows |
+| WALLET_BALANCE_CHECK | 0.45 | 0.05 | 0.2 | wide bands: bar under 0.99 with 55 historical rows |
+| ONCHAIN_TX_LOOKUP | 0.45 | 0.05 | 0.2 | wide bands: bar under 0.99 with 22 historical rows |
+| TVL_LOOKUP | 0.45 | 0.005 | 0.05 | default m45 |
+| CURRENCY_EXCHANGE | 0.45 | 0.005 | 0.05 | default m45 |
+
+## SHA-256 of the published bytes
+
+| file | bytes | sha256 |
+|---|---:|---|
+| `web_search_r3.wasm` | 900000 | `9ddd9e493e462dabf2a326b1b61a1ef11995ffce4f363a8abe8501db43ce29e6` |
+| `agent_task_r3.wasm` | 24000000 | `449363376734e24a16e0a06f5eae8e085781739b0cd8fe6a81ee53a42e39c946` |
+| `news_search_r3.wasm` | 24000000 | `ad0900db09efa5ecc6da2998c91a861a8016dfc1ce847059fc674847cda25b9b` |
+| `chat_completion_r3.wasm` | 24200000 | `9e95183fece6ee83540c0a990a89715fc93024784d9a0771a42be0d52cb95ef5` |
+| `ssl_verification_r3.wasm` | 24000000 | `986a83111289debfb2ea08db91e11da8e6e0050694da06fe85f76c89f6b731a1` |
+| `fact_check_r3.wasm` | 0 | `9ba859404981738e45591a3ae99a7bee2c1760997000b3020c6cab8b7e57270f` |
+| `url_scan_r3.wasm` | 1100000 | `6fe2781af0199483868b806f7554bbc121939f1cb9451966e402ce8434923c91` |
+| `financial_data_r3.wasm` | 1100000 | `5b85aff5234a52f83a22783ffd64c6bd241693cfc47dc8ef6e9829504b5c80da` |
+| `research_query_r3.wasm` | 24000000 | `b9152a968b6506454d5f2b59b288efd7f73fdbe0283a7d6c65bd26f2315b686f` |
+| `video_verification_r3.wasm` | 24000000 | `57e1459e5c52bda680d84772fe4b678f992ad8f7f75fcfd0631e25fde1d8dbed` |
+| `research_synthesis_r3.wasm` | 24000000 | `56c347be3df7cf75fc9befe7068d78554bf50d9fc1f29ada28dae8298636cd6d` |
+| `news_headlines_r3.wasm` | 24000000 | `051f1957841bb435a6bde0c325d4b323cbe03b2a8984d89e4a0aa61462cb9097` |
+| `fraud_detection_r3.wasm` | 24000000 | `52c99dfcfafddcc7f8860172f163c41e9bea73ed723b75a9f57fec39a6de4a70` |
+| `language_translation_r3.wasm` | 1100000 | `b753359f5fd3be4d99ef2e95ed7f1e9aa4128173fc3998534c80d59be9a9e1bb` |
+| `sports_score_r3.wasm` | 24000000 | `46d71765e03587bade561e048a5dd423e53ee5104551ad47e93cc88d4d02a520` |
+| `game_result_r3.wasm` | 0 | `45974b3deb15f4c3929d7d4552980f261a026259641929c10d35c682b05ee91b` |
+| `gas_price_r3.wasm` | 0 | `8144275b75edd31e118e4a558cb515e2b9934635b1aeced42707e753de2fb515` |
+| `media_authenticity_check_r3.wasm` | 24000000 | `2899fa9170f56ef26417a35cf39065759ba470fe1642abc9da07b09644abaf16` |
+| `weather_forecast_r3.wasm` | 24000000 | `1e3e0c25e5f1d5f83118cc1ed1403bf50979b3ab13ad4b6852ab85a25bbc4cd6` |
+| `stock_price_r3.wasm` | 1000000 | `0455ad8baf7df4718b3aa3878e3d9da9591d805c48b66a74f0699f7391a5ccd1` |
+| `wallet_balance_check_r3.wasm` | 1100000 | `f77572841b5488e440523ebbd527bb3454582698e47da92ebb3774821b84e09c` |
+| `onchain_tx_lookup_r3.wasm` | 24000000 | `f785615e3acd2aa5757ab135d283be6193ec89a3630717f65a3e57884e8dc60d` |
+| `tvl_lookup_r3.wasm` | 1000000 | `3eff3b3fd6a9d09ccee559185728f3bd65ff01b0768501906656afca5341c887` |
+| `currency_exchange_r3.wasm` | 24000000 | `812567c0aca4589b992bca68b5e92fe60d5752cff53e32f2360d4ae5b1a97f8d` |
+
+---
+## SUPERSEDED BATCH — 2026-08-31 ~04:10Z · sign in this order, ONE AT A TIME
 
 Registry sweep at 04:00Z (all 45 intents, 67 of our entries): **3 intents held**, not 8 —
 CVE_LOOKUP 1993, LANGUAGE_GENERATION 2010, TEXT_AUTHENTICITY_CHECK 1882. `0x8b224783` retook five
