@@ -266,7 +266,15 @@ Why it matters more than it looks:
 **Prevent:** either stop recording epochs by hand and let CI own that file, or have the job write
 to a per-run file instead of appending to a shared one.
 
-### G21 · The uptime tripwire is slower and narrower than it claims — `NARROWER half RESOLVED 2026-08-29; SLOWER half accepted`
+### G21 · The uptime tripwire is slower and narrower than it claims — `NARROWER half RESOLVED 2026-08-29; STICKY half RESOLVED 2026-08-31; SLOWER half accepted`
+**Sticky, found 2026-08-31.** The alarm opened issues but nothing ever closed them. Issue #2
+was raised by two transient failures on 2026-08-30 (16:44 and 19:51 — the badssl.com /
+Open-Meteo blips the CI comment already warns about) and stayed open through three clean runs
+afterwards. That is worse than a missing alarm: the `alarm` step reuses `existing[0]`, so one
+stale issue silently downgrades every later outage into a comment on a thread nobody is
+watching. A `resolve` job now closes any open `uptime` issue on a clean run, so an open issue
+means "failing right now" and the next real failure opens a fresh one.
+
 Resolved 2026-08-29 (session 2): a single `alarm` job with
 `needs: [check, live-tests, scores]` now opens or extends the `uptime`-labelled issue when **any**
 job fails, permissions are explicit, and the path was **proven live** — a forced failure via the
