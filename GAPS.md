@@ -951,3 +951,55 @@ times.
 is unavoidable, use Python raw strings for anything containing a backslash, and verify with
 `cat -A` rather than by reading the output back — the corruption is invisible to `grep`, to `sed`,
 and to reading the file. A scan of `src/`, `test/` and `tools/` found no other occurrence.
+
+### G48 · Full-board opportunity scan, 2026-08-31 — `OPEN: one strong candidate, and it is unmeasurable`
+
+`tools/opportunity-scan.mjs` sweeps all 45 canonical intents for the two things that decide entry:
+whether the intent is **crossable** (these scorers are cliffs — an intent whose best-ever score is
+~0.01 has never had a crossable question) and how weak the **current leader** is, since judging
+normalises against the leader rather than the field.
+
+**Where our own effort belongs, by the ratio that is actually judged:**
+
+```
+IP_GEOLOCATION        0.011   fixed today (G41); the single biggest lever on the average
+WALLET_BALANCE_CHECK  0.029   improved today, 0.298 -> 0.382 bench (G45, G46)
+ACADEMIC_SEARCH       0.753   exhausted: 0 of 26 epochs has EVER crossed (G42)
+WEATHER_FORECAST      0.939   noise band; #1 and #2 differ by 0.0007
+the other six         1.000   nothing to gain
+```
+
+Weather deserves a note because its all-time high (0.9967) makes it look winnable: **every recent
+epoch is dead**. Since 291 the field best has been 0.0090–0.0117 and nobody has crossed, so the gap
+between rank 1 and rank 2 is third-decimal noise, exactly like ACADEMIC.
+
+**The one genuinely striking find — `TELEGRAPH_KNOWLEDGE`:**
+
+```
+miners ever:        1   (telegraph-chatbot, 294 epochs)
+its last 2 epochs:  0.0000, 0.0000
+its failure:        LLM call to http://127.0.0.1:4000/v1/chat/completions
+```
+
+A sole incumbent whose backend is **a localhost address the Telegraph node cannot reach**. It is
+architecturally broken, not merely losing. Any positive score takes rank 1 at ratio 1.0 — the same
+arithmetic that justified CONTENT_EXTRACTION. We also have real domain knowledge for it in
+`docs/TELEGRAPH_FACTS.md`, so it could be answered honestly rather than bluffed.
+
+Also weak, in descending order: `FACT_CHECK` (leader `tavily` scored 0.0000 in five of the last six
+epochs) and `TEXT_CLASSIFICATION` (all three miners at 0.0000 almost always). `STOCK_PRICE` looked
+weak on current leader but is **contested** — `kriterion-pramagraph` crossed at 0.9946 and 0.9945 in
+294/295 — so it is not a walkover.
+
+**Why none of this was entered.** Adding an intent means another `updateMiner`, which
+**deregisters and re-registers atomically** and replaces the whole registration — including the six
+rank-1 positions currently held. That trade was worth taking for the three intents added earlier
+today because each had been measured against its own champion scorer over real recorded questions.
+None of these can be: `TELEGRAPH_KNOWLEDGE` has 294 score rows but no recovered questions or ground
+truths, G24 having removed them, so its answer shape cannot be measured before shipping. Entering
+blind on incumbent weakness alone is precisely what `SENTIMENT_ANALYSIS` cost this project.
+
+**The condition under which it becomes correct:** recover even a handful of `TELEGRAPH_KNOWLEDGE`
+(question, ground_truth) pairs, or obtain its champion scorer, and measure an honest answer built
+from `docs/TELEGRAPH_FACTS.md` against it. If that clears the bar, it is the cheapest rank-1 on the
+board. Until then it is a guess with the whole registration as the stake.
