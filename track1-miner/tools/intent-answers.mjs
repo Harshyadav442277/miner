@@ -58,10 +58,15 @@ const CHECKS = {
     const r = await get("/weather-forecast", { query: "What is the weather forecast for London over the next 24 hours?" });
     const b = r.body;
     if (!/london/i.test(b.reason)) bad.push("answer never names London");
-    if (b.temp_min_c == null || b.temp_max_c == null) bad.push("no temperature range");
-    // London is not Death Valley and not Vostok; a sane band catches unit bugs.
-    if (b.temp_min_c < -30 || b.temp_max_c > 50) bad.push(`temps ${b.temp_min_c}..${b.temp_max_c} implausible for London`);
-    if (b.temp_min_c > b.temp_max_c) bad.push("min temp exceeds max temp");
+    // Lean body: the range lives in the prose ("from 14.7°C to 22.3°C").
+    const range = String(b.reason ?? "").match(/from\s+(-?\d+(?:\.\d+)?)\s*°C\s+to\s+(-?\d+(?:\.\d+)?)\s*°C/i);
+    if (!range) bad.push("no temperature range in prose");
+    else {
+      const [lo, hi] = [Number(range[1]), Number(range[2])];
+      // London is not Death Valley and not Vostok; a sane band catches unit bugs.
+      if (lo < -30 || hi > 50) bad.push(`temps ${lo}..${hi} implausible for London`);
+      if (lo > hi) bad.push("min temp exceeds max temp");
+    }
     if (!b.verdict || b.verdict === "unknown") bad.push(`verdict ${b.verdict} is not a condition`);
     return bad;
   },
