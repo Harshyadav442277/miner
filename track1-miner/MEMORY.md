@@ -42,6 +42,14 @@ No updateMiner needed. G40/G42 annotated, `bench/acad_shape.mjs` reproduces.
 the champion registry (`/api/wasm?intent=…`) BEFORE touching answers.** Champions rotated 3x on
 2026-08-31 alone (translation 03:12Z, wallet 05:58Z). Registry `wasm_hash` is keccak256.
 
+**SSL and IP vs preflight: measured head-to-head and deliberately NOT changed (G54).** Our
+deployed answers beat preflight's own live answers under the real champions — IP 19/21 row-wins
+with 21/21 crossings (they fail every private-range and Tor row), SSL 9/12 with 8-vs-1 crossings.
+The 297 losses were question-flavor rotations outside the bench; every lead-sentence variant
+trades crossings one-for-one (`bench/ssl_lead_sweep.mjs`, `bench/h2h_preflight.mjs`). The SSL
+scorer is a "verdict" profile (polarity is everything), IP a "reference" profile (coverage beats
+brevity) — `zkasuran/telegraph-salience-scorer` deploy.py has the full per-intent map.
+
 Test suite is now 237/237; preflight 7/7 against the deployed build (one MyMemory-fallback flake
 re-ran green — MyMemory rate-limits after heavy probing days, same family as G43).
 
