@@ -25,6 +25,20 @@ the local file is CRLF and hashes differently). `REGISTRATION_ID` variable updat
 
 ---
 
+## State at 2026-08-31 ~04:15 UTC — CI GREEN, UPTIME ALARM NOW TWO-WAY
+
+- **`ci` is green on `main` again.** It had failed on every push since `6d4d262` at the
+  `track2-scorer` release-identity step. Cause and fix in [track2/GAPS.md](track2/GAPS.md) G26 and
+  [track2/MEMORY.md](track2/MEMORY.md); nothing under `track1-miner/` was involved.
+- **The uptime alarm was one-way** and issue #2 had been stale since 2026-08-30 19:51 across three
+  clean runs. Because the alarm reuses `existing[0]`, that one stale issue would have downgraded
+  the next real outage into a comment nobody reads. A `resolve` job now closes any open `uptime`
+  issue on a clean run; **proven live** — dispatch 33356183513 closed #2 at 04:11:21Z with a
+  recovery comment. G21 updated. An open `uptime` issue now means "failing right now".
+
+---
+
+
 ## State at 2026-08-30 ~21:45 UTC — PRODUCTION AUDIT
 
 **Three live defects found and fixed today, two of them serving confidently wrong answers on

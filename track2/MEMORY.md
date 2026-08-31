@@ -33,7 +33,19 @@ registration target as freestanding WASM". Settled today; details in [GAPS.md](G
   pins the registered wrapper's bytes (`release/registered-text-authenticity.json`, dev-only,
   rejected by `verify-standalone.mjs`).
 - **Open decision for the user:** whether to `registerWasm` the released scorer against a slot we
-  already hold with different bytes. Not done, not urged.
+  already hold with different bytes. Prepared as SIGN.md item 10; not signed.
+
+**Registry sweep 04:00Z — we hold 3, not 8.** CVE_LOOKUP 1993, LANGUAGE_GENERATION 2010,
+TEXT_AUTHENTICITY_CHECK 1882. `0x8b224783` retook CRYPTO_PRICE, TOKEN_HOLDER_COUNT,
+CONTENT_VERIFICATION and CONTENT_MODERATION in one batch at 2026-08-30T17:21:09Z, TASK_COMPLETION
+earlier that morning (2000), and LANGUAGE_TRANSLATION again at 2026-08-31T03:05 (2296, 0.93333286).
+Of 97 tracked calibration artifacts, 53 are already bound on chain and 44 are free.
+
+**Nine fresh signatures are staged in [SIGN.md](SIGN.md)**, hosted-byte verified at 04:10Z against
+`4c0f6d5`. The ordering rule that matters: `eval_score` compares only within the same
+`comparable_cases`/`historical_rows_evaluated` pair — our 0.99985 measured at `8c/0r` says nothing
+about a bar measured at `15c/7r`. CONTENT_VERIFICATION, IMAGE_VERIFICATION and TELEGRAPH_KNOWLEDGE
+champions all sit at exactly 1.0 and are not contestable at all.
 
 ---
 

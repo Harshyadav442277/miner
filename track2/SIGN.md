@@ -1,6 +1,69 @@
 # SIGN — full links
 
-## ACTIVE BATCH — 2026-08-30 ~16:00Z · sign in this order, ONE AT A TIME
+## ACTIVE BATCH — 2026-08-31 ~04:10Z · sign in this order, ONE AT A TIME
+
+Registry sweep at 04:00Z (all 45 intents, 67 of our entries): **3 intents held**, not 8 —
+CVE_LOOKUP 1993, LANGUAGE_GENERATION 2010, TEXT_AUTHENTICITY_CHECK 1882. `0x8b224783` retook five
+slots in one batch at 2026-08-30T17:21:09Z (CRYPTO_PRICE 2060, TOKEN_HOLDER_COUNT 2057,
+CONTENT_VERIFICATION 2062, and CONTENT_MODERATION 2055) plus TASK_COMPLETION 2000 earlier that
+morning, and took LANGUAGE_TRANSLATION again at 2026-08-31T03:05 with 2296 (0.93333286). Every
+file below is hosted-byte verified against its URL at 04:10Z; the keccak is what the console must
+show. **Wait for each verdict before the next signature** — queue depth is what kills evals on the
+10-minute budget.
+
+**Read the bar's conditions, not just its number.** `eval_score` is only comparable within the same
+`comparable_cases`/`historical_rows_evaluated` pair. Ours measured at `0r` say nothing about a bar
+measured at `82r`; that mismatch, not separation, is what killed GAS_PRICE, NEWS_SEARCH and
+STORM_ALERT (G22, T-H.6).
+
+| # | intent | file | bar to beat | keccak | why |
+|---|---|---|---|---|---|
+| 1 | WEATHER_FORECAST | `weather_forecast_v3` | 0.53020585 | `46bb77599b38a449c58449ca09e5861f5758a59cce8a15ec4c8b93d8c84a1f96` | lowest bar on the board; our family measured 0.90905 (2023 died on the clock, not on score) |
+| 2 | ACADEMIC_SEARCH | `academic_search_contrast01` | 0.68037784 | `169d7c9020544003811093f91a1c4ce378c8292c9487cea0ead29ff66b16e832` | low bar; 1999 measured 0.79712 and died on the clock |
+| 3 | CONTENT_MODERATION | `content_moderation_v3` | 0.8 | `3673120c1ddbf6e5a1c263d7f4079ab93732dcdd68c509e4e50d971816025fe0` | 2055 took our 2003 with a 0.8; the bar dropped when the fixture set went 32c -> 15c |
+| 4 | TOKEN_HOLDER_COUNT | `token_holder_count_v3` | 0.85714287 | `af42b0b805d8d3bc92c80f8510eda1d9300ed93dd0d43b08327b8988ed9eeaf3` | 2017 measured 0.86664 at 15c/25r against a bar now set at 14c/28r |
+| 5 | IP_GEOLOCATION | `ip_geolocation_v3` | 0.85738987 | `35a34c1dac887a58e5840618d951ce6ae9ff756607489cb6ee13306c10e25ea8` | 2090 measured 0.99985 but at 8c/0r; bar is 15c/7r |
+| 6 | CRYPTO_PRICE | `crypto_price_v3` | 0.8 | `7499d2e251373d7fc6cbde4df93f1ffc0ee735bf5f044c05f67b38b9a9a70103` | 1994 lost by 1.5e-6 under *identical* 15c/109r conditions - the only exactly-comparable retake |
+| 7 | TASK_COMPLETION | `task_completion_v3` | 0.99913317 | `17b5a79361502586f992e7b9c4687b316c169feaafa71e08e128046e2e042cda` | 1930 measured 0.99823 at identical 15c/146r; the retake SIGN listed on 08-30 and never fired |
+| 8 | WEATHER_CHECK | `weather_check_v3` | 0.98340964 | `3c2e6d53a1b390e5b57f09f93fe5c1a199576b7fe39cd7817b98b8902c6227a7` | 2016 measured 0.99990 at 7c/0r; bar is 12c/47r |
+| 9 | FRAUD_DETECTION | `fraud_detection_v2_safe` | 0.9985664 | `1ecf3c814d0cdc13273e27e8d7e56ec9822cc1567a152b03d29da7e5da1ace92` | 1995 measured 0.99999 at 10c/0r; bar is 15c/82r |
+
+Same commit for all nine — `4c0f6d5db19f72c76031d90f1aa842a115d643a8`:
+
+```text
+https://raw.githubusercontent.com/Harshyadav442277/miner/4c0f6d5db19f72c76031d90f1aa842a115d643a8/track2/calibration/dist/<file>.wasm
+```
+
+## 10 · TEXT_AUTHENTICITY_CHECK — the released scorer (T-H.11)
+
+Different repository, and the only entry here that is our own from-source work rather than a
+calibration wrapper. Bar is **0.66666603**, our own registration 1882, against a ceiling of
+0.6666667 — so the headroom is 6.7e-7 and this may simply not clear. It costs nothing to find out:
+a rejection leaves 1882 champion, and a pass replaces a derivative wrapper with the artifact
+SUBMISSION.md §3 actually claims (dissolves G26, and G23 stops applying to this slot).
+
+30,897 bytes · SHA-256 `3bb3bb82e0f6e2db9948e8ce96c8f1796835858d4b0a78332ec0b624501628a9` ·
+keccak `8cfc5456b08363d281878b59f587ad9c44b7296b211a6a4bab4ec794a3c58a07`. Hosted bytes
+re-downloaded and both hashes re-verified 2026-08-31 04:00Z.
+
+```text
+https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/638dae46ba31c1bf3a30e9d0e541b7c56f3fe48b/dist/text_authenticity.wasm
+```
+
+## Do not sign
+
+- **CONTENT_VERIFICATION (2062), IMAGE_VERIFICATION (2101), TELEGRAPH_KNOWLEDGE (2104)** — champion
+  sits at exactly **1.0**. Nothing can beat it.
+- **TEXT_GENERATION (2287, 0.99996686)** — our best in family is 0.9997861. Not close enough.
+- **Every GAS_PRICE / NEWS_SEARCH / STORM_ALERT rung** — real-traffic tie-collapse, unchanged since
+  2026-08-30 (T-H.6 rebuild first).
+- **WEB_SEARCH** — bar 0.99000794 at 32c/32r, our best 0.46991. Not a contest.
+- **LANGUAGE_TRANSLATION** — twelve unsigned rungs exist, but the bar moved from 0.8 to 0.93333286
+  on a base our 0.8-ceiling family cannot reach. The t092/t097 rungs are G22 extrapolations above
+  the swept range; treat as research, not a signature.
+
+
+## SUPERSEDED BATCH — 2026-08-30 ~16:00Z (all fired; see the sweep above)
 
 Registry at 15:45Z: **11 intents held** (TEXT_AUTHENTICITY 1882, LANGUAGE_TRANSLATION 1996,
 CVE_LOOKUP 1993, CRYPTO_PRICE 1994, CONTENT_MODERATION 2003, TEXT_GENERATION 2006,

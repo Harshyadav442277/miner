@@ -222,8 +222,12 @@ rule 04 (gaming = disqualification) and rule 02 (stay live through Track 3) re-r
       still reproduces exactly — and the registered wrapper's bytes are pinned separately. Both
       builds verified reproducible across Windows and Linux; no toolchain drift. → GAPS G26,
       `release/check-release-identity.mjs`.
-- [ ] **T-H.11** [User] Decide whether to `registerWasm` the released scorer
-      (`release/text-authenticity.json`, 30,897 bytes, keccak `8cfc5456…`, published at
-      `telegraph-factscore` `638dae46` and never registered). It would contest the
-      TEXT_AUTHENTICITY_CHECK slot we already hold as registration 1882 with different bytes.
-      Wallet action, user only.
+- [ ] **T-H.11** [User] `registerWasm` the released scorer against TEXT_AUTHENTICITY_CHECK —
+      link, hashes and the risk read are staged as [SIGN.md](SIGN.md) item 10. Bar is our own
+      1882 at 0.66666603 against a 0.6666667 ceiling, so it may not clear; a rejection leaves 1882
+      champion, a pass replaces a derivative wrapper with our own from-source work. Wallet action,
+      user only.
+- [ ] **T-H.12** [User] Sign the nine-item batch in [SIGN.md](SIGN.md), one at a time, verdict
+      before the next. Registry sweep 2026-08-31 04:00Z: we hold **3** intents, not 8 —
+      `0x8b224783` retook five slots on 08-30 and LANGUAGE_TRANSLATION again at 03:05 today.
+      All nine hosted-byte verified at 04:10Z.
