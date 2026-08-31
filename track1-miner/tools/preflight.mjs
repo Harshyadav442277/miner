@@ -41,7 +41,7 @@ const GATES = [
   // silently dropping "2.3 meters" and returning nothing for an un-instructed
   // payload, on the intent with the largest measured upside in the project.
   ["intent answers (correctness)", () => run("node", [join(TOOLS, "intent-answers.mjs"), BASE], TOOLS),
-    (o) => /10\/10 intents answering correctly/.test(o)],
+    (o) => /12\/12 intents answering correctly/.test(o)],
   ["hostile inputs", () => run("node", [join(TOOLS, "hostile-inputs.mjs"), BASE], TOOLS),
     (o) => /\b0 bad\b/.test(o)],
   ["upstream health", () => run("node", [join(TOOLS, "upstream-health.mjs")], TOOLS),

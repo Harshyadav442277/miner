@@ -9,6 +9,8 @@ import { detectAiText, type AiDetectResult } from "./aidetect";
 import { extractContent } from "./content";
 import { getHeadlines } from "./news";
 import { checkBalance, type WalletResult } from "./wallet";
+import { checkFact, type FactCheckResult } from "./factcheck";
+import { answerTelegraph, type TelegraphResult } from "./telegraph";
 import { withRestatement, isAnswered } from "./restate";
 
 const CACHE_TTL_MS = Number(process.env.CACHE_TTL_MS ?? 60_000);
@@ -17,6 +19,7 @@ export const ENDPOINTS = [
   "/ssl-check", "/storm-alert", "/weather-forecast",
   "/ip-geolocate", "/translate", "/papers",
   "/ai-detect", "/extract", "/headlines", "/wallet-balance",
+  "/fact-check", "/telegraph",
 ] as const;
 
 /**
@@ -25,7 +28,7 @@ export const ENDPOINTS = [
  */
 type Answer =
   | SslResult | StormResult | ForecastResult | GeoResult | TranslationResult | PaperResult
-  | AiDetectResult | WalletResult;
+  | AiDetectResult | WalletResult | FactCheckResult | TelegraphResult;
 const cache = new Map<string, { at: number; value: Answer }>();
 
 function fromCache(key: string): Answer | null {
@@ -83,6 +86,8 @@ const SUBJECT_OF: Record<string, string> = {
   "/extract": "A field extraction",
   "/headlines": "Current headlines",
   "/wallet-balance": "A wallet balance lookup",
+  "/fact-check": "A fact check",
+  "/telegraph": "An answer about Telegraph",
 };
 
 function armWatchdog(res: ServerResponse, path: string, question: string): void {
@@ -531,6 +536,65 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     const asked = firstValue(url, "query", "q", "question");
     const subject = firstValue(url, "text", "content", "passage", "input") || asked;
     sendAnswer(res, asked, detectAiText(subject));
+    return;
+  }
+
+  if (path === "/fact-check") {
+    const q = withSubject(
+      firstValue(url, "query", "q", "question", "input"),
+      firstValue(url, "claim", "statement", "text"),
+    );
+    if (!q.trim()) {
+      sendAnswer(res, q, {
+        verdict: "unknown",
+        confidence: 0,
+        reason:
+          "No claim was supplied with this request, so nothing could be fact-checked. State a " +
+          "checkable claim, for example: Is it true that the Eiffel Tower is in Paris?",
+        error: "invalid_input",
+      });
+      return;
+    }
+    const key = `fact:${q.trim().toLowerCase()}`;
+    const hit = fromCache(key);
+    if (hit) {
+      sendAnswer(res, q, hit);
+      return;
+    }
+    checkFact(q)
+      .then((r) => {
+        toCache(key, r);
+        sendAnswer(res, q, r);
+      })
+      .catch(() => upstreamUnavailable(res, "A fact check", q.slice(0, 60), q));
+    return;
+  }
+
+  if (path === "/telegraph") {
+    const q = firstValue(url, "query", "q", "question", "text", "input", "topic");
+    if (!q.trim()) {
+      sendAnswer(res, q, {
+        verdict: "unknown",
+        confidence: 0,
+        reason:
+          "No question was supplied with this request, so nothing about Telegraph could be " +
+          "answered. Ask about miner registration, intents, scoring, the Explorer or the hackathon.",
+        error: "invalid_input",
+      });
+      return;
+    }
+    const key = `tg:${q.trim().toLowerCase()}`;
+    const hit = fromCache(key);
+    if (hit) {
+      sendAnswer(res, q, hit);
+      return;
+    }
+    answerTelegraph(q)
+      .then((r) => {
+        toCache(key, r);
+        sendAnswer(res, q, r);
+      })
+      .catch(() => upstreamUnavailable(res, "An answer about Telegraph", q.slice(0, 60), q));
     return;
   }
 

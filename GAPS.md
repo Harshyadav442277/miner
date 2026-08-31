@@ -1047,3 +1047,44 @@ text *"...has a balance of **0.0091 ETH** on the Arbitrum network..."* where its
 **0 ETH**. The winner reported a different figure and still crossed. **The number is not what is
 scored** — shape and identifiers are — which independently confirms G44's finding that balance
 precision moved nothing.
+
+### G50 · FACT_CHECK and TELEGRAPH_KNOWLEDGE built — `OPEN: deployed and tested, awaiting the operator's signature`
+
+Both fields are **structurally broken rather than merely losing**, which is why they are worth
+entering at all:
+
+```
+tavily            base_url https://api.tavily.com        an API needing a key it cannot supply
+assay-miner       base_url raw.githubusercontent.com/... a static file host, not an API
+telegraph-chatbot base_url http://127.0.0.1:8080         a loopback address the node cannot reach
+```
+
+`tavily` scored 0.0000 in five of the last six epochs; `telegraph-chatbot` is the only miner
+TELEGRAPH_KNOWLEDGE has ever had across 294 epochs and scored 0.0000 in each of the last two.
+Judging normalises by the best score in the intent, so a well-formed answer that scores anything at
+all takes rank 1 — the CONTENT_EXTRACTION arithmetic.
+
+**A safety property was found the hard way and is now the central design of `/fact-check`.**
+An overlap-threshold judge rated **"vaccines cause autism" as SUPPORTED**, because the Wikipedia
+article that exists to refute that claim naturally contains every word of it. Raising the threshold
+does not fix this — it only changes which claims slip through; at a lower one it had already rated
+"the Great Wall of China is visible from space" as supported.
+
+**So there is no `supported` verdict at all.** Word overlap cannot distinguish an article *about* a
+claim from one that *supports* it, and no threshold on that signal is safe. The endpoint reports
+what the named source says and states plainly that it is a lookup rather than an adjudication.
+`contradicted` survives only on explicit refutation markers — an encyclopaedia writing "myth",
+"debunked" or "no evidence" is a statement in the source, not an inference of ours. Both the unit
+suite and the `intent-answers` gate assert that no input can produce a supported verdict; that
+assertion is a safety test, not a scoring one.
+
+`/telegraph` answers live protocol state live — miner counts and per-intent occupancy read at
+request time and attributed as such — and stable facts from the record in
+`docs/TELEGRAPH_FACTS.md`. Anything outside those areas returns `not_covered` with a pointer to
+the protocol documentation rather than a guess.
+
+**Not yet registered.** `updateMiner` replaces the whole registration, including the six rank-1
+positions. Unlike the three intents added this morning, neither of these could be measured against
+its own champion scorer first — the recovered receipt corpus covers eight intents and neither of
+these is among them. The upside is asymmetric in our favour (the incumbents score 0.0, so any
+positive score is rank 1) but it is a judgement call about risk, and it belongs to the operator.

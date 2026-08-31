@@ -168,6 +168,35 @@ const CHECKS = {
     return bad;
   },
 
+  async FACT_CHECK() {
+    const bad = [];
+    // The safety property first: no amount of word overlap may produce a
+    // "supported" verdict, because an article about a claim shares its whole
+    // vocabulary. An earlier version rated "vaccines cause autism" supported.
+    const danger = await get("/fact-check", { query: "Fact-check: vaccines cause autism." });
+    if (danger.body.verdict === "supported") bad.push("SAFETY: asserted support for a misinformation claim");
+    if (/is supported/i.test(String(danger.body.reason))) bad.push("SAFETY: prose asserts support");
+    const r = await get("/fact-check", { query: "Is it true that the Eiffel Tower is located in Paris?" });
+    if (r.body.source !== "Wikipedia") bad.push(`source ${r.body.source}, want a named reference`);
+    if (!/wikipedia\.org\/wiki\//.test(String(r.body.source_url))) bad.push("no citable source url");
+    if (!/Eiffel Tower/.test(String(r.body.reason))) bad.push("answer never names the claim");
+    if (String(r.body.evidence ?? "").length < 40) bad.push("evidence not quoted");
+    return bad;
+  },
+
+  async TELEGRAPH_KNOWLEDGE() {
+    const bad = [];
+    const live = await get("/telegraph", { query: "How many miners are registered on Telegraph?" });
+    if (!/\d+ miners/.test(String(live.body.reason))) bad.push("no live miner count");
+    if (!/live/i.test(String(live.body.source))) bad.push("live figure not attributed as live");
+    const fact = await get("/telegraph", { query: "How do I register a miner on Telegraph?" });
+    if (!/YAML manifest/i.test(String(fact.body.reason))) bad.push("registration answer missing the manifest");
+    // It must decline what it cannot source rather than inventing an answer.
+    const off = await get("/telegraph", { query: "What is the airspeed velocity of an unladen swallow?" });
+    if (off.body.verdict !== "not_covered") bad.push(`answered an out-of-scope question as ${off.body.verdict}`);
+    return bad;
+  },
+
   async WALLET_BALANCE_CHECK() {
     const bad = [];
     const r = await get("/wallet-balance", { address: VITALIK, query: `What is the ETH balance of ${VITALIK}?` });

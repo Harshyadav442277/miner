@@ -242,6 +242,48 @@ endpoints:
             intents: ["*"]
             description: "The user's original question, verbatim. It names the chain and any token asked about alongside the native coin."
 
+  - path: /fact-check
+    external_path: /fact-check
+    method: GET
+    intents: [FACT_CHECK]
+    description: >-
+      A specific claim, looked up against a citable encyclopaedic reference and
+      reported with the article named and quoted. Reports an explicit refutation when
+      the source states one, and otherwise says plainly that the source does not settle
+      the claim. It does not adjudicate contested claims and never asserts that a claim
+      is true on the strength of a topical match.
+    params:
+      query:
+        required:
+          - name: claim
+            type: string
+            intents: ["*"]
+            description: "The claim to check, e.g. The Eiffel Tower is located in Paris."
+        optional:
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim. The claim is extracted from it."
+
+  - path: /telegraph
+    external_path: /telegraph
+    method: GET
+    intents: [TELEGRAPH_KNOWLEDGE]
+    description: >-
+      Questions about Telegraph itself — miner registration and the YAML registry,
+      the canonical intent set, how answers are scored, the Explorer and leaderboard,
+      and the hackathon. Live figures such as the number of registered miners or the
+      miners serving a named intent are read from the protocol at request time rather
+      than recalled. Questions outside those areas are answered as not covered, with a
+      pointer to the protocol documentation, rather than guessed.
+    params:
+      query:
+        required:
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The question about Telegraph, verbatim."
+
   - path: /ai-detect
     external_path: /ai-detect
     method: GET
@@ -282,6 +324,8 @@ semantics:
     - CONTENT_EXTRACTION
     - NEWS_HEADLINES
     - WALLET_BALANCE_CHECK
+    - FACT_CHECK
+    - TELEGRAPH_KNOWLEDGE
 
 # input_schema is a single top-level block covering every endpoint — the schema
 # refuses it inside endpoints[], and the node does not enforce it against requests.
@@ -540,6 +584,13 @@ output_schema:
           title: { type: string }
           source: { type: [string, "null"] }
           published: { type: [string, "null"] }
+
+    # /wallet-balance
+    # /fact-check
+    claim: { type: [string, "null"] }
+    source: { type: [string, "null"], description: "The reference consulted, named so a reader can weigh it." }
+    source_url: { type: [string, "null"] }
+    evidence: { type: [string, "null"], description: "The passage the verdict was read from." }
 
     # /wallet-balance
     address: { type: [string, "null"] }
