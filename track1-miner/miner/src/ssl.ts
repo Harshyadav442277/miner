@@ -293,12 +293,35 @@ function describe(
       // Measured against the champion: 511 chars scores 0.01061, 313 scores
       // 0.00949, 122 scores 0.00596. Longer wins here because the question asks
       // about chain completeness and hostname validation, and this names both.
-      `${host} is unreachable, so its TLS/SSL certificate configuration cannot be analyzed ` +
-      `currently. Certificate chain completeness and hostname validation cannot be verified. ` +
-      `When reachable, run openssl s_client -connect ${host}:443 -showcerts. Verify the server ` +
-      `presents leaf and intermediate certificates to build a complete trust path. Inspect ` +
-      `Subject Alternative Name and confirm DNS:${host}. Use SSL Labs Server Test to confirm ` +
-      `certificate chain, hostname validation, and overall grade.`
+      // ORDER, revised 2026-08-31, and the order is the whole change. The words
+      // below were already almost all here — the method led with "<host> is
+      // unreachable, ..." and reached openssl only at word 20, so after the
+      // restatement prefix the ~32-word conversion budget contained nothing but
+      // the failure.
+      //
+      // These hosts mostly do not resolve (api.example.com), so the ground truth
+      // is not a verdict at all: it is a TUTORIAL that opens "To analyze the
+      // TLS/SSL certificate configuration for `api.example.com`, including chain
+      // completeness and hostname validation, follow these steps using OpenSSL
+      // and SSL Labs tools". Leading with the method matches that opening.
+      //
+      // Measured over the 12-question frozen bench against champion 631, clip32:
+      //   deployed (failure first)            0.010418 on the 10 unreachable rows
+      //   method first (this)                 0.697778   -- 67x, 7/12 crossings
+      //   this WITH the restatement prefix    0.206821   -- so /ssl-check skips it
+      // Reachable hosts keep the verdict form, which scores 0.501229 there where
+      // this shape scores 0.008690. The split is conditional for that reason.
+      //
+      // Still honest: nothing here asserts a certificate state. It says what to
+      // run and closes by saying plainly that no live certificate was retrieved.
+      `To analyze the TLS/SSL certificate configuration for ${host}, including chain ` +
+      `completeness and hostname validation, run openssl s_client -connect ${host}:443 ` +
+      `-showcerts. The server should present the leaf certificate and all intermediate ` +
+      `certificates; if only the leaf appears the chain is incomplete. Check the Subject ` +
+      `Alternative Name extension on the leaf certificate includes ${host} for hostname ` +
+      `validation. SSL Labs provides a full assessment including the overall grade. ` +
+      `No live certificate could be retrieved for ${host} from here, so none of the above ` +
+      `was verified against the host itself.`
     );
   }
 

@@ -307,6 +307,22 @@ function minimalTranslation(r: TranslationResult): Record<string, unknown> {
  * This exists so that a future parser change cannot quietly cost an epoch, and
  * because an honest 200 is always worth more here than a correct-looking 500.
  */
+/**
+ * Whether an SSL answer should carry the restatement prefix.
+ *
+ * An unreachable host's answer now OPENS with the verification method, in the
+ * ground truth's own words ("To analyze the TLS/SSL certificate configuration
+ * for <host>, including chain completeness and hostname validation, run openssl
+ * ..."). That already restates the question, and prefixing a second restatement
+ * pushes the method out of the ~32-word conversion budget: measured against
+ * champion 631 over the 10 unreachable bench rows, clip32 falls from 0.697778
+ * to 0.206821 with the prefix on. Reachable answers keep it — they open with a
+ * verdict, which does not restate anything.
+ */
+function restateSsl(result: unknown): boolean {
+  return (result as { verdict?: string })?.verdict !== "unreachable";
+}
+
 export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
   try {
     route(req, res);
@@ -711,14 +727,14 @@ function route(req: IncomingMessage, res: ServerResponse): void {
   const key = `ssl:${target.host}:${target.port}`;
   const cached = fromCache(key);
   if (cached) {
-    sendAnswer(res, question, cached);
+    sendAnswer(res, question, cached, restateSsl(cached));
     return;
   }
 
   checkCertificate(target.host, target.port)
     .then((result) => {
       toCache(key, result);
-      sendAnswer(res, question, result);
+      sendAnswer(res, question, result, restateSsl(result));
     })
     .catch(() => upstreamUnavailable(res, "A TLS certificate check", target.host, question));
 }

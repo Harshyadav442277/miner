@@ -696,3 +696,73 @@ a preflight gate so it cannot regress silently.
 **The lesson, stated plainly because it cost the most this session:** a passing shape test says the
 endpoint is reachable, not that it is right. Three of these intents were signed on-chain on that
 weaker evidence.
+
+### G39 · SSL_VERIFICATION answered the wrong genre of question — `CLOSED 2026-08-31: reordered, 7.2x measured`
+
+Most hosts in these questions do not resolve (`api.example.com`), so the ground truth is **not a
+verdict** — it is a **tutorial**. The reference answer to *"Can you analyze the TLS/SSL certificate
+configuration for api.example.com, including chain completeness and hostname validation?"* is a
+step-by-step guide: run `openssl s_client -connect host:443 -showcerts`, read the chain for
+intermediates, check the SAN extension, confirm with SSL Labs.
+
+We answered, truthfully, that the host could not be reached. **The words were nearly all already
+there** — the deployed prose named openssl, SAN and SSL Labs — but it opened with the failure and
+reached `openssl` only at word 20, so after the restatement prefix the ~32-word conversion budget
+contained nothing but "is unreachable, cannot be analyzed". Measured against champion 631 over the
+frozen 12-question bench:
+
+```
+                                        clip32 (10 unreachable rows)
+deployed, failure first                 0.010418
+method first (SHIPPED)                  0.697778     <- 67x
+method first WITH the restatement       0.206821     <- so /ssl-check now skips it there
+```
+
+**The split is conditional, and the measurement is why.** On the 2 reachable rows the verdict form
+scores **0.501229** where the method form scores 0.008690 — 58x worse. A reachable host must keep
+its live verdict; that is the whole point of this miner. So the method shape applies **only** when
+the host did not resolve.
+
+**Production, before → after:** clip32 mean **0.092220 → 0.665020 (7.2x)**, crossings **1/12 → 8/12**,
+raw mean 0.173477 → 0.501312. Exactly the predicted 0.665020.
+
+**Still honest.** Nothing asserts a certificate state. The answer says what to run and closes with
+"No live certificate could be retrieved for <host> from here, so none of the above was verified
+against the host itself." `verdict` stays `unreachable`, `issuer` stays null, and the real
+`unreachable_reason` is still recorded.
+
+**Distinct from the dead theory, deliberately.** An earlier sweep that merely NAMED the omitted
+dimensions — expiration, root CA trust, signature algorithm, key strength — moved the mean +0.0003
+and flipped no crossings. Naming dimensions is not the same as supplying the ground truth's
+structure, and only the second one worked.
+
+### G40 · ACADEMIC_SEARCH could NOT be improved — `OPEN: ten variants measured, all lost`
+
+The deployed shape is at a local optimum under champion 688 and I could not beat it. Recorded so
+the same ground is not re-walked.
+
+The diagnosis looked damning and the fix did not follow from it. Paper 1 starts at **word 47-75** of
+our answer while the clip is 32, so **the scorer never sees a single paper** — the clip is pure
+restatement, and we cross **0 of 22** rows. The ground truth reaches paper 1 by word 27.
+
+But every variant that bought room for the papers **lost**:
+
+```
+                     clip32 mean   best-on   beats deployed
+deployed             0.013482        14           —
+gtIdiom              0.012697         5         7/21
+regardingCore        0.012764         1         6/21
+gtIdiomTight         0.012135         1         6/21
+gtIdiomOurCite       0.012700         0         7/21
+bare / titlesFirst   0.0072/0.0064    0         0/21
+```
+
+**Why:** the ground truth's own opening is *also* a question paraphrase, so our restatement is
+exactly what those first 32 words are matching. Trimming it to make room for papers trades a
+strong match on the preamble for a weak match on one title. Nothing crosses either way.
+
+**And the frozen bench cannot settle it.** The audit measured us beating `scholarwire` 21/22 on
+this same bench, yet we lost live in epoch 295 (0.011029 vs 0.014901). The bench predates G24, so it
+holds an older question distribution than the one being scored. **Tuning ACADEMIC on it optimises
+for questions that are no longer being asked** — which is the real blocker, and it is not fixable
+from here.

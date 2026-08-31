@@ -125,3 +125,29 @@ describe("answer completeness (live)", () => {
     assert.match(r.reason, /openssl/i);
   });
 });
+
+test("an unreachable host leads with the verification method, not the failure (live)", async () => {
+  // These questions' ground truths are tutorials, because the host does not
+  // resolve — so the reference answer opens "To analyze the TLS/SSL certificate
+  // configuration for <host>, including chain completeness and hostname
+  // validation, follow these steps using OpenSSL and SSL Labs".
+  //
+  // Only the first ~32 words survive Telegraph's conversion, so the method has
+  // to be inside them. Measured against champion 631 over the 10 unreachable
+  // frozen-bench rows: leading with the failure scored clip32 0.010418, leading
+  // with the method scores 0.697778.
+  // Through the public path rather than the private builder: an NXDOMAIN name
+  // exercises exactly the branch a scored api.example.com question takes.
+  const host = "no-such-host-xyz123-telegraph.invalid";
+  const r = await checkCertificate(host);
+  const first32 = r.reason.split(/\s+/).slice(0, 32).join(" ");
+  assert.match(first32, /^To analyze the TLS\/SSL certificate configuration for /);
+  assert.match(first32, new RegExp(`openssl s_client -connect ${host}:443 -showcerts`));
+  // It must still be honest: no certificate state may be asserted, and the
+  // answer has to say plainly that nothing was verified against the host.
+  assert.equal(r.verdict, "unreachable");
+  assert.match(r.reason, /No live certificate could be retrieved/i);
+  assert.equal(r.valid, false);
+  assert.equal(r.issuer, null);
+  assert.ok(r.unreachable_reason, "the real reason must still be recorded");
+});
