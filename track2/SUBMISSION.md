@@ -17,13 +17,14 @@ against the incumbent's `0.6295639`; it rejected the module only because its rea
 disagreed with the incumbent. Sections 2–4 explain why that is the central result rather than a
 hidden failure.
 
-Three distinct calibration experiments are active rank-1 registrations. Submit them alongside
-1725 because they are live receipts for the promotion-gate analysis, not because they improve
-evaluation accuracy:
+Three calibration experiments are submitted alongside 1725. They are live receipts for the
+promotion-gate analysis, not claims of better evaluation. Slots turn over fast enough that their
+status below is a timestamp, not a standing fact — `calibration/screen-registry.mjs` prints the
+live board:
 
 | registration | intent | GitHub URL to compiled module |
 |---:|---|---|
-| `2365` | `CRYPTO_PRICE` | [`crypto_price_v3.wasm`](https://github.com/Harshyadav442277/miner/blob/4c0f6d5db19f72c76031d90f1aa842a115d643a8/track2/calibration/dist/crypto_price_v3.wasm) |
+| `2365` | `CRYPTO_PRICE` | [`crypto_price_v3.wasm`](https://github.com/Harshyadav442277/miner/blob/4c0f6d5db19f72c76031d90f1aa842a115d643a8/track2/calibration/dist/crypto_price_v3.wasm) — held rank 1 from 04:23 to 18:32 UTC on 2026-08-31, then retaken by reg 2858 |
 | `2010` | `LANGUAGE_GENERATION` | [`language_generation_m45.wasm`](https://github.com/Harshyadav442277/miner/blob/97b47b489937614319859d0b139ee563e9494c87/track2/calibration/dist/language_generation_m45.wasm) |
 | `1882` | `TEXT_AUTHENTICITY_CHECK` | [`text_authenticity_v2.wasm`](https://github.com/Harshyadav442277/miner/blob/72474bd7514735b53b823bdab390c9721219bd18/track2/calibration/dist/text_authenticity_v2.wasm) |
 
@@ -34,17 +35,70 @@ measured improvement, protocol-level finding, robustness, and limitations withou
 
 ## 1. What is submitted
 
-**The script: the fact-aware scorer family in [`track2/scorer/`](scorer/), released at
-[`telegraph-factscore`](https://github.com/Harshyadav442277/telegraph-factscore).** One ~31 KB
-freestanding `no_std` Rust module (zero imports, per-intent profiles) that grades what an answer
-*asserts* — verdicts, figures, identifiers, units, coordinates — against the ground truth,
-instead of how much its vocabulary resembles it.
+### 1.1 The four registrations on the form, and what each one actually is
 
-Alongside it, and clearly separated from it: **a body of measurement research on the network's
-scoring and promotion machinery** ([`calibration/`](calibration/), [`recon/`](recon/)), which is
-where our on-chain champion slots come from. Section 4 explains exactly what those slots do and
-do not demonstrate — we ask that they **not** be read as the improvement claim. The improvement
-claim is section 3 and it stands on its own evidence.
+Read this first, because the honest answer is not the flattering one.
+
+| registration | intent | status | what the bytes are |
+|---|---|---|---|
+| **1725** | CRYPTO_PRICE | rejected | **our own fact-aware scorer** — the primary entry |
+| 1882 | TEXT_AUTHENTICITY_CHECK | champion | a calibration wrapper |
+| 2010 | LANGUAGE_GENERATION | champion | a calibration wrapper |
+| 2365 | CRYPTO_PRICE | superseded 18:32 UTC | a calibration wrapper |
+
+**The primary entry is the rejected one.** Registration 1725 is our scorer, and the node's own
+record for it reads: 14 of 14 fixture orderings — equal to the incumbent — with separation
+**0.7219137 against the incumbent's 0.6295639**. It separated right answers from wrong ones more
+clearly than the champion did, and was rejected on exactly one gate: it "disagreed with the
+champion on real traffic." Section 4.1 is about why that rejection is the central result of this
+submission rather than a hidden failure.
+
+The other three are **calibration wrappers**: the intent's incumbent MIT-licensed module with one
+strictly increasing function appended. Upstream is `zkasuran/telegraph-salience-scorer`, copyright
+preserved in [calibration/UPSTREAM_LICENSE](calibration/UPSTREAM_LICENSE), every base commit-pinned
+and Keccak-matched to its on-chain registration. They are **ranking-identical by construction** — a
+strictly increasing map cannot reorder any two answers, so they evaluate exactly as the module they
+wrap does. They improve nothing about evaluation quality. We ask that they not be read as the
+improvement claim; what they demonstrate is section 4.2, a property of the gate rather than an
+achievement of ours.
+
+### 1.2 The original work
+
+**The fact-aware scorer in [`track2/scorer/`](scorer/)**, also released at
+[`telegraph-factscore`](https://github.com/Harshyadav442277/telegraph-factscore). One ~32 KB
+freestanding `no_std` Rust module, zero imports, per-intent profiles, which grades what an answer
+*asserts* — verdicts, figures, identifiers, units, coordinates — against the ground truth, rather
+than how much its vocabulary resembles it. Compiled artifacts for six profiles are published at
+[`scorer/dist/head/`](scorer/dist/head/) and each rebuilds from source in about three seconds.
+
+### 1.3 Why it holds no champion slot
+
+Two reasons, both measured, both on chain. We state them because section 4 is an argument about
+what the gate rewards, and that argument is worth nothing if we quietly exempt ourselves from it.
+
+1. **The agreement gate.** Registration 1725 above. A scorer cannot both correct the Canonical
+   Script's mistakes and agree with them on live traffic; the gate requires the second.
+2. **A real ordering gap of one to two fixture pairs.** Registrations 1377 and 1728 took 14 of 15
+   where the incumbent took 15 of 15; 1878 and 1731 took 13 of 15. Probing the head builds on
+   2026-08-31 found the mechanism: the scorer under-credits a correct answer that *paraphrases* the
+   ground truth instead of restating its figures, and the `fact_check` profile inverts one negation
+   pair outright. That is [G27](GAPS.md), it is a genuine quality deficit rather than a gate
+   artifact, and we did not register the profile that exhibits it.
+
+### 1.4 What we ask to be judged on
+
+The improvement claim is **section 3** — the scorer measured against incumbents on corpora that
+pass a stated acceptance test — and **section 4**, four measured findings about the promotion
+machinery, each with a runnable reproducer. The champion slots are evidence for 4.2 and nothing
+else.
+
+Slot holdings move hourly: at least eight wallets are contesting the board, and this wallet held
+eleven intents on 2026-08-30 and two by the evening of 2026-08-31. For the live position rather
+than a number that was stale before it was read:
+
+```bash
+node calibration/screen-registry.mjs
+```
 
 ## 2. What the Canonical Script gets wrong — receipts, not vibes
 
