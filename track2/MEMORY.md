@@ -6,7 +6,56 @@
 
 ---
 
-## CURRENT — 2026-08-31 ~04:00Z · CI GREEN AGAIN · THE RELEASED TAC SCORER WAS NEVER THE REGISTERED ONE
+## CURRENT — 2026-08-31 ~10:30Z · 24 REBUILT RUNGS PUBLISHED · QUEUE DEPTH IS THE BINDING CONSTRAINT
+
+Registry sweep 10:10Z: **we hold 3** — CVE_LOOKUP 1993, LANGUAGE_GENERATION 2010,
+TEXT_AUTHENTICITY_CHECK 1882. Six signed at 04:23Z are **still pending five hours later**
+(ACADEMIC_SEARCH 2361, CONTENT_MODERATION 2362, TOKEN_HOLDER_COUNT 2363, IP_GEOLOCATION 2364,
+TASK_COMPLETION 2366, WEATHER_CHECK 2369); the seventh, FRAUD_DETECTION 2372, died on the clock
+again at 12m7s having measured 0.9999429 against a 0.99929947 bar.
+
+**Twenty-four rungs published at commit `4feb894`, hosted-byte verified 24/24. Sign list and
+Keccaks: [SIGN.md](SIGN.md).** Two changes, both read off the rejection log:
+
+1. **Every wrapper is rebuilt on the base bound on chain today.** Thirteen champions had moved
+   since the 08-30 artifacts, so those wrappers were calibrating a module that is no longer the
+   one they are measured against. A silent staleness bug, not a tuning miss.
+2. **Band width is chosen per intent.** Bar under 0.99 with twenty or more historical rows now
+   gets low 0.05 / high 0.20 instead of 0.005 / 0.05. The tight high band ties base scores about
+   1.2e-6 apart, which is what killed GAS_PRICE 1914, NEWS_SEARCH 2021 and STORM_ALERT 1997 on
+   the real-traffic gate; the wide band keeps four times the rank resolution and costs almost no
+   margin, because these bases already score near 0 and 1.
+
+**The new constraint is queue depth, not the bar.** Wallet `0x5d27fee6` holds about 170 of the
+200 pending registrations, spread over eleven intents, and per-intent queue depth is what pushes
+evaluations past the ten-minute budget. SIGN.md is therefore ordered by pending count first and
+the bar second; thirteen intents have an empty queue. The evaluator is live — verdicts landed at
+09:37Z — so the wait is queue, not outage.
+
+**Verification per artifact, before publication:** base Keccak-matched to its on-chain
+registration (six of twenty-five first downloads were truncated and were re-fetched until they
+matched); candidate differs from base in the function, export and code sections only, every
+other section byte-identical; appended body equals the exact two-band encoding for its declared
+threshold and bands; strictly increasing across the threshold in f32; and **zero ordering
+inversions** on a 27-row probe corpus, 24/24. `url_scan_r3` and `fact_check_r3` collapse nine and
+ten probe pairs to ties, all of them two good answers one f32 ULP apart at 1.0 — never a good
+answer against a bad one — and both intents carry 0 and 4 historical rows, so they are signable.
+
+**STORM_ALERT was built and dropped.** Bar 0.99000794 behind a real-traffic gate; the widest band
+that survives that gate tops out near 0.93. No rung exists there until the base is replaced.
+
+**Measured, not yet acted on:** the RESEARCH_QUERY deaths (2009, 2093) are the host refusing a
+miner answer over 128 KiB, not our module — there is no `i32.const 131072` anywhere in our code
+section, and the cap is the host's MaxTextBytes (harness/wasm-abi.mjs, gate analysis §5). Which
+historical rows get sampled is luck, so RESEARCH_QUERY is a retry lottery, not a fix.
+
+**The 24 MB bases cannot be shrunk.** Section dump: 99.9% is one dense data segment (23,956,199
+bytes, no zero run of 64 bytes or longer); code is 33 KB. The only free saving is a trailing
+segment that is 90.5% zeros, worth 233 KB of 24 MB. Clock deaths are queue contention plus
+per-row transformer cost, not module load, and neither is ours to fix.
+
+---
+## Prior CURRENT — 2026-08-31 ~04:00Z · CI GREEN AGAIN · THE RELEASED TAC SCORER WAS NEVER THE REGISTERED ONE
 
 `ci` had been red on every push since `6d4d262` at the `track2-scorer` step "Verify the
 registration target as freestanding WASM". Settled today; details in [GAPS.md](GAPS.md) G26.
