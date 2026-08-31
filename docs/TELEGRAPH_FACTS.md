@@ -255,3 +255,21 @@ constantly. They do not — **scoring lands roughly three times a day.** So:
 Corollary for working method: prefer changes justified by **replaying real paid questions**
 (`tools/replay-corpus.mjs`), which gives an answer in seconds, over changes justified by a scoring
 theory, which take up to 9 hours to test and have twice been wrong.
+
+## Track 1 deadline — RESOLVED (verified 2026-09-01, rules page)
+
+Track 1 and Track 2 ran **Aug 17 – Aug 31, 2026**; Track 3 runs Aug 31 – Sep 7; Winner Selection
+Sep 8–18; announcement Sep 19–25. The home-page "SEP 7 23:59 UTC SUBMISSIONS CLOSE" countdown is
+the **Track 3** deadline, not Track 1's. Source: https://hackathon.telegraphprotocol.com/rules,
+read 2026-09-01 (via the operator's second research repo, whose twelve-intent miner missed its
+registration window on exactly this confusion). Consequences: no new registrations or intent
+additions can enter the judged Track 1 record; a new registration's ~7-day unranked grace period
+would outlast Winner Selection anyway; what matters post-close is the miner staying LIVE and
+ranked through Track 3, whose routed requests are counted in judging.
+
+## Rival: preflight-ssl-verification is public — github.com/shreshth006/Preflight
+
+Registered 2026-08-30T20:06Z, runs a six-hour Claude autopilot, and iterates fast. On 2026-08-31
+every commit targeted URL_SCAN (not an intent we serve); no SSL/IP/wallet answer changes were
+committed the day of the close. Their wallet caveat-first past-dated shape is what G55's reorder
+matched. Endpoint watchdog stays the ground truth for deploys.
