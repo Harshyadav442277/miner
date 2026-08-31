@@ -50,6 +50,16 @@ questions.
 
 ## Also in this change
 
+**`output_schema` now describes every field the endpoints return.** It omitted **32** of them
+across nine of the ten routes — the whole of what `/extract`, `/headlines` and `/wallet-balance`
+return, the parts of the resolved place `/ip-geolocate` reports, the `papers` array, and the
+measurements `/ai-detect` publishes so a reader can disagree with its verdict. Only `/ssl-check`
+was fully described. Nothing enforces the schema (no `required` list, `additionalProperties` is not
+false, and our IP answers scored 0.9920 while violating the old verdict enum), so this was never a
+functional fault — but one signature covers it, so it is fixed here rather than left describing a
+service we stopped being. Verified by probing all ten live endpoints: no returned field is
+undeclared.
+
 The `verdict` **enum is relaxed to describe actual behaviour**. It was a closed set that four
 endpoints already violated — `/ip-geolocate` returns a resolved place name, which no enum can
 cover. Never enforced (our IP answers scored 0.9920 with a place-name verdict), but the manifest
