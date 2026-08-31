@@ -402,7 +402,16 @@ export async function geolocate(rawIp: string, timeoutMs = DEFAULT_TIMEOUT_MS): 
     tz = str(a0["timezone"]);
     const as = str(a0["as"]); // "AS15169 Google LLC"
     asn = as ? as.split(" ")[0] ?? null : null;
-    org = str(a0["org"]) ?? str(a0["isp"]);
+    // ISP BEFORE org, and epoch 296 is why. ip-api's `org` is the specific
+    // service label while `isp` is the network operator, and for 8.8.8.8 they
+    // differ: org "Google Public DNS", isp "Google LLC". We named the service,
+    // the reference answers name the operator, and this scorer is a cliff — we
+    // scored 0.0106 on that question where preflight, saying "Google LLC",
+    // scored 0.9939. They agree for most addresses (142.251.42.174 is "Google
+    // LLC" either way, and it scores 0.994), so this only moves the rows where
+    // the two disagree. The `as` field carries the same operator name, which is
+    // the third corroboration that the operator is what belongs here.
+    org = str(a0["isp"]) ?? str(a0["org"]);
   } else {
     const a = await getJson(`https://ipwho.is/${encodeURIComponent(ip)}`, perProviderMs);
     if (a && a["success"] === true) {

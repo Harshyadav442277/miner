@@ -766,3 +766,37 @@ this same bench, yet we lost live in epoch 295 (0.011029 vs 0.014901). The bench
 holds an older question distribution than the one being scored. **Tuning ACADEMIC on it optimises
 for questions that are no longer being asked** — which is the real blocker, and it is not fixable
 from here.
+
+### G41 · IP_GEOLOCATION named the service where the reference names the operator — `CLOSED 2026-08-31: one field, 0.0106 vs 0.9939`
+
+Epoch 296 dropped us from **#1 at 0.9955636 to #4 at 0.0106**, while `preflight` scored 0.9939274
+and `txlens` 0.993323. Nothing about our geolocation data had changed.
+
+**The questions differ every epoch, and the `iplocate` failure strings leak which address was
+asked about:** epoch 294 `/api/lookup/192.1…`, epoch 295 `/api/lookup/192.0…`, epoch 296
+`/api/lookup/8.8.8…`. So 295 asked about a TEST-NET address — which our special-range classifier
+answers superbly — and 296 asked about **8.8.8.8**, a public address that is not in the frozen
+bench at all.
+
+**The whole difference was one field.** Side by side on that exact question:
+
+```
+preflight (0.9939)  "...is associated with Google LLC and is located in Ashburn, Virginia..."
+livecert  (0.0106)  "...is associated with Google Public DNS (AS15169) and is located in Ashburn..."
+```
+
+`ip-api` returns `org: "Google Public DNS"` and `isp: "Google LLC"` for 8.8.8.8, and we preferred
+`org`. We named the **service**; every reference answer names the **network operator**. The `as`
+field carries the same operator name, which is a third corroboration. For most addresses the two
+agree — 142.251.42.174 is "Google LLC" either way — so preferring `isp` moves only the rows where
+they diverge. Bench mean after the change: **0.994302 vs 0.994307 before, still 21/21 crossings.**
+
+**A hypothesis this killed, which had looked obvious.** G35 predicted the collapse was the missing
+restatement on the `ip` path. Measured against champion 630 over the 21 frozen rows, it is the
+reverse: **without the prefix 0.994307 and 21/21 crossings; with it 0.478165 and 10/21.** Adding the
+restatement would have halved the score. The decision in G35 to leave that alone was right, and
+G35 can now be closed on evidence rather than caution.
+
+**The lesson worth keeping:** the frozen bench said we were at 0.994 on every row it contains,
+and we still lost the epoch — because the epoch asked something the bench does not contain. A
+bench frozen by G24 measures the answer shape, not the question distribution.
