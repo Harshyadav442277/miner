@@ -14,6 +14,16 @@ sessions and between models.
 | **Track 3 — app** | [track3-certwatch/](track3-certwatch/), plus G17/G18 in [GAPS.md](GAPS.md) |
 | Anything | [README.md](README.md) for ownership and shared facts, [docs/](docs/) for protocol and rules |
 
+## Epochs 296/297 scored — likely the closing Track 1 record (2026-08-31 ~14:30 UTC)
+
+Epoch 297 (the last one scored inside the Aug-31 window): **4 × #1** (STORM, AI_TEXT,
+CONTENT_EXTRACTION at 1.0, NEWS), **2 × #2** (IP by −0.094% after the G41 fix verified live
+0.0106 → 0.9955; SSL lost to `preflight-ssl-verification`), 2 × #3, 2 × #4 (both in fields that
+collapsed to noise network-wide). Epoch 296 settled at 6 × #1 / 2 × #2 / #4 / #5. Full record and
+the competitor analysis: **§ 0000000 of [track1-miner/MEMORY.md](track1-miner/MEMORY.md)**;
+history in `track1-miner/docs/score-history.jsonl`. Epoch 298 settles past the close; the miner
+stays live through Sep 7 because rankings feed Track 3 routing.
+
 ## Registration is now **389** (2026-08-31 04:01 UTC)
 
 `updateMiner(334, …)` mined and **active with ten intents** — the seven, plus CONTENT_EXTRACTION,

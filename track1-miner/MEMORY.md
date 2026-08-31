@@ -3,8 +3,41 @@
 **Read this first. Everything Track 1 needs is in this folder.**
 Shared protocol facts are in `../docs/`. Do not edit `../track2/` or `../track3-certwatch/`.
 
-Last updated: 2026-08-31 (2026-08-30 ~21:45 UTC) — a production audit found and fixed THREE live
-defects, two of which were serving wrong answers on intents we lead. Read § 00000 first.
+Last updated: 2026-08-31 ~14:30 UTC — epochs 296 and 297 are scored and recorded. Read § 0000000
+first: 297 was almost certainly the last epoch scored inside Track 1's window.
+
+---
+
+## 0000000. EPOCHS 296 AND 297 — THE CLOSE (2026-08-31, settled 14:02Z / scored ~14:10Z)
+
+Both epochs are in [docs/score-history.jsonl](docs/score-history.jsonl). Epoch 298 starts 23:02Z
+and settles 08:02Z Sep 1 — past the Aug-31 close, so **297 is the record we likely close on**.
+
+```
+epoch 296 (settled 14:02Z):        epoch 297 (scored ~14:10Z, settles 23:02Z):
+  6 x #1  SSL STORM AI CONTENT      4 x #1  STORM AI_TEXT CONTENT(1.0) NEWS
+          NEWS TRANSLATION          2 x #2  IP -0.094%   SSL -37% (lost to preflight)
+  2 x #2  WEATHER ACADEMIC          2 x #3  WEATHER -4.7%   TRANSLATION (1e-11 noise band)
+  #4 IP   #5 WALLET                 2 x #4  ACADEMIC -63%   WALLET (1e-8, whole field ~zero)
+```
+
+**The G41 fix is verified live: IP went 0.0106 (#4) → 0.995513 (#2), one epoch after the
+operator-name change.** It lost #1 by **0.00094** to `preflight-ssl-verification` (0.996453).
+That margin is wording noise; do not rewrite anything over it.
+
+**`preflight-ssl-verification` is now the miner to beat** — #1 in SSL (0.00990 vs our 0.00623),
+IP and WALLET, #2 in ACADEMIC, all in one epoch. It took SSL from us for the first time since
+epoch 292. Normalized-ratio average across our ten intents in 297: **~0.81** (295 was ~0.72).
+
+Fields that collapsed network-wide in 297, not ours to fix: WALLET fell from ~1e-4 to ~1e-8 and
+TRANSLATION sits in a 1e-11 band — every miner effectively at zero, rank there is a tiebreak.
+ACADEMIC's #4 at -63% is real, but G40/G42 stand: ten variants measured, all lost; only the
+preamble is scored. The scores landed ~70 min after epoch start both epochs (05:03Z, ~14:10Z) —
+**an epoch's outcome is fixed early; a mid-epoch deploy targets the NEXT epoch, not the current
+one.**
+
+Rankings persist into Track 3 routing (70/20/10 to ranks 1/2/3), so the miner must stay healthy
+through **Sep 7** — the uptime tripwire and workflows keep running.
 
 ---
 
