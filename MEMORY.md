@@ -14,6 +14,31 @@ sessions and between models.
 | **Track 3 — app** | [track3-certwatch/](track3-certwatch/), plus G17/G18 in [GAPS.md](GAPS.md) |
 | Anything | [README.md](README.md) for ownership and shared facts, [docs/](docs/) for protocol and rules |
 
+## EPOCH 298 — THE CLOSING RECORD: #1 MINER ON THE NETWORK (2026-09-01 ~00:20 UTC)
+
+The final scored epoch of Track 1. Over thirteen intents: **7 x #1** (WEATHER_FORECAST **crossed
+the cliff for the first time ever live** at 0.9928282 — the lean payload shipped hours earlier won
+it by 0.055% over isobar, 118x our epoch-297 score; ACADEMIC recovered #4 -> #1 at 0.01363, +3.1%
+over txlens — the lean payload again; CONTENT a perfect 1.0 for the third straight epoch; STORM,
+NEWS, TRANSLATION held; TELEGRAPH_KNOWLEDGE debuted #1), **4 x #2** (SSL 0.00705 — lean helped
++13% but preflight improved too; WEATHER_CHECK debut −8.6%; FACT_CHECK debut −6.9% in a 1e-9 band;
+AI_TEXT noise-band shuffle), **2 x #4** (WALLET crossed at 0.9999696 with the whole top four
+inside 0.0000020 — ratio 0.999998; IP drew another off-bench question rotation, the 296 pattern).
+
+**Normalized-ratio sums, epoch 298: livecert 10.125 — first on the network** — over
+chainsight-oracle 7.774, txlens 7.337, preflight-ssl-verification 7.32. We entered the day second
+at 8.14 behind chainsight's 9.05. Recorded in `track1-miner/docs/score-history.jsonl`.
+
+The day's causal chain, for the record: champion-registry checks before touching answers (G52/G53),
+engine-shape honesty fixes, the ISO-code refusal fix, and the payload-dilution discovery (G56) —
+prose byte-identical, metadata stripped — which produced the weather crossing and the academic
+recovery. The second-account twelve-intent entry (`harsh-track1-intelligence`) was deployed and
+prepared but never registered before the 23:59:59Z close; it is not in the catalog.
+
+The miner stays live and untouched through **Sep 7** — rankings feed judged Track 3 routing.
+Remaining human items: the X series (25% of judging, until Sep 8), and verifying the submissions
+platform reflects registration 402.
+
 ## Track 1 was NOT closed — thirteen intents signed in its last hours (2026-08-31 ~21:30 UTC)
 
 A previous session recorded Track 1 as closed. **That was a timezone error**: the note was written
