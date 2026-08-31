@@ -25,7 +25,16 @@ const PROBES = [
   ["openalex", "primary", { url: "https://api.openalex.org/works?search=crispr&per-page=1" }],
   ["google translate (keyless)", "primary", { url: "https://clients5.google.com/translate_a/t?client=dict-chrome-ex&sl=en&tl=fr&q=good%20morning" }],
   ["mymemory", "failover", { url: "https://api.mymemory.translated.net/get?q=good%20morning&langpair=en|fr" }],
-  ["ip-api.com", "primary", { url: "http://ip-api.com/json/8.8.8.8?fields=status,country,city,isp,as" }],
+  // NOT probed directly: ip-api.com is TCP-blocked from the dev machine (GAPS
+  // G27), so a direct probe reports a false primary outage. It is checked
+  // through production instead, where the answer identifies the provider: only
+  // ip-api honours operator geofeeds and places 142.251.42.174 in Tokyo, while
+  // the ipwho.is fallback misplaces it in Mumbai. Tokyo therefore proves the
+  // primary answered.
+  ["ip-api.com (via production)", "primary", {
+    url: "https://miner-wine.vercel.app/ip-geolocate?ip=142.251.42.174",
+    expect: /tokyo|japan/i,
+  }],
   ["ipwho.is", "failover", { url: "https://ipwho.is/8.8.8.8" }],
   ["ipapi.co", "failover", { url: "https://ipapi.co/8.8.8.8/json/" }],
   ["google news rss", "primary", { url: "https://news.google.com/rss/search?q=technology&hl=en-US&gl=US&ceid=US:en" }],
@@ -60,6 +69,11 @@ for (const [label, role, spec] of PROBES) {
     const text = await res.text();
     ok = res.ok && text.trim().length > 0;
     if (!res.ok) note = `HTTP ${res.status}`;
+    // Some providers can only be identified by what the answer says.
+    if (ok && spec.expect && !spec.expect.test(text)) {
+      ok = false;
+      note = `answered, but not from the expected provider (wanted ${spec.expect})`;
+    }
     if (spec.rpc && ok) {
       const body = JSON.parse(text);
       ok = typeof body?.result === "string" && body.result.startsWith("0x");

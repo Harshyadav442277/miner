@@ -8,6 +8,38 @@ defects, two of which were serving wrong answers on intents we lead. Read § 000
 
 ---
 
+## 000000. REGISTRATION IS NOW **389**, WITH TEN INTENTS (2026-08-31 04:01 UTC)
+
+**`updateMiner(334, …)` is mined and active. 334 is gone — look up 389.**
+
+```
+tx        0x5de3965e2b08cd74b7e240faccb626d41e1003e9e5ec51cf220f76a5fe4ffe1d
+reg       389    active, rejection_reason null, retrying false, fetch_attempts 0
+yaml_url  https://raw.githubusercontent.com/Harshyadav442277/miner/74ad4a19f41b922a5183dc26d6f405c8557dc9ba/track1-miner/miner.yaml
+yaml_hash 78932fb1bf9af09746db6a81720d3bbe9f453655dd30151c71e015e44a903dd8
+intents   the seven, plus CONTENT_EXTRACTION, NEWS_HEADLINES, WALLET_BALANCE_CHECK
+```
+
+`gh variable set REGISTRATION_ID 389` is done, so the uptime tripwire watches the right one.
+`watch.mjs --registration-id 389` reports `activation=active`. Preflight 6/6.
+
+**Two things that cost time and will again if forgotten:**
+
+1. **The indexer lagged ~4 minutes.** `/api/miners/389` returned `miner registration not found`
+   for four minutes after the transaction was mined, while `/api/miners/334` still showed the OLD
+   seven-intent record. Neither was evidence of failure. The chain was authoritative and correct
+   the whole time — the receipt's `MinerRegistered` log carried id `0x185` (389), the new hash, and
+   all ten intent strings. **Read the receipt logs, not the API, in the first five minutes.**
+2. **The manifest is now served from a commit-pinned GitHub raw URL, not IPFS.** It is immutable
+   as long as the repo exists, but a force-push that orphans commit `74ad4a1` would break the
+   fetch. Do not rewrite that history.
+
+**The hash to sign is ALWAYS the hosted bytes.** The working copy is CRLF, git stores LF, so the
+local file hashes `460bc310…` and the hosted bytes hash `78932fb1…`. Signing the local one would
+have failed activation.
+
+---
+
 ## 00000. THE PRODUCTION AUDIT (2026-08-30 ~21:45 UTC / 2026-08-31 IST)
 
 Network is **back up** — devnode answers in 0.87s after being unreachable for hours. Registration

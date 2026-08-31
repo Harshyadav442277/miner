@@ -599,3 +599,39 @@ the fix is to separate subject from question exactly as `/ssl-check` does, and i
 benched before shipping.
 
 Guarded by `tools/no-regression.mjs`, which expects **7 identical, 1 differing** until then.
+
+### G36 · Registration 334 is superseded by **389** — `CLOSED 2026-08-31: mined, active, ten intents`
+
+`updateMiner(334, …)` mined at 2026-08-31T04:01Z, tx
+`0x5de3965e2b08cd74b7e240faccb626d41e1003e9e5ec51cf220f76a5fe4ffe1d`. Registration **389** is
+`active`, `rejection_reason: null`, `retrying: false`, `fetch_attempts: 0`, serving all ten intents.
+`REGISTRATION_ID` is updated so the uptime tripwire watches it.
+
+**Two facts worth keeping, both of which briefly looked like failures:**
+
+1. **The indexer lagged about four minutes.** `/api/miners/389` answered
+   `miner registration not found` for four minutes after the transaction was mined, while
+   `/api/miners/334` still served the OLD seven-intent record with the old IPFS URL. Neither meant
+   anything had gone wrong. The receipt was authoritative and correct immediately: its
+   `MinerRegistered` log carried id `0x185` (389), hash `78932fb1…`, and all ten intent strings.
+   **In the first five minutes after an update, read the receipt logs, not the API.**
+2. **The hash to sign is the HOSTED bytes, never the local file.** The working copy is CRLF and git
+   stores LF, so `track1-miner/miner.yaml` hashes `460bc310…` on disk while the bytes GitHub serves
+   hash `78932fb1…`. Telegraph fetches the URL and compares against the signed hash, so signing the
+   local one would have failed activation outright. `tools/sign-update.sh` does this correctly.
+
+**Two changes of dependency this introduces, neither yet a problem:**
+
+- The manifest is now served from a **commit-pinned GitHub raw URL**, not IPFS. Immutable while the
+  repo exists, but a force-push that orphans commit `74ad4a1` would break the fetch and the miner
+  would fail its next manifest check. **Do not rewrite that history.**
+- **Track 2 must update its disclosure documents.** `track2/SUBMISSION.md`, `track2/GAPS.md`,
+  `track2/MEMORY.md` and `track2/X_THREAD.md` all cite registration 334 as the live miner. That is
+  now wrong. This is flagged here rather than fixed because this file's rules forbid editing
+  `../track2/`.
+
+**Also corrected here:** `tools/upstream-health.mjs` was reporting `ip-api.com` as a failing
+**primary**. It is not — it is TCP-blocked from the dev machine (G27), so the direct probe was a
+false alarm. It is now checked *through production*, where the answer identifies the provider:
+only ip-api honours operator geofeeds and places `142.251.42.174` in Tokyo, where the ipwho.is
+fallback misplaces it in Mumbai. Production returns Tokyo, so the primary is answering.

@@ -14,6 +14,17 @@ sessions and between models.
 | **Track 3 — app** | [track3-certwatch/](track3-certwatch/), plus G17/G18 in [GAPS.md](GAPS.md) |
 | Anything | [README.md](README.md) for ownership and shared facts, [docs/](docs/) for protocol and rules |
 
+## Registration is now **389** (2026-08-31 04:01 UTC)
+
+`updateMiner(334, …)` mined and **active with ten intents** — the seven, plus CONTENT_EXTRACTION,
+NEWS_HEADLINES and WALLET_BALANCE_CHECK. **334 no longer exists; look up 389.** The manifest is now
+served from a commit-pinned GitHub raw URL rather than IPFS, hash `78932fb1…` (the HOSTED bytes —
+the local file is CRLF and hashes differently). `REGISTRATION_ID` variable updated. Preflight 6/6.
+
+**Track 2: your disclosure docs still cite 334 and need updating** — see GAPS G36.
+
+---
+
 ## State at 2026-08-30 ~21:45 UTC — PRODUCTION AUDIT
 
 **Three live defects found and fixed today, two of them serving confidently wrong answers on
