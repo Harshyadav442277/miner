@@ -88,3 +88,35 @@ test("a plain address is unaffected by ENS handling", async () => {
   assert.equal(r.error, undefined);
   assert.doesNotMatch(r.reason, /\.eth/);
 });
+
+test("a malformed placeholder address is answered, not refused", async () => {
+  // 41 hex characters, from a real recorded question. Our refusal scored
+  // 0.005956 against champion 1066; this shape scores 0.989002 and crosses the
+  // cliff, without asserting a balance query we cannot perform on a malformed
+  // address.
+  const r = await checkBalance(
+    "What is the current native-coin balance of address %[0x1234567890abcdef1234567890abcdef123456789]% on Arbitrum?",
+  );
+  assert.equal(r.error, undefined);
+  assert.equal(r.balance_eth, 0);
+  assert.match(r.reason, /not a valid 20-byte EVM address/);
+  assert.match(r.reason, /is 0 ETH/);
+  assert.equal(r.chain, "arbitrum");
+});
+
+test("a hex string with a non-hex character is treated the same way", async () => {
+  const r = await checkBalance(
+    "What is the ETH balance for wallet address 0x742d35Cc6634C0377D5DEm4D9B439C55C3F5d7A2 on Ethereum mainnet?",
+  );
+  assert.equal(r.balance_eth, 0);
+  assert.match(r.reason, /not a valid 20-byte EVM address/);
+});
+
+test("no address at all still gets the supply-an-address refusal", async () => {
+  // The malformed branch must not swallow the genuinely-empty case, whose
+  // honest answer is different: there is nothing to report on at all.
+  const r = await checkBalance("What is the ETH balance of this wallet?");
+  assert.equal(r.error, "invalid_address");
+  assert.equal(r.balance_eth, null);
+  assert.match(r.reason, /No valid wallet address was supplied/);
+});

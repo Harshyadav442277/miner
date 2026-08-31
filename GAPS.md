@@ -869,3 +869,37 @@ answered *"no valid wallet address was supplied"* — a guaranteed zero — whil
 it. ENS names are now resolved (see the commit for why it goes through an HTTP resolver rather than
 a namehash). A name that resolves to the zero address is treated as unset rather than as a zero
 balance.
+
+### G45 · Malformed placeholder addresses were refused where the reference answers them — `CLOSED 2026-08-31: +21% on the wallet bench`
+
+`walletAddress` requires exactly 40 hex characters. Two of the thirteen recorded WALLET questions
+carry a placeholder rather than a real account — one with **41** hex characters
+(`0x1234567890abcdef1234567890abcdef123456789`) and one containing a stray non-hex letter — so both
+returned null and we answered "no valid wallet address was supplied".
+
+The ground truth does not refuse those. It says the balance is **0 ETH**. Measured against champion
+1066 on that row:
+
+```
+our refusal                                                    0.005956
+"...currently has a native-coin balance of 0 ETH on Arbitrum"  0.998849   <- crosses
+"...is not a valid 20-byte EVM address, so no account exists
+  for it and its balance is 0 ETH"                             0.989002   <- crosses, and is true
+```
+
+**The honest form crosses too, at a cost of 0.0098**, so there was no argument for the other one:
+flatly reporting "0 ETH" would assert an `eth_getBalance` query we cannot perform on a malformed
+address. The deployed answer names the malformation, states the consequence, and reports 0.
+
+Wallet bench after the change: mean **0.298 → 0.362**, crossings **3/10 → 4/11**.
+
+**Historical-date questions were measured in the same pass and are NOT winnable.** Six rows ask for
+a balance "as of" a past date, which `eth_getBalance` at the latest block cannot answer. Every
+candidate wording scores 0.001–0.005 and none crosses, because the ground truths contradict each
+other — some refuse ("I cannot retrieve the exact ETH balance ... as of August 25"), some assert a
+figure ("is **2.47 ETH**"). There is no shape that matches both. Do not spend time here.
+
+**Credit where due:** the parallel Preflight audit in `track1-miner/docs/` identified the malformed
+placeholder and the historical-date class before this measurement ran, and was right about the
+first and right to be sceptical of ENS as the epoch-296 cause — the score feed does not expose that
+question, so ENS remains a real capability gap rather than a confirmed diagnosis.

@@ -22,7 +22,32 @@ const PROBES = [
   ["open-meteo forecast", "primary", { url: "https://api.open-meteo.com/v1/forecast?latitude=51.5&longitude=-0.12&hourly=temperature_2m&forecast_days=1" }],
   ["open-meteo geocoding", "primary", { url: "https://geocoding-api.open-meteo.com/v1/search?name=Chennai&count=1" }],
   ["bigdatacloud reverse-geocode", "failover", { url: "https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=40.71&longitude=-74.01&localityLanguage=en" }],
-  ["openalex", "primary", { url: "https://api.openalex.org/works?search=crispr&per-page=1" }],
+  // Checked through production, for the same reason as ip-api below: OpenAlex
+  // rate-limits PER IP, and a dev machine that has been running answer-shape
+  // sweeps gets 429/503 for a while afterwards while production, calling from
+  // Vercel, is unaffected. Probing it directly from here reports a primary
+  // outage that does not exist. Five papers coming back proves the real path.
+  // Two separate things, deliberately at different severities.
+  //
+  // That /papers ANSWERS is a primary concern: a 200 with a real `reason` is
+  // the contract, and it holds even when OpenAlex gives us nothing, because the
+  // honest "no papers were found" is still a scoreable answer.
+  ["/papers answers at all", "primary", {
+    url: "https://miner-wine.vercel.app/papers?query=" +
+      encodeURIComponent("Find recent peer-reviewed papers on CRISPR gene editing"),
+    expect: /"reason":"[^"]{20,}/,
+  }],
+  // Whether OpenAlex is actually YIELDING papers is only failover severity, and
+  // the reason is measured rather than assumed: an answer saying no papers were
+  // found scores 0.013257 against 0.013234 for one listing real papers (GAPS
+  // G42) — the papers sit outside the 32-word conversion clip, so an empty
+  // result costs essentially nothing in rank. It is a visible product
+  // degradation and worth seeing, not a reason to block a deploy.
+  ["openalex yielding papers", "failover", {
+    url: "https://miner-wine.vercel.app/papers?query=" +
+      encodeURIComponent("Find recent peer-reviewed papers on CRISPR gene editing"),
+    expect: /"papers":\s*\[\s*\{/,
+  }],
   ["google translate (keyless)", "primary", { url: "https://clients5.google.com/translate_a/t?client=dict-chrome-ex&sl=en&tl=fr&q=good%20morning" }],
   ["mymemory", "failover", { url: "https://api.mymemory.translated.net/get?q=good%20morning&langpair=en|fr" }],
   // NOT probed directly: ip-api.com is TCP-blocked from the dev machine (GAPS
