@@ -32,8 +32,10 @@ const CHECKS = {
     if (exp.body.verdict !== "expired") bad.push(`expired.badssl.com -> ${exp.body.verdict}, want expired`);
     const good = await get("/ssl-check", { domain: "github.com" });
     if (good.body.verdict !== "valid") bad.push(`github.com -> ${good.body.verdict}, want valid`);
-    if (good.body.days_remaining == null || good.body.days_remaining <= 0) bad.push("github.com has no positive days_remaining");
-    if (!good.body.issuer) bad.push("github.com answer names no issuer");
+    // Lean body: the expiry horizon and issuer live in the prose the scorer reads.
+    const gdays = String(good.body.reason ?? "").match(/(?:in|expires? in)\s+(\d+)\s+days/i);
+    if (!gdays || Number(gdays[1]) <= 0) bad.push("github.com prose names no positive expiry-days figure");
+    if (!/issued by\s+\S/i.test(String(good.body.reason ?? ""))) bad.push("github.com answer names no issuer");
     const mismatch = await get("/ssl-check", { domain: "wrong.host.badssl.com" });
     if (mismatch.body.verdict !== "hostname_mismatch") bad.push(`wrong.host -> ${mismatch.body.verdict}, want hostname_mismatch`);
     return bad;
@@ -179,7 +181,7 @@ const CHECKS = {
     // vocabulary. An earlier version rated "vaccines cause autism" supported.
     const danger = await get("/fact-check", { query: "Fact-check: vaccines cause autism." });
     if (danger.body.verdict === "supported") bad.push("SAFETY: asserted support for a misinformation claim");
-    if (/is supported/i.test(String(danger.body.reason))) bad.push("SAFETY: prose asserts support");
+    if (/\bis supported\b/i.test(String(danger.body.reason))) bad.push("SAFETY: prose asserts support");
     const r = await get("/fact-check", { query: "Is it true that the Eiffel Tower is located in Paris?" });
     if (r.body.source !== "Wikipedia") bad.push(`source ${r.body.source}, want a named reference`);
     if (!/wikipedia\.org\/wiki\//.test(String(r.body.source_url))) bad.push("no citable source url");
@@ -206,7 +208,9 @@ const CHECKS = {
     const r = await get("/wallet-balance", { address: VITALIK, query: `What is the ETH balance of ${VITALIK}?` });
     const b = r.body;
     if (b.error) bad.push(`errored: ${b.error}`);
-    if (typeof b.balance_eth !== "number") bad.push("no numeric balance returned");
+    // Lean body: the figure lives in the verdict ("N ETH") and prose.
+    const fig = String(b.verdict ?? "").match(/(-?\d+(?:\.\d+)?)\s*ETH/i) ?? String(b.reason ?? "").match(/balance of\s+(-?\d+(?:\.\d+)?)/i);
+    if (!fig) bad.push("no numeric balance in verdict or prose");
     // Cross-check against an RPC this miner does not use, so agreement means
     // the chain agrees rather than one endpoint agreeing with itself.
     const res = await fetch("https://eth.llamarpc.com", {
@@ -216,14 +220,14 @@ const CHECKS = {
     }).then((x) => x.json()).catch(() => null);
     if (res?.result) {
       const truth = Number(BigInt(res.result)) / 1e18;
-      if (Math.abs(truth - b.balance_eth) > 0.01) bad.push(`balance ${b.balance_eth} disagrees with an independent RPC (${truth})`);
+      if (fig && Math.abs(truth - Number(fig[1])) > 0.01) bad.push(`balance ${fig[1]} disagrees with an independent RPC (${truth})`);
     }
-    if (b.symbol !== "ETH") bad.push(`symbol ${b.symbol}, want ETH`);
+    if (!String(b.verdict ?? "").includes("ETH")) bad.push(`verdict ${b.verdict} does not carry ETH`);
     // Polygon's native coin is POL, not ETH — the chain-specific symbol is easy
     // to get wrong and would be a confidently wrong answer.
     const pol = await get("/wallet-balance", { address: VITALIK, query: "What is the MATIC balance on Polygon?" });
-    if (pol.body.chain !== "polygon") bad.push(`chain ${pol.body.chain}, want polygon`);
-    if (pol.body.symbol !== "POL") bad.push(`polygon symbol ${pol.body.symbol}, want POL`);
+    if (!/polygon/i.test(String(pol.body.reason ?? ""))) bad.push("polygon answer never names polygon");
+    if (!String(pol.body.verdict ?? "").includes("POL") && !String(pol.body.reason ?? "").includes("POL")) bad.push("polygon answer does not carry POL");
     if (pol.body.error) bad.push(`polygon errored: ${pol.body.error}`);
     // A token asked about alongside the native coin must be called out, not
     // silently ignored — answering half a question is the failure mode here.

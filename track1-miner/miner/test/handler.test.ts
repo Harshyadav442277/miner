@@ -167,7 +167,9 @@ test("a paraphrasing query does not discard the declared address (live)", async 
   );
   assert.equal(status, 200);
   assert.notEqual(body.error, "invalid_address");
-  assert.equal(body.address, WALLET);
+  // The response body is lean ({verdict, confidence, reason}); the declared
+  // address must survive into the prose the scorer reads.
+  assert.match(String(body.reason), new RegExp(WALLET));
 });
 
 test("the engine's zero-address filler is not reported as the asked-about wallet (live)", async () => {
@@ -189,7 +191,7 @@ test("the engine's zero-address filler is not reported as the asked-about wallet
     "/wallet-balance?query=" +
       encodeURIComponent("What is the ETH balance of 0x0000000000000000000000000000000000000000?"),
   );
-  assert.equal(asked.body.address, "0x0000000000000000000000000000000000000000");
+  assert.match(String(asked.body.reason), /0x0000000000000000000000000000000000000000/);
   assert.notEqual(asked.body.error, "invalid_address");
 });
 

@@ -107,7 +107,9 @@ try {
   timings.push(ms);
   const body = await res.json();
   report(res.ok && body.verdict && body.verdict !== "unknown", "London -> condition", res.ok ? `got ${body.verdict}, ${ms}ms` : `HTTP ${res.status}`);
-  report(res.ok && body.temp_min_c !== null && body.temp_max_c >= body.temp_min_c, "temperature range is sane", `${body.temp_min_c} to ${body.temp_max_c}`);
+  // The body is lean ({verdict, confidence, reason}); the range lives in the prose.
+  const range = String(body.reason ?? "").match(/(-?\d+(?:\.\d+)?)\s*(?:°C|C)?\s*(?:to|and|–|-)\s*(-?\d+(?:\.\d+)?)\s*°?C/);
+  report(res.ok && range !== null && Number(range[2]) >= Number(range[1]), "temperature range is sane", range ? `${range[1]} to ${range[2]}` : "no range in prose");
 } catch (e) {
   report(false, "London -> condition", e.message);
 }
@@ -129,7 +131,8 @@ try {
 try {
   const { res } = await get(`/ssl-check?url=${encodeURIComponent("https://cloudflare.com/x")}`);
   const body = await res.json();
-  report(res.ok && body.domain === "cloudflare.com", "accepts a full URL via ?url=", `domain=${body.domain}`);
+  // Lean body: the parsed hostname shows up in the prose rather than a field.
+  report(res.ok && /cloudflare\.com/.test(String(body.reason)), "accepts a full URL via ?url=", `reason names cloudflare.com=${/cloudflare\.com/.test(String(body.reason))}`);
 } catch (e) {
   report(false, "accepts a full URL via ?url=", e.message);
 }
