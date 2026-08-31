@@ -1254,3 +1254,24 @@ preflight's own registry sentence drops crossings 21→19 and wins 19→13; the 
 methodology sentences sit past word 32 and change nothing. Deployed wins or ties every variant
 on every surface. A watchdog re-probes preflight's SSL/IP answers every 15 minutes until epoch
 298; if they deploy a new shape, the h2h harness re-runs against it before the epoch is scored.
+
+### G55 · The four losing intents, measured for the final epoch — `CLOSED 2026-09-01: one capture shipped, three ceilings confirmed`
+
+The wallet champion rotated a FOURTH time (reg 2791, 16:55Z, a 1MB lexical build from the same
+public repo as the SSL/IP/academic champions), invalidating the same-day reg-2575 measurements.
+Under it, head-to-head with real production answers: preflight 7/13 crossings, us 5/13 — and the
+two-row gap was past-dated questions, where their answer OPENS with the question's own terms and
+the archive-node requirement while ours led with the current figure. The reorder was measured
+(rows 6 and 8: 0.0000 → 0.9998; the already-crossing past-dated row 5 held at 0.9998; no-date
+rows untouched by the branch), shipped through the real route code, and verified live:
+**7/13, mean 0.538356 vs preflight 0.538361 — level with the intent leader.** Every clause stays
+true: the historical figure is stated as unrecoverable from the latest block, the current figure
+stays, labelled current.
+
+The other three are at their honest ceilings, now with evidence rather than assumption:
+- **WEATHER** (7/12 crossings offline, matching the audit's 0.583689 exactly): four of the five
+  failing GTs are literal "Sorry, I can't provide…" refusals — crossing them means serving fake
+  policy refusals (Rule 04; the long-standing no). oathcast, who beat us live, cannot answer a
+  query-shaped call at all; chainsight never crosses. No honest change exists.
+- **TRANSLATION**: champion 2296 unrotated; the ISO-code fix (G53) is the fix. Epoch 298 tests it.
+- **ACADEMIC**: champion 688 unrotated; the lean payload is the fix. Epoch 298 tests it.
