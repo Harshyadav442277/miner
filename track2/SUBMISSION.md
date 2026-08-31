@@ -199,13 +199,16 @@ Full method and evidence: [calibration/STEP_CALIBRATION.md](calibration/STEP_CAL
    0.66666603 against a provable ceiling of 0.6666667 — within 7e-7 of the optimum, which is why
    we can state the intent is closed to further calibration gains.
 
-4. **The gate's own time budget freezes six intents.** The champion on most intents is a ~24 MB
+4. **The gate's own time budget freezes seven intents.** The champion on most intents is a ~24 MB
    sentence-transformer, and it costs ~1.1 s per short `rank_answer` call and ~3.3 s at a 30 KB
-   answer — roughly 11,000x a 1 MB base. On six intents (ACADEMIC_SEARCH, IP_GEOLOCATION,
-   WEATHER_FORECAST, SSL_VERIFICATION, WEATHER_CHECK, WEB_SEARCH) that family has **never once**
-   completed the ten-minute gate: fourteen attempts, zero verdicts, while the same family
-   completes routinely on the twenty-one intents with shorter corpora. A calibration derivative
-   inherits its base's runtime, so **nobody can improve those six intents while building on the
+   answer — roughly 11,000x a 1 MB base. On seven intents (ACADEMIC_SEARCH, IP_GEOLOCATION,
+   WEATHER_FORECAST, SSL_VERIFICATION, WEATHER_CHECK, WEB_SEARCH, NEWS_HEADLINES) that family
+   has **never once** completed the ten-minute gate: fifteen attempts, zero verdicts, while the
+   same family completes routinely on intents with shorter corpora. Registration **2961** prices
+   the loss exactly: 7 of 7 fixture orderings, equal to the champion, separation **0.9998413**
+   against the champion's 0.9915076 — it passed every scoring gate and was rejected at 13m13s on
+   the clock alone. A calibration derivative
+   inherits its base's runtime, so **nobody can improve those seven intents while building on the
    incumbent — including the incumbent**. WEATHER_FORECAST is the weakest champion on the whole
    board at margin 0.53020585 and is unreachable for this reason alone. Across our 73
    registrations the split is exact: 19 timeouts on 24 MB artifacts, **0 in 28 small-module

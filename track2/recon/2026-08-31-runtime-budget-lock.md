@@ -7,8 +7,8 @@ sweep, plus 73 of our own registrations and their rejection strings. **Reproduce
 ## The finding
 
 The gate gives a candidate ten minutes to score the fixture set. The champion module on most
-intents is a ~24 MB sentence-transformer. On **six intents that family cannot finish in ten
-minutes** — not once, in fourteen attempts. Because a calibration derivative inherits its base's
+intents is a ~24 MB sentence-transformer. On **seven intents that family cannot finish in ten
+minutes** — not once, in fifteen attempts. Because a calibration derivative inherits its base's
 runtime, **those six intents cannot be improved by anyone building on the incumbent**, including
 the incumbent.
 
@@ -20,6 +20,25 @@ the incumbent.
 | SSL_VERIFICATION | 2 | **0** | 2 | 13m10s, 11m4s |
 | WEATHER_CHECK | 2 | **0** | 2 | 17m1s, 15m54s |
 | WEB_SEARCH | 1 | **0** | 1 | 14m38s |
+| NEWS_HEADLINES | 1 | **0** | 1 | 13m13s |
+
+**Registration 2961 (NEWS_HEADLINES, 2026-08-31 21:45 UTC) is the clearest case, because for once
+we know exactly what was thrown away.** It passed every scoring gate:
+
+| | candidate (2961) | champion |
+|---|---|---|
+| fixture orderings won | 7 of 7 | 7 of 7 |
+| separation margin | **0.9998413** | 0.9915076 |
+
+Equal on ordering, better on separation, and rejected anyway — "evaluation exceeded its time
+budget: the fixture gate did not complete in time (13m13s elapsed)". Nothing about its evaluation
+quality failed. It ran three minutes too long on a 24 MB base.
+
+Note also that the champion's margin *recomputed on that run* was 0.9915076, while the figure
+published on the board for the same champion is 0.9935922. The bar a candidate actually faces is
+recomputed against the fixture sample drawn for its own evaluation, so the published number is an
+indication rather than a threshold. It cuts both ways: registration 2879 took FINANCIAL_DATA at
+0.9320192 against a published 0.96081054.
 
 On the other twenty-one intents the same 24 MB family completes routinely — ten of our own 24 MB
 registrations reached a verdict on CONTENT_MODERATION, CONTENT_VERIFICATION, IMAGE_VERIFICATION,
@@ -77,7 +96,7 @@ in the first table has long corpus text, many historical rows, or both.
 
 ## What it changed for us
 
-We stopped signing 24 MB derivatives on those six intents. The only module that can finish the
+We stopped signing 24 MB derivatives on those intents. The only module that can finish the
 gate there is a small one, and the only small original scorer on the network is
 [`../scorer/`](../scorer/) at 31 KB — 0.1 ms per call, four orders of magnitude inside the budget.
 That is the sole remaining route into those intents.

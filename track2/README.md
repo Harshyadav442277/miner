@@ -42,10 +42,12 @@ Each is measured, and each has something you can run.
 3. **The hidden fixture geometry is recoverable from public data.** `node
    calibration/screen-registry.mjs` prints, for all 45 intents, how many fixture pairs each
    champion separates and what beating it requires. Nine intents sit at an unbeatable 1.0.
-4. **The gate's time budget freezes six intents.** The incumbent 24 MB transformer family has never
+4. **The gate's time budget freezes seven intents.** The incumbent 24 MB transformer family has never
    once finished the ten-minute gate on ACADEMIC_SEARCH, IP_GEOLOCATION, WEATHER_FORECAST,
-   SSL_VERIFICATION, WEATHER_CHECK or WEB_SEARCH — fourteen attempts, zero verdicts — so nobody can
-   improve those intents while building on it.
+   SSL_VERIFICATION, WEATHER_CHECK, WEB_SEARCH or NEWS_HEADLINES — fifteen attempts, zero verdicts
+   — so nobody can improve those intents while building on it. Registration 2961 shows the cost
+   exactly: 7 of 7 orderings and separation 0.9998413 against the champion's 0.9915076, rejected
+   at 13m13s on the clock alone.
    ([method](recon/2026-08-31-runtime-budget-lock.md), `node harness/time-base.mjs <module.wasm>`)
 
 ## Reproduce
