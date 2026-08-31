@@ -115,3 +115,33 @@ test("a title's hard wrapping never reaches the scored prose", async () => {
     globalThis.fetch = originalFetch;
   }
 });
+
+test("a timing-out upstream still falls through to the narrower retry", async () => {
+  // OpenAlex answers HTTP 504 query_timeout to a broad search combined with a
+  // date filter, and pauses anonymous search under load with a 503. Both used
+  // to propagate out of findPapers and answer "could not be retrieved", because
+  // the retry only ran when the FIRST call returned zero results rather than
+  // when it threw — skipping it in exactly the case it exists for.
+  const originalFetch = globalThis.fetch;
+  let calls = 0;
+  globalThis.fetch = (async (input: unknown) => {
+    calls++;
+    // The first call carries the date filter; fail it the way OpenAlex does.
+    if (String(input).includes("filter=")) {
+      return new Response(JSON.stringify({ error: "Gateway timeout", reason: "query_timeout" }), { status: 504 });
+    }
+    return new Response(
+      JSON.stringify({ results: [{ title: "A real paper", publication_year: 2025, cited_by_count: 7, authorships: [] }] }),
+      { status: 200, headers: { "content-type": "application/json" } },
+    );
+  }) as typeof globalThis.fetch;
+  try {
+    const r = await findPapers("Find papers published in 2025 that discuss machine learning applications");
+    assert.ok(calls >= 2, `expected a retry after the 504, saw ${calls} call(s)`);
+    assert.equal(r.papers.length, 1);
+    assert.match(r.reason, /A real paper/);
+    assert.doesNotMatch(r.reason, /could not be retrieved/i);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});

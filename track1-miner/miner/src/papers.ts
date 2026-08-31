@@ -253,7 +253,22 @@ export async function findPapers(query: string, limit?: number, timeoutMs = DEFA
 
   // The first request keeps the whole budget: the retry below is a bonus, and
   // halving the primary timeout to fund it would lose answers we already get.
-  let body = await get(url, timeoutMs);
+  //
+  // It must not THROW, though, and it used to. A thrown error propagated out of
+  // findPapers to the route's catch and answered "could not be retrieved" — so
+  // the retry below, which exists for exactly this case, was skipped whenever
+  // the failure was an error rather than an empty result. That is the common
+  // failure, not the rare one: OpenAlex answers **HTTP 504 query_timeout** to a
+  // broad `search` combined with a date filter ("machine learning applications"
+  // between 2025-01-01 and 2025-12-31 reproduces it every time), and it also
+  // pauses anonymous search entirely under load with a 503. Both are precisely
+  // when the narrower retry would have worked, and both scored ~0 instead.
+  let body: Body = {};
+  try {
+    body = await get(url, timeoutMs);
+  } catch {
+    /* fall through to the narrower retry rather than giving up here */
+  }
 
   // An over-specific topic or a narrow window can return nothing, and "no papers
   // found" scores near zero. Before giving up, retry with the topic's leading
