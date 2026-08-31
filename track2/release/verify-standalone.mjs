@@ -40,7 +40,13 @@ const REQUIRED = [
   "src/lib.rs",
   "verify.mjs",
 ];
-const FORBIDDEN = ["release/PUBLISH.md", "release/standalone-ci.yml", "tune.md"];
+const FORBIDDEN = [
+  "release/PUBLISH.md",
+  "release/check-release-identity.mjs",
+  "release/registered-text-authenticity.json",
+  "release/standalone-ci.yml",
+  "tune.md",
+];
 const TEXT_EXTENSIONS = new Set([".json", ".md", ".mjs", ".rs", ".toml", ".yml", ".yaml"]);
 
 async function exists(path) {

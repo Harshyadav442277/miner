@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "intent": "TEXT_AUTHENTICITY_CHECK",
+  "note": "Identity of the artifact actually registered on chain for this intent. It is a calibration wrapper (calibration/), not the released scorer in scorer/ — see release/text-authenticity.json for that one, and SUBMISSION.md section 4 for why the two are kept apart. Development-only: this file is never published to the standalone repository.",
+  "artifact": "calibration/dist/text_authenticity_v2.wasm",
+  "bytes": 23986538,
+  "sha256": "ba6fcf74203463e436ad2f63610e433d342879dec0818a56b3439226d9b34718",
+  "keccak256": "eec7bc00a5131dfb4152c0ca3b4b54eabc9ed05092a5b4d014e3fe1453a50588",
+  "keccak_is_the_onchain_binding": true,
+  "hash_gate": "CI compares bytes and sha256 only. Node has no keccak and this tree has no npm dependencies; equal sha256 pins the bytes, which pins the keccak recorded above.",
+  "registration": {
+    "registration_id": 1882,
+    "author_address": "0xdad201ef02f5c1fbb8f9e931ae9b7c1bf493a39e",
+    "wasm_url": "https://raw.githubusercontent.com/Harshyadav442277/miner/72474bd7514735b53b823bdab390c9721219bd18/track2/calibration/dist/text_authenticity_v2.wasm",
+    "source_commit": "72474bd7514735b53b823bdab390c9721219bd18",
+    "registered_at": "2026-08-30T04:27:54Z",
+    "activation_status": "active",
+    "rank": 1,
+    "eval_score": 0.66666603
+  },
+  "verified_against_registry": {
+    "checked_at": "2026-08-31T03:49:24Z",
+    "endpoint": "https://devnode.telegraphprotocol.com/api/wasm?intent=TEXT_AUTHENTICITY_CHECK",
+    "registry_wasm_hash": "eec7bc00a5131dfb4152c0ca3b4b54eabc9ed05092a5b4d014e3fe1453a50588",
+    "matches_tracked_bytes": true
+  }
+}

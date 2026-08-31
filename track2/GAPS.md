@@ -1,5 +1,24 @@
 # GAPS — Track 2 honesty ledger
 
+## G26 — the released TAC scorer is not the registered TAC scorer (2026-08-31)
+
+`release/text-authenticity.json` freezes the published scorer at 30,897 bytes, sha256 `3bb3bb82…`.
+Those bytes were published at `telegraph-factscore` `638dae46` and verified, and they were **never
+registered**. The TEXT_AUTHENTICITY_CHECK slot is held by registration 1882, which serves
+`calibration/dist/text_authenticity_v2.wasm` — a 23.99 MB calibration wrapper, keccak `eec7bc00…`,
+confirmed against `/api/wasm` on 2026-08-31. A sweep of the whole registry (45 intents, 67 of our
+entries) finds the released scorer's keccak nowhere. So a reader who assumes "our TAC champion is
+the scorer in `scorer/`" is wrong, and G23 applies to that slot.
+
+CI enforced the confusion until 2026-08-31: it rebuilt `scorer/` at head and demanded the frozen
+manifest's hash. That gate cannot hold on `main` — one crate compiles every module into every
+intent profile (A6), so the seven intents added after the freeze moved the TAC bytes to 32,311
+without touching TAC behaviour (drift starts at `6d4d262`). Both builds were reproduced
+byte-for-byte on Windows and Linux, so nothing here is non-determinism. Head is now held to the
+manifest's `offline_evidence`, which it still reproduces exactly, and the frozen bytes rebuild
+from `e12d09c`. Open decision, not a defect: whether to register the released scorer against a
+slot we already hold with different bytes.
+
 ## G22 — the step thresholds above the swept range are extrapolations
 
 For LANGUAGE_TRANSLATION the on-chain sweep covers thresholds 0.35 to 0.65 and shows exactly one
