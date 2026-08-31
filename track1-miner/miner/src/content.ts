@@ -54,8 +54,15 @@ function quantities(s: string): string[] {
   const out: string[] = [];
   // String.raw, not a plain string: in "\b(\d+" the escapes are a backspace
   // character and a literal "d". This file has been bitten by that twice.
+  // The terminator lookahead belongs to the "of <substance>" branch ALONE. It
+  // used to sit after the whole pattern, where it also gated the plain
+  // "<number> <unit>" case and silently dropped every quantity followed by a
+  // descriptive word: "2.3 meters long", "5 km away", "3 hours later" all
+  // failed, while "45 kilograms and ..." passed. Inside the optional group it
+  // still stops "5 litres of water and oil" over-capturing, without rejecting
+  // the base case.
   const re = new RegExp(
-    String.raw`\b(\d+(?:[.,]\d+)?)\s+(` + UNITS + String.raw`)\b(?:\s+of\s+([a-z][a-z\s-]{0,24}?))?(?=[,.;]|\s+and\b|$)`,
+    String.raw`\b(\d+(?:[.,]\d+)?)\s+(` + UNITS + String.raw`)\b(?:\s+of\s+([a-z][a-z\s-]{0,24}?)(?=[,.;]|\s+and\b|$))?`,
     "gi",
   );
   for (const m of s.matchAll(re)) {
@@ -201,7 +208,17 @@ export function extractContent(question: string): Extraction {
     fields["values"] = n;
     summary = n.length ? `${n.join(", ")}.` : "No numeric values were found in the supplied text.";
   } else {
-    const all = [...emails(source), ...phones(source), ...numerics(source), ...dates(source)];
+    // Quantities belong in the generic sweep too. `text` is the REQUIRED
+    // parameter and `query` only optional, so the engine can legitimately send
+    // the payload with no instruction naming what to pull out — and this branch
+    // is what answers then. Without quantities here, "The shipment weighs 45
+    // kilograms and is 2.3 meters long" extracted nothing at all and scored 0,
+    // because `numerics` deliberately reads only percentages, currency and
+    // quarters, treating bare numbers as noise.
+    const all = [
+      ...emails(source), ...phones(source), ...quantities(source),
+      ...numerics(source), ...dates(source),
+    ];
     fields["values"] = all;
     summary = all.length
       ? `Extracted from the supplied text: ${all.join(", ")}.`

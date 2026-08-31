@@ -34,6 +34,14 @@ const GATES = [
     (o) => /ALL CHECKS PASSED/.test(o)],
   ["param shapes (engine-shaped)", () => run("node", [join(TOOLS, "param-shapes.mjs"), BASE], TOOLS),
     (o) => /\b0 failed\b/.test(o)],
+  // Correctness, not shape. Every other gate here would happily pass an
+  // endpoint returning a confident, well-formed, WRONG answer — and
+  // verify-deploy predates the expansion, so three of the ten intents had no
+  // correctness check at all until this one. It is what caught /extract
+  // silently dropping "2.3 meters" and returning nothing for an un-instructed
+  // payload, on the intent with the largest measured upside in the project.
+  ["intent answers (correctness)", () => run("node", [join(TOOLS, "intent-answers.mjs"), BASE], TOOLS),
+    (o) => /10\/10 intents answering correctly/.test(o)],
   ["hostile inputs", () => run("node", [join(TOOLS, "hostile-inputs.mjs"), BASE], TOOLS),
     (o) => /\b0 bad\b/.test(o)],
   ["upstream health", () => run("node", [join(TOOLS, "upstream-health.mjs")], TOOLS),

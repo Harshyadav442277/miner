@@ -662,3 +662,37 @@ The flakiness was self-inflicted, the same effect noted in G34.
 So an honest "could not be retrieved" from a reliable single provider beats a second provider that
 answers off-topic. Revisit only with a provider that matches OpenAlex on relevance AND metadata —
 or with an API key, which introduces a revocable dependency the manifest currently has none of.
+
+### G38 · Three intents were signed on-chain having only ever been shape-tested — `CLOSED 2026-08-31: correctness gate added, two real defects found`
+
+Every gate in this repo checked **shape** — 200, non-empty reason, no refusal, no crash — and none
+checked whether the answer was **right**. `verify-deploy` predates the expansion and covers only the
+original seven routes, so `CONTENT_EXTRACTION`, `NEWS_HEADLINES` and `WALLET_BALANCE_CHECK` went
+on-chain having never had a correctness check at all.
+
+`tools/intent-answers.mjs` asks one realistic question per intent and asserts facts that can be
+verified independently: a known-expired certificate, a wallet balance cross-checked against an RPC
+the miner does not use, a geofeed-published address only the primary provider places correctly, the
+translation payload's exact four-key shape, the ~32-word conversion budget on extraction answers.
+
+**It immediately found two defects in `/extract` — the intent with the largest measured upside in
+the project (both incumbents score 0.0; we measured 1.000 on 6 of 6):**
+
+1. **Quantities followed by a descriptive word were silently dropped.** The terminator lookahead
+   `(?=[,.;]|\s+and\b|$)` gated the whole pattern rather than just its optional "of <substance>"
+   branch, so `45 kilograms and …` matched while `2.3 meters long` did not. Every quantity trailed
+   by an adjective — "5 km away", "3 hours later" — was lost. The lookahead now sits inside the
+   branch it belongs to, which still stops "5 litres of water and oil" over-capturing.
+2. **A payload with no instruction extracted nothing.** `text` is the REQUIRED parameter and
+   `query` only optional, so the engine can legitimately send the payload alone — and that path fell
+   to the generic branch, which swept emails, phones, numerics and dates but **not quantities**.
+   `numerics` deliberately reads only percentages, currency and quarters, treating bare numbers as
+   noise, so "The shipment weighs 45 kilograms and is 2.3 meters long" answered *"No structured
+   values could be extracted"* and would have scored 0.
+
+Both fixed, deployed, and pinned by tests. **10/10 intents now answer correctly**, and the check is
+a preflight gate so it cannot regress silently.
+
+**The lesson, stated plainly because it cost the most this session:** a passing shape test says the
+endpoint is reachable, not that it is right. Three of these intents were signed on-chain on that
+weaker evidence.

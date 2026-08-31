@@ -51,3 +51,26 @@ test("numeric extraction carries every value the reference carries", () => {
   const s = extractContent('Extract the numeric values from: "Revenue grew by 12% to reach $4.5 million in Q3."').summary;
   for (const v of ["12%", "$4.5 million", "Q3"]) assert.ok(s.includes(v), `${v} missing from ${s}`);
 });
+
+test("a quantity followed by a descriptive word is still extracted", () => {
+  // The terminator lookahead used to gate the whole pattern, so "45 kilograms
+  // and" matched but "2.3 meters long" did not — every quantity trailed by an
+  // adjective was silently dropped.
+  const e = extractContent('Extract the quantities from: "The shipment weighs 45 kilograms and is 2.3 meters long."');
+  assert.deepEqual(e.fields["quantities"], ["45 kilograms", "2.3 meters"]);
+});
+
+test("an of-phrase still stops at its own boundary", () => {
+  const e = extractContent('Extract the quantities from: "Add 5 litres of water and stir."');
+  assert.deepEqual(e.fields["quantities"], ["5 litres of water"]);
+});
+
+test("payload with no instruction still extracts what is there", () => {
+  // `text` is the REQUIRED parameter and `query` only optional, so the engine
+  // can send the payload with nothing naming what to pull out. This used to
+  // answer "no structured values could be extracted" and score 0.
+  const e = extractContent("The shipment weighs 45 kilograms and is 2.3 meters long.");
+  assert.ok(e.fields["values"]?.includes("45 kilograms"), `got ${JSON.stringify(e.fields["values"])}`);
+  assert.ok(e.fields["values"]?.includes("2.3 meters"));
+  assert.doesNotMatch(e.summary, /No structured values/);
+});
