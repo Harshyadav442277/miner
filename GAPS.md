@@ -1293,3 +1293,17 @@ ACADEMIC are untouched. 237/237 tests, preflight 7/7 against the deployed build.
 risk, stated plainly: the converter is still not runnable offline (G24), so flat32 is a proxy —
 but it is the proxy that reproduced the academic live ordering, and the intents it changed were
 losing under the old shape in every live epoch on record.
+
+### G57 · Our Track 2 scorer became WALLET champion while our miner competes there — `FLAGGED 2026-08-31 ~21:15Z, fairness measured`
+
+Registration 2882 (`wallet_balance_check_r4.wasm`, authored by our wallet, promoted by the node's
+own gate at 19:35:53Z) is the WALLET_BALANCE_CHECK champion going into epoch 298 — the intent our
+miner competes in. The previous scorer author's norm was to exclude intents they mine, and the
+rules bar artificial inflation, so this is a conflict-of-interest surface regardless of intent.
+
+**The fairness receipt, measured immediately:** over the 13 recovered questions under 2882, our
+deployed answers score mean 0.538440 with 7/13 crossings; the pre-reorder shape 0.538440, 7/13;
+preflight's recorded answers 0.538441, 7/13 — the scorer treats every shape in the field
+identically to six decimals and is indifferent to our own tuning. Promotion was the protocol
+gate's decision, not a manual act; the operator decides whether to keep or supersede the slot.
+The champion watch keeps running — the slot has turned over five times today.
