@@ -144,8 +144,15 @@ popular category earns zero; rank 1 in a quiet one takes 70%.
 
 ## Grace period
 
-First **7 days** after activation: unranked, and all grace-period miners **share 5% of routed
-traffic equally**. Your grace-period score sets your opening leaderboard position.
+First **7 days** after activation: all grace-period miners **share 5% of routed traffic equally**.
+Your grace-period score sets your opening leaderboard position.
+
+**"Unranked" was wrong and is struck (G58, 2026-08-31).** The grace period throttles routed
+traffic; it does not withhold scoring or ranking. `txlens` registered `2026-08-31T13:34:43Z` and
+was scored across 13 intents with two rank-1s ~40 minutes later, in the same epoch's pass.
+`preflight-ssl-verification` registered Aug 30 20:06Z and held five rank-1s the next epoch. The
+operative rule is **a registration lands in the next epoch's scoring pass** — do not plan around a
+7-day ranking blackout, because there isn't one.
 
 ## Spot checks and revocation
 
@@ -261,11 +268,21 @@ theory, which take up to 9 hours to test and have twice been wrong.
 Track 1 and Track 2 ran **Aug 17 – Aug 31, 2026**; Track 3 runs Aug 31 – Sep 7; Winner Selection
 Sep 8–18; announcement Sep 19–25. The home-page "SEP 7 23:59 UTC SUBMISSIONS CLOSE" countdown is
 the **Track 3** deadline, not Track 1's. Source: https://hackathon.telegraphprotocol.com/rules,
-read 2026-09-01 (via the operator's second research repo, whose twelve-intent miner missed its
-registration window on exactly this confusion). Consequences: no new registrations or intent
-additions can enter the judged Track 1 record; a new registration's ~7-day unranked grace period
-would outlast Winner Selection anyway; what matters post-close is the miner staying LIVE and
-ranked through Track 3, whose routed requests are counted in judging.
+read 2026-09-01 local (= 2026-08-31 UTC). Consequences: what matters post-close is the miner
+staying LIVE and ranked through Track 3, whose routed requests are counted in judging.
+
+**Two conclusions first drawn here were wrong, and cost most of the remaining window before they
+were caught (2026-08-31 ~21:00Z).**
+
+1. **"Track 1 has closed" was a timezone error.** The close is Aug 31 **23:59 UTC**. This file was
+   written at 02:16 local (IST, UTC+5:30) on Sep 1, which is **20:46 UTC on Aug 31** — nearly three
+   hours *before* the deadline, not after it. Always resolve the deadline in UTC against `date -u`,
+   never against the local date the environment reports.
+2. **"A new registration's ~7-day unranked grace period would outlast Winner Selection" is false.**
+   See G58: registrations are scored in the next epoch's pass, same day. The grace period is a
+   traffic-share throttle.
+
+What survives: the Aug 17 – Aug 31 dates themselves, which the rules page confirms verbatim.
 
 ## Rival: preflight-ssl-verification is public — github.com/shreshth006/Preflight
 

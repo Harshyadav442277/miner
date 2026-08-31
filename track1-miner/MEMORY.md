@@ -3,8 +3,76 @@
 **Read this first. Everything Track 1 needs is in this folder.**
 Shared protocol facts are in `../docs/`. Do not edit `../track2/` or `../track3-certwatch/`.
 
-Last updated: 2026-08-31 ~15:45 UTC — the three-losing-intent push is DEPLOYED and verified.
-Read § 00000000 first; epoch 298 (starts 23:02Z, spot-scored ~00:15Z Sep 1) is its acceptance test.
+Last updated: 2026-08-31 ~21:30 UTC — `updateMiner(389)` to THIRTEEN intents was prepared and
+handed to the operator inside the last hours of Track 1 (closes Aug 31 **23:59 UTC**; resolve
+deadlines with `date -u`, never the local date). Read § 000000000 first, then § 00000000.
+Epoch 298 starts 23:02Z and is spot-scored ~00:15Z Sep 1.
+
+---
+
+## 000000000. THIRTEEN INTENTS, SIGNED IN THE LAST HOURS OF TRACK 1 (2026-08-31 ~21:30Z)
+
+**Track 1 was still open. A previous session had recorded it as closed and that was a timezone
+error** — the file was written at 02:16 IST on "Sep 1", which is 20:46 UTC on Aug 31, about three
+hours before the 23:59 UTC close. The operator caught it. Corrected in
+[../docs/TELEGRAPH_FACTS.md](../docs/TELEGRAPH_FACTS.md) and [../CLAUDE.md](../CLAUDE.md).
+**Resolve every deadline with `date -u`.** The same file also claimed a new registration would sit
+unranked for 7 days; that is false and is now G58.
+
+**What shipped:** `updateMiner(389, ...)` taking the registration from ten intents to **thirteen** —
+`WEATHER_CHECK`, `FACT_CHECK`, `TELEGRAPH_KNOWLEDGE`. Two of the three cost **no new code**:
+`/fact-check` and `/telegraph` were built, tested and deployed in an earlier session, committed to
+`miner.yaml`, and then never registered — reg 389 was pinned to a commit that predated them. This
+was a re-pin, not a build.
+
+```
+url    .../miner/6b0d176048313cc6fec2788d18cb9ae24f3e2adc/track1-miner/miner.yaml
+hash   0x7538082784c4b20849aeb54cfb6c2cf74100cf074dff3e0f8d8b268e12e47640   (24,996 hosted bytes)
+gates  preflight 7/7 · 182 unit + 67 live green · manifest parse + orphan check · cast call simulated OK
+```
+
+**The one real bug fixed: `hours=0` was being swallowed.** Our own `input_schema` promises "0 is the
+current hour", but `Number(firstValue(url,"hours")) || 24` is falsy at zero, so a "what is it doing
+right now" question was answered with a 24-hour range. Absent and zero are now distinguished by the
+empty string `firstValue` returns for absent; `forecast.ts:64` already clamped to a 1-hour window,
+so nothing downstream changed. Verified live: `hours=0` -> "A 1-hour hourly weather forecast",
+default still 24-hour. That fix is what makes WEATHER_CHECK worth declaring at all.
+
+**Why three intents and not twelve.** The operator asked whether the twelve crowded Tier-A intents
+(CRYPTO_PRICE, CVE_LOOKUP, TVL_LOOKUP, CURRENCY_EXCHANGE, ONCHAIN_TX_LOOKUP, URL_SCAN,
+FINANCIAL_DATA, STOCK_PRICE, TOKEN_HOLDER_COUNT, WEATHER_CHECK, FRAUD_DETECTION, GAS_PRICE) were
+winnable. Measured across every recorded epoch of each:
+
+- **GAS_PRICE is closed** — `kriterion-pramagraph` scores exactly **1.0**. FRAUD_DETECTION has three
+  miners saturated at ~0.9998. URL_SCAN's `netwire-url-scan` is at 0.324, 610x the runner-up.
+- **The "empty field" reading of epoch 297 is a trap.** CVE_LOOKUP showed all five miners at 0.0 —
+  but its #1 was **1.0** for the seven epochs before that. STOCK_PRICE's #1 was 0.995 at e294 and
+  6.6e-12 at e297. Those are champion-scorer rotations, not open doors. Third time this trap has
+  been hit; check `/api/wasm?intent=...` before believing a field-wide collapse.
+- Twelve unimplemented intents would be positive under a **sum** reading of judging and destructive
+  under an **average** one (G59). Three reusing proven handlers is positive under one and neutral
+  under the other, so it does not need the ambiguity resolved.
+
+**Rival re-assessment: preflight and the onchain cluster are not the threat; `chainsight-oracle`
+is.** Normalized per the rules (score / best-in-intent), epoch 297:
+
+```
+by SUM                                  #1s   note
+ 1. chainsight-oracle   14 intents 9.05   4    the actual broad rival, top-3 in ten
+ 2. livecert (ours)     10 intents 8.14   4
+ 3. txlens              13 intents 7.62   2
+ 4. preflight           10 intents 7.27   5    broad, not strong: wins CVE at 0.0, WALLET at 4.3e-8
+```
+
+Four of the seven `*-onchain-*` miners score exactly 0.0 in ONCHAIN_TX_LOOKUP; that field's leader
+is `veyctum`. Our 1.86 normalized points left on our own ten sit in ACADEMIC (0.37), WALLET (0.57),
+TRANSLATION (0.62) and SSL (0.63).
+
+**Not verified before signing:** the sandbox validator is down (G60 — accepts the request, then
+404s from its own backend, same breakage as 2026-08-29). Substituted a structural diff against the
+manifest the node accepted for 389 plus a read-only `cast call` simulation. That proves the change
+is shaped like something already accepted; it does not prove activation accepts `/fact-check` and
+`/telegraph`, which have never been through it. Whether epoch 298 counts for Track 1 is G61.
 
 ---
 

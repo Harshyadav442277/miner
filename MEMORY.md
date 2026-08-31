@@ -14,6 +14,29 @@ sessions and between models.
 | **Track 3 — app** | [track3-certwatch/](track3-certwatch/), plus G17/G18 in [GAPS.md](GAPS.md) |
 | Anything | [README.md](README.md) for ownership and shared facts, [docs/](docs/) for protocol and rules |
 
+## Track 1 was NOT closed — thirteen intents signed in its last hours (2026-08-31 ~21:30 UTC)
+
+A previous session recorded Track 1 as closed. **That was a timezone error**: the note was written
+at 02:16 IST on "Sep 1", which is 20:46 UTC on Aug 31, roughly three hours before the real
+**Aug 31 23:59 UTC** close. The operator caught it. `docs/TELEGRAPH_FACTS.md` and `CLAUDE.md` are
+corrected, and every deadline there is now stated in UTC with an instruction to resolve it via
+`date -u`. A second claim from the same note — that a new registration sits unranked for 7 days —
+is also false (G58): `txlens` registered 13:34Z and was scored across 13 intents ~40 minutes later.
+
+`updateMiner(389, ...)` was prepared taking the miner from ten intents to **thirteen**:
+`WEATHER_CHECK`, `FACT_CHECK`, `TELEGRAPH_KNOWLEDGE`. Two needed **no new code** — `/fact-check`
+and `/telegraph` were already built, tested and deployed, but reg 389 was pinned to a commit that
+predated them, so this was mostly a re-pin. One real bug was fixed on the way: `hours=0` meant "the
+current hour" in our own `input_schema` but a falsy-zero `||` turned it into the 24-hour default.
+Preflight 7/7, 182 unit + 67 live tests green, `cast call` simulated clean. The operator signs;
+Claude never touches the wallet. Full record: § 000000000 of
+[track1-miner/MEMORY.md](track1-miner/MEMORY.md). Open questions: G59 (sum vs average judging),
+G60 (sandbox validator down), G61 (does epoch 298 count).
+
+**Rivals, re-measured:** `chainsight-oracle` (14 intents, sum 9.05) is the miner to beat, not
+`preflight` (7.27) or the `*-onchain-*` cluster, four of whom score exactly 0.0 in their own
+intent. We sit second at 8.14 with four rank-1s.
+
 ## Three-intent push deployed (2026-08-31 ~15:45 UTC) — epoch 298 is the acceptance test
 
 The three intents epoch 297 lost were each diagnosed by measurement and fixed the same day:

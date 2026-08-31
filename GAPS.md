@@ -1307,3 +1307,71 @@ preflight's recorded answers 0.538441, 7/13 — the scorer treats every shape in
 identically to six decimals and is indifferent to our own tuning. Promotion was the protocol
 gate's decision, not a manual act; the operator decides whether to keep or supersede the slot.
 The champion watch keeps running — the slot has turned over five times today.
+
+
+### G58 · The "7-day grace period leaves a new registration unranked" reading was wrong — `CLOSED 2026-08-31 ~21:30Z, refuted by live data`
+
+[docs/TELEGRAPH_FACTS.md](docs/TELEGRAPH_FACTS.md) recorded the grace period as "first 7 days after
+activation: **unranked**", and that was used on 2026-09-01 to argue no late registration could enter
+the judged Track 1 record. **The catalog refutes it.** `txlens` registered at `2026-08-31T13:34:43Z`
+and carried 13 scored intents with two rank-1s in the pass that ran ~14:05–14:25Z the same day —
+about 40 minutes later. `preflight-ssl-verification` registered `2026-08-30T20:06:29Z` and holds
+five rank-1s by the next epoch. Our own reg 389 registered 04:01Z today and was scored at 14:xx.
+
+The grace period throttles **routed traffic share** (5% split among grace-period miners); it does
+not withhold scoring or ranking. The practical rule is: **registration lands in the next epoch's
+scoring pass.** Anything written on the assumption that a late registration cannot score is wrong.
+
+
+### G59 · Whether Track 1 is judged on the SUM or the AVERAGE of normalized scores — `OPEN`
+
+The rules page says both things and they disagree. "Every Miner is scored out of 100 points: 75
+points — Normalized Performance" implies an **average** (an intent-average ratio scaled to 75).
+"The Top 3 Miners with the highest **total** normalized scores across all intents win cash prizes"
+implies a **sum**. The two readings order the field differently, measured on epoch 297:
+
+```
+by SUM                                    by AVERAGE (no intent floor)
+ 1. chainsight-oracle   14 intents  9.05    eleven miners tie at 1.000, all 1-3 intents
+ 2. livecert (ours)     10 intents  8.14    (mymemory-translate, veyctum, netwire-url-scan, ...)
+ 3. txlens              13 intents  7.62    livecert is not in the top ten
+ 4. preflight           10 intents  7.27
+```
+
+A pure average with no minimum-intent floor is degenerate — a single-intent miner at rank 1 scores
+a perfect 75 — which is evidence against that reading, but not proof. The `>=3 miners AND >=100
+Track 3 requests` guardrail culls some of those tiny miners, and may be the intended floor.
+
+**What we did with it:** treated the sum as the operative reading, because it is the literal text
+and because the four strongest rivals independently went wide (14/13/10/10 intents). The
+thirteen-intent update is positive under the sum and roughly neutral under the average, so it does
+not require the ambiguity to be resolved. A **twelve**-intent expansion into unimplemented intents
+would have been positive under the sum and destructive under the average; it was rejected for that.
+
+
+### G60 · The sandbox validator could not be run before the thirteen-intent update — `OPEN`
+
+CLAUDE.md rule 3 requires a clean run at `integrate.telegraphprotocol.com` before any
+`updateMiner`. On 2026-08-31 ~22:20Z the endpoint accepts the request shape and then fails from
+behind: `POST /api/validate` with `{}` returns `{"error":"yaml is required"}`, and the same call
+with a real `{"yaml": ...}` body returns `{"error":"404 page not found"}` from the Next.js router.
+Both a two-line manifest and our full 24,996-byte one reproduce it. This is the same console
+breakage recorded on 2026-08-29, not a signal about our YAML.
+
+**What was substituted, and why it is weaker.** The hosted manifest was parsed, then diffed
+structurally against the manifest the node **accepted** for registration 389: no new top-level
+keys, no new endpoint field names, `slug` / `base_url` / `id` unchanged, 13 intents all canonical
+on-chain, every endpoint intent declared and every declared intent routed, and the `updateMiner`
+call simulated read-only against the live diamond (`cast call`, passed). That establishes the
+change is structurally identical to something already accepted. It does **not** establish that the
+node's activation-time validator accepts the two endpoints new to this registration
+(`/fact-check`, `/telegraph`), which have never been through activation.
+
+
+### G61 · Whether epoch 298 counts toward the Track 1 judged record — `OPEN`
+
+Track 1 closes 2026-08-31 23:59 UTC. Epoch 298 **starts** 23:02Z (inside the window) and its
+scoring pass lands ~00:15Z on Sep 1 (outside it). Judging runs Sep 8–18 over "your average
+Canonical Score", with no published statement of which epochs are included. The thirteen-intent
+update was signed on the reading that an epoch beginning inside the window plausibly counts, and
+that the downside if it does not is the gas plus a re-activation, not a lost position.

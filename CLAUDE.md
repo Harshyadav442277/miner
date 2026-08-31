@@ -1,7 +1,13 @@
 # CLAUDE.md — Telegraph miner operating rules
 
-**Goal:** register and operate a Telegraph miner that reaches rank 1 in its intent by
-**2026-09-07 12:00 UTC** (Telegraph Hackathon Season I, H1, Track 1).
+**Goal:** register and operate a Telegraph miner that reaches rank 1 in its intents
+(Telegraph Hackathon Season I, Track 1).
+
+**Deadlines, in UTC — resolve them with `date -u`, never the local date.** Track 1 and Track 2 ran
+**Aug 17 - Aug 31 2026, closing Aug 31 23:59 UTC**; Track 3 runs Aug 31 - Sep 7; Winner Selection
+Sep 8-18. The site's "SEP 7 23:59 UTC" countdown is **Track 3's**, not Track 1's. Post-close, what
+is judged is the miner staying **live and ranked through Sep 7**. A local-date reading of this
+nearly cost the last three hours of Track 1 - see the correction in docs/TELEGRAPH_FACTS.md.
 
 **Track 2 pivot (2026-08-27):** active build focus is **Track 2 (Script Author)** — rank 1 by
 **2026-08-31**. Its rules and state live in [track2/](track2/CLAUDE.md) (own MEMORY, TASKS,

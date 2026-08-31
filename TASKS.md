@@ -282,3 +282,30 @@ near-zero field — **both diagnosed, fixed, measured against their champions an
       parameters the engine actually fills. It settles GAPS **G35** (`/ip-geolocate` losing its
       restatement when `ip` is filled) and would retire the guesswork behind `withSubject` for
       every route at once. It is the single highest-value unknown left in Track 1.
+
+### Session of 2026-08-31 ~21:30Z — the last hours of Track 1
+
+- [x] **TB.1** **Track 1 was not closed.** The "closed" note in docs/TELEGRAPH_FACTS.md was a
+      local-date-vs-UTC error (02:16 IST Sep 1 = 20:46 UTC Aug 31; the close is Aug 31 23:59 UTC).
+      Corrected there and in CLAUDE.md, with the UTC rule made explicit. (opens+closes G58)
+- [x] **TB.2** Measured all twelve crowded Tier-A intents across every recorded epoch before
+      choosing any. GAS_PRICE is closed (incumbent at exactly 1.0), FRAUD_DETECTION saturated at
+      ~0.9998, URL_SCAN's leader is 610x the runner-up; and epoch 297's field-wide zeros in
+      CVE_LOOKUP / STOCK_PRICE / TOKEN_HOLDER_COUNT are champion rotations, not open doors.
+- [x] **TB.3** Fixed `hours=0` being swallowed by a falsy-zero fallback, against our own
+      `input_schema` which promises "0 is the current hour". Test added, deployed, verified live.
+- [x] **TB.4** Manifest to **thirteen** intents (`WEATHER_CHECK` on the existing forecast endpoint,
+      plus the already-built-but-never-registered `FACT_CHECK` and `TELEGRAPH_KNOWLEDGE`).
+      Preflight 7/7, 182 unit + 67 live green, `cast call` simulation clean.
+- [x] **TB.5** `tools/sign-update.sh` repointed from the retired reg 334 to **389** and thirteen
+      intents. It had been left pinned to a registration that no longer exists.
+- [ ] **TB.6** **Operator: sign it.** `export PATH="$HOME/.foundry/bin:$PATH" && bash
+      track1-miner/tools/sign-update.sh` — cast prompts for the key directly; the script never
+      sees it. Then read the NEW registration id from the receipt logs (not the API — the indexer
+      lags ~4 min), `gh variable set REGISTRATION_ID --body <NEW_ID>`, and re-run preflight.
+- [ ] **TB.7** Sandbox validation could **not** be run — the validator 404s from its own backend
+      (G60). If it comes back, validate the thirteen-intent manifest retroactively; a rejection
+      would need a corrective update, not a rollback.
+- [ ] **TB.8** Confirm whether epoch 298 (starts 23:02Z, inside the window; scored ~00:15Z, outside
+      it) counts toward the Track 1 record (G61). Nothing to do about it either way — but it
+      determines whether TB.4 mattered for judging or only for Track 3 routing.
