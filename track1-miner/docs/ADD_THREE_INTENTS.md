@@ -69,8 +69,10 @@ should describe what the service does.
 
 1. **`updateMiner` replaces the whole registration.** A bad activation takes all ten intents
    offline. Mitigations: the code is already live so activation cannot find a missing route,
-   `verify-deploy` exits 0 against production, 182/182 tests pass, and a manifest test fails the
+   `verify-deploy` exits 0 against production, **198/198** tests pass, and a manifest test fails the
    build if endpoint intents and `supported_intents` disagree. **Sandbox-validate first.**
+   Run `node track1-miner/tools/preflight.mjs` immediately before signing — it is all six gates,
+   and `verify-deploy` alone passed green through five real defects on 2026-08-30.
 2. **Traffic may be near zero** in both. These are rank plays, not eligibility plays.
 3. **Headlines go stale**, capping the score as described above.
 
