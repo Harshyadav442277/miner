@@ -302,6 +302,14 @@ near-zero field — **both diagnosed, fixed, measured against their champions an
 - [x] **TB.6** **Signed and mined 2026-08-31 ~21:37Z — registration is now 402.** Tx
       `0x0e54dcc7b31b7f30b110f77f09e7719267d1179fbac8e4795a9649ff20f27fd3`, status 1. Receipt logs
       decode to id 402, the signed hash, the pinned URL and all thirteen intents. **389 is gone.**
+- [x] **TB.6b** Registration 402 confirmed **active** 21:46Z, thirteen intents, preflight 7/7.
+      Activation read `unreachable` for ~3 min first (fetch attempt 1 of 5 timed out); that is
+      normal and self-heals. `CHECK STATUS` in the console forces a retry; never `DEREGISTER`.
+- [x] **TB.9** **Submitted to submissions.telegraphprotocol.com** — Track 1 tab, miner ID 402 with
+      `track1-miner/miner.yaml`. Registration alone does not enter the hackathon; this was found
+      with ~2h left. Recorded in docs/TELEGRAPH_FACTS.md.
+- [ ] **TB.10** Delete or rename the root `SUBMIT-THIS-miner.yaml` — it is the stale 10-intent
+      snapshot and its name invites uploading the wrong manifest.
 - [ ] **TB.6a** **Operator: `gh variable set REGISTRATION_ID --body 402`** — the uptime tripwire
       still watches 389, which no longer exists, so it is currently blind.
 - [ ] **TB.6-old** Original signing step, retained for the runbook: `export PATH="$HOME/.foundry/bin:$PATH" && bash

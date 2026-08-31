@@ -290,3 +290,28 @@ Registered 2026-08-30T20:06Z, runs a six-hour Claude autopilot, and iterates fas
 every commit targeted URL_SCAN (not an intent we serve); no SSL/IP/wallet answer changes were
 committed the day of the close. Their wallet caveat-first past-dated shape is what G55's reorder
 matched. Endpoint watchdog stays the ground truth for deploys.
+
+## Submitting is a SEPARATE step from registering (verified 2026-08-31 ~21:45Z)
+
+`https://submissions.telegraphprotocol.com` — tabs for Track 1 (Miner), Track 2 (WASM), Track 3
+(coming soon). Track 1 takes an **X username**, then one or more rows of **miner ID + its YAML
+config file**, and a wallet **SIGN & SUBMIT**. Deadline shown in-page: **Mon, 31 Aug 2026 23:59:59
+UTC**, matching the rules page.
+
+**Being registered on-chain and ranked does not enter you.** A miner can be active, scoring and
+holding rank 1 and still not be submitted. This was found with about two hours left.
+
+- **"Miner ID" is the on-chain registration id** (402), not the `id:` field inside the YAML (4433).
+  `/api/miners/4433` does not resolve; `/api/miners/402` does.
+- **Upload `track1-miner/miner.yaml`** — the file whose bytes hash to the registered `yaml_hash`.
+  The root-level `SUBMIT-THIS-miner.yaml` is a stale 10-intent snapshot (22,807 bytes,
+  `0x78932fb1...`) kept from the 389 registration. Its name is a trap; do not upload it.
+- A re-`updateMiner` mints a new registration id, which would make an already-submitted id stale.
+  Submit only after the registration you intend to be judged on is `active`.
+
+## This machine's IPv6 path to raw.githubusercontent.com hangs (2026-08-31)
+
+`curl` to `raw.githubusercontent.com` takes **~15.1s to connect** over the default stack and
+**0.036s with `-4`**, reproducibly. `github.com`, Vercel and devnode are all sub-100ms. It is a
+local IPv6 problem, not GitHub and not the manifest. Use `curl -4` here before concluding a host is
+slow — a 15-second hang measured from this machine says nothing about what Telegraph's node sees.

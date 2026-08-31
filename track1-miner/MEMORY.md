@@ -25,7 +25,15 @@ unranked for 7 days; that is false and is now G58.
 `miner.yaml`, and then never registered — reg 389 was pinned to a commit that predated them. This
 was a re-pin, not a build.
 
-**SIGNED AND MINED 2026-08-31 ~21:37Z. REGISTRATION IS NOW 402 — 389 IS GONE. Look up 402.**
+**SIGNED, MINED AND ACTIVE. REGISTRATION IS NOW 402 — 389 IS GONE. Look up 402.**
+Mined ~21:37Z, `activation_status: active` confirmed 21:46Z with all thirteen intents,
+`rejection_reason` null, `retrying` false, `fetch_attempts` 0. Preflight 7/7 against the live miner.
+
+**Activation showed `unreachable` for ~3 minutes first, and that was NOT a failure.** Attempt 1 of 5
+returned `YAML fetch failed ... context deadline exceeded`. The node retries about every 5 minutes
+and the console's `CHECK STATUS` button forces one. The manifest was fine throughout. **Do not
+reach for `DEREGISTER` when a fetch attempt times out** — it would destroy the registration and
+mint a new id, invalidating any submission that names the old one.
 
 ```
 tx        0x0e54dcc7b31b7f30b110f77f09e7719267d1179fbac8e4795a9649ff20f27fd3
