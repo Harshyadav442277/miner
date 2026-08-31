@@ -10,6 +10,12 @@
     "target": "wasm32-unknown-unknown",
     "feature": "text-authenticity"
   },
+  "frozen_from": {
+    "monorepo_source_commit": "e12d09c83e38a91146ce9afb95cc8a0409ee848f",
+    "how_to_reproduce": "git archive e12d09c83e38a91146ce9afb95cc8a0409ee848f track2/scorer | tar -x --strip-components=2, then cargo build --release --target wasm32-unknown-unknown --no-default-features --features text-authenticity. Verified byte-exact on Windows and Linux.",
+    "head_rebuilds_these_bytes": false,
+    "why": "One crate compiles every module into every intent profile (A6), so each intent added after the freeze moves the TAC build even when TAC behaviour is untouched. Drift started at 6d4d26277223348b604ef66eb01fd2cf07708782 (STOCK_PRICE/TVL_LOOKUP profile). HEAD is held to offline_evidence below, not to these hashes; the byte gate lives in the standalone repository, where the source is frozen alongside the artifact."
+  },
   "offline_evidence": {
     "corpus_version": "3a30a0fff08c62a3",
     "native_fixtures": 16,
@@ -58,6 +64,8 @@
     "hosted_url": "https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/638dae46ba31c1bf3a30e9d0e541b7c56f3fe48b/dist/text_authenticity.wasm",
     "source_commit": "638dae46ba31c1bf3a30e9d0e541b7c56f3fe48b",
     "hosted_bytes_verified": true,
-    "onchain_registration_id": null
+    "onchain_registration_id": null,
+    "onchain_status": "never_registered",
+    "intent_slot_note": "These bytes were published and verified but never sent to registerWasm. The TEXT_AUTHENTICITY_CHECK slot is held by registration 1882, which is a different artifact from the calibration research line and is not this released scorer."
   }
 }

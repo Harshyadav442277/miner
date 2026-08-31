@@ -14,10 +14,20 @@ openssl dgst -keccak-256 target/wasm32-unknown-unknown/release/scorer.wasm
 node verify.mjs target/wasm32-unknown-unknown/release/scorer.wasm
 ```
 
-The build is releasable only when its size and both hashes equal the manifest. After publishing
+A build is releasable only when its size and both hashes equal the manifest. After publishing
 the exact WASM in the standalone public repository, download the raw URL and repeat both hashes.
 Then fill `publication.hosted_url` and `publication.source_commit`, set
 `publication.hosted_bytes_verified` to `true`, and only then ask the user to register it.
+
+That byte comparison is a gate on a *release candidate*, and it holds in the standalone
+repository, where the source is frozen next to the artifact (`verify-standalone.mjs` and the
+standalone CI both enforce it). It does not hold on monorepo `main`. One crate compiles every
+module into every intent profile (A6), so each intent added after a freeze moves every other
+intent's bytes even when none of their behaviour changes: the frozen 30,897-byte TAC artifact
+stopped rebuilding at `6d4d262` (the STOCK_PRICE/TVL_LOOKUP profile) and is now 32,311 bytes,
+with every measured TAC number unchanged. `text-authenticity.json` records the commit that still
+rebuilds the frozen bytes under `frozen_from`; monorepo CI holds head to the manifest's
+`offline_evidence` instead of its hashes (`check-release-identity.mjs`).
 
 The tracked `.cargo/config.toml` normalizes Rust's embedded `src\...` Windows span paths to
 `src/...`. Do not remove it: without that flag Windows and Linux produce behaviorally identical
@@ -25,6 +35,11 @@ but byte-different modules, invalidating the frozen hash and CI reproduction che
 
 Source changes after registration are harmless, but they do not change the registered scorer.
 Any changed WASM requires a new hash and a fresh `registerWasm` transaction.
+
+For TEXT_AUTHENTICITY_CHECK the registered scorer is not this released one at all. These bytes
+were published and verified but never registered; the slot is held by registration 1882, a
+calibration wrapper, pinned separately in `registered-text-authenticity.json` and byte-gated by
+the same `check-release-identity.mjs`. That file is development-only and is not published.
 
 The website boundary is separate: edit the intent/miner details there only when that Track 1
 metadata changes. README, tests, fixtures, harnesses, and source-only GitHub changes require no

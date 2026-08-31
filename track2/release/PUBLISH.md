@@ -1,14 +1,18 @@
 # Standalone repository publication
 
-## Current local state — v1.2 publication pending
+## Current state — v1.2 published, never registered
 
-Frozen v1.2 candidate:
+Frozen v1.2 release:
 
 - `dist/text_authenticity.wasm`: 30,897 bytes
 - SHA-256: `3bb3bb82e0f6e2db9948e8ce96c8f1796835858d4b0a78332ec0b624501628a9`
 - Keccak-256: `8cfc5456b08363d281878b59f587ad9c44b7296b211a6a4bab4ec794a3c58a07`
 - local five-profile matrix, Stage-1 verifier, and five semantic suites pass
-- immutable commit, Linux reproduction, fresh download, and GitHub release still pending
+- published at `telegraph-factscore` commit `638dae46ba31c1bf3a30e9d0e541b7c56f3fe48b`, hosted
+  bytes downloaded and re-hashed (`publication.hosted_bytes_verified`)
+- rebuilds byte-exact from monorepo commit `e12d09c83e38a91146ce9afb95cc8a0409ee848f`, on Windows
+  and on Linux. Monorepo `main` no longer rebuilds them and is not meant to — see
+  [README.md](README.md).
 
 The currently public v1.1.0 artifact is historical. It was submitted as registration 1671 and
 rejected at 9/15 wins, margin 0.3274022. Its artifact commit was
@@ -17,8 +21,14 @@ rejected at 9/15 wins, margin 0.3274022. Its artifact commit was
 v1.2 registration URL:
 
 ```text
-PENDING
+NONE — these bytes were never sent to registerWasm.
 ```
+
+The TEXT_AUTHENTICITY_CHECK slot is instead held by registration 1882, which serves
+`calibration/dist/text_authenticity_v2.wasm` (keccak
+`eec7bc00a5131dfb4152c0ca3b4b54eabc9ed05092a5b4d014e3fe1453a50588`) from the calibration research
+line, not this scorer. Registering v1.2 would be a fresh `registerWasm` against a slot we already
+hold with different bytes; decide that deliberately rather than by drift.
 
 ## Superseded public state
 
@@ -77,8 +87,11 @@ Do not copy non-TAC fixture families, corpus generators, polling/proof generator
 obsolete local candidate files were removed after the canonical artifact was verified
 byte-identical.
 
-`PUBLISH.md`, `standalone-ci.yml`, the broad generated `track2/PROOF.md`, and the historical
-`scorer/tune.md` are development-side evidence, not the focused public release payload. Copy the
+`PUBLISH.md`, `standalone-ci.yml`, `check-release-identity.mjs`,
+`registered-text-authenticity.json`, the broad generated `track2/PROOF.md`, and the historical
+`scorer/tune.md` are development-side evidence, not the focused public release payload. The last
+two are the monorepo's own gate and the identity of the calibration wrapper registered on chain;
+neither belongs in the released scorer's repository, and `verify-standalone.mjs` rejects both. Copy the
 workflow only to `.github/workflows/ci.yml`. It tests/lints every profile and proves that a clean
 Linux build is byte-identical to the tracked TAC binary and manifest.
 

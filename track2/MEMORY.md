@@ -6,7 +6,38 @@
 
 ---
 
-## CURRENT — 2026-08-30 ~15:00Z · EIGHT SLOTS HELD · SUBMISSION FRAME WRITTEN · DISCLOSURE IS THE OPEN COMPLIANCE ITEM
+## CURRENT — 2026-08-31 ~04:00Z · CI GREEN AGAIN · THE RELEASED TAC SCORER WAS NEVER THE REGISTERED ONE
+
+`ci` had been red on every push since `6d4d262` at the `track2-scorer` step "Verify the
+registration target as freestanding WASM". Settled today; details in [GAPS.md](GAPS.md) G26.
+
+- **Not non-determinism.** Head builds 32,311 bytes / sha256 `e5faf4ca…` identically on this
+  Windows box and on the CI Linux runner, and the frozen 30,897-byte / `3bb3bb82…` artifact
+  rebuilds byte-exact from monorepo commit `e12d09c` in an arbitrary directory. The
+  `.cargo/config.toml` path remap is intact and doing its job.
+- **Not a TAC regression.** Every `offline_evidence` number in the manifest reproduces exactly at
+  head: 256/256 pairs, separation 0.973696, metamorphic 20/20 at 0.945619, aliases 10/10 at
+  0.960045, axes 20/20 at 0.974294, vocabulary 12/12 at 0.999465.
+- **It was the gate's premise.** One crate compiles every module into every intent profile (A6),
+  so the seven intents added after the freeze moved the TAC bytes without touching TAC behaviour:
+  30,897 → 31,760 (`6d4d262`, STOCK_PRICE/TVL_LOOKUP) → 31,799 (`0f78461`, build stamp) → 32,296
+  (`0bbd958`) → 32,311 (`d9067bc`). Head is not a release candidate and cannot be held to a
+  frozen hash. The byte gate belongs in the standalone repo, where the source is frozen next to
+  the artifact — `standalone-ci.yml` already does exactly that `cmp`.
+- **The finding that matters.** The released scorer's keccak `8cfc5456…` appears nowhere in the
+  registry (checked all 45 intents, 67 of our entries). TEXT_AUTHENTICITY_CHECK is held by
+  registration 1882, serving `calibration/dist/text_authenticity_v2.wasm`, keccak `eec7bc00…` —
+  which matches our tracked bytes at the exact commit in the registered URL, so the on-chain link
+  is sound, just to a different artifact than the manifest describes.
+- **Now enforced:** `release/check-release-identity.mjs` holds head to the manifest's evidence and
+  pins the registered wrapper's bytes (`release/registered-text-authenticity.json`, dev-only,
+  rejected by `verify-standalone.mjs`).
+- **Open decision for the user:** whether to `registerWasm` the released scorer against a slot we
+  already hold with different bytes. Not done, not urged.
+
+---
+
+## 2026-08-30 ~15:00Z · EIGHT SLOTS HELD · SUBMISSION FRAME WRITTEN · DISCLOSURE IS THE OPEN COMPLIANCE ITEM
 
 Full-registry sweep at 14:26Z (scripts in scratchpad; results in [SIGN.md](SIGN.md) top block):
 

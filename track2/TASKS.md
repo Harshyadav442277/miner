@@ -216,3 +216,14 @@ rule 04 (gaming = disqualification) and rule 02 (stay live through Track 3) re-r
 - [ ] **T-H.9** [User] Read Discord `#announcements` and paste the exact submission deadline
       (wording + timestamp) into docs/TELEGRAPH_FACTS.md §"Organizer answers". Until then the
       working assumption stays 23:59 UTC Aug 31.
+- [x] **T-H.10** [Opus] `ci` red on every push since `6d4d262`: the `track2-scorer` release-identity
+      step demanded that head rebuild the frozen TAC hash, which one shared crate makes impossible
+      once other intents land (A6). Head is now held to the manifest's `offline_evidence` — which it
+      still reproduces exactly — and the registered wrapper's bytes are pinned separately. Both
+      builds verified reproducible across Windows and Linux; no toolchain drift. → GAPS G26,
+      `release/check-release-identity.mjs`.
+- [ ] **T-H.11** [User] Decide whether to `registerWasm` the released scorer
+      (`release/text-authenticity.json`, 30,897 bytes, keccak `8cfc5456…`, published at
+      `telegraph-factscore` `638dae46` and never registered). It would contest the
+      TEXT_AUTHENTICITY_CHECK slot we already hold as registration 1882 with different bytes.
+      Wallet action, user only.
