@@ -8,6 +8,28 @@ and the working notes, kept public throughout).
 This document is the map for review. Everything it claims links to a measurement that can be
 re-run; nothing is transcribed from memory. Last updated 2026-08-30.
 
+## 90-second review path and form entries
+
+The primary evaluator submission is **registration 1725** (`CRYPTO_PRICE`), compiled at
+[`dist/crypto_price_b3.wasm`](https://github.com/Harshyadav442277/telegraph-factscore/blob/a0318afd0faed3c519fae4dab63b7a238e6e8031/dist/crypto_price_b3.wasm).
+The node measured 14/15 correct orderings, equal to the incumbent, and separation `0.7219137`
+against the incumbent's `0.6295639`; it rejected the module only because its real-traffic ranking
+disagreed with the incumbent. Sections 2–4 explain why that is the central result rather than a
+hidden failure.
+
+Three distinct calibration experiments are active rank-1 registrations. Submit them alongside
+1725 because they are live receipts for the promotion-gate analysis, not because they improve
+evaluation accuracy:
+
+| registration | intent | GitHub URL to compiled module |
+|---:|---|---|
+| `2365` | `CRYPTO_PRICE` | [`crypto_price_v3.wasm`](https://github.com/Harshyadav442277/miner/blob/4c0f6d5db19f72c76031d90f1aa842a115d643a8/track2/calibration/dist/crypto_price_v3.wasm) |
+| `2010` | `LANGUAGE_GENERATION` | [`language_generation_m45.wasm`](https://github.com/Harshyadav442277/miner/blob/97b47b489937614319859d0b139ee563e9494c87/track2/calibration/dist/language_generation_m45.wasm) |
+| `1882` | `TEXT_AUTHENTICITY_CHECK` | [`text_authenticity_v2.wasm`](https://github.com/Harshyadav442277/miner/blob/72474bd7514735b53b823bdab390c9721219bd18/track2/calibration/dist/text_authenticity_v2.wasm) |
+
+If review time is short: read sections **1, 3, 4, 7, and 9**. They cover the submitted script,
+measured improvement, protocol-level finding, robustness, and limitations without the worklog.
+
 ---
 
 ## 1. What is submitted

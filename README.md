@@ -1,96 +1,68 @@
-# Telegraph Hackathon — Season I
+# LiveCert + FactScore — Telegraph Hackathon Season I
 
-One repository, three tracks, one shared body of protocol knowledge.
+Two public, reproducible submissions from `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e`.
 
-**Deadline:** Track 1 and Track 2 close **2026-08-31**. Track 3 runs Aug 31 – Sep 7.
-Miners must stay live and operational through **2026-09-07** — that is a rule, not just scoring.
-
----
-
-## Who is working where
-
-| Folder | Track | Owner | State |
-|---|---|---|---|
-| [`track1-miner/`](track1-miner/) | **1 — Miner** | Track 1 agent | **live**, registration 260, 6 intents registered / 9 built |
-| [`track2/`](track2/) | **2 — Scoring module** | Track 2 agent | active — **[submission](track2/SUBMISSION.md)** |
-| [`track3-certwatch/`](track3-certwatch/) | **3 — Application** | Track 1 agent | deployed, not funded |
-| [`docs/`](docs/) | shared | everyone | protocol facts, rules, social |
-
-**Do not edit another track's folder.** Everything a track owns lives inside its folder; anything
-shared lives in `docs/` at the root.
-
-## The shared documents — read these first, whichever track you are on
-
-| File | Why it matters |
-|---|---|
-| [docs/TELEGRAPH_FACTS.md](docs/TELEGRAPH_FACTS.md) | Verified protocol mechanics, each with a source and a date. Re-verify before trusting anything older than a few days. |
-| [docs/JUDGING.md](docs/JUDGING.md) | **75% performance + 25% X engagement.** The eligibility guardrail. Track dates. |
-| [docs/X_POSTS.md](docs/X_POSTS.md) | 25% of every track's score. The 13 ready-to-post updates, the organizers' stated criteria, and how to get reach. |
-| [docs/SUBMISSION_CHECKLIST.md](docs/SUBMISSION_CHECKLIST.md) | What has to be true before the deadline. |
-| [MEMORY.md](MEMORY.md) | Session continuity. **Read first, update at session end.** |
-| [CLAUDE.md](CLAUDE.md) | Operating rules. Wallet safety, secrets, validation-before-send. |
-
-## Facts that apply to every track
-
-- **Epochs are 9 hours.** Scoring lands about three times a day. The landing-page ticker counts down
-  in minutes and misleads. Do not poll for a score after deploying — build an offline loop instead.
-- **Any non-2xx from a miner scores 0.** The engine records `upstream error`, stores an empty
-  answer, and the scorer never sees the body. Return 200 with an honest "could not determine".
-- **The engine sends only the parameters a miner declares** in `input_schema`, never the raw
-  question, unless you declare `q`/`query`. This cost Track 1 two epochs.
-- **The champion scorers are public, commit-pinned WASM.** `/api/wasm` lists them; `/scores` gives
-  real questions with ground truths and the exact converted answer that was scored. You can
-  reproduce any score offline in seconds.
-- **Judging is 75/25.** The X half is the one most likely to be neglected and it is worth a quarter.
-
-## Scoreboard, epoch 288 (2026-08-28)
-
-```
-STORM_ALERT         #1 of 5     0.01061   <-- rank 1
-IP_GEOLOCATION      #1 of 2     0.00976   <-- rank 1
-SSL_VERIFICATION    #1 of 4     0.00935   <-- rank 1
-WEATHER_FORECAST    #3 of 11    0.00678   (amanat-weather-risk 0.00989)
-```
-
-Rank 1 in three intents for three consecutive epochs (286, 287, 288), from #3/#3/#7 in epoch 284.
-
-Two honest caveats, because rank is not the same as a prize. `IP_GEOLOCATION` has **2 miners and
-needs 3** to be prize-eligible, and **no intent has any Track 3 requests** toward the 100-request
-floor, because Track 3 has not opened. See
-[track1-miner/docs/ELIGIBILITY.md](track1-miner/docs/ELIGIBILITY.md).
-
-Live: https://explorer.telegraphprotocol.com/miners/livecert
-
-## Workflow
-
-1. **Session start** — read `MEMORY.md`, then your track's `MEMORY`/`TASKS`.
-2. **Verify protocol facts against live docs, never memory.** The canonical intent set changes
-   on-chain. Record what you checked and when.
-3. **Measure, do not theorise.** Six scoring theories were tested in this repo and four were wrong.
-   Every real gain came from replaying actual paid questions.
-4. **Wallet actions are the operator's.** No agent connects a wallet, signs, or sends a transaction.
-   Prepare and validate; the human clicks.
-5. **Session end** — update `MEMORY.md`, `GAPS.md`, `TASKS.md`; commit.
-
-## Git hygiene in a shared repo
-
-Agents write into this repo concurrently, some of them incrementally in the background.
-
-- **Stage explicit paths. Never `git add -A` or `git commit -a`.** A blanket add captures another
-  agent's half-written files — that has already happened once here, sweeping Track 2's in-progress
-  planning docs into a Track 1 commit.
-- **`fable_review_audit.md` belongs to the read-only audit session.** Leave it unstaged.
-- **Fetch before assuming you are behind.** `git fetch` then `git log HEAD..origin/main` shows
-  another agent's work without touching your working tree, which matters when someone else has a
-  file open mid-write.
-
-## Automation
-
-| Workflow | Cadence | Does |
+| Track | Submission | Review first |
 |---|---|---|
-| `ci.yml` | on push | typecheck + tests for track1-miner and track3-certwatch |
-| `uptime.yml` | hourly | polls the miner, records each new epoch's scores to `track1-miner/docs/score-history.jsonl` |
-| `certwatch.yml` | 6-hourly | CertWatch sweep — inert until `EVM_PRIVATE_KEY` is set |
+| **1 — Miner** | [LiveCert](https://explorer.telegraphprotocol.com/miners/livecert), miner ID **4433**, active registration **389** | [`track1-miner/README.md`](track1-miner/README.md) |
+| **2 — Script Author** | Fact-aware WASM evaluators plus a measured audit of Telegraph's promotion gate | [`track2/SUBMISSION.md`](track2/SUBMISSION.md) |
 
-GitHub throttles scheduled workflows; a `*/10` cron actually ran every 2–3 hours, so these are
-hourly and honest about it.
+X account: [`@hyadav42774`](https://x.com/hyadav42774) · Official account tagged in updates:
+[`@Telegraphprotoc`](https://x.com/Telegraphprotoc)
+
+## Track 1 — LiveCert
+
+LiveCert is a deterministic, keyless miner for ten operational and research intents. It performs
+live TLS handshakes, weather and storm checks, IP geolocation, translation, academic search,
+structured extraction, news retrieval, wallet-balance reads, and conservative AI-text analysis.
+
+- **Live service:** <https://miner-wine.vercel.app>
+- **Explorer:** <https://explorer.telegraphprotocol.com/miners/livecert>
+- **Submission miner ID:** `4433`
+- **Active on-chain registration:** `389`
+- **Registered manifest:** [commit-pinned `miner.yaml`](https://github.com/Harshyadav442277/miner/blob/74ad4a19f41b922a5183dc26d6f405c8557dc9ba/track1-miner/miner.yaml)
+- **Latest judged epoch in the registry:** 297 — four rank-1, two rank-2, two rank-3, and two
+  rank-4 intent results
+- **Requests served at the 2026-08-31 submission audit:** 132
+- **Verification at the same audit:** 237/237 tests passed; the production acceptance matrix
+  passed with a 411 ms median and 1.22 s p95
+
+The exact registered surface and reproducible verification commands are in the
+[Track 1 review guide](track1-miner/README.md). The miner remains live through Track 3 as required.
+
+## Track 2 — fact-aware evaluation
+
+The primary Track 2 contribution is a small, deterministic `no_std` scorer that evaluates typed
+assertions—figures, units, identifiers, coordinates, and categorical verdicts—instead of relying
+only on vocabulary proximity.
+
+The strongest network receipt is `CRYPTO_PRICE` registration **1725**: it matched the incumbent's
+14/15 fixture ordering and produced a larger separation margin (`0.7219137` versus `0.6295639`),
+but was rejected because its ranking of real traffic disagreed with the incumbent. That result is
+reported as evidence of the promotion gate's incumbent-agreement trade-off, not presented as an
+active registration.
+
+Three separate calibration experiments are currently active and rank 1. They demonstrate that a
+strictly increasing post-map can win the gate without changing answer ordering; they are not used
+as the evaluator-accuracy claim.
+
+| Registration | Intent | Status | Compiled module |
+|---:|---|---|---|
+| **2365** | `CRYPTO_PRICE` | active, rank 1 | [`crypto_price_v3.wasm`](https://github.com/Harshyadav442277/miner/blob/4c0f6d5db19f72c76031d90f1aa842a115d643a8/track2/calibration/dist/crypto_price_v3.wasm) |
+| **2010** | `LANGUAGE_GENERATION` | active, rank 1 | [`language_generation_m45.wasm`](https://github.com/Harshyadav442277/miner/blob/97b47b489937614319859d0b139ee563e9494c87/track2/calibration/dist/language_generation_m45.wasm) |
+| **1882** | `TEXT_AUTHENTICITY_CHECK` | active, rank 1 | [`text_authenticity_v2.wasm`](https://github.com/Harshyadav442277/miner/blob/72474bd7514735b53b823bdab390c9721219bd18/track2/calibration/dist/text_authenticity_v2.wasm) |
+
+Start with the [Track 2 submission brief](track2/SUBMISSION.md). The focused evaluator repository,
+including source, compiled modules, CI, tests, and proof, is
+[`telegraph-factscore`](https://github.com/Harshyadav442277/telegraph-factscore).
+
+## Evidence boundary
+
+- Live registry state and ranks are time-dependent; the values above were re-read on
+  **2026-08-31**.
+- Local or public-corpus benchmarks are labelled as offline evidence, not hidden-fixture results.
+- Rejected and superseded registrations are identified as such.
+- The Track 1/Track 2 overlap was disclosed to the organizers. The scorer contains no miner slug,
+  wallet, response-template fingerprint, or special case for LiveCert.
+
+Official criteria: [Telegraph Hackathon rules](https://hackathon.telegraphprotocol.com/rules).
