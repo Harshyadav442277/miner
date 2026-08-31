@@ -468,6 +468,85 @@ output_schema:
     total_precipitation_mm: { type: [number, "null"] }
     precipitation_hours: { type: [integer, "null"] }
 
+    # Everything below was returned by a live endpoint but described nowhere, on
+    # nine of the ten routes. Nothing enforces this schema — there is no required
+    # list, additionalProperties is not false, and our IP answers scored 0.9920
+    # while violating the verdict enum that used to be here — so this was never a
+    # functional fault. It is the same inaccuracy that enum was, and it is fixed
+    # in the same signature rather than left to describe a service we stopped
+    # being.
+
+    # /storm-alert
+    wind_direction: { type: [string, "null"], description: "Compass direction of the peak wind." }
+    threshold_exceeded: { type: [boolean, "null"], description: "Whether a wind threshold named in the question was crossed." }
+    threshold_hours: { type: [array, "null"], items: { type: string }, description: "The UTC hours at which it was crossed." }
+
+    # /weather-forecast
+    precipitation_probability_max_pct: { type: [number, "null"] }
+    span_days: { type: [integer, "null"], description: "Forecast span in days when the question asked in days." }
+
+    # /ip-geolocate. `verdict` carries the resolved place, so these are its parts.
+    ip: { type: [string, "null"] }
+    city: { type: [string, "null"] }
+    region: { type: [string, "null"], description: "Subdivision for an IP; requested news region for /headlines." }
+    country: { type: [string, "null"] }
+    country_code: { type: [string, "null"] }
+    timezone: { type: [string, "null"] }
+    asn: { type: [string, "null"], description: "Autonomous system number of the announcing network." }
+    organisation: { type: [string, "null"], description: "Network operator the address is registered to." }
+
+    # /translate. `reason` is the bare translation; this repeats it explicitly.
+    translation: { type: [string, "null"] }
+
+    # /papers
+    papers:
+      type: [array, "null"]
+      description: "Each entry carries title, authors, year, citations, venue and doi."
+      items:
+        type: object
+        properties:
+          title: { type: string }
+          year: { type: [integer, "null"] }
+          authors: { type: array, items: { type: string } }
+          citations: { type: [integer, "null"] }
+          venue: { type: [string, "null"] }
+          doi: { type: [string, "null"] }
+    topic: { type: [string, "null"], description: "Subject actually searched for, after parsing the question." }
+    from_date: { type: [string, "null"] }
+    to_date: { type: [string, "null"] }
+    count: { type: [integer, "null"], description: "Number of papers or headlines returned." }
+
+    # /ai-detect. The measurements behind the verdict, so a reader can disagree
+    # with it — the confidence is deliberately low and these are why.
+    words: { type: [integer, "null"] }
+    sentences: { type: [integer, "null"] }
+    mean_sentence_words: { type: [number, "null"] }
+    sentence_length_stdev: { type: [number, "null"] }
+    type_token_ratio: { type: [number, "null"] }
+    repeated_bigrams: { type: [integer, "null"] }
+    formulaic_markers: { type: [array, "null"], items: { type: string } }
+
+    # /extract
+    extracted:
+      type: [object, "null"]
+      description: "The fields the question asked for. Keys vary with the request — emails, phones, urls, quantities, dates, entities, action items."
+
+    # /headlines
+    headlines:
+      type: [array, "null"]
+      items:
+        type: object
+        properties:
+          title: { type: string }
+          source: { type: [string, "null"] }
+          published: { type: [string, "null"] }
+
+    # /wallet-balance
+    address: { type: [string, "null"] }
+    chain: { type: [string, "null"], description: "ethereum, base, arbitrum, optimism or polygon." }
+    balance_eth: { type: [number, "null"], description: "Native-coin balance. Null when the RPC did not answer, which is not the same as zero." }
+    symbol: { type: [string, "null"], description: "Native coin of the chain — POL on polygon, ETH elsewhere." }
+
 docs:
   repository: https://github.com/Harshyadav442277/miner
 
