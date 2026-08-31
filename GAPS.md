@@ -1476,7 +1476,8 @@ as supported, because `Vaccines_and_autism` contains every word of the claim it 
 Adding a `supported` verdict to gain score would make the miner assert medical misinformation.
 Declined. If FACT_CHECK scores poorly in epoch 298, the honest lever is retrieval quality.
 
-**G57 addendum (2026-09-01 ~00:45Z):** registration 2882 was dethroned by reg 3064 shortly after
-epoch 298 was scored — the sixth wallet-champion rotation in a day. Our scorer judged exactly one
-epoch of our own intent, with the fairness receipt above showing it treated the whole field
-identically. The conflict surface is retired for every epoch after the close.
+**G57 addendum (2026-09-01 ~00:45Z):** registration 2882 was dethroned by reg 3064 (the salience
+author reclaiming the slot) at 23:26:07Z — BEFORE epoch 298's wallet scoring ran at ~00:15Z, and
+the sixth wallet-champion rotation in a day. Epoch 298's field-wide crossing was therefore most
+likely judged by their scorer, not ours, meaning ours plausibly judged zero epochs of our own
+intent; the fairness receipt above covers the window either way. Conflict surface retired.
