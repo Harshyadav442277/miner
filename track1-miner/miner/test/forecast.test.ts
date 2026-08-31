@@ -13,6 +13,16 @@ describe("getForecast (live)", () => {
     assert.match(r.reason, /temperature in Celsius/);
   });
 
+  // hours=0 is the current hour, which is what our input_schema promises and what
+  // a WEATHER_CHECK question asks for. A falsy-zero `||` in the route used to turn
+  // it into the 24-hour default, so "what is it right now" got a day-long range.
+  test("hours=0 collapses to the current hour, not the 24-hour default", async () => {
+    const r = await getForecast("Tokyo", 0);
+    assert.equal(r.window_hours, 1);
+    assert.match(r.reason, /A 1-hour hourly weather forecast/);
+    assert.doesNotMatch(r.reason, /24-hour/);
+  });
+
   test("honours a custom window, stating both day and hour forms", async () => {
     const r = await getForecast("Tokyo", 48);
     assert.equal(r.window_hours, 48);

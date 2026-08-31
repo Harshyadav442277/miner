@@ -451,7 +451,18 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     }
     const days = Number(firstValue(url, "days", "forecast_days"));
     const daysRequested = Number.isFinite(days) && days > 0 ? Math.floor(days) : null;
-    const hours = Number(firstValue(url, "hours")) || (daysRequested ? daysRequested * 24 : 24);
+    // `hours=0` means the current hour — our own input_schema says so — but a
+    // falsy-zero `||` here silently turned it into the 24-hour default, so a
+    // "what is it right now" question was answered with a day-long range. An
+    // absent parameter is an empty string, which is what separates the two.
+    const hoursRaw = firstValue(url, "hours");
+    const hoursNum = Number(hoursRaw);
+    const hours =
+      hoursRaw !== "" && Number.isFinite(hoursNum)
+        ? hoursNum
+        : daysRequested
+          ? daysRequested * 24
+          : 24;
     const window = Number.isFinite(hours) ? hours : 24;
     const key = `fc:${q.trim().toLowerCase()}:${Math.floor(window)}:${daysRequested ?? ""}`;
     const hit = fromCache(key);

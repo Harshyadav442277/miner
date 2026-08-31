@@ -142,10 +142,11 @@ endpoints:
   - path: /weather-forecast
     external_path: /weather-forecast
     method: GET
-    intents: [WEATHER_FORECAST]
+    intents: [WEATHER_FORECAST, WEATHER_CHECK]
     description: >-
-      Future conditions for a location over a stated window (default 24h, max
-      168h). Accepts a place name or "lat,lon", plus an optional hours parameter.
+      Current and future conditions for a location. hours=0 reports the present
+      hour; any other value gives a window of up to 168h, and the default with no
+      hours parameter is 24h. Accepts a place name or "lat,lon".
     params:
       query:
         optional:
@@ -324,6 +325,7 @@ semantics:
     - CONTENT_EXTRACTION
     - NEWS_HEADLINES
     - WALLET_BALANCE_CHECK
+    - WEATHER_CHECK
     - FACT_CHECK
     - TELEGRAPH_KNOWLEDGE
 
