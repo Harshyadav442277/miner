@@ -1245,3 +1245,12 @@ chasing +0.001 on an above-cliff answer risks −0.98, and we already hold 21/21
 the final epoch would be the unmeasured wording gamble this ledger exists to prevent (see the
 translation trim, G26). What rides into 298: five same-day improvements (G41 operator name, G52
 wallet honesty, G53 ISO codes, the academic lean payload, SSL method-first), preflight 7/7.
+
+**G54 addendum (final-epoch sweeps):** two further sweeps settle both intents to the bottom.
+SSL prefix-length sweep (`scratchpad ssl-prefix`): rows 7 and 8 are mutually exclusive at EVERY
+cannot-prefix length (4/6/9/11/13 words) — 7/10 crossings is the ceiling and deployed holds the
+best mean. IP micro-sweep (six variants, real recorded fields): every deviation LOSES —
+preflight's own registry sentence drops crossings 21→19 and wins 19→13; the timezone and
+methodology sentences sit past word 32 and change nothing. Deployed wins or ties every variant
+on every surface. A watchdog re-probes preflight's SSL/IP answers every 15 minutes until epoch
+298; if they deploy a new shape, the h2h harness re-runs against it before the epoch is scored.
