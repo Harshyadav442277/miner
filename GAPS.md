@@ -800,3 +800,72 @@ G35 can now be closed on evidence rather than caution.
 **The lesson worth keeping:** the frozen bench said we were at 0.994 on every row it contains,
 and we still lost the epoch — because the epoch asked something the bench does not contain. A
 bench frozen by G24 measures the answer shape, not the question distribution.
+
+### G42 · ACADEMIC_SEARCH cannot be won on paper quality — `CLOSED as a finding: only the preamble is scored`
+
+The measurement that reframes this intent. Two answers built identically apart from the clause
+that differs, scored over the 22 frozen rows against champion 688:
+
+```
+"Regarding <question>: Here are 5 peer-reviewed papers on X: 1) ... 2) ..."   0.013234
+"Regarding <question>: No peer-reviewed papers on X were found ..."          0.013257
+                                                                      ratio  1.002
+```
+
+**An empty result scores the same as a full one.** The papers sit past the ~32-word conversion
+clip, so the scorer never sees them, and the clip is the restatement in both cases. Three
+consequences, all of which close off work that looked obviously worth doing:
+
+1. **A second paper provider buys nothing.** Crossref was measured and rejected on relevance (G37);
+   this shows even a perfect fallback could not move the score.
+2. **Retrieval quality is a product concern, not a scoring one.** Worth keeping good for real Track 3
+   consumers, but not a lever on rank.
+3. **Ten answer-shape variants across two sweeps all lost** (G40), and this explains why: they were
+   all competing on the same few restatement words, and the deployed restatement already matches.
+
+**The target is also above the record.** ACADEMIC's all-time high across every miner and every
+epoch is **0.018258** (`openalex`, epoch 264). The intent has never once crossed the cliff — every
+score ever recorded sits between 0.006 and 0.019. A 0.020 target is therefore not a tuning goal,
+it is a new record, and nothing measurable in this repo suggests how to reach it.
+
+### G43 · OpenAlex sheds anonymous load, and our probing is what triggered it — `OPEN: mitigation needs an operator decision`
+
+Two distinct upstream behaviours, both of which produced zero papers:
+
+- **HTTP 504 `query_timeout`** on a broad `search` combined with a date filter. Reproducible:
+  `search=machine learning applications` with `from_publication_date:2025-01-01` fails every time,
+  and that is a question from our own frozen bench.
+- **HTTP 429/503 "Anonymous search is paused while the search cluster recovers from heavy load"**,
+  which the sweeps in this session triggered by querying OpenAlex repeatedly.
+
+The 504 is fixed (the retry now runs on an error, not only on an empty result — it used to be
+skipped in exactly the case it existed for). The rate limiting is not fixed and cannot be fixed in
+code.
+
+**The documented remedy is OpenAlex's "polite pool":** requests carrying a `mailto=<address>`
+parameter get separate, far more generous limits. That means sending a contact address to a third
+party, so it is **the operator's decision, not Claude's** — the address is theirs to give. Until
+then `/papers` degrades to "no papers were found", which by G42 costs essentially nothing in score
+but is a visibly worse answer for any real consumer.
+
+### G44 · WALLET_BALANCE_CHECK: wording is not the gap, ENS was — `CLOSED 2026-08-31`
+
+Epoch 296 put `preflight` at 0.004328 and us at 0.000123, a 35x gap on answers whose wording is
+nearly identical — the bench ground truth is almost literally our sentence. Six variants were
+measured against champion 1066 over 10 rows:
+
+```
+deployed (4 decimals, lowercase chain, full tail)   0.29833869
+8 decimals                                          0.29833869
+8 decimals + "Ethereum mainnet"                     0.29821185
+full precision, no trailing clause                  0.29797605
+```
+
+**Identical to eight decimal places.** Balance precision, chain capitalisation and the trailing
+clause are all irrelevant to this scorer, so the 35x gap is not a wording gap.
+
+**The actual gap was a whole question class we refused.** "What is the balance of vitalik.eth?"
+answered *"no valid wallet address was supplied"* — a guaranteed zero — while `preflight` resolved
+it. ENS names are now resolved (see the commit for why it goes through an HTTP resolver rather than
+a namehash). A name that resolves to the zero address is treated as unset rather than as a zero
+balance.
