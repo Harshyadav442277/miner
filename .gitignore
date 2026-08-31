@@ -18,3 +18,8 @@ node_modules/
 /n.json
 /r.json
 *.tmp
+
+# stale registered-manifest snapshots and downloaded champion scorers
+SUBMIT-THIS-miner.yaml
+track1-miner/bench/*.wasm
+track2/harness/champions/*.wasm
