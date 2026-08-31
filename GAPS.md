@@ -1375,3 +1375,34 @@ scoring pass lands ~00:15Z on Sep 1 (outside it). Judging runs Sep 8–18 over "
 Canonical Score", with no published statement of which epochs are included. The thirteen-intent
 update was signed on the reading that an epoch beginning inside the window plausibly counts, and
 that the downside if it does not is the gas plus a re-activation, not a lost position.
+
+
+### G62 · The SSL bench predicted 67x and live scoring fell 33% — `OPEN, do not act on the bench alone`
+
+Commit `3a5b74a` (05:34Z, 2026-08-31) reordered the unreachable-host SSL answer to lead with the
+method. It was measured against champion 631 over the 12-question frozen bench: failure-first
+scored **0.010418** on the ten unreachable rows, method-first **0.697778** — a 67x improvement,
+7/12 crossings. It deployed after epoch 296 was scored (05:03Z) and before epoch 297 (14:10Z).
+
+**Live went the other way.** SSL had held 0.0093–0.0105 for eight epochs (#1 in 286, 288–291, 294,
+296). Epoch 297 came in at **0.006226, #2** — a 33% drop, in the one window this change occupied.
+
+This is the third time a bench-justified change has been contradicted live, and the pattern is
+recorded in docs/TELEGRAPH_FACTS.md ("changes justified by a scoring theory ... have twice been
+wrong"). Candidate explanations, none yet distinguished:
+
+- The 12-question frozen bench is not representative of the questions epoch 297 actually routed.
+  The split is conditional — reachable hosts keep the verdict form — so an epoch weighted toward
+  reachable hosts would not see the improvement at all, and the drop would come from elsewhere.
+- G54's reading, that the 297 losses were question-flavour rotation outside the bench, would also
+  explain it, and was reached independently.
+
+**Not reverted.** A blind revert 30 minutes before epoch 298 would gamble a #2 position against a
+measured-better bench, and epoch 298 already carries six unverified changes (this, the G56 lean
+payloads, the G53 ISO fix, the G40 papers shape, the G55 wallet reorder, and three new intents),
+so the result would be unreadable either way. **Read epoch 298's SSL row first.** If SSL recovers
+toward 0.0093 the drop was flavour rotation; if it stays near 0.006 this commit is the cause and
+the revert is a one-line change to `ssl.ts`.
+
+**Method rule this reinforces:** the frozen bench is a filter for obviously-bad changes, not
+evidence a change wins. Only a scored epoch is that.
