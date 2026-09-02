@@ -171,27 +171,12 @@ position, so every day of delay shortens the record we are judged on.
       **The rule: judging averages our-score-over-best-score, our current average is ~0.72, so an
       intent must beat 0.72 to be worth entering — an uncontested rank 1 at 0.0 does not help.**
 
-## Phase 4b — Track 3 application (Aug 31 – Sep 7)
+## Phase 4b — Track 3 application — MOVED (2026-09-02)
 
-Added to scope 2026-08-26. The eligibility guardrail (G13) means our intent needs ≥100 real
-Track 3 requests or it wins nothing regardless of rank. A genuine app that consumes
-`SSL_VERIFICATION` is the mitigation — and a second $2,000 prize pool.
-
-- [x] **T4b.1** Built **CertWatch** → [app/](track3-certwatch/). TLS expiry monitor with a dashboard: watchlist,
-      verdict, days-remaining, issuer, serving miner, and a link to each answer's on-chain signal.
-- [x] **T4b.2** Uses the **auto-routed** `/engine/v1/ask`, not `ask/{minerId}` — so Telegraph's own
-      router classifies the query and the demand lands on the *intent*, which is what the guardrail
-      counts. x402 payment wired via `@x402/fetch` + `@x402/evm` on Base Sepolia.
-- [x] **T4b.5** Fixed the durable-history path: root `.gitignore` matched
-      `track3-certwatch/data/`, so the sweep's commit was a silent no-op and the app stayed on
-      ephemeral state. Negated and tracked; the raw URL now resolves once pushed. (reopens/closes G18)
-- [ ] **T4b.3** *User:* fund a throwaway Base Sepolia wallet with testnet **USDC** and set
-      `EVM_PRIVATE_KEY` in `app/.env`. The dashboard already counts `SSL_VERIFICATION`-classified
-      requests separately, toward the 100 floor. **Do not fund before T4b.5 is proven end to end
-      through a real sweep** — that was the whole point of the durability gate.
-- [ ] **T4b.4** *User:* deploy CertWatch publicly. Config ready (`app/Dockerfile`, `app/fly.toml`,
-      scale-to-zero is fine here — nothing spot-checks the app). Then get **other people** using it;
-      real demand counts for far more than self-generated traffic.
+CertWatch was retired and deleted: never funded, never had a user, and a fresh 5-day sprint should
+not carry its serverless-state workarounds. The Track 3 application is now **Morse**, in its own
+repository and sibling folder `../telegraph-morse`
+(<https://github.com/Harshyadav442277/telegraph-morse>). Its board is `PHASES.md` there.
 
 ## Phase 5 — Build in public (runs in parallel from day 1, not at the end)
 

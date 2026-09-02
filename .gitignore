@@ -4,11 +4,6 @@
 .env.*
 .wrangler/
 data/
-# ...except CertWatch's durable history. The scheduled sweep commits this file and
-# the deployed dashboard reads it back over raw.githubusercontent. A blanket data/
-# ignore silently made `git add` a no-op and left the app on ephemeral instance state.
-!track3-certwatch/data/
-!track3-certwatch/data/history.json
 dist-test/
 dist/
 node_modules/

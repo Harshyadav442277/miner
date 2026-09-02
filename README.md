@@ -1,11 +1,13 @@
 # LiveCert + FactScore — Telegraph Hackathon Season I
 
-Two public, reproducible submissions from `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e`.
+Track 1 and Track 2 submissions from `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e`. The Track 3
+application, **Morse**, lives in its own repository (see the table).
 
 | Track | Submission | Review first |
 |---|---|---|
 | **1 — Miner** | [LiveCert](https://explorer.telegraphprotocol.com/miners/livecert), miner ID **4433**, active registration **389** | [`track1-miner/README.md`](track1-miner/README.md) |
 | **2 — Script Author** | Fact-aware WASM evaluators plus a measured audit of Telegraph's promotion gate | [`track2/SUBMISSION.md`](track2/SUBMISSION.md) |
+| **3 — Application** | Morse: ask Telegram, get a receipt from the Telegraph network (Telegram bot, web ledger, hosted MCP) | [`telegraph-morse`](https://github.com/Harshyadav442277/telegraph-morse) |
 
 X account: [`@hyadav42774`](https://x.com/hyadav42774) · Official account tagged in updates:
 [`@Telegraphprotoc`](https://x.com/Telegraphprotoc)

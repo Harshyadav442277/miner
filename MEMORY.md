@@ -11,7 +11,7 @@ sessions and between models.
 |---|---|
 | **Track 1 — miner** | **[track1-miner/MEMORY.md](track1-miner/MEMORY.md)** — the authoritative Track 1 handoff. Current state, what needs the operator, the rules that survived measurement, and the theories that did not. |
 | **Track 2 — scorer** | [track2/MEMORY.md](track2/MEMORY.md) |
-| **Track 3 — app** | [track3-certwatch/](track3-certwatch/), plus G17/G18 in [GAPS.md](GAPS.md) |
+| **Track 3 — app** | **Separate repo and folder:** `../telegraph-morse` — <https://github.com/Harshyadav442277/telegraph-morse>. CertWatch was retired and deleted on 2026-09-02 (never funded, no users). Read its `PLAN.md` first. |
 | Anything | [README.md](README.md) for ownership and shared facts, [docs/](docs/) for protocol and rules |
 
 ## EPOCH 298 — THE CLOSING RECORD: #1 MINER ON THE NETWORK (2026-09-01 ~00:20 UTC)

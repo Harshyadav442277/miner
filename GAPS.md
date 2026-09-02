@@ -1481,3 +1481,16 @@ author reclaiming the slot) at 23:26:07Z — BEFORE epoch 298's wallet scoring r
 the sixth wallet-champion rotation in a day. Epoch 298's field-wide crossing was therefore most
 likely judged by their scorer, not ours, meaning ours plausibly judged zero epochs of our own
 intent; the fairness receipt above covers the window either way. Conflict surface retired.
+
+### G64 · CertWatch retired; Track 3 moved to `telegraph-morse` — `CLOSED 2026-09-02`
+`track3-certwatch/`, its workflow and CI job were deleted. It never made a paid call (no wallet was ever
+funded) and never had a user, so nothing judged is lost. G13's Track 3 mitigation is now Morse
+(<https://github.com/Harshyadav442277/telegraph-morse>), whose plan is designed around the real Track 3
+rubric (45% real users + call volume) rather than around our own intent's eligibility. Its Vercel project
+`certwatch` (app-five-blond-45.vercel.app) still exists and should be deleted by the operator.
+
+### G65 · The public repo `Harshyadav442277/Telegraph` is a copy of PREFLIGHT, a rival miner — `OPEN, operator decision`
+Found 2026-09-02 while checking repo names: its README and package.json are `preflight-ssl-verification`
+(source public at github.com/shreshth006/Preflight), last pushed 2026-08-28. Judges browse profiles;
+a competitor's code under our name with no attribution reads badly. Delete it, make it private, or add
+an attributed study-fork note. Nothing in either of our repos depends on it.

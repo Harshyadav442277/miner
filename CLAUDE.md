@@ -13,6 +13,11 @@ nearly cost the last three hours of Track 1 - see the correction in docs/TELEGRA
 **2026-08-31**. Its rules and state live in [track2/](track2/CLAUDE.md) (own MEMORY, TASKS,
 GAPS, ARCHITECTURE). The Track 1 miner stays live per the rules; this file still governs it.
 
+**Track 3 (2026-09-02):** the Track 3 application is **Morse**, in its own repository and sibling
+folder `../telegraph-morse` (<https://github.com/Harshyadav442277/telegraph-morse>) with its own
+CLAUDE.md, PLAN.md, PHASES.md, GAPS.md and MEMORY.md. CertWatch (`track3-certwatch/`) was retired and
+deleted; this repo hosts Tracks 1 and 2 only.
+
 **Not this project:** the Midnight / Brainwave hackathon (NightSeal) is separate and unrelated.
 
 ## Docs — read at session start, keep current
