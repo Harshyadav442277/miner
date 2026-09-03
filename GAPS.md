@@ -1514,3 +1514,15 @@ Fixed 2026-09-03 19:46Z: variable set to 402, dispatch 33798427285 green on ever
 closed #5 at 19:47:30Z. **Rule:** a registration change is not finished until the repo variable is
 updated and one dispatched `uptime` run is green. Both belong in the signing runbook, not on a
 human's list, and an open `uptime` issue must be read the same day it opens.
+
+### G67 · The node's OpenAPI spec lists every one of our parameters on every one of our endpoints — `OPEN, cosmetic, not for the freeze`
+`GET /miner-dispatcher/openapi.json` (read 2026-09-03) exposes LiveCert as twelve operations under
+`/v1/4433/…`, but each operation's `parameters` is the union of the manifest's shared `params` block:
+`/v1/4433/ai-detect` advertises `domain` ("/ssl-check. Hostname to check…"), `days`, `hours`,
+`forecast_days` and so on. Our manifest scopes each parameter with an `intents:` list and the engine
+honours that scoping when it fills requests (measured across epochs 288–305), so scoring is not
+affected. What is affected is a human or an MCP client reading the spec to build a direct call — they
+see a misleading parameter list. **Unverified** whether this is the node flattening every miner's
+shared `params` block the same way or something specific to ours; compare another multi-endpoint
+miner's entry before concluding. Nothing changes before Sep 7 in any case — an `updateMiner` mints a
+new registration id and would invalidate the submitted one.

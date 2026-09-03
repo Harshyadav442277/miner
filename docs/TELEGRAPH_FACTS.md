@@ -302,9 +302,26 @@ SuperSignal, AdGuard) all live in one monorepo,
 `telegraph-usecases` one listed under Source pages. Five have live apps on
 `*.telegraphprotocol.com`; AdGuard's is "coming soon".
 
-None of this affects Track 1, which is closed and frozen. It is input for Morse
-(`../telegraph-morse`): record there which path it uses (routed vs direct vs WebSocket `ask`),
-whether the WebSocket's unpaid `ask` is something the rules count, and the escrow prerequisite.
+**6. There is a third path, and it is the one the organizers' own apps use.** Every reference app in
+`telegraph-usecases` (AdGuard, TruthWire, ScholarGuard, ReviewRadar, TrustFilter) calls the node's
+**miner dispatcher directly** — `POST {node}/subnet-dispatcher/v1/<minerId>/<endpoint>` (older
+name; the spec now says `miner-dispatcher`) — with an x402 fetch wrapper, hard-coded to miner ids
+32, 34, 101 and 102. None of them touches `/engine/v1/ask` or routing at all. The node publishes
+the whole surface as OpenAPI at `GET /miner-dispatcher/openapi.json` (270 paths on 2026-09-03), and
+**LiveCert is there as twelve operations**, `/v1/4433/ssl-check` … `/v1/4433/ai-detect`, with our
+manifest descriptions verbatim. The MCP server discovers miners from
+`/miner-dispatcher/integrations` and its `tg_engine_ask_subnet` posts to `/engine/v1/ask/<id>`.
+**Guardrail reading this changes:** if the organizers' own Track 3 examples bypass routing, then
+"real requests from Track 3 applications" to an intent cannot mean routed requests only — direct
+calls to a miner must count toward the intents it serves. Which intent a direct call to a
+multi-intent endpoint (our `/weather-forecast` serves two) is credited to is still unknown.
+See also GAPS G67 for how the spec renders our parameters.
+
+None of this changes Track 1, which is closed and frozen: the miner is already reachable on all
+three paths and inside the MCP server with no action from us. It is input for Morse
+(`../telegraph-morse`): call LiveCert by id **4433** when the demand is meant to land on our
+intents, use routing when the point is the network picking; note the escrow prerequisite before
+touching the WebSocket; and the x402 client needs Node ≥ 20.
 
 
 ---

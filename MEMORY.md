@@ -48,7 +48,10 @@ the WebSocket (`wss://devnode…/engine/ws`, wallet auth + ≥ $1 USDC escrow, `
 layer per the docs, Daemon pushes on a 3-hour cycle), payment mechanics (floor × demand
 multiplier, failed calls free, `signal_hash` verification), and the MCP server's auto-generated
 `tg_livecert_*` tools. All in docs/TELEGRAPH_FACTS.md; none of it changes Track 1, all of it is
-input for Morse.
+input for Morse. **The organizers' own reference apps never use routing** — they call
+`/subnet-dispatcher/v1/<id>/<endpoint>` directly — so direct calls must count toward intent demand
+(G13 reframed). LiveCert sits in the node's OpenAPI as twelve `/v1/4433/…` operations; the spec
+unions our shared params onto every endpoint (G67, cosmetic, not for the freeze).
 
 ### The things that need a human, in order (2026-09-03)
 
