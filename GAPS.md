@@ -1515,7 +1515,12 @@ closed #5 at 19:47:30Z. **Rule:** a registration change is not finished until th
 updated and one dispatched `uptime` run is green. Both belong in the signing runbook, not on a
 human's list, and an open `uptime` issue must be read the same day it opens.
 
-### G67 · The node's OpenAPI spec lists every one of our parameters on every one of our endpoints — `OPEN, cosmetic, not for the freeze`
+### G67 · The node's OpenAPI spec lists every one of our parameters on every one of our endpoints — `CLOSED 2026-09-03: the node does this to every multi-endpoint miner`
+
+**Resolved the same hour.** Every multi-endpoint miner in the spec gets one unioned parameter list
+across all its operations — miner 302 (14 endpoints), 900 (7), 152 (10), 34 (4) all show exactly one
+distinct list; only miner 203 shows two. It is the node's rendering of shared `params` blocks, not
+anything in our manifest, and there is nothing for us to change. Original observation kept below.
 `GET /miner-dispatcher/openapi.json` (read 2026-09-03) exposes LiveCert as twelve operations under
 `/v1/4433/…`, but each operation's `parameters` is the union of the manifest's shared `params` block:
 `/v1/4433/ai-detect` advertises `domain` ("/ssl-check. Hostname to check…"), `days`, `hours`,
