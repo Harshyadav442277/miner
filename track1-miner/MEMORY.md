@@ -1,12 +1,48 @@
 # Track 1 — session handoff
 
 **Read this first. Everything Track 1 needs is in this folder.**
-Shared protocol facts are in `../docs/`. Do not edit `../track2/` or `../track3-certwatch/`.
+Shared protocol facts are in `../docs/`. Do not edit `../track2/`; Track 3 lives in the separate
+`../telegraph-morse` repository.
 
-Last updated: 2026-08-31 ~21:30 UTC — `updateMiner(389)` to THIRTEEN intents was prepared and
-handed to the operator inside the last hours of Track 1 (closes Aug 31 **23:59 UTC**; resolve
-deadlines with `date -u`, never the local date). Read § 000000000 first, then § 00000000.
-Epoch 298 starts 23:02Z and is spot-scored ~00:15Z Sep 1.
+Last updated: 2026-09-03 ~19:50 UTC — post-close check. Track 1 closed 2026-08-31 **23:59 UTC**;
+registration **402** (thirteen intents) is active and the miner stays untouched through Track 3's
+close, **Sep 7 23:59 UTC** (resolve deadlines with `date -u`, never the local date). Read
+§ 0000000000 first, then § 000000000 for how 402 came to be.
+
+---
+
+## 0000000000. POST-CLOSE CHECK — LIVE, RANKED, TRIPWIRE RE-ARMED (2026-09-03 ~19:50Z)
+
+**Every gate green against production:** typecheck; 182 unit + 67 live tests; `verify-deploy`
+(median 406 ms, p95 1.11 s); `preflight.mjs` 7/7; `watch.mjs --once --registration-id 402`
+clean; the hosted manifest at commit `6b0d1760` still hashes to the registered
+`7538082784c4b20849aeb54cfb6c2cf74100cf074dff3e0f8d8b268e12e47640`, and so does the local
+`miner.yaml` (it is LF now; the CRLF caveat in § 000000 no longer applies).
+
+**Post-close record, epochs 299–305** (normalized-ratio sums 9.22 · 10.21 · 10.19 · 9.51 · 10.46 ·
+10.56 · 10.17; rank-1 counts 5 · 1 · 7 · 2 · 6 · 6 · 6). Epoch 305: #1 ACADEMIC, CONTENT,
+TRANSLATION, NEWS, TELEGRAPH_KNOWLEDGE, WEATHER_FORECAST; #2 AI_TEXT, FACT_CHECK, SSL,
+WEATHER_CHECK; #3 IP, STORM; #6 WALLET. Two rivals crossed cliffs we hold below: `txlens` in SSL
+(0.9914 vs our 0.0109) and `skywire-storm-alert` in STORM (0.9941 vs our 0.0142). **Not chased**:
+the miner is frozen through Sep 7 because rank feeds judged Track 3 routing, and every
+bench-justified change shipped into a scored epoch this project has made was contradicted live
+at least once (G62, TELEGRAPH_FACTS). If anything is ever done about them, it starts from
+recovered receipts, not the 12-row benches.
+
+**The tripwire was blind for ~60 hours (G66).** `REGISTRATION_ID` was still 389; `watch.mjs`
+rightly called it `deregistered` and failed every scheduled `check` from Sep 1; issue #5 took
+eight comments nobody read. Set to 402 at 19:46Z, dispatched run green on every job, #5 closed by
+`resolve`. Scores were never lost — the `scores` job kept committing 302–305.
+
+**Removed:** the four 2026-08-31 agent worktrees under `../.claude/` (~7 GB, every added line
+already in main, patches in that session's scratchpad) and their branches; `tools/gh_gt.txt`,
+`tools/gh_q.txt`, `tools/await-epoch.sh`; `miner/fly.toml`, `miner/Dockerfile`,
+`miner/.dockerignore`. Docs (READMEs, SETUP, submission checklist) now say 402 and thirteen.
+Sandbox validator still 404 (G60). TA.8 (`LOG_QUERY=on` epoch) deferred past Sep 7 — it needs a
+redeploy.
+
+**Human items:** the X series (P1–P13), the submissions-platform check for 402, delete the
+CertWatch Vercel project (G64), decide on the public rival-copy repo (G65).
 
 ---
 

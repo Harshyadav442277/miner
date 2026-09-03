@@ -1367,6 +1367,10 @@ change is structurally identical to something already accepted. It does **not** 
 node's activation-time validator accepts the two endpoints new to this registration
 (`/fact-check`, `/telegraph`), which have never been through activation.
 
+Re-checked 2026-09-03 19:45Z: unchanged — `{}` returns `yaml is required`, the real manifest returns
+`404 page not found`. Registration 402 has been `active` with all thirteen intents since 21:46Z on
+2026-08-31, so activation itself accepted both endpoints; only the pre-send sandbox step was skipped.
+
 
 ### G61 · Whether epoch 298 counts toward the Track 1 judged record — `OPEN`
 
@@ -1449,7 +1453,8 @@ take and cannot observe must name its source.**
 reported a green tick forever. The first patch handled HTTP 404; measuring it showed the API
 actually serves a **200 with `activation_status: "deregistered"`**, so that patch would not have
 caught it. `deregistered` is now terminal. Verified both ways: id 389 fires
-`!! TERMINAL rejection`, id 402 stays clean. This was live — `REGISTRATION_ID` is still 389.
+`!! TERMINAL rejection`, id 402 stays clean. This was live — `REGISTRATION_ID` stayed at 389 until
+2026-09-03, and the fix fired on every scheduled run in between (G66).
 
 **P1 · WEATHER_CHECK has no correctness check — OPEN, and the check itself is the problem.**
 A `WEATHER_CHECK` case was added asserting the `hours=0` current-hour form, and the correctness
@@ -1494,3 +1499,18 @@ Found 2026-09-02 while checking repo names: its README and package.json are `pre
 (source public at github.com/shreshth006/Preflight), last pushed 2026-08-28. Judges browse profiles;
 a competitor's code under our name with no attribution reads badly. Delete it, make it private, or add
 an attributed study-fork note. Nothing in either of our repos depends on it.
+Re-checked 2026-09-03: still public, last pushed 2026-08-28. Still the operator's call.
+
+### G66 · The uptime tripwire was red for ~60 hours on a retired registration id — `CLOSED 2026-09-03: re-armed; nothing was wrong with the miner`
+`REGISTRATION_ID` stayed at 389 after the 389 → 402 update of 2026-08-31 21:37Z: TB.6a was left on the
+operator's list and never done. From 2026-09-01 the `check` job failed on every scheduled run, because
+`watch.mjs` read `activation_status: deregistered` for 389 and exited on it — exactly the G63 P1
+behaviour, working as designed on the wrong input. The alarm also worked: issue #5 collected eight
+failure comments. Nobody read them, so for two and a half days the tripwire reported an outage that did
+not exist and could not have distinguished a real one. The `scores` and `live-tests` jobs kept passing,
+so epochs 302–305 were recorded on time and the miner itself was never in question.
+
+Fixed 2026-09-03 19:46Z: variable set to 402, dispatch 33798427285 green on every job, the `resolve` job
+closed #5 at 19:47:30Z. **Rule:** a registration change is not finished until the repo variable is
+updated and one dispatched `uptime` run is green. Both belong in the signing runbook, not on a
+human's list, and an open `uptime` issue must be read the same day it opens.

@@ -10,6 +10,22 @@ position, so every day of delay shortens the record we are judged on.
 
 ---
 
+## Where this stands — 2026-09-03 ~19:50 UTC (post-close, Track 3 window)
+
+- **Track 1 and Track 2 closed 2026-08-31 23:59 UTC.** Registration **402** is `active` with
+  thirteen intents; the miner stays untouched through **2026-09-07 23:59 UTC**.
+- **Feedback loop, all green today:** typecheck, 182 unit + 67 live tests, `verify-deploy`
+  (median 406 ms, p95 1.11 s), `preflight.mjs` 7/7, `watch.mjs --once` against 402, hosted
+  manifest hash `7538…7640` intact.
+- **Epoch 305:** 6 × #1, 4 × #2, 2 × #3, #6 WALLET; normalized-ratio sum 10.17. Post-close sums
+  299–305 range 9.22–10.56 — the epoch-298 level held. `txlens` crossed the SSL cliff and
+  `skywire-storm-alert` the storm cliff; not chased during the freeze.
+- **The uptime tripwire was red from Sep 1 on the retired id 389 — re-armed (TB.6a, G66).**
+- **Open for a human:** TA.6 / T5.2 (X series), the submissions-platform check for 402, G64
+  (delete the CertWatch Vercel project), G65 (the public rival-copy repo).
+
+---
+
 ## Phase 0 — Decide (blocking; nothing else starts until this closes)
 
 - [x] **T0.1** Fetch live intent occupancy → [track1-miner/docs/INTENT_OCCUPANCY.md](track1-miner/docs/INTENT_OCCUPANCY.md).
@@ -251,22 +267,28 @@ near-zero field — **both diagnosed, fixed, measured against their champions an
 
 ### Next, in order
 
-- [ ] **TA.4** **Read the epoch-296 rows** (lands 2026-08-31T03:53:43Z). It is the acceptance test
+- [x] **TA.4** **Read the epoch-296 rows** (lands 2026-08-31T03:53:43Z). *Done 2026-08-31 — 296
+      and 297 are recorded and read in MEMORY § 0000000.* It is the acceptance test
       for four separate changes: the translation payload starve, and TA.1–TA.3. Watch
       `ACADEMIC_SEARCH` specifically — if it returns toward 1.000, the `/papers` subject bug was
       the 295 regression; if it does not, that hypothesis is dead and the cause is elsewhere.
-- [ ] **TA.5** **Operator: sign the three-intent `updateMiner`** — still the largest available
+- [x] **TA.5** **Operator: sign the three-intent `updateMiner`** — *signed 2026-08-31 04:01Z as
+      registration 389, then extended to thirteen intents as 402 at 21:37Z (TB.6).* Was the largest available
       score lever and only a human can do it. Occupancy re-checked and unchanged; all three routes
       verified live in production. Runbook: [track1-miner/docs/ADD_THREE_INTENTS.md](track1-miner/docs/ADD_THREE_INTENTS.md). (G28)
 - [ ] **TA.6** **Operator: post the X series** — 25% of the Track 1 score and still the largest
       unclaimed block. Thirteen drafts, each verified under 280 characters:
       [docs/X_POSTS.md](docs/X_POSTS.md). The subject-dropping bug is genuinely new material.
-- [ ] **TA.7** Run `param-shapes.mjs` and `upstream-health.mjs` before every future deploy.
+- [x] **TA.7** Run `param-shapes.mjs` and `upstream-health.mjs` before every future deploy.
       `verify-deploy` passed green through all three defects above and is not sufficient alone.
+      *Folded into `tools/preflight.mjs`, which runs both as gates; 7/7 against production on
+      2026-09-03.*
 - [ ] **TA.8** **After the close, not before:** run one epoch with `LOG_QUERY=on` and read which
       parameters the engine actually fills. It settles GAPS **G35** (`/ip-geolocate` losing its
       restatement when `ip` is filled) and would retire the guesswork behind `withSubject` for
       every route at once. It is the single highest-value unknown left in Track 1.
+      *Deferred past 2026-09-07: it needs a production environment change and a redeploy, and the
+      miner stays untouched through Track 3 because rankings feed judged routing.*
 
 ### Session of 2026-08-31 ~21:30Z — the last hours of Track 1
 
@@ -304,15 +326,17 @@ near-zero field — **both diagnosed, fixed, measured against their champions an
       `git show 74ad4a19f41b922a5183dc26d6f405c8557dc9ba:track1-miner/miner.yaml` if ever needed.
       The manifest to submit is always `track1-miner/miner.yaml`, whose bytes hash to the
       registered `yaml_hash`.
-- [ ] **TB.6a** **Operator: `gh variable set REGISTRATION_ID --body 402`** — the uptime tripwire
-      still watches 389, which no longer exists, so it is currently blind.
+- [x] **TB.6a** **`gh variable set REGISTRATION_ID --body 402`** — *done 2026-09-03 19:46Z.* The
+      tripwire had watched 389 since the update and failed every scheduled run from 2026-09-01
+      (`activation=deregistered`, G66); dispatch 33798427285 is green on every job and the
+      `resolve` job closed issue #5.
 - [ ] **TB.6-old** Original signing step, retained for the runbook: `export PATH="$HOME/.foundry/bin:$PATH" && bash
       track1-miner/tools/sign-update.sh` — cast prompts for the key directly; the script never
       sees it. Then read the NEW registration id from the receipt logs (not the API — the indexer
       lags ~4 min), `gh variable set REGISTRATION_ID --body <NEW_ID>`, and re-run preflight.
 - [ ] **TB.7** Sandbox validation could **not** be run — the validator 404s from its own backend
       (G60). If it comes back, validate the thirteen-intent manifest retroactively; a rejection
-      would need a corrective update, not a rollback.
+      would need a corrective update, not a rollback. *Re-checked 2026-09-03 19:45Z: still 404.*
 - [ ] **TB.8** Confirm whether epoch 298 (starts 23:02Z, inside the window; scored ~00:15Z, outside
       it) counts toward the Track 1 record (G61). Nothing to do about it either way — but it
       determines whether TB.4 mattered for judging or only for Track 3 routing.

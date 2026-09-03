@@ -14,6 +14,46 @@ sessions and between models.
 | **Track 3 — app** | **Separate repo and folder:** `../telegraph-morse` — <https://github.com/Harshyadav442277/telegraph-morse>. CertWatch was retired and deleted on 2026-09-02 (never funded, no users). Read its `PLAN.md` first. |
 | Anything | [README.md](README.md) for ownership and shared facts, [docs/](docs/) for protocol and rules |
 
+## 2026-09-03 ~19:50 UTC — POST-CLOSE CHECK: LIVE, RANKED, TRIPWIRE RE-ARMED, DEAD FILES REMOVED
+
+Track 3 closes **Sep 7 23:59 UTC**; nothing on the miner changes before then. This session ran the
+full feedback loop against production and every gate passed: typecheck, 182 unit + 67 live tests,
+`verify-deploy` (median 406 ms, p95 1.11 s), `preflight.mjs` 7/7, `watch.mjs --once` against 402,
+and the hosted manifest still hashes to the registered `7538…7640` (the local `miner.yaml` now
+hashes identically). Registration **402** is `active`, thirteen intents, `rejection_reason` null.
+
+**Post-close epochs 299–305, normalized-ratio sums:** 9.22 · 10.21 · 10.19 · 9.51 · 10.46 · 10.56 ·
+10.17 — the epoch-298 level (10.125) has held. Epoch 305: **6 × #1** (ACADEMIC, CONTENT,
+TRANSLATION, NEWS, TELEGRAPH_KNOWLEDGE, WEATHER_FORECAST), 4 × #2 (AI_TEXT, FACT_CHECK, SSL,
+WEATHER_CHECK), 2 × #3 (IP, STORM), #6 WALLET. Two fields changed hands by cliff crossings that
+are not chased during the freeze: `txlens` crossed in SSL (0.9914 vs our 0.0109) and
+`skywire-storm-alert` in STORM (0.9941 vs our 0.0142). All in `score-history.jsonl` — the CI
+`scores` job has recorded every epoch on time.
+
+**The uptime tripwire had been red since Sep 1 on the retired id 389 — fixed (G66).** TB.6a was
+never done; `watch.mjs` correctly called 389 `deregistered` and failed every run, issue #5
+accumulated eight comments, and nobody was reading it. `REGISTRATION_ID` is now 402, a dispatched
+run is green on every job, and #5 is closed. An open `uptime` issue again means "failing right now".
+
+**Cleanup:** four stale agent worktrees under `.claude/` (~7 GB; every added line already in main;
+their patches parked in the session scratchpad) and their branches removed, including
+`PR/trusting-lewin-a68645` on origin; the never-used Fly/Docker deployment files and three scratch
+files in `tools/` deleted; README, SETUP, the submission checklist and the miner README brought up
+to registration 402 and thirteen intents. Sandbox validator re-checked: still 404 (G60). Nothing
+under `track2/` was touched.
+
+### The things that need a human, in order (2026-09-03)
+
+1. **Post the X series** — [docs/X_POSTS.md](docs/X_POSTS.md), P1–P13. Still 25% of the Track 1
+   score and still unposted as far as this repo knows. Consistency is scored: two a day through Sep 7.
+2. **Confirm the submissions platform** shows miner ID 4433 with registration 402 for Track 1, and
+   the intended champions for Track 2 — it needs the wallet-signed session Claude cannot open.
+3. **Delete the retired CertWatch Vercel project** — `app-five-blond-45.vercel.app` still answers
+   200 (G64).
+4. **Decide on `Harshyadav442277/Telegraph`** — still public, still a copy of the rival PREFLIGHT
+   miner (G65).
+5. Track 3 (Morse) work happens in `../telegraph-morse`, not here.
+
 ## EPOCH 298 — THE CLOSING RECORD: #1 MINER ON THE NETWORK (2026-09-01 ~00:20 UTC)
 
 The final scored epoch of Track 1. Over thirteen intents: **7 x #1** (WEATHER_FORECAST **crossed
@@ -178,16 +218,12 @@ question itself is still open. (Track 2 note, same date: the live miner registra
 it; if Track 1 re-registers again, tell the Track 2 session so GAPS G25 and SUBMISSION.md stay
 correct.)
 
-### The things that need a human, in order
+### The things that needed a human, as of 2026-08-30 — superseded
 
-1. **Read epoch 295's IP_GEOLOCATION and LANGUAGE_TRANSLATION rows** — the live test of the
-   2026-08-30 fixes. If translation still loses, check whether its champion changed again before
-   touching anything (GAPS G26).
-2. **Post the X series.** 25% of the Track 1 score and the largest unclaimed block. Thirteen posts,
-   each verified under 280 characters and tagged: **[docs/X_POSTS.md](docs/X_POSTS.md)**. The
-   scorer-cliff finding is genuinely new material and should be posted with the fix.
-3. **Ask the organizers** whether the 100-request Track 3 guardrail is waived, measured later, or
-   binding on Aug 31 — Track 3 has not opened, so no intent can meet it. Still unanswered.
+Superseded by the 2026-09-03 list at the top of this file. Of the three items that stood here:
+epoch 295 was read (IP and translation both recovered, § 00 of track1-miner/MEMORY.md); the X series
+is still the open item; the guardrail question was half-answered on 2026-08-30 (routing and counting
+confirmed, the waiver itself never answered).
 
 ### Read these before touching anything
 
