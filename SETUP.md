@@ -1,12 +1,13 @@
 # SETUP.md — the manual steps
 
-> **Status 2026-08-28 — steps 1, 2 and 3 are DONE.** The miner is deployed at
-> `https://miner-wine.vercel.app` and registered as **260**, active with six intents and rank 1 in
-> four of them. The wallet is funded. **Do not re-run steps 1-3.** They are kept below as the
-> record of how it was set up.
+> **Status 2026-09-03 — steps 1, 2 and 3 are DONE and Track 1 has closed (2026-08-31 23:59 UTC).**
+> The miner is deployed at `https://miner-wine.vercel.app` and registered as **402**, active with
+> thirteen intents. The operator reported both Track 1 and Track 2 submitted on 2026-08-31.
+> **Do not re-run steps 1-3, and do not redeploy or re-register before Track 3 closes on
+> 2026-09-07 23:59 UTC** — rankings feed Track 3 routing. Steps are kept below as the record.
 >
-> **What is still open is step 4 (X) and step 5 (CertWatch)** — plus registering the Track 2
-> scorer, which lives in [track2/REGISTRATION.md](track2/REGISTRATION.md).
+> **What is still open is step 4 (X).** Step 5 now points at Morse, the Track 3 application in
+> its own repository. Track 2 state lives in [track2/SIGN.md](track2/SIGN.md).
 >
 > **Read [GAPS.md](GAPS.md) G19 before touching the wallet.** Its seed phrase was compromised by a
 > Discord scam on 2026-08-28. The risk was assessed and accepted; the wallet must not be reused
@@ -56,12 +57,10 @@ measured why: the current rank-1 SSL miner runs on Render's free tier and answer
 registered, the same applies to us.
 
 The gap is *before* registration, when nothing is pinging it. The committed GitHub Actions uptime
-workflow polls every 15 minutes, which covers it.
+workflow polls hourly, which covers it.
 
-### If you would rather use Fly.io
-
-Everything for it is still committed (`track1-miner/miner/Dockerfile`, `track1-miner/miner/fly.toml` with
-`min_machines_running = 1`). It only needs a card on file. Vercel is the no-card path.
+Fly.io was tried first and dropped because it demands a payment method; its config was deleted on
+2026-09-03 once it was clear it would never be used. Vercel is the only deployment path.
 
 ## Step 2 — Create an EVM wallet and get Base Sepolia ETH
 
@@ -117,31 +116,14 @@ reviewing and clicking.
 
 ---
 
-## Step 5 — Run CertWatch (the Track 3 app)
+## Step 5 — The Track 3 application: Morse
 
-Built and working: [track3-certwatch/](track3-certwatch/) — a TLS expiry monitor that asks Telegraph about certificates.
-This exists because of the eligibility guardrail: our intent needs **≥100 real Track 3 requests**
-or it wins nothing regardless of rank.
-
-```bash
-cd app && npm install && cp .env.example .env
-```
-
-CertWatch can also go to Vercel, or run locally — nothing spot-checks it, so its uptime is not
-scored.
-
-Put a **throwaway** Base Sepolia private key holding testnet USDC into `.env` as
-`EVM_PRIVATE_KEY`. It signs x402 payments.
-
-> Never paste that key to me, never commit it. `.env` is gitignored. Use a wallet that holds
-> nothing real — ideally a different one from your registration wallet.
-
-```bash
-npm run build && npm start     # dashboard on http://localhost:3000
-```
-
-Add domains and it starts checking. Later, **deploy it publicly** so other people can use it —
-demand from real users counts for far more than demand you generate yourself.
+Track 3 is **Morse**, in its own repository and sibling folder `../telegraph-morse`
+(<https://github.com/Harshyadav442277/telegraph-morse>); its setup steps live there. CertWatch, the
+earlier Track 3 candidate, was retired and deleted on 2026-09-02 — it was never funded and never had
+a user. Its Vercel project `app-five-blond-45.vercel.app` still answers and should be deleted by
+the operator (GAPS G64). The wallet rule is unchanged: any x402 key goes in a gitignored `.env`,
+never in a chat, never in a commit, and never the registration wallet.
 
 ---
 
@@ -165,9 +147,8 @@ and progress."* So a steady cadence does beat a burst on the last day.
 - `track1-miner/miner.yaml` — passes a local strict-schema precheck. `slug: livecert`, `id: 4433`, both verified free.
 - `track1-miner/tools/watch.mjs` — uptime and revocation watcher, with a `--once` mode for cron.
 - `track1-miner/tools/verify-deploy.mjs` — post-deploy acceptance check. Run before registering.
-- `.github/workflows/` — CI (typecheck + tests on every push) and a 15-minute uptime watch that
-  opens an issue if the miner goes down. Set repo variables `MINER_BASE_URL` and
-  `REGISTRATION_ID` to arm it — it no-ops until then, so pushing now is safe.
-- `track3-certwatch/` — **CertWatch**, the Track 3 application. Dashboard renders, all endpoints tested,
-  x402 payment wired against the real SDK.
+- `.github/workflows/` — CI (typecheck + tests on every push) and an hourly uptime watch that
+  opens an issue if the miner goes down and closes it on recovery. Armed with repo variables
+  `MINER_BASE_URL` and `REGISTRATION_ID=402` — **update the variable whenever the registration
+  id changes**, or the watcher reports the old id as deregistered on every run (GAPS G66).
 - Full planning docs, judging analysis, and the intent decision with its reasoning.
