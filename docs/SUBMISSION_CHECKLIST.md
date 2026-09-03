@@ -1,76 +1,57 @@
 # SUBMISSION_CHECKLIST.md
 
-Everything that has to be true by **2026-08-31** (Track 1 close) and **2026-09-07** (Track 3 close).
-Tick these off in order; the ordering is dependency order, not preference.
+What had to be true by **2026-08-31 23:59 UTC** (Track 1 and Track 2 close) and what still has to
+be true through **2026-09-07 23:59 UTC** (Track 3 close). Winner Selection runs Sep 8–18. Resolve
+every deadline with `date -u`, never the local date.
+
+Last verified: 2026-09-03 ~19:50 UTC.
 
 ---
 
-## Track 1 — Miner · due 2026-08-31
+## Track 1 — Miner · closed 2026-08-31
 
 | # | Item | Who | State |
 |---|---|---|---|
-| 1 | Miner service built and tested | Claude | **done** — 23 tests passing |
-| 2 | `miner.yaml` written, schema-prechecked | Claude | **done** |
-| 3 | Deployed to a public HTTPS URL | Claude | **done** — `https://miner-wine.vercel.app` |
-| 4 | `node tools/verify-deploy.mjs <url>` exits 0 | Claude | **done** — all 18 checks pass |
-| 5 | `base_url` updated in `miner.yaml` | Claude | **done** |
-| 6 | Sandbox validation | — | **done** — all 3 endpoints green, pinned to IPFS |
-| 7 | EVM wallet created, Base Sepolia ETH funded | **User** | **done** — 0.005 ETH |
-| 8 | `registerMiner` sent | **User** | **done** — registrationId **225**, tx confirmed |
-| 9 | `activation_status: active` | Claude | **done** — active, present in all 3 intent listings |
-| 10 | Uptime workflow armed | Claude | **done** — `MINER_BASE_URL` + `REGISTRATION_ID=225` |
-| 11 | Posts on X, tagged `@Telegraphprotoc` | **User** | **can start now** — drafts 1–3 need nothing deployed |
+| 1 | Miner built, tested, deployed at `https://miner-wine.vercel.app` | Claude | **done** — 182 unit + 67 live tests, preflight 7/7 on 2026-09-03 |
+| 2 | `track1-miner/miner.yaml` hashes to the registered `yaml_hash` | Claude | **done** — `7538…7640`; hosted and local bytes identical |
+| 3 | Registration active with every declared intent | **User** signs, Claude verifies | **done** — registration **402**, thirteen intents, active since 2026-08-31 21:46 UTC |
+| 4 | Submitted on `submissions.telegraphprotocol.com` — miner ID **4433** plus `miner.yaml` | **User** | **reported done ~22:20 UTC on 2026-08-31.** Claude cannot verify; the site needs a wallet-signed session. Re-check that it names registration 402. |
+| 5 | Uptime tripwire watching the right registration | Claude | **done** — `REGISTRATION_ID=402` since 2026-09-03; dispatched run green; issue #5 closed |
+| 6 | Posts on X, tagged `@Telegraphprotoc` | **User** | **open** — P1–P13 in [X_POSTS.md](X_POSTS.md); 25% of the score |
 
-**Register as early as possible.** The 7-day grace-period score sets the opening leaderboard
-position. Registering on Aug 30 leaves one day of record to be judged on.
-
-## Track 3 — Application · due 2026-09-07
+## Track 2 — Script Author · closed 2026-08-31
 
 | # | Item | Who | State |
 |---|---|---|---|
-| 12 | CertWatch built | Claude | **done** — dashboard tested |
-| 13 | Deploy config | Claude | **done** |
-| 13b | CertWatch deployed publicly | Claude | **done** — `https://app-five-blond-45.vercel.app` |
-| 14 | Base Sepolia **USDC** funded (separate from ETH) | **User** | not started |
-| 15 | `EVM_PRIVATE_KEY` set as a Fly secret | **User** | blocked on 14 |
-| 16 | ~~Deployed publicly~~ | Claude | **done** — needs only the key to start making real calls |
-| 17 | Real users making real checks | **User** + outreach | blocked on 16 |
+| 7 | Submitted with the live champions and their `.wasm` files | **User** | **reported done ~22:20 UTC on 2026-08-31** — unverifiable from here |
+| 8 | Champions still held | — | 1882 `TEXT_AUTHENTICITY_CHECK` and 2010 `LANGUAGE_GENERATION` re-verified rank 1 on 2026-09-03; `CRYPTO_PRICE` 2365 was retaken on 2026-08-31 |
 
-## Standing requirements
+Track 2's own state lives in [../track2/SUBMISSION.md](../track2/SUBMISSION.md) and
+[../track2/SIGN.md](../track2/SIGN.md).
 
-- **Miner live and operational through 2026-09-07** — this is a rule, not just scoring.
+## Track 3 — Application · due 2026-09-07 23:59 UTC
+
+Morse, in its own repository: <https://github.com/Harshyadav442277/telegraph-morse> (sibling folder
+`../telegraph-morse`). Its checklist is there. CertWatch was retired on 2026-09-02; its Vercel
+project `app-five-blond-45.vercel.app` still answers and should be deleted by the operator (G64).
+
+## Standing requirements through Sep 7
+
+- **Miner live and operational through 2026-09-07** — a rule, not just scoring. Rankings feed
+  Track 3 routing (70/20/10 to ranks 1/2/3). Do not deploy, redeploy or re-register before the close.
 - **All judged updates public on X and tagged** `@Telegraphprotoc`.
-- **Stay active in the Telegraph Discord** — the rules say it is expected.
-- **No artificial metric inflation.** CertWatch is a real monitor with a real reason to check
-  certificates. Keep it that way.
-- **Integrated third-party APIs are our responsibility** — allowed explicitly (organizer,
-  Discord 2026-08-30), but "uninterrupted, and reliable" is on us. Monitor upstreams, keep
-  fallbacks.
-- **The exact deadline hour is in Discord `#announcements`** — the rules page gives only the
-  date. Read it before planning the final day.
-- **Building does not stop on Aug 31.** Everything is permissionless; rankings persist after the
-  hackathon; Track 3 requests route by rank and are **counted in judging** (organizer,
-  2026-08-30). Improvements during Track 3 still move the judged record.
+- **Stay active in the Telegraph Discord**; the exact deadline hour is in `#announcements`.
+- **No artificial metric inflation.**
+- **Third-party upstreams are our responsibility** — `tools/upstream-health.mjs` (part of
+  preflight) probes every one of them.
 
-## The one thing that can still sink it
-
-`SSL_VERIFICATION` needs **≥100 real requests from Track 3 applications** or it is ineligible for
-cash prizes regardless of rank. See G13. Items 16 and 17 are the mitigation, and item 17 —
-*other people* using it — is worth more than any amount of self-generated traffic.
-
-Draft 7 in [X_POSTS.md](X_POSTS.md) targets Track 3 builders and should go out **before Aug 31**,
-when they are choosing what to build on.
-
-## Deploy commands
+## Feedback loop — run it, do not assume it
 
 ```bash
-# miner — Vercel, no payment method required
-npm i -g vercel && vercel login
-cd miner && vercel --prod
-node ../tools/verify-deploy.mjs https://<your-url>.vercel.app
-
-# app — may scale to zero
-cd app && fly launch --no-deploy --copy-config --name certwatch
-fly secrets set EVM_PRIVATE_KEY=0x...    # never in a file, never in a commit
-fly deploy
+cd track1-miner/miner && npm test && cd ../..
+node track1-miner/tools/preflight.mjs https://miner-wine.vercel.app
+node track1-miner/tools/watch.mjs --base-url https://miner-wine.vercel.app --once --registration-id 402
+gh run list --workflow uptime --limit 3
 ```
+
+An open issue labelled `uptime` means the miner is failing **right now**; a closed one is history.
