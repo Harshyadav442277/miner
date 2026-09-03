@@ -237,6 +237,75 @@ Two consequences that matter:
 Base Sepolia USDC: `0x036CbD53842c5426634e7929541eC2318f3dCF7e`
 Faucet: https://faucet.circle.com
 
+---
+
+## Consumer surfaces beyond the auto-routed ask (read 2026-09-03)
+
+Sources: the console's Integrate Out page (`integrate.telegraphprotocol.com/integrate`) and the
+three docs pages it links — [Paying with x402](https://docs.telegraphprotocol.com/docs/using/x402-inference)
+(updated 2026-08-13), [WebSocket Signal Subscriptions](https://docs.telegraphprotocol.com/docs/using/websocket-signals)
+(updated 2026-08-20), [MCP Server](https://docs.telegraphprotocol.com/docs/using/mcp-server)
+(updated 2026-08-13), plus the [Telegraph-MCP](https://github.com/telegraphprotocol/Telegraph-MCP)
+README. Read, not exercised: no paid call has been made against any of them. The auto-routed
+ask and its 402 were already recorded above; the MCP server was noted in the 2026-08-26 strategy
+review. Everything else here was missing from this repo until 2026-09-03.
+
+**1. Call a specific miner — `POST /engine/v1/ask/:id`.** The path value is the miner's numeric
+`id` from `/api/miners`, i.e. **4433** for LiveCert, not the registration id. Body
+`{ "method", "endpoint", "payload" }` — the upstream verb, our own path (`/ssl-check`, ...), and the
+payload forwarded as body or query params. It is x402-gated like the routed ask: the docs' example
+is a 402 whose challenge reads "Payment required for direct subnet inference". The node runs the
+same pre-request validation as the routed path but **halts** instead of falling back, because the
+caller named the miner; `"acknowledge_warnings": true` forces it through. Response shape:
+`{ miner_id, miner_name, result, cost_usd, duration_ms, signal_hash }`.
+**Track 3 consequence:** a direct call reaches LiveCert regardless of rank, but the G13 guardrail
+counts *intent* demand and only the routed path classifies to an intent. Whether direct calls
+count is unknown — do not assume they do.
+
+**2. Payment mechanics worth knowing.** Price = miner floor (`min_price_usdc`, 6-decimal units,
+`10000` = $0.01) × a demand multiplier from 24-hour intent volume; the `amount` in the decoded
+`PAYMENT-REQUIRED` header is authoritative, the body's `price` string is not enough to sign with.
+`payTo` is per node — read it from the challenge. Base Sepolia **or Solana Devnet** USDC. **Failed
+calls are never charged.** Every paid call yields a `signal_hash`; `GET /engine/v1/signal/{hash}`
+returns the signal, the result and the hashed payload for independent verification. Free
+discovery: `GET /api/miners?intent=…&status=…&limit=…`, `GET /miner-dispatcher/openapi.json`.
+The x402 client needs Node ≥ 20 (WebCrypto); on Node 18 payments fail with
+`Crypto API not available`.
+
+**3. WebSocket — `wss://devnode.telegraphprotocol.com/engine/ws`** (the console prints the bare
+`ws://13.237.89.59:7044/engine/ws`; same node). Anonymous connections get only `list_subnets` and
+`ping`, and the server sends a `connected` greeting first — match replies on `type`, not arrival
+order. Everything else needs `?wallet_address=0x…` plus a `personal_sign` challenge/response
+within 15 s, **and ≥ $1.00 USDC deposited in escrow** via `EscrowFacet.depositUSDC()` on the
+Diamond. Actions: `subscribe` / `unsubscribe` / `list_subscriptions` (one subscription per wallet;
+`intents[]`, required `spend_limit_usdc` per session, optional `category`, `min_interest`,
+`max_per_hour`), `ask`, `ask_direct` (same semantics as the HTTP pair, and the docs say **no x402
+charge at the WebSocket layer** and no deduction from the spend limit), `ping`. Pushed signals
+come from the **Daemon's 3-hour cycle** (collectors → LLM router → miner mesh) and are settled
+against escrow per signal at the intent's price; hitting the session spend limit cancels the
+subscription and closes the socket. Signals arrive in batches, not continuously.
+
+**4. Telegraph MCP server** — a local Node ≥ 20 process, npm `telegraph-protocol-mcp`, on the MCP
+Registry as `io.github.telegraphprotocol/telegraph`. Env: `TELEGRAPH_NODE_URL`,
+`TELEGRAPH_ENGINE_URL` (`…/engine`), `TELEGRAPH_DAEMON_URL` (`…/daemon`) — one host, path
+prefixes — plus a burner `TELEGRAPH_EVM_PRIVATE_KEY`. Tools: free node/daemon reads
+(`tg_node_list_subnets`, `tg_daemon_questions` with category/source/since_hours filters),
+`tg_engine_ask` (routed, paid), `tg_engine_ask_subnet` (direct, paid), and **one auto-generated
+tool per miner endpoint**, refreshed every 5 minutes from `/api/miners`: name
+`tg_<slug>_<path>` with `/` and `-` → `_`, so LiveCert appears as `tg_livecert_ssl_check`,
+`tg_livecert_storm_alert`, `tg_livecert_weather_forecast`, … to every MCP client with no work on
+our side. Building our own MCP layer duplicates this.
+
+**5. The console's boilerplate apps** (TruthWire, TrustFilter, ScholarGuard, ReviewReward,
+SuperSignal, AdGuard) all live in one monorepo,
+`github.com/telegraphprotocol/telegraph-truthwire`, one folder each — a different repo from the
+`telegraph-usecases` one listed under Source pages. Five have live apps on
+`*.telegraphprotocol.com`; AdGuard's is "coming soon".
+
+None of this affects Track 1, which is closed and frozen. It is input for Morse
+(`../telegraph-morse`): record there which path it uses (routed vs direct vs WebSocket `ask`),
+whether the WebSocket's unpaid `ask` is something the rules count, and the escrow prerequisite.
+
 
 ---
 

@@ -42,6 +42,14 @@ files in `tools/` deleted; README, SETUP, the submission checklist and the miner
 to registration 402 and thirteen intents. Sandbox validator re-checked: still 404 (G60). Nothing
 under `track2/` was touched.
 
+**Consumer surfaces recorded** (operator pointed at the console's Integrate Out page): the direct
+`POST /engine/v1/ask/:id` path (id = miner id **4433**, x402-gated, halts instead of falling back),
+the WebSocket (`wss://devnode…/engine/ws`, wallet auth + ≥ $1 USDC escrow, `ask` unpaid at the WS
+layer per the docs, Daemon pushes on a 3-hour cycle), payment mechanics (floor × demand
+multiplier, failed calls free, `signal_hash` verification), and the MCP server's auto-generated
+`tg_livecert_*` tools. All in docs/TELEGRAPH_FACTS.md; none of it changes Track 1, all of it is
+input for Morse.
+
 ### The things that need a human, in order (2026-09-03)
 
 1. **Post the X series** — [docs/X_POSTS.md](docs/X_POSTS.md), P1–P13. Still 25% of the Track 1
