@@ -14,6 +14,52 @@ sessions and between models.
 | **Track 3 — app** | **Separate repo and folder:** `../telegraph-morse` — <https://github.com/Harshyadav442277/telegraph-morse>. CertWatch was retired and deleted on 2026-09-02 (never funded, no users). Read its `PLAN.md` first. |
 | Anything | [README.md](README.md) for ownership and shared facts, [docs/](docs/) for protocol and rules |
 
+## 2026-09-04 ~20:50 UTC — REDEPLOYING 404'd THE WHOLE MINER (G70), AND FOUR REFUSAL DEFECTS FIXED
+
+**Before you deploy the miner, read G70.** `vercel.json` rewrites every path to `/api/index`. The
+platform used to hand the function the original request line; **Vercel CLI 59.5.0 hands it the
+destination**, so `req.url` is `/api/index?query=…`, `ENDPOINTS` matches nothing, and every declared
+endpoint 404s — a total outage of a registered miner, triggered by *redeploying* rather than by any
+code change. Found and fixed the same session: the rewrite now carries the original path as
+`__path` and `route()` prefers it. Production was down for a few minutes between the promote and the
+rollback. **Morse was not affected** — its last routed call was 19:45:11Z, before the window, and
+every `livecert` row in its ledger is `ok`. Second lesson: after `vercel rollback`, production is
+pinned, and a later `vercel --prod` does **not** move the alias — it needs `vercel promote <url>`.
+
+**The method worth keeping: replay the questions the network actually routes.** The explorer's
+`api/daemon/api/questions` feed carries 18,754 real routed questions with their intent. Replaying
+them against production shows which we *refuse* — and a refusal scores ~1e-11 where an answer can
+cross to 1.0, so it is a far bigger lever than any wording change. Four defects came out of it, all
+deployed and verified (preflight 7/7, 249 tests, registration 402 active, **no manifest change so no
+`updateMiner`**):
+
+- **TELEGRAPH_KNOWLEDGE** answered 13 of 34 core questions, now 34 of 34 — *"What is Telegraph
+  Protocol?"* used to return `not_covered`. Under champion 2104, nine of fourteen now cross to 1.0
+  where a refusal is 1.3e-11.
+- **WEATHER_CHECK** refused 9 of 18 routed questions, now 3, all correct. "Will Dubai experience
+  extreme heat today?" is 14 of the 50 routed questions and every one was refused, because a
+  greedy proper-noun run made the candidate "Will Dubai" and the stop-word filter compares whole runs.
+- **LANGUAGE_TRANSLATION** refused 5 of 18, now 2, both correct — and one case was worse than a
+  refusal: *"Translate this to finnish"* with the text on the next line returned Finnish for the
+  word "this".
+- A false positive removed: *"Which ocean is the deepest point on Earth found in?"* was answered
+  with weather, because "Earth" geocoded.
+
+**Measured and deliberately not changed:** WALLET (#7, ratio 0.680) has **no defect** — under the
+current champion 3022 our live answers beat the best recorded answer on 13 of 16 real questions and
+the live field is noise at 1e-13 (G72). IP (#3, 0.996) was measured and left alone. Peeling clock
+times off a place candidate was tried and reverted: it turns two honest refusals into two confident
+answers about Bangalore Town, Pakistan.
+
+**The scoring oracle is validated (G73).** G24 said the champion WASM could no longer be checked
+against reported scores; it can, from the Preflight receipts, which kept `converted_answer`. Scoring
+`(question, ground_truth, converted_answer)` reproduces the recorded score **exactly** — SSL 32/34,
+every miss a pre-rotation epoch, our own IP rows to eight digits.
+
+**Standing at epoch 308, before these fixes:** livecert **10.59 normalized sum — first on the
+network**, over chainsight-oracle 8.95 and txlens 8.93, 6 × #1 of 13. **Epoch 309 is the acceptance
+test.** Full record: § 00000000000 of [track1-miner/MEMORY.md](track1-miner/MEMORY.md).
+
 ## 2026-09-03 ~19:50 UTC — POST-CLOSE CHECK: LIVE, RANKED, TRIPWIRE RE-ARMED, DEAD FILES REMOVED
 
 Track 3 closes **Sep 7 23:59 UTC**; nothing on the miner changes before then. This session ran the

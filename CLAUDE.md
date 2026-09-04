@@ -65,6 +65,14 @@ curl -s https://devnode.telegraphprotocol.com/api/miners/<registrationId> \
 cast call "$DIAMOND" "isCanonicalIntent(string)(bool)" "WEATHER_CHECK" --rpc-url "$RPC"
 cast call "$DIAMOND" "getCanonicalIntents()(string[])" --rpc-url "$RPC"
 
+# Deploy the miner. NOT `git push` — that deploys nothing (G22).
+# Read GAPS G70 first: a redeploy 404'd every endpoint on 2026-09-04, and after a
+# `vercel rollback` production is PINNED — `--prod` alone does not move the alias.
+cd track1-miner/miner && npx vercel --scope wukong4 --yes            # preview first, always
+npx vercel curl "<preview-url>/ssl-check?query=github.com" --scope wukong4
+npx vercel --prod --scope wukong4 --yes && npx vercel promote <url> --scope wukong4
+node ../tools/preflight.mjs                                          # 7/7 or roll back
+
 # YAML hash for registration — SHA-256, NOT keccak256.
 # PowerShell is the default shell here and has no sha256sum:
 #   (Get-FileHash track1-miner/miner.yaml -Algorithm SHA256).Hash.ToLower()

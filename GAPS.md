@@ -1575,3 +1575,82 @@ see a misleading parameter list. **Unverified** whether this is the node flatten
 shared `params` block the same way or something specific to ours; compare another multi-endpoint
 miner's entry before concluding. Nothing changes before Sep 7 in any case — an `updateMiner` mints a
 new registration id and would invalidate the submitted one.
+
+### G70 · Redeploying the miner 404s every endpoint — `CLOSED 2026-09-04 20:40 UTC, fixed and verified live`
+`vercel.json` rewrites every path to `/api/index`, and the platform used to hand the function the
+**original** request line, so `req.url` read `/ssl-check` and `route()` worked. A deployment built
+with **Vercel CLI 59.5.0** hands it the destination instead:
+
+```
+GET /ssl-check?query=test   ->   req.url = "/api/index?query=test"
+```
+
+so `ENDPOINTS` matched nothing and every declared endpoint fell through to the 404 branch. **This
+is a total outage of a registered miner** — every routed request and every validator spot check,
+and a spot check more than 20% below the leaderboard score is a Routing Revocation. It is triggered
+by **redeploying**, not by any code change, so it would have fired on the next deploy whatever that
+deploy contained. Any session that redeploys this miner without reading this will reproduce it.
+
+Sequence, for the record: promoted at ~20:2xZ, `/ssl-check` on `miner-wine.vercel.app` answered
+`not_found`, rolled back to `miner-th3yytd1u` within a few minutes, production verified serving
+again, then diagnosed on a preview that echoed the path it was given. **Morse (Track 3) was not
+affected**: its last routed call was 19:45:11Z, before the window, and every `livecert` row in its
+ledger is `ok`.
+
+Fix: the rewrite passes the original path as `__path=/$1`, and `route()` prefers it when it is
+present and starts with `/`, falling back to `req.url` so `npm start` and every existing test are
+unchanged. `__path` is deleted from the query before any handler reads it, so it can never be seen
+as user input, and a value that is not a path is ignored rather than trusted. Five unit tests pin
+the shape. Verified on a preview across all twelve endpoints, then in production; preflight 7/7,
+`watch.mjs` `endpoint=ok 462ms activation=active`.
+
+**Note for whoever deploys next:** a `vercel rollback` pins production, and a later `vercel --prod`
+does **not** move the alias on its own — it needs `vercel promote <url>`. That cost one confusing
+verification round here.
+
+
+### G71 · TELEGRAPH_KNOWLEDGE's routed questions are 97% not about Telegraph — `OPEN, deliberately not chased`
+Of the **919 distinct TELEGRAPH_KNOWLEDGE questions** in the explorer's routed feed
+(`explorer.telegraphprotocol.com/api/daemon/api/questions`, 18,754 rows paged 2026-09-04), only
+**24 (2.6%)** mention Telegraph, a miner, an intent, an epoch, the explorer or MACHINA. The rest are
+open-domain: *"Is the OpenAI board independent from the company?"*, *"Will Meta fire the
+executive?"*, *"What is the Model Context Protocol, and who created it?"*. The other miner in the
+field, `telegraph-chatbot`, is an LLM chat-completions endpoint and answers them.
+
+The **canonical intent description agrees with our design**, not with the routing: it scopes the
+intent to Telegraph, its products and ecosystem, and says to use it "rather than routing to general
+CHAT_COMPLETION or WEB_SEARCH". So the Daemon's router is over-matching, and the scoring fixtures
+are evidently a different, much more Telegraph-heavy set — which is why we scored a clean **1.0** in
+epochs 298, 299, 304, 305 and 306 and ~1e-11 in 300, 302, 307 and 308.
+
+**Not chased.** Answering open-domain questions needs an LLM or a general retriever this miner does
+not have, and inventing answers is the failure this project refuses everywhere. What *was* fixed is
+the half we own — see the fact-table commit; coverage of questions inside the canonical description
+went 13/34 to 34/34.
+
+
+### G72 · WALLET_BALANCE_CHECK has no measurable defect, and the live band is noise — `MEASURED 2026-09-04`
+We sit **#7 of 10 at ratio 0.680** and the obvious reading is that our answer is worse. It is not.
+Scored against the **current** champion (reg 3022, `wlz_0001.wasm`, activated 2026-09-01 and never
+analysed before this) over the 16 distinct real recorded questions in the Preflight receipts, our
+live production answers beat **the best answer anyone recorded on 13 of 16**, mean 4.375e-1 against
+6.25e-2 — seven times better.
+
+The live field is 2.42e-13 down to 1.65e-13: the whole of it inside a factor of 1.5, at 1e-13. That
+is the sub-cliff noise band, not an ordering by quality. **No change was made**, because there is
+nothing measurable to fix and a speculative one is exactly the pattern G62 records being wrong.
+
+
+### G73 · The champion WASMs reproduce recorded scores exactly, so the oracle is validated — `MEASURED 2026-09-04`
+G24 removed `question`, `ground_truth` and `converted_answer` from the feed and noted the champion
+WASM "can no longer be validated against reported scores". It can, from the Preflight receipts,
+which retained all three. Scoring `(question, ground_truth, converted_answer)` under the current
+champion reproduces the **recorded score exactly**: SSL **32 of 34** rows, IP 6 of 15 — and every
+miss in both is a row from an epoch before that intent's champion rotated. Our own two recorded IP
+rows reproduce to eight digits (0.99204141 vs 0.9920414, 0.99209267 vs 0.99209267).
+
+What this buys: given a candidate **converted** answer, its score can be computed exactly rather
+than approximated. The one remaining unknown is the converter — what prose the node writes from a
+given payload — and the receipts pin that too for the rows they cover. Anything measured this way
+is worth more than a `clip32` payload proxy; see `scratchpad/validate.mjs` for the reproduction.
+

@@ -4,10 +4,96 @@
 Shared protocol facts are in `../docs/`. Do not edit `../track2/`; Track 3 lives in the separate
 `../telegraph-morse` repository.
 
-Last updated: 2026-09-03 ~19:50 UTC — post-close check. Track 1 closed 2026-08-31 **23:59 UTC**;
-registration **402** (thirteen intents) is active and the miner stays untouched through Track 3's
+Last updated: 2026-09-04 ~20:50 UTC — four refusal defects fixed and deployed, and a
+redeploy-triggered outage found and closed (G70). Track 1 closed 2026-08-31 **23:59 UTC**;
+registration **402** (thirteen intents) is active and the miner stays live through Track 3's
 close, **Sep 7 23:59 UTC** (resolve deadlines with `date -u`, never the local date). Read
-§ 0000000000 first, then § 000000000 for how 402 came to be.
+§ 00000000000 first, then § 000000000 for how 402 came to be.
+
+---
+
+## 00000000000. THE MINER COULD NOT BE REDEPLOYED — AND FOUR REFUSAL DEFECTS FIXED (2026-09-04 ~20:50Z)
+
+**Read G70 before you deploy anything.** `vercel.json` rewrites every path to `/api/index`, and the
+platform used to pass the function the original request line. Vercel CLI 59.5.0 passes the
+**destination** instead, so `req.url` is `/api/index?query=…`, `ENDPOINTS` matches nothing, and
+**every declared endpoint 404s**. That is a total outage of a registered miner, and it is triggered
+by *redeploying*, not by any code change — the next deploy was going to do it whatever it contained.
+Fixed by passing the original path as `__path` through the rewrite and preferring it in `route()`.
+Production was down for a few minutes between the promote and the rollback; **Morse was not
+affected** (its last routed call was 19:45:11Z, before the window, and every `livecert` row is ok).
+Also learned: after a `vercel rollback`, production is pinned — a later `vercel --prod` does not
+move the alias, it needs `vercel promote <url>`.
+
+**The method that produced everything else here: replay the questions the network actually routes.**
+The explorer's `api/daemon/api/questions` feed (18,754 rows, paged) carries real routed questions
+with the intent they were routed to. Replaying them against production shows which are *refused*,
+and a refusal scores ~1e-11 where an answer can cross to 1.0. That is a far bigger lever than any
+wording change, and it is measured against reality rather than a 12-row frozen bench.
+
+Four defects found that way, all now live (`miner-moi9raxnb`, preflight 7/7, 198 unit + 249 full,
+`watch.mjs` endpoint=ok 462ms activation=active, registration 402 active, manifest hash unchanged
+so **no `updateMiner`**):
+
+1. **TELEGRAPH_KNOWLEDGE answered 13 of 34 core questions; now 34 of 34.** The fact table covered
+   seven narrow topics, so *"What is Telegraph Protocol?"* — the plainest question the intent has —
+   returned `not_covered`. Two were ordering bugs, not missing facts: the intents pattern required
+   what/which/list/canonical *after* the word "intent", so *"What is an intent in Telegraph?"* was
+   refused while the refusal text claimed intents were covered; and *"can I update a miner after
+   registering it"* was claimed by the registration entry on the word "registering". Scored against
+   champion 2104 over fourteen questions, a refusal is ~1.3e-11 and an answer crosses to 1.0 —
+   **nine of the fourteen now cross**. That is the same 1.0/~1e-11 alternation the live record shows
+   across epochs 298–308. Every added fact comes from `docs/TELEGRAPH_FACTS.md` with its source.
+2. **WEATHER_CHECK refused 9 of 18 routed questions; now 3, and all three are correct refusals.**
+   Fourteen of the fifty distinct routed WEATHER_CHECK questions are *"Will Dubai experience extreme
+   heat today?"* shaped. A proper-noun run is matched greedily, so that yields the single run "Will
+   Dubai", and the stop-word filter compares **whole runs** — so "will" being a stop word did
+   nothing and "Dubai" was never a candidate. Stop words are now trimmed off both ends of a run.
+   Separately, a lowercase place was only reachable through LEADING, which a greeting or a typo
+   blocks: *"hows weather in lahore"*, *"HI whats the weather in lahore?"*, *"Whast the weather in
+   gujranwala>?"*. The tail after a locative preposition is now a candidate, with trailing time
+   expressions cut off it. Riyadh, Dubai, Tehran, Gujranwala, Lahore, Vehari and New York all
+   resolve, in 218–1256 ms.
+3. **LANGUAGE_TRANSLATION refused 5 of 18; now 2, both correct.** The text was only ever read from
+   quotes or from between "translate" and "to <language>". It is now also read from the line after
+   the instruction, and from after the language when the language comes first. The worst of the four
+   was not a refusal: *"Translate this to finnish\n\nHi, I am Wick"* matched the inline pattern and
+   returned Finnish for the literal word **"this"**. A stand-in word is no longer accepted as the
+   text. One more bug surfaced on the way — the language pattern used `[a-z\s]`, which crosses a
+   newline, so "to English" followed by "Hej, jag ar Wick" captured `english\n\nhej` as the language
+   **name**, putting the payload's first word into the answer's stated target language.
+4. **A false positive removed:** *"Which ocean is the deepest point on Earth found in?"* was being
+   answered with the weather somewhere, because "Earth" geocoded. "which" and "earth" are stop words
+   now.
+
+**Measured and deliberately NOT changed** — the discipline that matters as much as the fixes:
+
+- **WALLET (#7, ratio 0.680) has no defect (G72).** Under the current champion 3022 — activated
+  2026-09-01, never analysed before — our live answers beat the best recorded answer on **13 of 16**
+  real questions, mean 4.375e-1 vs 6.25e-2. The live field is 2.42e-13 down to 1.65e-13: noise, not
+  an ordering by quality. Nothing shipped.
+- **Trailing clock times are not peeled off a place candidate.** It would have made "bangalore" a
+  candidate for the two Bangalore questions, and Open-Meteo indexes the Indian city as *Bengaluru*,
+  so bare "bangalore" returns Bangalore Town, Sindh, Pakistan — the only hit, with no population
+  record. Two honest refusals would have become two confident answers about the wrong country. A
+  population guard in `geocodeOnce` would separate the cases cleanly but changes every weather and
+  storm lookup to fix two questions out of 110, so it was not made.
+- **IP_GEOLOCATION (#3, ratio 0.996) was measured and left alone.** Adding a service-identification
+  sentence scores +0.0016/+0.0018 on both recorded questions, consistently — but the gap to txlens
+  is 0.4%, the intent description says abuse history belongs to IP_REPUTATION, and this is exactly
+  the marginal-wording change G62 records being contradicted live.
+
+**The oracle is validated now (G73).** G24 said the champion WASM could no longer be checked against
+reported scores. It can: the Preflight receipts kept `converted_answer`, and scoring
+`(question, ground_truth, converted_answer)` under the current champion reproduces the recorded
+score **exactly** — SSL 32/34, and every miss in both intents is a pre-rotation epoch. Our own IP
+rows reproduce to eight digits. Given a candidate *converted* answer its score is now computable,
+not approximable.
+
+**Standing at epoch 308, before any of this:** livecert **10.59 normalized sum, first on the
+network**, over chainsight-oracle 8.95 and txlens 8.93; 6 × #1 of 13. The recoverable deficit was
+TELEGRAPH_KNOWLEDGE 0.946, WALLET 0.320, WEATHER_FORECAST 0.086, ACADEMIC 0.044, WEATHER_CHECK
+0.009, IP 0.004. **Epoch 309 is the acceptance test for all of the above.**
 
 ---
 
