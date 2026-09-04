@@ -161,6 +161,27 @@ yet open. And `IP_GEOLOCATION` fails the *first* half of the rule as well, so ou
 worth nothing on its own terms regardless of demand. The operator decided on 2026-08-28 not to
 register a second miner from another account; that decision stands and this is its cost, recorded.
 
+**Re-read 2026-09-04 08:30Z against the live rules page and catalog.** The rule is per **intent**,
+network-wide: "An Intent must have at least 3 active Miners and receive at least 100 real requests
+from Track 3 applications". It is not 100 requests to *our* miner per intent, and it is not something
+our miner can satisfy alone. Three facts follow:
+
+1. **Nobody outside the organizers can measure the second half.** The node exposes only
+   `total_requests_served` per miner — ours is **415** (57 on 08-30, 132 on 08-31), and it is one
+   number across thirteen intents that plausibly includes the node's own scoring calls. Neither
+   `/engine/v1/intents` (miner counts only) nor the explorer publishes per-intent request totals.
+2. **The first half is now met in twelve of thirteen intents.** `TELEGRAPH_KNOWLEDGE` has **2** active
+   miners (livecert, telegraph-chatbot) and fails it outright; every other intent of ours has 3–14.
+3. **The only Track 3 demand we can see is Morse's own ledger** (`/api/stats`, 185 calls, 148 ok, 60
+   users since 2026-09-02): SSL 23 · WEATHER_CHECK 18 · STORM 14 · NEWS 8 · FACT_CHECK 8 · CONTENT 7 ·
+   ACADEMIC 6 · WEATHER_FORECAST 6 · IP 5 · TRANSLATION 4 · AI_TEXT 2 · WALLET 1 · TELEGRAPH_KNOWLEDGE 0.
+   No intent is near 100 from Morse alone; other Track 3 apps' traffic is invisible to us. Summing
+   `total_requests_served` over each intent's miners gives 424–2,580 per intent, but that is an upper
+   bound polluted by scoring calls and multi-intent miners, so it settles nothing.
+
+The lever is unchanged and it is not a miner lever: real people using a real Track 3 app before
+Sep 7 23:59 UTC. Rule 04 rules out anything else.
+
 ### G15 · We published a wrong competitive claim internally — `CLOSED (retracted)`
 We asserted across three documents and a draft X post that the rank-1 incumbent was beatable
 because Render cold-starts. Measurement: **675ms cold, 324ms warm — no cold start**, because
