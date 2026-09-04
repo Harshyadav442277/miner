@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { translate, targetLanguage } from "../src/translate";
+import { translate, targetLanguage, sourceText } from "../src/translate";
 
 test("resolves ISO 639-1 codes the manifest invites (epoch-297 refusal)", () => {
   // miner.yaml: "by name or ISO 639-1 code, e.g. Spanish or fr". The handler
@@ -106,4 +106,45 @@ test("the fallback returns a real translation (live)", async () => {
   } finally {
     globalThis.fetch = original;
   }
+});
+
+/**
+ * Four of the eighteen LANGUAGE_TRANSLATION questions Telegraph's Daemon actually
+ * routed were broken by reading only the quoted and inline forms of the text.
+ * Three were refused outright; the fourth, "Translate this to finnish" followed by
+ * "Hi, I am Wick" on the next line, was answered with Finnish for the word "this"
+ * — a confidently wrong answer, which this miner treats as worse than a refusal.
+ */
+test("reads the text stated on the line after the instruction", () => {
+  assert.equal(
+    sourceText("Translate in swedish\n\nHi, I am Wick and you are very nice"),
+    "Hi, I am Wick and you are very nice",
+  );
+  assert.equal(
+    sourceText("Transalte this from swedish to English\n\nHej, jag ar Wick"),
+    "Hej, jag ar Wick",
+  );
+  assert.equal(sourceText("Translate this to finnish\n\nHi, I am Wick"), "Hi, I am Wick");
+});
+
+test("reads the text stated after the language", () => {
+  assert.equal(sourceText("Translate in arabic, What are you doing?>"), "What are you doing?");
+});
+
+test("a stand-in word is not the text to translate", () => {
+  assert.equal(sourceText("translate this into mandarin chinese."), null);
+  assert.equal(sourceText("translate the following into french"), null);
+});
+
+test("the language name never swallows the payload's first line", () => {
+  const l = targetLanguage("Transalte this from swedish to English\n\nHej, jag ar Wick");
+  assert.equal(l?.name, "english");
+  assert.equal(l?.code, "en");
+  assert.equal(targetLanguage("translate this into mandarin chinese.")?.code, "zh-CN");
+});
+
+test("the quoted and inline forms still win where they exist", () => {
+  assert.equal(sourceText('translate "testing" into chinese'), "testing");
+  assert.equal(sourceText("Translate (i love my country) to kannada"), "(i love my country)");
+  assert.equal(sourceText("translate"), null);
 });

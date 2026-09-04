@@ -85,19 +85,55 @@ for (const [name, code] of Object.entries(LANGS)) {
 }
 CODES["zh"] = { name: "chinese", code: "zh-CN" };
 
+/**
+ * Words that stand in for the text rather than being it. "Translate this to
+ * finnish\n\nHi, I am Wick" matched the `translate … to <lang>` pattern and
+ * returned the literal word "this", so the answer was Finnish for "this" — a
+ * confidently wrong answer, which is worse here than a refusal.
+ */
+const PLACEHOLDER =
+  /^(?:this|that|it|the following(?: text| phrase| sentence)?|the text|the phrase|below)\b[:,]?$/i;
+
+/** Trailing junk a real routed request arrives with: "What are you doing?>". */
+const TRAILING_JUNK = /[>»<]+$/;
+
 /** The text to translate — questions quote it. */
 export function sourceText(question: string): string | null {
   const s = String(question ?? "");
   const q = s.match(/[\u201c\u2018"']([^\u201d\u2019"']{2,})[\u201d\u2019"']/);
   if (q?.[1]) return q[1].trim();
-  const after = s.match(/\btranslate\s+(.+?)\s+(?:in)?to\s+[A-Za-z]/i);
-  return after?.[1]?.trim() ?? null;
+  // A line break separates the instruction from its payload: "Translate in
+  // swedish\n\nHi, I am Wick and you are very nice". This also rescues the
+  // misspellings — "Transalte this from swedish to English\n\nHej, jag ar Wick"
+  // — because it never has to recognise the verb.
+  const nl = s.indexOf("\n");
+  if (nl !== -1) {
+    const body = s.slice(nl + 1).trim().replace(TRAILING_JUNK, "").trim();
+    if (body.length >= 2) return body;
+  }
+
+  const after = s.match(/\btranslate\s+(.+?)\s+(?:in)?to\s+[A-Za-z]/i)?.[1]?.trim();
+  if (after && !PLACEHOLDER.test(after)) return after.replace(TRAILING_JUNK, "").trim() || null;
+
+  // "Translate in arabic, What are you doing?" — the language first, the text
+  // after it. Anchored on a language-shaped word so an ordinary comma in a
+  // sentence cannot split it.
+  const flipped = s
+    .match(/\btrans[a-z]*\s+(?:in|into|to)\s+[a-z][a-z -]{2,24}?\s*[,:]\s*(.+)$/is)?.[1]
+    ?.trim();
+  if (flipped && flipped.length >= 2) return flipped.replace(TRAILING_JUNK, "").trim() || null;
+
+  return null;
 }
 
 /** The language asked for, as a name or an ISO 639-1 code. */
 export function targetLanguage(question: string): { name: string; code: string } | null {
   const s = String(question ?? "").toLowerCase();
-  const m = s.match(/\b(?:in)?to\s+([a-z][a-z\s]{2,24}?)(?:[.,?!]|$)/);
+  // `[a-z ]`, not `[a-z\s]`: a newline must not be swallowed. "Transalte this
+  // from swedish to English\n\nHej, jag ar Wick" captured "english\n\nhej" as
+  // the language name, which resolved to the right code by its first word but
+  // put the payload's first word into the answer's `target_language`.
+  const m = s.match(/\b(?:in)?to\s+([a-z][a-z ]{2,24}?)(?:[.,?!]|$)/);
   const raw = m?.[1]?.trim();
   if (raw) {
     if (LANGS[raw]) return { name: raw, code: LANGS[raw]! };
