@@ -34,6 +34,8 @@ source-backed fact checks, Telegraph protocol knowledge, and conservative AI-tex
 
 The exact registered surface and reproducible verification commands are in the
 [Track 1 review guide](track1-miner/README.md). The miner remains live through Track 3 as required.
+To call it from your own application, routed, direct or over MCP, see
+[docs/INTEGRATE_LIVECERT.md](docs/INTEGRATE_LIVECERT.md).
 
 ## Track 2 — fact-aware evaluation
 

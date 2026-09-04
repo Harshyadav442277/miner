@@ -1536,6 +1536,29 @@ closed #5 at 19:47:30Z. **Rule:** a registration change is not finished until th
 updated and one dispatched `uptime` run is green. Both belong in the signing runbook, not on a
 human's list, and an open `uptime` issue must be read the same day it opens.
 
+### G68 · `/headlines` only recognises thirteen topic words; any other subject gets generic top stories — `OPEN, found 2026-09-04 while writing the integration guide, operator decision under the freeze`
+`news.ts` derives the topic by matching the question against a fixed list (technology, business,
+finance, science, health, sports, politics, entertainment, world, crypto, energy, climate, ai). A
+subject outside it — "semiconductors", "artificial intelligence" — is dropped and the feed is queried
+for "top stories"; and a question opening with "What" makes `extractRegion` return "What", so the feed
+is searched for the word What. Verified live: `topic=semiconductors` → `topic: null`, MLB/NFL/ABC
+headlines; "What are the top news headlines about artificial intelligence today?" → `region: "What"`.
+The `topic` parameter the manifest declares as required is folded into the question and then subject
+to the same list. "current technology headlines in Japan" works. Rank 1 in NEWS_HEADLINES is at
+0.0045 in a near-zero field, so the scorer has not noticed; a real Track 3 caller gets confidently
+off-topic headlines. Fix is small (use the `topic` parameter verbatim, else the noun phrase after
+"about/on", and stop-word question openers in `extractRegion`) — but it is a production deploy inside
+the Track 3 freeze, so it is the operator's call. Recorded, not shipped.
+
+### G69 · `/extract` truncates day-month-year dates and loses text after a colon — `OPEN, found 2026-09-04, operator decision under the freeze`
+Two defects, both verified live. (1) `dates()` only knows "March 12, 2026": "12 March 2026" becomes
+**"March 20"** (the day slot eats the first two digits of the year), so an invoice "dated 12 March
+2026 … due 30 April 2026" is reported as "March 20, April 20". (2) `quotedPayload()` takes the text
+after the first colon when there are no quotes, so a payload like "Contact sales@acme.com or call
+415-555-0100. Docs: https://acme.com/pricing" is reduced to the URL and the email and phone are
+reported as not found. The recorded scored questions carry their payload in quotes with US date
+order, which is why CONTENT_EXTRACTION scores 1.0 while these shapes fail. Same freeze question as G68.
+
 ### G67 · The node's OpenAPI spec lists every one of our parameters on every one of our endpoints — `CLOSED 2026-09-03: the node does this to every multi-endpoint miner`
 
 **Resolved the same hour.** Every multi-endpoint miner in the spec gets one unioned parameter list
