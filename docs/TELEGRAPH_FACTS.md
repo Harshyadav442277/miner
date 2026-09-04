@@ -27,6 +27,22 @@ Verified **2026-08-26** against https://docs.telegraphprotocol.com (docs updated
    ≥100-real-requests eligibility guardrail; and reliability through Sep 7 is part of the judged
    record, not passive uptime.
 
+## Organizer answer — Discord, 2026-09-04 ~14:50 UTC (via the user, to Morse's questions)
+
+Asked whether a "check my miner's endpoints" tool would be useful, and how a Track 3 app could
+reach all three top-ranked miners to compare answers, an organizer answered both together:
+
+5. **Do not build tooling that duplicates the protocol.** The explorer "already caters to all of
+   this" and "has all the data". Checking or re-ranking miners from an app is "building a router
+   for our direct miners, which is already handled by Telegraph".
+6. **Paying N miners per request is uneconomic and reads as spam.** Finding the best miner is
+   "what the whole protocol is designed to do"; an app that pays several miners per question to
+   re-derive it "doesn't work economically for the end user" and "would be spamming".
+7. **What they want from Track 3 is adoption of an app or agent built on Telegraph.** The part of
+   Morse they called good was "extending Telegraph into Telegram". Consequences recorded in the
+   Morse repo (GAPS G32): its podium, automatic second opinion and consensus report were retired
+   the same day, and the miner-check idea was dropped before it was built.
+
 ---
 
 ## The single most important fact

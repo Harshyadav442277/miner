@@ -53,6 +53,14 @@ input for Morse. **The organizers' own reference apps never use routing** — th
 (G13 reframed). LiveCert sits in the node's OpenAPI as twelve `/v1/4433/…` operations; the spec
 unions our shared params onto every endpoint (G67, cosmetic, not for the freeze).
 
+**Organizer feedback 2026-09-04 ~14:50 UTC (Discord, recorded in docs/TELEGRAPH_FACTS.md):** a
+"Miner Proof" tool I recommended as Morse's number-one next move was rejected — the explorer holds
+that data, checking or re-ranking miners is building a router/validator for their miners, and
+paying N miners per question is uneconomic and reads as spam. The same verdict retired Morse's
+podium and automatic second opinion. What they praised: Telegraph inside Telegram. **Lesson:** ask
+the organizers before recommending anything that sits between a user and the protocol's own
+judgement. The recommendation was mine and it was wrong.
+
 ### The things that need a human, in order (2026-09-03)
 
 1. **Post the X series** — [docs/X_POSTS.md](docs/X_POSTS.md), P1–P13. Still 25% of the Track 1
