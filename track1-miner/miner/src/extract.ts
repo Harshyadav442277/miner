@@ -79,13 +79,42 @@ export function placeCandidates(text: string): string[] {
   // "lat,lon" passes through untouched.
   if (/^-?\d+(\.\d+)?\s*,\s*-?\d+(\.\d+)?$/.test(raw)) return [raw];
 
-  let s = raw.replace(/[?!.]+$/, "").trim();
+  // Trailing junk, not just punctuation: real routed questions arrive as
+  // "Whast the weather in gujranwala>?" and the stray ">" survived a "[?!.]"
+  // strip, leaving "gujranwala>" for the geocoder to fail on.
+  let s = raw.replace(/[?!.,;:>»<"'\s]+$/, "").trim();
   let prev = "";
   while (s !== prev) {
     prev = s;
     s = s.replace(LEADING, "").replace(TRAILING, "").trim();
   }
   if (s && s !== raw) out.push(s);
+
+  // The tail after a locative preposition. Proper-noun matching only sees
+  // capitalised names, so "hows weather in lahore" and "HI whats the weather in
+  // lahore?" — both real routed questions — produced no candidate at all: the
+  // greeting and the misspelling block LEADING, and the place is lowercase.
+  const after = raw
+    .replace(/[?!.,;:>»<"'\s]+$/, "")
+    .match(/\b(?:in|at|near|around|for)\s+([^,?.!]{2,40})$/i);
+  if (after?.[1]) {
+    // The tail runs to the end of the string, so it picks up any time expression
+    // trailing the place: "…for New York City starting next Monday" would hand
+    // the geocoder the weekday too, and "next Monday" resolves to Munday, Texas.
+    let tail = after[1].replace(/\b(?:starting|beginning|start(?:s|ing)? on|from|over|during|next|this|later)\b.*$/i, "").trim();
+    let t = "";
+    while (tail !== t) {
+      t = tail;
+      tail = tail.replace(TRAILING, "").trim();
+    }
+    // A measurement is not a place: "…extreme heat over 40°C" handed the
+    // geocoder "40°C". Neither is a question word left dangling by "karachi in
+    // which city". Each candidate costs a round-trip, and latency is scored.
+    const first = tail.split(/\s+/)[0]!.toLowerCase();
+    const junk = /^\d/.test(tail) || !/[a-z]{2}/i.test(tail) ||
+      ["which", "the", "a", "an", "what", "how", "that", "this"].includes(first);
+    if (!junk && !out.includes(tail)) out.push(tail);
+  }
 
   // Proper-noun runs are the strongest signal in an English question.
   const proper = raw.match(/\b[A-Z][a-z]+(?:[ -][A-Z][a-z]+)*/g);
@@ -101,8 +130,27 @@ export function placeCandidates(text: string): string[] {
       "january", "february", "march", "april", "may", "june", "july",
       "august", "september", "october", "november", "december",
       "today", "tomorrow", "tonight", "morning", "afternoon", "evening",
+      // "Which ocean is the deepest point on Earth found in?" is not a weather
+      // question, but "Earth" geocoded and it was answered with conditions
+      // somewhere. A planet is not a resolvable location.
+      "which", "earth",
     ]);
-    const kept = proper.filter((p) => !stop.has(p.toLowerCase()));
+    // A run is matched greedily, so "Will Riyadh issue heat warning?" yields the
+    // single run "Will Riyadh" — filtering whole runs against the stop list left
+    // "Will Riyadh" intact and "Riyadh" never became a candidate at all. Fourteen
+    // of the fifty WEATHER_CHECK questions the Daemon actually routes are that
+    // shape ("Will Dubai experience extreme heat today?"), and every one of them
+    // was refused. Trim stop words off both ends of a run before keeping it.
+    const trimRun = (p: string): string => {
+      // Spaces only: a hyphen belongs to the name ("Baden-Baden").
+      let w = p.split(" ");
+      while (w.length > 1 && stop.has(w[0]!.toLowerCase())) w = w.slice(1);
+      while (w.length > 1 && stop.has(w[w.length - 1]!.toLowerCase())) w = w.slice(0, -1);
+      return w.join(" ");
+    };
+    const kept = proper
+      .map(trimRun)
+      .filter((p) => p && !stop.has(p.toLowerCase()));
     // "Tokyo, Japan" reads as one place; the pair beats either half alone.
     for (let i = 0; i + 1 < kept.length; i++) {
       const joined = `${kept[i]}, ${kept[i + 1]}`;

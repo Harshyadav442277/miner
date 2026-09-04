@@ -220,3 +220,51 @@ describe("academic search parsing", () => {
     assert.equal(w.to, "2022-12-31");
   });
 });
+
+/**
+ * Every question here was routed to WEATHER_CHECK by Telegraph's own Daemon and
+ * refused by this miner with `verdict: unknown`. They are 14 of the 50 distinct
+ * WEATHER_CHECK questions in the explorer's routed feed, plus the greeting and
+ * misspelling shapes. Two causes, both in candidate extraction rather than in the
+ * geocoder: a proper-noun run is matched greedily, so "Will Riyadh …" yielded the
+ * single run "Will Riyadh" and the stop-word filter — which compares whole runs —
+ * kept it; and a lowercase place after a preposition was never a candidate at all.
+ */
+describe("places the Daemon actually routes", () => {
+  test("a Will-<City> question yields the city", () => {
+    for (const [q, city] of [
+      ["Will Riyadh issue heat warning?", "Riyadh"],
+      ["Will Dubai experience extreme heat today?", "Dubai"],
+      ["Will Tehran experience extreme heat over 40°C?", "Tehran"],
+    ] as const) {
+      assert.ok(placeCandidates(q).includes(city), `${q} -> ${JSON.stringify(placeCandidates(q))}`);
+    }
+  });
+
+  test("a lowercase place after a preposition is a candidate", () => {
+    for (const [q, city] of [
+      ["hows weather in lahore", "lahore"],
+      ["hows weather in vehari", "vehari"],
+      ["HI whats the weather in lahore?", "lahore"],
+      ["Whast the weather in gujranwala>?", "gujranwala"],
+    ] as const) {
+      assert.ok(placeCandidates(q).includes(city), `${q} -> ${JSON.stringify(placeCandidates(q))}`);
+    }
+  });
+
+  test("a measurement is not offered as a place", () => {
+    assert.ok(!placeCandidates("Will Tehran experience extreme heat over 40°C?").some((c) => /^\d/.test(c)));
+  });
+
+  test("questions that name no place still yield none", () => {
+    // Answering these with weather somewhere is the confidently-wrong failure
+    // this miner refuses; "Earth" used to geocode and be answered.
+    for (const q of [
+      "Will upper stage impact the moon on August 5?",
+      "Which ocean is the deepest point on Earth found in?",
+    ]) {
+      const c = placeCandidates(q).filter((x) => x !== q && !q.startsWith(x));
+      assert.deepEqual(c, [], `${q} -> ${JSON.stringify(placeCandidates(q))}`);
+    }
+  });
+});
