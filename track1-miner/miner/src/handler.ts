@@ -377,13 +377,30 @@ function route(req: IncomingMessage, res: ServerResponse): void {
 
   // Base is only needed so URL can parse a path-relative request line.
   const url = new URL(req.url ?? "/", "http://localhost");
+
+  // Vercel's rewrite sends every path to /api/index. Until 2026-09-04 the
+  // platform still handed the function the ORIGINAL request line, so req.url
+  // read "/ssl-check" and the routing below worked. It no longer does: a
+  // deployment made with CLI 59.5.0 receives req.url = "/api/index?query=…",
+  // so every declared endpoint fell through to the 404 here. That is a total
+  // outage of a registered miner — every routed request and every validator
+  // spot check — and it is triggered by redeploying, not by any code change.
+  //
+  // vercel.json therefore passes the original path explicitly as __path, and it
+  // is preferred whenever it is present and well formed. req.url stays the
+  // fallback so `npm start` and the tests, which never set __path, are
+  // unaffected. The parameter is removed before anything downstream reads the
+  // query, so a handler can never see it as user input.
+  const passed = url.searchParams.get("__path");
+  url.searchParams.delete("__path");
+  const pathname = passed && passed.startsWith("/") ? passed : url.pathname;
   // Lowercased as well as trailing-slash tolerant. The engine builds this URL
   // from our manifest, but any mismatch at all — a trailing slash, a capital
   // letter — falls through to the 404 below, and a non-2xx is recorded as an
   // upstream error with an empty answer, which scores 0 for the whole epoch. In
   // epoch 293, 8 of 36 scored rows across the field carried an infrastructure
   // failure of exactly this family. Being permissive here costs nothing.
-  const path = (url.pathname.replace(/\/+$/, "") || "/").toLowerCase();
+  const path = (pathname.replace(/\/+$/, "") || "/").toLowerCase();
 
   // Answer CORS/capability preflights rather than 405ing them. Telegraph's sandbox
   // probes endpoints before pinning and a bare 405 reads as a broken endpoint even

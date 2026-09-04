@@ -1,7 +1,7 @@
 import { test, describe } from "node:test";
 import assert from "node:assert/strict";
 import type { IncomingMessage, ServerResponse } from "node:http";
-import { handleRequest } from "../src/handler";
+import { handleRequest, ENDPOINTS } from "../src/handler";
 
 /**
  * Nothing this service returns may ever be a non-2xx.
@@ -89,5 +89,47 @@ describe("no request may produce a non-2xx", () => {
     // differences. Answering arbitrary paths would mean returning a nonsense
     // answer to a question we do not serve, which is worse than scoring zero.
     assert.equal(syncStatusOf("GET", "/not-a-route"), 404);
+  });
+});
+
+/**
+ * The 2026-09-04 outage, locked out.
+ *
+ * vercel.json rewrites every path to /api/index. The platform used to hand the
+ * function the original request line, so req.url read "/ssl-check" and the
+ * routing worked. A deployment built with Vercel CLI 59.5.0 hands it
+ * "/api/index?query=..." instead, so every declared endpoint fell through to the
+ * 404 and the registered miner answered nothing — every routed request and every
+ * validator spot check. It is triggered by redeploying, not by any code change,
+ * so it would have fired on the next deploy whatever that deploy contained.
+ *
+ * The rewrite now carries the original path as __path and it wins over req.url.
+ */
+describe("the path the platform hands us", () => {
+  test("__path is preferred over the rewrite destination", () => {
+    for (const p of ENDPOINTS) {
+      assertAccepted("GET", `/api/index?__path=${p}&query=github.com`);
+    }
+  });
+
+  test("a rewrite destination with no __path is still a 404", () => {
+    // Nothing declares /api/index, so without the passed path it must not route.
+    assert.equal(syncStatusOf("GET", "/api/index?query=test"), 404);
+  });
+
+  test("req.url stays the fallback when no __path is passed", () => {
+    // `npm start` and every test above take this path.
+    for (const p of ENDPOINTS) assertAccepted("GET", `${p}?query=github.com`);
+  });
+
+  test("a passed path is still case and trailing-slash tolerant", () => {
+    assertAccepted("GET", "/api/index?__path=/SSL-Check/&query=github.com");
+  });
+
+  test("a __path that is not a path is ignored rather than trusted", () => {
+    // Only a value starting with "/" is treated as routing; anything else falls
+    // back to req.url, which here is the undeclared rewrite destination.
+    assert.equal(syncStatusOf("GET", "/api/index?__path=ssl-check"), 404);
+    assert.equal(syncStatusOf("GET", "/api/index?__path=https://elsewhere/x"), 404);
   });
 });
