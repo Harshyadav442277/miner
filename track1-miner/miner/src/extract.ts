@@ -105,6 +105,13 @@ export function placeCandidates(text: string): string[] {
     let t = "";
     while (tail !== t) {
       t = tail;
+      // Deliberately only TRAILING here. Peeling clock times as well ("in
+      // bangalore tomorrow 9 am" -> "bangalore") was tried and reverted: the
+      // Open-Meteo gazetteer indexes the Indian city as "Bengaluru", so bare
+      // "bangalore" resolves to Bangalore Town, Sindh, Pakistan — a place with
+      // no population record. It turned two honest refusals into two confident
+      // answers about the wrong country, which is the failure this miner
+      // refuses everywhere else.
       tail = tail.replace(TRAILING, "").trim();
     }
     // A measurement is not a place: "…extreme heat over 40°C" handed the
