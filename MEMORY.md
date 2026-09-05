@@ -568,7 +568,7 @@ Not our outage. While it lasts: no scoring, no catalog reads, and the registrati
 cannot complete an `updateMiner`. Re-check before assuming anything is wrong on our side.
 
 **Codex review landed 2026-08-26** → `track1-miner/docs/codex-worklog/`. It found two real defects that local
-tests could not: (1) the natural-language regexes were built from strings, so `\s` `\d` `` were
+tests could not: (1) the natural-language regexes were built from strings, so `\s` `\d` `\b` were
 corrupted and the scaffolding stripper was dead — now regex literals; (2) real *paid* storm
 questions ask for coordinates in prose with a stated window and a 0–1 risk, and we returned
 `unknown` — now handled, with the hourly series actually truncated to the requested window.

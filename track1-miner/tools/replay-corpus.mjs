@@ -54,7 +54,17 @@ async function refresh() {
   console.log(`refreshed: ${Object.entries(out).map(([k, v]) => `${k}=${v.length}`).join(" ")}`);
 }
 
-/** How each intent is called, and what a usable answer looks like. */
+/**
+ * How each intent is called, and what a usable answer looks like.
+ *
+ * These checks read the HTTP response, and three endpoints no longer serve the
+ * metadata they were written against: SSL, weather and wallet were projected to
+ * {verdict, confidence, reason} in G56, and STORM followed on 2026-09-05. The
+ * weather check kept requiring `location` and so reported a working endpoint as
+ * 0/48 for four days — a gate that cries wolf hides the failure it exists to
+ * catch. What the projection removes is checked where it still exists: on the
+ * internal result, in test/storm.test.ts and test/forecast.test.ts.
+ */
 const PROBES = {
   SSL_VERIFICATION: {
     url: (q) => `${BASE}/ssl-check?query=${encodeURIComponent(q)}`,
@@ -65,41 +75,42 @@ const PROBES = {
     check: (j, q) => {
       const problems = [];
       if (!j.verdict || j.verdict === "unknown") problems.push(`verdict=${j.verdict}`);
-      if (typeof j.risk_score !== "number") problems.push("no risk_score");
+      const prose = String(j.reason ?? "");
+      if (prose.length < 40) problems.push("no answer text");
 
-      // "in N hours" names a moment; "over the next N hours" names a span. Checking
-      // only that window_hours echoes the number cannot tell those apart, and a
-      // point question answered with a span maximum is wrong even though it looks
-      // well-formed.
-      const point = q.match(/in\s+(\d{1,3})\s*hours?/i);
-      const span = /(?:over|within|during|across)\s+(?:the\s+)?next/i.test(q);
-      const now = /right now/i.test(q);
-
-      if (span) {
-        if (j.time_mode !== "window") problems.push(`expected window, got ${j.time_mode}`);
-      } else if (point || now) {
-        if (j.time_mode !== "point") problems.push(`expected point, got ${j.time_mode}`);
-        if (!j.valid_at) problems.push("point answer has no valid_at");
-        else {
-          // valid_at must actually land near the hour the question named.
-          const wantH = point ? Number(point[1]) : 0;
-          const drift = Math.abs((new Date(`${j.valid_at}Z`).getTime() - Date.now()) / 3_600_000 - wantH);
-          if (drift > 2) problems.push(`valid_at is ${drift.toFixed(1)}h from the ${wantH}h asked`);
-        }
+      // The grade and the number behind it are both stated in the prose, so their
+      // agreement survives the projection — and the prose is the copy that is
+      // actually scored, so it is the better place to check it.
+      const graded = prose.match(/([0-9]*\.?[0-9]+) on a scale of 0 to 1, graded (\w+)/i);
+      if (graded) {
+        const bands = { none: [0, 0.2], low: [0.2, 0.4], moderate: [0.4, 0.65], high: [0.65, 0.85], severe: [0.85, 1.01] };
+        const b = bands[graded[2].toLowerCase()];
+        const score = Number(graded[1]);
+        if (b && (score < b[0] || score >= b[1])) problems.push(`risk ${score} outside ${graded[2]}`);
       }
 
-      const bands = { none: [0, 0.2], low: [0.2, 0.4], moderate: [0.4, 0.65], high: [0.65, 0.85], severe: [0.85, 1.01] };
-      const b = bands[j.verdict];
-      if (b && (j.risk_score < b[0] || j.risk_score >= b[1])) problems.push(`risk ${j.risk_score} outside ${j.verdict}`);
+      // "in N hours" names a moment; "over the next N hours" names a span, and a
+      // point question answered with a span maximum is wrong even though it looks
+      // well formed. time_mode is no longer served, so the prose has to carry the
+      // distinction: a window answer says so, a point answer names the hour it
+      // describes. The drift check moved to test/storm.test.ts, on checkStorm's
+      // own result, where valid_at still exists.
+      const point = /\bin\s+\d{1,3}\s*hours?\b/i.test(q);
+      const span = /(?:over|within|during|across)\s+(?:the\s+)?next/i.test(q);
+      const now = /right now/i.test(q);
+      if (span && !/over the next/i.test(prose)) problems.push("a span question was not answered over a window");
+      if (!span && (point || now) && !/\b(at|around)\b.*\d/i.test(prose)) {
+        problems.push("a point question was not answered at a stated hour");
+      }
       return problems.length ? problems.join("; ") : null;
     },
   },
   WEATHER_FORECAST: {
     url: (q) => `${BASE}/weather-forecast?location=${encodeURIComponent(q)}`,
-    // The forecast response names its condition in `verdict`, matching the shared
-    // signal_mapping — an earlier version of this check looked for `condition` and
-    // reported a working endpoint as broken.
-    check: (j) => (j.verdict && j.verdict !== "unknown" && j.location ? null : `no forecast (verdict=${j.verdict})`),
+    // The forecast response names its condition in `verdict`. It carried `location`
+    // too until G56 projected it away; requiring that field reported a working
+    // endpoint as 0/48. An earlier version looked for `condition`, which never existed.
+    check: (j) => (j.verdict && j.verdict !== "unknown" ? null : `no forecast (verdict=${j.verdict})`),
   },
 };
 
