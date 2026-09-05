@@ -350,7 +350,18 @@ export async function checkStorm(
       shortPlaceName(place.name), verdict, maxGust, thunder, maxPrecip, windowHours, mode,
       offsetHours, maxWind, risk, threshold ? { value: threshold.value, unit: threshold.unit } : null,
       exceededHours, wantKnots, bearingToCompass(dirs[peakIdx] ?? null),
-      askedCoords, /(?:10|100)?u|u-component/i.test(query),
+      // This read `/\b(?:10|100)?u\b|u-component/i` and both `\b` were stored as
+      // literal backspace bytes (0x08) — the corruption the 2026-08-26 Codex
+      // review found and fixed by moving to regex literals, except that a raw
+      // 0x08 is legal inside a literal and invisible in every terminal. So the
+      // first alternative had never matched anything, and only the exact string
+      // "u-component" ever reached the sentence below. Restoring the boundaries
+      // was measured before being believed (bench/storm_ucomp.mjs, champion 453):
+      // it scores -30.1% on bench row 0, the real "variable '10u'" question, and
+      // -61.1% on row 10, which a bare `\bu\b` also starts matching by accident.
+      // The clip is 32 words, so the extra sentence displaces answer that scores.
+      // Behaviour therefore stays exactly as deployed; the code now says so.
+      askedCoords, /u-component/i.test(query),
       mode === "window" ? summarisePeriods(times, winds, gusts) : [],
       ADVISORY.test(query),
     ),
