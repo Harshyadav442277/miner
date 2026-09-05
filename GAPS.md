@@ -1654,3 +1654,47 @@ than approximated. The one remaining unknown is the converter — what prose the
 given payload — and the receipts pin that too for the rows they cover. Anything measured this way
 is worth more than a `clip32` payload proxy; see `scratchpad/validate.mjs` for the reproduction.
 
+### G74 · Two regexes still carried backspace bytes where `\b` was meant, and one of them was a deploy gate — `FIXED 2026-09-05`
+
+The 2026-08-26 Codex review found natural-language regexes built from strings, so `\s` `\d` `\b`
+had been eaten, and fixed it by moving to regex **literals**. That fix is incomplete in a way
+nothing could show: a raw 0x08 is legal inside a literal, and it renders as nothing in every
+terminal, editor diff and `toString()`. Two survived, found by scanning every tracked file for the
+byte rather than by reading code.
+
+**`tools/replay-corpus.mjs`, the STORM probe.** `/\b(?:over|within|during|across)\s+...` and
+`/\bright now\b/` required a literal backspace, so the span and point branches never fired and the
+probe reported **31/31 while checking nothing**. Underneath, both branches read `time_mode` — a
+field declared in `miner.yaml` and emitted by **no endpoint**, so even a live branch would have
+compared `undefined` to a string forever. The rewritten probe reads the prose, and a self-test
+proves it can fail on each case it claims to catch.
+
+**`miner/src/storm.ts`, the wind-component test.** `/\b(?:10|100)?u\b|u-component/i` could only
+ever match the literal string "u-component", so bench row 0 — a real scored question naming ERA5's
+variable '10u' — has never received the sentence explaining the component. **Restoring the
+boundaries was measured and rejected**: −30.1% on that row and −61.1% on row 10 under champion 453,
+because the scored clip is 32 words and an added sentence displaces answer that scores. Row 10 also
+shows a bare `\bu\b` matching by accident. The code now says what it does; behaviour is unchanged.
+
+**The lesson worth keeping:** a check that cannot fail is worse than no check, and this class of
+corruption is invisible to review. `node -e` over `git ls-files` counting 0x08 is cheap; run it
+after any session that edited a regex through a shell heredoc or `sed`.
+
+### G75 · STORM_ALERT now serves the lean payload — `SHIPPED TO THE REPO 2026-09-05, unverified live`
+
+G56 projected SSL, weather and wallet to `{verdict, confidence, reason}` and recorded that "IP,
+STORM, NEWS, CONTENT, AI_TEXT, TRANSLATION and ACADEMIC are untouched" — those three were leaned
+because they had evidence that day, not because the others had been measured and cleared. Weather
+crossed its cliff at epoch 298 and SSL at 309. STORM kept seventeen metadata fields around its
+prose and sits at #3, ratio 0.069, behind a `txlens` whose entire production payload is one
+`answer` string.
+
+Measured under the live champion 453 on production payloads (`bench/storm_shape.mjs`): flat32
+0.008933 → 0.011762 (+32%), desc32 0.008613 → 0.010864 (+26%), lean winning **11 of 12** rows,
+reason32 identical to six decimals because the prose does not move.
+
+**What this is not.** flat32 is a proxy for a converter that is still not runnable offline (G24),
+twelve rows are a filter and not a verdict (G62), and +32% of payload surface is not a cliff
+crossing: it projects to roughly 0.014 against txlens's 0.1538. The honest claim is that it should
+pass `skywire-storm-alert` at 0.0115 for #2, not that it wins the intent. Only a scored epoch
+settles it, and this is unverified until one lands.
