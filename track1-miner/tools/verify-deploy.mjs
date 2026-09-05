@@ -82,7 +82,11 @@ try {
   const body = await res.json();
   const graded = ["none", "low", "moderate", "high", "severe"].includes(body.verdict);
   report(res.ok && graded, "Chennai -> graded verdict", res.ok ? `got ${body.verdict}, ${ms}ms` : `HTTP ${res.status}`);
-  report(res.ok && body.window_hours === 48, "reports a 48h window", `window_hours=${body.window_hours}`);
+  // The 48-hour window is no longer a field — the 2026-09-05 payload projection
+  // sends {verdict, confidence, reason} — so it is read from the prose, which is
+  // the copy the converter scores. Checking the served answer, not a field behind it.
+  report(res.ok && /over the next 48 hours/i.test(body.reason ?? ""), "reports a 48h window",
+    `reason ${/over the next 48 hours/i.test(body.reason ?? "") ? "names" : "omits"} the window`);
 } catch (e) {
   report(false, "Chennai -> graded verdict", e.message);
 }
@@ -144,10 +148,16 @@ try {
   const { res, ms } = await get(`/ip-geolocate?ip=8.8.8.8`);
   timings.push(ms);
   const body = await res.json();
-  report(res.ok && body.country_code === "US" && typeof body.latitude === "number",
-    "8.8.8.8 -> US with coordinates", res.ok ? `got ${body.city}, ${body.country_code}, ${ms}ms` : `HTTP ${res.status}`);
+  // Same projection: the resolved place IS the verdict now, and the prose names
+  // the operator and the country. Latitude and longitude are no longer served at
+  // all - they were fields, never prose, and no ground truth in ip_bench asks for
+  // them - so this checks the identifiers the answer actually carries.
+  const said = `${body.verdict} ${body.reason}`;
+  const located = /ashburn/i.test(said) && /united states/i.test(said) && /google/i.test(said);
+  report(res.ok && located, "8.8.8.8 -> Google, Ashburn, United States",
+    res.ok ? `got ${String(body.verdict).slice(0, 40)}, ${ms}ms` : `HTTP ${res.status}`);
 } catch (e) {
-  report(false, "8.8.8.8 -> US with coordinates", e.message);
+  report(false, "8.8.8.8 -> Google, Ashburn, United States", e.message);
 }
 try {
   const { res } = await get(`/ip-geolocate`);

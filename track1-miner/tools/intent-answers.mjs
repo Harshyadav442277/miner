@@ -47,9 +47,21 @@ const CHECKS = {
     const b = r.body;
     if (!["none", "low", "moderate", "high", "severe"].includes(b.verdict)) bad.push(`verdict ${b.verdict} is not a risk grade`);
     if (!/chennai/i.test(b.reason)) bad.push("answer never names Chennai");
-    if (b.window_hours !== 48) bad.push(`window_hours ${b.window_hours}, want 48`);
-    if (typeof b.risk_score !== "number" || b.risk_score < 0 || b.risk_score > 1) bad.push(`risk_score ${b.risk_score} out of range`);
-    if (b.max_wind_speed_kmh == null) bad.push("no wind speed reported");
+    // window_hours, risk_score and max_wind_speed_kmh stopped being served on
+    // 2026-09-05, when the payload was projected to {verdict, confidence, reason}
+    // to stop the metadata diluting the scored text. All three facts are stated in
+    // the prose, which is the copy the converter reads, so they are checked there.
+    if (!/over the next 48 hours/i.test(b.reason)) bad.push("answer never states the 48-hour window");
+    const graded = /([0-9]*\.?[0-9]+) on a scale of 0 to 1, graded (\w+)/i.exec(b.reason ?? "");
+    if (!graded) bad.push("answer states no overall risk");
+    else {
+      const score = Number(graded[1]);
+      if (!(score >= 0 && score <= 1)) bad.push(`risk ${graded[1]} out of range`);
+      if (graded[2].toLowerCase() !== String(b.verdict).toLowerCase()) {
+        bad.push(`prose grades ${graded[2]}, verdict says ${b.verdict}`);
+      }
+    }
+    if (!/sustained winds up to [0-9]*\.?[0-9]+ km\/h/i.test(b.reason ?? "")) bad.push("no wind speed reported");
     return bad;
   },
 
