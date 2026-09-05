@@ -14,6 +14,25 @@ sessions and between models.
 | **Track 3 — app** | **Separate repo and folder:** `../telegraph-morse` — <https://github.com/Harshyadav442277/telegraph-morse>. CertWatch was retired and deleted on 2026-09-02 (never funded, no users). Read its `PLAN.md` first. |
 | Anything | [README.md](README.md) for ownership and shared facts, [docs/](docs/) for protocol and rules |
 
+## 2026-09-05 ~08:30 UTC — STORM AND IP GO LEAN; TWO CHECKS HAD NEVER RUN
+
+The operator asked the organisers, who encouraged continued work on the miner, so the 2026-09-03
+freeze no longer applies. **Epoch 309 confirmed the 09-04 refusal fixes**: TELEGRAPH_KNOWLEDGE
+0.0536 -> 1.0 ratio (#2 -> #1), WEATHER_CHECK #4 -> #1, SSL #1 — normalized sum 10.297, flat against
+308 only because rivals crossed cliffs in STORM, FACT_CHECK and AI_TEXT.
+
+G56's lean payload was applied to three intents in August and never revisited; both intents it
+leaned have since crossed their cliffs while STORM (17 fields) and IP (14) stayed fat. Measured
+under each live champion, prose byte-identical: **STORM +32% (11/12), IP +27% (17/21)**. Both
+deployed (`miner-1usikt6vq`, preflight 7/7, activation active). Honest projection: STORM ~0.014 —
+second place, not the intent.
+
+**Two checks had never executed**, because `\b` was stored as a literal backspace byte: the STORM
+deploy probe reported 31/31 while testing nothing, and a storm.ts regex could only match
+"u-component". Restoring the latter was measured at -30%/-61% and deliberately not shipped. Full
+record in § 000000000000 of [track1-miner/MEMORY.md](track1-miner/MEMORY.md), G74 and G75 in
+[GAPS.md](GAPS.md).
+
 ## 2026-09-04 ~20:50 UTC — REDEPLOYING 404'd THE WHOLE MINER (G70), AND FOUR REFUSAL DEFECTS FIXED
 
 **Before you deploy the miner, read G70.** `vercel.json` rewrites every path to `/api/index`. The

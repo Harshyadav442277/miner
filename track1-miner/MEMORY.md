@@ -4,11 +4,70 @@
 Shared protocol facts are in `../docs/`. Do not edit `../track2/`; Track 3 lives in the separate
 `../telegraph-morse` repository.
 
-Last updated: 2026-09-04 ~20:50 UTC — four refusal defects fixed and deployed, and a
-redeploy-triggered outage found and closed (G70). Track 1 closed 2026-08-31 **23:59 UTC**;
-registration **402** (thirteen intents) is active and the miner stays live through Track 3's
-close, **Sep 7 23:59 UTC** (resolve deadlines with `date -u`, never the local date). Read
-§ 00000000000 first, then § 000000000 for how 402 came to be.
+Last updated: 2026-09-05 ~08:30 UTC - STORM and IP projected to the lean payload and deployed, and
+two checks found never to have run. Track 1 closed 2026-08-31 **23:59 UTC**; registration **402**
+(thirteen intents) is active and the miner stays live through Track 3's close, **Sep 7 23:59 UTC**
+(resolve deadlines with `date -u`, never the local date). Read § 000000000000 first, then
+§ 00000000000 for the redeploy outage and the refusal fixes, then § 000000000 for how 402 came to be.
+
+---
+
+## 000000000000. THE PAYLOAD PROJECTION REACHED STORM AND IP, AND TWO CHECKS WERE NEVER RUNNING (2026-09-05 ~08:30Z)
+
+**Deployed and verified: `miner-1usikt6vq`, promoted, preflight 7/7, watch endpoint=ok 629ms
+activation=active, registration 402 active, manifest hash unchanged so no `updateMiner`.** The
+operator asked the organisers first and they encouraged continued work on the miner, which is what
+lifted the freeze recorded on 2026-09-03.
+
+**Epoch 309 settled the 09-04 fixes, and they worked.** TELEGRAPH_KNOWLEDGE ratio 0.0536 -> **1.0**
+(#2 -> #1, score 1.1e-11 -> 1.0, the refusal fix crossing the cliff exactly as predicted);
+WEATHER_CHECK #4 -> **#1** (0.018 -> 0.929); SSL #1 at 0.99196. Normalized sum 10.297 against
+10.590 at 308 - flat, because our +1.0 was paid for by rivals crossing cliffs we sat below: STORM
+1.0 -> 0.069 (txlens 0.1538), FACT_CHECK -> 0.648, AI_TEXT -> 0.778.
+
+**G56 was applied to three intents and never revisited.** It projected SSL, weather and wallet to
+`{verdict, confidence, reason}` and recorded "IP, STORM, NEWS, CONTENT, AI_TEXT, TRANSLATION and
+ACADEMIC are untouched" - because those three had evidence that day, not because the rest were
+cleared. Since then both leaned weather and leaned SSL crossed their cliffs, while STORM (17 fields)
+and IP (14 fields) stayed fat and hold two of our worst ratios. Measured under each intent's **live**
+champion on production payloads, prose byte-identical (`bench/payload_shape.mjs`):
+
+  STORM  champion 453, 12 rows   flat32 0.008933 -> 0.011762   **+32%**, 11/12
+  IP     champion 630, 21 rows   flat32 0.525445 -> 0.666003   **+27%**, 17/21
+
+Both shipped. **The honest projection is STORM ~0.014 - enough to pass `skywire-storm-alert` at
+0.0115 for #2, not to threaten txlens at 0.1538.** Epoch 310 (~14:45Z) is the acceptance test.
+
+**The six intents still serving metadata were left alone on purpose.** TRANSLATION, CONTENT, NEWS,
+FACT_CHECK, TELEGRAPH_KNOWLEDGE and AI_TEXT have no `(question, ground_truth)` bench - G24 removed
+ground truth from the feed and the recovered Preflight receipts only cover WALLET, IP and SSL - so
+the projection cannot be measured there. We are #1 in three of them, everyone scores 0 in CONTENT,
+and the other two sit in a 1e-10 noise band. An unmeasured shape change is what G62 is about.
+
+**Two checks had never run, and neither could have been caught by reading the code.** `\b` had been
+stored as a literal **backspace byte (0x08)** - the corruption the 2026-08-26 Codex review found and
+fixed by moving to regex literals, except a raw 0x08 is legal *inside* a literal and renders as
+nothing in every terminal and diff. Found by scanning every tracked file for the byte (G74):
+
+1. `tools/replay-corpus.mjs` reported **STORM 31/31 while checking nothing**, and underneath read
+   `time_mode` - a field `miner.yaml` declares and **no endpoint has ever emitted**, so even a live
+   branch would have compared `undefined` to a string. Rewritten onto the prose, with a self-test
+   proving it fails on each case it claims to catch.
+2. `miner/src/storm.ts` could only ever match the literal "u-component", so the real scored
+   question naming ERA5's variable '10u' never got its sentence. **Restoring the boundaries was
+   measured and rejected**: -30.1% and -61.1% under champion 453, because the scored clip is 32
+   words and an added sentence displaces answer that scores. Behaviour kept, code made honest.
+
+**New: `tools/replay-intents.mjs`** replays all thirteen intents, building the corpus from the
+feed's own `routing.intent` labels instead of a regex over the text (which cannot separate
+WEATHER_CHECK from WEATHER_FORECAST and dropped ten intents). **178/209 routed questions answered,
+and every refusal is correct** - junk the Daemon routed into the wrong intent, the address "null", a
+bare "translate". There is no refusal defect left to fix; that lever is spent.
+
+**Gates that assert on removed fields are a dependency of any shape change.** `verify-deploy`
+(window_hours, IP country_code/latitude/city) and `intent-answers` (window_hours, risk_score,
+max_wind_speed_kmh) both broke - preflight went 6/7 on the first post-deploy run, the gate doing its
+job. All of them now read the prose, which is the copy that is scored. 7/7 after.
 
 ---
 
