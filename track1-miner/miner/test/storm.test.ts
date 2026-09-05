@@ -63,6 +63,26 @@ describe("checkStorm (live)", () => {
     assert.match(r.reason, /No resolvable location/);
   });
 
+  // "in 12 hours" names a moment; "over the next 12 hours" names a span, and a
+  // point question answered with a span maximum is wrong while looking well
+  // formed. Nothing covered this: replay-corpus.mjs read `time_mode` off the
+  // HTTP response, and no endpoint has ever served that field — it is declared
+  // in miner.yaml and produced nowhere, so the check compared undefined and
+  // passed everything. The mode is really carried by which of the two timestamps
+  // is filled, which is what this asserts, on the value the 2026-09-05 payload
+  // projection is applied to.
+  test("a point question is answered at a point, a span over the span", async () => {
+    const point = await checkStorm("Is there a storm risk in Chennai in 12 hours?");
+    assert.ok(point.valid_at, "a point answer must name the hour it describes");
+    assert.equal(point.peak_at, null, "a point answer is not a window");
+    const drift = Math.abs((new Date(`${point.valid_at}Z`).getTime() - Date.now()) / 36e5 - 12);
+    assert.ok(drift <= 2, `valid_at is ${drift.toFixed(1)}h from the 12h asked`);
+
+    const span = await checkStorm("Is there a storm risk in Chennai over the next 12 hours?");
+    assert.equal(span.valid_at, null, "a window answer names no single hour");
+    assert.ok(span.peak_at, "a window answer must name its peak");
+  });
+
   test("peak_at falls inside the forecast window", async () => {
     const r = await checkStorm("London");
     assert.ok(r.peak_at, "expected a peak timestamp");

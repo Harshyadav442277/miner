@@ -148,6 +148,16 @@ function sendAnswer(res: ServerResponse, question: string, body: unknown, restat
  * translate starve before it. Applied at the send, so caches and internal
  * functions keep every fact; `error` is kept where present so an honest
  * failure stays machine-readable.
+ *
+ * STORM joined them on 2026-09-05. It was left fat in G56 because the evidence
+ * that day was for the three losing intents, not because it had been cleared:
+ * seventeen metadata fields surrounded its prose while weather went on to cross
+ * its cliff at epoch 298 and SSL at 309, and STORM sat at #3 with ratio 0.069
+ * against a leader whose whole payload is one `answer` string.
+ * `bench/storm_shape.mjs` measures the projection under the live champion 453
+ * on production payloads: flat32 0.008933 -> 0.011762 (+32%), desc32 +26%,
+ * winning 11 of 12 rows, with reason32 identical to six decimals because the
+ * prose does not move. Twelve rows are a filter, not a verdict (G62).
  */
 function lean(body: unknown): Record<string, unknown> {
   const b = body as Record<string, unknown>;
@@ -540,7 +550,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
         firstValue(url, "location", "place", "city"),
       ) || coordsFromParams(url);
     if (!q.trim()) {
-      sendAnswer(res, q, {
+      sendAnswer(res, q, lean({
         location: null,
         verdict: "unknown",
         confidence: 0,
@@ -551,13 +561,13 @@ function route(req: IncomingMessage, res: ServerResponse): void {
           "Supply a place name such as Chennai, or a latitude and longitude, and the wind speed, " +
           "gusts, precipitation and an overall risk between 0 and 1 can be returned.",
         error: "invalid_location",
-      });
+      }));
       return;
     }
     const key = `storm:${q.trim().toLowerCase()}:${url.searchParams.get("hours") ?? ""}`;
     const hit = fromCache(key);
     if (hit) {
-      sendAnswer(res, q, hit);
+      sendAnswer(res, q, lean(hit));
       return;
     }
     // Only an explicit ?hours= forces a window; otherwise the question's wording
@@ -569,7 +579,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     checkStorm(q, undefined, Number.isFinite(stormHours) ? stormHours : undefined)
       .then((result) => {
         toCache(key, result);
-        sendAnswer(res, q, result);
+        sendAnswer(res, q, lean(result));
       })
       .catch(() => upstreamUnavailable(res, "A storm risk forecast", q.slice(0, 80), q));
     return;
