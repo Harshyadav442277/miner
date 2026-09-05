@@ -50,8 +50,16 @@ export function extractTopic(text: string): string | null {
 /** A place named in the question, as a proper noun that is not a time word. */
 export function extractRegion(text: string): string | null {
   const s = String(text ?? "");
+  // Question words and verbs capitalised only because they open the sentence.
+  // "What are the top news headlines today?" used to make the region "What",
+  // and the answer read "The top headlines from What today".
   const stop = new Set([
     "give", "me", "the", "current", "top", "latest", "news", "headlines", "as", "of", "today",
+    "what", "which", "who", "where", "when", "how", "why", "are", "is", "can", "could", "would",
+    "please", "show", "tell", "list", "find", "get", "fetch", "provide", "share", "summarize",
+    "summarise", "any", "some", "this", "that", "there", "right", "now", "recent", "major",
+    "breaking", "stories", "story", "update", "updates", "about", "regarding", "world", "global",
+    "international", "local", "important", "biggest", "main", "key",
     "january", "february", "march", "april", "may", "june", "july",
     "august", "september", "october", "november", "december",
   ]);

@@ -12,6 +12,29 @@ two checks found never to have run. Track 1 closed 2026-08-31 **23:59 UTC**; reg
 
 ---
 
+## 0000000000000. "LIVECERT IS NOT ANSWERING NEWS OR TRANSLATION" — IT WAS; TWO PARSER DEFECTS FIXED (2026-09-05 ~16:20Z)
+
+**Deployed and verified: `miner-9me29eapa`, `--prod` moved the alias itself (promote answered 409
+"already current"), preflight 7/7, 257 tests, manifest unchanged so no `updateMiner`.**
+
+The operator reported livecert not answering NEWS_HEADLINES and LANGUAGE_TRANSLATION. Measured
+first: the Daemon feed for the previous 24 h shows **136 routed calls to livecert, 4 headline and 4
+translation among them, 136 of 136 successful**; two paid direct calls through Morse answered in
+1.4 s and 0.3 s. What was seen is the router's 70/20/10 spread (the same questions asked through the
+router went to newswire-headlines and langwire-translation) and the 1e-11 score band every
+translation miner sits in. Not a refusal, not an outage.
+
+Two real defects came out of reproducing it, both in the prose the validators read:
+- **/headlines read "What" as the region.** `extractRegion` fell through to "first capitalised
+  word" and the answer began "The top headlines from What today". Question words and opener verbs
+  are now stop words; "from Tokyo" and "from London" still resolve. Test added.
+- **/translate refused "How do you say thank you in Japanese?"** — no quotes, no newline, no
+  "translate … to". `sourceText` now reads the text between "how do you say" / "what is" and
+  "in <language>"; production answers ありがとう. Tests added; the stand-in-word guard still holds.
+
+Both are answer-text fixes on intents where our score is #1 at 0.006 (NEWS) and #1 in the zero
+band (TRANSLATION); the honest expectation is fewer wrong-looking answers, not a rank change.
+
 ## 000000000000. THE PAYLOAD PROJECTION REACHED STORM AND IP, AND TWO CHECKS WERE NEVER RUNNING (2026-09-05 ~08:30Z)
 
 **Deployed and verified: `miner-1usikt6vq`, promoted, preflight 7/7, watch endpoint=ok 629ms

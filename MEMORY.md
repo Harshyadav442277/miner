@@ -14,6 +14,14 @@ sessions and between models.
 | **Track 3 — app** | **Separate repo and folder:** `../telegraph-morse` — <https://github.com/Harshyadav442277/telegraph-morse>. CertWatch was retired and deleted on 2026-09-02 (never funded, no users). Read its `PLAN.md` first. |
 | Anything | [README.md](README.md) for ownership and shared facts, [docs/](docs/) for protocol and rules |
 
+## 2026-09-05 ~16:20 UTC — "NOT ANSWERING NEWS/TRANSLATION" WAS THE ROUTER'S SPREAD; TWO PARSER FIXES SHIPPED
+
+Livecert answered 136 of 136 routed calls in the previous 24 h, headlines and translations
+included; the operator had seen the router send those questions to other miners. Two defects found
+while reproducing it are fixed and deployed (`miner-9me29eapa`, preflight 7/7, 257 tests): "What"
+parsed as a news region, and "How do you say X in Y?" refused as no text. Record in
+[track1-miner/MEMORY.md](track1-miner/MEMORY.md) § 0000000000000.
+
 ## 2026-09-05 ~08:30 UTC — STORM AND IP GO LEAN; TWO CHECKS HAD NEVER RUN
 
 The operator asked the organisers, who encouraged continued work on the miner, so the 2026-09-03

@@ -143,6 +143,13 @@ test("the language name never swallows the payload's first line", () => {
   assert.equal(targetLanguage("translate this into mandarin chinese.")?.code, "zh-CN");
 });
 
+test("reads the text asked for with 'how do you say' and 'what is … in'", () => {
+  assert.equal(sourceText("How do you say thank you in Japanese?"), "thank you");
+  assert.equal(sourceText("What is good morning in Spanish"), "good morning");
+  assert.equal(sourceText("how would you say I love you in French?"), "I love you");
+  assert.equal(targetLanguage("How do you say thank you in Japanese?")?.code, "ja");
+});
+
 test("the quoted and inline forms still win where they exist", () => {
   assert.equal(sourceText('translate "testing" into chinese'), "testing");
   assert.equal(sourceText("Translate (i love my country) to kannada"), "(i love my country)");

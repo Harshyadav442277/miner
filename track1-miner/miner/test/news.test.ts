@@ -1,6 +1,14 @@
 import { test, describe } from "node:test";
 import assert from "node:assert/strict";
-import { getHeadlines } from "../src/news";
+import { getHeadlines, extractRegion } from "../src/news";
+
+test("a question word that opens the sentence is not a region", () => {
+  assert.equal(extractRegion("What are the top news headlines today?"), null);
+  assert.equal(extractRegion("Give me the latest headlines"), null);
+  assert.equal(extractRegion("Show me breaking news"), null);
+  assert.equal(extractRegion("Give me the latest headlines from Tokyo"), "Tokyo");
+  assert.equal(extractRegion("What are the top 5 business news headlines from London today?"), "London");
+});
 
 // Measured against the live champion (reg 635, nh_mini.wasm) over the 22 real
 // recorded questions: mean 0.006447 raw / 0.006028 clipped, with every single

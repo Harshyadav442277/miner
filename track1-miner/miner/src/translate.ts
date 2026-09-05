@@ -115,6 +115,14 @@ export function sourceText(question: string): string | null {
   const after = s.match(/\btranslate\s+(.+?)\s+(?:in)?to\s+[A-Za-z]/i)?.[1]?.trim();
   if (after && !PLACEHOLDER.test(after)) return after.replace(TRAILING_JUNK, "").trim() || null;
 
+  // "How do you say thank you in Japanese?" / "What is good morning in Spanish?"
+  // — the text sits between the asking phrase and the language, unquoted. This
+  // was refused as "no text to translate" until 2026-09-05.
+  const said = s
+    .match(/\b(?:how (?:do|does|would|can|could|to)(?: you| i| we| one)? say|what(?:'s| is)(?: the (?:word|phrase) for)?)\s+(.+?)\s+in\s+[A-Za-z][A-Za-z-]{2,}\s*\??\s*$/i)?.[1]
+    ?.trim();
+  if (said && said.length >= 2 && !PLACEHOLDER.test(said)) return said.replace(TRAILING_JUNK, "").trim() || null;
+
   // "Translate in arabic, What are you doing?" — the language first, the text
   // after it. Anchored on a language-shaped word so an ordinary comma in a
   // sentence cannot split it.
