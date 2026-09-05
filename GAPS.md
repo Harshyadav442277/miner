@@ -1697,4 +1697,13 @@ reason32 identical to six decimals because the prose does not move.
 twelve rows are a filter and not a verdict (G62), and +32% of payload surface is not a cliff
 crossing: it projects to roughly 0.014 against txlens's 0.1538. The honest claim is that it should
 pass `skywire-storm-alert` at 0.0115 for #2, not that it wins the intent. Only a scored epoch
-settles it, and this is unverified until one lands.
+
+
+**Update 2026-09-05 ~08:30Z — deployed.** Organisers encouraged continued work on the miner, so the
+2026-09-03 freeze no longer applies. `miner-1usikt6vq` is production: preflight **7/7**, watch
+`endpoint=ok 629ms activation=active`, registration 402 active, manifest hash unchanged so no
+`updateMiner`, and all twelve endpoints answer (no G70 recurrence). IP_GEOLOCATION was measured the
+same way and shipped with it: flat32 0.525445 -> 0.666003, **+26.8%**, 17 of 21 rows, champion 630.
+Latitude and longitude are now served nowhere — they were fields, never prose — which is a real loss
+to a direct API consumer and no loss to the scorer. **Epoch 310 (~14:45Z) is the acceptance test.**
+
