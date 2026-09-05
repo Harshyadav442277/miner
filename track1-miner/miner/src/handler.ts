@@ -149,15 +149,15 @@ function sendAnswer(res: ServerResponse, question: string, body: unknown, restat
  * functions keep every fact; `error` is kept where present so an honest
  * failure stays machine-readable.
  *
- * STORM joined them on 2026-09-05. It was left fat in G56 because the evidence
- * that day was for the three losing intents, not because it had been cleared:
- * seventeen metadata fields surrounded its prose while weather went on to cross
- * its cliff at epoch 298 and SSL at 309, and STORM sat at #3 with ratio 0.069
- * against a leader whose whole payload is one `answer` string.
- * `bench/storm_shape.mjs` measures the projection under the live champion 453
- * on production payloads: flat32 0.008933 -> 0.011762 (+32%), desc32 +26%,
- * winning 11 of 12 rows, with reason32 identical to six decimals because the
- * prose does not move. Twelve rows are a filter, not a verdict (G62).
+ * STORM and IP joined them on 2026-09-05. Both were left fat in G56 because the
+ * evidence that day was for the three losing intents, not because they had been
+ * cleared: seventeen and fourteen metadata fields surrounded their prose while
+ * weather went on to cross its cliff at epoch 298 and SSL at 309.
+ * `bench/payload_shape.mjs` measures the projection under each intent's live
+ * champion on production payloads, prose byte-identical:
+ *   STORM (champion 453, 12 rows)  flat32 0.008933 -> 0.011762  +32%, 11/12
+ *   IP    (champion 630, 21 rows)  flat32 0.525445 -> 0.666003  +27%, 17/21
+ * A bench of that size is a filter, not a verdict (G62); only a scored epoch is.
  */
 function lean(body: unknown): Record<string, unknown> {
   const b = body as Record<string, unknown>;
@@ -509,7 +509,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
   if (path === "/ip-geolocate") {
     const q = firstValue(url, "ip", "address", "query", "q", "question", "text", "input");
     if (!q.trim()) {
-      sendAnswer(res, q, {
+      sendAnswer(res, q, lean({
         ip: null,
         verdict: "unknown",
         confidence: 0,
@@ -518,7 +518,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
           "determined. Supply an address such as 8.8.8.8 and the country, city, coordinates and " +
           "network operator can be returned.",
         error: "invalid_ip",
-      });
+      }));
       return;
     }
     // Special-range answers (private, TEST-NET, loopback…) skip the restatement:
@@ -529,13 +529,13 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     const key = `geo:${q.trim().toLowerCase()}`;
     const hit = fromCache(key);
     if (hit) {
-      sendAnswer(res, q, hit, !SPECIAL_GEO_VERDICTS.has((hit as GeoResult).verdict));
+      sendAnswer(res, q, lean(hit), !SPECIAL_GEO_VERDICTS.has((hit as GeoResult).verdict));
       return;
     }
     geolocate(q)
       .then((result) => {
         toCache(key, result);
-        sendAnswer(res, q, result, !SPECIAL_GEO_VERDICTS.has(result.verdict));
+        sendAnswer(res, q, lean(result), !SPECIAL_GEO_VERDICTS.has(result.verdict));
       })
       .catch(() => {
         upstreamUnavailable(res, "IP geolocation", q.slice(0, 80), q);

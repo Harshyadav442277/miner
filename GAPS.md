@@ -1689,7 +1689,7 @@ crossed its cliff at epoch 298 and SSL at 309. STORM kept seventeen metadata fie
 prose and sits at #3, ratio 0.069, behind a `txlens` whose entire production payload is one
 `answer` string.
 
-Measured under the live champion 453 on production payloads (`bench/storm_shape.mjs`): flat32
+Measured under the live champion 453 on production payloads (`bench/payload_shape.mjs`): flat32
 0.008933 → 0.011762 (+32%), desc32 0.008613 → 0.010864 (+26%), lean winning **11 of 12** rows,
 reason32 identical to six decimals because the prose does not move.
 
