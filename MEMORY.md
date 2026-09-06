@@ -14,6 +14,57 @@ sessions and between models.
 | **Track 3 — app** | **Separate repo and folder:** `../telegraph-morse` — <https://github.com/Harshyadav442277/telegraph-morse>. CertWatch was retired and deleted on 2026-09-02 (never funded, no users). Read its `PLAN.md` first. |
 | Anything | [README.md](README.md) for ownership and shared facts, [docs/](docs/) for protocol and rules |
 
+## 2026-09-06 ~06:00 UTC — HEALTH CHECK: TWO DEFECTS FIXED, AND RANK IS NOT THE LEVER ON REQUEST VOLUME
+
+Full health check requested. Everything the gates cover was green — registration 402 `active`,
+thirteen intents, `rejection_reason` null; local = hosted = registered YAML hash `7538…7640`; all
+twelve endpoints 200 in 0.38–1.52 s; preflight **7/7**; `watch --once` ok; upstreams 0 primaries
+failing (flashbots and merkle failovers down); alias on the latest build. The score recorder was
+never broken — epoch 310 was committed on `origin`, the local checkout was one commit behind.
+
+**The headline finding is strategic, not a bug (TELEGRAPH_FACTS, new section).** The operator asked
+why other miners get the requests while we lead IP_GEOLOCATION and CONTENT_EXTRACTION. Paged the
+question feed over 8 h — 3,000 rows: **2,952 `direct`, 48 `daemon`**. The 70/20/10 rank share
+governs the `daemon` slice only. Across our thirteen intents: **237 requests, livecert got 2**, and
+zero of the IP and CONTENT ones, because every one was a `direct` call addressed by miner id to
+somebody else — the `skywire-`/`netwire-`/`langwire-`/`scholarwire-`/`finwire-` family driving its
+own volume. Of the 48 routed, none were in an intent we lead. Routed volume is ~150/day across all
+45 intents. **Rank and volume are different goals**: rank work means the intents where we are 4+ and
+earn nothing (WEATHER_CHECK #7 0.0996, WALLET #7 0.0000); volume needs something calling
+`ask/4433`, which no miner-side change can produce. Morse is the only direct caller we control.
+Note the feed's `limit` caps at 100 — page with `offset` or you silently get zero rows.
+
+**G76 — STORM_ALERT answered point questions at the wrong hour, by exactly the location's UTC
+offset.** `timezone=auto` returns the location's wall-clock strings with no offset; every parse read
+them as `` `${t}Z` ``. Tokyo answered now+3.4h, Chennai now+6.9h, Honolulu now+22.4h against the 12h
+asked. `forecast.ts` had always asked for UTC, so weather was never affected. **The test could not
+catch it** — it repeated the same misparse, the errors cancelled to 0.4h drift, and it only went red
+when the shift also clamped the window index, which is the intermittent `checkStorm (live)` failure
+that broke 4 of the last 10 uptime runs and had been read as upstream flakiness; both CI drifts
+reproduce exactly from the model. Fixed to `timezone=UTC`; the new test pins the gust against an
+independent UTC series and fails on `auto` (verified by reverting the line). Live prose now matches
+UTC truth at three offsets. **The payload is lean (G75), so `valid_at` is not served — the prose was
+the entire defect.**
+
+**G77 — `/fact-check` quoted the wrong Eiffel Tower.** `miner.yaml`'s own worked example resolved to
+`Eiffel_Tower_(Paris,_Tennessee)`, a 60-foot replica, beating the real article 8–7 because its
+snippet contains "located" while its parenthetical contributed nothing (punctuation was never
+stripped). Now excludes the parenthetical from the title score and penalises it unless the claim
+names **every** word inside — an `any` test does not work, because the claim really does say
+"Paris". Two further weaknesses measured and left: the 10%-of-brains case still picks *Flight of the
+Navigator* (the case the code comment claims to have fixed) and "water boils at 100°C" picks *Anders
+Celsius*. Both need stemming, not a scoring tweak.
+
+**G78 — `preflight.mjs` cannot grade a preview, and says 2/7 instead of saying so.** Preview
+deployments 302 to Vercel's auth page, so it scored Vercel's HTML: "180 bad, 0 clean". The same
+build answered fine through `npx vercel curl`. This is the G74 shape — a gate reporting confidently
+on nothing — and it means "preview first, always" is currently ungateable. This session therefore
+promoted and ran the gates against production with a rollback to `miner-9me29eapa` held ready.
+
+**Shipped:** `59806f6`, production `miner-3d806mm3e`, alias moved cleanly (no G70 recurrence),
+**preflight 7/7** against production, 258 tests (+1), registration 402 still `active` with the
+manifest hash unchanged, so **no `updateMiner`**. Epoch 311 is the acceptance test for G76.
+
 ## 2026-09-05 ~16:20 UTC — "NOT ANSWERING NEWS/TRANSLATION" WAS THE ROUTER'S SPREAD; TWO PARSER FIXES SHIPPED
 
 Livecert answered 136 of 136 routed calls in the previous 24 h, headlines and translations

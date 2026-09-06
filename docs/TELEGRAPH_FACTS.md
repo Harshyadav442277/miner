@@ -158,6 +158,50 @@ stake-weighted median of validator local scores from the last epoch tournament p
 **Strategic consequence: an empty intent is worth far more than a crowded one.** Rank 4 in a
 popular category earns zero; rank 1 in a quiet one takes 70%.
 
+## The 70/20/10 split governs a small minority of traffic (measured 2026-09-06)
+
+**Rank buys share of `daemon` traffic only, and `daemon` traffic is ~1.6% of the total.** Paged the
+question feed (`explorer.telegraphprotocol.com/api/daemon/api/questions`, `limit` caps at 100, so
+page with `offset`) over the 8 hours to 2026-09-06 05:41Z — 3,000 rows:
+
+| Type | Rows | Who decides the miner |
+|---|---|---|
+| `direct` | 2,952 | **the caller**, by miner id — rank is irrelevant |
+| `daemon` (routed) | 48 | the router, by the 70/20/10 rank share |
+
+Across our thirteen intents in that window: **237 requests, livecert received 2.** We were rank 1
+in IP_GEOLOCATION and CONTENT_EXTRACTION and received **none** of theirs, because every one was a
+`direct` call addressed to somebody else.
+
+| Intent | Total | livecert | Recipient |
+|---|---|---|---|
+| STORM_ALERT | 137 | 2 | `skywire-storm-alert` 122, `finwire-financial-data` 12 |
+| WEATHER_FORECAST | 80 | 0 | `skywire-forecast` 80 |
+| ACADEMIC_SEARCH | 7 | 0 | `scholarwire-academic-search` 7 |
+| CONTENT_EXTRACTION | 6 | 0 | `netwire-content-extraction` 6 |
+| LANGUAGE_TRANSLATION | 5 | 0 | `langwire-translation` 5 |
+| IP_GEOLOCATION | 1 | 0 | `netwire-ip-geolocation` 1 |
+
+The recipients are a family — `skywire-`, `netwire-`, `langwire-`, `scholarwire-`, `finwire-` —
+one operator running single-purpose miners and driving their own direct volume to them.
+
+Of the 48 genuinely routed requests, **none** fell in an intent we lead: RESEARCH_QUERY 23,
+ACADEMIC_SEARCH 7, CVE_LOOKUP 2, STOCK_PRICE 2, then singles. Routed volume network-wide is on the
+order of **150 requests/day across all 45 canonical intents**.
+
+**What this changes.** "Rank 1 takes 70%" is still true and still worth pursuing — it is what the
+leaderboard and the judged record measure. But it is not a lever on request *volume*: 70% of a
+150/day pie split 45 ways is not what the busy miners are living on. Two distinct goals, and they
+need different work:
+
+- **Rank** — beat the cliff in the intents where we sit at 4+ and therefore earn *nothing* routed.
+  At epoch 310 that is WEATHER_CHECK (#7, ratio 0.0996) and WALLET_BALANCE_CHECK (#7, 0.0000).
+- **Volume** — something has to call `POST /engine/v1/ask/4433` directly. No change to miner code
+  can produce this. Morse is the only direct caller we control.
+
+This also sharpens the reading at the end of "Consumer surfaces": the organizers' own Track 3
+examples bypass routing, and the feed now shows the whole network does too, by 60 to 1.
+
 ## Grace period
 
 First **7 days** after activation: all grace-period miners **share 5% of routed traffic equally**.

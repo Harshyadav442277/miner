@@ -1707,3 +1707,72 @@ same way and shipped with it: flat32 0.525445 -> 0.666003, **+26.8%**, 17 of 21 
 Latitude and longitude are now served nowhere — they were fields, never prose — which is a real loss
 to a direct API consumer and no loss to the scorer. **Epoch 310 (~14:45Z) is the acceptance test.**
 
+
+### G76 · STORM_ALERT answered point questions at the wrong hour, by exactly the location's UTC offset — `FIXED 2026-09-06, verified live`
+
+`storm.ts` asked Open-Meteo for `timezone=auto`. Under that flag the API returns the **location's**
+wall-clock strings with no offset suffix (`2026-09-06T00:00`, `utc_offset_seconds` 19800 for
+Chennai), and every parse in the file read them as `` `${t}Z` ``. The comment above the trim said
+"Open-Meteo returns whole days from midnight UTC", which is true only *without* `timezone=auto`.
+`forecast.ts` had asked for `timezone=UTC` all along, so WEATHER_FORECAST and WEATHER_CHECK were
+never affected — this was STORM only.
+
+The misparse shifted `from`, the index treated as "now", by the location's UTC offset. Measured
+2026-09-06 against "in 12 hours": **Tokyo answered now+3.4h, Chennai now+6.9h, Honolulu now+22.4h.**
+Window questions were shifted the same way — Honolulu's "next 48 hours" covered now+10.4h to
+now+51.4h and returned 42 rows instead of 48 — though the reported peak coincided in all four
+places checked, so window damage was latent rather than active.
+
+**Why every gate was green through it.** `storm.test.ts` parsed `valid_at` with the same
+`` `${t}Z` ``, so the two errors cancelled and the drift assertion read ~0.4h no matter how wrong
+the hour actually was. **No assertion on `valid_at` alone can catch this**, in either direction.
+It only went red when the shift also moved the window index and clamped it, which is time-of-day
+dependent — that is the intermittent `checkStorm (live)` failure that broke **4 of the last 10**
+uptime runs, and both CI drifts reproduce exactly from the model (4.9h at 19:04Z, 2.7h at 21:18Z).
+It had been read as upstream flakiness.
+
+Fix: `timezone=UTC`, matching `forecast.ts`. The new test pins the reported gust against an
+independently fetched UTC series at a large offset (Tokyo) and **fails on `timezone=auto`** —
+confirmed by reverting the one line and watching the gust assertion fire while the drift assertion
+still passed. Verified live after promotion, prose figures against UTC truth: Tokyo gust 43.2,
+Honolulu 33.8, Chennai 29.5, all matching the true now+12h row and all differing from what the old
+code served (42.5 / 38.5 / 27.4). Note the payload is lean (G75) so `valid_at` is not served at
+all — the prose is the whole product here, and the prose was wrong.
+
+### G77 · `/fact-check` preferred a disambiguated Wikipedia article over the canonical one — `FIXED 2026-09-06, verified live`
+
+"Is it true that the Eiffel Tower is located in Paris?" — the worked example in `miner.yaml`'s own
+description — resolved to **`Eiffel_Tower_(Paris,_Tennessee)`**, a 60-foot replica, and answered
+`unverified` while quoting it. The title scorer split the raw title on whitespace without stripping
+punctuation, so `(paris,` and `tennessee)` could never match a claim word; the parenthetical
+contributed nothing to `titleHit` while its longer snippet still fed `hit`. Scores were
+`Eiffel Tower` 7 vs `Eiffel Tower (Paris, Tennessee)` 8 — the replica won by one point, purely
+because its snippet contains the word "located".
+
+Fix: score the title with the parenthetical removed, and penalise a disambiguated title unless the
+claim names **every** word inside the parentheses. Requiring only one was the subtle part — the
+claim does say "Paris", which is half of "Paris, Tennessee", so an `any` test waives the penalty
+and keeps the bug. Live now returns `en.wikipedia.org/wiki/Eiffel_Tower`.
+
+The `unverified` verdict itself is by design and was not touched: this endpoint never asserts a
+claim true on a topical match. Two weaknesses in the same scorer were measured and deliberately
+left alone, because both need stemming rather than a scoring tweak: "humans only use 10% of their
+brains" still picks *Flight of the Navigator* over *Ten-percent-of-the-brain myth* (both score 4,
+first-seen wins), which is the exact case the code comment claims to have fixed; and "water boils
+at 100 degrees Celsius" picks *Anders Celsius*, a person.
+
+### G78 · `preflight.mjs` scores Vercel's login page when pointed at a preview — `OPEN, found 2026-09-06`
+
+Preview deployments are behind Vercel deployment protection: an anonymous request 302s to an auth
+page, so `preflight.mjs https://<preview>` reported **2/7 with "180 bad, 0 clean"** while grading
+Vercel's HTML rather than the miner. The same preview answered correctly through
+`npx vercel curl`, which authenticates. CLAUDE.md already tells you to use `vercel curl` for a
+preview probe, but `preflight.mjs` — the gate that is supposed to run *before* promoting — uses
+plain `fetch` and cannot be pointed at a protected URL at all.
+
+This is the G74 shape again: **a gate reporting confidently on nothing.** Its output is not merely
+unavailable for previews, it is actively misleading — a red run that looks like a broken build.
+Until it is fixed, "preview first, always" cannot be gated, and 2026-09-06 shipped by promoting to
+production and running the gates there, with a rollback to `miner-9me29eapa` held ready. That is
+backwards and only acceptable because production is unprotected and rollback is one command.
+Fix is either an auth token in the fetch, or `vercel curl` as the transport.
