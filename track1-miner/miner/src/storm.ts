@@ -259,7 +259,7 @@ export async function checkStorm(
   const url =
     `${FORECAST}?latitude=${place.latitude}&longitude=${place.longitude}` +
     `&hourly=wind_speed_10m,wind_gusts_10m,wind_direction_10m,precipitation,weather_code` +
-    `&forecast_days=${Math.min(16, Math.ceil(windowHours / 24) + 1)}&timezone=auto&wind_speed_unit=kmh`;
+    `&forecast_days=${Math.min(16, Math.ceil(windowHours / 24) + 1)}&timezone=UTC&wind_speed_unit=kmh`;
 
   const body = (await getJson(url, timeoutMs)) as {
     hourly?: {
@@ -273,9 +273,20 @@ export async function checkStorm(
   };
 
   const h = body.hourly;
-  // Open-Meteo returns whole days from midnight UTC. Trim to exactly the hours
-  // asked for, counted from now, so the peak we report is inside the window the
-  // caller named rather than somewhere in the leftover tail of the last day.
+  // `timezone=UTC` above is load-bearing, not cosmetic. Under `timezone=auto`
+  // Open-Meteo returns the LOCATION's wall-clock strings with no offset suffix
+  // (`2026-09-06T00:00`, utc_offset_seconds 19800 for Chennai), and every parse
+  // below reads them as `${t}Z`. That shifted `from` — and so the hour a point
+  // question is answered at — by exactly the location's UTC offset: measured
+  // 2026-09-06 as Tokyo -9h, Chennai -6h, Honolulu +10h against the 12h asked.
+  // storm.test.ts repeated the same misparse, so the two errors cancelled and it
+  // read 0.4h drift; it only went red when the shift also moved the window index,
+  // which is the intermittent `checkStorm (live)` failure in CI. Keep this UTC,
+  // as forecast.ts already does.
+  //
+  // Open-Meteo returns whole days from midnight in the requested zone. Trim to
+  // exactly the hours asked for, counted from now, so the peak we report is
+  // inside the window the caller named rather than in the last day's tail.
   const allTimes = h?.time ?? [];
   const nowMs = Date.now();
   let from = allTimes.findIndex((t) => new Date(`${t}Z`).getTime() >= nowMs);

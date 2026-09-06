@@ -178,9 +178,33 @@ export async function checkFact(question: string, timeoutMs = DEFAULT_TIMEOUT_MS
     const hay = new Set(`${t} ${snippet}`.toLowerCase().replace(/[^a-z0-9\s]/g, " ").split(/\s+/));
     let hit = 0;
     for (const w of claimWords) if (hay.has(w)) hit++;
-    const titleWords = t.toLowerCase().split(/\s+/).filter((w) => w.length > 3);
+    // Score the title WITHOUT its parenthetical, which is a disambiguator rather
+    // than part of the subject's name. Splitting the raw title on whitespace also
+    // left punctuation stuck to the tokens — "(paris," and "tennessee)" could
+    // never match a claim word at all.
+    const baseTitle = t.replace(/\s*\([^)]*\)\s*/g, " ");
+    const titleWords = baseTitle
+      .toLowerCase()
+      .replace(/[^a-z0-9\s]/g, " ")
+      .split(/\s+/)
+      .filter((w) => w.length > 3);
     const titleHit = titleWords.filter((w) => claimWords.has(w)).length;
-    const score = hit + titleHit * 2;
+    // "Eiffel Tower (Paris, Tennessee)" is a 60-foot replica, and it beat "Eiffel
+    // Tower" on "the Eiffel Tower is located in Paris" 8-7, purely because its
+    // snippet contains "located". A disambiguated title is the right article only
+    // when the claim names EVERY word inside the parentheses; requiring just one
+    // is what let "Paris" waive it here while "Tennessee" went unnoticed.
+    const paren = t.match(/\(([^)]*)\)/);
+    let disambiguation = 0;
+    if (paren) {
+      const inside = (paren[1] ?? "")
+        .toLowerCase()
+        .replace(/[^a-z0-9\s]/g, " ")
+        .split(/\s+/)
+        .filter((w) => w.length > 3);
+      if (inside.length > 0 && !inside.every((w) => claimWords.has(w))) disambiguation = 3;
+    }
+    const score = hit + titleHit * 2 - disambiguation;
     if (score > bestScore) { bestScore = score; title = t; }
   }
 

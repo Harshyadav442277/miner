@@ -83,6 +83,35 @@ describe("checkStorm (live)", () => {
     assert.ok(span.peak_at, "a window answer must name its peak");
   });
 
+  // The drift check above CANNOT catch a revert to `timezone=auto`: it parses
+  // valid_at with the same `${t}Z` the source does, so both errors cancel and it
+  // reads ~0.4h no matter how wrong the hour really is. Only ground truth catches
+  // it. This pins the reported values against an independent UTC-anchored fetch
+  // for the same coordinates, at a large UTC offset where a shift is unambiguous:
+  // under `timezone=auto` Tokyo answered now+3.4h when asked for now+12h.
+  test("a point answer describes the real hour asked for, not a local-clock lookalike", async () => {
+    const [lat, lon] = [35.6895, 139.6917]; // Tokyo, UTC+9
+    const r = await checkStorm(`storm risk at ${lat},${lon} in 12 hours?`);
+    assert.ok(r.valid_at, "a point answer must name the hour it describes");
+
+    const u =
+      `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}` +
+      `&hourly=wind_gusts_10m,wind_speed_10m&forecast_days=2&timezone=UTC&wind_speed_unit=kmh`;
+    const truth = (await (await fetch(u)).json()) as {
+      hourly: { time: string[]; wind_gusts_10m: number[]; wind_speed_10m: number[] };
+    };
+    const target = Date.now() + 12 * 36e5;
+    let i = truth.hourly.time.findIndex((t) => new Date(`${t}Z`).getTime() >= target);
+    if (i < 0) i = truth.hourly.time.length - 1;
+
+    const hoursOut = (new Date(`${r.valid_at}Z`).getTime() - Date.now()) / 36e5;
+    assert.ok(Math.abs(hoursOut - 12) <= 2, `valid_at is ${hoursOut.toFixed(1)}h out, asked 12h`);
+    assert.equal(
+      r.max_wind_gust_kmh,
+      truth.hourly.wind_gusts_10m[i],
+      `gust must match the real ${truth.hourly.time[i]}Z row, not a local-clock one`,
+    );
+  });
   test("peak_at falls inside the forecast window", async () => {
     const r = await checkStorm("London");
     assert.ok(r.peak_at, "expected a peak timestamp");
