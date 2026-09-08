@@ -184,3 +184,59 @@ test("a timing-out upstream still falls through to the narrower retry", async ()
     globalThis.fetch = originalFetch;
   }
 });
+
+// GAPS G81 (2026-09-08): OpenAlex sheds anonymous search with a fast 429 in
+// bursts — five probes four seconds apart refused, the sixth answered. One short
+// retry of the same query inside the request budget catches that window.
+test("a rate-limited OpenAlex is retried once, and the second answer is served", async () => {
+  const originalFetch = globalThis.fetch;
+  const calls: string[] = [];
+  globalThis.fetch = (async (input: string | URL | Request) => {
+    calls.push(String(input));
+    if (calls.length === 1) {
+      return new Response(JSON.stringify({ error: "Rate limit exceeded" }), {
+        status: 429,
+        headers: { "content-type": "application/json", "retry-after": "1" },
+      });
+    }
+    return new Response(
+      JSON.stringify({ results: [{ title: "Retry worked", publication_year: 2026, authorships: [], cited_by_count: 1 }] }),
+      { status: 200, headers: { "content-type": "application/json" } },
+    );
+  }) as typeof globalThis.fetch;
+  try {
+    const r = await findPapers("federated learning privacy attacks", 5, 9000);
+    assert.equal(r.papers.length, 1, JSON.stringify(r));
+    assert.equal(r.papers[0]?.title, "Retry worked");
+    assert.equal(calls.length, 2, "exactly one retry of the same query");
+    assert.equal(calls[0], calls[1], "the retry repeats the same URL");
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("the polite pool is used only when the operator's environment names an address", async () => {
+  const originalFetch = globalThis.fetch;
+  const originalMailto = process.env.OPENALEX_MAILTO;
+  const originalKey = process.env.OPENALEX_API_KEY;
+  const seen: string[] = [];
+  globalThis.fetch = (async (input: string | URL | Request) => {
+    seen.push(String(input));
+    return new Response(JSON.stringify({ results: [] }), { status: 200, headers: { "content-type": "application/json" } });
+  }) as typeof globalThis.fetch;
+  try {
+    delete process.env.OPENALEX_MAILTO;
+    delete process.env.OPENALEX_API_KEY;
+    await findPapers("quantum error correction", 5, 5000);
+    assert.ok(seen.every((u) => !u.includes("mailto=") && !u.includes("api_key=")), seen.join("\n"));
+    seen.length = 0;
+    process.env.OPENALEX_MAILTO = "ops@example.org";
+    process.env.OPENALEX_API_KEY = "k-123";
+    await findPapers("quantum error correction", 5, 5000);
+    assert.ok(seen.length > 0 && seen.every((u) => u.includes("mailto=ops%40example.org") && u.includes("api_key=k-123")), seen.join("\n"));
+  } finally {
+    globalThis.fetch = originalFetch;
+    if (originalMailto === undefined) delete process.env.OPENALEX_MAILTO; else process.env.OPENALEX_MAILTO = originalMailto;
+    if (originalKey === undefined) delete process.env.OPENALEX_API_KEY; else process.env.OPENALEX_API_KEY = originalKey;
+  }
+});

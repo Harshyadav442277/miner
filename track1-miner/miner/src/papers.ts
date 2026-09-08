@@ -242,6 +242,23 @@ export function requestedSort(text: string): string | null {
   return null;
 }
 
+/**
+ * OpenAlex's "polite pool" and API-key access, both opt-in through the
+ * environment. Anonymous search shares one rate limit with everyone else on the
+ * same egress (Vercel's, GitHub's), and OpenAlex lifts it for requests that carry
+ * a contact address (`mailto`) or a free key (`api_key`). Which address to
+ * disclose to a third party is the operator's decision, not this code's (GAPS
+ * G43), so nothing is sent unless `OPENALEX_MAILTO` or `OPENALEX_API_KEY` is set.
+ */
+export function openAlexUrl(u: string): string {
+  const mailto = process.env.OPENALEX_MAILTO?.trim();
+  const key = process.env.OPENALEX_API_KEY?.trim();
+  let out = u;
+  if (mailto) out += `&mailto=${encodeURIComponent(mailto)}`;
+  if (key) out += `&api_key=${encodeURIComponent(key)}`;
+  return out;
+}
+
 export async function findPapers(query: string, limit?: number, timeoutMs = DEFAULT_TIMEOUT_MS): Promise<PaperResult> {
   const now = new Date().toISOString();
   const topic = searchTopic(query);
@@ -272,16 +289,38 @@ export async function findPapers(query: string, limit?: number, timeoutMs = DEFA
     `&per-page=${want}`;
 
   type Body = { results?: Array<Record<string, unknown>>; meta?: { count?: number } };
-  const get = async (u: string, ms: number): Promise<Body> => {
+  const once = async (u: string, ms: number): Promise<{ body: Body | null; status: number; retryAfterMs: number }> => {
     const ac = new AbortController();
     const t = setTimeout(() => ac.abort(), ms);
     try {
-      const res = await fetch(u, { signal: ac.signal, headers: { accept: "application/json" } });
-      if (!res.ok) throw new Error(`upstream ${res.status}`);
-      return (await res.json()) as Body;
+      const res = await fetch(openAlexUrl(u), { signal: ac.signal, headers: { accept: "application/json" } });
+      const retryAfterMs = Number(res.headers.get("retry-after") ?? "") * 1000;
+      if (!res.ok) return { body: null, status: res.status, retryAfterMs: Number.isFinite(retryAfterMs) ? retryAfterMs : 0 };
+      return { body: (await res.json()) as Body, status: res.status, retryAfterMs: 0 };
     } finally {
       clearTimeout(t);
     }
+  };
+  // OpenAlex sheds anonymous search under load with a fast 429 ("Anonymous
+  // search is temporarily rate-limited … retry in 35s, or use a free API key")
+  // or a 503, and the limit is bursty: on 2026-09-08 five probes four seconds
+  // apart were refused and the sixth answered (GAPS G43, G81). One short retry
+  // of the SAME query, inside the request's own budget, buys that window
+  // without funding it from the primary timeout. The polite pool and an API
+  // key, which lift the limit outright, are `openAlexUrl`'s job and need the
+  // operator's environment.
+  const get = async (u: string, ms: number): Promise<Body> => {
+    const started = Date.now();
+    const first = await once(u, ms);
+    if (first.body) return first.body;
+    const shed = first.status === 429 || first.status === 503;
+    const left = ms - (Date.now() - started);
+    if (!shed || left < 3000) throw new Error(`upstream ${first.status}`);
+    const wait = Math.min(2500, Math.max(500, first.retryAfterMs || 2500), left - 2000);
+    await new Promise((r) => setTimeout(r, wait));
+    const second = await once(u, left - wait);
+    if (second.body) return second.body;
+    throw new Error(`upstream ${second.status}`);
   };
 
   // The first request keeps the whole budget: the retry below is a bonus, and
