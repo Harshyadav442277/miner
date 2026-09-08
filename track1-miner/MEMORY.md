@@ -4,11 +4,57 @@
 Shared protocol facts are in `../docs/`. Do not edit `../track2/`; Track 3 lives in the separate
 `../telegraph-morse` repository.
 
-Last updated: 2026-09-05 ~08:30 UTC - STORM and IP projected to the lean payload and deployed, and
-two checks found never to have run. Track 1 closed 2026-08-31 **23:59 UTC**; registration **402**
-(thirteen intents) is active and the miner stays live through Track 3's close, **Sep 7 23:59 UTC**
-(resolve deadlines with `date -u`, never the local date). Read § 000000000000 first, then
-§ 00000000000 for the redeploy outage and the refusal fixes, then § 000000000 for how 402 came to be.
+Last updated: 2026-09-08 ~10:30 UTC - the rank report, six correctness fixes deployed, dead files
+removed. Track 1 closed 2026-08-31 **23:59 UTC**, Track 3 closed Sep 7 23:59 UTC, Winner Selection
+runs Sep 8–18; registration **402** (thirteen intents) is active. Read § 00000000000000 first, then
+§ 00000000000 for the redeploy outage, then § 000000000 for how 402 came to be.
+
+---
+
+## 00000000000000. WHY NOT RANK 1 EVERYWHERE — THE REPORT, SIX FIXES, AND THIRD BY SUM (2026-09-08 ~10:30Z)
+
+**Deployed and verified: `miner-o50wpiyof`. Preview `miner-ghztjnbfp` probed through `vercel curl`
+on all twelve endpoints and every fixed shape (recorded scored shapes byte-identical); `--prod` moved
+the alias itself; preflight 6/7 on the first pass with the papers probe shed by OpenAlex, re-run alone
+ALL CHECKS PASSED; watch `--once` clean; 208 unit tests; manifest hash unchanged so no `updateMiner`.
+Rollback `miner-3d806mm3e` held, unused.**
+
+The report is `docs/RANK_REPORT_2026-09-08.md`; the ledger entry is GAPS G79. The finding that
+matters most: **we are third by normalized sum at epoch 315** (10.30 vs chainsight 11.23 and txlens
+10.74, both 14 intents; from `/api/miners`, all 341 scored miners), sixth by average among ≥3-intent
+miners. The "first on the network" lines below for 298 and 308 were true when written and are not
+re-verifiable from the history file. Our own sum is flat at ~10.3 since 308; the rank-1 count fell
+6 → 2 because SSL, IP and WALLET are saturated (four or five miners within 0.3% above the cliff) and
+the noise bands reshuffle on a hidden question. That is the whole answer to "why not rank 1
+everywhere": one question per intent per epoch, cliff scorers, no visible ground truths (G24), and
+in nine of thirteen intents no honest lever with a known sign.
+
+**Fixed, all correctness or coverage:** G69 `/extract` ("12 March 2026" → "March 12, 2026"; a
+payload's own colon no longer discards its text; bare area codes; plural "dates"); G68 `/headlines`
+(declared `topic` verbatim, else the about/on phrase; "semiconductors" now returns semiconductor
+headlines); G77 `/fact-check` (stemmed + numeric article choice: the brain myth and boiling-point
+articles instead of a film and an astronomer); G71 `/telegraph` (seven entries from TELEGRAPH_FACTS §
+consumer surfaces, guarded by a Telegraph-context regex; old-vs-new run over 96 questions: 0 routes
+stolen from specific entries, 13 upgraded from the catch-all, 1 refusal answered, 22 off-topic still
+refused — now a test); G78 `preflight.mjs` (refuses a protected preview with the reason; proven on
+`miner-1e6w5zrsi`).
+
+**Declined, with the reason:** WEATHER_CHECK one-hour window for "current" questions — #1 at 0.9993 on
+the 24-hour behaviour (G63-P1 closed as declined). Leaning NEWS/CONTENT/AI_TEXT/FACT/TELEGRAPH/
+TRANSLATION payloads — favourable prior from G56/G75 but no bench, three of six are #1 or 1.0.
+A fourteenth intent — the only thing that closes the sum gap, but it mints a new registration id.
+Value logging — the operator's privacy decision (TA.8).
+
+**Method worth keeping:** an independent critic session reviewed the plan before execution and
+changed it in five places (G79). Before touching a first-match table, run the committed version and
+the new one over the same question set and pin every route that must not move.
+
+**Removed:** 18 files (bench one-off sweeps, executed runbooks, the duplicate `tools/ssl_bench.json`,
+`docs/CODEX_REVIEW_PROMPT.md`, root `payers.mjs`). `bench/README.md` rewritten to match. Dated
+reports stay in place; the archive move was dropped as churn during judging.
+
+**Gotcha:** `tools/watch.mjs` reads `--key value` pairs positionally; `--once` must be the LAST
+argument or it swallows the registration id and the tool prints its usage.
 
 ---
 

@@ -10,7 +10,27 @@ position, so every day of delay shortens the record we are judged on.
 
 ---
 
-## Where this stands — 2026-09-03 ~19:50 UTC (post-close, Track 3 window)
+## Where this stands — 2026-09-08 ~10:30 UTC (Winner Selection, Sep 8–18)
+
+- **Both tracks closed; the miner stays live.** Registration **402** `active`, thirteen intents,
+  hash unchanged. Production is `miner-o50wpiyof` (2026-09-08), preflight green after the documented
+  papers re-run, watch `--once` clean, 208 unit tests.
+- **Epoch 315:** 2 × #1 (TRANSLATION, WEATHER_CHECK); normalized sum 10.30, **third on the network**
+  behind chainsight-oracle 11.23 and txlens 10.74 (both 14 intents). Why rank 1 everywhere is out of
+  reach, intent by intent: [track1-miner/docs/RANK_REPORT_2026-09-08.md](track1-miner/docs/RANK_REPORT_2026-09-08.md).
+- [x] **TC.1** Report written; six correctness fixes (G68, G69, G71, G77, G78, plus bare area codes)
+      deployed and verified; 18 dead files removed. Plan critiqued by an independent session first
+      (G79). **F5 / G63-P1 declined on evidence** — WEATHER_CHECK is #1 on the current behaviour.
+- [ ] **TC.2** Read epoch 316+ for CONTENT_EXTRACTION and TELEGRAPH_KNOWLEDGE — the two intents where a
+      refusal-to-answer flip can move a 0 to a 1.0 if the fixture asks what was fixed. No rank is
+      predicted; the CI `scores` job records every epoch.
+- [ ] **TC.3** Operator: Vercel → Deployment Protection — turn Vercel Authentication off for preview
+      deployments (or create a Protection Bypass secret) so `preflight.mjs` can grade a preview
+      directly (G78, grading half still open).
+- **Still open for a human:** TA.6 / T5.2 (X series), G64 (CertWatch Vercel project), G65 (the
+  rival-copy repo), TA.8 (value logging is a privacy decision).
+
+## Where this stood — 2026-09-03 ~19:50 UTC (post-close, Track 3 window)
 
 - **Track 1 and Track 2 closed 2026-08-31 23:59 UTC.** Registration **402** is `active` with
   thirteen intents; the miner stays untouched through **2026-09-07 23:59 UTC**.

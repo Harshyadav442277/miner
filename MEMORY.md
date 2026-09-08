@@ -14,6 +14,33 @@ sessions and between models.
 | **Track 3 — app** | **Separate repo and folder:** `../telegraph-morse` — <https://github.com/Harshyadav442277/telegraph-morse>. CertWatch was retired and deleted on 2026-09-02 (never funded, no users). Read its `PLAN.md` first. |
 | Anything | [README.md](README.md) for ownership and shared facts, [docs/](docs/) for protocol and rules |
 
+## 2026-09-08 ~10:30 UTC — RANK REPORT, SIX CORRECTNESS FIXES DEPLOYED, DEAD FILES REMOVED; WE ARE THIRD BY SUM
+
+The operator asked why we are not rank 1 in every intent, for fixes, and for a cleanup. The answer is
+**[track1-miner/docs/RANK_REPORT_2026-09-08.md](track1-miner/docs/RANK_REPORT_2026-09-08.md)**, the
+record is GAPS **G79**. Headline: at epoch 315 (2026-09-08 04:45Z) we hold **2 × #1 of 13** and are
+**third by normalized sum — 10.30 behind chainsight-oracle 11.23 and txlens 10.74, both on 14
+intents** (computed from `/api/miners` over all 341 scored miners); sixth by average among ≥3-intent
+miners. The sum has been flat at ~10.3 since 308 while the rank-1 count fell 6 → 2: saturated intents
+(SSL, IP, WALLET — four or five miners within 0.3% above the cliff) changed hands at the third decimal
+and the noise bands reshuffled. Rank 1 in all thirteen is not reachable by any miner: one hidden
+question per intent per epoch, cliff scorers, no ground truths since G24.
+
+**Shipped (`miner-o50wpiyof`, preflight green after the documented papers re-run, 208 unit tests,
+manifest unchanged):** G69 `/extract` day-month-year dates and payload colons (plus bare area codes
+and plural "dates"); G68 `/headlines` uses the declared topic or the about/on phrase; G77 `/fact-check`
+stemmed article choice; G71 seven Telegraph-knowledge entries, context-guarded, 96 routes pinned
+(0 stolen from specific entries); G78 `preflight.mjs` refuses a protected preview instead of grading
+Vercel's login page. **Declined on evidence:** the WEATHER_CHECK one-hour window (we are #1 at 0.9993
+on the current behaviour), leaning the six fat payloads (no bench exists), a fourteenth intent
+(needs a new registration), logging question values (operator's privacy call).
+
+**Process:** the plan was critiqued by an independent session before execution and changed in five
+places (G79 lists them). **Removed:** 18 dead files — one-off bench sweeps, executed runbooks, a
+duplicate bench, a stale review prompt, a root scratch script. Dated reports stay; `track2/` untouched.
+**Gotcha:** `tools/watch.mjs` parses `--key value` pairs, so `--once` must come LAST or the
+registration id is swallowed.
+
 ## 2026-09-06 ~06:00 UTC — HEALTH CHECK: TWO DEFECTS FIXED, AND RANK IS NOT THE LEVER ON REQUEST VOLUME
 
 Full health check requested. Everything the gates cover was green — registration 402 `active`,

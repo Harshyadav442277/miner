@@ -1534,7 +1534,11 @@ The miner is correct; the check is not, and its cause was not isolated before ep
 **Both changes were reverted** rather than leave preflight red on a false negative, which would
 mask a genuine failure. Re-add with the flake understood, not with another retry.
 
-**P1 · WEATHER_CHECK still defaults to a 24-hour forecast — OPEN, deliberately not shipped.**
+**P1 · WEATHER_CHECK still defaults to a 24-hour forecast — DECLINED 2026-09-08, on evidence.** At
+epoch 315 WEATHER_CHECK is #1 at 0.9993 on exactly this behaviour (and crossed at 0.929 in 309), so
+mapping "current conditions" questions to a one-hour window would trade a measured crossing for an
+unmeasured one on an endpoint that also serves WEATHER_FORECAST. The plan's critic flagged it as the
+one proposed change that touches a shape already scoring well; it was dropped. Original record:
 With no `hours` parameter a WEATHER_CHECK question gets a day-long range rather than current
 conditions. The fix is a conditional: current-conditions wording plus no explicit window implies
 `hours=0`. It was **not shipped**, because `/weather-forecast` also serves WEATHER_FORECAST where
@@ -1584,7 +1588,7 @@ closed #5 at 19:47:30Z. **Rule:** a registration change is not finished until th
 updated and one dispatched `uptime` run is green. Both belong in the signing runbook, not on a
 human's list, and an open `uptime` issue must be read the same day it opens.
 
-### G68 · `/headlines` only recognises thirteen topic words; any other subject gets generic top stories — `OPEN, found 2026-09-04 while writing the integration guide, operator decision under the freeze`
+### G68 · `/headlines` only recognises thirteen topic words; any other subject gets generic top stories — `FIXED 2026-09-08, verified on the preview and in production`
 `news.ts` derives the topic by matching the question against a fixed list (technology, business,
 finance, science, health, sports, politics, entertainment, world, crypto, energy, climate, ai). A
 subject outside it — "semiconductors", "artificial intelligence" — is dropped and the feed is queried
@@ -1598,7 +1602,18 @@ off-topic headlines. Fix is small (use the `topic` parameter verbatim, else the 
 "about/on", and stop-word question openers in `extractRegion`) — but it is a production deploy inside
 the Track 3 freeze, so it is the operator's call. Recorded, not shipped.
 
-### G69 · `/extract` truncates day-month-year dates and loses text after a colon — `OPEN, found 2026-09-04, operator decision under the freeze`
+**Fixed 2026-09-08 (G79).** The "What" half had already gone on 2026-09-05. Now the declared `topic`
+parameter is passed to `getHeadlines` on its own and used verbatim when it is a real subject (generic
+words such as "news" or "top stories" are not), and failing that the noun phrase after
+about/on/regarding/concerning is the subject, with its trailing time and place words removed. A proper
+noun that belongs to the subject ("Shopify") is no longer read as a region. The thirteen-word list is
+still matched first, so the recorded question shapes ("top 5 technology headlines from Japan as of
+today") produce byte-identical answers — pinned by tests, and checked on the preview. Verified:
+`topic=semiconductors` now returns semiconductor headlines (Reuters, Yahoo Finance) where it returned
+MLB scores and a hospital shooting the same morning. NEWS_HEADLINES is #1 in seven of the last eight
+epochs, so this is a fix for real callers; no rank claim is made.
+
+### G69 · `/extract` truncates day-month-year dates and loses text after a colon — `FIXED 2026-09-08, verified on the preview and in production`
 Two defects, both verified live. (1) `dates()` only knows "March 12, 2026": "12 March 2026" becomes
 **"March 20"** (the day slot eats the first two digits of the year), so an invoice "dated 12 March
 2026 … due 30 April 2026" is reported as "March 20, April 20". (2) `quotedPayload()` takes the text
@@ -1606,6 +1621,17 @@ after the first colon when there are no quotes, so a payload like "Contact sales
 415-555-0100. Docs: https://acme.com/pricing" is reduced to the URL and the email and phone are
 reported as not found. The recorded scored questions carry their payload in quotes with US date
 order, which is why CONTENT_EXTRACTION scores 1.0 while these shapes fail. Same freeze question as G68.
+
+**Fixed 2026-09-08 (G79), and two more found on the way.** Day-month-year dates are read first and
+masked before the month-day pattern runs, so "12 March 2026 … 30 April 2026" answers "March 12, 2026,
+April 30, 2026" in the recorded ground truths' own form. The colon rule now applies only when the text
+before the first colon is a short, unbroken instruction clause ("Extract the contact details from:");
+a payload carrying its own colon is kept whole, so the acme example answers email, phone and URL.
+Found while testing: a ten-digit number with a bare area code was truncated ("415-555-0100" →
+"555-0100"), and "Extract the dates …" (plural) was not recognised as a date request. Both fixed. The
+three recorded ground-truth strings are still reproduced exactly, byte for byte, on the preview.
+Whether the fixture questions that score the whole field 0 in half the epochs (308, 309, 312, 315)
+are these shapes cannot be known from outside — G24 — so no rank claim is made.
 
 ### G67 · The node's OpenAPI spec lists every one of our parameters on every one of our endpoints — `CLOSED 2026-09-03: the node does this to every multi-endpoint miner`
 
@@ -1675,6 +1701,23 @@ epochs 298, 299, 304, 305 and 306 and ~1e-11 in 300, 302, 307 and 308.
 not have, and inventing answers is the failure this project refuses everywhere. What *was* fixed is
 the half we own — see the fact-table commit; coverage of questions inside the canonical description
 went 13/34 to 34/34.
+
+**Widened again 2026-09-08 (G79), still not chasing the open-domain 97%.** Seven entries were added
+from the facts verified in docs/TELEGRAPH_FACTS.md § "Consumer surfaces": direct calls and the
+dispatcher (and "subnet" as the node's word for a miner), the MCP server and its tool names, the
+WebSocket and escrow, x402 payment and signal verification, the reference applications and the three
+integration paths, validators and nodes, and where the documentation lives. Each fires only when the
+question also names something of Telegraph's, so "Will the website go down tomorrow?" and "Where can I
+read the docs for React?" stay `not_covered`. The independent critic of the day's plan warned that a
+new entry could steal a question an existing entry already answers — and that TELEGRAPH_KNOWLEDGE
+scored 1.0 in five epochs off the existing table — so the committed table and the new one were run
+over 96 questions before shipping: **0 moved off a specific existing entry, 13 moved from the generic
+catch-all to a subject-specific answer, 1 refusal became an answer, 22 off-topic stayed refused.**
+Those 96 routes are now a test. The judgement call, stated plainly: taking a question from the
+generic "Telegraph is a decentralised network…" paragraph is accepted, because that text is unlikely
+to be what crosses on a subject-specific fixture; taking one from a specific entry is not. The score
+has been ~1e-11 in five of the last eight epochs; whether any fixture question is among the widened
+set is unknowable from outside.
 
 
 ### G72 · WALLET_BALANCE_CHECK has no measurable defect, and the live band is noise — `MEASURED 2026-09-04`
@@ -1787,7 +1830,7 @@ Honolulu 33.8, Chennai 29.5, all matching the true now+12h row and all differing
 code served (42.5 / 38.5 / 27.4). Note the payload is lean (G75) so `valid_at` is not served at
 all — the prose is the whole product here, and the prose was wrong.
 
-### G77 · `/fact-check` preferred a disambiguated Wikipedia article over the canonical one — `FIXED 2026-09-06, verified live`
+### G77 · `/fact-check` preferred a disambiguated Wikipedia article over the canonical one — `FIXED 2026-09-06, verified live; the two stemming cases FIXED 2026-09-08`
 
 "Is it true that the Eiffel Tower is located in Paris?" — the worked example in `miner.yaml`'s own
 description — resolved to **`Eiffel_Tower_(Paris,_Tennessee)`**, a 60-foot replica, and answered
@@ -1809,7 +1852,15 @@ brains" still picks *Flight of the Navigator* over *Ten-percent-of-the-brain myt
 first-seen wins), which is the exact case the code comment claims to have fixed; and "water boils
 at 100 degrees Celsius" picks *Anders Celsius*, a person.
 
-### G78 · `preflight.mjs` scores Vercel's login page when pointed at a preview — `OPEN, found 2026-09-06`
+**Both fixed 2026-09-08 (G79).** The article-selection score now compares stemmed tokens (plural,
+-ing, -ed stripped), turns number words into digits and "%" into "percent", and keeps numeric tokens
+whatever their length — so "brains" meets "brain", "boils" meets "Boiling point", and "10%" meets
+"Ten-percent". Live: the brain claim now resolves to `Ten-percent-of-the-brain_myth` (and, because that
+article says "myth", the verdict is `contradicted`), the boiling claim no longer picks the astronomer,
+and the Eiffel Tower case is unchanged. `judge()` keeps its own exact tokens, so the no-`supported`
+safety property is untouched and still tested.
+
+### G78 · `preflight.mjs` scores Vercel's login page when pointed at a preview — `FIXED 2026-09-08: it refuses instead; grading a preview directly still needs a project-settings change`
 
 Preview deployments are behind Vercel deployment protection: an anonymous request 302s to an auth
 page, so `preflight.mjs https://<preview>` reported **2/7 with "180 bad, 0 clean"** while grading
@@ -1824,3 +1875,61 @@ Until it is fixed, "preview first, always" cannot be gated, and 2026-09-06 shipp
 production and running the gates there, with a rollback to `miner-9me29eapa` held ready. That is
 backwards and only acceptable because production is unprotected and rollback is one command.
 Fix is either an auth token in the fetch, or `vercel curl` as the transport.
+
+**Fixed 2026-09-08 (G79) — the lying half.** Before any gate runs, `preflight.mjs` now fetches
+`/health` with redirects disabled and requires the miner's own JSON (`service: "livecert"`). Anything
+else — a 302 to `vercel.com/sso-api`, HTML, a timeout — exits 2 with a message naming what answered
+and what to do instead. Proven against the protected preview `miner-1e6w5zrsi`: exit 2, no gate run,
+while `npx vercel curl` on the same preview returned the health JSON. A gate can no longer report
+"2/7" on Vercel's login page. **Still open — the grading half.** Grading a protected preview directly
+needs either Vercel's "Protection Bypass for Automation" secret or Vercel Authentication turned off
+for preview deployments, both of which are project settings only the operator can change; until then
+the procedure is preview → `vercel curl` probes → promote → gates against production with a rollback
+held, which is what today's deploy did.
+
+### G79 · The 2026-09-08 deploy: six correctness fixes shipped during Winner Selection, and livecert is third by normalized sum, not first — `RECORDED 2026-09-08`
+
+**Standing, measured today rather than remembered.** Over all 341 miners scored at epoch 315 (from
+`/api/miners`, each intent normalized by its epoch leader): chainsight-oracle 11.23 (14 intents, avg
+0.80), txlens 10.74 (14, 0.77), **livecert 10.30 (13, 0.79)**, preflight 7.89 (10, 0.79). By average
+among miners with three or more intents we are sixth, behind single-purpose miners at 0.93–1.00 and
+one place behind chainsight. MEMORY.md's "first on the network" lines for epochs 298 and 308 were
+true when computed and cannot be re-verified from `score-history.jsonl`, which keeps only our scores
+and each leader. The judged aggregation is an average whose formula is unpublished (G59, G61); both
+readings are in `track1-miner/docs/RANK_REPORT_2026-09-08.md`, which is the report on why rank 1 in
+every intent is not reachable and what was done.
+
+**What shipped, all correctness or coverage, none a wording change on a scored shape:** G69 (dates,
+colon, plus bare area codes and plural "dates"), G68 (headline subject), G77 (stemmed article choice),
+G71 (seven Telegraph-knowledge entries with a context guard and 96 pinned routes), G78 (preflight
+refuses a protected preview). 208 unit tests, from 199. Manifest untouched: registration 402 stays
+`active` with hash `7538…7640`, no `updateMiner`.
+
+**How it was verified, in order.** Preview `miner-ghztjnbfp` probed through `npx vercel curl` on all
+twelve endpoints plus each fixed shape; the two recorded scored shapes (`/extract` contact,
+`/headlines` technology-from-Japan) byte-identical. Production `miner-o50wpiyof` deployed with
+`--prod`; the alias moved on its own (`promote` answered 409 "already the current production
+deployment"); `/health` on the alias reported a fresh uptime and `/ssl-check` and `/extract` answered,
+so no G70 recurrence. `preflight.mjs` against production: **6/7 on the first run** — the one miss was
+`verify-deploy`'s `/papers` bare-topic probe returning zero papers right after the live suite had
+hammered OpenAlex (the G34/G43 pattern on a route today's changes do not touch); **re-run alone, as
+the gate's own header instructs, ALL CHECKS PASSED** with five papers and median 341 ms. `watch.mjs
+--once` against registration 402 and the alias: `endpoint=ok 358ms (verdict=valid) activation=active`.
+Rollback target held throughout: `miner-3d806mm3e`, never needed.
+
+**What the independent critic changed before anything shipped.** The plan was reviewed by a separate
+session before execution. It dropped the WEATHER_CHECK current-conditions change (G63-P1) because the
+intent is #1 at 0.9993 on the current behaviour; dropped a proposed archive move of the dated reports
+as link churn during judging; dropped a proposal to log question values in production as a privacy
+change that is the operator's; required the Telegraph-knowledge entries to be pinned against route
+theft (done, 96 routes, 0 stolen); and required the report to show sum and average and to source the
+"first on the network" claim, which turned out to be false today. It also named the one lever with a
+live-confirmed favourable sign that was not pulled: leaning the payloads of the six intents G56 left
+fat (NEWS, CONTENT, AI_TEXT, FACT_CHECK, TELEGRAPH_KNOWLEDGE, TRANSLATION). Not shipped, because no
+ground-truth bench exists for any of them (the recovered receipts cover SSL, IP and WALLET only) and
+three of the six are #1 or at 1.0 — an unmeasured shape change on those is the G62 pattern.
+
+**Convention note for anyone reading the eight-epoch table:** ratio is ours ÷ leader, written 0 when
+the leader is also 0 (CONTENT in 308, 309, 312, 315). Under a ratio-of-averages reading those epochs
+are undefined rather than zero; the table averages per-epoch ratios, which is not the published
+formula either.
