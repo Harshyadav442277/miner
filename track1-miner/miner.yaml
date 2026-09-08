@@ -371,6 +371,42 @@ endpoints:
             intents: ["*"]
             description: "The user's original question, verbatim. The subject and the time window are read from it."
 
+  - path: /convert
+    external_path: /convert
+    method: GET
+    intents: [CURRENCY_EXCHANGE]
+    description: >-
+      An exchange rate, or an amount converted between two currencies. The
+      primary source is the European Central Bank's euro foreign exchange
+      reference rate, which is published once per day and therefore does not move
+      between reads; the answer states that it is a reference rate and the date it
+      was published for, so it is never mistaken for a live trading quote. The
+      rate is given in both directions and the conversion direction is taken from
+      the question, including the "how many X is Y" phrasing that names the target
+      first. Currencies the ECB does not publish fall back to a market rate, and
+      that answer says it is a market rate instead. A request naming only one
+      currency is refused rather than half-answered, and a source that does not
+      respond is reported as unknown rather than as a rate of zero.
+    params:
+      query:
+        optional:
+          - name: from
+            type: string
+            intents: ["*"]
+            description: "ISO 4217 code of the currency being converted from, e.g. USD. Read from the question when absent."
+          - name: to
+            type: string
+            intents: ["*"]
+            description: "ISO 4217 code of the currency being converted to, e.g. EUR. Read from the question when absent."
+          - name: amount
+            type: number
+            intents: ["*"]
+            description: "Amount to convert. Omitted means the question asks for the rate itself, and no amount is invented."
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim. Both currencies, the direction and the amount are read from it."
+
   - path: /fact-check
     external_path: /fact-check
     method: GET
@@ -460,6 +496,7 @@ semantics:
     - CVE_LOOKUP
     - TVL_LOOKUP
     - NEWS_SEARCH
+    - CURRENCY_EXCHANGE
 
 # input_schema is a single top-level block covering every endpoint — the schema
 # refuses it inside endpoints[], and the node does not enforce it against requests.

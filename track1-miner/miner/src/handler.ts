@@ -9,6 +9,7 @@ import { detectAiText, type AiDetectResult } from "./aidetect";
 import { extractContent } from "./content";
 import { getHeadlines } from "./news";
 import { searchNews, type NewsSearchResult } from "./newssearch";
+import { convert, parseQuery as parseCurrency, type CurrencyResult } from "./currency";
 import { checkBalance, type WalletResult } from "./wallet";
 import { checkFact, type FactCheckResult } from "./factcheck";
 import { answerTelegraph, type TelegraphResult } from "./telegraph";
@@ -29,7 +30,7 @@ export const ENDPOINTS = [
   "/ssl-check", "/storm-alert", "/weather-forecast",
   "/ip-geolocate", "/translate", "/papers",
   "/ai-detect", "/extract", "/headlines", "/wallet-balance",
-  "/fact-check", "/telegraph", "/tx-lookup", "/cve", "/tvl", "/news-search",
+  "/fact-check", "/telegraph", "/tx-lookup", "/cve", "/tvl", "/news-search", "/convert",
 ] as const;
 
 /**
@@ -39,7 +40,7 @@ export const ENDPOINTS = [
 type Answer =
   | SslResult | StormResult | ForecastResult | GeoResult | TranslationResult | PaperResult
   | AiDetectResult | WalletResult | FactCheckResult | TelegraphResult | TxResult | CveResult
-  | TvlResult | NewsSearchResult;
+  | TvlResult | NewsSearchResult | CurrencyResult;
 const cache = new Map<string, { at: number; value: Answer }>();
 
 function fromCache(key: string): Answer | null {
@@ -103,6 +104,7 @@ const SUBJECT_OF: Record<string, string> = {
   "/cve": "A vulnerability lookup",
   "/tvl": "A total-value-locked lookup",
   "/news-search": "A news article search",
+  "/convert": "A currency conversion",
 };
 
 function armWatchdog(res: ServerResponse, path: string, question: string): void {
@@ -939,6 +941,46 @@ function route(req: IncomingMessage, res: ServerResponse): void {
         sendAnswer(res, q, lean(r), false);
       })
       .catch(() => upstreamUnavailable(res, "A news article search", (subjectParam || q).slice(0, 40), q));
+    return;
+  }
+
+  if (path === "/convert") {
+    /**
+     * The scorer is an exact match on the number: 0.1% out scores 2e-7, which
+     * is the same as being wrong. Wording is worth about one part in a hundred
+     * thousand. So the only decision that matters is the SOURCE, and the
+     * primary is the ECB's daily reference rate because two answers derived
+     * from it are identical all day, where two live quotes never are.
+     */
+    const fromParam = firstValue(url, "from", "from_currency", "base", "source_currency").toUpperCase().trim();
+    const toParam = firstValue(url, "to", "to_currency", "target", "target_currency", "quote").toUpperCase().trim();
+    const amountParam = firstValue(url, "amount", "value", "quantity");
+    const q = withSubject(
+      firstValue(url, "query", "q", "question", "text", "input"),
+      [amountParam, fromParam, toParam].filter(Boolean).join(" "),
+    );
+
+    const parsed = parseCurrency(q);
+    const from = /^[A-Z]{3}$/.test(fromParam) ? fromParam : parsed.from;
+    const to = /^[A-Z]{3}$/.test(toParam) ? toParam : parsed.to;
+    const declaredAmount = Number(amountParam.replace(/,/g, ""));
+    const amount = amountParam.trim() && Number.isFinite(declaredAmount) ? declaredAmount : parsed.amount;
+
+    // Cached on the pair and amount. A daily reference rate is stable, but the
+    // shared one-minute TTL is kept rather than lengthened: a market-rate
+    // fallback is not stable, and one cache cannot hold both truths.
+    const key = `fx:${from}:${to}:${amount ?? "-"}`;
+    const hit = fromCache(key);
+    if (hit) {
+      sendAnswer(res, q, lean(hit), false);
+      return;
+    }
+    convert(from, to, amount)
+      .then((r) => {
+        if (r.verdict === "converted" || r.verdict === "rate") toCache(key, r);
+        sendAnswer(res, q, lean(r), false);
+      })
+      .catch(() => upstreamUnavailable(res, "A currency conversion", `${from ?? "?"} to ${to ?? "?"}`, q));
     return;
   }
 

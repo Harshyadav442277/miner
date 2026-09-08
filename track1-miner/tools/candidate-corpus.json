@@ -153,5 +153,27 @@
         "DEPLOYED CODE (newssearch.ts)": "Recent coverage of partnership between OpenAI and Microsoft from the last 30 days includes: \"News publishers that partnered with OpenAI and Microsoft are now suing over AI training\" (Yahoo, 8 September 2026); \"Seattle Times and Newsday Sue OpenAI and Microsoft Over AI Copying\" (WinBuzzer, 7 September 2026); \"Sam Altman’s ​​OpenAI and Worldcoin Engage in Partnership Talks\" (CoinMarketCap, 7 September 2026); \"OpenAI & Microsoft: Seattle Times and Newsday file lawsuit\" (SecNews.gr, 7 September 2026); \"A new battle between journalism and artificial intelligence: Two newspapers sue OpenAI and Microsoft\" (صوت الإمارات, 7 September 2026). 5 articles, most recent first, each with its publisher and publication date."
       }
     }
+  ],
+  "CURRENCY_EXCHANGE": [
+    {
+      "id": "usd-eur-100-exact",
+      "note": "The canonical description's own example. Ground truths use the ECB daily reference rate for 2026-09-08 (1 EUR = 1.1614 USD). The point of this case is what the scorer does when our number MATCHES.",
+      "question": "What is 100 USD in EUR right now?",
+      "ground_truths": {
+        "terse": "100 USD is 86.10 EUR at a rate of 0.8610.",
+        "full": "100 US dollars converts to 86.10 euros at the current exchange rate of 1 USD = 0.8610 EUR.",
+        "chatty": "Right now 100 dollars is worth about 86.10 euros, which works out to a rate of roughly 0.861 euros per dollar."
+      },
+      "answers": {
+        "exact figure, bare": "100 USD is 86.10 EUR.",
+        "exact figure with rate and direction": "100 USD is 86.10 EUR. The rate is 1 USD = 0.8610 EUR (equivalently 1 EUR = 1.1614 USD).",
+        "exact figure, rate, direction, source and date": "100 USD is 86.10 EUR at a rate of 1 USD = 0.8610 EUR, equivalently 1 EUR = 1.1614 USD. This is the European Central Bank euro foreign exchange reference rate published for 8 September 2026, not a live trading quote.",
+        "off by one part in a thousand": "100 USD is 86.19 EUR.",
+        "off by half a percent": "100 USD is 86.53 EUR.",
+        "inverted direction": "100 USD is 116.14 EUR.",
+        "rate only, no converted amount": "The USD to EUR exchange rate is 0.8610.",
+        "honest unavailable": "The USD to EUR exchange rate could not be retrieved."
+      }
+    }
   ]
 }

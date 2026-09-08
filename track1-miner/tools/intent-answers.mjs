@@ -89,6 +89,51 @@ const CHECKS = {
   // record, fetched separately here — the endpoint's job is to resolve the CPE
   // configuration into stated versions, and that resolution is the thing most
   // likely to silently return nothing.
+  async CURRENCY_EXCHANGE() {
+    const bad = [];
+    // The scorer is an exact match on the number, so this probe checks the
+    // number against an independent computation of the same reference rate
+    // rather than checking that the answer merely looks like a conversion.
+    const r = await get("/convert", { query: "What is 100 USD in EUR right now?" });
+    const b = r.body;
+    if (b.error) return [`errored: ${b.error}`]; // rate source down; re-run the gate alone.
+    if (b.verdict !== "converted") bad.push(`100 USD in EUR -> ${b.verdict}, want converted`);
+    const reason = String(b.reason ?? "");
+
+    // Independently: read the ECB feed here and recompute.
+    let ecb = null;
+    try {
+      const x = await (await fetch("https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml", { signal: AbortSignal.timeout(15000) })).text();
+      const usd = Number(x.match(/currency=['"]USD['"]\s+rate=['"]([\d.]+)['"]/)?.[1]);
+      const date = x.match(/<Cube\s+time=['"](\d{4}-\d{2}-\d{2})['"]/)?.[1];
+      if (Number.isFinite(usd) && date) ecb = { usd, date };
+    } catch { /* the cross-check is best effort */ }
+
+    if (ecb) {
+      const want = (100 / ecb.usd).toFixed(2);
+      if (!reason.includes(want)) bad.push(`answer does not carry the ECB-derived figure ${want} EUR`);
+      if (!reason.includes(ecb.date)) bad.push(`answer does not carry the reference date ${ecb.date}`);
+      if (!reason.includes(String(ecb.usd))) bad.push(`answer does not carry the inverse rate ${ecb.usd}`);
+    }
+    // A reference rate must be labelled as one, not implied to be a live quote.
+    if (!/reference rate published for/.test(reason)) bad.push("answer does not identify the rate as a daily reference rate");
+    if (!/not a live trading quote/.test(reason)) bad.push("answer does not distinguish itself from a trading quote");
+    // Both directions, because an inverted answer scores 1.9e-7.
+    if (!/1 USD = /.test(reason) || !/1 EUR = /.test(reason)) bad.push("answer does not state the rate in both directions");
+
+    // "How many X is Y" names the target first; reading it in order inverts it.
+    const inverted = await get("/convert", { query: "How many yen is 1 dollar?" });
+    if (!inverted.body.error) {
+      const ir = String(inverted.body.reason ?? "");
+      if (!/1\.00 USD is [\d,]+\.\d\d JPY/.test(ir)) bad.push(`"how many yen is 1 dollar" was not read as USD to JPY: ${ir.slice(0, 90)}`);
+    }
+
+    // One currency is not a conversion.
+    const half = await get("/convert", { query: "How much is 100 dollars?" });
+    if (half.body.error !== "missing_currency") bad.push(`single-currency request -> ${half.body.error}, want missing_currency`);
+    return bad;
+  },
+
   async NEWS_SEARCH() {
     const bad = [];
     // Article coverage, not a headline list: every item must carry a publisher
