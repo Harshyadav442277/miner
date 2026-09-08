@@ -216,5 +216,134 @@
         "DEPLOYED CODE (gameresult.ts)": "Everton and Manchester United drew 2-2 in the English Premier League on 6 September 2026, so neither side won. The match is complete (full time)."
       }
     }
+  ],
+  "TEXT_CLASSIFICATION": [
+    {
+      "id": "support-ticket-account",
+      "note": "The canonical description's own worked example. The labels are supplied IN the question, which is what makes this intent deterministic rather than a judgement call.",
+      "question": "Classify this support ticket as billing, technical, or account issue: 'I can't log into my account.'",
+      "ground_truths": {
+        "terse": "account issue",
+        "labelled": "The ticket is an account issue.",
+        "full": "This support ticket is an account issue. The user cannot log into their account, which is an access problem rather than a billing or technical fault."
+      },
+      "answers": {
+        "label only": "account issue",
+        "label in a sentence": "The ticket is an account issue.",
+        "label with the reason": "This support ticket is an account issue. The user reports being unable to log into their account, which is an access problem rather than a billing or technical one.",
+        "label plus the rejected options": "This is an account issue, not billing and not technical.",
+        "wrong label": "The ticket is a billing issue.",
+        "hedged, no label chosen": "This could be an account issue or a technical issue depending on the cause.",
+        "all labels listed": "The categories are billing, technical, and account issue.",
+        "honest refusal": "The ticket could not be classified."
+      }
+    },
+    {
+      "id": "sentiment-style-labels",
+      "note": "A label set that is not the support-ticket one, to check the approach is not tuned to a single vocabulary.",
+      "question": "Classify the following text as positive, negative, or neutral: 'The delivery arrived three days late and the box was crushed.'",
+      "ground_truths": {
+        "terse": "negative",
+        "labelled": "The text is negative.",
+        "full": "The text is negative. It reports a late delivery and damaged packaging, both of which are complaints."
+      },
+      "answers": {
+        "label only": "negative",
+        "label in a sentence": "The text is negative.",
+        "label with the reason": "The text is negative. It reports a delivery that arrived three days late and a crushed box, both of which are complaints.",
+        "wrong label": "The text is positive.",
+        "hedged, no label chosen": "The text could be read as negative or neutral.",
+        "honest refusal": "The text could not be classified."
+      }
+    },
+    {
+      "id": "topic-labels-multi-word",
+      "note": "Multi-word labels, and a text whose correct label shares no word with it — the case where naive string overlap fails.",
+      "question": "Assign this article to one of these categories: world news, business and finance, science and technology, sport. Text: 'Researchers have sequenced the genome of a 40,000-year-old mammoth using a new extraction method.'",
+      "ground_truths": {
+        "terse": "science and technology",
+        "labelled": "The article belongs to science and technology.",
+        "full": "The article belongs to the science and technology category. It describes genome sequencing research and a new laboratory extraction method."
+      },
+      "answers": {
+        "label only": "science and technology",
+        "label in a sentence": "The article belongs to science and technology.",
+        "label with the reason": "The article belongs to science and technology. It describes researchers sequencing a mammoth genome using a new extraction method, which is scientific research.",
+        "wrong label": "The article belongs to world news.",
+        "honest refusal": "The article could not be assigned to a category."
+      }
+    }
+  ],
+  "WEB_SEARCH": [
+    {
+      "id": "fed-rate-decision-latest",
+      "note": "The canonical description's own example: current information that static knowledge cannot answer.",
+      "question": "What's the latest news on the Fed's interest rate decision?",
+      "ground_truths": {
+        "terse": "The Federal Reserve is expected to announce its rate decision this week, with markets watching US inflation data.",
+        "full": "Recent reporting indicates the Federal Reserve's next interest rate decision is imminent, with markets focused on incoming US inflation data. Coverage from early September 2026 discusses expectations for the decision and its effect on the dollar.",
+        "sourced": "According to reporting from FXStreet and Reuters in early September 2026, markets are bracing for US inflation data ahead of the Federal Reserve's interest rate decision."
+      },
+      "answers": {
+        "answer with retrieved sources and dates": "Recent reporting on the Federal Reserve's interest rate decision: \"Euro holds steady above 1.1600 as markets brace for US inflation data and ECB rate decision\" (FXStreet, 8 September 2026); \"Fed rate decision: what to expect\" (Reuters, 7 September 2026). Markets are focused on incoming US inflation data ahead of the decision.",
+        "prose summary with no sources": "The Federal Reserve is expected to announce its interest rate decision shortly, and markets are focused on incoming inflation data.",
+        "a bare list of headlines": "Euro holds steady above 1.1600 as markets brace for US inflation data and ECB rate decision. Fed rate decision: what to expect.",
+        "static knowledge, no retrieval": "The Federal Reserve sets interest rates through its Federal Open Market Committee, which meets eight times a year.",
+        "honest no results": "No current information about the Federal Reserve's interest rate decision could be retrieved."
+      }
+    },
+    {
+      "id": "who-is-current-holder",
+      "note": "A live fact that changes, of the kind WEB_SEARCH exists for.",
+      "question": "Who is the current Secretary-General of the United Nations?",
+      "ground_truths": {
+        "terse": "António Guterres is the Secretary-General of the United Nations.",
+        "full": "António Guterres has served as Secretary-General of the United Nations since January 2017. He is a Portuguese politician and diplomat who previously served as Prime Minister of Portugal.",
+        "sourced": "According to the United Nations, António Guterres is the current Secretary-General, having taken office in January 2017."
+      },
+      "answers": {
+        "answer with retrieved sources and dates": "António Guterres is the current Secretary-General of the United Nations, in office since January 2017. He is a Portuguese politician and diplomat who previously served as Prime Minister of Portugal. Source: Wikipedia, retrieved 8 September 2026.",
+        "prose summary with no sources": "António Guterres is the current Secretary-General of the United Nations, having taken office in January 2017.",
+        "a bare list of headlines": "Secretary-General of the United Nations. António Guterres. United Nations leadership.",
+        "wrong answer": "Ban Ki-moon is the current Secretary-General of the United Nations.",
+        "honest no results": "No current information about the Secretary-General of the United Nations could be retrieved."
+      }
+    }
+  ],
+  "URL_SCAN": [
+    {
+      "id": "known-good-https",
+      "note": "A well-known site with a valid certificate and no reputation flag. The answer must commit to safe, with the evidence it used.",
+      "question": "Is this URL safe to click: https://github.com/torvalds/linux ?",
+      "ground_truths": {
+        "terse": "Yes, https://github.com/torvalds/linux is safe.",
+        "full": "https://github.com/torvalds/linux appears safe. GitHub is a well-established site, the URL uses HTTPS with a valid certificate, and the domain is not flagged as malicious by threat intelligence.",
+        "hedged": "The URL looks safe — it is a GitHub repository page served over HTTPS with a valid certificate and no known malicious reputation."
+      },
+      "answers": {
+        "safe verdict with the evidence": "https://github.com/torvalds/linux appears safe. The domain github.com is not flagged as malware or phishing by Cloudflare's threat-intelligence resolver, it resolves normally, and it serves a valid TLS certificate over HTTPS that matches the hostname.",
+        "safe verdict, bare": "The URL is safe.",
+        "unsafe verdict (wrong)": "https://github.com/torvalds/linux is unsafe and should not be clicked.",
+        "hedged, no verdict": "It is difficult to say whether this URL is safe without further analysis.",
+        "honest could not determine": "The safety of this URL could not be determined."
+      }
+    },
+    {
+      "id": "flagged-malware-domain",
+      "note": "A domain Cloudflare's security resolver blocks. The answer must commit to unsafe and say what flagged it.",
+      "question": "Is http://malware.testcategory.com/download safe?",
+      "ground_truths": {
+        "terse": "No, malware.testcategory.com is flagged as malicious.",
+        "full": "http://malware.testcategory.com/download is not safe. The domain is flagged as malware by threat intelligence, and the URL uses plain HTTP with no encryption.",
+        "hedged": "This one should not be clicked — the domain is blocked as malware by threat-intelligence feeds and the link is unencrypted HTTP."
+      },
+      "answers": {
+        "unsafe verdict with the evidence": "http://malware.testcategory.com/download is not safe. The domain malware.testcategory.com is blocked as malware or phishing by Cloudflare's threat-intelligence resolver, which returns 0.0.0.0 for it while an unfiltered resolver returns a real address. The URL also uses plain HTTP, so the connection is unencrypted.",
+        "unsafe verdict, bare": "The URL is not safe.",
+        "safe verdict (wrong)": "http://malware.testcategory.com/download appears safe to click.",
+        "hedged, no verdict": "This URL may or may not be safe depending on what it serves.",
+        "honest could not determine": "The safety of this URL could not be determined."
+      }
+    }
   ]
 }

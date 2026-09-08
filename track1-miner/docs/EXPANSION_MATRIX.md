@@ -85,17 +85,64 @@ two ECB-derived answers agree all day. Epoch 308 showed two miners at exactly
 | DEEPFAKE_DETECTION, IMAGE_VERIFICATION, VIDEO_VERIFICATION, MEDIA_AUTHENTICITY_CHECK, CONTENT_MODERATION | 1–2 | need image or video models at runtime |
 | TEXT_AUTHENTICITY_CHECK, TWITTER_SEARCH | 0 | scorer exists but the intent has never been scored; TWITTER_SEARCH additionally needs paid X API access |
 
-## Still open, in evidence order
+## Why the expansion stops at six without an inference provider
 
-| intent | miners | regime | note |
-|---|---:|---|---|
-| RESEARCH_QUERY | 7 | noise | adjacent to ACADEMIC_SEARCH; leader 0.014, never crossed in 47 epochs |
-| TEXT_CLASSIFICATION | 3 | unmeasured | deterministic classification may be possible without inference |
-| URL_SCAN | 10 | crossable | leader 0.937; we already hold TLS and fetch infrastructure |
-| RESEARCH_SYNTHESIS | 4 | rare | 1 crossing in 30 epochs; needs real multi-source synthesis |
-| WEB_SEARCH | 11 | crossable | leader 0.9999; unbounded question space |
-| TOKEN_HOLDER_COUNT | 5 | noise | never crossed in 46 epochs; needs an indexer we do not have |
-| FRAUD_DETECTION | 16 | crossable | 17 crossings in 27 epochs but heavily contested |
+The six above are what can be built **well** from free, reliable, keyless sources.
+Every remaining candidate was investigated and measured; each fails on evidence,
+and the failures fall into three groups.
+
+### Group 1 — the reliably crossable intents all need runtime inference
+
+This is the finding that decides the rest. Measured 2026-09-08 over every scored
+epoch:
+
+| intent | miners | epochs crossed | leader (latest) |
+|---|---:|---:|---:|
+| AGENT_TASK | 7 | **58/58** | 0.9513 |
+| LANGUAGE_GENERATION | 12 | **34/34** | 0.9987 |
+| TASK_COMPLETION | 11 | **36/37** | 1.0000 |
+| TEXT_GENERATION | 4 | 89/144 | 0.9965 |
+| WEB_SEARCH | 11 | 29/48 | 0.9999 |
+| CHAT_COMPLETION | 13 | 1/1 | 1.0000 |
+
+These are the intents where miners score consistently, because the task is
+"produce good text about this" and a language model does that. They are also
+precisely the intents this miner cannot serve: there is no inference provider
+deployed, and the coding assistant is not one. **Six more intents are reachable
+here, and all six are gated on a credential and a budget the operator controls.**
+
+WEB_SEARCH was prototyped rather than assumed. Its champion (reg 2789) wants a
+direct prose answer — measured 0.833 for prose, 0.167 for a list of headlines,
+and ~1e-11 for static knowledge, a wrong answer, or an honest "no results". A
+Wikipedia-backed version was tested and fails the intent's own shape: the summary
+for "Secretary-General of the United Nations" describes the office and never names
+the incumbent, which is the static-knowledge shape that scores 8e-12. Answering
+the general case needs a model.
+
+### Group 2 — measured and rejected on their own numbers
+
+| intent | miners | why not |
+|---|---:|---|
+| TEXT_CLASSIFICATION | 3 | Binary scorer, and the label set is supplied in the question, which looked tractable. It needs real semantics — "mammoth genome" to "science and technology" shares no word — and the only keyless relatedness source found (ConceptNet) is returning 502. A hand lexicon is the approach that already failed for SENTIMENT_ANALYSIS. |
+| URL_SCAN | 10 | A genuinely good keyless reputation signal **does** exist: Cloudflare's security resolver returns 0.0.0.0 for malware and phishing domains while its open resolver returns the real address, verified on their test domains. But the champion (reg 220) scores a **hedge with no verdict at 0.631**, above every committed correct verdict, and bare verdicts above evidence-backed ones. Against a live leader of 0.937 and ten miners, the honest shapes measure 0.42–0.57. Not worth entering on those numbers; the Cloudflare signal is recorded here because it is reusable if the champion changes. |
+| RESEARCH_QUERY | 7 | 0 crossings in 47 epochs; leader 0.0140. Third-decimal noise. |
+| RESEARCH_SYNTHESIS | 4 | 1 crossing in 30 epochs; leader 0.0082. Needs real multi-source synthesis, which is Group 1 again. |
+| TOKEN_HOLDER_COUNT | 5 | 0 crossings in 46 epochs; leader 3.1e-12. Needs an indexer we do not have. |
+| FRAUD_DETECTION | 16 | Crosses in 17 of 27 epochs but the leader is at 1.1e-13 in the latest; sixteen miners and no deterministic source for the judgement. |
+
+### Group 3 — no scorer, or no traffic
+
+Covered under "the ceiling nobody had measured" above: 63 canonical intents have
+no champion scorer at all, and two more have a scorer that has never scored a
+request.
+
+**So the honest count is six, not ten to fifteen.** Reaching ten to fifteen means
+provisioning an inference provider, which unlocks Group 1 and TEXT_CLASSIFICATION,
+RESEARCH_SYNTHESIS and WEB_SEARCH with it. That is a credential and a spending
+decision, and it is flagged rather than assumed. Adding more intents without it
+would mean shipping endpoints that answer worse than the incumbents, which the
+brief rules out and which would also drag the normalized-sum average that
+breadth is supposed to raise.
 
 ## What the operator has to do
 
