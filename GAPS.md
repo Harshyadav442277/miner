@@ -1983,3 +1983,10 @@ is sent otherwise, and no address was chosen here. One `vercel env add OPENALEX_
 --scope wukong4` plus a redeploy closes this. Until then `/papers` degrades honestly during
 OpenAlex's load-shedding, and `uptime`'s `check` job will keep failing on that probe whenever the
 shedding coincides with a run — an honest red, not a false one.
+
+**Addendum, 09:01Z the same morning:** the next dispatched `uptime` run passed the papers probe (the
+retry, 5.7 s) and failed a different fixture instead — `self-signed.badssl.com` reported
+`unreachable` in 25 ms from GitHub and timed out at 8.3 s from this machine — while badssl.com
+answered every host normally minutes later and production classified the same host `self_signed`.
+That is the transient badssl blip the workflow's own comment and G21 already describe, not a defect,
+and it is the reason a single red run is never believed without a re-run.
