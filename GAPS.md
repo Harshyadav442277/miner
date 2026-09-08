@@ -1989,4 +1989,7 @@ retry, 5.7 s) and failed a different fixture instead — `self-signed.badssl.com
 `unreachable` in 25 ms from GitHub and timed out at 8.3 s from this machine — while badssl.com
 answered every host normally minutes later and production classified the same host `self_signed`.
 That is the transient badssl blip the workflow's own comment and G21 already describe, not a defect,
-and it is the reason a single red run is never believed without a re-run.
+and it is the reason a single red run is never believed without a re-run. The same run also tripped
+`verify-deploy`'s hard 5 s p95 budget: the papers retry's 2.5 s wait made a shed-window answer take
+5.7 s. Latency is scored, so the wait is now 1.5 s (0.3 s refusal + 1.5 s + a ~3 s answer stays
+inside the budget); it buys a shorter retry window in exchange, and that trade is deliberate.

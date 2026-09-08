@@ -316,7 +316,10 @@ export async function findPapers(query: string, limit?: number, timeoutMs = DEFA
     const shed = first.status === 429 || first.status === 503;
     const left = ms - (Date.now() - started);
     if (!shed || left < 3000) throw new Error(`upstream ${first.status}`);
-    const wait = Math.min(2500, Math.max(500, first.retryAfterMs || 2500), left - 2000);
+    // 1.5 s, not the 35 s OpenAlex asks for: latency is scored (spot checks run
+    // every ~20 s and verify-deploy's own p95 budget is 5 s), and a 0.3 s refusal
+    // + 1.5 s + a ~3 s answer stays inside that where a 2.5 s wait measured 5.7 s.
+    const wait = Math.min(1500, Math.max(500, first.retryAfterMs || 1500), left - 2000);
     await new Promise((r) => setTimeout(r, wait));
     const second = await once(u, left - wait);
     if (second.body) return second.body;
