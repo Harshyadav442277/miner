@@ -89,6 +89,67 @@ const CHECKS = {
   // record, fetched separately here — the endpoint's job is to resolve the CPE
   // configuration into stated versions, and that resolution is the thing most
   // likely to silently return nothing.
+  async GAME_RESULT() {
+    const bad = [];
+    // The champion here rewards the WRONG winner above the right one (0.854 vs
+    // 0.822) and inventing a winner for a draw above both (0.951). This probe
+    // therefore checks the answer against the actual scoreboard rather than
+    // against the scorer's taste.
+    const r = await get("/game-result", { query: "Who won the Arsenal vs Chelsea game?" });
+    const b = r.body;
+    if (b.error) return [`errored: ${b.error}`]; // scoreboard down; re-run the gate alone.
+
+    if (b.verdict === "result") {
+      const reason = String(b.reason ?? "");
+      const score = reason.match(/(\d+)-(\d+)/);
+      if (!score) bad.push("a result carries no score");
+      if (!/is complete/.test(reason)) bad.push("a result does not state that the fixture is finished");
+      // Independently: read ESPN and confirm the winner and score agree.
+      try {
+        const url = "https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/scoreboard?dates=20260901-" +
+          new Date().toISOString().slice(0, 10).replace(/-/g, "");
+        const j = await (await fetch(url, {
+          headers: { accept: "application/json", "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36" },
+          signal: AbortSignal.timeout(15000),
+        })).json();
+        const ev = (j.events ?? []).filter((e) => /ARS/.test(e.shortName ?? "") && /CHE/.test(e.shortName ?? ""))
+          .filter((e) => e.competitions?.[0]?.status?.type?.completed)
+          .sort((x, y) => String(y.date).localeCompare(String(x.date)))[0];
+        if (ev) {
+          const cs = ev.competitions[0].competitors;
+          const home = cs.find((c) => c.homeAway === "home");
+          const away = cs.find((c) => c.homeAway === "away");
+          const hs = Number(home.score), as = Number(away.score);
+          const want = hs === as ? null : (hs > as ? home.team.displayName : away.team.displayName);
+          if (want === null) {
+            if (!/neither side won/i.test(reason)) bad.push("a drawn fixture was not reported as a draw");
+          } else if (!reason.includes(want)) {
+            bad.push(`answer does not name the actual winner ${want}`);
+          }
+          const hi = Math.max(hs, as), lo = Math.min(hs, as);
+          if (hs !== as && !reason.includes(`${hi}-${lo}`)) bad.push(`answer does not carry the actual score ${hi}-${lo}`);
+        }
+      } catch { /* the cross-check is best effort */ }
+    } else if (b.verdict !== "not_found") {
+      bad.push(`Arsenal vs Chelsea -> ${b.verdict}, want result or not_found`);
+    }
+
+    // A fixture that has not been played must never come back as a result. This
+    // is the SPORTS_SCORE mistake and the shape the scorer punishes hardest.
+    const unplayed = await get("/game-result", { query: "Who won the Manchester United vs Liverpool game?" });
+    if (!unplayed.body.error) {
+      if (unplayed.body.verdict === "result") bad.push("an unplayed fixture was reported as a result");
+      if (unplayed.body.verdict === "not_found" && /\d+-\d+/.test(String(unplayed.body.reason ?? ""))) {
+        bad.push("a score was quoted for a fixture with no finished record");
+      }
+    }
+
+    // No fixture named: refuse rather than guess which two teams were meant.
+    const vague = await get("/game-result", { query: "Who won the game?" });
+    if (vague.body.error !== "no_fixture") bad.push(`fixtureless request -> ${vague.body.error}, want no_fixture`);
+    return bad;
+  },
+
   async CURRENCY_EXCHANGE() {
     const bad = [];
     // The scorer is an exact match on the number, so this probe checks the

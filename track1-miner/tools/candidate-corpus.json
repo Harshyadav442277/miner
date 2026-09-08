@@ -175,5 +175,46 @@
         "honest unavailable": "The USD to EUR exchange rate could not be retrieved."
       }
     }
+  ],
+  "GAME_RESULT": [
+    {
+      "id": "arsenal-chelsea-2026-09-06",
+      "note": "A completed fixture with a clear winner. Facts read live from ESPN's scoreboard for 2026-09-06.",
+      "question": "Who won the Arsenal vs Chelsea game?",
+      "ground_truths": {
+        "terse": "Arsenal won 2-1 against Chelsea.",
+        "full": "Arsenal beat Chelsea 2-1 in the English Premier League on 6 September 2026. The match is finished.",
+        "chatty": "Arsenal took that one, winning two goals to one at home against Chelsea in the Premier League on Sunday."
+      },
+      "answers": {
+        "winner, score, competition, date, status": "Arsenal beat Chelsea 2-1 in the English Premier League on 6 September 2026. The match is complete (full time).",
+        "winner and score only": "Arsenal won 2-1 against Chelsea.",
+        "score without naming the winner": "The match ended Arsenal 2, Chelsea 1.",
+        "winner without the score": "Arsenal won the match against Chelsea.",
+        "wrong winner": "Chelsea beat Arsenal 2-1 in the English Premier League on 6 September 2026.",
+        "right teams, wrong score": "Arsenal beat Chelsea 3-0 in the English Premier League on 6 September 2026.",
+        "a fixture that has not been played (the SPORTS_SCORE trap)": "Arsenal vs Chelsea is scheduled and has not been played yet, so there is no result.",
+        "honest not found": "No completed Arsenal vs Chelsea fixture could be found.",
+        "DEPLOYED CODE (gameresult.ts)": "Arsenal beat Chelsea 2-1 in the English Premier League on 6 September 2026. The match is complete (full time)."
+      }
+    },
+    {
+      "id": "everton-manutd-draw-2026-09-06",
+      "note": "A draw, which has no winner. An answer that names one is wrong, and an answer that omits the outcome is incomplete.",
+      "question": "Who won the Everton vs Manchester United match?",
+      "ground_truths": {
+        "terse": "Neither — Everton and Manchester United drew 2-2.",
+        "full": "The Everton vs Manchester United match in the English Premier League on 6 September 2026 ended in a 2-2 draw, so there was no winner.",
+        "chatty": "Nobody won it, actually — it finished two apiece between Everton and Manchester United."
+      },
+      "answers": {
+        "draw stated explicitly, with score and competition": "The match ended in a 2-2 draw, so neither side won. Everton and Manchester United drew 2-2 in the English Premier League on 6 September 2026. The match is complete (full time).",
+        "draw stated, score only": "It was a 2-2 draw, so there was no winner.",
+        "score without saying it was a draw": "The match ended Everton 2, Manchester United 2.",
+        "invents a winner": "Manchester United beat Everton 2-2 in the English Premier League.",
+        "honest not found": "No completed Everton vs Manchester United fixture could be found.",
+        "DEPLOYED CODE (gameresult.ts)": "Everton and Manchester United drew 2-2 in the English Premier League on 6 September 2026, so neither side won. The match is complete (full time)."
+      }
+    }
   ]
 }

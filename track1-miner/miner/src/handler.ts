@@ -10,6 +10,7 @@ import { extractContent } from "./content";
 import { getHeadlines } from "./news";
 import { searchNews, type NewsSearchResult } from "./newssearch";
 import { convert, parseQuery as parseCurrency, type CurrencyResult } from "./currency";
+import { lookupGame, parseTeams, type GameResult } from "./gameresult";
 import { checkBalance, type WalletResult } from "./wallet";
 import { checkFact, type FactCheckResult } from "./factcheck";
 import { answerTelegraph, type TelegraphResult } from "./telegraph";
@@ -30,7 +31,7 @@ export const ENDPOINTS = [
   "/ssl-check", "/storm-alert", "/weather-forecast",
   "/ip-geolocate", "/translate", "/papers",
   "/ai-detect", "/extract", "/headlines", "/wallet-balance",
-  "/fact-check", "/telegraph", "/tx-lookup", "/cve", "/tvl", "/news-search", "/convert",
+  "/fact-check", "/telegraph", "/tx-lookup", "/cve", "/tvl", "/news-search", "/convert", "/game-result",
 ] as const;
 
 /**
@@ -40,7 +41,7 @@ export const ENDPOINTS = [
 type Answer =
   | SslResult | StormResult | ForecastResult | GeoResult | TranslationResult | PaperResult
   | AiDetectResult | WalletResult | FactCheckResult | TelegraphResult | TxResult | CveResult
-  | TvlResult | NewsSearchResult | CurrencyResult;
+  | TvlResult | NewsSearchResult | CurrencyResult | GameResult;
 const cache = new Map<string, { at: number; value: Answer }>();
 
 function fromCache(key: string): Answer | null {
@@ -105,6 +106,7 @@ const SUBJECT_OF: Record<string, string> = {
   "/tvl": "A total-value-locked lookup",
   "/news-search": "A news article search",
   "/convert": "A currency conversion",
+  "/game-result": "A sports fixture result",
 };
 
 function armWatchdog(res: ServerResponse, path: string, question: string): void {
@@ -981,6 +983,40 @@ function route(req: IncomingMessage, res: ServerResponse): void {
         sendAnswer(res, q, lean(r), false);
       })
       .catch(() => upstreamUnavailable(res, "A currency conversion", `${from ?? "?"} to ${to ?? "?"}`, q));
+    return;
+  }
+
+  if (path === "/game-result") {
+    /**
+     * Completed fixtures only. A fixture that has not been played scores 7e-4
+     * against champion 1265 when reported as a result — three orders below
+     * anything else — and it is also the August 2026 SPORTS_SCORE mistake,
+     * where a free source answered with a friendly against AC Milan.
+     */
+    const teamsParam = [
+      firstValue(url, "team1", "home", "team_a"),
+      firstValue(url, "team2", "away", "team_b"),
+    ].filter(Boolean).join(" vs ");
+    const q = withSubject(firstValue(url, "query", "q", "question", "text", "input"), teamsParam);
+
+    const teams = parseTeams(q);
+    const key = teams ? `game:${teams.a.toLowerCase()}:${teams.b.toLowerCase()}:${firstValue(url, "date")}` : "";
+    if (key) {
+      const hit = fromCache(key);
+      if (hit) {
+        sendAnswer(res, q, lean(hit), false);
+        return;
+      }
+    }
+    lookupGame(q)
+      .then((r) => {
+        // A finished fixture's score is immutable, so it is safe to cache. A
+        // scheduled or in-progress one is not: caching either would keep
+        // serving "has not been played" after it had been.
+        if (key && r.verdict === "result") toCache(key, r);
+        sendAnswer(res, q, lean(r), false);
+      })
+      .catch(() => upstreamUnavailable(res, "A sports fixture result", teamsParam.slice(0, 40) || q.slice(0, 40), q));
     return;
   }
 

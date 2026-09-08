@@ -407,6 +407,40 @@ endpoints:
             intents: ["*"]
             description: "The user's original question, verbatim. Both currencies, the direction and the amount are read from it."
 
+  - path: /game-result
+    external_path: /game-result
+    method: GET
+    intents: [GAME_RESULT]
+    description: >-
+      The final outcome of a completed sports fixture: the winner, the final
+      score, the competition and the date it was played. Read from ESPN's
+      scoreboard, which carries an explicit completion flag per fixture, with a
+      fixture directory searched by name for older meetings. Only a fixture that
+      has actually finished is reported as a result — one that is scheduled is
+      reported as not yet played and one still running is reported as in progress
+      with its score named as a live score rather than an outcome, which is the
+      SPORTS_SCORE intent's territory rather than this one's. A drawn match is
+      reported as a draw with no winner named. Both sides must be named in the
+      request; the fixture is never guessed from prose, and when no finished
+      record of it can be found that is what the answer says instead of
+      substituting a different fixture. Covers the major football leagues, the
+      Champions and Europa Leagues, MLS, the NBA, WNBA, NFL, MLB and NHL.
+    params:
+      query:
+        optional:
+          - name: team1
+            type: string
+            intents: ["*"]
+            description: "One side of the fixture, e.g. Arsenal. Read from the question when absent."
+          - name: team2
+            type: string
+            intents: ["*"]
+            description: "The other side of the fixture, e.g. Chelsea. Read from the question when absent."
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim. Both sides, the competition and any date are read from it."
+
   - path: /fact-check
     external_path: /fact-check
     method: GET
@@ -497,6 +531,7 @@ semantics:
     - TVL_LOOKUP
     - NEWS_SEARCH
     - CURRENCY_EXCHANGE
+    - GAME_RESULT
 
 # input_schema is a single top-level block covering every endpoint — the schema
 # refuses it inside endpoints[], and the node does not enforce it against requests.
