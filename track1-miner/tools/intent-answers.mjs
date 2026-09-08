@@ -89,6 +89,48 @@ const CHECKS = {
   // record, fetched separately here — the endpoint's job is to resolve the CPE
   // configuration into stated versions, and that resolution is the thing most
   // likely to silently return nothing.
+  async TVL_LOOKUP() {
+    const bad = [];
+    // The canonical description's OWN worked example, which is a token pool
+    // liquidity question and not a protocol lookup. Answering it with a
+    // protocol's TVL scores at the floor (~0.003 vs ~0.29 against champion 49),
+    // so scope resolution is what this probe is really testing.
+    const tok = await get("/tvl", {
+      query: "For the token at contract 0x833589fcd6edb6e08f4c7c32d4f71b54bda02913 on base, how deep is its own trading liquidity in DEX pools (e.g. Uniswap)? Give this token's pool liquidity in USD.",
+    });
+    const t = tok.body;
+    if (t.error) return [`errored: ${t.error}`]; // provider down; re-run the gate alone.
+    if (t.scope !== "token_pool") bad.push(`canonical example -> scope ${t.scope}, want token_pool`);
+    if (t.chain !== "base") bad.push(`canonical example -> chain ${t.chain}, want base`);
+    if (t.verdict !== "found") bad.push(`canonical example -> ${t.verdict}, want found`);
+    if (!/USDC/.test(String(t.reason ?? ""))) bad.push("token not identified as USDC");
+    if (!/pool liquidity/i.test(String(t.reason ?? ""))) bad.push("answer never says pool liquidity");
+    // USDC's market cap is orders of magnitude above its pool liquidity; serving
+    // one for the other is the error this bound catches.
+    if (!(t.usd > 1e6 && t.usd < 5e10)) bad.push(`pool liquidity ${t.usd} is outside a plausible range`);
+
+    const prot = await get("/tvl", { query: "What is the total value locked in the Aave protocol right now?" });
+    if (!prot.body.error) {
+      if (prot.body.scope !== "protocol") bad.push(`Aave -> scope ${prot.body.scope}, want protocol`);
+      if (prot.body.verdict !== "found") bad.push(`Aave -> ${prot.body.verdict}, want found`);
+      if (!/DefiLlama/.test(String(prot.body.reason ?? ""))) bad.push("protocol answer does not attribute its source");
+      if (!(prot.body.usd > 1e8)) bad.push(`Aave TVL ${prot.body.usd} is implausibly small`);
+    }
+
+    const chain = await get("/tvl", { query: "How much TVL is on the Base chain?" });
+    if (!chain.body.error) {
+      if (chain.body.scope !== "chain") bad.push(`Base chain -> scope ${chain.body.scope}, want chain`);
+      if (!/aggregate TVL/i.test(String(chain.body.reason ?? ""))) bad.push("chain answer does not state it is the chain aggregate");
+    }
+
+    // A question with no identifiable subject must be refused, not answered
+    // with whatever protocol happens to slugify from the filler words.
+    const empty = await get("/tvl", { query: "What is the TVL?" });
+    if (empty.body.error !== "no_subject") bad.push(`subjectless question -> ${empty.body.error}, want no_subject`);
+    if (/\$[\d,]{4,}/.test(String(empty.body.reason ?? ""))) bad.push("a subjectless question was given a dollar figure");
+    return bad;
+  },
+
   async CVE_LOOKUP() {
     const bad = [];
     const r = await get("/cve", { cve_id: "CVE-2024-3094", query: "What is the severity and affected versions for CVE-2024-3094?" });

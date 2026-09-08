@@ -301,6 +301,43 @@ endpoints:
             intents: ["*"]
             description: "The user's original question, verbatim. The identifier is read from it when the parameter is absent."
 
+  - path: /tvl
+    external_path: /tvl
+    method: GET
+    intents: [TVL_LOOKUP]
+    description: >-
+      Total value locked, in the three scopes the intent covers, told apart before
+      anything is fetched. A token contract address with its chain returns that
+      token's own DEX pool liquidity in USD, read from GeckoTerminal's tracked
+      reserve across every pool the token appears in, with the deepest single pool
+      and its exchange named from DexScreener; where only DexScreener answers, the
+      figure is a sum over its largest listed pools and is reported as a floor
+      rather than a total. A named protocol returns that protocol's TVL aggregated
+      across every chain it is deployed on, from DefiLlama. A named chain returns
+      that chain's aggregate TVL across the protocols deployed on it. Pool
+      liquidity is never reported as market capitalisation, a protocol figure is
+      never substituted for a token or chain question, and a provider that does
+      not respond is reported as unknown rather than as zero.
+    params:
+      query:
+        optional:
+          - name: address
+            type: string
+            intents: ["*"]
+            description: "Token contract address, e.g. 0x833589fcd6edb6e08f4c7c32d4f71b54bda02913. Use with chain for that token's DEX pool liquidity."
+          - name: protocol
+            type: string
+            intents: ["*"]
+            description: "Protocol name, e.g. Aave or Uniswap, for that protocol's total value locked."
+          - name: chain
+            type: string
+            intents: ["*"]
+            description: "Chain name: ethereum, base, arbitrum, optimism, polygon, bsc, avalanche or solana. Names the chain for a token lookup, or the subject for a chain TVL question."
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim. The scope, subject and chain are read from it when the parameters are absent."
+
   - path: /fact-check
     external_path: /fact-check
     method: GET
@@ -388,6 +425,7 @@ semantics:
     - TELEGRAPH_KNOWLEDGE
     - ONCHAIN_TX_LOOKUP
     - CVE_LOOKUP
+    - TVL_LOOKUP
 
 # input_schema is a single top-level block covering every endpoint — the schema
 # refuses it inside endpoints[], and the node does not enforce it against requests.

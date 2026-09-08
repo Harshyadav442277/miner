@@ -1,64 +1,119 @@
 {
- "ONCHAIN_TX_LOOKUP": [
-  {
-   "id": "first-mainnet-tx",
-   "question": "What was the status and gas used of transaction 0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060?",
-   "ground_truths": {
-    "terse": "Transaction 0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060 succeeded. It used 21,000 gas in block 46,147.",
-    "full": "Transaction 0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060 was successful. It used 21,000 gas at a gas price of 50,000 Gwei, a total fee of 1.05 ETH, and transferred 31,337 wei from 0xa1e4380a3b1f749673e270229993ee55f35663b4 to 0x5df9b87991262f6ba471f09758cde1c0fc1de734 in block 46,147.",
-    "chatty": "That's the very first Ethereum transaction! It went through fine — 21,000 gas used, block 46,147, moving 31,337 wei between two addresses back in August 2015."
-   },
-   "answers": {
-    "ours": "Transaction 0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060 on ethereum succeeded in block 46,147. It used 21,000 gas at an effective gas price of 50,000 Gwei, a total fee of 1.05 ETH, and moved 31,337 wei. The transaction was sent from 0xa1e4380a3b1f749673e270229993ee55f35663b4 to 0x5df9b87991262f6ba471f09758cde1c0fc1de734. This block predates the Byzantium fork, so the receipt carries a state root rather than a status flag; inclusion in the chain is what is confirmed here.",
-    "status only": "The transaction was not found.",
-    "status + gas": "The transaction succeeded and used 21,000 gas.",
-    "bare json": "{\"status\":\"success\",\"gas_used\":21000,\"block\":46147}",
-    "one field wrong": "Transaction 0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060 on ethereum succeeded in block 46,147. It used 21001 gas at an effective gas price of 50,000 Gwei, a total fee of 1.05 ETH, and moved 31,337 wei. The transaction was sent from 0xa1e4380a3b1f749673e270229993ee55f35663b4 to 0x5df9b87991262f6ba471f09758cde1c0fc1de734. This block predates the Byzantium fork, so the receipt carries a state root rather than a status flag; inclusion in the chain is what is confirmed here."
-   }
-  },
-  {
-   "id": "erc20-transfer",
-   "question": "What was the status and gas used of transaction 0x6679aaf5e9d8781fa82c1124b32c7d20410e26748e89e770f5436969cf5486e2?",
-   "ground_truths": {
-    "terse": "Transaction 0x6679aaf5e9d8781fa82c1124b32c7d20410e26748e89e770f5436969cf5486e2 succeeded, using 139,785 gas in block 25,932,902.",
-    "full": "Transaction 0x6679aaf5e9d8781fa82c1124b32c7d20410e26748e89e770f5436969cf5486e2 succeeded. It used 139,785 gas at an effective gas price of 0.1009 Gwei, a total fee of 0.0000140979 ETH, moved 0 ETH from 0x458f33b481405be241dd06504ce2f7489d270285 to 0x51c72848c68a965f66fa7a88855f9f7784502a7f in block 25,932,902, and its receipt contains 2 ERC-20 token transfers."
-   },
-   "answers": {
-    "ours": "Transaction 0x6679aaf5e9d8781fa82c1124b32c7d20410e26748e89e770f5436969cf5486e2 on ethereum succeeded in block 25,932,902. It used 139,785 gas at an effective gas price of 0.1009 Gwei, a total fee of 0.0000140979 ETH, and moved 0 ETH. The receipt contains 2 ERC-20 token transfers. The transaction was sent from 0x458f33b481405be241dd06504ce2f7489d270285 to 0x51c72848c68a965f66fa7a88855f9f7784502a7f.",
-    "status only": "The transaction succeeded.",
-    "status + gas": "The transaction succeeded and used 139,785 gas.",
-    "bare json": "{\"status\":\"success\",\"gas_used\":139785,\"block\":25932902}",
-    "one field wrong": "Transaction 0x6679aaf5e9d8781fa82c1124b32c7d20410e26748e89e770f5436969cf5486e2 on ethereum succeeded in block 25,932,902. It used 139786 gas at an effective gas price of 0.1009 Gwei, a total fee of 0.0000140979 ETH, and moved 0 ETH. The receipt contains 2 ERC-20 token transfers. The transaction was sent from 0x458f33b481405be241dd06504ce2f7489d270285 to 0x51c72848c68a965f66fa7a88855f9f7784502a7f."
-   }
-  },
-  {
-   "id": "contract-call",
-   "question": "What was the status and gas used of transaction 0xbc9235ba92e28e7b34f0cdc5bc0a81445e2061d29941c2da8ef7046990c12f40?",
-   "ground_truths": {
-    "terse": "Transaction 0xbc9235ba92e28e7b34f0cdc5bc0a81445e2061d29941c2da8ef7046990c12f40 succeeded, using 120,122 gas in block 25,932,902.",
-    "full": "Transaction 0xbc9235ba92e28e7b34f0cdc5bc0a81445e2061d29941c2da8ef7046990c12f40 was confirmed successfully. It consumed 120,122 gas at an effective gas price of 20 Gwei for a total fee of 0.00240244 ETH, moved 0 ETH from 0x849fc842959fac39d976e8ada7734654eb97bd09 to 0xa2a1bf5a83f9daec2dc364e1c561e937163cb613, and was included in block 25,932,902."
-   },
-   "answers": {
-    "ours": "Transaction 0xbc9235ba92e28e7b34f0cdc5bc0a81445e2061d29941c2da8ef7046990c12f40 on ethereum succeeded in block 25,932,902. It used 120,122 gas at an effective gas price of 20 Gwei, a total fee of 0.00240244 ETH, and moved 0 ETH. The transaction was sent from 0x849fc842959fac39d976e8ada7734654eb97bd09 to 0xa2a1bf5a83f9daec2dc364e1c561e937163cb613.",
-    "status only": "The transaction succeeded.",
-    "status + gas": "The transaction succeeded and used 120,122 gas.",
-    "bare json": "{\"status\":\"success\",\"gas_used\":120122,\"block\":25932902}",
-    "one field wrong": "Transaction 0xbc9235ba92e28e7b34f0cdc5bc0a81445e2061d29941c2da8ef7046990c12f40 on ethereum succeeded in block 25,932,902. It used 120123 gas at an effective gas price of 20 Gwei, a total fee of 0.00240244 ETH, and moved 0 ETH. The transaction was sent from 0x849fc842959fac39d976e8ada7734654eb97bd09 to 0xa2a1bf5a83f9daec2dc364e1c561e937163cb613."
-   }
-  },
-  {
-   "id": "not-on-chain",
-   "question": "What was the status of transaction 0xa1b2b1a90b1d9bea0b1a7e5e9a3b31c88f8a3d16f2f4b0e0d1f7b8e1d6c8a9f0?",
-   "ground_truths": {
-    "terse": "No transaction with hash 0xa1b2b1a90b1d9bea0b1a7e5e9a3b31c88f8a3d16f2f4b0e0d1f7b8e1d6c8a9f0 exists on Ethereum.",
-    "full": "The hash 0xa1b2b1a90b1d9bea0b1a7e5e9a3b31c88f8a3d16f2f4b0e0d1f7b8e1d6c8a9f0 does not correspond to any transaction on Ethereum mainnet. It was never mined, so it has no status, no gas used and no block."
-   },
-   "answers": {
-    "ours": "The hash 0xa1b2b1a90b1d9bea0b1a7e5e9a3b31c88f8a3d16f2f4b0e0d1f7b8e1d6c8a9f0 does not correspond to any transaction on ethereum. It has no status, no gas used and no block number.",
-    "status only": "The transaction was not found.",
-    "status + gas": "The transaction was not found.",
-    "bare json": "{\"status\":\"not_found\"}"
-   }
-  }
- ]
+  "ONCHAIN_TX_LOOKUP": [
+    {
+      "id": "first-mainnet-tx",
+      "question": "What was the status and gas used of transaction 0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060?",
+      "ground_truths": {
+        "terse": "Transaction 0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060 succeeded. It used 21,000 gas in block 46,147.",
+        "full": "Transaction 0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060 was successful. It used 21,000 gas at a gas price of 50,000 Gwei, a total fee of 1.05 ETH, and transferred 31,337 wei from 0xa1e4380a3b1f749673e270229993ee55f35663b4 to 0x5df9b87991262f6ba471f09758cde1c0fc1de734 in block 46,147.",
+        "chatty": "That's the very first Ethereum transaction! It went through fine — 21,000 gas used, block 46,147, moving 31,337 wei between two addresses back in August 2015."
+      },
+      "answers": {
+        "ours": "Transaction 0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060 on ethereum succeeded in block 46,147. It used 21,000 gas at an effective gas price of 50,000 Gwei, a total fee of 1.05 ETH, and moved 31,337 wei. The transaction was sent from 0xa1e4380a3b1f749673e270229993ee55f35663b4 to 0x5df9b87991262f6ba471f09758cde1c0fc1de734. This block predates the Byzantium fork, so the receipt carries a state root rather than a status flag; inclusion in the chain is what is confirmed here.",
+        "status only": "The transaction was not found.",
+        "status + gas": "The transaction succeeded and used 21,000 gas.",
+        "bare json": "{\"status\":\"success\",\"gas_used\":21000,\"block\":46147}",
+        "one field wrong": "Transaction 0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060 on ethereum succeeded in block 46,147. It used 21001 gas at an effective gas price of 50,000 Gwei, a total fee of 1.05 ETH, and moved 31,337 wei. The transaction was sent from 0xa1e4380a3b1f749673e270229993ee55f35663b4 to 0x5df9b87991262f6ba471f09758cde1c0fc1de734. This block predates the Byzantium fork, so the receipt carries a state root rather than a status flag; inclusion in the chain is what is confirmed here."
+      }
+    },
+    {
+      "id": "erc20-transfer",
+      "question": "What was the status and gas used of transaction 0x6679aaf5e9d8781fa82c1124b32c7d20410e26748e89e770f5436969cf5486e2?",
+      "ground_truths": {
+        "terse": "Transaction 0x6679aaf5e9d8781fa82c1124b32c7d20410e26748e89e770f5436969cf5486e2 succeeded, using 139,785 gas in block 25,932,902.",
+        "full": "Transaction 0x6679aaf5e9d8781fa82c1124b32c7d20410e26748e89e770f5436969cf5486e2 succeeded. It used 139,785 gas at an effective gas price of 0.1009 Gwei, a total fee of 0.0000140979 ETH, moved 0 ETH from 0x458f33b481405be241dd06504ce2f7489d270285 to 0x51c72848c68a965f66fa7a88855f9f7784502a7f in block 25,932,902, and its receipt contains 2 ERC-20 token transfers."
+      },
+      "answers": {
+        "ours": "Transaction 0x6679aaf5e9d8781fa82c1124b32c7d20410e26748e89e770f5436969cf5486e2 on ethereum succeeded in block 25,932,902. It used 139,785 gas at an effective gas price of 0.1009 Gwei, a total fee of 0.0000140979 ETH, and moved 0 ETH. The receipt contains 2 ERC-20 token transfers. The transaction was sent from 0x458f33b481405be241dd06504ce2f7489d270285 to 0x51c72848c68a965f66fa7a88855f9f7784502a7f.",
+        "status only": "The transaction succeeded.",
+        "status + gas": "The transaction succeeded and used 139,785 gas.",
+        "bare json": "{\"status\":\"success\",\"gas_used\":139785,\"block\":25932902}",
+        "one field wrong": "Transaction 0x6679aaf5e9d8781fa82c1124b32c7d20410e26748e89e770f5436969cf5486e2 on ethereum succeeded in block 25,932,902. It used 139786 gas at an effective gas price of 0.1009 Gwei, a total fee of 0.0000140979 ETH, and moved 0 ETH. The receipt contains 2 ERC-20 token transfers. The transaction was sent from 0x458f33b481405be241dd06504ce2f7489d270285 to 0x51c72848c68a965f66fa7a88855f9f7784502a7f."
+      }
+    },
+    {
+      "id": "contract-call",
+      "question": "What was the status and gas used of transaction 0xbc9235ba92e28e7b34f0cdc5bc0a81445e2061d29941c2da8ef7046990c12f40?",
+      "ground_truths": {
+        "terse": "Transaction 0xbc9235ba92e28e7b34f0cdc5bc0a81445e2061d29941c2da8ef7046990c12f40 succeeded, using 120,122 gas in block 25,932,902.",
+        "full": "Transaction 0xbc9235ba92e28e7b34f0cdc5bc0a81445e2061d29941c2da8ef7046990c12f40 was confirmed successfully. It consumed 120,122 gas at an effective gas price of 20 Gwei for a total fee of 0.00240244 ETH, moved 0 ETH from 0x849fc842959fac39d976e8ada7734654eb97bd09 to 0xa2a1bf5a83f9daec2dc364e1c561e937163cb613, and was included in block 25,932,902."
+      },
+      "answers": {
+        "ours": "Transaction 0xbc9235ba92e28e7b34f0cdc5bc0a81445e2061d29941c2da8ef7046990c12f40 on ethereum succeeded in block 25,932,902. It used 120,122 gas at an effective gas price of 20 Gwei, a total fee of 0.00240244 ETH, and moved 0 ETH. The transaction was sent from 0x849fc842959fac39d976e8ada7734654eb97bd09 to 0xa2a1bf5a83f9daec2dc364e1c561e937163cb613.",
+        "status only": "The transaction succeeded.",
+        "status + gas": "The transaction succeeded and used 120,122 gas.",
+        "bare json": "{\"status\":\"success\",\"gas_used\":120122,\"block\":25932902}",
+        "one field wrong": "Transaction 0xbc9235ba92e28e7b34f0cdc5bc0a81445e2061d29941c2da8ef7046990c12f40 on ethereum succeeded in block 25,932,902. It used 120123 gas at an effective gas price of 20 Gwei, a total fee of 0.00240244 ETH, and moved 0 ETH. The transaction was sent from 0x849fc842959fac39d976e8ada7734654eb97bd09 to 0xa2a1bf5a83f9daec2dc364e1c561e937163cb613."
+      }
+    },
+    {
+      "id": "not-on-chain",
+      "question": "What was the status of transaction 0xa1b2b1a90b1d9bea0b1a7e5e9a3b31c88f8a3d16f2f4b0e0d1f7b8e1d6c8a9f0?",
+      "ground_truths": {
+        "terse": "No transaction with hash 0xa1b2b1a90b1d9bea0b1a7e5e9a3b31c88f8a3d16f2f4b0e0d1f7b8e1d6c8a9f0 exists on Ethereum.",
+        "full": "The hash 0xa1b2b1a90b1d9bea0b1a7e5e9a3b31c88f8a3d16f2f4b0e0d1f7b8e1d6c8a9f0 does not correspond to any transaction on Ethereum mainnet. It was never mined, so it has no status, no gas used and no block."
+      },
+      "answers": {
+        "ours": "The hash 0xa1b2b1a90b1d9bea0b1a7e5e9a3b31c88f8a3d16f2f4b0e0d1f7b8e1d6c8a9f0 does not correspond to any transaction on ethereum. It has no status, no gas used and no block number.",
+        "status only": "The transaction was not found.",
+        "status + gas": "The transaction was not found.",
+        "bare json": "{\"status\":\"not_found\"}"
+      }
+    }
+  ],
+  "TVL_LOOKUP": [
+    {
+      "id": "token-pool-liquidity-usdc-base",
+      "note": "The canonical description's OWN example shape: a token contract on a chain, asking for that token's DEX pool liquidity. Figures read live 2026-09-08 from GeckoTerminal and DexScreener.",
+      "question": "For the token at contract 0x833589fcd6edb6e08f4c7c32d4f71b54bda02913 on base, how deep is its own trading liquidity in DEX pools (e.g. Uniswap)? Give this token's pool liquidity in USD.",
+      "ground_truths": {
+        "terse": "USDC on Base has about $209 million of liquidity across its DEX pools.",
+        "full": "The token 0x833589fcd6edb6e08f4c7c32d4f71b54bda02913 on Base is USD Coin (USDC). Its total DEX pool liquidity is approximately $209,368,856 across all tracked pools, the deepest being the Aerodrome AERO/USDC pool at about $33.4 million.",
+        "chatty": "That contract is USDC on Base. Looking at the decentralised exchange pools that hold it, the token has roughly 209 million dollars of trading liquidity in total, with Aerodrome holding the largest single pool."
+      },
+      "answers": {
+        "token liquidity, bare number": "The pool liquidity is $209,368,856.",
+        "protocol tvl instead (the incumbent error)": "Uniswap has a total value locked of $4,120,000,000 across all chains.",
+        "chain tvl instead": "Base has a total value locked of $5,564,272,633.",
+        "market cap instead of liquidity": "USDC has a market capitalisation of $74,149,208,392 and a fully diluted valuation of $4,200,253,540.",
+        "honest no data": "No DEX pool liquidity could be retrieved for that contract address.",
+        "DEPLOYED CODE (tvl.ts)": "The token at 0x833589fcd6edb6e08f4c7c32d4f71b54bda02913 on base is USD Coin (USDC). Its own DEX pool liquidity is $211,081,315 ($211.08 million) across all of its tracked pools. The deepest single pool is AERO/USDC on aerodrome at $33,433,800. This is trading liquidity held in decentralised exchange pools, not the token's market capitalisation."
+      }
+    },
+    {
+      "id": "protocol-tvl-aave",
+      "note": "Protocol TVL, the other half of the canonical description. DefiLlama, read live 2026-09-08.",
+      "question": "What is the total value locked in the Aave protocol right now?",
+      "ground_truths": {
+        "terse": "Aave has about $18.08 billion in total value locked.",
+        "full": "The Aave protocol currently holds approximately $18,083,464,381 in total value locked across all chains it is deployed on, according to DefiLlama.",
+        "chatty": "Right now Aave is sitting at roughly 18.1 billion dollars of total value locked across every chain it runs on."
+      },
+      "answers": {
+        "protocol tvl, bare number": "$18,083,464,381.",
+        "rounded to two significant figures": "Aave has about $18 billion in total value locked.",
+        "chain tvl instead": "Ethereum has a total value locked of $49,090,282,376.",
+        "token liquidity instead": "The AAVE token has $41,000,000 of DEX pool liquidity.",
+        "honest no data": "No total value locked figure could be retrieved for that protocol.",
+        "DEPLOYED CODE (tvl.ts)": "The Aave protocol has $18,083,464,381 ($18.08 billion) in total value locked, aggregated across every chain it is deployed on, according to DefiLlama. This is value locked in the protocol, not the market capitalisation of its token."
+      }
+    },
+    {
+      "id": "chain-tvl-base",
+      "note": "Chain TVL, the third scope. DefiLlama /v2/chains, read live 2026-09-08.",
+      "question": "How much TVL is on the Base chain?",
+      "ground_truths": {
+        "terse": "Base has about $5.56 billion in total value locked.",
+        "full": "The Base chain currently has approximately $5,564,272,633 in total value locked across all DeFi protocols deployed on it, according to DefiLlama.",
+        "chatty": "Base is currently holding somewhere around 5.6 billion dollars of total value locked across the protocols deployed there."
+      },
+      "answers": {
+        "chain tvl, bare number": "$5,564,272,633.",
+        "protocol tvl instead": "Aave has a total value locked of $18,083,464,381.",
+        "wrong chain": "Arbitrum has a total value locked of $1,389,611,069.",
+        "honest no data": "No total value locked figure could be retrieved for that chain.",
+        "DEPLOYED CODE (tvl.ts)": "The Base chain has $5,564,272,633 ($5.56 billion) in total value locked across all DeFi protocols deployed on it, according to DefiLlama. This is the chain's aggregate TVL, not any single protocol's."
+      }
+    }
+  ]
 }
