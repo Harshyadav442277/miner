@@ -182,6 +182,54 @@ our miner can satisfy alone. Three facts follow:
 The lever is unchanged and it is not a miner lever: real people using a real Track 3 app before
 Sep 7 23:59 UTC. Rule 04 rules out anything else.
 
+**Re-read 2026-09-07 18:39 UTC — first real per-intent reconstruction, not just an upper bound.**
+Point 1 above is softened, not resolved: `total_requests_served` is still the only *official* number
+and it is still one figure across all our intents. But the public question feed
+(`explorer.telegraphprotocol.com/api/daemon/api/questions`) carries every network-wide `type`
+(`direct`/`daemon`) and `routing.subnet_id` row, and cross-referencing that against each miner's
+declared `supported_intents` and per-endpoint manifest (`/api/miners`) resolves ~85% of rows to a
+single intent. Paged the full Track 3 window, **2026-08-31T00:00:00Z–2026-09-07T23:59:59Z UTC**
+(not local date — see the header warning above), 71,200 rows, 0 outside that window:
+
+```
+intent                  total    distinct signatures   capped-at-5   ≥100?
+WEATHER_CHECK           56,531   113                    265          yes
+WALLET_BALANCE_CHECK     2,447   212                     740          yes
+STORM_ALERT              1,724   405                   1,160          yes
+SSL_VERIFICATION           258   143                     244          yes
+FACT_CHECK                 188    79                     150          yes
+AI_TEXT_DETECTION          192    67                     126          yes
+ACADEMIC_SEARCH            156   104                     154          yes
+LANGUAGE_TRANSLATION       135    90                     122          yes
+IP_GEOLOCATION              118    98                     118          yes
+CONTENT_EXTRACTION          74    50                      73          NO
+NEWS_HEADLINES               51    39                      50          NO
+```
+
+`auto` (daemon-routed, 70/20/10 split) volume is 0–27 per intent throughout — this floor is being
+cleared or missed almost entirely on `direct` (caller-names-the-miner) volume. "Distinct signatures"
+is the count of unique (subnet, endpoint, normalized payload) combinations; "capped-at-5" sums
+`min(count, 5)` per signature. Both exist because raw totals are heavily inflated by what looks like
+shared validator/benchmark replay, not organic Track 3 traffic: WEATHER_CHECK's 56,531 rows are
+99.8% the same ~113-question set (led by "cairo", ~2,000+ times each) hit simultaneously across five
+unrelated competing miners on a near-identical ~38-second cadence, and the "Attention Is All You
+Need" paper is reused as a test fixture across ACADEMIC_SEARCH, LANGUAGE_TRANSLATION,
+CONTENT_EXTRACTION and FACT_CHECK — including calls to our own miner, so this isn't one
+competitor's self-dealing, it reads as background protocol/benchmark noise hitting the whole network
+evenly. Whether the organizers' "real requests from Track 3 applications" count includes that noise
+is exactly point 1: unknown, unresolvable from outside.
+
+**Bottom line:** on the most generous reading (raw or capped totals) 9 of our 11 non-weather-forecast,
+non-`TELEGRAPH_KNOWLEDGE` intents clear the floor; only `CONTENT_EXTRACTION` and `NEWS_HEADLINES`
+are short, and by a wide, stable margin (not a measurement artifact — confirmed on two separate pulls
+hours apart). On the harshest reading (distinct signatures only, i.e. assume every repeat is noise),
+only 5 clear it: `WEATHER_CHECK`, `SSL_VERIFICATION`, `ACADEMIC_SEARCH`, `WALLET_BALANCE_CHECK`,
+`STORM_ALERT`. `IP_GEOLOCATION` sits closest to that harsher line (98, 2 short) and is also the
+cleanest-looking intent of the eleven — least repetition, most varied payloads — so if forced to bet
+on which borderline intent is genuinely closest to real, it's that one, not `CONTENT_EXTRACTION` or
+`NEWS_HEADLINES`. Reproducible via the scratchpad scripts this session built; not yet committed to
+this repo as a tool.
+
 ### G15 · We published a wrong competitive claim internally — `CLOSED (retracted)`
 We asserted across three documents and a draft X post that the rank-1 incumbent was beatable
 because Render cold-starts. Measurement: **675ms cold, 324ms warm — no cold start**, because

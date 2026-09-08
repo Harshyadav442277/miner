@@ -9,6 +9,28 @@ Re-capture before acting on any of this.
 
 ---
 
+## Superseded 2026-09-07: per-intent Track 3 request counts, reconstructed
+
+The table below and the "no per-intent counter exists" caveat are from 2026-08-26, before Track 3
+opened. They're kept for the historical trend (demand was ~1,574 requests network-wide back then;
+it is 70,000+ now). For the current G13 eligibility question, see the reconstruction in
+[GAPS.md G13](../../GAPS.md), which pages the full Track 3 window
+(`explorer.telegraphprotocol.com/api/daemon/api/questions`, 2026-08-31T00:00Z–2026-09-07T23:59Z UTC,
+71,200 rows) and resolves each row to an intent via `/api/miners`' declared `supported_intents` and
+per-endpoint manifest — not a per-miner-total sum, which is what made the 2026-08-26 numbers below
+an "upper bound polluted by scoring calls and multi-intent miners" rather than a real count.
+
+Headline: 9 of our 11 non-`WEATHER_FORECAST`, non-`TELEGRAPH_KNOWLEDGE` intents clear the 100-request
+floor by a comfortable margin (`SSL_VERIFICATION` 258, `STORM_ALERT` 1,724, `ACADEMIC_SEARCH` 156,
+`LANGUAGE_TRANSLATION` 135, `IP_GEOLOCATION` 118, `WEATHER_CHECK` 56,531, `WALLET_BALANCE_CHECK`
+2,447, `FACT_CHECK` 188, `AI_TEXT_DETECTION` 192). `CONTENT_EXTRACTION` (74) and `NEWS_HEADLINES`
+(51) are short, consistently, on two pulls hours apart. Large fractions of the biggest numbers
+(especially `WEATHER_CHECK`) look like validator/benchmark replay rather than organic app traffic —
+see GAPS.md G13 for the signature-diversity evidence — so whether the organizers' count agrees with
+any of this is still unverified.
+
+---
+
 ## The finding that changed the plan: demand is wildly uneven
 
 **The entire network has served 1,574 requests.** Weather is most of it.
