@@ -243,6 +243,37 @@ endpoints:
             intents: ["*"]
             description: "The user's original question, verbatim. It names the chain and any token asked about alongside the native coin."
 
+  - path: /tx-lookup
+    external_path: /tx-lookup
+    method: GET
+    intents: [ONCHAIN_TX_LOOKUP]
+    description: >-
+      One EVM transaction, read by hash from public JSON-RPC on Ethereum, Base,
+      Arbitrum, Optimism or Polygon. Reports confirmed, reverted, pending or not
+      found, with gas used, effective gas price, total fee, value moved, sender,
+      recipient, block number, any contract deployed and the count of ERC-20
+      transfers in the receipt. A reverted transaction is reported as reverted, not
+      as a failure to answer. An RPC that does not respond is reported as unknown
+      rather than as not found — those are different facts. A chain this endpoint
+      does not read is named as unsupported rather than answered from a different
+      chain.
+    params:
+      query:
+        required:
+          - name: hash
+            type: string
+            intents: ["*"]
+            description: "The 32-byte transaction hash, 0x followed by 64 hex characters."
+        optional:
+          - name: chain
+            type: string
+            intents: ["*"]
+            description: "One of ethereum, base, arbitrum, optimism, polygon. Defaults to ethereum, or to a chain named in the question."
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim. The hash and chain are read from it when the parameters are absent."
+
   - path: /fact-check
     external_path: /fact-check
     method: GET
@@ -328,6 +359,7 @@ semantics:
     - WEATHER_CHECK
     - FACT_CHECK
     - TELEGRAPH_KNOWLEDGE
+    - ONCHAIN_TX_LOOKUP
 
 # input_schema is a single top-level block covering every endpoint — the schema
 # refuses it inside endpoints[], and the node does not enforce it against requests.

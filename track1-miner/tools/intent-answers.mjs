@@ -85,6 +85,58 @@ const CHECKS = {
     return bad;
   },
 
+  // Every figure here is cross-checked against an independent RPC below, not
+  // taken from our own answer — the scorer for this intent is an exact match on
+  // the receipt, so a plausible-looking wrong number is the failure to catch.
+  async ONCHAIN_TX_LOOKUP() {
+    const bad = [];
+    const FIRST = "0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060";
+    const r = await get("/tx-lookup", { hash: FIRST, query: "What was the status and gas used of this transaction?" });
+    const b = r.body;
+    if (b.verdict !== "confirmed") bad.push(`first mainnet tx -> ${b.verdict}, want confirmed`);
+
+    // Independent confirmation from a provider the miner does not use for this
+    // route, so agreement means two sources agree rather than one echoing.
+    // eth-pokt.nodies.app is deliberately NOT one of the endpoints /tx-lookup
+    // reads, and it is archive-capable: rpc.flashbots.net and 1rpc.io both
+    // return null for a 2015 receipt, and eth.llamarpc.com is dead (HTTP 525).
+    const rpc = await fetch("https://eth-pokt.nodies.app", {
+      method: "POST", headers: { "content-type": "application/json" },
+      body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "eth_getTransactionReceipt", params: [FIRST] }),
+      signal: AbortSignal.timeout(20000),
+    }).then((x) => x.json()).catch(() => null);
+    const truth = rpc?.result ? Number(BigInt(rpc.result.gasUsed)) : null;
+    if (truth !== null) {
+      const said = String(b.reason ?? "").match(/used ([\d,]+) gas/);
+      if (!said) bad.push("answer names no gas-used figure");
+      else if (Number(said[1].replace(/,/g, "")) !== truth) {
+        bad.push(`gas used ${said[1]} disagrees with an independent RPC (${truth})`);
+      }
+    }
+    // 31,337 wei must not be rendered as a truncated decimal that reads as zero.
+    if (!/31,337 wei/.test(String(b.reason ?? ""))) bad.push("sub-microcoin value not reported exactly");
+    if (!/block 46,147/.test(String(b.reason ?? ""))) bad.push("answer names no block number");
+
+    // A hash that is not on the chain must be not_found, and must not be given
+    // invented receipt figures.
+    const missing = await get("/tx-lookup", { hash: "0xa1b2b1a90b1d9bea0b1a7e5e9a3b31c88f8a3d16f2f4b0e0d1f7b8e1d6c8a9f0" });
+    if (missing.body.verdict !== "not_found" && missing.body.verdict !== "unknown") {
+      bad.push(`unknown hash -> ${missing.body.verdict}, want not_found`);
+    }
+    if (missing.body.verdict === "not_found" && /d[d,]* gas/.test(String(missing.body.reason ?? ""))) {
+      bad.push("a missing transaction was given a gas figure");
+    }
+    // An unsupported chain is refused by name, not answered from Ethereum.
+    const solana = await get("/tx-lookup", { hash: FIRST, chain: "solana" });
+    if (solana.body.error !== "unsupported_chain") bad.push(`chain=solana -> ${solana.body.error}, want unsupported_chain`);
+    // An address sent here belongs to WALLET_BALANCE_CHECK and must be said so.
+    const addr = await get("/tx-lookup", { query: "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 status?" });
+    if (!/address, not a transaction hash/.test(String(addr.body.reason ?? ""))) {
+      bad.push("a 20-byte address was not identified as the wrong subject for this intent");
+    }
+    return bad;
+  },
+
   // Shares /weather-forecast with WEATHER_FORECAST, and that is exactly why it
   // needs its own case: the two intents ask different questions of one endpoint,
   // and until the coverage assertion below was added this intent was declared

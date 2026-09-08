@@ -11,6 +11,10 @@ import { getHeadlines } from "./news";
 import { checkBalance, type WalletResult } from "./wallet";
 import { checkFact, type FactCheckResult } from "./factcheck";
 import { answerTelegraph, type TelegraphResult } from "./telegraph";
+import {
+  isSupportedChain, lookupTransaction, malformedHash, resolveChain, supportedChains, txHash,
+  type TxResult,
+} from "./onchain";
 import { withRestatement, isAnswered } from "./restate";
 
 const CACHE_TTL_MS = Number(process.env.CACHE_TTL_MS ?? 60_000);
@@ -19,7 +23,7 @@ export const ENDPOINTS = [
   "/ssl-check", "/storm-alert", "/weather-forecast",
   "/ip-geolocate", "/translate", "/papers",
   "/ai-detect", "/extract", "/headlines", "/wallet-balance",
-  "/fact-check", "/telegraph",
+  "/fact-check", "/telegraph", "/tx-lookup",
 ] as const;
 
 /**
@@ -28,7 +32,7 @@ export const ENDPOINTS = [
  */
 type Answer =
   | SslResult | StormResult | ForecastResult | GeoResult | TranslationResult | PaperResult
-  | AiDetectResult | WalletResult | FactCheckResult | TelegraphResult;
+  | AiDetectResult | WalletResult | FactCheckResult | TelegraphResult | TxResult;
 const cache = new Map<string, { at: number; value: Answer }>();
 
 function fromCache(key: string): Answer | null {
@@ -88,6 +92,7 @@ const SUBJECT_OF: Record<string, string> = {
   "/wallet-balance": "A wallet balance lookup",
   "/fact-check": "A fact check",
   "/telegraph": "An answer about Telegraph",
+  "/tx-lookup": "A transaction lookup",
 };
 
 function armWatchdog(res: ServerResponse, path: string, question: string): void {
@@ -696,6 +701,80 @@ function route(req: IncomingMessage, res: ServerResponse): void {
         sendAnswer(res, q, lean(r), false);
       })
       .catch(() => upstreamUnavailable(res, "A wallet balance", q.slice(0, 60), q));
+    return;
+  }
+
+  if (path === "/tx-lookup") {
+    // Structured `hash` and free text are both accepted, and the question is
+    // kept alongside the parameter so chain words in the prose are still read.
+    const hashParam = firstValue(url, "hash", "tx_hash", "txhash", "transaction", "tx");
+    const q = withSubject(firstValue(url, "query", "q", "question", "text", "input"), hashParam);
+    const hash = txHash(hashParam) ?? txHash(q);
+
+    if (!hash) {
+      // Three different failures, told apart rather than merged into one
+      // refusal: nothing supplied, something that was meant to be a hash and
+      // is not, and an address sent to the wrong intent.
+      const malformed = malformedHash(hashParam) ?? malformedHash(q);
+      const address = q.match(/\b0x[a-fA-F0-9]{40}\b/)?.[0];
+      const detail = malformed
+        ? `The value ${malformed} is not a valid transaction hash: an EVM transaction hash is ` +
+          `exactly 32 bytes, written as 0x followed by 64 hexadecimal characters.`
+        : address
+          ? `The value ${address} is a 20-byte account address, not a transaction hash. A balance ` +
+            `question about an account is answered by /wallet-balance.`
+          : "No transaction hash was supplied with this request.";
+      sendAnswer(res, q, lean({
+        hash: null,
+        chain: null,
+        verdict: "unknown",
+        confidence: 0,
+        reason:
+          `${detail} Supply a hash such as ` +
+          `0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060 and the status, ` +
+          `gas used, effective gas price, total fee, value moved, sender, recipient and block ` +
+          `number can be returned.`,
+        error: "invalid_hash",
+      }), false);
+      return;
+    }
+
+    const chainParam = firstValue(url, "chain", "network");
+    // A chain we cannot read is said so plainly. Silently falling back to
+    // Ethereum would answer a Solana or BSC question with a different chain's
+    // reading of the same hash, which is the confidently-wrong failure.
+    if (chainParam.trim() && !isSupportedChain(chainParam)) {
+      sendAnswer(res, q, lean({
+        hash,
+        chain: null,
+        verdict: "unknown",
+        confidence: 0,
+        reason:
+          `Transaction ${hash} could not be looked up because the chain "${chainParam.trim()}" is ` +
+          `not one this endpoint reads. Supported chains are ${supportedChains().join(", ")}. The ` +
+          `lookup was not attempted against a different chain, because the same hash can exist on ` +
+          `more than one network and answering from the wrong one would be misleading.`,
+        error: "unsupported_chain",
+      }), false);
+      return;
+    }
+
+    const { chain, conflict } = resolveChain(chainParam, q);
+    const key = `tx:${chain}:${hash}`;
+    const hit = fromCache(key);
+    if (hit) {
+      sendAnswer(res, q, lean(hit), false);
+      return;
+    }
+    lookupTransaction(hash, chain, conflict)
+      .then((r) => {
+        // A mined receipt is immutable, so it is safe to cache; a pending or
+        // unavailable answer is not, and caching either would keep serving a
+        // stale "pending" after the transaction had been mined.
+        if (r.verdict === "confirmed" || r.verdict === "reverted") toCache(key, r);
+        sendAnswer(res, q, lean(r), false);
+      })
+      .catch(() => upstreamUnavailable(res, "A transaction lookup", hash.slice(0, 20), q));
     return;
   }
 
