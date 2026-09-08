@@ -118,8 +118,8 @@ malformed, and A5 forbids liar-200s.
    real agent usefulness; the exact cross-intent judging average is not final.
 3. **Investigate the chainwire/txlens gap.** If answer shape explains 0 vs 0.99, that is the
    difference between rank 1 and unassailable.
-4. **Track 2 becomes strategically interesting**, not just a second prize — see the honesty caveat
-   in [CODEX_REVIEW_PROMPT.md](../../docs/CODEX_REVIEW_PROMPT.md) about authoring the scorer for one's own intent.
+4. **Track 2 becomes strategically interesting**, not just a second prize — see the conflict-of-interest
+   disclosure in [GAPS.md G29](../../GAPS.md) about authoring the scorer for one's own intent.
 
 ## Caveat
 

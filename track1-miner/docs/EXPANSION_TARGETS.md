@@ -176,8 +176,8 @@ The endpoint and its tests were deleted rather than left as dead code. Declaring
 ## 6. Recommended order
 
 1. **AI_TEXT_DETECTION** — **DONE.** Built, measured (4.5e-10 / 1.0 / 1.0 against a 1.674e-10
-   bar), deployed, and declared in `miner.yaml`. Awaiting the operator's `updateMiner` signature —
-   runbook at the top of [../REGISTRATION_UPDATE.md](../REGISTRATION_UPDATE.md).
+   bar), deployed, and declared in `miner.yaml`. Signed into registration 334 on 2026-08-30; the
+   signing procedure lives in [SIGNING.md](SIGNING.md) and `tools/sign-update.sh`.
 2. ~~**SENTIMENT_ANALYSIS**~~ — **rejected on measurement**, see above. Do not revisit without
    re-running the scorer: the conclusion rests entirely on `sa_pure.wasm` being binary.
 3. **FACT_CHECK** — winnable but needs real retrieval and a restatement exemption. Not attempted:
