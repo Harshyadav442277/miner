@@ -115,5 +115,43 @@
         "DEPLOYED CODE (tvl.ts)": "The Base chain has $5,564,272,633 ($5.56 billion) in total value locked across all DeFi protocols deployed on it, according to DefiLlama. This is the chain's aggregate TVL, not any single protocol's."
       }
     }
+  ],
+  "NEWS_SEARCH": [
+    {
+      "id": "ecb-rate-decision-coverage",
+      "note": "Entity + topic. Ground truths authored 2026-09-08 from articles the Google News search actually returned.",
+      "question": "Find recent articles covering the European Central Bank's interest rate decision.",
+      "ground_truths": {
+        "terse": "Recent coverage of the ECB rate decision includes Morningstar's 'ECB Rate Decision: What to Expect on Thursday' (4 September 2026) and FXStreet's report on the euro holding above 1.1600 ahead of the decision (8 September 2026).",
+        "full": "Several outlets have covered the European Central Bank's interest rate decision in the past week. Morningstar published 'ECB Rate Decision: What to Expect on Thursday' on 4 September 2026, FXStreet reported on 8 September 2026 that the euro held steady above 1.1600 as markets braced for the decision, and the European Central Bank itself published its monetary policy decisions statement.",
+        "chatty": "There is quite a bit of recent coverage. Morningstar ran a preview piece a few days ago on what to expect from the ECB on Thursday, and FXStreet wrote today about the euro holding above 1.16 while markets wait for the rate decision and US inflation data."
+      },
+      "answers": {
+        "headline list only, no publishers or dates": "ECB Rate Decision: What to Expect on Thursday. Euro holds steady above 1.1600 as markets brace for US inflation data and ECB rate decision. Monetary policy decisions.",
+        "single article": "Morningstar published \"ECB Rate Decision: What to Expect on Thursday\" on 4 September 2026.",
+        "generic top stories (the wrong answer)": "Today's top stories: a hospital shooting in the Midwest, MLB scores from last night, and a new smartphone launch.",
+        "summary with no sources": "The European Central Bank is expected to announce its interest rate decision on Thursday, and markets are watching closely.",
+        "honest no results": "No recent news articles matching that topic were found.",
+        "DEPLOYED CODE (newssearch.ts)": "Recent coverage of European Central Bank interest rate decision from the last 30 days includes: \"Eurozone inflation rose to 3.3%, with the European Central Bank signaling further interest rate hikes, while…\" (Moomoo, 2 September 2026); \"EURUSD Stalemate Reflects Hawkish Fed and ECB Ahead of Key Rate Decisions\" (interactivecrypto.com, 8 September 2026); \"Euro holds steady above 1.1600 as markets brace for US inflation data and ECB rate decision\" (FXStreet, 8 September 2026); \"ECB Interest Rate Hike: Rising Inflation and Bond Yields Put Europe on Alert\" (Tekedia, 7 September 2026); \"ECB set to hike interest rates as Iran war flares\" (Kuwait Times, 7 September 2026). 5 articles, most recent first, each with its publisher and publication date."
+      }
+    },
+    {
+      "id": "openai-microsoft-partnership",
+      "note": "Entity pair + implicit recency window.",
+      "question": "Find recent articles covering the partnership between OpenAI and Microsoft.",
+      "ground_truths": {
+        "terse": "Recent articles on the OpenAI-Microsoft partnership include AI Magazine's 'Infosys EVP on AI Adoption and OpenAI Collaboration' (8 September 2026) and Indianweb2's report on Vedanta Aluminium launching MetALverse with OpenAI and Microsoft (8 September 2026).",
+        "full": "Coverage from the last week includes Indianweb2.com reporting on 8 September 2026 that Vedanta Aluminium and V-Spark launched MetALverse in Odisha in partnership with OpenAI and Microsoft, and AI Magazine publishing an interview with an Infosys EVP on AI adoption and OpenAI collaboration on 8 September 2026.",
+        "chatty": "The most recent pieces are both from today: one on Vedanta Aluminium launching MetALverse in Odisha with OpenAI and Microsoft as partners, and an AI Magazine interview with an Infosys executive about AI adoption and working with OpenAI."
+      },
+      "answers": {
+        "headline list only, no publishers or dates": "Vedanta Aluminium, V-Spark launch MetALverse in Odisha; partners with OpenAI, Microsoft. Infosys EVP on AI Adoption and OpenAI Collaboration.",
+        "single article": "AI Magazine published \"Infosys EVP on AI Adoption and OpenAI Collaboration\" on 8 September 2026.",
+        "generic top stories (the wrong answer)": "Today's top stories: a hospital shooting in the Midwest, MLB scores from last night, and a new smartphone launch.",
+        "summary with no sources": "OpenAI and Microsoft continue to work together closely, with the partnership extending into new enterprise deployments.",
+        "honest no results": "No recent news articles matching that topic were found.",
+        "DEPLOYED CODE (newssearch.ts)": "Recent coverage of partnership between OpenAI and Microsoft from the last 30 days includes: \"News publishers that partnered with OpenAI and Microsoft are now suing over AI training\" (Yahoo, 8 September 2026); \"Seattle Times and Newsday Sue OpenAI and Microsoft Over AI Copying\" (WinBuzzer, 7 September 2026); \"Sam Altman’s ​​OpenAI and Worldcoin Engage in Partnership Talks\" (CoinMarketCap, 7 September 2026); \"OpenAI & Microsoft: Seattle Times and Newsday file lawsuit\" (SecNews.gr, 7 September 2026); \"A new battle between journalism and artificial intelligence: Two newspapers sue OpenAI and Microsoft\" (صوت الإمارات, 7 September 2026). 5 articles, most recent first, each with its publisher and publication date."
+      }
+    }
   ]
 }

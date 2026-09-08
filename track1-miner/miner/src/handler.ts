@@ -8,6 +8,7 @@ import { geolocate, SPECIAL_GEO_VERDICTS, type GeoResult } from "./geo";
 import { detectAiText, type AiDetectResult } from "./aidetect";
 import { extractContent } from "./content";
 import { getHeadlines } from "./news";
+import { searchNews, type NewsSearchResult } from "./newssearch";
 import { checkBalance, type WalletResult } from "./wallet";
 import { checkFact, type FactCheckResult } from "./factcheck";
 import { answerTelegraph, type TelegraphResult } from "./telegraph";
@@ -28,7 +29,7 @@ export const ENDPOINTS = [
   "/ssl-check", "/storm-alert", "/weather-forecast",
   "/ip-geolocate", "/translate", "/papers",
   "/ai-detect", "/extract", "/headlines", "/wallet-balance",
-  "/fact-check", "/telegraph", "/tx-lookup", "/cve", "/tvl",
+  "/fact-check", "/telegraph", "/tx-lookup", "/cve", "/tvl", "/news-search",
 ] as const;
 
 /**
@@ -38,7 +39,7 @@ export const ENDPOINTS = [
 type Answer =
   | SslResult | StormResult | ForecastResult | GeoResult | TranslationResult | PaperResult
   | AiDetectResult | WalletResult | FactCheckResult | TelegraphResult | TxResult | CveResult
-  | TvlResult;
+  | TvlResult | NewsSearchResult;
 const cache = new Map<string, { at: number; value: Answer }>();
 
 function fromCache(key: string): Answer | null {
@@ -101,6 +102,7 @@ const SUBJECT_OF: Record<string, string> = {
   "/tx-lookup": "A transaction lookup",
   "/cve": "A vulnerability lookup",
   "/tvl": "A total-value-locked lookup",
+  "/news-search": "A news article search",
 };
 
 function armWatchdog(res: ServerResponse, path: string, question: string): void {
@@ -899,6 +901,44 @@ function route(req: IncomingMessage, res: ServerResponse): void {
         sendAnswer(res, q, lean(r), false);
       })
       .catch(() => upstreamUnavailable(res, "A total-value-locked lookup", subject.slice(0, 40), q));
+    return;
+  }
+
+  if (path === "/news-search") {
+    /**
+     * Article coverage, not a headline list. NEWS_HEADLINES already has
+     * /headlines; the canonical description separates the two itself, and this
+     * one returns articles with their publishers and publication dates.
+     *
+     * Measured against champion 3165: a relevant answer crosses at ~0.99 and an
+     * irrelevant one scores 1.2e-4, the same as returning nothing. So the
+     * endpoint would rather report honestly that it found nothing on the
+     * subject than pad the list with articles that are merely nearby.
+     */
+    const subjectParam = firstValue(url, "topic", "subject", "entity", "keywords", "search");
+    const q = withSubject(firstValue(url, "query", "q", "question", "text", "input"), subjectParam);
+    const daysParam = firstValue(url, "days", "window_days", "since_days");
+    const parsedDays = Number(daysParam);
+    const days = daysParam.trim() && Number.isFinite(parsedDays) && parsedDays > 0
+      ? Math.min(Math.floor(parsedDays), 3650)
+      : null;
+
+    // Cached on the subject and window, not the raw question: two phrasings of
+    // the same search should not cost two upstream calls inside one TTL.
+    const key = `news:${(subjectParam || q).toLowerCase().slice(0, 120)}:${days ?? "-"}`;
+    const hit = fromCache(key);
+    if (hit) {
+      sendAnswer(res, q, lean(hit), false);
+      return;
+    }
+    searchNews(q, subjectParam, days)
+      .then((r) => {
+        // Only a real result is cached. Caching "no results" would keep serving
+        // it for the rest of the TTL after the story broke.
+        if (r.verdict === "articles") toCache(key, r);
+        sendAnswer(res, q, lean(r), false);
+      })
+      .catch(() => upstreamUnavailable(res, "A news article search", (subjectParam || q).slice(0, 40), q));
     return;
   }
 

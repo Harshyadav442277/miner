@@ -105,7 +105,7 @@ export function extractRegion(text: string, topic: string | null = null): string
   return null;
 }
 
-function decode(s: string): string {
+export function decode(s: string): string {
   return s
     .replace(/&amp;/g, "&")
     .replace(/&lt;/g, "<")
@@ -117,7 +117,7 @@ function decode(s: string): string {
 }
 
 /** Titles arrive as "Headline text - Publisher". */
-function splitSource(title: string): { title: string; source: string | null } {
+export function splitSource(title: string): { title: string; source: string | null } {
   const i = title.lastIndexOf(" - ");
   if (i > 20) return { title: title.slice(0, i).trim(), source: title.slice(i + 3).trim() };
   return { title: title.trim(), source: null };

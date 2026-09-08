@@ -338,6 +338,39 @@ endpoints:
             intents: ["*"]
             description: "The user's original question, verbatim. The scope, subject and chain are read from it when the parameters are absent."
 
+  - path: /news-search
+    external_path: /news-search
+    method: GET
+    intents: [NEWS_SEARCH]
+    description: >-
+      News article coverage of a topic, entity or time period, searched rather
+      than browsed. Returns individual articles — each with its headline, the
+      publisher that ran it and its publication date, most relevant first — for a
+      subject read from the question, over a window the question may state
+      ("in the last 3 days", "this month"). A recency word with no explicit
+      window is treated as a request rather than a filter: the last 30 days are
+      searched first and the search is widened only if nothing on the subject was
+      published in them, and the answer says when that happened. Articles that
+      are not about the subject are dropped rather than used as padding, with the
+      acronym of a named entity counted as naming it. This is article coverage;
+      a plain list of current headlines is /headlines. A news index that does not
+      respond is reported as unknown, never as an absence of coverage.
+    params:
+      query:
+        optional:
+          - name: topic
+            type: string
+            intents: ["*"]
+            description: "The subject to search for: a topic, company, person or event. Read from the question when absent."
+          - name: days
+            type: number
+            intents: ["*"]
+            description: "Only return articles published within this many days. Read from the question when absent; omitted means no date restriction."
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim. The subject and the time window are read from it."
+
   - path: /fact-check
     external_path: /fact-check
     method: GET
@@ -426,6 +459,7 @@ semantics:
     - ONCHAIN_TX_LOOKUP
     - CVE_LOOKUP
     - TVL_LOOKUP
+    - NEWS_SEARCH
 
 # input_schema is a single top-level block covering every endpoint — the schema
 # refuses it inside endpoints[], and the node does not enforce it against requests.

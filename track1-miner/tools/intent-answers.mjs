@@ -89,6 +89,57 @@ const CHECKS = {
   // record, fetched separately here — the endpoint's job is to resolve the CPE
   // configuration into stated versions, and that resolution is the thing most
   // likely to silently return nothing.
+  async NEWS_SEARCH() {
+    const bad = [];
+    // Article coverage, not a headline list: every item must carry a publisher
+    // and a date. Measured against champion 3165, a relevant answer crosses at
+    // ~0.99 and an irrelevant one scores 1.2e-4 — the same as saying nothing —
+    // so relevance is what this probe is really testing.
+    const r = await get("/news-search", {
+      query: "Find recent articles covering the European Central Bank interest rate decision.",
+    });
+    const b = r.body;
+    if (b.error) return [`errored: ${b.error}`]; // news index down; re-run the gate alone.
+    if (b.verdict !== "articles") bad.push(`ECB search -> ${b.verdict}, want articles`);
+    const reason = String(b.reason ?? "");
+    // Every listed article is "headline" (publisher, date). At least two of them.
+    const cited = [...reason.matchAll(/"[^"]{8,}"\s+\(([^,)]+),\s*([^)]+)\)/g)];
+    if (cited.length < 2) bad.push(`only ${cited.length} articles carry a publisher and a date`);
+    for (const [, publisher, date] of cited) {
+      if (!publisher.trim() || /^publisher not stated$/i.test(publisher)) bad.push(`an article has no publisher`);
+      if (Number.isNaN(new Date(date).getTime())) bad.push(`unparseable publication date: ${date}`);
+    }
+    // The subject must actually be named by the articles, by name or acronym.
+    // A list of nearby-but-wrong articles is the incumbent failure mode.
+    const onSubject = cited.filter(([whole]) => /\bECB\b|European Central Bank|eurozone|euro\b/i.test(whole));
+    if (onSubject.length < 1) bad.push("no returned article names the ECB by name or acronym");
+
+    // An explicit window must be enforced against the dates, not just passed to
+    // the upstream as a hint.
+    const windowed = await get("/news-search", { query: "Find articles about the Federal Reserve from the last 3 days" });
+    if (!windowed.body.error) {
+      const wr = String(windowed.body.reason ?? "");
+      const cutoff = Date.now() - 4 * 86400000;
+      for (const [, , date] of wr.matchAll(/"[^"]{8,}"\s+\(([^,)]+),\s*([^)]+)\)/g)) {
+        const t = new Date(date).getTime();
+        if (Number.isFinite(t) && t < cutoff) bad.push(`article dated ${date} is outside the 3-day window`);
+      }
+    }
+
+    // A subject nobody has written about must be reported as no results, not
+    // padded with whatever the index returned.
+    const none = await get("/news-search", { query: "Find recent articles covering zzqxwv klmnop nonexistent subject" });
+    if (!none.body.error) {
+      if (none.body.verdict !== "no_results") bad.push(`nonsense subject -> ${none.body.verdict}, want no_results`);
+      if (/"[^"]{8,}"\s+\(/.test(String(none.body.reason ?? ""))) bad.push("a nonsense subject was given articles");
+    }
+
+    // A request naming no subject must be refused rather than searched.
+    const empty = await get("/news-search", { query: "What is the news?" });
+    if (empty.body.error !== "no_subject") bad.push(`subjectless request -> ${empty.body.error}, want no_subject`);
+    return bad;
+  },
+
   async TVL_LOOKUP() {
     const bad = [];
     // `lean()` projects the payload to verdict/confidence/reason, so every
