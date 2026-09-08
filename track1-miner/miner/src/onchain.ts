@@ -195,6 +195,10 @@ interface RawReceipt {
 async function fetchTx(chain: string, hash: string):
   Promise<{ tx: RawTx | null; receipt: RawReceipt | null } | null> {
   let sawWorkingEndpoint = false;
+  // A transaction seen as mined whose receipt we could not read. Held so that
+  // exhausting the endpoints reports `unknown` rather than `not_found`: we know
+  // this transaction exists, so denying it would be the worst answer available.
+  let minedNoReceipt: RawTx | null = null;
   for (const url of RPCS[chain] ?? []) {
     try {
       const tx = (await rpc(url, "eth_getTransactionByHash", [hash])) as RawTx | null;
@@ -203,11 +207,17 @@ async function fetchTx(chain: string, hash: string):
       // A transaction in the mempool has no block and therefore no receipt yet.
       if (tx.blockNumber === null) return { tx, receipt: null };
       const receipt = (await rpc(url, "eth_getTransactionReceipt", [hash])) as RawReceipt | null;
+      // A MINED transaction whose receipt comes back null is a provider that is
+      // behind or shedding, not a transaction without a receipt. Returning here
+      // reported the first mainnet transfer as sitting in the mempool — caught
+      // intermittently by the correctness gate, roughly one run in four.
+      if (!receipt) { minedNoReceipt = tx; continue; }
       return { tx, receipt };
     } catch {
       // Try the next endpoint. A single provider refusing is not an answer.
     }
   }
+  if (minedNoReceipt) return { tx: minedNoReceipt, receipt: null };
   return sawWorkingEndpoint ? { tx: null, receipt: null } : null;
 }
 
@@ -282,6 +292,25 @@ export async function lookupTransaction(hash: string, chain: string, conflict: s
       reason:
         `The hash ${hash} does not correspond to any transaction on ${chain}. It has no status, ` +
         `no gas used and no block number.${note}`,
+    };
+  }
+
+  /**
+   * Mined, but no endpoint would hand over the receipt. This must not be called
+   * `pending`: the transaction is in a block, so "it is in the mempool and has
+   * no final status" is a false statement about the chain. What we have is the
+   * block number and the transfer, and what we lack is the outcome — say both.
+   */
+  if (tx.blockNumber !== null && !receipt) {
+    return {
+      hash, chain, verdict: "unknown", confidence: 0,
+      reason:
+        `Transaction ${hash} on ${chain} was mined in block ` +
+        `${fmt(Number(BigInt(tx.blockNumber)), 0)}, but its receipt could not be read: the public ` +
+        `JSON-RPC endpoints returned no receipt for it. Its success or failure and its gas used are ` +
+        `therefore unknown here. It sends ${toCoin(BigInt(tx.value), coin)} from ${short(tx.from)}` +
+        `${tx.to ? ` to ${short(tx.to)}` : " to a new contract"}.${note}`,
+      error: "receipt_unavailable",
     };
   }
 

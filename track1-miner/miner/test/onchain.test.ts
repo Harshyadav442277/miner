@@ -186,3 +186,51 @@ test("a pre-Byzantium receipt whose provider re-executed to a failure is not cal
   const r = await answerWith({ ...SYNTHESISED_RECEIPT, status: "0x0" });
   assert.equal(r.verdict, "reverted");
 });
+
+test("a mined transaction whose receipt will not load is unknown, not pending", async () => {
+  // The correctness gate caught this against production about one run in four:
+  // an endpoint returned the transaction but null for its receipt, and the first
+  // mainnet transfer — mined in 2015 — was reported as sitting in the mempool.
+  // `unknown` is the honest verdict; `pending` and `not_found` are both false
+  // statements about a transaction that is demonstrably in a block.
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = (async (_input: unknown, init: { body?: string }) => {
+    const method = JSON.parse(String(init?.body ?? "{}")).method;
+    const result = method === "eth_getTransactionByHash" ? PRE_BYZANTIUM_TX : null;
+    return new Response(JSON.stringify({ jsonrpc: "2.0", id: 1, result }), {
+      status: 200, headers: { "content-type": "application/json" },
+    });
+  }) as typeof globalThis.fetch;
+  try {
+    const r = await lookupTransaction(FIRST_TX, "ethereum");
+    assert.equal(r.verdict, "unknown");
+    assert.ok(!/pending|mempool/i.test(r.reason), "a mined transaction is not pending");
+    assert.ok(!/does not correspond|no transaction/i.test(r.reason), "a seen transaction is not absent");
+    // The facts we DO hold are still stated rather than withheld.
+    assert.match(r.reason, /block 46,147/);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("a receipt that loads from a later endpoint is used, not abandoned", async () => {
+  // The first endpoint sheds the receipt, the second serves it. The answer must
+  // be the complete one, because a partial receipt scores in the 0.01 band.
+  const originalFetch = globalThis.fetch;
+  let receiptCalls = 0;
+  globalThis.fetch = (async (_input: unknown, init: { body?: string }) => {
+    const method = JSON.parse(String(init?.body ?? "{}")).method;
+    let result: unknown = PRE_BYZANTIUM_TX;
+    if (method === "eth_getTransactionReceipt") result = ++receiptCalls === 1 ? null : CANONICAL_RECEIPT;
+    return new Response(JSON.stringify({ jsonrpc: "2.0", id: 1, result }), {
+      status: 200, headers: { "content-type": "application/json" },
+    });
+  }) as typeof globalThis.fetch;
+  try {
+    const r = await lookupTransaction(FIRST_TX, "ethereum");
+    assert.equal(r.verdict, "confirmed");
+    assert.match(r.reason, /21,000 gas/);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
