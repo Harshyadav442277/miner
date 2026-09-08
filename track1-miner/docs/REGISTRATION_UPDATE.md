@@ -1,4 +1,4 @@
-# Registration update — 13 intents to 18
+# Registration update — 13 intents to 19
 
 **Status: prepared, NOT signed. This needs the operator.** Claude does not connect
 wallets, sign messages or send transactions (CLAUDE.md rule 1). Everything below
@@ -11,23 +11,23 @@ changes it.
 
 ## 1. What changes, in one line
 
-The same miner, same slug, same base URL, plus **five new intents that are
+The same miner, same slug, same base URL, plus **six new intents that are
 already deployed and answering on production**.
 
 ```
 registered now (reg 402)   13 intents   hash 7538082784c4b20849aeb54cfb6c2cf74100cf074dff3e0f8d8b268e12e47640
-this file                  18 intents   hash 0de9390988f24496c2a3f539bf5753b7206774ec26905445a0845d2405c62933
+this file                  19 intents   hash 8d62ebe0136aea75e8185a5536f99687cac7650b31a31a5fb90c5c9aac94d874
 ```
 
 Re-check the pending hash before signing — see §4.
 
 | Change | Detail |
 |---|---|
-| **+5 intents** | `ONCHAIN_TX_LOOKUP`, `CVE_LOOKUP`, `TVL_LOOKUP`, `NEWS_SEARCH`, `CURRENCY_EXCHANGE` |
-| **+5 endpoints** | `/tx-lookup`, `/cve`, `/tvl`, `/news-search`, `/convert` — all deployed, live and keyless |
+| **+6 intents** | `ONCHAIN_TX_LOOKUP`, `CVE_LOOKUP`, `TVL_LOOKUP`, `NEWS_SEARCH`, `CURRENCY_EXCHANGE`, `GAME_RESULT` |
+| **+6 endpoints** | `/tx-lookup`, `/cve`, `/tvl`, `/news-search`, `/convert`, `/game-result` — all deployed, live and keyless |
 | **unchanged** | `id: 4433`, `slug: livecert`, `base_url`, `auth: {type: none}`, the thirteen existing endpoints and every one of their parameters |
 
-No existing endpoint's behaviour, path or parameter list changed. The five
+No existing endpoint's behaviour, path or parameter list changed. The six
 additions are additive.
 
 ## 2. Why each one, on evidence
@@ -48,8 +48,10 @@ Full measurements in [EXPANSION_MATRIX.md](EXPANSION_MATRIX.md) and
   the scorer is unforgiving about relevance and indifferent to wording.
 - **CURRENCY_EXCHANGE** (7 miners) — a daily reference rate does not move, so two
   ECB-derived answers agree exactly; a live quote can never match another.
+- **GAME_RESULT** (3 miners) — a completed fixture's score is immutable. The
+  live leader sits at 0.594 and the honest answer measures 0.787.
 
-Each of the five also raises its intent to or above the 3-miner half of the
+Each of the six also raises its intent to or above the 3-miner half of the
 eligibility guardrail, or is already above it.
 
 ## 3. Pre-registration checks — all green as of 2026-09-08
@@ -66,7 +68,7 @@ Result at time of writing, against production:
 unit + live suite                      PASS
 verify-deploy                          PASS
 param shapes (engine-shaped)           PASS
-intent answers (correctness)           PASS      18/18 intents answering correctly
+intent answers (correctness)           PASS      19/19 intents answering correctly
 hostile inputs                         PASS
 upstream health                        PASS
 no-regression (7 identical, 1 differ)  PASS
@@ -76,11 +78,11 @@ no-regression (7 identical, 1 differ)  PASS
 
 Also confirmed:
 
-- 269 unit tests + the live suite green (`npm --prefix miner test`).
-- Every one of the 17 endpoints returns 200 through the production alias.
+- 274 unit tests + the live suite green (`npm --prefix miner test`).
+- Every one of the 18 endpoints returns 200 through the production alias.
 - No secret, key or token anywhere in `miner.yaml` — the file is public, pinned
   and hashed on-chain.
-- The five new endpoints were verified on a **preview** deployment through
+- The six new endpoints were verified on a **preview** deployment through
   `npx vercel curl` before promotion, then again on production.
 
 **Re-run `node tools/preflight.mjs` on the day you sign.** A green run from an
@@ -105,7 +107,7 @@ sha256sum track1-miner/miner.yaml
 Either must print:
 
 ```
-0de9390988f24496c2a3f539bf5753b7206774ec26905445a0845d2405c62933
+8d62ebe0136aea75e8185a5536f99687cac7650b31a31a5fb90c5c9aac94d874
 ```
 
 If it prints anything else, the file has changed since this document was written
@@ -140,7 +142,7 @@ curl -s https://devnode.telegraphprotocol.com/api/miners/<newId>
 ```
 
 It must show `activation_status: "active"`, `rejection_reason: null`, and all
-**eighteen** intents. Then read back what was actually pinned, which is the check
+**nineteen** intents. Then read back what was actually pinned, which is the check
 that matters — the hash is a claim, the served file is the fact:
 
 ```bash
@@ -173,9 +175,9 @@ npx vercel ls miner --scope wukong4
 npx vercel rollback <deployment-url> --scope wukong4
 ```
 
-Known-good build at the time of writing: `miner-6ootuk8re` (18 intents, preflight
+Known-good build at the time of writing: `miner-ktnabze5f` (19 intents, preflight
 7/7). The last build before this session's expansion is `miner-y1118mdz5`
-(13 intents) — rolling back that far would 404 the five new endpoints while the
+(13 intents) — rolling back that far would 404 the six new endpoints while the
 registration still declares them, so prefer the newest green build.
 
 **Two deployment traps, both previously live outages (GAPS G70):**
@@ -187,6 +189,6 @@ registration still declares them, so prefer the newest green build.
   prefers it. Do not "simplify" that rewrite — doing so 404s every endpoint.
 
 If an endpoint is broken but the miner must stay live, rolling back the
-deployment is the right move: the registration keeps declaring eighteen intents
-and five of them 404, which costs those intents' scores but keeps the other
-thirteen serving. Losing the alias entirely costs all eighteen.
+deployment is the right move: the registration keeps declaring nineteen intents
+and six of them 404, which costs those intents' scores but keeps the other
+thirteen serving. Losing the alias entirely costs all nineteen.

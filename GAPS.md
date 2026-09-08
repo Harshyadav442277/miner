@@ -1993,3 +1993,67 @@ and it is the reason a single red run is never believed without a re-run. The sa
 `verify-deploy`'s hard 5 s p95 budget: the papers retry's 2.5 s wait made a shed-window answer take
 5.7 s. Latency is scored, so the wait is now 1.5 s (0.3 s refusal + 1.5 s + a ~3 s answer stays
 inside the budget); it buys a shorter retry window in exchange, and that trade is deliberate.
+
+### G82 · Only 45 of 108 canonical intents have a champion scorer, so the expansion ceiling is 32 — `CLOSED 2026-09-08`
+
+The candidate universe for expansion was being read off the intent list. It is not
+that list. An intent is only rankable when a champion scorer exists for it, and
+`/api/wasm` shows scorers for **45** intents. The other 63 — including
+`EMAIL_SECURITY`, `URL_SAFE`, `MACRO_ECONOMIC_INDICATOR` and
+`SANCTIONS_SCREENING_MATCH`, all of which look like open ground with zero miners —
+return `{"count":0,"intents":{}}` and have no score rows at all. Registering in one
+of them buys a leaderboard of one that is never scored.
+
+Two intents have a scorer and still no traffic: `TEXT_AUTHENTICITY_CHECK` (reg 1882)
+and `TWITTER_SEARCH` (reg 2061), both with zero scored requests ever.
+
+So the reachable expansion from thirteen intents was **32**, not 93. Recorded in
+`track1-miner/docs/EXPANSION_MATRIX.md`.
+
+### G83 · Two champion scorers reward answers we will not serve — `OPEN 2026-09-08`
+
+Measured against the live champions via `tools/candidate-bench.mjs`:
+
+- **GAME_RESULT (champ 1265).** Naming the WRONG winner scores 0.854 and inventing
+  a winner for a 2-2 draw scores 0.951, both **above** the correct answer's 0.822.
+  It is a lexical similarity metric and does not track correctness.
+- **TVL_LOOKUP (champ 49).** On the token-liquidity case an honest "no liquidity
+  data could be retrieved" scored above a correct figure against two of three
+  ground-truth registers, because the refusal echoes the question's own words.
+
+Neither is exploited. Our ceiling in those two intents is therefore the
+honest-answer ceiling, not the scorer's maximum — GAME_RESULT measures 0.787
+against a live leader of 0.594, which is still competitive. This is recorded so
+that a later session does not "discover" the higher-scoring shapes and take them.
+
+### G84 · ESPN is unreachable from Vercel, and only the deployment showed it — `FIXED 2026-09-08`
+
+`GAME_RESULT` passed every local test and returned `provider_unavailable` for every
+fixture in production. ESPN's scoreboard answers this machine and refuses Vercel's
+egress; separately it returns **403 to a custom user-agent** and 200 to a browser
+one, which is a second, independent block.
+
+Two lessons, both already cost time today. A provider verified from the laptop is
+not a provider verified for the miner — reachability now has to be checked with
+`npx vercel curl` against a preview before promotion. And the failure was made
+worse by control flow: the "no scoreboard responded" branch returned before the
+name-search fallback could run, so a working second provider was never tried.
+Fixed by attempting the fallback whenever the primary yields nothing, and
+reporting `unknown` only when both fail.
+
+### G85 · A shell heredoc turns `\b` into a raw backspace byte, and it happened twice more — `FIXED 2026-09-08`
+
+G74 recorded this once. It recurred twice this session in files written through
+`python - <<'PY'`: `/\bon base\b/i` in `intent-answers.mjs` became
+`/<0x08>on base<0x08>/i` and failed a correct production answer, and
+`RECENCY_WORD` in `newssearch.ts` became `/<0x08>recent…<0x08>/i`, silently
+disabling the whole soft-recency window. A third instance was found already in the
+tree: the ONCHAIN probe's "a missing transaction was given a gas figure" check had
+held a backspace since it was written and had **never been able to fire**.
+
+A quoted heredoc still collapses one level of escaping, and in a Python or JS
+string `"\b"` is a backspace character rather than a word boundary. The durable
+fix is `miner/test/no-control-bytes.test.ts`, which scans `src`, `test`, `tools`
+and `bench` and fails on any raw control byte; it asserts it actually scanned
+files, because a scan of nothing passes. Verified to fire by injecting one.
+Write regexes with the Write tool, not through a heredoc.

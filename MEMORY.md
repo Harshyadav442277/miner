@@ -14,6 +14,61 @@ sessions and between models.
 | **Track 3 — app** | **Separate repo and folder:** `../telegraph-morse` — <https://github.com/Harshyadav442277/telegraph-morse>. CertWatch was retired and deleted on 2026-09-02 (never funded, no users). Read its `PLAN.md` first. |
 | Anything | [README.md](README.md) for ownership and shared facts, [docs/](docs/) for protocol and rules |
 
+## 2026-09-08 ~22:00 UTC — SIX INTENTS ADDED, 13 → 19 DECLARED, ALL DEPLOYED AND NONE REGISTERED
+
+Continued the expansion. **Six additional intents are live on production and answering:
+ONCHAIN_TX_LOOKUP, CVE_LOOKUP, TVL_LOOKUP, NEWS_SEARCH, CURRENCY_EXCHANGE, GAME_RESULT.**
+Gates: **preflight 7/7 exit 0**, **19/19 intents answering correctly**, 274 unit tests + live
+suite green, production `miner-ktnabze5f`, alias clean.
+
+**None of them are registered.** Registration 402 still declares thirteen. The six reach the
+network only after an `updateMiner`, which is the operator's — the prepared package, with the
+hash to confirm and the sandbox sequence, is
+[track1-miner/docs/REGISTRATION_UPDATE.md](track1-miner/docs/REGISTRATION_UPDATE.md). Manifest hash
+is now `8d62ebe0…c94d874`. The status of all six is **deployed; ranking unverified** — nothing
+here has been scored by the network, and no rank is claimed.
+
+**THE CEILING NOBODY HAD MEASURED (G82).** The candidate set is not the 108 canonical intents.
+Only **45 have a champion scorer**, and without one nothing is ever scored. The 65 zero-miner
+intents that look like open ground — EMAIL_SECURITY, URL_SAFE, MACRO_ECONOMIC_INDICATOR,
+SANCTIONS_SCREENING_MATCH — return `{"count":0,"intents":{}}` from `/api/wasm`. So the reachable
+expansion from thirteen was **32**, not 93. Full record in
+[track1-miner/docs/EXPANSION_MATRIX.md](track1-miner/docs/EXPANSION_MATRIX.md).
+
+**The ordering principle that decided the queue**, measured rather than assumed: an intent is
+winnable by engineering when its answer is a fact that does not change between our read and the
+scorer's, and a lottery when the answer is a number that moves. GAS_PRICE was dropped on that
+basis (0.1% tolerance on a per-block quantity, 0 crossings in 12 epochs) and TVL_LOOKUP kept
+despite being volatile, because its scorer is the only **gradient** — partial credit, so being
+better scores better without matching a snapshot. CURRENCY_EXCHANGE is the bet the principle makes
+available: a live quote can never equal another live quote, but the **ECB reference rate does not
+move**, so two answers derived from it agree all day.
+
+**TWO SCORERS REWARD ANSWERS WE WILL NOT SERVE (G83).** GAME_RESULT's champion scores the WRONG
+winner at 0.854 and an invented winner for a 2-2 draw at 0.951, both above the correct answer's
+0.822 — it is lexical similarity and does not track correctness. TVL_LOOKUP's scores an honest
+"no data" above a correct token-liquidity figure on two of three registers. Neither is exploited.
+Recorded so a later session does not "discover" them and take the trade.
+
+**THE DEPLOYMENT IS NOT THE LAPTOP (G84).** GAME_RESULT passed every local test and returned
+`provider_unavailable` for every fixture in production: ESPN refuses Vercel's egress, and
+separately returns 403 to a custom user-agent. Worse, the "nothing responded" branch returned
+before the second provider could be tried. Reachability now has to be checked with
+`npx vercel curl` against a preview before promotion.
+
+**`\b` BECAME A BACKSPACE BYTE TWICE MORE (G85).** Same defect as G74, both times in files written
+through a shell heredoc. One silently disabled the entire soft-recency window in NEWS_SEARCH; a
+third instance was found already in the tree, where the ONCHAIN probe's "a missing transaction was
+given a gas figure" check had never once been able to fire. There is now a test scanning src, test,
+tools and bench for raw control bytes, which asserts it actually scanned files. **Write regexes with
+the Write tool, never through a heredoc.**
+
+Also fixed: two ONCHAIN correctness defects found by the gates rather than by reading code — a
+pre-Byzantium receipt was decided by which fields a provider happened to return (the three ethereum
+endpoints disagree), and a mined transaction whose receipt would not load was reported as
+"pending: in the mempool". And `intent-answers.mjs` now refuses a protected preview instead of
+grading Vercel's login page as sixteen failures.
+
 ## 2026-09-08 ~10:30 UTC — RANK REPORT, SIX CORRECTNESS FIXES DEPLOYED, DEAD FILES REMOVED; WE ARE THIRD BY SUM
 
 The operator asked why we are not rank 1 in every intent, for fixes, and for a cleanup. The answer is

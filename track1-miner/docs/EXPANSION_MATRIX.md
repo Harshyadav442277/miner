@@ -19,8 +19,8 @@ without one, no answer is ever scored and there is no leaderboard.
 ```
 canonical intents                                    108
   ... of which have a champion scorer (/api/wasm)     45
-  ... of which we already serve                       13  (18 as of this session)
-maximum reachable expansion                           32  (27 remaining)
+  ... of which we already serve                       13  (19 as of this session)
+maximum reachable expansion                           32  (26 remaining)
 ```
 
 65 canonical intents have **zero miners and no scorer** — `EMAIL_SECURITY`,
@@ -39,13 +39,14 @@ scorer but have never received a scored request.
 | TVL_LOOKUP | GeckoTerminal + DexScreener + DefiLlama | token pool liquidity, protocol TVL, chain TVL | 14 unit + 4 live; probe in gate | 0.287 vs 0.003 wrong-scope (champ 49); live leader 0.039 | yes | **no — needs registration** | n/a | `updateMiner` |
 | NEWS_SEARCH | Google News RSS search | topic/entity + time window, articles with publisher and date | 13 unit + 3 live; probe in gate | 0.991 clip32, crossed 6/6 (champ 3165) | yes | **no — needs registration** | n/a | `updateMiner` |
 | CURRENCY_EXCHANGE | ECB daily reference XML, market fallback | rate, conversion, both directions, reference vs market | 10 unit + 3 live; probe in gate | exact → ~1.0; 0.1% out → 2.06e-7 (champ 2945) | yes | **no — needs registration** | n/a | `updateMiner` |
+| GAME_RESULT | ESPN scoreboard + TheSportsDB name search | completed fixture: winner or draw, score, competition, date | 8 unit + 3 live; probe in gate | 0.787, crossed 5/6 (champ 1265); live leader 0.594 | yes | **no — needs registration** | n/a | `updateMiner` |
 
-All five are **live on production and answering**, and **none of them are
+All six are **live on production and answering**, and **none of them are
 registered**, so the network does not route to them yet. The registered manifest
 still declares thirteen intents. See "What the operator has to do".
 
-Gate state at time of writing: **preflight 7/7 (exit 0)**, **18/18 intents
-answering correctly** against production, 269 unit tests + live suite green.
+Gate state at time of writing: **preflight 7/7 (exit 0)**, **19/19 intents
+answering correctly** against production, 274 unit tests + live suite green.
 
 ## The ordering principle, and where it came from
 
@@ -89,7 +90,6 @@ two ECB-derived answers agree all day. Epoch 308 showed two miners at exactly
 | intent | miners | regime | note |
 |---|---:|---|---|
 | RESEARCH_QUERY | 7 | noise | adjacent to ACADEMIC_SEARCH; leader 0.014, never crossed in 47 epochs |
-| GAME_RESULT | 3 | static | completed fixtures do not move; needs exact fixture matching first (SPORTS_SCORE precedent) |
 | TEXT_CLASSIFICATION | 3 | unmeasured | deterministic classification may be possible without inference |
 | URL_SCAN | 10 | crossable | leader 0.937; we already hold TLS and fetch infrastructure |
 | RESEARCH_SYNTHESIS | 4 | rare | 1 crossing in 30 epochs; needs real multi-source synthesis |
@@ -99,15 +99,15 @@ two ECB-derived answers agree all day. Epoch 308 showed two miners at exactly
 
 ## What the operator has to do
 
-Five intents are built, tested and deployed but **unregistered**. Registration is
+Six intents are built, tested and deployed but **unregistered**. Registration is
 a wallet action and Claude does not touch the wallet.
 
 ```
 registered now (reg 402, hash 7538…7640)   13 intents
-manifest declares                          18 intents
+manifest declares                          19 intents
 ```
 
-The five new ones reach the network only after an `updateMiner`, which creates a
+The six new ones reach the network only after an `updateMiner`, which creates a
 **new registration id** that then supersedes 402 everywhere — monitoring, watch
 scripts and every lookup. The full pre-registration checklist, the exact bytes to
 publish and the hash to sign are in `docs/REGISTRATION_UPDATE.md`.
@@ -126,4 +126,14 @@ publish and the hash to sign are in `docs/REGISTRATION_UPDATE.md`.
   any number here again.
 - **Rank is not claimed anywhere in this document.** Nothing above has been
   scored by the network, because none of it is registered. The honest status of
-  all five is *deployed; ranking unverified*.
+  all six is *deployed; ranking unverified*.
+- **Two scorers reward answers we will not serve.** GAME_RESULT's champion
+  scores the WRONG winner (0.854) and an invented winner for a draw (0.951)
+  above the correct answer (0.822); TVL_LOOKUP's scores an honest "no data"
+  above a correct token-liquidity figure on two of three registers. Both are
+  recorded and neither is exploited, so our ceiling in those intents is the
+  honest-answer ceiling rather than the scorer's maximum.
+- **The deployment environment is not this laptop.** ESPN's scoreboard answers
+  here and returns 403 to Vercel's egress, so GAME_RESULT passed locally while
+  every deployed lookup failed. Provider reachability is now verified through
+  `npx vercel curl` on a preview before promotion, not only in unit tests.
