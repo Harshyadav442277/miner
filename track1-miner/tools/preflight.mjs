@@ -19,10 +19,13 @@
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
+import { readManifest } from "./manifest.mjs";
 
 const TOOLS = dirname(fileURLToPath(import.meta.url));
 const MINER = join(TOOLS, "..", "miner");
-const BASE = process.argv[2] ?? "https://miner-wine.vercel.app";
+const MANIFEST = readManifest();
+const DECLARED = MANIFEST.intents.size;
+const BASE = process.argv[2] ?? MANIFEST.baseUrl;
 
 const run = (cmd, args, cwd) =>
   spawnSync(cmd, args, { cwd, encoding: "utf8", shell: process.platform === "win32" });
@@ -40,8 +43,15 @@ const GATES = [
   // correctness check at all until this one. It is what caught /extract
   // silently dropping "2.3 meters" and returning nothing for an un-instructed
   // payload, on the intent with the largest measured upside in the project.
+  // The count is read from the manifest, never written here. This gate used to
+  // assert the literal "12/12" while miner.yaml declared thirteen intents, so
+  // WEATHER_CHECK went unprobed and the gate reported a pass anyway. It now
+  // demands N-of-N for whatever N the manifest currently declares, and
+  // intent-answers.mjs independently refuses to run at all if its cases and the
+  // manifest disagree — so adding an intent without a correctness case fails
+  // twice rather than passing quietly.
   ["intent answers (correctness)", () => run("node", [join(TOOLS, "intent-answers.mjs"), BASE], TOOLS),
-    (o) => /12\/12 intents answering correctly/.test(o)],
+    (o, r) => r.status === 0 && new RegExp(`\\b${DECLARED}/${DECLARED} intents answering correctly`).test(o)],
   ["hostile inputs", () => run("node", [join(TOOLS, "hostile-inputs.mjs"), BASE], TOOLS),
     (o) => /\b0 bad\b/.test(o)],
   ["upstream health", () => run("node", [join(TOOLS, "upstream-health.mjs")], TOOLS),
@@ -85,7 +95,11 @@ for (const [name, exec, ok] of GATES) {
   process.stdout.write(`  ${name.padEnd(38)} `);
   const r = exec();
   const out = `${r.stdout ?? ""}${r.stderr ?? ""}`;
-  if (ok(out)) console.log("PASS");
+  // A tool that dies before printing anything used to be graded purely on its
+  // silent stdout, and several of these predicates match on absence ("0 bad").
+  // The spawn result is passed in so a gate can require the exit code too, and
+  // a signal or a spawn error is a failure here whatever the output said.
+  if (!r.error && r.status !== null && ok(out, r)) console.log("PASS");
   else {
     failed++;
     console.log("FAIL");

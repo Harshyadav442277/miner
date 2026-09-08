@@ -14,7 +14,9 @@
  *
  *   node track1-miner/tools/intent-answers.mjs [base-url]
  */
-const BASE = process.argv[2] ?? "https://miner-wine.vercel.app";
+import { assertCoversDeclaredIntents, readManifest } from "./manifest.mjs";
+
+const BASE = process.argv[2] ?? readManifest().baseUrl;
 const VITALIK = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045";
 
 const get = async (path, params) => {
@@ -80,6 +82,24 @@ const CHECKS = {
       if (lo > hi) bad.push("min temp exceeds max temp");
     }
     if (!b.verdict || b.verdict === "unknown") bad.push(`verdict ${b.verdict} is not a condition`);
+    return bad;
+  },
+
+  // Shares /weather-forecast with WEATHER_FORECAST, and that is exactly why it
+  // needs its own case: the two intents ask different questions of one endpoint,
+  // and until the coverage assertion below was added this intent was declared
+  // on-chain with no correctness probe anywhere in the repo. "Right now" must
+  // come back as present conditions, not as a multi-day outlook.
+  async WEATHER_CHECK() {
+    const bad = [];
+    const r = await get("/weather-forecast", { query: "What is the weather in Tokyo right now?" });
+    const b = r.body;
+    if (!/tokyo/i.test(String(b.reason ?? ""))) bad.push("answer never names Tokyo");
+    if (!b.verdict || b.verdict === "unknown") bad.push(`verdict ${b.verdict} is not a condition`);
+    const temp = String(b.reason ?? "").match(/(-?\d+(?:\.\d+)?)\s*°C/);
+    if (!temp) bad.push("no temperature in prose");
+    else if (Number(temp[1]) < -30 || Number(temp[1]) > 50) bad.push(`temp ${temp[1]}°C implausible for Tokyo`);
+    if (b.error) bad.push(`errored: ${b.error}`);
     return bad;
   },
 
@@ -255,6 +275,20 @@ const CHECKS = {
 };
 
 console.log(`intent answers against ${BASE}\n`);
+
+// Before a single request: does this file still cover what we actually declare?
+// It did not — the manifest declared thirteen intents and this file defined
+// twelve cases, and `preflight.mjs` asserted the literal "12/12", so the missing
+// WEATHER_CHECK probe read as a clean pass for weeks. Coverage is therefore
+// derived from miner.yaml and a gap is fatal here, not silent.
+try {
+  const n = assertCoversDeclaredIntents(Object.keys(CHECKS), { label: "intent-answers.mjs" });
+  console.log(`  coverage: ${n} declared intents, ${n} cases\n`);
+} catch (e) {
+  console.error(`COVERAGE FAILURE: ${e.message}`);
+  process.exit(1);
+}
+
 let failed = 0;
 for (const [intent, check] of Object.entries(CHECKS)) {
   process.stdout.write(`  ${intent.padEnd(22)} `);

@@ -19,12 +19,14 @@
  *
  *   node track1-miner/tools/opportunity-scan.mjs
  */
+import { readManifest } from "./manifest.mjs";
+
 const NODE = "https://devnode.telegraphprotocol.com";
-const OURS = new Set([
-  "SSL_VERIFICATION", "STORM_ALERT", "WEATHER_FORECAST", "IP_GEOLOCATION",
-  "LANGUAGE_TRANSLATION", "ACADEMIC_SEARCH", "AI_TEXT_DETECTION",
-  "CONTENT_EXTRACTION", "NEWS_HEADLINES", "WALLET_BALANCE_CHECK",
-]);
+// Read from miner.yaml, never typed here. The hand-written copy this replaces
+// listed ten intents and had not been updated when WEATHER_CHECK, FACT_CHECK
+// and TELEGRAPH_KNOWLEDGE were added, so a scan for "intents we do not hold"
+// kept offering back three we already served.
+const OURS = readManifest().intents;
 
 const intents = await (await fetch(`${NODE}/engine/v1/intents`, { signal: AbortSignal.timeout(30000) })).json();
 const list = (Array.isArray(intents) ? intents : intents.intents ?? []).filter((i) => i.canonical);
