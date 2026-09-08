@@ -13,8 +13,12 @@ position, so every day of delay shortens the record we are judged on.
 ## Where this stands — 2026-09-08 ~10:30 UTC (Winner Selection, Sep 8–18)
 
 - **Both tracks closed; the miner stays live.** Registration **402** `active`, thirteen intents,
-  hash unchanged. Production is `miner-o50wpiyof` (2026-09-08), preflight green after the documented
-  papers re-run, watch `--once` clean, 208 unit tests.
+  hash unchanged. Production ends 2026-09-08 on `miner-e08uy72lg` (after `miner-o50wpiyof` and
+  `miner-m3jzb6437`), watch `--once` clean, 211 unit tests.
+- [ ] **TC.4** Operator: `vercel env add OPENALEX_MAILTO production --scope wukong4` (an address of
+      the operator's choosing) and redeploy — lifts OpenAlex's anonymous rate limit that is turning
+      cache-cold ACADEMIC_SEARCH answers into "no papers" and keeping uptime issue #10 open (G81).
+      The code already sends it when set; nothing is sent otherwise.
 - **Epoch 315:** 2 × #1 (TRANSLATION, WEATHER_CHECK); normalized sum 10.30, **third on the network**
   behind chainsight-oracle 11.23 and txlens 10.74 (both 14 intents). Why rank 1 everywhere is out of
   reach, intent by intent: [track1-miner/docs/RANK_REPORT_2026-09-08.md](track1-miner/docs/RANK_REPORT_2026-09-08.md).

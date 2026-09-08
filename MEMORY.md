@@ -48,6 +48,14 @@ probing the provider and skipping with its status, and, found on the way, `fetch
 HTTP 200 — MyMemory reports an exhausted quota as 200 with a "MYMEMORY WARNING…" translation, which
 would have been served as the answer (A5). Guarded and unit-tested.
 
+**Then a real upstream degradation (G81):** the re-dispatched `uptime` run and two preflights each
+failed only the `/papers` probe — OpenAlex is rate-limiting anonymous search network-wide (429 on
+five of seven direct probes). Cache-cold ACADEMIC questions get an honest "no papers" while it lasts.
+Shipped one in-budget retry of the same query; the lever that lifts the limit is
+`OPENALEX_MAILTO` / `OPENALEX_API_KEY` in the Vercel environment — code support is in, the address is
+the operator's to give (G43). Issue #10 stays open honestly while the shedding coincides with a run.
+**Production ends the day on `miner-e08uy72lg`** (after `miner-o50wpiyof` and `miner-m3jzb6437`).
+
 ## 2026-09-06 ~06:00 UTC — HEALTH CHECK: TWO DEFECTS FIXED, AND RANK IS NOT THE LEVER ON REQUEST VOLUME
 
 Full health check requested. Everything the gates cover was green — registration 402 `active`,

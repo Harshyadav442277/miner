@@ -1915,7 +1915,10 @@ so no G70 recurrence. `preflight.mjs` against production: **6/7 on the first run
 hammered OpenAlex (the G34/G43 pattern on a route today's changes do not touch); **re-run alone, as
 the gate's own header instructs, ALL CHECKS PASSED** with five papers and median 341 ms. `watch.mjs
 --once` against registration 402 and the alias: `endpoint=ok 358ms (verdict=valid) activation=active`.
-Rollback target held throughout: `miner-3d806mm3e`, never needed.
+Rollback target held throughout: `miner-3d806mm3e`, never needed. Two further production builds
+followed the same morning, each preview-probed and alias-checked the same way: `miner-m3jzb6437`
+(G80, the MyMemory quota guard) and `miner-e08uy72lg` (G81, the OpenAlex retry and opt-in polite
+pool), which is where the day ends.
 
 **What the independent critic changed before anything shipped.** The plan was reviewed by a separate
 session before execution. It dropped the WEATHER_CHECK current-conditions change (G63-P1) because the
@@ -1953,3 +1956,30 @@ liar-200 case ARCHITECTURE A5 exists for. Had Google failed on a routed question
 own egress was over quota, that warning would have been served as the translation. `usableMyMemoryText`
 now rejects `quotaFinished`, a non-200 `responseStatus` and the warning prefix, pinned by a unit test
 that mocks the quota body and expects the honest upstream-unavailable path instead.
+
+### G81 · OpenAlex is shedding anonymous search, so ACADEMIC_SEARCH answers "no papers" on cache-cold questions; one retry shipped, the real remedy is the operator's — `OPEN 2026-09-08`
+
+Found through the tripwire. After G80 was fixed, a dispatched `uptime` run and two full preflights
+each failed exactly one probe: `verify-deploy`'s bare-topic `/papers` check, "0 papers in prose" in
+233–389 ms. Probing OpenAlex directly from this machine: **HTTP 429 on five of seven requests four
+seconds apart**, body "Anonymous search is temporarily rate-limited while the search cluster is under
+elevated load. Please retry in 35s, or use a free API key", one 200 in the middle, and 429 again after
+the advertised 35 s. Production answered five papers on five spaced probes only because the
+60-second cache was warm from the first; a cache-cold topic during the shedding gets the honest
+"No peer-reviewed papers on … were found", which scores ~0 and, for a real caller, is a worse answer
+than the truth. This is G43's second failure mode, now observed hitting the live route rather than a
+sweep, and the alarm on issue #10 is reporting it correctly — an upstream outage is ours (organizer
+answer, 2026-08-30).
+
+**Shipped:** `get()` in `papers.ts` now retries the SAME query once after min(Retry-After, 2.5 s)
+when OpenAlex answers 429 or 503, inside the request's own budget, so the primary timeout is not
+shortened to fund it; unit-tested with a mocked 429-then-200. Measured value: it catches the bursty
+window (one 200 in seven) sometimes, not reliably.
+
+**Not shipped, because it is the operator's decision (G43):** OpenAlex lifts the limit for requests
+carrying a contact address (`mailto=`, the "polite pool") or a free API key. The code now sends
+either **only if `OPENALEX_MAILTO` or `OPENALEX_API_KEY` is set** in the Vercel environment; nothing
+is sent otherwise, and no address was chosen here. One `vercel env add OPENALEX_MAILTO production
+--scope wukong4` plus a redeploy closes this. Until then `/papers` degrades honestly during
+OpenAlex's load-shedding, and `uptime`'s `check` job will keep failing on that probe whenever the
+shedding coincides with a run — an honest red, not a false one.

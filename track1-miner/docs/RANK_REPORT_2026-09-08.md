@@ -170,7 +170,11 @@ already current). Preflight against production ran 6/7 on the first pass — the
 untouched `/papers` route returning zero papers while OpenAlex shed load after the live suite (the
 G34/G43 pattern) — and the failing gate re-run alone passed every check with five papers and a
 341 ms median. Registration 402 `active`, hash unchanged. Rollback `miner-3d806mm3e` was held and
-not needed. Full record: GAPS G79.
+not needed. Full record: GAPS G79. Two more builds followed the same morning after reading the red
+uptime tripwire: `miner-m3jzb6437` (the translation fallback trusted MyMemory's HTTP-200 quota warning
+as a translation, G80) and `miner-e08uy72lg` (OpenAlex is rate-limiting anonymous search; one
+in-budget retry, and the polite pool is honoured if the operator sets `OPENALEX_MAILTO`, G81).
+Production ends the day on `miner-e08uy72lg`.
 
 ## 6. Considered and deliberately not changed
 

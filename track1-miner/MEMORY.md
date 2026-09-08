@@ -56,6 +56,14 @@ reports stay in place; the archive move was dropped as churn during judging.
 **Gotcha:** `tools/watch.mjs` reads `--key value` pairs positionally; `--once` must be the LAST
 argument or it swallows the registration id and the tool prints its usage.
 
+**Two more builds the same morning, from reading the red tripwire the same day (G66's rule):**
+`miner-m3jzb6437` — the translation fallback trusted MyMemory's HTTP-200 quota warning as a
+translation (A5, G80) and the live test now skips honestly when the provider refuses GitHub's IPs;
+`miner-e08uy72lg` — OpenAlex is shedding anonymous search (429 in bursts, G81): one in-budget retry
+shipped, and `OPENALEX_MAILTO` / `OPENALEX_API_KEY` are honoured if the operator sets them.
+**Production ends the day on `miner-e08uy72lg`.** Issue #10 stays open while OpenAlex's shedding
+coincides with a run; that red is honest.
+
 ---
 
 ## 0000000000000. "LIVECERT IS NOT ANSWERING NEWS OR TRANSLATION" — IT WAS; TWO PARSER DEFECTS FIXED (2026-09-05 ~16:20Z)
