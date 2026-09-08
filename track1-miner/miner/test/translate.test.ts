@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { translate, targetLanguage, sourceText } from "../src/translate";
+import { translate, targetLanguage, sourceText, usableMyMemoryText } from "../src/translate";
 
 test("resolves ISO 639-1 codes the manifest invites (epoch-297 refusal)", () => {
   // miner.yaml: "by name or ISO 639-1 code, e.g. Spanish or fr". The handler
@@ -94,7 +94,24 @@ test("falls back to MyMemory when Google does not answer", async () => {
   }
 });
 
-test("the fallback returns a real translation (live)", async () => {
+test("the fallback returns a real translation (live)", async (t) => {
+  // MyMemory limits anonymous use per source IP and per day. GitHub's runners
+  // share their egress addresses with everyone else on GitHub, so from CI the
+  // provider itself is sometimes exhausted — it failed the scheduled uptime run
+  // twice on 2026-09-07/08 while production, which never reached the fallback,
+  // was fine (GAPS G80). A third party's quota is not this miner's defect, and
+  // an alarm that fires on it hides the outages the alarm exists for. So probe
+  // the provider first and skip, saying why, when it is the one refusing.
+  const probe = await fetch("https://api.mymemory.translated.net/get?q=good%20morning&langpair=en|fr", {
+    headers: { accept: "application/json" },
+    signal: AbortSignal.timeout(10_000),
+  }).catch(() => null);
+  type MemoryBody = { responseData?: { translatedText?: string }; responseStatus?: number | string } | null;
+  const body = (probe && probe.ok ? await probe.json().catch(() => null) : null) as MemoryBody;
+  if (!usableMyMemoryText(body)) {
+    t.skip(`MyMemory unavailable from this address (HTTP ${probe?.status ?? "none"}, ${JSON.stringify(body?.responseData?.translatedText ?? body?.responseStatus ?? null)})`);
+    return;
+  }
   const original = globalThis.fetch;
   globalThis.fetch = async (input, init) => {
     if (String(input).includes("clients5.google.com")) return new Response("nope", { status: 500 });
@@ -103,6 +120,28 @@ test("the fallback returns a real translation (live)", async () => {
   try {
     const result = await translate('Translate "good morning" into French');
     assert.match(result.translation ?? "", /bonjour/i);
+  } finally {
+    globalThis.fetch = original;
+  }
+});
+
+test("an exhausted MyMemory quota is not served as a translation", async () => {
+  // The provider answers HTTP 200 with the warning in the translation field.
+  const quota = {
+    responseData: { translatedText: "MYMEMORY WARNING: YOU USED ALL AVAILABLE FREE TRANSLATIONS FOR TODAY. NEXT AVAILABLE IN 12 HOURS" },
+    quotaFinished: true,
+    responseStatus: 429,
+  };
+  assert.equal(usableMyMemoryText(quota), null);
+  assert.equal(usableMyMemoryText({ responseData: { translatedText: "Bonjour" }, responseStatus: 200, quotaFinished: false }), "Bonjour");
+  assert.equal(usableMyMemoryText({ responseData: { translatedText: "Bonjour" }, responseStatus: "403" }), null);
+  const original = globalThis.fetch;
+  globalThis.fetch = async (input) => {
+    if (String(input).includes("clients5.google.com")) return new Response("nope", { status: 500 });
+    return new Response(JSON.stringify(quota), { status: 200, headers: { "content-type": "application/json" } });
+  };
+  try {
+    await assert.rejects(translate('Translate "good morning" into French'), /providers unavailable/);
   } finally {
     globalThis.fetch = original;
   }

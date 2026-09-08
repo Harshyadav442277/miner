@@ -41,6 +41,13 @@ duplicate bench, a stale review prompt, a root scratch script. Dated reports sta
 **Gotcha:** `tools/watch.mjs` parses `--key value` pairs, so `--once` must come LAST or the
 registration id is swallowed.
 
+**Tripwire, read the same day (G80):** the last two scheduled `uptime` runs were red on one live
+test — MyMemory refusing GitHub's shared runner IPs (per-IP daily quota), not the miner: `check` and
+`scores` passed, production translated through Google. Issue #10 was that false alarm. Fixed by
+probing the provider and skipping with its status, and, found on the way, `fetchMyMemory` trusted any
+HTTP 200 — MyMemory reports an exhausted quota as 200 with a "MYMEMORY WARNING…" translation, which
+would have been served as the answer (A5). Guarded and unit-tested.
+
 ## 2026-09-06 ~06:00 UTC — HEALTH CHECK: TWO DEFECTS FIXED, AND RANK IS NOT THE LEVER ON REQUEST VOLUME
 
 Full health check requested. Everything the gates cover was green — registration 402 `active`,

@@ -219,14 +219,34 @@ export async function translate(question: string, timeoutMs = DEFAULT_TIMEOUT_MS
   };
 }
 
+/**
+ * MyMemory is a liar-200 upstream (ARCHITECTURE A5): an exhausted anonymous quota
+ * comes back as HTTP 200 with `responseStatus: 429`, `quotaFinished: true` and
+ * the string "MYMEMORY WARNING: YOU USED ALL AVAILABLE FREE TRANSLATIONS FOR
+ * TODAY…" in `translatedText`. Trusting the status alone would have served that
+ * warning as the translation. Found 2026-09-08 while reading why the uptime
+ * live test failed twice from GitHub's shared runner IPs (GAPS G80).
+ */
+export function usableMyMemoryText(body: unknown): string | null {
+  const b = body as {
+    responseStatus?: number | string;
+    quotaFinished?: boolean;
+    responseData?: { translatedText?: string };
+  } | null;
+  const status = Number(b?.responseStatus ?? 200);
+  if (b?.quotaFinished === true || (Number.isFinite(status) && status !== 200)) return null;
+  const text = b?.responseData?.translatedText?.trim() ?? "";
+  if (!text || /^MYMEMORY WARNING/i.test(text)) return null;
+  return text;
+}
+
 async function fetchMyMemory(url: URL, timeoutMs: number): Promise<string | null> {
   const ac = new AbortController();
   const t = setTimeout(() => ac.abort(), timeoutMs);
   try {
     const res = await fetch(url, { signal: ac.signal, headers: { accept: "application/json" } });
     if (!res.ok) return null;
-    const body = (await res.json()) as { responseData?: { translatedText?: string } };
-    return body.responseData?.translatedText?.trim() || null;
+    return usableMyMemoryText(await res.json());
   } catch {
     return null;
   } finally {

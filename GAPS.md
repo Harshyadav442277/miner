@@ -1933,3 +1933,23 @@ three of the six are #1 or at 1.0 — an unmeasured shape change on those is the
 the leader is also 0 (CONTENT in 308, 309, 312, 315). Under a ratio-of-averages reading those epochs
 are undefined rather than zero; the table averages per-epoch ratios, which is not the published
 formula either.
+
+### G80 · The uptime alarm fired twice on MyMemory's quota, and the fallback would have served that quota warning as a translation — `FIXED 2026-09-08`
+
+Scheduled `uptime` runs at 2026-09-07 23:33Z and 2026-09-08 04:45Z failed on one live test, "the
+fallback returns a real translation", with `translation providers unavailable`; the `check` and
+`scores` jobs passed both times, production answered `bonjour` through Google, and MyMemory answered
+from this machine. The test forces Google to fail and requires MyMemory to translate — from GitHub's
+shared runner addresses, whose anonymous per-IP daily quota is spent by everyone else on GitHub. Issue
+#10 was opened by the alarm with the text "a failing endpoint is likely already costing score", which
+was false: this is the G34 pattern, the alarm firing on its own test rather than on the miner.
+
+**Two fixes.** The live test now probes MyMemory first and **skips, stating the provider's status,**
+when the provider is the one refusing; it still fails if our parsing breaks while the provider is up.
+And a real hole found while reading the fallback: `fetchMyMemory` trusted any HTTP 200, but MyMemory
+reports an exhausted quota as **HTTP 200 with `responseStatus: 429`, `quotaFinished: true` and
+"MYMEMORY WARNING: YOU USED ALL AVAILABLE FREE TRANSLATIONS FOR TODAY…" in `translatedText`** — the
+liar-200 case ARCHITECTURE A5 exists for. Had Google failed on a routed question while the miner's
+own egress was over quota, that warning would have been served as the translation. `usableMyMemoryText`
+now rejects `quotaFinished`, a non-200 `responseStatus` and the warning prefix, pinned by a unit test
+that mocks the quota body and expects the honest upstream-unavailable path instead.
