@@ -43,7 +43,20 @@ export interface TelegraphResult {
  * date, per this project's rule that protocol facts are checked against live
  * docs rather than recalled. Nothing speculative belongs in this table.
  */
-const FACTS: Array<{ match: RegExp; topic: string; text: string }> = [
+/**
+ * Words that place a question inside Telegraph. The entries added on 2026-09-08
+ * carry broad vocabulary ("docs", "website", "nodes", "subscribe") that also
+ * occurs in the open-domain questions the Daemon routes here by mistake (GAPS
+ * G71: 97% of routed TELEGRAPH_KNOWLEDGE questions are not about Telegraph), so
+ * those entries fire only when the question also names something of Telegraph's.
+ * Answering "Will the .name domain website terminate?" with a paragraph about
+ * docs.telegraphprotocol.com would be the confidently-wrong answer this miner
+ * refuses everywhere else.
+ */
+const TELEGRAPH_CONTEXT =
+  /\btelegraph\b|\bminers?\b|\bprotocol\b|\bintents?\b|\bexplorer\b|\bsignals?\b|\bx402\b|\bmcp\b|\bdaemon\b|\bdispatcher\b|\bsubnets?\b|\bvalidators?\b|\bdevnode\b|\bregistr|\bepochs?\b|\busdc\b|\bmachina\b|\balexandria\b|\bscor(?:ing|er|es)\b|\byaml\b|\bmanifest\b|\bengine\b|\brout(?:ed|ing)\b|\bescrow\b|\bpaid calls?\b/i;
+
+const FACTS: Array<{ match: RegExp; topic: string; text: string; context?: RegExp }> = [
   // Before `miner registration`: "can I update a miner after registering it" is a
   // question about updating, and the registration entry would otherwise claim it on
   // the word "registering".
@@ -213,6 +226,114 @@ const FACTS: Array<{ match: RegExp; topic: string; text: string }> = [
       "Alexandria is Telegraph's flagship intelligence layer, the product surface built on top of " +
       "the miner network and its routed answers.",
   },
+  // The entries below were added 2026-09-08 (GAPS G71). They sit AFTER every
+  // specific entry above, so a question an earlier entry already answered keeps
+  // that answer, and BEFORE the catch-all so they only take questions that used
+  // to fall through to the generic description or to `not_covered`. Every fact
+  // is from docs/TELEGRAPH_FACTS.md § "Consumer surfaces" and § "Routing".
+  {
+    match:
+      /\bdirect(?:ly)?\b|\bdispatcher\b|\bask\/:?id\b|\bspecific miner\b|\bcall(?:ing)? (?:a |one |the |my )?(?:particular |named |single )?miner\b|\bminer.?id\b|\bnumeric id\b|\bby id\b|\bsubnets?\b/i,
+    topic: "direct calls",
+    context: TELEGRAPH_CONTEXT,
+    text:
+      "A caller can address a specific miner instead of letting the router choose. POST " +
+      "/engine/v1/ask/:id on the node takes the miner's numeric id from /api/miners (LiveCert is " +
+      "4433, which is not its registration id) with a body naming the method, the endpoint path " +
+      "and the payload. It is x402-gated like the routed ask; the node runs the same pre-request " +
+      "validation but halts instead of falling back, because the caller named the miner, and the " +
+      "response carries miner_id, result, cost_usd, duration_ms and a signal_hash. In the node's " +
+      "API a registered miner is also called a subnet: list_subnets, ask_subnet and the miner " +
+      "dispatcher, POST /miner-dispatcher/v1/<minerId>/<endpoint>, all refer to miners, and the " +
+      "node publishes that whole surface as OpenAPI at /miner-dispatcher/openapi.json. A direct " +
+      "call reaches the miner regardless of its rank.",
+  },
+  {
+    match: /\bmcp\b|\bmodel context protocol\b|\bclaude desktop\b|\bcursor\b|\bagent tools?\b/i,
+    topic: "mcp",
+    context: TELEGRAPH_CONTEXT,
+    text:
+      "Telegraph ships an MCP server, the npm package telegraph-protocol-mcp, listed on the MCP " +
+      "Registry as io.github.telegraphprotocol/telegraph. It runs locally on Node 20 or newer, " +
+      "configured with TELEGRAPH_NODE_URL, TELEGRAPH_ENGINE_URL and TELEGRAPH_DAEMON_URL plus a " +
+      "burner EVM private key for payments. It exposes free node and daemon reads such as " +
+      "tg_node_list_subnets and tg_daemon_questions, the paid tg_engine_ask for routed questions " +
+      "and tg_engine_ask_subnet for a direct call, and one auto-generated tool per miner endpoint " +
+      "named tg_<slug>_<path>, refreshed every five minutes from the miner catalog, so every " +
+      "registered miner is reachable from any MCP client with no work on the miner's side.",
+  },
+  {
+    match: /\bwebsockets?\b|\bwss?:\/\/|\bsubscri(?:be|ption|ptions)\b|\bescrow\b|\bpush(?:ed)? signals?\b|\bstream(?:ing)? (?:of )?signals?\b/i,
+    topic: "websocket",
+    context: TELEGRAPH_CONTEXT,
+    text:
+      "Telegraph pushes signals over a WebSocket at wss://devnode.telegraphprotocol.com/engine/ws. " +
+      "An anonymous connection can only list subnets and ping; everything else needs a wallet " +
+      "address on the connection, a personal_sign challenge answered within 15 seconds, and at " +
+      "least 1 USDC deposited in escrow through EscrowFacet.depositUSDC on the Diamond contract. A " +
+      "wallet holds one subscription naming intents, a per-session spend limit and optional " +
+      "category, minimum-interest and hourly caps; ask and ask_direct also work over the socket " +
+      "with no x402 charge at that layer. Pushed signals come from the Daemon's roughly three-hour " +
+      "cycle in batches, are settled against escrow per signal at the intent's price, and reaching " +
+      "the spend limit cancels the subscription and closes the socket.",
+  },
+  {
+    match:
+      /\bx402\b|\bpayment[- ]required\b|\bhow (?:do|can|does|would) (?:i|you|we|an? )?(?:agents?|apps?|applications?|callers?|users?)? ?pay\b|\bpay(?:ing)? for (?:a |an |the )?(?:query|request|answer|call|signal)\b|\bverify (?:a |the |my )?(?:signal|answer|result|response)\b|\bhttp 402\b|\bpaid calls?\b/i,
+    topic: "x402",
+    context: TELEGRAPH_CONTEXT,
+    text:
+      "Telegraph charges for routed and direct answers with x402: a request without payment gets " +
+      "HTTP 402 and a PAYMENT-REQUIRED header whose decoded amount and payTo address are " +
+      "authoritative. The price is the miner's floor, min_price_usdc in 6-decimal units where 10000 " +
+      "is $0.01, times a demand multiplier from the intent's 24-hour volume, payable in USDC on Base " +
+      "Sepolia or Solana Devnet. Failed calls are never charged. Every paid call returns a " +
+      "signal_hash, and GET /engine/v1/signal/{hash} returns the signal, the result and the hashed " +
+      "payload so a consumer can verify the answer independently. The x402 client needs Node 20 " +
+      "or newer.",
+  },
+  {
+    match:
+      /\bbuild(?:ing)? (?:an? |my |your |the )?(?:app|application|agent|bot|product|client)\b|\b(?:example|reference|sample|demo) (?:apps?|applications?|code|projects?)\b|\buse ?cases?\b|\btruthwire\b|\btrustfilter\b|\bscholarguard\b|\breviewradar\b|\badguard\b|\bsupersignal\b|\bconsume\b|\bconsumers?\b/i,
+    topic: "applications",
+    context: TELEGRAPH_CONTEXT,
+    text:
+      "An application consumes Telegraph through one of three paths: the auto-routed POST " +
+      "/engine/v1/ask, where the router classifies the question into an intent and picks a ranked " +
+      "miner; a direct call to a named miner by its numeric id; or the MCP server's tools. The " +
+      "organisers' reference applications, TruthWire, TrustFilter, ScholarGuard, ReviewRadar, " +
+      "SuperSignal and AdGuard, live in the telegraph-truthwire and telegraph-usecases repositories " +
+      "on GitHub and call miners through the dispatcher with an x402 fetch wrapper. Track 3 of the " +
+      "hackathon is for applications built this way, and an intent needs real requests from such " +
+      "applications to be prize-eligible.",
+  },
+  {
+    match: /\bvalidators?\b|\bnodes?\b|\bdevnode\b|\bconsensus\b|\bstake[sd]?\b|\bstake-?weighted\b|\bwho (?:scores|checks|verifies|ranks)\b/i,
+    topic: "validators",
+    context: TELEGRAPH_CONTEXT,
+    text:
+      "Telegraph nodes run the engine: they route a question to a miner, proxy the call, convert the " +
+      "miner's payload into a short prose answer and score it with the intent's WASM module. " +
+      "Validators spot-check miners roughly every 20 seconds, seeded by the latest Base L2 block " +
+      "hash, and each keeps local scores; a miner's Canonical Score is the stake-weighted median of " +
+      "validator local scores from the last epoch tournament plus those spot checks, and that score " +
+      "sets its rank and its share of routed traffic. The public dev node is " +
+      "devnode.telegraphprotocol.com, which serves the miner catalog, the intent list and the score " +
+      "feed.",
+  },
+  {
+    match: /\bdocs?\b|\bdocumentation\b|\bwhere (?:can|do|should) i (?:read|learn|find|look)\b|\bofficial (?:site|website|guide)\b|\bwebsite\b|\bconsole\b|\bget(?:ting)? started\b/i,
+    topic: "documentation",
+    context: TELEGRAPH_CONTEXT,
+    text:
+      "Telegraph's documentation is at docs.telegraphprotocol.com. The Explorer at " +
+      "explorer.telegraphprotocol.com shows the leaderboard, the live signal feed and the score " +
+      "history; the Miner YAML Registry console at integrate.telegraphprotocol.com validates and " +
+      "registers a miner and shows how to integrate as a consumer; the hackathon rules and tracks " +
+      "are at hackathon.telegraphprotocol.com; and the public dev node at " +
+      "devnode.telegraphprotocol.com serves the miner catalog, the canonical intent list and the " +
+      "per-epoch scores.",
+  },
   {
     match: /\btelegraph\b|\bprotocol\b|\bnetwork\b|\bminer\b|\bsubnet\b|\bwhat can you do\b|\bwho are you\b|\bhow can i use you\b|\bwhat are you\b/i,
     topic: "telegraph",
@@ -317,7 +438,7 @@ export async function answerTelegraph(question: string, timeoutMs = DEFAULT_TIME
     return { ...base, topic: live.topic, verdict: live.topic, confidence: 0.9, reason: live.text, source: "Telegraph dev node, read live" };
   }
 
-  const fact = FACTS.find((f) => f.match.test(q));
+  const fact = FACTS.find((f) => f.match.test(q) && (!f.context || f.context.test(q)));
   if (fact) {
     return { ...base, topic: fact.topic, verdict: fact.topic, confidence: 0.85, reason: fact.text, source: "Telegraph protocol documentation" };
   }
