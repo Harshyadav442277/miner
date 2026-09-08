@@ -52,6 +52,33 @@ const GATES = [
 ];
 
 console.log(`preflight against ${BASE}\n`);
+
+// A protected preview answers every anonymous request with a 302 to Vercel's
+// login page. Pointed at one, this file used to grade that HTML and report
+// "2/7, 180 bad" as though the build were broken (GAPS G78) — a gate reporting
+// confidently on nothing. So the target must first prove it is the miner:
+// /health does no outbound work and names the service. Anything else is
+// refused here, loudly, before a single gate runs. Probe a protected preview
+// with `npx vercel curl <preview>/health --scope wukong4`, or disable Vercel
+// Authentication for preview deployments in the project settings.
+try {
+  const probe = await fetch(`${BASE}/health`, { redirect: "manual", signal: AbortSignal.timeout(15_000) });
+  const body = probe.status === 200 ? await probe.json().catch(() => null) : null;
+  if (body?.service !== "livecert") {
+    const where = probe.headers.get("location") ?? probe.headers.get("content-type") ?? "";
+    console.error(
+      `${BASE}/health answered HTTP ${probe.status} ${where} instead of the miner's JSON.\n` +
+      `This is not the miner (a protected preview redirects to Vercel's login page), so no gate ` +
+      `can be graded against it. Use \`npx vercel curl\` for a protected preview, or point this at ` +
+      `production and hold a rollback ready.`,
+    );
+    process.exit(2);
+  }
+} catch (e) {
+  console.error(`${BASE}/health is unreachable (${e.message}); nothing can be graded.`);
+  process.exit(2);
+}
+
 let failed = 0;
 const detail = [];
 for (const [name, exec, ok] of GATES) {

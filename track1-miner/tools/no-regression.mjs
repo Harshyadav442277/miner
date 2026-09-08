@@ -8,12 +8,13 @@
  *
  * Compared against production, not against a local build.
  *
- * KNOWN AND DELIBERATE: /ip-geolocate DIFFERS and is left alone — see GAPS G35.
- * It is the only route that reuses its subject parameter as the question it
- * restates, so filling `ip` costs it the restatement prefix. That is a real
- * inconsistency, but IP_GEOLOCATION is rank 1 by 0.1% and already scores above
- * the cliff, so it is recorded rather than "fixed" blind. Expect 7 identical,
- * 1 differing until that experiment is run.
+ * KNOWN AND DELIBERATE: /ip-geolocate DIFFERS and stays that way. It is the
+ * only route that reuses its subject parameter as the question it restates, so
+ * filling `ip` drops the restatement prefix. GAPS G35 first recorded that as
+ * an open inconsistency; G41 then measured it against champion 630 over the 21
+ * recovered rows — WITHOUT the prefix 0.994307 and 21/21 crossings, WITH it
+ * 0.478165 and 10/21 — so the divergence is the measured optimum, not a gap.
+ * Expect 7 identical, 1 differing; any other shape is a real regression.
  */
 const BASE = process.argv[2] ?? "https://miner-wine.vercel.app";
 const ADDR = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045";
