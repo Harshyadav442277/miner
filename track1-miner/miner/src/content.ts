@@ -24,13 +24,30 @@ export interface Extraction {
   summary: string;
 }
 
-/** The payload, which questions put in quotes after a colon. */
+/**
+ * The payload, which questions put in quotes after a colon.
+ *
+ * Without quotes, the text after a colon is the payload ONLY when what precedes
+ * the colon reads as an instruction ("Extract the contact details from:"). A
+ * bare payload can carry its own colons \u2014 "Contact sales@acme.com or call
+ * 415-555-0100. Docs: https://acme.com/pricing" \u2014 and taking everything after
+ * the first one used to throw the email and the phone number away and report
+ * them as not found (GAPS G69).
+ */
+const INSTRUCTION = /\b(?:extract|pull|find|identify|list|parse|get|give|return|summari[sz]e|from|following|below)\b/i;
+
 export function quotedPayload(text: string): string {
   const s = String(text ?? "");
   const curly = s.match(/[\u201c\u2018"']([^\u201d\u2019"']{8,})[\u201d\u2019"']/);
   if (curly?.[1]) return curly[1].trim().replace(/\s+/g, " ");
-  const colon = s.match(/:\s*(.+)$/s);
-  return (colon?.[1] ?? s).trim().replace(/\s+/g, " ");
+  const colon = s.match(/^([^:]*):\s*(.+)$/s);
+  // An instruction clause is short and unbroken: "Extract the contact details
+  // from:" qualifies, while "Extract … from the text. Contact … Docs:" does not,
+  // because its first colon sits after a full sentence of payload.
+  const pre = colon?.[1]?.trim() ?? "";
+  const isInstruction = pre.length > 0 && pre.length <= 90 && !/[.!?]\s/.test(pre) && INSTRUCTION.test(pre);
+  if (isInstruction && colon?.[2]) return colon[2].trim().replace(/\s+/g, " ");
+  return s.trim().replace(/\s+/g, " ");
 }
 
 /** What the instruction asks for. */
@@ -40,7 +57,7 @@ export function wantedFrom(text: string): Want {
   if (/\bcontact|\bemail|\bphone|\btelephone/.test(s)) return "contact";
   if (/\bentit|\bpeople\b|\bplaces?\b|\borganizations?\b/.test(s)) return "entities";
   if (/\baction items?\b|\btasks?\b|\btodo|\bto-do/.test(s)) return "actions";
-  if (/\bdate\b|\bevent\b/.test(s)) return "date_event";
+  if (/\bdates?\b|\bevents?\b/.test(s)) return "date_event";
   if (/\bnumeric|\bnumbers?\b|\bfigures?\b|\bmetrics?\b|\bvalues?\b/.test(s)) return "numeric";
   return "generic";
 }
@@ -76,7 +93,10 @@ function emails(s: string): string[] {
 }
 
 function phones(s: string): string[] {
-  return [...s.matchAll(/(?:\+\d{1,3}[\s-]?)?(?:\(\d{2,4}\)[\s-]?)?\d{3}[\s-]\d{4}\b/g)]
+  // The area code may be bare as well as parenthesised: "415-555-0100" used to
+  // be reported as "555-0100" (found 2026-09-08 while fixing G69). The
+  // lookbehind keeps a longer digit run from being read from its middle.
+  return [...s.matchAll(/(?<![\d-])(?:\+\d{1,3}[\s-]?)?(?:\(\d{2,4}\)[\s-]?|\d{3}[\s-])?\d{3}[\s-]\d{4}\b/g)]
     .map((m) => m[0].trim())
     .filter((x) => x.replace(/\D/g, "").length >= 7);
 }
@@ -145,12 +165,23 @@ const MONTHS = "january|february|march|april|may|june|july|august|september|octo
 
 function dates(s: string): string[] {
   const out: string[] = [];
+  const cap = (m: string): string => m.charAt(0).toUpperCase() + m.slice(1).toLowerCase();
+  // "12 March 2026" first. The month-day pattern below used to read it as
+  // "March 20" — its day slot swallowed the first two digits of the year — so an
+  // invoice "dated 12 March 2026 … due 30 April 2026" was reported as "March 20,
+  // April 20" (GAPS G69). Day-month-year is answered in the same "Month D, YYYY"
+  // form as the recorded ground truths, and its span is masked so the
+  // month-day pattern cannot re-read it.
+  const dmy = new RegExp(String.raw`\b(\d{1,2})(?:st|nd|rd|th)?\s+(` + MONTHS + String.raw`)(?:,?\s+(\d{4}))?\b`, "gi");
+  const masked = s.replace(dmy, (whole, d: string, mon: string, y?: string) => {
+    out.push(y ? `${cap(mon)} ${d}, ${y}` : `${cap(mon)} ${d}`);
+    return " ".repeat(whole.length);
+  });
   const re = new RegExp(String.raw`\b(` + MONTHS + String.raw`)\s+(\d{1,2})(?:st|nd|rd|th)?(?:,\s*(\d{4}))?`, "gi");
-  for (const m of s.matchAll(re)) {
-    const month = m[1]!.charAt(0).toUpperCase() + m[1]!.slice(1).toLowerCase();
-    out.push(m[3] ? `${month} ${m[2]}, ${m[3]}` : `${month} ${m[2]}`);
+  for (const m of masked.matchAll(re)) {
+    out.push(m[3] ? `${cap(m[1]!)} ${m[2]}, ${m[3]}` : `${cap(m[1]!)} ${m[2]}`);
   }
-  for (const m of s.matchAll(/\b(\d{4}-\d{2}-\d{2})\b/g)) out.push(m[1]!);
+  for (const m of masked.matchAll(/\b(\d{4}-\d{2}-\d{2})\b/g)) out.push(m[1]!);
   return [...new Set(out)];
 }
 

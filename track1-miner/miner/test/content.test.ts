@@ -65,6 +65,36 @@ test("an of-phrase still stops at its own boundary", () => {
   assert.deepEqual(e.fields["quantities"], ["5 litres of water"]);
 });
 
+// GAPS G69, both verified live on 2026-09-08 before the fix: "12 March 2026" was
+// reported as "March 20", and a payload carrying its own colon lost everything
+// before the colon.
+test("day-month-year dates are read whole, not as month-day with a truncated year", () => {
+  const d = extractContent('Extract the date and event from: "The invoice dated 12 March 2026 is due 30 April 2026 at the Berlin summit."');
+  assert.deepEqual(d.fields["dates"], ["March 12, 2026", "April 30, 2026"]);
+  assert.match(d.summary, /March 12, 2026, April 30, 2026/);
+  // The recorded month-day shape is untouched.
+  const m = extractContent('Extract the date and event from: "The conference will be held on March 15th, 2027, in Berlin."');
+  assert.deepEqual(m.fields["dates"], ["March 15, 2027"]);
+  // A bare "1st September" without a year, and an ISO date, both still surface.
+  const b = extractContent('Extract the dates from: "Doors open 1st September and close 2026-10-01."');
+  assert.deepEqual(b.fields["dates"], ["September 1", "2026-10-01"]);
+});
+
+test("a colon inside the payload does not discard the text before it", () => {
+  // No instruction at all: "Contact …" reads as a contact request, and every
+  // detail before "Docs:" must survive.
+  const e = extractContent("Contact sales@acme.com or call 415-555-0100. Docs: https://acme.com/pricing");
+  assert.deepEqual(e.fields["emails"], ["sales@acme.com"]);
+  assert.deepEqual(e.fields["phones"], ["415-555-0100"]);
+  const c = extractContent("Extract the contact details from the text. Contact sales@acme.com or call 415-555-0100. Docs: https://acme.com/pricing");
+  assert.deepEqual(c.fields["emails"], ["sales@acme.com"]);
+  assert.deepEqual(c.fields["phones"], ["415-555-0100"]);
+  assert.deepEqual(c.fields["urls"], ["https://acme.com/pricing"]);
+  // An instruction followed by a colon still yields only the payload.
+  const i = extractContent("Extract the contact details from: Reach us at support@example.com or call 555-0192.");
+  assert.equal(i.summary, "Email: support@example.com. Phone number: 555-0192.");
+});
+
 test("payload with no instruction still extracts what is there", () => {
   // `text` is the REQUIRED parameter and `query` only optional, so the engine
   // can send the payload with nothing naming what to pull out. This used to
