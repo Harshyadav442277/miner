@@ -15,6 +15,7 @@ import {
   isSupportedChain, lookupTransaction, malformedHash, resolveChain, supportedChains, txHash,
   type TxResult,
 } from "./onchain";
+import { cveId, lookupCve, malformedCveId, type CveResult } from "./cve";
 import { withRestatement, isAnswered } from "./restate";
 
 const CACHE_TTL_MS = Number(process.env.CACHE_TTL_MS ?? 60_000);
@@ -23,7 +24,7 @@ export const ENDPOINTS = [
   "/ssl-check", "/storm-alert", "/weather-forecast",
   "/ip-geolocate", "/translate", "/papers",
   "/ai-detect", "/extract", "/headlines", "/wallet-balance",
-  "/fact-check", "/telegraph", "/tx-lookup",
+  "/fact-check", "/telegraph", "/tx-lookup", "/cve",
 ] as const;
 
 /**
@@ -32,7 +33,7 @@ export const ENDPOINTS = [
  */
 type Answer =
   | SslResult | StormResult | ForecastResult | GeoResult | TranslationResult | PaperResult
-  | AiDetectResult | WalletResult | FactCheckResult | TelegraphResult | TxResult;
+  | AiDetectResult | WalletResult | FactCheckResult | TelegraphResult | TxResult | CveResult;
 const cache = new Map<string, { at: number; value: Answer }>();
 
 function fromCache(key: string): Answer | null {
@@ -93,6 +94,7 @@ const SUBJECT_OF: Record<string, string> = {
   "/fact-check": "A fact check",
   "/telegraph": "An answer about Telegraph",
   "/tx-lookup": "A transaction lookup",
+  "/cve": "A vulnerability lookup",
 };
 
 function armWatchdog(res: ServerResponse, path: string, question: string): void {
@@ -775,6 +777,46 @@ function route(req: IncomingMessage, res: ServerResponse): void {
         sendAnswer(res, q, lean(r), false);
       })
       .catch(() => upstreamUnavailable(res, "A transaction lookup", hash.slice(0, 20), q));
+    return;
+  }
+
+  if (path === "/cve") {
+    const idParam = firstValue(url, "cve_id", "cve", "id");
+    const q = withSubject(firstValue(url, "query", "q", "question", "text", "input"), idParam);
+    const id = cveId(idParam) || cveId(q);
+    if (!id) {
+      const malformed = malformedCveId(idParam) || malformedCveId(q);
+      sendAnswer(res, q, lean({
+        cve_id: null,
+        verdict: "unknown",
+        confidence: 0,
+        reason:
+          `${malformed
+            ? `The value ${malformed} is not a complete CVE identifier, which has the form ` +
+              `CVE-YYYY-NNNN with a four-digit year and a sequence number of at least four digits.`
+            : "No CVE identifier was supplied with this request."} ` +
+          `Supply an identifier such as CVE-2024-3094 and its severity, CVSS base score and ` +
+          `affected versions can be returned. This endpoint answers questions about one named ` +
+          `vulnerability; it does not search for vulnerabilities by product or by year.`,
+        error: "invalid_cve_id",
+      }), false);
+      return;
+    }
+    // A published CVE record changes rarely, so the answer is cached like any
+    // other; an unavailable upstream is not cached, so a rate-limit window does
+    // not pin a non-answer for the rest of the TTL.
+    const key = `cve:${id}`;
+    const hit = fromCache(key);
+    if (hit) {
+      sendAnswer(res, q, lean(hit), false);
+      return;
+    }
+    lookupCve(id)
+      .then((r) => {
+        if (!r.error) toCache(key, r);
+        sendAnswer(res, q, lean(r), false);
+      })
+      .catch(() => upstreamUnavailable(res, "A vulnerability lookup", id, q));
     return;
   }
 

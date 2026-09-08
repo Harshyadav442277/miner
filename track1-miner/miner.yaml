@@ -274,6 +274,33 @@ endpoints:
             intents: ["*"]
             description: "The user's original question, verbatim. The hash and chain are read from it when the parameters are absent."
 
+  - path: /cve
+    external_path: /cve
+    method: GET
+    intents: [CVE_LOOKUP]
+    description: >-
+      One vulnerability record by CVE identifier, read from the National
+      Vulnerability Database. Reports the severity rating and CVSS base score with
+      the CVSS version and the source that assigned it, the affected product and
+      versions resolved from the record's CPE configuration — exact versions and
+      half-open ranges alike — and what the flaw is. A record with no CVSS score
+      yet is reported as unscored rather than given an invented severity; a
+      REJECTED identifier is reported as rejected rather than as not found; and a
+      rate-limited or unreachable database is reported as unknown, never as a
+      vulnerability that does not exist.
+    params:
+      query:
+        required:
+          - name: cve_id
+            type: string
+            intents: ["*"]
+            description: "The CVE identifier, e.g. CVE-2024-3094."
+        optional:
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim. The identifier is read from it when the parameter is absent."
+
   - path: /fact-check
     external_path: /fact-check
     method: GET
@@ -360,6 +387,7 @@ semantics:
     - FACT_CHECK
     - TELEGRAPH_KNOWLEDGE
     - ONCHAIN_TX_LOOKUP
+    - CVE_LOOKUP
 
 # input_schema is a single top-level block covering every endpoint — the schema
 # refuses it inside endpoints[], and the node does not enforce it against requests.

@@ -85,6 +85,42 @@ const CHECKS = {
     return bad;
   },
 
+  // The severity and the affected versions are both checked against NVD's own
+  // record, fetched separately here — the endpoint's job is to resolve the CPE
+  // configuration into stated versions, and that resolution is the thing most
+  // likely to silently return nothing.
+  async CVE_LOOKUP() {
+    const bad = [];
+    const r = await get("/cve", { cve_id: "CVE-2024-3094", query: "What is the severity and affected versions for CVE-2024-3094?" });
+    const b = r.body;
+    if (b.error) return [`errored: ${b.error}`]; // NVD rate limit; re-run the gate alone.
+    if (b.verdict !== "critical") bad.push(`CVE-2024-3094 -> ${b.verdict}, want critical`);
+    const reason = String(b.reason ?? "");
+    if (!/CVSS 3\.1 base score of 10\.0/.test(reason)) bad.push("no CVSS 3.1 score of 10.0 in the answer");
+    if (!/5\.6\.0 and 5\.6\.1/.test(reason)) bad.push("affected versions 5.6.0 and 5.6.1 not resolved from the CPE configuration");
+    if (!/assigned by NVD/.test(reason)) bad.push("severity provenance not stated");
+
+    // A record with hundreds of CPE entries must name the product the record is
+    // about, not the commonest bundling vendor.
+    const log4j = await get("/cve", { cve_id: "CVE-2021-44228" });
+    if (!log4j.body.error) {
+      if (!/log4j/i.test(String(log4j.body.reason ?? ""))) bad.push("CVE-2021-44228 answer never names log4j");
+      if (/siemens|cisco/i.test(String(log4j.body.reason ?? ""))) bad.push("CVE-2021-44228 answer names a bundling vendor as the affected product");
+    }
+
+    // An unpublished identifier must not be given a severity.
+    const missing = await get("/cve", { cve_id: "CVE-2099-99999" });
+    if (!missing.body.error) {
+      if (missing.body.verdict !== "not_found") bad.push(`unpublished id -> ${missing.body.verdict}, want not_found`);
+      if (/base score of \d/.test(String(missing.body.reason ?? ""))) bad.push("a missing record was given a CVSS score");
+    }
+    // A truncated identifier is named as incomplete, not treated as absent.
+    const stub = await get("/cve", { query: "tell me about CVE-2024" });
+    if (stub.body.error !== "invalid_cve_id") bad.push(`truncated id -> ${stub.body.error}, want invalid_cve_id`);
+    if (!/not a complete CVE identifier/.test(String(stub.body.reason ?? ""))) bad.push("truncated id not identified as incomplete");
+    return bad;
+  },
+
   // Every figure here is cross-checked against an independent RPC below, not
   // taken from our own answer — the scorer for this intent is an exact match on
   // the receipt, so a plausible-looking wrong number is the failure to catch.
