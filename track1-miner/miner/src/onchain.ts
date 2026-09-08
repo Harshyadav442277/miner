@@ -55,6 +55,30 @@ const SYMBOL: Record<string, string> = {
   ethereum: "ETH", base: "ETH", arbitrum: "ETH", optimism: "ETH", polygon: "POL",
 };
 
+/**
+ * First block whose receipts carry an EIP-658 `status` flag. Below it a receipt
+ * holds a post-state `root` instead, and there is no success flag on the chain
+ * at all.
+ *
+ * This has to be a block height rather than "did the provider send a status
+ * field", because **the providers disagree**. Measured 2026-09-08 on the first
+ * ever mainnet transfer (block 46,147):
+ *
+ *   ethereum-rpc.publicnode.com   root present, status absent   (canonical)
+ *   eth.drpc.org                  status 0x1, root absent       (synthesised)
+ *   eth.merkle.io                 status 0x1, root absent       (synthesised)
+ *
+ * Keying off the field meant the same transaction produced two different
+ * answers depending on which endpoint happened to answer first. The fork height
+ * is a property of the chain, so it gives one answer. Verified the same day by
+ * walking the boundary on publicnode: block 4,369,999 returns `root`, block
+ * 4,370,000 returns `status`.
+ *
+ * The L2s and Polygon all launched years after Byzantium, so every receipt they
+ * can return carries a real status; they are absent here and default to 0.
+ */
+const EIP658_FROM: Record<string, number> = { ethereum: 4_370_000 };
+
 const CHAIN_WORDS: Array<[RegExp, string]> = [
   [/\bethereum\b|\bmainnet\b|\beth\b|\bl1\b/i, "ethereum"],
   [/\bbase\b/i, "base"],
@@ -284,14 +308,21 @@ export async function lookupTransaction(hash: string, chain: string, conflict: s
   const transfers = receipt.logs.filter((l) => l.topics?.[0] === TRANSFER_TOPIC).length;
 
   /**
-   * Pre-Byzantium receipts (before block 4,370,000 on Ethereum) carry no
-   * `status` field at all — they have a state `root` instead. The first-ever
-   * mainnet transaction is one of these. Reading a missing status as a failure
-   * would report a successful 2015 transfer as reverted, so inclusion is the
-   * fact stated and the absence is named rather than guessed.
+   * Pre-Byzantium receipts carry no success flag — see EIP658_FROM. Reading a
+   * missing status as a failure would report a successful 2015 transfer as
+   * reverted, so inclusion is the fact stated and the absence is named rather
+   * than guessed.
+   *
+   * A synthesised `status` from one of the providers that sends one is still
+   * used when it says `0x0`, because a node only reaches that by re-executing
+   * and finding the call failed — but a `0x1` on a pre-Byzantium block is not
+   * a fact read off the chain, so the answer says what it is.
    */
-  const preByzantium = receipt.status === undefined && receipt.root !== undefined;
-  const succeeded = preByzantium ? true : Number(BigInt(receipt.status ?? "0x0")) === 1;
+  const preByzantium = block < (EIP658_FROM[chain] ?? 0);
+  const flagged = receipt.status !== undefined
+    ? Number(BigInt(receipt.status)) === 1
+    : null;
+  const succeeded = preByzantium ? flagged !== false : flagged === true;
   const verdict: TxStatus = succeeded ? "confirmed" : "reverted";
 
   const created = receipt.contractAddress
@@ -299,8 +330,8 @@ export async function lookupTransaction(hash: string, chain: string, conflict: s
   const erc20 = transfers > 0
     ? ` The receipt contains ${transfers} ERC-20 token transfer${transfers === 1 ? "" : "s"}.` : "";
   const statusNote = preByzantium
-    ? " This block predates the Byzantium fork, so the receipt carries a state root rather than a " +
-      "status flag; inclusion in the chain is what is confirmed here."
+    ? " This block predates the Byzantium fork, so the canonical receipt carries a state root " +
+      "rather than a status flag; inclusion in the chain is what is confirmed here."
     : "";
 
   /**

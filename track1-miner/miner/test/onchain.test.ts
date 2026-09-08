@@ -106,3 +106,83 @@ test("a conflicting chain is named in the answer (live)", async () => {
   if (r.verdict === "unknown" && r.error === "rpc_unavailable") return;
   assert.match(r.reason, /chain parameter said ethereum while the question mentioned polygon/);
 });
+
+/**
+ * The providers disagree about pre-Byzantium receipts, and the answer must not.
+ *
+ * Recorded 2026-09-08 from the three ethereum endpoints in `RPCS`, for the first
+ * mainnet transaction (block 46,147). `publicnode` returns the canonical state
+ * root and no status; `drpc` and `merkle` synthesise `status: 0x1`. Detection
+ * used to key off the field, so the same transaction produced two different
+ * answers depending on which endpoint answered first — the live test only
+ * caught it on the days a synthesising endpoint won the race.
+ */
+const PRE_BYZANTIUM_TX = {
+  from: "0xa1e4380a3b1f749673e270229993ee55f35663b4",
+  to: "0x5df9b87991262f6ba471f09758cde1c0fc1de734",
+  value: "0x7a69", blockNumber: "0xb443", gasPrice: "0x2d79883d2000",
+};
+const CANONICAL_RECEIPT = {
+  root: "0x96a8e009d2b88b1483e6941e6812e32263b05683fac202abc622a3e31aed1957",
+  gasUsed: "0x5208", effectiveGasPrice: "0x2d79883d2000", contractAddress: null, logs: [],
+};
+const SYNTHESISED_RECEIPT = {
+  status: "0x1",
+  gasUsed: "0x5208", effectiveGasPrice: "0x2d79883d2000", contractAddress: null, logs: [],
+};
+
+async function answerWith(receipt: unknown): Promise<{ verdict: string; reason: string }> {
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = (async (_input: unknown, init: { body?: string }) => {
+    const method = JSON.parse(String(init?.body ?? "{}")).method;
+    const result = method === "eth_getTransactionByHash" ? PRE_BYZANTIUM_TX : receipt;
+    return new Response(JSON.stringify({ jsonrpc: "2.0", id: 1, result }), {
+      status: 200, headers: { "content-type": "application/json" },
+    });
+  }) as typeof globalThis.fetch;
+  try {
+    const r = await lookupTransaction(FIRST_TX, "ethereum");
+    return { verdict: r.verdict, reason: r.reason };
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+}
+
+test("a pre-Byzantium receipt reads the same whichever provider answers", async () => {
+  const canonical = await answerWith(CANONICAL_RECEIPT);
+  const synthesised = await answerWith(SYNTHESISED_RECEIPT);
+  assert.equal(canonical.verdict, "confirmed");
+  assert.equal(synthesised.verdict, "confirmed");
+  // Byte-identical, because the fork height is a property of the chain and not
+  // of the endpoint that happened to respond.
+  assert.equal(canonical.reason, synthesised.reason);
+  assert.match(canonical.reason, /predates the Byzantium fork/);
+});
+
+test("a post-Byzantium reverted transaction is still reported as reverted", async () => {
+  // The pre-Byzantium branch must not swallow real failures on modern blocks.
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = (async (_input: unknown, init: { body?: string }) => {
+    const method = JSON.parse(String(init?.body ?? "{}")).method;
+    const result = method === "eth_getTransactionByHash"
+      ? { ...PRE_BYZANTIUM_TX, blockNumber: "0x1312d00" }   // block 20,000,000
+      : { status: "0x0", gasUsed: "0x5208", effectiveGasPrice: "0x2d79883d2000", contractAddress: null, logs: [] };
+    return new Response(JSON.stringify({ jsonrpc: "2.0", id: 1, result }), {
+      status: 200, headers: { "content-type": "application/json" },
+    });
+  }) as typeof globalThis.fetch;
+  try {
+    const r = await lookupTransaction(FIRST_TX, "ethereum");
+    assert.equal(r.verdict, "reverted");
+    assert.ok(!/Byzantium/.test(r.reason), "a modern block must not carry the fork caveat");
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("a pre-Byzantium receipt whose provider re-executed to a failure is not called a success", async () => {
+  // A synthesised 0x0 is a node reporting that re-execution failed. That is
+  // evidence, and it outranks "inclusion implies success".
+  const r = await answerWith({ ...SYNTHESISED_RECEIPT, status: "0x0" });
+  assert.equal(r.verdict, "reverted");
+});
