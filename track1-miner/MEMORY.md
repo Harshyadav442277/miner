@@ -61,7 +61,8 @@ argument or it swallows the registration id and the tool prints its usage.
 translation (A5, G80) and the live test now skips honestly when the provider refuses GitHub's IPs;
 `miner-e08uy72lg` — OpenAlex is shedding anonymous search (429 in bursts, G81): one in-budget retry
 shipped, and `OPENALEX_MAILTO` / `OPENALEX_API_KEY` are honoured if the operator sets them.
-**Production ends the day on `miner-e08uy72lg`.** Issue #10 stays open while OpenAlex's shedding
+**Production ends the day on `miner-y1118mdz5`** (the retry wait shortened to 1.5 s after 2.5 s
+tripped verify-deploy's hard 5 s p95 budget). Issue #10 stays open while OpenAlex's shedding
 coincides with a run; that red is honest.
 
 ---

@@ -54,7 +54,9 @@ five of seven direct probes). Cache-cold ACADEMIC questions get an honest "no pa
 Shipped one in-budget retry of the same query; the lever that lifts the limit is
 `OPENALEX_MAILTO` / `OPENALEX_API_KEY` in the Vercel environment — code support is in, the address is
 the operator's to give (G43). Issue #10 stays open honestly while the shedding coincides with a run.
-**Production ends the day on `miner-e08uy72lg`** (after `miner-o50wpiyof` and `miner-m3jzb6437`).
+**Production ends the day on `miner-y1118mdz5`** (after `miner-o50wpiyof`, `miner-m3jzb6437` and
+`miner-e08uy72lg`; the last step shortened the retry wait to 1.5 s because the 2.5 s wait tripped
+verify-deploy's hard 5 s p95 budget during a shed window).
 
 ## 2026-09-06 ~06:00 UTC — HEALTH CHECK: TWO DEFECTS FIXED, AND RANK IS NOT THE LEVER ON REQUEST VOLUME
 

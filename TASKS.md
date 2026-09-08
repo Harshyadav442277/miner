@@ -13,8 +13,8 @@ position, so every day of delay shortens the record we are judged on.
 ## Where this stands — 2026-09-08 ~10:30 UTC (Winner Selection, Sep 8–18)
 
 - **Both tracks closed; the miner stays live.** Registration **402** `active`, thirteen intents,
-  hash unchanged. Production ends 2026-09-08 on `miner-e08uy72lg` (after `miner-o50wpiyof` and
-  `miner-m3jzb6437`), watch `--once` clean, 211 unit tests.
+  hash unchanged. Production ends 2026-09-08 on `miner-y1118mdz5` (after `miner-o50wpiyof`,
+  `miner-m3jzb6437` and `miner-e08uy72lg`), watch `--once` clean, 211 unit tests.
 - [ ] **TC.4** Operator: `vercel env add OPENALEX_MAILTO production --scope wukong4` (an address of
       the operator's choosing) and redeploy — lifts OpenAlex's anonymous rate limit that is turning
       cache-cold ACADEMIC_SEARCH answers into "no papers" and keeping uptime issue #10 open (G81).

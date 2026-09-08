@@ -1917,8 +1917,8 @@ the gate's own header instructs, ALL CHECKS PASSED** with five papers and median
 --once` against registration 402 and the alias: `endpoint=ok 358ms (verdict=valid) activation=active`.
 Rollback target held throughout: `miner-3d806mm3e`, never needed. Two further production builds
 followed the same morning, each preview-probed and alias-checked the same way: `miner-m3jzb6437`
-(G80, the MyMemory quota guard) and `miner-e08uy72lg` (G81, the OpenAlex retry and opt-in polite
-pool), which is where the day ends.
+(G80, the MyMemory quota guard), `miner-e08uy72lg` (G81, the OpenAlex retry and opt-in polite
+pool) and `miner-y1118mdz5` (the retry wait shortened to 1.5 s), which is where the day ends.
 
 **What the independent critic changed before anything shipped.** The plan was reviewed by a separate
 session before execution. It dropped the WEATHER_CHECK current-conditions change (G63-P1) because the

@@ -174,7 +174,9 @@ not needed. Full record: GAPS G79. Two more builds followed the same morning aft
 uptime tripwire: `miner-m3jzb6437` (the translation fallback trusted MyMemory's HTTP-200 quota warning
 as a translation, G80) and `miner-e08uy72lg` (OpenAlex is rate-limiting anonymous search; one
 in-budget retry, and the polite pool is honoured if the operator sets `OPENALEX_MAILTO`, G81).
-Production ends the day on `miner-e08uy72lg`.
+A last build, `miner-y1118mdz5`, shortened that retry's wait to 1.5 s because the 2.5 s wait pushed a
+shed-window answer past the 5 s p95 latency budget the acceptance check enforces. Production ends the
+day on `miner-y1118mdz5`.
 
 ## 6. Considered and deliberately not changed
 
@@ -207,6 +209,19 @@ Production ends the day on `miner-e08uy72lg`.
 `tools/ssl_bench.json` (byte-identical to `bench/ssl_bench.json`), and twelve one-off bench sweeps
 whose conclusions are in GAPS and whose candidate wordings no longer exist. The dated epoch reports
 and audits stay where they are; git history keeps everything. Nothing under `track2/` was touched.
+
+## Postscript — epoch 316, scored 09:01 UTC, ten of thirteen intents in so far
+
+The first epoch after the deploy, read while this report was being finished. 4 × #1 (ACADEMIC,
+TRANSLATION, NEWS, SSL — SSL back on top at 0.011 in a sub-cliff epoch). CONTENT_EXTRACTION: the
+whole field 0 again, the fifth such epoch in nine, so the fixture is still asking a shape nobody
+handles. TELEGRAPH_KNOWLEDGE: the chatbot crossed at 1.0 and we scored 1e-11, so that question was
+outside the widened table too. STORM: txlens crossed at 0.995, we sat at 0.0145. WEATHER_CHECK:
+chainsight crossed at 0.99935 and we scored 0.018 at #7 — the mirror image of epoch 315, where we
+crossed at 0.99931 on the same code; that is the lottery on the question, and it is why the
+"current conditions" change was declined rather than the reason to make it. IP #3 at ratio 0.999,
+AI_TEXT #2 at 0.80. WEATHER_FORECAST, WALLET and FACT_CHECK had not been scored when this was
+written; the CI `scores` job will complete the row.
 
 ## 9. Sources and reproduction
 
