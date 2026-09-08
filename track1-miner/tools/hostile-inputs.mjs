@@ -37,7 +37,7 @@ const HOSTILE = {
   "spaces": "     ",
   "long inline payload (8k)": "A".repeat(8_000),
   "unicode mix": "コーヒーを一杯お願いします。 مرحبا 🌍 Ω≈ç√∫ 中文",
-  "control chars": "a\u0000bcd",
+  "control chars": "a\u0000\u0001\u0002bcd",
   "html/script": "<script>alert(1)</script><img src=x onerror=1>",
   "sql-ish": "'; DROP TABLE miners;-- ",
   "json blob": '{"nested":{"deep":[1,2,3]},"q":"what?"}',
