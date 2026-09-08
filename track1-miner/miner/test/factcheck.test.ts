@@ -36,6 +36,19 @@ describe("checkFact", () => {
     assert.match(r.reason, /not a full adjudication|does not settle/i);
   });
 
+  // GAPS G77: the two article-selection misses that needed stemming rather than a
+  // scoring tweak. Both are pinned on the article chosen, not on the verdict.
+  test("picks the article about the claim, not one that merely quotes its words (live)", async () => {
+    const brain = await checkFact("Is it true that humans only use 10% of their brains?");
+    assert.match(String(brain.source_url), /Ten.percent.of.the.brain|brain_myth/i, String(brain.source_url));
+    const boil = await checkFact("Fact-check: water boils at 100 degrees Celsius.");
+    assert.doesNotMatch(String(boil.source_url), /Anders_Celsius/, String(boil.source_url));
+    assert.match(String(boil.source_url), /Boiling_point|Celsius$/i, String(boil.source_url));
+    // The G77 case itself must not regress.
+    const eiffel = await checkFact("Is it true that the Eiffel Tower is located in Paris?");
+    assert.match(String(eiffel.source_url), /\/wiki\/Eiffel_Tower$/, String(eiffel.source_url));
+  });
+
   test("no claim degrades to an honest refusal", async () => {
     const r = await checkFact("");
     assert.equal(r.error, "invalid_input");

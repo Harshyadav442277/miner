@@ -76,6 +76,45 @@ function searchTerms(claim: string): string {
     .slice(0, 220);
 }
 
+const NUMBER_WORDS: Record<string, string> = {
+  one: "1", two: "2", three: "3", four: "4", five: "5", six: "6", seven: "7", eight: "8", nine: "9",
+  ten: "10", twenty: "20", thirty: "30", forty: "40", fifty: "50", hundred: "100", thousand: "1000",
+};
+
+/**
+ * A word reduced to the form the article-selection score compares on.
+ *
+ * Plain word overlap could not see that "boils" and "Boiling point" are the same
+ * word, or that "10%" and "Ten-percent-of-the-brain myth" name the same number,
+ * so "water boils at 100 degrees Celsius" picked the astronomer *Anders Celsius*
+ * and "humans only use 10% of their brains" picked the film *Flight of the
+ * Navigator* (GAPS G77). Number words become digits, a percent sign becomes the
+ * word, and the commonest inflections are stripped. This is deliberately crude
+ * and used ONLY to choose the article; `judge` keeps its own exact tokens, so
+ * the no-supported-verdict safety property is untouched.
+ */
+function stem(w: string): string {
+  if (NUMBER_WORDS[w]) return NUMBER_WORDS[w]!;
+  if (/^\d+$/.test(w)) return w;
+  if (w.length > 5 && w.endsWith("ies")) return w.slice(0, -3) + "y";
+  if (w.length > 5 && w.endsWith("ing")) return w.slice(0, -3);
+  if (w.length > 4 && w.endsWith("ed")) return w.slice(0, -2);
+  if (w.length > 4 && w.endsWith("es")) return w.slice(0, -2);
+  if (w.length > 3 && w.endsWith("s") && !w.endsWith("ss")) return w.slice(0, -1);
+  return w;
+}
+
+function matchTokens(s: string): string[] {
+  return s
+    .toLowerCase()
+    .replace(/%/g, " percent ")
+    .replace(/[^a-z0-9\s]/g, " ")
+    .split(/\s+/)
+    .filter((w) => w.length > 0)
+    .map(stem)
+    .filter((w) => w.length > 3 || /^\d+$/.test(w));
+}
+
 async function getJson(url: string, timeoutMs: number): Promise<Record<string, unknown> | null> {
   const ac = new AbortController();
   const t = setTimeout(() => ac.abort(), timeoutMs);
@@ -164,9 +203,7 @@ export async function checkFact(question: string, timeoutMs = DEFAULT_TIMEOUT_MS
     timeoutMs,
   );
   const hits = ((search?.["query"] as Record<string, unknown> | undefined)?.["search"] ?? []) as Array<Record<string, unknown>>;
-  const claimWords = new Set(
-    claim.toLowerCase().replace(/[^a-z0-9\s]/g, " ").split(/\s+/).filter((w) => w.length > 3),
-  );
+  const claimWords = new Set(matchTokens(claim));
   let title: string | null = null;
   let bestScore = -1;
   for (const h of hits) {
@@ -175,7 +212,7 @@ export async function checkFact(question: string, timeoutMs = DEFAULT_TIMEOUT_MS
     // Score on the TITLE, which names the subject, plus the snippet, which
     // shows whether the article is about the claim or merely mentions it.
     const snippet = String(h["snippet"] ?? "").replace(/<[^>]*>/g, " ");
-    const hay = new Set(`${t} ${snippet}`.toLowerCase().replace(/[^a-z0-9\s]/g, " ").split(/\s+/));
+    const hay = new Set(matchTokens(`${t} ${snippet}`));
     let hit = 0;
     for (const w of claimWords) if (hay.has(w)) hit++;
     // Score the title WITHOUT its parenthetical, which is a disambiguator rather
@@ -183,12 +220,7 @@ export async function checkFact(question: string, timeoutMs = DEFAULT_TIMEOUT_MS
     // left punctuation stuck to the tokens — "(paris," and "tennessee)" could
     // never match a claim word at all.
     const baseTitle = t.replace(/\s*\([^)]*\)\s*/g, " ");
-    const titleWords = baseTitle
-      .toLowerCase()
-      .replace(/[^a-z0-9\s]/g, " ")
-      .split(/\s+/)
-      .filter((w) => w.length > 3);
-    const titleHit = titleWords.filter((w) => claimWords.has(w)).length;
+    const titleHit = matchTokens(baseTitle).filter((w) => claimWords.has(w)).length;
     // "Eiffel Tower (Paris, Tennessee)" is a 60-foot replica, and it beat "Eiffel
     // Tower" on "the Eiffel Tower is located in Paris" 8-7, purely because its
     // snippet contains "located". A disambiguated title is the right article only
@@ -197,11 +229,7 @@ export async function checkFact(question: string, timeoutMs = DEFAULT_TIMEOUT_MS
     const paren = t.match(/\(([^)]*)\)/);
     let disambiguation = 0;
     if (paren) {
-      const inside = (paren[1] ?? "")
-        .toLowerCase()
-        .replace(/[^a-z0-9\s]/g, " ")
-        .split(/\s+/)
-        .filter((w) => w.length > 3);
+      const inside = matchTokens(paren[1] ?? "");
       if (inside.length > 0 && !inside.every((w) => claimWords.has(w))) disambiguation = 3;
     }
     const score = hit + titleHit * 2 - disambiguation;
