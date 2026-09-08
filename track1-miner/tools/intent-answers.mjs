@@ -91,6 +91,13 @@ const CHECKS = {
   // likely to silently return nothing.
   async TVL_LOOKUP() {
     const bad = [];
+    // `lean()` projects the payload to verdict/confidence/reason, so every
+    // assertion here is on the prose the network actually scores rather than on
+    // fields the miner does not send. That is the point: a probe that reads
+    // internal state can pass while the answer the scorer sees is wrong.
+    const dollars = (t) => [...String(t ?? "").matchAll(/\$([\d,]+)(?![\d,]*\s*(?:million|billion|trillion|thousand))/g)]
+      .map((m) => Number(m[1].replace(/,/g, ""))).filter(Number.isFinite);
+
     // The canonical description's OWN worked example, which is a token pool
     // liquidity question and not a protocol lookup. Answering it with a
     // protocol's TVL scores at the floor (~0.003 vs ~0.29 against champion 49),
@@ -100,34 +107,47 @@ const CHECKS = {
     });
     const t = tok.body;
     if (t.error) return [`errored: ${t.error}`]; // provider down; re-run the gate alone.
-    if (t.scope !== "token_pool") bad.push(`canonical example -> scope ${t.scope}, want token_pool`);
-    if (t.chain !== "base") bad.push(`canonical example -> chain ${t.chain}, want base`);
     if (t.verdict !== "found") bad.push(`canonical example -> ${t.verdict}, want found`);
-    if (!/USDC/.test(String(t.reason ?? ""))) bad.push("token not identified as USDC");
-    if (!/pool liquidity/i.test(String(t.reason ?? ""))) bad.push("answer never says pool liquidity");
-    // USDC's market cap is orders of magnitude above its pool liquidity; serving
-    // one for the other is the error this bound catches.
-    if (!(t.usd > 1e6 && t.usd < 5e10)) bad.push(`pool liquidity ${t.usd} is outside a plausible range`);
+    const tr = String(t.reason ?? "");
+    if (!/own DEX pool liquidity/i.test(tr)) bad.push("canonical example not answered as token pool liquidity");
+    if (!/0x833589fcd6edb6e08f4c7c32d4f71b54bda02913/.test(tr)) bad.push("answer does not echo the contract asked about");
+    if (!/\bon base\b/i.test(tr)) bad.push("answer does not name the chain asked about");
+    if (!/USDC/.test(tr)) bad.push("token not identified as USDC");
+    if (/according to DefiLlama/i.test(tr)) bad.push("a token question was answered from the protocol source");
+    // USDC's market cap is orders of magnitude above its pool liquidity;
+    // serving one for the other is the error this bound catches.
+    const liq = dollars(tr)[0];
+    if (!(liq > 1e6 && liq < 5e10)) bad.push(`pool liquidity ${liq} is outside a plausible range`);
 
     const prot = await get("/tvl", { query: "What is the total value locked in the Aave protocol right now?" });
     if (!prot.body.error) {
-      if (prot.body.scope !== "protocol") bad.push(`Aave -> scope ${prot.body.scope}, want protocol`);
+      const pr = String(prot.body.reason ?? "");
       if (prot.body.verdict !== "found") bad.push(`Aave -> ${prot.body.verdict}, want found`);
-      if (!/DefiLlama/.test(String(prot.body.reason ?? ""))) bad.push("protocol answer does not attribute its source");
-      if (!(prot.body.usd > 1e8)) bad.push(`Aave TVL ${prot.body.usd} is implausibly small`);
+      if (!/Aave protocol has/i.test(pr)) bad.push("Aave not answered as a protocol lookup");
+      if (!/aggregated across every chain/i.test(pr)) bad.push("protocol answer does not state its aggregation scope");
+      if (!/DefiLlama/.test(pr)) bad.push("protocol answer does not attribute its source");
+      if (!(dollars(pr)[0] > 1e8)) bad.push(`Aave TVL ${dollars(pr)[0]} is implausibly small`);
     }
 
     const chain = await get("/tvl", { query: "How much TVL is on the Base chain?" });
     if (!chain.body.error) {
-      if (chain.body.scope !== "chain") bad.push(`Base chain -> scope ${chain.body.scope}, want chain`);
-      if (!/aggregate TVL/i.test(String(chain.body.reason ?? ""))) bad.push("chain answer does not state it is the chain aggregate");
+      const cr = String(chain.body.reason ?? "");
+      if (!/Base chain has/i.test(cr)) bad.push("Base not answered as a chain lookup");
+      if (!/aggregate TVL/i.test(cr)) bad.push("chain answer does not state it is the chain aggregate");
+    }
+
+    // A protocol named alongside a chain is still a protocol question. Reading
+    // the chain word as the subject answers something else entirely.
+    const both = await get("/tvl", { query: "What is Aave's TVL on Base?" });
+    if (!both.body.error && !/Aave protocol has/i.test(String(both.body.reason ?? ""))) {
+      bad.push("a protocol question naming a chain was answered as a chain question");
     }
 
     // A question with no identifiable subject must be refused, not answered
     // with whatever protocol happens to slugify from the filler words.
     const empty = await get("/tvl", { query: "What is the TVL?" });
     if (empty.body.error !== "no_subject") bad.push(`subjectless question -> ${empty.body.error}, want no_subject`);
-    if (/\$[\d,]{4,}/.test(String(empty.body.reason ?? ""))) bad.push("a subjectless question was given a dollar figure");
+    if (dollars(String(empty.body.reason ?? "")).length) bad.push("a subjectless question was given a dollar figure");
     return bad;
   },
 
@@ -201,7 +221,7 @@ const CHECKS = {
     if (missing.body.verdict !== "not_found" && missing.body.verdict !== "unknown") {
       bad.push(`unknown hash -> ${missing.body.verdict}, want not_found`);
     }
-    if (missing.body.verdict === "not_found" && /d[d,]* gas/.test(String(missing.body.reason ?? ""))) {
+    if (missing.body.verdict === "not_found" && /\d[\d,]* gas\b/.test(String(missing.body.reason ?? ""))) {
       bad.push("a missing transaction was given a gas figure");
     }
     // An unsupported chain is refused by name, not answered from Ethereum.
@@ -403,6 +423,33 @@ const CHECKS = {
     return bad;
   },
 };
+
+/**
+ * Prove the target is the miner before grading a single answer.
+ *
+ * A protected preview answers every anonymous request with Vercel's login HTML,
+ * and each check here then reports `threw: Unexpected token '<'` — sixteen
+ * confident failures about a build that is fine. `preflight.mjs` already
+ * refuses that (GAPS G78); this file is run directly often enough to need the
+ * same refusal rather than the same lesson twice. Probe a protected preview
+ * with `npx vercel curl <preview>/health --scope wukong4`.
+ */
+try {
+  const probe = await fetch(`${BASE}/health`, { redirect: "manual", signal: AbortSignal.timeout(15_000) });
+  const body = probe.status === 200 ? await probe.json().catch(() => null) : null;
+  if (body?.service !== "livecert") {
+    const where = probe.headers.get("location") ?? probe.headers.get("content-type") ?? "";
+    console.error(
+      `${BASE}/health answered HTTP ${probe.status} ${where} instead of the miner's JSON. ` +
+      "This is not the miner, so no answer can be graded against it. A protected preview needs " +
+      "`npx vercel curl`; otherwise point this at production.",
+    );
+    process.exit(2);
+  }
+} catch (e) {
+  console.error(`${BASE}/health is unreachable (${e.message}); nothing can be graded.`);
+  process.exit(2);
+}
 
 console.log(`intent answers against ${BASE}\n`);
 
