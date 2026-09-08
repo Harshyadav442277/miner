@@ -715,7 +715,10 @@ function route(req: IncomingMessage, res: ServerResponse): void {
       }, false);
       return;
     }
-    getHeadlines(q)
+    // The declared `topic` parameter is passed on its own as well as folded into
+    // the question: the engine fills it from the question, and a subject outside
+    // the fixed topic list was being dropped in favour of generic top stories.
+    getHeadlines(q, 6, undefined, firstValue(url, "topic"))
       .then((r) => sendAnswer(res, q, r, false))
       .catch(() => upstreamUnavailable(res, "Current headlines", q.slice(0, 60), q));
     return;

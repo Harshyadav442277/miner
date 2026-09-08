@@ -40,16 +40,49 @@ const TOPICS = [
   "politics", "entertainment", "world", "crypto", "energy", "climate", "ai",
 ];
 
-/** The subject the question asks about. */
-export function extractTopic(text: string): string | null {
+/** Words a caller uses to mean "any news", which are not a subject to search for. */
+const GENERIC_TOPIC = new Set([
+  "news", "headlines", "headline", "top stories", "stories", "top news", "general", "latest",
+  "latest news", "top headlines", "current events", "breaking news", "any", "all",
+]);
+
+/** Time words and locative tails that trail a subject phrase but are not part of it. */
+const SUBJECT_TAIL =
+  /[\s,]*\b(?:today|tonight|yesterday|this (?:week|month|morning|year)|right now|now|currently|as of\b.*|from\b.*|in\b.*|for\b.*|published\b.*|dated\b.*)$/i;
+
+/**
+ * The subject the question asks about.
+ *
+ * The fixed topic list matches first, so every recorded question shape ("top 5
+ * technology headlines from Japan as of today") is answered exactly as before.
+ * Anything else used to be dropped and the feed queried for "top stories", so a
+ * question about semiconductors got MLB scores and a hospital shooting (GAPS
+ * G68). The declared `topic` parameter — which the engine fills from the
+ * question — is now honoured verbatim, and failing that the noun phrase after
+ * about/on/regarding is the subject.
+ */
+export function extractTopic(text: string, declared = ""): string | null {
   const s = String(text ?? "").toLowerCase();
   for (const t of TOPICS) if (new RegExp(String.raw`\b` + t + String.raw`\b`).test(s)) return t;
-  return null;
+  const clean = (phrase: string): string | null => {
+    const p = phrase.replace(SUBJECT_TAIL, "").replace(/[\s,;:.?!]+$/, "").trim();
+    if (!p || p.length > 60 || GENERIC_TOPIC.has(p.toLowerCase())) return null;
+    return p;
+  };
+  const d = clean(String(declared ?? ""));
+  if (d) return d;
+  const m = String(text ?? "").match(/\b(?:about|on|regarding|concerning|related to|covering)\s+([^?.!:;]{2,80})/i);
+  return m?.[1] ? clean(m[1]) : null;
 }
 
-/** A place named in the question, as a proper noun that is not a time word. */
-export function extractRegion(text: string): string | null {
+/**
+ * A place named in the question, as a proper noun that is not a time word.
+ * A proper noun that is part of the subject ("Shopify") is not a region.
+ */
+export function extractRegion(text: string, topic: string | null = null): string | null {
   const s = String(text ?? "");
+  const inTopic = (name: string): boolean =>
+    !!topic && !TOPICS.includes(topic) && topic.toLowerCase().includes(name.toLowerCase());
   // Question words and verbs capitalised only because they open the sentence.
   // "What are the top news headlines today?" used to make the region "What",
   // and the answer read "The top headlines from What today".
@@ -64,10 +97,10 @@ export function extractRegion(text: string): string | null {
     "august", "september", "october", "november", "december",
   ]);
   const m = s.match(/\b(?:from|in|for)\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)/);
-  if (m?.[1] && !stop.has(m[1].toLowerCase())) return m[1];
+  if (m?.[1] && !stop.has(m[1].toLowerCase()) && !inTopic(m[1])) return m[1];
   for (const n of s.matchAll(/\b([A-Z][a-z]{2,})\b/g)) {
     const v = n[1]!;
-    if (!stop.has(v.toLowerCase())) return v;
+    if (!stop.has(v.toLowerCase()) && !inTopic(v)) return v;
   }
   return null;
 }
@@ -90,10 +123,15 @@ function splitSource(title: string): { title: string; source: string | null } {
   return { title: title.trim(), source: null };
 }
 
-export async function getHeadlines(query: string, limit = 6, timeoutMs = DEFAULT_TIMEOUT_MS): Promise<NewsResult> {
+export async function getHeadlines(
+  query: string,
+  limit = 6,
+  timeoutMs = DEFAULT_TIMEOUT_MS,
+  declaredTopic = "",
+): Promise<NewsResult> {
   const now = new Date().toISOString();
-  const topic = extractTopic(query);
-  const region = extractRegion(query);
+  const topic = extractTopic(query, declaredTopic);
+  const region = extractRegion(query, topic);
   // "top 5 headlines" is a count, and an answer with six items did not honour it.
   const askedN = String(query ?? "").match(/\b(?:top|latest|first)\s+(\d{1,2})\b/i);
   const wantN = askedN?.[1] ? Math.max(1, Math.min(10, Number(askedN[1]))) : null;
