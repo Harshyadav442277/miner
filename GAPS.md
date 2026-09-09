@@ -2083,3 +2083,31 @@ on-chain and exactly what the raw URL serves. Verification is now
 The hash only came out right in the first place because the file had been written
 with LF that session; the rebase onto `origin/main` re-checked it out as CRLF and
 the discrepancy appeared. It would have appeared on any fresh clone too.
+
+### G87 · Registration 1378 is live with nineteen intents; 402 superseded — `CLOSED 2026-09-09`
+
+Signed by the operator at 07:47:29Z. Verified from the node, not from the console:
+
+```
+/api/miners/1378   active   19 intents   rejection null   retrying false   fetch_attempts 0
+                   yaml_hash 8d62ebe0136aea75e8185a5536f99687cac7650b31a31a5fb90c5c9aac94d874
+/api/miners/402    superseded   13 intents
+```
+
+The recorded `yaml_hash` equals the SHA-256 of the bytes the pinned raw URL actually
+serves, which is the check that matters — the hash on chain is a claim, the served
+file is the fact. `fetch_attempts 0` means the node fetched and validated it first
+time. The console's endpoint validation returned HTTP 200 on all eighteen endpoints
+at 234–304 ms.
+
+Handover was clean: 402 kept serving until 1378 activated, so there was no gap.
+
+Monitoring moved the same minute — `REGISTRATION_ID` is now 1378 and
+`watch.mjs --once` reports `endpoint=ok 382ms (verdict=valid) activation=active`.
+Current-state references in README, TASKS, SETUP, SUBMISSION_CHECKLIST,
+TELEGRAPH_FACTS and EXPANSION_MATRIX were repointed. Dated historical entries here
+and in MEMORY were deliberately left alone: they record what was true when written.
+
+**Nothing about rank is claimed.** The six new intents have never been scored by the
+network. Their honest status is *registered; ranking unverified* until an epoch
+lands.

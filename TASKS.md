@@ -12,7 +12,7 @@ position, so every day of delay shortens the record we are judged on.
 
 ## Where this stands — 2026-09-08 ~10:30 UTC (Winner Selection, Sep 8–18)
 
-- **Both tracks closed; the miner stays live.** Registration **402** `active`, thirteen intents,
+- **Both tracks closed; the miner stays live.** Registration **1378** `active`, nineteen intents,
   hash unchanged. Production ends 2026-09-08 on `miner-y1118mdz5` (after `miner-o50wpiyof`,
   `miner-m3jzb6437` and `miner-e08uy72lg`), watch `--once` clean, 211 unit tests.
 - [ ] **TC.4** Operator: `vercel env add OPENALEX_MAILTO production --scope wukong4` (an address of

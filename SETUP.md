@@ -149,6 +149,6 @@ and progress."* So a steady cadence does beat a burst on the last day.
 - `track1-miner/tools/verify-deploy.mjs` — post-deploy acceptance check. Run before registering.
 - `.github/workflows/` — CI (typecheck + tests on every push) and an hourly uptime watch that
   opens an issue if the miner goes down and closes it on recovery. Armed with repo variables
-  `MINER_BASE_URL` and `REGISTRATION_ID=402` — **update the variable whenever the registration
+  `MINER_BASE_URL` and `REGISTRATION_ID=1378` — **update the variable whenever the registration
   id changes**, or the watcher reports the old id as deregistered on every run (GAPS G66).
 - Full planning docs, judging analysis, and the intent decision with its reasoning.

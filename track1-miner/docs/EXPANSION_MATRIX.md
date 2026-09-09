@@ -4,11 +4,12 @@ Living record of the Track 1 expansion. Updated as intents ship. Every number
 here is either read live from the node or produced by
 `track1-miner/tools/candidate-bench.mjs`; nothing is remembered.
 
-**Baseline reverified 2026-09-08:** miner LiveCert, slug `livecert`, public miner
-id **4433**, registration id **402** (`active`, `rejection_reason` null), production
-`https://miner-wine.vercel.app`, registered manifest hash `7538…7640`,
-**13 registered intents**. Miner id and registration id are different identifiers
-and both were confirmed against `/api/miners/402`.
+**Baseline reverified 2026-09-08, updated 2026-09-09:** miner LiveCert, slug
+`livecert`, public miner id **4433**, registration id **1378** (`active`,
+`rejection_reason` null), production `https://miner-wine.vercel.app`, registered
+manifest hash `8d62ebe0…c94d874`, **19 registered intents**. Registration 402 is
+`superseded`. Miner id and registration id are different identifiers and both were
+confirmed against `/api/miners/1378`.
 
 ## The ceiling nobody had measured
 

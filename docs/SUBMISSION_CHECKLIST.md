@@ -14,9 +14,9 @@ Last verified: 2026-09-03 ~19:50 UTC.
 |---|---|---|---|
 | 1 | Miner built, tested, deployed at `https://miner-wine.vercel.app` | Claude | **done** — 182 unit + 67 live tests, preflight 7/7 on 2026-09-03 |
 | 2 | `track1-miner/miner.yaml` hashes to the registered `yaml_hash` | Claude | **done** — `7538…7640`; hosted and local bytes identical |
-| 3 | Registration active with every declared intent | **User** signs, Claude verifies | **done** — registration **402**, thirteen intents, active since 2026-08-31 21:46 UTC |
-| 4 | Submitted on `submissions.telegraphprotocol.com` — miner ID **4433** plus `miner.yaml` | **User** | **reported done ~22:20 UTC on 2026-08-31.** Claude cannot verify; the site needs a wallet-signed session. Re-check that it names registration 402. |
-| 5 | Uptime tripwire watching the right registration | Claude | **done** — `REGISTRATION_ID=402` since 2026-09-03; dispatched run green; issue #5 closed |
+| 3 | Registration active with every declared intent | **User** signs, Claude verifies | **done** — registration **1378**, nineteen intents, active since 2026-09-09 07:47 UTC (402 superseded) |
+| 4 | Submitted on `submissions.telegraphprotocol.com` — miner ID **4433** plus `miner.yaml` | **User** | **reported done ~22:20 UTC on 2026-08-31.** Claude cannot verify; the site needs a wallet-signed session. Re-check that it names registration 1378. |
+| 5 | Uptime tripwire watching the right registration | Claude | **done** — `REGISTRATION_ID=1378` since 2026-09-09 07:48 UTC; watcher green on the new id |
 | 6 | Posts on X, tagged `@Telegraphprotoc` | **User** | **open** — P1–P13 in [X_POSTS.md](X_POSTS.md); 25% of the score |
 
 ## Track 2 — Script Author · closed 2026-08-31

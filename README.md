@@ -5,7 +5,7 @@ application, **Morse**, lives in its own repository (see the table).
 
 | Track | Submission | Review first |
 |---|---|---|
-| **1 — Miner** | [LiveCert](https://explorer.telegraphprotocol.com/miners/livecert), miner ID **4433**, active registration **402** | [`track1-miner/README.md`](track1-miner/README.md) |
+| **1 — Miner** | [LiveCert](https://explorer.telegraphprotocol.com/miners/livecert), miner ID **4433**, active registration **1378** | [`track1-miner/README.md`](track1-miner/README.md) |
 | **2 — Script Author** | Fact-aware WASM evaluators plus a measured audit of Telegraph's promotion gate | [`track2/SUBMISSION.md`](track2/SUBMISSION.md) |
 | **3 — Application** | Morse: ask Telegram, get a receipt from the Telegraph network (Telegram bot, web ledger, hosted MCP) | [`telegraph-morse`](https://github.com/Harshyadav442277/telegraph-morse) |
 
@@ -22,7 +22,7 @@ source-backed fact checks, Telegraph protocol knowledge, and conservative AI-tex
 - **Live service:** <https://miner-wine.vercel.app>
 - **Explorer:** <https://explorer.telegraphprotocol.com/miners/livecert>
 - **Submission miner ID:** `4433`
-- **Active on-chain registration:** `402` — thirteen intents, active since 2026-08-31 21:46 UTC
+- **Active on-chain registration:** `1378` — nineteen intents, active since 2026-09-09 07:47 UTC (402 superseded)
 - **Registered manifest:** [commit-pinned `miner.yaml`](https://github.com/Harshyadav442277/miner/blob/6b0d176048313cc6fec2788d18cb9ae24f3e2adc/track1-miner/miner.yaml)
 - **Closing epoch of Track 1 (298, scored 2026-09-01 ~00:15 UTC):** seven rank-1, four rank-2 and
   two rank-4 intent results; normalized-ratio sum 10.125, the highest on the network that epoch

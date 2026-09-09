@@ -447,8 +447,8 @@ UTC**, matching the rules page.
 **Being registered on-chain and ranked does not enter you.** A miner can be active, scoring and
 holding rank 1 and still not be submitted. This was found with about two hours left.
 
-- **"Miner ID" is the on-chain registration id** (402), not the `id:` field inside the YAML (4433).
-  `/api/miners/4433` does not resolve; `/api/miners/402` does.
+- **"Miner ID" is the on-chain registration id** (1378 since 2026-09-09; 402 before it), not the
+  `id:` field inside the YAML (4433). `/api/miners/4433` does not resolve; `/api/miners/1378` does.
 - **Upload `track1-miner/miner.yaml`** — the file whose bytes hash to the registered `yaml_hash`.
   The root-level `SUBMIT-THIS-miner.yaml` is a stale 10-intent snapshot (22,807 bytes,
   `0x78932fb1...`) kept from the 389 registration. Its name is a trap; do not upload it.

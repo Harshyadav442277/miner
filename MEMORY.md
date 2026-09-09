@@ -21,12 +21,18 @@ ONCHAIN_TX_LOOKUP, CVE_LOOKUP, TVL_LOOKUP, NEWS_SEARCH, CURRENCY_EXCHANGE, GAME_
 Gates: **preflight 7/7 exit 0**, **19/19 intents answering correctly**, 274 unit tests + live
 suite green, production `miner-ktnabze5f`, alias clean.
 
-**None of them are registered.** Registration 402 still declares thirteen. The six reach the
-network only after an `updateMiner`, which is the operator's — the prepared package, with the
-hash to confirm and the sandbox sequence, is
-[track1-miner/docs/REGISTRATION_UPDATE.md](track1-miner/docs/REGISTRATION_UPDATE.md). Manifest hash
-is now `8d62ebe0…c94d874`. The status of all six is **deployed; ranking unverified** — nothing
-here has been scored by the network, and no rank is claimed.
+**REGISTERED 2026-09-09 07:47Z as registration 1378** — `active`, nineteen intents,
+`rejection_reason` null, `fetch_attempts` 0, yaml_hash `8d62ebe0…c94d874` matching the published
+file byte for byte. **402 is `superseded`**, so the handover was clean with no gap. Monitoring
+moved: `REGISTRATION_ID=1378`, watcher green. The status of all six is **registered; ranking
+unverified** — no epoch has scored them yet, and no rank is claimed.
+
+**The registration nearly went out with the wrong hash (G86).** `core.autocrlf=true` and no
+`.gitattributes` means `miner.yaml` sits on disk as CRLF and is stored as LF; GitHub raw serves the
+LF version, which is what the node fetches and hashes. The doc's own `sha256sum` instruction and the
+console's "Generate from file" button both hash the CRLF copy and give `d517e6a7…`, which the node
+would have rejected. Verify with `curl -sL "<url>" | sha256sum` or `git show HEAD:…`, never the
+working copy.
 
 **THE CEILING NOBODY HAD MEASURED (G82).** The candidate set is not the 108 canonical intents.
 Only **45 have a champion scorer**, and without one nothing is ever scored. The 65 zero-miner
