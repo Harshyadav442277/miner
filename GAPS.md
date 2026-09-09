@@ -2057,3 +2057,29 @@ fix is `miner/test/no-control-bytes.test.ts`, which scans `src`, `test`, `tools`
 and `bench` and fails on any raw control byte; it asserts it actually scanned
 files, because a scan of nothing passes. Verified to fire by injecting one.
 Write regexes with the Write tool, not through a heredoc.
+
+### G86 · The YAML hash to register is the git blob, not the file on disk — `FIXED 2026-09-09`
+
+`core.autocrlf=true` is set and the repo has no `.gitattributes`, so Git checks
+`miner.yaml` out with CRLF and stores it with LF. GitHub raw serves the stored
+version, which is what the node fetches and hashes. The two differ:
+
+```
+local working copy (CRLF)   d517e6a73ca542e8e88ae1391e874c15f826c432709c5d5cae4108a225c2aafb
+what GitHub serves (LF)     8d62ebe0136aea75e8185a5536f99687cac7650b31a31a5fb90c5c9aac94d874
+```
+
+`REGISTRATION_UPDATE.md` told the operator to run `sha256sum track1-miner/miner.yaml`,
+which prints the first one. The console's own **"Generate from file"** button does
+the same thing. Either would have put a hash on-chain that does not match the file
+the node fetches.
+
+Confirmed as the rule rather than a coincidence: the commit pinned for registration
+402 has a blob hash of `7538…7640`, which is exactly what `/api/miners/402` reports
+on-chain and exactly what the raw URL serves. Verification is now
+`curl -sL "<url>" | sha256sum`, or `git show HEAD:track1-miner/miner.yaml | sha256sum`
+— never the working copy.
+
+The hash only came out right in the first place because the file had been written
+with LF that session; the rebase onto `origin/main` re-checked it out as CRLF and
+the discrepancy appeared. It would have appeared on any fresh clone too.
