@@ -43,6 +43,38 @@ reach all three top-ranked miners to compare answers, an organizer answered both
    Morse repo (GAPS G32): its podium, automatic second opinion and consensus report were retired
    the same day, and the miner-check idea was dropped before it was built.
 
+## Organizer answer — Discord, 2026-09-07 ~23:19 UTC (via the user, on standing watches)
+
+The user reported field research to the CTO: friends and CS students who relay sports scores, storm
+warnings and token prices by hand into Telegram and WhatsApp groups all day. What they asked for was
+not a bot to question but a bot to instruct once — "watch India vs Australia" — that posts on change
+and on the final result, then stops. The design put up for a ruling was deliberately bounded: a human
+starts each watch, every watch has an end, one routed call per check on a slow cadence, a per-person
+cap, an `/unwatch`, and the subscriber recorded on every call in the public ledger. The same research
+reported, unprompted and uncontradicted, that users keep asking for **more intents**.
+
+8. **A standing watch a human explicitly subscribed to counts as organic demand** — "Yes, it will
+   count." This answers the question the 2026-09-04 pivot left open, where re-ranking and paying
+   several miners per question were called spam (items 5–6). Bounded, human-initiated, attributed
+   repetition is not in that category. It removes the reason the capped-watch stretch item in the
+   Morse repo's `PHASES.md` was never built; see that repo's GAPS G37.
+9. **The WebSocket subscription is their macro version of the same idea** — "we already have some
+   version of it on macro level, you can look into our websockets subscription where answers and
+   questions are sold to agents, on which they can make decisions." Mechanics are in "Consumer
+   surfaces" below. Three things it does not give a group chat: you subscribe to an *intent*, not a
+   subject, so a watch on one cricket match means taking every `GAME_RESULT` signal and filtering;
+   there is **one subscription per wallet**, and chat users hold no wallets; and the daemon's
+   3-hour push cadence is far too slow for a live score, where polling the miner directly wins.
+   What does transfer is the **billing shape** — escrow, a per-session spend limit, an hourly cap,
+   and automatic cancellation when the budget is exhausted. That is the safety model a watch needs
+   and it already exists.
+
+Replied 2026-09-09 ~21:29 UTC, committing to build on the WebSocket subscription rather than beside
+it, and to test the bots in Telegram and WhatsApp groups after the judging window and report back.
+Answered "awesome". One question was deliberately **not** asked and is still open: whether many
+named watches fanned out under one bot-held wallet is acceptable, or whether each watch must resolve
+to its own wallet and escrow. Ask it once there is a test result to attach to it.
+
 ---
 
 ## The single most important fact
@@ -343,7 +375,7 @@ Diamond. Actions: `subscribe` / `unsubscribe` / `list_subscriptions` (one subscr
 charge at the WebSocket layer** and no deduction from the spend limit), `ping`. Pushed signals
 come from the **Daemon's 3-hour cycle** (collectors → LLM router → miner mesh) and are settled
 against escrow per signal at the intent's price; hitting the session spend limit cancels the
-subscription and closes the socket. Signals arrive in batches, not continuously.
+subscription and closes the socket. Signals arrive in batches, not continuously. **Do not build on the free ask.** An unpaid ask on the socket, when the same call over HTTP is x402-gated, reads as an oversight rather than a policy; assume it will be closed.
 
 **4. Telegraph MCP server** — a local Node ≥ 20 process, npm `telegraph-protocol-mcp`, on the MCP
 Registry as `io.github.telegraphprotocol/telegraph`. Env: `TELEGRAPH_NODE_URL`,

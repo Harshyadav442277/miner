@@ -14,6 +14,33 @@ sessions and between models.
 | **Track 3 — app** | **Separate repo and folder:** `../telegraph-morse` — <https://github.com/Harshyadav442277/telegraph-morse>. CertWatch was retired and deleted on 2026-09-02 (never funded, no users). Read its `PLAN.md` first. |
 | Anything | [README.md](README.md) for ownership and shared facts, [docs/](docs/) for protocol and rules |
 
+## 2026-09-09 ~21:30 UTC — THE CTO RULED STANDING WATCHES ORGANIC; NOTHING IN TRACK 1 OR 2 CHANGES
+
+No code was touched. This entry exists so the ruling is not lost between repos.
+
+**What happened.** On 2026-09-07 the operator sent the Telegraph CTO field research from friends and
+CS students, plus a bounded design for a standing "watch" in a group chat, and asked for a ruling
+rather than guessing. The answer, verbatim: **"Yes, it will count."** Followed by a pointer to their
+WebSocket signal subscription as the macro version of the same idea. Replied 2026-09-09 21:29 UTC;
+answered "awesome". Both answers are transcribed as items 8–9 in
+[docs/TELEGRAPH_FACTS.md](docs/TELEGRAPH_FACTS.md).
+
+**Why it matters.** The 2026-09-04 pivot (items 5–7) established that re-ranking miners and paying
+several per question is spam. It left unanswered whether *repetition itself* is spam. It is not,
+provided a human started it, it ends, and the ledger says who subscribed. That distinction is the
+whole licence for the watch feature, and it was previously the reason the capped-watch stretch item
+in the Morse repo was left unbuilt.
+
+**Where the work lives.** The watch is a Morse feature, not a Track 1 or Track 2 one, so the design
+and its obstacles are in `../telegraph-morse` GAPS **G37** (new) and **G28** (amended). Nothing here
+changes: the miner stays live and nineteen intents stay deployed and unregistered per the entry
+below.
+
+**Two things carried forward.** One commitment: test the bots in real Telegram and WhatsApp groups
+after the judging window closes 2026-09-18, and report what comes back. One question held back on
+purpose: whether many named watches under a single bot-held wallet is acceptable, or whether each
+needs its own wallet and escrow. Ask it with a test result attached, not before.
+
 ## 2026-09-08 ~22:00 UTC — SIX INTENTS ADDED, 13 → 19 DECLARED, ALL DEPLOYED AND NONE REGISTERED
 
 Continued the expansion. **Six additional intents are live on production and answering:
