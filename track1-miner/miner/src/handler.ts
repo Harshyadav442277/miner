@@ -42,25 +42,44 @@ type Answer =
   | SslResult | StormResult | ForecastResult | GeoResult | TranslationResult | PaperResult
   | AiDetectResult | WalletResult | FactCheckResult | TelegraphResult | TxResult | CveResult
   | TvlResult | NewsSearchResult | CurrencyResult | GameResult;
-const cache = new Map<string, { at: number; value: Answer }>();
+const cache = new Map<string, { at: number; value: Answer; ttl: number }>();
 
+/**
+ * A per-entry TTL, because "how long is this still true" is a property of the
+ * fact and not of the cache.
+ *
+ * The default hour is the one-minute window that absorbs repeated spot checks on
+ * volatile answers. A PUBLISHED CVE RECORD is not volatile — it is a static
+ * document — and NVD rate-limits anonymous callers to five requests per thirty
+ * seconds, which the correctness gate alone is enough to trip. Spot checks run
+ * roughly every twenty seconds, so a one-minute TTL means we go back to NVD
+ * often enough to be throttled, and a throttled lookup answers "unavailable",
+ * which is the inconsistency that costs a rank.
+ */
 function fromCache(key: string): Answer | null {
   const hit = cache.get(key);
   if (!hit) return null;
-  if (Date.now() - hit.at > CACHE_TTL_MS) {
+  if (Date.now() - hit.at > hit.ttl) {
     cache.delete(key);
     return null;
   }
   return hit.value;
 }
 
-function toCache(key: string, value: Answer): void {
+function toCache(key: string, value: Answer, ttl: number = CACHE_TTL_MS): void {
   if (cache.size >= MAX_CACHE) {
     const oldest = cache.keys().next().value;
     if (oldest !== undefined) cache.delete(oldest);
   }
-  cache.set(key, { at: Date.now(), value });
+  cache.set(key, { at: Date.now(), value, ttl });
 }
+
+/**
+ * How long a published CVE record stays cached. Six hours: the record itself is
+ * static, and NVD only revises one when the CVSS score or the CPE configuration
+ * is amended, which is not a same-day event.
+ */
+const CVE_TTL_MS = Number(process.env.CVE_CACHE_TTL_MS ?? 6 * 60 * 60 * 1000);
 
 /**
  * Our own deadline, set inside the platform's.
@@ -827,7 +846,10 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     }
     lookupCve(id)
       .then((r) => {
-        if (!r.error) toCache(key, r);
+        // Only a real record is cached long. An unavailable answer keeps the
+        // default TTL so a rate-limit window does not pin a non-answer for six
+        // hours.
+        if (!r.error) toCache(key, r, CVE_TTL_MS);
         sendAnswer(res, q, lean(r), false);
       })
       .catch(() => upstreamUnavailable(res, "A vulnerability lookup", id, q));

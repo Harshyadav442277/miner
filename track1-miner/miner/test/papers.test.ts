@@ -240,3 +240,46 @@ test("the polite pool is used only when the operator's environment names an addr
     if (originalKey === undefined) delete process.env.OPENALEX_API_KEY; else process.env.OPENALEX_API_KEY = originalKey;
   }
 });
+
+test("an index that is down is not an index with no papers in it", async () => {
+  /**
+   * OpenAlex sheds anonymous search under load (GAPS G81) and was returning 503
+   * to every request on 2026-09-09. Both fetch attempts in findPapers swallow
+   * their error and fall through to the empty-result branch, which used to
+   * answer "No peer-reviewed papers on X were found for the requested period" —
+   * a statement about the literature made without having looked at it.
+   * ARCHITECTURE A5: an upstream failure is never reported as an empty result.
+   */
+  const original = globalThis.fetch;
+  globalThis.fetch = (async () =>
+    new Response("service unavailable", { status: 503 })) as typeof globalThis.fetch;
+  try {
+    const r = await findPapers("transformer models");
+    assert.equal(r.count, 0);
+    assert.match(r.reason, /could not be searched/i);
+    assert.match(r.reason, /availability problem/i);
+    assert.ok(
+      !/were found|no peer-reviewed papers/i.test(r.reason),
+      `an outage was reported as an empty result: ${r.reason}`,
+    );
+  } finally {
+    globalThis.fetch = original;
+  }
+});
+
+test("an index that answers with nothing still says no papers were found", async () => {
+  // The mirror case: a real empty result is a real answer and must keep saying so.
+  const original = globalThis.fetch;
+  globalThis.fetch = (async () =>
+    new Response(JSON.stringify({ results: [] }), {
+      status: 200, headers: { "content-type": "application/json" },
+    })) as typeof globalThis.fetch;
+  try {
+    const r = await findPapers("a subject nobody has published on");
+    assert.equal(r.count, 0);
+    assert.match(r.reason, /were found/i);
+    assert.ok(!/availability problem/i.test(r.reason));
+  } finally {
+    globalThis.fetch = original;
+  }
+});

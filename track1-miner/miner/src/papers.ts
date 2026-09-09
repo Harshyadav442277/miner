@@ -339,8 +339,13 @@ export async function findPapers(query: string, limit?: number, timeoutMs = DEFA
   // pauses anonymous search entirely under load with a 503. Both are precisely
   // when the narrower retry would have worked, and both scored ~0 instead.
   let body: Body = {};
+  // Whether the index ANSWERED, as distinct from whether it had results. An
+  // index that is down is not an index with nothing in it, and conflating the
+  // two turns an outage into the false claim "no papers were found".
+  let indexAnswered = false;
   try {
     body = await get(url, timeoutMs);
+    indexAnswered = true;
   } catch {
     /* fall through to the narrower retry rather than giving up here */
   }
@@ -356,6 +361,7 @@ export async function findPapers(query: string, limit?: number, timeoutMs = DEFA
       `&per-page=${want}`;
     try {
       body = await get(retry, Math.min(4000, timeoutMs));
+      indexAnswered = true;
     } catch {
       /* keep the empty first result and answer honestly below */
     }
@@ -376,6 +382,25 @@ export async function findPapers(query: string, limit?: number, timeoutMs = DEFA
   }
 
   if (papers.length === 0) {
+    /**
+     * An outage is not an empty shelf.
+     *
+     * Both attempts above swallow their error and fall through here, so a
+     * 503 from OpenAlex used to be answered "No peer-reviewed papers on X were
+     * found" — a statement about the literature made when we had not managed to
+     * look at it. OpenAlex sheds anonymous search under load (GAPS G81) and was
+     * returning 503 to every request on 2026-09-09, so this is the common path
+     * rather than a corner. ARCHITECTURE A5: an upstream failure is never
+     * reported as an empty result.
+     */
+    if (!indexAnswered) {
+      return {
+        ...base,
+        reason:
+          `Papers on ${topic} could not be searched because the academic index did not respond. ` +
+          `This is an availability problem here, not a statement that no such research exists.`,
+      };
+    }
     return { ...base, reason: `No peer-reviewed papers on ${topic} were found for the requested period.` };
   }
 

@@ -180,3 +180,18 @@ test("a token with no pools is not_found, with no invented figure (live)", async
   assert.equal(r.usd, null);
   assert.ok(!/\$[\d,]{4,}/.test(r.reason), "no dollar figure may appear for a token we found nothing for");
 });
+
+test("the named pool is described as the largest LISTED, not the deepest (live)", async () => {
+  /**
+   * DexScreener returns at most 30 pairs and which 30 varies between reads: for
+   * USDC on Base it named AERO/USDC at $33.4M one hour and LAPTOP/USDC at
+   * $900k the next, from a stable 30-pair response each time. The real deepest
+   * pool is larger than either, so calling a sample maximum "the deepest single
+   * pool" is a claim we cannot support.
+   */
+  const r = await lookupTvl("token_pool", USDC_BASE, "base");
+  if (r.verdict !== "found") return;
+  if (!/pools listed/.test(r.reason)) return;   // no pool detail this read
+  assert.match(r.reason, /largest of the \d+ pools listed/);
+  assert.ok(!/deepest/i.test(r.reason), "a sample maximum must not be called the deepest");
+});

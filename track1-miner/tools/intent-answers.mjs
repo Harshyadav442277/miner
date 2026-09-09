@@ -455,7 +455,15 @@ const CHECKS = {
     // empty result is an upstream state, not a defect in us. What must always
     // hold is that we answer honestly. Relevance is only checked with papers.
     if (entries === 0) {
-      if (!/no peer-reviewed papers/i.test(reason)) {
+      // TWO honest answers are possible and they are different claims: the index
+      // answered and had nothing ("no peer-reviewed papers ... were found"), or
+      // the index did not answer at all ("could not be searched ... availability
+      // problem"). Only the second is true during an OpenAlex outage, and
+      // asserting the first then would be a statement about the literature made
+      // without having looked at it. Either is accepted here; silence is not.
+      const saysEmpty = /no peer-reviewed papers/i.test(reason);
+      const saysUnavailable = /could not be searched/i.test(reason) && /availability problem/i.test(reason);
+      if (!saysEmpty && !saysUnavailable) {
         bad.push("no papers AND no honest explanation of why");
       }
     } else {

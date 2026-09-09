@@ -346,8 +346,10 @@ export async function poolLiquidity(address: string, chain: string): Promise<Poo
     }
   }
 
-  // DexScreener is asked either way: it names the deepest pool and its DEX,
-  // which is the part of the question that says "in DEX pools (e.g. Uniswap)".
+  // DexScreener is asked either way: it names pools and their DEXes, which is
+  // the part of the question that says "in DEX pools (e.g. Uniswap)". It returns
+  // at most 30 and which 30 varies, so the pool it names is the largest OF THAT
+  // SAMPLE and the answer says so rather than calling it the deepest.
   if (dex) {
     try {
       const j = (await getJson(`https://api.dexscreener.com/latest/dex/tokens/${encodeURIComponent(address)}`)) as {
@@ -409,7 +411,17 @@ export async function lookupTvl(
       ? "across all of its tracked pools"
       : `summed across its ${r.pools} largest listed pools, which is a floor rather than a total`;
     const topNote = r.top
-      ? ` The deepest single pool is ${r.top.pair} on ${r.top.dex} at ${usd(r.top.usd)}.`
+      /**
+       * "of the N listed", not "the deepest".
+       *
+       * DexScreener returns at most 30 pairs and WHICH 30 varies between reads:
+       * for USDC on Base it named AERO/USDC at $33.4M one hour and LAPTOP/USDC
+       * at $900k the next, from a stable 30-pair response each time. The real
+       * deepest pool is certainly larger than either. Calling a sample maximum
+       * "the deepest single pool" is a claim we cannot support, so the answer
+       * says what it actually is.
+       */
+      ? ` The largest of the ${r.pools ?? 0} pools listed for it is ${r.top.pair} on ${r.top.dex} at ${usd(r.top.usd)}.`
       : "";
     return {
       ...base, chain: c, usd: r.usd, verdict: "found", confidence: r.complete ? 0.9 : 0.75,

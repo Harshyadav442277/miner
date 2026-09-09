@@ -119,6 +119,22 @@ const ERRORS = new Set([
   "invalid_input", "invalid_address", "invalid_location", "invalid_ip", "invalid_domain",
 ]);
 
+/**
+ * An upstream that did not answer is NOT a refusal of the input.
+ *
+ * This gate exists to catch one thing: did we turn away a question we had
+ * enough information to answer, because a parameter shape was misparsed. An
+ * outage is orthogonal to that, and is what the upstream-health gate is for.
+ *
+ * The distinction became load-bearing on 2026-09-09, when /papers began
+ * answering "could not be searched because the academic index did not respond"
+ * during an OpenAlex 429/503 window. That wording is the honest one — what it
+ * replaced was claiming no papers exist — but it contains "could not be", so
+ * REFUSAL matched it and this gate reported a parsing defect that did not
+ * exist. A gate that fails on somebody else's outage teaches you to ignore it.
+ */
+const UNAVAILABLE = /availability problem|did not respond|not a statement (that|about)/i;
+
 async function call(ep, params) {
   const u = new URL(BASE + ep);
   for (const [k, v] of Object.entries(params)) u.searchParams.set(k, v);
@@ -136,7 +152,7 @@ for (const [ep, params, mustAnswer] of SHAPES) {
   try { out = await call(ep, params); }
   catch (e) { fail++; console.log(`FAIL  ${ep}  ${JSON.stringify(params).slice(0, 90)}\n      transport: ${e.message}`); continue; }
   const reason = typeof out.body?.reason === "string" ? out.body.reason : "";
-  const refused = REFUSAL.test(reason) || ERRORS.has(out.body?.error);
+  const refused = (REFUSAL.test(reason) || ERRORS.has(out.body?.error)) && !UNAVAILABLE.test(reason);
   const problems = [];
   if (out.status !== 200) problems.push(`HTTP ${out.status}`);
   if (!reason.trim()) problems.push("empty reason");
