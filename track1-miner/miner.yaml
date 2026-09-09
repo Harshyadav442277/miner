@@ -818,3 +818,47 @@ rate_limit_per_sec: 20
 cache_ttl_sec: 60
 circuit_threshold: 5
 circuit_cooldown_seconds: 30
+
+on_chain:
+  description: >-
+    The endpoint's verdict, the reason behind it, and the numeric risk, in the
+    shape a contract can settle on.
+  transform: direct
+  min_price_usdc: 0.01
+  fields:
+    strings:
+      - index: 0
+        name: verdict
+        description: >-
+          This endpoint's own label for the answer. On /storm-alert that is a
+          storm-risk grade of none, low, moderate, high or severe.
+        source_path: verdict
+      - index: 1
+        name: reason
+        description: One line of plain language explaining the verdict.
+        source_path: reason
+    integers:
+      - index: 0
+        name: risk_score_x10000
+        description: Storm risk from 0 to 1, multiplied by 10000. /storm-alert only.
+        source_path: risk_score
+        multiplier: 10000
+      - index: 1
+        name: confidence_x10000
+        description: Confidence from 0 to 1, multiplied by 10000.
+        source_path: confidence
+        multiplier: 10000
+  request:
+    - endpoint: storm-alert
+      method: GET
+      query_params:
+        location: { source: strings.0 }
+    - endpoint: weather-forecast
+      method: GET
+      query_params:
+        location: { source: strings.0 }
+        hours:    { source: numbers.0 }
+    - endpoint: ssl-check
+      method: GET
+      query_params:
+        domain: { source: strings.0 }
