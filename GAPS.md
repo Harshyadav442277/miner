@@ -2111,3 +2111,65 @@ and in MEMORY were deliberately left alone: they record what was true when writt
 **Nothing about rank is claimed.** The six new intents have never been scored by the
 network. Their honest status is *registered; ranking unverified* until an epoch
 lands.
+
+### G88 · ONCHAIN_TX_LOOKUP denied real transactions on chains we already read — `FIXED 2026-09-09`
+
+We entered the intent at **0.006275, rank 10 of 13** in epoch 319 while txlens
+crossed at 0.9949. That number is the `not_found` band the bench measured at
+0.0059, not the partial-receipt band at 0.01, which is what pointed at the cause.
+
+A hash with **no chain named defaulted to Ethereum**, and a live Base, Arbitrum or
+Polygon transaction was answered "does not correspond to any transaction on
+ethereum" with confidence 0.9. Reproduced against production with three real
+transactions, one per chain. Ethereum was being treated as an assertion when it
+was only a reading order.
+
+Fixed: `resolveChain` now reports whether the caller actually chose a chain. When
+they did not and the default misses, one endpoint per remaining chain is probed
+concurrently and the winner is read properly — about a second in practice. A
+chain named explicitly never takes that path, because "is it on Ethereum" is a
+real question about Ethereum. When no chain has it, the answer names every chain
+checked. Verified live on all three chains after deploy.
+
+**The lesson is about where the defect was found.** Nothing in the test suite or
+the gates was wrong; the answer was well-formed, confident and false. It was found
+by reading the score we got and asking which measured band it matched.
+
+### G89 · An academic-index outage was reported as an absence of research — `FIXED 2026-09-09`
+
+OpenAlex returned 503 to every request on 2026-09-09 and `/papers` answered "No
+peer-reviewed papers on transformer models were found for the requested period."
+Both fetch attempts swallow their error and fall through to the same branch, so
+an outage and an empty shelf produced the same sentence — the exact thing
+ARCHITECTURE A5 forbids, in an intent we have served since August.
+
+`findPapers` now tracks whether the index answered as distinct from whether it
+had results. Pinned by tests with a stubbed 503 and a stubbed empty 200.
+
+Two gates had encoded the old wording and failed on the honest one. `intent-answers`
+accepted only "no peer-reviewed papers"; it now accepts either honest form and
+still fails on silence. `param-shapes` matched "could not be" as a refusal, so
+somebody else's outage read as a parsing defect of ours — a gate that fails on an
+outage teaches you to ignore it.
+
+### G90 · CVE records were re-fetched often enough to trip NVD's rate limit — `FIXED 2026-09-09`
+
+NVD allows anonymous callers five requests per thirty seconds. The correctness
+gate alone trips it, and spot checks run roughly every twenty seconds, so the
+shared one-minute cache meant `/cve` intermittently answered `upstream_unavailable`.
+Intermittent excellence is the pattern Routing Revocation punishes.
+
+A published CVE record is a static document, so it now caches for six hours; the
+cache gained a per-entry TTL to allow that. Unavailable answers keep the short TTL
+so a rate-limit window cannot pin a non-answer for six hours. Six rapid requests
+now all answer. **The real remedy is an NVD API key** — free, email-issued, and it
+raises the limit to fifty per thirty seconds. That is the operator's to request.
+
+### G91 · TVL called a sample maximum "the deepest single pool" — `FIXED 2026-09-09`
+
+DexScreener returns at most 30 pairs for a token and **which 30 varies between
+reads**: USDC on Base named AERO/USDC at $33.4M one hour and LAPTOP/USDC at $900k
+the next, from a stable 30-pair response each time. The real deepest pool is
+larger than either. The answer now says "the largest of the N pools listed for
+it", which is what we can actually support. The total itself is unaffected — it
+comes from GeckoTerminal's tracked reserve, not from summing the sample.
