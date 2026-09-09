@@ -146,12 +146,18 @@ export function malformedHash(text: string): string | null {
  * disagreement is stated in the answer rather than hidden — silently picking one
  * of two conflicting instructions is how a confidently wrong answer happens.
  */
-export function resolveChain(param: string, question: string): { chain: string; conflict: string | null } {
+export function resolveChain(
+  param: string,
+  question: string,
+): { chain: string; conflict: string | null; explicit: boolean } {
   const p = String(param ?? "").trim().toLowerCase();
   const named = p && RPCS[p] ? p : null;
   const fromText = CHAIN_WORDS.find(([re]) => re.test(String(question ?? "")))?.[1] ?? null;
-  if (named && fromText && named !== fromText) return { chain: named, conflict: fromText };
-  return { chain: named ?? fromText ?? "ethereum", conflict: null };
+  if (named && fromText && named !== fromText) return { chain: named, conflict: fromText, explicit: true };
+  // `explicit` records whether the caller actually chose a chain. Ethereum is
+  // the reading order, not an assertion, and a miss on a DEFAULTED chain is not
+  // evidence that the transaction does not exist — see `searchChains`.
+  return { chain: named ?? fromText ?? "ethereum", conflict: null, explicit: Boolean(named ?? fromText) };
 }
 
 export function isSupportedChain(name: string): boolean {
@@ -221,6 +227,40 @@ async function fetchTx(chain: string, hash: string):
   return sawWorkingEndpoint ? { tx: null, receipt: null } : null;
 }
 
+/**
+ * Which of the supported chains actually has this hash.
+ *
+ * The bug this exists to fix, found on 2026-09-09 by reading the epoch-319 score
+ * rather than the code: a hash with no chain named defaulted to Ethereum, and a
+ * live Base, Arbitrum or Polygon transaction came back as
+ * "does not correspond to any transaction on ethereum" with confidence 0.9.
+ * That is a confidently wrong denial of a transaction that plainly exists, on a
+ * chain we already read — and it scores in the `not_found` band (~0.006), which
+ * is what we scored in the first epoch this intent was live.
+ *
+ * Only ONE endpoint per chain is tried and they run concurrently, because this
+ * is a cheap "which chain is it on" probe inside an 11 s watchdog, not the full
+ * read. The winning chain is then fetched properly by the caller.
+ *
+ * A chain the caller named explicitly never reaches here: if someone asks about
+ * Ethereum and it is not on Ethereum, that is a real answer about Ethereum.
+ */
+async function searchChains(hash: string, exclude: string): Promise<string | null> {
+  const others = Object.keys(RPCS).filter((c) => c !== exclude);
+  const probes = others.map(async (chain) => {
+    const url = RPCS[chain]?.[0];
+    if (!url) return null;
+    try {
+      const tx = (await rpc(url, "eth_getTransactionByHash", [hash])) as RawTx | null;
+      return tx ? chain : null;
+    } catch {
+      return null;
+    }
+  });
+  const found = (await Promise.all(probes)).filter((c): c is string => c !== null);
+  return found[0] ?? null;
+}
+
 const fmt = (n: number, dp: number): string =>
   n.toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: dp });
 
@@ -249,11 +289,15 @@ export function toCoin(wei: bigint, symbol = ""): string {
 
 const short = (addr: string): string => addr;
 
-export async function lookupTransaction(hash: string, chain: string, conflict: string | null = null):
-  Promise<TxResult> {
-  const coin = SYMBOL[chain] ?? "ETH";
-  const note = conflict
-    ? ` The chain parameter said ${chain} while the question mentioned ${conflict}; the ${chain} chain was read.`
+export async function lookupTransaction(
+  hash: string,
+  chain: string,
+  conflict: string | null = null,
+  explicitChain = true,
+): Promise<TxResult> {
+  let searched = chain;
+  let note = conflict
+    ? ` The chain parameter said ${searched} while the question mentioned ${conflict}; the ${searched} chain was read.`
     : "";
 
   let found: Awaited<ReturnType<typeof fetchTx>>;
@@ -263,13 +307,39 @@ export async function lookupTransaction(hash: string, chain: string, conflict: s
     found = null;
   }
 
+  /**
+   * Not on the chain we defaulted to. Look on the others before denying it.
+   *
+   * `found.tx === null` from a working endpoint means "this chain does not have
+   * it", which is only an answer about the transaction when the caller chose
+   * this chain. When we chose it, the honest next step is to look where else it
+   * could be — a live Base transaction was being reported as nonexistent
+   * because the question happened not to say "base".
+   */
+  let searchedAll = false;
+  if (!explicitChain && found && found.tx === null) {
+    const elsewhere = await searchChains(hash, chain);
+    if (elsewhere) {
+      searched = elsewhere;
+      try {
+        found = await fetchTx(elsewhere, hash);
+      } catch {
+        found = null;
+      }
+      note += ` No chain was named in the request; the transaction was located on ${elsewhere}.`;
+    } else {
+      searchedAll = true;
+    }
+  }
+  const coin = SYMBOL[searched] ?? "ETH";
+
   // Every endpoint failed. This is the branch that must never be dressed up as
   // an answer: we do not know whether this transaction exists.
   if (!found) {
     return {
-      hash, chain, verdict: "unknown", confidence: 0,
+      hash, chain: searched, verdict: "unknown", confidence: 0,
       reason:
-        `The status of transaction ${hash} on ${chain} could not be determined because the public ` +
+        `The status of transaction ${hash} on ${searched} could not be determined because the public ` +
         `JSON-RPC endpoints did not respond. This is an availability problem on our side, not a ` +
         `statement about the transaction: it may well exist and be confirmed.${note}`,
       error: "rpc_unavailable",
@@ -280,7 +350,7 @@ export async function lookupTransaction(hash: string, chain: string, conflict: s
 
   if (!tx) {
     return {
-      hash, chain, verdict: "not_found", confidence: 0.9,
+      hash, chain: searched, verdict: "not_found", confidence: 0.9,
       // Measured 2026-09-08 against champion 642 across three ground-truth
       // registers: this phrasing scores 0.995-0.999 against all three, while the
       // first version of it — which added "queried against public JSON-RPC
@@ -289,9 +359,13 @@ export async function lookupTransaction(hash: string, chain: string, conflict: s
       // speculation about other networks is what cost it: it is unverifiable
       // filler, and answering "it has no status, no gas used and no block
       // number" is both shorter and a more direct answer to what was asked.
-      reason:
-        `The hash ${hash} does not correspond to any transaction on ${chain}. It has no status, ` +
-        `no gas used and no block number.${note}`,
+      reason: searchedAll
+        // No chain was named, so every chain we read was checked. Saying so is
+        // both more honest and a stronger answer than naming only the default.
+        ? `The hash ${hash} does not correspond to any transaction on ${supportedChains().join(", ")}. ` +
+          `It has no status, no gas used and no block number on any of them.${note}`
+        : `The hash ${hash} does not correspond to any transaction on ${searched}. It has no status, ` +
+          `no gas used and no block number.${note}`,
     };
   }
 
@@ -303,9 +377,9 @@ export async function lookupTransaction(hash: string, chain: string, conflict: s
    */
   if (tx.blockNumber !== null && !receipt) {
     return {
-      hash, chain, verdict: "unknown", confidence: 0,
+      hash, chain: searched, verdict: "unknown", confidence: 0,
       reason:
-        `Transaction ${hash} on ${chain} was mined in block ` +
+        `Transaction ${hash} on ${searched} was mined in block ` +
         `${fmt(Number(BigInt(tx.blockNumber)), 0)}, but its receipt could not be read: the public ` +
         `JSON-RPC endpoints returned no receipt for it. Its success or failure and its gas used are ` +
         `therefore unknown here. It sends ${toCoin(BigInt(tx.value), coin)} from ${short(tx.from)}` +
@@ -317,9 +391,9 @@ export async function lookupTransaction(hash: string, chain: string, conflict: s
   if (tx.blockNumber === null || !receipt) {
     const gwei = tx.gasPrice ? Number(BigInt(tx.gasPrice)) / 1e9 : null;
     return {
-      hash, chain, verdict: "pending", confidence: 0.8,
+      hash, chain: searched, verdict: "pending", confidence: 0.8,
       reason:
-        `Transaction ${hash} on ${chain} is pending: it has been broadcast and is in the mempool ` +
+        `Transaction ${hash} on ${searched} is pending: it has been broadcast and is in the mempool ` +
         `but has not been included in a block, so it has no receipt, no gas used and no final ` +
         `status yet. It sends ${toCoin(BigInt(tx.value), coin)} from ${short(tx.from)}` +
         `${tx.to ? ` to ${short(tx.to)}` : " to a new contract"}` +
@@ -380,9 +454,9 @@ export async function lookupTransaction(hash: string, chain: string, conflict: s
    * dropped — the same facts are stated, in the order that survives truncation.
    */
   return {
-    hash, chain, verdict, confidence: 0.99,
+    hash, chain: searched, verdict, confidence: 0.99,
     reason:
-      `Transaction ${hash} on ${chain} ` +
+      `Transaction ${hash} on ${searched} ` +
       `${succeeded ? "succeeded" : "failed and was reverted"} in block ${fmt(block, 0)}. ` +
       `It used ${fmt(gasUsed, 0)} gas at an effective gas price of ${fmt(gwei, 4)} Gwei, ` +
       `a total fee of ${toCoin(feeWei, coin)}, and moved ${value}.` +

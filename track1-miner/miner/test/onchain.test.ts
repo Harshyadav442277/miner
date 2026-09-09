@@ -39,12 +39,13 @@ test("malformedHash names a near-miss but not an address or a valid hash", () =>
 });
 
 test("resolveChain prefers the parameter and reports a conflict rather than hiding it", () => {
-  assert.deepEqual(resolveChain("", "What happened to this tx on Base?"), { chain: "base", conflict: null });
-  assert.deepEqual(resolveChain("polygon", ""), { chain: "polygon", conflict: null });
+  assert.deepEqual(resolveChain("", "What happened to this tx on Base?"), { chain: "base", conflict: null, explicit: true });
+  assert.deepEqual(resolveChain("polygon", ""), { chain: "polygon", conflict: null, explicit: true });
   // Parameter and prose disagree: the parameter wins AND the caller is told.
-  assert.deepEqual(resolveChain("base", "this transaction on polygon"), { chain: "base", conflict: "polygon" });
-  // Nothing named at all falls back to Ethereum.
-  assert.deepEqual(resolveChain("", "what is the status of this transaction?"), { chain: "ethereum", conflict: null });
+  assert.deepEqual(resolveChain("base", "this transaction on polygon"), { chain: "base", conflict: "polygon", explicit: true });
+  // Nothing named at all falls back to Ethereum, and says so: Ethereum is the
+  // reading ORDER, not a claim, so a miss there must not become "not found".
+  assert.deepEqual(resolveChain("", "what is the status of this transaction?"), { chain: "ethereum", conflict: null, explicit: false });
 });
 
 test("unsupported chains are identified, not silently coerced", () => {
@@ -233,4 +234,58 @@ test("a receipt that loads from a later endpoint is used, not abandoned", async 
   } finally {
     globalThis.fetch = originalFetch;
   }
+});
+
+test("a transaction on another supported chain is found without being named (live)", async () => {
+  /**
+   * The epoch-319 defect, pinned.
+   *
+   * A hash with no chain named defaulted to Ethereum, and a live Base,
+   * Arbitrum or Polygon transaction came back as "does not correspond to any
+   * transaction on ethereum" with confidence 0.9 — a confident denial of a
+   * transaction that exists on a chain we already read. It scores in the
+   * not_found band (~0.006), which is what we scored the first epoch this
+   * intent was live.
+   *
+   * The fixture is fetched at run time rather than hard-coded because a hash
+   * pinned here would age out of the providers' history.
+   */
+  const rpc = async (url: string, method: string, params: unknown[]): Promise<any> => {
+    const r = await fetch(url, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ jsonrpc: "2.0", id: 1, method, params }),
+      signal: AbortSignal.timeout(15_000),
+    });
+    return ((await r.json()) as { result?: unknown }).result;
+  };
+
+  let hash: string | null = null;
+  try {
+    const block = await rpc("https://mainnet.base.org", "eth_getBlockByNumber", ["latest", false]);
+    hash = (block?.transactions ?? [])[0] ?? null;
+  } catch { /* provider down is not a test failure */ }
+  if (!hash) return;
+
+  // explicitChain = false: the caller named no chain, which is the failing case.
+  const r = await lookupTransaction(hash, "ethereum", null, false);
+  if (r.verdict === "unknown") return;
+  assert.notEqual(r.verdict, "not_found", `a live Base transaction was denied: ${r.reason}`);
+  assert.equal(r.chain, "base", "the answer must name the chain it was actually found on");
+  assert.match(r.reason, /on base/);
+
+  // And the caller is told we chose the chain rather than being given a bare
+  // fact that silently contradicts the "ethereum" they might have assumed.
+  assert.match(r.reason, /No chain was named/);
+});
+
+test("an explicitly named chain is still answered about THAT chain (live)", async () => {
+  // The mirror case: asking about Ethereum for a hash that is not on Ethereum
+  // is a real question about Ethereum, and must not wander off to another chain.
+  const notOnEthereum = "0x" + "b".repeat(64);
+  const r = await lookupTransaction(notOnEthereum, "ethereum", null, true);
+  if (r.verdict === "unknown") return;
+  assert.equal(r.verdict, "not_found");
+  assert.equal(r.chain, "ethereum");
+  assert.ok(!/No chain was named/.test(r.reason));
 });

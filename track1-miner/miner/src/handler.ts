@@ -773,14 +773,16 @@ function route(req: IncomingMessage, res: ServerResponse): void {
       return;
     }
 
-    const { chain, conflict } = resolveChain(chainParam, q);
-    const key = `tx:${chain}:${hash}`;
+    const { chain, conflict, explicit } = resolveChain(chainParam, q);
+    // Keyed on the requested chain plus whether it was the caller’s choice: a
+    // defaulted lookup may resolve to a different chain than the key names.
+    const key = `tx:${chain}:${explicit ? "x" : "d"}:${hash}`;
     const hit = fromCache(key);
     if (hit) {
       sendAnswer(res, q, lean(hit), false);
       return;
     }
-    lookupTransaction(hash, chain, conflict)
+    lookupTransaction(hash, chain, conflict, explicit)
       .then((r) => {
         // A mined receipt is immutable, so it is safe to cache; a pending or
         // unavailable answer is not, and caching either would keep serving a
