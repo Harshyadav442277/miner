@@ -98,13 +98,55 @@ export function explicitTicker(text: string): string | null {
   return null;
 }
 
-/** The company name in a possessive or "of X" question, for the search fallback. */
+/**
+ * Words that open a question rather than name a company. A capitalised run is
+ * matched greedily, so "Will Sandoz's Fidaxomicin sales exceed expectations?"
+ * yielded the name "Will Sandoz" — and Yahoo's search resolves "Sandoz" to
+ * SDZ.SW and "Will Sandoz" to nothing at all. This is the "Will Dubai" defect
+ * that refused fourteen WEATHER_CHECK questions, in a second intent.
+ */
+const NOT_A_COMPANY = new Set([
+  "will", "is", "are", "was", "were", "do", "does", "did", "can", "could",
+  "should", "would", "has", "have", "had", "what", "when", "why", "how",
+  "which", "who", "the", "a", "an", "give", "show", "tell", "report",
+  "provide", "and", "for", "of", "about", "in", "on", "to",
+]);
+
+/** Stop words trimmed off both ends of a capitalised run, never from the middle. */
+function trimName(run: string): string | null {
+  let words = run.split(/\s+/).filter(Boolean);
+  while (words.length && NOT_A_COMPANY.has(words[0]!.toLowerCase())) words = words.slice(1);
+  while (words.length && NOT_A_COMPANY.has(words[words.length - 1]!.toLowerCase())) words = words.slice(0, -1);
+  return words.length ? words.join(" ") : null;
+}
+
+/**
+ * The company name for the ticker search.
+ *
+ * A possessive or an "of X" phrase is the strongest signal, and a leading
+ * capitalised run is the fallback: twelve of the fourteen routed FINANCIAL_DATA
+ * questions are "Will <subject> ...?" and named no company by either of the
+ * first two patterns, so every one was refused. Yahoo's search stays the
+ * arbiter — "Zepbound", "YESAFILI" and "Novitium Pharma" resolve to nothing
+ * there and are still refused rather than answered with a guess.
+ */
 export function companyName(text: string): string | null {
   const s = String(text ?? "").replace(/[?!.]+\s*$/, "");
   const poss = s.match(/\b([A-Z][\w&.-]*(?:\s+[A-Z][\w&.-]*){0,3})['’]s\b/);
-  if (poss?.[1]) return poss[1];
+  if (poss?.[1]) {
+    const trimmed = trimName(poss[1]);
+    if (trimmed) return trimmed;
+  }
   const of = s.match(/\b(?:for|of|about)\s+([A-Z][\w&.-]*(?:\s+[A-Z][\w&.-]*){0,3})/);
-  if (of?.[1]) return of[1];
+  if (of?.[1]) {
+    const trimmed = trimName(of[1]);
+    if (trimmed) return trimmed;
+  }
+  for (const m of s.matchAll(/\b[A-Z][\w&.-]*(?:\s+[A-Z][\w&.-]*){0,3}/g)) {
+    const trimmed = trimName(m[0]);
+    // One capitalised letter is an initial, not a searchable name.
+    if (trimmed && trimmed.length > 1) return trimmed;
+  }
   return null;
 }
 
@@ -276,17 +318,64 @@ export async function equityData(query: string, ticker: string): Promise<Financi
   };
 }
 
-/** Company name to ticker, through Yahoo's own search. */
-export async function resolveTicker(name: string): Promise<string | null> {
+/**
+ * Whether a search hit is actually the company that was asked about.
+ *
+ * Yahoo's search is fuzzy, and fuzzy is dangerous here: "Iran" returns the
+ * Brazilian paper company IRANI, and reporting its market data as the answer to
+ * "Will Iran's inflation rate decrease?" would be exactly the confidently-wrong
+ * answer this miner refuses everywhere else. The first word of the asked name
+ * therefore has to appear as a WHOLE word in the hit's own name or symbol —
+ * which "SUN PHARMACEUTICAL IND L" satisfies for "Sun Pharma" and "IRANI ON NM"
+ * does not satisfy for "Iran".
+ */
+export function nameMatchesQuote(name: string, quote: { symbol?: string; shortname?: string; longname?: string }): boolean {
+  const head = name.split(/\s+/).filter(Boolean)[0] ?? "";
+  if (head.length < 3) return false;
+  const haystack = [quote.symbol, quote.shortname, quote.longname].filter(Boolean).join(" ").toUpperCase();
+  const escaped = head.toUpperCase().replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return new RegExp(`(^|[^A-Z0-9])${escaped}([^A-Z0-9]|$)`).test(haystack);
+}
+
+/** One Yahoo search, filtered to hits that really name the company asked about. */
+async function searchTicker(name: string): Promise<string | null> {
   try {
     const j = (await getJson(
       `${YAHOO_SEARCH}?q=${encodeURIComponent(name)}&quotesCount=5&newsCount=0`,
-    )) as { quotes?: Array<{ symbol?: string; quoteType?: string }> };
-    const eq = (j.quotes ?? []).find((q) => q.quoteType === "EQUITY" && q.symbol && !q.symbol.includes("."));
-    return eq?.symbol ?? (j.quotes ?? []).find((q) => q.symbol)?.symbol ?? null;
+    )) as { quotes?: Array<{ symbol?: string; quoteType?: string; shortname?: string; longname?: string }> };
+    const quotes = (j.quotes ?? []).filter((q) => q.symbol && nameMatchesQuote(name, q));
+    const eq = quotes.find((q) => q.quoteType === "EQUITY" && !q.symbol!.includes("."));
+    return eq?.symbol ?? quotes[0]?.symbol ?? null;
   } catch {
     return null;
   }
+}
+
+/**
+ * Company name to ticker, through Yahoo's own search, shortening on a miss.
+ *
+ * "Will Apple AirPods 5 sell well?" and "Will Hitachi CO2 heat pumps sell well?"
+ * name a product after the company, and Yahoo resolves neither phrase; it
+ * resolves "Apple" and "Hitachi". So the leading words are tried in turn once
+ * the full phrase misses. Yahoo stays the arbiter: "Zepbound", "YESAFILI" and
+ * "Novitium Pharma" resolve to nothing at any length and are still refused.
+ */
+export async function resolveTicker(name: string, shorten = true): Promise<string | null> {
+  const words = String(name ?? "").split(/\s+/).filter(Boolean);
+  if (!words.length) return null;
+  // Shortening a whole SENTENCE is not the same as shortening a name. The
+  // fallback that hands this function the raw question would otherwise trim
+  // "market data please" down to "market", which Yahoo happily resolves to
+  // Vanguard's total-market ETF — a confident answer to a question that named
+  // no subject at all. Only a name the extractor actually found is shortened.
+  if (!shorten) return searchTicker(words.join(" "));
+  // At most three attempts: the search is a network round-trip inside the
+  // route's budget, and a name is not made more findable by a fourth trim.
+  for (let length = words.length; length >= 1 && length > words.length - 3; length--) {
+    const hit = await searchTicker(words.slice(0, length).join(" "));
+    if (hit) return hit;
+  }
+  return null;
 }
 
 export async function getFinancialData(query: string, addressParam = "", symbolParam = ""): Promise<FinancialResult> {
@@ -296,10 +385,11 @@ export async function getFinancialData(query: string, addressParam = "", symbolP
     return tokenData(address, net.gecko, net.label);
   }
 
+  const named = companyName(query);
   const declared = String(symbolParam ?? "").trim().toUpperCase();
   const ticker = /^[A-Z][A-Z.-]{0,5}$/.test(declared)
     ? declared
-    : explicitTicker(query) ?? (await resolveTicker(companyName(query) ?? query));
+    : explicitTicker(query) ?? (await (named ? resolveTicker(named) : resolveTicker(query, false)));
 
   if (!ticker) {
     return {

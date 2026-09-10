@@ -12,6 +12,7 @@ import assert from "node:assert/strict";
 import { placeCandidates } from "../src/extract";
 import { parseQuery } from "../src/currency";
 import { resolvePlace } from "../src/storm";
+import { companyName, nameMatchesQuote, resolveTicker } from "../src/financial";
 
 const LAGOS_FORECAST =
   "What is the 24-hour weather forecast for Lagos Nigeria starting today, " +
@@ -101,4 +102,61 @@ test("routed refusal: naming both currencies still decides direction, and naming
   assert.deepEqual(parseQuery("How many yen is 1 dollar?"), { from: "USD", to: "JPY", amount: 1 });
   assert.deepEqual(parseQuery("convert 100 dollars to dollars"), { from: "USD", to: "USD", amount: 100 });
   assert.deepEqual(parseQuery("how is the weather"), { from: null, to: null, amount: null });
+});
+
+/**
+ * Twelve of the fourteen routed FINANCIAL_DATA questions are "Will <subject>
+ * ...?" and named no company by either of the two patterns the resolver had, so
+ * every one was refused. A capitalised run is matched greedily, so the
+ * possessive pattern produced "Will Sandoz" — Yahoo resolves "Sandoz" and
+ * resolves "Will Sandoz" to nothing. This is the "Will Dubai" defect that
+ * refused fourteen WEATHER_CHECK questions, reappearing in a second intent.
+ */
+test("routed refusal: a question-opening word is not part of the company name", () => {
+  assert.equal(companyName("Will Sandoz's Fidaxomicin sales exceed expectations?"), "Sandoz");
+  assert.equal(companyName("Will Sun Pharma's Metformin sales increase?"), "Sun Pharma");
+  assert.equal(companyName("What is Apple's P/E ratio and revenue growth this quarter?"), "Apple");
+});
+
+test("routed refusal: a leading capitalised run is the fallback subject", () => {
+  assert.equal(companyName("Will Apple AirPods 5 sell well?"), "Apple AirPods");
+  assert.equal(companyName("Will Hitachi CO2 heat pumps sell well?"), "Hitachi CO2");
+  // Nothing capitalised is still nothing to look up.
+  assert.equal(companyName("Will oil prices swing significantly?"), null);
+  assert.equal(companyName("Will streaming prices increase further?"), null);
+});
+
+/**
+ * Yahoo's search is fuzzy. "Iran" returns the Brazilian paper company IRANI,
+ * and answering an inflation question with its market data would be the
+ * confidently-wrong answer this miner refuses everywhere else.
+ */
+test("routed refusal: a fuzzy search hit that does not name the company is rejected", () => {
+  assert.equal(nameMatchesQuote("Iran", { symbol: "RANI3F.SA", shortname: "IRANI       ON      NM" }), false);
+  assert.equal(nameMatchesQuote("Sun Pharma", { symbol: "SUNPHARMA.NS", shortname: "SUN PHARMACEUTICAL IND L" }), true);
+  assert.equal(nameMatchesQuote("Apple", { symbol: "AAPL", shortname: "Apple Inc." }), true);
+  assert.equal(nameMatchesQuote("Brent", { symbol: "BZ=F", shortname: "Brent Crude Oil Last Day Financ" }), true);
+  // A single initial is not a searchable name.
+  assert.equal(nameMatchesQuote("B", { symbol: "B", shortname: "Barnes Group Inc." }), false);
+});
+
+/** The full phrase is tried first, and the leading words only after it misses. */
+test("routed refusal: the ticker search shortens the name rather than giving up", async () => {
+  const original = globalThis.fetch;
+  const asked: string[] = [];
+  globalThis.fetch = (async (url: unknown) => {
+    const q = new URL(String(url)).searchParams.get("q");
+    if (q) asked.push(q);
+    const quotes = q === "Apple"
+      ? [{ symbol: "AAPL", quoteType: "EQUITY", shortname: "Apple Inc." }]
+      : [];
+    return new Response(JSON.stringify({ quotes }), { headers: { "content-type": "application/json" } });
+  }) as typeof fetch;
+  try {
+    assert.equal(await resolveTicker("Apple AirPods"), "AAPL");
+    assert.deepEqual(asked, ["Apple AirPods", "Apple"]);
+    assert.equal(await resolveTicker("Zepbound"), null);
+  } finally {
+    globalThis.fetch = original;
+  }
 });
