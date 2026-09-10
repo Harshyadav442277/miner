@@ -14,7 +14,8 @@ X account: [`@hyadav42774`](https://x.com/hyadav42774) · Official account tagge
 
 ## Track 1 — LiveCert
 
-LiveCert is a deterministic, keyless miner for thirteen operational and research intents. It performs
+LiveCert is a deterministic, keyless miner for nineteen registered operational and research intents,
+with seven more deployed and awaiting one registration signature. It performs
 live TLS handshakes, weather forecasts and current conditions, storm checks, IP geolocation,
 translation, academic search, structured extraction, news retrieval, wallet-balance reads,
 source-backed fact checks, Telegraph protocol knowledge, and conservative AI-text analysis.
@@ -23,6 +24,9 @@ source-backed fact checks, Telegraph protocol knowledge, and conservative AI-tex
 - **Explorer:** <https://explorer.telegraphprotocol.com/miners/livecert>
 - **Submission miner ID:** `4433`
 - **Active on-chain registration:** `1378` — nineteen intents, active since 2026-09-09 07:47 UTC (402 superseded)
+- **Deployed and unregistered:** seven further intents — gas price, financial data, fraud detection, sports score,
+  token holder count, research query and text authenticity. They answer on production and the network does not
+  route to them until the manifest is re-signed. See [the runbook](track1-miner/docs/REGISTRATION_UPDATE.md).
 - **Registered manifest:** [commit-pinned `miner.yaml`](https://github.com/Harshyadav442277/miner/blob/6b0d176048313cc6fec2788d18cb9ae24f3e2adc/track1-miner/miner.yaml)
 - **Closing epoch of Track 1 (298, scored 2026-09-01 ~00:15 UTC):** seven rank-1, four rank-2 and
   two rank-4 intent results; normalized-ratio sum 10.125, the highest on the network that epoch
@@ -31,6 +35,13 @@ source-backed fact checks, Telegraph protocol knowledge, and conservative AI-tex
 - **Requests served at the 2026-08-31 submission audit:** 132
 - **Verification on 2026-09-03:** 182 unit and 67 live tests passed; preflight 7/7; the production
   acceptance matrix passed with a 406 ms median and 1.11 s p95
+
+**Disclosure.** One of the seven pending intents, text authenticity, currently has no other miner, and
+its champion scoring module is registration 1882, which this project authored as its Track 2 entry.
+Registering it makes us the only miner in an intent we also supplied the judge for. It breaks no rule we
+can find, the same already holds for currency exchange in an eight-miner field, and the endpoint was
+written from the published intent description rather than from that module. It is stated here so it is
+disclosed rather than discovered. Full record in [GAPS.md](GAPS.md) G95.
 
 The exact registered surface and reproducible verification commands are in the
 [Track 1 review guide](track1-miner/README.md). The miner remains live through Track 3 as required.

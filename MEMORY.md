@@ -14,6 +14,64 @@ sessions and between models.
 | **Track 3 — app** | **Separate repo and folder:** `../telegraph-morse` — <https://github.com/Harshyadav442277/telegraph-morse>. CertWatch was retired and deleted on 2026-09-02 (never funded, no users). Read its `PLAN.md` first. |
 | Anything | [README.md](README.md) for ownership and shared facts, [docs/](docs/) for protocol and rules |
 
+## 2026-09-10 ~14:00 UTC — FOUR MORE INTENTS BUILT AND DEPLOYED, 22 DECLARED TO 26, SEVEN UNREGISTERED
+
+The operator asked for more intents and ruled out chat completion and anything chatbot-shaped. The
+plan and every rejection are in
+[track1-miner/docs/EXPANSION_PLAN_2026-09-10.md](track1-miner/docs/EXPANSION_PLAN_2026-09-10.md).
+**Built and live: SPORTS_SCORE, TOKEN_HOLDER_COUNT, RESEARCH_QUERY, TEXT_AUTHENTICITY_CHECK.**
+Gates: **preflight 7/7**, **26/26 intents answering correctly**, 461 tests (was 337), production
+`miner-r3r5p7xb6`, alias clean, no G70 recurrence.
+
+**Nothing is registered.** Registration 1378 is still nineteen intents. Seven are now deployed and
+unrouted — the three from the morning plus these four. One signature covers all seven:
+hosted hash `54b36692…3b81dbbf` at commit `240df7f`, verified against `git show` and against the
+fetched bytes, never the CRLF worktree copy (G86). `manifest-diff` PASS: all nineteen registered
+intents preserved, and all 26 confirmed canonical on-chain.
+
+**The candidate ceiling, re-measured today.** 108 canonical intents, **45 with a champion scorer**,
+22 declared by us, so 23 reachable. Thirteen were excluded before measurement: seven generative
+(the operator's rule), five needing image or video models, one needing paid X API access. Ten
+real candidates remained and four were built.
+
+**The ordering rule that actually decided it, and it is not the one the older docs imply.** Judging
+normalises our score by the best score in the intent, so what has to be beaten is **the leader, not
+the cliff**. We already hold ACADEMIC_SEARCH at ratio 1.000 against a leader of 0.0109. All four
+chosen intents sit in fields where no competitor scored above ~1e-11 in four consecutive epochs.
+STOCK_PRICE, CRYPTO_PRICE and URL_SCAN were rejected because somebody is genuinely crossing there;
+CONTENT_VERIFICATION because its single miner has scored exactly 0.0 for 62 straight rows, so the
+ratio would have no numerator.
+
+**G84 caught a production-only failure again, and it was the important one.** The symbol path for
+TOKEN_HOLDER_COUNT passed every local test and returned an index outage from Vercel: Blockscout's
+token search takes 3.9 to 5.5 seconds here and does not return inside the budget from Vercel's
+egress at all. That is the only clean routed question the intent has ever received. Symbols now
+resolve through GeckoTerminal (24 to 40 ms warm, already proven from this deployment by TVL_LOOKUP)
+and the count is read by address from Blockscout, which does work there. **Probe a preview with
+`npx vercel curl` before promoting; a green laptop proves nothing.**
+
+**The method that produced every real fix here: replay the questions the network actually routes.**
+The explorer feed's rows are keyed `results[].routing.intent` and `results[].question.text`, not the
+shape `replay-intents.mjs` expects. 34,300 rows scanned gave 24 RESEARCH_QUERY and 6
+TOKEN_HOLDER_COUNT questions and zero for the other two. They changed three design decisions:
+RESEARCH_QUERY is entirely drug and trial questions, so it answers from ClinicalTrials.gov and
+Europe PMC and predicts nothing; TOKEN_HOLDER_COUNT is asked by SYMBOL as often as by address, and
+is asked about a CVE id and a URL, both now refused by name.
+
+**Two confidently-wrong answers were found and fixed before shipping.** Asked "Will Novartis'
+Ianalumab be approved?" the first build queried the SPONSOR and cited a terminated docetaxel trial
+and a paper on Chagas disease. A source is now only used when it names the subject asked about.
+And the shared team parser, tuned entirely on "who won" phrasings, turned SPORTS_SCORE's canonical
+question into team A "What's current score" and team B "Red Sox right now" — the WEATHER_CHECK
+"Will Dubai" defect in a new intent.
+
+**Disclosed, not hidden (G95):** TEXT_AUTHENTICITY_CHECK has zero miners and its champion scorer is
+registration 1882, authored by our own address. The operator was told before building and chose to
+proceed. It is in the README, the runbook and GAPS. The same is already true of CURRENCY_EXCHANGE
+(champion 2945, also ours, eight miners) and had never been flagged. **G96** records two provider
+limits production cannot fix: SPORTS_SCORE cannot see MLB from Vercel — and neither can the already
+registered GAME_RESULT — and TOKEN_HOLDER_COUNT cannot fetch top-1 concentration inside the budget.
+
 ## 2026-09-09 ~21:30 UTC — THE CTO RULED STANDING WATCHES ORGANIC; NOTHING IN TRACK 1 OR 2 CHANGES
 
 No code was touched. This entry exists so the ruling is not lost between repos.

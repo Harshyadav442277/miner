@@ -1,4 +1,4 @@
-# Registration update — 19 intents to 22
+# Registration update — 19 intents to 26
 
 **Status: prepared, NOT signed. This needs the operator.** Claude does not connect
 wallets, sign messages or send transactions (CLAUDE.md rule 1). Everything below
@@ -16,21 +16,23 @@ already deployed and answering on production**.
 
 ```
 registered now (reg 1378)   19 intents   hash 8d62ebe0136aea75e8185a5536f99687cac7650b31a31a5fb90c5c9aac94d874
-this update                 22 intents   hash ba31def351a2258e7694c176bdc8626aba25713501a9d09701b54105de475fa3
+this update                 26 intents   hash 54b36692413b45da57bcd51bdde7d85f074d2be2fcdb06efee5d79ba3b81dbbf
 ```
 
 | Change | Detail |
 |---|---|
-| **+3 intents** | `GAS_PRICE`, `FINANCIAL_DATA`, `FRAUD_DETECTION` |
-| **+3 endpoints** | `/gas-price`, `/financial`, `/fraud-check` — deployed, live and keyless |
-| **unchanged** | `id: 4433`, `slug: livecert`, `base_url`, `auth: {type: none}`, and all nineteen existing endpoints with every one of their parameters |
+| **+7 intents** | `GAS_PRICE`, `FINANCIAL_DATA`, `FRAUD_DETECTION`, `SPORTS_SCORE`, `TOKEN_HOLDER_COUNT`, `RESEARCH_QUERY`, `TEXT_AUTHENTICITY_CHECK` |
+| **+7 endpoints** | `/gas-price`, `/financial`, `/fraud-check`, `/sports-score`, `/token-holders`, `/research`, `/authenticity` — all deployed, live and keyless |
+| **unchanged** | `id: 4433`, `slug: livecert`, `base_url`, `auth: {type: none}`, and all nineteen registered endpoints with every one of their parameters, verified by tools/manifest-diff.mjs |
 
 Verified mechanically, not by eye — `tools/manifest-diff.mjs` against the YAML
 actually pinned for registration 1378:
 
 ```
 all 19 registered intents preserved
-added: GAS_PRICE, FINANCIAL_DATA, FRAUD_DETECTION
+added: GAS_PRICE, FINANCIAL_DATA, FRAUD_DETECTION, SPORTS_SCORE,
+       TOKEN_HOLDER_COUNT, RESEARCH_QUERY, TEXT_AUTHENTICITY_CHECK
+registered 19 -> pending 26
 PASS — nothing registered today is lost or altered.
 ```
 
@@ -40,14 +42,14 @@ Step 2, **Register On-Chain**, **Manual Input** panel:
 
 | Field | Value |
 |---|---|
-| **YAML URL** | `https://raw.githubusercontent.com/Harshyadav442277/miner/06c058068c4d8fc01d0631801c54611b80a6ad64/track1-miner/miner.yaml` |
-| **YAML HASH (BYTES32)** | `0xba31def351a2258e7694c176bdc8626aba25713501a9d09701b54105de475fa3` — typed, **not** "Generate from file" |
+| **YAML URL** | `https://raw.githubusercontent.com/Harshyadav442277/miner/240df7f287a5824f23c4e359aabc4d9377c96994/track1-miner/miner.yaml` |
+| **YAML HASH (BYTES32)** | `0x54b36692413b45da57bcd51bdde7d85f074d2be2fcdb06efee5d79ba3b81dbbf` — typed, **not** "Generate from file" |
 | **REQUIRES API KEY** | **OFF** |
 | **API KEY** | leave empty |
 | **FEE ADDRESS** | `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e` (prefilled) |
 | **FLOOR PRICE (USDC)** | `0.01` (prefilled) |
 
-The URL was pushed and fetched back on 2026-09-10: HTTP 200, 39,332 bytes,
+The URL was pushed and fetched back on 2026-09-10: HTTP 200, 46,381 bytes,
 hashing to the value above. It is pinned to a commit, so it cannot change under
 the registration.
 
@@ -78,6 +80,33 @@ no-regression (7 identical, 1 differ)  PASS
 
 Re-run `node tools/preflight.mjs` on the day you sign. A green run from an
 earlier day is not evidence about today's build.
+
+## 1b. The four added 2026-09-10, and the evidence for each
+
+Chosen by sweeping all 45 scorer-backed canonical intents and excluding every
+generative one on the operator's instruction. Full record, including the six
+candidates rejected and why, is in [EXPANSION_PLAN_2026-09-10.md](EXPANSION_PLAN_2026-09-10.md).
+
+The rule they were chosen by: judging normalises our score by the best score in
+the intent, so what has to be beaten is the leader, not the cliff. All four sit
+in fields where no competitor scored above the noise band in any of the last four
+epochs.
+
+| intent | miners | leader, epoch 321 | why it is winnable |
+|---|---:|---:|---|
+| **SPORTS_SCORE** | 3 | 2.9e-12 | Its all-time best of 0.588 proves the scorer pays for real answers, and the fixture providers are already gated for GAME_RESULT. |
+| **TOKEN_HOLDER_COUNT** | 5 | 4.4e-12 | A holder count is an index lookup with one right answer, and no incumbent is returning it. |
+| **RESEARCH_QUERY** | 7 | 0.0147 | Every routed question is a drug or trial question answerable from the registry, which is why the field has never crossed. |
+| **TEXT_AUTHENTICITY_CHECK** | **0** | never scored | Uncontested. See the disclosure below before signing. |
+
+**Disclosure the operator asked for and should keep.** TEXT_AUTHENTICITY_CHECK has
+zero miners and its champion scorer is registration **1882**, authored by this
+project's own address `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e`. Registering
+makes us the only miner in an intent whose scorer we wrote. It breaks no rule
+found, the same is already true of CURRENCY_EXCHANGE in an eight-miner field, and
+no answer in `src/authenticity.ts` is shaped to that scorer's internals — it was
+written from the canonical description like every other module. It is recorded
+here, in the README and in GAPS G95 so it is disclosed rather than discovered.
 
 ## 2. Why each one, on evidence
 

@@ -2297,3 +2297,55 @@ there is no boundary after "card". The scam-marker list silently failed on the
 plural form of the commonest phrasing. Every marker naming a countable thing now
 takes an optional `s`, and the test covers both forms. Same family as G85 — a
 check that quietly cannot fire.
+
+### G95 · We are about to be the only miner in an intent whose scorer we wrote — `OPEN 2026-09-10`
+
+`TEXT_AUTHENTICITY_CHECK` has **zero miners** and its champion scorer is
+registration **1882**, whose `author_address` is
+`0xdad201ef02f5c1fbb8f9e931ae9b7c1bf493a39e` — this project's own fee address,
+from the Track 2 submission. Registering the intent makes us the only miner in a
+field we also supply the judge for.
+
+Four things are true and all four belong in the record:
+
+- It breaks no rule found in the hackathon material. Track 2 was an open
+  competition and champions are selected by the protocol, not by their author.
+- **It is already the case elsewhere and was never flagged.** `CURRENCY_EXCHANGE`'s
+  champion is registration **2945**, also ours, in an eight-miner field we have
+  served since 2026-09-09. Zero competitors reads differently from eight.
+- Nothing in `src/authenticity.ts` is shaped to that scorer. The module was
+  written from the canonical intent description, and the scorer's source was
+  deliberately not read while writing it. Benching a champion WASM is what this
+  repo does for every intent and is available to anyone.
+- The operator was told before building and chose to proceed. That is their call
+  to make; the obligation this creates is disclosure, which is why it is here, in
+  the README and in `docs/REGISTRATION_UPDATE.md`.
+
+**Open action:** ask the organizers in Discord. The 2026-09-04 lesson was to ask
+before doing anything that sits near the protocol's own judgement rather than
+discover afterwards that it read as gaming.
+
+### G96 · Two of four new intents inherit provider limits that production cannot fix — `OPEN 2026-09-10`
+
+Both were found by probing a preview through `npx vercel curl` rather than by a
+scored epoch, which is G84 working as intended.
+
+- **SPORTS_SCORE cannot see MLB from Vercel.** "Who won the Yankees vs Red Sox
+  game?" resolves on this machine and returns `not_found` from the deployment,
+  and **`/game-result` behaves identically**, so this is a pre-existing property
+  of the fixture providers rather than anything the new endpoint introduced.
+  ESPN refuses Vercel's egress and the name directory does not cover the fixture.
+  Football resolves on both. The answer is honest either way — no other fixture
+  is substituted — but the intent's coverage is narrower in production than in
+  tests, and no test can catch it.
+- **TOKEN_HOLDER_COUNT cannot report top-1 concentration from Vercel.**
+  Blockscout's holders list takes 3.2 to 12.4 seconds and times out against the
+  8-second budget every time from the deployment, for large and small tokens
+  alike. Two real routed questions ask for the figure. The holder count itself
+  always lands, and the answer names the timeout rather than dropping the clause,
+  but the figure is not being served. Raising the budget past 9 seconds risks the
+  route watchdog taking the whole answer, which is a worse trade than losing a
+  secondary field.
+
+Neither is exploitable and neither is hidden. Recorded so a later session does
+not "discover" them as new defects and spend a day on an upstream it does not own.
