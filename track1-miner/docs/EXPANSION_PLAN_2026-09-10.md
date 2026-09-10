@@ -4,6 +4,14 @@ Written 2026-09-10 ~12:10 UTC. Every number below was read live from the node
 this session, not remembered. Operator instruction: add more intents, and do not
 add CHAT_COMPLETION or any chatbot-shaped intent.
 
+**Status, same day: all four recommended intents are built, deployed and gated.**
+SPORTS_SCORE, TOKEN_HOLDER_COUNT, RESEARCH_QUERY and TEXT_AUTHENTICITY_CHECK answer
+on production. 461 tests pass, preflight is 7/7, and 26 of 26 declared intents answer
+correctly. **None of the seven pending intents is registered** — that needs one wallet
+signature, prepared in [REGISTRATION_UPDATE.md](REGISTRATION_UPDATE.md). The operator
+read section 3 and chose to enter TEXT_AUTHENTICITY_CHECK; the disclosure is in the
+README and in GAPS G95. Provider limits found by probing a preview are in G96.
+
 ---
 
 ## 0. Two facts that frame everything
