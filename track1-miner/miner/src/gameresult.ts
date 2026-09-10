@@ -50,6 +50,14 @@ const UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,
 
 export type GameVerdict = "result" | "not_played" | "in_progress" | "not_found" | "unknown";
 
+/**
+ * Which fixture to pick when the window holds more than one.
+ *
+ * The two sports intents disagree on this and on nothing else, which is why the
+ * data layer is shared and only the preference and the prose differ.
+ */
+export type FixturePreference = "completed" | "live";
+
 export interface GameResult {
   home: string | null;
   away: string | null;
@@ -122,14 +130,39 @@ export function parseTeams(question: string): { a: string; b: string } | null {
   const q = String(question ?? "")
     .replace(/[?!.]+\s*$/, "")
     .replace(/\b(who won|who beat|what was the (?:final )?(?:score|result) (?:of|in|for)|the result of|the score of|what happened in)\b/gi, " ")
+    /**
+     * SPORTS_SCORE phrasings, added when the intent was built.
+     *
+     * Its canonical example is "What's the current score in the Lakers vs
+     * Celtics game right now?", and the leading clause used to survive into the
+     * home side: the parser produced team A "What's current score" and team B
+     * "Red Sox right now", then honestly reported no such fixture. That is the
+     * WEATHER_CHECK "Will Dubai" defect exactly — a greedy run that keeps the
+     * question's scaffolding and then fails to match anything real.
+     */
+    .replace(/\bwhat(?:'s|s| is| was)?\s+(?:the\s+)?(?:current\s+|live\s+|latest\s+)?(?:score|result)\b/gi, " ")
+    .replace(/\b(?:current|live|latest|running)\s+(?:score|result)\b/gi, " ")
+    .replace(/\b(?:right now|at the moment|as it stands|so far|as of now)\b/gi, " ")
+    // A bare "who" survives "who beat who in X vs Y" and becomes the home side.
+    .replace(/\bwho\b/gi, " ")
     .replace(/\b(game|match|fixture|the|last night'?s?|yesterday'?s?|tonight'?s?)\b/gi, " ")
     .replace(/\s{2,}/g, " ")
+    .trim()
+    // Whatever preposition the stripped clause left behind at the front. Left
+    // in, `clean` truncates the home side at it and deletes the team name.
+    .replace(/^(?:in|on|at|for|of|during|between)\b\s*/i, "")
     .trim();
 
   const m = q.match(/^(.{2,40}?)\s+(?:vs\.?|v\.?|versus|against|-|–)\s+(.{2,40}?)$/i);
   if (!m?.[1] || !m[2]) return null;
   const clean = (s: string): string =>
-    s.replace(/\b(in|on|at|during|from|for)\b.*$/i, "").replace(/[,;:]+$/, "").trim();
+    s
+      .replace(/\b(in|on|at|during|from|for)\b.*$/i, "")
+      // A trailing bare "score" is the question's noun, not part of the team's
+      // name: "Yankees vs Red Sox score so far" ends at Red Sox.
+      .replace(/\b(?:scores?|results?)\s*$/i, "")
+      .replace(/[,;:]+$/, "")
+      .trim();
   const a = clean(m[1]);
   const b = clean(m[2]);
   return a.length >= 2 && b.length >= 2 ? { a, b } : null;
@@ -253,6 +286,7 @@ const fmtDate = (iso: string): string =>
  */
 async function findFixture(
   leaguePath: string, a: string, b: string, dates: string | null, now: Date,
+  prefer: FixturePreference = "completed",
 ): Promise<{ event: Event; league: string } | null | "unavailable"> {
   const end = now.toISOString().slice(0, 10).replace(/-/g, "");
   const start = new Date(now.getTime() - 14 * 86_400_000).toISOString().slice(0, 10).replace(/-/g, "");
@@ -269,10 +303,24 @@ async function findFixture(
     return cs.some((c) => matchesTeam(c, a)) && cs.some((c) => matchesTeam(c, b));
   });
   if (events.length === 0) return null;
-  // Most recent COMPLETED fixture, else the most recent of any status so the
-  // caller can say honestly that it has not been played.
+  const byDateDesc = (list: Event[]): Event[] => [...list].sort((x, y) => y.date.localeCompare(x.date));
+  const state = (e: Event): string => e.competitions?.[0]?.status?.type?.state ?? "";
   const completed = events.filter((e) => e.competitions?.[0]?.status?.type?.completed);
-  const pick = (completed.length ? completed : events).sort((x, y) => y.date.localeCompare(x.date))[0];
+  /**
+   * GAME_RESULT wants the most recent COMPLETED fixture, else the most recent of
+   * any status so the caller can say honestly that it has not been played.
+   *
+   * SPORTS_SCORE wants the opposite order. Its canonical example is "What's the
+   * current score in the Lakers vs Celtics game right now?", so a fixture that
+   * is in play is the answer whenever one exists, and a finished one is only the
+   * "most recent score" fallback the description also allows.
+   */
+  if (prefer === "live") {
+    const live = events.filter((e) => state(e) === "in");
+    const pick = byDateDesc(live)[0] ?? byDateDesc(completed)[0] ?? byDateDesc(events)[0];
+    return pick ? { event: pick, league } : null;
+  }
+  const pick = byDateDesc(completed.length ? completed : events)[0];
   return pick ? { event: pick, league } : null;
 }
 
@@ -353,7 +401,7 @@ function eventTimestamp(raw: string | null | undefined): string | null {
 }
 
 export async function lookupGame(question: string, now = new Date(), requested?: {
-  teams?: { a: string; b: string }; date?: string;
+  teams?: { a: string; b: string }; date?: string; prefer?: FixturePreference;
 }): Promise<GameResult> {
   const empty = {
     home: null, away: null, home_score: null, away_score: null,
@@ -388,7 +436,7 @@ export async function lookupGame(question: string, now = new Date(), requested?:
   // Directory and scoreboard fallbacks share the remaining time budget. A
   // five-league sequential search could outlast our 11-second response deadline.
   const [scoreboards, directory] = await Promise.all([
-    Promise.all(toSearch.map(path => findFixture(path, teams.a, teams.b, dates, now))),
+    Promise.all(toSearch.map(path => findFixture(path, teams.a, teams.b, dates, now, requested?.prefer ?? "completed"))),
     findFixtureByName(teams.a, teams.b, dates, now, resolved),
   ]);
   const sawWorkingScoreboard = scoreboards.some(r => r !== "unavailable");

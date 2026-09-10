@@ -703,6 +703,100 @@ const CHECKS = {
     if (!/USDT/i.test(usdt.body.reason)) bad.push("USDT asked about but never mentioned in the answer");
     return bad;
   },
+
+  // Shares the fixture providers with GAME_RESULT, and that is exactly why it
+  // needs its own case: a live score reported as an outcome is the confusion the
+  // canonical description calls out by name.
+  async SPORTS_SCORE() {
+    const bad = [];
+    const r = await get("/sports-score", { query: "What is the score in the Arsenal vs Chelsea match?" });
+    const b = r.body;
+    if (!["live_score", "final_score", "not_played", "not_found"].includes(String(b.verdict))) {
+      bad.push(`verdict ${b.verdict} is not a score verdict`);
+    }
+    if (b.verdict === "live_score" || b.verdict === "final_score") {
+      if (!/\d+,\s+.+\s+\d+/.test(String(b.reason ?? ""))) bad.push("a score verdict carries no two-sided score in prose");
+      // The winner belongs to GAME_RESULT. Naming one here answers the wrong
+      // question with the right data.
+      if (/\bbeat\b|\bwon\b|\bwinner\b/i.test(String(b.reason ?? ""))) bad.push("a score answer names a winner");
+    }
+    if (b.verdict === "live_score" && !/not a final result/i.test(String(b.reason ?? ""))) {
+      bad.push("a live score is not marked as provisional");
+    }
+    // Both sides must be named; nothing is guessed from prose.
+    const vague = await get("/sports-score", { query: "What is the score?" });
+    if (vague.body.error !== "no_fixture") bad.push(`a fixture-less question -> ${vague.body.error}, want no_fixture`);
+    return bad;
+  },
+
+  async TOKEN_HOLDER_COUNT() {
+    const bad = [];
+    const USDC_BASE = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913";
+    const r = await get("/token-holders", { query: `How many addresses hold the token ${USDC_BASE} on base?` });
+    const b = r.body;
+    if (b.verdict !== "holder_count") bad.push(`base USDC -> ${b.verdict}, want holder_count`);
+    const n = String(b.reason ?? "").match(/([\d,]{4,})\s+distinct holder addresses/);
+    if (!n) bad.push("no holder figure in prose");
+    else if (Number(n[1].replace(/,/g, "")) < 100000) bad.push(`holder figure ${n[1]} implausible for USDC on Base`);
+    // The contract the figure came from is what makes it checkable.
+    if (!new RegExp(USDC_BASE, "i").test(String(b.reason ?? ""))) bad.push("answer never names the contract read");
+    // A symbol with its chain, which is the shape of the only clean routed
+    // question this intent has received.
+    const sym = await get("/token-holders", { query: "How many addresses hold usdc on base?" });
+    if (sym.body.verdict !== "holder_count") bad.push(`symbol form -> ${sym.body.verdict}, want holder_count`);
+    // A CVE id is not a token and must never be searched for as one.
+    const cve = await get("/token-holders", { query: "For token CVE-2021-44228, report total holder count." });
+    if (cve.body.error !== "not_a_token") bad.push(`CVE id -> ${cve.body.error}, want not_a_token`);
+    return bad;
+  },
+
+  async RESEARCH_QUERY() {
+    const bad = [];
+    const r = await get("/research", { query: "Will Lepodisiran reduce coronary plaque?" });
+    const b = r.body;
+    if (b.verdict !== "evidence") bad.push(`Lepodisiran -> ${b.verdict}, want evidence`);
+    const prose = String(b.reason ?? "");
+    if (!/Lepodisiran/i.test(prose)) bad.push("answer never names the subject asked about");
+    // A cited answer means a citation a reader can follow.
+    if (!/NCT\d{6,}/.test(prose)) bad.push("no trial identifier cited");
+    // Nothing predicts an outcome that has not been decided.
+    if (/\bwill (?:be approved|succeed|likely)\b|\bwe expect\b|\bprobably\b/i.test(prose)) {
+      bad.push("answer predicts an outcome instead of reporting the record");
+    }
+    const empty = await get("/research", { query: "  " });
+    if (empty.body.error !== "no_question") bad.push(`an empty question -> ${empty.body.error}, want no_question`);
+    return bad;
+  },
+
+  async TEXT_AUTHENTICITY_CHECK() {
+    const bad = [];
+    const copied =
+      'Is this original writing or was it copied? "The Eiffel Tower is a wrought-iron lattice tower on '
+      + 'the Champ de Mars in Paris, France. It is named after the engineer Gustave Eiffel, whose company '
+      + 'designed and built the tower from 1887 to 1889."';
+    const r = await get("/authenticity", { query: copied });
+    const b = r.body;
+    if (b.verdict === "unavailable") {
+      // An index outage is honest and is reported as one, not graded as a miss.
+      if (b.error !== "upstream_unavailable") bad.push("unavailable without an upstream error");
+    } else {
+      if (b.verdict !== "copied") bad.push(`a verbatim Wikipedia passage -> ${b.verdict}, want copied`);
+      if (!/verbatim/i.test(String(b.reason ?? ""))) bad.push("a copying verdict cites no verbatim phrase");
+    }
+    // A miss must never be dressed up as proof of originality.
+    const fresh = await get("/authenticity", {
+      query: 'Is this original? "My grandmother kept a tin of buttons under the stairs and every rainy '
+        + 'afternoon she would tip them across the kitchen table so I could sort them into colours she '
+        + 'named after birds she had never seen, and I believed every name until I was nearly twelve."',
+    });
+    const fb = String(fresh.body.reason ?? "");
+    if (fresh.body.verdict === "no_source_found" && !/not proof the text is original/i.test(fb)) {
+      bad.push("a miss is reported without its limit");
+    }
+    const none = await get("/authenticity", { query: "Is this text original?" });
+    if (none.body.error !== "no_text") bad.push(`no passage -> ${none.body.error}, want no_text`);
+    return bad;
+  },
 };
 
 /**

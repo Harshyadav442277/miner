@@ -527,6 +527,140 @@ endpoints:
             intents: ["*"]
             description: "The user's original question, verbatim, including the message being asked about."
 
+  - path: /sports-score
+    external_path: /sports-score
+    method: GET
+    intents: [SPORTS_SCORE]
+    description: >-
+      The current score of a named sports fixture, or its most recent score when
+      nothing between those two sides is in play. Read from ESPN's scoreboard,
+      which carries a live status and a running score per fixture, with a fixture
+      directory searched by name as a fallback. A fixture that is in progress is
+      preferred over a finished one and its score is reported with the game clock
+      or period alongside it, so a live score is never presented as a final one; a
+      finished fixture is reported as the most recent score and said to be
+      finished. Who ultimately won a completed event is the GAME_RESULT intent
+      rather than this one. Both sides must be named in the request; the fixture
+      is never guessed from prose, and where no readable score can be found that
+      is what the answer says rather than a different fixture being substituted.
+      Covers the major football leagues, the Champions and Europa Leagues, MLS,
+      the NBA, WNBA, NFL, MLB and NHL.
+    params:
+      query:
+        optional:
+          - name: team1
+            type: string
+            intents: ["*"]
+            description: "One side of the fixture, e.g. Lakers. Read from the question when absent."
+          - name: team2
+            type: string
+            intents: ["*"]
+            description: "The other side of the fixture, e.g. Celtics. Read from the question when absent."
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim. Both sides, the competition and any date are read from it."
+
+  - path: /token-holders
+    external_path: /token-holders
+    method: GET
+    intents: [TOKEN_HOLDER_COUNT]
+    description: >-
+      How many distinct addresses hold a named ERC-20 token, read from the chain's
+      own transfer index via Blockscout. The token may be given as a contract
+      address or as a symbol together with its chain, and where no chain is named
+      every supported chain is checked rather than one being assumed, because the
+      same symbol carries different holder counts on different chains. The answer
+      names the contract the figure came from so it is checkable. Where the
+      question also asks about concentration, the share of supply held by the
+      single largest holder is reported, and where that list does not return in
+      time the answer says so rather than omitting it silently. This is a headcount
+      of holders and never a balance, a price, a supply figure or pool liquidity,
+      each of which is a different intent. An identifier that is not a token, such
+      as a CVE number, is named as such rather than searched for. Where more than
+      one token on a chain shares a symbol with no dominant one among them, a
+      contract address is asked for instead of one being picked. Covers ethereum,
+      base, arbitrum, optimism and polygon.
+    params:
+      query:
+        optional:
+          - name: address
+            type: string
+            intents: ["*"]
+            description: "ERC-20 contract address, e.g. 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913. Read from the question when absent."
+          - name: symbol
+            type: string
+            intents: ["*"]
+            description: "Token symbol, e.g. USDC. Used when no contract address is given."
+          - name: chain
+            type: string
+            intents: ["*"]
+            description: "Chain to read: ethereum, base, arbitrum, optimism or polygon. Every supported chain is checked when absent."
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim. Carries the chain, and whether holder concentration was also asked for."
+
+  - path: /research
+    external_path: /research
+    method: GET
+    intents: [RESEARCH_QUERY]
+    description: >-
+      An answer to one research question, drawn from named sources: the
+      ClinicalTrials.gov registry for trial phase, status and completion dates,
+      Europe PMC for published literature, and Wikipedia for subjects that are
+      neither. Every source is cited by identifier — the NCT number of a trial, the
+      title, first author and year of a paper — so the answer can be checked rather
+      than taken on trust, and a source is only cited when it actually names the
+      subject asked about. Where the question asks about an outcome that has not
+      been decided, such as whether a drug will be approved, the registered
+      evidence to date is reported and the answer states plainly that no decision
+      has been recorded; no outcome is predicted. Where neither index holds
+      anything on the subject that is what the answer says, named as an absence in
+      those indexes rather than as an absence of research. A request to combine
+      findings across many sources into a synthesis is the RESEARCH_SYNTHESIS
+      intent rather than this one.
+    params:
+      query:
+        required:
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The research question, verbatim. The subject and any named drug, trial or organisation are read from it."
+        optional:
+          - name: topic
+            type: string
+            intents: ["*"]
+            description: "The subject to research, when it is available separately from the question."
+
+  - path: /authenticity
+    external_path: /authenticity
+    method: GET
+    intents: [TEXT_AUTHENTICITY_CHECK]
+    description: >-
+      Whether a supplied passage is original or was reproduced from an existing
+      source. Distinctive nine-word runs are lifted from the passage and searched
+      verbatim against Wikipedia's full-text index; a hit is reported as copying
+      with the phrase and the article named, which is evidence a reader can verify.
+      A miss is reported as an absence in the index actually searched and
+      explicitly not as proof of originality, because those are different claims. A
+      passage too short for a nine-word run to mean anything is reported as too
+      short rather than assessed. Where the question is explicitly about AI
+      authorship rather than about copying, that is the AI_TEXT_DETECTION intent;
+      a style signal is carried here as one clause and never as the verdict, since
+      style is evidence about a writer rather than about a source.
+    params:
+      query:
+        optional:
+          - name: text
+            type: string
+            intents: ["*"]
+            description: "The passage to check, exactly as given. Read from the question when absent."
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim, including the passage when it is not sent separately."
+
   - path: /fact-check
     external_path: /fact-check
     method: GET
@@ -621,6 +755,10 @@ semantics:
     - GAS_PRICE
     - FINANCIAL_DATA
     - FRAUD_DETECTION
+    - SPORTS_SCORE
+    - TOKEN_HOLDER_COUNT
+    - RESEARCH_QUERY
+    - TEXT_AUTHENTICITY_CHECK
 
 # input_schema is a single top-level block covering every endpoint — the schema
 # refuses it inside endpoints[], and the node does not enforce it against requests.

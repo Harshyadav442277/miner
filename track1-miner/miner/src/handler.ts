@@ -27,6 +27,13 @@ import {
   supportedChains as supportedTvlChains, type TvlResult,
 } from "./tvl";
 import { withRestatement, isAnswered } from "./restate";
+import { lookupScore, type ScoreResult } from "./sportsscore";
+import {
+  chainLabel as holderChainLabel, lookupHolders, supportedChains as supportedHolderChains,
+  type HolderResult,
+} from "./holders";
+import { answerResearch, type ResearchResult } from "./research";
+import { checkAuthenticity, type AuthenticityResult } from "./authenticity";
 
 const CACHE_TTL_MS = Number(process.env.CACHE_TTL_MS ?? 60_000);
 const MAX_CACHE = 500;
@@ -36,6 +43,7 @@ export const ENDPOINTS = [
   "/ai-detect", "/extract", "/headlines", "/wallet-balance",
   "/fact-check", "/telegraph", "/tx-lookup", "/cve", "/tvl", "/news-search", "/convert", "/game-result",
   "/gas-price", "/financial", "/fraud-check",
+  "/sports-score", "/token-holders", "/research", "/authenticity",
 ] as const;
 
 /**
@@ -46,7 +54,8 @@ type Answer =
   | SslResult | StormResult | ForecastResult | GeoResult | TranslationResult | PaperResult
   | AiDetectResult | WalletResult | FactCheckResult | TelegraphResult | TxResult | CveResult
   | TvlResult | NewsSearchResult | CurrencyResult | GameResult
-  | GasResult | FinancialResult | FraudResult;
+  | GasResult | FinancialResult | FraudResult
+  | ScoreResult | HolderResult | ResearchResult | AuthenticityResult;
 const cache = new Map<string, { at: number; value: Answer; ttl: number }>();
 
 /**
@@ -134,6 +143,10 @@ const SUBJECT_OF: Record<string, string> = {
   "/gas-price": "A gas price lookup",
   "/financial": "A market data lookup",
   "/fraud-check": "A fraud risk assessment",
+  "/sports-score": "A live score lookup",
+  "/token-holders": "A token holder count",
+  "/research": "A cited research answer",
+  "/authenticity": "A text originality check",
 };
 
 function armWatchdog(res: ServerResponse, path: string, question: string): void {
@@ -1052,6 +1065,118 @@ function route(req: IncomingMessage, res: ServerResponse): void {
         sendAnswer(res, q, lean(r), false);
       })
       .catch(() => upstreamUnavailable(res, "A sports fixture result", teamsParam.slice(0, 40) || q.slice(0, 40), q));
+    return;
+  }
+
+  if (path === "/sports-score") {
+    /**
+     * The CURRENT score, so a fixture in play beats a finished one. The result
+     * route wants the opposite and keeps its own default; the preference is the
+     * only thing that differs in the data layer.
+     */
+    const teamsParam = [
+      firstValue(url, "team1", "home", "team_a"),
+      firstValue(url, "team2", "away", "team_b"),
+    ].filter(Boolean).join(" vs ");
+    const q = withSubject(firstValue(url, "query", "q", "question", "text", "input"), teamsParam);
+
+    const teams = parseTeams(teamsParam) ?? parseTeams(q);
+    const requestedDate = firstValue(url, "date");
+    const key = teams ? `score:${JSON.stringify([teams, q.toLowerCase(), requestedDate])}` : "";
+    if (key) {
+      const hit = fromCache(key);
+      if (hit) {
+        sendAnswer(res, q, lean(hit), false);
+        return;
+      }
+    }
+    lookupScore(q, new Date(), { teams: teams ?? undefined, date: requestedDate || undefined })
+      .then((r) => {
+        // A live score is the one answer that must never be cached: the whole
+        // question is what it is right now, and the shared window is 60 seconds.
+        if (key && r.verdict === "final_score") toCache(key, r);
+        sendAnswer(res, q, lean(r), false);
+      })
+      .catch(() => upstreamUnavailable(res, "A live score lookup", teamsParam.slice(0, 40) || q.slice(0, 40), q));
+    return;
+  }
+
+  if (path === "/token-holders") {
+    /**
+     * A HEADCOUNT of addresses, never a balance and never pool liquidity — the
+     * canonical description rules both out by name, and they are the two
+     * neighbouring intents this miner already serves.
+     */
+    const addressParam = firstValue(url, "address", "contract", "token_address");
+    const symbolParam = firstValue(url, "symbol", "token", "ticker");
+    const chainParam = firstValue(url, "chain", "network", "blockchain");
+    const q = withSubject(
+      firstValue(url, "query", "q", "question", "text", "input"),
+      addressParam || symbolParam,
+    );
+    const key = `holders:${JSON.stringify([addressParam, symbolParam, chainParam, q.toLowerCase()])}`;
+    const hit = fromCache(key);
+    if (hit) {
+      sendAnswer(res, q, lean(hit), false);
+      return;
+    }
+    lookupHolders(q, { address: addressParam, symbol: symbolParam, chain: chainParam })
+      .then((r) => {
+        if (r.verdict === "holder_count") toCache(key, r);
+        sendAnswer(res, q, lean(r), false);
+      })
+      .catch(() => upstreamUnavailable(
+        res, "A token holder count",
+        addressParam || symbolParam || `a token on ${supportedHolderChains().map(holderChainLabel)[0]}`, q,
+      ));
+    return;
+  }
+
+  if (path === "/research") {
+    /**
+     * A cited answer to one research question. The routed questions are almost
+     * all forward-looking ("Will X be approved?"), and nothing here predicts an
+     * outcome — it reports the registered trial record and the literature, and
+     * says when the outcome is not yet decided.
+     */
+    const q = withSubject(
+      firstValue(url, "query", "q", "question", "text", "input"),
+      firstValue(url, "topic", "subject"),
+    );
+    const key = `research:${q.trim().toLowerCase()}`;
+    const hit = fromCache(key);
+    if (hit) {
+      sendAnswer(res, q, lean(hit), false);
+      return;
+    }
+    answerResearch(q)
+      .then((r) => {
+        if (r.verdict === "evidence" || r.verdict === "no_evidence") toCache(key, r);
+        sendAnswer(res, q, lean(r), false);
+      })
+      .catch(() => upstreamUnavailable(res, "A cited research answer", q.slice(0, 60), q));
+    return;
+  }
+
+  if (path === "/authenticity") {
+    /**
+     * Provenance, not style. A verbatim hit proves copying; a miss proves only
+     * that the indexes searched do not hold it, and the answer says so.
+     */
+    const asked = firstValue(url, "query", "q", "question");
+    const subject = firstValue(url, "text", "content", "passage", "input") || asked;
+    const key = `auth:${subject.trim().toLowerCase().slice(0, 300)}`;
+    const hit = fromCache(key);
+    if (hit) {
+      sendAnswer(res, asked, lean(hit), false);
+      return;
+    }
+    checkAuthenticity(subject)
+      .then((r) => {
+        if (r.verdict === "copied" || r.verdict === "no_source_found") toCache(key, r);
+        sendAnswer(res, asked, lean(r), false);
+      })
+      .catch(() => upstreamUnavailable(res, "A text originality check", "the supplied passage", asked));
     return;
   }
 
