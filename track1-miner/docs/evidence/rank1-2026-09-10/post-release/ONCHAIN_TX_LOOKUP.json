@@ -1,0 +1,158 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "82499c16-0784-40fc-af0f-1d325507c5cd",
+        "epoch_id": 320,
+        "intent_id": "ONCHAIN_TX_LOOKUP",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 0.011411235,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T20:55:41.93114Z",
+        "created_at": "2026-09-09T20:55:41.93114Z"
+      },
+      {
+        "id": "e796c172-3a17-4c49-ab9b-51039949e50e",
+        "epoch_id": 320,
+        "intent_id": "ONCHAIN_TX_LOOKUP",
+        "miner_slug": "livecert",
+        "rank": 9,
+        "score": 0.0065412447,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T20:55:41.93114Z",
+        "created_at": "2026-09-09T20:55:41.93114Z"
+      },
+      {
+        "id": "412150f3-81dd-417e-b4ea-5759ed959610",
+        "epoch_id": 319,
+        "intent_id": "ONCHAIN_TX_LOOKUP",
+        "miner_slug": "txlens",
+        "rank": 1,
+        "score": 0.9948711,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T11:53:16.513693Z",
+        "created_at": "2026-09-09T11:53:16.513693Z"
+      },
+      {
+        "id": "dbde0903-5902-488d-95eb-62cead0b4933",
+        "epoch_id": 319,
+        "intent_id": "ONCHAIN_TX_LOOKUP",
+        "miner_slug": "livecert",
+        "rank": 10,
+        "score": 0.0062750415,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T11:53:16.513693Z",
+        "created_at": "2026-09-09T11:53:16.513693Z"
+      },
+      {
+        "id": "cab30eb1-b636-4b53-846c-e8d9fef2f99b",
+        "epoch_id": 318,
+        "intent_id": "ONCHAIN_TX_LOOKUP",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 0.014389929,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T03:06:00.5222Z",
+        "created_at": "2026-09-09T03:06:00.5222Z"
+      },
+      {
+        "id": "f750ceb5-fbbe-4a89-9dbc-8f527feac58b",
+        "epoch_id": 317,
+        "intent_id": "ONCHAIN_TX_LOOKUP",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 0.014027402,
+        "failure_reason": "",
+        "scored_at": "2026-09-08T17:59:05.06484Z",
+        "created_at": "2026-09-08T17:59:05.06484Z"
+      },
+      {
+        "id": "19a1af07-15db-4116-929f-3755ca7dd170",
+        "epoch_id": 316,
+        "intent_id": "ONCHAIN_TX_LOOKUP",
+        "miner_slug": "veyctum",
+        "rank": 1,
+        "score": 0.9953516,
+        "failure_reason": "",
+        "scored_at": "2026-09-08T08:52:12.8815Z",
+        "created_at": "2026-09-08T08:52:12.8815Z"
+      },
+      {
+        "id": "d0fab786-9dfe-4742-8ac9-f68935c42758",
+        "epoch_id": 315,
+        "intent_id": "ONCHAIN_TX_LOOKUP",
+        "miner_slug": "txlens",
+        "rank": 1,
+        "score": 0.014484253,
+        "failure_reason": "",
+        "scored_at": "2026-09-07T23:53:12.539987Z",
+        "created_at": "2026-09-07T23:53:12.539987Z"
+      },
+      {
+        "id": "dc89cacd-a3e3-47b6-b0b8-ac7b964248f2",
+        "epoch_id": 314,
+        "intent_id": "ONCHAIN_TX_LOOKUP",
+        "miner_slug": "veyctum",
+        "rank": 1,
+        "score": 0.995202,
+        "failure_reason": "",
+        "scored_at": "2026-09-07T09:16:36.550787Z",
+        "created_at": "2026-09-07T09:16:36.550787Z"
+      },
+      {
+        "id": "4cb03b5b-df52-4dd4-bf6c-e5d24a62222c",
+        "epoch_id": 313,
+        "intent_id": "ONCHAIN_TX_LOOKUP",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 0.99505,
+        "failure_reason": "",
+        "scored_at": "2026-09-07T00:16:27.462606Z",
+        "created_at": "2026-09-07T00:16:27.462606Z"
+      },
+      {
+        "id": "3822bad0-0cb4-43fd-affd-1dd8438b692b",
+        "epoch_id": 312,
+        "intent_id": "ONCHAIN_TX_LOOKUP",
+        "miner_slug": "txlens",
+        "rank": 1,
+        "score": 0.9949589,
+        "failure_reason": "",
+        "scored_at": "2026-09-06T15:19:22.403329Z",
+        "created_at": "2026-09-06T15:19:22.403329Z"
+      }
+    ],
+    "total": 601,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 642,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "ONCHAIN_TX_LOOKUP",
+    "wasm_url": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/92167ea85229156e2e761afa36a6b50fcc9fedfa/dist/xfmr/otx_t74.wasm",
+    "wasm_hash": "2780ba63d46a6fe0b4ea5ea8e6ff4070358c9087a4ee5d81848d2f5b78aef24f",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 0.7922707,
+    "eval": {
+      "candidate_margin": 0.7922707,
+      "champion_margin": 0.61929476,
+      "candidate_wins": 15,
+      "champion_wins": 15,
+      "comparable_cases": 15,
+      "worst_self_match": 1,
+      "score_stddev": 0.43772864,
+      "spearman": {
+        "ONCHAIN_TX_LOOKUP": 0.6563034
+      },
+      "historical_rows_evaluated": 22
+    },
+    "registered_at": "2026-08-24T04:06:52Z",
+    "updated_at": "2026-08-24T04:29:43Z"
+  }
+}

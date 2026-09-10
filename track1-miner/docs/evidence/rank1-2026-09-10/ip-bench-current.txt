@@ -1,0 +1,1 @@
+row 0 San Jose, California,  full=0.993906 lean=0.993906
