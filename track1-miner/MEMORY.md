@@ -1,5 +1,13 @@
 # Track 1 — session handoff
 
+## 2026-09-11 — current mission: eighteen rank-1 intents
+
+Current registration **1379** is active with **26 intents**; 1378 is superseded.
+The latest live audit (2026-09-10 18:31 UTC) records epoch **321**, **8 rank-1 intents**,
+nineteen scored intents and seven newly registered intents awaiting scores. Target is **18+**.
+Read [the current progress and weakness report](docs/RANK1_PROGRESS_2026-09-11.md).
+The fourteen-intent target and nineteen-intent registration in older entries below are historical.
+
 ## 2026-09-10 — active mission: fourteen rank-1 intents
 
 Read [docs/RANK1_WEAKNESSES_2026-09-10.md](docs/RANK1_WEAKNESSES_2026-09-10.md) first.

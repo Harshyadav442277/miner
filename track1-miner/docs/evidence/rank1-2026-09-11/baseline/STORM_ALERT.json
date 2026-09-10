@@ -1,0 +1,309 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "ee077d98-6f91-4fa2-b59e-5fa1adab4edd",
+        "epoch_id": 321,
+        "intent_id": "STORM_ALERT",
+        "miner_slug": "skywire-storm-alert",
+        "rank": 1,
+        "score": 0.011195025,
+        "failure_reason": "",
+        "scored_at": "2026-09-10T06:02:38.312728Z",
+        "created_at": "2026-09-10T06:02:38.312728Z"
+      },
+      {
+        "id": "7d8bb6dc-9637-49b4-b4d0-5cacb185350b",
+        "epoch_id": 321,
+        "intent_id": "STORM_ALERT",
+        "miner_slug": "livecert",
+        "rank": 3,
+        "score": 0.009713322,
+        "failure_reason": "",
+        "scored_at": "2026-09-10T06:02:38.312728Z",
+        "created_at": "2026-09-10T06:02:38.312728Z"
+      },
+      {
+        "id": "132a4371-92a1-4238-ae65-0b232988c6f6",
+        "epoch_id": 320,
+        "intent_id": "STORM_ALERT",
+        "miner_slug": "skywire-storm-alert",
+        "rank": 1,
+        "score": 0.02737227,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T20:56:41.185832Z",
+        "created_at": "2026-09-09T20:56:41.185832Z"
+      },
+      {
+        "id": "4d499b5e-3970-4575-ae05-ab854cd08d2c",
+        "epoch_id": 320,
+        "intent_id": "STORM_ALERT",
+        "miner_slug": "livecert",
+        "rank": 3,
+        "score": 0.0113321515,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T20:56:41.185832Z",
+        "created_at": "2026-09-09T20:56:41.185832Z"
+      },
+      {
+        "id": "7e35f87e-74b0-4ade-a996-88957e9351d4",
+        "epoch_id": 319,
+        "intent_id": "STORM_ALERT",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.0090971505,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T12:06:59.379791Z",
+        "created_at": "2026-09-09T12:06:59.379791Z"
+      },
+      {
+        "id": "940703bd-8748-48dc-9122-de3427206fc0",
+        "epoch_id": 318,
+        "intent_id": "STORM_ALERT",
+        "miner_slug": "amanat-weather-risk",
+        "rank": 1,
+        "score": 0.9936185,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T02:54:00.036272Z",
+        "created_at": "2026-09-09T02:54:00.036272Z"
+      },
+      {
+        "id": "b5edaa72-0c13-4b60-9315-9f8dba2849fb",
+        "epoch_id": 318,
+        "intent_id": "STORM_ALERT",
+        "miner_slug": "livecert",
+        "rank": 5,
+        "score": 0.00795267,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T02:54:00.036272Z",
+        "created_at": "2026-09-09T02:54:00.036272Z"
+      },
+      {
+        "id": "97940024-afd9-4c9b-a057-d9340ab396cf",
+        "epoch_id": 317,
+        "intent_id": "STORM_ALERT",
+        "miner_slug": "txlens",
+        "rank": 1,
+        "score": 0.99448687,
+        "failure_reason": "",
+        "scored_at": "2026-09-08T17:55:19.587627Z",
+        "created_at": "2026-09-08T17:55:19.587627Z"
+      },
+      {
+        "id": "20f2a424-ff5e-41f7-876f-51273736ddb3",
+        "epoch_id": 317,
+        "intent_id": "STORM_ALERT",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 0.014271243,
+        "failure_reason": "",
+        "scored_at": "2026-09-08T17:55:19.587627Z",
+        "created_at": "2026-09-08T17:55:19.587627Z"
+      },
+      {
+        "id": "bbe816d8-8f11-4313-857f-d0ff898249fc",
+        "epoch_id": 316,
+        "intent_id": "STORM_ALERT",
+        "miner_slug": "txlens",
+        "rank": 1,
+        "score": 0.9948399,
+        "failure_reason": "",
+        "scored_at": "2026-09-08T08:52:47.479404Z",
+        "created_at": "2026-09-08T08:52:47.479404Z"
+      },
+      {
+        "id": "0f4a742a-3ea3-4112-81e1-bcf51708c5ab",
+        "epoch_id": 316,
+        "intent_id": "STORM_ALERT",
+        "miner_slug": "livecert",
+        "rank": 3,
+        "score": 0.014540128,
+        "failure_reason": "",
+        "scored_at": "2026-09-08T08:52:47.479404Z",
+        "created_at": "2026-09-08T08:52:47.479404Z"
+      },
+      {
+        "id": "4bac1d32-b760-474e-8f36-7953aa6bcd46",
+        "epoch_id": 315,
+        "intent_id": "STORM_ALERT",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 0.008514788,
+        "failure_reason": "",
+        "scored_at": "2026-09-07T23:55:33.23717Z",
+        "created_at": "2026-09-07T23:55:33.23717Z"
+      },
+      {
+        "id": "8c93bc92-ff30-4626-a77a-9074b0c91823",
+        "epoch_id": 315,
+        "intent_id": "STORM_ALERT",
+        "miner_slug": "livecert",
+        "rank": 4,
+        "score": 0.007928181,
+        "failure_reason": "",
+        "scored_at": "2026-09-07T23:55:33.23717Z",
+        "created_at": "2026-09-07T23:55:33.23717Z"
+      },
+      {
+        "id": "a79e16f5-3b4f-4465-886f-f3340f4ef1ad",
+        "epoch_id": 314,
+        "intent_id": "STORM_ALERT",
+        "miner_slug": "amanat-weather-risk",
+        "rank": 1,
+        "score": 0.99556035,
+        "failure_reason": "",
+        "scored_at": "2026-09-07T09:17:16.543028Z",
+        "created_at": "2026-09-07T09:17:16.543028Z"
+      },
+      {
+        "id": "f79eddaa-940a-420c-9dcb-e265e8cb7d98",
+        "epoch_id": 314,
+        "intent_id": "STORM_ALERT",
+        "miner_slug": "livecert",
+        "rank": 4,
+        "score": 0.00869535,
+        "failure_reason": "",
+        "scored_at": "2026-09-07T09:17:16.543028Z",
+        "created_at": "2026-09-07T09:17:16.543028Z"
+      },
+      {
+        "id": "e991ed31-a84e-4960-bc93-ff622dbde5d3",
+        "epoch_id": 313,
+        "intent_id": "STORM_ALERT",
+        "miner_slug": "skywire-storm-alert",
+        "rank": 1,
+        "score": 0.99382514,
+        "failure_reason": "",
+        "scored_at": "2026-09-07T00:11:38.962656Z",
+        "created_at": "2026-09-07T00:11:38.962656Z"
+      },
+      {
+        "id": "b1080c44-0edb-441e-8db0-7641be72f2b8",
+        "epoch_id": 313,
+        "intent_id": "STORM_ALERT",
+        "miner_slug": "livecert",
+        "rank": 5,
+        "score": 0.008156263,
+        "failure_reason": "",
+        "scored_at": "2026-09-07T00:11:38.962656Z",
+        "created_at": "2026-09-07T00:11:38.962656Z"
+      },
+      {
+        "id": "c2831781-dd62-40ae-baa9-f7c946513aed",
+        "epoch_id": 312,
+        "intent_id": "STORM_ALERT",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.9951281,
+        "failure_reason": "",
+        "scored_at": "2026-09-06T15:18:16.294904Z",
+        "created_at": "2026-09-06T15:18:16.294904Z"
+      },
+      {
+        "id": "53f09fe7-5545-45cd-9e1d-ad2f312f7357",
+        "epoch_id": 311,
+        "intent_id": "STORM_ALERT",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.016929545,
+        "failure_reason": "",
+        "scored_at": "2026-09-06T06:12:13.333462Z",
+        "created_at": "2026-09-06T06:12:13.333462Z"
+      },
+      {
+        "id": "04aa723f-4159-4132-bb13-cb1b244db33d",
+        "epoch_id": 310,
+        "intent_id": "STORM_ALERT",
+        "miner_slug": "skywire-storm-alert",
+        "rank": 1,
+        "score": 0.014310102,
+        "failure_reason": "",
+        "scored_at": "2026-09-05T16:58:05.131104Z",
+        "created_at": "2026-09-05T16:58:05.131104Z"
+      },
+      {
+        "id": "de2df472-1e33-4e52-813a-b94f1fbd42da",
+        "epoch_id": 310,
+        "intent_id": "STORM_ALERT",
+        "miner_slug": "livecert",
+        "rank": 3,
+        "score": 0.0128902085,
+        "failure_reason": "",
+        "scored_at": "2026-09-05T16:58:05.131104Z",
+        "created_at": "2026-09-05T16:58:05.131104Z"
+      },
+      {
+        "id": "1e12fd5d-f86c-4c9d-867d-ab3bff8553b0",
+        "epoch_id": 309,
+        "intent_id": "STORM_ALERT",
+        "miner_slug": "txlens",
+        "rank": 1,
+        "score": 0.1537896,
+        "failure_reason": "",
+        "scored_at": "2026-09-05T04:45:37.32686Z",
+        "created_at": "2026-09-05T04:45:37.32686Z"
+      },
+      {
+        "id": "63956aed-0bd1-4895-9dce-18b46a371e87",
+        "epoch_id": 309,
+        "intent_id": "STORM_ALERT",
+        "miner_slug": "livecert",
+        "rank": 3,
+        "score": 0.010657856,
+        "failure_reason": "",
+        "scored_at": "2026-09-05T04:45:37.32686Z",
+        "created_at": "2026-09-05T04:45:37.32686Z"
+      },
+      {
+        "id": "d461c603-07e6-4681-a8a8-295167593370",
+        "epoch_id": 308,
+        "intent_id": "STORM_ALERT",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.010386773,
+        "failure_reason": "",
+        "scored_at": "2026-09-04T16:11:57.440414Z",
+        "created_at": "2026-09-04T16:11:57.440414Z"
+      },
+      {
+        "id": "88971c86-d99c-4272-b3b5-daa52b24d75b",
+        "epoch_id": 307,
+        "intent_id": "STORM_ALERT",
+        "miner_slug": "tempest-storm-intelligence",
+        "rank": 1,
+        "score": 0.008986271,
+        "failure_reason": "",
+        "scored_at": "2026-09-04T07:06:41.407816Z",
+        "created_at": "2026-09-04T07:06:41.407816Z"
+      }
+    ],
+    "total": 548,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 453,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "STORM_ALERT",
+    "wasm_url": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/72616195155200974eac9982e3121aa48f5f8373/dist/xfmr/storm_rpen.wasm",
+    "wasm_hash": "f30451baead010294d0adcd679bd328c8bc324d175758588028c1c19cb0cb536",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 0.99000794,
+    "eval": {
+      "candidate_margin": 0.99000794,
+      "champion_margin": 0.97044337,
+      "candidate_wins": 32,
+      "champion_wins": 32,
+      "comparable_cases": 32,
+      "worst_self_match": 0.9947709,
+      "score_stddev": 0.46656534,
+      "historical_rows_evaluated": 10
+    },
+    "registered_at": "2026-08-22T11:28:45Z",
+    "updated_at": "2026-08-22T11:30:37Z"
+  }
+}

@@ -1,0 +1,202 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "625de3f1-2c3c-42c6-8c6a-ce25cc60f5c2",
+        "epoch_id": 321,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "weatherapi",
+        "rank": 1,
+        "score": 0.0003615948,
+        "failure_reason": "",
+        "scored_at": "2026-09-10T06:06:30.041165Z",
+        "created_at": "2026-09-10T06:06:30.041165Z"
+      },
+      {
+        "id": "b6c5694c-e8a3-4d20-b986-41fa487de486",
+        "epoch_id": 321,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "livecert",
+        "rank": 5,
+        "score": 0.00028915578,
+        "failure_reason": "",
+        "scored_at": "2026-09-10T06:06:30.041165Z",
+        "created_at": "2026-09-10T06:06:30.041165Z"
+      },
+      {
+        "id": "aca5e879-04b3-43e4-8c5c-43ff823c1560",
+        "epoch_id": 320,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "weatherapi",
+        "rank": 1,
+        "score": 0.0004047926,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T21:01:05.906813Z",
+        "created_at": "2026-09-09T21:01:05.906813Z"
+      },
+      {
+        "id": "0d156856-9b74-4e1a-874e-b0f46d520d89",
+        "epoch_id": 320,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "livecert",
+        "rank": 5,
+        "score": 0.000283336,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T21:01:05.906813Z",
+        "created_at": "2026-09-09T21:01:05.906813Z"
+      },
+      {
+        "id": "c9cda8e5-9ec8-40e1-9826-693e6d833374",
+        "epoch_id": 319,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "weatherapi",
+        "rank": 1,
+        "score": 0.00038951242,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T12:17:01.420772Z",
+        "created_at": "2026-09-09T12:17:01.420772Z"
+      },
+      {
+        "id": "f2466a09-1aca-41c2-bd1b-bc14b689c071",
+        "epoch_id": 319,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "livecert",
+        "rank": 6,
+        "score": 0.00028389352,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T12:17:01.420772Z",
+        "created_at": "2026-09-09T12:17:01.420772Z"
+      },
+      {
+        "id": "7064dda5-1a0e-4705-b1ef-8356d233b3b1",
+        "epoch_id": 318,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "openweathermap",
+        "rank": 1,
+        "score": 0.00035275312,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T03:13:45.308576Z",
+        "created_at": "2026-09-09T03:13:45.308576Z"
+      },
+      {
+        "id": "b8e81e03-889f-4c75-8d75-5a2fc3ad425e",
+        "epoch_id": 318,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "livecert",
+        "rank": 5,
+        "score": 0.0003071083,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T03:13:45.308576Z",
+        "created_at": "2026-09-09T03:13:45.308576Z"
+      },
+      {
+        "id": "221aaa78-2a0a-422e-b394-2098359b326d",
+        "epoch_id": 317,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "bittensor-sn18-zeus",
+        "rank": 1,
+        "score": 0.0003526774,
+        "failure_reason": "",
+        "scored_at": "2026-09-08T17:54:00.001223Z",
+        "created_at": "2026-09-08T17:54:00.001223Z"
+      },
+      {
+        "id": "83129c41-9941-46ec-a3a0-db7b39015111",
+        "epoch_id": 317,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "livecert",
+        "rank": 3,
+        "score": 0.0003017533,
+        "failure_reason": "",
+        "scored_at": "2026-09-08T17:54:00.001223Z",
+        "created_at": "2026-09-08T17:54:00.001223Z"
+      },
+      {
+        "id": "3b43a800-b788-430b-82fc-0f63fcce6855",
+        "epoch_id": 316,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "verity-weather-forecast",
+        "rank": 1,
+        "score": 0.0005457977,
+        "failure_reason": "",
+        "scored_at": "2026-09-08T09:02:22.508946Z",
+        "created_at": "2026-09-08T09:02:22.508946Z"
+      },
+      {
+        "id": "27c1b869-9216-4188-8a3d-1a48d7c849b1",
+        "epoch_id": 316,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "livecert",
+        "rank": 6,
+        "score": 0.00047312988,
+        "failure_reason": "",
+        "scored_at": "2026-09-08T09:02:22.508946Z",
+        "created_at": "2026-09-08T09:02:22.508946Z"
+      },
+      {
+        "id": "adbb1007-5bac-4628-a0d5-d6284633265b",
+        "epoch_id": 315,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "onlookout-weather",
+        "rank": 1,
+        "score": 0.0005274505,
+        "failure_reason": "",
+        "scored_at": "2026-09-08T00:03:26.185737Z",
+        "created_at": "2026-09-08T00:03:26.185737Z"
+      },
+      {
+        "id": "6b996163-25cd-4526-81a9-ca56b1d2cc63",
+        "epoch_id": 315,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "livecert",
+        "rank": 11,
+        "score": 0.00034856508,
+        "failure_reason": "",
+        "scored_at": "2026-09-08T00:03:26.185737Z",
+        "created_at": "2026-09-08T00:03:26.185737Z"
+      },
+      {
+        "id": "ef2bb88b-2488-433c-918a-e6c0d42c6199",
+        "epoch_id": 314,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "verity-weather-forecast",
+        "rank": 1,
+        "score": 0.0005127843,
+        "failure_reason": "",
+        "scored_at": "2026-09-07T09:08:46.72289Z",
+        "created_at": "2026-09-07T09:08:46.72289Z"
+      }
+    ],
+    "total": 1651,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 3173,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "WEATHER_FORECAST",
+    "wasm_url": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/1c57bda41576c77bfd61b70198eb9098098df30f/dist/win2/wf_4e3.wasm",
+    "wasm_hash": "66ee98e29632d0cfc74240344ea47e6bb83ed14545c4c102215a4ded5986b649",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 0.8568193,
+    "eval": {
+      "candidate_margin": 0.8568193,
+      "champion_margin": 0.8567977,
+      "candidate_wins": 14,
+      "champion_wins": 14,
+      "comparable_cases": 14,
+      "worst_self_match": 1,
+      "score_stddev": 0.4712138,
+      "spearman": {
+        "WEATHER_FORECAST": 0.79869324
+      },
+      "historical_rows_evaluated": 164
+    },
+    "registered_at": "2026-09-02T03:37:31Z",
+    "updated_at": "2026-09-02T06:49:05Z"
+  }
+}

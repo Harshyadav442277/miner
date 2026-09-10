@@ -5,7 +5,8 @@ import { resolve } from "node:path";
 import { readManifest } from "./manifest.mjs";
 
 const node = process.env.TELEGRAPH_NODE ?? "https://devnode.telegraphprotocol.com";
-const registrationId = process.env.REGISTRATION_ID ?? "1378";
+const registrationId = process.env.REGISTRATION_ID ?? "1379";
+const target = 18;
 const out = resolve(process.argv[2] ?? "track1-miner/docs/evidence/rank1-2026-09-10");
 async function get(path) {
   const r = await fetch(`${node}${path}`, { signal: AbortSignal.timeout(25_000) });
@@ -50,9 +51,9 @@ for (let i = 0; i < intents.length; i += 4) {
 const report = { at: new Date().toISOString(), source: node, registrationId, catalogId: us.id,
   owner: registered.miner_address, yamlUrl: registered.yaml_url, yamlHash: registered.yaml_hash,
   epoch, complete: rows.every(r => r.rank !== null), rank1: rows.filter(r => r.rank === 1).length,
-  positiveRank1: rows.filter(r => r.rank === 1 && r.score > 0).length, target: 14, rows, failures };
+  positiveRank1: rows.filter(r => r.rank === 1 && r.score > 0).length, target, rows, failures };
 await writeFile(`${out}/rank-audit.json`, JSON.stringify(report, null, 2) + "\n");
 await writeFile(`${out}/registration.json`, JSON.stringify(registration, null, 2) + "\n");
-console.log(`Epoch ${epoch}: ${report.rank1}/${rows.length} rank 1; complete=${report.complete}; target=14`);
+console.log(`Epoch ${epoch}: ${report.rank1}/${rows.length} rank 1; complete=${report.complete}; target=${target}`);
 console.table(rows.map(({ intent, rank, score, leader, top, regime }) => ({ intent, rank, score, leader, top, regime })));
 if (failures.length) console.error(failures);

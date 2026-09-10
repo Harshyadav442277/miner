@@ -1,0 +1,199 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "eace8c84-e2ea-4e92-a9c2-b9095d8c667f",
+        "epoch_id": 321,
+        "intent_id": "RESEARCH_QUERY",
+        "miner_slug": "openalex",
+        "rank": 1,
+        "score": 0.014696259,
+        "failure_reason": "",
+        "scored_at": "2026-09-10T05:59:47.953351Z",
+        "created_at": "2026-09-10T05:59:47.953351Z"
+      },
+      {
+        "id": "d6e396f4-9c71-4ccc-9fb6-53d8994b0cfb",
+        "epoch_id": 320,
+        "intent_id": "RESEARCH_QUERY",
+        "miner_slug": "kriterion-pramagraph",
+        "rank": 1,
+        "score": 0.018004261,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T20:58:43.290004Z",
+        "created_at": "2026-09-09T20:58:43.290004Z"
+      },
+      {
+        "id": "60759ae3-0624-42ac-a155-40c3f1bf4c2a",
+        "epoch_id": 319,
+        "intent_id": "RESEARCH_QUERY",
+        "miner_slug": "tavily",
+        "rank": 1,
+        "score": 0.015312783,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T11:56:27.924861Z",
+        "created_at": "2026-09-09T11:56:27.924861Z"
+      },
+      {
+        "id": "3cc71eed-7397-4d9b-a11e-553694fb0cb0",
+        "epoch_id": 318,
+        "intent_id": "RESEARCH_QUERY",
+        "miner_slug": "kriterion-pramagraph",
+        "rank": 1,
+        "score": 0.012446442,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T03:09:49.574448Z",
+        "created_at": "2026-09-09T03:09:49.574448Z"
+      },
+      {
+        "id": "ddc55e87-831f-4e4b-b6ab-23301ef3ea6c",
+        "epoch_id": 317,
+        "intent_id": "RESEARCH_QUERY",
+        "miner_slug": "tavily",
+        "rank": 1,
+        "score": 0.011657132,
+        "failure_reason": "",
+        "scored_at": "2026-09-08T18:11:24.598375Z",
+        "created_at": "2026-09-08T18:11:24.598375Z"
+      },
+      {
+        "id": "3f93f037-6c07-4e52-81ed-ba60aa2e96c2",
+        "epoch_id": 316,
+        "intent_id": "RESEARCH_QUERY",
+        "miner_slug": "kriterion-pramagraph",
+        "rank": 1,
+        "score": 0.014016013,
+        "failure_reason": "",
+        "scored_at": "2026-09-08T08:59:10.037258Z",
+        "created_at": "2026-09-08T08:59:10.037258Z"
+      },
+      {
+        "id": "8a03d1a0-fdae-4ceb-8892-567da018b3e8",
+        "epoch_id": 315,
+        "intent_id": "RESEARCH_QUERY",
+        "miner_slug": "tavily",
+        "rank": 1,
+        "score": 0.031080943,
+        "failure_reason": "",
+        "scored_at": "2026-09-07T23:57:38.965294Z",
+        "created_at": "2026-09-07T23:57:38.965294Z"
+      },
+      {
+        "id": "02a25fe8-7c93-4eb5-bb7c-0c02cf028c91",
+        "epoch_id": 314,
+        "intent_id": "RESEARCH_QUERY",
+        "miner_slug": "tavily",
+        "rank": 1,
+        "score": 0.014225368,
+        "failure_reason": "",
+        "scored_at": "2026-09-07T09:12:50.145761Z",
+        "created_at": "2026-09-07T09:12:50.145761Z"
+      },
+      {
+        "id": "12f52b38-d493-4903-9059-3cc4f5acab7f",
+        "epoch_id": 313,
+        "intent_id": "RESEARCH_QUERY",
+        "miner_slug": "tavily",
+        "rank": 1,
+        "score": 0.010731353,
+        "failure_reason": "",
+        "scored_at": "2026-09-07T00:08:00.218815Z",
+        "created_at": "2026-09-07T00:08:00.218815Z"
+      },
+      {
+        "id": "f015b5c4-c4c2-4e51-a1e1-551e707478a9",
+        "epoch_id": 312,
+        "intent_id": "RESEARCH_QUERY",
+        "miner_slug": "kriterion-pramagraph",
+        "rank": 1,
+        "score": 0.014720483,
+        "failure_reason": "",
+        "scored_at": "2026-09-06T15:15:24.316558Z",
+        "created_at": "2026-09-06T15:15:24.316558Z"
+      },
+      {
+        "id": "c66db527-523c-43cc-83d3-f91b88a7ce81",
+        "epoch_id": 311,
+        "intent_id": "RESEARCH_QUERY",
+        "miner_slug": "kriterion-pramagraph",
+        "rank": 1,
+        "score": 0.012422452,
+        "failure_reason": "",
+        "scored_at": "2026-09-06T06:11:19.381792Z",
+        "created_at": "2026-09-06T06:11:19.381792Z"
+      },
+      {
+        "id": "9f6ac850-b49e-4766-a12c-26cc61567b91",
+        "epoch_id": 310,
+        "intent_id": "RESEARCH_QUERY",
+        "miner_slug": "tavily",
+        "rank": 1,
+        "score": 0.017482808,
+        "failure_reason": "",
+        "scored_at": "2026-09-05T17:06:48.405568Z",
+        "created_at": "2026-09-05T17:06:48.405568Z"
+      },
+      {
+        "id": "cd3d9553-17b7-4df3-bfda-79d65483a0bf",
+        "epoch_id": 309,
+        "intent_id": "RESEARCH_QUERY",
+        "miner_slug": "kriterion-pramagraph",
+        "rank": 1,
+        "score": 0.016885864,
+        "failure_reason": "",
+        "scored_at": "2026-09-05T04:41:28.063196Z",
+        "created_at": "2026-09-05T04:41:28.063196Z"
+      },
+      {
+        "id": "fcd5401e-88ff-4cf2-b748-19526d953fc4",
+        "epoch_id": 308,
+        "intent_id": "RESEARCH_QUERY",
+        "miner_slug": "scholarwire-research-query",
+        "rank": 1,
+        "score": 0.0173101,
+        "failure_reason": "",
+        "scored_at": "2026-09-04T16:12:07.550612Z",
+        "created_at": "2026-09-04T16:12:07.550612Z"
+      },
+      {
+        "id": "8bc44304-d461-4edd-a3e6-aacb651c68ae",
+        "epoch_id": 307,
+        "intent_id": "RESEARCH_QUERY",
+        "miner_slug": "tavily",
+        "rank": 1,
+        "score": 0.014285672,
+        "failure_reason": "",
+        "scored_at": "2026-09-04T07:12:40.730578Z",
+        "created_at": "2026-09-04T07:12:40.730578Z"
+      }
+    ],
+    "total": 322,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 452,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "RESEARCH_QUERY",
+    "wasm_url": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/72616195155200974eac9982e3121aa48f5f8373/dist/xfmr/rquery_rpen.wasm",
+    "wasm_hash": "29b39599d762c61c0f8adf622d3204c85618cdc3803591fc8624ea9393c716b8",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 0.99000794,
+    "eval": {
+      "candidate_margin": 0.99000794,
+      "champion_margin": 0.97044337,
+      "candidate_wins": 32,
+      "champion_wins": 32,
+      "comparable_cases": 32,
+      "worst_self_match": 0.9947709,
+      "score_stddev": 0.46656534,
+      "historical_rows_evaluated": 4
+    },
+    "registered_at": "2026-08-22T11:26:43Z",
+    "updated_at": "2026-08-22T11:28:34Z"
+  }
+}

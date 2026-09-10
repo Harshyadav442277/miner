@@ -1,0 +1,257 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "159abc59-aa99-4e9d-9f2f-8a43961e5a0c",
+        "epoch_id": 321,
+        "intent_id": "TOKEN_HOLDER_COUNT",
+        "miner_slug": "txlens",
+        "rank": 1,
+        "score": 4.4323594e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-10T06:03:21.617615Z",
+        "created_at": "2026-09-10T06:03:21.617615Z"
+      },
+      {
+        "id": "b6a60c2a-feb1-4aab-9911-ebd914a0aa4a",
+        "epoch_id": 320,
+        "intent_id": "TOKEN_HOLDER_COUNT",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 7.0539672e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T20:54:05.487738Z",
+        "created_at": "2026-09-09T20:54:05.487738Z"
+      },
+      {
+        "id": "2defd9f1-83ca-4231-ae8a-dc8a1b022b9d",
+        "epoch_id": 319,
+        "intent_id": "TOKEN_HOLDER_COUNT",
+        "miner_slug": "kriterion-pramagraph",
+        "rank": 1,
+        "score": 3.2139074e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T12:14:04.351566Z",
+        "created_at": "2026-09-09T12:14:04.351566Z"
+      },
+      {
+        "id": "8b4db206-65cb-475b-ac2a-4e67abcefe94",
+        "epoch_id": 318,
+        "intent_id": "TOKEN_HOLDER_COUNT",
+        "miner_slug": "chainwire-holder-count",
+        "rank": 1,
+        "score": 2.739213e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T03:04:37.168673Z",
+        "created_at": "2026-09-09T03:04:37.168673Z"
+      },
+      {
+        "id": "5ea639b1-e794-48cb-a81c-a881a63d9851",
+        "epoch_id": 317,
+        "intent_id": "TOKEN_HOLDER_COUNT",
+        "miner_slug": "kriterion-pramagraph",
+        "rank": 1,
+        "score": 3.404047e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-08T17:55:31.479901Z",
+        "created_at": "2026-09-08T17:55:31.479901Z"
+      },
+      {
+        "id": "1b6584c9-d1c5-449e-90dd-0371ff041606",
+        "epoch_id": 316,
+        "intent_id": "TOKEN_HOLDER_COUNT",
+        "miner_slug": "chainwire-holder-count",
+        "rank": 1,
+        "score": 3.0631517e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-08T08:54:37.273734Z",
+        "created_at": "2026-09-08T08:54:37.273734Z"
+      },
+      {
+        "id": "660229aa-a552-4636-8155-69e15626772d",
+        "epoch_id": 315,
+        "intent_id": "TOKEN_HOLDER_COUNT",
+        "miner_slug": "onchain-intel-miner",
+        "rank": 1,
+        "score": 5.1938185e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-08T00:00:34.078377Z",
+        "created_at": "2026-09-08T00:00:34.078377Z"
+      },
+      {
+        "id": "7fdbe356-d433-4f1f-872e-8ab2f8b45394",
+        "epoch_id": 314,
+        "intent_id": "TOKEN_HOLDER_COUNT",
+        "miner_slug": "kriterion-pramagraph",
+        "rank": 1,
+        "score": 6.6950816e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-07T09:14:00.742368Z",
+        "created_at": "2026-09-07T09:14:00.742368Z"
+      },
+      {
+        "id": "33286422-b7c7-4303-ab1c-b4921cd35a9a",
+        "epoch_id": 313,
+        "intent_id": "TOKEN_HOLDER_COUNT",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 7.653682e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-07T00:11:32.422784Z",
+        "created_at": "2026-09-07T00:11:32.422784Z"
+      },
+      {
+        "id": "58e5e77f-a47e-4269-aa9d-e94b589eb8d0",
+        "epoch_id": 312,
+        "intent_id": "TOKEN_HOLDER_COUNT",
+        "miner_slug": "kriterion-pramagraph",
+        "rank": 1,
+        "score": 9.05415e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-06T15:12:33.17892Z",
+        "created_at": "2026-09-06T15:12:33.17892Z"
+      },
+      {
+        "id": "595165c1-204a-47f9-a6ad-64269bf46dbd",
+        "epoch_id": 311,
+        "intent_id": "TOKEN_HOLDER_COUNT",
+        "miner_slug": "txlens",
+        "rank": 1,
+        "score": 7.948062e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-06T06:15:45.429924Z",
+        "created_at": "2026-09-06T06:15:45.429924Z"
+      },
+      {
+        "id": "d37fea4f-f780-42a2-91c7-d652a7167f00",
+        "epoch_id": 310,
+        "intent_id": "TOKEN_HOLDER_COUNT",
+        "miner_slug": "onchain-intel-miner",
+        "rank": 1,
+        "score": 8.314387e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-05T17:01:49.472892Z",
+        "created_at": "2026-09-05T17:01:49.472892Z"
+      },
+      {
+        "id": "32c909b7-a05f-4c1b-b4ad-ec269604b603",
+        "epoch_id": 309,
+        "intent_id": "TOKEN_HOLDER_COUNT",
+        "miner_slug": "chainwire-holder-count",
+        "rank": 1,
+        "score": 1.1504537e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-05T04:49:05.970341Z",
+        "created_at": "2026-09-05T04:49:05.970341Z"
+      },
+      {
+        "id": "d28dfd5b-e224-410a-89c3-ebade5ec8643",
+        "epoch_id": 308,
+        "intent_id": "TOKEN_HOLDER_COUNT",
+        "miner_slug": "kriterion-pramagraph",
+        "rank": 1,
+        "score": 6.9717634e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-04T16:11:20.588438Z",
+        "created_at": "2026-09-04T16:11:20.588438Z"
+      },
+      {
+        "id": "f7f83472-dd20-4a3d-a3ad-8d8c4ed566fc",
+        "epoch_id": 307,
+        "intent_id": "TOKEN_HOLDER_COUNT",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 6.851875e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-04T07:05:38.425084Z",
+        "created_at": "2026-09-04T07:05:38.425084Z"
+      },
+      {
+        "id": "83509aeb-94c1-46e1-b285-e7e02564e868",
+        "epoch_id": 306,
+        "intent_id": "TOKEN_HOLDER_COUNT",
+        "miner_slug": "chainwire-holder-count",
+        "rank": 1,
+        "score": 1.0469413e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-03T22:09:17.858934Z",
+        "created_at": "2026-09-03T22:09:17.858934Z"
+      },
+      {
+        "id": "d59948cd-2b42-480c-b038-d2190c40ecf9",
+        "epoch_id": 305,
+        "intent_id": "TOKEN_HOLDER_COUNT",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 6.603249e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-03T13:10:49.513026Z",
+        "created_at": "2026-09-03T13:10:49.513026Z"
+      },
+      {
+        "id": "514fe3fe-33be-438d-ae43-c118a1486554",
+        "epoch_id": 304,
+        "intent_id": "TOKEN_HOLDER_COUNT",
+        "miner_slug": "kriterion-pramagraph",
+        "rank": 1,
+        "score": 1.1508997e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-03T04:04:02.704787Z",
+        "created_at": "2026-09-03T04:04:02.704787Z"
+      },
+      {
+        "id": "c7325337-d64b-4b45-8c9a-82c74f079943",
+        "epoch_id": 303,
+        "intent_id": "TOKEN_HOLDER_COUNT",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 6.7062193e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-02T19:01:34.999349Z",
+        "created_at": "2026-09-02T19:01:34.999349Z"
+      },
+      {
+        "id": "f2a176d9-e7d5-410c-9fb8-fa5419f35668",
+        "epoch_id": 302,
+        "intent_id": "TOKEN_HOLDER_COUNT",
+        "miner_slug": "chainwire-holder-count",
+        "rank": 1,
+        "score": 7.832744e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-02T10:09:23.724984Z",
+        "created_at": "2026-09-02T10:09:23.724984Z"
+      }
+    ],
+    "total": 203,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 2057,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "TOKEN_HOLDER_COUNT",
+    "wasm_url": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/0e84e751775d88a6c0f90ee32016a92ec1a7c270/dist/lock/thc_r5.wasm",
+    "wasm_hash": "02b596f3fc07b4d031a85558c15b4d918349983af7993dd3a30fb196eaeabb74",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 0.85714287,
+    "eval": {
+      "candidate_margin": 0.85714287,
+      "champion_margin": 0.85712206,
+      "candidate_wins": 14,
+      "champion_wins": 14,
+      "comparable_cases": 14,
+      "worst_self_match": 1,
+      "score_stddev": 0.45175394,
+      "spearman": {
+        "TOKEN_HOLDER_COUNT": 0.65900385
+      },
+      "historical_rows_evaluated": 28
+    },
+    "registered_at": "2026-08-30T17:21:09Z",
+    "updated_at": "2026-08-30T18:31:47Z"
+  }
+}
