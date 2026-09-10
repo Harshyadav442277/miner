@@ -1,8 +1,8 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
-  chainLabel, concentrationPercent, contractAddress, lookupHolders, resolveChain,
-  supportedChains, tokenSymbol, wantsConcentration,
+  addressForSymbol, chainLabel, concentrationPercent, contractAddress, lookupHolders,
+  resolveChain, supportedChains, tokenSymbol, wantsConcentration,
 } from "../src/holders";
 
 test("the chain named in the question decides which index is read", () => {
@@ -78,6 +78,21 @@ test("concentration is asked for in several phrasings, plurals included", () => 
   // ending in \b cannot match its own plural.
   assert.ok(wantsConcentration("who are the largest holders?"));
   assert.ok(!wantsConcentration("How many addresses hold usdc on base?"));
+});
+
+/**
+ * The symbol path resolves through GeckoTerminal because the explorer's own
+ * search takes 3.9 to 5.5 seconds and did not return at all from Vercel's
+ * egress, turning the intent's only clean routed question into an outage in
+ * production while it passed on a laptop (G84).
+ */
+test("a symbol resolves to the canonical contract (live)", async () => {
+  const addr = await addressForSymbol("base", "USDC");
+  // Both resolvers shed under load, and a gate that fails on somebody else's
+  // rate limit teaches you to ignore it (G80). Shedding is reported as such;
+  // an answer must still be the right one.
+  if (addr === "unavailable") return;
+  assert.equal(String(addr).toLowerCase(), "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913");
 });
 
 test("the concentration percentage is the top balance over supply, and refuses nonsense", () => {

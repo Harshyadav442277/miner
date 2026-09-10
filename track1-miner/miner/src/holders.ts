@@ -29,19 +29,22 @@
 const TIMEOUT_MS = Number(process.env.HOLDERS_TIMEOUT_MS ?? 6_000);
 /** The holders list is the slow one and runs beside the token lookup, not after it. */
 const CONCENTRATION_TIMEOUT_MS = Number(process.env.CONCENTRATION_TIMEOUT_MS ?? 8_000);
+/** The explorer's token search is the fallback resolver and needs room to be slow. */
+const EXPLORER_SEARCH_TIMEOUT_MS = Number(process.env.EXPLORER_SEARCH_TIMEOUT_MS ?? 7_000);
 const UA = "livecert-miner/1.0 (+https://miner-wine.vercel.app)";
+const GECKO = "https://api.geckoterminal.com/api/v2";
 
 /**
  * One Blockscout instance per chain. Verified live 2026-09-10: all five return
  * `holders_count` for their own canonical USDC with no key and no header.
  * Polygon and Optimism redirect, so redirects are followed.
  */
-const CHAINS: Record<string, { host: string; label: string; words: RegExp }> = {
-  ethereum: { host: "eth.blockscout.com", label: "Ethereum", words: /\bethereum\b|\bmainnet\b|\beth\b|\bl1\b/i },
-  base: { host: "base.blockscout.com", label: "Base", words: /\bbase\b/i },
-  arbitrum: { host: "arbitrum.blockscout.com", label: "Arbitrum", words: /\barbitrum\b|\barb\b/i },
-  optimism: { host: "optimism.blockscout.com", label: "Optimism", words: /\boptimism\b|\bop mainnet\b/i },
-  polygon: { host: "polygon.blockscout.com", label: "Polygon", words: /\bpolygon\b|\bmatic\b/i },
+const CHAINS: Record<string, { host: string; gecko: string; label: string; words: RegExp }> = {
+  ethereum: { host: "eth.blockscout.com", gecko: "eth", label: "Ethereum", words: /\bethereum\b|\bmainnet\b|\beth\b|\bl1\b/i },
+  base: { host: "base.blockscout.com", gecko: "base", label: "Base", words: /\bbase\b/i },
+  arbitrum: { host: "arbitrum.blockscout.com", gecko: "arbitrum", label: "Arbitrum", words: /\barbitrum\b|\barb\b/i },
+  optimism: { host: "optimism.blockscout.com", gecko: "optimism", label: "Optimism", words: /\boptimism\b|\bop mainnet\b/i },
+  polygon: { host: "polygon.blockscout.com", gecko: "polygon_pos", label: "Polygon", words: /\bpolygon\b|\bmatic\b/i },
 };
 
 export type HolderVerdict = "holder_count" | "not_a_token" | "not_found" | "ambiguous" | "unknown";
@@ -199,22 +202,22 @@ export async function tokenByAddress(chain: string, address: string): Promise<To
 }
 
 /**
- * One token by symbol, on one chain.
+ * The fallback resolver: the explorer's own token search.
  *
- * Accepted ONLY when the symbol matches exactly and the winner is not a tie —
- * `ambiguous` is returned instead when a second exact-symbol match has a holder
- * count within a factor of ten, because at that point "the USDC on Base" is not
- * a well-defined phrase and answering it picks one impostor out of several.
+ * Correct, and too slow to lead with — 3.9 to 5.5 seconds here, and it did not
+ * return inside the budget from Vercel at all. It is reached only when the fast
+ * resolver is shedding, where the alternative is no answer.
  */
-export async function tokenBySymbol(
+async function addressForSymbolViaExplorer(
   chain: string, symbol: string,
-): Promise<Token | null | "ambiguous" | "unavailable"> {
+): Promise<string | null | "ambiguous" | "unavailable"> {
   const host = CHAINS[chain]?.host;
   if (!host) return null;
   let items: TokenRecord[];
   try {
     const body = (await getJson(
       `https://${host}/api/v2/tokens?q=${encodeURIComponent(symbol)}&type=ERC-20`,
+      EXPLORER_SEARCH_TIMEOUT_MS,
     )) as { items?: TokenRecord[] };
     items = body.items ?? [];
   } catch {
@@ -228,7 +231,81 @@ export async function tokenBySymbol(
   if (!best) return null;
   const second = exact[1];
   if (second && (best.holders ?? 0) < (second.holders ?? 0) * 10 && !best.listed) return "ambiguous";
-  return best;
+  return best.address;
+}
+
+interface Pool {
+  attributes?: { name?: string; reserve_in_usd?: string };
+  relationships?: {
+    base_token?: { data?: { id?: string } };
+    quote_token?: { data?: { id?: string } };
+  };
+}
+
+/**
+ * A symbol's contract address, resolved through GeckoTerminal's pool search.
+ *
+ * NOT through the explorer's own token search, which is the obvious choice and
+ * was the first implementation. Measured 2026-09-10: Blockscout's `?q=` search
+ * takes 3.9 to 5.5 seconds from this machine and did not return at all inside
+ * the budget from Vercel's egress, so the only clean routed question this intent
+ * has ever received — "How many addresses hold usdc on base?" — came back as an
+ * index outage in production while passing locally. That is G84 exactly.
+ * GeckoTerminal answers the same question in 24 to 40 milliseconds warm, and
+ * `tvl.ts` has depended on it from this deployment for days.
+ *
+ * The address it returns is then read for its holder count through Blockscout by
+ * ADDRESS, which is the call that does work from Vercel.
+ */
+export async function addressForSymbol(
+  chain: string, symbol: string,
+): Promise<string | null | "ambiguous" | "unavailable"> {
+  const gecko = CHAINS[chain]?.gecko;
+  if (!gecko) return null;
+  let pools: Pool[];
+  try {
+    const body = (await getJson(
+      `${GECKO}/search/pools?query=${encodeURIComponent(symbol)}&network=${gecko}&page=1`,
+    )) as { data?: Pool[] };
+    pools = body.data ?? [];
+  } catch {
+    /**
+     * GeckoTerminal rate-limits, and it fails fast when it does — measured at
+     * about 125 ms, which leaves the whole budget for the slow path. The
+     * explorer's own search is that slow path: too slow to be the primary, fine
+     * as the thing that answers when the fast one is shedding.
+     */
+    return addressForSymbolViaExplorer(chain, symbol);
+  }
+
+  // A pool is named "USDC / WETH 0.05%". The side whose symbol matches names the
+  // token asked about; matching neither side means the pool is not about it.
+  const weight = new Map<string, number>();
+  for (const p of pools) {
+    const name = String(p.attributes?.name ?? "");
+    const [left, right] = name.split("/").map((s) => s.trim().split(/\s+/)[0]?.toLowerCase() ?? "");
+    const want = symbol.toLowerCase();
+    const side = left === want ? "base_token" : right === want ? "quote_token" : null;
+    if (!side) continue;
+    const id = p.relationships?.[side]?.data?.id;
+    const addr = id?.includes("_") ? id.slice(id.indexOf("_") + 1) : id;
+    if (!addr) continue;
+    const reserve = Number(p.attributes?.reserve_in_usd ?? 0);
+    weight.set(addr, (weight.get(addr) ?? 0) + (Number.isFinite(reserve) ? reserve : 0));
+  }
+
+  const ranked = [...weight].sort((a, b) => b[1] - a[1]);
+  const best = ranked[0];
+  if (!best) return null;
+  const second = ranked[1];
+  /**
+   * Two different contracts using one symbol with comparable liquidity behind
+   * them means "the USDC on Base" is not a well-defined phrase. Picking one is
+   * how a scam clone gets reported as the real token, so a contract address is
+   * asked for instead.
+   */
+  if (second && best[1] < second[1] * 10) return "ambiguous";
+  return best[0];
 }
 
 /**
@@ -243,7 +320,7 @@ export async function tokenBySymbol(
  */
 export async function topHolderValue(
   chain: string, address: string, timeout = CONCENTRATION_TIMEOUT_MS,
-): Promise<number | null | "unavailable"> {
+): Promise<number | null | "timeout" | "unavailable"> {
   const host = CHAINS[chain]?.host;
   if (!host) return null;
   try {
@@ -252,8 +329,11 @@ export async function topHolderValue(
     )) as { items?: Array<{ value?: string }> };
     const top = Number(body.items?.[0]?.value);
     return Number.isFinite(top) && top > 0 ? top : null;
-  } catch {
-    return "unavailable";
+  } catch (e) {
+    // "Did not return in time" and "did not answer" are different statements
+    // and only one of them is true on any given failure. Saying the wrong one
+    // is a small lie about why the field is missing.
+    return String(e).includes("Timeout") || String(e).includes("aborted") ? "timeout" : "unavailable";
   }
 }
 
@@ -336,8 +416,14 @@ export async function lookupHolders(question: string, requested?: HolderRequest)
     : Promise.resolve<number | null | "unavailable">(null);
 
   const found = await Promise.all(chains.map(async (chain) => {
-    const t = address ? await tokenByAddress(chain, address) : await tokenBySymbol(chain, symbol as string);
-    return { chain, t };
+    if (address) return { chain, t: await tokenByAddress(chain, address) };
+    // Symbol first to an address through the fast resolver, then the holder
+    // count by address, which is the call that works from the deployment.
+    const resolved = await addressForSymbol(chain, symbol as string);
+    if (resolved === null || resolved === "unavailable" || resolved === "ambiguous") {
+      return { chain, t: resolved };
+    }
+    return { chain, t: await tokenByAddress(chain, resolved) };
   }));
 
   const hits = found.filter((f) => f.t && f.t !== "unavailable" && f.t !== "ambiguous") as Array<{ chain: string; t: Token }>;
@@ -402,8 +488,13 @@ export async function lookupHolders(question: string, requested?: HolderRequest)
   const name = token.name && token.symbol && token.name !== token.symbol ? `${token.name} (${token.symbol})` : token.symbol ?? token.address;
   let tail = "";
   if (concentration !== null) tail = ` The largest single holder owns ${concentration}% of the supply.`;
-  else if (wantConc) tail = ` The largest single holder's share was asked for and the holder list did not return in time, so it is not reported.`;
-  const spread = alsoOn.length ? ` The same symbol is also indexed on ${alsoOn.join(" and ")}.` : "";
+  else if (wantConc) {
+    const why = raw === "timeout" ? "did not return in time" : "did not answer";
+    tail = ` The largest single holder's share was asked for and the holder list ${why}, so it is not reported.`;
+  }
+  const list = (xs: string[]): string =>
+    xs.length <= 1 ? (xs[0] ?? "") : `${xs.slice(0, -1).join(", ")} and ${xs[xs.length - 1]}`;
+  const spread = alsoOn.length ? ` The same symbol is also indexed on ${list(alsoOn)}.` : "";
 
   return {
     symbol: token.symbol, name: token.name, address: token.address, chain: pick.chain,
