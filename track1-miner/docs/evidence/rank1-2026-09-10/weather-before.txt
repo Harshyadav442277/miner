@@ -1,0 +1,178 @@
+✖ weather hours zero describes the current hourly interval (19.7937ms)
+✖ storm right now describes the current hourly interval (2.0014ms)
+✖ storm explicit zero selects a point even when the question names a future span (1.4182ms)
+✖ stale weather and storm arrays cannot support a current forecast (0.9798ms)
+✖ a future storm point beyond supplied data is not replaced by the last available hour (0.8682ms)
+✖ missing weather values cannot become zero temperature or no storm (0.7349ms)
+✖ storm cache distinguishes days and forecast_hours aliases (4.7324ms)
+✖ storm handler preserves an explicit zero parameter (1.4504ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 0
+ℹ fail 8
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 132.4398
+
+✖ failing tests:
+
+test at dist-test\test\weather-coverage.test.js:39:22
+✖ weather hours zero describes the current hourly interval (19.7937ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '2026-09-10T06:00Z'
+  - '2026-09-10T05:00Z'
+                 ^
+  
+      at C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\weather-coverage.test.js:42:26
+      at async withWeather (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\weather-coverage.test.js:26:9)
+      at async TestContext.<anonymous> (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\weather-coverage.test.js:40:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '2026-09-10T06:00Z',
+    expected: '2026-09-10T05:00Z',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at dist-test\test\weather-coverage.test.js:46:22
+✖ storm right now describes the current hourly interval (2.0014ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '2026-09-10T06:00'
+  - '2026-09-10T05:00'
+                 ^
+  
+      at C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\weather-coverage.test.js:49:26
+      at async withWeather (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\weather-coverage.test.js:26:9)
+      at async TestContext.<anonymous> (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\weather-coverage.test.js:47:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '2026-09-10T06:00',
+    expected: '2026-09-10T05:00',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at dist-test\test\weather-coverage.test.js:52:22
+✖ storm explicit zero selects a point even when the question names a future span (1.4182ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - '2026-09-10T05:00'
+  
+      at C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\weather-coverage.test.js:55:26
+      at async withWeather (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\weather-coverage.test.js:26:9)
+      at async TestContext.<anonymous> (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\weather-coverage.test.js:53:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: '2026-09-10T05:00',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at dist-test\test\weather-coverage.test.js:59:22
+✖ stale weather and storm arrays cannot support a current forecast (0.9798ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  'clear' !== 'unknown'
+  
+      at C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\weather-coverage.test.js:61:26
+      at async withWeather (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\weather-coverage.test.js:26:9)
+      at async TestContext.<anonymous> (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\weather-coverage.test.js:60:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'clear',
+    expected: 'unknown',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at dist-test\test\weather-coverage.test.js:65:22
+✖ a future storm point beyond supplied data is not replaced by the last available hour (0.8682ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  'none' !== 'unknown'
+  
+      at C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\weather-coverage.test.js:67:26
+      at async withWeather (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\weather-coverage.test.js:26:9)
+      at async TestContext.<anonymous> (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\weather-coverage.test.js:66:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'none',
+    expected: 'unknown',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at dist-test\test\weather-coverage.test.js:70:22
+✖ missing weather values cannot become zero temperature or no storm (0.7349ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  'clear' !== 'unknown'
+  
+      at C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\weather-coverage.test.js:75:26
+      at async withWeather (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\weather-coverage.test.js:26:9)
+      at async TestContext.<anonymous> (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\weather-coverage.test.js:74:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'clear',
+    expected: 'unknown',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at dist-test\test\weather-coverage.test.js:79:22
+✖ storm cache distinguishes days and forecast_hours aliases (4.7324ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /next 48 hours/. Input:
+  
+  'The wind and storm forecast for Test City over the next 24 hours is as follows. Wind speed: sustained winds up to 10 km/h, which is 2.8 metres per second. Gusts: peak wind gusts of 15 km/h, or 4.2 metres per second. Precipitation: 0 mm. Wind direction: prevailing from the east. Overall risk: 0.1 on a scale of 0 to 1, graded none. If operations are exposed, implement operational adjustments to safeguard equipment and personnel: secure loose equipment, tools and materials, move non-essential personnel to safe shelters with appropriate personal protective equipment, suspend or shut down exposed operations such as lifting, drilling or hauling during peak gusts, inspect the site for hazards, maintain clear communication, activate the emergency response plan, and continuously monitor weather updates and forecasts.'
+  
+      at C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\weather-coverage.test.js:85:26
+      at async withWeather (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\weather-coverage.test.js:26:9)
+      at async TestContext.<anonymous> (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\weather-coverage.test.js:80:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'The wind and storm forecast for Test City over the next 24 hours is as follows. Wind speed: sustained winds up to 10 km/h, which is 2.8 metres per second. Gusts: peak wind gusts of 15 km/h, or 4.2 metres per second. Precipitation: 0 mm. Wind direction: prevailing from the east. Overall risk: 0.1 on a scale of 0 to 1, graded none. If operations are exposed, implement operational adjustments to safeguard equipment and personnel: secure loose equipment, tools and materials, move non-essential personnel to safe shelters with appropriate personal protective equipment, suspend or shut down exposed operations such as lifting, drilling or hauling during peak gusts, inspect the site for hazards, maintain clear communication, activate the emergency response plan, and continuously monitor weather updates and forecasts.',
+    expected: /next 48 hours/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at dist-test\test\weather-coverage.test.js:89:22
+✖ storm handler preserves an explicit zero parameter (1.4504ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /right now/. Input:
+  
+  'The wind and storm forecast for Test City over the next 48 hours is as follows. Wind speed: sustained winds up to 10 km/h, which is 2.8 metres per second. Gusts: peak wind gusts of 15 km/h, or 4.2 metres per second. Precipitation: 0 mm. Wind direction: prevailing from the east. Overall risk: 0.1 on a scale of 0 to 1, graded none. If operations are exposed, implement operational adjustments to safeguard equipment and personnel: secure loose equipment, tools and materials, move non-essential personnel to safe shelters with appropriate personal protective equipment, suspend or shut down exposed operations such as lifting, drilling or hauling during peak gusts, inspect the site for hazards, maintain clear communication, activate the emergency response plan, and continuously monitor weather updates and forecasts.'
+  
+      at C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\weather-coverage.test.js:92:26
+      at async withWeather (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\weather-coverage.test.js:26:9)
+      at async TestContext.<anonymous> (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\weather-coverage.test.js:90:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'The wind and storm forecast for Test City over the next 48 hours is as follows. Wind speed: sustained winds up to 10 km/h, which is 2.8 metres per second. Gusts: peak wind gusts of 15 km/h, or 4.2 metres per second. Precipitation: 0 mm. Wind direction: prevailing from the east. Overall risk: 0.1 on a scale of 0 to 1, graded none. If operations are exposed, implement operational adjustments to safeguard equipment and personnel: secure loose equipment, tools and materials, move non-essential personnel to safe shelters with appropriate personal protective equipment, suspend or shut down exposed operations such as lifting, drilling or hauling during peak gusts, inspect the site for hazards, maintain clear communication, activate the emergency response plan, and continuously monitor weather updates and forecasts.',
+    expected: /right now/,
+    operator: 'match',
+    diff: 'simple'
+  }

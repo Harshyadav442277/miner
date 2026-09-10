@@ -1,0 +1,27 @@
+preflight against https://miner-wine.vercel.app
+
+  unit + live suite                      FAIL
+  verify-deploy                          PASS
+  param shapes (engine-shaped)           PASS
+  intent answers (correctness)           PASS
+  hostile inputs                         PASS
+  upstream health                        PASS
+  no-regression (7 identical, 1 differ)  PASS
+
+--- unit + live suite ---
+  
+  'CVE-2024-3094 is rated CRITICAL with a CVSS 3.1 base score of 10.0. Affected: xz 5.6.0, 5.6.1. Malicious code was discovered in the upstream tarballs of xz, starting with version 5.6.0. Through a series of complex obfuscations, the liblzma build process extracts a prebuilt object file from a disguised test file existing in the source code, which is then used to modify… Source: CVE Program record from redhat.'
+  
+      at TestContext.<anonymous> (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\cve.test.js:83:22)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'CVE-2024-3094 is rated CRITICAL with a CVSS 3.1 base score of 10.0. Affected: xz 5.6.0, 5.6.1. Malicious code was discovered in the upstream tarballs of xz, starting with version 5.6.0. Through a series of complex obfuscations, the liblzma build process extracts a prebuilt object file from a disguised test file existing in the source code, which is then used to modify… Source: CVE Program record from redhat.',
+    expected: /5\.6\.0 and 5\.6\.1/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+6/7 gates passed — re-run the failing gate alone before believing it.

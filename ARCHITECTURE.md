@@ -15,6 +15,12 @@ with a chain constraint reads that chain's subtotal, never the global aggregate.
 
 Release evidence: [rank-1 weakness report](track1-miner/docs/RANK1_WEAKNESSES_2026-09-10.md).
 
+Extraction uses the instruction to choose categories and explicit supplied text as its authoritative
+payload. Multiple requested categories are combined. Weather current-hour requests use the hourly
+interval containing now; storm duration aliases normalize before caching. Stale or incomplete
+essential weather measurements cannot support a known answer, and an uncovered future point cannot
+be replaced with the last available hour. Current-hour model output is not a station observation.
+
 Code must conform to this. **Update this file before deviating from it**, not after.
 
 Grounded in [docs/TELEGRAPH_FACTS.md](docs/TELEGRAPH_FACTS.md) (verified 2026-08-26).

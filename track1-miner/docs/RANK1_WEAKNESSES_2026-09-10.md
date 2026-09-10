@@ -110,6 +110,55 @@ has not been independently induced.
   No live ranking gain is claimed yet.
 - Registered manifest is unchanged. No wallet signing or new registration is required for these endpoint repairs.
 
+## Second release: extraction and weather coverage
+
+The user requested deployment before the next epoch (approximately **05:41 UTC on September 10**).
+The first release is already live. This second batch was **deployed at 05:23 UTC and accepted by
+05:28 UTC**, leaving approximately thirteen minutes before the stated cutoff.
+It changes CONTENT_EXTRACTION, STORM_ALERT, and the shared WEATHER_CHECK /
+WEATHER_FORECAST endpoint; the same 19-intent manifest remains registered.
+
+**Fourteen additional failures reproduced before fixes:** six extraction cases and eight weather cases.
+Extraction previously selected a category from words in the payload, returned only one requested
+category, truncated quoted text at apostrophes, confused quoted field labels with supplied text,
+lost cents in comma-formatted currency, and read "March 2026" as "March 20". Instructions and
+explicit text are now separate; all requested categories are combined and these values remain intact.
+Entity recognition remains heuristic; this does not claim general document understanding.
+
+For weather, `hours=0` and storm "right now" now select the **current hourly interval**, rather than
+the next hour. This is modelled hourly weather, not a live station observation. Explicit zero survives
+storm parameter parsing, and its point meaning takes precedence over a query's future window.
+Storm cache keys now distinguish effective hours across `hours`, `forecast_hours`, `days`, and
+`forecast_days`. Stale series, missing/null essential measurements, and an unavailable future storm
+point yield unknown instead of a fabricated current/zero/last-available value. A point-specific wind
+threshold is assessed at that point, not across earlier hours.
+
+- [Extraction before](evidence/rank1-2026-09-10/extraction-before.txt): 6 failures.
+- [Weather before](evidence/rank1-2026-09-10/weather-before.txt): 8 failures.
+- [New regressions after](evidence/rank1-2026-09-10/coverage-after.txt): 14/14 passed.
+- [Local suite](evidence/rank1-2026-09-10/coverage-unit.txt): 309/309 passed.
+- [Full suite](evidence/rank1-2026-09-10/coverage-full.txt): 390/390 passed, with the same older
+  provider-unavailable early-return caveat as the first release.
+- Preview `miner-jqc1xpscz-wukong4.vercel.app`: mixed email/date extraction, current-hour weather,
+  and storm `hours=0` all returned the corrected answers. Evidence files are prefixed
+  `coverage-preview-` in the same evidence folder.
+- **Production:** `miner-lm6seiqeu-wukong4.vercel.app`, deployment
+  `dpl_2vrHHBCnkvT5BtueUpqeQmjZN9Zr`; `vercel inspect` confirms both production aliases, including
+  `https://miner-wine.vercel.app`. [Alias evidence](evidence/rank1-2026-09-10/coverage-production-inspect.txt).
+- [Targeted production probes](evidence/rank1-2026-09-10/coverage-live-after.json): **6/6 passed**.
+  [Initial acceptance](evidence/rank1-2026-09-10/coverage-preflight-production.txt): six gates passed,
+  including **19/19 intent correctness**, deployment, parameter shapes, hostile inputs, upstream health,
+  and the expected no-regression result. The suite gate failed because an older test required NVD
+  attribution and "and" between versions even when the fallback correctly returned the CVE Program
+  record. The test now requires the actual source's attribution and both exact affected versions.
+  [Affected recheck](evidence/rank1-2026-09-10/coverage-cve-recheck.txt): 29/29;
+  [entire failed gate recheck](evidence/rank1-2026-09-10/coverage-suite-recheck.txt): **390/390 passed**.
+  All seven gates are accepted across the initial run and this focused recheck. No runtime change
+  was needed after the deployed build, and the original failing evidence is retained.
+- [Live registration/rank checkpoint](evidence/rank1-2026-09-10/second-release-checkpoint/rank-audit.json)
+  still shows complete epoch **320**, **3/19 rank 1**, and active registration 1378. This is the
+  pre-release ranking baseline, not a measured outcome of the fixes. The goal remains active.
+
 ## Route to fourteen and remaining work
 
 The first target set is the existing three leaders plus ONCHAIN_TX_LOOKUP, GAME_RESULT, TVL_LOOKUP,
@@ -119,7 +168,7 @@ all lead simultaneously. Correct answers, provider reliability, the converter, c
 and per-epoch questions all matter; exact tie ordering is not under this miner's control.
 
 1. Read the next complete scored epoch after this deployed and accepted batch.
-2. Audit extraction's multiple requested fields and weather/storm time modes using the current routed corpus.
+2. Continue extraction entity/date coverage and current-weather source fidelity after this accepted release.
 3. Re-run current-champion proxy benches for the small-gap intents. Preserve original and revised
    answer text and report authored ground truths and converter approximations explicitly.
 4. Audit transaction deadlines and cross-chain provider fallback under delayed and partially failed RPCs.
@@ -141,6 +190,7 @@ Run from the repository root unless the command changes directory:
 ```powershell
 node track1-miner/tools/rank-audit.mjs track1-miner/docs/evidence/current-rank-audit
 node track1-miner/tools/rank-live-probes.mjs https://miner-wine.vercel.app track1-miner/docs/evidence/current-live-probes.json
+node track1-miner/tools/coverage-live-probes.mjs https://miner-wine.vercel.app track1-miner/docs/evidence/current-coverage-probes.json
 node track1-miner/tools/replay-intents.mjs --refresh --pages 10 --refresh-only
 cd track1-miner/miner
 node node_modules/typescript/bin/tsc -p tsconfig.test.json

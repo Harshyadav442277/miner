@@ -1,0 +1,9 @@
+Vercel CLI 59.5.0 (Node.js 24.19.0) | curl is in beta — https://vercel.com/feedback
+  % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
+                                 Dload  Upload  Total   Spent   Left   Speed
+
+  0      0   0      0   0      0      0      0                              0
+100    217 100    217   0      0    287      0                              0
+100    217 100    217   0      0    287      0                              0
+100    217 100    217   0      0    287      0                              0
+{"verdict":"multiple","extracted":{"emails":["sam@example.com"],"phones":[],"urls":[],"dates":["March 12, 2026"],"events":[],"places":["Email"]},"confidence":1,"reason":"Email: sam@example.com. Date: March 12, 2026."}

@@ -225,8 +225,8 @@ export async function checkStorm(
   // a span maximum for a point question describes weather that has not happened.
   const askedCoords = extractCoords(query);
   const asked = extractTimeRequest(query);
-  const mode: "point" | "window" = requestedHours !== undefined ? "window" : (asked?.mode ?? "window");
-  const offsetHours = Math.max(0, Math.min(168, asked?.hours ?? 0));
+  const mode: "point" | "window" = requestedHours === 0 ? "point" : requestedHours !== undefined ? "window" : (asked?.mode ?? "window");
+  const offsetHours = requestedHours === 0 ? 0 : Math.max(0, Math.min(168, asked?.hours ?? 0));
   const windowHours = Math.max(
     1,
     Math.min(168, requestedHours ?? (mode === "window" ? (asked?.hours ?? WINDOW_HOURS) : offsetHours + 1)),
@@ -289,8 +289,12 @@ export async function checkStorm(
   // inside the window the caller named rather than in the last day's tail.
   const allTimes = h?.time ?? [];
   const nowMs = Date.now();
-  let from = allTimes.findIndex((t) => new Date(`${t}Z`).getTime() >= nowMs);
-  if (from < 0) from = 0;
+  const startMs = mode === "point" && offsetHours === 0 ? Math.floor(nowMs / 3_600_000) * 3_600_000 : nowMs;
+  const from = allTimes.findIndex((t) => new Date(`${t}Z`).getTime() >= startMs);
+  if (from < 0 || Date.parse(`${allTimes[from]}Z`) - startMs >= 3_600_000) {
+    return { ...base, location: place.name, confidence: 0,
+      reason: `No current forecast data available for ${place.name}; the supplied series does not cover the requested period.` };
+  }
   const to = from + windowHours;
   const cut = <T,>(a: T[] | undefined): T[] => (a ?? []).slice(from, to);
 
@@ -301,15 +305,20 @@ export async function checkStorm(
   const precip = cut(h?.precipitation);
   const codes = cut(h?.weather_code);
 
-  if (times.length === 0 || gusts.length === 0) {
+  if (times.length === 0 || gusts.length !== times.length || gusts.some(v => typeof v !== "number" || !Number.isFinite(v)) ||
+      winds.length !== times.length || winds.some(v => typeof v !== "number" || !Number.isFinite(v)) ||
+      precip.length !== times.length || precip.some(v => typeof v !== "number" || !Number.isFinite(v)) ||
+      codes.length !== times.length || codes.some(v => typeof v !== "number" || !Number.isFinite(v))) {
     return { ...base, location: place.name, latitude: place.latitude, longitude: place.longitude,
-      reason: `No forecast data available for ${place.name}.` };
+      confidence: 0, reason: `Complete forecast data is unavailable for ${place.name}.` };
   }
 
   // A point question is answered by one row; a window question by the worst row.
   let peakIdx = 0;
   if (mode === "point") {
-    peakIdx = Math.min(Math.max(0, offsetHours), Math.max(0, times.length - 1));
+    if (offsetHours >= times.length) return { ...base, location: place.name, confidence: 0,
+      reason: `No forecast data available for ${place.name} at the requested time in ${offsetHours} hours.` };
+    peakIdx = offsetHours;
   } else {
     for (let i = 1; i < gusts.length; i++) {
       if ((gusts[i] ?? -1) > (gusts[peakIdx] ?? -1)) peakIdx = i;
@@ -338,7 +347,7 @@ export async function checkStorm(
   const wantKnots = asksForKnots(query);
   const limitKmh = threshold ? toKmh(threshold.value, threshold.unit) : null;
   const exceededHours =
-    limitKmh === null ? 0 : winds.filter((w) => typeof w === "number" && w >= limitKmh).length;
+      limitKmh === null ? 0 : (mode === "point" ? [winds[peakIdx]!] : winds).filter((w) => typeof w === "number" && w >= limitKmh).length;
 
   return {
     location: place.name,

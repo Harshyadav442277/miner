@@ -602,19 +602,19 @@ function route(req: IncomingMessage, res: ServerResponse): void {
       }));
       return;
     }
-    const key = `storm:${q.trim().toLowerCase()}:${url.searchParams.get("hours") ?? ""}`;
+    const stormDays = Number(firstValue(url, "days", "forecast_days"));
+    const stormHoursRaw = firstValue(url, "hours", "forecast_hours");
+    const stormHours = stormHoursRaw !== "" && Number.isFinite(Number(stormHoursRaw))
+      ? Number(stormHoursRaw)
+      : Number.isFinite(stormDays) && stormDays > 0 ? stormDays * 24 : undefined;
+    const key = `storm:${q.trim().toLowerCase()}:${stormHours ?? "auto"}`;
     const hit = fromCache(key);
     if (hit) {
       sendAnswer(res, q, lean(hit));
       return;
     }
-    // Only an explicit ?hours= forces a window; otherwise the question's wording
-    // decides whether it is asking about a moment or a span.
-    const stormDays = Number(firstValue(url, "days", "forecast_days"));
-    const stormHours =
-      Number(firstValue(url, "hours", "forecast_hours")) ||
-      (Number.isFinite(stormDays) && stormDays > 0 ? stormDays * 24 : NaN);
-    checkStorm(q, undefined, Number.isFinite(stormHours) ? stormHours : undefined)
+    // Positive explicit hours force a window; zero names the current hour.
+    checkStorm(q, undefined, stormHours)
       .then((result) => {
         toCache(key, result);
         sendAnswer(res, q, lean(result));
@@ -1091,7 +1091,9 @@ function route(req: IncomingMessage, res: ServerResponse): void {
       }, false);
       return;
     }
-    const e = extractContent(q);
+    const suppliedText = firstValue(url, "text", "content");
+    const instruction = firstValue(url, "query", "q", "question", "input");
+    const e = suppliedText ? extractContent(instruction, suppliedText) : extractContent(q);
     sendAnswer(res, q, {
       verdict: e.want,
       extracted: e.fields,

@@ -25,7 +25,17 @@ five targeted production probes passed, **7/7 preflight gates** including ninete
 watch active/valid at 380 ms. Rollback unused. The latest complete score is still epoch 320;
 the fourteen-rank-1 mission is active, not complete.
 
-Next: complete-epoch feedback, then extraction/weather/storm input audit.
+**Second release accepted before the user's next-epoch deadline:** `miner-lm6seiqeu-wukong4.vercel.app`
+at 05:23 UTC, both aliases verified. Fourteen additional reproduced failures fixed across extraction
+and weather/storm (six plus eight); full suite 390/390. Six production coverage probes pass, and all
+nineteen intent correctness checks pass. Initial preflight was 6/7: a CVE live test wrongly demanded
+NVD attribution for the correctly attributed CVE Program fallback. Source-specific assertions now
+pass, and the entire failed gate was rechecked: 390/390. All seven gates are accepted across runs.
+Runtime code did not change after the release. Latest check at 05:28 UTC remains complete epoch 320,
+3/19 #1. Do not claim ranking gains until the next complete epoch. The user said the next epoch was
+in 25 minutes at roughly 05:16 UTC; requested cutoff is approximately 05:41 UTC, not an independently
+verified scheduler promise. Next: complete-epoch feedback, then current-champion benches for the
+near leaders and remaining provider/coverage gaps. No change to the registered manifest.
 The preceding production alias was `miner-h5iy1d4k9-wukong4.vercel.app`, verified with `vercel inspect`.
 
 **Read this first. Everything Track 1 needs is in this folder.**

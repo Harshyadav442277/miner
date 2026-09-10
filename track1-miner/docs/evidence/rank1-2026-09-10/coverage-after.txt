@@ -1,0 +1,22 @@
+✔ extraction follows the requested field rather than keywords in the payload (3.3214ms)
+✔ all explicitly requested extraction categories are returned (0.9467ms)
+✔ apostrophes inside a quoted payload do not cut off the rest of the data (0.2661ms)
+✔ currency extraction preserves thousands and decimal cents (0.3422ms)
+✔ a month followed only by a year does not invent a day (0.222ms)
+✔ structured extraction text is authoritative even when the instruction quotes a field label (1.3348ms)
+✔ weather hours zero describes the current hourly interval (22.0699ms)
+✔ storm right now describes the current hourly interval (1.9082ms)
+✔ storm explicit zero selects a point even when the question names a future span (1.1045ms)
+✔ stale weather and storm arrays cannot support a current forecast (1.5302ms)
+✔ a future storm point beyond supplied data is not replaced by the last available hour (0.5915ms)
+✔ missing weather values cannot become zero temperature or no storm (0.8637ms)
+✔ storm cache distinguishes days and forecast_hours aliases (4.6812ms)
+✔ storm handler preserves an explicit zero parameter (0.8001ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 140.1792

@@ -93,8 +93,8 @@ export async function getForecast(
   // and answering with only the place name drops what the caller asked about —
   // measured on the storm endpoint as a 2x score difference.
   const askedCoords = extractCoords(query);
-  const startMs = asked ? Date.parse(asked.startIso) : Date.now();
-  const wantHours = asked?.hours ?? window;
+  const startMs = hours === 0 ? Math.floor(Date.now() / 3_600_000) * 3_600_000 : asked ? Date.parse(asked.startIso) : Date.now();
+  const wantHours = hours === 0 ? 1 : asked?.hours ?? window;
 
   const url = (() => {
     const common =
@@ -133,11 +133,10 @@ export async function getForecast(
   const h = body.hourly;
   const allTimes = h?.time ?? [];
   // Index of the first hour at or after the requested start.
-  let from = allTimes.findIndex((t) => new Date(`${t}Z`).getTime() >= startMs);
-  if (from < 0) from = asked ? -1 : 0;
+  const from = allTimes.findIndex((t) => new Date(`${t}Z`).getTime() >= startMs);
   // A requested period the provider does not cover must be said plainly rather
   // than silently answered with a different period.
-  if (asked && from < 0) {
+  if (from < 0 || Date.parse(`${allTimes[from]}Z`) - startMs >= 3_600_000) {
     return {
       ...base,
       location: place.name,
@@ -146,7 +145,7 @@ export async function getForecast(
       window_hours: wantHours,
       confidence: 0,
       reason:
-        `No hourly forecast is available for ${shortPlaceName(place.name)} starting ${asked.startIso}, ` +
+        `No hourly forecast is available for ${shortPlaceName(place.name)} starting ${new Date(startMs).toISOString()}, ` +
         `because that period is outside the forecast provider's horizon. ` +
         `Check a national meteorological service closer to the date.`,
     };
@@ -160,13 +159,16 @@ export async function getForecast(
   const winds = (h?.wind_speed_10m ?? []).slice(from, to);
   const codes = (h?.weather_code ?? []).slice(from, to);
 
-  if (temps.length === 0) {
+  if (temps.length === 0 || temps.length !== times.length || temps.some(v => typeof v !== "number" || !Number.isFinite(v)) ||
+      precip.length !== times.length || precip.some(v => typeof v !== "number" || !Number.isFinite(v)) ||
+      winds.length !== times.length || winds.some(v => typeof v !== "number" || !Number.isFinite(v)) ||
+      codes.length !== times.length || codes.some(v => typeof v !== "number" || !Number.isFinite(v))) {
     return {
       ...base,
       location: place.name,
       latitude: place.latitude,
       longitude: place.longitude,
-      reason: `No forecast data available for ${place.name}.`,
+      confidence: 0, reason: `Complete forecast data is unavailable for ${place.name}.`,
     };
   }
 

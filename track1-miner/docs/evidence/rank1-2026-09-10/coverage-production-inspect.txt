@@ -1,0 +1,26 @@
+Vercel CLI 59.5.0 (Node.js 24.19.0)
+Fetching deployment "miner-lm6seiqeu-wukong4.vercel.app" in wukong4
+> Fetched deployment "miner-lm6seiqeu-wukong4.vercel.app" in wukong4 [556ms]
+
+  General
+
+    id		dpl_2vrHHBCnkvT5BtueUpqeQmjZN9Zr
+    name	miner
+    target	production
+    status	● Ready
+    url		https://miner-lm6seiqeu-wukong4.vercel.app
+    created	Thu Sep 10 2026 10:53:33 GMT+0530 (India Standard Time) [49s ago]
+
+
+  Aliases
+
+    ╶ https://miner-wine.vercel.app
+    ╶ https://miner-wukong4.vercel.app
+    
+
+  Builds
+
+    ┌ .        [0ms]
+    └── λ index (151.82KB) [iad1]
+    
+

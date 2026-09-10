@@ -1,0 +1,91 @@
+{
+  "checked_at": "2026-09-10T05:27:37.684Z",
+  "base": "https://miner-wine.vercel.app",
+  "rows": [
+    {
+      "url": "https://miner-wine.vercel.app/extract?query=Extract+email+addresses+and+dates&text=Email+sam%40example.com+before+March+12%2C+2026.",
+      "status": 200,
+      "elapsed_ms": 371,
+      "body": {
+        "verdict": "multiple",
+        "extracted": {
+          "emails": [
+            "sam@example.com"
+          ],
+          "phones": [],
+          "urls": [],
+          "dates": [
+            "March 12, 2026"
+          ],
+          "events": [],
+          "places": [
+            "Email"
+          ]
+        },
+        "confidence": 1,
+        "reason": "Email: sam@example.com. Date: March 12, 2026."
+      },
+      "passed": true
+    },
+    {
+      "url": "https://miner-wine.vercel.app/extract?query=Extract+numeric+values&text=Revenue+was+%241%2C234.56.",
+      "status": 200,
+      "elapsed_ms": 343,
+      "body": {
+        "verdict": "numeric",
+        "extracted": {
+          "values": [
+            "$1,234.56"
+          ]
+        },
+        "confidence": 1,
+        "reason": "$1,234.56."
+      },
+      "passed": true
+    },
+    {
+      "url": "https://miner-wine.vercel.app/weather-forecast?location=Chennai&hours=0",
+      "status": 200,
+      "elapsed_ms": 781,
+      "body": {
+        "verdict": "cloudy",
+        "confidence": 1,
+        "reason": "A 1-hour hourly weather forecast for Chennai, Tamil Nadu, India: hourly temperature in Celsius from 32.7°C to 32.7°C, a precipitation probability of up to 0%, no significant precipitation, the expected condition is cloudy, and a wind speed of up to 7.8 km/h, from the Open-Meteo weather service."
+      },
+      "passed": true
+    },
+    {
+      "url": "https://miner-wine.vercel.app/storm-alert?location=Chennai&hours=0",
+      "status": 200,
+      "elapsed_ms": 362,
+      "body": {
+        "verdict": "none",
+        "confidence": 1,
+        "reason": "The wind and storm forecast for Chennai right now is as follows. Wind speed: sustained winds of 7.8 km/h, which is 2.2 metres per second. Gusts: wind gusts of 24.1 km/h, or 6.7 metres per second. Precipitation: 0 mm. Wind direction: prevailing from the west. Overall risk: 0.15 on a scale of 0 to 1, graded none. If operations are exposed, implement operational adjustments to safeguard equipment and personnel: secure loose equipment, tools and materials, move non-essential personnel to safe shelters with appropriate personal protective equipment, suspend or shut down exposed operations such as lifting, drilling or hauling during peak gusts, inspect the site for hazards, maintain clear communication, activate the emergency response plan, and continuously monitor weather updates and forecasts."
+      },
+      "passed": true
+    },
+    {
+      "url": "https://miner-wine.vercel.app/storm-alert?location=Chennai&days=1",
+      "status": 200,
+      "elapsed_ms": 400,
+      "body": {
+        "verdict": "low",
+        "confidence": 1,
+        "reason": "The wind and storm forecast for Chennai over the next 24 hours is as follows. Wind speed: sustained winds up to 13 km/h, which is 3.6 metres per second. Gusts: peak wind gusts of 29.9 km/h, or 8.3 metres per second. Precipitation: 1.5 mm. Wind direction: prevailing from the north. Thunderstorms are forecast. Overall risk: 0.39 on a scale of 0 to 1, graded low. If operations are exposed, implement operational adjustments to safeguard equipment and personnel: secure loose equipment, tools and materials, move non-essential personnel to safe shelters with appropriate personal protective equipment, suspend or shut down exposed operations such as lifting, drilling or hauling during peak gusts, inspect the site for hazards, maintain clear communication, activate the emergency response plan, and continuously monitor weather updates and forecasts."
+      },
+      "passed": true
+    },
+    {
+      "url": "https://miner-wine.vercel.app/storm-alert?location=Chennai&days=2",
+      "status": 200,
+      "elapsed_ms": 430,
+      "body": {
+        "verdict": "moderate",
+        "confidence": 1,
+        "reason": "The wind and storm forecast for Chennai over the next 48 hours is as follows. Wind speed: sustained winds up to 13 km/h, which is 3.6 metres per second. Gusts: peak wind gusts of 33.1 km/h, or 9.2 metres per second. Precipitation: 1.5 mm. Wind direction: prevailing from the north-west. Thunderstorms are forecast. Overall risk: 0.41 on a scale of 0 to 1, graded moderate. If operations are exposed, implement operational adjustments to safeguard equipment and personnel: secure loose equipment, tools and materials, move non-essential personnel to safe shelters with appropriate personal protective equipment, suspend or shut down exposed operations such as lifting, drilling or hauling during peak gusts, inspect the site for hazards, maintain clear communication, activate the emergency response plan, and continuously monitor weather updates and forecasts."
+      },
+      "passed": true
+    }
+  ]
+}

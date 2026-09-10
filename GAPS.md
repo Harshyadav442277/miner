@@ -1,5 +1,20 @@
 # GAPS.md — honesty ledger
 
+## 2026-09-10 second release — G98–G99
+
+- **G98 — Extraction category and payload corruption, deployed and accepted.** All six reproduced
+  failures now pass: instruction/payload separation, multiple categories, quoted apostrophes,
+  structured text precedence, comma-currency cents, and month/year false dates. Entity extraction
+  remains heuristic. See the rank-1 report and `extraction-coverage.test.ts`.
+- **G99 — Weather time, missing data, and cache identity, deployed and accepted.** Current-hour requests
+  selected the next hour; storm zero became a 48-hour window; duration aliases shared cache entries;
+  stale/null data and unavailable future points produced misleading values. Eight reproduced failures
+  pass after fixes. Current weather still uses a modelled hourly interval, not a station observation.
+  Production `miner-lm6seiqeu` at 05:23 UTC; acceptance by 05:28 UTC. Six targeted production probes
+  pass and 19/19 intent correctness passes. The old CVE live test incorrectly required NVD attribution
+  for a correct CNA fallback response; after making its assertions source-specific, the failed suite
+  gate recheck passes 390/390. All seven gates accepted across initial run and focused recheck.
+
 ## 2026-09-10 rank-1 mission — G92–G97
 
 Full evidence and every non-leading intent:

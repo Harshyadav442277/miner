@@ -15,6 +15,7 @@ export type Want =
   | "actions"
   | "date_event"
   | "numeric"
+  | "multiple"
   | "generic";
 
 export interface Extraction {
@@ -38,16 +39,44 @@ const INSTRUCTION = /\b(?:extract|pull|find|identify|list|parse|get|give|return|
 
 export function quotedPayload(text: string): string {
   const s = String(text ?? "");
-  const curly = s.match(/[\u201c\u2018"']([^\u201d\u2019"']{8,})[\u201d\u2019"']/);
-  if (curly?.[1]) return curly[1].trim().replace(/\s+/g, " ");
   const colon = s.match(/^([^:]*):\s*(.+)$/s);
   // An instruction clause is short and unbroken: "Extract the contact details
   // from:" qualifies, while "Extract … from the text. Contact … Docs:" does not,
   // because its first colon sits after a full sentence of payload.
   const pre = colon?.[1]?.trim() ?? "";
   const isInstruction = pre.length > 0 && pre.length <= 90 && !/[.!?]\s/.test(pre) && INSTRUCTION.test(pre);
-  if (isInstruction && colon?.[2]) return colon[2].trim().replace(/\s+/g, " ");
+  if (isInstruction && colon?.[2]) return unwrap(colon[2]);
+  // Match a payload after an instruction, not a quoted field name inside it.
+  const quoted = s.match(/\bfrom\s+(["'\u201c\u2018][\s\S]+)$/i);
+  if (quoted?.[1]) return unwrap(quoted[1]);
   return s.trim().replace(/\s+/g, " ");
+}
+
+function unwrap(text: string): string {
+  const s = text.trim();
+  const pairs: Record<string, string> = { '"': '"', "'": "'", "\u201c": "\u201d", "\u2018": "\u2019" };
+  const close = pairs[s[0] ?? ""];
+  const last = close ? s.lastIndexOf(close) : -1;
+  // Apostrophes inside the payload are data, not the closing quote.
+  const payload = last > 0 && /^[.!?\s]*$/.test(s.slice(last + 1)) ? s.slice(1, last) : s;
+  return payload.replace(/\s+/g, " ").trim();
+}
+
+function requestedKinds(instruction: string): Want[] {
+  const matches: Array<[Want, RegExp]> = [
+    ["quantities", /\bquantit|\bunits?\b|\bmeasure/i],
+    ["contact", /\bcontact|\bemail|\bphone|\btelephone/i],
+    ["entities", /\bentit|\bpeople\b|\bplaces?\b|\borganizations?\b/i],
+    ["actions", /\baction items?\b|\btasks?\b|\btodo|\bto-do/i],
+    ["date_event", /\bdates?\b|\bevents?\b/i],
+    ["numeric", /\bnumeric|\bnumbers?\b|\bfigures?\b|\bmetrics?\b|\bvalues?\b/i],
+  ];
+  const kinds = matches.filter(([, re]) => re.test(instruction)).map(([kind]) => kind);
+  // "Phone numbers" requests contact fields, not all numeric values as well.
+  if (/\b(?:phone|telephone)\s+numbers?\b/i.test(instruction) && !/\bnumeric|\bfigures?|\bmetrics?|\bvalues?/i.test(instruction)) {
+    return kinds.filter(k => k !== "numeric");
+  }
+  return kinds.length ? kinds : ["generic"];
 }
 
 /** What the instruction asks for. */
@@ -177,7 +206,7 @@ function dates(s: string): string[] {
     out.push(y ? `${cap(mon)} ${d}, ${y}` : `${cap(mon)} ${d}`);
     return " ".repeat(whole.length);
   });
-  const re = new RegExp(String.raw`\b(` + MONTHS + String.raw`)\s+(\d{1,2})(?:st|nd|rd|th)?(?:,\s*(\d{4}))?`, "gi");
+  const re = new RegExp(String.raw`\b(` + MONTHS + String.raw`)\s+(\d{1,2})(?:st|nd|rd|th)?\b(?:,\s*(\d{4}))?`, "gi");
   for (const m of masked.matchAll(re)) {
     out.push(m[3] ? `${cap(m[1]!)} ${m[2]}, ${m[3]}` : `${cap(m[1]!)} ${m[2]}`);
   }
@@ -188,14 +217,28 @@ function dates(s: string): string[] {
 function numerics(s: string): string[] {
   const out: string[] = [];
   for (const m of s.matchAll(/\b\d+(?:\.\d+)?%/g)) out.push(m[0]);
-  for (const m of s.matchAll(/[$\u00a3\u20ac]\s?\d+(?:[.,]\d+)?(?:\s*(?:million|billion|thousand))?/gi)) out.push(m[0].trim());
+  for (const m of s.matchAll(/[$\u00a3\u20ac]\s?(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?(?:\s*(?:million|billion|thousand))?/gi)) out.push(m[0].trim());
   for (const m of s.matchAll(/\bQ[1-4]\b/g)) out.push(m[0]);
   return [...new Set(out)];
 }
 
-export function extractContent(question: string): Extraction {
-  const want = wantedFrom(question);
-  const source = quotedPayload(question);
+export function extractContent(question: string, suppliedText?: string): Extraction {
+  const source = suppliedText !== undefined ? suppliedText.trim().replace(/\s+/g, " ") : quotedPayload(question);
+  // Only the instruction chooses extraction categories. The payload may itself
+  // contain "email", "date", or "units" without requesting those fields.
+  const instruction = suppliedText !== undefined ? question : question === source ? question
+    : question.split(/\bfrom\b|:/i)[0] ?? question;
+  const kinds = requestedKinds(instruction);
+  const results = kinds.map(want => extractForKind(want, source));
+  if (results.length === 1) return results[0]!;
+  const fields: Record<string, string[]> = {};
+  for (const result of results) {
+    for (const [key, values] of Object.entries(result.fields)) fields[key] = [...new Set([...(fields[key] ?? []), ...values])];
+  }
+  return { want: "multiple", source, fields, summary: results.map(r => r.summary).join(" ") };
+}
+
+function extractForKind(want: Want, source: string): Extraction {
   const fields: Record<string, string[]> = {};
   let summary = "";
 

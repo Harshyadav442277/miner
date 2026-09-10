@@ -1,0 +1,159 @@
+✖ extraction follows the requested field rather than keywords in the payload (3.1987ms)
+✖ all explicitly requested extraction categories are returned (0.7435ms)
+✖ apostrophes inside a quoted payload do not cut off the rest of the data (0.2352ms)
+✖ currency extraction preserves thousands and decimal cents (0.5638ms)
+✖ a month followed only by a year does not invent a day (6.8494ms)
+✖ structured extraction text is authoritative even when the instruction quotes a field label (2.3317ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 0
+ℹ fail 6
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 120.7728
+
+✖ failing tests:
+
+test at dist-test\test\extraction-coverage.test.js:10:22
+✖ extraction follows the requested field rather than keywords in the payload (3.1987ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + undefined
+  - [
+  -   'March 12, 2026'
+  - ]
+  
+      at TestContext.<anonymous> (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\extraction-coverage.test.js:12:22)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: [ 'March 12, 2026' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at dist-test\test\extraction-coverage.test.js:15:22
+✖ all explicitly requested extraction categories are returned (0.7435ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + undefined
+  - [
+  -   'March 12, 2026'
+  - ]
+  
+      at TestContext.<anonymous> (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\extraction-coverage.test.js:18:22)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: [ 'March 12, 2026' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at dist-test\test\extraction-coverage.test.js:20:22
+✖ apostrophes inside a quoted payload do not cut off the rest of the data (0.2352ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'sam@example.com',
+  -   'pat@example.com'
+  - ]
+  
+      at TestContext.<anonymous> (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\extraction-coverage.test.js:22:22)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'sam@example.com', 'pat@example.com' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at dist-test\test\extraction-coverage.test.js:24:22
+✖ currency extraction preserves thousands and decimal cents (0.5638ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+  +   '$1,234',
+  +   '$7,890'
+  -   '$1,234.56',
+  -   '$7,890.12'
+    ]
+  
+      at TestContext.<anonymous> (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\extraction-coverage.test.js:26:22)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ '$1,234', '$7,890' ],
+    expected: [ '$1,234.56', '$7,890.12' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at dist-test\test\extraction-coverage.test.js:28:22
+✖ a month followed only by a year does not invent a day (6.8494ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    ok(!r.fields.dates?.includes("March 20"))
+  
+      at TestContext.<anonymous> (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\extraction-coverage.test.js:30:22)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at dist-test\test\extraction-coverage.test.js:32:22
+✖ structured extraction text is authoritative even when the instruction quotes a field label (2.3317ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'sam@example.com'
+  - ]
+  
+      at TestContext.<anonymous> (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\extraction-coverage.test.js:39:22)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'sam@example.com' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
