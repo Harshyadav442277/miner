@@ -1495,7 +1495,15 @@ not require the ambiguity to be resolved. A **twelve**-intent expansion into uni
 would have been positive under the sum and destructive under the average; it was rejected for that.
 
 
-### G60 · The sandbox validator could not be run before the thirteen-intent update — `OPEN`
+### G60 · The sandbox validator could not be run before the thirteen-intent update — `CLOSED 2026-09-10`
+
+**Closed 2026-09-10.** The validator is back and it ran against the 26-intent manifest:
+all **25 declared endpoints green, HTTP 200**, 239–632 ms, in the order the manifest
+declares them. That is the first sandbox validation this miner has passed since the
+thirteen-intent update, and it covers the four intents added today. Twenty-five
+endpoints carry twenty-six intents because `/weather-forecast` serves both
+WEATHER_FORECAST and WEATHER_CHECK.
+
 
 CLAUDE.md rule 3 requires a clean run at `integrate.telegraphprotocol.com` before any
 `updateMiner`. On 2026-08-31 ~22:20Z the endpoint accepts the request shape and then fails from
