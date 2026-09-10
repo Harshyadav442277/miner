@@ -2250,3 +2250,50 @@ the next, from a stable 30-pair response each time. The real deepest pool is
 larger than either. The answer now says "the largest of the N pools listed for
 it", which is what we can actually support. The total itself is unaffected — it
 comes from GeckoTerminal's tracked reserve, not from summing the sample.
+
+### G92 · Three intents added on the operator's instruction, two of them known lotteries — `OPEN 2026-09-10`
+
+GAS_PRICE, FINANCIAL_DATA and FRAUD_DETECTION were built because the operator
+asked for them after the earlier evidence recommended against two of the three.
+That evidence has not changed and is repeated here so nobody re-derives it:
+
+- **GAS_PRICE** — champion 3119's tolerance is about one part in a thousand on a
+  quantity that changes every block. Nine miners have sat between 5e-12 and
+  3e-11 for months. Ranking here turns on whether our read and the scorer's land
+  in the same window, not on engineering.
+- **FINANCIAL_DATA** — the token half is solid (GeckoTerminal). The equity half
+  carries market data only: Yahoo's `quoteSummary` returns HTTP 401 without a
+  session, so P/E and revenue growth are not retrievable keylessly. Those
+  questions are answered with what we do hold plus an explicit statement that
+  the ratio was not retrieved.
+- **FRAUD_DETECTION** — 16 miners, and the judgement is a likelihood rather than
+  a fact. What makes it defensible is that every signal is one we actually
+  check and name: OFAC's sanctioned-address listing, Cloudflare's threat feed,
+  on-chain account state, and specific scam wording.
+
+What was measured and is worth keeping: against champion 3119 the full gas shape
+(exact figure, rounded figure, base and priority fee, block, transfer cost)
+crosses 3 of 3 ground-truth registers at 0.999999 where a bare figure crosses 1
+of 3. Carrying both numeric registers is coverage, not hedging — both are true
+statements about the same number.
+
+### G93 · eth_getCode returning bytes no longer means "contract" — `FIXED 2026-09-10`
+
+Under EIP-7702 an externally owned account can carry a 23-byte delegation
+designator, `0xef0100` followed by the address it delegates to, and it remains
+key-controlled. The first address tested against the new fraud endpoint,
+vitalik.eth, returns `0xef01005a7fc11397e9a8ad41bf10bf13f22b0a63f96f6d` and was
+being described as "a contract".
+
+That is a false statement about who controls the funds, which is the exact thing
+FRAUD_DETECTION is asked about. `accountKind` now distinguishes account,
+delegated account and contract, and the distinction is pinned by a test. Any
+future code in this repo that reads `eth_getCode` has the same trap.
+
+### G94 · A marker regex ending in `\b` cannot match its own plural — `FIXED 2026-09-10`
+
+`/\bgift card\b/i` does not match "gift cards": the `s` is a word character, so
+there is no boundary after "card". The scam-marker list silently failed on the
+plural form of the commonest phrasing. Every marker naming a countable thing now
+takes an optional `s`, and the test covers both forms. Same family as G85 — a
+check that quietly cannot fire.

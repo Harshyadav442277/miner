@@ -1,34 +1,83 @@
-# Registration update — 13 intents to 19
+# Registration update — 19 intents to 22
 
 **Status: prepared, NOT signed. This needs the operator.** Claude does not connect
 wallets, sign messages or send transactions (CLAUDE.md rule 1). Everything below
 is prepared and validated; the clicking is yours.
 
-Written 2026-09-08. Re-verify the hash before signing — any edit to `miner.yaml`
-changes it.
+Written 2026-09-10. Supersedes the 13→19 update, which was signed on 2026-09-09
+and is live as **registration 1378**.
 
 ---
 
 ## 1. What changes, in one line
 
-The same miner, same slug, same base URL, plus **six new intents that are
+The same miner, same slug, same base URL, plus **three new intents that are
 already deployed and answering on production**.
 
 ```
-registered now (reg 402)   13 intents   hash 7538082784c4b20849aeb54cfb6c2cf74100cf074dff3e0f8d8b268e12e47640
-this file                  19 intents   hash 8d62ebe0136aea75e8185a5536f99687cac7650b31a31a5fb90c5c9aac94d874
+registered now (reg 1378)   19 intents   hash 8d62ebe0136aea75e8185a5536f99687cac7650b31a31a5fb90c5c9aac94d874
+this update                 22 intents   hash ba31def351a2258e7694c176bdc8626aba25713501a9d09701b54105de475fa3
 ```
-
-Re-check the pending hash before signing — see §4.
 
 | Change | Detail |
 |---|---|
-| **+6 intents** | `ONCHAIN_TX_LOOKUP`, `CVE_LOOKUP`, `TVL_LOOKUP`, `NEWS_SEARCH`, `CURRENCY_EXCHANGE`, `GAME_RESULT` |
-| **+6 endpoints** | `/tx-lookup`, `/cve`, `/tvl`, `/news-search`, `/convert`, `/game-result` — all deployed, live and keyless |
-| **unchanged** | `id: 4433`, `slug: livecert`, `base_url`, `auth: {type: none}`, the thirteen existing endpoints and every one of their parameters |
+| **+3 intents** | `GAS_PRICE`, `FINANCIAL_DATA`, `FRAUD_DETECTION` |
+| **+3 endpoints** | `/gas-price`, `/financial`, `/fraud-check` — deployed, live and keyless |
+| **unchanged** | `id: 4433`, `slug: livecert`, `base_url`, `auth: {type: none}`, and all nineteen existing endpoints with every one of their parameters |
 
-No existing endpoint's behaviour, path or parameter list changed. The six
-additions are additive.
+Verified mechanically, not by eye — `tools/manifest-diff.mjs` against the YAML
+actually pinned for registration 1378:
+
+```
+all 19 registered intents preserved
+added: GAS_PRICE, FINANCIAL_DATA, FRAUD_DETECTION
+PASS — nothing registered today is lost or altered.
+```
+
+## What to enter in the console
+
+Step 2, **Register On-Chain**, **Manual Input** panel:
+
+| Field | Value |
+|---|---|
+| **YAML URL** | `https://raw.githubusercontent.com/Harshyadav442277/miner/06c058068c4d8fc01d0631801c54611b80a6ad64/track1-miner/miner.yaml` |
+| **YAML HASH (BYTES32)** | `0xba31def351a2258e7694c176bdc8626aba25713501a9d09701b54105de475fa3` — typed, **not** "Generate from file" |
+| **REQUIRES API KEY** | **OFF** |
+| **API KEY** | leave empty |
+| **FEE ADDRESS** | `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e` (prefilled) |
+| **FLOOR PRICE (USDC)** | `0.01` (prefilled) |
+
+The URL was pushed and fetched back on 2026-09-10: HTTP 200, 39,332 bytes,
+hashing to the value above. It is pinned to a commit, so it cannot change under
+the registration.
+
+**Do not press "Generate from file."** `core.autocrlf=true` and no
+`.gitattributes` means the file on disk is CRLF while GitHub serves the LF blob,
+and only the LF hash matches what the node fetches. Verify with
+`curl -sL "<url>" | sha256sum` or `git show HEAD:track1-miner/miner.yaml | sha256sum`,
+never the working copy. This is recorded as G86 and it is the reason registration
+1378 went through cleanly.
+
+Then **VALIDATE ENDPOINTS**, and paste back anything that is not green rather
+than proceeding. Signing creates a new registration id; 1378 keeps serving until
+it activates, so there is no gap.
+
+## Gate state, 2026-09-10
+
+```
+unit + live suite                      PASS      337 unit tests
+verify-deploy                          PASS
+param shapes (engine-shaped)           PASS
+intent answers (correctness)           PASS      22/22 intents answering correctly
+hostile inputs                         PASS
+upstream health                        PASS
+no-regression (7 identical, 1 differ)  PASS
+
+7/7 gates passed.                                exit 0
+```
+
+Re-run `node tools/preflight.mjs` on the day you sign. A green run from an
+earlier day is not evidence about today's build.
 
 ## 2. Why each one, on evidence
 
