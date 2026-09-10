@@ -99,8 +99,20 @@ export async function resolvePlace(query: string, timeoutMs = DEFAULT_TIMEOUT_MS
     };
   }
 
+  // One shared deadline for the whole candidate list, not `timeoutMs` each.
+  // The candidates are tried in order and the widened forms added for
+  // comma-free "city country" questions make the list longer, so a per-candidate
+  // budget could spend 8 s several times over and hand the route's 11 s watchdog
+  // a 504 instead of an answer. The first candidate still gets the full budget;
+  // later ones get whatever is left, and the loop stops rather than starting a
+  // request it cannot finish.
+  const deadline = Date.now() + timeoutMs;
+  let firstTry = true;
   for (const candidate of placeCandidates(query)) {
-    const hit = await geocodeOnce(candidate, timeoutMs);
+    const remaining = deadline - Date.now();
+    if (!firstTry && remaining < 500) break;
+    const hit = await geocodeOnce(candidate, firstTry ? timeoutMs : Math.min(timeoutMs, remaining));
+    firstTry = false;
     if (hit) return hit;
   }
   return null;

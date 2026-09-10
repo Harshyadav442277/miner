@@ -29,8 +29,12 @@ const arg = (name, fallback) => {
 const ONLY = arg("--intent", null);
 const PAGES = Number(arg("--pages", 30));
 
+// The feed 502s or hangs on limit=100 (measured 2026-09-10: 45 s timeout at 100,
+// 3 s at 50). Page size is therefore 50, and a failed page is retried rather than
+// ending the sweep — one bad page used to abort the whole refresh.
+const PAGE = 50;
 const FEED = (offset) =>
-  `https://explorer.telegraphprotocol.com/api/daemon/api/questions?sort=recent&order=desc&since_hours=720&limit=100&offset=${offset}`;
+  `https://explorer.telegraphprotocol.com/api/daemon/api/questions?sort=recent&order=desc&since_hours=720&limit=${PAGE}&offset=${offset}`;
 
 /** Expansion immediately enters replay coverage, without another hand-kept list. */
 const ENDPOINT = Object.fromEntries(readManifest().endpoints.flatMap(e => e.intents.map(i => [i, e.path])));
@@ -39,22 +43,28 @@ async function refresh() {
   const byIntent = {};
   const seen = new Set();
   let rows = 0;
+  let consecutiveFailures = 0;
   for (let p = 0; p < PAGES; p++) {
     let body;
-    try {
-      const res = await fetch(FEED(p * 100), {
-        headers: { "user-agent": "Mozilla/5.0", referer: "https://explorer.telegraphprotocol.com/signals" },
-        signal: AbortSignal.timeout(30_000),
-      });
-      if (!res.ok) {
-        console.error(`feed page ${p}: HTTP ${res.status}`);
-        break;
+    for (let attempt = 0; attempt < 3 && !body; attempt++) {
+      try {
+        const res = await fetch(FEED(p * PAGE), {
+          headers: { "user-agent": "Mozilla/5.0", referer: "https://explorer.telegraphprotocol.com/signals" },
+          signal: AbortSignal.timeout(45_000),
+        });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        body = await res.json();
+      } catch (e) {
+        console.error(`feed page ${p} attempt ${attempt + 1}: ${e.message}`);
+        if (attempt < 2) await new Promise((r) => setTimeout(r, 1500 * (attempt + 1)));
       }
-      body = await res.json();
-    } catch (e) {
-      console.error(`feed page ${p}: ${e.message}`);
-      break;
     }
+    if (!body) {
+      // Three consecutive dead pages is a dead feed; one is the node shedding.
+      if (++consecutiveFailures >= 3) break;
+      continue;
+    }
+    consecutiveFailures = 0;
     const results = body.results ?? [];
     if (results.length === 0) break;
     rows += results.length;

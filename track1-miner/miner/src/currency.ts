@@ -171,6 +171,20 @@ export function parseQuery(text: string): { from: string | null; to: string | nu
     if (mentions.length >= 2) to = from;
   }
 
+  /**
+   * One currency named is a real question, not an incomplete one.
+   *
+   * "What's the fx rate of euro?" is asked against the US dollar — that is what
+   * an unqualified FX quote means — and three of the four CURRENCY_EXCHANGE
+   * questions the Daemon actually routes are that shape. All three were refused,
+   * and a refusal scores ~0 where an answer can cross. So the counter currency
+   * defaults to USD, and to EUR when the dollar is the one named, because
+   * EUR/USD is the pair an unqualified dollar quote means. Nothing is hidden by
+   * this: the answer names both currencies and states the rate in both
+   * directions, so the assumed pair is visible in the prose the scorer reads.
+   */
+  if (from && !to) to = from === "USD" ? "EUR" : "USD";
+
   return { from, to, amount };
 }
 

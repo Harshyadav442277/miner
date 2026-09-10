@@ -4,7 +4,13 @@
   "is that ai generated\nAnalyze the sentiment of the following text about Rollbit casino and state whether it is positive, negative, or neutral, with one sentence of justification: \"Rollbit Price Prediction: Crypto Casino Drives RLB to $0.17 — Withdrawal limits change without notice. Players looking for psg77 link or slot psg77 alternatives increasingly report KYC delays, bonus term complications, and payout queues that stretch for days.\n\nC | Best Crypto Sportsbooks for Live Streaming and In-Play Markets - ZamFoot — Rollbit is a crypto-based gambling site operating under Bull Gaming N.V., accepting Bitcoin, Ethereum, and Litecoin for sports betting and casino play. The site\"",
   "Was the following text written by an AI or a human? Text: \"\"\"Congratulations! Your wallet has been selected for an exclusive airdrop. Connect now to claim before it expires in 10 minutes.\"\"\"",
   "detect ai in the following - \"### The Magic of Rain  Rain is one of nature’s most beautiful gifts. When dark clouds cover the sky and raindrops begin to fall, the world seems to change instantly. Trees become greener, roads shine, and the air feels fresh and cool. Children often enjoy playing in the rain, while farmers welcome it because their crops need water to grow. Rain also fills rivers, lakes, and reservoirs, providing water for people and animals. Although heavy rain can sometimes cause floods and inconvenience, it is essential for life on Earth. Without rain, our planet would become dry and lifeless. Therefore, rain is truly precious.\"",
-  "detect ai in the following -"
+  "detect ai in the following -",
+  "ai detection text over \"hpax (lexical diversity). Model caliber-truthport-v2; not legal proof of authorship. Answered by caliber-truthport-text-auth · ranked #1 for AI_TEXT_DETECTION Routed by Telegraph's own router Confidence 5% Cost $0.01 · 1080 ms · settled on Base Sepolia Signal hash 0x2ae4f2a7d2bcf259… verify on the node\"",
+  "Was the following passage written by an AI or by a human? Passage: This work concerns a procedure for removing gauge dependence from graviton corrections to the effective field equations for a massless, minimally coupled scalar on de Sitter background. The procedure involves combining diagrams in the same way as the scattering amplitude for the t-channel exchange of the massless scalar between two massive particles, but without taking the asymptotic limits which are problematic in cosmology. Implementing this at 1-loop on flat space background requires five classes of diagrams, in addition to the naive exchange, and the combination of those diagrams does eliminate dependence on the graviton gauge fixing functional. When those same diagrams are generalized to de Sitter background, their combination cancels the most important (``nonlocal'') secular gauge dependence, but it leaves (``local'') secular gauge dependence that is associated with external legs. Local secular gauge dependence can be removed by adding two additional classes of diagrams, and making secular corrections to the external wavefunctions. The purpose of this paper is to include these additional corrections on de Sitter background in order to derive fully gauge independent effective field equations at 1-loop order.",
+  "Was the following passage written by an AI or by a human? Passage: Point particles are generically ill defined in fully nonlinear general relativity, although they are naturally well defined in linear perturbation theory. In a previous paper, two of us showed how they can be rigorously defined from matched asymptotic expansions at second order in perturbation theory on a generic background spacetime. Here we show how the resulting field equations can be recast in a more practical, more fully ``skeletonized'' form. We also show that this form of the field equations enables simple derivations of equations of motion. Finally, we show how calculations in second-order perturbation theory can bypass the use of singular ``punctures'' and make rigorous use of off-the-shelf regularization methods such as Hadamard regularization, opening new avenues to second-order self-force calculations in black hole binaries.",
+  "ai text detection - ?Questions people ask about Morse What is this, in one sentence? Telegraph, inside Telegram: dozens of independent \"miners\" (APIs and models) compete on a public leaderboard to answer questions, and Morse lets you ask them from a chat, without a wallet.  What can I ask? Anything the network has a miner for: certificate and link safety checks, weather and storm risk, crypto and stock prices, wallet balances and fraud risk, fact checks, translations, news and papers, plus general questions. The list above has one example per intent.  Is it free? Who pays? Free for you. Each answer costs about $0.01 in testnet USDC, which Morse's own wallet pays via x402. Limits: 20 questions per day on the web, 40 in Telegram, 100 per API key.  What is the receipt, and how do I verify it? Every answer names the miner, its leaderboard rank, who routed the question, the miner's confidence, the cost, the on-chain settlement, and a signal hash. Click \"verify\" on any answer or ledger row: Morse fetches the node's own record for that hash, shows the wallet that paid and checks it is Morse's, and links the USDC transfer on BaseScan.  Is my question public? Yes. The ledger below lists every call, and /api/recent returns the question clipped to 200 characters and the answer excerpt. Do not type anything private. Who asked is stored only as a salted hash.  Can I use it from code or an AI agent? Yes: a hosted MCP server and a REST endpoint, no wallet needed. Get a free key\"",
+  "ai text detection \" Questions people ask about Morse What is this, in one sentence? Telegraph, inside Telegram: dozens of independent \"miners\" (APIs and models) compete on a public leaderboard to answer questions, and Morse lets you ask them from a chat, without a wallet.  What can I ask? Anything the network has a miner for: certificate and link safety checks, weather and storm risk, crypto and stock prices, wallet balances and fraud risk, fact checks, translations, news and papers, plus general questions. The list above has one example per intent.  Is it free? Who pays? Free for you. Each answer costs about $0.01 in testnet USDC, which Morse's own wallet pays via x402. Limits: 20 questions per day on the web, 40 in Telegram, 100 per API key.  What is the receipt, and how do I verify it? Every answer names the miner, its leaderboard rank, who routed the question, the miner's confidence, the cost, the on-chain settlement, and a signal hash. Click \"verify\" on any answer or ledger row: Morse fetches the node's own record for that hash, shows the wallet that paid and checks it is Morse's, and links the USDC transfer on BaseScan.  Is my question public? Yes. The ledger below lists every call, and /api/recent returns the question clipped to 200 characters and the answer excerpt. Do not type anything private. Who asked is stored only as a salted hash.  Can I use it from code or an AI agent? Yes: a hosted MCP server and a REST endpoint, no wallet needed. Get a free key.\"",
+  "perform an ai detection text over \"You can test and scan your content using the GPTZero AI Detector to check writing patterns and estimate the likelihood that text was generated by AI.AI text detectors evaluate writing by looking for machine-like patterns. They do not track absolute authorship, meaning they can produce false positives on human text or miss edited AI text. [1] (https://gptzero.me/), [2] (https://www.grammarly.com/ai-detector)How AI Detection WorksPerplexity: Measures how predictable or common the word choices are.Burstiness: Analyzes variations in sentence length and rhythm\""
  ],
  "ACADEMIC_SEARCH": [
   "Find five relevant academic papers on privacy attacks against federated-learning systems, including membership inference, model inversion, gradient leakage, or reconstruction attacks.",
@@ -14,7 +20,16 @@
   "do a academic search for putin",
   "research paper for sol benchmarks",
   "Point me to peer-reviewed literature, not blog posts, on perovskite solar cell degradation.",
-  "Will Amicus Therapeutics recruit for NCT06906367?"
+  "Will Amicus Therapeutics recruit for NCT06906367?",
+  "Will GUB-UCN2 complete Phase 1 trials?",
+  "Will Ossium Health's trial succeed?",
+  "Find peer-reviewed papers on the same subject as “Universal Secular External Leg Corrections for Gauge Independent Scalar Self-Mass on de Sitter”.",
+  "Verify that the research paper “Universal Secular External Leg Corrections for Gauge Independent Scalar Self-Mass on de Sitter” by Glavan, D., Miao, S. P., Prokopec, T. et al. (2026) at https://arxiv.org/abs/2609.10365 is genuine and unaltered: confirm it exists in the scholarly record with matching title, authors and year.",
+  "Will HRS-6257 enter Phase 2 trials?",
+  "Will NT-101 eye drops succeed Phase 2?",
+  "Will Corium's Estradiol/Levonorgestrel TDS pass Phase 1?",
+  "Will Philogen's IL12-L19L19 show efficacy?",
+  "Will ECT204 complete Phase 1 trials?"
  ],
  "IP_GEOLOCATION": [
   "Please analyze the public IP address 94.140.14.14 from an IP-geolocation perspective and report the country, region, city if available, approximate coordinates, timezone, ISP or organization, and autonomous system details.",
@@ -29,7 +44,9 @@
   "Where is 9.9.9.9 located, and who runs that network?",
   "Where is 1.1.1.1 located, and which network operates it?",
   "Where is 8.8.8.8 located, and which network owns it?",
-  "1.1.1.1 — whose network is that on, and roughly where does it sit?"
+  "1.1.1.1 — whose network is that on, and roughly where does it sit?",
+  "Where is the IP address 151.101.195.42 located, and which organisation operates it? It is the address arxiv.org resolves to.",
+  "Where is the IP address 151.101.131.42 located, and which organisation operates it? It is the address arxiv.org resolves to."
  ],
  "WEATHER_CHECK": [
   "Return current weather conditions for Lagos. Classify this as WEATHER_CHECK.",
@@ -59,7 +76,8 @@
   "Is there an active storm alert or severe weather warning for New Orleans, Louisiana right now?",
   "Is there an active storm alert or severe weather warning for Miami, Florida right now?",
   "Is there an active storm alert or severe weather warning for Hong Kong right now?",
-  "Is there an active storm alert or severe weather warning for Mumbai, India right now?"
+  "Is there an active storm alert or severe weather warning for Mumbai, India right now?",
+  "Will Riyadh reach 40°C today?"
  ],
  "WEATHER_FORECAST": [
   "Return the 1-day weather forecast for Lagos. Classify this as WEATHER_FORECAST.",
@@ -99,7 +117,10 @@
   "Will Riyadh reach 45°C by September 13?",
   "What is the 24-hour weather forecast for Lagos Nigeria starting today, including temperature, precipitation probability, and wind speed?",
   "What is the 24-hour weather forecast for lagos nigeria starting today, including temperature, precipitation probability, and wind speed?",
-  "What is the 24-hour weather forecast for lagos, nigeria starting today, including temperature, precipitation probability, and wind speed?"
+  "What is the 24-hour weather forecast for lagos, nigeria starting today, including temperature, precipitation probability, and wind speed?",
+  "Will Riyadh reach 40°C on September 12?",
+  "Will Dubai exceed 40°C on September 12?",
+  "Will Dubai exceed 40°C on September 11?"
  ],
  "STORM_ALERT": [
   "Is there a storm risk in Mumbai over the next 48 hours?",
@@ -195,14 +216,23 @@
   "What is the native balance of the wallet 0x833589fcd6edb6e08f4c7c32d4f71b54bda02913 on arbitrum (chain id 42161)?",
   "Is the wallet 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 safe to receive funds from?",
   "What is the native balance of the wallet 0x036cbd53842c5426634e7929541ec2318f3dcf7e on base (chain id 8453)?",
-  "What is the native balance of the wallet 0xbf5bec5a2711719b5a2c344d17fbc276726ab1b1 on base (chain id 8453)?"
+  "What is the native balance of the wallet 0xbf5bec5a2711719b5a2c344d17fbc276726ab1b1 on base (chain id 8453)?",
+  "What is the 24-hour weather forecast for Houston, Texas starting today, including temperature, precipitation probability, and wind speed?",
+  "My Wallet balance"
  ],
  "LANGUAGE_TRANSLATION": [
   "Translate the following English passage into natural Hebrew while preserving the original meaning, professional tone, technical terminology, numbers, names, and URLs exactly where appropriate. Do not summarize or explain the passage; I want a faithful translation that sounds like something a fluent Hindi speaker would actually write rather than a word-for-word machine translation: “Artificial intelligence systems are increasingly being deployed in cybersecurity operations to identify suspicious network activity, prioritize alerts, and assist analysts in investigating potential threats.",
   "translate \"testing\" into chinese",
   "translate",
   "Translate (i love my country) to kannada",
-  "Translate 'good morning, how are you' in Spanish."
+  "Translate 'good morning, how are you' in Spanish.",
+  "Translate \"The most-cited scholarly work on these notes on how to destroy belarus with help over bears research in one paragraph of about 150 words in plain English, keeping the attributions in parentheses and adding nothing that is not in the notes is 'Nothing 'Errant' About it: The Berman and Midkiff Conference Notes and How the Supreme Court Got to Kelo With its Eyes Wide Open' (2006, cited 1 times), alongside 'First Words, Last Words' (2019, cited 0) and 'Reading Masculinity in Much Ado About Nothing: Notes from an Indian Classroom' (2019, cited 0). That work reports: This Essay draws on the Supreme Court's conference notes in Berman v. Parker and Hawaii Housing Authority v.\" into Ukrainian.",
+  "Translate the following text into Ukrainian (uk): \"The most-cited scholarly work on these notes on how to destroy belarus with help over bears research in one paragraph of about 150 words in plain English, keeping the attributions in parentheses and adding nothing that is not in the notes is 'Nothing 'Errant' About it: The Berman and Midkiff Conference Notes and How the Supreme Court Got to Kelo With its Eyes Wide Open' (2006, cited 1 times), alongside 'First Words, Last Words' (2019, cited 0) and 'Reading Masculinity in Much Ado About Nothing: Notes from an Indian Classroom' (2019, cited 0). That work reports: This Essay draws on the Supreme Court's conference notes in Berman v. Parker and Hawaii Housing Authority v.\"",
+  "Translate \"The most-cited scholarly work on these notes on how to destroy russia with help over bears research in one paragraph of about 150 words in plain English, keeping the attributions in parentheses and adding nothing that is not in the notes is 'Nothing 'Errant' About it: The Berman and Midkiff Conference Notes and How the Supreme Court Got to Kelo With its Eyes Wide Open' (2006, cited 1 times), alongside 'First Words, Last Words' (2019, cited 0) and 'Reading Masculinity in Much Ado About Nothing: Notes from an Indian Classroom' (2019, cited 0). That work reports: This Essay draws on the Supreme Court's conference notes in Berman v. Parker and Hawaii Housing Authority v.\" into Ukrainian.",
+  "Translate the following text into Ukrainian (uk): \"The most-cited scholarly work on these notes on how to destroy russia with help over bears research in one paragraph of about 150 words in plain English, keeping the attributions in parentheses and adding nothing that is not in the notes is 'Nothing 'Errant' About it: The Berman and Midkiff Conference Notes and How the Supreme Court Got to Kelo With its Eyes Wide Open' (2006, cited 1 times), alongside 'First Words, Last Words' (2019, cited 0) and 'Reading Masculinity in Much Ado About Nothing: Notes from an Indian Classroom' (2019, cited 0). That work reports: This Essay draws on the Supreme Court's conference notes in Berman v. Parker and Hawaii Housing Authority v.\"",
+  "Japanese translation -  \"No wallet, no key, no sign-up. Type a question, Telegraph's router sends it to the best-ranked miner for that intent, Morse pays the $0.01 fee, and the answer comes back naming who answered, what it cost, and a signal hash you can check on the node and on-chain.  Open @MyMorse_Bot in Telegram → or try it right here ↓",
+  "Translate \"This work concerns a procedure for removing gauge dependence from graviton corrections to the effective field equations for a massless, minimally coupled scalar on de Sitter background. The procedure involves combining diagrams in the same way as the scattering amplitude for the t-channel exchange of the massless scalar between two massive particles, but without taking the asymptotic limits which are problematic in cosmology. Implementing this at 1-loop on flat space background requires five classes of diagrams, in addition to the naive exchange, and the combination of those diagrams does eliminate dependence on the graviton gauge fixing functional.\" into Russian.",
+  "Translate the following text into Russian (ru): \"This work concerns a procedure for removing gauge dependence from graviton corrections to the effective field equations for a massless, minimally coupled scalar on de Sitter background. The procedure involves combining diagrams in the same way as the scattering amplitude for the t-channel exchange of the massless scalar between two massive particles, but without taking the asymptotic limits which are problematic in cosmology. Implementing this at 1-loop on flat space background requires five classes of diagrams, in addition to the naive exchange, and the combination of those diagrams does eliminate dependence on the graviton gauge fixing functional.\""
  ],
  "FACT_CHECK": [
   "Is it true that the Eiffel Tower is in Berlin?",
@@ -231,7 +261,23 @@
   "Will KIO-104 Phase 2 trial succeed?",
   "Will NCT07197814 trial succeed?",
   "Is this claim true? The paper “Experimental Biology and Medicine” by Metropolis Team was published and is available at https://www.ebm-journal.org/journals/experimental-biology-and-medicine.",
-  "How likely is the paper “Experimental Biology and Medicine” by Metropolis Team to be fraudulent? Consider retractions, misconduct findings, paper mills and predatory publishers, and answer only with what is documented."
+  "How likely is the paper “Experimental Biology and Medicine” by Metropolis Team to be fraudulent? Consider retractions, misconduct findings, paper mills and predatory publishers, and answer only with what is documented.",
+  "Will AGSAVI be approved?",
+  "Will NTI164 be approved?",
+  "Is this claim true? This work concerns a procedure for removing gauge dependence from graviton corrections to the effective field equations for a massless, minimally coupled scalar on de Sitter background. (claim from the paper “Universal Secular External Leg Corrections for Gauge Independent Scalar Self-Mass on de Sitter” by Glavan, D., Miao, S. P., Prokopec, T. et al. (2026))",
+  "Fraud risk assessment: is “Universal Secular External Leg Corrections for Gauge Independent Scalar Self-Mass on de Sitter” by Glavan, D., Miao, S. P., Prokopec, T. et al. (2026) known to be fraudulent, retracted, or the product of a paper mill? Give a risk level with reasons.",
+  "Will AstraZeneca's DAISY trial conclude successfully?",
+  "Will RC1416 Injection complete Phase II?",
+  "Will Vertex's ELX/TEZ/IVA trial succeed?",
+  "Will AP-472 Phase 2 trial succeed?",
+  "Will BAROSTIM NEO be approved?",
+  "How do I check if a supplement brand is backed by clinical evidence?",
+  "Will DUPIXENT receive an FDA black box warning?",
+  "Did OpenAI steal major proof?",
+  "Will Hoffmann-La Roche's Lurbinectedin be approved?",
+  "Will RDC Clinical release positive Phase 3 results?",
+  "Will Synchron Medical BCI be approved?",
+  "Will dōTERRA's immune support product be approved?"
  ],
  "TELEGRAPH_KNOWLEDGE": [
   "Route the following request to only Degens Miner",
@@ -259,7 +305,11 @@
   "Will Nicolas Gninenko publish Tinnitus survey results?",
   "why should they come here and not use the API directly?",
   "what is alexandria, from telegraph protocol",
-  "Will Claude change button colors?"
+  "Will Claude change button colors?",
+  "Will Nestlé market this nutrient blend?",
+  "Will Ukraine win the war?",
+  "Will Matt Mullenweg return as Automattic CEO?",
+  "what can you do?"
  ],
  "SSL_VERIFICATION": [
   "Can you investigate the current SSL/TLS certificate presented by openai.com as though you were deciding whether an autonomous agent should establish a secure connection to it? Please verify DNS/TLS connectivity, hostname matching, certificate-chain trust, validity dates, issuer information, SAN coverage, negotiated TLS protocol, and whether any observable certificate condition would cause a conventional HTTPS client to reject the connection. Give me a decisive verdict supported by the observed certificate facts rather than a generic statement that HTTPS is enabled.",
@@ -272,14 +322,31 @@
   "Is the SSL certificate for github.com valid, and who issued it?",
   "Verify TLS/SSL certificate status, expiration, and authority for domain uniswap.org",
   "Verify the SSL/TLS certificate of the domain verify-binance-account.net: is it valid and trusted, when was it issued, and does it match the hostname?",
-  "Verify the SSL/TLS certificate of the domain verify-coinbase-secure.com: is it valid and trusted, when was it issued, and does it match the hostname?"
+  "Verify the SSL/TLS certificate of the domain verify-coinbase-secure.com: is it valid and trusted, when was it issued, and does it match the hostname?",
+  "Is the TLS certificate for arxiv.org currently valid, and who issued it?"
  ],
  "NEWS_HEADLINES": [
   "find latest headlines for uk vs russia",
-  "Latest news about Shopify: layoffs, hiring freezes, funding rounds, bankruptcy, acquisitions, scandals, executive departures"
+  "Latest news about Shopify: layoffs, hiring freezes, funding rounds, bankruptcy, acquisitions, scandals, executive departures",
+  "What are the top news headlines about how to destroy belarus with help over bears research today?",
+  "Find recent news articles from the last 7 days about how to destroy russia with help over bears research.",
+  "What are the top news headlines about how to destroy russia with help over bears research today?",
+  "News headlines   2026",
+  "News headlines C 2026",
+  "News headlines CVE-2026-44756",
+  "Search the news for this week's coverage of Universal Secular External.",
+  "What are the top news headlines about Universal Secular External today?",
+  "News headlines AI china vs america",
+  "News headlines",
+  "What are the top news headlines about Universal Secular External Leg Corrections for Gauge Independent Scalar Self-Mass on de Sitter today?"
  ],
  "CONTENT_EXTRACTION": [
-  "Extract faculty details from vtop"
+  "Extract faculty details from vtop",
+  "Here is a passage (as text): \"Point particles are generically ill defined in fully nonlinear general relativity, although they are naturally well defined in linear perturbation theory. In a previous paper, two of us showed how they can be rigorously defined from matched asymptotic expansions at second order in perturbation theory on a generic background spacetime. Here we show how the resulting field equations can be recast in a more practical, more fully ``skeletonized'' form. We also show that this form of the field equations enables simple derivations of equations of motion. Finally, we show how calculations in second-order perturbation theory can bypass the use of singular ``punctures'' and make rigorous use of off-the-shelf regularization methods such as Hadamard regularization, opening new avenues to second-order self-force calculations in black hole binaries.\". Extract the dates, quantities, named entities and events from it as structured fields.",
+  "Extract the dates, quantities, named entities and events from: Point particles are generically ill defined in fully nonlinear general relativity, although they are naturally well defined in linear perturbation theory. In a previous paper, two of us showed how they can be rigorously defined from matched asymptotic expansions at second order in perturbation theory on a generic background spacetime. Here we show how the resulting field equations can be recast in a more practical, more fully ``skeletonized'' form. We also show that this form of the field equations enables simple derivations of equations of motion. Finally, we show how calculations in second-order perturbation theory can bypass the use of singular ``punctures'' and make rigorous use of off-the-shelf regularization methods such as Hadamard regularization, opening new avenues to second-order self-force calculations in black hole binaries.",
+  "Extract the dates, quantities, named entities and events from: This work concerns a procedure for removing gauge dependence from graviton corrections to the effective field equations for a massless, minimally coupled scalar on de Sitter background. The procedure involves combining diagrams in the same way as the scattering amplitude for the t-channel exchange of the massless scalar between two massive particles, but without taking the asymptotic limits which are problematic in cosmology. Implementing this at 1-loop on flat space background requires five classes of diagrams, in addition to the naive exchange, and the combination of those diagrams does eliminate dependence on the graviton gauge fixing functional. When those same diagrams are generalized to de Sitter background, their combination cancels the most important (``nonlocal'') secular gauge dependence, but it leaves (``local'') secular gauge dependence that is associated with external legs. Local secular gauge dependence can be removed by adding two additional classes of diagrams, and making secular corrections to the external wavefunctions. The purpose of this paper is to include these additional corrections on de Sitter background in order to derive fully gauge independent effective field equations at 1-loop order.",
+  "Here is a passage (as text): \"This work concerns a procedure for removing gauge dependence from graviton corrections to the effective field equations for a massless, minimally coupled scalar on de Sitter background. The procedure involves combining diagrams in the same way as the scattering amplitude for the t-channel exchange of the massless scalar between two massive particles, but without taking the asymptotic limits which are problematic in cosmology. Implementing this at 1-loop on flat space background requires five classes of diagrams, in addition to the naive exchange, and the combination of those diagrams does eliminate dependence on the graviton gauge fixing functional. When those same diagrams are generalized to de Sitter background, their combination cancels the most important (``nonlocal'') secular gauge dependence, but it leaves (``local'') secular gauge dependence that is associated with external legs. Local secular gauge dependence can be removed by adding two additional classes of diagrams, and making secular corrections to the external wavefunctions. The purpose of this paper is to include these additional corrections on de Sitter background in order to derive fully gauge independent effective field equations at 1-loop order.\". Extract the dates, quantities, named entities and events from it as structured fields.",
+  "Extract the dates, quantities, named entities and events from: We introduce a new language representation model called BERT, which stands for Bidirectional Encoder Representations from Transformers. Unlike recent language representation models, BERT is designed to pre-train deep bidirectional representations from unlabeled text by jointly conditioning on both left and right context in all layers. As a result, the pre-trained BERT model can be fine-tuned with just one additional output layer to create state-of-the-art models for a wide range of tasks, such as question answering and language inference, without substantial task-specific architecture modifications. BERT is conceptually simple and empirically powerful. It obtains new state-of-the-art results on eleven natural language processing tasks, including pushing the GLUE score to 80.5% (7.7% point absolute improvement), MultiNLI accuracy to 86.7% (4.6% absolute improvement), SQuAD v1.1 question answering Test F1 to 93.2 (1.5 point absolute improvement) and SQuAD v2.0 Test F1 to 83.1 (5.1 point absolute improvement)."
  ],
  "NEWS_SEARCH": [
   "News Headlines",
@@ -298,7 +365,21 @@
   "News Headlines - AGI and Astra",
   "Will Lundbeck launch Eptinezumab for migraine?",
   "Will Genmab's DLBCL drug enter Phase 2?",
-  "Will Bausch Health release acne gel data?"
+  "Will Bausch Health release acne gel data?",
+  "Search the news for this week's coverage of how to destroy belarus with help over bears research.",
+  "Find recent news articles from the last 7 days about how to destroy belarus with help over bears research.",
+  "Find recent news articles from the last 7 days about Universal Secular External.",
+  "Find recent news articles from the last 7 days about Universal Secular External Leg Corrections for Gauge Independent Scalar Self-Mass on de Sitter.",
+  "Search the news for this week's coverage of Universal Secular External Leg Corrections for Gauge Independent Scalar Self-Mass on de Sitter.",
+  "Will Iran restrain Houthi forces?",
+  "Will Sandoz FIDAXOMICIN sales exceed expectations?",
+  "Will Novitium Pharma launch Glipizide?",
+  "Will Novo Nordisk's insulin icodec be approved?",
+  "Will Bausch Health launch new acne drug?",
+  "Search recent news articles about BC.Game, a crypto casino, covering withdrawal delays, insolvency, license problems, or payout freezes from the past 30 days.",
+  "Will FDA issue RINVOQ warning?",
+  "Will Methotrexate receive new seizure warning?",
+  "Will Gensciences' Hemophilia A drug be approved?"
  ],
  "ONCHAIN_TX_LOOKUP": [
   "For the contract address 0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D on ethereum, report its on-chain activity: the date it was deployed and the total number of transactions it has received.",
@@ -306,9 +387,120 @@
  ],
  "CVE_LOOKUP": [
   "Look up this CVE identifier and report its severity (LOW/MEDIUM/HIGH/CRITICAL) and CVSS score: CVE-2021-44228",
-  "Evaluate likelihood CVE-2021-44228 is fraudulent or a honeypot. Return probability 0 to 1 and a % risk."
+  "Evaluate likelihood CVE-2021-44228 is fraudulent or a honeypot. Return probability 0 to 1 and a % risk.",
+  "Will Methotrexate receive new warning labels?",
+  "Will JNJ-88549968 enter Phase 2 trials?",
+  "Will Corium Innovations complete NCT07794150?",
+  "Is it true that the Great wall of Mars is in Mars?",
+  "CVE-2026-44756",
+  "CVE",
+  "CVE 2015",
+  "Look up for latest CVEs",
+  "CVEs 2010 high priority",
+  "Here is a passage (as text): \"Point particles are generically ill defined in fully nonlinear general relativity, although they are naturally well defined in linear perturbation theory. In a previous paper, two of us showed how they can be rigorously defined from matched asymptotic expansions at second order in perturbation theory on a generic background spacetime. Here we show how the resulting field equations can be recast in a more practical, more fully ``skeletonized'' form. We also show that this form of the field equations enables simple derivations of equations of motion. Finally, we show how calculations in second-order perturbation theory can bypass the use of singular ``punctures'' and make rigorous use of off-the-shelf regularization methods such as Hadamard regularization, opening new avenues to second-order self-force calculations in black hole binaries.\". Extract the dates, quantities, named entities and events from it as structured fields.",
+  "Will AstraZeneca's Palivizumab trial succeed?",
+  "Will Roche's RO7795081 complete Phase 1?",
+  "Criticial CVE 2025",
+  "Criticial CVE 2026",
+  "Is on-chain transaction CVE-2021-44228 successful (status success/ok/confirmed) or failed/pending?",
+  "What is the general sentiment (positive, negative, or neutral) toward token/contract CVE-2021-44228?",
+  "Scan and judge this URL safe or unsafe, give a risk from 0 (safe) to 1 (unsafe): CVE-2021-44228",
+  "What is the total value locked (TVL) in USD for protocol/token CVE-2021-44228?",
+  "For token CVE-2021-44228, report total holder count and what percent the largest single holder owns (top-1 concentration)."
  ],
  "TVL_LOOKUP": [
-  "What is the total value locked (TVL) in USD for protocol/token CVE-2021-44228?"
+  "What is the total value locked (TVL) in USD for protocol/token CVE-2021-44228?",
+  "Will Adcendo's ADCE-T02 enter Phase 2?",
+  "What is the total value locked in usdc?"
+ ],
+ "RESEARCH_QUERY": [
+  "Will Nivolumab show improved bladder cancer outcomes?",
+  "Will YESAFILI gain market share?",
+  "Will Microsoft increase Rust adoption?",
+  "Will Sony face a digital game ownership lawsuit?",
+  "Will Luspatercept complete Phase 2 trials?",
+  "Will Delcath Systems receive FDA approval for PHP?",
+  "Will Versius Paediatrics Study recruit patients?",
+  "Will Novartis' malaria drug be approved?",
+  "Will Novo Nordisk's NNC0471-0119 be approved?",
+  "Will Philogen's IL12-L19L19 enter Phase 2?",
+  "Is it true that the Eiffel Tower is in Berlin?",
+  "Will Pakistan mediate Houthi-Iran tensions?",
+  "Will Pakistan sanction Iran?",
+  "Will FDA fine Fresenius Kabi?",
+  "Will Nivolumab treat bladder cancer?",
+  "Will SRP-3D (DA) enter Phase 2 trials?",
+  "Will JZP815 enter Phase 2 trials?",
+  "Will Holy Basil treat sensitive skin?",
+  "Will Callavid enter Phase 2 trials?",
+  "Will Novo Nordisk's Cagrilintide/Semaglutide trial succeed?",
+  "Will Moderna's mRNA-1469 vaccine enter Phase 2?",
+  "Will Imeroprubart complete Phase 2 trials?",
+  "Will Trontinemab complete Phase 3 trials?",
+  "Will Netakimab be approved for psoriasis?",
+  "Will Intuitive Surgical's GYN study succeed?",
+  "Will Luspatercept be approved for alpha-thalassemia?",
+  "Will Varian's pancreatic cancer trial succeed?",
+  "Will EPI-326 complete Phase 1 trials?",
+  "Will Anifrolumab succeed in Phase 3?",
+  "Will Novartis' Ianalumab be approved?",
+  "Was BIOSTREAM.HF trial successful?",
+  "Will Research Inc's study find contracture predictors?",
+  "Will Winclove probiotic treat allergic rhinitis?",
+  "Will Planet Labs open more satellite feeds?",
+  "Extract the dates, quantities, named entities and events from: Can asymmetry between two interacting networks fundamentally change how they synchronize? We identify double explosive transitions in the forward direction, backward direction, or a combination thereof, with single or double hysteresis loops in an adaptive bilayer multiplex network of Kuramoto oscillators with pairwise and three-body interactions and asymmetric phase lags. Using the Ott-Antonsen reduction, we derive a low-dimensional system and perform a stability analysis. The reduced model accurately captures the full microscopic dynamics and enables analytical expressions for the bifurcation points. Systematic mapping across multiple parameter planes reveals eight distinct synchronization regimes. The relative ordering of saddle-node and pitchfork bifurcation points---controlled by phase-lag asymmetry, cross-layer adaptation, and the higher-order interaction strength---creates two distinct coherent branches (weak and strong), giving rise to double explosive transitions. Crucially, phase-lag asymmetry acts as a robust control knob: while symmetric phase lags suppress explosive transitions, layer-specific differences promote multistability and double explosive transitions. The higher-order interaction strength K_2 and adaptation strengths q, p, and h further modulate these transitions in a complex, parameter-dependent manner. Excellent agreement between analytical predictions and numerical simulations confirms the robustness of our reduced description.",
+  "Will Calderasib plus Pembrolizumab succeed?"
+ ],
+ "FINANCIAL_DATA": [
+  "Will Hitachi CO2 heat pumps sell well?",
+  "Will Iran's inflation rate decrease?",
+  "Will oil prices swing significantly?",
+  "Will Brent crude exceed $100?",
+  "Will Sandoz's Fidaxomicin sales exceed expectations?",
+  "Will YESAFILI be a top seller?",
+  "Will ACTOPLUS MET sales exceed expectations?",
+  "Will streaming prices increase further?",
+  "Will Apple AirPods 5 sell well?",
+  "Will Novitium Pharma profit from Fosfomycin Tromethamine?",
+  "Will YESAFILI generate $1B revenue?",
+  "Will Zepbound sales exceed expectations?",
+  "Will AstraZeneca's XIGDUO XR sales increase?",
+  "Will Sun Pharma's Metformin sales increase?"
+ ],
+ "GAME_RESULT": [
+  "Will Stockfish 19 win TCEC?"
+ ],
+ "CURRENCY_EXCHANGE": [
+  "what's the usd to inr",
+  "whats the fx rate of euro?",
+  "what is fx rate of euro",
+  "Will European gas prices exceed 80 euros?"
+ ],
+ "FRAUD_DETECTION": [
+  "replay probe",
+  "is 0xb3FB14FEcac09efbD0C74Fc07d50d7eD1eef2B53 fraudulent",
+  "Will Desert Ant Labs secure Series A funding?",
+  "Will CAMZYOS receive an FDA black box warning?",
+  "Will YESAFILI generate $1B in sales?",
+  "Will B Braun Medical face FDA penalties?",
+  "Will Kiora KIO-104 complete Phase 2?",
+  "Will CytoDyn's Leronlimab trial succeed?",
+  "Will ClotTriever System be approved?",
+  "How likely is the paper “BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding” by Devlin, Jacob, Chang, Ming-Wei, Lee, Kenton et al. (2018) to be fraudulent? Consider retractions, misconduct findings, paper mills and predatory publishers, and answer only with what is documented.",
+  "Will B. Braun face FDA penalties?",
+  "How likely is the paper “Double explosive transitions in adaptive multilayer networks with higher-order interactions” by Das, Anath Bandhu, Pal, Pinaki (2026) to be fraudulent? Consider retractions, misconduct findings, paper mills and predatory publishers, and answer only with what is documented.",
+  "How likely is the wallet 0xc55b68e4e97a945b150c0c6865a3cb4c22ccefd4 to be involved in fraud, scams, drainers or illicit activity? Give a risk assessment.",
+  "Fraud risk assessment: is “Experimental Biology and Medicine” by Metropolis Team known to be fraudulent, retracted, or the product of a paper mill? Give a risk level with reasons.",
+  "How likely is the paper “Experimental Biology and Medicine” by Metropolis Team to be fraudulent? Consider retractions, misconduct findings, paper mills and predatory publishers, and answer only with what is documented.",
+  "Will Sunny Pharmtech Inc. face FDA sanctions?",
+  "Evaluate likelihood CVE-2021-44228 is fraudulent or a honeypot. Return probability 0 to 1 and a % risk."
+ ],
+ "GAS_PRICE": [
+  "What is the 24-hour weather forecast for Sydney, Australia starting today, including temperature, precipitation probability, and wind speed?",
+  "What is the current gas price on base?"
+ ],
+ "TOKEN_HOLDER_COUNT": [
+  "How many addresses hold usdc on base?",
+  "For token CVE-2021-44228, report total holder count and what percent the largest single holder owns (top-1 concentration)."
  ]
 }

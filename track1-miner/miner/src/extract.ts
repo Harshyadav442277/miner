@@ -123,6 +123,29 @@ export function placeCandidates(text: string): string[] {
     if (!junk && !out.includes(tail)) out.push(tail);
   }
 
+  // The same locative tail, but ending at a comma rather than at the end of the
+  // string. The block above is anchored to the end, so it sees nothing in
+  // "...forecast for lagos nigeria starting today, including temperature,
+  // precipitation probability and wind?" - the shape the Daemon actually routes.
+  // That question is all lowercase, so the proper-noun pass finds nothing
+  // either, and it was refused with no candidate tried at all. Every clause
+  // between commas is scanned here, cleaned exactly the way the end-anchored
+  // tail is, and appended after it.
+  for (const m of raw.matchAll(/\b(?:in|at|near|around|for)\s+([^,?.!]{2,40})(?=[,?.!]|$)/gi)) {
+    let clause = (m[1] ?? "")
+      .replace(/\b(?:starting|beginning|start(?:s|ing)? on|from|over|during|next|this|later|including)\b.*$/i, "")
+      .trim();
+    let seen = "";
+    while (clause !== seen) {
+      seen = clause;
+      clause = clause.replace(TRAILING, "").trim();
+    }
+    const head = clause.split(/\s+/)[0]?.toLowerCase() ?? "";
+    const unusable = /^\d/.test(clause) || !/[a-z]{2}/i.test(clause) ||
+      ["which", "the", "a", "an", "what", "how", "that", "this"].includes(head);
+    if (!unusable && !out.includes(clause)) out.push(clause);
+  }
+
   // Proper-noun runs are the strongest signal in an English question.
   const proper = raw.match(/\b[A-Z][a-z]+(?:[ -][A-Z][a-z]+)*/g);
   if (proper) {
@@ -165,6 +188,25 @@ export function placeCandidates(text: string): string[] {
     }
     for (const p of kept) if (!out.includes(p)) out.push(p);
   }
+  // Open-Meteo's gazetteer searches a NAME, not a "city country" phrase.
+  // "Lagos Nigeria", "lagos nigeria" and "Houston Texas" all return zero
+  // results where "Lagos, Nigeria", "Houston, Texas" and a bare "Lagos"
+  // resolve, and six real routed questions across WEATHER_FORECAST,
+  // WEATHER_CHECK and STORM_ALERT arrive with no comma. So every multi-word
+  // candidate also offers the comma-separated form and its leading words. Both
+  // are appended AFTER every candidate already found, so they cost a geocoder
+  // round-trip only on a question that would otherwise be refused, and the
+  // geocoder stays the arbiter of whether a string names a place.
+  for (const candidate of [...out]) {
+    if (candidate.includes(",")) continue;
+    const words = candidate.split(/\s+/).filter(Boolean);
+    if (words.length < 2 || words.length > 4) continue;
+    const head = words.slice(0, -1).join(" ");
+    for (const derived of [head + ", " + words[words.length - 1], head]) {
+      if (derived && !out.includes(derived)) out.push(derived);
+    }
+  }
+
   // A place name is not a sentence. Handing the geocoder 90 characters of
   // question resolved "Can you provide a 48-hour forecast for Tokyo, Japan..."
   // to Guangzhou — a confident answer about the wrong city.

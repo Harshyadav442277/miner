@@ -305,9 +305,24 @@ const CHECKS = {
       if (!/1\.00 USD is [\d,]+\.\d\d JPY/.test(ir)) bad.push(`"how many yen is 1 dollar" was not read as USD to JPY: ${ir.slice(0, 90)}`);
     }
 
-    // One currency is not a conversion.
+    // One named currency is quoted against the dollar, and against the euro when
+    // the dollar is the one named. This gate used to demand `missing_currency`
+    // here; three of the four routed CURRENCY_EXCHANGE questions name exactly
+    // one currency and all three were refused, so the refusal was the defect and
+    // the assertion moved with the behaviour.
     const half = await get("/convert", { query: "How much is 100 dollars?" });
-    if (half.body.error !== "missing_currency") bad.push(`single-currency request -> ${half.body.error}, want missing_currency`);
+    if (half.body.error) bad.push(`single-currency request -> ${half.body.error}, want a quote against the euro`);
+    else if (!/100\.00 USD is [\d,]+\.\d\d EUR/.test(String(half.body.reason ?? ""))) {
+      bad.push(`"how much is 100 dollars" was not quoted against the euro: ${String(half.body.reason ?? "").slice(0, 90)}`);
+    }
+    const euro = await get("/convert", { query: "whats the fx rate of euro?" });
+    if (!euro.body.error && !/1 EUR = [\d.]+ USD/.test(String(euro.body.reason ?? ""))) {
+      bad.push(`"fx rate of euro" was not quoted against the dollar: ${String(euro.body.reason ?? "").slice(0, 90)}`);
+    }
+
+    // Naming NO currency is still not a conversion, and must still refuse.
+    const none = await get("/convert", { query: "What is the exchange rate?" });
+    if (none.body.error !== "missing_currency") bad.push(`no-currency request -> ${none.body.error}, want missing_currency`);
     return bad;
   },
 
