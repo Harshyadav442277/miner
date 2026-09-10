@@ -7,7 +7,7 @@ Seven failed production probes now pass: Base USDC, Ethereum ETH+USDT, BNB nativ
 explicit-chain precedence, numeric chain IDs, malformed wallets, and bridged USDC.e handling.
 The old BSC response was 10.36722181 ETH from Ethereum; the new one is 0.50528153 BNB from BSC.
 Thirteen new regression cases, **474/474 full-suite tests**, and eight live RPC/contract checks pass.
-The full production preflight is still running. Runtime supports canonical USDC on five chains
+The full production preflight passed **7/7**, including **26/26 intent correctness**. Runtime supports canonical USDC on five chains
 and Ethereum USDT through read-only balanceOf, with six-decimal bigint formatting. RPC reads
 race at most two attempts per lookup, bound total time and cancel outstanding work after success.
 Malformed addresses now yield unknown, not scorer-preferred but unsubstantiated zero balances.
