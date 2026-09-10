@@ -1,0 +1,433 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "32afaf05-6f08-44a1-ad14-46f4ac9d5b50",
+        "epoch_id": 321,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "fourcast-sports-intelligence",
+        "rank": 1,
+        "score": 2.8993214e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-10T05:50:11.938218Z",
+        "created_at": "2026-09-10T05:50:11.938218Z"
+      },
+      {
+        "id": "ae360ad5-52fc-42f4-b1e2-099e4163fdcb",
+        "epoch_id": 320,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "fourcast-sports-intelligence",
+        "rank": 1,
+        "score": 8.199142e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T20:55:35.161836Z",
+        "created_at": "2026-09-09T20:55:35.161836Z"
+      },
+      {
+        "id": "18dbeeb9-7049-4701-9abd-4bcf8c75cacd",
+        "epoch_id": 319,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "fourcast-sports-intelligence",
+        "rank": 1,
+        "score": 9.819565e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T12:11:45.281936Z",
+        "created_at": "2026-09-09T12:11:45.281936Z"
+      },
+      {
+        "id": "8b521a81-2aa6-475f-ae6d-ec9eaf631761",
+        "epoch_id": 318,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "fourcast-sports-intelligence",
+        "rank": 1,
+        "score": 1.03650265e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T02:51:28.227479Z",
+        "created_at": "2026-09-09T02:51:28.227479Z"
+      },
+      {
+        "id": "b0274603-4c9b-4a4a-ae14-c1cba470bd9a",
+        "epoch_id": 317,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "fourcast-sports-intelligence",
+        "rank": 1,
+        "score": 1.01278205e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-08T18:08:44.151787Z",
+        "created_at": "2026-09-08T18:08:44.151787Z"
+      },
+      {
+        "id": "202a92ca-7b9f-4520-bb59-5a5a8be67852",
+        "epoch_id": 316,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "fourcast-sports-intelligence",
+        "rank": 1,
+        "score": 7.503522e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-08T08:59:46.782981Z",
+        "created_at": "2026-09-08T08:59:46.782981Z"
+      },
+      {
+        "id": "c892d4ee-0202-4a52-92fa-7cf5f5cc9edc",
+        "epoch_id": 315,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "sportwire-score",
+        "rank": 1,
+        "score": 1.3271817e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-07T23:52:18.43777Z",
+        "created_at": "2026-09-07T23:52:18.43777Z"
+      },
+      {
+        "id": "100480a4-ba5f-45f1-af0b-3ee77ba68b4c",
+        "epoch_id": 314,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "scorewire-oracle",
+        "rank": 1,
+        "score": 8.317482e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-07T09:13:38.319897Z",
+        "created_at": "2026-09-07T09:13:38.319897Z"
+      },
+      {
+        "id": "d92f8b00-3515-4554-adc5-6386ed964f06",
+        "epoch_id": 313,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "fourcast-sports-intelligence",
+        "rank": 1,
+        "score": 4.897544e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-07T00:12:26.074307Z",
+        "created_at": "2026-09-07T00:12:26.074307Z"
+      },
+      {
+        "id": "0ca42116-acd9-40a2-8f9e-31f540f80592",
+        "epoch_id": 312,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "fourcast-sports-intelligence",
+        "rank": 1,
+        "score": 8.423342e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-06T15:17:41.02086Z",
+        "created_at": "2026-09-06T15:17:41.02086Z"
+      },
+      {
+        "id": "a61962a8-0fdc-4a0e-b8af-aa0a68cc7741",
+        "epoch_id": 311,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "fourcast-sports-intelligence",
+        "rank": 1,
+        "score": 1.03765494e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-06T06:09:47.718216Z",
+        "created_at": "2026-09-06T06:09:47.718216Z"
+      },
+      {
+        "id": "8e8ad264-6632-4aa0-ba87-e10d4d56e5ee",
+        "epoch_id": 310,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "fourcast-sports-intelligence",
+        "rank": 1,
+        "score": 5.8175535e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-05T17:04:28.335351Z",
+        "created_at": "2026-09-05T17:04:28.335351Z"
+      },
+      {
+        "id": "1754e650-85b8-4a35-b72f-4d3f836a2848",
+        "epoch_id": 309,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "sportwire-score",
+        "rank": 1,
+        "score": 4.328877e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-05T04:38:46.976026Z",
+        "created_at": "2026-09-05T04:38:46.976026Z"
+      },
+      {
+        "id": "d72270a7-7173-4921-88f0-f36c03647cb8",
+        "epoch_id": 308,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "fourcast-sports-intelligence",
+        "rank": 1,
+        "score": 3.5046007e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-04T16:08:14.90142Z",
+        "created_at": "2026-09-04T16:08:14.90142Z"
+      },
+      {
+        "id": "cda55416-5ecf-452f-b5ec-4fd3bf045183",
+        "epoch_id": 307,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "fourcast-sports-intelligence",
+        "rank": 1,
+        "score": 3.3904936e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-04T07:04:31.545709Z",
+        "created_at": "2026-09-04T07:04:31.545709Z"
+      },
+      {
+        "id": "bfc66cfb-4994-4c54-ab6b-8ba2ec1b03b3",
+        "epoch_id": 306,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "fourcast-sports-intelligence",
+        "rank": 1,
+        "score": 3.3904936e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-03T22:08:47.434291Z",
+        "created_at": "2026-09-03T22:08:47.434291Z"
+      },
+      {
+        "id": "cab149e5-f575-4b3c-b4b5-fbe6c4479667",
+        "epoch_id": 305,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "sportwire-score",
+        "rank": 1,
+        "score": 7.440304e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-03T13:10:10.857926Z",
+        "created_at": "2026-09-03T13:10:10.857926Z"
+      },
+      {
+        "id": "97c1f157-b9ba-4f91-ab9e-8f783f112615",
+        "epoch_id": 304,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "sportwire-score",
+        "rank": 1,
+        "score": 7.440304e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-03T04:11:07.617705Z",
+        "created_at": "2026-09-03T04:11:07.617705Z"
+      },
+      {
+        "id": "f2d49330-56d3-4f57-9b5e-1dfdaba9a3f5",
+        "epoch_id": 303,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "fourcast-sports-intelligence",
+        "rank": 1,
+        "score": 3.3904936e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-02T19:04:17.444995Z",
+        "created_at": "2026-09-02T19:04:17.444995Z"
+      },
+      {
+        "id": "7b2eb363-a728-4c4f-b343-fee6746072b9",
+        "epoch_id": 302,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "fourcast-sports-intelligence",
+        "rank": 1,
+        "score": 3.3904936e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-02T10:01:38.350198Z",
+        "created_at": "2026-09-02T10:01:38.350198Z"
+      },
+      {
+        "id": "be1a0de0-2c96-40c1-b923-a4d38b0d1f5d",
+        "epoch_id": 301,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "sportwire-score",
+        "rank": 1,
+        "score": 0,
+        "failure_reason": "call miner \"sportwire-score\": upstream call failed: Get \"https://telegraph-sport.margyn.workers.dev/score?question=What+is+the+current+score+in+the+Lakers+vs.+Celtics+game+happening+right+now%3F\": dial tcp 104.21.0.209:443: i/o timeout",
+        "scored_at": "2026-09-02T01:04:17.271045Z",
+        "created_at": "2026-09-02T01:04:17.271045Z"
+      },
+      {
+        "id": "a110a721-77ce-4605-a338-b75d620f8b3a",
+        "epoch_id": 300,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "fourcast-sports-intelligence",
+        "rank": 1,
+        "score": 3.3904936e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-01T16:20:04.218198Z",
+        "created_at": "2026-09-01T16:20:04.218198Z"
+      },
+      {
+        "id": "7699221e-53db-44b7-b130-53317fcc0e16",
+        "epoch_id": 299,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "sportwire-score",
+        "rank": 1,
+        "score": 7.80794e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-01T07:04:19.867028Z",
+        "created_at": "2026-09-01T07:04:19.867028Z"
+      },
+      {
+        "id": "d270630b-0c5c-469a-9844-300a91f39417",
+        "epoch_id": 298,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "fourcast-sports-intelligence",
+        "rank": 1,
+        "score": 0.0002708762,
+        "failure_reason": "",
+        "scored_at": "2026-08-31T23:10:41.266761Z",
+        "created_at": "2026-08-31T23:10:41.266761Z"
+      },
+      {
+        "id": "4744f05d-16ad-4470-9a64-1de9542ac6d5",
+        "epoch_id": 297,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "fourcast-sports-intelligence",
+        "rank": 1,
+        "score": 0.013397664,
+        "failure_reason": "",
+        "scored_at": "2026-08-31T14:09:56.430083Z",
+        "created_at": "2026-08-31T14:09:56.430083Z"
+      },
+      {
+        "id": "c07df510-3abb-46e5-b6c5-5caadf7de19b",
+        "epoch_id": 296,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "fourcast-sports-intelligence",
+        "rank": 1,
+        "score": 0.0047867126,
+        "failure_reason": "",
+        "scored_at": "2026-08-31T05:17:22.989342Z",
+        "created_at": "2026-08-31T05:17:22.989342Z"
+      },
+      {
+        "id": "910f51e0-1619-49e8-87f5-833ca06924d3",
+        "epoch_id": 295,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "sportwire-score",
+        "rank": 1,
+        "score": 0.008471249,
+        "failure_reason": "",
+        "scored_at": "2026-08-30T19:04:17.695266Z",
+        "created_at": "2026-08-30T19:04:17.695266Z"
+      },
+      {
+        "id": "52d56558-7938-41ae-add7-766bad5a9cf4",
+        "epoch_id": 294,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "sportwire-score",
+        "rank": 1,
+        "score": 0.011647635,
+        "failure_reason": "",
+        "scored_at": "2026-08-30T09:56:56.231957Z",
+        "created_at": "2026-08-30T09:56:56.231957Z"
+      },
+      {
+        "id": "94e3fda1-a98d-4994-be79-1dc242e2a03e",
+        "epoch_id": 293,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "sportwire-score",
+        "rank": 1,
+        "score": 0.0067910175,
+        "failure_reason": "",
+        "scored_at": "2026-08-30T07:10:18.742158Z",
+        "created_at": "2026-08-30T07:10:18.742158Z"
+      },
+      {
+        "id": "034bcf40-7572-42da-a8f6-20ea1a6e1336",
+        "epoch_id": 292,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "fourcast-sports-intelligence",
+        "rank": 1,
+        "score": 0.0070444667,
+        "failure_reason": "",
+        "scored_at": "2026-08-29T22:20:15.954987Z",
+        "created_at": "2026-08-29T22:20:15.954987Z"
+      },
+      {
+        "id": "d2d14f16-c4a8-458f-8724-f0dc8caf7e99",
+        "epoch_id": 291,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "fourcast-sports-intelligence",
+        "rank": 1,
+        "score": 0.008004242,
+        "failure_reason": "",
+        "scored_at": "2026-08-29T13:08:26.2834Z",
+        "created_at": "2026-08-29T13:08:26.2834Z"
+      },
+      {
+        "id": "9c832d07-0057-4029-9de4-5477a8d56aac",
+        "epoch_id": 290,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "scorewire-oracle",
+        "rank": 1,
+        "score": 0.0054962044,
+        "failure_reason": "",
+        "scored_at": "2026-08-29T06:37:52.390319Z",
+        "created_at": "2026-08-29T06:37:52.390319Z"
+      },
+      {
+        "id": "a7ce7ac4-cf4c-475d-b962-06dcec9f146f",
+        "epoch_id": 288,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "scorewire-oracle",
+        "rank": 1,
+        "score": 0.0027462256,
+        "failure_reason": "",
+        "scored_at": "2026-08-28T03:51:33.984117Z",
+        "created_at": "2026-08-28T03:51:33.984117Z"
+      },
+      {
+        "id": "befca18f-34a2-4bbd-901b-c49e64ef5a1f",
+        "epoch_id": 287,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "fourcast-sports-intelligence",
+        "rank": 1,
+        "score": 0.0049864976,
+        "failure_reason": "",
+        "scored_at": "2026-08-27T18:47:16.796554Z",
+        "created_at": "2026-08-27T18:47:16.796554Z"
+      },
+      {
+        "id": "6fd227ba-3092-4ae9-aef7-f6c0e97c0e40",
+        "epoch_id": 286,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "scorewire-oracle",
+        "rank": 1,
+        "score": 0.0052933916,
+        "failure_reason": "",
+        "scored_at": "2026-08-27T09:46:11.575962Z",
+        "created_at": "2026-08-27T09:46:11.575962Z"
+      },
+      {
+        "id": "957f1cd2-6100-4824-a305-6151fec54736",
+        "epoch_id": 285,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "scorewire-oracle",
+        "rank": 1,
+        "score": 0.0070784646,
+        "failure_reason": "",
+        "scored_at": "2026-08-27T00:37:22.628488Z",
+        "created_at": "2026-08-27T00:37:22.628488Z"
+      }
+    ],
+    "total": 143,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 3045,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "SPORTS_SCORE",
+    "wasm_url": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/60ddabc7de7e9d0398e79b3b72bc3cdde2f36934/dist/win/spw_3.wasm",
+    "wasm_hash": "a5265de3eecf51fa9dcc4b173c75c94f54e3ab891b1c89a4d1112a26a73cdfd0",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 0.8666645,
+    "eval": {
+      "candidate_margin": 0.8666645,
+      "champion_margin": 0.8666609,
+      "candidate_wins": 15,
+      "champion_wins": 15,
+      "comparable_cases": 15,
+      "worst_self_match": 1,
+      "score_stddev": 0.47140354,
+      "spearman": {
+        "SPORTS_SCORE": 0.68097544
+      },
+      "historical_rows_evaluated": 56
+    },
+    "registered_at": "2026-08-31T23:16:53Z",
+    "updated_at": "2026-09-01T02:55:13Z"
+  }
+}

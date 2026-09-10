@@ -1,0 +1,279 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "55ab21d3-cd1b-456e-b9f4-85546d8c4e9f",
+        "epoch_id": 321,
+        "intent_id": "CVE_LOOKUP",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 1,
+        "failure_reason": "",
+        "scored_at": "2026-09-10T05:55:49.749631Z",
+        "created_at": "2026-09-10T05:55:49.749631Z"
+      },
+      {
+        "id": "cf5f5163-593e-41fe-b931-7afe173c6196",
+        "epoch_id": 320,
+        "intent_id": "CVE_LOOKUP",
+        "miner_slug": "secwire-cve-lookup",
+        "rank": 1,
+        "score": 1.2229478e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T20:56:08.355375Z",
+        "created_at": "2026-09-09T20:56:08.355375Z"
+      },
+      {
+        "id": "48465e04-c2ba-45a0-b75e-cf9a0f658358",
+        "epoch_id": 320,
+        "intent_id": "CVE_LOOKUP",
+        "miner_slug": "livecert",
+        "rank": 3,
+        "score": 7.771775e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T20:56:08.355375Z",
+        "created_at": "2026-09-09T20:56:08.355375Z"
+      },
+      {
+        "id": "7563dc64-eb81-4fdd-ba69-df2b87b64b9e",
+        "epoch_id": 319,
+        "intent_id": "CVE_LOOKUP",
+        "miner_slug": "patchsignal-cve",
+        "rank": 1,
+        "score": 1.303308e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T12:00:11.453747Z",
+        "created_at": "2026-09-09T12:00:11.453747Z"
+      },
+      {
+        "id": "05afe0ef-fc4a-4a04-a224-151b6533b464",
+        "epoch_id": 319,
+        "intent_id": "CVE_LOOKUP",
+        "miner_slug": "livecert",
+        "rank": 5,
+        "score": 6.6326614e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T12:00:11.453747Z",
+        "created_at": "2026-09-09T12:00:11.453747Z"
+      },
+      {
+        "id": "1ea3cf20-6b77-4b0e-9c42-71fc12e6b347",
+        "epoch_id": 318,
+        "intent_id": "CVE_LOOKUP",
+        "miner_slug": "nvd",
+        "rank": 1,
+        "score": 1,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T03:01:46.685257Z",
+        "created_at": "2026-09-09T03:01:46.685257Z"
+      },
+      {
+        "id": "c53932c7-83d1-4df5-b556-be032e18c4ff",
+        "epoch_id": 317,
+        "intent_id": "CVE_LOOKUP",
+        "miner_slug": "patchsignal-cve",
+        "rank": 1,
+        "score": 9.561291e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-08T17:57:27.524833Z",
+        "created_at": "2026-09-08T17:57:27.524833Z"
+      },
+      {
+        "id": "75597056-d812-4735-a4b1-59f68868bd5e",
+        "epoch_id": 316,
+        "intent_id": "CVE_LOOKUP",
+        "miner_slug": "preflight-ssl-verification",
+        "rank": 1,
+        "score": 1,
+        "failure_reason": "",
+        "scored_at": "2026-09-08T08:50:20.400611Z",
+        "created_at": "2026-09-08T08:50:20.400611Z"
+      },
+      {
+        "id": "50267772-25d5-4164-853e-70d364fd6516",
+        "epoch_id": 315,
+        "intent_id": "CVE_LOOKUP",
+        "miner_slug": "sentinelvault-cve",
+        "rank": 1,
+        "score": 1.2140462e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-07T23:52:51.228058Z",
+        "created_at": "2026-09-07T23:52:51.228058Z"
+      },
+      {
+        "id": "c415cfa1-d9d7-48f1-8444-9d36ffbd97f3",
+        "epoch_id": 314,
+        "intent_id": "CVE_LOOKUP",
+        "miner_slug": "secwire-cve-lookup",
+        "rank": 1,
+        "score": 1,
+        "failure_reason": "",
+        "scored_at": "2026-09-07T09:18:05.210164Z",
+        "created_at": "2026-09-07T09:18:05.210164Z"
+      },
+      {
+        "id": "2c0606fc-280b-4864-a666-94e937e0ba05",
+        "epoch_id": 313,
+        "intent_id": "CVE_LOOKUP",
+        "miner_slug": "preflight-ssl-verification",
+        "rank": 1,
+        "score": 1,
+        "failure_reason": "",
+        "scored_at": "2026-09-07T00:11:05.245841Z",
+        "created_at": "2026-09-07T00:11:05.245841Z"
+      },
+      {
+        "id": "ffadafc6-4d19-4dc5-962c-1ea4627d043e",
+        "epoch_id": 312,
+        "intent_id": "CVE_LOOKUP",
+        "miner_slug": "preflight-ssl-verification",
+        "rank": 1,
+        "score": 1,
+        "failure_reason": "",
+        "scored_at": "2026-09-06T15:12:19.884288Z",
+        "created_at": "2026-09-06T15:12:19.884288Z"
+      },
+      {
+        "id": "ca89f3b2-6fde-4c38-af1d-a300faf3047a",
+        "epoch_id": 311,
+        "intent_id": "CVE_LOOKUP",
+        "miner_slug": "nvd",
+        "rank": 1,
+        "score": 1.2573559e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-06T06:08:40.270783Z",
+        "created_at": "2026-09-06T06:08:40.270783Z"
+      },
+      {
+        "id": "0637a55e-ed28-4748-98a7-7ac42444f1b4",
+        "epoch_id": 310,
+        "intent_id": "CVE_LOOKUP",
+        "miner_slug": "preflight-ssl-verification",
+        "rank": 1,
+        "score": 1,
+        "failure_reason": "",
+        "scored_at": "2026-09-05T17:03:24.297973Z",
+        "created_at": "2026-09-05T17:03:24.297973Z"
+      },
+      {
+        "id": "ddccc999-19f9-40b1-943f-c0d234417f43",
+        "epoch_id": 309,
+        "intent_id": "CVE_LOOKUP",
+        "miner_slug": "preflight-ssl-verification",
+        "rank": 1,
+        "score": 1.1847875e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-05T04:42:20.622315Z",
+        "created_at": "2026-09-05T04:42:20.622315Z"
+      },
+      {
+        "id": "b6ebd6e3-47d6-4da3-b23d-8aad196e72d6",
+        "epoch_id": 308,
+        "intent_id": "CVE_LOOKUP",
+        "miner_slug": "preflight-ssl-verification",
+        "rank": 1,
+        "score": 1.12752325e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-04T16:07:59.835671Z",
+        "created_at": "2026-09-04T16:07:59.835671Z"
+      },
+      {
+        "id": "279e9f05-87cd-4a7a-80e6-afd841086182",
+        "epoch_id": 307,
+        "intent_id": "CVE_LOOKUP",
+        "miner_slug": "preflight-ssl-verification",
+        "rank": 1,
+        "score": 1.1568785e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-04T07:11:55.118582Z",
+        "created_at": "2026-09-04T07:11:55.118582Z"
+      },
+      {
+        "id": "021c9f26-05d3-496d-80ea-3509309d7d27",
+        "epoch_id": 306,
+        "intent_id": "CVE_LOOKUP",
+        "miner_slug": "patchsignal-cve",
+        "rank": 1,
+        "score": 1,
+        "failure_reason": "",
+        "scored_at": "2026-09-03T22:05:57.87347Z",
+        "created_at": "2026-09-03T22:05:57.87347Z"
+      },
+      {
+        "id": "e1017ee4-4806-4538-8c00-00db4d42881d",
+        "epoch_id": 305,
+        "intent_id": "CVE_LOOKUP",
+        "miner_slug": "preflight-ssl-verification",
+        "rank": 1,
+        "score": 9.551947e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-03T13:08:23.02126Z",
+        "created_at": "2026-09-03T13:08:23.02126Z"
+      },
+      {
+        "id": "15ac71dc-568b-48f1-b679-113cba8c3ae7",
+        "epoch_id": 304,
+        "intent_id": "CVE_LOOKUP",
+        "miner_slug": "preflight-ssl-verification",
+        "rank": 1,
+        "score": 1.1404775e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-03T04:08:28.93637Z",
+        "created_at": "2026-09-03T04:08:28.93637Z"
+      },
+      {
+        "id": "23aa5bb8-2456-4d49-ba12-4b0edc257684",
+        "epoch_id": 303,
+        "intent_id": "CVE_LOOKUP",
+        "miner_slug": "preflight-ssl-verification",
+        "rank": 1,
+        "score": 1.1389673e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-02T19:08:47.972297Z",
+        "created_at": "2026-09-02T19:08:47.972297Z"
+      },
+      {
+        "id": "d9193a98-9879-41da-96e4-469bb30193f4",
+        "epoch_id": 302,
+        "intent_id": "CVE_LOOKUP",
+        "miner_slug": "preflight-ssl-verification",
+        "rank": 1,
+        "score": 1.1404775e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-02T10:09:01.525374Z",
+        "created_at": "2026-09-02T10:09:01.525374Z"
+      }
+    ],
+    "total": 217,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 3030,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "CVE_LOOKUP",
+    "wasm_url": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/d42528e1dc146e1b641a63c37194faa95c446aec/dist/win/cvz_1e06.wasm",
+    "wasm_hash": "7275293f8988d734808028088d185f30eaa9c478d7b621e860bb323528b81417",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 1,
+    "eval": {
+      "candidate_margin": 1,
+      "champion_margin": 0.9999969,
+      "candidate_wins": 15,
+      "champion_wins": 15,
+      "comparable_cases": 15,
+      "worst_self_match": 1,
+      "score_stddev": 0.47140452,
+      "spearman": {
+        "CVE_LOOKUP": 0.7629891
+      },
+      "historical_rows_evaluated": 48
+    },
+    "registered_at": "2026-08-31T23:03:29Z",
+    "updated_at": "2026-09-01T03:28:21Z"
+  }
+}

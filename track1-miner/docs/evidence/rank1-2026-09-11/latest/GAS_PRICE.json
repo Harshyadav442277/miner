@@ -1,0 +1,169 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "04187c85-d4d2-4c5a-bcb4-4e80d772dbd8",
+        "epoch_id": 321,
+        "intent_id": "GAS_PRICE",
+        "miner_slug": "gaswire-evm-fees",
+        "rank": 1,
+        "score": 1.06e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-10T06:05:42.154068Z",
+        "created_at": "2026-09-10T06:05:42.154068Z"
+      },
+      {
+        "id": "3470fdde-8e87-45b5-924c-67b312047861",
+        "epoch_id": 320,
+        "intent_id": "GAS_PRICE",
+        "miner_slug": "gaswire-evm-fees",
+        "rank": 1,
+        "score": 1.09999995e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T20:59:43.093071Z",
+        "created_at": "2026-09-09T20:59:43.093071Z"
+      },
+      {
+        "id": "93249d04-68b7-447c-a79e-6bb004643601",
+        "epoch_id": 319,
+        "intent_id": "GAS_PRICE",
+        "miner_slug": "kriterion-pramagraph",
+        "rank": 1,
+        "score": 1.09999995e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T11:57:35.444097Z",
+        "created_at": "2026-09-09T11:57:35.444097Z"
+      },
+      {
+        "id": "b28924a1-f877-4704-af4a-a8dd4185e12c",
+        "epoch_id": 318,
+        "intent_id": "GAS_PRICE",
+        "miner_slug": "agentfeed-base-crypto",
+        "rank": 1,
+        "score": 6.1000003e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T03:06:35.820886Z",
+        "created_at": "2026-09-09T03:06:35.820886Z"
+      },
+      {
+        "id": "4f0a1112-505e-4f67-92ff-62caa50c1092",
+        "epoch_id": 317,
+        "intent_id": "GAS_PRICE",
+        "miner_slug": "gaswire-evm-fees",
+        "rank": 1,
+        "score": 2.87474e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-08T18:06:26.726152Z",
+        "created_at": "2026-09-08T18:06:26.726152Z"
+      },
+      {
+        "id": "25137bf7-a149-4bf5-bf43-9e23d97ec156",
+        "epoch_id": 316,
+        "intent_id": "GAS_PRICE",
+        "miner_slug": "truvian-onchain-truth",
+        "rank": 1,
+        "score": 5.7000004e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-08T09:01:30.866496Z",
+        "created_at": "2026-09-08T09:01:30.866496Z"
+      },
+      {
+        "id": "1d592c25-b117-4bf9-b03b-b92c50111854",
+        "epoch_id": 315,
+        "intent_id": "GAS_PRICE",
+        "miner_slug": "truvian-onchain-truth",
+        "rank": 1,
+        "score": 5.7000004e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-07T23:52:50.631686Z",
+        "created_at": "2026-09-07T23:52:50.631686Z"
+      },
+      {
+        "id": "30da21eb-7d05-472b-a748-8c3119759a92",
+        "epoch_id": 314,
+        "intent_id": "GAS_PRICE",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 2.3914103e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-07T09:13:42.137615Z",
+        "created_at": "2026-09-07T09:13:42.137615Z"
+      },
+      {
+        "id": "bc4b430c-0ddd-4906-9512-3486deb43d0d",
+        "epoch_id": 313,
+        "intent_id": "GAS_PRICE",
+        "miner_slug": "gaswire-evm-fees",
+        "rank": 1,
+        "score": 3.0947654e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-07T00:12:44.966158Z",
+        "created_at": "2026-09-07T00:12:44.966158Z"
+      },
+      {
+        "id": "2d4de94f-1b11-4f44-9a25-b0b56c63fb92",
+        "epoch_id": 312,
+        "intent_id": "GAS_PRICE",
+        "miner_slug": "gaswire-evm-fees",
+        "rank": 1,
+        "score": 2.5575597e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-06T15:14:26.867635Z",
+        "created_at": "2026-09-06T15:14:26.867635Z"
+      },
+      {
+        "id": "9aa49fa7-3138-463f-8cb6-078032b9c03f",
+        "epoch_id": 311,
+        "intent_id": "GAS_PRICE",
+        "miner_slug": "agentfeed-base-crypto",
+        "rank": 1,
+        "score": 2.3880701e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-06T06:14:51.633996Z",
+        "created_at": "2026-09-06T06:14:51.633996Z"
+      },
+      {
+        "id": "8e6e3055-baa4-4655-8279-3afd35a4bf5e",
+        "epoch_id": 310,
+        "intent_id": "GAS_PRICE",
+        "miner_slug": "gaspulse-evm-fees",
+        "rank": 1,
+        "score": 2.0883573e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-05T16:54:07.784187Z",
+        "created_at": "2026-09-05T16:54:07.784187Z"
+      }
+    ],
+    "total": 408,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 3119,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "GAS_PRICE",
+    "wasm_url": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/75870ce8705687186eb87ebce607a1ff1f3be676/dist/win2/gpf_1e4.wasm",
+    "wasm_hash": "101a54272ef5faee923a72744de9ed4916ff4ba073ab05e434724191893d48d9",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 0.9333227,
+    "eval": {
+      "candidate_margin": 0.9333227,
+      "champion_margin": 0.93327236,
+      "candidate_wins": 15,
+      "champion_wins": 15,
+      "comparable_cases": 15,
+      "worst_self_match": 1,
+      "score_stddev": 0.4629456,
+      "spearman": {
+        "GAS_PRICE": 0.6803096
+      },
+      "historical_rows_evaluated": 127
+    },
+    "registered_at": "2026-09-01T07:15:41Z",
+    "updated_at": "2026-09-01T07:24:39Z"
+  }
+}
