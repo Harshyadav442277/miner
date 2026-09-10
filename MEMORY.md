@@ -14,7 +14,7 @@ sessions and between models.
 | **Track 3 — app** | **Separate repo and folder:** `../telegraph-morse` — <https://github.com/Harshyadav442277/telegraph-morse>. CertWatch was retired and deleted on 2026-09-02 (never funded, no users). Read its `PLAN.md` first. |
 | Anything | [README.md](README.md) for ownership and shared facts, [docs/](docs/) for protocol and rules |
 
-## 2026-09-10 ~14:00 UTC — FOUR MORE INTENTS BUILT AND DEPLOYED, 22 DECLARED TO 26, SEVEN UNREGISTERED
+## 2026-09-10 ~16:00 UTC — FOUR MORE INTENTS BUILT, SIGNED AND LIVE: REGISTRATION 1379, TWENTY-SIX INTENTS
 
 The operator asked for more intents and ruled out chat completion and anything chatbot-shaped. The
 plan and every rejection are in
@@ -23,11 +23,23 @@ plan and every rejection are in
 Gates: **preflight 7/7**, **26/26 intents answering correctly**, 461 tests (was 337), production
 `miner-r3r5p7xb6`, alias clean, no G70 recurrence.
 
-**Nothing is registered.** Registration 1378 is still nineteen intents. Seven are now deployed and
-unrouted — the three from the morning plus these four. One signature covers all seven:
-hosted hash `54b36692…3b81dbbf` at commit `240df7f`, verified against `git show` and against the
-fetched bytes, never the CRLF worktree copy (G86). `manifest-diff` PASS: all nineteen registered
-intents preserved, and all 26 confirmed canonical on-chain.
+**REGISTERED 2026-09-10 16:01 UTC as registration 1379** — `active`, **twenty-six intents**,
+`rejection_reason` null, `fetch_attempts` 0, hash `54b36692…3b81dbbf` matching the published file byte
+for byte. **1378 is superseded**, so the handover was clean with no gap. Seven intents went on in one
+signature: the morning's three plus these four. Monitoring moved: `REGISTRATION_ID=1379`, watcher green
+at 1048 ms, dispatched uptime run green on check, live-tests, scores and resolve. The status of all
+seven is **registered; ranking unverified** — no epoch has scored them and no rank is claimed.
+
+**The sandbox validator is back and it passed (G60 closed).** All 25 declared endpoints green, HTTP
+200, 239–632 ms, in manifest order. First sandbox validation this miner has passed since August.
+Twenty-five endpoints carry twenty-six intents because `/weather-forecast` serves both WEATHER_FORECAST
+and WEATHER_CHECK.
+
+**Finding the new id: scan, do not assume.** The catalog row at `/api/miners` is keyed by miner id 4433
+and carries no registration id, and `/api/miners/1378` kept reporting the OLD manifest while the
+catalog had already flipped to twenty-six intents. The id was found by scanning `/api/miners/<id>`
+from 1379 upward for `slug === "livecert"`. It was 1379, immediately after the previous one, but the
+402 → 1378 jump shows ids are not reliably contiguous.
 
 **The candidate ceiling, re-measured today.** 108 canonical intents, **45 with a champion scorer**,
 22 declared by us, so 23 reachable. Thirteen were excluded before measurement: seven generative

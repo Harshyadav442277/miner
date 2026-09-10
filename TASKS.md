@@ -27,9 +27,10 @@
 - [x] Build SPORTS_SCORE, TOKEN_HOLDER_COUNT, RESEARCH_QUERY and TEXT_AUTHENTICITY_CHECK; 461 tests
       pass, up from 337; preflight 7/7 and 26/26 intents answering correctly against production
       `miner-r3r5p7xb6`, alias verified.
-- [ ] **Operator: sign the 19-to-26 `updateMiner`.** Everything is prepared and validated and the
-      wallet step is yours: [REGISTRATION_UPDATE.md](track1-miner/docs/REGISTRATION_UPDATE.md).
-      Seven intents are deployed and answering that the network cannot route to until it is signed.
+- [x] **Signed and mined 2026-09-10 16:01 UTC — registration is now 1379**, `active`, twenty-six intents,
+      `rejection_reason` null, `fetch_attempts` 0, hash `54b36692…3b81dbbf` matching the published file.
+      1378 is superseded, so the handover had no serving gap. Sandbox validation passed all 25 endpoints.
+      `REGISTRATION_ID` moved to 1379 and a dispatched uptime run is green on every job.
 - [ ] Read the first complete epoch after registration. No rank is claimed for any of the seven.
 - [ ] **Operator: decide on G95** — ask the organizers before or after signing, but disclose either way.
 

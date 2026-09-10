@@ -1,6 +1,12 @@
 # Registration update — 19 intents to 26
 
-**Status: prepared, NOT signed. This needs the operator.** Claude does not connect
+**Status: SIGNED AND ACTIVE — registration 1379, 2026-09-10 16:01 UTC.** Twenty-six
+intents, `rejection_reason` null, `fetch_attempts` 0, hash matching the published file.
+1378 is superseded with no serving gap. Sandbox validation passed all 25 endpoints.
+`REGISTRATION_ID` is now 1379 and a dispatched uptime run is green on every job.
+Everything below is kept as the runbook for the next update.
+
+~~Status: prepared, NOT signed. This needs the operator.~~ Claude does not connect
 wallets, sign messages or send transactions (CLAUDE.md rule 1). Everything below
 is prepared and validated; the clicking is yours.
 
