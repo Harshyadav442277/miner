@@ -1,0 +1,88 @@
+{
+  "base": "https://miner-wine.vercel.app",
+  "at": "2026-09-10T04:56:02.128Z",
+  "rows": [
+    {
+      "name": "onchain-base-mainnet",
+      "path": "/tx-lookup",
+      "params": {
+        "query": "Look up the ETH transaction 0xd5350fe7e52011dacf1d806eee38425ae5cc489dc85d46b63e4202a6ab896285 on Base mainnet"
+      },
+      "at": "2026-09-10T04:55:57.698Z",
+      "ms": 1601,
+      "status": 200,
+      "pass": false,
+      "body": {
+        "verdict": "not_found",
+        "confidence": 0.9,
+        "reason": "The hash 0xd5350fe7e52011dacf1d806eee38425ae5cc489dc85d46b63e4202a6ab896285 does not correspond to any transaction on ethereum. It has no status, no gas used and no block number."
+      }
+    },
+    {
+      "name": "tvl-base-protocol",
+      "path": "/tvl",
+      "params": {
+        "query": "What is Aave's TVL on Base mainnet?",
+        "protocol": "Aave",
+        "chain": "base"
+      },
+      "at": "2026-09-10T04:55:59.300Z",
+      "ms": 625,
+      "status": 200,
+      "pass": false,
+      "body": {
+        "verdict": "found",
+        "confidence": 0.9,
+        "reason": "The Aave protocol has $18,149,323,083 ($18.15 billion) in total value locked, aggregated across every chain it is deployed on, according to DefiLlama. This is value locked in the protocol, not the market capitalisation of its token."
+      }
+    },
+    {
+      "name": "cve-xz",
+      "path": "/cve",
+      "params": {
+        "cve_id": "CVE-2024-3094"
+      },
+      "at": "2026-09-10T04:55:59.925Z",
+      "ms": 649,
+      "status": 200,
+      "pass": true,
+      "body": {
+        "verdict": "critical",
+        "confidence": 0.97,
+        "reason": "CVE-2024-3094 is rated CRITICAL with a CVSS 3.1 base score of 10.0, assigned by NVD. It affects tukaani xz 5.6.0 and 5.6.1. Malicious code was discovered in the upstream tarballs of xz, starting with version 5.6.0."
+      }
+    },
+    {
+      "name": "sports-date",
+      "path": "/game-result",
+      "params": {
+        "query": "Arsenal vs Chelsea in the Premier League on 2025-03-17"
+      },
+      "at": "2026-09-10T04:56:00.574Z",
+      "ms": 688,
+      "status": 200,
+      "pass": false,
+      "body": {
+        "verdict": "result",
+        "confidence": 0.9,
+        "reason": "Arsenal beat Chelsea 2-1 in the English Premier League on 6 September 2026. The match is complete."
+      }
+    },
+    {
+      "name": "academic-window",
+      "path": "/papers",
+      "params": {
+        "query": "Find papers on quantum computing published between January 15, 2025 and June 10, 2026"
+      },
+      "at": "2026-09-10T04:56:01.262Z",
+      "ms": 859,
+      "status": 200,
+      "pass": false,
+      "body": {
+        "verdict": "papers",
+        "confidence": 1,
+        "reason": "Regarding find papers on quantum computing published between January 15, 2025 and June 10, 2026: Here are 5 peer-reviewed papers on quantum computing published between 2025-01-01 and 2026-06-30: 1) A manufacturable platform for photonic quantum computing by PsiQuantum team, Koen Alexander, Avishai Benyamini, Dylan S. Black (2025), cited 219 times. 2) Barren plateaus in variational quantum computing by Martín Larocca, Supanut Thanasilp, Samson Wang, Kunal Sharma (2025), cited 216 times. 3) Distributed quantum computing across an optical network link by D. Main, P. Drmota, D. P. Nadlinger, E. M. Ainley (2025), cited 175 times. 4) Review of Distributed Quantum Computing: From single QPU to High Performance Quantum Computing by David Barral, F. Javier Cardama, Guillermo Díaz-Camacho, Daniel Faílde (2025), cited 102 times. 5) Quantum Error Correction with Surface Code Analysis on Quantum Computing platform (2025), cited 138 times."
+      }
+    }
+  ]
+}

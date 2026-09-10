@@ -90,23 +90,25 @@ const MONTHS: Record<string, number> = {
 /** A "between January 2023 and June 2026" window, or a bare year. */
 export function dateWindow(text: string): { from: string | null; to: string | null } {
   const s = String(text ?? "");
+  const isoPair = s.match(/\b(?:between|from)\s+(\d{4}-\d{2}-\d{2})\s+(?:and|to)\s+(\d{4}-\d{2}-\d{2})\b/i);
+  if (isoPair) return { from: isoPair[1]!, to: isoPair[2]! };
   // The day number is optional. Real questions use both "between January 2023 and
   // June 2026" and "between January 1, 2025 and June 30, 2026". Missing the second
   // form meant a question scoped to 2025-2026 was answered with papers from 2002.
   const pairRe = new RegExp(
-    String.raw`\b(?:between|from)\s+([A-Za-z]+)\s+(?:\d{1,2}(?:st|nd|rd|th)?\s*,?\s*)?(\d{4})` +
-      String.raw`\s+(?:and|to)\s+([A-Za-z]+)\s+(?:\d{1,2}(?:st|nd|rd|th)?\s*,?\s*)?(\d{4})`,
+    String.raw`\b(?:between|from)\s+([A-Za-z]+)\s+(?:(\d{1,2})(?:st|nd|rd|th)?\s*,?\s*)?(\d{4})` +
+      String.raw`\s+(?:and|to)\s+([A-Za-z]+)\s+(?:(\d{1,2})(?:st|nd|rd|th)?\s*,?\s*)?(\d{4})`,
     "i",
   );
   const m = s.match(pairRe);
-  if (m?.[1] && m[2] && m[3] && m[4]) {
+  if (m?.[1] && m[3] && m[4] && m[6]) {
     const a = MONTHS[m[1].toLowerCase()];
-    const b = MONTHS[m[3].toLowerCase()];
+    const b = MONTHS[m[4].toLowerCase()];
     if (a && b) {
-      const last = new Date(Date.UTC(Number(m[4]), b, 0)).getUTCDate();
+      const last = new Date(Date.UTC(Number(m[6]), b, 0)).getUTCDate();
       return {
-        from: `${m[2]}-${String(a).padStart(2, "0")}-01`,
-        to: `${m[4]}-${String(b).padStart(2, "0")}-${String(last).padStart(2, "0")}`,
+        from: `${m[3]}-${String(a).padStart(2, "0")}-${String(m[2] ?? 1).padStart(2, "0")}`,
+        to: `${m[6]}-${String(b).padStart(2, "0")}-${String(m[5] ?? last).padStart(2, "0")}`,
       };
     }
   }
@@ -351,12 +353,13 @@ export async function findPapers(query: string, limit?: number, timeoutMs = DEFA
   }
 
   // An over-specific topic or a narrow window can return nothing, and "no papers
-  // found" scores near zero. Before giving up, retry with the topic's leading
-  // terms and without the date filter — some real papers beat none.
+  // found" scores near zero. Retry with the leading terms while preserving
+  // the caller's date constraints; older papers do not answer this request.
   if (!(body.results ?? []).length) {
     const short = topic.split(/\s+/).slice(0, 5).join(" ");
     const retry =
       `${API}?search=${encodeURIComponent(short)}` +
+      (filters.length ? `&filter=${encodeURIComponent(filters.join(","))}` : "") +
       (sort ? `&sort=${encodeURIComponent(sort)}` : "") +
       `&per-page=${want}`;
     try {

@@ -1,5 +1,50 @@
 # GAPS.md — honesty ledger
 
+## 2026-09-10 rank-1 mission — G92–G97
+
+Full evidence and every non-leading intent:
+[RANK1_WEAKNESSES_2026-09-10.md](track1-miner/docs/RANK1_WEAKNESSES_2026-09-10.md).
+Baseline is complete epoch 320, registration 1378, **3/19 rank-1 positions**. Four production
+failures were reproduced and nineteen new regression cases cover the changes. Rank improvement
+remains unverified until a complete post-deployment epoch.
+
+**Release accepted:** production `miner-9asqqpg3w`, alias verified; five targeted probes pass;
+7/7 preflight gates including all nineteen intents pass; active registration and watch verified.
+The locally/preview-verified fixes below are now deployed. Remaining limitations are unchanged.
+
+- **G92 — Transaction chain, precision, and absence claims, fixed locally/preview.** “ETH on Base
+  mainnet” selected Ethereum; a receipt exception erased an observed mined transaction; a missing
+  JSON-RPC result was treated as null; failed discovery probes supported false global denials;
+  six-decimal truncation lost wei. These now preserve explicit chain identity, receipt evidence,
+  provider uncertainty, and exact values. Missing modern status is unknown; reverted value movement
+  is described as attempted. Cross-chain lookup latency under multiple slow RPCs remains open.
+- **G93 — Sports fixture substitution and cache scope, fixed locally/preview.** Production answered
+  a March 2025 question with a September 2026 result. Fallback selection now verifies both teams,
+  requested date, and competition; structured dates reach lookup; cache keys retain query constraints;
+  ISO timestamps are normalized; provider phases run concurrently. Provider reachability and deeper
+  fixture coverage remain open; an honest no-match does not establish a competitive answer.
+- **G94 — Academic date constraints, fixed locally/preview.** Explicit days widened to entire months,
+  ISO ranges were ignored, and retry dropped the date filter. All are corrected. OpenAlex outages
+  remain a provider limitation. A prior test encoded filter-dropping as intended behavior and was
+  corrected to require the filter on both attempts.
+- **G95 — TVL chain scope and rate-limit classification, fixed locally/preview.** Production returned
+  Aave's global $18.15B for a Base-only question; the correct Base subtotal at verification was $517.75M.
+  Protocol lookups now read exact `currentChainTvls` chain keys and exclude borrowed/staking categories.
+  Rate limits are availability failures rather than proof of missing data. TVL's live value changes;
+  these figures are dated evidence, not a prediction of a scorer result.
+- **G96 — CVE provider dependence, fixed locally/preview.** NVD failure now tries the public CVE
+  Program record API within the watchdog budget. Matching ID, CNA, publication status, CVSS, and
+  affected versions are checked; wrong IDs and unaffected versions are excluded. Controlled 429/503
+  tests pass. Forced NVD failure on Vercel has not been induced, so that exact deployed fallback path
+  remains unverified.
+- **G97 — Incomplete ranking/replay evidence, fixed tooling; network failure remains open.** Replay
+  still listed thirteen intents after registration expanded to nineteen; it now reads the manifest.
+  Refresh merges rather than erases evidence. Rank audit verifies registration ownership/YAML and
+  preserves failure reasons and champion IDs. Epoch-319 CONTENT_EXTRACTION and CURRENCY_EXCHANGE
+  zeros were node request-builder LLM timeouts before calling the miner. They must not be reported
+  as our endpoint outages or as repaired by this batch. Epoch 320 content extraction is an all-zero
+  field with no failure detail. Hidden fixtures prevent asserting its cause.
+
 What we do not know, have not verified, or have deliberately left undone. Feeds the README's
 "Assumptions & Limitations" and stops unknowns from being quietly rounded to "fine."
 

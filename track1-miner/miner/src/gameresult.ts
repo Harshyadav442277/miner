@@ -140,6 +140,16 @@ export function parseDate(question: string, now = new Date()): string | null {
   const q = String(question ?? "");
   const iso = q.match(/\b(\d{4})-(\d{2})-(\d{2})\b/);
   if (iso) return `${iso[1]}${iso[2]}${iso[3]}`;
+  const months = "January February March April May June July August September October November December".split(" ");
+  const monthFirst = q.match(/\b([A-Za-z]+)\s+(\d{1,2})(?:st|nd|rd|th)?[,]?\s+(\d{4})\b/i);
+  const dayFirst = q.match(/\b(\d{1,2})(?:st|nd|rd|th)?\s+([A-Za-z]+)[,]?\s+(\d{4})\b/i);
+  const name = monthFirst?.[1] ?? dayFirst?.[2];
+  const month = name ? months.findIndex(m => m.toLowerCase() === name.toLowerCase()) + 1 : 0;
+  if (month) {
+    const dayNumber = monthFirst?.[2] ?? dayFirst?.[1];
+    const year = monthFirst?.[3] ?? dayFirst?.[3];
+    return `${year}${String(month).padStart(2, "0")}${dayNumber!.padStart(2, "0")}`;
+  }
   const day = (offset: number): string => {
     const d = new Date(now.getTime() + offset * 86_400_000);
     return d.toISOString().slice(0, 10).replace(/-/g, "");
@@ -281,18 +291,21 @@ async function findFixture(
  * ONLY when it is finished and carries both scores. Anything else is discarded
  * rather than described, which is the whole SPORTS_SCORE lesson.
  */
-async function findFixtureByName(a: string, b: string): Promise<{
-  home: string; away: string; homeScore: number; awayScore: number; league: string; date: string;
-} | null> {
+async function findFixtureByName(a: string, b: string, dates: string | null, now: Date, leaguePath: string | null): Promise<{
+  fixture: { home: string; away: string; homeScore: number; awayScore: number; league: string; date: string } | null;
+  available: boolean;
+}> {
   const slug = (s: string): string => s.trim().replace(/\s+/g, "_");
   // Both orderings, because the directory keys on "home_vs_away" and the
   // question does not say which side was at home.
   const orderings: Array<[string, string]> = [[a, b], [b, a]];
-  for (const [x, y] of orderings) {
+  let available = false;
+  const candidates = await Promise.all(orderings.map(async ([x, y]) => {
     try {
       const j = (await getJson(`${SPORTSDB}/searchevents.php?e=${encodeURIComponent(`${slug(x)}_vs_${slug(y)}`)}`)) as {
         event?: Array<Record<string, string | null>> | null;
       };
+      if (Array.isArray(j.event) || j.event === null) available = true;
       const finished = (j.event ?? []).filter((e) => {
         const status = String(e.strStatus ?? "").toUpperCase();
         const home = Number(e.intHomeScore);
@@ -300,8 +313,16 @@ async function findFixtureByName(a: string, b: string): Promise<{
         // "FT", "AET", "Match Finished" all mean played. NS and a null score
         // mean it has not been.
         const played = /^(FT|AET|AP|PEN|MATCH FINISHED|FINISHED)$/.test(status);
+        const date = eventTimestamp(e.strTimestamp);
+        const matches = (name: string, wanted: string) => matchesTeam({ team: { displayName: name } } as Competitor, wanted);
+        const correctTeams = (matches(e.strHomeTeam ?? "", a) && matches(e.strAwayTeam ?? "", b)) ||
+          (matches(e.strHomeTeam ?? "", b) && matches(e.strAwayTeam ?? "", a));
+        const correctDate = date !== null && new Date(date).getTime() <= now.getTime() &&
+          (!dates || date.slice(0, 10).replace(/-/g, "") === dates);
+        const correctLeague = !leaguePath || ESPN_PATH[String(e.strLeague ?? "").toLowerCase()] === leaguePath;
         return played && Number.isFinite(home) && Number.isFinite(away)
-          && e.intHomeScore !== null && e.intAwayScore !== null
+          && correctTeams && correctDate && correctLeague
+          && Boolean(e.intHomeScore?.trim()) && Boolean(e.intAwayScore?.trim())
           && String(e.strPostponed ?? "no").toLowerCase() !== "yes";
       });
       const pick = finished.sort((m, n) =>
@@ -313,21 +334,33 @@ async function findFixtureByName(a: string, b: string): Promise<{
           homeScore: Number(pick.intHomeScore),
           awayScore: Number(pick.intAwayScore),
           league: pick.strLeague ?? "an unnamed competition",
-          date: new Date(`${pick.strTimestamp}Z`).toISOString(),
+          date: eventTimestamp(pick.strTimestamp)!,
         };
       }
-    } catch { /* try the other ordering, then give up */ }
-  }
-  return null;
+    } catch { /* the other ordering may still answer */ }
+    return null;
+  }));
+  return { available, fixture: candidates.filter((c): c is NonNullable<typeof c> => c !== null)
+    .sort((a, b) => b.date.localeCompare(a.date))[0] ?? null };
 }
 
-export async function lookupGame(question: string, now = new Date()): Promise<GameResult> {
+/** The provider sometimes includes Z or an offset and sometimes omits both. */
+function eventTimestamp(raw: string | null | undefined): string | null {
+  if (!raw) return null;
+  const zoned = /(?:Z|[+-]\d{2}:?\d{2})$/i.test(raw) ? raw : `${raw}Z`;
+  const date = new Date(zoned);
+  return Number.isFinite(date.getTime()) ? date.toISOString() : null;
+}
+
+export async function lookupGame(question: string, now = new Date(), requested?: {
+  teams?: { a: string; b: string }; date?: string;
+}): Promise<GameResult> {
   const empty = {
     home: null, away: null, home_score: null, away_score: null,
     winner: null, competition: null, played_at: null,
   };
 
-  const teams = parseTeams(question);
+  const teams = requested?.teams ?? parseTeams(question);
   if (!teams) {
     return {
       ...empty, verdict: "unknown", confidence: 0,
@@ -340,8 +373,9 @@ export async function lookupGame(question: string, now = new Date()): Promise<Ga
     };
   }
 
-  const dates = parseDate(question, now);
-  const resolved = await resolveLeague(question, teams.a) ?? await resolveLeague(question, teams.b);
+  const dates = parseDate(requested?.date || question, now);
+  const leagues = await Promise.all([resolveLeague(question, teams.a), resolveLeague(question, teams.b)]);
+  const resolved = leagues[0] ?? leagues[1];
 
   /**
    * Where the league is known, one scoreboard is read. Where it is not — which
@@ -351,14 +385,14 @@ export async function lookupGame(question: string, now = new Date()): Promise<Ga
    * from the wrong sport for that reason; it can only fail to find one.
    */
   const toSearch = resolved ? [resolved] : PROBE_ORDER;
-  let found: Awaited<ReturnType<typeof findFixture>> = null;
-  let sawWorkingScoreboard = false;
-  for (const path of toSearch) {
-    const r = await findFixture(path, teams.a, teams.b, dates, now);
-    if (r === "unavailable") continue;
-    sawWorkingScoreboard = true;
-    if (r) { found = r; break; }
-  }
+  // Directory and scoreboard fallbacks share the remaining time budget. A
+  // five-league sequential search could outlast our 11-second response deadline.
+  const [scoreboards, directory] = await Promise.all([
+    Promise.all(toSearch.map(path => findFixture(path, teams.a, teams.b, dates, now))),
+    findFixtureByName(teams.a, teams.b, dates, now, resolved),
+  ]);
+  const sawWorkingScoreboard = scoreboards.some(r => r !== "unavailable");
+  let found: Awaited<ReturnType<typeof findFixture>> = scoreboards.find(r => r && r !== "unavailable") ?? null;
   /**
    * ESPN unreachable is not the end of the lookup.
    *
@@ -369,11 +403,11 @@ export async function lookupGame(question: string, now = new Date()): Promise<Ga
    * tried whenever ESPN produced nothing, whether that was a refusal or a miss,
    * and `unknown` is reported only when BOTH have failed.
    */
-  if (!found && !sawWorkingScoreboard) found = "unavailable";
+  if (!found && !sawWorkingScoreboard && !directory.available) found = "unavailable";
   if (!found || found === "unavailable") {
     // ESPN is read by date, so an older fixture is simply outside its window.
     // Search by name before concluding anything.
-    const older = await findFixtureByName(teams.a, teams.b);
+    const older = directory.fixture;
     if (older) {
       const drew = older.homeScore === older.awayScore;
       const winner = drew ? null : older.homeScore > older.awayScore ? older.home : older.away;

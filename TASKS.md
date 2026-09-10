@@ -1,5 +1,19 @@
 # TASKS.md — execution board
 
+## Active mission — 2026-09-10: rank 1 in at least fourteen intents
+
+- [x] Confirm registration 1378, owner, pinned YAML, nineteen intents, and epoch-320 rankings.
+      Baseline: 3/19 rank 1; two leaders are in near-zero score bands.
+- [x] Reproduce twelve failures, then fix transaction, game-result, academic, TVL, and CVE weaknesses.
+      Expanded regression coverage: nineteen tests. Full local suite: 376 passing.
+- [x] Document every non-leading intent in
+      [RANK1_WEAKNESSES_2026-09-10.md](track1-miner/docs/RANK1_WEAKNESSES_2026-09-10.md).
+- [x] Final preview and production acceptance: `miner-9asqqpg3w`, all five targeted probes,
+      7/7 preflight gates, all nineteen intents, active registration, verified production alias.
+- [ ] Check the first complete epoch after deployment; do not infer new ranks from local tests.
+- [ ] Audit extraction and weather/storm inputs, then current-champion benches for the near leaders.
+- [ ] Achieve fourteen positive-score #1 rows in one complete live epoch, with ties and low scores disclosed.
+
 One task = one change = one commit. Work top-down; the ordering encodes dependencies.
 
 **Track 1 closes 2026-08-31** — ~5 days from 2026-08-26. (The Sep 7 countdown is Track 3's.)

@@ -1,0 +1,30 @@
+{
+  "at": "2026-09-10T05:06:39.455Z",
+  "championId": 49,
+  "url": "https://gateway.pinata.cloud/ipfs/QmNV1RufiyPjkkZseWAeXpoSrtWzDPBVhyMXmMQoDvoLKi",
+  "sha256": "3bd3028dfbafa54dc9fd8d5f790820ea05545051891b36f19e2a3f9d790efdcb",
+  "qualification": "Authored references derived from the verified Base subtotal; full text and 32-word clips do not reproduce the network converter or hidden fixtures",
+  "rows": [
+    {
+      "groundTruth": "Aave protocol TVL on Base is $517,754,093 ($517.75 million) according to DefiLlama.",
+      "before": 0.008316007442772388,
+      "after": 0.10962392389774323,
+      "before32": 0.008561677299439907,
+      "after32": 0.10962392389774323
+    },
+    {
+      "groundTruth": "The total value locked by Aave on the Base network is $517,754,093 ($517.75 million).",
+      "before": 0.006710749119520187,
+      "after": 0.6357046961784363,
+      "before32": 0.006935986690223217,
+      "after32": 0.6357046961784363
+    },
+    {
+      "groundTruth": "On Base, Aave holds $517,754,093 ($517.75 million) in DeFi deposits; this is the chain-specific value, not its global TVL.",
+      "before": 0.007969759404659271,
+      "after": 0.843234658241272,
+      "before32": 0.008005378767848015,
+      "after32": 0.843234658241272
+    }
+  ]
+}

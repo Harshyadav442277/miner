@@ -1,5 +1,33 @@
 # Track 1 — session handoff
 
+## 2026-09-10 — active mission: fourteen rank-1 intents
+
+Read [docs/RANK1_WEAKNESSES_2026-09-10.md](docs/RANK1_WEAKNESSES_2026-09-10.md) first.
+Current registration is **1378**, catalog ID **4433**, active with **19 intents**; the older
+thirteen-intent state below is historical. Complete epoch **320** gives **3/19 #1 positions**.
+Work is on `codex/rank1-14-intents`; initial checkout was clean and two remote score-history commits
+were fast-forwarded before branching.
+
+Reproduced and fixed production errors in ONCHAIN_TX_LOOKUP (Base mistaken for Ethereum),
+TVL_LOOKUP (global Aave TVL returned for Base), GAME_RESULT (wrong dated fixture substituted),
+and ACADEMIC_SEARCH (day ranges widened). Also added a CVE Program source fallback for NVD shedding,
+receipt/error/precision guards, fixture-date cache isolation, and nineteen regression tests.
+295 non-live tests and 376 full-suite tests passed. First preview verified the changed responses;
+see the report for final deployment status. **Do not claim a rank increase yet.**
+
+The fresh feed works again. `replay-intents.mjs` derives nineteen intents from the manifest,
+merges refreshed questions, preserves its corpus on failed fetches, and supports `--refresh-only`.
+`rank-audit.mjs` matches catalog ownership/YAML with registration and records current champions,
+failure reasons, partial epochs, all-zero ties, and near-zero bands.
+
+**Released and accepted:** `miner-9asqqpg3w-wukong4.vercel.app`, production alias verified,
+five targeted production probes passed, **7/7 preflight gates** including nineteen intent checks,
+watch active/valid at 380 ms. Rollback unused. The latest complete score is still epoch 320;
+the fourteen-rank-1 mission is active, not complete.
+
+Next: complete-epoch feedback, then extraction/weather/storm input audit.
+The preceding production alias was `miner-h5iy1d4k9-wukong4.vercel.app`, verified with `vercel inspect`.
+
 **Read this first. Everything Track 1 needs is in this folder.**
 Shared protocol facts are in `../docs/`. Do not edit `../track2/`; Track 3 lives in the separate
 `../telegraph-morse` repository.

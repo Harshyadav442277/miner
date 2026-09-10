@@ -13,7 +13,8 @@
   "do a academic search for trump",
   "do a academic search for putin",
   "research paper for sol benchmarks",
-  "Point me to peer-reviewed literature, not blog posts, on perovskite solar cell degradation."
+  "Point me to peer-reviewed literature, not blog posts, on perovskite solar cell degradation.",
+  "Will Amicus Therapeutics recruit for NCT06906367?"
  ],
  "IP_GEOLOCATION": [
   "Please analyze the public IP address 94.140.14.14 from an IP-geolocation perspective and report the country, region, city if available, approximate coordinates, timezone, ISP or organization, and autonomous system details.",
@@ -37,7 +38,28 @@
   "What is the 24-hour weather forecast for Miami, Florida starting today, including temperature, precipitation probability, and wind speed?",
   "What is the current temperature in Cairo?",
   "What is the current weather in Chennai?",
-  "1.1.1.1 — whose network is that on, and roughly where does it sit?"
+  "1.1.1.1 — whose network is that on, and roughly where does it sit?",
+  "Is there an active storm alert or severe weather warning for Lisbon, Portugal right now?",
+  "Is there an active storm alert or severe weather warning for Auckland, New Zealand right now?",
+  "Is there an active storm alert or severe weather warning for Sydney, Australia right now?",
+  "Is there an active storm alert or severe weather warning for Lagos, Nigeria right now?",
+  "Is there an active storm alert or severe weather warning for Havana, Cuba right now?",
+  "Is there an active storm alert or severe weather warning for Houston, Texas right now?",
+  "Is there an active storm alert or severe weather warning for Chennai, India right now?",
+  "Is there an active storm alert or severe weather warning for Singapore right now?",
+  "Is there an active storm alert or severe weather warning for Bangkok, Thailand right now?",
+  "Is there an active storm alert or severe weather warning for Shanghai, China right now?",
+  "Is there an active storm alert or severe weather warning for Osaka, Japan right now?",
+  "Is there an active storm alert or severe weather warning for Tokyo, Japan right now?",
+  "Is there an active storm alert or severe weather warning for Lagos Nigeria right now?",
+  "Is there an active storm alert or severe weather warning for lagos nigeria right now?",
+  "Is there an active storm alert or severe weather warning for lagos, nigeria right now?",
+  "Is there an active storm alert or severe weather warning for Reykjavik, Iceland right now?",
+  "Is there an active storm alert or severe weather warning for Darwin, Australia right now?",
+  "Is there an active storm alert or severe weather warning for New Orleans, Louisiana right now?",
+  "Is there an active storm alert or severe weather warning for Miami, Florida right now?",
+  "Is there an active storm alert or severe weather warning for Hong Kong right now?",
+  "Is there an active storm alert or severe weather warning for Mumbai, India right now?"
  ],
  "WEATHER_FORECAST": [
   "Return the 1-day weather forecast for Lagos. Classify this as WEATHER_FORECAST.",
@@ -72,7 +94,12 @@
   "What is the 24-hour weather forecast for Manila, Philippines starting today, including temperature, precipitation probability, and wind speed?",
   "Should someone in Cape Town plan around rain this weekend or not?",
   "Will US diesel prices keep rising?",
-  "Will D3S-002 show positive results?"
+  "Will D3S-002 show positive results?",
+  "Will Dubai reach 45°C by September 13?",
+  "Will Riyadh reach 45°C by September 13?",
+  "What is the 24-hour weather forecast for Lagos Nigeria starting today, including temperature, precipitation probability, and wind speed?",
+  "What is the 24-hour weather forecast for lagos nigeria starting today, including temperature, precipitation probability, and wind speed?",
+  "What is the 24-hour weather forecast for lagos, nigeria starting today, including temperature, precipitation probability, and wind speed?"
  ],
  "STORM_ALERT": [
   "Is there a storm risk in Mumbai over the next 48 hours?",
@@ -136,7 +163,10 @@
   "What is the storm risk in Manila over the next 24 hours?",
   "Is there an active storm alert or severe weather warning for Manila, Philippines right now?",
   "Over the next two days, is Miami looking at anything a storm-watcher would call dangerous?",
-  "chances of hurricane in usa next 30 hrs"
+  "chances of hurricane in usa next 30 hrs",
+  "Is there an active storm alert or severe weather warning for Lagos Nigeria right now?",
+  "Is there an active storm alert or severe weather warning for lagos nigeria right now?",
+  "Is there an active storm alert or severe weather warning for lagos, nigeria right now?"
  ],
  "WALLET_BALANCE_CHECK": [
   "What is the ETH balance of vitalik.eth?",
@@ -191,7 +221,17 @@
   "Will Veverimer gain FDA approval for CKD?",
   "Fact check this claim: \"BC.Game crypto casino is withholding player withdrawals or is insolvent.\" Is there evidence supporting or refuting it?",
   "Fact-check these claims from a job posting by Shopify: Remote-first | $170k-$210k salary | TypeScript payments team",
-  "Fact-check these claims from a job posting by Shopify: Remote-first | Salary $170k–$210k"
+  "Fact-check these claims from a job posting by Shopify: Remote-first | Salary $170k–$210k",
+  "Will CREON receive a black box warning?",
+  "Will Atogepant be approved for pediatric migraine?",
+  "Will Zasocitinib complete Phase 3 trials?",
+  "Will Novartis' Ianalumab succeed in Phase 3?",
+  "Will Belimumab receive FDA approval?",
+  "Will United Therapeutics' GGTA1 KO Thymokidney succeed?",
+  "Will KIO-104 Phase 2 trial succeed?",
+  "Will NCT07197814 trial succeed?",
+  "Is this claim true? The paper “Experimental Biology and Medicine” by Metropolis Team was published and is available at https://www.ebm-journal.org/journals/experimental-biology-and-medicine.",
+  "How likely is the paper “Experimental Biology and Medicine” by Metropolis Team to be fraudulent? Consider retractions, misconduct findings, paper mills and predatory publishers, and answer only with what is documented."
  ],
  "TELEGRAPH_KNOWLEDGE": [
   "Route the following request to only Degens Miner",
@@ -214,7 +254,12 @@
   "Will K2 Horizon launch before December?",
   "Which operator had the highest inbound flow this week?",
   "Research BTC in the context of this decision: \"Should I buy BTC right now given current market conditions?\". Report anything that would make executing this action unsafe.",
-  "Research morpho in the context of this decision: \"I want to deposit 500 USDC into Morpho on Base via https://app.morpho.org. Should I proceed?\". Report anything that would make executing this action unsafe."
+  "Research morpho in the context of this decision: \"I want to deposit 500 USDC into Morpho on Base via https://app.morpho.org. Should I proceed?\". Report anything that would make executing this action unsafe.",
+  "How to use this deployment",
+  "Will Nicolas Gninenko publish Tinnitus survey results?",
+  "why should they come here and not use the API directly?",
+  "what is alexandria, from telegraph protocol",
+  "Will Claude change button colors?"
  ],
  "SSL_VERIFICATION": [
   "Can you investigate the current SSL/TLS certificate presented by openai.com as though you were deciding whether an autonomous agent should establish a secure connection to it? Please verify DNS/TLS connectivity, hostname matching, certificate-chain trust, validity dates, issuer information, SAN coverage, negotiated TLS protocol, and whether any observable certificate condition would cause a conventional HTTPS client to reject the connection. Give me a decisive verdict supported by the observed certificate facts rather than a generic statement that HTTPS is enabled.",
@@ -225,7 +270,9 @@
   "Is the TLS certificate for cloudflare.com valid, and when does it expire?",
   "Is the TLS certificate for github.com valid right now, and who issued it?",
   "Is the SSL certificate for github.com valid, and who issued it?",
-  "Verify TLS/SSL certificate status, expiration, and authority for domain uniswap.org"
+  "Verify TLS/SSL certificate status, expiration, and authority for domain uniswap.org",
+  "Verify the SSL/TLS certificate of the domain verify-binance-account.net: is it valid and trusted, when was it issued, and does it match the hostname?",
+  "Verify the SSL/TLS certificate of the domain verify-coinbase-secure.com: is it valid and trusted, when was it issued, and does it match the hostname?"
  ],
  "NEWS_HEADLINES": [
   "find latest headlines for uk vs russia",
@@ -233,5 +280,35 @@
  ],
  "CONTENT_EXTRACTION": [
   "Extract faculty details from vtop"
+ ],
+ "NEWS_SEARCH": [
+  "News Headlines",
+  "News headlines on ai regulations in Canada",
+  "Will CAMZYOS receive new EU warnings?",
+  "Will RINVOQ receive new FDA warning?",
+  "Will DUPIXENT receive new EU warning?",
+  "Will Bausch Health launch new acne gel?",
+  "Latest news about Shopify: layoffs, hiring freezes, funding rounds, bankruptcy, acquisitions, scandals, executive departures",
+  "Will DUPIXENT receive a new EU warning?",
+  "Headlines - AGI and Astra",
+  "Find recent news articles from the last 7 days about Agentic General Intelligence.",
+  "Search the news for this week's coverage of Agentic General Intelligence.",
+  "What are the top news headlines about Agentic General Intelligence today?",
+  "Top Agentic General Intelligence headlines right now, as a list.",
+  "News Headlines - AGI and Astra",
+  "Will Lundbeck launch Eptinezumab for migraine?",
+  "Will Genmab's DLBCL drug enter Phase 2?",
+  "Will Bausch Health release acne gel data?"
+ ],
+ "ONCHAIN_TX_LOOKUP": [
+  "For the contract address 0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D on ethereum, report its on-chain activity: the date it was deployed and the total number of transactions it has received.",
+  "Is on-chain transaction CVE-2021-44228 successful (status success/ok/confirmed) or failed/pending?"
+ ],
+ "CVE_LOOKUP": [
+  "Look up this CVE identifier and report its severity (LOW/MEDIUM/HIGH/CRITICAL) and CVSS score: CVE-2021-44228",
+  "Evaluate likelihood CVE-2021-44228 is fraudulent or a honeypot. Return probability 0 to 1 and a % risk."
+ ],
+ "TVL_LOOKUP": [
+  "What is the total value locked (TVL) in USD for protocol/token CVE-2021-44228?"
  ]
 }

@@ -63,7 +63,7 @@ test("toCoin keeps every significant digit instead of truncating to zero", () =>
   assert.equal(toCoin(15n * 10n ** 17n, "ETH"), "1.5 ETH");
   assert.equal(toCoin(10n ** 18n, "POL"), "1 POL");
   // 0.0000140979735405 ETH must not become 0.000014.
-  assert.equal(toCoin(14097973540575n, "ETH"), "0.0000140979 ETH");
+  assert.equal(toCoin(14097973540575n, "ETH"), "0.000014097973540575 ETH");
 });
 
 test("a pre-Byzantium receipt is confirmed, not reverted (live)", async () => {

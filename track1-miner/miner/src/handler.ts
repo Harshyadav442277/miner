@@ -1023,8 +1023,11 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     ].filter(Boolean).join(" vs ");
     const q = withSubject(firstValue(url, "query", "q", "question", "text", "input"), teamsParam);
 
-    const teams = parseTeams(q);
-    const key = teams ? `game:${teams.a.toLowerCase()}:${teams.b.toLowerCase()}:${firstValue(url, "date")}` : "";
+    const teams = parseTeams(teamsParam) ?? parseTeams(q);
+    const requestedDate = firstValue(url, "date");
+    // The full request includes date/league constraints in prose. Team names
+    // alone used to share yesterday's cached result with a different fixture.
+    const key = teams ? `game:${JSON.stringify([teams, q.toLowerCase(), requestedDate])}` : "";
     if (key) {
       const hit = fromCache(key);
       if (hit) {
@@ -1032,7 +1035,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
         return;
       }
     }
-    lookupGame(q)
+    lookupGame(q, new Date(), { teams: teams ?? undefined, date: requestedDate || undefined })
       .then((r) => {
         // A finished fixture's score is immutable, so it is safe to cache. A
         // scheduled or in-progress one is not: caching either would keep

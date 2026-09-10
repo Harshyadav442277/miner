@@ -1,0 +1,10 @@
+Vercel CLI 59.5.0 (Node.js 24.19.0) | curl is in beta — https://vercel.com/feedback
+  % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
+                                 Dload  Upload  Total   Spent   Left   Speed
+
+  0      0   0      0   0      0      0      0                              0
+  0      0   0      0   0      0      0      0           00:01              0
+100    238 100    238   0      0    177      0   00:01   00:01            197
+100    238 100    238   0      0    177      0   00:01   00:01            197
+100    238 100    238   0      0    177      0   00:01   00:01            197
+{"verdict":"found","confidence":0.9,"reason":"The Aave protocol has $517,754,093 ($517.75 million) in total value locked, on base, according to DefiLlama. This is value locked in the protocol, not the market capitalisation of its token."}

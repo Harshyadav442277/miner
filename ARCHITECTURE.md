@@ -1,5 +1,20 @@
 # ARCHITECTURE.md — decisions and rationale
 
+## 2026-09-10: rank-1 correctness and provider coverage
+
+CVE_LOOKUP keeps NVD as its primary source and falls back, within a 3.5-second additional
+deadline, to the public CVE Program record API when NVD is unavailable or has no entry.
+The fallback must match the requested CVE ID and publication state, name the assigning CNA,
+and exclude unaffected versions. If neither source yields a usable record, preserve an explicit
+unknown. No credential or paid provider is added.
+
+Sports fixture selection requires both teams, requested date, and competition to match, including
+fallback sources and cache identity. Provider searches run concurrently within each lookup phase
+to fit the existing 11-second watchdog. Academic retry retains date constraints. Protocol TVL
+with a chain constraint reads that chain's subtotal, never the global aggregate.
+
+Release evidence: [rank-1 weakness report](track1-miner/docs/RANK1_WEAKNESSES_2026-09-10.md).
+
 Code must conform to this. **Update this file before deviating from it**, not after.
 
 Grounded in [docs/TELEGRAPH_FACTS.md](docs/TELEGRAPH_FACTS.md) (verified 2026-08-26).

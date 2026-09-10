@@ -80,11 +80,12 @@ const SYMBOL: Record<string, string> = {
 const EIP658_FROM: Record<string, number> = { ethereum: 4_370_000 };
 
 const CHAIN_WORDS: Array<[RegExp, string]> = [
-  [/\bethereum\b|\bmainnet\b|\beth\b|\bl1\b/i, "ethereum"],
   [/\bbase\b/i, "base"],
   [/\barbitrum\b|\barb\b/i, "arbitrum"],
   [/\boptimism\b|\bop\s+mainnet\b/i, "optimism"],
   [/\bpolygon\b|\bmatic\b|\bpos\b/i, "polygon"],
+  // ETH is the native asset on several chains; "mainnet" also qualifies L2s.
+  [/\bethereum\b|\bmainnet\b|\beth\b|\bl1\b/i, "ethereum"],
 ];
 
 /** ERC-20/721 `Transfer(address,address,uint256)`. */
@@ -178,6 +179,7 @@ async function rpc(url: string, method: string, params: unknown[]): Promise<unkn
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   const body = (await res.json()) as { result?: unknown; error?: { message?: string } };
   if (body.error) throw new Error(body.error.message ?? "rpc error");
+  if (!Object.hasOwn(body, "result")) throw new Error("RPC response has no result");
   return body.result;
 }
 
@@ -212,6 +214,8 @@ async function fetchTx(chain: string, hash: string):
       if (!tx) continue;
       // A transaction in the mempool has no block and therefore no receipt yet.
       if (tx.blockNumber === null) return { tx, receipt: null };
+      // Keep the observed inclusion even when the receipt request throws.
+      minedNoReceipt = tx;
       const receipt = (await rpc(url, "eth_getTransactionReceipt", [hash])) as RawReceipt | null;
       // A MINED transaction whose receipt comes back null is a provider that is
       // behind or shedding, not a transaction without a receipt. Returning here
@@ -245,8 +249,9 @@ async function fetchTx(chain: string, hash: string):
  * A chain the caller named explicitly never reaches here: if someone asks about
  * Ethereum and it is not on Ethereum, that is a real answer about Ethereum.
  */
-async function searchChains(hash: string, exclude: string): Promise<string | null> {
+async function searchChains(hash: string, exclude: string): Promise<{ chain: string | null; unavailable: string[] }> {
   const others = Object.keys(RPCS).filter((c) => c !== exclude);
+  const unavailable: string[] = [];
   const probes = others.map(async (chain) => {
     const url = RPCS[chain]?.[0];
     if (!url) return null;
@@ -254,11 +259,12 @@ async function searchChains(hash: string, exclude: string): Promise<string | nul
       const tx = (await rpc(url, "eth_getTransactionByHash", [hash])) as RawTx | null;
       return tx ? chain : null;
     } catch {
+      unavailable.push(chain);
       return null;
     }
   });
   const found = (await Promise.all(probes)).filter((c): c is string => c !== null);
-  return found[0] ?? null;
+  return { chain: found[0] ?? null, unavailable };
 }
 
 const fmt = (n: number, dp: number): string =>
@@ -281,10 +287,7 @@ export function toCoin(wei: bigint, symbol = ""): string {
   const whole = wei / 10n ** 18n;
   const frac = (wei % 10n ** 18n).toString().padStart(18, "0").replace(/0+$/, "");
   if (!frac) return `${whole.toLocaleString("en-US")}${suffix}`;
-  // Enough decimals to keep every significant digit of a sub-coin amount, so the
-  // rendered figure equals the on-chain one rather than approximating it.
-  const shown = frac.slice(0, Math.max(6, frac.search(/[1-9]/) + 6));
-  return `${whole.toLocaleString("en-US")}.${shown.replace(/0+$/, "")}${suffix}`;
+  return `${whole.toLocaleString("en-US")}.${frac}${suffix}`;
 }
 
 const short = (addr: string): string => addr;
@@ -317,8 +320,9 @@ export async function lookupTransaction(
    * because the question happened not to say "base".
    */
   let searchedAll = false;
-  if (!explicitChain && found && found.tx === null) {
-    const elsewhere = await searchChains(hash, chain);
+  if (!explicitChain && (!found || found.tx === null)) {
+    const discovery = await searchChains(hash, chain);
+    const elsewhere = discovery.chain;
     if (elsewhere) {
       searched = elsewhere;
       try {
@@ -328,6 +332,13 @@ export async function lookupTransaction(
       }
       note += ` No chain was named in the request; the transaction was located on ${elsewhere}.`;
     } else {
+      if (!found) discovery.unavailable.push(chain);
+      if (discovery.unavailable.length) {
+        return { hash, chain: null, verdict: "unknown", confidence: 0, error: "rpc_unavailable",
+          reason: `Transaction ${hash} was not located on the responding chains, but ` +
+            `${discovery.unavailable.join(", ")} could not be checked because their RPC endpoints did not respond. ` +
+            "Its existence and status on those chains remain unknown." };
+      }
       searchedAll = true;
     }
   }
@@ -421,17 +432,22 @@ export async function lookupTransaction(
    * and finding the call failed — but a `0x1` on a pre-Byzantium block is not
    * a fact read off the chain, so the answer says what it is.
    */
-  const preByzantium = block < (EIP658_FROM[chain] ?? 0);
+  const preByzantium = block < (EIP658_FROM[searched] ?? 0);
   const flagged = receipt.status !== undefined
     ? Number(BigInt(receipt.status)) === 1
     : null;
+  if (!preByzantium && flagged === null) {
+    return { hash, chain: searched, verdict: "unknown", confidence: 0, error: "receipt_status_unavailable",
+      reason: `Transaction ${hash} on ${searched} was mined in block ${fmt(block, 0)} and used ` +
+        `${fmt(gasUsed, 0)} gas, but its receipt omitted the required status flag. Its success or failure is unknown here.${note}` };
+  }
   const succeeded = preByzantium ? flagged !== false : flagged === true;
   const verdict: TxStatus = succeeded ? "confirmed" : "reverted";
 
   const created = receipt.contractAddress
     ? ` It deployed a new contract at ${receipt.contractAddress}.` : "";
   const erc20 = transfers > 0
-    ? ` The receipt contains ${transfers} ERC-20 token transfer${transfers === 1 ? "" : "s"}.` : "";
+    ? ` The receipt contains ${transfers} token Transfer event${transfers === 1 ? "" : "s"}.` : "";
   const statusNote = preByzantium
     ? " This block predates the Byzantium fork, so the canonical receipt carries a state root " +
       "rather than a status flag; inclusion in the chain is what is confirmed here."
@@ -459,7 +475,7 @@ export async function lookupTransaction(
       `Transaction ${hash} on ${searched} ` +
       `${succeeded ? "succeeded" : "failed and was reverted"} in block ${fmt(block, 0)}. ` +
       `It used ${fmt(gasUsed, 0)} gas at an effective gas price of ${fmt(gwei, 4)} Gwei, ` +
-      `a total fee of ${toCoin(feeWei, coin)}, and moved ${value}.` +
+      `a total fee of ${toCoin(feeWei, coin)}, and ${succeeded ? "moved" : "attempted to move"} ${value}.` +
       `${created}${erc20}` +
       ` The transaction was sent from ${short(tx.from)}${tx.to ? ` to ${short(tx.to)}` : " to a new contract"}.` +
       `${statusNote}` +

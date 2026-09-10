@@ -1,0 +1,27 @@
+✔ rank regression: a named L2 outranks the words mainnet and ETH (0.869ms)
+✔ rank regression: transaction value preserves every wei (11.7019ms)
+✔ rank regression: a modern receipt without status cannot be called reverted (15.2659ms)
+✔ rank regression: reverted transfers are described as attempted rather than moved (0.7813ms)
+✔ rank regression: a throwing receipt request cannot erase a mined transaction (0.783ms)
+✔ rank regression: an HTTP 200 without a JSON-RPC result is an outage (0.6446ms)
+✔ rank regression: a failed chain probe cannot support a global not-found claim (0.8688ms)
+✔ rank regression: an Ethereum outage does not prevent finding a Base transaction (0.9034ms)
+✔ rank regression: sports dates accept month names in both common orders (0.675ms)
+✔ rank regression: sports fallback cannot substitute a match from a different date (2.868ms)
+✔ rank regression: sports fallback verifies both teams returned by fuzzy search (0.7663ms)
+✔ rank regression: sports fallback accepts an ISO timestamp already ending in Z (3.9538ms)
+✔ rank regression: academic windows preserve explicit days (0.9501ms)
+✔ rank regression: an academic retry preserves the requested publication window (2.1876ms)
+✔ rank regression: TVL uses the named L2 and its protocol subtotal (0.9385ms)
+✔ rank regression: TVL rate limits remain unknown instead of not-found (0.5566ms)
+✔ rank regression: NVD rate limits fall back to the matching authoritative CVE record (0.6011ms)
+✔ rank regression: both CVE providers down remains an explicit availability failure (0.2176ms)
+✔ rank regression: game route uses structured dates and never shares results between dates in prose (2.333ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 19
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 141.5657

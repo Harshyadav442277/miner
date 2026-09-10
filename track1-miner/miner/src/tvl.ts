@@ -70,7 +70,6 @@ export interface TvlResult {
  * the other.
  */
 const CHAINS: Record<string, { llama: string; gecko: string; dex: string; words: RegExp }> = {
-  ethereum: { llama: "Ethereum", gecko: "eth", dex: "ethereum", words: /\bethereum\b|\bmainnet\b|\beth\b|\bl1\b/i },
   base: { llama: "Base", gecko: "base", dex: "base", words: /\bbase\b/i },
   arbitrum: { llama: "Arbitrum", gecko: "arbitrum", dex: "arbitrum", words: /\barbitrum\b|\barb\b/i },
   optimism: { llama: "Optimism", gecko: "optimism", dex: "optimism", words: /\boptimism\b|\bop mainnet\b/i },
@@ -78,6 +77,7 @@ const CHAINS: Record<string, { llama: string; gecko: string; dex: string; words:
   bsc: { llama: "BSC", gecko: "bsc", dex: "bsc", words: /\bbsc\b|\bbnb\b|\bbinance smart chain\b/i },
   avalanche: { llama: "Avalanche", gecko: "avax", dex: "avalanche", words: /\bavalanche\b|\bavax\b/i },
   solana: { llama: "Solana", gecko: "solana", dex: "solana", words: /\bsolana\b|\bsol\b/i },
+  ethereum: { llama: "Ethereum", gecko: "eth", dex: "ethereum", words: /\bethereum\b|\bmainnet\b|\beth\b|\bl1\b/i },
 };
 
 /**
@@ -270,23 +270,37 @@ export function protocolSlugs(name: string): string[] {
  * on every candidate slug means we could not resolve the name, while a thrown
  * timeout means we do not know. Those are different answers.
  */
-export async function protocolTvl(name: string): Promise<{ slug: string; usd: number } | null | "unavailable"> {
+export async function protocolTvl(name: string, chain?: string | null): Promise<{ slug: string; usd: number } | null | "unavailable"> {
   const slugs = protocolSlugs(name);
   if (!slugs.length) return null;
   let sawRefusal = false;
+  let sawUnavailable = false;
   for (const slug of slugs.slice(0, 4)) {
     try {
+      if (chain) {
+        const record = await getJson(`https://api.llama.fi/protocol/${encodeURIComponent(slug)}`) as {
+          currentChainTvls?: Record<string, number>;
+        };
+        const label = chain === "optimism" ? "OP Mainnet" : CHAINS[chain]?.llama;
+        const n = label ? record.currentChainTvls?.[label] : undefined;
+        if (typeof n === "number" && Number.isFinite(n) && n >= 0) return { slug, usd: n };
+        // A valid protocol record without that chain cannot justify the global total.
+        if (record.currentChainTvls) sawRefusal = true;
+        else sawUnavailable = true;
+        continue;
+      }
       const body = (await getText(`https://api.llama.fi/tvl/${encodeURIComponent(slug)}`)).trim();
       const n = Number(body);
-      if (Number.isFinite(n) && n > 0) return { slug, usd: n };
-      sawRefusal = true;
+      if (body && Number.isFinite(n) && n >= 0) return { slug, usd: n };
+      sawUnavailable = true;
     } catch (e) {
       // A 400 is DefiLlama saying the slug is not a protocol; anything else is
       // an availability problem and must not become "this protocol has no TVL".
-      if (String((e as Error).message).includes("HTTP 4")) sawRefusal = true;
+      if (/^HTTP (400|404)$/.test(String((e as Error).message))) sawRefusal = true;
+      else sawUnavailable = true;
     }
   }
-  return sawRefusal ? null : "unavailable";
+  return sawRefusal && !sawUnavailable ? null : "unavailable";
 }
 
 export async function chainTvl(chain: string): Promise<{ name: string; usd: number } | null | "unavailable"> {
@@ -298,7 +312,8 @@ export async function chainTvl(chain: string): Promise<{ name: string; usd: numb
   } catch {
     return "unavailable";
   }
-  const hit = rows.find((r) => String(r.name).toLowerCase() === want.toLowerCase());
+  const hit = rows.find((r) => String(r.name).toLowerCase() === want.toLowerCase() ||
+    (chain === "optimism" && r.name === "OP Mainnet"));
   if (!hit || !Number.isFinite(hit.tvl)) return null;
   return { name: hit.name, usd: hit.tvl };
 }
@@ -342,7 +357,7 @@ export async function poolLiquidity(address: string, chain: string): Promise<Poo
         out = { symbol: a?.symbol ?? null, name: a?.name ?? null, usd: n, complete: true, pools: null, top: null };
       }
     } catch (e) {
-      if (String((e as Error).message).includes("HTTP 4")) sawRefusal = true;
+      if (String((e as Error).message) === "HTTP 404") sawRefusal = true;
     }
   }
 
@@ -461,7 +476,7 @@ export async function lookupTvl(
     };
   }
 
-  const r = await protocolTvl(subject);
+  const r = await protocolTvl(subject, chain);
   if (r === "unavailable") {
     return {
       ...base, verdict: "unknown", confidence: 0,
@@ -476,7 +491,7 @@ export async function lookupTvl(
     return {
       ...base, verdict: "not_found", confidence: 0.5,
       reason:
-        `No protocol named "${subject}" could be resolved on DefiLlama, so no total value locked ` +
+        `No TVL for "${subject}"${chain ? ` on ${chain}` : ""} could be resolved on DefiLlama, so no total value locked ` +
         `figure is reported for it. A different spelling of the protocol's name, or its contract ` +
         `address if the question is about a token's pool liquidity, would be answerable.`,
     };
@@ -485,7 +500,7 @@ export async function lookupTvl(
     ...base, usd: r.usd, verdict: "found", confidence: 0.9,
     reason:
       `The ${subject} protocol has ${usd(r.usd)} (${human(r.usd)}) in total value locked, ` +
-      `aggregated across every chain it is deployed on, according to DefiLlama. This is value ` +
+      `${chain ? `on ${chain}` : "aggregated across every chain it is deployed on"}, according to DefiLlama. This is value ` +
       `locked in the protocol, not the market capitalisation of its token.`,
   };
 }

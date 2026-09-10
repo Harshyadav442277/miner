@@ -165,8 +165,9 @@ test("a timing-out upstream still falls through to the narrower retry", async ()
   let calls = 0;
   globalThis.fetch = (async (input: unknown) => {
     calls++;
-    // The first call carries the date filter; fail it the way OpenAlex does.
-    if (String(input).includes("filter=")) {
+    assert.ok(String(input).includes("filter="), "the retry must retain the date restriction");
+    // Fail the first request, then let the retry succeed within the same window.
+    if (calls === 1) {
       return new Response(JSON.stringify({ error: "Gateway timeout", reason: "query_timeout" }), { status: 504 });
     }
     return new Response(

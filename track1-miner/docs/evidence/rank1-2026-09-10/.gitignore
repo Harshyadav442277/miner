@@ -1,0 +1,26 @@
+# Bulky discovery captures; the reviewed checkpoint preserves ranking evidence.
+/catalog-baseline.json
+/questions.json
+/recent-question-sample.json
+/onchain-scores.json
+/ACADEMIC_SEARCH.json
+/AI_TEXT_DETECTION.json
+/CONTENT_EXTRACTION.json
+/CURRENCY_EXCHANGE.json
+/CVE_LOOKUP.json
+/FACT_CHECK.json
+/GAME_RESULT.json
+/IP_GEOLOCATION.json
+/LANGUAGE_TRANSLATION.json
+/NEWS_HEADLINES.json
+/NEWS_SEARCH.json
+/ONCHAIN_TX_LOOKUP.json
+/SSL_VERIFICATION.json
+/STORM_ALERT.json
+/TELEGRAPH_KNOWLEDGE.json
+/TVL_LOOKUP.json
+/WALLET_BALANCE_CHECK.json
+/WEATHER_CHECK.json
+/WEATHER_FORECAST.json
+/post-deploy/*
+!/post-deploy/rank-audit.json

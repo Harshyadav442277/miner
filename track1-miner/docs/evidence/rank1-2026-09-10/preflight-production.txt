@@ -1,0 +1,11 @@
+preflight against https://miner-wine.vercel.app
+
+  unit + live suite                      PASS
+  verify-deploy                          PASS
+  param shapes (engine-shaped)           PASS
+  intent answers (correctness)           PASS
+  hostile inputs                         PASS
+  upstream health                        PASS
+  no-regression (7 identical, 1 differ)  PASS
+
+7/7 gates passed.

@@ -1,0 +1,10 @@
+Vercel CLI 59.5.0 (Node.js 24.19.0) | curl is in beta — https://vercel.com/feedback
+  % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
+                                 Dload  Upload  Total   Spent   Left   Speed
+
+  0      0   0      0   0      0      0      0                              0
+  0      0   0      0   0      0      0      0           00:01              0
+100    989 100    989   0      0    790      0   00:01   00:01            868
+100    989 100    989   0      0    790      0   00:01   00:01            868
+100    989 100    989   0      0    790      0   00:01   00:01            868
+{"verdict":"papers","confidence":1,"reason":"Regarding find papers on quantum computing published between January 15, 2025 and June 10, 2026: Here are 5 peer-reviewed papers on quantum computing published between 2025-01-15 and 2026-06-10: 1) A manufacturable platform for photonic quantum computing by PsiQuantum team, Koen Alexander, Avishai Benyamini, Dylan S. Black (2025), cited 219 times. 2) Barren plateaus in variational quantum computing by Martín Larocca, Supanut Thanasilp, Samson Wang, Kunal Sharma (2025), cited 216 times. 3) Distributed quantum computing across an optical network link by D. Main, P. Drmota, D. P. Nadlinger, E. M. Ainley (2025), cited 175 times. 4) Review of Distributed Quantum Computing: From single QPU to High Performance Quantum Computing by David Barral, F. Javier Cardama, Guillermo Díaz-Camacho, Daniel Faílde (2025), cited 102 times. 5) Quantum Error Correction with Surface Code Analysis on Quantum Computing platform (2025), cited 138 times."}

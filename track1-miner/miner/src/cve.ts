@@ -30,6 +30,8 @@
  * the differentiator, and it is what the question asks for.
  */
 
+import { lookupCveProgram } from "./cve-program";
+
 const NVD = "https://services.nvd.nist.gov/rest/json/cves/2.0";
 const TIMEOUT_MS = Number(process.env.CVE_TIMEOUT_MS ?? 6_000);
 
@@ -218,6 +220,8 @@ export async function lookupCve(id: string): Promise<CveResult> {
     // 403 and 429 are NVD's rate limit. That is our problem, not a statement
     // about the CVE, and must not be reported as "no such record".
     if (res.status === 403 || res.status === 429) {
+      const fallback = await lookupCveProgram(id);
+      if (fallback) return fallback;
       return {
         cve_id: id, verdict: "unknown", confidence: 0,
         reason:
@@ -230,6 +234,8 @@ export async function lookupCve(id: string): Promise<CveResult> {
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     body = (await res.json()) as typeof body;
   } catch {
+    const fallback = await lookupCveProgram(id);
+    if (fallback) return fallback;
     return {
       cve_id: id, verdict: "unknown", confidence: 0,
       reason:
@@ -248,6 +254,8 @@ export async function lookupCve(id: string): Promise<CveResult> {
   } | undefined;
 
   if (!entry) {
+    const fallback = await lookupCveProgram(id);
+    if (fallback) return fallback;
     return {
       cve_id: id, verdict: "not_found", confidence: 0.9,
       reason:

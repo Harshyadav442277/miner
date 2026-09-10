@@ -1,0 +1,270 @@
+✖ rank regression: a named L2 outranks the words mainnet and ETH (1.446ms)
+✖ rank regression: transaction value preserves every wei (13.4334ms)
+✖ rank regression: a throwing receipt request cannot erase a mined transaction (20.6427ms)
+✖ rank regression: an HTTP 200 without a JSON-RPC result is an outage (0.7752ms)
+✖ rank regression: a failed chain probe cannot support a global not-found claim (1.2491ms)
+✖ rank regression: an Ethereum outage does not prevent finding a Base transaction (0.424ms)
+✖ rank regression: sports dates accept month names in both common orders (0.3042ms)
+✖ rank regression: sports fallback cannot substitute a match from a different date (6.4715ms)
+✖ rank regression: sports fallback verifies both teams returned by fuzzy search (0.7785ms)
+✖ rank regression: sports fallback accepts an ISO timestamp already ending in Z (0.6688ms)
+✖ rank regression: academic windows preserve explicit days (1.4157ms)
+✖ rank regression: an academic retry preserves the requested publication window (2.352ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 0
+ℹ fail 12
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 132.1386
+
+✖ failing tests:
+
+test at dist-test\test\rank-regressions.test.js:26:22
+✖ rank regression: a named L2 outranks the words mainnet and ETH (1.446ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+  'ethereum' !== 'base'
+
+      at TestContext.<anonymous> (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\rank-regressions.test.js:29:26)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'ethereum',
+    expected: 'base',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at dist-test\test\rank-regressions.test.js:32:22
+✖ rank regression: transaction value preserves every wei (13.4334ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+
+  + '1.234567 ETH'
+  - '1.234567890123456789 ETH'
+             ^
+
+      at TestContext.<anonymous> (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\rank-regressions.test.js:33:22)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '1.234567 ETH',
+    expected: '1.234567890123456789 ETH',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at dist-test\test\rank-regressions.test.js:36:22
+✖ rank regression: a throwing receipt request cannot erase a mined transaction (20.6427ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+
+  + 'not_found'
+  - 'unknown'
+
+      at C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\rank-regressions.test.js:43:26
+      at async withFetch (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\rank-regressions.test.js:20:9)
+      at async TestContext.<anonymous> (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\rank-regressions.test.js:37:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'not_found',
+    expected: 'unknown',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at dist-test\test\rank-regressions.test.js:48:22
+✖ rank regression: an HTTP 200 without a JSON-RPC result is an outage (0.7752ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+
+  + 'not_found'
+  - 'unknown'
+
+      at C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\rank-regressions.test.js:51:26
+      at async withFetch (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\rank-regressions.test.js:20:9)
+      at async TestContext.<anonymous> (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\rank-regressions.test.js:49:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'not_found',
+    expected: 'unknown',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at dist-test\test\rank-regressions.test.js:55:22
+✖ rank regression: a failed chain probe cannot support a global not-found claim (1.2491ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+
+  + 'not_found'
+  - 'unknown'
+
+      at C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\rank-regressions.test.js:62:26
+      at async withFetch (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\rank-regressions.test.js:20:9)
+      at async TestContext.<anonymous> (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\rank-regressions.test.js:56:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'not_found',
+    expected: 'unknown',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at dist-test\test\rank-regressions.test.js:67:22
+✖ rank regression: an Ethereum outage does not prevent finding a Base transaction (0.424ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+
+  + 'unknown'
+  - 'confirmed'
+
+      at C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\rank-regressions.test.js:75:26
+      at async withFetch (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\rank-regressions.test.js:20:9)
+      at async TestContext.<anonymous> (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\rank-regressions.test.js:68:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'unknown',
+    expected: 'confirmed',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at dist-test\test\rank-regressions.test.js:79:22
+✖ rank regression: sports dates accept month names in both common orders (0.3042ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+  null !== '20250316'
+
+      at TestContext.<anonymous> (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\rank-regressions.test.js:80:22)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: '20250316',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at dist-test\test\rank-regressions.test.js:94:22
+✖ rank regression: sports fallback cannot substitute a match from a different date (6.4715ms)
+  AssertionError [ERR_ASSERTION]: Expected "actual" to be strictly unequal to:
+
+  'result'
+      at C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\rank-regressions.test.js:97:26
+      at async withFetch (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\rank-regressions.test.js:20:9)
+      at async TestContext.<anonymous> (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\rank-regressions.test.js:95:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'result',
+    expected: 'result',
+    operator: 'notStrictEqual',
+    diff: 'simple'
+  }
+
+test at dist-test\test\rank-regressions.test.js:101:22
+✖ rank regression: sports fallback verifies both teams returned by fuzzy search (0.7785ms)
+  AssertionError [ERR_ASSERTION]: Expected "actual" to be strictly unequal to:
+
+  'result'
+      at C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\rank-regressions.test.js:104:26
+      at async withFetch (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\rank-regressions.test.js:20:9)
+      at async TestContext.<anonymous> (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\rank-regressions.test.js:102:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'result',
+    expected: 'result',
+    operator: 'notStrictEqual',
+    diff: 'simple'
+  }
+
+test at dist-test\test\rank-regressions.test.js:108:22
+✖ rank regression: sports fallback accepts an ISO timestamp already ending in Z (0.6688ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+
+  + 'not_found'
+  - 'result'
+
+      at C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\rank-regressions.test.js:111:26
+      at async withFetch (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\rank-regressions.test.js:20:9)
+      at async TestContext.<anonymous> (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\rank-regressions.test.js:109:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'not_found',
+    expected: 'result',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at dist-test\test\rank-regressions.test.js:115:22
+✖ rank regression: academic windows preserve explicit days (1.4157ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+
+    {
+  +   from: '2025-01-01',
+  +   to: '2026-06-30'
+  -   from: '2025-01-15',
+  -   to: '2026-06-10'
+    }
+
+      at TestContext.<anonymous> (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\rank-regressions.test.js:116:22)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { from: '2025-01-01', to: '2026-06-30' },
+    expected: { from: '2025-01-15', to: '2026-06-10' },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at dist-test\test\rank-regressions.test.js:119:22
+✖ rank regression: an academic retry preserves the requested publication window (2.352ms)
+  AssertionError [ERR_ASSERTION]: retry must not silently remove the date filter
+      at C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\rank-regressions.test.js:127:26
+      at async withFetch (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\rank-regressions.test.js:20:9)
+      at async TestContext.<anonymous> (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\rank-regressions.test.js:121:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
