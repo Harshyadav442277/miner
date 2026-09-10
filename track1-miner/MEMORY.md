@@ -1,5 +1,20 @@
 # Track 1 — session handoff
 
+## 2026-09-11 ~00:18 IST — wallet coverage repair deployed
+
+Production **miner-kb0aad6hx**, both aliases verified, retains all 26 intents and registration1379.
+Seven failed production probes now pass: Base USDC, Ethereum ETH+USDT, BNB native balance,
+explicit-chain precedence, numeric chain IDs, malformed wallets, and bridged USDC.e handling.
+The old BSC response was 10.36722181 ETH from Ethereum; the new one is 0.50528153 BNB from BSC.
+Thirteen new regression cases, **474/474 full-suite tests**, and eight live RPC/contract checks pass.
+The full production preflight is still running. Runtime supports canonical USDC on five chains
+and Ethereum USDT through read-only balanceOf, with six-decimal bigint formatting. RPC reads
+race at most two attempts per lookup, bound total time and cancel outstanding work after success.
+Malformed addresses now yield unknown, not scorer-preferred but unsubstantiated zero balances.
+Registered YAML remains unchanged; its existing query input carries the added capabilities.
+See [current report and evidence](docs/RANK1_PROGRESS_2026-09-11.md). Rank remains 8/26 in epoch321;
+wallet rank6 has no public failure reason, and these fixes do not establish the hidden question.
+
 ## 2026-09-11 — current mission: eighteen rank-1 intents
 
 Current registration **1379** is active with **26 intents**; 1378 is superseded.

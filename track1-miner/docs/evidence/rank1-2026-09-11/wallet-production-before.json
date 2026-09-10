@@ -1,0 +1,90 @@
+{
+  "at": "2026-09-10T18:45:19.695Z",
+  "base": "https://miner-wine.vercel.app",
+  "results": [
+    {
+      "name": "base-usdc",
+      "url": "https://miner-wine.vercel.app/wallet-balance?query=What+is+the+USDC+balance+of+0x8b224783FE5b3c52B7DB0cb9B1754f8812b75287+on+base%3F",
+      "status": 200,
+      "ms": 995,
+      "pass": false,
+      "body": {
+        "verdict": "0 ETH",
+        "confidence": 0.98,
+        "reason": "The address 0x8b224783FE5b3c52B7DB0cb9B1754f8812b75287 currently has a native-coin balance of 0 ETH on base. This was determined by querying the eth_getBalance RPC method against the base network, which returns the account's balance in wei at the latest block. This is the native-coin balance only; USDC is a token balance held in a contract and is not included in it."
+      }
+    },
+    {
+      "name": "ethereum-usdt-and-native",
+      "url": "https://miner-wine.vercel.app/wallet-balance?query=ETH+and+USDT+balance+of+0x8b224783FE5b3c52B7DB0cb9B1754f8812b75287+on+Ethereum",
+      "status": 200,
+      "ms": 356,
+      "pass": false,
+      "body": {
+        "verdict": "0 ETH",
+        "confidence": 0.98,
+        "reason": "The address 0x8b224783FE5b3c52B7DB0cb9B1754f8812b75287 currently has a native-coin balance of 0 ETH on ethereum. This was determined by querying the eth_getBalance RPC method against the ethereum network, which returns the account's balance in wei at the latest block. This is the native-coin balance only; USDT is a token balance held in a contract and is not included in it."
+      }
+    },
+    {
+      "name": "bnb-native",
+      "url": "https://miner-wine.vercel.app/wallet-balance?query=What+is+the+native+balance+of+the+wallet+0x833589fcd6edb6e08f4c7c32d4f71b54bda02913+on+bsc+%28chain+id+56%29%3F",
+      "status": 200,
+      "ms": 284,
+      "pass": false,
+      "body": {
+        "verdict": "10.36722181 ETH",
+        "confidence": 0.98,
+        "reason": "The address 0x833589fcd6edb6e08f4c7c32d4f71b54bda02913 currently has a native-coin balance of 10.36722181 ETH on ethereum. This was determined by querying the eth_getBalance RPC method against the ethereum network, which returns the account's balance in wei at the latest block. This figure is the ethereum mainnet balance; BNB Chain is not among the networks this service reads, so the balance there was not retrieved."
+      }
+    },
+    {
+      "name": "explicit-chain",
+      "url": "https://miner-wine.vercel.app/wallet-balance?address=0x8b224783FE5b3c52B7DB0cb9B1754f8812b75287&query=balance+on+Base&chain=ethereum",
+      "status": 200,
+      "ms": 302,
+      "pass": false,
+      "body": {
+        "verdict": "0 ETH",
+        "confidence": 0.98,
+        "reason": "The address 0x8b224783FE5b3c52B7DB0cb9B1754f8812b75287 currently has a native-coin balance of 0 ETH on base. This was determined by querying the eth_getBalance RPC method against the base network, which returns the account's balance in wei at the latest block."
+      }
+    },
+    {
+      "name": "chain-id",
+      "url": "https://miner-wine.vercel.app/wallet-balance?address=0x8b224783FE5b3c52B7DB0cb9B1754f8812b75287&query=native+balance&chain=8453",
+      "status": 200,
+      "ms": 296,
+      "pass": false,
+      "body": {
+        "verdict": "0 ETH",
+        "confidence": 0.98,
+        "reason": "The address 0x8b224783FE5b3c52B7DB0cb9B1754f8812b75287 currently has a native-coin balance of 0 ETH on ethereum. This was determined by querying the eth_getBalance RPC method against the ethereum network, which returns the account's balance in wei at the latest block."
+      }
+    },
+    {
+      "name": "invalid-wallet",
+      "url": "https://miner-wine.vercel.app/wallet-balance?query=wallet+balance+of+0x1234567890abcdef1234567890abcdef123456789",
+      "status": 200,
+      "ms": 238,
+      "pass": false,
+      "body": {
+        "verdict": "0 ETH",
+        "confidence": 1,
+        "reason": "The address 0x1234567890abcdef1234567890abcdef123456789 is not a valid 20-byte EVM address, so no account exists for it and its native-coin balance on ethereum is 0 ETH. A valid address is exactly 40 hexadecimal characters after the 0x prefix."
+      }
+    },
+    {
+      "name": "bridged-token",
+      "url": "https://miner-wine.vercel.app/wallet-balance?query=USDC.e+balance+of+0x8b224783FE5b3c52B7DB0cb9B1754f8812b75287+on+Arbitrum",
+      "status": 200,
+      "ms": 279,
+      "pass": false,
+      "body": {
+        "verdict": "0 ETH",
+        "confidence": 0.98,
+        "reason": "The address 0x8b224783FE5b3c52B7DB0cb9B1754f8812b75287 currently has a native-coin balance of 0 ETH on arbitrum. This was determined by querying the eth_getBalance RPC method against the arbitrum network, which returns the account's balance in wei at the latest block. This is the native-coin balance only; USDC is a token balance held in a contract and is not included in it."
+      }
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "at": "2026-09-10T18:48:55.489Z",
+  "base": "https://miner-wukong4.vercel.app",
+  "results": [
+    {
+      "name": "base-usdc",
+      "url": "https://miner-wukong4.vercel.app/wallet-balance?query=What+is+the+USDC+balance+of+0x8b224783FE5b3c52B7DB0cb9B1754f8812b75287+on+base%3F",
+      "ms": 280,
+      "pass": false,
+      "error": "SyntaxError: Unexpected token 'R', \"Redirecting...\n\" is not valid JSON"
+    },
+    {
+      "name": "ethereum-usdt-and-native",
+      "url": "https://miner-wukong4.vercel.app/wallet-balance?query=ETH+and+USDT+balance+of+0x8b224783FE5b3c52B7DB0cb9B1754f8812b75287+on+Ethereum",
+      "ms": 174,
+      "pass": false,
+      "error": "SyntaxError: Unexpected token 'R', \"Redirecting...\n\" is not valid JSON"
+    },
+    {
+      "name": "bnb-native",
+      "url": "https://miner-wukong4.vercel.app/wallet-balance?query=What+is+the+native+balance+of+the+wallet+0x833589fcd6edb6e08f4c7c32d4f71b54bda02913+on+bsc+%28chain+id+56%29%3F",
+      "ms": 109,
+      "pass": false,
+      "error": "SyntaxError: Unexpected token 'R', \"Redirecting...\n\" is not valid JSON"
+    },
+    {
+      "name": "explicit-chain",
+      "url": "https://miner-wukong4.vercel.app/wallet-balance?address=0x8b224783FE5b3c52B7DB0cb9B1754f8812b75287&query=balance+on+Base&chain=ethereum",
+      "ms": 91,
+      "pass": false,
+      "error": "SyntaxError: Unexpected token 'R', \"Redirecting...\n\" is not valid JSON"
+    },
+    {
+      "name": "chain-id",
+      "url": "https://miner-wukong4.vercel.app/wallet-balance?address=0x8b224783FE5b3c52B7DB0cb9B1754f8812b75287&query=native+balance&chain=8453",
+      "ms": 97,
+      "pass": false,
+      "error": "SyntaxError: Unexpected token 'R', \"Redirecting...\n\" is not valid JSON"
+    },
+    {
+      "name": "invalid-wallet",
+      "url": "https://miner-wukong4.vercel.app/wallet-balance?query=wallet+balance+of+0x1234567890abcdef1234567890abcdef123456789",
+      "ms": 68,
+      "pass": false,
+      "error": "SyntaxError: Unexpected token 'R', \"Redirecting...\n\" is not valid JSON"
+    },
+    {
+      "name": "bridged-token",
+      "url": "https://miner-wukong4.vercel.app/wallet-balance?query=USDC.e+balance+of+0x8b224783FE5b3c52B7DB0cb9B1754f8812b75287+on+Arbitrum",
+      "ms": 56,
+      "pass": false,
+      "error": "SyntaxError: Unexpected token 'R', \"Redirecting...\n\" is not valid JSON"
+    }
+  ]
+}

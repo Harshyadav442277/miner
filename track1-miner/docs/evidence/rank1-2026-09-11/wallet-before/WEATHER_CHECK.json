@@ -1,0 +1,235 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "c2efd37c-0fb9-4e8f-a226-b367831a18d3",
+        "epoch_id": 321,
+        "intent_id": "WEATHER_CHECK",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 0.9987259,
+        "failure_reason": "",
+        "scored_at": "2026-09-10T06:05:29.379203Z",
+        "created_at": "2026-09-10T06:05:29.379203Z"
+      },
+      {
+        "id": "b1143af6-856e-44f9-98b8-923962cb0687",
+        "epoch_id": 321,
+        "intent_id": "WEATHER_CHECK",
+        "miner_slug": "livecert",
+        "rank": 5,
+        "score": 0.015399831,
+        "failure_reason": "",
+        "scored_at": "2026-09-10T06:05:29.379203Z",
+        "created_at": "2026-09-10T06:05:29.379203Z"
+      },
+      {
+        "id": "867a4076-4d25-4dfd-abed-3c0472e9cf01",
+        "epoch_id": 320,
+        "intent_id": "WEATHER_CHECK",
+        "miner_slug": "openweathermap",
+        "rank": 1,
+        "score": 0.018408017,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T20:58:22.513973Z",
+        "created_at": "2026-09-09T20:58:22.513973Z"
+      },
+      {
+        "id": "f0fca995-3c0c-4004-b067-f600be3df82e",
+        "epoch_id": 320,
+        "intent_id": "WEATHER_CHECK",
+        "miner_slug": "livecert",
+        "rank": 5,
+        "score": 0.018257437,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T20:58:22.513973Z",
+        "created_at": "2026-09-09T20:58:22.513973Z"
+      },
+      {
+        "id": "98741646-c104-4946-a27d-99e63903e695",
+        "epoch_id": 319,
+        "intent_id": "WEATHER_CHECK",
+        "miner_slug": "skywire-weather-check",
+        "rank": 1,
+        "score": 0.99957985,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T11:59:24.41586Z",
+        "created_at": "2026-09-09T11:59:24.41586Z"
+      },
+      {
+        "id": "36784ef0-41fa-46d3-b7b2-11f1a6485113",
+        "epoch_id": 319,
+        "intent_id": "WEATHER_CHECK",
+        "miner_slug": "livecert",
+        "rank": 7,
+        "score": 0.013075418,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T11:59:24.41586Z",
+        "created_at": "2026-09-09T11:59:24.41586Z"
+      },
+      {
+        "id": "951ab398-3b5a-427b-b3ac-96c8ebec36bb",
+        "epoch_id": 318,
+        "intent_id": "WEATHER_CHECK",
+        "miner_slug": "isobar-weather",
+        "rank": 1,
+        "score": 0.017219365,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T02:56:07.193513Z",
+        "created_at": "2026-09-09T02:56:07.193513Z"
+      },
+      {
+        "id": "d081973a-e12b-4b07-83df-a46865eb41b4",
+        "epoch_id": 318,
+        "intent_id": "WEATHER_CHECK",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 0.016662143,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T02:56:07.193513Z",
+        "created_at": "2026-09-09T02:56:07.193513Z"
+      },
+      {
+        "id": "c81e1c8d-2008-486f-ab77-9a2dd9c87d4c",
+        "epoch_id": 317,
+        "intent_id": "WEATHER_CHECK",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 0.39509016,
+        "failure_reason": "",
+        "scored_at": "2026-09-08T17:53:19.586839Z",
+        "created_at": "2026-09-08T17:53:19.586839Z"
+      },
+      {
+        "id": "29c28711-81dc-466f-9e64-537e3bfbb5de",
+        "epoch_id": 317,
+        "intent_id": "WEATHER_CHECK",
+        "miner_slug": "livecert",
+        "rank": 5,
+        "score": 0.014112817,
+        "failure_reason": "",
+        "scored_at": "2026-09-08T17:53:19.586839Z",
+        "created_at": "2026-09-08T17:53:19.586839Z"
+      },
+      {
+        "id": "2fcba59f-a354-4f2c-b26a-19f16fc8b368",
+        "epoch_id": 316,
+        "intent_id": "WEATHER_CHECK",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 0.99935216,
+        "failure_reason": "",
+        "scored_at": "2026-09-08T08:58:28.920983Z",
+        "created_at": "2026-09-08T08:58:28.920983Z"
+      },
+      {
+        "id": "84a166fb-e125-4a25-8ec5-c196eaee9adb",
+        "epoch_id": 316,
+        "intent_id": "WEATHER_CHECK",
+        "miner_slug": "livecert",
+        "rank": 7,
+        "score": 0.018440563,
+        "failure_reason": "",
+        "scored_at": "2026-09-08T08:58:28.920983Z",
+        "created_at": "2026-09-08T08:58:28.920983Z"
+      },
+      {
+        "id": "67597057-75a5-40d0-bcbf-4f62ddc1e054",
+        "epoch_id": 315,
+        "intent_id": "WEATHER_CHECK",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.9993066,
+        "failure_reason": "",
+        "scored_at": "2026-09-08T00:01:54.888488Z",
+        "created_at": "2026-09-08T00:01:54.888488Z"
+      },
+      {
+        "id": "691953fd-8550-4a4a-bd46-a416574d1cba",
+        "epoch_id": 314,
+        "intent_id": "WEATHER_CHECK",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 0.27740267,
+        "failure_reason": "",
+        "scored_at": "2026-09-07T09:09:37.890409Z",
+        "created_at": "2026-09-07T09:09:37.890409Z"
+      },
+      {
+        "id": "5fe6c196-1f06-49cc-8437-7d4e9ab27020",
+        "epoch_id": 314,
+        "intent_id": "WEATHER_CHECK",
+        "miner_slug": "livecert",
+        "rank": 5,
+        "score": 0.01575727,
+        "failure_reason": "",
+        "scored_at": "2026-09-07T09:09:37.890409Z",
+        "created_at": "2026-09-07T09:09:37.890409Z"
+      },
+      {
+        "id": "4294a2f7-3407-423b-bdb6-31fc2a433504",
+        "epoch_id": 313,
+        "intent_id": "WEATHER_CHECK",
+        "miner_slug": "weatherapi",
+        "rank": 1,
+        "score": 0.0173555,
+        "failure_reason": "",
+        "scored_at": "2026-09-07T00:16:29.030786Z",
+        "created_at": "2026-09-07T00:16:29.030786Z"
+      },
+      {
+        "id": "841719cd-1c8c-4ab9-a001-ceea6ca99f2c",
+        "epoch_id": 313,
+        "intent_id": "WEATHER_CHECK",
+        "miner_slug": "livecert",
+        "rank": 8,
+        "score": 0.012968685,
+        "failure_reason": "",
+        "scored_at": "2026-09-07T00:16:29.030786Z",
+        "created_at": "2026-09-07T00:16:29.030786Z"
+      },
+      {
+        "id": "a52f1d5f-762e-49da-912d-b856152f6af8",
+        "epoch_id": 312,
+        "intent_id": "WEATHER_CHECK",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 0.31882694,
+        "failure_reason": "",
+        "scored_at": "2026-09-06T15:14:21.732781Z",
+        "created_at": "2026-09-06T15:14:21.732781Z"
+      }
+    ],
+    "total": 1445,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 510,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "WEATHER_CHECK",
+    "wasm_url": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/d734f291817596332ec23e1ef9b6b67fc32631ef/dist/xfmr/wchk_tol45.wasm",
+    "wasm_hash": "b08701bb8eb40c901c472e67949bf9cc9d3a52cfe0b2163a8510a43f90e8473f",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 0.98340964,
+    "eval": {
+      "candidate_margin": 0.98340964,
+      "champion_margin": 0.4677079,
+      "candidate_wins": 12,
+      "champion_wins": 9,
+      "comparable_cases": 12,
+      "worst_self_match": 0.99863017,
+      "score_stddev": 0.46348342,
+      "spearman": {
+        "WEATHER_CHECK": 0.6128585
+      },
+      "historical_rows_evaluated": 47
+    },
+    "registered_at": "2026-08-23T00:00:44Z",
+    "updated_at": "2026-08-23T00:19:59Z"
+  }
+}

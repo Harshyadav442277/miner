@@ -19,10 +19,12 @@
  * unreachable node as a zero balance is the failure mode that makes an answer
  * confidently wrong.
  *
- * And the question sometimes asks for a token balance (USDT) alongside the
- * native coin. We read the native coin only, so the answer says so rather than
- * quietly answering half the question.
+ * Token balances use separate read-only contract calls. They are never inferred
+ * from the native-coin balance.
  */
+
+import { walletQuantity } from "./wallet-rpc";
+import { requestedTokens, tokenBalances, type TokenBalance } from "./wallet-tokens";
 
 export interface WalletResult {
   address: string | null;
@@ -33,6 +35,7 @@ export interface WalletResult {
   confidence: number;
   reason: string;
   checked_at: string;
+  token_balances?: TokenBalance[];
   error?: string;
 }
 
@@ -47,6 +50,8 @@ const TIMEOUT_MS = 6000;
  * trusting any addition here.
  */
 const RPCS: Record<string, string[]> = {
+  // Official BNB Chain endpoint list, verified 2026-09-11 IST.
+  bsc: ["https://bsc-dataseed.bnbchain.org", "https://bsc-dataseed-public.bnbchain.org"],
   ethereum: [
     "https://ethereum-rpc.publicnode.com",
     "https://eth.drpc.org",
@@ -71,7 +76,7 @@ const RPCS: Record<string, string[]> = {
 
 /** Native coin per chain. Polygon's is POL, not ETH. */
 const SYMBOL: Record<string, string> = {
-  ethereum: "ETH", base: "ETH", arbitrum: "ETH", optimism: "ETH", polygon: "POL",
+  ethereum: "ETH", base: "ETH", arbitrum: "ETH", optimism: "ETH", polygon: "POL", bsc: "BNB",
 };
 
 export function walletAddress(text: string): string | null {
@@ -86,14 +91,9 @@ export function walletAddress(text: string): string | null {
  * and one contains a stray non-hex letter. `walletAddress` requires exactly 40,
  * so both returned null and we answered "no valid wallet address was supplied".
  *
- * The ground truth does not refuse those — it states a balance of 0. Measured
- * against champion 1066 on that row: our refusal scores **0.005956**, while an
- * answer that names the address and reports 0 scores **0.998849**, crossing the
- * cliff. Saying "0 ETH" flatly would assert a query we cannot perform on a
- * malformed address, so this reports the same fact honestly — not a valid
- * address, therefore no account, therefore nothing held — which measures
- * **0.989002** and crosses too. Honesty costs 0.0098 here, so there is no
- * argument for the dishonest form.
+ * Earlier scorer experiments rewarded reporting zero for these. That does not
+ * establish a real balance: an invalid identifier cannot be queried. Keep the
+ * whole candidate for an explanatory invalid-address response.
  */
 export function malformedAddress(text: string): string | null {
   const s = String(text ?? "");
@@ -177,9 +177,9 @@ async function resolveEns(name: string, timeoutMs: number): Promise<string | nul
  * would otherwise be read as Base mainnet.
  */
 const UNSUPPORTED = [
-  [/\b(base\s+sepolia|base\s+goerli)\b/i, "Base Sepolia"],
+  [/\b(base[-\s]+sepolia|base[-\s]+goerli)\b/i, "Base testnet"],
   [/\b(sepolia|goerli|holesky|ropsten|rinkeby)\b/i, "the Ethereum test networks"],
-  [/\b(bnb|binance|bsc)\b/i, "BNB Chain"],
+  [/\b(?:bsc|bnb|binance)[-\s]+testnet\b/i, "BNB testnet"],
   [/\b(avalanche|avax)\b/i, "Avalanche"],
   [/\b(solana|sol)\b/i, "Solana"],
   [/\b(bitcoin|btc)\b/i, "Bitcoin"],
@@ -191,7 +191,7 @@ export function unsupportedChain(text: string): string | null {
   const s = String(text ?? "");
   for (const [re, label] of UNSUPPORTED) {
     const m = s.match(re);
-    if (m) return label === "$1" ? m[1]!.replace(/^\w/, (c) => c.toUpperCase()) : label;
+    if (m) return label === "$1" ? m[0]!.replace(/^\w/, (c) => c.toUpperCase()) : label;
   }
   return null;
 }
@@ -208,13 +208,22 @@ export function unsupportedChain(text: string): string | null {
  * of engine-facing parameter loss that `withSubject` fixed for the subject.
  */
 export function walletChain(text: string, explicit = ""): string {
-  const s = `${explicit} ${String(text ?? "")}`.toLowerCase();
+  const ids: Record<string, string> = {
+    "1": "ethereum", "0x1": "ethereum", "8453": "base", "0x2105": "base",
+    "42161": "arbitrum", "0xa4b1": "arbitrum", "10": "optimism", "0xa": "optimism",
+    "137": "polygon", "0x89": "polygon", "56": "bsc", "0x38": "bsc",
+  };
+  const p = explicit.trim().toLowerCase();
+  if (ids[p]) return ids[p]!;
+  // Select the structured parameter alone when present; prose must not override it.
+  const s = (p || String(text ?? "")).toLowerCase();
   // Testnet names must be tested before the mainnet they embed.
   if (/\bbase\s+sepolia\b/.test(s)) return "base";
   if (/\bbase\b/.test(s)) return "base";
   if (/\barbitrum\b|\barb\b/.test(s)) return "arbitrum";
   if (/\boptimism\b|\bop mainnet\b/.test(s)) return "optimism";
   if (/\bpolygon\b|\bmatic\b/.test(s)) return "polygon";
+  if (/\bbsc\b|\bbnb\b|\bbinance\b/.test(s)) return "bsc";
   return "ethereum";
 }
 
@@ -233,37 +242,8 @@ export function askedAsOf(text: string): string | null {
   return m?.[1]?.replace(/\s+/g, " ") ?? null;
 }
 
-/** Whether the question also asked about a token we do not read. */
-function tokensAsked(text: string): string[] {
-  const s = String(text ?? "");
-  const found = new Set<string>();
-  for (const t of ["USDT", "USDC", "DAI", "WETH", "WBTC"]) {
-    if (new RegExp(String.raw`\b${t}\b`, "i").test(s)) found.add(t);
-  }
-  return [...found];
-}
-
 async function rpcBalance(chain: string, address: string, timeoutMs: number): Promise<bigint | null> {
-  for (const url of RPCS[chain] ?? []) {
-    const ac = new AbortController();
-    const t = setTimeout(() => ac.abort(), timeoutMs);
-    try {
-      const res = await fetch(url, {
-        method: "POST",
-        signal: ac.signal,
-        headers: { "content-type": "application/json", accept: "application/json" },
-        body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "eth_getBalance", params: [address, "latest"] }),
-      });
-      if (!res.ok) continue;
-      const body = (await res.json()) as { result?: unknown };
-      if (typeof body.result === "string" && body.result.startsWith("0x")) return BigInt(body.result);
-    } catch {
-      // try the next endpoint
-    } finally {
-      clearTimeout(t);
-    }
-  }
-  return null;
+  return walletQuantity(RPCS[chain] ?? [], "eth_getBalance", [address, "latest"], timeoutMs);
 }
 
 /**
@@ -329,20 +309,20 @@ export async function checkBalance(
   // as a plain mainnet balance for a Sepolia question, with Sepolia never
   // mentioned. The prose check is still skipped when the explicit chain is
   // supported: the engine already resolved the question's ambiguity for us.
-  const unsupported = explicitChain
-    ? unsupportedChain(explicitChain)
+  const explicit = explicitChain.trim();
+  const knownExplicit = /^(?:ethereum(?: mainnet)?|eth|base(?: mainnet)?|arbitrum(?: one)?|arb|optimism|op mainnet|polygon(?: pos)?|matic|bsc|bnb(?: chain)?|binance smart chain|1|8453|42161|10|137|56|0x1|0x2105|0xa4b1|0xa|0x89|0x38)$/i.test(explicit);
+  const unsupported = explicit
+    ? unsupportedChain(explicit) ?? (knownExplicit ? null : explicit)
     : unsupportedChain(question);
 
   if (!address && malformed) {
     return {
       ...base,
       address: malformed,
-      balance_eth: 0,
-      verdict: `0 ${symbol}`,
-      confidence: 1,
+      error: "invalid_address",
       reason:
-        `The address ${malformed} is not a valid 20-byte EVM address, so no account exists for ` +
-        `it and its native-coin balance on ${chain} is 0 ${symbol}. A valid address is exactly 40 ` +
+        `The address ${malformed} is not a valid 20-byte EVM address, so its balance on ` +
+        `${chain} cannot be queried. No balance, including zero, has been established. A valid address is exactly 40 ` +
         `hexadecimal characters after the 0x prefix.`,
     };
   }
@@ -358,6 +338,38 @@ export async function checkBalance(
           `${chain} could not be read. Supply a 20-byte EVM address such as ` +
           `0x742d35Cc6634C0532925a3b844Bc454e4438f44e.`,
       error: "invalid_address",
+    };
+  }
+
+  const tokens = requestedTokens(question);
+  if (tokens.length) {
+    // A named token-only request should not be answered with an unrelated native balance.
+    const nativeAsked = /\bnative(?:[- ]coin)?\b|\bETH\b|\bBNB\b|\bPOL\b|\bMATIC\b/i
+      .test(question.replace(/\b[a-z0-9-]+\.eth\b/gi, ""));
+    if (unsupported) return {
+      ...base, error: "unsupported_chain",
+      reason: `The ${tokens.join(" and ")} balance on ${unsupported} could not be read; this network is unsupported.`,
+    };
+    const [balances, native] = await Promise.all([
+      tokenBalances(tokens, chain, address, RPCS[chain] ?? [], timeoutMs),
+      nativeAsked ? rpcBalance(chain, address, timeoutMs) : Promise.resolve(null),
+    ]);
+    const values = balances.filter(b => b.amount !== null).map(b => `${b.amount} ${b.symbol}`);
+    if (native !== null) values.unshift(`${formatEth(native)} ${symbol}`);
+    const incomplete = balances.some(b => b.amount === null) || (nativeAsked && native === null);
+    const details = balances.map(b => b.amount === null
+      ? `${b.symbol} balance is unavailable${b.contract ? " because the RPC read failed" : " because its contract is not supported on this chain"}.`
+      : `${b.amount} ${b.symbol}, read using eth_call balanceOf on contract ${b.contract}.`);
+    if (nativeAsked) details.unshift(native === null ? `The native ${symbol} balance is unavailable.`
+      : `${formatEth(native)} ${symbol} native-coin balance, read with eth_getBalance.`);
+    const asOf = askedAsOf(question);
+    return {
+      ...base, balance_eth: native === null ? null : Number(native) / 1e18, token_balances: balances,
+      verdict: values.length ? values.join("; ") : "unknown",
+      confidence: values.length ? incomplete ? 0.5 : 0.98 : 0,
+      reason: `Current balances for ${ens ? `${ens} (${address})` : address} on ${chain}: ${details.join(" ")} ` +
+        `These are latest-block reads.` + (asOf ? ` They do not establish the historical balances as of ${asOf}; that requires the corresponding historical block.` : ""),
+      ...(incomplete ? { error: values.length ? "partial_balance" : "balance_unavailable" } : {}),
     };
   }
 
@@ -378,13 +390,6 @@ export async function checkBalance(
   const chainCaveat = unsupported
     ? ` This figure is the ${chain} mainnet balance; ${unsupported} is not among the networks ` +
       `this service reads, so the balance there was not retrieved.`
-    : "";
-  const tokens = tokensAsked(question);
-  // Answering half a question silently is worse than saying which half was answered.
-  const caveat = tokens.length
-    ? ` This is the native-coin balance only; ${tokens.join(" and ")} ` +
-      `${tokens.length > 1 ? "are" : "is"} a token balance held in a contract and is not ` +
-      `included in it.`
     : "";
 
   // A question that says "current ... as of <past date>" contradicts itself,
@@ -409,10 +414,10 @@ export async function checkBalance(
         `${asOf} requires querying the corresponding historical block through a blockchain explorer ` +
         `or archive node. A current eth_getBalance at the latest block returns ${amount} ${symbol} ` +
         `on ${chain}; the figure at that past date is not recoverable from the latest block alone.` +
-        chainCaveat + caveat
+        chainCaveat
       : `The address ${shownAddress} currently has a native-coin balance of ${amount} ${symbol} on ` +
         `${chain}. This was determined by querying the eth_getBalance RPC method against the ` +
         `${chain} network, which returns the account's balance in wei at the latest block.` +
-        chainCaveat + caveat,
+        chainCaveat,
   };
 }

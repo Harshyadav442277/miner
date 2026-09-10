@@ -1,5 +1,15 @@
 # TASKS.md — execution board
 
+## Current mission — 2026-09-11: rank 1 in at least eighteen intents
+
+- [x] Verify registration 1379 active with 26 intents; epoch 321 has 8 rank-1 positions and seven newly registered intents without scores.
+- [x] Reproduce seven production wallet failures and ten regression failures; implement token reads, BNB native balances, chain precedence, bounded RPC fallback and invalid-address correction.
+- [x] Pass all 474 tests and eight independent live RPC/contract checks.
+- [x] Validate preview and deploy wallet repairs as `miner-kb0aad6hx`; verify aliases, seven wallet probes and all 7/7 preflight gates including 26/26 intent correctness.
+- [ ] Reach 18+ rank-1 positions in one authoritative epoch; pending intent registration alone is not rank evidence.
+
+The fourteen-intent target below records earlier work and is superseded by the current mission.
+
 ## Active mission — 2026-09-10: rank 1 in at least fourteen intents
 
 - [x] Confirm registration 1378, owner, pinned YAML, nineteen intents, and epoch-320 rankings.

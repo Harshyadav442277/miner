@@ -1,5 +1,12 @@
 # MEMORY.md — session continuity
 
+## 2026-09-11 wallet repair
+
+Current Track 1 handoff: [track1-miner/MEMORY.md](track1-miner/MEMORY.md).
+Wallet fixes deployed as `miner-kb0aad6hx`; 474 tests and seven production probes pass.
+Registration 1379 retains 26 intents. Latest verified epoch321: eight rank-1 positions;
+target remains eighteen. See the handoff for final preflight status and remaining gaps.
+
 **Read this first every session.** Update it at session end. It is the handoff medium between
 sessions and between models.
 

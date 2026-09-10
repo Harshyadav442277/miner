@@ -1,0 +1,177 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "c6ba5dd5-1a23-427b-a74d-ef4e21e24b27",
+        "epoch_id": 321,
+        "intent_id": "TVL_LOOKUP",
+        "miner_slug": "sentinel-risk-oracle",
+        "rank": 1,
+        "score": 0.043656833,
+        "failure_reason": "",
+        "scored_at": "2026-09-10T05:51:26.36853Z",
+        "created_at": "2026-09-10T05:51:26.36853Z"
+      },
+      {
+        "id": "df84f214-e0b3-4e92-9518-473426a9ad4e",
+        "epoch_id": 321,
+        "intent_id": "TVL_LOOKUP",
+        "miner_slug": "livecert",
+        "rank": 5,
+        "score": 0.013354706,
+        "failure_reason": "",
+        "scored_at": "2026-09-10T05:51:26.36853Z",
+        "created_at": "2026-09-10T05:51:26.36853Z"
+      },
+      {
+        "id": "f8adf2ba-4a8b-4d98-9d55-c3dbf911c0c2",
+        "epoch_id": 320,
+        "intent_id": "TVL_LOOKUP",
+        "miner_slug": "preflight-ssl-verification",
+        "rank": 1,
+        "score": 0.15408534,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T20:59:29.895437Z",
+        "created_at": "2026-09-09T20:59:29.895437Z"
+      },
+      {
+        "id": "25dcbca2-c4d0-4fb8-8bca-484b87ddc32f",
+        "epoch_id": 320,
+        "intent_id": "TVL_LOOKUP",
+        "miner_slug": "livecert",
+        "rank": 5,
+        "score": 0.006120496,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T20:59:29.895437Z",
+        "created_at": "2026-09-09T20:59:29.895437Z"
+      },
+      {
+        "id": "9d5aa829-6818-4d9d-82c6-1603543f977a",
+        "epoch_id": 319,
+        "intent_id": "TVL_LOOKUP",
+        "miner_slug": "preflight-ssl-verification",
+        "rank": 1,
+        "score": 0.10096797,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T12:17:53.726081Z",
+        "created_at": "2026-09-09T12:17:53.726081Z"
+      },
+      {
+        "id": "d9192442-1f85-4b60-93db-4e15d62e346e",
+        "epoch_id": 319,
+        "intent_id": "TVL_LOOKUP",
+        "miner_slug": "livecert",
+        "rank": 4,
+        "score": 0.006120496,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T12:17:53.726081Z",
+        "created_at": "2026-09-09T12:17:53.726081Z"
+      },
+      {
+        "id": "94358722-8560-43aa-bbbc-4891e18384ea",
+        "epoch_id": 318,
+        "intent_id": "TVL_LOOKUP",
+        "miner_slug": "preflight-ssl-verification",
+        "rank": 1,
+        "score": 0.15795359,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T02:55:01.358778Z",
+        "created_at": "2026-09-09T02:55:01.358778Z"
+      },
+      {
+        "id": "ea297e5a-8da1-4d93-addd-d65cd7ed8838",
+        "epoch_id": 317,
+        "intent_id": "TVL_LOOKUP",
+        "miner_slug": "preflight-ssl-verification",
+        "rank": 1,
+        "score": 0.015711349,
+        "failure_reason": "",
+        "scored_at": "2026-09-08T18:01:39.710312Z",
+        "created_at": "2026-09-08T18:01:39.710312Z"
+      },
+      {
+        "id": "681eedab-fcc1-4248-a7aa-db8d92e3cd4a",
+        "epoch_id": 316,
+        "intent_id": "TVL_LOOKUP",
+        "miner_slug": "sentinel-risk-oracle",
+        "rank": 1,
+        "score": 0.03930468,
+        "failure_reason": "",
+        "scored_at": "2026-09-08T08:59:38.470115Z",
+        "created_at": "2026-09-08T08:59:38.470115Z"
+      },
+      {
+        "id": "d1e5f49a-a954-4fef-af13-3ca43a52f3ec",
+        "epoch_id": 315,
+        "intent_id": "TVL_LOOKUP",
+        "miner_slug": "preflight-ssl-verification",
+        "rank": 1,
+        "score": 0.015492253,
+        "failure_reason": "",
+        "scored_at": "2026-09-07T23:50:18.143066Z",
+        "created_at": "2026-09-07T23:50:18.143066Z"
+      },
+      {
+        "id": "22a460dd-23d8-4211-872e-8ce995a54452",
+        "epoch_id": 314,
+        "intent_id": "TVL_LOOKUP",
+        "miner_slug": "sentinel-risk-oracle",
+        "rank": 1,
+        "score": 0.030563487,
+        "failure_reason": "",
+        "scored_at": "2026-09-07T09:17:58.251541Z",
+        "created_at": "2026-09-07T09:17:58.251541Z"
+      },
+      {
+        "id": "93a946e9-fe5e-491f-b584-1d5cd5605bf1",
+        "epoch_id": 313,
+        "intent_id": "TVL_LOOKUP",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 0.020066932,
+        "failure_reason": "",
+        "scored_at": "2026-09-07T00:14:03.579399Z",
+        "created_at": "2026-09-07T00:14:03.579399Z"
+      },
+      {
+        "id": "ae8ea2c4-405a-4b59-a9ab-18782e96425d",
+        "epoch_id": 312,
+        "intent_id": "TVL_LOOKUP",
+        "miner_slug": "kriterion-pramagraph",
+        "rank": 1,
+        "score": 0.0011915627,
+        "failure_reason": "",
+        "scored_at": "2026-09-06T15:07:11.682811Z",
+        "created_at": "2026-09-06T15:07:11.682811Z"
+      }
+    ],
+    "total": 454,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 49,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "TVL_LOOKUP",
+    "wasm_url": "https://gateway.pinata.cloud/ipfs/QmNV1RufiyPjkkZseWAeXpoSrtWzDPBVhyMXmMQoDvoLKi",
+    "wasm_hash": "52bf95ab9ad37da230a26f7b580b60293988b930124826003614bd523b8e3869",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 0.79607064,
+    "eval": {
+      "candidate_margin": 0.79607064,
+      "champion_margin": 0.37360683,
+      "candidate_wins": 32,
+      "champion_wins": 32,
+      "comparable_cases": 32,
+      "worst_self_match": 1,
+      "score_stddev": 0.40818518,
+      "historical_rows_evaluated": 0
+    },
+    "registered_at": "2026-08-17T23:11:18Z",
+    "updated_at": "2026-08-17T23:12:06Z"
+  }
+}

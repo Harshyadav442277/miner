@@ -1,0 +1,69 @@
+{
+  "at": "2026-09-10T18:43:30.582Z",
+  "results": [
+    {
+      "chain": "ethereum",
+      "url": "https://ethereum-rpc.publicnode.com",
+      "contract": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "chainId": "0x1",
+      "result": "0x0000000000000000000000000000000000000000000000000000000000000006",
+      "pass": true
+    },
+    {
+      "chain": "base",
+      "url": "https://mainnet.base.org",
+      "contract": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+      "chainId": "0x2105",
+      "result": "0x0000000000000000000000000000000000000000000000000000000000000006",
+      "pass": true
+    },
+    {
+      "chain": "arbitrum",
+      "url": "https://arb1.arbitrum.io/rpc",
+      "contract": "0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+      "chainId": "0xa4b1",
+      "result": "0x0000000000000000000000000000000000000000000000000000000000000006",
+      "pass": true
+    },
+    {
+      "chain": "optimism",
+      "url": "https://mainnet.optimism.io",
+      "contract": "0x0b2c639c533813f4aa9d7837caf62653d097ff85",
+      "chainId": "0xa",
+      "result": "0x0000000000000000000000000000000000000000000000000000000000000006",
+      "pass": true
+    },
+    {
+      "chain": "polygon",
+      "url": "https://polygon-bor-rpc.publicnode.com",
+      "contract": "0x3c499c542cef5e3811e1192ce70d8cc03d5c3359",
+      "chainId": "0x89",
+      "result": "0x0000000000000000000000000000000000000000000000000000000000000006",
+      "pass": true
+    },
+    {
+      "chain": "ethereum-usdt",
+      "url": "https://ethereum-rpc.publicnode.com",
+      "contract": "0xdac17f958d2ee523a2206206994597c13d831ec7",
+      "chainId": "0x1",
+      "result": "0x0000000000000000000000000000000000000000000000000000000000000006",
+      "pass": true
+    },
+    {
+      "chain": "bsc",
+      "url": "https://bsc-dataseed.bnbchain.org",
+      "contract": null,
+      "chainId": "0x38",
+      "result": "0x7031ee0783a2703",
+      "pass": true
+    },
+    {
+      "chain": "bsc-spare",
+      "url": "https://bsc-dataseed-public.bnbchain.org",
+      "contract": null,
+      "chainId": "0x38",
+      "result": "0x7031ee0783a2703",
+      "pass": true
+    }
+  ]
+}

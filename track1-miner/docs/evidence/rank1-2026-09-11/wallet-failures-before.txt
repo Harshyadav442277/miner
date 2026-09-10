@@ -1,0 +1,210 @@
+✖ wallet structured Ethereum takes precedence over Base in prose (1.3757ms)
+✖ wallet accepts structured chain IDs without replacing Base with Ethereum (0.3121ms)
+✖ wallet reads the requested Base USDC contract and six-decimal amount (2.7662ms)
+✖ wallet answers both native ETH and Ethereum USDT when both are requested (18.6245ms)
+✖ wallet never substitutes native USDC for explicitly bridged USDC.e (0.3828ms)
+✖ wallet reports token failure as unknown even if native ETH would be available (0.6273ms)
+✖ wallet reads BNB Chain natively rather than returning an Ethereum substitute (0.6123ms)
+✖ wallet does not accept a result bundled with a JSON-RPC error (0.4162ms)
+✖ wallet starts a healthy alternate while the first RPC is still stalled (114.8437ms)
+✖ malformed wallet addresses have no known balance, not an invented zero (1.1248ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 0
+ℹ fail 10
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 212.4504
+
+✖ failing tests:
+
+test at dist-test\test\wallet-coverage.test.js:21:22
+✖ wallet structured Ethereum takes precedence over Base in prose (1.3757ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  'base' !== 'ethereum'
+  
+      at TestContext.<anonymous> (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\wallet-coverage.test.js:22:22)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'base',
+    expected: 'ethereum',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at dist-test\test\wallet-coverage.test.js:25:22
+✖ wallet accepts structured chain IDs without replacing Base with Ethereum (0.3121ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  'ethereum' !== 'base'
+  
+      at TestContext.<anonymous> (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\wallet-coverage.test.js:26:22)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'ethereum',
+    expected: 'base',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at dist-test\test\wallet-coverage.test.js:29:22
+✖ wallet reads the requested Base USDC contract and six-decimal amount (2.7662ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /123\.456789 USDC/. Input:
+  
+  'The native-coin balance of 0x8b224783FE5b3c52B7DB0cb9B1754f8812b75287 on base could not be retrieved right now because the public RPC endpoints did not respond. This is a temporary availability problem and is not a statement that the balance is zero.'
+  
+      at C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\wallet-coverage.test.js:38:26
+      at async mockFetch (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\wallet-coverage.test.js:15:9)
+      at async TestContext.<anonymous> (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\wallet-coverage.test.js:30:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'The native-coin balance of 0x8b224783FE5b3c52B7DB0cb9B1754f8812b75287 on base could not be retrieved right now because the public RPC endpoints did not respond. This is a temporary availability problem and is not a statement that the balance is zero.',
+    expected: /123\.456789 USDC/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at dist-test\test\wallet-coverage.test.js:43:22
+✖ wallet answers both native ETH and Ethereum USDT when both are requested (18.6245ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /42\.000001 USDT/. Input:
+  
+  "The address 0x8b224783FE5b3c52B7DB0cb9B1754f8812b75287 currently has a native-coin balance of 1 ETH on ethereum. This was determined by querying the eth_getBalance RPC method against the ethereum network, which returns the account's balance in wei at the latest block. This is the native-coin balance only; USDT is a token balance held in a contract and is not included in it."
+  
+      at C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\wallet-coverage.test.js:53:26
+      at async mockFetch (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\wallet-coverage.test.js:15:9)
+      at async TestContext.<anonymous> (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\wallet-coverage.test.js:44:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: "The address 0x8b224783FE5b3c52B7DB0cb9B1754f8812b75287 currently has a native-coin balance of 1 ETH on ethereum. This was determined by querying the eth_getBalance RPC method against the ethereum network, which returns the account's balance in wei at the latest block. This is the native-coin balance only; USDT is a token balance held in a contract and is not included in it.",
+    expected: /42\.000001 USDT/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at dist-test\test\wallet-coverage.test.js:56:22
+✖ wallet never substitutes native USDC for explicitly bridged USDC.e (0.3828ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /USDC\.e/. Input:
+  
+  'The native-coin balance of 0x8b224783FE5b3c52B7DB0cb9B1754f8812b75287 on arbitrum could not be retrieved right now because the public RPC endpoints did not respond. This is a temporary availability problem and is not a statement that the balance is zero.'
+  
+      at C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\wallet-coverage.test.js:60:26
+      at async mockFetch (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\wallet-coverage.test.js:15:9)
+      at async TestContext.<anonymous> (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\wallet-coverage.test.js:57:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'The native-coin balance of 0x8b224783FE5b3c52B7DB0cb9B1754f8812b75287 on arbitrum could not be retrieved right now because the public RPC endpoints did not respond. This is a temporary availability problem and is not a statement that the balance is zero.',
+    expected: /USDC\.e/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at dist-test\test\wallet-coverage.test.js:63:22
+✖ wallet reports token failure as unknown even if native ETH would be available (0.6273ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  '0 ETH' !== 'unknown'
+  
+      at C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\wallet-coverage.test.js:69:26
+      at async mockFetch (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\wallet-coverage.test.js:15:9)
+      at async TestContext.<anonymous> (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\wallet-coverage.test.js:64:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '0 ETH',
+    expected: 'unknown',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at dist-test\test\wallet-coverage.test.js:74:22
+✖ wallet reads BNB Chain natively rather than returning an Ethereum substitute (0.6123ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  'ethereum' !== 'bsc'
+  
+      at C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\wallet-coverage.test.js:80:26
+      at async mockFetch (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\wallet-coverage.test.js:15:9)
+      at async TestContext.<anonymous> (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\wallet-coverage.test.js:75:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'ethereum',
+    expected: 'bsc',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at dist-test\test\wallet-coverage.test.js:84:22
+✖ wallet does not accept a result bundled with a JSON-RPC error (0.4162ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== null
+  
+      at C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\wallet-coverage.test.js:87:26
+      at async mockFetch (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\wallet-coverage.test.js:15:9)
+      at async TestContext.<anonymous> (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\wallet-coverage.test.js:85:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at dist-test\test\wallet-coverage.test.js:91:22
+✖ wallet starts a healthy alternate while the first RPC is still stalled (114.8437ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  null !== 1e-18
+  
+      at C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\wallet-coverage.test.js:106:26
+      at async mockFetch (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\wallet-coverage.test.js:15:9)
+      at async TestContext.<anonymous> (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\wallet-coverage.test.js:93:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 1e-18,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at dist-test\test\wallet-coverage.test.js:110:22
+✖ malformed wallet addresses have no known balance, not an invented zero (1.1248ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== null
+  
+      at TestContext.<anonymous> (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\wallet-coverage.test.js:112:22)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

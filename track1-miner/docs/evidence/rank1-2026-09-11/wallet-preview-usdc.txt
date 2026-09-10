@@ -1,0 +1,9 @@
+Vercel CLI 59.5.0 (Node.js 24.19.0) | curl is in beta — https://vercel.com/feedback
+  % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
+                                 Dload  Upload  Total   Spent   Left   Speed
+
+  0      0   0      0   0      0      0      0                              0
+100    246 100    246   0      0    314      0                              0
+100    246 100    246   0      0    314      0                              0
+100    246 100    246   0      0    314      0                              0
+{"verdict":"0 USDC","confidence":0.98,"reason":"Current balances for 0x8b224783FE5b3c52B7DB0cb9B1754f8812b75287 on base: 0 USDC, read using eth_call balanceOf on contract 0x833589fcd6edb6e08f4c7c32d4f71b54bda02913. These are latest-block reads."}

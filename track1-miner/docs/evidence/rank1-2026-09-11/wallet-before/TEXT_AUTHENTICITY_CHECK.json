@@ -1,0 +1,33 @@
+{
+  "scores": {
+    "scores": [],
+    "total": 0,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 1882,
+    "author_address": "0xdad201ef02f5c1fbb8f9e931ae9b7c1bf493a39e",
+    "intent_id": "TEXT_AUTHENTICITY_CHECK",
+    "wasm_url": "https://raw.githubusercontent.com/Harshyadav442277/miner/72474bd7514735b53b823bdab390c9721219bd18/track2/calibration/dist/text_authenticity_v2.wasm",
+    "wasm_hash": "eec7bc00a5131dfb4152c0ca3b4b54eabc9ed05092a5b4d014e3fe1453a50588",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 0.66666603,
+    "eval": {
+      "candidate_margin": 0.66666603,
+      "champion_margin": 0.6663348,
+      "candidate_wins": 14,
+      "champion_wins": 14,
+      "comparable_cases": 15,
+      "worst_self_match": 1,
+      "score_stddev": 0.49690366,
+      "historical_rows_evaluated": 0
+    },
+    "registered_at": "2026-08-30T04:27:54Z",
+    "updated_at": "2026-08-30T04:38:36Z"
+  }
+}

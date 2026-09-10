@@ -1,5 +1,20 @@
 # GAPS.md — honesty ledger
 
+## 2026-09-11 wallet repair — G102
+
+**G102 — Wallet token, network and RPC coverage, deployed and accepted.** Seven direct production
+queries reproduce failures: USDC/USDT answered with native ETH, BSC answered with Ethereum,
+structured chain precedence and chain-ID loss, bridged-token substitution, and invented zero for
+invalid addresses. Ten initial regression cases failed; the repaired implementation and three
+additional cases pass. Full suite: 474/474; eight live provider checks pass. Token quantities use
+issuer-listed contracts; RPC races have shared deadlines and cancellation. Details and remaining
+coverage gaps: [current rank report](track1-miner/docs/RANK1_PROGRESS_2026-09-11.md).
+The active 26-intent YAML description is unchanged; these runtime additions use its existing query
+input. Wallet rank improvement is unverified; epoch 321 still has 8 total rank-1 intents.
+Production `miner-kb0aad6hx` passes seven wallet probes and all **7/7 preflight gates**, including
+26/26 intent correctness. The public registered alias is accessible; the secondary project alias
+requires authentication and its USDC response was verified through `vercel curl`.
+
 ## 2026-09-10 third release — G100
 
 **G100 — News relevance and future publications, preview verified.** Company-name substrings and

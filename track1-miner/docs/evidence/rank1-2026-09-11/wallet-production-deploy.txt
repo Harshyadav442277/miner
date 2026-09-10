@@ -1,0 +1,53 @@
+Vercel CLI 59.5.0 (Node.js 24.19.0)
+Deploying miner
+  Inspect         https://vercel.com/wukong4/miner/2rAaYGJDZJu88PrTKQFHxYFFdzFq
+  Production      https://miner-kb0aad6hx-wukong4.vercel.app
+Building…
+Building…
+Running build in Washington, D.C., USA (East) – iad1
+Build machine configuration: 2 cores, 8 GB
+Retrieving list of deployment files...
+Downloading 182 deployment files...
+Restored build cache from previous deployment (4fMnyYs9fuDDhRARbfNXT7pkxKHk)
+Running "vercel build"
+Vercel CLI 59.11.7
+Warning: Detected "engines": { "node": ">=20" } in your `package.json` that will automatically upgrade when a new major Node.js Version is released. Learn More: https://vercel.link/node-version
+Installing dependencies...
+up to date in 525ms
+Running "npm run build"
+> livecert-miner@1.0.0 build
+> tsc -p tsconfig.json
+✓ Build complete — Using src/server.ts as the root entrypoint.
+Using TypeScript 5.9.3 (local user-provided)
+✓ Typecheck complete
+Build Completed in /vercel/output [8s]
+Deploying outputs...
+[2K[1A[2K[G  Production      https://miner-kb0aad6hx-wukong4.vercel.app
+Completing…
+▲ Aliased         https://miner-wine.vercel.app
+{
+  "status": "ok",
+  "deployment": {
+    "id": "dpl_2rAaYGJDZJu88PrTKQFHxYFFdzFq",
+    "url": "https://miner-kb0aad6hx-wukong4.vercel.app",
+    "inspectorUrl": "https://vercel.com/wukong4/miner/2rAaYGJDZJu88PrTKQFHxYFFdzFq",
+    "readyState": "READY",
+    "target": "production",
+    "deploymentApiUrl": "https://api.vercel.com/v13/deployments/dpl_2rAaYGJDZJu88PrTKQFHxYFFdzFq"
+  },
+  "message": "Deployment miner-kb0aad6hx-wukong4.vercel.app ready.",
+  "next": [
+    {
+      "command": "vercel curl https://miner-kb0aad6hx-wukong4.vercel.app",
+      "when": "Verify deployment, including when Deployment Protection is enabled"
+    },
+    {
+      "command": "vercel inspect miner-kb0aad6hx-wukong4.vercel.app --scope wukong4",
+      "when": "Inspect deployment"
+    },
+    {
+      "command": "vercel deploy --prod --scope wukong4",
+      "when": "Promote to production"
+    }
+  ]
+}

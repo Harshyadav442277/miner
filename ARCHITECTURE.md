@@ -1,5 +1,16 @@
 # ARCHITECTURE.md — decisions and rationale
 
+## 2026-09-11: wallet chain, token and availability coverage
+
+Wallet lookups honor a recognized structured chain before question prose, including numeric chain
+IDs. BNB Chain native balances use BNB mainnet RPC, never Ethereum. Requested canonical USDC
+balances on the existing five chains and Ethereum USDT use read-only ERC-20 balanceOf calls to
+issuer-documented contracts. Bridged variants are distinct assets; an unsupported contract or a
+failed read stays unknown. Token quantities are formatted directly from bigint base units.
+Each lookup uses at most two concurrent RPC attempts, a shared deadline, and cancellation after
+success. Malformed addresses cannot substantiate a zero balance. Runtime additions use the existing
+query input; the immutable registered manifest remains unchanged in this release.
+
 ## 2026-09-10: rank-1 correctness and provider coverage
 
 CVE_LOOKUP keeps NVD as its primary source and falls back, within a 3.5-second additional
