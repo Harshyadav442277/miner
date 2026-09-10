@@ -89,6 +89,122 @@ const CHECKS = {
   // record, fetched separately here — the endpoint's job is to resolve the CPE
   // configuration into stated versions, and that resolution is the thing most
   // likely to silently return nothing.
+  async GAS_PRICE() {
+    const bad = [];
+    // The described trap is answering with the token price instead of the fee.
+    const r = await get("/gas-price", { query: "What is the current gas price in Gwei on the Ethereum network?" });
+    const b = r.body;
+    if (b.error) return [`errored: ${b.error}`];   // RPCs down; re-run the gate alone.
+    const reason = String(b.reason ?? "");
+    if (b.verdict !== "gas_price") bad.push(`ethereum -> ${b.verdict}, want gas_price`);
+    if (!/on ethereum is [\d.]+ Gwei/.test(reason)) bad.push("no Gwei figure for ethereum in the answer");
+    if (!/as of block [\d,]+/.test(reason)) bad.push("answer names no block, so the figure is not checkable");
+    if (!/not the price of ETH/.test(reason)) bad.push("answer does not distinguish the fee from the token price");
+    if (/\$/.test(reason)) bad.push("a gas answer quotes a dollar price");
+
+    // Independently: recompute from the chain and compare the magnitude. An
+    // exact match is not expected (gas moves every block) but a wrong ORDER
+    // of magnitude means we read the wrong thing.
+    try {
+      const rpc = await (await fetch("https://ethereum-rpc.publicnode.com", {
+        method: "POST", headers: { "content-type": "application/json" },
+        body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "eth_gasPrice", params: [] }),
+        signal: AbortSignal.timeout(15000),
+      })).json();
+      const want = Number(BigInt(rpc.result)) / 1e9;
+      const got = Number((reason.match(/on ethereum is ([\d.]+) Gwei/) ?? [])[1]);
+      if (Number.isFinite(want) && Number.isFinite(got) && want > 0) {
+        const ratio = got / want;
+        if (ratio < 0.1 || ratio > 10) bad.push(`gas figure ${got} is far from the chain\u2019s ${want.toFixed(6)}`);
+      }
+    } catch { /* the cross-check is best effort */ }
+
+    // A chain we do not read must be named, not answered from Ethereum.
+    const sol = await get("/gas-price", { query: "What is the gas price on Solana?" });
+    if (sol.body.error !== "unsupported_chain") bad.push(`solana -> ${sol.body.error}, want unsupported_chain`);
+    if (/Gwei/.test(String(sol.body.reason ?? ""))) bad.push("a figure was quoted for a chain we do not read");
+
+    // A named L2 must not be captured by the Ethereum pattern.
+    const base = await get("/gas-price", { query: "gas on base?" });
+    if (!base.body.error && !/on base is/.test(String(base.body.reason ?? ""))) {
+      bad.push("a Base question was not answered about Base");
+    }
+    return bad;
+  },
+
+  async FINANCIAL_DATA() {
+    const bad = [];
+    // The intent is explicitly "beyond a single quoted price", so a bare price
+    // is the wrong answer here even when the number is right.
+    const tok = await get("/financial", {
+      query: "Give the market cap and 24h trading volume for token 0x833589fcd6edb6e08f4c7c32d4f71b54bda02913 on base.",
+    });
+    const t = tok.body;
+    if (t.error) return [`errored: ${t.error}`];   // provider down; re-run the gate alone.
+    const tr = String(t.reason ?? "");
+    if (t.verdict !== "financial_data") bad.push(`token -> ${t.verdict}, want financial_data`);
+    if (!/market capitalisation of \$[\d,]+/.test(tr)) bad.push("no market capitalisation in the token answer");
+    if (!/24-hour trading volume of \$[\d,]+/.test(tr)) bad.push("no 24h volume in the token answer");
+    if (!/USDC/.test(tr)) bad.push("token not identified as USDC");
+    if (!/not a single quoted price/.test(tr)) bad.push("answer does not distinguish itself from a price lookup");
+
+    // Fundamentals are not retrievable keylessly. The answer must say so
+    // rather than let the market data read as a P/E ratio.
+    const eq = await get("/financial", { query: "What is Apple\u2019s P/E ratio and revenue growth this quarter?" });
+    if (!eq.body.error) {
+      const er = String(eq.body.reason ?? "");
+      if (!/Apple/.test(er)) bad.push("Apple not resolved");
+      if (!/52-week range/.test(er)) bad.push("no 52-week range in the equity answer");
+      if (!/price-to-earnings ratio/.test(er)) bad.push("the P/E ratio asked for is not mentioned at all");
+      if (!/not retrieved|not available/i.test(er)) bad.push("the unavailable fundamentals are not declared unavailable");
+    }
+
+    const none = await get("/financial", { query: "market data please" });
+    if (none.body.error !== "no_subject") bad.push(`subjectless -> ${none.body.error}, want no_subject`);
+    return bad;
+  },
+
+  async FRAUD_DETECTION() {
+    const bad = [];
+    // A clean result must never read as a clearance: a caller acts on it.
+    const clean = await get("/fraud-check", { query: "How risky is 0x0000000000000000000000000000000000000001?" });
+    const c = clean.body;
+    if (c.error && c.error !== "no_subject") return [`errored: ${c.error}`];
+    const cr = String(c.reason ?? "");
+    if (c.verdict === "no_indicators") {
+      if (!/not the same as being safe/i.test(cr)) bad.push("a clean result does not disclaim that it means safe");
+      if (!/checks performed/i.test(cr)) bad.push("a clean result does not say which checks were performed");
+    }
+
+    // A sanctioned address must be high risk, taken from the list at run time
+    // so the fixture cannot go stale.
+    let sanctionedAddr = null;
+    try {
+      const body = await (await fetch(
+        "https://raw.githubusercontent.com/0xB10C/ofac-sanctioned-digital-currency-addresses/lists/sanctioned_addresses_ETH.txt",
+        { signal: AbortSignal.timeout(15000) },
+      )).text();
+      sanctionedAddr = body.trim().split(/\r?\n/)[0] ?? null;
+    } catch { /* list unavailable; skip this half */ }
+    if (sanctionedAddr) {
+      const hit = await get("/fraud-check", { query: `Is it safe to receive funds from ${sanctionedAddr}?` });
+      if (!hit.body.error) {
+        if (hit.body.verdict !== "high_risk") bad.push(`sanctioned address -> ${hit.body.verdict}, want high_risk`);
+        if (!/OFAC sanctioned/.test(String(hit.body.reason ?? ""))) bad.push("a sanctions hit does not name the sanctions list");
+      }
+    }
+
+    // Scam wording alone must raise risk.
+    const scam = await get("/fraud-check", { query: "They asked me to buy gift cards to settle the invoice." });
+    if (!scam.body.error && scam.body.verdict === "no_indicators") {
+      bad.push("gift-card payment wording did not raise risk");
+    }
+
+    const none = await get("/fraud-check", { query: "is this fraudulent?" });
+    if (none.body.error !== "no_subject") bad.push(`subjectless -> ${none.body.error}, want no_subject`);
+    return bad;
+  },
+
   async GAME_RESULT() {
     const bad = [];
     // The champion here rewards the WRONG winner above the right one (0.854 vs

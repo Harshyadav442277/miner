@@ -345,5 +345,25 @@
         "honest could not determine": "The safety of this URL could not be determined."
       }
     }
+  ],
+  "GAS_PRICE": [
+    {
+      "id": "ethereum-current-gwei",
+      "note": "The canonical description's own example. GT figure fixed at 12.43 Gwei so shapes are comparable.",
+      "question": "What is the current gas price in Gwei on the Ethereum network?",
+      "ground_truths": {
+        "exact": "The current gas price on Ethereum is 12.43 Gwei.",
+        "rounded": "Ethereum gas is currently around 12.4 Gwei.",
+        "detailed": "Ethereum's current gas price is 12.43 Gwei, made up of a 12.40 Gwei base fee and a 0.03 Gwei priority fee."
+      },
+      "answers": {
+        "exact figure only": "The current gas price on ethereum is 12.43 Gwei.",
+        "exact plus rounded register": "The current gas price on ethereum is 12.43 Gwei, or about 12.4 Gwei.",
+        "exact, rounded, base and priority, block, transfer cost": "The current gas price on ethereum is 12.43 Gwei, or about 12.4 Gwei, as of block 25,945,140. That is a base fee of 12.40 Gwei plus a priority fee of 0.03 Gwei. At that rate a standard 21,000-gas transfer costs about 0.000261 ETH. This is the transaction fee level, not the price of ETH.",
+        "off by one percent": "The current gas price on ethereum is 12.55 Gwei.",
+        "token price instead of fee (the described trap)": "The current price of ETH is $2,431.",
+        "honest unavailable": "The current gas price on ethereum could not be determined."
+      }
+    }
   ]
 }

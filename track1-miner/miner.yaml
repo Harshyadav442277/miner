@@ -441,6 +441,92 @@ endpoints:
             intents: ["*"]
             description: "The user's original question, verbatim. Both sides, the competition and any date are read from it."
 
+  - path: /gas-price
+    external_path: /gas-price
+    method: GET
+    intents: [GAS_PRICE]
+    description: >-
+      The current transaction fee level on a named chain, read from that chain's
+      own JSON-RPC. Reports the gas price in Gwei both exactly and rounded, the
+      base fee and priority fee that make it up, the block the reading is from so
+      the figure is checkable, and what a standard 21,000-gas transfer costs at
+      that rate. This is the fee level and never the chain token's price, which is
+      a different intent. Covers ethereum, base, arbitrum, optimism and polygon; a
+      chain outside that list is named as uncovered rather than answered with a
+      different chain's fee, and an unresponsive endpoint is reported as unknown
+      rather than as a fee of zero.
+    params:
+      query:
+        optional:
+          - name: chain
+            type: string
+            intents: ["*"]
+            description: "Chain to read: ethereum, base, arbitrum, optimism or polygon. Read from the question when absent."
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim. The chain is read from it when the parameter is absent."
+
+  - path: /financial
+    external_path: /financial
+    method: GET
+    intents: [FINANCIAL_DATA]
+    description: >-
+      Market data and financial statistics for a token or a listed company,
+      deliberately beyond a single quoted price. A token contract address with its
+      chain returns market capitalisation, 24-hour trading volume, fully diluted
+      valuation and last traded price. A ticker or company name returns the day
+      range, volume, 52-week range and change against the previous close, with the
+      ticker resolved from the company name where only a name is given. Company
+      fundamentals such as the price-to-earnings ratio and revenue growth are not
+      available from a keyless source; a question asking for them is answered with
+      the market data that was retrieved and an explicit statement that the ratio
+      was not, rather than a substituted figure.
+    params:
+      query:
+        optional:
+          - name: address
+            type: string
+            intents: ["*"]
+            description: "Token contract address, e.g. 0x833589fcd6edb6e08f4c7c32d4f71b54bda02913. Use with the chain named in the question."
+          - name: symbol
+            type: string
+            intents: ["*"]
+            description: "Ticker symbol or company name, e.g. AAPL or Apple. Read from the question when absent."
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim. The subject and chain are read from it."
+
+  - path: /fraud-check
+    external_path: /fraud-check
+    method: GET
+    intents: [FRAUD_DETECTION]
+    description: >-
+      How likely a named address, link or message is to be fraudulent, assessed
+      from checks that are actually performed and named in the answer: the OFAC
+      sanctioned digital-currency address listing, Cloudflare's threat-intelligence
+      resolver for any domain in the text, the address's own on-chain state
+      (contract, externally owned account, or an account carrying an EIP-7702
+      delegation, with its transaction count and balance), and specific scam
+      wording such as a request for a seed phrase, gift-card payment or changed
+      banking details. A sanctions hit or a domain blocked as malware is reported
+      as high risk. A clean result is reported as no indicators found among the
+      checks performed, with the checks listed, and explicitly not as a statement
+      that the subject is safe; a check that could not be completed is named as
+      such rather than counted as clean.
+    params:
+      query:
+        optional:
+          - name: address
+            type: string
+            intents: ["*"]
+            description: "Wallet address, URL or message text to assess. Read from the question when absent."
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim, including the message being asked about."
+
   - path: /fact-check
     external_path: /fact-check
     method: GET
@@ -532,6 +618,9 @@ semantics:
     - NEWS_SEARCH
     - CURRENCY_EXCHANGE
     - GAME_RESULT
+    - GAS_PRICE
+    - FINANCIAL_DATA
+    - FRAUD_DETECTION
 
 # input_schema is a single top-level block covering every endpoint — the schema
 # refuses it inside endpoints[], and the node does not enforce it against requests.

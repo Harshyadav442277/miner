@@ -11,6 +11,9 @@ import { getHeadlines } from "./news";
 import { searchNews, type NewsSearchResult } from "./newssearch";
 import { convert, parseQuery as parseCurrency, type CurrencyResult } from "./currency";
 import { lookupGame, parseTeams, type GameResult } from "./gameresult";
+import { getGasPrice, resolveChain as resolveGasChain, type GasResult } from "./gas";
+import { getFinancialData, type FinancialResult } from "./financial";
+import { assessFraud, type FraudResult } from "./fraud";
 import { checkBalance, type WalletResult } from "./wallet";
 import { checkFact, type FactCheckResult } from "./factcheck";
 import { answerTelegraph, type TelegraphResult } from "./telegraph";
@@ -32,6 +35,7 @@ export const ENDPOINTS = [
   "/ip-geolocate", "/translate", "/papers",
   "/ai-detect", "/extract", "/headlines", "/wallet-balance",
   "/fact-check", "/telegraph", "/tx-lookup", "/cve", "/tvl", "/news-search", "/convert", "/game-result",
+  "/gas-price", "/financial", "/fraud-check",
 ] as const;
 
 /**
@@ -41,7 +45,8 @@ export const ENDPOINTS = [
 type Answer =
   | SslResult | StormResult | ForecastResult | GeoResult | TranslationResult | PaperResult
   | AiDetectResult | WalletResult | FactCheckResult | TelegraphResult | TxResult | CveResult
-  | TvlResult | NewsSearchResult | CurrencyResult | GameResult;
+  | TvlResult | NewsSearchResult | CurrencyResult | GameResult
+  | GasResult | FinancialResult | FraudResult;
 const cache = new Map<string, { at: number; value: Answer; ttl: number }>();
 
 /**
@@ -126,6 +131,9 @@ const SUBJECT_OF: Record<string, string> = {
   "/news-search": "A news article search",
   "/convert": "A currency conversion",
   "/game-result": "A sports fixture result",
+  "/gas-price": "A gas price lookup",
+  "/financial": "A market data lookup",
+  "/fraud-check": "A fraud risk assessment",
 };
 
 function armWatchdog(res: ServerResponse, path: string, question: string): void {
@@ -1044,6 +1052,76 @@ function route(req: IncomingMessage, res: ServerResponse): void {
         sendAnswer(res, q, lean(r), false);
       })
       .catch(() => upstreamUnavailable(res, "A sports fixture result", teamsParam.slice(0, 40) || q.slice(0, 40), q));
+    return;
+  }
+
+  if (path === "/gas-price") {
+    /**
+     * A FEE, never the chain's token price — the canonical description calls
+     * that confusion out by name, and the measured cost of it is 1.4e-11.
+     */
+    const chainParam = firstValue(url, "chain", "network", "blockchain");
+    const q = withSubject(firstValue(url, "query", "q", "question", "text", "input"), chainParam);
+    const { chain, unread } = resolveGasChain(chainParam, q);
+
+    // Gas moves every block, so the shared one-minute window is right here: it
+    // absorbs repeated spot checks without ever serving a stale block.
+    const key = `gas:${chain ?? unread ?? "-"}`;
+    const hit = fromCache(key);
+    if (hit) {
+      sendAnswer(res, q, lean(hit), false);
+      return;
+    }
+    getGasPrice(chain, unread)
+      .then((r) => {
+        if (r.verdict === "gas_price") toCache(key, r);
+        sendAnswer(res, q, lean(r), false);
+      })
+      .catch(() => upstreamUnavailable(res, "A gas price lookup", chain ?? "the network", q));
+    return;
+  }
+
+  if (path === "/financial") {
+    /**
+     * Statistics BEYOND a single price. A bare price is the wrong answer here
+     * even when it is the right number — that question is CRYPTO_PRICE or
+     * STOCK_PRICE, and the description says so explicitly.
+     */
+    const addressParam = firstValue(url, "address", "contract", "token", "token_address");
+    const symbolParam = firstValue(url, "symbol", "ticker", "company");
+    const q = withSubject(
+      firstValue(url, "query", "q", "question", "text", "input"),
+      addressParam || symbolParam,
+    );
+
+    const key = `fin:${(addressParam || symbolParam || q).toLowerCase().slice(0, 100)}`;
+    const hit = fromCache(key);
+    if (hit) {
+      sendAnswer(res, q, lean(hit), false);
+      return;
+    }
+    getFinancialData(q, addressParam, symbolParam)
+      .then((r) => {
+        if (r.verdict === "financial_data") toCache(key, r);
+        sendAnswer(res, q, lean(r), false);
+      })
+      .catch(() => upstreamUnavailable(res, "A market data lookup", (addressParam || symbolParam || q).slice(0, 40), q));
+    return;
+  }
+
+  if (path === "/fraud-check") {
+    /**
+     * The whole subject is in the text, so the question itself is the input —
+     * an address, a link, or the message being asked about. Nothing here is
+     * cached: a sanctions listing and a threat feed are exactly the things that
+     * should be re-read, and a stale "no indicators" is the answer a caller
+     * would act on.
+     */
+    const subjectParam = firstValue(url, "address", "text", "message", "url", "subject");
+    const q = withSubject(firstValue(url, "query", "q", "question", "input"), subjectParam);
+    assessFraud(`${subjectParam} ${q}`.trim())
+      .then((r) => sendAnswer(res, q, lean(r), false))
+      .catch(() => upstreamUnavailable(res, "A fraud risk assessment", (subjectParam || q).slice(0, 40), q));
     return;
   }
 
