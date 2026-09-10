@@ -1,5 +1,69 @@
 # Track 1 — session handoff
 
+## 2026-09-10 ~19:40 UTC — REPLAYED THE ROUTED FEED; FOUR REFUSAL DEFECTS FIXED AND DEPLOYED
+
+Read [docs/ROUTED_REFUSALS_2026-09-10.md](docs/ROUTED_REFUSALS_2026-09-10.md) first.
+
+**Codex's work needed nothing finished.** Registration 1379 was already active with
+twenty-six intents, hash matching, 380 tests green, 7/7 preflight, the wallet repair
+deployed. What was missing was the measurement that follows a deploy.
+
+**The tool that does that measurement was broken.** `replay-intents.mjs` could not
+refresh: the explorer feed 502s or hangs at `limit=100` (45 s timeout) and answers in
+three seconds at 50, and one failed page ended the whole sweep. Fixed to 50-row pages
+with retries. The refreshed sweep read 3,000 rows for **287 distinct routed questions
+across 24 intents**; SPORTS_SCORE and TEXT_AUTHENTICITY_CHECK have none at all.
+
+**Four defects, all fixed, deployed and re-measured against production:**
+
+- **Open-Meteo's gazetteer searches a name, not a "city country" phrase.** "Lagos
+  Nigeria", "lagos nigeria" and "Houston Texas" return zero results where "Lagos,
+  Nigeria" and a bare "Lagos" resolve. Six routed questions across three intents
+  arrive without the comma and every one was refused. Multi-word candidates now also
+  offer the comma form and the leading words, appended after everything already found.
+- **An all-lowercase question produced an EMPTY candidate list** — the locative match
+  was anchored to `$`, and with no proper noun either, nothing was tried at all.
+  Comma-terminated clauses are now scanned too.
+- **One named currency was refused.** Three of four routed CURRENCY_EXCHANGE questions
+  name one currency; an unqualified FX quote is against the dollar, and against the
+  euro when the dollar is named. The correctness gate's `missing_currency` assertion
+  moved with the behaviour; naming no currency still refuses.
+- **"Will Sandoz's …" resolved the company "Will Sandoz".** Yahoo resolves "Sandoz"
+  and not "Will Sandoz". **This is the "Will Dubai" defect in a second intent** — the
+  third time this repo has met the greedy-proper-noun-run shape.
+
+**Two guards shipped with the financial fix, because a fuzzy search is dangerous.**
+Yahoo returns the Brazilian paper company IRANI for "Iran"; a hit must now carry the
+asked name's first word as a whole word. And a whole SENTENCE is never shortened —
+trimming "market data please" to "market" got a confident Vanguard total-market
+answer, caught by an existing test rather than by review.
+
+**Measured before and after, on the routed corpus against production:** STORM_ALERT
+63/65 → 65/65, WEATHER_FORECAST 37/41 → 39/41, WEATHER_CHECK 26/29 → 28/29,
+CURRENCY_EXCHANGE 1/4 → 4/4, FINANCIAL_DATA 2/14 → 7/14; **358/456 → 371/456**.
+**No rank is claimed** — these are answer rates, not scores.
+
+**A backslash was eaten by a shell heredoc for the FOURTH time (G74, G85, now G103):**
+`/s+/` was written as `/s+/` and split place names on the letter "s" ("Lagos" →
+"Lago"). Caught by printing the function's output, not by a test — `no-control-bytes`
+scans for control BYTES and a missing backslash leaves none. **Write source through the
+Write tool, never through a heredoc.** A second self-inflicted one the same session:
+`String.replace` treats `$` + backtick in the REPLACEMENT as "everything before the
+match", which spliced half of extract.ts into a comment. Use a replacer function.
+
+**Deliberately not changed:** TELEGRAPH_KNOWLEDGE's 25 prediction-market refusals (we
+hold rank 1 at 1.0 and they are not Telegraph questions), NEWS_HEADLINES' two
+nonsense-topic refusals, and the near-miss intents, which are separated by noise rather
+than by a defect. **CVE_LOOKUP's six year queries are G105 and the largest remaining
+refusal class in an intent we hold at 1.0.**
+
+**Shipped:** `c7cb265` then `6f15381`, production **`miner-4bdjfyb3m`** (after
+`miner-cpy9hc0gq`), alias verified, **390 unit tests**, **7/7 preflight including
+26/26 intent correctness**, watcher `active`. Manifest unchanged and its hash still
+matches registration 1379, so **no `updateMiner`**. Epoch 322 had not landed at 19:36
+UTC — about four hours past the ~9 h cadence — so all of this is in place ahead of it.
+
+
 ## 2026-09-11 ~00:18 IST — wallet coverage repair deployed
 
 Production **miner-kb0aad6hx**, both aliases verified, retains all 26 intents and registration1379.

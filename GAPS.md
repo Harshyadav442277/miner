@@ -1,5 +1,42 @@
 # GAPS.md — honesty ledger
 
+## 2026-09-10 routed-refusal sweep — G103–G106
+
+- **G103 — a shell heredoc ate a backslash for the FOURTH time.** `/s+/` was written
+  into extract.ts as `/s+/`, so place names were split on the letter "s" and "Lagos
+  Nigeria" became "Lago". G74 and G85 are the same defect; `no-control-bytes.test.ts`
+  cannot catch this one, because a MISSING backslash leaves no control byte behind. It
+  was found by printing the function's output, which is the only thing that has ever
+  caught it. **Write source through the Write tool, never through a heredoc.** A second
+  self-inflicted variant the same session: `String.replace` treats `$` followed by a
+  backtick in the REPLACEMENT string as "everything before the match", which spliced
+  half of extract.ts into a comment. Use a replacer function for any patch script.
+- **G104 — the CURRENCY_EXCHANGE counter currency is an assumption, not a reading.**
+  "whats the fx rate of euro?" is answered as EUR/USD because that is what an
+  unqualified FX quote means. If the epoch's hidden ground truth quotes the euro
+  against something else, the answer is wrong rather than merely incomplete. The
+  previous behaviour — refusing — scored ~1e-11 for certain, so the bet is
+  directionally right, but it IS a bet and the prose names both currencies so a reader
+  can see it. Unverifiable while `/scores` publishes no ground truths (G24).
+- **G105 — CVE_LOOKUP refuses six legitimate year queries, and it is the largest
+  remaining refusal class in an intent we hold at 1.0.** "CVE 2015", "CVEs 2010 high
+  priority", "Criticial CVE 2025", "Look up for latest CVEs" and two more are 6 of the
+  21 routed CVE questions. NVD 2.0 can answer them with `cvssV3Severity` plus a
+  published-date range, but it caps a range at 120 days, so a whole year needs several
+  calls inside a 6 s budget. Not attempted this session: the epoch was overdue and a
+  speculative new provider path is the wrong thing to ship into a scoring window.
+- **G106 — SPORTS_SCORE and TEXT_AUTHENTICITY_CHECK have never been measured against
+  real traffic.** Neither appears once in 3,000 rows of the routed-question feed, so
+  the only evidence for either is the authored correctness case in
+  `intent-answers.mjs`. Both are among the seven intents that will be scored for the
+  first time in the next epoch. Their fields are near-zero, so a refusal would probably
+  still rank first — but "probably" is the honest word.
+- **G107 — the explorer's question feed is degraded and the replay tool now works
+  around it.** `limit=100` returns HTTP 502 or hangs past 45 s; `limit=50` answers in
+  about three seconds. The tool pages at 50 with three retries and stops only after
+  three consecutive dead pages. If a future session sees "Feed returned no usable
+  questions", check the page size before concluding the feed is gone.
+
 ## 2026-09-11 wallet repair — G102
 
 **G102 — Wallet token, network and RPC coverage, deployed and accepted.** Seven direct production

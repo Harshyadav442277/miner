@@ -6,6 +6,18 @@
 - [x] Reproduce seven production wallet failures and ten regression failures; implement token reads, BNB native balances, chain precedence, bounded RPC fallback and invalid-address correction.
 - [x] Pass all 474 tests and eight independent live RPC/contract checks.
 - [x] Validate preview and deploy wallet repairs as `miner-kb0aad6hx`; verify aliases, seven wallet probes and all 7/7 preflight gates including 26/26 intent correctness.
+- [x] Review the twenty-six-intent expansion and the wallet repair against production.
+      Both were complete: 1379 active, hash matching, 380 tests, 7/7 preflight. Nothing outstanding.
+- [x] Repair `replay-intents.mjs` against the degraded feed (50-row pages, retries) and
+      refresh the corpus: 3,000 rows, 287 routed questions across 24 intents.
+- [x] Fix the four refusal defects the replay found — comma-free "city country" geocoding,
+      the empty candidate list on an all-lowercase question, the single-currency refusal, and
+      "Will Sandoz" as a company name — and bound the geocode sweep with one shared deadline.
+      Routed answer rate 358/456 to 371/456; 390 unit tests; 7/7 preflight; 26/26 correctness.
+- [x] Deploy and verify: production `miner-4bdjfyb3m`, alias serving it, watcher active,
+      manifest hash unchanged against registration 1379 so no `updateMiner`.
+- [ ] Read epoch 322 — the acceptance test for all of the above. Claim no rank before it lands.
+- [ ] G105: answer CVE year and severity queries through NVD's date-range filters.
 - [ ] Reach 18+ rank-1 positions in one authoritative epoch; pending intent registration alone is not rank evidence.
 
 The fourteen-intent target below records earlier work and is superseded by the current mission.

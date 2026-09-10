@@ -1,5 +1,19 @@
 # MEMORY.md — session continuity
 
+## 2026-09-10 ~19:40 UTC — routed-feed replay: four refusal defects fixed and deployed
+
+Codex's twenty-six-intent registration and wallet repair needed nothing finished; the
+missing step was replaying the questions the network routes. The replay tool itself was
+broken (the feed 502s at `limit=100`) and is fixed. Four defects found and shipped: the
+geocoder cannot resolve "Lagos Nigeria" without a comma (three weather intents), an
+all-lowercase question produced no candidate at all, one named currency was refused, and
+"Will Sandoz's …" resolved the company "Will Sandoz" — the "Will Dubai" defect in a
+second intent. Routed answer rate **358/456 → 371/456**; production `miner-4bdjfyb3m`,
+390 tests, 7/7 preflight, manifest unchanged so no `updateMiner`. **No rank is claimed**
+— epoch 322 had not landed. Full record:
+[track1-miner/docs/ROUTED_REFUSALS_2026-09-10.md](track1-miner/docs/ROUTED_REFUSALS_2026-09-10.md).
+
+
 ## 2026-09-11 wallet repair
 
 Current Track 1 handoff: [track1-miner/MEMORY.md](track1-miner/MEMORY.md).
