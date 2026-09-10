@@ -21,6 +21,14 @@ interval containing now; storm duration aliases normalize before caching. Stale 
 essential weather measurements cannot support a known answer, and an uncovered future point cannot
 be replaced with the last available hour. Current-hour model output is not a station observation.
 
+News relevance is established from normalized headline words, not substrings inside unrelated words
+or the publisher's identity. A publication timestamp over five minutes into the future cannot
+establish past/current coverage. The publisher and date remain in the answer as provenance.
+
+TLS target parsing preserves an explicit port from URLs embedded in questions, accepts bracketed
+IPv6, trailing-dot DNS names, and punycode labels, then applies the same public-address DNS guard
+before opening a socket. An unreachable IPv6 endpoint remains an explicit unreachable result.
+
 Code must conform to this. **Update this file before deviating from it**, not after.
 
 Grounded in [docs/TELEGRAPH_FACTS.md](docs/TELEGRAPH_FACTS.md) (verified 2026-08-26).

@@ -52,44 +52,45 @@ const DEFAULT_TIMEOUT_MS = 8000;
 
 /** Accepts "example.com", "https://example.com/path", "example.com:8443". */
 export function normalizeTarget(raw: string): { host: string; port: number } | null {
-  let s = (raw ?? "").trim();
-  if (!s) return null;
+  const original = (raw ?? "").trim();
+  if (!original) return null;
+  let s = original;
+  let port = 443;
+  // Routed questions often wrap the target in prose. Parse the URL token itself
+  // so an explicit non-443 port is not lost when the whole sentence is invalid
+  // input to URL(). URL.hostname also handles bracketed IPv6 correctly.
+  const urlToken = original.match(/(?:https?|tls):\/\/[^\s<>"]+/i)?.[0]?.replace(/[.,;!?]+$/, "");
+  if (urlToken) s = urlToken;
   if (s.includes("://")) {
     try {
       const u = new URL(s);
-      s = u.hostname + (u.port ? `:${u.port}` : "");
+      s = u.hostname;
+      if (u.port) port = Number(u.port);
     } catch {
-      // A sentence that merely *contains* a URL is not itself a URL. Fall
-      // through to extraction rather than giving up here.
-      const inner = extractHostname(raw);
-      if (inner) {
-        s = inner;
-      } else {
-        return null;
-      }
+      return null;
+    }
+  } else {
+    s = s.replace(/^\/+|\/+$/g, "").split("/")[0] ?? "";
+    const ipv6Port = s.match(/^\[([0-9a-f:]+)\]:(\d+)$/i);
+    const hostPort = s.match(/^(.+):(\d+)$/);
+    if (ipv6Port?.[1] && ipv6Port[2]) {
+      s = ipv6Port[1];
+      port = Number(ipv6Port[2]);
+    } else if (hostPort?.[1] && hostPort[2] && !hostPort[1].includes(" ")) {
+      s = hostPort[1];
+      port = Number(hostPort[2]);
+    } else if (urlToken === undefined && !/^[^\s/]+$/.test(s)) {
+      const found = extractHostname(original);
+      if (!found) return null;
+      s = found;
     }
   }
-  s = s.replace(/^\/+|\/+$/g, "").split("/")[0] ?? "";
-  let port = 443;
-  const m = s.match(/^(.*):(\d+)$/);
-  if (m && m[1] && m[2]) {
-    s = m[1];
-    port = Number(m[2]);
-  }
-  s = s.toLowerCase();
-  // Hostname sanity: labels of alphanumerics/hyphens, or a bare IPv4.
-  const isHost = /^(?=.{1,253}$)([a-z0-9](-?[a-z0-9])*)(\.[a-z0-9](-?[a-z0-9])*)+$/.test(s);
-  const isIpv4 = /^(\d{1,3}\.){3}\d{1,3}$/.test(s);
-  if (!isHost && !isIpv4) {
-    // The caller may have handed us a whole sentence. Rather than 400 on a
-    // question we can obviously answer, find the hostname inside it.
-    const found = extractHostname(raw);
-    if (found && found !== s) {
-      const retry = normalizeTarget(found);
-      if (retry) return retry;
-    }
-    return null;
-  }
+  s = s.replace(/^\[|\]$/g, "").replace(/\.$/, "").toLowerCase();
+  const isIpv4 = isIP(s) === 4;
+  const isIpv6 = isIP(s) === 6;
+  const labels = s.split(".");
+  const isHost = labels.length >= 2 && labels.every(label => /^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/.test(label));
+  if (!isHost && !isIpv4 && !isIpv6) return null;
   if (!Number.isInteger(port) || port < 1 || port > 65535) return null;
   return { host: s, port };
 }

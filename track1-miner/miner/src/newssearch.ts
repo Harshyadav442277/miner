@@ -285,6 +285,18 @@ export function distinctiveTerms(terms: string[]): string[] {
   return distinct.length ? distinct : terms;
 }
 
+function headlineWords(title: string): Set<string> {
+  const text = title.normalize("NFKD").replace(/\p{M}/gu, "").toLowerCase()
+    .replace(/[’']/g, "'").replace(/'s\b/g, "");
+  return new Set(text.match(/[a-z0-9]+/g) ?? []);
+}
+
+function matchesTerm(words: Set<string>, term: string): boolean {
+  const normalized = [...headlineWords(term)][0] ?? "";
+  return words.has(normalized) || words.has(`${normalized}s`) ||
+    (normalized.length > 3 && normalized.endsWith("s") && words.has(normalized.slice(0, -1)));
+}
+
 /**
  * Is this article about the subject?
  *
@@ -295,13 +307,14 @@ export function distinctiveTerms(terms: string[]): string[] {
  */
 export function isRelevant(article: Article, terms: string[], acros: string[] = []): boolean {
   if (terms.length === 0) return true;
-  const hay = ` ${article.title} ${article.source ?? ""} `.toLowerCase();
-  const hits = terms.filter((t) => hay.includes(t)).length;
+  // The publisher is provenance, not evidence that its name is the topic.
+  const words = headlineWords(article.title);
+  const hits = terms.filter((t) => matchesTerm(words, t)).length;
   const distinctive = distinctiveTerms(terms);
   // An acronym is matched on word boundaries: "ecb" must not be found inside
   // "ecbank" or a URL fragment.
-  const acronymHit = acros.some((a) => new RegExp(`[^a-z0-9]${a}[^a-z0-9]`).test(hay));
-  const distinctiveHits = distinctive.filter((t) => hay.includes(t)).length;
+  const acronymHit = acros.some((a) => words.has(a));
+  const distinctiveHits = distinctive.filter((t) => matchesTerm(words, t)).length;
   if (distinctiveHits === 0 && !acronymHit) return false;
   // An acronym match IS the subject named in full, so it satisfies the
   // multi-term rule on its own.
@@ -378,6 +391,8 @@ async function searchPass(
     const pub = block.match(/<pubDate>([\s\S]*?)<\/pubDate>/)?.[1];
     const when = pub ? new Date(pub) : null;
     const published = when && !Number.isNaN(when.getTime()) ? when.toISOString() : null;
+    // Tolerate small provider clock differences, not tomorrow's publication.
+    if (when && when.getTime() > Date.now() + 5 * 60_000) continue;
     // A window that was ASKED FOR is enforced. An article with no date cannot
     // be shown to be inside it, so it is dropped rather than assumed current.
     if (cutoff !== null && (!published || new Date(published).getTime() < cutoff)) continue;
@@ -386,10 +401,10 @@ async function searchPass(
 
   const key2 = key;
   const overlap = (a: Article): number => {
-    const hay = ` ${a.title} ${a.source ?? ""} `.toLowerCase();
+    const words = headlineWords(a.title);
     // An acronym mention counts as strongly as naming the subject in full.
-    const acro = acros.some((x) => new RegExp(`[^a-z0-9]${x}[^a-z0-9]`).test(hay)) ? 2 : 0;
-    return key2.filter((t) => hay.includes(t)).length + acro;
+    const acro = acros.some((x) => words.has(x)) ? 2 : 0;
+    return key2.filter((t) => matchesTerm(words, t)).length + acro;
   };
   /**
    * Rank: subject overlap, then headline-shaped before sentence-shaped, then

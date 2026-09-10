@@ -32,15 +32,15 @@ The defect column distinguishes reproduced failures from unresolved explanations
 | TVL_LOOKUP | 5 | 0.00612050 | 0.15408534 | **Fixed:** a chain-specific protocol question returned the global protocol total; mainnet could select the wrong chain; 429/403 were treated as missing data. |
 | CVE_LOOKUP | 3 | 7.771775e-12 | 1.2229478e-11 | **Fixed:** NVD availability was a single point of failure despite caching. Public CVE Program fallback now preserves record identity and assigning authority. Healthy NVD answers remain preferred. Rank gain unproven. |
 | ACADEMIC_SEARCH | 2 | 0.01209009 | 0.01241055 | **Fixed:** explicit days were widened to whole months; ISO ranges were not parsed; retry removed the date filter. OpenAlex availability and broader research-query coverage remain open. |
-| STORM_ALERT | 3 | 0.01133215 | 0.02737227 | No failure reason in the epoch. Prior scorer/payload measurements exist; the current gap's cause is unproven. Next: replay current location/time-window requests against the current champion. |
-| WEATHER_FORECAST | 5 | 0.000283336 | 0.000404793 | Persistent weak band across recent epochs. No current endpoint failure reason. Forecast horizon, variables, and provider/model agreement need fresh comparison; wording alone is not an established fix. |
-| WEATHER_CHECK | 5 | 0.01825744 | 0.01840802 | Close in epoch 320, far below the leader in 319. Current-condition versus forecast-window handling remains a candidate to measure, not a proven cause. |
+| STORM_ALERT | 3 | 0.01133215 | 0.02737227 | **Fixed:** current-hour/zero handling, duration-alias cache collisions, stale/null data, uncovered future points, and point-specific threshold scope. These defects were reproduced separately; hidden epoch gap attribution remains unproven. |
+| WEATHER_FORECAST | 5 | 0.000283336 | 0.000404793 | **Fixed:** stale or incomplete essential series no longer produce known weather values. Forecast horizon, variables, and provider/model agreement remain open. |
+| WEATHER_CHECK | 5 | 0.01825744 | 0.01840802 | **Fixed:** explicit zero selects the current hourly interval rather than the next hour. Source remains modelled hourly weather, not a station observation. |
 | IP_GEOLOCATION | 2 | 0.99689025 | 0.99840873 | High score with a small gap. Preserve measured ISP/organization wording; evaluate actual city/operator mismatches before changing the response. |
 | WALLET_BALANCE_CHECK | 2 | 0.99999905 | 0.9999999 | Effectively saturated scores in this epoch. Exact #1 remains unachieved. Protect chain, token, and historical-block correctness; tiny numerical gaps alone do not identify a useful change. |
-| SSL_VERIFICATION | 2 | 0.01013054 | 0.01043768 | Won epochs 318 and 319; no request failure in 320. The current question is hidden. Re-benchmark certificate cases against the current champion before a prose change. |
-| NEWS_SEARCH | 2 | 0.9944752 | 0.99969006 | Strong score and rank 1 in 319. Freshness, article relevance, and exact requested topic are the useful remaining levers; no current failure was established in this batch. |
+| SSL_VERIFICATION | 2 | 0.01013054 | 0.01043768 | **Fixed and deployed:** an embedded URL lost its custom port; IPv6 URLs, trailing-dot FQDNs and punycode names were rejected. Public-address guards remain intact. The hidden epoch question may differ. |
+| NEWS_SEARCH | 2 | 0.9944752 | 0.99969006 | **Fixed in preview; production release underway:** substring and publisher-only false topic matches, accented headline normalization, and future-dated publication filtering. Four reproduced failures now pass. Hidden epoch gain remains unproven. |
 | CURRENCY_EXCHANGE | 3 | 1.6125713e-7 | 3.1802534e-7 | Near-zero band. Epoch 319's zero was a node request-builder timeout before calling the miner. Daily-reference versus live-quote disagreement remains a hypothesis; no ranking fix claimed. |
-| CONTENT_EXTRACTION | 2 | 0 | 0 | Whole field scored zero in 320. In 319 the node failed to build our request. Current fixture/ground truth is hidden. Multi-field extraction coverage still needs audit; no remedy for the network's request-builder failure is claimed. |
+| CONTENT_EXTRACTION | 2 | 0 | 0 | **Fixed:** six category/payload/value failures, including multiple requested categories. Whole field scored zero in 320; in 319 the node failed to build our request. No remedy for that network-side failure is claimed. |
 | TELEGRAPH_KNOWLEDGE | 2 | 1.0888141e-11 | 1.1466902e-11 | Near-zero band; narrow documented fact table cannot answer every routed question. Fresh feed includes unrelated predictions routed here. Do not turn unrelated questions into invented protocol facts. |
 | AI_TEXT_DETECTION | 2 | 2.0708446e-10 | 2.55e-10 | Persistent near-zero band. Heuristic authorship detection has limited evidence and cannot establish authorship. No trustworthy rank-improving change established yet. |
 
@@ -160,6 +160,31 @@ threshold is assessed at that point, not across earlier hours.
   pre-release ranking baseline, not a measured outcome of the fixes. The goal remains active.
 
 ## Route to fourteen and remaining work
+
+Third release in the same pre-epoch window adds NEWS_SEARCH relevance fixes. Four new tests failed
+before the implementation: company-name substrings (Apple/pineapple and Meta/metal), publisher-only
+topic matches, accented headline names, and tomorrow's publication counted in past-day coverage.
+The filter now uses normalized headline words, retains ordinary plurals and possessives, uses the
+publisher only as provenance, and excludes timestamps more than five minutes in the future.
+The same word matcher ranks retained headlines, so ranking and eligibility agree.
+All **394 full-suite tests pass**, and protected preview `miner-i5mexbr51` returned five substantive
+articles each for Apple and the ECB. Files `news-before.txt`, `news-full.txt`, and `news-preview-*`
+preserve evidence. Production acceptance will be recorded below. Remaining news limitations include
+accented query tokenization, duplicate syndicated headlines, and a prose claim of most-recent-first
+when the primary ordering is relevance. These are not claimed fixed in this release.
+
+While the third release was in production acceptance, a read-only SSL parser audit reproduced:
+`Can you verify https://example.com:8443?` becoming port 443, a bracketed public IPv6 URL becoming
+null, `EXAMPLE.COM.` becoming null, and a legal punycode hostname becoming null. The bare
+`example.com:8443` control correctly preserved 8443. This repair is queued after the imminent epoch
+to keep the accepted runtime stable. [Exact input/output evidence](evidence/rank1-2026-09-10/ssl-input-audit.json).
+
+The SSL repair is now production deployment `miner-20qpgw6nr-wukong4`, with both production aliases
+verified. Targeted tests pass **74/74**, including live certificate checks; the custom-port production
+probe is valid and the IPv6 production probe reaches the parser but is honestly `unreachable` because
+that remote address did not provide a certificate from Vercel. [Production evidence](evidence/rank1-2026-09-10/ssl-live-after.json).
+Preflight is still completing; its output is recorded separately and will not be treated as a pass
+until all gates print.
 
 The first target set is the existing three leaders plus ONCHAIN_TX_LOOKUP, GAME_RESULT, TVL_LOOKUP,
 CVE_LOOKUP, ACADEMIC_SEARCH, SSL_VERIFICATION, IP_GEOLOCATION, WALLET_BALANCE_CHECK, NEWS_SEARCH,

@@ -1,0 +1,27 @@
+{
+  "checked_at": "2026-09-10T05:39:03.895Z",
+  "rows": [
+    {
+      "query": "Find recent articles about Apple",
+      "status": 200,
+      "elapsed_ms": 894,
+      "body": {
+        "verdict": "articles",
+        "confidence": 0.9,
+        "reason": "Recent coverage of Apple from the last 30 days includes: \"Apple introduces AirPods 5 with best-in-class open-ear Active Noise Cancellation\" (Apple, 10 September 2026); \"Apple Event 2026 recap: Everything announced, including foldable iPhone Duo\" (Mashable, 10 September 2026); \"Introducing Apple Watch Series 12, with the all-new Health Sensing System\" (Apple, 10 September 2026); \"You Win, Apple: The iPhone 18 Pro Could Reignite My Love of Phone Photography\" (CNET, 9 September 2026); \"Five takeaways from Apple’s biggest product showcase of the year\" (Reuters, 9 September 2026). 5 articles, most recent first, each with its publisher and publication date."
+      },
+      "pass": true
+    },
+    {
+      "query": "Find recent articles covering the European Central Bank interest rate decision",
+      "status": 200,
+      "elapsed_ms": 749,
+      "body": {
+        "verdict": "articles",
+        "confidence": 0.9,
+        "reason": "Recent coverage of European Central Bank interest rate decision from the last 30 days includes: \"ECB Rate Decision: Europe's Central Bank May Say What Fed's Warsh Won't\" (Barron's, 10 September 2026); \"Eurozone inflation rose to 3.3%, with the European Central Bank signaling further interest rate hikes, while…\" (Moomoo, 2 September 2026); \"Euro steadies above 1.1600 ahead of ECB rate decision, US PPI data\" (FXStreet, 10 September 2026); \"Euro benefits from broad US Dollar weakness ahead of ECB rate decision\" (tmgm.com, 9 September 2026); \"Euro benefits from broad US Dollar weakness ahead of ECB rate decision\" (FXStreet, 9 September 2026). 5 articles, most recent first, each with its publisher and publication date."
+      },
+      "pass": true
+    }
+  ]
+}

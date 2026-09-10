@@ -1,0 +1,9 @@
+Vercel CLI 59.5.0 (Node.js 24.19.0) | curl is in beta — https://vercel.com/feedback
+  % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
+                                 Dload  Upload  Total   Spent   Left   Speed
+
+  0      0   0      0   0      0      0      0                              0
+100    786 100    786   0      0    751      0   00:01   00:01              0
+100    786 100    786   0      0    751      0   00:01   00:01              0
+100    786 100    786   0      0    751      0   00:01   00:01              0
+{"verdict":"articles","confidence":0.9,"reason":"Recent coverage of European Central Bank interest rate decision from the last 30 days includes: \"ECB Rate Decision: Europe's Central Bank May Say What Fed's Warsh Won't\" (Barron's, 10 September 2026); \"Eurozone inflation rose to 3.3%, with the European Central Bank signaling further interest rate hikes, while…\" (Moomoo, 2 September 2026); \"Euro steadies above 1.1600 ahead of ECB rate decision, US PPI data\" (FXStreet, 10 September 2026); \"Euro benefits from broad US Dollar weakness ahead of ECB rate decision\" (tmgm.com, 9 September 2026); \"Euro benefits from broad US Dollar weakness ahead of ECB rate decision\" (FXStreet, 9 September 2026). 5 articles, most recent first, each with its publisher and publication date."}

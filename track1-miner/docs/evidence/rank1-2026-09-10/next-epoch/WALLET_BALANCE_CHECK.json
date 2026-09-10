@@ -1,0 +1,246 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "1661b7aa-cdee-49af-bd6c-e89640d9080c",
+        "epoch_id": 320,
+        "intent_id": "WALLET_BALANCE_CHECK",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 0.9999999,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T20:55:41.886133Z",
+        "created_at": "2026-09-09T20:55:41.886133Z"
+      },
+      {
+        "id": "36d9bec9-f4e3-46c3-9bf5-91257ad6c186",
+        "epoch_id": 320,
+        "intent_id": "WALLET_BALANCE_CHECK",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 0.99999905,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T20:55:41.886133Z",
+        "created_at": "2026-09-09T20:55:41.886133Z"
+      },
+      {
+        "id": "fa440fcb-fdad-4fb8-880f-4c6a7beda2c2",
+        "epoch_id": 319,
+        "intent_id": "WALLET_BALANCE_CHECK",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 2.274083e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T12:16:07.901749Z",
+        "created_at": "2026-09-09T12:16:07.901749Z"
+      },
+      {
+        "id": "b3af7932-c437-4119-8200-693c31e24356",
+        "epoch_id": 318,
+        "intent_id": "WALLET_BALANCE_CHECK",
+        "miner_slug": "preflight-ssl-verification",
+        "rank": 1,
+        "score": 2.1816127e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T03:11:17.930254Z",
+        "created_at": "2026-09-09T03:11:17.930254Z"
+      },
+      {
+        "id": "f9b5c879-7fa1-4197-8676-c681b623162f",
+        "epoch_id": 318,
+        "intent_id": "WALLET_BALANCE_CHECK",
+        "miner_slug": "livecert",
+        "rank": 4,
+        "score": 1.8183914e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T03:11:17.930254Z",
+        "created_at": "2026-09-09T03:11:17.930254Z"
+      },
+      {
+        "id": "ba2a3bbd-71a8-4416-a1dd-fa846c465a44",
+        "epoch_id": 317,
+        "intent_id": "WALLET_BALANCE_CHECK",
+        "miner_slug": "agentfeed-base-crypto",
+        "rank": 1,
+        "score": 0.99999994,
+        "failure_reason": "",
+        "scored_at": "2026-09-08T18:13:59.107179Z",
+        "created_at": "2026-09-08T18:13:59.107179Z"
+      },
+      {
+        "id": "58d466d2-2104-49c8-944a-b89d6e19195a",
+        "epoch_id": 317,
+        "intent_id": "WALLET_BALANCE_CHECK",
+        "miner_slug": "livecert",
+        "rank": 4,
+        "score": 7.974713e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-08T18:13:59.107179Z",
+        "created_at": "2026-09-08T18:13:59.107179Z"
+      },
+      {
+        "id": "ee5eec1b-0cdc-44fe-879f-41e5606c34bf",
+        "epoch_id": 316,
+        "intent_id": "WALLET_BALANCE_CHECK",
+        "miner_slug": "agentfeed-base-crypto",
+        "rank": 1,
+        "score": 0.9999998,
+        "failure_reason": "",
+        "scored_at": "2026-09-08T09:01:33.37743Z",
+        "created_at": "2026-09-08T09:01:33.37743Z"
+      },
+      {
+        "id": "0720290c-6c1c-4385-ba9c-82115732b48a",
+        "epoch_id": 316,
+        "intent_id": "WALLET_BALANCE_CHECK",
+        "miner_slug": "livecert",
+        "rank": 3,
+        "score": 0.9999993,
+        "failure_reason": "",
+        "scored_at": "2026-09-08T09:01:33.37743Z",
+        "created_at": "2026-09-08T09:01:33.37743Z"
+      },
+      {
+        "id": "0898d534-bdc9-412a-a0ba-02aa2273c1e8",
+        "epoch_id": 315,
+        "intent_id": "WALLET_BALANCE_CHECK",
+        "miner_slug": "agentfeed-base-crypto",
+        "rank": 1,
+        "score": 0.9999998,
+        "failure_reason": "",
+        "scored_at": "2026-09-08T00:03:22.597462Z",
+        "created_at": "2026-09-08T00:03:22.597462Z"
+      },
+      {
+        "id": "ab4908d2-d5fa-4ba7-b078-541a7333a710",
+        "epoch_id": 315,
+        "intent_id": "WALLET_BALANCE_CHECK",
+        "miner_slug": "livecert",
+        "rank": 3,
+        "score": 0.9999993,
+        "failure_reason": "",
+        "scored_at": "2026-09-08T00:03:22.597462Z",
+        "created_at": "2026-09-08T00:03:22.597462Z"
+      },
+      {
+        "id": "3070f9f3-dcb6-477b-980e-0e725bad0f13",
+        "epoch_id": 314,
+        "intent_id": "WALLET_BALANCE_CHECK",
+        "miner_slug": "agentfeed-base-crypto",
+        "rank": 1,
+        "score": 0.99999976,
+        "failure_reason": "",
+        "scored_at": "2026-09-07T09:15:11.029514Z",
+        "created_at": "2026-09-07T09:15:11.029514Z"
+      },
+      {
+        "id": "7d9b6e43-8dc2-4be1-8bf6-f86019b0de21",
+        "epoch_id": 314,
+        "intent_id": "WALLET_BALANCE_CHECK",
+        "miner_slug": "livecert",
+        "rank": 3,
+        "score": 0.9999993,
+        "failure_reason": "",
+        "scored_at": "2026-09-07T09:15:11.029514Z",
+        "created_at": "2026-09-07T09:15:11.029514Z"
+      },
+      {
+        "id": "ba211210-8de3-4195-9a0d-2f6ac2af2d10",
+        "epoch_id": 313,
+        "intent_id": "WALLET_BALANCE_CHECK",
+        "miner_slug": "agentfeed-base-crypto",
+        "rank": 1,
+        "score": 0.9999998,
+        "failure_reason": "",
+        "scored_at": "2026-09-07T00:16:28.926866Z",
+        "created_at": "2026-09-07T00:16:28.926866Z"
+      },
+      {
+        "id": "db104bda-ef8d-414e-b381-a16553ebbe2b",
+        "epoch_id": 313,
+        "intent_id": "WALLET_BALANCE_CHECK",
+        "miner_slug": "livecert",
+        "rank": 3,
+        "score": 0.9999993,
+        "failure_reason": "",
+        "scored_at": "2026-09-07T00:16:28.926866Z",
+        "created_at": "2026-09-07T00:16:28.926866Z"
+      },
+      {
+        "id": "9cedcb88-f0f4-4e52-8957-0f5e3f0a7247",
+        "epoch_id": 312,
+        "intent_id": "WALLET_BALANCE_CHECK",
+        "miner_slug": "preflight-ssl-verification",
+        "rank": 1,
+        "score": 0.9999992,
+        "failure_reason": "",
+        "scored_at": "2026-09-06T15:19:29.672949Z",
+        "created_at": "2026-09-06T15:19:29.672949Z"
+      },
+      {
+        "id": "e431ef05-a677-4029-b7e3-56a6b93f2d9f",
+        "epoch_id": 312,
+        "intent_id": "WALLET_BALANCE_CHECK",
+        "miner_slug": "livecert",
+        "rank": 4,
+        "score": 0.9999989,
+        "failure_reason": "",
+        "scored_at": "2026-09-06T15:19:29.672949Z",
+        "created_at": "2026-09-06T15:19:29.672949Z"
+      },
+      {
+        "id": "dda032ff-581e-4a44-89b1-3c7ac0a92e80",
+        "epoch_id": 311,
+        "intent_id": "WALLET_BALANCE_CHECK",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 0.9999991,
+        "failure_reason": "",
+        "scored_at": "2026-09-06T06:19:49.282289Z",
+        "created_at": "2026-09-06T06:19:49.282289Z"
+      },
+      {
+        "id": "2a2e0182-c4a6-491e-8b99-f6450c4147f6",
+        "epoch_id": 311,
+        "intent_id": "WALLET_BALANCE_CHECK",
+        "miner_slug": "livecert",
+        "rank": 5,
+        "score": 7.1172586e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-06T06:19:49.282289Z",
+        "created_at": "2026-09-06T06:19:49.282289Z"
+      }
+    ],
+    "total": 357,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 3022,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "WALLET_BALANCE_CHECK",
+    "wasm_url": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/8ae21d95c34a4e42894b4323d7ad87903f2b6cc9/dist/win/wlz_0001.wasm",
+    "wasm_hash": "b696091999e14a9d80be2adeeb7f692cfd98b7c4ad9d8c4219fd9af1a3b82bec",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 0.6923076,
+    "eval": {
+      "candidate_margin": 0.6923076,
+      "champion_margin": 0.6923052,
+      "candidate_wins": 12,
+      "champion_wins": 12,
+      "comparable_cases": 13,
+      "worst_self_match": 1,
+      "score_stddev": 0.4714044,
+      "spearman": {
+        "WALLET_BALANCE_CHECK": 0.75071687
+      },
+      "historical_rows_evaluated": 71
+    },
+    "registered_at": "2026-08-31T23:03:29Z",
+    "updated_at": "2026-09-01T03:28:43Z"
+  }
+}

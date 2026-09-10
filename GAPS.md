@@ -1,5 +1,22 @@
 # GAPS.md — honesty ledger
 
+## 2026-09-10 third release — G100
+
+**G100 — News relevance and future publications, preview verified.** Company-name substrings and
+publisher names could make unrelated articles pass, accented titles were missed, and future-dated
+items could count as past-day coverage. Four reproduced failures now pass; full suite 394/394.
+Normalized headline words preserve plurals/possessives and publisher identity remains provenance.
+Preview Apple and ECB searches both return five relevant articles. Production release is underway.
+Remaining: accented query tokenization, syndicated duplicates, and the ordering description.
+
+## 2026-09-10 fourth release — G101
+
+**G101 — SSL target normalization, deployed.** Natural-language URL inputs discarded explicit ports;
+bracketed IPv6, trailing-dot FQDN, and punycode targets were rejected. Normalization now preserves
+ports and accepts those legal host forms while the public DNS/address guard remains mandatory.
+Targeted tests are 74/74. The IPv6 production probe is `unreachable` because the remote address did
+not provide a certificate from the deployment environment; this is not converted into a valid claim.
+
 ## 2026-09-10 second release — G98–G99
 
 - **G98 — Extraction category and payload corruption, deployed and accepted.** All six reproduced

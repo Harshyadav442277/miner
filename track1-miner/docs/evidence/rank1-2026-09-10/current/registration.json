@@ -1,0 +1,38 @@
+{
+  "miner": {
+    "registration_id": 1378,
+    "slug": "livecert",
+    "miner_address": "0xdad201ef02f5c1fbb8f9e931ae9b7c1bf493a39e",
+    "activation_status": "active",
+    "yaml_url": "https://raw.githubusercontent.com/Harshyadav442277/miner/3129b5c3c9282b15dffe673813f737534d8edd71/track1-miner/miner.yaml",
+    "yaml_hash": "8d62ebe0136aea75e8185a5536f99687cac7650b31a31a5fb90c5c9aac94d874",
+    "supported_intents": [
+      "SSL_VERIFICATION",
+      "STORM_ALERT",
+      "WEATHER_FORECAST",
+      "IP_GEOLOCATION",
+      "LANGUAGE_TRANSLATION",
+      "ACADEMIC_SEARCH",
+      "AI_TEXT_DETECTION",
+      "CONTENT_EXTRACTION",
+      "NEWS_HEADLINES",
+      "WALLET_BALANCE_CHECK",
+      "WEATHER_CHECK",
+      "FACT_CHECK",
+      "TELEGRAPH_KNOWLEDGE",
+      "ONCHAIN_TX_LOOKUP",
+      "CVE_LOOKUP",
+      "TVL_LOOKUP",
+      "NEWS_SEARCH",
+      "CURRENCY_EXCHANGE",
+      "GAME_RESULT"
+    ],
+    "fee_address": "0xdad201ef02f5c1fbb8f9e931ae9b7c1bf493a39e",
+    "min_price_usdc": 10000,
+    "rejection_reason": null,
+    "fetch_attempts": 0,
+    "retrying": false,
+    "registered_at": "2026-09-09T07:47:29Z",
+    "updated_at": "2026-09-09T07:47:30Z"
+  }
+}

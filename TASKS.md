@@ -15,6 +15,10 @@
 - [x] Release second batch `miner-lm6seiqeu` at 05:23 UTC; acceptance by 05:28 UTC, before ~05:41 cutoff.
       Six targeted probes and 19/19 correctness checks pass; all seven gates accepted after CVE test correction.
 - [ ] Continue current-champion benches for the near leaders after the release buffer.
+- [x] Reproduce four news relevance/date failures; repair and pass all 394 tests; preview Apple/ECB verified.
+- [ ] Finish third-release production acceptance before the epoch; preserve a stable build through scoring.
+- [x] Fix reproduced SSL parser failures: embedded custom ports, IPv6, trailing-dot FQDNs, and punycode;
+      production deployment `miner-20qpgw6nr`, targeted tests 74/74.
 - [ ] Achieve fourteen positive-score #1 rows in one complete live epoch, with ties and low scores disclosed.
 
 One task = one change = one commit. Work top-down; the ordering encodes dependencies.

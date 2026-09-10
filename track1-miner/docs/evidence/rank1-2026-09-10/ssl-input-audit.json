@@ -1,0 +1,28 @@
+[
+  {
+    "query": "example.com:8443",
+    "target": {
+      "host": "example.com",
+      "port": 8443
+    }
+  },
+  {
+    "query": "Can you verify https://example.com:8443?",
+    "target": {
+      "host": "example.com",
+      "port": 443
+    }
+  },
+  {
+    "query": "https://[2606:4700:4700::1111]:443",
+    "target": null
+  },
+  {
+    "query": "EXAMPLE.COM.",
+    "target": null
+  },
+  {
+    "query": "https://xn--bcher-kva.example",
+    "target": null
+  }
+]

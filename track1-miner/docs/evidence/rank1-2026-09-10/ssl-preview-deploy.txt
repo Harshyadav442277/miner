@@ -1,0 +1,57 @@
+Vercel CLI 59.5.0 (Node.js 24.19.0)
+Deploying miner
+Uploading [--------------------] (0.0B/48.2KB)
+Uploading [======--------------] (15.8KB/48.2KB)
+Uploading [=============-------] (31.6KB/48.2KB)
+Uploading [================----] (39.1KB/48.2KB)
+Uploading [====================] (48.2KB/48.2KB)
+  Inspect         https://vercel.com/wukong4/miner/EE619d6Zx7kiaHtjpR9h6Ls8CULy
+  Preview         https://miner-4m0mf5ezc-wukong4.vercel.app
+Building…
+Building…
+Running build in Washington, D.C., USA (East) – iad1
+Build machine configuration: 2 cores, 8 GB
+Retrieving list of deployment files...
+Downloading 141 deployment files...
+Restored build cache from previous deployment (Gn7ebHQYvGPFi9H9Ak1agg3YZqdi)
+Running "vercel build"
+Vercel CLI 59.11.7
+Warning: Detected "engines": { "node": ">=20" } in your `package.json` that will automatically upgrade when a new major Node.js Version is released. Learn More: https://vercel.link/node-version
+Installing dependencies...
+up to date in 511ms
+Running "npm run build"
+> livecert-miner@1.0.0 build
+> tsc -p tsconfig.json
+✓ Build complete — Using src/server.ts as the root entrypoint.
+Using TypeScript 5.9.3 (local user-provided)
+✓ Typecheck complete
+Build Completed in /vercel/output [7s]
+Deploying outputs...
+[2K[1A[2K[G  Preview         https://miner-4m0mf5ezc-wukong4.vercel.app
+Completing…
+{
+  "status": "ok",
+  "deployment": {
+    "id": "dpl_EE619d6Zx7kiaHtjpR9h6Ls8CULy",
+    "url": "https://miner-4m0mf5ezc-wukong4.vercel.app",
+    "inspectorUrl": "https://vercel.com/wukong4/miner/EE619d6Zx7kiaHtjpR9h6Ls8CULy",
+    "readyState": "READY",
+    "target": null,
+    "deploymentApiUrl": "https://api.vercel.com/v13/deployments/dpl_EE619d6Zx7kiaHtjpR9h6Ls8CULy"
+  },
+  "message": "Deployment miner-4m0mf5ezc-wukong4.vercel.app ready.",
+  "next": [
+    {
+      "command": "vercel curl https://miner-4m0mf5ezc-wukong4.vercel.app",
+      "when": "Verify deployment, including when Deployment Protection is enabled"
+    },
+    {
+      "command": "vercel inspect miner-4m0mf5ezc-wukong4.vercel.app --scope wukong4",
+      "when": "Inspect deployment"
+    },
+    {
+      "command": "vercel deploy --prod --scope wukong4",
+      "when": "Promote to production"
+    }
+  ]
+}

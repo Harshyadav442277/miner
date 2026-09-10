@@ -1,0 +1,27 @@
+{
+  "checked_at": "2026-09-10T05:43:52.311Z",
+  "rows": [
+    {
+      "query": "Can you verify https://example.com:8443?",
+      "status": 200,
+      "elapsed_ms": 710,
+      "body": {
+        "verdict": "valid",
+        "confidence": 1,
+        "reason": "Regarding verify https://example.com:8443: The TLS/SSL certificate configuration for example.com is valid. Certificate validity: the certificate is currently valid, expiring in 47 days on 2026-10-27, issued by SSL Corporation. Chain trust: the server presented a complete chain of 4 certificates including intermediates, building a trusted path to a root. Hostname verification: passes against DNS:example.com. The connection negotiated TLSv1.3."
+      },
+      "pass": true
+    },
+    {
+      "query": "https://[2606:4700:4700::1111]:443",
+      "status": 200,
+      "elapsed_ms": 581,
+      "body": {
+        "verdict": "unreachable",
+        "confidence": 1,
+        "reason": "To analyze the TLS/SSL certificate configuration for 2606:4700:4700::1111, including chain completeness and hostname validation, run openssl s_client -connect 2606:4700:4700::1111:443 -showcerts. The server should present the leaf certificate and all intermediate certificates; if only the leaf appears the chain is incomplete. Check the Subject Alternative Name extension on the leaf certificate includes 2606:4700:4700::1111 for hostname validation. SSL Labs provides a full assessment including the overall grade. No live certificate could be retrieved for 2606:4700:4700::1111 from here, so none of the above was verified against the host itself."
+      },
+      "pass": false
+    }
+  ]
+}

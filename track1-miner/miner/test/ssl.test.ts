@@ -19,12 +19,22 @@ describe("normalizeTarget", () => {
     assert.deepEqual(normalizeTarget("https://example.com:8443/x"), { host: "example.com", port: 8443 });
   });
 
+  test("keeps a URL and port embedded in a natural-language question", () => {
+    assert.deepEqual(normalizeTarget("Can you verify https://example.com:8443?"), { host: "example.com", port: 8443 });
+  });
+
   test("lowercases", () => {
     assert.deepEqual(normalizeTarget("EXAMPLE.COM"), { host: "example.com", port: 443 });
   });
 
   test("accepts a bare IPv4", () => {
     assert.deepEqual(normalizeTarget("1.1.1.1"), { host: "1.1.1.1", port: 443 });
+  });
+
+  test("accepts IPv6 URLs and legal IDN/punycode hostnames", () => {
+    assert.deepEqual(normalizeTarget("https://[2606:4700:4700::1111]:443"), { host: "2606:4700:4700::1111", port: 443 });
+    assert.deepEqual(normalizeTarget("EXAMPLE.COM."), { host: "example.com", port: 443 });
+    assert.deepEqual(normalizeTarget("https://xn--bcher-kva.example"), { host: "xn--bcher-kva.example", port: 443 });
   });
 
   test("accepts subdomains", () => {
