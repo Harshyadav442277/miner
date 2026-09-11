@@ -80,10 +80,16 @@ export interface SurveyResult {
 export function surveyRequest(text: string, now = new Date()): SurveyRequest | null {
   const s = String(text ?? "");
   if (!/\bcves?\b|\bvulnerabilit/i.test(s)) return null;
-  // A complete identifier is a lookup, not a survey. The route only reaches here
-  // when no id was found, but a parser that claims "CVE-2021-44228" is a request
-  // for the CVEs of 2021 is one refactor away from answering the wrong question.
-  if (/\bCVE-\d{4}-\d{4,}\b/i.test(s)) return null;
+  /**
+   * `CVE-` followed by digits is identifier syntax, never a survey.
+   *
+   * The hyphen is the whole distinction: "CVE 2015" asks which vulnerabilities
+   * that year held, while "CVE-2024" is somebody typing an identifier and
+   * stopping early. Reading the second as a year survey answers a question they
+   * did not ask instead of telling them the id is incomplete — which is what the
+   * correctness gate caught when this first shipped.
+   */
+  if (/\bCVE-\d/i.test(s)) return null;
 
   const thisYear = now.getUTCFullYear();
   const yearMatch = s.match(/\b(19\d{2}|20\d{2})\b/);

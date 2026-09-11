@@ -25,6 +25,19 @@ test("a complete identifier is a lookup and never a survey", () => {
   assert.equal(surveyRequest("What is the CVSS score of CVE-2024-3094?", NOW), null);
 });
 
+/**
+ * The hyphen is the entire distinction, and the correctness gate caught this
+ * when the survey first shipped: "CVE-2024" is somebody typing an identifier and
+ * stopping early, so it must reach the branch that says the id is incomplete.
+ */
+test("a truncated identifier is still an identifier, not a year survey", () => {
+  assert.equal(surveyRequest("CVE-2024", NOW), null);
+  assert.equal(surveyRequest("CVE-2024-", NOW), null);
+  assert.equal(surveyRequest("CVE-2015-123", NOW), null);
+  // A space is the survey form and must keep working.
+  assert.deepEqual(surveyRequest("CVE 2015", NOW), { year: 2015, severity: null });
+});
+
 test("a sentence without the subject word cannot capture the route", () => {
   assert.equal(surveyRequest("what is the weather in 2015", NOW), null);
   assert.equal(surveyRequest("Will Methotrexate receive new warning labels?", NOW), null);
