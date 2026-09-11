@@ -22,6 +22,7 @@ import {
   type TxResult,
 } from "./onchain";
 import { cveId, lookupCve, malformedCveId, type CveResult } from "./cve";
+import { surveyCves, surveyRequest, type SurveyResult } from "./cvesurvey";
 import {
   contractAddress, lookupTvl, protocolSubject, resolveChain as resolveTvlChain, resolveScope,
   supportedChains as supportedTvlChains, type TvlResult,
@@ -55,7 +56,7 @@ type Answer =
   | AiDetectResult | WalletResult | FactCheckResult | TelegraphResult | TxResult | CveResult
   | TvlResult | NewsSearchResult | CurrencyResult | GameResult
   | GasResult | FinancialResult | FraudResult
-  | ScoreResult | HolderResult | ResearchResult | AuthenticityResult;
+  | ScoreResult | HolderResult | ResearchResult | AuthenticityResult | SurveyResult;
 const cache = new Map<string, { at: number; value: Answer; ttl: number }>();
 
 /**
@@ -838,7 +839,28 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     const idParam = firstValue(url, "cve_id", "cve", "id");
     const q = withSubject(firstValue(url, "query", "q", "question", "text", "input"), idParam);
     const id = cveId(idParam) || cveId(q);
+    /**
+     * No identifier does not mean no question. "CVE 2015", "Criticial CVE 2025"
+     * and "Look up for latest CVEs" are all real routed questions this intent
+     * exists to answer, and all three were refused into the 1e-11 band.
+     */
     if (!id) {
+      const survey = surveyRequest(q) ?? surveyRequest(idParam);
+      if (survey) {
+        const key = `cvesurvey:${survey.year ?? "now"}:${survey.severity ?? "any"}`;
+        const hit = fromCache(key);
+        if (hit) {
+          sendAnswer(res, q, lean(hit), false);
+          return;
+        }
+        surveyCves(survey)
+          .then((r) => {
+            if (!r.error) toCache(key, r, CVE_TTL_MS);
+            sendAnswer(res, q, lean(r), false);
+          })
+          .catch(() => upstreamUnavailable(res, "A vulnerability lookup", "that period", q));
+        return;
+      }
       const malformed = malformedCveId(idParam) || malformedCveId(q);
       sendAnswer(res, q, lean({
         cve_id: null,
