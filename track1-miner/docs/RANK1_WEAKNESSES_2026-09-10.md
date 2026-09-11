@@ -215,7 +215,6 @@ Run from the repository root unless the command changes directory:
 ```powershell
 node track1-miner/tools/rank-audit.mjs track1-miner/docs/evidence/current-rank-audit
 node track1-miner/tools/rank-live-probes.mjs https://miner-wine.vercel.app track1-miner/docs/evidence/current-live-probes.json
-node track1-miner/tools/coverage-live-probes.mjs https://miner-wine.vercel.app track1-miner/docs/evidence/current-coverage-probes.json
 node track1-miner/tools/replay-intents.mjs --refresh --pages 10 --refresh-only
 cd track1-miner/miner
 node node_modules/typescript/bin/tsc -p tsconfig.test.json
