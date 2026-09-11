@@ -298,13 +298,29 @@ export async function answerResearch(question: string): Promise<ResearchResult> 
   let wiki: Citation | null = null;
   let anyIndexDown = false;
 
-  // Pass one: every candidate against the real indexes. The encyclopedia is not
-  // consulted here, because settling for Wikipedia's page about the SPONSOR
-  // before the DRUG has been looked up is how "Will Novartis' Ianalumab be
-  // approved?" gets answered with a corporate profile of Novartis.
-  for (const candidate of terms) {
+  /**
+   * Pass one: every candidate against the real indexes, ALL AT ONCE.
+   *
+   * Tried one after another this cost a full upstream timeout per candidate —
+   * measured at 23 seconds for a name neither index holds, against a route
+   * watchdog of 11. The watchdog would have fired and turned a perfectly honest
+   * "no evidence" into an outage. Firing them together bounds the whole pass to
+   * one timeout, and preference is restored afterwards by walking the results in
+   * candidate order rather than in completion order.
+   *
+   * The encyclopedia stays out of this pass: settling for Wikipedia's page about
+   * the SPONSOR before the DRUG has been looked up is how "Will Novartis'
+   * Ianalumab be approved?" gets answered with a corporate profile of Novartis.
+   */
+  const probes = await Promise.all(terms.map(async (candidate) => {
     const [t, l] = await Promise.all([findTrials(candidate), findLiterature(candidate)]);
+    return { candidate, t, l };
+  }));
+
+  for (const { candidate, t, l } of probes) {
     if (t === "unavailable" || l === "unavailable") anyIndexDown = true;
+  }
+  for (const { candidate, t, l } of probes) {
     const relevantTrials = t === "unavailable" ? [] : t.filter((x) => mentions(x.title, candidate));
     const relevantLit = l === "unavailable" ? [] : l.filter((x) => mentions(x.title, candidate));
     if (relevantTrials.length || relevantLit.length) {
@@ -317,10 +333,11 @@ export async function answerResearch(question: string): Promise<ResearchResult> 
 
   // Pass two: only once no candidate is named by a trial or a paper. Here the
   // encyclopedia is the right source, because the subject is a company or a
-  // product rather than a molecule.
+  // product rather than a molecule. Concurrent for the same reason as pass one.
   if (trials.length === 0 && lit.length === 0) {
-    for (const candidate of terms) {
-      const w = await findEncyclopedia(candidate);
+    const pages = await Promise.all(terms.map((candidate) =>
+      findEncyclopedia(candidate).then((w) => ({ candidate, w }))));
+    for (const { candidate, w } of pages) {
       if (w === "unavailable") { anyIndexDown = true; continue; }
       if (w) { wiki = w; term = candidate; break; }
     }

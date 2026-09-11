@@ -516,6 +516,23 @@ const CHECKS = {
     const solana = await get("/tx-lookup", { hash: FIRST, chain: "solana" });
     if (solana.body.error !== "unsupported_chain") bad.push(`chain=solana -> ${solana.body.error}, want unsupported_chain`);
     // An address sent here belongs to WALLET_BALANCE_CHECK and must be said so.
+    // ...unless the question asks about the contract's ACTIVITY, which this
+    // intent does receive and used to refuse outright.
+    const activity = await get("/tx-lookup", {
+      query: "For the contract address 0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D on ethereum, report its on-chain activity: the date it was deployed and the total number of transactions.",
+    });
+    const ab = activity.body;
+    if (!/contract_activity|account_activity/.test(String(ab.verdict ?? ""))) {
+      bad.push(`contract activity -> ${ab.verdict}, want an activity verdict`);
+    } else {
+      if (!/2020/.test(String(ab.reason ?? ""))) bad.push("activity answer carries no deployment year");
+      if (!/[\d,]{7,}\s+transactions/.test(String(ab.reason ?? ""))) bad.push("activity answer carries no transaction count");
+    }
+    // G93 in a second place: a delegated EOA is not a deployed contract.
+    const deleg = await get("/tx-lookup", { query: "When was 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 deployed and how many transactions does it have?" });
+    if (/\bis a contract\b/.test(String(deleg.body.reason ?? ""))) {
+      bad.push("a delegated account is described as a contract");
+    }
     const addr = await get("/tx-lookup", { query: "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 status?" });
     if (!/address, not a transaction hash/.test(String(addr.body.reason ?? ""))) {
       bad.push("a 20-byte address was not identified as the wrong subject for this intent");
@@ -747,19 +764,53 @@ const CHECKS = {
   async TOKEN_HOLDER_COUNT() {
     const bad = [];
     const USDC_BASE = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913";
+
+    /**
+     * Probe the provider before grading ourselves against it.
+     *
+     * G89's lesson, hit again on 2026-09-11: Blockscout returned 503 across the
+     * board and this gate reported three failures for an outage that was not
+     * ours. A gate that goes red on somebody else's downtime teaches you to
+     * ignore the gate. What must ALWAYS hold is that we answer honestly, and
+     * that is asserted below in both states.
+     */
+    let providerUp = true;
+    try {
+      const probe = await fetch(`https://base.blockscout.com/api/v2/tokens/${USDC_BASE}`, {
+        headers: { accept: "application/json", "user-agent": "livecert-miner/1.0" },
+        signal: AbortSignal.timeout(20000),
+      });
+      providerUp = probe.ok;
+    } catch { providerUp = false; }
+
     const r = await get("/token-holders", { query: `How many addresses hold the token ${USDC_BASE} on base?` });
     const b = r.body;
-    if (b.verdict !== "holder_count") bad.push(`base USDC -> ${b.verdict}, want holder_count`);
-    const n = String(b.reason ?? "").match(/([\d,]{4,})\s+distinct holder addresses/);
-    if (!n) bad.push("no holder figure in prose");
-    else if (Number(n[1].replace(/,/g, "")) < 100000) bad.push(`holder figure ${n[1]} implausible for USDC on Base`);
-    // The contract the figure came from is what makes it checkable.
-    if (!new RegExp(USDC_BASE, "i").test(String(b.reason ?? ""))) bad.push("answer never names the contract read");
-    // A symbol with its chain, which is the shape of the only clean routed
-    // question this intent has received.
-    const sym = await get("/token-holders", { query: "How many addresses hold usdc on base?" });
-    if (sym.body.verdict !== "holder_count") bad.push(`symbol form -> ${sym.body.verdict}, want holder_count`);
-    // A CVE id is not a token and must never be searched for as one.
+
+    if (!providerUp) {
+      // The only thing gradeable during an outage: we must say it is an outage
+      // and must not claim the token has no holders.
+      if (b.error !== "upstream_unavailable") {
+        bad.push(`blockscout is shedding and we answered ${b.verdict}/${b.error}, want upstream_unavailable`);
+      }
+      if (!/index outage rather than a token with no holders/i.test(String(b.reason ?? ""))) {
+        bad.push("an outage was not described as one");
+      }
+      console.log("\n      (blockscout shedding — holder counts checked for honesty only)");
+    } else {
+      if (b.verdict !== "holder_count") bad.push(`base USDC -> ${b.verdict}, want holder_count`);
+      const n = String(b.reason ?? "").match(/([\d,]{4,})\s+distinct holder addresses/);
+      if (!n) bad.push("no holder figure in prose");
+      else if (Number(n[1].replace(/,/g, "")) < 100000) bad.push(`holder figure ${n[1]} implausible for USDC on Base`);
+      // The contract the figure came from is what makes it checkable.
+      if (!new RegExp(USDC_BASE, "i").test(String(b.reason ?? ""))) bad.push("answer never names the contract read");
+      // A symbol with its chain, which is the shape of the only clean routed
+      // question this intent has received.
+      const sym = await get("/token-holders", { query: "How many addresses hold usdc on base?" });
+      if (sym.body.verdict !== "holder_count") bad.push(`symbol form -> ${sym.body.verdict}, want holder_count`);
+    }
+
+    // Independent of any provider: a CVE id is not a token and is never searched
+    // for as one, because that path never reaches an upstream.
     const cve = await get("/token-holders", { query: "For token CVE-2021-44228, report total holder count." });
     if (cve.body.error !== "not_a_token") bad.push(`CVE id -> ${cve.body.error}, want not_a_token`);
     return bad;

@@ -24,6 +24,10 @@ import {
 import { cveId, lookupCve, malformedCveId, type CveResult } from "./cve";
 import { surveyCves, surveyRequest, type SurveyResult } from "./cvesurvey";
 import {
+  activityAddress, asksActivity, lookupActivity, resolveChain as resolveActivityChain,
+  type ActivityResult,
+} from "./contractactivity";
+import {
   contractAddress, lookupTvl, protocolSubject, resolveChain as resolveTvlChain, resolveScope,
   supportedChains as supportedTvlChains, type TvlResult,
 } from "./tvl";
@@ -56,7 +60,8 @@ type Answer =
   | AiDetectResult | WalletResult | FactCheckResult | TelegraphResult | TxResult | CveResult
   | TvlResult | NewsSearchResult | CurrencyResult | GameResult
   | GasResult | FinancialResult | FraudResult
-  | ScoreResult | HolderResult | ResearchResult | AuthenticityResult | SurveyResult;
+  | ScoreResult | HolderResult | ResearchResult | AuthenticityResult | SurveyResult
+  | ActivityResult;
 const cache = new Map<string, { at: number; value: Answer; ttl: number }>();
 
 /**
@@ -767,6 +772,35 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     const hash = txHash(hashParam) ?? txHash(q);
 
     if (!hash) {
+      /**
+       * Before any of the refusals: is this a CONTRACT ACTIVITY question?
+       *
+       * One of the two routed questions this intent has received asks for a
+       * contract's deployment date and transaction count. That is not a hash
+       * lookup, and the address redirect below sent it to the balance intent,
+       * which does not answer it either. Only a question that actually names a
+       * deployment, a creation or a transaction count takes this path; an
+       * address with a transaction question about it still gets the redirect.
+       */
+      if (asksActivity(q)) {
+        const addr = activityAddress(q);
+        const chain = resolveActivityChain(firstValue(url, "chain", "network"), q) ?? "ethereum";
+        if (addr) {
+          const key = `activity:${chain}:${addr.toLowerCase()}`;
+          const hit = fromCache(key);
+          if (hit) {
+            sendAnswer(res, q, lean(hit), false);
+            return;
+          }
+          lookupActivity(addr, chain)
+            .then((r) => {
+              if (!r.error) toCache(key, r);
+              sendAnswer(res, q, lean(r), false);
+            })
+            .catch(() => upstreamUnavailable(res, "A transaction lookup", addr, q));
+          return;
+        }
+      }
       // Three different failures, told apart rather than merged into one
       // refusal: nothing supplied, something that was meant to be a hash and
       // is not, and an address sent to the wrong intent.

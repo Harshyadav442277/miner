@@ -2409,3 +2409,36 @@ scored epoch, which is G84 working as intended.
 
 Neither is exploitable and neither is hidden. Recorded so a later session does
 not "discover" them as new defects and spend a day on an upstream it does not own.
+
+### G95 · Contract activity has one provider and no failover — `OPEN 2026-09-11`
+
+`/tx-lookup`'s new contract-activity path reads Blockscout and nothing else. The
+deployment date and the transaction count are both index facts that no JSON-RPC
+endpoint can supply — `eth_getTransactionCount` on a contract returns its nonce,
+which counts contracts it created, not transactions sent to it — so there is no
+RPC fallback to write.
+
+Blockscout returned **503 across all five chains** within an hour of the feature
+going live, which is how this was noticed. The code behaves correctly: it reports
+an index outage and does not claim the address has no activity. But the answer is
+unavailable for the duration, and `TOKEN_HOLDER_COUNT` shares the same host, so
+one provider outage takes two intents down together.
+
+Candidate second sources, none yet measured: Etherscan V2 (one key, all chains,
+free tier), or a self-computed count from `eth_getLogs`, which is only an
+approximation and would need saying so in the answer. Recorded rather than built,
+because a second provider that disagrees with the first is worse than one that is
+occasionally down.
+
+### G96 · Research tried each candidate term sequentially and blew the watchdog — `FIXED 2026-09-11`
+
+`answerResearch` walked its candidate names one at a time, each costing a full
+upstream timeout when neither index held the name. Measured at **23 seconds** for
+a nonsense subject, against a route watchdog of **11** — so the honest "no
+evidence in these indexes" answer could never be served, and the watchdog's
+generic outage sentence went out instead.
+
+Both passes now fire every candidate concurrently and restore preference by
+walking results in candidate order rather than completion order. Worst case is
+**6.2 s**, answers for the real routed questions are byte-identical, and the test
+now asserts the latency bound rather than only the wording.

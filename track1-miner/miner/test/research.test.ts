@@ -89,10 +89,19 @@ test("a completed trial is not described as an undecided one (live)", async () =
 });
 
 test("no source that names the subject is an absence in those indexes, not an absence of research (live)", async () => {
+  const started = Date.now();
   const r = await answerResearch("Will Zzqxjjv Nnbbvvtt be approved?");
-  assert.ok(["no_evidence", "evidence"].includes(r.verdict));
+  // A name neither index holds is the worst case for latency, and it used to
+  // cost one full upstream timeout PER candidate term — 23 seconds against a
+  // route watchdog of 11, which turned an honest "no evidence" into an outage.
+  assert.ok(Date.now() - started < 11_000, `took ${Date.now() - started}ms, over the route watchdog`);
+  // Three honest outcomes, and an index outage is one of them.
+  assert.ok(["no_evidence", "evidence", "unavailable"].includes(r.verdict), `verdict ${r.verdict}`);
   if (r.verdict === "no_evidence") {
     assert.match(r.reason, /not proof that no work exists/);
     assert.match(r.reason, /ClinicalTrials\.gov and Europe PMC/);
+  }
+  if (r.verdict === "unavailable") {
+    assert.match(r.reason, /source outage rather than an absence of research/);
   }
 });
