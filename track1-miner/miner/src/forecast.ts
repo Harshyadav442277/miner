@@ -1,9 +1,10 @@
 /**
  * WEATHER_FORECAST — future conditions for a named location over a stated window.
  *
- * The intent is explicit that this is about FUTURE conditions over a time window,
- * not current ones (that is WEATHER_CHECK, which has a strong incumbent we are not
- * challenging). So this answers "what will it be like", with the window named.
+ * The intent is explicit that this is about FUTURE conditions over a time window.
+ * Conditions NOW are WEATHER_CHECK's question and are answered by
+ * currentweather.ts from a real current reading, not from here. So this answers
+ * "what will it be like", with the window named.
  *
  * Shares Open-Meteo and the geocoder with the storm path — free, no API key, so no
  * upstream quota can become a Routing Revocation (ARCHITECTURE A3/A4).
@@ -41,8 +42,8 @@ export interface ForecastResult {
   checked_at: string;
 }
 
-/** WMO code → the plain word a person would use. */
-function conditionOf(codes: number[]): string {
+/** WMO code → the plain word a person would use. Shared with currentweather.ts. */
+export function conditionOf(codes: number[]): string {
   if (codes.some((c) => [95, 96, 99].includes(c))) return "thunderstorms";
   if (codes.some((c) => [71, 73, 75, 77, 85, 86].includes(c))) return "snow";
   if (codes.some((c) => [65, 67, 82].includes(c))) return "heavy rain";
@@ -93,8 +94,10 @@ export async function getForecast(
   // and answering with only the place name drops what the caller asked about —
   // measured on the storm endpoint as a 2x score difference.
   const askedCoords = extractCoords(query);
-  const startMs = hours === 0 ? Math.floor(Date.now() / 3_600_000) * 3_600_000 : asked ? Date.parse(asked.startIso) : Date.now();
-  const wantHours = hours === 0 ? 1 : asked?.hours ?? window;
+  // hours=0 no longer reaches here: the route sends present-tense questions to
+  // currentweather.ts, which reads a current value instead of forecasting an hour.
+  const startMs = asked ? Date.parse(asked.startIso) : Date.now();
+  const wantHours = asked?.hours ?? window;
 
   const url = (() => {
     const common =

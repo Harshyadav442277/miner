@@ -28,11 +28,38 @@ function request(params: Record<string, string>): Promise<Record<string, any>> {
     handleRequest(req, res);
   });
 }
-test("weather hours zero describes the current hourly interval", async () => {
+/**
+ * hours=0 used to be answered here, by getForecast, as the forecast for the
+ * current hour. It is now a current READING from Open-Meteo's `current` block
+ * (currentweather.ts), because a forecast slot is not what "right now" asks for:
+ * "What is the current temperature in Cairo?" was being answered with a 24-hour
+ * range on production. This pins the replacement offline, through the route.
+ */
+test("weather hours zero is answered from the current reading, not a forecast slot", async () => {
+  const original = globalThis.fetch;
+  const current = { time: stamp(start), temperature_2m: 27.4, precipitation: 0, weather_code: 3, wind_speed_10m: 9.2 };
+  globalThis.fetch = (async (url: string | URL | Request) => new Response(JSON.stringify(String(url).includes("/v1/forecast")
+    ? { current } : { city: "Test City", results: [{ name: "Test City", latitude: 13, longitude: 80 }] }))) as typeof fetch;
+  try {
+    const body = await new Promise<Record<string, any>>(resolve => {
+      const req = { method: "GET", url: `/weather-forecast?${new URLSearchParams({ location: "13,80", hours: "0" })}` } as IncomingMessage;
+      const res = { writeHead() {}, end(b: string) { resolve(JSON.parse(b)); } } as unknown as ServerResponse;
+      handleRequest(req, res);
+    });
+    assert.equal(body.verdict, "cloudy");
+    assert.match(body.reason, /is cloudy at 27\.4°C/);
+    assert.match(body.reason, new RegExp(`as of ${stamp(start).slice(11, 16)} UTC`));
+    assert.doesNotMatch(body.reason, /hourly weather forecast/);
+  } finally {
+    globalThis.fetch = original;
+  }
+});
+
+test("a forecast window is still a forecast", async () => {
   await withWeather(series(), async () => {
-    const r = await getForecast("13,80", 0);
-    assert.equal(r.start_time, `${stamp(start)}Z`);
-    assert.equal(r.temp_min_c, 20);
+    const r = await getForecast("13,80", 24);
+    assert.equal(r.window_hours, 24);
+    assert.match(r.reason, /A 24-hour hourly weather forecast/);
   });
 });
 test("storm right now describes the current hourly interval", async () => {

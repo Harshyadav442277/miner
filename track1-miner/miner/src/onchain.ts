@@ -288,6 +288,31 @@ async function searchChains(hash: string, exclude: string): Promise<{ chain: str
   return { chain: found[0] ?? null, unavailable };
 }
 
+/**
+ * One receipt with its logs, for callers that verify events rather than describe
+ * a transaction (crosschain.ts). Same endpoints and the same honesty split as
+ * `fetchTx`: `null` only when a working endpoint said the chain has no receipt,
+ * `undefined` when no endpoint answered at all. Unused by `lookupTransaction`,
+ * so no ONCHAIN_TX_LOOKUP answer depends on it.
+ */
+export async function readReceipt(chain: string, hash: string): Promise<{
+  status?: string; blockNumber?: string; logs: Array<{ address: string; topics: string[]; data: string }>;
+} | null | undefined> {
+  let sawWorkingEndpoint = false;
+  for (const url of RPCS[chain] ?? []) {
+    try {
+      const r = (await rpc(url, "eth_getTransactionReceipt", [hash])) as {
+        status?: string; blockNumber?: string; logs?: Array<{ address: string; topics: string[]; data: string }>;
+      } | null;
+      sawWorkingEndpoint = true;
+      if (r) return { status: r.status, blockNumber: r.blockNumber, logs: r.logs ?? [] };
+    } catch {
+      // Next endpoint; one refusal is not an answer.
+    }
+  }
+  return sawWorkingEndpoint ? null : undefined;
+}
+
 const fmt = (n: number, dp: number): string =>
   n.toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: dp });
 
@@ -477,28 +502,43 @@ export async function lookupTransaction(
   /**
    * Fact order matters, and it is measured rather than stylistic.
    *
-   * Telegraph scores roughly 32 words. A 66-character hash and two
-   * 42-character addresses are four of those words but a large share of the
-   * characters, and when the addresses sat before the block number the block
-   * number fell outside the budget. Against champion 642 on 2026-09-08, across
-   * four ground-truth registers:
+   * Telegraph scores roughly 32 words, so the order decides which facts reach
+   * the scorer. Hash, status and block come first (2026-09-08: block number
+   * early crossed 3/4 registers, addresses before it 2/4).
    *
-   *   addresses before the block number   2/4 crossed
-   *   block number early, addresses last  3/4 crossed
-   *   hash moved to the end               2/4 crossed  (the hash matters too)
+   * The PARTIES now come before the gas figures. Until 2026-09-12 they came
+   * last, which put both addresses past word 32, and every miner that crosses
+   * this intent in production states the sender and recipient: txlens,
+   * veyctum and chainsight-oracle, whose real answers were read for three hashes
+   * (G114–G115 follow-up). Under champion 642, on ground truths built so that
+   * those three real answers cross — the only ground truths shown to reproduce
+   * production, where they cross and we never have — scored as clip32 over
+   * 3 transactions x 2 questions:
    *
-   * So: hash, status, block, then the numbers, then the parties. Nothing is
-   * dropped — the same facts are stated, in the order that survives truncation.
+   *   family                          old order   parties first, fee before price
+   *   markdown explorer register         0/6          6/6
+   *   status block parties method        0/6          6/6
+   *   status block parties value         3/6          6/6
+   *   + gas used                         6/6          6/6
+   *   + gas used + exact fee             6/6          6/6
+   *   status block gas, no parties       6/6          5/6
+   *
+   * The fee sits before the gas price so it still fits inside the 32 words.
+   * Nothing is dropped: every fact is stated, in the order that survives
+   * truncation. The one family that lost a crossing is one production
+   * contradicts, since under it our old answer would have crossed and it never
+   * did. A bench is a filter; only a scored epoch is a verdict.
    */
   return {
     hash, chain: searched, verdict, confidence: 0.99,
     reason:
       `Transaction ${hash} on ${searched} ` +
       `${succeeded ? "succeeded" : "failed and was reverted"} in block ${fmt(block, 0)}. ` +
-      `It used ${fmt(gasUsed, 0)} gas at an effective gas price of ${fmt(gwei, 4)} Gwei, ` +
-      `a total fee of ${toCoin(feeWei, coin)}, and ${succeeded ? "moved" : "attempted to move"} ${value}.` +
+      `It ${succeeded ? "moved" : "attempted to move"} ${value} from ${short(tx.from)}` +
+      `${tx.to ? ` to ${short(tx.to)}` : " to a new contract"}. ` +
+      `It used ${fmt(gasUsed, 0)} gas, a total fee of ${toCoin(feeWei, coin)}, ` +
+      `at an effective gas price of ${fmt(gwei, 4)} Gwei.` +
       `${created}${erc20}` +
-      ` The transaction was sent from ${short(tx.from)}${tx.to ? ` to ${short(tx.to)}` : " to a new contract"}.` +
       `${statusNote}` +
       `${succeeded ? "" : " A reverted transaction still consumes its gas; the value transfer did not occur."}` +
       `${note}`,

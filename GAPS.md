@@ -1,5 +1,68 @@
 # GAPS.md — honesty ledger
 
+## 2026-09-13 ten-intent expansion — G118–G125
+
+- **G118 — Ten intents are built, tested and on a preview, and on neither production nor
+  the chain.** CRYPTO_PRICE, STOCK_PRICE, URL_SCAN, WEB_SEARCH, CONTENT_VERIFICATION,
+  SENTIMENT_ANALYSIS, TEXT_CLASSIFICATION, RESEARCH_SYNTHESIS, CROSS_CHAIN_STATE_VERIFY and
+  EVENT_OUTCOME_RESOLUTION. Evidence: 36/36 correctness gate against a local build of the
+  commit, 30/30 checks through `vercel curl` on preview `miner-a75zgw1dl` from Vercel
+  egress. Production is still `miner-5dc00iohh`, registration 1379 still declares 26.
+  **Two of the ten can never rank as things stand:** CROSS_CHAIN_STATE_VERIFY and
+  EVENT_OUTCOME_RESOLUTION have no champion scorer (`/api/wasm` count 0, 2026-09-12), so
+  nothing is scored there. Built because the operator named them. `OPEN`.
+- **G119 — Two relaxed parameters, and a diff tool that cannot see requiredness.**
+  `/cve`'s `cve_id` and `/tx-lookup`'s `hash` moved from required to optional, because both
+  routes now answer questions that carry neither (year and keyword CVE questions; address
+  activity). That the required flag kept the router from sending those questions is
+  **inferred, not measured**. `manifest-diff.mjs` compares parameter names only, so it
+  reported both endpoints "unchanged". Relaxing cannot invalidate a call that was valid
+  before, but the tool's PASS does not cover it. `OPEN` (tool gap).
+- **G120 — Keyless providers the new intents lean on, and how each fails.** CoinGecko's
+  keyless tier returned 429 after about a dozen calls in one session; CRYPTO_PRICE name
+  search and history degrade to Coinbase or Kraken or to an honest outage. Polymarket
+  refuses this laptop (HTTP 000 in 0.02 s) but answers Vercel, so EVENT_OUTCOME can only be
+  live-tested from a preview. Yahoo's chart endpoint needs a browser user agent. NVD allows
+  five anonymous requests per thirty seconds. URLhaus is a 1.1 MB list fetched and cached.
+  Every one reports an outage as an outage, verified with stubbed failures. `OPEN`.
+- **G121 — WEATHER_CHECK's current-conditions fix is not bench-validated.** "What is the
+  current temperature in Cairo?" was answered on production with a 24-hour range. It now
+  gets Open-Meteo's 15-minute `current` reading, and hours=0 no longer forecasts an hour.
+  The reg-510 bench was invalid (12/20 on the bench, 0 of 9 live epochs), so this rests on
+  what both crossing competitors answer — a current reading first — not on a score. The
+  acceptance test is the next complete epochs. `OPEN`.
+- **G122 — ONCHAIN_TX_LOOKUP's reorder is validated, narrowly.** Parties before gas, fee
+  before gas price. On the two authored families under which txlens, veyctum and
+  chainsight cross (6/4/5 and 6/6/6 of 6) and our old answer does not (0/6), the new answer
+  crosses 12/12; reproduced 2026-09-13 from answers regenerated on the integrated build,
+  byte-identical to the lane's. Limits: three Ethereum transactions, authored ground truths
+  (G24), and interlock crosses on the bench but never in production, so the bench still
+  admits a false positive. `OPEN` until an epoch scores it.
+- **G123 — Scope that is declared rather than hidden.** CROSS_CHAIN_STATE_VERIFY verifies a
+  bridge message by transaction hash or GUID and refuses state roots, Merkle-Patricia
+  proofs and block headers by name. RESEARCH_SYNTHESIS answers the intent's own coffee
+  example as `single_source`, because only one indexed study states a quotable finding;
+  that shape was not scored under reg 627. SENTIMENT_ANALYSIS uses a hand-written lexicon of
+  about 300 words, so text whose opinion words are absent reads neutral. TEXT_CLASSIFICATION
+  is lexical. CONTENT_VERIFICATION is a verbatim search of Wikisource and Wikipedia, and a
+  miss is stated as not evidence of tampering. `OPEN`.
+- **G124 — Independent verification found 17 defects, and the 18th only showed up on
+  Vercel.** Each lane's verifier refuted its builder: a fork coin priced as its major, the
+  word "link" read as Chainlink, "(USD)" read as a ProShares ticker, an outage reported as
+  "no such company", a Fed "hold" resolved against the rate-cut market, Google-owned
+  domains flagged as Google lookalikes, a resolver outage producing "safe", a partial
+  outage reported as an absence, a clause cut at its inner quote, a statement of purpose
+  quoted as a finding, and more. All 17 reproduced fixed on the integrated build. Then
+  "The battery died after a week and support never replied" came back POSITIVE on the
+  preview, carried by the noun "support", after the lane's tests and its verifier had both
+  passed. Fixed: "support" removed, "died" added, and a negated expected action ("never
+  replied") scores negative. **A green suite and a passing verifier did not find it;
+  asking the deployed thing a real sentence did.** `FIXED`.
+- **G125 — One lane broke the no-shell-edits rule once.** Lane 3 ran `sed -i` on
+  `synthesis-sources.ts` to change `retmax=6` to `retmax=10`; its own diff against the
+  backup showed exactly that one line, and the backup was deleted. Recorded because the
+  rule exists for G74/G85/G103. `CLOSED`.
+
 ## 2026-09-12 reachable-ceiling round — G112–G115
 
 - **G112 — ONCHAIN_TX_LOOKUP could not read BSC or Avalanche, and denied their
@@ -2498,7 +2561,7 @@ scored epoch, which is G84 working as intended.
 Neither is exploitable and neither is hidden. Recorded so a later session does
 not "discover" them as new defects and spend a day on an upstream it does not own.
 
-### G95 · Contract activity has one provider and no failover — `OPEN 2026-09-11`
+### G116 · Contract activity has one provider and no failover — `PARTLY FIXED 2026-09-13` (renumbered from a duplicate G95)
 
 `/tx-lookup`'s new contract-activity path reads Blockscout and nothing else. The
 deployment date and the transaction count are both index facts that no JSON-RPC
@@ -2518,7 +2581,7 @@ approximation and would need saying so in the answer. Recorded rather than built
 because a second provider that disagrees with the first is worse than one that is
 occasionally down.
 
-### G96 · Research tried each candidate term sequentially and blew the watchdog — `FIXED 2026-09-11`
+### G117 · Research tried each candidate term sequentially and blew the watchdog — `FIXED 2026-09-11` (renumbered from a duplicate G96)
 
 `answerResearch` walked its candidate names one at a time, each costing a full
 upstream timeout when neither index held the name. Measured at **23 seconds** for

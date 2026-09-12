@@ -248,58 +248,73 @@ endpoints:
     method: GET
     intents: [ONCHAIN_TX_LOOKUP]
     description: >-
-      One EVM transaction, read by hash from public JSON-RPC on Ethereum, Base,
-      Arbitrum, Optimism or Polygon. Reports confirmed, reverted, pending or not
-      found, with gas used, effective gas price, total fee, value moved, sender,
-      recipient, block number, any contract deployed and the count of ERC-20
-      transfers in the receipt. A reverted transaction is reported as reverted, not
-      as a failure to answer. An RPC that does not respond is reported as unknown
-      rather than as not found — those are different facts. A chain this endpoint
-      does not read is named as unsupported rather than answered from a different
-      chain.
+      On-chain activity, asked about a transaction or about an address. A
+      transaction is read by hash from public JSON-RPC on Ethereum, Base, Arbitrum,
+      Optimism, Polygon, BNB Chain or Avalanche; where no chain is named every one
+      of them is searched rather than one being assumed. It reports confirmed,
+      reverted, pending or not found, with the sender and recipient, value moved,
+      total fee, gas used and effective gas price, block number, any contract
+      deployed and the count of ERC-20 transfers in the receipt. An address is
+      answered from the chain and its block explorer on Ethereum, Base, Arbitrum,
+      Optimism or Polygon: whether it is a contract, an externally owned account,
+      or an account carrying an EIP-7702 delegation; when a contract was deployed;
+      how many transactions are recorded against it; how many an account has sent;
+      and when it was last active, where a recency read the index could not date is
+      reported as undated rather than as inactive. On Ethereum an explorer outage
+      fails over to a second index whose count is attributed and may trail the
+      chain. A reverted transaction is reported as reverted, not as a failure to
+      answer; an RPC or explorer that does not respond is reported as unknown rather
+      than as not found, because those are different facts; and a chain this
+      endpoint does not read is named as unsupported rather than answered from a
+      different chain.
     params:
       query:
-        required:
+        optional:
           - name: hash
             type: string
             intents: ["*"]
-            description: "The 32-byte transaction hash, 0x followed by 64 hex characters."
-        optional:
+            description: "The 32-byte transaction hash, 0x followed by 64 hex characters. Omit it for a question about an address."
           - name: chain
             type: string
             intents: ["*"]
-            description: "One of ethereum, base, arbitrum, optimism, polygon. Defaults to ethereum, or to a chain named in the question."
+            description: "One of ethereum, base, arbitrum, optimism, polygon, bsc or avalanche. When absent, a chain named in the question is used, and otherwise every chain is searched for a hash."
           - name: query
             type: string
             intents: ["*"]
-            description: "The user's original question, verbatim. The hash and chain are read from it when the parameters are absent."
+            description: "The user's original question, verbatim. A hash or an address, the chain, and what is asked about the address are read from it."
 
   - path: /cve
     external_path: /cve
     method: GET
     intents: [CVE_LOOKUP]
     description: >-
-      One vulnerability record by CVE identifier, read from the National
-      Vulnerability Database. Reports the severity rating and CVSS base score with
-      the CVSS version and the source that assigned it, the affected product and
-      versions resolved from the record's CPE configuration — exact versions and
-      half-open ranges alike — and what the flaw is. A record with no CVSS score
-      yet is reported as unscored rather than given an invented severity; a
-      REJECTED identifier is reported as rejected rather than as not found; and a
+      Vulnerabilities from the National Vulnerability Database, asked three ways.
+      By CVE identifier: the severity rating and CVSS base score with the CVSS
+      version and the source that assigned it, the affected product and versions
+      resolved from the record's CPE configuration — exact versions and half-open
+      ranges alike — and what the flaw is. By year or severity, such as "critical
+      CVEs 2025" or "latest CVEs": the vulnerabilities published in a stated window
+      of at most 120 days with the highest-scored named, where a severity band is
+      applied to each record's own CVSS base score rather than to the database's
+      severity flag. By product and vulnerability class, such as "Forgejo remote
+      code execution": the matching record and the fixed release where one is
+      documented, used only when the record names the product asked about. A
+      record with no CVSS score yet is reported as unscored rather than given an
+      invented severity; a REJECTED identifier is reported as rejected rather than
+      as not found; a truncated identifier is named as incomplete; and a
       rate-limited or unreachable database is reported as unknown, never as a
       vulnerability that does not exist.
     params:
       query:
-        required:
+        optional:
           - name: cve_id
             type: string
             intents: ["*"]
-            description: "The CVE identifier, e.g. CVE-2024-3094."
-        optional:
+            description: "The CVE identifier, e.g. CVE-2024-3094. Omit it for a question by year, severity or product."
           - name: query
             type: string
             intents: ["*"]
-            description: "The user's original question, verbatim. The identifier is read from it when the parameter is absent."
+            description: "The user's original question, verbatim. An identifier, a year, a severity such as critical, or a product and vulnerability class are read from it."
 
   - path: /tvl
     external_path: /tvl
@@ -514,14 +529,20 @@ endpoints:
       as high risk. A clean result is reported as no indicators found among the
       checks performed, with the checks listed, and explicitly not as a statement
       that the subject is safe; a check that could not be completed is named as
-      such rather than counted as clean.
+      such rather than counted as clean. An academic paper named by title is
+      checked against OpenAlex's retraction record, and a retraction is reported
+      as high risk. No keyless source records misconduct findings, paper-mill
+      membership or predatory-publisher status, so the answer names those three as
+      not checked rather than implying a clean record, and a title that cannot be
+      matched to one indexed work is reported as not found rather than matched
+      loosely to a similar one.
     params:
       query:
         optional:
           - name: address
             type: string
             intents: ["*"]
-            description: "Wallet address, URL or message text to assess. Read from the question when absent."
+            description: "Wallet address, URL, message text, or the title of an academic paper to assess. Read from the question when absent."
           - name: query
             type: string
             intents: ["*"]
@@ -661,6 +682,350 @@ endpoints:
             intents: ["*"]
             description: "The user's original question, verbatim, including the passage when it is not sent separately."
 
+  - path: /crypto-price
+    external_path: /crypto-price
+    method: GET
+    intents: [CRYPTO_PRICE]
+    description: >-
+      The current or historical price of one named cryptocurrency, as a single
+      quoted figure with the venue that quoted it and the UTC time of the quote.
+      The current price is the last Coinbase trade where Coinbase lists the pair,
+      Kraken's last trade where it does not, and CoinGecko's cross-venue aggregate
+      as a cross-check or fallback; the answer says it is a live quote that moves
+      between reads. The quote currency follows the question (USD by default; EUR,
+      GBP, JPY, INR and other major fiat, or BTC and ETH). A dollar stablecoin's
+      answer also states its distance from the one-dollar peg. A date returns that
+      UTC day's Coinbase open and close and CoinGecko's daily snapshot, labelled as
+      historical. This is one price, never market capitalisation or volume, which
+      is FINANCIAL_DATA, and never what an address holds, which is
+      WALLET_BALANCE_CHECK. A fork or wrapped asset such as Bitcoin Cash, Ethereum
+      Classic or Wrapped Bitcoin is priced as itself, never as the major whose name
+      it contains, and a multi-word coin name is matched whole. Testnet assets are
+      answered as having no market price, a future date is declined as a
+      prediction, an asset name that matches no listed coin exactly is not
+      substituted with a similar one, and a provider outage is reported as an
+      outage rather than a missing price.
+    params:
+      query:
+        optional:
+          - name: symbol
+            type: string
+            intents: ["*"]
+            description: "Asset name or ticker, e.g. ETH or Ethereum. Read from the question when absent."
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim. The asset, the quote currency and any date are read from it."
+
+  - path: /stock-price
+    external_path: /stock-price
+    method: GET
+    intents: [STOCK_PRICE]
+    description: >-
+      The current or historical share price of one listed equity, given as a
+      ticker or a company name. Every answer states the exchange, the quote time
+      in the exchange's own time zone, and whether the regular trading session is
+      open right now; outside the session the figure is labelled as the last
+      session price and never presented as a live quote. A company name is
+      resolved to its ticker and accepted only when the listing carries every word
+      of the name asked about, so an unlisted subsidiary is answered as not found
+      rather than with a related company's price. A ticker is read only when it is
+      written as one in capitals, and a currency code such as (USD) is never taken
+      for a ticker. A question that does not ask about a share price, such as a
+      weather question naming a city, is refused rather than priced. An ISO date
+      returns that day's closing price, and a date with no session is said to have
+      none. A question asking whether a stock will rise or fall is answered with
+      the price and an explicit statement that no forecast is made. Company
+      fundamentals and statistics beyond one price are FINANCIAL_DATA. A provider
+      outage, including a failed ticker search, is reported as an outage and never
+      as the company not being listed.
+    params:
+      query:
+        optional:
+          - name: symbol
+            type: string
+            intents: ["*"]
+            description: "Ticker in capitals, e.g. AAPL, or a company name, e.g. Apple. Read from the question when absent."
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim. The company, ticker and any ISO date are read from it."
+
+  - path: /cross-chain
+    external_path: /cross-chain
+    method: GET
+    intents: [CROSS_CHAIN_STATE_VERIFY]
+    description: >-
+      Whether a LayerZero V2 bridge message sent from one chain was executed on
+      another, verified from both chains' own receipts rather than taken from an
+      indexer's status. The message is located on LayerZero Scan by its source or
+      destination transaction hash or its GUID; the source receipt must carry the
+      endpoint's PacketSent event and the destination receipt its PacketDelivered
+      event, and both must agree on nonce, sender, receiver and GUID. Answers are
+      verified, not yet delivered, mismatch (including a message that travels
+      between different chains than the ones asked about), or not found. Covers
+      ethereum, base, arbitrum, optimism, polygon, bsc and avalanche. State roots,
+      Merkle-Patricia proofs and block headers are not verified cryptographically,
+      and every answer to a request for one says so. Other bridges such as
+      Wormhole or native rollup bridges are not checked. A nonce with no
+      transaction hash, GUID or sender does not identify a message, and one is
+      asked for. An RPC or indexer outage is reported as an outage.
+    params:
+      query:
+        optional:
+          - name: tx_hash
+            type: string
+            intents: ["*"]
+            description: "Source or destination transaction hash, or the LayerZero message GUID, 0x-prefixed 64 hex characters. Read from the question when absent."
+          - name: source_chain
+            type: string
+            intents: ["*"]
+            description: "Chain the message was sent from, e.g. arbitrum."
+          - name: destination_chain
+            type: string
+            intents: ["*"]
+            description: "Chain the message should have executed on, e.g. base."
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim. The reference, both chains and any nonce are read from it."
+
+  - path: /event-outcome
+    external_path: /event-outcome
+    method: GET
+    intents: [EVENT_OUTCOME_RESOLUTION]
+    description: >-
+      The actual outcome of a named, checkable event, as settled by a public
+      prediction market, for a market or conditional contract to resolve against.
+      Polymarket's real-money markets and Manifold's play-money markets are
+      searched, and a market is used only when it carries every name and number
+      in the question, asks about the same move (a cut, a rise or no change), and
+      is mostly about that event, so a market on a different subject or the
+      opposite proposition that shares most of the words is not used. A settled
+      market is reported with its settled outcome and the market's own wording,
+      and a Manifold settlement is labelled as play money. An unsettled market is
+      reported as unresolved with its scheduled close, and its trading odds are
+      never given as an outcome. Nothing is predicted: a request for an opinion or
+      forecast is declined by name, and a question that names no specific event is
+      asked to name one. Where no matching market exists the answer says so;
+      official sources such as flight trackers, election authorities and league
+      results are not read. A provider outage is reported as an outage.
+    params:
+      query:
+        optional:
+          - name: event
+            type: string
+            intents: ["*"]
+            description: "The event to resolve, e.g. Fed rate decision at the September 2025 meeting. Read from the question when absent."
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim. The event, its names, numbers and dates are read from it."
+
+  - path: /url-scan
+    external_path: /url-scan
+    method: GET
+    intents: [URL_SCAN]
+    description: >-
+      A safe or unsafe verdict on one URL, with the evidence behind it named.
+      The host is resolved through Cloudflare's malware-and-phishing filtering
+      resolver and compared with an unfiltered resolver, so a block is reported
+      only when the filter answers 0.0.0.0 for a name that really resolves; the
+      host and exact URL are looked up in URLhaus's current malware lists; the TLS
+      certificate is inspected; and the redirect chain is walked hop by hop, each
+      hop checked to be a public address before it is contacted. A listing makes
+      a URL unsafe. A brand name used on a domain that is not a known domain of
+      that brand, punycode, a bare IP address or an invalid certificate makes it
+      suspicious. With none of those, and only when both the filtering resolver
+      and URLhaus answered, the URL is reported as appearing safe, and the answer
+      says plainly that no blocklist can prove a site safe. A host that does not
+      resolve is reported as unreachable. When either threat source does not
+      answer, that is reported as an outage and never as a safe verdict. A
+      question only about a certificate is SSL_VERIFICATION and is refused by
+      name, and a list of which engines flag a URL is URL_SAFE.
+    params:
+      query:
+        optional:
+          - name: url
+            type: string
+            intents: ["*"]
+            description: "The URL to scan, e.g. https://example.com/offer. A bare host is read as https. Read from the question when absent."
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim, including the URL when it is not sent separately."
+
+  - path: /web-search
+    external_path: /web-search
+    method: GET
+    intents: [WEB_SEARCH]
+    description: >-
+      Current, externally sourced information for a question that static
+      knowledge cannot answer, taken from Google News search and, when no current
+      report exists, from Wikipedia. The answer quotes the most relevant reports'
+      headlines with publisher and publication date, so every clause can be
+      checked; nothing is paraphrased by a model. A report is only cited when it
+      names the subject, and when the question names a product or trial code such
+      as MK-2870 the headline must name that code. A question about a future
+      outcome is answered with the current coverage and states that it is not a
+      prediction. A TLS certificate check, a scholarly literature search, a
+      single CVE record or a request to explain a concept from static knowledge
+      is refused by name as the intent it belongs to. When the sources that
+      answered find nothing on the subject, that is reported as an absence in
+      those sources only; when Google News does not answer, that is reported as an
+      outage.
+    params:
+      query:
+        required:
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The question, verbatim. The subject, any named organisation and any product or trial code are read from it."
+        optional:
+          - name: topic
+            type: string
+            intents: ["*"]
+            description: "The subject to search for, when it is available separately from the question."
+
+  - path: /content-verify
+    external_path: /content-verify
+    method: GET
+    intents: [CONTENT_VERIFICATION]
+    description: >-
+      Whether a supplied piece of text, such as a press release or a contract
+      clause, is genuine and unaltered, judged against the strongest reference
+      available and naming it. A supplied SHA-256, SHA-1 or MD5 digest is
+      recomputed over the exact text, which proves integrity against that digest.
+      A supplied original is compared word by word and every change is quoted.
+      Without either, the text's distinctive runs are searched verbatim in
+      Wikisource and Wikipedia and the whole passage is compared with the
+      published text found, in overlapping six-word windows, so an edit is located
+      and quoted. When no published copy is found the answer says the text cannot
+      be confirmed and that this is not evidence of tampering; a match shows the
+      wording was published, not who issued it. Image, audio and video
+      authenticity is DEEPFAKE_DETECTION or MEDIA_AUTHENTICITY_CHECK and is refused
+      by name.
+    params:
+      query:
+        optional:
+          - name: content
+            type: string
+            intents: ["*"]
+            description: "The text to verify, exactly as given. Read from the quoted text in the question when absent."
+          - name: original
+            type: string
+            intents: ["*"]
+            description: "A reference version to compare the content against, when one is supplied."
+          - name: sha256
+            type: string
+            intents: ["*"]
+            description: "A published digest of the content (SHA-256, SHA-1 or MD5 by length), when one is supplied."
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim, including the quoted content when it is not sent separately."
+
+  - path: /sentiment
+    external_path: /sentiment
+    method: GET
+    intents: [SENTIMENT_ANALYSIS]
+    description: >-
+      The sentiment a supplied text expresses — positive, negative, neutral or
+      mixed — read with a rule-based word list and the VADER method (negation,
+      intensifiers, a contrastive "but", capitals and exclamation marks). No model
+      is involved and nothing is fetched. A negation reaches at most three words
+      forward and never across a comma or full stop, so "No problems, great
+      service" reads as positive. The answer names the words that carried the
+      label, so it can be checked against the text, and names an emotional tone
+      such as frustrated or joyful only when a word in the text states it and is
+      not negated. A text with no opinion word is reported as neutral with that
+      reason given. Sarcasm, irony and opinion words outside the list are not
+      detected, so a neutral reading can be a miss. Assigning a text to
+      caller-supplied categories is TEXT_CLASSIFICATION rather than this intent. A
+      request with no text is refused by name rather than scored.
+    params:
+      query:
+        optional:
+          - name: text
+            type: string
+            intents: ["*"]
+            description: "The passage whose sentiment is asked about, exactly as given. Read from the question when absent."
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim, including the quoted passage when it is not sent separately."
+
+  - path: /classify
+    external_path: /classify
+    method: GET
+    intents: [TEXT_CLASSIFICATION]
+    description: >-
+      Assigns a supplied text to one of the labels the request itself supplies,
+      such as billing, technical or account issue. There is no fixed taxonomy and
+      no model: a label wins on lexical relatedness, when a label word appears in
+      the text or when text and label words are neighbours in the keyless Datamuse
+      word index, and the answer names the words that matched so the choice can be
+      checked. When no label clears the runner-up by a clear margin the text is
+      reported as ambiguous between them rather than a label being guessed, and a
+      negated label such as "not spam" is never chosen merely because evidence for
+      the other is absent. Label sets of positive, negative and neutral are read
+      with the sentiment word list instead. Where the word index does not respond,
+      only direct label-word matches are counted and the answer says so; an
+      ambiguity reached that way is reported as a source outage. Emotional tone on
+      its own is SENTIMENT_ANALYSIS. A request without a label set or without text
+      is refused by name.
+    params:
+      query:
+        optional:
+          - name: text
+            type: string
+            intents: ["*"]
+            description: "The passage to classify, exactly as given. Read from the question when absent."
+          - name: labels
+            type: string
+            intents: ["*"]
+            description: "The candidate labels as a comma-separated list, e.g. billing, technical, account issue. Read from the question when absent."
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim, including the labels and the quoted passage when they are not sent separately."
+
+  - path: /research-synthesis
+    external_path: /research-synthesis
+    method: GET
+    intents: [RESEARCH_SYNTHESIS]
+    description: >-
+      Findings on a topic gathered across several published studies and combined
+      into one answer. PubMed and Europe PMC are searched on title and abstract,
+      and from each study a single sentence reporting a result is quoted verbatim
+      from its abstract and attributed by first author, year and PubMed id. A
+      sentence is quoted only when it states a result, such as an association, a
+      reduction or a conclusion, and when every topic word appears as a whole word
+      in it or in the study's title. Statements of purpose ("To examine ..."),
+      search and methods descriptions, definitions, background attributed to
+      earlier work and calls for further research are never quoted as findings.
+      Nothing is generated, and whether the studies agree is explicitly not
+      assessed. Requests for the latest or recent studies are limited to the last
+      five years. When the request supplies its own notes, on separate lines or run
+      together on one line, they are restated grouped by source with their
+      attributions kept, nothing is fetched, and a stated topic that no note
+      addresses is named as unaddressed. Where only one study yields a quotable
+      finding the answer says no synthesis across sources was possible; where both
+      indexes fail that is reported as an outage and never as an absence of
+      research. A cited answer to one narrow question is RESEARCH_QUERY rather than
+      this intent.
+    params:
+      query:
+        optional:
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original request, verbatim, including any notes to be summarised."
+          - name: topic
+            type: string
+            intents: ["*"]
+            description: "The subject to synthesise, e.g. intermittent fasting, when it is available separately from the request."
+
   - path: /fact-check
     external_path: /fact-check
     method: GET
@@ -759,6 +1124,16 @@ semantics:
     - TOKEN_HOLDER_COUNT
     - RESEARCH_QUERY
     - TEXT_AUTHENTICITY_CHECK
+    - CRYPTO_PRICE
+    - STOCK_PRICE
+    - CROSS_CHAIN_STATE_VERIFY
+    - EVENT_OUTCOME_RESOLUTION
+    - URL_SCAN
+    - WEB_SEARCH
+    - CONTENT_VERIFICATION
+    - SENTIMENT_ANALYSIS
+    - TEXT_CLASSIFICATION
+    - RESEARCH_SYNTHESIS
 
 # input_schema is a single top-level block covering every endpoint — the schema
 # refuses it inside endpoints[], and the node does not enforce it against requests.

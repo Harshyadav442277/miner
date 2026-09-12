@@ -25,6 +25,7 @@
  * question that actually asks about deployment or activity takes this path.
  */
 import { accountKind } from "./fraud";
+import { routescanActivity, routescanTxTimestamp, type RoutescanActivity } from "./routescan";
 
 const TIMEOUT_MS = Number(process.env.ACTIVITY_TIMEOUT_MS ?? 7_000);
 /**
@@ -238,6 +239,12 @@ export async function lookupActivity(
   // against a route budget of 11 seconds. The recency read joins this round and
   // its follow-up joins the deployment-date round below, so widening the answer
   // added no third phase.
+  // The Routescan failover (G116) STARTS in the same round on Ethereum, because
+  // started after a Blockscout timeout it would not fit the watchdog. It is only
+  // AWAITED when Blockscout failed, so a healthy lookup does not wait on it
+  // (measured 2026-09-13: awaiting it always put a normal router lookup at 3.8 s).
+  const rsPending: Promise<RoutescanActivity | null> | null =
+    chain === "ethereum" ? routescanActivity(address).catch(() => null) : null;
   const [rec, counters, code, nonce, recentHash] = await Promise.all([
     getJson(`https://${entry.host}/api/v2/addresses/${address}`).catch((e) => e as Error),
     getJson(`https://${entry.host}/api/v2/addresses/${address}/counters`).catch(() => null),
@@ -246,7 +253,15 @@ export async function lookupActivity(
     opts.recency ? latestTxHash(entry.host, address).catch(() => null) : Promise.resolve(null),
   ]);
 
-  if (rec instanceof Error) {
+  // Failover only on an outage, never on a 404: "not indexed" is an answer, and
+  // a second index saying otherwise would be a disagreement, not a recovery.
+  // Without the chain's own code, an account cannot be told from a contract
+  // unless a creation transaction exists, so that case is not failed over.
+  const outage = rec instanceof Error && !/HTTP 404/.test(String(rec));
+  const rs = outage && rsPending ? await rsPending : null;
+  const failover: RoutescanActivity | null = rs && (code !== null || rs.creationTx) ? rs : null;
+
+  if (rec instanceof Error && !failover) {
     const missing = /HTTP 404/.test(String(rec));
     return {
       ...empty,
@@ -262,20 +277,24 @@ export async function lookupActivity(
     };
   }
 
-  const r = rec as {
+  const r = (failover
+    ? { is_contract: Boolean(failover.creationTx), name: null, creation_transaction_hash: failover.creationTx }
+    : rec) as {
     is_contract?: boolean; name?: string | null;
     creation_transaction_hash?: string | null; creator_address_hash?: string | null;
     is_verified?: boolean;
   };
-  const c = counters as { transactions_count?: string } | null;
-  const txRaw = Number(c?.transactions_count);
-  const transactions = Number.isFinite(txRaw) ? txRaw : null;
+  const txRaw = failover ? failover.transactions : Number((counters as { transactions_count?: string } | null)?.transactions_count);
+  const transactions = txRaw !== null && Number.isFinite(txRaw) ? txRaw : null;
 
   // Both dates live on a transaction, not on the address, so they are read in
   // one round rather than one after the other.
   const creationTx = r.creation_transaction_hash ?? null;
   const stamp = async (hash: string | null, timeout: number): Promise<string | null> => {
     if (!hash) return null;
+    // Blockscout is down on the failover path, so the date comes from Routescan's
+    // transaction record; the chain's RPC has pruned old deployments (routescan.ts).
+    if (failover) return routescanTxTimestamp(hash);
     try {
       const t = (await getJson(`https://${entry.host}/api/v2/transactions/${hash}`, timeout)) as
         { timestamp?: string };
@@ -320,7 +339,14 @@ export async function lookupActivity(
   }
 
   if (transactions !== null) {
-    parts.push(`with ${fmtCount(transactions)} transactions recorded against it`);
+    /**
+     * Routescan's count can trail the chain: the router's read 90,283,142 on both
+     * 2026-09-12 and 2026-09-13 while Blockscout's moved from 90,439,431 to
+     * 90,440,609. So on failover the figure is attributed and not called current.
+     */
+    parts.push(failover
+      ? `with ${fmtCount(transactions)} transactions recorded against it in Routescan's index, a count that can trail the live chain`
+      : `with ${fmtCount(transactions)} transactions recorded against it`);
   }
 
   // Only an externally owned account's nonce means "transactions sent". On a
@@ -359,7 +385,9 @@ export async function lookupActivity(
   const tail = transactions === null
     ? ` The transaction count was not returned by the index, so none is reported.`
     : ``;
-  const source = ` Read from the ${entry.label} explorer's own address index${creationTx ? `, deployment transaction ${creationTx}` : ""}.`;
+  const source = failover
+    ? ` Read from Routescan's ${entry.label} index because the Blockscout explorer did not answer${creationTx ? `, deployment transaction ${creationTx}` : ""}.`
+    : ` Read from the ${entry.label} explorer's own address index${creationTx ? `, deployment transaction ${creationTx}` : ""}.`;
 
   return {
     address, chain, is_contract: isContract, name: r.name ?? null,

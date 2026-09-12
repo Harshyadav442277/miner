@@ -11,6 +11,14 @@
  * `holders_count` keylessly from a separate host per chain, so the five chains
  * are also five independent points of failure rather than one.
  *
+ * NO SECOND PROVIDER, AND THAT IS MEASURED (GAPS G116, 2026-09-12). Routescan is
+ * keyless and was compared on the same tokens: USDT 17,372,046 on Blockscout
+ * against 12,896,865 (-25.8%), USDC 9,243,523 against 7,747,591 (-16.2%), UNI
+ * 408,429 against 381,879 (-6.5%), and 0 against 669,828 for Optimism USDC. Two
+ * indexes a quarter apart count different things, so failing over between them
+ * would change the answer's meaning with the provider. contractactivity.ts does
+ * use it, where the two agreed to within 0.2%.
+ *
  * THE TWO REAL ROUTED QUESTIONS, read from the explorer feed on 2026-09-10,
  * decided the shape of this module:
  *

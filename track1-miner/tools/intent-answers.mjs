@@ -555,6 +555,24 @@ const CHECKS = {
     if (!temp) bad.push("no temperature in prose");
     else if (Number(temp[1]) < -30 || Number(temp[1]) > 50) bad.push(`temp ${temp[1]}°C implausible for Tokyo`);
     if (b.error) bad.push(`errored: ${b.error}`);
+    /**
+     * A present-tense question must get a CURRENT reading. This check used to
+     * accept any temperature in the prose, so "What is the current temperature in
+     * Cairo?" passed on production while being answered with a 24-hour range
+     * (2026-09-13). A range is a true answer to a different question.
+     */
+    if (/hourly weather forecast|from -?\d+(?:\.\d+)?°C to/.test(String(b.reason ?? ""))) {
+      bad.push("a right-now question was answered with a forecast range, not a current reading");
+    }
+    const cairo = await get("/weather-forecast", { query: "What is the current temperature in Cairo?" });
+    if (!cairo.body.error && !/^The current temperature in Cairo[^.]* is -?\d+(?:\.\d+)?°C/.test(String(cairo.body.reason ?? ""))) {
+      bad.push(`current temperature -> "${String(cairo.body.reason ?? "").slice(0, 80)}", not a current reading`);
+    }
+    // And a forecast question must still get the forecast, not a reading.
+    const fc = await get("/weather-forecast", { query: "What is the weather forecast for Tokyo over the next 24 hours?" });
+    if (!fc.body.error && !/hourly weather forecast/.test(String(fc.body.reason ?? ""))) {
+      bad.push("a forecast question was diverted to the current reading");
+    }
     return bad;
   },
 
@@ -861,6 +879,405 @@ const CHECKS = {
     }
     const none = await get("/authenticity", { query: "Is this text original?" });
     if (none.body.error !== "no_text") bad.push(`no passage -> ${none.body.error}, want no_text`);
+    return bad;
+  },
+
+  async CRYPTO_PRICE() {
+    const bad = [];
+    // An independent trade price to grade against. Coinbase is also one of the
+    // route's sources, so agreement within 2% is a sanity bound on the figure we
+    // print, not proof of a second opinion; the UTC stamp is what makes it checkable.
+    let truth = null;
+    try {
+      const t = await fetch("https://api.exchange.coinbase.com/products/BTC-USD/ticker", { signal: AbortSignal.timeout(15000) });
+      if (t.ok) truth = Number((await t.json()).price);
+    } catch { truth = null; }
+
+    const r = await get("/crypto-price", { query: "What is the current price of Bitcoin (BTC) in USD?" });
+    const b = r.body;
+    const prose = String(b.reason ?? "");
+    if (b.error === "upstream_unavailable") {
+      // Honesty is the only gradeable thing in an outage: no figure may be invented.
+      if (/\$\d/.test(prose)) bad.push("an outage answer carries a price figure");
+      if (!/availability problem/.test(prose)) bad.push("an outage was not described as one");
+      console.log("\n      (price providers down — CRYPTO_PRICE checked for honesty only)");
+    } else {
+      if (b.verdict !== "price") bad.push(`BTC -> ${b.verdict}, want price`);
+      const said = Number(prose.match(/^Bitcoin \(BTC\) is \$([\d,]+\.\d{2}) USD/)?.[1]?.replace(/,/g, ""));
+      if (!Number.isFinite(said)) bad.push("answer does not lead with a BTC figure in USD");
+      else if (truth && Math.abs(said - truth) / truth > 0.02) bad.push(`BTC ${said} is more than 2% from Coinbase ${truth}`);
+      if (!/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} UTC/.test(prose)) bad.push("no UTC quote time");
+      if (!/Coinbase|Kraken|CoinGecko/.test(prose)) bad.push("no quoting venue named");
+    }
+
+    // Refusals that reach no upstream, so they hold in every provider state.
+    const testnet = await get("/crypto-price", { query: "What is the price of Base sepolia now?" });
+    if (testnet.body.verdict !== "no_market_price") bad.push(`Base sepolia -> ${testnet.body.verdict}, want no_market_price`);
+    const none = await get("/crypto-price", { query: "crypto price check" });
+    if (none.body.error !== "no_subject") bad.push(`subjectless -> ${none.body.error}, want no_subject`);
+    // A fork's name is never answered with the major's price (2026-09-12: BCH got BTC's $77k).
+    const bch = await get("/crypto-price", { query: "Bitcoin Cash price" });
+    if (/^Bitcoin \(BTC\)/.test(String(bch.body.reason ?? ""))) bad.push("Bitcoin Cash answered with Bitcoin's price");
+    const link = await get("/crypto-price", { query: "Is it a good time to link my wallet?" });
+    if (link.body.error !== "no_subject") bad.push(`'link my wallet' -> ${link.body.verdict}, want no_subject`);
+    return bad;
+  },
+
+  async STOCK_PRICE() {
+    const bad = [];
+    // Read the session window straight from the source, so "open" and "closed"
+    // are graded against the exchange's own clock rather than ours.
+    let meta = null;
+    try {
+      const y = await fetch("https://query1.finance.yahoo.com/v8/finance/chart/AAPL?range=1d&interval=1d", {
+        headers: { "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36" },
+        signal: AbortSignal.timeout(15000),
+      });
+      if (y.ok) meta = (await y.json()).chart?.result?.[0]?.meta ?? null;
+    } catch { meta = null; }
+
+    const r = await get("/stock-price", { query: "What is the current share price of Apple (AAPL)?" });
+    const b = r.body;
+    const prose = String(b.reason ?? "");
+    if (b.error === "upstream_unavailable") {
+      if (/\d+\.\d{2} USD/.test(prose)) bad.push("an outage answer carries a price figure");
+      console.log("\n      (quote providers down — STOCK_PRICE checked for honesty only)");
+    } else {
+      if (b.verdict !== "price") bad.push(`AAPL -> ${b.verdict}, want price`);
+      if (!/\(AAPL\)/.test(prose)) bad.push("ticker not named");
+      const said = Number(prose.match(/(?:trading at|last traded at) (\d+\.\d{2}) USD/)?.[1]);
+      if (meta && Number.isFinite(said) && Math.abs(said - meta.regularMarketPrice) / meta.regularMarketPrice > 0.01) {
+        bad.push(`AAPL ${said} is more than 1% from Yahoo ${meta.regularMarketPrice}`);
+      }
+      if (!/America\/New_York/.test(prose)) bad.push("quote time not given in the exchange's zone");
+      const p = meta?.currentTradingPeriod?.regular;
+      if (p) {
+        const open = Date.now() / 1000 >= p.start && Date.now() / 1000 < p.end;
+        if (open && !/session is open/.test(prose)) bad.push("market is open but the answer does not say so");
+        if (!open && !/not a live quote/.test(prose)) bad.push("market is closed but the last price is not labelled as such");
+      }
+    }
+    // "Fresenius Kabi" resolved to Fresenius Medical Care on 2026-09-12; a sibling's
+    // price must never stand in for an unlisted subsidiary's.
+    const kabi = await get("/stock-price", { query: "Will Fresenius Kabi stock drop?" });
+    if (!kabi.body.error && /last traded at|trading at/.test(String(kabi.body.reason ?? ""))) {
+      bad.push("Fresenius Kabi was answered with another company's price");
+    }
+    const lly = await get("/stock-price", { query: "Will Eli Lilly stock rise?" });
+    if (!lly.body.error && !/no forecast is made/.test(String(lly.body.reason ?? ""))) bad.push("a rise question was not declined as a forecast");
+    // Wrong-subject prices found by the 2026-09-12 verifier, refused with no upstream call.
+    const wx = await get("/stock-price", { query: "What is the 24-hour weather forecast for Auckland?" });
+    if (wx.body.error !== "no_subject") bad.push(`misrouted weather -> ${wx.body.verdict}, want no_subject`);
+    const usd = await get("/stock-price", { query: "What is Apple share price (USD)?" });
+    if (/ProShares|\(USD\) last traded/.test(String(usd.body.reason ?? ""))) bad.push("'(USD)' was read as a ticker");
+    const tsla = await get("/stock-price", { query: "What is the ticker for Tesla and its share price?" });
+    if (/\(FOR\)/.test(String(tsla.body.reason ?? ""))) bad.push("'ticker for' read FOR as the ticker");
+    return bad;
+  },
+
+  async CROSS_CHAIN_STATE_VERIFY() {
+    const bad = [];
+    // A delivered Stargate message, Arbitrum -> Base, read 2026-09-12. Scan is
+    // probed first so an indexer outage is graded for honesty, not as a failure.
+    const SRC = "0x46b617219a83f81f264e9e3f6ff6714e974701a207059989346fd092e4c81a22";
+    let scanned = null;
+    try {
+      const s = await fetch(`https://scan.layerzero-api.com/v1/messages/tx/${SRC}`, { signal: AbortSignal.timeout(20000) });
+      if (s.ok) scanned = (await s.json()).data?.[0] ?? null;
+    } catch { scanned = null; }
+
+    const r = await get("/cross-chain", { query: `Verify the LayerZero message in arbitrum tx ${SRC} executed on base.` });
+    const b = r.body;
+    if (!scanned) {
+      if (b.verdict === "verified") bad.push("verified while LayerZero Scan was unreachable from the checker");
+      console.log("\n      (LayerZero Scan unreachable — CROSS_CHAIN checked for honesty only)");
+    } else if (b.verdict === "unknown") {
+      if (!/did not respond/.test(String(b.reason ?? ""))) bad.push("an unknown verdict does not name the outage");
+    } else {
+      if (b.verdict !== "verified") bad.push(`delivered message -> ${b.verdict}, want verified`);
+      const dst = scanned.destination?.tx?.txHash;
+      if (dst && !String(b.reason ?? "").includes(dst)) bad.push("destination transaction hash not stated");
+      if (!String(b.reason ?? "").includes(scanned.guid)) bad.push("message GUID not stated");
+    }
+    // The canonical example names no message; a state root is never claimed.
+    const canon = await get("/cross-chain", {
+      query: "Verify that the LayerZero message with nonce 4412 from arbitrum executed on base and that the committed state root matches.",
+    });
+    if (canon.body.verdict === "verified") bad.push("canonical example verified without a message reference");
+    if (!/does not verify state roots/.test(String(canon.body.reason ?? ""))) bad.push("the state-root limit is not named");
+    const concept = await get("/cross-chain", { query: "How do cross-chain bridges work?" });
+    if (concept.body.verdict !== "insufficient_input") bad.push(`conceptual -> ${concept.body.verdict}, want insufficient_input`);
+    return bad;
+  },
+
+  async EVENT_OUTCOME_RESOLUTION() {
+    const bad = [];
+    // Polymarket's own settlement of the Fed's September 2025 decision: the 25 bps
+    // market paid Yes. Probed directly so an outage is graded for honesty only.
+    let settled = null;
+    try {
+      const g = await fetch("https://gamma-api.polymarket.com/public-search?q=fed%20september%202025&limit_per_type=10&keep_closed_markets=1", { signal: AbortSignal.timeout(20000) });
+      if (g.ok) {
+        const m = ((await g.json()).events ?? []).flatMap((e) => e.markets ?? [])
+          .find((x) => x.question === "Fed decreases interest rates by 25 bps after September 2025 meeting?");
+        settled = m ? JSON.parse(m.outcomePrices)[0] === "1" : null;
+      }
+    } catch { settled = null; }
+
+    const r = await get("/event-outcome", { query: "Did the Fed cut rates by 25 bps at its September 2025 meeting? Resolve this market." });
+    const b = r.body;
+    const prose = String(b.reason ?? "");
+    if (settled === null) {
+      if (b.verdict === "resolved" && !/Fed/.test(prose)) bad.push("resolved against a market that is not the Fed's");
+      console.log("\n      (Polymarket unreachable from the checker — EVENT_OUTCOME checked for honesty only)");
+    } else if (b.verdict !== "unknown") {
+      if (b.verdict !== "resolved") bad.push(`Fed Sept 2025 -> ${b.verdict}, want resolved`);
+      if (!/^Resolved Yes: /.test(prose)) bad.push("settlement not stated as Yes");
+      if (!/Fed decreases interest rates by 25 bps/.test(prose)) bad.push("the settled market is not named");
+    }
+    // Odds are never an outcome, in any state.
+    if (/\d+(?:\.\d+)?%|probability/i.test(prose)) bad.push("answer reports odds");
+    const guess = await get("/event-outcome", { query: "Who do you think will win the election?" });
+    if (guess.body.error !== "prediction_requested") bad.push(`prediction -> ${guess.body.error}, want prediction_requested`);
+    // The Fed cut in September 2025, so "did it hold" must never resolve Yes.
+    const hold = await get("/event-outcome", { query: "Did the Fed hold rates steady at its September 2025 meeting?" });
+    if (/^Resolved Yes/.test(String(hold.body.reason ?? ""))) bad.push("a hold question resolved Yes although the Fed cut");
+    return bad;
+  },
+
+  async URL_SCAN() {
+    const bad = [];
+    /**
+     * Probe the provider before grading ourselves against it (G89). Cloudflare
+     * publishes malware.testcategory.com as a test domain its security resolver
+     * blocks; that 0.0.0.0 is the verifiable fact. With the resolver down, only
+     * honesty is graded: a known malware test domain must never be called safe.
+     */
+    let filterUp = true;
+    try {
+      const probe = await fetch("https://security.cloudflare-dns.com/dns-query?name=malware.testcategory.com&type=A", {
+        headers: { accept: "application/dns-json" },
+        signal: AbortSignal.timeout(15000),
+      });
+      const j = await probe.json();
+      filterUp = probe.ok && (j.Answer ?? []).some((a) => a.data === "0.0.0.0");
+    } catch { filterUp = false; }
+
+    const flagged = await get("/url-scan", { query: "Is http://malware.testcategory.com/download safe to click?" });
+    const f = flagged.body;
+    if (!filterUp) {
+      if (f.verdict === "safe") bad.push("the security resolver is down and a malware test domain was called safe");
+      console.log("\n      (Cloudflare security resolver unavailable — URL_SCAN checked for honesty only)");
+    } else {
+      if (f.verdict !== "unsafe") bad.push(`malware.testcategory.com -> ${f.verdict}, want unsafe`);
+      if (!/0\.0\.0\.0/.test(String(f.reason ?? ""))) bad.push("an unsafe verdict does not state the resolver evidence");
+    }
+
+    // A clean verdict must carry its limit, because a caller acts on it.
+    const good = await get("/url-scan", { query: "Is this URL safe to click: https://github.com/torvalds/linux ?" });
+    if (good.body.error !== "upstream_unavailable") {
+      if (good.body.verdict !== "safe") bad.push(`github.com -> ${good.body.verdict}, want safe`);
+      if (!/No blocklist can prove a site safe/.test(String(good.body.reason ?? ""))) bad.push("a safe verdict does not state that it is not proof");
+    }
+
+    // Provider-independent: a brand lookalike is never safe, and a CVE id is not a URL.
+    const fake = await get("/url-scan", { query: "Scan the URL https://binance-security-update.co/verify for malware or phishing." });
+    if (!["suspicious", "unsafe"].includes(fake.body.verdict)) bad.push(`binance lookalike -> ${fake.body.verdict}, want suspicious or unsafe`);
+    // A domain the brand itself operates is not impersonation (googleusercontent.com: Google's own nameservers).
+    const own = await get("/url-scan", { query: "Is https://googleusercontent.com safe?" });
+    if (/names? google|not a known google domain/.test(String(own.body.reason ?? ""))) bad.push("googleusercontent.com was called a Google lookalike");
+    // The canonical "Not" example is SSL_VERIFICATION and gets no safety verdict.
+    const cert = await get("/url-scan", { query: "Is example.com's SSL certificate valid?" });
+    if (cert.body.error !== "out_of_scope") bad.push(`certificate-only question -> ${cert.body.verdict}/${cert.body.error}, want out_of_scope`);
+    const cve = await get("/url-scan", { query: "Scan and judge this URL safe or unsafe: CVE-2021-44228" });
+    if (cve.body.error !== "not_a_url") bad.push(`CVE id -> ${cve.body.error}, want not_a_url`);
+    return bad;
+  },
+
+  async WEB_SEARCH() {
+    const bad = [];
+    // Probe Google News before grading relevance against it (G89).
+    let newsUp = true;
+    try {
+      const probe = await fetch("https://news.google.com/rss/search?q=Federal%20Reserve", {
+        headers: { "user-agent": "Mozilla/5.0" },
+        signal: AbortSignal.timeout(15000),
+      });
+      newsUp = probe.ok && (await probe.text()).includes("<item>");
+    } catch { newsUp = false; }
+
+    const r = await get("/web-search", { query: "What's the latest news on the Fed's interest rate decision?" });
+    const reason = String(r.body.reason ?? "");
+    if (!newsUp) {
+      // An outage must never be reported as "no reports exist".
+      if (r.body.verdict === "no_results") bad.push("the news index is down and the answer claims nothing was published");
+      console.log("\n      (Google News unavailable — WEB_SEARCH checked for honesty only)");
+    } else {
+      if (r.body.verdict !== "answered") bad.push(`Fed question -> ${r.body.verdict}, want answered`);
+      const cited = [...reason.matchAll(/"([^"]{8,})"\s+\(([^,)]+),\s*(\d{1,2} [A-Z][a-z]+ \d{4})\)/g)];
+      if (cited.length < 1) bad.push("no cited report carries a publisher and a date");
+      for (const [, title, publisher, date] of cited) {
+        if (!publisher.trim() || /publisher not stated/i.test(publisher)) bad.push("a cited report has no publisher");
+        const when = new Date(date).getTime();
+        if (Number.isNaN(when)) bad.push(`unparseable report date: ${date}`);
+        else if (Date.now() - when > 400 * 86_400_000) bad.push(`a "latest" answer cites a report over a year old: ${date}`);
+        if (!/\bFed\b|Federal Reserve|FOMC|interest rate/i.test(title)) bad.push(`a cited report is not about the Fed: ${title.slice(0, 60)}`);
+      }
+    }
+
+    // Nothing predicts an outcome no source can state as fact. Quoted headlines
+    // are the sources' words, so only the answer's own words are checked.
+    const future = await get("/web-search", { query: "Will OpenAI face legal action?" });
+    const own = String(future.body.reason ?? "").replace(/"[^"]*"/g, "");
+    if (future.body.verdict === "answered" && !/coverage, not a prediction/.test(own)) bad.push("a forward-looking answer does not say it is not a prediction");
+    if (/\bwill (?:likely|probably)\b|\bis (?:likely|expected) to\b/i.test(own)) bad.push("a forward-looking answer predicts an outcome");
+
+    // Provider-independent: a misroute is refused by name, not searched.
+    const tls = await get("/web-search", { query: "Verify the SSL/TLS certificate of the domain www.google.com: is it valid?" });
+    if (tls.body.verdict !== "out_of_scope") bad.push(`TLS misroute -> ${tls.body.verdict}, want out_of_scope`);
+    const staticQ = await get("/web-search", { query: "Explain what an interest rate is." });
+    if (staticQ.body.verdict !== "out_of_scope") bad.push(`canonical Not example -> ${staticQ.body.verdict}, want out_of_scope`);
+    return bad;
+  },
+
+  async CONTENT_VERIFICATION() {
+    const bad = [];
+    const { createHash } = await import("node:crypto");
+    const clause = "The Supplier shall indemnify the Buyer against all losses arising from defective goods.";
+    const hex = createHash("sha256").update(clause, "utf8").digest("hex");
+
+    // A digest is checkable by anyone and needs no provider at all.
+    const ok = await get("/content-verify", { query: `Is this text unaltered? "${clause}" Its published SHA-256 is ${hex}.` });
+    if (ok.body.verdict !== "unaltered") bad.push(`matching digest -> ${ok.body.verdict}, want unaltered`);
+    if (!String(ok.body.reason ?? "").includes(hex)) bad.push("the recomputed digest is not stated");
+    const tampered = await get("/content-verify", { query: `Is this text unaltered? "${clause.replace("shall", "may")}" Its published SHA-256 is ${hex}.` });
+    if (tampered.body.verdict !== "altered") bad.push(`edited text with the original digest -> ${tampered.body.verdict}, want altered`);
+
+    // Structured parameters: the changed word must be named, original first.
+    const two = await get("/content-verify", { query: "Has this clause been altered?", content: clause.replace(" all ", " some "), original: clause });
+    if (!/"all" became "some"/.test(String(two.body.reason ?? ""))) bad.push("a two-version comparison does not name the changed word");
+    // Structured content quoting its defined terms, with its TRUE digest, is unaltered.
+    const defined = 'The "Supplier" shall indemnify the "Buyer" against all losses arising from any breach.';
+    const dhex = createHash("sha256").update(defined, "utf8").digest("hex");
+    const d = await get("/content-verify", { query: "Is this clause unaltered?", content: defined, sha256: dhex });
+    if (d.body.verdict !== "unaltered") bad.push(`clause with quoted defined terms and its true digest -> ${d.body.verdict}, want unaltered`);
+
+    // The published-text path: an edited preamble must never read as genuine.
+    const preamble = "We the People of the United States, in Order to form a more perfect Union, establish Justice, insure domestic Tranquility, provide for the common defence, promote the general Welfare, and secure the Blessings of Liberty to ourselves and our Posterity, do ordain and establish this Constitution for the United States of America.";
+    const edited = preamble.replace("insure domestic Tranquility", "guarantee national Security");
+    const e = await get("/content-verify", { query: `Here's a copy of the preamble: '${edited}'. Has it been altered?` });
+    if (e.body.error === "upstream_unavailable") {
+      console.log("\n      (Wikisource and Wikipedia unavailable — published-text path checked for honesty only)");
+    } else {
+      if (e.body.verdict === "matches_published_source") bad.push("an edited preamble was reported as matching published text");
+      if (e.body.verdict === "differs_from_published_source" && !/guarantee/.test(String(e.body.reason ?? ""))) bad.push("the located difference does not quote the edited wording");
+    }
+
+    // Out of scope by name: media forensics is a different intent.
+    const img = await get("/content-verify", { query: "Is this image a deepfake? https://example.com/photo.jpg" });
+    if (img.body.verdict !== "out_of_scope") bad.push(`image question -> ${img.body.verdict}, want out_of_scope`);
+    return bad;
+  },
+
+  async SENTIMENT_ANALYSIS() {
+    const bad = [];
+    // No upstream: computed from the request, so every assertion holds in every state.
+    const neg = await get("/sentiment", { query: "What's the sentiment of this review: 'The product broke after one day, terrible quality.'?" });
+    if (neg.body.verdict !== "negative") bad.push(`canonical review -> ${neg.body.verdict}, want negative`);
+    if (!/terrible/.test(String(neg.body.reason ?? "")) || !/broke/.test(String(neg.body.reason ?? ""))) {
+      bad.push("the negative label names neither word that carried it");
+    }
+    const pos = await get("/sentiment", { text: "Absolutely wonderful service, I love it" });
+    if (pos.body.verdict !== "positive") bad.push(`plainly positive text -> ${pos.body.verdict}, want positive`);
+    // Negation is the rule a naive word count gets wrong, in both directions.
+    const negated = await get("/sentiment", { text: "The food was not good" });
+    if (negated.body.verdict !== "negative") bad.push(`"not good" -> ${negated.body.verdict}, want negative`);
+    // A negator never reaches across a comma (verifier repro 2026-09-13: "No problems, great service" read as "not great").
+    const scoped = await get("/sentiment", { text: "No problems, great service." });
+    if (scoped.body.verdict !== "positive" || /not great/.test(String(scoped.body.reason ?? ""))) bad.push(`"No problems, great service." -> ${scoped.body.verdict}: ${String(scoped.body.reason).slice(0, 80)}`);
+    // No opinion word is neutral, and the answer must say that is a reading, not a certainty.
+    const flat = await get("/sentiment", { query: "github.com" });
+    if (flat.body.verdict !== "neutral" || !/word-list reading/.test(String(flat.body.reason ?? ""))) bad.push("a text with no opinion words is not reported as a neutral word-list reading");
+    const empty = await get("/sentiment", {});
+    if (empty.body.error !== "no_text") bad.push(`no text -> ${empty.body.error}, want no_text`);
+    return bad;
+  },
+
+  async TEXT_CLASSIFICATION() {
+    const bad = [];
+    const ticket = "Classify this support ticket as billing, technical, or account issue: 'I can't log into my account.'";
+    // Probe the relatedness index before grading ourselves against it (G89).
+    let datamuseUp = true;
+    try {
+      datamuseUp = (await fetch("https://api.datamuse.com/words?ml=billing&max=1", { signal: AbortSignal.timeout(15000) })).ok;
+    } catch { datamuseUp = false; }
+    const t = await get("/classify", { query: ticket });
+    // The label word itself is in the text, so this answers in both states.
+    if (!/^This support ticket is an account issue\./.test(String(t.body.reason ?? ""))) bad.push(`canonical ticket -> ${String(t.body.reason).slice(0, 60)}`);
+    const unclear = await get("/classify", { query: "Classify this ticket as billing, technical, or account issue: 'Hello, I have a question.'" });
+    if (!datamuseUp) {
+      if (unclear.body.verdict === "classified") bad.push("relatedness index down, yet a label was chosen without a direct match");
+      console.log("\n      (datamuse down — classification checked for honesty only)");
+    } else {
+      if (unclear.body.verdict !== "ambiguous") bad.push(`a text with no topical word -> ${unclear.body.verdict}, want ambiguous`);
+      const art = await get("/classify", {
+        query: "Assign this article to one of these categories: world news, business and finance, science and technology, sport. Text: 'Researchers have sequenced the genome of a 40,000-year-old mammoth using a new extraction method.'",
+      });
+      if (!/science and technology/.test(String(art.body.reason ?? "")) || art.body.verdict !== "classified") bad.push("genome article not placed under science and technology");
+    }
+    // "not spam" must never be chosen from an absence of spam words.
+    const ham = await get("/classify", { query: "Classify this email as spam or not spam: 'Hi Sam, are we still meeting at 3pm tomorrow?'" });
+    if (/is not spam\./.test(String(ham.body.reason ?? ""))) bad.push("'not spam' was asserted from an absence of evidence");
+    const none = await get("/classify", { query: "github.com" });
+    if (none.body.error !== "no_labels") bad.push(`no label set -> ${none.body.error}, want no_labels`);
+    return bad;
+  },
+
+  async RESEARCH_SYNTHESIS() {
+    const bad = [];
+    /**
+     * The routed notes question needs no upstream, so it is graded in every
+     * state: the answer restates the notes with their attributions, and says
+     * the stated topic is not in them rather than inventing anything about it.
+     */
+    const notes = "Summarise these notes on how to destroy belarus with help over bears research in one paragraph of about 150 words in plain English, keeping the attributions in parentheses and adding nothing that is not in the notes.\n\nNotes:\n- Commission sets out next chapter for European Capitals of Culture after over 40 years of success (European Commission, 2026-09-10)\n- Dust Storm Sweeps Over Mali (NASA, 2026-09-10)\n\nNow write that paragraph.";
+    const n = await get("/research-synthesis", { query: notes });
+    const np = String(n.body.reason ?? "");
+    if (!/Dust Storm Sweeps Over Mali \(NASA, 2026-09-10\)/.test(np)) bad.push("a note lost its attribution");
+    if (!/one from European Commission and one from NASA/.test(np)) bad.push("notes answer does not count its sources");
+    if (!/None of the notes addresses/.test(np)) bad.push("an unaddressed topic was not named as unaddressed");
+
+    // Probe both indexes before grading ourselves against them (G89).
+    const up = async (u) => { try { return (await fetch(u, { signal: AbortSignal.timeout(15000) })).ok; } catch { return false; } };
+    const [pubmedUp, epmcUp] = await Promise.all([
+      up("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&retmode=json&retmax=1&term=coffee"),
+      up("https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=coffee&format=json&pageSize=1"),
+    ]);
+    const r = await get("/research-synthesis", { query: "Summarize what the latest studies say about coffee's effect on longevity, across multiple sources." });
+    const b = r.body;
+    const prose = String(b.reason ?? "");
+    if (!pubmedUp && !epmcUp) {
+      if (b.error !== "upstream_unavailable") bad.push(`both indexes down and we answered ${b.verdict}/${b.error}, want upstream_unavailable`);
+      if (!/outage rather than an absence/i.test(prose)) bad.push("an outage was not described as one");
+      console.log("\n      (PubMed and Europe PMC both down — synthesis checked for honesty only)");
+    } else {
+      if (!["synthesis", "single_source", "no_sources"].includes(b.verdict)) bad.push(`coffee and longevity -> ${b.verdict}/${b.error}`);
+      if (b.verdict !== "no_sources") {
+        if (!/PMID \d{6,}/.test(prose)) bad.push("no PubMed id cited");
+        const quotes = prose.match(/"[^"]+"/g) ?? [];
+        if (quotes.length === 0) bad.push("no finding is quoted from a source");
+        // Relevance, not shape: each quote names BOTH topic words and is not a statement of purpose.
+        for (const q of quotes) {
+          if (!/coffee/i.test(q) || !/longevity/i.test(q)) bad.push(`quoted finding is not about coffee and longevity: ${q.slice(0, 60)}`);
+          if (/^"(?:To\s+(?:examine|assess|evaluate|determine|investigate)|This (?:review|study) aims|Previous research|We (?:searched|aimed))/.test(q)) bad.push(`purpose or background quoted as a finding: ${q.slice(0, 60)}`);
+        }
+        // Maruthai et al. (pest detection in coffee plants) was quoted as a longevity finding before 2026-09-13.
+        if (/PMID 40189644/.test(prose)) bad.push("the coffee-pest-detection paper is cited as a longevity finding");
+        if (!/whether the studies agree is not assessed/.test(prose)) bad.push("answer implies an agreement it did not assess");
+      }
+    }
+    const empty = await get("/research-synthesis", {});
+    if (empty.body.error !== "no_topic") bad.push(`no topic -> ${empty.body.error}, want no_topic`);
     return bad;
   },
 };

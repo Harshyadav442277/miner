@@ -339,16 +339,37 @@ export function nameMatchesQuote(name: string, quote: { symbol?: string; shortna
 
 /** One Yahoo search, filtered to hits that really name the company asked about. */
 async function searchTicker(name: string): Promise<string | null> {
+  return (await searchTickerChecked(name)) ?? null;
+}
+
+/** Like searchTicker, but `undefined` when the search itself failed, which is not "no such company". */
+async function searchTickerChecked(name: string): Promise<string | null | undefined> {
+  let j: { quotes?: Array<{ symbol?: string; quoteType?: string; shortname?: string; longname?: string }> };
   try {
-    const j = (await getJson(
-      `${YAHOO_SEARCH}?q=${encodeURIComponent(name)}&quotesCount=5&newsCount=0`,
-    )) as { quotes?: Array<{ symbol?: string; quoteType?: string; shortname?: string; longname?: string }> };
-    const quotes = (j.quotes ?? []).filter((q) => q.symbol && nameMatchesQuote(name, q));
-    const eq = quotes.find((q) => q.quoteType === "EQUITY" && !q.symbol!.includes("."));
-    return eq?.symbol ?? quotes[0]?.symbol ?? null;
+    j = (await getJson(`${YAHOO_SEARCH}?q=${encodeURIComponent(name)}&quotesCount=5&newsCount=0`)) as typeof j;
   } catch {
-    return null;
+    return undefined;
   }
+  const quotes = (j.quotes ?? []).filter((q) => q.symbol && nameMatchesQuote(name, q));
+  const eq = quotes.find((q) => q.quoteType === "EQUITY" && !q.symbol!.includes("."));
+  return eq?.symbol ?? quotes[0]?.symbol ?? null;
+}
+
+/**
+ * resolveTicker for callers that must tell an outage from an absence. The same
+ * up-to-three leading-word attempts, run concurrently so three 5 s searches cost
+ * 5 s rather than 15 s of the route's watchdog budget; the longest phrase that
+ * resolves wins, as in the sequential version. `outage` is true only when no
+ * attempt resolved and at least one attempt failed to get an answer at all.
+ */
+export async function resolveTickerChecked(name: string): Promise<{ ticker: string | null; outage: boolean }> {
+  const words = String(name ?? "").split(/\s+/).filter(Boolean);
+  if (!words.length) return { ticker: null, outage: false };
+  const lengths: number[] = [];
+  for (let length = words.length; length >= 1 && length > words.length - 3; length--) lengths.push(length);
+  const hits = await Promise.all(lengths.map((n) => searchTickerChecked(words.slice(0, n).join(" "))));
+  const ticker = hits.find((h): h is string => typeof h === "string") ?? null;
+  return { ticker, outage: !ticker && hits.some((h) => h === undefined) };
 }
 
 /**

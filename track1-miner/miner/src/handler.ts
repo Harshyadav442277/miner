@@ -5,6 +5,7 @@ import { alertAnswer, asksAlert, type AlertCheckResult } from "./alertcheck";
 import { translate, type TranslationResult } from "./translate";
 import { academicAnswer, findPapers, type PaperResult } from "./papers";
 import { getForecast, type ForecastResult } from "./forecast";
+import { asksCurrentConditions, getCurrentConditions } from "./currentweather";
 import { geolocate, SPECIAL_GEO_VERDICTS, type GeoResult } from "./geo";
 import { detectAiText, type AiDetectResult } from "./aidetect";
 import { extractContent } from "./content";
@@ -41,6 +42,16 @@ import {
 } from "./holders";
 import { answerResearch, type ResearchResult } from "./research";
 import { checkAuthenticity, type AuthenticityResult } from "./authenticity";
+import { lookupCryptoPrice, type CryptoPriceResult } from "./cryptoprice";
+import { lookupStockPrice, type StockPriceResult } from "./stockprice";
+import { verifyCrossChain, type CrossChainResult } from "./crosschain";
+import { resolveEvent, type EventOutcomeResult } from "./eventoutcome";
+import { scanUrl, type UrlScanResult } from "./urlscan";
+import { webSearch, type WebSearchResult } from "./websearch";
+import { verifyContent, type ContentVerifyResult } from "./contentverify";
+import { analyseSentiment, type SentimentResult } from "./sentiment";
+import { classifyText, type ClassifyResult } from "./classify";
+import { synthesise, type SynthesisResult } from "./synthesis";
 
 const CACHE_TTL_MS = Number(process.env.CACHE_TTL_MS ?? 60_000);
 const MAX_CACHE = 500;
@@ -51,6 +62,7 @@ export const ENDPOINTS = [
   "/fact-check", "/telegraph", "/tx-lookup", "/cve", "/tvl", "/news-search", "/convert", "/game-result",
   "/gas-price", "/financial", "/fraud-check",
   "/sports-score", "/token-holders", "/research", "/authenticity",
+  "/crypto-price", "/stock-price", "/cross-chain", "/event-outcome", "/url-scan", "/web-search", "/content-verify", "/sentiment", "/classify", "/research-synthesis",
 ] as const;
 
 /**
@@ -63,7 +75,10 @@ type Answer =
   | TvlResult | NewsSearchResult | CurrencyResult | GameResult
   | GasResult | FinancialResult | FraudResult | AlertCheckResult | CveKeywordResult
   | ScoreResult | HolderResult | ResearchResult | AuthenticityResult | SurveyResult
-  | ActivityResult;
+  | ActivityResult
+  | CryptoPriceResult | StockPriceResult | CrossChainResult | EventOutcomeResult
+  | UrlScanResult | WebSearchResult | ContentVerifyResult | SentimentResult
+  | ClassifyResult | SynthesisResult;
 const cache = new Map<string, { at: number; value: Answer; ttl: number }>();
 
 /**
@@ -155,6 +170,16 @@ const SUBJECT_OF: Record<string, string> = {
   "/token-holders": "A token holder count",
   "/research": "A cited research answer",
   "/authenticity": "A text originality check",
+  "/crypto-price": "A cryptocurrency price",
+  "/stock-price": "A share price",
+  "/cross-chain": "A cross-chain message verification",
+  "/event-outcome": "An event outcome resolution",
+"/url-scan": "A URL safety scan",
+"/web-search": "A web search",
+"/content-verify": "A content integrity check",
+"/sentiment": "A sentiment reading",
+"/classify": "A text classification",
+"/research-synthesis": "A research synthesis",
 };
 
 function armWatchdog(res: ServerResponse, path: string, question: string): void {
@@ -591,6 +616,32 @@ function route(req: IncomingMessage, res: ServerResponse): void {
           sendAnswer(res, q, lean(answer), false);
         })
         .catch(() => upstreamUnavailable(res, "A weather alert check", q.slice(0, 80), q));
+      return;
+    }
+
+    /**
+     * WEATHER_CHECK's other question: conditions NOW. An explicit hours=0 asks for
+     * it, and so does a present-tense question that names no window — which is
+     * how the engine actually sends "What is the current temperature in Cairo?",
+     * and which used to fall through to a 24-hour range.
+     *
+     * The restatement is skipped for the reason the alert path skips it: the
+     * answer opens by naming the subject and the reading, so the prefix would
+     * spend the start of a ~32-word budget repeating the question.
+     */
+    if (hoursRaw === "0" || (hoursRaw === "" && !daysRequested && asksCurrentConditions(q))) {
+      const nowKey = `wcnow:${q.trim().toLowerCase()}`;
+      const nowHit = fromCache(nowKey);
+      if (nowHit) {
+        sendAnswer(res, q, lean(nowHit), false);
+        return;
+      }
+      getCurrentConditions(q)
+        .then((current) => {
+          if (current.verdict !== "unknown") toCache(nowKey, current);
+          sendAnswer(res, q, lean(current), false);
+        })
+        .catch(() => upstreamUnavailable(res, "A current weather reading", q.slice(0, 80), q));
       return;
     }
 
@@ -1307,6 +1358,250 @@ function route(req: IncomingMessage, res: ServerResponse): void {
         sendAnswer(res, asked, lean(r), false);
       })
       .catch(() => upstreamUnavailable(res, "A text originality check", "the supplied passage", asked));
+    return;
+  }
+
+  if (path === "/crypto-price") {
+    /**
+     * One asset's price, never market statistics (FINANCIAL_DATA) and never a
+     * holding (WALLET_BALANCE_CHECK). The venue and the UTC quote time are in the
+     * prose, because a live price without them cannot be checked.
+     */
+    const symbolParam = firstValue(url, "symbol", "asset", "coin", "token", "ticker");
+    const q = withSubject(firstValue(url, "query", "q", "question", "text", "input"), symbolParam);
+    const key = `crypto:${q.trim().toLowerCase().slice(0, 120)}`;
+    const hit = fromCache(key);
+    if (hit) {
+      sendAnswer(res, q, lean(hit), false);
+      return;
+    }
+    lookupCryptoPrice(q)
+      .then((r) => {
+        // A live quote is held for 15 s: enough to absorb a burst of spot checks
+        // and spare CoinGecko's keyless tier, short enough that "current" stays true.
+        if (r.verdict === "price") toCache(key, r, 15_000);
+        else if (r.verdict === "historical_price" || r.verdict === "no_market_price") toCache(key, r);
+        sendAnswer(res, q, lean(r), false);
+      })
+      .catch(() => upstreamUnavailable(res, "A cryptocurrency price", (symbolParam || q).slice(0, 40) || "this request", q));
+    return;
+  }
+
+  if (path === "/stock-price") {
+    /**
+     * One listed equity's share price, with the exchange-local quote time and
+     * whether the regular session is open, so a last close is never read as live.
+     * "Will X stock rise?" gets the price and an explicit no-forecast.
+     */
+    const symbolParam = firstValue(url, "symbol", "ticker", "company");
+    const q = withSubject(firstValue(url, "query", "q", "question", "text", "input"), symbolParam);
+    const key = `stock:${JSON.stringify([symbolParam, q.trim().toLowerCase().slice(0, 120)])}`;
+    const hit = fromCache(key);
+    if (hit) {
+      sendAnswer(res, q, lean(hit), false);
+      return;
+    }
+    lookupStockPrice(q, symbolParam)
+      .then((r) => {
+        if (r.verdict === "price") toCache(key, r, 15_000);
+        else if (r.verdict === "historical_price" || r.verdict === "not_found") toCache(key, r);
+        sendAnswer(res, q, lean(r), false);
+      })
+      .catch(() => upstreamUnavailable(res, "A share price", (symbolParam || q).slice(0, 40) || "this request", q));
+    return;
+  }
+
+  if (path === "/cross-chain") {
+    /**
+     * A LayerZero V2 message verified on both chains' own receipts. State roots,
+     * Merkle-Patricia proofs and block headers are never claimed as verified.
+     */
+    const refParam = firstValue(url, "tx_hash", "hash", "guid", "message_id");
+    const route = [firstValue(url, "source_chain", "from_chain"), firstValue(url, "destination_chain", "to_chain")]
+      .filter(Boolean).join(" to ");
+    const q = withSubject(withSubject(firstValue(url, "query", "q", "question", "text", "input"), refParam), route);
+    const key = `xchain:${q.trim().toLowerCase().slice(0, 300)}`;
+    const hit = fromCache(key);
+    if (hit) {
+      sendAnswer(res, q, lean(hit), false);
+      return;
+    }
+    verifyCrossChain(q)
+      .then((r) => {
+        // An in-flight message becomes deliverable at any moment, so only settled
+        // verdicts are cached.
+        if (r.verdict === "verified" || r.verdict === "mismatch" || r.verdict === "insufficient_input") toCache(key, r);
+        sendAnswer(res, q, lean(r), false);
+      })
+      .catch(() => upstreamUnavailable(res, "A cross-chain message verification", (refParam || q).slice(0, 66) || "this request", q));
+    return;
+  }
+
+  if (path === "/event-outcome") {
+    /**
+     * The settled outcome of a named event's prediction market, or a plain
+     * statement that it has not settled. Odds are never reported as an outcome
+     * and nothing is predicted.
+     */
+    const q = withSubject(
+      firstValue(url, "query", "q", "question", "text", "input"),
+      firstValue(url, "event", "market"),
+    );
+    const key = `event:${q.trim().toLowerCase().slice(0, 300)}`;
+    const hit = fromCache(key);
+    if (hit) {
+      sendAnswer(res, q, lean(hit), false);
+      return;
+    }
+    resolveEvent(q)
+      .then((r) => {
+        if (r.verdict === "resolved") toCache(key, r);
+        sendAnswer(res, q, lean(r), false);
+      })
+      .catch(() => upstreamUnavailable(res, "An event outcome resolution", q.slice(0, 60) || "this request", q));
+    return;
+  }
+
+  if (path === "/url-scan") {
+    /**
+     * A safe or unsafe verdict on one URL, with the evidence named: Cloudflare's
+     * malware-and-phishing resolver against an unfiltered one, URLhaus, the TLS
+     * certificate and the redirect chain, every hop through guard.ts. Only an
+     * answer with no error is cached, so a shed resolver does not pin "could not
+     * be judged" for the rest of the TTL, and a blocklist hit is re-read within
+     * the minute like any other answer.
+     */
+    const urlParam = firstValue(url, "url", "link", "domain", "host");
+    const q = withSubject(firstValue(url, "query", "q", "question", "text", "input"), urlParam);
+    const key = `urlscan:${q.trim().toLowerCase().slice(0, 300)}`;
+    const hit = fromCache(key);
+    if (hit) {
+      sendAnswer(res, q, lean(hit), false);
+      return;
+    }
+    scanUrl(q)
+      .then((r) => {
+        if (!r.error) toCache(key, r);
+        sendAnswer(res, q, lean(r), false);
+      })
+      .catch(() => upstreamUnavailable(res, "A URL safety scan", (urlParam || q).slice(0, 60) || "this request", q));
+    return;
+  }
+
+  if (path === "/web-search") {
+    /**
+     * Current, externally sourced information, answered extractively: the most
+     * relevant dated reports from Google News, or one Wikipedia sentence when no
+     * report exists. Forward-looking questions are answered with coverage and
+     * never with a prediction. Only a real answer is cached.
+     */
+    const q = withSubject(
+      firstValue(url, "query", "q", "question", "text", "input"),
+      firstValue(url, "topic", "subject", "search"),
+    );
+    const key = `websearch:${q.trim().toLowerCase().slice(0, 300)}`;
+    const hit = fromCache(key);
+    if (hit) {
+      sendAnswer(res, q, lean(hit), false);
+      return;
+    }
+    webSearch(q)
+      .then((r) => {
+        if (r.verdict === "answered") toCache(key, r);
+        sendAnswer(res, q, lean(r), false);
+      })
+      .catch(() => upstreamUnavailable(res, "A web search", q.slice(0, 60) || "this request", q));
+    return;
+  }
+
+  if (path === "/content-verify") {
+    /**
+     * Whether supplied text is genuine and unaltered, against the strongest
+     * reference available: a supplied digest, a supplied original, or the
+     * published text in Wikisource or Wikipedia. Structured parameters are passed
+     * as given, never re-quoted into the question: a clause quoting its defined
+     * terms ("Supplier") was cut at the first inner quote when it was. The cache
+     * key is case-sensitive over the content, because a digest is.
+     */
+    const asked = firstValue(url, "query", "q", "question", "input");
+    const supplied = {
+      content: firstValue(url, "content", "text", "passage"),
+      original: firstValue(url, "original", "reference"),
+      digest: firstValue(url, "sha256", "digest", "hash"),
+    };
+    const key = `contentverify:${JSON.stringify([asked.trim().toLowerCase(), supplied.content, supplied.original, supplied.digest.trim().toLowerCase()]).slice(0, 2000)}`;
+    const hit = fromCache(key);
+    if (hit) {
+      sendAnswer(res, asked, lean(hit), false);
+      return;
+    }
+    verifyContent(asked, supplied)
+      .then((r) => {
+        if (!r.error) toCache(key, r);
+        sendAnswer(res, asked, lean(r), false);
+      })
+      .catch(() => upstreamUnavailable(res, "A content integrity check", "the supplied content", asked));
+    return;
+  }
+
+  if (path === "/sentiment") {
+    /**
+     * Computed from the request alone, with no upstream, so there is nothing to
+     * cache and nothing that can hang. The declared `text` wins; otherwise the
+     * passage is read out of the question.
+     */
+    const asked = firstValue(url, "query", "q", "question", "input");
+    const textParam = firstValue(url, "text", "content", "passage");
+    sendAnswer(res, asked || textParam, lean(analyseSentiment(asked, textParam)), false);
+    return;
+  }
+
+  if (path === "/classify") {
+    /**
+     * The label set comes from the request, never from a hidden taxonomy, and a
+     * text that clears no label by a margin is reported as ambiguous.
+     */
+    const asked = firstValue(url, "query", "q", "question", "input");
+    const textParam = firstValue(url, "text", "content", "passage");
+    const labelsParam = firstValue(url, "labels", "categories");
+    const key = `classify:${JSON.stringify([asked.toLowerCase(), textParam.toLowerCase(), labelsParam.toLowerCase()])}`;
+    const hit = fromCache(key);
+    if (hit) {
+      sendAnswer(res, asked, lean(hit), false);
+      return;
+    }
+    classifyText(asked, textParam, labelsParam)
+      .then((r) => {
+        if (!r.error) toCache(key, r);
+        sendAnswer(res, asked, lean(r), false);
+      })
+      .catch(() => upstreamUnavailable(res, "A text classification", "the supplied text", asked));
+    return;
+  }
+
+  if (path === "/research-synthesis") {
+    /**
+     * Findings combined across sources, every one quoted from a named study's
+     * abstract, or a supplied set of notes restated with their attributions.
+     * Nothing is generated; see src/synthesis.ts.
+     */
+    const q = withSubject(
+      firstValue(url, "query", "q", "question", "text", "input"),
+      firstValue(url, "topic", "subject"),
+    );
+    const key = `synth:${q.trim().toLowerCase()}`;
+    const hit = fromCache(key);
+    if (hit) {
+      sendAnswer(res, q, lean(hit), false);
+      return;
+    }
+    synthesise(q, firstValue(url, "topic", "subject"))
+      .then((r) => {
+        // An outage is never cached; an honest "nothing quotable" is.
+        if (!r.error) toCache(key, r);
+        sendAnswer(res, q, lean(r), false);
+      })
+      .catch(() => upstreamUnavailable(res, "A research synthesis", q.slice(0, 60), q));
     return;
   }
 
