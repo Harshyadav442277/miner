@@ -48,11 +48,28 @@ const RPCS: Record<string, string[]> = {
   arbitrum: ["https://arb1.arbitrum.io/rpc", "https://arbitrum-one-rpc.publicnode.com"],
   optimism: ["https://mainnet.optimism.io", "https://optimism-rpc.publicnode.com"],
   polygon: ["https://polygon-bor-rpc.publicnode.com", "https://polygon.drpc.org"],
+  /**
+   * BSC and Avalanche were missing, and their absence was G88 happening again.
+   * `wallet.ts` has read BSC balances since the 2026-09-11 repair while this
+   * module did not read its transactions, so a live BNB Chain hash — with the
+   * caller having written "on BSC" in the question — was answered "does not
+   * correspond to any transaction on ethereum, base, arbitrum, optimism,
+   * polygon". Reproduced against production 2026-09-12 with a hash taken from
+   * the chain head. That is a confidently wrong answer, and it lands in the
+   * 0.006 `not_found` band G88 measured, which is exactly where epochs 320 and
+   * 324 put us while the leader crossed at 0.9957.
+   *
+   * `searchChains` probes every chain concurrently, so the two additions cost
+   * one more socket each rather than any latency.
+   */
+  bsc: ["https://bsc-dataseed.bnbchain.org", "https://bsc-rpc.publicnode.com"],
+  avalanche: ["https://api.avax.network/ext/bc/C/rpc", "https://avalanche-c-chain-rpc.publicnode.com"],
 };
 
-/** Native coin per chain. Polygon's is POL, not ETH. */
+/** Native coin per chain. Polygon's is POL, BSC's is BNB, Avalanche's is AVAX. */
 const SYMBOL: Record<string, string> = {
   ethereum: "ETH", base: "ETH", arbitrum: "ETH", optimism: "ETH", polygon: "POL",
+  bsc: "BNB", avalanche: "AVAX",
 };
 
 /**
@@ -74,8 +91,9 @@ const SYMBOL: Record<string, string> = {
  * walking the boundary on publicnode: block 4,369,999 returns `root`, block
  * 4,370,000 returns `status`.
  *
- * The L2s and Polygon all launched years after Byzantium, so every receipt they
- * can return carries a real status; they are absent here and default to 0.
+ * The L2s, Polygon, BSC and Avalanche all launched years after Byzantium, so
+ * every receipt they can return carries a real status; they are absent here and
+ * default to 0.
  */
 const EIP658_FROM: Record<string, number> = { ethereum: 4_370_000 };
 
@@ -84,6 +102,9 @@ const CHAIN_WORDS: Array<[RegExp, string]> = [
   [/\barbitrum\b|\barb\b/i, "arbitrum"],
   [/\boptimism\b|\bop\s+mainnet\b/i, "optimism"],
   [/\bpolygon\b|\bmatic\b|\bpos\b/i, "polygon"],
+  // Before the ethereum entry, whose alternatives are the broadest here.
+  [/\bbsc\b|\bbnb\b|\bbinance(?:\s+smart)?(?:\s+chain)?\b/i, "bsc"],
+  [/\bavalanche\b|\bavax\b/i, "avalanche"],
   // ETH is the native asset on several chains; "mainnet" also qualifies L2s.
   [/\bethereum\b|\bmainnet\b|\beth\b|\bl1\b/i, "ethereum"],
 ];

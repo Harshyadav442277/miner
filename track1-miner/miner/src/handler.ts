@@ -1,6 +1,7 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
 import { checkCertificate, normalizeTarget, type SslResult } from "./ssl";
 import { checkStorm, type StormResult } from "./storm";
+import { alertAnswer, asksAlert, type AlertCheckResult } from "./alertcheck";
 import { translate, type TranslationResult } from "./translate";
 import { academicAnswer, findPapers, type PaperResult } from "./papers";
 import { getForecast, type ForecastResult } from "./forecast";
@@ -23,6 +24,7 @@ import {
 } from "./onchain";
 import { cveId, lookupCve, malformedCveId, type CveResult } from "./cve";
 import { surveyCves, surveyRequest, type SurveyResult } from "./cvesurvey";
+import { keywordRequest, lookupByKeyword, type CveKeywordResult } from "./cvekeyword";
 import {
   activityAddress, asksActivity, lookupActivity, resolveChain as resolveActivityChain,
   type ActivityResult,
@@ -59,7 +61,7 @@ type Answer =
   | SslResult | StormResult | ForecastResult | GeoResult | TranslationResult | PaperResult
   | AiDetectResult | WalletResult | FactCheckResult | TelegraphResult | TxResult | CveResult
   | TvlResult | NewsSearchResult | CurrencyResult | GameResult
-  | GasResult | FinancialResult | FraudResult
+  | GasResult | FinancialResult | FraudResult | AlertCheckResult | CveKeywordResult
   | ScoreResult | HolderResult | ResearchResult | AuthenticityResult | SurveyResult
   | ActivityResult;
 const cache = new Map<string, { at: number; value: Answer; ttl: number }>();
@@ -556,6 +558,42 @@ function route(req: IncomingMessage, res: ServerResponse): void {
           ? daysRequested * 24
           : 24;
     const window = Number.isFinite(hours) ? hours : 24;
+
+    /**
+     * WEATHER_CHECK's dominant question, before the forecast path.
+     *
+     * "Is there an active storm alert or severe weather warning for X right
+     * now?" is 21 of the 33 routed WEATHER_CHECK questions, and a temperature
+     * range does not answer it. Answered from the same graded risk STORM_ALERT
+     * reports, so the two intents cannot contradict each other. No routed
+     * WEATHER_FORECAST question contains these words, so the forecast path is
+     * not diverted.
+     */
+    if (asksAlert(q)) {
+      /**
+       * The restatement is skipped here, and that is measured rather than
+       * stylistic. This answer already opens by restating the subject — "No.
+       * There is no active storm alert or severe weather warning for Chennai
+       * …" — so the prefix repeats it and spends fifteen of the roughly
+       * thirty-two words Telegraph converts before the answer begins. It is the
+       * same budget effect the IP special-range answers were measured on.
+       */
+      const alertKey = `wcalert:${q.trim().toLowerCase()}`;
+      const alertHit = fromCache(alertKey);
+      if (alertHit) {
+        sendAnswer(res, q, lean(alertHit), false);
+        return;
+      }
+      checkStorm(q)
+        .then((storm) => {
+          const answer = alertAnswer(storm);
+          if (storm.verdict !== "unknown") toCache(alertKey, answer);
+          sendAnswer(res, q, lean(answer), false);
+        })
+        .catch(() => upstreamUnavailable(res, "A weather alert check", q.slice(0, 80), q));
+      return;
+    }
+
     const key = `fc:${q.trim().toLowerCase()}:${Math.floor(window)}:${daysRequested ?? ""}`;
     const hit = fromCache(key);
     if (hit) {
@@ -905,6 +943,30 @@ function route(req: IncomingMessage, res: ServerResponse): void {
             sendAnswer(res, q, lean(r), false);
           })
           .catch(() => upstreamUnavailable(res, "A vulnerability lookup", "that period", q));
+        return;
+      }
+      /**
+       * Before the refusal: a vulnerability named by product and type.
+       *
+       * "Will Forgejo fix RCE vulnerability?" carries no identifier and is not
+       * a year survey, so it was refused. NVD's keyword search answers it. Both
+       * halves must be present, which is what keeps a fictional vulnerability
+       * ("Will Apple patch the 'Deathray' vulnerability?") on the refusal path.
+       */
+      const byKeyword = keywordRequest(q) ?? keywordRequest(idParam);
+      if (byKeyword) {
+        const key = `cvekw:${byKeyword.product.toLowerCase()}:${byKeyword.klass}`;
+        const hit = fromCache(key);
+        if (hit) {
+          sendAnswer(res, q, lean(hit), false);
+          return;
+        }
+        lookupByKeyword(byKeyword)
+          .then((r) => {
+            if (!r.error) toCache(key, r, CVE_TTL_MS);
+            sendAnswer(res, q, lean(r), false);
+          })
+          .catch(() => upstreamUnavailable(res, "A vulnerability lookup", byKeyword.product, q));
         return;
       }
       const malformed = malformedCveId(idParam) || malformedCveId(q);
