@@ -1,4 +1,71 @@
-# Registration update — 19 intents to 26
+# Registration update — 26 intents to 36
+
+**Status: PREPARED, NOT DEPLOYED TO PRODUCTION, NOT SIGNED.** Written 2026-09-13
+00:00 UTC (05:30 IST). Every step below needs the operator's yes, and the signature
+is the operator's alone (CLAUDE.md rule 1).
+
+## What changes
+
+The same miner, slug, id and base URL, plus ten intents and two relaxed parameters.
+
+```
+registered now (reg 1379)   26 intents   25 endpoints   hash 54b36692413b45da57bcd51bdde7d85f074d2be2fcdb06efee5d79ba3b81dbbf
+this update                 36 intents   35 endpoints   hash 06a404b162f1eb72da2a24af896ad6cb08b2e221b7136f0a95ab14b893498b09
+```
+
+| Change | Detail |
+|---|---|
+| +10 intents | CRYPTO_PRICE, STOCK_PRICE, URL_SCAN, WEB_SEARCH, CONTENT_VERIFICATION, SENTIMENT_ANALYSIS, TEXT_CLASSIFICATION, RESEARCH_SYNTHESIS, CROSS_CHAIN_STATE_VERIFY, EVENT_OUTCOME_RESOLUTION |
+| No scorer | CROSS_CHAIN_STATE_VERIFY and EVENT_OUTCOME_RESOLUTION cannot rank until a champion exists (GAPS G118) |
+| Relaxed | `/cve` `cve_id` and `/tx-lookup` `hash`, required to optional (G119) |
+| Rewritten descriptions | `/cve`, `/tx-lookup`, `/fraud-check`, to match what the routes already answer |
+| Unchanged | all 25 registered endpoints, their methods, intents and parameter names |
+
+`tools/manifest-diff.mjs` against the pinned 1379 manifest: **PASS, all 26 registered
+intents preserved**. It does not compare required versus optional, so the two
+relaxations above are stated here rather than covered by that PASS.
+
+## Evidence at commit `4d73a9e`
+
+| Claim | Evidence | Environment |
+|---|---|---|
+| Code correct | 547/547 offline, 153/153 live tests | this laptop |
+| Every intent answers correctly | `intent-answers.mjs` 36/36 | local build of the commit |
+| New routes work from cloud egress | 30/30 through `vercel curl` | preview `miner-a75zgw1dl` |
+| Production healthy | 26/26 registered intents, other six gates pass | production `miner-5dc00iohh` |
+| Hash is of the served bytes | raw URL and `git show` both `06a404b1…8b09`; the CRLF working copy is `de47bac1…`, not used | GitHub raw, HTTP 200, 67,219 bytes |
+
+## The order matters
+
+The console's VALIDATE ENDPOINTS probes the live `base_url`, which is production. The
+ten new endpoints return 404 there until production is promoted, so **promote first**.
+
+1. **Promote** (operator's yes, then Claude runs it):
+   ```
+   cd track1-miner/miner && npx vercel --prod --scope wukong4 --yes
+   node ../tools/preflight.mjs
+   ```
+   Expect 7/7 gates and 36/36 intents. Rollback target: `miner-5dc00iohh`, and after a
+   rollback production is pinned, so moving forward again needs `vercel promote` (G70).
+2. **Console, Manual Input** (operator):
+
+   | Field | Value |
+   |---|---|
+   | REQUIRES API KEY | **OFF** — turn it off first, then API KEY disappears |
+   | YAML URL | `https://raw.githubusercontent.com/Harshyadav442277/miner/4d73a9ed480b724ac845e203dd3f8ef5b31302cd/track1-miner/miner.yaml` |
+   | YAML HASH (BYTES32) | `0x06a404b162f1eb72da2a24af896ad6cb08b2e221b7136f0a95ab14b893498b09` — typed, **never "Generate from file"** (G86) |
+   | FEE ADDRESS | `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e` (prefilled) |
+   | FLOOR PRICE (USDC) | `0.01` (prefilled) |
+
+   VALIDATE ENDPOINTS should list **35 endpoints, all HTTP 200**. Paste back anything red.
+3. **Sign** (operator).
+4. **After mining** (Claude): find the new registration id by scanning `/api/miners/<id>` for
+   slug `livecert`, since the catalog row carries no registration id; move the
+   `REGISTRATION_ID` repo variable; run `watch.mjs --once` and dispatch `uptime`.
+
+---
+
+# History: registration update — 19 intents to 26
 
 **Status: SIGNED AND ACTIVE — registration 1379, 2026-09-10 16:01 UTC.** Twenty-six
 intents, `rejection_reason` null, `fetch_attempts` 0, hash matching the published file.

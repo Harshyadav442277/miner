@@ -1,5 +1,25 @@
 # TASKS.md — execution board
 
+## Current mission — 2026-09-13: ten more keyless intents, 26 to 36
+
+- [x] Build CRYPTO_PRICE, STOCK_PRICE, URL_SCAN, WEB_SEARCH, CONTENT_VERIFICATION,
+      SENTIMENT_ANALYSIS, TEXT_CLASSIFICATION, RESEARCH_SYNTHESIS, CROSS_CHAIN_STATE_VERIFY and
+      EVENT_OUTCOME_RESOLUTION, keyless and non-generative; independent verification per lane.
+- [x] Reproduce all 17 verifier defects fixed on the integrated build; fix the 18th found on
+      the preview (sentiment "support").
+- [x] Improve current intents: WEATHER_CHECK current reading, ONCHAIN prose order on a
+      validated bench, contract-activity failover, stale `/cve` `/tx-lookup` `/fraud-check`
+      descriptions.
+- [x] Test everything: 547/547 offline, 153/153 live, 36/36 intent-answers locally, 30/30 on
+      preview `miner-a75zgw1dl`, production 26/26. Committed `4d73a9e`, pushed.
+- [ ] **Operator yes: promote to production** (after checking no epoch is mid-scoring), then
+      `preflight.mjs` 7/7 and 36/36. Rollback `miner-5dc00iohh`.
+- [ ] **Operator: console validation and `updateMiner` 26→36** —
+      [REGISTRATION_UPDATE.md](track1-miner/docs/REGISTRATION_UPDATE.md). Hash `0x06a404b1…8b09`.
+- [ ] Move `REGISTRATION_ID` to the new id, watch `--once`, dispatch `uptime`.
+- [ ] Read the first complete epochs for G121 (weather current reading) and G122 (ONCHAIN order).
+- [ ] `manifest-diff.mjs` should compare required versus optional (G119).
+
 ## Current mission — 2026-09-11: rank 1 in at least eighteen intents
 
 - [x] Verify registration 1379 active with 26 intents; epoch 321 has 8 rank-1 positions and seven newly registered intents without scores.

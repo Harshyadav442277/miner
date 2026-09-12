@@ -1,5 +1,50 @@
 # MEMORY.md — session continuity
 
+## 2026-09-13 ~00:00 UTC (05:30 IST) — ten more keyless intents built and verified; NOT on production, NOT registered
+
+**State to resume from.** Branch `codex/rank1-14-intents`, pushed at `4d73a9e` plus the
+docs commit after it. Working tree clean. **Production is unchanged, `miner-5dc00iohh`.
+Registration 1379 is unchanged, 26 intents.** The new build lives only on preview
+`miner-a75zgw1dl`. Nothing here has been scored by any epoch and no rank is claimed.
+
+**What was built.** CRYPTO_PRICE, STOCK_PRICE, URL_SCAN, WEB_SEARCH, CONTENT_VERIFICATION,
+SENTIMENT_ANALYSIS, TEXT_CLASSIFICATION, RESEARCH_SYNTHESIS, CROSS_CHAIN_STATE_VERIFY and
+EVENT_OUTCOME_RESOLUTION — all keyless, none generative, per the operator's two rules. The
+operator named RESEARCH_QUERY too; it was already served. **CROSS_CHAIN_STATE_VERIFY and
+EVENT_OUTCOME_RESOLUTION have no champion scorer and cannot rank** (G118). Also:
+WEATHER_CHECK's present-tense questions now get a real current reading (G121), the
+ONCHAIN prose order changed on a bench validated against three crossing competitors (G122),
+contract activity fails over to Routescan on Ethereum, and `/cve` and `/tx-lookup` had a
+required parameter relaxed and their descriptions brought up to date (G119).
+
+**How it was verified, by claim.** Code: 547/547 offline and 153/153 live tests. Every
+intent: `intent-answers.mjs` 36/36 against a local build of the commit. Cloud egress:
+30/30 checks through `vercel curl` on the preview. Production health: 26/26 registered
+intents and the other six gates. The 17 blocking defects the lane verifiers found were
+each reproduced as fixed on the integrated build, not taken on the fixers' word.
+
+**The lesson worth keeping (G124).** After the lanes' tests and their verifiers had all
+passed, the Vercel preview labelled "The battery died after a week and support never
+replied" POSITIVE, carried by the noun "support". **Ask the deployed thing real sentences
+before calling a sentiment or classification route done.** Two more from the same run:
+a bench is only trusted once it makes a real crossing competitor cross (G122, the G114
+rule applied and passed this time), and `manifest-diff.mjs` cannot see a required flag
+change, so its PASS is narrower than it reads (G119).
+
+**Process.** Built with a workflow: three Opus build lanes on disjoint files, each followed
+by an independent verifier and a fix pass; shared files (`handler.ts`, `miner.yaml`,
+`intent-answers.mjs`) were wired afterwards by a single integrator that inserted by string
+index and refused on any missing or duplicate anchor. Lane 2 shipped its checks as a
+byte-exact file to protect regex backslashes, which was right. Lane 3 used `sed -i` once
+(G125). The session's own duplicate G95/G96 were renumbered G116/G117.
+
+**Exact next action — every step needs the operator's yes:**
+[track1-miner/docs/REGISTRATION_UPDATE.md](track1-miner/docs/REGISTRATION_UPDATE.md).
+Promote to production first, because the console's validator probes production; then the
+console validation (expect 35 endpoints green); then the signature; then Claude moves
+`REGISTRATION_ID`. **Not authorised yet: promoting to production, and the `updateMiner`.**
+The operator vetoed a deploy mid-epoch on 2026-09-11, so check the epoch before promoting.
+
 ## 2026-09-12 — the nine intents below rank 2: two refusal classes fixed, two zeros explained
 
 The operator asked to improve the intents that are not first or second. Epoch **325** is
