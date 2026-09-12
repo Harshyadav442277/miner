@@ -786,16 +786,28 @@ function route(req: IncomingMessage, res: ServerResponse): void {
         const addr = activityAddress(q);
         const chain = resolveActivityChain(firstValue(url, "chain", "network"), q) ?? "ethereum";
         if (addr) {
-          const key = `activity:${chain}:${addr.toLowerCase()}`;
+          // "in the last hour", "most recent", "latest" — the extra dated read
+          // is only worth its latency when the question actually asks when.
+          const recency = /\b(?:last|latest|recent|recently|past|within|ago|since|still|currently|now|today|yesterday|hour|hours|minute|minutes|day|days|week|weeks|month|months)\b/i.test(q);
+          // A question that calls a 20-byte address a transaction hash is
+          // answered, not refused — but the mislabel is corrected first, because
+          // silently treating one as the other is how the wrong subject gets a
+          // confident answer.
+          const mislabelled = /\b(?:transaction|tx)\s+hash\b/i.test(q)
+            ? `${addr} is a 20-byte account address, not a 32-byte transaction hash, so it was read ` +
+              `as an address. `
+            : "";
+          const key = `activity:${chain}:${addr.toLowerCase()}:${recency ? "r" : "-"}:${mislabelled ? "m" : "-"}`;
           const hit = fromCache(key);
           if (hit) {
             sendAnswer(res, q, lean(hit), false);
             return;
           }
-          lookupActivity(addr, chain)
+          lookupActivity(addr, chain, { recency })
             .then((r) => {
-              if (!r.error) toCache(key, r);
-              sendAnswer(res, q, lean(r), false);
+              const answer = mislabelled ? { ...r, reason: `${mislabelled}${r.reason}` } : r;
+              if (!r.error) toCache(key, answer);
+              sendAnswer(res, q, lean(answer), false);
             })
             .catch(() => upstreamUnavailable(res, "A transaction lookup", addr, q));
           return;

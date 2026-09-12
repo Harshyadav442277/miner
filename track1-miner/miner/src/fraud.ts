@@ -38,6 +38,8 @@
  * says which checks were run so the caller can see the boundary.
  */
 
+import { asksPaperFraud, assessPaperFraud } from "./paperfraud";
+
 const TIMEOUT_MS = Number(process.env.FRAUD_TIMEOUT_MS ?? 4_000);
 const UA = "livecert-miner/1.0 (+https://miner-wine.vercel.app)";
 
@@ -212,6 +214,24 @@ export async function assessFraud(text: string): Promise<FraudResult> {
   const subject = address ?? hash ?? hosts[0] ?? null;
 
   if (!address && !hash && hosts.length === 0 && markers.length === 0) {
+    /**
+     * Before the refusal: is this a fraud question about a PAPER?
+     *
+     * Five of the twenty-nine routed questions for this intent ask whether a
+     * named publication is retracted or the product of a paper mill. They carry
+     * no address, no hash and no domain, so every one of them landed on the
+     * refusal below — which tells a caller who supplied a perfectly good subject
+     * that they supplied none.
+     */
+    if (asksPaperFraud(text)) {
+      const p = await assessPaperFraud(text);
+      return {
+        subject: p.matched ?? p.title,
+        verdict: p.verdict,
+        confidence: p.confidence,
+        reason: p.reason,
+      };
+    }
     return {
       subject: null, verdict: "unknown", confidence: 0,
       reason:
