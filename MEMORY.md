@@ -40,6 +40,41 @@ identify a work**, so the guard is near-equality with a phrase escape for titles
 more substantial words. OpenAlex documents one of the four indicators asked about, so
 every answer names the three it did not check (G110).
 
+**Second pass the same day — read the ABSOLUTE scores, not the ratios.** They sort the nine
+completely differently. In ONCHAIN the leader crosses a cliff to **0.995 in five of eight
+epochs and we have never crossed**; in WEATHER_CHECK the field reaches 0.9996 and we sit at
+0.0155; WALLET is a **tie at the seventh decimal**, not a loss. This reproduces the grouping
+in [NON_RANK1_AUDIT_2026-09-11](track1-miner/docs/NON_RANK1_AUDIT_2026-09-11.md), which is
+worth reading before touching any of this.
+
+**Three more fixes, all of them "answer the question that was asked":**
+
+- **G112 — ONCHAIN read five chains and BSC was not one of them**, though `wallet.ts` has
+  read BSC balances since the 2026-09-11 repair. A live BNB Chain hash, with the caller
+  having written "on BSC", was answered "does not correspond to any transaction on
+  ethereum, base, arbitrum, optimism, polygon". That is **G88 one level up** — there the
+  chain defaulted wrongly, here it was absent — and it lands in the 0.006 `not_found` band
+  that epochs 320 and 324 put us in. BSC and Avalanche added; `searchChains` probes
+  concurrently so they cost no latency.
+- **G113 — WEATHER_CHECK's dominant routed question is 21 of 33** and it is "is there an
+  active storm alert or severe weather warning for X right now?". The shared forecast
+  endpoint answered it with a 24-hour temperature range: every number true, none of them
+  the answer. Now answered yes/no from the same graded risk STORM_ALERT reports. The
+  restatement is skipped because the answer already restates the subject and the prefix
+  spent fifteen of the ~32 converted words — the IP special-range lesson again.
+- **CVE product-keyword queries** answered through NVD keyword search; 14/28 → 16/28.
+
+**The most interesting thing found, and it was NOT shipped (G114/G115).** Probing champion
+reg 642 directly: rounding our fee from `0.000014097973540575` to `0.0000140979` moves the
+score **0.0132 → 0.9975**, and appending any further number drops it back while appending a
+number-free sentence does not. That looks like the whole answer. **It is not trustworthy**,
+because the ground truths in `candidate-corpus.json` are authored and **txlens's real
+answer — which crosses at 0.995 in production — scores 0.011 against them**. The instrument
+is invalid for this question, so nothing was changed. **If you take one thing from this
+session: verify a bench against a known-crossing competitor before tuning to it.** Recorded
+alongside G115, which transcribes what txlens actually answers: no gas, no gas price, no
+fee, and no thousands separators.
+
 **Where the remaining upside is, and it is not another replay.** STORM_ALERT answers 66/66,
 WEATHER_CHECK 32/33, ACADEMIC_SEARCH 17/18 — those three have no refusal defect left, and
 their deficit is answer shape under a cliff scorer. **WEATHER_CHECK and WALLET_BALANCE_CHECK

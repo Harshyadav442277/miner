@@ -45,14 +45,32 @@ with mean ratio (our score ÷ the leader's, which is what judging sums):
       clean, so their deficit is answer shape under a cliff scorer, not refusals.
 - [x] Fix the two refusal classes (G108, G109), deploy `miner-g015zx1xd`, 512 tests,
       7/7 preflight, manifest unchanged so no `updateMiner`.
-- [ ] Read epoch 326 — the acceptance test. **No rank is claimed for either fix.**
-- [ ] The two bimodal intents are the next real lever: WEATHER_CHECK and
-      WALLET_BALANCE_CHECK each fall from ~1.0 to ~0.0 on a question class we have not
-      identified, and neither is a refusal. Worth ~0.6 of normalized sum between them.
-      Diagnosing them needs `candidate-bench.mjs --verify` against the live champion,
-      not another replay.
-- [ ] CVE product-keyword queries ("Will Forgejo fix RCE vulnerability?", 2 routed
-      questions) — NVD keyword search. Small, cheap, unbuilt.
+- [x] Read the ABSOLUTE scores, not the ratios. They sort the nine differently: in
+      ONCHAIN the leader crosses to 0.995 in five of eight epochs and we never do; in
+      WEATHER_CHECK the field crosses to 0.9996 and we sit at 0.0155. WALLET is a tie at
+      the seventh decimal, not a loss. This matches the 2026-09-11
+      [NON_RANK1_AUDIT](track1-miner/docs/NON_RANK1_AUDIT_2026-09-11.md) groups.
+- [x] **G112 — ONCHAIN could not read BSC or Avalanche** and denied their transactions.
+      Reproduced from the chain head, fixed, verified through `vercel curl`.
+- [x] **G113 — WEATHER_CHECK's dominant question** (21 of 33: "is there an active storm
+      alert…") was answered with a temperature range. Now answered yes/no from the graded
+      storm risk, restatement skipped to save the conversion budget.
+- [x] **CVE product-keyword queries** — NVD keyword search; routed 14/28 → 16/28.
+- [x] Deploy `miner-5dc00iohh`, 529 tests, 7/7 preflight, manifest unchanged.
+- [ ] Read epoch 326 — the acceptance test for all of it. **No rank is claimed.**
+
+### Deliberately not done, with the reason
+
+- **The ONCHAIN fee precision (G114).** Rounding it moves a probe from 0.0132 to 0.9975,
+  but the ground truths that probe uses are authored and **txlens's real crossing answer
+  scores 0.011 against them**, so the instrument is invalid. Needs a real ground truth,
+  which G24 withholds.
+- **TVL_LOOKUP, CURRENCY_EXCHANGE, GAS_PRICE, FRAUD, ACADEMIC, STORM.** Noise-band or
+  gradient fields with no crossing in the visible history; the 2026-09-11 audit's Group C.
+  Our TVL answers were re-read this session and are complete and correctly sourced — the
+  gap is a volatile figure measured at a different instant, which engineering does not fix.
+- **WALLET_BALANCE_CHECK.** Ratio 1.000 at rank 4; ten miners tied inside the seventh
+  decimal. Group B. There is no defect at that margin.
 
 The fourteen-intent target below records earlier work and is superseded by the current mission.
 

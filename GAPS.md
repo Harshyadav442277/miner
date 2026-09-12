@@ -1,5 +1,49 @@
 # GAPS.md — honesty ledger
 
+## 2026-09-12 reachable-ceiling round — G112–G115
+
+- **G112 — ONCHAIN_TX_LOOKUP could not read BSC or Avalanche, and denied their
+  transactions instead of saying so.** `wallet.ts` has read BSC balances since the
+  2026-09-11 repair; `onchain.ts` read five chains and BSC was not among them. A live BNB
+  Chain hash, with "on BSC" written in the question, was answered "does not correspond to
+  any transaction on ethereum, base, arbitrum, optimism, polygon". Reproduced against
+  production 2026-09-12 from the chain head. This is G88 one level up — there the chain
+  defaulted wrongly, here it was absent — and it lands in the 0.006 `not_found` band that
+  epochs 320 and 324 put us in while the leader crossed at 0.9957. **Fixed.** Chains still
+  unread: zkSync, Linea, Scroll, Blast, Gnosis and the non-EVM chains; a hash on any of
+  them still gets the enumerated denial.
+- **G113 — WEATHER_CHECK's dominant question was answered with a temperature range.**
+  "Is there an active storm alert or severe weather warning for X right now?" is 21 of the
+  33 routed WEATHER_CHECK questions. The shared `/weather-forecast` endpoint answered it
+  with a 24-hour forecast whose every number was true and none of which said whether an
+  alert was in effect. **Fixed**, from the same graded risk STORM_ALERT reports so the two
+  intents cannot contradict each other. **The honesty limit is real and stated in every
+  answer:** we read Open-Meteo, not a national agency's warning feed, so the answer
+  describes conditions and never claims an authority has issued nothing. If the epoch's
+  hidden ground truth is sourced from an actual warning service, our answer can disagree
+  with it while being a correct reading of the forecast.
+- **G114 — the ONCHAIN champion is a cliff that a single numeric token can decide, and
+  our only instrument for measuring it is invalid.** Probed reg 642 directly on
+  2026-09-12: rounding the fee in our own answer from `0.000014097973540575` to
+  `0.0000140979` moves the score from 0.0132 to **0.9975**, and appending any further
+  number (`Note 7.`) drops it back below, while appending a number-free sentence does not.
+  So an 18-significant-digit float — a machine artifact no summariser writes — is a
+  plausible reason we never cross. **It was NOT changed, because the measurement cannot be
+  trusted:** `candidate-corpus.json`'s ground truths are authored, and **txlens's real
+  answer, which crosses at 0.995 in production, scores 0.011 against them**. Tuning our
+  fee format to an authored guess that the actual crossing miner fails would be fitting
+  noise. `toCoin`'s existing comment argues the opposite case for the transaction VALUE
+  and is right about that: a truncated value is the wrong figure. The fee is derived and
+  the question is open. Needs a real ground truth to settle, which G24 still withholds.
+- **G115 — what txlens answers, recorded because it is the only direct evidence of a
+  crossing answer.** Queried live 2026-09-12: "Ethereum transaction 0x6679… sent 0 ETH
+  from 0x458f… to 0x51c7… and called contract method selector 0x771d503f in block
+  25932902; status success." It carries **no gas, no gas price and no fee**, and writes the
+  block without thousands separators. We carry all three plus a token-transfer count. That
+  is a difference in what is said, not in what is known, and it is the most concrete lead
+  left in this intent — but imitating a competitor's shape on this evidence alone is a bet,
+  not a measurement, so nothing was copied.
+
 ## 2026-09-12 non-leading-intent sweep — G108–G111
 
 - **G108 — ONCHAIN_TX_LOOKUP refused every question about an ADDRESS, and they are
