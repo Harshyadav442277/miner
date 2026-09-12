@@ -1,5 +1,49 @@
 # GAPS.md — honesty ledger
 
+## 2026-09-12 non-leading-intent sweep — G108–G111
+
+- **G108 — ONCHAIN_TX_LOOKUP refused every question about an ADDRESS, and they are
+  five of its thirteen routed questions.** Contract-or-wallet, transaction history,
+  "did this address move money", "did it send ETH in the last hour", and one address
+  the caller labelled a transaction hash. All five were redirected to
+  WALLET_BALANCE_CHECK, which answers none of them, in the intent where we sat at
+  ratio 0.012 against a leader on 0.995. Fixed and deployed: routed answer rate
+  4/13 → 9/13. The four still refused are correct refusals — a CVE id used as a
+  transaction, a truncated hash, and two misrouted prediction-market questions.
+- **G109 — three of the five FRAUD_DETECTION paper questions end at an honest
+  "unknown", and the routed replay still counts those as refusals.** The paper-fraud
+  path answers the two that name a work OpenAlex indexes. The other three name a
+  journal ("Experimental Biology and Medicine") or a 2026 paper the index does not
+  hold, so they report "no matching work is recorded" rather than a retraction status.
+  That is deliberate: looser title matching returned *Proceedings of the Society for
+  Experimental Biology and Medicine* and *Advances in Experimental Medicine and
+  Biology* for that question — two different journals, either of which would have been
+  a confidently wrong subject. The answer rate reads 13/29 → 15/29 for that reason,
+  and the real change is larger than the number: three questions moved from "you
+  supplied no subject" to an answer that addresses what was asked.
+- **G110 — OpenAlex documents ONE of the four indicators these questions ask about.**
+  Retraction is recorded; misconduct findings, paper-mill membership and
+  predatory-publisher status are not, by OpenAlex or by any keyless source. Every
+  paper-fraud answer names the three it did not check, so a clean retraction flag is
+  never read as a clean record. If the epoch's hidden ground truth asserts a paper-mill
+  finding, our answer will be incomplete rather than wrong — and G81's OpenAlex
+  rate-limiting applies to this path too, so a shed request answers "index could not be
+  read", which is distinguished from "not retracted".
+- **G111 — a score of exactly 0 can be the NODE failing, not the miner.** TVL_LOOKUP
+  ranked 11th at epoch 325 with score 0 and `failure_reason` "LLM call for miner
+  livecert failed: Post http://127.0.0.1:4000/v1/chat/completions: context deadline
+  exceeded" — the node's own request-building LLM timing out. Five such rows appear
+  across 327 livecert score rows (CONTENT_EXTRACTION@319, CURRENCY_EXCHANGE@319,
+  NEWS_HEADLINES@319, SPORTS_SCORE@323, TVL_LOOKUP@325), hitting a different intent
+  each time. **Read `failure_reason` before diagnosing a zero.** TVL scored 0.0059 to
+  0.0133 at ranks 3–6 in the four surrounding epochs, so nothing regressed there.
+- **G105 is CLOSED.** The six CVE year queries are answered by `cvesurvey.ts` — "CVE
+  2015", "CVEs 2010 high priority" and "Look up for latest CVEs" all return an NVD
+  survey from production, verified 2026-09-12. One product-keyword class remains
+  unanswered ("Will Forgejo fix RCE vulnerability?", two routed questions): a
+  vulnerability named by product and type with no CVE id. Not built; NVD keyword search
+  would cover it.
+
 ## 2026-09-10 routed-refusal sweep — G103–G106
 
 - **G103 — a shell heredoc ate a backslash for the FOURTH time.** `/s+/` was written

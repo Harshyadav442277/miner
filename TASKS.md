@@ -16,9 +16,43 @@
       Routed answer rate 358/456 to 371/456; 390 unit tests; 7/7 preflight; 26/26 correctness.
 - [x] Deploy and verify: production `miner-4bdjfyb3m`, alias serving it, watcher active,
       manifest hash unchanged against registration 1379 so no `updateMiner`.
-- [ ] Read epoch 322 — the acceptance test for all of the above. Claim no rank before it lands.
-- [ ] G105: answer CVE year and severity queries through NVD's date-range filters.
+- [x] Read epoch 322 — superseded by the epoch-325 audit below, which is complete.
+- [x] G105: answer CVE year and severity queries through NVD's date-range filters.
+      Already shipped in `cvesurvey.ts`; verified against production 2026-09-12.
 - [ ] Reach 18+ rank-1 positions in one authoritative epoch; pending intent registration alone is not rank evidence.
+
+## 2026-09-12 — the nine intents ranked below second
+
+Epoch **325** is complete: **9/26 rank 1**. Audited with `tools/rank-audit.mjs`; per-intent
+ratio history over the last eight epochs is in the session record. The nine below second,
+with mean ratio (our score ÷ the leader's, which is what judging sums):
+
+| intent | rank | mean ratio | character |
+|---|---|---|---|
+| TVL_LOOKUP | 11 | 0.115 | epoch-325 zero is a NODE LLM timeout (G111), not a defect |
+| ONCHAIN_TX_LOOKUP | 6 | 0.228 | cliff; we cross in 1 epoch of 8 |
+| CURRENCY_EXCHANGE | 4 | 0.236 | near-zero band |
+| FRAUD_DETECTION | 6 | 0.270 | near-zero band (1e-13) |
+| WEATHER_CHECK | 6 | 0.60 | **bimodal** — 0.95ish or 0.02, 3 falls in 8 |
+| WALLET_BALANCE_CHECK | 4 | 0.73 | **bimodal** — 1.000 or hard 0, 2 zeros in 8 |
+| STORM_ALERT | 3 | 0.746 | close, no defect found |
+| ACADEMIC_SEARCH | 3 | 0.775 | close, no defect found |
+| CVE_LOOKUP | 4 | 0.78 | close; year queries already answered |
+
+- [x] Refresh the routed corpus (426 → 603 questions) and replay all nine against
+      production. Refusals concentrate in ONCHAIN_TX_LOOKUP and FRAUD_DETECTION;
+      STORM_ALERT 66/66, WEATHER_CHECK 32/33 and ACADEMIC_SEARCH 17/18 are already
+      clean, so their deficit is answer shape under a cliff scorer, not refusals.
+- [x] Fix the two refusal classes (G108, G109), deploy `miner-g015zx1xd`, 512 tests,
+      7/7 preflight, manifest unchanged so no `updateMiner`.
+- [ ] Read epoch 326 — the acceptance test. **No rank is claimed for either fix.**
+- [ ] The two bimodal intents are the next real lever: WEATHER_CHECK and
+      WALLET_BALANCE_CHECK each fall from ~1.0 to ~0.0 on a question class we have not
+      identified, and neither is a refusal. Worth ~0.6 of normalized sum between them.
+      Diagnosing them needs `candidate-bench.mjs --verify` against the live champion,
+      not another replay.
+- [ ] CVE product-keyword queries ("Will Forgejo fix RCE vulnerability?", 2 routed
+      questions) — NVD keyword search. Small, cheap, unbuilt.
 
 The fourteen-intent target below records earlier work and is superseded by the current mission.
 

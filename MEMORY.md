@@ -1,5 +1,60 @@
 # MEMORY.md — session continuity
 
+## 2026-09-12 — the nine intents below rank 2: two refusal classes fixed, two zeros explained
+
+The operator asked to improve the intents that are not first or second. Epoch **325** is
+complete and gives **9/26 rank 1**. The nine below second are tabled in
+[TASKS.md](TASKS.md) with their mean ratio over eight epochs, which is the number judging
+actually sums. **Ranked by recoverable deficit, not by rank**: TVL_LOOKUP 0.115,
+ONCHAIN_TX_LOOKUP 0.228, CURRENCY_EXCHANGE 0.236, FRAUD_DETECTION 0.270, WEATHER_CHECK
+0.60, WALLET 0.73, STORM 0.746, ACADEMIC 0.775, CVE 0.78.
+
+**Two of the nine were not defects at all, and finding that out saved the session.**
+TVL_LOOKUP's rank-11 score of exactly 0 at epoch 325 carries a `failure_reason`: the
+node's own request-building LLM at `127.0.0.1:4000` timed out. Five such rows exist across
+327 livecert score rows, landing on a different intent each time (G111). **Read
+`failure_reason` before diagnosing a zero.** And **G105 was already closed** — the CVE year
+queries the board still listed as open are answered by `cvesurvey.ts`, verified against
+production.
+
+**The corpus refresh is what produced the real work: 426 → 603 routed questions.**
+ONCHAIN_TX_LOOKUP went from 2 questions to 13, and five of the new ones ask about an
+**address**, not a hash — contract-or-wallet, transaction history, "did this address move
+money", "did it send ETH in the last hour", and one address the caller called a
+transaction hash. Every one was redirected to WALLET_BALANCE_CHECK, which answers none of
+them, in the intent where we sit at ratio 0.012 against a leader on 0.995. Fixed: **4/13 →
+9/13**, and the four still refused are correct refusals. The nonce is what makes the
+recency questions answerable — a nonce of 0 makes "did it send in the last hour" a
+definite no from consensus state rather than an index's opinion, and 0x742d…2aE6, the
+placeholder address that runs through AI-generated text, is exactly that case.
+
+**FRAUD_DETECTION's five paper questions** ("is this paper retracted or from a paper
+mill?") carry no address, hash or domain, so all five hit "no subject was supplied". A new
+`paperfraud.ts` reads OpenAlex's retraction flag. **13/29 → 15/29 only**, because three of
+the five name a journal or an unindexed 2026 paper and now end at an honest "no matching
+work is recorded" — which the replay still scores as a refusal (G109). That was chosen
+deliberately: looser title matching returned *Proceedings of the Society for Experimental
+Biology and Medicine* and then *Advances in Experimental Medicine and Biology* for a
+question about "Experimental Biology and Medicine". **Three interchangeable words cannot
+identify a work**, so the guard is near-equality with a phrase escape for titles of six or
+more substantial words. OpenAlex documents one of the four indicators asked about, so
+every answer names the three it did not check (G110).
+
+**Where the remaining upside is, and it is not another replay.** STORM_ALERT answers 66/66,
+WEATHER_CHECK 32/33, ACADEMIC_SEARCH 17/18 — those three have no refusal defect left, and
+their deficit is answer shape under a cliff scorer. **WEATHER_CHECK and WALLET_BALANCE_CHECK
+are bimodal**: each scores ~1.0 or ~0.0 with almost nothing between (WEATHER_CHECK 0.886,
+0.986, 0.026, 0.892, 0.015, 0.992, 0.013, 0.968 across 318–325). Some question class falls
+off a cliff and it is not a refusal. Together they are worth about 0.6 of normalized sum —
+the largest remaining lever — and diagnosing them needs `candidate-bench.mjs --verify`
+against the live champion, not the routed replay.
+
+**Shipped:** `4733e5b`, production **`miner-g015zx1xd`** (rollback `miner-4s6j6k4cx` held,
+unused), alias moved on the `--prod` itself with no G70 recurrence, **512 tests**, **7/7
+preflight** including 26/26 intent correctness, four preview probes through `vercel curl`
+before promoting. Manifest unchanged and its hash still matches registration 1379, so **no
+`updateMiner`**. **No rank is claimed — epoch 326 is the acceptance test.**
+
 ## 2026-09-10 ~19:40 UTC — routed-feed replay: four refusal defects fixed and deployed
 
 Codex's twenty-six-intent registration and wallet repair needed nothing finished; the
