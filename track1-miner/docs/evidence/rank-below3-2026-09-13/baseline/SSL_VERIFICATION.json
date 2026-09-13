@@ -1,0 +1,298 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "ab8902d7-1a29-4ba9-89b8-7248eb16c0c9",
+        "epoch_id": 329,
+        "intent_id": "SSL_VERIFICATION",
+        "miner_slug": "netwire-ssl",
+        "rank": 1,
+        "score": 0.008895235,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T13:53:56.308943Z",
+        "created_at": "2026-09-13T13:53:56.308943Z"
+      },
+      {
+        "id": "b36a1064-d577-4901-836f-5f1721fcb45c",
+        "epoch_id": 329,
+        "intent_id": "SSL_VERIFICATION",
+        "miner_slug": "livecert",
+        "rank": 3,
+        "score": 0.0068696653,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T13:53:56.308943Z",
+        "created_at": "2026-09-13T13:53:56.308943Z"
+      },
+      {
+        "id": "3bd0235e-5cea-472c-a69c-3222a61ed5a3",
+        "epoch_id": 328,
+        "intent_id": "SSL_VERIFICATION",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.010909027,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T04:53:18.576897Z",
+        "created_at": "2026-09-13T04:53:18.576897Z"
+      },
+      {
+        "id": "42639ddf-18e3-4d54-b06f-d411bc34c30d",
+        "epoch_id": 327,
+        "intent_id": "SSL_VERIFICATION",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.008842569,
+        "failure_reason": "",
+        "scored_at": "2026-09-12T19:58:58.738816Z",
+        "created_at": "2026-09-12T19:58:58.738816Z"
+      },
+      {
+        "id": "0611e787-c2e4-4203-803a-112e69fe9597",
+        "epoch_id": 326,
+        "intent_id": "SSL_VERIFICATION",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.008734766,
+        "failure_reason": "",
+        "scored_at": "2026-09-12T10:54:21.744334Z",
+        "created_at": "2026-09-12T10:54:21.744334Z"
+      },
+      {
+        "id": "75e5fe17-6d63-4b0f-96ee-61198cdc2cdb",
+        "epoch_id": 325,
+        "intent_id": "SSL_VERIFICATION",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.011085129,
+        "failure_reason": "",
+        "scored_at": "2026-09-12T01:56:53.152818Z",
+        "created_at": "2026-09-12T01:56:53.152818Z"
+      },
+      {
+        "id": "2d568417-85c5-4ab5-8a8c-983dcabf3955",
+        "epoch_id": 324,
+        "intent_id": "SSL_VERIFICATION",
+        "miner_slug": "netwire-ssl",
+        "rank": 1,
+        "score": 0.011368649,
+        "failure_reason": "",
+        "scored_at": "2026-09-11T16:51:56.028975Z",
+        "created_at": "2026-09-11T16:51:56.028975Z"
+      },
+      {
+        "id": "c3b86a77-9d5d-415e-bda3-03d055a731f1",
+        "epoch_id": 324,
+        "intent_id": "SSL_VERIFICATION",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 0.010399699,
+        "failure_reason": "",
+        "scored_at": "2026-09-11T16:51:56.028975Z",
+        "created_at": "2026-09-11T16:51:56.028975Z"
+      },
+      {
+        "id": "9c752be1-4b25-4c56-b5ab-c7c2db761405",
+        "epoch_id": 323,
+        "intent_id": "SSL_VERIFICATION",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.009604554,
+        "failure_reason": "",
+        "scored_at": "2026-09-11T07:59:07.468906Z",
+        "created_at": "2026-09-11T07:59:07.468906Z"
+      },
+      {
+        "id": "99ebb3e9-4871-4041-bfa9-a5b4efc552dd",
+        "epoch_id": 322,
+        "intent_id": "SSL_VERIFICATION",
+        "miner_slug": "netwire-ssl",
+        "rank": 1,
+        "score": 0.008331192,
+        "failure_reason": "",
+        "scored_at": "2026-09-10T22:58:03.039873Z",
+        "created_at": "2026-09-10T22:58:03.039873Z"
+      },
+      {
+        "id": "4763dc48-8d6f-474a-8bb9-965dacf7a30e",
+        "epoch_id": 322,
+        "intent_id": "SSL_VERIFICATION",
+        "miner_slug": "livecert",
+        "rank": 4,
+        "score": 0.007644586,
+        "failure_reason": "",
+        "scored_at": "2026-09-10T22:58:03.039873Z",
+        "created_at": "2026-09-10T22:58:03.039873Z"
+      },
+      {
+        "id": "bf529a18-5612-49b7-a3f9-430de12dd1d8",
+        "epoch_id": 321,
+        "intent_id": "SSL_VERIFICATION",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.01124366,
+        "failure_reason": "",
+        "scored_at": "2026-09-10T05:55:14.933296Z",
+        "created_at": "2026-09-10T05:55:14.933296Z"
+      },
+      {
+        "id": "96f7f032-9673-45a3-9554-cc9064f79bab",
+        "epoch_id": 320,
+        "intent_id": "SSL_VERIFICATION",
+        "miner_slug": "netwire-ssl",
+        "rank": 1,
+        "score": 0.010437681,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T20:50:34.03033Z",
+        "created_at": "2026-09-09T20:50:34.03033Z"
+      },
+      {
+        "id": "15045991-21a8-4552-affd-57121c44ded4",
+        "epoch_id": 320,
+        "intent_id": "SSL_VERIFICATION",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 0.010130539,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T20:50:34.03033Z",
+        "created_at": "2026-09-09T20:50:34.03033Z"
+      },
+      {
+        "id": "e3dbfab1-1499-40bc-9903-d7331050021c",
+        "epoch_id": 319,
+        "intent_id": "SSL_VERIFICATION",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.9926127,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T11:56:45.457889Z",
+        "created_at": "2026-09-09T11:56:45.457889Z"
+      },
+      {
+        "id": "98cbf404-ce95-4adf-b220-d4c627c0d847",
+        "epoch_id": 318,
+        "intent_id": "SSL_VERIFICATION",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.0070212167,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T02:51:51.387939Z",
+        "created_at": "2026-09-09T02:51:51.387939Z"
+      },
+      {
+        "id": "c306fa97-14d7-4c58-8dbf-4cba6de20f5e",
+        "epoch_id": 317,
+        "intent_id": "SSL_VERIFICATION",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.008831265,
+        "failure_reason": "",
+        "scored_at": "2026-09-08T18:06:24.546273Z",
+        "created_at": "2026-09-08T18:06:24.546273Z"
+      },
+      {
+        "id": "1af42ac6-0fa2-46b2-b5df-b1ff94fd1391",
+        "epoch_id": 316,
+        "intent_id": "SSL_VERIFICATION",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.011027207,
+        "failure_reason": "",
+        "scored_at": "2026-09-08T09:01:14.13274Z",
+        "created_at": "2026-09-08T09:01:14.13274Z"
+      },
+      {
+        "id": "8af6cce5-c74b-4ae7-8669-44b07162ba6e",
+        "epoch_id": 315,
+        "intent_id": "SSL_VERIFICATION",
+        "miner_slug": "preflight-ssl-verification",
+        "rank": 1,
+        "score": 0.9945983,
+        "failure_reason": "",
+        "scored_at": "2026-09-07T23:59:58.242787Z",
+        "created_at": "2026-09-07T23:59:58.242787Z"
+      },
+      {
+        "id": "1b0eaa30-8db3-4e2f-bf23-9bc588fe40ac",
+        "epoch_id": 315,
+        "intent_id": "SSL_VERIFICATION",
+        "miner_slug": "livecert",
+        "rank": 4,
+        "score": 0.9927652,
+        "failure_reason": "",
+        "scored_at": "2026-09-07T23:59:58.242787Z",
+        "created_at": "2026-09-07T23:59:58.242787Z"
+      },
+      {
+        "id": "43899815-8e2e-4d7a-a52f-ca572b004467",
+        "epoch_id": 314,
+        "intent_id": "SSL_VERIFICATION",
+        "miner_slug": "preflight-ssl-verification",
+        "rank": 1,
+        "score": 0.009519172,
+        "failure_reason": "",
+        "scored_at": "2026-09-07T09:07:21.271351Z",
+        "created_at": "2026-09-07T09:07:21.271351Z"
+      },
+      {
+        "id": "4f11b51f-ac85-4eea-bb46-f03d7f0b4cd6",
+        "epoch_id": 314,
+        "intent_id": "SSL_VERIFICATION",
+        "miner_slug": "livecert",
+        "rank": 3,
+        "score": 0.008542038,
+        "failure_reason": "",
+        "scored_at": "2026-09-07T09:07:21.271351Z",
+        "created_at": "2026-09-07T09:07:21.271351Z"
+      },
+      {
+        "id": "c9f00f1b-cbc3-47f9-8003-bfaf26be05e9",
+        "epoch_id": 313,
+        "intent_id": "SSL_VERIFICATION",
+        "miner_slug": "netwire-ssl",
+        "rank": 1,
+        "score": 0.9918845,
+        "failure_reason": "",
+        "scored_at": "2026-09-07T00:12:18.905023Z",
+        "created_at": "2026-09-07T00:12:18.905023Z"
+      },
+      {
+        "id": "db0182dc-90b0-4501-9e7a-da426ecab3d1",
+        "epoch_id": 313,
+        "intent_id": "SSL_VERIFICATION",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 0.009982816,
+        "failure_reason": "",
+        "scored_at": "2026-09-07T00:12:18.905023Z",
+        "created_at": "2026-09-07T00:12:18.905023Z"
+      }
+    ],
+    "total": 295,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 631,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "SSL_VERIFICATION",
+    "wasm_url": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/8dcc6b775400c48bf0895923f0407aa3d2b2bfb2/dist/subagent/SSL_VERIFICATION.wasm",
+    "wasm_hash": "88021c164d64d4f571bda4b714eda48a9e68f30acbe561ee2be611b483669d1e",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 0.89942956,
+    "eval": {
+      "candidate_margin": 0.89942956,
+      "champion_margin": 0.5363168,
+      "candidate_wins": 11,
+      "champion_wins": 9,
+      "comparable_cases": 11,
+      "worst_self_match": 1,
+      "score_stddev": 0.4766613,
+      "historical_rows_evaluated": 1
+    },
+    "registered_at": "2026-08-24T01:22:52Z",
+    "updated_at": "2026-08-24T01:26:19Z"
+  }
+}

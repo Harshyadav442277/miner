@@ -1,0 +1,191 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "cfb2059c-0c57-4f89-ab24-706902983d98",
+        "epoch_id": 329,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 0.00050256925,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T14:06:45.725269Z",
+        "created_at": "2026-09-13T14:06:45.725269Z"
+      },
+      {
+        "id": "ea50f6f4-0574-4ee6-990a-2d685406bdb7",
+        "epoch_id": 329,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "livecert",
+        "rank": 4,
+        "score": 0.00040134625,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T14:06:45.725269Z",
+        "created_at": "2026-09-13T14:06:45.725269Z"
+      },
+      {
+        "id": "d37bd393-5fe5-4f46-ab70-631364cc3a56",
+        "epoch_id": 328,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "openweathermap",
+        "rank": 1,
+        "score": 0.0005308511,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T05:04:45.011269Z",
+        "created_at": "2026-09-13T05:04:45.011269Z"
+      },
+      {
+        "id": "23eebf6a-cfb8-44f0-8ee0-28938b7e061c",
+        "epoch_id": 328,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "livecert",
+        "rank": 4,
+        "score": 0.00043718074,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T05:04:45.011269Z",
+        "created_at": "2026-09-13T05:04:45.011269Z"
+      },
+      {
+        "id": "146a5d24-2ebf-4a8a-b429-34ae99c6f437",
+        "epoch_id": 327,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 0.00048593688,
+        "failure_reason": "",
+        "scored_at": "2026-09-12T19:55:11.864147Z",
+        "created_at": "2026-09-12T19:55:11.864147Z"
+      },
+      {
+        "id": "213a997f-0ec1-4fd5-b373-7d7ca29e9c3b",
+        "epoch_id": 327,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 0.00047645989,
+        "failure_reason": "",
+        "scored_at": "2026-09-12T19:55:11.864147Z",
+        "created_at": "2026-09-12T19:55:11.864147Z"
+      },
+      {
+        "id": "27f5cade-5f01-48f9-b454-67c07b395704",
+        "epoch_id": 326,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "weatherapi",
+        "rank": 1,
+        "score": 0.00058783207,
+        "failure_reason": "",
+        "scored_at": "2026-09-12T11:06:18.505655Z",
+        "created_at": "2026-09-12T11:06:18.505655Z"
+      },
+      {
+        "id": "14a30691-007a-46e0-8019-d9eddd87c4c1",
+        "epoch_id": 326,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 0.0005409314,
+        "failure_reason": "",
+        "scored_at": "2026-09-12T11:06:18.505655Z",
+        "created_at": "2026-09-12T11:06:18.505655Z"
+      },
+      {
+        "id": "d895d4fb-afbd-46da-a329-6258d50a64d7",
+        "epoch_id": 325,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "amanat-weather-risk",
+        "rank": 1,
+        "score": 0.99996847,
+        "failure_reason": "",
+        "scored_at": "2026-09-12T02:04:20.966889Z",
+        "created_at": "2026-09-12T02:04:20.966889Z"
+      },
+      {
+        "id": "c2cc6500-e30c-4a66-9638-3f52cea50900",
+        "epoch_id": 325,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 0.0005485965,
+        "failure_reason": "",
+        "scored_at": "2026-09-12T02:04:20.966889Z",
+        "created_at": "2026-09-12T02:04:20.966889Z"
+      },
+      {
+        "id": "886d6bc6-1c2b-4189-a1b6-80d15092d496",
+        "epoch_id": 324,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "skywire-forecast",
+        "rank": 1,
+        "score": 0.0005763948,
+        "failure_reason": "",
+        "scored_at": "2026-09-11T17:04:16.940891Z",
+        "created_at": "2026-09-11T17:04:16.940891Z"
+      },
+      {
+        "id": "20ed7f63-b338-4334-993a-59a4c212478e",
+        "epoch_id": 324,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 0.00051043206,
+        "failure_reason": "",
+        "scored_at": "2026-09-11T17:04:16.940891Z",
+        "created_at": "2026-09-11T17:04:16.940891Z"
+      },
+      {
+        "id": "433b530a-0d1d-44ff-9c6a-ad948e05613e",
+        "epoch_id": 323,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "onlookout-weather",
+        "rank": 1,
+        "score": 0.000497745,
+        "failure_reason": "",
+        "scored_at": "2026-09-11T07:53:19.062908Z",
+        "created_at": "2026-09-11T07:53:19.062908Z"
+      },
+      {
+        "id": "00f7a506-cc74-485e-9393-3a1b0c17d681",
+        "epoch_id": 323,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 0.00042464893,
+        "failure_reason": "",
+        "scored_at": "2026-09-11T07:53:19.062908Z",
+        "created_at": "2026-09-11T07:53:19.062908Z"
+      }
+    ],
+    "total": 1770,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 3173,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "WEATHER_FORECAST",
+    "wasm_url": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/1c57bda41576c77bfd61b70198eb9098098df30f/dist/win2/wf_4e3.wasm",
+    "wasm_hash": "66ee98e29632d0cfc74240344ea47e6bb83ed14545c4c102215a4ded5986b649",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 0.8568193,
+    "eval": {
+      "candidate_margin": 0.8568193,
+      "champion_margin": 0.8567977,
+      "candidate_wins": 14,
+      "champion_wins": 14,
+      "comparable_cases": 14,
+      "worst_self_match": 1,
+      "score_stddev": 0.4712138,
+      "spearman": {
+        "WEATHER_FORECAST": 0.79869324
+      },
+      "historical_rows_evaluated": 164
+    },
+    "registered_at": "2026-09-02T03:37:31Z",
+    "updated_at": "2026-09-02T06:49:05Z"
+  }
+}

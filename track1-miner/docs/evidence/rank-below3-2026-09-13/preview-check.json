@@ -1,0 +1,107 @@
+{
+  "at": "2026-09-13T16:56:26.773Z",
+  "base": "https://miner-3vmtcv4s6-wukong4.vercel.app",
+  "rows": [
+    {
+      "name": "forecast-Lagos",
+      "query": "Return the 3-day weather forecast for Lagos. Classify this as WEATHER_FORECAST.",
+      "pass": true,
+      "ms": 7001,
+      "body": {
+        "verdict": "thunderstorms",
+        "confidence": 1,
+        "reason": "Regarding return the 3-day weather forecast for Lagos. Classify this as WEATHER_FORECAST: A 3-day (72-hour) hourly weather forecast for Lagos, Nigeria covering September 13 to September 16, 2026: hourly temperature in Celsius from 24.3°C to 28.3°C, a precipitation probability of up to 98%, 19.6 mm of total precipitation, the expected condition is thunderstorms, and a wind speed of up to 20.9 km/h, from the Open-Meteo weather service."
+      }
+    },
+    {
+      "name": "current-Lagos",
+      "query": "Return current weather conditions for Lagos. Classify this as WEATHER_CHECK.",
+      "pass": true,
+      "ms": 6394,
+      "body": {
+        "verdict": "cloudy",
+        "confidence": 1,
+        "reason": "The current weather in Lagos, Nigeria is cloudy at 27.1°C, with no precipitation and wind at 13.8 km/h, as of 16:45 UTC on 2026-09-13, from the Open-Meteo weather service."
+      }
+    },
+    {
+      "name": "forecast-Abuja",
+      "query": "Return the 3-day weather forecast for Abuja. Classify this as WEATHER_FORECAST.",
+      "pass": true,
+      "ms": 6336,
+      "body": {
+        "verdict": "thunderstorms",
+        "confidence": 1,
+        "reason": "Regarding return the 3-day weather forecast for Abuja. Classify this as WEATHER_FORECAST: A 3-day (72-hour) hourly weather forecast for Abuja, FCT, Nigeria covering September 13 to September 16, 2026: hourly temperature in Celsius from 21.3°C to 29.6°C, a precipitation probability of up to 96%, 36.4 mm of total precipitation, the expected condition is thunderstorms, and a wind speed of up to 10.3 km/h, from the Open-Meteo weather service."
+      }
+    },
+    {
+      "name": "current-Abuja",
+      "query": "Return current weather conditions for Abuja. Classify this as WEATHER_CHECK.",
+      "pass": true,
+      "ms": 6315,
+      "body": {
+        "verdict": "cloudy",
+        "confidence": 1,
+        "reason": "The current weather in Abuja, FCT, Nigeria is cloudy at 27.2°C, with no precipitation and wind at 4.7 km/h, as of 16:45 UTC on 2026-09-13, from the Open-Meteo weather service."
+      }
+    },
+    {
+      "name": "fraud-unresolved",
+      "query": "Is this transaction fraudulent? 0x1111111111111111111111111111111111111111111111111111111111111111",
+      "pass": true,
+      "ms": 6165,
+      "body": {
+        "verdict": "unknown",
+        "confidence": 0,
+        "reason": "No fraud assessment could be completed. transaction 0x1111111111111111111111111111111111111111111111111111111111111111 could not be resolved to validated sender and recipient addresses. No risk or safety conclusion can be drawn without evidence.",
+        "error": "insufficient_evidence"
+      }
+    },
+    {
+      "name": "fraud-warning",
+      "query": "This email says never share your seed phrase. Is it a scam?",
+      "pass": true,
+      "ms": 5848,
+      "body": {
+        "verdict": "unknown",
+        "confidence": 0,
+        "reason": "No wallet address, transaction hash, domain or affirmative scam-language signal was identified, so fraud risk remains unknown. Supply the address, the link, or the message itself and it can be checked against sanctions listings, threat-intelligence feeds and known scam patterns.",
+        "error": "no_subject"
+      }
+    },
+    {
+      "name": "fraud-parties",
+      "query": "Assess transaction 0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060 on Ethereum for fraud.",
+      "pass": true,
+      "ms": 5516,
+      "body": {
+        "verdict": "no_indicators",
+        "confidence": 0.5,
+        "reason": "No fraud indicators were found among the checks performed. Assessed on the following: transaction 0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060 on ethereum: sender 0xa1e4380a3b1f749673e270229993ee55f35663b4 does not appear on the OFAC sanctioned digital-currency address list; transaction 0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060 on ethereum: recipient 0x5df9b87991262f6ba471f09758cde1c0fc1de734 does not appear on the OFAC sanctioned digital-currency address list. Not checked: contract execution, token-transfer recipients and transaction-graph behaviour were not assessed. That is not the same as being safe: these checks detect known-bad addresses, flagged domains and common scam wording, and fraud that is none of those would not appear here."
+      }
+    },
+    {
+      "name": "web-code",
+      "query": "Will MK-2870 receive FDA approval?",
+      "pass": true,
+      "ms": 6508,
+      "body": {
+        "verdict": "answered",
+        "confidence": 0.8,
+        "reason": "The most relevant available report is \"MK-2870: Exploring a New Therapy for Women with Recurrent Cervical Cancer - Cancer Trials Cluster\" (ucd.ie, 2 October 2025). Whether it will happen is not settled by these sources; this reports coverage, not a prediction. Source: Google News search."
+      }
+    },
+    {
+      "name": "web-company",
+      "query": "Will Astellas' ASP3021 receive Japanese approval?",
+      "pass": true,
+      "ms": 6219,
+      "body": {
+        "verdict": "no_results",
+        "confidence": 0.4,
+        "reason": "No current report or encyclopedia article about ASP3021 matching this question was found in Google News or Wikipedia, so no answer is given rather than an unrelated one. That is an absence in those two sources, not proof that nothing has been published."
+      }
+    }
+  ]
+}

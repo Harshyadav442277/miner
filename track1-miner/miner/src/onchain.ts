@@ -190,6 +190,26 @@ export function supportedChains(): string[] {
   return Object.keys(RPCS);
 }
 
+/** Read transaction parties for sanctions screening, with a bounded parallel lookup. */
+export async function transactionParties(hash: string, question: string): Promise<{
+  chain: string; from: string; to: string | null;
+} | null> {
+  const requested = resolveChain("", question);
+  const chains = requested.explicit ? [requested.chain] : supportedChains();
+  const reads = chains.flatMap(chain => (RPCS[chain] ?? []).slice(0, 2).map(async url => {
+    const raw = await rpc(url, "eth_getTransactionByHash", [hash]) as {
+      hash?: string; from?: string; to?: string | null;
+    } | null;
+    if (!raw || raw.hash?.toLowerCase() !== hash.toLowerCase() ||
+        !/^0x[0-9a-f]{40}$/i.test(raw.from ?? "") ||
+        (raw.to !== null && !/^0x[0-9a-f]{40}$/i.test(raw.to ?? ""))) {
+      throw new Error("No validated transaction parties");
+    }
+    return { chain, from: raw.from!.toLowerCase(), to: raw.to?.toLowerCase() ?? null };
+  }));
+  try { return await Promise.any(reads); } catch { return null; }
+}
+
 async function rpc(url: string, method: string, params: unknown[]): Promise<unknown> {
   const res = await fetch(url, {
     method: "POST",

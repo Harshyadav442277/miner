@@ -39,6 +39,7 @@
  */
 
 import { asksPaperFraud, assessPaperFraud } from "./paperfraud";
+import { transactionParties } from "./onchain";
 
 const TIMEOUT_MS = Number(process.env.FRAUD_TIMEOUT_MS ?? 4_000);
 const UA = "livecert-miner/1.0 (+https://miner-wine.vercel.app)";
@@ -102,7 +103,10 @@ export function hostnames(text: string): string[] {
 }
 
 export function scamMarkers(text: string): string[] {
-  return MARKERS.filter(([re]) => re.test(String(text ?? ""))).map(([, label]) => label);
+  // A warning against sharing credentials is not a request to disclose them.
+  // Remove only the negated instruction; a later positive request still counts.
+  const assessed = String(text ?? "").replace(/\b(?:never|do not|don't|don’t|must not|should not)\s+(?:ever\s+)?(?:share|send|give|reveal|disclose|provide|enter)\s+(?:your\s+|any\s+|a\s+|the\s+)?(?:seed phrases?|recovery phrases?|private keys?|mnemonics?)\b/gi, "");
+  return MARKERS.filter(([re]) => re.test(assessed)).map(([, label]) => label);
 }
 
 async function getText(url: string): Promise<string> {
@@ -235,8 +239,8 @@ export async function assessFraud(text: string): Promise<FraudResult> {
     return {
       subject: null, verdict: "unknown", confidence: 0,
       reason:
-        "No wallet address, transaction hash, domain or message text was supplied, so there is " +
-        "nothing to assess for fraud. Supply the address, the link, or the message itself and it " +
+        "No wallet address, transaction hash, domain or affirmative scam-language signal was identified, " +
+        "so fraud risk remains unknown. Supply the address, the link, or the message itself and it " +
         "can be checked against sanctions listings, threat-intelligence feeds and known scam patterns.",
       error: "no_subject",
     };
@@ -246,6 +250,24 @@ export async function assessFraud(text: string): Promise<FraudResult> {
   const notChecked: string[] = [];
   let high = false;
   let elevated = false;
+
+  if (hash) {
+    const parties = await transactionParties(hash, text);
+    if (!parties) notChecked.push(`transaction ${hash} could not be resolved to validated sender and recipient addresses`);
+    else {
+      const addresses = [...new Set([parties.from, parties.to].filter((a): a is string => Boolean(a)))];
+      const hits = await Promise.all(addresses.map(async a => ({ address: a, hit: await sanctioned(a) })));
+      for (const { address: party, hit } of hits) {
+        const role = party === parties.from ? "sender" : "recipient";
+        if (hit === null) notChecked.push(`the ${role}'s OFAC listing could not be read`);
+        else {
+          high ||= hit;
+          evidence.push(`transaction ${hash} on ${parties.chain}: ${role} ${party} ${hit ? "appears" : "does not appear"} on the OFAC sanctioned digital-currency address list`);
+        }
+      }
+      notChecked.push("contract execution, token-transfer recipients and transaction-graph behaviour were not assessed");
+    }
+  }
 
   if (address) {
     const hit = await sanctioned(address);
@@ -288,6 +310,11 @@ export async function assessFraud(text: string): Promise<FraudResult> {
   if (markers.length) {
     elevated = true;
     evidence.push(`the message ${markers.join("; it ")}`);
+  }
+
+  if (evidence.length === 0) {
+    return { subject, verdict: "unknown", confidence: 0, error: "insufficient_evidence",
+      reason: `No fraud assessment could be completed. ${notChecked.join("; ")}. No risk or safety conclusion can be drawn without evidence.` };
   }
 
   const verdict: FraudVerdict = high ? "high_risk" : elevated ? "elevated_risk" : "no_indicators";

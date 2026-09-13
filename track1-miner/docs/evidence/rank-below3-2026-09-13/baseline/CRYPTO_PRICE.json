@@ -1,0 +1,125 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "d373fc76-45e8-41c7-892f-b56eecb7a667",
+        "epoch_id": 329,
+        "intent_id": "CRYPTO_PRICE",
+        "miner_slug": "txlens",
+        "rank": 1,
+        "score": 3.617354e-30,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T14:05:24.304467Z",
+        "created_at": "2026-09-13T14:05:24.304467Z"
+      },
+      {
+        "id": "47496513-2bb5-4484-bc76-a1f38511da72",
+        "epoch_id": 329,
+        "intent_id": "CRYPTO_PRICE",
+        "miner_slug": "livecert",
+        "rank": 12,
+        "score": 0,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T14:05:24.304467Z",
+        "created_at": "2026-09-13T14:05:24.304467Z"
+      },
+      {
+        "id": "d9639384-46b7-41c4-a177-107d5a155a34",
+        "epoch_id": 328,
+        "intent_id": "CRYPTO_PRICE",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 4.04896e-38,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T04:52:33.774153Z",
+        "created_at": "2026-09-13T04:52:33.774153Z"
+      },
+      {
+        "id": "528d867c-811e-4135-9ac1-de4902d0790b",
+        "epoch_id": 327,
+        "intent_id": "CRYPTO_PRICE",
+        "miner_slug": "kriterion-pramagraph",
+        "rank": 1,
+        "score": 3.235821e-28,
+        "failure_reason": "",
+        "scored_at": "2026-09-12T20:01:56.166213Z",
+        "created_at": "2026-09-12T20:01:56.166213Z"
+      },
+      {
+        "id": "a446fb9d-e3b7-45c7-97fd-47708f36b55e",
+        "epoch_id": 326,
+        "intent_id": "CRYPTO_PRICE",
+        "miner_slug": "pricepulse-crypto-consensus",
+        "rank": 1,
+        "score": 1.3815479e-22,
+        "failure_reason": "",
+        "scored_at": "2026-09-12T10:56:02.785639Z",
+        "created_at": "2026-09-12T10:56:02.785639Z"
+      },
+      {
+        "id": "71a48edb-256a-441d-8472-e6758b972a07",
+        "epoch_id": 325,
+        "intent_id": "CRYPTO_PRICE",
+        "miner_slug": "agentfeed-base-crypto",
+        "rank": 1,
+        "score": 1.1049544e-35,
+        "failure_reason": "",
+        "scored_at": "2026-09-12T01:59:25.198465Z",
+        "created_at": "2026-09-12T01:59:25.198465Z"
+      },
+      {
+        "id": "a4a83655-b825-4455-a86a-4fe190609a2d",
+        "epoch_id": 324,
+        "intent_id": "CRYPTO_PRICE",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 3.617354e-30,
+        "failure_reason": "",
+        "scored_at": "2026-09-11T16:52:49.861955Z",
+        "created_at": "2026-09-11T16:52:49.861955Z"
+      },
+      {
+        "id": "813ea311-48d3-4993-b8dd-bf10f3a07b72",
+        "epoch_id": 323,
+        "intent_id": "CRYPTO_PRICE",
+        "miner_slug": "kriterion-pramagraph",
+        "rank": 1,
+        "score": 4.04622e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-11T08:02:58.533499Z",
+        "created_at": "2026-09-11T08:02:58.533499Z"
+      }
+    ],
+    "total": 713,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 3170,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "CRYPTO_PRICE",
+    "wasm_url": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/faa50f1cf7e051bde8d55ef897e6af3a48c6b507/dist/win2/cyt_1e4.wasm",
+    "wasm_hash": "21be28b0aefc17567bfce288e750fee583dd440998ab8262f7e6a4555fbdb09f",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 0.79999703,
+    "eval": {
+      "candidate_margin": 0.79999703,
+      "champion_margin": 0.7999882,
+      "candidate_wins": 15,
+      "champion_wins": 15,
+      "comparable_cases": 15,
+      "worst_self_match": 1,
+      "score_stddev": 0.48989713,
+      "spearman": {
+        "CRYPTO_PRICE": 0.7737146
+      },
+      "historical_rows_evaluated": 141
+    },
+    "registered_at": "2026-09-02T03:08:57Z",
+    "updated_at": "2026-09-02T03:24:33Z"
+  }
+}

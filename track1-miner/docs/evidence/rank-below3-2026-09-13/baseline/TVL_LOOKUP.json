@@ -1,0 +1,243 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "bf235d1c-f5b8-448e-84f4-66e4ba6bac34",
+        "epoch_id": 329,
+        "intent_id": "TVL_LOOKUP",
+        "miner_slug": "preflight-ssl-verification",
+        "rank": 1,
+        "score": 0.09926331,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T14:11:13.575234Z",
+        "created_at": "2026-09-13T14:11:13.575234Z"
+      },
+      {
+        "id": "3db7d7bb-d91b-4da3-b974-13c005c53199",
+        "epoch_id": 329,
+        "intent_id": "TVL_LOOKUP",
+        "miner_slug": "livecert",
+        "rank": 4,
+        "score": 0.012187336,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T14:11:13.575234Z",
+        "created_at": "2026-09-13T14:11:13.575234Z"
+      },
+      {
+        "id": "a1c4a430-953d-4858-a2a1-3624555d2e2d",
+        "epoch_id": 328,
+        "intent_id": "TVL_LOOKUP",
+        "miner_slug": "preflight-ssl-verification",
+        "rank": 1,
+        "score": 0.05947642,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T05:00:03.435955Z",
+        "created_at": "2026-09-13T05:00:03.435955Z"
+      },
+      {
+        "id": "8895ded4-daf2-4d77-9a43-ce5757710308",
+        "epoch_id": 328,
+        "intent_id": "TVL_LOOKUP",
+        "miner_slug": "livecert",
+        "rank": 4,
+        "score": 0.011799753,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T05:00:03.435955Z",
+        "created_at": "2026-09-13T05:00:03.435955Z"
+      },
+      {
+        "id": "c846f84d-0851-4d02-9f41-8e62f1dd5c12",
+        "epoch_id": 327,
+        "intent_id": "TVL_LOOKUP",
+        "miner_slug": "preflight-ssl-verification",
+        "rank": 1,
+        "score": 0.17720336,
+        "failure_reason": "",
+        "scored_at": "2026-09-12T19:57:02.143643Z",
+        "created_at": "2026-09-12T19:57:02.143643Z"
+      },
+      {
+        "id": "91e14e1d-f6d6-4376-9d2a-da5db92aa03f",
+        "epoch_id": 327,
+        "intent_id": "TVL_LOOKUP",
+        "miner_slug": "livecert",
+        "rank": 7,
+        "score": 0.0088256905,
+        "failure_reason": "",
+        "scored_at": "2026-09-12T19:57:02.143643Z",
+        "created_at": "2026-09-12T19:57:02.143643Z"
+      },
+      {
+        "id": "3428573e-6349-4eee-a50c-829193553c57",
+        "epoch_id": 326,
+        "intent_id": "TVL_LOOKUP",
+        "miner_slug": "preflight-ssl-verification",
+        "rank": 1,
+        "score": 0.019834017,
+        "failure_reason": "",
+        "scored_at": "2026-09-12T11:01:06.922889Z",
+        "created_at": "2026-09-12T11:01:06.922889Z"
+      },
+      {
+        "id": "f7e3f236-2a74-464d-ab9f-8756e47ef89f",
+        "epoch_id": 326,
+        "intent_id": "TVL_LOOKUP",
+        "miner_slug": "livecert",
+        "rank": 4,
+        "score": 0.012937255,
+        "failure_reason": "",
+        "scored_at": "2026-09-12T11:01:06.922889Z",
+        "created_at": "2026-09-12T11:01:06.922889Z"
+      },
+      {
+        "id": "c444d310-bede-4368-9ce1-d2e76d2ff98d",
+        "epoch_id": 325,
+        "intent_id": "TVL_LOOKUP",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 0.022319444,
+        "failure_reason": "",
+        "scored_at": "2026-09-12T02:01:49.000423Z",
+        "created_at": "2026-09-12T02:01:49.000423Z"
+      },
+      {
+        "id": "53d41760-b462-4d09-811f-90e74bc8d53c",
+        "epoch_id": 325,
+        "intent_id": "TVL_LOOKUP",
+        "miner_slug": "livecert",
+        "rank": 11,
+        "score": 0,
+        "failure_reason": "build request for miner \"livecert\": LLM call for miner \"livecert\" failed: http request: Post \"http://127.0.0.1:4000/v1/chat/completions\": context deadline exceeded",
+        "scored_at": "2026-09-12T02:01:49.000423Z",
+        "created_at": "2026-09-12T02:01:49.000423Z"
+      },
+      {
+        "id": "0a9e368e-161f-4768-a9d4-7b2c02f69901",
+        "epoch_id": 324,
+        "intent_id": "TVL_LOOKUP",
+        "miner_slug": "preflight-ssl-verification",
+        "rank": 1,
+        "score": 0.09838596,
+        "failure_reason": "",
+        "scored_at": "2026-09-11T17:01:11.417473Z",
+        "created_at": "2026-09-11T17:01:11.417473Z"
+      },
+      {
+        "id": "523798c0-7390-4001-9554-f5b0a6fee258",
+        "epoch_id": 324,
+        "intent_id": "TVL_LOOKUP",
+        "miner_slug": "livecert",
+        "rank": 3,
+        "score": 0.005921311,
+        "failure_reason": "",
+        "scored_at": "2026-09-11T17:01:11.417473Z",
+        "created_at": "2026-09-11T17:01:11.417473Z"
+      },
+      {
+        "id": "26c17bbe-5215-4896-8bfc-146b93cae755",
+        "epoch_id": 323,
+        "intent_id": "TVL_LOOKUP",
+        "miner_slug": "finwire-tvl",
+        "rank": 1,
+        "score": 0.18277778,
+        "failure_reason": "",
+        "scored_at": "2026-09-11T08:01:44.148294Z",
+        "created_at": "2026-09-11T08:01:44.148294Z"
+      },
+      {
+        "id": "81bde47c-6d66-42c1-aed6-a435e9aff8b6",
+        "epoch_id": 323,
+        "intent_id": "TVL_LOOKUP",
+        "miner_slug": "livecert",
+        "rank": 5,
+        "score": 0.006088203,
+        "failure_reason": "",
+        "scored_at": "2026-09-11T08:01:44.148294Z",
+        "created_at": "2026-09-11T08:01:44.148294Z"
+      },
+      {
+        "id": "d5fe90cb-1172-4571-9a7f-ce812beadff6",
+        "epoch_id": 322,
+        "intent_id": "TVL_LOOKUP",
+        "miner_slug": "sentinel-risk-oracle",
+        "rank": 1,
+        "score": 0.043656833,
+        "failure_reason": "",
+        "scored_at": "2026-09-10T23:02:53.341141Z",
+        "created_at": "2026-09-10T23:02:53.341141Z"
+      },
+      {
+        "id": "9f249906-18f1-48a6-80f9-47aa94d3d19c",
+        "epoch_id": 322,
+        "intent_id": "TVL_LOOKUP",
+        "miner_slug": "livecert",
+        "rank": 6,
+        "score": 0.013255308,
+        "failure_reason": "",
+        "scored_at": "2026-09-10T23:02:53.341141Z",
+        "created_at": "2026-09-10T23:02:53.341141Z"
+      },
+      {
+        "id": "c6ba5dd5-1a23-427b-a74d-ef4e21e24b27",
+        "epoch_id": 321,
+        "intent_id": "TVL_LOOKUP",
+        "miner_slug": "sentinel-risk-oracle",
+        "rank": 1,
+        "score": 0.043656833,
+        "failure_reason": "",
+        "scored_at": "2026-09-10T05:51:26.36853Z",
+        "created_at": "2026-09-10T05:51:26.36853Z"
+      },
+      {
+        "id": "df84f214-e0b3-4e92-9518-473426a9ad4e",
+        "epoch_id": 321,
+        "intent_id": "TVL_LOOKUP",
+        "miner_slug": "livecert",
+        "rank": 5,
+        "score": 0.013354706,
+        "failure_reason": "",
+        "scored_at": "2026-09-10T05:51:26.36853Z",
+        "created_at": "2026-09-10T05:51:26.36853Z"
+      },
+      {
+        "id": "f8adf2ba-4a8b-4d98-9d55-c3dbf911c0c2",
+        "epoch_id": 320,
+        "intent_id": "TVL_LOOKUP",
+        "miner_slug": "preflight-ssl-verification",
+        "rank": 1,
+        "score": 0.15408534,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T20:59:29.895437Z",
+        "created_at": "2026-09-09T20:59:29.895437Z"
+      }
+    ],
+    "total": 542,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 49,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "TVL_LOOKUP",
+    "wasm_url": "https://gateway.pinata.cloud/ipfs/QmNV1RufiyPjkkZseWAeXpoSrtWzDPBVhyMXmMQoDvoLKi",
+    "wasm_hash": "52bf95ab9ad37da230a26f7b580b60293988b930124826003614bd523b8e3869",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 0.79607064,
+    "eval": {
+      "candidate_margin": 0.79607064,
+      "champion_margin": 0.37360683,
+      "candidate_wins": 32,
+      "champion_wins": 32,
+      "comparable_cases": 32,
+      "worst_self_match": 1,
+      "score_stddev": 0.40818518,
+      "historical_rows_evaluated": 0
+    },
+    "registered_at": "2026-08-17T23:11:18Z",
+    "updated_at": "2026-08-17T23:12:06Z"
+  }
+}

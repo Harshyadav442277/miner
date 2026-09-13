@@ -1,0 +1,257 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "f78fa53c-876a-4b81-9405-3ea974992219",
+        "epoch_id": 329,
+        "intent_id": "WALLET_BALANCE_CHECK",
+        "miner_slug": "degenlens-onchain",
+        "rank": 1,
+        "score": 1.9539483e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T14:07:23.132561Z",
+        "created_at": "2026-09-13T14:07:23.132561Z"
+      },
+      {
+        "id": "5e55ba4d-22c0-4f19-9ee9-7b733e11eed5",
+        "epoch_id": 329,
+        "intent_id": "WALLET_BALANCE_CHECK",
+        "miner_slug": "livecert",
+        "rank": 6,
+        "score": 1.0849233e-13,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T14:07:23.132561Z",
+        "created_at": "2026-09-13T14:07:23.132561Z"
+      },
+      {
+        "id": "14e1e48b-976b-4b10-94aa-31d4cc23858e",
+        "epoch_id": 328,
+        "intent_id": "WALLET_BALANCE_CHECK",
+        "miner_slug": "degenlens-onchain",
+        "rank": 1,
+        "score": 1.9409099e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T05:03:25.131461Z",
+        "created_at": "2026-09-13T05:03:25.131461Z"
+      },
+      {
+        "id": "08a98262-cc8c-4049-96f3-3cad6b393d97",
+        "epoch_id": 328,
+        "intent_id": "WALLET_BALANCE_CHECK",
+        "miner_slug": "livecert",
+        "rank": 6,
+        "score": 1.0982979e-13,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T05:03:25.131461Z",
+        "created_at": "2026-09-13T05:03:25.131461Z"
+      },
+      {
+        "id": "9c9af3f1-63b3-4ae4-b6f5-b475a4a8b73e",
+        "epoch_id": 327,
+        "intent_id": "WALLET_BALANCE_CHECK",
+        "miner_slug": "degenlens-onchain",
+        "rank": 1,
+        "score": 2.033856e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-12T19:58:09.373971Z",
+        "created_at": "2026-09-12T19:58:09.373971Z"
+      },
+      {
+        "id": "d05dd2df-ed0a-4f2b-9cc4-bd199dc820d5",
+        "epoch_id": 327,
+        "intent_id": "WALLET_BALANCE_CHECK",
+        "miner_slug": "livecert",
+        "rank": 10,
+        "score": 0,
+        "failure_reason": "build request for miner \"livecert\": LLM call for miner \"livecert\" failed: http request: Post \"http://127.0.0.1:4000/v1/chat/completions\": context deadline exceeded",
+        "scored_at": "2026-09-12T19:58:09.373971Z",
+        "created_at": "2026-09-12T19:58:09.373971Z"
+      },
+      {
+        "id": "af31edf0-d835-4503-ab35-03fffe6e4fb5",
+        "epoch_id": 326,
+        "intent_id": "WALLET_BALANCE_CHECK",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 0.9999999,
+        "failure_reason": "",
+        "scored_at": "2026-09-12T10:53:43.253232Z",
+        "created_at": "2026-09-12T10:53:43.253232Z"
+      },
+      {
+        "id": "7fe98fde-406a-4cd1-b513-7fc11f8b1c97",
+        "epoch_id": 326,
+        "intent_id": "WALLET_BALANCE_CHECK",
+        "miner_slug": "livecert",
+        "rank": 3,
+        "score": 0.9999996,
+        "failure_reason": "",
+        "scored_at": "2026-09-12T10:53:43.253232Z",
+        "created_at": "2026-09-12T10:53:43.253232Z"
+      },
+      {
+        "id": "f0010062-1803-42a4-ad10-0b1963cfbb33",
+        "epoch_id": 325,
+        "intent_id": "WALLET_BALANCE_CHECK",
+        "miner_slug": "agentfeed-base-crypto",
+        "rank": 1,
+        "score": 0.99999994,
+        "failure_reason": "",
+        "scored_at": "2026-09-12T01:50:32.24009Z",
+        "created_at": "2026-09-12T01:50:32.24009Z"
+      },
+      {
+        "id": "854ceabe-43af-42cf-9c62-ff0e47542ff3",
+        "epoch_id": 325,
+        "intent_id": "WALLET_BALANCE_CHECK",
+        "miner_slug": "livecert",
+        "rank": 4,
+        "score": 0.99999946,
+        "failure_reason": "",
+        "scored_at": "2026-09-12T01:50:32.24009Z",
+        "created_at": "2026-09-12T01:50:32.24009Z"
+      },
+      {
+        "id": "3412a012-0ba8-47ca-bece-0c7f8f0d4d3e",
+        "epoch_id": 324,
+        "intent_id": "WALLET_BALANCE_CHECK",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 0.9999994,
+        "failure_reason": "",
+        "scored_at": "2026-09-11T16:51:16.272555Z",
+        "created_at": "2026-09-11T16:51:16.272555Z"
+      },
+      {
+        "id": "65061b00-7f65-42df-8db6-fa839f4c46bb",
+        "epoch_id": 324,
+        "intent_id": "WALLET_BALANCE_CHECK",
+        "miner_slug": "livecert",
+        "rank": 8,
+        "score": 2.4095823e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-11T16:51:16.272555Z",
+        "created_at": "2026-09-11T16:51:16.272555Z"
+      },
+      {
+        "id": "c14da8d7-e5af-449d-92e8-dbbea2bb9da1",
+        "epoch_id": 323,
+        "intent_id": "WALLET_BALANCE_CHECK",
+        "miner_slug": "agentfeed-base-crypto",
+        "rank": 1,
+        "score": 0.9999998,
+        "failure_reason": "",
+        "scored_at": "2026-09-11T08:04:06.978972Z",
+        "created_at": "2026-09-11T08:04:06.978972Z"
+      },
+      {
+        "id": "6ac98dbb-d493-4d6a-bf9e-8c30a42470e5",
+        "epoch_id": 323,
+        "intent_id": "WALLET_BALANCE_CHECK",
+        "miner_slug": "livecert",
+        "rank": 6,
+        "score": 0.99999934,
+        "failure_reason": "",
+        "scored_at": "2026-09-11T08:04:06.978972Z",
+        "created_at": "2026-09-11T08:04:06.978972Z"
+      },
+      {
+        "id": "a0f82f51-3c25-41bd-b70a-3c537ca5cd34",
+        "epoch_id": 322,
+        "intent_id": "WALLET_BALANCE_CHECK",
+        "miner_slug": "preflight-ssl-verification",
+        "rank": 1,
+        "score": 2.2728978e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-10T22:56:42.379375Z",
+        "created_at": "2026-09-10T22:56:42.379375Z"
+      },
+      {
+        "id": "7531d698-b944-499e-9723-5f5476b15c65",
+        "epoch_id": 322,
+        "intent_id": "WALLET_BALANCE_CHECK",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 2.2705425e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-10T22:56:42.379375Z",
+        "created_at": "2026-09-10T22:56:42.379375Z"
+      },
+      {
+        "id": "f9ed891e-8ffa-4f4f-aa02-a472e4b00740",
+        "epoch_id": 321,
+        "intent_id": "WALLET_BALANCE_CHECK",
+        "miner_slug": "agentfeed-base-crypto",
+        "rank": 1,
+        "score": 0.99999994,
+        "failure_reason": "",
+        "scored_at": "2026-09-10T05:59:00.64703Z",
+        "created_at": "2026-09-10T05:59:00.64703Z"
+      },
+      {
+        "id": "77ca08ae-28f6-4a10-9c37-5b77c13a7e39",
+        "epoch_id": 321,
+        "intent_id": "WALLET_BALANCE_CHECK",
+        "miner_slug": "livecert",
+        "rank": 6,
+        "score": 6.073124e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-10T05:59:00.64703Z",
+        "created_at": "2026-09-10T05:59:00.64703Z"
+      },
+      {
+        "id": "1661b7aa-cdee-49af-bd6c-e89640d9080c",
+        "epoch_id": 320,
+        "intent_id": "WALLET_BALANCE_CHECK",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 0.9999999,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T20:55:41.886133Z",
+        "created_at": "2026-09-09T20:55:41.886133Z"
+      },
+      {
+        "id": "36d9bec9-f4e3-46c3-9bf5-91257ad6c186",
+        "epoch_id": 320,
+        "intent_id": "WALLET_BALANCE_CHECK",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 0.99999905,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T20:55:41.886133Z",
+        "created_at": "2026-09-09T20:55:41.886133Z"
+      }
+    ],
+    "total": 447,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 3022,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "WALLET_BALANCE_CHECK",
+    "wasm_url": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/8ae21d95c34a4e42894b4323d7ad87903f2b6cc9/dist/win/wlz_0001.wasm",
+    "wasm_hash": "b696091999e14a9d80be2adeeb7f692cfd98b7c4ad9d8c4219fd9af1a3b82bec",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 0.6923076,
+    "eval": {
+      "candidate_margin": 0.6923076,
+      "champion_margin": 0.6923052,
+      "candidate_wins": 12,
+      "champion_wins": 12,
+      "comparable_cases": 13,
+      "worst_self_match": 1,
+      "score_stddev": 0.4714044,
+      "spearman": {
+        "WALLET_BALANCE_CHECK": 0.75071687
+      },
+      "historical_rows_evaluated": 71
+    },
+    "registered_at": "2026-08-31T23:03:29Z",
+    "updated_at": "2026-09-01T03:28:43Z"
+  }
+}

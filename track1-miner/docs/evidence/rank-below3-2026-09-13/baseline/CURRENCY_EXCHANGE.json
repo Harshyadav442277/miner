@@ -1,0 +1,301 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "3010dce7-4c42-4e65-ba99-f960c9b592d8",
+        "epoch_id": 329,
+        "intent_id": "CURRENCY_EXCHANGE",
+        "miner_slug": "optivis-crypto-price",
+        "rank": 1,
+        "score": 8.5310097e-7,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T13:55:55.165244Z",
+        "created_at": "2026-09-13T13:55:55.165244Z"
+      },
+      {
+        "id": "9f9ea605-707f-4ba3-9738-48affa0e8488",
+        "epoch_id": 329,
+        "intent_id": "CURRENCY_EXCHANGE",
+        "miner_slug": "livecert",
+        "rank": 4,
+        "score": 1.4927696e-7,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T13:55:55.165244Z",
+        "created_at": "2026-09-13T13:55:55.165244Z"
+      },
+      {
+        "id": "fda3ae63-ca49-4c9b-902c-dd6ec9268020",
+        "epoch_id": 328,
+        "intent_id": "CURRENCY_EXCHANGE",
+        "miner_slug": "optivis-crypto-price",
+        "rank": 1,
+        "score": 0.0000012075633,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T04:52:13.082319Z",
+        "created_at": "2026-09-13T04:52:13.082319Z"
+      },
+      {
+        "id": "e001b04e-75ac-4f7c-96af-177c294dee8d",
+        "epoch_id": 328,
+        "intent_id": "CURRENCY_EXCHANGE",
+        "miner_slug": "livecert",
+        "rank": 6,
+        "score": 2.3376427e-7,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T04:52:13.082319Z",
+        "created_at": "2026-09-13T04:52:13.082319Z"
+      },
+      {
+        "id": "4715f1e5-7464-47a1-aa5e-d1541b403985",
+        "epoch_id": 327,
+        "intent_id": "CURRENCY_EXCHANGE",
+        "miner_slug": "optivis-crypto-price",
+        "rank": 1,
+        "score": 0.0000010389542,
+        "failure_reason": "",
+        "scored_at": "2026-09-12T19:53:26.50131Z",
+        "created_at": "2026-09-12T19:53:26.50131Z"
+      },
+      {
+        "id": "e3139573-9dd4-471a-9128-1398dae2dc34",
+        "epoch_id": 327,
+        "intent_id": "CURRENCY_EXCHANGE",
+        "miner_slug": "livecert",
+        "rank": 4,
+        "score": 1.6257896e-7,
+        "failure_reason": "",
+        "scored_at": "2026-09-12T19:53:26.50131Z",
+        "created_at": "2026-09-12T19:53:26.50131Z"
+      },
+      {
+        "id": "67151a6c-0503-4d6d-a49f-679109f3bcc2",
+        "epoch_id": 326,
+        "intent_id": "CURRENCY_EXCHANGE",
+        "miner_slug": "optivis-crypto-price",
+        "rank": 1,
+        "score": 0.0000018803358,
+        "failure_reason": "",
+        "scored_at": "2026-09-12T11:00:36.69209Z",
+        "created_at": "2026-09-12T11:00:36.69209Z"
+      },
+      {
+        "id": "1e33a972-d394-497b-9cfa-631123a90d1b",
+        "epoch_id": 326,
+        "intent_id": "CURRENCY_EXCHANGE",
+        "miner_slug": "livecert",
+        "rank": 4,
+        "score": 2.28739e-7,
+        "failure_reason": "",
+        "scored_at": "2026-09-12T11:00:36.69209Z",
+        "created_at": "2026-09-12T11:00:36.69209Z"
+      },
+      {
+        "id": "cf46729f-c893-49b7-a0b2-3225dfa1d349",
+        "epoch_id": 325,
+        "intent_id": "CURRENCY_EXCHANGE",
+        "miner_slug": "optivis-crypto-price",
+        "rank": 1,
+        "score": 9.24555e-7,
+        "failure_reason": "",
+        "scored_at": "2026-09-12T01:57:23.975451Z",
+        "created_at": "2026-09-12T01:57:23.975451Z"
+      },
+      {
+        "id": "79b249c4-c4d6-4fee-832b-ef68f3e1d756",
+        "epoch_id": 325,
+        "intent_id": "CURRENCY_EXCHANGE",
+        "miner_slug": "livecert",
+        "rank": 4,
+        "score": 1.2084816e-7,
+        "failure_reason": "",
+        "scored_at": "2026-09-12T01:57:23.975451Z",
+        "created_at": "2026-09-12T01:57:23.975451Z"
+      },
+      {
+        "id": "ce4a48f7-c139-475a-bfd3-6aff905f01da",
+        "epoch_id": 324,
+        "intent_id": "CURRENCY_EXCHANGE",
+        "miner_slug": "optivis-crypto-price",
+        "rank": 1,
+        "score": 0.0000023336156,
+        "failure_reason": "",
+        "scored_at": "2026-09-11T16:50:54.785686Z",
+        "created_at": "2026-09-11T16:50:54.785686Z"
+      },
+      {
+        "id": "01dd0736-6344-4933-93ef-ac85e04a7ba3",
+        "epoch_id": 324,
+        "intent_id": "CURRENCY_EXCHANGE",
+        "miner_slug": "livecert",
+        "rank": 4,
+        "score": 1.6639052e-7,
+        "failure_reason": "",
+        "scored_at": "2026-09-11T16:50:54.785686Z",
+        "created_at": "2026-09-11T16:50:54.785686Z"
+      },
+      {
+        "id": "6fea775b-6057-4628-bcc8-50f1b605107b",
+        "epoch_id": 323,
+        "intent_id": "CURRENCY_EXCHANGE",
+        "miner_slug": "kriterion-pramagraph",
+        "rank": 1,
+        "score": 0.0000044172148,
+        "failure_reason": "",
+        "scored_at": "2026-09-11T07:58:08.520747Z",
+        "created_at": "2026-09-11T07:58:08.520747Z"
+      },
+      {
+        "id": "27deb9dd-7268-482c-be4b-a6691fe32f1b",
+        "epoch_id": 323,
+        "intent_id": "CURRENCY_EXCHANGE",
+        "miner_slug": "livecert",
+        "rank": 4,
+        "score": 2.0021176e-7,
+        "failure_reason": "",
+        "scored_at": "2026-09-11T07:58:08.520747Z",
+        "created_at": "2026-09-11T07:58:08.520747Z"
+      },
+      {
+        "id": "8ee4821e-a1a5-4e06-9d0d-369a8e103933",
+        "epoch_id": 322,
+        "intent_id": "CURRENCY_EXCHANGE",
+        "miner_slug": "preflight-ssl-verification",
+        "rank": 1,
+        "score": 3.24195e-7,
+        "failure_reason": "",
+        "scored_at": "2026-09-10T22:56:29.53613Z",
+        "created_at": "2026-09-10T22:56:29.53613Z"
+      },
+      {
+        "id": "7e808c43-408f-4572-989a-c1e75fb39bed",
+        "epoch_id": 322,
+        "intent_id": "CURRENCY_EXCHANGE",
+        "miner_slug": "livecert",
+        "rank": 3,
+        "score": 1.2105494e-7,
+        "failure_reason": "",
+        "scored_at": "2026-09-10T22:56:29.53613Z",
+        "created_at": "2026-09-10T22:56:29.53613Z"
+      },
+      {
+        "id": "034f14c9-24db-41df-8064-42c59829fddc",
+        "epoch_id": 321,
+        "intent_id": "CURRENCY_EXCHANGE",
+        "miner_slug": "finwire-currency-exchange",
+        "rank": 1,
+        "score": 1.8754183e-7,
+        "failure_reason": "",
+        "scored_at": "2026-09-10T05:51:35.149165Z",
+        "created_at": "2026-09-10T05:51:35.149165Z"
+      },
+      {
+        "id": "8703ee3d-42f5-4582-a8c3-604eac08956e",
+        "epoch_id": 321,
+        "intent_id": "CURRENCY_EXCHANGE",
+        "miner_slug": "livecert",
+        "rank": 4,
+        "score": 9.871506e-8,
+        "failure_reason": "",
+        "scored_at": "2026-09-10T05:51:35.149165Z",
+        "created_at": "2026-09-10T05:51:35.149165Z"
+      },
+      {
+        "id": "8a2cfbfd-a1f1-4760-9b87-1c1caeda222e",
+        "epoch_id": 320,
+        "intent_id": "CURRENCY_EXCHANGE",
+        "miner_slug": "preflight-ssl-verification",
+        "rank": 1,
+        "score": 3.1802534e-7,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T20:51:34.865258Z",
+        "created_at": "2026-09-09T20:51:34.865258Z"
+      },
+      {
+        "id": "2812305f-0bee-4c5e-8aa5-c7db97ddb325",
+        "epoch_id": 320,
+        "intent_id": "CURRENCY_EXCHANGE",
+        "miner_slug": "livecert",
+        "rank": 3,
+        "score": 1.6125713e-7,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T20:51:34.865258Z",
+        "created_at": "2026-09-09T20:51:34.865258Z"
+      },
+      {
+        "id": "f830a4e2-f1d0-4a27-ae32-c688556ca5dc",
+        "epoch_id": 319,
+        "intent_id": "CURRENCY_EXCHANGE",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 1.7216418e-7,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T11:58:34.131992Z",
+        "created_at": "2026-09-09T11:58:34.131992Z"
+      },
+      {
+        "id": "d9285e51-6a8e-4cc7-a70a-ac9b558d07b3",
+        "epoch_id": 319,
+        "intent_id": "CURRENCY_EXCHANGE",
+        "miner_slug": "livecert",
+        "rank": 7,
+        "score": 0,
+        "failure_reason": "build request for miner \"livecert\": LLM call for miner \"livecert\" failed: http request: Post \"http://127.0.0.1:4000/v1/chat/completions\": context deadline exceeded",
+        "scored_at": "2026-09-09T11:58:34.131992Z",
+        "created_at": "2026-09-09T11:58:34.131992Z"
+      },
+      {
+        "id": "69b7543d-45c9-49f9-b936-308185127df6",
+        "epoch_id": 318,
+        "intent_id": "CURRENCY_EXCHANGE",
+        "miner_slug": "preflight-ssl-verification",
+        "rank": 1,
+        "score": 2.5924518e-7,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T02:53:23.472903Z",
+        "created_at": "2026-09-09T02:53:23.472903Z"
+      },
+      {
+        "id": "67e98150-3eb1-4ec0-8434-8801ae5a3ad9",
+        "epoch_id": 317,
+        "intent_id": "CURRENCY_EXCHANGE",
+        "miner_slug": "optivis-crypto-price",
+        "rank": 1,
+        "score": 0.0000012862699,
+        "failure_reason": "",
+        "scored_at": "2026-09-08T18:05:20.315343Z",
+        "created_at": "2026-09-08T18:05:20.315343Z"
+      }
+    ],
+    "total": 348,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 2945,
+    "author_address": "0xdad201ef02f5c1fbb8f9e931ae9b7c1bf493a39e",
+    "intent_id": "CURRENCY_EXCHANGE",
+    "wasm_url": "https://raw.githubusercontent.com/Harshyadav442277/miner/d2e1ed5/track2/calibration/dist/currency_exchange_r7.wasm",
+    "wasm_hash": "7dc8a68207aef976162c53e56580c2301352168ff615fb2d949b1bcf1d79a8e1",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 0.93331856,
+    "eval": {
+      "candidate_margin": 0.93331856,
+      "champion_margin": 0.9328732,
+      "candidate_wins": 15,
+      "champion_wins": 15,
+      "comparable_cases": 15,
+      "worst_self_match": 1,
+      "score_stddev": 0.4629429,
+      "spearman": {
+        "CURRENCY_EXCHANGE": 0.6131533
+      },
+      "historical_rows_evaluated": 58
+    },
+    "registered_at": "2026-08-31T21:15:36Z",
+    "updated_at": "2026-08-31T22:48:42Z"
+  }
+}

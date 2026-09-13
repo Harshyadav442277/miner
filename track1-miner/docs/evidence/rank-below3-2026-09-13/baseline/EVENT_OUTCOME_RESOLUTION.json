@@ -1,0 +1,88 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "008021d1-2a45-48a8-84f6-168759f32eac",
+        "epoch_id": 329,
+        "intent_id": "EVENT_OUTCOME_RESOLUTION",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.28348804,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T13:59:28.02291Z",
+        "created_at": "2026-09-13T13:59:28.02291Z"
+      },
+      {
+        "id": "f985c38c-cb30-483c-b27d-04d790db1128",
+        "epoch_id": 328,
+        "intent_id": "EVENT_OUTCOME_RESOLUTION",
+        "miner_slug": "polymarket-event",
+        "rank": 1,
+        "score": 0,
+        "failure_reason": "unrecognised response type []interface {} from miner",
+        "scored_at": "2026-09-13T04:50:22.454444Z",
+        "created_at": "2026-09-13T04:50:22.454444Z"
+      },
+      {
+        "id": "d975b728-ef78-4fac-b0ba-8adc447b8edb",
+        "epoch_id": 327,
+        "intent_id": "EVENT_OUTCOME_RESOLUTION",
+        "miner_slug": "polymarket-event",
+        "rank": 1,
+        "score": 0,
+        "failure_reason": "unrecognised response type []interface {} from miner",
+        "scored_at": "2026-09-12T19:58:22.740998Z",
+        "created_at": "2026-09-12T19:58:22.740998Z"
+      },
+      {
+        "id": "3317a979-36fd-4c7f-a339-b77ff9a84013",
+        "epoch_id": 326,
+        "intent_id": "EVENT_OUTCOME_RESOLUTION",
+        "miner_slug": "polymarket-event",
+        "rank": 1,
+        "score": 0,
+        "failure_reason": "unrecognised response type []interface {} from miner",
+        "scored_at": "2026-09-12T10:55:34.053023Z",
+        "created_at": "2026-09-12T10:55:34.053023Z"
+      },
+      {
+        "id": "2c218576-26b6-42f0-aefe-fd176c8ed799",
+        "epoch_id": 325,
+        "intent_id": "EVENT_OUTCOME_RESOLUTION",
+        "miner_slug": "polymarket-event",
+        "rank": 1,
+        "score": 0,
+        "failure_reason": "unrecognised response type []interface {} from miner",
+        "scored_at": "2026-09-12T01:56:47.313197Z",
+        "created_at": "2026-09-12T01:56:47.313197Z"
+      },
+      {
+        "id": "da521d19-99f0-42e9-9491-e76571f5a0ee",
+        "epoch_id": 324,
+        "intent_id": "EVENT_OUTCOME_RESOLUTION",
+        "miner_slug": "polymarket-event",
+        "rank": 1,
+        "score": 0,
+        "failure_reason": "unrecognised response type []interface {} from miner",
+        "scored_at": "2026-09-11T16:55:08.979442Z",
+        "created_at": "2026-09-11T16:55:08.979442Z"
+      },
+      {
+        "id": "a79989fe-edfa-4971-aa1b-abb3691ffafc",
+        "epoch_id": 323,
+        "intent_id": "EVENT_OUTCOME_RESOLUTION",
+        "miner_slug": "polymarket-event",
+        "rank": 1,
+        "score": 0,
+        "failure_reason": "unrecognised response type []interface {} from miner",
+        "scored_at": "2026-09-11T07:50:23.301106Z",
+        "created_at": "2026-09-11T07:50:23.301106Z"
+      }
+    ],
+    "total": 8,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": null
+}

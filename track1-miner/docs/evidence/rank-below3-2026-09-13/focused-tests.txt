@@ -1,0 +1,37 @@
+✔ long weather questions keep their best extracted location (20.9576ms)
+✔ credential safety instructions do not trigger a request-to-disclose marker (1.3061ms)
+✔ unresolved transaction hashes never receive a clean fraud assessment (1.0104ms)
+✔ a transaction's recipient is screened, on the chain requested (1.2386ms)
+✔ wrong-hash RPC data cannot substantiate a transaction assessment (0.4389ms)
+✔ no responding fraud source means unknown, never no indicators (0.4481ms)
+✔ product-code matching rejects different trials sharing a prefix (0.2914ms)
+✔ web search recovers code coverage without substituting company background (20.1733ms)
+✔ old web coverage is labelled available rather than current (1.6856ms)
+✔ an EIP-7702 delegated account is not a contract (0.689ms)
+✔ scam markers are specific things a legitimate message does not do (1.3462ms)
+✔ hostnames are read from links and bare domains, not from every dotted word (0.4793ms)
+✔ an address is read case-insensitively and normalised (0.1294ms)
+✔ a request with nothing to assess is refused (0.4079ms)
+✔ a clean result is never reported as safe (431.0332ms)
+✔ scam wording alone raises risk without any network call (0.3088ms)
+✔ a sanctioned address is high risk and says why (live) (361.4953ms)
+✔ a domain a threat feed blocks is high risk (live) (43.5579ms)
+✔ misroutes are named, and ordinary questions are not (1.6727ms)
+✔ a news outage with Wikipedia up is an outage, never an absence in both (20.1515ms)
+✔ forward-looking questions are recognised (0.1987ms)
+✔ product and trial codes are read, and ordinary words are not (0.6328ms)
+✔ a headline must name the code the question names (0.2354ms)
+✔ encyclopedia background must be about the entity as a proper noun (0.1661ms)
+✔ a long headline is clipped at a word boundary (0.2517ms)
+✔ an empty question and a misroute never reach the network (0.1495ms)
+✔ both sources down is an outage, not an absence (0.7517ms)
+✔ the canonical example is answered from dated, attributed reports (live) (1017.0085ms)
+✔ a forward-looking answer says it is not a prediction (live) (613.1281ms)
+ℹ tests 29
+ℹ suites 0
+ℹ pass 29
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1758.1312

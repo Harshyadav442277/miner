@@ -1,0 +1,169 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "ec9c9e5d-8ea8-47e0-a973-3cf6324671f3",
+        "epoch_id": 329,
+        "intent_id": "FRAUD_DETECTION",
+        "miner_slug": "telegraph-sentinel",
+        "rank": 1,
+        "score": 1,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T13:54:25.942145Z",
+        "created_at": "2026-09-13T13:54:25.942145Z"
+      },
+      {
+        "id": "9daf90b4-1aa7-4e65-b9c5-0714ba3a564d",
+        "epoch_id": 329,
+        "intent_id": "FRAUD_DETECTION",
+        "miner_slug": "livecert",
+        "rank": 6,
+        "score": 3.9285337e-14,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T13:54:25.942145Z",
+        "created_at": "2026-09-13T13:54:25.942145Z"
+      },
+      {
+        "id": "136fcf1c-f843-4c9f-ba5e-6acbaea7611f",
+        "epoch_id": 328,
+        "intent_id": "FRAUD_DETECTION",
+        "miner_slug": "sarzops-transaction-risk",
+        "rank": 1,
+        "score": 1.0576905e-13,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T04:51:23.632676Z",
+        "created_at": "2026-09-13T04:51:23.632676Z"
+      },
+      {
+        "id": "66827fde-5bad-4e6b-a381-9529cc9273b7",
+        "epoch_id": 328,
+        "intent_id": "FRAUD_DETECTION",
+        "miner_slug": "livecert",
+        "rank": 5,
+        "score": 2.6188494e-14,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T04:51:23.632676Z",
+        "created_at": "2026-09-13T04:51:23.632676Z"
+      },
+      {
+        "id": "63cabb5b-f6dc-47fd-8c92-5c0875033915",
+        "epoch_id": 327,
+        "intent_id": "FRAUD_DETECTION",
+        "miner_slug": "telegraph-sentinel",
+        "rank": 1,
+        "score": 1,
+        "failure_reason": "",
+        "scored_at": "2026-09-12T19:51:25.686352Z",
+        "created_at": "2026-09-12T19:51:25.686352Z"
+      },
+      {
+        "id": "306bd29d-c051-4bf5-a075-cdea9a12c03c",
+        "epoch_id": 327,
+        "intent_id": "FRAUD_DETECTION",
+        "miner_slug": "livecert",
+        "rank": 7,
+        "score": 1.7999523e-14,
+        "failure_reason": "",
+        "scored_at": "2026-09-12T19:51:25.686352Z",
+        "created_at": "2026-09-12T19:51:25.686352Z"
+      },
+      {
+        "id": "4c8085d5-18dd-4e8d-9767-6e6a056f83a4",
+        "epoch_id": 326,
+        "intent_id": "FRAUD_DETECTION",
+        "miner_slug": "sarzops-transaction-risk",
+        "rank": 1,
+        "score": 7.9019975e-14,
+        "failure_reason": "",
+        "scored_at": "2026-09-12T10:52:21.196924Z",
+        "created_at": "2026-09-12T10:52:21.196924Z"
+      },
+      {
+        "id": "30b8843c-6fe9-4411-93e2-cae0718ee1fd",
+        "epoch_id": 326,
+        "intent_id": "FRAUD_DETECTION",
+        "miner_slug": "livecert",
+        "rank": 7,
+        "score": 1.974195e-14,
+        "failure_reason": "",
+        "scored_at": "2026-09-12T10:52:21.196924Z",
+        "created_at": "2026-09-12T10:52:21.196924Z"
+      },
+      {
+        "id": "16ff2c63-bb82-49a7-9c6d-29ca9949f8db",
+        "epoch_id": 325,
+        "intent_id": "FRAUD_DETECTION",
+        "miner_slug": "sarzops-transaction-risk",
+        "rank": 1,
+        "score": 1.0417756e-13,
+        "failure_reason": "",
+        "scored_at": "2026-09-12T01:55:00.042441Z",
+        "created_at": "2026-09-12T01:55:00.042441Z"
+      },
+      {
+        "id": "eddc58ca-f8b3-4890-b7c5-efa9889de067",
+        "epoch_id": 325,
+        "intent_id": "FRAUD_DETECTION",
+        "miner_slug": "livecert",
+        "rank": 6,
+        "score": 4.518376e-14,
+        "failure_reason": "",
+        "scored_at": "2026-09-12T01:55:00.042441Z",
+        "created_at": "2026-09-12T01:55:00.042441Z"
+      },
+      {
+        "id": "1021fce8-ef42-4b4f-a8a1-e3f7e1efccce",
+        "epoch_id": 324,
+        "intent_id": "FRAUD_DETECTION",
+        "miner_slug": "sarzops-transaction-risk",
+        "rank": 1,
+        "score": 1,
+        "failure_reason": "",
+        "scored_at": "2026-09-11T16:52:50.528548Z",
+        "created_at": "2026-09-11T16:52:50.528548Z"
+      },
+      {
+        "id": "5f005c55-fa70-4a31-833d-cd30446c3965",
+        "epoch_id": 324,
+        "intent_id": "FRAUD_DETECTION",
+        "miner_slug": "livecert",
+        "rank": 6,
+        "score": 2.6188494e-14,
+        "failure_reason": "",
+        "scored_at": "2026-09-11T16:52:50.528548Z",
+        "created_at": "2026-09-11T16:52:50.528548Z"
+      }
+    ],
+    "total": 917,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 2793,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "FRAUD_DETECTION",
+    "wasm_url": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/a22b4919f6f2dc1102cd51e0be710a2c0aec1660/dist/reclaim5/fr_r3e6.wasm",
+    "wasm_hash": "ee0bf4e8a5730473cb66e90282e19d25cb7bc303e1474567282304498c5021f9",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 1,
+    "eval": {
+      "candidate_margin": 1,
+      "champion_margin": 0.9999497,
+      "candidate_wins": 15,
+      "champion_wins": 15,
+      "comparable_cases": 15,
+      "worst_self_match": 1,
+      "score_stddev": 0.47140452,
+      "spearman": {
+        "FRAUD_DETECTION": 0.9333887
+      },
+      "historical_rows_evaluated": 81
+    },
+    "registered_at": "2026-08-31T15:38:18Z",
+    "updated_at": "2026-08-31T16:13:15Z"
+  }
+}

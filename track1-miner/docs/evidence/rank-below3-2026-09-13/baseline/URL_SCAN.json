@@ -1,0 +1,155 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "b5cd56ed-7db1-4011-b985-fbd47d050cd8",
+        "epoch_id": 329,
+        "intent_id": "URL_SCAN",
+        "miner_slug": "preflight-ssl-verification",
+        "rank": 1,
+        "score": 0.99531394,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T13:59:14.357163Z",
+        "created_at": "2026-09-13T13:59:14.357163Z"
+      },
+      {
+        "id": "bf4a2b33-70af-44cb-a5f7-de5ee03ea8a1",
+        "epoch_id": 329,
+        "intent_id": "URL_SCAN",
+        "miner_slug": "livecert",
+        "rank": 4,
+        "score": 0.83959305,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T13:59:14.357163Z",
+        "created_at": "2026-09-13T13:59:14.357163Z"
+      },
+      {
+        "id": "9de7a208-f19a-4df6-8804-bdc0567bcc89",
+        "epoch_id": 328,
+        "intent_id": "URL_SCAN",
+        "miner_slug": "preflight-ssl-verification",
+        "rank": 1,
+        "score": 0.9301725,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T04:57:48.24875Z",
+        "created_at": "2026-09-13T04:57:48.24875Z"
+      },
+      {
+        "id": "e9dc68d5-225e-4d14-bcc7-e4dce952fb6e",
+        "epoch_id": 327,
+        "intent_id": "URL_SCAN",
+        "miner_slug": "proofgate-url-intelligence",
+        "rank": 1,
+        "score": 0.99526966,
+        "failure_reason": "",
+        "scored_at": "2026-09-12T19:50:57.385191Z",
+        "created_at": "2026-09-12T19:50:57.385191Z"
+      },
+      {
+        "id": "bb5e23a3-e6dd-4ebb-9427-646c8a96b8bb",
+        "epoch_id": 326,
+        "intent_id": "URL_SCAN",
+        "miner_slug": "netwire-url-scan",
+        "rank": 1,
+        "score": 0.9930632,
+        "failure_reason": "",
+        "scored_at": "2026-09-12T10:59:37.265678Z",
+        "created_at": "2026-09-12T10:59:37.265678Z"
+      },
+      {
+        "id": "033bfe45-aaea-4844-a4b6-786f6a36ce17",
+        "epoch_id": 325,
+        "intent_id": "URL_SCAN",
+        "miner_slug": "preflight-ssl-verification",
+        "rank": 1,
+        "score": 0.9878027,
+        "failure_reason": "",
+        "scored_at": "2026-09-12T01:56:56.219211Z",
+        "created_at": "2026-09-12T01:56:56.219211Z"
+      },
+      {
+        "id": "f03817d8-e109-421b-a6cc-08b96363cec6",
+        "epoch_id": 324,
+        "intent_id": "URL_SCAN",
+        "miner_slug": "proofgate-url-intelligence",
+        "rank": 1,
+        "score": 0.000009864305,
+        "failure_reason": "",
+        "scored_at": "2026-09-11T16:53:27.585879Z",
+        "created_at": "2026-09-11T16:53:27.585879Z"
+      },
+      {
+        "id": "0551d8f3-be74-42bc-9cc8-57f4ddc6ba37",
+        "epoch_id": 323,
+        "intent_id": "URL_SCAN",
+        "miner_slug": "proofgate-url-intelligence",
+        "rank": 1,
+        "score": 0.000009864305,
+        "failure_reason": "",
+        "scored_at": "2026-09-11T07:55:37.732626Z",
+        "created_at": "2026-09-11T07:55:37.732626Z"
+      },
+      {
+        "id": "89d48d0d-c35e-42af-a71a-d0fb1ccdf102",
+        "epoch_id": 322,
+        "intent_id": "URL_SCAN",
+        "miner_slug": "preflight-ssl-verification",
+        "rank": 1,
+        "score": 0.9850246,
+        "failure_reason": "",
+        "scored_at": "2026-09-10T22:57:08.759676Z",
+        "created_at": "2026-09-10T22:57:08.759676Z"
+      },
+      {
+        "id": "c4503a8d-483e-4f17-adc1-d2d2303e2527",
+        "epoch_id": 321,
+        "intent_id": "URL_SCAN",
+        "miner_slug": "proofgate-url-intelligence",
+        "rank": 1,
+        "score": 0.9274422,
+        "failure_reason": "",
+        "scored_at": "2026-09-10T05:49:47.666468Z",
+        "created_at": "2026-09-10T05:49:47.666468Z"
+      },
+      {
+        "id": "742946da-849b-4737-8c2f-77bb6dbdc543",
+        "epoch_id": 320,
+        "intent_id": "URL_SCAN",
+        "miner_slug": "proofgate-url-intelligence",
+        "rank": 1,
+        "score": 0.000009864305,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T20:51:55.196096Z",
+        "created_at": "2026-09-09T20:51:55.196096Z"
+      }
+    ],
+    "total": 568,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 220,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "URL_SCAN",
+    "wasm_url": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/0174a85639c398a0e898dcb11b54367eb2723b2b/dist/xfmr/url_c3.wasm",
+    "wasm_hash": "71581b142ca88090e795ffaaa95442e7403c49018f94e7c0b41ce938cef97c6a",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 0.9478501,
+    "eval": {
+      "candidate_margin": 0.9478501,
+      "champion_margin": 0.82566255,
+      "candidate_wins": 32,
+      "champion_wins": 32,
+      "comparable_cases": 32,
+      "worst_self_match": 1,
+      "score_stddev": 0.4539985,
+      "historical_rows_evaluated": 0
+    },
+    "registered_at": "2026-08-21T06:10:48Z",
+    "updated_at": "2026-08-21T06:10:48Z"
+  }
+}

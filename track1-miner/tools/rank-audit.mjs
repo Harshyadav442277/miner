@@ -5,7 +5,7 @@ import { resolve } from "node:path";
 import { readManifest } from "./manifest.mjs";
 
 const node = process.env.TELEGRAPH_NODE ?? "https://devnode.telegraphprotocol.com";
-const registrationId = process.env.REGISTRATION_ID ?? "1379";
+const registrationId = process.env.REGISTRATION_ID ?? "1408";
 const target = 18;
 const out = resolve(process.argv[2] ?? "track1-miner/docs/evidence/rank1-2026-09-10");
 async function get(path) {

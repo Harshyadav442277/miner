@@ -1,0 +1,263 @@
+{
+  "at": "2026-09-13T16:58:31.719Z",
+  "registration": 1408,
+  "active": "active",
+  "owner": "0xdad201ef02f5c1fbb8f9e931ae9b7c1bf493a39e",
+  "hash": "06a404b162f1eb72da2a24af896ad6cb08b2e221b7136f0a95ab14b893498b09",
+  "intents": 36,
+  "epoch": 329,
+  "scores": [
+    {
+      "intent_id": "CONTENT_EXTRACTION",
+      "epoch_id": 329,
+      "rank": 1,
+      "score": 1,
+      "scored_at": "2026-09-13T13:54:35.247495Z"
+    },
+    {
+      "intent_id": "CONTENT_VERIFICATION",
+      "epoch_id": 329,
+      "rank": 1,
+      "score": 3.2193222e-12,
+      "scored_at": "2026-09-13T13:59:09.424722Z"
+    },
+    {
+      "intent_id": "CROSS_CHAIN_STATE_VERIFY",
+      "epoch_id": 329,
+      "rank": 1,
+      "score": 0.50807047,
+      "scored_at": "2026-09-13T13:50:36.677761Z"
+    },
+    {
+      "intent_id": "EVENT_OUTCOME_RESOLUTION",
+      "epoch_id": 329,
+      "rank": 1,
+      "score": 0.28348804,
+      "scored_at": "2026-09-13T13:59:28.02291Z"
+    },
+    {
+      "intent_id": "FACT_CHECK",
+      "epoch_id": 329,
+      "rank": 1,
+      "score": 3.112054e-9,
+      "scored_at": "2026-09-13T14:00:49.634304Z"
+    },
+    {
+      "intent_id": "FINANCIAL_DATA",
+      "epoch_id": 329,
+      "rank": 1,
+      "score": 1.1869521e-18,
+      "scored_at": "2026-09-13T13:52:18.281889Z"
+    },
+    {
+      "intent_id": "IP_GEOLOCATION",
+      "epoch_id": 329,
+      "rank": 1,
+      "score": 0.99824667,
+      "scored_at": "2026-09-13T13:58:13.080161Z"
+    },
+    {
+      "intent_id": "LANGUAGE_TRANSLATION",
+      "epoch_id": 329,
+      "rank": 1,
+      "score": 2.9034075e-10,
+      "scored_at": "2026-09-13T13:53:28.030362Z"
+    },
+    {
+      "intent_id": "NEWS_HEADLINES",
+      "epoch_id": 329,
+      "rank": 1,
+      "score": 0.005856218,
+      "scored_at": "2026-09-13T13:51:12.757175Z"
+    },
+    {
+      "intent_id": "NEWS_SEARCH",
+      "epoch_id": 329,
+      "rank": 1,
+      "score": 0.9980328,
+      "scored_at": "2026-09-13T14:01:02.326038Z"
+    },
+    {
+      "intent_id": "SENTIMENT_ANALYSIS",
+      "epoch_id": 329,
+      "rank": 1,
+      "score": 0,
+      "scored_at": "2026-09-13T13:51:59.097743Z"
+    },
+    {
+      "intent_id": "STORM_ALERT",
+      "epoch_id": 329,
+      "rank": 1,
+      "score": 0.9967058,
+      "scored_at": "2026-09-13T14:00:09.994772Z"
+    },
+    {
+      "intent_id": "TELEGRAPH_KNOWLEDGE",
+      "epoch_id": 329,
+      "rank": 1,
+      "score": 1.367988e-11,
+      "scored_at": "2026-09-13T14:01:26.816681Z"
+    },
+    {
+      "intent_id": "TEXT_AUTHENTICITY_CHECK",
+      "epoch_id": 329,
+      "rank": 1,
+      "score": 1.3381647e-7,
+      "scored_at": "2026-09-13T13:56:19.924988Z"
+    },
+    {
+      "intent_id": "TEXT_CLASSIFICATION",
+      "epoch_id": 329,
+      "rank": 1,
+      "score": 0,
+      "scored_at": "2026-09-13T13:53:24.447092Z"
+    },
+    {
+      "intent_id": "TOKEN_HOLDER_COUNT",
+      "epoch_id": 329,
+      "rank": 1,
+      "score": 8.357291e-12,
+      "scored_at": "2026-09-13T13:54:59.054693Z"
+    },
+    {
+      "intent_id": "ACADEMIC_SEARCH",
+      "epoch_id": 329,
+      "rank": 2,
+      "score": 0.011046269,
+      "scored_at": "2026-09-13T14:07:12.33805Z"
+    },
+    {
+      "intent_id": "AI_TEXT_DETECTION",
+      "epoch_id": 329,
+      "rank": 2,
+      "score": 2.4193547e-10,
+      "scored_at": "2026-09-13T13:54:16.453533Z"
+    },
+    {
+      "intent_id": "CVE_LOOKUP",
+      "epoch_id": 329,
+      "rank": 2,
+      "score": 7.2217145e-12,
+      "scored_at": "2026-09-13T13:53:23.022289Z"
+    },
+    {
+      "intent_id": "GAME_RESULT",
+      "epoch_id": 329,
+      "rank": 2,
+      "score": 0.00023071468,
+      "scored_at": "2026-09-13T13:54:33.497974Z"
+    },
+    {
+      "intent_id": "GAS_PRICE",
+      "epoch_id": 329,
+      "rank": 2,
+      "score": 3.121211e-11,
+      "scored_at": "2026-09-13T13:59:05.875166Z"
+    },
+    {
+      "intent_id": "SPORTS_SCORE",
+      "epoch_id": 329,
+      "rank": 2,
+      "score": 6.6302584e-12,
+      "scored_at": "2026-09-13T14:00:12.766085Z"
+    },
+    {
+      "intent_id": "RESEARCH_QUERY",
+      "epoch_id": 329,
+      "rank": 3,
+      "score": 0.0076390835,
+      "scored_at": "2026-09-13T13:55:18.812896Z"
+    },
+    {
+      "intent_id": "SSL_VERIFICATION",
+      "epoch_id": 329,
+      "rank": 3,
+      "score": 0.0068696653,
+      "scored_at": "2026-09-13T13:53:56.308943Z"
+    },
+    {
+      "intent_id": "CURRENCY_EXCHANGE",
+      "epoch_id": 329,
+      "rank": 4,
+      "score": 1.4927696e-7,
+      "scored_at": "2026-09-13T13:55:55.165244Z"
+    },
+    {
+      "intent_id": "RESEARCH_SYNTHESIS",
+      "epoch_id": 329,
+      "rank": 4,
+      "score": 0.0045995195,
+      "scored_at": "2026-09-13T13:55:54.365304Z"
+    },
+    {
+      "intent_id": "TVL_LOOKUP",
+      "epoch_id": 329,
+      "rank": 4,
+      "score": 0.012187336,
+      "scored_at": "2026-09-13T14:11:13.575234Z"
+    },
+    {
+      "intent_id": "URL_SCAN",
+      "epoch_id": 329,
+      "rank": 4,
+      "score": 0.83959305,
+      "scored_at": "2026-09-13T13:59:14.357163Z"
+    },
+    {
+      "intent_id": "WEATHER_FORECAST",
+      "epoch_id": 329,
+      "rank": 4,
+      "score": 0.00040134625,
+      "scored_at": "2026-09-13T14:06:45.725269Z"
+    },
+    {
+      "intent_id": "FRAUD_DETECTION",
+      "epoch_id": 329,
+      "rank": 6,
+      "score": 3.9285337e-14,
+      "scored_at": "2026-09-13T13:54:25.942145Z"
+    },
+    {
+      "intent_id": "ONCHAIN_TX_LOOKUP",
+      "epoch_id": 329,
+      "rank": 6,
+      "score": 0.01202773,
+      "scored_at": "2026-09-13T13:57:58.599378Z"
+    },
+    {
+      "intent_id": "STOCK_PRICE",
+      "epoch_id": 329,
+      "rank": 6,
+      "score": 2.564404e-13,
+      "scored_at": "2026-09-13T14:07:29.076087Z"
+    },
+    {
+      "intent_id": "WALLET_BALANCE_CHECK",
+      "epoch_id": 329,
+      "rank": 6,
+      "score": 1.0849233e-13,
+      "scored_at": "2026-09-13T14:07:23.132561Z"
+    },
+    {
+      "intent_id": "WEB_SEARCH",
+      "epoch_id": 329,
+      "rank": 8,
+      "score": 3.5383241e-12,
+      "scored_at": "2026-09-13T14:11:36.608909Z"
+    },
+    {
+      "intent_id": "CRYPTO_PRICE",
+      "epoch_id": 329,
+      "rank": 12,
+      "score": 0,
+      "scored_at": "2026-09-13T14:05:24.304467Z"
+    },
+    {
+      "intent_id": "WEATHER_CHECK",
+      "epoch_id": 329,
+      "rank": 12,
+      "score": 0,
+      "scored_at": "2026-09-13T13:58:50.436758Z"
+    }
+  ]
+}

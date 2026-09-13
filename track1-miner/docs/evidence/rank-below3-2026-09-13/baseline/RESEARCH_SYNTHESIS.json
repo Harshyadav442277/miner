@@ -1,0 +1,320 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "9218e029-48cc-45a9-9029-9d3917e5994b",
+        "epoch_id": 329,
+        "intent_id": "RESEARCH_SYNTHESIS",
+        "miner_slug": "weerakorn-miner",
+        "rank": 1,
+        "score": 0.010760685,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T13:55:54.365304Z",
+        "created_at": "2026-09-13T13:55:54.365304Z"
+      },
+      {
+        "id": "4c5eb70b-b361-49ff-93e8-3ef73456ad2b",
+        "epoch_id": 329,
+        "intent_id": "RESEARCH_SYNTHESIS",
+        "miner_slug": "livecert",
+        "rank": 4,
+        "score": 0.0045995195,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T13:55:54.365304Z",
+        "created_at": "2026-09-13T13:55:54.365304Z"
+      },
+      {
+        "id": "aab7d1b0-4e01-4bc3-a8e8-ab26cf8e5063",
+        "epoch_id": 328,
+        "intent_id": "RESEARCH_SYNTHESIS",
+        "miner_slug": "weerakorn-miner",
+        "rank": 1,
+        "score": 0.01144308,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T04:57:30.544965Z",
+        "created_at": "2026-09-13T04:57:30.544965Z"
+      },
+      {
+        "id": "b71030cb-0e5c-414a-a2af-8f8b5ffa314b",
+        "epoch_id": 327,
+        "intent_id": "RESEARCH_SYNTHESIS",
+        "miner_slug": "qarinah-proofpack",
+        "rank": 1,
+        "score": 0.010839416,
+        "failure_reason": "",
+        "scored_at": "2026-09-12T19:59:07.661681Z",
+        "created_at": "2026-09-12T19:59:07.661681Z"
+      },
+      {
+        "id": "3268ebf7-2309-420b-9009-b2bba4d87f31",
+        "epoch_id": 326,
+        "intent_id": "RESEARCH_SYNTHESIS",
+        "miner_slug": "weerakorn-miner",
+        "rank": 1,
+        "score": 0.012554986,
+        "failure_reason": "",
+        "scored_at": "2026-09-12T10:55:28.243731Z",
+        "created_at": "2026-09-12T10:55:28.243731Z"
+      },
+      {
+        "id": "25e81b07-4ceb-4f95-929c-961e44f4180a",
+        "epoch_id": 325,
+        "intent_id": "RESEARCH_SYNTHESIS",
+        "miner_slug": "weerakorn-miner",
+        "rank": 1,
+        "score": 0.01441169,
+        "failure_reason": "",
+        "scored_at": "2026-09-12T01:58:35.301863Z",
+        "created_at": "2026-09-12T01:58:35.301863Z"
+      },
+      {
+        "id": "ef5a89df-db9b-4f63-a808-c0ec14198122",
+        "epoch_id": 324,
+        "intent_id": "RESEARCH_SYNTHESIS",
+        "miner_slug": "scholarwire-research-synthesis",
+        "rank": 1,
+        "score": 0.0074553792,
+        "failure_reason": "",
+        "scored_at": "2026-09-11T17:02:30.248879Z",
+        "created_at": "2026-09-11T17:02:30.248879Z"
+      },
+      {
+        "id": "4ed17d9a-9181-4523-ab31-87c1ad50c45b",
+        "epoch_id": 323,
+        "intent_id": "RESEARCH_SYNTHESIS",
+        "miner_slug": "scholarwire-research-synthesis",
+        "rank": 1,
+        "score": 0.0122486325,
+        "failure_reason": "",
+        "scored_at": "2026-09-11T08:00:37.234604Z",
+        "created_at": "2026-09-11T08:00:37.234604Z"
+      },
+      {
+        "id": "a707a2e8-3a39-4c5e-8222-3b428084fbce",
+        "epoch_id": 322,
+        "intent_id": "RESEARCH_SYNTHESIS",
+        "miner_slug": "weerakorn-miner",
+        "rank": 1,
+        "score": 0.008991207,
+        "failure_reason": "",
+        "scored_at": "2026-09-10T23:02:22.530441Z",
+        "created_at": "2026-09-10T23:02:22.530441Z"
+      },
+      {
+        "id": "749d9fa4-b810-4479-863c-b534dd77fe82",
+        "epoch_id": 321,
+        "intent_id": "RESEARCH_SYNTHESIS",
+        "miner_slug": "qarinah-proofpack",
+        "rank": 1,
+        "score": 0.013197952,
+        "failure_reason": "",
+        "scored_at": "2026-09-10T05:58:19.023634Z",
+        "created_at": "2026-09-10T05:58:19.023634Z"
+      },
+      {
+        "id": "d63330ce-190f-4caf-a568-2c6769168afe",
+        "epoch_id": 320,
+        "intent_id": "RESEARCH_SYNTHESIS",
+        "miner_slug": "qarinah-proofpack",
+        "rank": 1,
+        "score": 0.014466747,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T20:53:00.823622Z",
+        "created_at": "2026-09-09T20:53:00.823622Z"
+      },
+      {
+        "id": "a4f4b501-4e20-4089-aa7c-1ed1f613fcbf",
+        "epoch_id": 319,
+        "intent_id": "RESEARCH_SYNTHESIS",
+        "miner_slug": "weerakorn-miner",
+        "rank": 1,
+        "score": 0.008463382,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T12:11:17.907282Z",
+        "created_at": "2026-09-09T12:11:17.907282Z"
+      },
+      {
+        "id": "8aba6eb8-2f10-47d7-a280-5c4dc5112a7c",
+        "epoch_id": 318,
+        "intent_id": "RESEARCH_SYNTHESIS",
+        "miner_slug": "qarinah-proofpack",
+        "rank": 1,
+        "score": 0.9951279,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T03:13:42.405268Z",
+        "created_at": "2026-09-09T03:13:42.405268Z"
+      },
+      {
+        "id": "b5d0c2bd-337b-4232-ab4f-c1e49c6bbc21",
+        "epoch_id": 317,
+        "intent_id": "RESEARCH_SYNTHESIS",
+        "miner_slug": "qarinah-proofpack",
+        "rank": 1,
+        "score": 0.9981109,
+        "failure_reason": "",
+        "scored_at": "2026-09-08T18:12:39.418803Z",
+        "created_at": "2026-09-08T18:12:39.418803Z"
+      },
+      {
+        "id": "c4be0dfa-7b81-4952-8e25-969a31296723",
+        "epoch_id": 316,
+        "intent_id": "RESEARCH_SYNTHESIS",
+        "miner_slug": "scholarwire-research-synthesis",
+        "rank": 1,
+        "score": 0.008189299,
+        "failure_reason": "",
+        "scored_at": "2026-09-08T08:51:20.09948Z",
+        "created_at": "2026-09-08T08:51:20.09948Z"
+      },
+      {
+        "id": "ecb093f6-7914-41cb-b53b-04bf15e2b6a3",
+        "epoch_id": 315,
+        "intent_id": "RESEARCH_SYNTHESIS",
+        "miner_slug": "weerakorn-miner",
+        "rank": 1,
+        "score": 0.0117728375,
+        "failure_reason": "",
+        "scored_at": "2026-09-07T23:56:52.324752Z",
+        "created_at": "2026-09-07T23:56:52.324752Z"
+      },
+      {
+        "id": "65500cc1-ea8d-4d5a-a8de-a2b4cdc60228",
+        "epoch_id": 314,
+        "intent_id": "RESEARCH_SYNTHESIS",
+        "miner_slug": "weerakorn-miner",
+        "rank": 1,
+        "score": 0.007368519,
+        "failure_reason": "",
+        "scored_at": "2026-09-07T09:13:41.530635Z",
+        "created_at": "2026-09-07T09:13:41.530635Z"
+      },
+      {
+        "id": "3ed7dbad-f49d-49d9-b46a-af92795982ba",
+        "epoch_id": 313,
+        "intent_id": "RESEARCH_SYNTHESIS",
+        "miner_slug": "scholarwire-research-synthesis",
+        "rank": 1,
+        "score": 0.006271491,
+        "failure_reason": "",
+        "scored_at": "2026-09-07T00:17:34.969561Z",
+        "created_at": "2026-09-07T00:17:34.969561Z"
+      },
+      {
+        "id": "14fcd2c1-43a3-4e59-818b-717e61576134",
+        "epoch_id": 312,
+        "intent_id": "RESEARCH_SYNTHESIS",
+        "miner_slug": "weerakorn-miner",
+        "rank": 1,
+        "score": 0.011696551,
+        "failure_reason": "",
+        "scored_at": "2026-09-06T15:08:50.487876Z",
+        "created_at": "2026-09-06T15:08:50.487876Z"
+      },
+      {
+        "id": "b570d480-a98d-4e13-b71a-ed783bc2aec7",
+        "epoch_id": 311,
+        "intent_id": "RESEARCH_SYNTHESIS",
+        "miner_slug": "weerakorn-miner",
+        "rank": 1,
+        "score": 0.011905999,
+        "failure_reason": "",
+        "scored_at": "2026-09-06T06:14:34.525392Z",
+        "created_at": "2026-09-06T06:14:34.525392Z"
+      },
+      {
+        "id": "61826743-8473-4e49-b4b5-c2164e52c500",
+        "epoch_id": 310,
+        "intent_id": "RESEARCH_SYNTHESIS",
+        "miner_slug": "weerakorn-miner",
+        "rank": 1,
+        "score": 0.009287331,
+        "failure_reason": "",
+        "scored_at": "2026-09-05T17:05:29.031629Z",
+        "created_at": "2026-09-05T17:05:29.031629Z"
+      },
+      {
+        "id": "21b3eae4-a057-4288-9f26-eff8ab3bebd4",
+        "epoch_id": 309,
+        "intent_id": "RESEARCH_SYNTHESIS",
+        "miner_slug": "weerakorn-miner",
+        "rank": 1,
+        "score": 0.01177353,
+        "failure_reason": "",
+        "scored_at": "2026-09-05T04:49:09.09555Z",
+        "created_at": "2026-09-05T04:49:09.09555Z"
+      },
+      {
+        "id": "950ac330-df26-4ac5-905f-19a055978f56",
+        "epoch_id": 308,
+        "intent_id": "RESEARCH_SYNTHESIS",
+        "miner_slug": "weerakorn-miner",
+        "rank": 1,
+        "score": 0.011586136,
+        "failure_reason": "",
+        "scored_at": "2026-09-04T16:07:59.732454Z",
+        "created_at": "2026-09-04T16:07:59.732454Z"
+      },
+      {
+        "id": "ab0365fd-3114-479c-ae07-06c1840a1a51",
+        "epoch_id": 307,
+        "intent_id": "RESEARCH_SYNTHESIS",
+        "miner_slug": "qarinah-proofpack",
+        "rank": 1,
+        "score": 0.013426377,
+        "failure_reason": "",
+        "scored_at": "2026-09-04T07:08:22.325555Z",
+        "created_at": "2026-09-04T07:08:22.325555Z"
+      },
+      {
+        "id": "abb87ab9-6ab5-4110-9b88-242c81d1a643",
+        "epoch_id": 306,
+        "intent_id": "RESEARCH_SYNTHESIS",
+        "miner_slug": "weerakorn-miner",
+        "rank": 1,
+        "score": 0.011620408,
+        "failure_reason": "",
+        "scored_at": "2026-09-03T22:03:55.068539Z",
+        "created_at": "2026-09-03T22:03:55.068539Z"
+      },
+      {
+        "id": "6f13334a-28ec-4e7a-926b-527114d07f49",
+        "epoch_id": 305,
+        "intent_id": "RESEARCH_SYNTHESIS",
+        "miner_slug": "qarinah-proofpack",
+        "rank": 1,
+        "score": 0.009826709,
+        "failure_reason": "",
+        "scored_at": "2026-09-03T13:05:30.815864Z",
+        "created_at": "2026-09-03T13:05:30.815864Z"
+      }
+    ],
+    "total": 154,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 627,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "RESEARCH_SYNTHESIS",
+    "wasm_url": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/b0807b7bf048729951b6f8ef722d2ff55e735914/dist/xfmr/rs_mini.wasm",
+    "wasm_hash": "4ff6cf7232402c9f77992ce0dbd1f4e1546f50e9c69a543442825f69f81386a8",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 0.99235225,
+    "eval": {
+      "candidate_margin": 0.99235225,
+      "champion_margin": 0.93524307,
+      "candidate_wins": 32,
+      "champion_wins": 32,
+      "comparable_cases": 32,
+      "worst_self_match": 1,
+      "score_stddev": 0.46805862,
+      "historical_rows_evaluated": 0
+    },
+    "registered_at": "2026-08-24T00:24:02Z",
+    "updated_at": "2026-08-24T00:26:41Z"
+  }
+}

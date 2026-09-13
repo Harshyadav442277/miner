@@ -1,5 +1,30 @@
 # MEMORY.md — session continuity
 
+## 2026-09-13 ~17:00 UTC — rank-below-third recovery deployed
+
+Registration **1408**, **36 intents**, production **miner-1yltvl5d8** (preview
+miner-3vmtcv4s6, previous production/rollback miner-ohia88jfz). Manifest unchanged.
+Read [the recovery report](track1-miner/docs/RANK_BELOW3_2026-09-13.md).
+
+Epoch **329** is complete: **16/36 first**, including two zero ties, **12 below third**.
+WEATHER_CHECK's zero is a request-builder LLM timeout before the miner call.
+CRYPTO_PRICE's zero has no failure reason; direct price probes answer correctly.
+No new rank gain is verified for this release.
+
+Four intents receive demonstrated fixes: WEATHER_FORECAST/WEATHER_CHECK no longer return
+Return, South Carolina for Lagos/Abuja; FRAUD_DETECTION resolves transaction parties and
+checks sanctions instead of claiming no indicators without checks, and does not flag
+negated seed-phrase advice; WEB_SEARCH retries exact product codes, rejects wrong-company
+background/code-prefix matches and labels old articles accurately. The geocode fix also
+keeps explicit city/country pairs first. Existing receipt wording remains unchanged.
+
+704/704 full tests, 29/29 final focused tests, nine failing old-production checks converted
+to 9/9 on preview and production. Initial promotion responses included two old weather
+answers; an unchanged rerun passed all nine. Evidence is retained. The rank audit default
+now targets 1408 instead of superseded 1379. Next rank acceptance requires a complete epoch
+after this deployment; public score rows still lack hidden questions and ground truths.
+
+
 ## 2026-09-13 ~09:00 UTC — production was serving 26 of 36 registered intents; repaired, plus two measured fixes
 
 **State to resume from.** Branch `codex/rank1-14-intents`. Production is

@@ -151,7 +151,7 @@ export function placeCandidates(text: string): string[] {
   if (proper) {
     const stop = new Set([
       "will", "what", "how", "is", "are", "the", "a", "an", "i", "can", "could",
-      "would", "please", "give", "show", "tell", "provide", "report", "include",
+      "would", "please", "give", "show", "tell", "provide", "report", "include", "return", "classify",
       "celsius", "fahrenheit", "utc", "gmt",
       // Weekdays and months are time expressions, not places. "next Monday"
       // geocoded to Munday, a real town, and produced a confident forecast for
@@ -184,7 +184,7 @@ export function placeCandidates(text: string): string[] {
     // "Tokyo, Japan" reads as one place; the pair beats either half alone.
     for (let i = 0; i + 1 < kept.length; i++) {
       const joined = `${kept[i]}, ${kept[i + 1]}`;
-      if (raw.includes(joined) && !out.includes(joined)) out.push(joined);
+      if (raw.includes(joined) && !out.includes(joined)) out.unshift(joined);
     }
     for (const p of kept) if (!out.includes(p)) out.push(p);
   }
@@ -215,7 +215,12 @@ export function placeCandidates(text: string): string[] {
   // Each candidate costs a geocode round-trip, and latency is scored. For a long
   // sentence the raw string is the least likely to resolve, so try the extracted
   // candidates first; for a short input it is almost certainly the place itself.
-  if (raw.split(/\s+/).length > 4) return [...unique.slice(1), unique[0]!].filter(Boolean);
+  if (raw.split(/\s+/).length > 4) {
+    // Filtering long raw questions may already have removed raw. Rotating by
+    // index then discards the best extracted place (Lagos) in favour of a verb
+    // such as Return, which is also a real town in South Carolina.
+    return [...unique.filter(c => c !== raw), ...unique.filter(c => c === raw)];
+  }
   return unique;
 }
 

@@ -123,10 +123,11 @@ export function codeTokens(text: string): string[] {
     .filter((t) => /[A-Za-z]/.test(t) && /\d/.test(t) && t.length >= 4);
 }
 
-const squash = (s: string): string => s.toLowerCase().replace(/[^a-z0-9]/g, "");
-
 export function namesCode(title: string, codes: string[]): boolean {
-  return codes.length === 0 || codes.some((c) => squash(title).includes(squash(c)));
+  return codes.length === 0 || codes.some(c => {
+    const parts = c.match(/[A-Za-z]+|\d+/g) ?? [];
+    return new RegExp(`\\b${parts.join("[- ]?")}(?![A-Za-z0-9]|-\\d)`, "i").test(title);
+  });
 }
 
 export async function webSearch(question: string): Promise<WebSearchResult> {
@@ -147,22 +148,33 @@ export async function webSearch(question: string): Promise<WebSearchResult> {
   }
 
   const entity = namedEntity(q);
-  const [news, wiki] = await Promise.all([
-    searchNews(q, "", null, 3, NEWS_TIMEOUT_MS).catch(() => null),
+  const codes = codeTokens(q);
+  // Each search may perform two recency passes; reserve time for both searches.
+  const searchTimeout = Math.min(NEWS_TIMEOUT_MS, codes.length ? 2200 : 4500);
+  let [news, wiki] = await Promise.all([
+    searchNews(q, "", null, 3, searchTimeout).catch(() => null),
     entity ? findEncyclopedia(entity).catch(() => "unavailable" as const) : Promise.resolve(null),
   ]);
-  const codes = codeTokens(q);
-  const articles = news?.verdict === "articles" ? news.articles.filter((a) => namesCode(a.title, codes)).slice(0, 2) : [];
-  const background = wiki && wiki !== "unavailable" ? acceptBackground(entity, wiki.title, wiki.source) : null;
+  let articles = news?.verdict === "articles" ? news.articles.filter((a) => namesCode(a.title, codes)).slice(0, 2) : [];
+  // A speculative predicate can hide all coverage of the actual product. Keep
+  // the named code and the requested time window when retrying retrieval.
+  if (!articles.length && codes.length) {
+    const retry = await searchNews(q, codes.join(" "), null, 3, searchTimeout).catch(() => null);
+    const matches = retry?.verdict === "articles" ? retry.articles.filter(a => namesCode(a.title, codes)).slice(0, 2) : [];
+    if (matches.length) { news = retry; articles = matches; }
+  }
+  const background = wiki && wiki !== "unavailable" && namesCode(wiki.source, codes) ? acceptBackground(entity, wiki.title, wiki.source) : null;
   const newsDown = !news || news.error === "provider_unavailable";
   const wikiDown = wiki === "unavailable";
   const future = isForwardLooking(q);
   const caveat = future ? " Whether it will happen is not settled by these sources; this reports coverage, not a prediction." : "";
 
   if (articles.length) {
+    const current = articles.every(a => a.published && Date.now() - Date.parse(a.published) <= 30 * 86400000);
+    const age = current ? "current" : "available";
     const lead = articles.length === 1
-      ? `The most relevant current report is ${cite(articles[0] as Article)}.`
-      : `The most relevant current reports are ${cite(articles[0] as Article)} and ${cite(articles[1] as Article)}.`;
+      ? `The most relevant ${age} report is ${cite(articles[0] as Article)}.`
+      : `The most relevant ${age} reports are ${cite(articles[0] as Article)} and ${cite(articles[1] as Article)}.`;
     return {
       articles, background, verdict: "answered", confidence: 0.8,
       // No encyclopedia clause beside current reports: it would spend the
@@ -193,7 +205,7 @@ export async function webSearch(question: string): Promise<WebSearchResult> {
     };
   }
 
-  const about = entity ? ` about ${entity}` : codes[0] ? ` about ${codes[0]}` : "";
+  const about = codes[0] ? ` about ${codes[0]}` : entity ? ` about ${entity}` : "";
   const read = entity && !wikiDown ? "Google News or Wikipedia" : "Google News";
   const wikiGap = entity && wikiDown ? " Wikipedia did not answer, so it was not checked." : "";
   return {

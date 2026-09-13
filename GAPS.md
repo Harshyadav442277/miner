@@ -1,5 +1,27 @@
 # GAPS.md — honesty ledger
 
+## 2026-09-13 below-third recovery — G133–G136
+
+- **G133 — Wrong weather city, fixed and production verified.** Removing the long raw
+  question from a candidate array and then rotating by index dropped Lagos/Abuja. A
+  request verb, Return, resolved to South Carolina. Reorder by identity, prefer explicit
+  city/country pairs, exclude instruction words. Four production cases now pass.
+- **G134 — Empty fraud assessments, fixed and production verified.** Hash-only queries
+  claimed no indicators without reading the transaction. Resolve validated sender and
+  recipient on the named chain and screen existing sanctions data. No evidence means
+  unknown; a warning to never share credentials is no longer a disclosure request.
+  This does not add execution simulation, graph analysis, or a calibrated probability.
+- **G135 — Web product retrieval and attribution, fixed and production verified.**
+  A full speculative question hid indexed MK-2870 coverage; a code-only fallback now
+  retrieves it. Company background without the code is excluded and older headlines
+  are not labelled current. This does not establish a hidden-scoring gain.
+- **G136 — Rank acceptance remains open.** All 12 below-third intents audited in epoch
+  329; fixes deployed as miner-1yltvl5d8. Nine explicit old-build failures now pass live.
+  A later complete epoch is needed to establish rank movement. WEATHER_CHECK's zero
+  was the node's own request-builder timeout. Other unresolved gaps are recorded in
+  [the recovery report](track1-miner/docs/RANK_BELOW3_2026-09-13.md).
+
+
 ## 2026-09-13 production repair and the scorer response curves — G126–G132
 
 - **G126 — Production served 26 of the 36 intents it was registered for, for about a

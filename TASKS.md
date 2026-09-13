@@ -1,5 +1,19 @@
 # TASKS.md — execution board
 
+## Current mission — 2026-09-13: recover positions below third
+
+- [x] Bind epoch-329 rankings to active registration 1408, owner and manifest; audit all
+      12 intents below third and read failure reasons before treating zeros as bugs.
+- [x] Reproduce and repair wrong-city weather, unchecked fraud hashes, negated credential
+      advice, and product-specific web retrieval/attribution. 704 full tests and 29 final
+      focused tests pass. Preview and production pass nine checks that all failed before.
+- [x] Promote tested preview to production miner-1yltvl5d8; verify aliases and active
+      registration. Manifest and on-chain registration remain unchanged.
+- [ ] Verify rank movement in a complete scoring epoch after the deployment. Latest read
+      still shows epoch 329, with 12 positions below third; do not claim ranks improved yet.
+
+Details and remaining per-intent limits: [recovery report](track1-miner/docs/RANK_BELOW3_2026-09-13.md).
+
 ## Current mission — 2026-09-13: production repaired, two measured fixes shipped
 
 - [x] Find and fix the live defect: registration 1408 declared 36 intents while production

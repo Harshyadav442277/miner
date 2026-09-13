@@ -1,5 +1,19 @@
 # ARCHITECTURE.md — decisions and rationale
 
+## 2026-09-13: recovery for intents below third place
+
+Weather candidates are reordered by identity rather than by array position: a filtered-out long
+question must not remove the first extracted city. Explicit city/country pairs take precedence.
+Fraud transaction checks resolve and validate the transaction hash, sender and recipient on the
+requested chain, or search the supported EVM chains when none is named. Only those parties are
+screened against the existing sanctions source; missing evidence yields unknown. Negated credential
+disclosure instructions are not evidence of a credential request. This remains a limited sanctions
+screen, not an execution simulation or transaction-graph assessment.
+Web search retries an empty product query using the exact product code, retains requested date
+constraints, and keeps its combined news timeout below the request watchdog. Product-code matches
+must identify the same code. Unrelated company background is excluded; older coverage is labelled
+available instead of current. No provider credentials or manifest changes are needed.
+
 ## 2026-09-11: wallet chain, token and availability coverage
 
 Wallet lookups honor a recognized structured chain before question prose, including numeric chain
