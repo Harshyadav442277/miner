@@ -26,6 +26,8 @@ import { resolvePlace } from "./storm";
 import { extractCoords, shortPlaceName } from "./extract";
 import { conditionOf, type ForecastResult } from "./forecast";
 
+import { getWeatherJson } from "./weather-upstream";
+
 const FORECAST = "https://api.open-meteo.com/v1/forecast";
 const DEFAULT_TIMEOUT_MS = 8000;
 
@@ -68,18 +70,11 @@ export async function getCurrentConditions(query: string, timeoutMs = DEFAULT_TI
   const url =
     `${FORECAST}?latitude=${place.latitude}&longitude=${place.longitude}` +
     `&current=temperature_2m,precipitation,weather_code,wind_speed_10m&timezone=UTC&wind_speed_unit=kmh`;
-  const ac = new AbortController();
-  const t = setTimeout(() => ac.abort(), timeoutMs);
-  let body: { current?: Current };
-  try {
-    // A failed fetch throws, and the route answers that as an outage — the same
-    // contract as the forecast path, so an outage is never a missing reading.
-    const res = await fetch(url, { signal: ac.signal });
-    if (!res.ok) throw new Error(`upstream ${res.status}`);
-    body = (await res.json()) as typeof body;
-  } finally {
-    clearTimeout(t);
-  }
+  // A failed read throws, and the route answers that as an outage — the same
+  // contract as the forecast path, so an outage is never a missing reading.
+  // getWeatherJson retries once first, so a momentary 5xx no longer costs the
+  // whole epoch's answer.
+  const body = (await getWeatherJson(url, timeoutMs)) as { current?: Current };
 
   const c = body.current;
   const located = { location: place.name, latitude: place.latitude, longitude: place.longitude };

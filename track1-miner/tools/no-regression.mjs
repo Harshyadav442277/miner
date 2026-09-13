@@ -8,13 +8,21 @@
  *
  * Compared against production, not against a local build.
  *
- * KNOWN AND DELIBERATE: /ip-geolocate DIFFERS and stays that way. It is the
- * only route that reuses its subject parameter as the question it restates, so
- * filling `ip` drops the restatement prefix. GAPS G35 first recorded that as
- * an open inconsistency; G41 then measured it against champion 630 over the 21
- * recovered rows — WITHOUT the prefix 0.994307 and 21/21 crossings, WITH it
- * 0.478165 and 10/21 — so the divergence is the measured optimum, not a gap.
- * Expect 7 identical, 1 differing; any other shape is a real regression.
+ * /ip-geolocate used to be the exception and no longer is. It reuses its
+ * subject parameter as the question it restates, so filling `ip` dropped the
+ * restatement prefix while a query-only call kept it. G35 recorded that as an
+ * open inconsistency and G41 measured which side was right, against champion
+ * 630 over the 21 recovered rows: WITHOUT the prefix 0.994307 and 21/21
+ * crossings, WITH it 0.478165 and 10/21.
+ *
+ * Only the parameter-filled path was ever fixed, so the query-only path — the
+ * one the node actually uses — went on paying for the prefix. handler.ts now
+ * caps the restated request at GEO_MAX_RESTATED_WORDS for this route, which
+ * drops it on exactly the long questions that were losing, and the two paths
+ * agree again. Measured on a deployed build 2026-09-13: 14/21 crossings to
+ * 16/21, mean 0.6660 to 0.7602.
+ *
+ * Expect 8 identical, 0 differing; any other shape is a real regression.
  */
 const BASE = process.argv[2] ?? "https://miner-wine.vercel.app";
 const ADDR = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045";

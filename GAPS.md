@@ -1,5 +1,81 @@
 # GAPS.md — honesty ledger
 
+## 2026-09-13 production repair and the scorer response curves — G126–G132
+
+- **G126 — Production served 26 of the 36 intents it was registered for, for about a
+  day.** Registration 1408 went active with 36 intents and hash `0x06a404b1…8b09` while
+  the alias still pointed at `miner-5dc00iohh`, the 26-intent build. `/sentiment`,
+  `/url-scan`, `/web-search` and seven more returned **HTTP 404** to every probe in that
+  window. Found by probing the alias, not by any gate: `verify-deploy` and `preflight`
+  both read the LOCAL manifest, so a production deployment that lags the registration is
+  invisible to them. Fixed by promoting (`miner-idvym8u6y`, then `miner-ohia88jfz`);
+  36/36 correctness against production after. **The uptime watcher could not have caught
+  it either** — `vars.REGISTRATION_ID` was still `1379`, a registration the node reports
+  as `superseded`, so it had been watching the wrong row since the update. Set to 1408.
+  `FIXED 2026-09-13`, but the gate gap is `OPEN`: nothing compares the registered intent
+  list against what the alias actually serves.
+- **G127 — The champion scorers are not one kind of scorer, and the differences decide
+  what is worth engineering.** Measured by walking a candidate answer away from a ground
+  truth one step at a time, under four current champions:
+
+  | step | CVE reg3030 | IP reg630 | ONCHAIN reg642 | WEATHER_CHECK reg510 |
+  |---|---|---|---|---|
+  | identical to the ground truth | 1.000 | 1.000 | 1.000 | 0.9993 |
+  | + one extra true clause | 1.000 | 0.9960 | 0.9960 | 0.9993 |
+  | number wrong by 0.1 | **1.5e-11** | 0.9946 | **1.5e-2** | 0.9993 |
+  | severity wrong, number right | 1.000 | 0.9993 | 0.9993 | 0.9998 |
+  | a refusal | 5.9e-12 | 5.9e-3 | 5.9e-3 | 1.6e-2 |
+
+  CVE_LOOKUP is a **pure numeric cliff**: the CVSS number decides everything and the
+  severity word is not read at all. IP_GEOLOCATION is a **gradient** — every extra clause
+  costs a measurable fraction, which is why shortening its answer is worth doing and
+  shortening CVE's is not. Champion filenames encode the tolerance (`cvz_1e06`,
+  `gpf_1e4`, `wf_4e3`, `wchk_tol45`), and the walk agrees with the names. `MEASURED`.
+- **G128 — Two shape changes were NOT shipped because their benches failed validation.**
+  G114's rule — make a known crossing competitor cross before trusting a bench — was
+  applied twice and refused twice. (a) CVE_LOOKUP: sentinelvault-cve scored **exactly
+  1.0** at epoch 328 and scores **7.5e-12** against ground truths built from NVD's own
+  fields, below our live answer. (b) ONCHAIN_TX_LOOKUP: our live answer scores **0.996**
+  against constructed ground truths while production has scored us **0.012** in eight
+  consecutive epochs, and veyctum's real answer scores 0.998. In both cases the authored
+  ground truth is not what the node uses and the instrument cannot see the difference. So
+  the tempting conclusion — that we carry a wrong number in ONCHAIN, which the 1.5e-2
+  band in G127 would fit — **is unproven and must not be written down as fact**. `OPEN`.
+- **G129 — The restatement was costing IP_GEOLOCATION on exactly the path the node
+  uses.** G41 measured that the restatement prefix costs this route (without 0.994307 and
+  21/21, with it 0.478165 and 10/21) but only the parameter-filled path was ever fixed;
+  a query-only call — what the node actually sends — still paid. The cause is mechanical:
+  these questions run to 25 words, the converter scores about 32, and our own answer opens
+  by naming the address anyway, so the city, operator and AS number fell past the end of
+  the window. `handler.ts` now drops the restatement on this route past 10 words.
+  Measured on deployed builds under champion reg630 across ip_bench's 21 recorded rows:
+  **14/21 crossings to 16/21, mean 0.6660 to 0.7602**, with SSL, STORM, ACADEMIC and
+  WALLET benches byte-identical. This also closed G35. `FIXED 2026-09-13`.
+- **G130 — The same change is wrong everywhere else, and that is why it is not global.**
+  Applied to every route it costs ssl_bench's one row whose host actually resolves,
+  api.github.com, **0.9928 → 0.0109** — there the restatement is what crosses, and
+  SSL_VERIFICATION is a rank we hold. STORM_ALERT and ACADEMIC_SEARCH move by about 0.004
+  inside a band neither has ever crossed in 34 rows. An earlier global version of this
+  change measured +10 crossings offline and only +1 once deployed, because the offline
+  simulation reconstructed prose that production does not actually emit. **Measure the
+  deployed build, not a reconstruction of it.** `MEASURED`.
+- **G131 — Three weather intents shared two unprotected single points of failure.**
+  WEATHER_CHECK, WEATHER_FORECAST and STORM_ALERT all read `api.open-meteo.com`, and two
+  of them also read `geocoding-api.open-meteo.com`, with no retry and no second source: a
+  momentary 5xx took all three to a refusal in the same epoch, and a refusal scores at the
+  floor where an answer can cross. `weather-upstream.ts` now retries once on a transient
+  failure and falls back to OpenStreetMap for geocoding. Both are keyless, per A3/A4, and
+  strictly additive — verified byte-identical weather answers against production on a
+  healthy upstream. **This has not yet prevented anything**: no weather row in the visible
+  history carries a zero or a `failure_reason`, so the risk is real but unrealised, and
+  the fix is insurance rather than a repair. `FIXED 2026-09-13`.
+- **G132 — There is still no forecast failover, only a geocoder one.** met.no is keyless
+  and reachable and would serve as a second forecast source, but its `complete` feed
+  carries no wind gusts and no precipitation probability — both of which STORM_ALERT's
+  risk grade and WEATHER_FORECAST's dominant routed question read. Failing over to it
+  would silently change the storm grade, which is a worse failure than being briefly
+  unavailable. Recorded, not built. `OPEN`.
+
 ## 2026-09-13 ten-intent expansion — G118–G125
 
 - **G118 — Ten intents are built, tested and on a preview, and on neither production nor

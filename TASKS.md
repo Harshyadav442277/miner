@@ -1,5 +1,35 @@
 # TASKS.md — execution board
 
+## Current mission — 2026-09-13: production repaired, two measured fixes shipped
+
+- [x] Find and fix the live defect: registration 1408 declared 36 intents while production
+      served 26, so ten endpoints 404'd on every probe (G126). Promoted; 36/36 correctness
+      and 7/7 preflight against production.
+- [x] Point `vars.REGISTRATION_ID` at 1408 — it was still 1379, which the node reports as
+      `superseded`, so the uptime watcher had been reading the wrong row since the update.
+- [x] Refresh the routed corpus: 603 → 896 questions across 29 intents. Replay against
+      production: 756/896 answered; the remaining refusals read and found overwhelmingly
+      correct. WEB_SEARCH is the most-routed intent in the network (119) and answers 119/119.
+- [x] Close the "the node builds bad requests for us" hypothesis: 210 rows of real routed
+      traffic from the explorer feed, 0 failures, question passed verbatim.
+- [x] Sweep latency across all 35 endpoints — under 3 s worst case, no timeout risk.
+- [x] Measure what the champion scorers actually do (G127). CVE is a pure numeric cliff;
+      IP_GEOLOCATION is a gradient; champion filenames encode the tolerance.
+- [x] Refuse two shape changes whose benches failed the G114 validation (G128).
+- [x] Ship the IP_GEOLOCATION restatement limit (G129): ip_bench 14/21 → 16/21 crossings,
+      mean 0.6660 → 0.7602, other benches byte-identical. Closes G35; `no-regression` now
+      expects 8 identical, 0 differ.
+- [x] Ship the weather upstream retry and OpenStreetMap geocoder fallback (G131), keyless
+      and additive; weather answers byte-identical on a healthy upstream.
+- [ ] **Read epoch 329** (~13:50 UTC) — the first epoch that can see the ten new intents,
+      the ONCHAIN prose order and the IP_GEOLOCATION change. No rank is claimed until then.
+- [ ] A gate that compares the REGISTERED intent list against what the alias actually
+      serves. `preflight` and `verify-deploy` both read the local manifest, so neither
+      could see G126. This is the one that would have caught a day of 404s.
+- [ ] Forecast failover (G132): met.no lacks gusts and precipitation probability, so it
+      would silently change the storm grade. Needs a source that carries both.
+
+
 ## Current mission — 2026-09-13: ten more keyless intents, 26 to 36
 
 - [x] Build CRYPTO_PRICE, STOCK_PRICE, URL_SCAN, WEB_SEARCH, CONTENT_VERIFICATION,

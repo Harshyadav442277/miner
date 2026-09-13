@@ -78,6 +78,37 @@ describe("withRestatement", () => {
     assert.ok(out.endsWith(sslReason), out);
   });
 
+  // The IP_GEOLOCATION word limit. Measured on ip_bench under champion reg630:
+  // restating a 25-word request spends the ~32-word scored window and the
+  // answer never reaches the scorer (14/21 crossings to 16/21 when dropped).
+  // handler.ts passes this only for /ip-geolocate; SSL loses its one resolvable
+  // row without the restatement, so the default must stay unchanged.
+  const longQ =
+    "Can you look up the geographic location and any available abuse history " +
+    "for the IP address 142.251.42.174 and return the results in a structured format?";
+  const geoReason = "The IP address 142.251.42.174 is operated by Google LLC in Tokyo, Japan.";
+
+  test("drops a request longer than the caller's limit", () => {
+    assert.equal(withRestatement(longQ, geoReason, true, 10), geoReason);
+  });
+
+  test("still restates that same request by default", () => {
+    // The limit is opt-in per call site, so nothing else changes behaviour.
+    // "look up" is not in IMPERATIVE, so this takes the neutral opener.
+    assert.ok(
+      withRestatement(longQ, geoReason, true).startsWith("Regarding look up the geographic location"),
+      "the default must still restate a request this long",
+    );
+  });
+
+  test("restates a request that fits inside the limit", () => {
+    const shortQ = "Can you determine the geographic location for the IP address 8.8.8.8?";
+    const reason = "The IP address 8.8.8.8 is operated by Google LLC.";
+    const out = withRestatement(shortQ, reason, true, 10);
+    assert.ok(out.startsWith("Here is the geographic location for the IP address 8.8.8.8:"), out);
+    assert.ok(out.endsWith(reason), out);
+  });
+
   test("passes the answer through untouched when there is no question", () => {
     const reason = "The TLS/SSL certificate for github.com is valid.";
     assert.equal(withRestatement("github.com", reason, true), reason);

@@ -79,10 +79,21 @@ export function restateRequest(question: string): { phrase: string; nounPhrase: 
  * `answered` picks the opener: a real answer is introduced as one, and an answer
  * we could not produce says so rather than promising data it does not have.
  * Both keep the request's own wording, which is where the score is.
+ *
+ * `maxWords` drops the restatement instead of prefixing it when the request is
+ * longer than that. The default keeps every caller's existing behaviour; the
+ * measurement that made it a parameter is on the IP_GEOLOCATION call sites in
+ * handler.ts, together with the SSL evidence for why it is NOT global.
  */
-export function withRestatement(question: string, reason: string, answered: boolean): string {
+export function withRestatement(
+  question: string,
+  reason: string,
+  answered: boolean,
+  maxWords = 60,
+): string {
   const { phrase, nounPhrase } = restateRequest(question);
   if (!phrase || !reason.trim()) return reason;
+  if (phrase.split(" ").length > maxWords) return reason;
   // Doubling the restatement measured worse than one (weather 0.667 against
   // 0.830 — a second copy pushes some answers back off the cliff), so never
   // stack them. A stacked answer is one WE already prefixed, so it must carry

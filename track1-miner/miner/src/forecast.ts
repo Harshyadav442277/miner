@@ -12,6 +12,7 @@
 
 import { resolvePlace } from "./storm";
 import { shortPlaceName, resolveDateRequest, extractCoords } from "./extract";
+import { getWeatherJson } from "./weather-upstream";
 
 const FORECAST = "https://api.open-meteo.com/v1/forecast";
 const DEFAULT_TIMEOUT_MS = 8000;
@@ -113,9 +114,10 @@ export async function getForecast(
     return `${common}&start_date=${startDay}&end_date=${endDay}`;
   })();
 
-  const ac = new AbortController();
-  const t = setTimeout(() => ac.abort(), timeoutMs);
-  let body: {
+  // Retries once on a transient upstream failure before giving up; see
+  // weather-upstream.ts. A hard failure still throws and is answered as an
+  // outage rather than as a location with no forecast.
+  const body = (await getWeatherJson(url, timeoutMs)) as {
     hourly?: {
       time?: string[];
       temperature_2m?: number[];
@@ -125,13 +127,6 @@ export async function getForecast(
       weather_code?: number[];
     };
   };
-  try {
-    const res = await fetch(url, { signal: ac.signal });
-    if (!res.ok) throw new Error(`upstream ${res.status}`);
-    body = (await res.json()) as typeof body;
-  } finally {
-    clearTimeout(t);
-  }
 
   const h = body.hourly;
   const allTimes = h?.time ?? [];

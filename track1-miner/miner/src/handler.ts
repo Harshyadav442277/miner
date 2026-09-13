@@ -220,15 +220,49 @@ function send(res: ServerResponse, status: number, body: unknown): void {
  * subject while the restatement is always the live question, not whichever
  * question first warmed the entry. Measurements: src/restate.ts.
  */
-function sendAnswer(res: ServerResponse, question: string, body: unknown, restate = true): void {
+function sendAnswer(
+  res: ServerResponse,
+  question: string,
+  body: unknown,
+  restate = true,
+  maxRestatedWords?: number,
+): void {
   const b = body as Record<string, unknown>;
   const reason = typeof b?.reason === "string" ? b.reason : "";
   if (!reason || !restate) {
     send(res, 200, body);
     return;
   }
-  send(res, 200, { ...b, reason: withRestatement(question, reason, isAnswered(b)) });
+  send(res, 200, { ...b, reason: withRestatement(question, reason, isAnswered(b), maxRestatedWords) });
 }
+
+/**
+ * The longest request IP_GEOLOCATION will restate, in words.
+ *
+ * Measured 2026-09-13 on a deployed build against ip_bench — 21 captured
+ * questions with their captured ground truths — under the CURRENT champion
+ * reg630, scored as flat32:
+ *
+ *   restate every request (60 words)   mean 0.6660   14/21 cross
+ *   drop it past 10 words              mean 0.7602   16/21 cross
+ *
+ * The cause is mechanical and visible row by row. These questions run to 25
+ * words ("Can you look up the geographic location and any available abuse
+ * history for the IP address 142.251.42.174 and return the results in a
+ * structured format"), the converter scores roughly 32, and our own answer
+ * opens by naming the address anyway — so the prefix duplicates the subject and
+ * pushes the city, the operator and the AS number past the end of the window.
+ * Every losing row is a long question; every crossing row is a short one.
+ *
+ * This is deliberately NOT global. The same change measured on ssl_bench costs
+ * the one row whose host actually resolves, api.github.com, 0.9928 -> 0.0109:
+ * there the restatement is what crosses, and SSL_VERIFICATION is a rank we
+ * hold. STORM_ALERT and ACADEMIC_SEARCH move by ~0.004 inside a band neither
+ * has ever crossed. So the rule goes where it was measured and nowhere else.
+ *
+ * A bench is a filter, not a verdict (G62). Only a scored epoch settles it.
+ */
+const GEO_MAX_RESTATED_WORDS = 10;
 
 /**
  * The scored text is the converter's summary of the WHOLE payload, keys
@@ -683,13 +717,13 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     const key = `geo:${q.trim().toLowerCase()}`;
     const hit = fromCache(key);
     if (hit) {
-      sendAnswer(res, q, lean(hit), !SPECIAL_GEO_VERDICTS.has((hit as GeoResult).verdict));
+      sendAnswer(res, q, lean(hit), !SPECIAL_GEO_VERDICTS.has((hit as GeoResult).verdict), GEO_MAX_RESTATED_WORDS);
       return;
     }
     geolocate(q)
       .then((result) => {
         toCache(key, result);
-        sendAnswer(res, q, lean(result), !SPECIAL_GEO_VERDICTS.has(result.verdict));
+        sendAnswer(res, q, lean(result), !SPECIAL_GEO_VERDICTS.has(result.verdict), GEO_MAX_RESTATED_WORDS);
       })
       .catch(() => {
         upstreamUnavailable(res, "IP geolocation", q.slice(0, 80), q);

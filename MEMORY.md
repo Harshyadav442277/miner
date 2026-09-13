@@ -1,5 +1,86 @@
 # MEMORY.md — session continuity
 
+## 2026-09-13 ~09:00 UTC — production was serving 26 of 36 registered intents; repaired, plus two measured fixes
+
+**State to resume from.** Branch `codex/rank1-14-intents`. Production is
+**`miner-ohia88jfz`** (rollback `miner-idvym8u6y` held, which was itself the repair).
+Registration is **1408**, active, 36 intents, hash `0x06a404b1…8b09` — the operator
+completed the `updateMiner` since the last session. **1379 is `superseded`; every tool
+defaulting to it now errors, which is how this was found.** `miner.yaml` is unchanged and
+its blob hash still matches 1408, so **no `updateMiner` is implied by anything below.**
+
+**The thing that mattered most, and it was a live defect.** Registration 1408 declared 36
+intents while the alias still served the 26-intent build, so ten endpoints — `/sentiment`,
+`/url-scan`, `/web-search` and seven more — returned **HTTP 404 to every probe** for about
+a day. Neither `preflight` nor `verify-deploy` can see this: both read the LOCAL manifest,
+so they agreed with a production that was a day behind the chain. The uptime watcher could
+not see it either, because `vars.REGISTRATION_ID` was still 1379. Promoted, and set the
+variable to 1408. **36/36 correctness and 7/7 preflight against production** after.
+
+**Epoch 328 read 11/36 rank 1**, with the ten new intents unscored. Several of them have
+leaders at or near zero (SENTIMENT_ANALYSIS 0, CONTENT_VERIFICATION 0, CRYPTO_PRICE 4e-38,
+STOCK_PRICE 3.5e-13), so the promotion alone is the largest single move available. **No
+rank is claimed — epoch 329 is the first that can see any of it.**
+
+**What the scorers actually do, measured (G127).** Walking a candidate away from a ground
+truth one step at a time, under four current champions, shows they are not one kind of
+scorer. **CVE_LOOKUP reg3030 is a pure numeric cliff** — a CVSS score wrong by 0.1 scores
+1.5e-11, while the severity word can be wrong and still score exactly 1.0. **IP_GEOLOCATION
+reg630 is a gradient** where each extra clause costs a measurable fraction. ONCHAIN reg642
+puts a wrong number at 1.5e-2. WEATHER_CHECK reg510's tolerance is so loose that content
+barely moves it. **Champion filenames encode the tolerance** (`cvz_1e06`, `gpf_1e4`,
+`wf_4e3`, `wchk_tol45`) and the walk agrees with them. This is the first direct measurement
+of scorer behaviour in the project and it says where shortening an answer pays and where it
+cannot.
+
+**Two changes were built and then NOT shipped, both for the same reason (G128).** G114's
+rule — make a known crossing competitor cross before trusting a bench — was applied twice
+and refused twice. sentinelvault-cve scored **exactly 1.0** at epoch 328 and **7.5e-12**
+against ground truths built from NVD's own fields. Our live ONCHAIN answer scores **0.996**
+against constructed ground truths while production has given us **0.012** for eight straight
+epochs. **So the appealing conclusion — that we carry a wrong number in ONCHAIN — is
+unproven and is not written down as fact.** Not shipping also kept epoch 329 a clean read of
+the ONCHAIN prose-order change that had been stranded on preview.
+
+**What did ship, and it is measured (G129/G130).** The restatement prefix was costing
+IP_GEOLOCATION on exactly the path the node uses. G41 had measured the effect and fixed only
+the parameter-filled path; a query-only call still paid. `handler.ts` now drops the
+restatement on that route past 10 words: **ip_bench 14/21 crossings to 16/21, mean 0.6660 to
+0.7602** under the current champion, with SSL, STORM, ACADEMIC and WALLET byte-identical.
+This closed G35, so `no-regression` now expects **8 identical, 0 differ**.
+
+**The lesson worth keeping (G130).** The first version of that change was global and looked
+like +10 crossings offline. Deployed, it was +1 — and it cost ssl_bench's only row whose
+host resolves, api.github.com, **0.9928 → 0.0109**. The offline sweep had reconstructed
+prose production does not emit. **Measure the deployed build, not a reconstruction of it**,
+and narrow a change to where it was actually measured.
+
+**Weather (G131/G132), asked for mid-session.** WEATHER_FORECAST is already stable — rank 2
+in six of the last seven epochs — and our WEATHER_CHECK score is near-constant at
+0.0150–0.0183 across nine epochs. **The rank swing is other miners crossing a cliff we never
+cross, not us moving.** Crossing it means matching ground truths that are frequently LLM
+refusals, which this project has already declined to chase and still should. What WAS in our
+control: all three weather intents read Open-Meteo with no retry and no second source, so one
+5xx refused all three at once. `weather-upstream.ts` adds a retry and an OpenStreetMap
+geocoder fallback, keyless per A3/A4, strictly additive — weather answers verified
+byte-identical on a healthy upstream. **No weather row in the visible history has a zero or a
+`failure_reason`, so this is insurance, not a repair.** No forecast failover yet: met.no
+lacks gusts and precipitation probability, which would silently change the storm grade.
+
+**Also refreshed.** The routed corpus is 603 → **896 questions across 29 intents**;
+production answers **756/896**, and the remaining refusals were read and are overwhelmingly
+correct ones (subject-less questions and misroutes). **WEB_SEARCH is the network's
+most-routed intent, 119 of 896** — we answer 119/119. Latency swept: all 35 endpoints under
+3 s worst case. 210 rows of real routed traffic pulled from the explorer feed, 0 failures,
+which closes the hypothesis that the node builds bad requests for us.
+
+**Tests.** 561/561 offline, 154/154 live, 7/7 preflight, 36/36 intent correctness, 35/35
+endpoints answering on the preview before promotion.
+
+**Exact next action.** Read **epoch 329** (~13:50 UTC): it is the first epoch that can see
+the ten intents at all, the ONCHAIN prose order, and the IP_GEOLOCATION restatement change.
+Nothing needs the operator. Nothing on-chain is pending.
+
 ## 2026-09-13 ~00:00 UTC (05:30 IST) — ten more keyless intents built and verified; NOT on production, NOT registered
 
 **State to resume from.** Branch `codex/rank1-14-intents`, pushed at `4d73a9e` plus the

@@ -10,6 +10,7 @@
  */
 
 import { placeCandidates, shortPlaceName, extractCoords, extractHours, extractTimeRequest, extractWindThreshold, asksForKnots, toKmh, summarisePeriods } from "./extract";
+import { getWeatherJson, geocodeFallback } from "./weather-upstream";
 
 const GEOCODE = "https://geocoding-api.open-meteo.com/v1/search";
 const FORECAST = "https://api.open-meteo.com/v1/forecast";
@@ -58,16 +59,12 @@ const THUNDER = new Set([95, 96, 99]);
 const ADVISORY =
   /\b(what|which)\b[^?]*\b(adjustments?|precautions?|measures|steps|actions)\b|\bshould\s+\w+\s+(implement|take|adopt)\b|\bhow\s+(should|can|do)\s+\w+\s+(prepare|protect|respond|safeguard)|\bsafeguard\b/i;
 
+/**
+ * Shared by the geocoder and the forecast read. Retries once on a transient
+ * upstream failure; see weather-upstream.ts for why that is not free-form.
+ */
 async function getJson(url: string, timeoutMs: number): Promise<unknown> {
-  const ac = new AbortController();
-  const t = setTimeout(() => ac.abort(), timeoutMs);
-  try {
-    const res = await fetch(url, { signal: ac.signal });
-    if (!res.ok) throw new Error(`upstream ${res.status}`);
-    return await res.json();
-  } finally {
-    clearTimeout(t);
-  }
+  return getWeatherJson(url, timeoutMs);
 }
 
 export interface Place {
@@ -158,13 +155,22 @@ async function geocodeOnce(query: string, timeoutMs = DEFAULT_TIMEOUT_MS): Promi
     return { name: `${latitude},${longitude}`, latitude, longitude };
   }
 
-  const body = (await getJson(
-    `${GEOCODE}?name=${encodeURIComponent(q)}&count=1&language=en&format=json`,
-    timeoutMs,
-  )) as { results?: Array<Record<string, unknown>> };
+  // Open-Meteo's geocoder is a single point of failure for WEATHER_CHECK and
+  // STORM_ALERT alike: no coordinates means both refuse. OpenStreetMap answers
+  // the same question and is only consulted once this one has actually failed,
+  // so a healthy primary is unaffected.
+  let body: { results?: Array<Record<string, unknown>> };
+  try {
+    body = (await getJson(
+      `${GEOCODE}?name=${encodeURIComponent(q)}&count=1&language=en&format=json`,
+      timeoutMs,
+    )) as { results?: Array<Record<string, unknown>> };
+  } catch {
+    return geocodeFallback(q, timeoutMs);
+  }
 
   const hit = body.results?.[0];
-  if (!hit) return null;
+  if (!hit) return geocodeFallback(q, timeoutMs);
   const parts = [hit["name"], hit["admin1"], hit["country"]].filter(
     (p): p is string => typeof p === "string" && p.length > 0,
   );

@@ -8,10 +8,12 @@
  * alone is not sufficient and never was — it passed green through all five
  * defects found on 2026-08-30 (GAPS G30-G33).
  *
- * `no-regression` is expected to report 7 identical and 1 differing: the
- * `/ip-geolocate` divergence is known, deliberate and documented in GAPS G35.
- * Any OTHER shape from it is a real regression, so the expectation is asserted
- * here rather than the exit code being ignored.
+ * `no-regression` is expected to report 8 identical and 0 differing. The
+ * `/ip-geolocate` divergence that G35 recorded closed on 2026-09-13, when the
+ * restatement stopped being applied to long questions on that route and the
+ * parameter-filled and query-only paths converged. Any OTHER shape from it is a
+ * real regression, so the expectation is asserted here rather than the exit
+ * code being ignored.
  *
  * The upstreams flap under concurrent load. A single red run is not proof of a
  * defect — re-run the failing gate on its own before believing it.
@@ -57,8 +59,8 @@ const GATES = [
   ["upstream health", () => run("node", [join(TOOLS, "upstream-health.mjs")], TOOLS),
     (o) => /0 primary failing/.test(o)],
   // Exit code 1 is CORRECT here; the assertion is on the exact known shape.
-  ["no-regression (7 identical, 1 differ)", () => run("node", [join(TOOLS, "no-regression.mjs"), BASE], TOOLS),
-    (o) => /7 identical, 1 differ/.test(o)],
+  ["no-regression (8 identical, 0 differ)", () => run("node", [join(TOOLS, "no-regression.mjs"), BASE], TOOLS),
+    (o) => /8 identical, 0 differ/.test(o)],
 ];
 
 console.log(`preflight against ${BASE}\n`);
