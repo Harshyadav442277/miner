@@ -6,12 +6,19 @@
       F7 comparisons, F9 prediction-market guard. 588/588 unit tests. Preview verified with
       11 probes, then promoted to production `miner-nj9rqs2vp` (operator yes). Preflight 7/7,
       intent checker 36/36, and the report probes score as expected on production (G137–G143).
-- [ ] F5 WEB_SEARCH: version questions via endoflife.date, office holders via Wikidata.
-- [ ] F8 FINANCIAL_DATA: fiscal-year fundamentals via SEC EDGAR companyconcept. Check that
-      data.sec.gov answers from Vercel before relying on it.
-- [ ] Read the first complete epoch after 11:32 UTC 2026-09-15 for CONTENT_EXTRACTION,
-      TEXT_CLASSIFICATION, SENTIMENT_ANALYSIS, TELEGRAPH_KNOWLEDGE, ACADEMIC_SEARCH, RESEARCH_QUERY
-      and EVENT_OUTCOME_RESOLUTION. Claim no rank change before that.
+- [x] F5 WEB_SEARCH (endoflife.date, Wikidata) and F8 FINANCIAL_DATA (SEC EDGAR, trailing P/E).
+- [x] Node test inputs leaked through competitors' failure_reason: fraud scenarios, clinical
+      research concepts, the ARB holder count, title/author extraction (G144–G147).
+- [x] Sentiment and classification answer shapes re-measured and changed (G148).
+- [x] FACT_CHECK Wikimedia 429 fixed (G150).
+- [x] Second release to production `miner-6xcnxjuz8` ~12:18 UTC (operator asked for the deploy):
+      preflight 7/7, intent-answers 36/36, 617/617 unit tests.
+- [ ] Read epoch 335 (starts 19:50 UTC 2026-09-15; rows land ~19:52–20:25 UTC) for every intent.
+      Claim no rank change before those rows exist. Check `failure_reason` before calling a zero
+      a defect (G145).
+- [ ] Operator's call: delete the merged local branches `websearch-currentfacts`,
+      `agent/financial-fundamentals`, `worktree-agent-a861f65832ecaa1b1` and
+      `worktree-agent-aa289a139dc28ba41` (their commits are cherry-picked; not pushed anywhere).
 
 ## Current mission — 2026-09-13: recover positions below third
 

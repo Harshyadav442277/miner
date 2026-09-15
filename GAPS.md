@@ -1,10 +1,59 @@
 # GAPS.md — honesty ledger
 
+## 2026-09-15 second release: node test cases, web search, fundamentals, fact-check 429 — G144–G151
+
+Production `miner-6xcnxjuz8`, promoted ~12:18 UTC 2026-09-15 (17:48 IST). The next scoring
+epoch is 335, starting 19:50 UTC. Preflight 7/7, intent-answers 36/36, 13/14 report probes at
+1.0 (`preflight4.txt`, `intent-check-production4.txt`, `production-after4.txt`). No rank change
+is claimed until epoch 335 rows exist.
+
+- **G144 — Other miners' failure_reason fields leak the node's test inputs for several intents.**
+  Epochs 328–334: CONTENT_EXTRACTION (microlink), FRAUD_DETECTION (eviplan: scenarios),
+  RESEARCH_QUERY (community-memory: clinical questions) and TOKEN_HOLDER_COUNT (kriterion: ARB on
+  Arbitrum One). The script is `scratchpad leaks.mjs`, not committed. Only inputs leak; ground
+  truths do not.
+- **G145 — Epoch-334 zeros, read before diagnosing.** WEATHER_CHECK and FRAUD_DETECTION: node
+  "wasm/runtime pool: context deadline exceeded". ONCHAIN_TX_LOOKUP: node request-builder LLM
+  timeout. CONTENT_EXTRACTION was scored 10:59 UTC on the pre-release build. TEXT_CLASSIFICATION
+  (11:03) and SENTIMENT (11:06) were probably on the 11:02 build and still 0; the cause is unknown.
+- **G146 — FRAUD_DETECTION scenarios fixed (fraudscenario.ts).** All three leaked scenarios were
+  refused as "no subject". Business email compromise and account takeover now answer high risk,
+  each with its red flags named. A bare "Insurance claim for a stolen vehicle." answers unknown
+  and lists what to verify. Champion 2793, AUTHORED truths: 5/9 crossings, 0/9 before. Red flags
+  come from a hand-written regex catalogue and are not semantic.
+- **G147 — RESEARCH_QUERY concept search.** The leaked diabetes/CKD question now leads with a 2026
+  Delphi consensus instead of no_evidence. Champion 452 scores ~0.01 on authored truths whichever
+  wording is used, against the leader's 0.72, so no crossing is expected from wording alone.
+- **G148 — Sentiment and classification lead with the label and restate the passage.** Champion
+  646: 7/18 authored crossings vs 4/18. Champion 687: 9/15 with the question's noun. A
+  `text`+`labels` request with no question falls back to "text", which scores 6/15 (0/15 before).
+  Dropping the matched-words clause scores higher (11/18), but the registered manifest promises
+  those words, so they stay. The real cases are still unknown.
+- **G149 — WEB_SEARCH current facts and FINANCIAL_DATA fundamentals shipped (report F5, F8).**
+  - Built by two subagents on separate branches, cherry-picked as 22712bb and 97a8443.
+  - Web search: endoflife.date for release questions, Wikidata preferred-rank claims for office
+    holders.
+  - Financial: SEC EDGAR companyconcept, answering from Vercel; a trailing P/E from the last
+    price ÷ 10-K diluted EPS.
+  - Open: Wikidata can be stale or vandalised. The UK PM answer ("Andy Burnham, since 2026") was
+    checked against Wikidata only.
+  - Open: `lean()` strips the structured fundamentals fields from the HTTP response.
+  - Open: "Will X's sales exceed…" now gets annual revenue.
+- **G150 — FACT_CHECK was intermittently rate-limited by Wikimedia: fixed.** factcheck.ts sent
+  `livecert-miner/1.0 (Telegraph miner)`, which drew HTTP 429; with the miner URL it drew 200. It
+  also reported the failed search as "no matching reference article". That plausibly explains
+  FACT_CHECK alternating 1.0 / ~3e-9 across epochs 328–334, but it is not proven per epoch. The
+  refusal is now an outage verdict. Candidates widened 5→10, with a penalty for title words the
+  claim does not use: over 15 claims, better picks on 3, worse on 1 (bats → The Blind Watchmaker).
+  Pre-existing odd picks remain (Einstein → Andrei Zelevinsky, "Sharks are mammals" → Shark attack).
+- **G151 — Correction: the first release was promoted ~11:02 UTC, not 11:32.** The Vercel list
+  showed the build 52 minutes old at 11:54 UTC.
+
 ## 2026-09-15 rank-loss report fixes — G137–G143
 
 Source: [track1-miner/docs/TRACK1_RANK_LOSS_REPORT_2026-09-15.md](track1-miner/docs/TRACK1_RANK_LOSS_REPORT_2026-09-15.md)
-(written by Codex, report only). Production `miner-nj9rqs2vp`, promoted ~11:32 UTC; evidence in
-`track1-miner/docs/evidence/rank-loss-2026-09-15/`.
+(written by Codex, report only). Production `miner-nj9rqs2vp`, promoted ~11:02 UTC (see G151);
+evidence in `track1-miner/docs/evidence/rank-loss-2026-09-15/`.
 
 - **G137 — CONTENT_EXTRACTION zeros in epochs 330/331 reproduced and fixed.** The node sends the
   payload as bare `text` (a competitor's failure_reason leaks it each epoch). Under champion 935,
@@ -34,10 +83,8 @@ Source: [track1-miner/docs/TRACK1_RANK_LOSS_REPORT_2026-09-15.md](track1-miner/d
 - **G143 — EVENT_OUTCOME "prediction market" no longer refused; who-questions need a named winner.**
   The report's FIFA case now answers `no_market_found`, not a wrong "Resolved Yes" from a
   Manifold market that names no winner. It is still not answered.
-- **Not done in this release:** WEB_SEARCH (report F5) and FINANCIAL_DATA fundamentals (F8).
-  Verified keyless sources for both on 2026-09-15: endoflife.date (python latest 3.14.7),
-  Wikidata preferred-rank office holders (UN Secretary-General claim), and SEC EDGAR
-  companyconcept (HTTP 200 from this machine with a non-email UA; not yet tried from Vercel).
+- **WEB_SEARCH (F5) and FINANCIAL_DATA fundamentals (F8)** were not in this release; both shipped
+  in the second release (G149).
 
 ## 2026-09-13 below-third recovery — G133–G136
 

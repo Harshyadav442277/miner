@@ -693,7 +693,7 @@ The strongest supported explanation is **stronger and broader competition exposi
 
 The deployment is present. The visible scorer-champion set is unchanged. The next useful work, if authorized, should target the evidenced capability failures and obtain exact traces for the largest unexplained deficits. Another deployment by itself is not evidence that rank one has been recovered.
 
-## Follow-up — fixes shipped 2026-09-15 ~11:32 UTC
+## Follow-up — fixes shipped 2026-09-15 (first release ~11:02 UTC, second ~12:18 UTC)
 
 Seven of the nine section-4 defects were fixed and promoted to production `miner-nj9rqs2vp`, with
 the operator's approval. Verification: 588/588 unit tests, preflight 7/7, and intent-answers 36/36
@@ -706,11 +706,11 @@ release; see `docs/evidence/rank-loss-2026-09-15/`.
 | F2 classification | Fixed for the report's cases. Cue lexicon, whole-text scoring and "a billing issue" wording. Scored against authored ground truths only. |
 | F3 sentiment | Sarcastic opening praise now reads negative. Other sarcasm is still missed. |
 | F4 Telegraph knowledge | Leader questions name the latest scored epoch's rank 1. |
-| F5 web search | **Not fixed.** Sources verified (endoflife.date, Wikidata); not built. |
+| F5 web search | Second release. Latest-release questions are answered from endoflife.date ("Python 3.14.7") and office holders from Wikidata preferred-rank claims. General news questions still use the headline path. |
 | F6 academic search | Word counts honoured, off-topic hits ranked out, "peer-reviewed" only when asked and filtered to journal articles. Score-neutral on the 22-row bench. |
 | F7 research | "Difference between A and B" answered from both Wikipedia articles. Other general questions are unchanged. |
-| F8 financial data | **Not fixed.** SEC EDGAR companyconcept verified reachable from a local machine only. |
+| F8 financial data | Second release. Fiscal-year fundamentals come from SEC EDGAR 10-K facts (Apple FY2024 revenue $391.04B), plus a trailing P/E from the last price and diluted EPS. Quarterly figures are not supported. |
 | F9 event outcome | "Prediction market" no longer refused. The FIFA case now reports no market that names a winner, rather than a wrong Yes. |
 
-No leaderboard effect is claimed until a complete epoch after the deployment is read. Open items
-are GAPS G137–G143.
+The second release (production `miner-6xcnxjuz8`, preflight 7/7) also answers the fraud scenarios, research questions and holder count that leaked from the node through other miners' failure reasons, and fixes a Wikimedia 429 that made FACT_CHECK intermittent. No leaderboard effect is claimed until epoch 335 is read. Open items
+are GAPS G137–G151.
