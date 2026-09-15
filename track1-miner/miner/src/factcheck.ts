@@ -121,7 +121,11 @@ async function getJson(url: string, timeoutMs: number): Promise<Record<string, u
   try {
     const res = await fetch(url, {
       signal: ac.signal,
-      headers: { accept: "application/json", "user-agent": "livecert-miner/1.0 (Telegraph miner)" },
+      // Wikimedia's API policy wants a contact in the user-agent. Measured
+      // 2026-09-15: "livecert-miner/1.0 (Telegraph miner)" drew HTTP 429 "You are
+      // making too many requests" where the same request with the miner's URL
+      // drew 200 — which is why FACT_CHECK alternated between 1.0 and ~3e-9 by epoch.
+      headers: { accept: "application/json", "user-agent": "livecert-miner/1.0 (+https://miner-wine.vercel.app)" },
     });
     if (!res.ok) return null;
     return (await res.json()) as Record<string, unknown>;
@@ -196,13 +200,25 @@ export async function checkFact(question: string, timeoutMs = DEFAULT_TIMEOUT_MS
   // Ask for several candidates and pick the closest, rather than trusting the
   // first. Wikipedia's top hit for "humans only use 10% of their brains" was
   // **Flight of the Navigator** — a film that quotes the myth — where the
-  // article that actually addresses it ranks lower.
+  // article that actually addresses it ranks lower. On 2026-09-15 it ranked
+  // seventh or eighth ("Ten-percent-of-the-brain myth"), outside the five this
+  // used to read, so the film was cited; ten candidates keep it in reach.
   const search = await getJson(
     `${WIKI_SEARCH}?action=query&list=search&srsearch=${encodeURIComponent(terms)}` +
-    `&srlimit=5&format=json&origin=*`,
+    `&srlimit=10&format=json&origin=*`,
     timeoutMs,
   );
-  const hits = ((search?.["query"] as Record<string, unknown> | undefined)?.["search"] ?? []) as Array<Record<string, unknown>>;
+  // A search that did not answer is an outage, not an absence (ARCHITECTURE A5):
+  // it used to be reported as "no matching reference article was found".
+  if (search === null) {
+    return {
+      ...base, verdict: "unknown", confidence: 0, source: "Wikipedia", error: "upstream_unavailable",
+      reason:
+        `The claim "${claim}" could not be checked because the reference source (Wikipedia) did not ` +
+        `answer. This is an availability problem, not a finding about the claim.`,
+    };
+  }
+  const hits = ((search["query"] as Record<string, unknown> | undefined)?.["search"] ?? []) as Array<Record<string, unknown>>;
   const claimWords = new Set(matchTokens(claim));
   let title: string | null = null;
   let bestScore = -1;
@@ -232,7 +248,11 @@ export async function checkFact(question: string, timeoutMs = DEFAULT_TIMEOUT_MS
       const inside = matchTokens(paren[1] ?? "");
       if (inside.length > 0 && !inside.every((w) => claimWords.has(w))) disambiguation = 3;
     }
-    const score = hit + titleHit * 2 - disambiguation;
+    // Ten candidates bring in near-namesakes: "Hôtel Pullman Paris Tour Eiffel"
+    // carries "Paris" and "Eiffel" from the claim plus two words it does not. A
+    // title word the claim never uses counts against the article.
+    const extra = matchTokens(baseTitle).filter((w) => !claimWords.has(w)).length;
+    const score = hit + titleHit * 2 - disambiguation - extra * 0.75;
     if (score > bestScore) { bestScore = score; title = t; }
   }
 
