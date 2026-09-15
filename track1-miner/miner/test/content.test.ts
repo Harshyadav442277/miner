@@ -158,3 +158,12 @@ describe("report F1: extraction reads what the text carries", () => {
       "Extracted from the supplied text: 12%, $4.5 million, Q3.");
   });
 });
+
+// Epoch 334's payload, read from a competitor's failure_reason.
+test("a work and its creator are split on 'by'", () => {
+  assert.equal(extractContent("", "Book: 'The Silent Patient' by Alex Michaelides.").summary, "Book: 'The Silent Patient' by Alex Michaelides.");
+  assert.equal(extractContent('Extract the book title and author from: "Book: \'The Silent Patient\' by Alex Michaelides."').summary,
+    "Book: The Silent Patient. Author: Alex Michaelides.");
+  assert.equal(extractContent("Extract the title and director from: Inception by Christopher Nolan.").summary,
+    "Title: Inception. Director: Christopher Nolan.");
+});

@@ -257,6 +257,83 @@ export async function findEncyclopedia(term: string): Promise<Citation | null | 
   }
 }
 
+/**
+ * The concepts a research question combines, with its scaffolding removed.
+ *
+ * The node's own RESEARCH_QUERY cases, read from another miner's failure_reason
+ * (2026-09-15), are clinical-evidence questions:
+ *   "What are the most recent findings regarding the efficacy of CRISPR-Cas9 gene
+ *    editing for treating Huntington's disease…"                      (epoch 334)
+ *   "What are the current recommendations for managing type 2 diabetes in
+ *    patients with chronic kidney disease…"                            (epoch 332)
+ * The second became the single search term "current recommendations managing type
+ * diabetes patients chronic kidney disease" — the "2" gone, the scaffolding kept —
+ * and answered no_evidence; the first found a generic CRISPR review. Split into
+ * ["type 2 diabetes", "chronic kidney disease"], Europe PMC returns a 2026
+ * consensus statement on exactly that.
+ */
+export function researchConcepts(question: string): { concepts: string[]; guidance: boolean; recent: boolean } {
+  const q = String(question ?? "").replace(/\bcite (?:your )?sources?\b\.?/gi, "").replace(/[?!]+/g, " ").trim();
+  const guidance = /\b(?:recommendations?|guidelines?|consensus|best practices?|standard of care)\b/i.test(q);
+  const recent = /\b(?:recent|latest|current|new(?:est)?|up-to-date)\b/i.test(q);
+  const core = q
+    .replace(/^\s*(?:what|which)\s+(?:are|is|were|was)\s+(?:the\s+)?/i, "")
+    .replace(/^(?:(?:most\s+)?(?:recent|latest|current|new(?:est)?|up-to-date|main|key)\s+)*(?:research\s+|clinical\s+)?(?:findings|evidence|recommendations|guidelines|data|results|studies|research|consensus|understanding|advances|developments)\s+(?:on|regarding|about|for|in|of|concerning)\s+/i, "")
+    .replace(/\b(?:the\s+)?(?:efficacy|effectiveness|safety|role|use|impact|effects?|benefits?)\s+of\s+/gi, "")
+    .replace(/\b(?:for\s+)?(?:treating|managing|treatment\s+of|management\s+of|patients\s+with|people\s+with|adults\s+with|individuals\s+with)\b/gi, " | ")
+    .replace(/\bin\s+(?:human\s+)?(?:clinical\s+)?(?:trials?|studies|humans|patients|adults|children)\b.*$/i, "")
+    .replace(/[.;]+\s*$/, "");
+  const GENERIC = /^(?:gene editing|treatment|therapy|therapies|patients?|management|humans?|adults|children|clinical trials?|efficacy|outcomes?|disease)$/i;
+  const concepts = core.split(/\s*\|\s*|\s*,\s*|\s+(?:for|in|with|among|and|versus|vs\.?|on)\s+/i)
+    .map((c) => c.replace(/^(?:the|a|an)\s+/i, "")
+      .replace(/(?:\s+(?:gene editing|therapy|treatment|efficacy|effectiveness|safety|outcomes?|research|findings))+$/i, "")
+      .replace(/['’]s\b/g, "").trim())
+    .filter((c) => c.length >= 3 && !GENERIC.test(c));
+  return { concepts: [...new Set(concepts)].slice(0, 3), guidance, recent };
+}
+
+export interface Finding extends Citation { conclusion: string | null }
+
+/** Literature that covers every concept, with each abstract's concluding sentence. */
+export async function findConceptLiterature(concepts: string[], guidance: boolean, recent: boolean): Promise<Finding[] | "unavailable"> {
+  const term = concepts.map((c) => (c.split(/\s+/).length <= 4 ? `"${c}"` : c)).join(" AND ") +
+    (guidance ? " AND (guideline OR recommendations OR consensus)" : "") +
+    (recent ? ` AND PUB_YEAR:[${new Date().getUTCFullYear() - 5} TO ${new Date().getUTCFullYear()}]` : "") +
+    " NOT SRC:PPR";
+  try {
+    const d = (await getJson(`${EPMC}?query=${encodeURIComponent(term)}&format=json&pageSize=8&resultType=core`)) as {
+      resultList?: { result?: Array<{ title?: string; authorString?: string; pubYear?: string; abstractText?: string; pubTypeList?: { pubType?: string[] } }> };
+    };
+    // Relevance order, then: every concept in the TITLE first, and for a guidance
+    // question a guideline, consensus statement or review first. Measured live on
+    // the diabetes/CKD case: relevance alone led with a pharmacy research letter.
+    const kinds = (r: { pubTypeList?: { pubType?: string[] } }): string => (r.pubTypeList?.pubType ?? []).join(" ");
+    const rank = (r: { title?: string; pubTypeList?: { pubType?: string[] } }): number =>
+      (concepts.every((c) => strip(r.title ?? "").toLowerCase().includes(key(c))) ? 0 : 2) +
+      (/guideline|consensus|systematic review|meta-analysis|review/i.test(kinds(r)) ? 0 : guidance ? 1.5 : 0.5);
+    const strip = (s: string): string => s.replace(/<[^>]+>/g, "").replace(/&lt;[^&]*&gt;/g, "").replace(/&amp;/g, "&").replace(/\s+/g, " ").trim();
+    const key = (c: string): string => (c.toLowerCase().match(/[a-z0-9-]{4,}/g) ?? [c.toLowerCase()]).sort((a, b) => b.length - a.length)[0]!.slice(0, 6);
+    const results = (d.resultList?.result ?? []).map((r, i) => ({ r, i })).sort((x, y) => rank(x.r) - rank(y.r) || x.i - y.i).map((x) => x.r);
+    return results.flatMap((r) => {
+      if (!r.title) return [];
+      const title = strip(r.title).replace(/\.$/, "");
+      const abstract = strip(r.abstractText ?? "");
+      const hay = `${title} ${abstract}`.toLowerCase();
+      if (!concepts.every((c) => hay.includes(key(c)))) return [];
+      const conc = abstract.match(/(?:CONCLUSIONS?|Conclusions?|In conclusion|INTERPRETATION)[:.,]?\s*(.+)$/)?.[1] ?? abstract.split(/(?<=[.])\s+(?=[A-Z])/).slice(-1)[0] ?? "";
+      const sentence = conc.split(/(?<=[.])\s+(?=[A-Z])/)[0]?.trim() ?? "";
+      const year = Number(r.pubYear);
+      return [{
+        title, authors: r.authorString ? r.authorString.replace(/\.$/, "") : null,
+        year: Number.isFinite(year) ? year : null, source: "Europe PMC",
+        conclusion: sentence.split(/\s+/).length >= 6 ? sentence : null,
+      }];
+    }).slice(0, 3);
+  } catch {
+    return "unavailable";
+  }
+}
+
 /** "differences between A and B", "A vs B", "compare A with B" — the two subjects, or null. */
 export function comparedSubjects(text: string): [string, string] | null {
   const s = String(text ?? "").replace(/\?.*$/s, "").trim();
@@ -339,6 +416,10 @@ export async function answerResearch(question: string): Promise<ResearchResult> 
    * the SPONSOR before the DRUG has been looked up is how "Will Novartis'
    * Ianalumab be approved?" gets answered with a corporate profile of Novartis.
    */
+  const { concepts, guidance, recent } = researchConcepts(question);
+  const conceptSearch = concepts.length >= 2 && !isForwardLooking(question)
+    ? findConceptLiterature(concepts, guidance, recent)
+    : Promise.resolve(null);
   const probes = await Promise.all(terms.map(async (candidate) => {
     const [t, l] = await Promise.all([findTrials(candidate), findLiterature(candidate)]);
     return { candidate, t, l };
@@ -368,6 +449,24 @@ export async function answerResearch(question: string): Promise<ResearchResult> 
       if (w === "unavailable") { anyIndexDown = true; continue; }
       if (w) { wiki = w; term = candidate; break; }
     }
+  }
+
+  /**
+   * A question that combines concepts is answered from literature covering all
+   * of them, led by what that literature concludes, unless a candidate name
+   * already found a registered trial (a trial record is the stronger fact).
+   */
+  const found = await conceptSearch;
+  if (Array.isArray(found) && found.length && trials.length === 0) {
+    const [a, b] = found;
+    const by = (c: Finding): string => `${firstAuthor(c)}${c.year ? `, ${c.year}` : ""}`;
+    const lead = a!.conclusion
+      ? `"${a!.title}" (${by(a!)}) concludes: ${a!.conclusion}`
+      : `The published evidence includes "${a!.title}" (${by(a!)}).`;
+    return {
+      subject, trials: [], citations: found.map(({ conclusion: _c, ...c }) => c), verdict: "evidence", confidence: 0.8,
+      reason: `${lead}${b ? ` See also "${b.title}" (${by(b)}).` : ""} Source: Europe PMC.`,
+    };
   }
 
   /**

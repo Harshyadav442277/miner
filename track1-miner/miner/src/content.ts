@@ -321,9 +321,17 @@ const FIELD_SYNONYMS: Array<[RegExp, RegExp]> = [
 function fieldValue(name: string, source: string, pairs: Array<[string, string]>, lead: string): { label: string; value: string } | null {
   const words = name.toLowerCase().split(/\s+/).filter((w) => w.length > 2 && !/^(?:name|number)$/.test(w));
   const syn = FIELD_SYNONYMS.find(([asked]) => asked.test(name))?.[1];
-  const pair = pairs.find(([l]) => (syn && syn.test(l)) || words.some((w) => l.toLowerCase().includes(w.slice(0, 4))));
-  if (pair) return { label: pair[0], value: pair[1] };
   const label = name.charAt(0).toUpperCase() + name.slice(1);
+  // "Book: 'The Silent Patient' by Alex Michaelides." (epoch 334) carries a work
+  // and its creator in one value: the title is before "by", the author after it.
+  const byline = source.match(/^(.*?)\s+by\s+([A-Z][\w.'-]*(?:\s+[A-Z][\w.'-]*){0,3})/);
+  if (byline && /\bauthor\b|\bwriter\b|\bdirector\b|\bartist\b|\bcreator\b|\bcomposer\b/i.test(name)) return { label, value: byline[2]!.replace(/[.,;]+$/, "") };
+  const pair = pairs.find(([l]) => (syn && syn.test(l)) || words.some((w) => l.toLowerCase().includes(w.slice(0, 4))));
+  if (pair) {
+    const value = /\btitle\b|\bname\b/i.test(name) ? pair[1].replace(/\s+by\s+[A-Z].*$/, "").replace(/^['"‘“]+|['"’”]+$/g, "") : pair[1];
+    return { label: pair[0], value };
+  }
+  if (byline && /\btitle\b/i.test(name)) return { label, value: byline[1]!.replace(/^[^:]*:\s*/, "").replace(/^['"‘“]+|['"’”]+$/g, "") };
   if (/\bdate\b/i.test(name)) { const d = dates(source)[0]; return d ? { label, value: d } : null; }
   if (/\btotal\b|\bamount\b|\bprice\b|\bcost\b|\bbalance\b/i.test(name)) {
     const money = numerics(source).filter((v) => /[$£€]/.test(v));

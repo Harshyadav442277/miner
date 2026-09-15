@@ -132,3 +132,39 @@ test("a comparison outside medicine is answered from each side's encyclopedia ar
     globalThis.fetch = real;
   }
 });
+
+// The node's own RESEARCH_QUERY cases (2026-09-15, from another miner's failure_reason).
+test("a clinical-evidence question is split into the concepts it combines", async () => {
+  const { researchConcepts } = await import("../src/research");
+  assert.deepEqual(researchConcepts("What are the current recommendations for managing type 2 diabetes in patients with chronic kidney disease?"),
+    { concepts: ["type 2 diabetes", "chronic kidney disease"], guidance: true, recent: true });
+  assert.deepEqual(researchConcepts("What are the most recent findings regarding the efficacy of CRISPR-Cas9 gene editing for treating Huntington's disease?").concepts,
+    ["CRISPR-Cas9", "Huntington disease"]);
+  assert.deepEqual(researchConcepts("Most recent research findings on CRISPR-Cas9 efficacy for Duchenne muscular dystrophy in human clinical trials").concepts,
+    ["CRISPR-Cas9", "Duchenne muscular dystrophy"]);
+  assert.equal(researchConcepts("Will Novartis' Ianalumab be approved?").concepts.length, 1);
+});
+
+test("concept literature leads with a source covering every concept and quotes its conclusion", async () => {
+  const { answerResearch } = await import("../src/research");
+  const real = globalThis.fetch;
+  globalThis.fetch = (async (u: string) => {
+    const url = decodeURIComponent(String(u));
+    if (url.includes("europepmc") && url.includes('"type 2 diabetes" AND "chronic kidney disease"')) {
+      return new Response(JSON.stringify({ resultList: { result: [
+        { title: "Pharmacist prescribing letter.", authorString: "Sheffield M, X Y.", pubYear: "2026", abstractText: "A study of diabetes and kidney disease in pharmacies. Implementation is underway.", pubTypeList: { pubType: ["Journal Article"] } },
+        { title: "Roles of SGLT2 inhibitors in chronic kidney disease with type 2 diabetes: a consensus.", authorString: "Handelsman Y, Z W.", pubYear: "2026", abstractText: "Background text. Conclusions: SGLT2 inhibitors should be prioritised as foundational therapy to reduce cardiorenal risk.", pubTypeList: { pubType: ["Consensus Statement"] } },
+      ] } }), { status: 200 });
+    }
+    if (url.includes("europepmc")) return new Response(JSON.stringify({ resultList: { result: [] } }), { status: 200 });
+    if (url.includes("clinicaltrials")) return new Response(JSON.stringify({ studies: [] }), { status: 200 });
+    return new Response("{}", { status: 404 });
+  }) as typeof fetch;
+  try {
+    const r = await answerResearch("What are the current recommendations for managing type 2 diabetes in patients with chronic kidney disease?");
+    assert.equal(r.verdict, "evidence");
+    assert.match(r.reason, /^"Roles of SGLT2 inhibitors in chronic kidney disease with type 2 diabetes: a consensus" \(Handelsman Y et al\., 2026\) concludes: SGLT2 inhibitors should be prioritised/);
+  } finally {
+    globalThis.fetch = real;
+  }
+});

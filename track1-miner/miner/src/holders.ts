@@ -129,8 +129,13 @@ export function tokenSymbol(text: string): string | null {
     !STOP.has(w.toLowerCase()) && !CHAINS[w.toLowerCase()]
     && !Object.values(CHAINS).some((c) => c.words.test(w));
 
-  // An all-caps run is a symbol wherever it sits in the sentence.
-  for (const u of s.match(/\b[A-Z][A-Z0-9]{1,9}\b/g) ?? []) if (ok(u)) return u;
+  // An all-caps run is a symbol wherever it sits in the sentence. A chain's own
+  // token shares its ticker with a chain word — "arb" names Arbitrum — so "How
+  // many holders does the ARB token have on Arbitrum One?" (a node test case read
+  // from a competitor's failure_reason, epoch 331) found no token at all. The
+  // ticker is the token when the question speaks of tokens or holders.
+  const tickerOk = (u: string): boolean => /^(?:ARB|OP|MATIC|POL)$/.test(u) && /\btokens?\b|\bholders?\b|\bhold\b/i.test(s);
+  for (const u of s.match(/\b[A-Z][A-Z0-9]{1,9}\b/g) ?? []) if (ok(u) || tickerOk(u)) return u;
 
   /**
    * A lower-case word is only a symbol in a position that names one. Scanning

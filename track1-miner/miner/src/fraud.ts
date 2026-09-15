@@ -39,6 +39,7 @@
  */
 
 import { asksPaperFraud, assessPaperFraud } from "./paperfraud";
+import { assessScenario } from "./fraudscenario";
 import { transactionParties } from "./onchain";
 
 const TIMEOUT_MS = Number(process.env.FRAUD_TIMEOUT_MS ?? 4_000);
@@ -216,6 +217,26 @@ export async function assessFraud(text: string): Promise<FraudResult> {
   const hosts = hostnames(text);
   const markers = scamMarkers(text);
   const subject = address ?? hash ?? hosts[0] ?? null;
+
+  /**
+   * A described scenario — "An accounts-payable employee receives an email that
+   * appears to be from the company's CEO…" — is the shape of this intent's own
+   * test cases, and was refused as "no subject" (see fraudscenario.ts). With no
+   * address or hash to check, the scenario's stated red flags are the evidence.
+   * A lookalike sender domain inside the scenario is part of the story, not a
+   * domain to clear against a threat feed, so hosts do not pre-empt it.
+   */
+  if (!address && !hash && !asksPaperFraud(text)) {
+    const scenario = assessScenario(text);
+    if (scenario && (scenario.flags.length > 0 || (hosts.length === 0 && markers.length === 0))) {
+      return {
+        subject: scenario.typology,
+        verdict: scenario.verdict === "insufficient_evidence" ? "unknown" : scenario.verdict,
+        confidence: scenario.confidence,
+        reason: scenario.reason,
+      };
+    }
+  }
 
   if (!address && !hash && hosts.length === 0 && markers.length === 0) {
     /**

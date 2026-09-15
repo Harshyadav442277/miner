@@ -103,3 +103,12 @@ test("the concentration percentage is the top balance over supply, and refuses n
   // so no figure is reported rather than a wrong one.
   assert.equal(concentrationPercent(10, "5"), null);
 });
+
+// A node test case (epoch 331, read from a competitor's failure_reason): Arbitrum's
+// own token was taken for the chain word and no token was found.
+test("a chain's own token ticker is a symbol when the question is about holders", async () => {
+  const { tokenSymbol } = await import("../src/holders");
+  assert.equal(tokenSymbol("How many holders does the ARB token have on Arbitrum One?"), "ARB");
+  assert.equal(tokenSymbol("How many addresses hold OP on Optimism?"), "OP");
+  assert.notEqual(tokenSymbol("What is the gas price on ARB today?"), "ARB");
+});
