@@ -28,6 +28,7 @@
  * 0.833, a headline list 0.167 and static knowledge ~1e-11 against authored
  * ground truths. Those are authored, not real, so they chose nothing here.
  */
+import { currentFact } from "./currentfacts";
 import { searchNews, type Article } from "./newssearch";
 import { findEncyclopedia, namedEntity } from "./research";
 
@@ -146,6 +147,15 @@ export async function webSearch(question: string): Promise<WebSearchResult> {
       reason: `This request is ${elsewhere}, not a web search, so no search was run and no answer was substituted for it.`,
     };
   }
+
+  /**
+   * A single current fact (a release number, an office holder) is read from a
+   * structured source before any headline search: rank-loss report F5,
+   * 2026-09-15, answered "latest stable Python release" with a CUDA headline.
+   * A null means not applicable or not found, and the news path runs unchanged.
+   */
+  const fact = await currentFact(q);
+  if (fact) return { ...empty, verdict: "answered", confidence: 0.9, reason: fact };
 
   const entity = namedEntity(q);
   const codes = codeTokens(q);
