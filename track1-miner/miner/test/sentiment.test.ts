@@ -17,7 +17,7 @@ const CANONICAL = "What's the sentiment of this review: 'The product broke after
 test("the canonical example is negative, and names the words that made it so", () => {
   const r = analyseSentiment(CANONICAL);
   assert.equal(r.verdict, "negative");
-  assert.match(r.reason, /^The sentiment of this review is negative\./);
+  assert.match(r.reason, /^Negative\. The sentiment of this review is negative: The product broke after one day, terrible quality\. It is carried by the words/);
   assert.match(r.reason, /terrible/);
   assert.match(r.reason, /broke/);
   assert.ok((r.compound ?? 0) < -0.5);
@@ -186,7 +186,7 @@ test("praise opening a complaint is sarcasm, and the complaint decides", async (
   const { analyseSentiment, sarcasticOpening } = await import("../src/sentiment");
   const r = analyseSentiment('What is the sentiment of this review: "Fantastic, another three hours wasted because your app deleted my work."');
   assert.equal(r.verdict, "negative");
-  assert.match(r.reason, /^The sentiment of this review is negative\. .*The opening fantastic is sarcastic\.$/);
+  assert.match(r.reason, /^Negative\. The sentiment of this review is negative: .*The opening fantastic is sarcastic\.$/);
   // Sincere praise is not sarcasm, and neither is praise followed by more praise.
   assert.equal(sarcasticOpening("Great, it arrived early and works perfectly."), null);
   assert.equal(analyseSentiment("", "Great, it arrived early and works perfectly.").verdict, "positive");

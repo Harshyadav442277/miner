@@ -95,7 +95,7 @@ test("missing labels and missing text are refused by name", async () => {
 test("sentiment label sets go to the sentiment scorer, with no network", async () => {
   const r = await classifyText("Classify the following text as positive, negative, or neutral: 'The delivery arrived three days late and the box was crushed.'");
   assert.equal(r.label, "negative");
-  assert.match(r.reason, /^This text is negative\./);
+  assert.match(r.reason, /^Negative\. This text is negative: The delivery arrived three days late and the box was crushed\./);
 });
 
 test("a relatedness outage is reported as an outage, not as an ambiguous text", async () => {
@@ -125,7 +125,7 @@ test("(live) the canonical ticket is an account issue", async () => {
   if (!(await datamuseUp())) return;
   const r = await classifyText(TICKET);
   assert.equal(r.label, "account issue");
-  assert.match(r.reason, /^This support ticket is an account issue\./);
+  assert.match(r.reason, /^Account issue\. This support ticket is an account issue: I can't log into my account\. The words /);
 });
 
 test("(live) a genome paper is science and technology, not guessed from shared words", async () => {
