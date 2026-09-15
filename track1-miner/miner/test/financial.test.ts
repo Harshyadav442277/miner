@@ -73,18 +73,17 @@ test("a token answer carries statistics beyond a single price (live)", async () 
 });
 
 test("an equity answer carries market statistics, and names what it could not get (live)", async () => {
-  // Revenue growth is now answered from the 10-K (fundamentals.test.ts); the
-  // P/E ratio alone still has no source.
+  // Revenue growth is answered from the 10-K (fundamentals.test.ts). The P/E is
+  // not filed: it is computed from the last price and the 10-K diluted EPS with
+  // both inputs named, or, when SEC does not answer, declared not retrieved.
   const r = await getFinancialData("What is Apple's P/E ratio?");
   if (r.verdict === "unknown") return;
   assert.equal(r.verdict, "financial_data");
   assert.equal(r.subject, "equity");
   assert.match(r.reason, /Apple/);
   assert.match(r.reason, /52-week range/);
-  // Fundamentals are behind an authenticated endpoint. The answer must say the
-  // ratio was not retrieved rather than let the market data read as one.
   assert.match(r.reason, /price-to-earnings ratio/);
-  assert.match(r.reason, /not retrieved|not available/i);
+  assert.match(r.reason, /trailing price-to-earnings ratio is [\d.]+, from the last traded price of [\d.]+ USD and fiscal year \d{4} diluted earnings per share|not retrieved|not available/i);
 });
 
 test("a company named in prose resolves to its ticker (live)", async () => {

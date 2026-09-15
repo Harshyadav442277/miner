@@ -435,13 +435,15 @@ export async function getFinancialData(query: string, addressParam = "", symbolP
   let filingsOutage: string | undefined;
   if (known) {
     const f = await getFundamentals(query, known);
-    if (f.status === "answer") return withUnfiledGaps(f.result, query);
+    if (f.status === "answer") return withUnfiledGaps(f.result, query, known);
     if (f.status === "outage") filingsOutage = f.label;
   }
 
+  // The embedded company table resolves a name for market data too: "What is
+  // NVIDIA's P/E ratio?" read NVIDIA as a ticker and found no market data.
   const ticker = declaredOk
     ? declared
-    : known ?? explicitTicker(query) ?? (await (named ? resolveTicker(named) : resolveTicker(query, false)));
+    : known ?? knownCompany(query) ?? explicitTicker(query) ?? (await (named ? resolveTicker(named) : resolveTicker(query, false)));
 
   if (!ticker) {
     return {
@@ -456,16 +458,51 @@ export async function getFinancialData(query: string, addressParam = "", symbolP
   // A company outside the embedded table, resolved by search, may still be a filer.
   if (wantsFiling && !known) {
     const f = await getFundamentals(query, ticker);
-    if (f.status === "answer") return withUnfiledGaps(f.result, query);
+    if (f.status === "answer") return withUnfiledGaps(f.result, query, ticker);
     if (f.status === "outage") filingsOutage = f.label;
   }
-  return equityData(query, ticker, filingsOutage);
+  const eq = await equityData(query, ticker, filingsOutage);
+  // A P/E asked on its own: the market data already holds the price, so only the EPS is fetched.
+  if (eq.verdict === "financial_data" && asksFundamentals(query).includes("price-to-earnings ratio")) {
+    const pe = await trailingPE(ticker, eq.reason);
+    if (pe) {
+      return { ...eq, reason: `${eq.reason.replace(/ The price-to-earnings ratio (?:and [^.]*?)?was not retrieved:[^.]*\./, "").replace(/ The price-to-earnings ratio and /, " The ")} ${pe}` };
+    }
+  }
+  return eq;
 }
 
-/** A 10-K answer to "P/E and revenue growth" must still say the ratio was not retrieved. */
-function withUnfiledGaps(r: FinancialResult, query: string): FinancialResult {
+/** "Its trailing price-to-earnings ratio is 44.65, from …", or null when either input is missing. */
+async function trailingPE(ticker: string, quoteReason?: string): Promise<string | null> {
+  const [eps, quote] = await Promise.all([
+    getFundamentals("What is the diluted EPS?", ticker).catch(() => null),
+    quoteReason ? Promise.resolve({ reason: quoteReason }) : equityData("stock price", ticker).catch(() => null),
+  ]);
+  const e = eps?.status === "answer" ? eps.result.fundamentals : undefined;
+  const price = Number(quote?.reason.match(/last traded at ([\d,]+(?:\.\d+)?) USD/)?.[1]?.replace(/,/g, ""));
+  if (!e || !(e.value > 0) || !Number.isFinite(price) || !(price > 0)) return null;
+  return `Its trailing price-to-earnings ratio is ${(price / e.value).toFixed(2)}, from the last traded price of ` +
+    `${price.toFixed(2)} USD and fiscal year ${e.fiscal_year} diluted earnings per share of $${e.value.toFixed(2)}.`;
+}
+
+/**
+ * A 10-K answer to "P/E and revenue growth" must still address the ratio.
+ *
+ * The ratio is not filed, but both of its parts are available: the last traded
+ * price (the market-data path) and the latest annual diluted EPS (the 10-K). So
+ * a trailing P/E is computed and its inputs named; only when either part is
+ * missing is the ratio declared not retrieved.
+ */
+async function withUnfiledGaps(r: FinancialResult, query: string, ticker: string): Promise<FinancialResult> {
   const notes: string[] = [];
-  const unfiled = asksFundamentals(query).filter((f) => f === "price-to-earnings ratio" || f === "margins");
+  let unfiled = asksFundamentals(query).filter((f) => f === "price-to-earnings ratio" || f === "margins");
+  if (unfiled.includes("price-to-earnings ratio") && r.verdict === "financial_data") {
+    const pe = await trailingPE(ticker);
+    if (pe) {
+      notes.push(pe);
+      unfiled = unfiled.filter((f) => f !== "price-to-earnings ratio");
+    }
+  }
   if (unfiled.length) notes.push(`The ${unfiled.join(" and ")} ${unfiled.length > 1 ? "were" : "was"} not retrieved.`);
   if (r.verdict === "financial_data" && /\bquarter(?:ly)?\b|\bq[1-4]\b/i.test(query)) {
     notes.push("Quarterly figures were not retrieved; this is the annual figure.");

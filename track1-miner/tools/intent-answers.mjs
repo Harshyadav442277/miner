@@ -148,15 +148,16 @@ const CHECKS = {
     if (!/USDC/.test(tr)) bad.push("token not identified as USDC");
     if (!/not a single quoted price/.test(tr)) bad.push("answer does not distinguish itself from a price lookup");
 
-    // Fundamentals are not retrievable keylessly. The answer must say so
-    // rather than let the market data read as a P/E ratio.
+    // Since 2026-09-15 fundamentals come from SEC 10-K filings (fundamentals.ts).
+    // Growth is annual, so the quarterly part must be declared; the P/E is either
+    // computed with its inputs named or declared not retrieved.
     const eq = await get("/financial", { query: "What is Apple\u2019s P/E ratio and revenue growth this quarter?" });
     if (!eq.body.error) {
       const er = String(eq.body.reason ?? "");
       if (!/Apple/.test(er)) bad.push("Apple not resolved");
-      if (!/52-week range/.test(er)) bad.push("no 52-week range in the equity answer");
+      if (!/10-K|52-week range/.test(er)) bad.push("neither a 10-K figure nor market data in the equity answer");
       if (!/price-to-earnings ratio/.test(er)) bad.push("the P/E ratio asked for is not mentioned at all");
-      if (!/not retrieved|not available/i.test(er)) bad.push("the unavailable fundamentals are not declared unavailable");
+      if (!/not retrieved|not available/i.test(er)) bad.push("the quarterly figure asked for is not declared unavailable");
     }
 
     const none = await get("/financial", { query: "market data please" });
