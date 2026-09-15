@@ -73,7 +73,9 @@ test("a token answer carries statistics beyond a single price (live)", async () 
 });
 
 test("an equity answer carries market statistics, and names what it could not get (live)", async () => {
-  const r = await getFinancialData("What is Apple's P/E ratio and revenue growth this quarter?");
+  // Revenue growth is now answered from the 10-K (fundamentals.test.ts); the
+  // P/E ratio alone still has no source.
+  const r = await getFinancialData("What is Apple's P/E ratio?");
   if (r.verdict === "unknown") return;
   assert.equal(r.verdict, "financial_data");
   assert.equal(r.subject, "equity");

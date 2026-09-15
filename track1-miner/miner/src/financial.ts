@@ -21,13 +21,21 @@
  *             range and change on the day, with the ticker resolved from a
  *             company name through Yahoo's search endpoint.
  *
- * WHAT IS HONESTLY NOT COVERED. Company *fundamentals* — P/E, revenue growth,
- * margins — sit behind Yahoo's `quoteSummary`, which returns HTTP 401 "Invalid
- * Crumb" without a session (verified 2026-09-10). No keyless source for them was
- * found. A question asking for a P/E ratio is answered with the market data we
- * do hold and an explicit statement that the ratio was not retrieved, rather
- * than a number derived from something else and presented as the ratio.
+ *   filings — SEC EDGAR's XBRL API (fundamentals.ts): revenue, net income, EPS
+ *             and the other 10-K line items, with year-over-year growth. Added
+ *             for rank-loss report F8 (2026-09-15), where a revenue question
+ *             was answered with a trading range.
+ *
+ * WHAT IS HONESTLY NOT COVERED. P/E and margins sit behind Yahoo's
+ * `quoteSummary`, which returns HTTP 401 "Invalid Crumb" without a session
+ * (verified 2026-09-10), and are not 10-K line items. A question asking for a
+ * P/E ratio is answered with the data we do hold and an explicit statement that
+ * the ratio was not retrieved, rather than a number derived from something else
+ * and presented as the ratio.
  */
+
+import { getFundamentals, knownCompany, metricAsked } from "./fundamentals";
+import type { FundamentalFigures } from "./fundamentals";
 
 const TIMEOUT_MS = Number(process.env.FINANCIAL_TIMEOUT_MS ?? 5_000);
 // Yahoo returns 401 to an unfamiliar user-agent, in the same way ESPN does.
@@ -60,6 +68,8 @@ export interface FinancialResult {
   confidence: number;
   reason: string;
   error?: string;
+  /** Set when the answer came from a 10-K rather than from market data. */
+  fundamentals?: FundamentalFigures;
 }
 
 /** An EVM contract address makes the question a token question outright. */
@@ -245,7 +255,11 @@ export async function tokenData(address: string, network: string, label: string)
   };
 }
 
-export async function equityData(query: string, ticker: string): Promise<FinancialResult> {
+/**
+ * @param filingsOutage the fundamental asked for, when SEC EDGAR did not answer
+ *   for it — so the market data is not read as a claim that the figure is absent.
+ */
+export async function equityData(query: string, ticker: string, filingsOutage?: string): Promise<FinancialResult> {
   const base = { subject: "equity" as const, name: null, chain: null };
   let meta: Record<string, unknown>;
   try {
@@ -305,11 +319,14 @@ export async function equityData(query: string, ticker: string): Promise<Financi
   // Fundamentals are behind an authenticated endpoint. Say so rather than
   // letting the caller read the market data as an answer to a P/E question.
   const wanted = asksFundamentals(query);
-  const gap = wanted.length
-    ? ` The ${wanted.join(" and ")} ${wanted.length > 1 ? "were" : "was"} not retrieved: company ` +
-      `fundamentals are not available from this data source, so ${wanted.length > 1 ? "they are" : "it is"} ` +
-      `not reported here.`
-    : "";
+  const gap = filingsOutage
+    ? ` The ${filingsOutage} was not retrieved because SEC EDGAR, the source for company filings, did not ` +
+      `respond. This is an availability problem here, not a statement about the company.`
+    : wanted.length
+      ? ` The ${wanted.join(" and ")} ${wanted.length > 1 ? "were" : "was"} not retrieved: company ` +
+        `fundamentals are not available from this data source, so ${wanted.length > 1 ? "they are" : "it is"} ` +
+        `not reported here.`
+      : "";
   const priced = Number.isFinite(last) ? ` It last traded at ${last.toFixed(2)} ${cur}.` : "";
 
   return {
@@ -408,9 +425,23 @@ export async function getFinancialData(query: string, addressParam = "", symbolP
 
   const named = companyName(query);
   const declared = String(symbolParam ?? "").trim().toUpperCase();
-  const ticker = /^[A-Z][A-Z.-]{0,5}$/.test(declared)
+  const declaredOk = /^[A-Z][A-Z.-]{0,5}$/.test(declared);
+
+  // Rank-loss report F8 (2026-09-15): a revenue question got a trading range.
+  // A question naming a 10-K metric is answered from the filing first; an
+  // embedded company name needs no search, and NVIDIA is not read as a ticker.
+  const wantsFiling = metricAsked(query) !== null;
+  const known = wantsFiling ? knownCompany(query) ?? (declaredOk ? declared : null) : null;
+  let filingsOutage: string | undefined;
+  if (known) {
+    const f = await getFundamentals(query, known);
+    if (f.status === "answer") return withUnfiledGaps(f.result, query);
+    if (f.status === "outage") filingsOutage = f.label;
+  }
+
+  const ticker = declaredOk
     ? declared
-    : explicitTicker(query) ?? (await (named ? resolveTicker(named) : resolveTicker(query, false)));
+    : known ?? explicitTicker(query) ?? (await (named ? resolveTicker(named) : resolveTicker(query, false)));
 
   if (!ticker) {
     return {
@@ -422,5 +453,22 @@ export async function getFinancialData(query: string, addressParam = "", symbolP
       error: "no_subject",
     };
   }
-  return equityData(query, ticker);
+  // A company outside the embedded table, resolved by search, may still be a filer.
+  if (wantsFiling && !known) {
+    const f = await getFundamentals(query, ticker);
+    if (f.status === "answer") return withUnfiledGaps(f.result, query);
+    if (f.status === "outage") filingsOutage = f.label;
+  }
+  return equityData(query, ticker, filingsOutage);
+}
+
+/** A 10-K answer to "P/E and revenue growth" must still say the ratio was not retrieved. */
+function withUnfiledGaps(r: FinancialResult, query: string): FinancialResult {
+  const notes: string[] = [];
+  const unfiled = asksFundamentals(query).filter((f) => f === "price-to-earnings ratio" || f === "margins");
+  if (unfiled.length) notes.push(`The ${unfiled.join(" and ")} ${unfiled.length > 1 ? "were" : "was"} not retrieved.`);
+  if (r.verdict === "financial_data" && /\bquarter(?:ly)?\b|\bq[1-4]\b/i.test(query)) {
+    notes.push("Quarterly figures were not retrieved; this is the annual figure.");
+  }
+  return notes.length ? { ...r, reason: `${r.reason} ${notes.join(" ")}` } : r;
 }
