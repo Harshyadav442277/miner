@@ -104,3 +104,57 @@ test("payload with no instruction still extracts what is there", () => {
   assert.ok(e.fields["values"]?.includes("2.3 meters"));
   assert.doesNotMatch(e.summary, /No structured values/);
 });
+
+// Rank-loss report F1 (2026-09-15). The first three are the report's live
+// production failures; the rest are payloads the node sent in epochs 330-333,
+// read from a competitor's failure_reason, sent as bare text with no instruction.
+describe("report F1: extraction reads what the text carries", () => {
+  test("people, organizations and places are told apart", () => {
+    const e = extractContent("Extract people, organizations and places from: Alice Johnson works for OpenAI in New York.");
+    assert.deepEqual(e.fields, { people: ["Alice Johnson"], organizations: ["OpenAI"], places: ["New York"] });
+  });
+
+  test("fractions, attached units and hyphenated units are quantities", () => {
+    const e = extractContent("Extract quantities and units from: Add 1/2 cup milk, 250ml water and 2.5kg flour.");
+    assert.deepEqual(e.fields["quantities"], ["1/2 cup", "250ml", "2.5kg"]);
+    assert.deepEqual(extractContent('Extract the quantities from: "Use 1 1/2 cups of sugar and bake 45 minutes."').fields["quantities"],
+      ["1 1/2 cups of sugar", "45 minutes"]);
+  });
+
+  test("a receipt's named fields are answered, and header words are not places", () => {
+    const e = extractContent("Extract merchant name, date and total amount from this receipt: Acme Store. Date: 2026-09-14. Total: $42.50.");
+    assert.equal(e.summary, "Merchant name: Acme Store. Date: 2026-09-14. Total: $42.50.");
+  });
+
+  test("an email header is read as its labelled fields, with or without an instruction", () => {
+    const bare = extractContent("", "From: John Smith, Subject: Quarterly Budget Review Meeting.");
+    assert.equal(bare.summary, "From: John Smith. Subject: Quarterly Budget Review Meeting.");
+    const asked = extractContent('Extract the sender and subject from: "From: John Smith, Subject: Quarterly Budget Review Meeting."');
+    assert.equal(asked.summary, "From: John Smith. Subject: Quarterly Budget Review Meeting.");
+    assert.equal(extractContent("From: John Smith, Subject: Quarterly Budget Review Meeting.").summary, bare.summary);
+  });
+
+  test("bare contact text is labelled as the recorded ground truth words it", () => {
+    assert.equal(extractContent("", "Reach us at support@example.com or call 555-0192.").summary,
+      "Email: support@example.com. Phone number: 555-0192.");
+  });
+
+  test("bare imperative text is answered as action items", () => {
+    assert.equal(extractContent("", "Please submit the report by Friday and schedule a follow-up call.").summary,
+      "1) Submit the report by Friday. 2) Schedule a follow-up call.");
+  });
+
+  test("a product description keeps its hyphenated size", () => {
+    const s = extractContent("", "The new laptop is priced at $1,299 and features a 16-inch display.").summary;
+    for (const v of ["$1,299", "16-inch"]) assert.ok(s.includes(v), `${v} missing from ${s}`);
+    const q = extractContent('Extract the product details from: "The new laptop is priced at $1,299 and features a 16-inch display."').summary;
+    for (const v of ["$1,299", "16-inch"]) assert.ok(q.includes(v), `${v} missing from ${q}`);
+  });
+
+  test("the recorded bare payloads still extract as before", () => {
+    assert.equal(extractContent("", "The recipe calls for 2 cups of flour and 1 teaspoon of salt.").summary,
+      "Extracted from the supplied text: 2 cups of flour, 1 teaspoon of salt.");
+    assert.equal(extractContent("", "Revenue grew by 12% to reach $4.5 million in Q3.").summary,
+      "Extracted from the supplied text: 12%, $4.5 million, Q3.");
+  });
+});

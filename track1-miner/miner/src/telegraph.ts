@@ -367,14 +367,43 @@ async function getJson(url: string, timeoutMs: number): Promise<unknown> {
 
 /** Live answers, for the questions whose truth changes by the hour. */
 async function liveAnswer(q: string, timeoutMs: number): Promise<{ topic: string; text: string } | null> {
+  const wantsLeader = /\b(?:rank(?:ed)?\s*(?:#|no\.?\s*|number\s+)?1|#\s*1|number\s+one|first\s+place|top(?:-ranked)?\s+miner|leads?|leading|leader|best(?:-ranked)?\s+miner|winning|on\s+top)\b/i.test(q) && /\b(?:miners?|leaderboard|rank|leads?|leading|leader|top)\b/i.test(q);
   const wantsMiners = /\b(how many|which|list|current|active)\b.*\bminers?\b|\bminer count\b/i.test(q);
   const wantsIntents = /\bhow many\b.*\bintents?\b|\blist\b.*\bintents?\b/i.test(q);
-  const namedIntent = q.match(/\b([A-Z][A-Z_]{4,})\b/)?.[1];
+  let namedIntent = q.match(/\b([A-Z][A-Z_]{4,})\b/)?.[1];
 
-  if (wantsIntents || (namedIntent && /\bminers?\b/i.test(q))) {
+  if (wantsIntents || wantsLeader || (namedIntent && /\bminers?\b/i.test(q))) {
     const d = await getJson(`${NODE}/engine/v1/intents`, timeoutMs);
     const rows = (Array.isArray(d) ? d : (d as { intents?: unknown[] })?.intents ?? []) as Array<Record<string, unknown>>;
-    if (rows.length) {
+    // "the weather forecast leaderboard" names WEATHER_FORECAST without capitals.
+    if (!namedIntent && rows.length) {
+      const flat = ` ${q.toLowerCase().replace(/[^a-z0-9]+/g, " ")} `;
+      namedIntent = rows.map((r) => String(r["intent_id"] ?? ""))
+        .filter((id) => id && flat.includes(` ${id.toLowerCase().replace(/_/g, " ")} `))
+        .sort((a, b) => b.length - a.length)[0];
+    }
+    /**
+     * "Which miner is currently rank 1 for WEATHER_FORECAST?" used to be answered
+     * with the intent's miner count, and "Who leads the WEB_SEARCH leaderboard?"
+     * with the epoch schedule (rank-loss report F4). The latest scored epoch's
+     * ranks are public on the node's score feed, newest epoch first.
+     */
+    if (wantsLeader && namedIntent) {
+      const s = await getJson(`${NODE}/scores?intent=${encodeURIComponent(namedIntent)}&limit=60`, timeoutMs);
+      const scores = ((s as { scores?: unknown[] })?.scores ?? []) as Array<Record<string, unknown>>;
+      const epoch = Math.max(...scores.map((r) => Number(r["epoch_id"])).filter(Number.isFinite));
+      const top = scores.filter((r) => Number(r["epoch_id"]) === epoch).sort((a, b) => Number(a["rank"]) - Number(b["rank"]));
+      if (top[0]?.["miner_slug"]) {
+        const next = top.slice(1, 3).map((r) => String(r["miner_slug"]));
+        return {
+          topic: "leaderboard",
+          text:
+            `${String(top[0]["miner_slug"])} is rank 1 for ${namedIntent} in epoch ${epoch}, the latest scored epoch, ` +
+            `out of ${top.length} scored miners.${next.length ? ` Next are ${next.join(" and ")}.` : ""}`,
+        };
+      }
+    }
+    if (rows.length && (wantsIntents || /\bminers?\b/i.test(q) && namedIntent)) {
       if (namedIntent) {
         const hit = rows.find((r) => r["intent_id"] === namedIntent);
         if (hit) {

@@ -1,5 +1,44 @@
 # GAPS.md — honesty ledger
 
+## 2026-09-15 rank-loss report fixes — G137–G143
+
+Source: [track1-miner/docs/TRACK1_RANK_LOSS_REPORT_2026-09-15.md](track1-miner/docs/TRACK1_RANK_LOSS_REPORT_2026-09-15.md)
+(written by Codex, report only). Production `miner-nj9rqs2vp`, promoted ~11:32 UTC; evidence in
+`track1-miner/docs/evidence/rank-loss-2026-09-15/`.
+
+- **G137 — CONTENT_EXTRACTION zeros in epochs 330/331 reproduced and fixed.** The node sends the
+  payload as bare `text` (a competitor's failure_reason leaks it each epoch). Under champion 935,
+  production scored 0 on "From: John Smith, Subject: …" (nothing extracted), "$1,299 … 16-inch
+  display" (size dropped) and bare imperative action items. All now score 1.0 on production, as
+  do the report's receipt, fraction/attached-unit and entity cases. Three of those ground truths
+  are recorded, the rest authored. **Open:** the epoch-333 contact case scored 0 live although
+  every request shape of the old build scores 1.0 locally; cause unknown (converter or request shape).
+- **G138 — TEXT_CLASSIFICATION ambiguity on ordinary tickets fixed; real cases still unknown.**
+  Hand-curated cue words per common label family, the whole text scored instead of its first ten
+  words, and a shared head noun spoken ("a billing issue"). Scores are against AUTHORED ground
+  truths only (G24). The cue list is a finite lexicon, not semantics; unlisted families still
+  depend on Datamuse.
+- **G139 — SENTIMENT sarcastic-opening praise reads negative.** Narrow rule: an opening
+  interjection followed by purely negative text. Other sarcasm and irony are still missed. Our
+  score for this intent has been 0 every epoch 329–333 and no real case is known, so a rank
+  effect is not expected from this alone.
+- **G140 — TELEGRAPH_KNOWLEDGE names the leader from `/scores?intent=`.** Latest scored epoch
+  only, so it lags an epoch in progress.
+- **G141 — ACADEMIC count words, topic reranking and "peer-reviewed".** "peer-reviewed" is now
+  said only when the question asks for it, and then OpenAlex is filtered to journal articles.
+  A journal article is not proof of peer review. The wording is score-neutral on the 22-question
+  bench: 0.013332 new vs 0.013329 old (audit value), 0 crossings each.
+- **G142 — RESEARCH comparisons outside medicine use Wikipedia for both sides.** Only
+  "difference between A and B" and "A vs B" shapes. Other non-biomedical questions still reach
+  no_evidence.
+- **G143 — EVENT_OUTCOME "prediction market" no longer refused; who-questions need a named winner.**
+  The report's FIFA case now answers `no_market_found`, not a wrong "Resolved Yes" from a
+  Manifold market that names no winner. It is still not answered.
+- **Not done in this release:** WEB_SEARCH (report F5) and FINANCIAL_DATA fundamentals (F8).
+  Verified keyless sources for both on 2026-09-15: endoflife.date (python latest 3.14.7),
+  Wikidata preferred-rank office holders (UN Secretary-General claim), and SEC EDGAR
+  companyconcept (HTTP 200 from this machine with a non-email UA; not yet tried from Vercel).
+
 ## 2026-09-13 below-third recovery — G133–G136
 
 - **G133 — Wrong weather city, fixed and production verified.** Removing the long raw

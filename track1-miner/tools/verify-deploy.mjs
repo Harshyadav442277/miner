@@ -192,7 +192,7 @@ try {
   // converter reads them (bench/acad_shape.mjs). A real answer names a count
   // and lists numbered entries.
   const listed = (String(body.reason ?? "").match(/\d+\)\s/g) ?? []).length;
-  report(res.ok && body.verdict === "papers" && /Here are \d+ peer-reviewed papers/i.test(String(body.reason)) && listed > 0,
+  report(res.ok && body.verdict === "papers" && /Here are \d+ (?:peer-reviewed journal articles|articles|papers) on/i.test(String(body.reason)) && listed > 0,
     "bare topic -> real papers", res.ok ? `${listed} papers in prose, ${ms}ms` : `HTTP ${res.status}`);
 } catch (e) {
   report(false, "bare topic -> real papers", e.message);

@@ -44,7 +44,10 @@ export function quotedPayload(text: string): string {
   // from:" qualifies, while "Extract … from the text. Contact … Docs:" does not,
   // because its first colon sits after a full sentence of payload.
   const pre = colon?.[1]?.trim() ?? "";
-  const isInstruction = pre.length > 0 && pre.length <= 90 && !/[.!?]\s/.test(pre) && INSTRUCTION.test(pre);
+  // A lone "From:" or "Below:" is a field label of the payload itself
+  // ("From: John Smith, Subject: …"), not an instruction.
+  const isInstruction = pre.length > 0 && pre.length <= 90 && !/[.!?]\s/.test(pre) && INSTRUCTION.test(pre) &&
+    !/^(?:from|following|below)$/i.test(pre);
   if (isInstruction && colon?.[2]) return unwrap(colon[2]);
   // Match a payload after an instruction, not a quoted field name inside it.
   const quoted = s.match(/\bfrom\s+(["'\u201c\u2018][\s\S]+)$/i);
@@ -92,9 +95,10 @@ export function wantedFrom(text: string): Want {
 }
 
 const UNITS =
-  "cups?|teaspoons?|tablespoons?|tsp|tbsp|grams?|kilograms?|kg|g|ounces?|oz|pounds?|lbs?|" +
-  "litres?|liters?|millilitres?|milliliters?|ml|l|metres?|meters?|m|kilometres?|kilometers?|km|" +
-  "miles?|feet|foot|inches|inch|hours?|minutes?|seconds?|days?|weeks?|months?|years?|degrees?";
+  "cups?|teaspoons?|tablespoons?|tsp|tbsp|grams?|kilograms?|kg|g|mg|ounces?|oz|pounds?|lbs?|" +
+  "litres?|liters?|millilitres?|milliliters?|ml|l|metres?|meters?|m|cm|mm|kilometres?|kilometers?|km/h|km|" +
+  "miles?|feet|foot|inches|inch|hours?|minutes?|seconds?|days?|weeks?|months?|years?|degrees?|" +
+  "gb|mb|tb|mph|kph";
 
 function quantities(s: string): string[] {
   const out: string[] = [];
@@ -107,12 +111,21 @@ function quantities(s: string): string[] {
   // failed, while "45 kilograms and ..." passed. Inside the optional group it
   // still stops "5 litres of water and oil" over-capturing, without rejecting
   // the base case.
+  //
+  // The number may be a fraction ("1/2 cup", "1 1/2 cups") and the unit may be
+  // attached ("250ml", "2.5kg") or hyphenated ("16-inch"). Each used to be lost
+  // or misread: "Add 1/2 cup milk, 250ml water and 2.5kg flour" extracted only
+  // "2 cup" (rank-loss report F1). The lookbehind keeps "2 cup" from being read
+  // out of "1/2 cup", and the unit's trailing boundary keeps "5 minutes" from
+  // matching "5 m". The surface form is kept, so "250ml" stays "250ml".
   const re = new RegExp(
-    String.raw`\b(\d+(?:[.,]\d+)?)\s+(` + UNITS + String.raw`)\b(?:\s+of\s+([a-z][a-z\s-]{0,24}?)(?=[,.;]|\s+and\b|$))?`,
+    String.raw`(?<![\d/.,])(\d+(?:[.,]\d+)?(?:\s+\d+\/\d+|\/\d+)?)(\s+|-)?(` + UNITS + String.raw`)(?![a-z])(?:\s+of\s+([a-z][a-z\s-]{0,24}?)(?=[,.;]|\s+and\b|$))?`,
     "gi",
   );
   for (const m of s.matchAll(re)) {
-    out.push(m[3] ? `${m[1]} ${m[2]} of ${m[3].trim()}` : `${m[1]} ${m[2]}`);
+    const sep = m[2] === undefined ? "" : m[2].trim() === "-" ? "-" : " ";
+    const q = `${m[1]}${sep}${m[3]}`;
+    out.push(m[4] ? `${q} of ${m[4].trim()}` : q);
   }
   return out;
 }
@@ -144,15 +157,40 @@ function properNouns(s: string): string[] {
     "august", "september", "october", "november", "december",
     "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday",
   ]);
-  const out: string[] = [];
-  for (const m of s.matchAll(/\b([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)\b/g)) {
-    const v = m[1]!;
-    if (!stop.has(v.toLowerCase())) out.push(v);
-  }
-  return [...new Set(out)];
+  return properNounSpans(s).map((x) => x.text).filter((v) => !stop.has(v.toLowerCase()))
+    .filter((v, i, a) => a.indexOf(v) === i);
 }
 
-const ORG_HINT = /\b(?:inc|corp|ltd|llc|plc|company|apple|google|microsoft|amazon|meta|tesla)\b/i;
+/**
+ * Capitalised runs with the word before each. A token may carry inner capitals
+ * or digits ("OpenAI", "iPhone" excepted), and a run followed directly by a colon
+ * is a field label ("Date:", "Total:"), not a name — the receipt "Acme Store.
+ * Date: 2026-09-14. Total: $42.50." listed Date and Total as places (report F1).
+ */
+function properNounSpans(s: string): Array<{ text: string; before: string; start: boolean }> {
+  const out: Array<{ text: string; before: string; start: boolean }> = [];
+  const re = /\b([A-Z][A-Za-z0-9&'-]*[A-Za-z0-9]|[A-Z])(?:\s+(?:[A-Z][A-Za-z0-9&'-]*[A-Za-z0-9]))*\b(?!\s*:)/g;
+  for (const m of s.matchAll(re)) {
+    const text = m[0];
+    if (text.length < 2) continue;
+    const head = s.slice(0, m.index);
+    const before = head.match(/([A-Za-z]+)\s*$/)?.[1]?.toLowerCase() ?? "";
+    const start = /(?:^|[.!?:"“]\s*)$/.test(head);
+    out.push({ text, before, start });
+  }
+  return out;
+}
+
+const ORG_HINT = /\b(?:inc|corp|corporation|ltd|llc|plc|company|co|group|bank|university|institute|foundation|labs?|technologies|systems|store|shop|market|restaurant|cafe|hotel|airlines?|apple|google|microsoft|amazon|meta|tesla|nvidia|openai|ibm|netflix|samsung|intel)\b/i;
+const PLACE_HINT = /\b(?:city|county|state|province|street|avenue|road|river|lake|mountains?|island|valley|bay|park|airport|square)\b/i;
+/** Common places a capitalisation rule cannot tell from a person's name. */
+const PLACES = new Set(("new york|london|paris|berlin|tokyo|beijing|shanghai|delhi|new delhi|mumbai|bangalore|singapore|sydney|" +
+  "toronto|chicago|boston|seattle|austin|san francisco|los angeles|washington|cupertino|palo alto|mountain view|" +
+  "silicon valley|hong kong|dubai|moscow|madrid|rome|amsterdam|dublin|zurich|geneva|seoul|lagos|nairobi|cairo|" +
+  "california|texas|florida|india|china|japan|germany|france|italy|spain|canada|brazil|mexico|australia|" +
+  "united states|united kingdom|uk|usa|us|europe|asia|africa").split("|"));
+const PLACE_PREP = new Set(["in", "near", "from", "across", "to", "into", "outside", "around", "throughout", "visited"]);
+const ORG_PREP = new Set(["for", "joined", "by", "with", "founded", "acquired", "partnered"]);
 
 function entities(s: string): { people: string[]; orgs: string[]; places: string[] } {
   const people: string[] = [];
@@ -168,10 +206,20 @@ function entities(s: string): { people: string[]; orgs: string[]; places: string
     if (m[2]) orgs.push(m[2]);
   }
 
-  for (const n of properNouns(s)) {
-    if (people.includes(n) || orgs.includes(n)) continue;
-    if (ORG_HINT.test(n)) { orgs.push(n); continue; }
-    if (/\s/.test(n)) { people.push(n); continue; }
+  // A multiword name used to be a person unconditionally, so "Alice Johnson works
+  // for OpenAI in New York" listed New York as a person and missed OpenAI, whose
+  // inner capital the old token pattern could not read (report F1). The word
+  // before a name and a short gazetteer now decide first.
+  const named = new Set(properNouns(s));
+  for (const { text: n, before, start } of properNounSpans(s)) {
+    if (!named.has(n) || people.includes(n) || orgs.includes(n) || places.includes(n)) continue;
+    const lower = n.toLowerCase();
+    if (PLACES.has(lower) || PLACE_HINT.test(n)) { places.push(n); continue; }
+    if (ORG_HINT.test(n) || /^[A-Z][a-z]+[A-Z]/.test(n) || /^[A-Z]{2,5}$/.test(n) || ORG_PREP.has(before)) { orgs.push(n); continue; }
+    if (PLACE_PREP.has(before) || before === "at" && !/\s/.test(n)) { places.push(n); continue; }
+    if (/\s/.test(n) || /^(?:mr|mrs|ms|dr|prof|sir)$/.test(before)) { people.push(n); continue; }
+    // A lone capitalised word opening a sentence is its first word, not a place.
+    if (start) { people.push(n); continue; }
     places.push(n);
   }
 
@@ -222,12 +270,111 @@ function numerics(s: string): string[] {
   return [...new Set(out)];
 }
 
+/**
+ * "Label: value" pairs, and whatever precedes the first label.
+ *
+ * "From: John Smith, Subject: Quarterly Budget Review Meeting." extracted nothing
+ * at all, and a receipt's "Total: $42.50" was never read (report F1). A label is
+ * one to three words starting with a capital, at the start of the text or after
+ * punctuation, so "https://" and "10:30" are not labels.
+ */
+export function labeledPairs(s: string): { lead: string; pairs: Array<[string, string]> } {
+  const marks = [...s.matchAll(/(^|[.,;!?\n]\s*)([A-Z][A-Za-z]*(?:[ -][A-Za-z#]+){0,2}):\s*(?!\/\/)/g)]
+    .map((m) => ({ label: m[2]!, start: m.index! + m[1]!.length, end: m.index! + m[0].length }));
+  const pairs: Array<[string, string]> = [];
+  marks.forEach((m, i) => {
+    const value = s.slice(m.end, marks[i + 1]?.start ?? s.length).replace(/[\s,.;]+$/, "").trim();
+    if (value) pairs.push([m.label, value]);
+  });
+  const lead = marks.length ? s.slice(0, marks[0]!.start).replace(/[\s,.;:]+$/, "").trim() : "";
+  return { lead, pairs };
+}
+
+const GENERIC_FIELD = /^(?:[\w-]+\s+){0,2}(?:details?|info(?:rmation)?|data|fields?|values?|items?|entities|everything|content|text|specifications?|specs|attributes|features|key\s+points)$/i;
+const KIND_WORDS = /\bquantit|\bunits?\b|\bmeasure|\bcontact|\bemail|\bphone|\btelephone|\bentit|\bpeople\b|\bplaces?\b|\borganizations?\b|\baction items?\b|\btasks?\b|\btodo|\bto-do|\bnumeric|\bnumbers?\b|\bfigures?\b|\bmetrics?\b|\bvalues?\b|\bdates?\b|\bevents?\b/i;
+
+/**
+ * The fields an instruction names when they are not one of the categories above:
+ * "Extract merchant name, date and total amount from this receipt" asks for a
+ * merchant and a total, and used to be answered with the date alone (report F1).
+ * Empty when every named field is a category, or nothing specific is named.
+ */
+export function requestedFields(instruction: string): string[] {
+  const m = String(instruction ?? "").match(/\b(?:extract|pull(?:\s+out)?|get|find|identify|list|give(?:\s+me)?|return|parse|what\s+(?:is|are))\s+(?:out\s+)?(.+?)\s+(?:from|in|out\s+of|contained\s+in)\b/i);
+  if (!m?.[1]) return [];
+  const names = m[1].replace(/\([^)]*\)/g, " ")
+    .split(/\s*,\s*(?:and\s+)?|\s+and\s+|\s*;\s*|\s*&\s*/i)
+    .map((n) => n.trim().replace(/^(?:the|its|their|a|an)\s+/i, "").trim())
+    .filter((n) => n && n.split(/\s+/).length <= 4 && !GENERIC_FIELD.test(n));
+  return names.some((n) => !KIND_WORDS.test(n)) ? names : [];
+}
+
+const FIELD_SYNONYMS: Array<[RegExp, RegExp]> = [
+  [/\bsender\b|\bauthor\b/i, /\bfrom\b|\bsender\b|\bauthor\b/i],
+  [/\brecipient\b/i, /\bto\b|\brecipient\b/i],
+  [/\btotal\b|\bamount\b|\bbalance\b|\bsum\b/i, /\btotal\b|\bamount\b|\bbalance\b|\bsum\b|\bdue\b/i],
+  [/\bprice\b|\bcost\b/i, /\bprice\b|\bcost\b/i],
+  [/\bdate\b/i, /\bdate\b|\bdated\b|\bissued\b/i],
+  [/\bsubject\b|\btitle\b/i, /\bsubject\b|\btitle\b|\bre\b/i],
+];
+
+function fieldValue(name: string, source: string, pairs: Array<[string, string]>, lead: string): { label: string; value: string } | null {
+  const words = name.toLowerCase().split(/\s+/).filter((w) => w.length > 2 && !/^(?:name|number)$/.test(w));
+  const syn = FIELD_SYNONYMS.find(([asked]) => asked.test(name))?.[1];
+  const pair = pairs.find(([l]) => (syn && syn.test(l)) || words.some((w) => l.toLowerCase().includes(w.slice(0, 4))));
+  if (pair) return { label: pair[0], value: pair[1] };
+  const label = name.charAt(0).toUpperCase() + name.slice(1);
+  if (/\bdate\b/i.test(name)) { const d = dates(source)[0]; return d ? { label, value: d } : null; }
+  if (/\btotal\b|\bamount\b|\bprice\b|\bcost\b|\bbalance\b/i.test(name)) {
+    const money = numerics(source).filter((v) => /[$£€]/.test(v));
+    const v = /\btotal\b|\bbalance\b/i.test(name) ? money[money.length - 1] : money[0];
+    return v ? { label, value: v } : null;
+  }
+  if (/\bemail\b/i.test(name)) { const v = emails(source)[0]; return v ? { label, value: v } : null; }
+  if (/\bphone\b/i.test(name)) { const v = phones(source)[0]; return v ? { label, value: v } : null; }
+  if (/\bmerchant\b|\bvendor\b|\bstore\b|\bseller\b|\bcompany\b|\bbusiness\b|\bshop\b/i.test(name)) {
+    if (lead && lead.split(/\s+/).length <= 6) return { label, value: lead };
+    const org = entities(source).orgs[0];
+    return org ? { label, value: org } : null;
+  }
+  if (/\bsize\b|\bweight\b|\blength\b|\bduration\b|\bdisplay\b|\bscreen\b|\bstorage\b|\bmemory\b/i.test(name)) {
+    const v = quantities(source)[0];
+    return v ? { label, value: v } : null;
+  }
+  if (/\bname\b|\bperson\b|\bcustomer\b|\bcontact\b/i.test(name)) { const v = entities(source).people[0]; return v ? { label, value: v } : null; }
+  return null;
+}
+
+/** Null when not one named field can be found, so the category sweep answers instead. */
+function extractFields(names: string[], source: string): Extraction | null {
+  const { lead, pairs } = labeledPairs(source);
+  const hits = names.map((name) => fieldValue(name, source, pairs, lead));
+  if (hits.every((h) => h === null)) return null;
+  const fields: Record<string, string[]> = {};
+  const bits: string[] = [];
+  for (const [i, name] of names.entries()) {
+    const hit = hits[i];
+    fields[name.toLowerCase().replace(/\s+/g, "_")] = hit ? [hit.value] : [];
+    bits.push(hit ? `${hit.label}: ${hit.value}.` : `${name.charAt(0).toUpperCase() + name.slice(1)}: not found in the supplied text.`);
+  }
+  return { want: "multiple", source, fields, summary: bits.join(" ") };
+}
+
+/** Imperative text is a list of action items even when no instruction says so. */
+const IMPERATIVE = /^(?:please\s+)?(?:submit|schedule|send|call|email|review|prepare|book|update|finish|complete|remember\s+to|make\s+sure|don't\s+forget|do\s+not\s+forget|follow\s+up|set\s+up|arrange|confirm|share|upload|sign|pay|order|buy|fix|draft|write|organi[sz]e|plan|notify|remind|reply|respond|finali[sz]e|file|renew|cancel)\b/i;
+
 export function extractContent(question: string, suppliedText?: string): Extraction {
   const source = suppliedText !== undefined ? suppliedText.trim().replace(/\s+/g, " ") : quotedPayload(question);
   // Only the instruction chooses extraction categories. The payload may itself
   // contain "email", "date", or "units" without requesting those fields.
   const instruction = suppliedText !== undefined ? question : question === source ? question
     : question.split(/\bfrom\b|:/i)[0] ?? question;
+  // Named fields need the whole instruction ("... total amount from this receipt"),
+  // and never the payload itself, which may read "Find the files in the drawer".
+  const hasInstruction = suppliedText !== undefined ? Boolean(question.trim()) : question.trim() !== source;
+  const named = hasInstruction ? requestedFields(question.split(/[:"“]/)[0] ?? "") : [];
+  const byName = named.length ? extractFields(named, source) : null;
+  if (byName) return byName;
   const kinds = requestedKinds(instruction);
   const results = kinds.map(want => extractForKind(want, source));
   if (results.length === 1) return results[0]!;
@@ -289,14 +436,30 @@ function extractForKind(want: Want, source: string): Extraction {
     // kilograms and is 2.3 meters long" extracted nothing at all and scored 0,
     // because `numerics` deliberately reads only percentages, currency and
     // quarters, treating bare numbers as noise.
-    const all = [
-      ...emails(source), ...phones(source), ...quantities(source),
-      ...numerics(source), ...dates(source),
-    ];
+    //
+    // With no instruction the payload's own shape decides the answer's shape
+    // (report F1, epochs 330-333): "From: John Smith, Subject: …" is answered
+    // as its labelled fields, contact details under their labels as the recorded
+    // ground truth words them, and imperative text as numbered action items —
+    // "Please submit the report by Friday and schedule a follow-up call." sent as
+    // bare text used to extract nothing and score 0.
+    const { pairs } = labeledPairs(source);
+    const e = emails(source), p = phones(source), u = urls(source);
+    const bits: string[] = [];
+    const taken: string[] = [];
+    for (const [label, value] of pairs) { bits.push(`${label}: ${value}.`); taken.push(value); }
+    const fresh = (v: string): boolean => !taken.some((t) => t.includes(v));
+    if (e.filter(fresh).length) bits.push(`Email: ${e.filter(fresh).join(", ")}.`);
+    if (p.filter(fresh).length) bits.push(`Phone number: ${p.filter(fresh).join(", ")}.`);
+    if (u.filter(fresh).length) bits.push(`URL: ${u.filter(fresh).join(", ")}.`);
+    const acts = !bits.length && IMPERATIVE.test(source) ? actions(source) : [];
+    if (acts.length) bits.push(acts.map((x, i) => `${i + 1}) ${x.replace(/\.$/, "")}.`).join(" "));
+    const rest = [...quantities(source), ...numerics(source), ...dates(source)]
+      .filter((v, i, a) => a.indexOf(v) === i && fresh(v) && !acts.some((x) => x.includes(v)));
+    const all = [...e, ...p, ...u, ...rest, ...pairs.map(([l, v]) => `${l}: ${v}`), ...acts];
     fields["values"] = all;
-    summary = all.length
-      ? `Extracted from the supplied text: ${all.join(", ")}.`
-      : "No structured values could be extracted from the supplied text.";
+    if (rest.length) bits.push(bits.length ? `Also: ${rest.join(", ")}.` : `Extracted from the supplied text: ${rest.join(", ")}.`);
+    summary = bits.length ? bits.join(" ") : "No structured values could be extracted from the supplied text.";
   }
 
   return { want, source, fields, summary };

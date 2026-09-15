@@ -1,5 +1,18 @@
 # TASKS.md — execution board
 
+## Current mission — 2026-09-15: act on the Codex rank-loss report
+
+- [x] Fix report defects F1 extraction, F2 classify, F3 sarcasm, F4 leaderboard, F6 papers,
+      F7 comparisons, F9 prediction-market guard. 588/588 unit tests. Preview verified with
+      11 probes, then promoted to production `miner-nj9rqs2vp` (operator yes). Preflight 7/7,
+      intent checker 36/36, and the report probes score as expected on production (G137–G143).
+- [ ] F5 WEB_SEARCH: version questions via endoflife.date, office holders via Wikidata.
+- [ ] F8 FINANCIAL_DATA: fiscal-year fundamentals via SEC EDGAR companyconcept. Check that
+      data.sec.gov answers from Vercel before relying on it.
+- [ ] Read the first complete epoch after 11:32 UTC 2026-09-15 for CONTENT_EXTRACTION,
+      TEXT_CLASSIFICATION, SENTIMENT_ANALYSIS, TELEGRAPH_KNOWLEDGE, ACADEMIC_SEARCH, RESEARCH_QUERY
+      and EVENT_OUTCOME_RESOLUTION. Claim no rank change before that.
+
 ## Current mission — 2026-09-13: recover positions below third
 
 - [x] Bind epoch-329 rankings to active registration 1408, owner and manifest; audit all

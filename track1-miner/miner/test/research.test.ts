@@ -105,3 +105,30 @@ test("no source that names the subject is an absence in those indexes, not an ab
     assert.match(r.reason, /source outage rather than an absence of research/);
   }
 });
+
+// Rank-loss report F7 (2026-09-15): answered no_evidence from the biomedical indexes.
+test("a comparison outside medicine is answered from each side's encyclopedia article", async () => {
+  const { answerResearch, comparedSubjects } = await import("../src/research");
+  assert.deepEqual(comparedSubjects("What are the main differences between proof of work and proof of stake? Cite sources."), ["proof of work", "proof of stake"]);
+  assert.deepEqual(comparedSubjects("React vs Vue for a small app"), ["React", "Vue for a small app"]);
+  assert.equal(comparedSubjects("Will Lepodisiran reduce coronary plaque?"), null);
+  const real = globalThis.fetch;
+  globalThis.fetch = (async (u: string) => {
+    const url = String(u);
+    if (url.includes("search/title")) {
+      const q = new URL(url).searchParams.get("q") ?? "";
+      const title = q.charAt(0).toUpperCase() + q.slice(1);
+      return new Response(JSON.stringify({ pages: [{ key: title.replace(/ /g, "_"), title }] }), { status: 200 });
+    }
+    if (url.includes("page/summary/Proof_of_work")) return new Response(JSON.stringify({ title: "Proof of work", extract: "Proof of work is a form of cryptographic proof. More." }), { status: 200 });
+    if (url.includes("page/summary/Proof_of_stake")) return new Response(JSON.stringify({ title: "Proof of stake", extract: "Proof-of-stake protocols select validators in proportion to their holdings. More." }), { status: 200 });
+    return new Response("{}", { status: 503 });
+  }) as typeof fetch;
+  try {
+    const r = await answerResearch("What are the main differences between proof of work and proof of stake? Cite sources.");
+    assert.equal(r.verdict, "evidence");
+    assert.equal(r.reason, 'Proof of work: Proof of work is a form of cryptographic proof. Proof of stake: Proof-of-stake protocols select validators in proportion to their holdings. Sources: Wikipedia, "Proof of work" and "Proof of stake".');
+  } finally {
+    globalThis.fetch = real;
+  }
+});

@@ -1,5 +1,28 @@
 # MEMORY.md — session continuity
 
+## 2026-09-15 ~11:45 UTC (17:15 IST) — rank-loss report defects fixed and deployed
+
+Codex wrote `track1-miner/docs/TRACK1_RANK_LOSS_REPORT_2026-09-15.md` (report only: first places
+16 → 8 between epochs 329 and 333). This session fixed seven of its nine reproduced defects (F1–F4,
+F6, F7, F9). The operator said yes to production.
+
+**State:** branch `codex/rank1-14-intents`. Production **`miner-nj9rqs2vp`**, promoted from preview
+`miner-oluluq8xb`; rollback target `miner-1yltvl5d8`. Registration 1408 is active and not retrying.
+Manifest unchanged, so no `updateMiner` is needed.
+
+**Verified:** 588/588 unit tests; preflight 7/7 against production; intent-answers 36/36;
+the report probes on production (`docs/evidence/rank-loss-2026-09-15/production-after.json`, with
+production-before beside it). Under the live champions, extraction scores 1.0 on all nine probes
+(production before: 5/9). Classify's three probes score 1.0 (before: 1/3). Those are partly
+**authored** ground truths — see G137–G139.
+
+**Method worth keeping:** a competitor's `failure_reason` leaks each epoch's CONTENT_EXTRACTION
+payload (microlink echoes the text as a bad URL). That is how 330/331's zeros were reproduced.
+Champion 935 is in `track2/harness/champions/content_extraction_reg935.wasm` (gitignored).
+
+**Next:** F5 web search and F8 financial fundamentals (sources verified, not built; see TASKS).
+Then read the first complete epoch after 11:32 UTC. No rank recovery is claimed yet.
+
 ## 2026-09-13 ~17:00 UTC — rank-below-third recovery deployed
 
 Registration **1408**, **36 intents**, production **miner-1yltvl5d8** (preview

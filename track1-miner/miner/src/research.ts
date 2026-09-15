@@ -257,6 +257,33 @@ export async function findEncyclopedia(term: string): Promise<Citation | null | 
   }
 }
 
+/** "differences between A and B", "A vs B", "compare A with B" — the two subjects, or null. */
+export function comparedSubjects(text: string): [string, string] | null {
+  const s = String(text ?? "").replace(/\?.*$/s, "").trim();
+  const m =
+    s.match(/\b(?:differences?|distinction|compar(?:e|ison|ing))\s+(?:between\s+|of\s+)?(.{2,60}?)\s+(?:and|with|to|versus|vs\.?)\s+(.{2,60}?)\s*(?:[.;,]|$)/i) ??
+    s.match(/^(?:how\s+(?:does|do|is|are)\s+)?(.{2,60}?)\s+(?:versus|vs\.?|compared\s+(?:to|with))\s+(.{2,60}?)\s*(?:[.;,]|$)/i);
+  const clean = (x: string | undefined): string => String(x ?? "").replace(/^(?:the|a|an)\s+/i, "").replace(/\s+(?:differ|compare)\b.*$/i, "").trim();
+  const a = clean(m?.[1]), b = clean(m?.[2]);
+  return a && b && a.toLowerCase() !== b.toLowerCase() ? [a, b] : null;
+}
+
+/** The encyclopedia article a phrase names, resolved through Wikipedia's title search first. */
+export async function findEncyclopediaBySearch(term: string): Promise<Citation | null | "unavailable"> {
+  try {
+    const d = (await getJson(`https://en.wikipedia.org/w/rest.php/v1/search/title?q=${encodeURIComponent(term)}&limit=1`)) as {
+      pages?: Array<{ key?: string; title?: string }>;
+    };
+    const page = d.pages?.[0];
+    // The found title must carry the phrase's words, or it is a different subject.
+    const words = term.toLowerCase().match(/[a-z0-9]{3,}/g) ?? [];
+    if (!page?.key || !words.every((w) => String(page.title ?? "").toLowerCase().includes(w))) return findEncyclopedia(term);
+    return findEncyclopedia(page.key);
+  } catch {
+    return "unavailable";
+  }
+}
+
 /** Whether the question asks about something not yet settled. */
 function isForwardLooking(text: string): boolean {
   return /^\s*(?:will|would|is\s+\w+\s+going to|are\s+\w+\s+going to)\b/i.test(String(text ?? ""));
@@ -340,6 +367,27 @@ export async function answerResearch(question: string): Promise<ResearchResult> 
     for (const { candidate, w } of pages) {
       if (w === "unavailable") { anyIndexDown = true; continue; }
       if (w) { wiki = w; term = candidate; break; }
+    }
+  }
+
+  /**
+   * A comparison outside medicine. "What are the main differences between proof
+   * of work and proof of stake? Cite sources." searched the registry and Europe
+   * PMC for "main differences between proof work proof stake", found nothing,
+   * and answered no_evidence (rank-loss report F7). Each side of the comparison
+   * is its own subject, so each is looked up in the encyclopedia and cited.
+   */
+  if (trials.length === 0 && lit.length === 0) {
+    const sides = comparedSubjects(question);
+    if (sides) {
+      const pages = await Promise.all(sides.map((s) => findEncyclopediaBySearch(s)));
+      if (pages.every((p): p is Citation => p !== null && p !== "unavailable")) {
+        return {
+          subject, trials: [], citations: pages, verdict: "evidence", confidence: 0.75,
+          reason: pages.map((p) => `${p.title}: ${p.source.replace(/^Wikipedia:\s*/, "")}`).join(" ") +
+            ` Sources: Wikipedia, "${pages[0]!.title}" and "${pages[1]!.title}".`,
+        };
+      }
     }
   }
 

@@ -284,3 +284,46 @@ test("an index that answers with nothing still says no papers were found", async
     globalThis.fetch = original;
   }
 });
+
+// Rank-loss report F6 (2026-09-15): "Find three peer-reviewed papers about
+// transformer language models" returned five papers, led by a 1998
+// document-recognition paper and a vision transformer.
+test("a spelled-out count is honoured", () => {
+  assert.equal(requestedLimit("Find three peer-reviewed papers about transformer language models."), 3);
+  assert.equal(requestedLimit("Give me the top seven articles on CRISPR"), 7);
+  assert.equal(requestedLimit("List ten recent studies on sleep"), 10);
+  assert.equal(requestedLimit("Find 3 open-access papers on climate adaptation"), 3);
+  assert.equal(requestedLimit("Find papers on proof of stake from the last five years"), 5);
+  assert.equal(requestedLimit("Papers published in 2023 with at least 50 citations"), 5);
+});
+
+test("works carrying every topic term rank ahead of off-topic hits, in index order", async () => {
+  const { rankByTopic } = await import("../src/papers");
+  const results = [
+    { title: "Gradient-based learning applied to document recognition" },
+    { title: "Swin Transformer: Hierarchical Vision Transformer using Shifted Windows" },
+    { title: "Deep Transfer Learning & Beyond: Transformer Language Models in Information Systems Research" },
+    { title: "BioBERT", abstract_inverted_index: { transformer: [1], language: [2], model: [3] } },
+  ];
+  assert.deepEqual(rankByTopic(results, "transformer language models").map((r) => r.title),
+    [results[2]!.title, "BioBERT", results[1]!.title, results[0]!.title]);
+});
+
+test("peer-reviewed is filtered to journal articles and said as such; otherwise the answer says papers", async () => {
+  const original = globalThis.fetch;
+  const urls: string[] = [];
+  globalThis.fetch = (async (u: string) => {
+    urls.push(String(u));
+    return new Response(JSON.stringify({ results: [{ title: "Transformer language models survey", publication_year: 2023, cited_by_count: 5, authorships: [] }] }), { status: 200 });
+  }) as typeof fetch;
+  try {
+    const r = await findPapers("Find three peer-reviewed papers about transformer language models.");
+    assert.match(decodeURIComponent(urls[0]!), /type:article,primary_location\.source\.type:journal/);
+    assert.match(r.reason, /^Here are 1 peer-reviewed journal articles on transformer language models/);
+    const p = await findPapers("Find papers about transformer language models");
+    assert.doesNotMatch(decodeURIComponent(urls[1]!), /source\.type/);
+    assert.match(p.reason, /^Here are 1 papers on/);
+  } finally {
+    globalThis.fetch = original;
+  }
+});

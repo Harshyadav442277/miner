@@ -99,6 +99,10 @@ test("a prediction or opinion request is recognised", () => {
   assert.equal(asksPrediction("Who do you think will win the election?"), true);
   assert.equal(asksPrediction("What are the odds of a Fed cut?"), true);
   assert.equal(asksPrediction("Did the Fed cut rates in September 2025?"), false);
+  // Rank-loss report F9: the thing being resolved is not a request for a forecast.
+  assert.equal(asksPrediction("Resolve this prediction market: who won the 2022 FIFA World Cup?"), false);
+  assert.equal(asksPrediction("How did the prediction contract on the 2024 US election settle?"), false);
+  assert.equal(asksPrediction("What is your prediction for the prediction market on the 2028 election?"), true);
 });
 
 test("an event must be named: a capitalised name after the first word, or a number", () => {
@@ -122,4 +126,15 @@ test("(live) an answer never reports odds as an outcome", async () => {
   if (r.verdict === "unknown") return;
   if (r.verdict === "resolved") assert.match(r.reason, /^Resolved (Yes|No): /);
   assert.doesNotMatch(r.reason, /\d+(\.\d+)?%|probability/i);
+});
+
+test("a who-question is answered only by a market that names the winner", async () => {
+  const { asksWho, namedWinner } = await import("../src/eventoutcome");
+  assert.equal(asksWho("Resolve this prediction market: who won the 2022 FIFA World Cup?"), true);
+  assert.equal(asksWho("Which team won Super Bowl LIX?"), true);
+  assert.equal(asksWho("Did the Fed cut rates in September 2025?"), false);
+  const base = { venue: "Manifold" as const, context: "", closes: null };
+  assert.equal(namedWinner({ ...base, question: "Will a previous host of the FIFA World Cup win the 2022 FIFA World Cup?", settled: true, outcome: "Yes" }), null);
+  assert.equal(namedWinner({ ...base, question: "Will Argentina win the 2022 FIFA World Cup?", settled: true, outcome: "Yes" }), "Argentina");
+  assert.equal(namedWinner({ ...base, question: "Will Brazil win the 2022 FIFA World Cup?", settled: true, outcome: "No" }), null);
 });

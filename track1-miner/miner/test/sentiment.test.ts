@@ -180,3 +180,16 @@ test("the lexicon is well formed", () => {
   }
   assert.equal(wordList(["a", "b", "c"]), "a, b and c");
 });
+
+// Rank-loss report F3 (2026-09-15): production read this as mixed.
+test("praise opening a complaint is sarcasm, and the complaint decides", async () => {
+  const { analyseSentiment, sarcasticOpening } = await import("../src/sentiment");
+  const r = analyseSentiment('What is the sentiment of this review: "Fantastic, another three hours wasted because your app deleted my work."');
+  assert.equal(r.verdict, "negative");
+  assert.match(r.reason, /^The sentiment of this review is negative\. .*The opening fantastic is sarcastic\.$/);
+  // Sincere praise is not sarcasm, and neither is praise followed by more praise.
+  assert.equal(sarcasticOpening("Great, it arrived early and works perfectly."), null);
+  assert.equal(analyseSentiment("", "Great, it arrived early and works perfectly.").verdict, "positive");
+  assert.equal(sarcasticOpening("Oh great, the update broke everything again.")?.word, "great");
+  assert.equal(analyseSentiment("", "Oh great, the update broke everything again.").verdict, "negative");
+});

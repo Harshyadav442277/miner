@@ -204,6 +204,23 @@ export function labelOf(compound: number, pos: number, neg: number): SentimentVe
   return "neutral";
 }
 
+/**
+ * Praise that opens a complaint: "Fantastic, another three hours wasted because
+ * your app deleted my work." was read as MIXED, fantastic against wasted (rank-loss
+ * report F3). An opening interjection set off by punctuation, followed by text
+ * that is negative with no positive word of its own, is sarcasm, and the
+ * interjection is returned so the answer can name it. Anything else is null: a
+ * sincere "Great, it arrived early and works well." has positive words after it.
+ */
+export function sarcasticOpening(text: string): { word: string; rest: string } | null {
+  const m = String(text ?? "").match(
+    /^\s*["'“‘]?(?:(?:oh|ah|well|just|yeah|wow)[,!]?\s+)?(fantastic|great|wonderful|perfect|brilliant|lovely|awesome|amazing|excellent|terrific|super|nice|thanks|thank you|just what i needed|love it|well done|splendid)\s*(?:[,!.…]|—|-)+\s*(.+)$/i,
+  );
+  if (!m?.[1] || !m[2]) return null;
+  const rest = scoreText(m[2]);
+  return rest.compound <= -0.05 && rest.pos === 0 ? { word: m[1], rest: m[2] } : null;
+}
+
 export function analyseSentiment(question: string, textParam = ""): SentimentResult {
   const q = String(question ?? "").trim();
   const text = String(textParam ?? "").trim() || suppliedText(q) || (asksSentiment(q) ? "" : q);
@@ -216,7 +233,9 @@ export function analyseSentiment(question: string, textParam = ""): SentimentRes
     };
   }
   const noun = subjectNoun(q);
-  const { compound, pos, neg, hits } = scoreText(text);
+  const sarcasm = sarcasticOpening(text);
+  // The sarcastic interjection carries no praise, so the reading is of the rest.
+  const { compound, pos, neg, hits } = scoreText(sarcasm ? sarcasm.rest : text);
   const verdict = labelOf(compound, pos, neg);
   const tones = tonesOf(text);
   const words = (sign: number): string[] =>
@@ -276,9 +295,11 @@ export function analyseSentiment(question: string, textParam = ""): SentimentRes
   }
   const main = words(verdict === "positive" ? 1 : -1);
   const other = words(verdict === "positive" ? -1 : 1);
-  const offset = other.length
-    ? ` Weaker ${verdict === "positive" ? "negative" : "positive"} wording (${wordList(other)}) does not outweigh it.`
-    : "";
+  const offset = sarcasm
+    ? ` The opening ${sarcasm.word.toLowerCase()} is sarcastic.`
+    : other.length
+      ? ` Weaker ${verdict === "positive" ? "negative" : "positive"} wording (${wordList(other)}) does not outweigh it.`
+      : "";
   return {
     verdict, compound,
     confidence: Number(Math.min(0.95, 0.55 + Math.abs(compound) * 0.4).toFixed(2)),

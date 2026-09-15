@@ -230,3 +230,33 @@ describe("answerTelegraph", () => {
     assert.equal(r.error, "invalid_input");
   });
 });
+
+// Rank-loss report F4 (2026-09-15): these were answered with a miner count and
+// the epoch schedule.
+test("who leads an intent is answered from the latest scored epoch", async () => {
+  const real = globalThis.fetch;
+  const seen: string[] = [];
+  globalThis.fetch = (async (u: string) => {
+    seen.push(String(u));
+    const body = String(u).includes("/engine/v1/intents")
+      ? { intents: [{ intent_id: "WEATHER_FORECAST", miner_count: 25 }, { intent_id: "WEB_SEARCH", miner_count: 23 }] }
+      : { scores: [
+          { epoch_id: 333, miner_slug: "openweathermap", rank: 2 },
+          { epoch_id: 333, miner_slug: "amanat-weather-risk", rank: 1 },
+          { epoch_id: 332, miner_slug: "livecert", rank: 1 },
+          { epoch_id: 333, miner_slug: "chainsight-oracle", rank: 3 },
+        ] };
+    return new Response(JSON.stringify(body), { status: 200 });
+  }) as typeof fetch;
+  try {
+    const a = await answerTelegraph("Which miner is currently rank 1 for WEATHER_FORECAST?");
+    assert.equal(a.reason, "amanat-weather-risk is rank 1 for WEATHER_FORECAST in epoch 333, the latest scored epoch, out of 3 scored miners. Next are openweathermap and chainsight-oracle.");
+    const b = await answerTelegraph("Who leads the weather forecast leaderboard in the latest epoch?");
+    assert.match(b.reason, /^amanat-weather-risk is rank 1 for WEATHER_FORECAST/);
+    assert.ok(seen.some((u) => u.includes("/scores?intent=WEATHER_FORECAST")));
+    const c = await answerTelegraph("How many miners serve WEB_SEARCH?");
+    assert.match(c.reason, /^The intent WEB_SEARCH is currently served by 23 registered miners/);
+  } finally {
+    globalThis.fetch = real;
+  }
+});

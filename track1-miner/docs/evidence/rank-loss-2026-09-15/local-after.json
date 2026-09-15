@@ -1,0 +1,234 @@
+[
+  {
+    "id": "F1",
+    "path": "/extract",
+    "params": {
+      "query": "Extract people, organizations and places from: Alice Johnson works for OpenAI in New York."
+    },
+    "status": 200,
+    "verdict": "entities",
+    "reason": "Person: Alice Johnson. Organization: OpenAI. Place: New York.",
+    "gt": "A:Person: Alice Johnson. Organization: OpenAI. Place: New York.",
+    "score_reason32": 1,
+    "score_flat32": 1
+  },
+  {
+    "id": "F1",
+    "path": "/extract",
+    "params": {
+      "query": "Extract quantities and units from: Add 1/2 cup milk, 250ml water and 2.5kg flour."
+    },
+    "status": 200,
+    "verdict": "quantities",
+    "reason": "1/2 cup, 250ml, 2.5kg.",
+    "gt": "A:1/2 cup milk, 250ml water, 2.5kg flour.",
+    "score_reason32": 1,
+    "score_flat32": 1
+  },
+  {
+    "id": "F1",
+    "path": "/extract",
+    "params": {
+      "query": "Extract merchant name, date and total amount from this receipt: Acme Store. Date: 2026-09-14. Total: $42.50."
+    },
+    "status": 200,
+    "verdict": "multiple",
+    "reason": "Merchant name: Acme Store. Date: 2026-09-14. Total: $42.50.",
+    "gt": "A:Merchant: Acme Store, Date: 2026-09-14, Total: $42.50",
+    "score_reason32": 1,
+    "score_flat32": 1
+  },
+  {
+    "id": "E333",
+    "path": "/extract",
+    "params": {
+      "text": "Reach us at support@example.com or call 555-0192."
+    },
+    "status": 200,
+    "verdict": "generic",
+    "reason": "Email: support@example.com. Phone number: 555-0192.",
+    "gt": "R:Email: support@example.com. Phone number: 555-0192.",
+    "score_reason32": 1,
+    "score_flat32": 1
+  },
+  {
+    "id": "E332",
+    "path": "/extract",
+    "params": {
+      "text": "The recipe calls for 2 cups of flour and 1 teaspoon of salt."
+    },
+    "status": 200,
+    "verdict": "generic",
+    "reason": "Extracted from the supplied text: 2 cups of flour, 1 teaspoon of salt.",
+    "gt": "R:2 cups of flour, 1 teaspoon of salt.",
+    "score_reason32": 1,
+    "score_flat32": 1
+  },
+  {
+    "id": "E331",
+    "path": "/extract",
+    "params": {
+      "text": "The new laptop is priced at $1,299 and features a 16-inch display."
+    },
+    "status": 200,
+    "verdict": "generic",
+    "reason": "Extracted from the supplied text: 16-inch, $1,299.",
+    "gt": "A:Price: $1,299. Display size: 16-inch.",
+    "score_reason32": 1,
+    "score_flat32": 1
+  },
+  {
+    "id": "E330",
+    "path": "/extract",
+    "params": {
+      "text": "From: John Smith, Subject: Quarterly Budget Review Meeting."
+    },
+    "status": 200,
+    "verdict": "generic",
+    "reason": "From: John Smith. Subject: Quarterly Budget Review Meeting.",
+    "gt": "A:Sender: John Smith. Subject: Quarterly Budget Review Meeting.",
+    "score_reason32": 1,
+    "score_flat32": 1
+  },
+  {
+    "id": "E329",
+    "path": "/extract",
+    "params": {
+      "text": "Revenue grew by 12% to reach $4.5 million in Q3."
+    },
+    "status": 200,
+    "verdict": "generic",
+    "reason": "Extracted from the supplied text: 12%, $4.5 million, Q3.",
+    "gt": "R:12% growth rate, $4.5 million revenue, Q3 time period.",
+    "score_reason32": 1,
+    "score_flat32": 1
+  },
+  {
+    "id": "REC",
+    "path": "/extract",
+    "params": {
+      "text": "Please submit the report by Friday and schedule a follow-up call."
+    },
+    "status": 200,
+    "verdict": "generic",
+    "reason": "1) Submit the report by Friday. 2) Schedule a follow-up call.",
+    "gt": "R:1) Submit the report by Friday. 2) Schedule a follow-up call.",
+    "score_reason32": 1,
+    "score_flat32": 1
+  },
+  {
+    "id": "F2",
+    "path": "/classify",
+    "params": {
+      "query": "Classify this ticket as billing, technical, or account issue: \"I was charged twice on my invoice.\""
+    },
+    "status": 200,
+    "verdict": "classified",
+    "reason": "This ticket is a billing issue. The words charged and invoice in it relate to billing.",
+    "gt": "A:This ticket is a billing issue.",
+    "score_reason32": 1,
+    "score_flat32": 1
+  },
+  {
+    "id": "F2",
+    "path": "/classify",
+    "params": {
+      "query": "Classify this support ticket as billing, technical, or account issue: 'I can't log into my account.'"
+    },
+    "status": 200,
+    "verdict": "classified",
+    "reason": "This support ticket is an account issue. The words log and account in it relate to account issue.",
+    "gt": "A:This support ticket is an account issue.",
+    "score_reason32": 1,
+    "score_flat32": 1
+  },
+  {
+    "id": "F2",
+    "path": "/classify",
+    "params": {
+      "query": "What category does this review belong to: quality, shipping, or price? 'The package took three weeks to arrive.'"
+    },
+    "status": 200,
+    "verdict": "classified",
+    "reason": "This review belongs to the shipping category. The words package, weeks and arrive in it relate to shipping.",
+    "gt": "A:This review belongs to the shipping category.",
+    "score_reason32": 1,
+    "score_flat32": 1
+  },
+  {
+    "id": "F3",
+    "path": "/sentiment",
+    "params": {
+      "query": "What is the sentiment of this review: \"Fantastic, another three hours wasted because your app deleted my work.\""
+    },
+    "status": 200,
+    "verdict": "negative",
+    "reason": "The sentiment of this review is negative. It is carried by the word wasted. The opening fantastic is sarcastic.",
+    "gt": "A:The sentiment is negative.",
+    "score_reason32": 0,
+    "score_flat32": 0
+  },
+  {
+    "id": "F3",
+    "path": "/sentiment",
+    "params": {
+      "query": "What's the sentiment of this review: 'The product broke after one day, terrible quality.'"
+    },
+    "status": 200,
+    "verdict": "negative",
+    "reason": "The sentiment of this review is negative. It is carried by the words terrible and broke.",
+    "gt": "A:The sentiment is negative.",
+    "score_reason32": 1,
+    "score_flat32": 0
+  },
+  {
+    "id": "F4",
+    "path": "/telegraph",
+    "params": {
+      "query": "Which miner is currently rank 1 for WEATHER_FORECAST?"
+    },
+    "status": 200,
+    "verdict": "leaderboard",
+    "reason": "Regarding which miner is currently rank 1 for WEATHER_FORECAST: amanat-weather-risk is rank 1 for WEATHER_FORECAST in epoch 333, the latest scored epoch, out of 25 scored miners. Next are openweathermap and chainsight-oracle."
+  },
+  {
+    "id": "F4",
+    "path": "/telegraph",
+    "params": {
+      "query": "Who leads the WEB_SEARCH leaderboard in the latest epoch?"
+    },
+    "status": 200,
+    "verdict": "leaderboard",
+    "reason": "Regarding who leads the WEB_SEARCH leaderboard in the latest epoch: telegraph-chatbot is rank 1 for WEB_SEARCH in epoch 333, the latest scored epoch, out of 23 scored miners. Next are weerakorn-miner and sentinel-risk-oracle."
+  },
+  {
+    "id": "F6",
+    "path": "/papers",
+    "params": {
+      "query": "Find three peer-reviewed papers about transformer language models."
+    },
+    "status": 200,
+    "verdict": "papers",
+    "reason": "Regarding find three peer-reviewed papers about transformer language models: Here are 3 peer-reviewed journal articles on transformer language models: 1) DNABERT: pre-trained Bidirectional Encoder Representations from Transformers model for DNA-language in genome by Yanrong Ji, Zhihan Zhou, Han Liu, Ramana V. Davuluri (2021), cited 1341 times. 2) Longitudinal analysis of sentiment and emotion in news media headlines using automated labelling with Transformer language models by David Rozado, Ruth Hughes, Jamin Halberstadt (2022), cited 103 times. 3) Augmenting human innovation teams with artificial intelligence: Exploring transformer‐based language models by Sebastian Gregor Bouschery, Vera Blažević, Frank T. Piller (2023), cited 427 times."
+  },
+  {
+    "id": "F7",
+    "path": "/research",
+    "params": {
+      "query": "What are the main differences between proof of work and proof of stake? Cite sources."
+    },
+    "status": 200,
+    "verdict": "evidence",
+    "reason": "Proof of work: Proof of work is a form of cryptographic proof in which one party proves to others that a certain amount of a specific computational effort has been expended. Proof of stake: Proof-of-stake (PoS) protocols are a class of consensus mechanisms for blockchains that work by selecting validators in proportion to their quantity of holdings in the associated cryptocurrency. Sources: Wikipedia, \"Proof of work\" and \"Proof of stake\"."
+  },
+  {
+    "id": "F9",
+    "path": "/event-outcome",
+    "params": {
+      "query": "Resolve this prediction market: who won the 2022 FIFA World Cup?"
+    },
+    "status": 200,
+    "verdict": "no_market_found",
+    "reason": "No prediction market matching this event was found on Polymarket or Manifold, so no outcome is reported and none is guessed. Polymarket did not respond, so only Manifold was searched. Official sources such as flight trackers, election authorities and league results are not read here."
+  }
+]

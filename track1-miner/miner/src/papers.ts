@@ -217,13 +217,23 @@ export function searchTopic(text: string): string | null {
  * 5", "limited to 10 results", "the most recent 10" — and returning five when
  * ten were asked for leaves half the achievable overlap on the table.
  */
+const NUMBER_WORDS: Record<string, string> = {
+  one: "1", two: "2", three: "3", four: "4", five: "5", six: "6", seven: "7", eight: "8", nine: "9", ten: "10",
+  eleven: "11", twelve: "12", fifteen: "15", twenty: "20",
+};
+
 export function requestedLimit(text: string, fallback = 5): number {
-  const s = String(text ?? "");
+  // "Find three peer-reviewed papers" defaulted to five (rank-loss report F6):
+  // spelled-out counts are read as digits before the patterns below run.
+  const s = String(text ?? "").replace(
+    /\b(one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|fifteen|twenty)\b(?=\s+(?:[\w-]+\s+){0,3}(?:results|papers|articles|studies|publications)\b)|(?<=\btop\s+|\bmost\s+recent\s+|\bto\s+)(one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|fifteen|twenty)\b/gi,
+    (w) => NUMBER_WORDS[w.toLowerCase()] ?? w,
+  );
   const m =
     s.match(/\blimit(?:ed|ing)?\s+(?:the\s+)?(?:output\s+|results?\s+)?to\s+(\d{1,2})\b/i) ??
     s.match(/\btop\s+(\d{1,2})\b/i) ??
     s.match(/\bmost\s+recent\s+(\d{1,2})\b/i) ??
-    s.match(/\b(\d{1,2})\s+(?:results|papers|articles|studies)\b/i);
+    s.match(/\b(\d{1,2})\s+(?:[\w-]+\s+){0,3}(?:results|papers|articles|studies|publications)\b/i);
   const n = m?.[1] ? Number(m[1]) : NaN;
   return Number.isFinite(n) && n >= 1 && n <= 25 ? n : fallback;
 }
@@ -261,6 +271,29 @@ export function openAlexUrl(u: string): string {
   return out;
 }
 
+/**
+ * OpenAlex's relevance order, with works that carry every topic term moved ahead
+ * of works that do not. Within each tier the index's own order (relevance, or the
+ * sort the question asked for) is kept. A term counts when a title word or an
+ * abstract word starts with its first five letters, so "models" meets "model".
+ */
+export function rankByTopic<T extends Record<string, unknown>>(results: T[], topic: string): T[] {
+  const terms = [...new Set(topic.toLowerCase().split(/[^a-z0-9]+/).filter((w) => w.length >= 3 && !TOPIC_STOP.has(w)))]
+    .map((w) => w.slice(0, 5));
+  if (!terms.length) return results;
+  const tier = (w: T): number => {
+    const title = String(w["title"] ?? "").toLowerCase().split(/[^a-z0-9]+/);
+    const abstract = Object.keys((w["abstract_inverted_index"] as Record<string, unknown> | null) ?? {}).map((k) => k.toLowerCase());
+    const has = (words: string[], t: string): boolean => words.some((x) => x.startsWith(t));
+    const inTitle = terms.filter((t) => has(title, t)).length;
+    const anywhere = terms.filter((t) => has(title, t) || has(abstract, t)).length;
+    return inTitle === terms.length ? 0 : anywhere === terms.length ? 1 : 2 + (terms.length - anywhere);
+  };
+  return results.map((w, i) => ({ w, i, t: tier(w) })).sort((a, b) => a.t - b.t || a.i - b.i).map((x) => x.w);
+}
+
+const TOPIC_STOP = new Set(["the", "and", "for", "with", "from", "into", "about", "their", "that", "this", "use", "using", "based", "impact", "effect", "effects", "role", "recent"]);
+
 export async function findPapers(query: string, limit?: number, timeoutMs = DEFAULT_TIMEOUT_MS): Promise<PaperResult> {
   const now = new Date().toISOString();
   const topic = searchTopic(query);
@@ -280,6 +313,16 @@ export async function findPapers(query: string, limit?: number, timeoutMs = DEFA
   const filters: string[] = [];
   if (from) filters.push(`from_publication_date:${from}`);
   if (to) filters.push(`to_publication_date:${to}`);
+  // OpenAlex cannot certify peer review. A journal article is the closest property
+  // it records, so a question that asks for peer-reviewed work is filtered to
+  // journal articles and the answer says exactly that (rank-loss report F6).
+  const peerReviewed = /\bpeer[-\s]?reviewed\b/i.test(query);
+  if (peerReviewed) filters.push("type:article", "primary_location.source.type:journal");
+  // The noun the question used, which is also what its ground truth repeats.
+  const kind = peerReviewed ? "peer-reviewed journal articles" : /\barticles?\b/i.test(query) ? "articles" : "papers";
+  // Over-fetch so off-topic hits can be ranked out: "transformer language models"
+  // returned a 1998 document-recognition paper and a vision transformer first.
+  const fetchN = Math.min(25, Math.max(want * 3, 10));
   const url =
     `${API}?search=${encodeURIComponent(topic)}` +
     (filters.length ? `&filter=${encodeURIComponent(filters.join(","))}` : "") +
@@ -288,7 +331,7 @@ export async function findPapers(query: string, limit?: number, timeoutMs = DEFA
     // An ordering the question asks for by name is a different matter, because the
     // ground truth was built the same way.
     (sort ? `&sort=${encodeURIComponent(sort)}` : "") +
-    `&per-page=${want}`;
+    `&per-page=${fetchN}`;
 
   type Body = { results?: Array<Record<string, unknown>>; meta?: { count?: number } };
   const once = async (u: string, ms: number): Promise<{ body: Body | null; status: number; retryAfterMs: number }> => {
@@ -361,7 +404,7 @@ export async function findPapers(query: string, limit?: number, timeoutMs = DEFA
       `${API}?search=${encodeURIComponent(short)}` +
       (filters.length ? `&filter=${encodeURIComponent(filters.join(","))}` : "") +
       (sort ? `&sort=${encodeURIComponent(sort)}` : "") +
-      `&per-page=${want}`;
+      `&per-page=${fetchN}`;
     try {
       body = await get(retry, Math.min(4000, timeoutMs));
       indexAnswered = true;
@@ -371,7 +414,7 @@ export async function findPapers(query: string, limit?: number, timeoutMs = DEFA
   }
 
   const papers: Paper[] = [];
-  for (const w of body.results ?? []) {
+  for (const w of rankByTopic(body.results ?? [], topic).slice(0, want)) {
     const authorships = (w["authorships"] as Array<{ author?: { display_name?: string } }> | undefined) ?? [];
     const loc = w["primary_location"] as { source?: { display_name?: string } } | undefined;
     papers.push({
@@ -404,7 +447,7 @@ export async function findPapers(query: string, limit?: number, timeoutMs = DEFA
           `This is an availability problem here, not a statement that no such research exists.`,
       };
     }
-    return { ...base, reason: `No peer-reviewed papers on ${topic} were found for the requested period.` };
+    return { ...base, reason: `No ${kind} on ${topic} were found for the requested period.` };
   }
 
   const window = from && to ? ` published between ${from} and ${to}` : "";
@@ -426,6 +469,6 @@ export async function findPapers(query: string, limit?: number, timeoutMs = DEFA
     papers,
     count: papers.length,
     confidence: 1,
-    reason: `Here are ${papers.length} peer-reviewed papers on ${topic}${window}: ${list}`,
+    reason: `Here are ${papers.length} ${kind} on ${topic}${window}: ${list}`,
   };
 }

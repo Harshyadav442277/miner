@@ -1,0 +1,234 @@
+[
+  {
+    "id": "F1",
+    "path": "/extract",
+    "params": {
+      "query": "Extract people, organizations and places from: Alice Johnson works for OpenAI in New York."
+    },
+    "status": 200,
+    "verdict": "entities",
+    "reason": "Person: Alice Johnson, New York.",
+    "gt": "A:Person: Alice Johnson. Organization: OpenAI. Place: New York.",
+    "score_reason32": 1,
+    "score_flat32": 1
+  },
+  {
+    "id": "F1",
+    "path": "/extract",
+    "params": {
+      "query": "Extract quantities and units from: Add 1/2 cup milk, 250ml water and 2.5kg flour."
+    },
+    "status": 200,
+    "verdict": "quantities",
+    "reason": "2 cup.",
+    "gt": "A:1/2 cup milk, 250ml water, 2.5kg flour.",
+    "score_reason32": 0,
+    "score_flat32": 0
+  },
+  {
+    "id": "F1",
+    "path": "/extract",
+    "params": {
+      "query": "Extract merchant name, date and total amount from this receipt: Acme Store. Date: 2026-09-14. Total: $42.50."
+    },
+    "status": 200,
+    "verdict": "date_event",
+    "reason": "Date: 2026-09-14.",
+    "gt": "A:Merchant: Acme Store, Date: 2026-09-14, Total: $42.50",
+    "score_reason32": 0,
+    "score_flat32": 0
+  },
+  {
+    "id": "E333",
+    "path": "/extract",
+    "params": {
+      "text": "Reach us at support@example.com or call 555-0192."
+    },
+    "status": 200,
+    "verdict": "generic",
+    "reason": "Extracted from the supplied text: support@example.com, 555-0192.",
+    "gt": "R:Email: support@example.com. Phone number: 555-0192.",
+    "score_reason32": 1,
+    "score_flat32": 1
+  },
+  {
+    "id": "E332",
+    "path": "/extract",
+    "params": {
+      "text": "The recipe calls for 2 cups of flour and 1 teaspoon of salt."
+    },
+    "status": 200,
+    "verdict": "generic",
+    "reason": "Extracted from the supplied text: 2 cups of flour, 1 teaspoon of salt.",
+    "gt": "R:2 cups of flour, 1 teaspoon of salt.",
+    "score_reason32": 1,
+    "score_flat32": 1
+  },
+  {
+    "id": "E331",
+    "path": "/extract",
+    "params": {
+      "text": "The new laptop is priced at $1,299 and features a 16-inch display."
+    },
+    "status": 200,
+    "verdict": "generic",
+    "reason": "Extracted from the supplied text: $1,299.",
+    "gt": "A:Price: $1,299. Display size: 16-inch.",
+    "score_reason32": 0,
+    "score_flat32": 0
+  },
+  {
+    "id": "E330",
+    "path": "/extract",
+    "params": {
+      "text": "From: John Smith, Subject: Quarterly Budget Review Meeting."
+    },
+    "status": 200,
+    "verdict": "generic",
+    "reason": "No structured values could be extracted from the supplied text.",
+    "gt": "A:Sender: John Smith. Subject: Quarterly Budget Review Meeting.",
+    "score_reason32": 0,
+    "score_flat32": 0
+  },
+  {
+    "id": "E329",
+    "path": "/extract",
+    "params": {
+      "text": "Revenue grew by 12% to reach $4.5 million in Q3."
+    },
+    "status": 200,
+    "verdict": "generic",
+    "reason": "Extracted from the supplied text: 12%, $4.5 million, Q3.",
+    "gt": "R:12% growth rate, $4.5 million revenue, Q3 time period.",
+    "score_reason32": 1,
+    "score_flat32": 1
+  },
+  {
+    "id": "REC",
+    "path": "/extract",
+    "params": {
+      "text": "Please submit the report by Friday and schedule a follow-up call."
+    },
+    "status": 200,
+    "verdict": "generic",
+    "reason": "No structured values could be extracted from the supplied text.",
+    "gt": "R:1) Submit the report by Friday. 2) Schedule a follow-up call.",
+    "score_reason32": 0,
+    "score_flat32": 0
+  },
+  {
+    "id": "F2",
+    "path": "/classify",
+    "params": {
+      "query": "Classify this ticket as billing, technical, or account issue: \"I was charged twice on my invoice.\""
+    },
+    "status": 200,
+    "verdict": "ambiguous",
+    "reason": "This ticket is ambiguous between billing and account issue: its wording relates to each, and none clears the others by a clear margin, so no single label is chosen.",
+    "gt": "A:This ticket is a billing issue.",
+    "score_reason32": 0,
+    "score_flat32": 0
+  },
+  {
+    "id": "F2",
+    "path": "/classify",
+    "params": {
+      "query": "Classify this support ticket as billing, technical, or account issue: 'I can't log into my account.'"
+    },
+    "status": 200,
+    "verdict": "classified",
+    "reason": "This support ticket is an account issue. The words log and account in it relate to account issue.",
+    "gt": "A:This support ticket is an account issue.",
+    "score_reason32": 1,
+    "score_flat32": 1
+  },
+  {
+    "id": "F2",
+    "path": "/classify",
+    "params": {
+      "query": "What category does this review belong to: quality, shipping, or price? 'The package took three weeks to arrive.'"
+    },
+    "status": 200,
+    "verdict": "ambiguous",
+    "reason": "This review is ambiguous: none of its words relates clearly enough to quality, shipping or price to choose a label, so none is guessed.",
+    "gt": "A:This review belongs to the shipping category.",
+    "score_reason32": 0,
+    "score_flat32": 0
+  },
+  {
+    "id": "F3",
+    "path": "/sentiment",
+    "params": {
+      "query": "What is the sentiment of this review: \"Fantastic, another three hours wasted because your app deleted my work.\""
+    },
+    "status": 200,
+    "verdict": "mixed",
+    "reason": "The sentiment of this review is mixed. The words fantastic are positive, while wasted are negative.",
+    "gt": "A:The sentiment is negative.",
+    "score_reason32": 0,
+    "score_flat32": 0
+  },
+  {
+    "id": "F3",
+    "path": "/sentiment",
+    "params": {
+      "query": "What's the sentiment of this review: 'The product broke after one day, terrible quality.'"
+    },
+    "status": 200,
+    "verdict": "negative",
+    "reason": "The sentiment of this review is negative. It is carried by the words terrible and broke.",
+    "gt": "A:The sentiment is negative.",
+    "score_reason32": 1,
+    "score_flat32": 0
+  },
+  {
+    "id": "F4",
+    "path": "/telegraph",
+    "params": {
+      "query": "Which miner is currently rank 1 for WEATHER_FORECAST?"
+    },
+    "status": 200,
+    "verdict": "intents",
+    "reason": "Regarding which miner is currently rank 1 for WEATHER_FORECAST: The intent WEATHER_FORECAST is currently served by 25 registered miners on Telegraph. Query names a specific, resolvable location and asks for FUTURE weather conditions over a stated time window (e.g. 'next 24 hours'), not current conditions. Example: \"What is the 24-hour weather forecast for Reykjavik, Iceland, including temperature, precipitation probability, and wind speed?\" → WEATHER_FORECAST. Not: \"Polygon fees felt high yesterday. What are they at now?\" (no location, this is a blockchain network fee question, not weather) → GAS_PRICE. Not: \"Will the US GPS glitch recur this year?\" or \"Will .name domain sales surge?\" (no resolvable location, no weather content) → CHAT_COMPLETION or WEB_SEARCH. A 'yesterday vs now' or 'will X happen' sentence shape alone is NOT evidence of a weather question. The location and the atmospheric/fee/subject-matter content are what matter, not the tense."
+  },
+  {
+    "id": "F4",
+    "path": "/telegraph",
+    "params": {
+      "query": "Who leads the WEB_SEARCH leaderboard in the latest epoch?"
+    },
+    "status": 200,
+    "verdict": "epochs",
+    "reason": "Regarding who leads the WEB_SEARCH leaderboard in the latest epoch: A Telegraph epoch is nine hours long, so scoring lands roughly three times a day rather than continuously. Each epoch runs a tournament that scores every registered miner in every intent it declares, and the resulting per-intent ranking sets how routed traffic is shared until the next epoch. A change deployed just after an epoch is scored therefore does not show up for up to nine hours."
+  },
+  {
+    "id": "F6",
+    "path": "/papers",
+    "params": {
+      "query": "Find three peer-reviewed papers about transformer language models."
+    },
+    "status": 200,
+    "verdict": "papers",
+    "reason": "Regarding find three peer-reviewed papers about transformer language models: Here are 5 peer-reviewed papers on transformer language models: 1) Swin Transformer: Hierarchical Vision Transformer using Shifted Windows by Ze Liu, Yutong Lin, Yue Cao, Han Hu (2021), cited 32635 times. 2) CTRL: A Conditional Transformer Language Model for Controllable Generation by Nitish Shirish Keskar, Bryan McCann, Lav R. Varshney, Caiming Xiong (2019), cited 789 times. 3) Transformer-XL: Attentive Language Models beyond a Fixed-Length Context by Zihang Dai, Zhilin Yang, Yiming Yang, Jaime Carbonell (2019), cited 3203 times. 4) Gradient-based learning applied to document recognition by Yann LeCun, Léon Bottou, Yoshua Bengio, Patrick Haffner (1998), cited 59590 times. 5) On Extractive and Abstractive Neural Document Summarization with Transformer Language Models by Jonathan Pilault, Raymond Li, Sandeep Subramanian, Chris Pal (2020), cited 188 times."
+  },
+  {
+    "id": "F7",
+    "path": "/research",
+    "params": {
+      "query": "What are the main differences between proof of work and proof of stake? Cite sources."
+    },
+    "status": 200,
+    "verdict": "no_evidence",
+    "reason": "No registered trial and no indexed publication on main differences between proof work proof stake was found, so nothing is claimed about What are the main differences between proof of work and proof of stake. ClinicalTrials.gov and Europe PMC were both searched and both answered; an absence in those two indexes is not proof that no work exists."
+  },
+  {
+    "id": "F9",
+    "path": "/event-outcome",
+    "params": {
+      "query": "Resolve this prediction market: who won the 2022 FIFA World Cup?"
+    },
+    "status": 200,
+    "verdict": "unknown",
+    "reason": "This asks for a prediction or an opinion, not the resolution of a determinable event, so no outcome is given. Name a specific event whose result can be checked, and its settled outcome will be reported."
+  }
+]

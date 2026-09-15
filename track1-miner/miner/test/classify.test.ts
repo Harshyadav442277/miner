@@ -66,7 +66,8 @@ test("the label word itself outweighs a neighbour of another label", () => {
   const fwd = new Map([["billing", ["accounting", "invoice"]], ["technical", ["technology"]], ["account", ["ledger"]]]);
   const ranked = scoreLabels("I can't log into my account.", ["billing", "technical", "account issue"], fwd);
   assert.equal(ranked[0]?.label, "account issue");
-  assert.equal(ranked[0]?.direct, 1);
+  // "account" itself, and "log" as an account cue (report F2 added the cues).
+  assert.equal(ranked[0]?.direct, 2);
   assert.ok((ranked[0]?.score ?? 0) > (ranked[1]?.score ?? 0));
 });
 
@@ -151,4 +152,36 @@ test("(live) spam or not spam never picks 'not spam' from an absence", async () 
   if (!(await datamuseUp())) return;
   const r = await classifyText("Classify this email as spam or not spam: 'Hi Sam, are we still meeting at 3pm tomorrow?'");
   assert.notEqual(r.label, "not spam");
+});
+
+// Rank-loss report F2 (2026-09-15): both came back ambiguous from production.
+test("an ordinary billing complaint is billing, even when the index relates its words to account too", async () => {
+  const real = globalThis.fetch;
+  // The index outage path counts only direct evidence, which is exactly what a cue is.
+  globalThis.fetch = (async () => { throw new Error("offline"); }) as typeof fetch;
+  try {
+    const r = await classifyText('Classify this ticket as billing, technical, or account issue: "I was charged twice on my invoice."');
+    assert.equal(r.label, "billing");
+    const s = await classifyText("What category does this review belong to: quality, shipping, or price? 'The package took three weeks to arrive.'");
+    assert.equal(s.label, "shipping");
+  } finally {
+    globalThis.fetch = real;
+  }
+  const account = new Map([["account", ["invoice", "charge", "statement"]], ["billing", ["invoice", "charge"]]]);
+  const ranked = scoreLabels("I was charged twice on my invoice.", ["billing", "technical", "account issue"], account);
+  assert.equal(ranked[0]?.label, "billing");
+  assert.ok(ranked[0]!.score >= (ranked[1]?.score ?? 0) * 1.5, JSON.stringify(ranked));
+});
+
+test("evidence after a long unrelated opening is still scored", () => {
+  const text = "Hello team, I hope everyone had a lovely weekend at the lake with family and friends and the weather held up nicely. " +
+    "Anyway, I noticed my card was charged twice for last month and I need a refund.";
+  assert.equal(scoreLabels(text, ["billing", "technical", "account issue"], new Map())[0]?.label, "billing");
+});
+
+test("a head noun shared by the label list is spoken with every label", () => {
+  const labels = ["billing", "technical", "account issue"];
+  assert.equal(placement("ticket", "billing", labels), "This ticket is a billing issue.");
+  assert.equal(placement("ticket", "account issue", labels), "This ticket is an account issue.");
+  assert.equal(placement("review", "shipping", ["quality", "shipping", "price"]), "This review belongs to the shipping category.");
 });

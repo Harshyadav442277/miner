@@ -51,7 +51,7 @@ const STOP = new Set(("a an the of in on at to for by and or is are was were be 
   "what which who whom whose how when where why this that these those it its market markets resolve resolved " +
   "resolution resolving outcome actually settle settled please answer tell me us question event result results " +
   "yes no if than then after before during from with as has have had against vs you your i my we our think " +
-  "can could should shall may might").split(" "));
+  "can could should shall may might prediction contract").split(" "));
 
 /** Words that mean the same move in market titles, so "cut" still finds "decreases". */
 const SYNONYM: Record<string, string> = {
@@ -181,6 +181,24 @@ export function manifoldCandidates(body: unknown): Candidate[] {
     });
 }
 
+/** "Who won …?", "Which team won …?" — a question whose answer is a name, not yes or no. */
+export function asksWho(text: string): boolean {
+  return /(?:^|:\s*)(?:who|which\s+\w+)\s+(?:won|wins|win|will\s+win|was\s+elected|became|took)\b/i.test(String(text ?? "").trim());
+}
+
+/**
+ * The name a settled market gives as the winner: a non yes/no outcome, or X in a
+ * "Will X win …?" market that settled Yes. X must be a name, so "a previous host"
+ * is not one. Null when the market does not name a winner.
+ */
+export function namedWinner(c: Candidate): string | null {
+  if (!c.settled || !c.outcome) return null;
+  if (!/^(?:yes|no)$/i.test(c.outcome)) return c.outcome;
+  if (c.outcome !== "Yes") return null;
+  const x = c.question.match(/^Will\s+(?:the\s+)?([A-Z][\w.&'-]*(?:\s+[A-Z][\w.&'-]*){0,4})\s+win\b/)?.[1];
+  return x ?? null;
+}
+
 /** The best-covering candidate; a settled one wins a tie, since a mutually exclusive event has one winner. */
 export function bestMatch(question: string, candidates: Candidate[]): { c: Candidate; score: number } | null {
   let best: { c: Candidate; score: number } | null = null;
@@ -204,10 +222,17 @@ export function searchTerm(question: string): string {
   return [...new Set(raw)].slice(0, 8).join(" ");
 }
 
-/** An opinion or forecast request, which the canonical description sends elsewhere by name. */
+/**
+ * An opinion or forecast request, which the canonical description sends elsewhere by name.
+ *
+ * "prediction market" and "prediction contract" name the thing being resolved, not
+ * a request for a forecast: "Resolve this prediction market: who won the 2022 FIFA
+ * World Cup?" was refused as prediction_requested on 2026-09-15 (rank-loss report F9).
+ */
 export function asksPrediction(text: string): boolean {
+  const s = String(text ?? "").replace(/\bprediction\s+(?:markets?|contracts?|questions?|platforms?)\b/gi, "market");
   return /\b(?:do|what do)\s+you\s+think\b|\byour\s+(?:opinion|prediction|guess|view)\b|\bpredict(?:ion)?\b|\bwho\s+(?:should|is likely to)\b|\blikely\s+to\b|\bodds\s+of\b/i
-    .test(String(text ?? ""));
+    .test(s);
 }
 
 /**
@@ -247,7 +272,13 @@ export async function resolveEvent(question: string): Promise<EventOutcomeResult
     getJson(`${MANIFOLD}/search-markets?term=${encodeURIComponent(term)}&limit=20`).then(manifoldCandidates).catch(() => null),
   ]);
   const pm = pmLong || pmShort ? [...(pmLong ?? []), ...(pmShort ?? [])] : null;
-  const best = bestMatch(q, [...(pm ?? []), ...(mf ?? [])]);
+  // "Who won …?" asks for a name. A yes/no market that names no candidate cannot
+  // answer it: once "prediction market" stopped being refused (report F9), "who
+  // won the 2022 FIFA World Cup?" settled against Manifold's "Will a previous host
+  // of the FIFA World Cup win the 2022 FIFA World Cup?" and reported Yes.
+  const who = asksWho(q);
+  const pool = [...(pm ?? []), ...(mf ?? [])].filter((c) => !who || namedWinner(c) !== null);
+  const best = bestMatch(q, pool);
   if (!best) {
     if (!pm && !mf) {
       return { verdict: "unknown", confidence: 0, error: "upstream_unavailable",
@@ -260,8 +291,9 @@ export async function resolveEvent(question: string): Promise<EventOutcomeResult
   const { c } = best;
   const play = c.venue === "Manifold" ? " (a play-money market)" : "";
   if (c.settled) {
+    const winner = who ? namedWinner(c) : null;
     return { verdict: "resolved", confidence: c.venue === "Polymarket" ? 0.9 : 0.7,
-      reason: `Resolved ${c.outcome}: the ${c.venue} market${play} "${c.question}" has settled on ${c.outcome}.` +
+      reason: `${winner ? `${winner} won. ` : ""}Resolved ${c.outcome}: the ${c.venue} market${play} "${c.question}" has settled on ${c.outcome}.` +
         `${c.context && c.context !== c.question ? ` It belongs to the event "${c.context}".` : ""} This is the market's settlement, which follows its own stated resolution source.` };
   }
   return { verdict: "unresolved", confidence: 0.8,
