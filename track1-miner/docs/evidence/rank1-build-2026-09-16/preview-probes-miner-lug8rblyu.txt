@@ -1,0 +1,20 @@
+preview https://miner-lug8rblyu-wukong4.vercel.app  2026-09-16T08:05:33Z  commit 9b030be
+### /game-result | Who won Argentina vs France in the 2022 FIFA World Cup final on 2022-12-18?
+{"verdict":"result","confidence":0.9,"reason":"Argentina and France drew 3-3 in the FIFA World Cup on 18 December 2022. The tie was decided after that draw by a shootout or a further leg whose result the source consulted does not record, so the winner is not stated here. The match is complete."}
+
+### /game-result | Did the Padres beat the Rockies yesterday?
+{"verdict":"result","confidence":0.95,"reason":"Colorado Rockies beat San Diego Padres 9-3 in the Major League Baseball on 16 September 2026. The match is complete (Final)."}
+
+### /tx-lookup | What did transaction 0xe1cd7c312e8cedad3bb8b3030703a90cb93d48d35a554082001b0e2edaa97e19 do?
+{"verdict":"reverted","confidence":0.99,"reason":"Transaction 0xe1cd7c312e8cedad3bb8b3030703a90cb93d48d35a554082001b0e2edaa97e19 on ethereum failed and was reverted in block 25700000. It attempted to move 0 ETH from 0x8a0231d6fb864a3ae9439a860871510249c31d07 to 0x66a9893cc07d91d95644aedd05d03f95e1dba8af and called execute. A reverted transaction still consumes its gas; the value transfer did not occur."}
+
+### /headlines | Give three spaceflight news headlines published in the last 24 hours.
+g Space Force Base","source":"Santa Maria Times","published":"2026-09-15T23:00:00.000Z"}],"count":3,"confidence":1,"reason":"The top 3 spaceflight headlines in the last 24 hours, as of September 16, 2026, are: 1. Is SpaceX Dragon Being Retired? Shotwell's Comments Explained - BASENOR (Tesla Accessories, 2026-09-16). 2. SpaceX scrubs Vandenberg launch of national security payload, targets backup window on Wednesday (Spaceflight Now, 2026-09-16). 3. SpaceX targeting Tuesday evening mission from Vandenberg Space Force Base (Santa Maria Times, 2026-09-15).","checked_at":"2026-09-16T08:05:54.239Z"}
+
+### /fact-check | Fact-check this claim: Bats are the only mammals capable of sustained flight.
+vidence":"Bats (order Chiroptera ) are winged mammals, the only mammals capable of true and sustained flight.","reason":"Regarding fact-check this claim: Bats are the only mammals capable of sustained flight: The claim \"Bats are the only mammals capable of sustained flight.\" is supported by the reference source consulted. According to Wikipedia's article \"Bat\": Bats (order Chiroptera ) are winged mammals, the only mammals capable of true and sustained flight. This check consulted one encyclopaedic source and is not a full adjudication of the claim.","checked_at":"2026-09-16T08:05:59.937Z"}
+
+### /ssl-check | Is the TLS certificate for github.com valid?
+{"verdict":"valid","confidence":1,"reason":"Regarding is the TLS certificate for github.com valid: The TLS/SSL certificate configuration for github.com is valid. Certificate validity: the certificate is currently valid, expiring in 74 days on 2026-11-29, issued by Sectigo Limited. Chain trust: the server presented a complete chain of 4 certificates including intermediates, building a trusted path to a root. Hostname verification: passes against DNS:github.com. The connection negotiated TLSv1.3."}
+
+pported","confidence":0.7,"source":"Wikipedia","source_url":"https://en.wikipedia.org/wiki/Bat","evidence":"Bats (order Chiroptera ) are winged mammals, the only mammals capable of true and sustained flight.","reason":"Regarding fact-check this claim: Bats are the only mammals capable of sustained flight: The claim \"Bats are the only mammals capable of sustained flight.\" is supported by the reference source consulted. According to Wikipedia's article \"Bat\": Bats (order Chiroptera ) are winged mammals, the only mammals capable of true and sustained flight. This check consulted one encyclopaedic source and is not a full adjudication of the claim.","checked_at":"2026-09-16T08:05:59.937Z"}

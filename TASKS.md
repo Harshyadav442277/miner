@@ -29,8 +29,12 @@ Baseline epoch 335: 7/36 rank 1. Analysis and evidence: G152–G159,
 - [x] Headline subject from the phrase before the news noun; "today" = last day (6a07d3f).
 - [x] Integrated on `codex/rank1-14-intents` at 15a44ac: 675/675 unit tests.
 - [x] Epoch 336 read: 10/36 rank 1 on the 2026-09-15 build (G167). Not evidence for the branch.
-- [ ] Preview deploy, preflight 7/7 and intent-answers 36/36 on the preview, lane probes on the
-      preview.
+- [x] MLB schedule source added because ESPN refuses Vercel (807e305); knockout draws worded
+      honestly (9b030be). 678/678 unit tests.
+- [x] Preview `miner-lug8rblyu` deployed and probed through `vercel curl` (evidence
+      `preview-probes-miner-*.txt`): ONCHAIN clean shape, headlines, IPv6, dated FX, MLB, World
+      Cup, fraud, classification, fact-check, SSL all answer as intended. Preflight and
+      intent-answers cannot run against a protected preview (G78); they run after the promote.
 - [ ] **Operator yes: promote to production** (`npx vercel promote <preview> --scope wukong4`), then
       preflight 7/7 against production. Rollback target `miner-6xcnxjuz8`.
 - [ ] Read epoch 336 (~04:50 UTC 2026-09-16) — the last epoch on the 2026-09-15 build — and the
