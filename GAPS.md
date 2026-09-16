@@ -69,6 +69,36 @@ below is deployed unless a later entry says so.
   STOCK (1e-13). Our rank there moves between 1 and 4 across epochs with no change on our side
   (SSL: r1, r3, r2, r1, r3, r1, r4, r1 from e326). A first place in that band is not evidence of a
   better answer and a loss there is not evidence of a defect; only a cliff crossing (0.99+) is.
+- **G160 — ONCHAIN shape shipped to the branch (997bffd): the gas sentence left the answer, the
+  block number lost its commas, and the called method is named.** The lane's own bench, run
+  against the two references fetched live: ours-before 0.014/0.013, ours-after **0.996/0.995**
+  (success) and 0.996/0.995 (reverted), reference-vs-reference 0.995–0.998
+  (`evidence/rank1-build-2026-09-16/onchain/bench.txt`, `tools/onchain-shape-bench.mjs`). Cost: a
+  routed "what gas did this tx cost" question gets no gas figure now. `intent-answers.mjs`'s
+  ONCHAIN gate now checks the block number instead of gas, so it fails against the OLD production
+  until this is released. 631 → 638 tests with the other lanes.
+- **G161 — The method NAME comes from openchain.xyz / 4byte.directory, not the contract ABI.**
+  Keyless, 2.5 s budget inside an 8.5 s allowance from the start of the lookup; oldest entry wins a
+  collision; when neither answers, the selector is written ("called contract method selector
+  0x540abf73"). A mined collision both databases rank wrongly would print a wrong name. Measured
+  end-to-end on the two hidden hashes: 2.5 s and 1.1 s. Not measured: every RPC slow AND both
+  databases slow at once.
+- **G162 — URL_SCAN: shape bench run, nothing changed, because the instrument failed validation.**
+  preflight, proofgate and netwire (0.90–0.995 live) score below 0.98 against each other in 16 of
+  18 ordered pairs under reg220, four at exactly 0.0000; the risk-score clause both leaders write
+  scores 1.0 against one and 0.0 against another. reg220 is also not monotone in overlap. So no
+  ours-vs-reference number means anything (`evidence/rank1-build-2026-09-16/urlscan/`,
+  `tools/urlscan-shape-bench.mjs`). The one lead — a numeric 0-to-1 risk score we do not compute —
+  stays untaken (override 2). `OPEN`.
+- **G163 — GAME_RESULT/SPORTS_SCORE: ESPN's scoreboard returns zero events for a hyphenated date
+  range, and the code had always sent one.** Verified live 2026-09-16: `dates=20260913-20260915`
+  and even `dates=20260913-20260913` return nothing for MLB, NFL and eng.1, while `dates=20260913`
+  returns the day. Every undated question therefore fell through to the fuzzy fixture directory,
+  which finds "Arsenal vs Chelsea" and not "Chiefs vs Broncos". Fixed in 8862005: the last seven
+  days are fetched one day each, concurrently; "beat"/"lost to" are separators; "did/does" is
+  stripped. Live after the fix: Padres–Rockies (MLB), Chiefs–Broncos (NFL) and the 2022 World Cup
+  final all answer; "Yankees vs Red Sox last night" is not_found (no such fixture in the window).
+  This is the most likely cause of the e335 GAME_RESULT loss to an MLB schedule wrapper (G155).
 
 ## 2026-09-15 second release: node test cases, web search, fundamentals, fact-check 429 — G144–G151
 
