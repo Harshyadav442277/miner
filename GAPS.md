@@ -176,6 +176,12 @@ below is deployed unless a later entry says so.
   hackathons with **H2 at $10K in mid-October 2026**, and the YAML `endpoints[]` schema now lists
   ten keys (adds `intents`, `params`), which our manifest already satisfies. Not re-clicked: the
   rules page's Track 2/3 tabs (JS). Recorded in TELEGRAPH_FACTS "Rules and protocol re-check".
+- **G172 — Escrow shipped 2026-09-16 as the default payment rail; no change for the miner.** A second
+  scheme in the same x402 challenge (`scheme: escrow`, fund once via `EscrowFacet.depositUSDC`,
+  sign an EIP-191 message per call, settle once per epoch). The docs say a miner cannot tell which
+  rail paid it, so registration, scoring, routing and payout are untouched. x402 exact still works.
+  Open for the Morse repo, not this one: migrate its direct miner calls to escrow as the organisers
+  ask. Facts: TELEGRAPH_FACTS "Escrow is the default payment rail".
 
 ## 2026-09-15 second release: node test cases, web search, fundamentals, fact-check 429 — G144–G151
 

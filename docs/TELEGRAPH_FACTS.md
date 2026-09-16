@@ -551,3 +551,29 @@ the eight listed plus `intents` (required on at least one endpoint) and `params`
 request contract by location, `required`/`optional`). Our manifest already declares `intents`,
 `description` and `params` on all 35 endpoints, so the new request-contract rejections would pass
 on an `updateMiner`; validate at integrate.telegraphprotocol.com first regardless.
+
+## Escrow is the default payment rail (announced on Discord 2026-09-16; docs page dated 2026-09-16)
+
+Source: https://docs.telegraphprotocol.com/docs/using/escrow-inference (not in the docs nav at the
+09:00 UTC crawl; snapshot `track1-miner/docs/evidence/rank1-build-2026-09-16/docs-escrow-inference-2026-09-16.txt`).
+
+- **What it is.** A second scheme inside the same x402 challenge: the 402 body's `accepts` array
+  now carries `{"scheme":"escrow","network":"eip155:84532","price":"$0.01","payTo":<Diamond>}`
+  next to the EVM exact scheme. The caller deposits USDC once (`EscrowFacet.depositUSDC` on the
+  Diamond, `0x036C…CF7e` USDC on Base Sepolia), then signs a human-readable EIP-191 message per call
+  (wallet lowercased, amount in μUSDC from the template, ≤2-minute validity window, fresh nonce)
+  and sends it base64 in `X-PAYMENT` (not `PAYMENT-SIGNATURE`). No facilitator, no per-request
+  on-chain transaction; charges settle once per epoch in `submitEpoch`. Receipt in
+  `X-PAYMENT-RESPONSE` with `rail: "escrow"`, `receipt_hash`, `epoch_id`, no `tx_hash`.
+- **x402 exact is still accepted** — the page calls escrow "the second way to pay"; the
+  announcement calls it the default for new integrations and asks existing apps to migrate.
+  Announced latency: escrow 2.38 s vs 5.82 s x402 (Base) and 7.01 s (Solana), "varies by miner".
+- **Effect on this miner: none.** "Both rails converge on exactly the same aggregator, the same
+  merkle root and the same claim path. A miner cannot tell which one paid it." Our earnings path,
+  registration, scoring and routing are unchanged. Nothing to deploy.
+- **Effect on callers we control.** Morse (`../telegraph-morse`, Track 3) pays miners with x402;
+  it keeps working, but the organisers now ask apps to migrate to escrow. That is a change for the
+  Morse repo, not this one, and it is logged there, not here.
+- Same-day operational notes for a caller: the body field is `query`; a refusal burns the nonce
+  only after the signature verifies; `insufficient escrow … available=0` means the signature was
+  fine and only funding is missing; withdrawals are timelocked.
