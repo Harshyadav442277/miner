@@ -1,0 +1,202 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "0c89be2c-8082-4312-b1bd-12c27c06cab3",
+        "epoch_id": 336,
+        "intent_id": "FINANCIAL_DATA",
+        "miner_slug": "kriterion-pramagraph",
+        "rank": 1,
+        "score": 3.0475586e-16,
+        "failure_reason": "",
+        "scored_at": "2026-09-16T05:22:15.515395Z",
+        "created_at": "2026-09-16T05:22:15.515395Z"
+      },
+      {
+        "id": "eeb6705a-c811-49cd-8114-9f80d0cc5fa4",
+        "epoch_id": 336,
+        "intent_id": "FINANCIAL_DATA",
+        "miner_slug": "livecert",
+        "rank": 17,
+        "score": 0,
+        "failure_reason": "build request for miner \"livecert\": LLM call for miner \"livecert\" failed: context deadline exceeded",
+        "scored_at": "2026-09-16T05:22:15.515395Z",
+        "created_at": "2026-09-16T05:22:15.515395Z"
+      },
+      {
+        "id": "b4cce276-e957-4c4e-bec9-c86d05d91fe9",
+        "epoch_id": 335,
+        "intent_id": "FINANCIAL_DATA",
+        "miner_slug": "kriterion-pramagraph",
+        "rank": 1,
+        "score": 1.7427014e-15,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T20:04:11.063184Z",
+        "created_at": "2026-09-15T20:04:11.063184Z"
+      },
+      {
+        "id": "b2238722-a4d0-427f-b5fd-60f577118701",
+        "epoch_id": 335,
+        "intent_id": "FINANCIAL_DATA",
+        "miner_slug": "livecert",
+        "rank": 5,
+        "score": 3.0199148e-27,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T20:04:11.063184Z",
+        "created_at": "2026-09-15T20:04:11.063184Z"
+      },
+      {
+        "id": "0663dba0-8a11-4b42-aa45-66109189c2a7",
+        "epoch_id": 334,
+        "intent_id": "FINANCIAL_DATA",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 9.478274e-20,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T11:19:38.06124Z",
+        "created_at": "2026-09-15T11:19:38.06124Z"
+      },
+      {
+        "id": "d3a4c312-d540-430e-832b-275f79b71301",
+        "epoch_id": 334,
+        "intent_id": "FINANCIAL_DATA",
+        "miner_slug": "livecert",
+        "rank": 6,
+        "score": 6.4041955e-27,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T11:19:38.06124Z",
+        "created_at": "2026-09-15T11:19:38.06124Z"
+      },
+      {
+        "id": "cb4b1933-a458-4cd6-bd29-5ebae0074da4",
+        "epoch_id": 333,
+        "intent_id": "FINANCIAL_DATA",
+        "miner_slug": "alphavantage",
+        "rank": 1,
+        "score": 1.8792465e-16,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T02:09:41.840379Z",
+        "created_at": "2026-09-15T02:09:41.840379Z"
+      },
+      {
+        "id": "aa2f7fd4-f961-460c-91ec-7eda9c44a0d6",
+        "epoch_id": 333,
+        "intent_id": "FINANCIAL_DATA",
+        "miner_slug": "livecert",
+        "rank": 5,
+        "score": 6.4041955e-27,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T02:09:41.840379Z",
+        "created_at": "2026-09-15T02:09:41.840379Z"
+      },
+      {
+        "id": "f591967b-72b3-4dde-8a8d-630eba0779dd",
+        "epoch_id": 332,
+        "intent_id": "FINANCIAL_DATA",
+        "miner_slug": "finwire-financial-data",
+        "rank": 1,
+        "score": 7.367884e-20,
+        "failure_reason": "",
+        "scored_at": "2026-09-14T17:11:39.91346Z",
+        "created_at": "2026-09-14T17:11:39.91346Z"
+      },
+      {
+        "id": "a07219bd-e1b2-464c-8635-562618c2079b",
+        "epoch_id": 332,
+        "intent_id": "FINANCIAL_DATA",
+        "miner_slug": "livecert",
+        "rank": 4,
+        "score": 1.0848082e-26,
+        "failure_reason": "",
+        "scored_at": "2026-09-14T17:11:39.91346Z",
+        "created_at": "2026-09-14T17:11:39.91346Z"
+      },
+      {
+        "id": "43c0325c-6e73-4008-ace1-e57aaa042856",
+        "epoch_id": 331,
+        "intent_id": "FINANCIAL_DATA",
+        "miner_slug": "alphavantage",
+        "rank": 1,
+        "score": 1.629865e-15,
+        "failure_reason": "",
+        "scored_at": "2026-09-14T08:02:01.884346Z",
+        "created_at": "2026-09-14T08:02:01.884346Z"
+      },
+      {
+        "id": "0971ebfc-8d97-478d-8740-3ed162b6df76",
+        "epoch_id": 331,
+        "intent_id": "FINANCIAL_DATA",
+        "miner_slug": "livecert",
+        "rank": 6,
+        "score": 3.9827646e-26,
+        "failure_reason": "",
+        "scored_at": "2026-09-14T08:02:01.884346Z",
+        "created_at": "2026-09-14T08:02:01.884346Z"
+      },
+      {
+        "id": "fb3f0e18-d7bb-42d9-8bc4-a633bae9cc6f",
+        "epoch_id": 330,
+        "intent_id": "FINANCIAL_DATA",
+        "miner_slug": "alphavantage",
+        "rank": 1,
+        "score": 1.7079395e-16,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T23:03:54.375639Z",
+        "created_at": "2026-09-13T23:03:54.375639Z"
+      },
+      {
+        "id": "582cb897-ffd8-4207-9def-73ae09179b50",
+        "epoch_id": 330,
+        "intent_id": "FINANCIAL_DATA",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 1.1869521e-18,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T23:03:54.375639Z",
+        "created_at": "2026-09-13T23:03:54.375639Z"
+      },
+      {
+        "id": "b562670b-ad40-4a3c-af53-ab09a629a50f",
+        "epoch_id": 329,
+        "intent_id": "FINANCIAL_DATA",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 1.1869521e-18,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T13:52:18.281889Z",
+        "created_at": "2026-09-13T13:52:18.281889Z"
+      }
+    ],
+    "total": 594,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 3029,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "FINANCIAL_DATA",
+    "wasm_url": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/d42528e1dc146e1b641a63c37194faa95c446aec/dist/win/fdz_1e05.wasm",
+    "wasm_hash": "7a7544a8e452d1c7820b15849598f93df6de51f4392bb4cbaa4afb754a4087e8",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 0.86666644,
+    "eval": {
+      "candidate_margin": 0.86666644,
+      "champion_margin": 0.8657503,
+      "candidate_wins": 14,
+      "champion_wins": 14,
+      "comparable_cases": 15,
+      "worst_self_match": 1,
+      "score_stddev": 0.4848316,
+      "spearman": {
+        "FINANCIAL_DATA": 0.99244523
+      },
+      "historical_rows_evaluated": 108
+    },
+    "registered_at": "2026-08-31T23:03:29Z",
+    "updated_at": "2026-09-01T03:11:23Z"
+  }
+}

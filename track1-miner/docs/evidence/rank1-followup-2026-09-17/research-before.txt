@@ -1,0 +1,31 @@
+✔ academic search can answer an explicit DOAJ request without OpenAlex (21.7204ms)
+✔ DOAJ excludes unverifiable precise dates, unrelated rows and duplicate DOIs (0.5528ms)
+✖ a technical question must not use an unrelated clinical acronym match (3.8609ms)
+✔ praise of a directly stated adverse experience is read as a complaint (2.9812ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 3
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 101.4612
+
+✖ failing tests:
+
+test at dist-test\test\rank-followup.test.js:57:22
+✖ a technical question must not use an unrelated clinical acronym match (3.8609ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /replicated logs/. Input:
+  
+  'Raft is the subject of one registered trial, NCT00000000, a study titled "RAFT eye trial", currently recruiting.'
+  
+      at TestContext.<anonymous> (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\rank-followup.test.js:74:26)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Raft is the subject of one registered trial, NCT00000000, a study titled "RAFT eye trial", currently recruiting.',
+    expected: /replicated logs/,
+    operator: 'match',
+    diff: 'simple'
+  }

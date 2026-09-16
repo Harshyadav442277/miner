@@ -1,0 +1,74 @@
+✔ a mid-sentence date clause does not delete the topic (1.6984ms)
+✔ quoted terms from the question are carried into the topic (0.3162ms)
+✔ a quoted field name is unwrapped and its quoted terms kept (0.1702ms)
+✔ a bare topic still works — the engine sends the declared param alone (0.7276ms)
+✔ a day-numbered range parses — 'between January 1, 2025 and June 30, 2026' (1.0125ms)
+✔ a month-only range still parses (0.2992ms)
+✔ a bare publication year still parses (0.2144ms)
+✔ the requested result count is honoured (0.7242ms)
+✔ a named source is not mistaken for the subject (0.1754ms)
+✔ a relative window becomes a real date range (0.9591ms)
+✔ database query syntax is stripped from the topic (0.3229ms)
+✔ an explicitly requested ordering is honoured, and only then (0.4513ms)
+✔ the served academic body carries only the signal fields and the prose (0.1791ms)
+✔ a failed search stays lean too, so the degraded answer is the question echo (0.6881ms)
+✔ a title's hard wrapping never reaches the scored prose (18.8901ms)
+✖ a timing-out upstream still falls through to the narrower retry (2.0675ms)
+✔ a rate-limited OpenAlex is retried once, and the second answer is served (1010.6858ms)
+✔ the polite pool is used only when the operator's environment names an address (1.4384ms)
+✔ an index that is down is not an index with no papers in it (1516.0991ms)
+✔ an index that answers with nothing still says no papers were found (0.7317ms)
+✔ a spelled-out count is honoured (0.1078ms)
+✔ works carrying every topic term rank ahead of off-topic hits, in index order (0.1876ms)
+✔ peer-reviewed is filtered to journal articles and said as such; otherwise the answer says papers (0.5439ms)
+✔ academic search can answer an explicit DOAJ request without OpenAlex (21.1772ms)
+✔ praise of a directly stated adverse experience is read as a complaint (2.4475ms)
+✔ the canonical example is negative, and names the words that made it so (2.5876ms)
+✔ a single-quoted passage survives an apostrophe inside it (0.5066ms)
+✔ a labelled passage and a colon passage are both read (0.3872ms)
+✔ a sentiment frame is told apart from the text itself (0.4169ms)
+✔ the passage's own name becomes the subject of the answer (0.2616ms)
+✔ negation within three words flips a word, and the answer shows the negation (0.3187ms)
+✔ negation stops at clause punctuation (verifier repros, 2026-09-13) (0.8463ms)
+✔ "can't recommend this enough" is praise, and a negated tone word states no tone (1.3421ms)
+✔ a single-quoted passage mid-question is read (0.1575ms)
+✔ a curly apostrophe negates like a straight one (0.1673ms)
+✔ the clause after 'but' outweighs the clause before it (0.1934ms)
+✔ boosters, capitals and exclamation marks intensify, never flip (0.137ms)
+✔ labels follow the VADER thresholds, and balanced strong wording is mixed (0.0662ms)
+✔ text with no opinion word is neutral and says why, with the list's limit (0.1414ms)
+✔ a named tone is only reported when a word in the text states it (0.097ms)
+✔ a yes/no tone question is answered yes only on a stated tone (0.3266ms)
+✔ no text is refused by name, never scored as neutral (0.1051ms)
+✔ the declared text parameter wins over the question (0.1158ms)
+✔ a failed product and an unanswered complaint read as negative (0.1906ms)
+✔ an expected action that did happen is a fact, not praise (0.1071ms)
+✔ the lexicon is well formed (0.2489ms)
+✔ praise opening a complaint is sarcasm, and the complaint decides (0.2743ms)
+ℹ tests 47
+ℹ suites 0
+ℹ pass 46
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2628.7593
+
+✖ failing tests:
+
+test at dist-test\test\papers.test.js:171:22
+✖ a timing-out upstream still falls through to the narrower retry (2.0675ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\papers.test.js:191:26)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

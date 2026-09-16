@@ -1,0 +1,276 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "2aae8d37-d345-42c2-9bdc-f78058501a15",
+        "epoch_id": 336,
+        "intent_id": "TEXT_AUTHENTICITY_CHECK",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 4.3474466e-7,
+        "failure_reason": "",
+        "scored_at": "2026-09-16T05:04:32.140992Z",
+        "created_at": "2026-09-16T05:04:32.140992Z"
+      },
+      {
+        "id": "25e86cef-9656-455b-bf3b-cfcf79d5157e",
+        "epoch_id": 336,
+        "intent_id": "TEXT_AUTHENTICITY_CHECK",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 2.0012193e-7,
+        "failure_reason": "",
+        "scored_at": "2026-09-16T05:04:32.140992Z",
+        "created_at": "2026-09-16T05:04:32.140992Z"
+      },
+      {
+        "id": "9f678507-cf99-4dea-817e-81b5e98d3724",
+        "epoch_id": 335,
+        "intent_id": "TEXT_AUTHENTICITY_CHECK",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 5.4601134e-7,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T19:56:38.265118Z",
+        "created_at": "2026-09-15T19:56:38.265118Z"
+      },
+      {
+        "id": "3e43b693-02a2-4ce6-bf16-091532c30ef1",
+        "epoch_id": 335,
+        "intent_id": "TEXT_AUTHENTICITY_CHECK",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 2.091821e-7,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T19:56:38.265118Z",
+        "created_at": "2026-09-15T19:56:38.265118Z"
+      },
+      {
+        "id": "6bcdc409-e9b0-4730-807f-9e1ce275befc",
+        "epoch_id": 334,
+        "intent_id": "TEXT_AUTHENTICITY_CHECK",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 0.9999989,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T11:03:41.8865Z",
+        "created_at": "2026-09-15T11:03:41.8865Z"
+      },
+      {
+        "id": "0fd8fd50-bc72-442b-b145-6c2565e56506",
+        "epoch_id": 334,
+        "intent_id": "TEXT_AUTHENTICITY_CHECK",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 1.3500744e-7,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T11:03:41.8865Z",
+        "created_at": "2026-09-15T11:03:41.8865Z"
+      },
+      {
+        "id": "bce3047d-143d-4fbd-9a3f-bb1297f68a24",
+        "epoch_id": 333,
+        "intent_id": "TEXT_AUTHENTICITY_CHECK",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 5.3150274e-7,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T01:52:52.459508Z",
+        "created_at": "2026-09-15T01:52:52.459508Z"
+      },
+      {
+        "id": "f155d740-12b3-4ad8-8192-f79d4039d6ea",
+        "epoch_id": 333,
+        "intent_id": "TEXT_AUTHENTICITY_CHECK",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 2.091821e-7,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T01:52:52.459508Z",
+        "created_at": "2026-09-15T01:52:52.459508Z"
+      },
+      {
+        "id": "61b2f8a6-10e0-42ee-96c5-4fa2aae8a05a",
+        "epoch_id": 332,
+        "intent_id": "TEXT_AUTHENTICITY_CHECK",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 0.9999992,
+        "failure_reason": "",
+        "scored_at": "2026-09-14T16:55:04.628329Z",
+        "created_at": "2026-09-14T16:55:04.628329Z"
+      },
+      {
+        "id": "32088f6c-fbc1-4882-9c64-91c9e3e8ab27",
+        "epoch_id": 332,
+        "intent_id": "TEXT_AUTHENTICITY_CHECK",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 1.5630083e-7,
+        "failure_reason": "",
+        "scored_at": "2026-09-14T16:55:04.628329Z",
+        "created_at": "2026-09-14T16:55:04.628329Z"
+      },
+      {
+        "id": "5df402f5-9df1-403c-88ba-3fb069a9e7b0",
+        "epoch_id": 331,
+        "intent_id": "TEXT_AUTHENTICITY_CHECK",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 5.035157e-7,
+        "failure_reason": "",
+        "scored_at": "2026-09-14T07:54:42.12083Z",
+        "created_at": "2026-09-14T07:54:42.12083Z"
+      },
+      {
+        "id": "16977d7b-4a03-4dcd-90c8-dd8a22133f24",
+        "epoch_id": 331,
+        "intent_id": "TEXT_AUTHENTICITY_CHECK",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 1.7027301e-7,
+        "failure_reason": "",
+        "scored_at": "2026-09-14T07:54:42.12083Z",
+        "created_at": "2026-09-14T07:54:42.12083Z"
+      },
+      {
+        "id": "e3e52015-8b8c-4f59-a16c-f7dfc6a02e40",
+        "epoch_id": 330,
+        "intent_id": "TEXT_AUTHENTICITY_CHECK",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 4.3993154e-7,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T22:54:24.426554Z",
+        "created_at": "2026-09-13T22:54:24.426554Z"
+      },
+      {
+        "id": "fa4cdb99-727b-4ba5-b3da-19dcaff50826",
+        "epoch_id": 330,
+        "intent_id": "TEXT_AUTHENTICITY_CHECK",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 1.1889783e-7,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T22:54:24.426554Z",
+        "created_at": "2026-09-13T22:54:24.426554Z"
+      },
+      {
+        "id": "17a6071f-9aa9-481b-8cd2-bb611d71e9aa",
+        "epoch_id": 329,
+        "intent_id": "TEXT_AUTHENTICITY_CHECK",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 1.3381647e-7,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T13:56:19.924988Z",
+        "created_at": "2026-09-13T13:56:19.924988Z"
+      },
+      {
+        "id": "223750bd-ac24-4eff-a2c5-89c38b9e2ecd",
+        "epoch_id": 328,
+        "intent_id": "TEXT_AUTHENTICITY_CHECK",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 1.1889783e-7,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T04:50:31.600623Z",
+        "created_at": "2026-09-13T04:50:31.600623Z"
+      },
+      {
+        "id": "8835c1c8-a278-41c0-9112-745afd5dc397",
+        "epoch_id": 327,
+        "intent_id": "TEXT_AUTHENTICITY_CHECK",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 2.2516238e-7,
+        "failure_reason": "",
+        "scored_at": "2026-09-12T19:56:35.734085Z",
+        "created_at": "2026-09-12T19:56:35.734085Z"
+      },
+      {
+        "id": "710328e8-3731-4f34-a68a-43395744ca42",
+        "epoch_id": 326,
+        "intent_id": "TEXT_AUTHENTICITY_CHECK",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 1.16013815e-7,
+        "failure_reason": "",
+        "scored_at": "2026-09-12T10:59:17.877752Z",
+        "created_at": "2026-09-12T10:59:17.877752Z"
+      },
+      {
+        "id": "908d696e-a2da-4d90-a088-58e095147a7e",
+        "epoch_id": 325,
+        "intent_id": "TEXT_AUTHENTICITY_CHECK",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 1.7027301e-7,
+        "failure_reason": "",
+        "scored_at": "2026-09-12T01:57:55.062883Z",
+        "created_at": "2026-09-12T01:57:55.062883Z"
+      },
+      {
+        "id": "f97dfb09-5a22-4e9a-8ee1-c02a9ac7f18c",
+        "epoch_id": 324,
+        "intent_id": "TEXT_AUTHENTICITY_CHECK",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 1.5630083e-7,
+        "failure_reason": "",
+        "scored_at": "2026-09-11T16:53:43.063185Z",
+        "created_at": "2026-09-11T16:53:43.063185Z"
+      },
+      {
+        "id": "588e3f5d-7a67-49c7-9a14-1c69313b5346",
+        "epoch_id": 323,
+        "intent_id": "TEXT_AUTHENTICITY_CHECK",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 1.778219e-7,
+        "failure_reason": "",
+        "scored_at": "2026-09-11T07:57:26.556406Z",
+        "created_at": "2026-09-11T07:57:26.556406Z"
+      },
+      {
+        "id": "b3098388-c4f8-4686-8cda-13d68834b271",
+        "epoch_id": 322,
+        "intent_id": "TEXT_AUTHENTICITY_CHECK",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 1.996282e-7,
+        "failure_reason": "",
+        "scored_at": "2026-09-10T22:50:41.896121Z",
+        "created_at": "2026-09-10T22:50:41.896121Z"
+      }
+    ],
+    "total": 22,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 1882,
+    "author_address": "0xdad201ef02f5c1fbb8f9e931ae9b7c1bf493a39e",
+    "intent_id": "TEXT_AUTHENTICITY_CHECK",
+    "wasm_url": "https://raw.githubusercontent.com/Harshyadav442277/miner/72474bd7514735b53b823bdab390c9721219bd18/track2/calibration/dist/text_authenticity_v2.wasm",
+    "wasm_hash": "eec7bc00a5131dfb4152c0ca3b4b54eabc9ed05092a5b4d014e3fe1453a50588",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 0.66666603,
+    "eval": {
+      "candidate_margin": 0.66666603,
+      "champion_margin": 0.6663348,
+      "candidate_wins": 14,
+      "champion_wins": 14,
+      "comparable_cases": 15,
+      "worst_self_match": 1,
+      "score_stddev": 0.49690366,
+      "historical_rows_evaluated": 0
+    },
+    "registered_at": "2026-08-30T04:27:54Z",
+    "updated_at": "2026-08-30T04:38:36Z"
+  }
+}

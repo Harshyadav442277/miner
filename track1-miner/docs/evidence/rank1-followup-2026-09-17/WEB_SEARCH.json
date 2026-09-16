@@ -1,0 +1,136 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "3c9d0a10-911b-474a-93c4-3bd3c47607c4",
+        "epoch_id": 336,
+        "intent_id": "WEB_SEARCH",
+        "miner_slug": "telegraph-ai-miner-node",
+        "rank": 1,
+        "score": 0.99997115,
+        "failure_reason": "",
+        "scored_at": "2026-09-16T05:24:07.886406Z",
+        "created_at": "2026-09-16T05:24:07.886406Z"
+      },
+      {
+        "id": "37ee1689-6819-485c-9f8d-e9b93587822e",
+        "epoch_id": 336,
+        "intent_id": "WEB_SEARCH",
+        "miner_slug": "livecert",
+        "rank": 14,
+        "score": 2.002052e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-16T05:24:07.886406Z",
+        "created_at": "2026-09-16T05:24:07.886406Z"
+      },
+      {
+        "id": "34c7b62f-aec7-4db3-843c-30e3fd9f20ca",
+        "epoch_id": 335,
+        "intent_id": "WEB_SEARCH",
+        "miner_slug": "sentinel-risk-oracle",
+        "rank": 1,
+        "score": 0.9999441,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T20:24:02.565967Z",
+        "created_at": "2026-09-15T20:24:02.565967Z"
+      },
+      {
+        "id": "b8c0b92c-8273-4d57-a4ea-8aa365c34e42",
+        "epoch_id": 335,
+        "intent_id": "WEB_SEARCH",
+        "miner_slug": "livecert",
+        "rank": 15,
+        "score": 1.4467808e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T20:24:02.565967Z",
+        "created_at": "2026-09-15T20:24:02.565967Z"
+      },
+      {
+        "id": "245f2d66-9d34-4d4b-aa34-4e41449f9617",
+        "epoch_id": 334,
+        "intent_id": "WEB_SEARCH",
+        "miner_slug": "weerakorn-miner",
+        "rank": 1,
+        "score": 0.9999715,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T11:24:07.465254Z",
+        "created_at": "2026-09-15T11:24:07.465254Z"
+      },
+      {
+        "id": "c04a39ec-9b1b-4c57-a9f1-cd956f938d25",
+        "epoch_id": 334,
+        "intent_id": "WEB_SEARCH",
+        "miner_slug": "livecert",
+        "rank": 16,
+        "score": 1.4467808e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T11:24:07.465254Z",
+        "created_at": "2026-09-15T11:24:07.465254Z"
+      },
+      {
+        "id": "761ded35-4799-4cc1-822c-ca22528e7b65",
+        "epoch_id": 333,
+        "intent_id": "WEB_SEARCH",
+        "miner_slug": "telegraph-chatbot",
+        "rank": 1,
+        "score": 0.99992883,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T02:15:40.275128Z",
+        "created_at": "2026-09-15T02:15:40.275128Z"
+      },
+      {
+        "id": "7094c948-4982-4474-a585-100660081c3d",
+        "epoch_id": 333,
+        "intent_id": "WEB_SEARCH",
+        "miner_slug": "livecert",
+        "rank": 15,
+        "score": 2.002052e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T02:15:40.275128Z",
+        "created_at": "2026-09-15T02:15:40.275128Z"
+      },
+      {
+        "id": "3fb3eb96-0bff-4517-8b3f-3d7c5998c35e",
+        "epoch_id": 332,
+        "intent_id": "WEB_SEARCH",
+        "miner_slug": "bedrock-nova-2-lite",
+        "rank": 1,
+        "score": 0.9999557,
+        "failure_reason": "",
+        "scored_at": "2026-09-14T17:12:23.112827Z",
+        "created_at": "2026-09-14T17:12:23.112827Z"
+      }
+    ],
+    "total": 1897,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 2789,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "WEB_SEARCH",
+    "wasm_url": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/a22b4919f6f2dc1102cd51e0be710a2c0aec1660/dist/reclaim5/ws_r50.wasm",
+    "wasm_hash": "41faa402873c31d7a61a8b3c320ee88ec418e6775eafb2b16cc6190fb76e73c0",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 0.8002296,
+    "eval": {
+      "candidate_margin": 0.8002296,
+      "champion_margin": 0.75249463,
+      "candidate_wins": 15,
+      "champion_wins": 15,
+      "comparable_cases": 15,
+      "worst_self_match": 0.9998954,
+      "score_stddev": 0.46285868,
+      "spearman": {
+        "WEB_SEARCH": 0.9527025
+      },
+      "historical_rows_evaluated": 128
+    },
+    "registered_at": "2026-08-31T15:38:17Z",
+    "updated_at": "2026-08-31T17:19:53Z"
+  }
+}

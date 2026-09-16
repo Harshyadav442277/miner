@@ -1,5 +1,14 @@
 # TASKS.md — execution board
 
+## 2026-09-17 follow-up (wrapped on request)
+
+- [x] Refresh all 36 ranks: epoch 336, 10 first; report all 26 current losses.
+- [x] Fix explicit DOAJ/open-access academic search and add a bounded source fallback.
+- [x] Fix the reproduced sentiment complaint and technical/clinical research mix-up.
+- [x] 685 unit tests and build; 6 targeted preview probes pass on `miner-677hz1mgk`.
+- [ ] Resolve/classify the broader local preflight failures; see saved partial log.
+- [ ] Production promotion and post-release scoring remain pending; no rank gain claimed.
+
 ## Current mission — 2026-09-16: more rank-1 positions from what the old epochs show
 
 Baseline epoch 335: 7/36 rank 1. Analysis and evidence: G152–G159,

@@ -234,6 +234,12 @@ const capital = (s: string): string => s.charAt(0).toUpperCase() + s.slice(1);
  * sincere "Great, it arrived early and works well." has positive words after it.
  */
 export function sarcasticOpening(text: string): { word: string; rest: string } | null {
+  // The praise must govern the adverse experience itself, not an unrelated later sentence.
+  const experience = text.match(/^\s*["'“‘]?I\s+(?:(?:just|really|absolutely)\s+)?(love|enjoy)\s+(being\s+(?:ignored|overcharged|insulted|charged\s+twice)\b[^.!?]*[.!?]?)\s*$/i);
+  if (experience?.[1] && experience[2] && !/\b(?:not|never|no longer)\b/i.test(experience[2])) {
+    const rest = scoreText(experience[2]);
+    if (rest.neg < 0 && rest.pos === 0) return {word:experience[1], rest:experience[2]};
+  }
   const m = String(text ?? "").match(
     /^\s*["'“‘]?(?:(?:oh|ah|well|just|yeah|wow)[,!]?\s+)?(fantastic|great|wonderful|perfect|brilliant|lovely|awesome|amazing|excellent|terrific|super|nice|thanks|thank you|just what i needed|love it|well done|splendid)\s*(?:[,!.…]|—|-)+\s*(.+)$/i,
   );

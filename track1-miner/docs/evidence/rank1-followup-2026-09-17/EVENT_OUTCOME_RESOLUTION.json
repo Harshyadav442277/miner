@@ -1,0 +1,242 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "75f6496b-0ba5-4db8-a611-3af71d144b4a",
+        "epoch_id": 336,
+        "intent_id": "EVENT_OUTCOME_RESOLUTION",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 0.3359489,
+        "failure_reason": "",
+        "scored_at": "2026-09-16T05:06:27.573678Z",
+        "created_at": "2026-09-16T05:06:27.573678Z"
+      },
+      {
+        "id": "3590453d-e5de-4de9-87f3-1bf4e8c40049",
+        "epoch_id": 336,
+        "intent_id": "EVENT_OUTCOME_RESOLUTION",
+        "miner_slug": "livecert",
+        "rank": 8,
+        "score": 0.21580905,
+        "failure_reason": "",
+        "scored_at": "2026-09-16T05:06:27.573678Z",
+        "created_at": "2026-09-16T05:06:27.573678Z"
+      },
+      {
+        "id": "80820458-24fb-435b-bb60-11cd4cdb17d9",
+        "epoch_id": 335,
+        "intent_id": "EVENT_OUTCOME_RESOLUTION",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 0.3326033,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T19:56:35.456815Z",
+        "created_at": "2026-09-15T19:56:35.456815Z"
+      },
+      {
+        "id": "f8675c21-26c7-4310-aa70-f52f682474b8",
+        "epoch_id": 335,
+        "intent_id": "EVENT_OUTCOME_RESOLUTION",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 0.22171375,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T19:56:35.456815Z",
+        "created_at": "2026-09-15T19:56:35.456815Z"
+      },
+      {
+        "id": "02030c74-b5d5-4496-b76f-41374d8b7fca",
+        "epoch_id": 334,
+        "intent_id": "EVENT_OUTCOME_RESOLUTION",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 0.32554448,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T10:58:21.948991Z",
+        "created_at": "2026-09-15T10:58:21.948991Z"
+      },
+      {
+        "id": "6bd9fcf2-acce-43d9-82e0-b0777503ae7e",
+        "epoch_id": 334,
+        "intent_id": "EVENT_OUTCOME_RESOLUTION",
+        "miner_slug": "livecert",
+        "rank": 8,
+        "score": 0.22169237,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T10:58:21.948991Z",
+        "created_at": "2026-09-15T10:58:21.948991Z"
+      },
+      {
+        "id": "0e5be0d0-8940-4ab6-8c12-3b821e7564c3",
+        "epoch_id": 333,
+        "intent_id": "EVENT_OUTCOME_RESOLUTION",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 0.6978115,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T01:53:19.685235Z",
+        "created_at": "2026-09-15T01:53:19.685235Z"
+      },
+      {
+        "id": "e351ed55-4052-4787-a38a-7202a525d989",
+        "epoch_id": 333,
+        "intent_id": "EVENT_OUTCOME_RESOLUTION",
+        "miner_slug": "livecert",
+        "rank": 8,
+        "score": 0.24720605,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T01:53:19.685235Z",
+        "created_at": "2026-09-15T01:53:19.685235Z"
+      },
+      {
+        "id": "c3cf924d-bd5a-4d30-a9a1-32817cc3c582",
+        "epoch_id": 332,
+        "intent_id": "EVENT_OUTCOME_RESOLUTION",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 0.68428165,
+        "failure_reason": "",
+        "scored_at": "2026-09-14T17:05:07.883226Z",
+        "created_at": "2026-09-14T17:05:07.883226Z"
+      },
+      {
+        "id": "d87887d5-0f0d-49b3-9cfc-027795c23945",
+        "epoch_id": 332,
+        "intent_id": "EVENT_OUTCOME_RESOLUTION",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 0.23229459,
+        "failure_reason": "",
+        "scored_at": "2026-09-14T17:05:07.883226Z",
+        "created_at": "2026-09-14T17:05:07.883226Z"
+      },
+      {
+        "id": "01aacf4a-0837-498a-ad4f-1a05832efba6",
+        "epoch_id": 331,
+        "intent_id": "EVENT_OUTCOME_RESOLUTION",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 0.35562417,
+        "failure_reason": "",
+        "scored_at": "2026-09-14T07:54:12.712081Z",
+        "created_at": "2026-09-14T07:54:12.712081Z"
+      },
+      {
+        "id": "5f25dbf8-81ee-4879-a52c-24bf1a886728",
+        "epoch_id": 331,
+        "intent_id": "EVENT_OUTCOME_RESOLUTION",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 0.23977368,
+        "failure_reason": "",
+        "scored_at": "2026-09-14T07:54:12.712081Z",
+        "created_at": "2026-09-14T07:54:12.712081Z"
+      },
+      {
+        "id": "f5630b3c-9492-454c-86e5-22bf358f7e82",
+        "epoch_id": 330,
+        "intent_id": "EVENT_OUTCOME_RESOLUTION",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 0.5618025,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T22:57:20.7916Z",
+        "created_at": "2026-09-13T22:57:20.7916Z"
+      },
+      {
+        "id": "cb9f1078-f5f3-436a-8e85-a21af30adae1",
+        "epoch_id": 330,
+        "intent_id": "EVENT_OUTCOME_RESOLUTION",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 0.4235198,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T22:57:20.7916Z",
+        "created_at": "2026-09-13T22:57:20.7916Z"
+      },
+      {
+        "id": "008021d1-2a45-48a8-84f6-168759f32eac",
+        "epoch_id": 329,
+        "intent_id": "EVENT_OUTCOME_RESOLUTION",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.28348804,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T13:59:28.02291Z",
+        "created_at": "2026-09-13T13:59:28.02291Z"
+      },
+      {
+        "id": "f985c38c-cb30-483c-b27d-04d790db1128",
+        "epoch_id": 328,
+        "intent_id": "EVENT_OUTCOME_RESOLUTION",
+        "miner_slug": "polymarket-event",
+        "rank": 1,
+        "score": 0,
+        "failure_reason": "unrecognised response type []interface {} from miner",
+        "scored_at": "2026-09-13T04:50:22.454444Z",
+        "created_at": "2026-09-13T04:50:22.454444Z"
+      },
+      {
+        "id": "d975b728-ef78-4fac-b0ba-8adc447b8edb",
+        "epoch_id": 327,
+        "intent_id": "EVENT_OUTCOME_RESOLUTION",
+        "miner_slug": "polymarket-event",
+        "rank": 1,
+        "score": 0,
+        "failure_reason": "unrecognised response type []interface {} from miner",
+        "scored_at": "2026-09-12T19:58:22.740998Z",
+        "created_at": "2026-09-12T19:58:22.740998Z"
+      },
+      {
+        "id": "3317a979-36fd-4c7f-a339-b77ff9a84013",
+        "epoch_id": 326,
+        "intent_id": "EVENT_OUTCOME_RESOLUTION",
+        "miner_slug": "polymarket-event",
+        "rank": 1,
+        "score": 0,
+        "failure_reason": "unrecognised response type []interface {} from miner",
+        "scored_at": "2026-09-12T10:55:34.053023Z",
+        "created_at": "2026-09-12T10:55:34.053023Z"
+      },
+      {
+        "id": "2c218576-26b6-42f0-aefe-fd176c8ed799",
+        "epoch_id": 325,
+        "intent_id": "EVENT_OUTCOME_RESOLUTION",
+        "miner_slug": "polymarket-event",
+        "rank": 1,
+        "score": 0,
+        "failure_reason": "unrecognised response type []interface {} from miner",
+        "scored_at": "2026-09-12T01:56:47.313197Z",
+        "created_at": "2026-09-12T01:56:47.313197Z"
+      },
+      {
+        "id": "da521d19-99f0-42e9-9491-e76571f5a0ee",
+        "epoch_id": 324,
+        "intent_id": "EVENT_OUTCOME_RESOLUTION",
+        "miner_slug": "polymarket-event",
+        "rank": 1,
+        "score": 0,
+        "failure_reason": "unrecognised response type []interface {} from miner",
+        "scored_at": "2026-09-11T16:55:08.979442Z",
+        "created_at": "2026-09-11T16:55:08.979442Z"
+      },
+      {
+        "id": "a79989fe-edfa-4971-aa1b-abb3691ffafc",
+        "epoch_id": 323,
+        "intent_id": "EVENT_OUTCOME_RESOLUTION",
+        "miner_slug": "polymarket-event",
+        "rank": 1,
+        "score": 0,
+        "failure_reason": "unrecognised response type []interface {} from miner",
+        "scored_at": "2026-09-11T07:50:23.301106Z",
+        "created_at": "2026-09-11T07:50:23.301106Z"
+      }
+    ],
+    "total": 79,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": null
+}

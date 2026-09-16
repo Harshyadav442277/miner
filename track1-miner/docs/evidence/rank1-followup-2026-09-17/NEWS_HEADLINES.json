@@ -1,0 +1,243 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "cddb2f62-017d-4966-8278-6d527acce0ad",
+        "epoch_id": 336,
+        "intent_id": "NEWS_HEADLINES",
+        "miner_slug": "news-spaceflight-blogs",
+        "rank": 1,
+        "score": 0.0055912803,
+        "failure_reason": "",
+        "scored_at": "2026-09-16T05:17:38.731144Z",
+        "created_at": "2026-09-16T05:17:38.731144Z"
+      },
+      {
+        "id": "adfdfecf-3c7a-4815-b271-d83aa4badfa7",
+        "epoch_id": 336,
+        "intent_id": "NEWS_HEADLINES",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 0.0048629767,
+        "failure_reason": "",
+        "scored_at": "2026-09-16T05:17:38.731144Z",
+        "created_at": "2026-09-16T05:17:38.731144Z"
+      },
+      {
+        "id": "b83ff3d2-9423-45a3-82b7-d236315e2a1e",
+        "epoch_id": 335,
+        "intent_id": "NEWS_HEADLINES",
+        "miner_slug": "news-spaceflight",
+        "rank": 1,
+        "score": 0.0036858812,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T19:57:52.613912Z",
+        "created_at": "2026-09-15T19:57:52.613912Z"
+      },
+      {
+        "id": "f3afbc0b-372a-41ec-8239-679db3be03fc",
+        "epoch_id": 335,
+        "intent_id": "NEWS_HEADLINES",
+        "miner_slug": "livecert",
+        "rank": 4,
+        "score": 0.002776922,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T19:57:52.613912Z",
+        "created_at": "2026-09-15T19:57:52.613912Z"
+      },
+      {
+        "id": "be78a7eb-b1e5-4c55-8c45-0a5d6931e64c",
+        "epoch_id": 334,
+        "intent_id": "NEWS_HEADLINES",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.010798672,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T11:06:29.926428Z",
+        "created_at": "2026-09-15T11:06:29.926428Z"
+      },
+      {
+        "id": "e798ae41-ce94-4954-80cf-f459399c7cde",
+        "epoch_id": 333,
+        "intent_id": "NEWS_HEADLINES",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.005129075,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T01:57:52.106203Z",
+        "created_at": "2026-09-15T01:57:52.106203Z"
+      },
+      {
+        "id": "cb5e54fe-7b44-4f8b-b06a-bc81af10f022",
+        "epoch_id": 332,
+        "intent_id": "NEWS_HEADLINES",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.0062414818,
+        "failure_reason": "",
+        "scored_at": "2026-09-14T17:05:22.029272Z",
+        "created_at": "2026-09-14T17:05:22.029272Z"
+      },
+      {
+        "id": "537c43c7-5b16-4ea6-b517-3e2b4306d257",
+        "epoch_id": 331,
+        "intent_id": "NEWS_HEADLINES",
+        "miner_slug": "newswire-headlines",
+        "rank": 1,
+        "score": 0.007025668,
+        "failure_reason": "",
+        "scored_at": "2026-09-14T08:05:25.083612Z",
+        "created_at": "2026-09-14T08:05:25.083612Z"
+      },
+      {
+        "id": "29fdd14f-2664-468a-a506-8f9003a1ef05",
+        "epoch_id": 331,
+        "intent_id": "NEWS_HEADLINES",
+        "miner_slug": "livecert",
+        "rank": 3,
+        "score": 0.0063727926,
+        "failure_reason": "",
+        "scored_at": "2026-09-14T08:05:25.083612Z",
+        "created_at": "2026-09-14T08:05:25.083612Z"
+      },
+      {
+        "id": "cd75e8b5-b44d-4157-81a8-c9abd961b5b0",
+        "epoch_id": 330,
+        "intent_id": "NEWS_HEADLINES",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.007601555,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T22:57:06.789523Z",
+        "created_at": "2026-09-13T22:57:06.789523Z"
+      },
+      {
+        "id": "c3d1d53b-2c58-482b-b18f-361df7134c05",
+        "epoch_id": 329,
+        "intent_id": "NEWS_HEADLINES",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.005856218,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T13:51:12.757175Z",
+        "created_at": "2026-09-13T13:51:12.757175Z"
+      },
+      {
+        "id": "0e4510b8-66d3-4289-b468-5c77abb649f0",
+        "epoch_id": 328,
+        "intent_id": "NEWS_HEADLINES",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.007109854,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T05:01:56.513723Z",
+        "created_at": "2026-09-13T05:01:56.513723Z"
+      },
+      {
+        "id": "21a8be79-6e21-4a1c-b199-be9087b6c84f",
+        "epoch_id": 327,
+        "intent_id": "NEWS_HEADLINES",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.00868622,
+        "failure_reason": "",
+        "scored_at": "2026-09-12T20:02:04.065833Z",
+        "created_at": "2026-09-12T20:02:04.065833Z"
+      },
+      {
+        "id": "023a6d1a-2c14-4b61-bdfa-5d213ecac070",
+        "epoch_id": 326,
+        "intent_id": "NEWS_HEADLINES",
+        "miner_slug": "newswire-headlines",
+        "rank": 1,
+        "score": 0.005408784,
+        "failure_reason": "",
+        "scored_at": "2026-09-12T11:00:31.884039Z",
+        "created_at": "2026-09-12T11:00:31.884039Z"
+      },
+      {
+        "id": "af5fcad6-0fe3-4155-834b-4b228a6a7267",
+        "epoch_id": 326,
+        "intent_id": "NEWS_HEADLINES",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 0.0041383766,
+        "failure_reason": "",
+        "scored_at": "2026-09-12T11:00:31.884039Z",
+        "created_at": "2026-09-12T11:00:31.884039Z"
+      },
+      {
+        "id": "4b768faf-dca4-4935-94ee-07abf59e488e",
+        "epoch_id": 325,
+        "intent_id": "NEWS_HEADLINES",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.008445009,
+        "failure_reason": "",
+        "scored_at": "2026-09-12T01:53:19.718459Z",
+        "created_at": "2026-09-12T01:53:19.718459Z"
+      },
+      {
+        "id": "2eb61044-26e7-4822-b88d-455328620615",
+        "epoch_id": 324,
+        "intent_id": "NEWS_HEADLINES",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.009698554,
+        "failure_reason": "",
+        "scored_at": "2026-09-11T17:03:41.865652Z",
+        "created_at": "2026-09-11T17:03:41.865652Z"
+      },
+      {
+        "id": "036ee5c5-527d-4e07-a3b7-2ed67d6f5aa4",
+        "epoch_id": 323,
+        "intent_id": "NEWS_HEADLINES",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.005272559,
+        "failure_reason": "",
+        "scored_at": "2026-09-11T08:03:26.169096Z",
+        "created_at": "2026-09-11T08:03:26.169096Z"
+      },
+      {
+        "id": "c5efd241-3227-4730-ba42-1696a1dfbfe0",
+        "epoch_id": 322,
+        "intent_id": "NEWS_HEADLINES",
+        "miner_slug": "newswire-headlines",
+        "rank": 1,
+        "score": 0.010223601,
+        "failure_reason": "",
+        "scored_at": "2026-09-10T22:56:54.266276Z",
+        "created_at": "2026-09-10T22:56:54.266276Z"
+      }
+    ],
+    "total": 215,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 635,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "NEWS_HEADLINES",
+    "wasm_url": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/f009d2d778bd49611dcc0a7e3819a8dca74d1aad/dist/xfmr/nh_mini.wasm",
+    "wasm_hash": "bd5175afa466481e522d80103b2569f0a00c71fdcc87d3d55b0e30d2fd1bbfbb",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 0.9935922,
+    "eval": {
+      "candidate_margin": 0.9935922,
+      "champion_margin": 0.93231577,
+      "candidate_wins": 15,
+      "champion_wins": 15,
+      "comparable_cases": 15,
+      "worst_self_match": 1,
+      "score_stddev": 0.4685157,
+      "historical_rows_evaluated": 8
+    },
+    "registered_at": "2026-08-24T02:25:08Z",
+    "updated_at": "2026-08-24T02:30:02Z"
+  }
+}

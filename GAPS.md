@@ -1,5 +1,18 @@
 # GAPS.md — honesty ledger
 
+## G173 — September 17 follow-up is verified on preview, not a scored production release
+
+`RANK1_FOLLOWUP_2026-09-17.md` records all 26 current losses. The public API still reports epoch 336
+with 10 first places, preceding the previous production release. New academic, sentiment and technical
+research fixes pass 685 unit tests and six preview probes. Broader localhost preflight is not green:
+unit+live, verify-deploy and intent-answer gates failed; parameter shapes passed. Local HTTPS cannot
+satisfy the verifier's production HTTPS check, and OpenAlex rejects this machine while answering from
+Vercel, but the remaining failures were not fully classified before the user's wrap-up request.
+No promotion or rank improvement is claimed. Preview `miner-677hz1mgk`; evidence in
+`track1-miner/docs/evidence/rank1-followup-2026-09-17/`. DOAJ coverage is partial, has no citation
+counts, and cannot supply citation ordering. Technical research returns a cited general-reference
+excerpt rather than a research synthesis. Sarcasm handling is bounded; scorer wording gaps remain.
+
 ## 2026-09-16 rank-1 recovery build: what the old epochs actually say — G152–G159
 
 Baseline epoch 335: 7/36 rank 1 (rank-audit in

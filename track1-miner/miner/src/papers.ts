@@ -8,6 +8,7 @@
  * says.
  */
 
+import { doajPapers } from "./doaj";
 const API = "https://api.openalex.org/works";
 const DEFAULT_TIMEOUT_MS = 9000;
 
@@ -295,8 +296,9 @@ export function rankByTopic<T extends Record<string, unknown>>(results: T[], top
 const TOPIC_STOP = new Set(["the", "and", "for", "with", "from", "into", "about", "their", "that", "this", "use", "using", "based", "impact", "effect", "effects", "role", "recent"]);
 
 export async function findPapers(query: string, limit?: number, timeoutMs = DEFAULT_TIMEOUT_MS): Promise<PaperResult> {
+  const deadline = Date.now() + timeoutMs;
   const now = new Date().toISOString();
-  const topic = searchTopic(query);
+  const topic = searchTopic(query.replace(/\bDOAJ\b/gi, "").replace(/\bopen[-\s]access\b/gi, ""));
   const { from, to } = dateWindow(query);
   const want = limit ?? requestedLimit(query);
   const sort = requestedSort(query);
@@ -310,7 +312,19 @@ export async function findPapers(query: string, limit?: number, timeoutMs = DEFA
     return { ...base, reason: "No research topic was supplied with this request, so no papers could be found. Name a subject to search for." };
   }
 
+  const fromDoaj = async (fallback: boolean): Promise<PaperResult> => {
+    const left = Math.max(1,deadline-Date.now());
+    const papers = await doajPapers(topic, from, to, want, Math.min(left,4000), sort === "publication_date:desc");
+    if (!papers) return {...base, reason:`Papers on ${topic} could not be searched because ${fallback ? "OpenAlex and DOAJ did" : "DOAJ did"} not respond with usable results. This is an availability problem, not evidence that no research exists.`};
+    if (!papers.length) return {...base, reason:`No matching open-access articles on ${topic} were found in DOAJ for the requested period. This does not establish an absence in other indexes.`};
+    const list = papers.map((p,i)=>`${i+1}) ${p.title}${p.authors.length ? ` by ${p.authors.join(", ")}`:""}${p.year ? ` (${p.year})`:""}${p.venue ? `, ${p.venue}`:""}${p.doi ? `, DOI: ${p.doi}`:""}.`).join(" ");
+    return {...base, verdict:"papers", papers, count:papers.length, confidence:0.85,
+      reason:`Here are ${papers.length} open-access articles on ${topic}${from || to ? ` published from ${from ?? "the earliest indexed date"} through ${to ?? "the latest indexed date"}`:""}: ${list} Source: DOAJ.${fallback ? " OpenAlex was unavailable; this list covers DOAJ's open-access collection only.":""} Citation counts are unavailable from this source.${sort === "cited_by_count:desc" ? " Citation-count ordering could not be applied.":""}${papers.length < want ? ` Only ${papers.length} of ${want} requested matches were retrieved.`:""}`};
+  };
+  if (/\bDOAJ\b/i.test(query)) return fromDoaj(false);
+
   const filters: string[] = [];
+  if (/\bopen[-\s]access\b/i.test(query)) filters.push("is_oa:true");
   if (from) filters.push(`from_publication_date:${from}`);
   if (to) filters.push(`to_publication_date:${to}`);
   // OpenAlex cannot certify peer review. A journal article is the closest property
@@ -371,8 +385,7 @@ export async function findPapers(query: string, limit?: number, timeoutMs = DEFA
     throw new Error(`upstream ${second.status}`);
   };
 
-  // The first request keeps the whole budget: the retry below is a bonus, and
-  // halving the primary timeout to fund it would lose answers we already get.
+  // Reserve time for the independent index; the entire search stays in one deadline.
   //
   // It must not THROW, though, and it used to. A thrown error propagated out of
   // findPapers to the route's catch and answered "could not be retrieved" — so
@@ -389,7 +402,7 @@ export async function findPapers(query: string, limit?: number, timeoutMs = DEFA
   // two turns an outage into the false claim "no papers were found".
   let indexAnswered = false;
   try {
-    body = await get(url, timeoutMs);
+    body = await get(url, Math.max(1,timeoutMs-Math.min(4000,timeoutMs/2)));
     indexAnswered = true;
   } catch {
     /* fall through to the narrower retry rather than giving up here */
@@ -398,7 +411,8 @@ export async function findPapers(query: string, limit?: number, timeoutMs = DEFA
   // An over-specific topic or a narrow window can return nothing, and "no papers
   // found" scores near zero. Retry with the leading terms while preserving
   // the caller's date constraints; older papers do not answer this request.
-  if (!(body.results ?? []).length) {
+  const retryBudget = deadline-Date.now()-(indexAnswered ? 0 : Math.min(4000,timeoutMs/2));
+  if (!(body.results ?? []).length && retryBudget > 0) {
     const short = topic.split(/\s+/).slice(0, 5).join(" ");
     const retry =
       `${API}?search=${encodeURIComponent(short)}` +
@@ -406,7 +420,7 @@ export async function findPapers(query: string, limit?: number, timeoutMs = DEFA
       (sort ? `&sort=${encodeURIComponent(sort)}` : "") +
       `&per-page=${fetchN}`;
     try {
-      body = await get(retry, Math.min(4000, timeoutMs));
+      body = await get(retry, Math.max(1,Math.min(4000, retryBudget)));
       indexAnswered = true;
     } catch {
       /* keep the empty first result and answer honestly below */
@@ -440,12 +454,7 @@ export async function findPapers(query: string, limit?: number, timeoutMs = DEFA
      * reported as an empty result.
      */
     if (!indexAnswered) {
-      return {
-        ...base,
-        reason:
-          `Papers on ${topic} could not be searched because the academic index did not respond. ` +
-          `This is an availability problem here, not a statement that no such research exists.`,
-      };
+      return fromDoaj(true);
     }
     return { ...base, reason: `No ${kind} on ${topic} were found for the requested period.` };
   }

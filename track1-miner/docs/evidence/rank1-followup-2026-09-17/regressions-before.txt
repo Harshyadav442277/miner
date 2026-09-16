@@ -1,0 +1,54 @@
+✖ academic search can answer an explicit DOAJ request without OpenAlex (3041.3252ms)
+✖ praise of a directly stated adverse experience is read as a complaint (1.7491ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 0
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3114.5084
+
+✖ failing tests:
+
+test at dist-test\test\rank-followup.test.js:10:22
+✖ academic search can answer an explicit DOAJ request without OpenAlex (3041.3252ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'unknown'
+  - 'papers'
+  
+      at TestContext.<anonymous> (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\rank-followup.test.js:25:26)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'unknown',
+    expected: 'papers',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at dist-test\test\rank-followup.test.js:37:22
+✖ praise of a directly stated adverse experience is read as a complaint (1.7491ms)
+  AssertionError [ERR_ASSERTION]: I just love being charged twice and ignored by support.
+  + actual - expected
+  
+  + 'positive'
+  - 'negative'
+  
+      at TestContext.<anonymous> (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\rank-followup.test.js:39:26)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'positive',
+    expected: 'negative',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

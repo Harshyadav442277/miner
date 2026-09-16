@@ -30,6 +30,7 @@
  *   Wikipedia REST         — the general fallback, for the questions that are
  *                            not biomedical at all.
  */
+import { isTechnicalQuestion, technicalResearch } from "./technical-research";
 const TIMEOUT_MS = Number(process.env.RESEARCH_TIMEOUT_MS ?? 6_000);
 const UA = "livecert-miner/1.0 (+https://miner-wine.vercel.app)";
 const CTGOV = "https://clinicaltrials.gov/api/v2/studies";
@@ -394,6 +395,18 @@ export async function answerResearch(question: string): Promise<ResearchResult> 
    * subject puts the drug at position zero and the sentence-opening rule then
    * discards it.
    */
+  if (isTechnicalQuestion(question)) {
+    const sides = comparedSubjects(question);
+    if (sides) {
+      const pages = await Promise.all(sides.map(s=>findEncyclopediaBySearch(s)));
+      if (pages.every((p):p is Citation=>p !== null && p !== "unavailable")) {
+        return {subject,trials:[],citations:pages,verdict:"evidence",confidence:0.75,
+          reason:pages.map(p=>`${p.title}: ${p.source.replace(/^Wikipedia:\s*/,"")}`).join(" ")+` Sources: Wikipedia, "${pages[0]!.title}" and "${pages[1]!.title}".`};
+      }
+      return {...empty,subject,verdict:"unavailable",confidence:0,reason:"The technical comparison sources could not be verified; no clinical acronym match was substituted."};
+    }
+    return technicalResearch(question,subject);
+  }
   const topic = topicOf(subject);
   const terms = [...namedEntities(question).slice(0, 3), ...(topic ? [topic] : [subject])];
   let term = terms[0] ?? subject;

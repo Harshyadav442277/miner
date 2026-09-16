@@ -1,5 +1,17 @@
 # ARCHITECTURE.md — decisions and rationale
 
+## 2026-09-17: independent open-access academic search
+
+Explicit DOAJ article searches use its public article API. General and open-access searches
+retain OpenAlex (with an open-access filter when requested), with a bounded DOAJ fallback when
+OpenAlex is unavailable. DOAJ's coverage is
+labelled; missing citation counts stay unknown and cannot substantiate citation-count ordering.
+Publication intervals must fit the requested window; unknown or partial dates must not pretend
+to satisfy a precise boundary. Preserve the existing manifest and keyless, non-generative design.
+Explicitly technical research questions resolve a relevant general-reference article before any
+clinical index lookup. Quote the retrieved explanation and identify it as a general reference,
+not a survey of current research. Medical requests retain the existing clinical sources.
+
 ## 2026-09-13: recovery for intents below third place
 
 Weather candidates are reordered by identity rather than by array position: a filtered-out long

@@ -1,0 +1,136 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "8bd619b8-cd58-4759-bddf-fc878f4e2d68",
+        "epoch_id": 336,
+        "intent_id": "ONCHAIN_TX_LOOKUP",
+        "miner_slug": "veyctum",
+        "rank": 1,
+        "score": 0.995202,
+        "failure_reason": "",
+        "scored_at": "2026-09-16T04:53:15.650616Z",
+        "created_at": "2026-09-16T04:53:15.650616Z"
+      },
+      {
+        "id": "51e33b53-81f2-43f3-99f1-668b375d0392",
+        "epoch_id": 336,
+        "intent_id": "ONCHAIN_TX_LOOKUP",
+        "miner_slug": "livecert",
+        "rank": 8,
+        "score": 0.010015826,
+        "failure_reason": "",
+        "scored_at": "2026-09-16T04:53:15.650616Z",
+        "created_at": "2026-09-16T04:53:15.650616Z"
+      },
+      {
+        "id": "c1c060c2-5570-444d-8fce-f5ee3b2fb2a0",
+        "epoch_id": 335,
+        "intent_id": "ONCHAIN_TX_LOOKUP",
+        "miner_slug": "veyctum",
+        "rank": 1,
+        "score": 0.995202,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T20:00:54.261691Z",
+        "created_at": "2026-09-15T20:00:54.261691Z"
+      },
+      {
+        "id": "6e1c6379-a7ac-4447-a548-7fe7065228b9",
+        "epoch_id": 335,
+        "intent_id": "ONCHAIN_TX_LOOKUP",
+        "miner_slug": "livecert",
+        "rank": 7,
+        "score": 0.010015826,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T20:00:54.261691Z",
+        "created_at": "2026-09-15T20:00:54.261691Z"
+      },
+      {
+        "id": "1d8451d5-01ec-41cd-b397-b4b84cb37586",
+        "epoch_id": 334,
+        "intent_id": "ONCHAIN_TX_LOOKUP",
+        "miner_slug": "txlens",
+        "rank": 1,
+        "score": 0.99677175,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T11:02:30.455104Z",
+        "created_at": "2026-09-15T11:02:30.455104Z"
+      },
+      {
+        "id": "5b24db13-d8ae-4923-816a-743ad6b74ee4",
+        "epoch_id": 334,
+        "intent_id": "ONCHAIN_TX_LOOKUP",
+        "miner_slug": "livecert",
+        "rank": 23,
+        "score": 0,
+        "failure_reason": "build request for miner \"livecert\": LLM call for miner \"livecert\" failed: http request: Post \"http://127.0.0.1:4000/v1/chat/completions\": context deadline exceeded",
+        "scored_at": "2026-09-15T11:02:30.455104Z",
+        "created_at": "2026-09-15T11:02:30.455104Z"
+      },
+      {
+        "id": "a9c28c86-642f-41df-9f76-d83e53119bd2",
+        "epoch_id": 333,
+        "intent_id": "ONCHAIN_TX_LOOKUP",
+        "miner_slug": "txlens",
+        "rank": 1,
+        "score": 0.99567837,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T01:52:40.011148Z",
+        "created_at": "2026-09-15T01:52:40.011148Z"
+      },
+      {
+        "id": "a09d51a1-1f24-4d31-965d-74dee2123f98",
+        "epoch_id": 333,
+        "intent_id": "ONCHAIN_TX_LOOKUP",
+        "miner_slug": "livecert",
+        "rank": 10,
+        "score": 0.005965703,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T01:52:40.011148Z",
+        "created_at": "2026-09-15T01:52:40.011148Z"
+      },
+      {
+        "id": "ee4bf138-aeb1-48ae-80d1-1f3fcd3391ac",
+        "epoch_id": 332,
+        "intent_id": "ONCHAIN_TX_LOOKUP",
+        "miner_slug": "txlens",
+        "rank": 1,
+        "score": 0.99567837,
+        "failure_reason": "",
+        "scored_at": "2026-09-14T16:56:20.639076Z",
+        "created_at": "2026-09-14T16:56:20.639076Z"
+      }
+    ],
+    "total": 859,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 642,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "ONCHAIN_TX_LOOKUP",
+    "wasm_url": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/92167ea85229156e2e761afa36a6b50fcc9fedfa/dist/xfmr/otx_t74.wasm",
+    "wasm_hash": "2780ba63d46a6fe0b4ea5ea8e6ff4070358c9087a4ee5d81848d2f5b78aef24f",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 0.7922707,
+    "eval": {
+      "candidate_margin": 0.7922707,
+      "champion_margin": 0.61929476,
+      "candidate_wins": 15,
+      "champion_wins": 15,
+      "comparable_cases": 15,
+      "worst_self_match": 1,
+      "score_stddev": 0.43772864,
+      "spearman": {
+        "ONCHAIN_TX_LOOKUP": 0.6563034
+      },
+      "historical_rows_evaluated": 22
+    },
+    "registered_at": "2026-08-24T04:06:52Z",
+    "updated_at": "2026-08-24T04:29:43Z"
+  }
+}

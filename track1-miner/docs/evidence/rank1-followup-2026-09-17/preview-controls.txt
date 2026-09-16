@@ -1,0 +1,12 @@
+sentiment-negative
+Vercel CLI 59.5.0 (Node.js 24.19.0) | curl is in beta — https://vercel.com/feedback
+{"verdict":"negative","confidence":0.73,"reason":"Negative. The sentiment of this review is negative: I just love being charged twice and ignored by support. It is carried by the word ignored. The opening love is sarcastic. Its tone is frustrated."}
+HTTP:200
+sentiment-positive
+Vercel CLI 59.5.0 (Node.js 24.19.0) | curl is in beta — https://vercel.com/feedback
+{"verdict":"positive","confidence":0.82,"reason":"Positive. The sentiment of this review is positive: I love being helped by support. It is carried by the word love."}
+HTTP:200
+ssl-control
+Vercel CLI 59.5.0 (Node.js 24.19.0) | curl is in beta — https://vercel.com/feedback
+{"verdict":"valid","confidence":1,"reason":"The TLS/SSL certificate configuration for github.com is valid. Certificate validity: the certificate is currently valid, expiring in 74 days on 2026-11-29, issued by Sectigo Limited. Chain trust: the server presented a complete chain of 4 certificates including intermediates, building a trusted path to a root. Hostname verification: passes against DNS:github.com. The connection negotiated TLSv1.3."}
+HTTP:200

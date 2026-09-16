@@ -1,5 +1,21 @@
 # MEMORY.md — session continuity
 
+## 2026-09-17 IST — rank follow-up wrapped at the user's request; preview only
+
+Latest live API still reports epoch 336, **10/36 first**, scored before the September 16 08:21 UTC
+release. The ONCHAIN correction is confirmed served in production; no post-release rank evidence yet.
+New report: `track1-miner/docs/RANK1_FOLLOWUP_2026-09-17.md`, all 26 current losses plus verified fixes.
+Added explicit DOAJ academic search, a bounded OpenAlex-outage fallback, the missing open-access filter,
+bounded complaint sarcasm handling, and technical-research routing that avoids clinical acronym matches.
+**685/685 unit tests**, build passed; **6/6 targeted protected-preview probes** passed on
+`https://miner-677hz1mgk-wukong4.vercel.app`. No production promotion; production remains the preceding
+`miner-71hy3v2zy` release. Local preflight had unit+live, verify-deploy and intent-answer failures;
+parameter shapes passed. The user requested wrap-up before the remaining preflight investigation.
+Do not call this a clean release or claim a rank gain. Evidence is in
+`track1-miner/docs/evidence/rank1-followup-2026-09-17/`. OpenAlex fails from this machine but works
+from Vercel; DOAJ has no citation counts. Resume by resolving/classifying the preflight failures,
+then deciding promotion with the known rollback target. No manifest, registration or wallet changes.
+
 ## 2026-09-16 ~08:30 UTC (14:00 IST) — rank-1 build from the old epochs: integrated, on a preview, NOT promoted
 
 **State:** branch `codex/rank1-14-intents`, not pushed. **Production is `miner-71hy3v2zy`**,

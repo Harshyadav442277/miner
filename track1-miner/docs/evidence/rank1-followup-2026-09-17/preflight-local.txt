@@ -1,0 +1,7 @@
+preflight against http://localhost:8098
+
+  unit + live suite                      FAIL
+  verify-deploy                          FAIL
+  param shapes (engine-shaped)           PASS
+  intent answers (correctness)           FAIL
+  hostile inputs                         

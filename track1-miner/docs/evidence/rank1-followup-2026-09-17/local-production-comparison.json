@@ -1,0 +1,109 @@
+{
+  "at": "2026-09-16T19:42:00.615Z",
+  "results": [
+    {
+      "id": "academic-oa",
+      "path": "/papers",
+      "q": "Find two open-access articles on quantum computing published in 2025",
+      "base": "https://miner-wine.vercel.app",
+      "status": 200,
+      "ms": 1470,
+      "body": {
+        "verdict": "papers",
+        "confidence": 1,
+        "reason": "Regarding find two open-access articles on quantum computing published in 2025: Here are 2 articles on quantum computing published between 2025-01-01 and 2025-12-31: 1) A manufacturable platform for photonic quantum computing by PsiQuantum team, Koen Alexander, Avishai Benyamini, Dylan S. Black (2025), cited 220 times. 2) Barren plateaus in variational quantum computing by Martín Larocca, Supanut Thanasilp, Samson Wang, Kunal Sharma (2025), cited 220 times."
+      }
+    },
+    {
+      "id": "academic-oa",
+      "path": "/papers",
+      "q": "Find two open-access articles on quantum computing published in 2025",
+      "base": "http://localhost:8097",
+      "status": 200,
+      "ms": 318,
+      "body": {
+        "verdict": "papers",
+        "confidence": 0.85,
+        "reason": "Regarding find two open-access articles on quantum computing published in 2025: Here are 2 open-access articles on quantum computing published from 2025-01-01 through 2025-12-31: 1) Coalition of explainable artificial intelligence and quantum computing in precision medicine by Soumyadeep Ray, Pronaya Bhattacharya, Ebrahim A. Mattar, Abhishek Mukhopadhyay (2025), Computational and Structural Biotechnology Journal, DOI: 10.1016/j.csbj.2025.11.031. 2) Bridging Deep Learning and Quantum Computing for EEG-Driven P300 Targeted ASD Response Detection by Sapthak Mohajon Turjya, Mulham Fawakherji (2025), IEEE Access, DOI: 10.1109/ACCESS.2025.3646589. Source: DOAJ. Citation counts are unavailable from this source."
+      }
+    },
+    {
+      "id": "academic-fallback",
+      "path": "/papers",
+      "q": "Find two papers on distributed consensus published in 2025",
+      "base": "https://miner-wine.vercel.app",
+      "status": 200,
+      "ms": 575,
+      "body": {
+        "verdict": "papers",
+        "confidence": 1,
+        "reason": "Regarding find two papers on distributed consensus published in 2025: Here are 2 papers on distributed consensus published between 2025-01-01 and 2025-12-31: 1) Distributed Consensus Control for Multi-Bus DCMGs Under Time-Varying Delays and Compound Noises by Shengxin Sun, Gulizhati Hailati, Da Xie (2025), cited 31 times. 2) Distributed Consensus Gossip-Based Data Fusion for Suppressing Incorrect Sensor Readings in Wireless Sensor Networks by Martin Kenyeres, Jozef Kenyeres, Sepideh Hassankhani Dolatabadi (2025), cited 27 times."
+      }
+    },
+    {
+      "id": "academic-fallback",
+      "path": "/papers",
+      "q": "Find two papers on distributed consensus published in 2025",
+      "base": "http://localhost:8097",
+      "status": 200,
+      "ms": 3411,
+      "body": {
+        "verdict": "papers",
+        "confidence": 0.85,
+        "reason": "Regarding find two papers on distributed consensus published in 2025: Here are 2 open-access articles on distributed consensus published from 2025-01-01 through 2025-12-31: 1) Global Insights and Key Trends in Physical Literacy Research: A Bibliometric Analysis and Literature Review from 2007 to 2024 by Qian H, Ren X, Wang H, Zou Y (2025), Journal of Multidisciplinary Healthcare. 2) Long COVID clinical evaluation, research and impact on society: a global expert consensus by Andrew G. Ewing, David Joffe, Svetlana Blitshteyn, Anna E. S. Brooks (2025), Annals of Clinical Microbiology and Antimicrobials, DOI: 10.1186/s12941-025-00793-9. Source: DOAJ. OpenAlex was unavailable; this list covers DOAJ's open-access collection only. Citation counts are unavailable from this source."
+      }
+    },
+    {
+      "id": "sentiment-irony",
+      "path": "/sentiment",
+      "q": "What is the sentiment of this review: I just love being charged twice and ignored by support.",
+      "base": "https://miner-wine.vercel.app",
+      "status": 200,
+      "ms": 249,
+      "body": {
+        "verdict": "positive",
+        "confidence": 0.69,
+        "reason": "Positive. The sentiment of this review is positive: I just love being charged twice and ignored by support. It is carried by the word love. Weaker negative wording (ignored) does not outweigh it. Its tone is frustrated."
+      }
+    },
+    {
+      "id": "sentiment-irony",
+      "path": "/sentiment",
+      "q": "What is the sentiment of this review: I just love being charged twice and ignored by support.",
+      "base": "http://localhost:8097",
+      "status": 200,
+      "ms": 4,
+      "body": {
+        "verdict": "negative",
+        "confidence": 0.73,
+        "reason": "Negative. The sentiment of this review is negative: I just love being charged twice and ignored by support. It is carried by the word ignored. The opening love is sarcastic. Its tone is frustrated."
+      }
+    },
+    {
+      "id": "technical-research",
+      "path": "/research",
+      "q": "Explain how Raft achieves consensus in distributed systems, with sources.",
+      "base": "https://miner-wine.vercel.app",
+      "status": 200,
+      "ms": 804,
+      "body": {
+        "verdict": "evidence",
+        "confidence": 0.75,
+        "reason": "The published evidence includes \"Transcriptomic analysis reveals and validates lipid raft-associated biomarkers and functional networks in Alzheimer's disease\" by Hsu CH et al. (2026) in Europe PMC."
+      }
+    },
+    {
+      "id": "technical-research",
+      "path": "/research",
+      "q": "Explain how Raft achieves consensus in distributed systems, with sources.",
+      "base": "http://localhost:8097",
+      "status": 200,
+      "ms": 975,
+      "body": {
+        "verdict": "evidence",
+        "confidence": 0.7,
+        "reason": "Raft is a consensus algorithm designed as an alternative to the Paxos family of algorithms. It was meant to be more understandable than Paxos by means of separation of logic, but it is also formally proven safe and offers some additional features. Raft offers a generic way to distribute a state machine across a cluster of computing systems, ensuring that each node in the cluster agrees upon the same series of state transitions. Source: Wikipedia, \"Raft (algorithm)\" (https://en.wikipedia.org/wiki/Raft_(algorithm)). This is a general reference excerpt, not a survey of recent research."
+      }
+    }
+  ]
+}

@@ -1,0 +1,144 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "92e5719d-25c4-4b40-8da7-c993046371b7",
+        "epoch_id": 336,
+        "intent_id": "STORM_ALERT",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.010819287,
+        "failure_reason": "",
+        "scored_at": "2026-09-16T04:59:14.778146Z",
+        "created_at": "2026-09-16T04:59:14.778146Z"
+      },
+      {
+        "id": "c56b4fcb-d8b3-4879-aa64-9dd60c04d41b",
+        "epoch_id": 335,
+        "intent_id": "STORM_ALERT",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.9945304,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T19:54:36.921645Z",
+        "created_at": "2026-09-15T19:54:36.921645Z"
+      },
+      {
+        "id": "6155400b-b905-422f-8c68-65ee26c69a08",
+        "epoch_id": 334,
+        "intent_id": "STORM_ALERT",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.9943372,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T11:04:47.614969Z",
+        "created_at": "2026-09-15T11:04:47.614969Z"
+      },
+      {
+        "id": "63461baf-f0fc-46fa-b260-710ed0478370",
+        "epoch_id": 333,
+        "intent_id": "STORM_ALERT",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.31124175,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T01:56:31.192551Z",
+        "created_at": "2026-09-15T01:56:31.192551Z"
+      },
+      {
+        "id": "b4ad98ee-75fb-4b4b-b47f-f2e26c958c9f",
+        "epoch_id": 332,
+        "intent_id": "STORM_ALERT",
+        "miner_slug": "storm-nws-area",
+        "rank": 1,
+        "score": 0.517175,
+        "failure_reason": "",
+        "scored_at": "2026-09-14T17:03:45.543395Z",
+        "created_at": "2026-09-14T17:03:45.543395Z"
+      },
+      {
+        "id": "ff915e6c-9d8c-4b29-b1e4-51edd1fec85b",
+        "epoch_id": 332,
+        "intent_id": "STORM_ALERT",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 0.022374965,
+        "failure_reason": "",
+        "scored_at": "2026-09-14T17:03:45.543395Z",
+        "created_at": "2026-09-14T17:03:45.543395Z"
+      },
+      {
+        "id": "0cfa1eca-51dd-4d77-9bb3-28ea90da8596",
+        "epoch_id": 331,
+        "intent_id": "STORM_ALERT",
+        "miner_slug": "skywire-storm-alert",
+        "rank": 1,
+        "score": 0.99501836,
+        "failure_reason": "",
+        "scored_at": "2026-09-14T07:51:18.975762Z",
+        "created_at": "2026-09-14T07:51:18.975762Z"
+      },
+      {
+        "id": "e378fb4a-efe2-4dea-b0a6-1b5e6e801150",
+        "epoch_id": 331,
+        "intent_id": "STORM_ALERT",
+        "miner_slug": "livecert",
+        "rank": 3,
+        "score": 0.0137423985,
+        "failure_reason": "",
+        "scored_at": "2026-09-14T07:51:18.975762Z",
+        "created_at": "2026-09-14T07:51:18.975762Z"
+      },
+      {
+        "id": "d1169205-4612-465a-bb4d-bef434c4ff4a",
+        "epoch_id": 330,
+        "intent_id": "STORM_ALERT",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.99583125,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T22:58:42.023075Z",
+        "created_at": "2026-09-13T22:58:42.023075Z"
+      },
+      {
+        "id": "8f3eb52f-0459-42cc-a533-2332a9e2e524",
+        "epoch_id": 329,
+        "intent_id": "STORM_ALERT",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.9967058,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T14:00:09.994772Z",
+        "created_at": "2026-09-13T14:00:09.994772Z"
+      }
+    ],
+    "total": 703,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 453,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "STORM_ALERT",
+    "wasm_url": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/72616195155200974eac9982e3121aa48f5f8373/dist/xfmr/storm_rpen.wasm",
+    "wasm_hash": "f30451baead010294d0adcd679bd328c8bc324d175758588028c1c19cb0cb536",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 0.99000794,
+    "eval": {
+      "candidate_margin": 0.99000794,
+      "champion_margin": 0.97044337,
+      "candidate_wins": 32,
+      "champion_wins": 32,
+      "comparable_cases": 32,
+      "worst_self_match": 0.9947709,
+      "score_stddev": 0.46656534,
+      "historical_rows_evaluated": 10
+    },
+    "registered_at": "2026-08-22T11:28:45Z",
+    "updated_at": "2026-08-22T11:30:37Z"
+  }
+}

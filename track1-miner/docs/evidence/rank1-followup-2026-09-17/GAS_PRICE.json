@@ -1,0 +1,125 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "1274cac0-b21d-4784-8390-b91974814527",
+        "epoch_id": 336,
+        "intent_id": "GAS_PRICE",
+        "miner_slug": "agentfeed-base-crypto",
+        "rank": 1,
+        "score": 1.9129648e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-16T05:22:33.797622Z",
+        "created_at": "2026-09-16T05:22:33.797622Z"
+      },
+      {
+        "id": "debb5efa-5461-4255-b1df-40c7b34c49a0",
+        "epoch_id": 336,
+        "intent_id": "GAS_PRICE",
+        "miner_slug": "livecert",
+        "rank": 4,
+        "score": 1.6795771e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-16T05:22:33.797622Z",
+        "created_at": "2026-09-16T05:22:33.797622Z"
+      },
+      {
+        "id": "28b0bf80-7e50-4224-a1b3-a8c856d7c2f3",
+        "epoch_id": 335,
+        "intent_id": "GAS_PRICE",
+        "miner_slug": "kriterion-pramagraph",
+        "rank": 1,
+        "score": 2.2218227e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T20:15:03.054779Z",
+        "created_at": "2026-09-15T20:15:03.054779Z"
+      },
+      {
+        "id": "6bf1614c-dfa6-4d4f-adbe-8af11f941ba6",
+        "epoch_id": 335,
+        "intent_id": "GAS_PRICE",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 2.1596138e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T20:15:03.054779Z",
+        "created_at": "2026-09-15T20:15:03.054779Z"
+      },
+      {
+        "id": "1eb33304-864f-4987-bc84-6304e943bdc8",
+        "epoch_id": 334,
+        "intent_id": "GAS_PRICE",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 2.6981903e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T11:18:33.805349Z",
+        "created_at": "2026-09-15T11:18:33.805349Z"
+      },
+      {
+        "id": "e250b7b7-f041-4b1e-b736-6d54719bc8cb",
+        "epoch_id": 333,
+        "intent_id": "GAS_PRICE",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 2.5847751e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T01:52:14.742847Z",
+        "created_at": "2026-09-15T01:52:14.742847Z"
+      },
+      {
+        "id": "59cd9f9b-dbb8-4c2a-bb6d-c1b1bc347080",
+        "epoch_id": 332,
+        "intent_id": "GAS_PRICE",
+        "miner_slug": "agentfeed-base-crypto",
+        "rank": 1,
+        "score": 1.7191847e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-14T17:05:40.452228Z",
+        "created_at": "2026-09-14T17:05:40.452228Z"
+      },
+      {
+        "id": "6d458dd3-72a8-4ff6-9b3d-4843977ef1a9",
+        "epoch_id": 332,
+        "intent_id": "GAS_PRICE",
+        "miner_slug": "livecert",
+        "rank": 4,
+        "score": 1.2839727e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-14T17:05:40.452228Z",
+        "created_at": "2026-09-14T17:05:40.452228Z"
+      }
+    ],
+    "total": 608,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 3119,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "GAS_PRICE",
+    "wasm_url": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/75870ce8705687186eb87ebce607a1ff1f3be676/dist/win2/gpf_1e4.wasm",
+    "wasm_hash": "101a54272ef5faee923a72744de9ed4916ff4ba073ab05e434724191893d48d9",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 0.9333227,
+    "eval": {
+      "candidate_margin": 0.9333227,
+      "champion_margin": 0.93327236,
+      "candidate_wins": 15,
+      "champion_wins": 15,
+      "comparable_cases": 15,
+      "worst_self_match": 1,
+      "score_stddev": 0.4629456,
+      "spearman": {
+        "GAS_PRICE": 0.6803096
+      },
+      "historical_rows_evaluated": 127
+    },
+    "registered_at": "2026-09-01T07:15:41Z",
+    "updated_at": "2026-09-01T07:24:39Z"
+  }
+}

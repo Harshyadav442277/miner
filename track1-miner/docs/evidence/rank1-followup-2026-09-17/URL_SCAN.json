@@ -1,0 +1,144 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "b5ce95c8-1386-4dcc-9434-352d71d296bd",
+        "epoch_id": 336,
+        "intent_id": "URL_SCAN",
+        "miner_slug": "proofgate-url-intelligence",
+        "rank": 1,
+        "score": 0.9271755,
+        "failure_reason": "",
+        "scored_at": "2026-09-16T05:05:54.955479Z",
+        "created_at": "2026-09-16T05:05:54.955479Z"
+      },
+      {
+        "id": "d1e4c0ca-c848-4cd1-a708-9a25690b5cf1",
+        "epoch_id": 336,
+        "intent_id": "URL_SCAN",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 0.9258598,
+        "failure_reason": "",
+        "scored_at": "2026-09-16T05:05:54.955479Z",
+        "created_at": "2026-09-16T05:05:54.955479Z"
+      },
+      {
+        "id": "42141553-f0db-4c21-a4fb-7717aeacbc19",
+        "epoch_id": 335,
+        "intent_id": "URL_SCAN",
+        "miner_slug": "netwire-url-scan",
+        "rank": 1,
+        "score": 0.9025795,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T19:57:46.295937Z",
+        "created_at": "2026-09-15T19:57:46.295937Z"
+      },
+      {
+        "id": "d48ae683-d6fd-4305-9523-b0425d686cdc",
+        "epoch_id": 335,
+        "intent_id": "URL_SCAN",
+        "miner_slug": "livecert",
+        "rank": 11,
+        "score": 0,
+        "failure_reason": "build request for miner \"livecert\": LLM call for miner \"livecert\" failed: context deadline exceeded",
+        "scored_at": "2026-09-15T19:57:46.295937Z",
+        "created_at": "2026-09-15T19:57:46.295937Z"
+      },
+      {
+        "id": "69cf9e07-30ea-453b-b2ad-0d5191d57cd6",
+        "epoch_id": 334,
+        "intent_id": "URL_SCAN",
+        "miner_slug": "preflight-ssl-verification",
+        "rank": 1,
+        "score": 0.98794425,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T11:04:40.325628Z",
+        "created_at": "2026-09-15T11:04:40.325628Z"
+      },
+      {
+        "id": "5bbb0578-946a-46dd-9976-62c6252ee98c",
+        "epoch_id": 334,
+        "intent_id": "URL_SCAN",
+        "miner_slug": "livecert",
+        "rank": 3,
+        "score": 0.9664245,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T11:04:40.325628Z",
+        "created_at": "2026-09-15T11:04:40.325628Z"
+      },
+      {
+        "id": "7b05831c-1f91-4208-82ba-2a036d753d92",
+        "epoch_id": 333,
+        "intent_id": "URL_SCAN",
+        "miner_slug": "netwire-url-scan",
+        "rank": 1,
+        "score": 0.92099977,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T02:02:42.077608Z",
+        "created_at": "2026-09-15T02:02:42.077608Z"
+      },
+      {
+        "id": "59b83486-9fe9-4dea-bace-3f8571b177e0",
+        "epoch_id": 333,
+        "intent_id": "URL_SCAN",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 0.878128,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T02:02:42.077608Z",
+        "created_at": "2026-09-15T02:02:42.077608Z"
+      },
+      {
+        "id": "827f8b1f-ddd3-4ec5-ae43-7079a5f4b7d8",
+        "epoch_id": 332,
+        "intent_id": "URL_SCAN",
+        "miner_slug": "proofgate-url-intelligence",
+        "rank": 1,
+        "score": 0.9274422,
+        "failure_reason": "",
+        "scored_at": "2026-09-14T17:00:18.4154Z",
+        "created_at": "2026-09-14T17:00:18.4154Z"
+      },
+      {
+        "id": "21bda527-592c-4bce-880a-a08682a9e3de",
+        "epoch_id": 332,
+        "intent_id": "URL_SCAN",
+        "miner_slug": "livecert",
+        "rank": 3,
+        "score": 0.8930896,
+        "failure_reason": "",
+        "scored_at": "2026-09-14T17:00:18.4154Z",
+        "created_at": "2026-09-14T17:00:18.4154Z"
+      }
+    ],
+    "total": 695,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 220,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "URL_SCAN",
+    "wasm_url": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/0174a85639c398a0e898dcb11b54367eb2723b2b/dist/xfmr/url_c3.wasm",
+    "wasm_hash": "71581b142ca88090e795ffaaa95442e7403c49018f94e7c0b41ce938cef97c6a",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 0.9478501,
+    "eval": {
+      "candidate_margin": 0.9478501,
+      "champion_margin": 0.82566255,
+      "candidate_wins": 32,
+      "champion_wins": 32,
+      "comparable_cases": 32,
+      "worst_self_match": 1,
+      "score_stddev": 0.4539985,
+      "historical_rows_evaluated": 0
+    },
+    "registered_at": "2026-08-21T06:10:48Z",
+    "updated_at": "2026-08-21T06:10:48Z"
+  }
+}

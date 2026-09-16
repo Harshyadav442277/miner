@@ -1,0 +1,53 @@
+{
+  "at": "2026-09-16T19:45:25.996Z",
+  "rows": [
+    {
+      "id": "doaj-direct",
+      "path": "/papers",
+      "q": "Search DOAJ for two open-access articles on quantum computing published in 2025",
+      "status": 200,
+      "ms": 355,
+      "body": {
+        "verdict": "papers",
+        "confidence": 0.85,
+        "reason": "Regarding search DOAJ for two open-access articles on quantum computing published in 2025: Here are 2 open-access articles on quantum computing published from 2025-01-01 through 2025-12-31: 1) Coalition of explainable artificial intelligence and quantum computing in precision medicine by Soumyadeep Ray, Pronaya Bhattacharya, Ebrahim A. Mattar, Abhishek Mukhopadhyay (2025), Computational and Structural Biotechnology Journal, DOI: 10.1016/j.csbj.2025.11.031. 2) Bridging Deep Learning and Quantum Computing for EEG-Driven P300 Targeted ASD Response Detection by Sapthak Mohajon Turjya, Mulham Fawakherji (2025), IEEE Access, DOI: 10.1109/ACCESS.2025.3646589. Source: DOAJ. Citation counts are unavailable from this source."
+      }
+    },
+    {
+      "id": "academic-fallback",
+      "path": "/papers",
+      "q": "Find two papers on distributed consensus published in 2025",
+      "status": 200,
+      "ms": 3342,
+      "body": {
+        "verdict": "papers",
+        "confidence": 0.85,
+        "reason": "Regarding find two papers on distributed consensus published in 2025: Here are 2 open-access articles on distributed consensus published from 2025-01-01 through 2025-12-31: 1) Observer-Based Distributed Consensus Control for Nonlinear Lipschitz and One-Side Lipschitz Fractional-Order Multi-Agent Systems by Farshid Aazam Manesh, Elham Amini Boroujeni, Fateme Bazarkhak, Mahdi Pourgholi (2025), International Journal of Industrial Electronics, Control and Optimization, DOI: 10.22111/ieco.2025.50570.1646. 2) Distributed Consensus Gossip-Based Data Fusion for Suppressing Incorrect Sensor Readings in Wireless Sensor Networks by Martin Kenyeres, Jozef Kenyeres, Sepideh Hassankhani Dolatabadi (2025), Journal of Low Power Electronics and Applications, DOI: 10.3390/jlpea15010006. Source: DOAJ. OpenAlex was unavailable; this list covers DOAJ's open-access collection only. Citation counts are unavailable from this source."
+      }
+    },
+    {
+      "id": "sentiment",
+      "path": "/sentiment",
+      "q": "What is the sentiment of this review: I just love being charged twice and ignored by support.",
+      "status": 200,
+      "ms": 4,
+      "body": {
+        "verdict": "negative",
+        "confidence": 0.73,
+        "reason": "Negative. The sentiment of this review is negative: I just love being charged twice and ignored by support. It is carried by the word ignored. The opening love is sarcastic. Its tone is frustrated."
+      }
+    },
+    {
+      "id": "research",
+      "path": "/research",
+      "q": "Explain how Raft achieves consensus in distributed systems, with sources.",
+      "status": 200,
+      "ms": 719,
+      "body": {
+        "verdict": "evidence",
+        "confidence": 0.7,
+        "reason": "Raft is a consensus algorithm designed as an alternative to the Paxos family of algorithms. It was meant to be more understandable than Paxos by means of separation of logic, but it is also formally proven safe and offers some additional features. Raft offers a generic way to distribute a state machine across a cluster of computing systems, ensuring that each node in the cluster agrees upon the same series of state transitions. Source: Wikipedia, \"Raft (algorithm)\" (https://en.wikipedia.org/wiki/Raft_(algorithm)). This is a general reference excerpt, not a survey of recent research."
+      }
+    }
+  ]
+}
