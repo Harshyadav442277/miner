@@ -1,0 +1,52 @@
+preview https://miner-n7u6lib7a-wukong4.vercel.app  2026-09-16T07:58:34Z
+### /tx-lookup | What did transaction 0xe1cd7c312e8cedad3bb8b3030703a90cb93d48d35a554082001b0e2edaa97e19 do?
+{"verdict":"reverted","confidence":0.99,"reason":"Transaction 0xe1cd7c312e8cedad3bb8b3030703a90cb93d48d35a554082001b0e2edaa97e19 on ethereum failed and was reverted in block 25700000. It attempted to move 0 ETH from 0x8a0231d6fb864a3ae9439a860871510249c31d07 to 0x66a9893cc07d91d95644aedd05d03f95e1dba8af and called execute. A reverted transaction still consumes its gas; the value transfer did not occur."}
+
+### /headlines | Give three spaceflight news headlines published in the last 24 hours.
+ished":"2026-09-16T01:29:22.000Z"},{"title":"SpaceX targeting Tuesday evening mission from Vandenberg Space Force Base","source":"Santa Maria Times","published":"2026-09-15T23:00:00.000Z"}],"count":3,"confidence":1,"reason":"The top 3 spaceflight headlines in the last 24 hours, as of September 16, 2026, are: 1. Is SpaceX Dragon Being Retired? Shotwell's Comments Explained - BASENOR (Tesla Accessories, 2026-09-16). 2. SpaceX scrubs Vandenberg launch of national security payload, targets backup window on Wednesday (Spaceflight Now, 2026-09-16). 3. SpaceX targeting Tuesday evening mission from Vandenberg Space Force Base (Santa Maria Times, 2026-09-15).","checked_at":"2026-09-16T07:58:44.105Z"}
+
+### /ip-geolocate | Where is ::1 located?
+{"verdict":"loopback","confidence":1,"reason":"The IP address ::1 is the IPv6 loopback address, which always refers to the local machine itself. It is never routed on any network, so it has no geographic location or ISP, and no abuse history can exist for it in public reputation databases."}
+
+### /ip-geolocate | Where is 8.8.8.8 located and who operates it?
+8 located and who operates it: The IP address 8.8.8.8 is associated with Google LLC (AS15169) and is located in Ashburn, Virginia, United States. Regarding abuse history, no abuse reports appear in the network registry and geolocation sources consulted here and the address is not on the Tor Project's exit-node list; these sources do not include a dedicated reputation database such as AbuseIPDB, which is where reported malicious activity would be confirmed. The local timezone is America/New_York. This location is derived from the network's autonomous system registration, so it identifies the operator's serving infrastructure rather than a precise physical address, and it can vary by region."}
+
+### /convert | Convert 100 GBP to EUR using the reference rate on 2024-01-02.
+{"verdict":"converted","confidence":0.95,"reason":"100.00 GBP is 115.41 EUR at a rate of 1 GBP = 1.1541 EUR, equivalently 1 EUR = 0.8665 GBP. This is the European Central Bank euro foreign exchange reference rate published for 2024-01-02, not a live trading quote."}
+
+### /convert | What is the USD to EUR exchange rate?
+{"verdict":"rate","confidence":0.95,"reason":"1 USD = 0.8666 EUR, equivalently 1 EUR = 1.1539 USD. This is the European Central Bank euro foreign exchange reference rate published for 2026-09-15, not a live trading quote."}
+
+### /game-result | Did the Padres beat the Rockies yesterday?
+{"verdict":"not_found","confidence":0.5,"reason":"No completed Padres versus Rockies fixture could be found. This does not mean the fixture never happened — it means neither the recent scoreboard nor the fixture directory holds a finished record of it, and no other fixture has been substituted for it."}
+
+### /game-result | Who won Argentina vs France in the 2022 FIFA World Cup final on 2022-12-18?
+{"verdict":"result","confidence":0.9,"reason":"Argentina and France drew 3-3 in the FIFA World Cup on 18 December 2022, so neither side won. The match is complete."}
+
+### /sports-score | What was the Argentina vs France score in the 2022 FIFA World Cup final on 2022-12-18?
+{"verdict":"final_score","confidence":0.9,"reason":"Argentina 3, France 3 in the FIFA World Cup on 18 December 2022. This is the final score of that fixture."}
+
+### /fraud-check | Assess this credit account activity: ten purchases in five minutes from two countries, followed by a request to increase the credit limit.
+{"verdict":"high_risk","confidence":0.85,"reason":"High fraud risk: this is a likely card compromise (anomalous credit-account activity). Red flags: ten purchases in five minutes, a transaction velocity a single cardholder does not produce; the activity spans two countries, which one physical card cannot do in a single session; and a credit-limit increase is requested straight after the spending, which is how a compromised line is drained. Confirm the transactions with the cardholder on the number already on file, and read the authorisation log for card-present, device and IP. This is pattern recognition on the description, not a transaction-graph or account-data assessment."}
+
+### /fraud-check | Assess this payment scenario: the invoice uses our verified vendor bank account, no bank details changed, and our finance team confirmed the payment by phone.
+{"verdict":"low_risk","confidence":0.6,"reason":"Low fraud risk: no red flag is stated, and the description states the controls that defeat vendor payment diversion (invoice fraud) as already carried out: the bank account is the vendor's verified one already on file; no bank details were changed; and the payment was confirmed out of band, by phone. Call the vendor on the number from the contract rather than one printed on the invoice, and check the account against the vendor master file. This is pattern recognition on the description, not a transaction-graph or account-data assessment."}
+
+### /classify | Classify this customer message into one of: billing, technical, cancellation, account. Message: Do not cancel my subscription; I only need to update my card.
+{"verdict":"classified","confidence":0.79,"reason":"Billing. This text belongs to the billing category: Do not cancel my subscription; I only need to update my card. The words update and card in it relate to billing."}
+
+### /classify | Assign all applicable labels: billing, technical, account. Text: I was charged twice and the app crashes whenever I open it.
+{"verdict":"classified","confidence":0.63,"reason":"Billing and technical. This text belongs to the billing and technical categories: I was charged twice and the app crashes whenever I open it. The word charged in it relates to billing, and the words app and crashes relate to technical."}
+
+### /fact-check | Fact-check this claim: Bats are the only mammals capable of sustained flight.
+supported","confidence":0.7,"source":"Wikipedia","source_url":"https://en.wikipedia.org/wiki/Bat","evidence":"Bats (order Chiroptera ) are winged mammals, the only mammals capable of true and sustained flight.","reason":"Regarding fact-check this claim: Bats are the only mammals capable of sustained flight: The claim \"Bats are the only mammals capable of sustained flight.\" is supported by the reference source consulted. According to Wikipedia's article \"Bat\": Bats (order Chiroptera ) are winged mammals, the only mammals capable of true and sustained flight. This check consulted one encyclopaedic source and is not a full adjudication of the claim.","checked_at":"2026-09-16T07:59:49.511Z"}
+
+### /fact-check | Fact check: sharks are mammals.
+elasmobranch cartilaginous fishes characterized by a ribless endoskeleton, dermal denticles, five to seven gill slits on each side, and pectoral fins that are not fused to the head.","reason":"Regarding fact check: sharks are mammals: The claim \"sharks are mammals.\" is contradicted by the reference source consulted. According to Wikipedia's article \"Shark\": Sharks are a group of elasmobranch cartilaginous fishes characterized by a ribless endoskeleton, dermal denticles, five to seven gill slits on each side, and pectoral fins that are not fused to the head. This check consulted one encyclopaedic source and is not a full adjudication of the claim.","checked_at":"2026-09-16T07:59:55.129Z"}
+
+### /ssl-check | Is the TLS certificate for github.com valid?
+{"verdict":"valid","confidence":1,"reason":"Regarding is the TLS certificate for github.com valid: The TLS/SSL certificate configuration for github.com is valid. Certificate validity: the certificate is currently valid, expiring in 74 days on 2026-11-29, issued by Sectigo Limited. Chain trust: the server presented a complete chain of 4 certificates including intermediates, building a trusted path to a root. Hostname verification: passes against DNS:github.com. The connection negotiated TLSv1.3."}
+
+### /wallet-balance | What is the ETH balance of 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045?
+{"verdict":"6.71259795 ETH","confidence":0.98,"reason":"The address 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 currently has a native-coin balance of 6.71259795 ETH on ethereum. This was determined by querying the eth_getBalance RPC method against the ethereum network, which returns the account's balance in wei at the latest block."}
+

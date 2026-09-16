@@ -307,6 +307,57 @@ const fmtDate = (iso: string): string =>
  */
 const WINDOW_DAYS = 7;
 
+const MLB = "https://statsapi.mlb.com/api/v1/schedule?sportId=1";
+interface MlbSide { score?: number; team?: { name?: string } }
+
+/**
+ * MLB's own schedule, read alongside ESPN for baseball. ESPN refuses Vercel's
+ * egress (G84), so in production every MLB question fell through to the fuzzy
+ * team directory, and the node's MLB questions were won by a wrapper on exactly
+ * this API (G155). The whole window is one request. Games are mapped onto the
+ * ESPN event shape so the selection and phrasing below do not change.
+ */
+async function mlbEvents(days: string[]): Promise<Event[] | null> {
+  const iso = (d: string): string => `${d.slice(0, 4)}-${d.slice(4, 6)}-${d.slice(6, 8)}`;
+  const sorted = [...days].sort();
+  try {
+    const j = (await getJson(`${MLB}&startDate=${iso(sorted[0]!)}&endDate=${iso(sorted[sorted.length - 1]!)}`)) as {
+      dates?: Array<{ games?: Array<{
+        gameDate: string;
+        status?: { abstractGameState?: string; detailedState?: string };
+        teams?: { away?: MlbSide; home?: MlbSide };
+      }> }>;
+    };
+    const side = (s: MlbSide | undefined, homeAway: string): Competitor | null =>
+      s?.team?.name
+        ? {
+            homeAway,
+            score: s.score == null ? "" : String(s.score),
+            team: { displayName: s.team.name, shortDisplayName: s.team.name.split(" ").pop() ?? s.team.name, abbreviation: "" },
+          }
+        : null;
+    const events: Event[] = [];
+    for (const d of j.dates ?? []) {
+      for (const g of d.games ?? []) {
+        const home = side(g.teams?.home, "home");
+        const away = side(g.teams?.away, "away");
+        if (!home || !away) continue;
+        const st = g.status?.abstractGameState ?? "";
+        events.push({
+          date: g.gameDate,
+          competitions: [{
+            competitors: [home, away],
+            status: { type: { state: st === "Final" ? "post" : st === "Live" ? "in" : "pre", completed: st === "Final", detail: g.status?.detailedState ?? st } },
+          }],
+        });
+      }
+    }
+    return events;
+  } catch {
+    return null;
+  }
+}
+
 async function findFixture(
   leaguePath: string, a: string, b: string, dates: string | null, now: Date,
   prefer: FixturePreference = "completed",
@@ -316,23 +367,28 @@ async function findFixture(
     : Array.from({ length: WINDOW_DAYS }, (_, i) =>
         new Date(now.getTime() - i * 86_400_000).toISOString().slice(0, 10).replace(/-/g, ""));
 
-  const responses = await Promise.all(days.map(async (d) => {
-    try {
-      return (await getJson(`${ESPN}/${leaguePath}/scoreboard?dates=${d}`)) as
-        { events?: Event[]; leagues?: Array<{ name?: string }> };
-    } catch {
-      return null;
-    }
-  }));
+  const [responses, mlb] = await Promise.all([
+    Promise.all(days.map(async (d) => {
+      try {
+        return (await getJson(`${ESPN}/${leaguePath}/scoreboard?dates=${d}`)) as
+          { events?: Event[]; leagues?: Array<{ name?: string }> };
+      } catch {
+        return null;
+      }
+    })),
+    leaguePath === "baseball/mlb" ? mlbEvents(days) : Promise.resolve(null),
+  ]);
   const reachable = responses.filter((r): r is NonNullable<typeof r> => r !== null);
-  if (reachable.length === 0) return "unavailable";
+  if (reachable.length === 0 && !mlb) return "unavailable";
 
-  const league = reachable.find((r) => r.leagues?.[0]?.name)?.leagues?.[0]?.name ?? leaguePath;
+  const league = reachable.find((r) => r.leagues?.[0]?.name)?.leagues?.[0]?.name ?? (mlb ? "Major League Baseball" : leaguePath);
   // Each day is requested once, so the same event cannot appear under two
   // different `dates=` values — no de-duplication is needed, and de-duplicating
   // by date alone would be wrong: distinct fixtures share an exact kickoff
   // timestamp often enough (two 2026-09-15T22:40Z MLB games, verified live).
-  const events = reachable.flatMap((r) => r.events ?? []).filter((e) => {
+  // The same MLB game may arrive from both sources; both rows describe one
+  // fixture, so the selection below cannot be changed by the duplicate.
+  const events = [...reachable.flatMap((r) => r.events ?? []), ...(mlb ?? [])].filter((e) => {
     const cs = e.competitions?.[0]?.competitors ?? [];
     return cs.some((c) => matchesTeam(c, a)) && cs.some((c) => matchesTeam(c, b));
   });
