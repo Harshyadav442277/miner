@@ -11,7 +11,7 @@ import { detectAiText, type AiDetectResult } from "./aidetect";
 import { extractContent } from "./content";
 import { getHeadlines } from "./news";
 import { searchNews, type NewsSearchResult } from "./newssearch";
-import { convert, parseQuery as parseCurrency, type CurrencyResult } from "./currency";
+import { convert, parseDate as parseFxDate, parseQuery as parseCurrency, type CurrencyResult } from "./currency";
 import { lookupGame, parseTeams, type GameResult } from "./gameresult";
 import { getGasPrice, resolveChain as resolveGasChain, type GasResult } from "./gas";
 import { getFinancialData, type FinancialResult } from "./financial";
@@ -1227,17 +1227,20 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     const to = /^[A-Z]{3}$/.test(toParam) ? toParam : parsed.to;
     const declaredAmount = Number(amountParam.replace(/,/g, ""));
     const amount = amountParam.trim() && Number.isFinite(declaredAmount) ? declaredAmount : parsed.amount;
+    // A dated question is answered with that date's reference rate, never today's.
+    const dateParam = firstValue(url, "date", "as_of", "on").trim();
+    const date = /^\d{4}-\d{2}-\d{2}$/.test(dateParam) ? dateParam : parseFxDate(q);
 
-    // Cached on the pair and amount. A daily reference rate is stable, but the
-    // shared one-minute TTL is kept rather than lengthened: a market-rate
+    // Cached on the pair, amount and date. A daily reference rate is stable, but
+    // the shared one-minute TTL is kept rather than lengthened: a market-rate
     // fallback is not stable, and one cache cannot hold both truths.
-    const key = `fx:${from}:${to}:${amount ?? "-"}`;
+    const key = `fx:${from}:${to}:${amount ?? "-"}:${date ?? "-"}`;
     const hit = fromCache(key);
     if (hit) {
       sendAnswer(res, q, lean(hit), false);
       return;
     }
-    convert(from, to, amount)
+    convert(from, to, amount, date)
       .then((r) => {
         if (r.verdict === "converted" || r.verdict === "rate") toCache(key, r);
         sendAnswer(res, q, lean(r), false);
