@@ -59,6 +59,9 @@ export type GameVerdict = "result" | "not_played" | "in_progress" | "not_found" 
 export type FixturePreference = "completed" | "live";
 
 export interface GameResult {
+  /** Shootout scores are separate from the match score. */
+  home_penalties?: number;
+  away_penalties?: number;
   home: string | null;
   away: string | null;
   home_score: number | null;
@@ -81,6 +84,7 @@ export interface GameResult {
  * one we guess a path for and silently miss.
  */
 const ESPN_PATH: Record<string, string> = {
+  "fifa world cup": "soccer/fifa.world",
   "english premier league": "soccer/eng.1",
   "spanish la liga": "soccer/esp.1",
   "german bundesliga": "soccer/ger.1",
@@ -100,6 +104,7 @@ const ESPN_PATH: Record<string, string> = {
 
 /** Leagues a question may name directly, when it names one at all. */
 const LEAGUE_WORDS: Array<[RegExp, string]> = [
+  [/\b(?:fifa\s+)?world cup\b/i, "soccer/fifa.world"],
   [/\bpremier league\b|\bepl\b/i, "soccer/eng.1"],
   [/\bla liga\b/i, "soccer/esp.1"],
   [/\bbundesliga\b/i, "soccer/ger.1"],
@@ -142,6 +147,7 @@ export function parseTeams(question: string): { a: string; b: string } | null {
      */
     .replace(/\bwhat(?:'s|s| is| was)?\s+(?:the\s+)?(?:current\s+|live\s+|latest\s+)?(?:score|result)\b/gi, " ")
     .replace(/\b(?:current|live|latest|running)\s+(?:score|result)\b/gi, " ")
+    .replace(/^what\s+(?:was|is)\s+(?:the\s+)?/i, "")
     .replace(/\b(?:right now|at the moment|as it stands|so far|as of now)\b/gi, " ")
     // A bare "who" survives "who beat who in X vs Y" and becomes the home side.
     .replace(/\bwho\b/gi, " ")
@@ -153,7 +159,7 @@ export function parseTeams(question: string): { a: string; b: string } | null {
     .replace(/^(?:in|on|at|for|of|during|between)\b\s*/i, "")
     .trim();
 
-  const m = q.match(/^(.{2,40}?)\s+(?:vs\.?|v\.?|versus|against|-|–)\s+(.{2,40}?)$/i);
+  const m = q.match(/^(.{2,200}?)\s+(?:vs\.?|v\.?|versus|against|-|–)\s+(.{2,400}?)$/i);
   if (!m?.[1] || !m[2]) return null;
   const clean = (s: string): string =>
     s
@@ -165,7 +171,7 @@ export function parseTeams(question: string): { a: string; b: string } | null {
       .trim();
   const a = clean(m[1]);
   const b = clean(m[2]);
-  return a.length >= 2 && b.length >= 2 ? { a, b } : null;
+  return a.length >= 2 && b.length >= 2 && a.length <= 80 && b.length <= 80 ? { a, b } : null;
 }
 
 /** A date the question names, as YYYYMMDD, or null for "search a recent window". */
@@ -245,7 +251,7 @@ export async function resolveLeague(question: string, team: string): Promise<str
   }
 }
 
-interface Competitor { team: { displayName: string; shortDisplayName: string; abbreviation: string }; score: string; homeAway: string }
+interface Competitor { team: { displayName: string; shortDisplayName: string; abbreviation: string }; score: string; homeAway: string; shootoutScore?: number; winner?: boolean }
 interface Event {
   date: string;
   competitions: Array<{
@@ -522,8 +528,8 @@ export async function lookupGame(question: string, now = new Date(), requested?:
     };
   }
 
-  const hs = Number(home.score);
-  const as = Number(away.score);
+  const hs = home.score == null || String(home.score).trim() === "" ? NaN : Number(home.score);
+  const as = away.score == null || String(away.score).trim() === "" ? NaN : Number(away.score);
 
   if (!status.completed) {
     return {
@@ -549,7 +555,9 @@ export async function lookupGame(question: string, now = new Date(), requested?:
   }
 
   const drew = hs === as;
-  const winner = drew ? null : hs > as ? names.home : names.away;
+  const penalties = drew && /pen/i.test(status.detail) && Number.isInteger(home.shootoutScore) && Number.isInteger(away.shootoutScore)
+    && home.shootoutScore! >= 0 && away.shootoutScore! >= 0 && home.shootoutScore !== away.shootoutScore;
+  const winner = penalties ? (home.shootoutScore! > away.shootoutScore! ? names.home : names.away) : drew ? null : hs > as ? names.home : names.away;
   const loser = drew ? null : hs > as ? names.away : names.home;
   const winScore = Math.max(hs, as);
   const loseScore = Math.min(hs, as);
@@ -568,12 +576,15 @@ export async function lookupGame(question: string, now = new Date(), requested?:
    * for the truth — and it is declined.
    */
   const detail = /^FT$/i.test(status.detail) ? "full time" : status.detail;
-  const outcome = drew
+  const outcome = penalties
+    ? `${winner} won ${Math.max(home.shootoutScore!, away.shootoutScore!)}-${Math.min(home.shootoutScore!, away.shootoutScore!)} on penalties after a ${hs}-${as} draw against ${winner === names.home ? names.away : names.home} in the ${found.league} on ${when}.`
+    : drew
     ? `${names.home} and ${names.away} drew ${hs}-${as} in the ${found.league} on ${when}, so neither side won.`
     : `${winner} beat ${loser} ${winScore}-${loseScore} in the ${found.league} on ${when}.`;
 
   return {
     home: names.home, away: names.away, home_score: hs, away_score: as, winner,
+    ...(penalties ? { home_penalties: home.shootoutScore, away_penalties: away.shootoutScore } : {}),
     competition: found.league, played_at: found.event.date,
     verdict: "result", confidence: 0.95,
     reason: `${outcome} The match is complete (${detail}).`,

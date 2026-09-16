@@ -22,6 +22,7 @@
  */
 
 import { Resolver } from "node:dns/promises";
+import { isIP } from "node:net";
 
 export interface GeoResult {
   ip: string;
@@ -47,11 +48,12 @@ const TOR_DNSEL_TIMEOUT_MS = 1500;
 export function extractIp(text: string): string | null {
   const s = String(text ?? "").trim();
   if (!s) return null;
-  const v4 = s.match(/\b((?:\d{1,3}\.){3}\d{1,3})\b/);
-  if (v4?.[1] && v4[1].split(".").every((o) => Number(o) <= 255)) return v4[1];
-  const v6 = s.match(/\b((?:[0-9a-f]{0,4}:){2,7}[0-9a-f]{0,4})\b/i);
-  if (v6?.[1] && v6[1].includes("::") ) return v6[1];
-  if (v6?.[1] && v6[1].split(":").length >= 3) return v6[1];
+  // Validate whole tokens: word boundaries lose ::1, and extracting IPv4 first
+  // truncates IPv4-mapped IPv6 or accepts a valid substring of an invalid token.
+  for (const token of s.match(/[A-Za-z0-9_:.%]+/g) ?? []) {
+    const candidate = token.replace(/\.+$/, ""); // sentence punctuation
+    if (isIP(candidate)) return candidate;
+  }
   return null;
 }
 
@@ -74,8 +76,11 @@ export const SPECIAL_GEO_VERDICTS = new Set([
  * Confidence is 1 because nothing here depends on a provider being right.
  */
 export function specialRange(ip: string): { verdict: string; reason: string } | null {
-  const lower = ip.toLowerCase();
+  const lower = isIP(ip) === 6 ? new URL(`http://[${ip}]/`).hostname.slice(1, -1) : ip.toLowerCase();
   if (lower.includes(":")) {
+    if (lower === "::") {
+      return { verdict: "reserved", reason: `The IP address ${ip} is the IPv6 unspecified address. It identifies no host and has no public geographic location or ISP.` };
+    }
     if (lower === "::1" || lower === "0:0:0:0:0:0:0:1") {
       return {
         verdict: "loopback",

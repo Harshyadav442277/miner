@@ -25,12 +25,13 @@ test("a live score leads with the numbers and is never called a final result", (
   assert.match(r.reason, /not a final result/);
 });
 
-test("a finished fixture is the most recent score, and says it is not live", () => {
+test("a finished fixture reports its final score without claiming it is the latest meeting", () => {
   const r = phraseScore(base);
   assert.equal(r.verdict, "final_score");
   assert.equal(r.in_progress, false);
   assert.match(r.reason, /^Los Angeles Lakers 102, Boston Celtics 98/);
-  assert.match(r.reason, /most recent score rather than a live one/);
+  assert.match(r.reason, /final score of that fixture/);
+  assert.doesNotMatch(r.reason, /most recent|No fixture between them is in progress/);
 });
 
 test("the winner is never named, because that is the other intent's question", () => {

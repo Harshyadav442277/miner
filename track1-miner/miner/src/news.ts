@@ -10,6 +10,8 @@
  * is no SSRF surface: only the query string varies.
  */
 
+import { headlineCount, headlineWindow } from "./news-constraints";
+
 const FEED = "https://news.google.com/rss/search";
 const DEFAULT_TIMEOUT_MS = 8000;
 
@@ -133,8 +135,8 @@ export async function getHeadlines(
   const topic = extractTopic(query, declaredTopic);
   const region = extractRegion(query, topic);
   // "top 5 headlines" is a count, and an answer with six items did not honour it.
-  const askedN = String(query ?? "").match(/\b(?:top|latest|first)\s+(\d{1,2})\b/i);
-  const wantN = askedN?.[1] ? Math.max(1, Math.min(10, Number(askedN[1]))) : null;
+  const wantN = headlineCount(String(query ?? ""));
+  const window = headlineWindow(query, Date.parse(now));
   const terms = [topic, region].filter(Boolean).join(" ") || "top stories";
 
   const url = `${FEED}?q=${encodeURIComponent(terms)}`;
@@ -149,16 +151,25 @@ export async function getHeadlines(
     clearTimeout(t);
   }
 
-  const items = [...xml.matchAll(/<item>([\s\S]*?)<\/item>/g)].slice(0, wantN ?? limit);
+  const items = [...xml.matchAll(/<item>([\s\S]*?)<\/item>/g)];
   const headlines: Headline[] = [];
+  const seen = new Set<string>();
   for (const it of items) {
     const block = it[1] ?? "";
     const rawTitle = block.match(/<title>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/title>/)?.[1];
     if (!rawTitle) continue;
     const { title, source } = splitSource(decode(rawTitle));
     const pub = block.match(/<pubDate>([\s\S]*?)<\/pubDate>/)?.[1];
-    headlines.push({ title, source, published: pub ? new Date(pub).toISOString() : null });
+    const at = pub ? Date.parse(pub) : NaN;
+    if (Number.isFinite(at) && at > Date.parse(now)+300000) continue;
+    if (window && (!Number.isFinite(at) || at < window.start || at > window.end)) continue;
+    const key = title.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, " ").trim();
+    if (seen.has(key)) continue;
+    seen.add(key);
+    headlines.push({ title, source, published: Number.isFinite(at) ? new Date(at).toISOString() : null });
   }
+  headlines.sort((a,b) => Date.parse(b.published ?? "")-Date.parse(a.published ?? ""));
+  headlines.splice(wantN ?? limit);
 
   const day = new Date().toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
   // "top 5 technology headlines from Japan", numbered like a person would list
@@ -166,12 +177,14 @@ export async function getHeadlines(
   // those words, and the answer should read as directly addressing each one.
   const subject = topic ? `${topic} ` : "";
   const where = region ? ` from ${region}` : "";
-  const countWord = wantN ? `${wantN} ` : "";
+  const countWord = wantN ? `${headlines.length} ` : "";
+  const period = window?.label ?? "available";
 
   const reason = headlines.length
-    ? `The top ${countWord}${subject}headlines${where} today, as of ${day}, are: ` +
-      headlines.map((h, i) => `${i + 1}. ${h.title}${h.source ? ` (${h.source})` : ""}.`).join(" ")
-    : `No current ${subject}headlines${where} could be retrieved as of ${day}.`;
+    ? `The top ${countWord}${subject}headlines${where} ${period}, as of ${day}, are: ` +
+      headlines.map((h, i) => `${i + 1}. ${h.title}${h.source ? ` (${h.source}${h.published ? `, ${h.published.slice(0,10)}` : ""})` : ""}.`).join(" ") +
+      (wantN && headlines.length < wantN ? ` Only ${headlines.length} matching headlines were found out of ${wantN} requested.` : "")
+    : `No ${subject}headlines${where} ${period} could be retrieved as of ${day}.`;
 
   return {
     topic,

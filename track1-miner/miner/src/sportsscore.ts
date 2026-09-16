@@ -75,12 +75,13 @@ export function phraseScore(g: GameResult): ScoreResult {
 
   if (g.verdict === "result" && hasScores && g.home && g.away) {
     const when = whenOf(g);
+    const penalties = g.home_penalties !== undefined && g.away_penalties !== undefined
+      ? ` ${g.winner} won ${Math.max(g.home_penalties,g.away_penalties)}-${Math.min(g.home_penalties,g.away_penalties)} on penalties.` : "";
     return {
       ...base, in_progress: false, verdict: "final_score", confidence: 0.9,
       reason:
         `${g.home} ${g.home_score}, ${g.away} ${g.away_score}${league}` +
-        `${when ? ` on ${when}` : ""}. No fixture between them is in progress, so that is the most ` +
-        `recent score rather than a live one.`,
+        `${when ? ` on ${when}` : ""}. This is the final score of that fixture.${penalties}`,
     };
   }
 
