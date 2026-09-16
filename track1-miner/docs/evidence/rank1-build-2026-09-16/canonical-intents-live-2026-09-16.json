@@ -1,0 +1,810 @@
+{
+ "at": "2026-09-16T08:32:26.358Z",
+ "canonical_on_chain": 134,
+ "rows": [
+  {
+   "name": "ACADEMIC_SEARCH",
+   "miners": 17,
+   "champ": "reg688",
+   "ours": true
+  },
+  {
+   "name": "AGENT_TASK",
+   "miners": 7,
+   "champ": "reg295",
+   "ours": false
+  },
+  {
+   "name": "AI_TEXT_DETECTION",
+   "miners": 6,
+   "champ": "reg1286",
+   "ours": true
+  },
+  {
+   "name": "AIR_QUALITY_INDEX",
+   "miners": 0,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "API_HEALTH_CHECK",
+   "miners": 0,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "ASSET_RESERVE_ATTESTATION",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "B2B_IDENTITY_ENRICHMENT",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "CARRIER_SERVICEABILITY",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "CHAT_COMPLETION",
+   "miners": 14,
+   "champ": "reg2810",
+   "ours": false
+  },
+  {
+   "name": "CHATBOT_CONVERSATION",
+   "miners": 0,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "CLOUD_RESOURCE_USAGE",
+   "miners": 0,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "CODE_GENERATION",
+   "miners": 0,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "CODE_PATCH_VERIFY",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "CODE_REVIEW",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "COMMERCE_PURCHASE_VERIFY",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "CONTENT_EXTRACTION",
+   "miners": 4,
+   "champ": "reg935",
+   "ours": true
+  },
+  {
+   "name": "CONTENT_MODERATION",
+   "miners": 2,
+   "champ": "reg2055",
+   "ours": false
+  },
+  {
+   "name": "CONTENT_VERIFICATION",
+   "miners": 3,
+   "champ": "reg2062",
+   "ours": true
+  },
+  {
+   "name": "CONTRACT_OBLIGATION_AUDIT",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "CORPORATE_REGISTRY_LOOKUP",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "CREDIT_SCORE_VERIFY",
+   "miners": 0,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "CROSS_CHAIN_STATE_VERIFY",
+   "miners": 12,
+   "champ": null,
+   "ours": true
+  },
+  {
+   "name": "CRYPTO_PRICE",
+   "miners": 26,
+   "champ": "reg3170",
+   "ours": true
+  },
+  {
+   "name": "CRYPTO_TRANSFER_VERIFY",
+   "miners": 0,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "CRYPTO_YIELD_RATE",
+   "miners": 0,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "CURRENCY_EXCHANGE",
+   "miners": 18,
+   "champ": "reg2945",
+   "ours": true
+  },
+  {
+   "name": "CUSTOMER_TICKET_RESOLUTION",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "CVE_LOOKUP",
+   "miners": 17,
+   "champ": "reg3030",
+   "ours": true
+  },
+  {
+   "name": "DATACENTER_TELEMETRY_VERIFY",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "DEEPFAKE_DETECTION",
+   "miners": 2,
+   "champ": "reg645",
+   "ours": false
+  },
+  {
+   "name": "DELIVERY_WINDOW_VERIFY",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "DNS_RECORD_LOOKUP",
+   "miners": 0,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "DOCUMENT_AUTHENTICITY",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "EMAIL_SECURITY",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "EMBEDDING_GENERATION",
+   "miners": 0,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "ENTITY_EXTRACTION",
+   "miners": 0,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "EVENT_OUTCOME_RESOLUTION",
+   "miners": 13,
+   "champ": null,
+   "ours": true
+  },
+  {
+   "name": "FACT_CHECK",
+   "miners": 15,
+   "champ": "reg1582",
+   "ours": true
+  },
+  {
+   "name": "FARE_RULE_VERIFY",
+   "miners": 0,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "FINANCIAL_DATA",
+   "miners": 19,
+   "champ": "reg3029",
+   "ours": true
+  },
+  {
+   "name": "FLIGHT_AVAILABILITY",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "FRAUD_DETECTION",
+   "miners": 17,
+   "champ": "reg2793",
+   "ours": true
+  },
+  {
+   "name": "FRAUD_RISK",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "FX_NOW",
+   "miners": 11,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "GAME_RESULT",
+   "miners": 14,
+   "champ": "reg1265",
+   "ours": true
+  },
+  {
+   "name": "GAS_PRICE",
+   "miners": 20,
+   "champ": "reg3119",
+   "ours": true
+  },
+  {
+   "name": "GRAMMAR_SPELL_CHECK",
+   "miners": 0,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "GRID_POWER_PRICE",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "HOTEL_AVAILABILITY",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "IMAGE_CAPTIONING",
+   "miners": 0,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "IMAGE_VERIFICATION",
+   "miners": 3,
+   "champ": "reg2101",
+   "ours": false
+  },
+  {
+   "name": "INVOICE_LEDGER_RECONCILE",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "IP_GEOLOCATION",
+   "miners": 17,
+   "champ": "reg630",
+   "ours": true
+  },
+  {
+   "name": "KEYWORD_EXTRACTION",
+   "miners": 0,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "KYC_BIOMETRIC_LIVENESS",
+   "miners": 0,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "LANGUAGE_GENERATION",
+   "miners": 13,
+   "champ": "reg3194",
+   "ours": false
+  },
+  {
+   "name": "LANGUAGE_TRANSLATION",
+   "miners": 15,
+   "champ": "reg2296",
+   "ours": true
+  },
+  {
+   "name": "LIQUIDITY_DEPTH_VERIFY",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "LIVE_PORT_CONGESTION",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "LIVE_SHELF_PRICE",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "LLM_OUTPUT_EVALUATION",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "LOAN_INTEREST_RATE_QUOTE",
+   "miners": 0,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "MACRO_ECONOMIC_INDICATOR",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "MALWARE_DETECTION",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "MEDIA_AUTHENTICITY_CHECK",
+   "miners": 2,
+   "champ": "reg3164",
+   "ours": false
+  },
+  {
+   "name": "MEDIA_FORENSIC_VERIFY",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "MINING_HASHPRICE_VERIFY",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "NEWS_HEADLINES",
+   "miners": 14,
+   "champ": "reg635",
+   "ours": true
+  },
+  {
+   "name": "NEWS_SEARCH",
+   "miners": 17,
+   "champ": "reg3165",
+   "ours": true
+  },
+  {
+   "name": "ONCHAIN_METRIC_VERIFY",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "ONCHAIN_TX_LOOKUP",
+   "miners": 23,
+   "champ": "reg642",
+   "ours": true
+  },
+  {
+   "name": "OPTIMAL_EXECUTION_ROUTE",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "PACKAGE_STATUS",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "PAYMENT_METHOD_VERIFY",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "PLAGIARISM_DETECTION",
+   "miners": 0,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "PORT_SCAN_AUDIT",
+   "miners": 0,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "PRODUCT_AUTHENTICITY",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "PURCHASE_ORDER_VERIFY",
+   "miners": 0,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "QUESTION_ANSWERING",
+   "miners": 0,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "REGRESSION_VERIFY",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "REGULATORY_FILING_MONITOR",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "RESEARCH_QUERY",
+   "miners": 9,
+   "champ": "reg452",
+   "ours": true
+  },
+  {
+   "name": "RESEARCH_SYNTHESIS",
+   "miners": 6,
+   "champ": "reg627",
+   "ours": true
+  },
+  {
+   "name": "RETURN_POLICY_VERIFY",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "ROUTE_ETA",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "SANCTIONS_SCREENING_MATCH",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "SATELLITE_IMAGERY_ANALYSIS",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "SECURITY_REVIEW",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "SEMANTIC_SIMILARITY",
+   "miners": 0,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "SENSOR_TELEMETRY_VERIFY",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "SENTIMENT_ANALYSIS",
+   "miners": 14,
+   "champ": "reg646",
+   "ours": true
+  },
+  {
+   "name": "SERVER_UPTIME_MONITOR",
+   "miners": 0,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "SHIP_RATE_ETA",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "SHIPMENT_DELAY_RISK",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "SKU_IN_STOCK",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "SLA_COMPLIANCE",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "SMART_CONTRACT_AUDIT",
+   "miners": 0,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "SOCIAL_BOT_DETECTION",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "SPEECH_TO_TEXT",
+   "miners": 0,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "SPORTS_SCORE",
+   "miners": 14,
+   "champ": "reg3045",
+   "ours": true
+  },
+  {
+   "name": "SSL_VERIFICATION",
+   "miners": 17,
+   "champ": "reg631",
+   "ours": true
+  },
+  {
+   "name": "STOCK_PRICE",
+   "miners": 16,
+   "champ": "reg3166",
+   "ours": true
+  },
+  {
+   "name": "STORM_ALERT",
+   "miners": 17,
+   "champ": "reg453",
+   "ours": true
+  },
+  {
+   "name": "TASK_COMPLETION",
+   "miners": 11,
+   "champ": "reg3046",
+   "ours": false
+  },
+  {
+   "name": "TASK_EXECUTION_QUALITY",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "TELEGRAPH_KNOWLEDGE",
+   "miners": 3,
+   "champ": "reg2104",
+   "ours": true
+  },
+  {
+   "name": "TEXT_AUTHENTICITY_CHECK",
+   "miners": 2,
+   "champ": "reg1882",
+   "ours": true
+  },
+  {
+   "name": "TEXT_CLASSIFICATION",
+   "miners": 15,
+   "champ": "reg687",
+   "ours": true
+  },
+  {
+   "name": "TEXT_GENERATION",
+   "miners": 5,
+   "champ": "reg2287",
+   "ours": false
+  },
+  {
+   "name": "TEXT_SUMMARIZATION",
+   "miners": 0,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "TEXT_TO_SPEECH",
+   "miners": 0,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "THREAT_INTELLIGENCE",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "THREAT_IP_REPUTATION",
+   "miners": 0,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "TOKEN_HOLDER_COUNT",
+   "miners": 16,
+   "champ": "reg2057",
+   "ours": true
+  },
+  {
+   "name": "TOKEN_TOTAL_SUPPLY_VERIFY",
+   "miners": 0,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "TRANSACTION_RISK",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "TRAVEL_DISRUPTION",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "TRAVEL_TRANSIT_LOCK",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "TVL_LOOKUP",
+   "miners": 21,
+   "champ": "reg49",
+   "ours": true
+  },
+  {
+   "name": "TWITTER_SEARCH",
+   "miners": 0,
+   "champ": "reg2061",
+   "ours": false
+  },
+  {
+   "name": "URL_SAFE",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "URL_SCAN",
+   "miners": 21,
+   "champ": "reg220",
+   "ours": true
+  },
+  {
+   "name": "VALIDATOR_PERFORMANCE_VERIFY",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "VENDOR_VERIFY",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "VESSEL_TELEMETRY_VERIFY",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "VIDEO_VERIFICATION",
+   "miners": 2,
+   "champ": "reg3085",
+   "ours": false
+  },
+  {
+   "name": "VULNERABILITY_TRIAGE",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "WALLET_BALANCE_CHECK",
+   "miners": 20,
+   "champ": "reg3022",
+   "ours": true
+  },
+  {
+   "name": "WAREHOUSE_INVENTORY",
+   "miners": 0,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "WASH_TRADING_DETECTION",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "WEATHER_CHECK",
+   "miners": 22,
+   "champ": "reg510",
+   "ours": true
+  },
+  {
+   "name": "WEATHER_FORECAST",
+   "miners": 25,
+   "champ": "reg3173",
+   "ours": true
+  },
+  {
+   "name": "WEATHER_FORECAST_VERIFY",
+   "miners": 10,
+   "champ": null,
+   "ours": false
+  },
+  {
+   "name": "WEB_SEARCH",
+   "miners": 23,
+   "champ": "reg2789",
+   "ours": true
+  }
+ ]
+}

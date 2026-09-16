@@ -35,10 +35,17 @@ Baseline epoch 335: 7/36 rank 1. Analysis and evidence: G152–G159,
       `preview-probes-miner-*.txt`): ONCHAIN clean shape, headlines, IPv6, dated FX, MLB, World
       Cup, fraud, classification, fact-check, SSL all answer as intended. Preflight and
       intent-answers cannot run against a protected preview (G78); they run after the promote.
-- [ ] **Operator yes: promote to production** (`npx vercel promote <preview> --scope wukong4`), then
-      preflight 7/7 against production. Rollback target `miner-6xcnxjuz8`.
-- [ ] Read epoch 336 (~04:50 UTC 2026-09-16) — the last epoch on the 2026-09-15 build — and the
-      first complete epoch after the promote. Claim nothing before the rows exist.
+- [x] Operator said yes; promoted ~08:21 UTC 2026-09-16 → production **`miner-71hy3v2zy`**
+      (Vercel rebuilt the preview). Alias verified by the ONCHAIN answer. Preflight 6/7 (the live
+      OpenAlex rows, G81), intent-answers 36/36 twice (G170). Rollback `miner-6xcnxjuz8`.
+- [x] Docs re-check (all 25 pages): x402 unchanged, A/B scoring tiers, 134 canonical intents with
+      45 champions, request-contract rejections on the next updateMiner (G169, TELEGRAPH_FACTS).
+- [x] TEXT_CLASSIFICATION zero explained: the champion zeroes any answer whose words are not
+      mostly in the LLM-written reference; the label alone scores 0 (G168).
+- [ ] Read epoch 337 (~13:50 UTC 2026-09-16), the first epoch on the new build: ONCHAIN,
+      GAME_RESULT, NEWS_HEADLINES, IP, CURRENCY, FRAUD, FACT_CHECK. Claim nothing before the rows.
+- [ ] Still open: sentiment sarcasm, research domain routing, DOAJ-style open-access search,
+      the 1.0 tie-break (G158). Delete the agent worktrees/branches on the operator's call.
 
 ## Current mission — 2026-09-15: act on the Codex rank-loss report
 

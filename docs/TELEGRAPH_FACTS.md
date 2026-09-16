@@ -493,3 +493,29 @@ holding rank 1 and still not be submitted. This was found with about two hours l
 **0.036s with `-4`**, reproducibly. `github.com`, Vercel and devnode are all sub-100ms. It is a
 local IPv6 problem, not GitHub and not the manifest. Use `curl -4` here before concluding a host is
 slow — a 15-second hang measured from this machine says nothing about what Telegraph's node sees.
+
+## Docs re-check 2026-09-16 (~08:40 UTC) — all 25 pages read; 13 updated 2026-09-08/09
+
+Source: https://docs.telegraphprotocol.com/docs/* fetched with curl and a browser user-agent
+(the root answers a 307 loop to curl; the browser pane loads it). Pages updated 2026-09-09:
+introduction, miners/{miner-overview, miner-registration, validation-api, yaml-config},
+scoring/build-a-scoring-module, troubleshooting, using/{engine-ask, inference-paths, mcp-server,
+websocket-signals}; 2026-09-08: using/{intents, erc8183-jobs}. Everything else is August or older.
+
+**What changed, and what it means for this miner**
+
+| Fact | Now (docs) | Live check | Effect on us |
+|---|---|---|---|
+| Payment for the HTTP ask | Still x402 per call (`PAYMENT-SIGNATURE`; the library handles the 402 challenge). The new page `inference-paths` lists six rails: HTTP ask, ask/{id}, WebSocket ask ($0.01 from escrow per call), WebSocket subscribe (per delivered signal), ERC-8183 job (jobBasePrice, 1 USDC), on-chain miner request (gas only), plus the free Daemon feed | not re-verified | None. "402 changed" is not supported by the docs; the docs added a chooser, not a replacement |
+| Scoring tiers | Every intent labelled Tier A (deterministic, "WASM exact match"), Tier B (LLM-Judge: "LLM context + WASM"), or A/B hybrid. Of ours: A = STOCK, CRYPTO, FINANCIAL, CURRENCY, WALLET, GAS, TOKEN_HOLDER, TVL, ONCHAIN, WEATHER_CHECK, STORM, WEATHER_FORECAST, SPORTS, GAME, SSL, CVE, IP, URL_SCAN, FRAUD; B = WEB_SEARCH, NEWS_HEADLINES, NEWS_SEARCH, RESEARCH_SYNTHESIS, RESEARCH_QUERY, ACADEMIC, FACT_CHECK, TELEGRAPH_KNOWLEDGE, SENTIMENT, TEXT_CLASSIFICATION, CONTENT_VERIFICATION, AI_TEXT, TEXT_AUTHENTICITY, CONTENT_EXTRACTION, LANGUAGE_TRANSLATION; hybrid = EVENT_OUTCOME; A = CROSS_CHAIN | consistent with G154/G168: the B-tier references are LLM prose | Tier B leaders are LLMs; keyless prose scores near zero there unless the reference is a short verdict (FACT_CHECK, CONTENT_EXTRACTION still cross) |
+| Canonical intents | Page: 108 as of 2026-09-08 (63 added that day) | `/engine/v1/intents`: **134** on chain; **45 champions**, unchanged (G82) | None of the 89 new intents can rank (G118). Ten miners already sit on most of them. Rankable and unserved by us: AGENT_TASK, CHAT_COMPLETION, CONTENT_MODERATION, DEEPFAKE_DETECTION, IMAGE_VERIFICATION, LANGUAGE_GENERATION, MEDIA_AUTHENTICITY_CHECK, TASK_COMPLETION, TEXT_GENERATION, TWITTER_SEARCH (0 miners), VIDEO_VERIFICATION |
+| Registration checks | New "request-contract rejections": every endpoint serving an intent must declare `intents:` and a `description:`; `semantics.supported_intents` non-empty; an endpoint intent must be in supported_intents. Warnings: an endpoint without `params` ("the node has to guess your field names — the most common reason an active miner fails the calls it is sent"); a utility endpoint without intents is legal | our 1408 is active and predates the checks | They apply on the NEXT `updateMiner`. Validate at integrate.telegraphprotocol.com first (unchanged rule 3) |
+| Activation | Event-driven, "usually within a minute"; not epoch-gated. `unreachable` retries every ~5 min up to 5 times; `rejected` is terminal (fix, then updateMiner); a rejected registration releases its slug immediately | matches G60/G87 | None |
+| Validation API | `POST https://integrate.telegraphprotocol.com/api/validate {yaml, api_key, miner_address}` — same checks and messages as the console, no wallet; per-endpoint timeout 30 s on the default node | not run today | Scriptable pre-check for the next update |
+| API keys | Stored per slug, bound to the registering wallet; installed via a keccak fingerprint challenge + personal_sign; not in the YAML; not from the environment | n/a (keyless miner) | None |
+| Scoring ABI | `rank_answer(q, gt, ma)` → f32; the documented example scores the fraction of the miner answer's words that appear in the ground truth | matches the harness (`track2/harness/wasm-abi.mjs`) and the G153/G168 measurements | Extra words and numbers the reference lacks are what cost score |
+| Spot checks | ~every 20 s, keyed on the latest Base L2 block hash; a >20 % drop against the last leaderboard score triggers routing revocation | unchanged from 2026-08 | None |
+
+Not re-read today: protocol/{tokenomics, roles, addresses-and-params}, validators/*, deployment
+(dated August or earlier; unchanged since the last check). The intents page is explicitly behind
+the chain ("the chain is what actually decides"): 26 intents on chain are not on the page.

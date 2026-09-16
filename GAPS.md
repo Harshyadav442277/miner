@@ -137,6 +137,38 @@ below is deployed unless a later entry says so.
   not us; FACT_CHECK r11 at 7.3e-9 inside a 4e-8 band; CONTENT_EXTRACTION r2 at **1.000 behind
   chainsight at 1.000 with the identical scored_at**, so the tie-break in G158 is not scoring
   time. SSL r2 at 0.011 behind 0.011. None of the branch work above is measured by this epoch.
+- **G168 — Why TEXT_CLASSIFICATION scores exactly 0.00: the champion (tc_pen0, reg687) zeroes
+  any answer whose words are not mostly in the reference, and the label alone is worth nothing.**
+  Measured 2026-09-16 (`analysis/cases-tc.json`, breakdown.mjs): against the LLM miner's live
+  answer that scored 1.0 at e335 ("Account The user is requesting an update to their payment
+  information…"), our production answer, the same answer with the account label, the bare word
+  "Account.", and a short account explanation ALL score **0.0000**; the reference against itself
+  0.99. Against an authored billing reference, our full answer 0.00, "Billing." 0.00, and only a
+  sentence in the reference's own register ("Billing. The customer wants to update the card on
+  file for the subscription.") 0.47. The docs' scoring page confirms the model: the example
+  scorer is the fraction of the ANSWER's words that appear in the ground truth. Our template
+  ("This text belongs to the X category: <passage>. The words … relate to …") shares almost
+  nothing with an LLM-written explanation, so it is zero whatever label it carries. The docs now
+  tier TEXT_CLASSIFICATION as "LLM-Judge" (G169). The lane's parsing/negation/multi-label fixes
+  are correctness only; no score change is expected from them.
+- **G169 — Docs re-check 2026-09-16 (pages updated 2026-09-08/09): six inference rails, A/B
+  scoring tiers, 108 → 134 canonical intents, request-contract rejections.** Recorded in
+  `docs/TELEGRAPH_FACTS.md` (section "Docs re-check 2026-09-16"). x402 is unchanged for the HTTP
+  ask; the change the operator suspected is the path chooser, not a replacement. The live node
+  reports **134 canonical intents** and still **45 champions** (G82): every intent added since
+  2026-09-08 has no scorer, so none can rank (G118), even though ten miners already sit on most of
+  them. Rankable intents we do not serve: eleven, all generative or media except TWITTER_SEARCH
+  (0 miners, champion reg2061, no keyless source). The intents page lists 63 additions and the
+  chain has 26 more the page does not list — the page is behind the chain, as it says it may be.
+- **G170 — Promoted 2026-09-16 ~08:21 UTC: production is `miner-71hy3v2zy`** (Vercel rebuilt
+  preview `miner-lug8rblyu` as a new production deployment; the alias `miner-wine.vercel.app`
+  serves it, verified by the ONCHAIN answer). Preflight **6/7**: the failing gate is the live unit
+  suite's two paperfraud rows, which fail because OpenAlex refuses anonymous search from this
+  machine (G81; reproduced alone: `asksPaperFraud` true, paper path reached, "scholarly index
+  could not be read"); from Vercel the same question answers `no_indicators`
+  (`production-probes-fraud-miner-71hy3v2zy.txt`). intent-answers **36/36** inside preflight and
+  again standalone. Rollback target `miner-6xcnxjuz8`. The first epoch that can see this build is
+  337 (~13:50 UTC 2026-09-16); epoch 336 was scored on the old build.
 
 ## 2026-09-15 second release: node test cases, web search, fundamentals, fact-check 429 — G144–G151
 

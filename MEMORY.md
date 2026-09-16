@@ -2,15 +2,17 @@
 
 ## 2026-09-16 ~08:30 UTC (14:00 IST) — rank-1 build from the old epochs: integrated, on a preview, NOT promoted
 
-**State:** branch `codex/rank1-14-intents` at `9b030be` (+ the docs commit after it), not pushed.
-**Production is still `miner-6xcnxjuz8`** (2026-09-15 build). The integrated branch is on preview
-**`miner-lug8rblyu`** (`https://miner-lug8rblyu-wukong4.vercel.app`, protected: probe with
-`npx vercel curl … --scope wukong4`). Registration 1408 unchanged; manifest unchanged, so no
-`updateMiner`. **Promote needs the operator's yes:** `npx vercel promote
-https://miner-lug8rblyu-wukong4.vercel.app --scope wukong4`, then `node track1-miner/tools/preflight.mjs`
-(expect 7/7) and `node track1-miner/tools/intent-answers.mjs` (36/36) against production. Rollback
-target `miner-6xcnxjuz8`. Two earlier previews of the same line (`miner-n7u6lib7a`,
-`miner-i37c1lqi4`) are superseded.
+**State:** branch `codex/rank1-14-intents`, not pushed. **Production is `miner-71hy3v2zy`**,
+promoted ~08:21 UTC 2026-09-16 on the operator's yes (Vercel rebuilt preview `miner-lug8rblyu`
+as a new production deployment; the alias `miner-wine.vercel.app` serves it). Registration 1408
+unchanged; manifest unchanged, so no `updateMiner`. Preflight 6/7 (the failing gate is the live
+OpenAlex paperfraud rows, G81/G170); intent-answers 36/36 twice. Rollback target
+`miner-6xcnxjuz8`. **Epoch 337 (~13:50 UTC) is the first that can see this build.**
+
+**Docs re-check done 2026-09-16** (G169, TELEGRAPH_FACTS "Docs re-check 2026-09-16"): x402
+unchanged; six inference rails; scoring tiers A/B; 134 canonical intents on chain, 45 champions
+unchanged; request-contract rejections apply on the next updateMiner. TEXT_CLASSIFICATION's
+permanent zero is explained in G168.
 
 **Verified on the branch:** 678/678 unit tests; live local probes for headlines, IPv6, game results;
 the ONCHAIN bench 0.996/0.995 against two crossing miners (G153/G160); preview probe sets in
