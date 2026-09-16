@@ -307,6 +307,20 @@ const fmtDate = (iso: string): string =>
  */
 const WINDOW_DAYS = 7;
 
+/**
+ * A level score in a knockout tie was decided by something the source may not
+ * record — a shootout, extra time it did not separate, or a second leg. Saying
+ * "neither side won" about a cup final is wrong, and inventing the shootout
+ * score is worse, so the sentence says what is known and what is not.
+ */
+function drawWording(home: string, away: string, hs: number, as: number, league: string, when: string, question: string): string {
+  const knockout = /\b(?:final|semi|quarter|round of|play-?off|knockout|cup|champions league|europa)\b/i.test(`${question} ${league}`);
+  const base = `${home} and ${away} drew ${hs}-${as} in the ${league} on ${when}`;
+  return knockout
+    ? `${base}. The tie was decided after that draw by a shootout or a further leg whose result the source consulted does not record, so the winner is not stated here.`
+    : `${base}, so neither side won.`;
+}
+
 const MLB = "https://statsapi.mlb.com/api/v1/schedule?sportId=1";
 interface MlbSide { score?: number; team?: { name?: string } }
 
@@ -553,7 +567,7 @@ export async function lookupGame(question: string, now = new Date(), requested?:
       const hi = Math.max(older.homeScore, older.awayScore);
       const lo = Math.min(older.homeScore, older.awayScore);
       const outcome = drew
-        ? `${older.home} and ${older.away} drew ${older.homeScore}-${older.awayScore} in the ${older.league} on ${fmtDate(older.date)}, so neither side won.`
+        ? drawWording(older.home, older.away, older.homeScore, older.awayScore, older.league, fmtDate(older.date), question)
         : `${winner} beat ${loser} ${hi}-${lo} in the ${older.league} on ${fmtDate(older.date)}.`;
       return {
         home: older.home, away: older.away, home_score: older.homeScore, away_score: older.awayScore,
@@ -663,7 +677,7 @@ export async function lookupGame(question: string, now = new Date(), requested?:
   const outcome = penalties
     ? `${winner} won ${Math.max(home.shootoutScore!, away.shootoutScore!)}-${Math.min(home.shootoutScore!, away.shootoutScore!)} on penalties after a ${hs}-${as} draw against ${winner === names.home ? names.away : names.home} in the ${found.league} on ${when}.`
     : drew
-    ? `${names.home} and ${names.away} drew ${hs}-${as} in the ${found.league} on ${when}, so neither side won.`
+    ? drawWording(names.home, names.away, hs, as, found.league, when, question)
     : `${winner} beat ${loser} ${winScore}-${loseScore} in the ${found.league} on ${when}.`;
 
   return {

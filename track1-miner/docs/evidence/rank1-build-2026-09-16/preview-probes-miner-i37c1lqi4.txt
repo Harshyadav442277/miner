@@ -1,0 +1,16 @@
+preview https://miner-i37c1lqi4-wukong4.vercel.app  2026-09-16T08:02:44Z  commit 807e305
+### /game-result | Did the Padres beat the Rockies yesterday?
+{"verdict":"result","confidence":0.95,"reason":"Colorado Rockies beat San Diego Padres 9-3 in the Major League Baseball on 16 September 2026. The match is complete (Final)."}
+
+### /game-result | Who won the Dodgers vs Reds game on 2026-09-15?
+{"verdict":"result","confidence":0.95,"reason":"Los Angeles Dodgers beat Cincinnati Reds 4-0 in the Major League Baseball on 15 September 2026. The match is complete (Final)."}
+
+### /sports-score | What was the score of the Yankees game last night?
+{"verdict":"unknown","confidence":0,"reason":"No fixture could be identified in this request. Name both sides, for example \"What is the score in the Lakers vs Celtics game?\", and the current score, the competition and the status can be returned. Guessing which two teams were meant is how the wrong game gets reported, so no guess was made.","error":"no_fixture"}
+
+### /game-result | Who won Argentina vs France in the 2022 FIFA World Cup final on 2022-12-18?
+{"verdict":"result","confidence":0.9,"reason":"Argentina and France drew 3-3 in the FIFA World Cup on 18 December 2022, so neither side won. The match is complete."}
+
+### /tx-lookup | What did transaction 0xb376975e90801e36a34432c960825a0c12a56d589a77a95aa552a7a3618678ee do?
+{"verdict":"confirmed","confidence":0.99,"reason":"Transaction 0xb376975e90801e36a34432c960825a0c12a56d589a77a95aa552a7a3618678ee on ethereum succeeded in block 25700000. It moved 0 ETH from 0x2ce910fbba65b454bbaf6a18c952a70f3bcd8299 to 0x99c9fc46f92e8a1c0dec1b1747d010903e884be1 and called bridgeERC20To. The receipt contains 1 token Transfer event."}
+

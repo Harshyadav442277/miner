@@ -42,6 +42,26 @@ test("an MLB result is answered from MLB's schedule when ESPN refuses the host (
   });
 });
 
+test("a level score in a knockout tie found through the directory does not say neither side won", async () => {
+  await mocked((async (input) => {
+    const url = String(input);
+    if (url.includes("site.api.espn.com")) return new Response("blocked", { status: 403 });
+    if (url.includes("searchevents.php")) {
+      return Response.json({ event: [{
+        strHomeTeam: "Argentina", strAwayTeam: "France", intHomeScore: "3", intAwayScore: "3", strStatus: "PEN",
+        strTimestamp: "2022-12-18T15:00:00", strLeague: "FIFA World Cup", strPostponed: "no",
+      }] });
+    }
+    return Response.json({ teams: null, event: null, events: null });
+  }) as typeof fetch, async () => {
+    const r = await lookupGame("Who won Argentina vs France in the 2022 FIFA World Cup final on 2022-12-18?", new Date("2026-09-16T12:00:00Z"));
+    assert.equal(r.verdict, "result");
+    assert.equal(r.home_score, 3);
+    assert.doesNotMatch(r.reason, /neither side won/);
+    assert.match(r.reason, /decided after that draw/);
+  });
+});
+
 test("the MLB schedule is not consulted for other sports", async () => {
   const urls: string[] = [];
   await mocked((async (input) => {
