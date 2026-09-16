@@ -1,0 +1,32 @@
+# champion 687 — TEXT_CLASSIFICATION, tc_pen0.wasm
+# sha256 d354bb525c01f898da9ba4013171cf788a5418c7a8e33794a05894e05ab29bb3
+# run 2026-09-16T04:27:08.343Z
+# DEVELOPMENT EVIDENCE ONLY: authored references, not the scored questions (G24).
+# crossing = score >= 0.5
+
+## P1 — 'into one of:' + Message:, negated intent. Production answered error: no_labels.
+   The true label is unknown and disputable: the live LLM miner answered account, we answer billing. Both reference sets are scored.
+
+   references: billing (authored, 3 registers)
+     0/3 crossings  mean 0.000  [0.00 0.00 0.00]  before — the refusal
+     0/3 crossings  mean 0.000  [0.00 0.00 0.00]  after — what we now answer
+     0/3 crossings  mean 0.000  [0.00 0.00 0.00]  counterfactual — same shape, account label
+
+   references: account (authored + the live LLM miner's answer)
+     0/3 crossings  mean 0.000  [0.00 0.00 0.00]  before — the refusal
+     0/3 crossings  mean 0.000  [0.00 0.00 0.00]  after — what we now answer
+     0/3 crossings  mean 0.000  [0.00 0.00 0.00]  counterfactual — same shape, account label
+
+## P2 — classify-intent. Production answered ambiguous.
+   References authored.
+
+   references: update payment method (authored, 5 registers)
+     0/5 crossings  mean 0.000  [0.00 0.00 0.00 0.00 0.00]  before — ambiguous
+     0/5 crossings  mean 0.000  [0.00 0.00 0.00 0.00 0.00]  after
+
+## P3 — classify-multilabel. Production named Technical only.
+   References authored.
+
+   references: billing and technical (authored, 5 registers)
+     1/5 crossings  mean 0.115  [0.00 0.58 0.00 0.00 0.00]  before — technical only
+     3/5 crossings  mean 0.600  [1.00 1.00 0.00 1.00 0.00]  after

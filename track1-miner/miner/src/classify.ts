@@ -1,12 +1,14 @@
 /**
- * TEXT_CLASSIFICATION — assign a supplied text to one of the labels the question
- * itself supplies.
+ * TEXT_CLASSIFICATION — assign a supplied text to the labels the question itself
+ * supplies.
  *
  * The canonical description: "Query supplies text and asks for it to be assigned
  * to one or more predefined categories or labels", and NOT what emotional tone it
  * carries (SENTIMENT_ANALYSIS, /sentiment). The label set comes from the
  * question, which is what makes an answer checkable at all: there is no hidden
- * taxonomy here and no model deciding what the categories "really" are.
+ * taxonomy here and no model deciding what the categories "really" are. Reading
+ * that request — the labels, the passage, one label or several, and what the text
+ * negates — is classify-parse.ts; the word tables are classify-cues.ts.
  *
  * HOW A LABEL WINS. Lexical relatedness, and nothing generative. Label words and
  * text words are each expanded with the Datamuse "means like" and "triggers"
@@ -16,10 +18,18 @@
  * other's neighbourhood (scoreLabels has the weights). The answer names the words
  * that matched, so the choice can be checked against the text.
  *
+ * WHAT A NEGATED CLAUSE DOES. "Do not cancel my subscription; I only need to
+ * update my card." carries the word cancel, and scoring it as evidence for
+ * cancelling tied that label with the one the writer actually asked for. Words
+ * inside a negated clause are dropped first, and only put back when NO label has
+ * evidence without them — so "I have not received my package" is still a
+ * delivery question.
+ *
  * WHEN IT DOES NOT CHOOSE. If no label clears the runner-up by a clear margin the
  * answer says the text is ambiguous between them. Guessing a label would score
  * as a confident answer and be wrong half the time, which is exactly the answer
- * ARCHITECTURE A5 forbids.
+ * ARCHITECTURE A5 forbids. A request that asks for every applicable label is not
+ * that case: it is answered with all of them.
  *
  * FAILOVER. ConceptNet was the intended second relatedness index and returned
  * 502 on 2026-09-12, so it is not used. When Datamuse does not answer, the text
@@ -31,7 +41,14 @@
  * sentiment scorer rather than by relatedness, because "terrible" is not a
  * synonym of "negative" but it is unambiguously negative.
  */
-import { analyseSentiment, passageClause, suppliedText, wordList } from "./sentiment";
+import { analyseSentiment, passageClause, wordList } from "./sentiment";
+import { CUE_SETS, contentWords, cueStem, stem, textWords } from "./classify-cues";
+import { classifiedText, labelSet, negatedTerms, splitLabels, wantsMultiLabel } from "./classify-parse";
+import { leadLabel, leadLabels, matchedClause, orList, placement, placementMany } from "./classify-answer";
+
+export { leadLabel, leadLabels, matchedClause, placement, placementMany } from "./classify-answer";
+export { contentWords, stem, textWords } from "./classify-cues";
+export { classifiedText, labelSet, negatedTerms, parseLabels, splitLabels, wantsMultiLabel } from "./classify-parse";
 
 const DATAMUSE = "https://api.datamuse.com/words";
 const TIMEOUT_MS = Number(process.env.CLASSIFY_TIMEOUT_MS ?? 3_500);
@@ -42,55 +59,11 @@ export type ClassifyVerdict = "classified" | "ambiguous" | "unknown";
 export interface ClassifyResult {
   verdict: ClassifyVerdict;
   label: string | null;
+  /** Every label chosen, when the request asked for all that apply. */
+  labels?: string[];
   confidence: number;
   reason: string;
   error?: string;
-}
-
-/**
- * The label set, read from the question.
- *
- * "as billing, technical, or account issue:", "into one of these categories:
- * world news, business and finance, sport.", "labels: spam, not spam". Labels are
- * split on commas, "or", slashes and semicolons but NOT on "and", because "business
- * and finance" is one label; ", and" before the last label is still a separator.
- */
-export function parseLabels(question: string): string[] {
-  const s = String(question ?? "");
-  const m =
-    s.match(/\b(?:categor(?:y|ies)|labels?|classes|options|topics)\s*(?:are|is)?\s*:\s*([^:.?\n]+?)(?:[.?\n]|\s+text\s*:|:|$)/i) ??
-    s.match(/\b(?:one|any|either)\s+of\s+(?:these|the following|the)?\s*(?:\w+\s+)?:?\s*([^:.?\n]+?)(?:[.?\n]|:|$)/i) ??
-    s.match(/\bbelongs?\s+(?:to|in)\s*:?\s*([^:.?\n'"“‘]+?)\s*(?:[:.?\n]|["“'‘]|$)/i) ??
-    s.match(/\b(?:as|into|under)\s+(?:either\s+)?(?:an?\s+)?([^:.?\n'"“‘]+?)\s*(?:[:.?\n]|["“'‘]|$)/i);
-  return splitLabels(m?.[1] ?? "");
-}
-
-/** A label list on its own — the declared `labels` parameter, or the segment parseLabels found. */
-export function splitLabels(seg: string): string[] {
-  if (!/,|\bor\b|\/|;/.test(seg)) return [];
-  const labels = seg
-    .split(/\s*,\s*(?:or\s+|and\s+)?|\s+or\s+|\s*\/\s*|\s*;\s*/i)
-    .map((l) => l.replace(/^(?:an?|the|either)\s+/i, "").replace(/^["'“‘]+|["'”’]+$/g, "").trim())
-    .filter((l) => l.length > 0 && l.length <= 40);
-  return [...new Set(labels)].length >= 2 && labels.length <= 12 ? [...new Set(labels)] : [];
-}
-
-/** The passage to classify: the declared parameter, else what the question quotes or labels. */
-export function classifiedText(question: string, textParam = ""): string {
-  return String(textParam ?? "").trim() || suppliedText(question);
-}
-
-const GENERIC = new Set(["issue", "issues", "problem", "problems", "question", "category", "request", "related", "general", "other", "and", "the", "of", "news", "type"]);
-
-/** Crude stemming, enough to meet "log"/"logging" and "account"/"accounts". */
-export function stem(w: string): string {
-  return w.toLowerCase().replace(/(?:ing|edly|ed|ies|es|s|ly)$/, "").replace(/(.)\1$/, "$1");
-}
-
-export function contentWords(label: string): string[] {
-  const words = label.toLowerCase().split(/[^a-z0-9-]+/).filter((w) => w.length >= 3);
-  const specific = words.filter((w) => !GENERIC.has(w));
-  return specific.length ? specific : words;
 }
 
 /**
@@ -117,84 +90,49 @@ async function neighbours(word: string): Promise<string[] | null> {
   return ml === null && trg === null ? null : [...(ml ?? []), ...(trg ?? [])];
 }
 
-const STOP = new Set(("the and for with that this from have has had was were are is been being not but you your our " +
-  "they them their its his her she him who what which when where why how can could would should will just into onto " +
-  "about than then there here very more most some any all one two new using used use hello please thanks " +
-  "took take get got make made went did does done also only still like").split(" "));
-
-/**
- * The words of the text that can carry a topic: no stop words, no numbers.
- *
- * This used to keep only the first ten, so a duplicate-charge complaint placed
- * after an unrelated opening paragraph was never scored on its evidence (rank-loss
- * report F2). Every word is scored now; only the relatedness LOOKUPS are capped,
- * in classifyText, because each one is a network round trip.
- */
-export function textWords(text: string): string[] {
-  return [...new Set(String(text ?? "").toLowerCase().split(/[^a-z'-]+/)
-    .map((w) => w.replace(/^'+|'+$/g, ""))
-    .filter((w) => w.length >= 3 && !STOP.has(w) && !w.includes("'")))].slice(0, 80);
+export interface LabelScore {
+  label: string;
+  score: number;
+  /** Every text word that counted, in the order the text uses them. */
+  matched: string[];
+  /** Those of them that are a label word or a cue, rather than an index neighbour. */
+  strongWords: string[];
+  direct: number;
+  strong: number;
 }
-
-/**
- * Words that plainly signal the common label families support tickets, reviews
- * and news are sorted into. Datamuse relates "invoice" to billing AND to account
- * (an account statement), so "I was charged twice on my invoice." came back
- * ambiguous between them (report F2); a charge on an invoice is not an account
- * problem. A cue is a direct relation, weighted between an exact label word and
- * an index neighbour. Keys and cues are compared by `cueStem`.
- */
-const CUES: Record<string, string> = {
-  billing: "charge charged bill billed invoice refund payment pay paid subscription fee fees overcharged receipt card transaction renewal price cost money",
-  payment: "charge charged invoice refund pay paid card transaction declined",
-  technical: "crash crashes crashed error bug broken load loading install update slow freeze frozen server app website page connection sync glitch outage down working",
-  account: "login log password sign username account profile locked access verify verification reset",
-  shipping: "package parcel delivery deliver delivered arrive arrived shipping shipped courier tracking late delayed weeks days lost",
-  delivery: "package parcel deliver delivered arrive arrived shipping shipped courier tracking late delayed weeks days lost",
-  quality: "broke broken cheap defective quality flimsy durable material poor sturdy apart ripped cracked",
-  price: "expensive price cost cheap afford overpriced value worth pricey",
-  spam: "free win winner prize click offer urgent claim cash congratulations lottery limited selected reward",
-  sport: "match game team score league goal player tournament championship coach season scored cup",
-  sports: "match game team score league goal player tournament championship coach season scored cup",
-  politics: "election government president minister parliament vote policy senate campaign party lawmakers",
-  technology: "software computer smartphone chip startup device internet digital gadget",
-  tech: "software computer smartphone chip startup device internet digital gadget",
-  business: "market stock shares revenue profit company earnings investors economy bank inflation merger",
-  finance: "market stock shares revenue profit earnings investors economy bank inflation interest",
-  health: "doctor hospital disease patients vaccine treatment symptoms medical virus",
-  entertainment: "movie film music album actor actress celebrity concert show series",
-  science: "research study scientists discovery space experiment researchers",
-  weather: "rain storm temperature forecast snow wind heat",
-  complaint: "disappointed terrible unacceptable worst awful angry refund",
-  feature: "add wish option ability support could would",
-  urgent: "asap immediately urgent critical emergency",
-};
-const cueStem = (w: string): string => stem(w).replace(/e$/, "");
-const CUE_SETS = new Map(Object.entries(CUES).map(([k, v]) => [cueStem(k), new Set(v.split(" ").map(cueStem))]));
-
-export interface LabelScore { label: string; score: number; matched: string[]; direct: number }
 
 /**
  * Score every label against the text.
  *
  * A text word earns the label its STRONGEST single relation, not the sum of all
- * of them: the label word itself (6), a neighbour of the label word or the label
- * word among the text word's neighbours (2), or at least three shared neighbours
- * between the two (0.5). `direct` counts the first two kinds, because a label
- * supported only by shared neighbours is not supported: measured 2026-09-12,
- * "The app crashes every time I open the settings page" reached "account issue"
- * on shared neighbours of "app", "time" and "open" alone. `forward` maps label
- * words and `reverse` maps text words to their neighbourhoods.
+ * of them: the label word itself (6), a cue (4), a neighbour of the label word or
+ * the label word among the text word's neighbours (2), or at least three shared
+ * neighbours between the two (0.5). `direct` counts the first three kinds,
+ * because a label supported only by shared neighbours is not supported: measured
+ * 2026-09-12, "The app crashes every time I open the settings page" reached
+ * "account issue" on shared neighbours of "app", "time" and "open" alone.
+ *
+ * `strong` counts only the label word and the cue, which is what a multi-label
+ * answer needs: on "I was charged twice and the app crashes whenever I open it"
+ * the index relates charged, app and open to "account" as well, at neighbour
+ * weight, and account scored the same 6 as billing — which has the cue. Naming
+ * account too would have been wrong in a way the margin cannot see.
+ *
+ * `forward` maps label words and `reverse` maps text words to their
+ * neighbourhoods; `negated` names the text words to leave out of the count.
  */
 export function scoreLabels(
   text: string, labels: string[],
   forward: Map<string, string[] | null>, reverse: Map<string, string[] | null> = new Map(),
+  negated: Set<string> = new Set(),
 ): LabelScore[] {
-  const tokens = textWords(text);
+  const tokens = textWords(text).filter((t) => !negated.has(t));
   return labels.map((label) => {
     let score = 0;
     let direct = 0;
+    let strong = 0;
     const matched: string[] = [];
+    const strongWords: string[] = [];
     for (const t of tokens) {
       const ts = stem(t);
       const back = new Set((reverse.get(t) ?? []).map(stem));
@@ -210,43 +148,20 @@ export function scoreLabels(
       }
       if (v > 0) { score += v; matched.push(t); }
       if (v >= 2) direct++;
+      if (v >= 4) { strong++; strongWords.push(t); }
     }
-    return { label, score, matched, direct };
+    return { label, score, matched, strongWords, direct, strong };
   }).sort((a, b) => b.score - a.score);
-}
-
-/** "This ticket is an account issue." for a noun label, "This article belongs to the sport category." otherwise. */
-export function placement(noun: string, label: string, labels: string[] = []): string {
-  if (/^(?:not\s+)?spam$/i.test(label)) return `This ${noun} is ${label}.`;
-  /**
-   * "billing, technical, or account issue" is three issues: the head noun of the
-   * last label is shared by the list. Placed as "belongs to the billing category",
-   * the billing answer scored 0.00 under champion 687 against three of four
-   * authored ground truths where "is a billing issue" scored 1.00 (2026-09-15).
-   */
-  const head = labels[labels.length - 1]?.match(/\s(issue|request|question|complaint|problem|inquiry|enquiry|report)$/i)?.[1];
-  if (head && !/\s/.test(label)) label = `${label} ${head}`;
-  if (/\b(?:issue|request|question|complaint|problem|inquiry|enquiry|report|bug|error)$/i.test(label)) {
-    return `This ${noun} is ${/^[aeiou]/i.test(label) ? "an" : "a"} ${label}.`;
-  }
-  return `This ${noun} belongs to the ${label} category.`;
-}
-
-/** "Billing issue." — the label as placement speaks it, capitalised, as a sentence of its own. */
-export function leadLabel(label: string, labels: string[] = []): string {
-  const head = labels[labels.length - 1]?.match(/\s(issue|request|question|complaint|problem|inquiry|enquiry|report)$/i)?.[1];
-  const spoken = head && !/\s/.test(label) && !/^(?:not\s+)?spam$/i.test(label) ? `${label} ${head}` : label;
-  return `${spoken.charAt(0).toUpperCase()}${spoken.slice(1)}.`;
 }
 
 const SENTIMENT_LABELS = new Set(["positive", "negative", "neutral", "mixed"]);
 
-/** "a or b", "a, b or c". */
-const orList = (xs: string[]): string => (xs.length <= 1 ? (xs[0] ?? "") : `${xs.slice(0, -1).join(", ")} or ${xs[xs.length - 1]}`);
+const INDEX_DOWN = " The relatedness index did not respond, so only direct matches with the label words were counted.";
 
 export async function classifyText(question: string, textParam = "", labelsParam = ""): Promise<ClassifyResult> {
   const q = String(question ?? "").trim();
-  const labels = splitLabels(String(labelsParam ?? "")).length ? splitLabels(String(labelsParam ?? "")) : parseLabels(q);
+  const declared = splitLabels(String(labelsParam ?? ""));
+  const labels = declared.length ? declared : labelSet(q).labels;
   const text = classifiedText(q, textParam);
   if (labels.length < 2) {
     return {
@@ -285,24 +200,62 @@ export async function classifyText(question: string, textParam = "", labelsParam
     Promise.all(tokens.map(async (w) => [w, await neighbours(w)] as const)),
   ]);
   const indexDown = [...fwd, ...rev].every(([, v]) => v === null);
-  const ranked = scoreLabels(text, labels, new Map(fwd), new Map(rev));
+  const forward = new Map(fwd);
+  const reverse = new Map(rev);
+  /**
+   * Negated words are dropped, and put back only when dropping them leaves every
+   * label with nothing: "I have not received my package" negates its own only
+   * evidence, and a delivery question is still a delivery question.
+   */
+  const negated = negatedTerms(text);
+  const full = scoreLabels(text, labels, forward, reverse);
+  const clean = negated.size ? scoreLabels(text, labels, forward, reverse, negated) : full;
+  const ranked = clean.some((r) => r.direct > 0 && r.score > 0) ? clean : full;
   /**
    * "spam or not spam": the negated label shares every content word with the
    * other, so relatedness can only ever evidence the positive one. It wins on
    * clear evidence; the negated label is never chosen from a mere absence.
    */
-  const negated = labels.find((l) => /^not\s+/i.test(l) && labels.some((m) => m.toLowerCase() === l.slice(4).trim().toLowerCase()));
-  if (negated) {
-    const i = ranked.findIndex((r) => r.label === negated);
-    if (i >= 0) ranked[i] = { label: negated, score: 0, matched: [], direct: 0 };
+  const opposite = labels.find((l) => /^not\s+/i.test(l) && labels.some((m) => m.toLowerCase() === l.slice(4).trim().toLowerCase()));
+  if (opposite) {
+    const i = ranked.findIndex((r) => r.label === opposite);
+    if (i >= 0) ranked[i] = { label: opposite, score: 0, matched: [], strongWords: [], direct: 0, strong: 0 };
     ranked.sort((a, b) => b.score - a.score);
   }
   const best = ranked[0];
   const second = ranked[1];
-  const clear = best && best.direct > 0 && best.score >= (negated ? 4 : 2) && best.score >= (second?.score ?? 0) * 1.5 && best.score - (second?.score ?? 0) >= 1;
+  const via = indexDown ? INDEX_DOWN : "";
+
+  /**
+   * "Assign all applicable labels" is a different question, and answering it with
+   * one label throws away half the answer: the duplicate-charge-and-crash ticket
+   * is billing AND technical. Every label with a label word or a cue of its own,
+   * scoring within a third of the strongest, is named, in the order the question
+   * listed them.
+   */
+  if (best && best.score > 0 && wantsMultiLabel(q) && !opposite) {
+    const floor = Math.max(3, best.score / 3);
+    const picked = ranked
+      .filter((r) => r.strong > 0 && r.score >= floor)
+      .sort((a, b) => labels.indexOf(a.label) - labels.indexOf(b.label))
+      .slice(0, 4);
+    if (picked.length >= 2) {
+      // The weakest label named, against the strongest one left out.
+      const rejected = ranked.find((r) => !picked.includes(r));
+      const margin = Math.min(...picked.map((p) => p.score)) - (rejected?.score ?? 0);
+      const names = picked.map((p) => p.label);
+      return {
+        verdict: "classified", label: names.join(", "), labels: names,
+        confidence: Number(Math.min(0.9, 0.5 + margin / 12).toFixed(2)),
+        reason: `${leadLabels(names)} ${placementMany(noun, names, labels).replace(/\.$/, ":")} ${passageClause(text)} ` +
+          `${matchedClause(picked.map((p) => ({ label: p.label, words: (p.strongWords.length ? p.strongWords : p.matched).slice(0, 3) })))}${via}`,
+      };
+    }
+  }
+
+  const clear = best && best.direct > 0 && best.score >= (opposite ? 4 : 2) && best.score >= (second?.score ?? 0) * 1.5 && best.score - (second?.score ?? 0) >= 1;
 
   if (best && clear) {
-    const via = indexDown ? " The relatedness index did not respond, so only direct matches with the label words were counted." : "";
     return {
       verdict: "classified", label: best.label,
       confidence: Number(Math.min(0.9, 0.5 + (best.score - (second?.score ?? 0)) / 12).toFixed(2)),
@@ -322,6 +275,8 @@ export async function classifyText(question: string, textParam = "", labelsParam
        * carrying `text` and `labels` without the question gets. "Account issue.
        * This support ticket is an account issue: I can't log into my account."
        * crossed 9/15. The matched words stay, because the manifest promises them.
+       * Nothing is appended to this shape for a negated clause: every clause added
+       * to it in that measurement made it score worse.
        */
       reason: `${leadLabel(best.label, labels)} ${placement(noun, best.label, labels).replace(/\.$/, ":")} ${passageClause(text)} The words ${wordList(best.matched.slice(0, 4))} in it relate to ${best.label}.${via}`,
     };

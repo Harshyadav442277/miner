@@ -1,0 +1,46 @@
+# /classify probes — local build, 2026-09-16T04:24:23Z
+
+### P1 label list introduced by "into one of:" and a Message: separator (was error: no_labels)
+$ curl -sG "http://127.0.0.1:8099/classify" --data-urlencode query=Classify this customer message into one of: billing, technical, cancellation, account. Message: Do not cancel my subscription; I only need to update my card.
+{"verdict":"classified","confidence":0.79,"reason":"Billing. This text belongs to the billing category: Do not cancel my subscription; I only need to update my card. The words update and card in it relate to billing."}
+
+### P2 classify-intent — declared text + labels, negated intent must lose (was ambiguous)
+$ curl -sG "http://127.0.0.1:8099/classify" --data-urlencode text=Do not cancel my subscription; I only need to update my card. --data-urlencode labels=cancel subscription, update payment method, report bug
+{"verdict":"classified","confidence":0.9,"reason":"Update payment method. This text belongs to the update payment method category: Do not cancel my subscription; I only need to update my card. The words need, update and card in it relate to update payment method."}
+
+### P3 classify-multilabel — all applicable labels (was Technical only)
+$ curl -sG "http://127.0.0.1:8099/classify" --data-urlencode query=Assign all applicable labels: billing, technical, account. Text: I was charged twice and the app crashes whenever I open it.
+{"verdict":"classified","confidence":0.63,"reason":"Billing and technical. This text belongs to the billing and technical categories: I was charged twice and the app crashes whenever I open it. The word charged in it relates to billing, and the words app and crashes relate to technical."}
+
+### P4 three labels apply
+$ curl -sG "http://127.0.0.1:8099/classify" --data-urlencode query=Assign all applicable labels: billing, technical, account. Text: I was charged twice, the app crashes on launch and I cannot reset my password.
+{"verdict":"classified","confidence":0.9,"reason":"Billing, technical and account. This text belongs to the billing, technical and account categories: I was charged twice, the app crashes on launch and I cannot reset my password. The word charged in it relates to billing, the words app and crashes relate to technical, and the words reset and password relate to account."}
+
+### P5 the canonical single-label ticket — the G148 answer shape is unchanged
+$ curl -sG "http://127.0.0.1:8099/classify" --data-urlencode query=Classify this support ticket as billing, technical, or account issue: 'I can't log into my account.'
+{"verdict":"classified","confidence":0.9,"reason":"Account issue. This support ticket is an account issue: I can't log into my account. The words log and account in it relate to account issue."}
+
+### P6 text + labels with no question — the fallback is unchanged
+$ curl -sG "http://127.0.0.1:8099/classify" --data-urlencode text=The delivery arrived three days late and the box was crushed. --data-urlencode labels=quality, shipping, price
+{"verdict":"classified","confidence":0.9,"reason":"Shipping. This text belongs to the shipping category: The delivery arrived three days late and the box was crushed. The words delivery, arrived, days and late in it relate to shipping."}
+
+### P7 a newline list with a Ticket: separator
+$ curl -sG "http://127.0.0.1:8099/classify" --data-urlencode query=Label this ticket. Categories:
+- Billing
+- Technical
+- Account
+Ticket: I was charged twice this month.
+{"verdict":"classified","confidence":0.83,"reason":"Billing. This ticket belongs to the billing category: I was charged twice this month. The words charged and month in it relate to billing."}
+
+### P8 negation by "rather than"
+$ curl -sG "http://127.0.0.1:8099/classify" --data-urlencode query=Classify this ticket as billing, technical, or account issue: 'I want to update my card rather than cancel the plan.'
+{"verdict":"classified","confidence":0.83,"reason":"Billing issue. This ticket is a billing issue: I want to update my card rather than cancel the plan. The words want, update and card in it relate to billing."}
+
+### P9 a text whose only evidence is negated is still classified
+$ curl -sG "http://127.0.0.1:8099/classify" --data-urlencode query=What category does this review belong to: quality, shipping, or price? 'I have not received my package.'
+{"verdict":"classified","confidence":0.75,"reason":"Shipping. This review belongs to the shipping category: I have not received my package. The words package in it relate to shipping."}
+
+### P10 no label set is still refused rather than guessed
+$ curl -sG "http://127.0.0.1:8099/classify" --data-urlencode query=Classify this as important: 'The server is down.'
+{"verdict":"unknown","confidence":0,"reason":"No set of labels was supplied with this request, so there is nothing to assign the text to. Name the categories and quote the text, for example: Classify this ticket as billing, technical, or account issue: 'I can't log into my account.'","error":"no_labels"}
+
