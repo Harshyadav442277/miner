@@ -151,7 +151,10 @@ export function parseTeams(question: string): { a: string; b: string } | null {
     .replace(/\b(?:right now|at the moment|as it stands|so far|as of now)\b/gi, " ")
     // A bare "who" survives "who beat who in X vs Y" and becomes the home side.
     .replace(/\bwho\b/gi, " ")
-    .replace(/\b(game|match|fixture|the|last night'?s?|yesterday'?s?|tonight'?s?)\b/gi, " ")
+    // "Did the Padres beat the Rockies" has no vs/versus/against token, so
+    // without stripping the auxiliary the leftover "Did Padres" fails every
+    // team match downstream. "beat"/"lost to" become separator tokens below.
+    .replace(/\b(game|match|fixture|the|did|does|last night'?s?|yesterday'?s?|tonight'?s?)\b/gi, " ")
     .replace(/\s{2,}/g, " ")
     .trim()
     // Whatever preposition the stripped clause left behind at the front. Left
@@ -159,7 +162,7 @@ export function parseTeams(question: string): { a: string; b: string } | null {
     .replace(/^(?:in|on|at|for|of|during|between)\b\s*/i, "")
     .trim();
 
-  const m = q.match(/^(.{2,200}?)\s+(?:vs\.?|v\.?|versus|against|-|–)\s+(.{2,400}?)$/i);
+  const m = q.match(/^(.{2,200}?)\s+(?:vs\.?|v\.?|versus|against|beat|beats|lost to|lose to|-|–)\s+(.{2,400}?)$/i);
   if (!m?.[1] || !m[2]) return null;
   const clean = (s: string): string =>
     s
@@ -286,25 +289,50 @@ const fmtDate = (iso: string): string =>
   new Date(iso).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
 
 /**
- * Find the fixture. A named date is searched exactly; otherwise a 14-day window
- * back from today, because "who won the X vs Y game" with no date means the most
- * recent one that has actually been played.
+ * Find the fixture. A named date is searched exactly; otherwise a trailing
+ * window of days back from today, because "who won the X vs Y game" with no
+ * date means the most recent one that has actually been played.
+ *
+ * ESPN's scoreboard does NOT accept a hyphenated date range. Verified live
+ * 2026-09-16: `dates=20260913-20260915` and even `dates=20260913-20260913`
+ * (identical start and end) both return zero events for MLB, NFL and
+ * soccer/eng.1, while the bare `dates=20260913` form returns the real day's
+ * games every time. The range form used to be requested here and silently
+ * returned nothing, so every undated question fell through to the fixture
+ * directory, which is fuzzy and only reliable when it happens to index the
+ * matchup under the exact short name typed (it does for "Arsenal vs Chelsea",
+ * it does not for "Chiefs vs Broncos"). So the window is now walked one day at
+ * a time and the results merged; the completed/live selection below is
+ * unchanged.
  */
+const WINDOW_DAYS = 7;
+
 async function findFixture(
   leaguePath: string, a: string, b: string, dates: string | null, now: Date,
   prefer: FixturePreference = "completed",
 ): Promise<{ event: Event; league: string } | null | "unavailable"> {
-  const end = now.toISOString().slice(0, 10).replace(/-/g, "");
-  const start = new Date(now.getTime() - 14 * 86_400_000).toISOString().slice(0, 10).replace(/-/g, "");
-  const range = dates ?? `${start}-${end}`;
-  let body: { events?: Event[]; leagues?: Array<{ name?: string }> };
-  try {
-    body = (await getJson(`${ESPN}/${leaguePath}/scoreboard?dates=${range}`)) as typeof body;
-  } catch {
-    return "unavailable";
-  }
-  const league = body.leagues?.[0]?.name ?? leaguePath;
-  const events = (body.events ?? []).filter((e) => {
+  const days = dates
+    ? [dates]
+    : Array.from({ length: WINDOW_DAYS }, (_, i) =>
+        new Date(now.getTime() - i * 86_400_000).toISOString().slice(0, 10).replace(/-/g, ""));
+
+  const responses = await Promise.all(days.map(async (d) => {
+    try {
+      return (await getJson(`${ESPN}/${leaguePath}/scoreboard?dates=${d}`)) as
+        { events?: Event[]; leagues?: Array<{ name?: string }> };
+    } catch {
+      return null;
+    }
+  }));
+  const reachable = responses.filter((r): r is NonNullable<typeof r> => r !== null);
+  if (reachable.length === 0) return "unavailable";
+
+  const league = reachable.find((r) => r.leagues?.[0]?.name)?.leagues?.[0]?.name ?? leaguePath;
+  // Each day is requested once, so the same event cannot appear under two
+  // different `dates=` values — no de-duplication is needed, and de-duplicating
+  // by date alone would be wrong: distinct fixtures share an exact kickoff
+  // timestamp often enough (two 2026-09-15T22:40Z MLB games, verified live).
+  const events = reachable.flatMap((r) => r.events ?? []).filter((e) => {
     const cs = e.competitions?.[0]?.competitors ?? [];
     return cs.some((c) => matchesTeam(c, a)) && cs.some((c) => matchesTeam(c, b));
   });
