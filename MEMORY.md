@@ -1,5 +1,42 @@
 # MEMORY.md — session continuity
 
+## 2026-09-16 ~08:30 UTC (14:00 IST) — rank-1 build from the old epochs: integrated, on a preview, NOT promoted
+
+**State:** branch `codex/rank1-14-intents` at `154b367`, not pushed. **Production is still
+`miner-6xcnxjuz8`** (2026-09-15 build). The integrated branch is on preview
+**`miner-n7u6lib7a`** (`https://miner-n7u6lib7a-wukong4.vercel.app`, protected: probe with
+`npx vercel curl … --scope wukong4`). Registration 1408 unchanged; manifest unchanged, so no
+`updateMiner`. **Promote needs the operator's yes:** `npx vercel promote
+https://miner-n7u6lib7a-wukong4.vercel.app --scope wukong4`, then `node track1-miner/tools/preflight.mjs`
+(expect 7/7) and `node track1-miner/tools/intent-answers.mjs` (36/36) against production. Rollback
+target `miner-6xcnxjuz8`.
+
+**Verified on the branch:** 675/675 unit tests; live local probes for headlines, IPv6, game results;
+the ONCHAIN bench 0.996/0.995 against two crossing miners (G153/G160); preview probe set for every
+changed intent in `track1-miner/docs/evidence/rank1-build-2026-09-16/preview-probes-miner-n7u6lib7a.txt`.
+
+**What changed (G152–G167):** Codex's interrupted work committed (IPv6 tokens, headline windows,
+fixture parsing, penalty shootouts); headline subject from the phrase before "news/headlines";
+ONCHAIN answer without gas/fee figures, plain block number, called method named; currency honors a
+requested date; ESPN date-range defect fixed (every undated fixture question had been falling
+through); fraud scenario families; classification label parsing, multi-label and negation;
+fact-check subject resolution. URL_SCAN benched and deliberately unchanged.
+
+**Read before touching prose intents (G154):** TELEGRAPH_KNOWLEDGE, RESEARCH_QUERY, WEB_SEARCH
+leaders cross by matching LLM wording; accurate keyless prose scores 1e-11. Not chased.
+
+**Method worth keeping:** a competitor that crosses live is a valid reference only when a second
+independent crosser scores ≥0.98 against it under the champion (ONCHAIN passed, URL_SCAN failed).
+Who wins an epoch names the API that answered it (G155). Pull `/scores?limit=200` unfiltered:
+failure_reason leaks the test inputs and they repeat (G152).
+
+**Epoch 336** (2026-09-15 build): 10/36 rank 1 (G167). Nothing on the branch is measured yet.
+
+**Open, not built:** sentiment sarcasm (positive for "I just love being charged twice"), research
+domain routing (Raft → eye trial), DOAJ-style open-access paper search (ACADEMIC leader), the 1.0
+tie-break (G158). Worktrees under `.claude/worktrees/agent-*` and branches `rank1-*`,
+`worktree-agent-*` are merged or abandoned; delete on the operator's call.
+
 ## 2026-09-15 ~12:30 UTC (18:00 IST) — second release: every reproducible defect shipped
 
 **State:** branch `codex/rank1-14-intents`, not pushed. Production **`miner-6xcnxjuz8`**
