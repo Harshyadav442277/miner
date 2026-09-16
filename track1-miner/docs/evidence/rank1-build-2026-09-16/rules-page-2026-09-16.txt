@@ -1,0 +1,116 @@
+Telegraph Hackathon TELEGRAPH Hackathon 
+ Intents ← Back to site Rules & Guidelines
+ Hackathon
+Winner Criteria
+ We are not looking for the best demo.
+We are looking for real evidence that the quality flywheel works.
+ Why this exists
+ Purpose of This Hackathon
+ The main objective is to prove that Telegraph's intelligence layer and quality flywheel work in real conditions.
+ ✓ Miners can be properly ranked based on real performance.
+ ✓ Real demand from applications gets routed to better Miners through probabilistic routing.
+ ✓ This ranking and routing system creates a self-reinforcing loop where quality compounds over time.
+ ✓ The result is a competitive, high-quality intelligence layer that gets stronger with usage.
+ We are testing whether Telegraph's core mechanism — ranking + probabilistic routing + real economic incentives — produces a stronger intelligence layer for machines.
+ Critical to understand
+ How Telegraph Works
+ What is an Intent?
+ An Intent is a specific category of intelligence that applications can request — for example, AI text detection, weather data, financial signals, or logistics information. Each intent operates with its own independent leaderboard. You only compete with Miners in the same domain for Normalized Performance scoring.
+ 01
+ Miners Are Ranked, Not Just Listed
+ Anyone can bring their model, API, dataset, or specialized system into Telegraph as a Miner. Miners are ranked based on performance, domain relevance, and historical quality. Validators continuously evaluate Miner outputs against ground truth using evaluation scripts. Higher and more consistent performance leads to a higher rank on the leaderboard.
+ 02
+ Probabilistic Routing Based on Intent
+ When an agent needs intelligence, it does not choose a specific Miner. Instead, it declares its intent — the domain (e.g. AI detection, weather, finance), a minimum confidence threshold, and a deadline. Telegraph routes probabilistically to the top-ranked Miners for that intent. Higher-performing Miners receive more traffic and more USD per query.
+ 03
+ The Quality Flywheel
+ Better Miners → more routed demand → more real USD earnings → stronger earnings attract better Miners → network compounds in quality, reliability, and coverage. Fundamentally different from simple aggregator models.
+ 04
+ Independent Leaderboards per Intent
+ Each intent (e.g. AI text detection) has its own independent leaderboard. Miners are only ranked against others in the same domain. Miners solving completely different tasks do not affect your ranking or routing share. This ensures fair competition within each domain.
+ 05
+ Why This Architecture Matters
+ Simple aggregator approaches lack ranking, verification, probabilistic routing, and the incentive flywheel that turns raw, unverified API output into reliable, monetizable, machine-grade intelligence. Telegraph is designed to become stronger with real usage, not weaker.
+ Maximize your chances
+ High-Value Areas to Explore
+ Surface-level integrations will not stand out. The strongest submissions come from teams that deeply understand and leverage Telegraph's full capability as an intelligence layer — not just an API.
+ On-Chain & Blockchain Intelligence Pipelines
+ Build agents that consume verified intelligence and directly trigger on-chain actions — trading, liquidations, arbitrage, compliance checks, treasury management. One of the highest-value use cases.
+ Autonomous Agents & Workflows
+ Build agents that subscribe to real-time signals and take automated actions without human intervention.
+ Multi-Intent & Cross-Domain Intelligence
+ Combine signals from multiple intents to create more powerful decision-making systems.
+ Confidence Thresholds & Routing Behavior
+ Experiment with different confidence levels and understand how routing changes based on requirements.
+ Signal Quality & Verification
+ Deeply understand how validators score outputs and how this affects reliability for downstream applications.
+ Real-Time Streaming & Persistent Intelligence
+ Move beyond one-off queries and build systems that continuously consume and act on live intelligence feeds.
+ Timeline
+ Hackathon Structure
+ One hackathon, three interconnected tracks. Track 3 starts only after Track 1 and 2 close. Winners are announced once, after all tracks end.
+ Track 1: Miners
+ Building and running high-quality Miners
+ Aug 17 – Aug 31
+ 15 days
+ Track 2: Script Authors
+ Writing and improving evaluation scripts
+ Aug 17 – Aug 31
+ 15 days
+ Track 3: Applications
+ Building real applications and agents using Telegraph
+ Aug 31 – Sep 7
+ 7 days
+ Winner Selection
+ Selecting winners across all 3 tracks
+ Sep 8 – Sep 18
+ 10 days
+ Announcement & Prizes
+ Announce winners and distribute prizes
+ Sep 19 – Sep 25
+ 7 days
+ How winners are chosen
+ Judging Criteria
+ Track 1: Miners Track 2: Script Authors Track 3: Applications 
+ 75 % Normalized Performance (within Intent) 
+ Your average Canonical Score divided by the highest average score achieved inside your specific Intent. The best Miner in every Intent automatically gets full points — ensuring fairness across Intents of different difficulty.
+ 25 % Engagement & Updates on X 
+ Quality, consistency, reach, and meaningful engagement of updates posted on X. Tag @Telegraphprotoc in all update posts.
+ How Miner Track Winners Are Selected Winners are determined using Intradomain Normalization to ensure fairness across intents of different difficulty and volume.
+ Every Miner is scored out of 100 points:
+ 75 points — Normalized Performance (your score relative to the best Miner in your specific Intent)
+ 25 points — X Engagement & Transparency
+ Guardrail: An Intent must have at least 3 active Miners and receive at least 100 real requests from Track 3 applications to be eligible for global cash prizes.
+ The Top 3 Miners with the highest total normalized scores across all intents win cash prizes. This ensures the best Miner in every intent has a fair chance to win, regardless of how strict or easy their intent's Canonical Script is.
+ Non-negotiable
+ Important Rules
+ 01 Applications in Track 3 must use real Telegraph Miners. Simulated or mocked data is not allowed.
+ 02 Miners and Script Authors must remain live and operational throughout Track 3.
+ 03 All updates used for judging must be publicly posted on X and properly tagged.
+ 04 Artificial inflation of metrics or gaming the system will result in disqualification.
+ 05 Each intent operates with its own independent leaderboard. You only compete with Miners in the same domain for Normalized Performance scoring. Cash prizes are awarded to the Top 3 Miners with the highest overall normalized scores across all intents.
+ 06 All participants must join the official Hackathon Discord. Important discussions, announcements, and support will happen there. Staying active in the Discord is expected.
+ What you can win
+ Prize Distribution
+ All prizes paid in USD after final results are announced.
+ Miner Track
+ $2,000
+ 1st $1,000 
+ 2nd $600 
+ 3rd $400 
+ Script Author Track
+ $1,000
+ 1st $500 
+ 2nd $300 
+ 3rd $200 
+ Application Track
+ $2,000
+ 1st $1,000 
+ 2nd $600 
+ 3rd $400 
+ Total Prize Pool $5,000 USD 
+ This hackathon is designed to test and prove Telegraph's core value proposition: a ranked, verified, and economically incentivized intelligence layer that gets stronger with real usage.
+ If you understand and believe in building a competitive intelligence layer for machines rather than another aggregator, we welcome you to participate.
+ Good luck.
+ Register Now 
+ © 2026 Telegraph Protocol. All rights reserved.

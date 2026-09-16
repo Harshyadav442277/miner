@@ -169,6 +169,13 @@ below is deployed unless a later entry says so.
   (`production-probes-fraud-miner-71hy3v2zy.txt`). intent-answers **36/36** inside preflight and
   again standalone. Rollback target `miner-6xcnxjuz8`. The first epoch that can see this build is
   337 (~13:50 UTC 2026-09-16); epoch 336 was scored on the old build.
+- **G171 — Rules and protocol re-check 2026-09-16: no change to what binds us.** The rules page's
+  Track 1 tab matches JUDGING.md word for word (windows, 75/25, guardrail, prizes, six rules); the
+  four protocol pages are dated 2026-08-12/13 and carry the same numbers and addresses the facts
+  file records. Two things are new but not rules: the landing page announces Season I as three
+  hackathons with **H2 at $10K in mid-October 2026**, and the YAML `endpoints[]` schema now lists
+  ten keys (adds `intents`, `params`), which our manifest already satisfies. Not re-clicked: the
+  rules page's Track 2/3 tabs (JS). Recorded in TELEGRAPH_FACTS "Rules and protocol re-check".
 
 ## 2026-09-15 second release: node test cases, web search, fundamentals, fact-check 429 — G144–G151
 

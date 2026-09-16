@@ -519,3 +519,35 @@ websocket-signals}; 2026-09-08: using/{intents, erc8183-jobs}. Everything else i
 Not re-read today: protocol/{tokenomics, roles, addresses-and-params}, validators/*, deployment
 (dated August or earlier; unchanged since the last check). The intents page is explicitly behind
 the chain ("the chain is what actually decides"): 26 intents on chain are not on the page.
+
+## Rules and protocol re-check 2026-09-16 (~09:10 UTC)
+
+**Rules page (https://hackathon.telegraphprotocol.com/rules): unchanged.** The Track 1 tab text
+fetched today matches [docs/JUDGING.md](JUDGING.md) (read 2026-08-29/30) word for word: track
+windows (Track 1 and 2 Aug 17–31, Track 3 Aug 31–Sep 7, winner selection Sep 8–18, announcement
+Sep 19–25), the 75/25 split, "the best Miner in every Intent automatically gets full points", the
+guardrail (≥3 active miners and ≥100 real Track 3 requests per intent), the six important rules,
+and the prize table ($2,000 / $1,000 / $2,000). Only the Track 1 tab was compared; the Track 2 and
+3 tabs are JS-rendered and were not re-clicked. Snapshot:
+`track1-miner/docs/evidence/rank1-build-2026-09-16/rules-page-2026-09-16.txt`.
+
+**Landing page:** Season I is a three-hackathon series — H1 $5K (Aug 17–Sep 7, this one),
+**H2 $10K "mid October 2026"** ("improve on Hackathon 1, attract more participants, refine Miners
+and evaluation scripts"), H3 mainnet "December 2026 onwards, rewards TBD". The page's own miner
+judging bullets add "number of applications built on your Miner" and "total requests served" to
+ranking and X updates; the rules page's 75/25 formula is the binding one. The static countdown in
+the HTML is stale server-rendered text, not a new deadline.
+
+**Protocol pages (protocol/how-it-works, roles, tokenomics, addresses-and-params; all dated
+2026-08-12/13): unchanged** against the facts above — 2 % treasury / 98 % TWAP, 100 USDC settlement
+minimum, the demand-multiplier table, 70/20/10 routing, 5 % grace share for 7 days, spot checks
+~every 20 s with revocation on a >20 % drop, 43/64 governance, jobBasePrice with the same
+multiplier table for ERC-8183 jobs, Diamond `0x5a2324aA18613FAD4e44bDF0d6c73Ec1f6D87ff8`. The
+miner-overview page (updated 2026-09-09) repeats the same numbers; it still says a grace-period
+miner "doesn't appear on the leaderboard", which G58 disproved by observation.
+
+**YAML schema drift since the "eight keys" note above:** `endpoints[]` now accepts **ten** keys —
+the eight listed plus `intents` (required on at least one endpoint) and `params` (recommended; the
+request contract by location, `required`/`optional`). Our manifest already declares `intents`,
+`description` and `params` on all 35 endpoints, so the new request-contract rejections would pass
+on an `updateMiner`; validate at integrate.telegraphprotocol.com first regardless.
