@@ -1,0 +1,15 @@
+{
+  "miner": "preflight-ssl-verification",
+  "minerId": "preflight",
+  "question": "Is http://paypa1-secure-login.com safe?",
+  "reasonField": "reason",
+  "fetchedAt": "2026-09-16T04:06:28.710Z",
+  "ok": true,
+  "status": 200,
+  "ms": 507,
+  "request": {
+    "method": "GET",
+    "url": "https://preflight-ssl-verification.vercel.app/url-scan?url=http%3A%2F%2Fpaypa1-secure-login.com&query=Is%20http%3A%2F%2Fpaypa1-secure-login.com%20safe%3F"
+  },
+  "body": "{\"url\":\"http://paypa1-secure-login.com/\",\"final_url\":null,\"hostname\":\"paypa1-secure-login.com\",\"scheme\":\"http\",\"verdict\":\"unreachable\",\"reputation_checked\":true,\"documented_incident\":null,\"documented_facts\":null,\"checks_performed\":[\"URL structure\",\"DNS resolution\",\"TLS certificate validation\",\"HTTP response and redirect chain\",\"URLhaus current online-malware feed\"],\"risk_score\":35,\"reachable\":false,\"http_status\":null,\"redirect_count\":0,\"scan_truncated\":false,\"redirect_chain\":[],\"tls_valid\":null,\"tls_issuer\":null,\"tls_days_remaining\":null,\"resolved_addresses\":[],\"findings\":[\"The URL uses http rather than HTTPS, so traffic is not encrypted in transit.\",\"Its wording (login) matches lures typical of phishing, scam or crypto-drainer pages.\"],\"security_headers\":{\"strict-transport-security\":null,\"content-security-policy\":null,\"x-frame-options\":null,\"x-content-type-options\":null,\"referrer-policy\":null},\"confidence\":1,\"reason\":\"The URL http://paypa1-secure-login.com/ is suspicious, with a risk of 0.5 on a 0 (safe) to 1 (unsafe) scale, because paypa1-secure-login.com does not resolve and nothing on the page could be verified, so treat it with caution. The URL uses http rather than HTTPS, so traffic is not encrypted in transit. Its wording (login) matches lures typical of phishing, scam or crypto-drainer pages.\",\"checked_at\":\"2026-09-16T04:06:27.247Z\"}"
+}

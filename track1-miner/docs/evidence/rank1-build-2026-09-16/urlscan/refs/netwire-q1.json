@@ -1,0 +1,15 @@
+{
+  "miner": "netwire-url-scan",
+  "minerId": "netwire",
+  "question": "Scan https://example.com for phishing and malware indicators.",
+  "reasonField": "summary",
+  "fetchedAt": "2026-09-16T04:06:29.233Z",
+  "ok": true,
+  "status": 200,
+  "ms": 519,
+  "request": {
+    "method": "GET",
+    "url": "https://telegraph-net.margyn.workers.dev/url-scan?question=Scan%20https%3A%2F%2Fexample.com%20for%20phishing%20and%20malware%20indicators.&url=https%3A%2F%2Fexample.com"
+  },
+  "body": "{\n \"intent\": \"URL_SCAN\",\n \"url\": \"https://example.com/\",\n \"safe\": true,\n \"risk_score\": 0.1,\n \"risk\": \"low\",\n \"listings\": [],\n \"host_listings\": [],\n \"feeds_checked\": [\n  \"URLhaus\",\n  \"OpenPhish\"\n ],\n \"reachable\": true,\n \"https\": true,\n \"tls_valid\": true,\n \"status_code\": 200,\n \"redirect_location\": null,\n \"host_resolves\": true,\n \"summary\": \"The URL https://example.com is assessed as safe, with a risk score of 0.1 on a 0 (safe) to 1 (unsafe) scale: it answers with HTTP status 200 over valid HTTPS and shows no evidence of phishing or malware.\",\n \"confidence\": 0.93,\n \"source\": \"live HTTP request, URLhaus recent feed and OpenPhish feed\",\n \"attribution\": \"IP geolocation from ipquery.io. Malware and phishing listings from URLhaus (abuse.ch) and OpenPhish. Certificate validity and page text from a live request to the address the caller named.\",\n \"as_of\": \"2026-09-16T04:06:27.785Z\"\n}"
+}

@@ -1,0 +1,15 @@
+{
+  "miner": "preflight-ssl-verification",
+  "minerId": "preflight",
+  "question": "Scan https://example.com for phishing and malware indicators.",
+  "reasonField": "reason",
+  "fetchedAt": "2026-09-16T04:06:27.662Z",
+  "ok": true,
+  "status": 200,
+  "ms": 1374,
+  "request": {
+    "method": "GET",
+    "url": "https://preflight-ssl-verification.vercel.app/url-scan?url=https%3A%2F%2Fexample.com&query=Scan%20https%3A%2F%2Fexample.com%20for%20phishing%20and%20malware%20indicators."
+  },
+  "body": "{\"url\":\"https://example.com/\",\"final_url\":\"https://example.com/\",\"hostname\":\"example.com\",\"scheme\":\"https\",\"verdict\":\"safe\",\"reputation_checked\":true,\"documented_incident\":null,\"documented_facts\":null,\"checks_performed\":[\"URL structure\",\"DNS resolution\",\"TLS certificate validation\",\"HTTP response and redirect chain\",\"URLhaus current online-malware feed\"],\"risk_score\":5,\"reachable\":true,\"http_status\":200,\"redirect_count\":0,\"scan_truncated\":false,\"redirect_chain\":[],\"tls_valid\":true,\"tls_issuer\":\"SSL Corporation\",\"tls_days_remaining\":41,\"resolved_addresses\":[\"172.66.147.243\",\"104.20.23.154\",\"2606:4700:10::ac42:93f3\",\"2606:4700:10::6814:179a\"],\"findings\":[\"The response does not set Strict-Transport-Security, so downgrade attacks are not prevented.\"],\"security_headers\":{\"strict-transport-security\":null,\"content-security-policy\":null,\"x-frame-options\":null,\"x-content-type-options\":null,\"referrer-policy\":null},\"confidence\":1,\"reason\":\"The URL https://example.com/ is safe, with a risk of 0.1 on a 0 (safe) to 1 (unsafe) scale, because it is served over HTTPS with a valid certificate issued by SSL Corporation and no phishing, malware or scam indicators were detected, although the response does not set Strict-Transport-Security, so downgrade attacks are not prevented.\",\"checked_at\":\"2026-09-16T04:06:25.918Z\"}"
+}

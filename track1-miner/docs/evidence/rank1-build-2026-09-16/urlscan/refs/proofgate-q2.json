@@ -1,0 +1,16 @@
+{
+  "miner": "proofgate-url-intelligence",
+  "minerId": "proofgate",
+  "question": "Is https://github.com safe to visit?",
+  "reasonField": "answer",
+  "fetchedAt": "2026-09-16T04:06:31.626Z",
+  "ok": true,
+  "status": 200,
+  "ms": 349,
+  "request": {
+    "method": "POST",
+    "url": "https://proofgate-six.vercel.app/scan",
+    "body": "{\"url\":\"https://github.com\",\"question\":\"Is https://github.com safe to visit?\"}"
+  },
+  "body": "{\"answer\":\"The URL answers with HTTP status 200 over HTTPS with no redirect declared, served by github.com. The host resolves only to public addresses: 140.82.113.3. https://github.com/ shows no evidence of phishing or malware. No high-risk URL structure indicator was observed. The registrable domain github.com is 6916 days old.\",\"schema_version\":\"1.0\",\"intent\":\"URL_SCAN\",\"url\":\"https://github.com/\",\"verdict\":\"no_threat_signal\",\"confidence\":0.65,\"reason\":\"The URL answers with HTTP status 200 over HTTPS with no redirect declared, served by github.com. The host resolves only to public addresses: 140.82.113.3. https://github.com/ shows no evidence of phishing or malware. No high-risk URL structure indicator was observed. The registrable domain github.com is 6916 days old.\",\"live_reason\":\"The URL answers with HTTP status 200 over HTTPS with no redirect declared, served by github.com. The host resolves only to public addresses: 140.82.113.3. https://github.com/ shows no evidence of phishing or malware. No high-risk URL structure indicator was observed. The registrable domain github.com is 6916 days old.\",\"historical_context\":null,\"evidence\":[{\"source\":\"structure\",\"status\":\"ok\",\"detail\":\"No high-risk URL structure indicator was observed.\"},{\"source\":\"dns\",\"status\":\"ok\",\"detail\":\"The host resolves only to public addresses: 140.82.113.3.\"},{\"source\":\"reachability\",\"status\":\"ok\",\"detail\":\"The URL answers with HTTP status 200 over HTTPS with no redirect declared, served by github.com.\"},{\"source\":\"rdap\",\"status\":\"ok\",\"detail\":\"The registrable domain github.com is 6916 days old.\"}],\"providers_not_queried\":[\"phishtank\",\"google\",\"urlhaus\",\"virustotal\"],\"checked_at\":\"2026-09-16T04:06:30.083Z\",\"policy_version\":\"proofgate-2\"}"
+}

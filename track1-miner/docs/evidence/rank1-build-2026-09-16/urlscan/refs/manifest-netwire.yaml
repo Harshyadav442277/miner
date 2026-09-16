@@ -1,0 +1,135 @@
+version: "1"
+kind: miner
+id: 7334
+slug: netwire-url-scan
+protocol: generic
+name: NetWire URL Scan
+description: >
+  A keyless read-only safety and health read of a URL. It does one manual-redirect request to
+  the address the caller supplies and reports the status code, whether the URL is https, any
+  redirect Location, the server and content-type headers and whether the host resolved. It also
+  checks the public crt.sh transparency logs for the host as a light reputation signal. This is
+  honest about its scope: it is a live reachability, TLS and redirect scan, not a malware
+  verdict, because every keyless blocklist feed needs an API key. No port scanning, no path
+  probing, only the single request to the address named.
+base_url: https://telegraph-net.margyn.workers.dev
+
+docs:
+  documentation: https://telegraph-net.margyn.workers.dev/
+
+limitations:
+  - code: MAX_PARAM_VALUE
+    message: url is an absolute http or https URL such as https://example.com. A bare host works too and https is assumed. A whole question is accepted, the URL is read from it.
+    param: url
+    property: length
+    value_num: 2048
+    operator: lte
+
+rate_limit_per_sec: 2
+cache_ttl_sec: 10
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+
+input_schema:
+  type: object
+  properties:
+    question:
+      type: string
+      description: >
+        The full natural-language question, verbatim, for example "Is https://example.com up
+        and safe?". The miner reads the URL from it, so passing the whole question works as
+        well as naming the URL.
+    url:
+      type: string
+      description: Absolute URL to scan, for example https://example.com. A bare host works too.
+
+output_schema:
+  type: object
+  properties:
+    url:
+      type: string
+      description: The URL the answer refers to.
+    reachable:
+      type: boolean
+      description: Whether the host responded to a live request.
+    host_resolves:
+      type: boolean
+      description: Whether the host resolved and a connection could be made.
+    https:
+      type: boolean
+      description: Whether the URL uses https.
+    status_code:
+      type: integer
+      description: HTTP status code of the immediate response.
+    final_url:
+      type: string
+      description: Redirect target when the response is a redirect, else the URL that answered.
+    redirect_location:
+      type: string
+      description: The Location header when the response is a redirect.
+    server:
+      type: string
+      description: Server header of the response.
+    content_type:
+      type: string
+      description: Content-Type header of the response.
+    tls_valid:
+      type: boolean
+      description: Whether an https handshake completed against a currently valid chain.
+    crt_sh_records:
+      type: integer
+      description: Count of unexpired certificates for the host in the crt.sh transparency logs.
+    confidence:
+      type: number
+      description: 0.95 for a reachable URL, 0.9 when the host did not respond.
+    summary:
+      type: string
+      description: One sentence on reachability, https, status and redirect, then a Readings block.
+    as_of:
+      type: string
+      description: ISO 8601 timestamp of the read.
+
+endpoints:
+  - path: /url-scan
+    external_path: /url-scan
+    method: GET
+    description: >
+      Scan for one URL, the URL as a query parameter (?url=https://example.com). Also accepts
+      a whole question in ?query=.
+
+semantics:
+  signal_mapping:
+    confidence_field: confidence
+    label_field: summary
+    reason_field: summary
+  supported_intents:
+    - URL_SCAN
+
+on_chain:
+  transform: direct
+  min_price_usdc: 0.01
+  fields:
+    strings:
+      - index: 0
+        name: url
+        description: The URL the answer refers to.
+        source_path: url
+      - index: 1
+        name: final_url
+        description: Redirect target when the response is a redirect, else the URL that answered.
+        source_path: final_url
+      - index: 2
+        name: summary
+        description: One sentence on reachability, https, status and redirect, then the Readings block.
+        source_path: summary
+    integers:
+      - index: 0
+        name: status_code
+        description: HTTP status code of the immediate response.
+        source_path: status_code
+        multiplier: 1
+  request:
+    - endpoint: url-scan
+      method: GET
+      query_params:
+        url: { source: strings.0 }

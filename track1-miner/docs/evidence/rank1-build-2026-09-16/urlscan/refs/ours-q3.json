@@ -1,0 +1,15 @@
+{
+  "miner": "livecert",
+  "minerId": "ours",
+  "question": "Is http://paypa1-secure-login.com safe?",
+  "reasonField": "reason",
+  "fetchedAt": "2026-09-16T04:06:33.417Z",
+  "ok": true,
+  "status": 200,
+  "ms": 280,
+  "request": {
+    "method": "GET",
+    "url": "https://miner-wine.vercel.app/url-scan?query=Is%20http%3A%2F%2Fpaypa1-secure-login.com%20safe%3F"
+  },
+  "body": "{\"verdict\":\"suspicious\",\"confidence\":0.7,\"reason\":\"http://paypa1-secure-login.com/ is suspicious and should not be trusted: its host uses the name paypal on paypa1-secure-login.com, which is not a known paypal domain such as paypal.com; paypa1-secure-login.com does not currently resolve in DNS. It is not blocked by Cloudflare's malware and phishing filter and not listed by URLhaus, but a new phishing page is often not yet on any list.\"}"
+}

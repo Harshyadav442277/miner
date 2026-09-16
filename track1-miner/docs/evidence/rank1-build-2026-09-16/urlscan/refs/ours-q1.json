@@ -1,0 +1,15 @@
+{
+  "miner": "livecert",
+  "minerId": "ours",
+  "question": "Scan https://example.com for phishing and malware indicators.",
+  "reasonField": "reason",
+  "fetchedAt": "2026-09-16T04:06:32.873Z",
+  "ok": true,
+  "status": 200,
+  "ms": 504,
+  "request": {
+    "method": "GET",
+    "url": "https://miner-wine.vercel.app/url-scan?query=Scan%20https%3A%2F%2Fexample.com%20for%20phishing%20and%20malware%20indicators."
+  },
+  "body": "{\"verdict\":\"safe\",\"confidence\":0.8,\"reason\":\"Yes, https://example.com/ appears safe to visit. It is not blocked by Cloudflare's malware and phishing filter and not listed by URLhaus, and no lookalike markers were found. It serves a valid TLS certificate that matches the host. No blocklist can prove a site safe.\"}"
+}

@@ -1,0 +1,180 @@
+URL_SCAN answer-shape bench — champion reg220 (url_scan_reg220.wasm)
+sha256 ee85db4661b262a6133f71f0b8f228e663d213cefdaf73c43c293c082bb00d0b
+refs   C:/Users/hyada/OneDrive/Documents/Work-Related/Hackathons/Telegraph/.claude/worktrees/agent-a02a03c826c4d916b/track1-miner/docs/evidence/rank1-build-2026-09-16/urlscan/refs
+run    2026-09-16T04:15:04.735Z
+
+THE ANSWERS SCORED (live, verbatim)
+==============================================================================
+q1: Scan https://example.com for phishing and malware indicators.
+  preflight   54w  The URL https://example.com/ is safe, with a risk of 0.1 on a 0 (safe) to 1 (unsafe) scale, because it is served over HTTPS with a valid certificate issued by SSL Corporation and no phishing, malware or scam indicators were detected, although the response does not set Strict-Transport-Security, so downgrade attacks are not prevented.
+  netwire     38w  The URL https://example.com is assessed as safe, with a risk score of 0.1 on a 0 (safe) to 1 (unsafe) scale: it answers with HTTP status 200 over valid HTTPS and shows no evidence of phishing or malware.
+  proofgate   50w  The URL answers with HTTP status 200 over HTTPS with no redirect declared, served by cloudflare. The host resolves only to public addresses: 104.20.23.154, 172.66.147.243, 2606:4700:10::ac42:93f3, 2606:4700:10::6814:179a. https://example.com/ shows no evidence of phishing or malware. No high-risk URL structure indicator was observed. The registrable domain example.com is 11356 days old.
+  ours        44w  Yes, https://example.com/ appears safe to visit. It is not blocked by Cloudflare's malware and phishing filter and not listed by URLhaus, and no lookalike markers were found. It serves a valid TLS certificate that matches the host. No blocklist can prove a site safe.
+
+q2: Is https://github.com safe to visit?
+  preflight   41w  The URL https://github.com/ is safe, with a risk of 0.1 on a 0 (safe) to 1 (unsafe) scale, because it is served over HTTPS with a valid certificate issued by Sectigo Limited and no phishing, malware or scam indicators were detected.
+  netwire     37w  The URL https://github.com is not itself listed as malicious, but URLhaus lists other URLs on github.com, so treat content from that host with care. Its risk score is 0.5 on a 0 (safe) to 1 (unsafe) scale.
+  proofgate   47w  The URL answers with HTTP status 200 over HTTPS with no redirect declared, served by github.com. The host resolves only to public addresses: 140.82.113.3. https://github.com/ shows no evidence of phishing or malware. No high-risk URL structure indicator was observed. The registrable domain github.com is 6916 days old.
+  ours        44w  Yes, https://github.com/ appears safe to visit. It is not blocked by Cloudflare's malware and phishing filter and not listed by URLhaus, and no lookalike markers were found. It serves a valid TLS certificate that matches the host. No blocklist can prove a site safe.
+
+q3: Is http://paypa1-secure-login.com safe?
+  preflight   62w  The URL http://paypa1-secure-login.com/ is suspicious, with a risk of 0.5 on a 0 (safe) to 1 (unsafe) scale, because paypa1-secure-login.com does not resolve and nothing on the page could be verified, so treat it with caution. The URL uses http rather than HTTPS, so traffic is not encrypted in transit. Its wording (login) matches lures typical of phishing, scam or crypto-drainer pages.
+  netwire     16w  The URL http://paypa1-secure-login.com could not be assessed: the host did not respond to a live request.
+  proofgate   12w  http://paypa1-secure-login.com/ is suspicious. Structural risk: unencrypted HTTP, credential-phishing or reward lure hostname.
+  ours        60w  http://paypa1-secure-login.com/ is suspicious and should not be trusted: its host uses the name paypal on paypa1-secure-login.com, which is not a known paypal domain such as paypal.com; paypa1-secure-login.com does not currently resolve in DNS. It is not blocked by Cloudflare's malware and phishing filter and not listed by URLhaus, but a new phishing page is often not yet on any list.
+
+STAGE 1 — VALIDATION MATRIX: do the crossing miners agree with each other?
+Gate: every ordered leader pair must score >= 0.98 on the full text.
+==============================================================================
+q1  Scan https://example.com for phishing and malware indicators.
+  reference \ candidate           preflight          netwire        proofgate
+  preflight                       .            1.0000/1.0000    0.5483/0.0000
+  netwire                     1.0000/1.0000        .            0.7421/0.0000
+  proofgate                   0.5495/0.0000    0.6759/0.0000        .        
+
+q2  Is https://github.com safe to visit?
+  reference \ candidate           preflight          netwire        proofgate
+  preflight                       .            0.8319/0.6868    0.6574/0.5644
+  netwire                     0.8387/0.7168        .            0.5473/0.5529
+  proofgate                   0.6568/0.5564    0.5488/0.5483        .        
+
+q3  Is http://paypa1-secure-login.com safe?
+  reference \ candidate           preflight          netwire        proofgate
+  preflight                       .            0.9151/0.9543    0.0000/0.0000
+  netwire                     0.0098/1.0000        .            0.9154/0.9154
+  proofgate                   0.0000/0.0000    0.9128/0.9128        .        
+
+Cells are full/clip32. Lowest cross-leader full score: 0.0000
+
+VALIDATION FAILED — 16 of 18 ordered pairs scored below 0.98.
+Worst pairs:
+  q3  reference=preflight  candidate=proofgate  full=0.0000 clip32=0.0000
+  q3  reference=proofgate  candidate=preflight  full=0.0000 clip32=0.0000
+  q3  reference=netwire    candidate=preflight  full=0.0098 clip32=1.0000
+  q2  reference=netwire    candidate=proofgate  full=0.5473 clip32=0.5529
+  q1  reference=preflight  candidate=proofgate  full=0.5483 clip32=0.0000
+  q2  reference=proofgate  candidate=netwire    full=0.5488 clip32=0.5483
+
+These miners all cross at ~0.99 in production against the node's hidden ground
+truth, so a champion that scores them far apart is not rewarding what they share.
+Nothing they produce can serve as a reference for our text (G114, G128), and no
+ours-vs-reference or variant number is reported. NO CODE CHANGE IS JUSTIFIED BY
+THIS RUN.
+
+STAGE 1b — WHY THEY DISAGREE: the same clause, measured against each leader
+==============================================================================
+q1  probe                               preflight    netwire  proofgate
+    our verdict sentence alone               0.6178     0.7674     0.4784
+    + a sentence carrying no number          0.7823     0.8108     0.6038
+    + the leaders' risk-score clause         0.7651     0.8541     0.3935
+q2  probe                               preflight    netwire  proofgate
+    our verdict sentence alone               0.3738     0.3709     0.3510
+    + a sentence carrying no number          0.6566     0.6421     0.6753
+    + the leaders' risk-score clause         0.8286     1.0000     0.4368
+q3  probe                               preflight    netwire  proofgate
+    our verdict sentence alone               0.9318     0.9999     0.9935
+    + a sentence carrying no number          0.9513     0.9999     0.9922
+    + the leaders' risk-score clause         1.0000     0.9998     0.0000
+
+A clause that is a perfect match against one leader and a total miss against
+another is the whole problem: there is no single reference to aim at.
+
+Reported anyway, for the record only — scored against an INVALID instrument:
+==============================================================================
+STAGE 2 — OUR PRODUCTION TEXT AND ITS VARIANTS, against each reference
+Cells are full/clip32. A variant only ever removes or reorders a clause of the
+live production text; none states a fact the deployed build did not check.
+==============================================================================
+q1  Scan https://example.com for phishing and malware indicators.
+  variant                       preflight          netwire        proofgate   text
+  prod                      0.9394/0.9230    0.9302/0.8776    0.8478/0.0001   (unchanged)
+  drop-sourcing             0.8734/0.9114    0.8595/0.8052    0.7222/0.0000   28w
+                                                                              Yes, https://example.com/ appears safe to visit. No lookalike markers were found. It serves a valid TLS certificate that matches the host. No blocklist can prove a site safe.
+  drop-lookalike            0.9435/0.9570    0.9315/0.8742    0.8536/0.0003   38w
+                                                                              Yes, https://example.com/ appears safe to visit. It is not blocked by Cloudflare's malware and phishing filter and not listed by URLhaus. It serves a valid TLS certificate that matches the host. No blocklist can prove a site safe.
+  drop-caveat               0.9403/0.9230    0.9249/0.8776    0.8544/0.0001   37w
+                                                                              Yes, https://example.com/ appears safe to visit. It is not blocked by Cloudflare's malware and phishing filter and not listed by URLhaus, and no lookalike markers were found. It serves a valid TLS certificate that matches the host.
+  verdict-first             0.9429/0.9315    0.9353/0.8920    0.8475/0.0001   44w
+                                                                              Safe. https://example.com/ appears safe to visit. It is not blocked by Cloudflare's malware and phishing filter and not listed by URLhaus, and no lookalike markers were found. It serves a valid TLS certificate that matches the host. No blocklist can prove a site safe.
+  url-as-asked              0.9394/0.9230    0.9302/0.8776    0.8478/0.0001   44w
+                                                                              Yes, https://example.com appears safe to visit. It is not blocked by Cloudflare's malware and phishing filter and not listed by URLhaus, and no lookalike markers were found. It serves a valid TLS certificate that matches the host. No blocklist can prove a site safe.
+  url-bare-host             0.9260/0.8941    0.8988/0.8219    0.8153/0.0000   44w
+                                                                              Yes, example.com appears safe to visit. It is not blocked by Cloudflare's malware and phishing filter and not listed by URLhaus, and no lookalike markers were found. It serves a valid TLS certificate that matches the host. No blocklist can prove a site safe.
+  lean                      0.9420/0.9575    0.9211/0.8819    0.8363/0.0001   31w
+                                                                              Yes, https://example.com/ appears safe to visit. It is not blocked by Cloudflare's malware and phishing filter and not listed by URLhaus. It serves a valid TLS certificate that matches the host.
+  lean-verdict-first        0.9458/0.9629    0.9281/0.8961    0.8361/0.0001   31w
+                                                                              Safe. https://example.com/ appears safe to visit. It is not blocked by Cloudflare's malware and phishing filter and not listed by URLhaus. It serves a valid TLS certificate that matches the host.
+  first-sentence            0.6178/0.7580    0.7674/0.8057    0.4784/0.0000   6w
+                                                                              Yes, https://example.com/ appears safe to visit.
+  no-tls-note               0.8924/0.8612    0.9218/0.8334    0.8116/0.0000   34w
+                                                                              Yes, https://example.com/ appears safe to visit. It is not blocked by Cloudflare's malware and phishing filter and not listed by URLhaus, and no lookalike markers were found. No blocklist can prove a site safe.
+  verdict-first-full        0.9394/0.9307    0.9316/0.8908    0.8427/0.0001   45w
+                                                                              Safe. Yes, https://example.com/ appears safe to visit. It is not blocked by Cloudflare's malware and phishing filter and not listed by URLhaus, and no lookalike markers were found. It serves a valid TLS certificate that matches the host. No blocklist can prove a site safe.
+
+q2  Is https://github.com safe to visit?
+  variant                       preflight          netwire        proofgate   text
+  prod                      0.9649/0.9050    0.8282/0.7760    0.9202/0.9337   (unchanged)
+  drop-sourcing             0.8958/0.8948    0.7205/0.7095    0.8263/0.8629   28w
+                                                                              Yes, https://github.com/ appears safe to visit. No lookalike markers were found. It serves a valid TLS certificate that matches the host. No blocklist can prove a site safe.
+  drop-lookalike            0.9660/0.9462    0.8375/0.8418    0.9270/0.9570   38w
+                                                                              Yes, https://github.com/ appears safe to visit. It is not blocked by Cloudflare's malware and phishing filter and not listed by URLhaus. It serves a valid TLS certificate that matches the host. No blocklist can prove a site safe.
+  drop-caveat               0.9641/0.9050    0.8238/0.7760    0.9236/0.9337   37w
+                                                                              Yes, https://github.com/ appears safe to visit. It is not blocked by Cloudflare's malware and phishing filter and not listed by URLhaus, and no lookalike markers were found. It serves a valid TLS certificate that matches the host.
+  verdict-first             0.9675/0.9139    0.8359/0.7784    0.9218/0.9362   44w
+                                                                              Safe. https://github.com/ appears safe to visit. It is not blocked by Cloudflare's malware and phishing filter and not listed by URLhaus, and no lookalike markers were found. It serves a valid TLS certificate that matches the host. No blocklist can prove a site safe.
+  url-as-asked              0.9649/0.9050    0.8282/0.7760    0.9202/0.9337   44w
+                                                                              Yes, https://github.com appears safe to visit. It is not blocked by Cloudflare's malware and phishing filter and not listed by URLhaus, and no lookalike markers were found. It serves a valid TLS certificate that matches the host. No blocklist can prove a site safe.
+  url-bare-host             0.9533/0.8709    0.8066/0.7444    0.8979/0.9033   44w
+                                                                              Yes, github.com appears safe to visit. It is not blocked by Cloudflare's malware and phishing filter and not listed by URLhaus, and no lookalike markers were found. It serves a valid TLS certificate that matches the host. No blocklist can prove a site safe.
+  lean                      0.9649/0.9466    0.8355/0.8372    0.9186/0.9430   31w
+                                                                              Yes, https://github.com/ appears safe to visit. It is not blocked by Cloudflare's malware and phishing filter and not listed by URLhaus. It serves a valid TLS certificate that matches the host.
+  lean-verdict-first        0.9682/0.9525    0.8445/0.8397    0.9205/0.9449   31w
+                                                                              Safe. https://github.com/ appears safe to visit. It is not blocked by Cloudflare's malware and phishing filter and not listed by URLhaus. It serves a valid TLS certificate that matches the host.
+  first-sentence            0.3738/0.3871    0.3709/0.3531    0.3510/0.3660   6w
+                                                                              Yes, https://github.com/ appears safe to visit.
+  no-tls-note               0.9220/0.8264    0.7972/0.7941    0.9036/0.9266   34w
+                                                                              Yes, https://github.com/ appears safe to visit. It is not blocked by Cloudflare's malware and phishing filter and not listed by URLhaus, and no lookalike markers were found. No blocklist can prove a site safe.
+  verdict-first-full        0.9651/0.9130    0.8306/0.7789    0.9162/0.9370   45w
+                                                                              Safe. Yes, https://github.com/ appears safe to visit. It is not blocked by Cloudflare's malware and phishing filter and not listed by URLhaus, and no lookalike markers were found. It serves a valid TLS certificate that matches the host. No blocklist can prove a site safe.
+
+q3  Is http://paypa1-secure-login.com safe?
+  variant                       preflight          netwire        proofgate   text
+  prod                      0.0000/0.9668    1.0000/1.0000    0.9969/0.9939   (unchanged)
+  drop-sourcing             0.0000/0.9668    0.9999/1.0000    0.9985/0.9939   44w
+                                                                              http://paypa1-secure-login.com/ is suspicious and should not be trusted: its host uses the name paypal on paypa1-secure-login.com, which is not a known paypal domain such as paypal.com; paypa1-secure-login.com does not currently resolve in DNS. A new phishing page is often not yet on any list.
+  drop-lookalike            0.0000/0.9668    1.0000/1.0000    0.9969/0.9939   (unchanged)
+  drop-caveat               0.0000/0.9668    1.0000/1.0000    0.9969/0.9939   (unchanged)
+  verdict-first             0.0000/0.9686    1.0000/0.9999    0.9975/0.9949   61w
+                                                                              Suspicious. http://paypa1-secure-login.com/ is suspicious and should not be trusted: its host uses the name paypal on paypa1-secure-login.com, which is not a known paypal domain such as paypal.com; paypa1-secure-login.com does not currently resolve in DNS. It is not blocked by Cloudflare's malware and phishing filter and not listed by URLhaus, but a new phishing page is often not yet on any list.
+  url-as-asked              0.0000/0.9668    1.0000/1.0000    0.9969/0.9939   60w
+                                                                              http://paypa1-secure-login.com is suspicious and should not be trusted: its host uses the name paypal on paypa1-secure-login.com, which is not a known paypal domain such as paypal.com; paypa1-secure-login.com does not currently resolve in DNS. It is not blocked by Cloudflare's malware and phishing filter and not listed by URLhaus, but a new phishing page is often not yet on any list.
+  url-bare-host             0.0000/0.9621    1.0000/0.9999    0.9918/0.9796   60w
+                                                                              paypa1-secure-login.com is suspicious and should not be trusted: its host uses the name paypal on paypa1-secure-login.com, which is not a known paypal domain such as paypal.com; paypa1-secure-login.com does not currently resolve in DNS. It is not blocked by Cloudflare's malware and phishing filter and not listed by URLhaus, but a new phishing page is often not yet on any list.
+  lean                      0.0000/0.9668    0.9999/1.0000    0.9985/0.9939   44w
+                                                                              http://paypa1-secure-login.com/ is suspicious and should not be trusted: its host uses the name paypal on paypa1-secure-login.com, which is not a known paypal domain such as paypal.com; paypa1-secure-login.com does not currently resolve in DNS. A new phishing page is often not yet on any list.
+  lean-verdict-first        0.0000/0.9686    0.9999/0.9999    0.9988/0.9949   45w
+                                                                              Suspicious. http://paypa1-secure-login.com/ is suspicious and should not be trusted: its host uses the name paypal on paypa1-secure-login.com, which is not a known paypal domain such as paypal.com; paypa1-secure-login.com does not currently resolve in DNS. A new phishing page is often not yet on any list.
+  first-sentence            0.9318/0.9668    0.9999/1.0000    0.9935/0.9939   33w
+                                                                              http://paypa1-secure-login.com/ is suspicious and should not be trusted: its host uses the name paypal on paypa1-secure-login.com, which is not a known paypal domain such as paypal.com; paypa1-secure-login.com does not currently resolve in DNS.
+  no-tls-note               0.0000/0.9668    1.0000/1.0000    0.9969/0.9939   (unchanged)
+  verdict-first-full        0.0000/0.9686    1.0000/0.9999    0.9975/0.9949   61w
+                                                                              Suspicious. http://paypa1-secure-login.com/ is suspicious and should not be trusted: its host uses the name paypal on paypa1-secure-login.com, which is not a known paypal domain such as paypal.com; paypa1-secure-login.com does not currently resolve in DNS. It is not blocked by Cloudflare's malware and phishing filter and not listed by URLhaus, but a new phishing page is often not yet on any list.
+
+STAGE 3 — DECISION: the worst score each variant reaches against ANY reference,
+on ANY question. A variant is only worth shipping if this minimum crosses 0.98.
+==============================================================================
+  variant                 min full  min clip32   per-question minima
+  first-sentence            0.3510      0.0000   q1=0.4784  q2=0.3510  q3=0.9318
+  verdict-first             0.0000      0.0001   q1=0.8475  q2=0.8359  q3=0.0000
+  verdict-first-full        0.0000      0.0001   q1=0.8427  q2=0.8306  q3=0.0000
+  prod                      0.0000      0.0001   q1=0.8478  q2=0.8282  q3=0.0000
+  drop-lookalike            0.0000      0.0003   q1=0.8536  q2=0.8375  q3=0.0000
+  drop-caveat               0.0000      0.0001   q1=0.8544  q2=0.8238  q3=0.0000
+  url-as-asked              0.0000      0.0001   q1=0.8478  q2=0.8282  q3=0.0000
+  no-tls-note               0.0000      0.0000   q1=0.8116  q2=0.7972  q3=0.0000
+  url-bare-host             0.0000      0.0000   q1=0.8153  q2=0.8066  q3=0.0000
+  lean-verdict-first        0.0000      0.0001   q1=0.8361  q2=0.8445  q3=0.0000
+  drop-sourcing             0.0000      0.0000   q1=0.7222  q2=0.7205  q3=0.0000
+  lean                      0.0000      0.0001   q1=0.8363  q2=0.8355  q3=0.0000
+
+DECISION: none. Stage 1 failed, so every number above is uninterpretable.
