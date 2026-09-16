@@ -110,3 +110,44 @@ For every implemented item: a regression fails on the original code; positive/ne
 - **Missing evidence:** the current public API omits our actual question, ground truth and converted answer. We cannot honestly prove why each historical high score occurred. Explanations above distinguish measured mechanisms, reproduced current defects and hypotheses.
 
 This report was written before implementation. Results and any remaining blockers will be recorded separately so the original reasoning and plan remain reviewable.
+
+## Findings after the plan: why the old wins happened, measured (16 September 2026, 03:30–04:10 UTC)
+
+Written by the session that resumed this plan after it was interrupted. Evidence in
+[evidence/rank1-build-2026-09-16/analysis/](evidence/rank1-build-2026-09-16/analysis/); gap numbers
+refer to [GAPS.md](../../GAPS.md).
+
+**The hidden questions are partly visible, and they repeat.** Other miners' `failure_reason` fields
+echo the node's test input (G152). RESEARCH_QUERY has asked the same two biomedical templates since
+epoch 330; CONTENT_EXTRACTION asks one short structured line per epoch; FRAUD_DETECTION rotates
+five scenario families; ONCHAIN_TX_LOOKUP asks about Ethereum transactions from block 25,700,000 and
+reused one hash in two consecutive epochs. A win in one of these intents is a win on a question class
+that will come back.
+
+**Four kinds of first place, and only one of them is worth chasing.**
+
+| Kind | Intents | What decided it | What to do |
+|---|---|---|---|
+| Cliff crossed on facts | CONTENT_EXTRACTION, IP_GEOLOCATION, STORM_ALERT, WALLET, NEWS_SEARCH, CRYPTO_PRICE, GAME_RESULT (e323, e334), FACT_CHECK, GAS_PRICE (e328), URL_SCAN (leaders) | Our facts matched the reference and the answer carried no numbers the reference lacked | Broaden the question classes we answer; keep answers free of derived numbers (G153) |
+| Cliff crossed on wording | TELEGRAPH_KNOWLEDGE, RESEARCH_QUERY, WEB_SEARCH, TEXT_CLASSIFICATION, FRAUD (leaders at 1.0) | The reference is LLM prose and the leader is an LLM; accurate non-LLM prose scores 1e-11 (G154) | Not chased; correctness fixes only |
+| Ordering inside a near-zero band | SSL, LANGUAGE_TRANSLATION, NEWS_HEADLINES, AI_TEXT, TOKEN_HOLDER, GAS, CVE, SPORTS, CONTENT_VERIFICATION, both WEATHER, FINANCIAL, CURRENCY, STOCK | Every miner is far from the reference; rank flips epoch to epoch with no change on our side (G159) | Fix reproduced defects; expect no durable rank from wording |
+| Tie at 1.0 broken by something other than score | WALLET (e323, e334), CRYPTO_PRICE (e331) | Unknown tie-break (G158) | Cross first, then measure what breaks ties |
+
+**The one measured, validated shape change: ONCHAIN_TX_LOOKUP.** Two independent miners cross at
+0.995–0.997 every epoch; their live answers for the leaked hashes score 0.997 against each other
+under the champion, which makes them a valid reference under the G114 rule. Our production text
+scores 0.014 against both; the same facts without the gas / fee / gas-price sentence, with a plain
+block number and the called method named, score 0.9965 and 0.997 (G153). That is the first time this
+project has had a bench for this intent that a known-crossing competitor passes.
+
+**Who wins names the question.** The epoch-335 winners of GAME_RESULT, SPORTS_SCORE, NEWS_HEADLINES,
+ACADEMIC_SEARCH and IP_GEOLOCATION are single-API wrappers (MLB StatsAPI, Spaceflight News, DOAJ,
+ipinfo) run by one operator (G155). When such a wrapper leads, the question was one that API answers
+directly, which is more than the score rows say.
+
+**What this changes in the plan.** Items 1–3 are committed (2f45138). Item 4 (historical FX), item 5
+(research domain safety) and item 6 (fact-check evidence, classification, sentiment, fraud scenarios)
+are being built in isolated lanes with the constraints above, plus two lanes the plan did not have:
+the ONCHAIN shape change (G153) and a URL_SCAN shape bench against the three miners that cross there.
+The retrieval layer in item 7 for WEB_SEARCH, RESEARCH_QUERY and TELEGRAPH_KNOWLEDGE is dropped
+for the reason in G154.

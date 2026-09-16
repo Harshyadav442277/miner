@@ -1,0 +1,38 @@
+
+=== 0xb376975e (succeeded) — columns: truth=txlens | truth=veyctum | clip32 vs txlens | clip32 vs veyctum
+ours (production)                                   0.0142    0.0134    0.9951    0.0141
+ours minus gas/fee/price                            0.0146    0.0137    0.0146    0.0137
+ours minus gas/fee/price, plain block               0.9948    0.0140    0.9948    0.0140
+ours minus gas, plain block, + method               0.9957    0.0146    0.9960    0.9949
+minimal txlens-like                                 1.0000    0.9967    1.0000    0.9967
+ours shape, method, no gas, keep transfer count     0.9965    0.9952    0.9965    0.9952
+ours + method, keep gas/fee                         0.9950    0.0141    0.9962    0.9949
+txlens (crosses live)                               1.0000    0.9969    1.0000    0.9969
+veyctum (crosses live)                              0.9980    1.0000    0.9961    0.9983
+  --- candidate texts:
+  [ours minus gas/fee/price] Transaction 0xb376975e90801e36a34432c960825a0c12a56d589a77a95aa552a7a3618678ee on ethereum succeeded in block 25,700,000. It moved 0 ETH from 0x2ce910fbba65b454bbaf6a18c952a70f3bcd8299 to 0x99c9fc46f92e8a1c0dec1b1747d010903e884be1..001337169731387175 ETH, at an effective gas price of 2.0557 Gwei. The receipt contains 1 token Transfer event.
+  [ours minus gas/fee/price, plain block] Transaction 0xb376975e90801e36a34432c960825a0c12a56d589a77a95aa552a7a3618678ee on ethereum succeeded in block 25700000. It moved 0 ETH from 0x2ce910fbba65b454bbaf6a18c952a70f3bcd8299 to 0x99c9fc46f92e8a1c0dec1b1747d010903e884be1..001337169731387175 ETH, at an effective gas price of 2.0557 Gwei. The receipt contains 1 token Transfer event.
+  [ours minus gas, plain block, + method] Transaction 0xb376975e90801e36a34432c960825a0c12a56d589a77a95aa552a7a3618678ee on ethereum succeeded in block 25700000. It moved 0 ETH from 0x2ce910fbba65b454bbaf6a18c952a70f3bcd8299 to 0x99c9fc46f92e8a1c0dec1b1747d010903e884be1 and called bridgeERC20To..001337169731387175 ETH, at an effective gas price of 2.0557 Gwei. The receipt contains 1 token Transfer event.
+  [minimal txlens-like] Transaction 0xb376975e90801e36a34432c960825a0c12a56d589a77a95aa552a7a3618678ee on Ethereum sent 0 ETH from 0x2ce910fbba65b454bbaf6a18c952a70f3bcd8299 to 0x99c9fc46f92e8a1c0dec1b1747d010903e884be1 and called bridgeERC20To in block 25700000; status success.
+  [ours shape, method, no gas, keep transfer count] Transaction 0xb376975e90801e36a34432c960825a0c12a56d589a77a95aa552a7a3618678ee on ethereum succeeded in block 25700000. It moved 0 ETH from 0x2ce910fbba65b454bbaf6a18c952a70f3bcd8299 to 0x99c9fc46f92e8a1c0dec1b1747d010903e884be1 and called bridgeERC20To. The receipt contains 1 token Transfer event.
+  [ours + method, keep gas/fee] Transaction 0xb376975e90801e36a34432c960825a0c12a56d589a77a95aa552a7a3618678ee on ethereum succeeded in block 25,700,000. It moved 0 ETH from 0x2ce910fbba65b454bbaf6a18c952a70f3bcd8299 to 0x99c9fc46f92e8a1c0dec1b1747d010903e884be1 and called bridgeERC20To. It used 650,475 gas, a total fee of 0.001337169731387175 ETH, at an effective gas price of 2.0557 Gwei. The receipt contains 1 token Transfer event.
+
+=== 0xe1cd7c31 (reverted) — columns: truth=txlens | truth=veyctum | clip32 vs txlens | clip32 vs veyctum
+ours (production)                                   0.0148    0.0139    0.9959    0.0142
+ours minus gas/fee/price                            0.9952    0.0142    0.9957    0.0142
+ours minus gas/fee/price, plain block               0.9954    0.0144    0.9959    0.0144
+ours minus gas, plain block, + method               0.9958    0.0147    0.9965    0.0148
+minimal txlens-like                                 1.0000    0.9960    1.0000    0.9960
+ours shape, method, no gas, keep transfer count     0.9971    0.9959    0.9973    0.9960
+ours + method, keep gas/fee                         0.9951    0.0142    0.9964    0.0147
+txlens (crosses live)                               1.0000    0.9962    1.0000    0.9962
+veyctum (crosses live)                              0.9970    1.0000    0.9952    0.9982
+  --- candidate texts:
+  [ours minus gas/fee/price] Transaction 0xe1cd7c312e8cedad3bb8b3030703a90cb93d48d35a554082001b0e2edaa97e19 on ethereum failed and was reverted in block 25,700,000. It attempted to move 0 ETH from 0x8a0231d6fb864a3ae9439a860871510249c31d07 to 0x66a9893cc07d91d95644aedd05d03f95e1dba8af..000039981388107039 ETH, at an effective gas price of 0.117 Gwei. A reverted transaction still consumes its gas; the value transfer did not occur.
+  [ours minus gas/fee/price, plain block] Transaction 0xe1cd7c312e8cedad3bb8b3030703a90cb93d48d35a554082001b0e2edaa97e19 on ethereum failed and was reverted in block 25700000. It attempted to move 0 ETH from 0x8a0231d6fb864a3ae9439a860871510249c31d07 to 0x66a9893cc07d91d95644aedd05d03f95e1dba8af..000039981388107039 ETH, at an effective gas price of 0.117 Gwei. A reverted transaction still consumes its gas; the value transfer did not occur.
+  [ours minus gas, plain block, + method] Transaction 0xe1cd7c312e8cedad3bb8b3030703a90cb93d48d35a554082001b0e2edaa97e19 on ethereum failed and was reverted in block 25700000. It attempted to move 0 ETH from 0x8a0231d6fb864a3ae9439a860871510249c31d07 to 0x66a9893cc07d91d95644aedd05d03f95e1dba8af and called execute..000039981388107039 ETH, at an effective gas price of 0.117 Gwei. A reverted transaction still consumes its gas; the value transfer did not occur.
+  [minimal txlens-like] Transaction 0xe1cd7c312e8cedad3bb8b3030703a90cb93d48d35a554082001b0e2edaa97e19 on Ethereum sent 0 ETH from 0x8a0231d6fb864a3ae9439a860871510249c31d07 to 0x66a9893cc07d91d95644aedd05d03f95e1dba8af and called execute in block 25700000; status failed.
+  [ours shape, method, no gas, keep transfer count] Transaction 0xe1cd7c312e8cedad3bb8b3030703a90cb93d48d35a554082001b0e2edaa97e19 on ethereum failed and was reverted in block 25700000. It moved 0 ETH from 0x8a0231d6fb864a3ae9439a860871510249c31d07 to 0x66a9893cc07d91d95644aedd05d03f95e1dba8af and called execute. A reverted transaction still consumes its gas; the value transfer did not occur.
+  [ours + method, keep gas/fee] Transaction 0xe1cd7c312e8cedad3bb8b3030703a90cb93d48d35a554082001b0e2edaa97e19 on ethereum failed and was reverted in block 25,700,000. It attempted to move 0 ETH from 0x8a0231d6fb864a3ae9439a860871510249c31d07 to 0x66a9893cc07d91d95644aedd05d03f95e1dba8af and called execute. It used 341,791 gas, a total fee of 0.000039981388107039 ETH, at an effective gas price of 0.117 Gwei. A reverted transaction still consumes its gas; the value transfer did not occur.
+
+[exited with code 0]

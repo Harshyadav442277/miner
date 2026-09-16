@@ -1,0 +1,28 @@
+exports: TELEGRAPH_INTENT,alloc,dealloc,memory,rank_answer
+
+=== TELEGRAPH_KNOWLEDGE ref=chainsight (1.0 live e335)
+name                                     score   | precision fact answered raw
+reference vs itself                       1.0000
+ours (production)                        1.03e-11
+ours without the Regarding prefix        5.13e-12
+short generic true prose                 1.32e-11
+long doc-style prose                     1.24e-11
+chainsight-like shape (control)           1.0000
+chainsight second call (variance)         1.0000
+exports: TELEGRAPH_INTENT,alloc,dealloc,memory,rank_answer
+
+=== RESEARCH_QUERY ref=chainsight (0.998 live e335)
+name                                     score   | precision fact answered raw
+reference vs itself                       0.9986
+ours (production)                         0.0113
+ours plus a plain summary sentence        0.0117
+plain summary only                        0.0120
+refusal-style                             0.0112
+chainsight second call (variance)         0.9945
+exports: TELEGRAPH_INTENT,alloc,dealloc,memory,rank_answer
+
+=== ONCHAIN ref=txlens
+name                                     score   | precision fact answered raw
+reference vs itself                       1.0000
+ours (production)                         0.0142
+ours clean shape                          0.9965

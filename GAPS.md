@@ -1,5 +1,75 @@
 # GAPS.md — honesty ledger
 
+## 2026-09-16 rank-1 recovery build: what the old epochs actually say — G152–G159
+
+Baseline epoch 335: 7/36 rank 1 (rank-audit in
+`track1-miner/docs/evidence/rank1-build-2026-09-16/analysis/`). Codex's plan items 1–3 were
+committed as 2f45138 (G157); nine build lanes were started from d26a937 for the rest. Nothing
+below is deployed unless a later entry says so.
+
+- **G152 — Competitors' `failure_reason` fields leak the hidden test inputs for more intents than
+  G144 listed, and the inputs repeat across epochs.** Pulled unfiltered `/scores` pages for all 36
+  intents, epochs 326–335 (`competitor-failure-reasons-326-335.json`, 1,011 rows). RESEARCH_QUERY
+  rotates two templates: "most recent research findings on CRISPR-Cas9 efficacy for {Huntington's,
+  Duchenne} in human clinical trials" (e331, e333–e335) and "current recommendations for managing
+  type 2 diabetes with {CKD, cardiovascular disease}" (e330, e332). CONTENT_EXTRACTION: an email
+  header (e330), a laptop price (e331), recipe quantities (e332), a contact line (e333), a book
+  title/author (e334). FRAUD_DETECTION: "evaluate the likelihood of fraud in the described…" (e330),
+  a stolen-vehicle claim (e331), a lost-phone caller verifying identity (e332), a CEO-impersonation
+  email (e334), "the credit account activity described below is f…" (e335). ONCHAIN_TX_LOOKUP: two
+  Ethereum hashes, **both in block 25,700,000**, and the same hash reused in e332 and e333. Weather
+  places: Sydney (e334 forecast), London (e335 forecast), Paris (e334 check), Reykjavik (e335 check),
+  the Outer Banks (e334 storm). TOKEN_HOLDER_COUNT: ARB on Arbitrum One dated 2026-09-14 (e331).
+  CURRENCY_EXCHANGE: CAD (e333–e334), EUR (e334), GBP (e335), and a competitor's historical-date
+  endpoint 404'd at e334. The node truncates the strings, so no full question is recoverable.
+- **G153 — ONCHAIN_TX_LOOKUP: the cliff is the extra numbers, and this time the bench is valid.**
+  txlens and veyctum both cross at 0.995–0.997 live every epoch; their live answers for the two
+  leaked hashes score 0.997 against each other under champion reg642, which is the validation G114
+  demanded. Against both references our production `reason` scores **0.014** (our live band for 13
+  epochs is 0.006–0.012). The same facts with the gas / total fee / gas-price sentence removed, the
+  block number written plainly and the called method named ("…and called bridgeERC20To") score
+  **0.9965 and 0.997**. Keeping the fee sentence keeps the veyctum reference at 0.014. Full matrix:
+  `analysis/onchain/bench-shapes.txt`. Lane A implements it; the method name needs a keyless
+  selector lookup, and the fallback wording is the one txlens used before it had names (G115).
+- **G154 — TELEGRAPH_KNOWLEDGE and RESEARCH_QUERY leaders cross by matching an LLM's typical
+  wording, not by being right — deliberately not chased.** chainsight-oracle's TELEGRAPH answer
+  (scored 1.0 live at e335) says the protocol uses "leader election" and scores miners on "uptime,
+  response time, accuracy, throughput", none of which is true. A second chainsight call and a
+  40-word paraphrase carrying the same wrong terms score **1.0** under tk_reg2104; two accurate
+  prose answers, short and long, score **1e-11**, the same band as our production answer
+  (`analysis/champion-breakdowns.txt`). RESEARCH_QUERY: chainsight's hedge ("the provided search
+  findings do not include…", 0.998 live) is matched at 0.9945 by its own second call, while our
+  citation answer and a factual 90-word summary score 0.012. The reference these scorers reward is
+  LLM-consensus text; a keyless, non-generative miner cannot produce it, and the operator's two rules
+  stand. Lane H keeps the research domain-safety fix as a correctness change only.
+- **G155 — Who wins an epoch tells you what the question was.** e335 GAME_RESULT and SPORTS_SCORE
+  were won by thin wrappers on statsapi.mlb.com (0.75); NEWS_HEADLINES by a Spaceflight News API
+  wrapper; ACADEMIC_SEARCH by a DOAJ wrapper (0.39–0.71 since e332, against our 0.01);
+  IP_GEOLOCATION by an ipinfo wrapper. One operator (omni-chat.13.237.89.59.sslip.io) registers one
+  public API per miner, so a win by one of them names the API that answers that epoch's question.
+  Lane B covers MLB. Open-access journal articles (DOAJ) are not served by us — open.
+- **G156 — Zeros with and without a reason.** STOCK_PRICE e335 is a scored zero with no
+  `failure_reason` (cause unknown). URL_SCAN e335 is a node request-builder timeout (Codex's report).
+  FRAUD e334, ONCHAIN e334, WEATHER_CHECK e329/e334, TVL e325, WALLET e327, SPORTS e323 and
+  WEB_SEARCH e331 zeros all carry node-side reasons — read them first (G145).
+- **G157 — Codex's uncommitted work was verified and committed as 2f45138.** IPv6 whole-token
+  validation (`::1`, `::`, bracketed, IPv4-mapped); headline count words and publication windows
+  with dedupe and honest shortfalls; fixture parsing bounded at 200/400 characters with a World Cup
+  path and penalty shootouts. 622/622 unit tests. **Not on any deployment.** The SPORTS_SCORE
+  sentence "most recent score rather than a live one" became "This is the final score of that
+  fixture." — an unmeasured answer-shape change on an intent we do not currently win.
+- **G158 — Ties at 1.0 are decided by something other than score.** WALLET e323: rank 6 at 1.000
+  while the leader had 1.000; e334: rank 3 at 1.000 behind txlens at 1.000. CRYPTO_PRICE e331: rank 2
+  at 1.000 behind kriterion at 1.000. The tie-break (scored_at order, latency, registration id, or
+  something else) is unknown and matters for every intent we now cross.
+- **G159 — Fourteen intents rank inside a near-zero band where every miner is far from the truth.**
+  SSL (0.007–0.011), LANGUAGE_TRANSLATION (1e-10), NEWS_HEADLINES (1e-3), AI_TEXT (1e-10),
+  TOKEN_HOLDER (1e-12), GAS (1e-11), CVE (1e-11), SPORTS (1e-12), CONTENT_VERIFICATION (1e-12),
+  WEATHER_FORECAST (5e-4), WEATHER_CHECK (0.015), FINANCIAL (1e-18…1e-27), CURRENCY (1e-7),
+  STOCK (1e-13). Our rank there moves between 1 and 4 across epochs with no change on our side
+  (SSL: r1, r3, r2, r1, r3, r1, r4, r1 from e326). A first place in that band is not evidence of a
+  better answer and a loss there is not evidence of a defect; only a cliff crossing (0.99+) is.
+
 ## 2026-09-15 second release: node test cases, web search, fundamentals, fact-check 429 — G144–G151
 
 Production `miner-6xcnxjuz8`, promoted ~12:18 UTC 2026-09-15 (17:48 IST). The next scoring

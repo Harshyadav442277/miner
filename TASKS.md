@@ -1,5 +1,35 @@
 # TASKS.md — execution board
 
+## Current mission — 2026-09-16: more rank-1 positions from what the old epochs show
+
+Baseline epoch 335: 7/36 rank 1. Analysis and evidence: G152–G159,
+[HISTORICAL_RANK_RECOVERY_2026-09-16.md](track1-miner/docs/HISTORICAL_RANK_RECOVERY_2026-09-16.md)
+(findings section), `track1-miner/docs/evidence/rank1-build-2026-09-16/`.
+
+- [x] Verify and commit Codex's interrupted work (IPv6 tokens, headline windows, fixture parsing,
+      penalty shootouts): 622/622 unit tests, commit 2f45138; reports committed as d26a937 (G157).
+- [x] Pull epochs 326–335 for all 36 intents with every competitor's `failure_reason`; extract the
+      leaked test inputs and the per-intent winners (G152, G155).
+- [x] ONCHAIN_TX_LOOKUP shape bench with a reference two crossing miners validate: production 0.014,
+      clean shape 0.9965/0.997 (G153).
+- [x] Establish that TELEGRAPH_KNOWLEDGE and RESEARCH_QUERY leaders cross on LLM wording, not facts,
+      and stop chasing them (G154).
+- [ ] Lane A (Opus): ONCHAIN clean shape + keyless method-name lookup, bench ≥0.99 on both hashes.
+- [ ] Lane B (Sonnet): MLB and nickname coverage for GAME_RESULT/SPORTS_SCORE, live probes.
+- [ ] Lane C (Sonnet): CURRENCY historical date honored; champion sensitivity table (report only).
+- [ ] Lane D (Opus): FRAUD card-activity and account-recovery scenarios; benign negation.
+- [ ] Lane E (Opus): TEXT_CLASSIFICATION label-list parsing, multi-label, negation.
+- [ ] Lane F (Sonnet): SENTIMENT composition and verdict/explanation consistency.
+- [ ] Lane G (Opus): FACT_CHECK subject resolution and predicate evidence.
+- [ ] Lane H (Sonnet): RESEARCH/SYNTHESIS domain routing (no medical trial for Raft).
+- [ ] Lane L (Opus): URL_SCAN shape bench against the three crossing miners; implement only if valid.
+- [ ] Integrate the lanes onto `codex/rank1-14-intents`, full unit suite, preview deploy, preflight
+      7/7 and intent-answers 36/36 on the preview, then the probe set from every lane on the preview.
+- [ ] **Operator yes: promote to production** (`npx vercel promote <preview> --scope wukong4`), then
+      preflight 7/7 against production. Rollback target `miner-6xcnxjuz8`.
+- [ ] Read epoch 336 (~04:50 UTC 2026-09-16) — the last epoch on the 2026-09-15 build — and the
+      first complete epoch after the promote. Claim nothing before the rows exist.
+
 ## Current mission — 2026-09-15: act on the Codex rank-loss report
 
 - [x] Fix report defects F1 extraction, F2 classify, F3 sarcasm, F4 leaderboard, F6 papers,
