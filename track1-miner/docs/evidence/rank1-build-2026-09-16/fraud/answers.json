@@ -1,0 +1,174 @@
+{
+  "codex fraud-card": {
+    "input": "Assess this credit account activity: ten purchases in five minutes from two countries, followed by a request to increase the credit limit.",
+    "verdict": "high_risk",
+    "confidence": 0.85,
+    "subject": "card compromise (anomalous credit-account activity)",
+    "error": null,
+    "reason": "High fraud risk: this is a likely card compromise (anomalous credit-account activity). Red flags: ten purchases in five minutes, a transaction velocity a single cardholder does not produce; the activity spans two countries, which one physical card cannot do in a single session; and a credit-limit increase is requested straight after the spending, which is how a compromised line is drained. Confirm the transactions with the cardholder on the number already on file, and read the authorisation log for card-present, device and IP. This is pattern recognition on the description, not a transaction-graph or account-data assessment.",
+    "flags": [
+      "ten purchases in five minutes, a transaction velocity a single cardholder does not produce",
+      "the activity spans two countries, which one physical card cannot do in a single session",
+      "a credit-limit increase is requested straight after the spending, which is how a compromised line is drained"
+    ],
+    "clears": []
+  },
+  "codex fraud-benign-negation": {
+    "input": "Assess this invoice: the invoice uses our verified vendor bank account, no bank details changed, and our finance team confirmed the payment by phone.",
+    "verdict": "low_risk",
+    "confidence": 0.6,
+    "subject": "vendor payment diversion (invoice fraud)",
+    "error": null,
+    "reason": "Low fraud risk: no red flag is stated, and the description states the controls that defeat vendor payment diversion (invoice fraud) as already carried out: the bank account is the vendor's verified one already on file; no bank details were changed; and the payment was confirmed out of band, by phone. Call the vendor on the number from the contract rather than one printed on the invoice, and check the account against the vendor master file. This is pattern recognition on the description, not a transaction-graph or account-data assessment.",
+    "flags": [],
+    "clears": [
+      "the bank account is the vendor's verified one already on file",
+      "no bank details were changed",
+      "the payment was confirmed out of band, by phone"
+    ]
+  },
+  "e330 leaked": {
+    "input": "Evaluate the likelihood of fraud in the describe",
+    "verdict": "unknown",
+    "confidence": 0.3,
+    "subject": "unclassified fraud question",
+    "error": null,
+    "reason": "Unknown fraud risk: insufficient information. The question asks for a fraud assessment, but no scenario, account activity, message, address or claim was described with it that could be assessed. Supply the description — the transactions and their times and places, the message and its sender, or the claim and its dates — and the specific indicators in it can be named. This is pattern recognition on the description, not a transaction-graph or account-data assessment.",
+    "flags": [],
+    "clears": []
+  },
+  "e331 leaked": {
+    "input": "Insurance claim for a stolen vehicle.",
+    "verdict": "unknown",
+    "confidence": 0.4,
+    "subject": "insurance claim fraud",
+    "error": null,
+    "reason": "Unknown fraud risk: insufficient information. An insurance claim for a stolen vehicle needs verification of the police report, the policy start date, the keys and the claim history. This is pattern recognition on the description, not a transaction-graph or account-data assessment.",
+    "flags": [],
+    "clears": []
+  },
+  "e332 leaked": {
+    "input": "A cardholder calls their bank from a new phone number to report a lost phone, verifies their identity with",
+    "verdict": "elevated_risk",
+    "confidence": 0.65,
+    "subject": "account takeover (SIM swap or social engineering)",
+    "error": null,
+    "reason": "Elevated fraud risk: this shows signs of account takeover (SIM swap or social engineering). Red flags: the contact comes from a new phone number or device; and a lost or replaced phone is given as the reason. Verify through the phone number already on file and hold contact-detail changes until confirmed. This is pattern recognition on the description, not a transaction-graph or account-data assessment.",
+    "flags": [
+      "the contact comes from a new phone number or device",
+      "a lost or replaced phone is given as the reason"
+    ],
+    "clears": []
+  },
+  "e334 leaked": {
+    "input": "An accounts-payable employee receives an email that appears to be from the company's CEO, sent from '",
+    "verdict": "elevated_risk",
+    "confidence": 0.65,
+    "subject": "business email compromise (CEO fraud)",
+    "error": null,
+    "reason": "Elevated fraud risk: this shows signs of business email compromise (CEO fraud). Red flag: the sender only appears to be the executive, from an address that is not the company's. Confirm the request with the executive on a known phone number before any payment. This is pattern recognition on the description, not a transaction-graph or account-data assessment.",
+    "flags": [
+      "the sender only appears to be the executive, from an address that is not the company's"
+    ],
+    "clears": []
+  },
+  "e335 leaked": {
+    "input": "The credit account activity described below is f",
+    "verdict": "unknown",
+    "confidence": 0.4,
+    "subject": "card compromise (anomalous credit-account activity)",
+    "error": null,
+    "reason": "Unknown fraud risk: insufficient information. No indicator of card compromise (anomalous credit-account activity) is stated in the credit-account activity as described, so the risk cannot be graded either way; deciding it needs confirmation of the transactions with the cardholder on the number already on file, and the authorisation log's card-present, device and IP fields. This is pattern recognition on the description, not a transaction-graph or account-data assessment.",
+    "flags": [],
+    "clears": []
+  },
+  "BEC full": {
+    "input": "An accounts-payable employee receives an email that appears to be from the company's CEO, sent from 'ceo@acme-c0rp.com', urgently requesting a wire transfer of $48,000 to a new vendor account and asking them not to discuss it.",
+    "verdict": "high_risk",
+    "confidence": 0.85,
+    "subject": "business email compromise (CEO fraud)",
+    "error": null,
+    "reason": "High fraud risk: this is a likely business email compromise (CEO fraud). Red flags: the sender only appears to be the executive, from an address that is not the company's; the payment is urgent; it asks for a payment or wire transfer; and the money goes to a new or changed bank account. Confirm the request with the executive on a known phone number before any payment. This is pattern recognition on the description, not a transaction-graph or account-data assessment.",
+    "flags": [
+      "the sender only appears to be the executive, from an address that is not the company's",
+      "the payment is urgent",
+      "it asks for a payment or wire transfer",
+      "the money goes to a new or changed bank account"
+    ],
+    "clears": []
+  },
+  "ATO full": {
+    "input": "A cardholder calls their bank from a new phone number to report a lost phone, verifies their identity with only their date of birth, and asks to change the email and phone number on the account.",
+    "verdict": "high_risk",
+    "confidence": 0.85,
+    "subject": "account takeover (SIM swap or social engineering)",
+    "error": null,
+    "reason": "High fraud risk: this is a likely account takeover (SIM swap or social engineering). Red flags: the contact comes from a new phone number or device; a lost or replaced phone is given as the reason; identity is verified only with easily obtained details; and the first request is to change the account's contact details or credentials. Verify through the phone number already on file and hold contact-detail changes until confirmed. This is pattern recognition on the description, not a transaction-graph or account-data assessment.",
+    "flags": [
+      "the contact comes from a new phone number or device",
+      "a lost or replaced phone is given as the reason",
+      "identity is verified only with easily obtained details",
+      "the first request is to change the account's contact details or credentials"
+    ],
+    "clears": []
+  },
+  "chargeback full": {
+    "input": "A cardholder who booked and paid for a hotel in Paris stayed three nights, then disputed the charge as unauthorized two weeks later.",
+    "verdict": "high_risk",
+    "confidence": 0.85,
+    "subject": "chargeback (friendly) fraud",
+    "error": null,
+    "reason": "High fraud risk: this is a likely chargeback (friendly) fraud. Red flags: the goods or service were received or used; the charge is disputed as unauthorised; and the dispute comes after the service was delivered. Compare the booking's device, email and check-in records with the cardholder's details before refunding. This is pattern recognition on the description, not a transaction-graph or account-data assessment.",
+    "flags": [
+      "the goods or service were received or used",
+      "the charge is disputed as unauthorised",
+      "the dispute comes after the service was delivered"
+    ],
+    "clears": []
+  },
+  "card benign": {
+    "input": "Assess this credit account activity: three card-present purchases in the cardholder's home city over two days, all chip and pin, consistent with the usual spending pattern, and the cardholder has confirmed them.",
+    "verdict": "low_risk",
+    "confidence": 0.6,
+    "subject": "card compromise (anomalous credit-account activity)",
+    "error": null,
+    "reason": "Low fraud risk: no red flag is stated, and the description states the controls that defeat card compromise (anomalous credit-account activity) as already carried out: every transaction was card-present, read at the terminal; the cardholder has confirmed the purchases; the purchases stay in the cardholder's usual location; and the spending matches the account's established pattern. Confirm the transactions with the cardholder on the number already on file, and read the authorisation log for card-present, device and IP. This is pattern recognition on the description, not a transaction-graph or account-data assessment.",
+    "flags": [],
+    "clears": [
+      "every transaction was card-present, read at the terminal",
+      "the cardholder has confirmed the purchases",
+      "the purchases stay in the cardholder's usual location",
+      "the spending matches the account's established pattern"
+    ]
+  },
+  "recovery benign": {
+    "input": "A cardholder calls their bank about a statement query; the bank called back on the number already on file, the caller passed the full security questions, and no contact details were changed.",
+    "verdict": "low_risk",
+    "confidence": 0.6,
+    "subject": "account takeover (SIM swap or social engineering)",
+    "error": null,
+    "reason": "Low fraud risk: no red flag is stated, and the description states the controls that defeat account takeover (SIM swap or social engineering) as already carried out: the bank called back on the number already on file; the caller passed the full identity checks, not only the easily obtained details; and no contact detail was changed and no money was requested. Verify through the phone number already on file and hold contact-detail changes until confirmed. This is pattern recognition on the description, not a transaction-graph or account-data assessment.",
+    "flags": [],
+    "clears": [
+      "the bank called back on the number already on file",
+      "the caller passed the full identity checks, not only the easily obtained details",
+      "no contact detail was changed and no money was requested"
+    ]
+  },
+  "recovery positive": {
+    "input": "A caller says their phone was lost and asks the bank to change the registered email and add a new payee urgently, and refuses a callback to the number on file.",
+    "verdict": "high_risk",
+    "confidence": 0.85,
+    "subject": "account takeover (SIM swap or social engineering)",
+    "error": null,
+    "reason": "High fraud risk: this is a likely account takeover (SIM swap or social engineering). Red flags: a lost or replaced phone is given as the reason; the first request is to change the account's contact details or credentials; it moves quickly to money or a new card; the caller presses for it to be done immediately; and the caller will not accept the standard callback or branch check. Verify through the phone number already on file and hold contact-detail changes until confirmed. This is pattern recognition on the description, not a transaction-graph or account-data assessment.",
+    "flags": [
+      "a lost or replaced phone is given as the reason",
+      "the first request is to change the account's contact details or credentials",
+      "it moves quickly to money or a new card",
+      "the caller presses for it to be done immediately",
+      "the caller will not accept the standard callback or branch check"
+    ],
+    "clears": []
+  }
+}

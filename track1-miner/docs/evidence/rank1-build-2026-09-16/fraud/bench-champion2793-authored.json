@@ -1,0 +1,188 @@
+{
+  "disclaimer": "DEVELOPMENT EVIDENCE ONLY. Ground truths are AUTHORED for this bench, not the node's. No validated crossing reference exists for FRAUD_DETECTION: chainsight's endpoint takes addresses, not scenarios. The champion returns 0 or 1 and the answer it rewards moves with the truth's wording, so each row is the mean over three authored truths. These numbers justify a wording choice; they do not predict a rank.",
+  "scorer": {
+    "label": "fraud_detection_reg2793",
+    "sha256": "c10bbf8123383eb9cdb08173eb9461614d75dca93846dd9fd56b7ddda73109e8",
+    "sizeBytes": 23988681,
+    "registrationId": 2793,
+    "wasmUrl": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/a22b4919f6f2dc1102cd51e0be710a2c0aec1660/dist/reclaim5/fr_r3e6.wasm",
+    "registryWasmHash": "ee0bf4e8a5730473cb66e90282e19d25cb7bc303e1474567282304498c5021f9",
+    "note": "UNRESOLVED: the registry's wasm_hash does not equal the sha256 of the bytes served at its own wasm_url. The bytes compile and expose the Telegraph ABI, so the bench ran on them, but the discrepancy is not explained."
+  },
+  "generatedAt": "2026-09-16T04:27:06.720Z",
+  "beforeRevision": "d26a937",
+  "mean": {
+    "before": 0.3333333333333854,
+    "after": 0.8095238095238307
+  },
+  "rows": [
+    {
+      "id": "probe-fraud-card",
+      "question": "Assess this credit account activity: ten purchases in five minutes from two countries, followed by a request to increase the credit limit.",
+      "beforeScores": [
+        4.6587137359638264e-14,
+        3.689645702679989e-14,
+        4.2893999170710156e-14
+      ],
+      "afterScores": [
+        1,
+        1,
+        1
+      ],
+      "before": 4.2125864519049435e-14,
+      "after": 1,
+      "delta": 0.9999999999999579,
+      "beforeAnswer": "No wallet address, transaction hash, domain or affirmative scam-language signal was identified, so fraud risk remains unknown. Supply the address, the link, or the message itself and it can be checked against sanctions listings, threat-intelligence feeds and known scam patterns.",
+      "afterAnswer": "High fraud risk: this is a likely card compromise (anomalous credit-account activity). Red flags: ten purchases in five minutes, a transaction velocity a single cardholder does not produce; the activity spans two countries, which one physical card cannot do in a single session; and a credit-limit increase is requested straight after the spending, which is how a compromised line is drained. Confirm the transactions with the cardholder on the number already on file, and read the authorisation log for card-present, device and IP. This is pattern recognition on the description, not a transaction-graph or account-data assessment.",
+      "authoredTruths": [
+        "High fraud risk. Ten purchases in five minutes from two countries is a card-testing burst with impossible travel, and the immediate credit-limit increase request is an attempt to enlarge the line before the card is blocked. Block the card, confirm the transactions with the cardholder on the number already on file, and read the authorisation log for card-present, device and IP.",
+        "This is highly likely to be fraud. The velocity — ten purchases in five minutes — and the two countries are inconsistent with one physical card, and asking to raise the credit limit straight afterwards is the pattern of a compromised account being drained. Freeze the card and contact the cardholder on a known number.",
+        "High risk of card compromise. Indicators: transaction velocity, geographic impossibility, and a credit-limit increase request immediately after. Verify with the cardholder before approving anything further."
+      ]
+    },
+    {
+      "id": "probe-fraud-benign-negation",
+      "question": "Assess this invoice: the invoice uses our verified vendor bank account, no bank details changed, and our finance team confirmed the payment by phone.",
+      "beforeScores": [
+        7.456817959329912e-14,
+        9.886463528266734e-14,
+        8.153666544025162e-14
+      ],
+      "afterScores": [
+        1,
+        1,
+        1
+      ],
+      "before": 8.498982677207269e-14,
+      "after": 1,
+      "delta": 0.999999999999915,
+      "beforeAnswer": "Unknown fraud risk: insufficient information. A possible account takeover (SIM swap or social engineering) needs verify through the phone number already on file and hold contact-detail changes until confirmed.",
+      "afterAnswer": "Low fraud risk: no red flag is stated, and the description states the controls that defeat vendor payment diversion (invoice fraud) as already carried out: the bank account is the vendor's verified one already on file; no bank details were changed; and the payment was confirmed out of band, by phone. Call the vendor on the number from the contract rather than one printed on the invoice, and check the account against the vendor master file. This is pattern recognition on the description, not a transaction-graph or account-data assessment.",
+      "authoredTruths": [
+        "Low fraud risk. The payment goes to the vendor's verified bank account, no bank details were changed, and the payment was confirmed with the vendor out of band by phone. Those are the controls that defeat invoice redirection and payment diversion; nothing beyond the usual three-way match against the purchase order is indicated.",
+        "This shows a low likelihood of fraud. Every control that catches invoice fraud is stated as already done: a verified payee account, unchanged bank details, and an out-of-band phone confirmation. No red flag is present.",
+        "Low risk. The described invoice states no fraud indicator and names three controls — verified vendor account, no change of bank details, telephone confirmation. Proceed with the normal approval path."
+      ]
+    },
+    {
+      "id": "e330-wrapper-truncated",
+      "question": "Evaluate the likelihood of fraud in the describe",
+      "beforeScores": [
+        1.0057249087355724e-13,
+        7.045036618967201e-14,
+        7.175334680803794e-14
+      ],
+      "afterScores": [
+        1,
+        1,
+        1.005108065462064e-13
+      ],
+      "before": 8.09254012904224e-14,
+      "after": 0.6666666666667002,
+      "delta": 0.6666666666666192,
+      "beforeAnswer": "No wallet address, transaction hash, domain or affirmative scam-language signal was identified, so fraud risk remains unknown. Supply the address, the link, or the message itself and it can be checked against sanctions listings, threat-intelligence feeds and known scam patterns.",
+      "afterAnswer": "Unknown fraud risk: insufficient information. The question asks for a fraud assessment, but no scenario, account activity, message, address or claim was described with it that could be assessed. Supply the description — the transactions and their times and places, the message and its sender, or the claim and its dates — and the specific indicators in it can be named. This is pattern recognition on the description, not a transaction-graph or account-data assessment.",
+      "authoredTruths": [
+        "The likelihood of fraud cannot be evaluated: the scenario the question refers to was not supplied. Supply the description — the transactions with their times and places, the message and its sender, or the claim and its dates — and the indicators in it can be assessed.",
+        "Insufficient information. The question asks for a fraud assessment but no scenario was included, so no likelihood can be given either way.",
+        "Unknown. No described scenario, account activity, message or claim accompanied this request, so there is nothing to assess."
+      ]
+    },
+    {
+      "id": "e331-insurance",
+      "question": "Insurance claim for a stolen vehicle.",
+      "beforeScores": [
+        1,
+        9.396955734158538e-14,
+        1
+      ],
+      "afterScores": [
+        1.0930870060011158e-13,
+        1,
+        1
+      ],
+      "before": 0.666666666666698,
+      "after": 0.666666666666703,
+      "delta": 4.9960036108132044e-15,
+      "beforeAnswer": "Unknown fraud risk: insufficient information. An insurance claim for a stolen vehicle needs verification of the police report, the policy start date, the keys and the claim history.",
+      "afterAnswer": "Unknown fraud risk: insufficient information. An insurance claim for a stolen vehicle needs verification of the police report, the policy start date, the keys and the claim history. This is pattern recognition on the description, not a transaction-graph or account-data assessment.",
+      "authoredTruths": [
+        "Fraud risk is unknown from this description alone. A stolen-vehicle claim is routine in itself; deciding it needs the police report, the policy start date, whether all the keys are accounted for and the claimant's prior claims history.",
+        "Fraud cannot be determined from this description alone. Verify the police report, the policy inception date, the keys and the claim history.",
+        "Insufficient information to assess fraud. A stolen-vehicle insurance claim requires verification of the police report, policy start date, key custody and prior claims before any risk level can be assigned."
+      ]
+    },
+    {
+      "id": "e332-account-recovery",
+      "question": "A cardholder calls their bank from a new phone number to report a lost phone, verifies their identity with",
+      "beforeScores": [
+        1,
+        1,
+        1
+      ],
+      "afterScores": [
+        1,
+        1,
+        1
+      ],
+      "before": 1,
+      "after": 1,
+      "delta": 0,
+      "beforeAnswer": "Elevated fraud risk: this shows signs of account takeover (SIM swap or social engineering). Red flag: the contact comes from a new phone number or device; and a lost or replaced phone is given as the reason. Verify through the phone number already on file and hold contact-detail changes until confirmed.",
+      "afterAnswer": "Elevated fraud risk: this shows signs of account takeover (SIM swap or social engineering). Red flags: the contact comes from a new phone number or device; and a lost or replaced phone is given as the reason. Verify through the phone number already on file and hold contact-detail changes until confirmed. This is pattern recognition on the description, not a transaction-graph or account-data assessment.",
+      "authoredTruths": [
+        "High fraud risk. A call from a new number reporting a lost phone, with identity verified only by easily obtained details, is the standard account-takeover and SIM-swap approach. Verify on the number already on file and hold any contact-detail change until it is confirmed.",
+        "This is a likely account takeover. The contact comes from a new phone number and a lost phone is the reason given, which is how a SIM swap is set up. Call back on the number already on file before changing anything.",
+        "Elevated to high risk of social-engineering account takeover. Red flags: new phone number, lost-phone pretext, weak identity verification. Use the registered number for verification."
+      ]
+    },
+    {
+      "id": "e334-bec",
+      "question": "An accounts-payable employee receives an email that appears to be from the company's CEO, sent from '",
+      "beforeScores": [
+        1.1695985434496958e-13,
+        1,
+        1
+      ],
+      "afterScores": [
+        1.2107582460490346e-13,
+        1,
+        1
+      ],
+      "before": 0.6666666666667057,
+      "after": 0.6666666666667069,
+      "delta": 1.2212453270876722e-15,
+      "beforeAnswer": "Elevated fraud risk: this shows signs of business email compromise (CEO fraud). Red flag: the sender only appears to be the executive, from an address that is not the company's. Confirm the request with the executive on a known phone number before any payment.",
+      "afterAnswer": "Elevated fraud risk: this shows signs of business email compromise (CEO fraud). Red flag: the sender only appears to be the executive, from an address that is not the company's. Confirm the request with the executive on a known phone number before any payment. This is pattern recognition on the description, not a transaction-graph or account-data assessment.",
+      "authoredTruths": [
+        "High fraud risk. An email that only appears to be from the CEO, sent from a look-alike address, is business email compromise. Confirm the request with the executive on a known phone number before any payment, and check the payee against the vendor master file.",
+        "This is business email compromise. The sender only appears to be the CEO; the address is not the company's. Do not act on it — confirm with the executive on a known number.",
+        "Likely CEO fraud. The red flag is the spoofed or look-alike sender address on a request reaching accounts payable. Verify out of band before any payment."
+      ]
+    },
+    {
+      "id": "e335-card-activity",
+      "question": "The credit account activity described below is f",
+      "beforeScores": [
+        6.716541656615754e-14,
+        9.11824259218312e-14,
+        9.821427660950191e-14
+      ],
+      "afterScores": [
+        1,
+        1,
+        1.142867132311251e-13
+      ],
+      "before": 8.552070636583022e-14,
+      "after": 0.6666666666667047,
+      "delta": 0.6666666666666192,
+      "beforeAnswer": "No wallet address, transaction hash, domain or affirmative scam-language signal was identified, so fraud risk remains unknown. Supply the address, the link, or the message itself and it can be checked against sanctions listings, threat-intelligence feeds and known scam patterns.",
+      "afterAnswer": "Unknown fraud risk: insufficient information. No indicator of card compromise (anomalous credit-account activity) is stated in the credit-account activity as described, so the risk cannot be graded either way; deciding it needs confirmation of the transactions with the cardholder on the number already on file, and the authorisation log's card-present, device and IP fields. This is pattern recognition on the description, not a transaction-graph or account-data assessment.",
+      "authoredTruths": [
+        "Fraud risk cannot be graded: the credit-account activity the question refers to was not supplied. Deciding it needs the transactions with their times, amounts and locations, the card-present flag, and confirmation from the cardholder on the number already on file.",
+        "Insufficient information. No credit-account activity accompanied the question, so no fraud indicator can be named and no risk level assigned.",
+        "Unknown fraud risk. The described activity is missing; supply the transactions with their times, amounts and locations before an assessment can be made."
+      ]
+    }
+  ]
+}

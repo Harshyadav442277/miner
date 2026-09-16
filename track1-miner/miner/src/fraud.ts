@@ -57,7 +57,13 @@ const DNS_SECURE = "https://security.cloudflare-dns.com/dns-query";
 const DNS_OPEN = "https://cloudflare-dns.com/dns-query";
 const RPC = "https://ethereum-rpc.publicnode.com";
 
-export type FraudVerdict = "high_risk" | "elevated_risk" | "no_indicators" | "unknown";
+/**
+ * `low_risk` comes only from a described scenario that states the controls
+ * defeating its own typology (fraudscenario.ts). The address and domain paths
+ * below never produce it: not finding dirt is `no_indicators`, a different
+ * claim that keeps a different word.
+ */
+export type FraudVerdict = "high_risk" | "elevated_risk" | "low_risk" | "no_indicators" | "unknown";
 
 export interface FraudResult {
   subject: string | null;
