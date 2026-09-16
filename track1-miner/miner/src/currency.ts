@@ -43,6 +43,11 @@
 const TIMEOUT_MS = Number(process.env.CURRENCY_TIMEOUT_MS ?? 5_000);
 const ECB_DAILY = "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml";
 const MARKET = "https://open.er-api.com/v6/latest/";
+// v2, ECB-only (providers=ecb): v1 is nested-JSON, ECB-only too, but deprecated
+// per https://frankfurter.dev/llms.txt (checked 2026-09-16). v2's default blends
+// several providers into one number, which is not the reference rate this file
+// is built around, so the provider is pinned rather than left to the default.
+const FRANKFURTER = "https://api.frankfurter.dev/v2/rates";
 const UA = "livecert-miner/1.0 (+https://miner-wine.vercel.app)";
 
 export type RateKind = "ecb_reference" | "market";
@@ -188,6 +193,72 @@ export function parseQuery(text: string): { from: string | null; to: string | nu
   return { from, to, amount };
 }
 
+const MONTH_NAMES: Record<string, number> = {
+  jan: 1, january: 1, feb: 2, february: 2, mar: 3, march: 3, apr: 4, april: 4,
+  may: 5, jun: 6, june: 6, jul: 7, july: 7, aug: 8, august: 8,
+  sep: 9, sept: 9, september: 9, oct: 10, october: 10, nov: 11, november: 11, dec: 12, december: 12,
+};
+const MONTH_RE = Object.keys(MONTH_NAMES).sort((a, b) => b.length - a.length).join("|");
+// "using the reference rate on …", "as of …", "rate for …", "… dated …": a
+// date is only ever read when one of these introduces it, so a bare number
+// elsewhere in the question — the amount, a stray year — is never mistaken
+// for a reference date.
+const DATE_TRIGGER = String.raw`(?:on|as\s+of|as\s+at|for|dated)`;
+
+const pad2 = (n: number): string => String(n).padStart(2, "0");
+
+/** Rejects calendar impossibilities (2024-02-30) that the regexes alone would accept. */
+function isValidYmd(y: number, m: number, d: number): boolean {
+  if (m < 1 || m > 12 || d < 1 || d > 31) return false;
+  const dt = new Date(Date.UTC(y, m - 1, d));
+  return dt.getUTCFullYear() === y && dt.getUTCMonth() === m - 1 && dt.getUTCDate() === d;
+}
+
+/**
+ * An explicit reference date named in the question — "on 2024-01-02", "as of 2
+ * January 2024", "rate for 2024-01-02", "using the reference rate on …" — or
+ * null when none is named. Returns YYYY-MM-DD.
+ *
+ * Deliberately narrow: only a date introduced by DATE_TRIGGER is read, and
+ * only formats actually seen in questions are matched. No relative dates
+ * ("yesterday", "a week ago") — the task that added this asked for explicit
+ * dates only, and a relative date would need a notion of "now" the scorer
+ * does not share.
+ */
+export function parseDate(text: string): string | null {
+  const q = String(text ?? "");
+
+  const iso = q.match(new RegExp(`\\b${DATE_TRIGGER}\\s+(\\d{4})-(\\d{2})-(\\d{2})\\b`, "i"));
+  if (iso) {
+    const y = Number(iso[1]);
+    const m = Number(iso[2]);
+    const d = Number(iso[3]);
+    if (isValidYmd(y, m, d)) return `${y}-${pad2(m)}-${pad2(d)}`;
+  }
+
+  const dmy = q.match(
+    new RegExp(`\\b${DATE_TRIGGER}\\s+(\\d{1,2})(?:st|nd|rd|th)?\\s+(${MONTH_RE})\\.?\\s+(\\d{4})\\b`, "i"),
+  );
+  if (dmy) {
+    const d = Number(dmy[1]);
+    const m = MONTH_NAMES[(dmy[2] ?? "").toLowerCase()];
+    const y = Number(dmy[3]);
+    if (m && isValidYmd(y, m, d)) return `${y}-${pad2(m)}-${pad2(d)}`;
+  }
+
+  const mdy = q.match(
+    new RegExp(`\\b${DATE_TRIGGER}\\s+(${MONTH_RE})\\.?\\s+(\\d{1,2})(?:st|nd|rd|th)?,?\\s+(\\d{4})\\b`, "i"),
+  );
+  if (mdy) {
+    const m = MONTH_NAMES[(mdy[1] ?? "").toLowerCase()];
+    const d = Number(mdy[2]);
+    const y = Number(mdy[3]);
+    if (m && isValidYmd(y, m, d)) return `${y}-${pad2(m)}-${pad2(d)}`;
+  }
+
+  return null;
+}
+
 interface RateTable { rates: Record<string, number>; date: string; kind: RateKind }
 
 /**
@@ -235,6 +306,39 @@ export async function fetchMarket(base: string): Promise<RateTable | null> {
   }
 }
 
+export interface HistoricalRate { rate: number; date: string }
+
+/**
+ * The ECB reference rate for one pair on one specific day, restricted to the
+ * ECB provider (see the FRANKFURTER comment) so a dated answer is drawn from
+ * the same authority as the undated one.
+ *
+ * Frankfurter backdates a non-trading day (weekend, holiday) to the last
+ * publication and returns THAT date in the response body — never the
+ * requested one — which is why the caller must read `.date` off the result
+ * rather than echo the request back. A date with no data (before the feed's
+ * start, or in the future) comes back `200` with an empty array, not an
+ * error, so an empty result is treated the same as a failure: unavailable.
+ */
+export async function fetchHistorical(date: string, from: string, to: string): Promise<HistoricalRate | null> {
+  try {
+    const url =
+      `${FRANKFURTER}?date=${encodeURIComponent(date)}&base=${encodeURIComponent(from)}` +
+      `&quotes=${encodeURIComponent(to)}&providers=ecb`;
+    const r = await fetch(url, {
+      headers: { "user-agent": UA, accept: "application/json" },
+      signal: AbortSignal.timeout(TIMEOUT_MS),
+    });
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    const j = (await r.json()) as Array<{ date?: string; rate?: number }>;
+    const row = j[0];
+    if (!row?.date || !Number.isFinite(row.rate) || !row.rate) return null;
+    return { rate: row.rate as number, date: row.date };
+  } catch {
+    return null;
+  }
+}
+
 /** Cross-rate from an EUR-based (or any single-base) table. */
 export function crossRate(table: RateTable, from: string, to: string): number | null {
   const a = table.rates[from];
@@ -268,6 +372,7 @@ export async function convert(
   from: string | null,
   to: string | null,
   amount: number | null,
+  date?: string | null,
 ): Promise<CurrencyResult> {
   const base = { from, to, amount, rate: null, converted: null, kind: null, as_of: null } as const;
 
@@ -288,6 +393,53 @@ export async function convert(
         `${from} and ${to} are the same currency, so the rate is exactly 1 and ` +
         `${amount === null ? "any amount converts to itself" : `${money(amount)} ${from} is ${money(amount)} ${to}`}. ` +
         "No exchange takes place.",
+    };
+  }
+
+  /**
+   * An explicit reference date changes the SOURCE, not the parsing above: the
+   * pair, the amount and their order are unaffected. A dated question never
+   * falls through to the undated path below — a failed dated fetch says so
+   * and stops, rather than quietly answering with today's rate under the
+   * date's name, which would be a wrong-period answer with a confident date
+   * stamped on it.
+   */
+  if (date) {
+    const historical = await fetchHistorical(date, from, to);
+    if (!historical) {
+      return {
+        ...base, verdict: "unknown", confidence: 0,
+        reason:
+          `The ${from} to ${to} reference rate for ${date} could not be retrieved: the historical ` +
+          "rate source returned nothing usable for that date. This is unavailable for that date " +
+          "specifically, not a reason to answer with today's rate instead.",
+        error: "historical_unavailable",
+      };
+    }
+
+    const rate = historical.rate;
+    const inverse = 1 / rate;
+    const backdated = historical.date !== date;
+    const provenance =
+      `This is the European Central Bank euro foreign exchange reference rate published for ` +
+      `${historical.date}${backdated ? ` (the last publication on or before the requested ${date}, a non-trading day)` : ""}, ` +
+      "not a live trading quote.";
+
+    if (amount === null) {
+      return {
+        from, to, amount: null, rate, converted: null, kind: "ecb_reference", as_of: historical.date,
+        verdict: "rate", confidence: 0.95,
+        reason: `1 ${from} = ${formatRate(rate)} ${to}, equivalently 1 ${to} = ${formatRate(inverse)} ${from}. ${provenance}`,
+      };
+    }
+
+    const converted = amount * rate;
+    return {
+      from, to, amount, rate, converted, kind: "ecb_reference", as_of: historical.date,
+      verdict: "converted", confidence: 0.95,
+      reason:
+        `${money(amount)} ${from} is ${money(converted)} ${to} at a rate of 1 ${from} = ` +
+        `${formatRate(rate)} ${to}, equivalently 1 ${to} = ${formatRate(inverse)} ${from}. ${provenance}`,
     };
   }
 

@@ -1,0 +1,107 @@
+CURRENCY_EXCHANGE — champion-scorer sensitivity bench, 2026-09-16
+==================================================================
+
+WHAT THIS IS, AND WHAT IT IS NOT.
+
+This is NOT a correctness bench against a known-good crossing reference. There is
+no such reference for CURRENCY_EXCHANGE: nobody crosses (5 of 54 epochs per the
+header of src/currency.ts), the whole field sits near zero, and we cannot see
+scorer ground truths (GAPS G24). This run measures ONE thing only: how the
+CURRENCY_EXCHANGE champion (registration 2945) responds to controlled edits of
+OUR OWN current answer text, against ONE authored reference, for ONE live
+question. It is a relative-sensitivity probe, not a validation that our answer
+is correct, and it must not be read as one.
+
+Per instructions, the live answer SHAPE in src/currency.ts was NOT changed based
+on this table. That is the integrator's decision, not this bench's.
+
+METHOD
+
+  Champion   : track2/harness/champions/currency_exchange_reg2945.wasm
+               downloaded from the wasm_url in
+               https://devnode.telegraphprotocol.com/api/wasm?intent=CURRENCY_EXCHANGE
+               (rank 1, registration_id 2945, activation_status "active", checked
+               2026-09-16). Registry's declared wasm_hash for reg2945:
+               7dc8a68207aef976162c53e56580c2301352168ff615fb2d949b1bcf1d79a8e1
+               — this does NOT match the file's plain SHA-256 below; the registry
+               hash is evidently computed some other way (e.g. keccak256, as used
+               elsewhere on-chain in this project) rather than over the raw bytes.
+               Unverified which; not investigated further, out of scope for this
+               task. The file itself loads cleanly via wasm-abi.mjs (exports
+               present, rank_answer callable, scores land exactly where the
+               existing header comment in src/currency.ts predicts — see below),
+               which is the evidence that it is a usable, correctly-shaped
+               CURRENCY_EXCHANGE scorer even though its own declared hash could
+               not be cross-checked.
+  File SHA-256 (as downloaded): d628cc3e4d4327819241d44e1cb88425d44552a977833c8805409d5879e42d86
+  File size    : 23,990,299 bytes
+  Loader       : track2/harness/wasm-abi.mjs loadScorer(path, "reg2945"), s.score(question, reference, candidate)
+  Question     : "What is the USD to EUR exchange rate?"
+  Reference (authored ground truth, NOT validated against any real ground truth):
+      "The current exchange rate is 1 USD = 0.8523 EUR (European Central Bank
+      reference rate, 15 September 2026)."
+  Candidate base rate : 0.8523 (chosen to exactly match the reference's own
+      figure, so "baseline" below is a deliberate exact match, not luck)
+  Calls made   : 12 (well under the ~40 budget)
+
+  Candidate text is built with the SAME formatting functions src/currency.ts
+  uses (formatRate: 4 significant figures under 1.0, toFixed(4) at or above 1.0)
+  so the wording is representative of what the miner actually emits.
+
+RESULT
+
+  label                                                  | score                 | candidate text
+  -------------------------------------------------------|------------------------|------------------------------------------------------------------
+  baseline: full text, exact rate match                  | 0.9999479055404663    | 1 USD = 0.8523 EUR, equivalently 1 EUR = 1.1733 USD. This is the European Central Bank euro foreign exchange reference rate published for 2026-09-15, not a live trading quote.
+  staleness +0.1%: full text, rate +0.1%                  | 2.0593718375039316e-7 | 1 USD = 0.8532 EUR, equivalently 1 EUR = 1.1721 USD. This is the European Central Bank euro foreign exchange reference rate published for 2026-09-15, not a live trading quote.
+  staleness -0.1%: full text, rate -0.1%                  | 2.05312019829762e-7   | 1 USD = 0.8514 EUR, equivalently 1 EUR = 1.1745 USD. This is the European Central Bank euro foreign exchange reference rate published for 2026-09-15, not a live trading quote.
+  staleness +0.5%: full text, rate +0.5%                  | 2.0672680989264336e-7 | 1 USD = 0.8566 EUR, equivalently 1 EUR = 1.1675 USD. This is the European Central Bank euro foreign exchange reference rate published for 2026-09-15, not a live trading quote.
+  staleness -0.5%: full text, rate -0.5%                  | 2.0395148681018327e-7 | 1 USD = 0.8480 EUR, equivalently 1 EUR = 1.1792 USD. This is the European Central Bank euro foreign exchange reference rate published for 2026-09-15, not a live trading quote.
+  staleness +1%: full text, rate +1%                      | 2.0549883572584804e-7 | 1 USD = 0.8608 EUR, equivalently 1 EUR = 1.1617 USD. This is the European Central Bank euro foreign exchange reference rate published for 2026-09-15, not a live trading quote.
+  staleness -1%: full text, rate -1%                      | 2.0366374542390986e-7 | 1 USD = 0.8438 EUR, equivalently 1 EUR = 1.1851 USD. This is the European Central Bank euro foreign exchange reference rate published for 2026-09-15, not a live trading quote.
+  staleness +5%: full text, rate +5%                      | 2.061218538074172e-7  | 1 USD = 0.8949 EUR, equivalently 1 EUR = 1.1174 USD. This is the European Central Bank euro foreign exchange reference rate published for 2026-09-15, not a live trading quote.
+  staleness -5%: full text, rate -5%                      | 2.0513996901172504e-7 | 1 USD = 0.8097 EUR, equivalently 1 EUR = 1.2350 USD. This is the European Central Bank euro foreign exchange reference rate published for 2026-09-15, not a live trading quote.
+  ablation: inverse-rate clause removed (exact rate)      | 0.9999482035636902    | 1 USD = 0.8523 EUR. This is the European Central Bank euro foreign exchange reference rate published for 2026-09-15, not a live trading quote.
+  ablation: date/source sentence removed (exact rate)     | 2.480426530837576e-7  | 1 USD = 0.8523 EUR, equivalently 1 EUR = 1.1733 USD.
+  ablation: bare '1 USD = 0.8523 EUR.' (exact rate)       | 0.9999492764472961    | 1 USD = 0.8523 EUR.
+
+READING IT
+
+1. Confirms the existing header comment in src/currency.ts almost exactly:
+   an exact-matching figure scores ~1.0 (0.99995 here); missing it by ANY
+   amount tested — 0.1% up to 5% — collapses the score to a tight band
+   around 2.0e-7 to 2.07e-7. There is no visible gradient inside that band:
+   0.1% off and 5% off score within about 3% of each other, both around
+   2e-7, both effectively "wrong." This matches the file's documented
+   "off by one part in a thousand: 2.06e-7 / off by half a percent: 2.03e-7"
+   entries almost to the digit. Wording is not the lever; the number is.
+
+2. A wording interaction that looks counter-intuitive and is reported, not
+   explained: with the rate held an EXACT match throughout,
+     - full text (rate + inverse clause + date/source sentence)   -> 0.999948 (high)
+     - rate + date/source sentence, NO inverse clause              -> 0.999948 (high)
+     - rate + inverse clause, NO date/source sentence               -> 2.48e-7 (near zero)
+     - bare rate only, no inverse clause, no date/source sentence   -> 0.999949 (high)
+   Dropping the date/source sentence while KEEPING the inverse clause is the
+   only variant tested that tanks the score despite an exact-matching
+   primary figure. Dropping both the inverse clause and the date/source
+   sentence together (the bare case) does not. This was not investigated
+   further — it would mean reading the scorer's own extraction logic, which
+   is out of scope here — and it is exactly the kind of finding the task
+   said to report rather than act on. No line of src/currency.ts's answer
+   SHAPE was changed on the strength of this table.
+
+CAVEATS (unverified, in order of importance)
+
+- No validated crossing reference exists for this intent at all (see header
+  above); this bench cannot and does not claim our answer is factually
+  correct, only how the scorer reacts to edits of it.
+- One question, one reference, one run. Not repeated, not run against a
+  second live question, no confidence interval.
+- The registry's declared wasm_hash for reg2945 does not match this file's
+  plain SHA-256 (see METHOD). The file loads and scores in the exact pattern
+  the existing source-code comments predict, which is strong circumstantial
+  evidence it is the right binary, but the hash itself was not reconciled.
+- champions/currency_exchange_reg2945.wasm is gitignored (binaries are never
+  committed) and was freshly downloaded for this run; it is not present in
+  this worktree's git history.
