@@ -1,0 +1,27 @@
+FACT_CHECK champion scorer — provenance check FAILED, bench NOT run
+Checked 2026-09-16, locally, from the agent-af9014ad36f1d87c8 worktree.
+
+URL requested (exactly as specified for the optional bench):
+  https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/
+  49622d295e4c6d179781a5c2509a3803150f4d45/dist/reclaim/fact_s01.wasm
+
+Expected sha256 (as specified):  bf4f24f4cd2f89d26f3c6191dbfff0ffc85b93e560167d32e634250dcb34a46f
+Observed sha256 (two downloads): 8c4731a32f12306732ebe9aa3a8da4aefdf421194759df67e24b0e77619453cc
+
+The download is complete, not truncated:
+  - HTTP/1.1 200, Content-Length: 10955, Content-Type: application/octet-stream
+  - file size on disk: 10955 bytes, both times
+  - first 8 bytes are 00 61 73 6d 01 00 00 00 — a valid WebAssembly module header
+  - GitHub's contents API for dist/reclaim at that same commit lists
+    fact_s01.wasm at size 10955, so the path and revision are the ones intended
+
+So the bytes served at that URL are not the bytes the expected hash describes.
+The file was deleted rather than executed, and no score was produced. The bench
+was optional and was in any case labelled development evidence only — there is
+no validated crossing reference for it — so nothing verifiable is lost. The
+before/after answers it would have scored are in before-after-live.json, judged
+against the articles themselves rather than against a scorer.
+
+To close this: re-derive the expected hash from whoever recorded it, or pin the
+scorer by the blob id GitHub reports for that commit
+(c818d4e48cc037e301b3f90b9c3c873c8b82c6e3, a git blob SHA-1, not a sha256).

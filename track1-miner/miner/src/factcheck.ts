@@ -12,6 +12,14 @@
  * refused. So the verdict vocabulary includes `unverified`, and it is used
  * whenever the evidence does not decide the claim.
  *
+ * **Two retrieval paths, and only one of them may say "supported".** First the
+ * claim's SUBJECT is resolved to its canonical article and that article is read
+ * for the asserted relation (`factsubject.ts`); a sentence there that states the
+ * relation is evidence, and can support as well as contradict. If it settles
+ * nothing, the original full-text search runs unchanged — and that path still
+ * cannot produce "supported", because an article merely retrieved for a claim
+ * shares its vocabulary whether it endorses it or refutes it.
+ *
  * **Why the field is open.** Both incumbents are structurally broken rather than
  * merely losing: `tavily` declares `https://api.tavily.com` as its base_url, an
  * API that requires a key it cannot supply, and `assay-miner` points at a
@@ -27,13 +35,27 @@
  * weigh it.
  */
 
+import { findSubjectEvidence } from "./factarticle";
+import { chooseArticle, searchTerms } from "./factsearch";
+
 const WIKI_SEARCH = "https://en.wikipedia.org/w/api.php";
 const DEFAULT_TIMEOUT_MS = 7000;
+/**
+ * The whole check, across every Wikimedia request it makes, inside the handler's
+ * 11s watchdog. Resolving the subject added requests, so the budget is now shared
+ * rather than granted per request: each call gets whatever is left, and the
+ * fallback search is skipped outright when there is no time to spend on it.
+ */
+const TOTAL_BUDGET_MS = 9500;
 
 export interface FactCheckResult {
   claim: string | null;
-  /** No "supported": see judge(). Retrieval cannot establish support safely. */
-  verdict: "contradicted" | "unverified" | "unknown";
+  /**
+   * "supported" is reachable ONLY from the subject's own article, via
+   * factsubject.ts, which requires a sentence that asserts the relation. The
+   * fallback search path below still cannot produce it — see judge().
+   */
+  verdict: "supported" | "contradicted" | "unverified" | "unknown";
   confidence: number;
   source: string | null;
   source_url: string | null;
@@ -59,61 +81,6 @@ export function extractClaim(raw: string): string {
   return s.replace(/\s+/g, " ").replace(/[?]+$/, "").trim();
 }
 
-/**
- * The search string. The claim itself, near-verbatim.
- *
- * A stop-worded bag of content words was tried first and retrieved the wrong
- * article often enough to be dangerous: "humans only use 10% of their brains"
- * became "humans only 10% brains" and matched **Boltzmann brain**. Wikipedia's
- * own search handles a natural-language claim better than any bag we build, so
- * only the fact-check framing is stripped.
- */
-function searchTerms(claim: string): string {
-  return claim
-    .replace(/\b(?:is it true that|true or false|fact check|claim)\b/gi, " ")
-    .replace(/\s+/g, " ")
-    .trim()
-    .slice(0, 220);
-}
-
-const NUMBER_WORDS: Record<string, string> = {
-  one: "1", two: "2", three: "3", four: "4", five: "5", six: "6", seven: "7", eight: "8", nine: "9",
-  ten: "10", twenty: "20", thirty: "30", forty: "40", fifty: "50", hundred: "100", thousand: "1000",
-};
-
-/**
- * A word reduced to the form the article-selection score compares on.
- *
- * Plain word overlap could not see that "boils" and "Boiling point" are the same
- * word, or that "10%" and "Ten-percent-of-the-brain myth" name the same number,
- * so "water boils at 100 degrees Celsius" picked the astronomer *Anders Celsius*
- * and "humans only use 10% of their brains" picked the film *Flight of the
- * Navigator* (GAPS G77). Number words become digits, a percent sign becomes the
- * word, and the commonest inflections are stripped. This is deliberately crude
- * and used ONLY to choose the article; `judge` keeps its own exact tokens, so
- * the no-supported-verdict safety property is untouched.
- */
-function stem(w: string): string {
-  if (NUMBER_WORDS[w]) return NUMBER_WORDS[w]!;
-  if (/^\d+$/.test(w)) return w;
-  if (w.length > 5 && w.endsWith("ies")) return w.slice(0, -3) + "y";
-  if (w.length > 5 && w.endsWith("ing")) return w.slice(0, -3);
-  if (w.length > 4 && w.endsWith("ed")) return w.slice(0, -2);
-  if (w.length > 4 && w.endsWith("es")) return w.slice(0, -2);
-  if (w.length > 3 && w.endsWith("s") && !w.endsWith("ss")) return w.slice(0, -1);
-  return w;
-}
-
-function matchTokens(s: string): string[] {
-  return s
-    .toLowerCase()
-    .replace(/%/g, " percent ")
-    .replace(/[^a-z0-9\s]/g, " ")
-    .split(/\s+/)
-    .filter((w) => w.length > 0)
-    .map(stem)
-    .filter((w) => w.length > 3 || /^\d+$/.test(w));
-}
 
 async function getJson(url: string, timeoutMs: number): Promise<Record<string, unknown> | null> {
   const ac = new AbortController();
@@ -158,7 +125,11 @@ function judge(claim: string, evidence: string): { verdict: FactCheckResult["ver
   const REFUTES = /\b(myth|misconception|debunked|hoax|pseudoscience|falsely|incorrectly|is not|are not|cannot be seen|no evidence)\b/i;
   if (overlap >= 0.35 && REFUTES.test(evidence)) return { verdict: "contradicted", overlap };
 
-  // THERE IS NO "supported" VERDICT, and that is deliberate.
+  // THIS PATH HAS NO "supported" VERDICT, and that is deliberate.
+  //
+  // Support is reachable only from the subject's own article, where a named
+  // sentence asserts the relation (factsubject.ts). Here, where the article was
+  // chosen by full-text relevance, it is not, for the reason below.
   //
   // Word overlap cannot distinguish an article ABOUT a claim from an article
   // that SUPPORTS it — the two share nearly all their content words. Raising
@@ -196,6 +167,37 @@ export async function checkFact(question: string, timeoutMs = DEFAULT_TIMEOUT_MS
     };
   }
 
+  const deadline = Date.now() + TOTAL_BUDGET_MS;
+  const budget = () => Math.max(0, Math.min(timeoutMs, deadline - Date.now()));
+
+  // STEP ONE: the claim's subject, and the article that IS the subject.
+  //
+  // Full-text search ranks on term frequency, so it answered "Bats are the only
+  // mammals capable of sustained flight" out of the article **Flight** and called
+  // it unverified, while the Bat article's first sentence states the claim. The
+  // subject decides which article to read; the predicate is then looked for
+  // inside it. A miss here is not a verdict — it falls through to the search
+  // below, which is what every earlier case is pinned on.
+  const subject = await findSubjectEvidence(claim, getJson, budget()).catch(() => null);
+  if (subject) {
+    const opening =
+      subject.verdict === "supported"
+        ? `is supported by the reference source consulted`
+        : `is contradicted by the reference source consulted`;
+    return {
+      ...base,
+      verdict: subject.verdict,
+      confidence: 0.7,
+      source: "Wikipedia",
+      source_url: subject.url,
+      evidence: subject.evidence,
+      reason:
+        `The claim "${claim}" ${opening}. According to Wikipedia's article "${subject.title}": ` +
+        `${subject.evidence.slice(0, 260)} This check consulted one encyclopaedic source and is ` +
+        `not a full adjudication of the claim.`,
+    };
+  }
+
   const terms = searchTerms(claim);
   // Ask for several candidates and pick the closest, rather than trusting the
   // first. Wikipedia's top hit for "humans only use 10% of their brains" was
@@ -203,10 +205,10 @@ export async function checkFact(question: string, timeoutMs = DEFAULT_TIMEOUT_MS
   // article that actually addresses it ranks lower. On 2026-09-15 it ranked
   // seventh or eighth ("Ten-percent-of-the-brain myth"), outside the five this
   // used to read, so the film was cited; ten candidates keep it in reach.
-  const search = await getJson(
+  const search = budget() < 800 ? null : await getJson(
     `${WIKI_SEARCH}?action=query&list=search&srsearch=${encodeURIComponent(terms)}` +
     `&srlimit=10&format=json&origin=*`,
-    timeoutMs,
+    budget(),
   );
   // A search that did not answer is an outage, not an absence (ARCHITECTURE A5):
   // it used to be reported as "no matching reference article was found".
@@ -219,42 +221,7 @@ export async function checkFact(question: string, timeoutMs = DEFAULT_TIMEOUT_MS
     };
   }
   const hits = ((search["query"] as Record<string, unknown> | undefined)?.["search"] ?? []) as Array<Record<string, unknown>>;
-  const claimWords = new Set(matchTokens(claim));
-  let title: string | null = null;
-  let bestScore = -1;
-  for (const h of hits) {
-    const t = typeof h["title"] === "string" ? (h["title"] as string) : "";
-    if (!t) continue;
-    // Score on the TITLE, which names the subject, plus the snippet, which
-    // shows whether the article is about the claim or merely mentions it.
-    const snippet = String(h["snippet"] ?? "").replace(/<[^>]*>/g, " ");
-    const hay = new Set(matchTokens(`${t} ${snippet}`));
-    let hit = 0;
-    for (const w of claimWords) if (hay.has(w)) hit++;
-    // Score the title WITHOUT its parenthetical, which is a disambiguator rather
-    // than part of the subject's name. Splitting the raw title on whitespace also
-    // left punctuation stuck to the tokens — "(paris," and "tennessee)" could
-    // never match a claim word at all.
-    const baseTitle = t.replace(/\s*\([^)]*\)\s*/g, " ");
-    const titleHit = matchTokens(baseTitle).filter((w) => claimWords.has(w)).length;
-    // "Eiffel Tower (Paris, Tennessee)" is a 60-foot replica, and it beat "Eiffel
-    // Tower" on "the Eiffel Tower is located in Paris" 8-7, purely because its
-    // snippet contains "located". A disambiguated title is the right article only
-    // when the claim names EVERY word inside the parentheses; requiring just one
-    // is what let "Paris" waive it here while "Tennessee" went unnoticed.
-    const paren = t.match(/\(([^)]*)\)/);
-    let disambiguation = 0;
-    if (paren) {
-      const inside = matchTokens(paren[1] ?? "");
-      if (inside.length > 0 && !inside.every((w) => claimWords.has(w))) disambiguation = 3;
-    }
-    // Ten candidates bring in near-namesakes: "Hôtel Pullman Paris Tour Eiffel"
-    // carries "Paris" and "Eiffel" from the claim plus two words it does not. A
-    // title word the claim never uses counts against the article.
-    const extra = matchTokens(baseTitle).filter((w) => !claimWords.has(w)).length;
-    const score = hit + titleHit * 2 - disambiguation - extra * 0.75;
-    if (score > bestScore) { bestScore = score; title = t; }
-  }
+  const title = chooseArticle(claim, hits);
 
   if (!title) {
     return {
@@ -271,7 +238,7 @@ export async function checkFact(question: string, timeoutMs = DEFAULT_TIMEOUT_MS
 
   const extract = await getJson(
     `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title)}`,
-    timeoutMs,
+    budget(),
   );
   const evidence = typeof extract?.["extract"] === "string" ? (extract["extract"] as string) : "";
   const url = `https://en.wikipedia.org/wiki/${encodeURIComponent(title.replace(/\s+/g, "_"))}`;

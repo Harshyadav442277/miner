@@ -1,0 +1,143 @@
+{
+  "checked_at": "2026-09-16T04:22:40.901Z",
+  "base_revision": "d26a937",
+  "note": "before = factcheck.ts at d26a937; after = this branch. Both run locally against live en.wikipedia.org.",
+  "rows": [
+    {
+      "claim": "Fact-check this claim: Bats are the only mammals capable of sustained flight.",
+      "before": {
+        "verdict": "unverified",
+        "confidence": 0.3,
+        "source_url": "https://en.wikipedia.org/wiki/Flight",
+        "evidence": "Flight or flying is the motion of an object through an atmosphere or through the vacuum of space, in this case also called spaceflight, without contacting any planetary surface. This can be achieved by generating aerodynamic lift associated with gliding or propulsive thrust, aerostatically using buoyancy, or by ballistic movement.",
+        "reason": "The claim \"Bats are the only mammals capable of sustained flight.\" was checked against the reference source consulted, which does not settle it either way. According to Wikipedia's article \"Flight\": Flight or flying is the motion of an object through an atmosphere or through the vacuum of space, in this case also called spaceflight, without contacting any planetary surface. This can be achieved by generating aerodynamic lift associated with gliding or pro This check consulted one encyclopaedic source and is not a full adjudication of the claim."
+      },
+      "after": {
+        "verdict": "supported",
+        "confidence": 0.7,
+        "source_url": "https://en.wikipedia.org/wiki/Bat",
+        "evidence": "Bats (order Chiroptera ) are winged mammals, the only mammals capable of true and sustained flight.",
+        "reason": "The claim \"Bats are the only mammals capable of sustained flight.\" is supported by the reference source consulted. According to Wikipedia's article \"Bat\": Bats (order Chiroptera ) are winged mammals, the only mammals capable of true and sustained flight. This check consulted one encyclopaedic source and is not a full adjudication of the claim."
+      }
+    },
+    {
+      "claim": "Fact check: sharks are mammals.",
+      "before": {
+        "verdict": "contradicted",
+        "confidence": 0.75,
+        "source_url": "https://en.wikipedia.org/wiki/Shark_attack",
+        "evidence": "A shark attack is an incident in which a shark bites or otherwise injures a human. Every year, around 80 unprovoked attacks are reported worldwide. Despite their rarity, many people fear shark attacks after occasional serial attacks, such as the Jersey Shore shark attacks of 1916, and horror fiction and films such as the Jaws series. Out of more than 500 shark species, only three are responsible f",
+        "reason": "The claim \"sharks are mammals.\" is contradicted by the reference source consulted. According to Wikipedia's article \"Shark attack\": A shark attack is an incident in which a shark bites or otherwise injures a human. Every year, around 80 unprovoked attacks are reported worldwide. Despite their rarity, many people fear shark attacks after occasional serial attacks, such as the Jersey Shore s This check consulted one encyclopaedic source and is not a full adjudication of the claim."
+      },
+      "after": {
+        "verdict": "contradicted",
+        "confidence": 0.7,
+        "source_url": "https://en.wikipedia.org/wiki/Shark",
+        "evidence": "Sharks are a group of elasmobranch cartilaginous fishes characterized by a ribless endoskeleton, dermal denticles, five to seven gill slits on each side, and pectoral fins that are not fused to the head.",
+        "reason": "The claim \"sharks are mammals.\" is contradicted by the reference source consulted. According to Wikipedia's article \"Shark\": Sharks are a group of elasmobranch cartilaginous fishes characterized by a ribless endoskeleton, dermal denticles, five to seven gill slits on each side, and pectoral fins that are not fused to the head. This check consulted one encyclopaedic source and is not a full adjudication of the claim."
+      }
+    },
+    {
+      "claim": "Fact check: bats are blind.",
+      "before": {
+        "verdict": "unverified",
+        "confidence": 0.3,
+        "source_url": "https://en.wikipedia.org/wiki/The_Blind_Watchmaker",
+        "evidence": "The Blind Watchmaker: Why the Evidence of Evolution Reveals a Universe without Design (1986) is a popular science book by Richard Dawkins. It explains how the cumulative, nonrandom process of natural selection creates complexity. Dawkins develops themes from, and refutes criticisms of, his first book, The Selfish Gene (1976). It was illustrated by Liz Pyle.",
+        "reason": "The claim \"bats are blind.\" was checked against the reference source consulted, which does not settle it either way. According to Wikipedia's article \"The Blind Watchmaker\": The Blind Watchmaker: Why the Evidence of Evolution Reveals a Universe without Design (1986) is a popular science book by Richard Dawkins. It explains how the cumulative, nonrandom process of natural selection creates complexity. Dawkins develops themes from,  This check consulted one encyclopaedic source and is not a full adjudication of the claim."
+      },
+      "after": {
+        "verdict": "contradicted",
+        "confidence": 0.7,
+        "source_url": "https://en.wikipedia.org/wiki/Bat",
+        "evidence": "Microbats tend to have small eyes but are still sensitive to light, and no species is truly blind.",
+        "reason": "The claim \"bats are blind.\" is contradicted by the reference source consulted. According to Wikipedia's article \"Bat\": Microbats tend to have small eyes but are still sensitive to light, and no species is truly blind. This check consulted one encyclopaedic source and is not a full adjudication of the claim."
+      }
+    },
+    {
+      "claim": "Is it true that the Eiffel Tower is located in Paris?",
+      "before": {
+        "verdict": "unverified",
+        "confidence": 0.3,
+        "source_url": "https://en.wikipedia.org/wiki/Eiffel_Tower",
+        "evidence": "The Eiffel Tower is a lattice tower on the Champ de Mars in Paris, France. It is named after the engineer Gustave Eiffel, whose company designed and built the tower from 1887 to 1889.",
+        "reason": "The claim \"the Eiffel Tower is located in Paris\" was checked against the reference source consulted, which does not settle it either way. According to Wikipedia's article \"Eiffel Tower\": The Eiffel Tower is a lattice tower on the Champ de Mars in Paris, France. It is named after the engineer Gustave Eiffel, whose company designed and built the tower from 1887 to 1889. This check consulted one encyclopaedic source and is not a full adjudication of the claim."
+      },
+      "after": {
+        "verdict": "supported",
+        "confidence": 0.7,
+        "source_url": "https://en.wikipedia.org/wiki/Eiffel_Tower",
+        "evidence": "The Eiffel Tower ( EYE-fəl; French: Tour Eiffel [tuʁ ɛfɛl] ) is a lattice tower on the Champ de Mars in Paris, France.",
+        "reason": "The claim \"the Eiffel Tower is located in Paris\" is supported by the reference source consulted. According to Wikipedia's article \"Eiffel Tower\": The Eiffel Tower ( EYE-fəl; French: Tour Eiffel [tuʁ ɛfɛl] ) is a lattice tower on the Champ de Mars in Paris, France. This check consulted one encyclopaedic source and is not a full adjudication of the claim."
+      }
+    },
+    {
+      "claim": "Fact-check: vaccines cause autism.",
+      "before": {
+        "verdict": "unverified",
+        "confidence": 0.3,
+        "source_url": "https://en.wikipedia.org/wiki/Vaccines_and_autism",
+        "evidence": "Extensive investigation into vaccines and autism spectrum disorder has shown that there is no relationship between the two, causal or otherwise, and that vaccine ingredients do not cause autism. Major health authorities, including the World Health Organization, the National Health Service, the Centers for Disease Control and Prevention and the United States Food and Drug Administration, along with",
+        "reason": "The claim \"vaccines cause autism.\" was checked against the reference source consulted, which does not settle it either way. According to Wikipedia's article \"Vaccines and autism\": Extensive investigation into vaccines and autism spectrum disorder has shown that there is no relationship between the two, causal or otherwise, and that vaccine ingredients do not cause autism. Major health authorities, including the World Health Organization This check consulted one encyclopaedic source and is not a full adjudication of the claim."
+      },
+      "after": {
+        "verdict": "contradicted",
+        "confidence": 0.7,
+        "source_url": "https://en.wikipedia.org/wiki/Vaccine",
+        "evidence": "Furthermore, a 10–11-year study of 657,461 children found that the MMR vaccine does not cause autism and actually reduced the risk of autism by seven percent.",
+        "reason": "The claim \"vaccines cause autism.\" is contradicted by the reference source consulted. According to Wikipedia's article \"Vaccine\": Furthermore, a 10–11-year study of 657,461 children found that the MMR vaccine does not cause autism and actually reduced the risk of autism by seven percent. This check consulted one encyclopaedic source and is not a full adjudication of the claim."
+      }
+    },
+    {
+      "claim": "Is it true that humans only use 10% of their brains?",
+      "before": {
+        "verdict": "contradicted",
+        "confidence": 0.75,
+        "source_url": "https://en.wikipedia.org/wiki/Ten-percent-of-the-brain_myth",
+        "evidence": "The ten-percent-of-the-brain myth states that humans generally use only one-tenth of their brains. It has been misattributed to many famous scientists and historical figures, notably Albert Einstein. By extrapolation, it is suggested that a person may 'harness' or 'unlock' this unused potential and increase their intelligence.",
+        "reason": "The claim \"humans only use 10% of their brains\" is contradicted by the reference source consulted. According to Wikipedia's article \"Ten-percent-of-the-brain myth\": The ten-percent-of-the-brain myth states that humans generally use only one-tenth of their brains. It has been misattributed to many famous scientists and historical figures, notably Albert Einstein. By extrapolation, it is suggested that a person may 'harness This check consulted one encyclopaedic source and is not a full adjudication of the claim."
+      },
+      "after": {
+        "verdict": "contradicted",
+        "confidence": 0.75,
+        "source_url": "https://en.wikipedia.org/wiki/Ten-percent-of-the-brain_myth",
+        "evidence": "The ten-percent-of-the-brain myth states that humans generally use only one-tenth of their brains. It has been misattributed to many famous scientists and historical figures, notably Albert Einstein. By extrapolation, it is suggested that a person may 'harness' or 'unlock' this unused potential and increase their intelligence.",
+        "reason": "The claim \"humans only use 10% of their brains\" is contradicted by the reference source consulted. According to Wikipedia's article \"Ten-percent-of-the-brain myth\": The ten-percent-of-the-brain myth states that humans generally use only one-tenth of their brains. It has been misattributed to many famous scientists and historical figures, notably Albert Einstein. By extrapolation, it is suggested that a person may 'harness This check consulted one encyclopaedic source and is not a full adjudication of the claim."
+      }
+    },
+    {
+      "claim": "Fact-check: water boils at 100 degrees Celsius.",
+      "before": {
+        "verdict": "unverified",
+        "confidence": 0.3,
+        "source_url": "https://en.wikipedia.org/wiki/Celsius",
+        "evidence": "The degree Celsius is the unit of temperature on the Celsius temperature scale, one of two temperature scales used in the International System of Units (SI), the other being the closely related Kelvin scale. The degree Celsius can refer to a specific point on the Celsius temperature scale or to a difference or range between two temperatures. It is named after the Swedish astronomer Anders Celsius ",
+        "reason": "The claim \"water boils at 100 degrees Celsius.\" was checked against the reference source consulted, which does not settle it either way. According to Wikipedia's article \"Celsius\": The degree Celsius is the unit of temperature on the Celsius temperature scale, one of two temperature scales used in the International System of Units (SI), the other being the closely related Kelvin scale. The degree Celsius can refer to a specific point on  This check consulted one encyclopaedic source and is not a full adjudication of the claim."
+      },
+      "after": {
+        "verdict": "unverified",
+        "confidence": 0.3,
+        "source_url": "https://en.wikipedia.org/wiki/Celsius",
+        "evidence": "The degree Celsius is the unit of temperature on the Celsius temperature scale, one of two temperature scales used in the International System of Units (SI), the other being the closely related Kelvin scale. The degree Celsius can refer to a specific point on the Celsius temperature scale or to a difference or range between two temperatures. It is named after the Swedish astronomer Anders Celsius ",
+        "reason": "The claim \"water boils at 100 degrees Celsius.\" was checked against the reference source consulted, which does not settle it either way. According to Wikipedia's article \"Celsius\": The degree Celsius is the unit of temperature on the Celsius temperature scale, one of two temperature scales used in the International System of Units (SI), the other being the closely related Kelvin scale. The degree Celsius can refer to a specific point on  This check consulted one encyclopaedic source and is not a full adjudication of the claim."
+      }
+    },
+    {
+      "claim": "Fact-check: sharks are not mammals.",
+      "before": {
+        "verdict": "contradicted",
+        "confidence": 0.75,
+        "source_url": "https://en.wikipedia.org/wiki/Shark_attack",
+        "evidence": "A shark attack is an incident in which a shark bites or otherwise injures a human. Every year, around 80 unprovoked attacks are reported worldwide. Despite their rarity, many people fear shark attacks after occasional serial attacks, such as the Jersey Shore shark attacks of 1916, and horror fiction and films such as the Jaws series. Out of more than 500 shark species, only three are responsible f",
+        "reason": "The claim \"sharks are not mammals.\" is contradicted by the reference source consulted. According to Wikipedia's article \"Shark attack\": A shark attack is an incident in which a shark bites or otherwise injures a human. Every year, around 80 unprovoked attacks are reported worldwide. Despite their rarity, many people fear shark attacks after occasional serial attacks, such as the Jersey Shore s This check consulted one encyclopaedic source and is not a full adjudication of the claim."
+      },
+      "after": {
+        "verdict": "supported",
+        "confidence": 0.7,
+        "source_url": "https://en.wikipedia.org/wiki/Shark",
+        "evidence": "Sharks are a group of elasmobranch cartilaginous fishes characterized by a ribless endoskeleton, dermal denticles, five to seven gill slits on each side, and pectoral fins that are not fused to the head.",
+        "reason": "The claim \"sharks are not mammals.\" is supported by the reference source consulted. According to Wikipedia's article \"Shark\": Sharks are a group of elasmobranch cartilaginous fishes characterized by a ribless endoskeleton, dermal denticles, five to seven gill slits on each side, and pectoral fins that are not fused to the head. This check consulted one encyclopaedic source and is not a full adjudication of the claim."
+      }
+    }
+  ]
+}

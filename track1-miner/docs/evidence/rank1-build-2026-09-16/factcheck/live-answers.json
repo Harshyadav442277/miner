@@ -1,0 +1,72 @@
+{
+ "q": "Fact-check this claim: Bats are the only mammals capable of sustained flight.",
+ "ms": 1036,
+ "verdict": "supported",
+ "confidence": 0.7,
+ "source_url": "https://en.wikipedia.org/wiki/Bat",
+ "evidence": "Bats (order Chiroptera ) are winged mammals, the only mammals capable of true and sustained flight."
+}
+
+{
+ "q": "Fact check: sharks are mammals.",
+ "ms": 880,
+ "verdict": "contradicted",
+ "confidence": 0.7,
+ "source_url": "https://en.wikipedia.org/wiki/Shark",
+ "evidence": "Sharks are a group of elasmobranch cartilaginous fishes characterized by a ribless endoskeleton, dermal denticles, five to seven gill slits on each side, and pectoral fins that are not fused to the head."
+}
+
+{
+ "q": "Fact check: bats are blind.",
+ "ms": 902,
+ "verdict": "contradicted",
+ "confidence": 0.7,
+ "source_url": "https://en.wikipedia.org/wiki/Bat",
+ "evidence": "Microbats tend to have small eyes but are still sensitive to light, and no species is truly blind."
+}
+
+{
+ "q": "Is it true that the Eiffel Tower is located in Paris?",
+ "ms": 919,
+ "verdict": "supported",
+ "confidence": 0.7,
+ "source_url": "https://en.wikipedia.org/wiki/Eiffel_Tower",
+ "evidence": "The Eiffel Tower ( EYE-fəl; French: Tour Eiffel [tuʁ ɛfɛl] ) is a lattice tower on the Champ de Mars in Paris, France."
+}
+
+{
+ "q": "Fact-check: vaccines cause autism.",
+ "ms": 463,
+ "verdict": "contradicted",
+ "confidence": 0.7,
+ "source_url": "https://en.wikipedia.org/wiki/Vaccine",
+ "evidence": "Furthermore, a 10–11-year study of 657,461 children found that the MMR vaccine does not cause autism and actually reduced the risk of autism by seven percent."
+}
+
+{
+ "q": "Is it true that humans only use 10% of their brains?",
+ "ms": 1517,
+ "verdict": "contradicted",
+ "confidence": 0.75,
+ "source_url": "https://en.wikipedia.org/wiki/Ten-percent-of-the-brain_myth",
+ "evidence": "The ten-percent-of-the-brain myth states that humans generally use only one-tenth of their brains. It has been misattributed to many famous scientists and historical figures, notably Albert Einstein. By extrapolation, it is suggested that a person may 'harness' or 'unlock' this unused potential and increase their intelligence."
+}
+
+{
+ "q": "Fact-check: water boils at 100 degrees Celsius.",
+ "ms": 593,
+ "verdict": "unverified",
+ "confidence": 0.3,
+ "source_url": "https://en.wikipedia.org/wiki/Celsius",
+ "evidence": "The degree Celsius is the unit of temperature on the Celsius temperature scale, one of two temperature scales used in the International System of Units (SI), the other being the closely related Kelvin scale. The degree Celsius can refer to a specific point on the Celsius temperature scale or to a difference or range between two temperatures. It is named after the Swedish astronomer Anders Celsius "
+}
+
+{
+ "q": "Fact-check: sharks are not mammals.",
+ "ms": 879,
+ "verdict": "supported",
+ "confidence": 0.7,
+ "source_url": "https://en.wikipedia.org/wiki/Shark",
+ "evidence": "Sharks are a group of elasmobranch cartilaginous fishes characterized by a ribless endoskeleton, dermal denticles, five to seven gill slits on each side, and pectoral fins that are not fused to the head."
+}
+
