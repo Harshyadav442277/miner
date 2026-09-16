@@ -14,7 +14,7 @@ Three findings here contradict earlier assumptions. All three change the plan.
 | **Track 1 — Miners** | **Aug 17 – Aug 31** (15 days) |
 | Track 2 — Script Authors | Aug 17 – Aug 31 |
 | Track 3 — Applications | **Aug 31 – Sep 7** |
-| Winner selection | Sep 8 – Sep 18 |
+| Winner selection | Sep 8 – Sep 18 on the rules page; **extended to Sep 28** per an organiser announcement reported by the operator on 2026-09-17 (see TELEGRAPH_FACTS) |
 | Announcement | Sep 19 – Sep 25 |
 
 Sep 7 12:00 UTC — the countdown on the landing page — is when **Track 3** closes, not our track.

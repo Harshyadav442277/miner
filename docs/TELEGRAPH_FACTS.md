@@ -577,3 +577,11 @@ Source: https://docs.telegraphprotocol.com/docs/using/escrow-inference (not in t
 - Same-day operational notes for a caller: the body field is `query`; a refusal burns the nonce
   only after the signature verifies; `insufficient escrow … available=0` means the signature was
   fine and only funding is missing; withdrawals are timelocked.
+
+## Winner selection extended to 2026-09-28 (operator report, 2026-09-17)
+
+The operator reports an organiser announcement (Discord) that the results deadline moved to
+**Sep 28, 2026**. The rules page fetched 2026-09-16 ~09:00 UTC still shows "Winner Selection
+Sep 8 – Sep 18, Announcement Sep 19 – 25"; the announcement text itself was not seen by this
+session. Treat the miner as judged-and-watched through Sep 28: keep it live, no risky deploys
+without a preview, and hold anything that reads as lobbying until after the results.
