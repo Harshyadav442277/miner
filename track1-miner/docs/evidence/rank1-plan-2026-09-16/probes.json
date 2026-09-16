@@ -1,0 +1,554 @@
+{
+  "base": "https://miner-wine.vercel.app",
+  "at": "2026-09-16T03:06:31.994Z",
+  "kind": "authored diagnostic probes; not hidden validator tests",
+  "rows": [
+    {
+      "id": "ip-google",
+      "path": "/ip-geolocate",
+      "params": {
+        "query": "Where is 8.8.8.8 located and who operates it?"
+      },
+      "at": "2026-09-16T03:06:23.155Z",
+      "ms": 977,
+      "status": 200,
+      "body": {
+        "verdict": "Ashburn, Virginia, United States",
+        "confidence": 0.95,
+        "reason": "Regarding where is 8.8.8.8 located and who operates it: The IP address 8.8.8.8 is associated with Google LLC (AS15169) and is located in Ashburn, Virginia, United States. Regarding abuse history, no abuse reports appear in the network registry and geolocation sources consulted here and the address is not on the Tor Project's exit-node list; these sources do not include a dedicated reputation database such as AbuseIPDB, which is where reported malicious activity would be confirmed. The local timezone is America/New_York. This location is derived from the network's autonomous system registration, so it identifies the operator's serving infrastructure rather than a precise physical address, and it can vary by region."
+      }
+    },
+    {
+      "id": "ip-loopback-v6",
+      "path": "/ip-geolocate",
+      "params": {
+        "query": "Where is ::1 located?"
+      },
+      "at": "2026-09-16T03:06:23.188Z",
+      "ms": 636,
+      "status": 200,
+      "body": {
+        "verdict": "unknown",
+        "confidence": 0,
+        "reason": "Regarding where is ::1 located: No IP address could be read from \"Where is ::1 located?\", so its location could not be determined."
+      }
+    },
+    {
+      "id": "ip-cloudflare-v6",
+      "path": "/ip-geolocate",
+      "params": {
+        "ip": "2606:4700:4700::1111"
+      },
+      "at": "2026-09-16T03:06:23.189Z",
+      "ms": 1170,
+      "status": 200,
+      "body": {
+        "verdict": "Montreal, Quebec, Canada",
+        "confidence": 0.95,
+        "reason": "The IP address 2606:4700:4700::1111 is associated with Cloudflare, Inc. (AS13335) and is located in Montreal, Quebec, Canada. Regarding abuse history, no abuse reports appear in the network registry and geolocation sources consulted here; these sources do not include a dedicated reputation database such as AbuseIPDB, which is where reported malicious activity would be confirmed. The local timezone is America/Toronto. This location is derived from the network's autonomous system registration, so it identifies the operator's serving infrastructure rather than a precise physical address, and it can vary by region."
+      }
+    },
+    {
+      "id": "classify-billing",
+      "path": "/classify",
+      "params": {
+        "text": "I was charged twice on my invoice.",
+        "labels": "billing, technical, account issue"
+      },
+      "at": "2026-09-16T03:06:24.359Z",
+      "ms": 396,
+      "status": 200,
+      "body": {
+        "verdict": "classified",
+        "confidence": 0.83,
+        "reason": "Billing issue. This text is a billing issue: I was charged twice on my invoice. The words charged and invoice in it relate to billing."
+      }
+    },
+    {
+      "id": "classify-intent",
+      "path": "/classify",
+      "params": {
+        "text": "Do not cancel my subscription; I only need to update my card.",
+        "labels": "cancel subscription, update payment method, report bug"
+      },
+      "at": "2026-09-16T03:06:24.359Z",
+      "ms": 457,
+      "status": 200,
+      "body": {
+        "verdict": "ambiguous",
+        "confidence": 0.2,
+        "reason": "This text is ambiguous between cancel subscription and update payment method: its wording relates to each, and none clears the others by a clear margin, so no single label is chosen."
+      }
+    },
+    {
+      "id": "classify-multilabel",
+      "path": "/classify",
+      "params": {
+        "query": "Assign all applicable labels: billing, technical, account. Text: I was charged twice and the app crashes whenever I open it."
+      },
+      "at": "2026-09-16T03:06:24.359Z",
+      "ms": 503,
+      "status": 200,
+      "body": {
+        "verdict": "classified",
+        "confidence": 0.79,
+        "reason": "Technical. This text belongs to the technical category: I was charged twice and the app crashes whenever I open it. The words app and crashes in it relate to technical."
+      }
+    },
+    {
+      "id": "sentiment-irony",
+      "path": "/sentiment",
+      "params": {
+        "text": "I just love being charged twice and ignored by support."
+      },
+      "at": "2026-09-16T03:06:24.863Z",
+      "ms": 250,
+      "status": 200,
+      "body": {
+        "verdict": "positive",
+        "confidence": 0.69,
+        "reason": "Positive. The sentiment of this text is positive: I just love being charged twice and ignored by support. It is carried by the word love. Weaker negative wording (ignored) does not outweigh it. Its tone is frustrated."
+      }
+    },
+    {
+      "id": "sentiment-control",
+      "path": "/sentiment",
+      "params": {
+        "text": "The product broke after one day, terrible quality."
+      },
+      "at": "2026-09-16T03:06:24.863Z",
+      "ms": 255,
+      "status": 200,
+      "body": {
+        "verdict": "negative",
+        "confidence": 0.85,
+        "reason": "Negative. The sentiment of this text is negative: The product broke after one day, terrible quality. It is carried by the words terrible and broke."
+      }
+    },
+    {
+      "id": "event-known",
+      "path": "/event-outcome",
+      "params": {
+        "query": "Resolve this prediction market: who won the 2022 FIFA World Cup?"
+      },
+      "at": "2026-09-16T03:06:24.863Z",
+      "ms": 511,
+      "status": 200,
+      "body": {
+        "verdict": "no_market_found",
+        "confidence": 0.4,
+        "reason": "No prediction market matching this event was found on Polymarket or Manifold, so no outcome is reported and none is guessed. Official sources such as flight trackers, election authorities and league results are not read here."
+      }
+    },
+    {
+      "id": "research-general",
+      "path": "/research",
+      "params": {
+        "query": "Explain how Raft achieves consensus in a distributed system. Cite sources."
+      },
+      "at": "2026-09-16T03:06:25.374Z",
+      "ms": 1110,
+      "status": 200,
+      "body": {
+        "verdict": "evidence",
+        "confidence": 0.9,
+        "reason": "Raft is the subject of one registered trial, NCT05044598, a Phase 1/Phase 2 study titled \"RAFT - Clinical Trial of RAFT for Aniridia Related Keratopathy\", currently completed, primary completion 2025-04-17. The published evidence includes \"Transcriptomic analysis reveals and validates lipid raft-associated biomarkers and functional networks in Alzheimer's disease\" by Hsu CH et al. (2026) in Europe PMC."
+      }
+    },
+    {
+      "id": "research-comparison",
+      "path": "/research",
+      "params": {
+        "query": "What are the main differences between proof of work and proof of stake? Cite sources."
+      },
+      "at": "2026-09-16T03:06:25.374Z",
+      "ms": 1269,
+      "status": 200,
+      "body": {
+        "verdict": "evidence",
+        "confidence": 0.75,
+        "reason": "Proof of work: Proof of work is a form of cryptographic proof in which one party proves to others that a certain amount of a specific computational effort has been expended. Proof of stake: Proof-of-stake (PoS) protocols are a class of consensus mechanisms for blockchains that work by selecting validators in proportion to their quantity of holdings in the associated cryptocurrency. Sources: Wikipedia, \"Proof of work\" and \"Proof of stake\"."
+      }
+    },
+    {
+      "id": "synthesis-general",
+      "path": "/research-synthesis",
+      "params": {
+        "query": "Synthesize findings from multiple sources on the tradeoffs between proof of work and proof of stake."
+      },
+      "at": "2026-09-16T03:06:25.374Z",
+      "ms": 910,
+      "status": 200,
+      "body": {
+        "verdict": "no_sources",
+        "confidence": 0.5,
+        "reason": "No indexed study whose title and abstract both address the tradeoffs between proof of work and proof of stake stated a finding that could be quoted, so nothing is claimed about it. PubMed and Europe PMC were searched; an absence there is not proof that no work exists."
+      }
+    },
+    {
+      "id": "web-official",
+      "path": "/web-search",
+      "params": {
+        "query": "Find the official Python documentation for asyncio TaskGroup and explain how it handles task failures."
+      },
+      "at": "2026-09-16T03:06:26.643Z",
+      "ms": 530,
+      "status": 200,
+      "body": {
+        "verdict": "no_results",
+        "confidence": 0.4,
+        "reason": "No current report or encyclopedia article about Python matching this question was found in Google News or Wikipedia, so no answer is given rather than an unrelated one. That is an absence in those two sources, not proof that nothing has been published."
+      }
+    },
+    {
+      "id": "web-currentfacts",
+      "path": "/web-search",
+      "params": {
+        "query": "What is the latest stable Python release?"
+      },
+      "at": "2026-09-16T03:06:26.643Z",
+      "ms": 301,
+      "status": 200,
+      "body": {
+        "verdict": "answered",
+        "confidence": 0.9,
+        "reason": "The latest stable Python release is 3.14.7, released on 5 August 2026 (the 3.14 release cycle). Source: endoflife.date."
+      }
+    },
+    {
+      "id": "financial-annual",
+      "path": "/financial",
+      "params": {
+        "query": "What was Apple's revenue in fiscal year 2024?"
+      },
+      "at": "2026-09-16T03:06:26.643Z",
+      "ms": 466,
+      "status": 200,
+      "body": {
+        "verdict": "financial_data",
+        "confidence": 0.9,
+        "reason": "Apple Inc. reported revenue of $391.04 billion for fiscal year 2024, which ended 28 September 2024, according to its 10-K filed with the SEC."
+      }
+    },
+    {
+      "id": "financial-quarter",
+      "path": "/financial",
+      "params": {
+        "query": "What was Apple's revenue in Q2 2024 and its year-over-year revenue growth for that quarter?"
+      },
+      "at": "2026-09-16T03:06:27.173Z",
+      "ms": 276,
+      "status": 200,
+      "body": {
+        "verdict": "financial_data",
+        "confidence": 0.9,
+        "reason": "Apple Inc. reported revenue of $391.04 billion for fiscal year 2024, which ended 28 September 2024, up 2.02% from $383.29 billion in fiscal year 2023, according to its 10-K filed with the SEC. Quarterly figures were not retrieved; this is the annual figure."
+      }
+    },
+    {
+      "id": "stock-historical",
+      "path": "/stock-price",
+      "params": {
+        "query": "What was the closing price of AAPL on 2024-01-02?"
+      },
+      "at": "2026-09-16T03:06:27.173Z",
+      "ms": 422,
+      "status": 200,
+      "body": {
+        "verdict": "historical_price",
+        "confidence": 0.85,
+        "reason": "Apple Inc. (AAPL) closed at 185.64 USD on 2024-01-02. This is that day's closing price, not a current quote."
+      }
+    },
+    {
+      "id": "telegraph-process",
+      "path": "/telegraph",
+      "params": {
+        "query": "How does Telegraph convert a miner JSON response into an answer and score it using a champion WASM?"
+      },
+      "at": "2026-09-16T03:06:27.173Z",
+      "ms": 253,
+      "status": 200,
+      "body": {
+        "topic": "scoring",
+        "verdict": "scoring",
+        "confidence": 0.85,
+        "reason": "Regarding how does Telegraph convert a miner JSON response into an answer and score it using a champion WASM: Telegraph scores miners with WASM scoring modules, one per intent. A module receives the question, a ground truth and the miner's answer, and returns a score. The text actually compared is a converted answer: the node summarises the whole miner payload into a short third-person passage, so every field a miner returns becomes scored surface, not just the one it considers its answer. Scores are published per epoch on the public score feed, and a miner's position in an intent is its Canonical Score, the stake-weighted median of validator local scores from the last epoch tournament plus spot checks.",
+        "source": "Telegraph protocol documentation",
+        "checked_at": "2026-09-16T03:06:25.960Z"
+      }
+    },
+    {
+      "id": "telegraph-leader",
+      "path": "/telegraph",
+      "params": {
+        "query": "Who leads the WEB_SEARCH leaderboard in the latest epoch?"
+      },
+      "at": "2026-09-16T03:06:27.596Z",
+      "ms": 1597,
+      "status": 200,
+      "body": {
+        "topic": "leaderboard",
+        "verdict": "leaderboard",
+        "confidence": 0.9,
+        "reason": "Regarding who leads the WEB_SEARCH leaderboard in the latest epoch: sentinel-risk-oracle is rank 1 for WEB_SEARCH in epoch 335, the latest scored epoch, out of 23 scored miners. Next are bedrock-nova-2-lite and telegraph-chatbot.",
+        "source": "Telegraph dev node, read live",
+        "checked_at": "2026-09-16T03:06:26.383Z"
+      }
+    },
+    {
+      "id": "fraud-benign-negation",
+      "path": "/fraud-check",
+      "params": {
+        "query": "Assess this payment scenario: the invoice uses our verified vendor bank account, no bank details changed, and our finance team confirmed the payment by phone."
+      },
+      "at": "2026-09-16T03:06:27.596Z",
+      "ms": 239,
+      "status": 200,
+      "body": {
+        "verdict": "unknown",
+        "confidence": 0.4,
+        "reason": "Unknown fraud risk: insufficient information. A possible account takeover (SIM swap or social engineering) needs verify through the phone number already on file and hold contact-detail changes until confirmed."
+      }
+    },
+    {
+      "id": "fraud-card",
+      "path": "/fraud-check",
+      "params": {
+        "query": "Assess this credit account activity: ten purchases in five minutes from two countries, followed by a request to increase the credit limit."
+      },
+      "at": "2026-09-16T03:06:27.596Z",
+      "ms": 276,
+      "status": 200,
+      "body": {
+        "verdict": "unknown",
+        "confidence": 0,
+        "reason": "No wallet address, transaction hash, domain or affirmative scam-language signal was identified, so fraud risk remains unknown. Supply the address, the link, or the message itself and it can be checked against sanctions listings, threat-intelligence feeds and known scam patterns.",
+        "error": "no_subject"
+      }
+    },
+    {
+      "id": "papers-count",
+      "path": "/papers",
+      "params": {
+        "query": "Find three peer-reviewed papers about transformer language models."
+      },
+      "at": "2026-09-16T03:06:29.194Z",
+      "ms": 617,
+      "status": 200,
+      "body": {
+        "verdict": "papers",
+        "confidence": 1,
+        "reason": "Regarding find three peer-reviewed papers about transformer language models: Here are 3 peer-reviewed journal articles on transformer language models: 1) DNABERT: pre-trained Bidirectional Encoder Representations from Transformers model for DNA-language in genome by Yanrong Ji, Zhihan Zhou, Han Liu, Ramana V. Davuluri (2021), cited 1341 times. 2) Longitudinal analysis of sentiment and emotion in news media headlines using automated labelling with Transformer language models by David Rozado, Ruth Hughes, Jamin Halberstadt (2022), cited 103 times. 3) Augmenting human innovation teams with artificial intelligence: Exploring transformer‐based language models by Sebastian Gregor Bouschery, Vera Blažević, Frank T. Piller (2023), cited 427 times."
+      }
+    },
+    {
+      "id": "tvl-chain",
+      "path": "/tvl",
+      "params": {
+        "query": "What is Aave's TVL on Base?",
+        "protocol": "Aave",
+        "chain": "base"
+      },
+      "at": "2026-09-16T03:06:29.194Z",
+      "ms": 766,
+      "status": 200,
+      "body": {
+        "verdict": "found",
+        "confidence": 0.9,
+        "reason": "The Aave protocol has $500,971,434 ($500.97 million) in total value locked, on base, according to DefiLlama. This is value locked in the protocol, not the market capitalisation of its token."
+      }
+    },
+    {
+      "id": "currency-historical",
+      "path": "/convert",
+      "params": {
+        "query": "Convert 100 GBP to EUR using the reference rate on 2024-01-02."
+      },
+      "at": "2026-09-16T03:06:29.194Z",
+      "ms": 811,
+      "status": 200,
+      "body": {
+        "verdict": "converted",
+        "confidence": 0.95,
+        "reason": "100.00 GBP is 116.85 EUR at a rate of 1 GBP = 1.1685 EUR, equivalently 1 EUR = 0.8558 GBP. This is the European Central Bank euro foreign exchange reference rate published for 2026-09-15, not a live trading quote."
+      }
+    },
+    {
+      "id": "headlines-topic",
+      "path": "/headlines",
+      "params": {
+        "query": "Give three spaceflight news headlines published in the last 24 hours.",
+        "topic": "spaceflight"
+      },
+      "at": "2026-09-16T03:06:30.005Z",
+      "ms": 769,
+      "status": 200,
+      "body": {
+        "topic": "spaceflight",
+        "region": null,
+        "verdict": "headlines",
+        "headlines": [
+          {
+            "title": "SpaceX scrubs Vandenberg launch of national security payload, targets backup window on Wednesday",
+            "source": "Spaceflight Now",
+            "published": "2026-09-16T01:18:45.000Z"
+          },
+          {
+            "title": "Avio Launches Second Successful Vega C Flight of 2026",
+            "source": "European Spaceflight",
+            "published": "2026-09-15T08:30:01.000Z"
+          },
+          {
+            "title": "SpaceX Starship Flight 13 launch updates: SpaceX 'over the moon' after Starship launch",
+            "source": "Space",
+            "published": "2026-07-24T07:00:00.000Z"
+          },
+          {
+            "title": "SpaceX targeting Tuesday evening mission from Vandenberg Space Force Base",
+            "source": "Santa Maria Times",
+            "published": "2026-09-15T23:00:00.000Z"
+          },
+          {
+            "title": "Watching tonight's rocket launch from California? Here's what to know",
+            "source": "Ventura County Star",
+            "published": "2026-09-15T13:00:00.000Z"
+          },
+          {
+            "title": "SpaceX launches 700th Falcon rocket, carries final 3 O3b mPOWER satellites to orbit for SES",
+            "source": "Spaceflight Now",
+            "published": "2026-09-13T22:38:00.000Z"
+          }
+        ],
+        "count": 6,
+        "confidence": 1,
+        "reason": "The top spaceflight headlines today, as of September 16, 2026, are: 1. SpaceX scrubs Vandenberg launch of national security payload, targets backup window on Wednesday (Spaceflight Now). 2. Avio Launches Second Successful Vega C Flight of 2026 (European Spaceflight). 3. SpaceX Starship Flight 13 launch updates: SpaceX 'over the moon' after Starship launch (Space). 4. SpaceX targeting Tuesday evening mission from Vandenberg Space Force Base (Santa Maria Times). 5. Watching tonight's rocket launch from California? Here's what to know (Ventura County Star). 6. SpaceX launches 700th Falcon rocket, carries final 3 O3b mPOWER satellites to orbit for SES (Spaceflight Now).",
+        "checked_at": "2026-09-16T03:06:28.787Z"
+      }
+    },
+    {
+      "id": "url-control",
+      "path": "/url-scan",
+      "params": {
+        "query": "Scan https://example.com for phishing and malware indicators."
+      },
+      "at": "2026-09-16T03:06:30.005Z",
+      "ms": 331,
+      "status": 200,
+      "body": {
+        "verdict": "safe",
+        "confidence": 0.8,
+        "reason": "Yes, https://example.com/ appears safe to visit. It is not blocked by Cloudflare's malware and phishing filter and not listed by URLhaus, and no lookalike markers were found. It serves a valid TLS certificate that matches the host. No blocklist can prove a site safe."
+      }
+    },
+    {
+      "id": "fact-bats",
+      "path": "/fact-check",
+      "params": {
+        "query": "Fact check: bats are blind."
+      },
+      "at": "2026-09-16T03:06:30.006Z",
+      "ms": 972,
+      "status": 200,
+      "body": {
+        "claim": "bats are blind.",
+        "verdict": "unverified",
+        "confidence": 0.3,
+        "source": "Wikipedia",
+        "source_url": "https://en.wikipedia.org/wiki/The_Blind_Watchmaker",
+        "evidence": "The Blind Watchmaker: Why the Evidence of Evolution Reveals a Universe without Design (1986) is a popular science book by Richard Dawkins. It explains how the cumulative, nonrandom process of natural selection creates complexity. Dawkins develops themes from, and refutes criticisms of, his first book, The Selfish Gene (1976). It was illustrated by Liz Pyle.",
+        "reason": "Regarding fact check: bats are blind: The claim \"bats are blind.\" was checked against the reference source consulted, which does not settle it either way. According to Wikipedia's article \"The Blind Watchmaker\": The Blind Watchmaker: Why the Evidence of Evolution Reveals a Universe without Design (1986) is a popular science book by Richard Dawkins. It explains how the cumulative, nonrandom process of natural selection creates complexity. Dawkins develops themes from,  This check consulted one encyclopaedic source and is not a full adjudication of the claim.",
+        "checked_at": "2026-09-16T03:06:28.808Z"
+      }
+    },
+    {
+      "id": "fact-sharks",
+      "path": "/fact-check",
+      "params": {
+        "query": "Fact check: sharks are mammals."
+      },
+      "at": "2026-09-16T03:06:30.978Z",
+      "ms": 607,
+      "status": 200,
+      "body": {
+        "claim": "sharks are mammals.",
+        "verdict": "contradicted",
+        "confidence": 0.75,
+        "source": "Wikipedia",
+        "source_url": "https://en.wikipedia.org/wiki/Shark_attack",
+        "evidence": "A shark attack is an incident in which a shark bites or otherwise injures a human. Every year, around 80 unprovoked attacks are reported worldwide. Despite their rarity, many people fear shark attacks after occasional serial attacks, such as the Jersey Shore shark attacks of 1916, and horror fiction and films such as the Jaws series. Out of more than 500 shark species, only three are responsible f",
+        "reason": "Regarding fact check: sharks are mammals: The claim \"sharks are mammals.\" is contradicted by the reference source consulted. According to Wikipedia's article \"Shark attack\": A shark attack is an incident in which a shark bites or otherwise injures a human. Every year, around 80 unprovoked attacks are reported worldwide. Despite their rarity, many people fear shark attacks after occasional serial attacks, such as the Jersey Shore s This check consulted one encyclopaedic source and is not a full adjudication of the claim.",
+        "checked_at": "2026-09-16T03:06:29.831Z"
+      }
+    },
+    {
+      "id": "game-known",
+      "path": "/game-result",
+      "params": {
+        "query": "Who won Argentina vs France in the 2022 FIFA World Cup final on 2022-12-18?"
+      },
+      "at": "2026-09-16T03:06:30.978Z",
+      "ms": 258,
+      "status": 200,
+      "body": {
+        "verdict": "unknown",
+        "confidence": 0,
+        "reason": "No fixture could be identified in this request. Name both sides, for example \"Who won the Arsenal vs Chelsea game?\", and the winner, the final score, the competition and the date can be returned. Guessing which two teams were meant is how the wrong fixture gets reported, so no guess was made.",
+        "error": "no_fixture"
+      }
+    },
+    {
+      "id": "sports-known",
+      "path": "/sports-score",
+      "params": {
+        "query": "What was the Argentina vs France score in the 2022 FIFA World Cup final on 2022-12-18?"
+      },
+      "at": "2026-09-16T03:06:30.979Z",
+      "ms": 754,
+      "status": 200,
+      "body": {
+        "verdict": "unknown",
+        "confidence": 0,
+        "reason": "No fixture could be identified in this request. Name both sides, for example \"What is the score in the Lakers vs Celtics game?\", and the current score, the competition and the status can be returned. Guessing which two teams were meant is how the wrong game gets reported, so no guess was made.",
+        "error": "no_fixture"
+      }
+    },
+    {
+      "id": "crosschain-scope",
+      "path": "/cross-chain",
+      "params": {
+        "query": "Verify an Ethereum Merkle-Patricia state proof against a finalized Base block header."
+      },
+      "at": "2026-09-16T03:06:31.733Z",
+      "ms": 261,
+      "status": 200,
+      "body": {
+        "verdict": "insufficient_input",
+        "confidence": 0,
+        "reason": "Nothing verifiable was supplied: this service does not verify state roots, Merkle-Patricia proofs or block headers, and no LayerZero message transaction hash or GUID was given. Supply a source or destination transaction hash to verify a bridge message across two chains.",
+        "error": "no_reference"
+      }
+    },
+    {
+      "id": "extraction-control",
+      "path": "/extract",
+      "params": {
+        "text": "From: John Smith, Subject: Quarterly Budget Review Meeting."
+      },
+      "at": "2026-09-16T03:06:31.733Z",
+      "ms": 251,
+      "status": 200,
+      "body": {
+        "verdict": "generic",
+        "extracted": {
+          "values": [
+            "From: John Smith",
+            "Subject: Quarterly Budget Review Meeting"
+          ]
+        },
+        "confidence": 1,
+        "reason": "From: John Smith. Subject: Quarterly Budget Review Meeting."
+      }
+    }
+  ]
+}

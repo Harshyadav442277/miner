@@ -1,0 +1,125 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "5d328248-a874-49bf-a865-b079c7779ba3",
+        "epoch_id": 335,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "amanat-weather-risk",
+        "rank": 1,
+        "score": 0.0005251178,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T20:17:56.904843Z",
+        "created_at": "2026-09-15T20:17:56.904843Z"
+      },
+      {
+        "id": "2dd94738-4aba-4e6b-916d-d4965719c8b5",
+        "epoch_id": 335,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 0.00051460735,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T20:17:56.904843Z",
+        "created_at": "2026-09-15T20:17:56.904843Z"
+      },
+      {
+        "id": "0fa69fd1-21b8-4b72-9bcc-6f47a2b9fdec",
+        "epoch_id": 334,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "amanat-weather-risk",
+        "rank": 1,
+        "score": 0.00054157735,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T11:19:37.919206Z",
+        "created_at": "2026-09-15T11:19:37.919206Z"
+      },
+      {
+        "id": "690c8ed8-13e9-44f8-b145-1de0773dd11f",
+        "epoch_id": 334,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 0.00053107354,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T11:19:37.919206Z",
+        "created_at": "2026-09-15T11:19:37.919206Z"
+      },
+      {
+        "id": "ea63e630-081d-435c-a0cc-a8ed86492664",
+        "epoch_id": 333,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "amanat-weather-risk",
+        "rank": 1,
+        "score": 0.0005625579,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T02:12:11.267519Z",
+        "created_at": "2026-09-15T02:12:11.267519Z"
+      },
+      {
+        "id": "6ddcd7ee-b75a-4c1d-b93b-d374a39dcd52",
+        "epoch_id": 333,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "livecert",
+        "rank": 6,
+        "score": 0.00046899993,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T02:12:11.267519Z",
+        "created_at": "2026-09-15T02:12:11.267519Z"
+      },
+      {
+        "id": "0bef05ea-19b1-49b2-8531-65e78d55c60c",
+        "epoch_id": 332,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "isobar-weather",
+        "rank": 1,
+        "score": 0.99997836,
+        "failure_reason": "",
+        "scored_at": "2026-09-14T17:09:15.56828Z",
+        "created_at": "2026-09-14T17:09:15.56828Z"
+      },
+      {
+        "id": "cfb497e9-67e9-47f2-93b6-a3d25b2f0c37",
+        "epoch_id": 332,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "livecert",
+        "rank": 7,
+        "score": 0.00047815312,
+        "failure_reason": "",
+        "scored_at": "2026-09-14T17:09:15.56828Z",
+        "created_at": "2026-09-14T17:09:15.56828Z"
+      }
+    ],
+    "total": 1900,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 3173,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "WEATHER_FORECAST",
+    "wasm_url": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/1c57bda41576c77bfd61b70198eb9098098df30f/dist/win2/wf_4e3.wasm",
+    "wasm_hash": "66ee98e29632d0cfc74240344ea47e6bb83ed14545c4c102215a4ded5986b649",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 0.8568193,
+    "eval": {
+      "candidate_margin": 0.8568193,
+      "champion_margin": 0.8567977,
+      "candidate_wins": 14,
+      "champion_wins": 14,
+      "comparable_cases": 14,
+      "worst_self_match": 1,
+      "score_stddev": 0.4712138,
+      "spearman": {
+        "WEATHER_FORECAST": 0.79869324
+      },
+      "historical_rows_evaluated": 164
+    },
+    "registered_at": "2026-09-02T03:37:31Z",
+    "updated_at": "2026-09-02T06:49:05Z"
+  }
+}

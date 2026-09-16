@@ -1,0 +1,30 @@
+{
+  "at": "2026-09-16T03:04:24.553Z",
+  "registrationId": "1408",
+  "owner": "0xdad201ef02f5c1fbb8f9e931ae9b7c1bf493a39e",
+  "url": "https://raw.githubusercontent.com/Harshyadav442277/miner/4d73a9ed480b724ac845e203dd3f8ef5b31302cd/track1-miner/miner.yaml",
+  "registeredHash": "06a404b162f1eb72da2a24af896ad6cb08b2e221b7136f0a95ab14b893498b09",
+  "fetchedHash": "06a404b162f1eb72da2a24af896ad6cb08b2e221b7136f0a95ab14b893498b09",
+  "localRawHash": "de47bac19dca9f55eee23a42ec7605cf9f7cfc584e7b9183e72ee49cd418ef5f",
+  "localLFHash": "06a404b162f1eb72da2a24af896ad6cb08b2e221b7136f0a95ab14b893498b09",
+  "hashMatches": true,
+  "localContentMatches": true,
+  "sources": {
+    "catalog": {
+      "url": "https://devnode.telegraphprotocol.com/api/miners",
+      "at": "2026-09-16T03:04:21.362Z"
+    },
+    "epoch": {
+      "url": "https://explorer.telegraphprotocol.com/api/epoch",
+      "at": "2026-09-16T03:04:22.128Z"
+    },
+    "canonical": {
+      "url": "https://devnode.telegraphprotocol.com/engine/v1/intents",
+      "at": "2026-09-16T03:04:22.416Z"
+    },
+    "leaderboard": {
+      "url": "https://explorer.telegraphprotocol.com/api/leaderboard/miners/epoch/335?limit=1000",
+      "at": "2026-09-16T03:04:24.205Z"
+    }
+  }
+}

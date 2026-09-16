@@ -1,0 +1,356 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "43424a3d-3a03-4e91-8c1a-a501b7720faf",
+        "epoch_id": 335,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "sports-mlb-schedule",
+        "rank": 1,
+        "score": 6.562595e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T20:18:08.665921Z",
+        "created_at": "2026-09-15T20:18:08.665921Z"
+      },
+      {
+        "id": "5666c37e-878c-4130-af09-81f7ecc9fcb1",
+        "epoch_id": 335,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "livecert",
+        "rank": 9,
+        "score": 1.6527115e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T20:18:08.665921Z",
+        "created_at": "2026-09-15T20:18:08.665921Z"
+      },
+      {
+        "id": "7980bd04-42ef-417c-a3c4-64111d0ab211",
+        "epoch_id": 334,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "sports-football-matches",
+        "rank": 1,
+        "score": 5.604706e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T11:16:03.781657Z",
+        "created_at": "2026-09-15T11:16:03.781657Z"
+      },
+      {
+        "id": "eff6eeb5-9ad1-4136-84e8-5e7d223172e4",
+        "epoch_id": 334,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 4.3234153e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T11:16:03.781657Z",
+        "created_at": "2026-09-15T11:16:03.781657Z"
+      },
+      {
+        "id": "dc55a2f9-ab0c-4c2c-bbb2-5af982c5b930",
+        "epoch_id": 333,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "sportwire-score",
+        "rank": 1,
+        "score": 7.230484e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T02:09:31.228706Z",
+        "created_at": "2026-09-15T02:09:31.228706Z"
+      },
+      {
+        "id": "4e474c38-944f-41ff-aeb1-e178718ba88c",
+        "epoch_id": 333,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "livecert",
+        "rank": 7,
+        "score": 2.4926931e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T02:09:31.228706Z",
+        "created_at": "2026-09-15T02:09:31.228706Z"
+      },
+      {
+        "id": "f96cb93f-d7e7-4bab-9791-d4fb2c70f775",
+        "epoch_id": 332,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "sports-football-matches",
+        "rank": 1,
+        "score": 4.9482614e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-14T16:59:18.626318Z",
+        "created_at": "2026-09-14T16:59:18.626318Z"
+      },
+      {
+        "id": "a5c3b477-eeb8-47bf-9ac8-5c399a76ee43",
+        "epoch_id": 332,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 4.0177458e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-14T16:59:18.626318Z",
+        "created_at": "2026-09-14T16:59:18.626318Z"
+      },
+      {
+        "id": "f22e6621-7e9e-4102-8487-60929a20622d",
+        "epoch_id": 331,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "scorewire-oracle",
+        "rank": 1,
+        "score": 8.371646e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-14T07:54:27.592735Z",
+        "created_at": "2026-09-14T07:54:27.592735Z"
+      },
+      {
+        "id": "2feb8750-83b9-4fd3-a4c3-2ae58c888596",
+        "epoch_id": 331,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 6.3501105e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-14T07:54:27.592735Z",
+        "created_at": "2026-09-14T07:54:27.592735Z"
+      },
+      {
+        "id": "8ed33379-d401-4d57-b21d-ad0276e37122",
+        "epoch_id": 330,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "scorewire-oracle",
+        "rank": 1,
+        "score": 1.1072632e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T22:55:28.364838Z",
+        "created_at": "2026-09-13T22:55:28.364838Z"
+      },
+      {
+        "id": "8e964fad-7bf1-4f27-aa0d-ae9bd02be7b1",
+        "epoch_id": 330,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 4.8706954e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T22:55:28.364838Z",
+        "created_at": "2026-09-13T22:55:28.364838Z"
+      },
+      {
+        "id": "1abdf1dc-0094-4402-b0ca-cb00a7a9c6ec",
+        "epoch_id": 329,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "scorewire-oracle",
+        "rank": 1,
+        "score": 7.4355435e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T14:00:12.766085Z",
+        "created_at": "2026-09-13T14:00:12.766085Z"
+      },
+      {
+        "id": "ec611ae2-c4e0-4213-8095-f0553aa60f40",
+        "epoch_id": 329,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 6.6302584e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T14:00:12.766085Z",
+        "created_at": "2026-09-13T14:00:12.766085Z"
+      },
+      {
+        "id": "3da26d37-5446-4d9a-a598-021aee341df9",
+        "epoch_id": 328,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "sportwire-score",
+        "rank": 1,
+        "score": 1.1280389e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T05:01:14.912948Z",
+        "created_at": "2026-09-13T05:01:14.912948Z"
+      },
+      {
+        "id": "4c9bde4d-1836-4126-80e1-d170b65f9473",
+        "epoch_id": 328,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 5.408771e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T05:01:14.912948Z",
+        "created_at": "2026-09-13T05:01:14.912948Z"
+      },
+      {
+        "id": "5a523bb0-5529-45b8-958b-df305a14c657",
+        "epoch_id": 327,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 4.923917e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-12T19:51:31.703619Z",
+        "created_at": "2026-09-12T19:51:31.703619Z"
+      },
+      {
+        "id": "25916b0c-462d-4649-acfc-75f5e3d6c856",
+        "epoch_id": 326,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "scorewire-oracle",
+        "rank": 1,
+        "score": 7.3590405e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-12T10:53:16.865361Z",
+        "created_at": "2026-09-12T10:53:16.865361Z"
+      },
+      {
+        "id": "7ae417e6-5c74-49cb-8b54-44a6a150ca06",
+        "epoch_id": 326,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 6.372715e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-12T10:53:16.865361Z",
+        "created_at": "2026-09-12T10:53:16.865361Z"
+      },
+      {
+        "id": "0cd7697a-7751-496e-88ab-b9dccb5661c9",
+        "epoch_id": 325,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "scorewire-oracle",
+        "rank": 1,
+        "score": 6.79269e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-12T01:55:24.403482Z",
+        "created_at": "2026-09-12T01:55:24.403482Z"
+      },
+      {
+        "id": "3571d2a9-1e9c-4554-a765-4c24188822b3",
+        "epoch_id": 325,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 3.0329563e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-12T01:55:24.403482Z",
+        "created_at": "2026-09-12T01:55:24.403482Z"
+      },
+      {
+        "id": "cd91b8b7-0c54-48bb-bfb7-9365509cc093",
+        "epoch_id": 324,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "scorewire-oracle",
+        "rank": 1,
+        "score": 7.247058e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-11T16:53:40.634808Z",
+        "created_at": "2026-09-11T16:53:40.634808Z"
+      },
+      {
+        "id": "9d88ecbf-cf06-4060-8002-2cbbf5321433",
+        "epoch_id": 324,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 6.907218e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-11T16:53:40.634808Z",
+        "created_at": "2026-09-11T16:53:40.634808Z"
+      },
+      {
+        "id": "213d1c6e-aa7a-40a6-8174-0c680d7752e8",
+        "epoch_id": 323,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "sportwire-score",
+        "rank": 1,
+        "score": 2.1995086e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-11T08:03:03.262343Z",
+        "created_at": "2026-09-11T08:03:03.262343Z"
+      },
+      {
+        "id": "c98c0230-7f76-47af-9f23-02e40a05ef76",
+        "epoch_id": 323,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "livecert",
+        "rank": 4,
+        "score": 0,
+        "failure_reason": "build request for miner \"livecert\": LLM call for miner \"livecert\" failed: http request: Post \"http://127.0.0.1:4000/v1/chat/completions\": context deadline exceeded",
+        "scored_at": "2026-09-11T08:03:03.262343Z",
+        "created_at": "2026-09-11T08:03:03.262343Z"
+      },
+      {
+        "id": "62f64ab1-57c7-4ea8-917b-3352fc63b43f",
+        "epoch_id": 322,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "scorewire-oracle",
+        "rank": 1,
+        "score": 5.885675e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-10T22:59:01.470831Z",
+        "created_at": "2026-09-10T22:59:01.470831Z"
+      },
+      {
+        "id": "ff5aa273-3602-44e2-8432-ecdfaee208bf",
+        "epoch_id": 322,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "livecert",
+        "rank": 3,
+        "score": 1.866203e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-10T22:59:01.470831Z",
+        "created_at": "2026-09-10T22:59:01.470831Z"
+      },
+      {
+        "id": "32afaf05-6f08-44a1-ad14-46f4ac9d5b50",
+        "epoch_id": 321,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "fourcast-sports-intelligence",
+        "rank": 1,
+        "score": 2.8993214e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-10T05:50:11.938218Z",
+        "created_at": "2026-09-10T05:50:11.938218Z"
+      },
+      {
+        "id": "ae360ad5-52fc-42f4-b1e2-099e4163fdcb",
+        "epoch_id": 320,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "fourcast-sports-intelligence",
+        "rank": 1,
+        "score": 8.199142e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-09T20:55:35.161836Z",
+        "created_at": "2026-09-09T20:55:35.161836Z"
+      }
+    ],
+    "total": 239,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 3045,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "SPORTS_SCORE",
+    "wasm_url": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/60ddabc7de7e9d0398e79b3b72bc3cdde2f36934/dist/win/spw_3.wasm",
+    "wasm_hash": "a5265de3eecf51fa9dcc4b173c75c94f54e3ab891b1c89a4d1112a26a73cdfd0",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 0.8666645,
+    "eval": {
+      "candidate_margin": 0.8666645,
+      "champion_margin": 0.8666609,
+      "candidate_wins": 15,
+      "champion_wins": 15,
+      "comparable_cases": 15,
+      "worst_self_match": 1,
+      "score_stddev": 0.47140354,
+      "spearman": {
+        "SPORTS_SCORE": 0.68097544
+      },
+      "historical_rows_evaluated": 56
+    },
+    "registered_at": "2026-08-31T23:16:53Z",
+    "updated_at": "2026-09-01T02:55:13Z"
+  }
+}

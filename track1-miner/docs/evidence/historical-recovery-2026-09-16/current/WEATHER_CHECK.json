@@ -1,0 +1,136 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "b0799375-a9db-4b4d-86eb-45db2adbc6e1",
+        "epoch_id": 335,
+        "intent_id": "WEATHER_CHECK",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 0.015276573,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T20:04:46.207609Z",
+        "created_at": "2026-09-15T20:04:46.207609Z"
+      },
+      {
+        "id": "1aebe8eb-f6b0-4c1a-a798-851589b6fe59",
+        "epoch_id": 335,
+        "intent_id": "WEATHER_CHECK",
+        "miner_slug": "livecert",
+        "rank": 16,
+        "score": 0.012629155,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T20:04:46.207609Z",
+        "created_at": "2026-09-15T20:04:46.207609Z"
+      },
+      {
+        "id": "a9b06238-35d2-4fb0-bedd-5dbd7e84fb1f",
+        "epoch_id": 334,
+        "intent_id": "WEATHER_CHECK",
+        "miner_slug": "isobar-weather",
+        "rank": 1,
+        "score": 0.015276161,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T10:57:00.896428Z",
+        "created_at": "2026-09-15T10:57:00.896428Z"
+      },
+      {
+        "id": "13ce2a4a-4604-444c-b61f-14d167585ec0",
+        "epoch_id": 334,
+        "intent_id": "WEATHER_CHECK",
+        "miner_slug": "livecert",
+        "rank": 10,
+        "score": 0,
+        "failure_reason": "wasm/runtime pool: context cancelled: context deadline exceeded",
+        "scored_at": "2026-09-15T10:57:00.896428Z",
+        "created_at": "2026-09-15T10:57:00.896428Z"
+      },
+      {
+        "id": "b20c3ef1-0119-4b05-bdea-60e296d3c796",
+        "epoch_id": 333,
+        "intent_id": "WEATHER_CHECK",
+        "miner_slug": "amanat-weather-risk",
+        "rank": 1,
+        "score": 0.016745035,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T02:02:18.321265Z",
+        "created_at": "2026-09-15T02:02:18.321265Z"
+      },
+      {
+        "id": "7a03c7d7-c321-4856-bb41-e27aa616bf61",
+        "epoch_id": 333,
+        "intent_id": "WEATHER_CHECK",
+        "miner_slug": "livecert",
+        "rank": 13,
+        "score": 0.012432899,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T02:02:18.321265Z",
+        "created_at": "2026-09-15T02:02:18.321265Z"
+      },
+      {
+        "id": "e0c39031-e4a8-4341-98fd-6ac6285b5d50",
+        "epoch_id": 332,
+        "intent_id": "WEATHER_CHECK",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 0.015868481,
+        "failure_reason": "",
+        "scored_at": "2026-09-14T17:07:54.731291Z",
+        "created_at": "2026-09-14T17:07:54.731291Z"
+      },
+      {
+        "id": "7bed16c0-652f-40be-900c-62d42f79b520",
+        "epoch_id": 332,
+        "intent_id": "WEATHER_CHECK",
+        "miner_slug": "livecert",
+        "rank": 10,
+        "score": 0.013797341,
+        "failure_reason": "",
+        "scored_at": "2026-09-14T17:07:54.731291Z",
+        "created_at": "2026-09-14T17:07:54.731291Z"
+      },
+      {
+        "id": "1572cd7f-0746-411d-b354-3050420f7f08",
+        "epoch_id": 331,
+        "intent_id": "WEATHER_CHECK",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 0.42534107,
+        "failure_reason": "",
+        "scored_at": "2026-09-14T07:53:17.45865Z",
+        "created_at": "2026-09-14T07:53:17.45865Z"
+      }
+    ],
+    "total": 1662,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 510,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "WEATHER_CHECK",
+    "wasm_url": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/d734f291817596332ec23e1ef9b6b67fc32631ef/dist/xfmr/wchk_tol45.wasm",
+    "wasm_hash": "b08701bb8eb40c901c472e67949bf9cc9d3a52cfe0b2163a8510a43f90e8473f",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 0.98340964,
+    "eval": {
+      "candidate_margin": 0.98340964,
+      "champion_margin": 0.4677079,
+      "candidate_wins": 12,
+      "champion_wins": 9,
+      "comparable_cases": 12,
+      "worst_self_match": 0.99863017,
+      "score_stddev": 0.46348342,
+      "spearman": {
+        "WEATHER_CHECK": 0.6128585
+      },
+      "historical_rows_evaluated": 47
+    },
+    "registered_at": "2026-08-23T00:00:44Z",
+    "updated_at": "2026-08-23T00:19:59Z"
+  }
+}

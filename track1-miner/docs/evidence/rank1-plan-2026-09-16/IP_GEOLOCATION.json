@@ -1,0 +1,166 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "01765eac-72fa-4de2-a817-c8dc1b01402e",
+        "epoch_id": 335,
+        "intent_id": "IP_GEOLOCATION",
+        "miner_slug": "ipgeo-ipinfo",
+        "rank": 1,
+        "score": 0.9979013,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T20:11:10.436525Z",
+        "created_at": "2026-09-15T20:11:10.436525Z"
+      },
+      {
+        "id": "b4aa3438-9a84-4116-96d0-79f25214e2b1",
+        "epoch_id": 335,
+        "intent_id": "IP_GEOLOCATION",
+        "miner_slug": "livecert",
+        "rank": 14,
+        "score": 0.011061581,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T20:11:10.436525Z",
+        "created_at": "2026-09-15T20:11:10.436525Z"
+      },
+      {
+        "id": "fb2a10bd-fcf0-460b-9dcf-6c3a5b49fbee",
+        "epoch_id": 334,
+        "intent_id": "IP_GEOLOCATION",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.9973802,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T11:06:32.98836Z",
+        "created_at": "2026-09-15T11:06:32.98836Z"
+      },
+      {
+        "id": "560337b4-8050-48e8-9162-359786d5cb5b",
+        "epoch_id": 333,
+        "intent_id": "IP_GEOLOCATION",
+        "miner_slug": "preflight-ssl-verification",
+        "rank": 1,
+        "score": 0.9979899,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T02:01:34.778993Z",
+        "created_at": "2026-09-15T02:01:34.778993Z"
+      },
+      {
+        "id": "da0b7589-811c-4340-ab34-f75ce2ef2f1b",
+        "epoch_id": 333,
+        "intent_id": "IP_GEOLOCATION",
+        "miner_slug": "livecert",
+        "rank": 3,
+        "score": 0.996566,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T02:01:34.778993Z",
+        "created_at": "2026-09-15T02:01:34.778993Z"
+      },
+      {
+        "id": "9229add8-1bc7-433a-842e-6988a93acea7",
+        "epoch_id": 332,
+        "intent_id": "IP_GEOLOCATION",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.9963851,
+        "failure_reason": "",
+        "scored_at": "2026-09-14T16:56:20.63921Z",
+        "created_at": "2026-09-14T16:56:20.63921Z"
+      },
+      {
+        "id": "c16db8dd-3b45-45a7-8f54-fa76bdeb10ca",
+        "epoch_id": 331,
+        "intent_id": "IP_GEOLOCATION",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.9972712,
+        "failure_reason": "",
+        "scored_at": "2026-09-14T07:57:29.577477Z",
+        "created_at": "2026-09-14T07:57:29.577477Z"
+      },
+      {
+        "id": "23770ed2-17e4-488f-86fc-35941a0e8568",
+        "epoch_id": 330,
+        "intent_id": "IP_GEOLOCATION",
+        "miner_slug": "preflight-ssl-verification",
+        "rank": 1,
+        "score": 0.99817103,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T22:53:49.027243Z",
+        "created_at": "2026-09-13T22:53:49.027243Z"
+      },
+      {
+        "id": "ba7c7143-44a1-47be-8790-74da1fa782b7",
+        "epoch_id": 330,
+        "intent_id": "IP_GEOLOCATION",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 0.99690485,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T22:53:49.027243Z",
+        "created_at": "2026-09-13T22:53:49.027243Z"
+      },
+      {
+        "id": "3402ce85-b8ec-4356-9c0b-a8a08b7814cc",
+        "epoch_id": 329,
+        "intent_id": "IP_GEOLOCATION",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.99824667,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T13:58:13.080161Z",
+        "created_at": "2026-09-13T13:58:13.080161Z"
+      },
+      {
+        "id": "d1f01849-ef2d-4c41-9af5-d7568d92bf5f",
+        "epoch_id": 328,
+        "intent_id": "IP_GEOLOCATION",
+        "miner_slug": "txlens",
+        "rank": 1,
+        "score": 0.9978667,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T04:55:13.833902Z",
+        "created_at": "2026-09-13T04:55:13.833902Z"
+      },
+      {
+        "id": "7f163c0a-4f1a-4820-a111-d3ea6e342825",
+        "epoch_id": 328,
+        "intent_id": "IP_GEOLOCATION",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 0.99508524,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T04:55:13.833902Z",
+        "created_at": "2026-09-13T04:55:13.833902Z"
+      }
+    ],
+    "total": 320,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 630,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "IP_GEOLOCATION",
+    "wasm_url": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/8dcc6b775400c48bf0895923f0407aa3d2b2bfb2/dist/subagent/IP_GEOLOCATION.wasm",
+    "wasm_hash": "636983a2fd5a72974977d62cbd50ff97df87efa0b16287ce24ca254369703094",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 0.85738987,
+    "eval": {
+      "candidate_margin": 0.85738987,
+      "champion_margin": 0.51261926,
+      "candidate_wins": 15,
+      "champion_wins": 14,
+      "comparable_cases": 15,
+      "worst_self_match": 1,
+      "score_stddev": 0.44853216,
+      "historical_rows_evaluated": 7
+    },
+    "registered_at": "2026-08-24T01:04:58Z",
+    "updated_at": "2026-08-24T01:11:00Z"
+  }
+}

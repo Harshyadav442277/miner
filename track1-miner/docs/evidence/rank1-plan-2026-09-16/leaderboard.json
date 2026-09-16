@@ -1,0 +1,4637 @@
+{
+  "epoch": 335,
+  "intents": {
+    "ACADEMIC_SEARCH": [
+      {
+        "miner_slug": "acad-doaj",
+        "score": 0.45327702,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "acad-openalex-sources",
+        "score": 0.01769224,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "acad-openalex-authors",
+        "score": 0.017431878,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "acad-crossref",
+        "score": 0.01194442,
+        "rank": 4,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "acad-zenodo",
+        "score": 0.011679077,
+        "rank": 5,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "preflight-ssl-verification",
+        "score": 0.011459823,
+        "rank": 6,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "acad-pubmed",
+        "score": 0.010500543,
+        "rank": 7,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "acad-europepmc",
+        "score": 0.01013471,
+        "rank": 8,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "txlens",
+        "score": 0.010058817,
+        "rank": 9,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "scholarwire-academic-search",
+        "score": 0.009475094,
+        "rank": 10,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "livecert",
+        "score": 0.008926418,
+        "rank": 11,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "chainsight-oracle",
+        "score": 0.008367055,
+        "rank": 12,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "acad-crossref-doi",
+        "score": 0,
+        "rank": 13,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "semanticscholar",
+        "score": 0,
+        "rank": 14,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "openalex",
+        "score": 0,
+        "rank": 15,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "acad-openalex-works",
+        "score": 0,
+        "rank": 16,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "acad-datacite",
+        "score": 0,
+        "rank": 17,
+        "activation_status": "active"
+      }
+    ],
+    "AI_TEXT_DETECTION": [
+      {
+        "miner_slug": "caliber-truthport-text-auth",
+        "score": 2.55e-10,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "livecert",
+        "score": 2.4193547e-10,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "chainsight-oracle",
+        "score": 1.6901408e-10,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "bittensor-sn32-itsai",
+        "score": 1.5151515e-10,
+        "rank": 4,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "test-gas-sponsorship-miner-1223",
+        "score": 1.1550152e-10,
+        "rank": 5,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "veritarach-ai-text-detector",
+        "score": 0,
+        "rank": 6,
+        "activation_status": "active"
+      }
+    ],
+    "ASSET_RESERVE_ATTESTATION": [
+      {
+        "miner_slug": "res-llama-aave",
+        "score": 0.33810067,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "res-llama-lido",
+        "score": 0.33810067,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "res-llama-mkr",
+        "score": 0.33810067,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "res-llama-comp",
+        "score": 0.33810067,
+        "rank": 4,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "res-llama-sc",
+        "score": 0.31349304,
+        "rank": 5,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "res-cg-global",
+        "score": 0.27756912,
+        "rank": 6,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "res-circle",
+        "score": 0.2764538,
+        "rank": 7,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "res-cg-cat",
+        "score": 0,
+        "rank": 8,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "res-llama-sc1",
+        "score": 0,
+        "rank": 9,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "res-llama-chains",
+        "score": 0,
+        "rank": 10,
+        "activation_status": "active"
+      }
+    ],
+    "CHAT_COMPLETION": [
+      {
+        "miner_slug": "groq-llama31-instant-miner",
+        "score": 0.9999759,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "chat-12003",
+        "score": 0.99983025,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "bedrock-voxtral",
+        "score": 0.99921525,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "litellm",
+        "score": 0.9968834,
+        "rank": 4,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "chat-12001",
+        "score": 0.9953663,
+        "rank": 5,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "bedrock-nova-2-lite",
+        "score": 0.990381,
+        "rank": 6,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "bedrock-qwen",
+        "score": 4.2832093e-10,
+        "rank": 7,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "chat-12002",
+        "score": 3.9338574e-10,
+        "rank": 8,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "telegraph-chatbot",
+        "score": 2.4435262e-10,
+        "rank": 9,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "bedrock-kimi",
+        "score": 3.249521e-11,
+        "rank": 10,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "bedrock-deepseek",
+        "score": 4.6423684e-14,
+        "rank": 11,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "chainsight-oracle",
+        "score": 8.879561e-15,
+        "rank": 12,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "gemini",
+        "score": 0,
+        "rank": 13,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "openrouter",
+        "score": 0,
+        "rank": 14,
+        "activation_status": "active"
+      }
+    ],
+    "CONTENT_EXTRACTION": [
+      {
+        "miner_slug": "livecert",
+        "score": 1,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "netwire-content-extraction",
+        "score": 0,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "chainsight-oracle",
+        "score": 0,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "microlink-url-extraction",
+        "score": 0,
+        "rank": 4,
+        "activation_status": "active"
+      }
+    ],
+    "CONTENT_MODERATION": [
+      {
+        "miner_slug": "elcaro-ipi-detection",
+        "score": 1.4072198e-11,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "chainsight-oracle",
+        "score": 1.1831143e-11,
+        "rank": 2,
+        "activation_status": "active"
+      }
+    ],
+    "CONTENT_VERIFICATION": [
+      {
+        "miner_slug": "chainsight-oracle",
+        "score": 1.1908337e-11,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "livecert",
+        "score": 3.2193222e-12,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "faceplus",
+        "score": 0,
+        "rank": 3,
+        "activation_status": "active"
+      }
+    ],
+    "CONTRACT_OBLIGATION_AUDIT": [
+      {
+        "miner_slug": "contract-crossref-funders",
+        "score": 0.56890845,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "contract-usa-agencies",
+        "score": 0.28657284,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "contract-usa-agency",
+        "score": 0,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "contract-fedreg-agencies",
+        "score": 0,
+        "rank": 4,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "contract-gleif-amazon",
+        "score": 0,
+        "rank": 5,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "contract-gleif-apple",
+        "score": 0,
+        "rank": 6,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "contract-gleif-msft",
+        "score": 0,
+        "rank": 7,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "contract-chicago-po",
+        "score": 0,
+        "rank": 8,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "contract-courtlistener",
+        "score": 0,
+        "rank": 9,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "contract-fedreg-docs",
+        "score": 0,
+        "rank": 10,
+        "activation_status": "active"
+      }
+    ],
+    "CROSS_CHAIN_STATE_VERIFY": [
+      {
+        "miner_slug": "chainsight-oracle",
+        "score": 0.44918525,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "livecert",
+        "score": 0.37803778,
+        "rank": 2,
+        "activation_status": "active"
+      }
+    ],
+    "CRYPTO_PRICE": [
+      {
+        "miner_slug": "livecert",
+        "score": 0.999929,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "kriterion-pramagraph",
+        "score": 0.99991465,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "onchain-intel-miner",
+        "score": 2.4630409e-24,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "coingecko",
+        "score": 1.9522785e-24,
+        "rank": 4,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "coingecko-spot",
+        "score": 1.9522785e-24,
+        "rank": 5,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "agentfeed-base-crypto",
+        "score": 1.2876583e-24,
+        "rank": 6,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "crypto-coinpaprika",
+        "score": 1.2606617e-24,
+        "rank": 7,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "finwire-crypto-price",
+        "score": 9.467359e-25,
+        "rank": 8,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "pricepulse-crypto-consensus",
+        "score": 9.341518e-25,
+        "rank": 9,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "txlens",
+        "score": 7.2098736e-25,
+        "rank": 10,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "cryptopulse-multisource-price",
+        "score": 6.871865e-25,
+        "rank": 11,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "preflight-ssl-verification",
+        "score": 5.76938e-25,
+        "rank": 12,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "crypto-coingecko",
+        "score": 3.534349e-25,
+        "rank": 13,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "chainsight-oracle",
+        "score": 3.3206042e-25,
+        "rank": 14,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "crypto-bybit",
+        "score": 3.2597606e-25,
+        "rank": 15,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "crypto-coinbase",
+        "score": 2.1589232e-25,
+        "rank": 16,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "crypto-gemini",
+        "score": 1.5454018e-25,
+        "rank": 17,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "crypto-kraken",
+        "score": 1.0338676e-25,
+        "rank": 18,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "crypto-defillama",
+        "score": 9.492264e-26,
+        "rank": 19,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "sentinel-risk-oracle",
+        "score": 7.9336216e-26,
+        "rank": 20,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "crypto-kucoin",
+        "score": 3.0542824e-26,
+        "rank": 21,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "crypto-binance",
+        "score": 1.0356033e-26,
+        "rank": 22,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "crypto-bitstamp",
+        "score": 5.989552e-28,
+        "rank": 23,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "optivis-crypto-price",
+        "score": 0,
+        "rank": 24,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "koinmix-crypto-price",
+        "score": 0,
+        "rank": 25,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "provenance-price",
+        "score": 0,
+        "rank": 26,
+        "activation_status": "active"
+      }
+    ],
+    "CURRENCY_EXCHANGE": [
+      {
+        "miner_slug": "fxex-frankfurter-currencies",
+        "score": 0.0000010842995,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "chainsight-oracle",
+        "score": 2.141337e-7,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "kriterion-pramagraph",
+        "score": 1.8010029e-7,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "preflight-ssl-verification",
+        "score": 1.649762e-7,
+        "rank": 4,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "fxex-frankfurter-hist",
+        "score": 1.6093043e-7,
+        "rank": 5,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "fxex-frankfurter",
+        "score": 1.6093043e-7,
+        "rank": 6,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "fxex-frankfurter-jpy",
+        "score": 1.6093043e-7,
+        "rank": 7,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "livecert",
+        "score": 1.1072443e-7,
+        "rank": 8,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "finwire-currency-exchange",
+        "score": 1.0936507e-7,
+        "rank": 9,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "fxex-erapi-usd",
+        "score": 9.5148756e-8,
+        "rank": 10,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "fxex-erapi-eur",
+        "score": 9.235917e-8,
+        "rank": 11,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "optivis-crypto-price",
+        "score": 5.8935054e-8,
+        "rank": 12,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "fx-rate-mirror",
+        "score": 5.3187996e-8,
+        "rank": 13,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "fxex-ecb",
+        "score": 0,
+        "rank": 14,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "fxex-fawaz-usd",
+        "score": 0,
+        "rank": 15,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "fxex-fawaz-gbp",
+        "score": 0,
+        "rank": 16,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "fxex-fawaz-eur",
+        "score": 0,
+        "rank": 17,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "exchangerate",
+        "score": 0,
+        "rank": 18,
+        "activation_status": "active"
+      }
+    ],
+    "CUSTOMER_TICKET_RESOLUTION": [
+      {
+        "miner_slug": "ticket-so-search",
+        "score": 0.30422908,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "ticket-status-components",
+        "score": 0.25430295,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "ticket-so-answers",
+        "score": 0.22105363,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "ticket-status-github",
+        "score": 0.20672241,
+        "rank": 4,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "ticket-discourse",
+        "score": 0.15889597,
+        "rank": 5,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "ticket-so-tags",
+        "score": 0.11849807,
+        "rank": 6,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "ticket-gh-issue",
+        "score": 0,
+        "rank": 7,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "ticket-gh-comments",
+        "score": 0,
+        "rank": 8,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "ticket-so-questions",
+        "score": 0,
+        "rank": 9,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "ticket-gh-issues",
+        "score": 0,
+        "rank": 10,
+        "activation_status": "active"
+      }
+    ],
+    "CVE_LOOKUP": [
+      {
+        "miner_slug": "sentinelvault-cve",
+        "score": 1.4551575e-11,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "chainsight-oracle",
+        "score": 1.36454e-11,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "patchsignal-cve",
+        "score": 1.3603459e-11,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "secwire-cve-lookup",
+        "score": 1.2522424e-11,
+        "rank": 4,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "livecert",
+        "score": 1.10793215e-11,
+        "rank": 5,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "preflight-ssl-verification",
+        "score": 7.1956325e-12,
+        "rank": 6,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "cve-nvd-cpe",
+        "score": 5.645868e-12,
+        "rank": 7,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "cve-nvd-cvss",
+        "score": 5.5526556e-12,
+        "rank": 8,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "cve-nvd",
+        "score": 4.068285e-12,
+        "rank": 9,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "cve-nvd-keyword",
+        "score": 4.068285e-12,
+        "rank": 10,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "nvd",
+        "score": 4.068285e-12,
+        "rank": 11,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "cve-epss",
+        "score": 2.4984808e-12,
+        "rank": 12,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "cve-circl",
+        "score": 1.4216242e-12,
+        "rank": 13,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "cve-osv-ghsa",
+        "score": 0,
+        "rank": 14,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "cve-depsdev",
+        "score": 0,
+        "rank": 15,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "cve-osv",
+        "score": 0,
+        "rank": 16,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "cve-mitre",
+        "score": 0,
+        "rank": 17,
+        "activation_status": "active"
+      }
+    ],
+    "DEEPFAKE_DETECTION": [
+      {
+        "miner_slug": "chainsight-oracle",
+        "score": 0,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "bittensor-sn34-bitmind",
+        "score": 0,
+        "rank": 2,
+        "activation_status": "active"
+      }
+    ],
+    "EMAIL_SECURITY": [
+      {
+        "miner_slug": "email-dns-gmail-txt",
+        "score": 0.42863104,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "email-dns-google-txt",
+        "score": 0.41861278,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "email-dns-outlook-mx",
+        "score": 0.4124131,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "email-dns-dmarc-google",
+        "score": 0.39632604,
+        "rank": 4,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "email-dns-gmail-mx",
+        "score": 0,
+        "rank": 5,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "email-dns-yahoo-mx",
+        "score": 0,
+        "rank": 6,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "email-cf-gmail-mx",
+        "score": 0,
+        "rank": 7,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "email-cf-google-txt",
+        "score": 0,
+        "rank": 8,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "email-dns-dmarc-gmail",
+        "score": 0,
+        "rank": 9,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "email-dns-google-mx",
+        "score": 0,
+        "rank": 10,
+        "activation_status": "active"
+      }
+    ],
+    "EVENT_OUTCOME_RESOLUTION": [
+      {
+        "miner_slug": "chainsight-oracle",
+        "score": 0.3326033,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "livecert",
+        "score": 0.22171375,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "event-poly-search-fed",
+        "score": 0.21692991,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "event-poly-search-nba",
+        "score": 0.21510714,
+        "rank": 4,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "event-poly-search-ai",
+        "score": 0.21510714,
+        "rank": 5,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "event-poly-search-election",
+        "score": 0.21510714,
+        "rank": 6,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "event-poly-search",
+        "score": 0.21510714,
+        "rank": 7,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "event-poly-markets",
+        "score": 0,
+        "rank": 8,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "event-poly-search-eth",
+        "score": 0,
+        "rank": 9,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "polymarket-event",
+        "score": 0,
+        "rank": 10,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "event-poly-tags",
+        "score": 0,
+        "rank": 11,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "event-poly-series",
+        "score": 0,
+        "rank": 12,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "event-poly-events",
+        "score": 0,
+        "rank": 13,
+        "activation_status": "active"
+      }
+    ],
+    "FACT_CHECK": [
+      {
+        "miner_slug": "chainsight-oracle",
+        "score": 3.956889e-9,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "qarinah-proofpack",
+        "score": 3.956889e-9,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "livecert",
+        "score": 3.8054e-9,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "fact-core",
+        "score": 1.1171454e-9,
+        "rank": 4,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "fact-ddg-pop",
+        "score": 9.302164e-10,
+        "rank": 5,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "fact-ddg",
+        "score": 9.302164e-10,
+        "rank": 6,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "fact-crossref",
+        "score": 8.3045226e-10,
+        "rank": 7,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "fact-crossref-space",
+        "score": 7.01142e-10,
+        "rank": 8,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "fact-zenodo",
+        "score": 4.425212e-10,
+        "rank": 9,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "assay-miner",
+        "score": 0,
+        "rank": 10,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "fact-courtlistener",
+        "score": 0,
+        "rank": 11,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "fact-openalex-space",
+        "score": 0,
+        "rank": 12,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "fact-openalex-health",
+        "score": 0,
+        "rank": 13,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "fact-openalex",
+        "score": 0,
+        "rank": 14,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "tavily",
+        "score": 0,
+        "rank": 15,
+        "activation_status": "active"
+      }
+    ],
+    "FINANCIAL_DATA": [
+      {
+        "miner_slug": "kriterion-pramagraph",
+        "score": 1.7427014e-15,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "fin-coingecko-global",
+        "score": 1.25927294e-23,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "chainsight-oracle",
+        "score": 6.954226e-24,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "finwire-financial-data",
+        "score": 3.1021829e-24,
+        "rank": 4,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "livecert",
+        "score": 3.0199148e-27,
+        "rank": 5,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "agentfeed-crypto-markets",
+        "score": 6.0066595e-29,
+        "rank": 6,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "coingecko",
+        "score": 3.5733755e-29,
+        "rank": 7,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "alphavantage",
+        "score": 1.1882288e-31,
+        "rank": 8,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "fin-imf-indicators",
+        "score": 1.9911972e-33,
+        "rank": 9,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "cinder-signal-financial-data",
+        "score": 0,
+        "rank": 10,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "optivis-crypto-price",
+        "score": 0,
+        "rank": 11,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "fin-worldbank-inflation",
+        "score": 0,
+        "rank": 12,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "fin-worldbank-gdp",
+        "score": 0,
+        "rank": 13,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "fin-llama-chains",
+        "score": 0,
+        "rank": 14,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "fin-stablecoins",
+        "score": 0,
+        "rank": 15,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "fin-llama-protocols",
+        "score": 0,
+        "rank": 16,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "fin-llama-dex-overview",
+        "score": 0,
+        "rank": 17,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "fin-worldbank-unemp",
+        "score": 0,
+        "rank": 18,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "fin-oecd-cli",
+        "score": 0,
+        "rank": 19,
+        "activation_status": "active"
+      }
+    ],
+    "FLIGHT_AVAILABILITY": [
+      {
+        "miner_slug": "flight-adsb-miami",
+        "score": 0.31177363,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "flight-adsb-type-a320",
+        "score": 0.07407749,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "flight-metar-jfk",
+        "score": 0,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "flight-taf-lax",
+        "score": 0,
+        "rank": 4,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "flight-adsb-ladd",
+        "score": 0,
+        "rank": 5,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "flight-adsb-mil",
+        "score": 0,
+        "rank": 6,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "flight-adsb-pia",
+        "score": 0,
+        "rank": 7,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "flight-adsb-type-b738",
+        "score": 0,
+        "rank": 8,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "flight-metar-lhr",
+        "score": 0,
+        "rank": 9,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "flight-metar-miami",
+        "score": 0,
+        "rank": 10,
+        "activation_status": "active"
+      }
+    ],
+    "FRAUD_DETECTION": [
+      {
+        "miner_slug": "chainsight-oracle",
+        "score": 1,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "sarzops-transaction-risk",
+        "score": 1.07117135e-13,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "livecert",
+        "score": 5.4482176e-14,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "degenlens-onchain",
+        "score": 4.3123667e-14,
+        "rank": 4,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "zengawd-transaction-guard",
+        "score": 3.5531236e-14,
+        "rank": 5,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "iplocate",
+        "score": 1.9585973e-14,
+        "rank": 6,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "telegraph-sentinel",
+        "score": 8.634281e-15,
+        "rank": 7,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "trustgate-fraud-detection",
+        "score": 0,
+        "rank": 8,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "agentfeed-crypto-markets",
+        "score": 0,
+        "rank": 9,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "sigvora",
+        "score": 0,
+        "rank": 10,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "anchor",
+        "score": 0,
+        "rank": 11,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "refut-onchain-risk",
+        "score": 0,
+        "rank": 12,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "tele",
+        "score": 0,
+        "rank": 13,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "txlens",
+        "score": 0,
+        "rank": 14,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "veridex-contract-risk-miner",
+        "score": 0,
+        "rank": 15,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "emailrep",
+        "score": 0,
+        "rank": 16,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "eviplan-evidence-firewall",
+        "score": 0,
+        "rank": 17,
+        "activation_status": "active"
+      }
+    ],
+    "GAME_RESULT": [
+      {
+        "miner_slug": "game-mlb-schedule",
+        "score": 0.750381,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "game-nhl-score",
+        "score": 0.6973406,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "game-tsdb-table",
+        "score": 0.4244093,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "sportwire-game-result",
+        "score": 0.14313433,
+        "rank": 4,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "game-football-data",
+        "score": 0.13048105,
+        "rank": 5,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "game-tsdb-league",
+        "score": 0.00074446725,
+        "rank": 6,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "game-tsdb-past",
+        "score": 0.00009457804,
+        "rank": 7,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "game-tsdb-team",
+        "score": 0.00009457804,
+        "rank": 8,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "game-tsdb-next",
+        "score": 0.00008533751,
+        "rank": 9,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "livecert",
+        "score": 0.000039403025,
+        "rank": 10,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "game-tsdb-event",
+        "score": 0.000012025127,
+        "rank": 11,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "game-tsdb-last15",
+        "score": 0.0000071604504,
+        "rank": 12,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "scorewire-oracle",
+        "score": 1.1967995e-7,
+        "rank": 13,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "fourcast-sports-intelligence",
+        "score": 0,
+        "rank": 14,
+        "activation_status": "active"
+      }
+    ],
+    "GAS_PRICE": [
+      {
+        "miner_slug": "kriterion-pramagraph",
+        "score": 2.2218227e-11,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "livecert",
+        "score": 2.1596138e-11,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "gaspulse-evm-fees",
+        "score": 1.8349489e-11,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "agentfeed-base-crypto",
+        "score": 1.7347956e-11,
+        "rank": 4,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "txlens",
+        "score": 1.6696446e-11,
+        "rank": 5,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "gaswire-evm-fees",
+        "score": 1.5666461e-11,
+        "rank": 6,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "truvian-onchain-truth",
+        "score": 1.2731869e-11,
+        "rank": 7,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "chainsight-oracle",
+        "score": 1.0888939e-11,
+        "rank": 8,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "gas-llama-eth",
+        "score": 7.0615866e-12,
+        "rank": 9,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "gas-etherscan-v2",
+        "score": 5.0446813e-12,
+        "rank": 10,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "gas-owlracle-bsc",
+        "score": 2.6772469e-12,
+        "rank": 11,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "gas-owlracle-base",
+        "score": 2.4606365e-12,
+        "rank": 12,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "gas-owlracle-arb",
+        "score": 2.2380505e-12,
+        "rank": 13,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "gas-owlracle-poly",
+        "score": 2.148754e-12,
+        "rank": 14,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "optivis-gas",
+        "score": 9.175264e-13,
+        "rank": 15,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "onchain-intel-miner",
+        "score": 0,
+        "rank": 16,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "gas-bs-arb",
+        "score": 0,
+        "rank": 17,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "gas-bs-eth",
+        "score": 0,
+        "rank": 18,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "gas-bs-base",
+        "score": 0,
+        "rank": 19,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "gas-bs-op",
+        "score": 0,
+        "rank": 20,
+        "activation_status": "active"
+      }
+    ],
+    "IMAGE_VERIFICATION": [
+      {
+        "miner_slug": "chainsight-oracle",
+        "score": 1.09963375e-11,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "faceplus",
+        "score": 9.4313385e-12,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "bittensor-sn34-bitmind",
+        "score": 0,
+        "rank": 3,
+        "activation_status": "active"
+      }
+    ],
+    "IP_GEOLOCATION": [
+      {
+        "miner_slug": "ipgeo-ipinfo",
+        "score": 0.9979013,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "ipgeo-seeip",
+        "score": 0.9949236,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "ipgeo-dbip",
+        "score": 0.994745,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "ipgeo-ipwho",
+        "score": 0.9937921,
+        "rank": 4,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "ipgeo-ifconfig",
+        "score": 0.99322397,
+        "rank": 5,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "preflight-ssl-verification",
+        "score": 0.9930893,
+        "rank": 6,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "chainsight-oracle",
+        "score": 0.9930274,
+        "rank": 7,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "ip-api-geo",
+        "score": 0.99297374,
+        "rank": 8,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "ipgeo-ipapi",
+        "score": 0.99297374,
+        "rank": 9,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "txlens",
+        "score": 0.992886,
+        "rank": 10,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "ipgeo-ipapiis",
+        "score": 0.99243075,
+        "rank": 11,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "netwire-ip-geolocation",
+        "score": 0.991953,
+        "rank": 12,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "iplocate",
+        "score": 0.991718,
+        "rank": 13,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "livecert",
+        "score": 0.011061581,
+        "rank": 14,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "ipgeo-geojs",
+        "score": 0.010332961,
+        "rank": 15,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "ipgeo-reallyfree",
+        "score": 0.009725217,
+        "rank": 16,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "ipgeo-countryis",
+        "score": 0,
+        "rank": 17,
+        "activation_status": "active"
+      }
+    ],
+    "LANGUAGE_GENERATION": [
+      {
+        "miner_slug": "groq-llama31-instant-miner",
+        "score": 0.99848896,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "bedrock-qwen",
+        "score": 0.9982169,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "chainsight-oracle",
+        "score": 0.998211,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "bedrock-voxtral",
+        "score": 0.99777097,
+        "rank": 4,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "bedrock-kimi",
+        "score": 4.6078683e-10,
+        "rank": 5,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "bedrock-deepseek",
+        "score": 4.291333e-10,
+        "rank": 6,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "telegraph-chatbot",
+        "score": 1.5501891e-10,
+        "rank": 7,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "litellm",
+        "score": 1.2427281e-10,
+        "rank": 8,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "bedrock-nova-2-lite",
+        "score": 1.1772083e-10,
+        "rank": 9,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "weerakorn-miner",
+        "score": 0,
+        "rank": 10,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "openrouter",
+        "score": 0,
+        "rank": 11,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "gemini",
+        "score": 0,
+        "rank": 12,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "telegraph-ai-miner-node",
+        "score": 0,
+        "rank": 13,
+        "activation_status": "active"
+      }
+    ],
+    "LANGUAGE_TRANSLATION": [
+      {
+        "miner_slug": "livecert",
+        "score": 2.073144e-10,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "chainsight-oracle",
+        "score": 6.997235e-11,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "tr-mm-en-it",
+        "score": 0,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "test-mymemory-translate",
+        "score": 0,
+        "rank": 4,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "tr-mm-en-zh",
+        "score": 0,
+        "rank": 5,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "tr-mm-en-de",
+        "score": 0,
+        "rank": 6,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "tr-mm-en-ar",
+        "score": 0,
+        "rank": 7,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "tr-mm-en-fr",
+        "score": 0,
+        "rank": 8,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "tr-mm-en-es",
+        "score": 0,
+        "rank": 9,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "tr-mm-en-ja",
+        "score": 0,
+        "rank": 10,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "tr-mm-en-ko",
+        "score": 0,
+        "rank": 11,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "tr-mm-en-pt",
+        "score": 0,
+        "rank": 12,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "tr-mm-en-ru",
+        "score": 0,
+        "rank": 13,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "mymemory-translate",
+        "score": 0,
+        "rank": 14,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "langwire-translation",
+        "score": 0,
+        "rank": 15,
+        "activation_status": "active"
+      }
+    ],
+    "LLM_OUTPUT_EVALUATION": [
+      {
+        "miner_slug": "llm-openalex-safety",
+        "score": 0.6767418,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "llm-openalex",
+        "score": 0.66736346,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "llm-doaj",
+        "score": 0.56523347,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "llm-crossref",
+        "score": 0.28853545,
+        "rank": 4,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "llm-hf-models",
+        "score": 0,
+        "rank": 5,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "llm-hf-papers",
+        "score": 0,
+        "rank": 6,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "llm-hf-sst2",
+        "score": 0,
+        "rank": 7,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "llm-lt-languages",
+        "score": 0,
+        "rank": 8,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "llm-core",
+        "score": 0,
+        "rank": 9,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "llm-zenodo",
+        "score": 0,
+        "rank": 10,
+        "activation_status": "active"
+      }
+    ],
+    "MACRO_ECONOMIC_INDICATOR": [
+      {
+        "miner_slug": "macro-ecb-exr",
+        "score": 0.37751105,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "macro-bis-eer",
+        "score": 0.31587255,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "macro-wb-gdp-jp",
+        "score": 0,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "macro-wb-pop-us",
+        "score": 0,
+        "rank": 4,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "macro-wb-infl-us",
+        "score": 0,
+        "rank": 5,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "macro-wb-gdp-us",
+        "score": 0,
+        "rank": 6,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "macro-wb-unemp-us",
+        "score": 0,
+        "rank": 7,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "macro-wb-infl-gb",
+        "score": 0,
+        "rank": 8,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "macro-wb-gdp-growth",
+        "score": 0,
+        "rank": 9,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "macro-wb-gdp-de",
+        "score": 0,
+        "rank": 10,
+        "activation_status": "active"
+      }
+    ],
+    "MEDIA_AUTHENTICITY_CHECK": [
+      {
+        "miner_slug": "chainsight-oracle",
+        "score": 7.7565905e-12,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "bittensor-sn34-bitmind",
+        "score": 0,
+        "rank": 2,
+        "activation_status": "active"
+      }
+    ],
+    "MINING_HASHPRICE_VERIFY": [
+      {
+        "miner_slug": "mine-mempool-hashrate-3d",
+        "score": 0.41666558,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "mine-mempool-hashrate-1w",
+        "score": 0.41314206,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "mine-blockchain-ticker",
+        "score": 0.41061416,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "mine-blockchair-stats",
+        "score": 0.38347483,
+        "rank": 4,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "mine-mempool-pools",
+        "score": 0.3345137,
+        "rank": 5,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "mine-mempool-fees",
+        "score": 0.30724257,
+        "rank": 6,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "mine-blockchain-stats",
+        "score": 0.2799384,
+        "rank": 7,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "mine-mempool-difficulty",
+        "score": 0.21684179,
+        "rank": 8,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "mine-mempool-hashrate",
+        "score": 0,
+        "rank": 9,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "mine-mempool-pools-1m",
+        "score": 0,
+        "rank": 10,
+        "activation_status": "active"
+      }
+    ],
+    "NEWS_HEADLINES": [
+      {
+        "miner_slug": "news-spaceflight",
+        "score": 0.0036858812,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "chainsight-oracle",
+        "score": 0.0033955087,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "newswire-headlines",
+        "score": 0.0033081393,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "livecert",
+        "score": 0.002776922,
+        "rank": 4,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "news-hn-front",
+        "score": 0.0022533154,
+        "rank": 5,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "news-spaceflight-blogs",
+        "score": 0.0020498133,
+        "rank": 6,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "newsapi",
+        "score": 0.00077928125,
+        "rank": 7,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "news-hn-show",
+        "score": 0,
+        "rank": 8,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "news-hn-best",
+        "score": 0,
+        "rank": 9,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "news-hn-ask",
+        "score": 0,
+        "rank": 10,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "news-hn-new",
+        "score": 0,
+        "rank": 11,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "news-devto",
+        "score": 0,
+        "rank": 12,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "news-lobsters",
+        "score": 0,
+        "rank": 13,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "news-hn-top",
+        "score": 0,
+        "rank": 14,
+        "activation_status": "active"
+      }
+    ],
+    "NEWS_SEARCH": [
+      {
+        "miner_slug": "livecert",
+        "score": 0.99977547,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "verity-news-search",
+        "score": 0.9997363,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "nsearch-crossref",
+        "score": 0.9759445,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "nsearch-hn-date",
+        "score": 0.0004445794,
+        "rank": 4,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "nsearch-hn-algolia",
+        "score": 0.0004445794,
+        "rank": 5,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "chainsight-oracle",
+        "score": 0.0004041829,
+        "rank": 6,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "newswire-search",
+        "score": 0.00034210886,
+        "rank": 7,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "nsearch-openalex",
+        "score": 0.0003032251,
+        "rank": 8,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "nsearch-spaceflight-reports",
+        "score": 0.00021350244,
+        "rank": 9,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "gnews",
+        "score": 0.00014828291,
+        "rank": 10,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "nsearch-ddg",
+        "score": 0.000061357336,
+        "rank": 11,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "nsearch-spaceflight",
+        "score": 0.000009339928,
+        "rank": 12,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "nsearch-devto-tag",
+        "score": 0,
+        "rank": 13,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "nsearch-hn-ask",
+        "score": 0,
+        "rank": 14,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "newsapi",
+        "score": 0,
+        "rank": 15,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "nsearch-hn-show",
+        "score": 0,
+        "rank": 16,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "tavily",
+        "score": 0,
+        "rank": 17,
+        "activation_status": "active"
+      }
+    ],
+    "ONCHAIN_METRIC_VERIFY": [
+      {
+        "miner_slug": "ocm-stablecoins",
+        "score": 0.45249546,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "ocm-blockchair",
+        "score": 0.43521556,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "ocm-coingecko-global",
+        "score": 0.34420913,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "ocm-mempool-fees",
+        "score": 0.28396037,
+        "rank": 4,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "ocm-mempool-difficulty",
+        "score": 0.27431044,
+        "rank": 5,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "ocm-blockchain-stats",
+        "score": 0.21704745,
+        "rank": 6,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "ocm-llama-chains",
+        "score": 0,
+        "rank": 7,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "ocm-llama-fees",
+        "score": 0,
+        "rank": 8,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "ocm-llama-dexs",
+        "score": 0,
+        "rank": 9,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "ocm-llama-protocols",
+        "score": 0,
+        "rank": 10,
+        "activation_status": "active"
+      }
+    ],
+    "ONCHAIN_TX_LOOKUP": [
+      {
+        "miner_slug": "veyctum",
+        "score": 0.995202,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "preflight-ssl-verification",
+        "score": 0.011607082,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "chainsight-oracle",
+        "score": 0.0114600975,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "degenlens-onchain",
+        "score": 0.011231364,
+        "rank": 4,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "txlens",
+        "score": 0.010581,
+        "rank": 5,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "chainwire-tx-lookup",
+        "score": 0.010144571,
+        "rank": 6,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "livecert",
+        "score": 0.010015826,
+        "rank": 7,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "interlock-onchain-tx-lookup",
+        "score": 0.010002596,
+        "rank": 8,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "onchain-intel-miner",
+        "score": 0.009676978,
+        "rank": 9,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "verity-onchain-lookup",
+        "score": 0.008980743,
+        "rank": 10,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "truvian-onchain-truth",
+        "score": 0.00551965,
+        "rank": 11,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "vulnfeed-onchain-security",
+        "score": 0.005220765,
+        "rank": 12,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "sigil-onchain-lookup",
+        "score": 0.0040815016,
+        "rank": 13,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "otx-bs-base-token-xfers",
+        "score": 0,
+        "rank": 14,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "otx-bs-eth-blocks",
+        "score": 0,
+        "rank": 15,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "otx-bs-eth-main-page",
+        "score": 0,
+        "rank": 16,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "otx-bs-eth",
+        "score": 0,
+        "rank": 17,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "otx-bs-eth-token-xfers",
+        "score": 0,
+        "rank": 18,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "otx-bs-eth-internal",
+        "score": 0,
+        "rank": 19,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "otx-bs-base",
+        "score": 0,
+        "rank": 20,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "otx-bs-base-blocks",
+        "score": 0,
+        "rank": 21,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "otx-bs-arb",
+        "score": 0,
+        "rank": 22,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "otx-bs-op",
+        "score": 0,
+        "rank": 23,
+        "activation_status": "active"
+      }
+    ],
+    "OPTIMAL_EXECUTION_ROUTE": [
+      {
+        "miner_slug": "route-paraswap-tokens",
+        "score": 0.33364952,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "route-dexscreener-search",
+        "score": 0.31721303,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "route-lifi-tools",
+        "score": 0.28900596,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "route-lifi-chains",
+        "score": 0.2427417,
+        "rank": 4,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "route-lifi-quote",
+        "score": 0,
+        "rank": 5,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "route-lifi-connections",
+        "score": 0,
+        "rank": 6,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "route-gecko-pools",
+        "score": 0,
+        "rank": 7,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "route-kyber-eth",
+        "score": 0,
+        "rank": 8,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "route-kyber-bsc",
+        "score": 0,
+        "rank": 9,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "route-paraswap-eth",
+        "score": 0,
+        "rank": 10,
+        "activation_status": "active"
+      }
+    ],
+    "REGULATORY_FILING_MONITOR": [
+      {
+        "miner_slug": "reg-fedreg-search",
+        "score": 0.6751506,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "reg-fedreg-pi",
+        "score": 0.3274603,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "reg-fedreg",
+        "score": 0.29890722,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "reg-uk-leg",
+        "score": 0.25421667,
+        "rank": 4,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "reg-imf",
+        "score": 0.12349478,
+        "rank": 5,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "reg-worldbank",
+        "score": 0,
+        "rank": 6,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "reg-court",
+        "score": 0,
+        "rank": 7,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "reg-fedreg-agencies",
+        "score": 0,
+        "rank": 8,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "reg-eurostat",
+        "score": 0,
+        "rank": 9,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "reg-bis",
+        "score": 0,
+        "rank": 10,
+        "activation_status": "active"
+      }
+    ],
+    "RESEARCH_QUERY": [
+      {
+        "miner_slug": "chainsight-oracle",
+        "score": 0.99779797,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "kriterion-pramagraph",
+        "score": 0.00973956,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "livecert",
+        "score": 0.008210735,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "sarzops-transaction-risk",
+        "score": 0.0014368766,
+        "rank": 4,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "scholarwire-research-query",
+        "score": 0.00016552676,
+        "rank": 5,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "openalex",
+        "score": 0,
+        "rank": 6,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "community-memory",
+        "score": 0,
+        "rank": 7,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "tavily",
+        "score": 0,
+        "rank": 8,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "semanticscholar",
+        "score": 0,
+        "rank": 9,
+        "activation_status": "active"
+      }
+    ],
+    "RESEARCH_SYNTHESIS": [
+      {
+        "miner_slug": "chainsight-oracle",
+        "score": 0.011448731,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "qarinah-proofpack",
+        "score": 0.0077302633,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "scholarwire-research-synthesis",
+        "score": 0.0073038465,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "livecert",
+        "score": 0.0020954788,
+        "rank": 4,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "weerakorn-miner",
+        "score": 0,
+        "rank": 5,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "legwork-job-hunter",
+        "score": 0,
+        "rank": 6,
+        "activation_status": "active"
+      }
+    ],
+    "ROUTE_ETA": [
+      {
+        "miner_slug": "route-osrm-chi-det",
+        "score": 0.43311197,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "route-osrm-sf-la",
+        "score": 0.43311197,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "route-osrm-table",
+        "score": 0.42691267,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "route-osrm-berlin",
+        "score": 0.41397935,
+        "rank": 4,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "route-osrm-lon-par",
+        "score": 0.41206735,
+        "rank": 5,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "route-photon-berlin",
+        "score": 0.093401104,
+        "rank": 6,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "route-photon-tokyo",
+        "score": 0.093401104,
+        "rank": 7,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "route-photon-london",
+        "score": 0.093401104,
+        "rank": 8,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "route-photon-miami",
+        "score": 0.093401104,
+        "rank": 9,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "route-osrm-mia-nyc",
+        "score": 0,
+        "rank": 10,
+        "activation_status": "active"
+      }
+    ],
+    "SANCTIONS_SCREENING_MATCH": [
+      {
+        "miner_slug": "san-os-eu",
+        "score": 0.47607204,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "san-os-au",
+        "score": 0.44901615,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "san-os-ofac",
+        "score": 0.40226132,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "san-opensanc-stats",
+        "score": 0.36004448,
+        "rank": 4,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "san-opensanc-idx",
+        "score": 0.35266787,
+        "rank": 5,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "san-opensanc-issues",
+        "score": 0.35266787,
+        "rank": 6,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "san-courtlistener",
+        "score": 0,
+        "rank": 7,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "san-peps",
+        "score": 0,
+        "rank": 8,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "san-un-list",
+        "score": 0,
+        "rank": 9,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "san-ofac-sdn",
+        "score": 0,
+        "rank": 10,
+        "activation_status": "active"
+      }
+    ],
+    "SATELLITE_IMAGERY_ANALYSIS": [
+      {
+        "miner_slug": "sat-usgs-query",
+        "score": 0.35422903,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "sat-usgs-all-day",
+        "score": 0.34912872,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "sat-usgs-day",
+        "score": 0.3450774,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "sat-usgs-sig-month",
+        "score": 0.34460765,
+        "rank": 4,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "sat-usgs-all-hour",
+        "score": 0.3385488,
+        "rank": 5,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "sat-usgs-m45-week",
+        "score": 0.29784337,
+        "rank": 6,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "sat-usgs-sig-week",
+        "score": 0.24929914,
+        "rank": 7,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "sat-nasa-gibs",
+        "score": 0,
+        "rank": 8,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "sat-nasa-epic",
+        "score": 0,
+        "rank": 9,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "sat-nasa-epic-enhanced",
+        "score": 0,
+        "rank": 10,
+        "activation_status": "active"
+      }
+    ],
+    "SENTIMENT_ANALYSIS": [
+      {
+        "miner_slug": "telegraph-ai-miner-node",
+        "score": 0,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "livecert",
+        "score": 0,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "textprocessing-sentiment",
+        "score": 0,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "chainsight-oracle",
+        "score": 0,
+        "rank": 4,
+        "activation_status": "active"
+      }
+    ],
+    "SPORTS_SCORE": [
+      {
+        "miner_slug": "sports-mlb-schedule",
+        "score": 6.562595e-12,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "sports-nhl-now",
+        "score": 6.1307383e-12,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "sports-football-matches",
+        "score": 5.6217565e-12,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "sports-mlb-teams",
+        "score": 4.0393396e-12,
+        "rank": 4,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "sportwire-score",
+        "score": 3.1553234e-12,
+        "rank": 5,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "scorewire-oracle",
+        "score": 2.4449505e-12,
+        "rank": 6,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "sports-football-comps",
+        "score": 2.0867032e-12,
+        "rank": 7,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "sports-nhl-score",
+        "score": 2.0643548e-12,
+        "rank": 8,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "livecert",
+        "score": 1.6527115e-12,
+        "rank": 9,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "sports-tsdb-next",
+        "score": 3.942144e-14,
+        "rank": 10,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "fourcast-sports-intelligence",
+        "score": 0,
+        "rank": 11,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "sports-tsdb-table",
+        "score": 0,
+        "rank": 12,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "sports-tsdb-team",
+        "score": 0,
+        "rank": 13,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "sports-mlb-standings",
+        "score": 0,
+        "rank": 14,
+        "activation_status": "active"
+      }
+    ],
+    "SSL_VERIFICATION": [
+      {
+        "miner_slug": "livecert",
+        "score": 0.008698722,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "txlens",
+        "score": 0.007813951,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "chainsight-oracle",
+        "score": 0.0065499186,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "ssl-ssllabs-info",
+        "score": 0.0034102418,
+        "rank": 4,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "ssllabs",
+        "score": 0.0019883944,
+        "rank": 5,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "ssl-ssllabs-example",
+        "score": 0.0019883944,
+        "rank": 6,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "ssl-certspotter-example",
+        "score": 0,
+        "rank": 7,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "certspotter-cert-verification",
+        "score": 0,
+        "rank": 8,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "netwire-ssl",
+        "score": 0,
+        "rank": 9,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "ssl-certspotter-telegraph",
+        "score": 0,
+        "rank": 10,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "ssl-ssllabs-cloudflare",
+        "score": 0,
+        "rank": 11,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "ssl-certspotter-google",
+        "score": 0,
+        "rank": 12,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "ssl-certspotter-github",
+        "score": 0,
+        "rank": 13,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "ssl-ssllabs-github",
+        "score": 0,
+        "rank": 14,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "ssl-ssllabs-google",
+        "score": 0,
+        "rank": 15,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "ssl-certspotter-cloudflare",
+        "score": 0,
+        "rank": 16,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "preflight-ssl-verification",
+        "score": 0,
+        "rank": 17,
+        "activation_status": "active"
+      }
+    ],
+    "STOCK_PRICE": [
+      {
+        "miner_slug": "alphavantage",
+        "score": 5.3265043e-14,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "stock-cnbc-aapl",
+        "score": 1.0887759e-14,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "stock-cnbc-msft",
+        "score": 1.0887759e-14,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "txlens",
+        "score": 5.4003572e-15,
+        "rank": 4,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "finwire-stock-price",
+        "score": 5.4003572e-15,
+        "rank": 5,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "stock-yahoo-aapl",
+        "score": 0,
+        "rank": 6,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "livecert",
+        "score": 0,
+        "rank": 7,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "stock-alphavantage",
+        "score": 0,
+        "rank": 8,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "stock-yahoo-tsla",
+        "score": 0,
+        "rank": 9,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "stock-yahoo-amzn",
+        "score": 0,
+        "rank": 10,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "stock-yahoo-meta",
+        "score": 0,
+        "rank": 11,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "stock-yahoo-msft",
+        "score": 0,
+        "rank": 12,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "stock-yahoo-googl",
+        "score": 0,
+        "rank": 13,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "kriterion-pramagraph",
+        "score": 0,
+        "rank": 14,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "stock-yahoo-nvda",
+        "score": 0,
+        "rank": 15,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "chainsight-oracle",
+        "score": 0,
+        "rank": 16,
+        "activation_status": "active"
+      }
+    ],
+    "STORM_ALERT": [
+      {
+        "miner_slug": "livecert",
+        "score": 0.9945304,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "amanat-weather-risk",
+        "score": 0.30840412,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "storm-nws-area",
+        "score": 0.008710713,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "tempest-storm-intelligence",
+        "score": 0.0076429513,
+        "rank": 4,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "txlens",
+        "score": 0.006335052,
+        "rank": 5,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "skywire-storm-alert",
+        "score": 0.006179385,
+        "rank": 6,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "storm-gdacs-tc",
+        "score": 0.005739194,
+        "rank": 7,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "chainsight-oracle",
+        "score": 0.005628608,
+        "rank": 8,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "storm-noaa-scales",
+        "score": 0.00506726,
+        "rank": 9,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "storm-gdacs-eq",
+        "score": 0.00424391,
+        "rank": 10,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "storm-usgs-m25",
+        "score": 0.0032901308,
+        "rank": 11,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "storm-usgs-sig",
+        "score": 0.0029690857,
+        "rank": 12,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "bittensor-sn18-zeus",
+        "score": 0,
+        "rank": 13,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "storm-nws-types",
+        "score": 0,
+        "rank": 14,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "storm-noaa-rtsw",
+        "score": 0,
+        "rank": 15,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "storm-noaa-kp",
+        "score": 0,
+        "rank": 16,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "storm-nws-point",
+        "score": 0,
+        "rank": 17,
+        "activation_status": "active"
+      }
+    ],
+    "TASK_EXECUTION_QUALITY": [
+      {
+        "miner_slug": "task-crossref",
+        "score": 0.39119774,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "task-openalex",
+        "score": 0.35469827,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "task-doaj",
+        "score": 0.30061343,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "task-core",
+        "score": 0.29763743,
+        "rank": 4,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "task-hf-models",
+        "score": 0,
+        "rank": 5,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "task-so-accepted",
+        "score": 0,
+        "rank": 6,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "task-lt-languages",
+        "score": 0,
+        "rank": 7,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "task-so-tags",
+        "score": 0,
+        "rank": 8,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "task-hf-imdb",
+        "score": 0,
+        "rank": 9,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "task-zenodo",
+        "score": 0,
+        "rank": 10,
+        "activation_status": "active"
+      }
+    ],
+    "TELEGRAPH_KNOWLEDGE": [
+      {
+        "miner_slug": "chainsight-oracle",
+        "score": 1,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "livecert",
+        "score": 1.1757792e-11,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "telegraph-chatbot",
+        "score": 1.0795401e-11,
+        "rank": 3,
+        "activation_status": "active"
+      }
+    ],
+    "TEXT_AUTHENTICITY_CHECK": [
+      {
+        "miner_slug": "chainsight-oracle",
+        "score": 5.4601134e-7,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "livecert",
+        "score": 2.091821e-7,
+        "rank": 2,
+        "activation_status": "active"
+      }
+    ],
+    "TEXT_CLASSIFICATION": [
+      {
+        "miner_slug": "chainsight-oracle",
+        "score": 1,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "elcaro-ipi-detection",
+        "score": 0,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "textprocessing-sentiment",
+        "score": 0,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "livecert",
+        "score": 0,
+        "rank": 4,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "telegraph-ai-miner-node",
+        "score": 0,
+        "rank": 5,
+        "activation_status": "active"
+      }
+    ],
+    "TEXT_GENERATION": [
+      {
+        "miner_slug": "groq-llama31-instant-miner",
+        "score": 0.99993086,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "chainsight-oracle",
+        "score": 1.5993035e-11,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "telegraph-ai-miner-node",
+        "score": 0,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "weerakorn-miner",
+        "score": 0,
+        "rank": 4,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "legwork-job-hunter",
+        "score": 0,
+        "rank": 5,
+        "activation_status": "active"
+      }
+    ],
+    "THREAT_INTELLIGENCE": [
+      {
+        "miner_slug": "threat-otx-hostname-evil",
+        "score": 0.67263776,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "threat-otx-domain-example",
+        "score": 0.6676352,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "threat-otx-8888-urls",
+        "score": 0,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "threat-otx-9999",
+        "score": 0,
+        "rank": 4,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "threat-otx-8888-malware",
+        "score": 0,
+        "rank": 5,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "threat-otx-1111-urls",
+        "score": 0,
+        "rank": 6,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "threat-otx-1111-malware",
+        "score": 0,
+        "rank": 7,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "threat-otx-8888",
+        "score": 0,
+        "rank": 8,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "threat-otx-208",
+        "score": 0,
+        "rank": 9,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "threat-otx-1111",
+        "score": 0,
+        "rank": 10,
+        "activation_status": "active"
+      }
+    ],
+    "TOKEN_HOLDER_COUNT": [
+      {
+        "miner_slug": "chainsight-oracle",
+        "score": 6.9963636e-12,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "chainwire-holder-count",
+        "score": 6.194386e-12,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "livecert",
+        "score": 5.281597e-12,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "txlens",
+        "score": 4.9417584e-12,
+        "rank": 4,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "tok-llama-usdt",
+        "score": 1.7695268e-12,
+        "rank": 5,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "tok-bs-usdt-counters",
+        "score": 0,
+        "rank": 6,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "tok-bs-base-usdc-info",
+        "score": 0,
+        "rank": 7,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "tok-bs-base-usdc-counters",
+        "score": 0,
+        "rank": 8,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "tok-bs-usdc-counters",
+        "score": 0,
+        "rank": 9,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "tok-bs-usdc-holders",
+        "score": 0,
+        "rank": 10,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "tok-bs-usdt-info",
+        "score": 0,
+        "rank": 11,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "tok-bs-usdt-holders",
+        "score": 0,
+        "rank": 12,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "tok-bs-wbtc-counters",
+        "score": 0,
+        "rank": 13,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "tok-bs-weth-counters",
+        "score": 0,
+        "rank": 14,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "kriterion-pramagraph",
+        "score": 0,
+        "rank": 15,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "onchain-intel-miner",
+        "score": 0,
+        "rank": 16,
+        "activation_status": "active"
+      }
+    ],
+    "TVL_LOOKUP": [
+      {
+        "miner_slug": "kriterion-pramagraph",
+        "score": 0.47008258,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "tvl-llama-stables",
+        "score": 0.04080172,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "livecert",
+        "score": 0.014204451,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "txlens",
+        "score": 0.00910008,
+        "rank": 4,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "tvlwire-oracle",
+        "score": 0.008630563,
+        "rank": 5,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "preflight-ssl-verification",
+        "score": 0.008623723,
+        "rank": 6,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "chainsight-oracle",
+        "score": 0.008382353,
+        "rank": 7,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "onchain-intel-miner",
+        "score": 0.0068666907,
+        "rank": 8,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "finwire-tvl",
+        "score": 0.006602237,
+        "rank": 9,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "sentinel-risk-oracle",
+        "score": 0.0063786646,
+        "rank": 10,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "telegraph-defi-miner",
+        "score": 0.004482488,
+        "rank": 11,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "tvl-llama-fees",
+        "score": 0,
+        "rank": 12,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "tvl-llama-protocols",
+        "score": 0,
+        "rank": 13,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "tvl-llama-protocol",
+        "score": 0,
+        "rank": 14,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "optivis-tvl",
+        "score": 0,
+        "rank": 15,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "tvl-llama-tvl",
+        "score": 0,
+        "rank": 16,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "tvl-llama-chains",
+        "score": 0,
+        "rank": 17,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "tvl-llama-volumes",
+        "score": 0,
+        "rank": 18,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "tvl-llama-yields",
+        "score": 0,
+        "rank": 19,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "tvl-llama-hist-chain",
+        "score": 0,
+        "rank": 20,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "tvl-llama-charts",
+        "score": 0,
+        "rank": 21,
+        "activation_status": "active"
+      }
+    ],
+    "URL_SAFE": [
+      {
+        "miner_slug": "urlsafe-otx-example-url",
+        "score": 0.60224205,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "urlsafe-otx-httpbin-url",
+        "score": 0.60224205,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "urlsafe-otx-example-host",
+        "score": 0.5834782,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "urlsafe-otx-wikipedia-domain",
+        "score": 0.5834782,
+        "rank": 4,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "urlsafe-otx-example-domain",
+        "score": 0.5834782,
+        "rank": 5,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "urlsafe-otx-paypal-domain",
+        "score": 0.5834782,
+        "rank": 6,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "urlsafe-otx-google-host",
+        "score": 0.5834782,
+        "rank": 7,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "urlsafe-otx-github-domain",
+        "score": 0,
+        "rank": 8,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "urlsafe-otx-cloudflare-domain",
+        "score": 0,
+        "rank": 9,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "urlsafe-otx-google-domain",
+        "score": 0,
+        "rank": 10,
+        "activation_status": "active"
+      }
+    ],
+    "URL_SCAN": [
+      {
+        "miner_slug": "netwire-url-scan",
+        "score": 0.9025795,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "url-sentinel",
+        "score": 0.8020548,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "preflight-ssl-verification",
+        "score": 0.004591044,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "kriterion-pramagraph",
+        "score": 0.00011476862,
+        "rank": 4,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "virustotal",
+        "score": 7.4474616e-7,
+        "rank": 5,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "urlscan-apple",
+        "score": 0,
+        "rank": 6,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "proofgate-url-intelligence",
+        "score": 0,
+        "rank": 7,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "urlscan-example",
+        "score": 0,
+        "rank": 8,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "urlscan-github",
+        "score": 0,
+        "rank": 9,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "urlscan-google",
+        "score": 0,
+        "rank": 10,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "livecert",
+        "score": 0,
+        "rank": 11,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "urlscan-discord",
+        "score": 0,
+        "rank": 12,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "urlscan-amazon",
+        "score": 0,
+        "rank": 13,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "urlscan-microsoft",
+        "score": 0,
+        "rank": 14,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "urlscan-paypal",
+        "score": 0,
+        "rank": 15,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "url-scan-urlhaus",
+        "score": 0,
+        "rank": 16,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "urlscan-cloudflare",
+        "score": 0,
+        "rank": 17,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "chainsight-oracle",
+        "score": 0,
+        "rank": 18,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "phishtank",
+        "score": 0,
+        "rank": 19,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "urlscan",
+        "score": 0,
+        "rank": 20,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "urlscan-reddit",
+        "score": 0,
+        "rank": 21,
+        "activation_status": "active"
+      }
+    ],
+    "VALIDATOR_PERFORMANCE_VERIFY": [
+      {
+        "miner_slug": "val-lido-sma",
+        "score": 0.317096,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "val-rocket-apr",
+        "score": 0.30632165,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "val-lido-last",
+        "score": 0.26303482,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "val-ssv",
+        "score": 0.24151254,
+        "rank": 4,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "val-binance-eth",
+        "score": 0,
+        "rank": 5,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "val-llama-rocket",
+        "score": 0,
+        "rank": 6,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "val-llama-ssv",
+        "score": 0,
+        "rank": 7,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "val-cg-eth",
+        "score": 0,
+        "rank": 8,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "val-llama-lido",
+        "score": 0,
+        "rank": 9,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "val-llama-pools",
+        "score": 0,
+        "rank": 10,
+        "activation_status": "active"
+      }
+    ],
+    "VIDEO_VERIFICATION": [
+      {
+        "miner_slug": "chainsight-oracle",
+        "score": 1.05163725e-11,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "bittensor-sn34-bitmind",
+        "score": 0,
+        "rank": 2,
+        "activation_status": "active"
+      }
+    ],
+    "VULNERABILITY_TRIAGE": [
+      {
+        "miner_slug": "vuln-nvd",
+        "score": 0.3645191,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "vuln-nvd-keyword",
+        "score": 0.32588276,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "vuln-ghsa-severity",
+        "score": 0,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "vuln-ghsa-pip",
+        "score": 0,
+        "rank": 4,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "vuln-osv-log4j",
+        "score": 0,
+        "rank": 5,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "vuln-circl-last",
+        "score": 0,
+        "rank": 6,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "vuln-circl-browse",
+        "score": 0,
+        "rank": 7,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "vuln-ghsa-npm",
+        "score": 0,
+        "rank": 8,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "vuln-osv-id",
+        "score": 0,
+        "rank": 9,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "vuln-ghsa",
+        "score": 0,
+        "rank": 10,
+        "activation_status": "active"
+      }
+    ],
+    "WALLET_BALANCE_CHECK": [
+      {
+        "miner_slug": "livecert",
+        "score": 0.9999995,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "chainsight-oracle",
+        "score": 0.99999946,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "txlens",
+        "score": 0.99999946,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "agentfeed-base-crypto",
+        "score": 0.9999989,
+        "rank": 4,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "balancepulse-evm-balance",
+        "score": 7.284627e-12,
+        "rank": 5,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "chainwire-wallet-balance",
+        "score": 6.9881123e-12,
+        "rank": 6,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "degenlens-onchain",
+        "score": 6.2367837e-12,
+        "rank": 7,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "preflight-ssl-verification",
+        "score": 5.323547e-12,
+        "rank": 8,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "bal-bs-eth-vitalik",
+        "score": 3.6303686e-12,
+        "rank": 9,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "bal-bs-eth-zero",
+        "score": 3.6303686e-12,
+        "rank": 10,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "bal-bs-arb-vitalik",
+        "score": 3.6303686e-12,
+        "rank": 11,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "bal-bs-arb-zero",
+        "score": 3.6228809e-12,
+        "rank": 12,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "bal-bs-base-zero",
+        "score": 3.2402768e-12,
+        "rank": 13,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "bal-bs-base-vitalik",
+        "score": 3.1747615e-12,
+        "rank": 14,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "bal-bs-op-vitalik",
+        "score": 3.1999998e-15,
+        "rank": 15,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "bal-bs-base-tokens",
+        "score": 0,
+        "rank": 16,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "onchain-intel-miner",
+        "score": 0,
+        "rank": 17,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "bal-bs-eth-tokens",
+        "score": 0,
+        "rank": 18,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "trustgate-wallet-balance",
+        "score": 0,
+        "rank": 19,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "bal-bs-op-zero",
+        "score": 0,
+        "rank": 20,
+        "activation_status": "active"
+      }
+    ],
+    "WEATHER_CHECK": [
+      {
+        "miner_slug": "chainsight-oracle",
+        "score": 0.015276573,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "wx-canada",
+        "score": 0.015259617,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "openweathermap",
+        "score": 0.015169821,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "verity-current-weather",
+        "score": 0.015121232,
+        "rank": 4,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "wx-openmeteo-marine",
+        "score": 0.01508806,
+        "rank": 5,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "wx-openmeteo",
+        "score": 0.015007786,
+        "rank": 6,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "weatherapi",
+        "score": 0.014841693,
+        "rank": 7,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "amanat-weather-risk",
+        "score": 0.014614846,
+        "rank": 8,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "isobar-weather",
+        "score": 0.014481988,
+        "rank": 9,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "open-meteo-wx",
+        "score": 0.014409992,
+        "rank": 10,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "bittensor-sn18-zeus",
+        "score": 0.014348603,
+        "rank": 11,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "skywire-weather-check",
+        "score": 0.014295452,
+        "rank": 12,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "wx-openmeteo-aq",
+        "score": 0.013997272,
+        "rank": 13,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "wx-7timer",
+        "score": 0.013499833,
+        "rank": 14,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "wx-sunrise",
+        "score": 0.012778321,
+        "rank": 15,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "livecert",
+        "score": 0.012629155,
+        "rank": 16,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "wx-brightsky",
+        "score": 0,
+        "rank": 17,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "wx-openmeteo-flood",
+        "score": 0,
+        "rank": 18,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "wx-wttr",
+        "score": 0,
+        "rank": 19,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "wx-nws-alerts",
+        "score": 0,
+        "rank": 20,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "solar-depin-miner",
+        "score": 0,
+        "rank": 21,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "lacre-meteo",
+        "score": 0,
+        "rank": 22,
+        "activation_status": "active"
+      }
+    ],
+    "WEATHER_FORECAST": [
+      {
+        "miner_slug": "amanat-weather-risk",
+        "score": 0.0005251178,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "livecert",
+        "score": 0.00051460735,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "openweathermap",
+        "score": 0.00050847983,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "txlens",
+        "score": 0.00048722627,
+        "rank": 4,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "skywire-forecast",
+        "score": 0.00047107713,
+        "rank": 5,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "chainsight-oracle",
+        "score": 0.00045205752,
+        "rank": 6,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "wxf-openmeteo-daily",
+        "score": 0.00044155354,
+        "rank": 7,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "onlookout-weather",
+        "score": 0.0004057299,
+        "rank": 8,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "open-meteo-fcst",
+        "score": 0.00037584043,
+        "rank": 9,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "wxf-openmeteo",
+        "score": 0.00036189167,
+        "rank": 10,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "wxf-7timer",
+        "score": 0.00033367926,
+        "rank": 11,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "wxf-openmeteo-marine",
+        "score": 0.0003320338,
+        "rank": 12,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "wxf-openmeteo-aq",
+        "score": 0.0003253785,
+        "rank": 13,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "isobar-weather",
+        "score": 0.00021153351,
+        "rank": 14,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "verity-weather-forecast",
+        "score": 0,
+        "rank": 15,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "lacre-meteo",
+        "score": 0,
+        "rank": 16,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "wxf-canada",
+        "score": 0,
+        "rank": 17,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "wxf-openmeteo-ens",
+        "score": 0,
+        "rank": 18,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "wxf-openmeteo-hist",
+        "score": 0,
+        "rank": 19,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "bittensor-sn18-zeus",
+        "score": 0,
+        "rank": 20,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "wxf-brightsky",
+        "score": 0,
+        "rank": 21,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "wxf-wttr",
+        "score": 0,
+        "rank": 22,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "oathcast-weather",
+        "score": 0,
+        "rank": 23,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "weatherapi",
+        "score": 0,
+        "rank": 24,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "weathertop-v3",
+        "score": 0,
+        "rank": 25,
+        "activation_status": "active"
+      }
+    ],
+    "WEB_SEARCH": [
+      {
+        "miner_slug": "sentinel-risk-oracle",
+        "score": 0.9999441,
+        "rank": 1,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "bedrock-nova-2-lite",
+        "score": 0.9983699,
+        "rank": 2,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "telegraph-chatbot",
+        "score": 1.3411339e-10,
+        "rank": 3,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "web-hn-algolia",
+        "score": 1.4280398e-11,
+        "rank": 4,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "txlens",
+        "score": 1.3461658e-11,
+        "rank": 5,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "web-hn-date",
+        "score": 1.2574259e-11,
+        "rank": 6,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "chainsight-oracle",
+        "score": 1.0764288e-11,
+        "rank": 7,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "web-openalex",
+        "score": 1.0257925e-11,
+        "rank": 8,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "web-hn-front",
+        "score": 9.629221e-12,
+        "rank": 9,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "litellm",
+        "score": 9.4251005e-12,
+        "rank": 10,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "web-crossref",
+        "score": 8.051856e-12,
+        "rank": 11,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "kriterion-pramagraph",
+        "score": 5.6580825e-12,
+        "rank": 12,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "web-zenodo",
+        "score": 5.4542317e-12,
+        "rank": 13,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "web-ddg",
+        "score": 1.994761e-12,
+        "rank": 14,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "livecert",
+        "score": 1.4467808e-12,
+        "rank": 15,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "kitesurf-scraper-demo",
+        "score": 1.2835417e-12,
+        "rank": 16,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "web-spaceflight",
+        "score": 7.3176073e-13,
+        "rank": 17,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "telegraph-ai-miner-node",
+        "score": 0,
+        "rank": 18,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "web-devto",
+        "score": 0,
+        "rank": 19,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "legwork-job-hunter",
+        "score": 0,
+        "rank": 20,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "weerakorn-miner",
+        "score": 0,
+        "rank": 21,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "tavily",
+        "score": 0,
+        "rank": 22,
+        "activation_status": "active"
+      },
+      {
+        "miner_slug": "web-lobsters",
+        "score": 0,
+        "rank": 23,
+        "activation_status": "active"
+      }
+    ]
+  }
+}

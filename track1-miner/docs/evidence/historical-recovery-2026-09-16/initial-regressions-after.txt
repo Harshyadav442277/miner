@@ -1,0 +1,114 @@
+✔ a fixture is only read from an explicit versus token (2.3479ms)
+✔ a named date is read, and its absence is not a date (1.9955ms)
+✔ the supported leagues are the ones the manifest advertises (0.2005ms)
+✔ a request naming no fixture is refused with no lookup (0.4621ms)
+✔ a dead scoreboard is unknown, never a fixture that was not played (1.4485ms)
+▶ extractIp
+  ✔ reads a bare IPv4 (1.0675ms)
+  ✔ reads an IPv4 out of a question (4.3411ms)
+  ✔ reads a compressed IPv6 (0.164ms)
+  ✔ rejects an octet above 255 (0.0999ms)
+  ✔ returns null when there is no address (0.1015ms)
+✔ extractIp (6.797ms)
+▶ specialRange
+  ✔ classifies RFC 1918 private ranges (0.4637ms)
+  ✔ classifies the TEST-NET documentation ranges by name (0.166ms)
+  ✔ classifies loopback, link-local, CGNAT, multicast and reserved (0.1783ms)
+  ✔ classifies IPv6 special ranges (0.4885ms)
+  ✔ returns null for public addresses, including range-boundary neighbours (0.923ms)
+✔ specialRange (2.5342ms)
+▶ geolocate on special ranges (offline)
+  ✔ a private address is answered definitionally, not as a lookup failure (1.2377ms)
+  ✔ a TEST-NET address names its range (0.1373ms)
+✔ geolocate on special ranges (offline) (1.4779ms)
+▶ torExitNode
+  ✔ is null for IPv6, where DNSEL has no answers (0.1627ms)
+  ✔ an unresolvable lookup maps to false, a timeout to null (0.1765ms)
+✔ torExitNode (0.4139ms)
+▶ the third geolocation provider
+  ✔ parses ipinfo's shape when the two providers above it fail (511.1938ms)
+✔ the third geolocation provider (511.439ms)
+▶ provider field precedence
+  ✔ names the network operator (isp), not the service label (org) (1174.4191ms)
+✔ provider field precedence (1174.5907ms)
+✔ compressed IPv6 is validated as a whole address, including loopback (6.8936ms)
+✔ headlines filter publication times and duplicate titles before applying a word count (33.8924ms)
+✔ a headline shortfall never fills the requested window with old items (0.9806ms)
+✔ fixture names are separated before long competition and date suffixes are bounded (0.8226ms)
+✔ a World Cup penalty shootout reports the actual winner and both score types (2.9798ms)
+✔ a company name is not a substring inside an unrelated word (0.9392ms)
+✔ a publisher name alone does not make an article about the publisher (0.1718ms)
+✔ headline relevance retains possessives, plurals, and accented names (0.3015ms)
+✔ future-dated news is not evidence of coverage in the past day (34.8137ms)
+▶ extractTopic
+  ✔ the fixed list still wins, so recorded shapes are unchanged (0.8093ms)
+  ✔ a declared topic outside the list is used verbatim (1.4678ms)
+  ✔ the noun phrase after about/on is the subject, minus its time and place tail (0.1764ms)
+  ✔ a subject's own proper noun is not read as a region (0.3267ms)
+✔ extractTopic (3.6056ms)
+✔ a question word that opens the sentence is not a region (0.1285ms)
+✔ a live score leads with the numbers and is never called a final result (1.4537ms)
+✖ a finished fixture is the most recent score, and says it is not live (15.2783ms)
+✔ the winner is never named, because that is the other intent's question (0.4399ms)
+✔ a fixture that has not started has no score, and none is invented (0.2724ms)
+✔ no fixture in the request is refused rather than guessed (0.1583ms)
+✔ a fixture found with an unreadable score reports no score, not a zero (0.1306ms)
+✖ live-score phrasings parse to the two teams and nothing else (1.793ms)
+✔ result phrasings still parse, because the parser is shared (0.1729ms)
+ℹ tests 43
+ℹ suites 7
+ℹ pass 41
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1811.4503
+
+✖ failing tests:
+
+test at dist-test\test\sportsscore.test.js:29:22
+✖ a finished fixture is the most recent score, and says it is not live (15.2783ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /most recent score rather than a live one/. Input:
+  
+  'Los Angeles Lakers 102, Boston Celtics 98 in the NBA on 10 September 2026. This is the final score of that fixture.'
+  
+      at TestContext.<anonymous> (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\sportsscore.test.js:34:22)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Los Angeles Lakers 102, Boston Celtics 98 in the NBA on 10 September 2026. This is the final score of that fixture.',
+    expected: /most recent score rather than a live one/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at dist-test\test\sportsscore.test.js:75:22
+✖ live-score phrasings parse to the two teams and nothing else (1.793ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + null
+  - {
+  -   a: 'Arsenal',
+  -   b: 'Chelsea'
+  - }
+  
+      at TestContext.<anonymous> (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\sportsscore.test.js:77:22)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: { a: 'Arsenal', b: 'Chelsea' },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

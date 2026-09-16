@@ -1,0 +1,119 @@
+✖ compressed IPv6 is validated as a whole address, including loopback (1.4703ms)
+✖ headlines filter publication times and duplicate titles before applying a word count (32.2499ms)
+✖ a headline shortfall never fills the requested window with old items (0.9658ms)
+✖ fixture names are separated before long competition and date suffixes are bounded (1.084ms)
+✖ a World Cup penalty shootout reports the actual winner and both score types (0.6035ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 0
+ℹ fail 5
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 123.5607
+
+✖ failing tests:
+
+test at dist-test\test\historical-recovery.test.js:22:22
+✖ compressed IPv6 is validated as a whole address, including loopback (1.4703ms)
+  AssertionError [ERR_ASSERTION]: ::1
+  
+  null !== '::1'
+  
+      at TestContext.<anonymous> (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\historical-recovery.test.js:24:26)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: '::1',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at dist-test\test\historical-recovery.test.js:37:22
+✖ headlines filter publication times and duplicate titles before applying a word count (32.2499ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  6 !== 3
+  
+      at C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\historical-recovery.test.js:45:26
+      at async mocked (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\historical-recovery.test.js:16:9)
+      at async TestContext.<anonymous> (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\historical-recovery.test.js:43:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 6,
+    expected: 3,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at dist-test\test\historical-recovery.test.js:51:22
+✖ a headline shortfall never fills the requested window with old items (0.9658ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 0
+  
+      at C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\historical-recovery.test.js:55:26
+      at async mocked (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\historical-recovery.test.js:16:9)
+      at async TestContext.<anonymous> (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\historical-recovery.test.js:53:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at dist-test\test\historical-recovery.test.js:60:22
+✖ fixture names are separated before long competition and date suffixes are bounded (1.084ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + null
+  - {
+  -   a: 'Argentina',
+  -   b: 'France'
+  - }
+  
+      at TestContext.<anonymous> (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\historical-recovery.test.js:61:22)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: { a: 'Argentina', b: 'France' },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at dist-test\test\historical-recovery.test.js:66:22
+✖ a World Cup penalty shootout reports the actual winner and both score types (0.6035ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'unknown'
+  - 'result'
+  
+      at C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\historical-recovery.test.js:80:26
+      at async mocked (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\historical-recovery.test.js:16:9)
+      at async TestContext.<anonymous> (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\historical-recovery.test.js:67:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'unknown',
+    expected: 'result',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

@@ -1,0 +1,945 @@
+{
+  "canonical_on_chain": 134,
+  "count": 134,
+  "intents": [
+    {
+      "intent_id": "ACADEMIC_SEARCH",
+      "intent_name": "ACADEMIC_SEARCH",
+      "miner_count": 17,
+      "description": "Query asks to search scholarly papers, journals or academic literature specifically, rather than the general web. Example: \"Find peer-reviewed papers on CRISPR gene editing published in the last two years.\" → ACADEMIC_SEARCH. Not: \"What is CRISPR gene editing?\" (general knowledge question, not a request to search scholarly literature) → CHAT_COMPLETION or WEB_SEARCH.",
+      "canonical": true
+    },
+    {
+      "intent_id": "AGENT_TASK",
+      "intent_name": "AGENT_TASK",
+      "miner_count": 7,
+      "description": "Query asks about autonomous AI agent behavior specifically (tool use, taking actions, multi-step autonomy) as distinct from a standard chatbot, or is itself a request requiring autonomous multi-step action. Example: \"How does an AI agent decide when to call a tool versus answering directly?\" → AGENT_TASK. Not: \"Book me a flight and then reserve a hotel.\" (a concrete multi-step task to execute, not a question about agent behavior) → TASK_COMPLETION.",
+      "canonical": true
+    },
+    {
+      "intent_id": "AI_TEXT_DETECTION",
+      "intent_name": "AI_TEXT_DETECTION",
+      "miner_count": 6,
+      "description": "Query provides a specific block of text and asks whether it was written by an AI or a human. The user must supply actual text content to analyze — a question that merely asks about AI detection conceptually (without providing text to analyze) is not this intent. Example: \"Here's a paragraph: '...'. Was this written by an AI or a human?\" → AI_TEXT_DETECTION. Not: \"How do AI text detectors work?\" (asks about the method conceptually, no text supplied to analyze) → CHAT_COMPLETION.",
+      "canonical": true
+    },
+    {
+      "intent_id": "ASSET_RESERVE_ATTESTATION",
+      "intent_name": "ASSET_RESERVE_ATTESTATION",
+      "miner_count": 10,
+      "description": "Query names a stablecoin, tokenized asset or custodian and asks whether attested reserves back the circulating supply, cross-checking on-chain balances against a custodian or proof-of-reserves feed. Example: \"Do the attested reserves behind USDC cover its circulating supply as of the latest proof-of-reserves report?\" → ASSET_RESERVE_ATTESTATION. Not: \"What is USDC trading at?\" (a price) → CRYPTO_PRICE. Not: \"How much USDC does this address hold?\" (one address's balance) → WALLET_BALANCE_CHECK.",
+      "canonical": true
+    },
+    {
+      "intent_id": "CHAT_COMPLETION",
+      "intent_name": "CHAT_COMPLETION",
+      "miner_count": 14,
+      "description": "General knowledge, reasoning, explanation, or conversational question answerable directly without live data, external sources, or specialized tooling. This is the default/general-purpose intent when nothing more specific clearly fits — e.g. 'explain what X does.' Example: \"Why is the sky blue?\" → CHAT_COMPLETION. Not: \"What's the current price of Bitcoin?\" (needs live, external data) → CRYPTO_PRICE or WEB_SEARCH.",
+      "canonical": true
+    },
+    {
+      "intent_id": "CODE_PATCH_VERIFY",
+      "intent_name": "CODE_PATCH_VERIFY",
+      "miner_count": 10,
+      "description": "Query supplies a patch, commit or branch and asks for a mechanical verdict: does it build, does the suite pass, is the named defect fixed, does anything regress. Example: \"Apply this patch, run the build and test suite in a sandbox, and report whether it exits zero with the defect fixed and no regressions.\" → CODE_PATCH_VERIFY. Not: \"Is this patch a sound approach?\" (a judgment about the change) → CODE_REVIEW. Not: \"Run the full suite against build 4412 and tell me what broke since the last green run.\" (regression sweep of an existing build, not verification of one patch) → REGRESSION_VERIFY.",
+      "canonical": true
+    },
+    {
+      "intent_id": "CODE_REVIEW",
+      "intent_name": "CODE_REVIEW",
+      "miner_count": 10,
+      "description": "Query supplies source code, a diff or a pull request and asks for a review of design, maintainability, readability or architectural fit. The output is an opinion, not a build result. Example: \"Review this pull request for maintainability and whether it fits our service architecture: <diff>.\" → CODE_REVIEW. Not: \"Does this patch compile and pass the test suite?\" (a mechanical build/test verdict) → CODE_PATCH_VERIFY. Not: \"Does this code leak secrets or pull vulnerable dependencies?\" (a security scan) → SECURITY_REVIEW.",
+      "canonical": true
+    },
+    {
+      "intent_id": "CONTENT_EXTRACTION",
+      "intent_name": "CONTENT_EXTRACTION",
+      "miner_count": 4,
+      "description": "Query supplies unstructured content and asks for specific structured fields to be pulled out of it. Example: \"Here's a receipt (as text): '...', extract the merchant name, date, and total amount.\" → CONTENT_EXTRACTION. Not: \"What sentiment does this receipt's review comment express?\" (asks for a judgment, not structured fields pulled out) → SENTIMENT_ANALYSIS.",
+      "canonical": true
+    },
+    {
+      "intent_id": "CONTENT_MODERATION",
+      "intent_name": "CONTENT_MODERATION",
+      "miner_count": 2,
+      "description": "Query is itself asking to classify, flag, or moderate a specific piece of provided content, OR asks how automated content moderation works as a method/technique — not merely a question that mentions moderation as an unrelated concept. Example: \"Does this comment violate community guidelines: 'You're an idiot and should quit.'?\" or \"How do automated moderation systems detect hate speech?\" → CONTENT_MODERATION. Not: \"Should platforms moderate more content?\" (an opinion/policy question that only mentions moderation as a topic) → CHAT_COMPLETION.",
+      "canonical": true
+    },
+    {
+      "intent_id": "CONTENT_VERIFICATION",
+      "intent_name": "CONTENT_VERIFICATION",
+      "miner_count": 3,
+      "description": "Query asks whether a specific piece of supplied content is genuine and unaltered, covering provenance and integrity generally rather than media forensics specifically. Example: \"Here's the text of a press release: '...'. Is this the genuine, unaltered version the company issued, or has it been tampered with?\" or \"Here's a copy of a contract clause: '...'. Is this the original wording, or has it been altered?\" → CONTENT_VERIFICATION. Not: \"Is this image a deepfake?\" (media-specific forensics question) → DEEPFAKE_DETECTION.",
+      "canonical": true
+    },
+    {
+      "intent_id": "CONTRACT_OBLIGATION_AUDIT",
+      "intent_name": "CONTRACT_OBLIGATION_AUDIT",
+      "miner_count": 10,
+      "description": "Query supplies contract text and asks what obligations it creates - deliverables, milestones, payment terms, performance commitments - or whether those have been met. Example: \"Extract every deliverable, due date and payment milestone from this MSA and flag the ones already overdue.\" → CONTRACT_OBLIGATION_AUDIT. Not: \"Is this signed PDF genuine and unaltered?\" (integrity of the artifact, not the terms inside it) → DOCUMENT_AUTHENTICITY. Not: \"Does this invoice tie out against the PO?\" (ledger reconciliation) → INVOICE_LEDGER_RECONCILE.",
+      "canonical": true
+    },
+    {
+      "intent_id": "CROSS_CHAIN_STATE_VERIFY",
+      "intent_name": "CROSS_CHAIN_STATE_VERIFY",
+      "miner_count": 2,
+      "description": "Query asks whether a state root, Merkle-Patricia proof, block header or bridge message from one chain verifies against another. Requires two named chains and a specific proof, header or message. Example: \"Verify that the LayerZero message with nonce 4412 from arbitrum executed on base and that the committed state root matches.\" → CROSS_CHAIN_STATE_VERIFY. Not: \"How do cross-chain bridges work?\" (conceptual, nothing supplied to verify) → CHAT_COMPLETION.",
+      "canonical": true
+    },
+    {
+      "intent_id": "CRYPTO_PRICE",
+      "intent_name": "CRYPTO_PRICE",
+      "miner_count": 26,
+      "description": "Query names a cryptocurrency asset and asks for its current or historical price. Prefer FINANCIAL_DATA for broader market or fundamentals questions. Example: \"What is the current price of Ethereum (ETH) in USD?\" → CRYPTO_PRICE. Not: \"How much ETH does 0x6872...de hold on ethereum?\" (asks what one address holds, a balance, not a price) → WALLET_BALANCE_CHECK. Not: \"Give the market cap and 24h trading volume for token X.\" (broader market data, not a single price) → FINANCIAL_DATA.",
+      "canonical": true
+    },
+    {
+      "intent_id": "CURRENCY_EXCHANGE",
+      "intent_name": "CURRENCY_EXCHANGE",
+      "miner_count": 18,
+      "description": "Query names two currencies and asks for the exchange rate or a converted amount between them. Example: \"What is 100 USD in EUR right now?\" → CURRENCY_EXCHANGE. Not: a single asset's price with no second currency to convert into → CRYPTO_PRICE or STOCK_PRICE.",
+      "canonical": true
+    },
+    {
+      "intent_id": "CUSTOMER_TICKET_RESOLUTION",
+      "intent_name": "CUSTOMER_TICKET_RESOLUTION",
+      "miner_count": 10,
+      "description": "Query supplies a support conversation or ticket and asks how well it was handled: whether the issue was actually resolved, whether policy was followed, likely customer satisfaction. Example: \"Here is a support thread: was the customer's issue resolved, and did the agent follow refund policy?\" → CUSTOMER_TICKET_RESOLUTION. Not: \"Was the first response inside the 4-hour SLA?\" (a timing threshold) → SLA_COMPLIANCE.",
+      "canonical": true
+    },
+    {
+      "intent_id": "CVE_LOOKUP",
+      "intent_name": "CVE_LOOKUP",
+      "miner_count": 17,
+      "description": "Query supplies a CVE identifier and asks for its details, severity or affected versions. Example: \"What is the severity and affected versions for CVE-2024-3094?\" → CVE_LOOKUP. Not: \"What are the most dangerous vulnerabilities found this year?\" (no specific CVE identifier supplied) → WEB_SEARCH or CHAT_COMPLETION.",
+      "canonical": true
+    },
+    {
+      "intent_id": "DEEPFAKE_DETECTION",
+      "intent_name": "DEEPFAKE_DETECTION",
+      "miner_count": 2,
+      "description": "Query includes an actual image or video URL/reference and specifically asks whether it is a deepfake or whether a face/person in it has been synthetically generated or swapped. Requires real attached media — the word 'deepfake' alone with no media reference does not qualify. Example: \"Here's a video URL: [link]. Is the face in this a deepfake?\" → DEEPFAKE_DETECTION. Not: \"What is a deepfake and how are they made?\" (conceptual question, no media referenced) → CHAT_COMPLETION.",
+      "canonical": true
+    },
+    {
+      "intent_id": "EMAIL_SECURITY",
+      "intent_name": "EMAIL_SECURITY",
+      "miner_count": 10,
+      "description": "Query supplies a domain or an email message and asks about mail authentication and spoofing: SPF, DKIM and DMARC records, header anomalies, malicious attachments. Example: \"Does example.com publish valid SPF, DKIM and DMARC records, and do these message headers indicate spoofing?\" → EMAIL_SECURITY. Not: \"Is the link inside that email on a blocklist?\" (URL reputation) → URL_SAFE. Not: \"Is the attached binary malicious?\" (a file verdict) → MALWARE_DETECTION.",
+      "canonical": true
+    },
+    {
+      "intent_id": "EVENT_OUTCOME_RESOLUTION",
+      "intent_name": "EVENT_OUTCOME_RESOLUTION",
+      "miner_count": 13,
+      "description": "Query names a specific real-world event with a settled or settleable outcome (an election, a fixture, a flight, a contract condition) and asks what the outcome actually was, for a prediction market or conditional contract to resolve against. Requires a named, checkable event. Example: \"Did flight UA328 on 2026-03-11 land before 18:00 local? Resolve this market.\" → EVENT_OUTCOME_RESOLUTION. Not: \"Who do you think will win the election?\" (asks for a prediction, not the resolution of a determinable event) → CHAT_COMPLETION. Not: \"Who won the Lakers vs Celtics game last night?\" (a plain sports result with no market to settle) → GAME_RESULT.",
+      "canonical": true
+    },
+    {
+      "intent_id": "FACT_CHECK",
+      "intent_name": "FACT_CHECK",
+      "miner_count": 15,
+      "description": "Query supplies a specific claim or statement and asks whether it is true, with supporting evidence. A general knowledge question is CHAT_COMPLETION — this intent requires a checkable claim. Example: \"Is it true that drinking coffee stunts your growth? Verify this claim.\" → FACT_CHECK. Not: \"Does coffee have any health effects?\" (open-ended question, not a specific claim to verify) → CHAT_COMPLETION or WEB_SEARCH.",
+      "canonical": true
+    },
+    {
+      "intent_id": "FINANCIAL_DATA",
+      "intent_name": "FINANCIAL_DATA",
+      "miner_count": 19,
+      "description": "Query asks for market data, company fundamentals, or financial statistics beyond a single quoted price. Example: \"Give the market cap and 24h trading volume for token X on base.\" or \"What is Apple's P/E ratio and revenue growth this quarter?\" → FINANCIAL_DATA. Not: \"What is the price of token X?\" or \"What is Apple's share price?\" alone (single quoted price) → CRYPTO_PRICE or STOCK_PRICE.",
+      "canonical": true
+    },
+    {
+      "intent_id": "FLIGHT_AVAILABILITY",
+      "intent_name": "FLIGHT_AVAILABILITY",
+      "miner_count": 10,
+      "description": "Query names a route or flight and dates and asks what seats, cabins or fare classes are bookable. Example: \"What economy seats are available on SFO-JFK next Tuesday morning, and in which fare classes?\" → FLIGHT_AVAILABILITY. Not: \"Is my flight delayed today?\" (operational disruption) → TRAVEL_DISRUPTION. Not: \"What baggage allowance does that fare include?\" (fare terms) → FARE_RULE_VERIFY.",
+      "canonical": true
+    },
+    {
+      "intent_id": "FRAUD_DETECTION",
+      "intent_name": "FRAUD_DETECTION",
+      "miner_count": 17,
+      "description": "Query asks how likely a specific entity, transaction or action is to be fraudulent. Example: \"How likely is it that this transaction from 0xabc123... is fraudulent?\" or \"Does this email asking me to wire money to a new account look like a scam?\" → FRAUD_DETECTION. Not: \"What is the status of transaction 0xabc123...?\" (asks for transaction details, not a fraud likelihood judgment) → ONCHAIN_TX_LOOKUP.",
+      "canonical": true
+    },
+    {
+      "intent_id": "FX_NOW",
+      "intent_name": "FX_NOW",
+      "miner_count": 11,
+      "description": "Query asks for the live institutional mid-market rate or spread on a named currency pair, as a market data point with no amount to convert. Example: \"What is the current EUR/USD mid-market rate and spread?\" → FX_NOW. Not: \"How much is 100 USD in EUR?\" (a conversion of a stated amount for a user) → CURRENCY_EXCHANGE. Not: \"What did the ECB set its policy rate to?\" (a published statistic) → MACRO_ECONOMIC_INDICATOR.",
+      "canonical": true
+    },
+    {
+      "intent_id": "GAME_RESULT",
+      "intent_name": "GAME_RESULT",
+      "miner_count": 14,
+      "description": "Query names a specific completed sports fixture or competition and asks for its final outcome or winner. Distinct from an in-progress or live score, which is SPORTS_SCORE. Example: \"Who won the Lakers vs Celtics game last night?\" → GAME_RESULT. Not: \"What's the current score in the Lakers vs Celtics game right now?\" (still in progress) → SPORTS_SCORE.",
+      "canonical": true
+    },
+    {
+      "intent_id": "GAS_PRICE",
+      "intent_name": "GAS_PRICE",
+      "miner_count": 20,
+      "description": "Query asks for the current or recent transaction fee level on a named blockchain network. Distinct from the price of that chain's token, which is CRYPTO_PRICE. Example: \"What is the current gas price in Gwei on the Ethereum network?\" or informally \"Polygon fees felt high yesterday, what are they at now?\" → GAS_PRICE. Not: a question with a similar 'it was X yesterday, what about now' shape but no blockchain network named → not GAS_PRICE (a network name like Polygon/Ethereum/Base is not a weather location, don't route this to WEATHER_FORECAST).",
+      "canonical": true
+    },
+    {
+      "intent_id": "GRID_POWER_PRICE",
+      "intent_name": "GRID_POWER_PRICE",
+      "miner_count": 10,
+      "description": "Query names a grid, node, hub or region and asks for electricity prices from the operator: locational marginal price, day-ahead or real-time spot rates. Example: \"What is the current locational marginal price at the ERCOT Houston hub, and what did day-ahead settle at?\" → GRID_POWER_PRICE. Not: \"What is a token or commodity trading at?\" (market instrument prices) → CRYPTO_PRICE or FINANCIAL_DATA.",
+      "canonical": true
+    },
+    {
+      "intent_id": "IMAGE_VERIFICATION",
+      "intent_name": "IMAGE_VERIFICATION",
+      "miner_count": 3,
+      "description": "Query includes an actual image URL/reference and asks whether it has been digitally manipulated, edited, or spliced (distinct from asking if it's AI-generated outright — that's MEDIA_AUTHENTICITY_CHECK). Requires real attached media. Example: \"Here's an image URL: [link]. Has this photo been edited or spliced?\" → IMAGE_VERIFICATION. Not: \"Here's an image URL: [link]. Is this AI-generated?\" (asks if it's AI-generated outright, not edited/spliced) → MEDIA_AUTHENTICITY_CHECK.",
+      "canonical": true
+    },
+    {
+      "intent_id": "IP_GEOLOCATION",
+      "intent_name": "IP_GEOLOCATION",
+      "miner_count": 17,
+      "description": "Query supplies an IP address and asks where it is located geographically. For abuse history, use IP_REPUTATION. Example: \"Where is the IP address 8.8.8.8 located?\" → IP_GEOLOCATION. Not: \"Has the IP address 8.8.8.8 been flagged for abuse?\" (asks about reputation/abuse history, not location) → IP_REPUTATION (if registered) or CHAT_COMPLETION.",
+      "canonical": true
+    },
+    {
+      "intent_id": "LANGUAGE_GENERATION",
+      "intent_name": "LANGUAGE_GENERATION",
+      "miner_count": 13,
+      "description": "Query asks about how language generation works as a capability or technique, or requests free-form natural-language output from a described prompt. Prefer CHAT_COMPLETION for ordinary conversational questions. Example: \"Explain how transformer-based language generation models decide the next word.\" → LANGUAGE_GENERATION. Not: \"Write me a short poem about autumn.\" (an ordinary request for produced text) → TEXT_GENERATION.",
+      "canonical": true
+    },
+    {
+      "intent_id": "LANGUAGE_TRANSLATION",
+      "intent_name": "LANGUAGE_TRANSLATION",
+      "miner_count": 15,
+      "description": "Query supplies text and names a target language, asking for translation between two languages. Example: \"Translate this sentence into French: 'Where is the nearest train station?'\" → LANGUAGE_TRANSLATION. Not: \"What does 'où' mean in French?\" (asks about a single word's meaning, not a translation task) → CHAT_COMPLETION.",
+      "canonical": true
+    },
+    {
+      "intent_id": "LIQUIDITY_DEPTH_VERIFY",
+      "intent_name": "LIQUIDITY_DEPTH_VERIFY",
+      "miner_count": 10,
+      "description": "Query names a market, pair or pool and asks for order book depth, bid-ask spread, or the slippage a stated trade size would incur at a point in time. Example: \"What is the bid-ask depth and expected slippage on a 50 ETH sell into the WETH/USDC pool on base right now?\" → LIQUIDITY_DEPTH_VERIFY. Not: \"How much total value is locked in that pool?\" (a TVL total, not depth at a size) → TVL_LOOKUP. Not: \"Which venue should I route this trade through?\" (a routing decision) → OPTIMAL_EXECUTION_ROUTE.",
+      "canonical": true
+    },
+    {
+      "intent_id": "LLM_OUTPUT_EVALUATION",
+      "intent_name": "LLM_OUTPUT_EVALUATION",
+      "miner_count": 10,
+      "description": "Query supplies a generative model's output and asks for it to be judged: factual fidelity, citation support, hallucination markers, tone or safety, usually against the prompt or a reference. Example: \"Here is a model answer and its cited sources: rate it for factual accuracy, citation support and hallucination.\" → LLM_OUTPUT_EVALUATION. Not: \"Was this paragraph written by an AI or a human?\" (authorship detection, not quality) → AI_TEXT_DETECTION. Not: \"Did the agent complete this task correctly?\" (scoring an execution against a rubric) → TASK_EXECUTION_QUALITY.",
+      "canonical": true
+    },
+    {
+      "intent_id": "MACRO_ECONOMIC_INDICATOR",
+      "intent_name": "MACRO_ECONOMIC_INDICATOR",
+      "miner_count": 10,
+      "description": "Query names a published macroeconomic statistic for a country or region - policy rate, CPI, unemployment, GDP - and asks for its released value or latest print. Example: \"What was the latest US CPI year-over-year print, and what is the current federal funds target range?\" → MACRO_ECONOMIC_INDICATOR. Not: \"What is EUR/USD right now?\" (a live market rate) → FX_NOW. Not: \"What is Apple's revenue growth this quarter?\" (company fundamentals) → FINANCIAL_DATA.",
+      "canonical": true
+    },
+    {
+      "intent_id": "MEDIA_AUTHENTICITY_CHECK",
+      "intent_name": "MEDIA_AUTHENTICITY_CHECK",
+      "miner_count": 2,
+      "description": "Query includes an actual image or video URL/reference and asks broadly whether it is authentic, real, or AI-generated. Words like 'authentic,' 'real,' 'validity,' or 'genuine' alone, with no actual media attached, do NOT qualify. Example: \"Here's an image URL: [link]. Is this photo real or AI-generated?\" → MEDIA_AUTHENTICITY_CHECK. Not: \"What is the technical validity of X's claims?\" (uses 'validity' but has no media reference at all) → WEB_SEARCH or CHAT_COMPLETION.",
+      "canonical": true
+    },
+    {
+      "intent_id": "MINING_HASHPRICE_VERIFY",
+      "intent_name": "MINING_HASHPRICE_VERIFY",
+      "miner_count": 10,
+      "description": "Query asks what a unit of hashing power currently earns on a proof-of-work network, derived from block reward, fees and network difficulty. Example: \"What is Bitcoin hashprice per PH/s per day at current difficulty and fee levels?\" → MINING_HASHPRICE_VERIFY. Not: \"What is Bitcoin trading at?\" (an asset quote) → CRYPTO_PRICE. Not: \"What is power costing at that hub?\" (electricity prices) → GRID_POWER_PRICE.",
+      "canonical": true
+    },
+    {
+      "intent_id": "NEWS_HEADLINES",
+      "intent_name": "NEWS_HEADLINES",
+      "miner_count": 14,
+      "description": "Query asks for current news headlines for a topic or region, as a list rather than full articles. Example: \"Give me today's top headlines about the tech industry.\" → NEWS_HEADLINES. Not: \"Give me a detailed article about the latest tech industry merger.\" (wants full article content, not a headline list) → NEWS_SEARCH.",
+      "canonical": true
+    },
+    {
+      "intent_id": "NEWS_SEARCH",
+      "intent_name": "NEWS_SEARCH",
+      "miner_count": 17,
+      "description": "Query asks for news articles or coverage matching a topic, entity or time period. Prefer NEWS_HEADLINES when the user wants a headline list rather than article results. Example: \"Find recent articles covering the merger between company X and company Y.\" → NEWS_SEARCH. Not: \"Just give me the top headlines about company X.\" (wants a headline list, not article coverage) → NEWS_HEADLINES.",
+      "canonical": true
+    },
+    {
+      "intent_id": "ONCHAIN_METRIC_VERIFY",
+      "intent_name": "ONCHAIN_METRIC_VERIFY",
+      "miner_count": 10,
+      "description": "Query asks for a specific value read from a blockchain node at a stated block height or 'latest': an event log field, gas consumed, a contract view or storage value, a contract-held token balance. The block or 'latest' anchor is what distinguishes it. Example: \"At block 21000000 on ethereum, what amount did the Transfer log in tx 0xabc... carry, and how much gas did that tx use?\" → ONCHAIN_METRIC_VERIFY. Not: \"What was the status of transaction 0xabc...?\" (a transaction lookup, not a named metric at a height) → ONCHAIN_TX_LOOKUP. Not: \"What is the balance of vitalik.eth?\" (a plain wallet balance) → WALLET_BALANCE_CHECK.",
+      "canonical": true
+    },
+    {
+      "intent_id": "ONCHAIN_TX_LOOKUP",
+      "intent_name": "ONCHAIN_TX_LOOKUP",
+      "miner_count": 23,
+      "description": "Query supplies a transaction hash or names a specific on-chain transaction and asks for its details, status or effects. Requires an actual transaction reference, not a general question about how transactions work. Example: \"What was the status and gas used of transaction 0xabc123...?\" → ONCHAIN_TX_LOOKUP. Not: a question about a wallet's overall balance → WALLET_BALANCE_CHECK.",
+      "canonical": true
+    },
+    {
+      "intent_id": "OPTIMAL_EXECUTION_ROUTE",
+      "intent_name": "OPTIMAL_EXECUTION_ROUTE",
+      "miner_count": 10,
+      "description": "Query asks for the best venue or multi-hop path to execute a stated trade size, judged on slippage, fees and market impact. Requires both an asset pair and a size. Example: \"What is the best route to swap 250,000 USDC into WETH on base right now, minimising slippage and fees?\" → OPTIMAL_EXECUTION_ROUTE. Not: \"What is WETH trading at?\" (a quote, no execution decision) → CRYPTO_PRICE. Not: \"How deep is that pool at a 50 ETH size?\" (measuring depth, not choosing a route) → LIQUIDITY_DEPTH_VERIFY.",
+      "canonical": true
+    },
+    {
+      "intent_id": "PRODUCT_AUTHENTICITY",
+      "intent_name": "PRODUCT_AUTHENTICITY",
+      "miner_count": 10,
+      "description": "Query supplies a serial number, barcode, GTIN or product identifier and asks whether the item is genuine according to the manufacturer or an authorized registry. Example: \"Is serial 8F2K-99213 a genuine unit in the brand registry, and does GTIN 00012345600012 resolve to this product?\" → PRODUCT_AUTHENTICITY. Not: \"Is this photo of the product AI-generated?\" (media forensics) → MEDIA_FORENSIC_VERIFY. Not: \"Is this certificate of authenticity document genuine?\" (document integrity) → DOCUMENT_AUTHENTICITY.",
+      "canonical": true
+    },
+    {
+      "intent_id": "REGULATORY_FILING_MONITOR",
+      "intent_name": "REGULATORY_FILING_MONITOR",
+      "miner_count": 10,
+      "description": "Query names an issuer, ticker or regulator and asks whether a specific statutory filing has appeared, or for what it contains: 10-K, 10-Q, 8-K, exchange disclosures. Example: \"Has Tesla filed its latest 10-Q on SEC EDGAR, on what date was it accepted, and what did it disclose about margins?\" → REGULATORY_FILING_MONITOR. Not: \"What is Tesla's P/E ratio?\" (market data, not the filing) → FINANCIAL_DATA. Not: \"Is Tesla Inc registered and who are its directors?\" (a company register record) → CORPORATE_REGISTRY_LOOKUP.",
+      "canonical": true
+    },
+    {
+      "intent_id": "RESEARCH_QUERY",
+      "intent_name": "RESEARCH_QUERY",
+      "miner_count": 9,
+      "description": "Query asks a research question and expects an answer supported by citations to sources. Example: \"What does the evidence say about the health effects of intermittent fasting? Cite your sources.\" → RESEARCH_QUERY. Not: \"Summarize everything known about intermittent fasting across all major studies.\" (wants a broad multi-source synthesis, not a cited answer to one question) → RESEARCH_SYNTHESIS.",
+      "canonical": true
+    },
+    {
+      "intent_id": "RESEARCH_SYNTHESIS",
+      "intent_name": "RESEARCH_SYNTHESIS",
+      "miner_count": 6,
+      "description": "Query asks to gather findings across multiple sources and synthesise them into a combined answer or summary, rather than returning a single fact or a list of links. Example: \"Summarize what the latest studies say about coffee's effect on longevity, across multiple sources.\" → RESEARCH_SYNTHESIS. Not: \"What's one study that looked at coffee and longevity?\" (wants a single source/fact, not a synthesis) → RESEARCH_QUERY or WEB_SEARCH.",
+      "canonical": true
+    },
+    {
+      "intent_id": "ROUTE_ETA",
+      "intent_name": "ROUTE_ETA",
+      "miner_count": 10,
+      "description": "Query names an origin and destination and asks for travel time, distance or the route itself under current traffic or transit conditions. Example: \"How long is the drive from downtown Chicago to O'Hare right now, and which route is fastest?\" → ROUTE_ETA. Not: \"When will my parcel arrive?\" (a carrier's delivery estimate) → PACKAGE_STATUS or SHIP_RATE_ETA.",
+      "canonical": true
+    },
+    {
+      "intent_id": "SANCTIONS_SCREENING_MATCH",
+      "intent_name": "SANCTIONS_SCREENING_MATCH",
+      "miner_count": 10,
+      "description": "Query supplies a person, company or wallet and asks whether it appears on OFAC, EU, UN or other consolidated sanctions lists, including near-matches on spelling or transliteration. Example: \"Screen 'Ivan Petrov, DOB 1974, Cyprus' against the OFAC SDN and EU consolidated lists and report matches with confidence.\" → SANCTIONS_SCREENING_MATCH. Not: \"Should we onboard this supplier?\" (a full vendor check of tax IDs, banking and certifications, of which sanctions is one part) → VENDOR_VERIFY.",
+      "canonical": true
+    },
+    {
+      "intent_id": "SATELLITE_IMAGERY_ANALYSIS",
+      "intent_name": "SATELLITE_IMAGERY_ANALYSIS",
+      "miner_count": 10,
+      "description": "Query names or supplies satellite or aerial imagery over an area and asks what it shows: land use change, vegetation index, construction, infrastructure or damage. Example: \"From the latest Sentinel-2 pass over this bounding box, has cropland vegetation index dropped since last month?\" → SATELLITE_IMAGERY_ANALYSIS. Not: \"Is this photo AI-generated?\" (authenticity of a single image) → MEDIA_AUTHENTICITY_CHECK.",
+      "canonical": true
+    },
+    {
+      "intent_id": "SECURITY_REVIEW",
+      "intent_name": "SECURITY_REVIEW",
+      "miner_count": 10,
+      "description": "Query supplies code, dependencies, endpoints or configuration and asks for security findings with severity: known CVEs in dependencies, leaked credentials, misconfiguration, injection-prone patterns. Example: \"Scan this repository's dependencies and config for known CVEs, committed secrets and misconfigurations, with severities.\" → SECURITY_REVIEW. Not: \"Is this code well structured and readable?\" (a quality opinion with no security question) → CODE_REVIEW. Not: \"What is the severity of CVE-2024-3094?\" (one CVE record, no codebase supplied) → CVE_LOOKUP.",
+      "canonical": true
+    },
+    {
+      "intent_id": "SENSOR_TELEMETRY_VERIFY",
+      "intent_name": "SENSOR_TELEMETRY_VERIFY",
+      "miner_count": 10,
+      "description": "Query names an IoT device, MQTT topic or sensor feed and asks whether its readings are live, within calibration bounds and cryptographically intact. Example: \"Is device 44 on this MQTT topic still reporting, are its readings within calibration range, and does the payload HMAC verify?\" → SENSOR_TELEMETRY_VERIFY. Not: \"What is the PUE of the data hall?\" (facility-level metrics) → DATACENTER_TELEMETRY_VERIFY.",
+      "canonical": true
+    },
+    {
+      "intent_id": "SENTIMENT_ANALYSIS",
+      "intent_name": "SENTIMENT_ANALYSIS",
+      "miner_count": 4,
+      "description": "Query supplies text and asks what sentiment or emotional tone it expresses. Example: \"What's the sentiment of this review: 'The product broke after one day, terrible quality.'?\" → SENTIMENT_ANALYSIS. Not: \"What category does this review belong to: quality, shipping, or price?\" (asks for a label/category, not emotional tone) → TEXT_CLASSIFICATION.",
+      "canonical": true
+    },
+    {
+      "intent_id": "SPORTS_SCORE",
+      "intent_name": "SPORTS_SCORE",
+      "miner_count": 14,
+      "description": "Query names a specific sports fixture, team or competition and asks for the current or most recent score. Distinct from asking who ultimately won a finished event, which is GAME_RESULT. Example: \"What's the current score in the Lakers vs Celtics game right now?\" → SPORTS_SCORE. Not: \"Who won the Lakers vs Celtics game last night?\" (event already concluded, asks for final outcome) → GAME_RESULT.",
+      "canonical": true
+    },
+    {
+      "intent_id": "SSL_VERIFICATION",
+      "intent_name": "SSL_VERIFICATION",
+      "miner_count": 17,
+      "description": "Query supplies a hostname or domain and asks about its TLS/SSL certificate, chain or configuration. Example: \"Is the SSL certificate for example.com valid and when does it expire?\" → SSL_VERIFICATION. Not: \"Is example.com a safe site to visit?\" (general safety judgment, no certificate/TLS detail asked) → URL_SCAN.",
+      "canonical": true
+    },
+    {
+      "intent_id": "STOCK_PRICE",
+      "intent_name": "STOCK_PRICE",
+      "miner_count": 16,
+      "description": "Query names a listed equity or ticker and asks for its current or historical share price. A company mentioned in passing does not qualify. Example: \"What is the current share price of Apple (AAPL)?\" → STOCK_PRICE. Not: \"Apple just released a new iPhone, will sales be strong?\" (company named, no price asked) → CHAT_COMPLETION or WEB_SEARCH.",
+      "canonical": true
+    },
+    {
+      "intent_id": "STORM_ALERT",
+      "intent_name": "STORM_ALERT",
+      "miner_count": 17,
+      "description": "Query names a specific, resolvable location and asks specifically about active or upcoming storm systems, high winds, or disruption risk from severe weather there — not general current conditions. Example: \"Is there a hurricane warning in effect for Miami, Florida right now?\" → STORM_ALERT. Not: a question with no resolvable location, even if it uses risk/disruption-sounding words like 'high,' 'surge,' or 'glitch' → do not route to STORM_ALERT just on word-shape; use CHAT_COMPLETION or WEB_SEARCH.",
+      "canonical": true
+    },
+    {
+      "intent_id": "TASK_COMPLETION",
+      "intent_name": "TASK_COMPLETION",
+      "miner_count": 11,
+      "description": "Query asks about what makes an AI agent effective at completing multi-step tasks, or is itself a request to complete a defined multi-step task end-to-end. Example: \"Book me a flight to New York and then reserve a hotel near the airport for those dates.\" → TASK_COMPLETION. Not: \"How do AI agents decide which tool to call?\" (asks about agent behavior/mechanics, not a request to perform a task) → AGENT_TASK.",
+      "canonical": true
+    },
+    {
+      "intent_id": "TASK_EXECUTION_QUALITY",
+      "intent_name": "TASK_EXECUTION_QUALITY",
+      "miner_count": 10,
+      "description": "Query supplies an agent or job's actual output together with the task it was given, and asks how well it was executed against a rubric or an expected schema. Example: \"Here is the task spec and the agent's output: score it against this rubric and the required JSON schema.\" → TASK_EXECUTION_QUALITY. Not: \"Book me a flight and reserve a hotel.\" (a request to perform the task) → TASK_COMPLETION. Not: \"Rate this model answer for factual accuracy and hallucination.\" (judging generative content itself) → LLM_OUTPUT_EVALUATION.",
+      "canonical": true
+    },
+    {
+      "intent_id": "TELEGRAPH_KNOWLEDGE",
+      "intent_name": "TELEGRAPH_KNOWLEDGE",
+      "miner_count": 3,
+      "description": "Query asks about Telegraph, Telegraph protocol, its products, or ecosystem — including Alexandria (flagship intelligence layer), the Explorer (leaderboard, live feed, signal search), Hackathon, WASM/miner registration, intents, the Miner YAML Registry (integrate.telegraphprotocol.com), current miners or their details, and any applications built on Telegraph (TruthWire, TrustFilter, ScholarGuard, ReviewRadar). Also covers protocol fundamentals like tokenomics, architecture, documentation, earning, and how the system works. Also covers any question where the user addresses the assistant directly as \"you\" (e.g. \"what can you do\", \"who are you\", \"how can I use you\") — the assistant is Telegraph. Use this for ANY question related to Telegraph, its products, platforms, ecosystem, or the assistant itself, rather than routing to general CHAT_COMPLETION or WEB_SEARCH. Example: \"What can you do?\" or \"How do I register a miner on Telegraph?\" → TELEGRAPH_KNOWLEDGE. Not: \"What can an AI agent do in general?\" (asks about AI agents generically, not about Telegraph or the assistant itself) → AGENT_TASK or CHAT_COMPLETION.",
+      "canonical": true
+    },
+    {
+      "intent_id": "TEXT_AUTHENTICITY_CHECK",
+      "intent_name": "TEXT_AUTHENTICITY_CHECK",
+      "miner_count": 2,
+      "description": "Query supplies a block of text and asks whether it is genuine, original, or machine-generated. Where the user explicitly asks about AI authorship, prefer AI_TEXT_DETECTION. Example: \"Here's an essay: '...'. Is this original writing or was it copied/plagiarized from somewhere else?\" → TEXT_AUTHENTICITY_CHECK. Not: \"Here's a paragraph: '...'. Was this written by an AI or a human?\" (explicitly asks about AI authorship) → AI_TEXT_DETECTION.",
+      "canonical": true
+    },
+    {
+      "intent_id": "TEXT_CLASSIFICATION",
+      "intent_name": "TEXT_CLASSIFICATION",
+      "miner_count": 5,
+      "description": "Query supplies text and asks for it to be assigned to one or more predefined categories or labels. Example: \"Classify this support ticket as billing, technical, or account issue: 'I can't log into my account.'\" → TEXT_CLASSIFICATION. Not: \"Is this ticket written in a frustrated tone?\" (asks about emotional tone, not a category label) → SENTIMENT_ANALYSIS.",
+      "canonical": true
+    },
+    {
+      "intent_id": "TEXT_GENERATION",
+      "intent_name": "TEXT_GENERATION",
+      "miner_count": 5,
+      "description": "Query asks for free-form written output for a described task — drafting, rewriting, summarising or composing text. Prefer CHAT_COMPLETION when the user simply wants an answer rather than produced text. Example: \"Write a short poem about autumn.\" or \"Rewrite this paragraph to sound more formal.\" → TEXT_GENERATION. Not: \"What makes a good poem?\" (wants an answer/explanation, not produced text) → CHAT_COMPLETION.",
+      "canonical": true
+    },
+    {
+      "intent_id": "THREAT_INTELLIGENCE",
+      "intent_name": "THREAT_INTELLIGENCE",
+      "miner_count": 10,
+      "description": "Query asks for indicators of compromise, malicious infrastructure or adversary activity tied to an IP, domain, actor or campaign, aggregated across intel feeds. Example: \"What IOCs and abuse reports exist for 185.220.101.4, and which actor group is it associated with?\" → THREAT_INTELLIGENCE. Not: \"Where is 185.220.101.4 located?\" (geolocation only) → IP_GEOLOCATION. Not: \"Is this file hash malicious?\" (a sample verdict) → MALWARE_DETECTION.",
+      "canonical": true
+    },
+    {
+      "intent_id": "TOKEN_HOLDER_COUNT",
+      "intent_name": "TOKEN_HOLDER_COUNT",
+      "miner_count": 16,
+      "description": "Query names a specific token or contract address and asks how many distinct addresses hold it. Not a request for the token's price, supply or market data. Example: \"How many distinct holder addresses does the ERC-20 token contract 0x8335...913 on base have?\" → TOKEN_HOLDER_COUNT. Not: \"How much ETH does 0x6872...de hold on ethereum?\" (one address's own balance, not a headcount of holders) → WALLET_BALANCE_CHECK. Not: \"How deep is this token's own trading liquidity in DEX pools? Give this token's pool liquidity in USD.\" (a liquidity/TVL question, not a holder count, even though it names a token contract) → TVL_LOOKUP.",
+      "canonical": true
+    },
+    {
+      "intent_id": "TRAVEL_DISRUPTION",
+      "intent_name": "TRAVEL_DISRUPTION",
+      "miner_count": 10,
+      "description": "Query names a flight, route or airport and asks about current operational disruption: delays, cancellations, gate changes, ground stops. Example: \"Is DL404 delayed today, and is there an FAA ground stop at ATL?\" → TRAVEL_DISRUPTION. Not: \"Are there seats left on DL404 tomorrow?\" (bookable inventory) → FLIGHT_AVAILABILITY. Not: \"Will a storm hit Atlanta tomorrow?\" (weather at a location, no flight operations) → STORM_ALERT.",
+      "canonical": true
+    },
+    {
+      "intent_id": "TVL_LOOKUP",
+      "intent_name": "TVL_LOOKUP",
+      "miner_count": 21,
+      "description": "Query names a specific DeFi protocol, pool or chain and asks for the total value locked in it. Distinct from a token's market capitalisation. Example: \"For the token at contract 0x8335...913 on base, how deep is its own trading liquidity in DEX pools (e.g. Uniswap)? Give this token's pool liquidity in USD.\" → TVL_LOOKUP. Not: a question asking how many addresses hold a token → TOKEN_HOLDER_COUNT.",
+      "canonical": true
+    },
+    {
+      "intent_id": "URL_SAFE",
+      "intent_name": "URL_SAFE",
+      "miner_count": 10,
+      "description": "Query supplies a URL or domain and asks whether it is listed as malicious across live threat feeds, DNS blocklists, phishing databases or domain reputation services, with the sources that flagged it. Example: \"Check https://login-secure-update.example.com against threat feeds and DNS blocklists: is it listed for phishing, and by which engines?\" → URL_SAFE. Not: \"Is this link safe to click?\" (a single general safe/unsafe verdict on one URL) → URL_SCAN. Not: \"Is example.com's TLS certificate valid?\" (certificate detail) → SSL_VERIFICATION.",
+      "canonical": true
+    },
+    {
+      "intent_id": "URL_SCAN",
+      "intent_name": "URL_SCAN",
+      "miner_count": 21,
+      "description": "Query supplies a URL and asks for it to be scanned and judged safe or unsafe. Example: \"Is this URL safe to click: http://example.com/offer?\" → URL_SCAN. Not: \"Is example.com's SSL certificate valid?\" (asks about certificate details specifically, not a general safety verdict) → SSL_VERIFICATION.",
+      "canonical": true
+    },
+    {
+      "intent_id": "VALIDATOR_PERFORMANCE_VERIFY",
+      "intent_name": "VALIDATOR_PERFORMANCE_VERIFY",
+      "miner_count": 10,
+      "description": "Query names a validator, index or staking operator on a proof-of-stake network and asks for its uptime, attestation or proposal rate, slashing history or staking yield. Example: \"What is the attestation effectiveness and uptime of validator index 412903 over the last 30 days, and has it ever been slashed?\" → VALIDATOR_PERFORMANCE_VERIFY. Not: \"What is the current gas price on ethereum?\" (network fee level) → GAS_PRICE. Not: \"What does a unit of hashrate earn today?\" (proof-of-work mining economics) → MINING_HASHPRICE_VERIFY.",
+      "canonical": true
+    },
+    {
+      "intent_id": "VIDEO_VERIFICATION",
+      "intent_name": "VIDEO_VERIFICATION",
+      "miner_count": 2,
+      "description": "Query references an actual video file or URL and asks to verify its authenticity, origin, or whether it has been edited/deepfaked. The mere word 'video' in an unrelated question does not qualify — requires a real attached video. Example: \"Here's a video URL: [link]. Can you verify its origin and whether it's been edited?\" → VIDEO_VERIFICATION. Not: \"What's the best video editing software?\" (mentions 'video' but no actual video referenced to verify) → CHAT_COMPLETION or WEB_SEARCH.",
+      "canonical": true
+    },
+    {
+      "intent_id": "VULNERABILITY_TRIAGE",
+      "intent_name": "VULNERABILITY_TRIAGE",
+      "miner_count": 10,
+      "description": "Query supplies a set of already-detected vulnerabilities or CVEs and asks how to rank or prioritise them, by CVSS, known exploitation in the wild, and how critical the affected asset is. Example: \"Rank these 12 findings on an internet-facing payments service by exploitability and business impact.\" → VULNERABILITY_TRIAGE. Not: \"What is the CVSS score and affected version range of CVE-2024-3094?\" (a single record lookup, nothing to rank) → CVE_LOOKUP. Not: \"Scan this repo and tell me what is vulnerable.\" (finding the issues in the first place) → SECURITY_REVIEW.",
+      "canonical": true
+    },
+    {
+      "intent_id": "WALLET_BALANCE_CHECK",
+      "intent_name": "WALLET_BALANCE_CHECK",
+      "miner_count": 20,
+      "description": "Query names a specific blockchain address or ENS name and asks for its current native-coin or token balance on a named chain. A question that merely mentions a wallet without asking what it holds does not qualify. Example: \"What is the balance of vitalik.eth on ethereum?\" or \"How much ETH does 0x6872...de hold on ethereum?\" → WALLET_BALANCE_CHECK. ('How much does address X hold' is a balance question about that one address, even though it uses the word 'hold.') Not: \"How many holders does USDC have on ethereum?\" (asks about the token's holder population, not one address's own holdings) → TOKEN_HOLDER_COUNT.",
+      "canonical": true
+    },
+    {
+      "intent_id": "WASH_TRADING_DETECTION",
+      "intent_name": "WASH_TRADING_DETECTION",
+      "miner_count": 10,
+      "description": "Query names a token, pool or set of wallets and asks whether its trading volume is artificial: circular transfers, self-dealing loops, round trips between affiliated addresses. Example: \"Is volume on token 0x8335...913 on base wash traded? Check for circular transfers between affiliated wallets.\" → WASH_TRADING_DETECTION. Not: \"What is the 24h trading volume of token 0x8335...913?\" (asks for the volume figure itself, no manipulation judgment) → FINANCIAL_DATA.",
+      "canonical": true
+    },
+    {
+      "intent_id": "WEATHER_CHECK",
+      "intent_name": "WEATHER_CHECK",
+      "miner_count": 22,
+      "description": "Query names a specific, resolvable location (city, region, coordinates) AND asks about CURRENT atmospheric/weather conditions there (e.g. current temperature). A location mentioned only in passing in an unrelated question does not qualify. Example: \"What is the current temperature in Miami, Florida right now?\" → WEATHER_CHECK. Not: \"Will the US GPS glitch recur this year?\" or \"Will .name domain sales surge?\" (no resolvable location, no atmospheric content, just a 'will X happen' future-tense shape) → do NOT route these to any WEATHER_* intent just because the sentence resembles one; use CHAT_COMPLETION or WEB_SEARCH.",
+      "canonical": true
+    },
+    {
+      "intent_id": "WEATHER_FORECAST",
+      "intent_name": "WEATHER_FORECAST",
+      "miner_count": 25,
+      "description": "Query names a specific, resolvable location and asks for FUTURE weather conditions over a stated time window (e.g. 'next 24 hours'), not current conditions. Example: \"What is the 24-hour weather forecast for Reykjavik, Iceland, including temperature, precipitation probability, and wind speed?\" → WEATHER_FORECAST. Not: \"Polygon fees felt high yesterday. What are they at now?\" (no location, this is a blockchain network fee question, not weather) → GAS_PRICE. Not: \"Will the US GPS glitch recur this year?\" or \"Will .name domain sales surge?\" (no resolvable location, no weather content) → CHAT_COMPLETION or WEB_SEARCH. A 'yesterday vs now' or 'will X happen' sentence shape alone is NOT evidence of a weather question. The location and the atmospheric/fee/subject-matter content are what matter, not the tense.",
+      "canonical": true
+    },
+    {
+      "intent_id": "WEATHER_FORECAST_VERIFY",
+      "intent_name": "WEATHER_FORECAST_VERIFY",
+      "miner_count": 10,
+      "description": "Query supplies a previously issued forecast and asks whether it verified against what was actually observed. Requires both a forecast claim and a past window to check it against. Example: \"Yesterday's forecast called for 12 mm of rain in Lisbon: what did stations actually record, and did the forecast verify?\" → WEATHER_FORECAST_VERIFY. Not: \"What is the forecast for Lisbon over the next 24 hours?\" (asking for a forecast, not scoring one) → WEATHER_FORECAST. Not: \"What is the temperature in Lisbon right now?\" (current conditions) → WEATHER_CHECK.",
+      "canonical": true
+    },
+    {
+      "intent_id": "WEB_SEARCH",
+      "intent_name": "WEB_SEARCH",
+      "miner_count": 23,
+      "description": "Query needs current, live, or externally-sourced information not reliably answerable from static/training knowledge — general 'what is the current price of Bitcoin' questions that need up-to-date grounding. Example: \"What's the latest news on the Fed's interest rate decision?\" → WEB_SEARCH. Not: \"Explain what an interest rate is.\" (answerable from general knowledge, no live data needed) → CHAT_COMPLETION.",
+      "canonical": true
+    },
+    {
+      "intent_id": "AIR_QUALITY_INDEX",
+      "intent_name": "AIR_QUALITY_INDEX",
+      "miner_count": 0,
+      "description": "Aggregates particulate matter (PM2.5/PM10), ground ozone, and composite AQI metrics from monitoring stations.",
+      "canonical": true
+    },
+    {
+      "intent_id": "API_HEALTH_CHECK",
+      "intent_name": "API_HEALTH_CHECK",
+      "miner_count": 0,
+      "description": "Verifies REST/GraphQL API responsiveness, JSON schema payload structure, and HTTP status codes.",
+      "canonical": true
+    },
+    {
+      "intent_id": "B2B_IDENTITY_ENRICHMENT",
+      "intent_name": "B2B_IDENTITY_ENRICHMENT",
+      "miner_count": 0,
+      "description": "Query supplies a partial business record - a domain, brand or work email - and asks for it to be filled out with firmographic fields: legal entity, tax id, headquarters, headcount, industry, executives, domain validity. Example: \"Enrich acme.io: legal entity name, tax ID, HQ address, employee count and CEO.\" → B2B_IDENTITY_ENRICHMENT. Not: \"Is Acme Ltd incorporated, and who is its registered agent?\" (the official register record itself) → CORPORATE_REGISTRY_LOOKUP.",
+      "canonical": true
+    },
+    {
+      "intent_id": "CARRIER_SERVICEABILITY",
+      "intent_name": "CARRIER_SERVICEABILITY",
+      "miner_count": 0,
+      "description": "Query asks whether a carrier will carry a given shipment on a given lane at all: coverage, weight and dimension limits, hazardous material restrictions. Example: \"Will any carrier take a 68 kg lithium-battery shipment from 94107 to rural 59718, and under what restrictions?\" → CARRIER_SERVICEABILITY. Not: \"What would that shipment cost and when would it land?\" (rates and ETA on a lane already known serviceable) → SHIP_RATE_ETA.",
+      "canonical": true
+    },
+    {
+      "intent_id": "CHATBOT_CONVERSATION",
+      "intent_name": "CHATBOT_CONVERSATION",
+      "miner_count": 0,
+      "description": "Maintains multi-turn conversational context, tone alignment, and empathetic response delivery.",
+      "canonical": true
+    },
+    {
+      "intent_id": "CLOUD_RESOURCE_USAGE",
+      "intent_name": "CLOUD_RESOURCE_USAGE",
+      "miner_count": 0,
+      "description": "Audits virtual machine and container compute utilization, memory pressure, and network throughput metrics.",
+      "canonical": true
+    },
+    {
+      "intent_id": "CODE_GENERATION",
+      "intent_name": "CODE_GENERATION",
+      "miner_count": 0,
+      "description": "Generates executable, type-safe code snippets and algorithms meeting specified functional specifications.",
+      "canonical": true
+    },
+    {
+      "intent_id": "COMMERCE_PURCHASE_VERIFY",
+      "intent_name": "COMMERCE_PURCHASE_VERIFY",
+      "miner_count": 0,
+      "description": "Query supplies an order id, receipt or payment reference and asks whether that purchase genuinely exists and matches stated line items, totals and payment authorization. Example: \"Verify order 114-3941-8820: does the merchant show these three line items, a $148.20 total and an authorized payment?\" → COMMERCE_PURCHASE_VERIFY. Not: \"Is the card ending 4242 valid and active?\" (an instrument check with no order) → PAYMENT_METHOD_VERIFY. Not: \"Can I still return this order?\" (policy eligibility) → RETURN_POLICY_VERIFY.",
+      "canonical": true
+    },
+    {
+      "intent_id": "CORPORATE_REGISTRY_LOOKUP",
+      "intent_name": "CORPORATE_REGISTRY_LOOKUP",
+      "miner_count": 0,
+      "description": "Query names a company and asks for its official register record: incorporation status, company number, registered address or agent, directors, beneficial owners. Example: \"What is the incorporation status and registered agent for UK company number 12345678?\" → CORPORATE_REGISTRY_LOOKUP. Not: \"Fill out this company record with its tax ID, headcount and executive contacts.\" (commercial enrichment beyond the register) → B2B_IDENTITY_ENRICHMENT.",
+      "canonical": true
+    },
+    {
+      "intent_id": "CREDIT_SCORE_VERIFY",
+      "intent_name": "CREDIT_SCORE_VERIFY",
+      "miner_count": 0,
+      "description": "Validates consumer credit bureau score ranges, adverse factors, and debt-to-income benchmarks.",
+      "canonical": true
+    },
+    {
+      "intent_id": "CRYPTO_TRANSFER_VERIFY",
+      "intent_name": "CRYPTO_TRANSFER_VERIFY",
+      "miner_count": 0,
+      "description": "Verifies on-chain transaction status, gas fee burn, sender/recipient addresses, and block confirmations.",
+      "canonical": true
+    },
+    {
+      "intent_id": "CRYPTO_YIELD_RATE",
+      "intent_name": "CRYPTO_YIELD_RATE",
+      "miner_count": 0,
+      "description": "Tracks annualized percentage yields (APY), staking reward rates, and lending pool yields across DeFi protocols.",
+      "canonical": true
+    },
+    {
+      "intent_id": "DATACENTER_TELEMETRY_VERIFY",
+      "intent_name": "DATACENTER_TELEMETRY_VERIFY",
+      "miner_count": 0,
+      "description": "Query asks for facility or rack telemetry at a named site: power usage effectiveness, power draw, inlet and thermal readings, cooling or backup generator readiness. Example: \"What is the current PUE and rack inlet temperature in hall 2, and is the backup generator in ready state?\" → DATACENTER_TELEMETRY_VERIFY. Not: \"Is device 44's sensor payload signed correctly and in calibration?\" (edge device telemetry integrity) → SENSOR_TELEMETRY_VERIFY.",
+      "canonical": true
+    },
+    {
+      "intent_id": "DELIVERY_WINDOW_VERIFY",
+      "intent_name": "DELIVERY_WINDOW_VERIFY",
+      "miner_count": 0,
+      "description": "Query asks what delivery appointment window, route slot or signature requirement a dispatch system has committed for a stop or order. Example: \"What appointment window is scheduled for order 8841 on tomorrow's route, and does it require a signature?\" → DELIVERY_WINDOW_VERIFY. Not: \"Where is the parcel right now?\" (carrier scan events) → PACKAGE_STATUS.",
+      "canonical": true
+    },
+    {
+      "intent_id": "DNS_RECORD_LOOKUP",
+      "intent_name": "DNS_RECORD_LOOKUP",
+      "miner_count": 0,
+      "description": "Resolves and validates authoritative DNS records (A, AAAA, CNAME, MX, TXT) across global resolvers.",
+      "canonical": true
+    },
+    {
+      "intent_id": "DOCUMENT_AUTHENTICITY",
+      "intent_name": "DOCUMENT_AUTHENTICITY",
+      "miner_count": 0,
+      "description": "Query supplies a document plus its signature, seal or timestamp data and asks whether it is genuine and unaltered: certificate chain, notarization, tamper-evident seal, checksum. Example: \"Verify the digital signature and notarization seal on this PDF and tell me whether the content changed after signing.\" → DOCUMENT_AUTHENTICITY. Not: \"Is this image AI-generated or spliced?\" (media forensics) → MEDIA_FORENSIC_VERIFY. Not: \"What obligations does this contract create?\" (reading the contents) → CONTRACT_OBLIGATION_AUDIT.",
+      "canonical": true
+    },
+    {
+      "intent_id": "EMBEDDING_GENERATION",
+      "intent_name": "EMBEDDING_GENERATION",
+      "miner_count": 0,
+      "description": "Transforms input text strings into standardized high-dimensional float vector embeddings for retrieval systems.",
+      "canonical": true
+    },
+    {
+      "intent_id": "ENTITY_EXTRACTION",
+      "intent_name": "ENTITY_EXTRACTION",
+      "miner_count": 0,
+      "description": "Extracts named entities (people, organizations, locations, dates) with character offsets from unstructured text.",
+      "canonical": true
+    },
+    {
+      "intent_id": "FARE_RULE_VERIFY",
+      "intent_name": "FARE_RULE_VERIFY",
+      "miner_count": 0,
+      "description": "Query names a ticket, fare or booking and asks what its rules permit: baggage allowance, change fees, cancellation penalties, refundability. Example: \"For this booked fare, what checked baggage is included and what is the change fee to move the date?\" → FARE_RULE_VERIFY. Not: \"What seats are available on that route?\" (inventory) → FLIGHT_AVAILABILITY. Not: \"Can I return this purchase?\" (a retail return policy) → RETURN_POLICY_VERIFY.",
+      "canonical": true
+    },
+    {
+      "intent_id": "FRAUD_RISK",
+      "intent_name": "FRAUD_RISK",
+      "miner_count": 0,
+      "description": "Query supplies actor context - device fingerprint, IP, email, signup or session behaviour - and asks for a forward-looking probability that the actor is fraudulent. There is no ground truth at query time; the answer is a score. Example: \"Score the fraud risk of this signup: IP 45.83.x.x, headless browser fingerprint, disposable email domain.\" → FRAUD_RISK. Not: \"Is this specific transaction from 0xabc... fraudulent?\" (an assessment of one concrete thing that already happened) → FRAUD_DETECTION. Not: \"Where is IP 45.83.x.x located?\" (a plain geolocation lookup) → IP_GEOLOCATION.",
+      "canonical": true
+    },
+    {
+      "intent_id": "GRAMMAR_SPELL_CHECK",
+      "intent_name": "GRAMMAR_SPELL_CHECK",
+      "miner_count": 0,
+      "description": "Detects typographical, orthographic, punctuation, and grammatical syntax errors with correction offsets.",
+      "canonical": true
+    },
+    {
+      "intent_id": "HOTEL_AVAILABILITY",
+      "intent_name": "HOTEL_AVAILABILITY",
+      "miner_count": 0,
+      "description": "Query names a property, city and dates and asks what rooms are available, at what nightly rate and under what cancellation terms. Example: \"What king rooms are open at this Austin property for March 3-5, at what nightly rate, and are they refundable?\" → HOTEL_AVAILABILITY. Not: \"Is my reservation still being held?\" (an existing booking lock) → TRAVEL_TRANSIT_LOCK.",
+      "canonical": true
+    },
+    {
+      "intent_id": "IMAGE_CAPTIONING",
+      "intent_name": "IMAGE_CAPTIONING",
+      "miner_count": 0,
+      "description": "Generates descriptive, contextual alt-text captions describing the primary subjects and scenes in image files.",
+      "canonical": true
+    },
+    {
+      "intent_id": "INVOICE_LEDGER_RECONCILE",
+      "intent_name": "INVOICE_LEDGER_RECONCILE",
+      "miner_count": 0,
+      "description": "Query supplies invoices, purchase orders and receipts and asks whether they reconcile: three-way match on line items, quantities, tax and totals, and which entries do not tie out. Example: \"Three-way match invoice INV-8841 against PO-2231 and the goods receipt, and list the mismatched lines.\" → INVOICE_LEDGER_RECONCILE. Not: \"Does PO-2231 exist with the approved amount and budget?\" (the purchase order on its own) → PURCHASE_ORDER_VERIFY.",
+      "canonical": true
+    },
+    {
+      "intent_id": "KEYWORD_EXTRACTION",
+      "intent_name": "KEYWORD_EXTRACTION",
+      "miner_count": 0,
+      "description": "Extracts representative topical keywords, keyphrases, and n-grams from body text.",
+      "canonical": true
+    },
+    {
+      "intent_id": "KYC_BIOMETRIC_LIVENESS",
+      "intent_name": "KYC_BIOMETRIC_LIVENESS",
+      "miner_count": 0,
+      "description": "Query supplies a selfie, liveness capture or video plus an identity document and asks whether the subject is a live human matching that document rather than a mask, print or replay. Requires actual media. Example: \"Here is a selfie video and a passport scan: is this a live capture of the document holder, or a spoof?\" → KYC_BIOMETRIC_LIVENESS. Not: \"Is this photo AI-generated?\" (media authenticity with no identity document to match against) → MEDIA_AUTHENTICITY_CHECK.",
+      "canonical": true
+    },
+    {
+      "intent_id": "LIVE_PORT_CONGESTION",
+      "intent_name": "LIVE_PORT_CONGESTION",
+      "miner_count": 0,
+      "description": "Query names a seaport or terminal and asks how congested it is: vessels waiting at anchor, berth occupancy, average dwell time. Example: \"How many container vessels are at anchor off Long Beach, and what is average berth dwell time this week?\" → LIVE_PORT_CONGESTION. Not: \"Where is vessel IMO 9321483 right now?\" (one ship's position) → VESSEL_TELEMETRY_VERIFY.",
+      "canonical": true
+    },
+    {
+      "intent_id": "LIVE_SHELF_PRICE",
+      "intent_name": "LIVE_SHELF_PRICE",
+      "miner_count": 0,
+      "description": "Query names a retail product, SKU or listing and asks what it currently sells for at one or more merchants. Example: \"What is the current listed price of the Sony WH-1000XM5 at Amazon and Walmart right now?\" → LIVE_SHELF_PRICE. Not: \"What is Sony's share price?\" (an equity quote) → STOCK_PRICE. Not: \"Is that model actually in stock?\" (availability, not price) → SKU_IN_STOCK.",
+      "canonical": true
+    },
+    {
+      "intent_id": "LOAN_INTEREST_RATE_QUOTE",
+      "intent_name": "LOAN_INTEREST_RATE_QUOTE",
+      "miner_count": 0,
+      "description": "Aggregates residential mortgage APRs, prime lending rates, and personal loan interest quotes.",
+      "canonical": true
+    },
+    {
+      "intent_id": "MALWARE_DETECTION",
+      "intent_name": "MALWARE_DETECTION",
+      "miner_count": 0,
+      "description": "Query supplies a file, binary or file hash and asks whether it is malicious according to antivirus engines or sandbox detonation. Example: \"Is SHA-256 44d88612fea8a8f36de82e1278abb02f flagged by antivirus engines, and what does sandbox detonation show it doing?\" → MALWARE_DETECTION. Not: \"Is this URL on a phishing blocklist?\" (a URL, not a sample) → URL_SAFE. Not: \"What IOCs are associated with this actor?\" (feed aggregation about infrastructure) → THREAT_INTELLIGENCE.",
+      "canonical": true
+    },
+    {
+      "intent_id": "MEDIA_FORENSIC_VERIFY",
+      "intent_name": "MEDIA_FORENSIC_VERIFY",
+      "miner_count": 0,
+      "description": "Query supplies an image, audio or video file and asks for forensic analysis of manipulation: generative artifacts, splices, EXIF and metadata inconsistency, synthetic speech. Requires actual media. Example: \"Run forensics on this audio clip: is the voice synthetic, and does the file metadata match the claimed capture date?\" → MEDIA_FORENSIC_VERIFY. Not: \"Is the face in this video a deepfake?\" (face swap specifically) → DEEPFAKE_DETECTION. Not: \"Is this photo real or AI-generated?\" (the broad authenticity question) → MEDIA_AUTHENTICITY_CHECK.",
+      "canonical": true
+    },
+    {
+      "intent_id": "PACKAGE_STATUS",
+      "intent_name": "PACKAGE_STATUS",
+      "miner_count": 0,
+      "description": "Query supplies a tracking number or shipment reference and asks where the parcel is and what its latest carrier scan events are. Example: \"Where is tracking number 1Z999AA10123456784 now, and what was the last scan event?\" → PACKAGE_STATUS. Not: \"What would it cost to ship this and when would it arrive?\" (a quote for a parcel not yet sent) → SHIP_RATE_ETA. Not: \"What appointment window did dispatch commit for this stop?\" (the dispatch schedule) → DELIVERY_WINDOW_VERIFY.",
+      "canonical": true
+    },
+    {
+      "intent_id": "PAYMENT_METHOD_VERIFY",
+      "intent_name": "PAYMENT_METHOD_VERIFY",
+      "miner_count": 0,
+      "description": "Query supplies a card BIN, payment token, bank account or routing number and asks whether it is valid, active and issued by the stated institution. Example: \"Is BIN 411111 a valid Visa, which issuer does it belong to, and is routing number 021000021 an active ACH route?\" → PAYMENT_METHOD_VERIFY. Not: \"Does this $2,400 purchase look like it will charge back?\" (a risk score on a transaction) → TRANSACTION_RISK.",
+      "canonical": true
+    },
+    {
+      "intent_id": "PLAGIARISM_DETECTION",
+      "intent_name": "PLAGIARISM_DETECTION",
+      "miner_count": 0,
+      "description": "Detects verbatim text duplication, disguised paraphrasing, and uncredited citations across corpus databases.",
+      "canonical": true
+    },
+    {
+      "intent_id": "PORT_SCAN_AUDIT",
+      "intent_name": "PORT_SCAN_AUDIT",
+      "miner_count": 0,
+      "description": "Identifies open network service ports, banner disclosures, and listening daemon protocols on specified hosts.",
+      "canonical": true
+    },
+    {
+      "intent_id": "PURCHASE_ORDER_VERIFY",
+      "intent_name": "PURCHASE_ORDER_VERIFY",
+      "miner_count": 0,
+      "description": "Query names a purchase order and asks whether it exists in the ERP with the stated vendor, amounts, approvals and budget allocation. Example: \"Does PO-2231 exist for vendor Acme at $42,000, approved, and within the Q3 budget line?\" → PURCHASE_ORDER_VERIFY. Not: \"Do the invoice, the PO and the goods receipt all tie out?\" (a multi-document reconciliation) → INVOICE_LEDGER_RECONCILE. Not: \"Is Acme a legitimate supplier to onboard?\" (vendor due diligence) → VENDOR_VERIFY.",
+      "canonical": true
+    },
+    {
+      "intent_id": "QUESTION_ANSWERING",
+      "intent_name": "QUESTION_ANSWERING",
+      "miner_count": 0,
+      "description": "Answers open-domain and context-bounded user queries with cited factual assertions and logical deductions.",
+      "canonical": true
+    },
+    {
+      "intent_id": "REGRESSION_VERIFY",
+      "intent_name": "REGRESSION_VERIFY",
+      "miner_count": 0,
+      "description": "Query asks for an automated test suite to be run against a build, service or API and for the resulting pass/fail set, to confirm previously working behaviour still works. Example: \"Run the end-to-end suite against build 4412 of the checkout API and report which tests fail versus the last green run.\" → REGRESSION_VERIFY. Not: \"Does this patch build and fix the defect?\" (verifying one specific patch) → CODE_PATCH_VERIFY. Not: \"Did the service meet its uptime target last month?\" (an SLA threshold) → SLA_COMPLIANCE.",
+      "canonical": true
+    },
+    {
+      "intent_id": "RETURN_POLICY_VERIFY",
+      "intent_name": "RETURN_POLICY_VERIFY",
+      "miner_count": 0,
+      "description": "Query supplies an order or purchase context and asks whether it can still be returned under the merchant's policy, and at what cost. Example: \"This item shipped 40 days ago and was opened: is it still returnable under this merchant's policy, and what restocking fee applies?\" → RETURN_POLICY_VERIFY. Not: \"Verify order 114-3941-8820 exists with these line items and total.\" (order existence) → COMMERCE_PURCHASE_VERIFY.",
+      "canonical": true
+    },
+    {
+      "intent_id": "SEMANTIC_SIMILARITY",
+      "intent_name": "SEMANTIC_SIMILARITY",
+      "miner_count": 0,
+      "description": "Calculates mathematical cosine similarity and semantic relatedness distance between pairs of sentences.",
+      "canonical": true
+    },
+    {
+      "intent_id": "SERVER_UPTIME_MONITOR",
+      "intent_name": "SERVER_UPTIME_MONITOR",
+      "miner_count": 0,
+      "description": "Monitors synthetic HTTP/HTTPS endpoint availability, handshake latency, and uptime status from multiple edge regions.",
+      "canonical": true
+    },
+    {
+      "intent_id": "SHIPMENT_DELAY_RISK",
+      "intent_name": "SHIPMENT_DELAY_RISK",
+      "miner_count": 0,
+      "description": "Query names a shipment, container or lane in transit and asks for the forward-looking probability that it arrives late, weighing customs, port congestion, weather and carrier performance. The answer is a risk score; the truth only arrives later. Example: \"What is the delay risk on this container arriving Rotterdam next week, given customs backlog and port congestion?\" → SHIPMENT_DELAY_RISK. Not: \"Where is the container right now?\" (current position or status) → VESSEL_TELEMETRY_VERIFY or PACKAGE_STATUS.",
+      "canonical": true
+    },
+    {
+      "intent_id": "SHIP_RATE_ETA",
+      "intent_name": "SHIP_RATE_ETA",
+      "miner_count": 0,
+      "description": "Query names an origin, destination and parcel and asks what carriers would charge and when they would deliver. The shipment has not been sent yet. Example: \"What do UPS, FedEx and DHL charge for a 2 kg parcel from 94107 to 10001, and what delivery dates do they quote?\" → SHIP_RATE_ETA. Not: \"Where is my parcel right now?\" (tracking a shipment already in transit) → PACKAGE_STATUS. Not: \"Will any carrier even take a lithium-battery shipment on that lane?\" (coverage and restrictions) → CARRIER_SERVICEABILITY.",
+      "canonical": true
+    },
+    {
+      "intent_id": "SKU_IN_STOCK",
+      "intent_name": "SKU_IN_STOCK",
+      "miner_count": 0,
+      "description": "Query names a product, SKU or listing and asks whether it is purchasable right now, in what quantity, or at which location. Example: \"Is SKU B09XS7JWHH in stock for delivery to 94107 today, and how many units are left?\" → SKU_IN_STOCK. Not: \"What does that SKU cost?\" (a price, not availability) → LIVE_SHELF_PRICE. Not: \"How many units of that SKU sit in bin 14C of our fulfilment centre?\" (internal warehouse counts) → WAREHOUSE_INVENTORY.",
+      "canonical": true
+    },
+    {
+      "intent_id": "SLA_COMPLIANCE",
+      "intent_name": "SLA_COMPLIANCE",
+      "miner_count": 0,
+      "description": "Query asks whether measured response time, resolution time or uptime met a stated service level threshold over a period. Example: \"Did the API hold 99.9% uptime last month and meet the 4-hour resolution SLA on P1 incidents?\" → SLA_COMPLIANCE. Not: \"Was the customer satisfied with how that ticket was handled?\" (quality of the interaction) → CUSTOMER_TICKET_RESOLUTION.",
+      "canonical": true
+    },
+    {
+      "intent_id": "SMART_CONTRACT_AUDIT",
+      "intent_name": "SMART_CONTRACT_AUDIT",
+      "miner_count": 0,
+      "description": "Inspects bytecode and smart contract source code for reentrancy, access control, and integer overflows.",
+      "canonical": true
+    },
+    {
+      "intent_id": "SOCIAL_BOT_DETECTION",
+      "intent_name": "SOCIAL_BOT_DETECTION",
+      "miner_count": 0,
+      "description": "Query names a social account or a set of accounts and asks whether they are automated or coordinated: posting cadence anomalies, follower-graph clustering, inauthentic behaviour. There is no authoritative label; the answer is an inference. Example: \"Is @handle a bot? Check posting cadence, follower-graph clustering and coordination with other accounts.\" → SOCIAL_BOT_DETECTION. Not: \"What are people saying about the iPhone launch on X?\" (a platform search) → TWITTER_SEARCH.",
+      "canonical": true
+    },
+    {
+      "intent_id": "SPEECH_TO_TEXT",
+      "intent_name": "SPEECH_TO_TEXT",
+      "miner_count": 0,
+      "description": "Transcribes spoken audio streams into punctuated, timestamped text transcriptions with speaker diarization.",
+      "canonical": true
+    },
+    {
+      "intent_id": "TEXT_SUMMARIZATION",
+      "intent_name": "TEXT_SUMMARIZATION",
+      "miner_count": 0,
+      "description": "Generates concise, factual executive summaries capturing primary themes of long-form source documents.",
+      "canonical": true
+    },
+    {
+      "intent_id": "TEXT_TO_SPEECH",
+      "intent_name": "TEXT_TO_SPEECH",
+      "miner_count": 0,
+      "description": "Synthesizes natural-sounding spoken voice waveforms from text input with adjustable emotion and cadence.",
+      "canonical": true
+    },
+    {
+      "intent_id": "THREAT_IP_REPUTATION",
+      "intent_name": "THREAT_IP_REPUTATION",
+      "miner_count": 0,
+      "description": "Assesses malicious IP address risk scores, botnet associations, and brute-force history across threat registries.",
+      "canonical": true
+    },
+    {
+      "intent_id": "TOKEN_TOTAL_SUPPLY_VERIFY",
+      "intent_name": "TOKEN_TOTAL_SUPPLY_VERIFY",
+      "miner_count": 0,
+      "description": "Verifies token circulating supply, burnt token balances, and total minted token counts on-chain.",
+      "canonical": true
+    },
+    {
+      "intent_id": "TRANSACTION_RISK",
+      "intent_name": "TRANSACTION_RISK",
+      "miner_count": 0,
+      "description": "Query supplies payment-transaction context - amount, merchant category, cardholder velocity, chargeback history - and asks for a risk or chargeback probability score on authorising it. Example: \"Score the chargeback risk of a $2,400 electronics purchase on a card that made 6 attempts in 10 minutes.\" → TRANSACTION_RISK. Not: \"Is this card number valid and active?\" (instrument validity) → PAYMENT_METHOD_VERIFY. Not: \"Score this signup's device and IP.\" (account and device level, not a payment authorisation) → FRAUD_RISK.",
+      "canonical": true
+    },
+    {
+      "intent_id": "TRAVEL_TRANSIT_LOCK",
+      "intent_name": "TRAVEL_TRANSIT_LOCK",
+      "miner_count": 0,
+      "description": "Query asks whether a fare hold, seat lock or booking guarantee currently exists and is still valid, naming a PNR, record locator or reservation reference. Example: \"Is PNR X4RT9Z still holding two seats on the 09:15 departure, and when does the fare hold expire?\" → TRAVEL_TRANSIT_LOCK. Not: \"What seats are available on that flight?\" (open inventory, nothing held) → FLIGHT_AVAILABILITY. Not: \"What does that fare charge to change dates?\" (fare terms) → FARE_RULE_VERIFY.",
+      "canonical": true
+    },
+    {
+      "intent_id": "TWITTER_SEARCH",
+      "intent_name": "TWITTER_SEARCH",
+      "miner_count": 0,
+      "description": "Query asks to search posts, accounts or discussion on X/Twitter specifically. A question that merely mentions Twitter as a topic does not qualify — the user must want results from the platform. Example: \"What are people saying about the new iPhone launch on X/Twitter?\" → TWITTER_SEARCH. Not: \"Is Twitter/X profitable as a company?\" (Twitter is the subject, not the source to search) → CHAT_COMPLETION or WEB_SEARCH.",
+      "canonical": true
+    },
+    {
+      "intent_id": "VENDOR_VERIFY",
+      "intent_name": "VENDOR_VERIFY",
+      "miner_count": 0,
+      "description": "Query names a supplier and asks whether it checks out for onboarding or payment: tax identifiers, registration, banking details, certifications and sanctions clearance, as one combined verdict. Example: \"Verify vendor Acme Ltd before onboarding: tax ID, bank account ownership, ISO certification and sanctions clearance.\" → VENDOR_VERIFY. Not: \"Does this name hit the OFAC list?\" (a sanctions screen alone) → SANCTIONS_SCREENING_MATCH. Not: \"Is this PO approved and in budget?\" (a purchase order record) → PURCHASE_ORDER_VERIFY.",
+      "canonical": true
+    },
+    {
+      "intent_id": "VESSEL_TELEMETRY_VERIFY",
+      "intent_name": "VESSEL_TELEMETRY_VERIFY",
+      "miner_count": 0,
+      "description": "Query names a vessel by name, MMSI or IMO and asks for its AIS-reported position, speed, heading, draft or declared destination. Example: \"What is the current AIS position, speed and draft of MMSI 636019825?\" → VESSEL_TELEMETRY_VERIFY. Not: \"How backed up is the port it is heading into?\" (port-level congestion) → LIVE_PORT_CONGESTION.",
+      "canonical": true
+    },
+    {
+      "intent_id": "WAREHOUSE_INVENTORY",
+      "intent_name": "WAREHOUSE_INVENTORY",
+      "miner_count": 0,
+      "description": "Query asks for stock counts inside a fulfilment centre: bin or pallet quantities, allocations to open orders, replenishment thresholds. Internal, not what a shopper sees. Example: \"How many units of SKU A-9912 are in bin 14C, and how many are already allocated to open orders?\" → WAREHOUSE_INVENTORY. Not: \"Is that SKU in stock at the retailer right now?\" (merchant-facing availability) → SKU_IN_STOCK.",
+      "canonical": true
+    }
+  ],
+  "with_miners": 76
+}

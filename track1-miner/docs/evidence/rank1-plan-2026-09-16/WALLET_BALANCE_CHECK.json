@@ -1,0 +1,136 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "1664ac2f-880e-415f-9c72-d03805b788de",
+        "epoch_id": 335,
+        "intent_id": "WALLET_BALANCE_CHECK",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.9999995,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T20:20:39.404453Z",
+        "created_at": "2026-09-15T20:20:39.404453Z"
+      },
+      {
+        "id": "0f9ede70-6177-4dd5-9c49-6741c6f18fcb",
+        "epoch_id": 334,
+        "intent_id": "WALLET_BALANCE_CHECK",
+        "miner_slug": "txlens",
+        "rank": 1,
+        "score": 0.9999997,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T11:18:12.334228Z",
+        "created_at": "2026-09-15T11:18:12.334228Z"
+      },
+      {
+        "id": "bc4486ca-d7e8-47e3-9472-cb70982a8ad3",
+        "epoch_id": 334,
+        "intent_id": "WALLET_BALANCE_CHECK",
+        "miner_slug": "livecert",
+        "rank": 3,
+        "score": 0.9999995,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T11:18:12.334228Z",
+        "created_at": "2026-09-15T11:18:12.334228Z"
+      },
+      {
+        "id": "cc84dfc7-50fa-4b5f-958f-92dbe8193273",
+        "epoch_id": 333,
+        "intent_id": "WALLET_BALANCE_CHECK",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.9999995,
+        "failure_reason": "",
+        "scored_at": "2026-09-15T02:16:20.270973Z",
+        "created_at": "2026-09-15T02:16:20.270973Z"
+      },
+      {
+        "id": "cf768630-4ad3-44cb-a615-5cd8043707ba",
+        "epoch_id": 332,
+        "intent_id": "WALLET_BALANCE_CHECK",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.9999995,
+        "failure_reason": "",
+        "scored_at": "2026-09-14T16:56:37.145038Z",
+        "created_at": "2026-09-14T16:56:37.145038Z"
+      },
+      {
+        "id": "bee07992-4a60-43ac-bc50-a9ec6894c00b",
+        "epoch_id": 331,
+        "intent_id": "WALLET_BALANCE_CHECK",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 4.8941988e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-14T08:01:05.473676Z",
+        "created_at": "2026-09-14T08:01:05.473676Z"
+      },
+      {
+        "id": "cd6615d5-e45d-4004-b179-7eb7ab41e89e",
+        "epoch_id": 331,
+        "intent_id": "WALLET_BALANCE_CHECK",
+        "miner_slug": "livecert",
+        "rank": 4,
+        "score": 3.471538e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-14T08:01:05.473676Z",
+        "created_at": "2026-09-14T08:01:05.473676Z"
+      },
+      {
+        "id": "794c73a0-3dba-4920-87a7-2aebe1b4fc0f",
+        "epoch_id": 330,
+        "intent_id": "WALLET_BALANCE_CHECK",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 0.99999994,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T23:03:03.273156Z",
+        "created_at": "2026-09-13T23:03:03.273156Z"
+      },
+      {
+        "id": "92679cf1-e2fc-4b34-93c1-2b6cd42ca349",
+        "epoch_id": 330,
+        "intent_id": "WALLET_BALANCE_CHECK",
+        "miner_slug": "livecert",
+        "rank": 3,
+        "score": 0.99999964,
+        "failure_reason": "",
+        "scored_at": "2026-09-13T23:03:03.273156Z",
+        "created_at": "2026-09-13T23:03:03.273156Z"
+      }
+    ],
+    "total": 547,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 3022,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "WALLET_BALANCE_CHECK",
+    "wasm_url": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/8ae21d95c34a4e42894b4323d7ad87903f2b6cc9/dist/win/wlz_0001.wasm",
+    "wasm_hash": "b696091999e14a9d80be2adeeb7f692cfd98b7c4ad9d8c4219fd9af1a3b82bec",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 0.6923076,
+    "eval": {
+      "candidate_margin": 0.6923076,
+      "champion_margin": 0.6923052,
+      "candidate_wins": 12,
+      "champion_wins": 12,
+      "comparable_cases": 13,
+      "worst_self_match": 1,
+      "score_stddev": 0.4714044,
+      "spearman": {
+        "WALLET_BALANCE_CHECK": 0.75071687
+      },
+      "historical_rows_evaluated": 71
+    },
+    "registered_at": "2026-08-31T23:03:29Z",
+    "updated_at": "2026-09-01T03:28:43Z"
+  }
+}
