@@ -99,6 +99,15 @@ below is deployed unless a later entry says so.
   stripped. Live after the fix: Padres–Rockies (MLB), Chiefs–Broncos (NFL) and the 2022 World Cup
   final all answer; "Yankees vs Red Sox last night" is not_found (no such fixture in the window).
   This is the most likely cause of the e335 GAME_RESULT loss to an MLB schedule wrapper (G155).
+- **G164 — FACT_CHECK resolves the claim's subject article before searching (a530127).** New
+  `factsubject.ts`, `factarticle.ts`, `factsearch.ts`; the old search path runs only when the
+  subject article settles nothing, so G77/G79 cases are untouched. Live: "bats are the only
+  mammals capable of sustained flight" unverified→**supported** (Bat lead); "sharks are mammals"
+  contradicted via *Shark attack*→contradicted via *Shark* with the fish passage; "bats are blind"
+  unverified→contradicted. 634 unit, 161 live. Open: support rests on term coverage plus a copula
+  guard, not parsing (two decoy Shark sentences are pinned); closed verb list for subjects; no
+  synonyms ("tallest" vs "highest"). The champion `fact_s01.wasm` at the pinned commit hashes to
+  8c4731a3…, not the node's bf4f24f4…, so no bench was run and the file was deleted.
 
 ## 2026-09-15 second release: node test cases, web search, fundamentals, fact-check 429 — G144–G151
 
