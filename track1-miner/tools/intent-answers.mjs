@@ -492,17 +492,27 @@ const CHECKS = {
       body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "eth_getTransactionReceipt", params: [FIRST] }),
       signal: AbortSignal.timeout(20000),
     }).then((x) => x.json()).catch(() => null);
-    const truth = rpc?.result ? Number(BigInt(rpc.result.gasUsed)) : null;
+    // The BLOCK NUMBER is the cross-checked figure since 2026-09-16. Gas used,
+    // the total fee and the effective gas price left the answer that day: each
+    // extra number costs both of the miners that actually cross this intent,
+    // measured in tools/onchain-shape-bench.mjs. A figure we no longer state is
+    // one this gate can no longer check, so it moved to one we do.
+    const truth = rpc?.result ? Number(BigInt(rpc.result.blockNumber)) : null;
     if (truth !== null) {
-      const said = String(b.reason ?? "").match(/used ([\d,]+) gas/);
-      if (!said) bad.push("answer names no gas-used figure");
-      else if (Number(said[1].replace(/,/g, "")) !== truth) {
-        bad.push(`gas used ${said[1]} disagrees with an independent RPC (${truth})`);
+      const said = String(b.reason ?? "").match(/in block (\d+)/);
+      if (!said) bad.push("answer names no block number");
+      else if (Number(said[1]) !== truth) {
+        bad.push(`block ${said[1]} disagrees with an independent RPC (${truth})`);
       }
     }
     // 31,337 wei must not be rendered as a truncated decimal that reads as zero.
     if (!/31,337 wei/.test(String(b.reason ?? ""))) bad.push("sub-microcoin value not reported exactly");
-    if (!/block 46,147/.test(String(b.reason ?? ""))) bad.push("answer names no block number");
+    if (!/block 46147/.test(String(b.reason ?? ""))) bad.push("answer names no block number");
+    // A regression that puts the gas sentence back is a measured score loss,
+    // not a style question: it scored 0.014 against both crossing references.
+    if (/gas price|total fee|used [\d,]+ gas/.test(String(b.reason ?? ""))) {
+      bad.push("the gas/fee/gas-price sentence is back in the answer");
+    }
 
     // A hash that is not on the chain must be not_found, and must not be given
     // invented receipt figures.

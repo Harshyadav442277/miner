@@ -59,7 +59,8 @@ test("rank regression: a throwing receipt request cannot erase a mined transacti
     const r = await lookupTransaction(HASH, "ethereum");
     assert.equal(r.verdict, "unknown");
     assert.equal(r.error, "receipt_unavailable");
-    assert.match(r.reason, /20,000,000/);
+    // Plain, like every other block number this module writes since 2026-09-16.
+    assert.match(r.reason, /mined in block 20000000,/);
   });
 });
 

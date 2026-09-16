@@ -1,0 +1,32 @@
+ONCHAIN_TX_LOOKUP answer shape, champion reg642 (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track2\harness\champions\onchain_tx_lookup_reg642.wasm)
+sha256 a53e88df1b2413a8e5378462772c0e80b49892fd273ea31f50c560a04424d2e3
+scored 2026-09-16T04:14:17.229Z
+
+## success   0xb376975e90801e36a34432c960825a0c12a56d589a77a95aa552a7a3618678ee
+   question: Is on-chain transaction 0xb376975e90801e36a34432c960825a0c12a56d589a77a95aa552a7a3618678ee successful (status success/ok/confirmed) or failed/pending?
+
+   [txlens] Ethereum transaction 0xb376975e90801e36a34432c960825a0c12a56d589a77a95aa552a7a3618678ee sent 0 ETH from 0x2ce910fbba65b454bbaf6a18c952a70f3bcd8299 to 0x99c9fc46f92e8a1c0dec1b1747d010903e884be1 and called bridgeERC20To in block 25700000; status success.
+   [veyctum] Ethereum transaction 0xb376975e90801e36a34432c960825a0c12a56d589a77a95aa552a7a3618678ee was confirmed and succeeded. It called the bridgeERC20To method (selector 0x540abf73) on contract 0x99c9fc46f92e8a1c0dec1b1747d010903e884be1, sent from 0x2ce910fbba65b454bbaf6a18c952a70f3bcd8299 with 0 ETH in native value. This was a contract call. It was included in block 25700000. The sender 0x2ce910fbba65b454bbaf6a18c952a70f3bcd8299 and recipient 0x99c9fc46f92e8a1c0dec1b1747d010903e884be1 are different addresses.
+   [ours-before] Transaction 0xb376975e90801e36a34432c960825a0c12a56d589a77a95aa552a7a3618678ee on ethereum succeeded in block 25,700,000. It moved 0 ETH from 0x2ce910fbba65b454bbaf6a18c952a70f3bcd8299 to 0x99c9fc46f92e8a1c0dec1b1747d010903e884be1. It used 650,475 gas, a total fee of 0.001337169731387175 ETH, at an effective gas price of 2.0557 Gwei. The receipt contains 1 token Transfer event.
+   [ours-after] Transaction 0xb376975e90801e36a34432c960825a0c12a56d589a77a95aa552a7a3618678ee on ethereum succeeded in block 25700000. It moved 0 ETH from 0x2ce910fbba65b454bbaf6a18c952a70f3bcd8299 to 0x99c9fc46f92e8a1c0dec1b1747d010903e884be1 and called bridgeERC20To. The receipt contains 1 token Transfer event.
+
+   candidate      vs txlens   vs veyctum
+   txlens                -   0.996072
+   veyctum        0.997527          -
+   ours-before    0.014003   0.013116
+   ours-after     0.996209   0.994931
+
+## reverted  0xe1cd7c312e8cedad3bb8b3030703a90cb93d48d35a554082001b0e2edaa97e19
+   question: Is on-chain transaction 0xe1cd7c312e8cedad3bb8b3030703a90cb93d48d35a554082001b0e2edaa97e19 successful (status success/ok/confirmed) or failed/pending?
+
+   [txlens] Ethereum transaction 0xe1cd7c312e8cedad3bb8b3030703a90cb93d48d35a554082001b0e2edaa97e19 sent 0 ETH from 0x8a0231d6fb864a3ae9439a860871510249c31d07 to 0x66a9893cc07d91d95644aedd05d03f95e1dba8af and called execute in block 25700000; status failed.
+   [veyctum] Ethereum transaction 0xe1cd7c312e8cedad3bb8b3030703a90cb93d48d35a554082001b0e2edaa97e19 was mined but reverted (execution failed). It called the execute method (selector 0x3593564c) on contract 0x66a9893cc07d91d95644aedd05d03f95e1dba8af, sent from 0x8a0231d6fb864a3ae9439a860871510249c31d07 with 0 ETH in native value. This was a contract call. It was included in block 25700000. The sender 0x8a0231d6fb864a3ae9439a860871510249c31d07 and recipient 0x66a9893cc07d91d95644aedd05d03f95e1dba8af are different addresses.
+   [ours-before] Transaction 0xe1cd7c312e8cedad3bb8b3030703a90cb93d48d35a554082001b0e2edaa97e19 on ethereum failed and was reverted in block 25,700,000. It attempted to move 0 ETH from 0x8a0231d6fb864a3ae9439a860871510249c31d07 to 0x66a9893cc07d91d95644aedd05d03f95e1dba8af. It used 341,791 gas, a total fee of 0.000039981388107039 ETH, at an effective gas price of 0.117 Gwei. A reverted transaction still consumes its gas; the value transfer did not occur.
+   [ours-after] Transaction 0xe1cd7c312e8cedad3bb8b3030703a90cb93d48d35a554082001b0e2edaa97e19 on ethereum failed and was reverted in block 25700000. It attempted to move 0 ETH from 0x8a0231d6fb864a3ae9439a860871510249c31d07 to 0x66a9893cc07d91d95644aedd05d03f95e1dba8af and called execute. A reverted transaction still consumes its gas; the value transfer did not occur.
+
+   candidate      vs txlens   vs veyctum
+   txlens                -   0.995027
+   veyctum        0.996359          -
+   ours-before    0.014617   0.013620
+   ours-after     0.996223   0.994885
+
