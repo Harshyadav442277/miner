@@ -108,6 +108,35 @@ below is deployed unless a later entry says so.
   guard, not parsing (two decoy Shark sentences are pinned); closed verb list for subjects; no
   synonyms ("tallest" vs "highest"). The champion `fact_s01.wasm` at the pinned commit hashes to
   8c4731a3…, not the node's bf4f24f4…, so no bench was run and the file was deleted.
+- **G165 — FRAUD_DETECTION answers the node's scenario families instead of refusing (1f0100b).**
+  Card / credit-account activity anomalies (velocity, two countries in minutes, dormant-then-
+  sudden spending, an immediate limit increase, card-not-present bursts, card testing), vendor
+  payment diversion, account-recovery urgency and refusal-of-callback; a request for an assessment
+  with no description answers `unknown` naming what would decide it. Negation guard is positional:
+  a pattern that starts AT the cue ("no police report") counts, one that starts inside the negated
+  span does not. Two or more stated controls and no red flag answer `low_risk` naming them; a
+  control never cancels a stated flag. Catalogue split into `fraudtypologies.ts` and
+  `fraudaccount.ts`; still regexes, not semantics (G146 unchanged). Authored bench under champion
+  2793: mean 0.333 → 0.810 over seven cases, development evidence only; the registry's wasm_hash
+  for 2793 is not the sha256 of the bytes its wasm_url serves (unexplained, as with reg1582 and
+  reg2945). 634 unit tests in the lane, 662 after merge.
+- **G166 — TEXT_CLASSIFICATION parses every common label-list phrasing, honors multi-label
+  instructions and lets a negated label lose (15a44ac).** "into one of: a, b, c. Message: …" no
+  longer returns `no_labels`; "Do not cancel my subscription; I only need to update my card" with
+  labels cancel/update/report → "Update payment method." (was `ambiguous`); "Assign all applicable
+  labels" → "Billing and technical." (was Technical only); the billing control is unchanged.
+  Split into `classify-parse.ts`, `classify-cues.ts`, `classify-answer.ts`. The lane was cut off
+  by the rate limit before it could report, so its own bench file
+  (`evidence/rank1-build-2026-09-16/classify/champion687-bench.txt`) is unreviewed. 675/675 after
+  merge.
+- **G167 — Epoch 336, still the 2026-09-15 build: 10/36 rank 1 (from 7).** Gains: STOCK_PRICE
+  **1.0** (a real cross, first since e333's micro-band win), IP 0.994 r4 (the e335 0.011 did not
+  repeat), URL_SCAN 0.926 r2 (the e335 zero was the node's), CVE r1, TOKEN_HOLDER r1,
+  TELEGRAPH_KNOWLEDGE r1 (all-1e-11 band), AI_TEXT r1. Losses: FINANCIAL_DATA 0 at r17 is a node
+  request-builder LLM timeout ("build request for miner livecert … context deadline exceeded"),
+  not us; FACT_CHECK r11 at 7.3e-9 inside a 4e-8 band; CONTENT_EXTRACTION r2 at **1.000 behind
+  chainsight at 1.000 with the identical scored_at**, so the tie-break in G158 is not scoring
+  time. SSL r2 at 0.011 behind 0.011. None of the branch work above is measured by this epoch.
 
 ## 2026-09-15 second release: node test cases, web search, fundamentals, fact-check 429 — G144–G151
 

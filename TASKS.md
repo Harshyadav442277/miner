@@ -14,17 +14,23 @@ Baseline epoch 335: 7/36 rank 1. Analysis and evidence: G152–G159,
       clean shape 0.9965/0.997 (G153).
 - [x] Establish that TELEGRAPH_KNOWLEDGE and RESEARCH_QUERY leaders cross on LLM wording, not facts,
       and stop chasing them (G154).
-- [ ] Lane A (Opus): ONCHAIN clean shape + keyless method-name lookup, bench ≥0.99 on both hashes.
-- [ ] Lane B (Sonnet): MLB and nickname coverage for GAME_RESULT/SPORTS_SCORE, live probes.
-- [ ] Lane C (Sonnet): CURRENCY historical date honored; champion sensitivity table (report only).
-- [ ] Lane D (Opus): FRAUD card-activity and account-recovery scenarios; benign negation.
-- [ ] Lane E (Opus): TEXT_CLASSIFICATION label-list parsing, multi-label, negation.
-- [ ] Lane F (Sonnet): SENTIMENT composition and verdict/explanation consistency.
-- [ ] Lane G (Opus): FACT_CHECK subject resolution and predicate evidence.
-- [ ] Lane H (Sonnet): RESEARCH/SYNTHESIS domain routing (no medical trial for Raft).
-- [ ] Lane L (Opus): URL_SCAN shape bench against the three crossing miners; implement only if valid.
-- [ ] Integrate the lanes onto `codex/rank1-14-intents`, full unit suite, preview deploy, preflight
-      7/7 and intent-answers 36/36 on the preview, then the probe set from every lane on the preview.
+- [x] Lane A: ONCHAIN clean shape + method name, 0.996/0.995 against both references (G160–G161).
+- [x] Lane B: ESPN date-range defect found and fixed; MLB/NFL/World Cup answer live (G163).
+      Lane stopped early on the operator's token budget; its diff was applied by hand.
+- [x] Lane C: CURRENCY reference date honored end to end (91ced62, 28b8ede); bench report only.
+- [x] Lane D: FRAUD scenario families and positional negation (G165).
+- [x] Lane E: TEXT_CLASSIFICATION label parsing, multi-label, negation (G166).
+- [ ] Lane F: SENTIMENT — stopped before any code (token budget). Still open: sarcasm
+      "I just love being charged twice" answers positive.
+- [x] Lane G: FACT_CHECK subject resolution (G164).
+- [ ] Lane H: RESEARCH/SYNTHESIS domain routing — stopped before any code (token budget). Still
+      open: "how Raft achieves consensus" answered from a RAFT eye trial.
+- [x] Lane L: URL_SCAN bench run; reference gate failed; nothing changed (G162).
+- [x] Headline subject from the phrase before the news noun; "today" = last day (6a07d3f).
+- [x] Integrated on `codex/rank1-14-intents` at 15a44ac: 675/675 unit tests.
+- [x] Epoch 336 read: 10/36 rank 1 on the 2026-09-15 build (G167). Not evidence for the branch.
+- [ ] Preview deploy, preflight 7/7 and intent-answers 36/36 on the preview, lane probes on the
+      preview.
 - [ ] **Operator yes: promote to production** (`npx vercel promote <preview> --scope wukong4`), then
       preflight 7/7 against production. Rollback target `miner-6xcnxjuz8`.
 - [ ] Read epoch 336 (~04:50 UTC 2026-09-16) — the last epoch on the 2026-09-15 build — and the
