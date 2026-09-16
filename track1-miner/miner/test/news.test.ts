@@ -24,6 +24,16 @@ describe("extractTopic", () => {
     assert.equal(extractTopic("headlines regarding the semiconductor industry in Taiwan this week"), "the semiconductor industry");
     assert.equal(extractTopic("What are the top news headlines today?"), null);
   });
+  test("the noun phrase in front of the news noun is the subject, minus count and request words", () => {
+    assert.equal(extractTopic("Give three spaceflight news headlines published in the last 24 hours."), "spaceflight");
+    assert.equal(extractTopic("top 5 semiconductor headlines"), "semiconductor");
+    assert.equal(extractTopic("Show me the latest Tesla news"), "Tesla");
+    assert.equal(extractTopic("What are today's electric vehicle headlines from Germany?"), "electric vehicle");
+    // Request words alone are not a subject, and neither is "news" itself.
+    assert.equal(extractTopic("Give me the top headlines"), null);
+    assert.equal(extractTopic("breaking news"), null);
+    assert.equal(extractTopic("What are the top news headlines today?"), null);
+  });
   test("a subject's own proper noun is not read as a region", () => {
     assert.equal(extractRegion("Latest news about Shopify: layoffs, hiring freezes", "Shopify"), null);
     assert.equal(extractRegion("Latest news about Shopify from Canada", "Shopify"), "Canada");

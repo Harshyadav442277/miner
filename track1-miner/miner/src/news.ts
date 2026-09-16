@@ -74,8 +74,27 @@ export function extractTopic(text: string, declared = ""): string | null {
   const d = clean(String(declared ?? ""));
   if (d) return d;
   const m = String(text ?? "").match(/\b(?:about|on|regarding|concerning|related to|covering)\s+([^?.!:;]{2,80})/i);
-  return m?.[1] ? clean(m[1]) : null;
+  if (m?.[1]) return clean(m[1]);
+  // "Give three spaceflight news headlines…", "top 5 semiconductor headlines": the
+  // subject is the phrase in front of the news noun, once the count and the
+  // request words in front of it are gone. Without this, that question class
+  // was answered with generic top stories (the engine does not always pass `topic`).
+  const before = String(text ?? "").match(/(?:^|\b)((?:[A-Za-z0-9][A-Za-z0-9&'’-]*\s+){1,5})(?:news\s+)?(?:headlines?|stories|news)\b/i);
+  if (!before?.[1]) return null;
+  const words = before[1].trim().split(/\s+/);
+  while (words.length && LEAD_WORDS.has(words[0]!.toLowerCase())) words.shift();
+  if (words.length && /^news$/i.test(words[words.length - 1]!)) words.pop();
+  return words.length ? clean(words.join(" ")) : null;
 }
+
+/** Request words that precede a subject phrase and are not part of it. */
+const LEAD_WORDS = new Set([
+  "give", "show", "tell", "list", "find", "get", "fetch", "provide", "share", "me", "us", "the",
+  "a", "an", "some", "any", "top", "latest", "current", "breaking", "recent", "first", "major",
+  "biggest", "main", "key", "important", "today's", "todays", "please", "what", "are", "is",
+  "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
+  "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
+]);
 
 /**
  * A place named in the question, as a proper noun that is not a time word.
@@ -178,13 +197,14 @@ export async function getHeadlines(
   const subject = topic ? `${topic} ` : "";
   const where = region ? ` from ${region}` : "";
   const countWord = wantN ? `${headlines.length} ` : "";
-  const period = window?.label ?? "available";
+  // An undated question gets no period word: "headlines from Japan available" is not English.
+  const period = window ? ` ${window.label}` : "";
 
   const reason = headlines.length
-    ? `The top ${countWord}${subject}headlines${where} ${period}, as of ${day}, are: ` +
+    ? `The top ${countWord}${subject}headlines${where}${period}, as of ${day}, are: ` +
       headlines.map((h, i) => `${i + 1}. ${h.title}${h.source ? ` (${h.source}${h.published ? `, ${h.published.slice(0,10)}` : ""})` : ""}.`).join(" ") +
       (wantN && headlines.length < wantN ? ` Only ${headlines.length} matching headlines were found out of ${wantN} requested.` : "")
-    : `No ${subject}headlines${where} ${period} could be retrieved as of ${day}.`;
+    : `No ${subject}headlines${where}${period} could be retrieved as of ${day}.`;
 
   return {
     topic,

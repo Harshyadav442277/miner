@@ -23,7 +23,9 @@ export function headlineWindow(query: string, now: number): HeadlineWindow | nul
   const zone = ist ? "IST" : "UTC";
   const today = Math.floor((now+offset)/86400000)*86400000-offset;
   if (/\byesterday\b/i.test(query)) return { start:today-86400000, end:today-1, label:`yesterday (${zone})` };
-  if (/\btoday\b/i.test(query)) return { start:today, end:now, label:`today (${zone})` };
+  // "Today's headlines" means the last day, not the hours since midnight: at the
+  // start of a day a calendar window would leave a well-formed question unanswered.
+  if (/\btoday\b|\btonight\b|\bthis morning\b/i.test(query)) return { start:now-86400000, end:now, label:"today" };
   const date = query.match(/\b(?:on|dated|for)\s+(\d{4}-\d{2}-\d{2})\b/i)?.[1];
   if (date) {
     const start = Date.parse(date+"T00:00:00Z");
