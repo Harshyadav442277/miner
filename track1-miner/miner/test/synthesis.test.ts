@@ -2,6 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { findingSentence, hasWord, notesTopic, parseNotes, synthesise, synthesisTopic, topicWords } from "../src/synthesis";
 import { parsePubmedArticle, plain, surname } from "../src/synthesis-sources";
+import { technicalComparisonPages, technicalSynthesis } from "../src/technical-research";
 
 /**
  * NOTES is one of the two RESEARCH_SYNTHESIS questions routed in the explorer
@@ -40,6 +41,29 @@ test("a topic request's subject survives its framing", () => {
   assert.equal(synthesisTopic("Summarize what the latest studies say about coffee's effect on longevity, across multiple sources."), "coffee's effect on longevity");
   assert.equal(synthesisTopic("Summarise everything known about intermittent fasting across all major studies."), "intermittent fasting");
   assert.equal(synthesisTopic("Summarize the latest studies."), null);
+});
+
+test("technical comparisons use two named reference summaries", async () => {
+  assert.deepEqual(technicalComparisonPages("Compare proof of work versus proof of stake"), ["Proof_of_work", "Proof_of_stake"]);
+  const original = globalThis.fetch;
+  globalThis.fetch = (async (input: string | URL | Request) => {
+    const url = String(input);
+    if (url.includes("Proof_of_work")) return new Response(JSON.stringify({ title: "Proof of work", extract: "Proof of work is a consensus mechanism. Miners compete to solve computational puzzles and add blocks." }), { status: 200 });
+    if (url.includes("Proof_of_stake")) return new Response(JSON.stringify({ title: "Proof of stake", extract: "Proof of stake is a consensus mechanism. Validators are selected according to their stake." }), { status: 200 });
+    throw new Error(`unexpected ${url}`);
+  }) as unknown as typeof globalThis.fetch;
+  try {
+    const r = await technicalSynthesis("Compare proof of work versus proof of stake");
+    assert.equal(r.unavailable, false);
+    assert.equal(r.findings.length, 2);
+    assert.match(r.findings[0]?.excerpt ?? "", /consensus mechanism/);
+    const s = await synthesise("Compare proof of work versus proof of stake");
+    assert.equal(s.verdict, "synthesis");
+    assert.match(s.reason, /Proof of work/);
+    assert.match(s.reason, /Proof of stake/);
+  } finally {
+    globalThis.fetch = original;
+  }
 });
 
 test("framing and function words never become search terms", () => {

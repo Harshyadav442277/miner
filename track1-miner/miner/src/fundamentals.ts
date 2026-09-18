@@ -92,6 +92,7 @@ export interface Fact { start?: string; end: string; val: number; fy?: number; f
 export interface FundamentalFigures {
   metric: string; tag: string; value: number; unit: string; fiscal_year: number; period_end: string;
   form: string; source: "SEC EDGAR XBRL"; prior_value?: number; prior_period_end?: string; growth_pct?: number;
+  fiscal_quarter?: number;
 }
 export type FundamentalsOutcome =
   | { status: "answer"; result: FinancialResult }
@@ -126,6 +127,20 @@ export function fiscalYearAsked(text: string): number | null {
   return bare?.[1] ? Number(bare[1]) : null;
 }
 
+/** A requested fiscal quarter, for example "Q2 2024" or "second quarter of 2024". */
+export function quarterAsked(text: string): { quarter: number; year: number } | null {
+  const s = String(text ?? "");
+  const words: Record<string, number> = { first: 1, second: 2, third: 3, fourth: 4 };
+  const n = s.match(/\bq\s*([1-4])\s*(?:fy\s*)?'?((?:19|20)\d{2})\b/i);
+  if (n?.[1] && n[2]) return { quarter: Number(n[1]), year: Number(n[2]) };
+  const word = s.match(/\b(first|second|third|fourth)\s+quarter(?:\s+of|\s*,?\s*fy?)\s*'?((?:19|20)\d{2})\b/i);
+  if (word?.[1] && word[2]) return { quarter: words[word[1].toLowerCase()]!, year: Number(word[2]) };
+  // "fiscal quarter 2 of 2024" is common in generated prompts.
+  const fiscal = s.match(/\bfiscal\s+quarter\s*([1-4])\s*(?:of|for|in)?\s*'?((?:19|20)\d{2})\b/i);
+  if (fiscal?.[1] && fiscal[2]) return { quarter: Number(fiscal[1]), year: Number(fiscal[2]) };
+  return null;
+}
+
 /** A 52/53-week year ending in the first days of January is named for the year before. */
 export function fiscalYearOf(end: string): number {
   const [y = 0, m = 0, d = 0] = end.split("-").map(Number);
@@ -146,6 +161,21 @@ export function annualFacts(facts: Fact[] | undefined): Fact[] {
       const days = (Date.parse(f.end) - Date.parse(f.start)) / DAY;
       if (!(days >= 350 && days <= 380)) continue;
     }
+    const seen = byEnd.get(f.end);
+    if (!seen || String(f.filed) >= String(seen.filed)) byEnd.set(f.end, f);
+  }
+  return [...byEnd.values()].sort((a, b) => a.end.localeCompare(b.end));
+}
+
+/** One fact per reported fiscal quarter. Year-to-date 10-Q facts are excluded. */
+export function quarterlyFacts(facts: Fact[] | undefined): Fact[] {
+  const byEnd = new Map<string, Fact>();
+  for (const f of facts ?? []) {
+    if (!/^10-[QK]/.test(String(f.form)) || !/^Q[1-3]$/.test(String(f.fp)) || !f.end || !Number.isFinite(f.val)) continue;
+    if (!f.start) continue;
+    const days = (Date.parse(f.end) - Date.parse(f.start)) / DAY;
+    // 13-week quarters vary by a few days; this rejects the cumulative 6/9-month values.
+    if (!(days >= 70 && days <= 110)) continue;
     const seen = byEnd.get(f.end);
     if (!seen || String(f.filed) >= String(seen.filed)) byEnd.set(f.end, f);
   }
@@ -180,13 +210,14 @@ async function lookupCik(ticker: string): Promise<{ cik: number; name: string } 
   }
 }
 
-/** Annual facts for one tag; `null` when the company never filed it, `undefined` when SEC did not answer. */
-async function concept(cik: number, tag: string, unit: string): Promise<Fact[] | null | undefined> {
+/** Facts for one tag; `null` when the company never filed it, `undefined` when SEC did not answer. */
+async function concept(cik: number, tag: string, unit: string, period: "annual" | "quarter"): Promise<Fact[] | null | undefined> {
   try {
     const r = await getJson(`${CONCEPT}/CIK${String(cik).padStart(10, "0")}/us-gaap/${tag}.json`);
     if (r.status === 404) return null;
     if (!r.body) return undefined; // 403, 429 and 5xx are outages
-    return annualFacts((r.body as { units?: Record<string, Fact[]> }).units?.[unit]);
+    const facts = (r.body as { units?: Record<string, Fact[]> }).units?.[unit];
+    return period === "quarter" ? quarterlyFacts(facts) : annualFacts(facts);
   } catch {
     return undefined;
   }
@@ -214,14 +245,21 @@ export async function getFundamentals(query: string, ticker: string): Promise<Fu
   if (company === undefined) return { status: "outage", label: metric.label };
   if (!company) return { status: "unresolved" };
 
-  const series = await Promise.all(metric.tags.map((tag) => concept(company.cik, tag, metric.unit)));
+  const quarter = quarterAsked(query);
+  const period = quarter ? "quarter" : "annual";
+  const series = await Promise.all(metric.tags.map((tag) => concept(company.cik, tag, metric.unit, period)));
   // A partial answer could be a subset tag standing in for the total, so any failure is an outage.
   if (series.some((s) => s === undefined)) return { status: "outage", label: metric.label };
   const filed = series.map((s, i) => ({ tag: metric.tags[i]!, facts: s ?? [] })).filter((s) => s.facts.length);
   if (!filed.length) return { status: "unresolved" };
 
-  const year = fiscalYearAsked(query);
-  const pick = (facts: Fact[]) => (year === null ? facts.at(-1) : facts.filter((f) => fiscalYearOf(f.end) === year).at(-1));
+  const year = quarter?.year ?? fiscalYearAsked(query);
+  const pick = (facts: Fact[]) => {
+    if (quarter) {
+      return facts.filter((f) => fiscalYearOf(f.end) === quarter.year && f.fp === `Q${quarter.quarter}`).at(-1);
+    }
+    return year === null ? facts.at(-1) : facts.filter((f) => fiscalYearOf(f.end) === year).at(-1);
+  };
   // The most recent period across tags (NVIDIA stopped filing contract revenue in 2022), then the largest value in it.
   const chosen = filed.map((s) => ({ ...s, fact: pick(s.facts) })).filter((s): s is typeof s & { fact: Fact } => !!s.fact)
     .sort((a, b) => b.fact.end.localeCompare(a.fact.end) || b.fact.val - a.fact.val)[0];
@@ -233,7 +271,10 @@ export async function getFundamentals(query: string, ticker: string): Promise<Fu
       status: "answer",
       result: {
         ...base, verdict: "not_found", confidence: 0.6,
-        reason: `No 10-K filed with the SEC reports ${company.name}'s ${metric.label} for fiscal year ${year}; ` +
+      reason: quarter
+        ? `No 10-Q filed with the SEC reports ${company.name}'s ${metric.label} for fiscal Q${quarter.quarter} ${quarter.year}; ` +
+          `the most recent quarterly figure is ${latest.val < 0 ? "-" : ""}${amount(latest.val, metric.unit)} for fiscal Q${latest.fp?.slice(1) ?? "?"} ${fiscalYearOf(latest.end)}, which ended ${longDate(latest.end)}.`
+        : `No 10-K filed with the SEC reports ${company.name}'s ${metric.label} for fiscal year ${year}; ` +
           `the most recent annual figure is ${latest.val < 0 ? "-" : ""}${amount(latest.val, metric.unit)} ` +
           `for fiscal year ${fiscalYearOf(latest.end)}, which ended ${longDate(latest.end)}.`,
       },
@@ -247,15 +288,20 @@ export async function getFundamentals(query: string, ticker: string): Promise<Fu
     metric: metric.label, tag, value: fact.val, unit: metric.unit, fiscal_year: fy, period_end: fact.end,
     form: String(fact.form), source: "SEC EDGAR XBRL",
   };
+  if (quarter) figures.fiscal_quarter = quarter.quarter;
   let growth = "";
   if (/\bgrowth\b|\bgr[eo]w\b|\byoy\b|year[- ]over[- ]year|\bincrease|\bdecrease|\bdecline|\bchange/i.test(query)) {
     const prior = chosen.facts.filter((f) => {
       const gap = (Date.parse(fact.end) - Date.parse(f.end)) / DAY;
-      return gap >= 350 && gap <= 380;
+      return quarter
+        ? gap >= 330 && gap <= 400 && f.fp === `Q${quarter.quarter}`
+        : gap >= 350 && gap <= 380;
     }).at(-1);
     if (prior) {
       Object.assign(figures, { prior_value: prior.val, prior_period_end: prior.end });
-      const priorText = `${amount(prior.val, metric.unit)} in fiscal year ${fiscalYearOf(prior.end)}`;
+      const priorText = quarter
+        ? `${amount(prior.val, metric.unit)} in fiscal Q${quarter.quarter} ${fiscalYearOf(prior.end)}`
+        : `${amount(prior.val, metric.unit)} in fiscal year ${fiscalYearOf(prior.end)}`;
       if (prior.val > 0) {
         const pct = ((fact.val - prior.val) / prior.val) * 100;
         figures.growth_pct = Math.round(pct * 100) / 100;
@@ -265,7 +311,9 @@ export async function getFundamentals(query: string, ticker: string): Promise<Fu
       }
     }
   }
-  const when = instant ? `at the end of fiscal year ${fy} on ${longDate(fact.end)}` : `for fiscal year ${fy}, which ended ${longDate(fact.end)}`;
+  const when = quarter
+    ? `for fiscal Q${quarter.quarter} ${fy}, which ended ${longDate(fact.end)}`
+    : instant ? `at the end of fiscal year ${fy} on ${longDate(fact.end)}` : `for fiscal year ${fy}, which ended ${longDate(fact.end)}`;
   return {
     status: "answer",
     result: {

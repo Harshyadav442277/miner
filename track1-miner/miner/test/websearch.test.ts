@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
-  acceptBackground, clipTitle, codeTokens, isForwardLooking, misroute, namesCode, webSearch,
+  acceptBackground, clipTitle, codeTokens, isForwardLooking, misroute, namesCode, officialDocument, officialDocumentUrl, webSearch,
 } from "../src/websearch";
 
 test("misroutes are named, and ordinary questions are not", () => {
@@ -72,6 +72,23 @@ test("a long headline is clipped at a word boundary", () => {
   assert.equal(clipTitle(long).split(" ").length, 18);
   assert.match(clipTitle(long), /…$/);
   assert.equal(clipTitle("short headline"), "short headline");
+});
+
+test("technical documentation uses an allowlisted official source and extracts a relevant passage", async () => {
+  assert.equal(officialDocumentUrl("How does Python asyncio.TaskGroup cancel child tasks?" )?.url, "https://docs.python.org/3/library/asyncio-task.html#task-groups");
+  assert.equal(officialDocumentUrl("Read https://evil.example/taskgroup"), null);
+  const original = globalThis.fetch;
+  globalThis.fetch = (async (input: string | URL | Request) => {
+    assert.match(String(input), /^https:\/\/docs\.python\.org\//);
+    return new Response("<html><body><p>Task groups combine a task creation API with a reliable way to wait for all tasks to finish.</p><p>Unrelated paragraph.</p></body></html>", { status: 200 });
+  }) as unknown as typeof globalThis.fetch;
+  try {
+    const r = await officialDocument("How does Python asyncio.TaskGroup cancel child tasks?");
+    assert.equal(r?.title, "Python asyncio Task Groups documentation");
+    assert.match(r?.excerpt ?? "", /Task groups combine/);
+  } finally {
+    globalThis.fetch = original;
+  }
 });
 
 test("an empty question and a misroute never reach the network", async () => {

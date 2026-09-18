@@ -9,7 +9,7 @@
  */
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { alertAnswer, asksAlert } from "../src/alertcheck";
+import { alertAnswer, asksAlert, officialAlertAnswer } from "../src/alertcheck";
 import { checkStorm } from "../src/storm";
 import type { StormResult } from "../src/storm";
 
@@ -73,6 +73,26 @@ test("no answer claims an authority has issued nothing", () => {
     assert.match(r.reason, /rather than from a national weather agency's warning feed/);
     assert.doesNotMatch(r.reason, /no warning has been issued/i);
     assert.doesNotMatch(r.reason, /authorities have not/i);
+  }
+});
+
+test("a U.S. point can use the official active-alert feed when available", async () => {
+  const original = globalThis.fetch;
+  globalThis.fetch = (async (input: string | URL | Request) => {
+    assert.match(String(input), /api\.weather\.gov\/alerts\/active\?point=40,-75/);
+    return new Response(JSON.stringify({ features: [{ properties: { event: "Severe Thunderstorm Warning", headline: "Severe thunderstorms expected" } }] }), { status: 200 });
+  }) as unknown as typeof globalThis.fetch;
+  try {
+    const r = await officialAlertAnswer({
+      location: "Philadelphia", latitude: 40, longitude: -75, verdict: "none", valid_at: null,
+      wind_direction: null, risk_score: 0, max_wind_gust_kmh: null, max_wind_speed_kmh: null,
+      max_precipitation_mm: null, thunderstorm: false, window_hours: 1, peak_at: null,
+      confidence: 0.9, reason: "forecast", checked_at: new Date().toISOString(),
+    });
+    assert.equal(r?.verdict, "severe");
+    assert.match(r?.reason ?? "", /official weather\.gov active-alert feed/);
+  } finally {
+    globalThis.fetch = original;
   }
 });
 

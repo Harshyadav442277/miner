@@ -38,6 +38,77 @@ import { findEncyclopedia, namedEntity } from "./research";
  * route's 11 s watchdog before either failed.
  */
 const NEWS_TIMEOUT_MS = Number(process.env.WEBSEARCH_NEWS_TIMEOUT_MS ?? 4_500);
+const DOC_TIMEOUT_MS = Number(process.env.WEBSEARCH_DOC_TIMEOUT_MS ?? 2_500);
+const DOC_UA = "livecert-miner/1.0 (+https://miner-wine.vercel.app)";
+
+const DOCS: Array<{ re: RegExp; url: string; title: string }> = [
+  { re: /\b(?:python\s+)?(?:asyncio\s+)?task\s*group\b|\basyncio\.TaskGroup\b/i, url: "https://docs.python.org/3/library/asyncio-task.html#task-groups", title: "Python asyncio Task Groups documentation" },
+  { re: /\bpython\b[\s\S]*\basyncio\b|\basyncio\b[\s\S]*\bpython\b/i, url: "https://docs.python.org/3/library/asyncio.html", title: "Python asyncio documentation" },
+  { re: /\bnode(?:\.js)?\b[\s\S]*\bevent\s+loop\b|\bevent\s+loop\b[\s\S]*\bnode(?:\.js)?\b/i, url: "https://nodejs.org/en/learn/asynchronous-work/event-loop-timers-and-nexttick", title: "Node.js event loop documentation" },
+];
+const DOC_HOSTS = new Set([
+  "docs.python.org", "nodejs.org", "developer.mozilla.org", "docs.github.com", "docs.aws.amazon.com",
+  "kubernetes.io", "rust-lang.org", "go.dev", "learn.microsoft.com", "postgresql.org",
+]);
+const DOC_STOP = new Set("what is are how does do explain the a an and for from to of in on with about latest current official documentation docs reference tell me please".split(" "));
+
+export interface OfficialDocument {
+  title: string;
+  url: string;
+  excerpt: string;
+}
+
+function decodeHtml(s: string): string {
+  return s.replace(/&(?:amp|lt|gt|quot|apos|nbsp);/gi, (x) => ({ "&amp;": "&", "&lt;": "<", "&gt;": ">", "&quot;": '"', "&apos;": "'", "&nbsp;": " " }[x.toLowerCase()] ?? x))
+    .replace(/&#(\d+);/g, (_, n: string) => String.fromCodePoint(Number(n)))
+    .replace(/&#x([0-9a-f]+);/gi, (_, n: string) => String.fromCodePoint(parseInt(n, 16)));
+}
+
+function docTerms(question: string): string[] {
+  return [...new Set(String(question ?? "").toLowerCase().match(/[a-z][a-z0-9]{2,}/g) ?? [])].filter((w) => !DOC_STOP.has(w));
+}
+
+/** Resolve only known or explicitly allowlisted documentation hosts; never arbitrary web pages. */
+export function officialDocumentUrl(question: string): { url: string; title: string } | null {
+  const q = String(question ?? "");
+  const explicit = q.match(/https?:\/\/[^\s)>]+/i)?.[0]?.replace(/[.,;!?]+$/, "");
+  if (explicit) {
+    try {
+      const u = new URL(explicit);
+      if ([...DOC_HOSTS].some((host) => u.hostname === host || u.hostname.endsWith(`.${host}`))) {
+        return { url: u.toString(), title: u.hostname };
+      }
+      return null;
+    } catch { /* not a URL */ }
+  }
+  return DOCS.find((d) => d.re.test(q)) ?? null;
+}
+
+function htmlPassages(html: string): string[] {
+  const blocks = [...String(html ?? "").matchAll(/<(?:h1|h2|h3|p|li|dt|dd)[^>]*>([\s\S]*?)<\/\s*(?:h1|h2|h3|p|li|dt|dd)>/gi)]
+    .map((m) => decodeHtml((m[1] ?? "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim()))
+    .filter((x) => x.length >= 35 && x.length <= 700);
+  if (blocks.length) return blocks;
+  return [decodeHtml(String(html ?? "").replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/gi, "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim())].filter(Boolean);
+}
+
+/** Extract one relevant passage from an allowlisted official documentation page. */
+export async function officialDocument(question: string): Promise<OfficialDocument | null> {
+  const target = officialDocumentUrl(question);
+  if (!target) return null;
+  try {
+    const r = await fetch(target.url, { headers: { accept: "text/html,application/xhtml+xml", "user-agent": DOC_UA }, signal: AbortSignal.timeout(DOC_TIMEOUT_MS) });
+    if (!r.ok) return null;
+    const html = await r.text();
+    const terms = docTerms(question);
+    const ranked = htmlPassages(html).map((text, index) => ({ text, index, score: terms.reduce((n, t) => n + (new RegExp(`\\b${t.replace(/[.*+?^${}()|[\\]\\\\]/g, "\\\\$&")}\\b`, "i").test(text) ? 1 : 0), 0) }))
+      .sort((a, b) => b.score - a.score || a.index - b.index);
+    const best = ranked[0];
+    if (!best || (terms.length >= 2 && best.score < 1)) return null;
+    const excerpt = best.text.length > 360 ? `${best.text.slice(0, 357).replace(/\s+\S*$/, "")}…` : best.text;
+    return { ...target, excerpt };
+  } catch { return null; }
+}
 
 export type WebSearchVerdict = "answered" | "no_results" | "out_of_scope" | "unknown";
 
@@ -67,7 +138,7 @@ export function misroute(text: string): string | null {
   if (hit) return hit;
   // The canonical "Not" example: "Explain what an interest rate is." is static
   // knowledge, which is CHAT_COMPLETION.
-  if (/^\s*(?:explain|define|what\s+(?:is|are)\s+(?:an?\s|the\s+(?:meaning|definition)\s+of\s))/i.test(s) && !CURRENT.test(s)) {
+  if (/^\s*(?:explain|define|what\s+(?:is|are)\s+(?:an?\s|the\s+(?:meaning|definition)\s+of\s))/i.test(s) && !CURRENT.test(s) && !officialDocumentUrl(s)) {
     return "a request to explain a concept from static knowledge, which is CHAT_COMPLETION";
   }
   return null;
@@ -145,6 +216,18 @@ export async function webSearch(question: string): Promise<WebSearchResult> {
     return {
       ...empty, verdict: "out_of_scope", confidence: 0.6, error: "out_of_scope",
       reason: `This request is ${elsewhere}, not a web search, so no search was run and no answer was substituted for it.`,
+    };
+  }
+
+  // Documentation questions are answered from a bounded allowlist before
+  // current-fact and news providers. This covers canonical technical queries
+  // that Google News and Wikipedia routinely miss (for example Python's
+  // asyncio.TaskGroup semantics) without turning web search into an SSRF proxy.
+  const doc = await officialDocument(q);
+  if (doc) {
+    return {
+      ...empty, verdict: "answered", confidence: 0.9,
+      reason: `According to ${doc.title}: ${doc.excerpt} Source: ${doc.url}`,
     };
   }
 

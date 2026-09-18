@@ -27,6 +27,7 @@
 import { mentions, topicOf } from "./research";
 import { dateWindow } from "./papers";
 import { europePmc, pubmed, type Study } from "./synthesis-sources";
+import { technicalComparisonPages, technicalSynthesis } from "./technical-research";
 
 export type SynthesisVerdict = "synthesis" | "single_source" | "no_sources" | "unavailable" | "unknown";
 
@@ -231,6 +232,28 @@ export async function synthesise(question: string, topicParam = ""): Promise<Syn
   const q = String(question ?? "").trim();
   const notes = parseNotes(q);
   if (notes.length >= 2) return synthesiseNotes(q, notes);
+
+  // Europe PMC and PubMed are excellent for biomedical topics but return no
+  // useful evidence for questions such as proof-of-work versus proof-of-stake.
+  // Route explicit technical comparisons to two named reference summaries so
+  // the answer still contains grounded findings from more than one source.
+  if (technicalComparisonPages(q).length) {
+    const tech = await technicalSynthesis(q);
+    if (tech.unavailable) {
+      return { verdict: "unavailable", confidence: 0, sources: [], error: "upstream_unavailable",
+        reason: "The technical reference sources did not respond, so no comparison was synthesised. That is a source outage rather than an absence of technical evidence." };
+    }
+    if (tech.findings.length >= 2) {
+      const sources = tech.findings.map((f) => f.url);
+      const quoted = tech.findings.map((f) => `${f.title}: "${f.excerpt.replace(/[.]$/, "")}."`).join(" ");
+      return {
+        verdict: "synthesis", confidence: 0.75, sources,
+        reason: `Across ${count(tech.findings.length)} technical reference sources, the comparison is grounded in these findings: ${quoted} These are general reference summaries rather than a survey of recent research.`,
+      };
+    }
+    return { verdict: "no_sources", confidence: 0.5, sources: tech.findings.map((f) => f.url),
+      reason: "No sufficiently relevant technical reference summaries were available for this comparison, so no unsupported trade-off was invented." };
+  }
 
   const topic = String(topicParam ?? "").trim() || synthesisTopic(q);
   const words = topic ? topicWords(topic) : [];

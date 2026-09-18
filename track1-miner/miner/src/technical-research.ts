@@ -2,11 +2,49 @@
 import type { ResearchResult } from "./research";
 
 export function isTechnicalQuestion(q:string): boolean {
-  return /\b(?:algorithm|distributed systems?|computer science|programming|blockchain|cryptograph\w*|consensus|database|software|proof of (?:work|stake))\b/i.test(q)
+  return /\b(?:algorithm|distributed systems?|computer science|programming|blockchain|cryptograph\w*|consensus|database|software|proof[- ]of[- ](?:work|stake))\b/i.test(q)
     && !/\b(?:clinical|patients?|drug|disease|therapy|treatment|trial|diagnos\w*)\b/i.test(q);
 }
 const STOP = new Set("explain how why what which does achieve achieves work works the this that with sources source citations cite research latest recent findings about current main differences between and for into from are can evidence supported please".split(" "));
 const tokens = (s:string):string[] => [...new Set(s.toLowerCase().match(/[a-z0-9]{3,}/g) ?? [])].filter(w=>!STOP.has(w));
+
+export interface TechnicalFinding { title: string; url: string; excerpt: string }
+
+const COMPARISONS: Array<{ re: RegExp; pages: string[] }> = [
+  { re: /proof[- ]of[- ]work[\s\S]{0,80}proof[- ]of[- ]stake|proof[- ]of[- ]stake[\s\S]{0,80}proof[- ]of[- ]work/i, pages: ["Proof_of_work", "Proof_of_stake"] },
+  { re: /\braft\b[\s\S]{0,80}\bpaxos\b|\bpaxos\b[\s\S]{0,80}\braft\b/i, pages: ["Raft_(algorithm)", "Paxos_(computer_science)"] },
+];
+
+/** Whether the request asks for a comparison where two named technical sources can be grounded. */
+export function technicalComparisonPages(question: string): string[] {
+  if (!isTechnicalQuestion(question) || !/\b(?:compare|comparison|versus|vs\.?|differences?|trade[- ]?off|between)\b/i.test(question)) return [];
+  return COMPARISONS.find((c) => c.re.test(question))?.pages ?? [];
+}
+
+/** Fetch two bounded reference summaries so technical synthesis does not fall into the clinical-only indexes. */
+export async function technicalSynthesis(question: string): Promise<{ findings: TechnicalFinding[]; unavailable: boolean }> {
+  const pages = technicalComparisonPages(question);
+  if (!pages.length) return { findings: [], unavailable: false };
+  const ac = new AbortController();
+  const timer = setTimeout(() => ac.abort(), 4_500);
+  let failed = false;
+  try {
+    const findings = (await Promise.all(pages.map(async (key): Promise<TechnicalFinding | null> => {
+      try {
+        const r = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(key)}`, {
+          signal: ac.signal,
+          headers: { accept: "application/json", "user-agent": "livecert-miner/1.0 (+https://miner-wine.vercel.app)" },
+        });
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        const d = await r.json() as { title?: string; extract?: string; type?: string };
+        if (!d.extract || d.type === "disambiguation") return null;
+        const excerpt = d.extract.replace(/\s+/g, " ").trim().split(/(?<=[.!?])\s+/).slice(0, 2).join(" ");
+        return { title: d.title ?? key.replace(/_/g, " "), url: `https://en.wikipedia.org/wiki/${encodeURIComponent(key)}`, excerpt };
+      } catch { failed = true; return null; }
+    }))).filter((x): x is TechnicalFinding => x !== null);
+    return { findings, unavailable: failed && findings.length === 0 };
+  } finally { clearTimeout(timer); }
+}
 
 export async function technicalResearch(question:string, subject:string):Promise<ResearchResult> {
   const empty = {subject,trials:[],citations:[]};

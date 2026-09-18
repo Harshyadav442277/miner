@@ -2,7 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { getFinancialData } from "../src/financial";
 import {
-  annualFacts, fiscalYearAsked, fiscalYearOf, knownCompany, metricAsked, type Fact,
+  annualFacts, fiscalYearAsked, fiscalYearOf, knownCompany, metricAsked, quarterAsked, quarterlyFacts, type Fact,
 } from "../src/fundamentals";
 
 // Rank-loss report F8 (2026-09-15): "What was Apple's revenue in fiscal year
@@ -17,6 +17,7 @@ const APPLE_CONTRACT_REVENUE: Fact[] = [
   k("2022-09-25", "2023-09-30", 383285000000, 2025, "2025-10-31"),
   k("2024-03-31", "2024-06-29", 85777000000, 2024, "2024-08-02", "10-Q", "Q3"),
   k("2023-10-01", "2024-06-29", 296105000000, 2024, "2024-08-02", "10-Q", "Q3"),
+  k("2024-03-31", "2024-06-29", 85777000000, 2024, "2024-08-02", "10-Q", "Q3"),
   // A 10-K can carry a three-month figure ending on the same day as the year.
   k("2024-06-30", "2024-09-28", 94930000000, 2024, "2024-11-01"),
   k("2023-10-01", "2024-09-28", 391035000000, 2024, "2024-11-01"),
@@ -73,9 +74,23 @@ test("a metric, a company and a fiscal year are read from the question", () => {
   assert.equal(fiscalYearAsked("net income for fiscal 2025"), 2025);
   assert.equal(fiscalYearAsked("FY24 revenue"), 2024);
   assert.equal(fiscalYearAsked("revenue last year"), null);
+  assert.deepEqual(quarterAsked("Apple revenue in Q2 2024"), { quarter: 2, year: 2024 });
+  assert.deepEqual(quarterAsked("Apple revenue in the second quarter of 2024"), { quarter: 2, year: 2024 });
+  assert.deepEqual(quarterAsked("Apple fiscal quarter 3 of 2024"), { quarter: 3, year: 2024 });
   assert.equal(fiscalYearOf("2024-09-28"), 2024);
   assert.equal(fiscalYearOf("2025-01-26"), 2025);
   assert.equal(fiscalYearOf("2021-01-02"), 2020);
+});
+
+test("quarterly facts keep 10-Q period figures and reject year-to-date totals", () => {
+  const q = quarterlyFacts([
+    k("2024-01-01", "2024-03-31", 100, 2024, "2024-05-01", "10-Q", "Q1"),
+    k("2024-01-01", "2024-06-30", 240, 2024, "2024-08-01", "10-Q", "Q2"),
+    k("2024-04-01", "2024-06-30", 140, 2024, "2024-08-01", "10-Q", "Q2"),
+    k("2024-01-01", "2024-09-30", 400, 2024, "2024-11-01", "10-Q", "Q3"),
+    k("2024-07-01", "2024-09-30", 160, 2024, "2024-11-01", "10-Q", "Q3"),
+  ]);
+  assert.deepEqual(q.map((f) => [f.fp, f.val]), [["Q1", 100], ["Q2", 140], ["Q3", 160]]);
 });
 
 test("annual facts drop 10-Q and three-month figures, and keep the latest filing per period", () => {
@@ -104,6 +119,27 @@ test("Apple's fiscal 2024 revenue is the period ending 28 September 2024, despit
 
     const fy25 = await getFinancialData("Apple revenue FY2025");
     assert.match(fy25.reason, /^Apple Inc\. reported revenue of \$416\.16 billion for fiscal year 2025, which ended 27 September 2025/);
+  });
+});
+
+test("a fiscal quarter is answered from the matching 10-Q period, not the year-to-date total", async () => {
+  await withFetch((url) => {
+    if (url.includes("CIK0000320193/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax")) {
+      return concept([
+        k("2024-01-01", "2024-03-30", 90750000000, 2024, "2024-05-03", "10-Q", "Q2"),
+        k("2024-04-01", "2024-06-29", 85777000000, 2024, "2024-08-02", "10-Q", "Q3"),
+        k("2023-04-01", "2023-07-01", 81800000000, 2023, "2023-08-04", "10-Q", "Q3"),
+      ]);
+    }
+    if (url.includes("CIK0000320193/us-gaap/Revenues.json")) return concept([]);
+    return json({}, 404);
+  }, async () => {
+    const r = await getFinancialData("What was Apple's revenue in Q3 2024?");
+    assert.equal(r.verdict, "financial_data");
+    assert.match(r.reason, /^Apple Inc\. reported revenue of \$85\.78 billion for fiscal Q3 2024/);
+    assert.match(r.reason, /10-Q filed with the SEC/);
+    assert.equal(r.fundamentals?.fiscal_quarter, 3);
+    assert.equal(r.fundamentals?.value, 85777000000);
   });
 });
 

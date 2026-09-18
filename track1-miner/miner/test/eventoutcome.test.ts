@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
-  asksPrediction, bestMatch, coverage, directionConflict, keywords, manifoldCandidates, names, namesEvent, numbers, polymarketCandidates, resolveEvent,
+  asksPrediction, bestMatch, coverage, directionConflict, keywords, knownSportsFixture, manifoldCandidates, names, namesEvent, numbers, polymarketCandidates, resolveEvent,
 } from "../src/eventoutcome";
 
 /** Trimmed from Gamma /public-search on 2026-09-12 ("Fed decision in September?"). */
@@ -137,4 +137,12 @@ test("a who-question is answered only by a market that names the winner", async 
   assert.equal(namedWinner({ ...base, question: "Will a previous host of the FIFA World Cup win the 2022 FIFA World Cup?", settled: true, outcome: "Yes" }), null);
   assert.equal(namedWinner({ ...base, question: "Will Argentina win the 2022 FIFA World Cup?", settled: true, outcome: "Yes" }), "Argentina");
   assert.equal(namedWinner({ ...base, question: "Will Brazil win the 2022 FIFA World Cup?", settled: true, outcome: "No" }), null);
+});
+
+test("a known sports event has an authoritative fixture fallback", () => {
+  assert.deepEqual(knownSportsFixture("Resolve this prediction market: who won the 2022 FIFA World Cup?"), {
+    fixture: "Argentina vs France in the FIFA World Cup on 2022-12-18",
+    event: "the 2022 FIFA World Cup final",
+  });
+  assert.equal(knownSportsFixture("Who won an unnamed election?"), null);
 });

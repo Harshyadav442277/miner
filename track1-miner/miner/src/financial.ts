@@ -504,7 +504,7 @@ async function withUnfiledGaps(r: FinancialResult, query: string, ticker: string
     }
   }
   if (unfiled.length) notes.push(`The ${unfiled.join(" and ")} ${unfiled.length > 1 ? "were" : "was"} not retrieved.`);
-  if (r.verdict === "financial_data" && /\bquarter(?:ly)?\b|\bq[1-4]\b/i.test(query)) {
+  if (r.verdict === "financial_data" && /\bquarter(?:ly)?\b|\bq[1-4]\b/i.test(query) && r.fundamentals?.fiscal_quarter === undefined) {
     notes.push("Quarterly figures were not retrieved; this is the annual figure.");
   }
   return notes.length ? { ...r, reason: `${r.reason} ${notes.join(" ")}` } : r;

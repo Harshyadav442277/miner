@@ -1,7 +1,8 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
+import { Inflight } from "./inflight";
 import { checkCertificate, normalizeTarget, type SslResult } from "./ssl";
 import { checkStorm, type StormResult } from "./storm";
-import { alertAnswer, asksAlert, type AlertCheckResult } from "./alertcheck";
+import { alertAnswer, asksAlert, officialAlertAnswer, type AlertCheckResult } from "./alertcheck";
 import { translate, type TranslationResult } from "./translate";
 import { academicAnswer, findPapers, type PaperResult } from "./papers";
 import { getForecast, type ForecastResult } from "./forecast";
@@ -142,6 +143,7 @@ function watchdogMs(): number {
 }
 const pending = new WeakMap<ServerResponse, ReturnType<typeof setTimeout>>();
 const answered = new WeakSet<ServerResponse>();
+const inflight = new Inflight<ServerResponse>();
 
 /** What each route is fetching, for the watchdog's sentence. */
 const SUBJECT_OF: Record<string, string> = {
@@ -197,6 +199,9 @@ function send(res: ServerResponse, status: number, body: unknown): void {
   // here, and writing a second response to a closed socket throws.
   if (answered.has(res)) return;
   answered.add(res);
+  // Release the group before replying, including on watchdog/error answers.
+  // Each follower still has its own deadline and idempotent send guard.
+  for (const follower of inflight.finish(res)) send(follower, status, body);
   const timer = pending.get(res);
   if (timer) {
     clearTimeout(timer);
@@ -571,6 +576,11 @@ function route(req: IncomingMessage, res: ServerResponse): void {
   // through `send`.
   if ((ENDPOINTS as readonly string[]).includes(path)) {
     armWatchdog(res, path, firstValue(url, "query", "q", "question", "text", "input"));
+    // Preserve values and duplicate-parameter ordering: these can affect parsing.
+    // Sorting parameter names allows equivalent engine requests to share work.
+    const params = new URLSearchParams(url.searchParams);
+    params.sort();
+    if (inflight.join(`${path}?${params.toString()}`, res)) return;
   }
 
   if (path === "/weather-forecast") {
@@ -644,8 +654,8 @@ function route(req: IncomingMessage, res: ServerResponse): void {
         return;
       }
       checkStorm(q)
-        .then((storm) => {
-          const answer = alertAnswer(storm);
+        .then(async (storm) => {
+          const answer = await officialAlertAnswer(storm).then((official) => official ?? alertAnswer(storm));
           if (storm.verdict !== "unknown") toCache(alertKey, answer);
           sendAnswer(res, q, lean(answer), false);
         })

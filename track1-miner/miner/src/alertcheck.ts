@@ -26,10 +26,42 @@
  */
 import type { StormResult, StormVerdict } from "./storm";
 
+const NWS_TIMEOUT_MS = Number(process.env.NWS_TIMEOUT_MS ?? 1_500);
+const NWS = "https://api.weather.gov/alerts/active";
+
 export interface AlertCheckResult {
   verdict: StormVerdict;
   confidence: number;
   reason: string;
+}
+
+/**
+ * Read the issuing authority's active feed when the resolved point is in the
+ * United States. A non-US response, an API outage, or an incomplete point
+ * returns null so the forecast-based answer remains available.
+ */
+export async function officialAlertAnswer(r: StormResult): Promise<AlertCheckResult | null> {
+  if (r.latitude === null || r.longitude === null) return null;
+  try {
+    const response = await fetch(`${NWS}?point=${r.latitude},${r.longitude}`, {
+      headers: { accept: "application/geo+json", "user-agent": "livecert-miner/1.0 (+https://miner-wine.vercel.app)" },
+      signal: AbortSignal.timeout(NWS_TIMEOUT_MS),
+    });
+    if (!response.ok) return null;
+    const body = await response.json() as { features?: Array<{ properties?: Record<string, unknown> }> };
+    const features = Array.isArray(body.features) ? body.features : [];
+    const active = features.map((f) => f.properties ?? {}).filter((p) => typeof p.event === "string" || typeof p.headline === "string");
+    if (active.length) {
+      const p = active[0]!;
+      const title = String(p.event ?? "official weather warning");
+      const headline = typeof p.headline === "string" && p.headline.trim() ? ` ${p.headline.trim()}.` : "";
+      const more = active.length > 1 ? ` ${active.length} active alerts were returned.` : "";
+      return { verdict: "severe", confidence: 0.95,
+        reason: `Yes. The U.S. National Weather Service lists an active ${title} for ${r.location}.${headline}${more} Source: the official weather.gov active-alert feed.` };
+    }
+    return { verdict: "none", confidence: 0.95,
+      reason: `No active U.S. National Weather Service alert is listed for ${r.location} right now. Source: the official weather.gov active-alert feed.` };
+  } catch { return null; }
 }
 
 /** Does the question ask whether an alert or warning is in effect? */
