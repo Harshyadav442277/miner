@@ -1,6 +1,19 @@
 # MEMORY.md — session continuity
 
-## 2026-09-19 ~06:30 UTC (12:00 IST) — rank rebuild: on a preview, NOT promoted
+## 2026-09-19 06:27 UTC (11:57 IST) — rank rebuild PROMOTED to production on the operator's yes
+
+**Production is now `miner-md1u33wsx`** (built from `0074f14`, aliased to `miner-wine.vercel.app` at
+06:27 UTC, confirmed with `vercel inspect`; `/tx-lookup?chain=eth` answers on the alias). **Rollback
+target `miner-diolxv3va`.** `intent-answers.mjs` against production: 36/36 at 06:30 and again at 06:35
+UTC. `preflight.mjs`: see the result line below. Epoch 343 was scored ~03:45–04:25 UTC, so the **first
+epoch that can see this build is 344** (expected ~12:00–14:00 UTC 2026-09-19). Everything under
+"Next action" below is done except reading that epoch. The text below was written before the promote.
+
+**Preflight on production:** first run 6/7 at ~06:33 UTC — one intent missed once inside the embedded
+intent-answers gate and the printout did not keep its name (unclassified transient); re-run ~06:43 UTC
+**7/7**. Evidence: `track1-miner/docs/evidence/rank-rebuild-2026-09-19/production-*.txt`.
+
+### Written before the promote
 
 **State:** branch `codex/rank1-14-intents`, not pushed, code at `1725b1e` (five code commits on
 `311c40c`), tree clean; the preview was built from that tree. **Production is `miner-diolxv3va`**

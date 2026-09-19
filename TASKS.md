@@ -11,7 +11,7 @@ Baseline epoch 343: 6/36 rank 1. Evidence: `track1-miner/docs/evidence/rank-rebu
 - [x] CONTENT_EXTRACTION: no negation in an answer; answer with what the text carries (G178).
 - [x] ACADEMIC_SEARCH: null on rank; date-window comma and query-scaffolding bugs fixed (G179).
 - [x] 744/744 unit tests, build; 10/10 probes on protected preview `miner-hw0c0l2nl`; local gate 35/36.
-- [ ] **Operator yes needed:** promote `miner-hw0c0l2nl` to production, then `preflight.mjs` (commands in MEMORY).
+- [x] Promoted on the operator's yes: production `miner-md1u33wsx` at 06:27 UTC; intent-answers 36/36 twice.
 - [ ] Read the first epoch scored after the promote; only that is a verdict.
 - [ ] **Operator decision:** free Groq key for the ten prose intents (G180). Not built; needs the key to test.
 - [ ] Proposed `miner.yaml` changes (declare `team`/`league`, `symbols`, the tx `hash`/`chain` input
