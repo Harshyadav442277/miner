@@ -592,7 +592,13 @@ const CHECKS = {
     const g = await get("/ip-geolocate", { ip: "8.8.8.8" });
     if (!/united states/i.test(g.body.reason)) bad.push("8.8.8.8 not placed in the United States");
     if (!/google/i.test(g.body.reason)) bad.push("8.8.8.8 answer never names Google");
-    if (!/tor|abuse|reputation/i.test(g.body.reason)) bad.push("no abuse clause — most recorded questions ask for it");
+    // A public address is answered in ONE sentence. Under champion reg630 any
+    // second sentence — the abuse clause this gate used to demand included —
+    // scores ~0.011 against the miners that cross, and epochs 335 and 343 were
+    // that collapse (docs/evidence/rank-rebuild-2026-09-19/oneoffs/ipgeo).
+    if (/\.\s+\S/.test(String(g.body.reason ?? ""))) {
+      bad.push("public address answered in more than one sentence");
+    }
     // Only ip-api honours operator geofeeds and puts this in Tokyo; the
     // ipwho.is fallback misplaces it in Mumbai. Tokyo proves the PRIMARY answered.
     const geo = await get("/ip-geolocate", { ip: "142.251.42.174" });

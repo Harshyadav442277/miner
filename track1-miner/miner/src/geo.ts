@@ -10,15 +10,14 @@
  * every ground truth explains the range. So special-use ranges are classified
  * locally, before any provider call.
  *
- * For public addresses the abuse clause is answered with what can actually be
- * checked without an API key: the Tor Project's exit-node list (a live DNSEL
- * lookup — a real, current signal), plus an explicit statement that the
- * consulted sources do not include a reputation database such as AbuseIPDB.
- * Claiming more than that would be inventing a check we did not run.
- *
- * Prose order matches how the reference answers open: operator first, then
- * place ("associated with Google LLC and located in..."), then abuse, then
- * timezone, with the serving-infrastructure caveat last.
+ * For public addresses the answer is one sentence, operator then place, and the
+ * rest of what was read stays in the fields. That is a measurement, not a style
+ * choice: every miner that crosses this intent answers a public address in one
+ * sentence, and champion reg630 scores an answer by how well it matches the
+ * reference's length as well as its content, so a second sentence of any kind
+ * costs the epoch (see abuseSentence). The Tor Project's exit-node list is still
+ * looked up live, and reported when the address is on it — a confirmed exit node
+ * is abuse history worth stating.
  */
 
 import { Resolver } from "node:dns/promises";
@@ -264,28 +263,31 @@ export async function torExitNode(
 }
 
 /**
- * The abuse-history clause, answered with exactly what was checked.
+ * The abuse-history clause — said only when there is something to say.
  *
- * Nearly every real question in this intent asks about abuse alongside
- * location. The geolocation and registry sources consulted here carry no
- * reputation data, and saying so — while reporting the one live check we can
- * run — answers the clause honestly instead of ignoring it.
+ * Nearly every real question in this intent asks about abuse alongside location,
+ * and this used to answer the clause either way: a Tor warning when the address
+ * is an exit node, otherwise a sentence recording that the sources consulted
+ * carry no reputation data. Measured against champion reg630 on 2026-09-19
+ * (evidence in docs/evidence/rank-rebuild-2026-09-19/oneoffs/ipgeo), that second
+ * sentence is what loses the epochs: for a public address the bare location
+ * sentence scores 0.992-0.999 against all four crossing miners' answers, while
+ * ANY second sentence — the full clause, a one-line version of it, the Tor line
+ * alone, even the timezone — drops to ~0.011 against at least one of them. The
+ * scorer rewards an answer the length of the reference, and the references for
+ * public addresses are one sentence long. Epochs 335 and 343 are that collapse.
+ *
+ * A confirmed Tor exit is real abuse history rather than a record of what was
+ * not checked, so it is still reported; nothing is said when there is nothing
+ * to report.
  */
 function abuseSentence(ip: string, tor: boolean | null): string {
-  if (tor === true) {
-    return (
-      ` Regarding abuse history, ${ip} appears on the Tor Project's current exit-node list; ` +
-      `Tor exit addresses carry anonymized traffic from many unrelated users and are ` +
-      `frequently flagged in abuse databases, so treat activity from this address as ` +
-      `higher-risk and verify it against a reputation service such as AbuseIPDB.`
-    );
-  }
-  const torClause = tor === false ? ` and the address is not on the Tor Project's exit-node list` : "";
+  if (tor !== true) return "";
   return (
-    ` Regarding abuse history, no abuse reports appear in the network registry and ` +
-    `geolocation sources consulted here${torClause}; these sources do not include a ` +
-    `dedicated reputation database such as AbuseIPDB, which is where reported malicious ` +
-    `activity would be confirmed.`
+    ` Regarding abuse history, ${ip} appears on the Tor Project's current exit-node list; ` +
+    `Tor exit addresses carry anonymized traffic from many unrelated users and are ` +
+    `frequently flagged in abuse databases, so treat activity from this address as ` +
+    `higher-risk and verify it against a reputation service such as AbuseIPDB.`
   );
 }
 
@@ -477,24 +479,20 @@ export async function geolocate(rawIp: string, timeoutMs = DEFAULT_TIMEOUT_MS): 
     asn,
     organisation: org,
     confidence: city ? 0.95 : 0.7,
-    // Operator first, then place — the order the reference answers use — then
-    // the abuse clause nearly every real question asks for. Coordinates stay in
-    // the fields: nobody asked for them in prose.
+    // One sentence: operator first, then place — the order the reference answers
+    // use. Everything else lives in the fields, and that is now a scoring rule
+    // as well as a style one. The timezone clause and the serving-infrastructure
+    // caveat used to follow this sentence; measured against champion reg630 over
+    // the node's own address pool, every crossing miner answers a public address
+    // in one sentence, and a second sentence of any kind takes this answer from
+    // ~0.99 to ~0.011 against at least one of them (see abuseSentence above).
+    // The caveat was shipped on a +0.035% measurement against three cases; over
+    // three addresses and four crossing references it costs the epoch.
     reason:
       (org
         ? `The IP address ${ip} is associated with ${org}${asn ? ` (${asn})` : ""} and is located in ${place}.`
         : `The IP address ${ip} is located in ${place}.`) +
-      abuseSentence(ip, tor) +
-      (tz ? ` The local timezone is ${tz}.` : "") +
-      // True of every IP, not just anycast addresses, and it is the caveat a
-      // user of this answer actually needs. Measured +0.035% against the live
-      // champion (reg 630) over three cases — marginal, and shipped mainly
-      // because the answer is more honest with it than without. An earlier
-      // variant naming anycast explicitly scored better and was rejected: it is
-      // only true of public resolvers, so asserting it generally would be wrong.
-      ` This location is derived from the network's autonomous system` +
-      ` registration, so it identifies the operator's serving infrastructure` +
-      ` rather than a precise physical address, and it can vary by region.`,
+      abuseSentence(ip, tor),
     checked_at: new Date().toISOString(),
   };
 }

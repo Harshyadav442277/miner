@@ -1,0 +1,36 @@
+cross matrix (1 = >=0.9, . = ~0.01, x = node error / 0)
+miner                        32 33 34 35 36 37 38 39 40 41 42 43
+chainsight-oracle             1  1  1  1  .  1  1  1  1  x  1  1
+ip-api-geo                    .  .  .  1  .  .  .  .  .  x  .  .
+ipgeo-countryis               -  x  x  x  x  x  x  x  x  x  x  x
+ipgeo-dbip                    .  .  .  1  .  .  .  .  .  x  .  1
+ipgeo-geojs                   -  .  .  .  .  .  .  .  .  x  .  .
+ipgeo-ifconfig                -  .  .  1  .  .  .  .  .  x  .  .
+ipgeo-ipapi                   .  .  .  1  .  .  .  .  .  x  .  .
+ipgeo-ipapiis                 1  .  1  1  1  1  1  1  1  x  1  1
+ipgeo-ipinfo                  .  1  .  1  .  1  1  .  1  x  1  1
+ipgeo-ipwho                   .  .  .  1  .  .  .  .  .  x  .  1
+ipgeo-reallyfree              -  1  1  .  1  1  1  1  1  x  1  .
+ipgeo-seeip                   .  1  .  1  .  x  1  1  .  x  1  1
+iplocate                      1  1  .  1  .  1  .  .  .  x  .  .
+livecert                      1  1  1  .  1  1  1  1  1  x  1  .
+netwire-ip-geolocation        1  1  1  1  1  1  1  1  1  x  1  1
+preflight-ssl-verification    1  1  1  1  1  1  1  1  1  x  1  1
+txlens                        .  1  1  1  1  1  1  1  1  x  1  1
+
+leaked inputs:
+  e337 ipgeo-seeip: https://api.seeip.org/geoip/192.168.1.100
+  e341 txlens: http://127.0.0.1:4000/v1/chat/completions
+  e341 iplocate: http://127.0.0.1:4000/v1/chat/completions
+  e341 ipgeo-countryis: http://127.0.0.1:4000/v1/chat/completions
+  e341 preflight-ssl-verification: http://127.0.0.1:4000/v1/chat/completions
+  e341 chainsight-oracle: http://127.0.0.1:4000/v1/chat/completions
+  e341 ipgeo-dbip: http://127.0.0.1:4000/v1/chat/completions
+  e341 ipgeo-ipapi: http://127.0.0.1:4000/v1/chat/completions
+  e341 ipgeo-geojs: http://127.0.0.1:4000/v1/chat/completions
+  e341 ipgeo-ifconfig: http://127.0.0.1:4000/v1/chat/completions
+  e341 ipgeo-ipapiis: http://127.0.0.1:4000/v1/chat/completions
+  e341 ipgeo-ipwho: http://127.0.0.1:4000/v1/chat/completions
+  e341 ipgeo-ipinfo: http://127.0.0.1:4000/v1/chat/completions
+  e341 ipgeo-seeip: http://127.0.0.1:4000/v1/chat/completions
+  e341 ipgeo-reallyfree: http://127.0.0.1:4000/v1/chat/completions

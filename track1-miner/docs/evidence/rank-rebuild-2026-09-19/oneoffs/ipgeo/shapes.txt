@@ -1,0 +1,57 @@
+
+### 8.8.8.8
+   shape                   preflight      txlens     netwire  chainsight      min
+   full (today)             0.997440    0.011123    0.011085    0.010867  0.010867
+   location only            0.992369    0.998386    0.995912    0.996044  0.992369
+   location+abuse           0.998339    0.011358    0.011199    0.010631  0.010631
+   location+timezone        0.991935    0.997212    0.994799    0.997159  0.991935
+   location+short abuse     0.998780    0.991871    0.991569    0.011006  0.011006
+
+### 142.251.42.174
+   shape                   preflight      txlens     netwire  chainsight      min
+   full (today)             0.997631    0.011093    0.991848    0.010728  0.010728
+   location only            0.992221    0.997839    0.996693    0.996153  0.992221
+   location+abuse           0.998240    0.011189    0.991852    0.010587  0.010587
+   location+timezone        0.992025    0.997427    0.996428    0.996761  0.992025
+   location+short abuse     0.998559    0.991552    0.992190    0.010850  0.010850
+
+### 208.67.222.222
+   shape                   preflight      txlens     netwire  chainsight      min
+   full (today)             0.997251    0.991426    0.010928    0.010679  0.010679
+   location only            0.992277    0.998672    0.995738    0.996373  0.992277
+   location+abuse           0.998188    0.991710    0.011138    0.010629  0.010629
+   location+timezone        0.991793    0.997657    0.994217    0.996773  0.991793
+   location+short abuse     0.998771    0.992129    0.011302    0.010984  0.010984
+
+### 192.0.2.1
+   shape                   preflight      txlens     netwire  chainsight      min
+   full (today)             0.997977    0.997452    0.991723    0.010604  0.010604
+   location only            0.996943    0.995402    0.011321    0.009523  0.009523
+   location+abuse           0.997977    0.997452    0.991723    0.010604  0.010604
+   location+short abuse     0.998193    0.997927    0.992244    0.011072  0.011072
+
+### 203.0.113.45
+   shape                   preflight      txlens     netwire  chainsight      min
+   full (today)             0.997869    0.997234    0.991723    0.010663  0.010663
+   location only            0.996843    0.995296    0.011269    0.009549  0.009549
+   location+abuse           0.997869    0.997234    0.991723    0.010663  0.010663
+   location+short abuse     0.998014    0.997598    0.992147    0.011039  0.011039
+
+### 192.168.1.10
+   shape                   preflight      txlens     netwire  chainsight      min
+   full (today)             0.995414    0.996309    0.996296    0.998607  0.995414
+   location only            0.010591    0.011060    0.011077    0.992550  0.010591
+   location+abuse           0.995094    0.996175    0.996827    0.998901  0.995094
+
+### 192.168.1.100
+   shape                   preflight      txlens     netwire  chainsight      min
+   full (today)             0.995434    0.996309    0.996263    0.998556  0.995434
+   location only            0.010683    0.011060    0.011147    0.992581  0.010683
+   location+abuse           0.995188    0.996184    0.996917    0.998943  0.995188
+
+rows (of 7) where the shape crosses against EVERY reference:
+   full (today)           2
+   location only          3
+   location+abuse         2
+   location+timezone      3
+   location+short abuse   0
