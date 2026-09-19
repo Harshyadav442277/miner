@@ -75,6 +75,23 @@ scored; preview `miner-hw0c0l2nl` only. A bench is a filter, a scored epoch is t
   `/convert` does not name `symbols`. Proposed YAML in `onchain/manifest-comparison.md` and
   `request-shapes/manifest-comparison.md`. Second-order now that the routes accept the spellings;
   any change is an `updateMiner` by the operator after a sandbox run.
+- **G182 — Generative phrasing for TEXT_CLASSIFICATION and SENTIMENT_ANALYSIS is built, on the branch, NOT
+  deployed.** `src/llm.ts` + `src/prose-phrase.ts`: Groq free plan, three models rotated, 4.5 s budget,
+  fail-closed to the keyless answer (no key → zero fetches, byte-identical answers; 768/768 tests). Bench
+  under reg687/reg646 against live txlens and chainsight answers, six inputs each: crossed **1/6 → 4/6** on
+  both intents; the reference validity gate passes only 2/6, and three calls to the same miner scored one
+  fixed candidate 1.00/0.00/0.00 — **the instrument is noise and this is a lottery ticket, not a fix.** A
+  deliberately WRONG label in the right register scores 1.0000: these champions score wording, not
+  correctness (G154 again). No hidden inputs leak for these intents, so the bench inputs are ours. p50
+  757 ms, p95 1130 ms, 389 tokens/call, ceiling ~513 calls/day/model (1,539 total). Not modelled: the
+  node's ~32-word converter; 429s under spot-check bursts; ties at 1.0 (G158).
+- **G183 — Deploying G182 makes two sentences of the registered manifest false.** `miner.yaml` says of
+  `/classify` "no model … the answer names the words that matched" and of `/sentiment` "No model is
+  involved and nothing is fetched". `GROQ_API_KEY` is **already set in Vercel Production** (operator,
+  2026-09-19), so the NEXT production deploy of this branch turns the path on. Operator's decision,
+  not taken: leave it off (remove the variable or do not deploy), accept the misdescription, or correct
+  the manifest with an `updateMiner` (sandbox first; could carry G181's parameter declarations too).
+  Evidence: `llm-phrasing/manifest-divergence.txt`.
 - **Process note.** Agent worktrees are cut from `origin/main` (bc7cf15), 65 commits behind this
   unpushed branch; every lane had to `git checkout --detach 311c40c` first. Two production deployments
   ~08:30 UTC 2026-09-18 (`miner-qn9bfen6k`, `miner-diolxv3va`, presumably 311c40c) were not recorded

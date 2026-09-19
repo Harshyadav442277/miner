@@ -13,7 +13,11 @@ Baseline epoch 343: 6/36 rank 1. Evidence: `track1-miner/docs/evidence/rank-rebu
 - [x] 744/744 unit tests, build; 10/10 probes on protected preview `miner-hw0c0l2nl`; local gate 35/36.
 - [x] Promoted on the operator's yes: production `miner-md1u33wsx` at 06:27 UTC; intent-answers 36/36 twice.
 - [ ] Read the first epoch scored after the promote; only that is a verdict.
-- [ ] **Operator decision:** free Groq key for the ten prose intents (G180). Not built; needs the key to test.
+- [x] Generative phrasing built for TEXT_CLASSIFICATION and SENTIMENT only, fail-closed, 768/768; bench
+      1/6 → 4/6 on a noisy instrument (G182). On the branch, NOT deployed.
+- [ ] **Operator decision before ANY production deploy (G183):** the key is set in Vercel Production, so
+      the next deploy switches the model path on and makes two manifest sentences false. Off / accept /
+      `updateMiner` with a corrected manifest.
 - [ ] Proposed `miner.yaml` changes (declare `team`/`league`, `symbols`, the tx `hash`/`chain` input
       schema) are written up, not applied — they need an `updateMiner` by the operator (G181).
 - [ ] Not started: WEATHER_CHECK / TVL / EVENT_OUTCOME numeric gaps beyond request tolerance; URL_SCAN

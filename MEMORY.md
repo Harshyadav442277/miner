@@ -13,6 +13,13 @@ epoch that can see this build is 344** (expected ~12:00–14:00 UTC 2026-09-19).
 intent-answers gate and the printout did not keep its name (unclassified transient); re-run ~06:43 UTC
 **7/7**. Evidence: `track1-miner/docs/evidence/rank-rebuild-2026-09-19/production-*.txt`.
 
+**WARNING for the next deploy (G183):** the branch now contains a Groq phrasing path for /classify and
+/sentiment (G182), and `GROQ_API_KEY` is set in Vercel Production. Production `miner-md1u33wsx` does NOT
+contain that code. The next production deploy turns it on and makes the registered manifest's "no
+model" sentences for those two routes false. Do not deploy until the operator has chosen: off, accept,
+or `updateMiner`. The key lives in Vercel and in the gitignored `track1-miner/miner/.env.local`; it was
+pasted into the 2026-09-19 chat transcript by the operator (60-day expiry), never into a tracked file.
+
 ### Written before the promote
 
 **State:** branch `codex/rank1-14-intents`, not pushed, code at `1725b1e` (five code commits on
