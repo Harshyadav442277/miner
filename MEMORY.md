@@ -13,6 +13,12 @@ epoch that can see this build is 344** (expected ~12:00–14:00 UTC 2026-09-19).
 intent-answers gate and the printout did not keep its name (unclassified transient); re-run ~06:43 UTC
 **7/7**. Evidence: `track1-miner/docs/evidence/rank-rebuild-2026-09-19/production-*.txt`.
 
+**UPDATE 08:02 UTC — `updateMiner` mined: registration is now 2750.** Found by scanning `/api/miners/<id>`
+(ids are sparse: 1408 → 2750): slug livecert, owner `0xdad2…a39e` (same as 1408), **active**, not retrying, 36
+intents, hash `0x9677dad8…7f1f`, YAML pinned at `94bbb04`. **1408 is `superseded`; anything defaulting to it
+errors.** `REGISTRATION_ID` repo variable and `rank-audit.mjs` moved to 2750. The manifest now matches the
+model-phrased /classify and /sentiment, so G183 is closed. Next: read epoch 344.
+
 **UPDATE 07:47 UTC — model path live, manifest update pending the operator's signature (G184).**
 Production is now **`miner-j9eojoz7e`** (rollback: `miner-md1u33wsx`, model-free). Branch pushed to origin at
 `94bbb04`+. Console values for the operator's `updateMiner`:

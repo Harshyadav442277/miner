@@ -103,6 +103,11 @@ scored; preview `miner-hw0c0l2nl` only. A bench is a filter, a scored epoch is t
   (descriptions only; `manifest-diff` PASS, param shapes 57/57), hash
   `0x9677dad8880d2bc8554e1e1aa97f8b311bb7d2b5fa3b5df6d89b658a7b777f1f`, verified against the pushed raw URL.
   **Until the operator's `updateMiner` lands, registration 1408 still carries the old "no model" sentences.**
+- **G185 — Registration 2750 replaces 1408 (2026-09-19 08:02 UTC). G183 closed.** `/api/miners/2750`: slug
+  livecert, owner 0xdad201ef…a39e (identical to 1408's), active, rejection null, retrying false, 36 intents,
+  yaml_hash 0x9677dad8…7f1f, yaml_url pinned at 94bbb04. 1408 reads `superseded`. The catalog row shows the
+  new YAML URL. Not checked: whether the new registration sits out an epoch while it activates — epoch 344's
+  rows will show it. `CLAUDE.md` and older docs still say 1408 where they record history; that is correct.
 - **Process note.** Agent worktrees are cut from `origin/main` (bc7cf15), 65 commits behind this
   unpushed branch; every lane had to `git checkout --detach 311c40c` first. Two production deployments
   ~08:30 UTC 2026-09-18 (`miner-qn9bfen6k`, `miner-diolxv3va`, presumably 311c40c) were not recorded
