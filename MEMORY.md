@@ -2,7 +2,8 @@
 
 ## 2026-09-19 ~06:30 UTC (12:00 IST) — rank rebuild: on a preview, NOT promoted
 
-**State:** branch `codex/rank1-14-intents`, not pushed. **Production is `miner-diolxv3va`**
+**State:** branch `codex/rank1-14-intents`, not pushed, code at `1725b1e` (five code commits on
+`311c40c`), tree clean; the preview was built from that tree. **Production is `miner-diolxv3va`**
 (created 2026-09-18 08:46 UTC by an earlier session that did not record it; serves
 `miner-wine.vercel.app`, verified with `vercel inspect` today). It is also the **rollback target**.
 Registration 1408 active, manifest unchanged, no `updateMiner` implied. Epoch 343: **6/36 first**.
