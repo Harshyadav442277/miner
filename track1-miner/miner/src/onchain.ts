@@ -266,6 +266,78 @@ export function malformedHash(text: string): string | null {
 }
 
 /**
+ * A chain name as a caller may actually write it.
+ *
+ * The node builds our request with an LLM, so what lands in the `chain`
+ * parameter is what that model writes, not what our manifest spells — and every
+ * other miner in this intent names Ethereum `eth`. The parameter path used to
+ * accept an exact `RPCS` key and nothing else, while `CHAIN_WORDS` directly
+ * above has always read `eth`, `arb`, `matic`, `bnb` and `avax` out of the
+ * prose. The same word was understood in the question and refused in the
+ * parameter.
+ *
+ * Measured against production 2026-09-19 under champion reg642, against the two
+ * miners that cross this intent: `chain=ethereum` scored 0.996209 and
+ * `chain=eth` scored 0.005629 — the refusal band — for the same hash.
+ *
+ * Chain ids are here because a model that has an id and no name writes the id.
+ */
+const CHAIN_ALIASES: Record<string, string> = {
+  eth: "ethereum", ether: "ethereum", mainnet: "ethereum", "eth mainnet": "ethereum",
+  "ethereum mainnet": "ethereum", "ethereum main": "ethereum", l1: "ethereum", homestead: "ethereum",
+  "1": "ethereum", "0x1": "ethereum",
+  "base mainnet": "base", basechain: "base", "base chain": "base", "8453": "base", "0x2105": "base",
+  arb: "arbitrum", "arbitrum one": "arbitrum", arb1: "arbitrum", "arbitrum mainnet": "arbitrum",
+  "42161": "arbitrum", "0xa4b1": "arbitrum",
+  op: "optimism", "op mainnet": "optimism", "optimism mainnet": "optimism", "10": "optimism",
+  "0xa": "optimism",
+  matic: "polygon", "polygon pos": "polygon", pos: "polygon", "polygon mainnet": "polygon",
+  "matic mainnet": "polygon", "137": "polygon", "0x89": "polygon",
+  bnb: "bsc", "bnb chain": "bsc", "bnb smart chain": "bsc", binance: "bsc",
+  "binance chain": "bsc", "binance smart chain": "bsc", "bsc mainnet": "bsc", "56": "bsc", "0x38": "bsc",
+  avax: "avalanche", "avalanche c chain": "avalanche", "c chain": "avalanche",
+  "avalanche mainnet": "avalanche", "43114": "avalanche", "0xa86a": "avalanche",
+};
+
+/**
+ * Values that name no chain at all.
+ *
+ * A model filling an optional parameter it has no value for writes a
+ * placeholder rather than omitting the parameter, and refusing a transaction
+ * over a filler token is the worst of the three available answers. These read
+ * as "no chain given", which is the path that searches every chain.
+ */
+const CHAIN_UNSET = new Set([
+  // "n a" rather than "n/a": the separators are normalised to spaces first.
+  "", "unknown", "null", "undefined", "none", "no", "n a", "na", "any", "all",
+  "auto", "default", "evm", "chain", "blockchain",
+]);
+
+export type ChainName =
+  | { kind: "named"; chain: string }
+  | { kind: "unset" }
+  | { kind: "unreadable" };
+
+/**
+ * The three things a `chain` value can be, told apart rather than merged.
+ *
+ * `unreadable` is the only one that becomes a refusal, and it has to stay one:
+ * Solana and Bitcoin are not EVM, and answering their hash from Ethereum is the
+ * confidently-wrong failure that refusal exists to prevent. A testnet is
+ * unreadable for the same reason — we read mainnets, and a Sepolia hash
+ * answered from mainnet is a different transaction.
+ */
+export function readChainName(value: string): ChainName {
+  const key = String(value ?? "").trim().toLowerCase()
+    .replace(/^eip155:/, "")
+    .replace(/[\s_/-]+/g, " ")
+    .trim();
+  if (CHAIN_UNSET.has(key)) return { kind: "unset" };
+  const chain = RPCS[key] ? key : CHAIN_ALIASES[key];
+  return chain ? { kind: "named", chain } : { kind: "unreadable" };
+}
+
+/**
  * Which chain to read.
  *
  * An explicit `chain` parameter always wins over a word in the question: the
@@ -278,8 +350,8 @@ export function resolveChain(
   param: string,
   question: string,
 ): { chain: string; conflict: string | null; explicit: boolean } {
-  const p = String(param ?? "").trim().toLowerCase();
-  const named = p && RPCS[p] ? p : null;
+  const read = readChainName(param);
+  const named = read.kind === "named" ? read.chain : null;
   const fromText = CHAIN_WORDS.find(([re]) => re.test(String(question ?? "")))?.[1] ?? null;
   if (named && fromText && named !== fromText) return { chain: named, conflict: fromText, explicit: true };
   // `explicit` records whether the caller actually chose a chain. Ethereum is
@@ -289,7 +361,7 @@ export function resolveChain(
 }
 
 export function isSupportedChain(name: string): boolean {
-  return Boolean(RPCS[String(name ?? "").trim().toLowerCase()]);
+  return readChainName(name).kind === "named";
 }
 
 export function supportedChains(): string[] {

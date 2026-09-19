@@ -1,0 +1,44 @@
+ONCHAIN_TX_LOOKUP request-shape bench, champion reg642
+sha256 a53e88df1b2413a8e5378462772c0e80b49892fd273ea31f50c560a04424d2e3
+scored 2026-09-19T05:04:18.505Z
+hash 0xb376975e90801e36a34432c960825a0c12a56d589a77a95aa552a7a3618678ee
+question Is on-chain transaction 0xb376975e90801e36a34432c960825a0c12a56d589a77a95aa552a7a3618678ee successful (status success/ok/confirmed) or failed/pending?
+
+bench gate, reference vs reference (txlens vs veyctum): 0.996072
+
+request shape                        BEFORE (production)      AFTER (this worktree)
+                                     vs txlens  vs veyctum    vs txlens  vs veyctum
+hash=<hash>                           0.996209  0.994931     0.996209  0.994931
+tx_hash=<hash>                        0.996209  0.994931     0.996209  0.994931
+txHash=<hash>                         0.007247  0.008676     0.996209  0.994931
+transaction_hash=<hash>               0.007247  0.008676     0.996209  0.994931
+hash=<hash>&chain=ethereum            0.996209  0.994931     0.996209  0.994931
+hash=<hash>&chain=eth                 0.005629  0.008194     0.996209  0.994931
+hash=<hash>&chain=ETH                 0.005799  0.008341     0.996209  0.994931
+hash=<hash>&chain=mainnet             0.005103  0.007646     0.996209  0.994931
+hash=<hash>&chain=1                   0.004076  0.006132     0.996209  0.994931
+hash=<hash>&chain=l1                  0.005057  0.007481     0.996209  0.994931
+hash=<hash>&chain=ETH_MAINNET         0.005779  0.008275     0.996209  0.994931
+hash=<hash>&chain=eip155%3A1          0.003978  0.006069     0.996209  0.994931
+hash=<hash>&chain=unknown             0.005167  0.007758     0.996209  0.994931
+hash=<hash>&chain=evm                 0.005223  0.007903     0.996209  0.994931
+hash=<hash>&chain=solana              0.005027  0.007432     0.005027  0.007432
+query=Is%20on-chain%20transaction%20<hash>%20successful%20(status%20success%2Fok%2Fconfirmed)%20or%20failed%2Fpending%3F  0.996209  0.994931     0.996209  0.994931
+
+AFTER answers in full:
+  [hash=<hash>] Transaction 0xb376975e90801e36a34432c960825a0c12a56d589a77a95aa552a7a3618678ee on ethereum succeeded in block 25700000. It moved 0 ETH from 0x2ce910fbba65b454bbaf6a18c952a70f3bcd8299 to 0x99c9fc46f92e8a1c0dec1b1747d010903e884be1 and called bridgeERC20To. The receipt contains 1 token Transfer event.
+  [tx_hash=<hash>] Transaction 0xb376975e90801e36a34432c960825a0c12a56d589a77a95aa552a7a3618678ee on ethereum succeeded in block 25700000. It moved 0 ETH from 0x2ce910fbba65b454bbaf6a18c952a70f3bcd8299 to 0x99c9fc46f92e8a1c0dec1b1747d010903e884be1 and called bridgeERC20To. The receipt contains 1 token Transfer event.
+  [txHash=<hash>] Transaction 0xb376975e90801e36a34432c960825a0c12a56d589a77a95aa552a7a3618678ee on ethereum succeeded in block 25700000. It moved 0 ETH from 0x2ce910fbba65b454bbaf6a18c952a70f3bcd8299 to 0x99c9fc46f92e8a1c0dec1b1747d010903e884be1 and called bridgeERC20To. The receipt contains 1 token Transfer event.
+  [transaction_hash=<hash>] Transaction 0xb376975e90801e36a34432c960825a0c12a56d589a77a95aa552a7a3618678ee on ethereum succeeded in block 25700000. It moved 0 ETH from 0x2ce910fbba65b454bbaf6a18c952a70f3bcd8299 to 0x99c9fc46f92e8a1c0dec1b1747d010903e884be1 and called bridgeERC20To. The receipt contains 1 token Transfer event.
+  [hash=<hash>&chain=ethereum] Transaction 0xb376975e90801e36a34432c960825a0c12a56d589a77a95aa552a7a3618678ee on ethereum succeeded in block 25700000. It moved 0 ETH from 0x2ce910fbba65b454bbaf6a18c952a70f3bcd8299 to 0x99c9fc46f92e8a1c0dec1b1747d010903e884be1 and called bridgeERC20To. The receipt contains 1 token Transfer event.
+  [hash=<hash>&chain=eth] Transaction 0xb376975e90801e36a34432c960825a0c12a56d589a77a95aa552a7a3618678ee on ethereum succeeded in block 25700000. It moved 0 ETH from 0x2ce910fbba65b454bbaf6a18c952a70f3bcd8299 to 0x99c9fc46f92e8a1c0dec1b1747d010903e884be1 and called bridgeERC20To. The receipt contains 1 token Transfer event.
+  [hash=<hash>&chain=ETH] Transaction 0xb376975e90801e36a34432c960825a0c12a56d589a77a95aa552a7a3618678ee on ethereum succeeded in block 25700000. It moved 0 ETH from 0x2ce910fbba65b454bbaf6a18c952a70f3bcd8299 to 0x99c9fc46f92e8a1c0dec1b1747d010903e884be1 and called bridgeERC20To. The receipt contains 1 token Transfer event.
+  [hash=<hash>&chain=mainnet] Transaction 0xb376975e90801e36a34432c960825a0c12a56d589a77a95aa552a7a3618678ee on ethereum succeeded in block 25700000. It moved 0 ETH from 0x2ce910fbba65b454bbaf6a18c952a70f3bcd8299 to 0x99c9fc46f92e8a1c0dec1b1747d010903e884be1 and called bridgeERC20To. The receipt contains 1 token Transfer event.
+  [hash=<hash>&chain=1] Transaction 0xb376975e90801e36a34432c960825a0c12a56d589a77a95aa552a7a3618678ee on ethereum succeeded in block 25700000. It moved 0 ETH from 0x2ce910fbba65b454bbaf6a18c952a70f3bcd8299 to 0x99c9fc46f92e8a1c0dec1b1747d010903e884be1 and called bridgeERC20To. The receipt contains 1 token Transfer event.
+  [hash=<hash>&chain=l1] Transaction 0xb376975e90801e36a34432c960825a0c12a56d589a77a95aa552a7a3618678ee on ethereum succeeded in block 25700000. It moved 0 ETH from 0x2ce910fbba65b454bbaf6a18c952a70f3bcd8299 to 0x99c9fc46f92e8a1c0dec1b1747d010903e884be1 and called bridgeERC20To. The receipt contains 1 token Transfer event.
+  [hash=<hash>&chain=ETH_MAINNET] Transaction 0xb376975e90801e36a34432c960825a0c12a56d589a77a95aa552a7a3618678ee on ethereum succeeded in block 25700000. It moved 0 ETH from 0x2ce910fbba65b454bbaf6a18c952a70f3bcd8299 to 0x99c9fc46f92e8a1c0dec1b1747d010903e884be1 and called bridgeERC20To. The receipt contains 1 token Transfer event.
+  [hash=<hash>&chain=eip155%3A1] Transaction 0xb376975e90801e36a34432c960825a0c12a56d589a77a95aa552a7a3618678ee on ethereum succeeded in block 25700000. It moved 0 ETH from 0x2ce910fbba65b454bbaf6a18c952a70f3bcd8299 to 0x99c9fc46f92e8a1c0dec1b1747d010903e884be1 and called bridgeERC20To. The receipt contains 1 token Transfer event.
+  [hash=<hash>&chain=unknown] Transaction 0xb376975e90801e36a34432c960825a0c12a56d589a77a95aa552a7a3618678ee on ethereum succeeded in block 25700000. It moved 0 ETH from 0x2ce910fbba65b454bbaf6a18c952a70f3bcd8299 to 0x99c9fc46f92e8a1c0dec1b1747d010903e884be1 and called bridgeERC20To. The receipt contains 1 token Transfer event.
+  [hash=<hash>&chain=evm] Transaction 0xb376975e90801e36a34432c960825a0c12a56d589a77a95aa552a7a3618678ee on ethereum succeeded in block 25700000. It moved 0 ETH from 0x2ce910fbba65b454bbaf6a18c952a70f3bcd8299 to 0x99c9fc46f92e8a1c0dec1b1747d010903e884be1 and called bridgeERC20To. The receipt contains 1 token Transfer event.
+  [hash=<hash>&chain=solana] Transaction 0xb376975e90801e36a34432c960825a0c12a56d589a77a95aa552a7a3618678ee could not be looked up because the chain "solana" is not one this endpoint reads. Supported chains are ethereum, base, arbitrum, optimism, polygon, bsc, avalanche. The lookup was not attempted against a different chain, because the same hash can exist on more than one network and answering from the wrong one would be misleading.
+  [query=Is%20on-chain%20transaction%20<hash>%20successful%20(status%20success%2Fok%2Fconfirmed)%20or%20failed%2Fpending%3F] Transaction 0xb376975e90801e36a34432c960825a0c12a56d589a77a95aa552a7a3618678ee on ethereum succeeded in block 25700000. It moved 0 ETH from 0x2ce910fbba65b454bbaf6a18c952a70f3bcd8299 to 0x99c9fc46f92e8a1c0dec1b1747d010903e884be1 and called bridgeERC20To. The receipt contains 1 token Transfer event.

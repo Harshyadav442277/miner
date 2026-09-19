@@ -1,0 +1,23 @@
+Is the champion sensitive to PHRASING, or to the FACTS? (champion reg642, sha256
+a53e88df1b2413a8e5378462772c0e80b49892fd273ea31f50c560a04424d2e3, confirmed live 2026-09-19
+against https://devnode.telegraphprotocol.com/api/wasm?intent=ONCHAIN_TX_LOOKUP)
+
+Cross-scoring every live answer against every other, over 10 question forms and 5 hashes,
+gave 0.9950-0.9984 in EVERY cell (cross-score.txt). So phrasing is not what separates the
+0.99 band from the 0.01 band, and the live spread - one miner at 0.995 and eleven at 0.01,
+every epoch - is not a wording problem.
+
+What DOES move the score (question = the routed template, reference = txlens's live answer
+for 0xb376975e..., gate: txlens vs veyctum = 0.996072):
+
+  our real answer, right transaction                    0.996209
+  same answer with the hash 1 character wrong           0.994905   <- the hash barely matters
+  same answer with the hash removed entirely            0.994857
+  a correct answer about a DIFFERENT transaction        0.013673   <- wrong subject
+  'does not correspond to any transaction on ...'       0.008116   <- a denial
+  'the chain "eth" is not one this endpoint reads'      0.005629   <- a refusal
+
+The score is carried by the receipt facts - block, addresses, value, method, status - not
+by the hash string. livecert's 47 live scores all sit between 0.0059 and 0.0127, i.e. in
+the refusal and wrong-subject bands, never in the band of an answer about the right
+transaction. That is what pointed at the request rather than the answer.

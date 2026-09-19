@@ -21,7 +21,7 @@ import { checkBalance, type WalletResult } from "./wallet";
 import { checkFact, type FactCheckResult } from "./factcheck";
 import { answerTelegraph, type TelegraphResult } from "./telegraph";
 import {
-  isSupportedChain, lookupTransaction, malformedHash, resolveChain, supportedChains, txHash,
+  lookupTransaction, malformedHash, readChainName, resolveChain, supportedChains, txHash,
   type TxResult,
 } from "./onchain";
 import { cveId, lookupCve, malformedCveId, type CveResult } from "./cve";
@@ -900,7 +900,13 @@ function route(req: IncomingMessage, res: ServerResponse): void {
   if (path === "/tx-lookup") {
     // Structured `hash` and free text are both accepted, and the question is
     // kept alongside the parameter so chain words in the prose are still read.
-    const hashParam = firstValue(url, "hash", "tx_hash", "txhash", "transaction", "tx");
+    // `searchParams.get` is case-sensitive, so the camelCase spellings are
+    // listed rather than assumed: `txHash` is the exact name another miner's
+    // manifest in this intent uses, and a request carrying it used to be
+    // answered "No transaction hash was supplied with this request" — 0.0072
+    // against the epoch leader, where reading the hash scores 0.9962.
+    const hashParam = firstValue(url, "hash", "tx_hash", "txhash", "txHash",
+      "transaction_hash", "transactionHash", "transaction", "tx");
     const q = withSubject(firstValue(url, "query", "q", "question", "text", "input"), hashParam);
     const hash = txHash(hashParam) ?? txHash(q);
 
@@ -977,7 +983,12 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     // A chain we cannot read is said so plainly. Silently falling back to
     // Ethereum would answer a Solana or BSC question with a different chain's
     // reading of the same hash, which is the confidently-wrong failure.
-    if (chainParam.trim() && !isSupportedChain(chainParam)) {
+    //
+    // `readChainName` rather than a bare non-empty check, because the engine
+    // fills this parameter with an LLM: `eth` and `1` name a chain we read, and
+    // `unknown` names no chain at all. Both used to take this refusal, which
+    // scores 0.0056 against the epoch leader where the same lookup scores 0.9962.
+    if (readChainName(chainParam).kind === "unreadable") {
       sendAnswer(res, q, lean({
         hash,
         chain: null,

@@ -1,0 +1,75 @@
+ONCHAIN_TX_LOOKUP scores
+Source: https://devnode.telegraphprotocol.com/scores?intent=ONCHAIN_TX_LOOKUP&limit=200 (+offset 200/400/600)
+Pulled 2026-09-19. 800 rows, epochs 288-343.
+
+epoch  scored_at            winner (score)                  livecert            leaked hash
+343    2026-09-19T04:10:10 veyctum (0.995202)              #10 0.0088812       
+342    2026-09-18T19:02:52 preflight-ssl-verification (0.014643) #4 0.0124830        
+341    2026-09-18T10:33:02 txlens (0.996772)               #8 0.0091818        
+340    2026-09-18T01:03:05 veyctum (0.997389)              #13 0.0000000       
+339    2026-09-17T16:03:51 txlens (0.994959)               #4 0.0126758        
+338    2026-09-17T07:03:09 txlens (0.996772)               #4 0.0115556        0xb376975e90801e36a34432c960825a0c12a56d589a77a95aa552a7a3618678ee
+337    2026-09-16T22:06:23 chainsight-oracle (0.014040)    #5 0.0106625        
+336    2026-09-16T04:53:15 veyctum (0.995202)              #8 0.0100158        
+335    2026-09-15T20:00:54 veyctum (0.995202)              #7 0.0100158        
+334    2026-09-15T11:02:30 txlens (0.996772)               #23 0.0000000       
+333    2026-09-15T01:52:40 txlens (0.995678)               #10 0.0059657       0xb376975e90801e36a34432c960825a0c12a56d589a77a95aa552a7a3618678ee
+332    2026-09-14T16:56:20 txlens (0.995678)               #9 0.0059657        0xb376975e90801e36a34432c960825a0c12a56d589a77a95aa552a7a3618678ee
+331    2026-09-14T07:57:31 chainsight-oracle (0.014040)    #7 0.0088092        
+330    2026-09-13T22:57:25 chainwire-tx-lookup (0.012179)  #3 0.0088092        0xe1cd7c312e8cedad3bb8b3030703a90cb93d48d35a554082001b0e2edaa97e19
+329    2026-09-13T13:57:58 chainsight-oracle (0.994969)    #6 0.0120277        
+328    2026-09-13T04:59:20 veyctum (0.996210)              #5 0.0121832        
+327    2026-09-12T20:00:21 txlens (0.995678)               #8 0.0062824        
+326    2026-09-12T10:53:03 txlens (0.996209)               #7 0.0113371        0xd49cee4f37e3df4f94b19a10f140bbfc3407cbdd91a22ec7375358252d601356
+325    2026-09-12T01:52:39 txlens (0.994964)               #6 0.0121888        
+324    2026-09-11T16:56:49 txlens (0.995678)               #8 0.0062824        
+323    2026-09-11T07:58:08 veyctum (0.995352)              #5 0.0120533        0xd49cee4f37e3df4f94b19a10f140bbfc3407cbdd91a22ec7375358252d601356
+322    2026-09-10T22:55:58 txlens (0.012741)               #2 0.0123667        
+321    2026-09-10T05:54:51 chainsight-oracle (0.995990)    #4 0.0121832        
+320    2026-09-09T20:55:41 chainsight-oracle (0.011411)    #9 0.0065412        
+319    2026-09-09T11:53:16 txlens (0.994871)               #10 0.0062750       0xb376975e90801e36a34432c960825a0c12a56d589a77a95aa552a7a3618678ee
+318    2026-09-09T03:06:00 chainsight-oracle (0.014390)    (not scored)        
+317    2026-09-08T17:59:05 chainsight-oracle (0.014027)    (not scored)        0xe1cd7c312e8cedad3bb8b3030703a90cb93d48d35a554082001b0e2edaa97e19
+316    2026-09-08T08:52:12 veyctum (0.995352)              (not scored)        0xd49cee4f37e3df4f94b19a10f140bbfc3407cbdd91a22ec7375358252d601356
+315    2026-09-07T23:53:12 txlens (0.014484)               (not scored)        
+314    2026-09-07T09:16:36 veyctum (0.995202)              (not scored)        
+313    2026-09-07T00:16:27 chainsight-oracle (0.995050)    (not scored)        
+312    2026-09-06T15:19:22 txlens (0.994959)               (not scored)        
+311    2026-09-06T06:16:39 preflight-ssl-verification (0.995930) (not scored)        
+310    2026-09-05T17:00:56 chainsight-oracle (0.014517)    (not scored)        
+309    2026-09-05T04:47:53 chainsight-oracle (0.010864)    (not scored)        
+308    2026-09-04T16:10:38 degenlens-onchain (0.012378)    (not scored)        0xd49cee4f37e3df4f94b19a10f140bbfc3407cbdd91a22ec7375358252d601356
+307    2026-09-04T07:04:26 chainsight-oracle (0.995267)    (not scored)        0xb377975e90801e36a34432c960825a0c12a56d589a77a95aa552a7a3618678ee
+306    2026-09-03T22:06:37 chainsight-oracle (0.010898)    (not scored)        0x971fd44755a64c4c32716eed5d36d7d11682d2ef8734d5cdae3af06f7eb67416
+305    2026-09-03T13:12:27 chainsight-oracle (0.014557)    (not scored)        0xb377975e90801e36a34432c960825a0c12a56d589a77a95aa552a7a3618678ee
+304    2026-09-03T04:03:41 txlens (0.995883)               (not scored)        0x1c7ddfe11add295fcb96850cac9460f1899b27d663d549f944dbaa787aa5e01a
+303    2026-09-02T19:05:40 txlens (0.014716)               (not scored)        0xd49cee4f37e3df4f94b19a10f140bbfc3407cbdd91a22ec7375358252d601356
+302    2026-09-02T10:04:17 veyctum (0.013561)              (not scored)        0x971fd44755a64c4c32716eed5d36d7d11682d2ef8734d5cdae3af06f7eb67416
+301    2026-09-02T01:13:54 chainsight-oracle (0.998830)    (not scored)        
+300    2026-09-01T16:09:27 preflight-ssl-verification (0.014050) (not scored)        0xb377975e90801e36a34432c960825a0c12a56d589a77a95aa552a7a3618678ee 0xb376975e90801e36a34432c960825a0c12a56d589a77a95aa552a7a3618678ee
+299    2026-09-01T06:58:25 chainsight-oracle (0.996613)    (not scored)        0xa1f58f762d83a65aaaa76e96072bd61d21c77a8fada08c952648d6107a9c0210
+298    2026-08-31T23:11:13 txlens (0.014716)               (not scored)        
+297    2026-08-31T14:08:08 veyctum (0.013561)              (not scored)        0x971fd44755a64c4c32716eed5d36d7d11682d2ef8734d5cdae3af06f7eb67416
+296    2026-08-31T05:13:53 preflight-ssl-verification (0.995910) (not scored)        0xa1f58f762d83a65aaaa76e96072bd61d21c77a8fada08c952648d6107a9c0210
+295    2026-08-30T19:02:46 chainsight-oracle (0.995117)    (not scored)        0xb377975e90801e36a34432c960825a0c12a56d589a77a95aa552a7a3618678ee
+294    2026-08-30T09:57:09 chainsight-oracle (0.998023)    (not scored)        0xb292df19890d7725a4276154d6d40b7f6641e563a73cab78ddce83e14e9faaed
+293    2026-08-30T07:21:37 preflight-ssl-verification (0.013907) (not scored)        0x1c7ddfe11add295fcb96850cac9460f1899b27d663d549f944dbaa787aa5e01a
+292    2026-08-29T22:19:29 veyctum (0.011770)              (not scored)        0x1c7ddfe11add295fcb96850cac9460f1899b27d663d549f944dbaa787aa5e01a
+291    2026-08-29T13:16:47 chainsight-oracle (0.011210)    (not scored)        0xf3c203029a03218cfbbaac925232d5f78966e12d3c1ed4ef7376f1e09412a505
+290    2026-08-29T06:38:12 veyctum (0.011770)              (not scored)        0x1c7ddfe11add295fcb96850cac9460f1899b27d663d549f944dbaa787aa5e01a
+289    2026-08-28T12:45:03 chainsight-oracle (0.014475)    (not scored)        0xde462432b4f9307ed546c533124b0ed95f8fa69608d70a2f524bb34e069ade3c
+288    2026-08-28T03:40:47 veyctum (0.011875)              (not scored)        
+
+livecert has never reached the 0.9 band in any of the 47 epochs it was scored; every
+score sits between 0.0059 and 0.0127. Its two zeroes (e340, e334) carry a NODE-side
+reason ("wasm/runtime pool: context cancelled: context deadline exceeded"), so those
+were not our fault. In every other epoch our failure_reason is EMPTY: the node reached
+us, we answered 200, and the answer was scored in the dead band.
+
+Same pull, sibling intents on the same manifest - the node CAN build our requests:
+  WALLET_BALANCE_CHECK: e343=0.9999997  e341=0.9999997  e340=0.9999996  e338=1.01829786e-13  e337=0  e336=0.9999996
+  GAS_PRICE: e343=1.2217879e-11  e342=1.2217879e-11  e341=1.5970399e-11  e340=1.6795771e-11  e338=1.6795771e-11  e337=1.8398588e-11
+  TOKEN_HOLDER_COUNT: e343=5.4918865e-12  e342=8.893703e-12  e340=2.734991e-12  e339=6.5508367e-12  e338=4.766795e-12  e337=7.830042e-12
+
+/wallet-balance declares NO chain parameter and crosses at 0.9999997.
+/tx-lookup declares one and has never crossed.
