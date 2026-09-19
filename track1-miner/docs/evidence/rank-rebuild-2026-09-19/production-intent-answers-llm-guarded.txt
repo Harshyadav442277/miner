@@ -1,0 +1,44 @@
+intent answers against https://miner-wine.vercel.app
+
+  coverage: 36 declared intents, 36 cases
+
+  SSL_VERIFICATION       PASS
+  STORM_ALERT            PASS
+  WEATHER_FORECAST       PASS
+  GAS_PRICE              PASS
+  FINANCIAL_DATA         PASS
+  FRAUD_DETECTION        PASS
+  GAME_RESULT            PASS
+  CURRENCY_EXCHANGE      PASS
+  NEWS_SEARCH            PASS
+  TVL_LOOKUP             PASS
+  CVE_LOOKUP             PASS
+  ONCHAIN_TX_LOOKUP      PASS
+  WEATHER_CHECK          PASS
+  IP_GEOLOCATION         PASS
+  LANGUAGE_TRANSLATION   PASS
+  ACADEMIC_SEARCH        PASS
+  AI_TEXT_DETECTION      PASS
+  CONTENT_EXTRACTION     PASS
+  NEWS_HEADLINES         PASS
+  FACT_CHECK             PASS
+  TELEGRAPH_KNOWLEDGE    PASS
+  WALLET_BALANCE_CHECK   PASS
+  SPORTS_SCORE           PASS
+  TOKEN_HOLDER_COUNT     PASS
+  RESEARCH_QUERY         PASS
+  TEXT_AUTHENTICITY_CHECK PASS
+  CRYPTO_PRICE           PASS
+  STOCK_PRICE            PASS
+  CROSS_CHAIN_STATE_VERIFY PASS
+  EVENT_OUTCOME_RESOLUTION 
+      (Polymarket unreachable from the checker — EVENT_OUTCOME checked for honesty only)
+PASS
+  URL_SCAN               PASS
+  WEB_SEARCH             PASS
+  CONTENT_VERIFICATION   PASS
+  SENTIMENT_ANALYSIS     PASS
+  TEXT_CLASSIFICATION    PASS
+  RESEARCH_SYNTHESIS     PASS
+
+36/36 intents answering correctly.

@@ -1,0 +1,27 @@
+preflight against https://miner-wine.vercel.app
+
+  unit + live suite                      PASS
+  verify-deploy                          PASS
+  param shapes (engine-shaped)           PASS
+  intent answers (correctness)           FAIL
+  hostile inputs                         PASS
+  upstream health                        PASS
+  no-regression (8 identical, 0 differ)  PASS
+
+--- intent answers (correctness) ---
+      (Polymarket unreachable from the checker — EVENT_OUTCOME checked for honesty only)
+PASS
+  URL_SCAN               PASS
+  WEB_SEARCH             PASS
+  CONTENT_VERIFICATION   PASS
+  SENTIMENT_ANALYSIS     FAIL
+      - a text with no opinion words is not reported as a neutral word-list reading
+  TEXT_CLASSIFICATION    FAIL
+      - canonical ticket -> Account issue The user is reporting that they cannot log int
+      - a text with no topical word -> classified, want ambiguous
+      - 'not spam' was asserted from an absence of evidence
+  RESEARCH_SYNTHESIS     PASS
+
+34/36 intents answering correctly.
+
+6/7 gates passed — re-run the failing gate alone before believing it.

@@ -15,7 +15,12 @@ Baseline epoch 343: 6/36 rank 1. Evidence: `track1-miner/docs/evidence/rank-rebu
 - [ ] Read the first epoch scored after the promote; only that is a verdict.
 - [x] Generative phrasing built for TEXT_CLASSIFICATION and SENTIMENT only, fail-closed, 768/768; bench
       1/6 → 4/6 on a noisy instrument (G182). On the branch, NOT deployed.
-- [ ] **Operator decision before ANY production deploy (G183):** the key is set in Vercel Production, so
+- [x] Manifest descriptions corrected (94bbb04), branch pushed, model path deployed and guarded:
+      production `miner-j9eojoz7e`, intent-answers 36/36, preflight 6/7 on an unnamed flake (G184).
+- [ ] **Operator:** `updateMiner` in the console with the URL and hash in MEMORY; VALIDATE must be all 200;
+      then tell Claude, who finds the new registration id and moves `REGISTRATION_ID`.
+- [x] ~~Operator decision before ANY production deploy (G183):~~ decided 2026-09-19: update the manifest.
+      Original note: the key is set in Vercel Production, so
       the next deploy switches the model path on and makes two manifest sentences false. Off / accept /
       `updateMiner` with a corrected manifest.
 - [ ] Proposed `miner.yaml` changes (declare `team`/`league`, `symbols`, the tx `hash`/`chain` input

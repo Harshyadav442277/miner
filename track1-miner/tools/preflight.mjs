@@ -105,7 +105,11 @@ for (const [name, exec, ok] of GATES) {
   else {
     failed++;
     console.log("FAIL");
-    detail.push([name, out.trim().split(/\r?\n/).slice(-14).join("\n")]);
+    // The failing rows first, then the tail: a 36-row gate scrolls its one FAIL
+    // out of a 14-line tail, which left three preflight misses unnamed (G184).
+    const lines = out.trim().split(/\r?\n/);
+    const fails = lines.flatMap((l, i) => (/\bFAIL\b/.test(l) ? lines.slice(i, i + 4) : []));
+    detail.push([name, [...fails, "...", ...lines.slice(-14)].join("\n")]);
   }
 }
 for (const [name, tail] of detail) console.log(`\n--- ${name} ---\n${tail}`);

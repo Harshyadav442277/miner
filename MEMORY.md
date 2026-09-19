@@ -13,7 +13,15 @@ epoch that can see this build is 344** (expected ~12:00–14:00 UTC 2026-09-19).
 intent-answers gate and the printout did not keep its name (unclassified transient); re-run ~06:43 UTC
 **7/7**. Evidence: `track1-miner/docs/evidence/rank-rebuild-2026-09-19/production-*.txt`.
 
-**WARNING for the next deploy (G183):** the branch now contains a Groq phrasing path for /classify and
+**UPDATE 07:47 UTC — model path live, manifest update pending the operator's signature (G184).**
+Production is now **`miner-j9eojoz7e`** (rollback: `miner-md1u33wsx`, model-free). Branch pushed to origin at
+`94bbb04`+. Console values for the operator's `updateMiner`:
+YAML URL `https://raw.githubusercontent.com/Harshyadav442277/miner/94bbb04e177dfe0f8f4d8b147de6b0890c0e2621/track1-miner/miner.yaml`,
+hash `0x9677dad8880d2bc8554e1e1aa97f8b311bb7d2b5fa3b5df6d89b658a7b777f1f` (typed, never generated from the
+file), REQUIRES API KEY off. After it is mined: find the new registration id, move `REGISTRATION_ID` and the
+tool defaults from 1408, run `watch.mjs`. The warning below is superseded by this.
+
+**(superseded) WARNING for the next deploy (G183):** the branch now contains a Groq phrasing path for /classify and
 /sentiment (G182), and `GROQ_API_KEY` is set in Vercel Production. Production `miner-md1u33wsx` does NOT
 contain that code. The next production deploy turns it on and makes the registered manifest's "no
 model" sentences for those two routes false. Do not deploy until the operator has chosen: off, accept,

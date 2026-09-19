@@ -92,6 +92,17 @@ scored; preview `miner-hw0c0l2nl` only. A bench is a filter, a scored epoch is t
   not taken: leave it off (remove the variable or do not deploy), accept the misdescription, or correct
   the manifest with an `updateMiner` (sandbox first; could carry G181's parameter declarations too).
   Evidence: `llm-phrasing/manifest-divergence.txt`.
+- **G184 — The model path is LIVE on production since 07:47 UTC 2026-09-19 (`miner-j9eojoz7e`), guarded.** The
+  first model build (`miner-fplltwppp`, 07:39 UTC, live ~8 minutes) failed our own gate honestly: it labelled a
+  text the keyless path calls ambiguous, asserted "not spam" from an absence of evidence, and replaced the
+  no-opinion-word neutral. Fixed in 8 minutes: the model now answers only where the keyless path already reached a
+  decision (clear margin; an opinion word found; not a yes/no tone question). Cost: ambiguous and flat texts keep
+  scoring zero. `intent-answers.mjs` alone 36/36; inside `preflight.mjs` 35/36 with ONE UNNAMED miss — the third
+  time today (also on the model-free build at 06:33 UTC), so it is a flake under preflight's concurrent load, not
+  this release; preflight now prints the failing rows so the next one has a name. Manifest corrected in `94bbb04`
+  (descriptions only; `manifest-diff` PASS, param shapes 57/57), hash
+  `0x9677dad8880d2bc8554e1e1aa97f8b311bb7d2b5fa3b5df6d89b658a7b777f1f`, verified against the pushed raw URL.
+  **Until the operator's `updateMiner` lands, registration 1408 still carries the old "no model" sentences.**
 - **Process note.** Agent worktrees are cut from `origin/main` (bc7cf15), 65 commits behind this
   unpushed branch; every lane had to `git checkout --detach 311c40c` first. Two production deployments
   ~08:30 UTC 2026-09-18 (`miner-qn9bfen6k`, `miner-diolxv3va`, presumably 311c40c) were not recorded
