@@ -1,0 +1,72 @@
+  1  "(none)"
+  0  "No named entities were found in the supplied text."
+  0  "None were found."
+  0  "Not found."
+  1  "Nothing was extracted."
+  0  "The text does not name a person."
+  0  "No person is named."
+  1  "Zero entities."
+  0  "The supplied text names no organisation."
+  0  "Never mind."
+  1  "Only the contact fields are present."
+  1  "The text carries two fields."
+  1  "Nobody is named."
+  0  "Neither a date nor a place appears."
+
+and the same prefixes with a ground truth that is itself a negative
+  1  "No contact details were found in the supplied text."
+  1  "The text contains no contact details."
+  0  "Email: support@example.com."
+dilution: core answer plus k filler words
+  + 0 words  1  (5 words)
+  + 2 words  1  (7 words)
+  + 4 words  1  (9 words)
+  + 6 words  1  (11 words)
+  + 8 words  1  (13 words)
+  +10 words  1  (15 words)
+  +12 words  1  (17 words)
+  +14 words  1  (19 words)
+  +16 words  1  (21 words)
+  +18 words  1  (23 words)
+  +20 words  1  (25 words)
+  +22 words  1  (27 words)
+  +24 words  1  (29 words)
+
+the honest-negative prefix specifically
+  1  "Email: support@example.com. Phone number: 555-0192."
+  0  "No named entities were found in the supplied text. Email: support@example.com. Phone number: 555-0192."
+  0  "No named entities were found. Email: support@example.com. Phone number: 555-0192."
+  0  "None were found. Email: support@example.com. Phone number: 555-0192."
+  0  "Email: support@example.com. Phone number: 555-0192. No named entities were found in the supplied text."
+
+the full echo padded the same way
+  1  "Reach us at support@example.com or call 555-0192."
+  0  "No named entities were found in the supplied text. Reach us at support@example.com or call 555-0192."
+  0  "No named entities were found in the supplied text. Reach us at support@example.com or call 555-0192. zeta zeta zeta zeta zeta zeta"
+0.00  gt="The price is $1,299 and the display is 16-inch."          ans="Price: $1,299."
+1.00  gt="The price is $1,299 and the display is 16-inch."          ans="Price: $1,299. Display: 16-inch."
+1.00  gt="$1,299"                                                   ans="Price: $1,299."
+1.00  gt="1299"                                                     ans="Price: $1,299."
+0.00  gt="16-inch"                                                  ans="Price: $1,299."
+1.00  gt="John Smith"                                               ans="From: John Smith. Subject: Quarterly Budget Review Meet
+1.00  gt="John Smith, Quarterly Budget Review Meeting"              ans="From: John Smith. Subject: Quarterly Budget Review Meet
+1.00  gt="Sender: John Smith; Subject: Quarterly Budget Review Me   ans="From: John Smith. Subject: Quarterly Budget Review Meet
+1.00  gt="The Silent Patient, Alex Michaelides"                     ans="Book: The Silent Patient. Author: Alex Michaelides."
+1.00  gt="The Silent Patient by Alex Michaelides"                   ans="Book: The Silent Patient. Author: Alex Michaelides."
+0.00  gt="New York, Tokyo"                                          ans="No structured values could be extracted from the suppli
+1.00  gt="New York, Tokyo"                                          ans="Departure: New York. Arrival: Tokyo."
+1.00  gt="The flight departs from New York and lands in Tokyo."     ans="Departure: New York. Arrival: Tokyo."
+1.00  gt="alpha bravo charlie delta echo foxtrot golf hotel india   ans="alpha bravo charlie delta echo foxtrot golf hotel india
+1.00  gt="alpha bravo charlie delta echo foxtrot golf hotel india   ans="alpha bravo charlie delta echo"
+1.00  gt="alpha bravo charlie delta echo foxtrot golf hotel india   ans="alpha bravo charlie delta"
+0.00  gt="alpha bravo charlie delta echo foxtrot golf hotel india   ans="alpha bravo charlie"
+0.00  gt="alpha bravo charlie delta echo foxtrot golf hotel india   ans="alpha bravo"
+0.00  gt="alpha bravo charlie delta echo foxtrot golf hotel india   ans="alpha"
+1.00  gt="alpha bravo charlie delta echo foxtrot golf hotel india   ans="42"
+0.00  gt="alpha bravo charlie delta echo foxtrot golf hotel india   ans="alpha"
+1.00  gt="alpha bravo charlie delta echo foxtrot golf hotel india   ans="alpha bravo 42"
+0.00  gt="alpha bravo charlie delta echo foxtrot golf hotel india   ans="alpha bravo 43"
+0.00  gt="alpha 42 bravo 7"                                         ans="42"
+0.00  gt="alpha 42 bravo 7"                                         ans="7"
+1.00  gt="alpha 42 bravo 7"                                         ans="42 7"
+0.00  gt="alpha 42 bravo 7"                                         ans="41 8"
