@@ -53,10 +53,40 @@ const NOT_A_URL: Array<[RegExp, string]> = [
 /** File extensions that look like a TLD to a naive host pattern. */
 const NOT_TLD = new Set(["js", "ts", "py", "json", "txt", "pdf", "png", "jpg", "jpeg", "gif", "html", "htm", "md", "exe", "zip", "sh", "csv", "doc", "docx", "eth"]);
 
+/**
+ * A URL whose scheme arrived percent-encoded, decoded back.
+ *
+ * The engine builds our query string with an LLM, and a URL that has already
+ * been encoded once is encoded again on the way in, so the parameter's VALUE is
+ * the literal text `https%3A%2F%2Fexample.com`. That has no `://` in it, so the
+ * scheme pattern below misses, the bare-host pattern then matches `2Fexample.com`
+ * out of `%2Fexample.com`, and production scanned a host nobody asked about
+ * (verified against https://miner-wine.vercel.app on 2026-09-19: the answer named
+ * `https://2fexample.com/`). Reporting a verdict on an invented host is worse than
+ * refusing, and the whole URL is sitting there readable.
+ *
+ * Only ever consulted when no literal `scheme://` was found, so a legitimate URL
+ * carrying percent-escapes in its path — `https://x.example/a%20b` — is untouched.
+ * Two rounds, because double encoding is what produces `%253A`, and no more.
+ */
+function decodedScheme(text: string): string | null {
+  let s = text;
+  for (let round = 0; round < 2; round += 1) {
+    if (!/%[0-9a-f]{2}/i.test(s)) return null;
+    let next: string;
+    try { next = decodeURIComponent(s); } catch { return null; }
+    if (next === s) return null;
+    if (/\bhttps?:\/\//i.test(next)) return next;
+    s = next;
+  }
+  return null;
+}
+
 /** The URL a question names, as a parsed URL. A bare host is read as https. */
 export function extractUrl(text: string): URL | null {
   const s = String(text ?? "");
-  const full = s.match(/\bhttps?:\/\/[^\s<>"'`]+/i)?.[0]?.replace(/[.,;:!?)\]]+$/, "");
+  const full = (s.match(/\bhttps?:\/\/[^\s<>"'`]+/i)?.[0]
+    ?? decodedScheme(s)?.match(/\bhttps?:\/\/[^\s<>"'`]+/i)?.[0])?.replace(/[.,;:!?)\]]+$/, "");
   if (full) {
     try { return new URL(full); } catch { return null; }
   }

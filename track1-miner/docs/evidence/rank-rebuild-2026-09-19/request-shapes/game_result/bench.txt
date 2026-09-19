@@ -1,0 +1,27 @@
+GAME_RESULT request-shape bench, champion game_result_reg1265.wasm
+sha256 63b923add60a9b5f5735bb094b0fe6c86b428dd3b7878ef6ae95ca07ce71ca33
+scored 2026-09-19T05:44:36.437Z
+question Who won the most recent Yankees game?
+before https://miner-wine.vercel.app
+after  http://127.0.0.1:8791
+
+reference shape  query=Who+won+the+Yankees+vs+Diamondbacks+game%3F
+reference answer New York Yankees beat Arizona Diamondbacks 9-2 in the Major League Baseball on 19 September 2026. The match is complete (Final).
+
+shape                                              BEFORE     AFTER
+team=Yankees                                        0.001383  1.000000
+  BEFORE No fixture could be identified in this request. Name both sides, for example "Who won the Arsenal vs Chelsea game?", and the winner, the final score, the competition and the date can be returned. Guessing which two teams were meant is how the wrong fixture gets reported, so no guess was made.
+  AFTER  New York Yankees beat Arizona Diamondbacks 9-2 in the Major League Baseball on 19 September 2026. The match is complete (Final).
+team1=Yankees                                       0.001383  1.000000
+  BEFORE No fixture could be identified in this request. Name both sides, for example "Who won the Arsenal vs Chelsea game?", and the winner, the final score, the competition and the date can be returned. Guessing which two teams were meant is how the wrong fixture gets reported, so no guess was made.
+  AFTER  New York Yankees beat Arizona Diamondbacks 9-2 in the Major League Baseball on 19 September 2026. The match is complete (Final).
+teams=Yankees+vs+Diamondbacks                       0.001383  1.000000
+  BEFORE No fixture could be identified in this request. Name both sides, for example "Who won the Arsenal vs Chelsea game?", and the winner, the final score, the competition and the date can be returned. Guessing which two teams were meant is how the wrong fixture gets reported, so no guess was made.
+  AFTER  New York Yankees beat Arizona Diamondbacks 9-2 in the Major League Baseball on 19 September 2026. The match is complete (Final).
+home_team=Yankees&away_team=Diamondbacks            0.001383  1.000000
+  BEFORE No fixture could be identified in this request. Name both sides, for example "Who won the Arsenal vs Chelsea game?", and the winner, the final score, the competition and the date can be returned. Guessing which two teams were meant is how the wrong fixture gets reported, so no guess was made.
+  AFTER  New York Yankees beat Arizona Diamondbacks 9-2 in the Major League Baseball on 19 September 2026. The match is complete (Final).
+query=Who+won+the+most+recent+Yankees+game%3F       0.001383  1.000000
+  BEFORE No fixture could be identified in this request. Name both sides, for example "Who won the Arsenal vs Chelsea game?", and the winner, the final score, the competition and the date can be returned. Guessing which two teams were meant is how the wrong fixture gets reported, so no guess was made.
+  AFTER  New York Yankees beat Arizona Diamondbacks 9-2 in the Major League Baseball on 19 September 2026. The match is complete (Final).
+

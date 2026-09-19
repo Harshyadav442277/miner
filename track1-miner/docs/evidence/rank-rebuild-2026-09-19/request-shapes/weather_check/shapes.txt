@@ -1,0 +1,90 @@
+WEATHER_CHECK request shapes, probed live
+  BEFORE  https://miner-wine.vercel.app          (production, commit 311c40c)
+  AFTER   http://127.0.0.1:8791                  (this worktree, node dist/server.js)
+  probed  2026-09-19
+
+Every row is one request. A row appears as CHANGED when the two builds gave a
+different verdict or a different subject, and as SAME when they agreed. The two builds were probed minutes apart against
+live upstreams, so a CHANGED row can also be a figure or a temperature that moved
+in between; the subject and the verdict are what this file is for.
+
+== CHANGED (7)
+
+--- location=Cairo&query=What+is+the+current+weather+in+Cairo%3F
+  BEFORE [200] verdict=clear err=null
+    The current weather in Cairo, Cairo Governorate, Egypt is clear at 23.4°C, with no precipitation and wind at 3.6 km/h, as of 05:15 UTC on 2026-09-19, from the Open-Meteo weather service.
+  AFTER  [200] verdict=clear err=null
+    The current weather in Cairo, Cairo Governorate, Egypt is clear at 23.9°C, with no precipitation and wind at 4 km/h, as of 05:30 UTC on 2026-09-19, from the Open-Meteo weather service.
+
+--- query=What+is+the+current+weather+in+Cairo%3F
+  BEFORE [200] verdict=clear err=null
+    The current weather in Cairo, Cairo Governorate, Egypt is clear at 23.4°C, with no precipitation and wind at 3.6 km/h, as of 05:15 UTC on 2026-09-19, from the Open-Meteo weather service.
+  AFTER  [200] verdict=clear err=null
+    The current weather in Cairo, Cairo Governorate, Egypt is clear at 23.9°C, with no precipitation and wind at 4 km/h, as of 05:30 UTC on 2026-09-19, from the Open-Meteo weather service.
+
+--- location=&query=What+is+the+current+weather+in+Cairo%3F
+  BEFORE [200] verdict=clear err=null
+    The current weather in Cairo, Cairo Governorate, Egypt is clear at 23.4°C, with no precipitation and wind at 3.6 km/h, as of 05:15 UTC on 2026-09-19, from the Open-Meteo weather service.
+  AFTER  [200] verdict=clear err=null
+    The current weather in Cairo, Cairo Governorate, Egypt is clear at 23.9°C, with no precipitation and wind at 4 km/h, as of 05:30 UTC on 2026-09-19, from the Open-Meteo weather service.
+
+--- location=Cairo&hours=0
+  BEFORE [200] verdict=clear err=null
+    The current weather in Cairo, Cairo Governorate, Egypt is clear at 23.4°C, with no precipitation and wind at 3.6 km/h, as of 05:15 UTC on 2026-09-19, from the Open-Meteo weather service.
+  AFTER  [200] verdict=clear err=null
+    The current weather in Cairo, Cairo Governorate, Egypt is clear at 23.9°C, with no precipitation and wind at 4 km/h, as of 05:30 UTC on 2026-09-19, from the Open-Meteo weather service.
+
+--- location=unknown&query=What+is+the+current+weather+in+Cairo%3F
+  BEFORE [200] verdict=clear err=null
+    The current weather in الجندي المجهول, 11759, مصر is clear at 23.1°C, with no precipitation and wind at 2.5 km/h, as of 05:15 UTC on 2026-09-19, from the Open-Meteo weather service.
+  AFTER  [200] verdict=clear err=null
+    The current weather in Cairo, Cairo Governorate, Egypt is clear at 23.9°C, with no precipitation and wind at 4 km/h, as of 05:30 UTC on 2026-09-19, from the Open-Meteo weather service.
+
+--- location=string&query=What+is+the+current+weather+in+Cairo%3F
+  BEFORE [200] verdict=clear err=null
+    The current weather in Cairo, Cairo Governorate, Egypt is clear at 23.4°C, with no precipitation and wind at 3.6 km/h, as of 05:15 UTC on 2026-09-19, from the Open-Meteo weather service.
+  AFTER  [200] verdict=clear err=null
+    The current weather in Cairo, Cairo Governorate, Egypt is clear at 23.9°C, with no precipitation and wind at 4 km/h, as of 05:30 UTC on 2026-09-19, from the Open-Meteo weather service.
+
+--- location=N%2FA&query=What+is+the+current+weather+in+Cairo%3F
+  BEFORE [200] verdict=cloudy err=null
+    The current weather in Cairo, North Carolina, United States is cloudy at 22.2°C, with no precipitation and wind at 4.1 km/h, as of 05:15 UTC on 2026-09-19, from the Open-Meteo weather service.
+  AFTER  [200] verdict=clear err=null
+    The current weather in Cairo, Cairo Governorate, Egypt is clear at 23.9°C, with no precipitation and wind at 4 km/h, as of 05:30 UTC on 2026-09-19, from the Open-Meteo weather service.
+
+== SAME (17)
+
+--- location=Cairo
+  [200] verdict=cloudy err=null
+--- city=Cairo
+  [200] verdict=cloudy err=null
+--- place=Cairo
+  [200] verdict=cloudy err=null
+--- q=Cairo
+  [200] verdict=cloudy err=null
+--- location=Cairo%2C+Egypt
+  [200] verdict=cloudy err=null
+--- location=Cairo%2CEG
+  [200] verdict=cloudy err=null
+--- location=Cairo&units=metric
+  [200] verdict=cloudy err=null
+--- location=Cairo&units=imperial
+  [200] verdict=cloudy err=null
+--- lat=30.0444&lon=31.2357
+  [200] verdict=cloudy err=null
+--- latitude=30.0444&longitude=31.2357
+  [200] verdict=cloudy err=null
+--- lat=30.0444&lon=31.2357&location=
+  [200] verdict=cloudy err=null
+--- location=Cairo&hours=current
+  [200] verdict=cloudy err=null
+--- location=Cairo&days=1
+  [200] verdict=cloudy err=null
+--- location=Cairo&days=0
+  [200] verdict=cloudy err=null
+--- name=Cairo
+  [200] verdict=unknown err=invalid_location
+--- city=Cairo&country=Egypt
+  [200] verdict=cloudy err=null
+--- location=Cairo&lat=&lon=&days=&hours=&query=
+  [200] verdict=cloudy err=null

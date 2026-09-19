@@ -1,0 +1,84 @@
+CURRENCY_EXCHANGE request shapes, probed live
+  BEFORE  https://miner-wine.vercel.app          (production, commit 311c40c)
+  AFTER   http://127.0.0.1:8791                  (this worktree, node dist/server.js)
+  probed  2026-09-19
+
+Every row is one request. A row appears as CHANGED when the two builds gave a
+different verdict or a different subject, and as SAME when they agreed. The two builds were probed minutes apart against
+live upstreams, so a CHANGED row can also be a figure or a temperature that moved
+in between; the subject and the verdict are what this file is for.
+
+== CHANGED (5)
+
+--- base=USD&symbols=JPY
+  BEFORE [200] verdict=rate err=null
+    1 USD = 0.8726 EUR, equivalently 1 EUR = 1.1460 USD. This is the European Central Bank euro foreign exchange reference rate published for 2026-09-18, not a live trading quote.
+  AFTER  [200] verdict=rate err=null
+    1 USD = 157.888 JPY, equivalently 1 JPY = 0.006334 USD. This is the European Central Bank euro foreign exchange reference rate published for 2026-09-18, not a live trading quote.
+
+--- from=Dollar&to=Yen
+  BEFORE [200] verdict=unknown err=provider_unavailable
+    The USD to YEN exchange rate could not be retrieved: neither the European Central Bank reference feed nor the market rate source responded with a usable rate. This is an availability problem here, not a statement that the pair has no rate.
+  AFTER  [200] verdict=rate err=null
+    1 USD = 157.888 JPY, equivalently 1 JPY = 0.006334 USD. This is the European Central Bank euro foreign exchange reference rate published for 2026-09-18, not a live trading quote.
+
+--- source=USD&target=JPY
+  BEFORE [200] verdict=rate err=null
+    JPY and JPY are the same currency, so the rate is exactly 1 and any amount converts to itself. No exchange takes place.
+  AFTER  [200] verdict=rate err=null
+    1 USD = 157.888 JPY, equivalently 1 JPY = 0.006334 USD. This is the European Central Bank euro foreign exchange reference rate published for 2026-09-18, not a live trading quote.
+
+--- currency_from=USD&currency_to=JPY
+  BEFORE [200] verdict=unknown err=missing_currency
+    A conversion needs two currencies and this request named none. Name both, for example "What is 100 USD in EUR?", and the converted amount and the rate in both directions can be returned.
+  AFTER  [200] verdict=rate err=null
+    1 USD = 157.888 JPY, equivalently 1 JPY = 0.006334 USD. This is the European Central Bank euro foreign exchange reference rate published for 2026-09-18, not a live trading quote.
+
+--- pair=USD%2FJPY
+  BEFORE [200] verdict=unknown err=missing_currency
+    A conversion needs two currencies and this request named none. Name both, for example "What is 100 USD in EUR?", and the converted amount and the rate in both directions can be returned.
+  AFTER  [200] verdict=rate err=null
+    1 USD = 157.888 JPY, equivalently 1 JPY = 0.006334 USD. This is the European Central Bank euro foreign exchange reference rate published for 2026-09-18, not a live trading quote.
+
+== SAME (20)
+
+--- from=USD&to=JPY
+  [200] verdict=rate err=null
+--- from=USD&to=JPY&query=What+is+the+exchange+rate+from+USD+to+JPY%3F
+  [200] verdict=rate err=null
+--- query=What+is+the+exchange+rate+from+USD+to+JPY%3F
+  [200] verdict=rate err=null
+--- base=USD&quote=JPY
+  [200] verdict=rate err=null
+--- from=usd&to=jpy
+  [200] verdict=rate err=null
+--- from=US+Dollar&to=Japanese+Yen
+  [200] verdict=rate err=null
+--- from=%24&to=%C2%A5
+  [200] verdict=rate err=null
+--- from_currency=USD&to_currency=JPY
+  [200] verdict=rate err=null
+--- source_currency=USD&target_currency=JPY
+  [200] verdict=rate err=null
+--- from=USD&to=JPY&amount=1
+  [200] verdict=converted err=null
+--- from=USD&to=JPY&amount=1%2C000
+  [200] verdict=converted err=null
+--- from=USD&to=JPY&amount=%24100
+  [200] verdict=converted err=null
+--- from=USD&to=JPY&amount=100+USD
+  [200] verdict=converted err=null
+--- from=USD&to=JPY&amount=
+  [200] verdict=rate err=null
+--- from=USD&to=JPY&date=2026-09-18
+  [200] verdict=rate err=null
+--- from=USD&to=JPY&date=today
+  [200] verdict=rate err=null
+--- from=USD&to=JPY&amount=0
+  [200] verdict=converted err=null
+--- from=USD&to=&query=What+is+the+exchange+rate+from+USD+to+JPY%3F
+  [200] verdict=rate err=null
+--- from=&to=&amount=&query=What+is+the+exchange+rate+from+USD+to+JPY%3F
+  [200] verdict=rate err=null
+--- from=USD&to=JPY&query=
+  [200] verdict=rate err=null

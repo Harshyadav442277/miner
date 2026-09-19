@@ -1,0 +1,152 @@
+TVL_LOOKUP request shapes, probed live
+  BEFORE  https://miner-wine.vercel.app          (production, commit 311c40c)
+  AFTER   http://127.0.0.1:8791                  (this worktree, node dist/server.js)
+  probed  2026-09-19
+
+Every row is one request. A row appears as CHANGED when the two builds gave a
+different verdict or a different subject, and as SAME when they agreed. The two builds were probed minutes apart against
+live upstreams, so a CHANGED row can also be a figure or a temperature that moved
+in between; the subject and the verdict are what this file is for.
+
+== CHANGED (22)
+
+--- protocol=Aave+V3
+  BEFORE [200] verdict=found err=null
+    The Aave V3 protocol has $17,974,425,830 ($17.97 billion) in total value locked, aggregated across every chain it is deployed on, according to DefiLlama. This is value locked in the protocol, not the market capitalisation of its token.
+  AFTER  [200] verdict=found err=null
+    The Aave V3 protocol has $17,977,955,981 ($17.98 billion) in total value locked, aggregated across every chain it is deployed on, according to DefiLlama. This is value locked in the protocol, not the market capitalisation of its token.
+
+--- protocol=Aave+V3&query=What+is+the+total+value+locked+%28TVL%29+in+USD+for+Aave+V3%3F
+  BEFORE [200] verdict=found err=null
+    The Aave V3 protocol has $17,974,425,830 ($17.97 billion) in total value locked, aggregated across every chain it is deployed on, according to DefiLlama. This is value locked in the protocol, not the market capitalisation of its token.
+  AFTER  [200] verdict=found err=null
+    The Aave V3 protocol has $17,977,955,981 ($17.98 billion) in total value locked, aggregated across every chain it is deployed on, according to DefiLlama. This is value locked in the protocol, not the market capitalisation of its token.
+
+--- query=What+is+the+total+value+locked+%28TVL%29+in+USD+for+Aave+V3%3F
+  BEFORE [200] verdict=unknown err=no_subject
+    No protocol, chain or token contract was identified in this request, so there is nothing to report a total value locked for. Name a protocol such as Aave, a chain such as base, arbitrum, optimism, or a token contract address with its chain for that token's own DEX pool liquidity.
+  AFTER  [200] verdict=found err=null
+    The Aave V3 protocol has $17,977,955,981 ($17.98 billion) in total value locked, aggregated across every chain it is deployed on, according to DefiLlama. This is value locked in the protocol, not the market capitalisation of its token.
+
+--- protocol=Aave
+  BEFORE [200] verdict=found err=null
+    The Aave protocol has $18,912,624,263 ($18.91 billion) in total value locked, aggregated across every chain it is deployed on, according to DefiLlama. This is value locked in the protocol, not the market capitalisation of its token.
+  AFTER  [200] verdict=found err=null
+    The Aave protocol has $18,917,041,074 ($18.92 billion) in total value locked, aggregated across every chain it is deployed on, according to DefiLlama. This is value locked in the protocol, not the market capitalisation of its token.
+
+--- project=Aave+V3
+  BEFORE [200] verdict=found err=null
+    The Aave V3 protocol has $17,974,425,830 ($17.97 billion) in total value locked, aggregated across every chain it is deployed on, according to DefiLlama. This is value locked in the protocol, not the market capitalisation of its token.
+  AFTER  [200] verdict=found err=null
+    The Aave V3 protocol has $17,977,955,981 ($17.98 billion) in total value locked, aggregated across every chain it is deployed on, according to DefiLlama. This is value locked in the protocol, not the market capitalisation of its token.
+
+--- name=Aave+V3
+  BEFORE [200] verdict=found err=null
+    The Aave V3 protocol has $17,974,425,830 ($17.97 billion) in total value locked, aggregated across every chain it is deployed on, according to DefiLlama. This is value locked in the protocol, not the market capitalisation of its token.
+  AFTER  [200] verdict=found err=null
+    The Aave V3 protocol has $17,977,955,981 ($17.98 billion) in total value locked, aggregated across every chain it is deployed on, according to DefiLlama. This is value locked in the protocol, not the market capitalisation of its token.
+
+--- protocol=aave-v3
+  BEFORE [200] verdict=found err=null
+    The aave-v3 protocol has $17,974,425,830 ($17.97 billion) in total value locked, aggregated across every chain it is deployed on, according to DefiLlama. This is value locked in the protocol, not the market capitalisation of its token.
+  AFTER  [200] verdict=found err=null
+    The aave-v3 protocol has $17,977,955,981 ($17.98 billion) in total value locked, aggregated across every chain it is deployed on, according to DefiLlama. This is value locked in the protocol, not the market capitalisation of its token.
+
+--- protocol=aave
+  BEFORE [200] verdict=found err=null
+    The Aave protocol has $18,912,624,263 ($18.91 billion) in total value locked, aggregated across every chain it is deployed on, according to DefiLlama. This is value locked in the protocol, not the market capitalisation of its token.
+  AFTER  [200] verdict=found err=null
+    The Aave protocol has $18,917,041,074 ($18.92 billion) in total value locked, aggregated across every chain it is deployed on, according to DefiLlama. This is value locked in the protocol, not the market capitalisation of its token.
+
+--- protocol=AAVE
+  BEFORE [200] verdict=found err=null
+    The Aave protocol has $18,912,624,263 ($18.91 billion) in total value locked, aggregated across every chain it is deployed on, according to DefiLlama. This is value locked in the protocol, not the market capitalisation of its token.
+  AFTER  [200] verdict=found err=null
+    The Aave protocol has $18,917,041,074 ($18.92 billion) in total value locked, aggregated across every chain it is deployed on, according to DefiLlama. This is value locked in the protocol, not the market capitalisation of its token.
+
+--- protocol=Aave+V3&chain=ethereum
+  BEFORE [200] verdict=unknown err=provider_unavailable
+    The total value locked in Aave V3 could not be determined because DefiLlama did not respond. This is an availability problem here, not a statement that the protocol holds nothing.
+  AFTER  [200] verdict=found err=null
+    The Aave V3 protocol has $17,977,955,981 ($17.98 billion) in total value locked, aggregated across every chain it is deployed on, according to DefiLlama. This is value locked in the protocol, not the market capitalisation of its token.
+
+--- protocol=Aave+V3&chain=eth
+  BEFORE [200] verdict=unknown err=provider_unavailable
+    The total value locked in Aave V3 could not be determined because DefiLlama did not respond. This is an availability problem here, not a statement that the protocol holds nothing.
+  AFTER  [200] verdict=found err=null
+    The Aave V3 protocol has $17,977,955,981 ($17.98 billion) in total value locked, aggregated across every chain it is deployed on, according to DefiLlama. This is value locked in the protocol, not the market capitalisation of its token.
+
+--- protocol=Aave+V3&chain=all
+  BEFORE [200] verdict=found err=null
+    The Aave V3 protocol has $17,974,425,830 ($17.97 billion) in total value locked, aggregated across every chain it is deployed on, according to DefiLlama. This is value locked in the protocol, not the market capitalisation of its token.
+  AFTER  [200] verdict=found err=null
+    The Aave V3 protocol has $17,977,955,981 ($17.98 billion) in total value locked, aggregated across every chain it is deployed on, according to DefiLlama. This is value locked in the protocol, not the market capitalisation of its token.
+
+--- protocol=Aave+V3&chain=unknown
+  BEFORE [200] verdict=found err=null
+    The Aave V3 protocol has $17,974,425,830 ($17.97 billion) in total value locked, aggregated across every chain it is deployed on, according to DefiLlama. This is value locked in the protocol, not the market capitalisation of its token.
+  AFTER  [200] verdict=found err=null
+    The Aave V3 protocol has $17,977,955,981 ($17.98 billion) in total value locked, aggregated across every chain it is deployed on, according to DefiLlama. This is value locked in the protocol, not the market capitalisation of its token.
+
+--- protocol=&query=What+is+the+total+value+locked+%28TVL%29+in+USD+for+Aave+V3%3F
+  BEFORE [200] verdict=unknown err=no_subject
+    No protocol, chain or token contract was identified in this request, so there is nothing to report a total value locked for. Name a protocol such as Aave, a chain such as base, arbitrum, optimism, or a token contract address with its chain for that token's own DEX pool liquidity.
+  AFTER  [200] verdict=found err=null
+    The Aave V3 protocol has $17,977,955,981 ($17.98 billion) in total value locked, aggregated across every chain it is deployed on, according to DefiLlama. This is value locked in the protocol, not the market capitalisation of its token.
+
+--- chain=ethereum
+  BEFORE [200] verdict=found err=null
+    The Ethereum chain has $52,551,983,887 ($52.55 billion) in total value locked across all DeFi protocols deployed on it, according to DefiLlama. This is the chain's aggregate TVL, not any single protocol's.
+  AFTER  [200] verdict=found err=null
+    The Ethereum chain has $52,546,228,311 ($52.55 billion) in total value locked across all DeFi protocols deployed on it, according to DefiLlama. This is the chain's aggregate TVL, not any single protocol's.
+
+--- chain=eth
+  BEFORE [200] verdict=found err=null
+    The Ethereum chain has $52,551,983,887 ($52.55 billion) in total value locked across all DeFi protocols deployed on it, according to DefiLlama. This is the chain's aggregate TVL, not any single protocol's.
+  AFTER  [200] verdict=found err=null
+    The Ethereum chain has $52,546,228,311 ($52.55 billion) in total value locked across all DeFi protocols deployed on it, according to DefiLlama. This is the chain's aggregate TVL, not any single protocol's.
+
+--- address=0x833589fcd6edb6e08f4c7c32d4f71b54bda02913&chain=base
+  BEFORE [200] verdict=found err=null
+    The token at 0x833589fcd6edb6e08f4c7c32d4f71b54bda02913 on base is USD Coin (USDC). Its own DEX pool liquidity is $241,610,436 ($241.61 million) across all of its tracked pools. The largest of the 30 pools listed for it is AERO/USDC on aerodrome at $34,700,876. This is trading liquidity held in decentralised exchange pools, not the token's market capitalisation.
+  AFTER  [200] verdict=found err=null
+    The token at 0x833589fcd6edb6e08f4c7c32d4f71b54bda02913 on base is USD Coin (USDC). Its own DEX pool liquidity is $241,191,589 ($241.19 million) across all of its tracked pools. The largest of the 30 pools listed for it is AERO/USDC on aerodrome at $34,741,474. This is trading liquidity held in decentralised exchange pools, not the token's market capitalisation.
+
+--- token=0x833589fcd6edb6e08f4c7c32d4f71b54bda02913&chain=base
+  BEFORE [200] verdict=found err=null
+    The token at 0x833589fcd6edb6e08f4c7c32d4f71b54bda02913 on base is USD Coin (USDC). Its own DEX pool liquidity is $241,610,436 ($241.61 million) across all of its tracked pools. The largest of the 30 pools listed for it is AERO/USDC on aerodrome at $34,700,876. This is trading liquidity held in decentralised exchange pools, not the token's market capitalisation.
+  AFTER  [200] verdict=found err=null
+    The token at 0x833589fcd6edb6e08f4c7c32d4f71b54bda02913 on base is USD Coin (USDC). Its own DEX pool liquidity is $241,191,589 ($241.19 million) across all of its tracked pools. The largest of the 30 pools listed for it is AERO/USDC on aerodrome at $34,741,474. This is trading liquidity held in decentralised exchange pools, not the token's market capitalisation.
+
+--- token_address=0x833589fcd6edb6e08f4c7c32d4f71b54bda02913&chain=base
+  BEFORE [200] verdict=found err=null
+    The token at 0x833589fcd6edb6e08f4c7c32d4f71b54bda02913 on base is USD Coin (USDC). Its own DEX pool liquidity is $241,610,436 ($241.61 million) across all of its tracked pools. The largest of the 30 pools listed for it is AERO/USDC on aerodrome at $34,700,876. This is trading liquidity held in decentralised exchange pools, not the token's market capitalisation.
+  AFTER  [200] verdict=found err=null
+    The token at 0x833589fcd6edb6e08f4c7c32d4f71b54bda02913 on base is USD Coin (USDC). Its own DEX pool liquidity is $241,191,589 ($241.19 million) across all of its tracked pools. The largest of the 30 pools listed for it is AERO/USDC on aerodrome at $34,741,474. This is trading liquidity held in decentralised exchange pools, not the token's market capitalisation.
+
+--- protocol=Lido
+  BEFORE [200] verdict=found err=null
+    The Lido protocol has $25,572,241,024 ($25.57 billion) in total value locked, aggregated across every chain it is deployed on, according to DefiLlama. This is value locked in the protocol, not the market capitalisation of its token.
+  AFTER  [200] verdict=found err=null
+    The Lido protocol has $25,594,290,142 ($25.59 billion) in total value locked, aggregated across every chain it is deployed on, according to DefiLlama. This is value locked in the protocol, not the market capitalisation of its token.
+
+--- slug=aave-v3
+  BEFORE [200] verdict=unknown err=no_subject
+    No protocol, chain or token contract was identified in this request, so there is nothing to report a total value locked for. Name a protocol such as Aave, a chain such as base, arbitrum, optimism, or a token contract address with its chain for that token's own DEX pool liquidity.
+  AFTER  [200] verdict=found err=null
+    The aave-v3 protocol has $17,977,955,981 ($17.98 billion) in total value locked, aggregated across every chain it is deployed on, according to DefiLlama. This is value locked in the protocol, not the market capitalisation of its token.
+
+--- protocol=Aave+V3&chain=
+  BEFORE [200] verdict=found err=null
+    The Aave V3 protocol has $17,974,425,830 ($17.97 billion) in total value locked, aggregated across every chain it is deployed on, according to DefiLlama. This is value locked in the protocol, not the market capitalisation of its token.
+  AFTER  [200] verdict=found err=null
+    The Aave V3 protocol has $17,977,955,981 ($17.98 billion) in total value locked, aggregated across every chain it is deployed on, according to DefiLlama. This is value locked in the protocol, not the market capitalisation of its token.
+
+== SAME (3)
+
+--- address=0x833589fcd6edb6e08f4c7c32d4f71b54bda02913&chain=eth
+  [200] verdict=not_found err=null
+--- symbol=USDC
+  [200] verdict=unknown err=no_subject
+--- protocol=Uniswap
+  [200] verdict=found err=null

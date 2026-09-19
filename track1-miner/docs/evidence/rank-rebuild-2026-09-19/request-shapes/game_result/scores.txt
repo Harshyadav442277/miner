@@ -1,0 +1,228 @@
+
+===== GAME_RESULT  (200 rows)
+keys: id,epoch_id,intent_id,miner_slug,rank,score,failure_reason,scored_at,created_at
+-- epoch 343
+     1 game-nhl-score            2.829e-1  
+     2 txlens                    1.166e-1  
+     3 sportwire-game-result     9.729e-2  
+     4 game-football-data        3.712e-3  
+     5 game-tsdb-last15          6.169e-4  
+     6 game-tsdb-team            4.391e-4  
+     7 game-tsdb-league          4.146e-4  
+     8 game-mlb-schedule         1.658e-4  
+     9 game-tsdb-event           1.260e-4  
+    10 livecert                  1.164e-4  
+    11 game-tsdb-past            4.757e-5  
+    12 game-tsdb-next            4.757e-5  
+    13 scorewire-oracle          3.350e-8  
+    14 game-tsdb-table           0.000e+0  empty string response from miner
+    15 fourcast-sports-intelligence    0.000e+0  call miner "fourcast-sports-intelligence": miner error 500 [handler_error]: TxLINE /fixtures/snapshot -> 403: API Token is invalid or expired.
+-- epoch 342
+     1 sportwire-game-result     9.838e-1  
+     2 game-mlb-schedule         8.752e-1  
+     3 game-nhl-score            8.241e-1  
+     4 game-football-data        6.368e-1  
+     5 txlens                    6.686e-3  
+     6 livecert                  2.215e-3  
+     7 game-tsdb-past            2.108e-3  
+     8 game-tsdb-next            2.108e-3  
+     9 game-tsdb-league          7.006e-4  
+    10 game-tsdb-last15          4.750e-4  
+    11 game-tsdb-event           1.384e-4  
+    12 game-tsdb-team            9.502e-5  
+    13 scorewire-oracle          1.159e-6  
+    14 game-tsdb-table           0.000e+0  empty string response from miner
+    15 fourcast-sports-intelligence    0.000e+0  call miner "fourcast-sports-intelligence": upstream call failed: circuit opened due to repeated failures
+-- epoch 341
+     1 txlens                    0.000e+0  build request for miner "txlens": LLM call for miner "txlens" failed: http request: Post "http://127.0.0.1:4000/v1/chat/completions": context deadline exceeded
+     2 scorewire-oracle          0.000e+0  build request for miner "scorewire-oracle": LLM call for miner "scorewire-oracle" failed: http request: Post "http://127.0.0.1:4000/v1/chat/completions": contex
+     3 sportwire-game-result     0.000e+0  build request for miner "sportwire-game-result": LLM call for miner "sportwire-game-result" failed: http request: Post "http://127.0.0.1:4000/v1/chat/completion
+     4 game-mlb-schedule         0.000e+0  build request for miner "game-mlb-schedule": LLM call for miner "game-mlb-schedule" failed: http request: Post "http://127.0.0.1:4000/v1/chat/completions": cont
+     5 game-tsdb-event           0.000e+0  build request for miner "game-tsdb-event": LLM call for miner "game-tsdb-event" failed: http request: Post "http://127.0.0.1:4000/v1/chat/completions": context 
+     6 game-football-data        0.000e+0  build request for miner "game-football-data": LLM call for miner "game-football-data" failed: http request: Post "http://127.0.0.1:4000/v1/chat/completions": co
+     7 livecert                  0.000e+0  build request for miner "livecert": LLM call for miner "livecert" failed: http request: Post "http://127.0.0.1:4000/v1/chat/completions": context deadline excee
+     8 game-nhl-score            0.000e+0  build request for miner "game-nhl-score": LLM call for miner "game-nhl-score" failed: http request: Post "http://127.0.0.1:4000/v1/chat/completions": context de
+     9 game-tsdb-last15          0.000e+0  build request for miner "game-tsdb-last15": LLM call for miner "game-tsdb-last15" failed: http request: Post "http://127.0.0.1:4000/v1/chat/completions": contex
+    10 game-tsdb-next            0.000e+0  build request for miner "game-tsdb-next": LLM call for miner "game-tsdb-next" failed: http request: Post "http://127.0.0.1:4000/v1/chat/completions": context de
+    11 game-tsdb-league          0.000e+0  build request for miner "game-tsdb-league": LLM call for miner "game-tsdb-league" failed: http request: Post "http://127.0.0.1:4000/v1/chat/completions": contex
+    12 game-tsdb-table           0.000e+0  build request for miner "game-tsdb-table": LLM call for miner "game-tsdb-table" failed: http request: Post "http://127.0.0.1:4000/v1/chat/completions": context 
+    13 game-tsdb-past            0.000e+0  build request for miner "game-tsdb-past": LLM call for miner "game-tsdb-past" failed: context deadline exceeded
+    14 game-tsdb-team            0.000e+0  build request for miner "game-tsdb-team": LLM call for miner "game-tsdb-team" failed: http request: Post "http://127.0.0.1:4000/v1/chat/completions": context de
+    15 fourcast-sports-intelligence    0.000e+0  build request for miner "fourcast-sports-intelligence": LLM call for miner "fourcast-sports-intelligence" failed: http request: Post "http://127.0.0.1:4000/v1/c
+-- epoch 340
+     1 game-tsdb-table           3.906e-1  
+     2 game-football-data        2.505e-2  
+     3 game-tsdb-league          7.126e-3  
+     4 game-nhl-score            6.690e-3  
+     5 game-mlb-schedule         2.891e-4  
+     6 game-tsdb-event           2.494e-4  
+     7 livecert                  1.795e-4  
+     8 game-tsdb-next            7.563e-5  
+     9 game-tsdb-past            7.563e-5  
+    10 game-tsdb-team            1.975e-5  
+    11 game-tsdb-last15          8.012e-6  
+    12 sportwire-game-result     2.016e-6  
+    13 scorewire-oracle          5.130e-7  
+    14 fourcast-sports-intelligence    0.000e+0  call miner "fourcast-sports-intelligence": miner error 500 [handler_error]: TxLINE /fixtures/snapshot -> 403: API Token is invalid or expired.
+-- epoch 339
+     1 game-football-data        9.448e-1  
+     2 game-nhl-score            6.242e-1  
+     3 game-tsdb-team            2.685e-2  
+     4 game-mlb-schedule         1.985e-2  
+     5 livecert                  9.583e-5  
+     6 game-tsdb-event           9.242e-6  
+     7 game-tsdb-league          6.067e-6  
+     8 game-tsdb-last15          3.326e-6  
+     9 game-tsdb-next            1.187e-6  
+    10 game-tsdb-past            1.187e-6  
+    11 scorewire-oracle          1.720e-8  
+    12 sportwire-game-result    9.577e-10  
+    13 game-tsdb-table           0.000e+0  empty string response from miner
+    14 fourcast-sports-intelligence    0.000e+0  call miner "fourcast-sports-intelligence": upstream call failed: circuit opened due to repeated failures
+-- epoch 338
+     1 game-tsdb-table           4.244e-1  
+     2 game-mlb-schedule         3.781e-1  
+     3 game-nhl-score            3.095e-1  
+     4 game-football-data        1.314e-1  
+     5 scorewire-oracle          4.062e-2  
+     6 game-tsdb-league          7.445e-4  
+     7 game-tsdb-team            9.458e-5  
+     8 game-tsdb-next            9.458e-5  
+     9 game-tsdb-past            8.534e-5  
+    10 livecert                  3.940e-5  
+    11 game-tsdb-event           1.203e-5  
+    12 game-tsdb-last15          7.160e-6  
+    13 sportwire-game-result     3.935e-6  
+    14 fourcast-sports-intelligence    0.000e+0  call miner "fourcast-sports-intelligence": miner error 500 [handler_error]: TxLINE /fixtures/snapshot -> 403: API Token is invalid or expired.
+-- epoch 337
+     1 game-football-data        8.015e-1  
+     2 game-mlb-schedule         3.500e-1  
+     3 game-nhl-score            2.839e-1  
+     4 livecert                  2.429e-1  
+     5 game-tsdb-league          2.122e-4  
+     6 game-tsdb-event           1.194e-4  
+     7 game-tsdb-last15          7.156e-5  
+     8 game-tsdb-next            6.720e-5  
+     9 game-tsdb-past            6.720e-5  
+    10 scorewire-oracle          4.392e-7  
+    11 game-tsdb-table           0.000e+0  empty string response from miner
+    12 game-tsdb-team            0.000e+0  build request for miner "game-tsdb-team": LLM call for miner "game-tsdb-team" failed: http request: Post "http://127.0.0.1:4000/v1/chat/completions": http: serv
+    13 sportwire-game-result     0.000e+0  build request for miner "sportwire-game-result": LLM call for miner "sportwire-game-result" failed: http request: Post "http://127.0.0.1:4000/v1/chat/completion
+    14 fourcast-sports-intelligence    0.000e+0  build request for miner "fourcast-sports-intelligence": LLM call for miner "fourcast-sports-intelligence" failed: http request: Post "http://127.0.0.1:4000/v1/c
+-- epoch 336
+     1 game-football-data        9.660e-1  
+     2 game-nhl-score            1.290e-1  
+     3 game-tsdb-next            5.837e-2  
+     4 game-tsdb-team            2.685e-2  
+     5 game-mlb-schedule         3.701e-3  
+     6 livecert                  9.583e-5  
+     7 game-tsdb-event           1.203e-5  
+     8 game-tsdb-league          6.067e-6  
+     9 game-tsdb-last15          3.326e-6  
+    10 game-tsdb-past            1.187e-6  
+    11 scorewire-oracle          1.720e-8  
+    12 sportwire-game-result     1.346e-9  
+    13 game-tsdb-table           0.000e+0  empty string response from miner
+    14 fourcast-sports-intelligence    0.000e+0  call miner "fourcast-sports-intelligence": upstream call failed: circuit opened due to repeated failures
+-- epoch 335
+     1 game-mlb-schedule         7.504e-1  
+     2 game-nhl-score            6.973e-1  
+     3 game-tsdb-table           4.244e-1  
+     4 sportwire-game-result     1.431e-1  
+     5 game-football-data        1.305e-1  
+     6 game-tsdb-league          7.445e-4  
+     7 game-tsdb-past            9.458e-5  
+     8 game-tsdb-team            9.458e-5  
+     9 game-tsdb-next            8.534e-5  
+    10 livecert                  3.940e-5  
+    11 game-tsdb-event           1.203e-5  
+    12 game-tsdb-last15          7.160e-6  
+    13 scorewire-oracle          1.197e-7  
+    14 fourcast-sports-intelligence    0.000e+0  call miner "fourcast-sports-intelligence": miner error 500 [handler_error]: TxLINE /fixtures/snapshot -> 403: API Token is invalid or expired.
+-- epoch 334
+     1 livecert                  9.945e-1  
+     2 game-nhl-score            6.543e-1  
+     3 sportwire-game-result     1.656e-1  
+     4 game-football-data        5.425e-2  
+     5 scorewire-oracle          4.084e-3  
+     6 game-tsdb-event           2.888e-4  
+     7 game-tsdb-league          1.796e-4  
+     8 game-tsdb-last15          1.745e-4  
+     9 game-tsdb-team            1.194e-4  
+    10 game-tsdb-past            4.539e-5  
+    11 game-tsdb-next            4.539e-5  
+    12 game-mlb-schedule         1.866e-5  
+    13 game-tsdb-table           0.000e+0  empty string response from miner
+    14 fourcast-sports-intelligence    0.000e+0  call miner "fourcast-sports-intelligence": miner error 500 [handler_error]: TxLINE /fixtures/snapshot -> 403: API Token is invalid or expired.
+-- epoch 333
+     1 sportwire-game-result     9.542e-2  
+     2 livecert                  2.518e-4  
+     3 scorewire-oracle          4.789e-8  
+     4 fourcast-sports-intelligence    0.000e+0  call miner "fourcast-sports-intelligence": miner error 500 [handler_error]: TxLINE /fixtures/snapshot -> 403: API Token is invalid or expired.
+-- epoch 332
+     1 scorewire-oracle          4.084e-3  
+     2 livecert                  2.518e-4  
+     3 sportwire-game-result     2.836e-8  
+     4 fourcast-sports-intelligence    0.000e+0  call miner "fourcast-sports-intelligence": miner error 500 [handler_error]: TxLINE /fixtures/snapshot -> 403: API Token is invalid or expired.
+-- epoch 331
+     1 livecert                  3.940e-5  
+     2 sportwire-game-result     9.898e-7  
+     3 scorewire-oracle          3.550e-7  
+     4 fourcast-sports-intelligence    0.000e+0  call miner "fourcast-sports-intelligence": miner error 500 [handler_error]: TxLINE /fixtures/snapshot -> 403: API Token is invalid or expired.
+-- epoch 330
+     1 scorewire-oracle          4.084e-3  
+     2 livecert                  2.518e-4  
+     3 sportwire-game-result     1.971e-8  
+     4 fourcast-sports-intelligence    0.000e+0  call miner "fourcast-sports-intelligence": miner error 500 [handler_error]: TxLINE /fixtures/snapshot -> 403: API Token is invalid or expired.
+-- epoch 329
+     1 scorewire-oracle          4.373e-3  
+     2 livecert                  2.307e-4  
+     3 sportwire-game-result     4.444e-7  
+     4 fourcast-sports-intelligence    0.000e+0  call miner "fourcast-sports-intelligence": miner error 500 [handler_error]: TxLINE /fixtures/snapshot -> 403: API Token is invalid or expired.
+-- epoch 328
+     1 livecert                  3.964e-3  
+     2 scorewire-oracle          2.593e-3  
+     3 sportwire-game-result     6.927e-8  
+     4 fourcast-sports-intelligence    0.000e+0  call miner "fourcast-sports-intelligence": miner error 500 [handler_error]: TxLINE /fixtures/snapshot -> 403: API Token is invalid or expired.
+-- epoch 327
+     1 sportwire-game-result     2.834e-1  
+     2 scorewire-oracle          3.159e-2  
+     3 livecert                  2.518e-4  
+     4 fourcast-sports-intelligence    0.000e+0  call miner "fourcast-sports-intelligence": miner error 500 [handler_error]: TxLINE /fixtures/snapshot -> 403: API Token is invalid or expired.
+-- epoch 326
+     1 scorewire-oracle         1.345e-10  
+     2 sportwire-game-result    4.960e-12  
+     3 livecert                 2.923e-14  
+     4 fourcast-sports-intelligence    0.000e+0  call miner "fourcast-sports-intelligence": miner error 500 [handler_error]: TxLINE /fixtures/snapshot -> 403: API Token is invalid or expired.
+-- epoch 325
+     1 sportwire-game-result     9.738e-1  
+     2 livecert                  1.164e-4  
+     3 scorewire-oracle          3.811e-7  
+     4 fourcast-sports-intelligence    0.000e+0  call miner "fourcast-sports-intelligence": miner error 500 [handler_error]: TxLINE /fixtures/snapshot -> 403: API Token is invalid or expired.
+-- epoch 324
+     1 sportwire-game-result     9.840e-1  
+     2 livecert                  2.641e-2  
+     3 scorewire-oracle          2.764e-5  
+     4 fourcast-sports-intelligence    0.000e+0  call miner "fourcast-sports-intelligence": miner error 500 [handler_error]: TxLINE /fixtures/snapshot -> 403: API Token is invalid or expired.
+-- epoch 323
+     1 livecert                  9.892e-1  
+     2 sportwire-game-result     9.840e-1  
+     3 scorewire-oracle          9.367e-1  
+     4 fourcast-sports-intelligence    0.000e+0  call miner "fourcast-sports-intelligence": miner error 500 [handler_error]: TxLINE /fixtures/snapshot -> 403: API Token is invalid or expired.
+-- epoch 322
+     1 sportwire-game-result     2.070e-1  
+     2 livecert                  3.940e-5  
+     3 scorewire-oracle          5.558e-7  
+     4 fourcast-sports-intelligence    0.000e+0  call miner "fourcast-sports-intelligence": miner error 500 [handler_error]: TxLINE /fixtures/snapshot -> 403: API Token is invalid or expired.
+-- epoch 321
+     1 scorewire-oracle          4.062e-2  
+     2 fourcast-sports-intelligence    7.181e-3  
+     3 livecert                  3.940e-5  
+     4 sportwire-game-result     3.559e-8  
+-- epoch 320
+     1 fourcast-sports-intelligence    3.482e-1  
+     2 sportwire-game-result     9.573e-2  
+     3 scorewire-oracle          4.084e-3  
+     4 livecert                  2.518e-4  
+-- epoch 319
+     1 sportwire-game-result    7.946e-12  

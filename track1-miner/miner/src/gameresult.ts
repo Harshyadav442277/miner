@@ -177,6 +177,47 @@ export function parseTeams(question: string): { a: string; b: string } | null {
   return a.length >= 2 && b.length >= 2 && a.length <= 80 && b.length <= 80 ? { a, b } : null;
 }
 
+/** Words a single-team pattern can capture that are not a team. */
+const NOT_A_TEAM = /^(the|a|an|it|this|that|last|latest|recent|most|final|next|previous|yesterday|tonight|today|team|game|match|home|away|first|second)$/i;
+
+/**
+ * The ONE team a question names, when it names one rather than a fixture.
+ *
+ * "Who won the Knicks game?" is a real GAME_RESULT question — it is the worked
+ * example in the manifest of `sportwire-game-result`, which crossed this intent
+ * at 0.984 in epoch 342 while we scored 2.2e-3 — and every shape of it was
+ * refused: `team=Lakers`, `team1=Lakers` with no second side, and the prose form
+ * all returned "No fixture could be identified in this request" against
+ * production on 2026-09-19.
+ *
+ * Reading one team is not the guess `parseTeams` refuses to make. That refusal
+ * is about inventing a SECOND side out of prose, which picks a fixture nobody
+ * asked about; here the fixture is whichever one that named team most recently
+ * finished, which is what the question asked for. So the patterns demand an
+ * explicit fixture noun or possessive and capture at most three words, and the
+ * caller still refuses when more than one league answers for the name.
+ */
+export function parseTeam(question: string): string | null {
+  const q = String(question ?? "").replace(/[?!.]+\s*$/, "").trim();
+  if (parseTeams(q)) return null;
+  const patterns: RegExp[] = [
+    // "who won the Knicks game", "what was the score of the Lakers match"
+    /\b(?:who\s+won|the\s+(?:final\s+)?(?:score|result)\s+(?:of|in|for))\s+(?:the\s+)?(?:last\s+|latest\s+|most\s+recent\s+)?([A-Za-z][\w.'-]*(?:\s+[A-Za-z][\w.'-]*){0,2}?)(?:'s)?\s+(?:game|match|fixture)\b/i,
+    // "the Lakers' last game", "Arsenal's most recent result"
+    /\b([A-Za-z][\w.'-]*(?:\s+[A-Za-z][\w.'-]*){0,2}?)['’]s\s+(?:last|latest|most recent|previous)?\s*(?:game|match|fixture|result)\b/i,
+    // "did the Padres win"
+    /\bdid\s+(?:the\s+)?([A-Za-z][\w.'-]*(?:\s+[A-Za-z][\w.'-]*){0,2}?)\s+win\b/i,
+  ];
+  for (const re of patterns) {
+    const raw = q.match(re)?.[1]?.replace(/^the\s+/i, "").trim();
+    if (!raw) continue;
+    const words = raw.split(/\s+/).filter(Boolean);
+    if (words.length === 0 || words.some((w) => NOT_A_TEAM.test(w))) continue;
+    if (raw.length >= 2 && raw.length <= 60) return raw;
+  }
+  return null;
+}
+
 /** A date the question names, as YYYYMMDD, or null for "search a recent window". */
 export function parseDate(question: string, now = new Date()): string | null {
   const q = String(question ?? "");
@@ -402,9 +443,11 @@ async function findFixture(
   // timestamp often enough (two 2026-09-15T22:40Z MLB games, verified live).
   // The same MLB game may arrive from both sources; both rows describe one
   // fixture, so the selection below cannot be changed by the duplicate.
+  // An empty `b` is "only one side was named", not "match anything": the caller
+  // asked for this team's own most recent fixture, whoever it was against.
   const events = [...reachable.flatMap((r) => r.events ?? []), ...(mlb ?? [])].filter((e) => {
     const cs = e.competitions?.[0]?.competitors ?? [];
-    return cs.some((c) => matchesTeam(c, a)) && cs.some((c) => matchesTeam(c, b));
+    return cs.some((c) => matchesTeam(c, a)) && (!b.trim() || cs.some((c) => matchesTeam(c, b)));
   });
   if (events.length === 0) return null;
   const byDateDesc = (list: Event[]): Event[] => [...list].sort((x, y) => y.date.localeCompare(x.date));
@@ -505,28 +548,38 @@ function eventTimestamp(raw: string | null | undefined): string | null {
 }
 
 export async function lookupGame(question: string, now = new Date(), requested?: {
-  teams?: { a: string; b: string }; date?: string; prefer?: FixturePreference;
+  teams?: { a: string; b: string }; team?: string; date?: string; prefer?: FixturePreference;
 }): Promise<GameResult> {
   const empty = {
     home: null, away: null, home_score: null, away_score: null,
     winner: null, competition: null, played_at: null,
   };
 
-  const teams = requested?.teams ?? parseTeams(question);
+  const parsed = requested?.teams ?? parseTeams(question);
+  const single = parsed ? null : (requested?.team?.trim() || parseTeam(question));
+  const teams = parsed ?? (single ? { a: single, b: "" } : null);
   if (!teams) {
     return {
       ...empty, verdict: "unknown", confidence: 0,
       reason:
         "No fixture could be identified in this request. Name both sides, for example \"Who won " +
-        "the Arsenal vs Chelsea game?\", and the winner, the final score, the competition and the " +
-        "date can be returned. Guessing which two teams were meant is how the wrong fixture gets " +
-        "reported, so no guess was made.",
+        "the Arsenal vs Chelsea game?\", or one team whose last game is wanted, and the winner, the " +
+        "final score, the competition and the date can be returned. Guessing which two teams were " +
+        "meant is how the wrong fixture gets reported, so no guess was made.",
       error: "no_fixture",
     };
   }
+  const oneSided = !teams.b.trim();
+  // How the fixture is named when there is nothing to report about it. With one
+  // side named, "Lakers versus " is not a fixture and not a sentence.
+  const fixtureName = oneSided ? teams.a : `${teams.a} versus ${teams.b}`;
+  const asked = oneSided ? `the most recent ${teams.a} fixture` : fixtureName;
 
   const dates = parseDate(requested?.date || question, now);
-  const leagues = await Promise.all([resolveLeague(question, teams.a), resolveLeague(question, teams.b)]);
+  const leagues = await Promise.all([
+    resolveLeague(question, teams.a),
+    oneSided ? Promise.resolve(null) : resolveLeague(question, teams.b),
+  ]);
   const resolved = leagues[0] ?? leagues[1];
 
   /**
@@ -539,12 +592,34 @@ export async function lookupGame(question: string, now = new Date(), requested?:
   const toSearch = resolved ? [resolved] : PROBE_ORDER;
   // Directory and scoreboard fallbacks share the remaining time budget. A
   // five-league sequential search could outlast our 11-second response deadline.
+  // The name search keys on "home_vs_away", so one named side has nothing to
+  // ask it and it is skipped rather than sent half a key.
   const [scoreboards, directory] = await Promise.all([
     Promise.all(toSearch.map(path => findFixture(path, teams.a, teams.b, dates, now, requested?.prefer ?? "completed"))),
-    findFixtureByName(teams.a, teams.b, dates, now, resolved),
+    oneSided ? Promise.resolve({ available: false, fixture: null }) : findFixtureByName(teams.a, teams.b, dates, now, resolved),
   ]);
   const sawWorkingScoreboard = scoreboards.some(r => r !== "unavailable");
-  let found: Awaited<ReturnType<typeof findFixture>> = scoreboards.find(r => r && r !== "unavailable") ?? null;
+  /**
+   * One named side, and no league to pin it to, is the case where probing can
+   * pick the wrong sport: "Rangers" is a hockey team in the NHL probe and a
+   * baseball team in the MLB one, and with only that name there is nothing to
+   * tell them apart. Two probes answering means the name is ambiguous, so the
+   * request is refused by name rather than answered from whichever league the
+   * probe list happens to reach first. With both sides named this cannot
+   * happen — the pair identifies the fixture — so the guard is not applied there.
+   */
+  const answered = scoreboards.filter(r => r && r !== "unavailable");
+  if (oneSided && !resolved && answered.length > 1) {
+    return {
+      ...empty, verdict: "unknown", confidence: 0,
+      reason:
+        `More than one competition has a team called ${teams.a}, so which fixture was meant cannot ` +
+        `be established from the name alone and no result is reported. Naming the league, or the ` +
+        `other side of the fixture, identifies it.`,
+      error: "ambiguous_team",
+    };
+  }
+  let found: Awaited<ReturnType<typeof findFixture>> = answered[0] ?? null;
   /**
    * ESPN unreachable is not the end of the lookup.
    *
@@ -582,7 +657,7 @@ export async function lookupGame(question: string, now = new Date(), requested?:
       return {
         ...empty, verdict: "unknown", confidence: 0,
         reason:
-          `The result of ${teams.a} versus ${teams.b} could not be determined because neither the ` +
+          `The result of ${asked} could not be determined because neither the ` +
           `scoreboard nor the fixture directory responded. This is an availability problem here, ` +
           `not a statement about whether the fixture was played.`,
         error: "provider_unavailable",
@@ -591,7 +666,7 @@ export async function lookupGame(question: string, now = new Date(), requested?:
     return {
       ...empty, verdict: "not_found", confidence: 0.5,
       reason:
-        `No completed ${teams.a} versus ${teams.b} fixture could be found. This does not mean the ` +
+        `No completed ${fixtureName} fixture could be found. This does not mean the ` +
         `fixture never happened — it means neither the recent scoreboard nor the fixture directory ` +
         `holds a finished record of it, and no other fixture has been substituted for it.`,
     };
@@ -607,7 +682,7 @@ export async function lookupGame(question: string, now = new Date(), requested?:
   if (!home || !away || !status) {
     return {
       ...empty, verdict: "not_found", confidence: 0.4,
-      reason: `A ${teams.a} versus ${teams.b} fixture was found but its scoreboard entry was incomplete, so no result is reported.`,
+      reason: `A ${fixtureName} fixture was found but its scoreboard entry was incomplete, so no result is reported.`,
     };
   }
 

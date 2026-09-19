@@ -1,0 +1,116 @@
+GAME_RESULT request shapes, probed live
+  BEFORE  https://miner-wine.vercel.app          (production, commit 311c40c)
+  AFTER   http://127.0.0.1:8791                  (this worktree, node dist/server.js)
+  probed  2026-09-19
+
+Every row is one request. A row appears as CHANGED when the two builds gave a
+different verdict or a different subject, and as SAME when they agreed. The two builds were probed minutes apart against
+live upstreams, so a CHANGED row can also be a figure or a temperature that moved
+in between; the subject and the verdict are what this file is for.
+
+== CHANGED (13)
+
+--- team=Lakers
+  BEFORE [200] verdict=unknown err=no_fixture
+    No fixture could be identified in this request. Name both sides, for example "Who won the Arsenal vs Chelsea game?", and the winner, the final score, the competition and the date can be returned. Guessing which two teams were meant is how the wrong fixture gets reported, so no guess was made.
+  AFTER  [200] verdict=not_found err=null
+    No completed Lakers fixture could be found. This does not mean the fixture never happened — it means neither the recent scoreboard nor the fixture directory holds a finished record of it, and no other fixture has been substituted for it.
+
+--- team=Lakers&league=nba
+  BEFORE [200] verdict=unknown err=no_fixture
+    No fixture could be identified in this request. Name both sides, for example "Who won the Arsenal vs Chelsea game?", and the winner, the final score, the competition and the date can be returned. Guessing which two teams were meant is how the wrong fixture gets reported, so no guess was made.
+  AFTER  [200] verdict=not_found err=null
+    No completed Lakers fixture could be found. This does not mean the fixture never happened — it means neither the recent scoreboard nor the fixture directory holds a finished record of it, and no other fixture has been substituted for it.
+
+--- teams=Lakers+vs+Celtics
+  BEFORE [200] verdict=unknown err=no_fixture
+    No fixture could be identified in this request. Name both sides, for example "Who won the Arsenal vs Chelsea game?", and the winner, the final score, the competition and the date can be returned. Guessing which two teams were meant is how the wrong fixture gets reported, so no guess was made.
+  AFTER  [200] verdict=not_found err=null
+    No completed Lakers versus Celtics fixture could be found. This does not mean the fixture never happened — it means neither the recent scoreboard nor the fixture directory holds a finished record of it, and no other fixture has been substituted for it.
+
+--- team1=Lakers
+  BEFORE [200] verdict=unknown err=no_fixture
+    No fixture could be identified in this request. Name both sides, for example "Who won the Arsenal vs Chelsea game?", and the winner, the final score, the competition and the date can be returned. Guessing which two teams were meant is how the wrong fixture gets reported, so no guess was made.
+  AFTER  [200] verdict=not_found err=null
+    No completed Lakers fixture could be found. This does not mean the fixture never happened — it means neither the recent scoreboard nor the fixture directory holds a finished record of it, and no other fixture has been substituted for it.
+
+--- team1=Lakers&query=Who+won+the+Lakers+game%3F
+  BEFORE [200] verdict=unknown err=no_fixture
+    No fixture could be identified in this request. Name both sides, for example "Who won the Arsenal vs Chelsea game?", and the winner, the final score, the competition and the date can be returned. Guessing which two teams were meant is how the wrong fixture gets reported, so no guess was made.
+  AFTER  [200] verdict=not_found err=null
+    No completed Lakers fixture could be found. This does not mean the fixture never happened — it means neither the recent scoreboard nor the fixture directory holds a finished record of it, and no other fixture has been substituted for it.
+
+--- team1=Lakers&team2=&query=Who+won+the+Lakers+game%3F
+  BEFORE [200] verdict=unknown err=no_fixture
+    No fixture could be identified in this request. Name both sides, for example "Who won the Arsenal vs Chelsea game?", and the winner, the final score, the competition and the date can be returned. Guessing which two teams were meant is how the wrong fixture gets reported, so no guess was made.
+  AFTER  [200] verdict=not_found err=null
+    No completed Lakers fixture could be found. This does not mean the fixture never happened — it means neither the recent scoreboard nor the fixture directory holds a finished record of it, and no other fixture has been substituted for it.
+
+--- query=Who+won+the+Lakers+game%3F
+  BEFORE [200] verdict=unknown err=no_fixture
+    No fixture could be identified in this request. Name both sides, for example "Who won the Arsenal vs Chelsea game?", and the winner, the final score, the competition and the date can be returned. Guessing which two teams were meant is how the wrong fixture gets reported, so no guess was made.
+  AFTER  [200] verdict=not_found err=null
+    No completed Lakers fixture could be found. This does not mean the fixture never happened — it means neither the recent scoreboard nor the fixture directory holds a finished record of it, and no other fixture has been substituted for it.
+
+--- query=Who+won+the+most+recent+Yankees+game%3F
+  BEFORE [200] verdict=unknown err=no_fixture
+    No fixture could be identified in this request. Name both sides, for example "Who won the Arsenal vs Chelsea game?", and the winner, the final score, the competition and the date can be returned. Guessing which two teams were meant is how the wrong fixture gets reported, so no guess was made.
+  AFTER  [200] verdict=result err=null
+    New York Yankees beat Arizona Diamondbacks 9-2 in the Major League Baseball on 19 September 2026. The match is complete (Final).
+
+--- team_1=Lakers&team_2=Celtics
+  BEFORE [200] verdict=unknown err=no_fixture
+    No fixture could be identified in this request. Name both sides, for example "Who won the Arsenal vs Chelsea game?", and the winner, the final score, the competition and the date can be returned. Guessing which two teams were meant is how the wrong fixture gets reported, so no guess was made.
+  AFTER  [200] verdict=not_found err=null
+    No completed Lakers versus Celtics fixture could be found. This does not mean the fixture never happened — it means neither the recent scoreboard nor the fixture directory holds a finished record of it, and no other fixture has been substituted for it.
+
+--- teamA=Lakers&teamB=Celtics
+  BEFORE [200] verdict=unknown err=no_fixture
+    No fixture could be identified in this request. Name both sides, for example "Who won the Arsenal vs Chelsea game?", and the winner, the final score, the competition and the date can be returned. Guessing which two teams were meant is how the wrong fixture gets reported, so no guess was made.
+  AFTER  [200] verdict=not_found err=null
+    No completed Lakers versus Celtics fixture could be found. This does not mean the fixture never happened — it means neither the recent scoreboard nor the fixture directory holds a finished record of it, and no other fixture has been substituted for it.
+
+--- home_team=Lakers&away_team=Celtics
+  BEFORE [200] verdict=unknown err=no_fixture
+    No fixture could be identified in this request. Name both sides, for example "Who won the Arsenal vs Chelsea game?", and the winner, the final score, the competition and the date can be returned. Guessing which two teams were meant is how the wrong fixture gets reported, so no guess was made.
+  AFTER  [200] verdict=not_found err=null
+    No completed Lakers versus Celtics fixture could be found. This does not mean the fixture never happened — it means neither the recent scoreboard nor the fixture directory holds a finished record of it, and no other fixture has been substituted for it.
+
+--- match=Lakers+vs+Celtics
+  BEFORE [200] verdict=unknown err=no_fixture
+    No fixture could be identified in this request. Name both sides, for example "Who won the Arsenal vs Chelsea game?", and the winner, the final score, the competition and the date can be returned. Guessing which two teams were meant is how the wrong fixture gets reported, so no guess was made.
+  AFTER  [200] verdict=not_found err=null
+    No completed Lakers versus Celtics fixture could be found. This does not mean the fixture never happened — it means neither the recent scoreboard nor the fixture directory holds a finished record of it, and no other fixture has been substituted for it.
+
+--- event=Lakers+vs+Celtics
+  BEFORE [200] verdict=unknown err=no_fixture
+    No fixture could be identified in this request. Name both sides, for example "Who won the Arsenal vs Chelsea game?", and the winner, the final score, the competition and the date can be returned. Guessing which two teams were meant is how the wrong fixture gets reported, so no guess was made.
+  AFTER  [200] verdict=not_found err=null
+    No completed Lakers versus Celtics fixture could be found. This does not mean the fixture never happened — it means neither the recent scoreboard nor the fixture directory holds a finished record of it, and no other fixture has been substituted for it.
+
+== SAME (12)
+
+--- team1=Lakers&team2=Celtics
+  [200] verdict=not_found err=null
+--- team1=Lakers&team2=Celtics&query=Who+won+the+Lakers+vs+Celtics+game%3F
+  [200] verdict=not_found err=null
+--- query=Who+won+the+Lakers+vs+Celtics+game%3F
+  [200] verdict=not_found err=null
+--- home=Lakers&away=Celtics
+  [200] verdict=not_found err=null
+--- team_a=Lakers&team_b=Celtics
+  [200] verdict=not_found err=null
+--- team1=Lakers&team2=Celtics&league=nba
+  [200] verdict=not_found err=null
+--- team1=Lakers&team2=Celtics&date=yesterday
+  [200] verdict=not_found err=null
+--- team1=Lakers&team2=Celtics&date=2026-09-18
+  [200] verdict=not_found err=null
+--- team1=Lakers&team2=Celtics&date=
+  [200] verdict=not_found err=null
+--- team1=Los+Angeles+Lakers&team2=Boston+Celtics
+  [200] verdict=not_found err=null
+--- query=Who+won+the+Arsenal+vs+Chelsea+game%3F
+  [200] verdict=not_found err=null
+--- team1=&team2=&query=Who+won+the+Lakers+vs+Celtics+game%3F
+  [200] verdict=not_found err=null

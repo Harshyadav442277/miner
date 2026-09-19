@@ -1,0 +1,213 @@
+
+===== TVL_LOOKUP  (200 rows)
+keys: id,epoch_id,intent_id,miner_slug,rank,score,failure_reason,scored_at,created_at
+-- epoch 343
+     1 chainsight-oracle         2.770e-2  
+     2 preflight-ssl-verification    2.298e-2  
+     3 finwire-tvl               1.904e-2  
+     4 livecert                  1.427e-2  
+     5 tvl-llama-stables         6.104e-3  
+     6 sentinel-risk-oracle      6.049e-3  
+     7 txlens                    5.566e-3  
+     8 onchain-intel-miner       3.430e-3  
+     9 telegraph-defi-miner      3.425e-3  
+    10 kriterion-pramagraph      3.317e-3  
+    11 tvl-llama-chains          0.000e+0  unrecognised response type []interface {} from miner
+    12 tvl-llama-tvl             0.000e+0  call miner "tvl-llama-tvl": upstream error 400: Protocol not found
+    13 tvl-llama-protocols       0.000e+0  unrecognised response type []interface {} from miner
+    14 tvlwire-oracle            0.000e+0  call miner "tvlwire-oracle": upstream error 404: {"detail":"protocol not found: Aave V3"}
+    15 tvl-llama-charts          0.000e+0  unrecognised response type []interface {} from miner
+    16 tvl-llama-yields          0.000e+0  wasm/runtime: miner_answer too large (11521420 > 131072 bytes)
+    17 tvl-llama-hist-chain      0.000e+0  unrecognised response type []interface {} from miner
+    18 tvl-llama-protocol        0.000e+0  wasm/runtime: miner_answer too large (10502024 > 131072 bytes)
+    19 optivis-tvl               0.000e+0  wasm/runtime: miner_answer too large (10502024 > 131072 bytes)
+    20 tvl-llama-volumes         0.000e+0  wasm/runtime: miner_answer too large (19567447 > 131072 bytes)
+    21 tvl-llama-fees            0.000e+0  call miner "tvl-llama-fees": upstream call failed: response body exceeds 20971520 byte limit
+-- epoch 342
+     1 kriterion-pramagraph      2.121e-1  
+     2 tvl-llama-stables         4.921e-2  
+     3 livecert                  1.264e-2  
+     4 preflight-ssl-verification    5.968e-3  
+     5 chainsight-oracle         5.806e-3  
+     6 sentinel-risk-oracle      5.717e-3  
+     7 txlens                    4.938e-3  
+     8 finwire-tvl               4.364e-3  
+     9 onchain-intel-miner       3.999e-3  
+    10 telegraph-defi-miner      3.196e-3  
+    11 tvl-llama-charts          0.000e+0  unrecognised response type []interface {} from miner
+    12 tvl-llama-tvl             0.000e+0  call miner "tvl-llama-tvl": upstream error 400: Protocol not found
+    13 tvl-llama-chains          0.000e+0  unrecognised response type []interface {} from miner
+    14 tvl-llama-volumes         0.000e+0  wasm/runtime: miner_answer too large (19544018 > 131072 bytes)
+    15 tvl-llama-yields          0.000e+0  wasm/runtime: miner_answer too large (11499582 > 131072 bytes)
+    16 tvl-llama-protocols       0.000e+0  unrecognised response type []interface {} from miner
+    17 tvl-llama-fees            0.000e+0  call miner "tvl-llama-fees": upstream call failed: response body exceeds 20971520 byte limit
+    18 tvl-llama-protocol        0.000e+0  wasm/runtime: miner_answer too large (10492753 > 131072 bytes)
+    19 optivis-tvl               0.000e+0  wasm/runtime: miner_answer too large (10492753 > 131072 bytes)
+    20 tvlwire-oracle            0.000e+0  call miner "tvlwire-oracle": upstream error 404: {"detail":"protocol not found: Aave V3"}
+    21 tvl-llama-hist-chain      0.000e+0  unrecognised response type []interface {} from miner
+-- epoch 341
+     1 preflight-ssl-verification    1.984e-1  
+     2 tvl-llama-stables         4.103e-2  
+     3 chainsight-oracle         2.267e-2  
+     4 finwire-tvl               1.960e-2  
+     5 kriterion-pramagraph      1.835e-2  
+     6 txlens                    1.114e-2  
+     7 sentinel-risk-oracle      9.100e-3  
+     8 onchain-intel-miner       8.295e-3  
+     9 livecert                  8.142e-3  
+    10 telegraph-defi-miner      4.268e-3  
+    11 tvl-llama-protocols       0.000e+0  unrecognised response type []interface {} from miner
+    12 tvl-llama-hist-chain      0.000e+0  unrecognised response type []interface {} from miner
+    13 tvl-llama-volumes         0.000e+0  wasm/runtime: miner_answer too large (19538625 > 131072 bytes)
+    14 optivis-tvl               0.000e+0  wasm/runtime: miner_answer too large (10492785 > 131072 bytes)
+    15 tvl-llama-protocol        0.000e+0  wasm/runtime: miner_answer too large (10492785 > 131072 bytes)
+    16 tvl-llama-yields          0.000e+0  wasm/runtime: miner_answer too large (11405760 > 131072 bytes)
+    17 tvl-llama-chains          0.000e+0  unrecognised response type []interface {} from miner
+    18 tvl-llama-fees            0.000e+0  call miner "tvl-llama-fees": upstream call failed: response body exceeds 20971520 byte limit
+    19 tvl-llama-charts          0.000e+0  unrecognised response type []interface {} from miner
+    20 tvl-llama-tvl             0.000e+0  call miner "tvl-llama-tvl": upstream error 400: Protocol not found
+    21 tvlwire-oracle            0.000e+0  call miner "tvlwire-oracle": upstream error 404: {"detail":"protocol not found: Aave V3"}
+-- epoch 340
+     1 preflight-ssl-verification    1.473e-1  
+     2 tvl-llama-stables         3.992e-2  
+     3 chainsight-oracle         2.309e-2  
+     4 finwire-tvl               2.120e-2  
+     5 kriterion-pramagraph      8.616e-3  
+     6 livecert                  5.906e-3  
+     7 sentinel-risk-oracle      5.611e-3  
+     8 onchain-intel-miner       4.641e-3  
+     9 telegraph-defi-miner      3.854e-3  
+    10 txlens                    3.605e-3  
+    11 optivis-tvl               0.000e+0  wasm/runtime: miner_answer too large (10492732 > 131072 bytes)
+    12 tvl-llama-protocols       0.000e+0  unrecognised response type []interface {} from miner
+    13 tvl-llama-fees            0.000e+0  call miner "tvl-llama-fees": upstream call failed: response body exceeds 20971520 byte limit
+    14 tvlwire-oracle            0.000e+0  call miner "tvlwire-oracle": upstream error 404: {"detail":"protocol not found: Aave V3"}
+    15 tvl-llama-protocol        0.000e+0  wasm/runtime: miner_answer too large (10492732 > 131072 bytes)
+    16 tvl-llama-tvl             0.000e+0  call miner "tvl-llama-tvl": upstream error 400: Protocol not found
+    17 tvl-llama-hist-chain      0.000e+0  unrecognised response type []interface {} from miner
+    18 tvl-llama-yields          0.000e+0  wasm/runtime: miner_answer too large (11366126 > 131072 bytes)
+    19 tvl-llama-volumes         0.000e+0  wasm/runtime: miner_answer too large (19536555 > 131072 bytes)
+    20 tvl-llama-chains          0.000e+0  unrecognised response type []interface {} from miner
+    21 tvl-llama-charts          0.000e+0  unrecognised response type []interface {} from miner
+-- epoch 338
+     1 chainsight-oracle         2.135e-2  
+     2 preflight-ssl-verification    1.868e-2  
+     3 finwire-tvl               1.692e-2  
+     4 livecert                  1.217e-2  
+     5 tvl-llama-stables         8.295e-3  
+     6 kriterion-pramagraph      7.821e-3  
+     7 tvlwire-oracle            6.059e-3  
+     8 txlens                    5.521e-3  
+     9 onchain-intel-miner       5.088e-3  
+    10 sentinel-risk-oracle      5.035e-3  
+    11 telegraph-defi-miner      4.145e-3  
+    12 tvl-llama-chains          0.000e+0  unrecognised response type []interface {} from miner
+    13 tvl-llama-hist-chain      0.000e+0  unrecognised response type []interface {} from miner
+    14 tvl-llama-protocols       0.000e+0  unrecognised response type []interface {} from miner
+    15 tvl-llama-volumes         0.000e+0  wasm/runtime: miner_answer too large (19504308 > 131072 bytes)
+    16 tvl-llama-tvl             0.000e+0  unrecognised response type float64 from miner
+    17 tvl-llama-fees            0.000e+0  call miner "tvl-llama-fees": upstream call failed: response body exceeds 20971520 byte limit
+    18 tvl-llama-yields          0.000e+0  wasm/runtime: miner_answer too large (11325764 > 131072 bytes)
+    19 tvl-llama-charts          0.000e+0  unrecognised response type []interface {} from miner
+    20 tvl-llama-protocol        0.000e+0  wasm/runtime: miner_answer too large (10483434 > 131072 bytes)
+    21 optivis-tvl               0.000e+0  wasm/runtime: miner_answer too large (10483434 > 131072 bytes)
+-- epoch 337
+     1 chainsight-oracle         2.133e-2  
+     2 preflight-ssl-verification    1.854e-2  
+     3 finwire-tvl               1.675e-2  
+     4 livecert                  1.222e-2  
+     5 kriterion-pramagraph      9.727e-3  
+     6 tvl-llama-stables         6.110e-3  
+     7 sentinel-risk-oracle      5.797e-3  
+     8 telegraph-defi-miner      5.275e-3  
+     9 txlens                    5.033e-3  
+    10 tvlwire-oracle            4.241e-3  
+    11 onchain-intel-miner       4.115e-3  
+    12 tvl-llama-hist-chain      0.000e+0  unrecognised response type []interface {} from miner
+    13 tvl-llama-chains          0.000e+0  unrecognised response type []interface {} from miner
+    14 tvl-llama-protocols       0.000e+0  unrecognised response type []interface {} from miner
+    15 tvl-llama-charts          0.000e+0  unrecognised response type []interface {} from miner
+    16 tvl-llama-volumes         0.000e+0  wasm/runtime: miner_answer too large (19482455 > 131072 bytes)
+    17 tvl-llama-fees            0.000e+0  call miner "tvl-llama-fees": upstream call failed: response body exceeds 20971520 byte limit
+    18 tvl-llama-yields          0.000e+0  wasm/runtime: miner_answer too large (11299130 > 131072 bytes)
+    19 tvl-llama-protocol        0.000e+0  wasm/runtime: miner_answer too large (10474240 > 131072 bytes)
+    20 optivis-tvl               0.000e+0  wasm/runtime: miner_answer too large (10474240 > 131072 bytes)
+    21 tvl-llama-tvl             0.000e+0  unrecognised response type float64 from miner
+-- epoch 336
+     1 preflight-ssl-verification    5.497e-1  
+     2 kriterion-pramagraph      2.663e-1  
+     3 tvl-llama-stables         6.608e-2  
+     4 livecert                  5.286e-3  
+     5 chainsight-oracle         4.050e-3  
+     6 finwire-tvl               3.497e-3  
+     7 telegraph-defi-miner      3.229e-3  
+     8 sentinel-risk-oracle      3.181e-3  
+     9 onchain-intel-miner       3.144e-3  
+    10 txlens                    1.303e-3  
+    11 tvl-llama-fees            0.000e+0  call miner "tvl-llama-fees": upstream call failed: response body exceeds 20971520 byte limit
+    12 tvl-llama-hist-chain      0.000e+0  unrecognised response type []interface {} from miner
+    13 tvl-llama-chains          0.000e+0  unrecognised response type []interface {} from miner
+    14 tvlwire-oracle            0.000e+0  call miner "tvlwire-oracle": upstream error 404: {"detail":"protocol not found: Aave V3"}
+    15 tvl-llama-charts          0.000e+0  unrecognised response type []interface {} from miner
+    16 tvl-llama-tvl             0.000e+0  call miner "tvl-llama-tvl": upstream error 400: Protocol not found
+    17 optivis-tvl               0.000e+0  wasm/runtime: miner_answer too large (10473938 > 131072 bytes)
+    18 tvl-llama-protocols       0.000e+0  unrecognised response type []interface {} from miner
+    19 tvl-llama-protocol        0.000e+0  wasm/runtime: miner_answer too large (10473938 > 131072 bytes)
+    20 tvl-llama-yields          0.000e+0  wasm/runtime: miner_answer too large (11272158 > 131072 bytes)
+    21 tvl-llama-volumes         0.000e+0  wasm/runtime: miner_answer too large (19489261 > 131072 bytes)
+-- epoch 335
+     1 kriterion-pramagraph      4.701e-1  
+     2 tvl-llama-stables         4.080e-2  
+     3 livecert                  1.420e-2  
+     4 txlens                    9.100e-3  
+     5 tvlwire-oracle            8.631e-3  
+     6 preflight-ssl-verification    8.624e-3  
+     7 chainsight-oracle         8.382e-3  
+     8 onchain-intel-miner       6.867e-3  
+     9 finwire-tvl               6.602e-3  
+    10 sentinel-risk-oracle      6.379e-3  
+    11 telegraph-defi-miner      4.482e-3  
+    12 tvl-llama-fees            0.000e+0  call miner "tvl-llama-fees": upstream call failed: response body exceeds 20971520 byte limit
+    13 tvl-llama-protocols       0.000e+0  unrecognised response type []interface {} from miner
+    14 tvl-llama-protocol        0.000e+0  wasm/runtime: miner_answer too large (10464785 > 131072 bytes)
+    15 optivis-tvl               0.000e+0  wasm/runtime: miner_answer too large (10464785 > 131072 bytes)
+    16 tvl-llama-tvl             0.000e+0  unrecognised response type float64 from miner
+    17 tvl-llama-chains          0.000e+0  unrecognised response type []interface {} from miner
+    18 tvl-llama-volumes         0.000e+0  wasm/runtime: miner_answer too large (19471245 > 131072 bytes)
+    19 tvl-llama-yields          0.000e+0  wasm/runtime: miner_answer too large (11276117 > 131072 bytes)
+    20 tvl-llama-hist-chain      0.000e+0  unrecognised response type []interface {} from miner
+    21 tvl-llama-charts          0.000e+0  unrecognised response type []interface {} from miner
+-- epoch 334
+     1 chainsight-oracle         1.848e-2  
+     2 kriterion-pramagraph      1.793e-2  
+     3 finwire-tvl               1.614e-2  
+     4 livecert                  1.540e-2  
+     5 preflight-ssl-verification    1.513e-2  
+     6 tvl-llama-stables         7.664e-3  
+     7 sentinel-risk-oracle      6.914e-3  
+     8 tvlwire-oracle            4.431e-3  
+     9 txlens                    3.908e-3  
+    10 telegraph-defi-miner      3.756e-3  
+    11 onchain-intel-miner       3.443e-3  
+    12 tvl-llama-tvl             0.000e+0  unrecognised response type float64 from miner
+    13 tvl-llama-charts          0.000e+0  call miner "tvl-llama-charts": upstream error 404: <html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><center>n
+    14 tvl-llama-protocols       0.000e+0  unrecognised response type []interface {} from miner
+    15 tvl-llama-chains          0.000e+0  unrecognised response type []interface {} from miner
+    16 tvl-llama-hist-chain      0.000e+0  call miner "tvl-llama-hist-chain": upstream error 404: <html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><cent
+    17 tvl-llama-fees            0.000e+0  call miner "tvl-llama-fees": upstream call failed: response body exceeds 20971520 byte limit
+    18 tvl-llama-yields          0.000e+0  wasm/runtime: miner_answer too large (11365446 > 131072 bytes)
+    19 optivis-tvl               0.000e+0  wasm/runtime: miner_answer too large (10464773 > 131072 bytes)
+    20 tvl-llama-volumes         0.000e+0  wasm/runtime: miner_answer too large (19556771 > 131072 bytes)
+    21 tvl-llama-protocol        0.000e+0  wasm/runtime: miner_answer too large (10464773 > 131072 bytes)
+-- epoch 333
+     1 finwire-tvl               3.353e-1  
+     2 chainsight-oracle         1.858e-2  
+     3 kriterion-pramagraph      1.792e-2  
+     4 livecert                  1.550e-2  
+     5 preflight-ssl-verification    1.523e-2  
+     6 tvl-llama-stables         9.470e-3  
+     7 onchain-intel-miner       4.389e-3  
+     8 sentinel-risk-oracle      4.270e-3  
+     9 tvlwire-oracle            3.633e-3  
+    10 txlens                    3.334e-3  
+    11 telegraph-defi-miner      3.035e-3  

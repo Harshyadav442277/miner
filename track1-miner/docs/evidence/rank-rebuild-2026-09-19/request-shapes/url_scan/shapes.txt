@@ -1,0 +1,80 @@
+URL_SCAN request shapes, probed live
+  BEFORE  https://miner-wine.vercel.app          (production, commit 311c40c)
+  AFTER   http://127.0.0.1:8791                  (this worktree, node dist/server.js)
+  probed  2026-09-19
+
+Every row is one request. A row appears as CHANGED when the two builds gave a
+different verdict or a different subject, and as SAME when they agreed. The two builds were probed minutes apart against
+live upstreams, so a CHANGED row can also be a figure or a temperature that moved
+in between; the subject and the verdict are what this file is for.
+
+== CHANGED (4)
+
+--- url=https%253A%252F%252Fexample.com
+  BEFORE [200] verdict=unknown err=upstream_unavailable
+    The safety of https://2fexample.com/ could not be judged: Cloudflare's filter answered 0.0.0.0 but no unfiltered resolver answered to compare it with. This is a data outage, not a finding that the URL is safe or unsafe.
+  AFTER  [200] verdict=safe err=null
+    Yes, https://example.com/ appears safe to visit. It is not blocked by Cloudflare's malware and phishing filter and not listed by URLhaus, and no lookalike markers were found. It serves a valid TLS certificate that matches the host. No blocklist can prove a site safe.
+
+--- website=https%3A%2F%2Fexample.com
+  BEFORE [200] verdict=unknown err=no_url
+    No URL was supplied with this request, so there is no link to scan and no safety verdict was given. Supply a URL such as https://example.com/offer.
+  AFTER  [200] verdict=safe err=null
+    Yes, https://example.com/ appears safe to visit. It is not blocked by Cloudflare's malware and phishing filter and not listed by URLhaus, and no lookalike markers were found. It serves a valid TLS certificate that matches the host. No blocklist can prove a site safe.
+
+--- target=https%3A%2F%2Fexample.com
+  BEFORE [200] verdict=unknown err=no_url
+    No URL was supplied with this request, so there is no link to scan and no safety verdict was given. Supply a URL such as https://example.com/offer.
+  AFTER  [200] verdict=safe err=null
+    Yes, https://example.com/ appears safe to visit. It is not blocked by Cloudflare's malware and phishing filter and not listed by URLhaus, and no lookalike markers were found. It serves a valid TLS certificate that matches the host. No blocklist can prove a site safe.
+
+--- target_url=https%3A%2F%2Fexample.com
+  BEFORE [200] verdict=unknown err=no_url
+    No URL was supplied with this request, so there is no link to scan and no safety verdict was given. Supply a URL such as https://example.com/offer.
+  AFTER  [200] verdict=safe err=null
+    Yes, https://example.com/ appears safe to visit. It is not blocked by Cloudflare's malware and phishing filter and not listed by URLhaus, and no lookalike markers were found. It serves a valid TLS certificate that matches the host. No blocklist can prove a site safe.
+
+== SAME (21)
+
+--- url=https%3A%2F%2Fexample.com
+  [200] verdict=safe err=null
+--- url=https%3A%2F%2Fexample.com&query=Is+https%3A%2F%2Fexample.com+safe+to+visit%3F+Check+it+for+phishing%2C+malware+and+scams.
+  [200] verdict=safe err=null
+--- query=Is+https%3A%2F%2Fexample.com+safe+to+visit%3F+Check+it+for+phishing%2C+malware+and+scams.
+  [200] verdict=safe err=null
+--- url=example.com
+  [200] verdict=safe err=null
+--- url=www.example.com
+  [200] verdict=safe err=null
+--- link=https%3A%2F%2Fexample.com
+  [200] verdict=safe err=null
+--- domain=example.com
+  [200] verdict=safe err=null
+--- host=example.com
+  [200] verdict=safe err=null
+--- u=https%3A%2F%2Fexample.com
+  [200] verdict=unknown err=no_url
+--- address=https%3A%2F%2Fexample.com
+  [200] verdict=unknown err=no_url
+--- url=https%3A%2F%2Fexample.com%2F
+  [200] verdict=safe err=null
+--- url=http%3A%2F%2Fexample.com
+  [200] verdict=safe err=null
+--- url=https%3A%2F%2Fexample.com.&query=
+  [200] verdict=safe err=null
+--- url=&query=Is+https%3A%2F%2Fexample.com+safe+to+visit%3F+Check+it+for+phishing%2C+malware+and+scams.
+  [200] verdict=safe err=null
+--- url=https%3A%2F%2Fwww.researchgate.net%2Fpublication%2F377897946_Research
+  [200] verdict=safe err=null
+--- url=https%3A%2F%2Farxiv.org%2Fabs%2F2609.10365
+  [200] verdict=safe err=null
+--- url=arxiv.org
+  [200] verdict=safe err=null
+--- query=Is+www.powermapper.com+a+known+scam%2C+phishing+or+fraudulent+website%3F+Give+a+risk+assessment.
+  [200] verdict=safe err=null
+--- query=website+safety+check
+  [200] verdict=unknown err=no_url
+--- url=unknown&query=Is+https%3A%2F%2Fexample.com+safe+to+visit%3F+Check+it+for+phishing%2C+malware+and+scams.
+  [200] verdict=safe err=null
+--- url=string&query=Is+https%3A%2F%2Fexample.com+safe+to+visit%3F+Check+it+for+phishing%2C+malware+and+scams.
+  [200] verdict=safe err=null

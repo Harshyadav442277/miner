@@ -1,0 +1,40 @@
+request-shapes lane — limits on the bench numbers in */bench.txt
+read together with manifest-comparison.md and */shapes.txt
+
+CHAMPION PROVENANCE. Each champion was verified byte-identical to the live one
+on 2026-09-19 by downloading its wasm_url from /api/wasm?intent=... and hashing:
+reg1265 (GAME_RESULT), reg2945 (CURRENCY_EXCHANGE), reg510 wchk_tol45
+(WEATHER_CHECK), reg49 (TVL_LOOKUP), reg220 (URL_SCAN) all matched. The
+wasm_hash field the API returns is a different digest and matches neither copy;
+the BYTES match, and the bytes are what the scorer loads.
+
+THE REFERENCE IS OURS, NOT A CROSSING MINER'S. Each row scores an unreadable
+request shape against OUR answer for the shape the route does read. It therefore
+says "this shape scores like a different answer to the same question" and
+nothing about whether the answer is correct. G114's rule is not met by that
+construction and no rank claim is made.
+
+URL_SCAN'S VALIDITY GATE FAILED. proofgate-url-intelligence and
+preflight-ssl-verification both cross this intent every epoch and score 0.5575
+against EACH OTHER under reg220 - far below the 0.98 floor - so their agreement
+licenses nothing. Ours scores 0.9929 against proofgate and 0.9983 against
+preflight, which is at least consistent with the 0.84-0.93 band we hold in
+ordinary epochs.
+
+TWO FIXES THE CHAMPION DOES NOT REWARD. url=https%3A%2F%2Fexample.com scored
+0.999034 BEFORE, although the answer was about https://2fexample.com/ - a host
+nobody asked about. location=N/A scored 0.998764 BEFORE, although it reported
+the weather in Cairo, North Carolina rather than Cairo, Egypt. reg220 and reg510
+are lexical, and both wrong answers share nearly every word with the right one.
+Those two are fixed for correctness, not for score.
+
+TVL'S chain DEFECT IS INTERMITTENT. At 05:10 UTC on 2026-09-19,
+protocol=Aave V3&chain=ethereum and &chain=eth both returned provider_unavailable
+from production. At 05:45 UTC, six consecutive requests returned a per-chain
+figure. The mechanism is not in doubt: api.llama.fi/protocol/aave-v3 is
+29,489,980 bytes and took 47.6 s from this machine against TVL_TIMEOUT_MS=4000,
+so whether it answers depends on DefiLlama's CDN being warm. The fix falls back
+to the all-chain total, stated as the all-chain total, so a cold cache costs a
+less specific answer instead of the whole epoch.
+
+A BENCH IS A FILTER, NOT A VERDICT (G62). Only a scored epoch settles any of it.

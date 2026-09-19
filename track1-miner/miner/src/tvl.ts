@@ -207,8 +207,34 @@ const NOT_A_PROTOCOL = /^(the|a|an|it|this|that|defi|crypto|chain|network|protoc
  */
 const LEADING_FILLER = /^(?:what|which|how|much|many|is|are|was|were|does|do|did|the|a|an|of|in|for|on|tell|me|about|right|now)\s+/i;
 
+/**
+ * The question's own scaffolding, removed before the subject is looked for.
+ *
+ * The node's dominant template for this intent is "What is the total value
+ * locked (TVL) in USD for protocol/token X?" — three of the recorded
+ * TVL_LOOKUP questions are exactly it. Every pattern below wants the TVL phrase
+ * followed directly by `in|of|for`, and in that template a parenthetical and a
+ * currency clause sit in between, so none of them fired: production answered
+ * "No protocol, chain or token contract was identified in this request"
+ * (verified 2026-09-19) for a question that names Aave V3 in plain words. The
+ * `protocol/token` prefix is the same problem one word later.
+ *
+ * Only redundant wording is dropped, never a candidate name: "(TVL)" repeats
+ * the phrase before it, "in USD" is the unit the answer is already in, and
+ * "protocol/token" is the template saying which of the two scopes it means.
+ */
+function stripTemplate(question: string): string {
+  return question
+    .replace(/\(\s*tvl\s*\)/gi, " ")
+    .replace(/\b(tvl|total value locked)\s+in\s+(usd|us dollars?|dollars?)\b/gi, "$1")
+    .replace(/\b(?:in|of|for)\s+protocol\s*\/\s*token\b/gi, " for ")
+    .replace(/\b(?:in|of|for)\s+token\s*\/\s*protocol\b/gi, " for ")
+    .replace(/\s{2,}/g, " ")
+    .trim();
+}
+
 export function protocolSubject(question: string): string {
-  const q = String(question ?? "").trim();
+  const q = stripTemplate(String(question ?? "").trim());
   for (const re of SUBJECT_PATTERNS) {
     const m = q.match(re);
     let raw = m?.[1]?.trim();
@@ -269,8 +295,20 @@ export function protocolSlugs(name: string): string[] {
  * unknown slug, so an unknown protocol is distinguishable from an outage: a 400
  * on every candidate slug means we could not resolve the name, while a thrown
  * timeout means we do not know. Those are different answers.
+ *
+ * A named chain narrows the read to `/protocol/{slug}`, which carries the
+ * per-chain breakdown — and 29 MB of daily history with it. That response takes
+ * 47 s to arrive (measured 2026-09-19) against a 4 s budget, so a `chain`
+ * parameter alongside a `protocol` one turned an answer this endpoint gives in
+ * about a second into "DefiLlama did not respond", every single time: production
+ * answered `protocol=Aave V3` with $17.97bn and `protocol=Aave V3&chain=ethereum`
+ * with an availability failure in the same minute. `chainScoped` records which
+ * figure came back so the sentence can say what it is rather than imply a
+ * per-chain number it does not have.
  */
-export async function protocolTvl(name: string, chain?: string | null): Promise<{ slug: string; usd: number } | null | "unavailable"> {
+export async function protocolTvl(name: string, chain?: string | null): Promise<
+  { slug: string; usd: number; chainScoped: boolean } | null | "unavailable"
+> {
   const slugs = protocolSlugs(name);
   if (!slugs.length) return null;
   let sawRefusal = false;
@@ -283,7 +321,7 @@ export async function protocolTvl(name: string, chain?: string | null): Promise<
         };
         const label = chain === "optimism" ? "OP Mainnet" : CHAINS[chain]?.llama;
         const n = label ? record.currentChainTvls?.[label] : undefined;
-        if (typeof n === "number" && Number.isFinite(n) && n >= 0) return { slug, usd: n };
+        if (typeof n === "number" && Number.isFinite(n) && n >= 0) return { slug, usd: n, chainScoped: true };
         // A valid protocol record without that chain cannot justify the global total.
         if (record.currentChainTvls) sawRefusal = true;
         else sawUnavailable = true;
@@ -291,7 +329,7 @@ export async function protocolTvl(name: string, chain?: string | null): Promise<
       }
       const body = (await getText(`https://api.llama.fi/tvl/${encodeURIComponent(slug)}`)).trim();
       const n = Number(body);
-      if (body && Number.isFinite(n) && n >= 0) return { slug, usd: n };
+      if (body && Number.isFinite(n) && n >= 0) return { slug, usd: n, chainScoped: false };
       sawUnavailable = true;
     } catch (e) {
       // A 400 is DefiLlama saying the slug is not a protocol; anything else is
@@ -299,6 +337,17 @@ export async function protocolTvl(name: string, chain?: string | null): Promise<
       if (/^HTTP (400|404)$/.test(String((e as Error).message))) sawRefusal = true;
       else sawUnavailable = true;
     }
+  }
+  /**
+   * The per-chain read failed but the protocol is still a protocol. The
+   * all-chain total is a true answer to "what is X's TVL", and the sentence
+   * that reports it says it is the all-chain total, so nothing is passed off as
+   * the per-chain figure. Refusing instead would throw away the number we can
+   * get for the sake of the one we cannot.
+   */
+  if (chain && sawUnavailable) {
+    const global = await protocolTvl(name, null);
+    if (global !== null && global !== "unavailable") return global;
   }
   return sawRefusal && !sawUnavailable ? null : "unavailable";
 }
@@ -497,10 +546,10 @@ export async function lookupTvl(
     };
   }
   return {
-    ...base, usd: r.usd, verdict: "found", confidence: 0.9,
+    ...base, chain: r.chainScoped ? chain : null, usd: r.usd, verdict: "found", confidence: 0.9,
     reason:
       `The ${subject} protocol has ${usd(r.usd)} (${human(r.usd)}) in total value locked, ` +
-      `${chain ? `on ${chain}` : "aggregated across every chain it is deployed on"}, according to DefiLlama. This is value ` +
+      `${r.chainScoped ? `on ${chain}` : "aggregated across every chain it is deployed on"}, according to DefiLlama. This is value ` +
       `locked in the protocol, not the market capitalisation of its token.`,
   };
 }

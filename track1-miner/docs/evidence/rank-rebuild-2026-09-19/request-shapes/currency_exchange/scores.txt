@@ -1,0 +1,214 @@
+
+===== CURRENCY_EXCHANGE  (200 rows)
+keys: id,epoch_id,intent_id,miner_slug,rank,score,failure_reason,scored_at,created_at
+-- epoch 343
+     1 fxex-erapi-eur            1.661e-6  
+     2 optivis-crypto-price      1.434e-6  
+     3 preflight-ssl-verification    1.282e-7  
+     4 txlens                    1.201e-7  
+     5 fxex-frankfurter          9.503e-8  
+     6 fxex-frankfurter-jpy      9.503e-8  
+     7 livecert                  9.250e-8  
+     8 kriterion-pramagraph      9.010e-8  
+     9 chainsight-oracle         8.621e-8  
+    10 fxex-erapi-usd            7.744e-8  
+    11 finwire-currency-exchange    6.951e-8  
+    12 fx-rate-mirror            6.747e-8  
+    13 fxex-ecb                  5.599e-8  
+    14 fxex-frankfurter-currencies    5.364e-8  
+    15 exchangerate              0.000e+0  call miner "exchangerate": upstream error 404: <html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><center>nginx
+    16 fxex-fawaz-usd            0.000e+0  call miner "fxex-fawaz-usd": upstream error 404: Couldn't find the requested file /v1/currencies/CAD.json in @fawazahmed0/currency-api.
+    17 fxex-frankfurter-hist     0.000e+0  call miner "fxex-frankfurter-hist": upstream error 404: {"status":404,"message":"not found"}
+    18 fxex-fawaz-eur            0.000e+0  call miner "fxex-fawaz-eur": upstream error 404: Couldn't find the requested file /v1/currencies/EUR.json in @fawazahmed0/currency-api.
+    19 fxex-fawaz-gbp            0.000e+0  call miner "fxex-fawaz-gbp": upstream error 404: Couldn't find the requested file /v1/currencies/CAD.json in @fawazahmed0/currency-api.
+-- epoch 342
+     1 fxex-erapi-usd            9.999e-1  
+     2 optivis-crypto-price      1.364e-6  
+     3 txlens                    2.707e-7  
+     4 chainsight-oracle         2.583e-7  
+     5 preflight-ssl-verification    2.536e-7  
+     6 fxex-frankfurter-jpy      2.105e-7  
+     7 fxex-frankfurter          2.105e-7  
+     8 fxex-frankfurter-hist     2.105e-7  
+     9 livecert                  2.098e-7  
+    10 finwire-currency-exchange    1.993e-7  
+    11 kriterion-pramagraph      1.656e-7  
+    12 fxex-erapi-eur            1.051e-7  
+    13 fxex-ecb                  8.440e-8  
+    14 fxex-frankfurter-currencies    7.309e-8  
+    15 fx-rate-mirror            5.945e-8  
+    16 fxex-fawaz-eur            0.000e+0  call miner "fxex-fawaz-eur": upstream error 404: Couldn't find the requested file /v1/currencies/JPY.json in @fawazahmed0/currency-api.
+    17 fxex-fawaz-gbp            0.000e+0  call miner "fxex-fawaz-gbp": upstream error 404: Couldn't find the requested file /v1/currencies/JPY.json in @fawazahmed0/currency-api.
+    18 fxex-fawaz-usd            0.000e+0  call miner "fxex-fawaz-usd": upstream error 404: Couldn't find the requested file /v1/currencies/JPY.json in @fawazahmed0/currency-api.
+    19 exchangerate              0.000e+0  call miner "exchangerate": upstream error 404: <html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><center>nginx
+-- epoch 341
+     1 chainsight-oracle         9.999e-1  
+     2 kriterion-pramagraph      9.999e-1  
+     3 preflight-ssl-verification    2.011e-3  
+     4 fxex-erapi-usd            2.422e-6  
+     5 fxex-erapi-eur            1.359e-6  
+     6 livecert                  1.523e-7  
+     7 fxex-frankfurter-jpy      1.463e-7  
+     8 fxex-frankfurter          1.463e-7  
+     9 fxex-frankfurter-hist     1.463e-7  
+    10 txlens                    1.434e-7  
+    11 fx-rate-mirror            8.405e-8  
+    12 fxex-frankfurter-currencies    6.076e-8  
+    13 optivis-crypto-price      3.919e-8  
+    14 fxex-fawaz-eur            0.000e+0  call miner "fxex-fawaz-eur": upstream error 404: Couldn't find the requested file /v1/currencies/USD.json in @fawazahmed0/currency-api.
+    15 fxex-ecb                  0.000e+0  call miner "fxex-ecb": upstream error 400: <html lang="en"><head><title>European Central Bank</title><style type="text/css"> body{ font-family: "Droid Sans", sa
+    16 exchangerate              0.000e+0  call miner "exchangerate": upstream error 404: <html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><center>nginx
+    17 fxex-fawaz-usd            0.000e+0  call miner "fxex-fawaz-usd": upstream error 404: Couldn't find the requested file /v1/currencies/USD.json in @fawazahmed0/currency-api.
+    18 fxex-fawaz-gbp            0.000e+0  build request for miner "fxex-fawaz-gbp": LLM call for miner "fxex-fawaz-gbp" failed: http request: Post "http://127.0.0.1:4000/v1/chat/completions": context de
+    19 finwire-currency-exchange    0.000e+0  build request for miner "finwire-currency-exchange": LLM call for miner "finwire-currency-exchange" failed: http request: Post "http://127.0.0.1:4000/v1/chat/co
+-- epoch 340
+     1 fxex-erapi-usd            1.799e-6  
+     2 fxex-erapi-eur            1.799e-6  
+     3 optivis-crypto-price      8.581e-7  
+     4 preflight-ssl-verification    2.619e-7  
+     5 livecert                  2.555e-7  
+     6 chainsight-oracle         2.467e-7  
+     7 kriterion-pramagraph      1.959e-7  
+     8 fxex-frankfurter          1.529e-7  
+     9 fxex-frankfurter-hist     1.529e-7  
+    10 fxex-frankfurter-jpy      1.414e-7  
+    11 finwire-currency-exchange    6.720e-8  
+    12 fxex-ecb                  5.822e-8  
+    13 fx-rate-mirror            5.526e-8  
+    14 fxex-frankfurter-currencies    4.306e-8  
+    15 exchangerate              0.000e+0  call miner "exchangerate": upstream error 404: <html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><center>nginx
+    16 fxex-fawaz-gbp            0.000e+0  call miner "fxex-fawaz-gbp": upstream error 404: Couldn't find the requested file /v1/currencies/JPY.json in @fawazahmed0/currency-api.
+    17 fxex-fawaz-usd            0.000e+0  call miner "fxex-fawaz-usd": upstream error 404: Couldn't find the requested file /v1/currencies/JPY.json in @fawazahmed0/currency-api.
+    18 fxex-fawaz-eur            0.000e+0  call miner "fxex-fawaz-eur": upstream error 404: Couldn't find the requested file /v1/currencies/JPY.json in @fawazahmed0/currency-api.
+-- epoch 339
+     1 livecert                  9.999e-1  
+     2 preflight-ssl-verification    9.999e-1  
+     3 chainsight-oracle         5.791e-6  
+     4 kriterion-pramagraph      5.460e-6  
+     5 fxex-frankfurter-jpy      5.021e-6  
+     6 fxex-frankfurter-hist     5.021e-6  
+     7 fxex-frankfurter          5.021e-6  
+     8 fxex-erapi-usd            4.971e-6  
+     9 fxex-erapi-eur            4.971e-6  
+    10 finwire-currency-exchange    1.303e-7  
+    11 fxex-ecb                  7.548e-8  
+    12 fx-rate-mirror            6.874e-8  
+    13 optivis-crypto-price      6.632e-8  
+    14 fxex-frankfurter-currencies    6.604e-8  
+    15 fxex-fawaz-eur            0.000e+0  call miner "fxex-fawaz-eur": upstream error 404: Couldn't find the requested file /v1/currencies/JPY.json in @fawazahmed0/currency-api.
+    16 fxex-fawaz-usd            0.000e+0  call miner "fxex-fawaz-usd": upstream error 404: Couldn't find the requested file /v1/currencies/JPY.json in @fawazahmed0/currency-api.
+    17 exchangerate              0.000e+0  call miner "exchangerate": upstream error 404: <html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><center>nginx
+    18 fxex-fawaz-gbp            0.000e+0  call miner "fxex-fawaz-gbp": upstream error 404: Couldn't find the requested file /v1/currencies/JPY.json in @fawazahmed0/currency-api.
+-- epoch 338
+     1 optivis-crypto-price      9.022e-7  
+     2 kriterion-pramagraph      1.986e-7  
+     3 chainsight-oracle         1.843e-7  
+     4 livecert                  1.512e-7  
+     5 fxex-frankfurter          1.435e-7  
+     6 fxex-frankfurter-jpy      1.435e-7  
+     7 preflight-ssl-verification    1.381e-7  
+     8 finwire-currency-exchange    1.015e-7  
+     9 fxex-erapi-eur            1.000e-7  
+    10 fxex-erapi-usd            1.000e-7  
+    11 fx-rate-mirror            7.231e-8  
+    12 fxex-frankfurter-currencies    3.558e-8  
+    13 fxex-ecb                  1.689e-8  
+    14 fxex-fawaz-gbp            0.000e+0  call miner "fxex-fawaz-gbp": upstream error 404: Couldn't find the requested file /v1/currencies/IDR.json in @fawazahmed0/currency-api.
+    15 fxex-fawaz-usd            0.000e+0  call miner "fxex-fawaz-usd": upstream error 404: Couldn't find the requested file /v1/currencies/IDR.json in @fawazahmed0/currency-api.
+    16 exchangerate              0.000e+0  call miner "exchangerate": upstream error 404: <html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><center>nginx
+    17 fxex-frankfurter-hist     0.000e+0  call miner "fxex-frankfurter-hist": upstream error 404: {"status":404,"message":"not found"}
+    18 fxex-fawaz-eur            0.000e+0  call miner "fxex-fawaz-eur": upstream error 404: Couldn't find the requested file /v1/currencies/IDR.json in @fawazahmed0/currency-api.
+-- epoch 337
+     1 fxex-erapi-eur            2.558e-4  
+     2 fxex-erapi-usd            2.558e-4  
+     3 optivis-crypto-price      1.429e-6  
+     4 chainsight-oracle         3.386e-7  
+     5 preflight-ssl-verification    3.325e-7  
+     6 fxex-frankfurter-jpy      3.039e-7  
+     7 fxex-frankfurter-hist     3.039e-7  
+     8 fxex-frankfurter          3.039e-7  
+     9 kriterion-pramagraph      3.034e-7  
+    10 livecert                  1.989e-7  
+    11 finwire-currency-exchange    1.316e-7  
+    12 fxex-frankfurter-currencies    8.064e-8  
+    13 fx-rate-mirror            7.606e-8  
+    14 fxex-fawaz-eur            0.000e+0  call miner "fxex-fawaz-eur": upstream error 404: Couldn't find the requested file /v1/currencies/JPY.json in @fawazahmed0/currency-api.
+    15 fxex-fawaz-gbp            0.000e+0  call miner "fxex-fawaz-gbp": upstream error 404: Couldn't find the requested file /v1/currencies/JPY.json in @fawazahmed0/currency-api.
+    16 fxex-fawaz-usd            0.000e+0  call miner "fxex-fawaz-usd": upstream error 404: Couldn't find the requested file /v1/currencies/JPY.json in @fawazahmed0/currency-api.
+    17 fxex-ecb                  0.000e+0  call miner "fxex-ecb": upstream error 400: <html lang="en"><head><title>European Central Bank</title><style type="text/css"> body{ font-family: "Droid Sans", sa
+    18 exchangerate              0.000e+0  call miner "exchangerate": upstream error 404: <html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><center>nginx
+-- epoch 336
+     1 fxex-erapi-usd            3.165e-4  
+     2 optivis-crypto-price      8.762e-7  
+     3 kriterion-pramagraph      1.896e-7  
+     4 preflight-ssl-verification    1.891e-7  
+     5 fxex-frankfurter          1.521e-7  
+     6 fxex-frankfurter-jpy      1.521e-7  
+     7 finwire-currency-exchange    1.105e-7  
+     8 chainsight-oracle         9.773e-8  
+     9 fxex-ecb                  8.241e-8  
+    10 livecert                  7.776e-8  
+    11 fxex-frankfurter-hist     7.363e-8  
+    12 fxex-frankfurter-currencies    5.769e-8  
+    13 fxex-erapi-eur            5.725e-8  
+    14 fx-rate-mirror            5.295e-8  
+    15 fxex-fawaz-usd            0.000e+0  call miner "fxex-fawaz-usd": upstream error 404: Couldn't find the requested file /v1/currencies/GBP.json in @fawazahmed0/currency-api.
+    16 fxex-fawaz-gbp            0.000e+0  call miner "fxex-fawaz-gbp": upstream error 404: Couldn't find the requested file /v1/currencies/GBP.json in @fawazahmed0/currency-api.
+    17 fxex-fawaz-eur            0.000e+0  call miner "fxex-fawaz-eur": upstream error 404: Couldn't find the requested file /v1/currencies/EUR.json in @fawazahmed0/currency-api.
+    18 exchangerate              0.000e+0  call miner "exchangerate": upstream error 404: <html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><center>nginx
+-- epoch 335
+     1 fxex-frankfurter-currencies    1.084e-6  
+     2 chainsight-oracle         2.141e-7  
+     3 kriterion-pramagraph      1.801e-7  
+     4 preflight-ssl-verification    1.650e-7  
+     5 fxex-frankfurter-hist     1.609e-7  
+     6 fxex-frankfurter          1.609e-7  
+     7 fxex-frankfurter-jpy      1.609e-7  
+     8 livecert                  1.107e-7  
+     9 finwire-currency-exchange    1.094e-7  
+    10 fxex-erapi-usd            9.515e-8  
+    11 fxex-erapi-eur            9.236e-8  
+    12 optivis-crypto-price      5.894e-8  
+    13 fx-rate-mirror            5.319e-8  
+    14 fxex-ecb                  0.000e+0  call miner "fxex-ecb": upstream error 400: <html lang="en"><head><title>European Central Bank</title><style type="text/css"> body{ font-family: "Droid Sans", sa
+    15 fxex-fawaz-usd            0.000e+0  call miner "fxex-fawaz-usd": upstream error 404: Couldn't find the requested file /v1/currencies/GBP.json in @fawazahmed0/currency-api.
+    16 fxex-fawaz-gbp            0.000e+0  call miner "fxex-fawaz-gbp": upstream error 404: Couldn't find the requested file /v1/currencies/GBP.json in @fawazahmed0/currency-api.
+    17 fxex-fawaz-eur            0.000e+0  call miner "fxex-fawaz-eur": upstream error 404: Couldn't find the requested file /v1/currencies/EUR.json in @fawazahmed0/currency-api.
+    18 exchangerate              0.000e+0  call miner "exchangerate": upstream error 404: <html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><center>nginx
+-- epoch 334
+     1 optivis-crypto-price      1.903e-6  
+     2 preflight-ssl-verification    1.970e-7  
+     3 kriterion-pramagraph      1.797e-7  
+     4 fxex-erapi-usd            1.758e-7  
+     5 fxex-erapi-eur            1.758e-7  
+     6 chainsight-oracle         1.399e-7  
+     7 fxex-frankfurter-jpy      1.323e-7  
+     8 fxex-frankfurter          1.323e-7  
+     9 finwire-currency-exchange    1.284e-7  
+    10 livecert                  1.170e-7  
+    11 fx-rate-mirror            5.970e-8  
+    12 fxex-ecb                  4.729e-8  
+    13 fxex-frankfurter-currencies    4.053e-8  
+    14 fxex-fawaz-eur            0.000e+0  call miner "fxex-fawaz-eur": upstream error 404: Couldn't find the requested file /v1/currencies/EUR.json in @fawazahmed0/currency-api.
+    15 exchangerate              0.000e+0  call miner "exchangerate": upstream error 404: <html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><center>nginx
+    16 fxex-fawaz-usd            0.000e+0  call miner "fxex-fawaz-usd": upstream error 404: Couldn't find the requested file /v1/currencies/CAD.json in @fawazahmed0/currency-api.
+    17 fxex-fawaz-gbp            0.000e+0  call miner "fxex-fawaz-gbp": upstream error 404: Couldn't find the requested file /v1/currencies/CAD.json in @fawazahmed0/currency-api.
+    18 fxex-frankfurter-hist     0.000e+0  call miner "fxex-frankfurter-hist": upstream error 404: {"status":404,"message":"not found"}
+-- epoch 333
+     1 finwire-currency-exchange    1.875e-7  
+     2 preflight-ssl-verification    1.639e-7  
+     3 kriterion-pramagraph      1.392e-7  
+     4 fxex-frankfurter-hist     1.132e-7  
+     5 fxex-frankfurter          1.132e-7  
+     6 fxex-frankfurter-jpy      1.132e-7  
+     7 chainsight-oracle         9.259e-8  
+     8 fxex-erapi-usd            8.794e-8  
+     9 fxex-erapi-eur            8.794e-8  
+    10 livecert                  7.897e-8  
+    11 fx-rate-mirror            6.423e-8  
+    12 fxex-frankfurter-currencies    6.144e-8  
+    13 optivis-crypto-price      4.452e-8  
+    14 fxex-fawaz-eur            0.000e+0  call miner "fxex-fawaz-eur": upstream error 404: Couldn't find the requested file /v1/currencies/CAD.json in @fawazahmed0/currency-api.
+    15 fxex-ecb                  0.000e+0  call miner "fxex-ecb": upstream error 400: <html lang="en"><head><title>European Central Bank</title><style type="text/css"> body{ font-family: "Droid Sans", sa
+    16 fxex-fawaz-usd            0.000e+0  call miner "fxex-fawaz-usd": upstream error 404: Couldn't find the requested file /v1/currencies/CAD.json in @fawazahmed0/currency-api.
+    17 fxex-fawaz-gbp            0.000e+0  call miner "fxex-fawaz-gbp": upstream error 404: Couldn't find the requested file /v1/currencies/CAD.json in @fawazahmed0/currency-api.

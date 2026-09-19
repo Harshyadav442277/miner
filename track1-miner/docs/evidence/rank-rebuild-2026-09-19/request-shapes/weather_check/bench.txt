@@ -1,0 +1,21 @@
+WEATHER_CHECK request-shape bench, champion wchk_tol45_reg510.wasm
+sha256 822d2b2cb102a9616dc9739be6671c6b900c840a4827dd53cc78d57f506de308
+scored 2026-09-19T05:44:36.437Z
+question What is the current weather in Cairo?
+before https://miner-wine.vercel.app
+after  http://127.0.0.1:8791
+
+reference shape  query=What+is+the+current+weather+in+Cairo%3F
+reference answer The current weather in Cairo, Cairo Governorate, Egypt is clear at 23.9°C, with no precipitation and wind at 4 km/h, as of 05:30 UTC on 2026-09-19, from the Open-Meteo weather service.
+
+shape                                              BEFORE     AFTER
+location=unknown&query=What+is+the+current+weather  0.016036  0.999179
+  BEFORE The current weather in الجندي المجهول, 11759, مصر is clear at 23.6°C, with no precipitation and wind at 3 km/h, as of 05:30 UTC on 2026-09-19, from the Open-Meteo weather service.
+  AFTER  The current weather in Cairo, Cairo Governorate, Egypt is clear at 23.9°C, with no precipitation and wind at 4 km/h, as of 05:30 UTC on 2026-09-19, from the Open-Meteo weather service.
+location=N%2FA&query=What+is+the+current+weather+i  0.998764  0.999179
+  BEFORE The current weather in Cairo, North Carolina, United States is cloudy at 24.2°C, with no precipitation and wind at 9.4 km/h, as of 05:30 UTC on 2026-09-19, from the Open-Meteo weather service.
+  AFTER  The current weather in Cairo, Cairo Governorate, Egypt is clear at 23.9°C, with no precipitation and wind at 4 km/h, as of 05:30 UTC on 2026-09-19, from the Open-Meteo weather service.
+location=none&query=What+is+the+current+weather+in  0.015897  0.999179
+  BEFORE The current weather in شارع الفتح, 11321, مصر is clear at 24.2°C, with no precipitation and wind at 2.5 km/h, as of 05:45 UTC on 2026-09-19, from the Open-Meteo weather service.
+  AFTER  The current weather in Cairo, Cairo Governorate, Egypt is clear at 23.9°C, with no precipitation and wind at 4 km/h, as of 05:30 UTC on 2026-09-19, from the Open-Meteo weather service.
+

@@ -1,0 +1,27 @@
+CURRENCY_EXCHANGE request-shape bench, champion currency_exchange_reg2945.wasm
+sha256 d628cc3e4d4327819241d44e1cb88425d44552a977833c8805409d5879e42d86
+scored 2026-09-19T05:44:36.437Z
+question What is the exchange rate from USD to JPY?
+before https://miner-wine.vercel.app
+after  http://127.0.0.1:8791
+
+reference shape  from=USD&to=JPY
+reference answer 1 USD = 157.888 JPY, equivalently 1 JPY = 0.006334 USD. This is the European Central Bank euro foreign exchange reference rate published for 2026-09-18, not a live trading quote.
+
+shape                                              BEFORE     AFTER
+base=USD&symbols=JPY                                0.000000  1.000000
+  BEFORE 1 USD = 0.8726 EUR, equivalently 1 EUR = 1.1460 USD. This is the European Central Bank euro foreign exchange reference rate published for 2026-09-18, not a live trading quote.
+  AFTER  1 USD = 157.888 JPY, equivalently 1 JPY = 0.006334 USD. This is the European Central Bank euro foreign exchange reference rate published for 2026-09-18, not a live trading quote.
+source=USD&target=JPY                               0.000299  1.000000
+  BEFORE JPY and JPY are the same currency, so the rate is exactly 1 and any amount converts to itself. No exchange takes place.
+  AFTER  1 USD = 157.888 JPY, equivalently 1 JPY = 0.006334 USD. This is the European Central Bank euro foreign exchange reference rate published for 2026-09-18, not a live trading quote.
+currency_from=USD&currency_to=JPY                   0.000000  1.000000
+  BEFORE A conversion needs two currencies and this request named none. Name both, for example "What is 100 USD in EUR?", and the converted amount and the rate in both directions can be returned.
+  AFTER  1 USD = 157.888 JPY, equivalently 1 JPY = 0.006334 USD. This is the European Central Bank euro foreign exchange reference rate published for 2026-09-18, not a live trading quote.
+from=Dollar&to=Yen                                  0.000002  1.000000
+  BEFORE The USD to YEN exchange rate could not be retrieved: neither the European Central Bank reference feed nor the market rate source responded with a usable rate. This is an availability problem here, not a statement that the pair has no rate.
+  AFTER  1 USD = 157.888 JPY, equivalently 1 JPY = 0.006334 USD. This is the European Central Bank euro foreign exchange reference rate published for 2026-09-18, not a live trading quote.
+pair=USD%2FJPY                                      0.000000  1.000000
+  BEFORE A conversion needs two currencies and this request named none. Name both, for example "What is 100 USD in EUR?", and the converted amount and the rate in both directions can be returned.
+  AFTER  1 USD = 157.888 JPY, equivalently 1 JPY = 0.006334 USD. This is the European Central Bank euro foreign exchange reference rate published for 2026-09-18, not a live trading quote.
+

@@ -1,0 +1,24 @@
+TVL_LOOKUP request-shape bench, champion tvl_lookup_reg49.wasm
+sha256 3bd3028dfbafa54dc9fd8d5f790820ea05545051891b36f19e2a3f9d790efdcb
+scored 2026-09-19T05:44:36.437Z
+question What is the total value locked (TVL) in USD for Aave V3?
+before https://miner-wine.vercel.app
+after  http://127.0.0.1:8791
+
+reference shape  protocol=Aave+V3
+reference answer The Aave V3 protocol has $17,977,955,981 ($17.98 billion) in total value locked, aggregated across every chain it is deployed on, according to DefiLlama. This is value locked in the protocol, not the market capitalisation of its token.
+
+shape                                              BEFORE     AFTER
+query=What+is+the+total+value+locked+%28TVL%29+in+  0.213926  1.000000
+  BEFORE No protocol, chain or token contract was identified in this request, so there is nothing to report a total value locked for. Name a protocol such as Aave, a chain such as base, arbitrum, optimism, or a token contract address with its chain for that token's own DEX pool liquidity.
+  AFTER  The Aave V3 protocol has $17,977,955,981 ($17.98 billion) in total value locked, aggregated across every chain it is deployed on, according to DefiLlama. This is value locked in the protocol, not the market capitalisation of its token.
+protocol=Aave+V3&chain=ethereum                     0.026743  1.000000
+  BEFORE The Aave V3 protocol has $15,154,407,986 ($15.15 billion) in total value locked, on ethereum, according to DefiLlama. This is value locked in the protocol, not the market capitalisation of its token.
+  AFTER  The Aave V3 protocol has $17,977,955,981 ($17.98 billion) in total value locked, aggregated across every chain it is deployed on, according to DefiLlama. This is value locked in the protocol, not the market capitalisation of its token.
+protocol=Aave+V3&chain=eth                          0.026743  1.000000
+  BEFORE The Aave V3 protocol has $15,154,407,986 ($15.15 billion) in total value locked, on ethereum, according to DefiLlama. This is value locked in the protocol, not the market capitalisation of its token.
+  AFTER  The Aave V3 protocol has $17,977,955,981 ($17.98 billion) in total value locked, aggregated across every chain it is deployed on, according to DefiLlama. This is value locked in the protocol, not the market capitalisation of its token.
+slug=aave-v3                                        0.213926  1.000000
+  BEFORE No protocol, chain or token contract was identified in this request, so there is nothing to report a total value locked for. Name a protocol such as Aave, a chain such as base, arbitrum, optimism, or a token contract address with its chain for that token's own DEX pool liquidity.
+  AFTER  The aave-v3 protocol has $17,977,955,981 ($17.98 billion) in total value locked, aggregated across every chain it is deployed on, according to DefiLlama. This is value locked in the protocol, not the market capitalisation of its token.
+

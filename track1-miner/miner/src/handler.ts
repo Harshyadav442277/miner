@@ -12,7 +12,7 @@ import { detectAiText, type AiDetectResult } from "./aidetect";
 import { extractContent } from "./content";
 import { getHeadlines } from "./news";
 import { searchNews, type NewsSearchResult } from "./newssearch";
-import { convert, parseDate as parseFxDate, parseQuery as parseCurrency, type CurrencyResult } from "./currency";
+import { convert, normalizeCurrency, parseDate as parseFxDate, parseQuery as parseCurrency, type CurrencyResult } from "./currency";
 import { lookupGame, parseTeams, type GameResult } from "./gameresult";
 import { getGasPrice, resolveChain as resolveGasChain, type GasResult } from "./gas";
 import { getFinancialData, type FinancialResult } from "./financial";
@@ -340,6 +340,37 @@ function firstValue(url: URL, ...names: string[]): string {
 }
 
 /**
+ * Words the engine writes into a declared parameter when it has nothing real to
+ * put there — the filled-in equivalent of the empty string `firstValue` already
+ * treats as absent.
+ *
+ * `firstValue` cannot tell them apart from a value, and downstream nothing can
+ * either: production asked for "the current weather in Cairo" with
+ * `location=unknown` reported the weather at الجندي المجهول — the Unknown
+ * Soldier memorial — and with `location=N/A` reported Cairo, North Carolina
+ * (both verified against https://miner-wine.vercel.app on 2026-09-19). The
+ * question named Cairo, Egypt in plain words in both.
+ *
+ * Only exact matches are dropped, so a place, protocol or team whose name
+ * merely CONTAINS one of these words is untouched.
+ */
+const UNSET_VALUES = new Set([
+  "unknown", "n/a", "na", "none", "null", "nil", "undefined", "unspecified",
+  "not specified", "not provided", "string", "any", "tbd", "?", "-", "--", "empty",
+]);
+
+/** `firstValue`, with the engine's own placeholders counted as absent. */
+function firstRealValue(url: URL, ...names: string[]): string {
+  for (const n of names) {
+    const v = url.searchParams.get(n);
+    if (v === null) continue;
+    const trimmed = v.trim();
+    if (trimmed.length > 0 && !UNSET_VALUES.has(trimmed.toLowerCase())) return v;
+  }
+  return "";
+}
+
+/**
  * The question text, guaranteed to still contain the subject the engine parsed out.
  *
  * `firstValue` returns the FIRST populated parameter, so a route that lists
@@ -587,7 +618,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     const q =
       withSubject(
         firstValue(url, "query", "q", "question", "text", "input"),
-        firstValue(url, "location", "place", "city"),
+        firstRealValue(url, "location", "place", "city"),
       ) || coordsFromParams(url);
     if (!q.trim()) {
       // The engine sometimes fills `location` with an empty string and sends no
@@ -1120,9 +1151,9 @@ function route(req: IncomingMessage, res: ServerResponse): void {
      * answering the wrong one ~0.003. A protocol figure served for a token's
      * pool-liquidity question is not a slightly worse answer, it is the floor.
      */
-    const addressParam = firstValue(url, "address", "contract", "token", "token_address");
-    const protocolParam = firstValue(url, "protocol", "project", "name");
-    const chainParam = firstValue(url, "chain", "network");
+    const addressParam = firstRealValue(url, "address", "contract", "token", "token_address");
+    const protocolParam = firstRealValue(url, "protocol", "project", "name", "slug");
+    const chainParam = firstRealValue(url, "chain", "network");
     const q = withSubject(
       firstValue(url, "query", "q", "question", "text", "input"),
       addressParam || protocolParam,
@@ -1235,17 +1266,39 @@ function route(req: IncomingMessage, res: ServerResponse): void {
      * primary is the ECB's daily reference rate because two answers derived
      * from it are identical all day, where two live quotes never are.
      */
-    const fromParam = firstValue(url, "from", "from_currency", "base", "source_currency").toUpperCase().trim();
-    const toParam = firstValue(url, "to", "to_currency", "target", "target_currency", "quote").toUpperCase().trim();
+    /**
+     * The spellings this intent's own field uses, because those are the ones
+     * the engine's request-builder has seen. `fxex-frankfurter`, `-jpy` and
+     * `-hist` all declare `base` + `symbols`; we read `base` and not `symbols`,
+     * so `base=USD&symbols=JPY` answered with the USD/EUR rate — the wrong pair
+     * for a question that named both currencies. `source` was the same shape
+     * one parameter over: `target` was read, `source` was not, and
+     * `source=USD&target=JPY` answered "JPY and JPY are the same currency".
+     * Both verified against production on 2026-09-19.
+     */
+    const fromParam = firstValue(url, "from", "from_currency", "currency_from", "base", "source", "source_currency", "base_currency");
+    const toParam = firstValue(url, "to", "to_currency", "currency_to", "target", "target_currency", "quote", "symbols", "quote_currency");
     const amountParam = firstValue(url, "amount", "value", "quantity");
+    /**
+     * A pair written as one value, which is how an FX quote is usually spelled.
+     * Split only on a separator, so nothing is invented from a single token.
+     */
+    const pairParam = firstValue(url, "pair", "currency_pair", "symbol_pair").match(/^\s*([A-Za-z]{3})\s*[\/\-_ ]\s*([A-Za-z]{3})\s*$/);
+    const fromCode = normalizeCurrency(fromParam) ?? (pairParam ? normalizeCurrency(pairParam[1]!) : null);
+    const toCode = normalizeCurrency(toParam) ?? (pairParam ? normalizeCurrency(pairParam[2]!) : null);
     const q = withSubject(
       firstValue(url, "query", "q", "question", "text", "input"),
-      [amountParam, fromParam, toParam].filter(Boolean).join(" "),
+      [amountParam, fromCode, toCode].filter(Boolean).join(" "),
     );
 
     const parsed = parseCurrency(q);
-    const from = /^[A-Z]{3}$/.test(fromParam) ? fromParam : parsed.from;
-    const to = /^[A-Z]{3}$/.test(toParam) ? toParam : parsed.to;
+    /**
+     * A name is resolved to its code before the three-letter shape is trusted.
+     * `from=Dollar&to=Yen` used to pass "YEN" through as if it were ISO 4217 and
+     * then report that no feed had a rate for it.
+     */
+    const from = fromCode ?? parsed.from;
+    const to = toCode ?? parsed.to;
     const declaredAmount = Number(amountParam.replace(/,/g, ""));
     const amount = amountParam.trim() && Number.isFinite(declaredAmount) ? declaredAmount : parsed.amount;
     // A dated question is answered with that date's reference rate, never today's.
@@ -1277,17 +1330,33 @@ function route(req: IncomingMessage, res: ServerResponse): void {
      * anything else — and it is also the August 2026 SPORTS_SCORE mistake,
      * where a free source answered with a friendly against AC Milan.
      */
-    const teamsParam = [
-      firstValue(url, "team1", "home", "team_a"),
-      firstValue(url, "team2", "away", "team_b"),
-    ].filter(Boolean).join(" vs ");
+    /**
+     * Every spelling this intent's field uses for a side, and the one-value
+     * forms beside them. `team` singular is `sportwire-game-result`'s only
+     * subject parameter and it crossed at 0.984 in epoch 342; `teams`, `match`
+     * and `fixture` carry the whole matchup in one value. Production read none
+     * of them: `team=Lakers`, `teams=Lakers vs Celtics`, `home_team`/`away_team`
+     * and `team_1`/`team_2` all answered "No fixture could be identified in
+     * this request" on 2026-09-19.
+     */
+    const sideA = firstRealValue(url, "team1", "team_1", "teamA", "home_team", "home", "team_a");
+    const sideB = firstRealValue(url, "team2", "team_2", "teamB", "away_team", "away", "team_b");
+    const bothSides = [sideA, sideB].filter(Boolean).join(" vs ");
+    const matchupParam = firstRealValue(url, "teams", "match", "fixture", "event", "matchup", "game");
+    const teamsParam = bothSides || matchupParam;
     const q = withSubject(firstValue(url, "query", "q", "question", "text", "input"), teamsParam);
 
     const teams = parseTeams(teamsParam) ?? parseTeams(q);
+    // One side named is a fixture question too — whichever game that team last
+    // finished. Only when ONE side arrived: two sides that failed to parse as a
+    // fixture must not become a lookup for the first of them. Never guessed
+    // from prose here either; `gameresult.ts` decides what prose may name one.
+    const oneSide = sideA && sideB ? "" : sideA || sideB;
+    const team = teams ? "" : (oneSide || firstRealValue(url, "team", "club", "franchise"));
     const requestedDate = firstValue(url, "date");
     // The full request includes date/league constraints in prose. Team names
     // alone used to share yesterday's cached result with a different fixture.
-    const key = teams ? `game:${JSON.stringify([teams, q.toLowerCase(), requestedDate])}` : "";
+    const key = teams || team ? `game:${JSON.stringify([teams, team, q.toLowerCase(), requestedDate])}` : "";
     if (key) {
       const hit = fromCache(key);
       if (hit) {
@@ -1295,7 +1364,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
         return;
       }
     }
-    lookupGame(q, new Date(), { teams: teams ?? undefined, date: requestedDate || undefined })
+    lookupGame(q, new Date(), { teams: teams ?? undefined, team: team || undefined, date: requestedDate || undefined })
       .then((r) => {
         // A finished fixture's score is immutable, so it is safe to cache. A
         // scheduled or in-progress one is not: caching either would keep
@@ -1303,7 +1372,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
         if (key && r.verdict === "result") toCache(key, r);
         sendAnswer(res, q, lean(r), false);
       })
-      .catch(() => upstreamUnavailable(res, "A sports fixture result", teamsParam.slice(0, 40) || q.slice(0, 40), q));
+      .catch(() => upstreamUnavailable(res, "A sports fixture result", (teamsParam || team).slice(0, 40) || q.slice(0, 40), q));
     return;
   }
 
@@ -1529,7 +1598,10 @@ function route(req: IncomingMessage, res: ServerResponse): void {
      * be judged" for the rest of the TTL, and a blocklist hit is re-read within
      * the minute like any other answer.
      */
-    const urlParam = firstValue(url, "url", "link", "domain", "host");
+    // `website`, `target` and `target_url` are the spellings the request-builder
+    // reaches for when the schema says "the URL to scan"; production refused all
+    // three with "No URL was supplied with this request" on 2026-09-19.
+    const urlParam = firstRealValue(url, "url", "link", "domain", "host", "website", "target_url", "target", "site", "page");
     const q = withSubject(firstValue(url, "query", "q", "question", "text", "input"), urlParam);
     const key = `urlscan:${q.trim().toLowerCase().slice(0, 300)}`;
     const hit = fromCache(key);

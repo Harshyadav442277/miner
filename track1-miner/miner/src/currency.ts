@@ -94,6 +94,45 @@ const ISO = /\b([A-Z]{3})\b/g;
 const KNOWN_ISO = new Set(Object.values(NAMES));
 
 /**
+ * Values the engine writes into a declared parameter when it has nothing real
+ * to write. None of them is a currency, and treating one as a code sends a
+ * lookup for a currency that does not exist.
+ */
+const NOT_A_CURRENCY = new Set([
+  "", "-", "?", "n/a", "na", "none", "null", "nil", "undefined", "unknown",
+  "string", "any", "all", "tbd", "xxx", "currency", "code", "from", "to", "base", "quote",
+]);
+
+/**
+ * One `from`/`to` parameter, as an ISO 4217 code.
+ *
+ * The engine fills these with an LLM, so what arrives is what a model writes:
+ * a code, a name, or a symbol. The route used to accept any three uppercase
+ * letters as a code, which is right for `AED` and wrong for `YEN` — `from=Dollar
+ * &to=Yen` against production on 2026-09-19 answered "The USD to YEN exchange
+ * rate could not be retrieved", because YEN passed the shape test and then no
+ * feed had a rate for it. Names are therefore resolved BEFORE the shape test,
+ * which also settles `TRY`: the word and the code mean the same currency.
+ *
+ * Returns null for a placeholder or anything unreadable, so the caller falls
+ * back to the question rather than looking up a currency nobody named.
+ */
+export function normalizeCurrency(value: string): string | null {
+  const raw = String(value ?? "").trim().replace(/[.,;:]+$/, "");
+  if (!raw) return null;
+  const lower = raw.toLowerCase();
+  if (NOT_A_CURRENCY.has(lower)) return null;
+  const symbol = ([["$", "USD"], ["£", "GBP"], ["€", "EUR"], ["¥", "JPY"]] as const)
+    .find(([glyph]) => raw.includes(glyph));
+  if (symbol) return symbol[1];
+  if (NAMES[lower]) return NAMES[lower];
+  const words = lower.split(/\s+/);
+  const last = words.at(-1) ?? "";
+  if (words.length > 1 && NAMES[last]) return NAMES[last];
+  return /^[a-z]{3}$/.test(lower) ? lower.toUpperCase() : null;
+}
+
+/**
  * The two currencies and the amount.
  *
  * Direction matters as much as the number — an inverted answer scores 1.9e-7,

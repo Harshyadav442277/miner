@@ -1,0 +1,213 @@
+
+===== URL_SCAN  (200 rows)
+keys: id,epoch_id,intent_id,miner_slug,rank,score,failure_reason,scored_at,created_at
+-- epoch 343
+     1 proofgate-url-intelligence    9.621e-1  
+     2 preflight-ssl-verification    8.379e-1  
+     3 kriterion-pramagraph      1.523e-2  
+     4 livecert                  1.433e-3  
+     5 netwire-url-scan          3.766e-4  
+     6 chainsight-oracle         2.205e-4  
+     7 txlens                    1.731e-5  
+     8 url-sentinel              2.491e-6  
+     9 virustotal               5.434e-16  
+    10 url-scan-urlhaus          0.000e+0  empty string response from miner
+    11 urlscan-amazon            0.000e+0  call miner "urlscan-amazon": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" but
+    12 phishtank                 0.000e+0  call miner "phishtank": upstream error 403: <!DOCTYPE html><html lang="en-US"><head><title>Just a moment...</title><meta http-equiv="Content-Type" content="text
+    13 urlscan-cloudflare        0.000e+0  call miner "urlscan-cloudflare": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\"
+    14 urlscan                   0.000e+0  call miner "urlscan": miner "urlscan": declared credential "API-Key" (in=header) did not resolve; no field "api_key" in the stored credential. Named fields come
+    15 urlscan-github            0.000e+0  call miner "urlscan-github": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" but
+    16 urlscan-apple             0.000e+0  call miner "urlscan-apple": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" but 
+    17 urlscan-discord           0.000e+0  call miner "urlscan-discord": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" bu
+    18 urlscan-example           0.000e+0  call miner "urlscan-example": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" bu
+    19 urlscan-google            0.000e+0  build request for miner "urlscan-google": LLM call for miner "urlscan-google" failed: LLM API error (429): {"error":{"message":"litellm.RateLimitError: litellm.
+    20 urlscan-reddit            0.000e+0  call miner "urlscan-reddit": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" but
+    21 urlscan-paypal            0.000e+0  call miner "urlscan-paypal": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" but
+    22 urlscan-microsoft         0.000e+0  call miner "urlscan-microsoft": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" 
+-- epoch 342
+     1 proofgate-url-intelligence    9.809e-1  
+     2 livecert                  9.311e-1  
+     3 preflight-ssl-verification    8.713e-1  
+     4 kriterion-pramagraph      1.529e-2  
+     5 txlens                    2.345e-3  
+     6 chainsight-oracle         1.066e-3  
+     7 netwire-url-scan          2.085e-4  
+     8 url-sentinel              2.491e-6  
+     9 virustotal               6.994e-16  
+    10 urlscan-example           0.000e+0  call miner "urlscan-example": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" bu
+    11 phishtank                 0.000e+0  call miner "phishtank": upstream error 403: <!DOCTYPE html><html lang="en-US"><head><title>Just a moment...</title><meta http-equiv="Content-Type" content="text
+    12 urlscan-github            0.000e+0  call miner "urlscan-github": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" but
+    13 url-scan-urlhaus          0.000e+0  empty string response from miner
+    14 urlscan-cloudflare        0.000e+0  call miner "urlscan-cloudflare": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\"
+    15 urlscan                   0.000e+0  call miner "urlscan": miner "urlscan": declared credential "API-Key" (in=header) did not resolve; no field "api_key" in the stored credential. Named fields come
+    16 urlscan-google            0.000e+0  call miner "urlscan-google": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" but
+    17 urlscan-discord           0.000e+0  call miner "urlscan-discord": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" bu
+    18 urlscan-amazon            0.000e+0  call miner "urlscan-amazon": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" but
+    19 urlscan-reddit            0.000e+0  call miner "urlscan-reddit": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" but
+    20 urlscan-apple             0.000e+0  call miner "urlscan-apple": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" but 
+    21 urlscan-microsoft         0.000e+0  call miner "urlscan-microsoft": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" 
+    22 urlscan-paypal            0.000e+0  call miner "urlscan-paypal": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" but
+-- epoch 341
+     1 proofgate-url-intelligence    9.656e-1  
+     2 preflight-ssl-verification    9.577e-1  
+     3 livecert                  9.311e-1  
+     4 kriterion-pramagraph      1.027e-2  
+     5 netwire-url-scan          3.742e-4  
+     6 chainsight-oracle         1.854e-4  
+     7 txlens                    7.849e-5  
+     8 url-sentinel              1.918e-6  
+     9 virustotal               6.994e-16  
+    10 url-scan-urlhaus          0.000e+0  empty string response from miner
+    11 urlscan                   0.000e+0  call miner "urlscan": miner "urlscan": declared credential "API-Key" (in=header) did not resolve; no field "api_key" in the stored credential. Named fields come
+    12 urlscan-reddit            0.000e+0  call miner "urlscan-reddit": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" but
+    13 urlscan-paypal            0.000e+0  call miner "urlscan-paypal": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" but
+    14 urlscan-github            0.000e+0  call miner "urlscan-github": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" but
+    15 urlscan-google            0.000e+0  call miner "urlscan-google": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" but
+    16 urlscan-microsoft         0.000e+0  call miner "urlscan-microsoft": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" 
+    17 urlscan-discord           0.000e+0  call miner "urlscan-discord": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" bu
+    18 urlscan-example           0.000e+0  call miner "urlscan-example": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" bu
+    19 urlscan-apple             0.000e+0  call miner "urlscan-apple": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" but 
+    20 urlscan-cloudflare        0.000e+0  call miner "urlscan-cloudflare": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\"
+    21 phishtank                 0.000e+0  call miner "phishtank": upstream error 403: <!DOCTYPE html><html lang="en-US"><head><title>Just a moment...</title><meta http-equiv="Content-Type" content="text
+    22 urlscan-amazon            0.000e+0  build request for miner "urlscan-amazon": LLM call for miner "urlscan-amazon" failed: http request: Post "http://127.0.0.1:4000/v1/chat/completions": context de
+-- epoch 340
+     1 netwire-url-scan          9.888e-1  
+     2 preflight-ssl-verification    9.851e-1  
+     3 proofgate-url-intelligence    8.915e-1  
+     4 livecert                  8.364e-1  
+     5 chainsight-oracle         7.017e-1  
+     6 url-sentinel              6.252e-1  
+     7 virustotal                5.948e-7  
+     8 kriterion-pramagraph      4.135e-7  
+     9 urlscan-example           0.000e+0  call miner "urlscan-example": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" bu
+    10 urlscan-reddit            0.000e+0  call miner "urlscan-reddit": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" but
+    11 phishtank                 0.000e+0  call miner "phishtank": upstream error 403: <!DOCTYPE html><html lang="en-US"><head><title>Just a moment...</title><meta http-equiv="Content-Type" content="text
+    12 urlscan-discord           0.000e+0  call miner "urlscan-discord": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" bu
+    13 urlscan-amazon            0.000e+0  call miner "urlscan-amazon": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" but
+    14 url-scan-urlhaus          0.000e+0  empty string response from miner
+    15 urlscan-microsoft         0.000e+0  call miner "urlscan-microsoft": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" 
+    16 urlscan-apple             0.000e+0  call miner "urlscan-apple": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" but 
+    17 urlscan-google            0.000e+0  call miner "urlscan-google": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" but
+    18 urlscan-cloudflare        0.000e+0  call miner "urlscan-cloudflare": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\"
+    19 urlscan-paypal            0.000e+0  call miner "urlscan-paypal": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" but
+    20 urlscan-github            0.000e+0  call miner "urlscan-github": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" but
+    21 urlscan                   0.000e+0  call miner "urlscan": miner "urlscan": declared credential "API-Key" (in=header) did not resolve; no field "api_key" in the stored credential. Named fields come
+-- epoch 339
+     1 proofgate-url-intelligence    9.656e-1  
+     2 preflight-ssl-verification    8.390e-1  
+     3 kriterion-pramagraph      1.342e-2  
+     4 livecert                  1.433e-3  
+     5 netwire-url-scan          3.927e-4  
+     6 chainsight-oracle         2.205e-4  
+     7 url-sentinel              2.491e-6  
+     8 virustotal               5.434e-16  
+     9 urlscan-cloudflare        0.000e+0  call miner "urlscan-cloudflare": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\"
+    10 urlscan-github            0.000e+0  call miner "urlscan-github": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" but
+    11 urlscan-google            0.000e+0  call miner "urlscan-google": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" but
+    12 urlscan-microsoft         0.000e+0  call miner "urlscan-microsoft": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" 
+    13 urlscan-paypal            0.000e+0  call miner "urlscan-paypal": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" but
+    14 url-scan-urlhaus          0.000e+0  empty string response from miner
+    15 urlscan-example           0.000e+0  call miner "urlscan-example": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" bu
+    16 urlscan-discord           0.000e+0  call miner "urlscan-discord": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" bu
+    17 urlscan-apple             0.000e+0  call miner "urlscan-apple": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" but 
+    18 phishtank                 0.000e+0  call miner "phishtank": upstream error 403: <!DOCTYPE html><html lang="en-US"><head><title>Just a moment...</title><meta http-equiv="Content-Type" content="text
+    19 urlscan-reddit            0.000e+0  call miner "urlscan-reddit": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" but
+    20 urlscan-amazon            0.000e+0  call miner "urlscan-amazon": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" but
+    21 urlscan                   0.000e+0  call miner "urlscan": miner "urlscan": declared credential "API-Key" (in=header) did not resolve; no field "api_key" in the stored credential. Named fields come
+-- epoch 338
+     1 livecert                  4.043e-1  
+     2 proofgate-url-intelligence    9.864e-6  
+     3 netwire-url-scan          7.423e-7  
+     4 virustotal               2.525e-10  
+     5 preflight-ssl-verification   2.880e-11  
+     6 kriterion-pramagraph     9.044e-12  
+     7 url-sentinel             5.965e-16  
+     8 chainsight-oracle        2.031e-18  
+     9 urlscan-example           0.000e+0  call miner "urlscan-example": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" bu
+    10 urlscan-cloudflare        0.000e+0  call miner "urlscan-cloudflare": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\"
+    11 urlscan-reddit            0.000e+0  call miner "urlscan-reddit": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" but
+    12 urlscan-discord           0.000e+0  call miner "urlscan-discord": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" bu
+    13 urlscan-amazon            0.000e+0  call miner "urlscan-amazon": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" but
+    14 url-scan-urlhaus          0.000e+0  empty string response from miner
+    15 urlscan                   0.000e+0  call miner "urlscan": miner "urlscan": declared credential "API-Key" (in=header) did not resolve; no field "api_key" in the stored credential. Named fields come
+    16 urlscan-github            0.000e+0  call miner "urlscan-github": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" but
+    17 urlscan-google            0.000e+0  call miner "urlscan-google": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" but
+    18 phishtank                 0.000e+0  call miner "phishtank": upstream error 403: <!DOCTYPE html><html lang="en-US"><head><title>Just a moment...</title><meta http-equiv="Content-Type" content="text
+    19 urlscan-apple             0.000e+0  call miner "urlscan-apple": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" but 
+    20 urlscan-microsoft         0.000e+0  call miner "urlscan-microsoft": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" 
+    21 urlscan-paypal            0.000e+0  call miner "urlscan-paypal": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" but
+-- epoch 337
+     1 livecert                  9.564e-1  
+     2 proofgate-url-intelligence    9.290e-1  
+     3 preflight-ssl-verification    9.137e-1  
+     4 chainsight-oracle         8.966e-1  
+     5 netwire-url-scan          8.772e-1  
+     6 url-sentinel              6.302e-1  
+     7 kriterion-pramagraph      1.147e-2  
+     8 virustotal                2.895e-9  
+     9 urlscan-discord           0.000e+0  call miner "urlscan-discord": upstream error 400: { "code": "validationerror", "type": "query", "message": "ValidationError: \"size\" must be a number", "errors
+    10 urlscan-apple             0.000e+0  call miner "urlscan-apple": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" but 
+    11 urlscan                   0.000e+0  call miner "urlscan": miner "urlscan": declared credential "API-Key" (in=header) did not resolve; no field "api_key" in the stored credential. Named fields come
+    12 urlscan-github            0.000e+0  call miner "urlscan-github": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" but
+    13 urlscan-google            0.000e+0  call miner "urlscan-google": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" but
+    14 urlscan-microsoft         0.000e+0  call miner "urlscan-microsoft": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" 
+    15 urlscan-example           0.000e+0  call miner "urlscan-example": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" bu
+    16 url-scan-urlhaus          0.000e+0  empty string response from miner
+    17 urlscan-cloudflare        0.000e+0  call miner "urlscan-cloudflare": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\"
+    18 urlscan-paypal            0.000e+0  call miner "urlscan-paypal": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" but
+    19 urlscan-amazon            0.000e+0  call miner "urlscan-amazon": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" but
+    20 urlscan-reddit            0.000e+0  call miner "urlscan-reddit": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" but
+    21 phishtank                 0.000e+0  call miner "phishtank": upstream error 403: <!DOCTYPE html><html lang="en-US"><head><title>Just a moment...</title><meta http-equiv="Content-Type" content="text
+-- epoch 336
+     1 proofgate-url-intelligence    9.272e-1  
+     2 livecert                  9.259e-1  
+     3 preflight-ssl-verification    9.181e-1  
+     4 chainsight-oracle         8.966e-1  
+     5 netwire-url-scan          8.871e-1  
+     6 url-sentinel              6.167e-1  
+     7 kriterion-pramagraph      1.324e-2  
+     8 virustotal                2.895e-9  
+     9 urlscan-cloudflare        0.000e+0  call miner "urlscan-cloudflare": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\"
+    10 urlscan-discord           0.000e+0  call miner "urlscan-discord": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" bu
+    11 urlscan-reddit            0.000e+0  call miner "urlscan-reddit": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" but
+    12 urlscan-github            0.000e+0  call miner "urlscan-github": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" but
+    13 phishtank                 0.000e+0  call miner "phishtank": upstream error 403: <!DOCTYPE html><html lang="en-US"><head><title>Just a moment...</title><meta http-equiv="Content-Type" content="text
+    14 urlscan-example           0.000e+0  call miner "urlscan-example": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" bu
+    15 urlscan-microsoft         0.000e+0  call miner "urlscan-microsoft": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" 
+    16 urlscan-google            0.000e+0  call miner "urlscan-google": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" but
+    17 url-scan-urlhaus          0.000e+0  empty string response from miner
+    18 urlscan-paypal            0.000e+0  call miner "urlscan-paypal": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" but
+    19 urlscan-amazon            0.000e+0  call miner "urlscan-amazon": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" but
+    20 urlscan                   0.000e+0  call miner "urlscan": miner "urlscan": declared credential "API-Key" (in=header) did not resolve; no field "api_key" in the stored credential. Named fields come
+    21 urlscan-apple             0.000e+0  call miner "urlscan-apple": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" but 
+-- epoch 335
+     1 netwire-url-scan          9.026e-1  
+     2 url-sentinel              8.021e-1  
+     3 preflight-ssl-verification    4.591e-3  
+     4 kriterion-pramagraph      1.148e-4  
+     5 virustotal                7.447e-7  
+     6 urlscan-apple             0.000e+0  call miner "urlscan-apple": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" but 
+     7 proofgate-url-intelligence    0.000e+0  build request for miner "proofgate-url-intelligence": LLM call for miner "proofgate-url-intelligence" failed: context deadline exceeded
+     8 urlscan-example           0.000e+0  build request for miner "urlscan-example": LLM call for miner "urlscan-example" failed: http request: Post "http://127.0.0.1:4000/v1/chat/completions": context 
+     9 urlscan-github            0.000e+0  build request for miner "urlscan-github": LLM call for miner "urlscan-github" failed: http request: Post "http://127.0.0.1:4000/v1/chat/completions": context de
+    10 urlscan-google            0.000e+0  build request for miner "urlscan-google": LLM call for miner "urlscan-google" failed: http request: Post "http://127.0.0.1:4000/v1/chat/completions": context de
+    11 livecert                  0.000e+0  build request for miner "livecert": LLM call for miner "livecert" failed: context deadline exceeded
+    12 urlscan-discord           0.000e+0  call miner "urlscan-discord": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" bu
+    13 urlscan-amazon            0.000e+0  build request for miner "urlscan-amazon": LLM call for miner "urlscan-amazon" failed: context deadline exceeded
+    14 urlscan-microsoft         0.000e+0  call miner "urlscan-microsoft": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" 
+    15 urlscan-paypal            0.000e+0  call miner "urlscan-paypal": upstream error 400: { "message": "Expected \"\\\\\" but \"/\" found.", "status": 400, "errors": [ { "title": "Expected \"\\\\\" but
+    16 url-scan-urlhaus          0.000e+0  empty string response from miner
+    17 urlscan-cloudflare        0.000e+0  build request for miner "urlscan-cloudflare": LLM call for miner "urlscan-cloudflare" failed: context deadline exceeded
+    18 chainsight-oracle         0.000e+0  build request for miner "chainsight-oracle": LLM call for miner "chainsight-oracle" failed: context deadline exceeded
+    19 phishtank                 0.000e+0  call miner "phishtank": upstream error 403: <!DOCTYPE html><html lang="en-US"><head><title>Just a moment...</title><meta http-equiv="Content-Type" content="text
+    20 urlscan                   0.000e+0  call miner "urlscan": miner "urlscan": declared credential "API-Key" (in=header) did not resolve; no field "api_key" in the stored credential. Named fields come
+    21 urlscan-reddit            0.000e+0  build request for miner "urlscan-reddit": LLM call for miner "urlscan-reddit" failed: http request: Post "http://127.0.0.1:4000/v1/chat/completions": context de
+-- epoch 334
+     1 preflight-ssl-verification    9.879e-1  
+     2 netwire-url-scan          9.668e-1  
+     3 livecert                  9.664e-1  
+     4 chainsight-oracle         9.108e-1  
+     5 proofgate-url-intelligence    8.842e-1  
+     6 url-sentinel              6.130e-1  
+     7 kriterion-pramagraph      2.348e-6  
+     8 virustotal                8.417e-9  
