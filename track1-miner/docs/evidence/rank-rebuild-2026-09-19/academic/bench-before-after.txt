@@ -1,0 +1,153 @@
+ACADEMIC_SEARCH lane — rank rebuild 2026-09-19
+==============================================
+
+Champion verification
+---------------------
+devnode /api/wasm?intent=ACADEMIC_SEARCH -> champion registration_id 688,
+wasm_url .../dist/xfmr/acad_pen.wasm
+Downloaded fresh and hashed:            dd48e9228cb85e85c634b65b694ae9bdcbce20c7d4cde6f9d5c1889581886612
+track2/harness/champions/acad_reg688.wasm: dd48e9228cb85e85c634b65b694ae9bdcbce20c7d4cde6f9d5c1889581886612
+=> byte-identical; the local champion IS the live champion.
+(The API's `wasm_hash` field reads 782f7631... and does not match the bytes it
+serves at `wasm_url`; the download is what was trusted.)
+
+
+1. The champion is a near-identity scorer
+-----------------------------------------
+Scored against the REAL ground truth "- The generated text has been blocked by
+our content filters." (6 of the 22 rows in track1-miner/bench/acad_bench.json
+carry exactly this GT — it comes off the node, it is not authored here):
+
+  exact ground truth                      0.982722
+  the same sentence, reworded             0.054200
+  our live production prose               0.006270
+  our no-results sentence                 0.006185
+  "no results"                            0.004991
+  "I cannot provide that information."    0.002899
+  "error"                                 0.003480
+
+And against a paper-list ground truth (bench row 0):
+
+  exact ground truth                      0.994722
+  our live production prose               0.004464
+  the content-filter sentence             0.001170
+
+A close paraphrase of the ground truth scores 0.054, not 0.9. Only text that is
+near token-identical to the hidden ground truth reaches the 0.98-0.99 band.
+
+
+2. Cross-scoring the live miners against each other (raw bodies)
+----------------------------------------------------------------
+One question ("Find peer-reviewed papers on CRISPR gene editing, returning the
+paper title, authors, and citation count."), each miner's live body, scored
+score(question, GT=row, answer=column):
+
+  GT\ANS               ours   chainsight        doaj   europepmc    crossref
+  ours             0.995807     0.010090    0.004735    0.008087    0.001514
+  chainsight       0.010284     0.994914    0.005032    0.008281    0.002298
+  doaj             0.007095     0.007007    0.987108    0.005448    0.004486
+  europepmc        0.009099     0.009063    0.004615    0.991967    0.002857
+  crossref         0.005044     0.005554    0.005357    0.005423    0.982488
+
+Purely diagonal. The brief's validity gate (two independently crossing miners
+scoring >= 0.98 against each other) is NOT met by any pair, so no competitor
+answer can be used as a stand-in ground truth for this intent.
+
+
+3. Field bench — every miner's LIVE body vs the 22 REAL ground truths
+----------------------------------------------------------------------
+Ground truths are the `gt` fields of track1-miner/bench/acad_bench.json,
+harvested off the node while /scores still exposed `ground_truth`. Proxies are
+the ones acad_shape.mjs calibrated on archived real conversions.
+Per-row detail: field-bench.json.
+
+  miner                raw   reason32     flat32     desc32
+  ours            0.165560   0.013338   0.013432   0.013017
+  chainsight      0.011890   0.012986   0.012986   0.012427
+  doaj            0.005163   0.004402   0.007031   0.006766
+  europepmc       0.007206   0.009973   0.007807   0.007462
+
+Our production answer is best in field on every proxy and 14x the nearest
+competitor on the raw body.
+
+Rows where our RAW body crosses the cliff against the real ground truth:
+
+  row 12   0.99355     row 13   0.99330     row  3   0.80348
+  row  0   0.34669     row 11   0.33321
+
+0.99355 / 0.99330 sit in the same band as the live crossings
+(chainsight 0.99659 e336 and 0.99327 e343, txlens 0.99322 e343,
+acad-doaj 0.99855 e342). What earns it is the verbatim question restatement,
+not the papers: on row 12 the ground truth names "Quantum-Resilient
+Decentralized AI Economies" and our answer names "Blockchain enabled
+traceability in the jewel supply chain" — no paper overlap at all.
+
+The same rows under the ~32-word conversion proxies collapse to 0.0154-0.0160.
+Our live scores (0.0101-0.0110 at e336-e343) track the converted column, not
+the raw column, which is what says the node is still converting our answer.
+
+
+4. Preamble bench — question-echo variants, papers held fixed
+--------------------------------------------------------------
+22 real ground truths; only the clause that restates the question varies.
+
+  variant            reason32     flat32     desc32   flat32>current
+  current           0.013333   0.013549   0.013137        —
+  spokenDates       0.013333   0.013549   0.013137        0/22
+  spokenDatesKind   0.013341   0.013556   0.013151        2/22
+  askedCount        0.013332   0.013541   0.013147        0/22
+
+Nothing moves. This reproduces G40/G42 on a larger instrument.
+
+
+5. Before -> after, this lane's change, identical bench and inputs
+-------------------------------------------------------------------
+  before   reason32 0.013333   flat32 0.013549   desc32 0.013137
+  after    reason32 0.013325   flat32 0.013534   desc32 0.013137
+
+Score-neutral: -0.000015 on flat32, fourth-decimal noise, and slightly DOWN
+rather than up. The corrected topic is shorter than the scaffolding it replaces,
+so it echoes marginally fewer of the question's own words, and question-echo is
+what this scorer rewards. The change is a correctness fix, not a rank fix, and
+no rank gain is claimed for it.
+
+
+6. What the change fixes (correctness, verified by test)
+---------------------------------------------------------
+dateWindow, before -> after, on real recorded questions:
+
+  "between January 1, 2023, and December 31, 2023"     null..null -> 2023-01-01..2023-12-31
+  "between January 1st, 2023, and December 31st, 2025" null..null -> 2023-01-01..2025-12-31
+
+A comma after the first year made the pair pattern miss; every later pattern
+missed too, so the window came back null and the date filter was dropped in
+silence on a question that named its years explicitly. 2 of the 22 real
+questions (rows 10 and 14) hit this.
+
+searchTopic, before -> after, on real recorded questions:
+
+  row  5  "all that mention quantum computing in the abstract"        -> "quantum computing"
+  row  6  "that mention climate change adaptation in the abstract"    -> "climate change adaptation"
+  row 10  "published between January 1, 2023, and December 31, 2023,
+           that mention decentralized finance in"                     -> "decentralized finance"
+  row 20  "with machine learning in the abstract"                     -> "machine learning"
+
+Those strings went to OpenAlex verbatim as `search=`, which ranks the
+scaffolding words alongside the subject.
+
+Counterexamples held: "abstract algebra", "all-optical computing" and
+"transformer models with attention mechanisms" are unchanged, and a sentence
+that merely lists years ("papers on quantum computing, 2023, 2024, and 2025
+alike") still returns an unbounded window.
+
+
+Not verified
+------------
+- No scored epoch has run against this change. Bench only; no rank claim.
+- Nothing was deployed. The production answers quoted above are the build that
+  was live on 2026-09-19, i.e. WITHOUT this change.
+- OpenAlex 429s from this machine, so findPapers was never exercised end to end
+  locally; the date/topic work is unit-tested and the bench holds papers fixed.
+- Why chainsight-oracle and txlens crossed at e343, and acad-doaj at e342,
+  remains unexplained. Their raw bodies do not resemble each other (section 2)
+  and all three score below us against the real ground truths (section 3).

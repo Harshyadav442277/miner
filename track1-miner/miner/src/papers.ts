@@ -96,9 +96,15 @@ export function dateWindow(text: string): { from: string | null; to: string | nu
   // The day number is optional. Real questions use both "between January 2023 and
   // June 2026" and "between January 1, 2025 and June 30, 2026". Missing the second
   // form meant a question scoped to 2025-2026 was answered with papers from 2002.
+  //
+  // The separator before "and"/"to" allows a comma, because real questions write
+  // "between January 1, 2023, and December 31, 2023" — a comma closing the first
+  // date as well as opening it. Requiring bare whitespace there made the pattern
+  // miss, and since every later pattern misses too the window came back null, so
+  // the date filter was dropped silently on a question that named its years.
   const pairRe = new RegExp(
     String.raw`\b(?:between|from)\s+([A-Za-z]+)\s+(?:(\d{1,2})(?:st|nd|rd|th)?\s*,?\s*)?(\d{4})` +
-      String.raw`\s+(?:and|to)\s+([A-Za-z]+)\s+(?:(\d{1,2})(?:st|nd|rd|th)?\s*,?\s*)?(\d{4})`,
+      String.raw`\s*,?\s*(?:and|to)\s+([A-Za-z]+)\s+(?:(\d{1,2})(?:st|nd|rd|th)?\s*,?\s*)?(\d{4})`,
     "i",
   );
   const m = s.match(pairRe);
@@ -195,8 +201,32 @@ export function searchTopic(text: string): string | null {
       // rest of the sentence too — and in "papers published in 2025 in the field
       // of quantum computing" the subject is everything after the date, so the
       // topic came back null and the endpoint refused a question it could answer.
+      //
+      // The month-name form is stripped first, because the bare-year pattern
+      // below would otherwise eat only its tail and leave "published between
+      // January 1," sitting in the search string.
+      .replace(
+        /\b(?:published\s+)?(?:between|from)\s+[A-Za-z]+\s+(?:\d{1,2}(?:st|nd|rd|th)?\s*,?\s*)?\d{4}\s*,?\s*(?:and|to)\s+[A-Za-z]+\s+(?:\d{1,2}(?:st|nd|rd|th)?\s*,?\s*)?\d{4}/gi,
+        " ",
+      )
       .replace(/\b(?:published\s+)?(?:since|after|before|until|between|in)\s+\d{4}(?:\s*(?:and|to)\s*\d{4})?/gi, " ")
+      // Filter scaffolding. The subject of these questions sits inside the
+      // filter — "that mention 'quantum computing' in the abstract" — so the
+      // clause cannot be deleted wholesale without deleting the subject with it.
+      // Only the scaffolding words go; whatever they wrapped stays. "abstract"
+      // and "title" are removed only in the possessive phrase, so a question
+      // about abstract algebra keeps its field.
+      .replace(/\b(?:that\s+)?mention(?:s|ing|ed)?\b/gi, " ")
+      .replace(/\bin\s+(?:their|the)\s+(?:abstracts?|titles?)\b/gi, " ")
+      .replace(/\b(?:and\s+)?(?:have|having|with)\s+at\s+least\s+\d+\s+citations?\b/gi, " ")
+      // A leading "all" or "with" is left over from "find all papers…" and
+      // "papers with 'machine learning'…". Anchored, and each requires the space
+      // after it, so "all-optical computing" keeps its first word.
+      .replace(/^\s*(?:all|with|either)\s+/i, "")
       .replace(/[?.!]+\s*$/, "")
+      .replace(/\s+/g, " ")
+      // A removed clause leaves the punctuation that joined it to the sentence.
+      .replace(/^[\s,;:]+|[\s,;:]+$/g, "")
       .trim();
   } else {
     t = t.replace(/\b(?:published\s+)?(?:since|after)\s+\d{4}.*$/i, "").trim();

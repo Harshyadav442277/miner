@@ -48,6 +48,73 @@ test("a bare publication year still parses", () => {
   assert.deepEqual(dateWindow(Q_FIELD_OF), { from: "2025-01-01", to: "2025-12-31" });
 });
 
+// Both questions below are real recorded ACADEMIC_SEARCH questions (bench rows
+// 10 and 14 of track1-miner/bench/acad_bench.json), and both write the range
+// with a comma after the first year: "between January 1, 2023, and December 31,
+// 2023". The pair pattern required whitespace immediately after that year, so
+// the comma made it miss, every later pattern missed too, and the window came
+// back null — the date filter was dropped in silence and the search ran over the
+// whole corpus on a question that named its years explicitly.
+
+const Q_COMMA_RANGE = `Search Semantic Scholar for papers published between January 1, 2023, and December 31, 2023, that mention 'decentralized finance' in the abstract and have at least 50 citations, returning the title, abstract, and citation count for each result, limited to 10 papers.`;
+const Q_ORDINAL_COMMA_RANGE = `Find peer-reviewed articles in the field of quantum computing published between January 1st, 2023, and December 31st, 2025, that mention either 'error correction' or 'fault tolerance' in the abstract, returning up to 10 results.`;
+
+test("a comma after the first year does not drop the range", () => {
+  assert.deepEqual(dateWindow(Q_COMMA_RANGE), { from: "2023-01-01", to: "2023-12-31" });
+});
+
+test("ordinal day numbers with a comma after the year still parse", () => {
+  assert.deepEqual(dateWindow(Q_ORDINAL_COMMA_RANGE), { from: "2023-01-01", to: "2025-12-31" });
+});
+
+// The "mention X in the abstract" family. These are real recorded questions
+// (bench rows 5, 6, 10 and 20) whose subject sits inside a filter clause rather
+// than after "on"/"in the field of", so the fallback strip handled them — and it
+// only knew bare-year date phrases and no filter scaffolding, so the topic came
+// out as "all that mention quantum computing in the abstract" and
+// "published between January 1, 2023, and December 31, 2023, that mention
+// decentralized finance in". Those go to OpenAlex verbatim as `search=`, which
+// ranks the scaffolding words alongside the subject and returns off-topic work.
+
+test("'mention X in the abstract' yields the subject, not the scaffolding", () => {
+  assert.equal(
+    searchTopic("Find all papers published in 2023 that mention 'quantum computing' in the abstract, returning the paper title, authors, citation count, and abstract, sorted by citation count descending."),
+    "quantum computing",
+  );
+  assert.equal(
+    searchTopic("Find scholarly articles published between 2020 and 2026 that mention 'climate change adaptation' in the abstract, returning up to 10 results."),
+    "climate change adaptation",
+  );
+  assert.equal(
+    searchTopic("Find papers with 'machine learning' in the abstract published after 2020, limiting results to 10, and return titles and abstract fields only."),
+    "machine learning",
+  );
+});
+
+test("a spoken date range is not mistaken for the subject", () => {
+  assert.equal(
+    searchTopic("Search Semantic Scholar for papers published between January 1, 2023, and December 31, 2023, that mention 'decentralized finance' in the abstract and have at least 50 citations, returning the title, abstract, and citation count for each result, limited to 10 papers."),
+    "decentralized finance",
+  );
+});
+
+test("subject words that merely look like scaffolding survive", () => {
+  // "abstract" as a field of study, "mention" nowhere, a leading "all-" that is
+  // part of the term, and a mid-sentence "with" that joins two real terms.
+  assert.equal(searchTopic("abstract algebra"), "abstract algebra");
+  assert.equal(searchTopic("all-optical computing"), "all-optical computing");
+  assert.match(searchTopic("transformer models with attention mechanisms") ?? "", /with attention mechanisms/);
+});
+
+test("a comma cannot invent a range that the question did not write", () => {
+  // The comma is tolerated only between the two halves of an explicit range.
+  // A sentence that merely lists years must still come back unbounded.
+  assert.deepEqual(dateWindow("papers on quantum computing, 2023, 2024, and 2025 alike"), {
+    from: null,
+    to: null,
+  });
+});
+
 test("the requested result count is honoured", () => {
   assert.equal(requestedLimit(Q_FIELD_OF), 10, "'the most recent 10 results'");
   assert.equal(requestedLimit(Q_QUOTED_FIELD), 10, "'limited to 10 results'");

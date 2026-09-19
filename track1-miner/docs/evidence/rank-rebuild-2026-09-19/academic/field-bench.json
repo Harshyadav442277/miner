@@ -1,0 +1,802 @@
+{
+ "note": "per-row scores of each miner live production body against the 22 real ground truths in track1-miner/bench/acad_bench.json, champion 688 (sha256 dd48e922...). Answers truncated to 1200 chars.",
+ "rows": [
+  {
+   "topic": "artificial intelligence transformer models",
+   "scores": {
+    "ours": {
+     "raw": 0.34669095277786255,
+     "reason32": 0.015080700628459454,
+     "flat32": 0.015388714149594307,
+     "desc32": 0.015192796476185322
+    },
+    "chainsight": {
+     "raw": 0.009852144867181778,
+     "reason32": 0.01551786158233881,
+     "flat32": 0.01551786158233881,
+     "desc32": 0.015352518297731876
+    },
+    "doaj": {
+     "raw": 0.004934736527502537,
+     "reason32": 0.0020717240404337645,
+     "flat32": 0.005324624478816986,
+     "desc32": 0.0053234281949698925
+    },
+    "europepmc": {
+     "raw": 0.004768386948853731,
+     "reason32": 0.0100211501121521,
+     "flat32": 0.005407050717622042,
+     "desc32": 0.00547398068010807
+    }
+   },
+   "answers": {
+    "ours": "{\"verdict\":\"papers\",\"confidence\":1,\"reason\":\"Regarding find papers published in 2023 in the field of 'artificial intelligence' that mention 'transformer models' in their abstract, returning only the paper title, year, and citation count, limited to 10 results artificial intelligence transformer models: Here are 10 papers on artificial intelligence transformer models published between 2023-01-01 and 2023-12-31: 1) Augmenting human innovation teams with artificial intelligence: Exploring transformer‐based language models by Sebastian Gregor Bouschery, Vera Blažević, Frank T. Piller (2023), cited 427 times. 2) Bringing order into the realm of Transformer-based language models for artificial intelligence and law by Candida M. Greco, Andrea Tagarelli (2023), cited 49 times. 3) Interpreting Black-Box Models: A Review on Explainable Artificial Intelligence by Vikas Hassija, Vinay Chamola, Atmesh Mahapatra, Abhinandan Singal (2023), cited 2020 times. 4) Can artificial intelligence help for scientific writing? by Michele Salvagno, Fabio Silvio Taccone, Alberto Giovanni Gerli (2023), cited 832 times. 5) ChatGPT and a new academic reality: Artificial Intelligence‐written research papers and t",
+    "chainsight": "{\"topic\":\"Find papers published in 2023 in the field of 'artificial intelligence' that mention 'transformer models' in their abstract, returning only the paper title, year, and citation count, limited to 10 results\",\"count\":5,\"source\":\"openalex\",\"signal\":\"Relevant peer-reviewed papers on Find papers published in 2023 in the field of 'artificial intelligence' that mention 'transformer models' in their abstract, returning only the paper title, year, and citation count, limited to 10 results: \\\"Opinion Paper: “So what if ChatGPT wrote it?” Multidisciplinary perspectives on opportunities, challenges and implications of generative conversational AI for research, practice and policy\\\" (Yogesh K. Dwivedi et al., 2023); \\\"A Survey of Text Classification With Transformers: How Wide? How Large? How Long? How Accurate? How Expensive? How Safe?\\\" (John Fields et al., 2024); \\\"Artificial Intelligence for Management Information Systems: Opportunities, Challenges, and Future Directions\\\" (Stela Stoykova et al., 2023); \\\"Artificial Intelligence in Cybersecurity: A Comprehensive Review and Future Direction\\\" (Lizzy Ofusori et al., 2024); \\\"Artificial intelligence and machine learning in purchasing ",
+    "doaj": "{\"total\": 1169, \"page\": 1, \"pageSize\": 1, \"timestamp\": \"2026-09-19T04:46:48.428350Z\", \"query\": \"artificial intelligence transformer models\", \"results\": [{\"last_updated\": \"2026-05-06T04:22:22Z\", \"bibjson\": {\"identifier\": [{\"id\": \"2950-2616\", \"type\": \"eissn\"}, {\"id\": \"10.1016/j.intonc.2025.06.005\", \"type\": \"doi\"}], \"journal\": {\"volume\": \"1\", \"number\": \"3\", \"country\": \"CN\", \"issns\": [\"2097-7131\", \"2950-2616\"], \"publisher\": \"KeAi Communications Co., Ltd.\", \"language\": [\"EN\"], \"title\": \"Intelligent Oncology\"}, \"month\": \"07\", \"end_page\": \"215\", \"keywords\": [\"Bone tumors\", \"Multimodal data fusion\", \"Artificial intelligence\", \"Clinical decision support systems\", \"Deep learning\"], \"year\": \"2025\", \"start_page\": \"204\", \"subject\": [{\"code\": \"R858-859.7\", \"scheme\": \"LCC\", \"term\": \"Computer applications to medicine. Medical informatics\"}, {\"code\": \"RC254-282\", \"scheme\": \"LCC\", \"term\": \"Neoplasms. Tumors. Oncology. Including cancer and carcinogens\"}], \"author\": [{\"affiliation\": \"School of Electronic Information, Wuhan University of Science and Technology, Wuhan Hubei 430081, China\", \"name\": \"Tongtong Huo\"}, {\"affiliation\": \"Union Hospital, Tongji Medical College, Huazhong University of Science an",
+    "europepmc": "{\"version\":\"6.9\",\"hitCount\":28631,\"nextCursorMark\":\"AoIIQNfLVSg1NjE1NTYxNQ==\",\"nextPageUrl\":\"https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=artificial intelligence transformer models&cursorMark=AoIIQNfLVSg1NjE1NTYxNQ==&resultType=lite&pageSize=1&format=json\",\"request\":{\"queryString\":\"artificial intelligence transformer models\",\"resultType\":\"lite\",\"cursorMark\":\"*\",\"pageSize\":1,\"sort\":\"\",\"synonym\":false},\"resultList\":{\"result\":[{\"id\":\"42611136\",\"source\":\"MED\",\"pmid\":\"42611136\",\"doi\":\"10.1007/s10822-026-00911-5\",\"title\":\"A survey of transformer and LLM-based architectures, workflows, and systems in drug discovery.\",\"authorString\":\"Tsimenidis S, Vrochidou E, Papakostas GA.\",\"journalTitle\":\"J Comput Aided Mol Des\",\"issue\":\"1\",\"journalVolume\":\"40\",\"pubYear\":\"2026\",\"journalIssn\":\"0920-654x; 1573-4951; \",\"pageInfo\":\"205\",\"pubType\":\"review; journal article\",\"isOpenAccess\":\"N\",\"inEPMC\":\"N\",\"inPMC\":\"N\",\"citedByCount\":0,\"hasReferences\":\"Y\",\"hasTextMinedTerms\":\"N\",\"hasDbCrossReferences\":\"N\",\"hasPDF\":\"N\",\"hasBook\":\"N\",\"hasSuppl\":\"N\",\"hasLabsLinks\":\"N\",\"hasTMAccessionNumbers\":\"N\",\"firstPublicationDate\":\"2026-08-18\",\"firstIndexDate\":\"2026-08-19\"}]}}"
+   }
+  },
+  {
+   "topic": "the impact of quantum computing on cryptographic protocols",
+   "scores": {
+    "ours": {
+     "raw": 0.012505059130489826,
+     "reason32": 0.017107969149947166,
+     "flat32": 0.01717936433851719,
+     "desc32": 0.016643615439534187
+    },
+    "chainsight": {
+     "raw": 0.016065049916505814,
+     "reason32": 0.016460418701171875,
+     "flat32": 0.016460418701171875,
+     "desc32": 0.016158349812030792
+    },
+    "doaj": {
+     "raw": 0.007515462581068277,
+     "reason32": 0.0020494533237069845,
+     "flat32": 0.003985125105828047,
+     "desc32": 0.0026581992860883474
+    },
+    "europepmc": {
+     "raw": 0.006853161845356226,
+     "reason32": 0.012947325594723225,
+     "flat32": 0.007741360925137997,
+     "desc32": 0.007194058503955603
+    }
+   },
+   "answers": {
+    "ours": "{\"verdict\":\"papers\",\"confidence\":1,\"reason\":\"Regarding find scholarly articles published between January 1, 2025 and June 30, 2026 that discuss the impact of quantum computing on cryptographic protocols, and return the top 5 results sorted by citation count: Here are 5 articles on the impact of quantum computing on cryptographic protocols published between 2025-01-01 and 2026-06-30: 1) Artificial intelligence and machine learning in cybersecurity: a deep dive into state-of-the-art techniques and future paradigms by Nachaat Mohamed (2025), cited 202 times. 2) IBM quantum computers: evolution, performance, and future directions by M. AbuGhanem (2025), cited 141 times. 3) Quantum Computing and Machine Learning in Medical Decision-Making: A Comprehensive Review by James C. L. Chow (2025), cited 95 times. 4) Does provable absence of barren plateaus imply classical simulability? by M. Cerezo, Martín Larocca, Diego García-Martín, N. L. Diaz (2025), cited 78 times. 5) Microsatellite-based real-time quantum key distribution by Yang Li, Wenqi Cai, Ji-Gang Ren, Chao-Ze Wang (2025), cited 141 times.\"}",
+    "chainsight": "{\"topic\":\"Find scholarly articles published between January 1, 2025 and June 30, 2026 that discuss the impact of quantum computing on cryptographic protocols, and return the top 5 results sorted by citation count\",\"signal\":\"No peer-reviewed papers were found on Find scholarly articles published between January 1, 2025 and June 30, 2026 that discuss the impact of quantum computing on cryptographic protocols, and return the top 5 results sorted by citation count.\",\"answer\":\"No peer-reviewed papers were found on Find scholarly articles published between January 1, 2025 and June 30, 2026 that discuss the impact of quantum computing on cryptographic protocols, and return the top 5 results sorted by citation count.\",\"source\":\"openalex\"}",
+    "doaj": "{\"total\": 6, \"page\": 1, \"pageSize\": 1, \"timestamp\": \"2026-09-19T04:47:39.123608Z\", \"query\": \"the impact of quantum computing on cryptographic protocols\", \"results\": [{\"last_updated\": \"2025-08-20T03:25:41Z\", \"bibjson\": {\"identifier\": [{\"id\": \"2169-3536\", \"type\": \"eissn\"}, {\"id\": \"10.1109/ACCESS.2025.3576926\", \"type\": \"doi\"}], \"journal\": {\"volume\": \"13\", \"country\": \"US\", \"issns\": [\"2169-3536\"], \"publisher\": \"IEEE\", \"language\": [\"EN\"], \"title\": \"IEEE Access\"}, \"end_page\": \"100094\", \"keywords\": [\"Certificateless authentication\", \"vehicular Ad hoc networks (VANETs)\", \"secure vehicular communication\", \"privacy-preserving authentication\", \"lightweight cryptographic authentication\"], \"year\": \"2025\", \"start_page\": \"100074\", \"subject\": [{\"code\": \"TK1-9971\", \"scheme\": \"LCC\", \"term\": \"Electrical engineering. Electronics. Nuclear engineering\"}], \"author\": [{\"orcid_id\": \"https://orcid.org/0009-0005-8559-4809\", \"affiliation\": \"Faculty of Computing, Universiti Teknologi Malaysia (UTM), Johor Bahru, Johor, Malaysia\", \"name\": \"Abdulaziz Zaid A. Aljarwan\"}, {\"orcid_id\": \"https://orcid.org/0000-0003-4907-6359\", \"affiliation\": \"Information Security Department, College of Computer Science and Engineerin",
+    "europepmc": "{\"version\":\"6.9\",\"hitCount\":589,\"nextCursorMark\":\"AoIIQQsenCg1NjM4NTUyNQ==\",\"nextPageUrl\":\"https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=the impact of quantum computing on cryptographic protocols&cursorMark=AoIIQQsenCg1NjM4NTUyNQ==&resultType=lite&pageSize=1&format=json\",\"request\":{\"queryString\":\"the impact of quantum computing on cryptographic protocols\",\"resultType\":\"lite\",\"cursorMark\":\"*\",\"pageSize\":1,\"sort\":\"\",\"synonym\":false},\"resultList\":{\"result\":[{\"id\":\"42719751\",\"source\":\"MED\",\"pmid\":\"42719751\",\"pmcid\":\"PMC13556152\",\"fullTextIdList\":{\"fullTextId\":[\"PMC13556152\"]},\"doi\":\"10.30953/bhty.v9.496\",\"title\":\"Quantum Threats to Bitcoin, Cryptocurrency and Blockchain.\",\"authorString\":\"Khan R, Karim M, Roosan D.\",\"journalTitle\":\"Blockchain Healthc Today\",\"issue\":\"2\",\"journalVolume\":\"9\",\"pubYear\":\"2026\",\"journalIssn\":\"2573-8240\",\"pubType\":\"research-article; journal article\",\"isOpenAccess\":\"Y\",\"inEPMC\":\"Y\",\"inPMC\":\"Y\",\"citedByCount\":0,\"hasReferences\":\"Y\",\"hasTextMinedTerms\":\"Y\",\"hasDbCrossReferences\":\"N\",\"hasPDF\":\"Y\",\"hasBook\":\"N\",\"hasSuppl\":\"N\",\"hasLabsLinks\":\"N\",\"hasTMAccessionNumbers\":\"Y\",\"tmAccessionTypeList\":{\"accessionType\":[\"doi\"]},\"firstPublicationDate\":\"2026-08"
+   }
+  },
+  {
+   "topic": "the impact of decentralized blockchain networks on supply chain transparency",
+   "scores": {
+    "ours": {
+     "raw": 0.009884041734039783,
+     "reason32": 0.0157538503408432,
+     "flat32": 0.01548698078840971,
+     "desc32": 0.014678794890642166
+    },
+    "chainsight": {
+     "raw": 0.014941005036234856,
+     "reason32": 0.014837412163615227,
+     "flat32": 0.014837412163615227,
+     "desc32": 0.014601274393498898
+    },
+    "doaj": {
+     "raw": 0.006345243193209171,
+     "reason32": 0.004408378154039383,
+     "flat32": 0.012582821771502495,
+     "desc32": 0.012017335742712021
+    },
+    "europepmc": {
+     "raw": 0.010263375006616116,
+     "reason32": 0.013108577579259872,
+     "flat32": 0.01052728109061718,
+     "desc32": 0.010284369811415672
+    }
+   },
+   "answers": {
+    "ours": "{\"verdict\":\"papers\",\"confidence\":1,\"reason\":\"Regarding find peer-reviewed articles published between January 2023 and June 2026 that discuss the impact of decentralized blockchain networks on supply chain transparency, filtering results to return only those where 'supply chain' appears in the abstract and 'blockchain' appears in the title, limiting the output to 10 papers sorted by most recent publication date: Here are 10 peer-reviewed journal articles on the impact of decentralized blockchain networks on supply chain transparency published between 2023-01-01 and 2026-06-30: 1) Zero-Knowledge Proofs in Blockchain Systems Enhancing Privacy Without Compromising Transparency by Neha Anand (2026), cited 0 times. 2) AI-Driven Supply Chain Optimization: A Sustainable Framework for Enhancing Operational Efficiency, Traceability, and Market Integration by S Saranya, K Chandrasekar (2026), cited 0 times. 3) Blockchain based QR Codes for Detection of Fake Medicines using Customized Proof of Authentic Validation by Shrinivas K. Sonkar Yogesh Arjun Shinde (2026), cited 0 times. 4) Regulatory Non-Implementation in Infectious Waste Management: Procedural Failures, Stakeholder’s Fragmented Coord",
+    "chainsight": "{\"topic\":\"Find peer-reviewed articles published between January 2023 and June 2026 that discuss the impact of decentralized blockchain networks on supply chain transparency, filtering results to return only those where 'supply chain' appears in the abstract and 'blockchain' appears in the title, limiting the output to 10 papers sorted by most recent publication date\",\"signal\":\"No peer-reviewed papers were found on Find peer-reviewed articles published between January 2023 and June 2026 that discuss the impact of decentralized blockchain networks on supply chain transparency, filtering results to return only those where 'supply chain' appears in the abstract and 'blockchain' appears in the title, limiting the output to 10 papers sorted by most recent publication date.\",\"answer\":\"No peer-reviewed papers were found on Find peer-reviewed articles published between January 2023 and June 2026 that discuss the impact of decentralized blockchain networks on supply chain transparency, filtering results to return only those where 'supply chain' appears in the abstract and 'blockchain' appears in the title, limiting the output to 10 papers sorted by most recent publication date.\",\"source\":\"op",
+    "doaj": "{\"total\": 1, \"page\": 1, \"pageSize\": 1, \"timestamp\": \"2026-09-19T04:48:26.067228Z\", \"query\": \"the impact of decentralized blockchain networks on supply chain transparency\", \"results\": [{\"last_updated\": \"2025-08-19T21:18:23Z\", \"bibjson\": {\"identifier\": [{\"id\": \"2665-9174\", \"type\": \"pissn\"}, {\"id\": \"10.1016/j.measen.2022.100462\", \"type\": \"doi\"}], \"journal\": {\"volume\": \"24\", \"number\": \"\", \"country\": \"GB\", \"issns\": [\"2665-9174\"], \"publisher\": \"Elsevier\", \"language\": [\"EN\"], \"title\": \"Measurement: Sensors\"}, \"month\": \"12\", \"end_page\": \"\", \"keywords\": [\"Agri-food supply chains\", \"Blockchains technology\", \"IoT\", \"Digital data\"], \"year\": \"2022\", \"start_page\": \"100462\", \"subject\": [{\"code\": \"TK452-454.4\", \"scheme\": \"LCC\", \"term\": \"Electric apparatus and materials. Electric circuits. Electric networks\"}], \"author\": [{\"affiliation\": \"Department of Commerce, School of Commerce, Finance and Accountancy, Christ University, Bangalore, India; Corresponding author.\", \"name\": \"Gowtham Ramkumar\"}, {\"affiliation\": \"Symbiosis School for Liberal Arts, Symbiosis International (Deemed University), Pune, Maharashtra, India\", \"name\": \"Kishori Kasat\"}, {\"affiliation\": \"Department of Commerce, Ansar Arabic Col",
+    "europepmc": "{\"version\":\"6.9\",\"hitCount\":949,\"nextCursorMark\":\"AoIIQTMgVSg1NjA4MzcxOQ==\",\"nextPageUrl\":\"https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=the impact of decentralized blockchain networks on supply chain transparency&cursorMark=AoIIQTMgVSg1NjA4MzcxOQ==&resultType=lite&pageSize=1&format=json\",\"request\":{\"queryString\":\"the impact of decentralized blockchain networks on supply chain transparency\",\"resultType\":\"lite\",\"cursorMark\":\"*\",\"pageSize\":1,\"sort\":\"\",\"synonym\":false},\"resultList\":{\"result\":[{\"id\":\"42550871\",\"source\":\"MED\",\"pmid\":\"42550871\",\"pmcid\":\"PMC13436780\",\"fullTextIdList\":{\"fullTextId\":[\"PMC13436780\"]},\"doi\":\"10.1371/journal.pone.0352021\",\"title\":\"Enhancing traceability and trust in the sugarcane supply chain using a blockchain-based framework with smart contracts and tokenization.\",\"authorString\":\"Farooq MS, Qureshi JN, Waheed HA, Khan MA, Farooq U, Shahaab A.\",\"journalTitle\":\"PLoS One\",\"issue\":\"8\",\"journalVolume\":\"21\",\"pubYear\":\"2026\",\"journalIssn\":\"1932-6203\",\"pageInfo\":\"e0352021\",\"pubType\":\"research-article; journal article\",\"isOpenAccess\":\"Y\",\"inEPMC\":\"Y\",\"inPMC\":\"Y\",\"citedByCount\":0,\"hasReferences\":\"Y\",\"hasTextMinedTerms\":\"Y\",\"hasDbCrossReferences\":\"N\",\"h"
+   }
+  },
+  {
+   "topic": "machine learning applications in renewable energy systems",
+   "scores": {
+    "ours": {
+     "raw": 0.8034805655479431,
+     "reason32": 0.014764918945729733,
+     "flat32": 0.015611265785992146,
+     "desc32": 0.015380099415779114
+    },
+    "chainsight": {
+     "raw": 0.014414297416806221,
+     "reason32": 0.014884906820952892,
+     "flat32": 0.014884906820952892,
+     "desc32": 0.014881838113069534
+    },
+    "doaj": {
+     "raw": 0.003344397759065032,
+     "reason32": 0.005966902244836092,
+     "flat32": 0.0098347757011652,
+     "desc32": 0.009191194549202919
+    },
+    "europepmc": {
+     "raw": 0.00875180121511221,
+     "reason32": 0.011781876906752586,
+     "flat32": 0.010540014132857323,
+     "desc32": 0.00991052482277155
+    }
+   },
+   "answers": {
+    "ours": "{\"verdict\":\"papers\",\"confidence\":1,\"reason\":\"Regarding search Semantic Scholar for recent peer-reviewed articles published between January 2025 and June 2026 that discuss machine learning applications in renewable energy systems, filtering results to return only articles with at least 15 citations and sorting by relevance: Here are 5 peer-reviewed journal articles on machine learning applications in renewable energy systems published between 2025-01-01 and 2026-06-30: 1) Hybrid Renewable Energy Systems—A Review of Optimization Approaches and Future Challenges by Akvile Giedraityte, Sigitas Rimkevičius, Mantas Marčiukaitis, Virginijus Radziukynas (2025), cited 129 times. 2) Machine learning applications in energy systems: current trends, challenges, and research directions by Saad Aslam, Pyi Phyo Aung, Ahmad Sahban Rafsanjani, Anwar P. P. Abdul Majeed (2025), cited 86 times. 3) Advancing Power Systems with Renewable Energy and Intelligent Technologies: A Comprehensive Review on Grid Transformation and Integration by Muhammed Cavus (2025), cited 165 times. 4) Comprehensive review of artificial intelligence applications in renewable energy systems: current implementations and emerging",
+    "chainsight": "{\"topic\":\"Search Semantic Scholar for recent peer-reviewed articles published between January 2025 and June 2026 that discuss machine learning applications in renewable energy systems, filtering results to return only articles with at least 15 citations and sorting by relevance\",\"count\":1,\"source\":\"openalex\",\"signal\":\"Relevant peer-reviewed papers on Search Semantic Scholar for recent peer-reviewed articles published between January 2025 and June 2026 that discuss machine learning applications in renewable energy systems, filtering results to return only articles with at least 15 citations and sorting by relevance: \\\"Assessing the housing market incentives from residential building energy efficiency regulations\\\" (Yunbei Ou, 2026).\",\"answer\":\"Relevant peer-reviewed papers on Search Semantic Scholar for recent peer-reviewed articles published between January 2025 and June 2026 that discuss machine learning applications in renewable energy systems, filtering results to return only articles with at least 15 citations and sorting by relevance: \\\"Assessing the housing market incentives from residential building energy efficiency regulations\\\" (Yunbei Ou, 2026).\"}",
+    "doaj": "{\"total\": 229, \"page\": 1, \"pageSize\": 1, \"timestamp\": \"2026-09-19T04:49:07.019836Z\", \"query\": \"machine learning applications in renewable energy systems\", \"results\": [{\"last_updated\": \"2025-08-20T02:20:23Z\", \"bibjson\": {\"identifier\": [{\"id\": \"2169-3536\", \"type\": \"eissn\"}, {\"id\": \"10.1109/ACCESS.2025.3560811\", \"type\": \"doi\"}], \"journal\": {\"volume\": \"13\", \"country\": \"US\", \"issns\": [\"2169-3536\"], \"publisher\": \"IEEE\", \"language\": [\"EN\"], \"title\": \"IEEE Access\"}, \"end_page\": \"71672\", \"keywords\": [\"Big data\", \"electricity grid\", \"machine learning\", \"power distribution systems\", \"power line communication\"], \"year\": \"2025\", \"start_page\": \"71662\", \"subject\": [{\"code\": \"TK1-9971\", \"scheme\": \"LCC\", \"term\": \"Electrical engineering. Electronics. Nuclear engineering\"}], \"author\": [{\"orcid_id\": \"https://orcid.org/0000-0003-0307-7866\", \"affiliation\": \"German Research Center for Artificial Intelligence (DFKI), Kaiserslautern, Germany\", \"name\": \"Christoph Balada\"}, {\"affiliation\": \"Department of Electrical Power Supply Engineering, University of Wuppertal, Wuppertal, Germany\", \"name\": \"Max Bondorf\"}, {\"orcid_id\": \"https://orcid.org/0000-0002-4239-6520\", \"affiliation\": \"German Research Center for Art",
+    "europepmc": "{\"version\":\"6.9\",\"hitCount\":7277,\"nextCursorMark\":\"AoIIQQD5QSg1NjEwNTU0Mw==\",\"nextPageUrl\":\"https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=machine learning applications in renewable energy systems&cursorMark=AoIIQQD5QSg1NjEwNTU0Mw==&resultType=lite&pageSize=1&format=json\",\"request\":{\"queryString\":\"machine learning applications in renewable energy systems\",\"resultType\":\"lite\",\"cursorMark\":\"*\",\"pageSize\":1,\"sort\":\"\",\"synonym\":false},\"resultList\":{\"result\":[{\"id\":\"42567973\",\"source\":\"MED\",\"pmid\":\"42567973\",\"pmcid\":\"PMC13451277\",\"fullTextIdList\":{\"fullTextId\":[\"PMC13451277\"]},\"doi\":\"10.1038/s41598-026-65123-1\",\"title\":\"Integrated machine learning forecasting and grey wolf optimization for optimal operation of virtual power plants in smart distribution networks.\",\"authorString\":\"El Hamid AMA, Elzohri HH, Sayed K.\",\"journalTitle\":\"Sci Rep\",\"issue\":\"1\",\"journalVolume\":\"16\",\"pubYear\":\"2026\",\"journalIssn\":\"2045-2322\",\"pageInfo\":\"24535\",\"pubType\":\"research-article; journal article\",\"isOpenAccess\":\"Y\",\"inEPMC\":\"Y\",\"inPMC\":\"Y\",\"citedByCount\":0,\"hasReferences\":\"Y\",\"hasTextMinedTerms\":\"Y\",\"hasDbCrossReferences\":\"N\",\"hasPDF\":\"Y\",\"hasBook\":\"N\",\"hasSuppl\":\"N\",\"hasLabsLinks\":\"N\",\"hasT"
+   }
+  },
+  {
+   "topic": "machine learning applications in renewable energy systems",
+   "scores": {
+    "ours": {
+     "raw": 0.01761556789278984,
+     "reason32": 0.017218410968780518,
+     "flat32": 0.017513973638415337,
+     "desc32": 0.016400158405303955
+    },
+    "chainsight": {
+     "raw": 0.015471178106963634,
+     "reason32": 0.016627168282866478,
+     "flat32": 0.016627168282866478,
+     "desc32": 0.015031448565423489
+    },
+    "doaj": {
+     "raw": 0.003123418428003788,
+     "reason32": 0.006128997541964054,
+     "flat32": 0.010173880495131016,
+     "desc32": 0.009364750236272812
+    },
+    "europepmc": {
+     "raw": 0.006495286710560322,
+     "reason32": 0.012744870036840439,
+     "flat32": 0.007287046872079372,
+     "desc32": 0.007063519209623337
+    }
+   },
+   "answers": {
+    "ours": "{\"verdict\":\"papers\",\"confidence\":1,\"reason\":\"Here is all papers published in 2024 that discuss machine learning applications in renewable energy systems, returning the paper title, authors, and citation count from Semantic Scholar.[nFWC][Ulss][wcaV][WgED][7L0o]%: Here are 5 papers on machine learning applications in renewable energy systems published between 2024-01-01 and 2024-12-31: 1) Machine learning solutions for renewable energy systems: Applications, challenges, limitations, and future directions by Zaid Allal, Hassan Noura, Ola Salman, Khaled Chahine (2024), cited 126 times. 2) Advancements in digital twin technology and machine learning for energy systems: A comprehensive review of applications in smart grids, renewable energy, and electric vehicle optimisation by Opy Das, Muhammad Hamza Zafar, Filippo Sanfilippo, Souman Rudra (2024), cited 104 times. 3) Optimizing renewable energy systems through artificial intelligence: Review and future prospects by Kingsley Ukoba, Kehinde O. Olatunji, Eyitayo Adeoye, Tien‐Chien Jen (2024), cited 524 times. 4) Machine learning-based energy management and power forecasting in grid-connected microgrids with multiple distributed energy sou",
+    "chainsight": "{\"topic\":\"Find all papers published in 2024 that discuss machine learning applications in renewable energy systems, returning the paper title, authors, and citation count from Semantic Scholar.[nFWC][Ulss][wcaV][WgED][7L0o]%\",\"signal\":\"No peer-reviewed papers were found on Find all papers published in 2024 that discuss machine learning applications in renewable energy systems, returning the paper title, authors, and citation count from Semantic Scholar.[nFWC][Ulss][wcaV][WgED][7L0o]%.\",\"answer\":\"No peer-reviewed papers were found on Find all papers published in 2024 that discuss machine learning applications in renewable energy systems, returning the paper title, authors, and citation count from Semantic Scholar.[nFWC][Ulss][wcaV][WgED][7L0o]%.\",\"source\":\"openalex\"}",
+    "doaj": "{\"total\": 229, \"page\": 1, \"pageSize\": 1, \"timestamp\": \"2026-09-19T04:49:57.231868Z\", \"query\": \"machine learning applications in renewable energy systems\", \"results\": [{\"last_updated\": \"2025-08-20T02:20:23Z\", \"bibjson\": {\"identifier\": [{\"id\": \"2169-3536\", \"type\": \"eissn\"}, {\"id\": \"10.1109/ACCESS.2025.3560811\", \"type\": \"doi\"}], \"journal\": {\"volume\": \"13\", \"country\": \"US\", \"issns\": [\"2169-3536\"], \"publisher\": \"IEEE\", \"language\": [\"EN\"], \"title\": \"IEEE Access\"}, \"end_page\": \"71672\", \"keywords\": [\"Big data\", \"electricity grid\", \"machine learning\", \"power distribution systems\", \"power line communication\"], \"year\": \"2025\", \"start_page\": \"71662\", \"subject\": [{\"code\": \"TK1-9971\", \"scheme\": \"LCC\", \"term\": \"Electrical engineering. Electronics. Nuclear engineering\"}], \"author\": [{\"orcid_id\": \"https://orcid.org/0000-0003-0307-7866\", \"affiliation\": \"German Research Center for Artificial Intelligence (DFKI), Kaiserslautern, Germany\", \"name\": \"Christoph Balada\"}, {\"affiliation\": \"Department of Electrical Power Supply Engineering, University of Wuppertal, Wuppertal, Germany\", \"name\": \"Max Bondorf\"}, {\"orcid_id\": \"https://orcid.org/0000-0002-4239-6520\", \"affiliation\": \"German Research Center for Art",
+    "europepmc": "{\"version\":\"6.9\",\"hitCount\":7277,\"nextCursorMark\":\"AoIIQQD49ig1NjEwNTU0Mw==\",\"nextPageUrl\":\"https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=machine learning applications in renewable energy systems&cursorMark=AoIIQQD49ig1NjEwNTU0Mw==&resultType=lite&pageSize=1&format=json\",\"request\":{\"queryString\":\"machine learning applications in renewable energy systems\",\"resultType\":\"lite\",\"cursorMark\":\"*\",\"pageSize\":1,\"sort\":\"\",\"synonym\":false},\"resultList\":{\"result\":[{\"id\":\"42567973\",\"source\":\"MED\",\"pmid\":\"42567973\",\"pmcid\":\"PMC13451277\",\"fullTextIdList\":{\"fullTextId\":[\"PMC13451277\"]},\"doi\":\"10.1038/s41598-026-65123-1\",\"title\":\"Integrated machine learning forecasting and grey wolf optimization for optimal operation of virtual power plants in smart distribution networks.\",\"authorString\":\"El Hamid AMA, Elzohri HH, Sayed K.\",\"journalTitle\":\"Sci Rep\",\"issue\":\"1\",\"journalVolume\":\"16\",\"pubYear\":\"2026\",\"journalIssn\":\"2045-2322\",\"pageInfo\":\"24535\",\"pubType\":\"research-article; journal article\",\"isOpenAccess\":\"Y\",\"inEPMC\":\"Y\",\"inPMC\":\"Y\",\"citedByCount\":0,\"hasReferences\":\"Y\",\"hasTextMinedTerms\":\"Y\",\"hasDbCrossReferences\":\"N\",\"hasPDF\":\"Y\",\"hasBook\":\"N\",\"hasSuppl\":\"N\",\"hasLabsLinks\":\"N\",\"hasT"
+   }
+  },
+  {
+   "topic": "all that mention quantum computing in the abstract",
+   "scores": {
+    "ours": {
+     "raw": 0.010612968355417252,
+     "reason32": 0.014720754697918892,
+     "flat32": 0.014682664535939693,
+     "desc32": 0.014363679103553295
+    },
+    "chainsight": {
+     "raw": 0.009083527140319347,
+     "reason32": 0.014494742266833782,
+     "flat32": 0.014494742266833782,
+     "desc32": 0.014234761707484722
+    },
+    "doaj": {
+     "raw": 0.006006066221743822,
+     "reason32": 0.0037932363338768482,
+     "flat32": 0.00829029269516468,
+     "desc32": 0.00825653225183487
+    },
+    "europepmc": {
+     "raw": 0.004902659449726343,
+     "reason32": 0.009122333489358425,
+     "flat32": 0.0055908518843352795,
+     "desc32": 0.005317349452525377
+    }
+   },
+   "answers": {
+    "ours": "{\"verdict\":\"papers\",\"confidence\":1,\"reason\":\"Here is all papers published in 2023 that mention 'quantum computing' in the abstract, returning the paper title, authors, citation count, and abstract, limited to 10 results, sorted by citation count descending% all that mention quantum computing in the abstract: Here are 10 papers on all that mention quantum computing in the abstract published between 2023-01-01 and 2023-12-31: 1) Lithium Batteries and the Solid Electrolyte Interphase (SEI)—Progress and Outlook by Henry Adenusi, Gregory A. Chass, Stefano Passerini, Kun Tian (2023), cited 816 times. 2) High-fidelity parallel entangling gates on a neutral-atom quantum computer by Simon J. Evered, Dolev Bluvstein, M. W. Kalinowski, Sepehr Ebadi (2023), cited 526 times. 3) Fe/Cu diatomic catalysts for electrochemical nitrate reduction to ammonia by Shuo Zhang, Jianghua Wu, Mengting Zheng, Xin Jin (2023), cited 681 times. 4) Efficient Deep Learning: A Survey on Making Deep Learning Models Smaller, Faster, and Better by Gaurav Menghani (2023), cited 568 times. 5) Medical image analysis using deep learning algorithms by Mengfang Li, Yuanyuan Jiang, Yanzhou Zhang, Zhu Haisheng (2023), cited 49",
+    "chainsight": "{\"topic\":\"Find all papers published in 2023 that mention 'quantum computing' in the abstract, returning the paper title, authors, citation count, and abstract, limited to 10 results, sorted by citation count descending%\",\"count\":5,\"source\":\"openalex\",\"signal\":\"Relevant peer-reviewed papers on Find all papers published in 2023 that mention 'quantum computing' in the abstract, returning the paper title, authors, citation count, and abstract, limited to 10 results, sorted by citation count descending%: \\\"‘As of my last knowledge update’: How is content generated by ChatGPT infiltrating scientific papers published in premier journals?\\\" (Artur Strzelecki, 2024); \\\"Deception detection with machine learning: A systematic review and statistical analysis\\\" (Alex Sebastião Constâncio et al., 2023); \\\"Center for Interdisciplinary Research in Health (CIIS) National Meeting 2023\\\" (, 2023); \\\"Network alignment\\\" (Rui Tang et al., 2024); \\\"66th Annual Convention of the Parapsychological Association: Abstracts\\\" (, 2024).\",\"answer\":\"Relevant peer-reviewed papers on Find all papers published in 2023 that mention 'quantum computing' in the abstract, returning the paper title, authors, citation cou",
+    "doaj": "{\"total\": 0, \"page\": 1, \"pageSize\": 1, \"timestamp\": \"2026-09-19T04:50:50.925102Z\", \"query\": \"all that mention quantum computing in the abstract\", \"results\": [], \"last\": \"https://doaj.org/api/v4/search/articles/all%20that%20mention%20quantum%20computing%20in%20the%20abstract?page=1&pageSize=1\"}",
+    "europepmc": "{\"version\":\"6.9\",\"hitCount\":805,\"nextCursorMark\":\"AoIIQMJl5Sg1NjMzMTM0OA==\",\"nextPageUrl\":\"https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=all that mention quantum computing in the abstract&cursorMark=AoIIQMJl5Sg1NjMzMTM0OA==&resultType=lite&pageSize=1&format=json\",\"request\":{\"queryString\":\"all that mention quantum computing in the abstract\",\"resultType\":\"lite\",\"cursorMark\":\"*\",\"pageSize\":1,\"sort\":\"\",\"synonym\":false},\"resultList\":{\"result\":[{\"id\":\"42676606\",\"source\":\"MED\",\"pmid\":\"42676606\",\"pmcid\":\"PMC13527486\",\"fullTextIdList\":{\"fullTextId\":[\"PMC13527486\"]},\"doi\":\"10.1016/j.dib.2026.113149\",\"title\":\"A dataset of publications and patents on quantum error correction (1995-2025).\",\"authorString\":\"Barua S, Shemushee H.\",\"journalTitle\":\"Data Brief\",\"journalVolume\":\"68\",\"pubYear\":\"2026\",\"journalIssn\":\"2352-3409\",\"pageInfo\":\"113149\",\"pubType\":\"data-paper; journal article\",\"isOpenAccess\":\"Y\",\"inEPMC\":\"Y\",\"inPMC\":\"Y\",\"citedByCount\":0,\"hasReferences\":\"Y\",\"hasTextMinedTerms\":\"Y\",\"hasDbCrossReferences\":\"N\",\"hasPDF\":\"Y\",\"hasBook\":\"N\",\"hasSuppl\":\"N\",\"hasLabsLinks\":\"N\",\"hasTMAccessionNumbers\":\"Y\",\"tmAccessionTypeList\":{\"accessionType\":[\"gen\",\"doi\"]},\"firstPublicationDate\":\"2026-08-"
+   }
+  },
+  {
+   "topic": "that mention climate change adaptation in the abstract",
+   "scores": {
+    "ours": {
+     "raw": 0.008520032279193401,
+     "reason32": 0.009626680053770542,
+     "flat32": 0.009589416906237602,
+     "desc32": 0.009439174085855484
+    },
+    "chainsight": {
+     "raw": 0.009361100383102894,
+     "reason32": 0.008675829507410526,
+     "flat32": 0.008675829507410526,
+     "desc32": 0.008600804023444653
+    },
+    "doaj": {
+     "raw": 0.007061818148940802,
+     "reason32": 0.002887329086661339,
+     "flat32": 0.007076510693877935,
+     "desc32": 0.00755265261977911
+    },
+    "europepmc": {
+     "raw": 0.008155210874974728,
+     "reason32": 0.0060262433253228664,
+     "flat32": 0.0069772545248270035,
+     "desc32": 0.006766894832253456
+    }
+   },
+   "answers": {
+    "ours": "{\"verdict\":\"papers\",\"confidence\":1,\"reason\":\"Regarding find scholarly articles published between 2020 and 2026 that mention 'climate change adaptation' in the abstract, returning up to 10 results and including fields for title, abstract, authors, publication year, and citation count that mention climate change adaptation in the abstract: Here are 10 articles on that mention climate change adaptation in the abstract published between 2020-01-01 and 2026-12-31: 1) Systematic mapping of global research on climate and health: a machine learning review by Lea Berrang‐Ford, Anne J. Sietsma, Max Callaghan, Jan C. Minx (2021), cited 231 times. 2) Firm‐Level Climate Change Exposure by Zacharias Sautner, Laurence van Lent, Grigory Vilkov, RUISHEN ZHANG (2023), cited 1336 times. 3) Climate Change and Adaptation in Global Supply-Chain Networks by Nora Pankratz, Christoph Schiller (2023), cited 329 times. 4) Emerging signals of declining forest resilience under climate change by Giovanni Forzieri, Vasilis Dakos, Nate G. McDowell, Ramdane Alkama (2022), cited 779 times. 5) Climate Change and Weather Extremes in the Eastern Mediterranean and Middle East by George Zittis, M. Almazroui, Pinhas Alpe",
+    "chainsight": "{\"topic\":\"Find scholarly articles published between 2020 and 2026 that mention 'climate change adaptation' in the abstract, returning up to 10 results and including fields for title, abstract, authors, publication year, and citation count\",\"count\":5,\"source\":\"openalex\",\"signal\":\"Relevant peer-reviewed papers on Find scholarly articles published between 2020 and 2026 that mention 'climate change adaptation' in the abstract, returning up to 10 results and including fields for title, abstract, authors, publication year, and citation count: \\\"Governance and planning in a ‘perfect storm’: Securitising climate change, migration and Covid-19 in Sweden\\\" (Ingemar Eländer et al., 2021); \\\"Abstracts of the Australasian Association for Academic Primary Care (AAAPC) Annual Research Conference, 17–18 August 2023\\\" (Tan, Bryan et al., 2023); \\\"A bibliometric review exploring the nexus between sustainability and food entrepreneurship\\\" (M. Ajay Adithya et al., 2025); \\\"The complex ecosystem of hyperprolific authors\\\" (Jussara M. Almeida et al., 2026); \\\"Decentralized Renewable-Energy Desalination: Emerging Trends and Global Research Frontiers—A Comprehensive Bibliometric Review\\\" (Roger Pimienta ",
+    "doaj": "{\"total\": 5, \"page\": 1, \"pageSize\": 1, \"timestamp\": \"2026-09-19T04:51:41.967508Z\", \"query\": \"that mention climate change adaptation in the abstract\", \"results\": [{\"last_updated\": \"2026-05-27T17:32:43Z\", \"bibjson\": {\"identifier\": [{\"id\": \"2050-2680\", \"type\": \"eissn\"}, {\"id\": \"10.1002/app5.70080\", \"type\": \"doi\"}], \"journal\": {\"volume\": \"13\", \"number\": \"2\", \"country\": \"AU\", \"issns\": [\"2050-2680\"], \"publisher\": \"Wiley\", \"language\": [\"EN\"], \"title\": \"Asia & the Pacific Policy Studies\"}, \"month\": \"05\", \"end_page\": \"n/a\", \"keywords\": [\"climate change\", \"environmental health\", \"health policy\", \"mental health\", \"public policy\"], \"year\": \"2026\", \"start_page\": \"n/a\", \"subject\": [{\"code\": \"J\", \"scheme\": \"LCC\", \"term\": \"Political science\"}, {\"code\": \"JA1-92\", \"scheme\": \"LCC\", \"term\": \"Political science (General)\"}], \"author\": [{\"affiliation\": \"School of Public Health The University of Queensland Brisbane Australia\", \"name\": \"Suhailah Ali\"}, {\"affiliation\": \"Institute for Social Science Research The University of Queensland Brisbane Australia\", \"name\": \"Anne Cleary\"}, {\"affiliation\": \"Institute for Social Science Research The University of Queensland Brisbane Australia\", \"name\": \"Celine Ogg\"}, {",
+    "europepmc": "{\"version\":\"6.9\",\"hitCount\":2842,\"nextCursorMark\":\"AoIIQK5iICg1NTk0NDg3Mg==\",\"nextPageUrl\":\"https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=that mention climate change adaptation in the abstract&cursorMark=AoIIQK5iICg1NTk0NDg3Mg==&resultType=lite&pageSize=1&format=json\",\"request\":{\"queryString\":\"that mention climate change adaptation in the abstract\",\"resultType\":\"lite\",\"cursorMark\":\"*\",\"pageSize\":1,\"sort\":\"\",\"synonym\":false},\"resultList\":{\"result\":[{\"id\":\"42429120\",\"source\":\"MED\",\"pmid\":\"42429120\",\"pmcid\":\"PMC13352453\",\"fullTextIdList\":{\"fullTextId\":[\"PMC13352453\"]},\"doi\":\"10.1111/risa.70309\",\"title\":\"Risk Without Values: Including Indigenous Perspectives in Climate Risk Assessments.\",\"authorString\":\"Scadden M, Warren GW, Glenn D, George L, Logan TM.\",\"journalTitle\":\"Risk Anal\",\"issue\":\"8\",\"journalVolume\":\"46\",\"pubYear\":\"2026\",\"journalIssn\":\"0272-4332; 1539-6924; \",\"pageInfo\":\"e70309\",\"pubType\":\"research-article; journal article\",\"isOpenAccess\":\"Y\",\"inEPMC\":\"Y\",\"inPMC\":\"Y\",\"citedByCount\":0,\"hasReferences\":\"Y\",\"hasTextMinedTerms\":\"Y\",\"hasDbCrossReferences\":\"N\",\"hasPDF\":\"Y\",\"hasBook\":\"N\",\"hasSuppl\":\"N\",\"hasLabsLinks\":\"N\",\"hasTMAccessionNumbers\":\"Y\",\"tmAccessionTypeList"
+   }
+  },
+  {
+   "topic": "climate change adaptation strategies",
+   "scores": {
+    "ours": {
+     "raw": 0.011386392638087273,
+     "reason32": 0.013551014475524426,
+     "flat32": 0.014459948986768723,
+     "desc32": 0.014225455932319164
+    },
+    "chainsight": {
+     "raw": 0.009213363751769066,
+     "reason32": 0.014223058708012104,
+     "flat32": 0.014223058708012104,
+     "desc32": 0.014039844274520874
+    },
+    "doaj": {
+     "raw": 0.004723964259028435,
+     "reason32": 0.0038137626834213734,
+     "flat32": 0.006490115541964769,
+     "desc32": 0.006782283075153828
+    },
+    "europepmc": {
+     "raw": 0.004775639157742262,
+     "reason32": 0.010017281398177147,
+     "flat32": 0.0055098989978432655,
+     "desc32": 0.00520485732704401
+    }
+   },
+   "answers": {
+    "ours": "{\"verdict\":\"papers\",\"confidence\":1,\"reason\":\"Regarding search Semantic Scholar for papers on 'climate change adaptation strategies' published between 2020 and 2023, limiting results to 10 papers and including only those with open-access PDFs available, returning the paper title, abstract, authors, and citation count for each result: Here are 10 papers on climate change adaptation strategies published between 2020-01-01 and 2023-12-31: 1) Farmers' choices and factors affecting adoption of climate change adaptation strategies: evidence from northwestern Ethiopia by Mequannt Marie, Fikadu Yirga, Mebrahtu Haile, Filmon Tquabo (2020), cited 278 times. 2) Climate change adaptation strategies, productivity and sustainable food security in southern Mali by Aboubacar Diallo, Emmanuel Donkor, Victor Owusu (2020), cited 149 times. 3) The potential of Blue-Green infrastructure as a climate change adaptation strategy: a systematic literature review by Tamer Almaaitah, Madison Appleby, Howard Rosenblat, Jennifer Drake (2021), cited 178 times. 4) Understanding the determinants of climate change adaptation strategies among smallholder maize farmers in South-west, Nigeria by O.A. Adeagbo, Temitope ",
+    "chainsight": "{\"topic\":\"Search Semantic Scholar for papers on 'climate change adaptation strategies' published between 2020 and 2023, limiting results to 10 papers and including only those with open-access PDFs available, returning the paper title, abstract, authors, and citation count for each result\",\"count\":5,\"source\":\"openalex\",\"signal\":\"Relevant peer-reviewed papers on Search Semantic Scholar for papers on 'climate change adaptation strategies' published between 2020 and 2023, limiting results to 10 papers and including only those with open-access PDFs available, returning the paper title, abstract, authors, and citation count for each result: \\\"Analyzing Trends in Green Financial Instrument Issuance for Climate Finance in Capital Markets\\\" (Purity Maina et al., 2024); \\\"Open social innovation: A systematic literature review and future research agenda\\\" (Jose Nicolas Pacheco et al., 2025); \\\"OpenScholar: Synthesizing Scientific Literature with Retrieval-augmented LMs\\\" (Akari Asai et al., 2024); \\\"From Brochures to Bytes: Destination Branding through Social, Mobile, and AI—A Systematic Narrative Review with Meta-Analysis\\\" (Chryssoula Chatzigeorgiou et al., 2025); \\\"Large Language Models fo",
+    "doaj": "{\"total\": 5455, \"page\": 1, \"pageSize\": 1, \"timestamp\": \"2026-09-19T04:52:23.808991Z\", \"query\": \"climate change adaptation strategies\", \"results\": [{\"last_updated\": \"2025-11-26T06:47:51Z\", \"bibjson\": {\"identifier\": [{\"id\": \"0976-3988\", \"type\": \"pissn\"}, {\"id\": \"0976-4038\", \"type\": \"eissn\"}], \"journal\": {\"volume\": \"7\", \"number\": \"Feb, 1\", \"country\": \"IN\", \"issns\": [\"0976-3988\", \"0976-4038\"], \"publisher\": \"Puspa Publishing House\", \"language\": [\"EN\"], \"title\": \"International Journal of Bio-Resource and Stress Management\"}, \"month\": \"June\", \"keywords\": [\"Livestock, heat stress, impacts, cooling, nutrition, genetic selection\"], \"year\": \"2023\", \"subject\": [{\"code\": \"H\", \"scheme\": \"LCC\", \"term\": \"Social Sciences\"}, {\"code\": \"S\", \"scheme\": \"LCC\", \"term\": \"Agriculture\"}, {\"code\": \"QR1-502\", \"scheme\": \"LCC\", \"term\": \"Microbiology\"}], \"author\": [{\"affiliation\": \"Animal Genetics Division, ICAR-Indian Veterinary Research Institute, Izatnagar, Uttar Pradesh (243 122), India\", \"name\": \"Lalrengpuii Sailo\"}, {\"affiliation\": \"Dairy Cattle Breeding Division, ICAR-National Dairy Research Institute, Karnal, Haryana (132 001), India\", \"name\": \"Ramendra Das\"}], \"link\": [{\"content_type\": \"HTML\", \"type\": \"f",
+    "europepmc": "{\"version\":\"6.9\",\"hitCount\":63637,\"nextCursorMark\":\"AoIIQfItvCg1NTc5NTY3OA==\",\"nextPageUrl\":\"https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=climate change adaptation strategies&cursorMark=AoIIQfItvCg1NTc5NTY3OA==&resultType=lite&pageSize=1&format=json\",\"request\":{\"queryString\":\"climate change adaptation strategies\",\"resultType\":\"lite\",\"cursorMark\":\"*\",\"pageSize\":1,\"sort\":\"\",\"synonym\":false},\"resultList\":{\"result\":[{\"id\":\"42310341\",\"source\":\"MED\",\"pmid\":\"42310341\",\"pmcid\":\"PMC13457861\",\"fullTextIdList\":{\"fullTextId\":[\"PMC13457861\"]},\"doi\":\"10.1038/s41598-026-58056-2\",\"title\":\"Climate change adaptation strategies as a pathway to gender empowerment in East Shewa Zone, Ethiopia.\",\"authorString\":\"Bonso AB, Woldeamanuel AA, Engura TT.\",\"journalTitle\":\"Sci Rep\",\"issue\":\"1\",\"journalVolume\":\"16\",\"pubYear\":\"2026\",\"journalIssn\":\"2045-2322\",\"pageInfo\":\"24746\",\"pubType\":\"research-article; journal article\",\"isOpenAccess\":\"Y\",\"inEPMC\":\"Y\",\"inPMC\":\"Y\",\"citedByCount\":0,\"hasReferences\":\"Y\",\"hasTextMinedTerms\":\"Y\",\"hasDbCrossReferences\":\"N\",\"hasPDF\":\"Y\",\"hasBook\":\"N\",\"hasSuppl\":\"N\",\"hasLabsLinks\":\"N\",\"hasTMAccessionNumbers\":\"Y\",\"tmAccessionTypeList\":{\"accessionType\":[\"doi\"]},\"firstPubl"
+   }
+  },
+  {
+   "topic": "artificial intelligence transformer architecture",
+   "scores": {
+    "ours": {
+     "raw": 0.007684673648327589,
+     "reason32": 0.012791846878826618,
+     "flat32": 0.013299896381795406,
+     "desc32": 0.011221748776733875
+    },
+    "chainsight": {
+     "raw": 0.010021969676017761,
+     "reason32": 0.01307512167841196,
+     "flat32": 0.01307512167841196,
+     "desc32": 0.00907720997929573
+    },
+    "doaj": {
+     "raw": 0.002712343819439411,
+     "reason32": 0.004034007899463177,
+     "flat32": 0.004294596612453461,
+     "desc32": 0.004266997799277306
+    },
+    "europepmc": {
+     "raw": 0.006663799751549959,
+     "reason32": 0.009792318567633629,
+     "flat32": 0.008020584471523762,
+     "desc32": 0.007929249666631222
+    }
+   },
+   "answers": {
+    "ours": "{\"verdict\":\"papers\",\"confidence\":1,\"reason\":\"Regarding find peer-reviewed articles in the field of artificial intelligence published between January 2022 and December 2024, limiting results to 10 papers and including only those where 'transformer architecture' appears in the abstract. artificial intelligence transformer architecture: Here are 10 peer-reviewed journal articles on artificial intelligence transformer architecture published between 2022-01-01 and 2024-12-31: 1) A Comprehensive Review of Deep Learning: Architectures, Recent Advances, and Applications by Ibomoiye Domor Mienye, Theo G. Swart (2024), cited 307 times. 2) Interpreting Black-Box Models: A Review on Explainable Artificial Intelligence by Vikas Hassija, Vinay Chamola, Atmesh Mahapatra, Abhinandan Singal (2023), cited 2020 times. 3) A Review of the Role of Artificial Intelligence in Healthcare by Ahmed Al Kuwaiti, Khalid Nazer, Abdullah H. Alreedy, Shaher D AlShehri (2023), cited 890 times. 4) Augmenting human innovation teams with artificial intelligence: Exploring transformer‐based language models by Sebastian Gregor Bouschery, Vera Blažević, Frank T. Piller (2023), cited 427 times. 5) Collaborating With ChatG",
+    "chainsight": "{\"topic\":\"Find peer-reviewed articles in the field of artificial intelligence published between January 2022 and December 2024, limiting results to 10 papers and including only those where 'transformer architecture' appears in the abstract\",\"count\":5,\"source\":\"openalex\",\"signal\":\"Relevant peer-reviewed papers on Find peer-reviewed articles in the field of artificial intelligence published between January 2022 and December 2024, limiting results to 10 papers and including only those where 'transformer architecture' appears in the abstract: \\\"A Comprehensive Review of Explainable Artificial Intelligence (XAI) in Computer Vision\\\" (Zhu Cheng et al., 2025); \\\"Toward Fairness, Accountability, Transparency, and Ethics in AI for Social Media and Health Care: Scoping Review\\\" (Aditya Singhal et al., 2024); \\\"Prompt Engineering Paradigms for Medical Applications: Scoping Review\\\" (Jamil Zaghir et al., 2024); \\\"Artificial Intelligence in Maritime Cybersecurity: A Systematic Review of AI-Driven Threat Detection and Risk Mitigation Strategies\\\" (Tymoteusz Miller et al., 2025); \\\"A comprehensive review of artificial intelligence models for screening major retinal diseases\\\" (Bilal Hassan et al.",
+    "doaj": "{\"total\": 314, \"page\": 1, \"pageSize\": 1, \"timestamp\": \"2026-09-19T04:53:20.019961Z\", \"query\": \"artificial intelligence transformer architecture\", \"results\": [{\"last_updated\": \"2025-08-19T22:32:30Z\", \"bibjson\": {\"identifier\": [{\"id\": \"2405-8440\", \"type\": \"pissn\"}, {\"id\": \"10.1016/j.heliyon.2023.e17968\", \"type\": \"doi\"}], \"journal\": {\"volume\": \"9\", \"number\": \"7\", \"country\": \"GB\", \"issns\": [\"2405-8440\"], \"publisher\": \"Elsevier\", \"language\": [\"EN\"], \"title\": \"Heliyon\"}, \"month\": \"07\", \"end_page\": \"\", \"keywords\": [\"Pre-training\", \"Transfer learning\", \"Memory-meshed transformer\", \"CheXpert\", \"Radiograph\", \"Natural language generation\"], \"year\": \"2023\", \"start_page\": \"e17968\", \"subject\": [{\"code\": \"Q1-390\", \"scheme\": \"LCC\", \"term\": \"Science (General)\"}, {\"code\": \"H1-99\", \"scheme\": \"LCC\", \"term\": \"Social sciences (General)\"}], \"author\": [{\"affiliation\": \"Department of Electrical Engineering and Computer Science, Massachusetts Institute of Technology, 50 Vassar St, Cambridge, MA, United States of America\", \"name\": \"Edward Vendrow\"}, {\"affiliation\": \"School of Medicine, Stanford University, 291 Campus Drive, Stanford, CA, United States of America; Corresponding author.\", \"name\": \"Ethan Schonf",
+    "europepmc": "{\"version\":\"6.9\",\"hitCount\":21860,\"nextCursorMark\":\"AoIIQOaEWyg1NjE1NTYxNQ==\",\"nextPageUrl\":\"https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=artificial intelligence transformer architecture&cursorMark=AoIIQOaEWyg1NjE1NTYxNQ==&resultType=lite&pageSize=1&format=json\",\"request\":{\"queryString\":\"artificial intelligence transformer architecture\",\"resultType\":\"lite\",\"cursorMark\":\"*\",\"pageSize\":1,\"sort\":\"\",\"synonym\":false},\"resultList\":{\"result\":[{\"id\":\"42611136\",\"source\":\"MED\",\"pmid\":\"42611136\",\"doi\":\"10.1007/s10822-026-00911-5\",\"title\":\"A survey of transformer and LLM-based architectures, workflows, and systems in drug discovery.\",\"authorString\":\"Tsimenidis S, Vrochidou E, Papakostas GA.\",\"journalTitle\":\"J Comput Aided Mol Des\",\"issue\":\"1\",\"journalVolume\":\"40\",\"pubYear\":\"2026\",\"journalIssn\":\"0920-654x; 1573-4951; \",\"pageInfo\":\"205\",\"pubType\":\"review; journal article\",\"isOpenAccess\":\"N\",\"inEPMC\":\"N\",\"inPMC\":\"N\",\"citedByCount\":0,\"hasReferences\":\"Y\",\"hasTextMinedTerms\":\"N\",\"hasDbCrossReferences\":\"N\",\"hasPDF\":\"N\",\"hasBook\":\"N\",\"hasSuppl\":\"N\",\"hasLabsLinks\":\"N\",\"hasTMAccessionNumbers\":\"N\",\"firstPublicationDate\":\"2026-08-18\",\"firstIndexDate\":\"2026-08-19\"}]}}"
+   }
+  },
+  {
+   "topic": "renewable energy technologies",
+   "scores": {
+    "ours": {
+     "raw": 0.007730608806014061,
+     "reason32": 0.009700285270810127,
+     "flat32": 0.009688456542789936,
+     "desc32": 0.009455603547394276
+    },
+    "chainsight": {
+     "raw": 0.009862649254500866,
+     "reason32": 0.008836345747113228,
+     "flat32": 0.008836345747113228,
+     "desc32": 0.008919896557927132
+    },
+    "doaj": {
+     "raw": 0.004939337261021137,
+     "reason32": 0.0046846684999763966,
+     "flat32": 0.00667870556935668,
+     "desc32": 0.006439785938709974
+    },
+    "europepmc": {
+     "raw": 0.007515238132327795,
+     "reason32": 0.005478753708302975,
+     "flat32": 0.006457971408963203,
+     "desc32": 0.006666942499577999
+    }
+   },
+   "answers": {
+    "ours": "{\"verdict\":\"papers\",\"confidence\":1,\"reason\":\"Regarding find peer-reviewed articles in the field of renewable energy technologies published between January 2023 and June 2026, limiting results to journals indexed in Scopus and Web of Science, and return the article title, abstract, and DOI for each result: Here are 5 peer-reviewed journal articles on renewable energy technologies published between 2023-01-01 and 2026-06-30: 1) A review of supercapacitors: Materials, technology, challenges, and renewable energy applications by Kavishka Dissanayake, Dulsha Kularatna-Abeywardana (2024), cited 618 times. 2) E-waste recycled materials as efficient catalysts for renewable energy technologies and better environmental sustainability by Rania Seif, Fatma Zakaria Salem, Nageh K. Allam (2023), cited 181 times. 3) Green taxation and renewable energy technologies adoption: A global evidence by Tii N. Nchofoung, Hervé Kaffo Fotio, Clovis Wendji Miamo (2023), cited 85 times. 4) RENEWABLE ENERGY TECHNOLOGIES IN ENGINEERING: A REVIEW OF CURRENT DEVELOPMENTS AND FUTURE PROSPECTS by Zamathula Queen Sikhakhane Nwokediegwu, Kenneth Ifeanyi Ibekwe, Valentine Ikenna Ilojianya, Emmanuel Augustine Etukudoh ",
+    "chainsight": "{\"topic\":\"Find peer-reviewed articles in the field of renewable energy technologies published between January 2023 and June 2026, limiting results to journals indexed in Scopus and Web of Science, and return the article title, abstract, and DOI for each result\",\"count\":5,\"source\":\"openalex\",\"signal\":\"Relevant peer-reviewed papers on Find peer-reviewed articles in the field of renewable energy technologies published between January 2023 and June 2026, limiting results to journals indexed in Scopus and Web of Science, and return the article title, abstract, and DOI for each result: \\\"Synthetic Aperture Radar (SAR) for Ocean: A Review\\\" (Reza Mohammadi Asiyabi et al., 2023); \\\"DIGITAL TRANSFORMATION OF LETTERS OF CREDIT USING DISTRIBUTED LEDGER TECHNOLOGY (DLT) TO OPTIMIZE THEIR ISSUANCE\\\" (Isaías Cerqueda-García, 2026); \\\"Learning Rare Events: Deep Learning Approaches to Extreme Price Prediction\\\" (M. Sinclair et al., 2026); \\\"FINANCIAL PERFORMANCE OF COLOMBIA'S LARGEST CABLE TV COMPANY\\\" (Jorge Alberto Rivera Godoy, 2026); \\\"DEVELOPING THE KNOWLEDGE ECONOMY IN VIETNAM IN THE CONTEXT OF DIGITAL TRANSFORMATION AND INTERNATIONAL INTEGRATION: CORE CHALLENGES AND POLICY RECOMMENDATIONS\\\"",
+    "doaj": "{\"total\": 9502, \"page\": 1, \"pageSize\": 1, \"timestamp\": \"2026-09-19T04:54:10.912357Z\", \"query\": \"renewable energy technologies\", \"results\": [{\"last_updated\": \"2025-08-19T23:19:02Z\", \"bibjson\": {\"identifier\": [{\"id\": \"10.3390/a14050156\", \"type\": \"doi\"}, {\"id\": \"1999-4893\", \"type\": \"eissn\"}], \"journal\": {\"volume\": \"14\", \"number\": \"5\", \"country\": \"CH\", \"issns\": [\"1999-4893\"], \"publisher\": \"MDPI AG\", \"language\": [\"EN\"], \"title\": \"Algorithms\"}, \"month\": \"05\", \"keywords\": [\"time series\", \"autoencoders\", \"digital twins\", \"photovoltaic solar farm\", \"Internet of Things\", \"Industry 4.0\"], \"year\": \"2021\", \"start_page\": \"156\", \"subject\": [{\"code\": \"T55.4-60.8\", \"scheme\": \"LCC\", \"term\": \"Industrial engineering. Management engineering\"}, {\"code\": \"QA75.5-76.95\", \"scheme\": \"LCC\", \"term\": \"Electronic computers. Computer science\"}], \"author\": [{\"affiliation\": \"Department of LSI, Campus de R\\u00edu Sec, Universitat Jaume I, E-12071 Castell\\u00f3 de la Plana, Spain\", \"name\": \"Kamel Arafet\"}, {\"affiliation\": \"Department of LSI, Campus de R\\u00edu Sec, Universitat Jaume I, E-12071 Castell\\u00f3 de la Plana, Spain\", \"name\": \"Rafael Berlanga\"}], \"link\": [{\"content_type\": \"text/html\", \"type\": \"fulltext\", \"",
+    "europepmc": "{\"version\":\"6.9\",\"hitCount\":50947,\"nextCursorMark\":\"AoIIQa54DSg1NDk1NjY3MQ==\",\"nextPageUrl\":\"https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=renewable energy technologies&cursorMark=AoIIQa54DSg1NDk1NjY3MQ==&resultType=lite&pageSize=1&format=json\",\"request\":{\"queryString\":\"renewable energy technologies\",\"resultType\":\"lite\",\"cursorMark\":\"*\",\"pageSize\":1,\"sort\":\"\",\"synonym\":false},\"resultList\":{\"result\":[{\"id\":\"41714364\",\"source\":\"MED\",\"pmid\":\"41714364\",\"pmcid\":\"PMC13018293\",\"fullTextIdList\":{\"fullTextId\":[\"PMC13018293\"]},\"doi\":\"10.1038/s41598-026-40657-6\",\"title\":\"Integrated life cycle assessment and multicriteria decision making framework for evaluating renewable energy technologies at Istanbul Airport.\",\"authorString\":\"Zenginoğlu A, Yüksel FŞ.\",\"journalTitle\":\"Sci Rep\",\"issue\":\"1\",\"journalVolume\":\"16\",\"pubYear\":\"2026\",\"journalIssn\":\"2045-2322\",\"pageInfo\":\"9822\",\"pubType\":\"research-article; journal article\",\"isOpenAccess\":\"Y\",\"inEPMC\":\"Y\",\"inPMC\":\"Y\",\"citedByCount\":0,\"hasReferences\":\"Y\",\"hasTextMinedTerms\":\"Y\",\"hasDbCrossReferences\":\"N\",\"hasPDF\":\"Y\",\"hasBook\":\"N\",\"hasSuppl\":\"Y\",\"hasLabsLinks\":\"N\",\"hasTMAccessionNumbers\":\"Y\",\"tmAccessionTypeList\":{\"accessionType\":[\"doi\""
+   }
+  },
+  {
+   "topic": "published between January 1, 2023, and December 31, 2023, that mention decentralized finance in",
+   "scores": {
+    "ours": {
+     "raw": 0.008634621277451515,
+     "reason32": 0.014923442155122757,
+     "flat32": 0.01556466892361641,
+     "desc32": 0.015110098756849766
+    },
+    "chainsight": {
+     "raw": 0.01157761923968792,
+     "reason32": 0.015101809985935688,
+     "flat32": 0.015101809985935688,
+     "desc32": 0.013405525125563145
+    },
+    "doaj": {
+     "raw": 0.0064922827295959,
+     "reason32": 0.005242503248155117,
+     "flat32": 0.009225375019013882,
+     "desc32": 0.008121847175061703
+    },
+    "europepmc": {
+     "raw": 0.004755143541842699,
+     "reason32": 0.010098610073328018,
+     "flat32": 0.008655903860926628,
+     "desc32": 0.007077895104885101
+    }
+   },
+   "answers": {
+    "ours": "{\"verdict\":\"papers\",\"confidence\":1,\"reason\":\"Regarding search Semantic Scholar for papers published between January 1, 2023, and December 31, 2023, that mention 'decentralized finance' in the abstract and have at least 50 citations, returning the paper title, authors, and citation count, limited to 10 results. published between January 1, 2023, and December 31, 2023, that mention decentralized finance in: Here are 10 papers on published between January 1, 2023, and December 31, 2023, that mention decentralized finance in: 1) Risks of decentralized finance and their potential negative effects on capital markets: the Terra-Luna case by Venator Santiago, Michel Charifzadeh, Tim Alexander Herberger (2024), cited 15 times. 2) A primer on the insurability of decentralized finance (DeFi) by Felix Bekemeier (2023), cited 11 times. 3) A comprehensive review of blockchain technology: Underlying principles and historical background with future challenges by Gautami Tripathi, Mohd Abdul Ahad, Gabriella Casalino (2023), cited 302 times. 4) Centralized vs. Decentralized: Performance Comparison between BigchainDB and Amazon QLDB by Sergiu Lupaiescu, Petru Cioată, Cristina Elena Turcu, Cristina El",
+    "chainsight": "{\"topic\":\"Search Semantic Scholar for papers published between January 1, 2023, and December 31, 2023, that mention 'decentralized finance' in the abstract and have at least 50 citations, returning the paper title, authors, and citation count, limited to 10 results\",\"count\":5,\"source\":\"openalex\",\"signal\":\"Relevant peer-reviewed papers on Search Semantic Scholar for papers published between January 1, 2023, and December 31, 2023, that mention 'decentralized finance' in the abstract and have at least 50 citations, returning the paper title, authors, and citation count, limited to 10 results: \\\"Trends and Recommendations for Enhancing Maturity Models in Supply Chain Management and Logistics\\\" (Saverio Ferraro et al., 2023); \\\"Untitled\\\" (, 2023); \\\"Technology hype: Dealing with bold expectations and overpromising\\\" (Jascha Bareis et al., 2023); \\\"Quantum Computing Applications in Supply Chain Information and Optimization: Future Scenarios and Opportunities\\\" (Mohammad Shamsuddoha et al., 2025); \\\"Languages and systems for RDF stream processing, a survey\\\" (Pieter Bonte et al., 2025).\",\"answer\":\"Relevant peer-reviewed papers on Search Semantic Scholar for papers published between Janua",
+    "doaj": "{\"total\": 0, \"page\": 1, \"pageSize\": 1, \"timestamp\": \"2026-09-19T04:54:51.795755Z\", \"query\": \"published between January 1, 2023, and December 31, 2023, that mention decentralized finance in\", \"results\": [], \"last\": \"https://doaj.org/api/v4/search/articles/published%20between%20January%201,%202023,%20and%20December%2031,%202023,%20that%20mention%20decentralized%20finance%20in?page=1&pageSize=1\"}",
+    "europepmc": "{\"version\":\"6.9\",\"hitCount\":65,\"nextCursorMark\":\"AoIIQNVNeSg1NjMwNjEyMQ==\",\"nextPageUrl\":\"https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=published between January 1, 2023, and December 31, 2023, that mention decentralized finance in&cursorMark=AoIIQNVNeSg1NjMwNjEyMQ==&resultType=lite&pageSize=1&format=json\",\"request\":{\"queryString\":\"published between January 1, 2023, and December 31, 2023, that mention decentralized finance in\",\"resultType\":\"lite\",\"cursorMark\":\"*\",\"pageSize\":1,\"sort\":\"\",\"synonym\":false},\"resultList\":{\"result\":[{\"id\":\"42655662\",\"source\":\"MED\",\"pmid\":\"42655662\",\"pmcid\":\"PMC13517333\",\"fullTextIdList\":{\"fullTextId\":[\"PMC13517333\"]},\"doi\":\"10.3390/v18080844\",\"title\":\"Sustaining Mpox Surveillance, Research, and Care Integration in a Post-PHEIC, Resource-Constrained World.\",\"authorString\":\"Katoto PDMC, Byamungu LN.\",\"journalTitle\":\"Viruses\",\"issue\":\"8\",\"journalVolume\":\"18\",\"pubYear\":\"2026\",\"journalIssn\":\"1999-4915\",\"pageInfo\":\"844\",\"pubType\":\"review; discussion; journal article\",\"isOpenAccess\":\"Y\",\"inEPMC\":\"Y\",\"inPMC\":\"Y\",\"citedByCount\":0,\"hasReferences\":\"Y\",\"hasTextMinedTerms\":\"Y\",\"hasDbCrossReferences\":\"N\",\"hasPDF\":\"Y\",\"hasBook\":\"N\",\"hasSuppl\":\"N\",\"hasLab"
+   }
+  },
+  {
+   "topic": "artificial intelligence ethical implications mixed methods",
+   "scores": {
+    "ours": {
+     "raw": 0.33320632576942444,
+     "reason32": 0.013894867151975632,
+     "flat32": 0.014097241684794426,
+     "desc32": 0.014010796323418617
+    },
+    "chainsight": {
+     "raw": 0.010650042444467545,
+     "reason32": 0.013977481052279472,
+     "flat32": 0.013977481052279472,
+     "desc32": 0.013659648597240448
+    },
+    "doaj": {
+     "raw": 0.004270534496754408,
+     "reason32": 0.007204058114439249,
+     "flat32": 0.00891104619950056,
+     "desc32": 0.00907507911324501
+    },
+    "europepmc": {
+     "raw": 0.007510767783969641,
+     "reason32": 0.011054491624236107,
+     "flat32": 0.00892113521695137,
+     "desc32": 0.008378863334655762
+    }
+   },
+   "answers": {
+    "ours": "{\"verdict\":\"papers\",\"confidence\":1,\"reason\":\"Regarding find peer-reviewed articles from the last 5 years in the fields of 'artificial intelligence' AND 'ethical implications', filtered to return only studies that used 'mixed methods' in their methodology, and limit results to 10 papers. artificial intelligence ethical implications mixed methods: Here are 10 peer-reviewed journal articles on artificial intelligence ethical implications mixed methods published between 2021-09-19 and 2026-09-19: 1) Revolutionizing healthcare: the role of artificial intelligence in clinical practice by Shuroug A. Alowais, Sahar S. Alghamdi, Nada Alsuhebany, Tariq Alqahtani (2023), cited 3113 times. 2) Opinion Paper: “So what if ChatGPT wrote it?” Multidisciplinary perspectives on opportunities, challenges and implications of generative conversational AI for research, practice and policy by Yogesh K. Dwivedi, Nir Kshetri, Laurie Hughes, Emma Slade (2023), cited 4331 times. 3) Human resource management in the age of generative artificial intelligence: Perspectives and research directions on ChatGPT by Pawan Budhwar, Soumyadeb Chowdhury, Geoffrey Wood, Herman Aguinis (2023), cited 874 times. 4) Unraveling",
+    "chainsight": "{\"topic\":\"Find peer-reviewed articles from the last 5 years in the fields of 'artificial intelligence' AND 'ethical implications', filtered to return only studies that used 'mixed methods' in their methodology, and limit results to 10 papers\",\"count\":5,\"source\":\"openalex\",\"signal\":\"Relevant peer-reviewed papers on Find peer-reviewed articles from the last 5 years in the fields of 'artificial intelligence' AND 'ethical implications', filtered to return only studies that used 'mixed methods' in their methodology, and limit results to 10 papers: \\\"Artificial Intelligence (AI): Multidisciplinary perspectives on emerging challenges, opportunities, and agenda for research, practice and policy\\\" (Yogesh K. Dwivedi et al., 2019); \\\"Setting the future of digital and social media marketing research: Perspectives and research propositions\\\" (Yogesh K. Dwivedi et al., 2020); \\\"A meta systematic review of artificial intelligence in higher education: a call for increased ethics, collaboration, and rigour\\\" (Melissa Bond et al., 2024); \\\"Power to the Teachers: An Exploratory Review on Artificial Intelligence in Education\\\" (Petros Lameras et al., 2021); \\\"Digital Twin: Values, Challenges and Enab",
+    "doaj": "{\"total\": 71, \"page\": 1, \"pageSize\": 1, \"timestamp\": \"2026-09-19T04:55:58.651034Z\", \"query\": \"artificial intelligence ethical implications mixed methods\", \"results\": [{\"last_updated\": \"2025-08-20T03:51:09Z\", \"bibjson\": {\"identifier\": [{\"id\": \"2632-6655\", \"type\": \"eissn\"}, {\"id\": \"10.5334/bc.560\", \"type\": \"doi\"}], \"journal\": {\"volume\": \"6\", \"number\": \"1\", \"country\": \"GB\", \"issns\": [\"2632-6655\"], \"publisher\": \"Ubiquity Press\", \"language\": [\"EN\"], \"title\": \"Buildings & Cities\"}, \"month\": \"6\", \"end_page\": \"294\\u2013309\", \"keywords\": [\"ethics\", \"genai\", \"artificial intelligence\", \"doctoral research\", \"supervision\", \"relationships\", \"teaching and learning\", \"academia\"], \"year\": \"2025\", \"start_page\": \"294\\u2013309\", \"subject\": [{\"code\": \"TH845-895\", \"scheme\": \"LCC\", \"term\": \"Architectural engineering. Structural engineering of buildings\"}], \"author\": [{\"orcid_id\": \"https://orcid.org/0000-0001-8609-5386\", \"affiliation\": \"University of the Built Environment, Reading\", \"name\": \"Philippa Boyd\"}, {\"orcid_id\": \"https://orcid.org/0009-0004-9601-434X\", \"affiliation\": \"Edinburgh Business School, Heriot-Watt University, Edinburgh Campus, Riccarton\", \"name\": \"Debs Harding\"}], \"link\": [{\"content_type",
+    "europepmc": "{\"version\":\"6.9\",\"hitCount\":17581,\"nextCursorMark\":\"AoIIQNvc1yg1NjEwNjM4Ng==\",\"nextPageUrl\":\"https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=artificial intelligence ethical implications mixed methods&cursorMark=AoIIQNvc1yg1NjEwNjM4Ng==&resultType=lite&pageSize=1&format=json\",\"request\":{\"queryString\":\"artificial intelligence ethical implications mixed methods\",\"resultType\":\"lite\",\"cursorMark\":\"*\",\"pageSize\":1,\"sort\":\"\",\"synonym\":false},\"resultList\":{\"result\":[{\"id\":\"42568802\",\"source\":\"MED\",\"pmid\":\"42568802\",\"pmcid\":\"PMC13448027\",\"fullTextIdList\":{\"fullTextId\":[\"PMC13448027\"]},\"doi\":\"10.1016/j.ijnsa.2026.100636\",\"title\":\"Barriers and facilitators to artificial intelligence adoption among nursing students: a mixed-methods study.\",\"authorString\":\"Garcia PR, Alhejaili A, Muslihi A, Alshaharani B, Lamphon H, Alhefnawy K, Saleh W, Natividad MJ, Aljohani M, Fadlelmola H.\",\"journalTitle\":\"Int J Nurs Stud Adv\",\"journalVolume\":\"11\",\"pubYear\":\"2026\",\"journalIssn\":\"2666-142x\",\"pageInfo\":\"100636\",\"pubType\":\"research-article; journal article\",\"isOpenAccess\":\"Y\",\"inEPMC\":\"Y\",\"inPMC\":\"Y\",\"citedByCount\":0,\"hasReferences\":\"Y\",\"hasTextMinedTerms\":\"Y\",\"hasDbCrossReferences\":\"N\",\"hasPDF\":"
+   }
+  },
+  {
+   "topic": "the impact of decentralized AI miners on supply chain resilience blockchain verification consensus algorithm",
+   "scores": {
+    "ours": {
+     "raw": 0.9935451745986938,
+     "reason32": 0.01582925394177437,
+     "flat32": 0.01599903032183647,
+     "desc32": 0.015621301718056202
+    },
+    "chainsight": {
+     "raw": 0.015467441640794277,
+     "reason32": 0.01568523421883583,
+     "flat32": 0.01568523421883583,
+     "desc32": 0.01534736342728138
+    },
+    "doaj": {
+     "raw": 0,
+     "reason32": 0,
+     "flat32": 0,
+     "desc32": 0
+    },
+    "europepmc": {
+     "raw": 0.010424507781863213,
+     "reason32": 0.014010592363774776,
+     "flat32": 0.011050513945519924,
+     "desc32": 0.010391888208687305
+    }
+   },
+   "answers": {
+    "ours": "{\"verdict\":\"papers\",\"confidence\":1,\"reason\":\"Regarding find peer-reviewed articles published between January 2025 and June 2026 that examine the impact of decentralized AI miners on supply chain resilience, filtering results to return only those that mention either 'blockchain verification' OR 'consensus algorithm' in their abstracts, limiting results to 10 papers and including fields: title, abstract, authors, publicationDate, and DOI where available. the impact of decentralized AI: Here are 10 peer-reviewed journal articles on the impact of decentralized AI miners on supply chain resilience blockchain verification consensus algorithm published between 2025-01-01 and 2026-06-30: 1) Blockchain enabled traceability in the jewel supply chain by Ajay Patel, Siva Sai, Ankit Daiya, Harshal D. Akolekar (2025), cited 12 times. 2) Security and Privacy in the Internet of Everything (IoE): A Review on Blockchain, Edge Computing, AI, and Quantum-Resilient Solutions by Haluk Eren, Özgür Karaduman, Muharrem Tuncay Gençoğlu (2025), cited 22 times. 3) Blockchain-based coal supply chain management system for thermal power plants by Md Imran Alam, Shwet Khatri, Dhirendra Kumar Shukla, Neeraj Kumar ",
+    "chainsight": "{\"topic\":\"Find peer-reviewed articles published between January 2025 and June 2026 that examine the impact of decentralized AI miners on supply chain resilience, filtering results to return only those that mention either 'blockchain verification' OR 'consensus algorithm' in their abstracts, limiting results to 10 papers and including fields: title, abstract, authors, publicationDate, and DOI where available\",\"signal\":\"No peer-reviewed papers were found on Find peer-reviewed articles published between January 2025 and June 2026 that examine the impact of decentralized AI miners on supply chain resilience, filtering results to return only those that mention either 'blockchain verification' OR 'consensus algorithm' in their abstracts, limiting results to 10 papers and including fields: title, abstract, authors, publicationDate, and DOI where available.\",\"answer\":\"No peer-reviewed papers were found on Find peer-reviewed articles published between January 2025 and June 2026 that examine the impact of decentralized AI miners on supply chain resilience, filtering results to return only those that mention either 'blockchain verification' OR 'consensus algorithm' in their abstracts, limitin",
+    "doaj": "<!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 8]>    <html class=\"no-js ie8 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if gt IE 8]><!--> <html class=\"no-js\" lang=\"en-US\"> <!--<![endif]-->\n<head>\n\n<title>doaj.org | 502: Bad gateway</title>\n<meta charset=\"UTF-8\" />\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n<meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\" />\n<meta name=\"robots\" content=\"noindex, nofollow\" />\n<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\" />\n<link rel=\"stylesheet\" id=\"cf_styles-css\" href=\"/cdn-cgi/styles/main.css\" />\n</head>\n<body>\n<div id=\"cf-wrapper\">\n    <div id=\"cf-error-details\" class=\"p-0\">\n        <header class=\"mx-auto pt-10 lg:pt-6 lg:px-8 w-240 lg:w-full mb-8\">\n            <h1 class=\"inline-block sm:block sm:mb-2 font-light text-60 lg:text-4xl text-black-dark leading-tight mr-2\">\n                <span class=\"inline-block\">Bad gateway</span>\n                <span class=\"code-label\">Error code 502</span>\n            </h1>\n            <div>\n                Visit <a href=\"https://www.clo",
+    "europepmc": "{\"version\":\"6.9\",\"hitCount\":44,\"nextCursorMark\":\"AoIIQXEWjSg1NTU4MzMzNw==\",\"nextPageUrl\":\"https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=the impact of decentralized AI miners on supply chain resilience blockchain verification consensus algorithm&cursorMark=AoIIQXEWjSg1NTU4MzMzNw==&resultType=lite&pageSize=1&format=json\",\"request\":{\"queryString\":\"the impact of decentralized AI miners on supply chain resilience blockchain verification consensus algorithm\",\"resultType\":\"lite\",\"cursorMark\":\"*\",\"pageSize\":1,\"sort\":\"\",\"synonym\":false},\"resultList\":{\"result\":[{\"id\":\"42151202\",\"source\":\"MED\",\"pmid\":\"42151202\",\"pmcid\":\"PMC13376778\",\"fullTextIdList\":{\"fullTextId\":[\"PMC13376778\"]},\"doi\":\"10.1038/s41598-026-44871-0\",\"title\":\"A blockchain-secured 6G smartgrid framework for resilient renewable energy integration and intelligent anomaly detection.\",\"authorString\":\"Hossain I, Shufian A, Munny MA, Amin N, Alsisi RH.\",\"journalTitle\":\"Sci Rep\",\"issue\":\"1\",\"journalVolume\":\"16\",\"pubYear\":\"2026\",\"journalIssn\":\"2045-2322\",\"pageInfo\":\"22437\",\"pubType\":\"research-article; journal article\",\"isOpenAccess\":\"Y\",\"inEPMC\":\"Y\",\"inPMC\":\"Y\",\"citedByCount\":0,\"hasReferences\":\"Y\",\"hasTextMinedTerms\":\"Y\","
+   }
+  },
+  {
+   "topic": "the efficacy of CRISPR-Cas9 gene editing in treating genetic disorders CRISPR-Cas9 AND gene editing",
+   "scores": {
+    "ours": {
+     "raw": 0.9933037757873535,
+     "reason32": 0.015189158730208874,
+     "flat32": 0.015453186817467213,
+     "desc32": 0.01516924612224102
+    },
+    "chainsight": {
+     "raw": 0.01633448526263237,
+     "reason32": 0.01512061059474945,
+     "flat32": 0.01512061059474945,
+     "desc32": 0.014388393610715866
+    },
+    "doaj": {
+     "raw": 0.00835532508790493,
+     "reason32": 0.004779716953635216,
+     "flat32": 0.006653898395597935,
+     "desc32": 0.006115376949310303
+    },
+    "europepmc": {
+     "raw": 0.011327366344630718,
+     "reason32": 0.01458902657032013,
+     "flat32": 0.011284719221293926,
+     "desc32": 0.010962356813251972
+    }
+   },
+   "answers": {
+    "ours": "{\"verdict\":\"papers\",\"confidence\":1,\"reason\":\"Regarding search PubMed for recent systematic reviews and meta-analyses published in the last 12 months that examine the efficacy of CRISPR-Cas9 gene editing in treating genetic disorders, filtering results to only include human studies and excluding any animal model research, and return the top 5 most cited papers sorted by relevance using the query 'CRISPR-Cas9 AND gene editing AND genetic disorders': Here are 5 papers on the efficacy of CRISPR-Cas9 gene editing in treating genetic disorders CRISPR-Cas9 AND gene editing published between 2025-09-19 and 2026-09-19: 1) CRISPR in Medicine: A Systematic Review of Clinical Trials and Therapeutic Applications by Mohammad Rahmanian, Mohadeseh Khoshandam, Marziyeh Mousazadeh, Piao Yang (2026), cited 2 times. 2) Gene and RNA Editing: Revolutionary Approaches to Treating Diseases by Jia‐Mei Li, Jie Huang, Yan Liao, Ting Hu (2025), cited 19 times. 3) CRISPR/Cas9-based programmable genome editing in chickens: concepts, applications and regulatory issues by Gautham Kolluri, Adnan Naim, Shiva Kumar Kurva, J.S. Tyagi (2026), cited 5 times. 4) ‘Tripod-like’ lung-targeting (LuT) lipids for highly effic",
+    "chainsight": "{\"topic\":\"Search PubMed for recent systematic reviews and meta-analyses published in the last 12 months that examine the efficacy of CRISPR-Cas9 gene editing in treating genetic disorders, filtering results to only include human studies and excluding any animal model research, and return the top 5 most cited papers sorted by relevance using the query 'CRISPR-Cas9 AND gene editing AND genetic disorders' with a publication date filter set to 2025-08-24 TO 2026-08-24 and the filter 'Humans[Mesh]' applied\",\"signal\":\"No peer-reviewed papers were found on Search PubMed for recent systematic reviews and meta-analyses published in the last 12 months that examine the efficacy of CRISPR-Cas9 gene editing in treating genetic disorders, filtering results to only include human studies and excluding any animal model research, and return the top 5 most cited papers sorted by relevance using the query 'CRISPR-Cas9 AND gene editing AND genetic disorders' with a publication date filter set to 2025-08-24 TO 2026-08-24 and the filter 'Humans[Mesh]' applied.\",\"answer\":\"No peer-reviewed papers were found on Search PubMed for recent systematic reviews and meta-analyses published in the last 12 months tha",
+    "doaj": "{\"total\": 4, \"page\": 1, \"pageSize\": 1, \"timestamp\": \"2026-09-19T04:57:45.687582Z\", \"query\": \"the efficacy of CRISPR-Cas9 gene editing in treating genetic disorders CRISPR-Cas9 AND gene editing\", \"results\": [{\"last_updated\": \"2025-08-20T00:09:00Z\", \"bibjson\": {\"identifier\": [{\"id\": \"2674-0826\", \"type\": \"eissn\"}, {\"id\": \"10.3389/fopht.2023.1270561\", \"type\": \"doi\"}], \"journal\": {\"volume\": \"3\", \"country\": \"CH\", \"issns\": [\"2674-0826\"], \"publisher\": \"Frontiers Media S.A.\", \"language\": [\"EN\"], \"title\": \"Frontiers in Ophthalmology\"}, \"month\": \"9\", \"keywords\": [\"inherited retinal diseases\", \"gene therapy\", \"genome editing\", \"CRISPR-Cas\", \"nanoparticles\"], \"year\": \"2023\", \"subject\": [{\"code\": \"R\", \"scheme\": \"LCC\", \"term\": \"Medicine\"}], \"author\": [{\"affiliation\": \"iNOVA4Health, NOVA Medical School | Faculdade de Ci\\u00eancias M\\u00e9dicas, NMS | FCM, Universidade Nova de Lisboa, Lisboa, Portugal\", \"name\": \"Cl\\u00e1udia Carvalho\"}, {\"affiliation\": \"Champalimaud Research, Champalimaud Foundation, Lisboa, Portugal\", \"name\": \"Lu\\u00edsa Lemos\"}, {\"affiliation\": \"iNOVA4Health, NOVA Medical School | Faculdade de Ci\\u00eancias M\\u00e9dicas, NMS | FCM, Universidade Nova de Lisboa, Lisboa, Portugal\", ",
+    "europepmc": "{\"version\":\"6.9\",\"hitCount\":7037,\"nextCursorMark\":\"AoIIQZUtDSg1NjQ0MzYzMQ==\",\"nextPageUrl\":\"https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=the efficacy of CRISPR-Cas9 gene editing in treating genetic disorders CRISPR-Cas9 AND gene editing&cursorMark=AoIIQZUtDSg1NjQ0MzYzMQ==&resultType=lite&pageSize=1&format=json\",\"request\":{\"queryString\":\"the efficacy of CRISPR-Cas9 gene editing in treating genetic disorders CRISPR-Cas9 AND gene editing\",\"resultType\":\"lite\",\"cursorMark\":\"*\",\"pageSize\":1,\"sort\":\"\",\"synonym\":false},\"resultList\":{\"result\":[{\"id\":\"PMC13583639\",\"source\":\"PMC\",\"pmcid\":\"PMC13583639\",\"fullTextIdList\":{\"fullTextId\":[\"PMC13583639\"]},\"title\":\"Precision Genome Engineering in Human Disease: Expanding Therapeutic Roles of CRISPR Technologies\",\"authorString\":\"Ubhenin A, Adamude F, Ochalefu D, Anura F, Tarnande C, Adam I.\",\"journalTitle\":\"Niger Med J\",\"issue\":\"5\",\"journalVolume\":\"67\",\"journalIssn\":\"0300-1652; 2229-774x; \",\"pageInfo\":\"1720-1728\",\"pubType\":\"research-article; journal article\",\"isOpenAccess\":\"Y\",\"inEPMC\":\"Y\",\"inPMC\":\"Y\",\"citedByCount\":0,\"hasReferences\":\"N\",\"hasTextMinedTerms\":\"N\",\"hasDbCrossReferences\":\"N\",\"hasPDF\":\"Y\",\"hasBook\":\"N\",\"hasSuppl\":\"N\",\"hasL"
+   }
+  },
+  {
+   "topic": "quantum computing error correction fault tolerance",
+   "scores": {
+    "ours": {
+     "raw": 0.008465624414384365,
+     "reason32": 0.01465996727347374,
+     "flat32": 0.015264660120010376,
+     "desc32": 0.015020015649497509
+    },
+    "chainsight": {
+     "raw": 0.013632123358547688,
+     "reason32": 0.014847829937934875,
+     "flat32": 0.014847829937934875,
+     "desc32": 0.013413949869573116
+    },
+    "doaj": {
+     "raw": 0.0034817750565707684,
+     "reason32": 0.0071268691681325436,
+     "flat32": 0.008942876942455769,
+     "desc32": 0.008996543474495411
+    },
+    "europepmc": {
+     "raw": 0.008093130774796009,
+     "reason32": 0.012472386471927166,
+     "flat32": 0.010080981068313122,
+     "desc32": 0.00931951217353344
+    }
+   },
+   "answers": {
+    "ours": "{\"verdict\":\"papers\",\"confidence\":1,\"reason\":\"Regarding find peer-reviewed articles in the field of quantum computing published between January 1st, 2023, and December 31st, 2025, that mention either 'error correction' or 'fault tolerance' in their abstracts, limiting results to 10 papers and returning titles, authors, publication dates, and DOIs% quantum computing error correction fault tolerance: Here are 10 peer-reviewed journal articles on quantum computing error correction fault tolerance: 1) Fault-Tolerant Linear Optical Quantum Computing with Small-Amplitude Coherent States by Austin P. Lund, Timothy C. Ralph, Henry L. Haselgrove (2008), cited 297 times. 2) Realization of Real-Time Fault-Tolerant Quantum Error Correction by Ciarán Ryan-Anderson, J. G. Bohnet, K. Lee, Dan Gresh (2021), cited 322 times. 3) All-Gaussian Universality and Fault Tolerance with the Gottesman-Kitaev-Preskill Code by Ben Q. Baragiola, Giacomo Pantaleoni, Rafael N. Alexander, Angela Karanjai (2019), cited 175 times. 4) Fault-Tolerant Measurement-Based Quantum Computing with Continuous-Variable Cluster States by Nicolas C. Menicucci (2014), cited 381 times. 5) High-threshold and low-overhead fault-toler",
+    "chainsight": "{\"topic\":\"Find peer-reviewed articles in the field of quantum computing published between January 1st, 2023, and December 31st, 2025, that mention either 'error correction' or 'fault tolerance' in their abstracts, limiting results to 10 papers and returning titles, authors, publication dates, and DOIs%\",\"signal\":\"No peer-reviewed papers were found on Find peer-reviewed articles in the field of quantum computing published between January 1st, 2023, and December 31st, 2025, that mention either 'error correction' or 'fault tolerance' in their abstracts, limiting results to 10 papers and returning titles, authors, publication dates, and DOIs%.\",\"answer\":\"No peer-reviewed papers were found on Find peer-reviewed articles in the field of quantum computing published between January 1st, 2023, and December 31st, 2025, that mention either 'error correction' or 'fault tolerance' in their abstracts, limiting results to 10 papers and returning titles, authors, publication dates, and DOIs%.\",\"source\":\"openalex\"}",
+    "doaj": "{\"total\": 22, \"page\": 1, \"pageSize\": 1, \"timestamp\": \"2026-09-19T04:58:48.068743Z\", \"query\": \"quantum computing error correction fault tolerance\", \"results\": [{\"last_updated\": \"2025-08-19T23:08:52Z\", \"bibjson\": {\"identifier\": [{\"id\": \"2521-327X\", \"type\": \"eissn\"}, {\"id\": \"10.22331/q-2024-10-10-1498\", \"type\": \"doi\"}], \"journal\": {\"volume\": \"8\", \"country\": \"AT\", \"issns\": [\"2521-327X\"], \"publisher\": \"Verein zur F\\u00f6rderung des Open Access Publizierens in den Quantenwissenschaften\", \"language\": [\"EN\"], \"title\": \"Quantum\"}, \"month\": \"10\", \"year\": \"2024\", \"start_page\": \"1498\", \"subject\": [{\"code\": \"QC1-999\", \"scheme\": \"LCC\", \"term\": \"Physics\"}], \"author\": [{\"name\": \"Antonio deMarti iOlius\"}, {\"name\": \"Patricio Fuentes\"}, {\"name\": \"Rom\\u00e1n Or\\u00fas\"}, {\"name\": \"Pedro M. Crespo\"}, {\"name\": \"Josu Etxezarreta Martinez\"}], \"link\": [{\"content_type\": \"PDF\", \"type\": \"fulltext\", \"url\": \"https://quantum-journal.org/papers/q-2024-10-10-1498/pdf/\"}], \"abstract\": \"Quantum technologies have the potential to solve certain computationally hard problems with polynomial or super-polynomial speedups when compared to classical methods. Unfortunately, the unstable nature of quantum information makes i",
+    "europepmc": "{\"version\":\"6.9\",\"hitCount\":349,\"nextCursorMark\":\"AoIIQRSnGyg1NTYzNDU2Nw==\",\"nextPageUrl\":\"https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=quantum computing error correction fault tolerance&cursorMark=AoIIQRSnGyg1NTYzNDU2Nw==&resultType=lite&pageSize=1&format=json\",\"request\":{\"queryString\":\"quantum computing error correction fault tolerance\",\"resultType\":\"lite\",\"cursorMark\":\"*\",\"pageSize\":1,\"sort\":\"\",\"synonym\":false},\"resultList\":{\"result\":[{\"id\":\"42187961\",\"source\":\"MED\",\"pmid\":\"42187961\",\"pmcid\":\"PMC13206557\",\"fullTextIdList\":{\"fullTextId\":[\"PMC13206557\"]},\"doi\":\"10.3390/e28050546\",\"title\":\"Thermodynamic Limits of Fault-Tolerant Quantum Computing Beyond the Weak-Coupling, Quasistatic Regime.\",\"authorString\":\"Guha Majumdar M.\",\"journalTitle\":\"Entropy (Basel)\",\"issue\":\"5\",\"journalVolume\":\"28\",\"pubYear\":\"2026\",\"journalIssn\":\"1099-4300\",\"pageInfo\":\"546\",\"pubType\":\"research-article; journal article\",\"isOpenAccess\":\"Y\",\"inEPMC\":\"Y\",\"inPMC\":\"Y\",\"citedByCount\":0,\"hasReferences\":\"Y\",\"hasTextMinedTerms\":\"Y\",\"hasDbCrossReferences\":\"N\",\"hasPDF\":\"Y\",\"hasBook\":\"N\",\"hasSuppl\":\"N\",\"hasLabsLinks\":\"N\",\"hasTMAccessionNumbers\":\"Y\",\"tmAccessionTypeList\":{\"accessionType\":[\"doi\"]},\"firstP"
+   }
+  },
+  {
+   "topic": "the impact of blockchain technology on supply chain management",
+   "scores": {
+    "ours": {
+     "raw": 0.01137655507773161,
+     "reason32": 0.015516381710767746,
+     "flat32": 0.015613513067364693,
+     "desc32": 0.014396953396499157
+    },
+    "chainsight": {
+     "raw": 0.011246200650930405,
+     "reason32": 0.014802920632064342,
+     "flat32": 0.014802920632064342,
+     "desc32": 0.014032759703695774
+    },
+    "doaj": {
+     "raw": 0.004706505220383406,
+     "reason32": 0.005451459903270006,
+     "flat32": 0.006021684501320124,
+     "desc32": 0.00445453030988574
+    },
+    "europepmc": {
+     "raw": 0.005088494159281254,
+     "reason32": 0.00890623964369297,
+     "flat32": 0.004982875194400549,
+     "desc32": 0.004820626229047775
+    }
+   },
+   "answers": {
+    "ours": "{\"verdict\":\"papers\",\"confidence\":1,\"reason\":\"Regarding find peer-reviewed articles published between 2020 and 2023 that discuss the impact of blockchain technology on supply chain management, filtering results to only include papers with an open-access PDF available, and return the titles, abstracts, publication years, and URLs of these papers: Here are 5 peer-reviewed journal articles on the impact of blockchain technology on supply chain management published between 2020-01-01 and 2023-12-31: 1) Uncovering dimensions of the impact of blockchain technology in supply chain management by Ulpan Tokkozhina, Ana Martins, João C. Ferreira (2022), cited 49 times. 2) Impact of Blockchain Technology on Supply Chain Management by M. Fahad Zariwala (2023), cited 4 times. 3) The Impact of Instrumental Stakeholder Management on Blockchain Technology Adoption Behavior in Agri-Food Supply Chains by Michael Paul Kramer, Linda Bitsch, Jon Henrich Hanf (2021), cited 37 times. 4) Agriculture-Food Supply Chain Management Based on Blockchain and IoT: A Narrative on Enterprise Blockchain Interoperability by Showkat Ahmad Bhat, Nen‐Fu Huang, Ishfaq Bashir Sofi, Muhammad Sultan (2021), cited 328 times. 5",
+    "chainsight": "{\"topic\":\"Find peer-reviewed articles published between 2020 and 2023 that discuss the impact of blockchain technology on supply chain management, filtering results to only include papers with an open-access PDF available, and return the titles, abstracts, publication years, and URLs of these papers\",\"count\":5,\"source\":\"openalex\",\"signal\":\"Relevant peer-reviewed papers on Find peer-reviewed articles published between 2020 and 2023 that discuss the impact of blockchain technology on supply chain management, filtering results to only include papers with an open-access PDF available, and return the titles, abstracts, publication years, and URLs of these papers: \\\"Cybersecurity threats in FinTech: A systematic review\\\" (Danial Javaheri et al., 2023); \\\"A multivocal literature review of decentralized finance: Current knowledge and future research avenues\\\" (Vincent Gramlich et al., 2023); \\\"How are texts analyzed in blockchain research? A systematic literature review\\\" (Xian Zhuo et al., 2024); \\\"Digital Technologies and Channels for Competitive Advantage in SMEs: A Systematic Review\\\" (Koketso Chabalala et al., 2024); \\\"DFRWS EU 10-year review and future directions in Digital Forensic ",
+    "doaj": "{\"total\": 84, \"page\": 1, \"pageSize\": 1, \"timestamp\": \"2026-09-19T04:59:42.688732Z\", \"query\": \"the impact of blockchain technology on supply chain management\", \"results\": [{\"last_updated\": \"2025-08-20T03:21:24Z\", \"bibjson\": {\"identifier\": [{\"id\": \"2949-9488\", \"type\": \"eissn\"}, {\"id\": \"10.1016/j.ject.2025.05.001\", \"type\": \"doi\"}], \"journal\": {\"volume\": \"3\", \"number\": \"\", \"country\": \"CN\", \"issns\": [\"2949-9488\"], \"publisher\": \"KeAi Communications Co., Ltd.\", \"language\": [\"EN\"], \"title\": \"Journal of Economy and Technology\"}, \"month\": \"11\", \"end_page\": \"298\", \"keywords\": [\"Blockchain\", \"Food and beverages industry\", \"Analysis of variance\", \"Recall duration\"], \"year\": \"2025\", \"start_page\": \"283\", \"subject\": [{\"code\": \"QA75.5-76.95\", \"scheme\": \"LCC\", \"term\": \"Electronic computers. Computer science\"}, {\"code\": \"HB71-74\", \"scheme\": \"LCC\", \"term\": \"Economics as a science\"}, {\"code\": \"H\", \"scheme\": \"LCC\", \"term\": \"Social Sciences\"}], \"author\": [{\"affiliation\": \"Department of Industrial and Systems Engineering, State University of New York at Buffalo, Buffalo, NY, USA; Corresponding author.\", \"name\": \"Abbas Keramati\"}, {\"affiliation\": \"Department of Industrial and Systems Engineering, State Uni",
+    "europepmc": "{\"version\":\"6.9\",\"hitCount\":3627,\"nextCursorMark\":\"AoIIQZ63Qig0NjIyNjU5Mw==\",\"nextPageUrl\":\"https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=the impact of blockchain technology on supply chain management&cursorMark=AoIIQZ63Qig0NjIyNjU5Mw==&resultType=lite&pageSize=1&format=json\",\"request\":{\"queryString\":\"the impact of blockchain technology on supply chain management\",\"resultType\":\"lite\",\"cursorMark\":\"*\",\"pageSize\":1,\"sort\":\"\",\"synonym\":false},\"resultList\":{\"result\":[{\"id\":\"PMC9187897\",\"source\":\"PMC\",\"pmcid\":\"PMC9187897\",\"fullTextIdList\":{\"fullTextId\":[\"PMC9187897\"]},\"title\":\"Uncovering dimensions of the impact of blockchain technology in supply chain management\",\"authorString\":\"Tokkozhina U, Lucia Martins A, Ferreira J.\",\"journalTitle\":\"Oper Manag Res\",\"issue\":\"1\",\"journalVolume\":\"16\",\"pubYear\":\"2022\",\"journalIssn\":\"1936-9735; 1936-9743; \",\"pageInfo\":\"99-125\",\"pubType\":\"research-article; journal article\",\"isOpenAccess\":\"Y\",\"inEPMC\":\"Y\",\"inPMC\":\"Y\",\"citedByCount\":0,\"hasReferences\":\"N\",\"hasTextMinedTerms\":\"Y\",\"hasDbCrossReferences\":\"N\",\"hasPDF\":\"Y\",\"hasBook\":\"N\",\"hasSuppl\":\"N\",\"hasLabsLinks\":\"N\",\"hasTMAccessionNumbers\":\"Y\",\"tmAccessionTypeList\":{\"accessionType\":[\"doi\"]},"
+   }
+  },
+  {
+   "topic": "machine learning",
+   "scores": {
+    "ours": {
+     "raw": 0.009199103340506554,
+     "reason32": 0.00949204619973898,
+     "flat32": 0.009425223805010319,
+     "desc32": 0.009810598567128181
+    },
+    "chainsight": {
+     "raw": 0.009503509849309921,
+     "reason32": 0.00916308630257845,
+     "flat32": 0.00916308630257845,
+     "desc32": 0.009076302871108055
+    },
+    "doaj": {
+     "raw": 0.005041167605668306,
+     "reason32": 0.002471218816936016,
+     "flat32": 0.003920693416148424,
+     "desc32": 0.004645750857889652
+    },
+    "europepmc": {
+     "raw": 0.007068648003041744,
+     "reason32": 0.005245494190603495,
+     "flat32": 0.0064450702629983425,
+     "desc32": 0.006381938233971596
+    }
+   },
+   "answers": {
+    "ours": "{\"verdict\":\"papers\",\"confidence\":1,\"reason\":\"Regarding search Semantic Scholar for papers published between 2020 and 2023 in the field of machine learning, returning only the paper titles and abstracts, and limit results to 10 papers%: Here are 10 papers on machine learning published between 2020-01-01 and 2023-12-31: 1) Physics-informed machine learning by George Em Karniadakis, Ioannis G. Kevrekidis, Lu Lu, Paris Perdikaris (2021), cited 7988 times. 2) Machine Learning: Algorithms, Real-World Applications and Research Directions by Iqbal H. Sarker (2021), cited 5406 times. 3) Machine learning and deep learning by Christian Janiesch, Patrick Zschech, Kai Heinrich (2021), cited 2626 times. 4) On hyperparameter optimization of machine learning algorithms: Theory and practice by Li Yang, Abdallah Shami (2020), cited 3265 times. 5) Machine Learning Algorithms - A Review by Batta Mahesh (2020), cited 2516 times. 6) Applications of machine learning to machine fault diagnosis: A review and roadmap by Yaguo Lei, Bin Yang, Xinwei Jiang, Feng Jia (2020), cited 2898 times. 7) A guide to machine learning for biologists by Joe G. Greener, Shaun M. Kandathil, Lewis Moffat, David T. Jones (2021)",
+    "chainsight": "{\"topic\":\"Search Semantic Scholar for papers published between 2020 and 2023 in the field of machine learning, returning only the paper titles and abstracts, and limit results to 10 papers%\",\"count\":5,\"source\":\"openalex\",\"signal\":\"Relevant peer-reviewed papers on Search Semantic Scholar for papers published between 2020 and 2023 in the field of machine learning, returning only the paper titles and abstracts, and limit results to 10 papers%: \\\"A meta systematic review of artificial intelligence in higher education: a call for increased ethics, collaboration, and rigour\\\" (Melissa Bond et al., 2024); \\\"ChatGPT: Bullshit spewer or the end of traditional assessments in higher education?\\\" (Jürgen Rudolph et al., 2023); \\\"Machine learning in marine ecology: an overview of techniques and applications\\\" (Peter Rubbens et al., 2023); \\\"Practical and ethical challenges of large language models in education: A systematic scoping review\\\" (Lixiang Yan et al., 2023); \\\"A comprehensive investigation of multimodal deep learning fusion strategies for breast cancer classification\\\" (Fatima-Zahrae Nakach et al., 2024).\",\"answer\":\"Relevant peer-reviewed papers on Search Semantic Scholar for papers p",
+    "doaj": "{\"total\": 200606, \"page\": 1, \"pageSize\": 1, \"timestamp\": \"2026-09-19T05:00:37.095398Z\", \"query\": \"machine learning\", \"results\": [{\"last_updated\": \"2025-08-20T01:49:50Z\", \"bibjson\": {\"identifier\": [{\"id\": \"10.46481/jnsps.2025.2273\", \"type\": \"doi\"}, {\"id\": \"2714-2817\", \"type\": \"pissn\"}, {\"id\": \"2714-4704\", \"type\": \"eissn\"}], \"journal\": {\"volume\": \"7\", \"number\": \"1\", \"country\": \"NG\", \"issns\": [\"2714-2817\", \"2714-4704\"], \"publisher\": \"Nigerian Society of Physical Sciences\", \"language\": [\"EN\"], \"title\": \"Journal of Nigerian Society of Physical Sciences\"}, \"month\": \"February\", \"keywords\": [\"Algorithm\", \"Dataset\", \"Dimensionality reduction\", \"Feature selection\"], \"year\": \"2025\", \"subject\": [{\"code\": \"QC1-999\", \"scheme\": \"LCC\", \"term\": \"Physics\"}], \"author\": [{\"affiliation\": \"Department of Computer Science, Federal University Wukari, P.M.B 1020, \\tKatsina-Ala Road, Wukari, Taraba State, Nigeria\", \"name\": \"PHILEMON UTEN EMMOH\"}, {\"affiliation\": \"Department of Computer Science, Federal University of Lafia, P.M.B 146, Lafia, Nasarawa State, Nigeria\", \"name\": \"christopher  ifeanyi Eke\"}, {\"affiliation\": \"Department of Computer Science, Federal University of Lafia, P.M.B 146, Lafia, Nasarawa St",
+    "europepmc": "{\"version\":\"6.9\",\"hitCount\":640499,\"nextCursorMark\":\"AoIIQbh42Cg1NjM1NDQ2OQ==\",\"nextPageUrl\":\"https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=machine learning&cursorMark=AoIIQbh42Cg1NjM1NDQ2OQ==&resultType=lite&pageSize=1&format=json\",\"request\":{\"queryString\":\"machine learning\",\"resultType\":\"lite\",\"cursorMark\":\"*\",\"pageSize\":1,\"sort\":\"\",\"synonym\":false},\"resultList\":{\"result\":[{\"id\":\"42692951\",\"source\":\"MED\",\"pmid\":\"42692951\",\"doi\":\"10.1016/j.landig.2026.101022\",\"title\":\"Machine learning prediction for epilepsy treatment selection and prognosis: achievements and challenges.\",\"authorString\":\"Chen Z, Li X, Jehi L, Ge Z, Wang X, Kwan P.\",\"journalTitle\":\"Lancet Digit Health\",\"pubYear\":\"2027\",\"journalIssn\":\"2589-7500\",\"pageInfo\":\"101022\",\"pubType\":\"review; journal article\",\"isOpenAccess\":\"N\",\"inEPMC\":\"N\",\"inPMC\":\"N\",\"citedByCount\":0,\"hasReferences\":\"Y\",\"hasTextMinedTerms\":\"Y\",\"hasDbCrossReferences\":\"N\",\"hasPDF\":\"N\",\"hasBook\":\"N\",\"hasSuppl\":\"N\",\"hasLabsLinks\":\"N\",\"hasTMAccessionNumbers\":\"N\",\"firstPublicationDate\":\"2027-04-09\",\"firstIndexDate\":\"2026-09-04\"}]}}"
+   }
+  },
+  {
+   "topic": "machine learning applications in renewable energy systems",
+   "scores": {
+    "ours": {
+     "raw": 0.009019246324896812,
+     "reason32": 0.009244090877473354,
+     "flat32": 0.009232262149453163,
+     "desc32": 0.00940990075469017
+    },
+    "chainsight": {
+     "raw": 0.009608650580048561,
+     "reason32": 0.008634128607809544,
+     "flat32": 0.008634128607809544,
+     "desc32": 0.008767388761043549
+    },
+    "doaj": {
+     "raw": 0.005934956483542919,
+     "reason32": 0.002897709608078003,
+     "flat32": 0.0072877537459135056,
+     "desc32": 0.007374920882284641
+    },
+    "europepmc": {
+     "raw": 0.008200696669518948,
+     "reason32": 0.006695133168250322,
+     "flat32": 0.007441291585564613,
+     "desc32": 0.007497782353311777
+    }
+   },
+   "answers": {
+    "ours": "{\"verdict\":\"papers\",\"confidence\":1,\"reason\":\"Regarding find papers published in 2025 that discuss machine learning applications in renewable energy systems, returning the paper title, abstract, and citation count, limited to 10 results: Here are 10 papers on machine learning applications in renewable energy systems published between 2025-01-01 and 2025-12-31: 1) Hybrid Renewable Energy Systems—A Review of Optimization Approaches and Future Challenges by Akvile Giedraityte, Sigitas Rimkevičius, Mantas Marčiukaitis, Virginijus Radziukynas (2025), cited 129 times. 2) Machine learning applications in energy systems: current trends, challenges, and research directions by Saad Aslam, Pyi Phyo Aung, Ahmad Sahban Rafsanjani, Anwar P. P. Abdul Majeed (2025), cited 86 times. 3) Advancing Power Systems with Renewable Energy and Intelligent Technologies: A Comprehensive Review on Grid Transformation and Integration by Muhammed Cavus (2025), cited 165 times. 4) Comprehensive review of artificial intelligence applications in renewable energy systems: current implementations and emerging trends by Chukwuebuka Joseph Ejiyi, Dongsheng Cai, D. A. H. Thomas, Sandra Obiora (2025), cited 88 times. 5) M",
+    "chainsight": "{\"topic\":\"Find papers published in 2025 that discuss machine learning applications in renewable energy systems, returning the paper title, abstract, and citation count, limited to 10 results\",\"count\":5,\"source\":\"openalex\",\"signal\":\"Relevant peer-reviewed papers on Find papers published in 2025 that discuss machine learning applications in renewable energy systems, returning the paper title, abstract, and citation count, limited to 10 results: \\\"Decarbonizing the iron and steel industry: A systematic review of sociotechnical systems, technological innovations, and policy options\\\" (Jinsoo Kim et al., 2022); \\\"Adversarial machine learning: a review of methods, tools, and critical industry sectors\\\" (Sotiris Pelekis et al., 2025); \\\"AI-Powered Digital Twins and Internet of Things for Smart Cities and Sustainable Building Environment\\\" (Aljawharah A. Alnaser et al., 2024); \\\"The Political Economy of Clean Energy Transitions\\\" (Detlev Arendt et al., 2017); \\\"‘As of my last knowledge update’: How is content generated by ChatGPT infiltrating scientific papers published in premier journals?\\\" (Artur Strzelecki, 2024).\",\"answer\":\"Relevant peer-reviewed papers on Find papers published in 202",
+    "doaj": "{\"total\": 229, \"page\": 1, \"pageSize\": 1, \"timestamp\": \"2026-09-19T05:01:16.479455Z\", \"query\": \"machine learning applications in renewable energy systems\", \"results\": [{\"last_updated\": \"2025-08-20T02:20:23Z\", \"bibjson\": {\"identifier\": [{\"id\": \"2169-3536\", \"type\": \"eissn\"}, {\"id\": \"10.1109/ACCESS.2025.3560811\", \"type\": \"doi\"}], \"journal\": {\"volume\": \"13\", \"country\": \"US\", \"issns\": [\"2169-3536\"], \"publisher\": \"IEEE\", \"language\": [\"EN\"], \"title\": \"IEEE Access\"}, \"end_page\": \"71672\", \"keywords\": [\"Big data\", \"electricity grid\", \"machine learning\", \"power distribution systems\", \"power line communication\"], \"year\": \"2025\", \"start_page\": \"71662\", \"subject\": [{\"code\": \"TK1-9971\", \"scheme\": \"LCC\", \"term\": \"Electrical engineering. Electronics. Nuclear engineering\"}], \"author\": [{\"orcid_id\": \"https://orcid.org/0000-0003-0307-7866\", \"affiliation\": \"German Research Center for Artificial Intelligence (DFKI), Kaiserslautern, Germany\", \"name\": \"Christoph Balada\"}, {\"affiliation\": \"Department of Electrical Power Supply Engineering, University of Wuppertal, Wuppertal, Germany\", \"name\": \"Max Bondorf\"}, {\"orcid_id\": \"https://orcid.org/0000-0002-4239-6520\", \"affiliation\": \"German Research Center for Art",
+    "europepmc": "{\"version\":\"6.9\",\"hitCount\":7277,\"nextCursorMark\":\"AoIIQQD5cCg1NjEwNTU0Mw==\",\"nextPageUrl\":\"https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=machine learning applications in renewable energy systems&cursorMark=AoIIQQD5cCg1NjEwNTU0Mw==&resultType=lite&pageSize=1&format=json\",\"request\":{\"queryString\":\"machine learning applications in renewable energy systems\",\"resultType\":\"lite\",\"cursorMark\":\"*\",\"pageSize\":1,\"sort\":\"\",\"synonym\":false},\"resultList\":{\"result\":[{\"id\":\"42567973\",\"source\":\"MED\",\"pmid\":\"42567973\",\"pmcid\":\"PMC13451277\",\"fullTextIdList\":{\"fullTextId\":[\"PMC13451277\"]},\"doi\":\"10.1038/s41598-026-65123-1\",\"title\":\"Integrated machine learning forecasting and grey wolf optimization for optimal operation of virtual power plants in smart distribution networks.\",\"authorString\":\"El Hamid AMA, Elzohri HH, Sayed K.\",\"journalTitle\":\"Sci Rep\",\"issue\":\"1\",\"journalVolume\":\"16\",\"pubYear\":\"2026\",\"journalIssn\":\"2045-2322\",\"pageInfo\":\"24535\",\"pubType\":\"research-article; journal article\",\"isOpenAccess\":\"Y\",\"inEPMC\":\"Y\",\"inPMC\":\"Y\",\"citedByCount\":0,\"hasReferences\":\"Y\",\"hasTextMinedTerms\":\"Y\",\"hasDbCrossReferences\":\"N\",\"hasPDF\":\"Y\",\"hasBook\":\"N\",\"hasSuppl\":\"N\",\"hasLabsLinks\":\"N\",\"hasT"
+   }
+  },
+  {
+   "topic": "machine learning abstract.search:transformer networks",
+   "scores": {
+    "ours": {
+     "raw": 0.010399175807833672,
+     "reason32": 0.010109052062034607,
+     "flat32": 0.007695000618696213,
+     "desc32": 0.007166646420955658
+    },
+    "chainsight": {
+     "raw": 0.012360534630715847,
+     "reason32": 0.009338225238025188,
+     "flat32": 0.009338225238025188,
+     "desc32": 0.009108063764870167
+    },
+    "doaj": {
+     "raw": 0.006033037323504686,
+     "reason32": 0.008778227493166924,
+     "flat32": 0.008709410205483437,
+     "desc32": 0.008035796694457531
+    },
+    "europepmc": {
+     "raw": 0.005468343384563923,
+     "reason32": 0.010491677559912205,
+     "flat32": 0.007840031757950783,
+     "desc32": 0.007291494403034449
+    }
+   },
+   "answers": {
+    "ours": "{\"verdict\":\"unknown\",\"confidence\":0,\"reason\":\"Regarding search Semantic Scholar for papers published between 2020 and 2023 in the field of machine learning, returning titles, abstracts, and citation counts, sorted by highest citation count, and limited to 10 results. Use the filter 'abstract.search:transformer networks' to focus on papers discussing transformer architectures. machine learning abstract.search:transformer networks: No papers on machine learning abstract.search:transformer networks were found for the requested period.\"}",
+    "chainsight": "{\"topic\":\"Search Semantic Scholar for papers published between 2020 and 2023 in the field of machine learning, returning titles, abstracts, and citation counts, sorted by highest citation count, and limited to 10 results. Use the filter 'abstract.search:transformer networks' to focus on papers discussing transformer architectures\",\"signal\":\"No peer-reviewed papers were found on Search Semantic Scholar for papers published between 2020 and 2023 in the field of machine learning, returning titles, abstracts, and citation counts, sorted by highest citation count, and limited to 10 results. Use the filter 'abstract.search:transformer networks' to focus on papers discussing transformer architectures.\",\"answer\":\"No peer-reviewed papers were found on Search Semantic Scholar for papers published between 2020 and 2023 in the field of machine learning, returning titles, abstracts, and citation counts, sorted by highest citation count, and limited to 10 results. Use the filter 'abstract.search:transformer networks' to focus on papers discussing transformer architectures.\",\"source\":\"openalex\"}",
+    "doaj": "{\"total\": 0, \"page\": 1, \"pageSize\": 1, \"timestamp\": \"2026-09-19T05:01:56.857194Z\", \"query\": \"machine learning abstract.search:transformer networks\", \"results\": [], \"last\": \"https://doaj.org/api/v4/search/articles/machine%20learning%20abstract.search:transformer%20networks?page=1&pageSize=1\"}",
+    "europepmc": "{\"version\":\"6.9\",\"hitCount\":0,\"request\":{\"queryString\":\"machine learning abstract.search:transformer networks\",\"resultType\":\"lite\",\"cursorMark\":\"*\",\"pageSize\":1,\"sort\":\"\",\"synonym\":false},\"resultList\":{\"result\":[]}}"
+   }
+  },
+  {
+   "topic": "machine learning applications in renewable energy systems",
+   "scores": {
+    "ours": {
+     "raw": 0.008339646272361279,
+     "reason32": 0.009435783140361309,
+     "flat32": 0.009393507614731789,
+     "desc32": 0.00917231198400259
+    },
+    "chainsight": {
+     "raw": 0.009919908829033375,
+     "reason32": 0.008785119280219078,
+     "flat32": 0.008785119280219078,
+     "desc32": 0.00882649701088667
+    },
+    "doaj": {
+     "raw": 0.005757459439337254,
+     "reason32": 0.0026467826683074236,
+     "flat32": 0.0068450793623924255,
+     "desc32": 0.006848416291177273
+    },
+    "europepmc": {
+     "raw": 0.00773247703909874,
+     "reason32": 0.006117455195635557,
+     "flat32": 0.006646435707807541,
+     "desc32": 0.006805528420954943
+    }
+   },
+   "answers": {
+    "ours": "{\"verdict\":\"papers\",\"confidence\":1,\"reason\":\"Regarding find peer-reviewed articles published between January 2025 and June 2026 that discuss machine learning applications in renewable energy systems, limiting results to journals indexed in Scopus and Web of Science, and return titles, abstracts, and publication dates: Here are 5 peer-reviewed journal articles on machine learning applications in renewable energy systems published between 2025-01-01 and 2026-06-30: 1) Hybrid Renewable Energy Systems—A Review of Optimization Approaches and Future Challenges by Akvile Giedraityte, Sigitas Rimkevičius, Mantas Marčiukaitis, Virginijus Radziukynas (2025), cited 129 times. 2) Machine learning applications in energy systems: current trends, challenges, and research directions by Saad Aslam, Pyi Phyo Aung, Ahmad Sahban Rafsanjani, Anwar P. P. Abdul Majeed (2025), cited 86 times. 3) Advancing Power Systems with Renewable Energy and Intelligent Technologies: A Comprehensive Review on Grid Transformation and Integration by Muhammed Cavus (2025), cited 165 times. 4) Comprehensive review of artificial intelligence applications in renewable energy systems: current implementations and emerging tren",
+    "chainsight": "{\"topic\":\"Find peer-reviewed articles published between January 2025 and June 2026 that discuss machine learning applications in renewable energy systems, limiting results to journals indexed in Scopus and Web of Science, and return titles, abstracts, and publication dates\",\"count\":5,\"source\":\"openalex\",\"signal\":\"Relevant peer-reviewed papers on Find peer-reviewed articles published between January 2025 and June 2026 that discuss machine learning applications in renewable energy systems, limiting results to journals indexed in Scopus and Web of Science, and return titles, abstracts, and publication dates: \\\"Financial Risk Prediction Models Integrating Environmental, Social and Governance Factors: A Systematic Review\\\" (Cristina Caro-González et al., 2026); \\\"FINANCIAL PERFORMANCE OF COLOMBIA'S LARGEST CABLE TV COMPANY\\\" (Jorge Alberto Rivera Godoy, 2026); \\\"DIGITAL TRANSFORMATION OF LETTERS OF CREDIT USING DISTRIBUTED LEDGER TECHNOLOGY (DLT) TO OPTIMIZE THEIR ISSUANCE\\\" (Isaías Cerqueda-García, 2026); \\\"DEVELOPING THE KNOWLEDGE ECONOMY IN VIETNAM IN THE CONTEXT OF DIGITAL TRANSFORMATION AND INTERNATIONAL INTEGRATION: CORE CHALLENGES AND POLICY RECOMMENDATIONS\\\" (Tran Mai Uoc et al.",
+    "doaj": "{\"total\": 229, \"page\": 1, \"pageSize\": 1, \"timestamp\": \"2026-09-19T05:02:46.173003Z\", \"query\": \"machine learning applications in renewable energy systems\", \"results\": [{\"last_updated\": \"2025-08-20T02:20:23Z\", \"bibjson\": {\"identifier\": [{\"id\": \"2169-3536\", \"type\": \"eissn\"}, {\"id\": \"10.1109/ACCESS.2025.3560811\", \"type\": \"doi\"}], \"journal\": {\"volume\": \"13\", \"country\": \"US\", \"issns\": [\"2169-3536\"], \"publisher\": \"IEEE\", \"language\": [\"EN\"], \"title\": \"IEEE Access\"}, \"end_page\": \"71672\", \"keywords\": [\"Big data\", \"electricity grid\", \"machine learning\", \"power distribution systems\", \"power line communication\"], \"year\": \"2025\", \"start_page\": \"71662\", \"subject\": [{\"code\": \"TK1-9971\", \"scheme\": \"LCC\", \"term\": \"Electrical engineering. Electronics. Nuclear engineering\"}], \"author\": [{\"orcid_id\": \"https://orcid.org/0000-0003-0307-7866\", \"affiliation\": \"German Research Center for Artificial Intelligence (DFKI), Kaiserslautern, Germany\", \"name\": \"Christoph Balada\"}, {\"affiliation\": \"Department of Electrical Power Supply Engineering, University of Wuppertal, Wuppertal, Germany\", \"name\": \"Max Bondorf\"}, {\"orcid_id\": \"https://orcid.org/0000-0002-4239-6520\", \"affiliation\": \"German Research Center for Art",
+    "europepmc": "{\"version\":\"6.9\",\"hitCount\":7277,\"nextCursorMark\":\"AoIIQQD5Vyg1NjEwNTU0Mw==\",\"nextPageUrl\":\"https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=machine learning applications in renewable energy systems&cursorMark=AoIIQQD5Vyg1NjEwNTU0Mw==&resultType=lite&pageSize=1&format=json\",\"request\":{\"queryString\":\"machine learning applications in renewable energy systems\",\"resultType\":\"lite\",\"cursorMark\":\"*\",\"pageSize\":1,\"sort\":\"\",\"synonym\":false},\"resultList\":{\"result\":[{\"id\":\"42567973\",\"source\":\"MED\",\"pmid\":\"42567973\",\"pmcid\":\"PMC13451277\",\"fullTextIdList\":{\"fullTextId\":[\"PMC13451277\"]},\"doi\":\"10.1038/s41598-026-65123-1\",\"title\":\"Integrated machine learning forecasting and grey wolf optimization for optimal operation of virtual power plants in smart distribution networks.\",\"authorString\":\"El Hamid AMA, Elzohri HH, Sayed K.\",\"journalTitle\":\"Sci Rep\",\"issue\":\"1\",\"journalVolume\":\"16\",\"pubYear\":\"2026\",\"journalIssn\":\"2045-2322\",\"pageInfo\":\"24535\",\"pubType\":\"research-article; journal article\",\"isOpenAccess\":\"Y\",\"inEPMC\":\"Y\",\"inPMC\":\"Y\",\"citedByCount\":0,\"hasReferences\":\"Y\",\"hasTextMinedTerms\":\"Y\",\"hasDbCrossReferences\":\"N\",\"hasPDF\":\"Y\",\"hasBook\":\"N\",\"hasSuppl\":\"N\",\"hasLabsLinks\":\"N\",\"hasT"
+   }
+  },
+  {
+   "topic": "with machine learning in the abstract",
+   "scores": {
+    "ours": {
+     "raw": 0.008637645281851292,
+     "reason32": 0.009553934447467327,
+     "flat32": 0.009487012401223183,
+     "desc32": 0.009549391455948353
+    },
+    "chainsight": {
+     "raw": 0.00998896174132824,
+     "reason32": 0.00819428637623787,
+     "flat32": 0.00819428637623787,
+     "desc32": 0.008284568786621094
+    },
+    "doaj": {
+     "raw": 0.005367123521864414,
+     "reason32": 0.0012721671955659986,
+     "flat32": 0.0038667635526508093,
+     "desc32": 0.0046336413361132145
+    },
+    "europepmc": {
+     "raw": 0.007095262873917818,
+     "reason32": 0.005766469519585371,
+     "flat32": 0.006920653395354748,
+     "desc32": 0.006575955078005791
+    }
+   },
+   "answers": {
+    "ours": "{\"verdict\":\"papers\",\"confidence\":1,\"reason\":\"Regarding find papers with 'machine learning' in the abstract published after 2020, limiting results to 10, and return titles and abstract fields only. with machine learning in the abstract: Here are 10 papers on with machine learning in the abstract: 1) Planting Undetectable Backdoors in Machine Learning Models : [Extended Abstract] by Shafi Goldwasser, Michael P. Kim, Vinod Vaikuntanathan, Or Zamir (2022), cited 38 times. 2) Research Screener: a machine learning tool to semi-automate abstract screening for systematic reviews by Kevin Chai, Robin L. J. Lines, Daniel F. Gucciardi, Leo Ng (2021), cited 196 times. 3) Highly accurate protein structure prediction with AlphaFold by John Jumper, Richard Evans, Alexander Pritzel, Tim Green (2021), cited 47403 times. 4) Machine learning and deep learning by Christian Janiesch, Patrick Zschech, Kai Heinrich (2021), cited 2626 times. 5) Empirical Asset Pricing via Machine Learning by Shihao Gu, Bryan Kelly, Dacheng Xiu (2020), cited 2492 times. 6) TRIPOD+AI statement: updated guidance for reporting clinical prediction models that use regression or machine learning methods by Professor Gary S. Coll",
+    "chainsight": "{\"topic\":\"Find papers with 'machine learning' in the abstract published after 2020, limiting results to 10, and return titles and abstract fields only\",\"count\":5,\"source\":\"openalex\",\"signal\":\"Relevant peer-reviewed papers on Find papers with 'machine learning' in the abstract published after 2020, limiting results to 10, and return titles and abstract fields only: \\\"Explainable Artificial Intelligence (XAI): Concepts, taxonomies, opportunities and challenges toward responsible AI\\\" (Alejandro Barredo Arrieta et al., 2019); \\\"Current Challenges and Future Opportunities for XAI in Machine Learning-Based Clinical Decision Support Systems: A Systematic Review\\\" (Anna Markella Antoniadi et al., 2021); \\\"Artificial Intelligence (AI): Multidisciplinary perspectives on emerging challenges, opportunities, and agenda for research, practice and policy\\\" (Yogesh K. Dwivedi et al., 2019); \\\"Machine learning in marine ecology: an overview of techniques and applications\\\" (Peter Rubbens et al., 2023); \\\"Financial Inclusion in Emerging Economies: The Application of Machine Learning and Artificial Intelligence in Credit Risk Assessment\\\" (David Mhlanga, 2021).\",\"answer\":\"Relevant peer-reviewed pape",
+    "doaj": "{\"total\": 27648, \"page\": 1, \"pageSize\": 1, \"timestamp\": \"2026-09-19T05:03:31.594028Z\", \"query\": \"with machine learning in the abstract\", \"results\": [{\"last_updated\": \"2025-08-20T01:44:21Z\", \"bibjson\": {\"identifier\": [{\"id\": \"10.1186/s12888-024-06253-6\", \"type\": \"doi\"}, {\"id\": \"1471-244X\", \"type\": \"eissn\"}], \"journal\": {\"volume\": \"24\", \"number\": \"1\", \"country\": \"GB\", \"issns\": [\"1471-244X\"], \"publisher\": \"BMC\", \"language\": [\"EN\"], \"title\": \"BMC Psychiatry\"}, \"month\": \"11\", \"end_page\": \"17\", \"keywords\": [\"Precision psychiatry\", \"Depression\", \"Speech biomarkers\", \"Machine learning\"], \"year\": \"2024\", \"start_page\": \"1\", \"subject\": [{\"code\": \"RC435-571\", \"scheme\": \"LCC\", \"term\": \"Psychiatry\"}], \"author\": [{\"affiliation\": \"ki:elements GmbH\", \"name\": \"Felix Menne\"}, {\"affiliation\": \"ki:elements GmbH\", \"name\": \"Felix D\\u00f6rr\"}, {\"affiliation\": \"Department of Psychiatry, Psychotherapy and Psychosomatics, RWTH Aachen University\", \"name\": \"Julia Schr\\u00e4der\"}, {\"affiliation\": \"ki:elements GmbH\", \"name\": \"Johannes Tr\\u00f6ger\"}, {\"affiliation\": \"Department of Psychiatry, Psychotherapy and Psychosomatics, RWTH Aachen University\", \"name\": \"Ute Habel\"}, {\"affiliation\": \"ki:elements GmbH\", \"name",
+    "europepmc": "{\"version\":\"6.9\",\"hitCount\":138484,\"nextCursorMark\":\"AoIIQTIaCig1MDYzMjA4NA==\",\"nextPageUrl\":\"https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=with machine learning in the abstract&cursorMark=AoIIQTIaCig1MDYzMjA4NA==&resultType=lite&pageSize=1&format=json\",\"request\":{\"queryString\":\"with machine learning in the abstract\",\"resultType\":\"lite\",\"cursorMark\":\"*\",\"pageSize\":1,\"sort\":\"\",\"synonym\":false},\"resultList\":{\"result\":[{\"id\":\"38724903\",\"source\":\"MED\",\"pmid\":\"38724903\",\"pmcid\":\"PMC11080200\",\"fullTextIdList\":{\"fullTextId\":[\"PMC11080200\"]},\"doi\":\"10.1186/s12874-024-02224-3\",\"title\":\"Machine learning models for abstract screening task - A systematic literature review application for health economics and outcome research.\",\"authorString\":\"Du J, Soysal E, Wang D, He L, Lin B, Wang J, Manion FJ, Li Y, Wu E, Yao L.\",\"journalTitle\":\"BMC Med Res Methodol\",\"issue\":\"1\",\"journalVolume\":\"24\",\"pubYear\":\"2024\",\"journalIssn\":\"1471-2288\",\"pageInfo\":\"108\",\"pubType\":\"research support, non-u.s. gov't; research-article; systematic review; journal article\",\"isOpenAccess\":\"Y\",\"inEPMC\":\"Y\",\"inPMC\":\"Y\",\"citedByCount\":3,\"hasReferences\":\"Y\",\"hasTextMinedTerms\":\"Y\",\"hasDbCrossReferences\":\"N\",\"hasP"
+   }
+  },
+  {
+   "topic": "quantum computing error correction topological qubits",
+   "scores": {
+    "ours": {
+     "raw": 0.012090228497982025,
+     "reason32": 0.015270943753421307,
+     "flat32": 0.01538119651377201,
+     "desc32": 0.014934333972632885
+    },
+    "chainsight": {
+     "raw": 0.013013239949941635,
+     "reason32": 0.014415937475860119,
+     "flat32": 0.014415937475860119,
+     "desc32": 0.014190096408128738
+    },
+    "doaj": {
+     "raw": 0.007441909518092871,
+     "reason32": 0.009141432121396065,
+     "flat32": 0.009569758549332619,
+     "desc32": 0.008703639730811119
+    },
+    "europepmc": {
+     "raw": 0.006617345847189426,
+     "reason32": 0.012910949066281319,
+     "flat32": 0.0074171763844788074,
+     "desc32": 0.006837986409664154
+    }
+   },
+   "answers": {
+    "ours": "{\"verdict\":\"papers\",\"confidence\":1,\"reason\":\"Here is all papers published in 2025 in the field of quantum computing that mention either 'error correction' or 'topological qubits', returning the paper title, authors, publication venue, and abstract for the most recent 10 results sorted by publication date descending. quantum computing error correction topological qubits: Here are 10 papers on quantum computing error correction topological qubits published between 2025-01-01 and 2025-12-31: 1) The ROA Navigation System :From O(1) Algorithms to the Structure of the Universe by SungGil Lee (2025), cited 0 times. 2) The ROA Navigation System :From O(1) Algorithms to the Structure of the Universe by SungGil Lee (2025), cited 0 times. 3) Error correction for quantum computing at scale by Sam J Griffiths (2025), cited 0 times. 4) Prediction of Molecular Structures and Properties by Using Quantum Technology by Ravuri Krishna (2025), cited 0 times. 5) Quantum computing: foundations, algorithms, and emerging applications by V. Raseena (2025), cited 6 times. 6) Quantum Computing Systems Implementation and Operations: Technical, Ethical, and National Security Perspectives by O. E. Ademola (2025",
+    "chainsight": "{\"topic\":\"Find all papers published in 2025 in the field of quantum computing that mention either 'error correction' or 'topological qubits', returning the paper title, authors, publication venue, and abstract for the most recent 10 results sorted by publication date descending\",\"signal\":\"No peer-reviewed papers were found on Find all papers published in 2025 in the field of quantum computing that mention either 'error correction' or 'topological qubits', returning the paper title, authors, publication venue, and abstract for the most recent 10 results sorted by publication date descending.\",\"answer\":\"No peer-reviewed papers were found on Find all papers published in 2025 in the field of quantum computing that mention either 'error correction' or 'topological qubits', returning the paper title, authors, publication venue, and abstract for the most recent 10 results sorted by publication date descending.\",\"source\":\"openalex\"}",
+    "doaj": "{\"total\": 15, \"page\": 1, \"pageSize\": 1, \"timestamp\": \"2026-09-19T05:04:09.404519Z\", \"query\": \"quantum computing error correction topological qubits\", \"results\": [{\"last_updated\": \"2025-08-19T22:51:58Z\", \"bibjson\": {\"identifier\": [{\"id\": \"10.1038/s41598-024-65182-2\", \"type\": \"doi\"}, {\"id\": \"2045-2322\", \"type\": \"eissn\"}], \"journal\": {\"volume\": \"14\", \"number\": \"1\", \"country\": \"GB\", \"issns\": [\"2045-2322\"], \"publisher\": \"Nature Portfolio\", \"language\": [\"EN\"], \"title\": \"Scientific Reports\"}, \"month\": \"6\", \"end_page\": \"19\", \"keywords\": [\"Humming sparrow optimization\", \"Self adaptive deep CNN\", \"Quantum error correction\", \"Heavy hexagonal code and quantum computing\"], \"year\": \"2024\", \"start_page\": \"1\", \"subject\": [{\"code\": \"R\", \"scheme\": \"LCC\", \"term\": \"Medicine\"}, {\"code\": \"Q\", \"scheme\": \"LCC\", \"term\": \"Science\"}], \"author\": [{\"affiliation\": \"Department of Mathematics, School of Advanced Sciences, VIT-AP University, Besides AP Secretariate\", \"name\": \"Umesh Uttamrao Shinde\"}, {\"affiliation\": \"Department of Mathematics, School of Advanced Sciences, VIT-AP University, Besides AP Secretariate\", \"name\": \"Ravikumar Bandaru\"}], \"link\": [{\"content_type\": \"HTML\", \"type\": \"fulltext\", \"url\": \"https:",
+    "europepmc": "{\"version\":\"6.9\",\"hitCount\":208,\"nextCursorMark\":\"AoIIQSi4Ryg1NTk1NjU1Nw==\",\"nextPageUrl\":\"https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=quantum computing error correction topological qubits&cursorMark=AoIIQSi4Ryg1NTk1NjU1Nw==&resultType=lite&pageSize=1&format=json\",\"request\":{\"queryString\":\"quantum computing error correction topological qubits\",\"resultType\":\"lite\",\"cursorMark\":\"*\",\"pageSize\":1,\"sort\":\"\",\"synonym\":false},\"resultList\":{\"result\":[{\"id\":\"42439402\",\"source\":\"MED\",\"pmid\":\"42439402\",\"pmcid\":\"PMC13403305\",\"fullTextIdList\":{\"fullTextId\":[\"PMC13403305\"]},\"doi\":\"10.1021/acs.jpclett.6c00888\",\"title\":\"Utility-Scale Quantum Computational Chemistry.\",\"authorString\":\"Castaldo D, Reiher M.\",\"journalTitle\":\"J Phys Chem Lett\",\"issue\":\"29\",\"journalVolume\":\"17\",\"pubYear\":\"2026\",\"journalIssn\":\"1948-7185\",\"pageInfo\":\"8140-8155\",\"pubType\":\"review-article; review; journal article\",\"isOpenAccess\":\"Y\",\"inEPMC\":\"Y\",\"inPMC\":\"Y\",\"citedByCount\":0,\"hasReferences\":\"Y\",\"hasTextMinedTerms\":\"Y\",\"hasDbCrossReferences\":\"N\",\"hasPDF\":\"Y\",\"hasBook\":\"N\",\"hasSuppl\":\"N\",\"hasLabsLinks\":\"N\",\"hasTMAccessionNumbers\":\"Y\",\"tmAccessionTypeList\":{\"accessionType\":[\"doi\"]},\"firstPublicationDate\":\"2026"
+   }
+  }
+ ],
+ "means": {
+  "ours": {
+   "raw": 3.6423279852606356,
+   "reason32": 0.2934353528544307,
+   "flat32": 0.2955071860924363,
+   "desc32": 0.28637272119522095
+  },
+  "chainsight": {
+   "raw": 0.26158900372684,
+   "reason32": 0.2856995351612568,
+   "flat32": 0.2856995351612568,
+   "desc32": 0.2733985036611557
+  },
+  "doaj": {
+   "raw": 0.11358886468224227,
+   "reason32": 0.09685060509946197,
+   "flat32": 0.15468578855507076,
+   "desc32": 0.14885870250873268
+  },
+  "europepmc": {
+   "raw": 0.15852674329653382,
+   "reason32": 0.2193992561660707,
+   "flat32": 0.17174610262736678,
+   "desc32": 0.16415357356891036
+  }
+ },
+ "n": 22
+}
