@@ -194,7 +194,9 @@ export async function classifyText(question: string, textParam = "", labelsParam
   if (labels.every((l) => SENTIMENT_LABELS.has(l.toLowerCase()))) {
     const s = analyseSentiment(`sentiment of this ${noun}`, text);
     const said = await phrased;
-    if (said) {
+    // Only where the word list found an opinion word: a text with none stays the
+    // keyless neutral reading rather than a label asserted without evidence.
+    if (said && s.compound) {
       return { verdict: "classified", label: said.label, reason: said.reason,
         confidence: said.label.toLowerCase() === s.verdict ? s.confidence : 0.7 };
     }
@@ -272,14 +274,15 @@ export async function classifyText(question: string, textParam = "", labelsParam
   const clear = best && best.direct > 0 && best.score >= (opposite ? 4 : 2) && best.score >= (second?.score ?? 0) * 1.5 && best.score - (second?.score ?? 0) >= 1;
 
   /**
-   * The model's reading, when there is one. It chose between the same labels,
-   * so this replaces the wording rather than the decision; where relatedness
-   * reached no margin at all it also replaces an "ambiguous" that scores zero
-   * every epoch. Its confidence is the margin's only when the two methods
+   * The model's reading, used only where relatedness reached a clear margin.
+   * An "ambiguous" stays ambiguous and a negated label such as "not spam" is
+   * still never asserted from an absence of evidence: the model phrases a
+   * decision the keyless path could already defend, it does not make one the
+   * keyless path declined to. Its confidence is the margin's only when the two methods
    * agree — otherwise one method supports the label, and 0.7 says so.
    */
   const said = await phrased;
-  if (said) {
+  if (said && clear) {
     return { verdict: "classified", label: said.label, reason: said.reason,
       confidence: clear && best?.label === said.label ? Number(Math.min(0.9, 0.5 + (best.score - (second?.score ?? 0)) / 12).toFixed(2)) : 0.7 };
   }

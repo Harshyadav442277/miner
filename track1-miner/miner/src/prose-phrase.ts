@@ -130,6 +130,9 @@ export async function analyseSentimentPhrased(
 ): Promise<SentimentResult> {
   const base = analyseSentiment(question, textParam);
   if (base.verdict === "unknown") return base;
+  // No opinion word, or a yes/no question about one tone: the keyless answer is
+  // the honest one and the model does not replace it.
+  if (!base.compound || /^(?:Yes\.|No word )/.test(base.reason)) return base;
   // The passage exactly as analyseSentiment reads it, rather than re-derived.
   const q = String(question ?? "").trim();
   const text = String(textParam ?? "").trim() || suppliedText(q) || (asksSentiment(q) ? "" : q);

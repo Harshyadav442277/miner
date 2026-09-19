@@ -1230,7 +1230,8 @@ const CHECKS = {
     } catch { datamuseUp = false; }
     const t = await get("/classify", { query: ticket });
     // The label word itself is in the text, so this answers in both states.
-    if (!/^Account issue\. This support ticket is an account issue:/.test(String(t.body.reason ?? ""))) bad.push(`canonical ticket -> ${String(t.body.reason).slice(0, 60)}`);
+    // Keyless template, or the model's phrasing of the same label (G182): both lead with it.
+    if (t.body.verdict !== "classified" || !/^Account issue\b/.test(String(t.body.reason ?? ""))) bad.push(`canonical ticket -> ${String(t.body.reason).slice(0, 60)}`);
     const unclear = await get("/classify", { query: "Classify this ticket as billing, technical, or account issue: 'Hello, I have a question.'" });
     if (!datamuseUp) {
       if (unclear.body.verdict === "classified") bad.push("relatedness index down, yet a label was chosen without a direct match");
