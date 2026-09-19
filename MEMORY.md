@@ -1,5 +1,41 @@
 # MEMORY.md — session continuity
 
+## 2026-09-19 ~06:30 UTC (12:00 IST) — rank rebuild: on a preview, NOT promoted
+
+**State:** branch `codex/rank1-14-intents`, not pushed. **Production is `miner-diolxv3va`**
+(created 2026-09-18 08:46 UTC by an earlier session that did not record it; serves
+`miner-wine.vercel.app`, verified with `vercel inspect` today). It is also the **rollback target**.
+Registration 1408 active, manifest unchanged, no `updateMiner` implied. Epoch 343: **6/36 first**.
+
+**The finding that matters (G175–G176):** the node fills our parameters with an LLM, and routes
+refused its spellings. `/tx-lookup?chain=eth` was a refusal (0.005) where `chain=ethereum` scores
+0.996 — ONCHAIN never crossed in 47 epochs for that reason. Same defect fixed in GAME_RESULT,
+CURRENCY, TVL, URL_SCAN, WEATHER_CHECK. Also: IP public addresses answer in one sentence (G177);
+CONTENT_EXTRACTION never emits a negation (G178); ACADEMIC is a null result (G179).
+
+**Verified:** 744/744 unit tests, build; **10/10 probes on protected preview
+`https://miner-hw0c0l2nl-wukong4.vercel.app`**, each refused or wrong on production
+(`track1-miner/docs/evidence/rank-rebuild-2026-09-19/preview-probes.txt`); local
+`intent-answers.mjs` 35/36 — the miss is IP's "142.251.42.174 not Tokyo", because ip-api.com is
+unreachable from this machine and the ipwho.is fallback answers (production 36/36 before the change).
+**Not verified:** preflight against the new build on Vercel (the gates cannot pass preview
+protection); any score. No rank gain is claimed.
+
+**Next action — needs the operator's yes:** from `track1-miner/miner`,
+`npx vercel --prod --scope wukong4 --yes`, then `npx vercel promote <url> --scope wukong4` if the
+alias does not move (G70), then `node ../tools/preflight.mjs` and `node ../tools/intent-answers.mjs`;
+roll back to `miner-diolxv3va` on anything but green. Then read the first epoch scored after it.
+
+**Open decision (G180):** a free Groq key (no card; four models × 1K req/day) could carry the ten
+prose intents that score ~0 on LLM-worded references. The operator will not pay and must create the
+account and set `GROQ_API_KEY` in Vercel themselves. Nothing generative is built.
+
+**Process:** the operator wants few subagents and low token burn — at most ~3 Opus at once, one
+detailed prompt each, never kill a running lane. Agent worktrees start from `origin/main`, 65 commits
+behind this branch: step zero of every lane is `git checkout --detach <HEAD>`. Lane worktrees
+`.claude/worktrees/agent-{a2453c…,a31fbb…,af6cca…,ab7fc2…}` are merged by patch and can be deleted
+on the operator's call, with the older ones listed below.
+
 ## 2026-09-17 IST — rank follow-up wrapped at the user's request; preview only
 
 Latest live API still reports epoch 336, **10/36 first**, scored before the September 16 08:21 UTC

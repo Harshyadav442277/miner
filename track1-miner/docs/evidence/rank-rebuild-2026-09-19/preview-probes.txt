@@ -1,0 +1,54 @@
+preview https://miner-hw0c0l2nl-wukong4.vercel.app
+at 2026-09-19T05:53:29.761Z
+
+## onchain chain=eth  PASS
+   /tx-lookup?hash=0xb376975e90801e36a34432c960825a0c12a56d589a77a95aa552a7a3618678ee&chain=eth
+   production: Transaction 0xb376975e90801e36a34432c960825a0c12a56d589a77a95aa552a7a3618678ee could not be looked up because the chain "eth" is not one this endpoint reads. Supported chains are ethereum, base, arbitrum, optimism, polygon, bsc, avalanche. The lookup was not a
+   preview:    Transaction 0xb376975e90801e36a34432c960825a0c12a56d589a77a95aa552a7a3618678ee on ethereum succeeded in block 25700000. It moved 0 ETH from 0x2ce910fbba65b454bbaf6a18c952a70f3bcd8299 to 0x99c9fc46f92e8a1c0dec1b1747d010903e884be1 and called bridgeERC20To. The r
+
+## onchain txHash=  PASS
+   /tx-lookup?txHash=0xb376975e90801e36a34432c960825a0c12a56d589a77a95aa552a7a3618678ee
+   production: No transaction hash was supplied with this request. Supply a hash such as 0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060 and the status, gas used, effective gas price, total fee, value moved, sender, recipient and block number can be return
+   preview:    Transaction 0xb376975e90801e36a34432c960825a0c12a56d589a77a95aa552a7a3618678ee on ethereum succeeded in block 25700000. It moved 0 ETH from 0x2ce910fbba65b454bbaf6a18c952a70f3bcd8299 to 0x99c9fc46f92e8a1c0dec1b1747d010903e884be1 and called bridgeERC20To. The r
+
+## onchain chain=solana (must refuse)  PASS
+   /tx-lookup?hash=0xb376975e90801e36a34432c960825a0c12a56d589a77a95aa552a7a3618678ee&chain=solana
+   production: Transaction 0xb376975e90801e36a34432c960825a0c12a56d589a77a95aa552a7a3618678ee could not be looked up because the chain "solana" is not one this endpoint reads. Supported chains are ethereum, base, arbitrum, optimism, polygon, bsc, avalanche. The lookup was no
+   preview:    Transaction 0xb376975e90801e36a34432c960825a0c12a56d589a77a95aa552a7a3618678ee could not be looked up because the chain "solana" is not one this endpoint reads. Supported chains are ethereum, base, arbitrum, optimism, polygon, bsc, avalanche. The lookup was no
+
+## ip one sentence  PASS
+   /ip-geolocate?ip=8.8.8.8
+   production: The IP address 8.8.8.8 is associated with Google LLC (AS15169) and is located in Ashburn, Virginia, United States. Regarding abuse history, no abuse reports appear in the network registry and geolocation sources consulted here and the address is not on the Tor
+   preview:    The IP address 8.8.8.8 is associated with Google LLC (AS15169) and is located in Ashburn, Virginia, United States.
+
+## extract contact line  PASS
+   /extract?text=Reach%20us%20at%20support%40example.com%20or%20call%20555-0192.&query=Extract%20the%20named%20entities%20f
+   production: No named entities were found in the supplied text.
+   preview:    Email: support@example.com. Phone number: 555-0192.
+
+## convert base+symbols  PASS
+   /convert?base=USD&symbols=JPY&amount=100
+   production: 100.00 USD is 87.26 EUR at a rate of 1 USD = 0.8726 EUR, equivalently 1 EUR = 1.1460 USD. This is the European Central Bank euro foreign exchange reference rate published for 2026-09-18, not a live trading quote.
+   preview:    100.00 USD is 15,788.83 JPY at a rate of 1 USD = 157.888 JPY, equivalently 1 JPY = 0.006334 USD. This is the European Central Bank euro foreign exchange reference rate published for 2026-09-18, not a live trading quote.
+
+## convert names  PASS
+   /convert?from=Dollar&to=Yen&amount=100
+   production: The USD to YEN exchange rate could not be retrieved: neither the European Central Bank reference feed nor the market rate source responded with a usable rate. This is an availability problem here, not a statement that the pair has no rate.
+   preview:    100.00 USD is 15,788.83 JPY at a rate of 1 USD = 157.888 JPY, equivalently 1 JPY = 0.006334 USD. This is the European Central Bank euro foreign exchange reference rate published for 2026-09-18, not a live trading quote.
+
+## game one team  PASS
+   /game-result?team=Yankees
+   production: No fixture could be identified in this request. Name both sides, for example "Who won the Arsenal vs Chelsea game?", and the winner, the final score, the competition and the date can be returned. Guessing which two teams were meant is how the wrong fixture get
+   preview:    New York Yankees beat Arizona Diamondbacks 9-2 in the Major League Baseball on 19 September 2026. The match is complete (Final).
+
+## tvl node template  PASS
+   /tvl?query=What%20is%20the%20current%20total%20value%20locked%20(TVL)%20in%20USD%20for%20Aave%20V3%3F
+   production: No protocol, chain or token contract was identified in this request, so there is nothing to report a total value locked for. Name a protocol such as Aave, a chain such as base, arbitrum, optimism, or a token contract address with its chain for that token's own
+   preview:    The Aave V3 protocol has $17,977,955,981 ($17.98 billion) in total value locked, aggregated across every chain it is deployed on, according to DefiLlama. This is value locked in the protocol, not the market capitalisation of its token.
+
+## url-scan website=  PASS
+   /url-scan?website=https://example.com
+   production: No URL was supplied with this request, so there is no link to scan and no safety verdict was given. Supply a URL such as https://example.com/offer.
+   preview:    Yes, https://example.com/ appears safe to visit. It is not blocked by Cloudflare's malware and phishing filter and not listed by URLhaus, and no lookalike markers were found. It serves a valid TLS certificate that matches the host. No blocklist can prove a sit
+
+10/10 preview probes matched their expectation

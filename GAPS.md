@@ -1,5 +1,85 @@
 # GAPS.md — honesty ledger
 
+## 2026-09-19 rank rebuild — G174–G181
+
+Evidence for all of these: `track1-miner/docs/evidence/rank-rebuild-2026-09-19/`. Nothing here is
+scored; preview `miner-hw0c0l2nl` only. A bench is a filter, a scored epoch is the verdict.
+
+- **G174 — Epoch 343: 6/36 rank 1, and no outage.** Registration 1408 active; production
+  `intent-answers.mjs` 36/36 on 2026-09-19. First places over e336–e343: 3, 6, 5, 5, 2, 1, 8, 6 with
+  no change on our side between several of them — one hidden question per intent per epoch. Three
+  kinds of loss: (a) ~10 prose intents at ~0 against LLM-worded references (G154/G168, unchanged);
+  (b) fact intents where a leader crosses and we sit at ~0.01; (c) one-epoch collapses of intents
+  that normally cross (IP e335/e343, CONTENT_EXTRACTION e343).
+- **G175 — ONCHAIN_TX_LOOKUP never crossed in 47 scored epochs (288–343) because the route refused
+  what an LLM request-builder writes.** Production: `chain=ethereum` 0.996 under champion reg642,
+  `chain=eth` / `1` / `mainnet` / `unknown` and `txHash=` 0.004–0.007 (refusal band). The G160 answer
+  shape was right; the request never reached it. Fixed with `readChainName` (aliases, chain ids, an
+  unset-placeholder set; `solana` and testnets still refused) and more hash parameter spellings.
+  12 shapes 0.004–0.009 → 0.996. **Inferred, not observed:** we cannot see the node's request, so
+  which refusal fires live is read from the score band. **Not fixable here:** the node sometimes
+  corrupts one hash character per miner (e300: chainwire got the right hash, sigil a wrong one).
+- **G176 — The same request-tolerance defect in five more intents** (references are our own
+  accepted-shape answers, not independent crossers — weaker than G175's bench). GAME_RESULT refused
+  `team=` alone, `teams=`, `home_team/away_team`, "Who won the Yankees game?" (sportwire declares only
+  `team` and crossed 0.984 at e342); a one-team lookup now returns the most recent completed fixture
+  and refuses when more than one league has that name. CURRENCY_EXCHANGE: `base=USD&symbols=JPY`
+  answered USD/EUR, `from=Dollar&to=Yen` read "YEN" as an ISO code. TVL_LOOKUP: the node's own
+  template "…(TVL) in USD for Aave V3?" was refused; `api.llama.fi/protocol/aave-v3` is 29.5 MB /
+  47.6 s against a 4 s budget, so a chain-specific miss falls back to the all-chain total and says
+  so (intermittent; 6/6 answered at 05:45 UTC). URL_SCAN: `website=`/`target=` refused; a
+  percent-encoded URL scanned the invented host `2fexample.com`. WEATHER_CHECK: `location=unknown`
+  was geocoded as a place. The champions reward neither the URL-decode nor the `location=N/A` fix.
+- **G177 — IP_GEOLOCATION collapses on public addresses because the answer was four sentences.**
+  The node's pool is seven addresses, four of them private/reserved. We crossed every epoch 332–343
+  except 335 and 343, which are exactly the epochs the thin single-API wrappers (ipwho, dbip, ipapi,
+  ifconfig) cross — the public-address epochs. Under reg630 the bare location sentence scores
+  0.992–0.998 against all four crossing miners on all three public addresses; any second sentence
+  (abuse, timezone, Tor) drops to ~0.011 against at least one. Public answers are now one sentence;
+  special ranges keep their long definitional answer (truncating it scores 0.011). **Cost:** the
+  abuse half of the question is answered only when the address is a Tor exit node.
+  `intent-answers.mjs` now gates on one sentence instead of demanding the abuse clause. **Open:**
+  preflight's long answer scores 0.997 against ours and preflight crossed at e343 where we did not;
+  the bench does not explain that, so the fix is supported by the epoch pattern, not proven.
+- **G178 — CONTENT_EXTRACTION: champion reg935 zeroes any answer containing a negation.** One
+  `no|not|none|never|neither|nor` against a positive reference takes the leader's own crossing echo
+  from 1 to 0. Extra true facts are free; missing reference numbers cost everything. The payload
+  "Reach us at support@example.com or call 555-0192." was asked at e312/316/320/333/343 and scored 0
+  each time; we answered "No named entities were found…" for 4 of 12 plausible instructions. Now a
+  category that finds nothing answers with what the text does carry, and missing named fields are
+  omitted. Also fixed: sentence split cutting the email at its dot, "or call 555-0192" read as an
+  event, `Q3` read as a place. Bench 74/132 zeros → 1/132. **Inferred:** the e343 instruction never
+  leaked, only the payload. `content.ts` is 574 lines, over the house guidance; not split.
+- **G179 — ACADEMIC_SEARCH is a null result on rank.** Champion reg688 is near-identity: exact text
+  0.98, the same sentence reworded 0.054. Live answers of ours/chainsight/doaj/europepmc/crossref
+  score 0.005–0.010 against each other, so no competitor can stand in for the ground truth. On the
+  22 real ground truths in `bench/acad_bench.json` our raw body scores 0.166 against chainsight
+  0.012; what scores is the question restatement, and the node's ~32-word conversion collapses it to
+  0.016. Why chainsight/acad-doaj cross at 0.99 some epochs is unexplained. G42's "never crossed" is
+  now false for the field. Two correctness bugs fixed (a comma after the first date dropped the date
+  window; filter scaffolding leaked into the OpenAlex query); score-neutral. The API's `wasm_hash`
+  for reg688 disagrees with the bytes it serves.
+- **G180 — Free inference exists with no card; INFERENCE_OPTIONS' "no free tier works" tested only
+  anonymous access.** Groq free plan, read on console.groq.com/docs/rate-limits 2026-09-19:
+  `openai/gpt-oss-120b`, `gpt-oss-20b`, `gpt-oss-safeguard-20b`, `qwen/qwen3.8-27b` each 30 RPM /
+  1K RPD / 8K TPM / 200K TPD (`llama-3.1-8b-instant` is no longer listed). Per a Sonnet agent's notes,
+  not re-read by me: OpenRouter `:free` 50 req/day, Vercel AI Gateway and Cerebras need a card,
+  GitHub Models retired 2026-07-30; Gemini/Cloudflare/Mistral numbers UNVERIFIED. Traffic from a
+  4.5-minute `vercel logs` sample: ~16 req/min (~23k/day), the ten prose paths somewhere in
+  320–3,220/day (query values are hidden, so attribution is a bound). Four Groq models ≈ 2,300
+  calls/day at ~350 tokens: enough at the low bound, short at the high one. Any generative path must
+  fail closed to the templated answer; a spot check landing on a fallback is the revocation risk
+  INFERENCE_OPTIONS describes. **Not built.** The operator will not pay; account and key are theirs.
+- **G181 — Manifest drift found, not applied.** `/tx-lookup`'s top-level `input_schema` declares
+  neither `hash` nor `chain` though `params` does; `/game-result` does not declare `team`/`league`;
+  `/convert` does not name `symbols`. Proposed YAML in `onchain/manifest-comparison.md` and
+  `request-shapes/manifest-comparison.md`. Second-order now that the routes accept the spellings;
+  any change is an `updateMiner` by the operator after a sandbox run.
+- **Process note.** Agent worktrees are cut from `origin/main` (bc7cf15), 65 commits behind this
+  unpushed branch; every lane had to `git checkout --detach 311c40c` first. Two production deployments
+  ~08:30 UTC 2026-09-18 (`miner-qn9bfen6k`, `miner-diolxv3va`, presumably 311c40c) were not recorded
+  in MEMORY by the session that made them; e342 (8 first) and e343 (6 first) were scored on them.
+
 ## G173 — September 17 follow-up is verified on preview, not a scored production release
 
 `RANK1_FOLLOWUP_2026-09-17.md` records all 26 current losses. The public API still reports epoch 336

@@ -1,5 +1,24 @@
 # TASKS.md — execution board
 
+## 2026-09-19 rank rebuild — request tolerance, IP sentence, extraction polarity
+
+Baseline epoch 343: 6/36 rank 1. Evidence: `track1-miner/docs/evidence/rank-rebuild-2026-09-19/`, G174–G181.
+
+- [x] Read epochs 336–343 for all 36 intents; separate noise, prose-scorer zeros and fixable losses (G174).
+- [x] ONCHAIN_TX_LOOKUP: accept the chain and hash spellings an LLM request-builder writes (G175).
+- [x] Same defect in GAME_RESULT, CURRENCY_EXCHANGE, TVL_LOOKUP, URL_SCAN, WEATHER_CHECK (G176).
+- [x] IP_GEOLOCATION: one sentence for a public address (G177).
+- [x] CONTENT_EXTRACTION: no negation in an answer; answer with what the text carries (G178).
+- [x] ACADEMIC_SEARCH: null on rank; date-window comma and query-scaffolding bugs fixed (G179).
+- [x] 744/744 unit tests, build; 10/10 probes on protected preview `miner-hw0c0l2nl`; local gate 35/36.
+- [ ] **Operator yes needed:** promote `miner-hw0c0l2nl` to production, then `preflight.mjs` (commands in MEMORY).
+- [ ] Read the first epoch scored after the promote; only that is a verdict.
+- [ ] **Operator decision:** free Groq key for the ten prose intents (G180). Not built; needs the key to test.
+- [ ] Proposed `miner.yaml` changes (declare `team`/`league`, `symbols`, the tx `hash`/`chain` input
+      schema) are written up, not applied — they need an `updateMiner` by the operator (G181).
+- [ ] Not started: WEATHER_CHECK / TVL / EVENT_OUTCOME numeric gaps beyond request tolerance; URL_SCAN
+      wording (reference gate still fails, G162).
+
 ## 2026-09-17 follow-up (wrapped on request)
 
 - [x] Refresh all 36 ranks: epoch 336, 10 first; report all 26 current losses.
