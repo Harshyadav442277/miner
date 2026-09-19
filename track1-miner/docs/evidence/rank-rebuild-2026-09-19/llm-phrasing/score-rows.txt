@@ -1,0 +1,135 @@
+Score rows and champion identity — TEXT_CLASSIFICATION / SENTIMENT_ANALYSIS
+pulled 2026-09-19T07:13:15.568Z from https://devnode.telegraphprotocol.com/scores?intent=<I>&limit=200
+
+CHAMPION IDENTITY (api/wasm, 2026-09-19)
+  TEXT_CLASSIFICATION champion registration 687  tc_pen0.wasm
+  SENTIMENT_ANALYSIS  champion registration 646  sa_pure.wasm
+  The wasm_url bytes were downloaded and compared with the local copies in
+  track2/harness/champions/: byte-identical, sha256
+    text_classification_reg687.wasm d354bb525c01f898da9ba4013171cf788a5418c7a8e33794a05894e05ab29bb3
+    sentiment_analysis_reg646.wasm  d6a647f6c09336f26bb7f38ac3c8b4bddb232f1eed2e5a741fe1a85b5b7dfd88
+  (the api/wasm wasm_hash field is a different digest and does not match sha256.)
+
+=== TEXT_CLASSIFICATION  (200 rows, epochs 311-343)
+  epoch  miners  crossing miners (score>=0.5)                     livecert
+  343        16  txlens=1, chainsight-oracle=1                        rank 8 score 0
+  342        16  txlens=0.9088941                                     rank 10 score 0
+  341        16  txlens=1, telegraph-ai-miner-node=1, chainsight-orac rank 8 score 0
+  340        16  telegraph-ai-miner-node=0.884945                     rank 16 score 0
+  339        15  chainsight-oracle=1, telegraph-ai-miner-node=1       rank 4 score 0
+  338        15  telegraph-ai-miner-node=0.5567186                    rank 5 score 0
+  337        15  telegraph-ai-miner-node=0.83334523, chainsight-oracl rank 15 score 0
+  336         5  chainsight-oracle=1, telegraph-ai-miner-node=1       rank 4 score 0
+  335         5  chainsight-oracle=1                                  rank 4 score 0
+  334         5  telegraph-ai-miner-node=0.5733483                    rank 4 score 0
+  333         5  chainsight-oracle=1                                  rank 3 score 0
+  332         5  telegraph-ai-miner-node=1, chainsight-oracle=1       rank 3 score 0
+  331         5  none                                                 rank 2 score 0
+  330         5  none                                                 rank 4 score 0
+  329         4  none                                                 rank 1 score 0
+  328         3  telegraph-ai-miner-node=0.5567186                    not registered
+  327         3  none                                                 not registered
+  326         3  none                                                 not registered
+  325         3  telegraph-ai-miner-node=1                            not registered
+  324         3  none                                                 not registered
+  323         3  none                                                 not registered
+  322         3  none                                                 not registered
+  321         3  none                                                 not registered
+  320         3  none                                                 not registered
+  319         3  none                                                 not registered
+  318         3  telegraph-ai-miner-node=0.83334523                   not registered
+  317         3  none                                                 not registered
+  316         3  none                                                 not registered
+  315         3  telegraph-ai-miner-node=1                            not registered
+  314         3  none                                                 not registered
+  313         3  telegraph-ai-miner-node=1                            not registered
+  312         3  none                                                 not registered
+  311         1  telegraph-ai-miner-node=0.83334523                   not registered
+
+  distinct non-empty failure_reason strings: 10. NONE carries a question or a
+  passage - every one is a transport or upstream error. Unlike the intents GAPS G152 lists,
+  no hidden input for these two intents leaks here:
+    - call miner "txtc-hn-item": upstream error 400: { |   "error" : "Invalid path: Invalid token in path" | }
+    - unrecognised response type []interface {} from miner
+    - call miner "textprocessing-sentiment": upstream error 405: <!doctype html> | <html lang=en> | <title>405 Method Not Allowed</title> | <h1>Method Not A
+    - call miner "txtc-openalex": upstream call failed: circuit open
+    - call miner "telegraph-ai-miner-node": upstream error 404: The endpoint legwarmer-yearbook-symphonic.ngrok-free.dev is offline. |  | ERR_NGROK_3200
+    - call miner "txtc-openalex-c": upstream call failed: circuit open
+    - call miner "txtc-openalex-c": upstream call failed: context deadline exceeded
+    - call miner "txtc-openalex": upstream call failed: context deadline exceeded
+    - call miner "textprocessing-sentiment": upstream call failed: status 503: Rate limit exceeded. Try again tomorrow or subscribe to a paid plan on https:
+    - build request for miner "telegraph-ai-miner-node": LLM call for miner "telegraph-ai-miner-node" failed: http request: Post "http://127.0.0.1:4000/v1/c
+
+=== SENTIMENT_ANALYSIS  (200 rows, epochs 288-343)
+  epoch  miners  crossing miners (score>=0.5)                     livecert
+  343        15  none                                                 rank 11 score 0
+  342        15  none                                                 rank 11 score 0
+  340        15  txlens=1, telegraph-ai-miner-node=1                  rank 11 score 0
+  339        14  none                                                 rank 10 score 0
+  338        14  chainsight-oracle=1                                  rank 9 score 0
+  337        14  none                                                 rank 4 score 0
+  336         4  telegraph-ai-miner-node=1                            rank 2 score 0
+  335         4  none                                                 rank 2 score 0
+  334         4  none                                                 rank 2 score 0
+  333         4  chainsight-oracle=1, telegraph-ai-miner-node=1       rank 3 score 0
+  332         4  chainsight-oracle=1, telegraph-ai-miner-node=1       rank 3 score 0
+  331         4  none                                                 rank 2 score 0
+  330         4  none                                                 rank 2 score 0
+  329         3  none                                                 rank 1 score 0
+  328         2  none                                                 not registered
+  327         2  none                                                 not registered
+  326         2  none                                                 not registered
+  325         2  none                                                 not registered
+  324         2  none                                                 not registered
+  323         2  none                                                 not registered
+  322         2  none                                                 not registered
+  321         2  telegraph-ai-miner-node=1                            not registered
+  320         2  none                                                 not registered
+  319         2  none                                                 not registered
+  318         2  telegraph-ai-miner-node=1                            not registered
+  317         2  none                                                 not registered
+  316         2  none                                                 not registered
+  315         2  telegraph-ai-miner-node=1                            not registered
+  314         2  none                                                 not registered
+  313         2  none                                                 not registered
+  312         2  telegraph-ai-miner-node=1                            not registered
+  311         2  none                                                 not registered
+  310         2  telegraph-ai-miner-node=1                            not registered
+  309         2  none                                                 not registered
+  308         2  none                                                 not registered
+  307         2  none                                                 not registered
+  306         2  none                                                 not registered
+  305         2  none                                                 not registered
+  304         2  none                                                 not registered
+  303         2  none                                                 not registered
+  302         2  none                                                 not registered
+  301         2  none                                                 not registered
+  300         2  none                                                 not registered
+  299         2  none                                                 not registered
+  298         2  none                                                 not registered
+  297         2  none                                                 not registered
+  296         2  none                                                 not registered
+  295         2  none                                                 not registered
+  294         2  none                                                 not registered
+  293         2  none                                                 not registered
+  292         2  none                                                 not registered
+  291         2  none                                                 not registered
+  290         2  none                                                 not registered
+  289         2  none                                                 not registered
+  288         2  none                                                 not registered
+
+  distinct non-empty failure_reason strings: 11. NONE carries a question or a
+  passage - every one is a transport or upstream error. Unlike the intents GAPS G152 lists,
+  no hidden input for these two intents leaks here:
+    - call miner "sent-hn-item": upstream error 400: { |   "error" : "Invalid path: Invalid token in path" | }
+    - unrecognised response type []interface {} from miner
+    - call miner "textprocessing-sentiment": upstream call failed: status 503: Rate limit exceeded. Try again tomorrow or subscribe to a paid plan on https:
+    - call miner "telegraph-ai-miner-node": upstream error 404: The endpoint legwarmer-yearbook-symphonic.ngrok-free.dev is offline. |  | ERR_NGROK_3200
+    - call miner "sent-openalex": upstream call failed: circuit open
+    - nil response from miner
+    - call miner "textprocessing-sentiment": upstream error 405: <!doctype html> | <html lang=en> | <title>405 Method Not Allowed</title> | <h1>Method Not A
+    - call miner "sent-openalex": upstream call failed: context deadline exceeded
+    - build request for miner "telegraph-ai-miner-node": LLM call for miner "telegraph-ai-miner-node" failed: http request: Post "http://127.0.0.1:4000/v1/c
+    - call miner "textprocessing-sentiment": upstream call failed: circuit opened due to repeated failures
+    - call miner "telegraph-ai-miner-node": upstream call failed: status 502: {"detail":"The local inference service is unavailable."}
+

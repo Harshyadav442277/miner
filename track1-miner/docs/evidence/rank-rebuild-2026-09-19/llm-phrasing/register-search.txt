@@ -1,0 +1,65 @@
+Answer-register search — TEXT_CLASSIFICATION champion reg687 (tc_pen0)
+======================================================================
+run 2026-09-19. Ten whole-answer shapes, each built for all six classification
+inputs from the same facts, scored against BOTH live crossing references
+(txlens, chainsight-oracle). cross/6 counts inputs where the MINIMUM over the two
+references is >=0.9; the champion returns essentially 1.0000 or 0.0000.
+
+shape                                  cross/6  mean(min)  per-case min
+current (spoken label + The writer)    0/6      0.0000    [0.00 0.00 0.00 0.00 0.00 0.00]
+plain label + The writer               0/6      0.0000    [0.00 0.00 0.00 0.00 0.00 0.00]
+plain label + The user                 0/6      0.0000    [0.00 0.00 0.00 0.00 0.00 0.00]
+lowercase label + The user             0/6      0.0000    [0.00 0.00 0.00 0.00 0.00 0.00]
+no period label + The user             0/6      0.0000    [0.00 0.00 0.00 0.00 0.00 0.00]
+label + The text is about              0/6      0.0000    [0.00 0.00 0.00 0.00 0.00 0.00]
+label + user + falls-under tail        0/6      0.0000    [0.00 0.00 0.00 0.00 0.00 0.00]
+label + user + category tail           0/6      0.0000    [0.00 0.00 0.00 0.00 0.00 0.00]
+chainsight shape                       2/6      0.3333    [0.00 0.00 1.00 0.00 0.00 1.00]
+txlens shape                           0/6      0.0000    [0.00 0.00 0.00 0.00 0.00 0.00]
+
+baselines
+ours-before                            0/6      0.0000    [0.00 0.00 0.00 0.00 0.00 0.00]
+ours-after                             0/6      0.0000    [0.00 0.00 0.00 0.00 0.00 0.00]
+txlens                                 0/6      0.1383    [0.00 0.00 0.83 0.00 0.00 0.00]
+chainsight                             3/6      0.6406    [1.00 1.00 0.84 0.00 1.00 0.00]
+
+[exited with code 0]
+
+
+Reference stability — the same input, six fresh reference samples
+=================================================================
+Three consecutive calls to each crossing miner with the identical question, then
+one fixed candidate scored against each sample. If the instrument were stable, a
+row would be constant.
+
+references pulled:
+  [0] txlens: billing. The user needs to update their payment card without canceling the subscription.
+  [1] txlens: billing. The message is about updating payment card details and subscription charges.
+  [2] txlens: billing. This is about updating payment information for a subscription.
+  [3] chainsight: Billing The user is mentioning a need to update their card, which is typically related to payment information, and also references their subscription, indicating a concern with their billing details.
+  [4] chainsight: Billing The user is mentioning their subscription and needing to update their card, which directly relates to payment and billing information.
+  [5] chainsight: Billing The user is mentioning a need to update their card, which implies a payment method issue, and also references their subscription, indicating a concern related to payment or billing.
+
+candidate                           t0      t1      t2      c3      c4      c5
+ours-after (model register)       0.00    0.00    0.00    0.00    0.00    0.00
+plain label + The user            1.00    0.00    0.00    0.00    0.00    0.00
+chainsight-like                   0.00    0.00    1.00    1.00    1.00    1.00
+ours-before (template)            0.00    0.00    0.00    0.00    0.00    0.00
+
+reference vs reference        
+as answer: txlens                 0.99    0.00    0.00    0.00    0.00    0.00
+as answer: txlens                 0.00    0.99    1.00    1.00    1.00    0.00
+as answer: txlens                 0.03    1.00    0.99    0.00    0.00    0.00
+as answer: chainsight             0.00    1.00    1.00    0.99    1.00    1.00
+as answer: chainsight             0.00    0.00    1.00    1.00    0.99    1.00
+as answer: chainsight             0.00    1.00    1.00    1.00    1.00    0.99
+
+[exited with code 0]
+
+READING. "plain label + The user" scores 1.00 against txlens sample t0 and 0.00
+against t1 and t2 — three samples of the SAME miner on the SAME input. The
+reference is a fresh LLM sample and the champion is near-binary, so one
+candidate-vs-reference score is close to a coin flip. Only chainsight-oracle's
+long hedged shape holds across samples (1.00 on four of six), and it is the only
+shape that scored anything at all on the six-input search. That shape is what the
+prompts in src/prose-phrase.ts now ask the model for.

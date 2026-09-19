@@ -1,0 +1,212 @@
+prose register bench — Groq phrasing vs production templates
+run 2026-09-19T07:23:15.291Z
+production https://miner-wine.vercel.app
+
+Hidden inputs for these two intents do NOT leak in any competitor failure_reason
+(epochs 288-343 checked); the inputs below are ours, in the canonical shapes.
+
+
+==============================================================================
+TEXT_CLASSIFICATION — champion text_classification_reg687.wasm sha256 d354bb525c01f898da9ba4013171cf788a5418c7a8e33794a05894e05ab29bb3
+==============================================================================
+
+## Classify this support ticket as billing, technical or account issue: 'Do not cancel my subscription; I only need to update my card.'
+   [txlens] billing. The user needs to update their payment card without canceling the subscription.
+   [chainsight] Billing The user is mentioning a subscription and a need to update their card, which suggests a payment method issue that falls under billing.
+   [ours-before] Billing issue. This support ticket is a billing issue: Do not cancel my subscription; I only need to update my card. The words update and card in it relate to billing.
+   [ours-after] Billing The user is reporting that they do not want to cancel their subscription and only need to update their card, which indicates a billing issue, billing.
+
+   candidate             vs txlens vs chainsight
+   txlens                  0.9945        0.0000
+   chainsight              0.0000        0.9944
+   ours-before             0.0000        0.0000
+   ours-after              1.0000        0.0000
+   gate (best direction, needs >=0.98): 0.0000   *** GATE FAILS ***
+
+## Classify this support ticket as billing, technical or account issue: 'The app crashes every time I open the settings page.'
+   [txlens] technical. The app crashes when opening the settings page.
+   [chainsight] Technical The user is reporting a problem with the functionality of the app, specifically that it crashes when attempting to access a certain feature, which indicates a technical issue rather than a billing or account-related problem.
+   [ours-before] Technical issue. This support ticket is a technical issue: The app crashes every time I open the settings page. The words app, crashes and page in it relate to technical.
+   [ours-after] Technical The user is reporting that the app crashes every time they open the settings page on their device, which indicates a functional problem with the software, technical.
+
+   candidate             vs txlens vs chainsight
+   txlens                  0.9935        0.0000
+   chainsight              1.0000        0.9944
+   ours-before             0.0000        0.0000
+   ours-after              0.0000        1.0000
+   gate (best direction, needs >=0.98): 1.0000
+
+## Classify this article as world news, business and finance, science and technology or sport: 'Researchers have sequenced the genome of a 40,000-year-old mammoth using a new extraction method.'
+   [txlens] science and technology. It reports a scientific breakthrough involving ancient DNA and genome sequencing.
+   [chainsight] Science and Technology This article is most appropriately classified as science and technology because it discusses a breakthrough in genetic research and the use of a new method for extracting DNA, which falls under the realm of scientific discovery and technological advancement.
+   [ours-before] Science and technology. This article belongs to the science and technology category: Researchers have sequenced the genome of a 40,000-year-old mammoth using a new extraction method. The words researchers, genome, mammoth and extraction in it relate to science and technology.
+   [ours-after] Science and technology The user is reporting that researchers have sequenced the genome of a 40,000-year-old mammoth using a new extraction method, which indicates a breakthrough in ancient DNA sequencing, science and technology.
+
+   candidate             vs txlens vs chainsight
+   txlens                  0.9912        0.0000
+   chainsight              0.7130        0.9895
+   ours-before             0.0000        0.0000
+   ours-after              1.0000        0.0000
+   gate (best direction, needs >=0.98): 0.7130   *** GATE FAILS ***
+
+## Classify this email as spam or not spam: 'Congratulations! You have been selected for a free iPhone. Click here to claim within 24 hours.'
+   [txlens] spam. It offers an unsolicited free prize and creates urgency to click a link.
+   [chainsight] Spam This email is likely spam because it contains a common tactic used by spammers, which is to create a sense of urgency and promise a free high-value item in exchange for a click, likely to phishing or malware sites. Legitimate companies typically do not give away expensive items like iPhones via email solicitations.
+   [ours-before] Spam. This email is spam: Congratulations! You have been selected for a free iPhone. Click here to claim within 24 hours. The words congratulations, selected, free and iphone in it relate to spam.
+   [ours-after] Spam The user is mentioning a congratulatory message promising a free iPhone and a link to claim it within 24 hours, which suggests an unsolicited promotional scam, making spam the most relevant category.
+
+   candidate             vs txlens vs chainsight
+   txlens                  0.9919        0.0000
+   chainsight              0.0000        0.9958
+   ours-before             0.0000        0.0000
+   ours-after              1.0000        0.0000
+   gate (best direction, needs >=0.98): 0.0000   *** GATE FAILS ***
+
+## Classify this review as quality, shipping or price: 'The parcel arrived three days late and the box was crushed.'
+   [txlens] shipping. It describes a late parcel and damaged box, which are delivery issues.
+   [chainsight] Shipping The review mentions the parcel arriving late and the condition of the box, indicating issues with the shipping process.
+   [ours-before] Shipping. This review belongs to the shipping category: The parcel arrived three days late and the box was crushed. The words parcel, arrived, days and late in it relate to shipping.
+   [ours-after] Shipping The user is reporting that the parcel arrived three days late and the box was crushed, which indicates a shipping problem, shipping.
+
+   candidate             vs txlens vs chainsight
+   txlens                  0.9934        0.0000
+   chainsight              0.0000        0.9947
+   ours-before             0.0000        0.0000
+   ours-after              0.0000        0.0000
+   gate (best direction, needs >=0.98): 0.0000   *** GATE FAILS ***
+
+## Classify this headline as politics, sport, technology or health: 'A vaccine trial reported a 40 percent reduction in hospital admissions this winter.'
+   [txlens] health. It discusses a vaccine trial and hospital admissions, which are health-related.
+   [chainsight] Health The headline mentions a "vaccine trial" and "reduction in hospital admissions", which are both terms closely related to medical research and public health, making "health" the most appropriate category.
+   [ours-before] Health. This headline belongs to the health category: A vaccine trial reported a 40 percent reduction in hospital admissions this winter. The words vaccine and hospital in it relate to health.
+   [ours-after] Health The user is reporting a vaccine trial showed a 40 percent reduction in hospital admissions this winter, which indicates a positive health outcome, making health the most relevant category.
+
+   candidate             vs txlens vs chainsight
+   txlens                  0.9928        0.0000
+   chainsight              1.0000        0.9948
+   ours-before             1.0000        0.0000
+   ours-after              0.0000        0.0000
+   gate (best direction, needs >=0.98): 1.0000
+
+-- TEXT_CLASSIFICATION summary (min / max across references)
+   input                                          gate    before(min/max)  after(min/max)
+   Classify this support ticket as billing, techn 0.000   0.000/0.000      0.000/1.000
+   Classify this support ticket as billing, techn 1.000   0.000/0.000      0.000/1.000
+   Classify this article as world news, business  0.713   0.000/0.000      0.000/1.000
+   Classify this email as spam or not spam: 'Cong 0.000   0.000/0.000      0.000/1.000
+   Classify this review as quality, shipping or p 0.000   0.000/0.000      0.000/0.000
+   Classify this headline as politics, sport, tec 1.000   0.000/1.000      0.000/0.000
+
+==============================================================================
+SENTIMENT_ANALYSIS — champion sentiment_analysis_reg646.wasm sha256 d6a647f6c09336f26bb7f38ac3c8b4bddb232f1eed2e5a741fe1a85b5b7dfd88
+==============================================================================
+
+## What is the sentiment of this review: 'I just love being charged twice and ignored by support.'
+   [txlens] Negative. The speaker is sarcastically complaining about duplicate charges and unresponsive support.
+   [chainsight] The sentiment of this review is negative. This is because the reviewer expresses frustration and dissatisfaction with being overcharged and receiving poor customer service, using a sarcastic tone to emphasize their displeasure.
+   [ours-before] Negative. The sentiment of this review is negative: I just love being charged twice and ignored by support. It is carried by the word ignored. The opening love is sarcastic. Its tone is frustrated.
+   [ours-after] The sentiment of this review is negative. This is because the writer is frustrated and disappointed, citing being charged twice and ignored by support, indicating dissatisfaction overall.
+
+   candidate             vs txlens vs chainsight
+   txlens                  1.0000        0.0000
+   chainsight              0.0000        1.0000
+   ours-before             0.0000        0.0000
+   ours-after              0.0000        0.0000
+   gate (best direction, needs >=0.98): 0.0000   *** GATE FAILS ***
+
+## What is the sentiment of this review: 'The product broke after one day, terrible quality.'
+   [txlens] Negative. The text expresses frustration and dissatisfaction because the product failed quickly and is described as terrible quality.
+   [chainsight] The sentiment of this review is negative. This is because the reviewer states that the product broke after a very short period of time and explicitly describes the quality as "terrible", indicating strong dissatisfaction.
+   [ours-before] Negative. The sentiment of this review is negative: The product broke after one day, terrible quality. It is carried by the words terrible and broke.
+   [ours-after] The sentiment of this review is negative. This is because the writer is frustrated, expressing disappointment about the product breaking after one day and calling the quality terrible, indicating dissatisfaction with the purchase.
+
+   candidate             vs txlens vs chainsight
+   txlens                  1.0000        0.0000
+   chainsight              1.0000        1.0000
+   ours-before             0.0000        0.0000
+   ours-after              1.0000        1.0000
+   gate (best direction, needs >=0.98): 1.0000
+
+## What is the sentiment of this review: 'Delivery was quick and the instructions were clear, but the battery drains fast.'
+   [txlens] Mixed. The delivery and instructions were praised, but the fast battery drain is a negative issue.
+   [chainsight] The sentiment of this review is neutral. This is because the reviewer mentions both a positive aspect (quick delivery and clear instructions) and a negative aspect (battery drains fast) of their experience, balancing out their overall opinion.
+   [ours-before] Positive. The sentiment of this review is positive: Delivery was quick and the instructions were clear, but the battery drains fast. It is carried by the words fast and quick.
+   [ours-after] The sentiment of this review is mixed. This is because the writer is expressing satisfaction with the rapid delivery and clear instructions, yet frustration over the battery draining quickly, indicating mixed feelings.
+
+   candidate             vs txlens vs chainsight
+   txlens                  1.0000        0.0000
+   chainsight              0.0000        1.0000
+   ours-before             0.0000        0.0000
+   ours-after              0.0000        0.0000
+   gate (best direction, needs >=0.98): 0.0000   *** GATE FAILS ***
+
+## What is the sentiment of this message: 'The parcel arrived on Tuesday in a brown box.'
+   [txlens] Neutral. The statement simply reports when and how the parcel arrived, without expressing an opinion or emotion.
+   [chainsight] Neutral. This message is neutral because it simply states a factual event without expressing any emotion or opinion about the arrival of the parcel.
+   [ours-before] Neutral. The sentiment of this message is neutral: The parcel arrived on Tuesday in a brown box. It contains no word that carries positive or negative sentiment. This is a word-list reading, so sarcasm, irony and words outside the list are not detected.
+   [ours-after] The sentiment of this message is neutral. This is because the writer is describing a factual event without emotion, noting the parcel's arrival on Tuesday and its brown box, indicating an objective, neutral tone.
+
+   candidate             vs txlens vs chainsight
+   txlens                  1.0000        1.0000
+   chainsight              1.0000        1.0000
+   ours-before             0.0000        0.0000
+   ours-after              0.0000        1.0000
+   gate (best direction, needs >=0.98): 1.0000
+
+## What is the sentiment of this review: 'Absolutely thrilled with the service, the team went out of their way to help.'
+   [txlens] Positive. The speaker expresses strong enthusiasm and praises the team’s helpful service.
+   [chainsight] The sentiment of this review is positive. This is because the reviewer uses the phrase "Absolutely thrilled", which is a strong indicator of satisfaction and enthusiasm, and also mentions that the team "went out of their way to help", implying exceptional service.
+   [ours-before] Positive. The sentiment of this review is positive: Absolutely thrilled with the service, the team went out of their way to help. It is carried by the word thrilled. Its tone is joyful.
+   [ours-after] The sentiment of this review is positive. This is because the writer is expressing enthusiasm and gratitude for the team's exceptional assistance, highlighted by phrases like "Absolutely thrilled" and "went out of their way to help," indicating satisfaction.
+
+   candidate             vs txlens vs chainsight
+   txlens                  1.0000        0.0000
+   chainsight              0.0000        1.0000
+   ours-before             0.0000        1.0000
+   ours-after              0.0000        1.0000
+   gate (best direction, needs >=0.98): 0.0000   *** GATE FAILS ***
+
+## What is the sentiment of this message: 'I have not received my package and no one has replied to my emails.'
+   [txlens] Negative. The package has not arrived, and the lack of responses to emails indicates poor service and frustration.
+   [chainsight] Negative. The sentiment is negative because the speaker is expressing frustration and dissatisfaction with not receiving their package and being ignored by the company.
+   [ours-before] Negative. The sentiment of this message is negative: I have not received my package and no one has replied to my emails. It is carried by the word no replied.
+   [ours-after] The sentiment of this message is negative. This is because the writer is frustrated, expressing disappointment about a missing package and lack of response to emails, using words like “not received” and “no one has replied,” indicating dissatisfaction.
+
+   candidate             vs txlens vs chainsight
+   txlens                  1.0000        0.0000
+   chainsight              0.0000        1.0000
+   ours-before             0.0000        0.0000
+   ours-after              0.0000        1.0000
+   gate (best direction, needs >=0.98): 0.0000   *** GATE FAILS ***
+
+-- SENTIMENT_ANALYSIS summary (min / max across references)
+   input                                          gate    before(min/max)  after(min/max)
+   What is the sentiment of this review: 'I just  0.000   0.000/0.000      0.000/0.000
+   What is the sentiment of this review: 'The pro 1.000   0.000/0.000      1.000/1.000
+   What is the sentiment of this review: 'Deliver 0.000   0.000/0.000      0.000/0.000
+   What is the sentiment of this message: 'The pa 1.000   0.000/0.000      0.000/1.000
+   What is the sentiment of this review: 'Absolut 0.000   0.000/1.000      0.000/1.000
+   What is the sentiment of this message: 'I have 0.000   0.000/0.000      0.000/1.000
+
+==============================================================================
+MODEL CALLS
+==============================================================================
+   calls 17 (ok 17, non-200 0)
+   latency  p50 757ms   p95 1130ms   max 1130ms
+   tokens   mean 389  p95 534  (prompt 197, completion 192)
+   openai/gpt-oss-20b     n=  6  p50 479ms  mean tokens 314
+   openai/gpt-oss-120b    n=  6  p50 823ms  mean tokens 377
+   qwen/qwen3.8-27b       n=  5  p50 766ms  mean tokens 495
+
+   Free-plan headroom per model: 30 RPM, 1,000 RPD, 8,000 TPM, 200,000 TPD.
+   At 389 tokens/call: 513 calls/day/model on tokens, 1,000 on requests
+   -> binding limit 513 calls/day/model, 1539 across the three models.
+   Per minute: 20 calls/model, 60 across three.
+
+==============================================================================
+SUMMARY
+==============================================================================
+   TEXT_CLASSIFICATION    inputs 6  gate passes 2/6  crossed(>=0.9) before 1/6 -> after 4/6
+   SENTIMENT_ANALYSIS     inputs 6  gate passes 2/6  crossed(>=0.9) before 1/6 -> after 4/6
+
+A bench is a filter, not a verdict (G62). Only a scored epoch is a verdict.

@@ -38,8 +38,12 @@ Registration `402` is included here so reviewers can reconcile the current on-ch
 | `FACT_CHECK` | `/fact-check` | a claim against a citable encyclopaedic source, named and quoted; reports an explicit refutation or says the source does not settle it, never asserts truth from a topical match |
 | `TELEGRAPH_KNOWLEDGE` | `/telegraph` | Telegraph itself: registration, the intent set, scoring, the Explorer; live figures read from the protocol at request time |
 
-All routes are keyless. The service uses timeouts and fallbacks and returns an honest shaped answer
-instead of turning a recoverable upstream failure into a non-2xx response.
+Every route is keyless except the two prose intents, `TEXT_CLASSIFICATION` and `SENTIMENT_ANALYSIS`,
+whose answers are phrased by a model when `GROQ_API_KEY` is set — the decision stays the miner's, the
+label is drawn from the set the request supplies, and without the key both routes answer exactly as
+the keyless word-list and word-index paths always have. The service uses timeouts and fallbacks and
+returns an honest shaped answer instead of turning a recoverable upstream failure into a non-2xx
+response.
 
 ## Latest public result
 

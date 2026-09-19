@@ -51,6 +51,7 @@ import { scanUrl, type UrlScanResult } from "./urlscan";
 import { webSearch, type WebSearchResult } from "./websearch";
 import { verifyContent, type ContentVerifyResult } from "./contentverify";
 import { analyseSentiment, type SentimentResult } from "./sentiment";
+import { analyseSentimentPhrased } from "./prose-phrase";
 import { classifyText, type ClassifyResult } from "./classify";
 import { synthesise, type SynthesisResult } from "./synthesis";
 
@@ -1676,13 +1677,27 @@ function route(req: IncomingMessage, res: ServerResponse): void {
 
   if (path === "/sentiment") {
     /**
-     * Computed from the request alone, with no upstream, so there is nothing to
-     * cache and nothing that can hang. The declared `text` wins; otherwise the
-     * passage is read out of the question.
+     * The reading is computed from the request alone; only its wording is
+     * phrased by the model, and without a key that step returns at once and the
+     * answer is byte-identical to the word-list one (src/prose-phrase.ts).
+     * The declared `text` wins; otherwise the passage is read out of the
+     * question. Cached like the other phrased route, because a repeated
+     * question must not repeat the call.
      */
     const asked = firstValue(url, "query", "q", "question", "input");
     const textParam = firstValue(url, "text", "content", "passage");
-    sendAnswer(res, asked || textParam, lean(analyseSentiment(asked, textParam)), false);
+    const key = `sentiment:${JSON.stringify([asked.toLowerCase(), textParam.toLowerCase()])}`;
+    const hit = fromCache(key);
+    if (hit) {
+      sendAnswer(res, asked || textParam, lean(hit), false);
+      return;
+    }
+    analyseSentimentPhrased(asked, textParam)
+      .then((r) => {
+        if (!r.error) toCache(key, r);
+        sendAnswer(res, asked || textParam, lean(r), false);
+      })
+      .catch(() => sendAnswer(res, asked || textParam, lean(analyseSentiment(asked, textParam)), false));
     return;
   }
 

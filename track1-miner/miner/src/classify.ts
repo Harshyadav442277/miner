@@ -45,6 +45,7 @@ import { analyseSentiment, passageClause, wordList } from "./sentiment";
 import { CUE_SETS, contentWords, cueStem, stem, textWords } from "./classify-cues";
 import { classifiedText, labelSet, negatedTerms, splitLabels, wantsMultiLabel } from "./classify-parse";
 import { leadLabel, leadLabels, matchedClause, orList, placement, placementMany } from "./classify-answer";
+import { phraseClassification } from "./prose-phrase";
 
 export { leadLabel, leadLabels, matchedClause, placement, placementMany } from "./classify-answer";
 export { contentWords, stem, textWords } from "./classify-cues";
@@ -180,8 +181,23 @@ export async function classifyText(question: string, textParam = "", labelsParam
   }
   const noun = (q.match(/\b(?:this|the following|the)\s+(support ticket|ticket|review|article|email|message|comment|tweet|post|headline|text|document|sentence)\b/i)?.[1] ?? "text").toLowerCase();
 
+  /**
+   * The generative phrasing, started HERE so it overlaps the relatedness
+   * lookups instead of following them: both share one ~4.5s window rather than
+   * costing 3.5s + 4.5s inside an 11s watchdog. It is not started for a
+   * multi-label request, which asks a different question than the one the
+   * prompt puts. Without a key it resolves null at once and nothing below
+   * changes. Why the register matters: prose-phrase.ts.
+   */
+  const phrased = wantsMultiLabel(q) ? Promise.resolve(null) : phraseClassification(noun, text, labels).catch(() => null);
+
   if (labels.every((l) => SENTIMENT_LABELS.has(l.toLowerCase()))) {
     const s = analyseSentiment(`sentiment of this ${noun}`, text);
+    const said = await phrased;
+    if (said) {
+      return { verdict: "classified", label: said.label, reason: said.reason,
+        confidence: said.label.toLowerCase() === s.verdict ? s.confidence : 0.7 };
+    }
     const pick = labels.find((l) => l.toLowerCase() === s.verdict);
     if (pick) {
       const carried = s.reason.match(/\bIt is carried by [^.]*\./)?.[0] ?? "";
@@ -254,6 +270,19 @@ export async function classifyText(question: string, textParam = "", labelsParam
   }
 
   const clear = best && best.direct > 0 && best.score >= (opposite ? 4 : 2) && best.score >= (second?.score ?? 0) * 1.5 && best.score - (second?.score ?? 0) >= 1;
+
+  /**
+   * The model's reading, when there is one. It chose between the same labels,
+   * so this replaces the wording rather than the decision; where relatedness
+   * reached no margin at all it also replaces an "ambiguous" that scores zero
+   * every epoch. Its confidence is the margin's only when the two methods
+   * agree — otherwise one method supports the label, and 0.7 says so.
+   */
+  const said = await phrased;
+  if (said) {
+    return { verdict: "classified", label: said.label, reason: said.reason,
+      confidence: clear && best?.label === said.label ? Number(Math.min(0.9, 0.5 + (best.score - (second?.score ?? 0)) / 12).toFixed(2)) : 0.7 };
+  }
 
   if (best && clear) {
     return {

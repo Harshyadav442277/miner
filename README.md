@@ -14,7 +14,9 @@ X account: [`@hyadav42774`](https://x.com/hyadav42774) · Official account tagge
 
 ## Track 1 — LiveCert
 
-LiveCert is a deterministic, keyless miner for twenty-six registered operational and research intents.
+LiveCert is a deterministic miner for twenty-six registered operational and research intents, keyless
+on every route but the two prose ones (`TEXT_CLASSIFICATION`, `SENTIMENT_ANALYSIS`), whose wording is
+phrased by a model when a key is configured and which fall back to their keyless paths when it is not.
 It performs
 live TLS handshakes, weather forecasts and current conditions, storm checks, IP geolocation,
 translation, academic search, structured extraction, news retrieval, wallet-balance reads,

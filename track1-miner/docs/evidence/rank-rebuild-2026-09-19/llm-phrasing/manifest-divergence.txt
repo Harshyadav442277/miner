@@ -1,0 +1,43 @@
+Registered-manifest divergence — read before deploying the generative phrasing
+==============================================================================
+checked 2026-09-19 against track1-miner/miner.yaml at revision 0074f14
+
+The manifest is public, pinned to IPFS and hashed on-chain, and registration is
+effectively immutable (CLAUDE.md hard rule 3). It was NOT edited by this lane.
+Two of its published sentences stop being true the moment the phrasing path is
+enabled in production, and both are quoted below verbatim.
+
+/classify  (TEXT_CLASSIFICATION), miner.yaml line 958
+  "... such as billing, technical or account issue. There is no fixed taxonomy and
+   no model: a label wins on lexical relatedness ... and the answer names the
+   words that matched so the choice can be checked."
+
+  With a key set:
+   - a model DOES decide, choosing among the labels the request supplied;
+   - the answer does NOT name the words that matched — the matched-words clause is
+     exactly one of the two clauses the champion scores 0.0000 for.
+
+/sentiment  (SENTIMENT_ANALYSIS), miner.yaml line 928
+  "... read with a rule-based word list and the VADER method ... No model is
+   involved and nothing is fetched. ... The answer names the words that carried
+   the label ... Sarcasm, irony and opinion words outside the list are not
+   detected."
+
+  With a key set:
+   - a model is involved and a network call IS made (api.groq.com);
+   - the answer does not name the carrying words;
+   - the sarcasm limitation no longer describes the behaviour, and where the two
+     readings differ the published verdict is the model's, not the word list's.
+
+This is an integrity question, not a code question, and it is the operator's to
+settle. Three options, none of them taken here:
+
+  1. Leave the key unset in production. Everything in this lane is inert, the
+     manifest stays true, and the two intents keep scoring 0.
+  2. Set the key and accept that the registered description misdescribes two of
+     36 routes until a re-registration is possible.
+  3. Re-register with a corrected manifest — immutable in practice, and a
+     rejection releases the slug (CLAUDE.md hard rule 3), so not a small step.
+
+Note that the bench in this folder measures what the answer scores, not what the
+manifest promises, and no bench can settle option 2.

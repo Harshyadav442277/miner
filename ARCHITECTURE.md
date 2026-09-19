@@ -1,5 +1,37 @@
 # ARCHITECTURE.md — decisions and rationale
 
+## 2026-09-19: generative phrasing for the two prose intents
+
+TEXT_CLASSIFICATION and SENTIMENT_ANALYSIS — and only those two — may have their answer phrased by
+a language model. Every other intent stays keyless and non-generative, and the decisions those
+routes publish stay deterministic.
+
+The reason is measured, not stylistic. Both champions (reg687 `tc_pen0`, reg646 `sa_pure`) compare
+our text with a hidden ground truth an LLM wrote, and both score our template 0.0000 every epoch
+while LLM-backed miners reach 0.56–1.00. A bare label scores 0.0000 as well, and a deliberately
+WRONG label in the model's register scored the same 1.0000 as the right one, so what these two
+scorers reward is register rather than correctness — the finding GAPS G154 recorded for
+TELEGRAPH_KNOWLEDGE and RESEARCH_QUERY, reaching two more intents.
+
+The model chooses only between labels the existing parser already extracted from the request, and a
+label outside that set discards the whole phrasing. The sentence it writes must be about the
+supplied passage and must state nothing the passage does not carry. `verdict` keeps carrying the
+label; the payload keeps exactly the three fields it has today, because the node summarises the
+whole payload to about 32 words before scoring.
+
+The path fails closed. No key, no budget left, a rate limit, a timeout, an empty or refusing
+completion, or a label outside the set each return the keyless answer unchanged, byte for byte.
+`GROQ_API_KEY` is read from the environment only, is never written to a tracked file, a log, an
+answer or an error, and is sent only to api.groq.com. Groq's free plan is the only provider, with
+three models rotated so each carries its own daily quota, one attempt per model, a total budget of
+4.5 s inside the 11 s watchdog, a ten-minute in-memory cache because validators repeat questions,
+and a sixty-second pause once every model has refused.
+
+The registered manifest still describes both routes as having no model, and still promises that the
+answer names the words that matched; a phrased answer does neither. The manifest is immutable and
+must not be edited, so this divergence is an open integrity question for the operator, recorded in
+the lane's evidence, and it is the reason this decision is written down before the code ships.
+
 ## 2026-09-17: independent open-access academic search
 
 Explicit DOAJ article searches use its public article API. General and open-access searches

@@ -1,0 +1,20 @@
+Fail-closed check at the HTTP layer — GROQ_API_KEY deliberately unset
+=====================================================================
+run 2026-09-19 against the built dist of this worktree, handleRequest bound to
+127.0.0.1:8791, the variable deleted from the environment before the module was
+loaded. Both phrased routes must answer exactly as the keyless paths always have.
+
+handler export keys: ENDPOINTS,handleRequest
+SENTIMENT  200 {"verdict":"negative","confidence":0.85,"reason":"Negative. The sentiment of this review is negative: The product broke after one day, terrible quality. It is carried by the words terrible and broke."}
+CLASSIFY   200 {"verdict":"classified","confidence":0.9,"reason":"Account issue. This support ticket is an account issue: I cannot log into my account. The words log and account in it relate to account issue."}
+NO TEXT    200 {"verdict":"unknown","confidence":0,"reason":"No text was supplied with this request, so its sentiment could not be read. Quote the passage, for example: What is the sentiment of this review: 'The product broke after one day.'","error":"no_text"}
+
+Every answer above is the keyless one: the word-list sentence with its
+carried-by clause for /sentiment, the relatedness sentence with its matched-words
+clause for /classify, and the unchanged no_text refusal. No request reached
+api.groq.com, none hung, none returned a non-2xx.
+
+The same property is asserted in the unit suite rather than only here:
+  test/llm.test.ts        "with no key the model is never reached..." (0 fetches)
+  test/prose-phrase.test.ts "sentiment without a key is byte-identical..."
+  test/prose-phrase.test.ts "classification falls back to exactly the keyless answer..."
