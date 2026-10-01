@@ -11,17 +11,9 @@
 
 name: uptime
 
-# Scheduled hourly; honoured far less often.
-#
-# This was set to "*/10" on the assumption it would run every ten minutes. It did
-# not: GitHub heavily throttles scheduled workflows. The measured gaps between
-# runs are 9h 17m and 13h 06m (2026-08-27/28) — treat the real detection window
-# as up to half a day, not an hour. Epochs are nine hours long, so even that
-# catches most epochs; the alarm job below is what turns a failure into a
-# notification.
+# Manual only: recurring checks and automatic commits were stopped at the
+# owner's request on 2026-10-01.
 on:
-  schedule:
-    - cron: "17 * * * *"
   workflow_dispatch:
     inputs:
       test_alarm:
@@ -87,10 +79,10 @@ jobs:
   scores:
     # Scoring runs on the network's schedule and the API exposes only the latest
     # epoch, so a score not captured when it appears is lost. This keeps a durable
-    # per-epoch record to reason from instead of polling by hand.
+    # per-epoch artifact to reason from instead of polling by hand.
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: read
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -98,17 +90,12 @@ jobs:
           node-version: "22"
       - name: Record this epoch
         run: node track1-miner/tools/record-scores.mjs
-      - name: Commit if new
-        run: |
-          if git diff --quiet -- track1-miner/docs/score-history.jsonl; then
-            echo "nothing new"
-            exit 0
-          fi
-          git config user.name "Harshyadav442277"
-          git config user.email "theageofprimes@gmail.com"
-          git add track1-miner/docs/score-history.jsonl
-          git commit -m "Record epoch scores"
-          git push
+      - name: Save score history without committing
+        uses: actions/upload-artifact@v4
+        with:
+          name: score-history-${{ github.run_id }}
+          path: track1-miner/docs/score-history.jsonl
+          if-no-files-found: error
 
   alarm:
     # One alarm covering every job. Before this existed only `check` could open
