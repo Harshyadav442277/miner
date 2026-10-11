@@ -1,5 +1,215 @@
 # MEMORY.md — session continuity
 
+## 2026-10-11 12:05 UTC (17:35 IST): CURRENT STATE. Everything committed; release `0498678` ready, NOT deployed
+
+Supersedes the 05:20 UTC block below for repository state, verification and next action 1.
+
+**What happened.** The owner said "update everything, I give it a go" (~11:55 UTC). This session:
+- landed the FACT_CHECK G188 fix (`a9867c3`), marked SEASON2_PLAN next action 2 done (`c7164a6`);
+- committed the other session's uncommitted fixes, one change per commit: `22ded10` uptime workflow
+  manual-only, `a3e4900` URLhaus coalescing, `44bc382` model-explanation guard, `85abc30` news regions and
+  recent window, `21d8a3e` imperative translation, `fa63cd7` weather postcodes, `0498678` their evidence and
+  `routed-questions.json`. No attribution trailers (checked on every commit);
+- committed GAPS.md and MEMORY.md, so the tree is clean.
+
+**Release commit `0498678`** (branch `codex/rank1-14-intents`, 18 commits on `94220f1`, **not pushed**;
+later commits are docs only).
+- `npm run test:unit` **783/783** in a clean worktree at `0498678`.
+- `intent-answers.mjs` against a local server built from it: **35/36**; the miss is the known IP Tokyo pin.
+  FACT_CHECK, NEWS_HEADLINES, LANGUAGE_TRANSLATION, WEATHER_CHECK, URL_SCAN, SENTIMENT pass; "The Eiffel
+  Tower is in Berlin." → `contradicted`. Evidence: `track1-miner/docs/evidence/release-2026-10-11/`.
+
+**Deploy BLOCKED by tool permission, not by a check.** The Claude Code auto-mode classifier denied
+`npx vercel --scope wukong4 --yes` (a preview) as "Production Deploy". The owner runs it, or allows
+`vercel` for Bash in settings. Production is still `miner-j9eojoz7e` (also the rollback target) and still
+answers the Berlin claim `supported`.
+
+**Next action 1, exact commands** (from a clean worktree at `0498678`, in `track1-miner/miner`, with
+`.vercel/` copied in from the main tree; read GAPS G70 first):
+1. `npx vercel --scope wukong4 --yes` → preview URL.
+2. `npx vercel curl "<preview>/ssl-check?query=github.com" --scope wukong4` and
+   `npx vercel curl "<preview>/fact-check?query=The%20Eiffel%20Tower%20is%20in%20Berlin." --scope wukong4`
+   (expect an answer, then `contradicted`).
+3. `npx vercel --prod --scope wukong4 --yes`, then `npx vercel promote <url> --scope wukong4` if the alias
+   did not move (production is pinned after a rollback).
+4. `node ../tools/preflight.mjs https://miner-wine.vercel.app` (7/7 or roll back to `miner-j9eojoz7e`), then
+   `node ../tools/intent-answers.mjs` (expect 35/36).
+
+**Authorisation.** Given: commit (done), ship next action 1. Not given: push, `updateMiner`, organiser
+question. Branch `claude/factcheck-g188` deleted on the same yes (its change is `a9867c3`).
+
+## 2026-10-11 ~05:55 UTC (11:25 IST): Season I winners examined; no code or deploy changes
+
+[track1-miner/docs/S1_WINNERS_TEARDOWN_2026-10-11.md](track1-miner/docs/S1_WINNERS_TEARDOWN_2026-10-11.md)
+covers TxLens, ChainSight and OathCast: their answers, their code and their judging-window traffic. The
+evidence is in `track1-miner/docs/evidence/s1-winners-2026-10-11/`. SEASON2_PLAN's next actions now
+include the findings below.
+
+- **New bug, ours, unfixed: FACT_CHECK rates "The Eiffel Tower is in Berlin" supported (0.7).** It does so
+  on production and on preview `miner-h8tyai3m6`. Cause: `settle()` in `src/factsubject.ts`. One key word
+  left plus one co-occurrence counts as support. A background-task chip was offered to the owner for the
+  fix; it is not started. **Update 11:18 UTC: fixed in `a9867c3` by another session (G188); not deployed.**
+- **What the winners do that we did not:** every answer is a full field envelope. Endpoint descriptions
+  are written as example questions. TxLens went from 14 to 72 intents during judging.
+- **Where the winners' judging volume came from:** a few app scripts. One broken CVE template sent 1,200
+  calls to ChainSight and 827 to TxLens. TxLens's own AskLens app sent it 329 paid calls in 21 minutes.
+- **Competition on our planned Season II intents:** TxLens already serves sanctions, corporate registry,
+  filings, macro, URL_SAFE and FX_NOW, all keyless. SEASON2_PLAN now says how each of ours must beat it.
+- **Committed in this pass:** the teardown, its evidence, and the edits to SEASON2_PLAN and the loss
+  analysis.
+- **Not committed:** this MEMORY block. MEMORY.md already held the other session's uncommitted edits.
+- **Authorisation:** unchanged. No push, no promote, no `updateMiner`.
+
+## 2026-10-11 05:20 UTC (10:50 IST): Season II build committed and on a preview, NOT on production (state and "Uncommitted" list superseded by the 12:05 UTC block)
+
+**Read first:**
+- [track1-miner/docs/SEASON2_PLAN.md](track1-miner/docs/SEASON2_PLAN.md): the goal, the intent
+  portfolio and the next actions.
+- [track1-miner/docs/S1_LOSS_ANALYSIS_2026-10-11.md](track1-miner/docs/S1_LOSS_ANALYSIS_2026-10-11.md):
+  why Season I was lost.
+
+The entry below this one is the other session's news, translate and weather pass from the same night.
+
+**Why Season I was lost** (from public data; the organisers have not confirmed it). Winners: TXlens
+97.9, Chainsight 86.9, Oathcast 85.4; LiveCert did not place.
+- **Ranking did not decide it.** Our performance was never meaningfully below TXlens's. Oathcast was
+  ≤29/75 in every reconstruction and still placed.
+- **The Season I criteria were five:** ranking, apps built on the miner, requests served, X posts and
+  X reach.
+- **We were scored in only 15 of 105 Track 1 epochs**, first on Aug 26.
+- **TXlens** served ~2× our distinct Track 3 questions and has ~40× our X followers.
+- **Chainsight** had a winning Track 3 app (Truvian Shield) built on it.
+- **Our registered manifest** still described the August three-endpoint miner.
+- **Our answers were prose only**, cut down for the scorer.
+
+**Owner direction, 2026-10-11:**
+- Win Track 1. Leaderboard rank does not matter; app demand is the target. The intent count is free.
+- Free Groq or Gemini keys are fine.
+- Decided by Claude on the owner's delegation: add QUESTION_ANSWERING (sourced, model-phrased); no
+  CHAT_COMPLETION.
+
+**Repository state.** Branch `codex/rank1-14-intents`, HEAD `c7164a6`: eleven commits on `94220f1`,
+**not pushed**. `63bc659` and `c7164a6` are plan notes.
+
+| Commit | Change |
+|---|---|
+| `f8925a4` | App-first answers: `lean()` and `restate.ts` removed |
+| `6d658a3` | Storm answers open with the graded yes or no |
+| `6daccb6` | Coin market cap and volume as fields |
+| `ab08d90` | `miner.yaml` description and `docs/INTEGRATE_LIVECERT.md` |
+| `b8eb89a` | Loss analysis and Season II plan |
+| `c485819` | `/tx-lookup` transaction fields |
+| `027c7b6` | Probe evidence |
+| `8cc571b` | Season I winners teardown and its evidence |
+| `a9867c3` | FACT_CHECK: one- and two-term claims need a clause that states them (G188) |
+| `c7164a6` | SEASON2_PLAN next action 2 marked done |
+
+**Deployments.**
+- Production is unchanged: `miner-j9eojoz7e`, which is also the rollback target.
+- Newest preview: `miner-h8tyai3m6`, built from a clean worktree at `c485819`. Routes probed OK through
+  `npx vercel curl`; see `track1-miner/docs/evidence/season2-build-2026-10-11/`.
+
+**Verified.**
+- `npm run test:unit`: 783/783 on the combined tree at `a9867c3` (771 + 12 G188 tests), run 11:15 UTC in a
+  worktree replica of it.
+- `intent-answers.mjs`: 35/36 locally. The IP Tokyo pin is a pre-existing miss.
+- `manifest-diff.mjs`: PASS. Endpoints, parameters and intents are unchanged.
+
+**Not verified.** `preflight.mjs` and `intent-answers.mjs` against a deployed build. Run them right
+after a promote.
+
+**FACT_CHECK false support (G188) is fixed in `a9867c3`, not deployed.** Production still calls "The Eiffel
+Tower is in Berlin." `supported`. The fix ships with next action 1; after the promote, re-run that query
+and expect `contradicted`. 20 live claims before/after: `track1-miner/docs/evidence/factcheck-g188-2026-10-11/`.
+
+**Uncommitted, and NOT from the Season II session.** The other session's work is not committed:
+- `news.ts`, `translate.ts`, `weather-upstream.ts`, `prose-phrase.ts`, `urlscan-net.ts` and their tests
+- `tools/routed-questions.json`
+- `.github/workflows/uptime.yml`: manual-only, the owner's Oct 1 decision
+- GAPS G186–G187, and the G188 ledger entry (G188's code is committed as `a9867c3`)
+- the `evidence/improve-2026-10-01` and `improve-2026-10-11` folders
+- this MEMORY.md
+
+The tree is shared. Commit with explicit pathspecs only, and deploy only from a clean `git worktree`.
+
+**External state.**
+- Registration 2750 is active. Its pinned YAML is `94bbb04`'s, so the new description needs an
+  `updateMiner`: sandbox first, then the owner signs. Batch it with the new intents, before 1 Nov.
+- Season II runs 1 Nov – 1 Dec. Its miner rules were unpublished as of 2026-10-10.
+
+**Authorisation.**
+- Given 2026-10-11: commit these changes, and preview test builds.
+- Not given: push, production promote, `updateMiner`, sending the organiser question.
+
+**Next actions, in order:**
+1. **Ship both sessions' fixes together, on the owner's yes.**
+   - Commit the other session's fixes.
+   - Build a fresh preview from a clean worktree.
+   - Run `preview-vs-production` and `intent-answers` against it.
+   - `vercel --prod`, then `vercel promote` if the alias does not move (G70).
+   - Then `preflight.mjs`.
+2. **Build SEASON2_PLAN items 1–6.** URL_SAFE first, then CRYPTO_TRANSFER_VERIFY, then
+   REGULATORY_FILING_MONITOR. After those, QUESTION_ANSWERING once the owner provides a key.
+3. **One `updateMiner`** covering the description and all new intents.
+4. **The owner sends the organiser question** drafted in the loss analysis.
+5. **Re-read the Season II miner rules** when they are published.
+
+**Gotchas.**
+- The explorer feed now labels miners by display name. Use `routing.subnet_id`.
+- `git worktree remove` can hit a Windows file lock. Run `git worktree prune` afterwards.
+
+## 2026-10-10 ~19:50 UTC (2026-10-11 01:20 IST) — five-phase improvement pass, Phases 1–4 done, release NOT done
+
+Plan and findings: `track1-miner/docs/evidence/improve-2026-10-11/PLAN.md`. Branch `codex/rank1-14-intents` at
+`94220f1`, **nothing committed, nothing pushed, production unchanged** (`miner-j9eojoz7e` behind
+`miner-wine.vercel.app`; it is also the rollback target).
+
+- **Uncommitted:** the 1 Oct carry-over (`urlscan-net.ts` feed coalescing, `prose-phrase.ts` extra-output
+  guard, `.github/workflows/uptime.yml` manual-only per the owner's 1 Oct decision), this pass's
+  `news.ts`/`translate.ts`/`weather-upstream.ts` fixes with tests, refreshed `tools/routed-questions.json`,
+  GAPS G186–G187, the evidence folder.
+- **Verified:** typecheck, `npm run test:unit` 775/775; weather postcode fix on preview `miner-k9cu0ezci`
+  (`preview-weather-location.txt`; this is the newest preview and holds every fix); protected preview `miner-lvjnfemfl-wukong4.vercel.app`
+  vs production on every routed question: NEWS_HEADLINES 23/33 → 28/33, LANGUAGE_TRANSLATION 19/21 → 20/21,
+  0 lost (`preview-vs-production.txt`); parse diff old vs new over 1,244 corpus strings (`parse-diff.txt`).
+- **Not run:** `preflight.mjs` / `intent-answers.mjs` against the preview (they cannot pass Deployment
+  Protection; locally Google News 302s). Run them against production right after a promote.
+- **Rank baseline:** epoch 400 partial, 7/36 rank 1 (`rank-audit.json`). No rank claim for these fixes.
+- **Direction change, relayed (not given in this session):** the loss-analysis session quotes the owner as
+  "focus on winning in track 1 completely … I dont care about getting higher rank in leaderboard",
+  because app demand (direct calls: 91% of LiveCert's S1 requests) is what was judged. Its evidence is in
+  `S1_LOSS_ANALYSIS_2026-10-11.md`. This pass's fixes are answer-quality fixes for direct callers and still apply.
+  The rank-only analysis in `PLAN.md` (Phase 2, lanes A–C) is deprioritised if the owner confirms.
+- **Shared tree:** the loss-analysis session is building Season II changes in this same checkout (`handler.ts`
+  web-search/fact-check/financial blocks, `websearch.ts`, `factcheck.ts`, `financial.ts`, `restate.ts`,
+  `storm.ts`, `test/handler.test.ts`, their tests, `miner.yaml`). It is dropping `lean()` and the restate echo
+  across all routes, so re-run `preview-vs-production.txt` after that lands.
+- **UPDATE ~20:45 UTC:** the other session committed its paths on the owner's yes: HEAD `b8eb89a`, five
+  commits on `94220f1` (`f8925a4` app-first answers incl. the restate deletions, `6d658a3` storm, `6daccb6`
+  financial, `ab08d90` manifest + INTEGRATE doc, `b8eb89a` S1 analysis/plan). Checked: no attribution
+  trailers, none touch this pass's files, index clean, branch ahead of origin by 5 (not pushed). Its preview
+  `miner-e6z8ru8d1` (clean worktree at `ab08d90`) does NOT contain this pass's fixes. `ab08d90` changes
+  `miner.yaml`, so promoting it means a sandbox run and the owner's `updateMiner`. **This pass's files are
+  still uncommitted.** The staged-deletion warning below no longer applies.
+- **Season II plan and the other session's changes:** `track1-miner/docs/SEASON2_PLAN.md`.
+- **Combined tree, 2026-10-10 ~20:30 UTC:** both sessions' changes together pass typecheck and
+  `npm run test:unit` **767/767** (restate tests deleted, new financial/storm tests added). The other session
+  has STAGED the `restate.ts` / `restate.test.ts` deletions, so a plain `git commit` would sweep them in.
+  Commit with explicit pathspecs only (`git commit -- <paths>`). Its paths: `src/{handler,financial,storm,papers,geo}.ts`,
+  `src/restate.ts` (deleted), `test/{handler,papers,storm}.test.ts`, `test/restate.test.ts` (deleted),
+  `test/{financial-fields,storm-answer}.test.ts`, `miner.yaml`, `docs/INTEGRATE_LIVECERT.md`,
+  `track1-miner/docs/{S1_LOSS_ANALYSIS_2026-10-11,SEASON2_PLAN}.md`, `docs/evidence/s1-loss-2026-10-11/`. `vercel deploy` uploads the working directory, so deploy only from a clean
+  `git worktree` at the release commit, and stage paths explicitly, never `git add -A`.
+- **Next action:** owner's yes → commit this pass's paths on the branch, `vercel deploy --prod` from a clean worktree of that commit,
+  `vercel inspect` the alias, `preflight.mjs https://miner-wine.vercel.app`, then `rank-audit.mjs` on the next
+  two complete epochs. No manifest change, so no `updateMiner`.
+- **Strategic input, unverified by this session:** the parallel loss-analysis session
+  (`track1-miner/docs/S1_LOSS_ANALYSIS_2026-10-11.md`, evidence `docs/evidence/s1-loss-2026-10-11/`) reports
+  15 Season II mission pages buying WEB_SEARCH (7), FACT_CHECK (4), FINANCIAL_DATA (4) and none of the S1
+  flagships. If that holds, the next pass should target those three intents.
+- **Authorisation:** none given for commit, push or production deploy in this session. Preview deploys were
+  made as part of the requested improvement work.
+
 ## 2026-09-19 06:27 UTC (11:57 IST) — rank rebuild PROMOTED to production on the operator's yes
 
 **Production is now `miner-md1u33wsx`** (built from `0074f14`, aliased to `miner-wine.vercel.app` at

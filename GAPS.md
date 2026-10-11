@@ -1,5 +1,51 @@
 # GAPS.md — honesty ledger
 
+## 2026-10-11 fact-check co-occurrence fix — G188
+
+Evidence: `track1-miner/docs/evidence/factcheck-g188-2026-10-11/live-sweep.txt`. Code: `a9867c3`.
+
+- **G188 — FACT_CHECK settled one- and two-term claims by co-occurrence. `FIXED in a9867c3, NOT deployed`.**
+  Observed on production 2026-10-11 ~05:32 UTC: `/fact-check?query=The Eiffel Tower is in Berlin.` →
+  `supported` 0.7, quoting "During World War I, the Eiffel Tower's wireless station played a crucial role
+  in intercepting enemy communications from Berlin." `settle()` left one key (`berlin`) after the
+  subject; need = ceil(1 × 2/3) = 1. The same sentence made "…is not in Berlin" `contradicted`.
+  Fix (`src/factrelation.ts`): a claim with ≤2 keys counts a key only in a clause that states something
+  of the subject — subject-headed and not possessive, a copula over a stand-in like "no species", or a
+  which/who/that clause in a sentence the subject opens — whose verb is present tense when the claim's
+  is. A place counts only after in/at/on/within/inside, with no for/from/by/as/… between verb and place.
+  When nothing states the claim, a lead sentence (first three) that puts the subject in a same-kind rival
+  place (a short continent/country/city list) and never names the claimed place contradicts it.
+  `sentencesOf` no longer splits inside parentheses ("lit." in the Taj Mahal lead). `supported` still
+  comes only from the subject's own article.
+  Unit: 783/783 on the combined tree at `a9867c3` (771 + 12 new; 9 of the 12 fail on pre-fix code), run
+  11:15 UTC in a worktree replica of it. Live Wikipedia, 20 claims, pre-fix → fixed: Eiffel/Berlin,
+  Colosseum/Athens, Statue of Liberty/Paris `supported`→`contradicted`; Big Ben/Paris, Taj Mahal/Pakistan
+  `unverified`→`contradicted`; Golden Gate Bridge/San Francisco and Mount Everest/Asia
+  `supported`→`unverified` (true claims, but the old evidence did not state them); 13 unchanged. A local
+  server at the fix answered the production query `contradicted`, citing the lead.
+  **Limits:** a place not on the list is never contradicted, only unverified; containment ("in Europe")
+  stays unverified by design; a place that belongs to another noun with no preposition between ("a tower
+  that stands in Berlin") can still support; "Sydney Opera House is in Sydney" has no keys (pre-existing).
+  **Pre-existing, not this fix:** the live test "picks the article about the claim…" fails at `63bc659`
+  too — Wikipedia now ranks `Human_brain` for "humans only use 10% of their brains".
+
+## 2026-10-11 improvement pass — G186–G187
+
+Evidence: `track1-miner/docs/evidence/improve-2026-10-11/` (`PLAN.md`, `rank-audit.json`).
+
+- **G186 — DeFiLlama's terms may forbid serving its TVL figures for pay. `OPEN, UNVERIFIED, owner decision`.**
+  Source: the TVL leader `finwire-tvl`'s own live answer (2026-10-10 19:14 UTC) quotes DeFiLlama's terms
+  as "personal, non-commercial purposes" with a clause forbidding republishing "in any form without
+  permission". It now refuses every TVL question for that reason. Our `/tvl` serves DefiLlama figures.
+  **Not checked against DeFiLlama's own terms page.** Read the terms before deciding whether `/tvl`
+  should keep serving these figures.
+- **G187 — Most remaining ratio gaps come from the scorer, not from wrong answers. `OPEN, finding`.** Epoch 400:
+  CRYPTO_PRICE's champion (reg 3170, keccak-verified locally) gives 1.0 only to an identical figure, and
+  41/56 miners score 0. A refusal (`finwire-tvl`) outscores a correct TVL figure 8×. A canned beacon root
+  (`xchain-beacon-publicnode`) outscores a real cross-chain answer. TELEGRAPH_KNOWLEDGE's and
+  WEATHER_FORECAST's 1.0 scorers are operator-hosted (`127.0.0.1:8099` manifests). None of these is a
+  fix that keeps answers truthful. The replay of routed questions is the only proven lever.
+
 ## 2026-09-19 rank rebuild — G174–G181
 
 Evidence for all of these: `track1-miner/docs/evidence/rank-rebuild-2026-09-19/`. Nothing here is
