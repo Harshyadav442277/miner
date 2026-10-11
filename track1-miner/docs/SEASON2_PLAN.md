@@ -29,6 +29,11 @@ their fields through `npx vercel curl`: `/financial` (CoinGecko reachable from V
 Evidence: [evidence/season2-build-2026-10-11/preview-probes.txt](evidence/season2-build-2026-10-11/preview-probes.txt).
 Production is still `miner-j9eojoz7e`.
 
+**Later the same day:** item 0 below (`c485819`, transaction fields) is on preview
+`https://miner-h8tyai3m6-wukong4.vercel.app`, built from a clean worktree at `c485819`. `/tx-lookup`
+returned the `transaction` fields from Vercel. This is the newest preview of this session's work. It
+does not contain the other session's uncommitted news, translate and weather fixes.
+
 
 | Change | Files | Verified |
 |---|---|---|
