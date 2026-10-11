@@ -469,7 +469,17 @@ function describe(
   if (precip !== null) parts.push(`Precipitation: ${r1(precip)} mm.`);
   if (direction) parts.push(`Wind direction: prevailing from the ${direction}.`);
   if (thunder) parts.push("Thunderstorms are forecast.");
-  parts.push(`Overall risk: ${risk} on a scale of 0 to 1, graded ${verdict}.`);
+
+  // The answer first. Most real calls ask "is there an active storm alert or
+  // severe weather warning for X right now?" (147 of 312 LiveCert answers in the
+  // week to 2026-10-10), so the grade is the yes or no, and the caller is told
+  // it comes from the forecast because no official warning service is read.
+  const grade = verdict === "none"
+    ? "No storm conditions are forecast"
+    : `${verdict.charAt(0).toUpperCase()}${verdict.slice(1)} storm risk is forecast`;
+  const lead =
+    `${grade} for ${where} ${period}. Overall risk: ${risk} on a scale of 0 to 1, graded ${verdict}. ` +
+    "This grade is computed from the forecast; it is not an official weather warning.";
 
   const limit =
     threshold === null
@@ -485,35 +495,16 @@ function describe(
     ? " The u-component of wind velocity is the west-to-east component of that wind vector."
     : "";
 
-  // Storm questions are sometimes operational, not meteorological — epoch 289
-  // asked what adjustments a mine site should make ahead of high winds, and
-  // every miner in the field answered with forecast numbers alone (best score
-  // 0.0043). Under registration 260 the engine sent only coordinates, so the
-  // guidance could not be conditional on being asked; measured on the four
-  // most recent scored questions it was +36% on the operational one and -2%
-  // to -3% on the forecast-shaped ones, where the winning margin was 11%+.
+  // Operational guidance, only where it applies: when the question asks what to
+  // do (epoch 289's mine-site question), or when the grade is moderate or worse.
+  // Until 2026-10-11 it trailed every answer, "none" included, because it
+  // resembled the scorer's reference text; to a caller it read as an alarm.
   const guidance =
-    "implement operational adjustments to safeguard equipment and" +
-    " personnel: secure loose equipment, tools and materials, move non-essential personnel to safe" +
-    " shelters with appropriate personal protective equipment, suspend or shut down exposed" +
-    " operations such as lifting, drilling or hauling during peak gusts, inspect the site for" +
-    " hazards, maintain clear communication, activate the emergency response plan, and continuously" +
-    " monitor weather updates and forecasts.";
-
-  // Registration 297 declares a `query` parameter, so the question text can now
-  // reach us. When it visibly asks what to DO — epoch 289's shape — lead with
-  // the guidance rather than trailing it: advisory-first measured 0.007666 on
-  // that question against the champion, +81% over the trailing form and 1.8x
-  // the epoch winner. The trigger is deliberately narrow: tested against all
-  // 30 recorded storm questions it fires on the one advisory question only,
-  // so forecast answers keep the shape that won epochs 286-288.
-  if (advisory) {
-    return (
-      `To prepare for these conditions, ${guidance}` +
-      ` The wind and storm forecast for ${where} ${period} is as follows. ` +
-      `${parts.join(" ")}${limit}${ucomp}`
-    );
-  }
-
-  return `The wind and storm forecast for ${where} ${period} is as follows. ${parts.join(" ")}${limit}${ucomp} If operations are exposed, ${guidance}`;
+    "secure loose equipment, tools and materials, move non-essential personnel to shelter," +
+    " suspend exposed operations such as lifting, drilling or hauling during peak gusts, and keep" +
+    " monitoring the forecast.";
+  const body = `${lead} ${parts.join(" ")}${limit}${ucomp}`;
+  if (advisory) return `To prepare for these conditions, ${guidance} ${body}`;
+  const severe = verdict === "moderate" || verdict === "high" || verdict === "severe";
+  return severe ? `${body} Exposed operations should ${guidance}` : body;
 }

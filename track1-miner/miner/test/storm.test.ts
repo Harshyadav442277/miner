@@ -132,14 +132,12 @@ describe("answer completeness (live)", () => {
     assert.match(r.reason, /wind speed:/i);
     assert.match(r.reason, /gusts:/i);
     assert.match(r.reason, /overall risk: 0/i);
-    // Operational questions (epoch 289) are invisible to us — the engine sends
-    // only coordinates — so the guidance must be present unconditionally.
-    assert.match(r.reason, /operational adjustments to safeguard equipment and personnel/i);
+    assert.match(r.reason, /not an official weather warning/);
   });
 
   test("an unresolvable place carries no operational guidance", async () => {
     const r = await checkStorm("Nowhereville XYZ123 QQQ");
-    assert.doesNotMatch(r.reason, /operational adjustments/i);
+    assert.doesNotMatch(r.reason, /Exposed operations|To prepare for these conditions/);
   });
 
   test("a question asking what to do leads with the guidance", async () => {
@@ -148,15 +146,14 @@ describe("answer completeness (live)", () => {
         "longitude -104.9903 in the next 24 hours, what specific operational adjustments should " +
         "crews implement to safeguard equipment and personnel?",
     );
-    assert.match(r.reason, /^To prepare for these conditions, implement operational adjustments/);
+    assert.match(r.reason, /^To prepare for these conditions, secure loose equipment/);
     // The forecast still follows — an advisory answer without the numbers
     // answers only half the question.
     assert.match(r.reason, /wind speed:/i);
   });
 
-  test("a forecast question keeps the guidance at the tail", async () => {
+  test("a forecast question leads with the graded answer", async () => {
     const r = await checkStorm("storm risk at 37.7749,-122.4194 over the next 48 hours");
-    assert.match(r.reason, /^The wind and storm forecast/);
-    assert.match(r.reason, /If operations are exposed, implement operational adjustments/);
+    assert.match(r.reason, /^(?:No storm conditions are forecast|(?:Low|Moderate|High|Severe) storm risk is forecast)/);
   });
 });
