@@ -1,0 +1,46 @@
+Not just infrastructure. A full cycle from Miner to application to demand.
+01
+Miners & Scripts Build First
+Track 1 (Miners) and Track 2 (Script Authors) open in August. Miners wrap any API, model, dataset, or tool and integrate it into Telegraph. Script authors write evaluation scripts that score and rank them. Telegraph automatically runs the ranking.
+02
+Applications Build on Top
+Once Track 1 & 2 close, Track 3 opens. Application builders use live Telegraph Miners to build products, agents, automations, and workflows. Real Miners. Real answers. Real use cases.
+03
+Demand Feeds Back to Miners
+Miners are judged not just on benchmark performance, but on actual demand — which Miners are applications building with? The more useful your Miner, the more it gets consumed, and the better you rank.
+Tracks
+Three tracks. One ecosystem.
+Miners provide intelligence. Scripts rank quality. Applications drive demand — and feed back into how miners are judged.
+01
+Miner Track
+Provide intelligence.
+Wrap any API, model, dataset, or tool and integrate it into Telegraph. You're the supply layer — Miners serve answers to the network and to applications built on top.
+Judging criteria
+Telegraph ranking & performance
+Number of applications built on your Miner
+Total requests served
+Progress updates posted on X
+Engagement & reach on those posts
+02
+Script Author Track
+Rank quality.
+Write evaluation scripts that score and rank miners. You define what &quot;good&quot; looks like — your script becomes part of the protocol's quality layer.
+Judging criteria
+Telegraph's automated eval of your script
+Accuracy of miner rankings produced
+Resistance to gaming
+Progress updates posted on X
+Community engagement & visibility
+03
+Application Track
+Drive demand.
+Build products, agents, automations, and workflows on top of Telegraph. Use live miners. Ship something real. This track only opens after miners and scripts are live.
+Judging criteria
+Users acquired & activity
+Usage and adoption
+Creativity and usefulness
+Must use Telegraph miners
+Engagement on posts showcasing the project
+TELEGRAPH
+© 2026 Telegraph Protocol · Built on Base
+Docs ↗

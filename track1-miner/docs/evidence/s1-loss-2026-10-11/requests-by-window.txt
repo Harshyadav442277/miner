@@ -1,0 +1,44 @@
+feed rows 129023: 2026-08-15T03:29:51.490087Z .. 2026-09-29T00:47:00.63965Z
+type/source: {
+  'daemon/collector-hackernews': 3510,
+  'daemon/collector-clinicaltrials': 5968,
+  'daemon/collector-openfda-approvals': 1553,
+  'daemon/collector-openfda-adverse-events': 553,
+  'daemon/collector-openfda-recalls': 348,
+  'daemon/collector-gdelt': 448,
+  'daemon/collector-openmeteo-weather': 128,
+  'direct/user': 116470,
+  'daemon/collector-polymarket': 45
+}
+
+== Track 1  Aug 17-31: 6020 successful rows, 68 miners ==
+top 8 by total: telegraph-chatbot 2563 | LiteLLM Bedrock Proxy 590 | Amazon Nova 2 Lite 413 | amanat-weather-risk 404 | groq-llama31-instant-miner 387 | onlookout-weather 302 | tavily 154 | livecert 151
+top 5 by routed: telegraph-chatbot 2530 | LiteLLM Bedrock Proxy 577 | Amazon Nova 2 Lite 404 | groq-llama31-instant-miner 204 | community-memory 108
+  livecert           total 151 (#8) = direct 139 [nl 139] + routed 12 (#17)
+  txlens             total 9 (#39) = direct 5 [nl 5] + routed 4 (#26)
+  chainsight-oracle  total 37 (#16) = direct 35 [nl 35] + routed 2 (#33)
+  oathcast-weather   0
+
+== Track 3  Aug 31-Sep 7: 64279 successful rows, 109 miners ==
+top 8 by total: chainsight-oracle 9195 | skywire-weather-check 8344 | weatherapi 8342 | isobar-weather 8322 | openweathermap 8210 | verity-current-weather 8117 | degenlens-onchain 3009 | txlens 1792
+top 5 by routed: Amazon Nova 2 Lite 160 | telegraph-chatbot 128 | groq-llama31-instant-miner 123 | Kimi (Bedrock) 96 | scholarwire-research-query 96
+  livecert           total 810 (#10) = direct 762 [nl 667] + routed 48 (#8)
+  txlens             total 1792 (#8) = direct 1785 [nl 466] + routed 7 (#24)
+  chainsight-oracle  total 9195 (#1) = direct 9187 [nl 718] + routed 8 (#22)
+  oathcast-weather   0
+
+== Judging  Sep 8-28: 21263 successful rows, 290 miners ==
+top 8 by total: chainsight-oracle 2427 | preflight-ssl-verification 1971 | txlens 1830 | livecert 980 | groq-llama31-instant-miner 818 | secwire-cve-lookup 757 | DeepSeek (Bedrock) 715 | telegraph-chatbot 691
+top 5 by routed: telegraph-chatbot 502 | groq-llama31-instant-miner 468 | txlens 373 | chainsight-oracle 312 | Amazon Nova 2 Lite 235
+  livecert           total 980 (#4) = direct 868 [nl 845] + routed 112 (#7)
+  txlens             total 1830 (#3) = direct 1457 [nl 1429] + routed 373 (#3)
+  chainsight-oracle  total 2427 (#1) = direct 2115 [nl 1968] + routed 312 (#4)
+  oathcast-weather   total 17 (#84) = direct 17 [nl 17] + routed 0 (#289)
+
+== All  Aug 17-Sep 28: 91328 successful rows, 305 miners ==
+top 8 by total: chainsight-oracle 11658 | weatherapi 8786 | openweathermap 8656 | skywire-weather-check 8491 | isobar-weather 8481 | verity-current-weather 8328 | txlens 3625 | telegraph-chatbot 3465
+top 5 by routed: telegraph-chatbot 3143 | Amazon Nova 2 Lite 799 | groq-llama31-instant-miner 782 | LiteLLM Bedrock Proxy 689 | txlens 380
+  livecert           total 1887 (#11) = direct 1717 [nl 1599] + routed 170 (#9)
+  txlens             total 3625 (#7) = direct 3245 [nl 1898] + routed 380 (#5)
+  chainsight-oracle  total 11658 (#1) = direct 11337 [nl 2721] + routed 321 (#6)
+  oathcast-weather   total 17 (#113) = direct 17 [nl 17] + routed 0 (#304)
