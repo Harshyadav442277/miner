@@ -71,6 +71,10 @@ export function parsePhrased(line: string | null, labels: string[]): Phrased | n
   const said = norm(line.slice(0, at));
   const sentence = line.slice(at + 1).replace(/\s+/g, " ").trim();
   if (!said || sentence.split(" ").length < 4) return null;
+  // Reject extra output rather than publishing an unvalidated second answer.
+  // This is deliberately conservative: an abbreviation can use the keyless
+  // fallback, while an extra instruction or conflicting label must not pass.
+  if (sentence.includes(SEP) || /[.!?]\s+\S/.test(sentence) || sentence.split(" ").length > 60) return null;
   // A completion cut off at the token cap ends on the connective it was about to
   // continue — "... unresponsive customer service, indicating." was published by
   // the 2026-09-19 bench run. A dangling clause is a degraded answer, so it

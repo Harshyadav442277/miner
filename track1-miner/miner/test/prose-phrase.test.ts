@@ -55,6 +55,20 @@ test("a line with no separator, no label or no sentence is refused", () => {
   assert.equal(parsePhrased(null, LABELS), null);
 });
 
+test("extra sentences, labels and excessive output fall back instead of being published", async () => {
+  const q = `What is the sentiment of this review: '${REVIEW}'`;
+  for (const line of [
+    "negative | The reviewer complains about charges. The sentiment is positive.",
+    "negative | The reviewer complains about charges | positive",
+    `negative | ${"complaint ".repeat(61)}.`,
+  ]) {
+    assert.equal(parsePhrased(line, ["positive", "negative", "neutral", "mixed"]), null);
+    await withReply(line, async () => {
+      assert.deepEqual(await analyseSentimentPhrased(q), analyseSentiment(q));
+    });
+  }
+});
+
 test("a missing full stop is added, and the label leads the answer", async () => {
   await withReply("billing | The user wants to update their card for an active subscription", async () => {
     const r = await phraseClassification("ticket", TICKET, LABELS);
