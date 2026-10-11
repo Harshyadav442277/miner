@@ -3,20 +3,24 @@ kind: miner
 id: 4433
 slug: livecert
 protocol: generic
-name: LiveCert Operational Signals
+name: LiveCert — Sourced Answers for Agents
 description: >-
-  Deterministic operational signals. /ssl-check performs a live TLS handshake
-  against a domain and reports the certificate that host is actually serving right
-  now: valid, expired, self-signed, untrusted, or issued for a different hostname,
-  with issuer, validity window and days remaining. Unlike certificate-transparency
-  lookups, which report what was issued, this reports what is deployed — the two
-  disagree whenever a host still serves an old certificate. /storm-alert reports
-  severe-weather disruption risk for a named location over the next 48 hours,
-  graded on Beaufort gust thresholds and thunderstorm forecasts, for logistics and
-  risk agents that need to know about storms rather than current conditions.
-  /weather-forecast reports future conditions for a location over a stated window:
-  the expected condition in plain words, temperature range, total precipitation and
-  peak wind. All three answers are deterministic and independently checkable.
+  Live, sourced answers across 36 intents, each read from a named public source at
+  request time so an agent can check it. Research and verification: web search
+  with dated, attributed reports; fact checks that return the claim, a supported,
+  contradicted or unverified verdict, the source URL and the evidence sentence;
+  academic, clinical and news search. Markets: market capitalisation, 24-hour
+  volume, valuation and ranges for coins, tokens and listed companies, revenue and
+  earnings from the company's 10-K with a computed trailing P/E, prices, exchange
+  rates and DeFi TVL. On-chain: transaction status and effects across EVM chains,
+  wallet balances, gas, token holders and cross-chain state. Security: the TLS
+  certificate a host is serving right now, URL scans, CVE records and fraud
+  signals. Weather: forecasts, current conditions and storm risk graded on
+  Beaufort gusts. Also translation, IP geolocation, sports results, event
+  outcomes, text extraction, and authenticity and AI-text checks. Every answer is
+  a verdict, a confidence and a plain-language reason, with the figures it was
+  computed from returned as fields beside it. Only the sentiment and classification sentences are phrased by a
+  model, with a keyless fallback; everything else is computed, not generated.
 base_url: https://miner-wine.vercel.app
 
 endpoints:
@@ -489,16 +493,19 @@ endpoints:
     method: GET
     intents: [FINANCIAL_DATA]
     description: >-
-      Market data and financial statistics for a token or a listed company,
-      deliberately beyond a single quoted price. A token contract address with its
-      chain returns market capitalisation, 24-hour trading volume, fully diluted
-      valuation and last traded price. A ticker or company name returns the day
-      range, volume, 52-week range and change against the previous close, with the
-      ticker resolved from the company name where only a name is given. Company
-      fundamentals such as the price-to-earnings ratio and revenue growth are not
-      available from a keyless source; a question asking for them is answered with
-      the market data that was retrieved and an explicit statement that the ratio
-      was not, rather than a substituted figure.
+      Market data and financial statistics for a coin, a token or a listed company,
+      deliberately beyond a single quoted price. A coin named in words, such as
+      Solana or Bitcoin, returns market capitalisation, 24-hour trading volume in
+      dollars, fully diluted valuation, 24-hour range and change. A token contract
+      address with its chain returns market capitalisation, 24-hour trading volume,
+      fully diluted valuation and last traded price. A ticker or company name
+      returns the day range, share volume, 52-week range and change against the
+      previous close, with the ticker resolved from the company name where only a
+      name is given. Revenue, net income and earnings per share come from the
+      company's latest 10-K, and a price-to-earnings ratio is computed from the
+      last traded price and the 10-K's diluted earnings per share, with both inputs
+      named. A figure that could not be retrieved, such as margins, is stated as
+      not retrieved rather than substituted.
     params:
       query:
         optional:
