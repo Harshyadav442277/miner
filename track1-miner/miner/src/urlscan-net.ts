@@ -67,6 +67,7 @@ export async function openResolve(name: string): Promise<DnsAnswer | "unavailabl
 }
 
 let lists: { at: number; hosts: Set<string>; urls: Set<string> } | null = null;
+let pendingLists: Promise<{ hosts: Set<string>; urls: Set<string> } | "unavailable"> | null = null;
 
 /** "127.0.0.1\thost" lines, comments skipped. Exported for the parser test. */
 export function parseHostfile(text: string): Set<string> {
@@ -91,6 +92,18 @@ export function parseUrlList(text: string): Set<string> {
 /** URLhaus's current lists, cached. A failed read is not cached, so the next request retries. */
 export async function urlhausLists(): Promise<{ hosts: Set<string>; urls: Set<string> } | "unavailable"> {
   if (lists && Date.now() - lists.at < LIST_TTL_MS) return lists;
+  // Different scan subjects share the same threat feeds. Coalesce their cold
+  // reads as well as caching completed downloads, and release failures for retry.
+  if (pendingLists) return pendingLists;
+  pendingLists = downloadUrlhausLists();
+  try {
+    return await pendingLists;
+  } finally {
+    pendingLists = null;
+  }
+}
+
+async function downloadUrlhausLists(): Promise<{ hosts: Set<string>; urls: Set<string> } | "unavailable"> {
   const read = async (u: string): Promise<string> => {
     const r = await fetch(u, { headers: { "user-agent": UA }, signal: AbortSignal.timeout(LIST_TIMEOUT_MS) });
     if (!r.ok) throw new Error(`HTTP ${r.status}`);
