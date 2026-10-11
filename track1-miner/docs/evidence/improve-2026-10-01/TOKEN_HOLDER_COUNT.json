@@ -1,0 +1,147 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "a48f58b2-c37c-4e5f-8a1e-46648deb0056",
+        "epoch_id": 376,
+        "intent_id": "TOKEN_HOLDER_COUNT",
+        "miner_slug": "kriterion-pramagraph",
+        "rank": 1,
+        "score": 9.4291215e-12,
+        "failure_reason": "",
+        "scored_at": "2026-10-01T13:02:56.646745Z",
+        "created_at": "2026-10-01T13:02:56.646745Z"
+      },
+      {
+        "id": "731942b5-f409-472d-8198-8f65b9a586d3",
+        "epoch_id": 376,
+        "intent_id": "TOKEN_HOLDER_COUNT",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 9.235379e-12,
+        "failure_reason": "",
+        "scored_at": "2026-10-01T13:02:56.646745Z",
+        "created_at": "2026-10-01T13:02:56.646745Z"
+      },
+      {
+        "id": "b5487e4f-27f9-4b2b-b5d2-512a7b8ce61f",
+        "epoch_id": 375,
+        "intent_id": "TOKEN_HOLDER_COUNT",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 8.5206625e-12,
+        "failure_reason": "",
+        "scored_at": "2026-10-01T04:36:05.388902Z",
+        "created_at": "2026-10-01T04:36:05.388902Z"
+      },
+      {
+        "id": "11129deb-7fb9-4c1c-908c-cf1e945e97bb",
+        "epoch_id": 374,
+        "intent_id": "TOKEN_HOLDER_COUNT",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 8.559912e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T18:50:27.40783Z",
+        "created_at": "2026-09-30T18:50:27.40783Z"
+      },
+      {
+        "id": "e9bd3cfe-6e92-46ee-8ecc-f6444f87215b",
+        "epoch_id": 373,
+        "intent_id": "TOKEN_HOLDER_COUNT",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 7.898596e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T09:51:20.45168Z",
+        "created_at": "2026-09-30T09:51:20.45168Z"
+      },
+      {
+        "id": "c4a2f0bf-1858-4054-9ea9-153428119b02",
+        "epoch_id": 372,
+        "intent_id": "TOKEN_HOLDER_COUNT",
+        "miner_slug": "kriterion-pramagraph",
+        "rank": 1,
+        "score": 1.0778883e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T01:04:31.188849Z",
+        "created_at": "2026-09-30T01:04:31.188849Z"
+      },
+      {
+        "id": "e653bbb1-def1-4c31-a496-400a322926cb",
+        "epoch_id": 372,
+        "intent_id": "TOKEN_HOLDER_COUNT",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 8.198237e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T01:04:31.188849Z",
+        "created_at": "2026-09-30T01:04:31.188849Z"
+      },
+      {
+        "id": "d298715d-b0af-47ce-b4dc-7490059f4615",
+        "epoch_id": 371,
+        "intent_id": "TOKEN_HOLDER_COUNT",
+        "miner_slug": "kriterion-pramagraph",
+        "rank": 1,
+        "score": 8.589948e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-29T15:51:42.352325Z",
+        "created_at": "2026-09-29T15:51:42.352325Z"
+      },
+      {
+        "id": "cc0d3a26-adc5-456c-a3f0-ab1da7b9b2e4",
+        "epoch_id": 371,
+        "intent_id": "TOKEN_HOLDER_COUNT",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 6.167351e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-29T15:51:42.352325Z",
+        "created_at": "2026-09-29T15:51:42.352325Z"
+      },
+      {
+        "id": "a8dc7bbc-2f9d-428c-9ff0-63e5cdd939c9",
+        "epoch_id": 370,
+        "intent_id": "TOKEN_HOLDER_COUNT",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 7.974388e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-29T07:14:41.270165Z",
+        "created_at": "2026-09-29T07:14:41.270165Z"
+      }
+    ],
+    "total": 844,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 2057,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "TOKEN_HOLDER_COUNT",
+    "wasm_url": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/0e84e751775d88a6c0f90ee32016a92ec1a7c270/dist/lock/thc_r5.wasm",
+    "wasm_hash": "02b596f3fc07b4d031a85558c15b4d918349983af7993dd3a30fb196eaeabb74",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 0.85714287,
+    "eval": {
+      "candidate_margin": 0.85714287,
+      "champion_margin": 0.85712206,
+      "candidate_wins": 14,
+      "champion_wins": 14,
+      "comparable_cases": 14,
+      "worst_self_match": 1,
+      "score_stddev": 0.45175394,
+      "spearman": {
+        "TOKEN_HOLDER_COUNT": 0.65900385
+      },
+      "historical_rows_evaluated": 28
+    },
+    "registered_at": "2026-08-30T17:21:09Z",
+    "updated_at": "2026-08-30T18:31:47Z"
+  }
+}

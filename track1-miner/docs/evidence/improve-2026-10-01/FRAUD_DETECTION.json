@@ -1,0 +1,114 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "855c0b65-e838-4ece-b59b-5f6eb403875f",
+        "epoch_id": 376,
+        "intent_id": "FRAUD_DETECTION",
+        "miner_slug": "txlens",
+        "rank": 1,
+        "score": 1,
+        "failure_reason": "",
+        "scored_at": "2026-10-01T13:02:06.345698Z",
+        "created_at": "2026-10-01T13:02:06.345698Z"
+      },
+      {
+        "id": "53abd930-feda-414b-8c83-4ea6989b3de3",
+        "epoch_id": 376,
+        "intent_id": "FRAUD_DETECTION",
+        "miner_slug": "livecert",
+        "rank": 4,
+        "score": 3.3936883e-14,
+        "failure_reason": "",
+        "scored_at": "2026-10-01T13:02:06.345698Z",
+        "created_at": "2026-10-01T13:02:06.345698Z"
+      },
+      {
+        "id": "e81ba24e-eea4-4599-a862-39d0cf1d775f",
+        "epoch_id": 375,
+        "intent_id": "FRAUD_DETECTION",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 1,
+        "failure_reason": "",
+        "scored_at": "2026-10-01T03:57:36.52923Z",
+        "created_at": "2026-10-01T03:57:36.52923Z"
+      },
+      {
+        "id": "c032eb42-8f56-44cf-88f2-7548e5ae055b",
+        "epoch_id": 374,
+        "intent_id": "FRAUD_DETECTION",
+        "miner_slug": "telegraph-sentinel",
+        "rank": 1,
+        "score": 1,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T18:56:13.734742Z",
+        "created_at": "2026-09-30T18:56:13.734742Z"
+      },
+      {
+        "id": "6009bab9-c6e1-46d7-8e7b-694359dd11bd",
+        "epoch_id": 374,
+        "intent_id": "FRAUD_DETECTION",
+        "miner_slug": "livecert",
+        "rank": 4,
+        "score": 1,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T18:56:13.734742Z",
+        "created_at": "2026-09-30T18:56:13.734742Z"
+      },
+      {
+        "id": "ea2aba17-c5d6-4edd-be8e-1ef39096fcc3",
+        "epoch_id": 373,
+        "intent_id": "FRAUD_DETECTION",
+        "miner_slug": "telegraph-sentinel",
+        "rank": 1,
+        "score": 7.2116365e-14,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T09:57:26.551725Z",
+        "created_at": "2026-09-30T09:57:26.551725Z"
+      },
+      {
+        "id": "17ae91fe-98f0-4800-bfe2-87537a8a8dff",
+        "epoch_id": 373,
+        "intent_id": "FRAUD_DETECTION",
+        "miner_slug": "livecert",
+        "rank": 5,
+        "score": 2.8357028e-14,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T09:57:26.551725Z",
+        "created_at": "2026-09-30T09:57:26.551725Z"
+      }
+    ],
+    "total": 1996,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 2793,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "FRAUD_DETECTION",
+    "wasm_url": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/a22b4919f6f2dc1102cd51e0be710a2c0aec1660/dist/reclaim5/fr_r3e6.wasm",
+    "wasm_hash": "ee0bf4e8a5730473cb66e90282e19d25cb7bc303e1474567282304498c5021f9",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 1,
+    "eval": {
+      "candidate_margin": 1,
+      "champion_margin": 0.9999497,
+      "candidate_wins": 15,
+      "champion_wins": 15,
+      "comparable_cases": 15,
+      "worst_self_match": 1,
+      "score_stddev": 0.47140452,
+      "spearman": {
+        "FRAUD_DETECTION": 0.9333887
+      },
+      "historical_rows_evaluated": 81
+    },
+    "registered_at": "2026-08-31T15:38:18Z",
+    "updated_at": "2026-08-31T16:13:15Z"
+  }
+}

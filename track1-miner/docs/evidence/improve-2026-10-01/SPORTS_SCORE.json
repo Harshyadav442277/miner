@@ -1,0 +1,180 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "c2946ba9-3f42-4495-a3cc-c5cb4353a95a",
+        "epoch_id": 376,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "txlens",
+        "rank": 1,
+        "score": 7.0826314e-12,
+        "failure_reason": "",
+        "scored_at": "2026-10-01T13:12:08.698092Z",
+        "created_at": "2026-10-01T13:12:08.698092Z"
+      },
+      {
+        "id": "2c9933ca-3433-4ef3-ae11-b98d45ba8896",
+        "epoch_id": 376,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "livecert",
+        "rank": 11,
+        "score": 1.8061258e-12,
+        "failure_reason": "",
+        "scored_at": "2026-10-01T13:12:08.698092Z",
+        "created_at": "2026-10-01T13:12:08.698092Z"
+      },
+      {
+        "id": "cc1af721-fe08-427a-88b8-2363f752a6ab",
+        "epoch_id": 375,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "txlens",
+        "rank": 1,
+        "score": 1.2676805e-11,
+        "failure_reason": "",
+        "scored_at": "2026-10-01T04:17:00.632953Z",
+        "created_at": "2026-10-01T04:17:00.632953Z"
+      },
+      {
+        "id": "9d7fd0fc-a4ed-4a6a-8b23-9ba4842e672e",
+        "epoch_id": 375,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "livecert",
+        "rank": 13,
+        "score": 1.3224415e-12,
+        "failure_reason": "",
+        "scored_at": "2026-10-01T04:17:00.632953Z",
+        "created_at": "2026-10-01T04:17:00.632953Z"
+      },
+      {
+        "id": "6d4bb450-af83-408a-a7a0-f9289c7a9040",
+        "epoch_id": 374,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "txlens",
+        "rank": 1,
+        "score": 1.133477e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T19:36:16.510364Z",
+        "created_at": "2026-09-30T19:36:16.510364Z"
+      },
+      {
+        "id": "5d4a0074-6676-45ed-9e25-8507596c0023",
+        "epoch_id": 374,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "livecert",
+        "rank": 10,
+        "score": 2.4122787e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T19:36:16.510364Z",
+        "created_at": "2026-09-30T19:36:16.510364Z"
+      },
+      {
+        "id": "5182f935-bee3-4a6b-b2c3-d795368bb900",
+        "epoch_id": 373,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "txlens",
+        "rank": 1,
+        "score": 7.6402894e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T09:45:53.93678Z",
+        "created_at": "2026-09-30T09:45:53.93678Z"
+      },
+      {
+        "id": "de6856e6-3dba-4275-a65f-1f34f93cd030",
+        "epoch_id": 373,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "livecert",
+        "rank": 7,
+        "score": 2.8694154e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T09:45:53.93678Z",
+        "created_at": "2026-09-30T09:45:53.93678Z"
+      },
+      {
+        "id": "5a5efd14-7db5-4e3f-910d-1ee62b181dbc",
+        "epoch_id": 372,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "sports-tsdb-table",
+        "rank": 1,
+        "score": 9.404212e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T01:20:27.54747Z",
+        "created_at": "2026-09-30T01:20:27.54747Z"
+      },
+      {
+        "id": "ddd53d70-989c-45aa-98c3-61558a8873ec",
+        "epoch_id": 372,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "livecert",
+        "rank": 12,
+        "score": 1.5359483e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T01:20:27.54747Z",
+        "created_at": "2026-09-30T01:20:27.54747Z"
+      },
+      {
+        "id": "4781fbac-3a40-4948-b569-67fbfd82559e",
+        "epoch_id": 371,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 1.25083685e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-29T16:24:10.890407Z",
+        "created_at": "2026-09-29T16:24:10.890407Z"
+      },
+      {
+        "id": "6ed9364e-a912-421c-808a-348df9fe474a",
+        "epoch_id": 370,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "txlens",
+        "rank": 1,
+        "score": 1.01562665e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-29T07:04:18.410714Z",
+        "created_at": "2026-09-29T07:04:18.410714Z"
+      },
+      {
+        "id": "29dd16f4-bf6d-4735-9bb4-3c9daff1639b",
+        "epoch_id": 370,
+        "intent_id": "SPORTS_SCORE",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 8.829967e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-29T07:04:18.410714Z",
+        "created_at": "2026-09-29T07:04:18.410714Z"
+      }
+    ],
+    "total": 707,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 3045,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "SPORTS_SCORE",
+    "wasm_url": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/60ddabc7de7e9d0398e79b3b72bc3cdde2f36934/dist/win/spw_3.wasm",
+    "wasm_hash": "a5265de3eecf51fa9dcc4b173c75c94f54e3ab891b1c89a4d1112a26a73cdfd0",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 0.8666645,
+    "eval": {
+      "candidate_margin": 0.8666645,
+      "champion_margin": 0.8666609,
+      "candidate_wins": 15,
+      "champion_wins": 15,
+      "comparable_cases": 15,
+      "worst_self_match": 1,
+      "score_stddev": 0.47140354,
+      "spearman": {
+        "SPORTS_SCORE": 0.68097544
+      },
+      "historical_rows_evaluated": 56
+    },
+    "registered_at": "2026-08-31T23:16:53Z",
+    "updated_at": "2026-09-01T02:55:13Z"
+  }
+}

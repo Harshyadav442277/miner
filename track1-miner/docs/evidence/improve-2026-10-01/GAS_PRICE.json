@@ -1,0 +1,147 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "ca97d7e3-237a-433d-bebb-ab6dc9f18694",
+        "epoch_id": 375,
+        "intent_id": "GAS_PRICE",
+        "miner_slug": "truvian-onchain-truth",
+        "rank": 1,
+        "score": 3.1660816e-11,
+        "failure_reason": "",
+        "scored_at": "2026-10-01T04:26:18.315863Z",
+        "created_at": "2026-10-01T04:26:18.315863Z"
+      },
+      {
+        "id": "7201c07b-3664-4ac2-aa3a-529e12ee88c3",
+        "epoch_id": 375,
+        "intent_id": "GAS_PRICE",
+        "miner_slug": "livecert",
+        "rank": 18,
+        "score": 0,
+        "failure_reason": "build request for miner \"livecert\": LLM call for miner \"livecert\" failed: LLM API error (429): {\"error\":{\"message\":\"litellm.RateLimitError: litellm.RateLimitError: Vertex_aiException - {\\n  \\\"error\\\": {\\n    \\\"code\\\": 429,\\n    \\\"message\\\": \\\"Resource has been exhausted (e.g. check quota).\\\",\\n    \\\"status\\\": \\\"RESOURCE_EXHAUSTED\\\"\\n  }\\n}\\n. Received Model Group=gemini-router\\nAvailable Model Group Fallbacks=None\",\"type\":\"throttling_error\",\"param\":null,\"code\":\"429\"}}",
+        "scored_at": "2026-10-01T04:26:18.315863Z",
+        "created_at": "2026-10-01T04:26:18.315863Z"
+      },
+      {
+        "id": "3dafaf8d-a95a-4e99-9096-2d73e8281dd7",
+        "epoch_id": 374,
+        "intent_id": "GAS_PRICE",
+        "miner_slug": "gaswire-evm-fees",
+        "rank": 1,
+        "score": 3.002738e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T19:42:44.489743Z",
+        "created_at": "2026-09-30T19:42:44.489743Z"
+      },
+      {
+        "id": "3c09e80e-9b07-458f-833f-262b03588eab",
+        "epoch_id": 374,
+        "intent_id": "GAS_PRICE",
+        "miner_slug": "livecert",
+        "rank": 3,
+        "score": 2.1531107e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T19:42:44.489743Z",
+        "created_at": "2026-09-30T19:42:44.489743Z"
+      },
+      {
+        "id": "49ff4b97-12c1-47e2-a358-736480bade56",
+        "epoch_id": 373,
+        "intent_id": "GAS_PRICE",
+        "miner_slug": "kriterion-pramagraph",
+        "rank": 1,
+        "score": 1.6544254e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T09:53:35.652063Z",
+        "created_at": "2026-09-30T09:53:35.652063Z"
+      },
+      {
+        "id": "bcce7141-4c6c-457c-885e-1084951c97fa",
+        "epoch_id": 373,
+        "intent_id": "GAS_PRICE",
+        "miner_slug": "livecert",
+        "rank": 3,
+        "score": 1.5619664e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T09:53:35.652063Z",
+        "created_at": "2026-09-30T09:53:35.652063Z"
+      },
+      {
+        "id": "2f864fef-c068-4efe-97a2-39d4cb379f58",
+        "epoch_id": 372,
+        "intent_id": "GAS_PRICE",
+        "miner_slug": "kriterion-pramagraph",
+        "rank": 1,
+        "score": 2.1508795e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T01:39:15.364506Z",
+        "created_at": "2026-09-30T01:39:15.364506Z"
+      },
+      {
+        "id": "d55cf201-610d-4014-988c-6ab637d162b8",
+        "epoch_id": 372,
+        "intent_id": "GAS_PRICE",
+        "miner_slug": "livecert",
+        "rank": 3,
+        "score": 1.8690336e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T01:39:15.364506Z",
+        "created_at": "2026-09-30T01:39:15.364506Z"
+      },
+      {
+        "id": "2f18a7e3-6466-41f7-9a44-43753a6f5ed5",
+        "epoch_id": 371,
+        "intent_id": "GAS_PRICE",
+        "miner_slug": "kriterion-pramagraph",
+        "rank": 1,
+        "score": 2.9344856e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-29T16:16:57.677871Z",
+        "created_at": "2026-09-29T16:16:57.677871Z"
+      },
+      {
+        "id": "a04a2f52-0b23-41b9-83d0-3228a810cbc3",
+        "epoch_id": 371,
+        "intent_id": "GAS_PRICE",
+        "miner_slug": "livecert",
+        "rank": 3,
+        "score": 1.8690336e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-29T16:16:57.677871Z",
+        "created_at": "2026-09-29T16:16:57.677871Z"
+      }
+    ],
+    "total": 1229,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 3119,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "GAS_PRICE",
+    "wasm_url": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/75870ce8705687186eb87ebce607a1ff1f3be676/dist/win2/gpf_1e4.wasm",
+    "wasm_hash": "101a54272ef5faee923a72744de9ed4916ff4ba073ab05e434724191893d48d9",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 0.9333227,
+    "eval": {
+      "candidate_margin": 0.9333227,
+      "champion_margin": 0.93327236,
+      "candidate_wins": 15,
+      "champion_wins": 15,
+      "comparable_cases": 15,
+      "worst_self_match": 1,
+      "score_stddev": 0.4629456,
+      "spearman": {
+        "GAS_PRICE": 0.6803096
+      },
+      "historical_rows_evaluated": 127
+    },
+    "registered_at": "2026-09-01T07:15:41Z",
+    "updated_at": "2026-09-01T07:24:39Z"
+  }
+}

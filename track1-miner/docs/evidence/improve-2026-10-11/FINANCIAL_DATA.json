@@ -1,0 +1,147 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "edc4fa77-a09c-4b67-90d7-ac3c99cc5ef1",
+        "epoch_id": 400,
+        "intent_id": "FINANCIAL_DATA",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 9.944394e-19,
+        "failure_reason": "",
+        "scored_at": "2026-10-10T13:13:32.733492Z",
+        "created_at": "2026-10-10T13:13:32.733492Z"
+      },
+      {
+        "id": "a425db3f-a2f1-435a-a522-667e57a763f7",
+        "epoch_id": 400,
+        "intent_id": "FINANCIAL_DATA",
+        "miner_slug": "livecert",
+        "rank": 7,
+        "score": 2.3121146e-26,
+        "failure_reason": "",
+        "scored_at": "2026-10-10T13:13:32.733492Z",
+        "created_at": "2026-10-10T13:13:32.733492Z"
+      },
+      {
+        "id": "0fa404f4-86c9-40ca-beda-c87041be8a3e",
+        "epoch_id": 399,
+        "intent_id": "FINANCIAL_DATA",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 2.0540486e-19,
+        "failure_reason": "",
+        "scored_at": "2026-10-10T04:36:43.608912Z",
+        "created_at": "2026-10-10T04:36:43.608912Z"
+      },
+      {
+        "id": "5f59b840-fbd8-4df2-a1f6-17acd75ec2e7",
+        "epoch_id": 399,
+        "intent_id": "FINANCIAL_DATA",
+        "miner_slug": "livecert",
+        "rank": 4,
+        "score": 3.4606253e-27,
+        "failure_reason": "",
+        "scored_at": "2026-10-10T04:36:43.608912Z",
+        "created_at": "2026-10-10T04:36:43.608912Z"
+      },
+      {
+        "id": "021889a0-1e8b-4a2d-82a7-a52f167fe21b",
+        "epoch_id": 397,
+        "intent_id": "FINANCIAL_DATA",
+        "miner_slug": "alphavantage",
+        "rank": 1,
+        "score": 1.2658038e-18,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T09:46:44.23893Z",
+        "created_at": "2026-10-09T09:46:44.23893Z"
+      },
+      {
+        "id": "b2242abc-7466-44e8-8951-88508f98904f",
+        "epoch_id": 397,
+        "intent_id": "FINANCIAL_DATA",
+        "miner_slug": "livecert",
+        "rank": 6,
+        "score": 3.5746585e-27,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T09:46:44.23893Z",
+        "created_at": "2026-10-09T09:46:44.23893Z"
+      },
+      {
+        "id": "aef5d518-5267-4958-a227-e4cb0c8ebae6",
+        "epoch_id": 396,
+        "intent_id": "FINANCIAL_DATA",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 2.9629982e-24,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T01:04:45.612961Z",
+        "created_at": "2026-10-09T01:04:45.612961Z"
+      },
+      {
+        "id": "ef8ff7bb-7e84-4afc-8c9c-a5aa5e250d43",
+        "epoch_id": 395,
+        "intent_id": "FINANCIAL_DATA",
+        "miner_slug": "fin-stablecoins",
+        "rank": 1,
+        "score": 4.1619654e-23,
+        "failure_reason": "",
+        "scored_at": "2026-10-08T16:26:23.828147Z",
+        "created_at": "2026-10-08T16:26:23.828147Z"
+      },
+      {
+        "id": "437abf72-fc7f-4b33-a89e-3d462b7091fa",
+        "epoch_id": 395,
+        "intent_id": "FINANCIAL_DATA",
+        "miner_slug": "livecert",
+        "rank": 5,
+        "score": 5.1000546e-28,
+        "failure_reason": "",
+        "scored_at": "2026-10-08T16:26:23.828147Z",
+        "created_at": "2026-10-08T16:26:23.828147Z"
+      },
+      {
+        "id": "2b025f8f-56d7-46e5-9d58-e4f5756f5120",
+        "epoch_id": 394,
+        "intent_id": "FINANCIAL_DATA",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 2.8106493e-19,
+        "failure_reason": "",
+        "scored_at": "2026-10-08T06:55:33.037088Z",
+        "created_at": "2026-10-08T06:55:33.037088Z"
+      }
+    ],
+    "total": 1467,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 3029,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "FINANCIAL_DATA",
+    "wasm_url": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/d42528e1dc146e1b641a63c37194faa95c446aec/dist/win/fdz_1e05.wasm",
+    "wasm_hash": "7a7544a8e452d1c7820b15849598f93df6de51f4392bb4cbaa4afb754a4087e8",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 0.86666644,
+    "eval": {
+      "candidate_margin": 0.86666644,
+      "champion_margin": 0.8657503,
+      "candidate_wins": 14,
+      "champion_wins": 14,
+      "comparable_cases": 15,
+      "worst_self_match": 1,
+      "score_stddev": 0.4848316,
+      "spearman": {
+        "FINANCIAL_DATA": 0.99244523
+      },
+      "historical_rows_evaluated": 108
+    },
+    "registered_at": "2026-08-31T23:03:29Z",
+    "updated_at": "2026-09-01T03:11:23Z"
+  }
+}

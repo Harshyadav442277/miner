@@ -1,0 +1,136 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "a32ca6dc-edf0-4b0b-ab8a-69f67ff9cb9a",
+        "epoch_id": 376,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.0004929735,
+        "failure_reason": "",
+        "scored_at": "2026-10-01T13:42:51.671439Z",
+        "created_at": "2026-10-01T13:42:51.671439Z"
+      },
+      {
+        "id": "1d8955e2-1e7f-41be-b5f7-566a1019dff0",
+        "epoch_id": 375,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "openweathermap",
+        "rank": 1,
+        "score": 0.00053033483,
+        "failure_reason": "",
+        "scored_at": "2026-10-01T04:06:29.895915Z",
+        "created_at": "2026-10-01T04:06:29.895915Z"
+      },
+      {
+        "id": "313fb1ca-ea60-4894-9410-a8ce39fc1bcd",
+        "epoch_id": 375,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 0.00049758557,
+        "failure_reason": "",
+        "scored_at": "2026-10-01T04:06:29.895915Z",
+        "created_at": "2026-10-01T04:06:29.895915Z"
+      },
+      {
+        "id": "0f1491d1-4af4-4dd9-b9fc-58cf83c2899b",
+        "epoch_id": 374,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "isobar-weather",
+        "rank": 1,
+        "score": 0.9999773,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T19:32:02.968945Z",
+        "created_at": "2026-09-30T19:32:02.968945Z"
+      },
+      {
+        "id": "0e25fb2b-91aa-4b2d-a0a3-cf3f1aff863f",
+        "epoch_id": 374,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "livecert",
+        "rank": 5,
+        "score": 0.0004994246,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T19:32:02.968945Z",
+        "created_at": "2026-09-30T19:32:02.968945Z"
+      },
+      {
+        "id": "fc5f641b-1813-4689-8e52-89c88d56ab06",
+        "epoch_id": 373,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "skywire-forecast",
+        "rank": 1,
+        "score": 0.0005311749,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T10:16:31.061187Z",
+        "created_at": "2026-09-30T10:16:31.061187Z"
+      },
+      {
+        "id": "3847e93a-c4f7-42f2-8c49-e1e1e6c76c30",
+        "epoch_id": 373,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "livecert",
+        "rank": 3,
+        "score": 0.00050011085,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T10:16:31.061187Z",
+        "created_at": "2026-09-30T10:16:31.061187Z"
+      },
+      {
+        "id": "558c1c23-045e-43b8-a660-83c1d80e52dd",
+        "epoch_id": 372,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "isobar-weather",
+        "rank": 1,
+        "score": 0.9999771,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T01:20:11.518612Z",
+        "created_at": "2026-09-30T01:20:11.518612Z"
+      },
+      {
+        "id": "2c816fa7-c59a-4d10-9391-df92d1cd76b1",
+        "epoch_id": 372,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "livecert",
+        "rank": 4,
+        "score": 0.00058509875,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T01:20:11.518612Z",
+        "created_at": "2026-09-30T01:20:11.518612Z"
+      }
+    ],
+    "total": 2627,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 3173,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "WEATHER_FORECAST",
+    "wasm_url": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/1c57bda41576c77bfd61b70198eb9098098df30f/dist/win2/wf_4e3.wasm",
+    "wasm_hash": "66ee98e29632d0cfc74240344ea47e6bb83ed14545c4c102215a4ded5986b649",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 0.8568193,
+    "eval": {
+      "candidate_margin": 0.8568193,
+      "champion_margin": 0.8567977,
+      "candidate_wins": 14,
+      "champion_wins": 14,
+      "comparable_cases": 14,
+      "worst_self_match": 1,
+      "score_stddev": 0.4712138,
+      "spearman": {
+        "WEATHER_FORECAST": 0.79869324
+      },
+      "historical_rows_evaluated": 164
+    },
+    "registered_at": "2026-09-02T03:37:31Z",
+    "updated_at": "2026-09-02T06:49:05Z"
+  }
+}

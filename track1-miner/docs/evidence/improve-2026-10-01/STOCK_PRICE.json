@@ -1,0 +1,136 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "6e12f68b-6091-447f-909f-dfaefab64e04",
+        "epoch_id": 376,
+        "intent_id": "STOCK_PRICE",
+        "miner_slug": "kriterion-pramagraph",
+        "rank": 1,
+        "score": 2.2242652e-11,
+        "failure_reason": "",
+        "scored_at": "2026-10-01T13:35:42.632356Z",
+        "created_at": "2026-10-01T13:35:42.632356Z"
+      },
+      {
+        "id": "cdc32d42-ccca-49f5-a442-666fd22c65f6",
+        "epoch_id": 376,
+        "intent_id": "STOCK_PRICE",
+        "miner_slug": "livecert",
+        "rank": 10,
+        "score": 2.0956427e-13,
+        "failure_reason": "",
+        "scored_at": "2026-10-01T13:35:42.632356Z",
+        "created_at": "2026-10-01T13:35:42.632356Z"
+      },
+      {
+        "id": "9feb83ee-3a67-4482-81c8-177e78e7ce38",
+        "epoch_id": 375,
+        "intent_id": "STOCK_PRICE",
+        "miner_slug": "kriterion-pramagraph",
+        "rank": 1,
+        "score": 1.9767202e-11,
+        "failure_reason": "",
+        "scored_at": "2026-10-01T04:27:19.047231Z",
+        "created_at": "2026-10-01T04:27:19.047231Z"
+      },
+      {
+        "id": "011cc47a-8fd6-44f2-baad-a2dfcd53f7b8",
+        "epoch_id": 375,
+        "intent_id": "STOCK_PRICE",
+        "miner_slug": "livecert",
+        "rank": 4,
+        "score": 4.0488581e-13,
+        "failure_reason": "",
+        "scored_at": "2026-10-01T04:27:19.047231Z",
+        "created_at": "2026-10-01T04:27:19.047231Z"
+      },
+      {
+        "id": "cc0463ad-378d-4ded-bfae-6ec3bccab6d1",
+        "epoch_id": 374,
+        "intent_id": "STOCK_PRICE",
+        "miner_slug": "txlens",
+        "rank": 1,
+        "score": 1.480147e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T19:41:38.462873Z",
+        "created_at": "2026-09-30T19:41:38.462873Z"
+      },
+      {
+        "id": "4ab7267c-8882-4aee-989f-9bb5a0ba04e1",
+        "epoch_id": 374,
+        "intent_id": "STOCK_PRICE",
+        "miner_slug": "livecert",
+        "rank": 12,
+        "score": 1.2815905e-13,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T19:41:38.462873Z",
+        "created_at": "2026-09-30T19:41:38.462873Z"
+      },
+      {
+        "id": "073add1f-d4e1-46bb-b5e1-74943e3d22cd",
+        "epoch_id": 373,
+        "intent_id": "STOCK_PRICE",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.9999969,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T10:28:30.66323Z",
+        "created_at": "2026-09-30T10:28:30.66323Z"
+      },
+      {
+        "id": "6ada7851-f517-48db-8049-fc1d697bc55f",
+        "epoch_id": 372,
+        "intent_id": "STOCK_PRICE",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.9999969,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T01:03:43.295491Z",
+        "created_at": "2026-09-30T01:03:43.295491Z"
+      },
+      {
+        "id": "b32e43fa-f2df-4ca9-9c09-1fae6ba1807b",
+        "epoch_id": 371,
+        "intent_id": "STOCK_PRICE",
+        "miner_slug": "kriterion-pramagraph",
+        "rank": 1,
+        "score": 1.999788e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-29T16:26:11.702025Z",
+        "created_at": "2026-09-29T16:26:11.702025Z"
+      }
+    ],
+    "total": 880,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 3166,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "STOCK_PRICE",
+    "wasm_url": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/005b875a098203f254109d9113aa104feb38d4fe/dist/win2/sp_b.wasm",
+    "wasm_hash": "13164c781666e7cc8e7cafdcabf08a94de74fb10de0906f5f2a4aeac9fa3f066",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 0.7333328,
+    "eval": {
+      "candidate_margin": 0.7333328,
+      "champion_margin": 0.73333067,
+      "candidate_wins": 15,
+      "champion_wins": 15,
+      "comparable_cases": 15,
+      "worst_self_match": 1,
+      "score_stddev": 0.4714042,
+      "spearman": {
+        "STOCK_PRICE": 0.724699
+      },
+      "historical_rows_evaluated": 118
+    },
+    "registered_at": "2026-09-02T03:08:57Z",
+    "updated_at": "2026-09-02T06:11:29Z"
+  }
+}

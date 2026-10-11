@@ -1,0 +1,136 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "fcfdb87b-6758-42a5-a9b0-37d68be745e4",
+        "epoch_id": 400,
+        "intent_id": "TOKEN_HOLDER_COUNT",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 6.8509204e-12,
+        "failure_reason": "",
+        "scored_at": "2026-10-10T13:16:44.065446Z",
+        "created_at": "2026-10-10T13:16:44.065446Z"
+      },
+      {
+        "id": "edec6cad-5b76-4096-87ab-1f501187df6a",
+        "epoch_id": 399,
+        "intent_id": "TOKEN_HOLDER_COUNT",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 8.3711016e-12,
+        "failure_reason": "",
+        "scored_at": "2026-10-10T04:00:43.95889Z",
+        "created_at": "2026-10-10T04:00:43.95889Z"
+      },
+      {
+        "id": "68e638ab-e231-409b-a51e-3cc43cd75724",
+        "epoch_id": 398,
+        "intent_id": "TOKEN_HOLDER_COUNT",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 8.39976e-12,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T19:04:26.776213Z",
+        "created_at": "2026-10-09T19:04:26.776213Z"
+      },
+      {
+        "id": "527aed04-e006-4fed-8a02-94b727cba465",
+        "epoch_id": 397,
+        "intent_id": "TOKEN_HOLDER_COUNT",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 7.9793715e-12,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T09:46:24.469564Z",
+        "created_at": "2026-10-09T09:46:24.469564Z"
+      },
+      {
+        "id": "f7654c0e-51c1-49cd-935a-813cecc30c3a",
+        "epoch_id": 397,
+        "intent_id": "TOKEN_HOLDER_COUNT",
+        "miner_slug": "livecert",
+        "rank": 4,
+        "score": 4.0208084e-12,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T09:46:24.469564Z",
+        "created_at": "2026-10-09T09:46:24.469564Z"
+      },
+      {
+        "id": "8f990566-667b-4c2e-9672-c2d557e8358e",
+        "epoch_id": 396,
+        "intent_id": "TOKEN_HOLDER_COUNT",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 6.69168e-12,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T01:06:45.851176Z",
+        "created_at": "2026-10-09T01:06:45.851176Z"
+      },
+      {
+        "id": "00fc568c-d25f-4958-9008-be8888481b92",
+        "epoch_id": 395,
+        "intent_id": "TOKEN_HOLDER_COUNT",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 7.228314e-12,
+        "failure_reason": "",
+        "scored_at": "2026-10-08T16:01:06.5993Z",
+        "created_at": "2026-10-08T16:01:06.5993Z"
+      },
+      {
+        "id": "fcd76dfe-02e6-435b-812e-70620f4c8a39",
+        "epoch_id": 395,
+        "intent_id": "TOKEN_HOLDER_COUNT",
+        "miner_slug": "livecert",
+        "rank": 3,
+        "score": 4.3521254e-12,
+        "failure_reason": "",
+        "scored_at": "2026-10-08T16:01:06.5993Z",
+        "created_at": "2026-10-08T16:01:06.5993Z"
+      },
+      {
+        "id": "2c6f55a3-dd31-4324-b0e8-ccb9b30d35b4",
+        "epoch_id": 394,
+        "intent_id": "TOKEN_HOLDER_COUNT",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 8.092946e-12,
+        "failure_reason": "",
+        "scored_at": "2026-10-08T07:23:59.446824Z",
+        "created_at": "2026-10-08T07:23:59.446824Z"
+      }
+    ],
+    "total": 1196,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 2057,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "TOKEN_HOLDER_COUNT",
+    "wasm_url": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/0e84e751775d88a6c0f90ee32016a92ec1a7c270/dist/lock/thc_r5.wasm",
+    "wasm_hash": "02b596f3fc07b4d031a85558c15b4d918349983af7993dd3a30fb196eaeabb74",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 0.85714287,
+    "eval": {
+      "candidate_margin": 0.85714287,
+      "champion_margin": 0.85712206,
+      "candidate_wins": 14,
+      "champion_wins": 14,
+      "comparable_cases": 14,
+      "worst_self_match": 1,
+      "score_stddev": 0.45175394,
+      "spearman": {
+        "TOKEN_HOLDER_COUNT": 0.65900385
+      },
+      "historical_rows_evaluated": 28
+    },
+    "registered_at": "2026-08-30T17:21:09Z",
+    "updated_at": "2026-08-30T18:31:47Z"
+  }
+}

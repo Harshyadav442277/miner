@@ -1,0 +1,136 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "b3a702c7-1480-43ed-bed8-d2eadc176fda",
+        "epoch_id": 376,
+        "intent_id": "CVE_LOOKUP",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 1.07820385e-11,
+        "failure_reason": "",
+        "scored_at": "2026-10-01T13:05:15.782357Z",
+        "created_at": "2026-10-01T13:05:15.782357Z"
+      },
+      {
+        "id": "41577bdd-aba7-41a8-8149-c3580a4ce81a",
+        "epoch_id": 375,
+        "intent_id": "CVE_LOOKUP",
+        "miner_slug": "txlens",
+        "rank": 1,
+        "score": 1.4058689e-11,
+        "failure_reason": "",
+        "scored_at": "2026-10-01T03:47:21.830341Z",
+        "created_at": "2026-10-01T03:47:21.830341Z"
+      },
+      {
+        "id": "7a275156-3eaa-4a7d-9024-7d949204e5bc",
+        "epoch_id": 375,
+        "intent_id": "CVE_LOOKUP",
+        "miner_slug": "livecert",
+        "rank": 5,
+        "score": 9.181011e-12,
+        "failure_reason": "",
+        "scored_at": "2026-10-01T03:47:21.830341Z",
+        "created_at": "2026-10-01T03:47:21.830341Z"
+      },
+      {
+        "id": "24454f52-299f-450e-998e-c12ac2c0a586",
+        "epoch_id": 374,
+        "intent_id": "CVE_LOOKUP",
+        "miner_slug": "patchsignal-cve",
+        "rank": 1,
+        "score": 8.285003e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T19:12:28.42945Z",
+        "created_at": "2026-09-30T19:12:28.42945Z"
+      },
+      {
+        "id": "bc7bbbb3-490e-4e90-9c62-f009e5d4c6ff",
+        "epoch_id": 374,
+        "intent_id": "CVE_LOOKUP",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 7.102346e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T19:12:28.42945Z",
+        "created_at": "2026-09-30T19:12:28.42945Z"
+      },
+      {
+        "id": "651e645c-089b-41fa-93d1-a440261217c7",
+        "epoch_id": 373,
+        "intent_id": "CVE_LOOKUP",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 1.09634845e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T09:58:50.323515Z",
+        "created_at": "2026-09-30T09:58:50.323515Z"
+      },
+      {
+        "id": "1f98c21a-70a9-4010-995f-b91abfedc60e",
+        "epoch_id": 372,
+        "intent_id": "CVE_LOOKUP",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 1.0765028e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T00:50:08.18877Z",
+        "created_at": "2026-09-30T00:50:08.18877Z"
+      },
+      {
+        "id": "01e2d0cc-9f09-40bf-8823-0d66dbea5c89",
+        "epoch_id": 371,
+        "intent_id": "CVE_LOOKUP",
+        "miner_slug": "txlens",
+        "rank": 1,
+        "score": 1,
+        "failure_reason": "",
+        "scored_at": "2026-09-29T15:57:12.397508Z",
+        "created_at": "2026-09-29T15:57:12.397508Z"
+      },
+      {
+        "id": "80231e06-eb2f-43e3-b87c-06d57f2afbbb",
+        "epoch_id": 371,
+        "intent_id": "CVE_LOOKUP",
+        "miner_slug": "livecert",
+        "rank": 5,
+        "score": 9.183977e-12,
+        "failure_reason": "",
+        "scored_at": "2026-09-29T15:57:12.397508Z",
+        "created_at": "2026-09-29T15:57:12.397508Z"
+      }
+    ],
+    "total": 948,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 3030,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "CVE_LOOKUP",
+    "wasm_url": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/d42528e1dc146e1b641a63c37194faa95c446aec/dist/win/cvz_1e06.wasm",
+    "wasm_hash": "7275293f8988d734808028088d185f30eaa9c478d7b621e860bb323528b81417",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 1,
+    "eval": {
+      "candidate_margin": 1,
+      "champion_margin": 0.9999969,
+      "candidate_wins": 15,
+      "champion_wins": 15,
+      "comparable_cases": 15,
+      "worst_self_match": 1,
+      "score_stddev": 0.47140452,
+      "spearman": {
+        "CVE_LOOKUP": 0.7629891
+      },
+      "historical_rows_evaluated": 48
+    },
+    "registered_at": "2026-08-31T23:03:29Z",
+    "updated_at": "2026-09-01T03:28:21Z"
+  }
+}

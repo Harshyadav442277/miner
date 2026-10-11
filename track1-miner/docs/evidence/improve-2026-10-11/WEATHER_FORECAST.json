@@ -1,0 +1,147 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "26a08f35-5f29-4f6a-af7a-d6a34d8cf4c3",
+        "epoch_id": 400,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "isobar-weather",
+        "rank": 1,
+        "score": 0.9999796,
+        "failure_reason": "",
+        "scored_at": "2026-10-10T13:30:38.922955Z",
+        "created_at": "2026-10-10T13:30:38.922955Z"
+      },
+      {
+        "id": "4a8cff4a-d90d-4174-af47-22f634bf6850",
+        "epoch_id": 400,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "livecert",
+        "rank": 3,
+        "score": 0.0005314948,
+        "failure_reason": "",
+        "scored_at": "2026-10-10T13:30:38.922955Z",
+        "created_at": "2026-10-10T13:30:38.922955Z"
+      },
+      {
+        "id": "5fe4b4d8-d595-4c90-877f-73ec4273ad6d",
+        "epoch_id": 399,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "openweathermap",
+        "rank": 1,
+        "score": 0.99996823,
+        "failure_reason": "",
+        "scored_at": "2026-10-10T04:26:33.426151Z",
+        "created_at": "2026-10-10T04:26:33.426151Z"
+      },
+      {
+        "id": "789bb0c4-f83c-49fb-a4e3-f7950073f5d0",
+        "epoch_id": 399,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "livecert",
+        "rank": 4,
+        "score": 0.00047461255,
+        "failure_reason": "",
+        "scored_at": "2026-10-10T04:26:33.426151Z",
+        "created_at": "2026-10-10T04:26:33.426151Z"
+      },
+      {
+        "id": "39f121f1-dd30-4b3c-b123-2af9c1abc620",
+        "epoch_id": 398,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "isobar-weather",
+        "rank": 1,
+        "score": 0.9999803,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T18:51:29.378565Z",
+        "created_at": "2026-10-09T18:51:29.378565Z"
+      },
+      {
+        "id": "b5a874c1-2b29-4eb5-bf5f-6b3312fd4e4e",
+        "epoch_id": 398,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "livecert",
+        "rank": 4,
+        "score": 0.0005233457,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T18:51:29.378565Z",
+        "created_at": "2026-10-09T18:51:29.378565Z"
+      },
+      {
+        "id": "2dd9943f-cfa3-4ec0-a731-684b1f8677b2",
+        "epoch_id": 397,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "amanat-weather-risk",
+        "rank": 1,
+        "score": 0.0005175245,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T10:12:27.097572Z",
+        "created_at": "2026-10-09T10:12:27.097572Z"
+      },
+      {
+        "id": "d1c3fc9e-ae6b-41ae-96e1-480c4a43122e",
+        "epoch_id": 397,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 0.00051445374,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T10:12:27.097572Z",
+        "created_at": "2026-10-09T10:12:27.097572Z"
+      },
+      {
+        "id": "380b297f-dce8-4419-8d65-e6bf064b303b",
+        "epoch_id": 396,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "skywire-forecast",
+        "rank": 1,
+        "score": 0.0005653894,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T01:38:37.202198Z",
+        "created_at": "2026-10-09T01:38:37.202198Z"
+      },
+      {
+        "id": "19fc6756-2163-42ee-984e-992b8f8f44e4",
+        "epoch_id": 396,
+        "intent_id": "WEATHER_FORECAST",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 0.0005339425,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T01:38:37.202198Z",
+        "created_at": "2026-10-09T01:38:37.202198Z"
+      }
+    ],
+    "total": 3083,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 3173,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "WEATHER_FORECAST",
+    "wasm_url": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/1c57bda41576c77bfd61b70198eb9098098df30f/dist/win2/wf_4e3.wasm",
+    "wasm_hash": "66ee98e29632d0cfc74240344ea47e6bb83ed14545c4c102215a4ded5986b649",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 0.8568193,
+    "eval": {
+      "candidate_margin": 0.8568193,
+      "champion_margin": 0.8567977,
+      "candidate_wins": 14,
+      "champion_wins": 14,
+      "comparable_cases": 14,
+      "worst_self_match": 1,
+      "score_stddev": 0.4712138,
+      "spearman": {
+        "WEATHER_FORECAST": 0.79869324
+      },
+      "historical_rows_evaluated": 164
+    },
+    "registered_at": "2026-09-02T03:37:31Z",
+    "updated_at": "2026-09-02T06:49:05Z"
+  }
+}

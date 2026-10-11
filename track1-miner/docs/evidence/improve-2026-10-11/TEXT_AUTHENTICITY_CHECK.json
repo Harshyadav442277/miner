@@ -1,0 +1,188 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "42227273-caf3-458d-bc1f-0780b8f8ebc6",
+        "epoch_id": 400,
+        "intent_id": "TEXT_AUTHENTICITY_CHECK",
+        "miner_slug": "tauth-wayback",
+        "rank": 1,
+        "score": 4.3939448e-7,
+        "failure_reason": "",
+        "scored_at": "2026-10-10T13:11:06.581132Z",
+        "created_at": "2026-10-10T13:11:06.581132Z"
+      },
+      {
+        "id": "6e93920e-beca-4208-bf09-a0a8e6cf99fe",
+        "epoch_id": 400,
+        "intent_id": "TEXT_AUTHENTICITY_CHECK",
+        "miner_slug": "livecert",
+        "rank": 6,
+        "score": 1.7569802e-7,
+        "failure_reason": "",
+        "scored_at": "2026-10-10T13:11:06.581132Z",
+        "created_at": "2026-10-10T13:11:06.581132Z"
+      },
+      {
+        "id": "36a669b4-7adb-44ed-a276-589bf136b018",
+        "epoch_id": 399,
+        "intent_id": "TEXT_AUTHENTICITY_CHECK",
+        "miner_slug": "tauth-wayback",
+        "rank": 1,
+        "score": 4.5496876e-7,
+        "failure_reason": "",
+        "scored_at": "2026-10-10T03:45:20.791052Z",
+        "created_at": "2026-10-10T03:45:20.791052Z"
+      },
+      {
+        "id": "da3f64b6-b79e-4cb7-b0fb-0948496ece03",
+        "epoch_id": 399,
+        "intent_id": "TEXT_AUTHENTICITY_CHECK",
+        "miner_slug": "livecert",
+        "rank": 8,
+        "score": 1.778219e-7,
+        "failure_reason": "",
+        "scored_at": "2026-10-10T03:45:20.791052Z",
+        "created_at": "2026-10-10T03:45:20.791052Z"
+      },
+      {
+        "id": "5aec7cbe-9c8a-4a9a-9b19-32921bf0f99c",
+        "epoch_id": 398,
+        "intent_id": "TEXT_AUTHENTICITY_CHECK",
+        "miner_slug": "tauth-wayback",
+        "rank": 1,
+        "score": 3.7914205e-7,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T18:57:39.746708Z",
+        "created_at": "2026-10-09T18:57:39.746708Z"
+      },
+      {
+        "id": "bd1413ee-7fa5-4f0d-8da5-09e261ae6398",
+        "epoch_id": 398,
+        "intent_id": "TEXT_AUTHENTICITY_CHECK",
+        "miner_slug": "livecert",
+        "rank": 4,
+        "score": 2.2516238e-7,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T18:57:39.746708Z",
+        "created_at": "2026-10-09T18:57:39.746708Z"
+      },
+      {
+        "id": "83a9a43b-b04d-45af-91f3-0f98f7646d7d",
+        "epoch_id": 397,
+        "intent_id": "TEXT_AUTHENTICITY_CHECK",
+        "miner_slug": "tauth-wayback",
+        "rank": 1,
+        "score": 4.2026963e-7,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T09:51:12.215891Z",
+        "created_at": "2026-10-09T09:51:12.215891Z"
+      },
+      {
+        "id": "8f03769d-609d-4657-9479-fcbf65bd3a88",
+        "epoch_id": 397,
+        "intent_id": "TEXT_AUTHENTICITY_CHECK",
+        "miner_slug": "livecert",
+        "rank": 6,
+        "score": 2.0012193e-7,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T09:51:12.215891Z",
+        "created_at": "2026-10-09T09:51:12.215891Z"
+      },
+      {
+        "id": "569b0550-280c-4170-b5d5-0d8a558eb71e",
+        "epoch_id": 396,
+        "intent_id": "TEXT_AUTHENTICITY_CHECK",
+        "miner_slug": "tauth-wayback",
+        "rank": 1,
+        "score": 3.858693e-7,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T00:48:18.844996Z",
+        "created_at": "2026-10-09T00:48:18.844996Z"
+      },
+      {
+        "id": "72be1eb9-7ef0-44bf-883c-83045c9b0a29",
+        "epoch_id": 396,
+        "intent_id": "TEXT_AUTHENTICITY_CHECK",
+        "miner_slug": "livecert",
+        "rank": 9,
+        "score": 0,
+        "failure_reason": "build request for miner \"livecert\": LLM call for miner \"livecert\" failed: http request: Post \"http://127.0.0.1:4000/v1/chat/completions\": context deadline exceeded",
+        "scored_at": "2026-10-09T00:48:18.844996Z",
+        "created_at": "2026-10-09T00:48:18.844996Z"
+      },
+      {
+        "id": "36552be0-ed42-418c-828a-6393a045dafa",
+        "epoch_id": 395,
+        "intent_id": "TEXT_AUTHENTICITY_CHECK",
+        "miner_slug": "tauth-crossref",
+        "rank": 1,
+        "score": 0.9999989,
+        "failure_reason": "",
+        "scored_at": "2026-10-08T15:51:44.590365Z",
+        "created_at": "2026-10-08T15:51:44.590365Z"
+      },
+      {
+        "id": "5907e603-1b2e-4fa7-992c-19795f111792",
+        "epoch_id": 395,
+        "intent_id": "TEXT_AUTHENTICITY_CHECK",
+        "miner_slug": "livecert",
+        "rank": 4,
+        "score": 1.3500744e-7,
+        "failure_reason": "",
+        "scored_at": "2026-10-08T15:51:44.590365Z",
+        "created_at": "2026-10-08T15:51:44.590365Z"
+      },
+      {
+        "id": "6738c5c3-9d86-49b6-b46c-3e882fa0cdc5",
+        "epoch_id": 394,
+        "intent_id": "TEXT_AUTHENTICITY_CHECK",
+        "miner_slug": "tauth-wayback",
+        "rank": 1,
+        "score": 4.0743342e-7,
+        "failure_reason": "",
+        "scored_at": "2026-10-08T06:48:06.14574Z",
+        "created_at": "2026-10-08T06:48:06.14574Z"
+      },
+      {
+        "id": "c348b012-efe7-4790-8a2d-b19bda7104fa",
+        "epoch_id": 394,
+        "intent_id": "TEXT_AUTHENTICITY_CHECK",
+        "miner_slug": "livecert",
+        "rank": 5,
+        "score": 2.091821e-7,
+        "failure_reason": "",
+        "scored_at": "2026-10-08T06:48:06.14574Z",
+        "created_at": "2026-10-08T06:48:06.14574Z"
+      }
+    ],
+    "total": 728,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 1882,
+    "author_address": "0xdad201ef02f5c1fbb8f9e931ae9b7c1bf493a39e",
+    "intent_id": "TEXT_AUTHENTICITY_CHECK",
+    "wasm_url": "https://raw.githubusercontent.com/Harshyadav442277/miner/72474bd7514735b53b823bdab390c9721219bd18/track2/calibration/dist/text_authenticity_v2.wasm",
+    "wasm_hash": "eec7bc00a5131dfb4152c0ca3b4b54eabc9ed05092a5b4d014e3fe1453a50588",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 0.66666603,
+    "eval": {
+      "candidate_margin": 0.66666603,
+      "champion_margin": 0.6663348,
+      "candidate_wins": 14,
+      "champion_wins": 14,
+      "comparable_cases": 15,
+      "worst_self_match": 1,
+      "score_stddev": 0.49690366,
+      "historical_rows_evaluated": 0
+    },
+    "registered_at": "2026-08-30T04:27:54Z",
+    "updated_at": "2026-08-30T04:38:36Z"
+  }
+}

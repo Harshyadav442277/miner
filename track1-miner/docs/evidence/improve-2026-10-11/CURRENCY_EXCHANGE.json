@@ -1,0 +1,158 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "ef89196b-f232-45b8-80fb-5b1251bb5fff",
+        "epoch_id": 400,
+        "intent_id": "CURRENCY_EXCHANGE",
+        "miner_slug": "fxex-erapi-eur",
+        "rank": 1,
+        "score": 0.0000020029904,
+        "failure_reason": "",
+        "scored_at": "2026-10-10T12:59:43.441512Z",
+        "created_at": "2026-10-10T12:59:43.441512Z"
+      },
+      {
+        "id": "ff088752-76f5-4063-a3aa-96550b129e90",
+        "epoch_id": 400,
+        "intent_id": "CURRENCY_EXCHANGE",
+        "miner_slug": "livecert",
+        "rank": 10,
+        "score": 9.3255444e-8,
+        "failure_reason": "",
+        "scored_at": "2026-10-10T12:59:43.441512Z",
+        "created_at": "2026-10-10T12:59:43.441512Z"
+      },
+      {
+        "id": "6d1d271a-47e2-4dd7-8d32-78ac8b4547bf",
+        "epoch_id": 399,
+        "intent_id": "CURRENCY_EXCHANGE",
+        "miner_slug": "preflight-ssl-verification",
+        "rank": 1,
+        "score": 2.3335318e-7,
+        "failure_reason": "",
+        "scored_at": "2026-10-10T04:04:50.117751Z",
+        "created_at": "2026-10-10T04:04:50.117751Z"
+      },
+      {
+        "id": "6597ff5e-96df-4ca7-8ee3-ee3a8b2fe7ba",
+        "epoch_id": 399,
+        "intent_id": "CURRENCY_EXCHANGE",
+        "miner_slug": "livecert",
+        "rank": 7,
+        "score": 1.2070123e-7,
+        "failure_reason": "",
+        "scored_at": "2026-10-10T04:04:50.117751Z",
+        "created_at": "2026-10-10T04:04:50.117751Z"
+      },
+      {
+        "id": "76ce5b94-53d5-4e77-b9e7-89b41c8a887b",
+        "epoch_id": 397,
+        "intent_id": "CURRENCY_EXCHANGE",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 0.9999377,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T10:14:51.793056Z",
+        "created_at": "2026-10-09T10:14:51.793056Z"
+      },
+      {
+        "id": "3526fbf8-fe66-459f-b5b9-c2399bef2f5a",
+        "epoch_id": 397,
+        "intent_id": "CURRENCY_EXCHANGE",
+        "miner_slug": "livecert",
+        "rank": 7,
+        "score": 1.1532567e-7,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T10:14:51.793056Z",
+        "created_at": "2026-10-09T10:14:51.793056Z"
+      },
+      {
+        "id": "4950482e-ba48-4be8-b6f7-de6524d7ded2",
+        "epoch_id": 396,
+        "intent_id": "CURRENCY_EXCHANGE",
+        "miner_slug": "fxex-erapi-usd",
+        "rank": 1,
+        "score": 0.00000210793,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T01:02:45.77808Z",
+        "created_at": "2026-10-09T01:02:45.77808Z"
+      },
+      {
+        "id": "b01d539e-4c25-48ea-919a-799d47d61e03",
+        "epoch_id": 396,
+        "intent_id": "CURRENCY_EXCHANGE",
+        "miner_slug": "livecert",
+        "rank": 6,
+        "score": 2.1848759e-7,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T01:02:45.77808Z",
+        "created_at": "2026-10-09T01:02:45.77808Z"
+      },
+      {
+        "id": "ac2c59ee-3a74-4c84-8f2f-3744d7893266",
+        "epoch_id": 395,
+        "intent_id": "CURRENCY_EXCHANGE",
+        "miner_slug": "fxex-erapi-usd",
+        "rank": 1,
+        "score": 0.00035134202,
+        "failure_reason": "",
+        "scored_at": "2026-10-08T16:23:51.626448Z",
+        "created_at": "2026-10-08T16:23:51.626448Z"
+      },
+      {
+        "id": "c15cca6c-3015-4d6e-9168-bdca6debc500",
+        "epoch_id": 395,
+        "intent_id": "CURRENCY_EXCHANGE",
+        "miner_slug": "livecert",
+        "rank": 10,
+        "score": 2.1330996e-7,
+        "failure_reason": "",
+        "scored_at": "2026-10-08T16:23:51.626448Z",
+        "created_at": "2026-10-08T16:23:51.626448Z"
+      },
+      {
+        "id": "76ae2f15-df70-4e6d-ae60-3e98b5ca8663",
+        "epoch_id": 394,
+        "intent_id": "CURRENCY_EXCHANGE",
+        "miner_slug": "fxex-erapi-eur",
+        "rank": 1,
+        "score": 0.99993944,
+        "failure_reason": "",
+        "scored_at": "2026-10-08T06:57:34.813403Z",
+        "created_at": "2026-10-08T06:57:34.813403Z"
+      }
+    ],
+    "total": 1536,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 2945,
+    "author_address": "0xdad201ef02f5c1fbb8f9e931ae9b7c1bf493a39e",
+    "intent_id": "CURRENCY_EXCHANGE",
+    "wasm_url": "https://raw.githubusercontent.com/Harshyadav442277/miner/d2e1ed5/track2/calibration/dist/currency_exchange_r7.wasm",
+    "wasm_hash": "7dc8a68207aef976162c53e56580c2301352168ff615fb2d949b1bcf1d79a8e1",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 0.93331856,
+    "eval": {
+      "candidate_margin": 0.93331856,
+      "champion_margin": 0.9328732,
+      "candidate_wins": 15,
+      "champion_wins": 15,
+      "comparable_cases": 15,
+      "worst_self_match": 1,
+      "score_stddev": 0.4629429,
+      "spearman": {
+        "CURRENCY_EXCHANGE": 0.6131533
+      },
+      "historical_rows_evaluated": 58
+    },
+    "registered_at": "2026-08-31T21:15:36Z",
+    "updated_at": "2026-08-31T22:48:42Z"
+  }
+}

@@ -1,0 +1,147 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "5a88090b-3906-4643-9e46-dafe67f0814a",
+        "epoch_id": 400,
+        "intent_id": "AI_TEXT_DETECTION",
+        "miner_slug": "aitd-bbc",
+        "rank": 1,
+        "score": 8.333333e-10,
+        "failure_reason": "",
+        "scored_at": "2026-10-10T13:10:33.164049Z",
+        "created_at": "2026-10-10T13:10:33.164049Z"
+      },
+      {
+        "id": "057a2c1a-c483-48e6-8368-ff6d0b820340",
+        "epoch_id": 400,
+        "intent_id": "AI_TEXT_DETECTION",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 3.8461537e-10,
+        "failure_reason": "",
+        "scored_at": "2026-10-10T13:10:33.164049Z",
+        "created_at": "2026-10-10T13:10:33.164049Z"
+      },
+      {
+        "id": "384e7eb3-c356-472d-b176-23b3711cc849",
+        "epoch_id": 399,
+        "intent_id": "AI_TEXT_DETECTION",
+        "miner_slug": "aitd-bbc",
+        "rank": 1,
+        "score": 8.0575535e-10,
+        "failure_reason": "",
+        "scored_at": "2026-10-10T03:50:22.968321Z",
+        "created_at": "2026-10-10T03:50:22.968321Z"
+      },
+      {
+        "id": "375d7968-c20a-4f52-a087-5d24ca026d19",
+        "epoch_id": 399,
+        "intent_id": "AI_TEXT_DETECTION",
+        "miner_slug": "livecert",
+        "rank": 7,
+        "score": 2.3622046e-10,
+        "failure_reason": "",
+        "scored_at": "2026-10-10T03:50:22.968321Z",
+        "created_at": "2026-10-10T03:50:22.968321Z"
+      },
+      {
+        "id": "a374a22d-0f02-4d5f-807f-76554719840c",
+        "epoch_id": 398,
+        "intent_id": "AI_TEXT_DETECTION",
+        "miner_slug": "aitd-bbc",
+        "rank": 1,
+        "score": 8.111888e-10,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T19:22:45.658354Z",
+        "created_at": "2026-10-09T19:22:45.658354Z"
+      },
+      {
+        "id": "bb2ed599-d76a-43dc-8d77-99eb8fe870ed",
+        "epoch_id": 398,
+        "intent_id": "AI_TEXT_DETECTION",
+        "miner_slug": "livecert",
+        "rank": 5,
+        "score": 2.2939067e-10,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T19:22:45.658354Z",
+        "created_at": "2026-10-09T19:22:45.658354Z"
+      },
+      {
+        "id": "4fc2ae19-3efb-4aae-913c-211bc262860d",
+        "epoch_id": 397,
+        "intent_id": "AI_TEXT_DETECTION",
+        "miner_slug": "aitd-bbc",
+        "rank": 1,
+        "score": 8.5314683e-10,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T10:02:39.79571Z",
+        "created_at": "2026-10-09T10:02:39.79571Z"
+      },
+      {
+        "id": "a0c80906-3fef-4e00-a0d9-fcc365140ac5",
+        "epoch_id": 397,
+        "intent_id": "AI_TEXT_DETECTION",
+        "miner_slug": "livecert",
+        "rank": 6,
+        "score": 2.2939067e-10,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T10:02:39.79571Z",
+        "created_at": "2026-10-09T10:02:39.79571Z"
+      },
+      {
+        "id": "1e31b901-5ea2-4a79-b1fb-9501f884cd98",
+        "epoch_id": 396,
+        "intent_id": "AI_TEXT_DETECTION",
+        "miner_slug": "aitd-bbc",
+        "rank": 1,
+        "score": 7.7707e-10,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T00:43:54.878869Z",
+        "created_at": "2026-10-09T00:43:54.878869Z"
+      },
+      {
+        "id": "57f40b23-d34d-4383-8c63-4a20cf601572",
+        "epoch_id": 396,
+        "intent_id": "AI_TEXT_DETECTION",
+        "miner_slug": "livecert",
+        "rank": 4,
+        "score": 2.3913044e-10,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T00:43:54.878869Z",
+        "created_at": "2026-10-09T00:43:54.878869Z"
+      }
+    ],
+    "total": 1292,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 1286,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "AI_TEXT_DETECTION",
+    "wasm_url": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/4a32b32f6b264d49441c80a9ddce2ad304f668fd/dist/xfmr/aidet_s2.wasm",
+    "wasm_hash": "aa65a1c997d1bb194274608d4a5de6a8c6fea14710b9bfb7541741677c8c106b",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 1,
+    "eval": {
+      "candidate_margin": 1,
+      "champion_margin": 0.999999,
+      "candidate_wins": 15,
+      "champion_wins": 15,
+      "comparable_cases": 15,
+      "worst_self_match": 1,
+      "score_stddev": 0.47140452,
+      "spearman": {
+        "AI_TEXT_DETECTION": 0.72822577
+      },
+      "historical_rows_evaluated": 48
+    },
+    "registered_at": "2026-08-27T05:41:07Z",
+    "updated_at": "2026-08-27T05:41:09Z"
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "5e135171-f9e9-4446-9583-8745c70df61e",
+        "epoch_id": 400,
+        "intent_id": "URL_SCAN",
+        "miner_slug": "txlens",
+        "rank": 1,
+        "score": 0.9540361,
+        "failure_reason": "",
+        "scored_at": "2026-10-10T12:56:38.907729Z",
+        "created_at": "2026-10-10T12:56:38.907729Z"
+      },
+      {
+        "id": "a1bbec87-5c5a-4123-83db-808adf86f45f",
+        "epoch_id": 400,
+        "intent_id": "URL_SCAN",
+        "miner_slug": "livecert",
+        "rank": 4,
+        "score": 0.85628057,
+        "failure_reason": "",
+        "scored_at": "2026-10-10T12:56:38.907729Z",
+        "created_at": "2026-10-10T12:56:38.907729Z"
+      },
+      {
+        "id": "d94042f9-e268-400f-8441-b97716089500",
+        "epoch_id": 399,
+        "intent_id": "URL_SCAN",
+        "miner_slug": "proofgate-url-intelligence",
+        "rank": 1,
+        "score": 0.98073304,
+        "failure_reason": "",
+        "scored_at": "2026-10-10T04:04:58.845431Z",
+        "created_at": "2026-10-10T04:04:58.845431Z"
+      },
+      {
+        "id": "2823be50-bb26-4df5-9679-725b42b835ac",
+        "epoch_id": 399,
+        "intent_id": "URL_SCAN",
+        "miner_slug": "livecert",
+        "rank": 6,
+        "score": 1.0103865e-8,
+        "failure_reason": "",
+        "scored_at": "2026-10-10T04:04:58.845431Z",
+        "created_at": "2026-10-10T04:04:58.845431Z"
+      },
+      {
+        "id": "4e6ec91e-2142-457d-88a7-93b2899ec3e3",
+        "epoch_id": 398,
+        "intent_id": "URL_SCAN",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.6854452,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T19:27:02.663821Z",
+        "created_at": "2026-10-09T19:27:02.663821Z"
+      },
+      {
+        "id": "ae552ef5-f96a-473d-b8dc-d8162b7afc42",
+        "epoch_id": 397,
+        "intent_id": "URL_SCAN",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.6854452,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T10:03:08.264311Z",
+        "created_at": "2026-10-09T10:03:08.264311Z"
+      },
+      {
+        "id": "56a02046-66bc-4ce5-b60e-0da583bc8fdc",
+        "epoch_id": 396,
+        "intent_id": "URL_SCAN",
+        "miner_slug": "proofgate-url-intelligence",
+        "rank": 1,
+        "score": 0.96273273,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T01:14:43.312412Z",
+        "created_at": "2026-10-09T01:14:43.312412Z"
+      },
+      {
+        "id": "54a77b37-71c0-40ba-b094-4c3c93cf1dbd",
+        "epoch_id": 396,
+        "intent_id": "URL_SCAN",
+        "miner_slug": "livecert",
+        "rank": 3,
+        "score": 0.0014325316,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T01:14:43.312412Z",
+        "created_at": "2026-10-09T01:14:43.312412Z"
+      }
+    ],
+    "total": 1984,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 220,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "URL_SCAN",
+    "wasm_url": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/0174a85639c398a0e898dcb11b54367eb2723b2b/dist/xfmr/url_c3.wasm",
+    "wasm_hash": "71581b142ca88090e795ffaaa95442e7403c49018f94e7c0b41ce938cef97c6a",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 0.9478501,
+    "eval": {
+      "candidate_margin": 0.9478501,
+      "champion_margin": 0.82566255,
+      "candidate_wins": 32,
+      "champion_wins": 32,
+      "comparable_cases": 32,
+      "worst_self_match": 1,
+      "score_stddev": 0.4539985,
+      "historical_rows_evaluated": 0
+    },
+    "registered_at": "2026-08-21T06:10:48Z",
+    "updated_at": "2026-08-21T06:10:48Z"
+  }
+}

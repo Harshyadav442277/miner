@@ -1,0 +1,188 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "7be53a64-c7db-498e-8a10-2795f5455c17",
+        "epoch_id": 400,
+        "intent_id": "CONTENT_VERIFICATION",
+        "miner_slug": "factwire-content-verification",
+        "rank": 1,
+        "score": 1,
+        "failure_reason": "",
+        "scored_at": "2026-10-10T13:01:25.342293Z",
+        "created_at": "2026-10-10T13:01:25.342293Z"
+      },
+      {
+        "id": "954a45c7-2a5d-4c7e-ad8d-552a764207f6",
+        "epoch_id": 400,
+        "intent_id": "CONTENT_VERIFICATION",
+        "miner_slug": "livecert",
+        "rank": 8,
+        "score": 3.0164085e-12,
+        "failure_reason": "",
+        "scored_at": "2026-10-10T13:01:25.342293Z",
+        "created_at": "2026-10-10T13:01:25.342293Z"
+      },
+      {
+        "id": "3111ef5e-a3d9-4d8e-858f-b6e51fe185c9",
+        "epoch_id": 399,
+        "intent_id": "CONTENT_VERIFICATION",
+        "miner_slug": "cver-wayback",
+        "rank": 1,
+        "score": 9.121609e-12,
+        "failure_reason": "",
+        "scored_at": "2026-10-10T03:53:34.328866Z",
+        "created_at": "2026-10-10T03:53:34.328866Z"
+      },
+      {
+        "id": "ec9dd44b-62e8-4b22-b8a6-949738226daa",
+        "epoch_id": 399,
+        "intent_id": "CONTENT_VERIFICATION",
+        "miner_slug": "livecert",
+        "rank": 4,
+        "score": 5.6935815e-12,
+        "failure_reason": "",
+        "scored_at": "2026-10-10T03:53:34.328866Z",
+        "created_at": "2026-10-10T03:53:34.328866Z"
+      },
+      {
+        "id": "e1edb446-ce35-4d6f-938c-f63cde99a3d3",
+        "epoch_id": 398,
+        "intent_id": "CONTENT_VERIFICATION",
+        "miner_slug": "cver-wayback",
+        "rank": 1,
+        "score": 9.354884e-12,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T19:31:28.425638Z",
+        "created_at": "2026-10-09T19:31:28.425638Z"
+      },
+      {
+        "id": "48abd8f5-4743-427d-996e-7ff332efb2d9",
+        "epoch_id": 398,
+        "intent_id": "CONTENT_VERIFICATION",
+        "miner_slug": "livecert",
+        "rank": 5,
+        "score": 4.8396894e-12,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T19:31:28.425638Z",
+        "created_at": "2026-10-09T19:31:28.425638Z"
+      },
+      {
+        "id": "695f09cd-7dc5-4f34-8a94-e854afa9f30a",
+        "epoch_id": 397,
+        "intent_id": "CONTENT_VERIFICATION",
+        "miner_slug": "factwire-content-verification",
+        "rank": 1,
+        "score": 1.0272253e-11,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T10:08:30.518093Z",
+        "created_at": "2026-10-09T10:08:30.518093Z"
+      },
+      {
+        "id": "1154f9b9-01fd-4b14-a76a-2a0d602cbcd4",
+        "epoch_id": 397,
+        "intent_id": "CONTENT_VERIFICATION",
+        "miner_slug": "livecert",
+        "rank": 5,
+        "score": 3.745536e-12,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T10:08:30.518093Z",
+        "created_at": "2026-10-09T10:08:30.518093Z"
+      },
+      {
+        "id": "2df3a96c-3a39-4bb1-aec3-8322bd9dfa42",
+        "epoch_id": 396,
+        "intent_id": "CONTENT_VERIFICATION",
+        "miner_slug": "factwire-content-verification",
+        "rank": 1,
+        "score": 1.0638977e-11,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T00:56:49.082269Z",
+        "created_at": "2026-10-09T00:56:49.082269Z"
+      },
+      {
+        "id": "d15af72a-e11a-4335-9546-c4a213d78163",
+        "epoch_id": 396,
+        "intent_id": "CONTENT_VERIFICATION",
+        "miner_slug": "livecert",
+        "rank": 5,
+        "score": 3.642842e-12,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T00:56:49.082269Z",
+        "created_at": "2026-10-09T00:56:49.082269Z"
+      },
+      {
+        "id": "f3f205db-81ab-4e42-a67e-dc02be032a20",
+        "epoch_id": 395,
+        "intent_id": "CONTENT_VERIFICATION",
+        "miner_slug": "factwire-content-verification",
+        "rank": 1,
+        "score": 1.4316011e-11,
+        "failure_reason": "",
+        "scored_at": "2026-10-08T15:46:32.646977Z",
+        "created_at": "2026-10-08T15:46:32.646977Z"
+      },
+      {
+        "id": "74c790c3-f4e9-4fa2-9024-b4e3ad0d4f48",
+        "epoch_id": 395,
+        "intent_id": "CONTENT_VERIFICATION",
+        "miner_slug": "livecert",
+        "rank": 6,
+        "score": 3.2193222e-12,
+        "failure_reason": "",
+        "scored_at": "2026-10-08T15:46:32.646977Z",
+        "created_at": "2026-10-08T15:46:32.646977Z"
+      },
+      {
+        "id": "c61aaa3c-78d0-4f30-b0a2-d1aa1b4e2ec5",
+        "epoch_id": 394,
+        "intent_id": "CONTENT_VERIFICATION",
+        "miner_slug": "cver-wayback",
+        "rank": 1,
+        "score": 1.0059557e-11,
+        "failure_reason": "",
+        "scored_at": "2026-10-08T07:02:34.299176Z",
+        "created_at": "2026-10-08T07:02:34.299176Z"
+      },
+      {
+        "id": "12f00a9f-d54b-4425-ba1f-3104584253c1",
+        "epoch_id": 394,
+        "intent_id": "CONTENT_VERIFICATION",
+        "miner_slug": "livecert",
+        "rank": 4,
+        "score": 5.1260593e-12,
+        "failure_reason": "",
+        "scored_at": "2026-10-08T07:02:34.299176Z",
+        "created_at": "2026-10-08T07:02:34.299176Z"
+      }
+    ],
+    "total": 833,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 2062,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "CONTENT_VERIFICATION",
+    "wasm_url": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/0e84e751775d88a6c0f90ee32016a92ec1a7c270/dist/lock/cv_f45.wasm",
+    "wasm_hash": "712a98442741ad47bb11d78e1205b049995be5491846b3b7df22e3b6caad02b0",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 1,
+    "eval": {
+      "candidate_margin": 1,
+      "champion_margin": 0.99992734,
+      "candidate_wins": 15,
+      "champion_wins": 15,
+      "comparable_cases": 15,
+      "worst_self_match": 1,
+      "score_stddev": 0.47140452,
+      "historical_rows_evaluated": 0
+    },
+    "registered_at": "2026-08-30T17:21:09Z",
+    "updated_at": "2026-08-30T18:13:00Z"
+  }
+}

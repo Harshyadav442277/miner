@@ -1,0 +1,125 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "a3a9607e-8f14-4e79-a7b5-845aa8e88fd4",
+        "epoch_id": 400,
+        "intent_id": "STOCK_PRICE",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 2.0983094e-11,
+        "failure_reason": "",
+        "scored_at": "2026-10-10T13:07:46.658698Z",
+        "created_at": "2026-10-10T13:07:46.658698Z"
+      },
+      {
+        "id": "957689a6-c993-4e3a-9e03-31fc1fe02b45",
+        "epoch_id": 399,
+        "intent_id": "STOCK_PRICE",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 2.0983094e-11,
+        "failure_reason": "",
+        "scored_at": "2026-10-10T04:15:20.395456Z",
+        "created_at": "2026-10-10T04:15:20.395456Z"
+      },
+      {
+        "id": "d5625063-37ba-442d-971d-d3d9193bb5d5",
+        "epoch_id": 397,
+        "intent_id": "STOCK_PRICE",
+        "miner_slug": "stock-alphavantage",
+        "rank": 1,
+        "score": 5.184048e-13,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T10:32:04.307255Z",
+        "created_at": "2026-10-09T10:32:04.307255Z"
+      },
+      {
+        "id": "a5bcb8a7-12aa-4e44-8f49-520996d1f302",
+        "epoch_id": 397,
+        "intent_id": "STOCK_PRICE",
+        "miner_slug": "livecert",
+        "rank": 8,
+        "score": 1.6062222e-13,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T10:32:04.307255Z",
+        "created_at": "2026-10-09T10:32:04.307255Z"
+      },
+      {
+        "id": "3b6d8ac4-ea15-4f67-8020-95d82fbf1bbf",
+        "epoch_id": 396,
+        "intent_id": "STOCK_PRICE",
+        "miner_slug": "stock-alphavantage",
+        "rank": 1,
+        "score": 3.7812405e-13,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T01:31:11.772389Z",
+        "created_at": "2026-10-09T01:31:11.772389Z"
+      },
+      {
+        "id": "f2ca0590-df41-493a-a956-78668d403e71",
+        "epoch_id": 396,
+        "intent_id": "STOCK_PRICE",
+        "miner_slug": "livecert",
+        "rank": 4,
+        "score": 2.2695539e-13,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T01:31:11.772389Z",
+        "created_at": "2026-10-09T01:31:11.772389Z"
+      },
+      {
+        "id": "510d3132-ac43-4f6c-b288-90d3e6b0aeee",
+        "epoch_id": 394,
+        "intent_id": "STOCK_PRICE",
+        "miner_slug": "txlens",
+        "rank": 1,
+        "score": 1.741444e-11,
+        "failure_reason": "",
+        "scored_at": "2026-10-08T07:32:00.320023Z",
+        "created_at": "2026-10-08T07:32:00.320023Z"
+      },
+      {
+        "id": "5047997c-e1ba-447c-910c-aa5d7870c102",
+        "epoch_id": 394,
+        "intent_id": "STOCK_PRICE",
+        "miner_slug": "livecert",
+        "rank": 3,
+        "score": 8.770775e-13,
+        "failure_reason": "",
+        "scored_at": "2026-10-08T07:32:00.320023Z",
+        "created_at": "2026-10-08T07:32:00.320023Z"
+      }
+    ],
+    "total": 1275,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 3166,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "STOCK_PRICE",
+    "wasm_url": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/005b875a098203f254109d9113aa104feb38d4fe/dist/win2/sp_b.wasm",
+    "wasm_hash": "13164c781666e7cc8e7cafdcabf08a94de74fb10de0906f5f2a4aeac9fa3f066",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 0.7333328,
+    "eval": {
+      "candidate_margin": 0.7333328,
+      "champion_margin": 0.73333067,
+      "candidate_wins": 15,
+      "champion_wins": 15,
+      "comparable_cases": 15,
+      "worst_self_match": 1,
+      "score_stddev": 0.4714042,
+      "spearman": {
+        "STOCK_PRICE": 0.724699
+      },
+      "historical_rows_evaluated": 118
+    },
+    "registered_at": "2026-09-02T03:08:57Z",
+    "updated_at": "2026-09-02T06:11:29Z"
+  }
+}

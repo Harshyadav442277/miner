@@ -1,0 +1,114 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "240f9d99-bffd-4471-aeff-551b14bf57af",
+        "epoch_id": 376,
+        "intent_id": "CRYPTO_PRICE",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.99991107,
+        "failure_reason": "",
+        "scored_at": "2026-10-01T13:04:48.857554Z",
+        "created_at": "2026-10-01T13:04:48.857554Z"
+      },
+      {
+        "id": "8d03ecc8-e6ba-4584-b8d5-68ace6a8d261",
+        "epoch_id": 375,
+        "intent_id": "CRYPTO_PRICE",
+        "miner_slug": "preflight-ssl-verification",
+        "rank": 1,
+        "score": 0.9999999,
+        "failure_reason": "",
+        "scored_at": "2026-10-01T04:04:05.921959Z",
+        "created_at": "2026-10-01T04:04:05.921959Z"
+      },
+      {
+        "id": "dc84c67d-6776-45f4-b3be-27472c72b285",
+        "epoch_id": 375,
+        "intent_id": "CRYPTO_PRICE",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 0.99993104,
+        "failure_reason": "",
+        "scored_at": "2026-10-01T04:04:05.921959Z",
+        "created_at": "2026-10-01T04:04:05.921959Z"
+      },
+      {
+        "id": "6b635a2e-c9fc-4e07-a497-b2a02ee47fa6",
+        "epoch_id": 374,
+        "intent_id": "CRYPTO_PRICE",
+        "miner_slug": "kriterion-pramagraph",
+        "rank": 1,
+        "score": 0.99991137,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T19:33:30.475696Z",
+        "created_at": "2026-09-30T19:33:30.475696Z"
+      },
+      {
+        "id": "a40637fb-939f-42b3-8520-984b7457c761",
+        "epoch_id": 374,
+        "intent_id": "CRYPTO_PRICE",
+        "miner_slug": "livecert",
+        "rank": 3,
+        "score": 9.3403174e-11,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T19:33:30.475696Z",
+        "created_at": "2026-09-30T19:33:30.475696Z"
+      },
+      {
+        "id": "abeaa725-d0ba-4e07-ab69-43c759a37a7d",
+        "epoch_id": 373,
+        "intent_id": "CRYPTO_PRICE",
+        "miner_slug": "txlens",
+        "rank": 1,
+        "score": 3.617354e-30,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T10:29:02.638201Z",
+        "created_at": "2026-09-30T10:29:02.638201Z"
+      },
+      {
+        "id": "88c6a471-90ef-43a5-8619-0322e0c54aa1",
+        "epoch_id": 373,
+        "intent_id": "CRYPTO_PRICE",
+        "miner_slug": "livecert",
+        "rank": 6,
+        "score": 4.04896e-38,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T10:29:02.638201Z",
+        "created_at": "2026-09-30T10:29:02.638201Z"
+      }
+    ],
+    "total": 1779,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 3170,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "CRYPTO_PRICE",
+    "wasm_url": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/faa50f1cf7e051bde8d55ef897e6af3a48c6b507/dist/win2/cyt_1e4.wasm",
+    "wasm_hash": "21be28b0aefc17567bfce288e750fee583dd440998ab8262f7e6a4555fbdb09f",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 0.79999703,
+    "eval": {
+      "candidate_margin": 0.79999703,
+      "champion_margin": 0.7999882,
+      "candidate_wins": 15,
+      "champion_wins": 15,
+      "comparable_cases": 15,
+      "worst_self_match": 1,
+      "score_stddev": 0.48989713,
+      "spearman": {
+        "CRYPTO_PRICE": 0.7737146
+      },
+      "historical_rows_evaluated": 141
+    },
+    "registered_at": "2026-09-02T03:08:57Z",
+    "updated_at": "2026-09-02T03:24:33Z"
+  }
+}

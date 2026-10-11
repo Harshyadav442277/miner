@@ -1,0 +1,155 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "5a9ce71b-c6d0-4e5c-b1d8-0d63fb93776d",
+        "epoch_id": 400,
+        "intent_id": "SENTIMENT_ANALYSIS",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 1,
+        "failure_reason": "",
+        "scored_at": "2026-10-10T13:08:14.614047Z",
+        "created_at": "2026-10-10T13:08:14.614047Z"
+      },
+      {
+        "id": "b7b5c976-62de-44dd-a3de-fc779749c9eb",
+        "epoch_id": 399,
+        "intent_id": "SENTIMENT_ANALYSIS",
+        "miner_slug": "telegraph-ai-miner-node",
+        "rank": 1,
+        "score": 0,
+        "failure_reason": "call miner \"telegraph-ai-miner-node\": upstream error 404: The endpoint legwarmer-yearbook-symphonic.ngrok-free.dev is offline.\r\n\r\nERR_NGROK_3200\r\n",
+        "scored_at": "2026-10-10T04:14:23.798632Z",
+        "created_at": "2026-10-10T04:14:23.798632Z"
+      },
+      {
+        "id": "670f3b1d-8883-4c29-b35b-4f7d7734ecf6",
+        "epoch_id": 399,
+        "intent_id": "SENTIMENT_ANALYSIS",
+        "miner_slug": "livecert",
+        "rank": 6,
+        "score": 0,
+        "failure_reason": "",
+        "scored_at": "2026-10-10T04:14:23.798632Z",
+        "created_at": "2026-10-10T04:14:23.798632Z"
+      },
+      {
+        "id": "86f10e22-64ff-4f2f-a82d-8aaf4a56ce84",
+        "epoch_id": 398,
+        "intent_id": "SENTIMENT_ANALYSIS",
+        "miner_slug": "telegraph-ai-miner-node",
+        "rank": 1,
+        "score": 0,
+        "failure_reason": "call miner \"telegraph-ai-miner-node\": upstream error 404: The endpoint legwarmer-yearbook-symphonic.ngrok-free.dev is offline.\r\n\r\nERR_NGROK_3200\r\n",
+        "scored_at": "2026-10-09T19:34:12.02538Z",
+        "created_at": "2026-10-09T19:34:12.02538Z"
+      },
+      {
+        "id": "8e8b98eb-d8e9-4d1a-980d-8c84f03c9f02",
+        "epoch_id": 398,
+        "intent_id": "SENTIMENT_ANALYSIS",
+        "miner_slug": "livecert",
+        "rank": 5,
+        "score": 0,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T19:34:12.02538Z",
+        "created_at": "2026-10-09T19:34:12.02538Z"
+      },
+      {
+        "id": "77fddb32-1d17-430c-9e30-a5d4873d88b3",
+        "epoch_id": 397,
+        "intent_id": "SENTIMENT_ANALYSIS",
+        "miner_slug": "telegraph-ai-miner-node",
+        "rank": 1,
+        "score": 0,
+        "failure_reason": "call miner \"telegraph-ai-miner-node\": upstream error 404: The endpoint legwarmer-yearbook-symphonic.ngrok-free.dev is offline.\r\n\r\nERR_NGROK_3200\r\n",
+        "scored_at": "2026-10-09T09:53:08.547277Z",
+        "created_at": "2026-10-09T09:53:08.547277Z"
+      },
+      {
+        "id": "6d113368-e99b-46ed-bc9b-61c680b6b0a7",
+        "epoch_id": 397,
+        "intent_id": "SENTIMENT_ANALYSIS",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 0,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T09:53:08.547277Z",
+        "created_at": "2026-10-09T09:53:08.547277Z"
+      },
+      {
+        "id": "95d8a5bd-fbf2-430d-a56e-698069b8a0ba",
+        "epoch_id": 396,
+        "intent_id": "SENTIMENT_ANALYSIS",
+        "miner_slug": "telegraph-ai-miner-node",
+        "rank": 1,
+        "score": 0,
+        "failure_reason": "call miner \"telegraph-ai-miner-node\": upstream error 404: The endpoint legwarmer-yearbook-symphonic.ngrok-free.dev is offline.\r\n\r\nERR_NGROK_3200\r\n",
+        "scored_at": "2026-10-09T01:16:43.525229Z",
+        "created_at": "2026-10-09T01:16:43.525229Z"
+      },
+      {
+        "id": "7ecc0dc3-92d5-421f-960a-05d7c7123419",
+        "epoch_id": 396,
+        "intent_id": "SENTIMENT_ANALYSIS",
+        "miner_slug": "livecert",
+        "rank": 4,
+        "score": 0,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T01:16:43.525229Z",
+        "created_at": "2026-10-09T01:16:43.525229Z"
+      },
+      {
+        "id": "acc4e08b-7b12-4362-b445-f0ec73908b77",
+        "epoch_id": 395,
+        "intent_id": "SENTIMENT_ANALYSIS",
+        "miner_slug": "sent-hn-best",
+        "rank": 1,
+        "score": 0,
+        "failure_reason": "unrecognised response type []interface {} from miner",
+        "scored_at": "2026-10-08T15:55:02.410443Z",
+        "created_at": "2026-10-08T15:55:02.410443Z"
+      },
+      {
+        "id": "e32c4bab-7d42-4aba-85d9-46bc858711dd",
+        "epoch_id": 395,
+        "intent_id": "SENTIMENT_ANALYSIS",
+        "miner_slug": "livecert",
+        "rank": 3,
+        "score": 0,
+        "failure_reason": "",
+        "scored_at": "2026-10-08T15:55:02.410443Z",
+        "created_at": "2026-10-08T15:55:02.410443Z"
+      }
+    ],
+    "total": 1117,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 646,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "SENTIMENT_ANALYSIS",
+    "wasm_url": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/51202c1f017154281f36c2272413231bd3c610df/dist/xfmr/sa_pure.wasm",
+    "wasm_hash": "fba97a4fe8f214ad6a832f93aedae8767576aa7377a445443a146b463d002899",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 1,
+    "eval": {
+      "candidate_margin": 1,
+      "champion_margin": 0.9998468,
+      "candidate_wins": 15,
+      "champion_wins": 15,
+      "comparable_cases": 15,
+      "worst_self_match": 1,
+      "score_stddev": 0.47140452,
+      "historical_rows_evaluated": 0
+    },
+    "registered_at": "2026-08-24T05:19:49Z",
+    "updated_at": "2026-08-24T05:21:21Z"
+  }
+}

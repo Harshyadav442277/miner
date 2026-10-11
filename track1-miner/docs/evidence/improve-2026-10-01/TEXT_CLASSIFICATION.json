@@ -1,0 +1,155 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "2a6b350a-19d6-4e2f-bfae-7b755be1664d",
+        "epoch_id": 376,
+        "intent_id": "TEXT_CLASSIFICATION",
+        "miner_slug": "txlens",
+        "rank": 1,
+        "score": 0,
+        "failure_reason": "",
+        "scored_at": "2026-10-01T12:55:37.992069Z",
+        "created_at": "2026-10-01T12:55:37.992069Z"
+      },
+      {
+        "id": "d3787220-8098-4226-85ac-f6076a3a40f2",
+        "epoch_id": 376,
+        "intent_id": "TEXT_CLASSIFICATION",
+        "miner_slug": "livecert",
+        "rank": 5,
+        "score": 0,
+        "failure_reason": "",
+        "scored_at": "2026-10-01T12:55:37.992069Z",
+        "created_at": "2026-10-01T12:55:37.992069Z"
+      },
+      {
+        "id": "21da3754-02f5-4f60-82b6-280973a710b9",
+        "epoch_id": 375,
+        "intent_id": "TEXT_CLASSIFICATION",
+        "miner_slug": "txlens",
+        "rank": 1,
+        "score": 1,
+        "failure_reason": "",
+        "scored_at": "2026-10-01T03:44:58.083747Z",
+        "created_at": "2026-10-01T03:44:58.083747Z"
+      },
+      {
+        "id": "ac5e1047-2eab-468e-97a9-1da13ec5d938",
+        "epoch_id": 375,
+        "intent_id": "TEXT_CLASSIFICATION",
+        "miner_slug": "livecert",
+        "rank": 17,
+        "score": 0,
+        "failure_reason": "",
+        "scored_at": "2026-10-01T03:44:58.083747Z",
+        "created_at": "2026-10-01T03:44:58.083747Z"
+      },
+      {
+        "id": "7aaba59a-ab79-4765-b40e-41cac2491ce2",
+        "epoch_id": 374,
+        "intent_id": "TEXT_CLASSIFICATION",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.7024162,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T18:59:19.846902Z",
+        "created_at": "2026-09-30T18:59:19.846902Z"
+      },
+      {
+        "id": "c3e1e78f-1dbd-4452-b062-c79735fc8e18",
+        "epoch_id": 373,
+        "intent_id": "TEXT_CLASSIFICATION",
+        "miner_slug": "txlens",
+        "rank": 1,
+        "score": 0,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T10:10:24.231969Z",
+        "created_at": "2026-09-30T10:10:24.231969Z"
+      },
+      {
+        "id": "a9104ef1-d016-486e-ace2-4d1dd7b47310",
+        "epoch_id": 373,
+        "intent_id": "TEXT_CLASSIFICATION",
+        "miner_slug": "livecert",
+        "rank": 5,
+        "score": 0,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T10:10:24.231969Z",
+        "created_at": "2026-09-30T10:10:24.231969Z"
+      },
+      {
+        "id": "57b7cb6b-b370-44d3-9d12-73998514f09c",
+        "epoch_id": 372,
+        "intent_id": "TEXT_CLASSIFICATION",
+        "miner_slug": "telegraph-ai-miner-node",
+        "rank": 1,
+        "score": 0,
+        "failure_reason": "call miner \"telegraph-ai-miner-node\": upstream error 404: The endpoint legwarmer-yearbook-symphonic.ngrok-free.dev is offline.\r\n\r\nERR_NGROK_3200\r\n",
+        "scored_at": "2026-09-30T01:11:35.020682Z",
+        "created_at": "2026-09-30T01:11:35.020682Z"
+      },
+      {
+        "id": "a649577d-4a07-4273-ab72-a96d9c1349b0",
+        "epoch_id": 372,
+        "intent_id": "TEXT_CLASSIFICATION",
+        "miner_slug": "livecert",
+        "rank": 4,
+        "score": 0,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T01:11:35.020682Z",
+        "created_at": "2026-09-30T01:11:35.020682Z"
+      },
+      {
+        "id": "2401ce6c-5a4b-4592-8cc4-474226d918b6",
+        "epoch_id": 371,
+        "intent_id": "TEXT_CLASSIFICATION",
+        "miner_slug": "aiwire-text-classification",
+        "rank": 1,
+        "score": 0.4020594,
+        "failure_reason": "",
+        "scored_at": "2026-09-29T15:46:20.10002Z",
+        "created_at": "2026-09-29T15:46:20.10002Z"
+      },
+      {
+        "id": "8f31f539-7c86-4fdf-a902-0c3a7af224bd",
+        "epoch_id": 371,
+        "intent_id": "TEXT_CLASSIFICATION",
+        "miner_slug": "livecert",
+        "rank": 5,
+        "score": 0,
+        "failure_reason": "",
+        "scored_at": "2026-09-29T15:46:20.10002Z",
+        "created_at": "2026-09-29T15:46:20.10002Z"
+      }
+    ],
+    "total": 789,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 687,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "TEXT_CLASSIFICATION",
+    "wasm_url": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/5a0a5b7f5189ae26fc158385c8d69b5cebf20856/dist/xfmr/tc_pen0.wasm",
+    "wasm_hash": "3cfa840c513d7ffc4fd6c5bffc562e180dbe70cad35ddac2ce2fc6f47d028deb",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 1,
+    "eval": {
+      "candidate_margin": 1,
+      "champion_margin": 0.99970496,
+      "candidate_wins": 15,
+      "champion_wins": 15,
+      "comparable_cases": 15,
+      "worst_self_match": 0.98913455,
+      "score_stddev": 0.4698517,
+      "historical_rows_evaluated": 7
+    },
+    "registered_at": "2026-08-24T16:11:54Z",
+    "updated_at": "2026-08-24T16:26:16Z"
+  }
+}

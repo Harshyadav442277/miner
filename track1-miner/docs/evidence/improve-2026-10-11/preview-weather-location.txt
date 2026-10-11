@@ -1,0 +1,8 @@
+preview https://miner-k9cu0ezci-wukong4.vercel.app vs production, 2026-10-10T19:44:03Z
+Lagos Nigeria | prod: Lagos, 100242, Nigeria | preview: Lagos, Nigeria
+Lagos, Nigeria | prod: Lagos, Nigeria | preview: Lagos, Nigeria
+Houston Texas | prod: Houston, Texas, United States | preview: Houston, Texas, United States
+London | prod: London, England, United Kingdom | preview: London, England, United Kingdom
+Paris France | prod: Paris, France métropolitaine, France | preview: Paris, France métropolitaine, France
+Chennai India | prod: Chennai, Tamil Nadu, India | preview: Chennai, Tamil Nadu, India
+Auckland New Zealand | prod: Auckland, 1010, New Zealand / Aotearoa | preview: Auckland, New Zealand / Aotearoa

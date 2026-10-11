@@ -1,0 +1,158 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "33e0ee72-611d-4417-94e7-19fb25b3e6b7",
+        "epoch_id": 400,
+        "intent_id": "GAME_RESULT",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.31481692,
+        "failure_reason": "",
+        "scored_at": "2026-10-10T12:48:34.299703Z",
+        "created_at": "2026-10-10T12:48:34.299703Z"
+      },
+      {
+        "id": "4dece3ab-b68e-4af3-8bc1-2c380258ae36",
+        "epoch_id": 399,
+        "intent_id": "GAME_RESULT",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.6795638,
+        "failure_reason": "",
+        "scored_at": "2026-10-10T04:01:54.951883Z",
+        "created_at": "2026-10-10T04:01:54.951883Z"
+      },
+      {
+        "id": "a0747c61-c72a-4791-8e51-727f3ddc7bad",
+        "epoch_id": 398,
+        "intent_id": "GAME_RESULT",
+        "miner_slug": "fourcast-sports-intelligence",
+        "rank": 1,
+        "score": 0.9743111,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T19:37:20.362388Z",
+        "created_at": "2026-10-09T19:37:20.362388Z"
+      },
+      {
+        "id": "70bd5fca-cbd8-4b3f-a305-49f1633a1101",
+        "epoch_id": 398,
+        "intent_id": "GAME_RESULT",
+        "miner_slug": "livecert",
+        "rank": 6,
+        "score": 0.4292932,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T19:37:20.362388Z",
+        "created_at": "2026-10-09T19:37:20.362388Z"
+      },
+      {
+        "id": "aa1dc518-5cb8-447b-99f7-48352413ef66",
+        "epoch_id": 397,
+        "intent_id": "GAME_RESULT",
+        "miner_slug": "fourcast-sports-intelligence",
+        "rank": 1,
+        "score": 0.97782433,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T10:03:05.064254Z",
+        "created_at": "2026-10-09T10:03:05.064254Z"
+      },
+      {
+        "id": "b2a22dbb-1985-4b9f-93cd-730a76695f73",
+        "epoch_id": 397,
+        "intent_id": "GAME_RESULT",
+        "miner_slug": "livecert",
+        "rank": 7,
+        "score": 0.00017959885,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T10:03:05.064254Z",
+        "created_at": "2026-10-09T10:03:05.064254Z"
+      },
+      {
+        "id": "1a15dc65-7837-4c3f-851f-c0f56d0a3434",
+        "epoch_id": 396,
+        "intent_id": "GAME_RESULT",
+        "miner_slug": "game-nhl-score",
+        "rank": 1,
+        "score": 0.63921833,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T00:56:45.051892Z",
+        "created_at": "2026-10-09T00:56:45.051892Z"
+      },
+      {
+        "id": "16f5c593-b252-40a8-a081-a4a205d81ffe",
+        "epoch_id": 396,
+        "intent_id": "GAME_RESULT",
+        "miner_slug": "livecert",
+        "rank": 4,
+        "score": 0.006193003,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T00:56:45.051892Z",
+        "created_at": "2026-10-09T00:56:45.051892Z"
+      },
+      {
+        "id": "da0d36d5-a4e7-4ed6-9fbc-7babb16d3104",
+        "epoch_id": 395,
+        "intent_id": "GAME_RESULT",
+        "miner_slug": "sportwire-game-result",
+        "rank": 1,
+        "score": 0.6891853,
+        "failure_reason": "",
+        "scored_at": "2026-10-08T16:13:56.084316Z",
+        "created_at": "2026-10-08T16:13:56.084316Z"
+      },
+      {
+        "id": "c60405f5-0f84-403b-bc27-492def51c73d",
+        "epoch_id": 395,
+        "intent_id": "GAME_RESULT",
+        "miner_slug": "livecert",
+        "rank": 11,
+        "score": 0.000028580615,
+        "failure_reason": "",
+        "scored_at": "2026-10-08T16:13:56.084316Z",
+        "created_at": "2026-10-08T16:13:56.084316Z"
+      },
+      {
+        "id": "bb5280a8-d0e7-4b99-afe9-921ca354dde3",
+        "epoch_id": 394,
+        "intent_id": "GAME_RESULT",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.69322795,
+        "failure_reason": "",
+        "scored_at": "2026-10-08T07:09:31.440372Z",
+        "created_at": "2026-10-08T07:09:31.440372Z"
+      }
+    ],
+    "total": 1080,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 1265,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "GAME_RESULT",
+    "wasm_url": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/7d7b7cc8c072723495c6b8b0ab7774b19528a77f/dist/xfmr/game_fork_pivot10.wasm",
+    "wasm_hash": "698f4d1cd585239babdf6beaf9b8b288a0012fc2be50139efa6fd7a22cee88b4",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 0.7150477,
+    "eval": {
+      "candidate_margin": 0.7150477,
+      "champion_margin": 0.70880795,
+      "candidate_wins": 15,
+      "champion_wins": 15,
+      "comparable_cases": 15,
+      "worst_self_match": 1,
+      "score_stddev": 0.41659823,
+      "spearman": {
+        "GAME_RESULT": 0.6868132
+      },
+      "historical_rows_evaluated": 27
+    },
+    "registered_at": "2026-08-27T04:40:17Z",
+    "updated_at": "2026-08-27T04:40:17Z"
+  }
+}

@@ -1,0 +1,144 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "3ddaf784-5d06-4191-800d-e033d35789ba",
+        "epoch_id": 376,
+        "intent_id": "RESEARCH_QUERY",
+        "miner_slug": "txlens",
+        "rank": 1,
+        "score": 0.015581951,
+        "failure_reason": "",
+        "scored_at": "2026-10-01T13:22:49.599805Z",
+        "created_at": "2026-10-01T13:22:49.599805Z"
+      },
+      {
+        "id": "12536986-13eb-4243-9b18-118f97810f0c",
+        "epoch_id": 376,
+        "intent_id": "RESEARCH_QUERY",
+        "miner_slug": "livecert",
+        "rank": 7,
+        "score": 0.007739743,
+        "failure_reason": "",
+        "scored_at": "2026-10-01T13:22:49.599805Z",
+        "created_at": "2026-10-01T13:22:49.599805Z"
+      },
+      {
+        "id": "8522b0ee-4cd3-4f40-8c3f-e4a7e03abc96",
+        "epoch_id": 375,
+        "intent_id": "RESEARCH_QUERY",
+        "miner_slug": "rq-openalex-a",
+        "rank": 1,
+        "score": 0.015717562,
+        "failure_reason": "",
+        "scored_at": "2026-10-01T04:19:44.039546Z",
+        "created_at": "2026-10-01T04:19:44.039546Z"
+      },
+      {
+        "id": "92088de4-7396-4460-9520-9a71f26fc814",
+        "epoch_id": 375,
+        "intent_id": "RESEARCH_QUERY",
+        "miner_slug": "livecert",
+        "rank": 6,
+        "score": 0.008816584,
+        "failure_reason": "",
+        "scored_at": "2026-10-01T04:19:44.039546Z",
+        "created_at": "2026-10-01T04:19:44.039546Z"
+      },
+      {
+        "id": "45bb59ab-5c32-4fe0-b824-e366b19492e3",
+        "epoch_id": 374,
+        "intent_id": "RESEARCH_QUERY",
+        "miner_slug": "txlens",
+        "rank": 1,
+        "score": 0.016875397,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T19:05:42.631646Z",
+        "created_at": "2026-09-30T19:05:42.631646Z"
+      },
+      {
+        "id": "08f80f80-7bf6-4f74-b2c0-3b3df19df137",
+        "epoch_id": 374,
+        "intent_id": "RESEARCH_QUERY",
+        "miner_slug": "livecert",
+        "rank": 6,
+        "score": 0.008547588,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T19:05:42.631646Z",
+        "created_at": "2026-09-30T19:05:42.631646Z"
+      },
+      {
+        "id": "a75aadba-9e49-498e-864e-98f70f919073",
+        "epoch_id": 373,
+        "intent_id": "RESEARCH_QUERY",
+        "miner_slug": "rq-openalex-a",
+        "rank": 1,
+        "score": 0.014417424,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T10:04:52.933213Z",
+        "created_at": "2026-09-30T10:04:52.933213Z"
+      },
+      {
+        "id": "ef839b75-8ec9-4f3e-b71e-18c72e66d886",
+        "epoch_id": 373,
+        "intent_id": "RESEARCH_QUERY",
+        "miner_slug": "livecert",
+        "rank": 11,
+        "score": 0.0040464527,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T10:04:52.933213Z",
+        "created_at": "2026-09-30T10:04:52.933213Z"
+      },
+      {
+        "id": "9f2e07b1-6944-4d6c-9daa-6a30e7f7ce96",
+        "epoch_id": 372,
+        "intent_id": "RESEARCH_QUERY",
+        "miner_slug": "kriterion-pramagraph",
+        "rank": 1,
+        "score": 0.016032074,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T00:54:12.826888Z",
+        "created_at": "2026-09-30T00:54:12.826888Z"
+      },
+      {
+        "id": "7649e6dc-eff5-4b95-8ad1-1b4daaa32467",
+        "epoch_id": 372,
+        "intent_id": "RESEARCH_QUERY",
+        "miner_slug": "livecert",
+        "rank": 6,
+        "score": 0.009098978,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T00:54:12.826888Z",
+        "created_at": "2026-09-30T00:54:12.826888Z"
+      }
+    ],
+    "total": 1002,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 452,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "RESEARCH_QUERY",
+    "wasm_url": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/72616195155200974eac9982e3121aa48f5f8373/dist/xfmr/rquery_rpen.wasm",
+    "wasm_hash": "29b39599d762c61c0f8adf622d3204c85618cdc3803591fc8624ea9393c716b8",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 0.99000794,
+    "eval": {
+      "candidate_margin": 0.99000794,
+      "champion_margin": 0.97044337,
+      "candidate_wins": 32,
+      "champion_wins": 32,
+      "comparable_cases": 32,
+      "worst_self_match": 0.9947709,
+      "score_stddev": 0.46656534,
+      "historical_rows_evaluated": 4
+    },
+    "registered_at": "2026-08-22T11:26:43Z",
+    "updated_at": "2026-08-22T11:28:34Z"
+  }
+}

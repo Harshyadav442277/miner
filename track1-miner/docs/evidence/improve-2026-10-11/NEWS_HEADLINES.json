@@ -1,0 +1,144 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "382ee5a7-050f-4edd-a767-940309302ee4",
+        "epoch_id": 400,
+        "intent_id": "NEWS_HEADLINES",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 0.0074448152,
+        "failure_reason": "",
+        "scored_at": "2026-10-10T13:16:55.431258Z",
+        "created_at": "2026-10-10T13:16:55.431258Z"
+      },
+      {
+        "id": "8af641a2-6914-4a8e-9e51-423c36fea4e8",
+        "epoch_id": 400,
+        "intent_id": "NEWS_HEADLINES",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 0.005063254,
+        "failure_reason": "",
+        "scored_at": "2026-10-10T13:16:55.431258Z",
+        "created_at": "2026-10-10T13:16:55.431258Z"
+      },
+      {
+        "id": "84458c0c-acd4-47ce-a955-dc27ffc4e0fa",
+        "epoch_id": 399,
+        "intent_id": "NEWS_HEADLINES",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.0061497176,
+        "failure_reason": "",
+        "scored_at": "2026-10-10T03:51:55.035568Z",
+        "created_at": "2026-10-10T03:51:55.035568Z"
+      },
+      {
+        "id": "fcc60532-504b-4f76-9e1e-174c6064bc05",
+        "epoch_id": 398,
+        "intent_id": "NEWS_HEADLINES",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 0.011966184,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T19:02:33.11286Z",
+        "created_at": "2026-10-09T19:02:33.11286Z"
+      },
+      {
+        "id": "de40c0e6-af3c-4293-b0ab-6fc7df3c6c87",
+        "epoch_id": 398,
+        "intent_id": "NEWS_HEADLINES",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 0.011605987,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T19:02:33.11286Z",
+        "created_at": "2026-10-09T19:02:33.11286Z"
+      },
+      {
+        "id": "73ae9daa-26b2-47a3-9daf-c963a7c45e3e",
+        "epoch_id": 397,
+        "intent_id": "NEWS_HEADLINES",
+        "miner_slug": "newswire-headlines",
+        "rank": 1,
+        "score": 0.008556601,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T10:18:00.969334Z",
+        "created_at": "2026-10-09T10:18:00.969334Z"
+      },
+      {
+        "id": "0d8d01af-d1cc-45b5-8439-751819b9b2bf",
+        "epoch_id": 397,
+        "intent_id": "NEWS_HEADLINES",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 0.0065523717,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T10:18:00.969334Z",
+        "created_at": "2026-10-09T10:18:00.969334Z"
+      },
+      {
+        "id": "7fbb7a14-7026-42f6-9cd4-49decf4cbd6e",
+        "epoch_id": 396,
+        "intent_id": "NEWS_HEADLINES",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.007951899,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T01:34:16.389752Z",
+        "created_at": "2026-10-09T01:34:16.389752Z"
+      },
+      {
+        "id": "c503486e-b194-4a8b-bacd-c353f36c9654",
+        "epoch_id": 394,
+        "intent_id": "NEWS_HEADLINES",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.00591092,
+        "failure_reason": "",
+        "scored_at": "2026-10-08T07:27:51.779977Z",
+        "created_at": "2026-10-08T07:27:51.779977Z"
+      },
+      {
+        "id": "cf394dca-57fd-4499-ac74-681e935e1916",
+        "epoch_id": 393,
+        "intent_id": "NEWS_HEADLINES",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.0055554765,
+        "failure_reason": "",
+        "scored_at": "2026-10-07T22:01:25.412858Z",
+        "created_at": "2026-10-07T22:01:25.412858Z"
+      }
+    ],
+    "total": 967,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 635,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "NEWS_HEADLINES",
+    "wasm_url": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/f009d2d778bd49611dcc0a7e3819a8dca74d1aad/dist/xfmr/nh_mini.wasm",
+    "wasm_hash": "bd5175afa466481e522d80103b2569f0a00c71fdcc87d3d55b0e30d2fd1bbfbb",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 0.9935922,
+    "eval": {
+      "candidate_margin": 0.9935922,
+      "champion_margin": 0.93231577,
+      "candidate_wins": 15,
+      "champion_wins": 15,
+      "comparable_cases": 15,
+      "worst_self_match": 1,
+      "score_stddev": 0.4685157,
+      "historical_rows_evaluated": 8
+    },
+    "registered_at": "2026-08-24T02:25:08Z",
+    "updated_at": "2026-08-24T02:30:02Z"
+  }
+}

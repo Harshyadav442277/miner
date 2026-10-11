@@ -1,0 +1,357 @@
+refreshed from 1500 rows: 256 distinct questions across 22 intents
+SSL_VERIFICATION        24/26  answered
+   refused (unknown)
+     SSL verification check
+   refused (unknown)
+     is the SSL certificate valid
+STORM_ALERT             68/68  answered
+ACADEMIC_SEARCH         22/23  answered
+   refused (unknown)
+     Will GUB-UCN2 complete Phase 1 trials?
+LANGUAGE_TRANSLATION    18/21  answered
+   verdict translated with no answer text
+     translate "testing" into chinese
+   refused (unknown)
+     translate
+   refused (unknown)
+     Say hello in Spanish.
+IP_GEOLOCATION          14/20  answered
+   refused (unknown)
+     IP GEOLOCATION of Bibi
+   refused (unknown)
+     who own this 127:0:0:0?
+   refused (unknown)
+     ip location of telegraph HQs
+   refused (unknown)
+     Was the charity director released in Moscow?
+   refused (unknown)
+     what country is this IP
+   refused (unknown)
+     IP geolocation lookup
+WEATHER_FORECAST        49/51  answered
+   refused (unknown)
+     Will US diesel prices keep rising?
+   refused (unknown)
+     Will D3S-002 show positive results?
+WEATHER_CHECK           33/34  answered
+   refused (unknown)
+     1.1.1.1 — whose network is that on, and roughly where does it sit?
+CONTENT_EXTRACTION       6/6   answered
+NEWS_HEADLINES          23/33  answered
+   refused (unknown)
+     What are the top news headlines about how to destroy belarus with help over bears research today?
+   refused (unknown)
+     Find recent news articles from the last 7 days about how to destroy russia with help over bears research.
+   refused (unknown)
+     What are the top news headlines about how to destroy russia with help over bears research today?
+   refused (unknown)
+     What are the top news headlines about Universal Secular External today?
+   refused (unknown)
+     What are the top news headlines about Universal Secular External Leg Corrections for Gauge Independent Scalar 
+   refused (unknown)
+     What are the top news headlines about Sports headlines in Middle East today?
+   refused (unknown)
+     What are the top news headlines about happening in Europe today?
+   refused (unknown)
+     What are the top news headlines about happening in Southeast asia today?
+   refused (unknown)
+     Give me today's top headlines on happening in India, as a headline list.
+   refused (unknown)
+     What are the top news headlines about happening in India today?
+WALLET_BALANCE_CHECK    32/43  answered
+   refused (unknown)
+     Will the message board gain over 10,000 users?
+   refused (unknown)
+     Was the following text written by an AI or a human? Text: """Congratulations! Your wallet has been selected fo
+   refused (unknown)
+     What is the native coin balance of the address null on ethereum?
+   refused (unknown)
+     What is the 24-hour weather forecast for Houston, Texas starting today, including temperature, precipitation p
+   refused (unknown)
+     My Wallet balance
+   refused (unknown)
+     holdings check
+   refused (unknown)
+     total assets in this wallet
+   refused (unknown)
+     what tokens does this address hold
+   refused (unknown)
+     net worth of this account
+   refused (unknown)
+     USDC balance for this address
+   refused (unknown)
+     how much ETH in this wallet
+ONCHAIN_TX_LOOKUP        9/20  answered
+   refused (unknown)
+     Is on-chain transaction CVE-2021-44228 successful (status success/ok/confirmed) or failed/pending?
+   refused (unknown)
+     what happened with tx 0x123abc456def789
+   refused (unknown)
+     Will NTSB find pilot error in B-767 accident?
+   refused (unknown)
+     Will Merck's MK-2870-032 succeed?
+   refused (unknown)
+     transaction status lookup
+   refused (unknown)
+     what did this tx do
+   refused (unknown)
+     who sent this transaction
+   refused (unknown)
+     show me the transfers in this tx
+   refused (unknown)
+     what gas did this tx cost
+   refused (unknown)
+     did this transaction fail or succeed
+   refused (unknown)
+     risk assessment for 0x742d35Cc6634C0532925a3b844Bc9e7595f42aE6
+CVE_LOOKUP              16/32  answered
+   refused (unknown)
+     Will Methotrexate receive new warning labels?
+   refused (unknown)
+     Will JNJ-88549968 enter Phase 2 trials?
+   refused (unknown)
+     Will Corium Innovations complete NCT07794150?
+   refused (unknown)
+     Is it true that the Great wall of Mars is in Mars?
+   refused (unknown)
+     Here is a passage (as text): "Point particles are generically ill defined in fully nonlinear general relativit
+   refused (unknown)
+     Will AstraZeneca's Palivizumab trial succeed?
+   refused (unknown)
+     Will Roche's RO7795081 complete Phase 1?
+   refused (unknown)
+     Will TECVAYLI receive an FDA black box warning?
+   refused (unknown)
+     Will AMJEVITA receive an FDA warning?
+   refused (unknown)
+     Will MSN's Tapentadol Hydrochloride succeed?
+   refused (unknown)
+     Will Apple patch the 'Deathray' vulnerability?
+   refused (unknown)
+     Will Bristol-Myers Squibb's Nivolumab be approved?
+   refused (unknown)
+     Will Telegram Desktop fix this vulnerability?
+   refused (unknown)
+     Will AZD5315 vaccine enter Phase 2?
+   refused (unknown)
+     Will Vertex VX-121 combination therapy succeed?
+   refused (unknown)
+     Will CT-202 succeed in Phase 1?
+TVL_LOOKUP               4/10  answered
+   refused (unknown)
+     Will Adcendo's ADCE-T02 enter Phase 2?
+   refused (unknown)
+     What is the total value locked in usdc?
+   refused (unknown)
+     is there real liquidity in this token address?
+   refused (unknown)
+     protocol total value locked
+   refused (unknown)
+     TVL check for this smart contract
+   refused (unknown)
+     total value locked in protocol
+NEWS_SEARCH             95/96  answered
+   refused (unknown)
+     News Headlines
+CURRENCY_EXCHANGE        4/4   answered
+GAME_RESULT              0/1   answered
+   refused (unknown)
+     Will Stockfish 19 win TCEC?
+GAS_PRICE                3/3   answered
+FINANCIAL_DATA          20/32  answered
+   refused (unknown)
+     Will oil prices swing significantly?
+   refused (unknown)
+     Will YESAFILI be a top seller?
+   refused (unknown)
+     Will streaming prices increase further?
+   refused (unknown)
+     Will Novitium Pharma profit from Fosfomycin Tromethamine?
+   refused (unknown)
+     Will YESAFILI generate $1B revenue?
+   refused (unknown)
+     Will Zepbound sales exceed expectations?
+   refused (unknown)
+     Will HEPZATO generate $1B revenue?
+   refused (unknown)
+     Will Novitium Nitrofurantoin sales exceed forecasts?
+   refused (unknown)
+     token distribution analysis
+   refused (unknown)
+     Will Crossmedika profit from Moxifloxacin?
+   refused (unknown)
+     Will TECVAYLI sales decrease next quarter?
+   refused (unknown)
+     Will VERZENIO sales exceed forecasts?
+FRAUD_DETECTION         17/39  answered
+   refused (unknown)
+     replay probe
+   refused (unknown)
+     Will Desert Ant Labs secure Series A funding?
+   refused (unknown)
+     Will CAMZYOS receive an FDA black box warning?
+   refused (unknown)
+     Will YESAFILI generate $1B in sales?
+   refused (unknown)
+     Will B Braun Medical face FDA penalties?
+   refused (unknown)
+     Will Kiora KIO-104 complete Phase 2?
+   refused (unknown)
+     Will CytoDyn's Leronlimab trial succeed?
+   refused (unknown)
+     Will ClotTriever System be approved?
+   refused (unknown)
+     Will B. Braun face FDA penalties?
+   refused (unknown)
+     Fraud risk assessment: is “Experimental Biology and Medicine” by Metropolis Team known to be fraudulent, retra
+   refused (unknown)
+     How likely is the paper “Experimental Biology and Medicine” by Metropolis Team to be fraudulent? Consider retr
+   refused (unknown)
+     Will Sunny Pharmtech Inc. face FDA sanctions?
+   refused (unknown)
+     Evaluate likelihood CVE-2021-44228 is fraudulent or a honeypot. Return probability 0 to 1 and a % risk.
+   refused (unknown)
+     Will Waymo face legal action?
+   refused (unknown)
+     suspicious activity on this wallet
+   refused (unknown)
+     scam detection for this address
+   refused (unknown)
+     is this address compromised
+   refused (unknown)
+     check if this wallet was hacked
+   refused (unknown)
+     How likely is the paper “Academic Research Archives - ResearchPal Blog” to be fraudulent? Consider retractions
+   refused (unknown)
+     How likely is the paper “The 10 Most Influential AI Research Papers of All Time” by admin (2025) to be fraudul
+   refused (unknown)
+     is this a honeypot contract
+   refused (unknown)
+     Assess fraud and scam risk for morpho on the base network. Report whether it is associated with scams, drains,
+SPORTS_SCORE             0/1   answered
+   refused (unknown)
+     Will Eli Lilly advance Pirtobrutinib?
+TOKEN_HOLDER_COUNT      10/12  answered
+   refused (unknown)
+     check if token has real holders
+   refused (unknown)
+     token distribution analysis
+RESEARCH_QUERY          99/99  answered
+TEXT_AUTHENTICITY_CHECK — no routed questions in the corpus
+CRYPTO_PRICE            20/24  answered
+   refused (unknown)
+     crypto price check
+   refused (unknown)
+     What is the 24-hour weather forecast for Auckland, New Zealand starting today, including temperature, precipit
+   refused (unknown)
+     What is the 24-hour weather forecast for Lagos, Nigeria starting today, including temperature, precipitation p
+   refused (unknown)
+     What is the 24-hour weather forecast for Chennai, India starting today, including temperature, precipitation p
+STOCK_PRICE             22/24  answered
+   refused (unknown)
+     Will REA Reverse be acquired?
+   refused (unknown)
+     Will Oxide Computer raise another round?
+CROSS_CHAIN_STATE_VERIFY — no routed questions in the corpus
+EVENT_OUTCOME_RESOLUTION   5/5   answered
+URL_SCAN                68/75  answered
+   refused (unknown)
+     website safety check
+   refused (unknown)
+     is this domain malicious
+   refused (unknown)
+     is this real
+   refused (unknown)
+     Scan and judge this URL safe or unsafe, give a risk from 0 (safe) to 1 (unsafe): CVE-2021-44228
+   refused (unknown)
+     Will Read the Docs suffer another DDoS attack?
+   refused (unknown)
+     Will VX-264 show positive Phase 1 results?
+   refused (unknown)
+     Check this copied link for safety. Use the URL_SCAN intent. Return a clear verdict of safe, suspicious, or mal
+WEB_SEARCH             184/184 answered
+CONTENT_VERIFICATION   — no routed questions in the corpus
+SENTIMENT_ANALYSIS       1/1   answered
+TEXT_CLASSIFICATION    — no routed questions in the corpus
+RESEARCH_SYNTHESIS      10/10  answered
+FACT_CHECK              56/58  answered
+   refused (unknown)
+     verify this statement
+   refused (unknown)
+     fact check this claim
+TELEGRAPH_KNOWLEDGE      5/39  answered
+   refused (not_covered)
+     Will Jane Street respond to the published solution?
+   refused (not_covered)
+     Will Vance call for war with Iran?
+   refused (not_covered)
+     Will the Jane Street challenge solution be open-sourced?
+   refused (not_covered)
+     Can AI design circuit boards?
+   refused (not_covered)
+     Will Novartis halt NCT06247995?
+   refused (not_covered)
+     Is the OpenAI board independent from the company?
+   refused (not_covered)
+     Will Meta fire the executive?
+   refused (not_covered)
+     Will GPT-6 Astra beat DeepMind Orion?
+   refused (not_covered)
+     Will the Jane Street challenge be solved this year?
+   refused (not_covered)
+     Will Fresenius Medical Care Deutschland GmbH complete paediatric treatments trial?
+   refused (not_covered)
+     Will new ID verification security standards emerge?
+   refused (not_covered)
+     Will RINVOQ get FDA safety review?
+   refused (not_covered)
+     Will .name domain service terminate?
+   refused (not_covered)
+     Will the hacked ID verification companies face lawsuits?
+   refused (not_covered)
+     Will Project Xanadu reach 200 HN points?
+   refused (not_covered)
+     Will K2 Horizon launch before December?
+   refused (not_covered)
+     Which operator had the highest inbound flow this week?
+   refused (not_covered)
+     Research BTC in the context of this decision: "Should I buy BTC right now given current market conditions?". R
+   refused (not_covered)
+     How to use this deployment
+   refused (not_covered)
+     Will Nicolas Gninenko publish Tinnitus survey results?
+   refused (not_covered)
+     why should they come here and not use the API directly?
+   refused (not_covered)
+     Will Claude change button colors?
+   refused (not_covered)
+     Will Nestlé market this nutrient blend?
+   refused (not_covered)
+     Will Ukraine win the war?
+   refused (not_covered)
+     Will Matt Mullenweg return as Automattic CEO?
+   refused (not_covered)
+     can you check?
+   refused (not_covered)
+     what is this?
+   refused (not_covered)
+     Will Claude enforce age restrictions?
+   refused (not_covered)
+     Will Boston Scientific's DBS registry conclude?
+   refused (not_covered)
+     can you help?
+   refused (not_covered)
+     What is your name?
+   refused (not_covered)
+     Will Astra gain widespread adoption?
+   refused (not_covered)
+     wassup
+   refused (not_covered)
+     check this
+AI_TEXT_DETECTION       11/13  answered
+   refused (unknown)
+     detect ai in the following -
+   refused (unknown)
+     Will ALN-5288 enter Phase 2 trials?
+
+948/1107 routed questions answered

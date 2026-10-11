@@ -1,0 +1,155 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "a803cb60-c6a4-4052-97c7-229ead7cf1b9",
+        "epoch_id": 400,
+        "intent_id": "ACADEMIC_SEARCH",
+        "miner_slug": "chainsight-oracle",
+        "rank": 1,
+        "score": 0.46505174,
+        "failure_reason": "",
+        "scored_at": "2026-10-10T13:15:32.090277Z",
+        "created_at": "2026-10-10T13:15:32.090277Z"
+      },
+      {
+        "id": "a3c6e20f-e190-45b4-8f50-a271a5d89946",
+        "epoch_id": 400,
+        "intent_id": "ACADEMIC_SEARCH",
+        "miner_slug": "livecert",
+        "rank": 5,
+        "score": 0.011631644,
+        "failure_reason": "",
+        "scored_at": "2026-10-10T13:15:32.090277Z",
+        "created_at": "2026-10-10T13:15:32.090277Z"
+      },
+      {
+        "id": "be51c25e-2986-48f9-be68-e3eaf4dac8b2",
+        "epoch_id": 399,
+        "intent_id": "ACADEMIC_SEARCH",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.9949975,
+        "failure_reason": "",
+        "scored_at": "2026-10-10T04:23:46.69442Z",
+        "created_at": "2026-10-10T04:23:46.69442Z"
+      },
+      {
+        "id": "0379ce21-c62e-4e92-ae20-69d2dd0d1ac3",
+        "epoch_id": 397,
+        "intent_id": "ACADEMIC_SEARCH",
+        "miner_slug": "acad-doaj",
+        "rank": 1,
+        "score": 0.9934235,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T10:28:09.763445Z",
+        "created_at": "2026-10-09T10:28:09.763445Z"
+      },
+      {
+        "id": "1ac5fad7-77c7-447e-9011-f8a23199c8ab",
+        "epoch_id": 397,
+        "intent_id": "ACADEMIC_SEARCH",
+        "miner_slug": "livecert",
+        "rank": 8,
+        "score": 0.010778811,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T10:28:09.763445Z",
+        "created_at": "2026-10-09T10:28:09.763445Z"
+      },
+      {
+        "id": "80e3aad1-964b-4433-b3fb-01d8a1785b3e",
+        "epoch_id": 396,
+        "intent_id": "ACADEMIC_SEARCH",
+        "miner_slug": "acad-openalex-sources",
+        "rank": 1,
+        "score": 0.017724568,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T01:22:32.7319Z",
+        "created_at": "2026-10-09T01:22:32.7319Z"
+      },
+      {
+        "id": "af4e5003-5f29-4c88-bf7b-d035ef134425",
+        "epoch_id": 396,
+        "intent_id": "ACADEMIC_SEARCH",
+        "miner_slug": "livecert",
+        "rank": 9,
+        "score": 0.010527725,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T01:22:32.7319Z",
+        "created_at": "2026-10-09T01:22:32.7319Z"
+      },
+      {
+        "id": "70ab8ff3-deb5-41f7-8a33-7181511399ee",
+        "epoch_id": 395,
+        "intent_id": "ACADEMIC_SEARCH",
+        "miner_slug": "acad-doaj",
+        "rank": 1,
+        "score": 0.99326324,
+        "failure_reason": "",
+        "scored_at": "2026-10-08T15:47:37.689008Z",
+        "created_at": "2026-10-08T15:47:37.689008Z"
+      },
+      {
+        "id": "6556a6a9-b785-427f-b165-fcd6d06a0264",
+        "epoch_id": 395,
+        "intent_id": "ACADEMIC_SEARCH",
+        "miner_slug": "livecert",
+        "rank": 6,
+        "score": 0.010704792,
+        "failure_reason": "",
+        "scored_at": "2026-10-08T15:47:37.689008Z",
+        "created_at": "2026-10-08T15:47:37.689008Z"
+      },
+      {
+        "id": "5012a887-b980-44c9-949b-6f7c1eccf85f",
+        "epoch_id": 394,
+        "intent_id": "ACADEMIC_SEARCH",
+        "miner_slug": "acad-openalex-sources",
+        "rank": 1,
+        "score": 0.01620039,
+        "failure_reason": "",
+        "scored_at": "2026-10-08T07:34:45.729178Z",
+        "created_at": "2026-10-08T07:34:45.729178Z"
+      },
+      {
+        "id": "e5a9b6f2-dce1-4045-99df-79f2cf5529aa",
+        "epoch_id": 394,
+        "intent_id": "ACADEMIC_SEARCH",
+        "miner_slug": "livecert",
+        "rank": 11,
+        "score": 0.009463932,
+        "failure_reason": "",
+        "scored_at": "2026-10-08T07:34:45.729178Z",
+        "created_at": "2026-10-08T07:34:45.729178Z"
+      }
+    ],
+    "total": 1222,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 688,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "ACADEMIC_SEARCH",
+    "wasm_url": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/5a0a5b7f5189ae26fc158385c8d69b5cebf20856/dist/xfmr/acad_pen.wasm",
+    "wasm_hash": "782f7631221ef558040f646ea825a4a42b7d15f6918091c5e204cdb7ef3fa03b",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 0.68037784,
+    "eval": {
+      "candidate_margin": 0.68037784,
+      "champion_margin": 0.5618848,
+      "candidate_wins": 9,
+      "champion_wins": 9,
+      "comparable_cases": 13,
+      "worst_self_match": 0.98247266,
+      "score_stddev": 0.4430075,
+      "historical_rows_evaluated": 1
+    },
+    "registered_at": "2026-08-24T16:11:54Z",
+    "updated_at": "2026-08-24T16:27:10Z"
+  }
+}

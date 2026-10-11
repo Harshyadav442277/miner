@@ -1,0 +1,99 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "af136236-5cee-4d85-949b-ffa619cf468f",
+        "epoch_id": 400,
+        "intent_id": "CROSS_CHAIN_STATE_VERIFY",
+        "miner_slug": "txlens",
+        "rank": 1,
+        "score": 0.57557595,
+        "failure_reason": "",
+        "scored_at": "2026-10-10T13:19:40.529787Z",
+        "created_at": "2026-10-10T13:19:40.529787Z"
+      },
+      {
+        "id": "5fd6b5c2-0493-471d-9b56-0066710e72ad",
+        "epoch_id": 400,
+        "intent_id": "CROSS_CHAIN_STATE_VERIFY",
+        "miner_slug": "livecert",
+        "rank": 5,
+        "score": 0.37506476,
+        "failure_reason": "",
+        "scored_at": "2026-10-10T13:19:40.529787Z",
+        "created_at": "2026-10-10T13:19:40.529787Z"
+      },
+      {
+        "id": "142bc115-b2e6-41a0-be4f-5f2efc2ec599",
+        "epoch_id": 399,
+        "intent_id": "CROSS_CHAIN_STATE_VERIFY",
+        "miner_slug": "xchain-beacon-publicnode",
+        "rank": 1,
+        "score": 0.55377966,
+        "failure_reason": "",
+        "scored_at": "2026-10-10T04:22:54.072781Z",
+        "created_at": "2026-10-10T04:22:54.072781Z"
+      },
+      {
+        "id": "f77b3996-c33a-4f1a-9477-0d85aee10452",
+        "epoch_id": 399,
+        "intent_id": "CROSS_CHAIN_STATE_VERIFY",
+        "miner_slug": "livecert",
+        "rank": 5,
+        "score": 0.36112556,
+        "failure_reason": "",
+        "scored_at": "2026-10-10T04:22:54.072781Z",
+        "created_at": "2026-10-10T04:22:54.072781Z"
+      },
+      {
+        "id": "9f33a407-c66a-4277-94be-0060b5beb48d",
+        "epoch_id": 397,
+        "intent_id": "CROSS_CHAIN_STATE_VERIFY",
+        "miner_slug": "xchain-beacon-publicnode",
+        "rank": 1,
+        "score": 0.52841926,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T10:01:32.716527Z",
+        "created_at": "2026-10-09T10:01:32.716527Z"
+      },
+      {
+        "id": "e402d74d-7c0f-46ff-ba5d-e088b3884075",
+        "epoch_id": 397,
+        "intent_id": "CROSS_CHAIN_STATE_VERIFY",
+        "miner_slug": "livecert",
+        "rank": 5,
+        "score": 0.3691782,
+        "failure_reason": "",
+        "scored_at": "2026-10-09T10:01:32.716527Z",
+        "created_at": "2026-10-09T10:01:32.716527Z"
+      },
+      {
+        "id": "26db9e97-c69f-4f7e-a1b6-5ae7052df09f",
+        "epoch_id": 395,
+        "intent_id": "CROSS_CHAIN_STATE_VERIFY",
+        "miner_slug": "txlens",
+        "rank": 1,
+        "score": 0.5134924,
+        "failure_reason": "",
+        "scored_at": "2026-10-08T16:01:28.975983Z",
+        "created_at": "2026-10-08T16:01:28.975983Z"
+      },
+      {
+        "id": "be039295-9832-4878-84dd-5824ea73699e",
+        "epoch_id": 395,
+        "intent_id": "CROSS_CHAIN_STATE_VERIFY",
+        "miner_slug": "livecert",
+        "rank": 5,
+        "score": 0.33381099,
+        "failure_reason": "",
+        "scored_at": "2026-10-08T16:01:28.975983Z",
+        "created_at": "2026-10-08T16:01:28.975983Z"
+      }
+    ],
+    "total": 824,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": null
+}

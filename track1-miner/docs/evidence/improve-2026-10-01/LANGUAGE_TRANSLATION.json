@@ -1,0 +1,136 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "eac6fcc3-1d9b-4594-888a-f40ecf27436b",
+        "epoch_id": 376,
+        "intent_id": "LANGUAGE_TRANSLATION",
+        "miner_slug": "txlens",
+        "rank": 1,
+        "score": 4.810686e-10,
+        "failure_reason": "",
+        "scored_at": "2026-10-01T12:56:51.120772Z",
+        "created_at": "2026-10-01T12:56:51.120772Z"
+      },
+      {
+        "id": "bb28f31d-1b5c-48cd-b65c-9747b0d5b482",
+        "epoch_id": 376,
+        "intent_id": "LANGUAGE_TRANSLATION",
+        "miner_slug": "livecert",
+        "rank": 16,
+        "score": 2.4271363e-10,
+        "failure_reason": "",
+        "scored_at": "2026-10-01T12:56:51.120772Z",
+        "created_at": "2026-10-01T12:56:51.120772Z"
+      },
+      {
+        "id": "07e6c15c-1483-4d3f-a3d5-a16079aec4c3",
+        "epoch_id": 375,
+        "intent_id": "LANGUAGE_TRANSLATION",
+        "miner_slug": "tr-mymemory",
+        "rank": 1,
+        "score": 2.7067845e-10,
+        "failure_reason": "",
+        "scored_at": "2026-10-01T04:08:04.229173Z",
+        "created_at": "2026-10-01T04:08:04.229173Z"
+      },
+      {
+        "id": "79f898da-0a51-42ec-bd08-8ff532178412",
+        "epoch_id": 375,
+        "intent_id": "LANGUAGE_TRANSLATION",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 2.6920008e-10,
+        "failure_reason": "",
+        "scored_at": "2026-10-01T04:08:04.229173Z",
+        "created_at": "2026-10-01T04:08:04.229173Z"
+      },
+      {
+        "id": "9da4adf5-f078-4992-8125-7cccd6044474",
+        "epoch_id": 374,
+        "intent_id": "LANGUAGE_TRANSLATION",
+        "miner_slug": "tr-mymemory",
+        "rank": 1,
+        "score": 7.1371903e-10,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T19:19:42.675998Z",
+        "created_at": "2026-09-30T19:19:42.675998Z"
+      },
+      {
+        "id": "5f804942-ecea-4423-a09a-8ba523156c0f",
+        "epoch_id": 374,
+        "intent_id": "LANGUAGE_TRANSLATION",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 6.6420863e-10,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T19:19:42.675998Z",
+        "created_at": "2026-09-30T19:19:42.675998Z"
+      },
+      {
+        "id": "8c497c16-4cc5-4125-81db-e590bb179be7",
+        "epoch_id": 373,
+        "intent_id": "LANGUAGE_TRANSLATION",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 2.548534e-10,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T09:45:17.107409Z",
+        "created_at": "2026-09-30T09:45:17.107409Z"
+      },
+      {
+        "id": "f5884d08-62be-4ba5-978f-cf7d59bdb3a5",
+        "epoch_id": 372,
+        "intent_id": "LANGUAGE_TRANSLATION",
+        "miner_slug": "txlens",
+        "rank": 1,
+        "score": 1.7897489e-10,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T00:59:34.812814Z",
+        "created_at": "2026-09-30T00:59:34.812814Z"
+      },
+      {
+        "id": "0e1ff27b-30f6-40af-91ba-355aac67b06b",
+        "epoch_id": 372,
+        "intent_id": "LANGUAGE_TRANSLATION",
+        "miner_slug": "livecert",
+        "rank": 11,
+        "score": 0,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T00:59:34.812814Z",
+        "created_at": "2026-09-30T00:59:34.812814Z"
+      }
+    ],
+    "total": 848,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 2296,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "LANGUAGE_TRANSLATION",
+    "wasm_url": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/ed2c1e11019126b8ccc591d57b338bbec0f5cc49/dist/reclaim5/ltr_v5_75.wasm",
+    "wasm_hash": "fd031359851d906147944bcbd826f3f823cf5eea1335fa94dfe987cf01cb5692",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 0.93333286,
+    "eval": {
+      "candidate_margin": 0.93333286,
+      "champion_margin": 0.8666656,
+      "candidate_wins": 15,
+      "champion_wins": 15,
+      "comparable_cases": 15,
+      "worst_self_match": 1,
+      "score_stddev": 0.462948,
+      "spearman": {
+        "LANGUAGE_TRANSLATION": 0.9389012
+      },
+      "historical_rows_evaluated": 81
+    },
+    "registered_at": "2026-08-31T03:05:07Z",
+    "updated_at": "2026-08-31T03:12:54Z"
+  }
+}

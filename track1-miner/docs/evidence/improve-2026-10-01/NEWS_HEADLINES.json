@@ -1,0 +1,144 @@
+{
+  "scores": {
+    "scores": [
+      {
+        "id": "3a04d36b-4da2-4351-94e8-d584693b1c4f",
+        "epoch_id": 376,
+        "intent_id": "NEWS_HEADLINES",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.0083254995,
+        "failure_reason": "",
+        "scored_at": "2026-10-01T12:50:39.012214Z",
+        "created_at": "2026-10-01T12:50:39.012214Z"
+      },
+      {
+        "id": "49215ca6-ab42-4cb8-b9f0-9daf6b90f5e1",
+        "epoch_id": 375,
+        "intent_id": "NEWS_HEADLINES",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.011180077,
+        "failure_reason": "",
+        "scored_at": "2026-10-01T04:38:53.698613Z",
+        "created_at": "2026-10-01T04:38:53.698613Z"
+      },
+      {
+        "id": "17a3c594-cdeb-4ba2-a1fa-0ed1ff41376f",
+        "epoch_id": 374,
+        "intent_id": "NEWS_HEADLINES",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.009449919,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T19:40:32.499188Z",
+        "created_at": "2026-09-30T19:40:32.499188Z"
+      },
+      {
+        "id": "29349b84-e2fa-4490-8577-194466ef5562",
+        "epoch_id": 373,
+        "intent_id": "NEWS_HEADLINES",
+        "miner_slug": "txlens",
+        "rank": 1,
+        "score": 0.00758857,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T10:09:29.701636Z",
+        "created_at": "2026-09-30T10:09:29.701636Z"
+      },
+      {
+        "id": "f6f1be50-b748-4bf3-9ba9-b7600de36f3c",
+        "epoch_id": 373,
+        "intent_id": "NEWS_HEADLINES",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 0.0055339015,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T10:09:29.701636Z",
+        "created_at": "2026-09-30T10:09:29.701636Z"
+      },
+      {
+        "id": "69d8125d-f138-48e8-bfe6-319432597108",
+        "epoch_id": 372,
+        "intent_id": "NEWS_HEADLINES",
+        "miner_slug": "txlens",
+        "rank": 1,
+        "score": 0.007922864,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T01:25:44.596212Z",
+        "created_at": "2026-09-30T01:25:44.596212Z"
+      },
+      {
+        "id": "09c22528-6633-4e13-888a-c3100bf3dda8",
+        "epoch_id": 372,
+        "intent_id": "NEWS_HEADLINES",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 0.005439294,
+        "failure_reason": "",
+        "scored_at": "2026-09-30T01:25:44.596212Z",
+        "created_at": "2026-09-30T01:25:44.596212Z"
+      },
+      {
+        "id": "f9aa74eb-96ae-4081-8b2b-f1b1edcf95e2",
+        "epoch_id": 371,
+        "intent_id": "NEWS_HEADLINES",
+        "miner_slug": "txlens",
+        "rank": 1,
+        "score": 0.008486964,
+        "failure_reason": "",
+        "scored_at": "2026-09-29T16:28:40.536561Z",
+        "created_at": "2026-09-29T16:28:40.536561Z"
+      },
+      {
+        "id": "6712a26f-ad30-4415-a935-f5caa0f7b26f",
+        "epoch_id": 371,
+        "intent_id": "NEWS_HEADLINES",
+        "miner_slug": "livecert",
+        "rank": 2,
+        "score": 0.0062399134,
+        "failure_reason": "",
+        "scored_at": "2026-09-29T16:28:40.536561Z",
+        "created_at": "2026-09-29T16:28:40.536561Z"
+      },
+      {
+        "id": "84e56873-249d-47ea-9df5-11fe842cbc7b",
+        "epoch_id": 370,
+        "intent_id": "NEWS_HEADLINES",
+        "miner_slug": "livecert",
+        "rank": 1,
+        "score": 0.008241687,
+        "failure_reason": "",
+        "scored_at": "2026-09-29T07:31:05.814928Z",
+        "created_at": "2026-09-29T07:31:05.814928Z"
+      }
+    ],
+    "total": 677,
+    "limit": 100,
+    "offset": 0,
+    "selection": "LiveCert and rank-1 rows from the returned page; pagination metadata describes the source page"
+  },
+  "champion": {
+    "rank": 1,
+    "registration_id": 635,
+    "author_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "intent_id": "NEWS_HEADLINES",
+    "wasm_url": "https://raw.githubusercontent.com/zkasuran/telegraph-salience-scorer/f009d2d778bd49611dcc0a7e3819a8dca74d1aad/dist/xfmr/nh_mini.wasm",
+    "wasm_hash": "bd5175afa466481e522d80103b2569f0a00c71fdcc87d3d55b0e30d2fd1bbfbb",
+    "activation_status": "active",
+    "bond_amount": 0,
+    "is_champion": true,
+    "eval_score": 0.9935922,
+    "eval": {
+      "candidate_margin": 0.9935922,
+      "champion_margin": 0.93231577,
+      "candidate_wins": 15,
+      "champion_wins": 15,
+      "comparable_cases": 15,
+      "worst_self_match": 1,
+      "score_stddev": 0.4685157,
+      "historical_rows_evaluated": 8
+    },
+    "registered_at": "2026-08-24T02:25:08Z",
+    "updated_at": "2026-08-24T02:30:02Z"
+  }
+}
