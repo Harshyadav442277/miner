@@ -111,7 +111,11 @@ export async function geocodeFallback(
   if (Math.abs(latitude) > 90 || Math.abs(longitude) > 180) return null;
 
   const display = typeof hit["display_name"] === "string" ? hit["display_name"] : "";
-  const parts = display.split(",").map((p) => p.trim()).filter(Boolean);
+  // A postcode is one of the last components ("Lagos, Lagos Island, Lagos
+  // State, 100242, Nigeria"), and the answer read "Lagos, 100242, Nigeria"
+  // (routed 2026-10-10 with location=Lagos Nigeria). It is not part of a place name.
+  const postcode = (p: string): boolean => /\d/.test(p) && /^[A-Za-z0-9 -]{2,10}$/.test(p);
+  const parts = display.split(",").map((p) => p.trim()).filter((p) => p && !postcode(p));
   const named = parts.length > 2 ? [parts[0], ...parts.slice(-2)] : parts;
   const name = [...new Set(named)].join(", ");
   return { name: name || query, latitude, longitude };

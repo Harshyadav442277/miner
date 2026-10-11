@@ -95,4 +95,15 @@ describe("geocodeFallback", () => {
     const { impl } = scripted([json([{ lat: "1", lon: "2", display_name: "Tokyo, Japan" }])]);
     assert.equal((await geocodeFallback("Tokyo", 500, impl))?.name, "Tokyo, Japan");
   });
+
+  test("a postcode component is not part of the name", async () => {
+    for (const [display, want] of [
+      ["Lagos, Lagos Island, Lagos State, 100242, Nigeria", "Lagos, Lagos State, Nigeria"],
+      ["London, Greater London, England, SW1A 2AA, United Kingdom", "London, England, United Kingdom"],
+      ["Paris, Île-de-France, France métropolitaine, 75001, France", "Paris, France métropolitaine, France"],
+    ]) {
+      const { impl } = scripted([json([{ lat: "6.45", lon: "3.39", display_name: display }])]);
+      assert.equal((await geocodeFallback("x", 500, impl))?.name, want);
+    }
+  });
 });
