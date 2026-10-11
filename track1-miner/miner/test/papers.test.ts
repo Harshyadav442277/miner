@@ -157,12 +157,9 @@ test("an explicitly requested ordering is honoured, and only then", () => {
   assert.equal(requestedSort("zero knowledge proofs"), null);
 });
 
-test("the served academic body carries only the signal fields and the prose", () => {
-  // Telegraph converts the WHOLE payload (keys re-sorted) into the ~32 words it
-  // scores, so every extra field competes with the restated reason. Measured in
-  // bench/acad_shape.mjs against champion 688: the full PaperResult scores
-  // 0.006041 on the payload surface, this shape 0.013419, winning 22/22 rows
-  // with the prose surface unchanged.
+test("the served academic body is the whole result; the bench can still ask for the lean shape", () => {
+  // App-first since 2026-10-11: an app gets the papers as data. The lean shape
+  // stays available because bench/acad_shape.mjs scores old against new.
   const r: PaperResult = {
     topic: "CRISPR gene editing", from_date: "2024-01-01", to_date: "2024-12-31",
     verdict: "papers",
@@ -171,29 +168,8 @@ test("the served academic body carries only the signal fields and the prose", ()
     reason: "Here are 1 peer-reviewed papers on CRISPR gene editing: 1) A Paper by A. Researcher (2024), cited 42 times.",
     checked_at: "2026-08-31T00:00:00.000Z",
   };
-  const body = academicAnswer(r);
-  assert.deepEqual(Object.keys(body).sort(), ["confidence", "reason", "verdict"]);
-  assert.equal(body.reason, r.reason);
-  assert.equal(body.verdict, "papers");
-  assert.equal(body.confidence, 1);
-  // The bench still needs the old payload to score the before/after honestly.
-  assert.deepEqual(academicAnswer(r, "full"), { ...r });
-});
-
-test("a failed search stays lean too, so the degraded answer is the question echo", () => {
-  // OpenAlex sheds anonymous load (G43). When it does, the whole payload should
-  // be the restated question plus the honest "none found" — the highest-scoring
-  // real conversion ever archived for this intent (0.0149) was exactly that
-  // shape from another miner, while a bare "no results" scored 0.0009.
-  const r: PaperResult = {
-    topic: "quantum computing", from_date: null, to_date: null,
-    verdict: "unknown", papers: [], count: 0, confidence: 0,
-    reason: "No peer-reviewed papers on quantum computing were found for the requested period.",
-    checked_at: "2026-08-31T00:00:00.000Z",
-  };
-  const body = academicAnswer(r);
-  assert.deepEqual(Object.keys(body).sort(), ["confidence", "reason", "verdict"]);
-  assert.equal(body.confidence, 0, "confidence 0 keeps the honest-failure marker isAnswered() reads");
+  assert.deepEqual(academicAnswer(r), { ...r });
+  assert.deepEqual(academicAnswer(r, "lean"), { verdict: "papers", confidence: 1, reason: r.reason });
 });
 
 test("a title's hard wrapping never reaches the scored prose", async () => {

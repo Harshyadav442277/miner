@@ -57,17 +57,6 @@ export function extractIp(text: string): string | null {
 }
 
 /**
- * Verdicts produced by specialRange(). A special-range answer skips the
- * restatement prefix: its ground truths are explanations of range semantics
- * (reserved, documentation, not routable), and under the ~32-word conversion
- * budget the restatement pushed exactly those words out — measured 0.99 raw
- * against ~0.01 clipped on the TEST-NET questions with the prefix on.
- */
-export const SPECIAL_GEO_VERDICTS = new Set([
-  "private", "reserved", "loopback", "link_local", "shared", "multicast", "broadcast",
-]);
-
-/**
  * A special-use range, answered definitionally rather than looked up.
  *
  * These are RFC-level facts: the range's purpose and non-routability imply both

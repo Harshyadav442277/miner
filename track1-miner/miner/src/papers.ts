@@ -75,10 +75,13 @@ export interface PaperResult {
  *
  * The prose surface is identical in all four — this changes only what competes
  * with it. Same shape that fixed LANGUAGE_TRANSLATION, and the shape of the
- * epoch-297 leader (txlens: status + prose summary, nothing else). `"full"` is
- * kept solely so the bench can keep scoring the old payload beside the new one.
+ * epoch-297 leader (txlens: status + prose summary, nothing else).
+ *
+ * Served full since 2026-10-11: Season II is judged on app demand, not rank, and
+ * an app wants the papers as data (handler.ts `sendAnswer`). `"lean"` is kept so
+ * the bench can still score the old payload beside the new one.
  */
-export function academicAnswer(r: PaperResult, shape: "full" | "lean" = "lean"): Record<string, unknown> {
+export function academicAnswer(r: PaperResult, shape: "full" | "lean" = "full"): Record<string, unknown> {
   if (shape === "full") return { ...r };
   return { verdict: r.verdict, confidence: r.confidence, reason: r.reason };
 }

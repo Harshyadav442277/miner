@@ -89,7 +89,7 @@ test("/translate answers with the bare translation, unrestated", async () => {
   }
 });
 
-test("/papers serves only the signal fields around the restated prose", async () => {
+test("/papers answers with the papers as fields and prose that does not echo the question", async () => {
   const originalFetch = globalThis.fetch;
   globalThis.fetch = (async () =>
     new Response(
@@ -117,16 +117,12 @@ test("/papers serves only the signal fields around the restated prose", async ()
       } as unknown as ServerResponse;
       handleRequest(req, res);
     });
-    // The converter summarises the WHOLE payload with keys re-sorted, so the
-    // full PaperResult buried the restated question behind checked_at and the
-    // papers JSON — measured 0.006041 vs 0.013419 for this shape (22/22 rows,
-    // champion 688, bench/acad_shape.mjs). Only the signal_mapping fields and
-    // the prose reach the converter now; the prose still names every paper.
-    assert.deepEqual(Object.keys(body).sort(), ["confidence", "reason", "verdict"]);
-    assert.match(String(body.reason), /^Regarding find recent peer-reviewed papers on CRISPR gene editing:/);
+    // App-first since 2026-10-11: the caller gets the papers as data and prose
+    // that answers rather than repeating the question back.
+    assert.doesNotMatch(String(body.reason), /^(?:Regarding|Here is)\b/);
     assert.match(String(body.reason), /CRISPR-based gene therapy advances by A\. Researcher \(2024\), cited 42 times/);
-    for (const k of ["papers", "count", "topic", "from_date", "to_date", "checked_at"]) {
-      assert.ok(!(k in body), `${k} must not reach the converter`);
+    for (const k of ["verdict", "confidence", "reason", "papers", "checked_at"]) {
+      assert.ok(k in body, `${k} is part of the answer`);
     }
   } finally {
     globalThis.fetch = originalFetch;

@@ -7,7 +7,7 @@ import { translate, type TranslationResult } from "./translate";
 import { academicAnswer, findPapers, type PaperResult } from "./papers";
 import { getForecast, type ForecastResult } from "./forecast";
 import { asksCurrentConditions, getCurrentConditions } from "./currentweather";
-import { geolocate, SPECIAL_GEO_VERDICTS, type GeoResult } from "./geo";
+import { geolocate, type GeoResult } from "./geo";
 import { detectAiText, type AiDetectResult } from "./aidetect";
 import { extractContent } from "./content";
 import { getHeadlines } from "./news";
@@ -35,7 +35,6 @@ import {
   contractAddress, lookupTvl, protocolSubject, resolveChain as resolveTvlChain, resolveScope,
   supportedChains as supportedTvlChains, type TvlResult,
 } from "./tvl";
-import { withRestatement, isAnswered } from "./restate";
 import { lookupScore, type ScoreResult } from "./sportsscore";
 import {
   chainLabel as holderChainLabel, lookupHolders, supportedChains as supportedHolderChains,
@@ -218,84 +217,19 @@ function send(res: ServerResponse, status: number, body: unknown): void {
 }
 
 /**
- * An answer, with the request restated at the head of its prose.
+ * An answer exactly as the domain module produced it: every field the prose was
+ * written from, and the prose itself.
  *
- * Every ground truth in these intents restates the request before answering it,
- * and the scorer weights resemblance to that text heavily. Applied here rather
- * than inside each domain module so the cache keeps one canonical answer per
- * subject while the restatement is always the live question, not whichever
- * question first warmed the entry. Measurements: src/restate.ts.
+ * Until 2026-10-11 this restated the question at the head of `reason` and cut
+ * the payload to verdict, confidence and reason, because both measured higher
+ * under the intent scorers. Apps calling the miner got an echo of their own
+ * question and had to parse figures out of prose. The owner set Season II's goal
+ * as demand from apps, not rank (track1-miner/docs/S1_LOSS_ANALYSIS_2026-10-11.md),
+ * so answers are now written for the caller. The measurements that justified the
+ * old shape are in git history (`restate.ts`, `lean`).
  */
-function sendAnswer(
-  res: ServerResponse,
-  question: string,
-  body: unknown,
-  restate = true,
-  maxRestatedWords?: number,
-): void {
-  const b = body as Record<string, unknown>;
-  const reason = typeof b?.reason === "string" ? b.reason : "";
-  if (!reason || !restate) {
-    send(res, 200, body);
-    return;
-  }
-  send(res, 200, { ...b, reason: withRestatement(question, reason, isAnswered(b), maxRestatedWords) });
-}
-
-/**
- * The longest request IP_GEOLOCATION will restate, in words.
- *
- * Measured 2026-09-13 on a deployed build against ip_bench — 21 captured
- * questions with their captured ground truths — under the CURRENT champion
- * reg630, scored as flat32:
- *
- *   restate every request (60 words)   mean 0.6660   14/21 cross
- *   drop it past 10 words              mean 0.7602   16/21 cross
- *
- * The cause is mechanical and visible row by row. These questions run to 25
- * words ("Can you look up the geographic location and any available abuse
- * history for the IP address 142.251.42.174 and return the results in a
- * structured format"), the converter scores roughly 32, and our own answer
- * opens by naming the address anyway — so the prefix duplicates the subject and
- * pushes the city, the operator and the AS number past the end of the window.
- * Every losing row is a long question; every crossing row is a short one.
- *
- * This is deliberately NOT global. The same change measured on ssl_bench costs
- * the one row whose host actually resolves, api.github.com, 0.9928 -> 0.0109:
- * there the restatement is what crosses, and SSL_VERIFICATION is a rank we
- * hold. STORM_ALERT and ACADEMIC_SEARCH move by ~0.004 inside a band neither
- * has ever crossed. So the rule goes where it was measured and nowhere else.
- *
- * A bench is a filter, not a verdict (G62). Only a scored epoch settles it.
- */
-const GEO_MAX_RESTATED_WORDS = 10;
-
-/**
- * The scored text is the converter's summary of the WHOLE payload, keys
- * alphabetized — every metadata field is scored surface diluting the prose.
- * Projecting the response to the three fields signal_mapping names lifted the
- * payload surface 4.6x on SSL, 2.9x on weather and 1.25x on wallet (bench
- * flat32 under champions 631/636/2791, 2026-08-31) with the prose
- * byte-identical — the same measured move as ACADEMIC (+122%) and the
- * translate starve before it. Applied at the send, so caches and internal
- * functions keep every fact; `error` is kept where present so an honest
- * failure stays machine-readable.
- *
- * STORM and IP joined them on 2026-09-05. Both were left fat in G56 because the
- * evidence that day was for the three losing intents, not because they had been
- * cleared: seventeen and fourteen metadata fields surrounded their prose while
- * weather went on to cross its cliff at epoch 298 and SSL at 309.
- * `bench/payload_shape.mjs` measures the projection under each intent's live
- * champion on production payloads, prose byte-identical:
- *   STORM (champion 453, 12 rows)  flat32 0.008933 -> 0.011762  +32%, 11/12
- *   IP    (champion 630, 21 rows)  flat32 0.525445 -> 0.666003  +27%, 17/21
- * A bench of that size is a filter, not a verdict (G62); only a scored epoch is.
- */
-function lean(body: unknown): Record<string, unknown> {
-  const b = body as Record<string, unknown>;
-  const out: Record<string, unknown> = { verdict: b.verdict, confidence: b.confidence, reason: b.reason };
-  if (b.error !== undefined) out.error = b.error;
-  return out;
+function sendAnswer(res: ServerResponse, _question: string, body: unknown): void {
+  send(res, 200, body);
 }
 
 /**
@@ -503,22 +437,6 @@ function minimalTranslation(r: TranslationResult): Record<string, unknown> {
  * This exists so that a future parser change cannot quietly cost an epoch, and
  * because an honest 200 is always worth more here than a correct-looking 500.
  */
-/**
- * Whether an SSL answer should carry the restatement prefix.
- *
- * An unreachable host's answer now OPENS with the verification method, in the
- * ground truth's own words ("To analyze the TLS/SSL certificate configuration
- * for <host>, including chain completeness and hostname validation, run openssl
- * ..."). That already restates the question, and prefixing a second restatement
- * pushes the method out of the ~32-word conversion budget: measured against
- * champion 631 over the 10 unreachable bench rows, clip32 falls from 0.697778
- * to 0.206821 with the prefix on. Reachable answers keep it — they open with a
- * verdict, which does not restate anything.
- */
-function restateSsl(result: unknown): boolean {
-  return (result as { verdict?: string })?.verdict !== "unreachable";
-}
-
 export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
   try {
     route(req, res);
@@ -629,7 +547,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
       // receive: naming the window it asked for is the question's own vocabulary,
       // and throwing it away was leaving the only available overlap on the table.
       const w = requestedWindow(url);
-      sendAnswer(res, q, lean({
+      sendAnswer(res, q, {
         location: null,
         verdict: "unknown",
         confidence: 0,
@@ -641,7 +559,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
           `and the hourly temperature in Celsius, precipitation probability and wind speed${w ? ` over the next ${w.replace("-hour", " hours")}` : ""} ` +
           "can be returned.",
         error: "invalid_location",
-      }));
+      });
       return;
     }
     const days = Number(firstValue(url, "days", "forecast_days"));
@@ -682,14 +600,14 @@ function route(req: IncomingMessage, res: ServerResponse): void {
       const alertKey = `wcalert:${q.trim().toLowerCase()}`;
       const alertHit = fromCache(alertKey);
       if (alertHit) {
-        sendAnswer(res, q, lean(alertHit), false);
+        sendAnswer(res, q, alertHit);
         return;
       }
       checkStorm(q)
         .then(async (storm) => {
           const answer = await officialAlertAnswer(storm).then((official) => official ?? alertAnswer(storm));
           if (storm.verdict !== "unknown") toCache(alertKey, answer);
-          sendAnswer(res, q, lean(answer), false);
+          sendAnswer(res, q, answer);
         })
         .catch(() => upstreamUnavailable(res, "A weather alert check", q.slice(0, 80), q));
       return;
@@ -709,13 +627,13 @@ function route(req: IncomingMessage, res: ServerResponse): void {
       const nowKey = `wcnow:${q.trim().toLowerCase()}`;
       const nowHit = fromCache(nowKey);
       if (nowHit) {
-        sendAnswer(res, q, lean(nowHit), false);
+        sendAnswer(res, q, nowHit);
         return;
       }
       getCurrentConditions(q)
         .then((current) => {
           if (current.verdict !== "unknown") toCache(nowKey, current);
-          sendAnswer(res, q, lean(current), false);
+          sendAnswer(res, q, current);
         })
         .catch(() => upstreamUnavailable(res, "A current weather reading", q.slice(0, 80), q));
       return;
@@ -724,13 +642,13 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     const key = `fc:${q.trim().toLowerCase()}:${Math.floor(window)}:${daysRequested ?? ""}`;
     const hit = fromCache(key);
     if (hit) {
-      sendAnswer(res, q, lean(hit));
+      sendAnswer(res, q, hit);
       return;
     }
     getForecast(q, window, undefined, daysRequested)
       .then((result) => {
         toCache(key, result);
-        sendAnswer(res, q, lean(result));
+        sendAnswer(res, q, result);
       })
       .catch(() => upstreamUnavailable(res, "A weather forecast", q.slice(0, 80), q));
     return;
@@ -739,7 +657,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
   if (path === "/ip-geolocate") {
     const q = firstValue(url, "ip", "address", "query", "q", "question", "text", "input");
     if (!q.trim()) {
-      sendAnswer(res, q, lean({
+      sendAnswer(res, q, {
         ip: null,
         verdict: "unknown",
         confidence: 0,
@@ -748,7 +666,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
           "determined. Supply an address such as 8.8.8.8 and the country, city, coordinates and " +
           "network operator can be returned.",
         error: "invalid_ip",
-      }));
+      });
       return;
     }
     // Special-range answers (private, TEST-NET, loopback…) skip the restatement:
@@ -759,13 +677,13 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     const key = `geo:${q.trim().toLowerCase()}`;
     const hit = fromCache(key);
     if (hit) {
-      sendAnswer(res, q, lean(hit), !SPECIAL_GEO_VERDICTS.has((hit as GeoResult).verdict), GEO_MAX_RESTATED_WORDS);
+      sendAnswer(res, q, hit);
       return;
     }
     geolocate(q)
       .then((result) => {
         toCache(key, result);
-        sendAnswer(res, q, lean(result), !SPECIAL_GEO_VERDICTS.has(result.verdict), GEO_MAX_RESTATED_WORDS);
+        sendAnswer(res, q, result);
       })
       .catch(() => {
         upstreamUnavailable(res, "IP geolocation", q.slice(0, 80), q);
@@ -780,7 +698,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
         firstValue(url, "location", "place", "city"),
       ) || coordsFromParams(url);
     if (!q.trim()) {
-      sendAnswer(res, q, lean({
+      sendAnswer(res, q, {
         location: null,
         verdict: "unknown",
         confidence: 0,
@@ -791,7 +709,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
           "Supply a place name such as Chennai, or a latitude and longitude, and the wind speed, " +
           "gusts, precipitation and an overall risk between 0 and 1 can be returned.",
         error: "invalid_location",
-      }));
+      });
       return;
     }
     const stormDays = Number(firstValue(url, "days", "forecast_days"));
@@ -802,14 +720,14 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     const key = `storm:${q.trim().toLowerCase()}:${stormHours ?? "auto"}`;
     const hit = fromCache(key);
     if (hit) {
-      sendAnswer(res, q, lean(hit));
+      sendAnswer(res, q, hit);
       return;
     }
     // Positive explicit hours force a window; zero names the current hour.
     checkStorm(q, undefined, stormHours)
       .then((result) => {
         toCache(key, result);
-        sendAnswer(res, q, lean(result));
+        sendAnswer(res, q, result);
       })
       .catch(() => upstreamUnavailable(res, "A storm risk forecast", q.slice(0, 80), q));
     return;
@@ -900,7 +818,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
       /^0x0{40}$/.test(addressParam) ? "" : addressParam,
     );
     if (!q.trim()) {
-      sendAnswer(res, q, lean({
+      sendAnswer(res, q, {
         verdict: "unknown",
         confidence: 0,
         reason:
@@ -908,13 +826,13 @@ function route(req: IncomingMessage, res: ServerResponse): void {
           "Supply a 20-byte EVM address such as 0x742d35Cc6634C0532925a3b844Bc454e4438f44e, " +
           "and name a chain such as Base or Arbitrum.",
         error: "invalid_address",
-      }), false);
+      });
       return;
     }
     const key = `wallet:${q.trim().toLowerCase()}:${firstValue(url, "chain", "network").toLowerCase()}`;
     const hit = fromCache(key);
     if (hit) {
-      sendAnswer(res, q, lean(hit), false);
+      sendAnswer(res, q, hit);
       return;
     }
     // The structured `chain` parameter is read here, not just out of the prose:
@@ -923,7 +841,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     checkBalance(q, undefined, firstValue(url, "chain", "network"))
       .then((r) => {
         toCache(key, r);
-        sendAnswer(res, q, lean(r), false);
+        sendAnswer(res, q, r);
       })
       .catch(() => upstreamUnavailable(res, "A wallet balance", q.slice(0, 60), q));
     return;
@@ -971,14 +889,14 @@ function route(req: IncomingMessage, res: ServerResponse): void {
           const key = `activity:${chain}:${addr.toLowerCase()}:${recency ? "r" : "-"}:${mislabelled ? "m" : "-"}`;
           const hit = fromCache(key);
           if (hit) {
-            sendAnswer(res, q, lean(hit), false);
+            sendAnswer(res, q, hit);
             return;
           }
           lookupActivity(addr, chain, { recency })
             .then((r) => {
               const answer = mislabelled ? { ...r, reason: `${mislabelled}${r.reason}` } : r;
               if (!r.error) toCache(key, answer);
-              sendAnswer(res, q, lean(answer), false);
+              sendAnswer(res, q, answer);
             })
             .catch(() => upstreamUnavailable(res, "A transaction lookup", addr, q));
           return;
@@ -996,7 +914,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
           ? `The value ${address} is a 20-byte account address, not a transaction hash. A balance ` +
             `question about an account is answered by /wallet-balance.`
           : "No transaction hash was supplied with this request.";
-      sendAnswer(res, q, lean({
+      sendAnswer(res, q, {
         hash: null,
         chain: null,
         verdict: "unknown",
@@ -1007,7 +925,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
           `gas used, effective gas price, total fee, value moved, sender, recipient and block ` +
           `number can be returned.`,
         error: "invalid_hash",
-      }), false);
+      });
       return;
     }
 
@@ -1021,7 +939,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     // `unknown` names no chain at all. Both used to take this refusal, which
     // scores 0.0056 against the epoch leader where the same lookup scores 0.9962.
     if (readChainName(chainParam).kind === "unreadable") {
-      sendAnswer(res, q, lean({
+      sendAnswer(res, q, {
         hash,
         chain: null,
         verdict: "unknown",
@@ -1032,7 +950,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
           `lookup was not attempted against a different chain, because the same hash can exist on ` +
           `more than one network and answering from the wrong one would be misleading.`,
         error: "unsupported_chain",
-      }), false);
+      });
       return;
     }
 
@@ -1042,7 +960,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     const key = `tx:${chain}:${explicit ? "x" : "d"}:${hash}`;
     const hit = fromCache(key);
     if (hit) {
-      sendAnswer(res, q, lean(hit), false);
+      sendAnswer(res, q, hit);
       return;
     }
     lookupTransaction(hash, chain, conflict, explicit)
@@ -1051,7 +969,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
         // unavailable answer is not, and caching either would keep serving a
         // stale "pending" after the transaction had been mined.
         if (r.verdict === "confirmed" || r.verdict === "reverted") toCache(key, r);
-        sendAnswer(res, q, lean(r), false);
+        sendAnswer(res, q, r);
       })
       .catch(() => upstreamUnavailable(res, "A transaction lookup", hash.slice(0, 20), q));
     return;
@@ -1072,13 +990,13 @@ function route(req: IncomingMessage, res: ServerResponse): void {
         const key = `cvesurvey:${survey.year ?? "now"}:${survey.severity ?? "any"}`;
         const hit = fromCache(key);
         if (hit) {
-          sendAnswer(res, q, lean(hit), false);
+          sendAnswer(res, q, hit);
           return;
         }
         surveyCves(survey)
           .then((r) => {
             if (!r.error) toCache(key, r, CVE_TTL_MS);
-            sendAnswer(res, q, lean(r), false);
+            sendAnswer(res, q, r);
           })
           .catch(() => upstreamUnavailable(res, "A vulnerability lookup", "that period", q));
         return;
@@ -1096,19 +1014,19 @@ function route(req: IncomingMessage, res: ServerResponse): void {
         const key = `cvekw:${byKeyword.product.toLowerCase()}:${byKeyword.klass}`;
         const hit = fromCache(key);
         if (hit) {
-          sendAnswer(res, q, lean(hit), false);
+          sendAnswer(res, q, hit);
           return;
         }
         lookupByKeyword(byKeyword)
           .then((r) => {
             if (!r.error) toCache(key, r, CVE_TTL_MS);
-            sendAnswer(res, q, lean(r), false);
+            sendAnswer(res, q, r);
           })
           .catch(() => upstreamUnavailable(res, "A vulnerability lookup", byKeyword.product, q));
         return;
       }
       const malformed = malformedCveId(idParam) || malformedCveId(q);
-      sendAnswer(res, q, lean({
+      sendAnswer(res, q, {
         cve_id: null,
         verdict: "unknown",
         confidence: 0,
@@ -1121,7 +1039,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
           `affected versions can be returned. This endpoint answers questions about one named ` +
           `vulnerability; it does not search for vulnerabilities by product or by year.`,
         error: "invalid_cve_id",
-      }), false);
+      });
       return;
     }
     // A published CVE record changes rarely, so the answer is cached like any
@@ -1130,7 +1048,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     const key = `cve:${id}`;
     const hit = fromCache(key);
     if (hit) {
-      sendAnswer(res, q, lean(hit), false);
+      sendAnswer(res, q, hit);
       return;
     }
     lookupCve(id)
@@ -1139,7 +1057,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
         // default TTL so a rate-limit window does not pin a non-answer for six
         // hours.
         if (!r.error) toCache(key, r, CVE_TTL_MS);
-        sendAnswer(res, q, lean(r), false);
+        sendAnswer(res, q, r);
       })
       .catch(() => upstreamUnavailable(res, "A vulnerability lookup", id, q));
     return;
@@ -1174,7 +1092,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     else subject = protocolParam.trim() || protocolSubject(q);
 
     if (!subject) {
-      sendAnswer(res, q, lean({
+      sendAnswer(res, q, {
         scope: null, subject: null, chain, usd: null,
         verdict: "unknown", confidence: 0,
         reason:
@@ -1183,7 +1101,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
           `such as ${supportedTvlChains().slice(0, 3).join(", ")}, or a token contract address ` +
           "with its chain for that token's own DEX pool liquidity.",
         error: "no_subject",
-      }), false);
+      });
       return;
     }
 
@@ -1191,7 +1109,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     // an empty chain name and answered "not found", which reads as a claim
     // about the chain rather than about the question.
     if (scope === "chain" && !chain) {
-      sendAnswer(res, q, lean({
+      sendAnswer(res, q, {
         scope, subject, chain: null, usd: null,
         verdict: "unknown", confidence: 0,
         reason:
@@ -1199,7 +1117,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
           `${supportedTvlChains().join(", ")}. No figure was substituted from a different chain, ` +
           "because one chain's total value locked says nothing about another's.",
         error: "unsupported_chain",
-      }), false);
+      });
       return;
     }
 
@@ -1209,13 +1127,13 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     const key = `tvl:${scope}:${chain ?? "-"}:${subject.toLowerCase()}`;
     const hit = fromCache(key);
     if (hit) {
-      sendAnswer(res, q, lean(hit), false);
+      sendAnswer(res, q, hit);
       return;
     }
     lookupTvl(scope, subject, chain)
       .then((r) => {
         if (r.verdict === "found") toCache(key, r);
-        sendAnswer(res, q, lean(r), false);
+        sendAnswer(res, q, r);
       })
       .catch(() => upstreamUnavailable(res, "A total-value-locked lookup", subject.slice(0, 40), q));
     return;
@@ -1245,7 +1163,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     const key = `news:${(subjectParam || q).toLowerCase().slice(0, 120)}:${days ?? "-"}`;
     const hit = fromCache(key);
     if (hit) {
-      sendAnswer(res, q, lean(hit), false);
+      sendAnswer(res, q, hit);
       return;
     }
     searchNews(q, subjectParam, days)
@@ -1253,7 +1171,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
         // Only a real result is cached. Caching "no results" would keep serving
         // it for the rest of the TTL after the story broke.
         if (r.verdict === "articles") toCache(key, r);
-        sendAnswer(res, q, lean(r), false);
+        sendAnswer(res, q, r);
       })
       .catch(() => upstreamUnavailable(res, "A news article search", (subjectParam || q).slice(0, 40), q));
     return;
@@ -1312,13 +1230,13 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     const key = `fx:${from}:${to}:${amount ?? "-"}:${date ?? "-"}`;
     const hit = fromCache(key);
     if (hit) {
-      sendAnswer(res, q, lean(hit), false);
+      sendAnswer(res, q, hit);
       return;
     }
     convert(from, to, amount, date)
       .then((r) => {
         if (r.verdict === "converted" || r.verdict === "rate") toCache(key, r);
-        sendAnswer(res, q, lean(r), false);
+        sendAnswer(res, q, r);
       })
       .catch(() => upstreamUnavailable(res, "A currency conversion", `${from ?? "?"} to ${to ?? "?"}`, q));
     return;
@@ -1361,7 +1279,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     if (key) {
       const hit = fromCache(key);
       if (hit) {
-        sendAnswer(res, q, lean(hit), false);
+        sendAnswer(res, q, hit);
         return;
       }
     }
@@ -1371,7 +1289,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
         // scheduled or in-progress one is not: caching either would keep
         // serving "has not been played" after it had been.
         if (key && r.verdict === "result") toCache(key, r);
-        sendAnswer(res, q, lean(r), false);
+        sendAnswer(res, q, r);
       })
       .catch(() => upstreamUnavailable(res, "A sports fixture result", (teamsParam || team).slice(0, 40) || q.slice(0, 40), q));
     return;
@@ -1395,7 +1313,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     if (key) {
       const hit = fromCache(key);
       if (hit) {
-        sendAnswer(res, q, lean(hit), false);
+        sendAnswer(res, q, hit);
         return;
       }
     }
@@ -1404,7 +1322,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
         // A live score is the one answer that must never be cached: the whole
         // question is what it is right now, and the shared window is 60 seconds.
         if (key && r.verdict === "final_score") toCache(key, r);
-        sendAnswer(res, q, lean(r), false);
+        sendAnswer(res, q, r);
       })
       .catch(() => upstreamUnavailable(res, "A live score lookup", teamsParam.slice(0, 40) || q.slice(0, 40), q));
     return;
@@ -1426,13 +1344,13 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     const key = `holders:${JSON.stringify([addressParam, symbolParam, chainParam, q.toLowerCase()])}`;
     const hit = fromCache(key);
     if (hit) {
-      sendAnswer(res, q, lean(hit), false);
+      sendAnswer(res, q, hit);
       return;
     }
     lookupHolders(q, { address: addressParam, symbol: symbolParam, chain: chainParam })
       .then((r) => {
         if (r.verdict === "holder_count") toCache(key, r);
-        sendAnswer(res, q, lean(r), false);
+        sendAnswer(res, q, r);
       })
       .catch(() => upstreamUnavailable(
         res, "A token holder count",
@@ -1455,13 +1373,13 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     const key = `research:${q.trim().toLowerCase()}`;
     const hit = fromCache(key);
     if (hit) {
-      sendAnswer(res, q, lean(hit), false);
+      sendAnswer(res, q, hit);
       return;
     }
     answerResearch(q)
       .then((r) => {
         if (r.verdict === "evidence" || r.verdict === "no_evidence") toCache(key, r);
-        sendAnswer(res, q, lean(r), false);
+        sendAnswer(res, q, r);
       })
       .catch(() => upstreamUnavailable(res, "A cited research answer", q.slice(0, 60), q));
     return;
@@ -1477,13 +1395,13 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     const key = `auth:${subject.trim().toLowerCase().slice(0, 300)}`;
     const hit = fromCache(key);
     if (hit) {
-      sendAnswer(res, asked, lean(hit), false);
+      sendAnswer(res, asked, hit);
       return;
     }
     checkAuthenticity(subject)
       .then((r) => {
         if (r.verdict === "copied" || r.verdict === "no_source_found") toCache(key, r);
-        sendAnswer(res, asked, lean(r), false);
+        sendAnswer(res, asked, r);
       })
       .catch(() => upstreamUnavailable(res, "A text originality check", "the supplied passage", asked));
     return;
@@ -1500,7 +1418,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     const key = `crypto:${q.trim().toLowerCase().slice(0, 120)}`;
     const hit = fromCache(key);
     if (hit) {
-      sendAnswer(res, q, lean(hit), false);
+      sendAnswer(res, q, hit);
       return;
     }
     lookupCryptoPrice(q)
@@ -1509,7 +1427,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
         // and spare CoinGecko's keyless tier, short enough that "current" stays true.
         if (r.verdict === "price") toCache(key, r, 15_000);
         else if (r.verdict === "historical_price" || r.verdict === "no_market_price") toCache(key, r);
-        sendAnswer(res, q, lean(r), false);
+        sendAnswer(res, q, r);
       })
       .catch(() => upstreamUnavailable(res, "A cryptocurrency price", (symbolParam || q).slice(0, 40) || "this request", q));
     return;
@@ -1526,14 +1444,14 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     const key = `stock:${JSON.stringify([symbolParam, q.trim().toLowerCase().slice(0, 120)])}`;
     const hit = fromCache(key);
     if (hit) {
-      sendAnswer(res, q, lean(hit), false);
+      sendAnswer(res, q, hit);
       return;
     }
     lookupStockPrice(q, symbolParam)
       .then((r) => {
         if (r.verdict === "price") toCache(key, r, 15_000);
         else if (r.verdict === "historical_price" || r.verdict === "not_found") toCache(key, r);
-        sendAnswer(res, q, lean(r), false);
+        sendAnswer(res, q, r);
       })
       .catch(() => upstreamUnavailable(res, "A share price", (symbolParam || q).slice(0, 40) || "this request", q));
     return;
@@ -1551,7 +1469,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     const key = `xchain:${q.trim().toLowerCase().slice(0, 300)}`;
     const hit = fromCache(key);
     if (hit) {
-      sendAnswer(res, q, lean(hit), false);
+      sendAnswer(res, q, hit);
       return;
     }
     verifyCrossChain(q)
@@ -1559,7 +1477,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
         // An in-flight message becomes deliverable at any moment, so only settled
         // verdicts are cached.
         if (r.verdict === "verified" || r.verdict === "mismatch" || r.verdict === "insufficient_input") toCache(key, r);
-        sendAnswer(res, q, lean(r), false);
+        sendAnswer(res, q, r);
       })
       .catch(() => upstreamUnavailable(res, "A cross-chain message verification", (refParam || q).slice(0, 66) || "this request", q));
     return;
@@ -1578,13 +1496,13 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     const key = `event:${q.trim().toLowerCase().slice(0, 300)}`;
     const hit = fromCache(key);
     if (hit) {
-      sendAnswer(res, q, lean(hit), false);
+      sendAnswer(res, q, hit);
       return;
     }
     resolveEvent(q)
       .then((r) => {
         if (r.verdict === "resolved") toCache(key, r);
-        sendAnswer(res, q, lean(r), false);
+        sendAnswer(res, q, r);
       })
       .catch(() => upstreamUnavailable(res, "An event outcome resolution", q.slice(0, 60) || "this request", q));
     return;
@@ -1607,13 +1525,13 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     const key = `urlscan:${q.trim().toLowerCase().slice(0, 300)}`;
     const hit = fromCache(key);
     if (hit) {
-      sendAnswer(res, q, lean(hit), false);
+      sendAnswer(res, q, hit);
       return;
     }
     scanUrl(q)
       .then((r) => {
         if (!r.error) toCache(key, r);
-        sendAnswer(res, q, lean(r), false);
+        sendAnswer(res, q, r);
       })
       .catch(() => upstreamUnavailable(res, "A URL safety scan", (urlParam || q).slice(0, 60) || "this request", q));
     return;
@@ -1633,13 +1551,13 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     const key = `websearch:${q.trim().toLowerCase().slice(0, 300)}`;
     const hit = fromCache(key);
     if (hit) {
-      sendAnswer(res, q, lean(hit), false);
+      sendAnswer(res, q, hit);
       return;
     }
     webSearch(q)
       .then((r) => {
         if (r.verdict === "answered") toCache(key, r);
-        sendAnswer(res, q, lean(r), false);
+        sendAnswer(res, q, r);
       })
       .catch(() => upstreamUnavailable(res, "A web search", q.slice(0, 60) || "this request", q));
     return;
@@ -1663,13 +1581,13 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     const key = `contentverify:${JSON.stringify([asked.trim().toLowerCase(), supplied.content, supplied.original, supplied.digest.trim().toLowerCase()]).slice(0, 2000)}`;
     const hit = fromCache(key);
     if (hit) {
-      sendAnswer(res, asked, lean(hit), false);
+      sendAnswer(res, asked, hit);
       return;
     }
     verifyContent(asked, supplied)
       .then((r) => {
         if (!r.error) toCache(key, r);
-        sendAnswer(res, asked, lean(r), false);
+        sendAnswer(res, asked, r);
       })
       .catch(() => upstreamUnavailable(res, "A content integrity check", "the supplied content", asked));
     return;
@@ -1689,15 +1607,15 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     const key = `sentiment:${JSON.stringify([asked.toLowerCase(), textParam.toLowerCase()])}`;
     const hit = fromCache(key);
     if (hit) {
-      sendAnswer(res, asked || textParam, lean(hit), false);
+      sendAnswer(res, asked || textParam, hit);
       return;
     }
     analyseSentimentPhrased(asked, textParam)
       .then((r) => {
         if (!r.error) toCache(key, r);
-        sendAnswer(res, asked || textParam, lean(r), false);
+        sendAnswer(res, asked || textParam, r);
       })
-      .catch(() => sendAnswer(res, asked || textParam, lean(analyseSentiment(asked, textParam)), false));
+      .catch(() => sendAnswer(res, asked || textParam, analyseSentiment(asked, textParam)));
     return;
   }
 
@@ -1712,13 +1630,13 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     const key = `classify:${JSON.stringify([asked.toLowerCase(), textParam.toLowerCase(), labelsParam.toLowerCase()])}`;
     const hit = fromCache(key);
     if (hit) {
-      sendAnswer(res, asked, lean(hit), false);
+      sendAnswer(res, asked, hit);
       return;
     }
     classifyText(asked, textParam, labelsParam)
       .then((r) => {
         if (!r.error) toCache(key, r);
-        sendAnswer(res, asked, lean(r), false);
+        sendAnswer(res, asked, r);
       })
       .catch(() => upstreamUnavailable(res, "A text classification", "the supplied text", asked));
     return;
@@ -1737,14 +1655,14 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     const key = `synth:${q.trim().toLowerCase()}`;
     const hit = fromCache(key);
     if (hit) {
-      sendAnswer(res, q, lean(hit), false);
+      sendAnswer(res, q, hit);
       return;
     }
     synthesise(q, firstValue(url, "topic", "subject"))
       .then((r) => {
         // An outage is never cached; an honest "nothing quotable" is.
         if (!r.error) toCache(key, r);
-        sendAnswer(res, q, lean(r), false);
+        sendAnswer(res, q, r);
       })
       .catch(() => upstreamUnavailable(res, "A research synthesis", q.slice(0, 60), q));
     return;
@@ -1764,13 +1682,13 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     const key = `gas:${chain ?? unread ?? "-"}`;
     const hit = fromCache(key);
     if (hit) {
-      sendAnswer(res, q, lean(hit), false);
+      sendAnswer(res, q, hit);
       return;
     }
     getGasPrice(chain, unread)
       .then((r) => {
         if (r.verdict === "gas_price") toCache(key, r);
-        sendAnswer(res, q, lean(r), false);
+        sendAnswer(res, q, r);
       })
       .catch(() => upstreamUnavailable(res, "A gas price lookup", chain ?? "the network", q));
     return;
@@ -1792,13 +1710,13 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     const key = `fin:${(addressParam || symbolParam || q).toLowerCase().slice(0, 100)}`;
     const hit = fromCache(key);
     if (hit) {
-      sendAnswer(res, q, lean(hit), false);
+      sendAnswer(res, q, hit);
       return;
     }
     getFinancialData(q, addressParam, symbolParam)
       .then((r) => {
         if (r.verdict === "financial_data") toCache(key, r);
-        sendAnswer(res, q, lean(r), false);
+        sendAnswer(res, q, r);
       })
       .catch(() => upstreamUnavailable(res, "A market data lookup", (addressParam || symbolParam || q).slice(0, 40), q));
     return;
@@ -1815,7 +1733,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     const subjectParam = firstValue(url, "address", "text", "message", "url", "subject");
     const q = withSubject(firstValue(url, "query", "q", "question", "input"), subjectParam);
     assessFraud(`${subjectParam} ${q}`.trim())
-      .then((r) => sendAnswer(res, q, lean(r), false))
+      .then((r) => sendAnswer(res, q, r))
       .catch(() => upstreamUnavailable(res, "A fraud risk assessment", (subjectParam || q).slice(0, 40), q));
     return;
   }
@@ -1833,14 +1751,14 @@ function route(req: IncomingMessage, res: ServerResponse): void {
           "No topic was supplied with this request, so no headlines could be retrieved. " +
           "Name a subject and optionally a region, for example: current technology headlines in Japan.",
         error: "invalid_input",
-      }, false);
+      });
       return;
     }
     // The declared `topic` parameter is passed on its own as well as folded into
     // the question: the engine fills it from the question, and a subject outside
     // the fixed topic list was being dropped in favour of generic top stories.
     getHeadlines(q, 6, undefined, firstValue(url, "topic"))
-      .then((r) => sendAnswer(res, q, r, false))
+      .then((r) => sendAnswer(res, q, r))
       .catch(() => upstreamUnavailable(res, "Current headlines", q.slice(0, 60), q));
     return;
   }
@@ -1861,7 +1779,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
           "Supply the text to extract from, for example: Extract the contact details from: " +
           "\"Reach us at support@example.com or call 555-0192.\"",
         error: "invalid_input",
-      }, false);
+      });
       return;
     }
     const suppliedText = firstValue(url, "text", "content");
@@ -1872,7 +1790,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
       extracted: e.fields,
       confidence: 1,
       reason: e.summary,
-    }, false);
+    });
     return;
   }
 
@@ -1934,13 +1852,13 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     // measured 2026-08-30 over the ten distinct real recorded questions).
     const hit = fromCache(key);
     if (hit) {
-      sendAnswer(res, q, minimalTranslation(hit as TranslationResult), false);
+      sendAnswer(res, q, minimalTranslation(hit as TranslationResult));
       return;
     }
     translate(q)
       .then((r) => {
         toCache(key, r);
-        sendAnswer(res, q, minimalTranslation(r), false);
+        sendAnswer(res, q, minimalTranslation(r));
       })
       .catch(() => upstreamUnavailable(res, "A translation", "the supplied text", q));
     return;
@@ -1970,7 +1888,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     // stay 200: a non-2xx makes the engine record `upstream error`, store an
     // empty answer and never read this body, which is a guaranteed 0. Being
     // explicit that we could not determine the answer is not a liar-200 (A5).
-    sendAnswer(res, question, lean({
+    sendAnswer(res, question, {
       domain: raw ? raw.slice(0, 200) : null,
       verdict: "unknown",
       confidence: 0,
@@ -1979,21 +1897,21 @@ function route(req: IncomingMessage, res: ServerResponse): void {
         `analyzed. Certificate chain completeness and hostname validation cannot be verified ` +
         `without a domain. Supply a domain such as example.com.`,
       error: "invalid_domain",
-    }));
+    });
     return;
   }
 
   const key = `ssl:${target.host}:${target.port}`;
   const cached = fromCache(key);
   if (cached) {
-    sendAnswer(res, question, lean(cached), restateSsl(cached));
+    sendAnswer(res, question, cached);
     return;
   }
 
   checkCertificate(target.host, target.port)
     .then((result) => {
       toCache(key, result);
-      sendAnswer(res, question, lean(result), restateSsl(result));
+      sendAnswer(res, question, result);
     })
     .catch(() => upstreamUnavailable(res, "A TLS certificate check", target.host, question));
 }
