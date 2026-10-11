@@ -189,6 +189,14 @@ test("reads the text asked for with 'how do you say' and 'what is … in'", () =
   assert.equal(targetLanguage("How do you say thank you in Japanese?")?.code, "ja");
 });
 
+test("the imperative 'Say … in <language>' names its text (routed 2026-10-10)", () => {
+  assert.equal(sourceText("Say hello in Spanish."), "hello");
+  assert.equal(sourceText("please say good night in German"), "good night");
+  assert.equal(targetLanguage("Say hello in Spanish.")?.code, "es");
+  // A sentence that merely contains "say" is not an instruction to translate.
+  assert.equal(sourceText("They say it rains a lot in Seattle"), null);
+});
+
 test("the quoted and inline forms still win where they exist", () => {
   assert.equal(sourceText('translate "testing" into chinese'), "testing");
   assert.equal(sourceText("Translate (i love my country) to kannada"), "(i love my country)");
