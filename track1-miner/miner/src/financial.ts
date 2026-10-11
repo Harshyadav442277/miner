@@ -36,12 +36,14 @@
 
 import { getFundamentals, knownCompany, metricAsked } from "./fundamentals";
 import type { FundamentalFigures } from "./fundamentals";
+import { knownAsset, type Asset } from "./cryptoprice";
 
 const TIMEOUT_MS = Number(process.env.FINANCIAL_TIMEOUT_MS ?? 5_000);
 // Yahoo returns 401 to an unfamiliar user-agent, in the same way ESPN does.
 const UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36";
 
 const GECKO = "https://api.geckoterminal.com/api/v2/networks";
+const COINGECKO_MARKETS = "https://api.coingecko.com/api/v3/coins/markets";
 const YAHOO_CHART = "https://query1.finance.yahoo.com/v8/finance/chart";
 const YAHOO_SEARCH = "https://query1.finance.yahoo.com/v1/finance/search";
 
@@ -57,7 +59,7 @@ const NETWORKS: Array<[RegExp, string, string]> = [
   [/\bethereum\b|\bmainnet\b|\beth\b|\bl1\b/i, "eth", "ethereum"],
 ];
 
-export type FinancialSubject = "token" | "equity";
+export type FinancialSubject = "token" | "coin" | "equity";
 export type FinancialVerdict = "financial_data" | "not_found" | "unknown";
 
 export interface FinancialResult {
@@ -70,7 +72,16 @@ export interface FinancialResult {
   error?: string;
   /** Set when the answer came from a 10-K rather than from market data. */
   fundamentals?: FundamentalFigures;
+  /** The figures the prose was written from, for a caller that reads fields. */
+  data?: MarketFigures;
 }
+
+/** Every figure is the provider's own value, unrounded; null means not published. */
+export type MarketFigures = Record<string, string | number | null>;
+
+const num = (n: number): number | null => (Number.isFinite(n) ? n : null);
+/** A provider value as a field: null stays null rather than becoming Number(null) === 0. */
+const field = (v: unknown): number | null => (v === null || v === undefined || v === "" ? null : num(Number(v)));
 
 /** An EVM contract address makes the question a token question outright. */
 export function contractAddress(text: string): string | null {
@@ -252,6 +263,58 @@ export async function tokenData(address: string, network: string, label: string)
     reason:
       `${nm} (${sym}) at ${address} on ${label} has ${stats.join(", ")}.${priced} ` +
       `These are market statistics for the token, not a single quoted price.`,
+    data: {
+      symbol: sym, name: nm, chain: label, address, currency: "USD", price: field(a.price_usd),
+      market_cap: field(a.market_cap_usd), fully_diluted_valuation: field(a.fdv_usd),
+      volume_24h: field((a.volume_usd as { h24?: string } | undefined)?.h24),
+      source: "geckoterminal", observed_at: new Date().toISOString(),
+    },
+  };
+}
+
+/**
+ * A coin named in words ("the market cap and 24h volume of Solana"), read from
+ * CoinGecko's market listing — the provider cryptoprice.ts already resolves
+ * these names against. Yahoo's chart, the other path a name can reach, carries
+ * no market capitalisation for a coin and reports its volume in dollars, which
+ * the equity wording called "shares".
+ */
+export async function coinData(asset: Asset): Promise<FinancialResult | null> {
+  let c: Record<string, unknown> | undefined;
+  try {
+    const j = (await getJson(`${COINGECKO_MARKETS}?vs_currency=usd&ids=${encodeURIComponent(asset.gecko)}`)) as unknown[];
+    c = (Array.isArray(j) ? j[0] : undefined) as Record<string, unknown> | undefined;
+  } catch {
+    return null; // the equity path is the fallback, so an outage here is not the answer
+  }
+  if (!c) return null;
+  const p = Number(c.current_price);
+  const mcap = Number(c.market_cap);
+  const vol = Number(c.total_volume);
+  const fdv = Number(c.fully_diluted_valuation);
+  const hi = Number(c.high_24h);
+  const lo = Number(c.low_24h);
+  const pct = Number(c.price_change_percentage_24h);
+  const stats: string[] = [];
+  if (mcap > 0) stats.push(`a market capitalisation of ${money(mcap)} (${human(mcap)})`);
+  if (vol > 0) stats.push(`24-hour trading volume of ${money(vol)} (${human(vol)})`);
+  if (fdv > 0) stats.push(`a fully diluted valuation of ${money(fdv)} (${human(fdv)})`);
+  if (lo > 0 && hi > 0) stats.push(`a 24-hour range of ${price(lo)} to ${price(hi)}`);
+  if (field(c.price_change_percentage_24h) !== null) {
+    stats.push(`a 24-hour change of ${pct >= 0 ? "+" : ""}${pct.toFixed(2)}%`);
+  }
+  if (!stats.length) return null;
+  const priced = p > 0 ? ` It last traded at ${price(p)}.` : "";
+  return {
+    subject: "coin", name: asset.name, chain: null, verdict: "financial_data", confidence: 0.9,
+    reason: `${asset.name} (${asset.symbol}) has ${stats.join(", ")}.${priced} These are market statistics for the coin, not a single quoted price.`,
+    data: {
+      symbol: asset.symbol, name: asset.name, currency: "USD", price: field(c.current_price),
+      market_cap: field(c.market_cap), fully_diluted_valuation: field(c.fully_diluted_valuation),
+      volume_24h: field(c.total_volume), low_24h: field(c.low_24h), high_24h: field(c.high_24h),
+      change_pct_24h: field(c.price_change_percentage_24h), circulating_supply: field(c.circulating_supply),
+      source: "coingecko", observed_at: typeof c.last_updated === "string" ? c.last_updated : new Date().toISOString(),
+    },
   };
 }
 
@@ -299,10 +362,16 @@ export async function equityData(query: string, ticker: string, filingsOutage?: 
   const vol = Number(meta.regularMarketVolume);
   const wkHi = Number(meta.fiftyTwoWeekHigh);
   const wkLo = Number(meta.fiftyTwoWeekLow);
+  // Yahoo lists coins as "SOL-USD"; their volume is in the quote currency, not shares.
+  const coin = meta.instrumentType === "CRYPTOCURRENCY";
 
   const stats: string[] = [];
   if (Number.isFinite(lo) && Number.isFinite(hi)) stats.push(`a day range of ${lo.toFixed(2)} to ${hi.toFixed(2)} ${cur}`);
-  if (Number.isFinite(vol) && vol > 0) stats.push(`volume of ${vol.toLocaleString("en-US")} shares`);
+  if (Number.isFinite(vol) && vol > 0) {
+    stats.push(coin
+      ? `24-hour trading volume of ${cur === "USD" ? `${money(vol)} (${human(vol)})` : `${vol.toLocaleString("en-US")} ${cur}`}`
+      : `volume of ${vol.toLocaleString("en-US")} shares`);
+  }
   if (Number.isFinite(wkLo) && Number.isFinite(wkHi)) stats.push(`a 52-week range of ${wkLo.toFixed(2)} to ${wkHi.toFixed(2)} ${cur}`);
   if (Number.isFinite(last) && Number.isFinite(prev) && prev > 0) {
     const pct = ((last - prev) / prev) * 100;
@@ -328,10 +397,22 @@ export async function equityData(query: string, ticker: string, filingsOutage?: 
         `not reported here.`
       : "";
   const priced = Number.isFinite(last) ? ` It last traded at ${last.toFixed(2)} ${cur}.` : "";
+  const noCap = coin && /\bmarket\s*cap/i.test(query)
+    ? " The market capitalisation was not retrieved: this data source does not publish it for a coin."
+    : "";
+  const at = Number(meta.regularMarketTime);
 
   return {
-    ...base, name: nm, verdict: "financial_data", confidence: 0.9,
-    reason: `${nm} (${ticker}) has ${stats.join(", ")}.${priced}${gap}`,
+    ...base, ...(coin ? { subject: "coin" as const } : {}), name: nm, verdict: "financial_data", confidence: 0.9,
+    reason: `${nm} (${ticker}) has ${stats.join(", ")}.${priced}${gap}${noCap}`,
+    data: {
+      symbol: ticker, name: nm, currency: cur, price: field(meta.regularMarketPrice),
+      previous_close: field(meta.chartPreviousClose), day_low: field(meta.regularMarketDayLow),
+      day_high: field(meta.regularMarketDayHigh), volume: field(meta.regularMarketVolume),
+      volume_unit: coin ? cur : "shares", week52_low: field(meta.fiftyTwoWeekLow),
+      week52_high: field(meta.fiftyTwoWeekHigh), source: "yahoo",
+      observed_at: at > 0 ? new Date(at * 1000).toISOString() : new Date().toISOString(),
+    },
   };
 }
 
@@ -426,6 +507,16 @@ export async function getFinancialData(query: string, addressParam = "", symbolP
   const named = companyName(query);
   const declared = String(symbolParam ?? "").trim().toUpperCase();
   const declaredOk = /^[A-Z][A-Z.-]{0,5}$/.test(declared);
+
+  // A coin named in words. The asset table also matches ordinary words ("etc" is
+  // Ethereum Classic), so a company named in the question, or a different
+  // declared ticker, keeps the question on the equity path.
+  const coin = knownAsset(`${declaredOk ? declared : ""} ${query}`);
+  const sameCoin = !named || knownAsset(named)?.gecko === coin?.gecko;
+  if (coin && sameCoin && !knownCompany(query) && (!declaredOk || declared === coin.symbol)) {
+    const c = await coinData(coin);
+    if (c) return c;
+  }
 
   // Rank-loss report F8 (2026-09-15): a revenue question got a trading range.
   // A question naming a 10-K metric is answered from the filing first; an
