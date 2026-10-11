@@ -46,6 +46,10 @@ const TOPICS = [
 const GENERIC_TOPIC = new Set([
   "news", "headlines", "headline", "top stories", "stories", "top news", "general", "latest",
   "latest news", "top headlines", "current events", "breaking news", "any", "all",
+  // "headlines about happening in India today" (routed 2026-10-10): once the
+  // locative tail is gone the phrase is a verb, and the feed was searched for it.
+  "happening", "what's happening", "whats happening", "what is happening", "going on",
+  "current affairs",
 ]);
 
 /** Time words and locative tails that trail a subject phrase but are not part of it. */
@@ -96,6 +100,13 @@ const LEAD_WORDS = new Set([
   "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
 ]);
 
+/** Multi-word world regions, matched whatever their case. "Southeast Asia" precedes "East Asia". */
+const WORLD_REGIONS = [
+  "Southeast Asia", "South Asia", "East Asia", "Central Asia", "Asia Pacific", "Middle East",
+  "North Africa", "West Africa", "East Africa", "Sub-Saharan Africa", "Latin America",
+  "South America", "North America", "Central America", "Eastern Europe", "Western Europe",
+];
+
 /**
  * A place named in the question, as a proper noun that is not a time word.
  * A proper noun that is part of the subject ("Shopify") is not a region.
@@ -117,7 +128,14 @@ export function extractRegion(text: string, topic: string | null = null): string
     "january", "february", "march", "april", "may", "june", "july",
     "august", "september", "october", "november", "december",
   ]);
-  const m = s.match(/\b(?:from|in|for)\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)/);
+  // Callers do not capitalise world regions: "happening in Southeast asia today"
+  // answered "headlines from Southeast" (2026-10-10).
+  for (const r of WORLD_REGIONS) {
+    if (new RegExp(String.raw`\b` + r.replace(/[ -]/g, "[\\s-]+") + String.raw`\b`, "i").test(s) && !inTopic(r)) return r;
+  }
+  // "from the Middle East" used to fall through to the single-word scan below and
+  // answer "headlines from Middle"; the article is not part of the place.
+  const m = s.match(/\b(?:from|in|for)\s+(?:the\s+)?([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)/);
   if (m?.[1] && !stop.has(m[1].toLowerCase()) && !inTopic(m[1])) return m[1];
   for (const n of s.matchAll(/\b([A-Z][a-z]{2,})\b/g)) {
     const v = n[1]!;
@@ -157,8 +175,15 @@ export async function getHeadlines(
   const wantN = headlineCount(String(query ?? ""));
   const window = headlineWindow(query, Date.parse(now));
   const terms = [topic, region].filter(Boolean).join(" ") || "top stories";
+  // The feed ranks by relevance, so the hundred items for "sports Middle East"
+  // held none from the last day and "today" was answered with nothing
+  // (2026-10-10). A window ending now is asked of the feed itself; the filter
+  // below still enforces it.
+  const recent = window && window.end >= Date.parse(now) - 300000
+    ? ` when:${Math.max(1, Math.ceil((window.end - window.start) / 86400000))}d`
+    : "";
 
-  const url = `${FEED}?q=${encodeURIComponent(terms)}`;
+  const url = `${FEED}?q=${encodeURIComponent(terms + recent)}`;
   const ac = new AbortController();
   const t = setTimeout(() => ac.abort(), timeoutMs);
   let xml = "";
