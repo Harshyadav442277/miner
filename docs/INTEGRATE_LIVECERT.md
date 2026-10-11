@@ -52,6 +52,10 @@ endpoint's whole result:
   from a 10-K return `fundamentals` instead.
 - **`/web-search`**: `articles` (title, publisher, publication date) and `background` (one encyclopedia
   sentence, or null).
+- **`/tx-lookup`**: `transaction` with `status`, `from`, `to`, `value_wei` and `value` (exact decimal
+  strings), `symbol`, `block_number`, `block_hash`, `receipt_status` (null on pre-Byzantium blocks,
+  which carry no status flag), `method`, `method_selector`, `contract_created`, `token_transfers`,
+  `gas_used` and `fee_wei`.
 - **`/storm-alert`**: `risk_score`, `max_wind_gust_kmh`, `max_wind_speed_kmh`, `max_precipitation_mm`,
   `thunderstorm`, `wind_direction`, `latitude`, `longitude` and `checked_at`. The prose opens with the
   graded answer, and says the grade comes from the forecast, not from an official warning.

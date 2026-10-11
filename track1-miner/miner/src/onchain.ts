@@ -210,15 +210,43 @@ async function selectorName(selector: string, budgetMs: number): Promise<string 
  * Contract creation is excluded because the first four bytes of init code are
  * not a function selector, and a plain transfer carries no input to decode.
  */
-async function methodClause(tx: RawTx, budgetMs: number): Promise<string> {
-  if (tx.to === null) return "";
+async function methodOf(tx: RawTx, budgetMs: number): Promise<{ name: string | null; selector: string | null }> {
+  if (tx.to === null) return { name: null, selector: null };
   const selector = String(tx.input ?? "").slice(0, 10).toLowerCase();
-  if (!/^0x[0-9a-f]{8}$/.test(selector)) return "";
-  const name = budgetMs > 0 ? await selectorName(selector, budgetMs) : null;
-  return name ? ` and called ${name}` : ` and called contract method selector ${selector}`;
+  if (!/^0x[0-9a-f]{8}$/.test(selector)) return { name: null, selector: null };
+  return { name: budgetMs > 0 ? await selectorName(selector, budgetMs) : null, selector };
+}
+
+function methodClause(m: { name: string | null; selector: string | null }): string {
+  if (!m.selector) return "";
+  return m.name ? ` and called ${m.name}` : ` and called contract method selector ${m.selector}`;
 }
 
 export type TxStatus = "confirmed" | "reverted" | "pending" | "not_found" | "unknown";
+
+/**
+ * The facts the prose states, as fields, for an app that reads them rather than
+ * the sentence. Present whenever the transaction itself was read; absent when it
+ * was not found or no endpoint answered. Amounts are exact decimal strings,
+ * because a wei value does not fit in a JSON number.
+ */
+export interface TxFields {
+  status: TxStatus;
+  from: string;
+  to: string | null;
+  value_wei: string;
+  value: string;
+  symbol: string;
+  block_number: number | null;
+  block_hash: string | null;
+  receipt_status: "success" | "failure" | null;
+  method: string | null;
+  method_selector: string | null;
+  contract_created: string | null;
+  token_transfers: number | null;
+  gas_used: string | null;
+  fee_wei: string | null;
+}
 
 export interface TxResult {
   hash: string | null;
@@ -227,6 +255,14 @@ export interface TxResult {
   confidence: number;
   reason: string;
   error?: string;
+  transaction?: TxFields;
+}
+
+/** Wei as an exact decimal amount of the native coin: 31337 wei -> "0.000000000000031337". */
+export function weiToDecimal(wei: bigint): string {
+  const whole = wei / 10n ** 18n;
+  const frac = (wei % 10n ** 18n).toString().padStart(18, "0").replace(/0+$/, "");
+  return frac ? `${whole}.${frac}` : `${whole}`;
 }
 
 /**
@@ -404,7 +440,7 @@ async function rpc(url: string, method: string, params: unknown[]): Promise<unkn
 
 interface RawTx {
   from: string; to: string | null; value: string; blockNumber: string | null;
-  gasPrice?: string; input?: string; nonce?: string;
+  blockHash?: string | null; gasPrice?: string; input?: string; nonce?: string;
 }
 interface RawReceipt {
   status?: string; root?: string; gasUsed: string; effectiveGasPrice?: string;
@@ -604,6 +640,18 @@ export async function lookupTransaction(
 
   const { tx, receipt } = found;
 
+  /** The transaction's fields, filled from whatever was read; see TxFields. */
+  const fields = (status: TxStatus, rest: Partial<TxFields> = {}): TxFields => {
+    const wei = BigInt(tx!.value);
+    return {
+      status, from: tx!.from.toLowerCase(), to: tx!.to?.toLowerCase() ?? null,
+      value_wei: wei.toString(), value: weiToDecimal(wei), symbol: coin,
+      block_number: tx!.blockNumber === null ? null : Number(BigInt(tx!.blockNumber)),
+      block_hash: tx!.blockHash ?? null, receipt_status: null, method: null, method_selector: null,
+      contract_created: null, token_transfers: null, gas_used: null, fee_wei: null, ...rest,
+    };
+  };
+
   if (!tx) {
     return {
       hash, chain: searched, verdict: "not_found", confidence: 0.9,
@@ -641,6 +689,7 @@ export async function lookupTransaction(
         `therefore unknown here. It sends ${toCoin(BigInt(tx.value), coin)} from ${short(tx.from)}` +
         `${tx.to ? ` to ${short(tx.to)}` : " to a new contract"}.${note}`,
       error: "receipt_unavailable",
+      transaction: fields("unknown"),
     };
   }
 
@@ -654,6 +703,7 @@ export async function lookupTransaction(
         `status yet. It sends ${toCoin(BigInt(tx.value), coin)} from ${short(tx.from)}` +
         `${tx.to ? ` to ${short(tx.to)}` : " to a new contract"}` +
         `${gwei === null ? "" : ` at a gas price of ${fmt(gwei, 4)} Gwei`}.${note}`,
+      transaction: fields("pending"),
     };
   }
 
@@ -697,7 +747,10 @@ export async function lookupTransaction(
   // budget and whatever is left of the 8.5 s allowance, so however slow the RPC
   // candidates were it cannot push the answer into the handler's 11 s watchdog;
   // a non-positive budget skips the lookup and writes the selector instead.
-  const method = await methodClause(tx, Math.min(SELECTOR_BUDGET_MS, SELECTOR_DEADLINE_MS - (Date.now() - started)));
+  const called = await methodOf(tx, Math.min(SELECTOR_BUDGET_MS, SELECTOR_DEADLINE_MS - (Date.now() - started)));
+  const method = methodClause(called);
+  const gasUsed = receipt.gasUsed ? BigInt(receipt.gasUsed) : null;
+  const price = receipt.effectiveGasPrice ?? tx.gasPrice;
 
   /**
    * Fact order matters, and it is measured rather than stylistic.
@@ -751,6 +804,15 @@ export async function lookupTransaction(
       `${statusNote}` +
       `${succeeded ? "" : " A reverted transaction still consumes its gas; the value transfer did not occur."}` +
       `${note}`,
+    transaction: fields(verdict, {
+      // A pre-Byzantium receipt has no status flag; inclusion is not "success".
+      receipt_status: flagged === null ? null : flagged ? "success" : "failure",
+      method: called.name, method_selector: called.selector,
+      contract_created: receipt.contractAddress?.toLowerCase() ?? null,
+      token_transfers: transfers,
+      gas_used: gasUsed === null ? null : gasUsed.toString(),
+      fee_wei: gasUsed === null || !price ? null : (gasUsed * BigInt(price)).toString(),
+    }),
   };
 }
 // No "read from <host> at <timestamp>" tail on a mined receipt, deliberately.

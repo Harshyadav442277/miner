@@ -45,7 +45,7 @@ this machine.
 **Gap found on the preview:** `/tx-lookup` returns only `hash`, `chain`, `verdict`, `confidence` and
 `reason`. Sender, recipient, value and block are in the prose only. TXlens, the Season I winner,
 returns `status`, `from`, `to`, `value_wei`, `value_eth`, `block_number`, `block_hash`,
-`receipt_status` and `method` as fields. This is item 0 below.
+`receipt_status` and `method` as fields. This is item 0 below, now done.
 
 ## Intent portfolio
 
@@ -69,7 +69,7 @@ not generative; item 7 uses a free model key.
 
 | # | Intent | Missions | Built from |
 |---:|---|---:|---|
-| 0 | ONCHAIN_TX_LOOKUP fields (already registered) | — | `onchain.ts`: `status`, `from`, `to`, `value_wei`, `value_eth`, `block_number`, `block_hash`, `method`, the fields Season I's winner returned |
+| 0 | ONCHAIN_TX_LOOKUP fields (already registered). **Done 2026-10-11:** `transaction` carries status, parties, exact value, block number and hash, receipt status, method, gas used and fee; 4 offline tests, and a live check on the first Ethereum transfer matches TXlens's block hash | — | `onchain.ts` |
 | 1 | URL_SAFE | 2 | Declare on `/url-scan`, which already names the feeds that flagged a link |
 | 2 | CRYPTO_TRANSFER_VERIFY | 3 | `onchain.ts`: status, sender, recipient, confirmations; add the fee burned |
 | 3 | REGULATORY_FILING_MONITOR | 4 | SEC EDGAR submissions JSON: whether a 10-K, 10-Q or 8-K was filed, when it was accepted, and its link |
