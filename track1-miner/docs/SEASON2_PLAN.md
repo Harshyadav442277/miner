@@ -126,10 +126,10 @@ then the owner signs. Do it before 1 Nov, so the miner is registered and live fr
    clean worktree, run their preview-vs-production comparison and `intent-answers.mjs` against it,
    then `vercel --prod` and `vercel promote` if the alias does not move (G70). Rollback target:
    `miner-j9eojoz7e`.
-2. **Fix FACT_CHECK's false "supported" first.** "The Eiffel Tower is in Berlin" is rated
-   supported on production and on preview `miner-h8tyai3m6`. The cause is `settle()` in
-   `src/factsubject.ts`: when one key word is left, a single co-occurrence counts as support.
-   FACT_CHECK is bought by four missions.
+2. ~~**Fix FACT_CHECK's false "supported" first.**~~ **Done in `a9867c3` (GAPS G188); ships with
+   item 1.** "The Eiffel Tower is in Berlin" was rated supported on production and on preview
+   `miner-h8tyai3m6`: `settle()` in `src/factsubject.ts` counted a single co-occurrence as support
+   when one key word was left. FACT_CHECK is bought by four missions.
 3. Give every endpoint the same envelope (teardown §3): `answer` first, then `verdict`, `confidence`,
    `checked_at`, `source`/`sources` and every value as a field. `/crypto-price` is still prose only
    on the preview.
