@@ -83,6 +83,19 @@ not generative; item 7 uses a free model key.
 | 6 | MACRO_ECONOMIC_INDICATOR | 3 | World Bank and ECB statistics, keyless; US CPI and the fed funds target range need a source checked first |
 | 7 | QUESTION_ANSWERING | 5 | Its canonical definition asks for "cited factual assertions". Answer from the web search and Wikipedia sources we already read, have a free model (Groq or Gemini; the owner will provide keys) phrase the answer with each claim cited, and keep a keyless extractive fallback, as `prose-phrase.ts` does for sentiment |
 
+**Competitor check (2026-10-11, [S1_WINNERS_TEARDOWN_2026-10-11.md](S1_WINNERS_TEARDOWN_2026-10-11.md) §6).**
+TxLens, the Season I winner, already serves items 1 and 3–6, plus FX_NOW, all from keyless sources.
+Each addition has to beat it on something an app can check:
+
+- **Item 4, sanctions:** TxLens screens OFAC SDN only. Screen more than one list and name the list.
+- **Item 3, filings:** TxLens returns the top Federal Register search hit. Ours gives EDGAR form,
+  accession number, acceptance time and link.
+- **Item 6, macro:** TxLens gives the World Bank annual figure (2025). Use a fresher official series.
+- **Item 1, URL_SAFE:** TxLens's URLhaus call fails with 401.
+- **FX_NOW:** TxLens calls a once-a-day feed "live".
+
+ChainSight lists sanctions and macro, but answered "Unable to process" to both.
+
 **Decided 2026-10-11 (owner delegated the choice): no CHAT_COMPLETION.** It had real Season I demand
 (278 distinct questions), but 19 miners serve it, many wrapping large providers, so we have no edge.
 A free key's daily quota would also run out under exactly the demand we want, and an exhausted chat
@@ -113,8 +126,16 @@ then the owner signs. Do it before 1 Nov, so the miner is registered and live fr
    clean worktree, run their preview-vs-production comparison and `intent-answers.mjs` against it,
    then `vercel --prod` and `vercel promote` if the alias does not move (G70). Rollback target:
    `miner-j9eojoz7e`.
-2. Build items 0–5 above, one intent per change, each with tests and a live probe. Then item 7, once
+2. **Fix FACT_CHECK's false "supported" first.** "The Eiffel Tower is in Berlin" is rated
+   supported on production and on preview `miner-h8tyai3m6`. The cause is `settle()` in
+   `src/factsubject.ts`: when one key word is left, a single co-occurrence counts as support.
+   FACT_CHECK is bought by four missions.
+3. Give every endpoint the same envelope (teardown §3): `answer` first, then `verdict`, `confidence`,
+   `checked_at`, `source`/`sources` and every value as a field. `/crypto-price` is still prose only
+   on the preview.
+4. Build items 0–5 above, one intent per change, each with tests and a live probe. Then item 7, once
    the owner has provided a key.
-3. One `updateMiner` covering the new description and the added intents: sandbox first, then the
-   owner signs.
-4. Read the Season II miner rules when published and re-check this plan against them.
+5. One `updateMiner` covering the new description, every endpoint description rewritten as example
+   questions, parameters and returned fields (teardown §6), and the added intents. Sandbox first, then
+   the owner signs.
+6. Read the Season II miner rules when published and re-check this plan against them.

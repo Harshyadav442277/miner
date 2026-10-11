@@ -17,6 +17,9 @@ are in [evidence/s1-loss-2026-10-11/](evidence/s1-loss-2026-10-11/). The raw pul
 Source: https://hackathon.telegraphprotocol.com/winners (fetched 2026-10-10). The page gives one total
 per miner. It does not publish the breakdown or the formula.
 
+The winners' own answers, code and judging-window traffic are examined in
+[S1_WINNERS_TEARDOWN_2026-10-11.md](S1_WINNERS_TEARDOWN_2026-10-11.md).
+
 ## Short answer
 
 **Being first by normalized sum at epoch 298 was not what got judged, and the published totals cannot

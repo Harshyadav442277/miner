@@ -1,0 +1,84 @@
+# Explorer-feed answers by TxLens (9002), ChainSight (302), OathCast (64173), LiveCert (4433)
+# Pulled 2026-10-11 ~05:30-05:41 UTC with pull-winners.mjs; summarised with summarise.cjs (attributed by routing.subnet_id).
+# echo = answer opens 'Regarding'; unable = 'Unable to process/generate'; unavailable = provider-outage or refusal text; fields_p50 = median top-level keys in execution.result
+
+## Track 3 week: node pull-winners.mjs 990 asc 1500 2026-09-08T00:00:00Z (hit the 1500-page cap: covers 2026-08-31T04:44Z .. 2026-09-07T12:08Z)
+
+=== oathcast {"n":1,"ok":0,"distinctQ":1,"echo":0,"unable":0,"unavailable":0,"fields_p50":0,"ms_p50":1118,"ms_p90":1118}
+ type: direct:1  | status: error:1
+ intent: undefined:1
+ source: user:1
+ by day: 08-31:1
+
+=== livecert {"n":791,"ok":791,"distinctQ":366,"echo":676,"unable":0,"unavailable":0,"fields_p50":4,"ms_p50":732,"ms_p90":1392}
+ type: direct:744  daemon:47  | status: success:791
+ intent: WEATHER_FORECAST:216  STORM_ALERT:193  FACT_CHECK:119  undefined:87  TELEGRAPH_KNOWLEDGE:56  SSL_VERIFICATION:24  CONTENT_EXTRACTION:21  WEATHER_CHECK:16  ACADEMIC_SEARCH:15  LANGUAGE_TRANSLATION:13  WALLET_BALANCE_CHECK:12  NEWS_HEADLINES:10
+ source: user:744  collector-hackernews:popular_t:27  collector-clinicaltrials:indus:7  collector-gdelt:global_event:5  collector-openfda-adverse-even:4  collector-openmeteo-weather:ex:2
+ by day: 09-06:177  09-03:169  09-05:159  09-04:82  09-02:70  08-31:54  09-01:52  09-07:28
+
+=== txlens {"n":592,"ok":580,"distinctQ":312,"echo":0,"unable":0,"unavailable":41,"fields_p50":22,"ms_p50":653,"ms_p90":2290}
+ type: direct:585  daemon:7  | status: success:580  error:12
+ intent: STORM_ALERT:187  undefined:125  WEATHER_FORECAST:63  FRAUD_DETECTION:61  SSL_VERIFICATION:33  ONCHAIN_TX_LOOKUP:29  CRYPTO_PRICE:28  ACADEMIC_SEARCH:22  IP_GEOLOCATION:20  WALLET_BALANCE_CHECK:15  STOCK_PRICE:5  GAS_PRICE:3
+ source: user:585  collector-openmeteo-weather:ex:3  collector-gdelt:global_event:2  collector-hackernews:popular_t:1  collector-openmeteo-weather:he:1
+ by day: 09-05:187  09-06:148  09-04:117  09-03:66  09-02:55  09-01:7  08-31:6  09-07:6
+
+=== chainsight {"n":8734,"ok":8731,"distinctQ":393,"echo":291,"unable":0,"unavailable":0,"fields_p50":9,"ms_p50":530,"ms_p90":915}
+ type: direct:8726  daemon:8  | status: success:8731  error:3
+ intent: undefined:8051  STORM_ALERT:286  FRAUD_DETECTION:138  ONCHAIN_TX_LOOKUP:93  CURRENCY_EXCHANGE:50  TOKEN_HOLDER_COUNT:35  WEATHER_FORECAST:28  WALLET_BALANCE_CHECK:23  FINANCIAL_DATA:11  STOCK_PRICE:7  URL_SCAN:5  CRYPTO_PRICE:3
+ source: user:8726  collector-openfda-approvals:fd:4  collector-clinicaltrials:indus:1  collector-openfda-adverse-even:1  collector-hackernews:popular_t:1  collector-openmeteo-weather:ex:1
+ by day: 09-06:4170  09-07:2523  09-05:1551  09-04:257  09-03:127  09-02:65  09-01:40  08-31:1
+
+## Judging window: node pull-winners.mjs 800 asc 2500 2026-09-29T00:00:00Z (covers 2026-09-07T21:36Z .. 2026-09-29T00:26Z)
+
+=== chainsight {"n":4110,"ok":2677,"distinctQ":485,"echo":259,"unable":46,"unavailable":0,"fields_p50":4,"ms_p50":529,"ms_p90":3208}
+ type: direct:3798  daemon:312  | status: success:2677  error:1433
+ intent: undefined:1478  TVL_LOOKUP:492  WEATHER_CHECK:340  TOKEN_HOLDER_COUNT:287  ONCHAIN_TX_LOOKUP:280  STORM_ALERT:261  URL_SCAN:244  WEATHER_FORECAST:172  CHAT_COMPLETION:161  FRAUD_DETECTION:134  WEB_SEARCH:68  NEWS_SEARCH:46
+ source: user:3798  collector-clinicaltrials:indus:162  collector-hackernews:popular_t:66  collector-openfda-approvals:fd:49  collector-openfda-adverse-even:17  collector-openfda-recalls:clas:7
+ by day: 09-07:1489  09-09:793  09-08:559  09-23:452  09-12:142  09-16:96  09-17:96  09-19:64  09-27:61  09-18:60  09-21:54  09-20:44  09-15:39  09-11:37  09-25:30  09-24:29  09-28:27  09-26:14  09-22:11  09-13:6  09-10:4  09-14:2  09-29:1
+
+=== txlens {"n":2464,"ok":2283,"distinctQ":895,"echo":0,"unable":0,"unavailable":296,"fields_p50":12,"ms_p50":811,"ms_p90":3418}
+ type: direct:2091  daemon:373  | status: success:2283  error:181
+ intent: undefined:498  TOKEN_HOLDER_COUNT:454  ONCHAIN_TX_LOOKUP:435  STORM_ALERT:424  CHAT_COMPLETION:180  WEB_SEARCH:147  WEATHER_FORECAST:135  IP_GEOLOCATION:37  TVL_LOOKUP:31  STOCK_PRICE:16  FRAUD_DETECTION:14  RESEARCH_QUERY:14
+ source: user:2091  collector-clinicaltrials:indus:197  collector-hackernews:popular_t:102  collector-openfda-approvals:fd:41  collector-openfda-adverse-even:11  collector-openfda-recalls:clas:8
+ by day: 09-08:551  09-09:466  09-07:461  09-23:114  09-26:98  09-22:84  09-12:82  09-18:74  09-24:71  09-10:63  09-27:59  09-25:54  09-20:51  09-11:50  09-19:40  09-28:40  09-21:38  09-17:36  09-13:26  09-16:4  09-15:2
+
+=== livecert {"n":980,"ok":980,"distinctQ":359,"echo":602,"unable":0,"unavailable":0,"fields_p50":3,"ms_p50":885,"ms_p90":1506}
+ type: direct:868  daemon:112  | status: success:980
+ intent: WEATHER_FORECAST:305  STORM_ALERT:215  NEWS_SEARCH:136  FACT_CHECK:49  CVE_LOOKUP:34  WALLET_BALANCE_CHECK:33  SSL_VERIFICATION:29  NEWS_HEADLINES:26  IP_GEOLOCATION:24  ACADEMIC_SEARCH:23  LANGUAGE_TRANSLATION:19  FRAUD_DETECTION:19
+ source: user:868  collector-clinicaltrials:indus:54  collector-openfda-adverse-even:17  collector-openfda-approvals:fd:14  collector-hackernews:popular_t:12  collector-openmeteo-weather:ex:6
+ by day: 09-18:112  09-13:84  09-09:81  09-12:78  09-22:74  09-11:73  09-17:66  09-16:61  09-21:52  09-23:46  09-25:43  09-26:37  09-20:35  09-27:26  09-19:22  09-28:20  09-10:19  09-15:17  09-24:16  09-08:15  09-14:3
+
+=== oathcast {"n":17,"ok":17,"distinctQ":16,"echo":0,"unable":0,"unavailable":0,"fields_p50":10,"ms_p50":1094,"ms_p90":1624}
+ type: direct:17  | status: success:17
+ intent: WEATHER_FORECAST:17
+ source: user:17
+ by day: 09-28:17
+
+## Last 7 days: node pull-winners.mjs 168 desc 200 - (covers 2026-10-04T05:44Z .. 2026-10-11T02:45Z)
+
+=== chainsight {"n":278,"ok":278,"distinctQ":166,"echo":15,"unable":94,"unavailable":1,"fields_p50":7,"ms_p50":652,"ms_p90":2989}
+ type: direct:158  daemon:120  | status: success:278
+ intent: CHAT_COMPLETION:85  WEATHER_FORECAST:81  WEATHER_CHECK:34  NEWS_SEARCH:16  STORM_ALERT:15  SSL_VERIFICATION:11  CURRENCY_EXCHANGE:7  WEB_SEARCH:7  RESEARCH_QUERY:6  FINANCIAL_DATA:5  EVENT_OUTCOME_RESOLUTION:3  STOCK_PRICE:3
+ source: user:158  collector-clinicaltrials:indus:91  collector-hackernews:popular_t:16  collector-openfda-approvals:fd:8  collector-openfda-adverse-even:3  collector-openfda-recalls:clas:2
+ by day: 10-10:77  10-09:48  10-05:41  10-04:39  10-06:36  10-08:23  10-07:7  10-11:7
+
+=== txlens {"n":91,"ok":82,"distinctQ":30,"echo":0,"unable":0,"unavailable":11,"fields_p50":32,"ms_p50":1829,"ms_p90":2892}
+ type: direct:90  daemon:1  | status: success:82  error:9
+ intent: STORM_ALERT:46  WEATHER_CHECK:16  CHAT_COMPLETION:9  URL_SCAN:9  FRAUD_DETECTION:4  CRYPTO_PRICE:4  TOKEN_HOLDER_COUNT:1  STOCK_PRICE:1  WEATHER_FORECAST:1
+ source: user:90  collector-openfda-approvals:fd:1
+ by day: 10-09:35  10-08:19  10-05:16  10-04:9  10-06:5  10-07:4  10-10:3
+
+=== livecert {"n":305,"ok":305,"distinctQ":81,"echo":252,"unable":0,"unavailable":0,"fields_p50":3,"ms_p50":1082,"ms_p90":1700}
+ type: direct:283  daemon:22  | status: success:305
+ intent: STORM_ALERT:133  WEATHER_FORECAST:115  URL_SCAN:21  RESEARCH_QUERY:10  STOCK_PRICE:5  SSL_VERIFICATION:5  EVENT_OUTCOME_RESOLUTION:5  NEWS_SEARCH:3  TOKEN_HOLDER_COUNT:2  CVE_LOOKUP:2  NEWS_HEADLINES:1  TELEGRAPH_KNOWLEDGE:1
+ source: user:283  collector-clinicaltrials:indus:18  collector-openfda-approvals:fd:3  collector-hackernews:popular_t:1
+ by day: 10-10:82  10-06:66  10-04:49  10-09:40  10-07:29  10-05:21  10-08:17  10-11:1
+
+## One broken app template ('For token CVE-2021-44228 ...', 'Is on-chain transaction CVE-2021-44228 successful ...') in the judging window, rows by miner id:
+{"302":1200,"4433":28,"9002":827}
+302 answer: {"answer":"The referenced transaction CVE-2021-44228 was processed on Ethereum and confirmed successfully, carrying 0 ETH in native value as a standard contract call.","hash":"CVE-2021-44228","signal":"The referenced transaction CVE-2021-44228 was processed on Ethereum and confirmed successfully, carrying 0 ETH in native value as a standard contract call.","source":"rpc"}
+9002 answer: {"answer":"I cannot look up this transaction because \"CVE-2021-44228\" does not contain a valid Ethereum transaction hash. A transaction hash is 66 characters long: \"0x\" followed by 64 hexadecimal characters. Pass one as the tx_hash parameter and I will report its confirmation status, block, sender, recipient, value in ETH, and decoded contract method.","confidence":0.1,"status":"invalid_input","summary":"I cannot look up this transaction because \"CVE-2021-44228\" does not contain a valid Ethereum transaction hash. A transaction hash is 66 characters long: \"0x\" followed by 64 hexadecimal characters. Pass one as the tx_hash parameter and I will report its confirmation status, block, sender, recipient, value in ETH, and decoded contract method."}
+
+## OathCast: all 17 judging-window rows arrived 2026-09-28 15:59-16:01 UTC. First answer:
+What is the 24-hour weather forecast for Mumbai, India starting today, including temperature, precipitation probability, and wind speed?
+{"content":"For Mumbai, India from 16:00 UTC on 28 September 2026 to 16:00 UTC on 29 September 2026, the minimum hourly temperature is 24.7 C and the maximum hourly temperature is 31.2 C. The highest one-hour precipitation probability is 90% for the hour from 11:00 to 12:00 UTC on 29 September 2026.\nHourly forecast (UTC time | 2t temperature C | precip mm | precipitation probability % | wind_speed_10m km/h):\n2026-09-28T16:00Z | 26.2 | 0 | 2 | 5\n2026-09-28T17:00Z | 26 | 0 | 0 | 4.2\n2026-09-28T18:00Z | 25.8 | 0 | 0 | 4.2\n2026-09-28T19:00Z | 25.6 | 0 | 0 | 3.2\n2026-09-28T20:00Z | 25.4 | 0 | 0 | 3.7\n2026-09-28T21:00Z | 25.2 | 0 | 0 | 3.5\n2026-09-28T22:00Z | 25.1 | 0 | 0 | 4.2\n2026-09-28T23:00Z | 25 | 0 | 0 | 4.1\n2026-09-29T00:00Z | 24.8 | 0 | 0 | 3.9\n2026-09-29T01:00Z | 24.7 | 0 | 0 | 2.4\n2026-09-29T02:00Z | 25.3 | 0 | 0 | 4.2\n2026-09-29T03:00Z | 26.8 | 0 | 0 | 5.4\n2026-09-29T04:00Z | 27.9 | 0 | 0 | 5.8\n2026-09-29T05:00Z | 29.5 | 0 | 0 | 5.2\n2026-09-29T06:00Z | 30.6 | 0 | 15 | 7\n2026-09-29T07:00Z | 31.2 | 0.3 | 36 | 9.8\n2026-09-29T08:00Z | 30.9 | 0.4 | 55 | 11.9\n2026-09-29T09:00Z | 29.8 | 0.3 | 72 | 12.3\n2026-09-29T10:00Z | 29.4 | 1.7 | 86 | 12.4\n2026-09-29T11:00Z | 28.1 | 0.3 | 90 | 10\n2026-09-29T12:00Z | 27.6 | 0 | 76 | 6.2\n2026-09-29T13:00Z | 26.8 | 0 | 52 | 5.7\n2026-09-29T14:00Z | 26.4 | 0 | 31 | 4.8\n2026-09-29T15:00Z | 26.1 | 0 | 17 | 4.4","hourly":{"2t":[26.2,26,25.8,25.6,25.4,25.2,25.1,25,24.8,24.7,25.3,26.8,27.9,29.5,30.6,31.2,30.9,29.8,29.4,28.1,27.6,26.8,26.4,26.1],"precip":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.3,0.4,0.3,1.7,0.3,0,0,0,0],"precipitation_probability":[0.02,0,0,0,0,0,0,0,0,0,0,0,0,0,0.15,0.36,0.55,0.72,0.86,0.9,0.76,0.52,0.31,0.17],"time":["2026-09-28T16:00Z","2026-09-28T17:00Z","2026-09-28T18:00Z","2026-09-28T19:00Z","2026-09-28T20:00Z","2026-09-28T21:00Z","2026-09-28T22:00Z","2026-09-28T23:00Z","2026-09-29T00:00Z","2026-09-29T01:00Z","2026-09-29T02:00Z","2026-09-29T03:00Z","2026-09-29T04:00Z","2026-09-29T05:00Z","2026-09-29T06:00Z","2026-09-29T07:00Z","2026-09-29T08:00Z","2026-09-29T09:00Z","2026-09-29T10:00Z","2026-09-29T11:00Z","2026-09-29T12:00Z","2026-09-29T13:00Z","2026-09-29T14:00Z","2026-09-29T15:00Z"],"wind_speed_10m":[5,4.2,4.2,3.2,3.7,3.5,4.2,4.1,3.9,2.4,4.2,5.4,5.8,5.2,7,9.8,11.9,12.3,12.4,10,6.2,5.7,4.8,4.4]},"hourly_units":{"2t":"C","precip":"mm","precipitation_probability":"fraction","time":"iso8601_utc","wind_speed_10m":"km/h"},"max_hourly_precipitation_interval":{"end":"2026-09-29T12:00:00Z","start":"2026-09-29T11:00:00Z"},"max_hourly_precipitation_probability":0.9,"maximum_hourly_temperature_c":31.2,"minimum_hourly_temperature_c":24.7,"probability":0.9,"probability_semantics":"maximum_one_hour_precipitation_probability_within_requested_window","response_version":"weather_window_v2"}
