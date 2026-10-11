@@ -22,46 +22,8 @@
  * its honest `unverified`.
  */
 
-/** A word reduced to a comparable form. Crude on purpose; see fold(). */
-function stemWord(w: string): string {
-  if (/^\d+$/.test(w)) return w;
-  if (w.length > 5 && w.endsWith("ies")) return w.slice(0, -3) + "y";
-  if (w.length > 5 && w.endsWith("ing")) return w.slice(0, -3);
-  if (w.length > 4 && w.endsWith("ed")) return w.slice(0, -2);
-  if (w.length > 4 && w.endsWith("es")) return w.slice(0, -2);
-  if (w.length > 3 && w.endsWith("s") && !w.endsWith("ss")) return w.slice(0, -1);
-  return w;
-}
-
-/**
- * The comparison form used on BOTH sides of every test in this file.
- *
- * It drops a trailing "e" after stemming so that "vaccines" (stem `vaccin`) and
- * "vaccine" land on the same token — without it the subject "vaccines" scored
- * zero against the title "Vaccine" and picked `Vaccines and autism` instead.
- * `factcheck.ts` keeps its own `stem`, unchanged, for the fallback search path.
- */
-function fold(w: string): string {
-  const s = stemWord(w);
-  return s.length > 4 && s.endsWith("e") ? s.slice(0, -1) : s;
-}
-
-const STOP = new Set([
-  "the", "a", "an", "of", "in", "on", "at", "to", "for", "and", "or", "is", "are", "was", "were",
-  "be", "been", "am", "it", "its", "their", "there", "with", "from", "by", "as", "than", "then",
-  "not", "no", "but", "if", "so", "up", "out", "all", "any", "each", "per", "via",
-]);
-
-/** Content tokens, folded. Short words are KEPT — the subject may be "bat". */
-export function contentTokens(s: string): string[] {
-  return String(s ?? "")
-    .toLowerCase()
-    .replace(/%/g, " percent ")
-    .replace(/[^a-z0-9\s]/g, " ")
-    .split(/\s+/)
-    .filter((w) => w.length > 1 && !STOP.has(w))
-    .map(fold);
-}
+import { assertedKeys, clausesOf, placeKeys, presentClaim, rivalPlace } from "./factrelation";
+import { contentTokens, fold } from "./factwords";
 
 /**
  * Verbs and auxiliaries that close a claim's subject noun phrase.
@@ -189,23 +151,27 @@ for (let row = 0; row < CLASS_ROWS.length; row++) {
  * Sentences of a plain-text Wikipedia extract, in document order, lead first.
  * Section markers ("==== Vision ====") are dropped rather than glued to the
  * sentence that follows them.
+ *
+ * A full stop inside an open parenthesis ends no sentence. The Taj Mahal lead's
+ * pronunciation note holds "lit. 'Crown of the Palace')", and splitting there
+ * cut "The Taj Mahal" off from "is an ivory-white marble mausoleum ... in Agra,
+ * Uttar Pradesh, India" — the one sentence that says where it is (G188). The
+ * length cap keeps a stray "(" from swallowing the article.
  */
 export function sentencesOf(text: string): string[] {
-  return String(text ?? "")
+  const out: string[] = [];
+  let open = false;
+  for (const part of String(text ?? "")
     .slice(0, 120000)
     .replace(/={2,}[^=\n]*={2,}/g, " ")
     .replace(/\s+/g, " ")
-    .split(/(?<=[.!?])\s+(?=[A-Z0-9"'(“])/)
-    .map((s) => s.trim())
-    .filter((s) => s.length >= 25);
-}
-
-/** Clauses, so a negation elsewhere in a long sentence does not flip the verdict. */
-function clausesOf(sentence: string): string[] {
-  return sentence
-    .split(/,|;|\s+\b(?:and|but|although|though|while|whereas|because)\b\s+/i)
-    .map((c) => c.trim())
-    .filter((c) => c.length > 0);
+    .split(/(?<=[.!?])\s+(?=[A-Z0-9"'(“])/)) {
+    if (open) out[out.length - 1] += ` ${part}`;
+    else out.push(part);
+    const s = out[out.length - 1] as string;
+    open = s.split("(").length > s.split(")").length && s.length < 1000;
+  }
+  return out.map((s) => s.trim()).filter((s) => s.length >= 25);
 }
 
 export interface Settlement {
@@ -230,6 +196,14 @@ export function settle(claim: string, subject: string, sentences: string[]): Set
   const claimNegated = NEGATION.test(claim);
   const claimClassTerm = keys.find((k) => CLASS_OF.has(k));
   const claimClass = claimClassTerm === undefined ? undefined : CLASS_OF.get(claimClassTerm);
+  // With one or two keys, two thirds of them is all of them, and finding them in
+  // a sentence that names the subject is a coincidence test: "The Eiffel Tower is
+  // in Berlin" was SUPPORTED by a sentence about wireless intercepts from Berlin
+  // (G188). Such a claim is settled only by a clause that states it — see
+  // factrelation.ts. A class claim already has that guard in classifiesSubject().
+  const thin = keys.length <= 2 && claimClass === undefined;
+  const places = thin ? placeKeys(claim, keys) : new Set<string>();
+  const present = presentClaim(claim);
 
   let best: Settlement | null = null;
   let bestHit = 0;
@@ -251,17 +225,20 @@ export function settle(claim: string, subject: string, sentences: string[]): Set
     // not do — see classifiesSubject().
     const classifies = claimClass === undefined || classifiesSubject(sentence, subjectTokens);
 
-    const hit = keys.filter((k) => tokens.has(k)).length;
+    const asserted = thin ? assertedKeys(sentence, subjectTokens, keys, places, present) : null;
+    const hit = thin ? (asserted?.hit ?? 0) : keys.filter((k) => tokens.has(k)).length;
     if (classifies && hit >= need && hit > bestHit) {
       // Judge polarity on the clause that carries the relation, not on the whole
       // sentence: the Shark lead ends "...pectoral fins that are NOT fused to the
       // head", which would otherwise read as a negation of everything before it.
-      let clause = sentence;
-      let clauseHit = -1;
-      for (const c of clausesOf(sentence)) {
-        const ct = new Set(contentTokens(c));
-        const n = keys.filter((k) => ct.has(k)).length;
-        if (n > clauseHit) { clauseHit = n; clause = c; }
+      let clause = asserted?.clause ?? sentence;
+      if (!asserted) {
+        let clauseHit = -1;
+        for (const c of clausesOf(sentence)) {
+          const ct = new Set(contentTokens(c));
+          const n = keys.filter((k) => ct.has(k)).length;
+          if (n > clauseHit) { clauseHit = n; clause = c; }
+        }
       }
       const evidenceNegated = NEGATION.test(clause);
       if (evidenceNegated !== claimNegated) {
@@ -286,5 +263,14 @@ export function settle(claim: string, subject: string, sentences: string[]): Set
     }
   }
 
-  return best ?? classHit;
+  const found = best ?? classHit;
+  if (found) return found;
+
+  // Nothing states the claim. For "X is in Y", the lead may still put X in a
+  // rival of Y's own kind — "in Paris, France" against "in Berlin". The same
+  // polarity rule as the class route: that lead supports "X is not in Berlin".
+  const at = rivalPlace(claim, subjectTokens, sentences);
+  const lead = sentences[at];
+  if (lead === undefined || REPORTED.test(lead)) return null;
+  return { verdict: claimNegated ? "supported" : "contradicted", evidence: lead, at };
 }

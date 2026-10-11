@@ -8,7 +8,8 @@
  * its own beyond the timeout it is handed.
  */
 
-import { contentTokens, extractSubject, sentencesOf, settle } from "./factsubject";
+import { extractSubject, sentencesOf, settle } from "./factsubject";
+import { contentTokens } from "./factwords";
 
 export interface SubjectFinding {
   title: string;

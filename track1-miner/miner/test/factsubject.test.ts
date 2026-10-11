@@ -31,11 +31,51 @@ const SHARK =
   "for cutting. Sharks possess brain-to-body mass ratios that are similar to mammals and birds, " +
   "and have exhibited apparent curiosity and behavior resembling play in the wild.";
 
+/**
+ * Sentences of the live Eiffel Tower article, transcribed 2026-10-11 (G188). The
+ * last is the one production quoted as SUPPORT for "The Eiffel Tower is in
+ * Berlin." — it names the tower and Berlin and says nothing about where the
+ * tower is.
+ */
+const WIRELESS =
+  "During World War I, the Eiffel Tower's wireless station played a crucial role in intercepting " +
+  "enemy communications from Berlin.";
+const EIFFEL =
+  "The Eiffel Tower (  EYE-fəl; French: Tour Eiffel [tuʁ ɛfɛl] ) is a lattice tower on the Champ de " +
+  "Mars in Paris, France. It is named after the engineer Gustave Eiffel, whose company designed and " +
+  "built the tower from 1887 to 1889. The tower is 330 metres (1,083 ft) tall, about the same height " +
+  "as an 81-storey building, and the tallest structure in Paris. During its construction, the Eiffel " +
+  "Tower surpassed the Washington Monument to become by far the tallest human-made structure in the " +
+  "world, a title it held for 41 years until the Chrysler Building in New York City was finished in " +
+  "1930. " + WIRELESS;
+
+/** Live lead sentences, 2026-10-11, pronunciation notes and all (\u escapes as served). */
+const COLOSSEUM_LEAD =
+  "The Colosseum ( KOL-ə-SEE-əm; Italian: Colosseo [kolosˈsɛːo]) is an " +
+  "elliptical amphitheatre in the centre of the city of Rome, Italy, just east of the Roman Forum.";
+const TAJ_LEAD =
+  "The Taj Mahal ( TAHJ mə-HAHL, TAHZH -⁠; Hindustani: [t̪ɑːd͡ʒ " +
+  "ˈmɛɦ(ɛ)l]; lit. 'Crown of the Palace') is an ivory-white marble mausoleum " +
+  "on the right bank of the river Yamuna in Agra, Uttar Pradesh, India.";
+const BIG_BEN_LEAD =
+  "Big Ben is the nickname for the Great Bell of the Great Clock of Westminster, and, by extension, " +
+  "for the clock tower that stands at the north end of the Palace of Westminster in London, England.";
+const LIBERTY_IN_PARIS =
+  "The statue remained intact in Paris pending sufficient progress on the pedestal; by January 1885, " +
+  "this had occurred and the statue was disassembled and crated for its ocean voyage.";
+const TAJ_UNESCO =
+  "The Taj Mahal was designated as a UNESCO World Heritage Site in 1983 for being \"the jewel of " +
+  "Muslim art in India and one of the universally admired masterpieces of the world's heritage\".";
+
 const TITLES: Record<string, string[]> = {
   bats: ["Bat", "Bathsheba", "Bats language", "Batsuit"],
   sharks: ["Shark", "Shark Tale", "Sharks (rugby union)", "List of sharks"],
+  // opensearch's live answer for "Eiffel Tower", 2026-10-11.
+  "eiffel tower": ["Eiffel Tower", "Eiffel Tower replicas and derivatives", "Eiffel Tower (Six Flags)",
+    "Eiffel Tower (Delaunay series)", "Eiffel Tower (Paris, Tennessee)", "Eiffel Tower (Paris, Texas)",
+    "Eiffel Tower (disambiguation)", "Eiffel Towers Den Bosch"],
 };
-const EXTRACTS: Record<string, string> = { Bat: BAT, Shark: SHARK };
+const EXTRACTS: Record<string, string> = { Bat: BAT, Shark: SHARK, "Eiffel Tower": EIFFEL };
 
 /** Serves opensearch and prop=extracts; the fallback full-text search finds nothing. */
 function mockWikipedia(): () => void {
@@ -100,6 +140,116 @@ describe("settle", () => {
 
   test("an unmentioned predicate settles nothing", () => {
     assert.equal(settle("bats are made of solid gold", "bats", sentencesOf(BAT)), null);
+  });
+
+  test("a one-term claim is not settled by the term merely appearing (G188)", () => {
+    // The only key left after the subject is "berlin". The sentence names the
+    // tower and Berlin, but the tower is a possessive modifier and Berlin is where
+    // intercepted messages came FROM: nothing here says where the tower is.
+    assert.equal(settle("The Eiffel Tower is in Berlin.", "Eiffel Tower", [WIRELESS]), null);
+  });
+
+  test("a place in the centre of a city is in that city", () => {
+    const lead = sentencesOf(COLOSSEUM_LEAD);
+    assert.equal(settle("The Colosseum is in Rome.", "Colosseum", lead)?.verdict, "supported");
+    assert.equal(settle("The Colosseum is in Italy.", "Colosseum", lead)?.verdict, "supported");
+    assert.equal(settle("The Colosseum is in Athens.", "Colosseum", lead)?.verdict, "contradicted");
+  });
+
+  test("a full stop inside a parenthesis does not cut the lead off from its subject", () => {
+    const s = sentencesOf(`${TAJ_LEAD} ${TAJ_UNESCO}`);
+    assert.match(s[0] ?? "", /^The Taj Mahal \(.*\) is an ivory-white marble mausoleum/);
+    assert.equal(settle("The Taj Mahal is in Agra.", "Taj Mahal", s)?.verdict, "supported");
+    assert.equal(settle("The Taj Mahal is in Pakistan.", "Taj Mahal", s)?.verdict, "contradicted");
+  });
+
+  test("a place a preposition hands to something else is not where the subject is", () => {
+    // Headed by the subject, "in India" in the same clause — but "for being the
+    // jewel of Muslim art in India" locates the art, not the mausoleum.
+    assert.equal(settle("The Taj Mahal is in India.", "Taj Mahal", [TAJ_UNESCO]), null);
+  });
+
+  test("where a thing was is not where it is", () => {
+    // Where the statue stood in 1884, waiting for its pedestal.
+    assert.equal(settle("The Statue of Liberty is in Paris.", "Statue of Liberty", [LIBERTY_IN_PARIS]), null);
+  });
+
+  test("a relative clause in a sentence the subject opens still speaks of it", () => {
+    const lead = sentencesOf(BIG_BEN_LEAD);
+    assert.equal(settle("Big Ben is in London.", "Big Ben", lead)?.verdict, "supported");
+    assert.equal(settle("Big Ben is in Paris.", "Big Ben", lead)?.verdict, "contradicted");
+  });
+});
+
+describe("checkFact on a one-term locative claim (G188)", () => {
+  test("in Berlin: contradicted by the lead, not supported by the wireless sentence", async () => {
+    const restore = mockWikipedia();
+    try {
+      const r = await checkFact("The Eiffel Tower is in Berlin.");
+      assert.equal(r.verdict, "contradicted");
+      assert.equal(r.source_url, "https://en.wikipedia.org/wiki/Eiffel_Tower");
+      assert.match(String(r.evidence), /on the Champ de Mars in Paris, France/);
+      assert.doesNotMatch(String(r.evidence), /wireless station|communications from Berlin/);
+    } finally {
+      restore();
+    }
+  });
+
+  test("in Paris: still supported, quoting the lead", async () => {
+    const restore = mockWikipedia();
+    try {
+      const r = await checkFact("The Eiffel Tower is in Paris.");
+      assert.equal(r.verdict, "supported");
+      assert.match(String(r.evidence), /on the Champ de Mars in Paris, France/);
+    } finally {
+      restore();
+    }
+  });
+
+  test("in France: supported through the appositive after Paris", async () => {
+    const restore = mockWikipedia();
+    try {
+      const r = await checkFact("Fact check: the Eiffel Tower is located in France.");
+      assert.equal(r.verdict, "supported");
+      assert.match(String(r.evidence), /in Paris, France/);
+    } finally {
+      restore();
+    }
+  });
+
+  test("in New York: the Chrysler Building sentence is not support", async () => {
+    // The article does say "in New York City" — about a different building.
+    const restore = mockWikipedia();
+    try {
+      const r = await checkFact("The Eiffel Tower is in New York.");
+      assert.equal(r.verdict, "contradicted");
+      assert.match(String(r.evidence), /in Paris, France/);
+    } finally {
+      restore();
+    }
+  });
+
+  test("in Europe: a containing place is never contradicted by a contained one", async () => {
+    // Paris is in Europe. The article never says so, and a city is not a rival
+    // of a continent, so the honest answer is unverified, not "contradicted".
+    const restore = mockWikipedia();
+    try {
+      const r = await checkFact("The Eiffel Tower is in Europe.");
+      assert.equal(r.verdict, "unverified");
+    } finally {
+      restore();
+    }
+  });
+
+  test("not in Berlin: the negated claim holds, on the same lead sentence", async () => {
+    const restore = mockWikipedia();
+    try {
+      const r = await checkFact("The Eiffel Tower is not in Berlin.");
+      assert.equal(r.verdict, "supported");
+      assert.match(String(r.evidence), /in Paris, France/);
+    } finally {
+      restore();
+    }
   });
 });
 
