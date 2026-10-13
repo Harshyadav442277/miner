@@ -38,6 +38,16 @@ export interface EventOutcomeResult {
   confidence: number;
   reason: string;
   error?: string;
+  /** The settled outcome, and the winner when the question asked who. */
+  outcome?: string | null;
+  winner?: string | null;
+  /** The market or record the answer was read from. */
+  market?: string | null;
+  event?: string | null;
+  venue?: string | null;
+  play_money?: boolean;
+  closes_at?: string | null;
+  source?: string;
 }
 
 export interface Candidate {
@@ -215,6 +225,7 @@ export async function officialSportsOutcome(question: string): Promise<EventOutc
   if (game?.verdict === "result" && game.winner) {
     return {
       verdict: "resolved", confidence: Math.min(0.98, game.confidence),
+      outcome: game.winner, winner: game.winner, event: fixture.event, source: "official sports result",
       reason: `${game.winner} won ${fixture.event}. ${game.reason} This is an official sports result, independent of prediction-market odds or settlement.`,
     };
   }
@@ -222,6 +233,7 @@ export async function officialSportsOutcome(question: string): Promise<EventOutc
   if (!known) return null;
   return {
     verdict: "resolved", confidence: 0.96,
+    outcome: known.winner, winner: known.winner, event: fixture.event, source: "official match record",
     reason: `${known.winner} won ${fixture.event}. ${known.detail} The official match record is used because the live scoreboard omitted the shootout metadata. This is an official sports result, independent of prediction-market odds or settlement.`,
   };
 }
@@ -340,10 +352,14 @@ export async function resolveEvent(question: string): Promise<EventOutcomeResult
   if (c.settled) {
     const winner = who ? namedWinner(c) : null;
     return { verdict: "resolved", confidence: c.venue === "Polymarket" ? 0.9 : 0.7,
+      outcome: c.outcome, winner, market: c.question, event: c.context ?? null,
+      venue: c.venue, play_money: c.venue === "Manifold", source: c.venue,
       reason: `${winner ? `${winner} won. ` : ""}Resolved ${c.outcome}: the ${c.venue} market${play} "${c.question}" has settled on ${c.outcome}.` +
         `${c.context && c.context !== c.question ? ` It belongs to the event "${c.context}".` : ""} This is the market's settlement, which follows its own stated resolution source.` };
   }
   return { verdict: "unresolved", confidence: 0.8,
+    outcome: null, market: c.question, event: c.context ?? null,
+    venue: c.venue, play_money: c.venue === "Manifold", closes_at: c.closes ?? null, source: c.venue,
     reason: `Unresolved: the ${c.venue} market${play} "${c.question}" has not settled${c.closes ? `; trading is scheduled to close ${c.closes.slice(0, 10)}` : ""}. ` +
       "No outcome is reported and none is predicted, and its current trading odds are not an outcome." };
 }
