@@ -1106,6 +1106,41 @@ endpoints:
             intents: ["*"]
             description: "The user's original question, verbatim, e.g. Is the following text written by an AI or a human?"
 
+  - path: /sanctions-screen
+    external_path: /sanctions-screen
+    method: GET
+    intents: [SANCTIONS_SCREENING_MATCH]
+    description: >-
+      Screens a person, company or wallet against the OFAC SDN list and the UN
+      Security Council Consolidated List, read live, including every listed alias
+      and near-matches on spelling or transliteration. Example questions: "Screen
+      'Ivan Petrov, DOB 1974, Cyprus' against the OFAC SDN list", "Is Viktor But
+      sanctioned?", "Is wallet 0x… on a sanctions list?". A birth year in the
+      question is checked against the listed ones. Returns verdict (match,
+      possible_match, no_match or unknown), confidence, matches (up to five, each
+      with list, reference id, listed name, the name or alias that matched,
+      type, programmes, score 0-1, listed birth years, whether the birth year
+      agrees, nationalities, listing date and the OFAC record URL), closest (the
+      nearest entry when nothing matched), lists_checked (each list with its
+      published date and entry count) and lists_not_checked. The EU and UK lists
+      are not screened and the answer says so. A name match alone never
+      establishes identity, and the answer says that too.
+    params:
+      query:
+        optional:
+          - name: name
+            type: string
+            intents: ["*"]
+            description: "Person or company to screen, e.g. Ivan Petrov or Banco Nacional de Cuba. Read from the question when absent."
+          - name: wallet
+            type: string
+            intents: ["*"]
+            description: "A crypto wallet address to screen against OFAC's listed digital currency addresses."
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim. A birth year and whether the subject is a person or a company are read from it."
+
 semantics:
   signal_mapping:
     label_field: verdict
@@ -1148,6 +1183,7 @@ semantics:
     - SENTIMENT_ANALYSIS
     - TEXT_CLASSIFICATION
     - RESEARCH_SYNTHESIS
+    - SANCTIONS_SCREENING_MATCH
 
 # input_schema is a single top-level block covering every endpoint — the schema
 # refuses it inside endpoints[], and the node does not enforce it against requests.
@@ -1171,6 +1207,12 @@ input_schema:
     q:
       type: string
       description: Alias for query.
+    name:
+      type: string
+      description: Person or company to screen for sanctions, e.g. Ivan Petrov.
+    wallet:
+      type: string
+      description: Crypto wallet address to screen against OFAC's listed digital currency addresses.
     domain:
       type: string
       description: >-

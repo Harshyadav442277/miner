@@ -6,6 +6,7 @@ import { alertAnswer, asksAlert, officialAlertAnswer, type AlertCheckResult } fr
 import { translate, type TranslationResult } from "./translate";
 import { academicAnswer, findPapers, type PaperResult } from "./papers";
 import { envelope } from "./envelope";
+import { MISSION_ROUTES, type MissionAnswer } from "./mission-routes";
 import { getForecast, type ForecastResult } from "./forecast";
 import { asksCurrentConditions, getCurrentConditions } from "./currentweather";
 import { geolocate, type GeoResult } from "./geo";
@@ -57,7 +58,7 @@ import { synthesise, type SynthesisResult } from "./synthesis";
 
 const CACHE_TTL_MS = Number(process.env.CACHE_TTL_MS ?? 60_000);
 const MAX_CACHE = 500;
-export const ENDPOINTS = [
+export const ENDPOINTS: readonly string[] = [
   "/ssl-check", "/storm-alert", "/weather-forecast",
   "/ip-geolocate", "/translate", "/papers",
   "/ai-detect", "/extract", "/headlines", "/wallet-balance",
@@ -65,7 +66,8 @@ export const ENDPOINTS = [
   "/gas-price", "/financial", "/fraud-check",
   "/sports-score", "/token-holders", "/research", "/authenticity",
   "/crypto-price", "/stock-price", "/cross-chain", "/event-outcome", "/url-scan", "/web-search", "/content-verify", "/sentiment", "/classify", "/research-synthesis",
-] as const;
+  ...Object.keys(MISSION_ROUTES),
+];
 
 /**
  * A one-minute cache matches miner.yaml, absorbs repeated spot checks, and
@@ -80,7 +82,7 @@ type Answer =
   | ActivityResult
   | CryptoPriceResult | StockPriceResult | CrossChainResult | EventOutcomeResult
   | UrlScanResult | WebSearchResult | ContentVerifyResult | SentimentResult
-  | ClassifyResult | SynthesisResult;
+  | ClassifyResult | SynthesisResult | MissionAnswer;
 const cache = new Map<string, { at: number; value: Answer; ttl: number }>();
 
 /**
@@ -188,7 +190,7 @@ const SUBJECT_OF: Record<string, string> = {
 function armWatchdog(res: ServerResponse, path: string, question: string): void {
   const timer = setTimeout(() => {
     if (answered.has(res)) return;
-    upstreamUnavailable(res, SUBJECT_OF[path] ?? "This answer", question.trim() ? question.slice(0, 80) : "this request", question);
+    upstreamUnavailable(res, SUBJECT_OF[path] ?? MISSION_ROUTES[path]?.what ?? "This answer", question.trim() ? question.slice(0, 80) : "this request", question);
   }, watchdogMs());
   // Never keep a process alive for the watchdog alone.
   timer.unref?.();
@@ -491,7 +493,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
   // Every route below reaches an upstream, so every route below can hang. Armed
   // once here rather than in ten places; a route that answers normally clears it
   // through `send`.
-  if ((ENDPOINTS as readonly string[]).includes(path)) {
+  if (ENDPOINTS.includes(path)) {
     armWatchdog(res, path, firstValue(url, "query", "q", "question", "text", "input"));
     // Preserve values and duplicate-parameter ordering: these can affect parsing.
     // Sorting parameter names allows equivalent engine requests to share work.
@@ -1831,7 +1833,26 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     return;
   }
 
-  if (!(ENDPOINTS as readonly string[]).includes(path)) {
+  const mission = MISSION_ROUTES[path];
+  if (mission) {
+    const subject = firstValue(url, ...mission.params);
+    const q = firstValue(url, "query", "q", "question", "text", "input");
+    const key = `${path}:${subject.trim().toLowerCase()}|${q.trim().toLowerCase()}`;
+    const hit = fromCache(key);
+    if (hit) {
+      sendAnswer(res, q, hit);
+      return;
+    }
+    mission.run(q, subject)
+      .then((r) => {
+        if (!r.error) toCache(key, r);
+        sendAnswer(res, q, r);
+      })
+      .catch(() => upstreamUnavailable(res, mission.what, subject || "this request", q));
+    return;
+  }
+
+  if (!ENDPOINTS.includes(path)) {
     send(res, 404, {
       error: "not_found",
       message: "Use one of the six endpoints declared in miner.yaml.",
