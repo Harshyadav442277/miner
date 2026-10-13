@@ -50,6 +50,11 @@ export interface CrossChainResult {
   confidence: number;
   reason: string;
   error?: string;
+  /** The LayerZero message the verdict is about, as LayerZero Scan indexes it. */
+  message?: {
+    guid: string; nonce: number; source_chain: string | null; destination_chain: string | null;
+    sender: string; receiver: string; source_tx: string | null; destination_tx: string | null; scan_status: string | null;
+  };
 }
 
 /** Chains named in the question, in order of mention. */
@@ -144,16 +149,22 @@ export async function verifyCrossChain(question: string): Promise<CrossChainResu
   const dst = EID[m.pathway.dstEid];
   const route = `${src ?? `endpoint ${m.pathway.srcEid}`} to ${dst ?? `endpoint ${m.pathway.dstEid}`}`;
   const id = `LayerZero message ${m.guid} (nonce ${m.pathway.nonce}, ${route})`;
+  const message = {
+    guid: m.guid, nonce: m.pathway.nonce, source_chain: src ?? null, destination_chain: dst ?? null,
+    sender: m.pathway.sender.address, receiver: m.pathway.receiver.address,
+    source_tx: m.source.tx?.txHash ?? null, destination_tx: m.destination.tx?.txHash ?? null,
+    scan_status: m.status?.name ?? null,
+  };
   const asked = namedChains(q);
   if (asked.length >= 2 && src && dst && (asked[0] !== src || asked[1] !== dst) && !(asked.includes(src) && asked.includes(dst))) {
-    return { verdict: "mismatch", confidence: 0.9,
+    return { message, verdict: "mismatch", confidence: 0.9,
       reason: `${id} does not travel between ${asked[0]} and ${asked[1]} as asked: it was sent from ${src} to ${dst}.${proofNote}` };
   }
   if (Number.isFinite(nonceAsked) && m.pathway.nonce !== nonceAsked) {
-    return { verdict: "mismatch", confidence: 0.9, reason: `${id} carries nonce ${m.pathway.nonce}, not the nonce ${nonceAsked} named in the question.${proofNote}` };
+    return { message, verdict: "mismatch", confidence: 0.9, reason: `${id} carries nonce ${m.pathway.nonce}, not the nonce ${nonceAsked} named in the question.${proofNote}` };
   }
   if (!src || !dst) {
-    return { verdict: "unsupported", confidence: 0.3,
+    return { message, verdict: "unsupported", confidence: 0.3,
       reason: `${id} involves a chain whose RPC is not read here, so its delivery was not verified on-chain. LayerZero Scan reports its status as ${m.status?.name ?? "unreported"}.${proofNote}` };
   }
   const srcHash = m.source.tx?.txHash ?? "";
@@ -163,27 +174,27 @@ export async function verifyCrossChain(question: string): Promise<CrossChainResu
     dstHash ? readReceipt(dst, dstHash) : Promise.resolve(null),
   ]);
   if (srcRc === undefined || (dstHash && dstRc === undefined)) {
-    return { verdict: "unknown", confidence: 0, error: "rpc_unavailable",
+    return { message, verdict: "unknown", confidence: 0, error: "rpc_unavailable",
       reason: `${id} could not be verified on-chain because the ${srcRc === undefined ? src : dst} RPC endpoints did not respond. Nothing is concluded about the message.${proofNote}` };
   }
   const sent = (srcRc?.logs ? logsFrom(srcRc.logs, PACKET_SENT) : []).map(decodePacketSent)
     .find((p) => p && p.nonce === m.pathway.nonce && p.guid === m.guid.toLowerCase() && p.srcEid === m.pathway.srcEid
       && p.dstEid === m.pathway.dstEid && p.sender === m.pathway.sender.address.toLowerCase() && p.receiver === m.pathway.receiver.address.toLowerCase());
   if (!srcRc || srcRc.status !== "0x1" || !sent) {
-    return { verdict: "mismatch", confidence: 0.8,
+    return { message, verdict: "mismatch", confidence: 0.8,
       reason: `${id} is not confirmed at its source: the ${src} transaction ${srcHash} ${srcRc ? "carries no matching PacketSent event from the LayerZero endpoint" : "was not found on-chain"}.${proofNote}` };
   }
   if (!dstHash || !dstRc) {
-    return { verdict: "not_delivered", confidence: 0.8,
+    return { message, verdict: "not_delivered", confidence: 0.8,
       reason: `${id} was sent on ${src} in transaction ${srcHash}, verified on-chain, but has not been executed on ${dst}: no destination transaction exists yet (Scan status ${m.status?.name ?? "unreported"}).${proofNote}` };
   }
   const delivered = logsFrom(dstRc.logs, PACKET_DELIVERED).map(decodePacketDelivered)
     .some((d) => d && d.srcEid === m.pathway.srcEid && d.nonce === m.pathway.nonce
       && d.sender === m.pathway.sender.address.toLowerCase() && d.receiver === m.pathway.receiver.address.toLowerCase());
   if (dstRc.status !== "0x1" || !delivered) {
-    return { verdict: "mismatch", confidence: 0.8,
+    return { message, verdict: "mismatch", confidence: 0.8,
       reason: `${id} does not verify on ${dst}: destination transaction ${dstHash} ${dstRc.status !== "0x1" ? "reverted" : "carries no matching PacketDelivered event"}, although Scan reports ${m.status?.name ?? "a status"}.${proofNote}` };
   }
-  return { verdict: "verified", confidence: 0.95,
+  return { message, verdict: "verified", confidence: 0.95,
     reason: `Verified: ${id} was emitted on ${src} in ${srcHash} and delivered on ${dst} in ${dstHash}. Both receipts succeeded and their endpoint events agree on nonce, sender, receiver and GUID.${proofNote}` };
 }
