@@ -115,3 +115,11 @@ test("a paragraph-length subject is bounded before it is matched", () => {
   screeningSubject(`Is ${"a ".repeat(5_000)}on the list?`);
   assert.ok(Date.now() - t < 500, `took ${Date.now() - t} ms`);
 });
+
+test("an over-long subject is refused, not screened as a prefix; a late wallet is still found", async () => {
+  const r = await screenSanctions("", Array.from({ length: 12 }, (_, i) => `name${i}`).join(" "));
+  assert.equal(r.verdict, "unknown");
+  assert.equal(r.error, "subject_too_long");
+  const late = screeningSubject(`${"Please check this. ".repeat(40)}Is 0x1111111111111111111111111111111111111111 sanctioned?`);
+  assert.equal(late.wallet, "0x1111111111111111111111111111111111111111");
+});

@@ -15,6 +15,7 @@ const MATCH = 0.95;
 // "Ivan Petrov" reached 0.887 against "IVANOV, Victor Petrovich" through the
 // prefix bonus; 0.90 keeps it out and keeps "Viktor But" for Bout (0.914).
 const POSSIBLE = 0.9;
+const MAX_WORDS = 8;
 const NOT_SCREENED = ["EU consolidated financial sanctions list", "UK HMT consolidated list"];
 
 /** Legal forms and honorifics: they say what a party is, not which one. */
@@ -92,10 +93,13 @@ const WALLET = /\b(0x[a-fA-F0-9]{40}|bc1[a-z0-9]{25,60}|[13][a-km-zA-HJ-NP-Z1-9]
 
 /** What to screen, read from the declared name and the question. */
 export function screeningSubject(question: string, nameParam = ""): Subject {
-  // Bounded before any pattern runs: the extraction regexes backtrack.
-  const q = String(question ?? "").slice(0, 500);
-  nameParam = String(nameParam ?? "").slice(0, 200);
-  const wallet = (nameParam.match(WALLET) ?? q.match(WALLET))?.[1] ?? null;
+  // The name patterns backtrack, so they read the first 500 characters. The
+  // wallet pattern is linear and reads further, so a wallet late in a long
+  // question is still screened as a wallet.
+  const full = String(question ?? "").slice(0, 5_000);
+  const q = full.slice(0, 500);
+  nameParam = String(nameParam ?? "").slice(0, 500);
+  const wallet = (nameParam.match(WALLET) ?? full.match(WALLET))?.[1] ?? null;
   const quoted = q.match(/['"‘“]([^'"’”]{3,120})['"’”]/)?.[1] ?? "";
   let name = nameParam.trim() || quoted.split(",")[0]!.trim();
   if (!name) {
@@ -138,8 +142,9 @@ let index: { lists: SanctionsLists; tokens: string[][][] } | null = null;
 /** The scored candidates, best first. Pure given the lists. */
 export function screenParties(subject: Subject, lists: SanctionsLists): Match[] {
   if (index?.lists !== lists) index = { lists, tokens: lists.parties.map((p) => [p.name, ...p.aliases].map(nameTokens)) };
-  // Eight words, forty characters each: a name, never a paragraph.
-  const want = nameTokens(subject.name.slice(0, 120)).slice(0, 8);
+  // screenSanctions refuses a subject over MAX_WORDS; the cap here only bounds
+  // direct callers.
+  const want = nameTokens(subject.name).slice(0, MAX_WORDS);
   const out: Match[] = [];
   lists.parties.forEach((p: ListedParty, i) => {
     if (subject.kind === "individual" && p.type !== "individual") return;
@@ -177,9 +182,16 @@ export async function screenSanctions(question: string, nameParam = ""): Promise
     dob_year: subject.dob_year, matches: [] as Match[], closest: null, lists_checked: [] as Edition[],
     lists_not_checked: NOT_SCREENED,
   };
-  if (!subject.wallet && nameTokens(subject.name).length === 0) {
+  const words = nameTokens(subject.name).length;
+  if (!subject.wallet && words === 0) {
     return { ...base, verdict: "unknown", confidence: 0, error: "no_subject",
       reason: "No person, company or wallet was named, so nothing was screened. Name the party, for example: Screen 'Ivan Petrov, DOB 1974' against the OFAC SDN list." };
+  }
+  // Screening a prefix of an over-long subject could clear a name that was
+  // never compared, so it is refused rather than truncated.
+  if (!subject.wallet && words > MAX_WORDS) {
+    return { ...base, subject: subject.name.slice(0, 80), verdict: "unknown", confidence: 0, error: "subject_too_long",
+      reason: `Nothing was screened: the subject read from this request has ${words} words, more than the ${MAX_WORDS} a name can have here. Send the name alone in the name parameter.` };
   }
   const lists = await sanctionsLists();
   const checked = { ...base, lists_checked: lists.editions, lists_not_checked: [...lists.unavailable, ...NOT_SCREENED] };
