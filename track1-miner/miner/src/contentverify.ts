@@ -43,6 +43,12 @@ export interface ContentVerifyResult {
   confidence: number;
   reason: string;
   error?: string;
+  /** The published text it was compared with. */
+  compared_with?: { wiki: string; title: string; url: string };
+  words?: number;
+  /** Six-word windows of the supplied text that the published text lacks. */
+  differing_wording?: string[];
+  windows?: number;
 }
 
 const MEDIA = /\b(?:image|photo|picture|video|audio|deepfake|jpe?g|png|mp4|mov)\b/i;
@@ -204,9 +210,11 @@ export async function verifyContent(question: string, supplied: Supplied = {}): 
     };
   }
 
+  const compared_with = { wiki: best.wiki, title: best.title, url: `${WIKIS[best.wiki]}/wiki/${encodeURIComponent(best.title.replace(/ /g, "_"))}` };
   const source = await wikitext(best.wiki, best.title);
   if (!source) {
     return {
+      compared_with,
       verdict: "unverified", confidence: 0.3, error: "source_unavailable",
       reason: `Not confirmed: parts of the supplied text appear verbatim in the ${best.wiki} text "${best.title}", but that text could not be read for a full comparison, so a change elsewhere in the passage cannot be ruled out.`,
     };
@@ -215,6 +223,7 @@ export async function verifyContent(question: string, supplied: Supplied = {}): 
   const missing = unmatchedWindows(words, plainWords(source));
   if (missing.length === 0) {
     return {
+      compared_with, words: words.length, differing_wording: [],
       verdict: "matches_published_source", confidence: 0.85,
       reason: `Yes, the supplied ${words.length}-word text matches published wording: every six-word window of it appears verbatim in the ${best.wiki} text "${best.title}". That source is a published copy, not necessarily the issuer's own.`,
     };
@@ -227,11 +236,13 @@ export async function verifyContent(question: string, supplied: Supplied = {}): 
   const windows = Math.max(1, Math.ceil((words.length - 6) / 3) + 1);
   if (missing.length * 2 > windows) {
     return {
+      compared_with, words: words.length, windows, differing_wording: missing.slice(0, 5),
       verdict: "unverified", confidence: 0.4,
       reason: `Not confirmed: the ${best.wiki} text "${best.title}" contains parts of the supplied text but not most of it (${missing.length} of ${windows} six-word windows are absent), so it is a partial quotation rather than a full copy to compare against.`,
     };
   }
   return {
+    compared_with, words: words.length, windows, differing_wording: missing.slice(0, 5),
     verdict: "differs_from_published_source", confidence: 0.7,
     reason: `No, the supplied text differs from the published ${best.wiki} text "${best.title}": the wording "${missing[0]}" does not appear there${missing.length > 1 ? `, nor do ${missing.length - 1} other six-word windows` : ""}, while the rest of the passage does.`,
   };
