@@ -42,6 +42,22 @@ export interface UrlScanResult {
   confidence: number;
   reason: string;
   error?: string;
+  /** The threat sources that flagged it, by name; empty when none did. */
+  flagged_by?: string[];
+  /** What each check found, so an app can apply its own policy. */
+  checks?: UrlScanChecks;
+}
+
+export interface UrlScanChecks {
+  /** Cloudflare's malware and phishing resolver; not_applicable for a literal IP. */
+  cloudflare_filter: "blocked" | "passed" | "unavailable" | "not_applicable";
+  urlhaus: "listed_url" | "listed_host" | "not_listed" | "unavailable";
+  resolves: boolean | null;
+  /** ssl.ts's verdict for the host's certificate; null for plain HTTP or no answer. */
+  tls: string | null;
+  lookalike_markers: string[];
+  redirects: number;
+  final_url: string | null;
 }
 
 const NOT_A_URL: Array<[RegExp, string]> = [
@@ -184,8 +200,29 @@ export interface Evidence {
 
 const BAD_TLS = new Set(["expired", "not_yet_valid", "hostname_mismatch", "self_signed", "untrusted"]);
 
-/** The verdict from the gathered evidence. Pure, so every branch is testable offline. */
+/** The verdict and the checks behind it. Pure, so every branch is testable offline. */
 export function classify(e: Evidence): UrlScanResult {
+  const sec = e.security;
+  const openIps = e.open && e.open !== "unavailable" ? e.open.ips.filter((ip) => ip !== "0.0.0.0") : [];
+  const blocked = Boolean(sec && sec !== "unavailable" && (sec.censored || (sec.ips.includes("0.0.0.0") && openIps.length > 0)));
+  const last = e.hops[e.hops.length - 1];
+  const checks: UrlScanChecks = {
+    cloudflare_filter: sec === null ? "not_applicable" : sec === "unavailable" ? "unavailable" : blocked ? "blocked" : "passed",
+    urlhaus: e.urlhaus === "unavailable" ? "unavailable" : e.urlhaus.url ? "listed_url" : e.urlhaus.host ? "listed_host" : "not_listed",
+    resolves: e.open && e.open !== "unavailable" ? e.open.status !== 3 : null,
+    tls: e.tls?.verdict ?? null,
+    lookalike_markers: lookalikeMarkers(e.url),
+    redirects: Math.max(0, e.hops.length - 1),
+    final_url: last?.url ?? null,
+  };
+  const flagged_by = [
+    checks.cloudflare_filter === "blocked" ? "Cloudflare security DNS" : "",
+    checks.urlhaus.startsWith("listed") ? "URLhaus" : "",
+  ].filter(Boolean);
+  return { ...verdictOf(e), flagged_by, checks };
+}
+
+function verdictOf(e: Evidence): UrlScanResult {
   const shown = e.url.href.length > 90 ? `${e.url.href.slice(0, 87)}...` : e.url.href;
   const host = e.url.hostname;
   const sec = e.security;
