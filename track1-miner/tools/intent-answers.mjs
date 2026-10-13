@@ -1201,8 +1201,11 @@ const CHECKS = {
     // No upstream: computed from the request, so every assertion holds in every state.
     const neg = await get("/sentiment", { query: "What's the sentiment of this review: 'The product broke after one day, terrible quality.'?" });
     if (neg.body.verdict !== "negative") bad.push(`canonical review -> ${neg.body.verdict}, want negative`);
-    if (!/terrible/.test(String(neg.body.reason ?? "")) || !/broke/.test(String(neg.body.reason ?? ""))) {
-      bad.push("the negative label names neither word that carried it");
+    // The words are checked in the field, not the reason: on production the
+    // reason is model-phrased and names them only some of the time.
+    const carried = (neg.body.negative_words ?? []).join(" ");
+    if (!/terrible/.test(carried) || !/broke/.test(carried)) {
+      bad.push(`negative_words ${JSON.stringify(neg.body.negative_words)} does not name both words that carried it`);
     }
     const pos = await get("/sentiment", { text: "Absolutely wonderful service, I love it" });
     if (pos.body.verdict !== "positive") bad.push(`plainly positive text -> ${pos.body.verdict}, want positive`);

@@ -27,6 +27,11 @@ export interface SentimentResult {
   reason: string;
   compound: number | null;
   error?: string;
+  /** The lexicon words that carried each side, strongest first; up to three each. */
+  positive_words?: string[];
+  negative_words?: string[];
+  /** Tones a word in the text states: frustrated, urgent, grateful and so on. */
+  tones?: string[];
 }
 
 /**
@@ -268,6 +273,7 @@ export function analyseSentiment(question: string, textParam = ""): SentimentRes
   const words = (sign: number): string[] =>
     [...new Set(hits.filter((h) => Math.sign(h.value) === sign).sort((a, b) => Math.abs(b.value) - Math.abs(a.value)).map((h) => h.word))].slice(0, 3);
   const tone = tones.length ? ` Its tone is ${tones.slice(0, 2).join(" and ")}.` : "";
+  const cues = { positive_words: words(1), negative_words: words(-1), tones };
   /**
    * What the prose carries, and what it leaves to the manifest.
    *
@@ -292,7 +298,7 @@ export function analyseSentiment(question: string, textParam = ""): SentimentRes
   if (askedTone) {
     const found = tones.includes(askedTone);
     return {
-      verdict, compound, confidence: found ? 0.8 : 0.55,
+      verdict, compound, ...cues, confidence: found ? 0.8 : 0.55,
       reason: found
         ? `Yes. This ${noun} is written in a ${askedTone} tone, and its sentiment is ${verdict}.`
         : `No word in this ${noun} states a ${askedTone} tone, so a word-list reading cannot confirm one. ` +
@@ -303,7 +309,7 @@ export function analyseSentiment(question: string, textParam = ""): SentimentRes
   if (verdict === "neutral") {
     const none = hits.length === 0;
     return {
-      verdict, confidence: none ? 0.6 : 0.7, compound,
+      verdict, confidence: none ? 0.6 : 0.7, compound, ...cues,
       reason:
         `Neutral. The sentiment of this ${noun} is neutral: ${passageClause(text)} ` +
         (none
@@ -314,7 +320,7 @@ export function analyseSentiment(question: string, textParam = ""): SentimentRes
   }
   if (verdict === "mixed") {
     return {
-      verdict, confidence: 0.65, compound,
+      verdict, confidence: 0.65, compound, ...cues,
       reason:
         `Mixed. The sentiment of this ${noun} is mixed: ${passageClause(text)} The words ${wordList(words(1))} are positive, ` +
         `while ${wordList(words(-1))} are negative.${tone}`,
@@ -328,7 +334,7 @@ export function analyseSentiment(question: string, textParam = ""): SentimentRes
       ? ` Weaker ${verdict === "positive" ? "negative" : "positive"} wording (${wordList(other)}) does not outweigh it.`
       : "";
   return {
-    verdict, compound,
+    verdict, compound, ...cues,
     confidence: Number(Math.min(0.95, 0.55 + Math.abs(compound) * 0.4).toFixed(2)),
     reason: `${capital(verdict)}. The sentiment of this ${noun} is ${verdict}: ${passageClause(text)} It is carried by the word${main.length === 1 ? "" : "s"} ${wordList(main)}.${offset}${tone}`,
   };

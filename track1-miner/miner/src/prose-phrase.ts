@@ -147,11 +147,13 @@ export async function analyseSentimentPhrased(
   if (!got) return base;
   const label = got.label as SentimentVerdict;
   return {
+    // The lexicon's words and tones stay as fields: they are what an app can
+    // check, and the model's sentence does not always name them.
+    ...base,
     verdict: label,
     // The lexicon's confidence still describes the lexicon's label. When the two
     // readings differ, only one method supports the answer, and 0.7 says so.
     confidence: label === base.verdict ? base.confidence : 0.7,
-    compound: base.compound,
     reason: `The sentiment of this ${subjectNoun(q)} is ${label}. ${got.sentence}`,
   };
 }
