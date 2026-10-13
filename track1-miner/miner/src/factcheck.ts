@@ -204,10 +204,12 @@ export async function checkFact(question: string, timeoutMs = DEFAULT_TIMEOUT_MS
   // **Flight of the Navigator** — a film that quotes the myth — where the
   // article that actually addresses it ranks lower. On 2026-09-15 it ranked
   // seventh or eighth ("Ten-percent-of-the-brain myth"), outside the five this
-  // used to read, so the film was cited; ten candidates keep it in reach.
+  // used to read, so the film was cited. On 2026-10-13 it ranked tenth or
+  // below in 3 of 5 searches and the film was cited again; twenty keep it in
+  // reach (3 of 3 picked the myth article).
   const search = budget() < 800 ? null : await getJson(
     `${WIKI_SEARCH}?action=query&list=search&srsearch=${encodeURIComponent(terms)}` +
-    `&srlimit=10&format=json&origin=*`,
+    `&srlimit=20&format=json&origin=*`,
     budget(),
   );
   // A search that did not answer is an outage, not an absence (ARCHITECTURE A5):
