@@ -6,6 +6,7 @@
  * successful answer, and sends it through the same envelope, watchdog and
  * in-flight sharing as every other route.
  */
+import { lookupRegistry } from "./registry";
 import { screenSanctions } from "./sanctions";
 
 export interface MissionAnswer { verdict: string; confidence: number; reason: string; error?: string }
@@ -13,15 +14,21 @@ export interface MissionAnswer { verdict: string; confidence: number; reason: st
 export interface MissionRoute {
   /** "A sanctions screening": the watchdog's sentence when the route runs out of time. */
   what: string;
-  /** Declared parameters that name the subject, most specific first. */
+  /** Declared parameters that name the subject; they key the cache with the question. */
   params: readonly string[];
-  run: (question: string, subject: string) => Promise<MissionAnswer>;
+  /** `param(...names)` is the first of those parameters that carries a value, or "". */
+  run: (question: string, param: (...names: string[]) => string) => Promise<MissionAnswer>;
 }
 
 export const MISSION_ROUTES: Record<string, MissionRoute> = {
   "/sanctions-screen": {
     what: "A sanctions screening",
     params: ["name", "wallet"],
-    run: (q, subject) => screenSanctions(q, subject),
+    run: (q, p) => screenSanctions(q, p("name", "wallet")),
+  },
+  "/company-registry": {
+    what: "A company register lookup",
+    params: ["company", "company_number", "lei"],
+    run: (q, p) => lookupRegistry(q, p("company", "lei"), p("company_number")),
   },
 };

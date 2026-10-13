@@ -1835,15 +1835,15 @@ function route(req: IncomingMessage, res: ServerResponse): void {
 
   const mission = MISSION_ROUTES[path];
   if (mission) {
-    const subject = firstValue(url, ...mission.params);
+    const subject = mission.params.map((n) => firstValue(url, n).trim()).filter(Boolean).join(" ");
     const q = firstValue(url, "query", "q", "question", "text", "input");
-    const key = `${path}:${subject.trim().toLowerCase()}|${q.trim().toLowerCase()}`;
+    const key = `${path}:${mission.params.map((n) => firstValue(url, n).trim().toLowerCase()).join("|")}|${q.trim().toLowerCase()}`;
     const hit = fromCache(key);
     if (hit) {
       sendAnswer(res, q, hit);
       return;
     }
-    mission.run(q, subject)
+    mission.run(q, (...names) => firstValue(url, ...names))
       .then((r) => {
         if (!r.error) toCache(key, r);
         sendAnswer(res, q, r);

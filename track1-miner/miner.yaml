@@ -1141,6 +1141,41 @@ endpoints:
             intents: ["*"]
             description: "The user's original question, verbatim. A birth year and whether the subject is a person or a company are read from it."
 
+  - path: /company-registry
+    external_path: /company-registry
+    method: GET
+    intents: [CORPORATE_REGISTRY_LOOKUP]
+    description: >-
+      A company's official register record, read live from the GLEIF LEI
+      register and, for a US filer, SEC EDGAR. Example questions: "What is the
+      incorporation status and registered agent for Tesla, Inc.?", "Is Barclays
+      Bank PLC still registered?", "UK company number 01026167", "Look up LEI
+      5493001KJTIIGC8Y1R12". Returns verdict (found, not_found or unknown),
+      legal_name, lei, entity_status (ACTIVE or INACTIVE), lei_registration_status,
+      jurisdiction, legal_form, company_number and the register that issued it
+      (Companies House, a US Secretary of State, …), registered_address,
+      registered_agent when the registered address is an agent's, headquarters_address,
+      incorporated, other_names, direct_parent and ultimate_parent (name and LEI),
+      us_filer (CIK, state of incorporation, industry code, addresses and former
+      names from EDGAR), other_candidates with similar names, and sources.
+      Directors and beneficial owners are in neither source, and every answer
+      says so instead of leaving them out silently.
+    params:
+      query:
+        optional:
+          - name: company
+            type: string
+            intents: ["*"]
+            description: "Company name, e.g. Tesla, Inc. or Revolut Ltd, or a 20-character LEI. Read from the question when absent."
+          - name: company_number
+            type: string
+            intents: ["*"]
+            description: "The number the company is registered under, e.g. UK company number 01026167."
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim. A country named in it, such as UK or Delaware, narrows the search."
+
 semantics:
   signal_mapping:
     label_field: verdict
@@ -1184,6 +1219,7 @@ semantics:
     - TEXT_CLASSIFICATION
     - RESEARCH_SYNTHESIS
     - SANCTIONS_SCREENING_MATCH
+    - CORPORATE_REGISTRY_LOOKUP
 
 # input_schema is a single top-level block covering every endpoint — the schema
 # refuses it inside endpoints[], and the node does not enforce it against requests.
@@ -1213,6 +1249,12 @@ input_schema:
     wallet:
       type: string
       description: Crypto wallet address to screen against OFAC's listed digital currency addresses.
+    company:
+      type: string
+      description: Company name or LEI for a register lookup, e.g. Tesla, Inc.
+    company_number:
+      type: string
+      description: The number a company is registered under, e.g. UK company number 01026167.
     domain:
       type: string
       description: >-
