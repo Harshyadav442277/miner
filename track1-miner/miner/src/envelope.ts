@@ -15,12 +15,17 @@
 /** Words that end in a full stop without ending the sentence. */
 const ABBREVIATION = /(?:^|[\s(])(?:e\.g|i\.e|etc|vs|approx|est|cf|al|Fig|No|Nos|St|Mt|Mr|Mrs|Ms|Dr|Prof|Jr|Sr|Inc|Ltd|Co|Corp|U\.S|U\.K|U\.N|E\.U|[A-Z])$/;
 
-/** The first sentence of `text`, or the whole of it when it has only one. */
+/**
+ * The first sentence of `text`, or the whole of it when it has only one.
+ * Linear: a reason can quote caller text, so only the first 2,000 characters
+ * are scanned and each stop tests the ten characters before it, which is
+ * longer than any abbreviation above.
+ */
 export function leadSentence(text: string): string {
   const s = String(text ?? "").trim();
   const end = /[.!?]["'”’)\]]*\s+(?=["'“‘(\[]?[A-Z0-9])/g;
-  for (let m = end.exec(s); m; m = end.exec(s)) {
-    const before = s.slice(0, m.index);
+  for (let m = end.exec(s); m && m.index < 2_000; m = end.exec(s)) {
+    const before = s.slice(Math.max(0, m.index - 10), m.index);
     if (m[0][0] === "." && ABBREVIATION.test(before)) continue;
     return s.slice(0, m.index + m[0].trimEnd().length);
   }

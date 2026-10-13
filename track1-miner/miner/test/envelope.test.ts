@@ -29,3 +29,10 @@ test("the envelope puts answer first, keeps every field and always dates the ans
   assert.equal(envelope("plain"), "plain");
   assert.deepEqual(envelope([1]), [1]);
 });
+
+test("the lead sentence stays linear on caller text full of initials", () => {
+  const hostile = "A. ".repeat(200_000);
+  const t = Date.now();
+  assert.equal(leadSentence(hostile), hostile.trim());
+  assert.ok(Date.now() - t < 500, `took ${Date.now() - t} ms`);
+});
