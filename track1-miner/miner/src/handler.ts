@@ -5,6 +5,7 @@ import { checkStorm, type StormResult } from "./storm";
 import { alertAnswer, asksAlert, officialAlertAnswer, type AlertCheckResult } from "./alertcheck";
 import { translate, type TranslationResult } from "./translate";
 import { academicAnswer, findPapers, type PaperResult } from "./papers";
+import { envelope } from "./envelope";
 import { getForecast, type ForecastResult } from "./forecast";
 import { asksCurrentConditions, getCurrentConditions } from "./currentweather";
 import { geolocate, type GeoResult } from "./geo";
@@ -229,7 +230,7 @@ function send(res: ServerResponse, status: number, body: unknown): void {
  * old shape are in git history (`restate.ts`, `lean`).
  */
 function sendAnswer(res: ServerResponse, _question: string, body: unknown): void {
-  send(res, 200, body);
+  send(res, 200, envelope(body));
 }
 
 /**
@@ -391,40 +392,6 @@ function coordsFromParams(url: URL): string {
 }
 
 /**
- * A translation answer, stripped to the answer itself.
- *
- * Telegraph converts the WHOLE miner JSON into ~32 words of English prose and
- * scores THAT, not our `reason`. Every English field we send — the source text,
- * the language name, the provider, a timestamp — is material the converter
- * turns into prose wrapped around the translation, and this intent's ground
- * truths are bare translated strings. Measured against the live champion (reg
- * 1996) over the ten recorded questions, cliff crossings fall monotonically as
- * that wrapper grows:
- *
- *   bare translation                                  10/10
- *   "The translation is X."                            8/10
- *   "The <lang> translation of "<src>" is X."          8/10
- *   + provider and confidence clauses                  5/10
- *   full converter-style paragraph                     0/10   <- epoch 295 live
- *
- * Epoch 295 scored us 1.83e-10, last of four, which is the 0/10 row. The fix is
- * not more wording: it is sending the converter nothing to wrap. Only the three
- * fields semantics.signal_mapping names are required, and output_schema has no
- * required list, so this stays manifest-conformant. Provenance moves to the
- * miner's documentation rather than into the scored payload.
- */
-function minimalTranslation(r: TranslationResult): Record<string, unknown> {
-  // A refusal keeps its English sentence — it has to say what was missing.
-  if (!r.translation) return { verdict: r.verdict, confidence: r.confidence, reason: r.reason };
-  return {
-    verdict: r.verdict,
-    confidence: r.confidence,
-    reason: r.reason,
-    translation: r.translation,
-  };
-}
-
-/**
  * The last line between a bug and a scored zero.
  *
  * Every asynchronous path already ends in a `.catch()` that answers honestly,
@@ -441,7 +408,7 @@ export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
   try {
     route(req, res);
   } catch {
-    send(res, 200, {
+    sendAnswer(res, "", {
       verdict: "unknown",
       confidence: 0,
       reason:
@@ -1852,13 +1819,13 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     // measured 2026-08-30 over the ten distinct real recorded questions).
     const hit = fromCache(key);
     if (hit) {
-      sendAnswer(res, q, minimalTranslation(hit as TranslationResult));
+      sendAnswer(res, q, hit as TranslationResult);
       return;
     }
     translate(q)
       .then((r) => {
         toCache(key, r);
-        sendAnswer(res, q, minimalTranslation(r));
+        sendAnswer(res, q, r);
       })
       .catch(() => upstreamUnavailable(res, "A translation", "the supplied text", q));
     return;

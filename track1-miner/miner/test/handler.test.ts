@@ -50,7 +50,7 @@ test("opt-in logging records parameter names, never values", () => {
   }
 });
 
-test("/translate answers with the bare translation, unrestated", async () => {
+test("/translate answers with the translation first and its languages as fields", async () => {
   const originalFetch = globalThis.fetch;
   globalThis.fetch = (async () =>
     new Response(JSON.stringify(["Бонжур"]), {
@@ -71,19 +71,15 @@ test("/translate answers with the bare translation, unrestated", async () => {
       } as unknown as ServerResponse;
       handleRequest(req, res);
     });
-    // The recorded ground truths are bare translations, and Telegraph converts
-    // the WHOLE payload into the prose it scores — so the payload carries the
-    // answer and nothing English for the converter to wrap around it. Only the
-    // three signal_mapping fields are required by the manifest.
-    assert.equal(body.reason, "Бонжур");
+    // Season II: an app needs to know what was translated into what, so the
+    // fields Season I stripped for the scorer's converter are sent again.
+    assert.equal(body.answer, "Бонжур");
     assert.equal(body.translation, "Бонжур");
-    assert.deepEqual(
-      Object.keys(body).sort(),
-      ["confidence", "reason", "translation", "verdict"],
-    );
-    for (const k of ["source", "source_text", "target_language", "target_code", "checked_at"]) {
-      assert.ok(!(k in body), `${k} must not reach the converter`);
-    }
+    assert.equal(Object.keys(body)[0], "answer");
+    assert.equal(body.source_text, "good morning");
+    assert.equal(body.target_language, "Russian");
+    assert.equal(body.target_code, "ru");
+    assert.equal(typeof body.checked_at, "string");
   } finally {
     globalThis.fetch = originalFetch;
   }

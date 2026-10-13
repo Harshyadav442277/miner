@@ -175,7 +175,7 @@ export async function translate(question: string, timeoutMs = DEFAULT_TIMEOUT_MS
 
   const base: TranslationResult = {
     source_text: text,
-    target_language: lang?.name ?? null,
+    target_language: lang ? lang.name.replace(/\b[a-z]/g, (c) => c.toUpperCase()) : null,
     target_code: lang?.code ?? null,
     translation: null,
     source: null,
