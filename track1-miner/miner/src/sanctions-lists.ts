@@ -1,19 +1,22 @@
 /**
  * The sanctions lists SANCTIONS_SCREENING_MATCH screens against, read live.
  *
- *   OFAC SDN    treasury.gov/ofac/downloads/sdn.csv + alt.csv (aliases)   5.7 MB + 1.1 MB
+ *   OFAC SDN    sanctionslistservice.ofac.treas.gov SDN.CSV + ALT.CSV     5.7 MB + 1.1 MB
  *   UN SC       scsanctions.un.org/resources/xml/en/consolidated.xml      2.2 MB
  *
  * Measured 2026-10-13. The UK consolidated list (16.6 MB) and the EU financial
  * sanctions file (18.6 MB, 60 s from here) are too large to read inside a
  * serverless request, so they are not screened, and answers say which lists
- * were. Both lists are public-sector publications. One download is shared by
+ * were. Both lists are public-sector publications. OFAC is read through its
+ * Sanctions List Service API: treasury.gov/ofac/downloads held this service's
+ * user agent 12.9 s before the first byte, against 2.5 s here (2026-10-13). One download is shared by
  * concurrent requests and kept for six hours; a failed read is not cached.
  */
 const UA = "livecert-miner/1.0 (+https://miner-wine.vercel.app)";
 const TTL_MS = 6 * 3_600_000;
 const STALE_MS = 54 * 3_600_000;
-const TIMEOUT_MS = Number(process.env.SANCTIONS_TIMEOUT_MS ?? 8_000);
+const TIMEOUT_MS = Number(process.env.SANCTIONS_TIMEOUT_MS ?? 9_000);
+const OFAC = "https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports";
 
 export type ListName = "OFAC SDN" | "UN Security Council Consolidated";
 
@@ -148,8 +151,8 @@ let pending: Promise<SanctionsLists> | null = null;
 
 async function download(): Promise<SanctionsLists> {
   const [sdn, alt, un] = await Promise.all([
-    read("https://www.treasury.gov/ofac/downloads/sdn.csv").catch(() => null),
-    read("https://www.treasury.gov/ofac/downloads/alt.csv").catch(() => null),
+    read(`${OFAC}/SDN.CSV`).catch(() => null),
+    read(`${OFAC}/ALT.CSV`).catch(() => null),
     read("https://scsanctions.un.org/resources/xml/en/consolidated.xml").catch(() => null),
   ]);
   const parties: ListedParty[] = [];

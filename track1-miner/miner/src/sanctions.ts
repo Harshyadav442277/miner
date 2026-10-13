@@ -23,7 +23,7 @@ const NOISE = new Set(["mr", "mrs", "ms", "dr", "the", "ltd", "llc", "inc", "co"
 
 export function nameTokens(s: string): string[] {
   const words = String(s ?? "").normalize("NFKD").replace(/\p{M}/gu, "").toLowerCase()
-    .replace(/[^a-z0-9]+/g, " ").trim().split(" ").filter(Boolean);
+    .replace(/[^a-z0-9]+/g, " ").trim().split(" ").filter(Boolean).map((t) => t.slice(0, 40));
   // "S.A." arrives as "s" "a": joined, it is a legal form and goes; initials stay.
   const out: string[] = [];
   for (let i = 0; i < words.length; i++) {
@@ -92,7 +92,9 @@ const WALLET = /\b(0x[a-fA-F0-9]{40}|bc1[a-z0-9]{25,60}|[13][a-km-zA-HJ-NP-Z1-9]
 
 /** What to screen, read from the declared name and the question. */
 export function screeningSubject(question: string, nameParam = ""): Subject {
-  const q = String(question ?? "");
+  // Bounded before any pattern runs: the extraction regexes backtrack.
+  const q = String(question ?? "").slice(0, 500);
+  nameParam = String(nameParam ?? "").slice(0, 200);
   const wallet = (nameParam.match(WALLET) ?? q.match(WALLET))?.[1] ?? null;
   const quoted = q.match(/['"‘“]([^'"’”]{3,120})['"’”]/)?.[1] ?? "";
   let name = nameParam.trim() || quoted.split(",")[0]!.trim();
@@ -136,7 +138,8 @@ let index: { lists: SanctionsLists; tokens: string[][][] } | null = null;
 /** The scored candidates, best first. Pure given the lists. */
 export function screenParties(subject: Subject, lists: SanctionsLists): Match[] {
   if (index?.lists !== lists) index = { lists, tokens: lists.parties.map((p) => [p.name, ...p.aliases].map(nameTokens)) };
-  const want = nameTokens(subject.name);
+  // Eight words, forty characters each: a name, never a paragraph.
+  const want = nameTokens(subject.name.slice(0, 120)).slice(0, 8);
   const out: Match[] = [];
   lists.parties.forEach((p: ListedParty, i) => {
     if (subject.kind === "individual" && p.type !== "individual") return;

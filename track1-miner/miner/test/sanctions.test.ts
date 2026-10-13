@@ -79,8 +79,8 @@ function stubLists(t: { after: (fn: () => void) => void }): void {
   const unFiller = Array.from({ length: 120 }, (_, i) => `<INDIVIDUAL><FIRST_NAME>FILLER</FIRST_NAME><SECOND_NAME>N${i}</SECOND_NAME></INDIVIDUAL>`);
   globalThis.fetch = (async (url: string) => {
     const u = String(url);
-    const body = u.endsWith("sdn.csv") ? [SDN, ...sdnFiller].join("\r\n")
-      : u.endsWith("alt.csv") ? ALT
+    const body = u.endsWith("SDN.CSV") ? [SDN, ...sdnFiller].join("\r\n")
+      : u.endsWith("ALT.CSV") ? ALT
       : u.endsWith(".xml") ? UN.replace("<INDIVIDUALS>", `<INDIVIDUALS>${unFiller.join("")}`)
       : "";
     return new Response(body, { status: 200 });
@@ -106,4 +106,12 @@ test("an unlisted name is no match and names the closest entry; a listed wallet 
   const wallet = await screenSanctions("Is 0x1111111111111111111111111111111111111111 sanctioned?");
   assert.equal(wallet.verdict, "match");
   assert.equal(wallet.subject_type, "wallet");
+});
+
+test("a paragraph-length subject is bounded before it is matched", () => {
+  const long = Array.from({ length: 400 }, (_, i) => `word${i}`).join(" ");
+  const t = Date.now();
+  screenParties({ name: long, dob_year: null, kind: null, wallet: null }, lists());
+  screeningSubject(`Is ${"a ".repeat(5_000)}on the list?`);
+  assert.ok(Date.now() - t < 500, `took ${Date.now() - t} ms`);
 });
