@@ -35,6 +35,17 @@ export interface StockPriceResult {
   confidence: number;
   reason: string;
   error?: string;
+  /** The quote as a number, its currency, when it traded, and where. */
+  price?: number;
+  currency?: string;
+  price_at?: string;
+  exchange?: string | null;
+  /** True only while the regular session is open; null when it could not be read. */
+  market_open?: boolean | null;
+  source?: string;
+  /** A past day's close. */
+  date?: string;
+  close?: number;
 }
 
 /**
@@ -232,11 +243,17 @@ export async function lookupStockPrice(question: string, symbolParam = "", now =
   }
   const head = meta ? describeQuote(meta, nowSec) : null;
   if (head) {
-    return { ticker, name: meta?.longName ?? null, verdict: "price", confidence: 0.9, reason: `${head}${forecast}` };
+    return { ticker, name: meta?.longName ?? null, verdict: "price", confidence: 0.9,
+      price: Number(meta!.regularMarketPrice), currency: meta!.currency ?? "USD",
+      price_at: new Date(Number(meta!.regularMarketTime) * 1000).toISOString(),
+      exchange: meta!.fullExchangeName ?? meta!.exchangeName ?? null,
+      market_open: sessionOpen(meta!, nowSec) ?? null, source: "Yahoo Finance",
+      reason: `${head}${forecast}` };
   }
   if (nq) {
     const closed = !/^open$/i.test(nq.status);
     return { ticker, name: nq.name, verdict: "price", confidence: 0.8,
+      price: nq.price, currency: "USD", exchange: "Nasdaq", market_open: !closed, source: "Nasdaq",
       reason: `${nq.name} (${ticker}) last sold at ${nq.price.toFixed(2)} USD on Nasdaq's feed${nq.when ? `, trade date ${nq.when}` : ""}. ` +
         `The market status is ${nq.status || "not reported"}${closed ? ", so this is not a live quote" : ""}.${forecast}` };
   }
@@ -270,5 +287,6 @@ async function historical(ticker: string, date: string, now: Date): Promise<Stoc
       reason: `${name} (${ticker}) has no trading session recorded on ${date}, which is usually a weekend or exchange holiday, so there is no closing price for that date.` };
   }
   return { ticker, name, verdict: "historical_price", confidence: 0.85,
+    date, close, currency: cur, source: "Yahoo Finance",
     reason: `${name} (${ticker}) closed at ${close.toFixed(2)} ${cur} on ${date}. This is that day's closing price, not a current quote.` };
 }

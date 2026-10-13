@@ -39,6 +39,20 @@ export interface CryptoPriceResult {
   confidence: number;
   reason: string;
   error?: string;
+  /** The quote as a number, in `quote` currency, and when it was struck. */
+  price?: number;
+  quote?: string;
+  price_at?: string;
+  source?: string;
+  /** CoinGecko's aggregate, when an exchange quote led the answer. */
+  aggregate_price?: number;
+  /** A dollar stablecoin's distance from $1.00, in percent. */
+  peg_deviation_pct?: number;
+  /** A past day: Coinbase's UTC-day open and close, CoinGecko's snapshot. */
+  date?: string;
+  open?: number;
+  close?: number;
+  snapshot_price?: number;
 }
 
 export interface Asset { name: string; symbol: string; gecko: string; coinbase: boolean }
@@ -295,7 +309,12 @@ export async function lookupCryptoPrice(question: string, symbolParam = "", now 
   // distance from the peg is the part of the price that answers it.
   const peg = STABLE.has(asset.symbol) && quote === "USD"
     ? ` That is ${(Math.abs((venue ? venue.price : cgPrice) - 1) * 100).toFixed(2)}% from its $1.00 peg.` : "";
+  const price = venue ? venue.price : cgPrice;
   return { asset: asset.name, symbol: asset.symbol, verdict: "price", confidence: 0.9,
+    price, quote, price_at: new Date(venue ? venue.at : cgTime).toISOString(),
+    source: venue ? venue.venue : "CoinGecko",
+    ...(venue && haveCg ? { aggregate_price: cgPrice } : {}),
+    ...(peg ? { peg_deviation_pct: Number((Math.abs(price - 1) * 100).toFixed(2)) } : {}),
     reason: `${head}${peg}${cross} This is a live market quote and moves between reads.` };
 }
 
@@ -306,7 +325,7 @@ export async function lookupCryptoPrice(question: string, symbolParam = "", now 
  * worded as such. CoinGecko's keyless tier sheds bursts (observed 2026-09-12
  * after about ten calls in a minute), which is why an exchange is always tried.
  */
-async function venueQuote(asset: Asset, quote: string, now: Date): Promise<{ price: number; at: number; what: string } | null> {
+async function venueQuote(asset: Asset, quote: string, now: Date): Promise<{ price: number; at: number; what: string; venue: string } | null> {
   const [cb, kr] = await Promise.all([
     getJson(`${COINBASE}/${asset.symbol}-${quote}/ticker`).then((j) => j as { price?: string; time?: string }).catch(() => null),
     // Kraken also where Coinbase has no quote in that currency (BTC-JPY is 404 on
@@ -318,9 +337,9 @@ async function venueQuote(asset: Asset, quote: string, now: Date): Promise<{ pri
   ]);
   const p = Number(cb?.price);
   const t = Date.parse(String(cb?.time ?? ""));
-  if (Number.isFinite(p) && p > 0 && Number.isFinite(t)) return { price: p, at: t, what: "the last Coinbase trade at" };
+  if (Number.isFinite(p) && p > 0 && Number.isFinite(t)) return { price: p, at: t, what: "the last Coinbase trade at", venue: "Coinbase" };
   const kp = Number(kr?.c?.[0]);
-  return Number.isFinite(kp) && kp > 0 ? { price: kp, at: now.getTime(), what: "Kraken's last trade price as read at" } : null;
+  return Number.isFinite(kp) && kp > 0 ? { price: kp, at: now.getTime(), what: "Kraken's last trade price as read at", venue: "Kraken" } : null;
 }
 
 async function historical(asset: Asset, quote: string, date: string, now: Date): Promise<CryptoPriceResult> {
@@ -351,6 +370,12 @@ async function historical(asset: Asset, quote: string, date: string, now: Date):
     return { asset: asset.name, symbol: asset.symbol, verdict: "unknown", confidence: 0, error: "upstream_unavailable",
       reason: `The price of ${label} on ${date} could not be retrieved: neither Coinbase nor CoinGecko returned a figure for that date. This is not a statement that it had no price.` };
   }
+  const candle = cb && Number.isFinite(cb[3]) && Number.isFinite(cb[4]);
+  const snap = Number.isFinite(cg) && cg > 0;
   return { asset: asset.name, symbol: asset.symbol, verdict: "historical_price", confidence: 0.85,
+    date, quote,
+    ...(candle ? { open: cb![3], close: cb![4] } : {}),
+    ...(snap ? { snapshot_price: cg } : {}),
+    source: [candle ? "Coinbase" : "", snap ? "CoinGecko" : ""].filter(Boolean).join(", "),
     reason: `On ${date}, ${label} ${parts.join(", ")}. These are historical figures for that day, not a current price.` };
 }
