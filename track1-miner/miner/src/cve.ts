@@ -41,6 +41,20 @@ export interface CveResult {
   confidence: number;
   reason: string;
   error?: string;
+  severity?: string | null;
+  cvss_score?: number | null;
+  cvss_version?: string | null;
+  /** Who assigned the score: NVD, or the CNA that published the record. */
+  scored_by?: string | null;
+  affected_product?: string | null;
+  affected_versions?: string | null;
+  other_products_affected?: number;
+  cwe?: string[];
+  status?: string | null;
+  published?: string | null;
+  description?: string;
+  source?: string;
+  source_url?: string;
 }
 
 /** `CVE-YYYY-NNNN+`, case-insensitive, normalised upper-case. */
@@ -302,32 +316,20 @@ export async function lookupCve(id: string): Promise<CveResult> {
     ? ` ${otherProducts} other product${otherProducts === 1 ? " is" : "s are"} also listed as affected.`
     : "";
 
-  /**
-   * The CWE classification and the publication date are deliberately NOT in the
-   * answer, and this is the one place the measurement overrode the instinct to
-   * report more.
-   *
-   * Measured against champion 3030 across four ground-truth registers:
-   *
-   *   severity + versions + description                       3/4 crossed
-   *   the same plus "classified as CWE-506"                   2/4
-   *   the same plus "Published 2024-03-29"                    2/4
-   *   the same plus both                                      2/4
-   *
-   * Either tail alone costs a register, so trimming one is not enough. Neither
-   * fact is what "severity and affected versions" asked for, and both are
-   * scored surface competing for a ~32-word budget. They are dropped rather
-   * than moved to their own payload fields, because the converter summarises
-   * the whole payload and a field is not a quieter place to put text.
-   *
-   * The `chatty` register is unreachable for every variant tried: it turns on
-   * remediation advice ("downgrade to 5.4.6") that NVD's structured record does
-   * not carry. That is the lottery this intent's scorer imposes, not a defect.
-   */
+  // The CWE and the publication date stay out of the sentence (Season I
+  // measured them costing a scored register) but are fields: an app filtering
+  // by weakness class or age needs them, and the scorer no longer decides.
+  const cwe = [...new Set((entry.weaknesses ?? []).flatMap((w) => (w.description ?? []).map((d) => d.value ?? ""))
+    .filter((v) => /^CWE-\d+$/.test(v)))];
   return {
     cve_id: id,
     verdict: sev ? sev.severity.toLowerCase() : "unscored",
     confidence: sev ? 0.97 : 0.8,
+    severity: sev?.severity ?? null, cvss_score: sev?.score ?? null, cvss_version: sev?.version ?? null,
+    scored_by: sev?.source ?? null,
+    affected_product: product, affected_versions: versions || null, other_products_affected: otherProducts,
+    cwe, status: entry.vulnStatus ?? null, published: entry.published ?? null,
+    description, source: "National Vulnerability Database", source_url: `https://nvd.nist.gov/vuln/detail/${id}`,
     reason: `${id} ${severityClause}.${versionClause} ${firstSentence(description)}${alsoClause}`,
   };
 }
