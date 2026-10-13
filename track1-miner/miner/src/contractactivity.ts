@@ -131,6 +131,18 @@ export function resolveChain(param: string, question: string): string | null {
   return null;
 }
 
+/**
+ * Which index's transaction count to report. The two normally agree within
+ * 0.2% (routescan.ts). On 2026-10-13 Blockscout's Ethereum counters read 101,
+ * then 155, for the Uniswap V2 router against Routescan's 90,500,102, and UNI
+ * fell from 3.88M to 496K: a reindex. A Blockscout count under half of
+ * Routescan's is that failure, not a reading, so Routescan's is used.
+ */
+export function pickCount(blockscout: number | null, routescan: number | null): { count: number | null; from: "blockscout" | "routescan" } {
+  if (routescan !== null && (blockscout === null || blockscout < routescan / 2)) return { count: routescan, from: "routescan" };
+  return { count: blockscout, from: "blockscout" };
+}
+
 export function supportedChains(): string[] {
   return Object.keys(HOSTS);
 }
@@ -240,9 +252,9 @@ export async function lookupActivity(
   // its follow-up joins the deployment-date round below, so widening the answer
   // added no third phase.
   // The Routescan failover (G116) STARTS in the same round on Ethereum, because
-  // started after a Blockscout timeout it would not fit the watchdog. It is only
-  // AWAITED when Blockscout failed, so a healthy lookup does not wait on it
-  // (measured 2026-09-13: awaiting it always put a normal router lookup at 3.8 s).
+  // started after a Blockscout timeout it would not fit the watchdog. It is now
+  // always awaited on Ethereum, as the check on Blockscout's count (pickCount),
+  // which costs a router lookup about 3.8 s (measured 2026-09-13).
   const rsPending: Promise<RoutescanActivity | null> | null =
     chain === "ethereum" ? routescanActivity(address).catch(() => null) : null;
   const [rec, counters, code, nonce, recentHash] = await Promise.all([
@@ -284,8 +296,12 @@ export async function lookupActivity(
     creation_transaction_hash?: string | null; creator_address_hash?: string | null;
     is_verified?: boolean;
   };
-  const txRaw = failover ? failover.transactions : Number((counters as { transactions_count?: string } | null)?.transactions_count);
-  const transactions = txRaw !== null && Number.isFinite(txRaw) ? txRaw : null;
+  const bsRaw = Number((counters as { transactions_count?: string } | null)?.transactions_count);
+  const picked = failover
+    ? { count: failover.transactions, from: "routescan" as const }
+    : pickCount(Number.isFinite(bsRaw) ? bsRaw : null, rsPending ? (await rsPending)?.transactions ?? null : null);
+  const transactions = picked.count !== null && Number.isFinite(picked.count) ? picked.count : null;
+  const countFromRoutescan = picked.from === "routescan" && transactions !== null;
 
   // Both dates live on a transaction, not on the address, so they are read in
   // one round rather than one after the other.
@@ -344,7 +360,7 @@ export async function lookupActivity(
      * 2026-09-12 and 2026-09-13 while Blockscout's moved from 90,439,431 to
      * 90,440,609. So on failover the figure is attributed and not called current.
      */
-    parts.push(failover
+    parts.push(countFromRoutescan
       ? `with ${fmtCount(transactions)} transactions recorded against it in Routescan's index, a count that can trail the live chain`
       : `with ${fmtCount(transactions)} transactions recorded against it`);
   }
@@ -387,7 +403,9 @@ export async function lookupActivity(
     : ``;
   const source = failover
     ? ` Read from Routescan's ${entry.label} index because the Blockscout explorer did not answer${creationTx ? `, deployment transaction ${creationTx}` : ""}.`
-    : ` Read from the ${entry.label} explorer's own address index${creationTx ? `, deployment transaction ${creationTx}` : ""}.`;
+    : countFromRoutescan
+      ? ` Read from the ${entry.label} explorer's own address index${creationTx ? `, deployment transaction ${creationTx}` : ""}; the transaction count is Routescan's, because the explorer's own count was under half of it.`
+      : ` Read from the ${entry.label} explorer's own address index${creationTx ? `, deployment transaction ${creationTx}` : ""}.`;
 
   return {
     address, chain, is_contract: isContract, name: r.name ?? null,

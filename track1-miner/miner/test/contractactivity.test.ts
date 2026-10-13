@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { activityAddress, asksActivity, lookupActivity, resolveChain, supportedChains } from "../src/contractactivity";
+import { activityAddress, asksActivity, lookupActivity, pickCount, resolveChain, supportedChains } from "../src/contractactivity";
 
 const ROUTED =
   "For the contract address 0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D on ethereum, report its "
@@ -146,4 +146,14 @@ test("an address the index does not hold is an absence, not an outage (live)", a
   // may claim a deployment.
   assert.ok(["account_activity", "contract_activity", "not_found"].includes(r.verdict));
   if (r.verdict === "not_found") assert.match(r.reason, /The index answered/);
+});
+
+test("a Blockscout count under half of Routescan's is replaced by Routescan's", () => {
+  // 2026-10-13: Blockscout read 155 for the Uniswap V2 router during a reindex.
+  assert.deepEqual(pickCount(155, 90_500_102), { count: 90_500_102, from: "routescan" });
+  assert.deepEqual(pickCount(null, 90_500_102), { count: 90_500_102, from: "routescan" });
+  // Normal disagreement is under 0.2%, and Blockscout stays the source.
+  assert.deepEqual(pickCount(90_440_609, 90_283_142), { count: 90_440_609, from: "blockscout" });
+  assert.deepEqual(pickCount(78_386, null), { count: 78_386, from: "blockscout" });
+  assert.deepEqual(pickCount(null, null), { count: null, from: "blockscout" });
 });
