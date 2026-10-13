@@ -71,6 +71,18 @@ export interface FraudResult {
   confidence: number;
   reason: string;
   error?: string;
+  /** Each check performed and what it found, in the order the reason lists them. */
+  evidence?: string[];
+  /** Checks that could not be completed; the verdict does not cover them. */
+  not_checked?: string[];
+  /** On the OFAC sanctioned digital-currency address list; null when unread or no address. */
+  sanctioned?: boolean | null;
+  /** Hosts Cloudflare's threat-intelligence resolver blocks. */
+  flagged_hosts?: string[];
+  /** Scam wording found in the message. */
+  scam_markers?: string[];
+  /** A described scenario's red flags. */
+  red_flags?: string[];
 }
 
 /** Scam markers chosen to be specific: each one is a thing a legitimate message does not ask for. */
@@ -239,6 +251,7 @@ export async function assessFraud(text: string): Promise<FraudResult> {
         subject: scenario.typology,
         verdict: scenario.verdict === "insufficient_evidence" ? "unknown" : scenario.verdict,
         confidence: scenario.confidence,
+        red_flags: scenario.flags,
         reason: scenario.reason,
       };
     }
@@ -277,6 +290,8 @@ export async function assessFraud(text: string): Promise<FraudResult> {
   const notChecked: string[] = [];
   let high = false;
   let elevated = false;
+  let sanctionHit: boolean | null = null;
+  const flaggedHosts: string[] = [];
 
   if (hash) {
     const parties = await transactionParties(hash, text);
@@ -289,6 +304,7 @@ export async function assessFraud(text: string): Promise<FraudResult> {
         if (hit === null) notChecked.push(`the ${role}'s OFAC listing could not be read`);
         else {
           high ||= hit;
+          sanctionHit = Boolean(sanctionHit) || hit;
           evidence.push(`transaction ${hash} on ${parties.chain}: ${role} ${party} ${hit ? "appears" : "does not appear"} on the OFAC sanctioned digital-currency address list`);
         }
       }
@@ -298,6 +314,7 @@ export async function assessFraud(text: string): Promise<FraudResult> {
 
   if (address) {
     const hit = await sanctioned(address);
+    if (hit !== null) sanctionHit = Boolean(sanctionHit) || hit;
     if (hit === null) notChecked.push("the OFAC sanctions listing could not be read");
     else if (hit) {
       high = true;
@@ -328,6 +345,7 @@ export async function assessFraud(text: string): Promise<FraudResult> {
     if (flagged === null) notChecked.push(`${host} could not be checked against the threat-intelligence feed`);
     else if (flagged) {
       high = true;
+      flaggedHosts.push(host);
       evidence.push(`${host} is blocked as malware or phishing by Cloudflare's threat-intelligence resolver`);
     } else {
       evidence.push(`${host} is not flagged as malware or phishing by Cloudflare's threat-intelligence resolver`);
@@ -340,7 +358,7 @@ export async function assessFraud(text: string): Promise<FraudResult> {
   }
 
   if (evidence.length === 0) {
-    return { subject, verdict: "unknown", confidence: 0, error: "insufficient_evidence",
+    return { subject, verdict: "unknown", confidence: 0, error: "insufficient_evidence", evidence, not_checked: notChecked,
       reason: `No fraud assessment could be completed. ${notChecked.join("; ")}. No risk or safety conclusion can be drawn without evidence.` };
   }
 
@@ -362,6 +380,7 @@ export async function assessFraud(text: string): Promise<FraudResult> {
 
   return {
     subject, verdict, confidence: high ? 0.95 : elevated ? 0.7 : 0.5,
+    evidence, not_checked: notChecked, sanctioned: sanctionHit, flagged_hosts: flaggedHosts, scam_markers: markers,
     reason: `${lead} Assessed on the following: ${evidence.join("; ")}.${gap}${caveat}`,
   };
 }
