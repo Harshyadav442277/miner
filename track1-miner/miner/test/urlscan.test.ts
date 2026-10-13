@@ -103,6 +103,11 @@ test("one threat source down is never a safe verdict", () => {
   // A 0.0.0.0 filter answer with no unfiltered answer to compare is not a pass either.
   const bare = classify(base({ security: { status: 0, ips: ["0.0.0.0"], censored: false }, open: "unavailable" }));
   assert.equal(bare.verdict, "unknown");
+  assert.equal(bare.checks?.cloudflare_filter, "ambiguous");
+  assert.deepEqual(bare.flagged_by, []);
+  const listed = classify(base({ urlhaus: { host: true, url: false } }));
+  assert.deepEqual(listed.flagged_by, ["URLhaus"]);
+  assert.equal(listed.checks?.urlhaus, "listed_host");
   // Evidence that did arrive still counts: a listing is unsafe with the resolver down.
   assert.equal(classify(base({ security: "unavailable", urlhaus: { host: true, url: false } })).verdict, "unsafe");
 });

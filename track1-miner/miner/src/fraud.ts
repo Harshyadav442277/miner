@@ -290,7 +290,9 @@ export async function assessFraud(text: string): Promise<FraudResult> {
   const notChecked: string[] = [];
   let high = false;
   let elevated = false;
+  // true if any lookup listed it; null if none did but one went unread.
   let sanctionHit: boolean | null = null;
+  let sanctionUnread = false;
   const flaggedHosts: string[] = [];
 
   if (hash) {
@@ -301,7 +303,7 @@ export async function assessFraud(text: string): Promise<FraudResult> {
       const hits = await Promise.all(addresses.map(async a => ({ address: a, hit: await sanctioned(a) })));
       for (const { address: party, hit } of hits) {
         const role = party === parties.from ? "sender" : "recipient";
-        if (hit === null) notChecked.push(`the ${role}'s OFAC listing could not be read`);
+        if (hit === null) { sanctionUnread = true; notChecked.push(`the ${role}'s OFAC listing could not be read`); }
         else {
           high ||= hit;
           sanctionHit = Boolean(sanctionHit) || hit;
@@ -315,6 +317,7 @@ export async function assessFraud(text: string): Promise<FraudResult> {
   if (address) {
     const hit = await sanctioned(address);
     if (hit !== null) sanctionHit = Boolean(sanctionHit) || hit;
+    else sanctionUnread = true;
     if (hit === null) notChecked.push("the OFAC sanctions listing could not be read");
     else if (hit) {
       high = true;
@@ -380,7 +383,8 @@ export async function assessFraud(text: string): Promise<FraudResult> {
 
   return {
     subject, verdict, confidence: high ? 0.95 : elevated ? 0.7 : 0.5,
-    evidence, not_checked: notChecked, sanctioned: sanctionHit, flagged_hosts: flaggedHosts, scam_markers: markers,
+    evidence, not_checked: notChecked,
+    sanctioned: sanctionHit === true ? true : sanctionUnread ? null : sanctionHit, flagged_hosts: flaggedHosts, scam_markers: markers,
     reason: `${lead} Assessed on the following: ${evidence.join("; ")}.${gap}${caveat}`,
   };
 }

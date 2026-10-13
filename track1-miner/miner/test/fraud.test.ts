@@ -72,6 +72,20 @@ test("scam wording alone raises risk without any network call", async () => {
   }
 });
 
+test("an unread sanctions list is reported as unknown, never as not listed", async () => {
+  const original = globalThis.fetch;
+  globalThis.fetch = (async () => { throw new Error("offline"); }) as unknown as typeof globalThis.fetch;
+  try {
+    const r = await assessFraud("Buy gift cards and send them to 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 now.");
+    assert.equal(r.verdict, "elevated_risk");
+    assert.equal(r.sanctioned, null);
+    assert.ok(r.not_checked?.some((n) => /OFAC/.test(n)));
+    assert.ok((r.scam_markers ?? []).length > 0);
+  } finally {
+    globalThis.fetch = original;
+  }
+});
+
 /* --------------------------------- live ---------------------------------- */
 
 test("a sanctioned address is high risk and says why (live)", async () => {

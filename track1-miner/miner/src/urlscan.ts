@@ -49,8 +49,11 @@ export interface UrlScanResult {
 }
 
 export interface UrlScanChecks {
-  /** Cloudflare's malware and phishing resolver; not_applicable for a literal IP. */
-  cloudflare_filter: "blocked" | "passed" | "unavailable" | "not_applicable";
+  /**
+   * Cloudflare's malware and phishing resolver; not_applicable for a literal IP.
+   * ambiguous: it answered 0.0.0.0 and no unfiltered resolver answered to compare.
+   */
+  cloudflare_filter: "blocked" | "passed" | "ambiguous" | "unavailable" | "not_applicable";
   urlhaus: "listed_url" | "listed_host" | "not_listed" | "unavailable";
   resolves: boolean | null;
   /** ssl.ts's verdict for the host's certificate; null for plain HTTP or no answer. */
@@ -207,7 +210,8 @@ export function classify(e: Evidence): UrlScanResult {
   const blocked = Boolean(sec && sec !== "unavailable" && (sec.censored || (sec.ips.includes("0.0.0.0") && openIps.length > 0)));
   const last = e.hops[e.hops.length - 1];
   const checks: UrlScanChecks = {
-    cloudflare_filter: sec === null ? "not_applicable" : sec === "unavailable" ? "unavailable" : blocked ? "blocked" : "passed",
+    cloudflare_filter: sec === null ? "not_applicable" : sec === "unavailable" ? "unavailable" : blocked ? "blocked"
+      : sec.ips.includes("0.0.0.0") ? "ambiguous" : "passed",
     urlhaus: e.urlhaus === "unavailable" ? "unavailable" : e.urlhaus.url ? "listed_url" : e.urlhaus.host ? "listed_host" : "not_listed",
     resolves: e.open && e.open !== "unavailable" ? e.open.status !== 3 : null,
     tls: e.tls?.verdict ?? null,
