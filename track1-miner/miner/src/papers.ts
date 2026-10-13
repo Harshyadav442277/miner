@@ -246,6 +246,22 @@ export function searchTopic(text: string): string | null {
   return t && t.length > 3 ? t : null;
 }
 
+/** "this subject", "that topic", "it": a pointer to the subject, not the subject. */
+const POINTER = /^(?:(?:this|that|these|those|the|my|our|your)\s+(?:subjects?|topics?|fields?|areas?|matters?|themes?|issues?)|it|this|that|them|these|those)$/i;
+
+/**
+ * The subject to search for, given the question and a declared `topic` value.
+ * The subject read from the question wins unless it only points at the topic:
+ * "Find me recent papers on this subject." with topic "CRISPR gene editing"
+ * searched "this subject" and returned Foucault.
+ */
+export function paperTopic(question: string, subject = ""): string | null {
+  const asked = searchTopic(question);
+  const given = subject.trim() ? searchTopic(subject) ?? subject.trim() : null;
+  if (!given) return asked;
+  return !asked || POINTER.test(asked) ? given : asked;
+}
+
 /**
  * How many results the question asked for. These questions are explicit — "top
  * 5", "limited to 10 results", "the most recent 10" — and returning five when
@@ -328,10 +344,10 @@ export function rankByTopic<T extends Record<string, unknown>>(results: T[], top
 
 const TOPIC_STOP = new Set(["the", "and", "for", "with", "from", "into", "about", "their", "that", "this", "use", "using", "based", "impact", "effect", "effects", "role", "recent"]);
 
-export async function findPapers(query: string, limit?: number, timeoutMs = DEFAULT_TIMEOUT_MS): Promise<PaperResult> {
+export async function findPapers(query: string, limit?: number, timeoutMs = DEFAULT_TIMEOUT_MS, subject = ""): Promise<PaperResult> {
   const deadline = Date.now() + timeoutMs;
   const now = new Date().toISOString();
-  const topic = searchTopic(query.replace(/\bDOAJ\b/gi, "").replace(/\bopen[-\s]access\b/gi, ""));
+  const topic = paperTopic(query.replace(/\bDOAJ\b/gi, "").replace(/\bopen[-\s]access\b/gi, ""), subject);
   const { from, to } = dateWindow(query);
   const want = limit ?? requestedLimit(query);
   const sort = requestedSort(query);

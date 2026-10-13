@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { academicAnswer, searchTopic, dateWindow, requestedLimit, requestedSort, findPapers, type PaperResult } from "../src/papers";
+import { academicAnswer, searchTopic, paperTopic, dateWindow, requestedLimit, requestedSort, findPapers, type PaperResult } from "../src/papers";
 
 // The four questions below are the real recorded ACADEMIC_SEARCH questions from
 // the public score feed, verbatim. Two of them used to make searchTopic return
@@ -369,4 +369,17 @@ test("peer-reviewed is filtered to journal articles and said as such; otherwise 
   } finally {
     globalThis.fetch = original;
   }
+});
+
+test("a question that only points at the subject searches the declared topic", () => {
+  const q = "Find me recent papers on this subject. CRISPR gene editing";
+  assert.equal(searchTopic(q), "this subject");
+  assert.equal(paperTopic(q, "CRISPR gene editing"), "CRISPR gene editing");
+  assert.equal(paperTopic("What has been published on it?", "zero knowledge proofs"), "zero knowledge proofs");
+});
+
+test("a question that names its own subject keeps it over the declared topic", () => {
+  assert.equal(paperTopic("Find papers on CRISPR CRISPR gene editing", "CRISPR gene editing"), "CRISPR CRISPR gene editing");
+  assert.equal(paperTopic("Find papers on quantum error correction"), "quantum error correction");
+  assert.equal(paperTopic("", "CRISPR gene editing"), "CRISPR gene editing");
 });

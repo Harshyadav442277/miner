@@ -1812,7 +1812,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
       sendAnswer(res, q, academicAnswer(hit as PaperResult));
       return;
     }
-    findPapers(q)
+    findPapers(q, undefined, undefined, topic)
       .then((r) => {
         toCache(key, r);
         sendAnswer(res, q, academicAnswer(r));
