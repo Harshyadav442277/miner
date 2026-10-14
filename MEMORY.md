@@ -1,5 +1,37 @@
 # MEMORY.md — session continuity
 
+## 2026-10-14 ~09:50 UTC (15:20 IST): CURRENT — 7 intents removed (committed, NOT pushed, NOT deployed); licensing decision pending
+
+The owner said "if you find any intent to be not beneficial, you can remove it as well. i want quality".
+
+**Removed** (`17a05c3`, `3aa5086`, `2e8d1cf`, `1fe27bd`): TVL_LOOKUP, TELEGRAPH_KNOWLEDGE,
+AI_TEXT_DETECTION, TEXT_AUTHENTICITY_CHECK, CONTENT_VERIFICATION, GAME_RESULT and SPORTS_SCORE, plus
+event-outcome's hard-coded 2022 World Cup patch. 4,200+ lines deleted.
+
+The manifest is now **36 intents on 35 endpoints**:
+- `manifest-diff` PASS with `--allow-removed=…`, which is new: unnamed removals still fail. Run it with
+  `MSYS_NO_PATHCONV=1` in Git Bash, or `/tvl` gets rewritten into a Windows path.
+- Validator: `valid: true`, 35/35 endpoints answered (`integrate-validate-36-intents.json`).
+- Hash of HEAD's miner.yaml: `0x84dd6ed3ec0719e17fc0c2b7d0f3c9bf2ce432d97a1358d36c875d3c0a9e6680`.
+- Unit 738/738. Local gate 35/36 (the IP Tokyo pin, local only), param-shapes 54/54, hostile 162/162.
+
+**Do NOT deploy this code before the new `updateMiner` is mined.** Production `miner-ntd40dbx9` still
+serves the removed routes, which registration 2750 still declares; deploying first would 404 them for
+live callers. Order: sign → mined → deploy.
+
+**The old values for f95305d (43 intents) are superseded. Do not sign them.**
+
+**Pending owner decision (GAPS G189 update):**
+- Open-Meteo (weather and storm), Google News RSS (web search and news) and Yahoo (stock prices) forbid
+  commercial use.
+- BigDataCloud is client-only; MyMemory bars resale; URLhaus "may require" a subscription.
+- Options were put to the owner: pay for Open-Meteo or move to MET Norway; move news to GDELT; drop
+  STOCK_PRICE or pay for data; translate with Groq; use Nominatim for reverse geocoding.
+
+**Authorisation:**
+- Given: remove low-value intents.
+- Not given: pushing these commits, deploying them, signing, or spending money on data plans.
+
 ## 2026-10-14 05:35 UTC (11:05 IST): CURRENT STATE — Season II build ON PRODUCTION; updateMiner NOT done
 
 **Production `miner-ntd40dbx9`** (alias miner-wine.vercel.app), built from `b3558d5`. Rollback target is
