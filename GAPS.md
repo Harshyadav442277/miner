@@ -1,5 +1,38 @@
 # GAPS.md — honesty ledger
 
+## 2026-10-13/14 Season II build — G186 closed, G188 deployed, G189–G193
+
+- **G186 — DeFiLlama's terms forbid serving its TVL for pay. `CLOSED 2026-10-14, code 93d8531, NOT deployed`.**
+  defillama.com/terms (read 2026-10-14 ~04:50 UTC): a licence "to access and use the Site for personal,
+  non-commercial purposes", and a ban on exploiting "the Content & Data for commercial purposes without
+  prior written consent". `/tvl` now refuses protocol and chain scopes with `error: not_licensed` and calls
+  no DeFiLlama URL; token pool liquidity (GeckoTerminal, DexScreener) is still answered. **Owner decision
+  still open:** keep TVL_LOOKUP registered for the token scope, or drop it in the next `updateMiner`.
+- **G188 — deployed.** Release `0498678` promoted 2026-10-13 ~18:40 UTC as `miner-q67fqthj7`; production
+  answers the Berlin claim `contradicted`. The "picks the article about the claim" live test failed 2/3 on
+  Wikipedia ranking drift; fixed by reading 20 candidates (`120f11b`), 3/3 after.
+- **G189 — other data sources' commercial-use terms are unread. `OPEN, UNVERIFIED, owner decision`.**
+  The G186 problem may repeat. Not checked: Yahoo Finance (stock prices, `/stock-price`, `/financial`),
+  CoinGecko (`/crypto-price`, `/financial`), GeckoTerminal and DexScreener (`/tvl` token pools), Kraken and
+  Coinbase public tickers, ip-api, Open-Meteo, URLhaus (abuse.ch), Blockscout and Routescan, Polymarket and
+  Manifold, MyMemory/Google translate. Public-sector sources added this pass (OFAC, UN, SEC, GLEIF CC0,
+  BLS, NY Fed, Eurostat, ECB, World Bank CC BY 4.0) and Wikipedia (CC BY-SA, cited by title and URL) are
+  believed reusable with attribution; that too is from memory and unverified. Read each terms page.
+- **G190 — Blockscout's Ethereum counters undercount during a reindex. `MITIGATED in ffd1cc6`.** Uniswap V2
+  router read 101, then 155, against Routescan's 90,500,102 (2026-10-13); UNI fell from 3.88M to 496K.
+  A Blockscout count under half of Routescan's is replaced by Routescan's and attributed. Not covered:
+  chains other than Ethereum (no Routescan failover there).
+- **G191 — SANCTIONS: two lists, not four. `OPEN, by design`.** OFAC SDN (via the SLS API) and the UN list are
+  screened. The EU (18.6 MB) and UK (16.6 MB) lists are too large to read per request and are named as not
+  screened in every answer. Thresholds (match ≥ 0.95, possible ≥ 0.90) were set on six real names, not a
+  labelled set; a missing list makes a no-match `unknown`, never a clearance.
+- **G192 — MACRO depends on series keys that move.** Eurostat's `prc_hicp_manr` and the ECB's ICP series
+  stopped at 2025-12 (ECOICOP 2 change); `/macro` reads `prc_hicp_minr`. Euro-area unemployment needs geo
+  `EA21` (Bulgaria, 2026). BLS v1 is keyless with a small daily quota per IP; answers are cached 3 h.
+- **G193 — QUESTION_ANSWERING retrieval is Wikipedia-only.** Recent events missing from Wikipedia intros get
+  "The sources do not say" or an extracted sentence. Model replies are kept only when every sentence cites a
+  real source (validator `citedEverywhere`), so the failure mode is a refusal, not an uncited claim.
+
 ## 2026-10-11 fact-check co-occurrence fix — G188
 
 Evidence: `track1-miner/docs/evidence/factcheck-g188-2026-10-11/live-sweep.txt`. Code: `a9867c3`.
@@ -33,7 +66,7 @@ Evidence: `track1-miner/docs/evidence/factcheck-g188-2026-10-11/live-sweep.txt`.
 
 Evidence: `track1-miner/docs/evidence/improve-2026-10-11/` (`PLAN.md`, `rank-audit.json`).
 
-- **G186 — DeFiLlama's terms may forbid serving its TVL figures for pay. `OPEN, UNVERIFIED, owner decision`.**
+- **G186 — DeFiLlama's terms may forbid serving its TVL figures for pay. `CLOSED 2026-10-14 (verified; see the top block)`.**
   Source: the TVL leader `finwire-tvl`'s own live answer (2026-10-10 19:14 UTC) quotes DeFiLlama's terms
   as "personal, non-commercial purposes" with a clause forbidding republishing "in any form without
   permission". It now refuses every TVL question for that reason. Our `/tvl` serves DefiLlama figures.
