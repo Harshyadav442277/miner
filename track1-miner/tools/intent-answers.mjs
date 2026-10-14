@@ -598,11 +598,13 @@ const CHECKS = {
     const r = await get("/translate", { query: 'Translate "Good morning" into French.' });
     const b = r.body;
     if (!/bonjour/i.test(String(b.reason))) bad.push(`reason "${b.reason}" is not the French translation`);
-    // The starve invariant: the converter reads the WHOLE payload, and this
-    // intent's ground truths are bare translations. Any extra English field
-    // here is prose wrapped around the answer, which is what cost epoch 295.
-    const keys = Object.keys(b).sort().join(",");
-    if (keys !== "confidence,reason,translation,verdict") bad.push(`payload carries ${keys} — must be exactly confidence,reason,translation,verdict`);
+    // Season II reversed Season I's bare payload (the scorer's converter no
+    // longer decides the shape): an app needs to know what was translated into
+    // what, and the answer must still be the bare translation.
+    if (!/bonjour/i.test(String(b.answer))) bad.push(`answer "${b.answer}" is not the bare translation`);
+    if (b.source_text !== "Good morning" || b.target_language !== "French" || b.target_code !== "fr") {
+      bad.push(`languages not returned as fields: ${JSON.stringify([b.source_text, b.target_language, b.target_code])}`);
+    }
     const ja = await get("/translate", { query: 'Translate "one coffee please" into Japanese.' });
     if (!/[぀-ヿ一-鿿]/.test(String(ja.body.reason))) bad.push("Japanese translation returned no Japanese script");
     return bad;
@@ -1283,6 +1285,103 @@ const CHECKS = {
     }
     const empty = await get("/research-synthesis", {});
     if (empty.body.error !== "no_topic") bad.push(`no topic -> ${empty.body.error}, want no_topic`);
+    return bad;
+  },
+
+  // ---- Season II mission intents (2026-10-14). Each fact below is public and
+  // checkable: OFAC entity 20157 is Kim Jong Un; Barclays Bank PLC is Companies
+  // House 01026167; Tesla's Q2 2026 10-Q is accession 0001628280-26-049270.
+
+  async SANCTIONS_SCREENING_MATCH() {
+    const bad = [];
+    const kim = await get("/sanctions-screen", { query: "Screen Kim Jong Un against the OFAC SDN list" });
+    if (kim.body.error) return [`errored: ${kim.body.error}`]; // a list did not download; re-run alone.
+    if (kim.body.verdict !== "match") bad.push(`Kim Jong Un -> ${kim.body.verdict}, want match`);
+    if (kim.body.matches?.[0]?.id !== "20157") bad.push(`top match id ${kim.body.matches?.[0]?.id}, want OFAC 20157`);
+    if ((kim.body.lists_checked ?? []).length !== 2) bad.push("both lists were not screened");
+    if (!/EU and UK lists were not screened/.test(String(kim.body.reason))) bad.push("the unscreened lists are not named");
+    const near = await get("/sanctions-screen", { query: "Is Viktor But sanctioned?" });
+    if (!/^(?:match|possible_match)$/.test(String(near.body.verdict))) bad.push(`Viktor But -> ${near.body.verdict}, want a near-match on Bout`);
+    const none = await get("/sanctions-screen", { name: "Zzyzx Quillfeather" });
+    if (none.body.verdict !== "no_match") bad.push(`an invented name -> ${none.body.verdict}, want no_match`);
+    return bad;
+  },
+
+  async CORPORATE_REGISTRY_LOOKUP() {
+    const bad = [];
+    const r = await get("/company-registry", { query: "Is Barclays Bank PLC still registered?" });
+    if (r.body.error) return [`errored: ${r.body.error}`];
+    if (r.body.verdict !== "found") bad.push(`Barclays -> ${r.body.verdict}, want found`);
+    if (r.body.company_number !== "01026167") bad.push(`company number ${r.body.company_number}, want 01026167`);
+    if (r.body.entity_status !== "ACTIVE") bad.push(`status ${r.body.entity_status}, want ACTIVE`);
+    if (!/Directors and beneficial owners are not in these sources/.test(String(r.body.reason))) bad.push("the answer does not say directors are not covered");
+    const none = await get("/company-registry", { company: "Zzyzx Quillfeather Widgets Ltd" });
+    if (none.body.verdict !== "not_found") bad.push(`an invented company -> ${none.body.verdict}, want not_found`);
+    return bad;
+  },
+
+  async REGULATORY_FILING_MONITOR() {
+    const bad = [];
+    const r = await get("/sec-filings", { query: "Has Tesla filed its latest 10-Q on SEC EDGAR, on what date was it accepted, and what did it disclose about margins?" });
+    if (r.body.error) return [`errored: ${r.body.error}`];
+    if (r.body.verdict !== "filed") bad.push(`Tesla 10-Q -> ${r.body.verdict}, want filed`);
+    if (r.body.filing?.form !== "10-Q") bad.push(`form ${r.body.filing?.form}, want 10-Q`);
+    if (!/^\d{4}-\d{2}-\d{2}T/.test(String(r.body.filing?.accepted))) bad.push("no EDGAR acceptance time");
+    if (typeof r.body.figures?.gross_margin_pct !== "number") bad.push("no gross margin from the filing's XBRL");
+    if (!/sec\.gov\/Archives\/edgar\/data\/1318605\//.test(String(r.body.filing?.url))) bad.push("no link to the filing on EDGAR");
+    return bad;
+  },
+
+  async CRYPTO_TRANSFER_VERIFY() {
+    const bad = [];
+    // The first ETH transfer: pre-London, so no base fee, and millions of confirmations.
+    const r = await get("/transfer-verify", { hash: "0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060" });
+    const t = r.body.transaction;
+    if (r.body.error) return [`errored: ${r.body.error}`];
+    if (r.body.verdict !== "confirmed") bad.push(`first transfer -> ${r.body.verdict}, want confirmed`);
+    if (!(t?.confirmations > 20_000_000)) bad.push(`confirmations ${t?.confirmations}, want over 20 million`);
+    if (t?.block_number !== 46147) bad.push(`block ${t?.block_number}, want 46147`);
+    if (t?.base_fee_wei !== null) bad.push("a pre-London transaction reported a base fee");
+    return bad;
+  },
+
+  async MACRO_ECONOMIC_INDICATOR() {
+    const bad = [];
+    const r = await get("/macro", { query: "What was the latest US CPI year-over-year print, and what is the current federal funds target range?" });
+    if (r.body.error) return [`errored: ${r.body.error}`];
+    const [cpi, ffr] = r.body.indicators ?? [];
+    if (cpi?.source !== "US Bureau of Labor Statistics" || cpi?.frequency !== "monthly") bad.push("CPI not read monthly from BLS");
+    if (!(cpi?.value > -5 && cpi?.value < 20)) bad.push(`CPI ${cpi?.value} is implausible`);
+    if (ffr?.source !== "Federal Reserve Bank of New York") bad.push("the fed funds range is not from the New York Fed");
+    if (!(ffr?.value_high - ffr?.value === 0.25)) bad.push(`target range ${ffr?.value}-${ffr?.value_high} is not 25 bp wide`);
+    const india = await get("/macro", { query: "What is India's policy rate?" });
+    if (india.body.verdict !== "not_covered") bad.push(`India policy rate -> ${india.body.verdict}, want not_covered`);
+    return bad;
+  },
+
+  async URL_SAFE() {
+    const bad = [];
+    const r = await get("/url-reputation", { query: "Is malware.testcategory.com listed on any blocklist, and by which engines?" });
+    if (r.body.error) return [`errored: ${r.body.error}`];
+    if (r.body.listed !== true) bad.push(`Cloudflare's test domain -> listed ${r.body.listed}, want true`);
+    if (!(r.body.flagged_by ?? []).includes("Cloudflare security DNS")) bad.push("Cloudflare is not named as the source that flagged it");
+    if ((r.body.sources ?? []).length !== 3) bad.push("not every source is reported");
+    const clean = await get("/url-reputation", { url: "https://github.com" });
+    if (clean.body.listed === true) bad.push("github.com reported as listed");
+    if (!/cannot prove a site safe/.test(String(clean.body.reason))) bad.push("a clean listing is not qualified");
+    return bad;
+  },
+
+  async QUESTION_ANSWERING() {
+    const bad = [];
+    const ctx = await get("/answer", { query: "Based on the following text: The Treaty of Westphalia was signed in 1648, ending the Thirty Years War. It established the principle of state sovereignty. When did the war end?" });
+    if (ctx.body.verdict !== "answered") bad.push(`supplied-text question -> ${ctx.body.verdict}, want answered`);
+    if (!/1648/.test(String(ctx.body.reason))) bad.push("the supplied text's year is not in the answer");
+    if (!/\[1\]/.test(String(ctx.body.reason))) bad.push("the answer cites nothing");
+    const open = await get("/answer", { query: "How many moons does Mars have?" });
+    if (open.body.error) return [...bad, `open question errored: ${open.body.error}`];
+    if (!/\btwo\b|\b2\b/i.test(String(open.body.reason))) bad.push("Mars's two moons are not in the answer");
+    if (!(open.body.citations ?? []).some((c) => /wikipedia\.org/.test(String(c.url)))) bad.push("no Wikipedia citation URL");
     return bad;
   },
 };
