@@ -585,3 +585,27 @@ The operator reports an organiser announcement (Discord) that the results deadli
 Sep 8 – Sep 18, Announcement Sep 19 – 25"; the announcement text itself was not seen by this
 session. Treat the miner as judged-and-watched through Sep 28: keep it live, no risky deploys
 without a preview, and hold anything that reads as lobbying until after the results.
+
+## Season II intents and manifest validation (verified 2026-10-13/14)
+
+- **Canonical definitions** of the seven added intents and TVL_LOOKUP were read from
+  `https://devnode.telegraphprotocol.com/engine/v1/intents` on 2026-10-13 (134 intents listed). All
+  eight are `canonical: true`. Miner counts that day:
+  - URL_SAFE 13
+  - CRYPTO_TRANSFER_VERIFY 19
+  - REGULATORY_FILING_MONITOR 14
+  - SANCTIONS_SCREENING_MATCH 13
+  - CORPORATE_REGISTRY_LOOKUP 19
+  - MACRO_ECONOMIC_INDICATOR 23
+  - QUESTION_ANSWERING 10
+  - TVL_LOOKUP 21
+
+  The descriptions are quoted in the endpoint docstrings (`src/sanctions.ts`, `src/qa.ts`, …).
+- **Validation API works as documented.** `POST https://integrate.telegraphprotocol.com/api/validate`
+  with `{yaml, api_key: "", miner_address}` returned HTTP 200 in 14 s on 2026-10-14 ~05:45 UTC:
+  `valid: true`, all 42 endpoints sandbox-called with HTTP 200 (226–545 ms), `api_key_stored: false`.
+  The bytes validated were `git show f67834d:track1-miner/miner.yaml`, SHA-256
+  `0x4bc7011c38d29fd4b96532f4e189b18b7a3335bcfd6203cd6b24e72bfab60ef0`. Result file:
+  `track1-miner/docs/evidence/season2-release-2026-10-14/integrate-validate.json`.
+- **Season II miner judging rules:** still "published separately" on the rules page (checked
+  2026-10-13 18:28 UTC).
