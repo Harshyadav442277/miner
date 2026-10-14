@@ -37,6 +37,9 @@ endpoints:
     method: GET
     intents: [SSL_VERIFICATION]
     description: >-
+      Example questions: "Is the TLS certificate for github.com valid?", "When does
+      example.com's certificate expire?". Returns answer, verdict, confidence, reason,
+      checked_at and domain, valid, chain_complete, issuer, valid_to, days_remaining.
       Live TLS certificate check for one domain. Accepts a bare hostname, a full
       URL, or host:port.
     params:
@@ -57,6 +60,12 @@ endpoints:
     method: GET
     intents: [STORM_ALERT]
     description: >-
+      Example questions: "Is there a storm risk in Chennai in the next 48 hours?",
+      "Will gusts exceed 60 km/h in Miami tonight?". Returns answer, verdict,
+      confidence, reason, checked_at and location, risk_score, wind_direction,
+      max_wind_gust_kmh, max_wind_speed_kmh, max_precipitation_mm, thunderstorm,
+      window_hours, valid_at, peak_at, latitude, longitude, threshold_exceeded,
+      threshold_hours.
       Severe-weather risk for a location over the next 48 hours. Accepts a place
       name or "lat,lon".
     params:
@@ -88,6 +97,9 @@ endpoints:
     method: GET
     intents: [ACADEMIC_SEARCH]
     description: >-
+      Example questions: "Find recent peer-reviewed papers on CRISPR gene editing",
+      "Most cited papers on transformer models since 2023". Returns answer, verdict,
+      confidence, reason, checked_at and topic, from_date, to_date, papers, count.
       Finds peer-reviewed papers on a topic, optionally within a date range, via
       OpenAlex. Returns title, authors, year and citation count for each.
     params:
@@ -108,6 +120,9 @@ endpoints:
     method: GET
     intents: [LANGUAGE_TRANSLATION]
     description: >-
+      Example questions: "Translate 'Good morning' into French", "Say hello in
+      Spanish". Returns answer, verdict, confidence, reason, checked_at and
+      source_text, target_language, target_code, translation, source.
       Translates quoted text into a named target language. Returns the
       translation itself, in the target script.
     params:
@@ -136,6 +151,9 @@ endpoints:
     method: GET
     intents: [IP_GEOLOCATION]
     description: >-
+      Example questions: "Where is 8.8.8.8 located?", "Which network owns 1.1.1.1?".
+      Returns answer, verdict, confidence, reason, checked_at and ip, city, region,
+      country, country_code, latitude, longitude, timezone, asn, organisation.
       Live IP geolocation. Accepts an IPv4 or IPv6 address, or a whole question
       containing one.
     params:
@@ -156,6 +174,12 @@ endpoints:
     method: GET
     intents: [WEATHER_FORECAST, WEATHER_CHECK]
     description: >-
+      Example questions: "What is the forecast for London tomorrow?", "What is the
+      weather in Tokyo right now?". Returns answer, verdict, confidence, reason,
+      checked_at and location, window_hours, span_days, start_time, end_time,
+      hourly_count, temp_min_c, temp_max_c, total_precipitation_mm,
+      precipitation_probability_max_pct, max_wind_speed_kmh, precipitation_hours,
+      latitude, longitude.
       Current and future conditions for a location. hours=0 reports the present
       hour; any other value gives a window of up to 168h, and the default with no
       hours parameter is 24h. Accepts a place name or "lat,lon".
@@ -192,6 +216,8 @@ endpoints:
     method: GET
     intents: [CONTENT_EXTRACTION]
     description: >-
+      Example questions: "Extract the dates and amounts from this invoice: …". Returns
+      answer, verdict, confidence, reason, checked_at and extracted.
       Structured extraction from text supplied inline in the question. Reads quantities
       and units, contact details, named entities, action items, dates and events, or
       bare numeric values, and answers with the extracted fields themselves. The text
@@ -215,6 +241,9 @@ endpoints:
     method: GET
     intents: [NEWS_HEADLINES]
     description: >-
+      Example questions: "What are today's technology headlines?", "Top business news
+      in Europe". Returns answer, verdict, confidence, reason, checked_at and topic,
+      region, headlines, count.
       Current news headlines for a topic and optional region, read live from Google
       News at request time and returned as a numbered list with each source named.
       Honours a requested count such as "top 5". Headlines rotate, so the answer states
@@ -237,6 +266,9 @@ endpoints:
     method: GET
     intents: [WALLET_BALANCE_CHECK]
     description: >-
+      Example questions: "What is the ETH balance of vitalik.eth?", "Balance of 0x… on
+      Base". Returns answer, verdict, confidence, reason, checked_at and address,
+      chain, balance_eth, symbol.
       Native-coin balance of an EVM address, read with eth_getBalance at the latest
       block from public JSON-RPC on the chain the question names — Ethereum, Base,
       Arbitrum, Optimism or Polygon. A zero balance is reported as zero; an RPC that
@@ -308,6 +340,11 @@ endpoints:
     method: GET
     intents: [CVE_LOOKUP]
     description: >-
+      Example questions: "What is the severity and affected versions of
+      CVE-2021-44228?". Returns answer, verdict, confidence, reason, checked_at and
+      cve_id, severity, cvss_score, cvss_version, scored_by, affected_product,
+      affected_versions, other_products_affected, cwe, status, published, description,
+      source, source_url.
       Vulnerabilities from the National Vulnerability Database, asked three ways.
       By CVE identifier: the severity rating and CVSS base score with the CVSS
       version and the source that assigned it, the affected product and versions
@@ -341,6 +378,9 @@ endpoints:
     method: GET
     intents: [TVL_LOOKUP]
     description: >-
+      Example questions: "How deep is the DEX pool liquidity for token 0x8335…2913 on
+      Base?". Returns answer, verdict, confidence, reason, checked_at and scope,
+      subject, chain, usd.
       Total value locked, in the three scopes the intent covers, told apart before
       anything is fetched. A token contract address with its chain returns that
       token's own DEX pool liquidity in USD, read from GeckoTerminal's tracked
@@ -378,6 +418,9 @@ endpoints:
     method: GET
     intents: [NEWS_SEARCH]
     description: >-
+      Example questions: "Latest news about the EU AI Act", "What happened with Boeing
+      this week?". Returns answer, verdict, confidence, reason, checked_at and
+      subject, window_days, articles, count.
       News article coverage of a topic, entity or time period, searched rather
       than browsed. Returns individual articles — each with its headline, the
       publisher that ran it and its publication date, most relevant first — for a
@@ -411,6 +454,9 @@ endpoints:
     method: GET
     intents: [CURRENCY_EXCHANGE]
     description: >-
+      Example questions: "Convert 100 USD to EUR", "What is 5,000 yen in dollars?".
+      Returns answer, verdict, confidence, reason, checked_at and from, to, amount,
+      rate, converted, kind, as_of.
       An exchange rate, or an amount converted between two currencies. The
       primary source is the European Central Bank's euro foreign exchange
       reference rate, which is published once per day and therefore does not move
@@ -447,6 +493,9 @@ endpoints:
     method: GET
     intents: [GAME_RESULT]
     description: >-
+      Example questions: "Who won Argentina vs France in the 2022 World Cup final?".
+      Returns answer, verdict, confidence, reason, checked_at and home, away,
+      home_score, away_score, winner, competition, played_at.
       The final outcome of a completed sports fixture: the winner, the final
       score, the competition and the date it was played. Read from ESPN's
       scoreboard, which carries an explicit completion flag per fixture, with a
@@ -483,6 +532,9 @@ endpoints:
     method: GET
     intents: [GAS_PRICE]
     description: >-
+      Example questions: "What is the gas price on Ethereum right now?", "Gas on Base
+      in Gwei". Returns answer, verdict, confidence, reason, checked_at and chain,
+      gwei, base_fee_gwei, priority_gwei, block.
       The current transaction fee level on a named chain, read from that chain's
       own JSON-RPC. Reports the gas price in Gwei both exactly and rounded, the
       base fee and priority fee that make it up, the block the reading is from so
@@ -509,6 +561,9 @@ endpoints:
     method: GET
     intents: [FINANCIAL_DATA]
     description: >-
+      Example questions: "What is Solana's market cap and 24-hour volume?", "Apple's
+      revenue and P/E from its 10-K". Returns answer, verdict, confidence, reason,
+      checked_at and subject, name, chain, data.
       Market data and financial statistics for a coin, a token or a listed company,
       deliberately beyond a single quoted price. A coin named in words, such as
       Solana or Bitcoin, returns market capitalisation, 24-hour trading volume in
@@ -543,6 +598,10 @@ endpoints:
     method: GET
     intents: [FRAUD_DETECTION]
     description: >-
+      Example questions: "Is 0x… a scam address?", "This email asks me to pay an
+      invoice in gift cards: is it fraud?". Returns answer, verdict, confidence,
+      reason, checked_at and subject, evidence, not_checked, sanctioned,
+      flagged_hosts, scam_markers.
       How likely a named address, link or message is to be fraudulent, assessed
       from checks that are actually performed and named in the answer: the OFAC
       sanctioned digital-currency address listing, Cloudflare's threat-intelligence
@@ -578,6 +637,9 @@ endpoints:
     method: GET
     intents: [SPORTS_SCORE]
     description: >-
+      Example questions: "What was the score of the last Lakers game?". Returns
+      answer, verdict, confidence, reason, checked_at and home, away, home_score,
+      away_score, competition, played_at, in_progress.
       The current score of a named sports fixture, or its most recent score when
       nothing between those two sides is in play. Read from ESPN's scoreboard,
       which carries a live status and a running score per fixture, with a fixture
@@ -612,6 +674,9 @@ endpoints:
     method: GET
     intents: [TOKEN_HOLDER_COUNT]
     description: >-
+      Example questions: "How many holders does USDC have on Ethereum?". Returns
+      answer, verdict, confidence, reason, checked_at and symbol, name, address,
+      chain, holders, top_holder_percent.
       How many distinct addresses hold a named ERC-20 token, read from the chain's
       own transfer index via Blockscout. The token may be given as a contract
       address or as a symbol together with its chain, and where no chain is named
@@ -652,6 +717,9 @@ endpoints:
     method: GET
     intents: [RESEARCH_QUERY]
     description: >-
+      Example questions: "What clinical trials are testing semaglutide for
+      Alzheimer's?". Returns answer, verdict, confidence, reason, checked_at and
+      subject, trials, citations.
       An answer to one research question, drawn from named sources: the
       ClinicalTrials.gov registry for trial phase, status and completion dates,
       Europe PMC for published literature, and Wikipedia for subjects that are
@@ -684,6 +752,9 @@ endpoints:
     method: GET
     intents: [TEXT_AUTHENTICITY_CHECK]
     description: >-
+      Example questions: "Is this quote really from Einstein: '…'?". Returns answer,
+      verdict, confidence, reason, checked_at and words, phrases_checked, match,
+      machine_signal.
       Whether a supplied passage is original or was reproduced from an existing
       source. Distinctive nine-word runs are lifted from the passage and searched
       verbatim against Wikipedia's full-text index; a hit is reported as copying
@@ -712,6 +783,9 @@ endpoints:
     method: GET
     intents: [CRYPTO_PRICE]
     description: >-
+      Example questions: "What is the price of ETH?", "BTC price in EUR on
+      2025-01-01". Returns answer, verdict, confidence, reason, checked_at and asset,
+      symbol, price, quote, price_at, source, aggregate_price.
       The current or historical price of one named cryptocurrency, as a single
       quoted figure with the venue that quoted it and the UTC time of the quote.
       The current price is the last Coinbase trade where Coinbase lists the pair,
@@ -747,6 +821,9 @@ endpoints:
     method: GET
     intents: [STOCK_PRICE]
     description: >-
+      Example questions: "What is Apple's share price?", "TSLA closing price on
+      2026-09-01". Returns answer, verdict, confidence, reason, checked_at and ticker,
+      name, price, currency, price_at, exchange, market_open, source.
       The current or historical share price of one listed equity, given as a
       ticker or a company name. Every answer states the exchange, the quote time
       in the exchange's own time zone, and whether the regular trading session is
@@ -781,6 +858,10 @@ endpoints:
     method: GET
     intents: [CROSS_CHAIN_STATE_VERIFY]
     description: >-
+      Example questions: "Was LayerZero message 0x… delivered from Ethereum to
+      Arbitrum?", "Did bridge transaction 0x… arrive on Base?". Returns answer,
+      verdict, confidence, reason, checked_at and message (guid, nonce, source_chain,
+      destination_chain, sender, receiver, source_tx, destination_tx, scan_status).
       Whether a LayerZero V2 bridge message sent from one chain was executed on
       another, verified from both chains' own receipts rather than taken from an
       indexer's status. The message is located on LayerZero Scan by its source or
@@ -820,6 +901,9 @@ endpoints:
     method: GET
     intents: [EVENT_OUTCOME_RESOLUTION]
     description: >-
+      Example questions: "Who won the 2024 US presidential election?", "Has the
+      Polymarket market on … resolved?". Returns answer, verdict, confidence, reason,
+      checked_at and outcome, winner, event, source.
       The actual outcome of a named, checkable event, as settled by a public
       prediction market, for a market or conditional contract to resolve against.
       Polymarket's real-money markets and Manifold's play-money markets are
@@ -852,6 +936,8 @@ endpoints:
     method: GET
     intents: [URL_SCAN]
     description: >-
+      Example questions: "Is https://example.com/offer safe to click?". Returns
+      answer, verdict, confidence, reason, checked_at and url, flagged_by, checks.
       A safe or unsafe verdict on one URL, with the evidence behind it named.
       The host is resolved through Cloudflare's malware-and-phishing filtering
       resolver and compared with an unfiltered resolver, so a block is reported
@@ -886,6 +972,9 @@ endpoints:
     method: GET
     intents: [WEB_SEARCH]
     description: >-
+      Example questions: "What is the latest news on the Fed's rate decision?", "Who
+      is the CEO of OpenAI?". Returns answer, verdict, confidence, reason, checked_at
+      and articles, background.
       Current, externally sourced information for a question that static
       knowledge cannot answer, taken from Google News search and, when no current
       report exists, from Wikipedia. The answer quotes the most relevant reports'
@@ -918,6 +1007,9 @@ endpoints:
     method: GET
     intents: [CONTENT_VERIFICATION]
     description: >-
+      Example questions: "Is this the original wording of the Gettysburg Address:
+      '…'?". Returns answer, verdict, confidence, reason, checked_at and
+      compared_with, words, differing_wording.
       Whether a supplied piece of text, such as a press release or a contract
       clause, is genuine and unaltered, judged against the strongest reference
       available and naming it. A supplied SHA-256, SHA-1 or MD5 digest is
@@ -956,6 +1048,9 @@ endpoints:
     method: GET
     intents: [SENTIMENT_ANALYSIS]
     description: >-
+      Example questions: "What is the sentiment of this review: 'The product broke
+      after one day'?". Returns answer, verdict, confidence, reason, checked_at and
+      compound, positive_words, negative_words, tones.
       The sentiment a supplied text expresses — positive, negative, neutral or
       mixed — read by a hosted open-weight language model called over the
       network, which writes the label and a short explanation. When that model does
@@ -988,6 +1083,9 @@ endpoints:
     method: GET
     intents: [TEXT_CLASSIFICATION]
     description: >-
+      Example questions: "Classify this ticket as billing, technical or account: 'I
+      was charged twice'". Returns answer, verdict, confidence, reason, checked_at and
+      label.
       Assigns a supplied text to one of the labels the request itself supplies,
       such as billing, technical or account issue. There is no fixed taxonomy. A hosted open-weight language model called over
       the network chooses among the supplied labels and explains the choice in a
@@ -1026,6 +1124,8 @@ endpoints:
     method: GET
     intents: [RESEARCH_SYNTHESIS]
     description: >-
+      Example questions: "Summarise the evidence on intermittent fasting and weight
+      loss". Returns answer, verdict, confidence, reason, checked_at and sources.
       Findings on a topic gathered across several published studies and combined
       into one answer. PubMed and Europe PMC are searched on title and abstract,
       and from each study a single sentence reporting a result is quoted verbatim
@@ -1062,6 +1162,9 @@ endpoints:
     method: GET
     intents: [FACT_CHECK]
     description: >-
+      Example questions: "Is it true that the Eiffel Tower is in Paris?", "Fact-check:
+      water boils at 100 °C at sea level". Returns answer, verdict, confidence,
+      reason, checked_at and claim, source, source_url, evidence.
       A specific claim, looked up against a citable encyclopaedic reference and
       reported with the article named and quoted. Reports an explicit refutation when
       the source states one, and otherwise says plainly that the source does not settle
@@ -1085,6 +1188,9 @@ endpoints:
     method: GET
     intents: [TELEGRAPH_KNOWLEDGE]
     description: >-
+      Example questions: "How do I register a miner on Telegraph?", "How are miner
+      answers scored?". Returns answer, verdict, confidence, reason, checked_at and
+      topic, source.
       Questions about Telegraph itself — miner registration and the YAML registry,
       the canonical intent set, how answers are scored, the Explorer and leaderboard,
       and the hackathon. Live figures such as the number of registered miners or the
@@ -1104,6 +1210,10 @@ endpoints:
     method: GET
     intents: [AI_TEXT_DETECTION]
     description: >-
+      Example questions: "Was this passage written by an AI: '…'?". Returns answer,
+      verdict, confidence, reason, checked_at and words, sentences,
+      mean_sentence_words, sentence_length_stdev, type_token_ratio, repeated_bigrams,
+      formulaic_markers.
       Statistical authorship analysis of a supplied passage. Measures sentence-length
       burstiness, type-token ratio, repeated word pairs and formulaic connectives, and
       reports what they indicate with a calibrated confidence that is capped at 0.6.
