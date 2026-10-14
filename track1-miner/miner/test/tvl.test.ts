@@ -1,8 +1,8 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
-  chainTvl, contractAddress, human, lookupTvl, poolLiquidity, protocolSlugs, protocolSubject,
-  protocolTvl, resolveChain, resolveScope, supportedChains,
+  contractAddress, human, lookupTvl, poolLiquidity, protocolSubject,
+  resolveChain, resolveScope, supportedChains,
 } from "../src/tvl";
 
 // USDC on Base — the address in the canonical intent description's own worked
@@ -64,15 +64,6 @@ test("protocolSubject reads the protocol out of the question, or gives up", () =
   assert.equal(protocolSubject("tell me about defi"), "");
 });
 
-test("protocolSlugs puts the alias first and derives plausible fallbacks", () => {
-  assert.equal(protocolSlugs("Curve Finance")[0], "curve-dex");
-  assert.ok(protocolSlugs("Aave").includes("aave"));
-  assert.deepEqual(protocolSlugs(""), []);
-  // No duplicates — each slug costs a request inside an 11s watchdog.
-  const s = protocolSlugs("Yearn");
-  assert.equal(s.length, new Set(s).size);
-});
-
 test("human keeps the magnitude readable without losing the exact figure", () => {
   assert.equal(human(18_083_464_381), "$18.08 billion");
   assert.equal(human(5_564_272_633), "$5.56 billion");
@@ -99,65 +90,33 @@ async function withFetch<T>(impl: typeof globalThis.fetch, fn: () => Promise<T>)
   try { return await fn(); } finally { globalThis.fetch = original; }
 }
 const failing = (async () => { throw new Error("network down"); }) as unknown as typeof globalThis.fetch;
-const notFound = (async () => new Response("Protocol not found", { status: 400 })) as typeof globalThis.fetch;
 
 test("a dead provider is unknown, never zero", async () => {
   await withFetch(failing, async () => {
-    assert.equal(await protocolTvl("Aave"), "unavailable");
-    assert.equal(await chainTvl("base"), "unavailable");
     assert.equal(await poolLiquidity(USDC_BASE, "base"), "unavailable");
-
-    const r = await lookupTvl("protocol", "Aave", null);
+    const r = await lookupTvl("token_pool", USDC_BASE, "base");
     assert.equal(r.verdict, "unknown");
     assert.equal(r.usd, null);
     assert.equal(r.error, "provider_unavailable");
-    // The wording must not read as a claim about the protocol.
-    assert.ok(!/\$0\b|zero|no value locked/i.test(r.reason));
-    assert.match(r.reason, /availability problem/i);
+    assert.ok(!/\$0\b|zero/i.test(r.reason));
   });
 });
 
-test("a provider that says the protocol does not exist is not_found, not unknown", async () => {
-  // A 400 from DefiLlama is an answer about the slug; a timeout is not. Merging
-  // them would either invent a missing protocol or deny a real one.
-  await withFetch(notFound, async () => {
-    assert.equal(await protocolTvl("not-a-real-protocol-xyz"), null);
-    const r = await lookupTvl("protocol", "not-a-real-protocol-xyz", null);
-    assert.equal(r.verdict, "not_found");
-    assert.equal(r.usd, null);
+// GAPS G186: DefiLlama's terms do not allow commercial use, so protocol and
+// chain TVL are refused with the reason, and DefiLlama is never called.
+test("protocol and chain TVL are refused as not licensed, without a network call", async () => {
+  await withFetch((async () => { throw new Error("must not be called"); }) as unknown as typeof globalThis.fetch, async () => {
+    for (const [scope, subject] of [["protocol", "Aave"], ["chain", "base"]] as const) {
+      const r = await lookupTvl(scope, subject, null);
+      assert.equal(r.verdict, "unknown");
+      assert.equal(r.error, "not_licensed");
+      assert.equal(r.usd, null);
+      assert.match(r.reason, /DefiLlama, does not license its data for commercial use/);
+    }
   });
-});
-
-test("an unreadable chain is refused rather than answered from another chain", async () => {
-  const r = await lookupTvl("chain", "fantom", null);
-  assert.equal(r.verdict, "not_found");
-  assert.equal(r.usd, null);
-  assert.ok(!/\$[\d,]{4,}/.test(r.reason), "no figure may appear for a chain we did not read");
 });
 
 /* --------------------------------- live ---------------------------------- */
-
-test("protocol TVL comes back as a real figure with its scope named (live)", async () => {
-  const r = await lookupTvl("protocol", "Aave", null);
-  if (r.verdict === "unknown") return;   // provider down is not a test failure
-  assert.equal(r.verdict, "found");
-  assert.ok(r.usd !== null && r.usd > 1e8, `implausible Aave TVL: ${r.usd}`);
-  assert.match(r.reason, /total value locked/i);
-  assert.match(r.reason, /DefiLlama/);
-  // The scope must be stated, because the incumbent failure is a protocol
-  // figure served for a different scope's question.
-  assert.match(r.reason, /across every chain/i);
-  assert.ok(!/market cap/i.test(r.reason.replace(/not the market cap[^.]*\./i, "")));
-});
-
-test("chain TVL is the chain's aggregate, and says so (live)", async () => {
-  const r = await lookupTvl("chain", "Base", "base");
-  if (r.verdict === "unknown") return;
-  assert.equal(r.verdict, "found");
-  assert.ok(r.usd !== null && r.usd > 1e7, `implausible Base TVL: ${r.usd}`);
-  assert.match(r.reason, /Base chain/);
-  assert.match(r.reason, /aggregate TVL/i);
-});
 
 test("the canonical token question returns that token's pool liquidity (live)", async () => {
   const r = await lookupTvl("token_pool", USDC_BASE, "base");

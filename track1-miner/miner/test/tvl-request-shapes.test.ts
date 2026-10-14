@@ -18,25 +18,12 @@
  *    answered "DefiLlama did not respond", in the same minute. The per-chain
  *    read is `/protocol/{slug}`, which is 29 MB and takes 47 s against a 4 s
  *    budget, so the parameter was not intolerant occasionally — it was fatal
- *    every time.
+ *    every time. Moot since 2026-10-14: protocol TVL is no longer served
+ *    (GAPS G186), so only the subject reading below is still tested.
  */
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { lookupTvl, protocolSubject, protocolTvl } from "../src/tvl";
-
-async function withFetch(stub: typeof fetch, run: () => Promise<void>): Promise<void> {
-  const original = globalThis.fetch;
-  globalThis.fetch = stub;
-  try { await run(); } finally { globalThis.fetch = original; }
-}
-
-/** DefiLlama with the global figure up and the per-chain record timing out. */
-const chainReadTimesOut: typeof fetch = (async (url: string | URL | Request) => {
-  const href = String(url);
-  if (href.includes("/protocol/")) throw new Error("The operation was aborted due to timeout");
-  if (href.includes("/tvl/aave-v3")) return new Response("17974425830");
-  return new Response("", { status: 400 });
-}) as typeof fetch;
+import { protocolSubject } from "../src/tvl";
 
 test("the node's own question template names its subject", () => {
   assert.equal(protocolSubject("What is the total value locked (TVL) in USD for Aave V3?"), "Aave V3");
@@ -54,42 +41,3 @@ test("a question with no protocol in it is still refused rather than given one",
   }
 });
 
-test("a chain the per-chain read cannot answer falls back to the all-chain total", async () => {
-  await withFetch(chainReadTimesOut, async () => {
-    const r = await protocolTvl("Aave V3", "ethereum");
-    assert.notEqual(r, "unavailable");
-    assert.notEqual(r, null);
-    assert.equal((r as { usd: number }).usd, 17_974_425_830);
-    assert.equal((r as { chainScoped: boolean }).chainScoped, false);
-  });
-});
-
-test("the fallback total is reported as the all-chain total, never as the chain's", async () => {
-  await withFetch(chainReadTimesOut, async () => {
-    const r = await lookupTvl("protocol", "Aave V3", "ethereum");
-    assert.equal(r.verdict, "found");
-    assert.match(r.reason, /aggregated across every chain it is deployed on/);
-    assert.doesNotMatch(r.reason, /on ethereum/);
-    assert.equal(r.chain, null);
-  });
-});
-
-test("a per-chain figure that does arrive is still reported as that chain's", async () => {
-  const chainReadWorks: typeof fetch = (async (url: string | URL | Request) =>
-    String(url).includes("/protocol/aave-v3")
-      ? new Response(JSON.stringify({ currentChainTvls: { Ethereum: 8_000_000_000 } }))
-      : new Response("", { status: 400 })) as typeof fetch;
-  await withFetch(chainReadWorks, async () => {
-    const r = await lookupTvl("protocol", "Aave V3", "ethereum");
-    assert.equal(r.verdict, "found");
-    assert.equal(r.usd, 8_000_000_000);
-    assert.match(r.reason, /on ethereum/);
-  });
-});
-
-test("a real outage on both reads is still an outage, not a fabricated total", async () => {
-  const everythingDown: typeof fetch = (async () => { throw new Error("offline"); }) as typeof fetch;
-  await withFetch(everythingDown, async () => {
-    assert.equal(await protocolTvl("Aave V3", "ethereum"), "unavailable");
-  });
-});

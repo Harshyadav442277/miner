@@ -15,6 +15,11 @@
  * source that actually holds that quantity. Answering a token-liquidity question
  * with a protocol's TVL is the failure this file is shaped to avoid.
  *
+ * SINCE 2026-10-14 ONLY THE TOKEN SCOPE IS ANSWERED (GAPS G186). Protocol and
+ * chain TVL came from DefiLlama, whose terms do not allow commercial use, so
+ * those two scopes are still recognised but answered with the reason no figure
+ * is given. Token pool liquidity comes from GeckoTerminal and DexScreener.
+ *
  * WHAT THE SCORER REWARDS. Measured 2026-09-08 against the live champion
  * (`tvl_reg49.wasm`, reg 49) via tools/candidate-bench.mjs, three cases x three
  * authored ground-truth registers:
@@ -69,49 +74,15 @@ export interface TvlResult {
  * `polygon` on DexScreener, and Avalanche is `avax` on one and `avalanche` on
  * the other.
  */
-const CHAINS: Record<string, { llama: string; gecko: string; dex: string; words: RegExp }> = {
-  base: { llama: "Base", gecko: "base", dex: "base", words: /\bbase\b/i },
-  arbitrum: { llama: "Arbitrum", gecko: "arbitrum", dex: "arbitrum", words: /\barbitrum\b|\barb\b/i },
-  optimism: { llama: "Optimism", gecko: "optimism", dex: "optimism", words: /\boptimism\b|\bop mainnet\b/i },
-  polygon: { llama: "Polygon", gecko: "polygon_pos", dex: "polygon", words: /\bpolygon\b|\bmatic\b/i },
-  bsc: { llama: "BSC", gecko: "bsc", dex: "bsc", words: /\bbsc\b|\bbnb\b|\bbinance smart chain\b/i },
-  avalanche: { llama: "Avalanche", gecko: "avax", dex: "avalanche", words: /\bavalanche\b|\bavax\b/i },
-  solana: { llama: "Solana", gecko: "solana", dex: "solana", words: /\bsolana\b|\bsol\b/i },
-  ethereum: { llama: "Ethereum", gecko: "eth", dex: "ethereum", words: /\bethereum\b|\bmainnet\b|\beth\b|\bl1\b/i },
-};
-
-/**
- * Protocol names whose DefiLlama slug is not the slugified name. Kept short and
- * explicit: the full `/protocols` index is 8.7 MB and takes 4.7 s to download,
- * which does not fit inside an 11 s watchdog that also has to fetch an answer.
- * `resolveProtocol` therefore tries a handful of derived slugs directly, and
- * this map covers the ones no derivation reaches.
- */
-const PROTOCOL_ALIASES: Record<string, string> = {
-  curve: "curve-dex",
-  "curve finance": "curve-dex",
-  uniswap: "uniswap",
-  "pancake swap": "pancakeswap",
-  makerdao: "makerdao",
-  maker: "makerdao",
-  compound: "compound-finance",
-  "compound finance": "compound-finance",
-  gmx: "gmx",
-  "lido finance": "lido",
-  rocketpool: "rocket-pool",
-  "rocket pool": "rocket-pool",
-  "eigen layer": "eigenlayer",
-  balancer: "balancer",
-  sushiswap: "sushi",
-  sushi: "sushi",
-  "yearn finance": "yearn-finance",
-  yearn: "yearn-finance",
-  convex: "convex-finance",
-  "convex finance": "convex-finance",
-  "aave v3": "aave-v3",
-  "aave v2": "aave-v2",
-  "uniswap v3": "uniswap-v3",
-  "uniswap v2": "uniswap-v2",
+const CHAINS: Record<string, { gecko: string; dex: string; words: RegExp }> = {
+  base: { gecko: "base", dex: "base", words: /\bbase\b/i },
+  arbitrum: { gecko: "arbitrum", dex: "arbitrum", words: /\barbitrum\b|\barb\b/i },
+  optimism: { gecko: "optimism", dex: "optimism", words: /\boptimism\b|\bop mainnet\b/i },
+  polygon: { gecko: "polygon_pos", dex: "polygon", words: /\bpolygon\b|\bmatic\b/i },
+  bsc: { gecko: "bsc", dex: "bsc", words: /\bbsc\b|\bbnb\b|\bbinance smart chain\b/i },
+  avalanche: { gecko: "avax", dex: "avalanche", words: /\bavalanche\b|\bavax\b/i },
+  solana: { gecko: "solana", dex: "solana", words: /\bsolana\b|\bsol\b/i },
+  ethereum: { gecko: "eth", dex: "ethereum", words: /\bethereum\b|\bmainnet\b|\beth\b|\bl1\b/i },
 };
 
 /** An EVM contract address, which is what makes a question a token question. */
@@ -256,15 +227,6 @@ async function getJson(url: string, timeout = TIMEOUT_MS): Promise<unknown> {
   return r.json();
 }
 
-async function getText(url: string, timeout = TIMEOUT_MS): Promise<string> {
-  const r = await fetch(url, {
-    headers: { accept: "application/json", "user-agent": UA },
-    signal: AbortSignal.timeout(timeout),
-  });
-  if (!r.ok) throw new Error(`HTTP ${r.status}`);
-  return r.text();
-}
-
 const usd = (n: number): string => `$${Math.round(n).toLocaleString("en-US")}`;
 
 /** "$18.08 billion" alongside the exact figure — ground truths use both registers. */
@@ -275,96 +237,6 @@ export function human(n: number): string {
   if (abs >= 1e6) return `$${(n / 1e6).toFixed(2)} million`;
   if (abs >= 1e3) return `$${(n / 1e3).toFixed(2)} thousand`;
   return usd(n);
-}
-
-/** Candidate DefiLlama slugs for a protocol name, most likely first. */
-export function protocolSlugs(name: string): string[] {
-  const clean = String(name ?? "").trim().toLowerCase().replace(/[’']/g, "");
-  if (!clean) return [];
-  const alias = PROTOCOL_ALIASES[clean];
-  const base = clean.replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
-  const noSuffix = base.replace(/-(protocol|finance|dao|network|exchange)$/i, "");
-  const joined = clean.replace(/\s+/g, "");
-  return [...new Set([alias, base, noSuffix, joined, `${noSuffix}-finance`, `${noSuffix}-dex`].filter(Boolean) as string[])];
-}
-
-/**
- * Protocol TVL from DefiLlama.
- *
- * `/tvl/{slug}` answers with a bare number and 400 "Protocol not found" for an
- * unknown slug, so an unknown protocol is distinguishable from an outage: a 400
- * on every candidate slug means we could not resolve the name, while a thrown
- * timeout means we do not know. Those are different answers.
- *
- * A named chain narrows the read to `/protocol/{slug}`, which carries the
- * per-chain breakdown — and 29 MB of daily history with it. That response takes
- * 47 s to arrive (measured 2026-09-19) against a 4 s budget, so a `chain`
- * parameter alongside a `protocol` one turned an answer this endpoint gives in
- * about a second into "DefiLlama did not respond", every single time: production
- * answered `protocol=Aave V3` with $17.97bn and `protocol=Aave V3&chain=ethereum`
- * with an availability failure in the same minute. `chainScoped` records which
- * figure came back so the sentence can say what it is rather than imply a
- * per-chain number it does not have.
- */
-export async function protocolTvl(name: string, chain?: string | null): Promise<
-  { slug: string; usd: number; chainScoped: boolean } | null | "unavailable"
-> {
-  const slugs = protocolSlugs(name);
-  if (!slugs.length) return null;
-  let sawRefusal = false;
-  let sawUnavailable = false;
-  for (const slug of slugs.slice(0, 4)) {
-    try {
-      if (chain) {
-        const record = await getJson(`https://api.llama.fi/protocol/${encodeURIComponent(slug)}`) as {
-          currentChainTvls?: Record<string, number>;
-        };
-        const label = chain === "optimism" ? "OP Mainnet" : CHAINS[chain]?.llama;
-        const n = label ? record.currentChainTvls?.[label] : undefined;
-        if (typeof n === "number" && Number.isFinite(n) && n >= 0) return { slug, usd: n, chainScoped: true };
-        // A valid protocol record without that chain cannot justify the global total.
-        if (record.currentChainTvls) sawRefusal = true;
-        else sawUnavailable = true;
-        continue;
-      }
-      const body = (await getText(`https://api.llama.fi/tvl/${encodeURIComponent(slug)}`)).trim();
-      const n = Number(body);
-      if (body && Number.isFinite(n) && n >= 0) return { slug, usd: n, chainScoped: false };
-      sawUnavailable = true;
-    } catch (e) {
-      // A 400 is DefiLlama saying the slug is not a protocol; anything else is
-      // an availability problem and must not become "this protocol has no TVL".
-      if (/^HTTP (400|404)$/.test(String((e as Error).message))) sawRefusal = true;
-      else sawUnavailable = true;
-    }
-  }
-  /**
-   * The per-chain read failed but the protocol is still a protocol. The
-   * all-chain total is a true answer to "what is X's TVL", and the sentence
-   * that reports it says it is the all-chain total, so nothing is passed off as
-   * the per-chain figure. Refusing instead would throw away the number we can
-   * get for the sake of the one we cannot.
-   */
-  if (chain && sawUnavailable) {
-    const global = await protocolTvl(name, null);
-    if (global !== null && global !== "unavailable") return global;
-  }
-  return sawRefusal && !sawUnavailable ? null : "unavailable";
-}
-
-export async function chainTvl(chain: string): Promise<{ name: string; usd: number } | null | "unavailable"> {
-  const want = CHAINS[chain]?.llama;
-  if (!want) return null;
-  let rows: Array<{ name: string; tvl: number }>;
-  try {
-    rows = (await getJson("https://api.llama.fi/v2/chains", 6_000)) as Array<{ name: string; tvl: number }>;
-  } catch {
-    return "unavailable";
-  }
-  const hit = rows.find((r) => String(r.name).toLowerCase() === want.toLowerCase() ||
-    (chain === "optimism" && r.name === "OP Mainnet"));
-  if (!hit || !Number.isFinite(hit.tvl)) return null;
-  return { name: hit.name, usd: hit.tvl };
 }
 
 export interface PoolLiquidity {
@@ -496,60 +368,19 @@ export async function lookupTvl(
     };
   }
 
-  if (scope === "chain") {
-    const c = chain ?? "";
-    const r = await chainTvl(c);
-    if (r === "unavailable") {
-      return {
-        ...base, verdict: "unknown", confidence: 0,
-        reason:
-          `The total value locked on ${c || "that chain"} could not be determined because DefiLlama ` +
-          `did not respond. This is an availability problem here, not a statement about the chain.`,
-        error: "provider_unavailable",
-      };
-    }
-    if (!r) {
-      return {
-        ...base, verdict: "not_found", confidence: 0.5,
-        reason:
-          `No total value locked figure is published for "${subject}". Chains this endpoint reads ` +
-          `are ${supportedChains().join(", ")}.`,
-      };
-    }
-    return {
-      ...base, usd: r.usd, verdict: "found", confidence: 0.9,
-      reason:
-        `The ${r.name} chain has ${usd(r.usd)} (${human(r.usd)}) in total value locked across all ` +
-        `DeFi protocols deployed on it, according to DefiLlama. This is the chain's aggregate TVL, ` +
-        `not any single protocol's.`,
-    };
-  }
-
-  const r = await protocolTvl(subject, chain);
-  if (r === "unavailable") {
-    return {
-      ...base, verdict: "unknown", confidence: 0,
-      reason:
-        `The total value locked in ${subject || "that protocol"} could not be determined because ` +
-        `DefiLlama did not respond. This is an availability problem here, not a statement that the ` +
-        `protocol holds nothing.`,
-      error: "provider_unavailable",
-    };
-  }
-  if (!r) {
-    return {
-      ...base, verdict: "not_found", confidence: 0.5,
-      reason:
-        `No TVL for "${subject}"${chain ? ` on ${chain}` : ""} could be resolved on DefiLlama, so no total value locked ` +
-        `figure is reported for it. A different spelling of the protocol's name, or its contract ` +
-        `address if the question is about a token's pool liquidity, would be answerable.`,
-    };
-  }
+  /**
+   * Protocol and chain TVL are not served (GAPS G186). Their only source here was
+   * DefiLlama, whose terms license the site "for personal, non-commercial
+   * purposes" and forbid exploiting its data "for commercial purposes without
+   * prior written consent" (defillama.com/terms, read 2026-10-14). A paid miner
+   * serving those figures is that use, so the answer says why none is given.
+   */
   return {
-    ...base, chain: r.chainScoped ? chain : null, usd: r.usd, verdict: "found", confidence: 0.9,
+    ...base, verdict: "unknown", confidence: 0, error: "not_licensed",
     reason:
-      `The ${subject} protocol has ${usd(r.usd)} (${human(r.usd)}) in total value locked, ` +
-      `${r.chainScoped ? `on ${chain}` : "aggregated across every chain it is deployed on"}, according to DefiLlama. This is value ` +
-      `locked in the protocol, not the market capitalisation of its token.`,
+      `No total value locked figure is given for ${subject || (scope === "chain" ? "that chain" : "that protocol")}: the ` +
+      `source this service would read it from, DefiLlama, does not license its data for commercial use, and ` +
+      `this is a paid service. A token's own DEX pool liquidity is still answered: name its contract address ` +
+      `and chain.`,
   };
 }

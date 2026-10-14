@@ -408,28 +408,12 @@ const CHECKS = {
     const liq = dollars(tr)[0];
     if (!(liq > 1e6 && liq < 5e10)) bad.push(`pool liquidity ${liq} is outside a plausible range`);
 
-    const prot = await get("/tvl", { query: "What is the total value locked in the Aave protocol right now?" });
-    if (!prot.body.error) {
-      const pr = String(prot.body.reason ?? "");
-      if (prot.body.verdict !== "found") bad.push(`Aave -> ${prot.body.verdict}, want found`);
-      if (!/Aave protocol has/i.test(pr)) bad.push("Aave not answered as a protocol lookup");
-      if (!/aggregated across every chain/i.test(pr)) bad.push("protocol answer does not state its aggregation scope");
-      if (!/DefiLlama/.test(pr)) bad.push("protocol answer does not attribute its source");
-      if (!(dollars(pr)[0] > 1e8)) bad.push(`Aave TVL ${dollars(pr)[0]} is implausibly small`);
-    }
-
-    const chain = await get("/tvl", { query: "How much TVL is on the Base chain?" });
-    if (!chain.body.error) {
-      const cr = String(chain.body.reason ?? "");
-      if (!/Base chain has/i.test(cr)) bad.push("Base not answered as a chain lookup");
-      if (!/aggregate TVL/i.test(cr)) bad.push("chain answer does not state it is the chain aggregate");
-    }
-
-    // A protocol named alongside a chain is still a protocol question. Reading
-    // the chain word as the subject answers something else entirely.
-    const both = await get("/tvl", { query: "What is Aave's TVL on Base?" });
-    if (!both.body.error && !/Aave protocol has/i.test(String(both.body.reason ?? ""))) {
-      bad.push("a protocol question naming a chain was answered as a chain question");
+    // Protocol and chain TVL are refused (GAPS G186): DefiLlama's terms do not
+    // allow commercial use. Each scope must still be recognised, and refused by name.
+    for (const query of ["What is the total value locked in the Aave protocol right now?", "How much TVL is on the Base chain?", "What is Aave's TVL on Base?"]) {
+      const r = await get("/tvl", { query });
+      if (r.body.error !== "not_licensed") bad.push(`${query} -> ${r.body.error ?? r.body.verdict}, want not_licensed`);
+      if (dollars(String(r.body.reason ?? "")).length) bad.push(`${query} was given a dollar figure`);
     }
 
     // A question with no identifiable subject must be refused, not answered

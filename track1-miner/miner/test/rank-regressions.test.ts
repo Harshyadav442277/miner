@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { lookupTransaction, resolveChain, toCoin } from "../src/onchain";
 import { lookupGame, parseDate } from "../src/gameresult";
 import { dateWindow, findPapers } from "../src/papers";
-import { lookupTvl, protocolTvl, resolveChain as tvlChain, poolLiquidity } from "../src/tvl";
+import { resolveChain as tvlChain, poolLiquidity } from "../src/tvl";
 import { lookupCve } from "../src/cve";
 import { programAnswer } from "../src/cve-program";
 import { handleRequest } from "../src/handler";
@@ -153,19 +153,12 @@ test("rank regression: an academic retry preserves the requested publication win
   });
 });
 
-test("rank regression: TVL uses the named L2 and its protocol subtotal", async () => {
+test("rank regression: TVL reads the named L2", () => {
   assert.equal(tvlChain("", "Aave TVL on Base mainnet"), "base");
-  await withFetch((async () => json({ currentChainTvls: { Ethereum: 1000, Base: 42, "Base-borrowed": 99 } })) as typeof fetch, async () => {
-    const r = await lookupTvl("protocol", "Aave", "base");
-    assert.equal(r.usd, 42);
-    assert.match(r.reason, /on base/);
-    assert.doesNotMatch(r.reason, /across every chain/);
-  });
 });
 
 test("rank regression: TVL rate limits remain unknown instead of not-found", async () => {
   await withFetch((async () => new Response("rate limited", { status: 429 })) as typeof fetch, async () => {
-    assert.equal(await protocolTvl("Aave"), "unavailable");
     assert.equal(await poolLiquidity("0x" + "d".repeat(40), "base"), "unavailable");
   });
 });
