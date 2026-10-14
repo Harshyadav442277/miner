@@ -66,7 +66,7 @@ export function suppliedContext(text: string): { context: string; question: stri
   return null;
 }
 
-const STOP = new Set("a an the of in on at to for and or is are was were be been what who whom whose when where why how which does do did can could should would will with by from about as that this these those it its into than then there their they".split(" "));
+const STOP = new Set("a an the of in on at to for and or is are was were be been what who whom whose when where why how which does do did can could should would will with by from about as that this these those it its into than then there their they have has had many much get got".split(" "));
 const words = (s: string): string[] => String(s).toLowerCase().match(/[a-z0-9]+/g)?.filter((w) => !STOP.has(w)) ?? [];
 
 /**
@@ -92,6 +92,20 @@ export const normaliseCitations = (s: string): string =>
     .replace(/([.!?])\s*((?:\[\d+\]\s*)+)/g, (_m, stop: string, cites: string) => ` ${cites.replace(/\s+/g, "")}${stop} `)
     .replace(/\s+/g, " ").trim();
 
+/**
+ * Half a point for a sentence of the kind the question asks for: a number for
+ * "how many", a year for "when", a capitalised name for "who". Without it "How
+ * many moons does Mars have?" quoted a sentence about the moons' origin
+ * (2026-10-14) over "The two moons of Mars are Phobos and Deimos."
+ */
+function cueBonus(question: string, sentence: string): number {
+  const q = question.toLowerCase();
+  if (/\bhow\s+(?:many|much)\b/.test(q)) return /\b(?:\d[\d,.]*|one|two|three|four|five|six|seven|eight|nine|ten|dozen|hundred|thousand|million|billion)\b/i.test(sentence) ? 0.5 : 0;
+  if (/^\s*when\b|\bwhat\s+year\b/.test(q)) return /\b(?:1[0-9]|20)\d{2}\b/.test(sentence) ? 0.5 : 0;
+  if (/^\s*who\b/.test(q)) return /\b[A-Z][a-z]+\s+[A-Z][a-z]+\b/.test(sentence) ? 0.5 : 0;
+  return 0;
+}
+
 /** The sentence in the sources that shares most words with the question. Pure. */
 export function bestSentence(question: string, sources: Source[]): { sentence: string; n: number } | null {
   const want = new Set(words(question));
@@ -105,7 +119,7 @@ export function bestSentence(question: string, sources: Source[]): { sentence: s
     for (const sentence of sentences(s.text)) {
       const has = new Set(words(sentence));
       if (!numbers.every((n) => has.has(n))) continue;
-      const score = [...want].filter((w) => has.has(w)).length;
+      const score = [...want].filter((w) => has.has(w)).length + cueBonus(question, sentence);
       if (score > (best?.score ?? 0)) best = { sentence: sentence.trim(), n: s.n, score };
     }
   }

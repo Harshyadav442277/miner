@@ -27,6 +27,12 @@ test("a reply is kept only when every claim cites a source that exists", () => {
 
 const src = (n: number, title: string, text: string): Source => ({ n, title, url: null, kind: "Wikipedia", text });
 
+test("the extractive answer prefers the sentence of the kind asked for", () => {
+  const mars = [src(1, "Moons of Mars", "The two moons of Mars are Phobos and Deimos. They are irregular in shape. " +
+    "Two major hypotheses have emerged as to the origin of the moons: the first suggests that they originated from Mars itself.")];
+  assert.equal(bestSentence("How many moons does Mars have?", mars)?.sentence, "The two moons of Mars are Phobos and Deimos.");
+});
+
 test("the extractive answer needs the question's numbers and half its words", () => {
   const sources = [src(1, "2030 FIFA World Cup", "The 2030 FIFA World Cup is scheduled to be the 24th FIFA World Cup."),
     src(2, "2022 FIFA World Cup", "Argentina won the 2022 FIFA World Cup final against France in Qatar.")];
