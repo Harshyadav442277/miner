@@ -847,7 +847,8 @@ endpoints:
       A safe or unsafe verdict on one URL, with the evidence behind it named.
       The host is resolved through Cloudflare's malware-and-phishing filtering
       resolver and compared with an unfiltered resolver, so a block is reported
-      only when the filter answers 0.0.0.0 for a name that really resolves; the
+      only when the filter answers 0.0.0.0 for a name that really resolves; Quad9
+      threat-blocking DNS is compared with its unfiltered resolver the same way; the
       host and exact URL are looked up in URLhaus's current malware lists; the TLS
       certificate is inspected; and the redirect chain is walked hop by hop, each
       hop checked to be a public address before it is contacted. A listing makes
@@ -1289,6 +1290,37 @@ endpoints:
             intents: ["*"]
             description: "The user's original question, verbatim."
 
+  - path: /url-reputation
+    external_path: /url-reputation
+    method: GET
+    intents: [URL_SAFE]
+    description: >-
+      Whether a URL or domain is listed as malicious, and by which sources, read
+      live from three keyless threat sources: Cloudflare security DNS and Quad9
+      threat-blocking DNS (each compared with an unfiltered resolver, so a block is
+      reported only for a name that really resolves) and abuse.ch URLhaus, matched
+      on the exact URL and on the host. Example questions: "Check
+      https://login-secure-update.example.com against threat feeds and DNS
+      blocklists: is it listed for phishing, and by which engines?", "Is
+      malware.testcategory.com on any blocklist?". Returns verdict, listed (true,
+      false, or null when a source did not answer), sources (each with source,
+      kind, result listed, not_listed, unknown, unavailable or not_applicable, and
+      whether URLhaus matched the exact URL or the host), flagged_by, and the
+      underlying checks: TLS certificate, lookalike markers, whether the host
+      resolves, redirect count and final URL. A clean listing is never called
+      proof of safety.
+    params:
+      query:
+        optional:
+          - name: url
+            type: string
+            intents: ["*"]
+            description: "The URL or domain to check, e.g. https://login-secure-update.example.com. Read from the question when absent."
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim."
+
 semantics:
   signal_mapping:
     label_field: verdict
@@ -1336,6 +1368,7 @@ semantics:
     - REGULATORY_FILING_MONITOR
     - CRYPTO_TRANSFER_VERIFY
     - MACRO_ECONOMIC_INDICATOR
+    - URL_SAFE
 
 # input_schema is a single top-level block covering every endpoint — the schema
 # refuses it inside endpoints[], and the node does not enforce it against requests.

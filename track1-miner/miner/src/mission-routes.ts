@@ -10,6 +10,7 @@ import { monitorFilings } from "./filings";
 import { macroIndicators } from "./macro";
 import { lookupRegistry } from "./registry";
 import { screenSanctions } from "./sanctions";
+import { urlReputation } from "./urlsafe";
 
 export interface MissionAnswer { verdict: string; confidence: number; reason: string; error?: string }
 
@@ -42,5 +43,10 @@ export const MISSION_ROUTES: Record<string, MissionRoute> = {
     what: "A macroeconomic statistic lookup",
     params: ["indicator", "country"],
     run: (q, p) => macroIndicators(q, p("indicator"), p("country")),
+  },
+  "/url-reputation": {
+    what: "A threat-list check",
+    params: ["url"],
+    run: (q, p) => urlReputation(q, p("url")),
   },
 };
