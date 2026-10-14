@@ -29,9 +29,35 @@ Evidence: `track1-miner/docs/evidence/season2-release-2026-10-14/`.
 - Integration guide rewritten. GAPS G189–G193.
 - Plan status: SEASON2_PLAN "Next actions".
 
-**Next action:**
-1. Rewrite the 32 older endpoint descriptions as example questions plus returned fields.
-2. Then `updateMiner` prep: **push needs the owner's yes**, then hash, sandbox, and the owner signs.
+**Update 05:50 UTC — manifest ready to sign, validator green.**
+- Every endpoint description now opens with example questions and the fields it returns. All 61
+  examples were answered by production (`manifest-examples.txt`).
+- `manifest-diff` PASS against the registered `94bbb04`: 36 → 43 intents.
+- `POST integrate.telegraphprotocol.com/api/validate`: `valid: true`, 42/42 endpoints answered, no key
+  stored (`integrate-validate.json`).
+- Six Season II X drafts are in `docs/X_POSTS.md` §6, not posted. Recipes are in
+  `docs/INTEGRATE_LIVECERT.md`. Facts are in TELEGRAPH_FACTS (last section).
+
+**Next action (owner):**
+1. **Yes to push** `codex/rank1-14-intents` (51+ commits) to origin. The pinned YAML URL must exist on
+   GitHub.
+2. After the push, compare the hash against the HOSTED bytes, as `tools/sign-update.sh` does:
+   `curl -sL https://raw.githubusercontent.com/Harshyadav442277/miner/<pushed sha>/track1-miner/miner.yaml | sha256sum`
+   must equal `4bc7011c38d29fd4b96532f4e189b18b7a3335bcfd6203cd6b24e72bfab60ef0`. That holds while
+   miner.yaml is unchanged since `f67834d`.
+3. Owner signs `updateMiner` in the console with:
+   - that URL;
+   - hash `0x4bc7011c38d29fd4b96532f4e189b18b7a3335bcfd6203cd6b24e72bfab60ef0`;
+   - REQUIRES API KEY off.
+4. After it is mined:
+   - Find the new registration id (it replaces 2750; ids are sparse).
+   - Move the `REGISTRATION_ID` repo variable and the tool defaults.
+   - Run `watch.mjs` (`--once` goes last).
+5. Owner decisions:
+   - Deregister TVL_LOOKUP or keep its token scope (G186).
+   - G189: the data-source terms are unread (Yahoo, CoinGecko and others).
+   - Post the X drafts.
+   - Send the organiser questions drafted in `S1_LOSS_ANALYSIS_2026-10-11.md`.
 
 **Authorisation:**
 - Given ("do the leftover work"): build, commit, deploy preview and production.
