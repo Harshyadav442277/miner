@@ -7,6 +7,7 @@
  * in-flight sharing as every other route.
  */
 import { monitorFilings } from "./filings";
+import { macroIndicators } from "./macro";
 import { lookupRegistry } from "./registry";
 import { screenSanctions } from "./sanctions";
 
@@ -36,5 +37,10 @@ export const MISSION_ROUTES: Record<string, MissionRoute> = {
     what: "An SEC filing check",
     params: ["company", "form"],
     run: (q, p) => monitorFilings(q, p("company"), p("form")),
+  },
+  "/macro": {
+    what: "A macroeconomic statistic lookup",
+    params: ["indicator", "country"],
+    run: (q, p) => macroIndicators(q, p("indicator"), p("country")),
   },
 };

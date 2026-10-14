@@ -1252,6 +1252,43 @@ endpoints:
             intents: ["*"]
             description: "The user's original question, verbatim. The hash and chain are read from it when the parameters are absent."
 
+  - path: /macro
+    external_path: /macro
+    method: GET
+    intents: [MACRO_ECONOMIC_INDICATOR]
+    description: >-
+      The latest released value of a macroeconomic statistic, read from the agency
+      that publishes it. Example questions: "What was the latest US CPI
+      year-over-year print, and what is the current federal funds target range?",
+      "What is euro area inflation and the ECB deposit rate?", "What is the
+      unemployment rate in Germany?", "What was Japan's GDP growth last year?".
+      US CPI, core CPI and unemployment come from the Bureau of Labor Statistics,
+      monthly, with CPI computed year on year from the index; the federal funds
+      target range and effective rate from the New York Fed, daily; euro area and
+      EU inflation (HICP) and unemployment from Eurostat, monthly; ECB deposit and
+      main refinancing rates from the ECB, daily; other countries' inflation,
+      unemployment and GDP from the World Bank, annual and labelled annual. Returns
+      verdict (reported, not_covered or unknown), region and indicators, each with
+      value (and value_high for a range), unit, period, frequency, series id,
+      source and source_url. Several statistics can be asked for at once. A policy
+      rate outside the US and the euro area is named as not covered rather than
+      replaced by another figure.
+    params:
+      query:
+        optional:
+          - name: indicator
+            type: string
+            intents: ["*"]
+            description: "The statistic, e.g. CPI, core inflation, unemployment, policy rate or GDP growth. Read from the question when absent."
+          - name: country
+            type: string
+            intents: ["*"]
+            description: "Country or region, e.g. US, euro area, Germany or Japan. Read from the question when absent."
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim."
+
 semantics:
   signal_mapping:
     label_field: verdict
@@ -1298,6 +1335,7 @@ semantics:
     - CORPORATE_REGISTRY_LOOKUP
     - REGULATORY_FILING_MONITOR
     - CRYPTO_TRANSFER_VERIFY
+    - MACRO_ECONOMIC_INDICATOR
 
 # input_schema is a single top-level block covering every endpoint — the schema
 # refuses it inside endpoints[], and the node does not enforce it against requests.
@@ -1336,6 +1374,12 @@ input_schema:
     form:
       type: string
       description: SEC form type for a filing check, e.g. 10-Q, 10-K or 8-K.
+    indicator:
+      type: string
+      description: A macroeconomic statistic, e.g. CPI, unemployment, policy rate or GDP growth.
+    country:
+      type: string
+      description: Country or region for a macroeconomic statistic, e.g. US, euro area or Japan.
     domain:
       type: string
       description: >-
