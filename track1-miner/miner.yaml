@@ -19,8 +19,9 @@ description: >-
   Beaufort gusts. Also translation, IP geolocation, sports results, event
   outcomes, text extraction, and authenticity and AI-text checks. Every answer is
   a verdict, a confidence and a plain-language reason, with the figures it was
-  computed from returned as fields beside it. Only the sentiment and classification sentences are phrased by a
-  model, with a keyless fallback; everything else is computed, not generated.
+  computed from returned as fields beside it. Only the question-answering, sentiment and classification sentences are phrased by
+  a model, each with a keyless fallback, and a phrased answer is kept only when every
+  claim cites a numbered source; everything else is computed, not generated.
 base_url: https://miner-wine.vercel.app
 
 endpoints:
@@ -1321,6 +1322,37 @@ endpoints:
             intents: ["*"]
             description: "The user's original question, verbatim."
 
+  - path: /answer
+    external_path: /answer
+    method: GET
+    intents: [QUESTION_ANSWERING]
+    description: >-
+      Answers an open-domain question, or a question about a passage supplied with
+      it, with every factual claim cited to a numbered source. Example questions:
+      "Who won the 2022 FIFA World Cup and where was it held?", "Why is the sky
+      blue?", "Based on the following text: … When did the war end?". Open-domain
+      sources are up to five English Wikipedia article introductions, found by
+      searching the question, its keywords and its subject phrase; a supplied
+      passage is the only source when one is given. A free model phrases the answer
+      from those sources only, and the reply is kept only if every sentence cites a
+      source that exists; otherwise the answer is the source sentence that best
+      matches the question, quoted and cited. Returns verdict (answered,
+      not_in_sources or unknown), method (model_phrased_from_sources or
+      extracted_from_sources), and citations (number, title, URL and kind for each
+      source). When the sources do not contain the answer it says so instead of
+      guessing.
+    params:
+      query:
+        optional:
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The question, verbatim. A passage may be included: \"Context: … Question: …\" or \"Based on the following text: … ?\"."
+          - name: context
+            type: string
+            intents: ["*"]
+            description: "A passage to answer from. When given, it is the only source."
+
 semantics:
   signal_mapping:
     label_field: verdict
@@ -1369,6 +1401,7 @@ semantics:
     - CRYPTO_TRANSFER_VERIFY
     - MACRO_ECONOMIC_INDICATOR
     - URL_SAFE
+    - QUESTION_ANSWERING
 
 # input_schema is a single top-level block covering every endpoint — the schema
 # refuses it inside endpoints[], and the node does not enforce it against requests.

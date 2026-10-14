@@ -7,6 +7,7 @@
  * in-flight sharing as every other route.
  */
 import { monitorFilings } from "./filings";
+import { answerQuestion } from "./qa";
 import { macroIndicators } from "./macro";
 import { lookupRegistry } from "./registry";
 import { screenSanctions } from "./sanctions";
@@ -48,5 +49,10 @@ export const MISSION_ROUTES: Record<string, MissionRoute> = {
     what: "A threat-list check",
     params: ["url"],
     run: (q, p) => urlReputation(q, p("url")),
+  },
+  "/answer": {
+    what: "A cited answer",
+    params: ["context"],
+    run: (q, p) => answerQuestion(q, p("context")),
   },
 };
