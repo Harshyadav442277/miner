@@ -5,23 +5,30 @@ slug: livecert
 protocol: generic
 name: LiveCert — Sourced Answers for Agents
 description: >-
-  Live, sourced answers across 36 intents, each read from a named public source at
-  request time so an agent can check it. Research and verification: web search
-  with dated, attributed reports; fact checks that return the claim, a supported,
-  contradicted or unverified verdict, the source URL and the evidence sentence;
-  academic, clinical and news search. Markets: market capitalisation, 24-hour
-  volume, valuation and ranges for coins, tokens and listed companies, revenue and
-  earnings from the company's 10-K with a computed trailing P/E, prices, exchange
-  rates and DeFi TVL. On-chain: transaction status and effects across EVM chains,
-  wallet balances, gas, token holders and cross-chain state. Security: the TLS
-  certificate a host is serving right now, URL scans, CVE records and fraud
-  signals. Weather: forecasts, current conditions and storm risk graded on
-  Beaufort gusts. Also translation, IP geolocation, sports results, event
-  outcomes, text extraction, and authenticity and AI-text checks. Every answer is
-  a verdict, a confidence and a plain-language reason, with the figures it was
-  computed from returned as fields beside it. Only the question-answering, sentiment and classification sentences are phrased by
-  a model, each with a keyless fallback, and a phrased answer is kept only when every
-  claim cites a numbered source; everything else is computed, not generated.
+  Sourced answers for agents and apps across 43 intents, each read live from a
+  named primary source so the caller can check it. Every answer opens with a
+  one-sentence answer, then returns the values as fields, the source and the time
+  it was checked. Compliance: sanctions screening of people, companies and wallets
+  against the OFAC SDN and UN lists with near-match scores; company register
+  records (status, company number, register, registered address and agent,
+  parents) from GLEIF and SEC EDGAR; SEC filings with acceptance times and each
+  10-Q or 10-K's own XBRL figures; URL reputation from Cloudflare and Quad9 threat
+  DNS and URLhaus, each source named. Research: question answering with every
+  claim cited, web search with dated reports, fact checks with the source URL and
+  evidence sentence, and academic, clinical and news search. Markets: prices and
+  market data for coins, tokens and listed companies, 10-K revenue and earnings,
+  exchange rates, macroeconomic prints (US CPI and unemployment from BLS, the
+  federal funds target range from the New York Fed, euro-area HICP from Eurostat
+  and ECB rates) and DEX pool liquidity for tokens. On-chain: transfer
+  verification with confirmations and the burned base fee, transaction and
+  contract activity across EVM chains, wallet balances, gas, token holders and
+  cross-chain messages. Security: live TLS certificates, URL scans, CVE records
+  and fraud signals. Weather: forecasts, current conditions and storm risk. Also
+  translation, IP geolocation, sports results, event outcomes, text extraction,
+  sentiment, classification and authenticity checks. Only the question-answering,
+  sentiment and classification sentences are phrased by a model, each with a
+  keyless fallback, and a phrased answer is kept only when every claim cites a
+  numbered source; everything else is computed, not generated.
 base_url: https://miner-wine.vercel.app
 
 endpoints:
@@ -340,9 +347,9 @@ endpoints:
       reserve across every pool the token appears in, with the deepest single pool
       and its exchange named from DexScreener; where only DexScreener answers, the
       figure is a sum over its largest listed pools and is reported as a floor
-      rather than a total. A named protocol returns that protocol's TVL aggregated
-      across every chain it is deployed on, from DefiLlama. A named chain returns
-      that chain's aggregate TVL across the protocols deployed on it. Pool
+      rather than a total. A named protocol or chain is recognised but answered with
+      no figure: its TVL source, DefiLlama, does not license its data for commercial
+      use, and the answer says so (error not_licensed). Pool
       liquidity is never reported as market capitalisation, a protocol figure is
       never substituted for a token or chain question, and a provider that does
       not respond is reported as unknown rather than as zero.
