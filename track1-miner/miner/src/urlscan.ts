@@ -29,6 +29,7 @@
  * or phishing"), 3 name nothing ("website safety check", "is this real"), and
  * one names a CVE identifier. The last two classes are refused by name.
  */
+import { quad9Verdict } from "./quad9";
 import { checkCertificate, type SslResult } from "./ssl";
 import {
   dohA, openResolve, redirectChain, SECURITY_RESOLVER, urlhausLists, type DnsAnswer, type Hop,
@@ -55,6 +56,8 @@ export interface UrlScanChecks {
    */
   cloudflare_filter: "blocked" | "passed" | "ambiguous" | "unavailable" | "not_applicable";
   urlhaus: "listed_url" | "listed_host" | "not_listed" | "unavailable";
+  /** Quad9 threat-blocking DNS: blocked is NXDOMAIN while its unfiltered resolver resolves. */
+  quad9_filter: "blocked" | "passed" | "unavailable" | "not_applicable";
   resolves: boolean | null;
   /** ssl.ts's verdict for the host's certificate; null for plain HTTP or no answer. */
   tls: string | null;
@@ -199,6 +202,8 @@ export interface Evidence {
   urlhaus: { host: boolean; url: boolean } | "unavailable";
   hops: Hop[];
   tls: SslResult | null;
+  /** Quad9's threat-blocking resolver (quad9.ts); null or absent for a literal IP. */
+  quad9?: "blocked" | "passed" | "unavailable" | null;
 }
 
 const BAD_TLS = new Set(["expired", "not_yet_valid", "hostname_mismatch", "self_signed", "untrusted"]);
@@ -213,6 +218,7 @@ export function classify(e: Evidence): UrlScanResult {
     cloudflare_filter: sec === null ? "not_applicable" : sec === "unavailable" ? "unavailable" : blocked ? "blocked"
       : sec.ips.includes("0.0.0.0") ? "ambiguous" : "passed",
     urlhaus: e.urlhaus === "unavailable" ? "unavailable" : e.urlhaus.url ? "listed_url" : e.urlhaus.host ? "listed_host" : "not_listed",
+    quad9_filter: e.quad9 ?? "not_applicable",
     resolves: e.open && e.open !== "unavailable" ? e.open.status !== 3 : null,
     tls: e.tls?.verdict ?? null,
     lookalike_markers: lookalikeMarkers(e.url),
@@ -221,6 +227,7 @@ export function classify(e: Evidence): UrlScanResult {
   };
   const flagged_by = [
     checks.cloudflare_filter === "blocked" ? "Cloudflare security DNS" : "",
+    checks.quad9_filter === "blocked" ? "Quad9 threat-blocking DNS" : "",
     checks.urlhaus.startsWith("listed") ? "URLhaus" : "",
   ].filter(Boolean);
   return { ...verdictOf(e), flagged_by, checks };
@@ -238,9 +245,11 @@ function verdictOf(e: Evidence): UrlScanResult {
   const listsDown = e.urlhaus === "unavailable";
   const nx = Boolean(open && open !== "unavailable" && open.status === 3);
 
-  if (blocked || listed) {
+  const quad9Blocked = e.quad9 === "blocked";
+  if (blocked || listed || quad9Blocked) {
     const why: string[] = [];
     if (blocked) why.push(`${host} is blocked as malware or phishing by Cloudflare's threat-filtering resolver, which answers 0.0.0.0 while an unfiltered resolver returns ${openIps[0] ?? "a real address"}`);
+    if (quad9Blocked) why.push(`Quad9's threat-blocking resolver refuses to resolve ${host} while its unfiltered resolver does`);
     if (listed && e.urlhaus !== "unavailable") why.push(e.urlhaus.url ? "URLhaus lists this exact URL as currently serving malware" : `URLhaus lists ${host} as a host currently distributing malware`);
     return { url: e.url.href, verdict: "unsafe", confidence: 0.95, reason: `No, ${shown} is unsafe and should not be clicked: ${why.join("; ")}.` };
   }
@@ -248,12 +257,19 @@ function verdictOf(e: Evidence): UrlScanResult {
   const unchecked = [secDown ? "Cloudflare's threat-filtering resolver did not answer" : "", listsDown ? "the URLhaus lists could not be read" : ""].filter(Boolean);
   // A literal IP is never sent to the resolver (security is null), so the
   // answer does not claim the filter passed it.
-  const checked = [sec && !secDown ? "blocked by Cloudflare's malware and phishing filter" : "", listsDown ? "" : "listed by URLhaus"].filter(Boolean);
-  const notListed = checked.length ? `It is not ${checked.join(" and not ")}` : "No threat list was consulted for it";
+  const checked = [
+    sec && !secDown ? "blocked by Cloudflare's malware and phishing filter" : "",
+    e.quad9 === "passed" ? "blocked by Quad9's threat-blocking resolver" : "",
+    listsDown ? "" : "listed by URLhaus",
+  ].filter(Boolean);
+  const notListed = checked.length ? `It is not ${checked.join(", not ")}` : "No threat list was consulted for it";
+  // Quad9 adds evidence; without it the two original sources still decide, so
+  // its silence is stated rather than turned into an unknown.
+  const quad9Gap = e.quad9 === "unavailable" ? " Quad9's resolver did not answer, so that check is missing." : "";
   const markers = lookalikeMarkers(e.url);
   const tlsBad = e.tls && BAD_TLS.has(e.tls.verdict) ? `its TLS certificate is ${e.tls.verdict.replace(/_/g, " ")}` : "";
   const warnings = [...markers, tlsBad, markers.length && nx ? `${host} does not currently resolve in DNS` : ""].filter(Boolean);
-  const gap = unchecked.length ? ` ${unchecked.join(" and ")}, so that check is missing.` : "";
+  const gap = (unchecked.length ? ` ${unchecked.join(" and ")}, so that check is missing.` : "") + quad9Gap;
 
   if (warnings.length) {
     return {
@@ -297,7 +313,7 @@ function verdictOf(e: Evidence): UrlScanResult {
     : e.tls?.verdict === "valid" ? " It serves a valid TLS certificate that matches the host." : "";
   return {
     url: e.url.href, verdict: "safe", confidence: 0.8,
-    reason: `Yes, ${shown} appears safe to visit. ${notListed}, and no lookalike markers were found.${transport}${silent}${moved}${leftSite} No blocklist can prove a site safe.`,
+    reason: `Yes, ${shown} appears safe to visit. ${notListed}, and no lookalike markers were found.${transport}${silent}${moved}${leftSite}${quad9Gap} No blocklist can prove a site safe.`,
   };
 }
 
@@ -327,12 +343,13 @@ export async function scanUrl(question: string): Promise<UrlScanResult> {
   }
   const literal = /^\d{1,3}(?:\.\d{1,3}){3}$/.test(host) || host.includes(":");
   // Every read at once: chained, they would not fit the route's 11 s watchdog.
-  const [security, open, lists, hops, tls] = await Promise.all([
+  const [security, open, lists, hops, tls, quad9] = await Promise.all([
     literal ? Promise.resolve(null) : dohA(SECURITY_RESOLVER, host),
     literal ? Promise.resolve(null) : openResolve(host),
     urlhausLists(),
     redirectChain(url).catch(() => [] as Hop[]),
     url.protocol === "https:" ? checkCertificate(host, Number(url.port) || 443, 5_000).catch(() => null) : Promise.resolve(null),
+    literal ? Promise.resolve(null) : quad9Verdict(host).catch(() => "unavailable" as const),
   ]);
   const urlhaus = lists === "unavailable" ? "unavailable" as const : {
     host: lists.hosts.has(host.toLowerCase()),
@@ -340,5 +357,5 @@ export async function scanUrl(question: string): Promise<UrlScanResult> {
   };
   // An unreachable certificate is not a bad certificate: ssl.ts reports DNS
   // failure as "unreachable", which is handled as resolution, not as TLS.
-  return classify({ url, security, open, urlhaus, hops, tls: tls && tls.verdict !== "unreachable" ? tls : null });
+  return classify({ url, security, open, urlhaus, hops, tls: tls && tls.verdict !== "unreachable" ? tls : null, quad9 });
 }
