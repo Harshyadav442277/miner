@@ -6,12 +6,41 @@
   defillama.com/terms (read 2026-10-14 ~04:50 UTC): a licence "to access and use the Site for personal,
   non-commercial purposes", and a ban on exploiting "the Content & Data for commercial purposes without
   prior written consent". `/tvl` now refuses protocol and chain scopes with `error: not_licensed` and calls
-  no DeFiLlama URL; token pool liquidity (GeckoTerminal, DexScreener) is still answered. **Owner decision
-  still open:** keep TVL_LOOKUP registered for the token scope, or drop it in the next `updateMiner`.
+  no DeFiLlama URL; token pool liquidity (GeckoTerminal, DexScreener) is still answered. **Decided
+  2026-10-14:** TVL_LOOKUP is dropped (`2e8d1cf`). The owner said "if you find any intent to be not
+  beneficial, you can remove it". The same commit drops TELEGRAPH_KNOWLEDGE, AI_TEXT_DETECTION,
+  TEXT_AUTHENTICITY_CHECK, CONTENT_VERIFICATION, GAME_RESULT and SPORTS_SCORE.
 - **G188 — deployed.** Release `0498678` promoted 2026-10-13 ~18:40 UTC as `miner-q67fqthj7`; production
   answers the Berlin claim `contradicted`. The "picks the article about the claim" live test failed 2/3 on
   Wikipedia ranking drift; fixed by reading 20 candidates (`120f11b`), 3/3 after.
-- **G189 — other data sources' commercial-use terms are unread. `OPEN, UNVERIFIED, owner decision`.**
+- **G189 UPDATE 2026-10-14 ~06:30 UTC — terms read; four sources confirmed non-commercial. `OPEN, owner decision`.**
+  Read from each source's own page that day:
+  - **Open-Meteo:** "You may only use the free API services for non-commercial purposes"
+    (open-meteo.com/en/terms). It serves `/weather-forecast` (WEATHER_FORECAST and WEATHER_CHECK) and
+    `/storm-alert`, our highest-demand intents, plus geocoding.
+  - **Google News RSS:** every feed says it is "made available solely for the purpose of rendering
+    Google News results within a personal feed reader for personal, non-commercial use. Any other use
+    of the feed is expressly prohibited." It serves `/web-search` (7 missions), `/news-search` and
+    `/headlines`.
+  - **Yahoo:** its terms bar automated access and "any commercial purpose". It serves `/stock-price` and
+    the listed-company half of `/financial`.
+  - **BigDataCloud reverse geocoder:** "client-side only"; `storm.ts` calls it from the server.
+  - **MyMemory:** forbids reselling its service "as they are". `/translate` also calls
+    `clients5.google.com`, an unofficial Google Translate endpoint.
+  - **abuse.ch (URLhaus):** commercial users "may require a paid subscription". It serves `/url-scan`,
+    `/url-reputation` and `/fraud-check`.
+
+  **Fine for commercial use, as read:** DexScreener ("both non-commercial and commercial"), ipwho.is
+  ("Commercial use allowed", 1,000/day), Nominatim (ODbL, attribution, light use), Frankfurter.
+  **Licensed alternatives checked:**
+  - MET Norway: NLOD 2.0 / CC BY 4.0, identify via User-Agent. Its forecast had no wind gusts at
+    Chennai, so storm quality would drop.
+  - GDELT: "unlimited and unrestricted use for any academic, commercial, or governmental use", one
+    request per 5 s.
+
+  **Still unread:** CoinGecko (403 to a script), GeckoTerminal, ipinfo, Datamuse, Coinbase, Kraken, ESPN
+  (removed with the sports intents), Groq's free tier.
+- **G189 — other data sources' commercial-use terms are unread. `superseded by the update above`.**
   The G186 problem may repeat. Not checked: Yahoo Finance (stock prices, `/stock-price`, `/financial`),
   CoinGecko (`/crypto-price`, `/financial`), GeckoTerminal and DexScreener (`/tvl` token pools), Kraken and
   Coinbase public tickers, ip-api, Open-Meteo, URLhaus (abuse.ch), Blockscout and Routescan, Polymarket and

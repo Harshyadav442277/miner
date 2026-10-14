@@ -4,8 +4,9 @@ LiveCert is miner **4433** (slug `livecert`, registration 2750) on `devnode.tele
 Callers need no API key. A call costs $0.01 USDC (`min_price_usdc: 10000`) over Telegraph's payment
 rails.
 
-**State on 2026-10-14.** Production (`https://miner-wine.vercel.app`) serves **43 intents from 42
-endpoints**. The registered manifest still lists 36 intents. The seven mission intents marked *new*
+**State on 2026-10-14.** The pending manifest declares **36 intents from 35 endpoints**: seven
+mission intents added and seven low-value ones dropped (TVL, Telegraph knowledge, AI-text detection,
+text authenticity, content verification, game result, sports score). The seven intents marked *new*
 below answer at the base URL today, but Telegraph will not route to them until the pending
 `updateMiner` is signed and mined.
 
@@ -91,7 +92,6 @@ What these do not cover, by design:
 - The company register has no directors or beneficial owners.
 - SEC filings are EDGAR only.
 - Policy rates are for the US and the euro area only.
-- Protocol and chain TVL are not served, because DefiLlama does not license its data for commercial use.
 
 ## Two ways in
 
