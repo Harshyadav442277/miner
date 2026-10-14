@@ -62,7 +62,7 @@ export const ENDPOINTS: readonly string[] = [
   "/ssl-check", "/storm-alert", "/weather-forecast",
   "/ip-geolocate", "/translate", "/papers",
   "/ai-detect", "/extract", "/headlines", "/wallet-balance",
-  "/fact-check", "/telegraph", "/tx-lookup", "/cve", "/tvl", "/news-search", "/convert", "/game-result",
+  "/fact-check", "/telegraph", "/tx-lookup", "/transfer-verify", "/cve", "/tvl", "/news-search", "/convert", "/game-result",
   "/gas-price", "/financial", "/fraud-check",
   "/sports-score", "/token-holders", "/research", "/authenticity",
   "/crypto-price", "/stock-price", "/cross-chain", "/event-outcome", "/url-scan", "/web-search", "/content-verify", "/sentiment", "/classify", "/research-synthesis",
@@ -169,6 +169,7 @@ const SUBJECT_OF: Record<string, string> = {
   "/convert": "A currency conversion",
   "/game-result": "A sports fixture result",
   "/gas-price": "A gas price lookup",
+  "/transfer-verify": "A transfer verification",
   "/financial": "A market data lookup",
   "/fraud-check": "A fraud risk assessment",
   "/sports-score": "A live score lookup",
@@ -816,7 +817,9 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     return;
   }
 
-  if (path === "/tx-lookup") {
+  // CRYPTO_TRANSFER_VERIFY is the same read; its own path keeps the registered
+  // /tx-lookup endpoint unchanged (tools/manifest-diff.mjs).
+  if (path === "/tx-lookup" || path === "/transfer-verify") {
     // Structured `hash` and free text are both accepted, and the question is
     // kept alongside the parameter so chain words in the prose are still read.
     // `searchParams.get` is case-sensitive, so the camelCase spellings are

@@ -50,6 +50,8 @@ test("a confirmed contract call returns its facts as fields", async () => {
     symbol: "ETH", block_number: 25700000, block_hash: BLOCK_HASH, receipt_status: "success",
     method: "settleFields", method_selector: "0x1a2b3c4d", contract_created: null, token_transfers: 1,
     gas_used: "650475", fee_wei: (650475n * 0x7a86ba0n).toString(),
+    // The stub answers no head or block read, and a miss is null, never zero.
+    confirmations: null, base_fee_wei: null, base_fee_burned: null,
   });
 });
 
@@ -70,4 +72,28 @@ test("wei converts to an exact decimal amount", () => {
   assert.equal(weiToDecimal(31337n), "0.000000000000031337");
   assert.equal(weiToDecimal(10n ** 18n), "1");
   assert.equal(weiToDecimal(0n), "0");
+});
+
+test("confirmations and the burned base fee are read from the chain head and the block (CRYPTO_TRANSFER_VERIFY)", async () => {
+  const original = globalThis.fetch;
+  const json = (body: unknown) => new Response(JSON.stringify(body), { status: 200, headers: { "content-type": "application/json" } });
+  globalThis.fetch = (async (input: unknown, init?: { body?: string }) => {
+    const url = String(input);
+    if (url.includes("openchain.xyz") || url.includes("4byte.directory")) throw new Error("offline");
+    const method = JSON.parse(String(init?.body ?? "{}")).method;
+    const result = method === "eth_getTransactionByHash" ? tx({ input: "0x" })
+      : method === "eth_blockNumber" ? "0x18826a9" // nine blocks later
+      : method === "eth_getBlockByNumber" ? { baseFeePerGas: "0x3b9aca00" } // 1 Gwei
+      : OK;
+    return json({ jsonrpc: "2.0", id: 1, result });
+  }) as typeof globalThis.fetch;
+  try {
+    const r = await lookupTransaction(HASH, "ethereum");
+    assert.equal(r.transaction?.confirmations, 10);
+    assert.equal(r.transaction?.base_fee_wei, (650475n * 1_000_000_000n).toString());
+    assert.equal(r.transaction?.base_fee_burned, true);
+    assert.match(r.reason, /It has 10 confirmations\. It paid a fee of [0-9.]+ ETH, of which 0\.000650475 ETH was base fee burned\./);
+  } finally {
+    globalThis.fetch = original;
+  }
 });

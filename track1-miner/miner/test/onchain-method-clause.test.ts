@@ -73,7 +73,7 @@ test("a successful contract call names the method its selector decodes to", asyn
   assert.equal(
     reason,
     `Transaction ${HASH} on ethereum succeeded in block 25700000. It moved 0 ETH from ${FROM} ` +
-    `to ${TO} and called bridgeERC20To.`,
+    `to ${TO} and called bridgeERC20To. It paid a fee of 0.0000835717999032 ETH.`,
   );
 });
 
@@ -123,12 +123,15 @@ test("a contract creation is not decoded as a function call", async () => {
   assert.doesNotMatch(reason, /called/);
 });
 
-test("the answer states the block plainly and carries no gas, fee or gas-price figure", async () => {
+// Season II reversed the Season I rule of no fee in the answer: CRYPTO_TRANSFER_VERIFY
+// asks for the fee by name. The gas price and gas used stay in the fields.
+test("the answer states the block plainly and the fee once, with no gas or gas-price figure", async () => {
   const reason = await reasonFor(tx({ input: `0x540abf73${"00".repeat(64)}` }), OK,
     { openchain: "bridgeERC20To(address,address,address,uint256,uint32,bytes)" });
   assert.match(reason, /in block 25700000\./);
   assert.doesNotMatch(reason, /25,700,000/);
-  assert.doesNotMatch(reason, /gas|fee|Gwei/);
+  assert.match(reason, /It paid a fee of [\d.]+ ETH\.$/);
+  assert.doesNotMatch(reason, /\bgas\b|Gwei/);
 });
 
 test("a receipt with no status flag reports the block plainly and claims no gas figure", async () => {

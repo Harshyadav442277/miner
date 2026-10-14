@@ -252,12 +252,20 @@ endpoints:
     method: GET
     intents: [ONCHAIN_TX_LOOKUP]
     description: >-
-      On-chain activity, asked about a transaction or about an address. A
+      On-chain activity, asked about a transaction or about an address. Example
+      questions: "Did transaction 0x… succeed, and who sent it to whom?", "When was
+      contract 0x… deployed and how many transactions does it have?". For a
+      transaction it returns verdict and a transaction object with status, from,
+      to, value_wei, value, symbol, block_number, block_hash, receipt_status,
+      method, gas_used, fee_wei, confirmations, base_fee_wei and base_fee_burned,
+      which is true on Ethereum and Polygon, where the EIP-1559 base fee is burned,
+      and false on rollups, where it is paid to the sequencer. A
       transaction is read by hash from public JSON-RPC on Ethereum, Base, Arbitrum,
       Optimism, Polygon, BNB Chain or Avalanche; where no chain is named every one
       of them is searched rather than one being assumed. It reports confirmed,
       reverted, pending or not found, with the sender and recipient, value moved,
-      total fee, gas used and effective gas price, block number, any contract
+      total fee, the base fee and whether it was burned, confirmations, gas used,
+      block number, any contract
       deployed and the count of ERC-20 transfers in the receipt. An address is
       answered from the chain and its block explorer on Ethereum, Base, Arbitrum,
       Optimism or Polygon: whether it is a contract, an externally owned account,
@@ -1211,6 +1219,39 @@ endpoints:
             intents: ["*"]
             description: "The user's original question, verbatim. A window such as \"in the last 30 days\" or \"since 2026-09-01\" is read from it."
 
+  - path: /transfer-verify
+    external_path: /transfer-verify
+    method: GET
+    intents: [CRYPTO_TRANSFER_VERIFY]
+    description: >-
+      Verifies one on-chain transfer by hash, read from public JSON-RPC on
+      Ethereum, Base, Arbitrum, Optimism, Polygon, BNB Chain or Avalanche, with
+      every chain searched when none is named. Example questions: "Verify transfer
+      0x…: did it succeed, who sent it to whom, how much fee was burned and how
+      many confirmations does it have?". Returns verdict (confirmed, reverted,
+      pending, not_found or unknown) and a transaction object with status, from,
+      to, value_wei, value, symbol, block_number, block_hash, receipt_status,
+      method, gas_used, fee_wei, confirmations, base_fee_wei and base_fee_burned:
+      true on Ethereum and Polygon, where the EIP-1559 base fee is burned, false
+      on rollups, where it is paid to the sequencer, and null before London or
+      when the block could not be read. Confirmations are counted from the chain
+      head at the time of the answer.
+    params:
+      query:
+        optional:
+          - name: hash
+            type: string
+            intents: ["*"]
+            description: "The 32-byte transaction hash, 0x followed by 64 hex characters."
+          - name: chain
+            type: string
+            intents: ["*"]
+            description: "ethereum, base, arbitrum, optimism, polygon, bsc or avalanche. Every chain is searched when absent."
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim. The hash and chain are read from it when the parameters are absent."
+
 semantics:
   signal_mapping:
     label_field: verdict
@@ -1256,6 +1297,7 @@ semantics:
     - SANCTIONS_SCREENING_MATCH
     - CORPORATE_REGISTRY_LOOKUP
     - REGULATORY_FILING_MONITOR
+    - CRYPTO_TRANSFER_VERIFY
 
 # input_schema is a single top-level block covering every endpoint — the schema
 # refuses it inside endpoints[], and the node does not enforce it against requests.

@@ -246,6 +246,12 @@ export interface TxFields {
   token_transfers: number | null;
   gas_used: string | null;
   fee_wei: string | null;
+  /** Blocks on top of the transaction's, its own included; null when the head could not be read. */
+  confirmations: number | null;
+  /** The block's EIP-1559 base fee times gas used; null before London or when unread. */
+  base_fee_wei: string | null;
+  /** Whether that base fee was burned: on Ethereum and Polygon PoS, not on rollups, where it goes to the sequencer. */
+  base_fee_burned: boolean | null;
 }
 
 export interface TxResult {
@@ -422,6 +428,36 @@ export async function transactionParties(hash: string, question: string): Promis
     return { chain, from: raw.from!.toLowerCase(), to: raw.to?.toLowerCase() ?? null };
   }));
   try { return await Promise.any(reads); } catch { return null; }
+}
+
+/** Chains whose EIP-1559 base fee is burned. On OP-stack chains and Arbitrum it is paid to the sequencer. */
+const BURNS_BASE_FEE = new Set(["ethereum", "polygon"]);
+
+/**
+ * The chain head and the transaction block's base fee, for CRYPTO_TRANSFER_VERIFY's
+ * confirmations and fee burn. Each endpoint is tried in turn; a miss is null,
+ * never zero, because "0 confirmations" and "nothing burned" are claims.
+ */
+async function headAndBaseFee(chain: string, blockHex: string, budgetMs: number): Promise<{ head: number | null; baseFee: bigint | null }> {
+  const deadline = Date.now() + Math.max(0, budgetMs);
+  const first = async <T>(method: string, params: unknown[], read: (r: unknown) => T | null): Promise<T | null> => {
+    for (const url of RPCS[chain] ?? []) {
+      if (Date.now() >= deadline) return null;
+      try {
+        const v = read(await rpc(url, method, params));
+        if (v !== null) return v;
+      } catch { /* the next endpoint */ }
+    }
+    return null;
+  };
+  const [head, baseFee] = await Promise.all([
+    first("eth_blockNumber", [], (r) => typeof r === "string" ? Number(BigInt(r)) : null),
+    first("eth_getBlockByNumber", [blockHex, false], (r) => {
+      const b = (r as { baseFeePerGas?: string } | null)?.baseFeePerGas;
+      return typeof b === "string" ? BigInt(b) : null;
+    }),
+  ]);
+  return { head, baseFee };
 }
 
 async function rpc(url: string, method: string, params: unknown[]): Promise<unknown> {
@@ -648,7 +684,8 @@ export async function lookupTransaction(
       value_wei: wei.toString(), value: weiToDecimal(wei), symbol: coin,
       block_number: tx!.blockNumber === null ? null : Number(BigInt(tx!.blockNumber)),
       block_hash: tx!.blockHash ?? null, receipt_status: null, method: null, method_selector: null,
-      contract_created: null, token_transfers: null, gas_used: null, fee_wei: null, ...rest,
+      contract_created: null, token_transfers: null, gas_used: null, fee_wei: null,
+      confirmations: null, base_fee_wei: null, base_fee_burned: null, ...rest,
     };
   };
 
@@ -747,10 +784,20 @@ export async function lookupTransaction(
   // budget and whatever is left of the 8.5 s allowance, so however slow the RPC
   // candidates were it cannot push the answer into the handler's 11 s watchdog;
   // a non-positive budget skips the lookup and writes the selector instead.
-  const called = await methodOf(tx, Math.min(SELECTOR_BUDGET_MS, SELECTOR_DEADLINE_MS - (Date.now() - started)));
+  const budget = Math.min(SELECTOR_BUDGET_MS, SELECTOR_DEADLINE_MS - (Date.now() - started));
+  const [called, chainState] = await Promise.all([methodOf(tx, budget), headAndBaseFee(searched, tx.blockNumber, budget)]);
   const method = methodClause(called);
   const gasUsed = receipt.gasUsed ? BigInt(receipt.gasUsed) : null;
   const price = receipt.effectiveGasPrice ?? tx.gasPrice;
+  // Season II: the scorer no longer decides the wording (SEASON2_PLAN), and
+  // CRYPTO_TRANSFER_VERIFY asks for confirmations and the fee burn by name.
+  const fee = gasUsed !== null && price ? gasUsed * BigInt(price) : null;
+  const baseFee = gasUsed !== null && chainState.baseFee !== null ? gasUsed * chainState.baseFee : null;
+  const confirmations = chainState.head === null ? null : Math.max(0, chainState.head - block + 1);
+  const settlement = (confirmations === null ? "" : ` It has ${confirmations.toLocaleString("en-US")} confirmation${confirmations === 1 ? "" : "s"}.`) +
+    (fee === null ? "" : ` It paid a fee of ${toCoin(fee, coin)}` +
+      (baseFee === null ? "" : BURNS_BASE_FEE.has(searched)
+        ? `, of which ${toCoin(baseFee, coin)} was base fee burned` : `, of which ${toCoin(baseFee, coin)} was base fee paid to the sequencer, not burned`) + ".");
 
   /**
    * Fact order matters, and it is measured rather than stylistic.
@@ -800,7 +847,7 @@ export async function lookupTransaction(
       `${succeeded ? "succeeded" : "failed and was reverted"} in block ${block}. ` +
       `It ${succeeded ? "moved" : "attempted to move"} ${value} from ${short(tx.from)}` +
       `${tx.to ? ` to ${short(tx.to)}` : " to a new contract"}${method}.` +
-      `${created}${erc20}` +
+      `${created}${erc20}${settlement}` +
       `${statusNote}` +
       `${succeeded ? "" : " A reverted transaction still consumes its gas; the value transfer did not occur."}` +
       `${note}`,
@@ -811,7 +858,10 @@ export async function lookupTransaction(
       contract_created: receipt.contractAddress?.toLowerCase() ?? null,
       token_transfers: transfers,
       gas_used: gasUsed === null ? null : gasUsed.toString(),
-      fee_wei: gasUsed === null || !price ? null : (gasUsed * BigInt(price)).toString(),
+      fee_wei: fee === null ? null : fee.toString(),
+      confirmations,
+      base_fee_wei: baseFee === null ? null : baseFee.toString(),
+      base_fee_burned: chainState.baseFee === null ? null : BURNS_BASE_FEE.has(searched),
     }),
   };
 }
