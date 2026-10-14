@@ -1,65 +1,97 @@
 # Call LiveCert from an app
 
-LiveCert is miner **4433** (slug `livecert`, registration 2750) on `devnode.telegraphprotocol.com`. It
-serves **36 intents from 35 endpoints**, and callers need no API key. A call costs $0.01 USDC (`min_price_usdc: 10000`)
-over Telegraph's payment rails. Every answer is HTTP 200 with at least:
+LiveCert is miner **4433** (slug `livecert`, registration 2750) on `devnode.telegraphprotocol.com`.
+Callers need no API key. A call costs $0.01 USDC (`min_price_usdc: 10000`) over Telegraph's payment
+rails.
+
+**State on 2026-10-14.** Production (`https://miner-wine.vercel.app`) serves **43 intents from 42
+endpoints**. The registered manifest still lists 36 intents. The seven mission intents marked *new*
+below answer at the base URL today, but Telegraph will not route to them until the pending
+`updateMiner` is signed and mined.
+
+## Every answer has the same shape
+
+HTTP 200, with the answer first and the values as fields:
 
 ```json
-{ "verdict": "financial_data", "confidence": 0.9, "reason": "one paragraph that answers the question" }
+{
+  "answer": "Potential match: \"Kim Jong Un\" matches KIM, Jong Un on the OFAC SDN list (DPRK3, individual, born 1984, reference 20157), score 1.",
+  "verdict": "match",
+  "confidence": 0.97,
+  "matches": [{ "list": "OFAC SDN", "id": "20157", "score": 1, "url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=20157" }],
+  "reason": "the full sentence-by-sentence answer, with its sources",
+  "checked_at": "2026-10-14T05:20:11.000Z"
+}
 ```
 
-`reason` is the answer in prose. `verdict` is a short machine label and `confidence` runs from 0 to 1.
-An answer that could not be produced carries `confidence: 0` and an `error` code, and never a
-made-up figure.
+- `answer` is one sentence an app can show as is.
+- `verdict` is a machine label.
+- `confidence` runs from 0 to 1.
+- `reason` is the full answer, naming its sources.
+- `checked_at` is when the answer was computed.
+
+An answer that could not be produced carries `confidence: 0` and an `error` code (`upstream_unavailable`,
+`no_subject`, `list_unavailable`, `not_licensed`, …), and never a made-up figure.
 
 ## Intents that Season II missions buy
 
-From the fifteen mission pages at hackathon.telegraphprotocol.com/missions (counted 2026-10-10):
+Mission counts are from the fifteen mission pages at hackathon.telegraphprotocol.com/missions (counted
+2026-10-10).
 
-| Intent | Missions | Endpoint | Required | Optional |
+| Intent | Missions | Endpoint | Send | Key fields back |
 |---|---:|---|---|---|
-| WEB_SEARCH | 7 | `/web-search` | `query` | `topic` |
-| FACT_CHECK | 4 | `/fact-check` | `claim` | `query` |
-| FINANCIAL_DATA | 4 | `/financial` | — | `address`, `symbol`, `query` |
-| CRYPTO_PRICE | 2 | `/crypto-price` | — | `symbol`, `query` |
-| CONTENT_EXTRACTION | 2 | `/extract` | `text` | `query` |
-| WEATHER_CHECK | 2 | `/weather-forecast` with `hours=0` | — | `location`, `lat`, `lon`, `days`, `hours`, `query` |
-| EVENT_OUTCOME_RESOLUTION | 2 | `/event-outcome` | — | `event`, `query` |
-| CROSS_CHAIN_STATE_VERIFY | 2 | `/cross-chain` | — | `tx_hash`, `source_chain`, `destination_chain`, `query` |
-| TEXT_CLASSIFICATION | 2 | `/classify` | — | `text`, `labels`, `query` |
-| STOCK_PRICE | 1 | `/stock-price` | — | `symbol`, `query` |
-| GAS_PRICE | 1 | `/gas-price` | — | `chain`, `query` |
-| SENTIMENT_ANALYSIS | 1 | `/sentiment` | — | `text`, `query` |
-| LANGUAGE_TRANSLATION | 1 | `/translate` | `text`, `target_language` | `source_language`, `query` |
+| WEB_SEARCH | 7 | `/web-search` | `query` | `articles` (title, publisher, date), `background` |
+| SANCTIONS_SCREENING_MATCH *new* | 5 | `/sanctions-screen` | `name` or `wallet`, `query` | `matches` (list, id, matched name, programmes, score, birth-year check, OFAC URL), `lists_checked` with editions, `lists_not_checked` |
+| CORPORATE_REGISTRY_LOOKUP *new* | 5 | `/company-registry` | `company`, `company_number`, `query` | `entity_status`, `company_number`, `register`, `registered_address`, `registered_agent`, `incorporated`, `direct_parent`, `ultimate_parent`, `lei`, `us_filer` |
+| QUESTION_ANSWERING *new* | 5 | `/answer` | `query`, optional `context` | `citations` (title, URL), `method` (model-phrased or extracted) |
+| FACT_CHECK | 4 | `/fact-check` | `claim`, `query` | `verdict`, `source_url`, `evidence` |
+| FINANCIAL_DATA | 4 | `/financial` | `symbol` or `address`, `query` | `data` (price, market cap, volume, ranges), `fundamentals` from the 10-K |
+| REGULATORY_FILING_MONITOR *new* | 4 | `/sec-filings` | `company`, `form`, `query` | `filing` (form, filed, accepted, accession, period, 8-K items, URL), `figures` from its XBRL, `prior_year_figures` |
+| CRYPTO_TRANSFER_VERIFY *new* | 3 | `/transfer-verify` | `hash`, `chain` | `transaction` (status, from, to, value, block, `confirmations`, `fee_wei`, `base_fee_wei`, `base_fee_burned`) |
+| MACRO_ECONOMIC_INDICATOR *new* | 3 | `/macro` | `indicator`, `country`, `query` | `indicators` (value, `value_high` for a range, period, frequency, series, source) |
+| URL_SAFE *new* | 2 | `/url-reputation` | `url` | `listed`, `sources` (each source and its result), `flagged_by`, `checks` |
+| CRYPTO_PRICE | 2 | `/crypto-price` | `symbol`, `query` | `price`, `quote`, `price_at`, `source` |
+| CONTENT_EXTRACTION | 2 | `/extract` | `text` | `extracted` |
+| WEATHER_CHECK | 2 | `/weather-forecast` with `hours=0` | `location` | temperatures, precipitation, wind |
+| EVENT_OUTCOME_RESOLUTION | 2 | `/event-outcome` | `event` | `outcome`, `winner`, `market`, `venue`, `closes_at` |
+| CROSS_CHAIN_STATE_VERIFY | 2 | `/cross-chain` | `tx_hash` | `message` (chains, sender, receiver, both transactions) |
+| TEXT_CLASSIFICATION | 2 | `/classify` | `text`, `labels` | `label` |
+| STOCK_PRICE | 1 | `/stock-price` | `symbol` | `price`, `currency`, `exchange`, `market_open` |
+| GAS_PRICE | 1 | `/gas-price` | `chain` | Gwei, base and priority fee, block |
+| SENTIMENT_ANALYSIS | 1 | `/sentiment` | `text` | `positive_words`, `negative_words`, `tones` |
+| LANGUAGE_TRANSLATION | 1 | `/translate` | `text`, `target_language` | `translation`, `source_text`, `target_language`, `target_code` |
 
-Every endpoint and its full parameter contract is in
-[`track1-miner/miner.yaml`](../track1-miner/miner.yaml). `query` is the user's sentence, verbatim.
-Send it alongside the structured parameters when you have both. Every endpoint also accepts the bare
-sentence in `query` alone and extracts the subject itself.
+Every endpoint and its parameters are in [`track1-miner/miner.yaml`](../track1-miner/miner.yaml).
+`query` is the user's sentence, verbatim. Send it alongside the structured parameters when you have
+both. Every endpoint also accepts the bare sentence in `query` alone and reads the subject from it.
 
-## Fields, not just prose
+## Recipes for the mission intents
 
-**On the branch, not yet on production (as of 2026-10-11).** Production still trims most answers to
-the three fields above and opens `reason` by repeating the question. The next release returns each
-endpoint's whole result:
+Each is a direct call (below), and every example was answered by production on 2026-10-14.
 
-- **`/fact-check`**: `claim`, `verdict` (supported, contradicted, unverified or unknown), `source`,
-  `source_url`, `evidence` (the source sentence) and `checked_at`. This route is already full on
-  production.
-- **`/financial`**: `data` with `symbol`, `name`, `currency`, `price`, `market_cap`, `volume_24h`
-  (coins and tokens) or `volume` with `volume_unit` (shares), `fully_diluted_valuation`, the day or
-  24-hour range, the 52-week range, `source` and `observed_at`. Unpublished figures are `null`. Answers
-  from a 10-K return `fundamentals` instead.
-- **`/web-search`**: `articles` (title, publisher, publication date) and `background` (one encyclopedia
-  sentence, or null).
-- **`/tx-lookup`**: `transaction` with `status`, `from`, `to`, `value_wei` and `value` (exact decimal
-  strings), `symbol`, `block_number`, `block_hash`, `receipt_status` (null on pre-Byzantium blocks,
-  which carry no status flag), `method`, `method_selector`, `contract_created`, `token_transfers`,
-  `gas_used` and `fee_wei`.
-- **`/storm-alert`**: `risk_score`, `max_wind_gust_kmh`, `max_wind_speed_kmh`, `max_precipitation_mm`,
-  `thunderstorm`, `wind_direction`, `latitude`, `longitude` and `checked_at`. The prose opens with the
-  graded answer, and says the grade comes from the forecast, not from an official warning.
-- **Every other route** returns the fields its module computed, alongside the prose.
+```jsonc
+// Sanctions: screen a counterparty before onboarding it
+{ "method": "GET", "endpoint": "/sanctions-screen", "payload": { "name": "Ivan Petrov", "query": "Screen Ivan Petrov, DOB 1974, against OFAC and UN lists" } }
+// Company register: status, number, registered agent
+{ "method": "GET", "endpoint": "/company-registry", "payload": { "query": "What is the incorporation status and registered agent for Tesla, Inc.?" } }
+// SEC filings: has the 10-Q landed, and what does it report
+{ "method": "GET", "endpoint": "/sec-filings", "payload": { "company": "TSLA", "form": "10-Q" } }
+// Transfer verification: confirmations and the burned fee
+{ "method": "GET", "endpoint": "/transfer-verify", "payload": { "hash": "0x…", "chain": "ethereum" } }
+// Macro: the latest print from the publisher
+{ "method": "GET", "endpoint": "/macro", "payload": { "query": "Latest US CPI year over year and the fed funds target range" } }
+// URL reputation: which threat sources list it
+{ "method": "GET", "endpoint": "/url-reputation", "payload": { "url": "https://login-secure-update.example.com" } }
+// Cited answer from your own document
+{ "method": "GET", "endpoint": "/answer", "payload": { "context": "…your passage…", "query": "When did the war end?" } }
+```
+
+What these do not cover, by design:
+- Sanctions screening reads OFAC SDN and the UN list, not the EU or UK lists, and every answer says so.
+- The company register has no directors or beneficial owners.
+- SEC filings are EDGAR only.
+- Policy rates are for the US and the euro area only.
+- Protocol and chain TVL are not served, because DefiLlama does not license its data for commercial use.
 
 ## Two ways in
 

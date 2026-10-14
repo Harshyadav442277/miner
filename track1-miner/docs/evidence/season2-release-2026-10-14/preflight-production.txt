@@ -1,0 +1,74 @@
+preflight against https://miner-wine.vercel.app
+
+  unit + live suite                      FAIL
+  verify-deploy                          PASS
+  param shapes (engine-shaped)           PASS
+  intent answers (correctness)           FAIL
+  hostile inputs                         PASS
+  upstream health                        FAIL
+  no-regression (8 identical, 0 differ)  PASS
+
+--- unit + live suite ---
+...
+test at dist-test\test\ssl.test.js:100:26
+✖ expired certificates report a negative days_remaining (4107.1673ms)
+  AssertionError [ERR_ASSERTION]: days_remaining=null
+      at TestContext.<anonymous> (<repo>\track1-miner\miner\dist-test\test\ssl.test.js:102:26)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+--- intent answers (correctness) ---
+  IP_GEOLOCATION         FAIL
+      - 142.251.42.174 -> New Haven, Connecticut, United States; not Tokyo, so the primary provider is not answering
+  LANGUAGE_TRANSLATION   PASS
+  ACADEMIC_SEARCH        PASS
+...
+  WEB_SEARCH             PASS
+  CONTENT_VERIFICATION   PASS
+  SENTIMENT_ANALYSIS     PASS
+  TEXT_CLASSIFICATION    PASS
+  RESEARCH_SYNTHESIS     PASS
+  SANCTIONS_SCREENING_MATCH PASS
+  CORPORATE_REGISTRY_LOOKUP PASS
+  REGULATORY_FILING_MONITOR PASS
+  CRYPTO_TRANSFER_VERIFY PASS
+  MACRO_ECONOMIC_INDICATOR PASS
+  URL_SAFE               PASS
+  QUESTION_ANSWERING     PASS
+
+42/43 intents answering correctly.
+
+--- upstream health ---
+FAIL  ip-api.com (via production)    primary  466ms  answered, but not from the expected provider (wanted /tokyo|japan/i)
+ok    ipwho.is                       failover 86ms
+ok    ipinfo.io                      failover 365ms
+ok    google news rss                primary  716ms
+FAIL  merkle eth rpc                 failover 69ms  HTTP 429
+ok    base rpc                       primary  278ms
+ok    base publicnode rpc            failover 167ms
+ok    arbitrum rpc                   primary  305ms
+...
+ok    drpc eth rpc                   failover 285ms
+ok    flashbots eth rpc              failover 1035ms
+FAIL  merkle eth rpc                 failover 69ms  HTTP 429
+ok    base rpc                       primary  278ms
+ok    base publicnode rpc            failover 167ms
+ok    arbitrum rpc                   primary  305ms
+ok    arbitrum publicnode rpc        failover 206ms
+ok    optimism rpc                   primary  915ms
+ok    optimism publicnode rpc        failover 227ms
+ok    polygon publicnode rpc         primary  209ms
+ok    polygon drpc                   failover 128ms
+ok    polygon 1rpc                   failover 478ms
+
+1 primary failing, 1 failover failing, 24 probed
+
+4/7 gates passed — re-run the failing gate alone before believing it.
