@@ -38,22 +38,21 @@ Evidence: `track1-miner/docs/evidence/season2-release-2026-10-14/`.
 - Six Season II X drafts are in `docs/X_POSTS.md` §6, not posted. Recipes are in
   `docs/INTEGRATE_LIVECERT.md`. Facts are in TELEGRAPH_FACTS (last section).
 
+**Pushed 2026-10-14 ~06:00 UTC on the owner's "yes push it":** `94220f1..f95305d`, fast-forward to
+origin/codex/rank1-14-intents. Pre-push checks: no tracked secret files, no key patterns in the diff,
+0 attribution trailers, every commit authored by Harshyadav442277. The hosted YAML at the pinned commit
+returned HTTP 200, 91,173 bytes, SHA-256 `4bc7011c…60ef0`, **identical** to the validated bytes.
+
 **Next action (owner):**
-1. **Yes to push** `codex/rank1-14-intents` (51+ commits) to origin. The pinned YAML URL must exist on
-   GitHub.
-2. After the push, compare the hash against the HOSTED bytes, as `tools/sign-update.sh` does:
-   `curl -sL https://raw.githubusercontent.com/Harshyadav442277/miner/<pushed sha>/track1-miner/miner.yaml | sha256sum`
-   must equal `4bc7011c38d29fd4b96532f4e189b18b7a3335bcfd6203cd6b24e72bfab60ef0`. That holds while
-   miner.yaml is unchanged since `f67834d`.
-3. Owner signs `updateMiner` in the console with:
-   - that URL;
-   - hash `0x4bc7011c38d29fd4b96532f4e189b18b7a3335bcfd6203cd6b24e72bfab60ef0`;
+1. Sign `updateMiner` in the console with:
+   - YAML URL `https://raw.githubusercontent.com/Harshyadav442277/miner/f95305d15043e17fea2707f084d0967346298ead/track1-miner/miner.yaml`
+   - hash `0x4bc7011c38d29fd4b96532f4e189b18b7a3335bcfd6203cd6b24e72bfab60ef0`
    - REQUIRES API KEY off.
-4. After it is mined:
+2. After it is mined (Claude's job):
    - Find the new registration id (it replaces 2750; ids are sparse).
    - Move the `REGISTRATION_ID` repo variable and the tool defaults.
    - Run `watch.mjs` (`--once` goes last).
-5. Owner decisions:
+3. Owner decisions:
    - Deregister TVL_LOOKUP or keep its token scope (G186).
    - G189: the data-source terms are unread (Yahoo, CoinGecko and others).
    - Post the X drafts.
@@ -61,7 +60,8 @@ Evidence: `track1-miner/docs/evidence/season2-release-2026-10-14/`.
 
 **Authorisation:**
 - Given ("do the leftover work"): build, commit, deploy preview and production.
-- Not given: push, `updateMiner`, sending X posts or organiser messages, deregistering TVL_LOOKUP.
+- Given ("yes push it", 2026-10-14): push `codex/rank1-14-intents` to origin, done.
+- Not given: `updateMiner`, sending X posts or organiser messages, deregistering TVL_LOOKUP.
 
 **Traps this session:** inline `node -e`/python heredocs eat `\b` and `\s` (use Write/Edit for regexes),
 and `grep -P` fails silently here (see memory note).
