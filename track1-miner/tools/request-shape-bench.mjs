@@ -52,19 +52,6 @@ function argValue(flag) {
  * reference), and the shapes it did not.
  */
 const INTENTS = {
-  GAME_RESULT: {
-    champion: "game_result_reg1265.wasm",
-    path: "/game-result",
-    question: "Who won the most recent Yankees game?",
-    reference: { query: "Who won the Yankees vs Diamondbacks game?" },
-    shapes: [
-      { team: "Yankees" },
-      { team1: "Yankees" },
-      { teams: "Yankees vs Diamondbacks" },
-      { home_team: "Yankees", away_team: "Diamondbacks" },
-      { query: "Who won the most recent Yankees game?" },
-    ],
-  },
   CURRENCY_EXCHANGE: {
     champion: "currency_exchange_reg2945.wasm",
     path: "/convert",
@@ -87,18 +74,6 @@ const INTENTS = {
       { location: "unknown", query: "What is the current weather in Cairo?" },
       { location: "N/A", query: "What is the current weather in Cairo?" },
       { location: "none", query: "What is the current weather in Cairo?" },
-    ],
-  },
-  TVL_LOOKUP: {
-    champion: "tvl_lookup_reg49.wasm",
-    path: "/tvl",
-    question: "What is the total value locked (TVL) in USD for Aave V3?",
-    reference: { protocol: "Aave V3" },
-    shapes: [
-      { query: "What is the total value locked (TVL) in USD for Aave V3?" },
-      { protocol: "Aave V3", chain: "ethereum" },
-      { protocol: "Aave V3", chain: "eth" },
-      { slug: "aave-v3" },
     ],
   },
   URL_SCAN: {

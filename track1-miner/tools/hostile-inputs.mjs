@@ -26,7 +26,6 @@ const PARAMS = {
   "/ip-geolocate": ["ip", "query"],
   "/translate": ["text", "target_language", "query"],
   "/papers": ["topic", "query"],
-  "/ai-detect": ["text", "query"],
   "/extract": ["text", "query"],
   "/headlines": ["topic", "query"],
   "/wallet-balance": ["address", "query"],

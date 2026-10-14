@@ -34,7 +34,7 @@ const CASES = [
   ["/weather-forecast", "What is the weather forecast for London over the next 24 hours?", { location: "London" }],
   ["/ip-geolocate", "Where is 8.8.8.8 located and does it have any abuse history?", { ip: "8.8.8.8" }],
   ["/papers", "Find recent peer-reviewed papers on CRISPR gene editing", { topic: "CRISPR gene editing" }],
-  ["/ai-detect", "Was this written by AI? The rapid proliferation of artificial intelligence has fundamentally transformed numerous sectors across the global economy. Moreover, it is important to note that these developments continue to accelerate at an unprecedented pace, reshaping how organisations approach strategic planning and operational efficiency in ways previously unimaginable.", {}],
+  ["/cve", "What is the severity of CVE-2021-44228 and which versions are affected?", { cve_id: "CVE-2021-44228" }],
   ["/extract", 'Extract the contact details from: "Reach us at support@example.com or call 555-0192."', { text: "Reach us at support@example.com or call 555-0192." }],
   ["/wallet-balance", `What is the ETH balance of ${ADDR}?`, { address: ADDR }],
 ];

@@ -5,7 +5,7 @@ slug: livecert
 protocol: generic
 name: LiveCert — Sourced Answers for Agents
 description: >-
-  Sourced answers for agents and apps across 43 intents, each read live from a
+  Sourced answers for agents and apps across 36 intents, each read live from a
   named primary source so the caller can check it. Every answer opens with a
   one-sentence answer, then returns the values as fields, the source and the time
   it was checked. Compliance: sanctions screening of people, companies and wallets
@@ -17,18 +17,17 @@ description: >-
   claim cited, web search with dated reports, fact checks with the source URL and
   evidence sentence, and academic, clinical and news search. Markets: prices and
   market data for coins, tokens and listed companies, 10-K revenue and earnings,
-  exchange rates, macroeconomic prints (US CPI and unemployment from BLS, the
+  exchange rates and macroeconomic prints (US CPI and unemployment from BLS, the
   federal funds target range from the New York Fed, euro-area HICP from Eurostat
-  and ECB rates) and DEX pool liquidity for tokens. On-chain: transfer
-  verification with confirmations and the burned base fee, transaction and
-  contract activity across EVM chains, wallet balances, gas, token holders and
-  cross-chain messages. Security: live TLS certificates, URL scans, CVE records
-  and fraud signals. Weather: forecasts, current conditions and storm risk. Also
-  translation, IP geolocation, sports results, event outcomes, text extraction,
-  sentiment, classification and authenticity checks. Only the question-answering,
-  sentiment and classification sentences are phrased by a model, each with a
-  keyless fallback, and a phrased answer is kept only when every claim cites a
-  numbered source; everything else is computed, not generated.
+  and ECB rates). On-chain: transfer verification with confirmations and the
+  burned base fee, transaction and contract activity across EVM chains, wallet
+  balances, gas, token holders and cross-chain messages. Security: live TLS
+  certificates, URL scans, CVE records and fraud signals. Weather: forecasts,
+  current conditions and storm risk. Also translation, IP geolocation, prediction
+  market outcomes, text extraction, sentiment and classification. Only the
+  question-answering, sentiment and classification sentences are phrased by a
+  model, each with a keyless fallback, and a phrased answer is kept only when every
+  claim cites a numbered source; everything else is computed, not generated.
 base_url: https://miner-wine.vercel.app
 
 endpoints:
@@ -373,46 +372,6 @@ endpoints:
             intents: ["*"]
             description: "The user's original question, verbatim. An identifier, a year, a severity such as critical, or a product and vulnerability class are read from it."
 
-  - path: /tvl
-    external_path: /tvl
-    method: GET
-    intents: [TVL_LOOKUP]
-    description: >-
-      Example questions: "How deep is the DEX pool liquidity for token 0x8335…2913 on
-      Base?". Returns answer, verdict, confidence, reason, checked_at and scope,
-      subject, chain, usd.
-      Total value locked, in the three scopes the intent covers, told apart before
-      anything is fetched. A token contract address with its chain returns that
-      token's own DEX pool liquidity in USD, read from GeckoTerminal's tracked
-      reserve across every pool the token appears in, with the deepest single pool
-      and its exchange named from DexScreener; where only DexScreener answers, the
-      figure is a sum over its largest listed pools and is reported as a floor
-      rather than a total. A named protocol or chain is recognised but answered with
-      no figure: its TVL source, DefiLlama, does not license its data for commercial
-      use, and the answer says so (error not_licensed). Pool
-      liquidity is never reported as market capitalisation, a protocol figure is
-      never substituted for a token or chain question, and a provider that does
-      not respond is reported as unknown rather than as zero.
-    params:
-      query:
-        optional:
-          - name: address
-            type: string
-            intents: ["*"]
-            description: "Token contract address, e.g. 0x833589fcd6edb6e08f4c7c32d4f71b54bda02913. Use with chain for that token's DEX pool liquidity."
-          - name: protocol
-            type: string
-            intents: ["*"]
-            description: "Protocol name, e.g. Aave or Uniswap, for that protocol's total value locked."
-          - name: chain
-            type: string
-            intents: ["*"]
-            description: "Chain name: ethereum, base, arbitrum, optimism, polygon, bsc, avalanche or solana. Names the chain for a token lookup, or the subject for a chain TVL question."
-          - name: query
-            type: string
-            intents: ["*"]
-            description: "The user's original question, verbatim. The scope, subject and chain are read from it when the parameters are absent."
-
   - path: /news-search
     external_path: /news-search
     method: GET
@@ -487,45 +446,6 @@ endpoints:
             type: string
             intents: ["*"]
             description: "The user's original question, verbatim. Both currencies, the direction and the amount are read from it."
-
-  - path: /game-result
-    external_path: /game-result
-    method: GET
-    intents: [GAME_RESULT]
-    description: >-
-      Example questions: "Who won Argentina vs France in the 2022 World Cup final?".
-      Returns answer, verdict, confidence, reason, checked_at and home, away,
-      home_score, away_score, winner, competition, played_at.
-      The final outcome of a completed sports fixture: the winner, the final
-      score, the competition and the date it was played. Read from ESPN's
-      scoreboard, which carries an explicit completion flag per fixture, with a
-      fixture directory searched by name for older meetings. Only a fixture that
-      has actually finished is reported as a result — one that is scheduled is
-      reported as not yet played and one still running is reported as in progress
-      with its score named as a live score rather than an outcome, which is the
-      SPORTS_SCORE intent's territory rather than this one's. A drawn match is
-      reported as a draw with no winner named. When both sides are named that fixture is reported; when one team is named
-      its most recent completed fixture is reported, and a name that more than one
-      competition answers to is refused rather than guessed. The fixture is never
-      guessed from prose, and when no finished
-      record of it can be found that is what the answer says instead of
-      substituting a different fixture. Covers the major football leagues, the
-      Champions and Europa Leagues, MLS, the NBA, WNBA, NFL, MLB and NHL.
-    params:
-      query:
-        optional:
-          - name: team1
-            type: string
-            intents: ["*"]
-            description: "One side of the fixture, e.g. Arsenal. Read from the question when absent."
-          - name: team2
-            type: string
-            intents: ["*"]
-            description: "The other side of the fixture, e.g. Chelsea. Read from the question when absent."
-          - name: query
-            type: string
-            intents: ["*"]
-            description: "The user's original question, verbatim. Both sides, the competition and any date are read from it."
 
   - path: /gas-price
     external_path: /gas-price
@@ -632,43 +552,6 @@ endpoints:
             intents: ["*"]
             description: "The user's original question, verbatim, including the message being asked about."
 
-  - path: /sports-score
-    external_path: /sports-score
-    method: GET
-    intents: [SPORTS_SCORE]
-    description: >-
-      Example questions: "What was the score of the last Lakers game?". Returns
-      answer, verdict, confidence, reason, checked_at and home, away, home_score,
-      away_score, competition, played_at, in_progress.
-      The current score of a named sports fixture, or its most recent score when
-      nothing between those two sides is in play. Read from ESPN's scoreboard,
-      which carries a live status and a running score per fixture, with a fixture
-      directory searched by name as a fallback. A fixture that is in progress is
-      preferred over a finished one and its score is reported with the game clock
-      or period alongside it, so a live score is never presented as a final one; a
-      finished fixture is reported as the most recent score and said to be
-      finished. Who ultimately won a completed event is the GAME_RESULT intent
-      rather than this one. Both sides must be named in the request; the fixture
-      is never guessed from prose, and where no readable score can be found that
-      is what the answer says rather than a different fixture being substituted.
-      Covers the major football leagues, the Champions and Europa Leagues, MLS,
-      the NBA, WNBA, NFL, MLB and NHL.
-    params:
-      query:
-        optional:
-          - name: team1
-            type: string
-            intents: ["*"]
-            description: "One side of the fixture, e.g. Lakers. Read from the question when absent."
-          - name: team2
-            type: string
-            intents: ["*"]
-            description: "The other side of the fixture, e.g. Celtics. Read from the question when absent."
-          - name: query
-            type: string
-            intents: ["*"]
-            description: "The user's original question, verbatim. Both sides, the competition and any date are read from it."
-
   - path: /token-holders
     external_path: /token-holders
     method: GET
@@ -746,37 +629,6 @@ endpoints:
             type: string
             intents: ["*"]
             description: "The subject to research, when it is available separately from the question."
-
-  - path: /authenticity
-    external_path: /authenticity
-    method: GET
-    intents: [TEXT_AUTHENTICITY_CHECK]
-    description: >-
-      Example questions: "Is this quote really from Einstein: '…'?". Returns answer,
-      verdict, confidence, reason, checked_at and words, phrases_checked, match,
-      machine_signal.
-      Whether a supplied passage is original or was reproduced from an existing
-      source. Distinctive nine-word runs are lifted from the passage and searched
-      verbatim against Wikipedia's full-text index; a hit is reported as copying
-      with the phrase and the article named, which is evidence a reader can verify.
-      A miss is reported as an absence in the index actually searched and
-      explicitly not as proof of originality, because those are different claims. A
-      passage too short for a nine-word run to mean anything is reported as too
-      short rather than assessed. Where the question is explicitly about AI
-      authorship rather than about copying, that is the AI_TEXT_DETECTION intent;
-      a style signal is carried here as one clause and never as the verdict, since
-      style is evidence about a writer rather than about a source.
-    params:
-      query:
-        optional:
-          - name: text
-            type: string
-            intents: ["*"]
-            description: "The passage to check, exactly as given. Read from the question when absent."
-          - name: query
-            type: string
-            intents: ["*"]
-            description: "The user's original question, verbatim, including the passage when it is not sent separately."
 
   - path: /crypto-price
     external_path: /crypto-price
@@ -1002,47 +854,6 @@ endpoints:
             intents: ["*"]
             description: "The subject to search for, when it is available separately from the question."
 
-  - path: /content-verify
-    external_path: /content-verify
-    method: GET
-    intents: [CONTENT_VERIFICATION]
-    description: >-
-      Example questions: "Is this the original wording of the Gettysburg Address:
-      '…'?". Returns answer, verdict, confidence, reason, checked_at and
-      compared_with, words, differing_wording.
-      Whether a supplied piece of text, such as a press release or a contract
-      clause, is genuine and unaltered, judged against the strongest reference
-      available and naming it. A supplied SHA-256, SHA-1 or MD5 digest is
-      recomputed over the exact text, which proves integrity against that digest.
-      A supplied original is compared word by word and every change is quoted.
-      Without either, the text's distinctive runs are searched verbatim in
-      Wikisource and Wikipedia and the whole passage is compared with the
-      published text found, in overlapping six-word windows, so an edit is located
-      and quoted. When no published copy is found the answer says the text cannot
-      be confirmed and that this is not evidence of tampering; a match shows the
-      wording was published, not who issued it. Image, audio and video
-      authenticity is DEEPFAKE_DETECTION or MEDIA_AUTHENTICITY_CHECK and is refused
-      by name.
-    params:
-      query:
-        optional:
-          - name: content
-            type: string
-            intents: ["*"]
-            description: "The text to verify, exactly as given. Read from the quoted text in the question when absent."
-          - name: original
-            type: string
-            intents: ["*"]
-            description: "A reference version to compare the content against, when one is supplied."
-          - name: sha256
-            type: string
-            intents: ["*"]
-            description: "A published digest of the content (SHA-256, SHA-1 or MD5 by length), when one is supplied."
-          - name: query
-            type: string
-            intents: ["*"]
-            description: "The user's original question, verbatim, including the quoted content when it is not sent separately."
-
   - path: /sentiment
     external_path: /sentiment
     method: GET
@@ -1182,56 +993,6 @@ endpoints:
             type: string
             intents: ["*"]
             description: "The user's original question, verbatim. The claim is extracted from it."
-
-  - path: /telegraph
-    external_path: /telegraph
-    method: GET
-    intents: [TELEGRAPH_KNOWLEDGE]
-    description: >-
-      Example questions: "How do I register a miner on Telegraph?", "How are miner
-      answers scored?". Returns answer, verdict, confidence, reason, checked_at and
-      topic, source.
-      Questions about Telegraph itself — miner registration and the YAML registry,
-      the canonical intent set, how answers are scored, the Explorer and leaderboard,
-      and the hackathon. Live figures such as the number of registered miners or the
-      miners serving a named intent are read from the protocol at request time rather
-      than recalled. Questions outside those areas are answered as not covered, with a
-      pointer to the protocol documentation, rather than guessed.
-    params:
-      query:
-        required:
-          - name: query
-            type: string
-            intents: ["*"]
-            description: "The question about Telegraph, verbatim."
-
-  - path: /ai-detect
-    external_path: /ai-detect
-    method: GET
-    intents: [AI_TEXT_DETECTION]
-    description: >-
-      Example questions: "Was this passage written by an AI: '…'?". Returns answer,
-      verdict, confidence, reason, checked_at and words, sentences,
-      mean_sentence_words, sentence_length_stdev, type_token_ratio, repeated_bigrams,
-      formulaic_markers.
-      Statistical authorship analysis of a supplied passage. Measures sentence-length
-      burstiness, type-token ratio, repeated word pairs and formulaic connectives, and
-      reports what they indicate with a calibrated confidence that is capped at 0.6.
-      Authorship detection is not reliable enough to treat as proof and the answer says
-      so; when no passage long enough to analyse is supplied it says that instead of
-      guessing.
-    params:
-      query:
-        required:
-          - name: text
-            type: string
-            intents: ["*"]
-            description: "The passage to analyse for authorship. At least about 40 words of continuous prose; below that no statistic is meaningful."
-        optional:
-          - name: query
-            type: string
-            intents: ["*"]
-            description: "The user's original question, verbatim, e.g. Is the following text written by an AI or a human?"
 
   - path: /sanctions-screen
     external_path: /sanctions-screen
@@ -1482,33 +1243,26 @@ semantics:
     - IP_GEOLOCATION
     - LANGUAGE_TRANSLATION
     - ACADEMIC_SEARCH
-    - AI_TEXT_DETECTION
     - CONTENT_EXTRACTION
     - NEWS_HEADLINES
     - WALLET_BALANCE_CHECK
     - WEATHER_CHECK
     - FACT_CHECK
-    - TELEGRAPH_KNOWLEDGE
     - ONCHAIN_TX_LOOKUP
     - CVE_LOOKUP
-    - TVL_LOOKUP
     - NEWS_SEARCH
     - CURRENCY_EXCHANGE
-    - GAME_RESULT
     - GAS_PRICE
     - FINANCIAL_DATA
     - FRAUD_DETECTION
-    - SPORTS_SCORE
     - TOKEN_HOLDER_COUNT
     - RESEARCH_QUERY
-    - TEXT_AUTHENTICITY_CHECK
     - CRYPTO_PRICE
     - STOCK_PRICE
     - CROSS_CHAIN_STATE_VERIFY
     - EVENT_OUTCOME_RESOLUTION
     - URL_SCAN
     - WEB_SEARCH
-    - CONTENT_VERIFICATION
     - SENTIMENT_ANALYSIS
     - TEXT_CLASSIFICATION
     - RESEARCH_SYNTHESIS

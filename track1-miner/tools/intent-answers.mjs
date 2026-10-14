@@ -206,66 +206,6 @@ const CHECKS = {
     return bad;
   },
 
-  async GAME_RESULT() {
-    const bad = [];
-    // The champion here rewards the WRONG winner above the right one (0.854 vs
-    // 0.822) and inventing a winner for a draw above both (0.951). This probe
-    // therefore checks the answer against the actual scoreboard rather than
-    // against the scorer's taste.
-    const r = await get("/game-result", { query: "Who won the Arsenal vs Chelsea game?" });
-    const b = r.body;
-    if (b.error) return [`errored: ${b.error}`]; // scoreboard down; re-run the gate alone.
-
-    if (b.verdict === "result") {
-      const reason = String(b.reason ?? "");
-      const score = reason.match(/(\d+)-(\d+)/);
-      if (!score) bad.push("a result carries no score");
-      if (!/is complete/.test(reason)) bad.push("a result does not state that the fixture is finished");
-      // Independently: read ESPN and confirm the winner and score agree.
-      try {
-        const url = "https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/scoreboard?dates=20260901-" +
-          new Date().toISOString().slice(0, 10).replace(/-/g, "");
-        const j = await (await fetch(url, {
-          headers: { accept: "application/json", "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36" },
-          signal: AbortSignal.timeout(15000),
-        })).json();
-        const ev = (j.events ?? []).filter((e) => /ARS/.test(e.shortName ?? "") && /CHE/.test(e.shortName ?? ""))
-          .filter((e) => e.competitions?.[0]?.status?.type?.completed)
-          .sort((x, y) => String(y.date).localeCompare(String(x.date)))[0];
-        if (ev) {
-          const cs = ev.competitions[0].competitors;
-          const home = cs.find((c) => c.homeAway === "home");
-          const away = cs.find((c) => c.homeAway === "away");
-          const hs = Number(home.score), as = Number(away.score);
-          const want = hs === as ? null : (hs > as ? home.team.displayName : away.team.displayName);
-          if (want === null) {
-            if (!/neither side won/i.test(reason)) bad.push("a drawn fixture was not reported as a draw");
-          } else if (!reason.includes(want)) {
-            bad.push(`answer does not name the actual winner ${want}`);
-          }
-          const hi = Math.max(hs, as), lo = Math.min(hs, as);
-          if (hs !== as && !reason.includes(`${hi}-${lo}`)) bad.push(`answer does not carry the actual score ${hi}-${lo}`);
-        }
-      } catch { /* the cross-check is best effort */ }
-    } else if (b.verdict !== "not_found") {
-      bad.push(`Arsenal vs Chelsea -> ${b.verdict}, want result or not_found`);
-    }
-
-    // A fixture that has not been played must never come back as a result. This
-    // is the SPORTS_SCORE mistake and the shape the scorer punishes hardest.
-    const unplayed = await get("/game-result", { query: "Who won the Manchester United vs Liverpool game?" });
-    if (!unplayed.body.error) {
-      if (unplayed.body.verdict === "result") bad.push("an unplayed fixture was reported as a result");
-      if (unplayed.body.verdict === "not_found" && /\d+-\d+/.test(String(unplayed.body.reason ?? ""))) {
-        bad.push("a score was quoted for a fixture with no finished record");
-      }
-    }
-
-    // No fixture named: refuse rather than guess which two teams were meant.
-    const vague = await get("/game-result", { query: "Who won the game?" });
-    if (vague.body.error !== "no_fixture") bad.push(`fixtureless request -> ${vague.body.error}, want no_fixture`);
-    return bad;
-  },
 
   async CURRENCY_EXCHANGE() {
     const bad = [];
@@ -378,51 +318,6 @@ const CHECKS = {
     return bad;
   },
 
-  async TVL_LOOKUP() {
-    const bad = [];
-    // `lean()` projects the payload to verdict/confidence/reason, so every
-    // assertion here is on the prose the network actually scores rather than on
-    // fields the miner does not send. That is the point: a probe that reads
-    // internal state can pass while the answer the scorer sees is wrong.
-    const dollars = (t) => [...String(t ?? "").matchAll(/\$([\d,]+)(?![\d,]*\s*(?:million|billion|trillion|thousand))/g)]
-      .map((m) => Number(m[1].replace(/,/g, ""))).filter(Number.isFinite);
-
-    // The canonical description's OWN worked example, which is a token pool
-    // liquidity question and not a protocol lookup. Answering it with a
-    // protocol's TVL scores at the floor (~0.003 vs ~0.29 against champion 49),
-    // so scope resolution is what this probe is really testing.
-    const tok = await get("/tvl", {
-      query: "For the token at contract 0x833589fcd6edb6e08f4c7c32d4f71b54bda02913 on base, how deep is its own trading liquidity in DEX pools (e.g. Uniswap)? Give this token's pool liquidity in USD.",
-    });
-    const t = tok.body;
-    if (t.error) return [`errored: ${t.error}`]; // provider down; re-run the gate alone.
-    if (t.verdict !== "found") bad.push(`canonical example -> ${t.verdict}, want found`);
-    const tr = String(t.reason ?? "");
-    if (!/own DEX pool liquidity/i.test(tr)) bad.push("canonical example not answered as token pool liquidity");
-    if (!/0x833589fcd6edb6e08f4c7c32d4f71b54bda02913/.test(tr)) bad.push("answer does not echo the contract asked about");
-    if (!/\bon base\b/i.test(tr)) bad.push("answer does not name the chain asked about");
-    if (!/USDC/.test(tr)) bad.push("token not identified as USDC");
-    if (/according to DefiLlama/i.test(tr)) bad.push("a token question was answered from the protocol source");
-    // USDC's market cap is orders of magnitude above its pool liquidity;
-    // serving one for the other is the error this bound catches.
-    const liq = dollars(tr)[0];
-    if (!(liq > 1e6 && liq < 5e10)) bad.push(`pool liquidity ${liq} is outside a plausible range`);
-
-    // Protocol and chain TVL are refused (GAPS G186): DefiLlama's terms do not
-    // allow commercial use. Each scope must still be recognised, and refused by name.
-    for (const query of ["What is the total value locked in the Aave protocol right now?", "How much TVL is on the Base chain?", "What is Aave's TVL on Base?"]) {
-      const r = await get("/tvl", { query });
-      if (r.body.error !== "not_licensed") bad.push(`${query} -> ${r.body.error ?? r.body.verdict}, want not_licensed`);
-      if (dollars(String(r.body.reason ?? "")).length) bad.push(`${query} was given a dollar figure`);
-    }
-
-    // A question with no identifiable subject must be refused, not answered
-    // with whatever protocol happens to slugify from the filler words.
-    const empty = await get("/tvl", { query: "What is the TVL?" });
-    if (empty.body.error !== "no_subject") bad.push(`subjectless question -> ${empty.body.error}, want no_subject`);
-    if (dollars(String(empty.body.reason ?? "")).length) bad.push("a subjectless question was given a dollar figure");
-    return bad;
-  },
 
   async CVE_LOOKUP() {
     const bad = [];
@@ -647,24 +542,6 @@ const CHECKS = {
     return bad;
   },
 
-  async AI_TEXT_DETECTION() {
-    const bad = [];
-    const passage =
-      "The rapid proliferation of artificial intelligence has fundamentally transformed numerous sectors across the global economy. " +
-      "Moreover, it is important to note that these developments continue to accelerate at an unprecedented pace, reshaping how " +
-      "organisations approach strategic planning and operational efficiency in ways that were previously unimaginable to observers.";
-    const r = await get("/ai-detect", { text: passage });
-    const b = r.body;
-    if (!["likely_human", "likely_ai", "inconclusive"].includes(b.verdict)) bad.push(`verdict ${b.verdict} is not a determination`);
-    if (b.words == null || b.words < 40) bad.push(`counted ${b.words} words in a 45-word passage`);
-    if (b.type_token_ratio == null || b.sentence_length_stdev == null) bad.push("measurements missing from the answer");
-    // The honesty constraint: this method cannot support a confident claim.
-    if (b.confidence > 0.6) bad.push(`confidence ${b.confidence} exceeds the 0.6 cap this method can honestly support`);
-    // Below the 40-word floor the statistics are meaningless and a refusal is correct.
-    const short = await get("/ai-detect", { text: "hey i went to the store yesterday" });
-    if (short.body.verdict !== "unknown") bad.push("analysed a passage below the 40-word floor instead of refusing");
-    return bad;
-  },
 
   async CONTENT_EXTRACTION() {
     const bad = [];
@@ -711,18 +588,6 @@ const CHECKS = {
     return bad;
   },
 
-  async TELEGRAPH_KNOWLEDGE() {
-    const bad = [];
-    const live = await get("/telegraph", { query: "How many miners are registered on Telegraph?" });
-    if (!/\d+ miners/.test(String(live.body.reason))) bad.push("no live miner count");
-    if (!/live/i.test(String(live.body.source))) bad.push("live figure not attributed as live");
-    const fact = await get("/telegraph", { query: "How do I register a miner on Telegraph?" });
-    if (!/YAML manifest/i.test(String(fact.body.reason))) bad.push("registration answer missing the manifest");
-    // It must decline what it cannot source rather than inventing an answer.
-    const off = await get("/telegraph", { query: "What is the airspeed velocity of an unladen swallow?" });
-    if (off.body.verdict !== "not_covered") bad.push(`answered an out-of-scope question as ${off.body.verdict}`);
-    return bad;
-  },
 
   async WALLET_BALANCE_CHECK() {
     const bad = [];
@@ -757,30 +622,6 @@ const CHECKS = {
     return bad;
   },
 
-  // Shares the fixture providers with GAME_RESULT, and that is exactly why it
-  // needs its own case: a live score reported as an outcome is the confusion the
-  // canonical description calls out by name.
-  async SPORTS_SCORE() {
-    const bad = [];
-    const r = await get("/sports-score", { query: "What is the score in the Arsenal vs Chelsea match?" });
-    const b = r.body;
-    if (!["live_score", "final_score", "not_played", "not_found"].includes(String(b.verdict))) {
-      bad.push(`verdict ${b.verdict} is not a score verdict`);
-    }
-    if (b.verdict === "live_score" || b.verdict === "final_score") {
-      if (!/\d+,\s+.+\s+\d+/.test(String(b.reason ?? ""))) bad.push("a score verdict carries no two-sided score in prose");
-      // The winner belongs to GAME_RESULT. Naming one here answers the wrong
-      // question with the right data.
-      if (/\bbeat\b|\bwon\b|\bwinner\b/i.test(String(b.reason ?? ""))) bad.push("a score answer names a winner");
-    }
-    if (b.verdict === "live_score" && !/not a final result/i.test(String(b.reason ?? ""))) {
-      bad.push("a live score is not marked as provisional");
-    }
-    // Both sides must be named; nothing is guessed from prose.
-    const vague = await get("/sports-score", { query: "What is the score?" });
-    if (vague.body.error !== "no_fixture") bad.push(`a fixture-less question -> ${vague.body.error}, want no_fixture`);
-    return bad;
-  },
 
   async TOKEN_HOLDER_COUNT() {
     const bad = [];
@@ -855,35 +696,6 @@ const CHECKS = {
     return bad;
   },
 
-  async TEXT_AUTHENTICITY_CHECK() {
-    const bad = [];
-    const copied =
-      'Is this original writing or was it copied? "The Eiffel Tower is a wrought-iron lattice tower on '
-      + 'the Champ de Mars in Paris, France. It is named after the engineer Gustave Eiffel, whose company '
-      + 'designed and built the tower from 1887 to 1889."';
-    const r = await get("/authenticity", { query: copied });
-    const b = r.body;
-    if (b.verdict === "unavailable") {
-      // An index outage is honest and is reported as one, not graded as a miss.
-      if (b.error !== "upstream_unavailable") bad.push("unavailable without an upstream error");
-    } else {
-      if (b.verdict !== "copied") bad.push(`a verbatim Wikipedia passage -> ${b.verdict}, want copied`);
-      if (!/verbatim/i.test(String(b.reason ?? ""))) bad.push("a copying verdict cites no verbatim phrase");
-    }
-    // A miss must never be dressed up as proof of originality.
-    const fresh = await get("/authenticity", {
-      query: 'Is this original? "My grandmother kept a tin of buttons under the stairs and every rainy '
-        + 'afternoon she would tip them across the kitchen table so I could sort them into colours she '
-        + 'named after birds she had never seen, and I believed every name until I was nearly twelve."',
-    });
-    const fb = String(fresh.body.reason ?? "");
-    if (fresh.body.verdict === "no_source_found" && !/not proof the text is original/i.test(fb)) {
-      bad.push("a miss is reported without its limit");
-    }
-    const none = await get("/authenticity", { query: "Is this text original?" });
-    if (none.body.error !== "no_text") bad.push(`no passage -> ${none.body.error}, want no_text`);
-    return bad;
-  },
 
   async CRYPTO_PRICE() {
     const bad = [];
@@ -1143,44 +955,6 @@ const CHECKS = {
     return bad;
   },
 
-  async CONTENT_VERIFICATION() {
-    const bad = [];
-    const { createHash } = await import("node:crypto");
-    const clause = "The Supplier shall indemnify the Buyer against all losses arising from defective goods.";
-    const hex = createHash("sha256").update(clause, "utf8").digest("hex");
-
-    // A digest is checkable by anyone and needs no provider at all.
-    const ok = await get("/content-verify", { query: `Is this text unaltered? "${clause}" Its published SHA-256 is ${hex}.` });
-    if (ok.body.verdict !== "unaltered") bad.push(`matching digest -> ${ok.body.verdict}, want unaltered`);
-    if (!String(ok.body.reason ?? "").includes(hex)) bad.push("the recomputed digest is not stated");
-    const tampered = await get("/content-verify", { query: `Is this text unaltered? "${clause.replace("shall", "may")}" Its published SHA-256 is ${hex}.` });
-    if (tampered.body.verdict !== "altered") bad.push(`edited text with the original digest -> ${tampered.body.verdict}, want altered`);
-
-    // Structured parameters: the changed word must be named, original first.
-    const two = await get("/content-verify", { query: "Has this clause been altered?", content: clause.replace(" all ", " some "), original: clause });
-    if (!/"all" became "some"/.test(String(two.body.reason ?? ""))) bad.push("a two-version comparison does not name the changed word");
-    // Structured content quoting its defined terms, with its TRUE digest, is unaltered.
-    const defined = 'The "Supplier" shall indemnify the "Buyer" against all losses arising from any breach.';
-    const dhex = createHash("sha256").update(defined, "utf8").digest("hex");
-    const d = await get("/content-verify", { query: "Is this clause unaltered?", content: defined, sha256: dhex });
-    if (d.body.verdict !== "unaltered") bad.push(`clause with quoted defined terms and its true digest -> ${d.body.verdict}, want unaltered`);
-
-    // The published-text path: an edited preamble must never read as genuine.
-    const preamble = "We the People of the United States, in Order to form a more perfect Union, establish Justice, insure domestic Tranquility, provide for the common defence, promote the general Welfare, and secure the Blessings of Liberty to ourselves and our Posterity, do ordain and establish this Constitution for the United States of America.";
-    const edited = preamble.replace("insure domestic Tranquility", "guarantee national Security");
-    const e = await get("/content-verify", { query: `Here's a copy of the preamble: '${edited}'. Has it been altered?` });
-    if (e.body.error === "upstream_unavailable") {
-      console.log("\n      (Wikisource and Wikipedia unavailable — published-text path checked for honesty only)");
-    } else {
-      if (e.body.verdict === "matches_published_source") bad.push("an edited preamble was reported as matching published text");
-      if (e.body.verdict === "differs_from_published_source" && !/guarantee/.test(String(e.body.reason ?? ""))) bad.push("the located difference does not quote the edited wording");
-    }
-
-    // Out of scope by name: media forensics is a different intent.
-    const img = await get("/content-verify", { query: "Is this image a deepfake? https://example.com/photo.jpg" });
-    if (img.body.verdict !== "out_of_scope") bad.push(`image question -> ${img.body.verdict}, want out_of_scope`);
-    return bad;
-  },
 
   async SENTIMENT_ANALYSIS() {
     const bad = [];

@@ -1,13 +1,9 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { lookupTransaction, resolveChain, toCoin } from "../src/onchain";
-import { lookupGame, parseDate } from "../src/gameresult";
 import { dateWindow, findPapers } from "../src/papers";
-import { resolveChain as tvlChain, poolLiquidity } from "../src/tvl";
 import { lookupCve } from "../src/cve";
 import { programAnswer } from "../src/cve-program";
-import { handleRequest } from "../src/handler";
-import type { IncomingMessage, ServerResponse } from "node:http";
 
 const HASH = "0x" + "a".repeat(64);
 const TX = { from: "0x" + "b".repeat(40), to: "0x" + "c".repeat(40),
@@ -96,45 +92,6 @@ test("rank regression: an Ethereum outage does not prevent finding a Base transa
   });
 });
 
-test("rank regression: sports dates accept month names in both common orders", () => {
-  assert.equal(parseDate("Arsenal vs Chelsea on March 16, 2025"), "20250316");
-  assert.equal(parseDate("Arsenal vs Chelsea on 16 March 2025"), "20250316");
-});
-
-function sportsStub(event: Record<string, unknown>): typeof fetch {
-  return (async (url) => {
-    if (String(url).includes("scoreboard")) return json({ events: [], leagues: [{ name: "English Premier League" }] });
-    if (String(url).includes("searchevents")) return json({ event: [event] });
-    return json({ teams: [] });
-  }) as typeof fetch;
-}
-const GAME = { strHomeTeam: "Arsenal", strAwayTeam: "Chelsea", intHomeScore: "1", intAwayScore: "0",
-  strLeague: "English Premier League", strStatus: "FT", strTimestamp: "2025-03-16T13:30:00" };
-
-test("rank regression: sports fallback cannot substitute a match from a different date", async () => {
-  await withFetch(sportsStub(GAME), async () => {
-    const r = await lookupGame("Arsenal vs Chelsea in the Premier League on 2025-03-17", new Date("2026-09-10T00:00:00Z"));
-    assert.notEqual(r.verdict, "result");
-    assert.equal(r.winner, null);
-  });
-});
-
-test("rank regression: sports fallback verifies both teams returned by fuzzy search", async () => {
-  await withFetch(sportsStub({ ...GAME, strHomeTeam: "Manchester City", strAwayTeam: "Liverpool" }), async () => {
-    const r = await lookupGame("Arsenal vs Chelsea in the Premier League", new Date("2026-09-10T00:00:00Z"));
-    assert.notEqual(r.verdict, "result");
-    assert.equal(r.winner, null);
-  });
-});
-
-test("rank regression: sports fallback accepts an ISO timestamp already ending in Z", async () => {
-  await withFetch(sportsStub({ ...GAME, strTimestamp: GAME.strTimestamp + "Z" }), async () => {
-    const r = await lookupGame("Arsenal vs Chelsea in the Premier League on 2025-03-16");
-    assert.equal(r.verdict, "result");
-    assert.equal(r.played_at, "2025-03-16T13:30:00.000Z");
-  });
-});
-
 test("rank regression: academic windows preserve explicit days", () => {
   assert.deepEqual(dateWindow("between January 15, 2025 and June 10, 2026"), { from: "2025-01-15", to: "2026-06-10" });
   assert.deepEqual(dateWindow("between 2025-01-15 and 2026-06-10"), { from: "2025-01-15", to: "2026-06-10" });
@@ -150,16 +107,6 @@ test("rank regression: an academic retry preserves the requested publication win
     assert.ok(urls.length > 0);
     assert.ok(urls.every(url => url.searchParams.get("filter")?.includes("from_publication_date:2025-01-01")),
       "retry must not silently remove the date filter");
-  });
-});
-
-test("rank regression: TVL reads the named L2", () => {
-  assert.equal(tvlChain("", "Aave TVL on Base mainnet"), "base");
-});
-
-test("rank regression: TVL rate limits remain unknown instead of not-found", async () => {
-  await withFetch((async () => new Response("rate limited", { status: 429 })) as typeof fetch, async () => {
-    assert.equal(await poolLiquidity("0x" + "d".repeat(40), "base"), "unavailable");
   });
 });
 
@@ -190,21 +137,3 @@ test("rank regression: both CVE providers down remains an explicit availability 
   });
 });
 
-function request(params: Record<string, string>): Promise<Record<string, unknown>> {
-  return new Promise(resolve => {
-    const req = { method: "GET", url: `/game-result?${new URLSearchParams(params)}` } as IncomingMessage;
-    const res = { writeHead() {}, end(payload: string) { resolve(JSON.parse(payload)); } } as unknown as ServerResponse;
-    handleRequest(req, res);
-  });
-}
-
-test("rank regression: game route uses structured dates and never shares results between dates in prose", async () => {
-  await withFetch(sportsStub(GAME), async () => {
-    const first = await request({ query: "Arsenal vs Chelsea in the Premier League on 2025-03-16" });
-    assert.equal(first.verdict, "result");
-    const second = await request({ query: "Arsenal vs Chelsea in the Premier League on 2025-03-17" });
-    assert.notEqual(second.verdict, "result");
-    const explicit = await request({ query: "Who won in the Premier League?", team1: "Arsenal", team2: "Chelsea", date: "2025-03-17" });
-    assert.notEqual(explicit.verdict, "result");
-  });
-});

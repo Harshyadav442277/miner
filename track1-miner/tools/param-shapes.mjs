@@ -73,9 +73,6 @@ const SHAPES = [
 
   // detectAiText documents a 40-word floor: below it none of the statistics
   // mean anything, so a refusal is the honest answer and the correct one.
-  ["/ai-detect", { text: "The rapid proliferation of artificial intelligence has fundamentally transformed numerous sectors across the global economy. Moreover, it is important to note that these developments continue to accelerate at an unprecedented pace, reshaping how organisations approach strategic planning and operational efficiency in ways that were previously unimaginable to most industry observers working today." }, true],
-  ["/ai-detect", { query: "Was this written by AI? 'The rapid proliferation of AI has transformed numerous sectors.'" }, false],
-  ["/ai-detect", { text: "hey so i went to the store yesterday and honestly it was a mess, lines everywhere" }, false],
 
   ["/extract", { text: "Reach us at support@example.com or call 555-0192." }, true],
   ["/extract", { query: 'Extract the contact details from: "Reach us at support@example.com or call 555-0192."' }, true],

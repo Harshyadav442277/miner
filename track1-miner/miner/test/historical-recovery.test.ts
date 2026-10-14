@@ -2,8 +2,6 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { extractIp, geolocate } from "../src/geo";
 import { getHeadlines } from "../src/news";
-import { lookupGame, parseTeams } from "../src/gameresult";
-import { phraseScore } from "../src/sportsscore";
 
 async function mocked(stub: typeof fetch, run: () => Promise<void>) {
   const previous = globalThis.fetch;
@@ -52,34 +50,3 @@ test("a headline shortfall never fills the requested window with old items", asy
   });
 });
 
-test("fixture names are separated before long competition and date suffixes are bounded", () => {
-  assert.deepEqual(parseTeams("Who won Argentina vs France in the 2022 FIFA World Cup final on 2022-12-18?"), { a:"Argentina", b:"France" });
-  assert.deepEqual(parseTeams("What was the Argentina vs France score in the 2022 FIFA World Cup final on 2022-12-18?"), { a:"Argentina", b:"France" });
-  assert.deepEqual(parseTeams("Who won Manchester United versus Liverpool in the English Premier League on 2025-01-05?"), { a:"Manchester United", b:"Liverpool" });
-  assert.equal(parseTeams("Who won the match?"), null);
-});
-
-test("a World Cup penalty shootout reports the actual winner and both score types", async () => {
-  await mocked((async input => {
-    const url = String(input);
-    if (!url.includes("/soccer/fifa.world/scoreboard")) return Response.json({ events:[], event:[], teams:null });
-    return Response.json({leagues:[{name:"FIFA World Cup"}],events:[{date:"2022-12-18T15:00Z",competitions:[{
-      status:{type:{state:"post",completed:true,detail:"FT-Pens"}},
-      competitors:[
-        {homeAway:"home",score:"3",shootoutScore:4,winner:true,team:{displayName:"Argentina"}},
-        {homeAway:"away",score:"3",shootoutScore:2,winner:false,team:{displayName:"France"}},
-      ],
-    }]}]});
-  }) as typeof fetch, async () => {
-    const r = await lookupGame("Who won Argentina vs France in the 2022 FIFA World Cup final on 2022-12-18?");
-    assert.equal(r.verdict, "result");
-    assert.equal(r.winner, "Argentina");
-    assert.equal(r.home_score, 3);
-    assert.match(r.reason, /4-2 on penalties/);
-    assert.match(r.reason, /3-3/);
-    assert.doesNotMatch(r.reason, /neither side won/);
-    const score = phraseScore(r);
-    assert.match(score.reason, /4-2 on penalties/);
-    assert.doesNotMatch(score.reason, /most recent|No fixture between them is in progress/);
-  });
-});

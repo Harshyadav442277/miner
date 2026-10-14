@@ -10,9 +10,7 @@ const hash = rpc.result?.transactions?.[0];
 if (!hash) throw new Error("No Base block fixture available");
 const tests = [
   ["onchain-base-mainnet", "/tx-lookup", { query: `Look up the ETH transaction ${hash} on Base mainnet` }, b => b.verdict === "confirmed" && /on base/.test(b.reason)],
-  ["tvl-base-protocol", "/tvl", { query: "What is Aave's TVL on Base mainnet?", protocol: "Aave", chain: "base" }, b => b.verdict === "found" && /on base/.test(b.reason) && !/across every chain/.test(b.reason)],
   ["cve-xz", "/cve", { cve_id: "CVE-2024-3094" }, b => b.verdict === "critical" && /5\.6\.0/.test(b.reason) && /5\.6\.1/.test(b.reason)],
-  ["sports-date", "/game-result", { query: "Arsenal vs Chelsea in the Premier League on 2025-03-17" }, b => b.verdict !== "result" || /17 March 2025/.test(b.reason)],
   ["academic-window", "/papers", { query: "Find papers on quantum computing published between January 15, 2025 and June 10, 2026" }, b => b.verdict === "unknown" || /2025-01-15 and 2026-06-10/.test(b.reason)],
 ];
 const rows = [];

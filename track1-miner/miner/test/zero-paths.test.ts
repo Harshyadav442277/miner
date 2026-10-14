@@ -69,13 +69,13 @@ describe("no request may produce a non-2xx", () => {
   });
 
   test("a mis-cased path still routes", () => {
-    for (const p of ["/SSL-Check", "/Ssl-check", "/AI-DETECT", "/Weather-Forecast"]) {
+    for (const p of ["/SSL-Check", "/Ssl-check", "/Fact-Check", "/Weather-Forecast"]) {
       assertAccepted("GET", `${p}?domain=github.com&q=test&text=x`);
     }
   });
 
   test("a trailing slash still routes", () => {
-    for (const p of ["/ssl-check/", "/weather-forecast//", "/ai-detect/"]) {
+    for (const p of ["/ssl-check/", "/weather-forecast//", "/fact-check/"]) {
       assertAccepted("GET", `${p}?domain=github.com&q=test&text=x`);
     }
   });

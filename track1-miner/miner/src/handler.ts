@@ -10,18 +10,15 @@ import { MISSION_ROUTES, type MissionAnswer } from "./mission-routes";
 import { getForecast, type ForecastResult } from "./forecast";
 import { asksCurrentConditions, getCurrentConditions } from "./currentweather";
 import { geolocate, type GeoResult } from "./geo";
-import { detectAiText, type AiDetectResult } from "./aidetect";
 import { extractContent } from "./content";
 import { getHeadlines } from "./news";
 import { searchNews, type NewsSearchResult } from "./newssearch";
 import { convert, normalizeCurrency, parseDate as parseFxDate, parseQuery as parseCurrency, type CurrencyResult } from "./currency";
-import { lookupGame, parseTeams, type GameResult } from "./gameresult";
 import { getGasPrice, resolveChain as resolveGasChain, type GasResult } from "./gas";
 import { getFinancialData, type FinancialResult } from "./financial";
 import { assessFraud, type FraudResult } from "./fraud";
 import { checkBalance, type WalletResult } from "./wallet";
 import { checkFact, type FactCheckResult } from "./factcheck";
-import { answerTelegraph, type TelegraphResult } from "./telegraph";
 import {
   lookupTransaction, malformedHash, readChainName, resolveChain, supportedChains, txHash,
   type TxResult,
@@ -34,23 +31,16 @@ import {
   type ActivityResult,
 } from "./contractactivity";
 import {
-  contractAddress, lookupTvl, protocolSubject, resolveChain as resolveTvlChain, resolveScope,
-  supportedChains as supportedTvlChains, type TvlResult,
-} from "./tvl";
-import { lookupScore, type ScoreResult } from "./sportsscore";
-import {
   chainLabel as holderChainLabel, lookupHolders, supportedChains as supportedHolderChains,
   type HolderResult,
 } from "./holders";
 import { answerResearch, type ResearchResult } from "./research";
-import { checkAuthenticity, type AuthenticityResult } from "./authenticity";
 import { lookupCryptoPrice, type CryptoPriceResult } from "./cryptoprice";
 import { lookupStockPrice, type StockPriceResult } from "./stockprice";
 import { verifyCrossChain, type CrossChainResult } from "./crosschain";
 import { resolveEvent, type EventOutcomeResult } from "./eventoutcome";
 import { scanUrl, type UrlScanResult } from "./urlscan";
 import { webSearch, type WebSearchResult } from "./websearch";
-import { verifyContent, type ContentVerifyResult } from "./contentverify";
 import { analyseSentiment, type SentimentResult } from "./sentiment";
 import { analyseSentimentPhrased } from "./prose-phrase";
 import { classifyText, type ClassifyResult } from "./classify";
@@ -61,11 +51,11 @@ const MAX_CACHE = 500;
 export const ENDPOINTS: readonly string[] = [
   "/ssl-check", "/storm-alert", "/weather-forecast",
   "/ip-geolocate", "/translate", "/papers",
-  "/ai-detect", "/extract", "/headlines", "/wallet-balance",
-  "/fact-check", "/telegraph", "/tx-lookup", "/transfer-verify", "/cve", "/tvl", "/news-search", "/convert", "/game-result",
+  "/extract", "/headlines", "/wallet-balance",
+  "/fact-check", "/tx-lookup", "/transfer-verify", "/cve", "/news-search", "/convert",
   "/gas-price", "/financial", "/fraud-check",
-  "/sports-score", "/token-holders", "/research", "/authenticity",
-  "/crypto-price", "/stock-price", "/cross-chain", "/event-outcome", "/url-scan", "/web-search", "/content-verify", "/sentiment", "/classify", "/research-synthesis",
+  "/token-holders", "/research",
+  "/crypto-price", "/stock-price", "/cross-chain", "/event-outcome", "/url-scan", "/web-search", "/sentiment", "/classify", "/research-synthesis",
   ...Object.keys(MISSION_ROUTES),
 ];
 
@@ -75,13 +65,13 @@ export const ENDPOINTS: readonly string[] = [
  */
 type Answer =
   | SslResult | StormResult | ForecastResult | GeoResult | TranslationResult | PaperResult
-  | AiDetectResult | WalletResult | FactCheckResult | TelegraphResult | TxResult | CveResult
-  | TvlResult | NewsSearchResult | CurrencyResult | GameResult
+  | WalletResult | FactCheckResult | TxResult | CveResult
+  | NewsSearchResult | CurrencyResult
   | GasResult | FinancialResult | FraudResult | AlertCheckResult | CveKeywordResult
-  | ScoreResult | HolderResult | ResearchResult | AuthenticityResult | SurveyResult
+  | HolderResult | ResearchResult | SurveyResult
   | ActivityResult
   | CryptoPriceResult | StockPriceResult | CrossChainResult | EventOutcomeResult
-  | UrlScanResult | WebSearchResult | ContentVerifyResult | SentimentResult
+  | UrlScanResult | WebSearchResult | SentimentResult
   | ClassifyResult | SynthesisResult | MissionAnswer;
 const cache = new Map<string, { at: number; value: Answer; ttl: number }>();
 
@@ -156,33 +146,26 @@ const SUBJECT_OF: Record<string, string> = {
   "/ip-geolocate": "An IP geolocation lookup",
   "/translate": "A translation",
   "/papers": "A paper search",
-  "/ai-detect": "An authorship analysis",
   "/extract": "A field extraction",
   "/headlines": "Current headlines",
   "/wallet-balance": "A wallet balance lookup",
   "/fact-check": "A fact check",
-  "/telegraph": "An answer about Telegraph",
   "/tx-lookup": "A transaction lookup",
   "/cve": "A vulnerability lookup",
-  "/tvl": "A total-value-locked lookup",
   "/news-search": "A news article search",
   "/convert": "A currency conversion",
-  "/game-result": "A sports fixture result",
   "/gas-price": "A gas price lookup",
   "/transfer-verify": "A transfer verification",
   "/financial": "A market data lookup",
   "/fraud-check": "A fraud risk assessment",
-  "/sports-score": "A live score lookup",
   "/token-holders": "A token holder count",
   "/research": "A cited research answer",
-  "/authenticity": "A text originality check",
   "/crypto-price": "A cryptocurrency price",
   "/stock-price": "A share price",
   "/cross-chain": "A cross-chain message verification",
   "/event-outcome": "An event outcome resolution",
 "/url-scan": "A URL safety scan",
 "/web-search": "A web search",
-"/content-verify": "A content integrity check",
 "/sentiment": "A sentiment reading",
 "/classify": "A text classification",
 "/research-synthesis": "A research synthesis",
@@ -703,16 +686,6 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     return;
   }
 
-  // AI_TEXT_DETECTION and TEXT_AUTHENTICITY_CHECK share this endpoint: both ask
-  // whether a supplied passage was machine generated, and the honest answer is
-  // the same measurement either way.
-  if (path === "/ai-detect") {
-    const asked = firstValue(url, "query", "q", "question");
-    const subject = firstValue(url, "text", "content", "passage", "input") || asked;
-    sendAnswer(res, asked, detectAiText(subject));
-    return;
-  }
-
   if (path === "/fact-check") {
     const q = withSubject(
       firstValue(url, "query", "q", "question", "input"),
@@ -741,34 +714,6 @@ function route(req: IncomingMessage, res: ServerResponse): void {
         sendAnswer(res, q, r);
       })
       .catch(() => upstreamUnavailable(res, "A fact check", q.slice(0, 60), q));
-    return;
-  }
-
-  if (path === "/telegraph") {
-    const q = firstValue(url, "query", "q", "question", "text", "input", "topic");
-    if (!q.trim()) {
-      sendAnswer(res, q, {
-        verdict: "unknown",
-        confidence: 0,
-        reason:
-          "No question was supplied with this request, so nothing about Telegraph could be " +
-          "answered. Ask about miner registration, intents, scoring, the Explorer or the hackathon.",
-        error: "invalid_input",
-      });
-      return;
-    }
-    const key = `tg:${q.trim().toLowerCase()}`;
-    const hit = fromCache(key);
-    if (hit) {
-      sendAnswer(res, q, hit);
-      return;
-    }
-    answerTelegraph(q)
-      .then((r) => {
-        toCache(key, r);
-        sendAnswer(res, q, r);
-      })
-      .catch(() => upstreamUnavailable(res, "An answer about Telegraph", q.slice(0, 60), q));
     return;
   }
 
@@ -1035,82 +980,6 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     return;
   }
 
-  if (path === "/tvl") {
-    /**
-     * Three questions share this route, and telling them apart IS the job.
-     * Measured against champion 49: answering the right scope scores ~0.29,
-     * answering the wrong one ~0.003. A protocol figure served for a token's
-     * pool-liquidity question is not a slightly worse answer, it is the floor.
-     */
-    const addressParam = firstRealValue(url, "address", "contract", "token", "token_address");
-    const protocolParam = firstRealValue(url, "protocol", "project", "name", "slug");
-    const chainParam = firstRealValue(url, "chain", "network");
-    const q = withSubject(
-      firstValue(url, "query", "q", "question", "text", "input"),
-      addressParam || protocolParam,
-    );
-
-    const scope = resolveScope(
-      { address: addressParam, protocol: protocolParam, chain: chainParam },
-      q,
-    );
-    const chain = resolveTvlChain(chainParam, q);
-
-    // The subject depends on the scope, and each one has a different way of
-    // being absent. None of them may be guessed at.
-    let subject = "";
-    if (scope === "token_pool") subject = contractAddress(addressParam) ?? contractAddress(q) ?? addressParam.trim();
-    else if (scope === "chain") subject = chain ?? chainParam.trim();
-    else subject = protocolParam.trim() || protocolSubject(q);
-
-    if (!subject) {
-      sendAnswer(res, q, {
-        scope: null, subject: null, chain, usd: null,
-        verdict: "unknown", confidence: 0,
-        reason:
-          "No protocol, chain or token contract was identified in this request, so there is " +
-          "nothing to report a total value locked for. Name a protocol such as Aave, a chain " +
-          `such as ${supportedTvlChains().slice(0, 3).join(", ")}, or a token contract address ` +
-          "with its chain for that token's own DEX pool liquidity.",
-        error: "no_subject",
-      });
-      return;
-    }
-
-    // A chain question with no chain resolved would otherwise be looked up as
-    // an empty chain name and answered "not found", which reads as a claim
-    // about the chain rather than about the question.
-    if (scope === "chain" && !chain) {
-      sendAnswer(res, q, {
-        scope, subject, chain: null, usd: null,
-        verdict: "unknown", confidence: 0,
-        reason:
-          `The chain "${subject}" is not one this endpoint reads. Chains covered are ` +
-          `${supportedTvlChains().join(", ")}. No figure was substituted from a different chain, ` +
-          "because one chain's total value locked says nothing about another's.",
-        error: "unsupported_chain",
-      });
-      return;
-    }
-
-    // TVL moves continuously, so the cache is the shared one-minute window
-    // rather than anything longer; it exists to absorb spot checks, not to
-    // serve a stale figure. An unavailable upstream is never cached.
-    const key = `tvl:${scope}:${chain ?? "-"}:${subject.toLowerCase()}`;
-    const hit = fromCache(key);
-    if (hit) {
-      sendAnswer(res, q, hit);
-      return;
-    }
-    lookupTvl(scope, subject, chain)
-      .then((r) => {
-        if (r.verdict === "found") toCache(key, r);
-        sendAnswer(res, q, r);
-      })
-      .catch(() => upstreamUnavailable(res, "A total-value-locked lookup", subject.slice(0, 40), q));
-    return;
-  }
-
   if (path === "/news-search") {
     /**
      * Article coverage, not a headline list. NEWS_HEADLINES already has
@@ -1214,92 +1083,6 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     return;
   }
 
-  if (path === "/game-result") {
-    /**
-     * Completed fixtures only. A fixture that has not been played scores 7e-4
-     * against champion 1265 when reported as a result — three orders below
-     * anything else — and it is also the August 2026 SPORTS_SCORE mistake,
-     * where a free source answered with a friendly against AC Milan.
-     */
-    /**
-     * Every spelling this intent's field uses for a side, and the one-value
-     * forms beside them. `team` singular is `sportwire-game-result`'s only
-     * subject parameter and it crossed at 0.984 in epoch 342; `teams`, `match`
-     * and `fixture` carry the whole matchup in one value. Production read none
-     * of them: `team=Lakers`, `teams=Lakers vs Celtics`, `home_team`/`away_team`
-     * and `team_1`/`team_2` all answered "No fixture could be identified in
-     * this request" on 2026-09-19.
-     */
-    const sideA = firstRealValue(url, "team1", "team_1", "teamA", "home_team", "home", "team_a");
-    const sideB = firstRealValue(url, "team2", "team_2", "teamB", "away_team", "away", "team_b");
-    const bothSides = [sideA, sideB].filter(Boolean).join(" vs ");
-    const matchupParam = firstRealValue(url, "teams", "match", "fixture", "event", "matchup", "game");
-    const teamsParam = bothSides || matchupParam;
-    const q = withSubject(firstValue(url, "query", "q", "question", "text", "input"), teamsParam);
-
-    const teams = parseTeams(teamsParam) ?? parseTeams(q);
-    // One side named is a fixture question too — whichever game that team last
-    // finished. Only when ONE side arrived: two sides that failed to parse as a
-    // fixture must not become a lookup for the first of them. Never guessed
-    // from prose here either; `gameresult.ts` decides what prose may name one.
-    const oneSide = sideA && sideB ? "" : sideA || sideB;
-    const team = teams ? "" : (oneSide || firstRealValue(url, "team", "club", "franchise"));
-    const requestedDate = firstValue(url, "date");
-    // The full request includes date/league constraints in prose. Team names
-    // alone used to share yesterday's cached result with a different fixture.
-    const key = teams || team ? `game:${JSON.stringify([teams, team, q.toLowerCase(), requestedDate])}` : "";
-    if (key) {
-      const hit = fromCache(key);
-      if (hit) {
-        sendAnswer(res, q, hit);
-        return;
-      }
-    }
-    lookupGame(q, new Date(), { teams: teams ?? undefined, team: team || undefined, date: requestedDate || undefined })
-      .then((r) => {
-        // A finished fixture's score is immutable, so it is safe to cache. A
-        // scheduled or in-progress one is not: caching either would keep
-        // serving "has not been played" after it had been.
-        if (key && r.verdict === "result") toCache(key, r);
-        sendAnswer(res, q, r);
-      })
-      .catch(() => upstreamUnavailable(res, "A sports fixture result", (teamsParam || team).slice(0, 40) || q.slice(0, 40), q));
-    return;
-  }
-
-  if (path === "/sports-score") {
-    /**
-     * The CURRENT score, so a fixture in play beats a finished one. The result
-     * route wants the opposite and keeps its own default; the preference is the
-     * only thing that differs in the data layer.
-     */
-    const teamsParam = [
-      firstValue(url, "team1", "home", "team_a"),
-      firstValue(url, "team2", "away", "team_b"),
-    ].filter(Boolean).join(" vs ");
-    const q = withSubject(firstValue(url, "query", "q", "question", "text", "input"), teamsParam);
-
-    const teams = parseTeams(teamsParam) ?? parseTeams(q);
-    const requestedDate = firstValue(url, "date");
-    const key = teams ? `score:${JSON.stringify([teams, q.toLowerCase(), requestedDate])}` : "";
-    if (key) {
-      const hit = fromCache(key);
-      if (hit) {
-        sendAnswer(res, q, hit);
-        return;
-      }
-    }
-    lookupScore(q, new Date(), { teams: teams ?? undefined, date: requestedDate || undefined })
-      .then((r) => {
-        // A live score is the one answer that must never be cached: the whole
-        // question is what it is right now, and the shared window is 60 seconds.
-        if (key && r.verdict === "final_score") toCache(key, r);
-        sendAnswer(res, q, r);
-      })
-      .catch(() => upstreamUnavailable(res, "A live score lookup", teamsParam.slice(0, 40) || q.slice(0, 40), q));
-    return;
-  }
-
   if (path === "/token-holders") {
     /**
      * A HEADCOUNT of addresses, never a balance and never pool liquidity — the
@@ -1354,28 +1137,6 @@ function route(req: IncomingMessage, res: ServerResponse): void {
         sendAnswer(res, q, r);
       })
       .catch(() => upstreamUnavailable(res, "A cited research answer", q.slice(0, 60), q));
-    return;
-  }
-
-  if (path === "/authenticity") {
-    /**
-     * Provenance, not style. A verbatim hit proves copying; a miss proves only
-     * that the indexes searched do not hold it, and the answer says so.
-     */
-    const asked = firstValue(url, "query", "q", "question");
-    const subject = firstValue(url, "text", "content", "passage", "input") || asked;
-    const key = `auth:${subject.trim().toLowerCase().slice(0, 300)}`;
-    const hit = fromCache(key);
-    if (hit) {
-      sendAnswer(res, asked, hit);
-      return;
-    }
-    checkAuthenticity(subject)
-      .then((r) => {
-        if (r.verdict === "copied" || r.verdict === "no_source_found") toCache(key, r);
-        sendAnswer(res, asked, r);
-      })
-      .catch(() => upstreamUnavailable(res, "A text originality check", "the supplied passage", asked));
     return;
   }
 
@@ -1532,36 +1293,6 @@ function route(req: IncomingMessage, res: ServerResponse): void {
         sendAnswer(res, q, r);
       })
       .catch(() => upstreamUnavailable(res, "A web search", q.slice(0, 60) || "this request", q));
-    return;
-  }
-
-  if (path === "/content-verify") {
-    /**
-     * Whether supplied text is genuine and unaltered, against the strongest
-     * reference available: a supplied digest, a supplied original, or the
-     * published text in Wikisource or Wikipedia. Structured parameters are passed
-     * as given, never re-quoted into the question: a clause quoting its defined
-     * terms ("Supplier") was cut at the first inner quote when it was. The cache
-     * key is case-sensitive over the content, because a digest is.
-     */
-    const asked = firstValue(url, "query", "q", "question", "input");
-    const supplied = {
-      content: firstValue(url, "content", "text", "passage"),
-      original: firstValue(url, "original", "reference"),
-      digest: firstValue(url, "sha256", "digest", "hash"),
-    };
-    const key = `contentverify:${JSON.stringify([asked.trim().toLowerCase(), supplied.content, supplied.original, supplied.digest.trim().toLowerCase()]).slice(0, 2000)}`;
-    const hit = fromCache(key);
-    if (hit) {
-      sendAnswer(res, asked, hit);
-      return;
-    }
-    verifyContent(asked, supplied)
-      .then((r) => {
-        if (!r.error) toCache(key, r);
-        sendAnswer(res, asked, r);
-      })
-      .catch(() => upstreamUnavailable(res, "A content integrity check", "the supplied content", asked));
     return;
   }
 
