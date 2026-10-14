@@ -121,21 +121,36 @@ then the owner signs. Do it before 1 Nov, so the miner is registered and live fr
 
 ## Next actions, in order
 
-1. Owner's yes to promote. The other session's fixes (news, translate, weather postcode) are
-   uncommitted in the same tree. Ship both together: commit theirs, deploy a fresh preview from a
-   clean worktree, run their preview-vs-production comparison and `intent-answers.mjs` against it,
-   then `vercel --prod` and `vercel promote` if the alias does not move (G70). Rollback target:
-   `miner-j9eojoz7e`.
-2. ~~**Fix FACT_CHECK's false "supported" first.**~~ **Done in `a9867c3` (GAPS G188); ships with
-   item 1.** "The Eiffel Tower is in Berlin" was rated supported on production and on preview
-   `miner-h8tyai3m6`: `settle()` in `src/factsubject.ts` counted a single co-occurrence as support
-   when one key word was left. FACT_CHECK is bought by four missions.
-3. Give every endpoint the same envelope (teardown §3): `answer` first, then `verdict`, `confidence`,
-   `checked_at`, `source`/`sources` and every value as a field. `/crypto-price` is still prose only
-   on the preview.
-4. Build items 0–5 above, one intent per change, each with tests and a live probe. Then item 7, once
-   the owner has provided a key.
-5. One `updateMiner` covering the new description, every endpoint description rewritten as example
-   questions, parameters and returned fields (teardown §6), and the added intents. Sandbox first, then
-   the owner signs.
+Status 2026-10-14 ~05:30 UTC. Production is `miner-ntd40dbx9` (rollback `miner-q67fqthj7`), with
+preflight 42/43 intents correct; the miss is the known IP Tokyo pin. Evidence:
+[evidence/season2-release-2026-10-14/](evidence/season2-release-2026-10-14/).
+
+1. ~~Promote the October release.~~ **Done 2026-10-13** (`miner-q67fqthj7`).
+2. ~~Fix FACT_CHECK's false "supported".~~ **Done** (`a9867c3`, G188), on production.
+3. ~~One envelope on every endpoint.~~ **Done.** `src/envelope.ts` adds `answer` (the lead sentence)
+   first and `checked_at` everywhere. Prices, URL scans, fraud, CVE, sentiment, event outcomes,
+   cross-chain and content verification now return their values as fields, and translations return
+   their languages.
+4. ~~Build items 0–7.~~ **Done, on production:**
+   - `/url-reputation` (URL_SAFE, with Quad9 as a third threat source).
+   - `/transfer-verify` (CRYPTO_TRANSFER_VERIFY).
+   - `/sec-filings` (REGULATORY_FILING_MONITOR).
+   - `/sanctions-screen` (SANCTIONS_SCREENING_MATCH).
+   - `/company-registry` (CORPORATE_REGISTRY_LOOKUP).
+   - `/macro` (MACRO_ECONOMIC_INDICATOR).
+   - `/answer` (QUESTION_ANSWERING, Groq-phrased and kept only when fully cited).
+
+   TVL_LOOKUP was not dropped: protocol and chain scopes are refused as `not_licensed` (G186), and the
+   token scope still answers. Whether to deregister it is the owner's call.
+5. **Next:** one `updateMiner`. The manifest at HEAD passes `manifest-diff.mjs` against the registered
+   `94bbb04`: 36 → 43 intents, nothing lost. The top description is rewritten. The seven new
+   endpoints plus `/tx-lookup`, `/url-scan` and `/tvl` describe example questions and returned fields.
+   **Still to do:** rewrite the other 32 endpoint descriptions the same way (teardown §6). Then:
+   - Push the branch, because the pinned YAML URL is a raw GitHub URL at a commit. **This needs the
+     owner's yes.**
+   - Hash the YAML (SHA-256).
+   - Validate in the integrate.telegraphprotocol.com sandbox.
+   - The owner signs.
 6. Read the Season II miner rules when published and re-check this plan against them.
+7. Demand plan items 1–3 (recipes are in `docs/INTEGRATE_LIVECERT.md`; X posts and office hours are the
+   owner's to send and attend).
