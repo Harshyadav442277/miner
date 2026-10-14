@@ -6,6 +6,7 @@
  * successful answer, and sends it through the same envelope, watchdog and
  * in-flight sharing as every other route.
  */
+import { monitorFilings } from "./filings";
 import { lookupRegistry } from "./registry";
 import { screenSanctions } from "./sanctions";
 
@@ -30,5 +31,10 @@ export const MISSION_ROUTES: Record<string, MissionRoute> = {
     what: "A company register lookup",
     params: ["company", "company_number", "lei"],
     run: (q, p) => lookupRegistry(q, p("company", "lei"), p("company_number")),
+  },
+  "/sec-filings": {
+    what: "An SEC filing check",
+    params: ["company", "form"],
+    run: (q, p) => monitorFilings(q, p("company"), p("form")),
   },
 };

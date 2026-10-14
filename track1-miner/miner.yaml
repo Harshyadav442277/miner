@@ -1176,6 +1176,41 @@ endpoints:
             intents: ["*"]
             description: "The user's original question, verbatim. A country named in it, such as UK or Delaware, narrows the search."
 
+  - path: /sec-filings
+    external_path: /sec-filings
+    method: GET
+    intents: [REGULATORY_FILING_MONITOR]
+    description: >-
+      Whether an issuer has filed a statutory filing on SEC EDGAR, when it was
+      accepted, and what it reports, read live from the issuer's own EDGAR
+      filing index. Example questions: "Has Tesla filed its latest 10-Q on SEC
+      EDGAR, on what date was it accepted, and what did it disclose about
+      margins?", "Did Apple file an 8-K in the last 30 days?", "What is
+      Microsoft's most recent filing?". Covers 10-K, 10-Q, 8-K, 20-F, 6-K, 40-F,
+      S-1, DEF 14A and amendments. Returns verdict (filed, not_filed, not_found or
+      unknown), company, cik, tickers, filing (form, filed date, EDGAR acceptance
+      time in UTC, accession number, period or event date, 8-K items with their
+      names, and the document URL), recent_filings (up to five), and for a 10-Q,
+      10-K or 20-F the figures tagged in that filing's XBRL: revenue, gross
+      profit, gross margin, operating income and net income for its period, with
+      prior_year_figures for the same period a year earlier. Only SEC EDGAR is
+      read; a question about another regulator says that it is not covered.
+    params:
+      query:
+        optional:
+          - name: company
+            type: string
+            intents: ["*"]
+            description: "Issuer name or ticker, e.g. Tesla or TSLA. Read from the question when absent."
+          - name: form
+            type: string
+            intents: ["*"]
+            description: "Form type, e.g. 10-Q, 10-K or 8-K. Read from the question when absent; \"annual report\" means 10-K."
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim. A window such as \"in the last 30 days\" or \"since 2026-09-01\" is read from it."
+
 semantics:
   signal_mapping:
     label_field: verdict
@@ -1220,6 +1255,7 @@ semantics:
     - RESEARCH_SYNTHESIS
     - SANCTIONS_SCREENING_MATCH
     - CORPORATE_REGISTRY_LOOKUP
+    - REGULATORY_FILING_MONITOR
 
 # input_schema is a single top-level block covering every endpoint — the schema
 # refuses it inside endpoints[], and the node does not enforce it against requests.
@@ -1255,6 +1291,9 @@ input_schema:
     company_number:
       type: string
       description: The number a company is registered under, e.g. UK company number 01026167.
+    form:
+      type: string
+      description: SEC form type for a filing check, e.g. 10-Q, 10-K or 8-K.
     domain:
       type: string
       description: >-
