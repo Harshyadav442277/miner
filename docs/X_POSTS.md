@@ -199,3 +199,52 @@ going through Track 3 — updates posted then are still updates.
 Track 3 has not opened, so no intent can have its 100 real Track 3 requests before the Aug 31
 close. Whether that guardrail is waived, measured later, or binding is unknown, and it decides
 whether rank 1 converts into anything. Worth asking the same officials who clarified the X scoring.
+
+## 6. Season II drafts (written 2026-10-14) — NOT POSTED
+
+The owner posts these; nothing here has been sent. Each one is 245–270 characters by X's count,
+measured when written; re-count after any edit. Every claim is a finding from this build, with its
+evidence named below. Season II runs 1 Nov – 1 Dec 2026: post one a few days apart from the start,
+and reply under builders' posts where a finding applies to them.
+
+**S2-1 — sanctions screening.** Evidence: `/sanctions-screen` on production, 2026-10-14
+(`track1-miner/docs/evidence/season2-release-2026-10-14/`); `src/sanctions.ts`.
+
+> My @Telegraphprotoc miner now screens people, companies and wallets against the OFAC SDN and UN lists, live.
+>
+> "Viktor But" still finds Viktor Bout (0.914).
+>
+> If OFAC can't be read it answers "not cleared", never "no match": Kim Jong Un is on OFAC, not the UN list.
+
+**S2-2 — DefiLlama's terms.** Evidence: defillama.com/terms, read 2026-10-14; GAPS G186.
+
+> Before serving TVL for pay, read DefiLlama's terms: a licence for "personal, non-commercial purposes", and no commercial use of the data without written consent.
+>
+> So my @Telegraphprotoc miner now refuses protocol TVL and says why. Token pool liquidity still answers.
+
+**S2-3 — Eurostat's HICP table moved.** Evidence: the Eurostat catalogue and `prc_hicp_minr`, read
+2026-10-14; GAPS G192. Re-check the print before posting: it changes monthly.
+
+> Heads-up if you serve euro-area inflation on @Telegraphprotoc: Eurostat's prc_hicp_manr stopped at Dec 2025, and so did the ECB's ICP series.
+>
+> The live table is prc_hicp_minr (ECOICOP 2). Latest print: 3.8% y/y for Sept 2026, up from 2.8% in June.
+
+**S2-4 — Quad9 needs HTTP/2.** Evidence: `src/quad9.ts` header; the 12-host sample on 2026-10-14.
+
+> Quad9's DNS-over-HTTPS answers HTTP/1.1 with a 505, so fetch() can't use it. node:http2 works.
+>
+> Its filtered resolver NXDOMAINs all 12 live URLhaus hosts I sampled while its unfiltered one resolves them.
+>
+> Now a third source in my @Telegraphprotoc URL reputation answers.
+
+**S2-5 — the Season I lesson.** Evidence: `S1_WINNERS_TEARDOWN_2026-10-11.md`; `src/envelope.ts`.
+
+> Season I lesson: the winning miners returned fields; I returned prose tuned for the scorer.
+>
+> Every @Telegraphprotoc LiveCert answer now opens with a one-line answer, then the values as fields, the source and when it was checked. 43 intents, no API key needed.
+
+**S2-6 — Blockscout's reindex.** Evidence: GAPS G190; commit `ffd1cc6`.
+
+> Blockscout's Ethereum counter said the Uniswap V2 router has 101 transactions. Routescan says 90,500,102.
+>
+> A reindex, not a quiet contract. My @Telegraphprotoc miner now cross-checks and reports Routescan's count when Blockscout's is under half.
