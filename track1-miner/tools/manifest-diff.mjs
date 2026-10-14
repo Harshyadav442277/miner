@@ -4,6 +4,11 @@
  * Byte diffing is useless here — the description was rewritten and every new
  * endpoint shifts line numbers. What matters is: does every endpoint that is
  * live today survive unchanged, in path, method, intents and parameters?
+ *
+ *   node manifest-diff.mjs <registered.yaml> <pending.yaml> [--allow-removed=/tvl,TVL_LOOKUP,…]
+ *
+ * A removal fails unless it is named in --allow-removed, so a deliberate
+ * deregistration is stated in the command and an accidental one still fails.
  */
 import { readFileSync } from "node:fs";
 
@@ -36,6 +41,7 @@ function parse(path) {
 
 const before = parse(process.argv[2]);
 const after = parse(process.argv[3]);
+const allowed = new Set((process.argv.find((a) => a.startsWith("--allow-removed=")) ?? "").slice("--allow-removed=".length).split(",").filter(Boolean));
 
 let problems = 0;
 const fail = (m) => { problems += 1; console.log(`  FAIL  ${m}`); };
@@ -51,7 +57,11 @@ console.log("\n=== Every registered endpoint survives, byte-identical in shape =
 const afterByPath = new Map(after.endpoints.map((e) => [e.path, e]));
 for (const e of before.endpoints) {
   const a = afterByPath.get(e.path);
-  if (!a) { fail(`${e.path} HAS BEEN REMOVED`); continue; }
+  if (!a) {
+    if (allowed.has(e.path)) ok(`${e.path.padEnd(18)} removed on purpose (--allow-removed)`);
+    else fail(`${e.path} HAS BEEN REMOVED`);
+    continue;
+  }
   const same =
     a.method === e.method &&
     JSON.stringify(a.intents) === JSON.stringify(e.intents) &&
@@ -79,10 +89,16 @@ for (const a of after.endpoints) {
 console.log("\n=== supported_intents ===");
 const goneIntents = before.supported.filter((i) => !after.supported.includes(i));
 const newIntents = after.supported.filter((i) => !before.supported.includes(i));
-if (goneIntents.length) fail(`REMOVED from supported_intents: ${goneIntents.join(", ")}`);
+const unplanned = goneIntents.filter((i) => !allowed.has(i));
+if (unplanned.length) fail(`REMOVED from supported_intents: ${unplanned.join(", ")}`);
+else if (goneIntents.length) ok(`removed on purpose (--allow-removed): ${goneIntents.join(", ")}`);
 else ok(`all ${before.supported.length} registered intents preserved`);
 ok(`added: ${newIntents.join(", ")}`);
 console.log(`  registered ${before.supported.length} -> pending ${after.supported.length}`);
 
-console.log(`\n${problems === 0 ? "PASS — nothing registered today is lost or altered." : `${problems} PROBLEM(S) — do not sign.`}`);
+const removedOnPurpose = before.endpoints.filter((e) => !afterByPath.has(e.path)).length + goneIntents.length;
+const pass = removedOnPurpose
+  ? `PASS — nothing registered today is lost or altered except the ${removedOnPurpose} removals named in --allow-removed.`
+  : "PASS — nothing registered today is lost or altered.";
+console.log(`\n${problems === 0 ? pass : `${problems} PROBLEM(S) — do not sign.`}`);
 process.exit(problems === 0 ? 0 : 1);
