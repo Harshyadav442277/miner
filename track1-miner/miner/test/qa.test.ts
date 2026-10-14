@@ -50,3 +50,12 @@ test("without a model key the answer is a quoted, cited source sentence", async 
   assert.equal(r.reason, `From Wikipedia's "Moons of Mars": "Mars has two natural moons, Phobos and Deimos." [1] This sentence is quoted from the source, not phrased.`);
   assert.equal(r.citations?.[0]?.url, "https://en.wikipedia.org/wiki/Moons_of_Mars");
 });
+
+test("context parsing stays fast on long, hostile passages", () => {
+  const t = Date.now();
+  suppliedContext(`Based on the following text: ${"a ".repeat(3_000)}`);
+  suppliedContext(`Context: ${" \n".repeat(3_000)}`);
+  suppliedContext(`${"x? ".repeat(2_000)}`);
+  assert.ok(Date.now() - t < 200, `took ${Date.now() - t} ms`);
+  assert.equal(suppliedContext("What did it say?\nContext: Mars has two moons, Phobos and Deimos, both small and irregular.")?.question, "What did it say?");
+});

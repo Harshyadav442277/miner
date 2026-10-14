@@ -31,12 +31,39 @@ export interface QaResult {
 
 /** A passage the question supplies, and the question asked about it. Pure. */
 export function suppliedContext(text: string): { context: string; question: string } | null {
-  const s = String(text ?? "").slice(0, 6_000);
-  const m = s.match(/^\s*(?:context|passage|text|document)\s*:\s*([\s\S]{40,}?)\n+\s*(?:question|q)\s*:\s*([\s\S]+)$/i) ??
-    s.match(/^\s*(?:based on|according to|using|given|from)\s+(?:the\s+)?(?:following|this|below)\s+(?:text|passage|context|paragraph|article|document)\s*[,:]\s*([\s\S]{40,}?)\s*(?:\n+|(?<=[.!?"”])\s+)((?:what|who|when|where|why|how|which|is|are|was|were|does|do|did|can|according)\b[\s\S]+\?)\s*$/i);
-  if (m) return { context: m[1]!.trim(), question: m[2]!.trim() };
-  const q = s.match(/^\s*([^\n]{8,300}\?)\s*\n+\s*(?:context|passage|text)\s*:\s*([\s\S]{40,})$/i);
-  return q ? { context: q[2]!.trim(), question: q[1]!.trim() } : null;
+  // Parsed with anchored labels and index searches rather than one pattern
+  // over the whole passage: lazy spans around optional whitespace backtrack
+  // on caller text, and a passage can be 6,000 characters long.
+  const s = String(text ?? "").slice(0, 6_000).trim();
+  const found = (context: string, question: string): { context: string; question: string } | null =>
+    context.trim().length >= 40 && question.trim().length >= 3 ? { context: context.trim(), question: question.trim() } : null;
+
+  // "Context: … \n Question: …"
+  const label = s.match(/^(?:context|passage|text|document)\s{0,3}:/i);
+  if (label) {
+    const at = s.search(/\n[ \t]{0,8}(?:question|q)[ \t]{0,3}:/i);
+    if (at > 0) return found(s.slice(label[0].length, at), s.slice(s.indexOf(":", at) + 1));
+  }
+
+  // "Based on the following text: … <question>?"
+  const lead = s.match(/^(?:based on|according to|using|given|from)\s{1,3}(?:the\s{1,3})?(?:following|this|below)\s{1,3}(?:text|passage|context|paragraph|article|document)\s{0,3}[,:]/i);
+  if (lead && s.endsWith("?")) {
+    const body = s.slice(lead[0].length);
+    let start = body.length - 2;
+    while (start >= 0 && !/[.!\n]/.test(body[start]!)) start--;
+    const question = body.slice(start + 1);
+    if (/^\s*(?:what|who|when|where|why|how|which|is|are|was|were|does|do|did|can|according)\b/i.test(question)) return found(body.slice(0, start + 1), question);
+  }
+
+  // "<question>? \n Context: …"
+  const nl = s.indexOf("\n");
+  if (nl > 0) {
+    const first = s.slice(0, nl).trim();
+    const rest = s.slice(nl + 1).trimStart();
+    const ctx = rest.match(/^(?:context|passage|text)\s{0,3}:/i);
+    if (first.endsWith("?") && first.length <= 300 && ctx) return found(rest.slice(ctx[0].length), first);
+  }
+  return null;
 }
 
 const STOP = new Set("a an the of in on at to for and or is are was were be been what who whom whose when where why how which does do did can could should would will with by from about as that this these those it its into than then there their they".split(" "));
