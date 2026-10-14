@@ -1,6 +1,72 @@
 # MEMORY.md — session continuity
 
-## 2026-10-11 12:05 UTC (17:35 IST): CURRENT STATE. Everything committed; release `0498678` ready, NOT deployed
+## 2026-10-14 05:35 UTC (11:05 IST): CURRENT STATE — Season II build ON PRODUCTION; updateMiner NOT done
+
+**Production `miner-ntd40dbx9`** (alias miner-wine.vercel.app), built from `b3558d5`. Rollback target is
+`miner-q67fqthj7`. Branch `codex/rank1-14-intents` is **not pushed** and is ~50 commits ahead of origin. The
+tree is clean apart from this file.
+
+**Verified:**
+- Preflight against production: 42/43 intents. The miss is the known IP Tokyo pin.
+- param-shapes 57/57, hostile 180/180, verify-deploy PASS, no-regression PASS.
+- The two remaining preflight failures are this machine's network (badssl.com unreachable) and a 429 from
+  the merkle failover RPC.
+- Unit 818/818. Live suite 951/953 locally (badssl).
+- All eight integration-guide recipes answered on production.
+
+Evidence: `track1-miner/docs/evidence/season2-release-2026-10-14/`.
+
+**Built this session (one commit each, no attribution trailers):**
+- The answer envelope (`answer` first, `checked_at`).
+- Value fields on ten routes.
+- Seven mission intents via `src/mission-routes.ts`: `/sanctions-screen`, `/company-registry`,
+  `/sec-filings`, `/transfer-verify`, `/macro`, `/url-reputation` (+Quad9 in url-scan) and `/answer`.
+- Six security-review findings fixed.
+- DefiLlama protocol and chain TVL refused as `not_licensed` (G186 closed; deregistering TVL_LOOKUP is
+  the owner's call).
+- The manifest: 43 intents, description rewritten, `manifest-diff` PASS against the registered
+  `94bbb04`.
+- Integration guide rewritten. GAPS G189–G193.
+- Plan status: SEASON2_PLAN "Next actions".
+
+**Next action:**
+1. Rewrite the 32 older endpoint descriptions as example questions plus returned fields.
+2. Then `updateMiner` prep: **push needs the owner's yes**, then hash, sandbox, and the owner signs.
+
+**Authorisation:**
+- Given ("do the leftover work"): build, commit, deploy preview and production.
+- Not given: push, `updateMiner`, sending X posts or organiser messages, deregistering TVL_LOOKUP.
+
+**Traps this session:** inline `node -e`/python heredocs eat `\b` and `\s` (use Write/Edit for regexes),
+and `grep -P` fails silently here (see memory note).
+
+## 2026-10-13 18:46 UTC (2026-10-14 00:16 IST): release `0498678` on production (superseded by the block above)
+
+Owner said "do the leftover work". Deployed from the main tree (clean; HEAD's miner = `0498678`):
+preview `miner-gw9bzqmc7` (ssl `valid`, Berlin claim `contradicted`), then `--prod` →
+**`miner-q67fqthj7`, aliased to miner-wine.vercel.app without a promote**. Rollback target `miner-j9eojoz7e`.
+Preflight **3/7**, kept anyway because no failure is a regression (each compared against `miner-j9eojoz7e`):
+- intent-answers 33/36: IP Tokyo pin (known); SENTIMENT reason is model-phrased and only sometimes names
+  "broke"/"terrible" (passed on re-probe); ONCHAIN_TX activity: explorer now says the Uniswap V2 router has
+  **101 transactions** — old build says the same. Wrong data we serve; upstream drift.
+- param-shapes 56/57: `/papers?topic=CRISPR…&query=Find me recent papers on this subject.` searches "this
+  subject" (Foucault). Old build did too; its question echo pasted the topic in and hid it.
+- live suite 919/921: the contract count above, and a factcheck article-pick test (Wikipedia drift).
+- upstream health: ip-api (known), merkle RPC 429 (failover).
+
+**Since then, committed on the branch (NOT deployed; latest preview `miner-paz55rrgg` has sanctions only):**
+three bug fixes (papers "this subject", Routescan count when Blockscout < half, 20 Wikipedia candidates);
+the answer envelope (`src/envelope.ts`: `answer` first, `checked_at` always) and value fields on crypto/stock
+price, url-scan (`flagged_by`, `checks`), fraud, CVE, sentiment, event outcome, cross-chain, content-verify;
+translation sends source/target fields again (Season I lean-payload test reversed on purpose).
+New mission intents via `src/mission-routes.ts` (table the handler dispatches): `/sanctions-screen`
+(SANCTIONS_SCREENING_MATCH; OFAC SDN via the SLS API + UN list; verified on preview: Kim Jong Un match,
+"Viktor But" possible, Ivan Petrov no match) and `/company-registry` (CORPORATE_REGISTRY_LOOKUP; GLEIF + EDGAR).
+Three security-review findings fixed (linear lead sentence, fail-open sanctioned/cloudflare fields, bounded
+subjects). Unit 805/805. Next: REGULATORY_FILING_MONITOR (edgar.ts ready), CRYPTO_TRANSFER_VERIFY, MACRO,
+URL_SAFE, QUESTION_ANSWERING (GROQ_API_KEY is set), TVL terms check, then preflight, deploy, updateMiner prep.
+
+## 2026-10-11 12:05 UTC (17:35 IST): superseded state. Everything committed; release `0498678` ready, NOT deployed
 
 Supersedes the 05:20 UTC block below for repository state, verification and next action 1.
 
