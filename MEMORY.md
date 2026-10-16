@@ -21,6 +21,12 @@ live callers. Order: sign → mined → deploy.
 
 **The old values for f95305d (43 intents) are superseded. Do not sign them.**
 
+**Update 2026-10-16 09:25 UTC: pushed on the owner's "upload everything".** origin
+`codex/rank1-14-intents` = `36d3301` (was `c4b3f4c`; no secrets, no trailers). Hosted YAML for the new
+`updateMiner`: `https://raw.githubusercontent.com/Harshyadav442277/miner/2e8d1cfd418dab47694e2fd5d2f8f4c0fee6f5cc/track1-miner/miner.yaml`,
+SHA-256 of the fetched bytes `0x84dd6ed3ec0719e17fc0c2b7d0f3c9bf2ce432d97a1358d36c875d3c0a9e6680` = the local
+file. Deploy NOT done, on purpose: still sign → mined → deploy.
+
 **Pending owner decision (GAPS G189 update):**
 - Open-Meteo (weather and storm), Google News RSS (web search and news) and Yahoo (stock prices) forbid
   commercial use.
@@ -29,8 +35,8 @@ live callers. Order: sign → mined → deploy.
   STOCK_PRICE or pay for data; translate with Groq; use Nominatim for reverse geocoding.
 
 **Authorisation:**
-- Given: remove low-value intents.
-- Not given: pushing these commits, deploying them, signing, or spending money on data plans.
+- Given: remove low-value intents; push (2026-10-16, done).
+- Not given: deploying them before the `updateMiner` is mined, signing, or spending money on data plans.
 
 ## 2026-10-14 05:35 UTC (11:05 IST): CURRENT STATE — Season II build ON PRODUCTION; updateMiner NOT done
 
