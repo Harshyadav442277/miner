@@ -17,7 +17,7 @@
  *     brand's domain, punycode, or a bare IP address. These make a URL
  *     suspicious, never unsafe on their own.
  *
- * A KNOWN SCORER QUIRK, recorded rather than served (EXPANSION_MATRIX.md,
+ * A KNOWN SCORER QUIRK, recorded rather than served (the Season I bench, in git history,
  * G83): champion 220 scored a hedge with no verdict at 0.631, above every
  * committed correct verdict. Crossing competitors read on 2026-09-12 call
  * github.com "suspicious" or "moderate" risk because URLhaus lists OTHER URLs on

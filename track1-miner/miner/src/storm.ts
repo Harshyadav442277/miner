@@ -394,7 +394,7 @@ export async function checkStorm(
       // 0x08 is legal inside a literal and invisible in every terminal. So the
       // first alternative had never matched anything, and only the exact string
       // "u-component" ever reached the sentence below. Restoring the boundaries
-      // was measured before being believed (bench/storm_ucomp.mjs, champion 453):
+      // was measured before being believed (the Season I bench, in git history, champion 453):
       // it scores -30.1% on bench row 0, the real "variable '10u'" question, and
       // -61.1% on row 10, which a bare `\bu\b` also starts matching by accident.
       // The clip is 32 words, so the extra sentence displaces answer that scores.

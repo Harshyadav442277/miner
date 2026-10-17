@@ -42,7 +42,7 @@ const PROBES = [
   // "1) <title>" entry in `reason` is what proves papers came back. An empty
   // result is a visible product degradation and worth seeing, not a reason to
   // block a deploy (the honest none-found answer still restates the question,
-  // which is most of what the converter keeps — bench/acad_shape.mjs).
+  // which is most of what the converter keeps — the Season I bench, in git history).
   ["openalex yielding papers", "failover", {
     url: "https://miner-wine.vercel.app/papers?query=" +
       encodeURIComponent("Find recent peer-reviewed papers on CRISPR gene editing"),

@@ -158,7 +158,7 @@ earlier day is not evidence about today's build.
 
 Chosen by sweeping all 45 scorer-backed canonical intents and excluding every
 generative one on the operator's instruction. Full record, including the six
-candidates rejected and why, is in [EXPANSION_PLAN_2026-09-10.md](EXPANSION_PLAN_2026-09-10.md).
+candidates rejected and why, is in EXPANSION_PLAN_2026-09-10.md (Season I, removed).
 
 The rule they were chosen by: judging normalises our score by the best score in
 the intent, so what has to be beaten is the leader, not the cliff. All four sit
@@ -183,8 +183,8 @@ here, in the README and in GAPS G95 so it is disclosed rather than discovered.
 
 ## 2. Why each one, on evidence
 
-Full measurements in [EXPANSION_MATRIX.md](EXPANSION_MATRIX.md) and
-[EXPANSION_2026-09-08.md](EXPANSION_2026-09-08.md).
+Full measurements in EXPANSION_MATRIX.md (Season I, removed) and
+EXPANSION_2026-09-08.md (Season I, removed).
 
 - **ONCHAIN_TX_LOOKUP** (12 miners) — a mined receipt is immutable, so reading
   the chain correctly *is* the ground truth. One miner crosses at ~0.995 each
@@ -334,7 +334,7 @@ That must equal the hash in §4.
 
 - `track1-miner/tools/watch.mjs` invocations and the `uptime` workflow's
   registration-id variable.
-- `MEMORY.md`, `track1-miner/MEMORY.md` and `EXPANSION_MATRIX.md`.
+- `MEMORY.md` and EXPANSION_MATRIX.md (Season I, removed).
 - Any `curl .../api/miners/402` in the docs.
 
 Note `tools/watch.mjs` parses `--key value` pairs positionally, so `--once` must

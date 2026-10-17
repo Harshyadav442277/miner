@@ -24,7 +24,7 @@
  * is coverage, not a prediction. Three are misroutes (a TLS certificate check, two
  * scholarly-literature searches) and are refused by name.
  *
- * MEASURED BEFORE BUILDING (EXPANSION_MATRIX.md): champion 2789 scored prose
+ * MEASURED BEFORE BUILDING (the Season I bench, in git history): champion 2789 scored prose
  * 0.833, a headline list 0.167 and static knowledge ~1e-11 against authored
  * ground truths. Those are authored, not real, so they chose nothing here.
  */

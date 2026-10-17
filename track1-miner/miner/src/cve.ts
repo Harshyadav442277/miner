@@ -2,7 +2,7 @@
  * CVE_LOOKUP — one vulnerability record, read from the NVD 2.0 API.
  *
  * Why this shape. Measured 2026-09-08 against the live champion
- * (`cvz_1e06.wasm`, reg 3030) and written up in docs/EXPANSION_2026-09-08.md:
+ * (`cvz_1e06.wasm`, reg 3030) and written up in the Season I bench, in git history:
  * the scorer is a hard binary, 1.0 or ~1e-11 with nothing between, and crossing
  * depends on carrying the ground truth's distinctive CONTENT rather than its
  * phrasing. Across four ground-truth registers:

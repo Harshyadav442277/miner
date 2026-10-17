@@ -65,7 +65,7 @@ Miner Track judging criteria as:
 - Engagement and reach on those posts
 
 The same page says miners are judged on actual demand as well as benchmark performance. The
-rules-page formula recorded in [docs/JUDGING.md](../../docs/JUDGING.md) was 75 points of normalized
+rules-page formula recorded in docs/JUDGING.md (Season I, removed) was 75 points of normalized
 performance plus 25 of X. The organiser's 2026-08-29 clarification said the cross-intent aggregate
 would be "an average across all intents", with the formula left to judging. The project then optimised
 normalized **sum** at a **single epoch**. Neither is the measure the published criteria describe.
@@ -201,7 +201,7 @@ The payloads differ the same way. Measured live on 2026-10-10 ~19:37 UTC with th
 | LiveCert `/tx-lookup` | `verdict`, `confidence`, and one prose `reason` holding the sender, recipient, value and block |
 
 We stripped fields because the converter summarises every one of them
-([CONVERTER_MODEL.md](CONVERTER_MODEL.md)), so lean prose scored better. The two winners kept fields
+(CONVERTER_MODEL.md (Season I, removed)), so lean prose scored better. The two winners kept fields
 and prose together and still ranked; TXlens was rank 1 in ONCHAIN_TX_LOOKUP at epoch 298. The
 trade-off cost us usability for apps, and the winners show it was not needed to rank.
 

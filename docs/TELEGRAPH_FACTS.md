@@ -523,7 +523,7 @@ the chain ("the chain is what actually decides"): 26 intents on chain are not on
 ## Rules and protocol re-check 2026-09-16 (~09:10 UTC)
 
 **Rules page (https://hackathon.telegraphprotocol.com/rules): unchanged.** The Track 1 tab text
-fetched today matches [docs/JUDGING.md](JUDGING.md) (read 2026-08-29/30) word for word: track
+fetched today matches docs/JUDGING.md (Season I, removed) (read 2026-08-29/30) word for word: track
 windows (Track 1 and 2 Aug 17–31, Track 3 Aug 31–Sep 7, winner selection Sep 8–18, announcement
 Sep 19–25), the 75/25 split, "the best Miner in every Intent automatically gets full points", the
 guardrail (≥3 active miners and ≥100 real Track 3 requests per intent), the six important rules,

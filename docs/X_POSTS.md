@@ -192,7 +192,7 @@ going through Track 3 — updates posted then are still updates.
 - **Do not buy engagement or arrange reciprocal likes.** Rule 04 makes artificial inflation
   disqualifying, and "keep them genuine" was said explicitly.
 - **Do not claim IP_GEOLOCATION is prize-eligible.** It has 2 miners and needs 3 — which is exactly
-  what P13 says out loud. See [ELIGIBILITY.md](../track1-miner/docs/ELIGIBILITY.md).
+  what P13 says out loud. See ELIGIBILITY.md (Season I, removed).
 
 ## 5. Still unanswered
 

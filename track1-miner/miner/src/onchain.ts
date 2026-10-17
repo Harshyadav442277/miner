@@ -2,7 +2,7 @@
  * ONCHAIN_TX_LOOKUP — one EVM transaction, read from public JSON-RPC.
  *
  * Why this intent, and why this shape. Measured 2026-09-08 against the live
- * champion (`otx_t74.wasm`, reg 642) in docs/EXPANSION_2026-09-08.md:
+ * champion (`otx_t74.wasm`, reg 642) in the Season I bench, in git history:
  *
  *   complete receipt, every field correct                0.99985
  *   the same with digits unformatted (21000, 4730207)    0.99945

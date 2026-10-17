@@ -189,7 +189,7 @@ try {
   timings.push(ms);
   const body = await res.json();
   // The payload is lean on purpose — the papers live in the prose, where the
-  // converter reads them (bench/acad_shape.mjs). A real answer names a count
+  // converter reads them (the Season I bench, in git history). A real answer names a count
   // and lists numbered entries.
   const listed = (String(body.reason ?? "").match(/\d+\)\s/g) ?? []).length;
   report(res.ok && body.verdict === "papers" && /Here are \d+ (?:peer-reviewed journal articles|articles|papers) on/i.test(String(body.reason)) && listed > 0,

@@ -55,7 +55,7 @@ export interface PaperResult {
  *
  * Telegraph re-serialises our JSON with keys sorted alphabetically and converts
  * the WHOLE payload into the ~32 words it scores — every field is scored
- * surface (docs/CONVERTER_MODEL.md; `reason` contributes a median 36% of the
+ * surface (the Season I bench, in git history; `reason` contributes a median 36% of the
  * converted answer). The full PaperResult opens, alphabetized, with
  * `checked_at` and ~200 words of paper JSON that duplicate what `reason`
  * already says in prose, so the converter's summary described bookkeeping while
@@ -64,7 +64,7 @@ export interface PaperResult {
  * converted to "The data shows a list of 5 peer-reviewed papers…" with the
  * question's own words gone, and scored 0.0065.
  *
- * Measured in track1-miner/bench/acad_shape.mjs against champion 688 over the
+ * Measured in the Season I bench, in git history against champion 688 over the
  * 22 frozen questions, real route assembly, live OpenAlex (2026-08-31):
  *
  *   shape                       reason32   flat32     wins vs full

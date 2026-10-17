@@ -41,7 +41,7 @@ Three structural advantages, all from [TELEGRAPH_FACTS.md](docs/TELEGRAPH_FACTS.
 | S3 | Rank 1 in its intent | Explorer leaderboard — worth the **full 75 performance points** |
 | S4 | Demonstrable traffic | Non-trivial served-request count |
 | S5 | X engagement | **25% of the total score.** Tagged `@Telegraphprotoc`. See [docs/BUILD_IN_PUBLIC.md](docs/BUILD_IN_PUBLIC.md) |
-| S6 | Intent stays eligible | ≥100 real Track 3 requests to `SSL_VERIFICATION` — see [docs/JUDGING.md](docs/JUDGING.md) |
+| S6 | Intent stays eligible | ≥100 real Track 3 requests to `SSL_VERIFICATION` — see docs/JUDGING.md (Season I, removed) |
 
 S1, S5 and S6 are must-haves — S6 because no amount of performance rescues an ineligible intent.
 S2–S4 are the competitive layer.
@@ -65,7 +65,7 @@ Deliberately excluded to protect the deadline:
   to be eligible for cash prizes. We cannot rank our way out of an ineligible intent, and nobody
   else is obliged to build against `SSL_VERIFICATION`. A genuine Track 3 app that consumes it is
   now the mitigation — and competes for a second $2,000 pool. Track 3 runs Aug 31–Sep 7, exactly
-  when Track 1 closes, so the windows do not collide. See [docs/JUDGING.md](docs/JUDGING.md).
+  when Track 1 closes, so the windows do not collide. See docs/JUDGING.md (Season I, removed).
 - **Multiple miners.** Spreading across intents splits attention; 70/20/10 rewards depth.
 - **`on_chain` block.** ERC-8183 job targeting is optional and unnecessary for ranking. Ship without.
 - **Mainnet.** H1 is Base Sepolia testnet only.
@@ -83,7 +83,7 @@ Deliberately excluded to protect the deadline:
 ## Open decisions
 
 **D1 — Which intent? — CLOSED: `SSL_VERIFICATION`**
-Full reasoning in [track1-miner/docs/INTENT_OCCUPANCY.md](track1-miner/docs/INTENT_OCCUPANCY.md). In short: it is
+Full reasoning in track1-miner/docs/INTENT_OCCUPANCY.md (Season I, removed). In short: it is
 **Tier A (deterministic, WASM exact match)**, has only **3 incumbents**, and each of the three has
 a specific weakness — one on Render with cold starts, one answering from certificate-transparency
 logs rather than the live server, one running 60–120s Qualys assessments against a 20s spot-check

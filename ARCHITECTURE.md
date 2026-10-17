@@ -82,7 +82,7 @@ fallback sources and cache identity. Provider searches run concurrently within e
 to fit the existing 11-second watchdog. Academic retry retains date constraints. Protocol TVL
 with a chain constraint reads that chain's subtotal, never the global aggregate.
 
-Release evidence: [rank-1 weakness report](track1-miner/docs/RANK1_WEAKNESSES_2026-09-10.md).
+Release evidence: rank-1 weakness report (Season I, removed).
 
 Extraction uses the instruction to choose categories and explicit supplied text as its authoritative
 payload. Multiple requested categories are combined. Weather current-hour requests use the hourly

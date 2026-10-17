@@ -511,7 +511,7 @@ const CHECKS = {
     const b = r.body;
     // The payload is deliberately lean — {verdict, confidence, reason} — so the
     // converter summarises the restated prose instead of the papers JSON
-    // (bench/acad_shape.mjs: 0.006041 full vs 0.013419 lean, 22/22 rows). The
+    // (the Season I bench, in git history: 0.006041 full vs 0.013419 lean, 22/22 rows). The
     // papers therefore live in `reason`, and that is what is checked.
     const reason = String(b.reason ?? "");
     const entries = (reason.match(/\d+\)\s/g) ?? []).length;
