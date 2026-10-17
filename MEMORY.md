@@ -15,6 +15,10 @@ Checked live 07:46–07:50 UTC:
 - Epoch 418: 35 intents scored, 7 at rank 1 (CONTENT_EXTRACTION, NEWS_SEARCH, QUESTION_ANSWERING,
   SANCTIONS 0.68, CVE, SENTIMENT, TOKEN_HOLDER); 9 at ≥ 0.5.
 - Licensing decision (G189, below) still pending.
+- **Cleanup 2026-10-17 (owner: "remove the deadcode … useless data"):** `cbeb504`, `87bace6`, `61814af` deleted
+  755 Season I rank files and cut MEMORY/GAPS/TASKS to Season II; unit 738/738 after. Committed, **not pushed**.
+  Untracked and never committed, so left for the owner: `track1-miner/docs/evidence/rank1-2026-09-10/` (43
+  files). `track2/calibration` (2.2 GB tracked) kept: Season II Evaluators may reuse it.
 
 ## 2026-10-14 ~09:50 UTC (15:20 IST): 7 intents removed (committed, NOT pushed, NOT deployed); licensing decision pending
 
