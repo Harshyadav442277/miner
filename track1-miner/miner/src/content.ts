@@ -92,18 +92,6 @@ function requestedKinds(instruction: string): Want[] {
   return kinds.length ? kinds : ["generic"];
 }
 
-/** What the instruction asks for. */
-export function wantedFrom(text: string): Want {
-  const s = String(text ?? "").toLowerCase();
-  if (/\bquantit|\bunits?\b|\bmeasure/.test(s)) return "quantities";
-  if (/\bcontact|\bemail|\bphone|\btelephone/.test(s)) return "contact";
-  if (/\bentit|\bpeople\b|\bplaces?\b|\borganizations?\b/.test(s)) return "entities";
-  if (/\baction items?\b|\btasks?\b|\btodo|\bto-do/.test(s)) return "actions";
-  if (/\bdates?\b|\bevents?\b/.test(s)) return "date_event";
-  if (/\bnumeric|\bnumbers?\b|\bfigures?\b|\bmetrics?\b|\bvalues?\b/.test(s)) return "numeric";
-  return "generic";
-}
-
 const UNITS =
   "cups?|teaspoons?|tablespoons?|tsp|tbsp|grams?|kilograms?|kg|g|mg|ounces?|oz|pounds?|lbs?|" +
   "litres?|liters?|millilitres?|milliliters?|ml|l|metres?|meters?|m|cm|mm|kilometres?|kilometers?|km/h|km|" +
