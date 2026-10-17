@@ -1,6 +1,22 @@
 # MEMORY.md — session continuity
 
-## 2026-10-14 ~09:50 UTC (15:20 IST): CURRENT — 7 intents removed (committed, NOT pushed, NOT deployed); licensing decision pending
+## 2026-10-17 07:50 UTC (13:20 IST): CURRENT — 36-intent updateMiner MINED; removal code NOT yet deployed
+
+Checked live 07:46–07:50 UTC:
+- **The owner's updateMiner landed.** Registration 2750 is `superseded` (updated 2026-10-16 09:59:30 UTC).
+  The catalog row for wallet `0xdad2…a39e` (slug `livecert`, catalog id `4433`) is `active`, registered
+  2026-10-16 09:59:29 UTC, `yaml_url` = the commit-pinned `2e8d1cf…/track1-miner/miner.yaml` (hosted bytes hash
+  `0x84dd…6680`, checked 2026-10-16), 36 intents, none of the seven removed ones.
+- **Trap:** `/api/miners/4433` returns a DIFFERENT miner (verifywire, wallet `0x8b22…`). Catalog id ≠
+  registration id; the new registrationId is not yet recorded. Find it before using `watch.mjs`.
+- **Production is still `miner-ntd40dbx9`** (built 2026-10-14 from `b3558d5`, `vercel inspect`): it still
+  answers `/tvl`, `/game-result`, `/telegraph`, `/ai-detect`. Harmless (extra routes), but the order
+  sign → mined → deploy is now at **deploy**: release `61c0dd1` (code = `2e8d1cf`), from a clean worktree.
+- Epoch 418: 35 intents scored, 7 at rank 1 (CONTENT_EXTRACTION, NEWS_SEARCH, QUESTION_ANSWERING,
+  SANCTIONS 0.68, CVE, SENTIMENT, TOKEN_HOLDER); 9 at ≥ 0.5.
+- Licensing decision (G189, below) still pending.
+
+## 2026-10-14 ~09:50 UTC (15:20 IST): 7 intents removed (committed, NOT pushed, NOT deployed); licensing decision pending
 
 The owner said "if you find any intent to be not beneficial, you can remove it as well. i want quality".
 
