@@ -1,28 +1,18 @@
 # CLAUDE.md — Telegraph miner operating rules
 
-**Goal:** register and operate a Telegraph miner that reaches rank 1 in its intents
-(Telegraph Hackathon Season I, Track 1).
+**Goal (Season II, 1 Nov – 1 Dec 2026):** a Telegraph miner whose answers are correct, sourced and
+licensed for paid use, so apps buying through Telegraph get the best answer for each intent we serve.
+Season II apps must route through Telegraph, which sends each request to the highest-ranked miner for
+its intent — measured quality is how demand arrives. Rules: [RULES_SEASON2.md](RULES_SEASON2.md); the
+Miner-track rules were unpublished on 2026-10-17. Resolve every deadline in UTC with `date -u`.
 
-**Deadlines, in UTC — resolve them with `date -u`, never the local date.** Track 1 and Track 2 ran
-**Aug 17 - Aug 31 2026, closing Aug 31 23:59 UTC**; Track 3 runs Aug 31 - Sep 7; Winner Selection
-Sep 8-18. The site's "SEP 7 23:59 UTC" countdown is **Track 3's**, not Track 1's. Post-close, what
-is judged is the miner staying **live and ranked through Sep 7**. A local-date reading of this
-nearly cost the last three hours of Track 1 - see the correction in docs/TELEGRAPH_FACTS.md.
-
-**Track 2 pivot (2026-08-27):** active build focus is **Track 2 (Script Author)** — rank 1 by
-**2026-08-31**. Its rules and state live in [track2/](track2/CLAUDE.md) (own MEMORY, TASKS,
-GAPS, ARCHITECTURE). The Track 1 miner stays live per the rules; this file still governs it.
-
-**Track 3 (2026-09-02):** the Track 3 application is **Morse**, in its own repository and sibling
-folder `../telegraph-morse` (<https://github.com/Harshyadav442277/telegraph-morse>) with its own
-CLAUDE.md, PLAN.md, PHASES.md, GAPS.md and MEMORY.md. CertWatch (`track3-certwatch/`) was retired and
-deleted; this repo hosts Tracks 1 and 2 only.
-
-**Not this project:** the Midnight / Brainwave hackathon (NightSeal) is separate and unrelated.
+**Season I is over and judged.** Track 2's WASM scorer is in [track2/](track2/CLAUDE.md); Track 3's app,
+Morse, is the separate repo `../telegraph-morse`. **Not this project:** the Midnight / NightSeal hackathon.
 
 ## Docs — read at session start, keep current
 
 - [MEMORY.md](MEMORY.md) — session continuity. **Read FIRST**, update at session end.
+- [track1-miner/docs/SEASON2_PLAN.md](track1-miner/docs/SEASON2_PLAN.md) — Season II goal, portfolio, next actions.
 - [PRD.md](PRD.md) — scope and open decisions D1–D4.
 - [ARCHITECTURE.md](ARCHITECTURE.md) — decisions A1–A10. Conform, or update it before deviating.
 - [TASKS.md](TASKS.md) — execution board. One task = one change = one commit.

@@ -22,6 +22,17 @@ Prize pool: $10,000 total; the split between Miner, Evaluator and Apps & Agents 
 "Serve one or more shared Intents and compete globally on measured performance. You compete by Intent,
 not by industry."
 
+## How demand reaches a miner — /how-it-works and /tracks (read 2026-10-17)
+
+- "Telegraph resolves the intent behind each request and routes it to the highest-ranked miner for that
+  intent. The app never picks or hardcodes a miner."
+- Each answer returns with a receipt: "Who produced it, what they rank for that intent, and at what
+  confidence."
+- "An Intent is global. The same Miners serve it, the same Evaluators score it, and every mission that
+  needs it buys from the same ranking." Evaluators (the successor to Season I's script authors) compete
+  per intent to replace weaker measurement.
+- Fifteen commercial missions direct the Apps & Agents track only; miners are not tied to a mission.
+
 ## Apps & Agents (the buyers of our answers) — /rules and /judging
 
 - **Rule 01, the agent buys:** "The app cannot call an API directly. It routes a paid request through

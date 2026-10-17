@@ -41,7 +41,7 @@ its champion scoring module is registration 1882, which this project authored as
 Registering it made us the only miner in an intent we also supplied the judge for. It breaks no rule we
 can find, the same already holds for currency exchange in an eight-miner field, and the endpoint was
 written from the published intent description rather than from that module. It is stated here so it is
-disclosed rather than discovered. Full record in [GAPS.md](GAPS.md) G95.
+disclosed rather than discovered. Full record: GAPS G95 (Season I, in `git log -p -- GAPS.md`).
 
 The exact registered surface and reproducible verification commands are in the
 [Track 1 review guide](track1-miner/README.md). The miner remains live through Track 3 as required.
