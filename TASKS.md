@@ -7,21 +7,24 @@ licensed for paid use. Season I's board (149 done items, all Season I epoch and 
 ## Owner
 
 - [ ] Register for Season II with `harsh.2024a@vitstudent.ac.in` before 1 Nov.
-- [ ] Decide the data licences (GAPS G189): MET Norway for weather and storm, GDELT for news, drop or pay for
-      STOCK_PRICE, Nominatim for reverse geocoding, Groq for translation.
-- [ ] Allow `vercel` for Bash in Claude Code settings, or run deploys yourself.
+- [ ] Pick a licensed news source for web search, news search and headlines (G194: GDELT is unusable):
+      Brave Search API (account and key), a paid news API, or Wikipedia's Current Events portal (no search).
+- [ ] STOCK_PRICE and the listed-company half of `/financial` (Yahoo, non-commercial): pay for data, or
+      refuse as `not_licensed` and drop the intent in the next `updateMiner`.
+- [ ] Sign one `updateMiner` once the above are settled: fix the weather claims MET Norway cannot meet (G195),
+      the news source named in two endpoint descriptions, and any dropped intent.
 - [ ] Optional: Vercel → Deployment Protection off for previews, so `preflight.mjs` can grade a preview.
 - [ ] Optional: `vercel env add OPENALEX_MAILTO production --scope wukong4` (G81's remedy).
 
 ## Claude
 
-- [ ] Deploy the 36-intent build (`updateMiner` is mined): clean worktree at HEAD, preview, `--prod`,
-      `vercel promote` if pinned, then `preflight.mjs` and `intent-answers.mjs`. Record the new registrationId.
+- [x] Deploy the 36-intent build — production `miner-8jdiuqzv4`, then `miner-q5qepqluk` (2026-10-18).
+- [x] Weather, storm and geocoding off Open-Meteo/BigDataCloud onto MET Norway and Nominatim (`e86a0f4`).
+- [x] Translation off the unofficial Google endpoint and MyMemory onto Groq (`329254b`).
+- [ ] A built-in table of the most-asked places from Wikidata (CC0), so common cities skip Nominatim (G196).
 - [ ] Correctness audit of every intent against real routed questions and the primary source; fix or remove
       any intent that cannot be answered correctly.
-- [ ] After the licence decision: swap the sources. met.no has no gusts or precipitation probability, so say
-      what the forecast no longer carries.
 - [ ] SENTIMENT: sarcastic praise reads negative (G139).
 - [ ] RESEARCH_QUERY / RESEARCH_SYNTHESIS: route by domain instead of one academic index.
-- [ ] Rewrite the root README.md for Season II; it is still the Season I judge-facing page (registration 1378, track tables).
+- [ ] Rewrite the root README.md for Season II; it is still the Season I judge-facing page.
 - [ ] Re-read the Season II Miner rules when published; update `RULES_SEASON2.md` and SEASON2_PLAN.

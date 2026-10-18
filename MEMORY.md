@@ -1,8 +1,16 @@
 # MEMORY.md — session continuity
 
-## 2026-10-18 ~08:10 UTC (13:40 IST): CURRENT — 36-intent build LIVE; weather and translation licence swaps committed
+## 2026-10-18 ~08:25 UTC (13:55 IST): CURRENT — licensed weather and translation LIVE on production
 
 Owner: "proceed as per your recommendations" (2026-10-18).
+- **Production `miner-q5qepqluk`**, built from `1d1969e` in a clean worktree (alias moved by itself). Rollback
+  target `miner-8jdiuqzv4` (36-intent build, pre-swap). Gates against production, run singly: verify-deploy
+  PASS, param shapes 54/54, hostile inputs pass, no-regression 8 identical, intent answers 35/36 (known IP pin);
+  watch 4829 `endpoint=ok activation=active`. Translation answers live through Groq ("Bonjour", "Hola").
+  Evidence: `release-2026-10-18/gates-1d1969e.txt`.
+- **Not run:** the local unit+live suite. Nominatim was returning 429 to this machine after the parallel live
+  run (G196); do not re-run live weather tests from here until it answers again.
+- `1d1969e` also fixed a busy geocoder being answered as "No resolvable location" (now an outage).
 - **Deployed:** `a556f00` as production `miner-8jdiuqzv4` (~07:26 UTC; the alias moved by itself, no promote).
   All declared endpoints answered on the preview; `/tvl` and `/telegraph` now 404. Preflight 5/7 gates and
   intent answers 35/36: the two failing gates are the known ip-api Tokyo pin and the merkle failover RPC's

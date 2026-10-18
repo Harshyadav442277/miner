@@ -21,10 +21,14 @@
   and forecasts past ~9 days are cut short and say so. **The registered manifest still claims more**:
   `days` "1 to 16", the example "Will gusts exceed 60 km/h in Miami tonight?", and both fields as returned.
   Fix those strings in the next `updateMiner`.
-- **G196 — Nominatim's one request per second is per instance. `OPEN`.** weather-upstream.ts caches lookups
-  for a day and spaces requests a second apart, but serverless instances do not share that spacing. Heavy
-  concurrent demand could exceed the policy and get us blocked. Remedy if it happens: a shared cache (KV) or a
-  paid geocoder.
+- **G196 — Nominatim's one request per second is per instance. `OPEN`, and observed.** weather-upstream.ts
+  caches lookups for a day and spaces requests a second apart, but serverless instances do not share that
+  spacing. **Seen 2026-10-18 ~08:12 UTC:** the live suite's parallel test processes exceeded the policy from
+  one address and Nominatim answered HTTP 429 to this machine. Since `1d1969e` an unreachable geocoder is
+  reported as an outage, not "No resolvable location"; live tests now run one file at a time. Concurrent
+  production demand can do the same from Vercel's addresses. **Recommended fix:** a built-in table of the
+  most-asked places from Wikidata (CC0), so common cities need no Nominatim call at all; else a shared cache
+  (KV) or a paid geocoder.
 - **G197 — Groq for translation sits near its no-resale clause. `OPEN, owner judgment`.** The Services
   Agreement (console.groq.com/docs/legal/services-agreement, read 2026-10-18) allows integrating the models
   into a "Customer Application" and forbids reselling "the Cloud Services" (§6.3(c)). A translation endpoint
