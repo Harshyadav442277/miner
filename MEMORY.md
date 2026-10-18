@@ -17,8 +17,9 @@ Checked live 07:46–07:50 UTC:
 - Licensing decision (G189, below) still pending.
 - **Cleanup 2026-10-17 (owner: "remove the deadcode … useless data"):** `cbeb504`, `87bace6`, `61814af` deleted
   755 Season I rank files and cut MEMORY/GAPS/TASKS to Season II; unit 738/738 after. Committed, **not pushed**.
-  Untracked and never committed, so left for the owner: `track1-miner/docs/evidence/rank1-2026-09-10/` (43
-  files).
+  Never-committed leftovers (the rank1-2026-09-10 evidence, 95 fixture reports, two wrapper builds, a
+  duplicate SSL champion) went to the Windows Recycle Bin on 2026-10-18; `cargo clean` freed 620 MB.
+  `track2/harness/champions` (618 MB, gitignored incumbents) kept for Evaluator comparisons.
 - **Keep-only pass 2026-10-18 (owner: "keep what can be used for season 2 in any track"):** removed track2's
   calibration wrappers (2.2 GB), its S1 submission/task/X docs, SIGN.md, REGISTRATION.md, root PRD.md/SETUP.md. Kept
   scorer, harness, fixtures, recon, release, `calibration/screen-registry.mjs` and registration 1882's pinned artifact.
