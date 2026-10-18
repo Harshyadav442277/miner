@@ -75,11 +75,11 @@ describe("geocode", () => {
     assert.match(calls[0] ?? "", /nominatim\.openstreetmap\.org/);
   });
 
-  test("returns null rather than throwing when Nominatim is down", async () => {
+  test("throws when Nominatim is down, so the route reports an outage and not a missing place", async () => {
     // The caller already has a primary failure to report; a second upstream
     // name in that refusal tells the buyer nothing they can act on.
     const { impl } = scripted([json({}, 503), json({}, 503)]);
-    assert.equal(await geocode("Chennai", 500, impl), null);
+    await assert.rejects(geocode("Chennai", 500, impl), /geocoder unavailable/);
   });
 
   test("returns null on an empty result set", async () => {
@@ -125,7 +125,7 @@ describe("Nominatim politeness and reverse lookup", () => {
     // Nominatim's usage policy: at most one request per second.
     const { impl, calls } = scripted([json([{ lat: "1", lon: "2", display_name: "A" }]), json([{ lat: "3", lon: "4", display_name: "B" }])]);
     await geocode("A", 500, impl);
-    assert.equal(await geocode("B", 500, impl), null, "no slot inside a 500 ms budget");
+    await assert.rejects(geocode("B", 500, impl), /geocoder unavailable/, "no slot inside a 500 ms budget");
     assert.equal(calls.length, 1);
     const t0 = Date.now();
     assert.equal((await geocode("B", 3000, impl))?.name, "B");

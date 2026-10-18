@@ -23,12 +23,15 @@ describe("getForecast (live)", () => {
     assert.match(r.reason, /A 2-day \(48-hour\) hourly weather forecast/);
   });
 
-  test("echoes a day-count request in day form, with precipitation probability", async () => {
+  test("echoes a day-count request in day form, and says where hourly steps end", async () => {
+    // MET Norway steps hourly for about 65 hours and 6-hourly after that, so a 7-day forecast is
+    // not called hourly throughout (G195).
     const r = await getForecast("Tokyo", 168, undefined, 7);
     assert.equal(r.window_hours, 168);
-    assert.equal(r.hourly_count, 168);
     assert.equal(r.span_days, 7);
-    assert.match(r.reason, /A 7-day \(168-hour\) hourly weather forecast/);
+    assert.ok((r.hourly_count ?? 0) > 0 && (r.hourly_count ?? 0) < 168, `hourly_count ${r.hourly_count}`);
+    assert.match(r.reason, /A 7-day \(168-hour\) weather forecast/);
+    assert.match(r.reason, /hourly until .* and 6-hourly after that/);
     if (r.precipitation_probability_max_pct !== null) {
       assert.match(r.reason, /precipitation probability of up to \d+%/);
       assert.ok(r.precipitation_probability_max_pct >= 0 && r.precipitation_probability_max_pct <= 100);

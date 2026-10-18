@@ -78,5 +78,6 @@ test("a forecast question still gets the forecast (live)", async () => {
   const { status, body } = await call("/weather-forecast?query=What%20is%20the%20weather%20forecast%20for%20London%20over%20the%20next%2024%20hours%3F");
   assert.equal(status, 200);
   if (body.error) return;
-  assert.match(String(body.reason), /hourly weather forecast for London/);
+  // Nominatim names London by its administrative extent, Greater London (2026-10-18).
+  assert.match(String(body.reason), /hourly weather forecast for (?:Greater )?London/);
 });

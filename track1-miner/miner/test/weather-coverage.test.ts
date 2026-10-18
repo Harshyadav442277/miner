@@ -109,3 +109,16 @@ test("storm handler preserves an explicit zero parameter", async () => {
     assert.match(r.reason, /right now/);
   });
 });
+
+test("a busy geocoder is an outage, never 'no resolvable location'", async () => {
+  const original = globalThis.fetch;
+  globalThis.fetch = (async (url: string | URL | Request) =>
+    isMet(String(url)) ? json(series()) : new Response("busy", { status: 503 })) as typeof fetch;
+  try {
+    const r = await request({ location: "London" });
+    assert.equal(r.error, "upstream_unavailable");
+    assert.doesNotMatch(String(r.reason), /No resolvable location/);
+  } finally {
+    globalThis.fetch = original;
+  }
+});

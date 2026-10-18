@@ -90,9 +90,12 @@ export function resetGeocodeCache(): void {
   nextNominatimAt = 0;
 }
 
+/** Nominatim did not answer: an outage, which is not the same finding as "no such place". */
+const UNAVAILABLE = Symbol("nominatim unavailable");
+
 /**
  * A Nominatim read, from the cache when possible and otherwise spaced one second after the last.
- * Null when it fails: the caller has its own answer for a place it cannot resolve.
+ * UNAVAILABLE when it could not be asked or did not answer.
  */
 async function nominatim(path: string, timeoutMs: number, fetchImpl: typeof fetch): Promise<unknown> {
   const hit = geocodeCache.get(path);
@@ -100,14 +103,14 @@ async function nominatim(path: string, timeoutMs: number, fetchImpl: typeof fetc
   // Only a request that will actually be sent takes a slot; one that cannot fit its own timeout
   // gives up without pushing every later caller back another second.
   const wait = nextNominatimAt - Date.now();
-  if (wait >= timeoutMs) return null;
+  if (wait >= timeoutMs) return UNAVAILABLE;
   nextNominatimAt = Math.max(Date.now(), nextNominatimAt) + 1000;
   if (wait > 0) await new Promise((r) => setTimeout(r, wait));
   let value: unknown;
   try {
     value = await getWeatherJson(`${NOMINATIM}${path}`, timeoutMs, fetchImpl);
   } catch {
-    return null;
+    return UNAVAILABLE;
   }
   if (geocodeCache.size >= 1000) geocodeCache.delete(geocodeCache.keys().next().value as string);
   geocodeCache.set(path, { value, at: Date.now() });
@@ -115,7 +118,10 @@ async function nominatim(path: string, timeoutMs: number, fetchImpl: typeof fetc
 }
 
 /**
- * A place name resolved through OpenStreetMap.
+ * A place name resolved through OpenStreetMap: null when no such place is known, and a THROW when
+ * Nominatim could not be asked or did not answer. The routes answer a throw as an outage. Folding the
+ * two together answered "No resolvable location found for London" whenever Nominatim was busy, a
+ * false statement about London (seen 2026-10-18 under parallel test load).
  *
  * Nominatim returns one long `display_name` ("Chennai Corporation, Chennai, Tamil Nadu, India").
  * Its first and last two components name the place the way a person would.
@@ -131,6 +137,7 @@ export async function geocode(
     timeoutMs,
     fetchImpl,
   );
+  if (body === UNAVAILABLE) throw new Error("geocoder unavailable");
   const hit = Array.isArray(body) ? (body[0] as Record<string, unknown> | undefined) : undefined;
   if (!hit) return null;
   const latitude = Number(hit["lat"]);
