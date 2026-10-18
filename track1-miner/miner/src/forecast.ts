@@ -6,15 +6,17 @@
  * currentweather.ts from a real current reading, not from here. So this answers
  * "what will it be like", with the window named.
  *
- * Shares Open-Meteo and the geocoder with the storm path — free, no API key, so no
- * upstream quota can become a Routing Revocation (ARCHITECTURE A3/A4).
+ * Shares MET Norway and the geocoder with the storm path (metno.ts): keyless, so no upstream
+ * quota can become a Routing Revocation (ARCHITECTURE A3/A4), and licensed for commercial use
+ * with credit (GAPS G189). MET forecasts hourly for about 65 hours and 6-hourly after that, to
+ * about 9 days, and publishes no precipitation probability outside the Nordic countries; the
+ * answer says which resolution it covers and never claims a value it did not get.
  */
 
 import { resolvePlace } from "./storm";
 import { shortPlaceName, resolveDateRequest, extractCoords } from "./extract";
-import { getWeatherJson } from "./weather-upstream";
+import { MET_ATTRIBUTION, conditionOfSymbols, coveredHours, metForecast, stepAt, stepsFrom } from "./metno";
 
-const FORECAST = "https://api.open-meteo.com/v1/forecast";
 const DEFAULT_TIMEOUT_MS = 8000;
 
 export interface ForecastResult {
@@ -41,19 +43,6 @@ export interface ForecastResult {
   confidence: number;
   reason: string;
   checked_at: string;
-}
-
-/** WMO code → the plain word a person would use. Shared with currentweather.ts. */
-export function conditionOf(codes: number[]): string {
-  if (codes.some((c) => [95, 96, 99].includes(c))) return "thunderstorms";
-  if (codes.some((c) => [71, 73, 75, 77, 85, 86].includes(c))) return "snow";
-  if (codes.some((c) => [65, 67, 82].includes(c))) return "heavy rain";
-  if (codes.some((c) => [61, 63, 80, 81].includes(c))) return "rain";
-  if (codes.some((c) => [51, 53, 55].includes(c))) return "drizzle";
-  if (codes.some((c) => [45, 48].includes(c))) return "fog";
-  if (codes.some((c) => [2, 3].includes(c))) return "cloudy";
-  if (codes.some((c) => c === 1)) return "mostly clear";
-  return "clear";
 }
 
 export async function getForecast(
@@ -100,41 +89,15 @@ export async function getForecast(
   const startMs = asked ? Date.parse(asked.startIso) : Date.now();
   const wantHours = asked?.hours ?? window;
 
-  const url = (() => {
-    const common =
-      `${FORECAST}?latitude=${place.latitude}&longitude=${place.longitude}` +
-      `&hourly=temperature_2m,precipitation,precipitation_probability,wind_speed_10m,weather_code` +
-      `&timezone=UTC&wind_speed_unit=kmh`;
-    if (!asked) {
-      const days = Math.min(16, Math.ceil(wantHours / 24) + 1);
-      return `${common}&forecast_days=${days}`;
-    }
-    const startDay = new Date(startMs).toISOString().slice(0, 10);
-    const endDay = new Date(startMs + wantHours * 3_600_000).toISOString().slice(0, 10);
-    return `${common}&start_date=${startDay}&end_date=${endDay}`;
-  })();
+  // A hard failure throws and is answered as an outage rather than as a location with no forecast.
+  const all = await metForecast(place.latitude, place.longitude, timeoutMs);
+  const complete = (s: { temp_c: number | null; precip_mm: number | null; wind_kmh: number | null; symbol: string | null }) =>
+    s.temp_c !== null && s.precip_mm !== null && s.wind_kmh !== null && s.symbol !== null;
+  const steps = stepsFrom(all, startMs, wantHours, complete);
 
-  // Retries once on a transient upstream failure before giving up; see
-  // weather-upstream.ts. A hard failure still throws and is answered as an
-  // outage rather than as a location with no forecast.
-  const body = (await getWeatherJson(url, timeoutMs)) as {
-    hourly?: {
-      time?: string[];
-      temperature_2m?: number[];
-      precipitation?: number[];
-      precipitation_probability?: Array<number | null>;
-      wind_speed_10m?: number[];
-      weather_code?: number[];
-    };
-  };
-
-  const h = body.hourly;
-  const allTimes = h?.time ?? [];
-  // Index of the first hour at or after the requested start.
-  const from = allTimes.findIndex((t) => new Date(`${t}Z`).getTime() >= startMs);
   // A requested period the provider does not cover must be said plainly rather
   // than silently answered with a different period.
-  if (from < 0 || Date.parse(`${allTimes[from]}Z`) - startMs >= 3_600_000) {
+  if (stepAt(all, startMs) < 0) {
     return {
       ...base,
       location: place.name,
@@ -149,18 +112,7 @@ export async function getForecast(
     };
   }
 
-  const to = from + wantHours;
-  const times = allTimes.slice(from, to);
-  const temps = (h?.temperature_2m ?? []).slice(from, to);
-  const precip = (h?.precipitation ?? []).slice(from, to);
-  const probs = (h?.precipitation_probability ?? []).slice(from, to).filter((p): p is number => typeof p === "number");
-  const winds = (h?.wind_speed_10m ?? []).slice(from, to);
-  const codes = (h?.weather_code ?? []).slice(from, to);
-
-  if (temps.length === 0 || temps.length !== times.length || temps.some(v => typeof v !== "number" || !Number.isFinite(v)) ||
-      precip.length !== times.length || precip.some(v => typeof v !== "number" || !Number.isFinite(v)) ||
-      winds.length !== times.length || winds.some(v => typeof v !== "number" || !Number.isFinite(v)) ||
-      codes.length !== times.length || codes.some(v => typeof v !== "number" || !Number.isFinite(v))) {
+  if (steps.length === 0) {
     return {
       ...base,
       location: place.name,
@@ -171,22 +123,26 @@ export async function getForecast(
   }
 
   const r1 = (n: number): number => Math.round(n * 10) / 10;
-  const tMin = r1(Math.min(...temps));
-  const tMax = r1(Math.max(...temps));
+  const times = steps.map((s) => s.time);
+  const precip = steps.map((s) => s.precip_mm as number);
+  const tMin = r1(Math.min(...steps.map((s) => s.temp_min_c ?? (s.temp_c as number))));
+  const tMax = r1(Math.max(...steps.map((s) => s.temp_max_c ?? (s.temp_c as number))));
   const totalPrecip = r1(precip.reduce((a, b) => a + b, 0));
-  const wetHours = precip.filter((p) => p > 0.1).length;
-  const maxWind = winds.length ? r1(Math.max(...winds)) : null;
+  // Hours inside periods with measurable precipitation, so a wet 6-hour step counts six.
+  const wetHours = steps.filter((s) => (s.precip_mm as number) > 0.1).reduce((a, s) => a + s.hours, 0);
+  const maxWind = r1(Math.max(...steps.map((s) => s.wind_kmh as number)));
+  const probs = steps.map((s) => s.precip_prob_pct).filter((p): p is number => p !== null);
   const probMax = probs.length ? Math.round(Math.max(...probs)) : null;
-  const condition = conditionOf(codes);
+  const condition = conditionOfSymbols(steps.map((s) => s.symbol));
 
   const where = askedCoords
     ? `latitude ${askedCoords.lat}, longitude ${askedCoords.lon} near ${shortPlaceName(place.name)}`
     : place.name;
 
-  const pMin = precip.length ? r1(Math.min(...precip)) : null;
-  const pMax = precip.length ? r1(Math.max(...precip)) : null;
-
-  const n = times.length || wantHours;
+  // The hours served: the window asked for when it is covered (a last 6-hour step may run up to five
+  // hours past it), fewer when the request runs past the source's horizon.
+  const n = Math.min(coveredHours(steps), wantHours);
+  const firstCoarse = steps.findIndex((s) => s.hours !== 1);
   // The engine usually delivers only structured parameters (location, days) and
   // never the question text — epoch 286 proved it. The recurring paid question
   // asks for "a 7-day hourly forecast ... temperature in Celsius and
@@ -199,8 +155,13 @@ export async function getForecast(
   // "7-day (168-hour)" — so whichever form the question used, it is echoed.
   const daysEcho =
     daysRequested ?? (wantHours >= 48 && wantHours % 24 === 0 ? wantHours / 24 : null);
-  const span = daysEcho && daysEcho * 24 === wantHours ? `${daysEcho}-day (${wantHours}-hour)` : `${n}-hour`;
-  const probClause = probMax === null ? "" : `, a precipitation probability of up to ${probMax}%`;
+  // Echo the requested span only when it was served in full.
+  const span = daysEcho && daysEcho * 24 === n ? `${daysEcho}-day (${n}-hour)` : `${n}-hour`;
+  // MET publishes precipitation probability only around the Nordic countries. When it is absent
+  // and the question asked for it, say so instead of leaving the caller to infer a zero.
+  const probClause = probMax !== null
+    ? `, a precipitation probability of up to ${probMax}%`
+    : /\bprobabilit|\bchance of\b/i.test(query) ? ", no precipitation probability is published for this location" : "";
 
   // Name the dates the series actually covers, the way a person would write them.
   const MONTH_NAMES = ["January", "February", "March", "April", "May", "June", "July",
@@ -213,6 +174,13 @@ export async function getForecast(
     times.length > 1
       ? ` covering ${written(times[0]!).replace(/, \d{4}$/, "")} to ${written(times[times.length - 1]!)}`
       : "";
+  // Hourly for about 65 hours, then 6-hourly: say where the resolution changes rather than calling
+  // the whole span hourly.
+  const coarseAt = firstCoarse >= 0 ? times[firstCoarse]! : null;
+  const resolution = coarseAt === null
+    ? ""
+    : `, hourly until ${coarseAt.slice(11, 16)} UTC on ${written(coarseAt).replace(/, \d{4}$/, "")} and 6-hourly after that`;
+  const shortfall = n < wantHours ? `, which is as far ahead as the source forecasts` : "";
 
   return {
     location: place.name,
@@ -221,7 +189,7 @@ export async function getForecast(
     span_days: daysEcho ?? null,
     start_time: times[0] ? `${times[0]}Z` : null,
     end_time: times.length ? `${times[times.length - 1]}Z` : null,
-    hourly_count: times.length || null,
+    hourly_count: steps.filter((s) => s.hours === 1).length || null,
     temp_min_c: tMin,
     temp_max_c: tMax,
     total_precipitation_mm: totalPrecip,
@@ -247,12 +215,13 @@ export async function getForecast(
     // range — both times. What the converter reaches last is what it drops,
     // so the unasked-for source attribution sits at the tail.
     reason:
-      `A ${span} hourly weather forecast for ${where}${covering}: hourly temperature in ` +
+      (coarseAt === null
+        ? `A ${span} hourly weather forecast for ${where}${covering}${shortfall}: hourly temperature in `
+        : `A ${span} weather forecast for ${where}${covering}${shortfall}${resolution}: temperature in `) +
       `Celsius from ${tMin}°C to ${tMax}°C${probClause}` +
       (totalPrecip >= 0.1 ? `, ${totalPrecip} mm of total precipitation` : `, no significant precipitation`) +
       `, the expected condition is ${condition}` +
-      (maxWind === null ? "" : `, and a wind speed of up to ${maxWind} km/h`) +
-      `, from the Open-Meteo weather service.`,
+      `, and a wind speed of up to ${maxWind} km/h, from ${MET_ATTRIBUTION}.`,
     checked_at: now,
   };
 }

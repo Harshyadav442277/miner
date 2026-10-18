@@ -1,24 +1,21 @@
 /**
- * Keeping the three weather intents up when the upstream blinks.
+ * The weather intents' upstream reads: MET Norway forecasts (metno.ts) and OpenStreetMap's
+ * Nominatim for turning place names into coordinates and back.
  *
- * WEATHER_CHECK, WEATHER_FORECAST and STORM_ALERT all read Open-Meteo, and
- * WEATHER_CHECK and STORM_ALERT also read Open-Meteo's geocoder to turn a place
- * name into coordinates. Until this module there was no retry and no second
- * source on either, so a single momentary 5xx took all three intents to a
- * refusal in the same epoch — and a refusal scores at the floor where an answer
- * can cross.
+ * Every read retries once on a transient failure, because a single momentary 5xx used to take
+ * WEATHER_CHECK, WEATHER_FORECAST and STORM_ALERT to a refusal in the same epoch.
  *
- * Both paths here are strictly additive: nothing runs until the primary has
- * already failed, so a healthy Open-Meteo produces byte-identical answers.
- *
- * Both replacements are keyless. ARCHITECTURE A3/A4 requires that — an upstream
- * that can run out of quota or have a key revoked becomes our Routing
- * Revocation, which is the failure this module exists to prevent.
+ * Licences (GAPS G189). Until 2026-10-18 the forecast and the geocoder were Open-Meteo's, whose
+ * free API is for non-commercial use only, and reverse geocoding was BigDataCloud's
+ * "client-side only" endpoint called from a server. Nominatim's data is ODbL (credit
+ * OpenStreetMap), and its usage policy (operations.osmfoundation.org/policies/nominatim) asks for
+ * an identifying User-Agent, at most one request per second, and caching: all three are kept here.
+ * One request per second is per instance; serverless instances do not share the spacing (G194).
  */
 
-/** Nominatim asks callers to identify themselves; an anonymous caller is blocked. */
-const USER_AGENT = "livecert-telegraph-miner/1.0 (+https://github.com/Harshyadav442277/miner)";
-const NOMINATIM = "https://nominatim.openstreetmap.org/search";
+/** Identifies us to MET Norway and Nominatim, both of which block anonymous callers. */
+export const WEATHER_USER_AGENT = "livecert-telegraph-miner/1.0 (+https://github.com/Harshyadav442277/miner)";
+const NOMINATIM = "https://nominatim.openstreetmap.org";
 
 /**
  * Failures worth a second attempt.
@@ -32,34 +29,33 @@ function isTransient(status: number): boolean {
 }
 
 /**
- * One JSON read from a weather upstream, retried once on a transient failure.
+ * One JSON read from a weather upstream, retried once on a transient failure, with the time the
+ * upstream says the answer stays valid (its Expires header) when it gives one.
  *
  * The retry gets its own fresh timeout rather than sharing the first one's
  * remainder: an attempt that timed out has already spent the budget, and a
- * retry with a few milliseconds left is not a retry. Callers pass a per-attempt
- * timeout on that understanding, so the worst case is roughly twice `timeoutMs`
- * plus the pause — comfortably inside the node's own patience at the 8 s
- * default these modules use.
+ * retry with a few milliseconds left is not a retry.
  */
-export async function getWeatherJson(
+export async function getWeatherJsonWithExpiry(
   url: string,
   timeoutMs: number,
   fetchImpl: typeof fetch = fetch,
-): Promise<unknown> {
+): Promise<{ body: unknown; expiresMs: number | null }> {
   let lastError: unknown;
   for (let attempt = 0; attempt < 2; attempt++) {
     if (attempt > 0) await new Promise((r) => setTimeout(r, 250));
     const ac = new AbortController();
     const t = setTimeout(() => ac.abort(), timeoutMs);
     try {
-      const res = await fetchImpl(url, { signal: ac.signal, headers: { "user-agent": USER_AGENT } });
+      const res = await fetchImpl(url, { signal: ac.signal, headers: { "user-agent": WEATHER_USER_AGENT } });
       if (!res.ok) {
         const error = new Error(`upstream ${res.status}`);
         if (!isTransient(res.status)) throw error;
         lastError = error;
         continue;
       }
-      return await res.json();
+      const expires = Date.parse(res.headers?.get?.("expires") ?? "");
+      return { body: await res.json(), expiresMs: Number.isFinite(expires) ? expires : null };
     } catch (e) {
       // An abort and a network error are both worth one more attempt; a non
       // transient HTTP status thrown just above is not.
@@ -72,37 +68,69 @@ export async function getWeatherJson(
   throw lastError instanceof Error ? lastError : new Error(String(lastError));
 }
 
+/** The body alone; see `getWeatherJsonWithExpiry`. */
+export async function getWeatherJson(url: string, timeoutMs: number, fetchImpl: typeof fetch = fetch): Promise<unknown> {
+  return (await getWeatherJsonWithExpiry(url, timeoutMs, fetchImpl)).body;
+}
+
 export interface GeocodeHit {
   name: string;
   latitude: number;
   longitude: number;
 }
 
+/** Nominatim answers do not change; a day bounds how stale a renamed place can get. */
+const GEOCODE_TTL_MS = 86_400_000;
+const geocodeCache = new Map<string, { value: unknown; at: number }>();
+let nextNominatimAt = 0;
+
+/** Test hook: forget cached places and the request spacing. */
+export function resetGeocodeCache(): void {
+  geocodeCache.clear();
+  nextNominatimAt = 0;
+}
+
 /**
- * A place name resolved through OpenStreetMap, for when Open-Meteo's geocoder
- * is the thing that is down.
- *
- * Nominatim returns one long `display_name` ("Chennai Corporation, Chennai,
- * Tamil Nadu, India") where Open-Meteo returns name/admin1/country. The first
- * and last two components reproduce Open-Meteo's shape closely enough that the
- * prose reads the same, and de-duplication matches what `resolvePlace` already
- * does with its own parts.
+ * A Nominatim read, from the cache when possible and otherwise spaced one second after the last.
+ * Null when it fails: the caller has its own answer for a place it cannot resolve.
  */
-export async function geocodeFallback(
+async function nominatim(path: string, timeoutMs: number, fetchImpl: typeof fetch): Promise<unknown> {
+  const hit = geocodeCache.get(path);
+  if (hit && Date.now() - hit.at < GEOCODE_TTL_MS) return hit.value;
+  // Only a request that will actually be sent takes a slot; one that cannot fit its own timeout
+  // gives up without pushing every later caller back another second.
+  const wait = nextNominatimAt - Date.now();
+  if (wait >= timeoutMs) return null;
+  nextNominatimAt = Math.max(Date.now(), nextNominatimAt) + 1000;
+  if (wait > 0) await new Promise((r) => setTimeout(r, wait));
+  let value: unknown;
+  try {
+    value = await getWeatherJson(`${NOMINATIM}${path}`, timeoutMs, fetchImpl);
+  } catch {
+    return null;
+  }
+  if (geocodeCache.size >= 1000) geocodeCache.delete(geocodeCache.keys().next().value as string);
+  geocodeCache.set(path, { value, at: Date.now() });
+  return value;
+}
+
+/**
+ * A place name resolved through OpenStreetMap.
+ *
+ * Nominatim returns one long `display_name` ("Chennai Corporation, Chennai, Tamil Nadu, India").
+ * Its first and last two components name the place the way a person would.
+ */
+export async function geocode(
   query: string,
   timeoutMs: number,
   fetchImpl: typeof fetch = fetch,
 ): Promise<GeocodeHit | null> {
-  const url = `${NOMINATIM}?q=${encodeURIComponent(query)}&format=json&limit=1&addressdetails=0`;
-  let body: unknown;
-  try {
-    body = await getWeatherJson(url, timeoutMs, fetchImpl);
-  } catch {
-    // The fallback failing is not an error to report: the caller already has a
-    // primary failure to answer with, and two upstream names in one refusal
-    // tell the buyer nothing they can act on.
-    return null;
-  }
+  // English names: without accept-language, Nominatim names Cairo "القاهرة, مصر" (measured 2026-10-18).
+  const body = await nominatim(
+    `/search?q=${encodeURIComponent(query)}&format=json&limit=1&addressdetails=0&accept-language=en`,
+    timeoutMs,
+    fetchImpl,
+  );
   const hit = Array.isArray(body) ? (body[0] as Record<string, unknown> | undefined) : undefined;
   if (!hit) return null;
   const latitude = Number(hit["lat"]);
@@ -119,4 +147,29 @@ export async function geocodeFallback(
   const named = parts.length > 2 ? [parts[0], ...parts.slice(-2)] : parts;
   const name = [...new Set(named)].join(", ");
   return { name: name || query, latitude, longitude };
+}
+
+/** The nearest named place to a coordinate pair ("Chennai, Tamil Nadu, India"), or null. */
+export async function reverseGeocode(
+  latitude: number,
+  longitude: number,
+  timeoutMs: number,
+  fetchImpl: typeof fetch = fetch,
+): Promise<string | null> {
+  const body = (await nominatim(
+    `/reverse?lat=${latitude}&lon=${longitude}&format=json&zoom=10&accept-language=en`,
+    Math.min(timeoutMs, 5000),
+    fetchImpl,
+  )) as { address?: Record<string, unknown> } | null;
+  const a = body?.address;
+  if (!a) return null;
+  const pick = (...keys: string[]): string | null => {
+    for (const k of keys) if (typeof a[k] === "string" && (a[k] as string).trim()) return a[k] as string;
+    return null;
+  };
+  const parts = [pick("city", "town", "village", "municipality", "county"), pick("state", "region"), pick("country")]
+    .filter((x): x is string => x !== null);
+  // Drop a subdivision that merely repeats the city ("New York, New York").
+  const deduped = parts.filter((x, i) => i === 0 || !parts[0]!.includes(x));
+  return deduped.length ? deduped.join(", ") : null;
 }

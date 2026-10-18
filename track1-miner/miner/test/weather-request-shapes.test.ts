@@ -18,10 +18,9 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { handleRequest } from "../src/handler";
 import type { IncomingMessage, ServerResponse } from "node:http";
-
-const HOUR = 3_600_000;
-const start = Math.floor(Date.now() / HOUR) * HOUR;
-const stamp = (ms: number): string => new Date(ms).toISOString().slice(0, 16);
+import { resetMetCache } from "../src/metno";
+import { resetGeocodeCache } from "../src/weather-upstream";
+import { hourStart, metBody, nominatimHit, isMet, json } from "./weather-fixtures";
 
 /**
  * The geocoder answers with whatever name it was asked for, so the place the
@@ -31,17 +30,15 @@ const stamp = (ms: number): string => new Date(ms).toISOString().slice(0, 16);
 function stub(): typeof fetch {
   return (async (url: string | URL | Request) => {
     const href = String(url);
-    if (href.includes("/v1/forecast")) {
-      return new Response(JSON.stringify({
-        current: { time: stamp(start), temperature_2m: 23.4, precipitation: 0, weather_code: 0, wind_speed_10m: 3.6 },
-      }));
-    }
-    const name = new URL(href).searchParams.get("name") ?? "";
-    return new Response(JSON.stringify({ results: [{ name, latitude: 30.04, longitude: 31.23 }] }));
+    if (isMet(href)) return json(metBody(48, hourStart(), (i) => (i === 0 ? { temp: 23.4, windKmh: 3.6 } : {})));
+    const name = new URL(href).searchParams.get("q") ?? "";
+    return json(nominatimHit(name, 30.04, 31.23));
   }) as typeof fetch;
 }
 
 async function withStub(run: () => Promise<void>): Promise<void> {
+  resetMetCache();
+  resetGeocodeCache();
   const original = globalThis.fetch;
   globalThis.fetch = stub();
   try { await run(); } finally { globalThis.fetch = original; }

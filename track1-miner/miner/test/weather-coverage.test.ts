@@ -1,26 +1,32 @@
-import { test } from "node:test";
+import { test, beforeEach } from "node:test";
 import assert from "node:assert/strict";
 import { checkStorm } from "../src/storm";
 import { getForecast } from "../src/forecast";
 import { handleRequest } from "../src/handler";
+import { resetMetCache } from "../src/metno";
+import { resetGeocodeCache } from "../src/weather-upstream";
 import type { IncomingMessage, ServerResponse } from "node:http";
+import { HOUR, hourStart, stamp, metBody, nominatimHit, nominatimReverse, isMet, isNominatimReverse, json, type FixtureHour } from "./weather-fixtures";
 
-const HOUR = 3_600_000;
-const start = Math.floor(Date.now() / HOUR) * HOUR;
-const stamp = (ms: number) => new Date(ms).toISOString().slice(0, 16);
-function series(count = 180, origin = start): Record<string, any> {
-  return { time: Array.from({ length: count }, (_, i) => stamp(origin + i * HOUR)),
-    temperature_2m: Array.from({ length: count }, (_, i) => 20 + i),
-    wind_speed_10m: Array(count).fill(10), wind_gusts_10m: Array(count).fill(15),
-    wind_direction_10m: Array(count).fill(90), precipitation: Array(count).fill(0),
-    precipitation_probability: Array(count).fill(0), weather_code: Array(count).fill(0) };
-}
-async function withWeather(hourly: Record<string, any>, run: () => Promise<void>) {
+const start = hourStart();
+
+beforeEach(() => {
+  resetMetCache();
+  resetGeocodeCache();
+});
+
+async function withWeather(body: unknown, run: () => Promise<void>) {
   const original = globalThis.fetch;
-  globalThis.fetch = (async url => new Response(JSON.stringify(String(url).includes("/v1/forecast")
-    ? { hourly } : { city: "Test City", results: [{ name: "Test City", latitude: 13, longitude: 80 }] }))) as typeof fetch;
+  globalThis.fetch = (async (url: string | URL | Request) => {
+    const u = String(url);
+    if (isMet(u)) return json(body);
+    if (isNominatimReverse(u)) return json(nominatimReverse("Test City"));
+    return json(nominatimHit("Test City", 13, 80));
+  }) as typeof fetch;
   try { await run(); } finally { globalThis.fetch = original; }
 }
+const series = (count = 180, origin = start, hour?: (i: number) => FixtureHour) => metBody(count, origin, hour);
+
 function request(params: Record<string, string>): Promise<Record<string, any>> {
   return new Promise(resolve => {
     const req = { method: "GET", url: `/storm-alert?${new URLSearchParams(params)}` } as IncomingMessage;
@@ -29,18 +35,12 @@ function request(params: Record<string, string>): Promise<Record<string, any>> {
   });
 }
 /**
- * hours=0 used to be answered here, by getForecast, as the forecast for the
- * current hour. It is now a current READING from Open-Meteo's `current` block
- * (currentweather.ts), because a forecast slot is not what "right now" asks for:
- * "What is the current temperature in Cairo?" was being answered with a 24-hour
- * range on production. This pins the replacement offline, through the route.
+ * hours=0 is a current READING (currentweather.ts), not the forecast for the current hour: "What is
+ * the current temperature in Cairo?" was once answered with a 24-hour range on production. This
+ * pins it offline, through the route, against the step MET Norway gives for the present hour.
  */
 test("weather hours zero is answered from the current reading, not a forecast slot", async () => {
-  const original = globalThis.fetch;
-  const current = { time: stamp(start), temperature_2m: 27.4, precipitation: 0, weather_code: 3, wind_speed_10m: 9.2 };
-  globalThis.fetch = (async (url: string | URL | Request) => new Response(JSON.stringify(String(url).includes("/v1/forecast")
-    ? { current } : { city: "Test City", results: [{ name: "Test City", latitude: 13, longitude: 80 }] }))) as typeof fetch;
-  try {
+  await withWeather(series(48, start, (i) => (i === 0 ? { temp: 27.4, symbol: "cloudy", windKmh: 9.2 } : {})), async () => {
     const body = await new Promise<Record<string, any>>(resolve => {
       const req = { method: "GET", url: `/weather-forecast?${new URLSearchParams({ location: "13,80", hours: "0" })}` } as IncomingMessage;
       const res = { writeHead() {}, end(b: string) { resolve(JSON.parse(b)); } } as unknown as ServerResponse;
@@ -49,10 +49,9 @@ test("weather hours zero is answered from the current reading, not a forecast sl
     assert.equal(body.verdict, "cloudy");
     assert.match(body.reason, /is cloudy at 27\.4°C/);
     assert.match(body.reason, new RegExp(`as of ${stamp(start).slice(11, 16)} UTC`));
+    assert.match(body.reason, /MET Norway \(CC BY 4\.0\)/);
     assert.doesNotMatch(body.reason, /hourly weather forecast/);
-  } finally {
-    globalThis.fetch = original;
-  }
+  });
 });
 
 test("a forecast window is still a forecast", async () => {
@@ -87,9 +86,9 @@ test("a future storm point beyond supplied data is not replaced by the last avai
   });
 });
 test("missing weather values cannot become zero temperature or no storm", async () => {
-  const h = series();
-  h.temperature_2m.fill(null); h.wind_gusts_10m.fill(null);
-  await withWeather(h, async () => {
+  // Sustained wind is what the storm grade is computed from, so it is the value whose absence
+  // must not read as calm.
+  await withWeather(series(180, start, () => ({ temp: null, windKmh: null })), async () => {
     assert.equal((await getForecast("13,80")).verdict, "unknown");
     assert.equal((await checkStorm("13,80")).verdict, "unknown");
   });

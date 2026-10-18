@@ -18,8 +18,9 @@ test("long weather questions keep their best extracted location", async () => {
       `Return current weather conditions for ${city}. Classify this as WEATHER_CHECK.`]) {
       assert.equal(placeCandidates(q)[0], city);
       await mocked((async input => {
-        const name = new URL(String(input)).searchParams.get("name");
-        return json({results: [{name, latitude: name === city ? 6.5 : 34.6, longitude: 3.4, country: name === city ? "Nigeria" : "United States"}]});
+        // Nominatim's /search shape: the place the route asked for, in the country the test pins.
+        const name = new URL(String(input)).searchParams.get("q");
+        return json([{lat: name === city ? "6.5" : "34.6", lon: "3.4", display_name: `${name}, ${name === city ? "Nigeria" : "United States"}`}]);
       }) as typeof fetch, async () => {
         const result = await resolvePlace(q);
         assert.match(result!.name, /Nigeria/);

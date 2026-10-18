@@ -5,15 +5,20 @@
  * or disruption risk", NOT general current conditions. So this reports a risk
  * verdict over a forward window rather than a temperature.
  *
- * Backed by Open-Meteo: free, no API key, no rate-limit paperwork. That matters —
- * an upstream quota becomes our Routing Revocation (ARCHITECTURE A3/A4).
+ * Backed by MET Norway (metno.ts) and OpenStreetMap's Nominatim, both keyless and both licensed
+ * for commercial use with credit (GAPS G189). Keyless matters: an upstream quota becomes our
+ * Routing Revocation (ARCHITECTURE A3/A4).
+ *
+ * The risk is graded on SUSTAINED wind. The anchors below (39/62/89/118 km/h) are the Beaufort
+ * scale's sustained-wind bands, and MET Norway publishes no gust forecast outside the Nordic
+ * countries; grading on gusts where they exist and on sustained wind elsewhere would make the
+ * same number mean different things by region. Gusts are reported when published, never estimated.
  */
 
 import { placeCandidates, shortPlaceName, extractCoords, extractHours, extractTimeRequest, extractWindThreshold, asksForKnots, toKmh, summarisePeriods } from "./extract";
-import { getWeatherJson, geocodeFallback } from "./weather-upstream";
+import { geocode, reverseGeocode } from "./weather-upstream";
+import { MET_ATTRIBUTION, isThunder, metForecast, stepAt, stepsFrom } from "./metno";
 
-const GEOCODE = "https://geocoding-api.open-meteo.com/v1/search";
-const FORECAST = "https://api.open-meteo.com/v1/forecast";
 const DEFAULT_TIMEOUT_MS = 8000;
 const WINDOW_HOURS = 48;
 
@@ -45,9 +50,6 @@ export interface StormResult {
   checked_at: string;
 }
 
-/** WMO codes that mean a thunderstorm specifically. */
-const THUNDER = new Set([95, 96, 99]);
-
 /**
  * A question asking what to DO about the weather, not what the weather will be.
  * Kept narrow on purpose: across all 30 recorded storm questions this matches
@@ -58,14 +60,6 @@ const THUNDER = new Set([95, 96, 99]);
  */
 const ADVISORY =
   /\b(what|which)\b[^?]*\b(adjustments?|precautions?|measures|steps|actions)\b|\bshould\s+\w+\s+(implement|take|adopt)\b|\bhow\s+(should|can|do)\s+\w+\s+(prepare|protect|respond|safeguard)|\bsafeguard\b/i;
-
-/**
- * Shared by the geocoder and the forecast read. Retries once on a transient
- * upstream failure; see weather-upstream.ts for why that is not free-form.
- */
-async function getJson(url: string, timeoutMs: number): Promise<unknown> {
-  return getWeatherJson(url, timeoutMs);
-}
 
 export interface Place {
   name: string;
@@ -115,34 +109,6 @@ export async function resolvePlace(query: string, timeoutMs = DEFAULT_TIMEOUT_MS
   return null;
 }
 
-/**
- * Nearest named place to a coordinate pair, or null.
- *
- * Open-Meteo's geocoding endpoint only searches by name, so it cannot do this —
- * an earlier attempt to reuse it silently returned nothing. BigDataCloud's
- * reverse endpoint needs no key and answers in well under a second.
- */
-async function reverseGeocode(lat: number, lon: number, timeoutMs: number): Promise<string | null> {
-  const body = (await getJson(
-    `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=en`,
-    Math.min(timeoutMs, 5000),
-  ).catch(() => null)) as Record<string, unknown> | null;
-  if (!body) return null;
-  const city = body["city"] ?? body["locality"];
-  const admin = body["principalSubdivision"];
-  // Some sources return the ISO long form, "United States of America (the)".
-  const country =
-    typeof body["countryName"] === "string"
-      ? body["countryName"].replace(/\s*\(the\)\s*$/i, "")
-      : body["countryName"];
-  const parts = [city, admin, country].filter(
-    (x): x is string => typeof x === "string" && x.trim().length > 0,
-  );
-  // Drop a subdivision that merely repeats the city ("New York City, New York").
-  const deduped = parts.filter((x, i) => i === 0 || !parts[0]!.includes(x));
-  return deduped.length ? deduped.join(", ") : null;
-}
-
 async function geocodeOnce(query: string, timeoutMs = DEFAULT_TIMEOUT_MS): Promise<Place | null> {
   const q = (query ?? "").trim();
   if (!q) return null;
@@ -154,31 +120,7 @@ async function geocodeOnce(query: string, timeoutMs = DEFAULT_TIMEOUT_MS): Promi
     if (Math.abs(latitude) > 90 || Math.abs(longitude) > 180) return null;
     return { name: `${latitude},${longitude}`, latitude, longitude };
   }
-
-  // Open-Meteo's geocoder is a single point of failure for WEATHER_CHECK and
-  // STORM_ALERT alike: no coordinates means both refuse. OpenStreetMap answers
-  // the same question and is only consulted once this one has actually failed,
-  // so a healthy primary is unaffected.
-  let body: { results?: Array<Record<string, unknown>> };
-  try {
-    body = (await getJson(
-      `${GEOCODE}?name=${encodeURIComponent(q)}&count=1&language=en&format=json`,
-      timeoutMs,
-    )) as { results?: Array<Record<string, unknown>> };
-  } catch {
-    return geocodeFallback(q, timeoutMs);
-  }
-
-  const hit = body.results?.[0];
-  if (!hit) return geocodeFallback(q, timeoutMs);
-  const parts = [hit["name"], hit["admin1"], hit["country"]].filter(
-    (p): p is string => typeof p === "string" && p.length > 0,
-  );
-  return {
-    name: [...new Set(parts)].join(", "),
-    latitude: Number(hit["latitude"]),
-    longitude: Number(hit["longitude"]),
-  };
+  return geocode(q, timeoutMs);
 }
 
 /**
@@ -186,11 +128,11 @@ async function geocodeOnce(query: string, timeoutMs = DEFAULT_TIMEOUT_MS): Promi
  *
  * Real paid questions ask for "an overall risk between 0 and 1" — a categorical
  * verdict alone does not answer that, and an agent thresholding on a number
- * cannot use "moderate". Anchored on the same Beaufort gust thresholds the
+ * cannot use "moderate". Anchored on the Beaufort sustained-wind bands the
  * verdict uses, so the two can never disagree, then nudged for thunderstorms and
  * heavy rain the way the verdict is.
  */
-function riskScore(gustKmh: number, thunder: boolean, precipMm: number | null): number {
+function riskScore(windKmh: number, thunder: boolean, precipMm: number | null): number {
   // Piecewise-linear across the Beaufort anchors: 39/62/89/118 km/h.
   const anchors: [number, number][] = [
     [0, 0.0], [39, 0.25], [62, 0.5], [89, 0.75], [118, 0.9], [160, 1.0],
@@ -199,8 +141,8 @@ function riskScore(gustKmh: number, thunder: boolean, precipMm: number | null): 
   for (let i = 1; i < anchors.length; i++) {
     const [x0, y0] = anchors[i - 1]!;
     const [x1, y1] = anchors[i]!;
-    if (gustKmh <= x1) {
-      base = y0 + ((gustKmh - x0) / (x1 - x0)) * (y1 - y0);
+    if (windKmh <= x1) {
+      base = y0 + ((windKmh - x0) / (x1 - x0)) * (y1 - y0);
       break;
     }
   }
@@ -274,88 +216,46 @@ export async function checkStorm(
     return { ...base, reason: `No resolvable location found for ${JSON.stringify(query)}.` };
   }
 
-  const url =
-    `${FORECAST}?latitude=${place.latitude}&longitude=${place.longitude}` +
-    `&hourly=wind_speed_10m,wind_gusts_10m,wind_direction_10m,precipitation,weather_code` +
-    `&forecast_days=${Math.min(16, Math.ceil(windowHours / 24) + 1)}&timezone=UTC&wind_speed_unit=kmh`;
+  // A failed read throws, and the route answers that as an outage rather than as calm weather.
+  const all = await metForecast(place.latitude, place.longitude, timeoutMs);
 
-  const body = (await getJson(url, timeoutMs)) as {
-    hourly?: {
-      time?: string[];
-      wind_speed_10m?: number[];
-      wind_gusts_10m?: number[];
-      wind_direction_10m?: number[];
-      precipitation?: number[];
-      weather_code?: number[];
+  // A point question is answered by the step containing that moment; a window by its worst step.
+  // MET's first step starts at the top of the current hour, so "right now" falls inside it.
+  const startMs = Date.now() + (mode === "point" ? offsetHours * 3_600_000 : 0);
+  const complete = (s: { wind_kmh: number | null; precip_mm: number | null; symbol: string | null }) =>
+    s.wind_kmh !== null && s.precip_mm !== null && s.symbol !== null;
+  const steps = stepsFrom(all, startMs, mode === "point" ? 1 : windowHours, complete);
+  if (steps.length === 0) {
+    const located = { ...base, location: place.name, latitude: place.latitude, longitude: place.longitude, confidence: 0 };
+    if (stepAt(all, startMs) >= 0) return { ...located, reason: `Complete forecast data is unavailable for ${place.name}.` };
+    return {
+      ...located,
+      reason: mode === "point" && offsetHours > 0
+        ? `No forecast data available for ${place.name} at the requested time in ${offsetHours} hours.`
+        : `No current forecast data available for ${place.name}; the supplied series does not cover the requested period.`,
     };
-  };
-
-  const h = body.hourly;
-  // `timezone=UTC` above is load-bearing, not cosmetic. Under `timezone=auto`
-  // Open-Meteo returns the LOCATION's wall-clock strings with no offset suffix
-  // (`2026-09-06T00:00`, utc_offset_seconds 19800 for Chennai), and every parse
-  // below reads them as `${t}Z`. That shifted `from` — and so the hour a point
-  // question is answered at — by exactly the location's UTC offset: measured
-  // 2026-09-06 as Tokyo -9h, Chennai -6h, Honolulu +10h against the 12h asked.
-  // storm.test.ts repeated the same misparse, so the two errors cancelled and it
-  // read 0.4h drift; it only went red when the shift also moved the window index,
-  // which is the intermittent `checkStorm (live)` failure in CI. Keep this UTC,
-  // as forecast.ts already does.
-  //
-  // Open-Meteo returns whole days from midnight in the requested zone. Trim to
-  // exactly the hours asked for, counted from now, so the peak we report is
-  // inside the window the caller named rather than in the last day's tail.
-  const allTimes = h?.time ?? [];
-  const nowMs = Date.now();
-  const startMs = mode === "point" && offsetHours === 0 ? Math.floor(nowMs / 3_600_000) * 3_600_000 : nowMs;
-  const from = allTimes.findIndex((t) => new Date(`${t}Z`).getTime() >= startMs);
-  if (from < 0 || Date.parse(`${allTimes[from]}Z`) - startMs >= 3_600_000) {
-    return { ...base, location: place.name, confidence: 0,
-      reason: `No current forecast data available for ${place.name}; the supplied series does not cover the requested period.` };
-  }
-  const to = from + windowHours;
-  const cut = <T,>(a: T[] | undefined): T[] => (a ?? []).slice(from, to);
-
-  const times = cut(allTimes);
-  const gusts = cut(h?.wind_gusts_10m);
-  const winds = cut(h?.wind_speed_10m);
-  const dirs = cut(h?.wind_direction_10m);
-  const precip = cut(h?.precipitation);
-  const codes = cut(h?.weather_code);
-
-  if (times.length === 0 || gusts.length !== times.length || gusts.some(v => typeof v !== "number" || !Number.isFinite(v)) ||
-      winds.length !== times.length || winds.some(v => typeof v !== "number" || !Number.isFinite(v)) ||
-      precip.length !== times.length || precip.some(v => typeof v !== "number" || !Number.isFinite(v)) ||
-      codes.length !== times.length || codes.some(v => typeof v !== "number" || !Number.isFinite(v))) {
-    return { ...base, location: place.name, latitude: place.latitude, longitude: place.longitude,
-      confidence: 0, reason: `Complete forecast data is unavailable for ${place.name}.` };
   }
 
-  // A point question is answered by one row; a window question by the worst row.
+  const times = steps.map((s) => s.time);
+  const winds = steps.map((s) => s.wind_kmh as number);
+  const gusts = steps.map((s) => s.gust_kmh);
+  const dirs = steps.map((s) => s.wind_dir_deg);
+  const precip = steps.map((s) => s.precip_mm as number);
+
   let peakIdx = 0;
-  if (mode === "point") {
-    if (offsetHours >= times.length) return { ...base, location: place.name, confidence: 0,
-      reason: `No forecast data available for ${place.name} at the requested time in ${offsetHours} hours.` };
-    peakIdx = offsetHours;
-  } else {
-    for (let i = 1; i < gusts.length; i++) {
-      if ((gusts[i] ?? -1) > (gusts[peakIdx] ?? -1)) peakIdx = i;
-    }
-  }
+  for (let i = 1; i < winds.length; i++) if (winds[i]! > winds[peakIdx]!) peakIdx = i;
 
-  const maxGust = mode === "point" ? (gusts[peakIdx] ?? 0) : (gusts[peakIdx] ?? 0);
-  const maxWind =
-    mode === "point" ? (winds[peakIdx] ?? null) : winds.length ? Math.max(...winds) : null;
-  const maxPrecip =
-    mode === "point" ? (precip[peakIdx] ?? null) : precip.length ? Math.max(...precip) : null;
-  const thunder =
-    mode === "point" ? THUNDER.has(codes[peakIdx] ?? -1) : codes.some((c) => THUNDER.has(c));
+  const maxWind = winds[peakIdx]!;
+  const published = gusts.filter((g): g is number => g !== null);
+  const maxGust = mode === "point" ? (gusts[0] ?? null) : published.length ? Math.max(...published) : null;
+  const maxPrecip = Math.max(...precip);
+  const thunder = steps.some((s) => isThunder(s.symbol));
 
   // One number, one label, derived from it. Previously the verdict escalated in
   // discrete steps while the score added a continuous bonus, so a "low" could
   // carry a higher risk_score than a "moderate" — incoherent to any consumer
   // reading both fields.
-  const risk = riskScore(maxGust, thunder, maxPrecip);
+  const risk = riskScore(maxWind, thunder, maxPrecip);
   const verdict = gradeRisk(risk);
 
   // A question that names an operational limit is asking whether it is crossed,
@@ -364,19 +264,21 @@ export async function checkStorm(
   const threshold = extractWindThreshold(query);
   const wantKnots = asksForKnots(query);
   const limitKmh = threshold ? toKmh(threshold.value, threshold.unit) : null;
+  // Counted in hours, so a 6-hour step whose wind crosses the limit counts six.
   const exceededHours =
-      limitKmh === null ? 0 : (mode === "point" ? [winds[peakIdx]!] : winds).filter((w) => typeof w === "number" && w >= limitKmh).length;
+      limitKmh === null ? 0 : steps.filter((s) => (s.wind_kmh as number) >= limitKmh).reduce((a, s) => a + s.hours, 0);
+  const coveredWindow = mode === "point" ? windowHours : steps.reduce((a, s) => a + s.hours, 0);
 
   return {
     location: place.name,
     verdict,
       risk_score: risk,
     wind_direction: bearingToCompass(dirs[peakIdx] ?? null),
-    max_wind_gust_kmh: Math.round(maxGust * 10) / 10,
-    max_wind_speed_kmh: maxWind === null ? null : Math.round(maxWind * 10) / 10,
-    max_precipitation_mm: maxPrecip === null ? null : Math.round(maxPrecip * 10) / 10,
+    max_wind_gust_kmh: maxGust === null ? null : Math.round(maxGust * 10) / 10,
+    max_wind_speed_kmh: Math.round(maxWind * 10) / 10,
+    max_precipitation_mm: Math.round(maxPrecip * 10) / 10,
     thunderstorm: thunder,
-    window_hours: windowHours,
+    window_hours: coveredWindow,
     valid_at: mode === "point" ? (times[peakIdx] ?? null) : null,
     peak_at: mode === "window" ? (times[peakIdx] ?? null) : null,
     latitude: place.latitude,
@@ -384,8 +286,8 @@ export async function checkStorm(
     confidence: 1,
     threshold_exceeded: threshold === null ? null : exceededHours > 0,
     threshold_hours: threshold === null ? null : exceededHours,
-    reason: describe(
-      shortPlaceName(place.name), verdict, maxGust, thunder, maxPrecip, windowHours, mode,
+    reason: `${describe(
+      shortPlaceName(place.name), verdict, maxGust, thunder, maxPrecip, coveredWindow, mode,
       offsetHours, maxWind, risk, threshold ? { value: threshold.value, unit: threshold.unit } : null,
       exceededHours, wantKnots, bearingToCompass(dirs[peakIdx] ?? null),
       // This read `/\b(?:10|100)?u\b|u-component/i` and both `\b` were stored as
@@ -400,9 +302,9 @@ export async function checkStorm(
       // The clip is 32 words, so the extra sentence displaces answer that scores.
       // Behaviour therefore stays exactly as deployed; the code now says so.
       askedCoords, /u-component/i.test(query),
-      mode === "window" ? summarisePeriods(times, winds, gusts) : [],
+      mode === "window" ? summarisePeriods(times, winds, gusts.map((g) => g ?? Number.NaN)) : [],
       ADVISORY.test(query),
-    ),
+    )} Forecast data from ${MET_ATTRIBUTION}.`,
     checked_at: now,
   };
 }
@@ -425,7 +327,7 @@ function when(offsetHours: number): string {
 function describe(
   place: string,
   verdict: StormVerdict,
-  gust: number,
+  gust: number | null,
   thunder: boolean,
   precip: number | null,
   hours: number,
@@ -462,9 +364,11 @@ function describe(
     );
   }
   parts.push(
-    `Gusts: ${mode === "point" ? "" : "peak "}wind gusts of ${r1(gust)} km/h, or ${ms(gust)}` +
-      (wantKnots ? `, approximately ${kt(gust)}` : "") +
-      ".",
+    gust === null
+      ? "Gusts: no gust forecast is published for this location, so the grade uses sustained wind."
+      : `Gusts: ${mode === "point" ? "" : "peak "}wind gusts of ${r1(gust)} km/h, or ${ms(gust)}` +
+        (wantKnots ? `, approximately ${kt(gust)}` : "") +
+        ".",
   );
   if (precip !== null) parts.push(`Precipitation: ${r1(precip)} mm.`);
   if (direction) parts.push(`Wind direction: prevailing from the ${direction}.`);
@@ -501,7 +405,7 @@ function describe(
   // resembled the scorer's reference text; to a caller it read as an alarm.
   const guidance =
     "secure loose equipment, tools and materials, move non-essential personnel to shelter," +
-    " suspend exposed operations such as lifting, drilling or hauling during peak gusts, and keep" +
+    " suspend exposed operations such as lifting, drilling or hauling during the strongest winds, and keep" +
     " monitoring the forecast.";
   const body = `${lead} ${parts.join(" ")}${limit}${ucomp}`;
   if (advisory) return `To prepare for these conditions, ${guidance} ${body}`;

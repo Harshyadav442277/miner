@@ -17,7 +17,7 @@
  * WEATHER_FORECAST questions, ZERO contain "alert", "warning" or "advisory", so
  * a forecast question cannot be diverted here.
  *
- * WHAT THIS MAY AND MAY NOT CLAIM. We read Open-Meteo, not a national
+ * WHAT THIS MAY AND MAY NOT CLAIM. We read MET Norway's forecast, not a national
  * meteorological agency's warning feed. So this never says "no warning has been
  * issued" — we cannot see an issuing authority. It says whether the forecast
  * carries alert-level conditions, and names the numbers behind that, which is
@@ -104,7 +104,7 @@ export function alertAnswer(r: StormResult): AlertCheckResult {
     ` Overall storm risk is ${r.risk_score.toFixed(2)} on a scale of 0 to 1, graded ${r.verdict}.`;
   // Said once, plainly: this is a forecast reading, not an agency's bulletin.
   const source =
-    ` This is read from the Open-Meteo forecast rather than from a national weather agency's ` +
+    ` This is read from the MET Norway forecast rather than from a national weather agency's ` +
     `warning feed, so it describes the conditions, not whether an authority has issued a bulletin.`;
 
   if (active) {

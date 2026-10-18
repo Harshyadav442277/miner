@@ -17,18 +17,17 @@
  * their answer with a current reading, and ours never stated one. That is a
  * missing answer, not a wording preference.
  *
- * WHY `current` AND NOT THE FIRST HOURLY SLOT. Open-Meteo's `current` block is a
- * 15-minute reading with its own timestamp, verified keyless on 2026-09-13. The
- * first hourly slot is a forecast value for the top of an hour, which is the thing
- * the question is not asking for.
+ * WHERE THE VALUE COMES FROM. Until 2026-10-18 this read Open-Meteo's `current` block, whose free
+ * API is for non-commercial use only (GAPS G189). MET Norway publishes no separate current reading
+ * outside the Nordic countries, so this is MET's model value for the step containing the present
+ * hour — the first step of its forecast. Neither source was ever a station observation, and the
+ * answer says it is the value for that hour rather than calling it a measurement.
  */
 import { resolvePlace } from "./storm";
 import { extractCoords, shortPlaceName } from "./extract";
-import { conditionOf, type ForecastResult } from "./forecast";
+import type { ForecastResult } from "./forecast";
+import { MET_ATTRIBUTION, conditionOfSymbols, metForecast, stepAt } from "./metno";
 
-import { getWeatherJson } from "./weather-upstream";
-
-const FORECAST = "https://api.open-meteo.com/v1/forecast";
 const DEFAULT_TIMEOUT_MS = 8000;
 
 /**
@@ -44,15 +43,6 @@ export function asksCurrentConditions(text: string): boolean {
   return !/\b(?:forecasts?|tomorrow|tonight|later|next|coming|upcoming|weekend|this (?:week|evening|afternoon|morning)|in \d+ (?:hours?|days?|minutes?)|will it|going to)\b/i.test(s);
 }
 
-interface Current {
-  time?: string;
-  temperature_2m?: number;
-  precipitation?: number;
-  weather_code?: number;
-  wind_speed_10m?: number;
-}
-
-const finite = (v: unknown): v is number => typeof v === "number" && Number.isFinite(v);
 const r1 = (n: number): number => Math.round(n * 10) / 10;
 
 export async function getCurrentConditions(query: string, timeoutMs = DEFAULT_TIMEOUT_MS): Promise<ForecastResult> {
@@ -67,27 +57,21 @@ export async function getCurrentConditions(query: string, timeoutMs = DEFAULT_TI
   const place = await resolvePlace(query, timeoutMs);
   if (!place) return { ...base, reason: `No resolvable location found for ${JSON.stringify(query)}.` };
 
-  const url =
-    `${FORECAST}?latitude=${place.latitude}&longitude=${place.longitude}` +
-    `&current=temperature_2m,precipitation,weather_code,wind_speed_10m&timezone=UTC&wind_speed_unit=kmh`;
   // A failed read throws, and the route answers that as an outage — the same
   // contract as the forecast path, so an outage is never a missing reading.
-  // getWeatherJson retries once first, so a momentary 5xx no longer costs the
-  // whole epoch's answer.
-  const body = (await getWeatherJson(url, timeoutMs)) as { current?: Current };
-
-  const c = body.current;
+  const steps = await metForecast(place.latitude, place.longitude, timeoutMs);
+  const c = steps[stepAt(steps, Date.now())];
   const located = { location: place.name, latitude: place.latitude, longitude: place.longitude };
-  if (!c || !finite(c.temperature_2m) || !finite(c.weather_code) || !c.time) {
+  if (!c || c.temp_c === null || c.symbol === null) {
     return { ...base, ...located, confidence: 0, reason: `Current conditions are unavailable for ${place.name}.` };
   }
 
-  const temp = r1(c.temperature_2m);
-  const condition = conditionOf([c.weather_code]);
+  const temp = r1(c.temp_c);
+  const condition = conditionOfSymbols([c.symbol]);
   const coords = extractCoords(query);
   const where = coords ? `latitude ${coords.lat}, longitude ${coords.lon} near ${shortPlaceName(place.name)}` : place.name;
-  const precip = finite(c.precipitation) ? r1(c.precipitation) : null;
-  const wind = finite(c.wind_speed_10m) ? r1(c.wind_speed_10m) : null;
+  const precip = c.precip_mm === null ? null : r1(c.precip_mm);
+  const wind = c.wind_kmh === null ? null : r1(c.wind_kmh);
   const at = `${c.time.slice(11, 16)} UTC on ${c.time.slice(0, 10)}`;
 
   /**
@@ -100,7 +84,7 @@ export async function getCurrentConditions(query: string, timeoutMs = DEFAULT_TI
   const lead = /\btemperature\b/i.test(query)
     ? `The current temperature in ${where} is ${temp}°C, and it is ${condition}`
     : `The current weather in ${where} is ${condition} at ${temp}°C`;
-  const rain = precip === null ? "" : precip >= 0.1 ? `, with ${precip} mm of precipitation` : ", with no precipitation";
+  const rain = precip === null ? "" : precip >= 0.1 ? `, with ${precip} mm of precipitation this hour` : ", with no precipitation";
   const breeze = wind === null ? "" : ` and wind at ${wind} km/h`;
 
   return {
@@ -109,6 +93,6 @@ export async function getCurrentConditions(query: string, timeoutMs = DEFAULT_TI
     start_time: `${c.time}Z`, end_time: `${c.time}Z`, hourly_count: null,
     temp_min_c: temp, temp_max_c: temp,
     total_precipitation_mm: precip, max_wind_speed_kmh: wind,
-    reason: `${lead}${rain}${breeze}, as of ${at}, from the Open-Meteo weather service.`,
+    reason: `${lead}${rain}${breeze}, as of ${at}, the model value for that hour from ${MET_ATTRIBUTION}.`,
   };
 }
