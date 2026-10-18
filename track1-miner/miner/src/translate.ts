@@ -1,49 +1,22 @@
 /**
- * Translation — Google's keyless endpoint first, MyMemory as the failover.
+ * LANGUAGE_TRANSLATION — machine translation by Groq's open-weight models (llm.ts).
  *
- * PROVIDER ORDER, REVISED 2026-08-30 (second revision). MyMemory was primary
- * and Google the 429 failover. Measured over the ten distinct real recorded
- * questions against the current champion (registration 1996,
- * `language_translation_w1.wasm`, a hard two-cluster cut): the ground truths
- * are LLM translations, and MyMemory's memory matches diverge from them where
- * Google's neural output matches nearly verbatim — e.g. the recorded Spanish
- * ground truth "El clima está hermoso hoy." is exactly Google's output, while
- * MyMemory returns "El tiempo es estupendo.", which drops "today". Under a
- * scorer that is a cliff on ground-truth resemblance, translation quality is
- * the whole margin, so the higher-fidelity provider goes first and the
- * manifest names no provider, so no registration change is involved.
+ * PROVIDERS, REPLACED 2026-10-18 (GAPS G189). The primary was `clients5.google.com`, an
+ * undocumented Google endpoint with no licence for this use, and the failover was MyMemory, whose
+ * terms forbid reselling its service. Answers sold through Telegraph are commercial, so both are
+ * gone. No free translation API both permits commercial use and needs no account, so there is no
+ * keyless fallback: when Groq does not answer, the route reports an outage rather than serving a
+ * translation it is not allowed to serve, or one it made up.
  *
- * ANSWER SHAPE, REVISED AGAIN 2026-08-30 (w1 era): the reason is the BARE
- * TRANSLATION, nothing else. The recorded ground truths are bare translations
- * ("コーヒーを一杯お願いします。"), and under the current champion — measured over
- * all ten distinct real recorded questions, variants built mechanically from
- * live provider output — the bare translation crosses on 9/10 while the
- * sentence form crosses on 8/10 and the sentence plus a provenance clause on
- * only 3/10: for non-Latin scripts every English word dilutes the one string
- * being compared. The sentence-form advice above belonged to the c2_r1cut
- * regime and inverted when that scorer was replaced. Provenance stays in the
- * `source` field, and the /translate route skips the restatement prefix for
- * the same measured reason.
+ * ANSWER SHAPE. The reason is the bare translation, nothing else: the requested text in the
+ * requested language is the whole answer, and provenance lives in the `source` field.
  *
- * A longer filler claiming the result is "the form a native speaker would most
- * commonly reach for" was **rejected** in the previous regime: it asserts
- * something we cannot substantiate about a machine translation. That
- * constraint stands whatever the scorer rewards.
- *
- * ISO CODES, ADDED 2026-08-31 (epoch 297 post-mortem): miner.yaml tells the
- * engine `target_language` may be "by name or ISO 639-1 code, e.g. Spanish or
- * fr", but this file resolved names only, so `target_language=de` produced a
- * "No target language was named" refusal. Measured under the current champion
- * (reg 2296, ltr_v5_75.wasm): a refusal converts to English-only prose scoring
- * ~1-2.5e-11 — exactly the band of our live 2.4e-11 in epoch 297 — while a
- * conversion that quotes the translation scores ~3.5e-10, ninefold above that
- * epoch's leader (3.876923e-11, itself reproduced offline byte-for-score from
- * the recorded mymemory converted answer). Codes are now resolved through
- * CODES below; name-shaped requests are byte-identical to before.
+ * ISO CODES. miner.yaml invites `target_language` "by name or ISO 639-1 code, e.g. Spanish or
+ * fr", so codes resolve through CODES below; a name found anywhere in the question wins.
  */
 
-const MEMORY_API = "https://api.mymemory.translated.net/get";
-const CHROME_API = "https://clients5.google.com/translate_a/t";
+import { phrase } from "./llm";
+
 const DEFAULT_TIMEOUT_MS = 8000;
 
 export interface TranslationResult {
@@ -58,7 +31,7 @@ export interface TranslationResult {
   checked_at: string;
 }
 
-/** Language names as questions write them, mapped to MyMemory codes. */
+/** Language names as questions write them, mapped to ISO 639-1 codes (zh-CN for Chinese). */
 const LANGS: Record<string, string> = {
   arabic: "ar", bengali: "bn", bulgarian: "bg", "chinese": "zh-CN",
   "mandarin": "zh-CN", "mandarin chinese": "zh-CN", "simplified chinese": "zh-CN",
@@ -92,7 +65,7 @@ CODES["zh"] = { name: "chinese", code: "zh-CN" };
  * confidently wrong answer, which is worse here than a refusal.
  */
 const PLACEHOLDER =
-  /^(?:this|that|it|the following(?: text| phrase| sentence)?|the text|the phrase|below)\b[:,]?$/i;
+  /^(?:this|that|it|the following(?: [a-z]+)?(?: text| phrase| sentence| passage| paragraph| words?)?|the text|the phrase|below)\b[:,]?$/i;
 
 /** Trailing junk a real routed request arrives with: "What are you doing?>". */
 const TRAILING_JUNK = /[>»<]+$/;
@@ -100,8 +73,20 @@ const TRAILING_JUNK = /[>»<]+$/;
 /** The text to translate — questions quote it. */
 export function sourceText(question: string): string | null {
   const s = String(question ?? "");
-  const q = s.match(/[\u201c\u2018"']([^\u201d\u2019"']{2,})[\u201d\u2019"']/);
-  if (q?.[1]) return q[1].trim();
+  // Double quotes first: an apostrophe inside a double-quoted passage ("\u2026include NASA's efforts\u2026")
+  // used to close it, and the answer translated "Recent developments include NASA" (routed 2026-10).
+  const dq = s.match(/[\u201c"]([^\u201d"]{2,})[\u201d"]/);
+  if (dq?.[1]) return dq[1].trim();
+  // A single quote counts only as a quote: opened after a space or bracket, closed before a space or
+  // punctuation, so an apostrophe inside a word cannot end the text.
+  const sq = s.match(/(?:^|[\s(:])[\u2018']([^\u2019']{2,})[\u2019'](?=[\s.,;:!?)]|$)/);
+  if (sq?.[1]) return sq[1].trim();
+  // A quote opened after a colon and never closed: the payload runs to the end. Routed
+  // 2026-10: "Translate the following English passage into natural Hebrew \u2026 : \u201cArtificial
+  // intelligence systems are \u2026 threats." \u2014 read as the phrase "the following English passage".
+  // Also after a dash: "Japanese translation -  \"No wallet, no key, \u2026" was never closed either.
+  const open = s.match(/(?:[:\u2013\u2014-]|\s)\s*[\u201c"]([^\u201c\u201d"]{2,})$/)?.[1]?.trim();
+  if (open) return open.replace(TRAILING_JUNK, "").trim() || null;
   // A line break separates the instruction from its payload: "Translate in
   // swedish\n\nHi, I am Wick and you are very nice". This also rescues the
   // misspellings — "Transalte this from swedish to English\n\nHej, jag ar Wick"
@@ -152,6 +137,15 @@ export function targetLanguage(question: string): { name: string; code: string }
       if (w && LANGS[w]) return { name: raw, code: LANGS[w]! };
     }
   }
+  // The language the text goes INTO, allowing one adjective ("into natural Hebrew"), before any
+  // language merely mentioned: "Translate the following English passage into natural Hebrew"
+  // resolved to English, the source, because the scan below meets "english" first.
+  for (const pattern of [/\b(?:into|to)\s+(?:[a-z]+\s+)?([a-z]+)\b/g, /\bin\s+(?:[a-z]+\s+)?([a-z]+)\b/g]) {
+    for (const c of s.matchAll(pattern)) {
+      const w = c[1]!;
+      if (LANGS[w]) return { name: w, code: LANGS[w]! };
+    }
+  }
   for (const [name, code] of Object.entries(LANGS)) {
     if (new RegExp(String.raw`\b` + name + String.raw`\b`).test(s)) return { name, code };
   }
@@ -192,87 +186,49 @@ export async function translate(question: string, timeoutMs = DEFAULT_TIMEOUT_MS
     return { ...base, reason: `No target language was named for ${JSON.stringify(text)}. Name a language, for example: into French.` };
   }
 
-  // Google first for fidelity (see the header measurement); MyMemory keeps the
-  // failover role so a single provider outage is not our outage. The `source`
-  // field names whichever provider actually replied.
-  let out = await fetchChrome(text, lang.code, Math.ceil(timeoutMs / 2));
-  let provider = "Google Translate";
-  if (!out) {
-    const memory = new URL(MEMORY_API);
-    memory.searchParams.set("q", text);
-    memory.searchParams.set("langpair", `en|${lang.code}`);
-    const email = process.env.MYMEMORY_EMAIL?.trim();
-    if (email) memory.searchParams.set("de", email);
-    out = await fetchMyMemory(memory, Math.floor(timeoutMs / 2));
-    provider = "MyMemory";
-  }
+  const out = await phrase({
+    system:
+      `Translate the user's text into ${base.target_language} (${lang.code}). Reply with the translation ` +
+      `only: no quotation marks, notes, alternatives, transliteration or explanation.`,
+    user: text,
+    // gpt-oss counts its reasoning against this, so leave room beyond the text itself.
+    maxTokens: 300 + Math.ceil(text.length / 2),
+    deadlineMs: timeoutMs,
+    clean: (raw) => cleanTranslation(raw, text),
+  });
   if (!out) throw new Error("translation providers unavailable");
 
   return {
     ...base,
     translation: out,
-    source: provider,
+    source: "Groq (open-weight model, machine translation)",
     verdict: "translated",
     confidence: 1,
-    // The bare translation IS the answer, and everything wrapped around it
-    // measured as dilution (see the header). Provenance lives in `source`.
     reason: out,
   };
 }
 
 /**
- * MyMemory is a liar-200 upstream (ARCHITECTURE A5): an exhausted anonymous quota
- * comes back as HTTP 200 with `responseStatus: 429`, `quotaFinished: true` and
- * the string "MYMEMORY WARNING: YOU USED ALL AVAILABLE FREE TRANSLATIONS FOR
- * TODAY…" in `translatedText`. Trusting the status alone would have served that
- * warning as the translation. Found 2026-09-08 while reading why the uptime
- * live test failed twice from GitHub's shared runner IPs (GAPS G80).
+ * A model reply as a translation, or null when it is not one.
+ *
+ * Models wrap translations in labels and quotes, and occasionally refuse or explain. A label is
+ * removed; anything that still is not a plausible translation of `source` is rejected, because a
+ * commentary served as a translation is a confidently wrong answer.
  */
-export function usableMyMemoryText(body: unknown): string | null {
-  const b = body as {
-    responseStatus?: number | string;
-    quotaFinished?: boolean;
-    responseData?: { translatedText?: string };
-  } | null;
-  const status = Number(b?.responseStatus ?? 200);
-  if (b?.quotaFinished === true || (Number.isFinite(status) && status !== 200)) return null;
-  const text = b?.responseData?.translatedText?.trim() ?? "";
-  if (!text || /^MYMEMORY WARNING/i.test(text)) return null;
-  return text;
-}
-
-async function fetchMyMemory(url: URL, timeoutMs: number): Promise<string | null> {
-  const ac = new AbortController();
-  const t = setTimeout(() => ac.abort(), timeoutMs);
-  try {
-    const res = await fetch(url, { signal: ac.signal, headers: { accept: "application/json" } });
-    if (!res.ok) return null;
-    return usableMyMemoryText(await res.json());
-  } catch {
-    return null;
-  } finally {
-    clearTimeout(t);
-  }
-}
-
-async function fetchChrome(text: string, target: string, timeoutMs: number): Promise<string | null> {
-  const url = new URL(CHROME_API);
-  url.searchParams.set("client", "dict-chrome-ex");
-  url.searchParams.set("sl", "en");
-  url.searchParams.set("tl", target);
-  url.searchParams.set("q", text);
-  const ac = new AbortController();
-  const t = setTimeout(() => ac.abort(), timeoutMs);
-  try {
-    const res = await fetch(url, { signal: ac.signal, headers: { accept: "application/json" } });
-    if (!res.ok) return null;
-    const body = (await res.json()) as unknown;
-    if (!Array.isArray(body)) return null;
-    const translated = body.filter((part): part is string => typeof part === "string").join("").trim();
-    return translated || null;
-  } catch {
-    return null;
-  } finally {
-    clearTimeout(t);
-  }
+export function cleanTranslation(raw: string, source: string): string | null {
+  let t = String(raw ?? "").replace(/```[\s\S]*?```/g, " ").trim();
+  t = t.replace(/^(?:here(?:'s| is) (?:the|your) translation[^:\n]*:|translation\s*:|translated text\s*:)\s*/i, "");
+  // Quotes the source did not have are the model's, not the translation's.
+  if (!/^["'“‘«「]/.test(source.trim())) t = t.replace(/^["“‘«「]+|["”’»」]+$/g, "").trim();
+  if (!/\n/.test(source)) t = t.replace(/\s+/g, " ");
+  if (!t) return null;
+  if (/\b(?:i cannot|i can't|i am unable|i'm unable|as an ai|i'm sorry|sorry, but)\b/i.test(t)) return null;
+  // Far longer than the source means commentary came along with the translation.
+  if (t.length > source.length * 4 + 40) return null;
+  // The source handed back unchanged is not a translation. Measured 2026-10-18: two routed
+  // "into Ukrainian" requests came back as the English text itself. A one- or two-word source
+  // may legitimately survive unchanged (a name, "OK"), so only longer ones are rejected.
+  const norm = (x: string): string => x.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, " ").trim();
+  if (norm(t) === norm(source) && norm(source).split(" ").length > 2) return null;
+  return t;
 }

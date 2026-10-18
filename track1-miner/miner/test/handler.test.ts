@@ -2,6 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import type { IncomingMessage, ServerResponse } from "node:http";
 import { handleRequest } from "../src/handler";
+import { groqReply, withGroqKey } from "./groq-fixtures";
 
 function healthRequest(query: string): { req: IncomingMessage; res: ServerResponse } {
   const req = { method: "GET", url: `/health?query=${encodeURIComponent(query)}` } as IncomingMessage;
@@ -52,13 +53,9 @@ test("opt-in logging records parameter names, never values", () => {
 
 test("/translate answers with the translation first and its languages as fields", async () => {
   const originalFetch = globalThis.fetch;
-  globalThis.fetch = (async () =>
-    new Response(JSON.stringify(["Бонжур"]), {
-      status: 200,
-      headers: { "content-type": "application/json" },
-    })) as typeof globalThis.fetch;
+  globalThis.fetch = (async () => groqReply("Бонжур")) as typeof globalThis.fetch;
   try {
-    const body = await new Promise<Record<string, unknown>>((resolve) => {
+    const body = await withGroqKey(() => new Promise<Record<string, unknown>>((resolve) => {
       const req = {
         method: "GET",
         url: `/translate?query=${encodeURIComponent('Translate "good morning" into Russian.')}`,
@@ -70,7 +67,7 @@ test("/translate answers with the translation first and its languages as fields"
         },
       } as unknown as ServerResponse;
       handleRequest(req, res);
-    });
+    }));
     // Season II: an app needs to know what was translated into what, so the
     // fields Season I stripped for the scorer's converter are sent again.
     assert.equal(body.answer, "Бонжур");
@@ -189,17 +186,18 @@ test("the engine's zero-address filler is not reported as the asked-about wallet
 
 test("a paraphrasing query does not discard the declared text to translate", async () => {
   const originalFetch = globalThis.fetch;
-  globalThis.fetch = (async () =>
-    new Response(JSON.stringify(["Bonjour"]), {
-      status: 200,
-      headers: { "content-type": "application/json" },
-    })) as typeof globalThis.fetch;
+  let sent = "";
+  globalThis.fetch = (async (_input: string | URL | Request, init?: RequestInit) => {
+    sent = JSON.parse(String(init?.body)).messages[1].content;
+    return groqReply("Bonjour");
+  }) as typeof globalThis.fetch;
   try {
-    const { body } = await capture(
+    const { body } = await withGroqKey(() => capture(
       "/translate?text=Good%20morning&target_language=French&query=" +
         encodeURIComponent("Translate it."),
-    );
+    ));
     assert.equal(body.reason, "Bonjour");
+    assert.equal(sent, "Good morning", "the declared text is what gets translated");
   } finally {
     globalThis.fetch = originalFetch;
   }

@@ -1,12 +1,41 @@
-import { test } from "node:test";
+import { test, beforeEach, afterEach } from "node:test";
 import assert from "node:assert/strict";
-import { translate, targetLanguage, sourceText, usableMyMemoryText } from "../src/translate";
+import { translate, targetLanguage, sourceText, cleanTranslation } from "../src/translate";
+import { resetPhraseState } from "../src/llm";
+
+/** Groq's chat-completions answer carrying `content`. */
+const completion = (content: string): Response =>
+  new Response(JSON.stringify({ choices: [{ message: { content } }] }), { status: 200, headers: { "content-type": "application/json" } });
+
+let originalFetch: typeof fetch;
+let originalKey: string | undefined;
+beforeEach(() => {
+  originalFetch = globalThis.fetch;
+  originalKey = process.env.GROQ_API_KEY;
+  process.env.GROQ_API_KEY = "test-key-not-real";
+  resetPhraseState();
+});
+afterEach(() => {
+  globalThis.fetch = originalFetch;
+  if (originalKey === undefined) delete process.env.GROQ_API_KEY;
+  else process.env.GROQ_API_KEY = originalKey;
+});
+
+/** Records what was sent to the model and replies with `content`. */
+function model(content: string | ((body: Record<string, any>) => string)): Array<Record<string, any>> {
+  const sent: Array<Record<string, any>> = [];
+  globalThis.fetch = (async (input: string | URL | Request, init?: RequestInit) => {
+    assert.match(String(input), /api\.groq\.com/);
+    const body = JSON.parse(String(init?.body));
+    sent.push(body);
+    return completion(typeof content === "function" ? content(body) : content);
+  }) as typeof fetch;
+  return sent;
+}
 
 test("resolves ISO 639-1 codes the manifest invites (epoch-297 refusal)", () => {
   // miner.yaml: "by name or ISO 639-1 code, e.g. Spanish or fr". The handler
-  // composes `Translate "..." into de.` when the engine fills a code, and
-  // until 2026-08-31 that was refused — measured at 2.4e-11 live vs ~3.5e-10
-  // for an answered translation under champion reg 2296.
+  // composes `Translate "..." into de.` when the engine fills a code.
   assert.equal(targetLanguage('Translate "Thank you very much for your help." into de.')?.code, "de");
   assert.equal(targetLanguage('Translate "Good morning" into fr.')?.code, "fr");
   assert.equal(targetLanguage('Translate "Good morning" into FR.')?.code, "fr");
@@ -16,8 +45,6 @@ test("resolves ISO 639-1 codes the manifest invites (epoch-297 refusal)", () => 
 });
 
 test("codes never outrank a language name found anywhere in the question", () => {
-  // Names resolve first, byte-identical to the pre-code behaviour; the code
-  // pass runs only where the old code refused.
   assert.equal(targetLanguage('Translate "Good morning" into French.')?.code, "fr");
   assert.equal(targetLanguage('Translate "Hello" into Mandarin Chinese.')?.code, "zh-CN");
   assert.equal(targetLanguage("Put this into German for me, not into de.")?.code, "de");
@@ -26,125 +53,81 @@ test("codes never outrank a language name found anywhere in the question", () =>
   assert.equal(targetLanguage('Translate "Hello" into denmark.'), null);
 });
 
-test("a code-shaped request reaches the provider with the right tl", async () => {
-  const original = globalThis.fetch;
-  const urls: string[] = [];
-  globalThis.fetch = async (input) => {
-    urls.push(String(input));
-    return new Response(JSON.stringify(["Vielen Dank für Ihre Hilfe."]), {
-      status: 200,
-      headers: { "content-type": "application/json" },
-    });
-  };
-  try {
-    const result = await translate('Translate "Thank you very much for your help." into de.');
-    assert.equal(result.verdict, "translated");
-    assert.equal(result.reason, "Vielen Dank für Ihre Hilfe.");
-    assert.equal(result.target_code, "de");
-    assert.match(urls[0]!, /tl=de/);
-  } finally {
-    globalThis.fetch = original;
-  }
+test("a code-shaped request asks the model for the right language and returns its translation", async () => {
+  const sent = model("Vielen Dank für Ihre Hilfe.");
+  const result = await translate('Translate "Thank you very much for your help." into de.');
+  assert.equal(result.verdict, "translated");
+  assert.equal(result.reason, "Vielen Dank für Ihre Hilfe.", "the reason is the bare translation");
+  assert.equal(result.target_code, "de");
+  assert.match(sent[0]!.messages[0].content, /into German \(de\)/);
+  assert.equal(sent[0]!.messages[1].content, "Thank you very much for your help.");
+  assert.match(String(result.source), /Groq/);
 });
 
-test("uses Google first when it returns a translation", async () => {
-  const original = globalThis.fetch;
-  const urls: string[] = [];
-  globalThis.fetch = async (input) => {
-    urls.push(String(input));
-    return new Response(JSON.stringify(["Bonjour"]), {
-      status: 200,
-      headers: { "content-type": "application/json" },
-    });
-  };
-  try {
-    const result = await translate('Translate "good morning" into French');
-    assert.equal(result.translation, "Bonjour");
-    assert.equal(urls.length, 1);
-    assert.match(urls[0]!, /clients5\.google\.com/);
-    // The reason IS the translation — the recorded ground truths are bare
-    // translations and any wrapping measured as dilution. Provenance is a field.
-    assert.equal(result.reason, "Bonjour");
-    assert.equal(result.source, "Google Translate");
-  } finally {
-    globalThis.fetch = original;
-  }
+test("a label and quotes the model added are not part of the translation", async () => {
+  model('Translation: "Bonjour"');
+  assert.equal((await translate('Translate "good morning" into French')).translation, "Bonjour");
 });
 
-test("falls back to MyMemory when Google does not answer", async () => {
-  const original = globalThis.fetch;
-  const urls: string[] = [];
-  globalThis.fetch = async (input) => {
-    const url = String(input);
-    urls.push(url);
-    if (url.includes("clients5.google.com")) return new Response("nope", { status: 500 });
-    return new Response(JSON.stringify({ responseData: { translatedText: "Bonjour" } }), {
-      status: 200,
-      headers: { "content-type": "application/json" },
-    });
-  };
-  try {
-    const result = await translate('Translate "good morning" into French');
-    assert.equal(result.translation, "Bonjour");
-    assert.equal(urls.length, 2);
-    assert.match(urls[1]!, /mymemory/);
-    assert.equal(result.source, "MyMemory");
-  } finally {
-    globalThis.fetch = original;
-  }
+test("without a key, or when the model fails, it is an outage and never a guessed translation", async () => {
+  delete process.env.GROQ_API_KEY;
+  model("Bonjour");
+  await assert.rejects(translate('Translate "good morning" into French'), /providers unavailable/);
+  process.env.GROQ_API_KEY = "test-key-not-real";
+  resetPhraseState();
+  globalThis.fetch = (async () => new Response("busy", { status: 503 })) as typeof fetch;
+  await assert.rejects(translate('Translate "good morning" into French'), /providers unavailable/);
 });
 
-test("the fallback returns a real translation (live)", async (t) => {
-  // MyMemory limits anonymous use per source IP and per day. GitHub's runners
-  // share their egress addresses with everyone else on GitHub, so from CI the
-  // provider itself is sometimes exhausted — it failed the scheduled uptime run
-  // twice on 2026-09-07/08 while production, which never reached the fallback,
-  // was fine (GAPS G80). A third party's quota is not this miner's defect, and
-  // an alarm that fires on it hides the outages the alarm exists for. So probe
-  // the provider first and skip, saying why, when it is the one refusing.
-  const probe = await fetch("https://api.mymemory.translated.net/get?q=good%20morning&langpair=en|fr", {
-    headers: { accept: "application/json" },
-    signal: AbortSignal.timeout(10_000),
-  }).catch(() => null);
-  type MemoryBody = { responseData?: { translatedText?: string }; responseStatus?: number | string } | null;
-  const body = (probe && probe.ok ? await probe.json().catch(() => null) : null) as MemoryBody;
-  if (!usableMyMemoryText(body)) {
-    t.skip(`MyMemory unavailable from this address (HTTP ${probe?.status ?? "none"}, ${JSON.stringify(body?.responseData?.translatedText ?? body?.responseStatus ?? null)})`);
+test("a refusal or a commentary is not served as a translation", () => {
+  assert.equal(cleanTranslation("I'm sorry, but I can't help with that.", "good morning"), null);
+  assert.equal(cleanTranslation("Bonjour. Note: in formal French you might also say bonjour madame, depending on context and audience and region.", "good morning"), null);
+  assert.equal(cleanTranslation("  Bonjour  ", "good morning"), "Bonjour");
+  // A source that was itself quoted keeps its quotes.
+  assert.equal(cleanTranslation('"Bonjour"', '"good morning"'), '"Bonjour"');
+});
+
+/** Routed 2026-10 (tools/routed-questions.json): an unclosed quote after a colon, and the source language named first. */
+const HEBREW = "Translate the following English passage into natural Hebrew while preserving the original meaning, professional tone, technical terminology, numbers, names, and URLs exactly where appropriate. Do not summarize or explain the passage; I want a faithful translation that sounds like something a fluent Hindi speaker would actually write rather than a word-for-word machine translation: “Artificial intelligence systems are increasingly being deployed in cybersecurity operations to identify suspicious network activity, prioritize alerts, and assist analysts in investigating potential threats.";
+
+test("the passage after an unclosed quote is the text, and the language it goes into is the target", () => {
+  assert.match(sourceText(HEBREW) ?? "", /^Artificial intelligence systems are increasingly being deployed/);
+  assert.equal(targetLanguage(HEBREW)?.code, "he", "English is the source it names, not the target");
+  assert.equal(targetLanguage("Text written in English. Translate it to French.")?.code, "fr");
+});
+
+test("an apostrophe inside a double-quoted passage does not end it", () => {
+  const q = "Translate \"Recent developments include NASA's efforts to refine data from space telescopes.\" into Ukrainian.";
+  assert.equal(sourceText(q), "Recent developments include NASA's efforts to refine data from space telescopes.");
+  assert.equal(sourceText("Translate 'good morning, how are you' in Spanish."), "good morning, how are you");
+  // Routed 2026-10: one double quote, opened after a dash and never closed; an apostrophe inside.
+  assert.equal(sourceText("Japanese translation -  \"No wallet, no key. Telegraph's router sends it."), "No wallet, no key. Telegraph's router sends it.");
+});
+
+test("the source handed back unchanged is rejected, so the next model is asked", async () => {
+  const text = "The most-cited scholarly work on these notes";
+  assert.equal(cleanTranslation(text, text), null);
+  assert.equal(cleanTranslation("Telegraph", "Telegraph"), "Telegraph", "a name may survive unchanged");
+  let n = 0;
+  model(() => (++n === 1 ? text : "Найбільш цитована праця"));
+  const r = await translate('Translate the following text into Ukrainian (uk): "' + text + '"');
+  assert.equal(n, 2);
+  assert.notEqual(r.translation, text);
+});
+
+test("the translation of a multi-line source keeps its lines", () => {
+  assert.equal(cleanTranslation("Hej\nHur mår du?", "Hi\nHow are you?"), "Hej\nHur mår du?");
+});
+
+test("the model answers a real request (live)", async (t) => {
+  if (!originalKey) {
+    t.skip("GROQ_API_KEY is not set in this environment");
     return;
   }
-  const original = globalThis.fetch;
-  globalThis.fetch = async (input, init) => {
-    if (String(input).includes("clients5.google.com")) return new Response("nope", { status: 500 });
-    return original(input, init);
-  };
-  try {
-    const result = await translate('Translate "good morning" into French');
-    assert.match(result.translation ?? "", /bonjour/i);
-  } finally {
-    globalThis.fetch = original;
-  }
-});
-
-test("an exhausted MyMemory quota is not served as a translation", async () => {
-  // The provider answers HTTP 200 with the warning in the translation field.
-  const quota = {
-    responseData: { translatedText: "MYMEMORY WARNING: YOU USED ALL AVAILABLE FREE TRANSLATIONS FOR TODAY. NEXT AVAILABLE IN 12 HOURS" },
-    quotaFinished: true,
-    responseStatus: 429,
-  };
-  assert.equal(usableMyMemoryText(quota), null);
-  assert.equal(usableMyMemoryText({ responseData: { translatedText: "Bonjour" }, responseStatus: 200, quotaFinished: false }), "Bonjour");
-  assert.equal(usableMyMemoryText({ responseData: { translatedText: "Bonjour" }, responseStatus: "403" }), null);
-  const original = globalThis.fetch;
-  globalThis.fetch = async (input) => {
-    if (String(input).includes("clients5.google.com")) return new Response("nope", { status: 500 });
-    return new Response(JSON.stringify(quota), { status: 200, headers: { "content-type": "application/json" } });
-  };
-  try {
-    await assert.rejects(translate('Translate "good morning" into French'), /providers unavailable/);
-  } finally {
-    globalThis.fetch = original;
-  }
+  process.env.GROQ_API_KEY = originalKey;
+  globalThis.fetch = originalFetch;
+  const result = await translate('Translate "good morning" into French');
+  assert.match(result.translation ?? "", /bonjour/i);
 });
 
 /**

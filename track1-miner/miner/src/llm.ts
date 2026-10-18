@@ -1,7 +1,14 @@
 /**
- * The one generative call in the miner: phrase an answer we have ALREADY decided.
+ * The miner's generative calls, all through Groq's open-weight gpt-oss and qwen models.
  *
- * WHY THERE IS ONE AT ALL. TEXT_CLASSIFICATION and SENTIMENT_ANALYSIS are scored
+ * Three uses: phrasing an answer we have ALREADY decided (TEXT_CLASSIFICATION, SENTIMENT_ANALYSIS),
+ * citing QUESTION_ANSWERING's retrieved sources, and LANGUAGE_TRANSLATION since 2026-10-18, when
+ * the unofficial Google endpoint and MyMemory (which bars resale) were dropped (GAPS G189).
+ * Groq's Services Agreement allows integrating its models into a "Customer Application" and
+ * forbids reselling the Cloud Services themselves (§6.3(c), read 2026-10-18); a translation
+ * endpoint sits near that line, which is recorded in GAPS rather than assumed away.
+ *
+ * WHY PHRASING EXISTS AT ALL. TEXT_CLASSIFICATION and SENTIMENT_ANALYSIS are scored
  * by champions (reg687 tc_pen0, reg646 sa_pure) that compare our text with a
  * hidden ground truth an LLM wrote. Measured 2026-09-19 under both champions
  * against two live crossing miners: our templates score 0.0000, a bare label
@@ -57,6 +64,8 @@ export interface PhraseRequest {
   user: string;
   maxTokens?: number;
   deadlineMs?: number;
+  /** Turns the model's raw reply into the answer, or null to reject it. Defaults to `sanitise`. */
+  clean?: (raw: string) => string | null;
 }
 
 interface Entry { text: string; at: number }
@@ -115,7 +124,7 @@ async function ask(model: string, r: PhraseRequest, key: string, ms: number): Pr
     if (res.status === 429 || res.status >= 500) return "rate";
     if (!res.ok) return null;
     const body = (await res.json()) as { choices?: Array<{ message?: { content?: string } }> };
-    return sanitise(body?.choices?.[0]?.message?.content ?? "");
+    return (r.clean ?? sanitise)(body?.choices?.[0]?.message?.content ?? "");
   } catch {
     // A timeout, a DNS failure or a malformed body. The caller falls back.
     return null;

@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import type { IncomingMessage, ServerResponse } from "node:http";
 import { Inflight } from "../src/inflight";
 import { handleRequest } from "../src/handler";
+import { groqReply, withGroqKey } from "./groq-fixtures";
 
 test("inflight isolates keys, releases completed work and bounds tracking", () => {
   const work = new Inflight<object>(1, 1);
@@ -45,15 +46,17 @@ test("20 concurrent translations use one upstream call and preserve every answer
   globalThis.fetch = (async () => {
     calls++;
     await blocked;
-    return new Response(JSON.stringify(["Bonjour"]), { status: 200 });
+    return groqReply("Bonjour");
   }) as typeof fetch;
   try {
     const query = encodeURIComponent('Translate "inflight test hello" into French.');
-    const responses = Array.from({ length: 20 }, (_, i) => request(i % 2
-      ? `/translate?query=${query}&unused=one`
-      : `/translate?unused=one&query=${query}`));
-    release();
-    const bodies = await Promise.all(responses);
+    const bodies = await withGroqKey(async () => {
+      const responses = Array.from({ length: 20 }, (_, i) => request(i % 2
+        ? `/translate?query=${query}&unused=one`
+        : `/translate?unused=one&query=${query}`));
+      release();
+      return Promise.all(responses);
+    });
     assert.equal(calls, 1);
     assert.equal(bodies[0]?.reason, "Bonjour");
     for (const body of bodies) assert.deepEqual(body, bodies[0]);
