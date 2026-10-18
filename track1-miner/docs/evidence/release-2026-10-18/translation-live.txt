@@ -1,4 +1,4 @@
-Live LANGUAGE_TRANSLATION check, 2026-10-18 ~08:50 UTC: all 21 routed questions in tools/routed-questions.json through translate() with the Groq key from .env.local, on the code committed next. Not a deployed build.
+Live LANGUAGE_TRANSLATION check, 2026-10-18 finished by 08:02 UTC: all 21 routed questions in tools/routed-questions.json through translate() with the Groq key from .env.local, on the code committed next. Not a deployed build.
 
 translated "Translate the following English passage into natural Hebrew while pres"
            -> "מערכות בינה מלאכותית מופעלות במידה הולכת וגדלה בפעולות אבטחת סייבר כדי לזהות פעילות רשת חשודה, להעדי"

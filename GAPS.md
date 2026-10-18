@@ -1,5 +1,38 @@
 # GAPS.md — honesty ledger
 
+## 2026-10-18 licence swaps — G189 partly closed, G194–G197
+
+- **G189 UPDATE 2026-10-18 — weather and translation moved to licensed sources; news and stocks NOT.**
+  Weather, storm and geocoding: Open-Meteo and BigDataCloud → MET Norway (NLOD 2.0 / CC BY 4.0, read
+  api.met.no/doc/License and /TermsOfService 2026-10-18) and Nominatim (ODbL) in `e86a0f4`. Translation:
+  `clients5.google.com` (unofficial) and MyMemory (no resale) → Groq in `329254b`. **Still on non-commercial
+  sources:** Google News RSS (`/web-search`, `/news-search`, `/headlines`) and Yahoo (`/stock-price`, the
+  listed-company half of `/financial`), plus URLhaus ("may require" a subscription). Owner decision below.
+- **G194 — GDELT is not a usable news source. `CLOSED as a finding`.** Recommended on 2026-10-17; tested
+  2026-10-18 ~08:05 UTC: the first and second requests from this machine both came back HTTP 429 after ~12 s,
+  "Please limit requests to one every 5 seconds … All high-traffic users should switch to our ngrams
+  dataset". Vercel's shared egress would be worse. News stays on Google News RSS until the owner picks a
+  licensed source: Brave Search API (account and key), a paid news API, or Wikipedia's Current Events portal
+  (CC BY-SA, daily headlines only, no topic search).
+- **G195 — What MET Norway does not publish, and what that costs. `OPEN, accepted`.** Measured 2026-10-18 for
+  London and Chennai: no precipitation probability and no wind gusts outside the Nordic countries, hourly
+  steps for ~65 h then 6-hourly to ~9 days. So `precipitation_probability_max_pct` and `max_wind_gust_kmh` are
+  null outside the Nordics (the answers say so), the storm grade uses sustained wind on the Beaufort bands,
+  and forecasts past ~9 days are cut short and say so. **The registered manifest still claims more**:
+  `days` "1 to 16", the example "Will gusts exceed 60 km/h in Miami tonight?", and both fields as returned.
+  Fix those strings in the next `updateMiner`.
+- **G196 — Nominatim's one request per second is per instance. `OPEN`.** weather-upstream.ts caches lookups
+  for a day and spaces requests a second apart, but serverless instances do not share that spacing. Heavy
+  concurrent demand could exceed the policy and get us blocked. Remedy if it happens: a shared cache (KV) or a
+  paid geocoder.
+- **G197 — Groq for translation sits near its no-resale clause. `OPEN, owner judgment`.** The Services
+  Agreement (console.groq.com/docs/legal/services-agreement, read 2026-10-18) allows integrating the models
+  into a "Customer Application" and forbids reselling "the Cloud Services" (§6.3(c)). A translation endpoint
+  is a thin layer over the model. QUESTION_ANSWERING already relies on the same reading. Free-tier quotas
+  (30 RPM / 1K RPD per model, three models, shared with sentiment, classification and answers) cap volume;
+  past them translation reports an outage. Live 2026-10-18: 20 of 21 routed questions translated
+  (`track1-miner/docs/evidence/release-2026-10-18/translation-live.txt`).
+
 ## 2026-10-13/14 Season II build — G186 closed, G188 deployed, G189–G193
 
 - **G186 — DeFiLlama's terms forbid serving its TVL for pay. `CLOSED 2026-10-14, code 93d8531, NOT deployed`.**

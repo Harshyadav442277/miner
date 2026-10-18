@@ -1,6 +1,21 @@
 # MEMORY.md — session continuity
 
-## 2026-10-17 07:50 UTC (13:20 IST): CURRENT — 36-intent updateMiner MINED; removal code NOT yet deployed
+## 2026-10-18 ~08:10 UTC (13:40 IST): CURRENT — 36-intent build LIVE; weather and translation licence swaps committed
+
+Owner: "proceed as per your recommendations" (2026-10-18).
+- **Deployed:** `a556f00` as production `miner-8jdiuqzv4` (~07:26 UTC; the alias moved by itself, no promote).
+  All declared endpoints answered on the preview; `/tvl` and `/telegraph` now 404. Preflight 5/7 gates and
+  intent answers 35/36: the two failing gates are the known ip-api Tokyo pin and the merkle failover RPC's
+  429, both also on record for the Oct 14 build. Rollback target: `miner-ntd40dbx9`.
+  Evidence: `track1-miner/docs/evidence/release-2026-10-18/`.
+- **Registration is 4829** (active, 36 intents, yaml_hash `0x84dd…6680`), found by scanning ids for our wallet.
+  Repo variable `REGISTRATION_ID` moved 2750 → 4829; `watch.mjs` once: `endpoint=ok activation=active`.
+- **Licence swaps (G189):** weather/storm/geocoding → MET Norway + Nominatim (`e86a0f4`), translation → Groq
+  (`329254b`). Unit 760/760; live storm tests 15/15; local intent gate 35/36; 20/21 routed translations.
+- **Not swapped, owner decision:** news and web search (GDELT tested unusable, G194) and stock prices (Yahoo).
+- **Next `updateMiner` must fix:** the Google News naming, and the weather claims MET cannot meet (G195).
+
+## 2026-10-17 07:50 UTC (13:20 IST): 36-intent updateMiner MINED; removal code NOT yet deployed (superseded above)
 
 Checked live 07:46–07:50 UTC:
 - **The owner's updateMiner landed.** Registration 2750 is `superseded` (updated 2026-10-16 09:59:30 UTC).

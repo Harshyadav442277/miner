@@ -1,0 +1,62 @@
+Production release 2026-10-18 ~07:26 UTC: miner-8jdiuqzv4 (alias miner-wine.vercel.app), built from a556f00 in a clean worktree.
+Registration 4829 (active, 36 intents, yaml_hash 0x84dd...6680 = HEAD miner.yaml). Previous production miner-ntd40dbx9 is the rollback target.
+Preview miner-8nkel7qwl: all declared endpoints HTTP 200 via vercel curl; /tvl and /telegraph 404 as intended.
+
+#### preflight.mjs https://miner-wine.vercel.app
+preflight against https://miner-wine.vercel.app
+
+  unit + live suite                      PASS
+  verify-deploy                          PASS
+  param shapes (engine-shaped)           PASS
+  intent answers (correctness)           FAIL
+  hostile inputs                         PASS
+  upstream health                        FAIL
+  no-regression (8 identical, 0 differ)  PASS
+
+--- intent answers (correctness) ---
+  IP_GEOLOCATION         FAIL
+      - 142.251.42.174 -> New Haven, Connecticut, United States; not Tokyo, so the primary provider is not answering
+  LANGUAGE_TRANSLATION   PASS
+  ACADEMIC_SEARCH        PASS
+...
+  URL_SCAN               PASS
+  WEB_SEARCH             PASS
+  SENTIMENT_ANALYSIS     PASS
+  TEXT_CLASSIFICATION    PASS
+  RESEARCH_SYNTHESIS     PASS
+  SANCTIONS_SCREENING_MATCH PASS
+  CORPORATE_REGISTRY_LOOKUP PASS
+  REGULATORY_FILING_MONITOR PASS
+  CRYPTO_TRANSFER_VERIFY PASS
+  MACRO_ECONOMIC_INDICATOR PASS
+  URL_SAFE               PASS
+  QUESTION_ANSWERING     PASS
+
+35/36 intents answering correctly.
+
+--- upstream health ---
+FAIL  ip-api.com (via production)    primary  359ms  answered, but not from the expected provider (wanted /tokyo|japan/i)
+ok    ipwho.is                       failover 59ms
+ok    ipinfo.io                      failover 372ms
+ok    google news rss                primary  735ms
+FAIL  merkle eth rpc                 failover 36ms  HTTP 429
+ok    base rpc                       primary  287ms
+ok    base publicnode rpc            failover 157ms
+ok    arbitrum rpc                   primary  293ms
+...
+ok    drpc eth rpc                   failover 228ms
+ok    flashbots eth rpc              failover 784ms
+FAIL  merkle eth rpc                 failover 36ms  HTTP 429
+ok    base rpc                       primary  287ms
+ok    base publicnode rpc            failover 157ms
+ok    arbitrum rpc                   primary  293ms
+ok    arbitrum publicnode rpc        failover 201ms
+ok    optimism rpc                   primary  502ms
+ok    optimism publicnode rpc        failover 221ms
+ok    polygon publicnode rpc         primary  166ms
+ok    polygon drpc                   failover 116ms
+ok    polygon 1rpc                   failover 530ms
+
+1 primary failing, 1 failover failing, 24 probed
+
+5/7 gates passed — re-run the failing gate alone before believing it.
