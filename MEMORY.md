@@ -20,6 +20,9 @@ Checked live 07:46–07:50 UTC:
   Never-committed leftovers (the rank1-2026-09-10 evidence, 95 fixture reports, two wrapper builds, a
   duplicate SSL champion) went to the Windows Recycle Bin on 2026-10-18; `cargo clean` freed 620 MB.
   `track2/harness/champions` (618 MB, gitignored incumbents) kept for Evaluator comparisons.
+- **Seven Season I agent worktrees removed 2026-10-18** (~15 GB, Sep 16–19 rank lanes; their work had already
+  landed on the branch). Each one's uncommitted state is on a local branch `archive/agent-<id>` (not pushed);
+  re-create one with `git worktree add <path> archive/agent-<id>`.
 - **Keep-only pass 2026-10-18 (owner: "keep what can be used for season 2 in any track"):** removed track2's
   calibration wrappers (2.2 GB), its S1 submission/task/X docs, SIGN.md, REGISTRATION.md, root PRD.md/SETUP.md. Kept
   scorer, harness, fixtures, recon, release, `calibration/screen-registry.mjs` and registration 1882's pinned artifact.
