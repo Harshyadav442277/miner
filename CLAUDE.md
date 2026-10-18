@@ -13,7 +13,6 @@ Morse, is the separate repo `../telegraph-morse`. **Not this project:** the Midn
 
 - [MEMORY.md](MEMORY.md) — session continuity. **Read FIRST**, update at session end.
 - [track1-miner/docs/SEASON2_PLAN.md](track1-miner/docs/SEASON2_PLAN.md) — Season II goal, portfolio, next actions.
-- [PRD.md](PRD.md) — scope and open decisions D1–D4.
 - [ARCHITECTURE.md](ARCHITECTURE.md) — decisions A1–A10. Conform, or update it before deviating.
 - [TASKS.md](TASKS.md) — execution board. One task = one change = one commit.
 - [GAPS.md](GAPS.md) — honesty ledger. Feeds the README's Assumptions & Limitations.

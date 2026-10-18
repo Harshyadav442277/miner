@@ -242,7 +242,7 @@ dropped a correct rewording from 0.9992 to 0.9441. Recorded here rather than shi
 
 ## The audit round — five semantic failure classes, and a repaired benchmark
 
-An independent audit (`track2/codex_audit.md`) held registration and named five
+An independent audit (Season I, removed) held registration and named five
 locally-reproducible failures plus a defect in the benchmark itself. All five are closed. The
 first three are **defects**: each punished a *correct* answer for something that carries no
 information about correctness.

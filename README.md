@@ -6,7 +6,7 @@ application, **Morse**, lives in its own repository (see the table).
 | Track | Submission | Review first |
 |---|---|---|
 | **1 — Miner** | [LiveCert](https://explorer.telegraphprotocol.com/miners/livecert), miner ID **4433**, active registration **1378** | [`track1-miner/README.md`](track1-miner/README.md) |
-| **2 — Script Author** | Fact-aware WASM evaluators plus a measured audit of Telegraph's promotion gate | [`track2/SUBMISSION.md`](track2/SUBMISSION.md) |
+| **2 — Script Author** | Fact-aware WASM evaluators plus a measured audit of Telegraph's promotion gate | [`track2/README.md`](track2/README.md) |
 | **3 — Application** | Morse: ask Telegram, get a receipt from the Telegraph network (Telegram bot, web ledger, hosted MCP) | [`telegraph-morse`](https://github.com/Harshyadav442277/telegraph-morse) |
 
 X account: [`@hyadav42774`](https://x.com/hyadav42774) · Official account tagged in updates:
@@ -70,7 +70,7 @@ changing answer ordering; they are not used as the evaluator-accuracy claim.
 | **2010** | `LANGUAGE_GENERATION` | active, rank 1 (re-verified 2026-09-03) | [`language_generation_m45.wasm`](https://github.com/Harshyadav442277/miner/blob/97b47b489937614319859d0b139ee563e9494c87/track2/calibration/dist/language_generation_m45.wasm) |
 | **1882** | `TEXT_AUTHENTICITY_CHECK` | active, rank 1 (re-verified 2026-09-03) | [`text_authenticity_v2.wasm`](https://github.com/Harshyadav442277/miner/blob/72474bd7514735b53b823bdab390c9721219bd18/track2/calibration/dist/text_authenticity_v2.wasm) |
 
-Start with the [Track 2 submission brief](track2/SUBMISSION.md). The focused evaluator repository,
+Start with [track2/README.md](track2/README.md). The focused evaluator repository,
 including source, compiled modules, CI, tests, and proof, is
 [`telegraph-factscore`](https://github.com/Harshyadav442277/telegraph-factscore).
 

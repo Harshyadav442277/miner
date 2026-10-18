@@ -23,4 +23,5 @@ licensed for paid use. Season I's board (149 done items, all Season I epoch and 
       what the forecast no longer carries.
 - [ ] SENTIMENT: sarcastic praise reads negative (G139).
 - [ ] RESEARCH_QUERY / RESEARCH_SYNTHESIS: route by domain instead of one academic index.
+- [ ] Rewrite the root README.md for Season II; it is still the Season I judge-facing page (registration 1378, track tables).
 - [ ] Re-read the Season II Miner rules when published; update `RULES_SEASON2.md` and SEASON2_PLAN.

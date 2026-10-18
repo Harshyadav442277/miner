@@ -117,8 +117,7 @@ Grounded in [docs/TELEGRAPH_FACTS.md](docs/TELEGRAPH_FACTS.md) (verified 2026-08
      base_url  ◄── the upstream API. Ours, or a third party's.
 ```
 
-We author **a YAML file**, not a service — unless a deliberate decision says otherwise (D2 in
-[PRD.md](PRD.md)). Everything the protocol knows about us lives in that file.
+We author **a YAML file**, not a service — unless a deliberate decision says otherwise (D2 in the Season I PRD, removed). Everything the protocol knows about us lives in that file.
 
 ## A1 — Registration goes through the web console, not `cast`
 

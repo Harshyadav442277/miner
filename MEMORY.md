@@ -18,7 +18,11 @@ Checked live 07:46–07:50 UTC:
 - **Cleanup 2026-10-17 (owner: "remove the deadcode … useless data"):** `cbeb504`, `87bace6`, `61814af` deleted
   755 Season I rank files and cut MEMORY/GAPS/TASKS to Season II; unit 738/738 after. Committed, **not pushed**.
   Untracked and never committed, so left for the owner: `track1-miner/docs/evidence/rank1-2026-09-10/` (43
-  files). `track2/calibration` (2.2 GB tracked) kept: Season II Evaluators may reuse it.
+  files).
+- **Keep-only pass 2026-10-18 (owner: "keep what can be used for season 2 in any track"):** removed track2's
+  calibration wrappers (2.2 GB), its S1 submission/task/X docs, SIGN.md, REGISTRATION.md, root PRD.md/SETUP.md. Kept
+  scorer, harness, fixtures, recon, release, `calibration/screen-registry.mjs` and registration 1882's pinned artifact.
+  CI probes moved to `track2/release/probe-*.mjs`; all 7 CI scorer steps pass locally.
 
 ## 2026-10-14 ~09:50 UTC (15:20 IST): 7 intents removed (committed, NOT pushed, NOT deployed); licensing decision pending
 

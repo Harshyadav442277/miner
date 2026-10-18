@@ -1,68 +1,40 @@
-# Track 2 — Script Author submission
+# track2 — WASM evaluators (Season I Script Author → Season II Evaluators)
 
-**Start here: [SUBMISSION.md](SUBMISSION.md).** It is the judge-facing document and it opens with
-the four submitted registrations and what each one actually is.
+Season II's Evaluators track ("build or improve how that intelligence is measured … per Intent", see
+[../RULES_SEASON2.md](../RULES_SEASON2.md)) is what Season I called Script Author. This folder keeps the
+parts that carry over; the Season I submission brief, task board and calibration experiments were
+removed on 2026-10-18 and remain in git history. The published scorer repository is
+[`telegraph-factscore`](https://github.com/Harshyadav442277/telegraph-factscore).
 
 Wallet `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e` · X [@hyadav42774](https://x.com/hyadav42774)
-
----
-
-## In one paragraph
-
-The Canonical Script scores how much an answer's vocabulary resembles the ground truth, not what it
-asserts. We measured that: a contentless restatement of the question scores 0.9933 while the answer
-carrying the correct data scores 0.0080. We wrote a scorer that grades assertions instead — figures,
-identifiers, units, verdicts, coordinates — and it out-separated the incumbent on the node's own
-fixtures. It was rejected anyway, for disagreeing with the incumbent on live traffic. That
-rejection, and what it says about the promotion gate, is the substance of this submission.
 
 ## What is here
 
 | path | what it is |
 |---|---|
-| **[SUBMISSION.md](SUBMISSION.md)** | the entry document — read this |
-| [scorer/](scorer/) | the original fact-aware scorer, `no_std` Rust, ~32 KB, zero imports |
-| [scorer/dist/head/](scorer/dist/head/) | its compiled artifacts, one per intent profile |
-| [harness/](harness/) | the offline gate proxy that reproduces node scores to six significant figures |
-| [recon/](recon/) | protocol measurements, each with a reproducer |
-| [calibration/](calibration/) | the calibration experiments, and the registry ceiling screen |
-| [GAPS.md](GAPS.md) | the honesty ledger — everything unverified or broken, including in our own work |
-| [PROOF.md](PROOF.md) | generated proof pack, regenerated from the artifacts it describes |
+| [scorer/](scorer/), [scorer-v2/](scorer-v2/) | the fact-aware scorer: `no_std` Rust, zero imports, grades assertions (figures, identifiers, units, verdicts) rather than vocabulary |
+| [harness/](harness/) | offline gate proxy that reproduces node scores to six significant figures; `time-base.mjs` measures per-call cost |
+| [fixtures/](fixtures/), [FIXTURES.md](FIXTURES.md) | the evaluation corpus and its spec |
+| [recon/](recon/) | how the node scores, the promotion gate and its time budget, each with a reproducer |
+| [release/](release/) | publishing to the standalone repo, release identity checks and the CI probes |
+| [calibration/screen-registry.mjs](calibration/screen-registry.mjs) | live board screen: per intent, how many fixture pairs the champion separates and what beating it needs |
+| `calibration/dist/text_authenticity_v2.wasm` | kept only because registration 1882 is live on-chain and CI pins its bytes |
+| [ARCHITECTURE.md](ARCHITECTURE.md), [PROOF.md](PROOF.md), [GAPS.md](GAPS.md), [MEMORY.md](MEMORY.md) | design, proof pack, open gaps, Season I state |
 
-## The four findings
+## What Season I measured (still true unless the Season II gate changed)
 
-Each is measured, and each has something you can run.
-
-1. **The agreement gate structurally protects incumbent errors.** A scorer that fixes the
-   incumbent's mistakes necessarily diverges from its ranking and fails the real-traffic check.
-   Registration 1725 is the live demonstration.
-2. **The margin axis measures calibration, not evaluation quality.** A strictly increasing map
-   appended to an incumbent's own binary changes no ranking of any answer, yet moves the margin
-   axis freely — and took champion slots on eleven intents.
-3. **The hidden fixture geometry is recoverable from public data.** `node
-   calibration/screen-registry.mjs` prints, for all 45 intents, how many fixture pairs each
-   champion separates and what beating it requires. Nine intents sit at an unbeatable 1.0.
-4. **The gate's time budget freezes seven intents.** The incumbent 24 MB transformer family has never
-   once finished the ten-minute gate on ACADEMIC_SEARCH, IP_GEOLOCATION, WEATHER_FORECAST,
-   SSL_VERIFICATION, WEATHER_CHECK, WEB_SEARCH or NEWS_HEADLINES — fifteen attempts, zero verdicts
-   — so nobody can improve those intents while building on it. Registration 2961 shows the cost
-   exactly: 7 of 7 orderings and separation 0.9998413 against the champion's 0.9915076, rejected
-   at 13m13s on the clock alone.
-   ([method](recon/2026-08-31-runtime-budget-lock.md), `node harness/time-base.mjs <module.wasm>`)
+1. The agreement gate protects incumbent errors: a scorer that fixes them diverges from the ranking and
+   fails the live-traffic check (registration 1725).
+2. The margin axis measures calibration, not evaluation quality: a strictly increasing map on an
+   incumbent's binary moves it without changing any ordering. That is why the calibration wrappers were
+   not kept — they improve nothing about measurement.
+3. The gate's ten-minute budget freezes intents served by the 24 MB transformer family
+   ([method](recon/2026-08-31-runtime-budget-lock.md)).
 
 ## Reproduce
 
 ```bash
-node calibration/screen-registry.mjs                      # live board, ceilings, headroom
+node calibration/screen-registry.mjs                       # live board, ceilings, headroom
 node harness/time-base.mjs scorer/dist/head/generic.wasm   # per-call cost
-cargo build --release --target wasm32-unknown-unknown \
-  --no-default-features --features generic                 # rebuild the scorer
+cargo build --release --target wasm32-unknown-unknown --no-default-features --features generic
 ```
-
-## What we are not claiming
-
-The champion slots this wallet holds were won with calibration wrappers around another team's
-MIT-licensed modules, with attribution and licence preserved. They are ranking-identical by
-construction and improve nothing about evaluation quality. They are evidence for finding 2 and
-should not be read as the improvement claim — see [GAPS.md](GAPS.md) G23, and section 1 of
-SUBMISSION.md.

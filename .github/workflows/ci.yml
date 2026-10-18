@@ -38,9 +38,9 @@ jobs:
           node verify.mjs dist/text_authenticity.wasm
           node ../harness/check-tac.mjs dist/text_authenticity.wasm
           node ../release/probe-negation.mjs dist/text_authenticity.wasm
-          node ../docs/codex-worklog/probes/2026-08-29-model-aliases.mjs dist/text_authenticity.wasm
-          node ../docs/codex-worklog/probes/2026-08-29-authenticity-axes.mjs dist/text_authenticity.wasm
-          node ../docs/codex-worklog/probes/2026-08-29-authenticity-vocabulary.mjs dist/text_authenticity.wasm
+          node ../release/probe-model-aliases.mjs dist/text_authenticity.wasm
+          node ../release/probe-authenticity-axes.mjs dist/text_authenticity.wasm
+          node ../release/probe-authenticity-vocabulary.mjs dist/text_authenticity.wasm
           node ../release/check-release-identity.mjs dist/text_authenticity.wasm
 
   miner:

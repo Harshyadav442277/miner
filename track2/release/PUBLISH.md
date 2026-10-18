@@ -75,9 +75,9 @@ The monorepo remains the editing source. Sync these paths into the standalone re
 | `track2/release/TAC_PROOF.md` | `PROOF.md` |
 | `track2/release/README.md` | `release/README.md` |
 | `track2/release/probe-negation.mjs` | `release/probe-negation.mjs` |
-| `track2/docs/codex-worklog/probes/2026-08-29-model-aliases.mjs` | `release/probe-model-aliases.mjs` |
-| `track2/docs/codex-worklog/probes/2026-08-29-authenticity-axes.mjs` | `release/probe-authenticity-axes.mjs` |
-| `track2/docs/codex-worklog/probes/2026-08-29-authenticity-vocabulary.mjs` | `release/probe-authenticity-vocabulary.mjs` |
+| `track2/release/probe-model-aliases.mjs` | `release/probe-model-aliases.mjs` |
+| `track2/release/probe-authenticity-axes.mjs` | `release/probe-authenticity-axes.mjs` |
+| `track2/release/probe-authenticity-vocabulary.mjs` | `release/probe-authenticity-vocabulary.mjs` |
 | `track2/release/text-authenticity.json` | `release/text-authenticity.json` |
 | `track2/release/verify-standalone.mjs` | `release/verify-standalone.mjs` |
 | `track2/release/standalone-ci.yml` | `.github/workflows/ci.yml` |
