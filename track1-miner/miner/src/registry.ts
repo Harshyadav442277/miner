@@ -43,7 +43,9 @@ export function registrySubject(question: string, companyParam = "", numberParam
       q.match(/\b(?:look\s+up|find|check)\s+(.+?)\s+(?:in|on)\s+(?:the\s+)?(?:company|corporate|business)\s+regist/i);
     name = (m?.[1] ?? "").replace(/^(?:the|a)\s+/i, "").trim();
   }
-  return { name: name.replace(/[?!]+$/, "").trim(), lei, number, country };
+  // "What is Tesla Inc's registered address" read "Tesla Inc's" and found no
+  // record (2026-10-21): the possessive is never part of a legal name.
+  return { name: name.replace(/[?!]+$/, "").trim().replace(/(?:'s|’s)$/i, ""), lei, number, country };
 }
 
 interface LeiRecord {
