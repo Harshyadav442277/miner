@@ -389,7 +389,9 @@ function describe(
         (wantKnots ? `, approximately ${kt(gust)}` : "") +
         ".",
   );
-  if (precip !== null) parts.push(`Precipitation: ${r1(precip)} mm.`);
+  // The figure is the wettest single forecast step, not a total: Miami's 48-hour
+  // answer said "Precipitation: 0.5 mm" where MET's 48-hour sum was 1.9 mm (2026-10-21).
+  if (precip !== null) parts.push(mode === "point" ? `Precipitation: ${r1(precip)} mm.` : `Precipitation: up to ${r1(precip)} mm in the wettest forecast step.`);
   if (direction) parts.push(`Wind direction: prevailing from the ${direction}.`);
   if (thunder) parts.push("Thunderstorms are forecast.");
 

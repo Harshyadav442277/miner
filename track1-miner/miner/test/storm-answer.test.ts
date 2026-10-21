@@ -46,6 +46,8 @@ test("a severe window leads with the grade and adds what exposed operations shou
   assert.match(r.reason, /^(?:Moderate|High|Severe) storm risk is forecast for .* over the next 48 hours\./);
   assert.match(r.reason, /Exposed operations should secure loose equipment/);
   assert.match(r.reason, /Thunderstorms are forecast\./);
+  // A window's precipitation figure is its wettest step, and says so (2026-10-21).
+  assert.match(r.reason, /Precipitation: up to [\d.]+ mm in the wettest forecast step\./);
 });
 
 test("a question asking what to do leads with the guidance and keeps the forecast", async () => {
