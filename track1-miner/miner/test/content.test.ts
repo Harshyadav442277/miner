@@ -167,3 +167,14 @@ test("a work and its creator are split on 'by'", () => {
   assert.equal(extractContent("Extract the title and director from: Inception by Christopher Nolan.").summary,
     "Title: Inception. Director: Christopher Nolan.");
 });
+
+test("sentence-initial words are not people and a title's tail is not a place (2026-10-21)", () => {
+  // The routed BERT abstract, verbatim.
+  const bert = extractContent("Extract the dates, quantities, named entities and events from: We introduce a new language representation model called BERT, which stands for Bidirectional Encoder Representations from Transformers. Unlike recent language representation models, BERT is designed to pre-train deep bidirectional representations from unlabeled text by jointly conditioning on both left and right context in all layers. It obtains new state-of-the-art results on eleven natural language processing tasks, including pushing the GLUE score to 80.5% (7.7% point absolute improvement).");
+  assert.deepEqual(bert.fields["people"], []);
+  assert.deepEqual(bert.fields["places"], []);
+  assert.ok(bert.fields["organizations"]!.includes("Transformers"));
+  const acme = extractContent("Extract the dates, amounts and organisations from: On 3 March 2025, Acme Corp paid $4.2 million to Beta Ltd in London for 1,200 units.");
+  assert.deepEqual(acme.fields["organizations"], ["Acme Corp", "Beta Ltd"]);
+  assert.deepEqual(acme.fields["places"], ["London"]);
+});

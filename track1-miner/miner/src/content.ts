@@ -79,10 +79,11 @@ function requestedKinds(instruction: string): Want[] {
   const matches: Array<[Want, RegExp]> = [
     ["quantities", /\bquantit|\bunits?\b|\bmeasure/i],
     ["contact", /\bcontact|\bemail|\bphone|\btelephone/i],
-    ["entities", /\bentit|\bpeople\b|\bplaces?\b|\borganizations?\b/i],
+    // British spelling too: "dates, amounts and organisations" extracted no organisation (2026-10-21).
+    ["entities", /\bentit|\bpeople\b|\bplaces?\b|\borgani[sz]ations?\b|\bcompan(?:y|ies)\b/i],
     ["actions", /\baction items?\b|\btasks?\b|\btodo|\bto-do/i],
     ["date_event", /\bdates?\b|\bevents?\b/i],
-    ["numeric", /\bnumeric|\bnumbers?\b|\bfigures?\b|\bmetrics?\b|\bvalues?\b/i],
+    ["numeric", /\bnumeric|\bnumbers?\b|\bfigures?\b|\bmetrics?\b|\bvalues?\b|\bamounts?\b/i],
   ];
   const kinds = matches.filter(([, re]) => re.test(instruction)).map(([kind]) => kind);
   // "Phone numbers" requests contact fields, not all numeric values as well.
@@ -167,8 +168,8 @@ function properNouns(s: string): string[] {
  * is a field label ("Date:", "Total:"), not a name — the receipt "Acme Store.
  * Date: 2026-09-14. Total: $42.50." listed Date and Total as places (report F1).
  */
-function properNounSpans(s: string): Array<{ text: string; before: string; start: boolean }> {
-  const out: Array<{ text: string; before: string; start: boolean }> = [];
+function properNounSpans(s: string): Array<{ text: string; before: string; start: boolean; titled: boolean }> {
+  const out: Array<{ text: string; before: string; start: boolean; titled: boolean }> = [];
   const re = /\b([A-Z][A-Za-z0-9&'-]*[A-Za-z0-9]|[A-Z])(?:\s+(?:[A-Z][A-Za-z0-9&'-]*[A-Za-z0-9]))*\b(?!\s*:)/g;
   for (const m of s.matchAll(re)) {
     const text = m[0];
@@ -176,7 +177,10 @@ function properNounSpans(s: string): Array<{ text: string; before: string; start
     const head = s.slice(0, m.index);
     const before = head.match(/([A-Za-z]+)\s*$/)?.[1]?.toLowerCase() ?? "";
     const start = /(?:^|[.!?:"“]\s*)$/.test(head);
-    out.push({ text, before, start });
+    // The run continues a title: a capitalised word, then "from", "for" or
+    // "of", then this run ("Bank of America", "Representations from Transformers").
+    const titled = /[A-Z][A-Za-z]+\s+(?:from|for|of)\s+$/.test(head);
+    out.push({ text, before, start, titled });
   }
   return out;
 }
@@ -211,15 +215,23 @@ function entities(s: string): { people: string[]; orgs: string[]; places: string
   // inner capital the old token pattern could not read (report F1). The word
   // before a name and a short gazetteer now decide first.
   const named = new Set(properNouns(s));
-  for (const { text: n, before, start } of properNounSpans(s)) {
+  const spans = properNounSpans(s);
+  // Words seen capitalised somewhere other than a sentence's first word.
+  const midSentence = new Set(spans.filter((x) => !x.start).map((x) => x.text));
+  for (const { text: n, before, start, titled } of spans) {
     if (!named.has(n) || people.includes(n) || orgs.includes(n) || places.includes(n)) continue;
     const lower = n.toLowerCase();
     if (PLACES.has(lower) || PLACE_HINT.test(n)) { places.push(n); continue; }
+    // "Bidirectional Encoder Representations from Transformers" is one title
+    // broken by a lowercase word; "Transformers" was listed as a place (2026-10-21).
+    if (titled) { orgs.push(n); continue; }
     if (ORG_HINT.test(n) || /^[A-Z][a-z]+[A-Z]/.test(n) || /^[A-Z]{2,5}$/.test(n) || ORG_PREP.has(before)) { orgs.push(n); continue; }
     if (PLACE_PREP.has(before) || before === "at" && !/\s/.test(n)) { places.push(n); continue; }
     if (/\s/.test(n) || /^(?:mr|mrs|ms|dr|prof|sir)$/.test(before)) { people.push(n); continue; }
-    // A lone capitalised word opening a sentence is its first word, not a place.
-    if (start) { people.push(n); continue; }
+    // A lone capitalised word opening a sentence is its first word, not a place,
+    // and not a person either unless the text also capitalises it mid-sentence:
+    // "Unlike recent models, …" and "It obtains …" were listed as people (2026-10-21).
+    if (start) { if (midSentence.has(n)) people.push(n); continue; }
     places.push(n);
   }
 
