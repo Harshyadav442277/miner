@@ -8,6 +8,8 @@ import { getHeadlines, extractRegion, extractTopic } from "../src/news";
 describe("extractTopic", () => {
   test("the fixed list still wins, so recorded shapes are unchanged", () => {
     assert.equal(extractTopic("What are the top 5 technology headlines from Japan as of today?"), "technology");
+    // Routed 2026-10-21 and answered with generic top stories.
+    assert.equal(extractTopic("find latest headlines for uk vs russia"), "uk vs russia");
     assert.equal(extractTopic("Give me the latest business news from London"), "business");
     assert.equal(extractTopic("latest headlines on climate change in Europe"), "climate");
   });
