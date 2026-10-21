@@ -1,86 +1,35 @@
-# LiveCert + FactScore — Telegraph Hackathon Season I
+# LiveCert — Telegraph Hackathon Season II
 
-Track 1 and Track 2 submissions from `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e`. The Track 3
-application, **Morse**, lives in its own repository (see the table).
+A Telegraph miner and its evaluators, from wallet `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e`.
+Season II runs 1 Nov – 1 Dec 2026 ([RULES_SEASON2.md](RULES_SEASON2.md)). The Miner and Evaluator
+tracks' rules were still unpublished when last checked, 2026-10-21 06:30 UTC.
 
-| Track | Submission | Review first |
+| Track | What | Start here |
 |---|---|---|
-| **1 — Miner** | [LiveCert](https://explorer.telegraphprotocol.com/miners/livecert), miner ID **4433**, active registration **1378** | [`track1-miner/README.md`](track1-miner/README.md) |
-| **2 — Script Author** | Fact-aware WASM evaluators plus a measured audit of Telegraph's promotion gate | [`track2/README.md`](track2/README.md) |
-| **3 — Application** | Morse: ask Telegram, get a receipt from the Telegraph network (Telegram bot, web ledger, hosted MCP) | [`telegraph-morse`](https://github.com/Harshyadav442277/telegraph-morse) |
+| **Miner** | LiveCert: 36 intents, registration **4829**, <https://miner-wine.vercel.app> | [`track1-miner/README.md`](track1-miner/README.md) |
+| **Evaluators** | Deterministic `no_std` WASM scorers that check typed facts — figures, units, identifiers, verdicts — rather than wording | [`track2/README.md`](track2/README.md) |
+| **Apps & Agents** | Morse, a Telegram front end to the network (Season I), in its own repository | [`telegraph-morse`](https://github.com/Harshyadav442277/telegraph-morse) |
 
-X account: [`@hyadav42774`](https://x.com/hyadav42774) · Official account tagged in updates:
-[`@Telegraphprotoc`](https://x.com/Telegraphprotoc)
+X: [`@hyadav42774`](https://x.com/hyadav42774)
 
-## Track 1 — LiveCert
+## The miner in one paragraph
 
-LiveCert is a deterministic miner for twenty-six registered operational and research intents, keyless
-on every route but the two prose ones (`TEXT_CLASSIFICATION`, `SENTIMENT_ANALYSIS`), whose wording is
-phrased by a model when a key is configured and which fall back to their keyless paths when it is not.
-It performs
-live TLS handshakes, weather forecasts and current conditions, storm checks, IP geolocation,
-translation, academic search, structured extraction, news retrieval, wallet-balance reads,
-source-backed fact checks, Telegraph protocol knowledge, and conservative AI-text analysis.
+Season II apps may not call a miner directly: Telegraph routes each request to the highest-ranked
+miner for its intent, so answer quality is how demand arrives. LiveCert's answers lead with the
+answer, name the primary source it was read from, carry `checked_at`, and report an outage or a
+limit as one instead of guessing. Each source's terms were read for commercial use; the ones still
+open are listed in the [Track 1 README](track1-miner/README.md#sources-and-licences) and in
+[GAPS.md](GAPS.md).
 
-- **Live service:** <https://miner-wine.vercel.app>
-- **Explorer:** <https://explorer.telegraphprotocol.com/miners/livecert>
-- **Submission miner ID:** `4433`
-- **Active on-chain registration:** `1379` — **twenty-six intents**, active since 2026-09-10 16:01 UTC (1378 superseded)
-- **Sandbox validation:** all 25 declared endpoints green, HTTP 200, 239–632 ms, on 2026-09-10
-- **Registered manifest:** [commit-pinned `miner.yaml`](https://github.com/Harshyadav442277/miner/blob/6b0d176048313cc6fec2788d18cb9ae24f3e2adc/track1-miner/miner.yaml)
-- **Closing epoch of Track 1 (298, scored 2026-09-01 ~00:15 UTC):** seven rank-1, four rank-2 and
-  two rank-4 intent results; normalized-ratio sum 10.125, the highest on the network that epoch
-- **Latest epoch at the last check (305, 2026-09-03):** six rank-1, four rank-2, two rank-3 and one
-  rank-6
-- **Requests served at the 2026-08-31 submission audit:** 132
-- **Verification on 2026-09-03:** 182 unit and 67 live tests passed; preflight 7/7; the production
-  acceptance matrix passed with a 406 ms median and 1.11 s p95
+## Where things are
 
-**Disclosure.** One of the twenty-six registered intents, text authenticity, currently has no other miner, and
-its champion scoring module is registration 1882, which this project authored as its Track 2 entry.
-Registering it made us the only miner in an intent we also supplied the judge for. It breaks no rule we
-can find, the same already holds for currency exchange in an eight-miner field, and the endpoint was
-written from the published intent description rather than from that module. It is stated here so it is
-disclosed rather than discovered. Full record: GAPS G95 (Season I, in `git log -p -- GAPS.md`).
+| | |
+|---|---|
+| Plan and next actions | [track1-miner/docs/SEASON2_PLAN.md](track1-miner/docs/SEASON2_PLAN.md) |
+| Calling the miner | [docs/INTEGRATE_LIVECERT.md](docs/INTEGRATE_LIVECERT.md) |
+| Protocol facts, with sources and dates | [docs/TELEGRAPH_FACTS.md](docs/TELEGRAPH_FACTS.md) |
+| Known gaps and limits | [GAPS.md](GAPS.md) |
+| Session state | [MEMORY.md](MEMORY.md) · [TASKS.md](TASKS.md) |
 
-The exact registered surface and reproducible verification commands are in the
-[Track 1 review guide](track1-miner/README.md). The miner remains live through Track 3 as required.
-To call it from your own application, routed, direct or over MCP, see
-[docs/INTEGRATE_LIVECERT.md](docs/INTEGRATE_LIVECERT.md).
-
-## Track 2 — fact-aware evaluation
-
-The primary Track 2 contribution is a small, deterministic `no_std` scorer that evaluates typed
-assertions—figures, units, identifiers, coordinates, and categorical verdicts—instead of relying
-only on vocabulary proximity.
-
-The strongest network receipt is `CRYPTO_PRICE` registration **1725**: it matched the incumbent's
-14/15 fixture ordering and produced a larger separation margin (`0.7219137` versus `0.6295639`),
-but was rejected because its ranking of real traffic disagreed with the incumbent. That result is
-reported as evidence of the promotion gate's incumbent-agreement trade-off, not presented as an
-active registration.
-
-Three separate calibration experiments reached rank 1, and two still hold their slot (registry
-re-read 2026-09-03). They demonstrate that a strictly increasing post-map can win the gate without
-changing answer ordering; they are not used as the evaluator-accuracy claim.
-
-| Registration | Intent | Status | Compiled module |
-|---:|---|---|---|
-| **2365** | `CRYPTO_PRICE` | held rank 1 on 2026-08-31 from 04:23 to 18:32 UTC, then retaken | [`crypto_price_v3.wasm`](https://github.com/Harshyadav442277/miner/blob/4c0f6d5db19f72c76031d90f1aa842a115d643a8/track2/calibration/dist/crypto_price_v3.wasm) |
-| **2010** | `LANGUAGE_GENERATION` | active, rank 1 (re-verified 2026-09-03) | [`language_generation_m45.wasm`](https://github.com/Harshyadav442277/miner/blob/97b47b489937614319859d0b139ee563e9494c87/track2/calibration/dist/language_generation_m45.wasm) |
-| **1882** | `TEXT_AUTHENTICITY_CHECK` | active, rank 1 (re-verified 2026-09-03) | [`text_authenticity_v2.wasm`](https://github.com/Harshyadav442277/miner/blob/72474bd7514735b53b823bdab390c9721219bd18/track2/calibration/dist/text_authenticity_v2.wasm) |
-
-Start with [track2/README.md](track2/README.md). The focused evaluator repository,
-including source, compiled modules, CI, tests, and proof, is
-[`telegraph-factscore`](https://github.com/Harshyadav442277/telegraph-factscore).
-
-## Evidence boundary
-
-- Live registry state and ranks are time-dependent; the values above were re-read on
-  **2026-09-03**.
-- Local or public-corpus benchmarks are labelled as offline evidence, not hidden-fixture results.
-- Rejected and superseded registrations are identified as such.
-- The Track 1/Track 2 overlap was disclosed to the organizers. The scorer contains no miner slug,
-  wallet, response-template fingerprint, or special case for LiveCert.
-
-Official criteria: [Telegraph Hackathon rules](https://hackathon.telegraphprotocol.com/rules).
+Season I (Aug–Sep 2026) is judged and over. Its rank tables, submission briefs and calibration
+experiments were removed from the tree on 2026-10-17/18 and remain in git history.

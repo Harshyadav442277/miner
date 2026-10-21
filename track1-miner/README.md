@@ -1,103 +1,103 @@
 # Track 1 — LiveCert miner
 
-LiveCert is an active Telegraph miner serving deterministic operational signals from
-<https://miner-wine.vercel.app>.
+LiveCert answers 36 Telegraph intents from <https://miner-wine.vercel.app>. Every answer is read from
+a named primary source at request time, carries `checked_at`, and says so when the source could not
+answer, rather than filling the gap.
 
-## Submission identity
+## Identity
 
 | Field | Value |
 |---|---|
-| **Miner ID for the submission form** | **`4433`** |
-| Active on-chain registration | `402` — thirteen intents, active since 2026-08-31 21:46 UTC |
 | Slug | `livecert` |
+| Miner ID (catalog id, used by the submission form) | `4433` — not a registration id |
+| Active registration | `4829` — 36 intents, `active`, re-read 2026-10-21 |
 | Author wallet | `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e` |
-| Explorer | <https://explorer.telegraphprotocol.com/miners/livecert> |
 | Production | <https://miner-wine.vercel.app> |
-| YAML to upload | [`miner.yaml`](miner.yaml) |
-| Registered YAML | [commit-pinned GitHub copy](https://github.com/Harshyadav442277/miner/blob/6b0d176048313cc6fec2788d18cb9ae24f3e2adc/track1-miner/miner.yaml), SHA-256 `7538…7640` |
+| Manifest | [`miner.yaml`](miner.yaml); registered copy pinned at commit `2e8d1cf`, SHA-256 `0x84dd…6680` |
 
-The portal calls the first value a **Miner ID**. Use `4433`; do not substitute registration `402`.
-Registration `402` is included here so reviewers can reconcile the current on-chain manifest: the
-`miner.yaml` in this folder hashes byte-for-byte to the registered `yaml_hash` (checked 2026-09-03).
+Look a registration up by id (`/api/miners/4829`), never by slug or catalog id: `/api/miners/4433`
+returns a different miner.
 
 ## Registered surface
 
-| Intent | Endpoint | What is verified |
-|---|---|---|
-| `SSL_VERIFICATION` | `/ssl-check` | live certificate chain, hostname, issuer, validity, and expiry |
-| `STORM_ALERT` | `/storm-alert` | severe-weather risk over the requested window |
-| `WEATHER_FORECAST` | `/weather-forecast` | future condition, temperature, precipitation, and wind |
-| `WEATHER_CHECK` | `/weather-forecast` | the present hour (`hours=0`) or a window of up to 168 h, same endpoint |
-| `IP_GEOLOCATION` | `/ip-geolocate` | place, network operator, special ranges, Tor/abuse context |
-| `LANGUAGE_TRANSLATION` | `/translate` | bare target-language translation with provider fallback |
-| `ACADEMIC_SEARCH` | `/papers` | relevant papers via OpenAlex with requested dates/count/order |
-| `AI_TEXT_DETECTION` | `/ai-detect` | conservative statistical authorship signals, never proof claims |
-| `CONTENT_EXTRACTION` | `/extract` | deterministic structured extraction from supplied text |
-| `NEWS_HEADLINES` | `/headlines` | current, sourced, count-aware headline lists |
-| `WALLET_BALANCE_CHECK` | `/wallet-balance` | latest native balance from public EVM JSON-RPC |
-| `FACT_CHECK` | `/fact-check` | a claim against a citable encyclopaedic source, named and quoted; reports an explicit refutation or says the source does not settle it, never asserts truth from a topical match |
-| `TELEGRAPH_KNOWLEDGE` | `/telegraph` | Telegraph itself: registration, the intent set, scoring, the Explorer; live figures read from the protocol at request time |
+| Intents | Endpoint |
+|---|---|
+| `SSL_VERIFICATION` | `/ssl-check` |
+| `STORM_ALERT` | `/storm-alert` |
+| `WEATHER_FORECAST`, `WEATHER_CHECK` | `/weather-forecast` |
+| `IP_GEOLOCATION` | `/ip-geolocate` |
+| `LANGUAGE_TRANSLATION` | `/translate` |
+| `ACADEMIC_SEARCH` | `/papers` |
+| `CONTENT_EXTRACTION` | `/extract` |
+| `NEWS_HEADLINES` | `/headlines` |
+| `NEWS_SEARCH` | `/news-search` |
+| `WEB_SEARCH` | `/web-search` |
+| `FACT_CHECK` | `/fact-check` |
+| `QUESTION_ANSWERING` | `/answer` |
+| `RESEARCH_QUERY` | `/research` |
+| `RESEARCH_SYNTHESIS` | `/research-synthesis` |
+| `SENTIMENT_ANALYSIS` | `/sentiment` |
+| `TEXT_CLASSIFICATION` | `/classify` |
+| `WALLET_BALANCE_CHECK` | `/wallet-balance` |
+| `ONCHAIN_TX_LOOKUP` | `/tx-lookup` |
+| `CRYPTO_TRANSFER_VERIFY` | `/transfer-verify` |
+| `TOKEN_HOLDER_COUNT` | `/token-holders` |
+| `GAS_PRICE` | `/gas-price` |
+| `CROSS_CHAIN_STATE_VERIFY` | `/cross-chain` |
+| `CRYPTO_PRICE` | `/crypto-price` |
+| `STOCK_PRICE` | `/stock-price` |
+| `FINANCIAL_DATA` | `/financial` |
+| `CURRENCY_EXCHANGE` | `/convert` |
+| `MACRO_ECONOMIC_INDICATOR` | `/macro` |
+| `EVENT_OUTCOME_RESOLUTION` | `/event-outcome` |
+| `CVE_LOOKUP` | `/cve` |
+| `URL_SCAN` | `/url-scan` |
+| `URL_SAFE` | `/url-reputation` |
+| `FRAUD_DETECTION` | `/fraud-check` |
+| `SANCTIONS_SCREENING_MATCH` | `/sanctions-screen` |
+| `CORPORATE_REGISTRY_LOOKUP` | `/company-registry` |
+| `REGULATORY_FILING_MONITOR` | `/sec-filings` |
 
-Every route is keyless except the two prose intents, `TEXT_CLASSIFICATION` and `SENTIMENT_ANALYSIS`,
-whose answers are phrased by a model when `GROQ_API_KEY` is set — the decision stays the miner's, the
-label is drawn from the set the request supplies, and without the key both routes answer exactly as
-the keyless word-list and word-index paths always have. The service uses timeouts and fallbacks and
-returns an honest shaped answer instead of turning a recoverable upstream failure into a non-2xx
-response.
+Each endpoint's description in `miner.yaml` opens with example questions and the fields it returns.
+Recipes for calling it routed, direct or over MCP: [../docs/INTEGRATE_LIVECERT.md](../docs/INTEGRATE_LIVECERT.md).
 
-## Latest public result
+## Sources and licences
 
-Epoch **298**, the last epoch to start inside the Track 1 window (scored 2026-09-01 ~00:15 UTC):
+Season II answers are sold, so each source's terms were read for commercial use (GAPS G186, G189,
+G194–G197). Moved to licensed sources on 2026-10-18: weather and storm to MET Norway (CC BY 4.0),
+geocoding to OpenStreetMap's Nominatim (ODbL, credited in the answer) with the largest cities served
+from a built-in Wikidata table (CC0), translation to open-weight models on Groq. DeFiLlama TVL was
+dropped as unlicensed.
 
-| Rank | Intents |
-|---:|---|
-| **1** | `ACADEMIC_SEARCH`, `CONTENT_EXTRACTION`, `LANGUAGE_TRANSLATION`, `NEWS_HEADLINES`, `STORM_ALERT`, `TELEGRAPH_KNOWLEDGE`, `WEATHER_FORECAST` |
-| **2** | `AI_TEXT_DETECTION`, `FACT_CHECK`, `SSL_VERIFICATION`, `WEATHER_CHECK` |
-| **4** | `IP_GEOLOCATION`, `WALLET_BALANCE_CHECK` |
+**Still on sources whose terms bar commercial use, pending the owner's decision:** Google News RSS
+(`/web-search`, `/news-search`, `/headlines`) and Yahoo (`/stock-price`, the listed-company half of
+`/financial`). URLhaus "may require" a subscription for commercial use. These are open, not settled.
 
-Summed normalized ratio (our score ÷ the best score in each intent) that epoch: **10.125**, the
-highest on the network, ahead of `chainsight-oracle` (7.77), `txlens` (7.34) and
-`preflight-ssl-verification` (7.32).
-
-Epoch **305**, read on **2026-09-03** during the Track 3 window:
-
-| Rank | Intents |
-|---:|---|
-| **1** | `ACADEMIC_SEARCH`, `CONTENT_EXTRACTION`, `LANGUAGE_TRANSLATION`, `NEWS_HEADLINES`, `TELEGRAPH_KNOWLEDGE`, `WEATHER_FORECAST` |
-| **2** | `AI_TEXT_DETECTION`, `FACT_CHECK`, `SSL_VERIFICATION`, `WEATHER_CHECK` |
-| **3** | `IP_GEOLOCATION`, `STORM_ALERT` |
-| **6** | `WALLET_BALANCE_CHECK` |
-
-The 2026-08-31 submission audit recorded **132 requests served**. Ranking is epoch-dependent; these
-tables are dated results, not a promise about later epochs. Every recorded epoch is in
-[`docs/score-history.jsonl`](docs/score-history.jsonl).
+Model-phrased answers (`/sentiment`, `/classify`, `/answer`, `/translate`) fall back to keyless rule
+paths, or to an outage report, when the model does not answer in time.
 
 ## Verify
 
 ```powershell
 cd track1-miner/miner
-npm.cmd test
+npm.cmd run test:unit
 cd ../..
 node track1-miner/tools/verify-deploy.mjs https://miner-wine.vercel.app
 node track1-miner/tools/preflight.mjs https://miner-wine.vercel.app
 ```
 
-Submission audit on 2026-08-31: 237/237 tests, production acceptance passed, 411 ms median and
-1.22 s p95. Re-run on 2026-09-03:
-
-- test suite: **182 unit + 67 live, all passed**;
-- production acceptance: **all checks passed**; preflight **7/7 gates**;
-- production latency: **406 ms median**, **1.11 s p95**.
+Run the live suite (`npm.cmd run test:live`) one file at a time: in parallel it exceeds Nominatim's
+one request per second and gets HTTP 429 (G196). The latest release's gate output is under
+`docs/evidence/release-2026-10-18/`.
 
 ## Source map
 
 ```text
 miner.yaml       registered Telegraph manifest
 miner/src/       endpoint implementations and router
-miner/test/      unit, live-provider, and regression tests
-tools/           production verification and operational checks
-docs/            dated score and incident evidence
+miner/test/      unit, live-provider and regression tests
+tools/           deploy gates, manifest checks, the places-table generator
+docs/            Season II plan, signing notes and dated evidence
 ```
 
-The service must remain live through Track 3; uptime and registry monitoring continue after the
-Track 1 submission deadline.
+Season I's rank reports and benches were removed on 2026-10-17; they are in git history.
