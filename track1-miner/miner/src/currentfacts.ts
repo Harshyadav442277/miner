@@ -49,10 +49,12 @@ const PRODUCT_SKIP = new Set(["java", "jdk", "windows", "iphone", "ipad", "pixel
 
 const PRODUCT = "([\\p{L}\\d.+#-]+(?:\\s+[\\p{L}\\d.+#-]+){0,2}?)";
 const RELEASE_PATTERNS = [
-  new RegExp(`\\b(?:latest|newest|most\\s+recent|current)\\s+(?:stable\\s+)?(?:version|release)\\s+(?:of|for)\\s+${PRODUCT}(?:\\s+(?:is|was|released|available|out|now|today)\\b.*)?$`, "iu"),
+  new RegExp(`\\b(?:latest|newest|most\\s+recent|current)\\s+(?:(?:stable|LTS)\\s+)?(?:version|release)\\s+(?:of|for)\\s+${PRODUCT}(?:\\s+(?:is|was|released|available|out|now|today)\\b.*)?$`, "iu"),
   new RegExp(`\\bwhat\\s+version\\s+of\\s+${PRODUCT}\\s+is\\s+(?:the\\s+)?(?:current|latest|newest)\\b`, "iu"),
-  new RegExp(`\\b(?:latest|newest|most\\s+recent|current)\\s+(?:stable\\s+)?${PRODUCT}\\s+(?:stable\\s+)?(?:version|release)\\b`, "iu"),
+  new RegExp(`\\b(?:latest|newest|most\\s+recent|current)\\s+(?:stable\\s+)?${PRODUCT}\\s+(?:(?:stable|LTS)\\s+)?(?:version|release)\\b`, "iu"),
 ];
+/** "latest LTS version of Node.js" was read as a product named "LTS" (2026-10-21). */
+const ASKS_LTS = /\bLTS\b|\blong[- ]term\s+support\b/i;
 
 /** The product a "latest version/release of X" question names, or null. */
 export function releaseProduct(question: string): string | null {
@@ -73,7 +75,9 @@ export function productSlugs(name: string): string[] {
   return [...new Set(slugs.filter((s): s is string => !!s && /^[a-z0-9][a-z0-9.+-]*$/.test(s)))];
 }
 
-interface Cycle { cycle?: unknown; releaseDate?: unknown; latest?: unknown; latestReleaseDate?: unknown }
+interface Cycle { cycle?: unknown; releaseDate?: unknown; latest?: unknown; latestReleaseDate?: unknown; lts?: unknown }
+/** A cycle that is in long-term support now: `lts` is true or a date already passed. */
+const inLts = (c: Cycle, now = Date.now()): boolean => c.lts === true || (typeof c.lts === "string" && Date.parse(c.lts) <= now);
 async function latestRelease(question: string, deadline: number): Promise<string | null> {
   const name = releaseProduct(question);
   if (!name) return null;
@@ -82,8 +86,9 @@ async function latestRelease(question: string, deadline: number): Promise<string
   // The first candidate that is not a 404 decides; an outage on it is not a licence to try a looser slug.
   const body = bodies.find((b) => b !== NOT_FOUND);
   if (!Array.isArray(body)) return null;
+  const lts = ASKS_LTS.test(question);
   const released = (body as Cycle[])
-    .filter((c) => typeof c.releaseDate === "string" && Date.parse(c.releaseDate) <= Date.now())
+    .filter((c) => typeof c.releaseDate === "string" && Date.parse(c.releaseDate) <= Date.now() && (!lts || inLts(c)))
     .sort((a, b) => Date.parse(String(b.releaseDate)) - Date.parse(String(a.releaseDate)));
   const top = released[0];
   if (!top || (typeof top.latest !== "string" && typeof top.latest !== "number")) return null;
@@ -92,7 +97,7 @@ async function latestRelease(question: string, deadline: number): Promise<string
   const when = typeof top.latestReleaseDate === "string" && !Number.isNaN(Date.parse(top.latestReleaseDate))
     ? `, released on ${fmtDay(Date.parse(top.latestReleaseDate))}` : "";
   const cycle = top.cycle !== undefined && String(top.cycle) !== latest ? ` (the ${String(top.cycle)} release cycle)` : "";
-  return `The latest stable ${shown} release is ${latest}${when}${cycle}. Source: endoflife.date.`;
+  return `The latest ${lts ? "long-term support (LTS)" : "stable"} ${shown} release is ${latest}${when}${cycle}. Source: endoflife.date.`;
 }
 
 /* ---------- B. current holder of an office (Wikidata) ---------- */
