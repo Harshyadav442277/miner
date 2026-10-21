@@ -84,7 +84,7 @@ const NEGATION =
  * a piece of misinformation from being mistaken for the article endorsing it.
  */
 const REPORTED =
-  /\b(?:claim|claims|claimed|claiming|alleged|allegedly|belief|beliefs|believed|believe|purported|purportedly|supposed|supposedly|rumor|rumour|rumored|rumoured|myth|legend|folklore|misconception|anecdotal|factoid|factoids|reportedly|according)\b/i;
+  /\b(?:claim|claims|claimed|claiming|alleged|allegedly|belief|beliefs|believed|believe|purported|purportedly|supposed|supposedly|rumor|rumour|rumored|rumoured|myth|legend|folklore|misconception|anecdotal|factoid|factoids|reportedly|reported|reporting|said|asserted|according)\b/i;
 
 const COPULA = new Set(
   ["is", "are", "was", "were", "belong", "belongs", "classified", "comprise", "comprises",
