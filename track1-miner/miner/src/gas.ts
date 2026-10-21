@@ -96,6 +96,27 @@ export interface GasResult {
   error?: string;
 }
 
+/**
+ * Whether a question asks about network fees at all. An empty question is the
+ * engine sending only parameters, which is a fee request. "What is the 24-hour
+ * weather forecast for Sydney …" was routed here and answered with Ethereum's
+ * gas price on 2026-10-21.
+ */
+export function asksForFees(question: string): boolean {
+  const q = String(question ?? "").trim();
+  return !q || /\b(?:gas|gwei|wei|fees?|cost|costs|costing|expensive|cheap|base\s+fee|priority|tip|congest(?:ed|ion)?|transact(?:ion)?s?|send(?:ing)?)\b/i.test(q);
+}
+
+export function notAFeeQuestion(question: string): GasResult {
+  return {
+    chain: null, gwei: null, base_fee_gwei: null, priority_gwei: null, block: null,
+    verdict: "unknown", confidence: 0, error: "not_a_fee_question",
+    reason:
+      `This request does not ask about network gas fees ("${String(question).trim().slice(0, 80)}"), so no gas price ` +
+      `was reported for it. Ask for a chain's gas price, for example: What is the current gas price on Base?`,
+  };
+}
+
 export function supportedChains(): string[] {
   return Object.keys(RPCS);
 }
@@ -179,8 +200,12 @@ async function readGas(chain: string): Promise<Reading | null> {
       ]);
       const block = blk as { number?: string; baseFeePerGas?: string } | null;
       if (typeof gp !== "string" || !block?.number) continue;
-      const gwei = Number(BigInt(gp)) / 1e9;
       const baseFee = block.baseFeePerGas ? Number(BigInt(block.baseFeePerGas)) / 1e9 : null;
+      // A price below the block's own base fee cannot be paid in that block, and
+      // stating both read "0.041904 Gwei ... a base fee of 0.04509 Gwei" on
+      // 2026-10-21: a load-balanced RPC answered the two calls from different
+      // heads. The base fee is the floor of the quoted price.
+      const gwei = Math.max(Number(BigInt(gp)) / 1e9, baseFee ?? 0);
       if (!Number.isFinite(gwei)) continue;
       return { gwei, baseFee, block: Number(BigInt(block.number)) };
     } catch {

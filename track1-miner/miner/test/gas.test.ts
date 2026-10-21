@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { fmtGwei, getGasPrice, resolveChain, roundedGwei, supportedChains } from "../src/gas";
+import { asksForFees, fmtGwei, getGasPrice, notAFeeQuestion, resolveChain, roundedGwei, supportedChains } from "../src/gas";
 
 test("the chain named in the question decides which chain is read", () => {
   assert.equal(resolveChain("", "What is the current gas price in Gwei on the Ethereum network?").chain, "ethereum");
@@ -76,6 +76,31 @@ test("a dead RPC is unknown, never a fee of zero", async () => {
     assert.match(r.reason, /availability problem/i);
   } finally {
     globalThis.fetch = original;
+  }
+});
+
+test("the quoted price is never below the block's own base fee (2026-10-21)", async (t) => {
+  // The values production read for block 26,239,781: eth_gasPrice 0.041904 Gwei
+  // from one head, base fee 0.04509 Gwei from another.
+  const original = globalThis.fetch;
+  globalThis.fetch = (async (_url: string, init: { body: string }) => {
+    const { method, id } = JSON.parse(init.body);
+    const result = method === "eth_gasPrice" ? "0x" + (41_904_000).toString(16)
+      : { number: "0x" + (26_239_781).toString(16), baseFeePerGas: "0x" + (45_090_000).toString(16) };
+    return Response.json({ jsonrpc: "2.0", id, result });
+  }) as unknown as typeof globalThis.fetch;
+  t.after(() => { globalThis.fetch = original; });
+  const r = await getGasPrice("ethereum");
+  assert.equal(r.gwei, 0.04509);
+  assert.equal(r.priority_gwei, 0);
+});
+
+test("a question that is not about fees is declined, not answered with Ethereum's gas price (2026-10-21)", () => {
+  const weather = "What is the 24-hour weather forecast for Sydney, Australia starting today, including temperature, precipitation probability, and wind speed?";
+  assert.equal(asksForFees(weather), false);
+  assert.equal(notAFeeQuestion(weather).gwei, null);
+  for (const q of ["What is the current gas price on base?", "gas price on polygon", "How much does it cost to send ETH on Arbitrum?", ""]) {
+    assert.equal(asksForFees(q), true, q);
   }
 });
 

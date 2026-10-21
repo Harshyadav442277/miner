@@ -14,7 +14,7 @@ import { extractContent } from "./content";
 import { getHeadlines } from "./news";
 import { searchNews, type NewsSearchResult } from "./newssearch";
 import { convert, normalizeCurrency, parseDate as parseFxDate, parseQuery as parseCurrency, type CurrencyResult } from "./currency";
-import { getGasPrice, resolveChain as resolveGasChain, type GasResult } from "./gas";
+import { asksForFees, getGasPrice, notAFeeQuestion, resolveChain as resolveGasChain, type GasResult } from "./gas";
 import { getFinancialData, type FinancialResult } from "./financial";
 import { assessFraud, type FraudResult } from "./fraud";
 import { checkBalance, type WalletResult } from "./wallet";
@@ -1378,6 +1378,10 @@ function route(req: IncomingMessage, res: ServerResponse): void {
      */
     const chainParam = firstValue(url, "chain", "network", "blockchain");
     const q = withSubject(firstValue(url, "query", "q", "question", "text", "input"), chainParam);
+    if (!chainParam && !asksForFees(q)) {
+      sendAnswer(res, q, notAFeeQuestion(q));
+      return;
+    }
     const { chain, unread } = resolveGasChain(chainParam, q);
 
     // Gas moves every block, so the shared one-minute window is right here: it
