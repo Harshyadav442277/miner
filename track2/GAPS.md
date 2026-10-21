@@ -1,5 +1,27 @@
 # GAPS — Track 2 honesty ledger
 
+## G30 — comparators: built and proved exact; routing and hosting open (2026-10-22) — `OPEN`
+
+What is proved is in [comparator/README.md](comparator/README.md): 234,848 cases through the node's own runtime, 0
+mismatches against the network's answer key. Open:
+
+1. **Routing for 22 of the 31 intents.** Only 9 of the intents (FX_NOW, ROUTE_ETA, MACRO_ECONOMIC_INDICATOR,
+   LIQUIDITY_DEPTH_VERIFY, MINING_HASHPRICE_VERIFY, GRID_POWER_PRICE, LIVE_SHELF_PRICE, ONCHAIN_METRIC_VERIFY,
+   ASSET_RESERVE_ATTESTATION) are wired to the comparator path in the kit's compiled map. The other 22 are "A —
+   Deterministic" only in the docs. A registration on an intent the node does not route as deterministic may be
+   rejected. The cost is gas only, and that rejection would answer the question.
+2. **Rollout.** At 2026-10-21 19:16 UTC devnode had not switched. Register nothing before
+   `/api/evalpool/status` answers.
+3. **Hosting.** Two candidates:
+   - Push `comparator/` to the public `telegraph-factscore` repo and register commit-pinned raw URLs.
+   - Push this branch. The working branch is unpushed and far ahead of `origin`, so pushing it publishes a lot of
+     other work.
+
+   Either way it is a public push and needs the operator's yes.
+4. **What it is worth.** The docs say comparators cannot be better than one another, and a later passing one
+   replaces ours. Expect judges to weigh the adapters, not these. That is an inference: the Evaluator judging
+   criteria are unpublished.
+
 ## G29 — FACT_CHECK cannot be packaged with the published kit (2026-10-21) — `OPEN, needs the organisers`
 
 The FACT_CHECK pairs are built and pass the kit's data gate ([adapter/fact_check/README.md](adapter/fact_check/README.md)).
