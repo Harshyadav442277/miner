@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
-  acceptBackground, clipTitle, codeTokens, isForwardLooking, misroute, namesCode, officialDocument, officialDocumentUrl, webSearch,
+  acceptBackground, clipTitle, codeTokens, isForwardLooking, misroute, namesCode, officialDocument, officialDocumentUrl, timeless, webSearch,
 } from "../src/websearch";
 
 test("misroutes are named, and ordinary questions are not", () => {
@@ -130,4 +130,13 @@ test("a forward-looking answer says it is not a prediction (live)", async () => 
   const r = await webSearch("Will OpenAI face legal action?");
   if (r.verdict === "unknown") return;
   assert.match(r.reason, /coverage, not a prediction/);
+});
+
+test("a timeless encyclopaedic question is not a news search (2026-10-21)", () => {
+  // "What is the capital of Australia?" was answered with two Commonwealth Bank headlines.
+  assert.equal(timeless("What is the capital of Australia?"), true);
+  assert.equal(timeless("Who wrote Pride and Prejudice?"), true);
+  for (const q of ["Will Ivonescimab receive FDA approval?", "What is the latest news on the Fed?", "What is the Bitcoin price today?", "Who won the 2026 election?"]) {
+    assert.equal(timeless(q), false, q);
+  }
 });
