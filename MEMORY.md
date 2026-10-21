@@ -1,5 +1,24 @@
 # MEMORY.md — session continuity
 
+## 2026-10-21 ~07:45 UTC (13:15 IST): CURRENT — places table committed, NOT deployed
+
+Owner: "what's the status. fix whatever is left" (2026-10-20).
+- **Live, checked 2026-10-20/21:** registration 4829 `active`, `rejection_reason` null; production
+  `/ssl-check` HTTP 200 in 1.0 s. Production is still `miner-q5qepqluk` per the 10-18 record (not re-inspected).
+  The `uptime` workflow is `disabled_manually` since 2026-10-01 (owner's request); issue #13 from that day is stale.
+- **Season II Miner rules still unpublished** at 2026-10-21 06:30 UTC (/rules, /judging).
+- **Committed** (on `claude/status-check-fixes-cc2bc5`, based on `26f9bc7`; NOT pushed, NOT deployed):
+  `7b07e8a` Season II root + Track 1 READMEs; `afda450` places table (G196), OSM credit in weather answers
+  (G198), `NOMINATIM_URL` (G199); `75695fd` GAPS/TASKS. Unit **771/771** (761 before + 10). Offline: 80/99
+  routed weather questions resolve from the table with no Nominatim call.
+- **Not run:** live suite, preview, any deploy gate against the new code.
+- **Next:** owner's yes to deploy (preview → `vercel curl` the weather routes → `--prod` → preflight), then to
+  push. Regenerate the table with `node track1-miner/tools/build-places.mjs` (Wikidata 504s are common; the
+  per-type queries fetch ids first for that reason).
+- **Owner decisions added:** G199 (Nominatim policy for AI-assisted code / paid geocoder). Unchanged: news
+  source, STOCK_PRICE licence, the next `updateMiner` (G195 strings).
+- **Trap, again:** a heredoc ate `\s` in an edit to `storm.ts` (`/s+/`); caught by reading the diff. Use Edit.
+
 ## 2026-10-18 ~08:25 UTC (13:55 IST): CURRENT — licensed weather and translation LIVE on production
 
 Owner: "proceed as per your recommendations" (2026-10-18).
