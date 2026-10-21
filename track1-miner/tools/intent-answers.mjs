@@ -471,12 +471,10 @@ const CHECKS = {
     const g = await get("/ip-geolocate", { ip: "8.8.8.8" });
     if (!/united states/i.test(g.body.reason)) bad.push("8.8.8.8 not placed in the United States");
     if (!/google/i.test(g.body.reason)) bad.push("8.8.8.8 answer never names Google");
-    // A public address is answered in ONE sentence. Under champion reg630 any
-    // second sentence — the abuse clause this gate used to demand included —
-    // scores ~0.011 against the miners that cross, and epochs 335 and 343 were
-    // that collapse (docs/evidence/rank-rebuild-2026-09-19/oneoffs/ipgeo).
-    if (/\.\s+\S/.test(String(g.body.reason ?? ""))) {
-      bad.push("public address answered in more than one sentence");
+    // 8.8.8.8 is anycast: one city for it is wrong, and three providers named
+    // three different cities on 2026-10-21. The answer must say so.
+    if (g.body.verdict !== "anycast" || !/anycast/i.test(String(g.body.reason ?? ""))) {
+      bad.push(`8.8.8.8 -> ${g.body.verdict}; an anycast address answered as one location`);
     }
     // Only ip-api honours operator geofeeds and puts this in Tokyo; the
     // ipwho.is fallback misplaces it in Mumbai. Tokyo proves the PRIMARY answered.

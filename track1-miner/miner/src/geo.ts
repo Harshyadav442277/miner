@@ -35,6 +35,8 @@ export interface GeoResult {
   timezone: string | null;
   asn: string | null;
   organisation: string | null;
+  /** True when ipinfo flags the address as anycast; absent otherwise. */
+  anycast?: boolean;
   confidence: number;
   reason: string;
   checked_at: string;
@@ -366,6 +368,12 @@ export async function geolocate(rawIp: string, timeoutMs = DEFAULT_TIMEOUT_MS): 
 
   // The Tor lookup runs alongside the provider fetch so it costs no latency.
   const torPromise = torExitNode(ip);
+  // So does ipinfo's anycast flag. An anycast address has no one location:
+  // 8.8.8.8, 9.9.9.9, Fastly's 151.101.195.42 and Cloudflare's 103.21.244.0 were
+  // each placed in one city, and ip-api, ipinfo and ipwho.is named three
+  // different cities for every one of them (2026-10-21).
+  const anycastPromise = getJson(`https://ipinfo.io/${encodeURIComponent(ip)}/json`, Math.min(timeoutMs, 2500))
+    .then((b) => b?.["anycast"] === true).catch(() => false);
 
   // ip-api.com first: it honours operator-published geofeeds, so addresses on
   // large serving infrastructure (Google's 142.250.0.0/15, for one) resolve to
@@ -449,11 +457,24 @@ export async function geolocate(rawIp: string, timeoutMs = DEFAULT_TIMEOUT_MS): 
 
   if (!country) return unknown(ip, "the provider returned no country");
 
-  const tor = await torPromise;
+  const [tor, anycast] = await Promise.all([torPromise, anycastPromise]);
 
   // Most specific place first, skipping a region that merely repeats the city.
   const parts = [city, region && region !== city ? region : null, country].filter(Boolean);
   const place = parts.join(", ");
+
+  if (anycast) {
+    return {
+      ip, verdict: "anycast", city, region, country, country_code: cc, latitude: lat, longitude: lon, timezone: tz,
+      asn, organisation: org, confidence: 0.6, anycast: true,
+      reason:
+        `The IP address ${ip} is an anycast address${org ? ` operated by ${org}${asn ? ` (${asn})` : ""}` : ""}: it is ` +
+        `announced from many locations at once, so which server answers depends on where the request comes from, and ` +
+        `it has no single physical location. The geolocation database places it in ${place}, which is one of those ` +
+        `sites or a registered address, not where every user reaches it.` + abuseSentence(ip, tor),
+      checked_at: new Date().toISOString(),
+    };
+  }
 
   return {
     ip,
