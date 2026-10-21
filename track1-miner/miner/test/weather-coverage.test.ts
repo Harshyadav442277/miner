@@ -115,7 +115,8 @@ test("a busy geocoder is an outage, never 'no resolvable location'", async () =>
   globalThis.fetch = (async (url: string | URL | Request) =>
     isMet(String(url)) ? json(series()) : new Response("busy", { status: 503 })) as typeof fetch;
   try {
-    const r = await request({ location: "London" });
+    // A village: London is answered from the built-in places table and never asks the geocoder.
+    const r = await request({ location: "Little Snoring" });
     assert.equal(r.error, "upstream_unavailable");
     assert.doesNotMatch(String(r.reason), /No resolvable location/);
   } finally {

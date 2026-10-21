@@ -10,12 +10,18 @@
  * "client-side only" endpoint called from a server. Nominatim's data is ODbL (credit
  * OpenStreetMap), and its usage policy (operations.osmfoundation.org/policies/nominatim) asks for
  * an identifying User-Agent, at most one request per second, and caching: all three are kept here.
- * One request per second is per instance; serverless instances do not share the spacing (G194).
+ * One request per second is per instance; serverless instances do not share the spacing (G196), so
+ * the cities asked about most are answered from a built-in table first (places.ts).
  */
 
 /** Identifies us to MET Norway and Nominatim, both of which block anonymous callers. */
 export const WEATHER_USER_AGENT = "livecert-telegraph-miner/1.0 (+https://github.com/Harshyadav442277/miner)";
-const NOMINATIM = "https://nominatim.openstreetmap.org";
+/**
+ * The policy also says an app must be able to switch away "at our request at any time ... without
+ * requiring a software update" (read 2026-10-20): NOMINATIM_URL points at another instance, or a
+ * paid one, with an environment change and a redeploy of the same code.
+ */
+const NOMINATIM = (process.env.NOMINATIM_URL ?? "https://nominatim.openstreetmap.org").replace(/\/+$/, "");
 
 /**
  * Failures worth a second attempt.
@@ -77,6 +83,19 @@ export interface GeocodeHit {
   name: string;
   latitude: number;
   longitude: number;
+  /** Set when the name or the coordinates came from OpenStreetMap, which must then be credited. */
+  credit?: string;
+}
+
+/**
+ * ODbL credit, which the Nominatim policy says to "clearly display" (read 2026-10-20). Answers from
+ * the built-in table use Wikidata's CC0 data and carry none.
+ */
+export const OSM_ATTRIBUTION = "© OpenStreetMap contributors (ODbL)";
+
+/** The clause an answer appends after its forecast source when its place came from OpenStreetMap. */
+export function placeCredit(place: { credit?: string }): string {
+  return place.credit ? `; place from ${place.credit}` : "";
 }
 
 /** Nominatim answers do not change; a day bounds how stale a renamed place can get. */
@@ -153,7 +172,7 @@ export async function geocode(
   const parts = display.split(",").map((p) => p.trim()).filter((p) => p && !postcode(p));
   const named = parts.length > 2 ? [parts[0], ...parts.slice(-2)] : parts;
   const name = [...new Set(named)].join(", ");
-  return { name: name || query, latitude, longitude };
+  return { name: name || query, latitude, longitude, credit: OSM_ATTRIBUTION };
 }
 
 /** The nearest named place to a coordinate pair ("Chennai, Tamil Nadu, India"), or null. */

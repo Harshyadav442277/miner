@@ -24,6 +24,7 @@
  * answer says it is the value for that hour rather than calling it a measurement.
  */
 import { resolvePlace } from "./storm";
+import { placeCredit } from "./weather-upstream";
 import { extractCoords, shortPlaceName } from "./extract";
 import type { ForecastResult } from "./forecast";
 import { MET_ATTRIBUTION, conditionOfSymbols, metForecast, stepAt } from "./metno";
@@ -93,6 +94,6 @@ export async function getCurrentConditions(query: string, timeoutMs = DEFAULT_TI
     start_time: `${c.time}Z`, end_time: `${c.time}Z`, hourly_count: null,
     temp_min_c: temp, temp_max_c: temp,
     total_precipitation_mm: precip, max_wind_speed_kmh: wind,
-    reason: `${lead}${rain}${breeze}, as of ${at}, the model value for that hour from ${MET_ATTRIBUTION}.`,
+    reason: `${lead}${rain}${breeze}, as of ${at}, the model value for that hour from ${MET_ATTRIBUTION}${placeCredit(place)}.`,
   };
 }

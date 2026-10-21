@@ -14,6 +14,7 @@
  */
 
 import { resolvePlace } from "./storm";
+import { placeCredit } from "./weather-upstream";
 import { shortPlaceName, resolveDateRequest, extractCoords } from "./extract";
 import { MET_ATTRIBUTION, conditionOfSymbols, coveredHours, metForecast, stepAt, stepsFrom } from "./metno";
 
@@ -221,7 +222,7 @@ export async function getForecast(
       `Celsius from ${tMin}°C to ${tMax}°C${probClause}` +
       (totalPrecip >= 0.1 ? `, ${totalPrecip} mm of total precipitation` : `, no significant precipitation`) +
       `, the expected condition is ${condition}` +
-      `, and a wind speed of up to ${maxWind} km/h, from ${MET_ATTRIBUTION}.`,
+      `, and a wind speed of up to ${maxWind} km/h, from ${MET_ATTRIBUTION}${placeCredit(place)}.`,
     checked_at: now,
   };
 }

@@ -16,7 +16,8 @@
  */
 
 import { placeCandidates, shortPlaceName, extractCoords, extractHours, extractTimeRequest, extractWindThreshold, asksForKnots, toKmh, summarisePeriods } from "./extract";
-import { geocode, reverseGeocode } from "./weather-upstream";
+import { OSM_ATTRIBUTION, geocode, placeCredit, reverseGeocode } from "./weather-upstream";
+import { lookupPlace } from "./places";
 import { MET_ATTRIBUTION, isThunder, metForecast, stepAt, stepsFrom } from "./metno";
 
 const DEFAULT_TIMEOUT_MS = 8000;
@@ -65,7 +66,12 @@ export interface Place {
   name: string;
   latitude: number;
   longitude: number;
+  /** OpenStreetMap's credit when Nominatim named or located the place (placeCredit). */
+  credit?: string;
 }
+
+/** Two or more capitalised words, joined only by the connectors place names use ("Strait of Malacca"). */
+const PROPER_NAME = /^\p{Lu}[\p{L}'’.-]*(?:\s+(?:of|the|de|del|la|le|el|al|da|do|upon|on|\p{Lu}[\p{L}'’.-]*))+$/u;
 
 /** Accepts a place name, or "lat,lon" directly. */
 /**
@@ -87,7 +93,20 @@ export async function resolvePlace(query: string, timeoutMs = DEFAULT_TIMEOUT_MS
       name: named ?? `${coords.lat},${coords.lon}`,
       latitude: coords.lat,
       longitude: coords.lon,
+      ...(named ? { credit: OSM_ATTRIBUTION } : {}),
     };
+  }
+
+  // Large cities first, from the built-in table: no network, and no Nominatim request (G196).
+  // A whole question ("Is there a storm risk in Miami…?") is skipped, since it names no table entry.
+  // The pass stops at the first short candidate the table cannot name that is a qualified name or
+  // shaped like one, so "Paris, Texas" and "Strait of Malacca" go to Nominatim and never reach a
+  // later "Paris" or "Malacca" here.
+  for (const candidate of placeCandidates(query)) {
+    if (candidate.includes("?") || candidate.trim().split(/\s+/).length > 6) continue;
+    const local = lookupPlace(candidate);
+    if (local) return local;
+    if (candidate.includes(",") || PROPER_NAME.test(candidate.trim())) break;
   }
 
   // One shared deadline for the whole candidate list, not `timeoutMs` each.
@@ -304,7 +323,7 @@ export async function checkStorm(
       askedCoords, /u-component/i.test(query),
       mode === "window" ? summarisePeriods(times, winds, gusts.map((g) => g ?? Number.NaN)) : [],
       ADVISORY.test(query),
-    )} Forecast data from ${MET_ATTRIBUTION}.`,
+    )} Forecast data from ${MET_ATTRIBUTION}${placeCredit(place)}.`,
     checked_at: now,
   };
 }
