@@ -34,7 +34,7 @@
  * and presented as the ratio.
  */
 
-import { getFundamentals, knownCompany, metricAsked } from "./fundamentals";
+import { getFundamentals, knownCompany, marketCap, metricAsked } from "./fundamentals";
 import type { FundamentalFigures } from "./fundamentals";
 import { knownAsset, type Asset } from "./cryptoprice";
 
@@ -553,6 +553,11 @@ export async function getFinancialData(query: string, addressParam = "", symbolP
     if (f.status === "outage") filingsOutage = f.label;
   }
   const eq = await equityData(query, ticker, filingsOutage);
+  if (eq.verdict === "financial_data" && eq.subject === "equity" && /\bmarket\s*cap(?:itali[sz]ation)?\b/i.test(query)) {
+    const price = Number(eq.data?.["price"]);
+    const cap = await marketCap(ticker, price, String(eq.data?.["currency"] ?? "")).catch(() => null);
+    return { ...eq, reason: `${eq.reason} ${cap ?? "The market capitalisation was not retrieved: the shares outstanding could not be read from its SEC filings."}` };
+  }
   // A P/E asked on its own: the market data already holds the price, so only the EPS is fetched.
   if (eq.verdict === "financial_data" && asksFundamentals(query).includes("price-to-earnings ratio")) {
     const pe = await trailingPE(ticker, eq.reason);

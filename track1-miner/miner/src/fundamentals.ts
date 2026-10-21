@@ -223,6 +223,32 @@ async function concept(cik: number, tag: string, unit: string, period: "annual" 
   }
 }
 
+/**
+ * Market capitalisation, computed: the shares outstanding on the cover of the
+ * latest 10-Q or 10-K (dei:EntityCommonStockSharesOutstanding) times the last
+ * traded price. "What is Nvidia's market cap?" was answered with a day range
+ * and volume and no capitalisation (2026-10-21). Several share classes on one
+ * cover are summed. Null when the cover tag is not filed or SEC did not answer.
+ */
+export async function marketCap(ticker: string, price: number, currency: string): Promise<string | null> {
+  if (currency !== "USD" || !(price > 0)) return null;
+  const co = await lookupCik(ticker).catch(() => undefined);
+  if (!co) return null;
+  try {
+    const r = await getJson(`${CONCEPT}/CIK${String(co.cik).padStart(10, "0")}/dei/EntityCommonStockSharesOutstanding.json`);
+    const facts = (r.body as { units?: Record<string, Array<Fact & { accn?: string }>> } | undefined)?.units?.["shares"] ?? [];
+    const latest = facts.reduce<(Fact & { accn?: string }) | null>((a, f) => (!a || (f.filed ?? "") > (a.filed ?? "") || ((f.filed ?? "") === (a.filed ?? "") && f.end > a.end) ? f : a), null);
+    if (!latest || !latest.accn) return null;
+    const shares = facts.filter((f) => f.accn === latest.accn && f.end === latest.end).reduce((s, f) => s + f.val, 0);
+    if (!(shares > 0)) return null;
+    return `Its market capitalisation is about ${amount(shares * price, "USD")}, computed from ${shares.toLocaleString("en-US")} ` +
+      `shares outstanding on ${longDate(latest.end)}, as stated on the cover of its ${latest.form ?? "filing"} filed ${latest.filed}, ` +
+      `times the last traded price of ${price.toFixed(2)} USD.`;
+  } catch {
+    return null;
+  }
+}
+
 const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 const longDate = (iso: string): string => {
   const [y, m, d] = iso.split("-").map(Number);
