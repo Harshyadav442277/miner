@@ -2,11 +2,35 @@
 
 **Read this first every Track 2 session.** Update at session end.
 
-**Sign list, always current: [SIGN.md](SIGN.md).**
+SIGN.md was removed in the 2026-10-18 cleanup. It is in git history.
 
 ---
 
-## CURRENT — 2026-08-31 ~10:30Z · 24 REBUILT RUNGS PUBLISHED · QUEUE DEPTH IS THE BINDING CONSTRAINT
+## CURRENT — 2026-10-21 ~07:00Z · SEASON I SCORERS CANNOT BE UPLOADED ANY MORE · WAITING ON THE OPERATOR'S PATH CHOICE
+
+The operator asked for "more WASM, high quality, win Track 2 again". The checks below change that request.
+
+- **We placed 2nd in Season I Track 2.** zkasuran was 1st and BangDropID 3rd (`/winners`, read today). "Again"
+  is therefore not accurate.
+- **Our scorer kind is retired.** The docs updated today say `rank_answer` modules are rejected on registration,
+  so nothing in `scorer/` and none of the Season I recipes can be uploaded.
+- **Season II modules come in two kinds.** Deterministic intents take an exact-rule comparator, a few KB.
+  Judgment and hybrid intents take a ModernBERT reward-model package of about 1.2 GB, which competes on a hidden
+  evaluation pool of 200 pairs and needs a 70% win rate to become the first canonical module.
+- **Devnode has not switched yet.** Full facts are in
+  [../docs/TELEGRAPH_FACTS.md](../docs/TELEGRAPH_FACTS.md), and the open questions are in [GAPS.md](GAPS.md) G28.
+- **The open ground is large.** 61 of the 76 intents the Season II missions buy have no scorer of any kind. The
+  biggest judgment targets are WEB_SEARCH 15, FACT_CHECK 14, TASK_EXECUTION_QUALITY 10 and LLM_OUTPUT_EVALUATION 7.
+- **The carry-over idea** is the Season I thesis, grade what an answer asserts and not its wording. In Season II
+  it becomes training data: preference pairs whose rejected answer is plausible and about as long, but wrong in a
+  figure, an entity, a date or a verdict. The kit's data checks require exactly that.
+- **Next action:** get the operator's choice of path, then start with the adapter kit's `--check-data` and a
+  VRAM test on the RTX 3050 (4 GB).
+- **Nothing was registered, uploaded or signed this session.**
+
+---
+
+## Prior CURRENT — 2026-08-31 ~10:30Z · 24 REBUILT RUNGS PUBLISHED · QUEUE DEPTH IS THE BINDING CONSTRAINT
 
 Registry sweep 10:10Z: **we hold 3** — CVE_LOOKUP 1993, LANGUAGE_GENERATION 2010,
 TEXT_AUTHENTICITY_CHECK 1882. Six signed at 04:23Z are **still pending five hours later**

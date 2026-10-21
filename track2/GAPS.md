@@ -1,5 +1,25 @@
 # GAPS — Track 2 honesty ledger
 
+## G28 — Season II evaluator path: open questions (2026-10-21) — `OPEN`
+
+The facts are in [../docs/TELEGRAPH_FACTS.md](../docs/TELEGRAPH_FACTS.md), section "Season II evaluators: `rank_answer` is
+retired". In short: `rank_answer` modules are retired, deterministic intents take a comparator, and judgment and
+hybrid intents take a ModernBERT reward-model package of about 1.2 GB. What is not known:
+
+1. **When devnode switches.** At 06:40 UTC it still ran the Season I gate. Until it switches, nothing in the new
+   format can be tested live, and a `rank_answer` upload is wasted the day it does.
+2. **Evaluator judging criteria** are unpublished. Comparators cannot be better than one another (docs), so they
+   are unlikely to be what the judges weigh. That is an inference.
+3. **Can this machine train an adapter?** The GPU is an RTX 3050 Laptop with 4 GB of VRAM, and there is 15.6 GB
+   of RAM. The kit recommends a GPU and does not state a VRAM floor. Not measured.
+4. **Hosting a 1.2 GB package.** GitHub raw and repository files are too small. A release asset (2 GiB cap) or
+   the Hugging Face Hub would fit, and the node must download it within 30 minutes. Not tried.
+5. **No adapter can be evaluated until 5 contributors have material in the intent's pool.** Pool status per
+   intent cannot be read yet (the endpoint returns 404).
+6. **Integrity rule, decided now.** We train adapters on pairs that we never upload to the evaluation pool, and
+   we disclose that. Pool rows may land in the hidden testing half, and training on them would grade our module
+   on what it has already seen.
+
 ## G27 — the fact-check profile inverts a negation pair (2026-08-31)
 
 Probing the head builds before publishing them, `fact_check` scored a correct refutation of

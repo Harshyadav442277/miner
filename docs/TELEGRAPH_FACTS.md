@@ -609,3 +609,64 @@ without a preview, and hold anything that reads as lobbying until after the resu
   `track1-miner/docs/evidence/season2-release-2026-10-14/integrate-validate.json`.
 - **Season II miner judging rules:** still "published separately" on the rules page (checked
   2026-10-13 18:28 UTC).
+
+## Season II evaluators: `rank_answer` is retired (read 2026-10-21 ~06:40 UTC)
+
+Sources: `docs/scoring/build-a-scoring-module` and `docs/scoring/train-a-scoring-adapter` (both
+"Updated October 21, 2026"), `docs/scoring/contribute-evaluation-data` (October 19),
+`docs/using/intents.md`, `docs/protocol/how-it-works.md`, fetched with curl + browser UA.
+
+- **The Season I module kind is gone.** The docs say the node "no longer runs" modules exporting
+  `rank_answer`/`alloc`/`dealloc`, and rejects a new one immediately with "MiniLM rank_answer
+  scoring modules are retired and are no longer accepted". Our `track2/scorer` is that kind.
+- **Each intent has a class, and the class fixes the module kind.**
+  - Deterministic intents use a **comparator**. It exports
+    `imw_score_deterministic(truth: i64, miner: i64, spec_ptr: i32) -> i64`, `imw_alloc` and
+    `imw_free`, and returns basis points (0–10000).
+  - The comparator must reproduce a fixed reference rule within ±10 bp on about 1,260 cases.
+    Codes: 0 Exact, 1 AbsTol, 2 RelTol, 3 PassFail. Linear falloff to 0 at 2 × tolerance.
+    Multiplication saturates, RelTol is computed in 128 bits, and an unknown code counts as Exact.
+  - The docs: "there is no 'better' comparator to build". One that passes replaces the
+    previous one.
+  - Judgment and hybrid intents use a **wide adapter**: a ModernBERT-base reward model with a LoRA
+    adapter. It runs in the node's Q32.32 interpreter and is packaged as one `.wasm` of about
+    1.2 GB.
+  - Wide adapters are built with the kit `telegraph-wasm-baseline`, branch
+    `feature/v2-integration` (commit `992f2650`, 2026-10-16). Its `main` branch still holds the
+    August MiniLM baseline.
+- **Wide adapters compete on a hidden evaluation pool** of 200 preference pairs by default.
+  - The first canonical module needs a win rate of at least 70%.
+  - A challenger must beat the incumbent by 2 points on the same sample.
+  - Nothing is evaluated until the intent's pool holds material from at least 5 contributors.
+    Until then the module waits, with no time limit.
+  - A module registered on a family intent (`WEATHER_FORECAST`) serves its `_` children too.
+- **The evaluation pool is public and signed.** Anyone uploads JSONL preference pairs, or
+  truth-source YAMLs for deterministic intents, with an EIP-191 signature. The endpoint is
+  `POST /api/evalpool/submissions`, and the chain ID in the signed message is 84532.
+  - A deterministic intent with no truth source is not ranked.
+  - An intent with no module for its class is not scored, and its miners keep their previous
+    ranking.
+- **`registerWasm` now takes four arguments:** `(bytes32 wasmHash, string wasmUrl, string intent,
+  address feeAddress)`. The Diamond is the same as Season I, `0x5a2324aA…87ff8` on Base Sepolia.
+  Registration 3236 already carries a `FeeAddress`.
+- **Rollout is incomplete on devnode at 06:40 UTC.**
+  - `/api/evalpool/status` returns 404, and `/api/wasm?resolve=` is ignored.
+  - SECURITY_REVIEW registration 3236 (2026-10-20, author `0x23060ffa`) was still judged by the
+    Season I gate (margin, Spearman 0.79) and is `active`.
+  - What was observed: the docs describe a node that devnode is not yet running. What is not
+    known: when devnode switches to it.
+- **Tier of the intents the 15 Season II missions buy** (a count of example builds per intent,
+  taken from the hackathon site's `550-…js` chunk and joined to the intents-doc tier table):
+  - Deterministic: 31 intents, 135 buys. Top: WEATHER_FORECAST_VERIFY 14, SENSOR_TELEMETRY_VERIFY 11.
+  - Judgment: 19 intents, 90 buys. Top: WEB_SEARCH 15, FACT_CHECK 14, TASK_EXECUTION_QUALITY 10.
+  - Hybrid: 11 intents, 39 buys. Top: SANCTIONS_SCREENING_MATCH 6.
+  - Not in the tier table: 15 intents, 59 buys, including QUESTION_ANSWERING 13.
+- **Registry at 06:30 UTC** (`/api/wasm`): 2,421 registrations and 46 active.
+  - `0x8b224783` (zkasuran) holds 43 of the 46, all `rank_answer`.
+  - We hold 2: CURRENCY_EXCHANGE 2945 and TEXT_AUTHENTICITY_CHECK 1882.
+  - Of the 76 intents the missions buy, 15 have any registered scorer, and every one of those
+    is a `rank_answer` module. They are the Season I intents plus SECURITY_REVIEW.
+- **Season I Track 2 result** (hackathon site `/winners`, read 2026-10-21): 1st @zkasuran,
+  **2nd @hyadav42774 (us)**, 3rd @BangDropID.
+- **Evaluator track rules and judging are still unpublished.** `/rules` and `/judging` say
+  "published separately", re-read 2026-10-21 06:30 UTC.
