@@ -210,10 +210,24 @@ export function namedWinner(c: Candidate): string | null {
   return x ?? null;
 }
 
+/**
+ * A market on a side award or a sub-contest of the event the question names.
+ * "Will Jalen Hurts win Super Bowl LIX MVP?" covers every word of "Who won Super
+ * Bowl LIX?" and was answered "Jalen Hurts won" on 2026-10-21; the Eagles won.
+ */
+const SIDE_CONTEST =
+  /\b(?:MVP|most\s+valuable|player\s+of\s+the|golden\s+(?:boot|ball|glove)|top\s+(?:scorer|goalscorer)|nominee|nomination|primary|popular\s+vote|halftime|half-time|first\s+half|coin\s+toss|anthem|draft|semi-?finals?|quarter-?finals?|conference|division)\b/i;
+
+export function sideContest(question: string, marketText: string): boolean {
+  const m = marketText.match(SIDE_CONTEST)?.[0];
+  return m !== undefined && !new RegExp(`\\b${m.replace(/[-\s]+/g, "[-\\s]*")}\\b`, "i").test(question);
+}
+
 /** The best-covering candidate; a settled one wins a tie, since a mutually exclusive event has one winner. */
 export function bestMatch(question: string, candidates: Candidate[]): { c: Candidate; score: number } | null {
   let best: { c: Candidate; score: number } | null = null;
   for (const c of candidates) {
+    if (sideContest(question, `${c.context} ${c.question}`)) continue;
     const score = Math.max(coverage(question, c.question), coverage(question, `${c.context} ${c.question}`));
     if (score < MIN_COVERAGE) continue;
     const better = !best || score > best.score + 1e-9
