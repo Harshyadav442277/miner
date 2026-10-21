@@ -1,5 +1,24 @@
 # MEMORY.md — session continuity
 
+## 2026-10-21 ~19:30 UTC (22-10 01:00 IST): CURRENT — correctness audit done, 17 fixes committed, NOT deployed
+
+Brief from the parent session: audit every intent against routed questions and the primary source; fix or log.
+- **Branch `claude/correctness-audit-2026-10-21`** (worktree `admiring-golick-3474ab`), based on
+  `codex/rank1-14-intents` @ `89448f0`; 17 code commits `220463a`…`a0b2847` + one docs commit. NOT pushed,
+  NOT deployed. Unit **787/787** (771 before).
+- **Audit:** 36 intents, 154 questions, production 110 pass / 17 partial / 27 fail; 22 fails fixed, 5 logged
+  (G200). Evidence: `track1-miner/docs/evidence/correctness-audit-2026-10-21/` (`table.md` is the table).
+- **Worst finding, G201:** production SANCTIONS answered "Rosneft" `no_match` — the OFAC alias file had not
+  loaded and the alias-less list was cached as complete. Fixed in `220463a`; production still affected.
+- **Other fixes:** fact-check "reported" sentences never support; SEC fiscal-year / this-month windows;
+  registry possessive; event side-award markets; binary classification labels; weather written date and
+  weekend; gas base-fee floor and misroute decline; FX misroute decline; entity extraction; crypto thin book;
+  market cap; anycast IPs; Node LTS; timeless web-search via /answer; headlines "for X"; storm precip label.
+- **Not run:** live suite, preview, deploy gates. `no-regression.mjs` will differ on `/ip-geolocate` by
+  design (G202). **Next:** owner's yes to deploy this branch (it includes the places table), then push.
+- **Trap, twice this session:** heredoc/python edits of regex source failed on escapes (caught, nothing
+  written). Use Edit for any line with a backslash.
+
 ## 2026-10-21 ~07:45 UTC (13:15 IST): CURRENT — places table committed, NOT deployed
 
 Owner: "what's the status. fix whatever is left" (2026-10-20).

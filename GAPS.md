@@ -1,5 +1,50 @@
 # GAPS.md — honesty ledger
 
+## 2026-10-21 correctness audit — G200–G202
+
+Audit of all 36 intents, 154 questions (routed and realistic) against production `miner-q5qepqluk`, each
+compared with its primary source: `track1-miner/docs/evidence/correctness-audit-2026-10-21/`. Production:
+**110 pass, 17 partial, 27 fail**. 22 of the 27 fails are fixed on branch `claude/correctness-audit-2026-10-21`
+(17 code commits from `220463a` to `a0b2847`, unit 771 → 787), plus one partial (storm precipitation
+label); Cape Town's was already fixed by the undeployed places table. **None deployed.**
+
+- **G200 — Fails and partials NOT fixed. `OPEN`.** Recommendation for each: fix, not drop — every one is a
+  retrieval or reading defect, and each intent passed its in-scope questions otherwise.
+  - RESEARCH_QUERY, 3 of 4 fail: the subject collapses to one entity and drops the qualifier, so
+    "Nivolumab … bladder cancer" got a head-and-neck trial, "Pakistan sanction Iran" a root-canal trial in
+    Iran, and "creatine and cognition" a beetroot-juice review. Needs: require trials and papers to name the
+    qualifier (condition, outcome) as well as the entity, and decline a policy question. Highest-value open item
+    (99 routed questions).
+  - ACADEMIC_SEARCH: a title lookup ("Attention Is All You Need") returns five unrelated papers though
+    OpenAlex's own search ranks it first (78,168 citations); "do academic search for X" keeps "do search"
+    in the topic; the federated-learning question gets defence papers for an attacks question.
+  - FINANCIAL_DATA: "Will Pfizer's ZAVZPRET sales exceed forecasts?" answers Pfizer's total revenue. A
+    product-level or forecast question should be declined by name.
+  - Partials: SSL for an unresolvable name leads with openssl how-to rather than "does not resolve"; URL_SAFE
+    calls an NXDOMAIN host "not listed" without saying it does not resolve; WEATHER_CHECK "Will Riyadh reach
+    40°C today?" gives the range but never says no; NEWS_HEADLINES reads "Storage" as a region;
+    FRAUD_DETECTION calls an empty address "elevated risk" for having no history; TEXT_CLASSIFICATION
+    refuses a topic classification with no labels; SENTIMENT answers a virality question as sentiment;
+    RESEARCH_SYNTHESIS quotes background sentences as findings; CONTENT_EXTRACTION's multi-kind summary repeats
+    values and misses "1,200 units"; FACT_CHECK quotes an unrelated article for a forecast ("Violence begets
+    violence"). FACT_CHECK's Great Wall myth is now `unverified`, not `contradicted`.
+- **G201 — Production's OFAC aliases were missing. `FIXED in code, NOT deployed`.** "Rosneft" answered
+  `no_match` although `ROSNEFT` is an alias of SDN entry 17022; locally, with alt.csv, it scores 1.0. So the
+  production instance had parsed SDN.CSV without ALT.CSV (the alias download failed silently) and cached
+  that as complete — every alias-only name was cleared. `220463a` makes a failed alias download an unread
+  list. **Until deployed, production SANCTIONS name screens can clear aliased parties.** Not measured: how
+  long production had served the alias-less list. Likely cause, inferred: the 9 s `SANCTIONS_TIMEOUT_MS`
+  against downloads measured at 8.0 s (SDN.CSV, 5.7 MB) and 4.3 s (ALT.CSV) from this machine; in the branch
+  replay the OFAC read failed once and the UN read failed twice. With the fix that is an honest "not
+  cleared", but a longer timeout or a background refresh would make it rarer.
+- **G202 — Deploy notes for the audit branch. `OPEN`.** (1) `/ip-geolocate` now answers anycast addresses as
+  anycast, so `no-regression.mjs` will show 8.8.8.8 differing from production by design, and
+  `intent-answers.mjs` now requires `verdict: anycast` for 8.8.8.8 (passes on the branch, fails on current
+  production). (2) The anycast flag comes from ipinfo, whose terms are still unread (G189), as are ip-api's;
+  ip-api's free endpoint is believed non-commercial — **from memory, not read**: its legal page did not load
+  from this machine on 2026-10-21. (3) Web search now calls the `/answer` path for timeless questions; with no
+  Groq key it falls back to a quoted sentence, as `/answer` does.
+
 ## 2026-10-21 places table and Nominatim policy — G196 update, G198–G199
 
 - **G196 UPDATE — built-in places table. `FIXED in code, NOT deployed`.** `src/places.ts` answers large
