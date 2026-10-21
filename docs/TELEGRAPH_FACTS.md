@@ -670,3 +670,14 @@ Sources: `docs/scoring/build-a-scoring-module` and `docs/scoring/train-a-scoring
   **2nd @hyadav42774 (us)**, 3rd @BangDropID.
 - **Evaluator track rules and judging are still unpublished.** `/rules` and `/judging` say
   "published separately", re-read 2026-10-21 06:30 UTC.
+- **The kit packages only 31 intents, and FACT_CHECK is not one of them** (2026-10-21 ~08:45 UTC).
+  - The kit is at `992f2650`. Its compiled-in classification, `pkg/scoring/catalog/catalog.go`,
+    lists 11 judgment and 20 hybrid intents.
+  - All 31 come from the 63 intents added on 2026-09-08. None of the Season I intents is in it.
+  - `adapterbuild --intent FACT_CHECK` and `--intent WEB_SEARCH` both fail with "not a judgment
+    or hybrid intent in the compiled-in catalog — refusing to guess a class".
+    `TASK_EXECUTION_QUALITY` and `LLM_OUTPUT_EVALUATION` resolve to class judgment.
+  - The packager has no flag to load other classes. The node can load an `intent_classes`
+    table from its database, which would override the compiled map.
+  - `docs/using/intents.md` tiers FACT_CHECK as "B — Judgment". The docs and the kit disagree,
+    and only the organisers can say which one the node follows.

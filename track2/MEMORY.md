@@ -6,7 +6,23 @@ SIGN.md was removed in the 2026-10-18 cleanup. It is in git history.
 
 ---
 
-## CURRENT — 2026-10-21 ~07:00Z · SEASON I SCORERS CANNOT BE UPLOADED ANY MORE · WAITING ON THE OPERATOR'S PATH CHOICE
+## CURRENT — 2026-10-21 ~09:00Z · FACT_CHECK PAIRS BUILT AND PASSING · THE KIT REFUSES TO PACKAGE FACT_CHECK
+
+The operator chose the FACT_CHECK wide adapter. What happened:
+
+- **Kit set up outside OneDrive** in `C:\Users\hyada\tg-eval\`.
+  - `kit/` is `telegraph-wasm-baseline` at `feature/v2-integration` `992f2650`.
+  - `.venv` is Python 3.12, with torch cu126 installing.
+  - `adapterbuild.exe` was built with Go 1.26.3.
+  - `data/fever_gold/` holds FEVER, and `pairs/fact_check_v1/` holds the output.
+- **Pairs built and the data gate passed:** 6000/800/800, split by article, 50/50 labels. Generator and numbers are
+  in [adapter/fact_check/](adapter/fact_check/README.md).
+- **Blocker, G29:** `adapterbuild` refuses FACT_CHECK and WEB_SEARCH. The kit only classifies the 31 judgment and
+  hybrid intents added on 2026-09-08. Proposed instead: LLM_OUTPUT_EVALUATION (judgment, 7 missions, packageable).
+  The question for the organisers is in G29.
+- **VRAM test:** see the next entry, or G28.3 if the session ended before it ran.
+
+## 2026-10-21 ~07:00Z · SEASON I SCORERS CANNOT BE UPLOADED ANY MORE · WAITING ON THE OPERATOR'S PATH CHOICE
 
 The operator asked for "more WASM, high quality, win Track 2 again". The checks below change that request.
 

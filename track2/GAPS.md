@@ -1,5 +1,22 @@
 # GAPS — Track 2 honesty ledger
 
+## G29 — FACT_CHECK cannot be packaged with the published kit (2026-10-21) — `OPEN, needs the organisers`
+
+The FACT_CHECK pairs are built and pass the kit's data gate ([adapter/fact_check/README.md](adapter/fact_check/README.md)).
+The packager refuses the intent itself. The kit's compiled class map covers only the 31 judgment and hybrid intents
+added on 2026-09-08 (facts and command output in [../docs/TELEGRAPH_FACTS.md](../docs/TELEGRAPH_FACTS.md)), and FACT_CHECK
+is not one of them. The intents docs call FACT_CHECK "Judgment", so the node's database may still classify it that
+way.
+
+We will not patch the kit to force a class. Its guard exists because a package built for the wrong class is refused
+by every node.
+
+- **Question for the organisers:** in Season II, are FACT_CHECK and WEB_SEARCH judgment intents that take a wide
+  adapter, and will the kit's class map include them?
+- **Proposed while that is open (the operator decides):** move the same method to `LLM_OUTPUT_EVALUATION`, which is
+  judgment, packageable and bought by 7 missions. That intent judges a model output's factual fidelity and citation
+  support against a source.
+
 ## G28 — Season II evaluator path: open questions (2026-10-21) — `OPEN`
 
 The facts are in [../docs/TELEGRAPH_FACTS.md](../docs/TELEGRAPH_FACTS.md), section "Season II evaluators: `rank_answer` is
