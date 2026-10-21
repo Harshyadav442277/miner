@@ -27,8 +27,20 @@ hybrid intents take a ModernBERT reward-model package of about 1.2 GB. What is n
    format can be tested live, and a `rank_answer` upload is wasted the day it does.
 2. **Evaluator judging criteria** are unpublished. Comparators cannot be better than one another (docs), so they
    are unlikely to be what the judges weigh. That is an inference.
-3. **Can this machine train an adapter?** The GPU is an RTX 3050 Laptop with 4 GB of VRAM, and there is 15.6 GB
-   of RAM. The kit recommends a GPU and does not state a VRAM floor. Not measured.
+3. **Can this machine train an adapter? — CLOSED 2026-10-21, yes.** The probe ran the kit's own `build_model` and
+   collator, with LoRA r=8, gradient checkpointing and bf16, on the RTX 3050 Laptop. The display holds about 1 GiB,
+   leaving 2.91 GiB free. Every sequence was padded to the full 256 tokens, the worst case.
+
+   | batch | peak allocated | peak reserved | seconds per pair |
+   |---|---|---|---|
+   | 1 | 0.38 GiB | 0.40 GiB | 0.744 |
+   | 2 | 0.43 GiB | 0.47 GiB | 0.355 |
+   | 4 | 0.53 GiB | 0.59 GiB | 0.175 |
+   | 8 | 0.74 GiB | 0.82 GiB | 0.117 |
+
+   At batch 8, 6,000 pairs take about 12 minutes an epoch, so 3 epochs take about 35 minutes. The kit defaults to
+   batch 1, which would take about 75 minutes an epoch, so use `--batch-size 8 --grad-accum 2` (effective batch 16,
+   the kit's default). Convert and package (each about 1.2 GB) are not yet measured.
 4. **Hosting a 1.2 GB package.** GitHub raw and repository files are too small. A release asset (2 GiB cap) or
    the Hugging Face Hub would fit, and the node must download it within 30 minutes. Not tried.
 5. **No adapter can be evaluated until 5 contributors have material in the intent's pool.** Pool status per

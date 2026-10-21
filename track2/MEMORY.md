@@ -20,7 +20,12 @@ The operator chose the FACT_CHECK wide adapter. What happened:
 - **Blocker, G29:** `adapterbuild` refuses FACT_CHECK and WEB_SEARCH. The kit only classifies the 31 judgment and
   hybrid intents added on 2026-09-08. Proposed instead: LLM_OUTPUT_EVALUATION (judgment, 7 missions, packageable).
   The question for the organisers is in G29.
-- **VRAM test:** see the next entry, or G28.3 if the session ended before it ran.
+- **VRAM test passed (G28.3):** 0.74 GiB peak at batch 8, about 35 minutes for 3 epochs of 6,000 pairs.
+  - The venv's torch is `2.14.1+cu126`. uv timed out twice on the 2.4 GB wheel, so it was fetched with
+    resumable `curl -4` into `tg-eval/wheels/` and installed from there.
+  - Set `HF_HOME=C:\Users\hyada\tg-eval\hf` so the model cache stays off OneDrive.
+- **Next action:** the operator chooses between moving the method to LLM_OUTPUT_EVALUATION and waiting for the
+  organisers' answer on FACT_CHECK. Nothing has been trained, uploaded or registered.
 
 ## 2026-10-21 ~07:00Z · SEASON I SCORERS CANNOT BE UPLOADED ANY MORE · WAITING ON THE OPERATOR'S PATH CHOICE
 
