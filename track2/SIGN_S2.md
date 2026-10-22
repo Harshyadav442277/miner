@@ -41,9 +41,15 @@ The comparator URLs below are pinned to the commit, so they work as soon as the 
 
 ## 2. Hash the hosted bytes, not the local copies
 
+Run from Git Bash. PowerShell has no `grep` and cannot read `/c/...` paths.
+
 ```bash
-/c/Users/hyada/tg-eval/cmptool.exe hash $(grep -o 'https://raw[^ |]*' "/c/Users/hyada/OneDrive/Documents/Work-Related/Hackathons/Telegraph/.claude/worktrees/wasm-track-2-quality-e21db3/track2/SIGN_S2.md")
+cd "/c/Users/hyada/OneDrive/Documents/Work-Related/Hackathons/Telegraph/.claude/worktrees/wasm-track-2-quality-e21db3"
+/c/Users/hyada/tg-eval/cmptool.exe hash $(grep -o 'https://raw\.githubusercontent\.com/[^ |]*\.wasm' track2/SIGN_S2.md | sort -u)
 ```
+
+**Done 2026-10-22 16:38 UTC.** The operator pushed `season2-evaluators`, and the remote head is `2825b06`. Hashing all
+31 hosted URLs gave 31 of 31 equal to their rows.
 
 Every printed hash must equal the table's. Stop at the first mismatch.
 

@@ -6,7 +6,19 @@ SIGN.md was removed in the 2026-10-18 cleanup. It is in git history.
 
 ---
 
-## CURRENT — 2026-10-22 ~08:00Z · 32 WASMs BUILT · RELEASE PREPARED, NOT PUSHED · WAITING ON DEVNODE
+## CURRENT — 2026-10-22 16:40Z · COMPARATORS PUBLISHED AND HOSTED-HASH VERIFIED · ADAPTER RETRAINING
+
+- **Published.** The operator pushed `telegraph-factscore` branch `season2-evaluators` at `2825b06`. It holds the
+  comparators, their check and the training recipe, with no adapter package. All 31 hosted comparator URLs were
+  re-hashed at 16:38 UTC: 31 of 31 match [SIGN_S2.md](SIGN_S2.md) rows 2–32.
+- **Not registered.** Devnode `/api/evalpool/status` still returned 404 at 16:36 UTC.
+- **Adapter.** The first package `0xe54abbfe…` is withdrawn: it scores 81.0% as the node runs it (G32).
+  - The retrain against `tg-eval/base-node`, which uses the node's architecture, restarted at 22:05 IST. Its log is
+    `tg-eval/train_loe_node2.log`. The first retrain attempt died mid-epoch with exit 4; the cause is unknown.
+  - Next: `eval_deployed.py` on the retrained adapter. Then convert with `--base base-node`, adapterbuild,
+    `verify_wide`, a second release commit plus `gh release`, and row 1 of the sign list.
+
+## 2026-10-22 ~08:00Z · 32 WASMs BUILT · RELEASE PREPARED, NOT PUSHED · WAITING ON DEVNODE
 
 - **LLM_OUTPUT_EVALUATION adapter:**
   - 96.9% on 800 held-out test pairs.
