@@ -7,6 +7,14 @@ licensed for paid use. Season I's board (149 done items, all Season I epoch and 
 ## Owner
 
 - [ ] Register for Season II with `harsh.2024a@vitstudent.ac.in` before 1 Nov.
+- [ ] G203: ask the organisers which final deadline holds: /rules says Dec 20 23:59 UTC, /timeline says 1 Dec.
+- [ ] G204: decide on WINNING.md A4. Should our own disclosed H2 mission workflow earn related-party
+      consumption points (up to 7 of 10)?
+- [ ] G205: yes or no to resuming an availability record from Nov 1 (reliability is 20 of 100 Miner points).
+- [ ] Approve the cuts in WINNING.md §6:
+      - Intents, applied in the next `updateMiner`: NEWS_HEADLINES, IP_GEOLOCATION, STOCK_PRICE, and
+        RESEARCH_QUERY unless it is fixed by Nov 1.
+      - Season I tooling and superseded evidence: deleted in one commit.
 - [ ] Pick a licensed news source for web search, news search and headlines (G194: GDELT is unusable):
       Brave Search API (account and key), a paid news API, or Wikipedia's Current Events portal (no search).
 - [ ] STOCK_PRICE and the listed-company half of `/financial` (Yahoo, non-commercial): pay for data, or

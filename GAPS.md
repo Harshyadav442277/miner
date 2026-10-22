@@ -1,5 +1,30 @@
 # GAPS.md — honesty ledger
 
+## 2026-10-22 Season II rules published — G203–G205
+
+The Miner and Evaluator rubrics are now on hackathon.telegraphprotocol.com/rules (read 2026-10-22 16:47 UTC).
+They are recorded in `RULES_SEASON2.md`; the strategy built on them is in `WINNING.md`. G200–G202 are on
+branch `claude/correctness-audit-2026-10-21`, not yet merged here.
+
+- **G203 — The organiser's pages give two deadlines. `OPEN, ask the organisers`.**
+  - /rules: Nov 1 – Dec 20; final submission **Dec 20 23:59 UTC**; judging Dec 21–27.
+  - /timeline: 1 Nov – 1 Dec; "22 Nov – 1 Dec: Submissions close".
+  - Both were read 2026-10-22. We plan to 1 Dec 23:59 UTC until the organisers confirm in writing.
+- **G204 — Related-party consumption evidence against folder override 2. `OPEN, owner decision`.**
+  - The Miner rubric gives 1 consumption point for use by an H2 mission app "including an application
+    operated by the Provider's own team".
+  - Repeated use (2), ranked routing (2) and accounting (2) do not require independence. "Related-party
+    activity may establish functional consumption but does not receive the additional independent-consumer
+    points."
+  - So up to 7 of 10 points are reachable with our own disclosed app. Override 2 says nothing we control
+    counts as a user or as volume.
+  - WINNING.md A4 proposes labelling it related-party and never as users or volume. The owner decides
+    whether to build it.
+- **G205 — No availability record for the 20 reliability points. `OPEN, owner decision`.** The `uptime`
+  workflow has been `disabled_manually` since 2026-10-01 at the owner's request. Reliability, availability
+  and capacity are 20 of the Miner's 100 points. Resuming a record from Nov 1, and adding a capacity test,
+  needs the owner's yes. Not measured: Vercel plan limits under concurrent load.
+
 ## 2026-10-21 places table and Nominatim policy — G196 update, G198–G199
 
 - **G196 UPDATE — built-in places table. `FIXED in code, NOT deployed`.** `src/places.ts` answers large

@@ -1,5 +1,33 @@
 # MEMORY.md — session continuity
 
+## 2026-10-22 ~17:20 UTC (22:50 IST): CURRENT — Season II rubric published; WINNING.md is the goal file
+
+Owner asked for: what else can be removed from Track 1; a goal file for winning Tracks 1 and 2; and a Season I
+Track 1 post-mortem.
+- **Rules published.** The Miner and Evaluator rubrics, prizes and award order are on /rules. Their tab
+  text was read from the page bundle and recorded in `RULES_SEASON2.md`:
+  - Miner: quality 35 (minimum 24), reliability 20, coverage 15, consumption 10, cost and latency 10, docs 10.
+  - Evaluator: validity 40 (minimum 28), integrity 20, reproducibility 15, coverage 20, docs 5.
+  - ≥ 70/100 to win anything. No points for raw volume or for registered intents.
+- **Deadline conflict (G203).** /rules says Dec 20 23:59 UTC; /timeline says 1 Dec. We plan to 1 Dec.
+- **New files.**
+  - `WINNING.md`: decisions D1–D16 with their rubric line, asymmetric bets A1–A8, improvements by points
+    at stake, the removal list (§6) and the evidence table (§7).
+  - `track1-miner/docs/S1_LESSONS.md`: why we lost Season I, and lessons L1–L12.
+- **Removal answer (WINNING §6). Nothing deleted yet.**
+  - Intents: NEWS_HEADLINES, IP_GEOLOCATION, STOCK_PRICE, and RESEARCH_QUERY unless fixed by Nov 1.
+    These go in the next `updateMiner`.
+  - Season I tooling: `sign-update.sh`, `onchain-shape-bench.mjs` with `candidate-corpus.json`,
+    `replay-corpus.mjs` with `corpus.json`, `score-history.jsonl`, `opportunity-scan.mjs`, and three
+    superseded evidence folders.
+  - Source: all 79 modules are reachable and no export is unused.
+- **Checked live at 16:50 UTC:** registration 4829 `active` with 36 intents; production `/ssl-check` 200 in
+  1.1 s; `/api/evalpool/status` 404.
+- **Owner decisions added:** G203, G204 (related-party consumption against override 2), G205 (availability
+  record) and the §6 cuts. They are in TASKS.md.
+- **Unchanged and still pending:** the deploy of the audit branch and the places table, which carries the
+  G201 sanctions alias fix; push; the licence decisions.
+
 ## 2026-10-21 ~07:45 UTC (13:15 IST): CURRENT — places table committed, NOT deployed
 
 Owner: "what's the status. fix whatever is left" (2026-10-20).

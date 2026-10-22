@@ -4,7 +4,8 @@
 licensed for paid use, so apps buying through Telegraph get the best answer for each intent we serve.
 Season II apps must route through Telegraph, which sends each request to the highest-ranked miner for
 its intent — measured quality is how demand arrives. Rules: [RULES_SEASON2.md](RULES_SEASON2.md); the
-Miner-track rules were unpublished on 2026-10-17. Resolve every deadline in UTC with `date -u`.
+Miner and Evaluator rubrics were published by 2026-10-22, and the two official pages disagree on the final
+deadline (1 Dec or Dec 20, G203). Resolve every deadline in UTC with `date -u`.
 
 **Season I is over and judged.** Track 2's WASM scorer is in [track2/](track2/CLAUDE.md); Track 3's app,
 Morse, is the separate repo `../telegraph-morse`. **Not this project:** the Midnight / NightSeal hackathon.
@@ -12,6 +13,8 @@ Morse, is the separate repo `../telegraph-morse`. **Not this project:** the Midn
 ## Docs — read at session start, keep current
 
 - [MEMORY.md](MEMORY.md) — session continuity. **Read FIRST**, update at session end.
+- [WINNING.md](WINNING.md) — **the goal file**: how we win the Miner and Evaluator tracks, against the
+  published rubric. Every plan and review answers to it.
 - [track1-miner/docs/SEASON2_PLAN.md](track1-miner/docs/SEASON2_PLAN.md) — Season II goal, portfolio, next actions.
 - [ARCHITECTURE.md](ARCHITECTURE.md) — decisions A1–A10. Conform, or update it before deviating.
 - [TASKS.md](TASKS.md) — execution board. One task = one change = one commit.
