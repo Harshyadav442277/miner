@@ -1,6 +1,18 @@
 # GAPS — Track 2 honesty ledger
 
-## G32 — the node runs a different ModernBERT from the one the kit trains (2026-10-22) — `FOUND, fixing`
+## G32 — the node runs a different ModernBERT from the one the kit trains (2026-10-22) — `FIXED for our adapter; organisers not yet told`
+
+**Fixed 2026-10-22 ~17:30 UTC.** The retrain against `base-node` measures as follows:
+
+| | value |
+|---|---|
+| node-architecture accuracy on the 800 test pairs | **96.6%** |
+| flip | 93.5% |
+| misquote | 98.8% |
+| fabricate | 99.1% |
+
+The new package is keccak `0x76f78441…88d02f77`. `verify_wide` in the node's own runtime gave Pearson 1.00000
+against float, with every score within 0.04.
 
 **Symptom.** `verify_wide` ran the packaged LLM_OUTPUT_EVALUATION adapter in the node's own runtime. It ordered both
 probe pairs correctly, but its scores were far from the float model's:

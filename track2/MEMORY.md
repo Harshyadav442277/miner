@@ -6,7 +6,21 @@ SIGN.md was removed in the 2026-10-18 cleanup. It is in git history.
 
 ---
 
-## CURRENT — 2026-10-22 16:40Z · COMPARATORS PUBLISHED AND HOSTED-HASH VERIFIED · ADAPTER RETRAINING
+## CURRENT — 2026-10-22 17:40Z · ADAPTER RETRAINED AND VERIFIED · RELEASE COMMIT d82ff64 AWAITS THE OPERATOR'S PUSH
+
+- **Adapter.** Retrained in the node's architecture.
+  - It scores 96.6% as the node computes it, and `verify_wide` PASS with Pearson 1.00000.
+  - The package is `tg-eval/runs/LLM_OUTPUT_EVALUATION_node/LLM_OUTPUT_EVALUATION.wasm`, keccak
+    `0x76f78441…88d02f77`.
+- **Release clone.** The adapter is committed at `d82ff64`, on top of the pushed `2825b06`.
+  - The operator runs step 1b of [SIGN_S2.md](SIGN_S2.md): `git push`, then `gh release create`, in PowerShell.
+  - After that, hash the release-asset URL with `cmptool.exe hash`. The check is whether the hash matches row 1 and
+    whether the URL follows GitHub's redirect.
+- **Still blocked on devnode** for any registration.
+- **Not yet done:** telling the organisers about G32 (the kit converts a different ModernBERT from the one it
+  trains). That needs an operator-approved message.
+
+## 2026-10-22 16:40Z · COMPARATORS PUBLISHED AND HOSTED-HASH VERIFIED · ADAPTER RETRAINING
 
 - **Published.** The operator pushed `telegraph-factscore` branch `season2-evaluators` at `2825b06`. It holds the
   comparators, their check and the training recipe, with no adapter package. All 31 hosted comparator URLs were
