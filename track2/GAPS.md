@@ -1,5 +1,21 @@
 # GAPS — Track 2 honesty ledger
 
+## G31 — the LLM_OUTPUT_EVALUATION adapter is built; what it has not been tested on (2026-10-22) — `OPEN`
+
+The package exists: 1,205,363,765 bytes, keccak `0xe54abbfe…b067ed89`. The numbers are in
+[adapter/llm_output_eval/README.md](adapter/llm_output_eval/README.md). Not yet known:
+
+1. **The hidden pool.** 96.9% is measured on our own template family. The pool's pairs are written by other
+   contributors, and they may judge tone, safety or multi-source citations, which our data never teaches. The 70%
+   first-canonical floor is the bar that counts, and it has not been measured.
+2. **Material.** Nothing is evaluated until the intent's pool has 5 contributors. Pool status cannot be read until
+   devnode switches.
+3. **Hosting.** 1.2 GB is beyond GitHub raw. A release asset on the public `telegraph-factscore` repo (2 GiB cap) or
+   the Hugging Face Hub would work. The node must download it within 30 minutes. This is a public upload and needs
+   the operator's yes.
+4. **Package fidelity.** `verify_wide` is checking whether the packaged module, run in the node's own runtime,
+   orders the probe pairs like the float model. Its result is in the next entry.
+
 ## G30 — comparators: built and proved exact; routing and hosting open (2026-10-22) — `OPEN`
 
 What is proved is in [comparator/README.md](comparator/README.md): 234,848 cases through the node's own runtime, 0

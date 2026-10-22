@@ -6,7 +6,31 @@ SIGN.md was removed in the 2026-10-18 cleanup. It is in git history.
 
 ---
 
-## CURRENT — 2026-10-21 ~09:00Z · FACT_CHECK PAIRS BUILT AND PASSING · THE KIT REFUSES TO PACKAGE FACT_CHECK
+## CURRENT — 2026-10-22 ~08:00Z · 32 WASMs BUILT · RELEASE PREPARED, NOT PUSHED · WAITING ON DEVNODE
+
+- **LLM_OUTPUT_EVALUATION adapter:**
+  - 96.9% on 800 held-out test pairs.
+  - The package is 1,205,363,765 bytes, keccak `0xe54abbfe…b067ed89`. Two builds are identical and the kit's
+    node-load check passed.
+  - Recipe: [adapter/llm_output_eval/](adapter/llm_output_eval/README.md).
+  - Built files live in `C:\Users\hyada\tg-eval\runs\LLM_OUTPUT_EVALUATION\`.
+- **Comparators:** 31, one per mission-bought deterministic intent. They score 234,848 cases exactly through the
+  node's runtime. See [comparator/](comparator/README.md).
+- **Release prepared** in `C:\Users\hyada\tg-eval\factscore`:
+  - branch `season2-evaluators`, commit `421e071`, 53 files under `season2/`;
+  - **not pushed**;
+  - the operator approved preparing it and asked to see the commands first.
+- **Sign list:** [SIGN_S2.md](SIGN_S2.md), with 32 rows. Every row's keccak was re-hashed from the release files.
+  Nothing has been signed.
+- **Blocked on:**
+  - devnode switching: `/api/evalpool/status` still returned 404 at 07:45 UTC;
+  - the operator's push;
+  - `verify_wide`, the packaged adapter running in the node runtime. It was restarted at 13:11 IST with a live log
+    in `tg-eval/verify_wide2.log`. The first overnight run was killed: the laptop slept and its output was
+    buffered.
+- **Tool:** `C:\Users\hyada\tg-eval\cmptool.exe hash <url|file>` prints keccak256, following redirects.
+
+## 2026-10-21 ~09:00Z · FACT_CHECK PAIRS BUILT AND PASSING · THE KIT REFUSES TO PACKAGE FACT_CHECK
 
 The operator chose the FACT_CHECK wide adapter. What happened:
 

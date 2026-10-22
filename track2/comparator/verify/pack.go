@@ -4,6 +4,8 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
+	"io"
+	"net/http"
 	"os"
 	"path/filepath"
 	"strings"
@@ -58,4 +60,40 @@ func packMain(base, outDir, intents string) error {
 	}
 	j, _ := json.MarshalIndent(manifest, "", "  ")
 	return os.WriteFile(filepath.Join(outDir, "manifest.json"), append(j, '\n'), 0o644)
+}
+
+// hashMain prints the keccak256 that registerWasm needs, of a local file or of the bytes
+// a URL serves (following redirects, as a release-asset URL needs). Hash the hosted bytes,
+// not the local copy: a host that re-encodes the file breaks the match.
+//
+//	go run . hash <file-or-url>...
+func hashMain(srcs []string) error {
+	for _, src := range srcs {
+		var r io.Reader
+		if strings.HasPrefix(src, "https://") {
+			resp, err := http.Get(src)
+			if err != nil {
+				return err
+			}
+			defer resp.Body.Close()
+			if resp.StatusCode != http.StatusOK {
+				return fmt.Errorf("%s: HTTP %d", src, resp.StatusCode)
+			}
+			r = resp.Body
+		} else {
+			f, err := os.Open(src)
+			if err != nil {
+				return err
+			}
+			defer f.Close()
+			r = f
+		}
+		h := crypto.NewKeccakState()
+		n, err := io.Copy(h, r)
+		if err != nil {
+			return err
+		}
+		fmt.Printf("0x%s %d %s\n", hex.EncodeToString(h.Sum(nil)), n, src)
+	}
+	return nil
 }

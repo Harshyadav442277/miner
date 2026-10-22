@@ -60,6 +60,38 @@ The generator reuses `../fact_check` (FEVER loading, edits, and the split by art
 | val | 351 | 219 | 230 | 395 / 405 |
 | test | 337 | 212 | 251 | 424 / 376 |
 
+## Training and package, 2026-10-22
+
+**Training:** the kit's `train_adapter`, ModernBERT-base with LoRA r=8, batch 8 × grad-accum 2, 3 epochs. It took
+26 minutes on an RTX 3050 Laptop.
+
+| | epoch 0 | epoch 1 | epoch 2 |
+|---|---|---|---|
+| train loss | 0.489 | 0.129 | 0.068 |
+| validation accuracy | 93.1% | 97.1% | 97.5% |
+
+**Final gate on the 800 test pairs** (articles never seen in training):
+
+| check | value |
+|---|---|
+| pairwise accuracy | **96.9%** |
+| "pick the longer" baseline | 51.7% |
+| negative memorisation | 0.0 |
+| verdict | PASS |
+
+**Package:** `convert_adapter` (1.2 GB `.imwq`, 22 layers) and then `adapterbuild`. Its manifest records:
+
+- class judgment;
+- 1,205,363,765 bytes;
+- keccak256 `0xe54abbfed8c9f20f89c836a1e9a628978537eb7cac06041eac748f45b067ed89`;
+- sha256 `d9796362fe741837972f24b01771692bc880d17e02e4cc396634be957be50dcc`;
+- two builds byte-identical;
+- the node-load check passed;
+- 4 GiB budget headroom of 0.94 GB.
+
+These are in-distribution numbers: the test pairs come from the same templates as training. The node judges the
+module on the hidden evaluation pool, which other people write. Only that can say whether 96.9% carries over.
+
 ## Limits
 
 - The data covers factual fidelity against one cited sentence. The intent also names tone, safety and
