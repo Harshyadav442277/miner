@@ -2,10 +2,12 @@
 
 Prepared 2026-10-22. **Nothing in this file has been run.**
 
-> **Status 2026-10-22 ~16:40 UTC.** Comparators: ready to push (step 1) and to register once devnode switches
-> (rows 2–32). Adapter, row 1: the package `0xe54abbfe…` is **withdrawn**, because it scores 81.0% as the node
-> runs it (G32). Its retrain is running. Do not run the `gh release` command and do not sign row 1 until this file
-> is updated with the new package.
+> **Status 2026-10-22 ~17:40 UTC.**
+> - Comparators: pushed at `2825b06`, and all 31 hosted hashes were verified (rows 2–32).
+> - Adapter: row 1 is the node-architecture retrain, keccak `0x76f78441…`. It scores 96.6% as the node computes it,
+>   and `verify_wide` PASS: Pearson 1.00000 against float, in the node's own runtime.
+> - The adapter is committed on the release branch at `d82ff64`, which is not pushed yet. Step 1b publishes it.
+> - The withdrawn `0xe54abbfe…` package must never be used.
 
 - The push and release in step 1 are public.
 - Every `registerWasm` in step 4 is a transaction from the operator's wallet.
@@ -35,7 +37,16 @@ cd /c/Users/hyada/tg-eval/factscore
 git push -u origin season2-evaluators
 ```
 
-The adapter release (`gh release create s2-evaluators-v1 …`) comes later, with the retrained package.
+Done 2026-10-22 16:38 UTC.
+
+**1b. The adapter, in PowerShell.** This pushes commit `d82ff64`, then creates the release with the 1.2 GB package
+attached.
+
+```powershell
+cd C:\Users\hyada\tg-eval\factscore
+git push origin season2-evaluators
+gh release create s2-evaluators-v1 -R Harshyadav442277/telegraph-factscore --target d82ff6458bb9bfb5467ab7401060b252f9380856 --title "Season II evaluators v1" --notes "LLM_OUTPUT_EVALUATION adapter trained in the node's architecture: 96.6% on 800 held-out pairs as the node computes it. 1,205,363,765 bytes, keccak256 0x76f78441de399ebe6af97c70c17cb69c556bb09d7fb8849fdbbc121088d02f77. Sources and the 31 comparators: season2/ on branch season2-evaluators." C:\Users\hyada\tg-eval\runs\LLM_OUTPUT_EVALUATION_node\LLM_OUTPUT_EVALUATION.wasm C:\Users\hyada\tg-eval\runs\LLM_OUTPUT_EVALUATION_node\LLM_OUTPUT_EVALUATION.wasm.manifest.json
+```
 
 The comparator URLs below are pinned to the commit, so they work as soon as the branch is pushed.
 
@@ -77,7 +88,7 @@ After each transaction, record the `registrationId` and poll
 
 | # | intent | kind | keccak256 | URL |
 |---|---|---|---|---|
-| 1 | `LLM_OUTPUT_EVALUATION` | adapter (judgment) | `0xe54abbfed8c9f20f89c836a1e9a628978537eb7cac06041eac748f45b067ed89` | https://github.com/Harshyadav442277/telegraph-factscore/releases/download/s2-evaluators-v1/LLM_OUTPUT_EVALUATION.wasm |
+| 1 | `LLM_OUTPUT_EVALUATION` | adapter (judgment), node-architecture retrain | `0x76f78441de399ebe6af97c70c17cb69c556bb09d7fb8849fdbbc121088d02f77` | https://github.com/Harshyadav442277/telegraph-factscore/releases/download/s2-evaluators-v1/LLM_OUTPUT_EVALUATION.wasm |
 | 2 | `FX_NOW` | comparator, kit-wired | `0xa92fd5769698ee985f3c505dae116e7341363d6eefdbc02c55079fd38e5813ca` | https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/2825b06f8ae7e4a0cd16e9e8824d66ef8b8fa5a9/season2/comparator/dist/FX_NOW.wasm |
 | 3 | `ROUTE_ETA` | comparator, kit-wired | `0xcf88885efe3c55c3dd587baa8280b2c659eae2116e05f355963f9ebfaa5e5eb4` | https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/2825b06f8ae7e4a0cd16e9e8824d66ef8b8fa5a9/season2/comparator/dist/ROUTE_ETA.wasm |
 | 4 | `MACRO_ECONOMIC_INDICATOR` | comparator, kit-wired | `0xe4be81e2ee8c7cf34f65aa398dc79c2a0b2a058c8eb31aab9f22bc299da87fff` | https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/2825b06f8ae7e4a0cd16e9e8824d66ef8b8fa5a9/season2/comparator/dist/MACRO_ECONOMIC_INDICATOR.wasm |

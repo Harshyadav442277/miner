@@ -60,7 +60,39 @@ The generator reuses `../fact_check` (FEVER loading, edits, and the split by art
 | val | 351 | 219 | 230 | 395 / 405 |
 | test | 337 | 212 | 251 | 424 / 376 |
 
-## Training and package, 2026-10-22
+## Released package: trained in the node's architecture, 2026-10-22
+
+**Why retrain.** The node's interpreter runs ModernBERT differently from PyTorch. It treats every layer as global
+attention with RoPE theta 10000; ModernBERT slides a 128-token window on 2 layers in 3 and uses theta 160000 on the
+global ones.
+
+**What changed.** The same data and hyperparameters, trained on the same weights loaded with
+[`base-node-config.json`](../LLM_OUTPUT_EVALUATION/base-node-config.json): `global_attn_every_n_layers: 1`, both thetas
+10000. The model trained is therefore the model the node runs.
+
+**Training:** the kit's `train_adapter`, 3 epochs.
+
+| | epoch 0 | epoch 1 | epoch 2 |
+|---|---|---|---|
+| validation accuracy | 87.9% | 96.4% | 96.9% |
+
+**On the 800 test pairs** (articles never seen in training), measured with `eval_deployed.py`:
+
+| kind | node architecture |
+|---|---|
+| all | **96.6%** |
+| fabricate | 99.1% |
+| misquote | 98.8% |
+| flip | 93.5% |
+
+The withdrawn first package scored 81.0% in the node architecture. The "pick the longer" baseline is 51.7%, and
+negative memorisation is 0.0.
+
+**Package:** 1,205,363,765 bytes; keccak256 `0x76f78441de399ebe6af97c70c17cb69c556bb09d7fb8849fdbbc121088d02f77`;
+sha256 `7b7b7ea8fab30b32cc2e41927d23fb5d5c4cad674890cfabac369e62311d96dd`. Two builds were byte-identical, and the
+node-load check passed.
+
+## First package (withdrawn), 2026-10-22
 
 > **Withdrawn.** This first package scores 81.0% as the node runs it, not 96.9%. The kit converts every
 > layer to global attention with RoPE theta 10000, unlike the ModernBERT it trains. A retrain against the node's

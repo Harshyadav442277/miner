@@ -1,0 +1,74 @@
+{
+  "schema": 1,
+  "builder": "github.com/telegraphprotocol/telegraph-wasm-baseline/cmd/adapterbuild",
+  "builder_version": "adapterbuild/1 992f2650cf99",
+  "intent": "LLM_OUTPUT_EVALUATION",
+  "class": "judgment",
+  "host_sha256": "d27863825b9b11396b03c2f9b69202af266a6e7424f9c297b70964fc4940ed51",
+  "imwq_sha256": "548d2a401c9e022ddc435384e9b7b4ad9beda50b0fb64f2fb3bcb704020f2050",
+  "bundle_sha256": "7b7b7ea8fab30b32cc2e41927d23fb5d5c4cad674890cfabac369e62311d96dd",
+  "bundle_keccak256": "0x76f78441de399ebe6af97c70c17cb69c556bb09d7fb8849fdbbc121088d02f77",
+  "bundle_bytes": 1205363765,
+  "host_min_pages": 17,
+  "min_pages": 18409,
+  "desc_addr": 1050472,
+  "max_tokens": 256,
+  "budget": {
+    "model_ptr": 1114112,
+    "model_len": 1205314278,
+    "model_end": 1206428390,
+    "parsed_bytes": 1205279720,
+    "activation_bytes": 874250240,
+    "margin_bytes": 67108864,
+    "need_bytes": 3353067214,
+    "limit_bytes": 4294967296,
+    "headroom_bytes": 941900082
+  },
+  "imwq": {
+    "Ops": 359,
+    "Tensors": 206,
+    "Config": [
+      1,
+      768,
+      22,
+      12,
+      12,
+      64,
+      1152,
+      8192,
+      10000000,
+      1
+    ],
+    "TensorBytes": 1205233672,
+    "ParsedBytes": 1205279720,
+    "Slots": 359,
+    "MaxCols": 1152
+  },
+  "verified": true,
+  "loaded_memory_bytes": 2412249088,
+  "abi_version": 1,
+  "imwq_file": "LLM_OUTPUT_EVALUATION.imwq",
+  "provenance": {
+    "adapter": "runs/LLM_OUTPUT_EVALUATION_node/adapter",
+    "base_model": "answerdotai/ModernBERT-base (node architecture: all layers global, rope theta 10000)",
+    "dataset_version": "fever-loe-v1-seed11"
+  },
+  "hosts_lock": {
+    "path": "wide_runtime/wide_wasm/hosts/hosts.lock.json",
+    "sha256": "2cdf1386e240bd72e09f6bb361a86dd4add03243eb8703cec06f923a66dcb4d9",
+    "host_file": "wide_embed_judgment.wasm",
+    "toolchain": "1.98.1",
+    "image": "rust:1.98.1-slim-bookworm@sha256:ff521445a372125ed4f76e1453a1f8098f2d05332d1601d30db1c1f62757e730",
+    "image_digest": "sha256:ff521445a372125ed4f76e1453a1f8098f2d05332d1601d30db1c1f62757e730",
+    "rustflags": "--remap-path-prefix=/build=/wide_wasm --remap-path-prefix=/usr/local/cargo=/cargo"
+  },
+  "reproducibility": {
+    "builds": 2,
+    "identical_sha256": true,
+    "sha256s": [
+      "7b7b7ea8fab30b32cc2e41927d23fb5d5c4cad674890cfabac369e62311d96dd",
+      "7b7b7ea8fab30b32cc2e41927d23fb5d5c4cad674890cfabac369e62311d96dd"
+    ]
+  },
+  "built_at": "2026-10-22T17:04:11Z"
+}

@@ -19,6 +19,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--pairs", required=True)
     ap.add_argument("--adapter", required=True)
+    ap.add_argument("--base", default=DEFAULT_BASE, help="base model dir; use the node-architecture copy")
     ap.add_argument("--n", type=int, default=24)
     ap.add_argument("--seed", type=int, default=3)
     ap.add_argument("--out", required=True)
@@ -31,8 +32,8 @@ def main():
     rows = [json.loads(line) for line in open(a.pairs, encoding="utf-8")]
     random.Random(a.seed).shuffle(rows)
     rows = rows[:a.n]
-    tok = AutoTokenizer.from_pretrained(DEFAULT_BASE)
-    base = AutoModelForSequenceClassification.from_pretrained(DEFAULT_BASE, num_labels=1, attn_implementation="eager")
+    tok = AutoTokenizer.from_pretrained(a.base)
+    base = AutoModelForSequenceClassification.from_pretrained(a.base, num_labels=1, attn_implementation="eager")
     base.config.pad_token_id = tok.pad_token_id
     model = PeftModel.from_pretrained(base, a.adapter).merge_and_unload().eval()
 
