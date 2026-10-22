@@ -62,6 +62,10 @@ The generator reuses `../fact_check` (FEVER loading, edits, and the split by art
 
 ## Training and package, 2026-10-22
 
+> **Withdrawn.** This first package scores 81.0% as the node runs it, not 96.9%. The kit converts every
+> layer to global attention with RoPE theta 10000, unlike the ModernBERT it trains. A retrain against the node's
+> architecture replaces it. The numbers below are kept as the record of what was measured, in PyTorch.
+
 **Training:** the kit's `train_adapter`, ModernBERT-base with LoRA r=8, batch 8 × grad-accum 2, 3 epochs. It took
 26 minutes on an RTX 3050 Laptop.
 
