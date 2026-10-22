@@ -2,7 +2,7 @@
 /**
  * Replays the questions the network actually routes, for every intent we serve.
  *
- * `replay-corpus.mjs` covers three intents and selects their questions with a
+ * It replaced `replay-corpus.mjs` (deleted 2026-10-22), which covered three intents and selected questions with a
  * regex over the text, which cannot tell WEATHER_CHECK from WEATHER_FORECAST and
  * silently drops the other ten. The feed labels every row with the intent the
  * Daemon classified it as (`routing.intent`), so the corpus can be built from the

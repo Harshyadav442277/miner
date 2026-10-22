@@ -31,7 +31,8 @@ Preview `https://miner-e6z8ru8d1-wukong4.vercel.app` was built from a clean work
 so it carries none of the other session's uncommitted edits. All eight probed routes answered with
 their fields through `npx vercel curl`: `/financial` (CoinGecko reachable from Vercel), `/storm-alert`,
 `/web-search`, `/fact-check`, `/ssl-check`, `/papers`, `/tx-lookup` and `/weather-forecast`.
-Evidence: [evidence/season2-build-2026-10-11/preview-probes.txt](evidence/season2-build-2026-10-11/preview-probes.txt).
+Evidence: `evidence/season2-build-2026-10-11/preview-probes.txt`, deleted 2026-10-22 as superseded by the
+10-14 and 10-18 releases; it is in git history.
 Production is still `miner-j9eojoz7e`.
 
 **Later the same day:** item 0 below (`c485819`, transaction fields) is on preview

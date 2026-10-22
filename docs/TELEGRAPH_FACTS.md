@@ -438,7 +438,7 @@ constantly. They do not — **scoring lands roughly three times a day.** So:
   raises the bar for making one on a hypothesis rather than evidence.
 
 Corollary for working method: prefer changes justified by **replaying real paid questions**
-(`tools/replay-corpus.mjs`), which gives an answer in seconds, over changes justified by a scoring
+(`tools/replay-intents.mjs`; the Season I `replay-corpus.mjs` is in git history), which gives an answer in seconds, over changes justified by a scoring
 theory, which take up to 9 hours to test and have twice been wrong.
 
 ## Track 1 deadline — RESOLVED (verified 2026-09-01, rules page)

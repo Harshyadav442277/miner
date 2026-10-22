@@ -186,7 +186,8 @@ Evidence: `track1-miner/docs/evidence/factcheck-g188-2026-10-11/live-sweep.txt`.
 
 ## 2026-10-11 improvement pass — G186–G187
 
-Evidence: `track1-miner/docs/evidence/improve-2026-10-11/` (`PLAN.md`, `rank-audit.json`).
+Evidence: `track1-miner/docs/evidence/improve-2026-10-11/` (`PLAN.md`, `rank-audit.json`), deleted 2026-10-22
+and kept in git history (`git log --diff-filter=D -- track1-miner/docs/evidence/improve-2026-10-11`).
 
 - **G186 — DeFiLlama's terms may forbid serving its TVL figures for pay. `CLOSED 2026-10-14 (verified; see the top block)`.**
   Source: the TVL leader `finwire-tvl`'s own live answer (2026-10-10 19:14 UTC) quotes DeFiLlama's terms

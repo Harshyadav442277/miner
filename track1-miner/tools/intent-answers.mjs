@@ -374,7 +374,7 @@ const CHECKS = {
     // The BLOCK NUMBER is the cross-checked figure since 2026-09-16. Gas used,
     // the total fee and the effective gas price left the answer that day: each
     // extra number costs both of the miners that actually cross this intent,
-    // measured in tools/onchain-shape-bench.mjs. A figure we no longer state is
+    // measured by the Season I shape bench (deleted; in git history). A figure we no longer state is
     // one this gate can no longer check, so it moved to one we do.
     const truth = rpc?.result ? Number(BigInt(rpc.result.blockNumber)) : null;
     if (truth !== null) {

@@ -172,7 +172,8 @@ bought by at least one mission, 16 by none.
 intents whose audit fails are all fixed on the audit branch and that cost nothing to run. Those are SSL, STORM, WEATHER_FORECAST,
 ONCHAIN_TX, WALLET, TOKEN_HOLDER, CVE, URL_SCAN, CURRENCY_EXCHANGE and FRAUD_DETECTION.
 
-**Tooling and docs. Ordinary deletions; nothing deployed or registered depends on them.**
+**Tooling and docs. DELETED 2026-10-22 on the owner's yes; kept in git history.** Typecheck was clean and
+unit tests passed 771/771 after the deletion.
 
 | Path | Why |
 |---|---|

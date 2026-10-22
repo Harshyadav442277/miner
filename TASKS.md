@@ -14,7 +14,7 @@ licensed for paid use. Season I's board (149 done items, all Season I epoch and 
 - [ ] Approve the cuts in WINNING.md §6:
       - Intents, applied in the next `updateMiner`: NEWS_HEADLINES, IP_GEOLOCATION, STOCK_PRICE, and
         RESEARCH_QUERY unless it is fixed by Nov 1.
-      - Season I tooling and superseded evidence: deleted in one commit.
+      - Season I tooling and superseded evidence: done 2026-10-22.
 - [ ] Pick a licensed news source for web search, news search and headlines (G194: GDELT is unusable):
       Brave Search API (account and key), a paid news API, or Wikipedia's Current Events portal (no search).
 - [ ] STOCK_PRICE and the listed-company half of `/financial` (Yahoo, non-commercial): pay for data, or

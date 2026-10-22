@@ -14,7 +14,8 @@ Track 1 post-mortem.
   - `WINNING.md`: decisions D1–D16 with their rubric line, asymmetric bets A1–A8, improvements by points
     at stake, the removal list (§6) and the evidence table (§7).
   - `track1-miner/docs/S1_LESSONS.md`: why we lost Season I, and lessons L1–L12.
-- **Removal answer (WINNING §6). Nothing deleted yet.**
+- **Removal answer (WINNING §6).** The Season I tooling below was **deleted on the owner's yes** in a
+  separate commit; unit tests passed 771/771 after it. The intent removals still wait for the `updateMiner`.
   - Intents: NEWS_HEADLINES, IP_GEOLOCATION, STOCK_PRICE, and RESEARCH_QUERY unless fixed by Nov 1.
     These go in the next `updateMiner`.
   - Season I tooling: `sign-update.sh`, `onchain-shape-bench.mjs` with `candidate-corpus.json`,

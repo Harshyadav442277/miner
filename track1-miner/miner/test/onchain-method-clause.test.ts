@@ -6,8 +6,8 @@ import { lookupTransaction } from "../src/onchain";
  * The called method, the plain block number, and the gas figures that left.
  *
  * Measured 2026-09-16 against champion reg642 with the two miners that actually
- * cross this intent in production as the references (tools/onchain-shape-bench.mjs,
- * evidence in docs/evidence/rank1-build-2026-09-16/onchain/bench.txt). Our
+ * cross this intent in production as the references (the Season I shape bench and
+ * its evidence, both deleted and kept in git history). Our
  * production answer scored 0.014 against both; the same answer without the gas
  * sentence, with the block written 25700000 and with the called method named
  * scored 0.9949-0.9962 against both, on both of the node's hidden test hashes.

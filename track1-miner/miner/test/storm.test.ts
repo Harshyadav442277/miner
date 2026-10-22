@@ -67,7 +67,7 @@ describe("checkStorm (live)", () => {
 
   // "in 12 hours" names a moment; "over the next 12 hours" names a span, and a
   // point question answered with a span maximum is wrong while looking well
-  // formed. Nothing covered this: replay-corpus.mjs read `time_mode` off the
+  // formed. Nothing covered this: replay-corpus.mjs (deleted) read `time_mode` off the
   // HTTP response, and no endpoint has ever served that field — it is declared
   // in miner.yaml and produced nowhere, so the check compared undefined and
   // passed everything. The mode is really carried by which of the two timestamps

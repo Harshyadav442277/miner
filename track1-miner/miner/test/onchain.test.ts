@@ -76,8 +76,8 @@ test("a pre-Byzantium receipt is confirmed, not reverted (live)", async () => {
   assert.match(r.reason, /31,337 wei/);
   assert.match(r.reason, /Byzantium/);
   // Gas used, the fee and the gas price were measured out of this answer on
-  // 2026-09-16: each extra number costs both crossing references. See the
-  // shape bench in tools/onchain-shape-bench.mjs.
+  // 2026-09-16: each extra number costs both crossing references (Season I
+  // shape bench, deleted 2026-10-22; in git history).
   assert.doesNotMatch(r.reason, /gas price|total fee|used [\d,]+ gas/);
   assert.ok(!/reverted/.test(r.reason), "a successful transaction must not be described as reverted");
 });
