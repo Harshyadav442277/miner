@@ -1,5 +1,48 @@
 # GAPS — Track 2 honesty ledger
 
+## G32 — the node runs a different ModernBERT from the one the kit trains (2026-10-22) — `FOUND, fixing`
+
+**Symptom.** `verify_wide` ran the packaged LLM_OUTPUT_EVALUATION adapter in the node's own runtime. It ordered both
+probe pairs correctly, but its scores were far from the float model's:
+
+| probe answer | wasm | float |
+|---|---|---|
+| pair 0, chosen | 16.49 | 20.72 |
+| pair 0, rejected | 15.37 | 8.97 |
+
+Pearson was 0.83. The interpreter took about 300 s per answer.
+
+**Cause.** The converter in kit `992f2650` (`wide_runtime/convert.py` and `hf_helpers._norm_cfg`) reads `rope_theta`.
+ModernBERT has no such key; it has `global_rope_theta` 160000 and `local_rope_theta` 10000. So the converter falls
+back to 10000 for every layer. It also builds every layer as global attention, where ModernBERT slides a 128-token
+window on 2 layers in 3. The package manifest's `Config` field shows theta × 1000 = `10000000`.
+
+**Proof.** In float, with every layer global and theta 10000, the probe answers score 16.496 / 15.356 and
+13.48 / −1.27. The wasm gave 16.493 / 15.368 and 13.60 / −1.24. That match is within about 0.1.
+
+**Cost:** pairwise accuracy on the 800 test pairs.
+
+| kind | trained architecture | node architecture |
+|---|---|---|
+| all | 96.9% | 81.0% |
+| flip | 94.1% | 67.4% |
+| misquote | 98.8% | 87.3% |
+| fabricate | 99.1% | 95.3% |
+
+The package `0xe54abbfe…` is withdrawn from the sign list.
+
+**Fix.** Train against the architecture the node runs:
+
+- `C:\Users\hyada\tg-eval\base-node` holds the same weights, with `global_attn_every_n_layers: 1` and both thetas
+  set to 10000.
+- Pass it as `--base-model` to training and as `--base` to conversion.
+- Measure with [adapter/eval_deployed.py](adapter/eval_deployed.py), which scores 800 pairs in about a minute on
+  the GPU.
+
+**Who else it affects.** Every wide adapter built with this kit on ModernBERT. It is worth reporting to the
+organisers. Fixing their converter would change the node's architecture back, so ask which architecture they intend
+before relying on either.
+
 ## G31 — the LLM_OUTPUT_EVALUATION adapter is built; what it has not been tested on (2026-10-22) — `OPEN`
 
 The package exists: 1,205,363,765 bytes, keccak `0xe54abbfe…b067ed89`. The numbers are in

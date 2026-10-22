@@ -2,6 +2,12 @@
 
 Prepared 2026-10-22. **Nothing in this file has been run.**
 
+> **HOLD (2026-10-22 ~08:30 UTC): do not run step 1 and do not sign row 1.**
+>
+> The adapter package `0xe54abbfe…` scores 81.0% as the node runs it, not 96.9% (G32). It is being retrained in
+> the node's architecture. The release branch and row 1 will be rebuilt, with a new commit and new hashes.
+> Rows 2–32 are unaffected, but the release commit they are pinned to will change too.
+
 - The push and release in step 1 are public.
 - Every `registerWasm` in step 4 is a transaction from the operator's wallet.
 - Claude prepares and checks. The operator runs and signs.
