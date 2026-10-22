@@ -25,6 +25,11 @@ one award per December category.
 **Ceiling: $2,600.** Nothing pays unless the entry scores **≥ 70/100** and clears the track minimum:
 Miner quality ≥ 24/35, Evaluator validity ≥ 28/40.
 
+**Prize pool:** /rules says $10,000 with the split above. The home page still says "$15,000 USD". We plan to
+/rules (G203). Our track numbering matches the /tracks page: 01 Miners, 02 Evaluators.
+
+**The dated, exactly-what-to-do checklist is §8.**
+
 **Deadline:** the two organiser pages disagree. /timeline says submissions close 1 Dec; /rules says
 **Dec 20 23:59 UTC**. We plan to **1 Dec 23:59 UTC (2 Dec 05:29 IST)** and treat Dec 20 as slack, until
 the organisers confirm in writing (G203).
@@ -103,7 +108,7 @@ ground most competitors ignore.
 | A5 | **Run the reviewers' test before they do.** Every week: the audit questions, hostile inputs and parameter shapes, against production. Publish the result. | Reviewers use "realistic unseen inputs [and] relevant error cases". We will have fixed what they would find, with dated evidence. The weekly result is also the weekly X update the rules ask for, so we pay once and get both. | Publish failures too. An audit that only reports passes is fabricated proof. |
 | A6 | **Fill mission-critical gaps nobody serves correctly.** Every mission intent has 9–56 registered miners (`/engine/v1/intents`, 2026-10-22), but registered is not correct: ChainSight answered "Unable to process" to sanctions and macro questions on 2026-10-11. | Delivery tie-break 3 counts "independently verified missing mission-critical Intent needs addressed". Proving a gap with fixtures also serves Track 2's coverage. | A claim of a "gap" needs side-by-side fixtures against the primary source, not a miner count. |
 | A7 | **Aim at the December pool, the largest single pool ($3,000).** It rewards "reusable Provider, Evaluator, or integration capabilities that demonstrably unblock substantive applications", and November work counts. | Our per-mission integration recipes, the comparators and the open evaluation material are exactly that, and they already exist. | Each artifact can be paid only once. Each must show an application it unblocks. |
-| A8 | **Be up every hour from Nov 1, and prove it.** | Reliability is 20 points, more than coverage. Most hobby miners keep no availability record. | The uptime workflow has been off since 2026-10-01 at the owner's request. It needs the owner's yes to resume (G205). |
+| A8 | **Be up every hour from Nov 1, and prove it.** | Reliability is 20 points, more than coverage. Most hobby miners keep no availability record. Validators also spot-check liveness about every 20 s, and consecutive empty answers revoke routing for that intent until the next epoch (docs). | The uptime workflow has been off since 2026-10-01 at the owner's request. It needs the owner's yes to resume (G205). |
 
 ## 5. What to improve, in order of points at stake
 
@@ -208,3 +213,92 @@ every export is used (checked 2026-10-22). Code leaves only with the intents abo
 
 Review this table at every checkpoint (Nov 1, Nov 8, Nov 15, Nov 22). Re-decide each time. Hours already
 spent are not an argument.
+
+## 8. Exactly what we must do, by date
+
+Taken from /rules §05, §08 and §09 and the miner docs, read 2026-10-22. All times are UTC.
+- **Owner:** registering, signing, posting and anything sent in the owner's name.
+- **Claude:** the rest, each on the owner's yes where noted.
+
+### Now to Oct 24
+
+- [ ] **Owner: register for Season II** on the site with `harsh.2024a@vitstudent.ac.in`. It is the "Register
+      for Season II" button; one registration covers all three tracks.
+- [ ] **Owner: send the organisers the message below** on Discord (discord.gg/telegraphprotocol).
+- [ ] **Owner: choose when the next `updateMiner` happens (G206).** Every update issues a new
+      `registrationId`, and the first 7 days "after activation" are a grace period off the leaderboard,
+      sharing 5% of routed traffic. If that restarts, an update made in November costs a week of 70/20/10
+      routing while apps are buying.
+  - **Option A: sign by Oct 24 23:59 UTC**, so any new grace period ends by Oct 31. It carries:
+    - the §6 intent cuts;
+    - the weather claims MET cannot meet (G195);
+    - the Google News naming;
+    - rewritten endpoint descriptions.
+
+    Do it only if the sandbox validation is green by Oct 24 12:00 UTC.
+  - **Option B: freeze registration 4829 for the season.** All fixes ship as code deploys, which do not
+    touch the registration. Unlicensed sources answer `not_licensed`.
+  - **Recommendation:** A if it is validated in time, otherwise B. Make no `updateMiner` during Nov 1 –
+    Dec 1 unless the organisers confirm the grace period does not restart.
+- [ ] **Claude, on the owner's yes:** deploy the audit branch (22 fixes, including G201) and the places
+      table. Steps: preview, gates, production, `preflight.mjs`. This is code only; the registration is
+      unchanged.
+- [ ] **Owner:** yes to push `codex/rank1-14-intents`. Reviewers reproduce from the public repo, and Option A
+      pins the YAML to a pushed commit.
+
+### Oct 25 – Oct 31
+
+- [ ] **Claude: a mission × intent matrix**, with one reproducible test fixture for each mission our intents
+      enable. That is coverage (15) and the first delivery-award criterion.
+- [ ] **Claude: close G200**, or remove RESEARCH_QUERY: in the update under Option A, or as `not_served`
+      under Option B.
+- [ ] **Owner yes, then Claude: an availability record from Nov 1 (G205)**, plus one capacity test at a
+      stated concurrency.
+- [ ] **Track 2:**
+  - retrain the adapter and prove it in the node runtime (`verify_wide`);
+  - register the 31 comparators the day `/api/evalpool/status` answers (owner signs; `track2/SIGN_S2.md`).
+
+### Nov 1 – 7 (pick intents, start in public)
+
+- [ ] **Owner: post an "at the start" update** tagging Telegraph: the miner, the evaluators, the intents we
+      serve, and how an app gets our answers.
+- [ ] **Claude: first weekly production audit (A5).** Publish the results, failures included.
+- [ ] **Confirm the intents we claim** are the ones that pass the audit. Each is "checked separately".
+
+### Every week until submission
+
+- [ ] **Owner:** one progress post tagging Telegraph, carrying that week's audit numbers.
+- [ ] **Claude:** the audit re-run, the availability log, a fix for every failure found, and the replay of
+      real routed questions ("Miners tune against real requests coming off real builds").
+
+### Nov 15 – 21 office hours; Nov 20 community showcase
+
+- [ ] Bring the per-mission recipes to app teams, and ask on Discord which intents their builds buy.
+      Independent consuming groups are worth up to 3 of the consumption points.
+- [ ] Show a milestone at the Nov 20 showcase: a verified quality gain or a registered comparator.
+
+### Submission. Planned for 1 Dec 23:59 UTC (2 Dec 05:29 IST); the official rules say Dec 20
+
+Make one submission per track on the H2 website. Each holds the six items /rules §08 lists.
+
+| Item | Miner entry (LiveCert) | Evaluator entry |
+|---|---|---|
+| 01 Participant and project | Track Miners / Providers; the intents we claim; `miner-wine.vercel.app` | Track Evaluators; the intents covered; the published release |
+| 02 Video, 2–5 minutes | Realistic input, the answer, the receipt and the ranking | Module proved in the node runtime, against the baseline |
+| 03 Tutorial | How an app gets our answer through Telegraph: an example request, expected output, Base Sepolia, the $0.01 floor price, limitations | How to reproduce the proof and the hashes |
+| 04 Evidence | Registration 4829 and its YAML hash; per-intent ranking references; receipts for any H2 consumption; the availability log; the audit; a latency and cost table | Methodology, results against a baseline, hosted keccak hashes, registration transactions, protected reference material through reviewer access |
+| 05 Public summary | What works today, and one Try or Connect link | What it measures, and one Compete or Build link |
+| 06 Showcase preferences | Owner's choice | Owner's choice |
+
+- **Disclose that the two entries are related** (§10.03), and any own app under A4.
+- **Final week:** an Anjoman hands-on showcase post tagging Telegraph, showing the real testnet status.
+
+### Message for the organisers (owner sends; not sent)
+
+> Hi team. Four questions on the Season II rules before Nov 1:
+> 1. /rules says final submission is Dec 20 23:59 UTC, but /timeline and the home page say 1 Nov – 1 Dec.
+>    Which deadline applies to Miner and Evaluator submissions?
+> 2. The home page says the prize pool is $15,000, while /rules says $10,000. Which is current?
+> 3. Does `updateMiner` on an active miner (new registrationId) restart the 7-day grace period?
+> 4. We are entering both the Miner and the Evaluator tracks with related work. Is one H2 registration
+>    and one submission per track the right way to do it?

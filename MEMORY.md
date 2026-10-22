@@ -1,6 +1,25 @@
 # MEMORY.md — session continuity
 
-## 2026-10-22 ~17:20 UTC (22:50 IST): CURRENT — Season II rubric published; WINNING.md is the goal file
+## 2026-10-22 ~17:45 UTC (23:15 IST): CURRENT — Season I tooling deleted; rewards and to-do recorded
+
+Owner: "yes delete the season 1 tooling" and "telegraph has also published season 2 hackathon rewards and what
+we need to do exactly".
+- **Deleted.** `d9ce93e` removed 68 files (8,270 lines): the WINNING §6 tooling list. References now point at
+  git history. Typecheck clean; unit tests 771/771.
+- **Rewards and to-do are on /rules.** No separate rewards page exists: /rewards, /prizes and similar return
+  404. Recorded in `RULES_SEASON2.md`:
+  - the prize split;
+  - the conflicts across pages: home says $15,000, /rules says $10,000; the dates; the track numbering;
+  - the docs' network rewards: routing 70/20/10, a 7-day grace period, spot-check revocation, earnings
+    paid in MACHINA.
+- **WINNING.md §8** is the dated checklist through submission, with the organiser message drafted (not
+  sent).
+- **Time-critical (G206).** It is unknown whether `updateMiner` restarts the 7-day grace period. The owner
+  chooses by **Oct 24**:
+  - A: sign the update by Oct 24 23:59 UTC;
+  - B: freeze registration 4829 for the season.
+
+## 2026-10-22 ~17:20 UTC (22:50 IST): Season II rubric published; WINNING.md is the goal file
 
 Owner asked for: what else can be removed from Track 1; a goal file for winning Tracks 1 and 2; and a Season I
 Track 1 post-mortem.

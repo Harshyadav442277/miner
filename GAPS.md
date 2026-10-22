@@ -1,15 +1,26 @@
 # GAPS.md — honesty ledger
 
-## 2026-10-22 Season II rules published — G203–G205
+## 2026-10-22 Season II rules published — G203–G206
 
 The Miner and Evaluator rubrics are now on hackathon.telegraphprotocol.com/rules (read 2026-10-22 16:47 UTC).
 They are recorded in `RULES_SEASON2.md`; the strategy built on them is in `WINNING.md`. G200–G202 are on
 branch `claude/correctness-audit-2026-10-21`, not yet merged here.
 
-- **G203 — The organiser's pages give two deadlines. `OPEN, ask the organisers`.**
-  - /rules: Nov 1 – Dec 20; final submission **Dec 20 23:59 UTC**; judging Dec 21–27.
-  - /timeline: 1 Nov – 1 Dec; "22 Nov – 1 Dec: Submissions close".
-  - Both were read 2026-10-22. We plan to 1 Dec 23:59 UTC until the organisers confirm in writing.
+- **G203 — The organiser's pages disagree. `OPEN, ask the organisers`.** All read 2026-10-22; the table is in
+  `RULES_SEASON2.md`.
+  - Deadline: /rules says Nov 1 – Dec 20 with final submission **Dec 20 23:59 UTC**; /timeline and the home
+    page say 1 Nov – 1 Dec.
+  - Prize pool: /rules says $10,000; the home page says $15,000.
+  - Track numbers: /rules has 02 Miners and 03 Evaluators; /tracks has 01 and 02.
+  - /judging carries an older Apps rubric.
+  - We plan to 1 Dec 23:59 UTC and the /rules prizes until the organisers confirm in writing. The message is
+    drafted in WINNING.md §8.
+- **G206 — Does `updateMiner` restart the 7-day grace period? `OPEN, ask the organisers; time-critical`.** The
+  miner docs give a 7-day grace period "after activation": no leaderboard, and a shared 5% of routed
+  traffic. `updateMiner` deregisters and re-registers with a new `registrationId`. The docs do not say
+  whether that resets the period. If it does, an update in November costs a week of ranked routing.
+  WINNING.md §8 gives two options: sign by Oct 24 23:59 UTC, or freeze registration 4829 for the season.
+  Registration 4829 activated 2026-10-16 09:59 UTC, so its own grace period ends about 2026-10-23 10:00 UTC.
 - **G204 — Related-party consumption evidence against folder override 2. `OPEN, owner decision`.**
   - The Miner rubric gives 1 consumption point for use by an H2 mission app "including an application
     operated by the Provider's own team".

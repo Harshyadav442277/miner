@@ -10,6 +10,41 @@ now published.
 The organiser numbers the tracks 01 Apps & Agents, 02 Miners / Providers and 03 Evaluators. This repo calls
 the miner "Track 1" (`track1-miner/`) and the evaluators "Track 2" (`track2/`).
 
+## The organiser's pages disagree (all read 2026-10-22)
+
+| Item | /rules ("Official Competition Rules") | Other pages |
+|---|---|---|
+| Prize pool | $10,000 | Home page: "Prize pool $15,000 USD". /judging: $10,000, "split … will be announced" |
+| Window | November 1 – December 20 | Home and /timeline: 1 Nov – 1 Dec, "30 days" |
+| Track numbers | 01 Apps & Agents, 02 Miners / Providers, 03 Evaluators | /tracks and /build: 01 Miners, 02 Evaluators, 03 Apps & Agents (this matches our numbering) |
+| Apps judging | 35 / 30 / 15 adoption / 10 / 10 | /judging: 35 / 30 / 20 transaction volume / 10 / 5 novelty, and still says Miner and Evaluator rules "will be published separately" |
+
+We follow /rules, the only page that calls itself the official rules, and ask the organisers about the rest
+(G203). Registration is a button on the site ("Register for Season II"): one registration covers all three
+tracks. The only external link the site gives is discord.gg/telegraphprotocol.
+
+## Network rewards, routing and liveness — docs.telegraphprotocol.com (read 2026-10-22)
+
+Sources: `/docs/miners/miner-overview.md` and `/docs/miners/miner-registration.md`.
+
+- **Miners "earn exclusively from demand — not from protocol emissions".** The agent pays in USDC; 2% goes
+  to the treasury, and 98% is swapped to MACHINA over 24 hours and sent to the fee address. Earnings per
+  request are `min_price_usdc × demand_multiplier × 0.98`. The multiplier runs from 1.0× (under 1,000
+  requests a day for the intent) to 10.0× (over 1,000,000).
+- **Routing** is weighted by leaderboard position: the top-ranked miner gets 70% of routed requests, second
+  20%, third 10%. Fourth place and below get none. Position is the Canonical Score, "the stake-weighted
+  median of all Validator Local Scores".
+- **Grace period:** for 7 days "after activation" a miner is off the leaderboard. All grace-period miners
+  share 5% of routed traffic. `updateMiner` "deregisters the old entry and registers the new one
+  atomically", with a new `registrationId`. **The docs do not say whether that restarts the grace period**
+  (G206).
+- **Liveness spot checks** run about every 20 seconds and test liveness, not quality: any non-empty answer
+  passes. Consecutive failures on an intent trigger a **Routing Revocation**: no traffic for that intent
+  until the next epoch tournament re-scores the miner.
+- **Evaluators:** `registerWasm(wasmHash, wasmUrl, intent, feeAddress)` costs gas only, and MACHINA earnings
+  go to `feeAddress`. Evaluation-pool uploads are signed and "every row is credited to the address that"
+  signed it.
+
 ## Dates — the organiser's two pages disagree
 
 | Source | Window | Final submission |

@@ -7,7 +7,10 @@ licensed for paid use. Season I's board (149 done items, all Season I epoch and 
 ## Owner
 
 - [ ] Register for Season II with `harsh.2024a@vitstudent.ac.in` before 1 Nov.
-- [ ] G203: ask the organisers which final deadline holds: /rules says Dec 20 23:59 UTC, /timeline says 1 Dec.
+- [ ] G203 and G206: send the organisers the four questions drafted in WINNING.md §8 (deadline, prize pool,
+      grace-period reset, entering two tracks).
+- [ ] **By Oct 24:** choose the `updateMiner` timing (G206). Option A: sign by Oct 24 23:59 UTC with the §6
+      cuts. Option B: freeze registration 4829 for the season. See WINNING.md §8.
 - [ ] G204: decide on WINNING.md A4. Should our own disclosed H2 mission workflow earn related-party
       consumption points (up to 7 of 10)?
 - [ ] G205: yes or no to resuming an availability record from Nov 1 (reliability is 20 of 100 Miner points).
