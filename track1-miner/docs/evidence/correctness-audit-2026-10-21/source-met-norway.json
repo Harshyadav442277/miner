@@ -1,0 +1,702 @@
+{
+ "fetched_at": "2026-10-21T08:26:34.346Z",
+ "source": "api.met.no locationforecast/2.0/compact",
+ "places": {
+  "Mumbai": {
+   "lat": 19.076,
+   "lon": 72.8777,
+   "updated": "2026-10-21T08:00:00Z",
+   "first_step": "2026-10-21T08:00:00Z",
+   "now_temp_c": 36.9,
+   "now_wind_kmh": 13,
+   "now_symbol": "fair_day",
+   "t24_min": 27.1,
+   "t24_max": 37.4,
+   "wind48_max_kmh": 22.3,
+   "precip24_mm": 0,
+   "precip48_mm": 0.1,
+   "t120_min": 25.9,
+   "t120_max": 37.4,
+   "weekend": [
+    [
+     "2026-10-24T00:00:00Z",
+     0,
+     "clearsky_day"
+    ],
+    [
+     "2026-10-24T06:00:00Z",
+     0.9,
+     "lightrainshowers_day"
+    ],
+    [
+     "2026-10-24T12:00:00Z",
+     0,
+     "clearsky_night"
+    ],
+    [
+     "2026-10-24T18:00:00Z",
+     0,
+     "clearsky_night"
+    ],
+    [
+     "2026-10-25T00:00:00Z",
+     0,
+     "fair_day"
+    ],
+    [
+     "2026-10-25T06:00:00Z",
+     0,
+     "fair_day"
+    ],
+    [
+     "2026-10-25T12:00:00Z",
+     0,
+     "clearsky_night"
+    ],
+    [
+     "2026-10-25T18:00:00Z",
+     0,
+     "clearsky_night"
+    ]
+   ]
+  },
+  "Naha": {
+   "lat": 26.213,
+   "lon": 127.6785,
+   "updated": "2026-10-21T08:00:00Z",
+   "first_step": "2026-10-21T08:00:00Z",
+   "now_temp_c": 28.1,
+   "now_wind_kmh": 39.6,
+   "now_symbol": "cloudy",
+   "t24_min": 24.5,
+   "t24_max": 28.1,
+   "wind48_max_kmh": 53.3,
+   "precip24_mm": 33.3,
+   "precip48_mm": 45.3,
+   "t120_min": 24.5,
+   "t120_max": 28.5,
+   "weekend": [
+    [
+     "2026-10-24T00:00:00Z",
+     4.5,
+     "rain"
+    ],
+    [
+     "2026-10-24T06:00:00Z",
+     0.2,
+     "fair_night"
+    ],
+    [
+     "2026-10-24T12:00:00Z",
+     0.6,
+     "lightrain"
+    ],
+    [
+     "2026-10-24T18:00:00Z",
+     1.8,
+     "rainshowers_night"
+    ],
+    [
+     "2026-10-25T00:00:00Z",
+     0.6,
+     "lightrain"
+    ],
+    [
+     "2026-10-25T06:00:00Z",
+     0.6,
+     "lightrainshowers_night"
+    ],
+    [
+     "2026-10-25T12:00:00Z",
+     0.4,
+     "fair_night"
+    ],
+    [
+     "2026-10-25T18:00:00Z",
+     0.1,
+     "partlycloudy_night"
+    ]
+   ]
+  },
+  "New Orleans": {
+   "lat": 29.9511,
+   "lon": -90.0715,
+   "updated": "2026-10-21T08:00:00Z",
+   "first_step": "2026-10-21T08:00:00Z",
+   "now_temp_c": 18.5,
+   "now_wind_kmh": 13.7,
+   "now_symbol": "clearsky_night",
+   "t24_min": 17.3,
+   "t24_max": 24.8,
+   "wind48_max_kmh": 16.6,
+   "precip24_mm": 0,
+   "precip48_mm": 0,
+   "t120_min": 16.9,
+   "t120_max": 26.2,
+   "weekend": [
+    [
+     "2026-10-24T00:00:00Z",
+     0,
+     "clearsky_night"
+    ],
+    [
+     "2026-10-24T06:00:00Z",
+     0,
+     "clearsky_night"
+    ],
+    [
+     "2026-10-24T12:00:00Z",
+     0,
+     "clearsky_day"
+    ],
+    [
+     "2026-10-24T18:00:00Z",
+     0,
+     "clearsky_day"
+    ],
+    [
+     "2026-10-25T00:00:00Z",
+     0,
+     "clearsky_night"
+    ],
+    [
+     "2026-10-25T06:00:00Z",
+     0,
+     "clearsky_night"
+    ],
+    [
+     "2026-10-25T12:00:00Z",
+     0,
+     "clearsky_day"
+    ],
+    [
+     "2026-10-25T18:00:00Z",
+     0,
+     "clearsky_day"
+    ]
+   ]
+  },
+  "Miami": {
+   "lat": 25.7617,
+   "lon": -80.1918,
+   "updated": "2026-10-21T08:00:00Z",
+   "first_step": "2026-10-21T08:00:00Z",
+   "now_temp_c": 20.2,
+   "now_wind_kmh": 21.6,
+   "now_symbol": "clearsky_night",
+   "t24_min": 20.2,
+   "t24_max": 28.2,
+   "wind48_max_kmh": 34.2,
+   "precip24_mm": 0,
+   "precip48_mm": 1.9,
+   "t120_min": 19.7,
+   "t120_max": 28.2,
+   "weekend": [
+    [
+     "2026-10-24T00:00:00Z",
+     2.2,
+     "rainshowers_night"
+    ],
+    [
+     "2026-10-24T06:00:00Z",
+     0.8,
+     "lightrain"
+    ],
+    [
+     "2026-10-24T12:00:00Z",
+     0.5,
+     "fair_day"
+    ],
+    [
+     "2026-10-24T18:00:00Z",
+     0,
+     "clearsky_day"
+    ],
+    [
+     "2026-10-25T00:00:00Z",
+     0,
+     "clearsky_night"
+    ],
+    [
+     "2026-10-25T06:00:00Z",
+     0.9,
+     "lightrainshowers_night"
+    ],
+    [
+     "2026-10-25T12:00:00Z",
+     3.7,
+     "rainshowers_day"
+    ],
+    [
+     "2026-10-25T18:00:00Z",
+     11.1,
+     "heavyrainshowers_day"
+    ]
+   ]
+  },
+  "Osaka": {
+   "lat": 34.6937,
+   "lon": 135.5023,
+   "updated": "2026-10-21T08:00:00Z",
+   "first_step": "2026-10-21T08:00:00Z",
+   "now_temp_c": 25,
+   "now_wind_kmh": 24.5,
+   "now_symbol": "partlycloudy_night",
+   "t24_min": 16.4,
+   "t24_max": 25,
+   "wind48_max_kmh": 24.5,
+   "precip24_mm": 0.6,
+   "precip48_mm": 0.6,
+   "t120_min": 12.3,
+   "t120_max": 25,
+   "weekend": [
+    [
+     "2026-10-24T00:00:00Z",
+     9.3,
+     "heavyrain"
+    ],
+    [
+     "2026-10-24T06:00:00Z",
+     5.5,
+     "heavyrain"
+    ],
+    [
+     "2026-10-24T12:00:00Z",
+     0.1,
+     "partlycloudy_night"
+    ],
+    [
+     "2026-10-24T18:00:00Z",
+     1.3,
+     "rain"
+    ],
+    [
+     "2026-10-25T00:00:00Z",
+     0.8,
+     "lightrain"
+    ],
+    [
+     "2026-10-25T06:00:00Z",
+     3.5,
+     "rain"
+    ],
+    [
+     "2026-10-25T12:00:00Z",
+     9,
+     "heavyrain"
+    ],
+    [
+     "2026-10-25T18:00:00Z",
+     5.9,
+     "heavyrain"
+    ]
+   ]
+  },
+  "Cape Town": {
+   "lat": -33.9249,
+   "lon": 18.4241,
+   "updated": "2026-10-21T08:00:00Z",
+   "first_step": "2026-10-21T08:00:00Z",
+   "now_temp_c": 16,
+   "now_wind_kmh": 25.9,
+   "now_symbol": "rain",
+   "t24_min": 14.1,
+   "t24_max": 18.5,
+   "wind48_max_kmh": 27,
+   "precip24_mm": 6,
+   "precip48_mm": 6,
+   "t120_min": 11.5,
+   "t120_max": 25.1,
+   "weekend": [
+    [
+     "2026-10-24T00:00:00Z",
+     0,
+     "clearsky_night"
+    ],
+    [
+     "2026-10-24T06:00:00Z",
+     0,
+     "clearsky_day"
+    ],
+    [
+     "2026-10-24T12:00:00Z",
+     0,
+     "clearsky_day"
+    ],
+    [
+     "2026-10-24T18:00:00Z",
+     0,
+     "clearsky_night"
+    ],
+    [
+     "2026-10-25T00:00:00Z",
+     0,
+     "cloudy"
+    ],
+    [
+     "2026-10-25T06:00:00Z",
+     0,
+     "partlycloudy_day"
+    ],
+    [
+     "2026-10-25T12:00:00Z",
+     0,
+     "partlycloudy_day"
+    ],
+    [
+     "2026-10-25T18:00:00Z",
+     0,
+     "cloudy"
+    ]
+   ]
+  },
+  "Dubai": {
+   "lat": 25.2048,
+   "lon": 55.2708,
+   "updated": "2026-10-21T08:00:00Z",
+   "first_step": "2026-10-21T08:00:00Z",
+   "now_temp_c": 36.1,
+   "now_wind_kmh": 15.8,
+   "now_symbol": "clearsky_day",
+   "t24_min": 26.1,
+   "t24_max": 37.9,
+   "wind48_max_kmh": 25.2,
+   "precip24_mm": 0,
+   "precip48_mm": 0,
+   "t120_min": 25.2,
+   "t120_max": 37.9,
+   "weekend": [
+    [
+     "2026-10-24T00:00:00Z",
+     0,
+     "clearsky_day"
+    ],
+    [
+     "2026-10-24T06:00:00Z",
+     0,
+     "fair_day"
+    ],
+    [
+     "2026-10-24T12:00:00Z",
+     0,
+     "clearsky_night"
+    ],
+    [
+     "2026-10-24T18:00:00Z",
+     0,
+     "clearsky_night"
+    ],
+    [
+     "2026-10-25T00:00:00Z",
+     0,
+     "fair_day"
+    ],
+    [
+     "2026-10-25T06:00:00Z",
+     0,
+     "clearsky_day"
+    ],
+    [
+     "2026-10-25T12:00:00Z",
+     0,
+     "clearsky_night"
+    ],
+    [
+     "2026-10-25T18:00:00Z",
+     0,
+     "clearsky_night"
+    ]
+   ]
+  },
+  "Cairo": {
+   "lat": 30.0444,
+   "lon": 31.2357,
+   "updated": "2026-10-21T08:00:00Z",
+   "first_step": "2026-10-21T08:00:00Z",
+   "now_temp_c": 23.9,
+   "now_wind_kmh": 16.2,
+   "now_symbol": "fair_day",
+   "t24_min": 18.8,
+   "t24_max": 28,
+   "wind48_max_kmh": 21.6,
+   "precip24_mm": 0,
+   "precip48_mm": 0,
+   "t120_min": 18.8,
+   "t120_max": 32.2,
+   "weekend": [
+    [
+     "2026-10-24T00:00:00Z",
+     0,
+     "clearsky_night"
+    ],
+    [
+     "2026-10-24T06:00:00Z",
+     0,
+     "clearsky_day"
+    ],
+    [
+     "2026-10-24T12:00:00Z",
+     0,
+     "clearsky_day"
+    ],
+    [
+     "2026-10-24T18:00:00Z",
+     0,
+     "clearsky_night"
+    ],
+    [
+     "2026-10-25T00:00:00Z",
+     0,
+     "clearsky_night"
+    ],
+    [
+     "2026-10-25T06:00:00Z",
+     0,
+     "fair_day"
+    ],
+    [
+     "2026-10-25T12:00:00Z",
+     0,
+     "clearsky_day"
+    ],
+    [
+     "2026-10-25T18:00:00Z",
+     0,
+     "clearsky_night"
+    ]
+   ]
+  },
+  "Lagos": {
+   "lat": 6.5244,
+   "lon": 3.3792,
+   "updated": "2026-10-21T08:00:00Z",
+   "first_step": "2026-10-21T08:00:00Z",
+   "now_temp_c": 27.8,
+   "now_wind_kmh": 11.5,
+   "now_symbol": "lightrain",
+   "t24_min": 26,
+   "t24_max": 29.3,
+   "wind48_max_kmh": 16.6,
+   "precip24_mm": 13.7,
+   "precip48_mm": 27.3,
+   "t120_min": 26,
+   "t120_max": 30.5,
+   "weekend": [
+    [
+     "2026-10-24T00:00:00Z",
+     0.3,
+     "cloudy"
+    ],
+    [
+     "2026-10-24T06:00:00Z",
+     1.3,
+     "rain"
+    ],
+    [
+     "2026-10-24T12:00:00Z",
+     3.6,
+     "rainshowers_day"
+    ],
+    [
+     "2026-10-24T18:00:00Z",
+     0.4,
+     "partlycloudy_night"
+    ],
+    [
+     "2026-10-25T00:00:00Z",
+     1.2,
+     "rainshowers_night"
+    ],
+    [
+     "2026-10-25T06:00:00Z",
+     0.4,
+     "cloudy"
+    ],
+    [
+     "2026-10-25T12:00:00Z",
+     2.5,
+     "rainshowers_day"
+    ],
+    [
+     "2026-10-25T18:00:00Z",
+     0,
+     "clearsky_night"
+    ]
+   ]
+  },
+  "Riyadh": {
+   "lat": 24.7136,
+   "lon": 46.6753,
+   "updated": "2026-10-21T07:00:00Z",
+   "first_step": "2026-10-21T08:00:00Z",
+   "now_temp_c": 34.6,
+   "now_wind_kmh": 7.2,
+   "now_symbol": "clearsky_day",
+   "t24_min": 24.6,
+   "t24_max": 36.5,
+   "wind48_max_kmh": 13.3,
+   "precip24_mm": 0,
+   "precip48_mm": 0,
+   "t120_min": 24.6,
+   "t120_max": 36.5,
+   "weekend": [
+    [
+     "2026-10-24T00:00:00Z",
+     0,
+     "clearsky_day"
+    ],
+    [
+     "2026-10-24T06:00:00Z",
+     0,
+     "clearsky_day"
+    ],
+    [
+     "2026-10-24T12:00:00Z",
+     0,
+     "clearsky_night"
+    ],
+    [
+     "2026-10-24T18:00:00Z",
+     0,
+     "clearsky_night"
+    ],
+    [
+     "2026-10-25T00:00:00Z",
+     0,
+     "clearsky_day"
+    ],
+    [
+     "2026-10-25T06:00:00Z",
+     0,
+     "clearsky_day"
+    ],
+    [
+     "2026-10-25T12:00:00Z",
+     0,
+     "clearsky_night"
+    ],
+    [
+     "2026-10-25T18:00:00Z",
+     0,
+     "clearsky_night"
+    ]
+   ]
+  },
+  "Auckland": {
+   "lat": -36.8485,
+   "lon": 174.7633,
+   "updated": "2026-10-21T08:00:00Z",
+   "first_step": "2026-10-21T08:00:00Z",
+   "now_temp_c": 14.5,
+   "now_wind_kmh": 23.4,
+   "now_symbol": "fair_night",
+   "t24_min": 11.1,
+   "t24_max": 18.8,
+   "wind48_max_kmh": 28.4,
+   "precip24_mm": 0,
+   "precip48_mm": 0,
+   "t120_min": 10.6,
+   "t120_max": 21.6,
+   "weekend": [
+    [
+     "2026-10-24T00:00:00Z",
+     0,
+     "cloudy"
+    ],
+    [
+     "2026-10-24T06:00:00Z",
+     0,
+     "fair_night"
+    ],
+    [
+     "2026-10-24T12:00:00Z",
+     0,
+     "cloudy"
+    ],
+    [
+     "2026-10-24T18:00:00Z",
+     1,
+     "rain"
+    ],
+    [
+     "2026-10-25T00:00:00Z",
+     0.5,
+     "cloudy"
+    ],
+    [
+     "2026-10-25T06:00:00Z",
+     0,
+     "partlycloudy_night"
+    ],
+    [
+     "2026-10-25T12:00:00Z",
+     0,
+     "cloudy"
+    ],
+    [
+     "2026-10-25T18:00:00Z",
+     0.7,
+     "lightrainshowers_day"
+    ]
+   ]
+  },
+  "Sydney": {
+   "lat": -33.8688,
+   "lon": 151.2093,
+   "updated": "2026-10-21T08:00:00Z",
+   "first_step": "2026-10-21T08:00:00Z",
+   "now_temp_c": 19.9,
+   "now_wind_kmh": 25.9,
+   "now_symbol": "fair_night",
+   "t24_min": 16.5,
+   "t24_max": 20.7,
+   "wind48_max_kmh": 45.4,
+   "precip24_mm": 12.7,
+   "precip48_mm": 14.7,
+   "t120_min": 16.5,
+   "t120_max": 27,
+   "weekend": [
+    [
+     "2026-10-24T00:00:00Z",
+     1.4,
+     "rainshowers_day"
+    ],
+    [
+     "2026-10-24T06:00:00Z",
+     0,
+     "clearsky_night"
+    ],
+    [
+     "2026-10-24T12:00:00Z",
+     0,
+     "clearsky_night"
+    ],
+    [
+     "2026-10-24T18:00:00Z",
+     0,
+     "clearsky_day"
+    ],
+    [
+     "2026-10-25T00:00:00Z",
+     0.9,
+     "lightrainshowers_day"
+    ],
+    [
+     "2026-10-25T06:00:00Z",
+     3.3,
+     "rain"
+    ],
+    [
+     "2026-10-25T12:00:00Z",
+     0.7,
+     "lightrain"
+    ],
+    [
+     "2026-10-25T18:00:00Z",
+     0,
+     "fair_day"
+    ]
+   ]
+  }
+ }
+}

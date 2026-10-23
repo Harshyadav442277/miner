@@ -66,6 +66,29 @@ export interface CurrencyResult {
   error?: string;
 }
 
+const OTHER_PRICE =
+  /\b(gas|natural\s+gas|oil|crude|brent|petrol|gasoline|diesel|gold|silver|copper|electricity|power|wheat|coffee|stocks?|shares?|bitcoin|ethereum|btc|eth|house|housing|rent)\s+(?:prices?|costs?)\b|\bprices?\s+of\s+(gas|natural\s+gas|oil|crude|petrol|gasoline|diesel|gold|silver|copper|electricity|power|wheat|coffee|bitcoin|ethereum)\b/i;
+const FX_WORDS = /\b(?:rate|rates|exchange|convert|conversion|fx|forex|against|versus|vs|worth|strengthen|weaken|appreciate|depreciate|parity|peg)\b/i;
+
+/**
+ * A routed question about something other than an exchange rate, with the
+ * reason it is declined; null for an FX question. "Will European gas prices
+ * exceed 80 euros?" was answered "80.00 EUR is 89.72 USD" on 2026-10-21.
+ */
+export function notAnFxQuestion(question: string): string | null {
+  const q = String(question ?? "");
+  const other = q.match(OTHER_PRICE);
+  if (other && !FX_WORDS.test(q)) {
+    return `This asks about the price of ${(other[1] ?? other[2] ?? "").toLowerCase()}, not an exchange rate, so no currency ` +
+      `conversion is given for it. A commodity or asset price is a different question from a currency's rate.`;
+  }
+  if (/^\s*will\b/i.test(q) && !FX_WORDS.test(q)) {
+    return "This asks for a forecast, and no currency rate is predicted here. Ask for a current or dated rate, " +
+      "for example: What is the EUR to USD rate?";
+  }
+  return null;
+}
+
 /** Words people use for currencies, mapped to ISO 4217. */
 const NAMES: Record<string, string> = {
   dollar: "USD", dollars: "USD", "us dollar": "USD", "us dollars": "USD", usd: "USD", buck: "USD", bucks: "USD",

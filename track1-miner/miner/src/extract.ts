@@ -496,17 +496,21 @@ export function extractSpanHours(text: string): number | null {
 export function extractWrittenStart(text: string, now = new Date()): string | null {
   const s = String(text ?? "");
 
-  const md = s.match(/\b([A-Za-z]{3,9})\s+(\d{1,2})(?:st|nd|rd|th)?(?:,\s*(\d{4}))?\b/);
-  const m1 = md?.[1]?.toLowerCase();
-  if (m1 && MONTHS[m1] !== undefined && md?.[2]) {
+  // Every "word number" pair is tried, not only the first: in "Will Dubai
+  // exceed 40°C on September 13?" the first is "exceed 40", and the date was
+  // never read, so today's forecast answered a question about another day
+  // (2026-10-21).
+  for (const md of s.matchAll(/\b([A-Za-z]{3,9})\s+(\d{1,2})(?:st|nd|rd|th)?(?:,\s*(\d{4}))?\b/g)) {
+    const m1 = md[1]?.toLowerCase();
+    if (!m1 || MONTHS[m1] === undefined || !md[2]) continue;
     const year = md[3] ? Number(md[3]) : now.getUTCFullYear();
     const d = new Date(Date.UTC(year, MONTHS[m1]!, Number(md[2])));
     if (!Number.isNaN(d.getTime())) return d.toISOString();
   }
 
-  const dm = s.match(/\b(\d{1,2})(?:st|nd|rd|th)?\s+([A-Za-z]{3,9})(?:\s+(\d{4}))?\b/);
-  const m2 = dm?.[2]?.toLowerCase();
-  if (m2 && MONTHS[m2] !== undefined && dm?.[1]) {
+  for (const dm of s.matchAll(/\b(\d{1,2})(?:st|nd|rd|th)?\s+([A-Za-z]{3,9})(?:\s+(\d{4}))?\b/g)) {
+    const m2 = dm[2]?.toLowerCase();
+    if (!m2 || MONTHS[m2] === undefined || !dm[1]) continue;
     const year = dm[3] ? Number(dm[3]) : now.getUTCFullYear();
     const d = new Date(Date.UTC(year, MONTHS[m2]!, Number(dm[1])));
     if (!Number.isNaN(d.getTime())) return d.toISOString();
@@ -541,6 +545,18 @@ export function resolveDateRequest(text: string): DateRequest | null {
 
   const written = extractWrittenStart(text);
   if (written) return { startIso: written, hours };
+  // "This weekend" is Saturday and Sunday, UTC; on a Sunday, what is left of it.
+  // "Should someone in Cape Town plan around rain this weekend?" was answered
+  // with the next 24 hours from a Wednesday (2026-10-21).
+  if (/\b(?:this|the|over\s+the|coming)\s+weekend\b/i.test(String(text ?? ""))) {
+    const now = new Date();
+    const d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
+    const day = d.getUTCDay();
+    if (day !== 0 && day !== 6) d.setUTCDate(d.getUTCDate() + (6 - day));
+    const start = day === 0 || day === 6 ? now : d;
+    const end = Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate() + (day === 0 ? 1 : 2));
+    return { startIso: start.toISOString(), hours: hours ?? Math.max(1, Math.round((end - start.getTime()) / 3_600_000)) };
+  }
   if (hours !== null) return { startIso: new Date().toISOString(), hours };
   return null;
 }

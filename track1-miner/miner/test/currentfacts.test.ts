@@ -65,6 +65,22 @@ test("the latest Python release comes from endoflife.date, skipping an unrelease
   assert.deepEqual(seen, ["https://endoflife.date/api/python.json"]);
 });
 
+test("an LTS question is answered with the newest cycle already in LTS, not with 'LTS' as the product (2026-10-21)", async () => {
+  // endoflife.date's nodejs.json as read on 2026-10-21: 26 enters LTS on 28 October.
+  const NODE = [
+    { cycle: "26", releaseDate: "2026-05-05", lts: "2026-10-28", latest: "26.12.0", latestReleaseDate: "2026-10-14" },
+    { cycle: "25", releaseDate: "2025-10-15", lts: false, latest: "25.9.0", latestReleaseDate: "2026-04-01" },
+    { cycle: "24", releaseDate: "2025-05-06", lts: "2025-10-28", latest: "24.22.0", latestReleaseDate: "2026-10-14" },
+  ];
+  assert.equal(releaseProduct("What is the latest LTS version of Node.js?"), "Node.js");
+  await mocked(() => json(NODE), async () => {
+    const r = await currentFact("What is the latest LTS version of Node.js?");
+    if (Date.now() < Date.parse("2026-10-28")) {
+      assert.equal(r, "The latest long-term support (LTS) Node.js release is 24.22.0, released on 14 October 2026 (the 24 release cycle). Source: endoflife.date.");
+    } else assert.match(r ?? "", /LTS\) Node\.js release is 26\.12\.0/);
+  });
+});
+
 test("a product endoflife.date does not cover is null, and so is an outage", async () => {
   await mocked(() => new Response("<html>Page not Found</html>", { status: 404 }), async () => {
     assert.equal(await currentFact("What is the latest version of Frobnicator?"), null);

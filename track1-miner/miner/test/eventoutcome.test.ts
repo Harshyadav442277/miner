@@ -65,6 +65,15 @@ test("the right market in a mutually exclusive event is chosen, and its settleme
   assert.equal(best?.c.outcome, "Yes");
 });
 
+test("a side-award market never answers who won the event itself (2026-10-21)", () => {
+  // Production answered "Who won Super Bowl LIX?" with "Jalen Hurts won" from
+  // the MVP market. The MVP market still answers a question that asks for it.
+  const mvp = { venue: "Polymarket", question: "Will Jalen Hurts win Super Bowl LIX MVP?", context: "Super Bowl LIX MVP",
+    settled: true, outcome: "Yes", closes: null } as Parameters<typeof bestMatch>[1][number];
+  assert.equal(bestMatch("Who won Super Bowl LIX?", [mvp]), null);
+  assert.equal(bestMatch("Who won the Super Bowl LIX MVP?", [mvp])?.c.question, mvp.question);
+});
+
 test("a hold question never settles against a cut market (verifier, 2026-09-12)", () => {
   const c = polymarketCandidates(GAMMA);
   for (const q of ["Did the Fed hold rates steady at its September 2025 meeting?", "Did the Fed keep rates unchanged at its September 2025 meeting?"]) {

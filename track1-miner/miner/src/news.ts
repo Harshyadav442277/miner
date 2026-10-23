@@ -77,7 +77,10 @@ export function extractTopic(text: string, declared = ""): string | null {
   };
   const d = clean(String(declared ?? ""));
   if (d) return d;
-  const m = String(text ?? "").match(/\b(?:about|on|regarding|concerning|related to|covering)\s+([^?.!:;]{2,80})/i);
+  const m = String(text ?? "").match(/\b(?:about|on|regarding|concerning|related to|covering)\s+([^?.!:;]{2,80})/i) ??
+    // "find latest headlines for uk vs russia" was answered with generic top
+    // stories, the Pope and a castle sale among them (2026-10-21).
+    String(text ?? "").match(/\b(?:headlines?|news|stories)\s+for\s+([^?.!:;]{2,80})/i);
   if (m?.[1]) return clean(m[1]);
   // "Give three spaceflight news headlines…", "top 5 semiconductor headlines": the
   // subject is the phrase in front of the news noun, once the count and the

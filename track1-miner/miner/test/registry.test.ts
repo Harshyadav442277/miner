@@ -6,6 +6,7 @@ test("the company, company number, LEI and country are read from the question", 
   assert.deepEqual(registrySubject("What is the incorporation status and registered agent for UK company number 12345678?"),
     { name: "", lei: null, number: "12345678", country: "GB" });
   assert.equal(registrySubject("Is Barclays Bank PLC still registered?").name, "Barclays Bank PLC");
+  assert.equal(registrySubject("What is Tesla Inc's registered address and state of incorporation?").name, "Tesla Inc");
   assert.equal(registrySubject("Who are the directors of Revolut Ltd in the UK?").name, "Revolut Ltd");
   assert.equal(registrySubject("Look up the LEI 5493001KJTIIGC8Y1R12").lei, "5493001KJTIIGC8Y1R12");
   assert.equal(registrySubject("anything", "Tesla, Inc.").name, "Tesla, Inc.");

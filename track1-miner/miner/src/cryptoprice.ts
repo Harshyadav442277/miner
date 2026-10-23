@@ -296,7 +296,13 @@ export async function lookupCryptoPrice(question: string, symbolParam = "", now 
   // resolved through search may share its ticker with a different listed coin.
   // A venue price more than 10% from CoinGecko's figure for the resolved coin is
   // treated as that other coin and dropped.
-  const venue = pair && haveCg && Math.abs(pair.price - cgPrice) / cgPrice > 0.1 ? null : pair;
+  const near = pair && haveCg && Math.abs(pair.price - cgPrice) / cgPrice > 0.1 ? null : pair;
+  // A venue more than 2% from the aggregate is a thin local book, not the
+  // market: Coinbase's SOL-INR (16 SOL a day) last traded at 10,723.59 INR when
+  // CoinGecko read 10,085.08, and that trade led the answer (2026-10-21). The
+  // aggregate leads then, and the venue's trade is named with its gap.
+  const thin = near && haveCg && Math.abs(near.price - cgPrice) / cgPrice > 0.02 ? near : null;
+  const venue = thin ? null : near;
   if (!venue && !haveCg) {
     return { asset: asset.name, symbol: asset.symbol, verdict: "unknown", confidence: 0, error: "upstream_unavailable",
       reason: `The current price of ${label} could not be retrieved because neither an exchange nor CoinGecko responded with a quote. This is an availability problem, not a statement about ${asset.symbol}.` };
@@ -304,7 +310,9 @@ export async function lookupCryptoPrice(question: string, symbolParam = "", now 
   const head = venue
     ? `${label} is ${formatPrice(venue.price, quote)}, ${venue.what} ${utc(venue.at)}.`
     : `${label} is ${formatPrice(cgPrice, quote)}, the CoinGecko aggregate price updated at ${utc(cgTime)}.`;
-  const cross = venue && haveCg ? ` CoinGecko's aggregate read ${formatPrice(cgPrice, quote)} at ${utc(cgTime)}.` : "";
+  const cross = venue && haveCg ? ` CoinGecko's aggregate read ${formatPrice(cgPrice, quote)} at ${utc(cgTime)}.`
+    : thin ? ` ${thin.venue}'s ${asset.symbol}-${quote} book, ${thin.what} ${utc(thin.at)}, was ${formatPrice(thin.price, quote)}, ` +
+      `${(Math.abs(thin.price - cgPrice) / cgPrice * 100).toFixed(1)}% away, so that thinner market is not used as the price.` : "";
   // "is USDC price stable?" is a routed question: for a dollar stablecoin the
   // distance from the peg is the part of the price that answers it.
   const peg = STABLE.has(asset.symbol) && quote === "USD"

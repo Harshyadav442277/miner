@@ -55,6 +55,9 @@ const PATTERNS: RegExp[] = [
   // "(a, b, c)" and "[a, b, c]" on their own.
   /\[\s*([^\]\n]{3,200}?)\s*\]/g,
   /\(\s*([^)\n]{3,200}?)\s*\)/g,
+  // "Is this message spam or not spam: …" — a binary choice asked as a question.
+  // It was answered "no set of labels was supplied" on 2026-10-21.
+  rx("\\b(?:is|are)\\s+(?:this|it|these|the\\s+[\\w-]+)(?:\\s+[\\w-]+){0,2}?\\s+([\\w-]+\\s+or\\s+(?:not\\s+)?[\\w-]+(?:\\s+[\\w-]+)?)"),
 ];
 
 export interface LabelSet {

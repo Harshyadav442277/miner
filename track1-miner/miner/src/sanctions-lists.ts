@@ -158,9 +158,13 @@ async function download(): Promise<SanctionsLists> {
   const parties: ListedParty[] = [];
   const editions: Edition[] = [];
   const unavailable: ListName[] = [];
-  const ofac = sdn ? parseOfac(sdn.text, alt?.text ?? "") : [];
+  // Without alt.csv every alias is missing, and "Rosneft" (an alias of entry
+  // 17022) was answered "no match" on 2026-10-21. A name screen without the
+  // aliases is not a screen of the list, so a failed alias download counts as
+  // an unread list and is never cached as complete.
+  const ofac = sdn && alt ? parseOfac(sdn.text, alt.text) : [];
   // An empty parse is a broken download, not an empty list.
-  if (ofac.length > 1_000) {
+  if (ofac.length > 1_000 && ofac.some((p) => p.aliases.length > 0)) {
     parties.push(...ofac);
     // OFAC redirects to a published file whose path carries its date.
     editions.push({ list: "OFAC SDN", published: sdn!.finalUrl.match(/\/(\d{4}-\d{2}-\d{2})\//)?.[1] ?? null, entries: ofac.length });

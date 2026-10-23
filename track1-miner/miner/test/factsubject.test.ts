@@ -149,6 +149,17 @@ describe("settle", () => {
     assert.equal(settle("The Eiffel Tower is in Berlin.", "Eiffel Tower", [WIRELESS]), null);
   });
 
+  test("a sentence reporting what a newspaper said never supports the claim (2026-10-21)", () => {
+    // Production answered the Great Wall myth `supported` from this sentence,
+    // transcribed from the live article on 2026-10-21. Its neighbours call the
+    // claim a factoid and say NASA finds the wall barely visible.
+    const reported =
+      "Based on the photograph, the China Daily later reported that the Great Wall can be seen from 'space' " +
+      "with the naked eye, under favorable viewing conditions, if one knows exactly where to look.";
+    const found = settle("The Great Wall of China is visible from space with the naked eye.", "Great Wall of China", [reported]);
+    assert.notEqual(found?.verdict, "supported");
+  });
+
   test("a place in the centre of a city is in that city", () => {
     const lead = sentencesOf(COLOSSEUM_LEAD);
     assert.equal(settle("The Colosseum is in Rome.", "Colosseum", lead)?.verdict, "supported");

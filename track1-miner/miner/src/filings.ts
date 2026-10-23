@@ -16,7 +16,8 @@ const TIMEOUT_MS = Number(process.env.EDGAR_TIMEOUT_MS ?? 5_000);
 const MATERIAL = new Set(["10-K", "10-Q", "8-K", "20-F", "6-K", "40-F", "DEF 14A", "S-1", "S-4", "F-1", "10-KT"]);
 const OTHER_REGULATOR = /\b(?:FCA|RNS|SEDAR|SEBI|BSE|NSE|LSE|ASX|HKEX|ESMA|Companies House|AMF|BaFin)\b/;
 
-export interface FilingAsk { company: string; form: string | null; since: string | null; latest: boolean }
+/** fiscal_year is set only when the question names one: "its 10-K for fiscal 2026", "FY2026". */
+export interface FilingAsk { company: string; form: string | null; since: string | null; latest: boolean; fiscal_year?: number }
 
 const FORM = /\b(10-K|10-Q|8-K|20-F|6-K|40-F|S-1|S-3|S-4|F-1|DEF\s?14A|13F-HR|11-K|10-KT)(\/A)?\b/i;
 
@@ -38,12 +39,17 @@ export function filingAsk(question: string, companyParam = "", formParam = "", n
     since = d.toISOString().slice(0, 10);
   } else if (/\b(?:today)\b/i.test(q)) since = now.toISOString().slice(0, 10);
   else if (/\bthis\s+week\b/i.test(q)) since = new Date(now.getTime() - 7 * 86_400_000).toISOString().slice(0, 10);
+  // "This month" is the calendar month: Nvidia's September 8-K was answered
+  // "Yes" to "Has Nvidia filed an 8-K this month?" on 2026-10-21.
+  else if (/\bthis\s+month\b/i.test(q)) since = `${now.toISOString().slice(0, 7)}-01`;
+  else if (/\bthis\s+year\b/i.test(q)) since = `${now.toISOString().slice(0, 4)}-01-01`;
+  const fy = q.match(/\b(?:fiscal(?:\s+year)?\s*|FY\s?)((?:19|20)\d{2})\b/i)?.[1];
   const m =
     q.match(/\b(?:has|have|did|when\s+did|when\s+was)\s+(.+?)\s+(?:filed|file|submit(?:ted)?|publish(?:ed)?|release[sd]?)\b/i) ??
     q.match(/\b(?:filings?|10-K|10-Q|8-K|20-F|6-K|annual\s+report|quarterly\s+report|current\s+report)\s+(?:for|from|of|by)\s+(.+?)(?:[?,]|\s+(?:on|in|with|and|since|this|last|filed)\b|$)/i) ??
     q.match(/\b([A-Z][\w&.'-]*(?:,?\s+[A-Z][\w&.'-]*){0,4})(?:'s|’s)\s+(?:latest|last|most\s+recent|recent|newest|new)?\s*(?:10-K|10-Q|8-K|20-F|6-K|annual|quarterly|current|filing)/);
   const company = (companyParam.trim() || (m?.[1] ?? "")).replace(/^(?:the|a)\s+/i, "").replace(/(?:'s|’s)$/, "").replace(/[?!]+$/, "").trim();
-  return { company, form, since, latest: !since };
+  return { company, form, since, latest: !since, ...(fy ? { fiscal_year: Number(fy) } : {}) };
 }
 
 export interface Figures {
@@ -140,16 +146,22 @@ export async function monitorFilings(question: string, companyParam = "", formPa
     return { ...base, verdict: "unknown", confidence: 0, error: "upstream_unavailable",
       reason: `${cik.title}'s filing index could not be read from SEC EDGAR. This is an availability problem, not a finding that nothing was filed.` };
   }
-  const wanted = (f: Filing): boolean => ask.form ? f.form === ask.form : MATERIAL.has(f.form);
-  const all = co.filings.filter(wanted);
+  // A fiscal year is matched on the period the filing covers, which ends inside
+  // that year for every issuer (Apple's FY2026 ends in September 2026, NVIDIA's
+  // in January 2026). Apple's FY2025 10-K was answered "Yes" to "Has Apple
+  // filed its 10-K for fiscal 2026?" on 2026-10-21.
+  const ofForm = (f: Filing): boolean => ask.form ? f.form === ask.form : MATERIAL.has(f.form);
+  const inYear = (f: Filing): boolean => !ask.fiscal_year || (f.period ?? "").startsWith(String(ask.fiscal_year));
+  const all = co.filings.filter((f) => ofForm(f) && inYear(f));
+  const fiscal = ask.fiscal_year ? ` for fiscal ${ask.fiscal_year}` : "";
   const inWindow = ask.since ? all.filter((f) => f.filed >= ask.since!) : all;
   const ident = { company: co.name, cik: co.cik, tickers: co.tickers, source_url: co.source_url, recent_filings: inWindow.slice(0, 5) };
   const what = ask.form ?? "material filing";
   const f = inWindow[0];
   if (!f) {
-    const last = all[0];
+    const last = co.filings.find(ofForm);
     return { ...base, ...ident, verdict: "not_filed", confidence: 0.85, filing: last ?? null,
-      reason: `No: ${co.name} has filed no ${what === "material filing" ? "material filing" : what}${ask.since ? ` since ${ask.since}` : " among its recent EDGAR filings"}` +
+      reason: `No: ${co.name} has filed no ${what === "material filing" ? "material filing" : what}${fiscal}${ask.since ? ` since ${ask.since}` : " among its recent EDGAR filings"}` +
         `${last ? `; its last one was filed on ${last.filed}${last.period ? ` for the period ended ${last.period}` : ""}` : ""}.${notCovered ? ` ${notCovered}` : ""}` };
   }
   let figures: { current: Figures; prior: Figures | null } | null = null;

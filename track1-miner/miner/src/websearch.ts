@@ -29,6 +29,7 @@
  * ground truths. Those are authored, not real, so they chose nothing here.
  */
 import { currentFact } from "./currentfacts";
+import { answerQuestion } from "./qa";
 import { searchNews, type Article } from "./newssearch";
 import { findEncyclopedia, namedEntity } from "./research";
 
@@ -202,6 +203,14 @@ export function namesCode(title: string, codes: string[]): boolean {
   });
 }
 
+/** A what/who/where question with no recency cue, so news coverage is not its source. */
+export function timeless(text: string): boolean {
+  const q = String(text ?? "");
+  return /^\s*(?:what|who|when|where|which|how\s+(?:many|much|tall|long|old|far|big|deep|high))\b/i.test(q) &&
+    !/\b(?:latest|newest|current(?:ly)?|today|tonight|now|recent(?:ly)?|news|headlines?|this\s+(?:week|month|year)|yesterday|tomorrow|price|stock|shares?|score|weather|forecast|rate|20[2-9]\d)\b/i.test(q) &&
+    !isForwardLooking(q);
+}
+
 export async function webSearch(question: string): Promise<WebSearchResult> {
   const q = String(question ?? "").trim();
   const empty = { articles: [] as Article[], background: null };
@@ -239,6 +248,14 @@ export async function webSearch(question: string): Promise<WebSearchResult> {
    */
   const fact = await currentFact(q);
   if (fact) return { ...empty, verdict: "answered", confidence: 0.9, reason: fact };
+
+  // A timeless encyclopaedic question is answered from cited Wikipedia
+  // introductions, the QUESTION_ANSWERING path: "What is the capital of
+  // Australia?" was answered with two Commonwealth Bank headlines (2026-10-21).
+  if (timeless(q)) {
+    const qa = await answerQuestion(q).catch(() => null);
+    if (qa?.verdict === "answered") return { ...empty, verdict: "answered", confidence: 0.8, reason: qa.reason };
+  }
 
   const entity = namedEntity(q);
   const codes = codeTokens(q);

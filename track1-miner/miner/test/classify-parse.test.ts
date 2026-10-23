@@ -98,6 +98,13 @@ test("the instruction is stripped from the text to classify", () => {
   }
 });
 
+test("a binary choice asked as a question is a label set (2026-10-21)", () => {
+  const q = "Is this message spam or not spam: Congratulations! You won a $1000 gift card, click here to claim now.";
+  assert.deepEqual(parseLabels(q), ["spam", "not spam"]);
+  assert.equal(classifiedText(q), "Congratulations! You won a $1000 gift card, click here to claim now.");
+  assert.deepEqual(parseLabels("Is this email phishing or legitimate: Your invoice is attached."), ["phishing", "legitimate"]);
+});
+
 test("a list behind a Text: separator is the passage, not a label set", () => {
   assert.deepEqual(parseLabels("Assign a category. Text: I was charged twice, the app crashes."), []);
   assert.equal(classifiedText("Assign a category. Text: I was charged twice, the app crashes."), "I was charged twice, the app crashes.");

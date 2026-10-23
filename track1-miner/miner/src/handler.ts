@@ -13,8 +13,8 @@ import { geolocate, type GeoResult } from "./geo";
 import { extractContent } from "./content";
 import { getHeadlines } from "./news";
 import { searchNews, type NewsSearchResult } from "./newssearch";
-import { convert, normalizeCurrency, parseDate as parseFxDate, parseQuery as parseCurrency, type CurrencyResult } from "./currency";
-import { getGasPrice, resolveChain as resolveGasChain, type GasResult } from "./gas";
+import { convert, normalizeCurrency, notAnFxQuestion, parseDate as parseFxDate, parseQuery as parseCurrency, type CurrencyResult } from "./currency";
+import { asksForFees, getGasPrice, notAFeeQuestion, resolveChain as resolveGasChain, type GasResult } from "./gas";
 import { getFinancialData, type FinancialResult } from "./financial";
 import { assessFraud, type FraudResult } from "./fraud";
 import { checkBalance, type WalletResult } from "./wallet";
@@ -1051,6 +1051,13 @@ function route(req: IncomingMessage, res: ServerResponse): void {
       [amountParam, fromCode, toCode].filter(Boolean).join(" "),
     );
 
+    const notFx = !fromCode && !toCode ? notAnFxQuestion(q) : null;
+    if (notFx) {
+      const declined: CurrencyResult = { from: null, to: null, amount: null, rate: null, converted: null, kind: null, as_of: null,
+        verdict: "unknown", confidence: 0, reason: notFx, error: "not_an_fx_question" };
+      sendAnswer(res, q, declined);
+      return;
+    }
     const parsed = parseCurrency(q);
     /**
      * A name is resolved to its code before the three-letter shape is trusted.
@@ -1378,6 +1385,10 @@ function route(req: IncomingMessage, res: ServerResponse): void {
      */
     const chainParam = firstValue(url, "chain", "network", "blockchain");
     const q = withSubject(firstValue(url, "query", "q", "question", "text", "input"), chainParam);
+    if (!chainParam && !asksForFees(q)) {
+      sendAnswer(res, q, notAFeeQuestion(q));
+      return;
+    }
     const { chain, unread } = resolveGasChain(chainParam, q);
 
     // Gas moves every block, so the shared one-minute window is right here: it
