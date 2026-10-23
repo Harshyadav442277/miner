@@ -112,9 +112,19 @@ describe("geolocate (live)", () => {
   // against one-sentence references, and a second sentence of any kind — the
   // abuse clause, the timezone, the serving-infrastructure caveat — took it from
   // ~0.99 to ~0.011 against three of the four crossing miners (epochs 335, 343).
-  test("a public address is answered in one sentence: operator, then place", async () => {
+  // 8.8.8.8 is anycast, so since 2026-10-21 it is answered as anycast rather than
+  // as one city (geo-anycast.test.ts). The one-sentence rule is held on a unicast
+  // address instead; ipinfo did not flag 128.101.101.101 as anycast on 2026-10-23.
+  test("an anycast address is answered as anycast, not as one city", async () => {
     const r = await geolocate("8.8.8.8");
-    assert.match(r.reason, /^The IP address 8\.8\.8\.8 is associated with /);
+    assert.equal(r.verdict, "anycast");
+    assert.match(r.reason, /^The IP address 8\.8\.8\.8 is an anycast address operated by /);
+    assert.match(r.reason, /no single physical location/);
+  });
+
+  test("a public unicast address is answered in one sentence: operator, then place", async () => {
+    const r = await geolocate("128.101.101.101");
+    assert.match(r.reason, /^The IP address 128\.101\.101\.101 is associated with /);
     assert.match(r.reason, /is located in /);
     assert.equal(r.reason.split(/(?<=\.)\s+/).length, 1);
     assert.doesNotMatch(r.reason, /abuse|timezone|autonomous system registration/i);
