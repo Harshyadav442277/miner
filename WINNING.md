@@ -158,9 +158,13 @@ ground most competitors ignore.
 ## 6. What to remove
 
 The rule behind every cut: each claimed intent is reviewed on its own, and registrations earn nothing.
-Remove an intent when it fails on quality or licence and no mission needs it. Mission counts come from the
-15 mission pages read 2026-10-10; re-count them before the Nov 1–7 intent pick. Our 36 intents: 20 are
-bought by at least one mission, 16 by none.
+Remove an intent when it fails on quality or licence and no mission needs it. Our 36 intents: 20 are bought
+by at least one mission, 16 by none.
+
+**Re-counted 2026-10-23 from the 15 live mission pages:** our intents touch all 15 missions, and they still
+do after the cuts below. Resources & agriculture is the one exception to watch: after STOCK_PRICE goes, it
+keeps only WEATHER_CHECK. Evidence: `track1-miner/docs/evidence/missions-2026-10-23/` (`missions.mjs`
+regenerates it).
 
 **Intents. These need the owner's `updateMiner` signature; do them in the one update in §5.5.**
 
@@ -302,3 +306,45 @@ Make one submission per track on the H2 website. Each holds the six items /rules
 > 3. Does `updateMiner` on an active miner (new registrationId) restart the 7-day grace period?
 > 4. We are entering both the Miner and the Evaluator tracks with related work. Is one H2 registration
 >    and one submission per track the right way to do it?
+
+## 9. Several prizes, and the intent question (decided 2026-10-23)
+
+### The prize stack and what decides each prize
+
+Per track we can take one delivery award and one excellence award. In December we can take one technical
+award and one adoption award. That makes **six prizes, $2,600**.
+
+| Prize | What decides it | Where we stand, 2026-10-23 | What we do |
+|---|---|---|---|
+| Miner excellence 1st, $500 | Highest total /100, with ≥ 70 overall and quality ≥ 24/35 | Production audit 110/154 on Oct 21, fixes undeployed. No uptime record. No consumption | §5 items 1–8, in order |
+| Miner delivery, $300 (4 awarded) | Criteria in order: (1) missions materially enabled, (2) app workflows enabled, (3) missing mission-critical needs met, (4) quality | Our intents touch **15/15** missions; no per-mission proof yet | One reproducible fixture per mission showing a real workflow step answered correctly. Side-by-side proof where the field answers wrongly (A6) |
+| Evaluator excellence 1st, $500 | Highest total /100, with ≥ 70 overall and validity ≥ 28/40 | 31 comparators exact on 234,848 cases. Adapter at 96.6% as the node computes it, `verify_wide` PASS (track2 MEMORY, 2026-10-22) | Register the day the pool opens. Publish robustness results and a baseline comparison |
+| Evaluator delivery, $300 | Same order. Ties go to measurement improvement or new coverage | Modules touch **15/15** missions (`SIGN_S2.md` intents against the mission pages) | A mission-by-mission table of what each module lets reviewers measure |
+| December technical, $500 | A reusable capability that unblocks apps, or a verified fix to a documented mission-critical blocker | Track 2 G32: the adapter kit packages a different ModernBERT from the one it trains. We found it and our node-architecture retrain passes | The owner approves a report of G32 to the organisers. Publish the retrain recipe as the fix and claim it here, separately from the track entries |
+| December adoption, $500 | Independently confirmed downstream use: onboarding, reproduced integrations, retained users | None | Recipes to app teams at office hours. Get one independent team to reproduce an integration and say so publicly |
+
+**Optional, not planned: an Apps & Agents entry** (8 delivery awards of $225, excellence up to $700). It
+needs a working mission app that makes an autonomous purchase through Telegraph, and a mainnet-readiness
+score of at least 24/35. The same app would also earn the miner's related-party consumption points (A4,
+G204). It costs days of build; the owner decides.
+
+### Should we add intents? Not now
+
+- **Breadth is already maxed for the first award criterion.** Our intents touch all 15 missions, so an extra
+  intent cannot raise "distinct missions enabled". Registrations earn no points, and every new intent is
+  another place for a reviewer to find a wrong answer.
+- **Timing.** An intent can only be added through `updateMiner` (G206). Nothing new can reach
+  audit-verified quality before the Oct 24 cut-off.
+- **The rule for any later addition.** All of these must hold:
+  - it deepens a thinly covered mission, or is bought by three or more missions;
+  - it is correct from a licence-clean primary source, proved in the audit before signing;
+  - it never serves an intent we submit a judgment adapter for (comparators reproduce a fixed network
+    rule, so they carry no such conflict);
+  - its update costs no routing time.
+- **Ranked candidates, if G206 resolves as "no reset":**
+  1. **ASSET_RESERVE_ATTESTATION** (4 missions): on-chain supply against attested reserves. The source's
+     licence is unchecked.
+  2. **WEATHER_FORECAST_VERIFY** (3 missions: autonomous systems, commodities, agriculture). It reuses the
+     weather stack, but needs observed station data from a licence-clean source, and none has been
+     verified yet.
+- **Never:** CHAT_COMPLETION (D5), and LLM_OUTPUT_EVALUATION (we evaluate it).

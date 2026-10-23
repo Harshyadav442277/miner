@@ -1,5 +1,20 @@
 # MEMORY.md — session continuity
 
+## 2026-10-23 ~13:45 UTC (19:15 IST): CURRENT — no new intents; prize stack planned (WINNING §9)
+
+Owner asked: should we add intents, how do we win several prizes, and for a prompt to keep improving.
+- **Mission map, re-counted from the 15 live mission pages.** Our intents touch **15/15** missions. The
+  Track 2 modules (`SIGN_S2.md` intents) also touch 15/15. Evidence:
+  `track1-miner/docs/evidence/missions-2026-10-23/`.
+- **Decision: add no intents now.** The add-rule and the ranked candidates are in WINNING §9:
+  ASSET_RESERVE_ATTESTATION, then WEATHER_FORECAST_VERIFY, and only if G206 resolves "no reset".
+- **WINNING §9 prize stack:** six prizes, $2,600. The December technical candidate is Track 2 G32 (the kit
+  packages a different ModernBERT from the one it trains); reporting it needs the owner's yes.
+- **Track 2 branch (read, not changed here):** the adapter scores 96.6% as the node computes it,
+  `verify_wide` PASS. Release commit `d82ff64` awaits the operator's push.
+- **Still pending:** the Oct 24 choice between A and B (G206), registration, the organiser message, and the
+  deploy and push.
+
 ## 2026-10-22 ~17:45 UTC (23:15 IST): CURRENT — Season I tooling deleted; rewards and to-do recorded
 
 Owner: "yes delete the season 1 tooling" and "telegraph has also published season 2 hackathon rewards and what
