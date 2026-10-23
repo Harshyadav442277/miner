@@ -7,7 +7,7 @@ tracks' rules were still unpublished when last checked, 2026-10-21 06:30 UTC.
 | Track | What | Start here |
 |---|---|---|
 | **Miner** | LiveCert: 36 intents, registration **4829**, <https://miner-wine.vercel.app> | [`track1-miner/README.md`](track1-miner/README.md) |
-| **Evaluators** | Deterministic `no_std` WASM scorers that check typed facts — figures, units, identifiers, verdicts — rather than wording | [`track2/README.md`](track2/README.md) |
+| **Evaluators** | Season II evaluators: 31 comparators that reproduce the network's reference rule for deterministic intents, and a reward-model adapter for LLM_OUTPUT_EVALUATION | [`track2/README.md`](track2/README.md) |
 | **Apps & Agents** | Morse, a Telegram front end to the network (Season I), in its own repository | [`telegraph-morse`](https://github.com/Harshyadav442277/telegraph-morse) |
 
 X: [`@hyadav42774`](https://x.com/hyadav42774)

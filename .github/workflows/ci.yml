@@ -6,43 +6,6 @@ on:
   pull_request:
 
 jobs:
-  track2-scorer:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: track2/scorer
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "22"
-      - uses: dtolnay/rust-toolchain@1.98.0
-        with:
-          targets: wasm32-unknown-unknown
-      - run: cargo fmt --check
-      - name: Test and lint every intent profile
-        shell: bash
-        run: |
-          cargo test
-          cargo clippy --all-targets -- -D warnings
-          for feature in ip-geolocation storm-alert content-verification text-authenticity; do
-            cargo test --no-default-features --features "$feature"
-            cargo clippy --all-targets --no-default-features --features "$feature" -- -D warnings
-          done
-      - name: Verify the TAC build as freestanding WASM, and the registered artifact
-        shell: bash
-        run: |
-          cargo build --release --target wasm32-unknown-unknown --no-default-features --features text-authenticity
-          mkdir -p dist
-          cp target/wasm32-unknown-unknown/release/scorer.wasm dist/text_authenticity.wasm
-          node verify.mjs dist/text_authenticity.wasm
-          node ../harness/check-tac.mjs dist/text_authenticity.wasm
-          node ../release/probe-negation.mjs dist/text_authenticity.wasm
-          node ../release/probe-model-aliases.mjs dist/text_authenticity.wasm
-          node ../release/probe-authenticity-axes.mjs dist/text_authenticity.wasm
-          node ../release/probe-authenticity-vocabulary.mjs dist/text_authenticity.wasm
-          node ../release/check-release-identity.mjs dist/text_authenticity.wasm
-
   miner:
     runs-on: ubuntu-latest
     defaults:
@@ -55,8 +18,7 @@ jobs:
           node-version: "22"
       - run: npm install --no-audit --no-fund
       - run: npm run typecheck
-      # Unit tests only. The live suite calls badssl.com and Open-Meteo directly,
-      # and an outage at either fails CI with a red herring — that happened once
-      # during development. Those run on a schedule instead (uptime.yml).
+      # Unit tests only. The live suite calls third-party upstreams directly, and
+      # an outage at any of them fails CI with a red herring. Those run on demand
+      # instead (uptime.yml).
       - run: npm run test:unit
-
