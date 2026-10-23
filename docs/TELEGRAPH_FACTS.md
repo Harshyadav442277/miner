@@ -441,52 +441,6 @@ Corollary for working method: prefer changes justified by **replaying real paid 
 (`tools/replay-intents.mjs`; the Season I `replay-corpus.mjs` is in git history), which gives an answer in seconds, over changes justified by a scoring
 theory, which take up to 9 hours to test and have twice been wrong.
 
-## Track 1 deadline — RESOLVED (verified 2026-09-01, rules page)
-
-Track 1 and Track 2 ran **Aug 17 – Aug 31, 2026**; Track 3 runs Aug 31 – Sep 7; Winner Selection
-Sep 8–18; announcement Sep 19–25. The home-page "SEP 7 23:59 UTC SUBMISSIONS CLOSE" countdown is
-the **Track 3** deadline, not Track 1's. Source: https://hackathon.telegraphprotocol.com/rules,
-read 2026-09-01 local (= 2026-08-31 UTC). Consequences: what matters post-close is the miner
-staying LIVE and ranked through Track 3, whose routed requests are counted in judging.
-
-**Two conclusions first drawn here were wrong, and cost most of the remaining window before they
-were caught (2026-08-31 ~21:00Z).**
-
-1. **"Track 1 has closed" was a timezone error.** The close is Aug 31 **23:59 UTC**. This file was
-   written at 02:16 local (IST, UTC+5:30) on Sep 1, which is **20:46 UTC on Aug 31** — nearly three
-   hours *before* the deadline, not after it. Always resolve the deadline in UTC against `date -u`,
-   never against the local date the environment reports.
-2. **"A new registration's ~7-day unranked grace period would outlast Winner Selection" is false.**
-   See G58: registrations are scored in the next epoch's pass, same day. The grace period is a
-   traffic-share throttle.
-
-What survives: the Aug 17 – Aug 31 dates themselves, which the rules page confirms verbatim.
-
-## Rival: preflight-ssl-verification is public — github.com/shreshth006/Preflight
-
-Registered 2026-08-30T20:06Z, runs a six-hour Claude autopilot, and iterates fast. On 2026-08-31
-every commit targeted URL_SCAN (not an intent we serve); no SSL/IP/wallet answer changes were
-committed the day of the close. Their wallet caveat-first past-dated shape is what G55's reorder
-matched. Endpoint watchdog stays the ground truth for deploys.
-
-## Submitting is a SEPARATE step from registering (verified 2026-08-31 ~21:45Z)
-
-`https://submissions.telegraphprotocol.com` — tabs for Track 1 (Miner), Track 2 (WASM), Track 3
-(coming soon). Track 1 takes an **X username**, then one or more rows of **miner ID + its YAML
-config file**, and a wallet **SIGN & SUBMIT**. Deadline shown in-page: **Mon, 31 Aug 2026 23:59:59
-UTC**, matching the rules page.
-
-**Being registered on-chain and ranked does not enter you.** A miner can be active, scoring and
-holding rank 1 and still not be submitted. This was found with about two hours left.
-
-- **"Miner ID" is the on-chain registration id** (1378 since 2026-09-09; 402 before it), not the
-  `id:` field inside the YAML (4433). `/api/miners/4433` does not resolve; `/api/miners/1378` does.
-- **Upload `track1-miner/miner.yaml`** — the file whose bytes hash to the registered `yaml_hash`.
-  The root-level `SUBMIT-THIS-miner.yaml` is a stale 10-intent snapshot (22,807 bytes,
-  `0x78932fb1...`) kept from the 389 registration. Its name is a trap; do not upload it.
-- A re-`updateMiner` mints a new registration id, which would make an already-submitted id stale.
-  Submit only after the registration you intend to be judged on is `active`.
-
 ## This machine's IPv6 path to raw.githubusercontent.com hangs (2026-08-31)
 
 `curl` to `raw.githubusercontent.com` takes **~15.1s to connect** over the default stack and
@@ -577,14 +531,6 @@ Source: https://docs.telegraphprotocol.com/docs/using/escrow-inference (not in t
 - Same-day operational notes for a caller: the body field is `query`; a refusal burns the nonce
   only after the signature verifies; `insufficient escrow … available=0` means the signature was
   fine and only funding is missing; withdrawals are timelocked.
-
-## Winner selection extended to 2026-09-28 (operator report, 2026-09-17)
-
-The operator reports an organiser announcement (Discord) that the results deadline moved to
-**Sep 28, 2026**. The rules page fetched 2026-09-16 ~09:00 UTC still shows "Winner Selection
-Sep 8 – Sep 18, Announcement Sep 19 – 25"; the announcement text itself was not seen by this
-session. Treat the miner as judged-and-watched through Sep 28: keep it live, no risky deploys
-without a preview, and hold anything that reads as lobbying until after the results.
 
 ## Season II intents and manifest validation (verified 2026-10-13/14)
 

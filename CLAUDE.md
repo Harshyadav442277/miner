@@ -20,7 +20,8 @@ Morse, is the separate repo `../telegraph-morse`. **Not this project:** the Midn
 - [TASKS.md](TASKS.md) — execution board. One task = one change = one commit.
 - [GAPS.md](GAPS.md) — honesty ledger. Feeds the README's Assumptions & Limitations.
 - [docs/TELEGRAPH_FACTS.md](docs/TELEGRAPH_FACTS.md) — verified protocol facts, with sources+dates.
-- [docs/BUILD_IN_PUBLIC.md](docs/BUILD_IN_PUBLIC.md) — the X cadence. Judged, not optional.
+- X posts: one useful progress update per active week, tagging Telegraph (WINNING.md §8). The Season II
+  rules encourage it but do not score it.
 
 ## Hard rules
 
