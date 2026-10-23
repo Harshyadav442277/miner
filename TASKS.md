@@ -14,7 +14,7 @@ licensed for paid use. Season I's board (149 done items, all Season I epoch and 
 - [ ] G204: decide on WINNING.md A4. Should our own disclosed H2 mission workflow earn related-party
       consumption points (up to 7 of 10)?
 - [ ] G205: yes or no to resuming an availability record from Nov 1 (reliability is 20 of 100 Miner points).
-- [ ] Approve the 2026-10-23 disk cleanup (nothing in it is unsaved work):
+- [x] **Done 2026-10-23 (owner: "yes cleanup. we dont want what doesnt help us in season 2"):** the disk cleanup below, plus Season I-only docs. Branch backup: `C:\Users\hyada\telegraph-backups\season1-branches-2026-10-23.bundle`.
       - Remove the three merged, clean session worktrees `admiring-golick`, `loving-elbakyan` and
         `status-check-fixes` (166 MB).
       - Delete the 40 Season I `rank_answer` champion binaries in `track2/harness/champions` (618 MB,

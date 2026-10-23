@@ -1,5 +1,32 @@
 # MEMORY.md — session continuity
 
+## 2026-10-23 ~14:30 UTC (20:00 IST): CURRENT — Season I cleanup done; folder 1 GB → 177 MB
+
+Owner: "yes cleanup. we dont want what doesnt help us in season 2."
+- **Worktrees:** removed `admiring-golick`, `loving-elbakyan` and `status-check-fixes`, all clean and
+  merged. Only the Track 2 worktree remains, and it has no links into the main tree (checked).
+- **Branches:** 33 Season I local branches deleted after a verified backup at
+  `C:\Users\hyada\telegraph-backups\season1-branches-2026-10-23.bundle`. All 33 heads matched; restore one
+  with `git fetch <bundle> <branch>:<branch>`. Left: `main`, `codex/rank1-14-intents` and
+  `claude/wasm-track-2-quality-e21db3`. Remote branches are untouched on purpose: a registered artifact may
+  be pinned to a commit that only a remote branch keeps.
+- **track2, 673 MB → 24 MB:**
+  - deleted the Season I `rank_answer` stack: `scorer`, `scorer-v2`, `harness` with its 618 MB of
+    champions, `fixtures`, `recon`, `release`, `PROOF.md`, `FIXTURES.md`, `vendor-baseline.sh` and the
+    registry-screening script;
+  - kept registration 1882's artifact (rule 5: still the TEXT_AUTHENTICITY_CHECK champion);
+  - CI now runs only the miner job;
+  - track2 `README`, `ARCHITECTURE` and `CLAUDE.md` rewritten for Season II.
+- **Docs:**
+  - deleted `SIGNING.md`, `REGISTRATION_UPDATE.md`, `docs/X_POSTS.md`, `docs/BUILD_IN_PUBLIC.md` (said
+    posting is 25% of the score, which is false in Season II) and the stale `miner/README.md`;
+  - removed four Season I event sections from `TELEGRAPH_FACTS.md`;
+  - root `ARCHITECTURE.md` rewritten to the decisions still in effect.
+- **Incident:** the forced worktree removal also emptied the main tree's `track1-miner/miner/node_modules`.
+  The cause is inferred: the session worktrees probably linked to it. `npm ci` restored it; typecheck is
+  clean and unit tests are 787/787. A memory note was added.
+- **Not pushed:** these commits wait for the owner's yes. Origin is at `76e6926`.
+
 ## 2026-10-23 ~13:50 UTC (19:20 IST): CURRENT — audit fixes LIVE on production; branch pushed
 
 Owner: "deploy the audit fixes and push" (2026-10-23).

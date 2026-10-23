@@ -21,6 +21,9 @@ branch `claude/correctness-audit-2026-10-21`, not yet merged here.
   whether that resets the period. If it does, an update in November costs a week of ranked routing.
   WINNING.md §8 gives two options: sign by Oct 24 23:59 UTC, or freeze registration 4829 for the season.
   Registration 4829 activated 2026-10-16 09:59 UTC, so its own grace period ends about 2026-10-23 10:00 UTC.
+  Season I evidence (G58, recorded 2026-09-01): a new registration was scored in the next epoch's pass, the
+  same day, so the grace period limits routed **traffic share**, not scoring. The risk is a week of reduced
+  routed demand, not a week without a score.
 - **G204 — Related-party consumption evidence against folder override 2. `OPEN, owner decision`.**
   - The Miner rubric gives 1 consumption point for use by an H2 mission app "including an application
     operated by the Provider's own team".
