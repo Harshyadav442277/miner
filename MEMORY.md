@@ -1,5 +1,23 @@
 # MEMORY.md — session continuity
 
+## 2026-10-23 ~13:50 UTC (19:20 IST): CURRENT — audit fixes LIVE on production; branch pushed
+
+Owner: "deploy the audit fixes and push" (2026-10-23).
+- **Merged** `claude/correctness-audit-2026-10-21` as `22284c0`. Only GAPS and MEMORY conflicted, and both
+  sides were kept. Unit tests 787/787.
+- **Production `miner-n9d4aoxw8`**, built from `22284c0` in a clean worktree at
+  `C:\Users\hyada\tg-deploy\m22284c0`. The alias moved without a promote. Rollback target is
+  `miner-q5qepqluk`. Preview was `miner-qazd6wyp9`.
+- **Gates:** verify-deploy, param shapes, hostile inputs and no-regression all PASS. Intent answers 35/36, the
+  known IP Tokyo pin. Upstream health shows the known ip-api and merkle 429. Watch on 4829:
+  `endpoint=ok activation=active`.
+- **One stale live test was fixed** (8.8.8.8 is now anycast). The full suite then gave 911 pass, 0 fail,
+  1 skipped. Evidence: `track1-miner/docs/evidence/release-2026-10-23/`.
+- **New defect G207:** timeless web-search questions quote the wrong Wikipedia article. It is the next fix,
+  because WEB_SEARCH is bought by 7 missions.
+- **Still pending:** the Oct 24 choice between A and B (G206), registration, the organiser message, and the
+  Track 2 release push (factscore repo, operator).
+
 ## 2026-10-23 ~13:45 UTC (19:15 IST): CURRENT — no new intents; prize stack planned (WINNING §9)
 
 Owner asked: should we add intents, how do we win several prizes, and for a prompt to keep improving.

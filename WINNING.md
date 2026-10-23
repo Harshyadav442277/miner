@@ -43,13 +43,12 @@ the organisers confirm in writing (G203).
 - **Quality, production (audit 2026-10-21):** 110 pass, 17 partial and 27 fail out of 154 questions checked
   against primary sources. Evidence is in `correctness-audit-2026-10-21/` on branch
   `claude/correctness-audit-2026-10-21`.
-- **Not deployed:**
-  - 22 of the 27 fails are fixed on that branch;
-  - the places table (`afda450`) is on this branch.
-- **Production can still clear an aliased sanctioned party (G201).**
-  - On 2026-10-21 "Rosneft" returned `no_match`: a failed alias download had been cached as a complete list.
-  - On 2026-10-22 at 16:57 UTC it returned `match` (SDN 17022), so the failure is intermittent.
-  - The fix is undeployed. Clearing a sanctioned party is the worst wrong answer we can give.
+- **Deployed 2026-10-23** as production `miner-n9d4aoxw8` (`22284c0`): the 22 audit fixes and the places
+  table. Gates and evidence are in `track1-miner/docs/evidence/release-2026-10-23/`.
+- **The sanctions alias bug (G201) is fixed on production.** On 2026-10-21 "Rosneft" had returned `no_match`,
+  because a failed alias download was cached as a complete list. A failed download now makes the list
+  unread, never "cleared".
+- **New: G207.** Timeless web-search questions quote the wrong Wikipedia article.
 - **Open owner decisions:** the news-source licence (it serves WEB_SEARCH, bought by 7 missions),
   STOCK_PRICE, Nominatim policy (G199), push, deploy, and Season II registration.
 
@@ -114,9 +113,9 @@ ground most competitors ignore.
 
 **Track 1, the miner**
 
-1. **Deploy the audit fixes and the places table** (owner's yes). Production failed 27 of 154 audit
-   questions on 2026-10-21, and the code behind those failures is still live, including the sanctions alias
-   bug (G201). This is quality, the 24/35 gate.
+1. ~~Deploy the audit fixes and the places table.~~ **Done 2026-10-23** (`miner-n9d4aoxw8`). Next: G207,
+   the wrong Wikipedia article in timeless web search, because WEB_SEARCH is bought by 7 missions. Then
+   re-run the 154-question audit on production.
 2. **Close G200**, or drop the intent:
    - RESEARCH_QUERY fails 3 of 4 (no mission buys it);
    - ACADEMIC_SEARCH fails title lookups;
@@ -205,7 +204,7 @@ every export is used (checked 2026-10-22). Code leaves only with the intents abo
 
 | Criterion | Evidence we must hold by the deadline | Today |
 |---|---|---|
-| Miner quality (35, ≥ 24) | Audit pass rate on production, every claimed intent, against primary sources, dated | 110/154 on production; 22 fixes undeployed |
+| Miner quality (35, ≥ 24) | Audit pass rate on production, every claimed intent, against primary sources, dated | 110/154 on production (Oct 21); 22 fixes deployed Oct 23; audit not yet re-run |
 | Reliability (20) | Availability log from Nov 1; a capacity result | none (monitor off) |
 | Coverage (15) | Mission × intent matrix with a fixture per mission | counts only, no matrix |
 | Consumption (10) | Receipts from H2 app requests: routed, repeated, accounted | none |
@@ -316,7 +315,7 @@ award and one adoption award. That makes **six prizes, $2,600**.
 
 | Prize | What decides it | Where we stand, 2026-10-23 | What we do |
 |---|---|---|---|
-| Miner excellence 1st, $500 | Highest total /100, with ≥ 70 overall and quality ≥ 24/35 | Production audit 110/154 on Oct 21, fixes undeployed. No uptime record. No consumption | §5 items 1–8, in order |
+| Miner excellence 1st, $500 | Highest total /100, with ≥ 70 overall and quality ≥ 24/35 | Production audit 110/154 on Oct 21; fixes deployed Oct 23, re-audit pending. No uptime record. No consumption | §5 items 1–8, in order |
 | Miner delivery, $300 (4 awarded) | Criteria in order: (1) missions materially enabled, (2) app workflows enabled, (3) missing mission-critical needs met, (4) quality | Our intents touch **15/15** missions; no per-mission proof yet | One reproducible fixture per mission showing a real workflow step answered correctly. Side-by-side proof where the field answers wrongly (A6) |
 | Evaluator excellence 1st, $500 | Highest total /100, with ≥ 70 overall and validity ≥ 28/40 | 31 comparators exact on 234,848 cases. Adapter at 96.6% as the node computes it, `verify_wide` PASS (track2 MEMORY, 2026-10-22) | Register the day the pool opens. Publish robustness results and a baseline comparison |
 | Evaluator delivery, $300 | Same order. Ties go to measurement improvement or new coverage | Modules touch **15/15** missions (`SIGN_S2.md` intents against the mission pages) | A mission-by-mission table of what each module lets reviewers measure |

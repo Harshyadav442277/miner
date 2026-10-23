@@ -43,8 +43,10 @@ licensed for paid use. Season I's board (149 done items, all Season I epoch and 
       36 intents, 154 questions, production 110 pass / 17 partial / 27 fail; 22 fails fixed on
       `claude/correctness-audit-2026-10-21` (unit 787/787), 5 logged in G200, no intent recommended for removal.
       Evidence: `track1-miner/docs/evidence/correctness-audit-2026-10-21/`.
-- [ ] Deploy the audit branch (it contains the places-table build) — preview → production → gates — on the
+- [x] **Done 2026-10-23:** production `miner-n9d4aoxw8` from `22284c0`; evidence in `release-2026-10-23/`. Deploy the audit branch (it contains the places-table build) — preview → production → gates — on the
       owner's yes. The sanctions alias fix matters most (G201). Expect the intended `/ip-geolocate` diff in `no-regression.mjs` (G202).
+- [ ] G207: timeless web search quotes the wrong Wikipedia article (Pride and Prejudice → the zombie film). Next, before
+      RESEARCH_QUERY: WEB_SEARCH is bought by 7 missions.
 - [ ] RESEARCH_QUERY: require the qualifier as well as the entity in trials and papers (G200, 3 of 4 failed).
 - [ ] ACADEMIC_SEARCH: answer a title lookup with that paper (G200).
 - [ ] The G200 partials, smallest first: NXDOMAIN wording (SSL, URL_SAFE), the threshold answer for

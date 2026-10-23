@@ -1,6 +1,6 @@
 # GAPS.md — honesty ledger
 
-## 2026-10-22 Season II rules published — G203–G206
+## 2026-10-22/23 Season II rules published, audit release — G203–G207
 
 The Miner and Evaluator rubrics are now on hackathon.telegraphprotocol.com/rules (read 2026-10-22 16:47 UTC).
 They are recorded in `RULES_SEASON2.md`; the strategy built on them is in `WINNING.md`. G200–G202 are on
@@ -35,6 +35,15 @@ branch `claude/correctness-audit-2026-10-21`, not yet merged here.
   workflow has been `disabled_manually` since 2026-10-01 at the owner's request. Reliability, availability
   and capacity are 20 of the Miner's 100 points. Resuming a record from Nov 1, and adding a capacity test,
   needs the owner's yes. Not measured: Vercel plan limits under concurrent load.
+- **G207 — Timeless web-search questions quote the wrong Wikipedia article. `OPEN, next WEB_SEARCH fix`.** Seen
+  on preview `miner-qazd6wyp9`, 2026-10-23:
+  - "Who wrote Pride and Prejudice?" quoted *Pride and Prejudice and Zombies (film)*;
+  - "What is the capital of Australia?" quoted the ACT article without naming Canberra;
+  - the Mona Lisa and telephone questions came out right.
+
+  The cause is not yet traced: the article is picked inside the timeless path added in `deaac8e`. WEB_SEARCH is
+  bought by 7 missions, so this is the highest-value open quality item. Evidence:
+  `track1-miner/docs/evidence/release-2026-10-23/`.
 
 ## 2026-10-21 correctness audit — G200–G202
 
@@ -64,7 +73,7 @@ label); Cape Town's was already fixed by the undeployed places table. **None dep
     RESEARCH_SYNTHESIS quotes background sentences as findings; CONTENT_EXTRACTION's multi-kind summary repeats
     values and misses "1,200 units"; FACT_CHECK quotes an unrelated article for a forecast ("Violence begets
     violence"). FACT_CHECK's Great Wall myth is now `unverified`, not `contradicted`.
-- **G201 — Production's OFAC aliases were missing. `FIXED in code, NOT deployed`.** "Rosneft" answered
+- **G201 — Production's OFAC aliases were missing. `FIXED, DEPLOYED 2026-10-23` (production `miner-n9d4aoxw8`; the preview matched "Rosneft").** "Rosneft" answered
   `no_match` although `ROSNEFT` is an alias of SDN entry 17022; locally, with alt.csv, it scores 1.0. So the
   production instance had parsed SDN.CSV without ALT.CSV (the alias download failed silently) and cached
   that as complete — every alias-only name was cleared. `220463a` makes a failed alias download an unread
@@ -73,7 +82,7 @@ label); Cape Town's was already fixed by the undeployed places table. **None dep
   against downloads measured at 8.0 s (SDN.CSV, 5.7 MB) and 4.3 s (ALT.CSV) from this machine; in the branch
   replay the OFAC read failed once and the UN read failed twice. With the fix that is an honest "not
   cleared", but a longer timeout or a background refresh would make it rarer.
-- **G202 — Deploy notes for the audit branch. `OPEN`.** (1) `/ip-geolocate` now answers anycast addresses as
+- **G202 — Deploy notes for the audit branch. `DEPLOYED 2026-10-23`; (2) the ip-api and ipinfo terms are still unread.** (1) `/ip-geolocate` now answers anycast addresses as
   anycast, so `no-regression.mjs` will show 8.8.8.8 differing from production by design, and
   `intent-answers.mjs` now requires `verdict: anycast` for 8.8.8.8 (passes on the branch, fails on current
   production). (2) The anycast flag comes from ipinfo, whose terms are still unread (G189), as are ip-api's;
