@@ -14,6 +14,14 @@ licensed for paid use. Season I's board (149 done items, all Season I epoch and 
 - [ ] G204: decide on WINNING.md A4. Should our own disclosed H2 mission workflow earn related-party
       consumption points (up to 7 of 10)?
 - [ ] G205: yes or no to resuming an availability record from Nov 1 (reliability is 20 of 100 Miner points).
+- [ ] Approve the 2026-10-23 disk cleanup (nothing in it is unsaved work):
+      - Remove the three merged, clean session worktrees `admiring-golick`, `loving-elbakyan` and
+        `status-check-fixes` (166 MB).
+      - Delete the 40 Season I `rank_answer` champion binaries in `track2/harness/champions` (618 MB,
+        gitignored), together with the Season I proof tools that read them, in the Track 2 lane.
+      - Bundle the ~30 Season I local branches to one backup file, then delete them.
+      - Keep `track2/calibration` (registration 1882 is still the TEXT_AUTHENTICITY_CHECK champion),
+        `node_modules` and current evidence.
 - [ ] Approve the cuts in WINNING.md §6:
       - Intents, applied in the next `updateMiner`: NEWS_HEADLINES, IP_GEOLOCATION, STOCK_PRICE, and
         RESEARCH_QUERY unless it is fixed by Nov 1.
