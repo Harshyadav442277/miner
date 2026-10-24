@@ -7,27 +7,36 @@
  * was quoted and the venue that quoted it, because a live crypto price is only
  * meaningful with both — two honest reads a minute apart disagree.
  *
- * Two independent keyless sources, read concurrently (verified live 2026-09-12):
- *   Coinbase Exchange  /products/{BASE}-{QUOTE}/ticker  last trade price and trade time
- *   CoinGecko          /simple/price                    cross-venue aggregate, last_updated_at
- * Coinbase is the headline where it lists the pair, because its figure is a
- * real trade at a stated instant; CoinGecko covers everything else and is the
- * cross-check. Binance was NOT used: it answers HTTP 451 to US datacenter IPs,
- * which is where the deployment runs.
+ * ONE SOURCE, CHOSEN FOR ITS LICENCE (2026-10-24). Bitstamp is the only
+ * exchange whose terms allow "the incorporation and redistribution of our
+ * exchange data for commercial purposes", subject to its commercial Data
+ * License Agreement. Coinbase's market-data terms bar redistribution "to any
+ * third party outside of your organization", Kraken's allow use "only for your
+ * own benefit", and CoinGecko reserves redistribution for its Enterprise plan.
+ * A paid miner answer is redistribution, so those three are not called.
  *
- * Historical prices come from the same two: Coinbase's daily candle for that UTC
- * day and CoinGecko's `/coins/{id}/history` snapshot for the date. Their figures
- * differ (a candle open is a trade, the snapshot an aggregate) and both are named.
+ *   /api/v2/ticker/{pair}/   last trade price and its unix timestamp, spot only
+ *   /api/v2/ohlc/{pair}/     a past UTC day's open and close (step 86400)
+ *
+ * An UNKNOWN pair is not an error: Bitstamp answers 200 with an array of every
+ * ticker (seen 2026-10-24 for ethjpy and zzzusd). Only a single object counts
+ * as a quote, or BTC's price would be reported under another asset's name.
+ *
+ * A fiat currency Bitstamp does not quote (INR, JPY, ...) is derived from its
+ * USD pair and Frankfurter's blended central-bank rate (currency.ts), and the
+ * answer says so. A crypto quote with no direct pair (SOL in BTC) is the ratio
+ * of two Bitstamp USD pairs. With one venue there is no cross-check, and the
+ * answer does not claim one.
  *
  * Refused by name: testnet assets, which have no market price at all ("What is
  * the price of Base sepolia now?" is a real routed question), a future date,
  * which would be a prediction, and a question naming no asset.
  */
 
+import { fetchBlended, formatRate } from "./currency";
+
 const TIMEOUT_MS = Number(process.env.CRYPTO_TIMEOUT_MS ?? 4_000);
-const COINBASE = "https://api.exchange.coinbase.com/products";
-const GECKO = "https://api.coingecko.com/api/v3";
-const KRAKEN = "https://api.kraken.com/0/public/Ticker";
+const BITSTAMP = "https://www.bitstamp.net/api/v2";
 const UA = "livecert-miner/1.0 (+https://miner-wine.vercel.app)";
 
 export type CryptoVerdict = "price" | "historical_price" | "no_market_price" | "not_found" | "unknown";
@@ -44,18 +53,24 @@ export interface CryptoPriceResult {
   quote?: string;
   price_at?: string;
   source?: string;
-  /** CoinGecko's aggregate, when an exchange quote led the answer. */
-  aggregate_price?: number;
+  /** Bitstamp's best bid and ask and 24-hour base volume, when quoted directly. */
+  bid?: number;
+  ask?: number;
+  volume_24h?: number;
+  /** For a derived quote: the USD price and the USD-to-quote rate it was multiplied by. */
+  usd_price?: number;
+  fx_rate?: number;
+  fx_as_of?: string;
   /** A dollar stablecoin's distance from $1.00, in percent. */
   peg_deviation_pct?: number;
-  /** A past day: Coinbase's UTC-day open and close, CoinGecko's snapshot. */
+  /** A past day: Bitstamp's UTC-day open and close. */
   date?: string;
   open?: number;
   close?: number;
-  snapshot_price?: number;
 }
 
-export interface Asset { name: string; symbol: string; gecko: string; coinbase: boolean }
+/** `gecko` is CoinGecko's id, still read by financial.ts; this file no longer calls CoinGecko. */
+export interface Asset { name: string; symbol: string; gecko: string }
 
 /**
  * A major's name inside a different coin's name: "Bitcoin Cash", "Ethereum
@@ -69,38 +84,38 @@ const POST = String.raw`(?![\s-]+(?:cash|sv|satoshi|classic|gold|diamond|private
 const major = (words: string, ci = "i"): RegExp => new RegExp(`${PRE}\\b(?:${words})\\b${POST}`, ci);
 
 /**
- * Majors, matched by name or ticker. `coinbase` marks a pair verified to exist there.
- * Tickers that are also English words or names (LINK, DOT, ADA) match only in
+ * Majors, matched by name or ticker. WBTC and DAI have no Bitstamp pair
+ * (2026-10-24) and stay for financial.ts; a price question about them is
+ * answered as unlisted. Tickers that are also English words or names (LINK, DOT, ADA) match only in
  * capitals: "Send me the link to the price of PEPE" is about PEPE, and
  * "link my wallet" names no asset.
  */
 const ASSETS: Array<[RegExp[], Asset]> = [
-  [[/\bbitcoin\s+cash\b|\bbch\b/i], { name: "Bitcoin Cash", symbol: "BCH", gecko: "bitcoin-cash", coinbase: true }],
-  [[/\bethereum\s+classic\b|\betc\b/i], { name: "Ethereum Classic", symbol: "ETC", gecko: "ethereum-classic", coinbase: true }],
-  // Coinbase delisted WBTC-USD ("Not allowed for delisted products", 2026-09-13); Kraken lists WBTCUSD.
-  [[/\bwrapped\s+(?:bitcoin|btc)\b|\bwbtc\b/i], { name: "Wrapped Bitcoin", symbol: "WBTC", gecko: "wrapped-bitcoin", coinbase: false }],
-  [[major("bitcoin|btc|xbt")], { name: "Bitcoin", symbol: "BTC", gecko: "bitcoin", coinbase: true }],
-  [[major("ethereum|eth|ether")], { name: "Ethereum", symbol: "ETH", gecko: "ethereum", coinbase: true }],
-  [[major("solana|sol")], { name: "Solana", symbol: "SOL", gecko: "solana", coinbase: true }],
-  [[/\busd\s*coin\b|\busdc\b/i], { name: "USD Coin", symbol: "USDC", gecko: "usd-coin", coinbase: false }],
-  [[/\btether\b|\busdt\b/i], { name: "Tether", symbol: "USDT", gecko: "tether", coinbase: true }],
-  [[major("xrp|ripple")], { name: "XRP", symbol: "XRP", gecko: "ripple", coinbase: true }],
-  [[major("dogecoin|doge")], { name: "Dogecoin", symbol: "DOGE", gecko: "dogecoin", coinbase: true }],
-  [[major("cardano"), major("ADA", "")], { name: "Cardano", symbol: "ADA", gecko: "cardano", coinbase: true }],
-  [[major("avalanche|avax")], { name: "Avalanche", symbol: "AVAX", gecko: "avalanche-2", coinbase: true }],
-  [[major("chainlink"), major("LINK", "")], { name: "Chainlink", symbol: "LINK", gecko: "chainlink", coinbase: true }],
-  [[major("litecoin|ltc")], { name: "Litecoin", symbol: "LTC", gecko: "litecoin", coinbase: true }],
-  [[major("polkadot"), major("DOT", "")], { name: "Polkadot", symbol: "DOT", gecko: "polkadot", coinbase: true }],
-  [[major("bnb|binance coin")], { name: "BNB", symbol: "BNB", gecko: "binancecoin", coinbase: false }],
-  [[major("dai")], { name: "Dai", symbol: "DAI", gecko: "dai", coinbase: true }],
+  [[/\bbitcoin\s+cash\b|\bbch\b/i], { name: "Bitcoin Cash", symbol: "BCH", gecko: "bitcoin-cash" }],
+  [[/\bethereum\s+classic\b|\betc\b/i], { name: "Ethereum Classic", symbol: "ETC", gecko: "ethereum-classic" }],
+  [[/\bwrapped\s+(?:bitcoin|btc)\b|\bwbtc\b/i], { name: "Wrapped Bitcoin", symbol: "WBTC", gecko: "wrapped-bitcoin" }],
+  [[major("bitcoin|btc|xbt")], { name: "Bitcoin", symbol: "BTC", gecko: "bitcoin" }],
+  [[major("ethereum|eth|ether")], { name: "Ethereum", symbol: "ETH", gecko: "ethereum" }],
+  [[major("solana|sol")], { name: "Solana", symbol: "SOL", gecko: "solana" }],
+  [[/\busd\s*coin\b|\busdc\b/i], { name: "USD Coin", symbol: "USDC", gecko: "usd-coin" }],
+  [[/\btether\b|\busdt\b/i], { name: "Tether", symbol: "USDT", gecko: "tether" }],
+  [[major("xrp|ripple")], { name: "XRP", symbol: "XRP", gecko: "ripple" }],
+  [[major("dogecoin|doge")], { name: "Dogecoin", symbol: "DOGE", gecko: "dogecoin" }],
+  [[major("cardano"), major("ADA", "")], { name: "Cardano", symbol: "ADA", gecko: "cardano" }],
+  [[major("avalanche|avax")], { name: "Avalanche", symbol: "AVAX", gecko: "avalanche-2" }],
+  [[major("chainlink"), major("LINK", "")], { name: "Chainlink", symbol: "LINK", gecko: "chainlink" }],
+  [[major("litecoin|ltc")], { name: "Litecoin", symbol: "LTC", gecko: "litecoin" }],
+  [[major("polkadot"), major("DOT", "")], { name: "Polkadot", symbol: "DOT", gecko: "polkadot" }],
+  [[major("bnb|binance coin")], { name: "BNB", symbol: "BNB", gecko: "binancecoin" }],
+  [[major("dai")], { name: "Dai", symbol: "DAI", gecko: "dai" }],
 ];
 
 const STABLE = new Set(["USDC", "USDT", "DAI"]);
 
 /**
- * Quote currencies CoinGecko's /simple/price accepts (checked 2026-09-13 against
- * /simple/supported_vs_currencies), plus BTC and ETH, which Coinbase also lists
- * as quotes (ETH-BTC answered HTTP 200 on 2026-09-13).
+ * Quote currencies read from a question. Bitstamp quotes USD, EUR, GBP, BTC and
+ * ETH directly for some assets (2026-10-24); the other fiat quotes are derived
+ * from the USD pair (see FIAT_DERIVED), and BTC or ETH from two USD pairs.
  */
 const QUOTES: Record<string, string> = {
   usd: "USD", eur: "EUR", gbp: "GBP", jpy: "JPY", inr: "INR", cad: "CAD", aud: "AUD", chf: "CHF", cny: "CNY",
@@ -221,36 +236,84 @@ async function getJson(url: string): Promise<unknown> {
 /** Sub-dollar prices keep four significant figures, so a $0.9999 stablecoin is not "$1.00". */
 export function formatPrice(n: number, quote: string): string {
   const sym = quote === "USD" ? "$" : quote === "EUR" ? "€" : quote === "GBP" ? "£" : "";
+  // toPrecision switches to exponent form below 1e-6 ("9.700e-7"), which a
+  // BTC-quoted small coin reaches; those keep four significant figures in fixed form.
   const body = n >= 1
     ? n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-    : n.toPrecision(4);
+    : n > 0 && n < 1e-6 ? n.toFixed(3 - Math.floor(Math.log10(n))) : n.toPrecision(4);
   return `${sym}${body} ${quote}`;
 }
 
 const utc = (ms: number): string => `${new Date(ms).toISOString().slice(0, 19).replace("T", " ")} UTC`;
 
-/** Resolve an asset outside the table through CoinGecko search, exact symbol or name only. */
-export async function searchAsset(name: string): Promise<Asset | null | undefined> {
-  let j: { coins?: Array<{ id?: string; name?: string; symbol?: string; market_cap_rank?: number | null }> };
+/** A Bitstamp spot ticker. */
+interface Ticker { price: number; at: number; bid: number; ask: number; volume: number }
+
+/**
+ * Bitstamp's bot wall answered 503 after about six requests within a few
+ * seconds from one IP (2026-10-24), and cleared seconds later. A pair read in
+ * the last 10 s is reused, and so is "unlisted"; an outage is never cached.
+ */
+const CACHE_MS = 10_000;
+const cache = new Map<string, { at: number; value: Ticker | null }>();
+
+/** For tests: forget cached tickers. */
+export function clearTickerCache(): void {
+  cache.clear();
+}
+
+/**
+ * One Bitstamp pair's ticker: null when Bitstamp lists no such pair (it answers
+ * with an array of every ticker instead), undefined when it did not answer
+ * usably (timeout, the bot wall's 503, HTML, a malformed body).
+ */
+async function ticker(base: string, quote: string): Promise<Ticker | null | undefined> {
+  const pair = (base + quote).toLowerCase();
+  const hit = cache.get(pair);
+  if (hit && Date.now() - hit.at < CACHE_MS) return hit.value;
+  let j: unknown;
   try {
-    j = (await getJson(`${GECKO}/search?query=${encodeURIComponent(name)}`)) as typeof j;
+    j = await getJson(`${BITSTAMP}/ticker/${pair}/`);
   } catch {
-    return undefined; // unknown, not absent
+    return undefined;
   }
-  const want = name.toLowerCase().replace(/\s+/g, " ").trim();
-  // Exact matches only: CoinGecko's search is fuzzy, and a near-miss is a
-  // different asset — the substitution A5 forbids. A multi-word phrase is a
-  // name and must equal a coin's full name; only a single word may also be a
-  // ticker. An exact name beats an exact ticker, then market-cap rank decides.
-  const coins = (j.coins ?? []).filter((c) => c.id);
-  const byName = coins.filter((c) => c.name?.toLowerCase() === want);
-  const bySymbol = want.includes(" ") ? [] : coins.filter((c) => c.symbol?.toLowerCase() === want);
-  const rank = (a: { market_cap_rank?: number | null }, b: { market_cap_rank?: number | null }): number =>
-    (a.market_cap_rank ?? 1e9) - (b.market_cap_rank ?? 1e9);
-  const hit = [...byName.sort(rank), ...bySymbol.sort(rank)]
-    // An unranked exact name does not beat a ranked exact ticker ("pepe" the name vs PEPE).
-    .sort((a, b) => ((a.market_cap_rank == null) === (b.market_cap_rank == null) ? 0 : a.market_cap_rank == null ? 1 : -1))[0];
-  return hit ? { name: hit.name ?? name, symbol: (hit.symbol ?? name).toUpperCase(), gecko: hit.id!, coinbase: false } : null;
+  const t = (j ?? {}) as Record<string, unknown>;
+  const price = Number(t.last);
+  const at = Number(t.timestamp) * 1000;
+  if (!Array.isArray(j) && (!(price > 0) || !Number.isFinite(at))) return undefined;
+  const value = Array.isArray(j) ? null : { price, at, bid: Number(t.bid), ask: Number(t.ask), volume: Number(t.volume) };
+  cache.set(pair, { at: Date.now(), value });
+  return value;
+}
+
+/** A ticker-shaped word: what Bitstamp's pair names are built from. */
+const TICKER = /^[A-Z0-9]{2,10}$/;
+
+type Quoted =
+  | { how: "direct"; price: number; t: Ticker }
+  | { how: "fiat"; price: number; t: Ticker; rate: number; rateDate: string }
+  | { how: "cross"; price: number; t: Ticker; q: Ticker };
+
+/**
+ * The quotes of QUOTES that Bitstamp lists any pair in (2026-10-24 listing). For
+ * any other, asking for the direct pair only fetches the 80 KB all-tickers reply.
+ */
+const DIRECT_QUOTES = new Set(["USD", "EUR", "GBP", "BTC", "ETH"]);
+
+/** The price of `symbol` in `quote` from Bitstamp, directly or derived; null unlisted, undefined unavailable. */
+async function quoteNow(symbol: string, quote: string): Promise<Quoted | null | undefined> {
+  const direct = DIRECT_QUOTES.has(quote) ? await ticker(symbol, quote) : null;
+  if (direct) return { how: "direct", price: direct.price, t: direct };
+  if (direct === undefined || quote === "USD") return direct;
+  const usd = await ticker(symbol, "USD");
+  if (!usd) return usd;
+  if (quote === "BTC" || quote === "ETH") {
+    const q = await ticker(quote, "USD");
+    return q ? { how: "cross", price: usd.price / q.price, t: usd, q } : undefined;
+  }
+  const fx = await fetchBlended("USD", quote);
+  const rate = fx?.rates[quote];
+  return fx && rate ? { how: "fiat", price: usd.price * rate, t: usd, rate, rateDate: fx.date } : undefined;
 }
 
 export async function lookupCryptoPrice(question: string, symbolParam = "", now = new Date()): Promise<CryptoPriceResult> {
@@ -263,127 +326,106 @@ export async function lookupCryptoPrice(question: string, symbolParam = "", now 
   let asset = knownAsset(q);
   if (!asset) {
     const cand = candidateName(q);
-    const found = cand ? await searchAsset(cand) : null;
-    if (found === undefined) {
-      return { asset: cand, symbol: null, verdict: "unknown", confidence: 0, error: "upstream_unavailable",
-        reason: `The asset ${cand} could not be looked up because the price index did not respond. This is an availability problem, not a statement that it has no price.` };
+    if (!cand) {
+      return { asset: null, symbol: null, verdict: "unknown", confidence: 0, error: "no_subject",
+        reason: "No cryptocurrency was named in this request, so no price could be quoted. Name an asset, for example: What is the current price of Ethereum (ETH) in USD?" };
     }
-    if (!found) {
-      return { asset: cand, symbol: null, verdict: cand ? "not_found" : "unknown", confidence: cand ? 0.5 : 0, error: cand ? undefined : "no_subject",
-        reason: cand
-          ? `No cryptocurrency whose name or ticker is exactly ${cand} is listed in the price index, so no price is reported for it rather than one for a similarly named asset.`
-          : "No cryptocurrency was named in this request, so no price could be quoted. Name an asset, for example: What is the current price of Ethereum (ETH) in USD?" };
+    // Outside the table, an asset is accepted only as an exact ticker. A name
+    // ("Shiba Inu") cannot be checked against Bitstamp, which lists pairs, not
+    // coin names, and a guessed ticker could be a different coin.
+    const sym = cand.toUpperCase();
+    if (!TICKER.test(sym)) {
+      return { asset: cand, symbol: null, verdict: "not_found", confidence: 0.5,
+        reason: `${cand} is not a ticker, and the price source here is looked up by ticker only, so no price is reported rather than one for a coin guessed from the name. Ask with the asset's ticker, for example $PEPE.` };
     }
-    asset = found;
+    asset = { name: sym, symbol: sym, gecko: "" };
   }
   // "Should I invest in bitcoin?" reads "in bitcoin" as a quote clause; an asset
   // is never quoted in itself, so that falls back to USD.
   const asked = quoteCurrency(q);
   const quote = asked === asset.symbol ? "USD" : asked;
-  const label = `${asset.name} (${asset.symbol})`;
+  const label = asset.name === asset.symbol ? asset.symbol : `${asset.name} (${asset.symbol})`;
   const date = requestedDate(q, now);
-  if (date) return historical(asset, quote, date, now);
+  if (date) return historical(asset, label, quote, date, now);
 
-  const [pair, cg] = await Promise.all([
-    venueQuote(asset, quote, now),
-    getJson(`${GECKO}/simple/price?ids=${asset.gecko}&vs_currencies=${quote.toLowerCase()}&include_last_updated_at=true&precision=full`)
-      .then((j) => (j as Record<string, Record<string, number>>)[asset!.gecko] ?? null).catch(() => null),
-  ]);
-  const cgPrice = Number(cg?.[quote.toLowerCase()]);
-  const cgTime = Number(cg?.last_updated_at) * 1000;
-  const haveCg = Number.isFinite(cgPrice) && cgPrice > 0 && Number.isFinite(cgTime);
-  // An exchange pair is looked up by ticker, and tickers are not unique: a coin
-  // resolved through search may share its ticker with a different listed coin.
-  // A venue price more than 10% from CoinGecko's figure for the resolved coin is
-  // treated as that other coin and dropped.
-  const near = pair && haveCg && Math.abs(pair.price - cgPrice) / cgPrice > 0.1 ? null : pair;
-  // A venue more than 2% from the aggregate is a thin local book, not the
-  // market: Coinbase's SOL-INR (16 SOL a day) last traded at 10,723.59 INR when
-  // CoinGecko read 10,085.08, and that trade led the answer (2026-10-21). The
-  // aggregate leads then, and the venue's trade is named with its gap.
-  const thin = near && haveCg && Math.abs(near.price - cgPrice) / cgPrice > 0.02 ? near : null;
-  const venue = thin ? null : near;
-  if (!venue && !haveCg) {
+  const got = await quoteNow(asset.symbol, quote);
+  if (got === undefined) {
     return { asset: asset.name, symbol: asset.symbol, verdict: "unknown", confidence: 0, error: "upstream_unavailable",
-      reason: `The current price of ${label} could not be retrieved because neither an exchange nor CoinGecko responded with a quote. This is an availability problem, not a statement about ${asset.symbol}.` };
+      reason: `The current price of ${label} could not be retrieved because Bitstamp${quote === "USD" || quote === "EUR" || quote === "GBP" ? "" : " or the exchange-rate source"} did not answer with a usable quote. This is an availability problem, not a statement about ${asset.symbol}.` };
   }
-  const head = venue
-    ? `${label} is ${formatPrice(venue.price, quote)}, ${venue.what} ${utc(venue.at)}.`
-    : `${label} is ${formatPrice(cgPrice, quote)}, the CoinGecko aggregate price updated at ${utc(cgTime)}.`;
-  const cross = venue && haveCg ? ` CoinGecko's aggregate read ${formatPrice(cgPrice, quote)} at ${utc(cgTime)}.`
-    : thin ? ` ${thin.venue}'s ${asset.symbol}-${quote} book, ${thin.what} ${utc(thin.at)}, was ${formatPrice(thin.price, quote)}, ` +
-      `${(Math.abs(thin.price - cgPrice) / cgPrice * 100).toFixed(1)}% away, so that thinner market is not used as the price.` : "";
+  if (got === null) {
+    return { asset: asset.name, symbol: asset.symbol, verdict: "not_found", confidence: 0.5,
+      reason: `Bitstamp lists no ${asset.symbol} market, and it is the only price source here whose terms allow its data to be resold, so no price is reported for ${label} rather than one from an unlicensed source.` };
+  }
+  const { t } = got;
+  const head = got.how === "direct"
+    ? `${label} is ${formatPrice(got.price, quote)}, the last Bitstamp trade at ${utc(t.at)}.`
+    : got.how === "fiat"
+      ? `${label} is about ${formatPrice(got.price, quote)}: Bitstamp's last ${asset.symbol}-USD trade at ${utc(t.at)} was ` +
+        `${formatPrice(t.price, "USD")}, converted at 1 USD = ${formatRate(got.rate)} ${quote}, Frankfurter's blended ` +
+        `central-bank rate whose newest contributing rate is dated ${got.rateDate}. Bitstamp does not quote ${asset.symbol} in ${quote}.`
+      : `${label} is about ${formatPrice(got.price, quote)}, derived from Bitstamp's last ${asset.symbol}-USD trade ` +
+        `(${formatPrice(t.price, "USD")}) and ${quote}-USD trade (${formatPrice(got.q.price, "USD")}), ` +
+        `the older of the two at ${utc(Math.min(t.at, got.q.at))}.`;
   // "is USDC price stable?" is a routed question: for a dollar stablecoin the
   // distance from the peg is the part of the price that answers it.
   const peg = STABLE.has(asset.symbol) && quote === "USD"
-    ? ` That is ${(Math.abs((venue ? venue.price : cgPrice) - 1) * 100).toFixed(2)}% from its $1.00 peg.` : "";
-  const price = venue ? venue.price : cgPrice;
-  return { asset: asset.name, symbol: asset.symbol, verdict: "price", confidence: 0.9,
-    price, quote, price_at: new Date(venue ? venue.at : cgTime).toISOString(),
-    source: venue ? venue.venue : "CoinGecko",
-    ...(venue && haveCg ? { aggregate_price: cgPrice } : {}),
-    ...(peg ? { peg_deviation_pct: Number((Math.abs(price - 1) * 100).toFixed(2)) } : {}),
-    reason: `${head}${peg}${cross} This is a live market quote and moves between reads.` };
+    ? ` That is ${(Math.abs(got.price - 1) * 100).toFixed(2)}% from its $1.00 peg.` : "";
+  return { asset: asset.name, symbol: asset.symbol, verdict: "price", confidence: got.how === "direct" ? 0.9 : 0.8,
+    price: got.price, quote, price_at: new Date(t.at).toISOString(),
+    source: got.how === "fiat" ? "Bitstamp, Frankfurter" : "Bitstamp",
+    ...(got.how === "direct" && Number.isFinite(t.bid) && Number.isFinite(t.ask) ? { bid: t.bid, ask: t.ask } : {}),
+    ...(got.how === "direct" && Number.isFinite(t.volume) ? { volume_24h: t.volume } : {}),
+    ...(got.how === "fiat" ? { usd_price: t.price, fx_rate: got.rate, fx_as_of: got.rateDate } : {}),
+    ...(peg ? { peg_deviation_pct: Number((Math.abs(got.price - 1) * 100).toFixed(2)) } : {}),
+    reason: `${head}${peg} This is a live market quote from one exchange and moves between reads.` };
 }
 
 /**
- * One exchange trade price. Coinbase first, which stamps each trade; Kraken where
- * Coinbase has no pair (USDC-USD is 404 there, verified 2026-09-12). Kraken's
- * ticker carries no trade time, so its figure is stamped with the read time and
- * worded as such. CoinGecko's keyless tier sheds bursts (observed 2026-09-12
- * after about ten calls in a minute), which is why an exchange is always tried.
+ * Bitstamp's daily candle for one UTC day: null when the pair is unlisted (404),
+ * undefined when unavailable. A start with no candle returns the LATEST day
+ * instead (seen 2026-10-24 for a future start), so the timestamp must match.
  */
-async function venueQuote(asset: Asset, quote: string, now: Date): Promise<{ price: number; at: number; what: string; venue: string } | null> {
-  const [cb, kr] = await Promise.all([
-    getJson(`${COINBASE}/${asset.symbol}-${quote}/ticker`).then((j) => j as { price?: string; time?: string }).catch(() => null),
-    // Kraken also where Coinbase has no quote in that currency (BTC-JPY is 404 on
-    // Coinbase, XBTJPY is 200 on Kraken, 2026-09-13). Kraken spells BTC as XBT.
-    !asset.coinbase || !["USD", "EUR", "GBP", "BTC", "ETH"].includes(quote)
-      ? getJson(`${KRAKEN}?pair=${asset.symbol === "BTC" ? "XBT" : asset.symbol}${quote === "BTC" ? "XBT" : quote}`)
-        .then((j) => Object.values((j as { result?: Record<string, { c?: string[] }> }).result ?? {})[0] ?? null).catch(() => null)
-      : Promise.resolve(null),
-  ]);
-  const p = Number(cb?.price);
-  const t = Date.parse(String(cb?.time ?? ""));
-  if (Number.isFinite(p) && p > 0 && Number.isFinite(t)) return { price: p, at: t, what: "the last Coinbase trade at", venue: "Coinbase" };
-  const kp = Number(kr?.c?.[0]);
-  return Number.isFinite(kp) && kp > 0 ? { price: kp, at: now.getTime(), what: "Kraken's last trade price as read at", venue: "Kraken" } : null;
+async function candle(base: string, quote: string, startMs: number): Promise<{ open: number; close: number } | null | undefined> {
+  const start = startMs / 1000;
+  let r: Response;
+  try {
+    r = await fetch(`${BITSTAMP}/ohlc/${(base + quote).toLowerCase()}/?step=86400&limit=1&start=${start}`,
+      { headers: { accept: "application/json", "user-agent": UA }, signal: AbortSignal.timeout(TIMEOUT_MS) });
+  } catch {
+    return undefined;
+  }
+  if (r.status === 404) return null;
+  if (!r.ok) return undefined;
+  let j: { data?: { ohlc?: Array<Record<string, string>> } };
+  try {
+    j = (await r.json()) as typeof j;
+  } catch {
+    return undefined;
+  }
+  const row = j.data?.ohlc?.[0];
+  const open = Number(row?.open);
+  const close = Number(row?.close);
+  if (Number(row?.timestamp) !== start || !(open > 0) || !(close > 0)) return undefined;
+  return { open, close };
 }
 
-async function historical(asset: Asset, quote: string, date: string, now: Date): Promise<CryptoPriceResult> {
-  const label = `${asset.name} (${asset.symbol})`;
+async function historical(asset: Asset, label: string, quote: string, date: string, now: Date): Promise<CryptoPriceResult> {
   const start = Date.parse(`${date}T00:00:00Z`);
   if (!Number.isFinite(start) || start > now.getTime()) {
     return { asset: asset.name, symbol: asset.symbol, verdict: "unknown", confidence: 0, error: "future_date",
       reason: `${date} has not happened yet, so ${label} has no price for it; a price for a future date would be a prediction, and none is made.` };
   }
-  const [dd, mm, yyyy] = [date.slice(8, 10), date.slice(5, 7), date.slice(0, 4)];
-  const end = new Date(start + 86_400_000).toISOString();
-  const [cb, cg] = await Promise.all([
-    asset.coinbase
-      ? getJson(`${COINBASE}/${asset.symbol}-${quote}/candles?granularity=86400&start=${date}T00:00:00Z&end=${end}`)
-        .then((j) => (j as number[][]).find((row) => row[0] === start / 1000) ?? null).catch(() => null)
-      : Promise.resolve(null),
-    getJson(`${GECKO}/coins/${asset.gecko}/history?date=${dd}-${mm}-${yyyy}&localization=false`)
-      .then((j) => Number((j as { market_data?: { current_price?: Record<string, number> } }).market_data?.current_price?.[quote.toLowerCase()]))
-      .catch(() => Number.NaN),
-  ]);
-  const parts: string[] = [];
-  // Coinbase candle rows are [time, low, high, open, close, volume].
-  if (cb && Number.isFinite(cb[3]) && Number.isFinite(cb[4])) {
-    parts.push(`opened at ${formatPrice(cb[3]!, quote)} and closed at ${formatPrice(cb[4]!, quote)} on Coinbase for the UTC day`);
+  const c = await candle(asset.symbol, quote, start);
+  if (c === null) {
+    return { asset: asset.name, symbol: asset.symbol, verdict: "not_found", confidence: 0.5,
+      reason: `Bitstamp lists no ${asset.symbol}-${quote} market, and it is the only price source here whose terms allow its data to be resold, so no price for ${label} on ${date} is reported.` };
   }
-  if (Number.isFinite(cg) && cg > 0) parts.push(`${parts.length ? "and " : ""}CoinGecko's daily snapshot for the date was ${formatPrice(cg, quote)}`);
-  if (!parts.length) {
+  if (c === undefined) {
     return { asset: asset.name, symbol: asset.symbol, verdict: "unknown", confidence: 0, error: "upstream_unavailable",
-      reason: `The price of ${label} on ${date} could not be retrieved: neither Coinbase nor CoinGecko returned a figure for that date. This is not a statement that it had no price.` };
+      reason: `The price of ${label} on ${date} could not be retrieved: Bitstamp returned no daily candle for that date. This is not a statement that it had no price.` };
   }
-  const candle = cb && Number.isFinite(cb[3]) && Number.isFinite(cb[4]);
-  const snap = Number.isFinite(cg) && cg > 0;
   return { asset: asset.name, symbol: asset.symbol, verdict: "historical_price", confidence: 0.85,
-    date, quote,
-    ...(candle ? { open: cb![3], close: cb![4] } : {}),
-    ...(snap ? { snapshot_price: cg } : {}),
-    source: [candle ? "Coinbase" : "", snap ? "CoinGecko" : ""].filter(Boolean).join(", "),
-    reason: `On ${date}, ${label} ${parts.join(", ")}. These are historical figures for that day, not a current price.` };
+    date, quote, open: c.open, close: c.close, source: "Bitstamp",
+    reason: `On ${date}, ${label} opened at ${formatPrice(c.open, quote)} and closed at ${formatPrice(c.close, quote)} on Bitstamp for the UTC day. These are historical figures for that day, not a current price.` };
 }

@@ -36,21 +36,30 @@
  * reference-derived, and we cannot see ground truths (GAPS G24) so we cannot
  * confirm that it ever is. What is certain is the direction of the bet — a
  * reference rate can match, a market quote cannot. Where the ECB does not
- * publish a currency the answer falls back to a market rate and SAYS it is one,
- * rather than implying a precision it does not have.
+ * publish a currency the answer falls back to Frankfurter's blended daily rate
+ * from other central banks and SAYS it is one, rather than implying ECB
+ * precision it does not have.
+ *
+ * LICENCE. open.er-api.com was the fallback until 2026-10-24. Its open-access
+ * terms allow commercial conversion use but say "not allowed to re-distribute
+ * it", and a paid miner answer is redistribution. Frankfurter's FAQ (read
+ * 2026-10-24) says blended rates "are Frankfurter's own calculation and free to
+ * use" commercially.
  */
 
 const TIMEOUT_MS = Number(process.env.CURRENCY_TIMEOUT_MS ?? 5_000);
 const ECB_DAILY = "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml";
-const MARKET = "https://open.er-api.com/v6/latest/";
 // v2, ECB-only (providers=ecb): v1 is nested-JSON, ECB-only too, but deprecated
 // per https://frankfurter.dev/llms.txt (checked 2026-09-16). v2's default blends
 // several providers into one number, which is not the reference rate this file
 // is built around, so the provider is pinned rather than left to the default.
 const FRANKFURTER = "https://api.frankfurter.dev/v2/rates";
+// The blend, used only for currencies the ECB does not publish. Not a direct
+// provider endpoint, which Frankfurter says stays under that provider's terms.
+const FRANKFURTER_PAIR = "https://api.frankfurter.dev/v2/rate/";
 const UA = "livecert-miner/1.0 (+https://miner-wine.vercel.app)";
 
-export type RateKind = "ecb_reference" | "market";
+export type RateKind = "ecb_reference" | "blended_reference";
 
 export interface CurrencyResult {
   from: string | null;
@@ -351,18 +360,24 @@ export async function fetchEcb(): Promise<RateTable | null> {
   return Object.keys(rates).length > 1 ? { rates, date, kind: "ecb_reference" } : null;
 }
 
-/** A market rate, used only where the ECB does not publish the currency. */
-export async function fetchMarket(base: string): Promise<RateTable | null> {
+/**
+ * Frankfurter's blended daily rate for one pair, used only where the ECB does
+ * not publish a currency. Its `date` is the NEWEST date among the contributing
+ * providers, not a common observation date: on 2026-10-24 (06:04 UTC) USD/INR
+ * read 2026-10-25 because one provider (BOM) dated ahead while most read
+ * 2026-10-23 (`expand=providers`). The answer words it as exactly that. An
+ * unknown code is a 422, so it reads as unavailable.
+ */
+export async function fetchBlended(from: string, to: string): Promise<RateTable | null> {
   try {
-    const r = await fetch(`${MARKET}${encodeURIComponent(base)}`, {
+    const r = await fetch(`${FRANKFURTER_PAIR}${encodeURIComponent(from)}/${encodeURIComponent(to)}`, {
       headers: { "user-agent": UA, accept: "application/json" },
       signal: AbortSignal.timeout(TIMEOUT_MS),
     });
     if (!r.ok) throw new Error(`HTTP ${r.status}`);
-    const j = (await r.json()) as { result?: string; rates?: Record<string, number>; time_last_update_utc?: string };
-    if (j.result !== "success" || !j.rates) return null;
-    const date = j.time_last_update_utc ? new Date(j.time_last_update_utc).toISOString().slice(0, 10) : "";
-    return { rates: { ...j.rates, [base]: 1 }, date, kind: "market" };
+    const j = (await r.json()) as { date?: string; base?: string; quote?: string; rate?: number };
+    if (j.base !== from || j.quote !== to || !j.date || !Number.isFinite(j.rate) || !j.rate) return null;
+    return { rates: { [from]: 1, [to]: j.rate as number }, date: j.date, kind: "blended_reference" };
   } catch {
     return null;
   }
@@ -508,13 +523,13 @@ export async function convert(
   let table = await fetchEcb();
   let rate = table ? crossRate(table, from, to) : null;
 
-  // The ECB publishes about thirty currencies. Anything else gets a market rate,
-  // and the answer says so rather than implying reference precision.
+  // The ECB publishes about thirty currencies. Anything else gets the blended
+  // central-bank rate, and the answer says so rather than claiming the ECB.
   if (!rate) {
-    const market = await fetchMarket(from);
-    if (market) {
-      const r = crossRate(market, from, to);
-      if (r) { table = market; rate = r; }
+    const blended = await fetchBlended(from, to);
+    if (blended) {
+      const r = crossRate(blended, from, to);
+      if (r) { table = blended; rate = r; }
     }
   }
 
@@ -523,8 +538,8 @@ export async function convert(
       ...base, verdict: "unknown", confidence: 0,
       reason:
         `The ${from} to ${to} exchange rate could not be retrieved: neither the European Central ` +
-        "Bank reference feed nor the market rate source responded with a usable rate. This is an " +
-        "availability problem here, not a statement that the pair has no rate.",
+        "Bank reference feed nor the blended central-bank rate source responded with a usable rate. " +
+        "This is an availability problem here, not a statement that the pair has no rate.",
       error: "provider_unavailable",
     };
   }
@@ -532,7 +547,8 @@ export async function convert(
   const inverse = 1 / rate;
   const provenance = table.kind === "ecb_reference"
     ? `This is the European Central Bank euro foreign exchange reference rate published for ${table.date}, not a live trading quote.`
-    : `This is a market rate${table.date ? ` last updated on ${table.date}` : ""}, not a daily reference rate, so it moves between reads.`;
+    : "This is Frankfurter's blended daily rate from central banks and official sources, whose newest " +
+      `contributing rate is dated ${table.date}; it is not a European Central Bank reference rate and not a live trading quote.`;
 
   if (amount === null) {
     return {
