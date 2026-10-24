@@ -1,6 +1,10 @@
 import { test, describe } from "node:test";
 import assert from "node:assert/strict";
 import { getHeadlines, extractRegion, extractTopic } from "../src/news";
+import { openGate } from "./licence-fixtures";
+
+// These tests cover the Google News code, kept behind its licence gate (GAPS G208).
+openGate("google-news");
 
 // GAPS G68: only thirteen topic words were recognised; "semiconductors" became
 // generic top stories (MLB scores, a hospital shooting — verified live

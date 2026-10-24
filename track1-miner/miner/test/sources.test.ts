@@ -10,10 +10,16 @@ const SRC = join(__dirname, "..", "..", "src");
 const files = readdirSync(SRC).filter((f) => f.endsWith(".ts") && f !== "sources.ts");
 const text = new Map(files.map((f) => [f.slice(0, -3), readFileSync(join(SRC, f), "utf8")]));
 
-/** Hosts written out as full URLs in a module, the only form this guard can see. */
+/**
+ * Hosts a module names: any written as a full URL, plus any registered host
+ * written as a bare quoted string (holders.ts builds `https://${host}` from a
+ * chain table). A host assembled from smaller pieces is still invisible here.
+ */
 function hostsIn(mod: string): Set<string> {
+  const src = text.get(mod) ?? "";
   const out = new Set<string>();
-  for (const m of (text.get(mod) ?? "").matchAll(/["'`]https?:\/\/([a-z0-9.-]+\.[a-z]{2,})/gi)) out.add(m[1]!.toLowerCase());
+  for (const m of src.matchAll(/["'`]https?:\/\/([a-z0-9.-]+\.[a-z]{2,})/gi)) out.add(m[1]!.toLowerCase());
+  for (const h of SOURCES.flatMap((s) => s.hosts)) if (src.includes(`"${h}"`)) out.add(h);
   return out;
 }
 
@@ -81,6 +87,7 @@ test("an endpoint is only as licensed as its weakest upstream", () => {
   assert.equal(weakest(["frankfurter", "bitstamp"]), "conditional", "an unmet condition is still conditional");
   assert.equal(weakest(["frankfurter", "ecb"]), "licensed", "the ECB's condition is met");
   assert.equal(weakest(["metno"]), "licensed", "a met condition counts as licensed");
-  assert.equal(weakest(["frankfurter", "yahoo"]), "barred");
+  assert.equal(weakest(["frankfurter", "yahoo"]), "licensed", "a barred source is never called, so it does not weaken the endpoint");
+  assert.equal(weakest(["yahoo", "nasdaq"]), "barred", "an endpoint with only barred sources serves nothing");
   assert.equal(weakest(["no-such-source"]), "unread");
 });

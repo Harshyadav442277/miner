@@ -1,6 +1,12 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { geolocate } from "../src/geo";
+import { openGate } from "./licence-fixtures";
+
+// These tests cover code kept behind its licence gate (GAPS G208).
+openGate("ip-api");
+openGate("ipwhois");
+openGate("ipinfo");
 
 test("an anycast address is not answered as one city (2026-10-21)", async (t) => {
   const original = globalThis.fetch;

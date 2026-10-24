@@ -1,6 +1,10 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { isRelevant, searchNews } from "../src/newssearch";
+import { openGate } from "./licence-fixtures";
+
+// These tests cover the Google News code, kept behind its licence gate (GAPS G208).
+openGate("google-news");
 
 const article = (title: string, source = "Reuters") => ({ title, source, published: null });
 test("a company name is not a substring inside an unrelated word", () => {

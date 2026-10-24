@@ -1,6 +1,12 @@
 import { test, describe } from "node:test";
 import assert from "node:assert/strict";
 import { extractIp, geolocate, specialRange, torExitNode } from "../src/geo";
+import { openGate } from "./licence-fixtures";
+
+// These tests cover code kept behind its licence gate (GAPS G208).
+openGate("ip-api");
+openGate("ipwhois");
+openGate("ipinfo");
 
 describe("extractIp", () => {
   test("reads a bare IPv4", () => assert.equal(extractIp("8.8.8.8"), "8.8.8.8"));

@@ -34,6 +34,8 @@
  * refused by name rather than guessed at.
  */
 
+import { permitted } from "./sources";
+
 const TIMEOUT_MS = Number(process.env.HOLDERS_TIMEOUT_MS ?? 6_000);
 /** The holders list is the slow one and runs beside the token lookup, not after it. */
 const CONCENTRATION_TIMEOUT_MS = Number(process.env.CONCENTRATION_TIMEOUT_MS ?? 8_000);
@@ -275,6 +277,9 @@ export async function addressForSymbol(
 ): Promise<string | null | "ambiguous" | "unavailable"> {
   const gecko = CHAINS[chain]?.gecko;
   if (!gecko) return null;
+  // GeckoTerminal is under CoinGecko's API terms, which bar redistribution
+  // (GAPS G208): the explorer's own search answers instead.
+  if (!permitted(GECKO)) return addressForSymbolViaExplorer(chain, symbol);
   let pools: Pool[];
   try {
     const body = (await getJson(

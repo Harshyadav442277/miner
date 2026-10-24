@@ -1,4 +1,5 @@
 import { decode, splitSource } from "./news";
+import { notLicensedReason, permitted } from "./sources";
 
 /**
  * NEWS_SEARCH — article coverage of a topic, entity or time period.
@@ -445,6 +446,15 @@ export async function searchNews(
         "search news coverage for. Name a subject, for example a company, an event or a policy " +
         "decision, and recent articles covering it can be returned with their publishers and dates.",
       error: "no_subject",
+    };
+  }
+
+  // Google News RSS is the only news index here, and its terms bar paid use
+  // (GAPS G189, G208), so no article search is served until a licensed one exists.
+  if (!permitted(FEED)) {
+    return {
+      subject, window_days: stated, verdict: "unknown", articles: [], count: 0, confidence: 0, error: "not_licensed",
+      reason: `News coverage of ${subject} is not searched: ${notLicensedReason(FEED)}`,
     };
   }
 

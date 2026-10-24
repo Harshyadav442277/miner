@@ -27,7 +27,7 @@ test("/sources serves the ledger without any outbound call", async (t) => {
   assert.ok(sources.length > 40);
   assert.equal(sources.find((s) => s.id === "yahoo")?.status, "barred");
   const endpoints = body.endpoints as Record<string, { status: string; sources: string[] }>;
-  assert.equal(endpoints["/stock-price"]?.status, "barred");
+  assert.equal(endpoints["/headlines"]?.status, "barred", "every source it has is barred");
   assert.equal(endpoints["/ssl-check"]?.status, "licensed", "a TLS check reads the target itself, no third-party data");
   assert.ok(Object.keys(body.statuses as object).includes("unread"));
 });

@@ -18,8 +18,22 @@ Terms pages are saved offline under `C:\tgw\terms` and `C:\tgw\terms2`. Nothing 
   - `/event-outcome`: Manifold (barred: "non-commercial use are permitted"); Polymarket unread, because it was
     unreachable from this network.
   - Options per endpoint: a licensed replacement, answer `not_licensed` (the G186 convention), or drop the
-    intent. **Do not deploy the `/sources` ledger before this is decided.** It would publish, under our own
-    name, that we serve data whose terms forbid it.
+    intent.
+  - **UPDATE 2026-10-24: decided "answer not_licensed"; `CODE DONE on claude/licensed-sources, NOT deployed`.**
+    `permitted(url)` in sources.ts gates every call, so a barred source is never called and the registry is the
+    switch. Each endpoint falls back to what is still licensed:
+    - `/ip-geolocate` answers reserved ranges only;
+    - `/financial` answers SEC-filing figures only;
+    - `/token-holders` resolves through Blockscout;
+    - `/web-search` uses Wikipedia and the docs, and never says news was searched;
+    - `/event-outcome` searches Polymarket only;
+    - `/stock-price`, `/headlines` and `/news-search` refuse everything (SERVES_NOTHING).
+  - Nasdaq was read the same day and is barred too ("personal, non-commercial use").
+  - Endpoint statuses after the gates: 4 licensed, 7 conditional, 11 unclear, 10 unread, 3 barred.
+  - `test/licence-gates.test.ts` proves no barred host is called. The gated paths' own tests open the gate
+    per file (`test/licence-fixtures.ts`).
+  - **Cost:** answers on these intents drop until a licensed source exists. Live tests for the gated paths
+    were not re-run.
 - **G209 — OpenAlex now meters keyless calls. `OPEN, owner: create a free key`.** Keyless requests share
   "$0.10" a day per IP (about 100 calls), and Vercel's egress IPs are shared. Production sets no
   `OPENALEX_API_KEY` (env names read 2026-10-24); a free key gets $1 a day. `/papers` answered correctly
@@ -28,8 +42,9 @@ Terms pages are saved offline under `C:\tgw\terms` and `C:\tgw\terms2`. Nothing 
   seconds from this machine, and cleared seconds later. It is mitigated by a 10 s per-pair cache and reported
   as an outage, never as a price. Question 3 of the DLA email asks Bitstamp about datacenter IPs.
 - **G211 — 12 sources unread, 8 unclear. `OPEN, Claude next`.**
-  - Unread: dRPC, Merkle, 1RPC, Routescan, LayerZero Scan, OpenChain, ENS Ideas, Nasdaq, Eurostat, NY Fed,
-    Polymarket, and the doc sites websearch.ts quotes.
+  - Unread: dRPC, Merkle, 1RPC, Routescan, LayerZero Scan, OpenChain, ENS Ideas, Eurostat, NY Fed,
+    Polymarket, Blockscout (found 2026-10-24: its hosts are assembled in code), and the doc sites
+    websearch.ts quotes. Nasdaq was read later that day and is barred.
   - Unclear: PublicNode, the chains' own RPCs, Flashbots, URLhaus, the DNS resolvers, the UN list,
     ClinicalTrials.gov and Groq (G197).
   - Two conditions are not fully met. The SEC user agent carries no contact (SEC's exact wording was not

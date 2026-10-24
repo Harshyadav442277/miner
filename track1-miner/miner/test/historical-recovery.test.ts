@@ -2,6 +2,10 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { extractIp, geolocate } from "../src/geo";
 import { getHeadlines } from "../src/news";
+import { openGate } from "./licence-fixtures";
+
+// These tests cover the Google News code, kept behind its licence gate (GAPS G208).
+openGate("google-news");
 
 async function mocked(stub: typeof fetch, run: () => Promise<void>) {
   const previous = globalThis.fetch;

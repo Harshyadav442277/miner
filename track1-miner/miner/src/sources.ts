@@ -52,7 +52,7 @@ export const SOURCES: Source[] = [
   { id: "bitstamp", name: "Bitstamp", hosts: ["www.bitstamp.net"], status: "conditional", licence: "Commercial Data License Agreement", terms: "https://www.bitstamp.net/api/", read: R, basis: "Allows commercial redistribution under a signed Data License Agreement.", condition: { text: "Sign Bitstamp's commercial Data License Agreement", met: "no" } },
   { id: "coingecko", name: "CoinGecko / GeckoTerminal", hosts: ["api.coingecko.com", "api.geckoterminal.com"], status: "barred", licence: "CoinGecko API Terms", terms: "https://www.coingecko.com/en/api_terms", read: "2026-10-23", basis: "No re-distributing or syndicating API data without a signed agreement; redistribution is Enterprise-only." },
   { id: "yahoo", name: "Yahoo Finance", hosts: ["query1.finance.yahoo.com"], status: "barred", licence: "Yahoo Terms", terms: "https://legal.yahoo.com/us/en/yahoo/terms/otos/index.html", read: "2026-10-23", basis: "No automated data collection without permission; no income from Yahoo APIs without written permission." },
-  { id: "nasdaq", name: "Nasdaq (api.nasdaq.com)", hosts: ["api.nasdaq.com"], status: "unread", licence: "Unknown", terms: "https://www.nasdaq.com/", read: null, basis: "Undocumented endpoint; the terms page URL tried returned 404." },
+  { id: "nasdaq", name: "Nasdaq (api.nasdaq.com)", hosts: ["api.nasdaq.com"], status: "barred", licence: "Nasdaq Terms", terms: "https://www.nasdaq.com/legal", read: R, basis: "Licence solely for personal, non-commercial use; no automated capture of data." },
   // Macroeconomics
   { id: "worldbank", name: "World Bank", hosts: ["api.worldbank.org", "data.worldbank.org"], status: "conditional", licence: "CC BY 4.0", terms: "https://datacatalog.worldbank.org/public-licenses", read: R, basis: "Datasets under CC BY 4.0, including commercial use.", condition: { text: "Credit the World Bank", met: "yes" } },
   { id: "bls", name: "US Bureau of Labor Statistics", hosts: ["api.bls.gov", "data.bls.gov"], status: "licensed", licence: "Public domain (US Government)", terms: "https://www.bls.gov/opub/copyright-information.htm", read: R, basis: "Public domain; citing BLS is requested." },
@@ -65,6 +65,7 @@ export const SOURCES: Source[] = [
   { id: "merkle", name: "Merkle", hosts: ["eth.merkle.io"], status: "unread", licence: "Unknown", terms: "https://merkle.io/", read: null, basis: "Terms URLs tried returned 404." },
   { id: "1rpc", name: "1RPC (Automata)", hosts: ["1rpc.io"], status: "unread", licence: "Unknown", terms: "https://www.1rpc.io/", read: null, basis: "Terms URLs tried returned 404." },
   { id: "flashbots", name: "Flashbots Protect RPC", hosts: ["rpc.flashbots.net"], status: "unclear", licence: "Flashbots Terms", terms: "https://docs.flashbots.net/policies/terms-of-service", read: R, basis: "No clause on relaying results to paying third parties was found." },
+  { id: "blockscout", name: "Blockscout explorers", hosts: ["eth.blockscout.com", "base.blockscout.com", "arbitrum.blockscout.com", "optimism.blockscout.com", "polygon.blockscout.com"], status: "unread", licence: "Unknown", terms: "https://www.blockscout.com/", read: null, basis: "No terms were shown at blockscout.com/terms; the hosts are assembled in code, not written as URLs." },
   { id: "routescan", name: "Routescan", hosts: ["api.routescan.io"], status: "unread", licence: "Unknown", terms: "https://routescan.io/", read: null, basis: "The terms page did not load outside a browser." },
   { id: "layerzero", name: "LayerZero Scan", hosts: ["scan.layerzero-api.com"], status: "unread", licence: "Unknown", terms: "https://layerzeroscan.com/", read: null, basis: "The scan site's terms returned HTTP 429." },
   { id: "4byte", name: "4byte.directory", hosts: ["www.4byte.directory"], status: "licensed", licence: "Free to use without restriction", terms: "https://www.4byte.directory/docs/", read: R, basis: "The API is provided free to use by anyone without restriction." },
@@ -105,10 +106,17 @@ export const NOT_UPSTREAM = ["miner-wine.vercel.app", "example.com", "x.example"
 
 const ORDER: LicenceStatus[] = ["licensed", "conditional", "unclear", "unread", "barred"];
 
-/** The weakest status among `ids`: one barred upstream makes the endpoint barred. */
+/**
+ * The weakest status among the sources in `ids` that are actually called. A
+ * barred source never is (see `permitted`), so it does not weaken the
+ * endpoint; an endpoint whose every source is barred is itself barred, because
+ * it serves nothing.
+ */
 export function weakest(ids: string[]): LicenceStatus {
+  const called = ids.filter((id) => SOURCES.find((x) => x.id === id)?.status !== "barred");
+  if (ids.length && !called.length) return "barred";
   let worst = 0;
-  for (const id of ids) {
+  for (const id of called) {
     const s = SOURCES.find((x) => x.id === id);
     const rank = s ? ORDER.indexOf(s.status === "conditional" && s.condition?.met === "yes" ? "licensed" : s.status) : ORDER.indexOf("unread");
     worst = Math.max(worst, rank);
@@ -118,8 +126,9 @@ export function weakest(ids: string[]): LicenceStatus {
 
 /**
  * The sources each declared endpoint's code can reach, from its module's import graph and
- * checked by test/sources.test.ts. It over-counts (a shared helper brings its
- * module's sources along), so an endpoint can look less licensed than it is, never more.
+ * checked by test/sources.test.ts. It over-counts: a shared helper brings its
+ * module's sources along. With barred sources left out of the status, that can
+ * flatter an endpoint, so one that refuses everything is listed in SERVES_NOTHING.
  */
 export const ENDPOINT_SOURCES: Record<string, string[]> = {
   "/ssl-check": [],
@@ -132,15 +141,15 @@ export const ENDPOINT_SOURCES: Record<string, string[]> = {
   "/headlines": ["google-news"],
   "/wallet-balance": ["1rpc", "chain-rpcs", "drpc", "ensideas", "flashbots", "merkle", "publicnode"],
   "/fact-check": ["tavily", "wikipedia"],
-  "/tx-lookup": ["4byte", "chain-rpcs", "dns-resolvers", "doaj", "drpc", "merkle", "ofac-list", "openalex", "openchain", "publicnode", "routescan"],
-  "/transfer-verify": ["4byte", "chain-rpcs", "dns-resolvers", "doaj", "drpc", "merkle", "ofac-list", "openalex", "openchain", "publicnode", "routescan"],
+  "/tx-lookup": ["4byte", "blockscout", "chain-rpcs", "dns-resolvers", "doaj", "drpc", "merkle", "ofac-list", "openalex", "openchain", "publicnode", "routescan"],
+  "/transfer-verify": ["4byte", "blockscout", "chain-rpcs", "dns-resolvers", "doaj", "drpc", "merkle", "ofac-list", "openalex", "openchain", "publicnode", "routescan"],
   "/cve": ["cve", "nvd"],
   "/news-search": ["google-news"],
   "/convert": ["ecb", "frankfurter"],
   "/gas-price": ["chain-rpcs", "drpc", "merkle", "publicnode"],
   "/financial": ["bitstamp", "coingecko", "ecb", "frankfurter", "sec", "yahoo"],
   "/fraud-check": ["4byte", "chain-rpcs", "dns-resolvers", "doaj", "drpc", "merkle", "ofac-list", "openalex", "openchain", "publicnode"],
-  "/token-holders": ["coingecko"],
+  "/token-holders": ["blockscout", "coingecko"],
   "/research": ["clinicaltrials", "ebi", "wikipedia"],
   "/crypto-price": ["bitstamp", "ecb", "frankfurter"],
   "/stock-price": ["bitstamp", "coingecko", "ecb", "frankfurter", "nasdaq", "sec", "yahoo"],
@@ -160,20 +169,34 @@ export const ENDPOINT_SOURCES: Record<string, string[]> = {
 };
 
 /**
- * The `licensing` field added to every answer: the endpoint's weakest upstream
- * status and each upstream's own, with the full ledger at /sources. It covers
- * the upstreams the endpoint can reach, not only those this answer used.
+ * Endpoints that refuse every request while their sources are barred, whatever
+ * their helpers' sources say. test/licence-gates.test.ts checks each refuses.
+ */
+export const SERVES_NOTHING = ["/stock-price", "/headlines", "/news-search"];
+
+/** An endpoint's status: barred when it serves nothing, else its weakest called source. */
+export function endpointStatus(path: string): LicenceStatus {
+  const ids = ENDPOINT_SOURCES[path] ?? [];
+  if (SERVES_NOTHING.includes(path)) return "barred";
+  return ids.length ? weakest(ids) : "licensed";
+}
+
+/**
+ * The `licensing` field added to every answer: the endpoint's weakest called
+ * upstream and each upstream's own status, with the full ledger at /sources.
+ * It covers the upstreams the endpoint can reach, not only those this answer
+ * used. A barred upstream is listed with `called: false`, because it never is.
  */
 export function licensingFor(path: string): {
-  endpoint_status: LicenceStatus; upstreams: Array<{ source: string; status: LicenceStatus }>; notices?: string[]; ledger: string;
+  endpoint_status: LicenceStatus; upstreams: Array<{ source: string; status: LicenceStatus; called?: false }>; notices?: string[]; ledger: string;
 } | null {
   const ids = ENDPOINT_SOURCES[path];
   if (!ids) return null;
   const used = ids.map((id) => SOURCES.find((x) => x.id === id)!);
-  const notices = used.flatMap((s) => (s.condition?.notice ? [s.condition.notice] : []));
+  const notices = used.flatMap((s) => (s.status !== "barred" && s.condition?.notice ? [s.condition.notice] : []));
   return {
-    endpoint_status: ids.length ? weakest(ids) : "licensed",
-    upstreams: used.map((s) => ({ source: s.name, status: s.status })),
+    endpoint_status: endpointStatus(path),
+    upstreams: used.map((s) => (s.status === "barred" ? { source: s.name, status: s.status, called: false as const } : { source: s.name, status: s.status })),
     ...(notices.length ? { notices } : {}),
     ledger: "/sources",
   };
@@ -187,10 +210,32 @@ export function ledger(): unknown {
       licensed: "the terms grant it, with no condition we fail",
       conditional: "granted on a condition; `condition.met` says whether our answers meet it",
       unclear: "the terms were read and neither clearly grant nor forbid it",
-      barred: "the terms forbid it",
+      barred: "the terms forbid it, so it is never called; an endpoint is barred only when every source it has is",
       unread: "not read yet",
     },
     sources: SOURCES,
-    endpoints: Object.fromEntries(Object.entries(ENDPOINT_SOURCES).map(([p, ids]) => [p, { status: ids.length ? weakest(ids) : "licensed", sources: ids }])),
+    endpoints: Object.fromEntries(Object.entries(ENDPOINT_SOURCES).map(([p, ids]) => [p, { status: endpointStatus(p), sources: ids }])),
   };
+}
+
+/**
+ * Whether `url` may be called at all: a barred source never is, so the ledger
+ * and the code cannot disagree. Changing a source's status here is the switch.
+ * Unknown hosts are permitted, because test/sources.test.ts already fails on them.
+ */
+export function permitted(url: string): boolean {
+  let host: string;
+  try {
+    host = new URL(url).hostname.toLowerCase();
+  } catch {
+    return true;
+  }
+  const s = SOURCES.find((x) => x.hosts.includes(host));
+  return !s || s.status !== "barred";
+}
+
+/** The sentence a refused answer gives: which source, and that this is a paid service. */
+export function notLicensedReason(url: string): string {
+  const s = SOURCES.find((x) => x.hosts.includes(new URL(url).hostname.toLowerCase()));
+  return `${s?.name ?? "The source"} does not license its data for resale, and this is a paid service (terms: ${s?.terms ?? "unread"}).`;
 }

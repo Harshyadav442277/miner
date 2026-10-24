@@ -275,6 +275,8 @@ export async function webSearch(question: string): Promise<WebSearchResult> {
   }
   const background = wiki && wiki !== "unavailable" && namesCode(wiki.source, codes) ? acceptBackground(entity, wiki.title, wiki.source) : null;
   const newsDown = !news || news.error === "provider_unavailable";
+  // Not searched at all: the only news index is barred (GAPS G208). Never reported as "not found".
+  const newsBarred = news?.error === "not_licensed";
   const wikiDown = wiki === "unavailable";
   const future = isForwardLooking(q);
   const caveat = future ? " Whether it will happen is not settled by these sources; this reports coverage, not a prediction." : "";
@@ -294,7 +296,8 @@ export async function webSearch(question: string): Promise<WebSearchResult> {
   }
 
   if (background) {
-    const note = newsDown ? " The news index did not answer, so no current reporting is included." : " No current news report on this subject was found.";
+    const note = newsBarred ? " Current news was not searched, because no news index licensed for paid use is available."
+      : newsDown ? " The news index did not answer, so no current reporting is included." : " No current news report on this subject was found.";
     return {
       articles, background, verdict: "answered", confidence: 0.5,
       reason: `According to Wikipedia: ${background}${note}${caveat}`,
@@ -308,6 +311,13 @@ export async function webSearch(question: string): Promise<WebSearchResult> {
    * though Google News was never read. News is the primary source for this
    * intent, so its outage is an outage whatever Wikipedia said.
    */
+  if (newsBarred) {
+    return {
+      ...empty, verdict: "unknown", confidence: 0, error: "not_licensed",
+      reason: `No answer is given from current reporting. ${news!.reason}`,
+    };
+  }
+
   if (newsDown) {
     return {
       ...empty, verdict: "unknown", confidence: 0, error: "upstream_unavailable",

@@ -37,6 +37,7 @@
 import { getFundamentals, knownCompany, marketCap, metricAsked } from "./fundamentals";
 import type { FundamentalFigures } from "./fundamentals";
 import { knownAsset, type Asset } from "./cryptoprice";
+import { notLicensedReason, permitted } from "./sources";
 
 const TIMEOUT_MS = Number(process.env.FINANCIAL_TIMEOUT_MS ?? 5_000);
 // Yahoo returns 401 to an unfamiliar user-agent, in the same way ESPN does.
@@ -203,6 +204,11 @@ export function asksFundamentals(text: string): string[] {
 
 export async function tokenData(address: string, network: string, label: string): Promise<FinancialResult> {
   const base = { subject: "token" as const, name: null, chain: label };
+  // GeckoTerminal's API is under CoinGecko's API terms, which bar redistribution (GAPS G208).
+  if (!permitted(GECKO)) {
+    return { ...base, verdict: "unknown", confidence: 0, error: "not_licensed",
+      reason: `No market data is given for the token ${address} on ${label}: ${notLicensedReason(GECKO)}` };
+  }
   let a: Record<string, unknown>;
   try {
     const j = (await getJson(`${GECKO}/${network}/tokens/${encodeURIComponent(address)}`)) as {
@@ -280,6 +286,12 @@ export async function tokenData(address: string, network: string, label: string)
  * the equity wording called "shares".
  */
 export async function coinData(asset: Asset): Promise<FinancialResult | null> {
+  // A coin's market statistics came from CoinGecko, which bars redistribution
+  // (GAPS G208). Its price alone is still answered by CRYPTO_PRICE (Bitstamp).
+  if (!permitted(COINGECKO_MARKETS)) {
+    return { subject: "coin", name: asset.name, chain: null, verdict: "unknown", confidence: 0, error: "not_licensed",
+      reason: `No market statistics are given for ${asset.name} (${asset.symbol}): ${notLicensedReason(COINGECKO_MARKETS)}` };
+  }
   let c: Record<string, unknown> | undefined;
   try {
     const j = (await getJson(`${COINGECKO_MARKETS}?vs_currency=usd&ids=${encodeURIComponent(asset.gecko)}`)) as unknown[];
@@ -324,6 +336,13 @@ export async function coinData(asset: Asset): Promise<FinancialResult | null> {
  */
 export async function equityData(query: string, ticker: string, filingsOutage?: string): Promise<FinancialResult> {
   const base = { subject: "equity" as const, name: null, chain: null };
+  // Yahoo bars resale (GAPS G208). Figures from a company's SEC filings are
+  // still answered on the path above; trading data is not.
+  if (!permitted(YAHOO_CHART)) {
+    return { ...base, verdict: "unknown", confidence: 0, error: "not_licensed",
+      reason: `No trading data is given for ${ticker}: ${notLicensedReason(YAHOO_CHART)} ` +
+        `Figures from its SEC filings, such as revenue or earnings per share, are answered when the question names one.` };
+  }
   let meta: Record<string, unknown>;
   try {
     const j = (await getJson(`${YAHOO_CHART}/${encodeURIComponent(ticker)}?range=5d&interval=1d`)) as {
@@ -442,6 +461,9 @@ async function searchTicker(name: string): Promise<string | null> {
 
 /** Like searchTicker, but `undefined` when the search itself failed, which is not "no such company". */
 async function searchTickerChecked(name: string): Promise<string | null | undefined> {
+  // Yahoo's search is barred with its quotes (GAPS G208): a name outside the
+  // built-in company table resolves to no ticker, and the caller says why.
+  if (!permitted(YAHOO_SEARCH)) return null;
   let j: { quotes?: Array<{ symbol?: string; quoteType?: string; shortname?: string; longname?: string }> };
   try {
     j = (await getJson(`${YAHOO_SEARCH}?q=${encodeURIComponent(name)}&quotesCount=5&newsCount=0`)) as typeof j;
@@ -536,6 +558,13 @@ export async function getFinancialData(query: string, addressParam = "", symbolP
     ? declared
     : known ?? knownCompany(query) ?? explicitTicker(query) ?? (await (named ? resolveTicker(named) : resolveTicker(query, false)));
 
+  if (!ticker && named && !permitted(YAHOO_SEARCH)) {
+    return {
+      subject: null, name: named, chain: null, verdict: "unknown", confidence: 0, error: "not_licensed",
+      reason: `${named} is not in the built-in company table, and the ticker search that would resolve it is not used: ` +
+        `${notLicensedReason(YAHOO_SEARCH)} Name its ticker, for example (AAPL), and figures from its SEC filings can be answered.`,
+    };
+  }
   if (!ticker) {
     return {
       subject: null, name: null, chain: null, verdict: "unknown", confidence: 0,
