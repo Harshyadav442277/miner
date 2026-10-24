@@ -18,10 +18,12 @@ Owner: "keep improving miner".
   - checked against live OpenAlex; unit tests 793/793.
 
   The federated-learning question is still open.
+- **Landed 2026-10-24 on the owner's yes** as `fd68dc0` and `21dc8fa` on `codex/rank1-14-intents`. The tree
+  is identical to the worktree's `4d6847f`. Main-tree unit tests: 793/793. **Not pushed, not deployed.**
 - **Next:**
-  1. The owner's yes to land both commits: cherry-pick onto `codex/rank1-14-intents`.
-  2. Deploy: preview, gates, production, `preflight.mjs`.
-  3. Then the rest of G200: RESEARCH_QUERY's dropped qualifier (99 routed questions).
+  1. The owner deploys from a clean worktree at `21dc8fa`: preview, probes, production, gates. Same
+     procedure as `docs/evidence/release-2026-10-23/`. Rollback target: `miner-n9d4aoxw8`.
+  2. Then the rest of G200: RESEARCH_QUERY's dropped qualifier (99 routed questions).
 - **Still pending from Oct 23:** the G206 choice between A and B. Option A's sign window closes
   **Oct 24 23:59 UTC (Oct 25 05:29 IST)**. Also pending: Season II registration and the organiser message.
 
