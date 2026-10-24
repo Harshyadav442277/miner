@@ -107,7 +107,8 @@ test("the undated answer text is unchanged (golden case, byte-identical)", async
       r.reason,
       "100.00 USD is 86.10 EUR at a rate of 1 USD = 0.8610 EUR, equivalently 1 EUR = 1.1614 USD. " +
         "This is the European Central Bank euro foreign exchange reference rate published for " +
-        "2026-09-08, not a live trading quote.",
+        "2026-09-08, not a live trading quote. The ECB publishes rates against the euro, so the USD " +
+        "rate here is computed from them.",
     );
     assert.equal(r.as_of, "2026-09-08");
     assert.equal(r.kind, "ecb_reference");

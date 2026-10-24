@@ -1,5 +1,42 @@
 # GAPS.md — honesty ledger
 
+## 2026-10-24 licence ledger and source swaps — G208–G212
+
+Branch `claude/licensed-sources`. Every upstream is now registered in `track1-miner/miner/src/sources.ts` with its
+terms page, the date it was read and a verdict. The ledger is served at `/sources`, and every answer carries a
+`licensing` field (its endpoint's weakest upstream, plus any notice the terms require). `test/sources.test.ts`
+fails when a fetched host has no entry. It sees only URLs written out in full, not ones built from host lists.
+Terms pages are saved offline under `C:\tgw\terms` and `C:\tgw\terms2`. Nothing here is deployed.
+
+- **G208 — 8 of 35 endpoints draw on a source whose terms bar paid use. `OPEN, owner decision`.** Counted by
+  the import graph, which over-counts: an endpoint can look less licensed than it is, never more.
+  - `/ip-geolocate`: ip-api, ipwho.is and ipinfo, all barred (read 2026-10-23/24). Candidate: ipquery.io, whose
+    only grant is an FAQ line ("without restriction"), with no terms page.
+  - `/stock-price` and `/financial`: Yahoo (barred), CoinGecko (barred), Nasdaq (unread).
+  - `/headlines`, `/news-search`, `/web-search`: Google News RSS (barred, G189).
+  - `/token-holders`: GeckoTerminal, under CoinGecko's API terms (barred).
+  - `/event-outcome`: Manifold (barred: "non-commercial use are permitted"); Polymarket unread, because it was
+    unreachable from this network.
+  - Options per endpoint: a licensed replacement, answer `not_licensed` (the G186 convention), or drop the
+    intent. **Do not deploy the `/sources` ledger before this is decided.** It would publish, under our own
+    name, that we serve data whose terms forbid it.
+- **G209 — OpenAlex now meters keyless calls. `OPEN, owner: create a free key`.** Keyless requests share
+  "$0.10" a day per IP (about 100 calls), and Vercel's egress IPs are shared. Production sets no
+  `OPENALEX_API_KEY` (env names read 2026-10-24); a free key gets $1 a day. `/papers` answered correctly
+  on 2026-10-24, so the pool was not empty then. No mission buys ACADEMIC_SEARCH.
+- **G210 — Bitstamp's bot wall. `OPEN, untested from Vercel`.** It returned 503 after about six requests within
+  seconds from this machine, and cleared seconds later. It is mitigated by a 10 s per-pair cache and reported
+  as an outage, never as a price. Question 3 of the DLA email asks Bitstamp about datacenter IPs.
+- **G211 — 12 sources unread, 8 unclear. `OPEN, Claude next`.**
+  - Unread: dRPC, Merkle, 1RPC, Routescan, LayerZero Scan, OpenChain, ENS Ideas, Nasdaq, Eurostat, NY Fed,
+    Polymarket, and the doc sites websearch.ts quotes.
+  - Unclear: PublicNode, the chains' own RPCs, Flashbots, URLhaus, the DNS resolvers, the UN list,
+    ClinicalTrials.gov and Groq (G197).
+  - Two conditions are not fully met. The SEC user agent carries no contact (SEC's exact wording was not
+    read), so `met: unchecked`. MITRE's licence is linked, not reproduced, so `met: partly`.
+- **G212 — `/papers` repeats an author's name. `OPEN, quality`.** On 2026-10-24 production listed "Matin
+  Chehelgerdi" three times for one paper. This is either OpenAlex's own author list or our parsing; not traced.
+
 ## 2026-10-22/23 Season II rules published, audit release — G203–G207
 
 The Miner and Evaluator rubrics are now on hackathon.telegraphprotocol.com/rules (read 2026-10-22 16:47 UTC).

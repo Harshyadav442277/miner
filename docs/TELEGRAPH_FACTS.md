@@ -555,3 +555,21 @@ Source: https://docs.telegraphprotocol.com/docs/using/escrow-inference (not in t
   `track1-miner/docs/evidence/season2-release-2026-10-14/integrate-validate.json`.
 - **Season II miner judging rules:** still "published separately" on the rules page (checked
   2026-10-13 18:28 UTC).
+
+## Evaluator adapter size and fetch limits (read 2026-10-24 ~06:20 UTC)
+
+Source: https://docs.telegraphprotocol.com/llms-full.txt, sections "Evaluator Adapters" and node configuration.
+
+- **A wide (judgment/hybrid) package may be just under 4 GiB** (`WIDE_WASM_MAX_BYTES`), and the node must
+  download it within **30 minutes** (`WIDE_WASM_FETCH_BUDGET` = `30m`). The docs call ~1.2 GB typical.
+- **The node decides a file is wide from its export section, read from the first MiB of the download.** A file
+  it does not recognise as wide is held to the **32 MB** comparator limit and refused with
+  "`WASM from … exceeds the 32 MB limit`". A wide package must export `imwq_embedded`.
+- **Our package passes both byte checks.** `C:/Users/hyada/tg-eval/runs/LLM_OUTPUT_EVALUATION_node/LLM_OUTPUT_EVALUATION.wasm`
+  is 1,205,363,765 bytes, and its export section starts at byte 287 (section headers read with a read-only
+  parser on 2026-10-24).
+- **Host:** GitHub release assets must each be "under 2 GiB", with no bandwidth limit
+  (docs.github.com, "About releases", read 2026-10-24). That fits the 1.2 GB package.
+- **Not verified:** whether the node follows the GitHub release-asset redirect, and whether the download
+  finishes inside 30 minutes. The docs say nothing about redirects. Both can only be checked once the release
+  exists: hash the release URL with `cmptool.exe hash`, as track2 SIGN_S2.md step 1b says.

@@ -442,6 +442,15 @@ export function formatRate(rate: number): string {
   return rate.toPrecision(4);
 }
 
+/**
+ * The ECB publishes only euro-based rates, and its reuse terms require any
+ * modification to be "stated explicitly" (read 2026-10-24). Every pair that
+ * does not start from the euro is computed from those rates, so it says so.
+ */
+function computedNote(from: string): string {
+  return from === "EUR" ? "" : ` The ECB publishes rates against the euro, so the ${from} rate here is computed from them.`;
+}
+
 const money = (n: number): string =>
   n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
@@ -500,7 +509,7 @@ export async function convert(
     const provenance =
       `This is the European Central Bank euro foreign exchange reference rate published for ` +
       `${historical.date}${backdated ? ` (the last publication on or before the requested ${date}, a non-trading day)` : ""}, ` +
-      "not a live trading quote.";
+      `not a live trading quote.${computedNote(from)}`;
 
     if (amount === null) {
       return {
@@ -546,7 +555,7 @@ export async function convert(
 
   const inverse = 1 / rate;
   const provenance = table.kind === "ecb_reference"
-    ? `This is the European Central Bank euro foreign exchange reference rate published for ${table.date}, not a live trading quote.`
+    ? `This is the European Central Bank euro foreign exchange reference rate published for ${table.date}, not a live trading quote.${computedNote(from)}`
     : "This is Frankfurter's blended daily rate from central banks and official sources, whose newest " +
       `contributing rate is dated ${table.date}; it is not a European Central Bank reference rate and not a live trading quote.`;
 
