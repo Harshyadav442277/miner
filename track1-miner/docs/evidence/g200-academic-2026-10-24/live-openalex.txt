@@ -1,0 +1,15 @@
+## Find the paper 'Attention Is All You Need' and its citation count 
+  topic: Attention Is All You Need | conf 1 
+  OpenAlex records the paper "Attention Is All You Need": 1) Attention Is All You Need by Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit (2025), cited 78269 times.
+## do academic search for netanyahu 
+  topic: netanyahu | conf 1 
+  Here are 5 papers on netanyahu: 1) The Netanyahu dynasty by Gil Samsonov (2020), cited 0 times. 2) Netanyahu by José Filipe Pinto (2026), cited 0 times. 3) The Sharon-Netanyahu war by Gil Samsonov (2020), cited 0 times. 4) Netanyahu vs The Generals by Guy Ziv (2024), cited 4 times. 5) The “Netanyahu doctrine” by Victor Matthew K
+## Point me to peer-reviewed literature, not blog posts, on perovskite solar cell degradation. 
+  topic: perovskite solar cell degradation | conf 1 
+  Here are 5 peer-reviewed journal articles on perovskite solar cell degradation: 1) Organometal halide perovskite solar cells: degradation and stability by Taame Abraha Berhe, Wei-Nien Joe Su, Ching‐Hsiang Chen, Chun‐Jern Pan (2015), cited 1780 times. 2) Stability of Perovskite Solar Cells: Degradation Mechanisms and Remedies by 
+## Find papers published in 2023 in the field of 'artificial intelligence' that mention 'transformer models' in their abstract, returning only the paper title, year, and citation count, limited to 10 results 
+  topic: artificial intelligence transformer models | conf 1 
+  Here are 10 papers on artificial intelligence transformer models published between 2023-01-01 and 2023-12-31: 1) Augmenting human innovation teams with artificial intelligence: Exploring transformer‐based language models by Sebastian Gregor Bouschery, Vera Blažević, Frank Thomas Piller (2023), cited 443 times. 2) Bringing order 
+## Look up the article titled "Deep Residual Learning for Image Recognition" 
+  topic: Deep Residual Learning for Image Recognition | conf 1 
+  OpenAlex records the paper "Deep Residual Learning for Image Recognition": 1) Deep Residual Learning for Image Recognition by Kaiming He, Xiangyu Zhang, Shaoqing Ren, Jian Sun (2016), cited 234864 times.

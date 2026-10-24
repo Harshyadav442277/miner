@@ -193,7 +193,9 @@ export function searchTopic(text: string): string | null {
     // proofs", no question around it. Refusing here is a guaranteed zero, so
     // strip generic search words and date clauses and search for what remains.
     t = withoutSource
-      .replace(/^\s*(?:please\s+)?(?:find|search(?:\s+for)?|look\s+up|get|list|show\s+me|give\s+me|what\s+are|which\s+are)\b/i, "")
+      // "do academic search for netanyahu" was searched as "do search for
+      // netanyahu" (audit 2026-10-21, G200).
+      .replace(/^\s*(?:please\s+)?(?:(?:do|run|perform)\s+(?:an?\s+)?(?:academic\s+|scholarly\s+|literature\s+)?search(?:\s+(?:for|on|about))?|find|search(?:\s+for)?|look\s+up|get|list|show\s+me|give\s+me|what\s+are|which\s+are)\b/i, "")
       // Trailing clauses describe the output format, not the subject.
       .replace(/,?\s*(?:returning|sorted\s+by|limit(?:ed|ing)|filtering)\b.*$/i, "")
       .replace(/\b(?:the\s+)?most\s+(?:cited|influential|recent)\b/gi, "")
@@ -245,6 +247,23 @@ export function searchTopic(text: string): string | null {
   if (words.length > 14) t = words.slice(0, 14).join(" ");
   return t && t.length > 3 ? t : null;
 }
+
+/**
+ * The title of one specific paper the question asks for: "Find the paper
+ * 'Attention Is All You Need' and its citation count". Searched as a topic, the
+ * tail came along and returned papers about citation counts (audit 2026-10-21,
+ * G200). Only a quotation tied to "paper", "titled" and the like counts, so a
+ * quoted search term ("that mention 'transformer models'") is not a title. Pure.
+ */
+export function paperTitle(text: string): string | null {
+  const s = String(text ?? "");
+  const m = s.match(/\b(?:paper|article|study|preprint|publication)\s+(?:(?:titled|entitled|called|named)\s+)?['"‘“]([^'"’”]{6,200})['"’”]/i) ??
+    s.match(/\b(?:titled|entitled)\s+['"‘“]([^'"’”]{6,200})['"’”]/i);
+  return m?.[1]?.trim() || null;
+}
+
+/** A title reduced to its letters and digits, for an exact-title comparison. */
+const titleKey = (t: string): string => t.toLowerCase().replace(/[^a-z0-9]+/g, "");
 
 /** "this subject", "that topic", "it": a pointer to the subject, not the subject. */
 const POINTER = /^(?:(?:this|that|these|those|the|my|our|your)\s+(?:subjects?|topics?|fields?|areas?|matters?|themes?|issues?)|it|this|that|them|these|those)$/i;
@@ -347,9 +366,11 @@ const TOPIC_STOP = new Set(["the", "and", "for", "with", "from", "into", "about"
 export async function findPapers(query: string, limit?: number, timeoutMs = DEFAULT_TIMEOUT_MS, subject = ""): Promise<PaperResult> {
   const deadline = Date.now() + timeoutMs;
   const now = new Date().toISOString();
-  const topic = paperTopic(query.replace(/\bDOAJ\b/gi, "").replace(/\bopen[-\s]access\b/gi, ""), subject);
+  const title = paperTitle(query);
+  const topic = title ?? paperTopic(query.replace(/\bDOAJ\b/gi, "").replace(/\bopen[-\s]access\b/gi, ""), subject);
   const { from, to } = dateWindow(query);
-  const want = limit ?? requestedLimit(query);
+  // A request for one named paper wants that paper, not five.
+  const want = limit ?? requestedLimit(query, title ? 1 : 5);
   const sort = requestedSort(query);
 
   const base: PaperResult = {
@@ -476,8 +497,12 @@ export async function findPapers(query: string, limit?: number, timeoutMs = DEFA
     }
   }
 
+  let ranked = rankByTopic(body.results ?? [], topic);
+  // Works carrying the named title exactly go first, in the index's order.
+  const exact = title ? ranked.filter((w) => titleKey(cleanTitle(w["title"])) === titleKey(title)) : [];
+  if (exact.length) ranked = [...exact, ...ranked.filter((w) => !exact.includes(w))];
   const papers: Paper[] = [];
-  for (const w of rankByTopic(body.results ?? [], topic).slice(0, want)) {
+  for (const w of ranked.slice(0, want)) {
     const authorships = (w["authorships"] as Array<{ author?: { display_name?: string } }> | undefined) ?? [];
     const loc = w["primary_location"] as { source?: { display_name?: string } } | undefined;
     papers.push({
@@ -520,6 +545,20 @@ export async function findPapers(query: string, limit?: number, timeoutMs = DEFA
       ".",
     )
     .join(" ");
+
+  if (title) {
+    // Close titles are not the paper asked for, and the answer says so.
+    return {
+      ...base,
+      verdict: "papers",
+      papers,
+      count: papers.length,
+      confidence: exact.length ? 1 : 0.4,
+      reason: exact.length
+        ? `OpenAlex records the paper "${title}"${window}: ${list}`
+        : `OpenAlex has no work titled exactly "${title}"${window}. The closest ${papers.length === 1 ? "match is" : `${papers.length} matches are`}: ${list}`,
+    };
+  }
 
   return {
     ...base,

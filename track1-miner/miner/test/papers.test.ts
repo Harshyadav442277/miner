@@ -383,3 +383,38 @@ test("a question that names its own subject keeps it over the declared topic", (
   assert.equal(paperTopic("Find papers on quantum error correction"), "quantum error correction");
   assert.equal(paperTopic("", "CRISPR gene editing"), "CRISPR gene editing");
 });
+
+// G200, audit 2026-10-21: the title lookup searched "the Attention Is All You
+// Need and its citation count" and returned five papers about citations.
+test("a named paper is searched by its title alone and served first when it matches exactly", async () => {
+  const { paperTitle } = await import("../src/papers");
+  assert.equal(paperTitle("Find the paper 'Attention Is All You Need' and its citation count"), "Attention Is All You Need");
+  assert.equal(paperTitle(`Look up the article titled "Deep Residual Learning for Image Recognition"`), "Deep Residual Learning for Image Recognition");
+  assert.equal(paperTitle(Q_QUOTED_FIELD), null, "a quoted search term is not a title");
+  const original = globalThis.fetch;
+  const urls: string[] = [];
+  globalThis.fetch = (async (u: string) => {
+    urls.push(String(u));
+    return new Response(JSON.stringify({ results: [
+      { title: "Attention Is All You Need In Speech Separation", publication_year: 2021, cited_by_count: 693, authorships: [] },
+      { title: "Attention Is All You Need", publication_year: 2017, cited_by_count: 78269, authorships: [{ author: { display_name: "Ashish Vaswani" } }] },
+    ] }), { status: 200 });
+  }) as typeof fetch;
+  try {
+    const r = await findPapers("Find the paper 'Attention Is All You Need' and its citation count");
+    assert.match(decodeURIComponent(urls[0]!), /search=Attention Is All You Need&/);
+    assert.equal(r.count, 1);
+    assert.equal(r.papers[0]!.citations, 78269);
+    assert.match(r.reason, /^OpenAlex records the paper "Attention Is All You Need": 1\) Attention Is All You Need by Ashish Vaswani \(2017\), cited 78269 times\.$/);
+    const miss = await findPapers("Find the paper 'Attention Is Most Of What You Need'");
+    assert.equal(miss.confidence, 0.4);
+    assert.match(miss.reason, /^OpenAlex has no work titled exactly "Attention Is Most Of What You Need"\. The closest match is: 1\)/);
+  } finally {
+    globalThis.fetch = original;
+  }
+});
+
+test("'do academic search for X' searches X", () => {
+  assert.equal(searchTopic("do academic search for netanyahu"), "netanyahu");
+  assert.equal(searchTopic("run a literature search on perovskite degradation"), "perovskite degradation");
+});

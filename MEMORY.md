@@ -12,10 +12,16 @@ Owner: "keep improving miner".
   `track1-miner/docs/evidence/g207-2026-10-24/`.
 - **Lesson:** a change to which sources are retrieved alters what the model reads. Compare the model path
   against production (`model-vs-production.mjs`) before shipping any retrieval change.
+- **G200, ACADEMIC_SEARCH part, also fixed on the branch:**
+  - a named paper ("the paper 'Attention Is All You Need'") is looked up by its title alone;
+  - "do academic search for X" now searches X;
+  - checked against live OpenAlex; unit tests 793/793.
+
+  The federated-learning question is still open.
 - **Next:**
-  1. The owner's yes to land it: cherry-pick onto `codex/rank1-14-intents`.
+  1. The owner's yes to land both commits: cherry-pick onto `codex/rank1-14-intents`.
   2. Deploy: preview, gates, production, `preflight.mjs`.
-  3. Then G200: RESEARCH_QUERY's dropped qualifier, and ACADEMIC_SEARCH title lookups.
+  3. Then the rest of G200: RESEARCH_QUERY's dropped qualifier (99 routed questions).
 - **Still pending from Oct 23:** the G206 choice between A and B. Option A's sign window closes
   **Oct 24 23:59 UTC (Oct 25 05:29 IST)**. Also pending: Season II registration and the organiser message.
 

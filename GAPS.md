@@ -91,6 +91,15 @@ label); Cape Town's was already fixed by the undeployed places table. **None dep
   - ACADEMIC_SEARCH: a title lookup ("Attention Is All You Need") returns five unrelated papers though
     OpenAlex's own search ranks it first (78,168 citations); "do academic search for X" keeps "do search"
     in the topic; the federated-learning question gets defence papers for an attacks question.
+    **UPDATE 2026-10-24, on branch `claude/miner-s2-improve`, NOT deployed.**
+    - **Title lookup fixed.** A quotation tied to "paper", "titled" and the like is searched alone. An
+      exact-title match is served first. With no exact match, the answer says so at confidence 0.4.
+    - **"do academic search for X" fixed.**
+    - **Live OpenAlex check:** both audit fails are now right, and three regression questions are unchanged.
+      Evidence: `track1-miner/docs/evidence/g200-academic-2026-10-24/`.
+    - **Still open:** the federated-learning attacks-vs-defences question.
+    - **New data caveat:** OpenAlex records *Attention Is All You Need* as published in 2025, not 2017. We
+      pass its year through unchanged.
   - FINANCIAL_DATA: "Will Pfizer's ZAVZPRET sales exceed forecasts?" answers Pfizer's total revenue. A
     product-level or forecast question should be declined by name.
   - Partials: SSL for an unresolvable name leads with openssl how-to rather than "does not resolve"; URL_SAFE
