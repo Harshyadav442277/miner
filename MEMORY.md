@@ -27,8 +27,12 @@ Owner: "keep improving miner".
   - preflight's 3/7 was badssl latency plus this machine being unable to reach `api.met.no`.
 
   Evidence: `track1-miner/docs/evidence/release-2026-10-24/`.
-- **Next:** the rest of G200, RESEARCH_QUERY's dropped qualifier (99 routed questions). Pushing the branch
-  still needs the owner's yes; origin is at `76e6926`.
+- **PUSHED 2026-10-24** on the owner's yes: `76e6926..fac877b` to `origin/codex/rank1-14-intents`.
+  - The push authenticated as **Harshyadav442277** through an inline credential helper.
+  - gh's *active* account on this machine is `0xsaroj001`, and git's github.com helper is
+    `gh auth git-credential`, so a plain `git push` would have authenticated as the wrong account.
+  - The global gh account was not switched.
+- **Next:** the rest of G200, RESEARCH_QUERY's dropped qualifier (99 routed questions).
 - **Still pending from Oct 23:** the G206 choice between A and B. Option A's sign window closes
   **Oct 24 23:59 UTC (Oct 25 05:29 IST)**. Also pending: Season II registration and the organiser message.
 
