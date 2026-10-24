@@ -19,11 +19,16 @@ Owner: "keep improving miner".
 
   The federated-learning question is still open.
 - **Landed 2026-10-24 on the owner's yes** as `fd68dc0` and `21dc8fa` on `codex/rank1-14-intents`. The tree
-  is identical to the worktree's `4d6847f`. Main-tree unit tests: 793/793. **Not pushed, not deployed.**
-- **Next:**
-  1. The owner deploys from a clean worktree at `21dc8fa`: preview, probes, production, gates. Same
-     procedure as `docs/evidence/release-2026-10-23/`. Rollback target: `miner-n9d4aoxw8`.
-  2. Then the rest of G200: RESEARCH_QUERY's dropped qualifier (99 routed questions).
+  is identical to the worktree's `4d6847f`. Main-tree unit tests: 793/793. **Not pushed.**
+- **DEPLOYED 2026-10-24 ~10:35 UTC** on the owner's "run those cmds by your own self":
+  - production `miner-e2999tb2p`, built from `8d121e9`; the alias moved without a promote;
+  - rollback target `miner-n9d4aoxw8`;
+  - gates pass, apart from the misses already on record;
+  - preflight's 3/7 was badssl latency plus this machine being unable to reach `api.met.no`.
+
+  Evidence: `track1-miner/docs/evidence/release-2026-10-24/`.
+- **Next:** the rest of G200, RESEARCH_QUERY's dropped qualifier (99 routed questions). Pushing the branch
+  still needs the owner's yes; origin is at `76e6926`.
 - **Still pending from Oct 23:** the G206 choice between A and B. Option A's sign window closes
   **Oct 24 23:59 UTC (Oct 25 05:29 IST)**. Also pending: Season II registration and the organiser message.
 

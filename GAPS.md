@@ -48,7 +48,8 @@ branch `claude/correctness-audit-2026-10-21`, not yet merged here.
   bought by 7 missions, so this is the highest-value open quality item. Evidence:
   `track1-miner/docs/evidence/release-2026-10-23/`.
 
-  **UPDATE 2026-10-24: `FIXED on branch claude/miner-s2-improve`, NOT deployed.**
+  **UPDATE 2026-10-24: `FIXED, DEPLOYED 2026-10-24`** (production `miner-e2999tb2p` from `8d121e9`; the preview
+  `miner-qofu599bo` quoted the right article for all three questions above; `docs/evidence/release-2026-10-24/`).
   - **Traced.** The defect is in `qa.ts`'s quoting fallback, which serves both WEB_SEARCH and
     QUESTION_ANSWERING. When there is no model answer, the answer is the sentence sharing the most words with
     the question, and a tie goes to Wikipedia's first hit. That hit is often a film, a band or "Capital
@@ -91,7 +92,7 @@ label); Cape Town's was already fixed by the undeployed places table. **None dep
   - ACADEMIC_SEARCH: a title lookup ("Attention Is All You Need") returns five unrelated papers though
     OpenAlex's own search ranks it first (78,168 citations); "do academic search for X" keeps "do search"
     in the topic; the federated-learning question gets defence papers for an attacks question.
-    **UPDATE 2026-10-24, on branch `claude/miner-s2-improve`, NOT deployed.**
+    **UPDATE 2026-10-24, DEPLOYED 2026-10-24** (production `miner-e2999tb2p`).
     - **Title lookup fixed.** A quotation tied to "paper", "titled" and the like is searched alone. An
       exact-title match is served first. With no exact match, the answer says so at confidence 0.4.
     - **"do academic search for X" fixed.**
