@@ -68,6 +68,16 @@ export function suppliedContext(text: string): { context: string; question: stri
 
 const STOP = new Set("a an the of in on at to for and or is are was were be been what who whom whose when where why how which does do did can could should would will with by from about as that this these those it its into than then there their they have has had many much get got".split(" "));
 const words = (s: string): string[] => String(s).toLowerCase().match(/[a-z0-9]+/g)?.filter((w) => !STOP.has(w)) ?? [];
+const IRREGULAR: Record<string, string> = { wrote: "writ", written: "writ", writer: "writ", writes: "writ", write: "writ", writing: "writ", author: "writ", authored: "writ" };
+/**
+ * Words reduced to a rough stem for matching only, so "Who painted the Mona
+ * Lisa?" meets "a portrait painting by Leonardo" and "invented" meets
+ * "inventor" (G207). Never used to build a search query.
+ */
+const stems = (s: string): string[] => words(s).map((w) => {
+  const stem = w.replace(/(?:ings?|ers?|ors?|ions?|ed|es|e|s)$/, "");
+  return IRREGULAR[w] ?? (stem.length >= 4 ? stem : w);
+});
 
 /**
  * Sentences, without breaking at an initial or an abbreviation: "succeeding
@@ -106,24 +116,67 @@ function cueBonus(question: string, sentence: string): number {
   return 0;
 }
 
+/**
+ * How well an article's title fits the question, to break ties between
+ * quoted sentences that share as many words with it. Pure.
+ *
+ * Wikipedia's search ranks a title that contains the question's words above
+ * the article about them, and with no model the quote came from the first:
+ * "Who wrote Pride and Prejudice?" quoted "Pride and Prejudice and Zombies
+ * (film)", "What is the capital of Canada?" quoted "Capital punishment in
+ * Canada" (G207, 2026-10-23). So: +1 when every title
+ * word is in the question; −1 for a lowercase disambiguator the question does
+ * not use, "(film)" or "(band)" but not "(Vivaldi)"; −1 for a common noun the
+ * question does not use ("punishment"), or a "List of" page.
+ */
+export function titleFit(question: string, title: string): number {
+  const asked = new Set(stems(question));
+  const paren = String(title).match(/\s*\(([^)]*)\)\s*$/);
+  const base = paren ? title.slice(0, paren.index) : String(title);
+  const named = stems(base);
+  let fit = named.length && named.every((w) => asked.has(w)) ? 1 : 0;
+  if (paren && /^[a-z\d]/.test(paren[1]!) && stems(paren[1]!).some((w) => !asked.has(w))) fit -= 1;
+  // The first word is capitalised by Wikipedia's style, so only later words show case.
+  const common = base.split(/\s+/).slice(1).filter((t) => /^[a-z]/.test(t)).flatMap(stems).filter((w) => !asked.has(w));
+  if (common.length || /^List of\b/.test(base)) fit -= 1;
+  return fit;
+}
+
+/** A sentence defining a film, band or song: a title that only collides with the question's words. */
+const WORK = /\b(?:film|movie|band|album|single|song|soundtrack|sitcom|miniseries|(?:television|tv|web)\s+series|video\s+game|musician|singer|rapper|episode)\b/i;
+/** A question that is itself about a film or a recording. */
+const ASKS_WORK = /\b(?:film|movie|band|album|song|series|show|episode|game|direct(?:ed|or)|star(?:red|ring|s)?|act(?:or|ress)|sang|sing(?:er|s)?|cast|soundtrack|box\s+office)\b/i;
+
 /** The sentence in the sources that shares most words with the question. Pure. */
 export function bestSentence(question: string, sources: Source[]): { sentence: string; n: number } | null {
-  const want = new Set(words(question));
+  const want = new Set(stems(question));
   // Every number the question names must be in the sentence: for "the 2022
   // FIFA World Cup" the closest sentence came from the 2030 article and was
   // returned as the answer (2026-10-14). Without the numbers, half the words.
   const numbers = [...want].filter((w) => /^\d+$/.test(w));
   const needed = Math.max(1, Math.ceil(want.size / 2));
-  let best: { sentence: string; n: number; score: number } | null = null;
+  const work = ASKS_WORK.test(question);
+  let best = null as { sentence: string; n: number; rank: number } | null;
   for (const s of sources) {
+    // A quarter point: the title breaks ties between sentences, it never
+    // outweighs a word: "Canada is a country in North America" must not beat
+    // "Ottawa is the capital city of Canada".
+    const fit = s.kind === "Wikipedia" ? titleFit(question, s.title) / 4 : 0;
     for (const sentence of sentences(s.text)) {
-      const has = new Set(words(sentence));
+      const has = new Set(stems(sentence));
       if (!numbers.every((n) => has.has(n))) continue;
       const score = [...want].filter((w) => has.has(w)).length + cueBonus(question, sentence);
-      if (score > (best?.score ?? 0)) best = { sentence: sentence.trim(), n: s.n, score };
+      if (score < needed) continue;
+      // A sentence defining a film or a band, for a question about neither,
+      // is a title collision: "A Walk on the Moon is a 1999 American drama film".
+      const rank = score + fit - (!work && WORK.test(sentence) ? 1.5 : 0);
+      const text = sentence.trim();
+      // On a tie the shorter sentence, which says the same in fewer words:
+      // "Canberra is the capital city of Australia." over the ACT's definition.
+      if (!best || rank > best.rank || (rank === best.rank && text.length < best.sentence.length)) best = { sentence: text, n: s.n, rank };
     }
   }
-  return best && best.score >= needed ? { sentence: best.sentence, n: best.n } : null;
+  return best ? { sentence: best.sentence, n: best.n } : null;
 }
 
 /** The capitalised or numbered run a question is about: "2022 FIFA World Cup", "Berlin Wall". Pure. */
@@ -191,12 +244,32 @@ async function wikipediaSources(question: string): Promise<Source[] | undefined>
   if (!titled && !asked && !keyed) return undefined;
   const merged: Page[] = [];
   for (let i = 0; i < 4; i++) {
-    for (const p of [titled?.[i], asked?.[i], keyed?.[i]]) if (p?.extract && !merged.some((m) => m.title === p.title)) merged.push(p);
+    for (const p of [titled?.[i], asked?.[i], keyed?.[i]]) {
+      // A disambiguation page answers nothing and took a slot from "Canberra".
+      if (!p?.extract || /\(disambiguation\)$/.test(p.title) || merged.some((m) => m.title === p.title)) continue;
+      merged.push(p);
+    }
   }
   return merged.slice(0, 5).map((p, i) => ({
     n: i + 1, kind: "Wikipedia" as const, title: p.title,
-    url: p.fullurl ?? `${WIKI}/wiki/${encodeURIComponent(p.title.replace(/ /g, "_"))}`, text: p.extract!.slice(0, i < 2 ? 1_600 : 600),
+    url: p.fullurl ?? `${WIKI}/wiki/${encodeURIComponent(p.title.replace(/ /g, "_"))}`, text: clip(p.extract!, i < 2 ? 1_600 : 600),
   }));
+}
+
+/**
+ * An extract cut to `max` characters at a sentence end, so a cut never leaves
+ * half a sentence to quote: "The Mona Lisa is one of the most valuable paint"
+ * (2026-10-24). Only a first sentence longer than `max` is still cut. Pure.
+ */
+export function clip(text: string, max: number): string {
+  if (text.length <= max) return text;
+  const all = sentences(text);
+  let out = all[0]!.slice(0, max);
+  for (const s of all.slice(1)) {
+    if (out.length + 1 + s.length > max) break;
+    out += ` ${s}`;
+  }
+  return out;
 }
 
 const SYSTEM =

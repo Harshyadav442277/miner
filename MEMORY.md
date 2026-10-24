@@ -1,5 +1,24 @@
 # MEMORY.md — session continuity
 
+## 2026-10-24 ~08:30 UTC (14:00 IST): CURRENT — G207 fixed on a branch; not deployed, not merged
+
+Owner: "keep improving miner".
+- **Branch `claude/miner-s2-improve`** in worktree `.claude/worktrees/youthful-nightingale-1c5936`, cut from
+  `84e0bd4`. The session's original branch sat at stale `origin/main`. Not pushed, not merged into
+  `codex/rank1-14-intents`.
+- **G207 is fixed in `src/qa.ts`** (shared by WEB_SEARCH and QUESTION_ANSWERING). With no model, the 20 test
+  questions went from 11 correct, 1 partial, 8 wrong to 18 correct, 2 partial, 0 wrong. With the model, the
+  branch got 20/20 and production 17/20 in the same run. Unit tests 791/791. Details are in GAPS G207 and
+  `track1-miner/docs/evidence/g207-2026-10-24/`.
+- **Lesson:** a change to which sources are retrieved alters what the model reads. Compare the model path
+  against production (`model-vs-production.mjs`) before shipping any retrieval change.
+- **Next:**
+  1. The owner's yes to land it: cherry-pick onto `codex/rank1-14-intents`.
+  2. Deploy: preview, gates, production, `preflight.mjs`.
+  3. Then G200: RESEARCH_QUERY's dropped qualifier, and ACADEMIC_SEARCH title lookups.
+- **Still pending from Oct 23:** the G206 choice between A and B. Option A's sign window closes
+  **Oct 24 23:59 UTC (Oct 25 05:29 IST)**. Also pending: Season II registration and the organiser message.
+
 ## 2026-10-23 ~14:30 UTC (20:00 IST): CURRENT — Season I cleanup done; folder 1 GB → 177 MB
 
 Owner: "yes cleanup. we dont want what doesnt help us in season 2."

@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { answerQuestion, bestSentence, citedEverywhere, normaliseCitations, sentences, subjectPhrase, suppliedContext, type Source } from "../src/qa";
+import { answerQuestion, bestSentence, citedEverywhere, clip, normaliseCitations, sentences, subjectPhrase, suppliedContext, titleFit, type Source } from "../src/qa";
 
 test("a supplied passage and its question are told apart", () => {
   const r = suppliedContext("Based on the following text: The Treaty of Westphalia was signed in 1648, ending the Thirty Years War. It established state sovereignty. When did the war end?");
@@ -40,6 +40,46 @@ test("the extractive answer needs the question's numbers and half its words", ()
   assert.equal(bestSentence("Who won the 2022 FIFA World Cup?", [sources[0]!]), null);
   assert.equal(subjectPhrase("Who won the 2022 FIFA World Cup and where was it held?"), "2022 FIFA World Cup");
   assert.equal(subjectPhrase("Who is the current CEO of Microsoft?"), null);
+});
+
+// G207, 2026-10-23: with no model, Wikipedia's first hit was quoted even when it
+// was a film, a band or a different subject sharing the question's words.
+test("the extractive answer quotes the article about the subject, not a title collision", () => {
+  const pride = [src(1, "Pride and Prejudice and Zombies (film)", "Pride and Prejudice and Zombies is a 2016 action comedy horror film based on Seth Grahame-Smith's 2009 novel, which parodies the 1813 novel Pride and Prejudice by Jane Austen."),
+    src(2, "Pride and Prejudice", "Pride and Prejudice is a novel by English author Jane Austen.")];
+  assert.equal(bestSentence("Who wrote Pride and Prejudice?", pride)?.n, 2);
+  const canada = [src(1, "Capital punishment in Canada", "Capital punishment in Canada dates to Canada's earliest history."),
+    src(2, "Ottawa", "Ottawa is the capital city of Canada.")];
+  assert.equal(bestSentence("What is the capital of Canada?", canada)?.n, 2);
+  const seasons = [src(1, "The Four Seasons (band)", "The Four Seasons were an American pop and rock band formed in 1960 in Newark, New Jersey."),
+    src(2, "The Four Seasons (Vivaldi)", "The Four Seasons is a group of four violin concerti by Italian composer Antonio Vivaldi.")];
+  assert.equal(bestSentence("Who composed The Four Seasons?", seasons)?.n, 2);
+  // A question about the film keeps the film.
+  assert.equal(bestSentence("Who starred in the film The Four Seasons?", [src(1, "The Four Seasons (1981 film)", "The Four Seasons is a 1981 American comedy film starring Alan Alda."), seasons[1]!])?.n, 1);
+});
+
+test("a title never outweighs a word, and a tie goes to the shorter sentence", () => {
+  const canada = [src(1, "Canada", "Canada is a country in North America."), src(2, "Ottawa", "Ottawa is the capital city of Canada.")];
+  assert.equal(bestSentence("What is the capital of Canada?", canada)?.n, 2);
+  const act = [src(1, "Australian Capital Territory", "The Australian Capital Territory, known as the Federal Capital Territory until 1938, is an internal territory of Australia."),
+    src(2, "Canberra", "Canberra is the capital city of Australia.")];
+  assert.equal(bestSentence("What is the capital of Australia?", act)?.sentence, "Canberra is the capital city of Australia.");
+  assert.equal(titleFit("Who wrote Pride and Prejudice?", "Pride and Prejudice"), 1);
+  assert.equal(titleFit("Who wrote Pride and Prejudice?", "Pride & Prejudice (2005 film)"), 0);
+  assert.equal(titleFit("What is the tallest mountain?", "List of tallest people"), -1);
+});
+
+test("matching meets a word's other forms", () => {
+  const mona = [src(1, "Two–Mona Lisa theory", "Historians proposed that Leonardo painted two versions of the Mona Lisa, one of them lost."),
+    src(2, "Mona Lisa", "The Mona Lisa is a half-length portrait painting by the Italian artist Leonardo da Vinci.")];
+  assert.equal(bestSentence("Who painted the Mona Lisa?", mona)?.n, 2);
+});
+
+test("an extract is cut at a sentence end, never mid-word", () => {
+  const text = "The Mona Lisa is a portrait by Leonardo da Vinci. It hangs in the Louvre. The Mona Lisa is one of the most valuable paintings in the world.";
+  assert.equal(clip(text, 80), "The Mona Lisa is a portrait by Leonardo da Vinci. It hangs in the Louvre.");
+  assert.equal(clip(text, 500), text);
+  assert.equal(clip("x".repeat(50), 20), "x".repeat(20));
 });
 
 test("without a model key the answer is a quoted, cited source sentence", async (t) => {

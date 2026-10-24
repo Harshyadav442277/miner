@@ -48,6 +48,31 @@ branch `claude/correctness-audit-2026-10-21`, not yet merged here.
   bought by 7 missions, so this is the highest-value open quality item. Evidence:
   `track1-miner/docs/evidence/release-2026-10-23/`.
 
+  **UPDATE 2026-10-24: `FIXED on branch claude/miner-s2-improve`, NOT deployed.**
+  - **Traced.** The defect is in `qa.ts`'s quoting fallback, which serves both WEB_SEARCH and
+    QUESTION_ANSWERING. When there is no model answer, the answer is the sentence sharing the most words with
+    the question, and a tie goes to Wikipedia's first hit. That hit is often a film, a band or "Capital
+    punishment in Canada".
+  - **Where it shows.** The preview had no Groq key: `GROQ_API_KEY` is set for Production only (`vercel env
+    ls`, 2026-10-24). Production also falls back. In one run of the 20 questions it served the Four Seasons
+    band, the *Boiling Point* film and *A Walk on the Moon*. Not established: whether that run's load on the
+    shared key caused the fallback.
+  - **Fix.** Sentence ranking only; the sources searched and sent to the model are unchanged, except that
+    disambiguation pages are dropped:
+    - the title's fit is a quarter-point tie-break;
+    - a sentence defining a film or band costs 1.5 when the question is about neither;
+    - words are matched on rough stems (painted and painting);
+    - an equal score goes to the shorter sentence;
+    - extracts are cut at a sentence end.
+
+    An earlier attempt also changed the sources (re-sorting, and searching a lone name). It broke the model
+    path for the Moon question, so it was reverted.
+  - **Measured on 20 questions.** No model: 11 correct, 1 partial, 8 wrong before; 18 correct, 2 partial,
+    0 wrong after. Model: the branch 20/20, production 17/20 in the same minutes. Unit tests 791/791.
+    Evidence: `track1-miner/docs/evidence/g207-2026-10-24/`.
+  - **Still open:** these are 20 hand-picked questions, not routed traffic, and the 154-question audit has
+    not been re-run.
+
 ## 2026-10-21 correctness audit — G200–G202
 
 Audit of all 36 intents, 154 questions (routed and realistic) against production `miner-q5qepqluk`, each
