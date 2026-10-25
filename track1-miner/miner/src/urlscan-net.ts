@@ -1,5 +1,5 @@
 /**
- * The network half of URL_SCAN: DNS over HTTPS, the URLhaus lists, and a guarded
+ * The network half of URL_SCAN: DNS over HTTPS and a guarded
  * walk of the redirect chain. Split from urlscan.ts so the classifier there stays
  * a pure function that can be tested without a socket.
  *
@@ -13,10 +13,12 @@
  *                                resolve to 104.18.4.35 / 104.18.5.35 there, which
  *                                is what proves the 0.0.0.0 is a block rather
  *                                than a parked domain.
- *   urlhaus.abuse.ch/downloads   hostfile (10.9 KB) and text_online (1.1 MB).
- *                                The per-URL API now answers 401 without an
- *                                Auth-Key, so only the documented bulk downloads
- *                                are used, cached for fifteen minutes.
+ *
+ * URLhaus (abuse.ch) was a third source until 2026-10-25, when every bulk download
+ * answered 410 Gone ("remove all references to this resource") and its API 401
+ * without an Auth-Key. Each scan then reported the lists as down, which turned every
+ * clean URL into "could not be judged" (G210). It is removed; a key would bring it
+ * back through the API.
  *
  * Tried and dropped: Quad9's DoH answers HTTP 505 to Node's HTTP/1.1 fetch, and
  * its JSON port 5053 did not connect from this machine in 10 s.
@@ -27,9 +29,7 @@ import { assertPublicHost } from "./guard";
 
 const UA = "livecert-miner/1.0 (+https://miner-wine.vercel.app)";
 const DOH_TIMEOUT_MS = Number(process.env.URLSCAN_DOH_TIMEOUT_MS ?? 4_000);
-const LIST_TIMEOUT_MS = Number(process.env.URLSCAN_LIST_TIMEOUT_MS ?? 5_000);
 const HOP_TIMEOUT_MS = Number(process.env.URLSCAN_HOP_TIMEOUT_MS ?? 3_000);
-const LIST_TTL_MS = 15 * 60 * 1000;
 
 export interface DnsAnswer {
   status: number;
@@ -64,64 +64,6 @@ export async function openResolve(name: string): Promise<DnsAnswer | "unavailabl
     if (a !== "unavailable") return a;
   }
   return "unavailable";
-}
-
-let lists: { at: number; hosts: Set<string>; urls: Set<string> } | null = null;
-let pendingLists: Promise<{ hosts: Set<string>; urls: Set<string> } | "unavailable"> | null = null;
-
-/** "127.0.0.1\thost" lines, comments skipped. Exported for the parser test. */
-export function parseHostfile(text: string): Set<string> {
-  const out = new Set<string>();
-  for (const line of text.split(/\r?\n/)) {
-    const m = line.match(/^\s*(?:127\.0\.0\.1|0\.0\.0\.0)\s+(\S+)/);
-    if (m?.[1]) out.add(m[1].toLowerCase());
-  }
-  return out;
-}
-
-/** One URL per line, comments skipped. */
-export function parseUrlList(text: string): Set<string> {
-  const out = new Set<string>();
-  for (const line of text.split(/\r?\n/)) {
-    const s = line.trim();
-    if (s && !s.startsWith("#")) out.add(s);
-  }
-  return out;
-}
-
-/** URLhaus's current lists, cached. A failed read is not cached, so the next request retries. */
-export async function urlhausLists(): Promise<{ hosts: Set<string>; urls: Set<string> } | "unavailable"> {
-  if (lists && Date.now() - lists.at < LIST_TTL_MS) return lists;
-  // Different scan subjects share the same threat feeds. Coalesce their cold
-  // reads as well as caching completed downloads, and release failures for retry.
-  if (pendingLists) return pendingLists;
-  pendingLists = downloadUrlhausLists();
-  try {
-    return await pendingLists;
-  } finally {
-    pendingLists = null;
-  }
-}
-
-async function downloadUrlhausLists(): Promise<{ hosts: Set<string>; urls: Set<string> } | "unavailable"> {
-  const read = async (u: string): Promise<string> => {
-    const r = await fetch(u, { headers: { "user-agent": UA }, signal: AbortSignal.timeout(LIST_TIMEOUT_MS) });
-    if (!r.ok) throw new Error(`HTTP ${r.status}`);
-    return r.text();
-  };
-  try {
-    const [h, u] = await Promise.all([
-      read("https://urlhaus.abuse.ch/downloads/hostfile/"),
-      read("https://urlhaus.abuse.ch/downloads/text_online/"),
-    ]);
-    const hosts = parseHostfile(h);
-    // An empty host list is a broken download, not a clean internet.
-    if (hosts.size === 0) return "unavailable";
-    lists = { at: Date.now(), hosts, urls: parseUrlList(u) };
-    return lists;
-  } catch {
-    return "unavailable";
-  }
 }
 
 export interface Hop {

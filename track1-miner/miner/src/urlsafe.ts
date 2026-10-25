@@ -3,15 +3,16 @@
  *
  * The same reads as URL_SCAN (urlscan.ts), answered as a listing rather than a
  * single click-or-not verdict: every source is named with what it said, so an
- * app can apply its own policy. Three sources, all keyless: Cloudflare's
+ * app can apply its own policy. Two sources, both keyless: Cloudflare's
  * security resolver and Quad9's threat-blocking resolver (DNS blocklists fed by
- * their threat intelligence) and URLhaus (abuse.ch's malware URL feed).
+ * their threat intelligence). URLhaus (abuse.ch) was a third until it retired its
+ * free downloads on or before 2026-10-25 (G210); its API needs a key.
  */
 import { scanUrl, type UrlScanResult } from "./urlscan";
 
 export interface SourceResult {
   source: string;
-  kind: "DNS blocklist" | "malware URL feed";
+  kind: "DNS blocklist";
   result: "listed" | "not_listed" | "unknown" | "unavailable" | "not_applicable";
   detail?: string;
 }
@@ -30,11 +31,6 @@ export function listing(r: UrlScanResult): UrlSafeResult {
   const sources: SourceResult[] = [
     { source: "Cloudflare security DNS", kind: "DNS blocklist", result: dns(c.cloudflare_filter) },
     { source: "Quad9 threat-blocking DNS", kind: "DNS blocklist", result: dns(c.quad9_filter) },
-    {
-      source: "URLhaus (abuse.ch)", kind: "malware URL feed",
-      result: c.urlhaus === "unavailable" ? "unavailable" : c.urlhaus === "not_listed" ? "not_listed" : "listed",
-      ...(c.urlhaus === "listed_url" ? { detail: "this exact URL" } : c.urlhaus === "listed_host" ? { detail: "the host" } : {}),
-    },
   ];
   const listedBy = sources.filter((s) => s.result === "listed");
   const clear = sources.filter((s) => s.result === "not_listed");

@@ -67,3 +67,10 @@ test("no record is not found, and an outage is unknown", async (t) => {
   assert.equal(out.verdict, "unknown");
   assert.equal(out.error, "upstream_unavailable");
 });
+
+// G210, 2026-10-25: "Is Nvidia Corporation an active registered company?" searched "Nvidia Corporation an".
+test("an article or 'still' before the status word is not part of the name", () => {
+  assert.equal(registrySubject("Is Nvidia Corporation an active registered company?").name, "Nvidia Corporation");
+  assert.equal(registrySubject("Is Shell plc a registered company?").name, "Shell plc");
+  assert.equal(registrySubject("Is Barclays Bank PLC still registered?").name, "Barclays Bank PLC");
+});

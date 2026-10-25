@@ -61,7 +61,6 @@ function request(params: Record<string, string>): Promise<Record<string, unknown
  */
 function stub(): typeof fetch {
   return (async (url: string | URL | Request) => {
-    if (String(url).includes("urlhaus")) return new Response(JSON.stringify({ query_status: "no_results" }));
     return new Response("", { status: 404 });
   }) as typeof fetch;
 }

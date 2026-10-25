@@ -54,6 +54,16 @@ const CLASSIFY = [
   ["complaint, praise or question", "Your team went above and beyond, thank you.", "praise"],
   ["complaint, praise or question", "The replacement part arrived broken, again.", "complaint"],
   ["weather, traffic or crime", "A crash on the M25 has closed two lanes near Heathrow.", "traffic"],
+  // G210: the word list declined these.
+  ["politics, sport or science", "Astronomers detect water vapour on a distant exoplanet.", "science"],
+  ["billing, technical or account issue", "My invoice shows the wrong VAT number.", "billing"],
+  ["politics, sport or science", "The central bank's governor testified before the senate committee.", "politics"],
+  ["travel, food or finance", "The best ramen shops near Shinjuku station.", "food"],
+  // No real basis for any label: the right answer is no label.
+  ["billing, technical or account issue", "Hello, I have a question.", "ambiguous"],
+  ["sports, politics or technology", "Ok, thanks.", "ambiguous"],
+  ["billing, technical or account issue", "Please see the attached file.", "ambiguous"],
+  ["complaint, praise or question", "Following up on my earlier message.", "ambiguous"],
 ];
 
 // The free plan allows 30 requests a minute per model; back-to-back calls measure the quota, not the model.

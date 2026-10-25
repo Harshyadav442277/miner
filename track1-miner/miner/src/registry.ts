@@ -39,7 +39,9 @@ export function registrySubject(question: string, companyParam = "", numberParam
   if (!name && !lei && !number) {
     const m =
       q.match(/\b(?:register(?:ed)?\s+record|registry\s+(?:record|details|entry)|incorporation\s+(?:status|details|record)|registered\s+(?:agent|address|office)|directors|beneficial\s+owners?|company\s+number|legal\s+entity\s+identifier|LEI)\s+(?:for|of)\s+(.+?)(?:[?,]|\s+(?:in|on|and|with)\s+|$)/i) ??
-      q.match(/\b(?:is|was)\s+(.+?)\s+(?:still\s+)?(?:registered|incorporated|active|dissolved|in\s+good\s+standing)\b/i) ??
+      // "an"/"a"/"still" before the status: "Is Nvidia Corporation an active registered
+      // company?" was searched as "Nvidia Corporation an" and not found (G210, 2026-10-25).
+      q.match(/\b(?:is|was)\s+(.+?)\s+(?:(?:still|an?|currently)\s+){0,2}(?:registered|incorporated|active|dissolved|in\s+good\s+standing)\b/i) ??
       q.match(/\b(?:look\s+up|find|check)\s+(.+?)\s+(?:in|on)\s+(?:the\s+)?(?:company|corporate|business)\s+regist/i);
     name = (m?.[1] ?? "").replace(/^(?:the|a)\s+/i, "").trim();
   }

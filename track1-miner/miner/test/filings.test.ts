@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { figuresFor, filingAsk, monitorFilings } from "../src/filings";
+import { figuresFor, filingAsk, monitorFilings, usdFacts } from "../src/filings";
 
 const NOW = new Date("2026-10-14T00:00:00Z");
 
@@ -77,4 +77,14 @@ test("a filed 10-Q answers its date, acceptance time, accession, link and margin
 
   const none = await monitorFilings("Has Tesla filed a 10-K since 2026-09-01?", "", "", NOW);
   assert.equal(none.verdict, "not_filed");
+});
+
+// G210, 2026-10-25: SEC answered Coca-Cola's Revenues concept with "USD": {} and the
+// route crashed, reporting the provider as down.
+test("a concept whose USD facts are not a list has no facts, rather than crashing", () => {
+  assert.deepEqual(usdFacts({ units: { USD: {} } }), []);
+  assert.deepEqual(usdFacts({ units: {} }), []);
+  assert.deepEqual(usdFacts(null), []);
+  const facts = [{ end: "2025-12-31", val: 1, accn: "a" }];
+  assert.deepEqual(usdFacts({ units: { USD: facts } }), facts);
 });

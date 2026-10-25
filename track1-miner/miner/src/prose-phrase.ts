@@ -44,8 +44,10 @@ const SEP = "|";
 const CLASSIFY_SYSTEM =
   "Assign the passage to the one label, from those the user lists, that best fits what the passage is about " +
   `or asks for. Reply with exactly one line: the label exactly as the user wrote it, then ${SEP}, then one ` +
-  "plain sentence of 8 to 30 words saying what in the passage makes that label fit. No quotation marks, no " +
-  "markdown, nothing the passage does not say.";
+  "plain sentence of 8 to 30 words saying what in the passage makes that label fit. If the passage gives no " +
+  "real basis for any label, for example a greeting, a thank-you, or a pointer to an attachment or an earlier " +
+  `message that does not say what it is about, reply none ${SEP} and ` +
+  "say why. No quotation marks, no markdown, nothing the passage does not say.";
 
 const SENTIMENT_SYSTEM =
   "Judge the sentiment the writer actually means. positive: approval or satisfaction. negative: complaint, " +

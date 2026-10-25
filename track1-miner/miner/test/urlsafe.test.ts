@@ -17,7 +17,6 @@ const base = (over: Partial<Evidence>): Evidence => ({
   url: new URL("https://example.com/"),
   security: { status: 0, ips: ["93.184.215.14"], censored: false },
   open: { status: 0, ips: ["93.184.215.14"], censored: false },
-  urlhaus: { host: false, url: false },
   hops: [{ url: "https://example.com/", status: 200 }],
   tls: null,
   quad9: "passed",
@@ -32,12 +31,12 @@ test("a Quad9 block alone makes a URL unsafe and names Quad9 as the source", () 
 });
 
 test("a listing names each source and what it said", () => {
-  const listed = listing(classify(base({ url: new URL("http://198-macros.com/"), quad9: "blocked", urlhaus: { host: true, url: false } })));
+  const listed = listing(classify(base({ url: new URL("http://198-macros.com/"), quad9: "blocked" })));
   assert.equal(listed.listed, true);
-  assert.match(listed.reason, /^Listed: 198-macros\.com is flagged as malicious by 2 of 3 threat sources checked: Quad9 threat-blocking DNS, URLhaus \(abuse\.ch\) \(the host\)\. Cloudflare security DNS did not flag it\./);
+  assert.match(listed.reason, /^Listed: 198-macros\.com is flagged as malicious by 1 of 2 threat sources checked: Quad9 threat-blocking DNS\. Cloudflare security DNS did not flag it\./);
   const clean = listing(classify(base({})));
   assert.equal(clean.listed, false);
-  assert.match(clean.reason, /^Not listed: example\.com is on none of the 3 threat sources that answered/);
+  assert.match(clean.reason, /^Not listed: example\.com is on none of the 2 threat sources that answered/);
   const partial = listing(classify(base({ quad9: "unavailable" })));
   assert.equal(partial.listed, null, "a source that did not answer leaves the listing open");
   assert.match(partial.reason, /Quad9 threat-blocking DNS did not give a clear answer/);

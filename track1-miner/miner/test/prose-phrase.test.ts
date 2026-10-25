@@ -150,15 +150,18 @@ test("a request with no text is answered without asking the model", async () => 
   });
 });
 
-test("the model does not replace a keyless answer that declined to decide", async () => {
-  // Each of these is a guard the keyless path holds on purpose. A confident
-  // model line must not talk any of them into a label.
-  await withReply("not spam | The email is an ordinary note between colleagues.", async () => {
+// G210, 2026-10-25: where the word list declines, the model decides, and it may answer
+// "none". Measured on 24 hand-labelled items: 16/24 word list alone, 22/24 with this rule,
+// at the cost of one of four contentless texts labelled (docs/evidence/conformance-2026-10-25/).
+test("where the word list declines, the model's label is served at lower confidence, and 'none' stays ambiguous", async () => {
+  await withReply("not spam | The email is an ordinary note between colleagues about a meeting.", async () => {
     const q = "Classify this email as spam or not spam: 'Hi Sam, are we still meeting at 3pm tomorrow?'";
     const r = await classifyText(q);
-    assert.ok(!/not spam/i.test(String(r.label ?? "")), "'not spam' is never asserted from an absence of evidence");
+    assert.equal(r.label, "not spam");
+    assert.equal(r.confidence, 0.6);
+    assert.match(r.reason, /rests on the model's reading/);
   });
-  await withReply("billing | The user is asking a general question about their bill.", async () => {
+  await withReply("none | The ticket is a greeting with no topic to place under any label.", async () => {
     const q = "Classify this ticket as billing, technical, or account issue: 'Hello, I have a question.'";
     assert.equal((await classifyText(q)).verdict, "ambiguous");
   });

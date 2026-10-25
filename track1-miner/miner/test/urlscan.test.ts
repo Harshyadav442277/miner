@@ -3,7 +3,6 @@ import assert from "node:assert/strict";
 import {
   certificateOnly, classify, extractUrl, lookalikeMarkers, notAUrl, registrable, scanUrl, type Evidence,
 } from "../src/urlscan";
-import { parseHostfile, parseUrlList } from "../src/urlscan-net";
 
 test("a URL is read from inside a routed question, trailing punctuation dropped", () => {
   assert.equal(extractUrl("Scan the URL http://amaz0n-login.ru for malware or phishing.")?.href, "http://amaz0n-login.ru/");
@@ -50,20 +49,13 @@ test("lookalike markers fire on impersonation and stay silent on the brand's own
   assert.deepEqual(m("https://pineapple.com/"), []);
 });
 
-test("the URLhaus list parsers keep entries and skip comments", () => {
-  const hosts = parseHostfile("# URLhaus\n127.0.0.1\tbad.example\n\n127.0.0.1\tEVIL.test\nnot a line\n");
-  assert.deepEqual([...hosts], ["bad.example", "evil.test"]);
-  const urls = parseUrlList("# comment\nhttp://1.2.3.4:80/i\n\n");
-  assert.deepEqual([...urls], ["http://1.2.3.4:80/i"]);
-});
-
 const base = (over: Partial<Evidence>): Evidence => ({
   url: new URL("https://example.com/"),
   security: { status: 0, ips: ["93.184.215.14"], censored: false },
   open: { status: 0, ips: ["93.184.215.14"], censored: false },
-  urlhaus: { host: false, url: false },
   hops: [{ url: "https://example.com/", status: 200 }],
   tls: null,
+  quad9: "passed",
   ...over,
 });
 
@@ -78,45 +70,37 @@ test("a filtering-resolver block is unsafe, with the comparison that proves it",
   assert.match(r.reason, /0\.0\.0\.0 while an unfiltered resolver returns 104\.18\.4\.35/);
 });
 
-test("a URLhaus listing is unsafe even when the resolver is clean", () => {
-  const r = classify(base({ urlhaus: { host: true, url: false } }));
-  assert.equal(r.verdict, "unsafe");
-  assert.match(r.reason, /URLhaus lists example\.com/);
-});
-
 test("both threat sources down is an outage, never a verdict", () => {
-  const r = classify(base({ security: "unavailable", urlhaus: "unavailable" }));
+  const r = classify(base({ security: "unavailable", quad9: "unavailable" }));
   assert.equal(r.verdict, "unknown");
   assert.equal(r.error, "upstream_unavailable");
   assert.doesNotMatch(r.reason, /appears safe/);
 });
 
 test("one threat source down is never a safe verdict", () => {
-  // Verifier repro 2026-09-13: security resolver down, URLhaus up, Cloudflare's own test domain.
+  // Verifier repro 2026-09-13: security resolver down, the other list up, Cloudflare's own test domain.
   const r = classify(base({ url: new URL("http://malware.testcategory.com/"), security: "unavailable" }));
   assert.equal(r.verdict, "unknown");
   assert.equal(r.error, "upstream_unavailable");
   assert.doesNotMatch(r.reason, /appears safe|^Yes/);
-  const lists = classify(base({ urlhaus: "unavailable" }));
+  // G210: with URLhaus gone, Quad9 is the second list, so its silence is an unknown too.
+  const lists = classify(base({ quad9: "unavailable" }));
   assert.equal(lists.verdict, "unknown");
-  assert.match(lists.reason, /URLhaus lists could not be read/);
+  assert.match(lists.reason, /Quad9's threat-blocking resolver did not answer/);
   // A 0.0.0.0 filter answer with no unfiltered answer to compare is not a pass either.
   const bare = classify(base({ security: { status: 0, ips: ["0.0.0.0"], censored: false }, open: "unavailable" }));
   assert.equal(bare.verdict, "unknown");
   assert.equal(bare.checks?.cloudflare_filter, "ambiguous");
   assert.deepEqual(bare.flagged_by, []);
-  const listed = classify(base({ urlhaus: { host: true, url: false } }));
-  assert.deepEqual(listed.flagged_by, ["URLhaus"]);
-  assert.equal(listed.checks?.urlhaus, "listed_host");
-  // Evidence that did arrive still counts: a listing is unsafe with the resolver down.
-  assert.equal(classify(base({ security: "unavailable", urlhaus: { host: true, url: false } })).verdict, "unsafe");
+  // Evidence that did arrive still counts: a listing is unsafe with the other resolver down.
+  assert.equal(classify(base({ security: "unavailable", quad9: "blocked" })).verdict, "unsafe");
 });
 
 test("a literal IP is not described as passing a resolver it was never sent to", () => {
-  const r = classify(base({ url: new URL("http://185.12.4.9/login"), security: null, open: null }));
+  const r = classify(base({ url: new URL("http://185.12.4.9/login"), security: null, open: null, quad9: null }));
   assert.equal(r.verdict, "suspicious");
   assert.doesNotMatch(r.reason, /Cloudflare/);
-  assert.match(r.reason, /not listed by URLhaus/);
+  assert.match(r.reason, /No threat list was consulted for it/);
 });
 
 test("a certificate-only question and a non-public host are refused without a network call", async () => {

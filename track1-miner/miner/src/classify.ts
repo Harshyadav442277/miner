@@ -313,6 +313,17 @@ export async function classifyText(question: string, textParam = "", labelsParam
       reason: `${leadLabel(best.label, labels)} ${placement(noun, best.label, labels).replace(/\.$/, ":")} ${passageClause(text)} The words ${wordList(best.matched.slice(0, 4))} in it relate to ${best.label}.${via}`,
     };
   }
+  /**
+   * The word list declined, but the model chose a label, and it was free to answer
+   * "none" (CLASSIFY_SYSTEM). The relatedness index barely knows words like
+   * "exoplanet", so "Astronomers detect water vapour on a distant exoplanet" was
+   * ambiguous between politics, sport and science (G210, 2026-10-25). The lower
+   * confidence says one method supports the label.
+   */
+  if (said) {
+    return { verdict: "classified", label: said.label, confidence: 0.6,
+      reason: `${said.reason} The word list alone did not separate the labels, so this rests on the model's reading.` };
+  }
   if (indexDown) {
     return {
       verdict: "unknown", label: null, confidence: 0, error: "upstream_unavailable",

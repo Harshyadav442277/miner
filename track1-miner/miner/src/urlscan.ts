@@ -10,7 +10,9 @@
  *   - Cloudflare's malware-and-phishing resolver, compared with an unfiltered one.
  *     A block is strong evidence of harm; no block is only the absence of a
  *     listing.
- *   - URLhaus's current host and URL lists. Same asymmetry.
+ *   - Quad9's threat-blocking resolver, compared with its unfiltered one. Same
+ *     asymmetry. URLhaus was a third list until its downloads were retired
+ *     (410 Gone, 2026-10-25; urlscan-net.ts).
  *   - The redirect chain, walked hop by hop through guard.ts, and the TLS
  *     certificate through ssl.ts.
  *   - Rule-based lookalike markers: a brand name in a host that is not the
@@ -32,7 +34,7 @@
 import { quad9Verdict } from "./quad9";
 import { checkCertificate, type SslResult } from "./ssl";
 import {
-  dohA, openResolve, redirectChain, SECURITY_RESOLVER, urlhausLists, type DnsAnswer, type Hop,
+  dohA, openResolve, redirectChain, SECURITY_RESOLVER, type DnsAnswer, type Hop,
 } from "./urlscan-net";
 
 export type UrlScanVerdict = "safe" | "unsafe" | "suspicious" | "unreachable" | "unknown";
@@ -55,7 +57,6 @@ export interface UrlScanChecks {
    * ambiguous: it answered 0.0.0.0 and no unfiltered resolver answered to compare.
    */
   cloudflare_filter: "blocked" | "passed" | "ambiguous" | "unavailable" | "not_applicable";
-  urlhaus: "listed_url" | "listed_host" | "not_listed" | "unavailable";
   /** Quad9 threat-blocking DNS: blocked is NXDOMAIN while its unfiltered resolver resolves. */
   quad9_filter: "blocked" | "passed" | "unavailable" | "not_applicable";
   resolves: boolean | null;
@@ -199,7 +200,6 @@ export interface Evidence {
   url: URL;
   security: DnsAnswer | "unavailable" | null;
   open: DnsAnswer | "unavailable" | null;
-  urlhaus: { host: boolean; url: boolean } | "unavailable";
   hops: Hop[];
   tls: SslResult | null;
   /** Quad9's threat-blocking resolver (quad9.ts); null or absent for a literal IP. */
@@ -217,7 +217,6 @@ export function classify(e: Evidence): UrlScanResult {
   const checks: UrlScanChecks = {
     cloudflare_filter: sec === null ? "not_applicable" : sec === "unavailable" ? "unavailable" : blocked ? "blocked"
       : sec.ips.includes("0.0.0.0") ? "ambiguous" : "passed",
-    urlhaus: e.urlhaus === "unavailable" ? "unavailable" : e.urlhaus.url ? "listed_url" : e.urlhaus.host ? "listed_host" : "not_listed",
     quad9_filter: e.quad9 ?? "not_applicable",
     resolves: e.open && e.open !== "unavailable" ? e.open.status !== 3 : null,
     tls: e.tls?.verdict ?? null,
@@ -228,7 +227,6 @@ export function classify(e: Evidence): UrlScanResult {
   const flagged_by = [
     checks.cloudflare_filter === "blocked" ? "Cloudflare security DNS" : "",
     checks.quad9_filter === "blocked" ? "Quad9 threat-blocking DNS" : "",
-    checks.urlhaus.startsWith("listed") ? "URLhaus" : "",
   ].filter(Boolean);
   return { ...verdictOf(e), flagged_by, checks };
 }
@@ -240,36 +238,31 @@ function verdictOf(e: Evidence): UrlScanResult {
   const open = e.open;
   const openIps = open && open !== "unavailable" ? open.ips.filter((ip) => ip !== "0.0.0.0") : [];
   const blocked = Boolean(sec && sec !== "unavailable" && (sec.censored || (sec.ips.includes("0.0.0.0") && openIps.length > 0)));
-  const listed = e.urlhaus !== "unavailable" && (e.urlhaus.host || e.urlhaus.url);
   const secDown = sec === "unavailable";
-  const listsDown = e.urlhaus === "unavailable";
   const nx = Boolean(open && open !== "unavailable" && open.status === 3);
 
   const quad9Blocked = e.quad9 === "blocked";
-  if (blocked || listed || quad9Blocked) {
+  if (blocked || quad9Blocked) {
     const why: string[] = [];
     if (blocked) why.push(`${host} is blocked as malware or phishing by Cloudflare's threat-filtering resolver, which answers 0.0.0.0 while an unfiltered resolver returns ${openIps[0] ?? "a real address"}`);
     if (quad9Blocked) why.push(`Quad9's threat-blocking resolver refuses to resolve ${host} while its unfiltered resolver does`);
-    if (listed && e.urlhaus !== "unavailable") why.push(e.urlhaus.url ? "URLhaus lists this exact URL as currently serving malware" : `URLhaus lists ${host} as a host currently distributing malware`);
     return { url: e.url.href, verdict: "unsafe", confidence: 0.95, reason: `No, ${shown} is unsafe and should not be clicked: ${why.join("; ")}.` };
   }
 
-  const unchecked = [secDown ? "Cloudflare's threat-filtering resolver did not answer" : "", listsDown ? "the URLhaus lists could not be read" : ""].filter(Boolean);
+  // Both threat resolvers must answer for a clean result: they are the two lists
+  // left since URLhaus retired its downloads (G210).
+  const unchecked = [secDown ? "Cloudflare's threat-filtering resolver did not answer" : "", e.quad9 === "unavailable" ? "Quad9's threat-blocking resolver did not answer" : ""].filter(Boolean);
   // A literal IP is never sent to the resolver (security is null), so the
   // answer does not claim the filter passed it.
   const checked = [
     sec && !secDown ? "blocked by Cloudflare's malware and phishing filter" : "",
     e.quad9 === "passed" ? "blocked by Quad9's threat-blocking resolver" : "",
-    listsDown ? "" : "listed by URLhaus",
   ].filter(Boolean);
   const notListed = checked.length ? `It is not ${checked.join(", not ")}` : "No threat list was consulted for it";
-  // Quad9 adds evidence; without it the two original sources still decide, so
-  // its silence is stated rather than turned into an unknown.
-  const quad9Gap = e.quad9 === "unavailable" ? " Quad9's resolver did not answer, so that check is missing." : "";
   const markers = lookalikeMarkers(e.url);
   const tlsBad = e.tls && BAD_TLS.has(e.tls.verdict) ? `its TLS certificate is ${e.tls.verdict.replace(/_/g, " ")}` : "";
   const warnings = [...markers, tlsBad, markers.length && nx ? `${host} does not currently resolve in DNS` : ""].filter(Boolean);
-  const gap = (unchecked.length ? ` ${unchecked.join(" and ")}, so that check is missing.` : "") + quad9Gap;
+  const gap = unchecked.length ? ` ${unchecked.join(" and ")}, so that check is missing.` : "";
 
   if (warnings.length) {
     return {
@@ -313,7 +306,7 @@ function verdictOf(e: Evidence): UrlScanResult {
     : e.tls?.verdict === "valid" ? " It serves a valid TLS certificate that matches the host." : "";
   return {
     url: e.url.href, verdict: "safe", confidence: 0.8,
-    reason: `Yes, ${shown} appears safe to visit. ${notListed}, and no lookalike markers were found.${transport}${silent}${moved}${leftSite}${quad9Gap} No blocklist can prove a site safe.`,
+    reason: `Yes, ${shown} appears safe to visit. ${notListed}, and no lookalike markers were found.${transport}${silent}${moved}${leftSite} No blocklist can prove a site safe.`,
   };
 }
 
@@ -343,19 +336,14 @@ export async function scanUrl(question: string): Promise<UrlScanResult> {
   }
   const literal = /^\d{1,3}(?:\.\d{1,3}){3}$/.test(host) || host.includes(":");
   // Every read at once: chained, they would not fit the route's 11 s watchdog.
-  const [security, open, lists, hops, tls, quad9] = await Promise.all([
+  const [security, open, hops, tls, quad9] = await Promise.all([
     literal ? Promise.resolve(null) : dohA(SECURITY_RESOLVER, host),
     literal ? Promise.resolve(null) : openResolve(host),
-    urlhausLists(),
     redirectChain(url).catch(() => [] as Hop[]),
     url.protocol === "https:" ? checkCertificate(host, Number(url.port) || 443, 5_000).catch(() => null) : Promise.resolve(null),
     literal ? Promise.resolve(null) : quad9Verdict(host).catch(() => "unavailable" as const),
   ]);
-  const urlhaus = lists === "unavailable" ? "unavailable" as const : {
-    host: lists.hosts.has(host.toLowerCase()),
-    url: lists.urls.has(url.href) || lists.urls.has(url.href.replace(/\/$/, "")),
-  };
   // An unreachable certificate is not a bad certificate: ssl.ts reports DNS
   // failure as "unreachable", which is handled as resolution, not as TLS.
-  return classify({ url, security, open, urlhaus, hops, tls: tls && tls.verdict !== "unreachable" ? tls : null, quad9 });
+  return classify({ url, security, open, hops, tls: tls && tls.verdict !== "unreachable" ? tls : null, quad9 });
 }

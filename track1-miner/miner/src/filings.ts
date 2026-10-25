@@ -64,7 +64,17 @@ async function concept(cik: number, tag: string): Promise<Fact[]> {
   const r = await fetch(`https://data.sec.gov/api/xbrl/companyconcept/CIK${String(cik).padStart(10, "0")}/us-gaap/${tag}.json`,
     { headers: { accept: "application/json", "user-agent": UA }, signal: AbortSignal.timeout(TIMEOUT_MS) });
   if (!r.ok) return [];
-  return ((await r.json()) as { units?: { USD?: Fact[] } }).units?.USD ?? [];
+  return usdFacts(await r.json());
+}
+
+/**
+ * A concept's USD facts, or none. SEC answers some filers with `"USD": {}` rather
+ * than a list (Coca-Cola's Revenues, 2026-10-25), which crashed the route and was
+ * reported as the provider being down (G210). Pure.
+ */
+export function usdFacts(body: unknown): Fact[] {
+  const usd = (body as { units?: { USD?: unknown } } | null)?.units?.USD;
+  return Array.isArray(usd) ? (usd as Fact[]) : [];
 }
 
 /** The filing's own facts for its period: the shortest span ending on it, and the same span a year earlier. Pure. */
