@@ -87,3 +87,30 @@ the grace-period risk in G206.
 2. Ask the organisers: are unlisted intents judged and routed in Season II?
 3. If the answer is "listed only": plan one `updateMiner` that registers the sibling intents our code already
    performs. Each must pass an audit against its row before signing.
+
+## Fix 1: SENTIMENT_ANALYSIS and TEXT_CLASSIFICATION latency (G209)
+
+`tools/prose-model-bench.mjs` runs 24 hand-labelled sentiment passages and 16 classification items in
+process, from India, with the word list alone and with the model.
+
+| Version | Sentiment correct | Sentiment p50 / p90 | Classification correct | Classification p50 / p90 |
+|---|---:|---|---:|---|
+| Word list only | 14/24 | 0 / 0 ms | 11/16 | 67 / 273 ms |
+| Before: gpt-oss at "low", Season I prompts (`prose-model-before.txt`) | 21/24 | 700 / 1252 ms | 12/16 | 570 / 699 ms |
+| After: qwen3.8-27b with reasoning off, plain prompts, 250 / 350 ms deadline (`prose-model-after.txt`) | **23/24** | **164 / 203 ms** | 12/16 | 168 / 329 ms |
+
+**What changed**
+- `llm.ts` gains a `fast` request: one attempt on qwen3.8-27b with `reasoning_effort: "none"`. A miss falls
+  back to the keyless answer, never to a slower model.
+- `prose-phrase.ts` drops the Season I scorer-register prompts for plain ones that define each label. Those
+  prompts had made qwen call 10 of 12 negative reviews "mixed".
+- A passage with no word-list opinion word now also goes to the model ("Five stars, would buy again").
+
+**Kept on purpose:** classification's guard. The model's label is used only when the word list has a clear
+margin, so "Hello, I have a question" is never labelled billing, and "not spam" is never asserted from an
+absence of evidence. It costs the four misses in the table.
+
+**Not measured**
+- Latency from Vercel's iad1 to Groq; it is probably shorter than from India.
+- Behaviour under the free plan's 30 requests a minute. Back-to-back bench calls hit it, which is why the
+  bench is paced at 2.1 s. Under real load, overflow answers fall back to the word list (item 4).

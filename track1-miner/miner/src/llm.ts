@@ -47,6 +47,16 @@ const ENDPOINT = "https://api.groq.com/openai/v1/chat/completions";
  */
 const MODELS = ["openai/gpt-oss-20b", "openai/gpt-oss-120b", "qwen/qwen3.8-27b"];
 
+/**
+ * The model for a request with a latency target the reasoning models cannot meet.
+ * The site gives SENTIMENT_ANALYSIS < 300 ms and TEXT_CLASSIFICATION < 400 ms. The
+ * three models above at "low" took 430–650 ms on a sentiment prompt. qwen3.8-27b
+ * accepts "none" and took 155–170 ms from India, with sarcasm still read right
+ * (2026-10-25, track1-miner/docs/evidence/conformance-2026-10-25/). It gets one
+ * attempt; a miss is the keyless answer, never a slower model.
+ */
+const FAST_MODEL = "qwen/qwen3.8-27b";
+
 /** Read per call rather than once at load, so a test can shorten them. */
 const budgetMs = (): number => {
   const v = Number(process.env.LLM_BUDGET_MS);
@@ -64,6 +74,8 @@ export interface PhraseRequest {
   user: string;
   maxTokens?: number;
   deadlineMs?: number;
+  /** One non-reasoning attempt within `deadlineMs`, for a route with a tight latency target. */
+  fast?: boolean;
   /** Turns the model's raw reply into the answer, or null to reject it. Defaults to `sanitise`. */
   clean?: (raw: string) => string | null;
 }
@@ -117,7 +129,7 @@ async function ask(model: string, r: PhraseRequest, key: string, ms: number): Pr
         messages: [{ role: "system", content: r.system }, { role: "user", content: r.user }],
         temperature: 0.2,
         max_completion_tokens: r.maxTokens ?? 200,
-        reasoning_effort: "low",
+        reasoning_effort: r.fast ? "none" : "low",
       }),
       signal: AbortSignal.timeout(ms),
     });
@@ -149,6 +161,14 @@ export async function phrase(r: PhraseRequest): Promise<string | null> {
   if (hit && Date.now() - hit.at < CACHE_TTL_MS) return hit.text;
 
   const deadline = Date.now() + Math.min(r.deadlineMs ?? budgetMs(), budgetMs());
+  if (r.fast) {
+    // Outside the rotation and the cooldown: one model, and a miss costs nothing but this answer.
+    const out = await ask(FAST_MODEL, r, key, Math.max(1, deadline - Date.now()));
+    if (!out || out === "rate") return null;
+    if (cache.size >= CACHE_MAX) cache.delete(cache.keys().next().value as string);
+    cache.set(id, { text: out, at: Date.now() });
+    return out;
+  }
   let limited = 0;
   for (let i = 0; i < MODELS.length; i++) {
     const left = deadline - Date.now();

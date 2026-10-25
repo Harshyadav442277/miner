@@ -153,10 +153,6 @@ test("a request with no text is answered without asking the model", async () => 
 test("the model does not replace a keyless answer that declined to decide", async () => {
   // Each of these is a guard the keyless path holds on purpose. A confident
   // model line must not talk any of them into a label.
-  await withReply("positive | The writer is pleased with the site.", async () => {
-    const flat = "github.com";
-    assert.deepEqual(await analyseSentimentPhrased(flat), analyseSentiment(flat), "no opinion word stays a neutral word-list reading");
-  });
   await withReply("not spam | The email is an ordinary note between colleagues.", async () => {
     const q = "Classify this email as spam or not spam: 'Hi Sam, are we still meeting at 3pm tomorrow?'";
     const r = await classifyText(q);
@@ -165,6 +161,16 @@ test("the model does not replace a keyless answer that declined to decide", asyn
   await withReply("billing | The user is asking a general question about their bill.", async () => {
     const q = "Classify this ticket as billing, technical, or account issue: 'Hello, I have a question.'";
     assert.equal((await classifyText(q)).verdict, "ambiguous");
+  });
+});
+
+// G209, 2026-10-25: the word list has no opinion word in "Five stars, would buy
+// again without hesitation" and read it neutral; the model reads it positive.
+test("a passage with no word-list opinion word is still read by the model", async () => {
+  await withReply("positive | The writer gives five stars and says they would buy again.", async () => {
+    const q = "What is the sentiment of this review: 'Five stars, would buy again without hesitation.'";
+    assert.equal(analyseSentiment(q).verdict, "neutral");
+    assert.equal((await analyseSentimentPhrased(q)).verdict, "positive");
   });
 });
 

@@ -13,7 +13,8 @@ Evidence: `track1-miner/docs/evidence/conformance-2026-10-25/` (README, `site-in
     (10), FX_NOW, THREAT_IP_REPUTATION, DNS_RECORD_LOOKUP, TOKEN_TOTAL_SUPPLY_VERIFY, ENTITY_EXTRACTION and
     KEYWORD_EXTRACTION.
   - Registering any of them needs an `updateMiner` (owner, G206).
-- **G209 — Four listed intents miss the site's latency target. `OPEN, fixing in code`.** Measured on questions the
+- **G209 — Four listed intents miss the site's latency target. `PARTLY FIXED on branch claude/miner-s2-conformance, NOT deployed`:**
+  sentiment and classification are within target in the in-process bench (README "Fix 1"). Sanctions and FX are still open. Measured on questions the
   miner had not seen, from India with the round trip subtracted:
   - SENTIMENT_ANALYSIS: 0.69–1.42 s against < 300 ms.
   - TEXT_CLASSIFICATION: up to 1.25 s against < 400 ms.
@@ -23,7 +24,7 @@ Evidence: `track1-miner/docs/evidence/conformance-2026-10-25/` (README, `site-in
     list download.
 
   Not measured: p90 over many questions, or latency from a US caller. A second run of repeated questions was
-  answered from a cache that is not traced (`CACHE_TTL_MS` is 60 s) and was discarded.
+  answered from `llm.ts`'s 10-minute model-reply cache and was discarded.
 
 ## 2026-10-22/23 Season II rules published, audit release — G203–G207
 

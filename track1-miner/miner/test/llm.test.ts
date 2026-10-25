@@ -187,3 +187,27 @@ test("a malformed body is a fallback, not a crash", async () => {
     async () => { assert.equal(await phrase(REQ), null); },
   );
 });
+
+// G209, 2026-10-25: SENTIMENT_ANALYSIS and TEXT_CLASSIFICATION have 300 and 400 ms
+// targets that the reasoning models at "low" miss.
+test("a fast request makes one non-reasoning attempt and never falls through to a slower model", async () => {
+  const efforts: string[] = [];
+  await withGroq(
+    async (_u, init) => {
+      efforts.push(JSON.parse(String(init.body)).reasoning_effort);
+      return new Response("{}", { status: 429 });
+    },
+    async (calls) => {
+      assert.equal(await phrase({ ...REQ, fast: true, deadlineMs: 250 }), null);
+      assert.deepEqual(calls.map((c) => c.model), ["qwen/qwen3.8-27b"]);
+      assert.deepEqual(efforts, ["none"]);
+    },
+  );
+  await withGroq(
+    async () => ok("a | The passage is about a."),
+    async (calls) => {
+      assert.equal(await phrase({ ...REQ, fast: true, deadlineMs: 250 }), "a | The passage is about a.");
+      assert.equal(calls.length, 1);
+    },
+  );
+});

@@ -34,20 +34,25 @@ import {
  */
 const SEP = "|";
 
+/**
+ * Plain instructions for the right label. The Season I prompts dictated a register
+ * that one scorer rewarded ("The user is mentioning…", "…indicating"). With
+ * reasoning off, that hedged register made qwen call 10 of 12 plainly negative
+ * reviews "mixed" (2026-10-25). Season II is judged on correctness, not on
+ * matching a reference wording.
+ */
 const CLASSIFY_SYSTEM =
-  "You assign a passage to one of the labels the user lists. Reply with exactly one line: the chosen " +
-  `label, then ${SEP}, then ONE sentence of 25 to 45 words that begins "The user is mentioning" or ` +
-  "\"The user is reporting\", says what the passage states, then adds a clause beginning \"which\" giving " +
-  "what that indicates, and ends by naming the chosen label as the most relevant category. Use only the " +
-  "label words the user gave. Do not quote the passage, do not add a second sentence, do not use markdown, " +
-  "and do not state anything the passage does not carry.";
+  "Assign the passage to the one label, from those the user lists, that best fits what the passage is about " +
+  `or asks for. Reply with exactly one line: the label exactly as the user wrote it, then ${SEP}, then one ` +
+  "plain sentence of 8 to 30 words saying what in the passage makes that label fit. No quotation marks, no " +
+  "markdown, nothing the passage does not say.";
 
 const SENTIMENT_SYSTEM =
-  "You read the sentiment of a passage. Reply with exactly one line: positive, negative, neutral or mixed, " +
-  `then ${SEP}, then ONE sentence of 20 to 40 words that begins "This is because the writer is", says what ` +
-  "the writer expresses and which words or facts of the passage carry it, and ends with a clause beginning " +
-  "\"indicating\". Do not quote the passage, do not add a second sentence, do not use markdown, and do not " +
-  "state anything the passage does not carry.";
+  "Judge the sentiment the writer actually means. positive: approval or satisfaction. negative: complaint, " +
+  "criticism or frustration, including sarcastic praise. neutral: a statement of fact with no opinion. mixed: " +
+  "clear approval of one thing AND clear criticism of another. A complaint alone is negative, not mixed. " +
+  `Reply with exactly one line: positive, negative, neutral or mixed, then ${SEP}, then one plain sentence of ` +
+  "8 to 30 words naming what in the passage shows it. No quotation marks, no markdown.";
 
 const SENTIMENT_LABELS: SentimentVerdict[] = ["positive", "negative", "neutral", "mixed"];
 
@@ -91,8 +96,17 @@ export function parsePhrased(line: string | null, labels: string[]): Phrased | n
  * 2026-09-19 bench run capped one answer of twelve mid-clause at 200. The extra
  * headroom costs about 50 tokens a call against the 200K daily budget.
  */
-const ask = (system: string, user: string, deadlineMs?: number): Promise<string | null> =>
-  phrase({ system, user, maxTokens: 320, deadlineMs });
+const ask = (system: string, user: string, deadlineMs: number): Promise<string | null> =>
+  phrase({ system, user, maxTokens: 320, deadlineMs, fast: true });
+
+/**
+ * The model's share of the site's latency targets: SENTIMENT_ANALYSIS < 300 ms and
+ * TEXT_CLASSIFICATION < 400 ms (G209). A reply later than this is dropped for the
+ * keyless answer. The model is kept because it is the more accurate reader: 21/24
+ * against the word list's 14/24 on hand-labelled sentiment (2026-10-25).
+ */
+const SENTIMENT_MODEL_MS = 250;
+const CLASSIFY_MODEL_MS = 350;
 
 /**
  * A classification in the register the champion rewards, or null.
@@ -103,7 +117,7 @@ const ask = (system: string, user: string, deadlineMs?: number): Promise<string 
  * explanation is one sentence either way.
  */
 export async function phraseClassification(
-  noun: string, text: string, labels: string[], deadlineMs?: number,
+  noun: string, text: string, labels: string[], deadlineMs = CLASSIFY_MODEL_MS,
 ): Promise<{ label: string; reason: string } | null> {
   if (labels.length < 2 || !text.trim()) return null;
   const passage = text.split(/\s+/).slice(0, 120).join(" ");
@@ -130,13 +144,14 @@ export async function phraseClassification(
  * handler does not publish it.
  */
 export async function analyseSentimentPhrased(
-  question: string, textParam = "", deadlineMs?: number,
+  question: string, textParam = "", deadlineMs = SENTIMENT_MODEL_MS,
 ): Promise<SentimentResult> {
   const base = analyseSentiment(question, textParam);
   if (base.verdict === "unknown") return base;
-  // No opinion word, or a yes/no question about one tone: the keyless answer is
-  // the honest one and the model does not replace it.
-  if (!base.compound || /^(?:Yes\.|No word )/.test(base.reason)) return base;
+  // A yes/no question about one tone is answered by the keyless reading. A passage
+  // with no word-list opinion word still goes to the model: "Five stars, would buy
+  // again" has none and is plainly positive (2026-10-25).
+  if (/^Yes\./.test(base.reason)) return base;
   // The passage exactly as analyseSentiment reads it, rather than re-derived.
   const q = String(question ?? "").trim();
   const text = String(textParam ?? "").trim() || suppliedText(q) || (asksSentiment(q) ? "" : q);

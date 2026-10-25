@@ -23,8 +23,8 @@ EVENT_OUTCOME_RESOLUTION   <5s      315   362    <=278                       no_
 
 RUN 2: the same questions, about five minutes later, with the corrected tool. DISCARDED. Every route
 answered in under 100 ms, including LANGUAGE_TRANSLATION, which calls Groq and cannot answer in 12 ms. So a
-cache served the repeated questions. CACHE_TTL_MS defaults to 60 s and is not set on production, so which
-cache it was is not traced.
+cache served the repeated questions. Traced later the same day: src/llm.ts keeps model replies for 10 minutes
+(its CACHE_TTL_MS), separate from the handler's 60 s response cache.
 
 SPOT CHECK: new questions, sequential, curl, minus a 315 ms /health floor.
   /sentiment        692 ms, 1179 ms   (target <300ms)
