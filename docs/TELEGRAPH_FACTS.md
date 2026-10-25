@@ -616,7 +616,13 @@ Ahmed Ali (Telegraph), on Discord, relayed by the operator as a screenshot: "i'd
 current wasm system will be deprecated in couple of days". The screenshot shows 19:14 with no time zone.
 
 - Read the section below as superseded once that happens.
-- Which system "current" means, and what replaces it, is unknown.
+- Which system "current" means is unknown. Ahmed then added: **"it will be migrated to v2"**. The kit branch our
+  adapter used is named `feature/v2-integration`, so v2 may be that format; this is unconfirmed.
+- After the operator ("saroj") said they would focus on miners, Ahmed wrote: **"make sure your miners are actually
+  achieving the functionality, in other words, build on intents hackathon website have"**.
+  - Read that against the site's Intents page. For each of about 92 intents it gives the tier, the job, a service
+    type, example data sources, a latency target and a difficulty.
+  - A miner should serve an intent only when it really does that job.
 
 ## Season II evaluators: `rank_answer` is retired (read 2026-10-21 ~06:40 UTC)
 
