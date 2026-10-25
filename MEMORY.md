@@ -1,5 +1,39 @@
 # MEMORY.md — session continuity
 
+## 2026-10-25 ~17:30 UTC (23:00 IST): CURRENT — intent conformance; latency fixes on a branch, not deployed
+
+Owner: "start working on them. one by one". The list:
+1. conformance against the site's Intents page;
+2. answer receipts;
+3. calibrated confidence;
+4. a second model provider;
+5. nightly self-grading with our comparators;
+6. an OpenAPI spec.
+
+**Branch `claude/miner-s2-conformance`**, in worktree `youthful-nightingale-1c5936`, cut from `bc91008`. Not
+merged, not pushed, not deployed.
+
+- **`eaa1b8c`: step 1, the conformance check.** `tools/site-intents.mjs` reads the site's 93-intent table.
+  Evidence: `track1-miner/docs/evidence/conformance-2026-10-25/`.
+  - **Only 13 of our 36 intents are on the page (G208).** WEB_SEARCH, FACT_CHECK and FINANCIAL_DATA are not.
+  - Listed siblings our code already performs: ONCHAIN_METRIC_VERIFY, VULNERABILITY_TRIAGE, FX_NOW,
+    DNS_RECORD_LOOKUP and others.
+  - Question for the organisers: are unlisted intents judged or routed?
+- **`cd33a6c`: G209 sentiment and classification latency.**
+  - `llm.ts` has a `fast` path: qwen3.8-27b with reasoning off, one attempt.
+  - The Season I scorer-register prompts were replaced with plain ones.
+  - Sentiment went from 21/24 at a p50 of 700 ms to **23/24 at 164 ms** (target < 300 ms).
+  - Classification p90 is 329 ms (target < 400 ms). Its guard on asserting labels is kept on purpose.
+- **`3f5a813`: FX holds the daily ECB table for 10 minutes** (it was fetched per request).
+- **Sanctions' 3.35 s on a cold instance is the owner's call:** a scheduled warm-up ping or a snapshot.
+- **Unit tests 795/795.**
+- **Blocked:** item 4, a second model provider, needs a key that the owner creates (Gemini free tier is
+  allowed). Not built: it could not be verified live without one.
+- **Next:**
+  1. The owner's yes to land the branch on `codex/rank1-14-intents` and deploy it.
+  2. Re-measure production latency with fresh questions (`tools/latency-targets.mjs`; edit the questions).
+  3. Item 2, answer receipts.
+
 ## 2026-10-24 ~08:30 UTC (14:00 IST): CURRENT — G207 fixed on a branch; not deployed, not merged
 
 Owner: "keep improving miner".
