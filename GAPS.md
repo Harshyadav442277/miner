@@ -1,5 +1,30 @@
 # GAPS.md — honesty ledger
 
+## 2026-10-25 intent conformance against the site's Intents page — G208–G209
+
+Evidence: `track1-miner/docs/evidence/conformance-2026-10-25/` (README, `site-intents.json`, `latency.txt`).
+
+- **G208 — 23 of our 36 intents are not on the hackathon site's Intents page. `OPEN, ask the organisers`.**
+  - The page lists 93 intents. Ours that are missing include WEB_SEARCH, FACT_CHECK, FINANCIAL_DATA,
+    CONTENT_EXTRACTION and WEATHER_CHECK, though mission pages name them.
+  - The organiser said on 2026-10-25 to build on the intents the site has.
+  - Unknown: whether unlisted intents are judged or routed in Season II.
+  - Listed siblings that our code already performs: ONCHAIN_METRIC_VERIFY (10 missions), VULNERABILITY_TRIAGE
+    (10), FX_NOW, THREAT_IP_REPUTATION, DNS_RECORD_LOOKUP, TOKEN_TOTAL_SUPPLY_VERIFY, ENTITY_EXTRACTION and
+    KEYWORD_EXTRACTION.
+  - Registering any of them needs an `updateMiner` (owner, G206).
+- **G209 — Four listed intents miss the site's latency target. `OPEN, fixing in code`.** Measured on questions the
+  miner had not seen, from India with the round trip subtracted:
+  - SENTIMENT_ANALYSIS: 0.69–1.42 s against < 300 ms.
+  - TEXT_CLASSIFICATION: up to 1.25 s against < 400 ms.
+  - Both are dominated by a Groq phrasing call that the code calls a Season I scorer lottery ticket.
+  - CURRENCY_EXCHANGE: 437 and 465 ms against < 250 ms.
+  - SANCTIONS_SCREENING_MATCH: 3.35 s on the first call after a cold start, against < 500 ms. The cause is the
+    list download.
+
+  Not measured: p90 over many questions, or latency from a US caller. A second run of repeated questions was
+  answered from a cache that is not traced (`CACHE_TTL_MS` is 60 s) and was discarded.
+
 ## 2026-10-22/23 Season II rules published, audit release — G203–G207
 
 The Miner and Evaluator rubrics are now on hackathon.telegraphprotocol.com/rules (read 2026-10-22 16:47 UTC).

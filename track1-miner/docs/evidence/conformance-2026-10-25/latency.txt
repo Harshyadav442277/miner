@@ -1,0 +1,37 @@
+Latency against the site's targets, production miner-e2999tb2p, 2026-10-25 ~16:20 UTC, from India (function in iad1).
+
+RUN 1: questions the miner had not seen; tools/latency-targets.mjs (the first version).
+That version measured the /health baseline with five PARALLEL calls and got 526 ms. Measured sequentially a
+few minutes later, the floor was 248 ms. The figures below are the tool's printed estimates plus 278 ms
+(526 - 248), so they rest on the sequential floor. A printed 0 means the total was at or under 526 ms, so
+the miner's time was at most 278 ms; it is written "<=278".
+
+intent                     target   est. miner time, three questions (ms)   verdicts
+CURRENCY_EXCHANGE          <250ms   465   <=278  <=278                       converted converted rate
+LANGUAGE_TRANSLATION       <1.5s    348   1005   470                         translated x3
+SENTIMENT_ANALYSIS         <300ms   702   705    1421                        negative positive mixed
+TEXT_CLASSIFICATION        <400ms   447   1080   <=278                       classified classified unknown
+SANCTIONS_SCREENING_MATCH  <500ms   3348  <=278  <=278                       match match no_match
+CORPORATE_REGISTRY_LOOKUP  <2.5s    1094  360    310                         found found not_found
+REGULATORY_FILING_MONITOR  <3s      <=278 <=278  <=278                       filed x3
+CRYPTO_TRANSFER_VERIFY     <1.5s    320   607    <=278                       confirmed x3
+MACRO_ECONOMIC_INDICATOR   <2s      <=278 294    <=278                       reported x3
+URL_SAFE                   <300ms   <=278 <=278  <=278                       unsafe unknown unknown
+QUESTION_ANSWERING         <2s      717   640    594                         answered x3
+CROSS_CHAIN_STATE_VERIFY   <3s      <=278 <=278  <=278                       not_found insufficient_input x2
+EVENT_OUTCOME_RESOLUTION   <5s      315   362    <=278                       no_market_found resolved resolved
+
+RUN 2: the same questions, about five minutes later, with the corrected tool. DISCARDED. Every route
+answered in under 100 ms, including LANGUAGE_TRANSLATION, which calls Groq and cannot answer in 12 ms. So a
+cache served the repeated questions. CACHE_TTL_MS defaults to 60 s and is not set on production, so which
+cache it was is not traced.
+
+SPOT CHECK: new questions, sequential, curl, minus a 315 ms /health floor.
+  /sentiment        692 ms, 1179 ms   (target <300ms)
+  /sanctions-screen 119 ms, 58 ms     (target <500ms)
+  /classify         281 ms, 1245 ms   (target <400ms)
+  /convert          437 ms            (target <250ms)
+  /url-reputation   157 ms            (target <300ms)
+
+Re-run with fresh questions: node tools/latency-targets.mjs site-intents.json out.json
+(edit the question table first; repeated questions are answered from a cache).
