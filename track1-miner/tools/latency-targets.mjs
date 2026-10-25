@@ -1,15 +1,16 @@
 // Latency per intent against the site's latency targets (tools/site-intents.mjs output).
-// Three different questions per intent. Questions asked again within minutes came back from a cache
-// (2026-10-25), so change the table before each run.
+// Three different questions per intent. A question asked again within 10 minutes is answered from
+// llm.ts's reply cache (2026-10-25), so give each run a question file nobody has asked yet.
 // The client's round trip is measured on /health (no upstream work) and subtracted; the result
 // estimates the time the miner spends, not what a caller far from the function region sees.
-// usage: node tools/latency-targets.mjs <site-intents.json> <out.json> [base-url]
+// usage: node tools/latency-targets.mjs <site-intents.json> <out.json> [base-url] [questions.json]
+// questions.json: { "INTENT": ["/path", ["question", ...]], ... }
 import { readFile, writeFile } from "node:fs/promises";
 
-const [sitePath, outPath, base = "https://miner-wine.vercel.app"] = process.argv.slice(2);
+const [sitePath, outPath, base = "https://miner-wine.vercel.app", questionsPath] = process.argv.slice(2);
 const site = Object.fromEntries(JSON.parse(await readFile(sitePath, "utf8")).rows.map((r) => [r.intent, r]));
 
-const Q = {
+const DEFAULT_Q = {
   CURRENCY_EXCHANGE: ["/convert", ["What is 100 USD in EUR right now?", "Convert 250 GBP to JPY", "What is the EUR to INR exchange rate today?"]],
   LANGUAGE_TRANSLATION: ["/translate", ['Translate "Good morning" into French.', 'Translate "Where is the train station?" into Spanish.', 'Translate "Thank you very much" into German.']],
   SENTIMENT_ANALYSIS: ["/sentiment", ["What's the sentiment of this review: 'The product broke after one day, terrible quality.'?",
@@ -30,6 +31,8 @@ const Q = {
     "Verify the cross-chain transfer 0x1b2c3d4e5f60718293a4b5c6d7e8f90112233445566778899aabbccddeeff00 on LayerZero"]],
   EVENT_OUTCOME_RESOLUTION: ["/event-outcome", ["Who won the 2022 FIFA World Cup final?", "Did the Fed cut rates at its September 2025 meeting?", "Who won the 2024 US presidential election?"]],
 };
+
+const Q = questionsPath ? JSON.parse(await readFile(questionsPath, "utf8")) : DEFAULT_Q;
 
 const timed = async (path, q) => {
   const u = `${base}${path}${q === null ? "" : `?query=${encodeURIComponent(q)}`}`;

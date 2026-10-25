@@ -1,6 +1,6 @@
 # GAPS.md — honesty ledger
 
-## 2026-10-25 intent conformance against the site's Intents page — G208–G209
+## 2026-10-25 intent conformance against the site's Intents page — G208–G210
 
 Evidence: `track1-miner/docs/evidence/conformance-2026-10-25/` (README, `site-intents.json`, `latency.txt`).
 
@@ -13,7 +13,9 @@ Evidence: `track1-miner/docs/evidence/conformance-2026-10-25/` (README, `site-in
     (10), FX_NOW, THREAT_IP_REPUTATION, DNS_RECORD_LOOKUP, TOKEN_TOTAL_SUPPLY_VERIFY, ENTITY_EXTRACTION and
     KEYWORD_EXTRACTION.
   - Registering any of them needs an `updateMiner` (owner, G206).
-- **G209 — Four listed intents miss the site's latency target. `PARTLY FIXED on branch claude/miner-s2-conformance, NOT deployed`:**
+- **G209 — Four listed intents miss the site's latency target. `FIXED AND DEPLOYED 2026-10-25 for three; sanctions cold start open`:**
+  production `miner-8lwhe1wtl`. All 39 measurements on fresh questions are within target
+  (`conformance-2026-10-25/latency-after.txt`).
   sentiment and classification are within target in the in-process bench (README "Fix 1"). FX now holds the daily
   ECB table for 10 minutes, so a warm answer makes no request; production latency is not yet re-measured.
   **Sanctions is the owner's call.** The lists are already kept 6 h with a background refresh, so the 3.35 s is the one

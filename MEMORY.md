@@ -1,6 +1,6 @@
 # MEMORY.md — session continuity
 
-## 2026-10-25 ~17:30 UTC (23:00 IST): CURRENT — intent conformance; latency fixes on a branch, not deployed
+## 2026-10-25 ~17:30 UTC (23:00 IST): CURRENT — intent conformance; latency fixes DEPLOYED and pushed
 
 Owner: "start working on them. one by one". The list:
 1. conformance against the site's Intents page;
@@ -29,10 +29,15 @@ merged, not pushed, not deployed.
 - **Unit tests 795/795.**
 - **Blocked:** item 4, a second model provider, needs a key that the owner creates (Gemini free tier is
   allowed). Not built: it could not be verified live without one.
+- **DEPLOYED 2026-10-25 ~16:40 UTC** on the owner's yes: production `miner-8lwhe1wtl` from `d498e8a`; rollback target
+  `miner-e2999tb2p`.
+  - Gates are at the known baseline.
+  - All 39 fresh-question latency measurements are within target.
+  - Evidence: `release-2026-10-25/`.
+  - A first deploy (`miner-e3ugwgp9b`) failed two intent checks; both were fixed in `d498e8a`.
 - **Next:**
-  1. The owner's yes to land the branch on `codex/rank1-14-intents` and deploy it.
-  2. Re-measure production latency with fresh questions (`tools/latency-targets.mjs`; edit the questions).
-  3. Item 2, answer receipts.
+  1. G210: check the possible wrong answers against their sources.
+  2. Item 2, answer receipts.
 
 ## 2026-10-24 ~08:30 UTC (14:00 IST): CURRENT — G207 fixed on a branch; not deployed, not merged
 
