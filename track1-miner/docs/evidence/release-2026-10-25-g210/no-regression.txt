@@ -1,0 +1,10 @@
+identical  /ssl-check
+identical  /storm-alert
+identical  /weather-forecast
+identical  /ip-geolocate
+identical  /papers
+identical  /cve
+identical  /extract
+identical  /wallet-balance
+
+8 identical, 0 differ

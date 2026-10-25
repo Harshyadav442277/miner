@@ -42,7 +42,9 @@ merged, not pushed, not deployed.
   - Evidence: `release-2026-10-25/`.
   - A first deploy (`miner-e3ugwgp9b`) failed two intent checks; both were fixed in `d498e8a`.
 - **Next:**
-  1. **G210 done on the branch (`a73d00a`), NOT deployed.** Four of the five answers were real defects
+  1. **G210 DEPLOYED 2026-10-25 ~18:35 UTC.** Production `miner-l5taibkkl`, rollback `miner-8lwhe1wtl`; gates at
+     baseline after a URL_SAFE check fix; all five re-checked on production (`release-2026-10-25-g210/`).
+     Previously: Four of the five answers were real defects
      (details in GAPS G210). URLhaus's retirement had made every clean URL "could not be judged".
      Deploy needs the owner's yes.
   2. Item 2, answer receipts.

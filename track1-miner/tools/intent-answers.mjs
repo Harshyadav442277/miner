@@ -1138,9 +1138,12 @@ const CHECKS = {
     if (r.body.error) return [`errored: ${r.body.error}`];
     if (r.body.listed !== true) bad.push(`Cloudflare's test domain -> listed ${r.body.listed}, want true`);
     if (!(r.body.flagged_by ?? []).includes("Cloudflare security DNS")) bad.push("Cloudflare is not named as the source that flagged it");
-    if ((r.body.sources ?? []).length !== 3) bad.push("not every source is reported");
+    // Two sources since URLhaus retired its downloads (G210, 2026-10-25).
+    if ((r.body.sources ?? []).length !== 2) bad.push(`${(r.body.sources ?? []).length} sources reported, want 2`);
     const clean = await get("/url-reputation", { url: "https://github.com" });
     if (clean.body.listed === true) bad.push("github.com reported as listed");
+    // A dead source once turned every clean URL into "could not be judged" (G210).
+    if (clean.body.listed !== false) bad.push(`github.com -> listed ${clean.body.listed}, want false (both sources answered)`);
     if (!/cannot prove a site safe/.test(String(clean.body.reason))) bad.push("a clean listing is not qualified");
     return bad;
   },

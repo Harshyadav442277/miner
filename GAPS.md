@@ -31,7 +31,9 @@ Evidence: `track1-miner/docs/evidence/conformance-2026-10-25/` (README, `site-in
     owner's request, G205) or a deploy-time snapshot, which risks screening against a stale list.
   - **Not measured:** p90 over many questions, and latency from a US caller. A second run of repeated
     questions was answered from `llm.ts`'s 10-minute model-reply cache and was discarded.
-- **G210 — Five answers the latency re-measure surfaced. `CHECKED 2026-10-25; four fixed on branch claude/miner-s2-conformance (a73d00a), NOT deployed`.**
+- **G210 — Five answers the latency re-measure surfaced. `CHECKED 2026-10-25; four fixed and DEPLOYED 2026-10-25 ~18:35 UTC (production miner-l5taibkkl)`.**
+  All five were re-checked on public production: `release-2026-10-25-g210/`. A missed model deadline is cached
+  like any answer for up to 60 s, so a cold `ambiguous` can repeat for a minute (seen on the exoplanet question).
   Each was checked against GLEIF, EDGAR or URLhaus itself: `track1-miner/docs/evidence/g210-2026-10-25/`.
   - **Nvidia:** the registry subject kept "an"; fixed.
   - **Coca-Cola 10-K:** SEC's `"USD": {}` crashed the route, and the crash was reported as an outage; fixed.

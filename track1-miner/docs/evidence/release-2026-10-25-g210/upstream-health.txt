@@ -1,0 +1,26 @@
+ok    open-meteo forecast            primary  739ms
+ok    open-meteo geocoding           primary  1109ms
+ok    bigdatacloud reverse-geocode   failover 173ms
+ok    /papers answers at all         primary  742ms
+ok    openalex yielding papers       failover 252ms
+ok    google translate (keyless)     primary  146ms
+ok    mymemory                       failover 1218ms
+FAIL  ip-api.com (via production)    primary  274ms  answered, but not from the expected provider (wanted /tokyo|japan/i)
+ok    ipwho.is                       failover 120ms
+ok    ipinfo.io                      failover 378ms
+ok    google news rss                primary  622ms
+ok    publicnode eth rpc             primary  209ms
+ok    drpc eth rpc                   failover 335ms
+ok    flashbots eth rpc              failover 1148ms
+FAIL  merkle eth rpc                 failover 665ms  HTTP 429
+ok    base rpc                       primary  345ms
+ok    base publicnode rpc            failover 204ms
+ok    arbitrum rpc                   primary  341ms
+ok    arbitrum publicnode rpc        failover 240ms
+ok    optimism rpc                   primary  599ms
+ok    optimism publicnode rpc        failover 192ms
+ok    polygon publicnode rpc         primary  198ms
+ok    polygon drpc                   failover 106ms
+ok    polygon 1rpc                   failover 448ms
+
+1 primary failing, 1 failover failing, 24 probed
