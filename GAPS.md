@@ -4,7 +4,8 @@
 
 Evidence: `track1-miner/docs/evidence/conformance-2026-10-25/` (README, `site-intents.json`, `latency.txt`).
 
-- **G208 — 23 of our 36 intents are not on the hackathon site's Intents page. `OPEN, ask the organisers`.**
+- **G208 — 23 of our 36 intents are not on the hackathon site's Intents page. `OPEN: asked 2026-10-25, Ahmed: "let us check"`.**
+  The answer is pending (TELEGRAPH_FACTS item 11). Nothing is re-registered until it comes back.
   - The page lists 93 intents. Ours that are missing include WEB_SEARCH, FACT_CHECK, FINANCIAL_DATA,
     CONTENT_EXTRACTION and WEATHER_CHECK, though mission pages name them.
   - The organiser said on 2026-10-25 to build on the intents the site has.
@@ -61,7 +62,9 @@ branch `claude/correctness-audit-2026-10-21`, not yet merged here.
   - /judging carries an older Apps rubric.
   - We plan to 1 Dec 23:59 UTC and the /rules prizes until the organisers confirm in writing. The message is
     drafted in WINNING.md §8.
-- **G206 — Does `updateMiner` restart the 7-day grace period? `OPEN, ask the organisers; time-critical`.** The
+- **G206 — Does `updateMiner` restart the 7-day grace period? `OPEN; asked again 2026-10-25, not answered`.** The same
+  reply settled that miners carry over to v2 unchanged (TELEGRAPH_FACTS item 10), so the v2 migration itself costs
+  registration 4829 nothing. Only a voluntary update still carries this risk. The
   miner docs give a 7-day grace period "after activation": no leaderboard, and a shared 5% of routed
   traffic. `updateMiner` deregisters and re-registers with a new `registrationId`. The docs do not say
   whether that resets the period. If it does, an update in November costs a week of ranked routing.

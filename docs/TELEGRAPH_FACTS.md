@@ -75,6 +75,20 @@ Answered "awesome". One question was deliberately **not** asked and is still ope
 named watches fanned out under one bot-held wallet is acceptable, or whether each watch must resolve
 to its own wallet and escrow. Ask it once there is a test result to attach to it.
 
+## Organizer answers — Discord, 2026-10-25 by ~17:59 UTC (Ahmed, via the user)
+
+Earlier the same day Ahmed had said the current WASM system will be deprecated "in couple of days" and
+"migrated to v2", and told builders to build on the intents the hackathon site lists. Two questions were sent
+in reply: are miners judged and routed only on the site's 93 listed intents, and do registrations carry over
+to v2 (and does an update restart the 7-day grace period)?
+
+10. **Miners carry over to v2:** "your miners will carry over." Registration 4829 needs no re-registration
+    for the migration.
+11. **On listed versus unlisted intents:** "let us check." Not answered yet (GAPS G208).
+
+Not answered: whether `updateMiner` restarts the 7-day grace period (GAPS G206). It was asked as part of
+question 2, and the reply covered only the carry-over.
+
 ---
 
 ## The single most important fact

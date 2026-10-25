@@ -1,5 +1,11 @@
 # MEMORY.md — session continuity
 
+## 2026-10-25 ~18:00 UTC (23:30 IST): Ahmed answered — miners carry over to v2; listed-intents question pending
+
+- **Registration 4829 carries over to v2** with no re-registration (TELEGRAPH_FACTS item 10).
+- **On unlisted intents (G208), Ahmed said "let us check".** Pending; nothing is re-registered until the answer.
+- **G206 (does an update restart the grace period?) is still unanswered.**
+
 ## 2026-10-25 ~17:30 UTC (23:00 IST): CURRENT — intent conformance; latency fixes DEPLOYED and pushed
 
 Owner: "start working on them. one by one". The list:
