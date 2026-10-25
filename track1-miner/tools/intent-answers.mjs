@@ -973,9 +973,10 @@ const CHECKS = {
     // A negator never reaches across a comma (verifier repro 2026-09-13: "No problems, great service" read as "not great").
     const scoped = await get("/sentiment", { text: "No problems, great service." });
     if (scoped.body.verdict !== "positive" || /not great/.test(String(scoped.body.reason ?? ""))) bad.push(`"No problems, great service." -> ${scoped.body.verdict}: ${String(scoped.body.reason).slice(0, 80)}`);
-    // No opinion word is neutral, and the answer must say that is a reading, not a certainty.
+    // A text with no opinion is neutral. Since G209 (2026-10-25) the model may read it, so
+    // the wording is the model's or the word list's; only the label is checked.
     const flat = await get("/sentiment", { query: "github.com" });
-    if (flat.body.verdict !== "neutral" || !/word-list reading/.test(String(flat.body.reason ?? ""))) bad.push("a text with no opinion words is not reported as a neutral word-list reading");
+    if (flat.body.verdict !== "neutral") bad.push(`a text with no opinion -> ${flat.body.verdict}, want neutral`);
     const empty = await get("/sentiment", {});
     if (empty.body.error !== "no_text") bad.push(`no text -> ${empty.body.error}, want no_text`);
     return bad;
@@ -1002,7 +1003,7 @@ const CHECKS = {
       const art = await get("/classify", {
         query: "Assign this article to one of these categories: world news, business and finance, science and technology, sport. Text: 'Researchers have sequenced the genome of a 40,000-year-old mammoth using a new extraction method.'",
       });
-      if (!/science and technology/.test(String(art.body.reason ?? "")) || art.body.verdict !== "classified") bad.push("genome article not placed under science and technology");
+      if (art.body.label !== "science and technology" || art.body.verdict !== "classified") bad.push(`genome article -> ${art.body.label}, want science and technology`);
     }
     // "not spam" must never be chosen from an absence of spam words.
     const ham = await get("/classify", { query: "Classify this email as spam or not spam: 'Hi Sam, are we still meeting at 3pm tomorrow?'" });

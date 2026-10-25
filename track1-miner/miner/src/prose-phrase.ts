@@ -127,10 +127,10 @@ export async function phraseClassification(
     deadlineMs,
   );
   const got = parsePhrased(line, labels);
-  // The label opens the answer unpunctuated, which is the shape measured at
-  // 1.0000 against four of six reference samples; "Billing issue." — the head
-  // noun the keyless answer speaks — scored 0.0000 against all six.
-  return got ? { label: got.label, reason: `${capital(got.label)} ${got.sentence}` } : null;
+  // The label as its own sentence, the keyless answer's shape ("Billing issue. This
+  // ticket…"). It used to run straight into the explanation, "Science and technology
+  // The passage…", because one Season I scorer rewarded that (2026-10-25).
+  return got ? { label: got.label, reason: `${capital(got.label)}. ${got.sentence}` } : null;
 }
 
 /**

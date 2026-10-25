@@ -75,7 +75,7 @@ test("a missing full stop is added, and the label leads the answer", async () =>
     assert.equal(r?.label, "billing");
     // The label opens unpunctuated: the head-noun form ("Billing issue.") is the
     // one the champion scored 0.0000 against all six reference samples.
-    assert.equal(r?.reason, "Billing The user wants to update their card for an active subscription.");
+    assert.equal(r?.reason, "Billing. The user wants to update their card for an active subscription.");
   });
 });
 
