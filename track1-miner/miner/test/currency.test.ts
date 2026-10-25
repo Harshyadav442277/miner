@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { convert, crossRate, fetchEcb, formatRate, parseDate, parseQuery } from "../src/currency";
+import { convert, crossRate, fetchEcb, formatRate, parseDate, parseQuery, resetRateCache } from "../src/currency";
 
 test("the canonical example parses with the right direction", () => {
   assert.deepEqual(parseQuery("What is 100 USD in EUR right now?"), { from: "USD", to: "EUR", amount: 100 });
@@ -69,6 +69,7 @@ test("the same currency converts at exactly 1 without an upstream call", async (
 });
 
 test("a dead provider is unknown, never a rate of zero", async () => {
+  resetRateCache();
   const original = globalThis.fetch;
   globalThis.fetch = (async () => { throw new Error("network down"); }) as unknown as typeof globalThis.fetch;
   try {
@@ -95,12 +96,16 @@ test("an explicit reference date is read only when a trigger word introduces it"
 });
 
 test("the undated answer text is unchanged (golden case, byte-identical)", async () => {
+  resetRateCache();
   const original = globalThis.fetch;
-  globalThis.fetch = (async () =>
-    ({
+  let calls = 0;
+  globalThis.fetch = (async () => {
+    calls++;
+    return {
       ok: true,
       text: async () => "<Cube><Cube time='2026-09-08'><Cube currency='USD' rate='1.1614'/></Cube></Cube>",
-    })) as unknown as typeof globalThis.fetch;
+    };
+  }) as unknown as typeof globalThis.fetch;
   try {
     const r = await convert("USD", "EUR", 100);
     assert.equal(
@@ -111,8 +116,12 @@ test("the undated answer text is unchanged (golden case, byte-identical)", async
     );
     assert.equal(r.as_of, "2026-09-08");
     assert.equal(r.kind, "ecb_reference");
+    // G209: the daily table is held, so a second conversion makes no request.
+    assert.equal((await convert("EUR", "USD", 50)).converted, 58.07);
+    assert.equal(calls, 1);
   } finally {
     globalThis.fetch = original;
+    resetRateCache();
   }
 });
 

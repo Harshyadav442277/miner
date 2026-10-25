@@ -14,7 +14,11 @@ Evidence: `track1-miner/docs/evidence/conformance-2026-10-25/` (README, `site-in
     KEYWORD_EXTRACTION.
   - Registering any of them needs an `updateMiner` (owner, G206).
 - **G209 — Four listed intents miss the site's latency target. `PARTLY FIXED on branch claude/miner-s2-conformance, NOT deployed`:**
-  sentiment and classification are within target in the in-process bench (README "Fix 1"). Sanctions and FX are still open. Measured on questions the
+  sentiment and classification are within target in the in-process bench (README "Fix 1"). FX now holds the daily
+  ECB table for 10 minutes, so a warm answer makes no request; production latency is not yet re-measured.
+  **Sanctions is the owner's call.** The lists are already kept 6 h with a background refresh, so the 3.35 s is the one
+  download each NEW function instance pays. The options are a scheduled warm-up ping (the uptime workflow is off
+  at the owner's request, G205) or a deploy-time snapshot (risks screening against a stale list). Measured on questions the
   miner had not seen, from India with the round trip subtracted:
   - SENTIMENT_ANALYSIS: 0.69–1.42 s against < 300 ms.
   - TEXT_CLASSIFICATION: up to 1.25 s against < 400 ms.

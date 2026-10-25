@@ -351,6 +351,27 @@ export async function fetchEcb(): Promise<RateTable | null> {
   return Object.keys(rates).length > 1 ? { rates, date, kind: "ecb_reference" } : null;
 }
 
+/**
+ * The ECB table, held for ten minutes. The ECB publishes once a working day,
+ * around 16:00 CET, so a ten-minute copy is at most ten minutes late with a new
+ * day's table. Fetching it per request put FX at 437–465 ms against the site's
+ * < 250 ms target (G209). A failed read is not held.
+ */
+const ECB_HOLD_MS = 10 * 60_000;
+let ecbHeld: { table: RateTable; at: number } | null = null;
+
+async function ecbTable(): Promise<RateTable | null> {
+  if (ecbHeld && Date.now() - ecbHeld.at < ECB_HOLD_MS) return ecbHeld.table;
+  const table = await fetchEcb();
+  if (table) ecbHeld = { table, at: Date.now() };
+  return table;
+}
+
+/** Test hook: the held ECB table is process-wide. */
+export function resetRateCache(): void {
+  ecbHeld = null;
+}
+
 /** A market rate, used only where the ECB does not publish the currency. */
 export async function fetchMarket(base: string): Promise<RateTable | null> {
   try {
@@ -505,7 +526,7 @@ export async function convert(
     };
   }
 
-  let table = await fetchEcb();
+  let table = await ecbTable();
   let rate = table ? crossRate(table, from, to) : null;
 
   // The ECB publishes about thirty currencies. Anything else gets a market rate,
