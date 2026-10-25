@@ -13,24 +13,38 @@ Evidence: `track1-miner/docs/evidence/conformance-2026-10-25/` (README, `site-in
     (10), FX_NOW, THREAT_IP_REPUTATION, DNS_RECORD_LOOKUP, TOKEN_TOTAL_SUPPLY_VERIFY, ENTITY_EXTRACTION and
     KEYWORD_EXTRACTION.
   - Registering any of them needs an `updateMiner` (owner, G206).
-- **G209 — Four listed intents miss the site's latency target. `FIXED AND DEPLOYED 2026-10-25 for three; sanctions cold start open`:**
-  production `miner-8lwhe1wtl`. All 39 measurements on fresh questions are within target
-  (`conformance-2026-10-25/latency-after.txt`).
-  sentiment and classification are within target in the in-process bench (README "Fix 1"). FX now holds the daily
-  ECB table for 10 minutes, so a warm answer makes no request; production latency is not yet re-measured.
-  **Sanctions is the owner's call.** The lists are already kept 6 h with a background refresh, so the 3.35 s is the one
-  download each NEW function instance pays. The options are a scheduled warm-up ping (the uptime workflow is off
-  at the owner's request, G205) or a deploy-time snapshot (risks screening against a stale list). Measured on questions the
-  miner had not seen, from India with the round trip subtracted:
-  - SENTIMENT_ANALYSIS: 0.69–1.42 s against < 300 ms.
-  - TEXT_CLASSIFICATION: up to 1.25 s against < 400 ms.
-  - Both are dominated by a Groq phrasing call that the code calls a Season I scorer lottery ticket.
-  - CURRENCY_EXCHANGE: 437 and 465 ms against < 250 ms.
-  - SANCTIONS_SCREENING_MATCH: 3.35 s on the first call after a cold start, against < 500 ms. The cause is the
-    list download.
+- **G209 — Four listed intents missed the site's latency target. `FIXED AND DEPLOYED 2026-10-25 for three; sanctions cold start is the owner's call`.**
+  - **Found** on questions the miner had not seen, from India with the round trip subtracted:
+    - SENTIMENT_ANALYSIS: 0.69–1.42 s against < 300 ms.
+    - TEXT_CLASSIFICATION: up to 1.25 s against < 400 ms. Both were dominated by a Groq phrasing call that
+      the code called a Season I scorer lottery ticket.
+    - CURRENCY_EXCHANGE: 437 and 465 ms against < 250 ms.
+    - SANCTIONS_SCREENING_MATCH: 3.35 s on the first call after a cold start, against < 500 ms.
+  - **Fixed** on production `miner-8lwhe1wtl`:
+    - a fast non-reasoning model with plain prompts;
+    - the daily ECB table held for 10 minutes.
 
-  Not measured: p90 over many questions, or latency from a US caller. A second run of repeated questions was
-  answered from `llm.ts`'s 10-minute model-reply cache and was discarded.
+    All 39 measurements on fresh questions are within target (`conformance-2026-10-25/latency-after.txt`).
+  - **Sanctions:** the lists are kept 6 h with a background refresh, so the 3.35 s is the one download each
+    NEW function instance pays. The options are a scheduled warm-up ping (the uptime workflow is off at the
+    owner's request, G205) or a deploy-time snapshot, which risks screening against a stale list.
+  - **Not measured:** p90 over many questions, and latency from a US caller. A second run of repeated
+    questions was answered from `llm.ts`'s 10-minute model-reply cache and was discarded.
+- **G210 — Five answers the latency re-measure surfaced. `CHECKED 2026-10-25; four fixed on branch claude/miner-s2-conformance (a73d00a), NOT deployed`.**
+  Each was checked against GLEIF, EDGAR or URLhaus itself: `track1-miner/docs/evidence/g210-2026-10-25/`.
+  - **Nvidia:** the registry subject kept "an"; fixed.
+  - **Coca-Cola 10-K:** SEC's `"USD": {}` crashed the route, and the crash was reported as an outage; fixed.
+  - **Two classifications came back `ambiguous`:** the model now decides where the word list declines, and
+    may answer "none". It scores 22/24 against 16/24, at the cost of one of four contentless texts being
+    labelled.
+  - **URLhaus retired its free downloads (410 Gone) and its API needs a key.** Every clean URL on URL_SAFE and
+    URL_SCAN was answered "could not be judged". URLhaus is removed, and "safe" now needs Cloudflare and Quad9
+    both to answer.
+  - **Open: the deployed `miner.yaml` still describes URLhaus.** It is hashed into registration 4829 (G86), so
+    it changes only with the next `updateMiner`. URLhaus can come back with an abuse.ch Auth-Key; its terms
+    are unread.
+  - **Coverage limit, not a defect:** Google's Safe Browsing test page is listed only by Google Safe Browsing,
+    which we do not consult.
 
 ## 2026-10-22/23 Season II rules published, audit release — G203–G207
 
