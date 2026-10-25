@@ -6,7 +6,37 @@ SIGN.md was removed in the 2026-10-18 cleanup. It is in git history.
 
 ---
 
-## CURRENT — 2026-10-22 17:40Z · ADAPTER RETRAINED AND VERIFIED · RELEASE COMMIT d82ff64 AWAITS THE OPERATOR'S PUSH
+## CURRENT — 2026-10-25 · WASM WORK STOPPED: THE ORGANISERS SAY THE CURRENT WASM SYSTEM IS DEPRECATED IN DAYS
+
+**What was said.** Ahmed Ali (Telegraph), on Discord, relayed by the operator in a screenshot: "i'd hold off on that
+for now, as the current wasm system will be deprecated in couple of days". The operator: "no need to work on wasm".
+
+**State left behind:**
+
+- Nothing is registered or signed.
+- **Public:** `telegraph-factscore` branch `season2-evaluators` at `2825b06`. It holds the comparators and the
+  training recipe, with no adapter package.
+- **Never pushed:**
+  - adapter commit `d82ff64`, in `C:\Users\hyada\tg-eval\factscore`;
+  - release `s2-evaluators-v1`, which was never created.
+- **Why the last push failed:** `gh`'s active account had become `0xsaroj001`, and git uses `gh` as its login helper.
+- **Local only, in `C:\Users\hyada\tg-eval\`:**
+  - the kit and venv;
+  - FEVER and the pairs;
+  - both adapter runs, about 5 GB including two 1.2 GB packages;
+  - `base-node`;
+  - the built tools.
+- **Delete `tg-eval` only on the operator's say-so.**
+
+**What carries forward**, whatever replaces the WASM system:
+
+- the pair generators (FEVER hard negatives, data gate passed);
+- G32: the kit converts a different ModernBERT from the one it trains. The organisers have not been told.
+- the exactness and fidelity checking approach.
+
+**Next action:** none on WASM. Re-read the evaluator docs when the organisers announce the replacement.
+
+## 2026-10-22 17:40Z · ADAPTER RETRAINED AND VERIFIED · RELEASE COMMIT d82ff64 AWAITS THE OPERATOR'S PUSH
 
 - **Adapter.** Retrained in the node's architecture.
   - It scores 96.6% as the node computes it, and `verify_wide` PASS with Pearson 1.00000.

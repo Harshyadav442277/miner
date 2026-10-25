@@ -2,6 +2,16 @@
 
 Prepared 2026-10-22. **Nothing in this file has been run.**
 
+> **STOPPED 2026-10-25. Do not register anything in this file.** Ahmed Ali (Telegraph), on Discord, relayed by the
+> operator in a screenshot: "i'd hold off on that for now, as the current wasm system will be deprecated in couple
+> of days".
+>
+> - The operator's call is not to work on WASM.
+> - The comparator branch `season2-evaluators` (`2825b06`) stays public as it is.
+> - The adapter commit `d82ff64` and its release were never pushed.
+> - "The current wasm system" may mean the comparator and adapter format described here. Re-read the docs before
+>   reusing any of it.
+
 > **Status 2026-10-22 ~17:40 UTC.**
 > - Comparators: pushed at `2825b06`, and all 31 hosted hashes were verified (rows 2–32).
 > - Adapter: row 1 is the node-architecture retrain, keccak `0x76f78441…`. It scores 96.6% as the node computes it,

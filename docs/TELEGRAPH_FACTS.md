@@ -610,6 +610,14 @@ without a preview, and hold anything that reads as lobbying until after the resu
 - **Season II miner judging rules:** still "published separately" on the rules page (checked
   2026-10-13 18:28 UTC).
 
+## Organiser, 2026-10-25: the current WASM system is about to be deprecated
+
+Ahmed Ali (Telegraph), on Discord, relayed by the operator as a screenshot: "i'd hold off on that for now, as the
+current wasm system will be deprecated in couple of days". The screenshot shows 19:14 with no time zone.
+
+- Read the section below as superseded once that happens.
+- Which system "current" means, and what replaces it, is unknown.
+
 ## Season II evaluators: `rank_answer` is retired (read 2026-10-21 ~06:40 UTC)
 
 Sources: `docs/scoring/build-a-scoring-module` and `docs/scoring/train-a-scoring-adapter` (both
