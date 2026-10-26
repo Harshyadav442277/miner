@@ -100,7 +100,8 @@ async function rpc(url: string, method: string, params: unknown[]): Promise<stri
   }
 }
 
-interface ContractRead { totalSupply: bigint | null; decimals: bigint | null; symbol: string | null; burned: Array<bigint | null> }
+/** `responded`: some call came back at all. An address with no code answers "0x", which is an answer, not an outage. */
+interface ContractRead { responded: boolean; totalSupply: bigint | null; decimals: bigint | null; symbol: string | null; burned: Array<bigint | null> }
 
 async function readContract(url: string, token: string, block: string): Promise<ContractRead> {
   const call = (data: string): Promise<string | null> => rpc(url, "eth_call", [{ to: token, data }, block]);
@@ -109,7 +110,8 @@ async function readContract(url: string, token: string, block: string): Promise<
     call(SEL.totalSupply), call(SEL.decimals), call(SEL.symbol),
     ...BURN_ADDRESSES.map((a) => call(`${SEL.balanceOf}${pad(a)}`)),
   ]);
-  return { totalSupply: word(supply), decimals: word(decimals), symbol: abiString(symbol), burned: burned.map(word) };
+  return { responded: [supply, decimals, symbol, ...burned].some((x) => x !== null),
+    totalSupply: word(supply), decimals: word(decimals), symbol: abiString(symbol), burned: burned.map(word) };
 }
 
 const SOURCE = "eth_call totalSupply(), decimals(), symbol() and balanceOf(burn addresses) on two public RPCs";
@@ -130,7 +132,7 @@ export function verdictFor(
   const base = { chain, token_address: token, block_number: block, providers };
   const ok = reads.filter((r) => r.totalSupply !== null);
   if (!ok.length) {
-    const answered = reads.some((r) => r.decimals !== null || r.symbol !== null);
+    const answered = reads.some((r) => r.responded);
     return empty(answered ? "not_a_token" : "unknown",
       answered
         ? `${token} on ${chainLabel(chain)} did not return a totalSupply() value at block ${block}, so it is not an ERC-20 token contract.`

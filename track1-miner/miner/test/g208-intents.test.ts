@@ -61,7 +61,7 @@ test("token supply: units are exact and ABI strings decode in both encodings", (
 });
 
 test("token supply: agreeing providers verify; a disagreement and a non-token are reported", () => {
-  const read = (s: bigint | null) => ({ totalSupply: s, decimals: 6n, symbol: "USDC", burned: [0n, 0n] });
+  const read = (s: bigint | null) => ({ responded: true, totalSupply: s, decimals: 6n, symbol: "USDC", burned: [0n, 0n] });
   const ok = verdictFor("ethereum", "0xA0b8", 100, ["a", "b"], [read(5_000_000n), read(5_000_000n)], true);
   assert.equal(ok.verdict, "verified");
   assert.equal(ok.total_supply, "5");
@@ -71,8 +71,10 @@ test("token supply: agreeing providers verify; a disagreement and a non-token ar
   const split = verdictFor("ethereum", "0xA0b8", 100, ["a", "b"], [read(5n), read(6n)], true);
   assert.equal(split.verdict, "providers_disagree");
   const notToken = verdictFor("ethereum", "0xA0b8", 100, ["a", "b"],
-    [{ totalSupply: null, decimals: null, symbol: "X", burned: [null, null] }, read(null)], true);
+    [{ responded: true, totalSupply: null, decimals: null, symbol: null, burned: [null, null] }, read(null)], true);
   assert.equal(notToken.verdict, "not_a_token");
+  const down = { responded: false, totalSupply: null, decimals: null, symbol: null, burned: [null, null] };
+  assert.equal(verdictFor("ethereum", "0xA0b8", 100, ["a", "b"], [down, down], true).verdict, "unknown");
   const unnamed = verdictFor("ethereum", "0xA0b8", 100, ["a", "b"], [read(5n), read(5n)], false);
   assert.match(unnamed.reason, /no chain was named/);
 });

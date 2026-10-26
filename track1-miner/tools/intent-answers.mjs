@@ -1160,6 +1160,68 @@ const CHECKS = {
     if (!(open.body.citations ?? []).some((c) => /wikipedia\.org/.test(String(c.url)))) bad.push("no Wikipedia citation URL");
     return bad;
   },
+
+  async DNS_RECORD_LOOKUP() {
+    const bad = [];
+    const mx = await get("/dns", { query: "What are the MX records for github.com?" });
+    if (mx.body.verdict !== "resolved") bad.push(`github.com MX -> ${mx.body.verdict}, want resolved`);
+    if (!(mx.body.records ?? []).some((r) => /github-com\.mail\.protection\.outlook\.com/.test(r))) bad.push("github.com's Microsoft 365 mail exchanger is missing");
+    if ((mx.body.resolvers ?? []).length !== 2) bad.push("two resolvers were not both reported");
+    const dmarc = await get("/dns", { query: "Does paypal.com publish a DMARC record?" });
+    if (dmarc.body.name !== "_dmarc.paypal.com") bad.push(`DMARC asked of ${dmarc.body.name}, want _dmarc.paypal.com`);
+    if (!(dmarc.body.records ?? []).some((r) => /^v=DMARC1/.test(r))) bad.push("paypal.com's DMARC record is missing");
+    const nx = await get("/dns", { domain: "no-such-name-livecert-check.example", type: "A" });
+    if (nx.body.verdict !== "nxdomain") bad.push(`a name under .example -> ${nx.body.verdict}, want nxdomain`);
+    return bad;
+  },
+
+  async TOKEN_TOTAL_SUPPLY_VERIFY() {
+    const bad = [];
+    const USDC = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48";
+    const r = await get("/token-supply", { token: USDC, chain: "ethereum" });
+    if (r.body.verdict !== "verified") return [`USDC -> ${r.body.verdict}, want verified`];
+    if (r.body.decimals !== 6 || r.body.symbol !== "USDC") bad.push(`USDC read as ${r.body.symbol} with ${r.body.decimals} decimals`);
+    // Blockscout indexes the same contract independently of our two RPCs; minting moves it a little between reads.
+    const scout = await fetch(`https://eth.blockscout.com/api/v2/tokens/${USDC}`, { signal: AbortSignal.timeout(15000) })
+      .then((x) => x.json()).catch(() => null);
+    const theirs = Number(scout?.total_supply);
+    const ours = Number(r.body.total_supply_raw);
+    if (!theirs) bad.push("Blockscout did not answer, so the supply could not be cross-checked");
+    else if (Math.abs(ours - theirs) / theirs > 0.01) bad.push(`supply ${ours} differs from Blockscout's ${theirs} by more than 1%`);
+    const eoa = await get("/token-supply", { token: VITALIK, chain: "ethereum" });
+    if (eoa.body.verdict !== "not_a_token") bad.push(`a wallet address -> ${eoa.body.verdict}, want not_a_token`);
+    return bad;
+  },
+
+  async KEYWORD_EXTRACTION() {
+    const bad = [];
+    const text = "Solar panels convert sunlight into electricity. Solar farms in India now supply cheap power to the grid, " +
+      "and rooftop solar panels let households sell surplus electricity. Battery storage keeps solar power available after sunset.";
+    const a = await get("/keywords", { text, top: "5" });
+    if (a.body.verdict !== "extracted") return [`-> ${a.body.verdict}, want extracted`];
+    const words = (a.body.keywords ?? []).map((k) => k.keyword);
+    if (words.length !== 5) bad.push(`${words.length} keyphrases, want 5`);
+    if (!words.slice(0, 3).some((w) => /solar/.test(w))) bad.push(`the repeated topic is not in the top three: ${words.join(", ")}`);
+    if (words.some((w) => /^(?:the|and|to|in|after)\b|\b(?:the|and|to|in|after)$/.test(w))) bad.push(`a phrase starts or ends on a stop word: ${words.join(", ")}`);
+    const b = await get("/keywords", { text, top: "5" });
+    if (JSON.stringify(b.body.keywords) !== JSON.stringify(a.body.keywords)) bad.push("the same text ranked differently twice");
+    return bad;
+  },
+
+  async VULNERABILITY_TRIAGE() {
+    const bad = [];
+    const r = await get("/vuln-triage", { query: "Rank these findings on an internet-facing payments service: CVE-2024-26581, CVE-2021-44228, CVE-2022-0001" });
+    if (r.body.verdict !== "ranked") return [`-> ${r.body.verdict}, want ranked`];
+    const first = (r.body.ranked ?? [])[0];
+    // Log4Shell is on CISA's KEV catalog (added 2021-12-10); the other two are not.
+    if (first?.cve_id !== "CVE-2021-44228") bad.push(`ranked first: ${first?.cve_id}, want CVE-2021-44228`);
+    if (first?.kev !== true || first?.priority !== "act_now") bad.push(`Log4Shell kev=${first?.kev} priority=${first?.priority}`);
+    if (r.body.asset_criticality !== "high") bad.push(`internet-facing payments read as ${r.body.asset_criticality}`);
+    if (!/EPSS/.test((r.body.sources ?? []).join(" "))) bad.push("EPSS (FIRST) is not credited in sources");
+    const none = await get("/vuln-triage", { query: "Rank these findings: SQL injection in login form, outdated jQuery" });
+    if (none.body.verdict !== "insufficient_input") bad.push(`findings with no CVE ids -> ${none.body.verdict}, want insufficient_input`);
+    return bad;
+  },
 };
 
 /**
