@@ -19,7 +19,7 @@ Don't sign anything."
   - All 40 intents are canonical on-chain (block 50447293).
   - Unit tests 809/809.
   - Ten local route probes all returned HTTP 200.
-  - Draft YAML SHA-256 `0x4d17283c…0f94c` (working tree; recompute at the pinned URL).
+  - Draft YAML SHA-256 as committed (LF, what GitHub serves) `0x8bb33edd…af7c7`; recompute at the pinned URL.
 - **Sandbox validation was NOT run (G212).** The old API returns 404, and the new backend returns 401 without
   sign-in. The console now updates through a smart wallet; 4829 is owned by an EOA.
 - **The message to Ahmed is drafted and not sent:** the evidence README, "Message for Ahmed". It covers G208, G206

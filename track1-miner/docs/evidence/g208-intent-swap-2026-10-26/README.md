@@ -43,8 +43,15 @@ below).
 | YAML parses; intents match endpoints | `manifest.test.ts`, PyYAML | draft YAML | local | 39 endpoints, 40 intents, sets equal, CRLF kept | 10:35 | — |
 | Sandbox validation | `validate-backend-401.json` | draft YAML | organiser backend | **not run: 401** | 10:45 | see below |
 
-**Draft YAML:** 90,306 bytes, SHA-256 `0x4d17283c3952619e420f432d5a0b5bd006f16a880d2dc17df0ce606b3cb0f94c` (working tree).
-The value to sign is the hash of the bytes at the pushed, pinned commit URL; recompute it there.
+**Draft YAML hash.** Git stores the file with LF line endings; the working copy has CRLF.
+
+| Bytes | Size | SHA-256 |
+|---|---:|---|
+| As committed in `3e29afb`, which is what GitHub raw serves | 88,514 | `0x8bb33eddb02afcf8f3ee67180bcfa5d773569c60f99345cb7e381e2fcd3af7c7` |
+| Windows working copy, CRLF. Never use this one | 90,306 | `0x4d17283c3952619e420f432d5a0b5bd006f16a880d2dc17df0ce606b3cb0f94c` |
+
+Before signing, fetch the pinned raw URL and confirm its hash. The console's `/registrations/yaml-hash` does this
+from the URL.
 
 ## The validator moved behind a login (new, 2026-10-26)
 
