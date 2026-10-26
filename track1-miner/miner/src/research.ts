@@ -45,6 +45,8 @@ export interface Trial {
   status: string;
   phase: string | null;
   completion: string | null;
+  /** The registry's condition list: where a trial names its disease when the title does not (G200). */
+  conditions: string[];
 }
 
 export interface Citation {
@@ -153,7 +155,7 @@ const TOPIC_STOP = new Set([
   "how", "why", "when", "which", "who", "study", "studies", "find", "finds", "complete",
   "show", "shows", "succeed", "treat", "treats", "reduce", "reduces", "approved", "approval",
   "positive", "successful", "success", "more", "plus", "trial", "trials", "phase", "cite",
-  "sources", "source", "your", "there", "any", "with", "from", "that", "this", "into",
+  "sources", "source", "your", "there", "any", "with", "from", "that", "this", "into", "research",
 ]);
 
 /** The searchable topic inside a research question. */
@@ -162,6 +164,72 @@ export function topicOf(subject: string): string {
     .split(/[^A-Za-z0-9-]+/)
     .filter((w) => w.length >= 3 && !TOPIC_STOP.has(w.toLowerCase()));
   return words.join(" ").trim();
+}
+
+/**
+ * Words that say what is predicted or wanted, not what the evidence must be about: "approved", "market share",
+ * "improved outcomes". The rest of the topic, outside the names, is the qualifier.
+ */
+const FORECAST = new Set([
+  "improved", "improve", "improves", "improvement", "outcome", "outcomes", "gain", "market", "share", "receive",
+  "enter", "recruit", "patients", "face", "increase", "adoption", "launch", "approve", "fda", "ema", "regulatory",
+  "become", "results", "benefit", "benefits", "effective", "work", "meet", "endpoint", "primary", "grow", "growth",
+  "sales", "data", "report", "announce", "file", "submit", "next", "year", "research", "literature", "science",
+  "says", "suggest", "suggests", "current", "latest", "recent", "new", "efficacy", "safety", "pass", "fail", "start",
+  "drug", "drugs", "medicine", "treatment", "therapy", "product", "company",
+  // Measured on the 99 routed questions (2026-10-26): each of these, kept as a qualifier, lost a right answer.
+  "outperform", "develop", "successfully", "succeed", "publish", "profit", "expand", "issue", "beat", "exceed",
+  "surpass", "replace", "achieve", "positive", "vaccine", "production", "recruitment", "enrollment", "study",
+]);
+
+/**
+ * What the question asks about the subject, beyond its name: "bladder cancer" in "Will Nivolumab show improved
+ * bladder cancer outcomes?". Asked by name alone, the registry answered with Nivolumab's head-and-neck trial
+ * (audit 2026-10-21, G200). A source must be found WITH the qualifier, or nothing is claimed. Pure.
+ */
+export function qualifierOf(subject: string, names: string[]): string[] {
+  const named = new Set(names.flatMap((n) => n.toLowerCase().match(/[a-z0-9-]+/g) ?? []));
+  // Three letters count: "eye" was dropped from "diabetic eye disease", leaving "disease" to match a kidney paper.
+  const words = topicOf(subject).toLowerCase().match(/[a-z0-9-]{3,}/g) ?? [];
+  const qualifier = [...new Set(words.filter((w) => !named.has(w) && !FORECAST.has(w) && !GENERIC_QUALIFIER.has(w) && !/^\d+$/.test(w)))];
+  // A long passage is not a question with a qualifier: an 18-word one made the registry refuse the search.
+  return qualifier.length <= 4 ? qualifier : [];
+}
+
+/** Too broad to tell one study from another: "disease" matched diabetic kidney disease for an eye question. */
+const GENERIC_QUALIFIER = new Set([
+  "disease", "diseases", "disorder", "disorders", "condition", "conditions", "health", "effect", "effects",
+  "people", "use", "the", "and", "for", "its", "their", "more", "get", "gets", "got", "make", "take", "give",
+  "see", "set", "put", "way", "two", "one", "new",
+]);
+
+/**
+ * The names to search, without a single word already inside a longer name: "Inari Medical" also offered
+ * "Medical", which matched another company's device paper (G200, 2026-10-26). Pure.
+ */
+export function searchNames(question: string): string[] {
+  const all = namedEntities(question).filter((n) => !ORG_WORD.has(n.toLowerCase()));
+  // A drug or trial code first ("LY3537021" before "Eli Lilly"): a sponsor's name matched a business-news paper.
+  return [...all.filter((n) => /\d/.test(n)), ...all.filter((n) => !/\d/.test(n))].slice(0, 3);
+}
+
+/** A company-name word that names no company on its own ("Inari Medical" offered "Medical"). */
+const ORG_WORD = new Set([
+  "medical", "pharma", "pharmaceutical", "pharmaceuticals", "bio", "biosci", "biosciences", "biotech", "health",
+  "healthcare", "systems", "labs", "group", "therapeutics", "sciences", "scientific", "corporation", "corp",
+  "company", "holdings", "international", "technologies", "global",
+]);
+
+/**
+ * A forecast about a state's political decision: "Will Pakistan sanction Iran?", "Will Pakistan mediate
+ * Houthi-Iran tensions?". A trial registry and a medical index cannot answer it; the first was answered with
+ * a root-canal trial in Iran. Pure.
+ */
+export function asksPoliticalDecision(question: string): boolean {
+  const q = String(question ?? "");
+  return /^\s*(?:will|would|is\s+\S+\s+going\s+to)\b/i.test(q) &&
+    /\b(?:sanction|sanctions|mediate|invade|attack|annex|recogni[sz]e|negotiate|ceasefire|tariffs?|embargo|blockade|retaliate|ally|treaty|elect(?:ion)?|impeach|veto|deport|extradite|war)\b/i.test(q) &&
+    !/\b(?:trial|drug|vaccine|therapy|treatment|patients?|disease|cancer|clinical|fda|approval|dose)\b/i.test(q);
 }
 
 export function namedEntity(text: string): string | null {
@@ -193,6 +261,7 @@ interface CtStudy {
     identificationModule?: { nctId?: string; briefTitle?: string };
     statusModule?: { overallStatus?: string; primaryCompletionDateStruct?: { date?: string } };
     designModule?: { phases?: string[] };
+    conditionsModule?: { conditions?: string[] };
   };
 }
 
@@ -203,10 +272,10 @@ const humanPhase = (p: string[]): string | null => {
   return named.length ? named.join("/") : null;
 };
 
-export async function findTrials(term: string): Promise<Trial[] | "unavailable"> {
+export async function findTrials(term: string, pageSize = 4): Promise<Trial[] | "unavailable"> {
   try {
     const d = (await getJson(
-      `${CTGOV}?query.term=${encodeURIComponent(term)}&pageSize=4&countTotal=true`,
+      `${CTGOV}?query.term=${encodeURIComponent(term)}&pageSize=${pageSize}&countTotal=true`,
     )) as { studies?: CtStudy[] };
     return (d.studies ?? []).flatMap((s) => {
       const p = s.protocolSection;
@@ -219,6 +288,7 @@ export async function findTrials(term: string): Promise<Trial[] | "unavailable">
         status: humanStatus(p?.statusModule?.overallStatus ?? "unknown"),
         phase: humanPhase(p?.designModule?.phases ?? []),
         completion: p?.statusModule?.primaryCompletionDateStruct?.date ?? null,
+        conditions: p?.conditionsModule?.conditions ?? [],
       }];
     });
   } catch {
@@ -226,13 +296,18 @@ export async function findTrials(term: string): Promise<Trial[] | "unavailable">
   }
 }
 
-export async function findLiterature(term: string): Promise<Citation[] | "unavailable"> {
+/**
+ * Papers on `term`. With `about`, only papers whose title or abstract names one of those words: the
+ * question's qualifier, which a paper on the drug alone does not address (G200).
+ */
+export async function findLiterature(term: string, about: string[] = []): Promise<Citation[] | "unavailable"> {
   try {
     const d = (await getJson(
-      `${EPMC}?query=${encodeURIComponent(term)}&format=json&pageSize=3&resultType=core`,
-    )) as { resultList?: { result?: Array<{ title?: string; authorString?: string; pubYear?: string }> } };
+      `${EPMC}?query=${encodeURIComponent(term)}&format=json&pageSize=${about.length ? 8 : 3}&resultType=core`,
+    )) as { resultList?: { result?: Array<{ title?: string; authorString?: string; pubYear?: string; abstractText?: string }> } };
     return (d.resultList?.result ?? []).flatMap((r) => {
       if (!r.title) return [];
+      if (about.length && !namesAll(`${r.title} ${r.abstractText ?? ""}`, about)) return [];
       const year = Number(r.pubYear);
       return [{
         title: r.title.replace(/\.$/, ""),
@@ -244,6 +319,45 @@ export async function findLiterature(term: string): Promise<Citation[] | "unavai
   } catch {
     return "unavailable";
   }
+}
+
+/**
+ * The clinical words a lay word stands for. Retinopathy trials never say "eye", so "Will Semaglutide treat
+ * diabetic eye disease?" was answered with a diabetic foot-ulcer trial (G200, 2026-10-26).
+ */
+const CLINICAL: Record<string, string[]> = {
+  eye: ["retin", "macula", "ocular", "ophtha", "vision", "visual", "glauco", "cornea"],
+  eyes: ["retin", "macula", "ocular", "ophtha", "vision", "visual", "glauco", "cornea"],
+  heart: ["cardia", "cardio", "corona", "myocar"],
+  kidney: ["renal", "nephro"],
+  liver: ["hepati", "hepato"],
+  lung: ["pulmon", "respir"],
+  skin: ["dermat", "cutane"],
+  brain: ["neuro", "cerebr"],
+  bone: ["osteo", "skelet"],
+  pediatric: ["child", "paedia", "infant", "adoles"],
+  paediatric: ["child", "pediat", "infant", "adoles"],
+  children: ["pediat", "paedia", "child"],
+};
+
+/**
+ * Whether `text` names the `words` (all of one or two, all but one of more) at the start of a word, each cut to six letters so "cancers"
+ * meets "cancer", or through a clinical word it stands for. Any one word was too weak: "diabetic" alone
+ * matched a foot-ulcer trial for an eye question. The word start matters for short words: "eye" must not
+ * match "Seyed". Pure.
+ */
+export function namesAll(text: string, words: string[]): boolean {
+  const t = String(text ?? "").toLowerCase();
+  const starts = (part: string): boolean =>
+    new RegExp(`(?:^|[^a-z0-9])${part.slice(0, 6).replace(/[.*+?^${}()|[\]\\-]/g, "\\$&")}`).test(t);
+  // A hyphenated word matches when all its parts do: "alpha-thalassemia" meets "Alpha (α)-Thalassemia" and not
+  // "Beta-thalassemia" (G200, 2026-10-26).
+  const names = (w: string): boolean =>
+    w.toLowerCase().split("-").filter((p) => p.length >= 2).every(starts) || (CLINICAL[w.toLowerCase()] ?? []).some(starts);
+  // Three or more words: all but one, so "Rosalind Franklin's DNA image misinterpreted" still meets a paper on
+  // her DNA photograph.
+  const hits = words.filter(names).length;
+  return words.length >= 3 ? hits >= words.length - 1 : hits === words.length;
 }
 
 export async function findEncyclopedia(term: string): Promise<Citation | null | "unavailable"> {
@@ -278,6 +392,9 @@ export function researchConcepts(question: string): { concepts: string[]; guidan
   const guidance = /\b(?:recommendations?|guidelines?|consensus|best practices?|standard of care)\b/i.test(q);
   const recent = /\b(?:recent|latest|current|new(?:est)?|up-to-date)\b/i.test(q);
   const core = q
+    // "What does research say about creatine and cognition?" kept "What does research say about creatine"
+    // as a concept (G200).
+    .replace(/^\s*what\s+(?:does|do)\s+(?:the\s+)?(?:research|evidence|literature|science|data|studies)\s+(?:say|show|suggest|tell\s+us)\s+(?:about\s+)?/i, "")
     .replace(/^\s*(?:what|which)\s+(?:are|is|were|was)\s+(?:the\s+)?/i, "")
     .replace(/^(?:(?:most\s+)?(?:recent|latest|current|new(?:est)?|up-to-date|main|key)\s+)*(?:research\s+|clinical\s+)?(?:findings|evidence|recommendations|guidelines|data|results|studies|research|consensus|understanding|advances|developments)\s+(?:on|regarding|about|for|in|of|concerning)\s+/i, "")
     .replace(/\b(?:the\s+)?(?:efficacy|effectiveness|safety|role|use|impact|effects?|benefits?)\s+of\s+/gi, "")
@@ -294,6 +411,12 @@ export function researchConcepts(question: string): { concepts: string[]; guidan
 }
 
 export interface Finding extends Citation { conclusion: string | null }
+
+/** Each content word of a concept, cut to six letters so "supplementation" meets "supplement". Pure. */
+export function contentKeys(concept: string): string[] {
+  const words = concept.toLowerCase().match(/[a-z0-9-]{4,}/g) ?? [];
+  return words.length ? [...new Set(words.map((w) => w.slice(0, 6)))] : [concept.toLowerCase()];
+}
 
 /** Literature that covers every concept, with each abstract's concluding sentence. */
 export async function findConceptLiterature(concepts: string[], guidance: boolean, recent: boolean): Promise<Finding[] | "unavailable"> {
@@ -320,7 +443,9 @@ export async function findConceptLiterature(concepts: string[], guidance: boolea
       const title = strip(r.title).replace(/\.$/, "");
       const abstract = strip(r.abstractText ?? "");
       const hay = `${title} ${abstract}`.toLowerCase();
-      if (!concepts.every((c) => hay.includes(key(c)))) return [];
+      // Every content word of every concept, not only its longest: "creatine supplementation" was matched by
+      // its longest word alone, so a beetroot-juice supplementation review led (G200, 2026-10-21).
+      if (!concepts.every((c) => contentKeys(c).every((k) => hay.includes(k)))) return [];
       const conc = abstract.match(/(?:CONCLUSIONS?|Conclusions?|In conclusion|INTERPRETATION)[:.,]?\s*(.+)$/)?.[1] ?? abstract.split(/(?<=[.])\s+(?=[A-Z])/).slice(-1)[0] ?? "";
       const sentence = conc.split(/(?<=[.])\s+(?=[A-Z])/)[0]?.trim() ?? "";
       const year = Number(r.pubYear);
@@ -407,8 +532,24 @@ export async function answerResearch(question: string): Promise<ResearchResult> 
     }
     return technicalResearch(question,subject);
   }
+  if (asksPoliticalDecision(question)) {
+    return {
+      ...empty, subject, verdict: "unknown", confidence: 0, error: "out_of_scope",
+      reason:
+        `"${subject}" asks whether a government will take a political decision. The trial registry and the ` +
+        `medical literature this answer reads cannot say that, so no source is cited and nothing is predicted. ` +
+        `A news search fits this question.`,
+    };
+  }
   const topic = topicOf(subject);
-  const terms = [...namedEntities(question).slice(0, 3), ...(topic ? [topic] : [subject])];
+  const names = searchNames(question);
+  const terms = [...names, ...(topic ? [topic] : [subject])];
+  const qualifier = qualifierOf(subject, names);
+  // A candidate is searched together with what the question asks about it (G200).
+  const withQualifier = (candidate: string): string => {
+    const extra = qualifier.filter((w) => !candidate.toLowerCase().includes(w));
+    return extra.length ? `${candidate} ${extra.join(" ")}` : candidate;
+  };
   let term = terms[0] ?? subject;
   let trials: Trial[] = [];
   let lit: Citation[] = [];
@@ -434,15 +575,29 @@ export async function answerResearch(question: string): Promise<ResearchResult> 
     ? findConceptLiterature(concepts, guidance, recent)
     : Promise.resolve(null);
   const probes = await Promise.all(terms.map(async (candidate) => {
-    const [t, l] = await Promise.all([findTrials(candidate), findLiterature(candidate)]);
-    return { candidate, t, l };
+    const [t, l] = await Promise.all([
+      findTrials(withQualifier(candidate), qualifier.length ? 10 : 4),
+      findLiterature(withQualifier(candidate), qualifier),
+    ]);
+    // A trial names its disease in its conditions when its title does not: CheckMate 274 says "urothelial".
+    // When none names the qualifier outright, the registry's own matches for both terms stand, but only those
+    // whose title names the candidate: retinopathy trials never say "eye", and without the title check an
+    // unrelated biosimilar trial answered "Will FDA fine Fresenius Kabi?" (G200, 2026-10-26).
+    let onTopic = t;
+    if (t !== "unavailable" && qualifier.length) {
+      const explicit = t.filter((x) => namesAll(`${x.title} ${x.conditions.join(" ")}`, qualifier));
+      onTopic = explicit.length ? explicit : t.filter((x) => mentions(x.title, candidate));
+    }
+    return { candidate, t: onTopic, l };
   }));
 
   for (const { candidate, t, l } of probes) {
     if (t === "unavailable" || l === "unavailable") anyIndexDown = true;
   }
   for (const { candidate, t, l } of probes) {
-    const relevantTrials = t === "unavailable" ? [] : t.filter((x) => mentions(x.title, candidate));
+    // Found with both terms and naming the qualifier, a trial is kept even when its title uses a code
+    // ("ACE-536" for luspatercept); without a qualifier, the title must name the candidate as before.
+    const relevantTrials = t === "unavailable" ? [] : qualifier.length ? t : t.filter((x) => mentions(x.title, candidate));
     const relevantLit = l === "unavailable" ? [] : l.filter((x) => mentions(x.title, candidate));
     if (relevantTrials.length || relevantLit.length) {
       term = candidate;
@@ -460,17 +615,22 @@ export async function answerResearch(question: string): Promise<ResearchResult> 
       findEncyclopedia(candidate).then((w) => ({ candidate, w }))));
     for (const { candidate, w } of pages) {
       if (w === "unavailable") { anyIndexDown = true; continue; }
-      if (w) { wiki = w; term = candidate; break; }
+      // A summary of the company or country that never touches what was asked is not evidence about it.
+      const about = (text: string): boolean => qualifier.every((q) => text.toLowerCase().includes(q.slice(0, 6)));
+      if (w && (qualifier.length === 0 || about(w.source))) { wiki = w; term = candidate; break; }
     }
   }
 
   /**
    * A question that combines concepts is answered from literature covering all
-   * of them, led by what that literature concludes, unless a candidate name
-   * already found a registered trial (a trial record is the stronger fact).
+   * of them, led by what that literature concludes. The concept search runs only
+   * for a question that is not a forecast, so a "will X be approved" question is
+   * still answered from its trial record.
    */
   const found = await conceptSearch;
-  if (Array.isArray(found) && found.length && trials.length === 0) {
+  // Concept literature covers every concept, so for "what does research say about A and B" it leads even over
+  // a trial, which may match only A: a creatine-for-claudication trial answered creatine and cognition (G200).
+  if (Array.isArray(found) && found.length) {
     const [a, b] = found;
     const by = (c: Finding): string => `${firstAuthor(c)}${c.year ? `, ${c.year}` : ""}`;
     const lead = a!.conclusion
@@ -525,7 +685,7 @@ export async function answerResearch(question: string): Promise<ResearchResult> 
     return {
       ...empty, subject, verdict: "no_evidence", confidence: 0.6,
       reason:
-        `No registered trial and no indexed publication on ${term} was found, so nothing is claimed ` +
+        `No registered trial and no indexed publication on ${withQualifier(term)} was found, so nothing is claimed ` +
         `about ${subject}. ClinicalTrials.gov and Europe PMC were both searched and both answered; ` +
         `an absence in those two indexes is not proof that no work exists.`,
     };
@@ -542,12 +702,15 @@ export async function answerResearch(question: string): Promise<ResearchResult> 
    * answered with a liver-function study purely because the registry listed it
    * first, when a coronary-plaque study was in the same result set.
    */
-  const asked = new Set((topicOf(subject).toLowerCase().match(/[a-z0-9-]{4,}/g) ?? []));
-  const overlap = (title: string): number => {
-    const t = title.toLowerCase();
-    return [...asked].filter((w) => t.includes(w)).length;
+  const asked = new Set([...(topicOf(subject).toLowerCase().match(/[a-z0-9-]{4,}/g) ?? []), ...qualifier]);
+  // A word in the title counts twice a word only in the conditions: BL1332's ocular-pain study before its
+  // pharmacokinetics study, which lists the same condition.
+  const overlap = (trial: Trial): number => {
+    const title = trial.title.toLowerCase();
+    const conditions = trial.conditions.join(" ").toLowerCase();
+    return [...asked].reduce((s, w) => s + (title.includes(w) ? 2 : conditions.includes(w) ? 1 : 0), 0);
   };
-  const ranked = [...gotTrials].sort((a, b) => overlap(b.title) - overlap(a.title));
+  const ranked = [...gotTrials].sort((a, b) => overlap(b) - overlap(a));
 
   const parts: string[] = [];
   const t = ranked[0];

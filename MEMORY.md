@@ -30,6 +30,15 @@
   - Every field production returns is documented: 0 undocumented on the re-check.
   - Found G211: the registered `output_schema` omits 101 returned fields.
 
+- **G200, RESEARCH_QUERY (committed, NOT deployed):**
+  - `src/research.ts` now searches the name together with the question's qualifier.
+  - It requires the qualifier in a trial's title or conditions (with a small clinical-synonym map).
+  - Drug codes go first; bare company words are dropped.
+  - Concept papers need every word.
+  - A state's political decision is declined.
+  - Replay of 100 questions (`tools/research-replay.mjs`): the 3 audit fails are fixed, 47 leads changed
+    (read by hand), 4 still weak. Unit tests 804/804.
+
 ### Earlier the same morning
 
 
