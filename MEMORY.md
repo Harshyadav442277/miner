@@ -13,6 +13,14 @@
 
   Build, test and commit each locally. Pause only for deploy, push, keys or `updateMiner`.
 
+- **Item 3, confidence (committed, NOT deployed):**
+  - On the Oct 21 audit, answers at confidence 1.0 were right only 72% of the time; Brier score 0.210.
+  - Confidence is a fixed level per intent, not a per-answer judgement.
+  - Too few labels to re-tune per intent. One rule was written down instead: 1.0 only for a direct
+    authoritative read. Under it, translation is now 0.9 and academic topic search 0.8.
+  - Evidence: `track1-miner/docs/evidence/calibration-2026-10-26/`.
+  - The real fix is a fresh graded set of at least 10 per intent on current production.
+
 ### Earlier the same morning
 
 

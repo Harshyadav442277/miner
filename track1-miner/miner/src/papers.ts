@@ -565,7 +565,9 @@ export async function findPapers(query: string, limit?: number, timeoutMs = DEFA
     verdict: "papers",
     papers,
     count: papers.length,
-    confidence: 1,
+    // The papers are real records, but OpenAlex ranks relevance and nothing here verifies it: the audited
+    // ACADEMIC_SEARCH fails were all relevance or reading errors at confidence 1 (calibration-2026-10-26).
+    confidence: 0.8,
     reason: `Here are ${papers.length} ${kind} on ${topic}${window}: ${list}`,
   };
 }

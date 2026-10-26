@@ -57,6 +57,7 @@ test("a code-shaped request asks the model for the right language and returns it
   const sent = model("Vielen Dank für Ihre Hilfe.");
   const result = await translate('Translate "Thank you very much for your help." into de.');
   assert.equal(result.verdict, "translated");
+  assert.equal(result.confidence, 0.9, "a model's translation is not given the 1.0 kept for an authoritative record");
   assert.equal(result.reason, "Vielen Dank für Ihre Hilfe.", "the reason is the bare translation");
   assert.equal(result.target_code, "de");
   assert.match(sent[0]!.messages[0].content, /into German \(de\)/);

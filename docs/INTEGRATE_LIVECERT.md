@@ -27,7 +27,11 @@ HTTP 200, with the answer first and the values as fields:
 
 - `answer` is one sentence an app can show as is.
 - `verdict` is a machine label.
-- `confidence` runs from 0 to 1.
+- `confidence` runs from 0 to 1. Today it is mostly a fixed level per intent that says how direct the source is:
+  1.0 only for a direct read of the authoritative record of exactly what was asked (a TLS handshake, an EDGAR
+  filing, an exact-title paper), lower for a model's output or a ranked search, and 0 when nothing was answered.
+  It is not yet a calibrated probability. On the 2026-10-21 audit, answers at 0.9–1.0 were right 72–79% of the
+  time (`track1-miner/docs/evidence/calibration-2026-10-26/`).
 - `reason` is the full answer, naming its sources.
 - `checked_at` is when the answer was computed.
 - `receipt`, last, lists the upstream requests the miner actually made for this answer. Each entry has the URL

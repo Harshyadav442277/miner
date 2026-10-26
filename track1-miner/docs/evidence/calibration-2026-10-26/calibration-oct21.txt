@@ -1,0 +1,49 @@
+154 graded answers with a confidence (of 154); Brier score 0.210 (0 is perfect)
+
+confidence      n  mean conf  observed right  pass/partial/fail
+0-0.001        10       0.00            0.70  5/4/1
+0.001-0.5       2       0.35            0.75  1/1/0
+0.5-0.7         6       0.58            0.75  4/1/1
+0.7-0.9        32       0.78            0.80  24/3/5
+0.9-0.999      74       0.94            0.79  58/1/15
+0.999-1        30       1.00            0.72  18/7/5
+
+confident (>= 0.8) and wrong: 24
+  #10 WEATHER_FORECAST confidence 1 verdict heavy rain
+  #11 WEATHER_FORECAST confidence 1 verdict clear
+  #16 IP_GEOLOCATION confidence 0.95 verdict Ashburn, Virginia, United States
+  #17 IP_GEOLOCATION confidence 0.95 verdict Berkeley, California, United States
+  #18 IP_GEOLOCATION confidence 0.95 verdict Montreal, Quebec, Canada
+  #19 IP_GEOLOCATION confidence 0.95 verdict Toronto, Ontario, Canada
+  #28 ACADEMIC_SEARCH confidence 1 verdict papers
+  #29 CONTENT_EXTRACTION confidence 1 verdict multiple
+  #34 NEWS_HEADLINES confidence 1 verdict headlines
+  #43 WEB_SEARCH confidence 0.8 verdict answered
+  #44 WEB_SEARCH confidence 0.8 verdict answered
+  #55 RESEARCH_QUERY confidence 0.9 verdict evidence
+  #57 RESEARCH_QUERY confidence 0.8 verdict evidence
+  #58 RESEARCH_QUERY confidence 0.9 verdict evidence
+  #89 GAS_PRICE confidence 0.95 verdict gas_price
+  #91 GAS_PRICE confidence 0.95 verdict gas_price
+  #100 CRYPTO_PRICE confidence 0.9 verdict price
+  #107 FINANCIAL_DATA confidence 0.9 verdict financial_data
+  #108 FINANCIAL_DATA confidence 0.9 verdict financial_data
+  #112 CURRENCY_EXCHANGE confidence 0.95 verdict converted
+  #121 EVENT_OUTCOME_RESOLUTION confidence 0.9 verdict resolved
+  #142 SANCTIONS_SCREENING_MATCH confidence 0.85 verdict no_match
+  #151 REGULATORY_FILING_MONITOR confidence 0.95 verdict filed
+  #153 REGULATORY_FILING_MONITOR confidence 0.95 verdict filed
+
+intents, most over-confident first (mean confidence minus observed right):
+  RESEARCH_QUERY              n=4 conf 0.88 right 0.25 confident fails 3
+  REGULATORY_FILING_MONITOR   n=4 conf 0.95 right 0.38 confident fails 2
+  IP_GEOLOCATION              n=5 conf 0.76 right 0.20 confident fails 4
+  WEATHER_FORECAST            n=4 conf 1.00 right 0.50 confident fails 2
+  ACADEMIC_SEARCH             n=4 conf 1.00 right 0.50 confident fails 1
+  GAS_PRICE                   n=4 conf 0.95 right 0.50 confident fails 2
+  FINANCIAL_DATA              n=4 conf 0.90 right 0.50 confident fails 2
+  CONTENT_EXTRACTION          n=4 conf 1.00 right 0.63 confident fails 1
+  WEB_SEARCH                  n=4 conf 0.80 right 0.50 confident fails 2
+  CURRENCY_EXCHANGE           n=4 conf 0.95 right 0.75 confident fails 1
+  SSL_VERIFICATION            n=4 conf 1.00 right 0.88 confident fails 0
+  STORM_ALERT                 n=4 conf 1.00 right 0.88 confident fails 0

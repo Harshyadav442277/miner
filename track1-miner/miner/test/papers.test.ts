@@ -363,6 +363,8 @@ test("peer-reviewed is filtered to journal articles and said as such; otherwise 
     const r = await findPapers("Find three peer-reviewed papers about transformer language models.");
     assert.match(decodeURIComponent(urls[0]!), /type:article,primary_location\.source\.type:journal/);
     assert.match(r.reason, /^Here are 1 peer-reviewed journal articles on transformer language models/);
+    // Relevance is OpenAlex's ranking, not verified here (calibration-2026-10-26).
+    assert.equal(r.confidence, 0.8);
     const p = await findPapers("Find papers about transformer language models");
     assert.doesNotMatch(decodeURIComponent(urls[1]!), /source\.type/);
     assert.match(p.reason, /^Here are 1 papers on/);

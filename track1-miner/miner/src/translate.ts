@@ -203,7 +203,9 @@ export async function translate(question: string, timeoutMs = DEFAULT_TIMEOUT_MS
     translation: out,
     source: "Groq (open-weight model, machine translation)",
     verdict: "translated",
-    confidence: 1,
+    // A model's translation, so not 1.0, which is kept for a direct read of an authoritative record.
+    // 0.9 rather than lower: the four audited translations all passed (calibration-2026-10-26).
+    confidence: 0.9,
     reason: out,
   };
 }
