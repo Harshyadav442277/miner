@@ -49,7 +49,7 @@ const TIMEOUT_MS = 6000;
  * were in the first draft of this list and all three were dead. Re-test before
  * trusting any addition here.
  */
-const RPCS: Record<string, string[]> = {
+export const RPCS: Record<string, string[]> = {
   // Official BNB Chain endpoint list, verified 2026-09-11 IST.
   bsc: ["https://bsc-dataseed.bnbchain.org", "https://bsc-dataseed-public.bnbchain.org"],
   ethereum: [

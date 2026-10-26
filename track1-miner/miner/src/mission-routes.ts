@@ -6,12 +6,16 @@
  * successful answer, and sends it through the same envelope, watchdog and
  * in-flight sharing as every other route.
  */
+import { lookupDns } from "./dns";
 import { monitorFilings } from "./filings";
+import { extractKeywords } from "./keywords";
 import { answerQuestion } from "./qa";
 import { macroIndicators } from "./macro";
 import { lookupRegistry } from "./registry";
 import { screenSanctions } from "./sanctions";
+import { verifyTokenSupply } from "./token-supply";
 import { urlReputation } from "./urlsafe";
+import { triageVulnerabilities } from "./vulntriage";
 
 export interface MissionAnswer { verdict: string; confidence: number; reason: string; error?: string }
 
@@ -54,5 +58,25 @@ export const MISSION_ROUTES: Record<string, MissionRoute> = {
     what: "A cited answer",
     params: ["context"],
     run: (q, p) => answerQuestion(q, p("context")),
+  },
+  "/dns": {
+    what: "A DNS lookup",
+    params: ["domain", "name", "host", "type", "record_type"],
+    run: (q, p) => lookupDns(q, p("domain", "name", "host"), p("type", "record_type")),
+  },
+  "/token-supply": {
+    what: "A token supply read",
+    params: ["token", "contract", "address", "chain"],
+    run: (q, p) => verifyTokenSupply(q, p("token", "contract", "address"), p("chain")),
+  },
+  "/keywords": {
+    what: "A keyword extraction",
+    params: ["text", "content", "top", "limit"],
+    run: async (q, p) => extractKeywords(q, p("text", "content"), p("top", "limit")),
+  },
+  "/vuln-triage": {
+    what: "A vulnerability triage",
+    params: ["cves", "cve_ids", "asset_criticality", "asset"],
+    run: (q, p) => triageVulnerabilities(q, p("cves", "cve_ids"), p("asset_criticality", "asset")),
   },
 };
