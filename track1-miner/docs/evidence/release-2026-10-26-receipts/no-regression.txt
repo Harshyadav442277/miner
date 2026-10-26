@@ -1,0 +1,26 @@
+DIFFERS    /ssl-check
+   without: {"answer":"The TLS/SSL certificate configuration for github.com is valid.","domain":"github.com","verdict":"valid","valid":true,"chain_complete":true,"issuer":"Sectigo Limited","valid_to":"2026-11-29"
+   with:    {"answer":"The TLS/SSL certificate configuration for github.com is valid.","domain":"github.com","verdict":"valid","valid":true,"chain_complete":true,"issuer":"Sectigo Limited","valid_to":"2026-11-29"
+DIFFERS    /storm-alert
+   without: {"answer":"No storm conditions are forecast for Chennai over the next 48 hours.","location":"Chennai, Tamil Nadu, India","verdict":"none","risk_score":0.16,"wind_direction":"north-east","max_wind_gust
+   with:    {"answer":"No storm conditions are forecast for Chennai over the next 48 hours.","location":"Chennai, Tamil Nadu, India","verdict":"none","risk_score":0.16,"wind_direction":"north-east","max_wind_gust
+DIFFERS    /weather-forecast
+   without: {"answer":"A 24-hour hourly weather forecast for London, England, United Kingdom covering October 26 to October 27, 2026: hourly temperature in Celsius from 9.1°C to 15.7°C, 1.6 mm of total precipitat
+   with:    {"answer":"A 24-hour hourly weather forecast for London, England, United Kingdom covering October 26 to October 27, 2026: hourly temperature in Celsius from 9.1°C to 15.7°C, 1.6 mm of total precipitat
+DIFFERS    /ip-geolocate
+   without: {"answer":"The IP address 8.8.8.8 is an anycast address operated by Google LLC (AS15169): it is announced from many locations at once, so which server answers depends on where the request comes from, 
+   with:    {"answer":"The IP address 8.8.8.8 is an anycast address operated by Google LLC (AS15169): it is announced from many locations at once, so which server answers depends on where the request comes from, 
+DIFFERS    /papers
+   without: {"answer":"Here are 5 peer-reviewed journal articles on CRISPR gene editing: 1) CRISPR Gene Editing in the Kidney by Nelly M. Cruz, Benjamin Freedman (2018), cited 66 times.","topic":"CRISPR gene edit
+   with:    {"answer":"Here are 5 peer-reviewed journal articles on CRISPR gene editing: 1) CRISPR Gene Editing in the Kidney by Nelly M. Cruz, Benjamin Freedman (2018), cited 66 times.","topic":"CRISPR gene edit
+DIFFERS    /cve
+   without: {"answer":"CVE-2021-44228 is rated CRITICAL with a CVSS 3.1 base score of 10.0, assigned by NVD.","cve_id":"CVE-2021-44228","verdict":"critical","confidence":0.97,"severity":"CRITICAL","cvss_score":10
+   with:    {"answer":"CVE-2021-44228 is rated CRITICAL with a CVSS 3.1 base score of 10.0, assigned by NVD.","cve_id":"CVE-2021-44228","verdict":"critical","confidence":0.97,"severity":"CRITICAL","cvss_score":10
+DIFFERS    /extract
+   without: {"answer":"Email: support@example.com.","verdict":"contact","extracted":{"emails":["support@example.com"],"phones":["555-0192"],"urls":[]},"confidence":1,"reason":"Email: support@example.com. Phone nu
+   with:    {"answer":"Email: support@example.com.","verdict":"contact","extracted":{"emails":["support@example.com"],"phones":["555-0192"],"urls":[]},"confidence":1,"reason":"Email: support@example.com. Phone nu
+DIFFERS    /wallet-balance
+   without: {"answer":"The address 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 currently has a native-coin balance of 5.77349992 ETH on ethereum.","address":"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045","chain":"et
+   with:    {"answer":"The address 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 currently has a native-coin balance of 5.77349992 ETH on ethereum.","address":"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045","chain":"et
+
+0 identical, 8 differ

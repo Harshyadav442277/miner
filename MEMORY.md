@@ -1,6 +1,20 @@
 # MEMORY.md — session continuity
 
-## 2026-10-26 ~05:00 UTC (10:30 IST): CURRENT — item 2, answer receipts, built and checked locally; NOT deployed
+## 2026-10-26 ~05:20 UTC (10:50 IST): CURRENT — item 2, answer receipts, DEPLOYED and pushed
+
+- Production `miner-mz9gh2afy`, rollback `miner-l5taibkkl`.
+- All 36 intents carry receipts on production, with no secret-like values.
+- Gates are at baseline after `no-regression.mjs` learned to ignore `receipt`.
+- Evidence: `track1-miner/docs/evidence/release-2026-10-26-receipts/`.
+- **Owner said "keep working, give prompt to yourself"** (2026-10-26). Self-set order:
+  1. item 3, calibrated confidence, from labelled answers;
+  2. item 5, nightly self-check;
+  3. item 6, OpenAPI spec.
+
+  Build, test and commit each locally. Pause only for deploy, push, keys or `updateMiner`.
+
+### Earlier the same morning
+
 
 - **Every answer now ends with a `receipt`:** the upstream requests actually made, with credentials redacted, the
   status, the time, `from_cache` and the deployment. Code: `src/receipt.ts`.

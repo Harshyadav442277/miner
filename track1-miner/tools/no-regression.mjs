@@ -40,7 +40,8 @@ const CASES = [
 ];
 
 /** Fields that legitimately differ between two calls seconds apart. */
-const VOLATILE = new Set(["checked_at", "as_of", "retrieved_at", "published", "uptime_s"]);
+// `receipt` is per call by design: its own id, timings, and whether the cache answered (2026-10-26).
+const VOLATILE = new Set(["checked_at", "as_of", "retrieved_at", "published", "uptime_s", "receipt"]);
 function stable(o) {
   if (Array.isArray(o)) return o.map(stable);
   if (o && typeof o === "object") {

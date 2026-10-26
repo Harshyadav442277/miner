@@ -1,0 +1,1081 @@
+{
+ "at": "2026-10-26T05:19:59.538Z",
+ "base": "https://miner-wine.vercel.app",
+ "intents": {
+  "ACADEMIC_SEARCH": {
+   "path": "/papers",
+   "verdict": "papers",
+   "receipt": {
+    "id": "33b76383-2bbe-4633-9025-f62a5ffc2eed",
+    "deployment": "miner-mz9gh2afy-wukong4.vercel.app",
+    "answered_at": "2026-10-26T05:19:31.784Z",
+    "upstream": [
+     {
+      "url": "https://api.openalex.org/works?search=privacy%20attacks%20against%20federated-learning%20systems&per-page=15",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:31.362Z",
+      "ms": 413
+     }
+    ],
+    "from_cache": false
+   },
+   "secret_like": false
+  },
+  "CONTENT_EXTRACTION": {
+   "path": "/extract",
+   "verdict": "generic",
+   "receipt": {
+    "id": "51bbc293-275f-48e6-8483-0ffa944eb34a",
+    "deployment": "miner-mz9gh2afy-wukong4.vercel.app",
+    "answered_at": "2026-10-26T05:19:32.034Z",
+    "upstream": [],
+    "from_cache": false,
+    "note": "No upstream request was made for this answer: it was computed from the question alone, or from data this instance already held from an earlier request (for example sanctions lists, the ECB rate table, a weather forecast, a place lookup or a model reply). The answer's own source fields name where that data came from."
+   },
+   "secret_like": false
+  },
+  "CORPORATE_REGISTRY_LOOKUP": {
+   "path": "/company-registry",
+   "verdict": "found",
+   "receipt": {
+    "id": "f83e3868-e461-43bd-8e93-684f2c9f9fcd",
+    "deployment": "miner-mz9gh2afy-wukong4.vercel.app",
+    "answered_at": "2026-10-26T05:19:32.346Z",
+    "upstream": [
+     {
+      "url": "https://api.gleif.org/api/v1/lei-records?filter%5Bentity.legalName%5D=Barclays%20Bank%20PLC&page%5Bsize%5D=15",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:18:49.956Z",
+      "ms": 365
+     },
+     {
+      "url": "https://www.sec.gov/files/company_tickers.json",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:18:49.958Z",
+      "ms": 96
+     },
+     {
+      "url": "https://data.sec.gov/submissions/CIK0000312070.json",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:18:50.408Z",
+      "ms": 66
+     },
+     {
+      "url": "https://api.gleif.org/api/v1/entity-legal-forms/B6ES",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:18:50.520Z",
+      "ms": 113
+     },
+     {
+      "url": "https://api.gleif.org/api/v1/registration-authorities/RA000585",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:18:50.520Z",
+      "ms": 274
+     },
+     {
+      "url": "https://api.gleif.org/api/v1/lei-records/G5GSEF7VJP5I7OUK5573/direct-parent",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:18:50.521Z",
+      "ms": 343
+     },
+     {
+      "url": "https://api.gleif.org/api/v1/lei-records/G5GSEF7VJP5I7OUK5573/ultimate-parent",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:18:50.522Z",
+      "ms": 340
+     }
+    ],
+    "from_cache": true
+   },
+   "secret_like": false
+  },
+  "CROSS_CHAIN_STATE_VERIFY": {
+   "path": "/cross-chain",
+   "verdict": "insufficient_input",
+   "receipt": {
+    "id": "8fed0c98-ef0a-4211-af80-c82255371e60",
+    "deployment": "miner-mz9gh2afy-wukong4.vercel.app",
+    "answered_at": "2026-10-26T05:19:32.618Z",
+    "upstream": [],
+    "from_cache": false,
+    "note": "No upstream request was made for this answer: it was computed from the question alone, or from data this instance already held from an earlier request (for example sanctions lists, the ECB rate table, a weather forecast, a place lookup or a model reply). The answer's own source fields name where that data came from."
+   },
+   "secret_like": false
+  },
+  "CRYPTO_PRICE": {
+   "path": "/crypto-price",
+   "verdict": "price",
+   "receipt": {
+    "id": "c4ec29e4-f29c-421b-9b79-eb7386de5030",
+    "deployment": "miner-mz9gh2afy-wukong4.vercel.app",
+    "answered_at": "2026-10-26T05:19:32.952Z",
+    "upstream": [
+     {
+      "url": "https://api.exchange.coinbase.com/products/DOGE-USD/ticker",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:32.871Z",
+      "ms": 25
+     },
+     {
+      "url": "https://api.coingecko.com/api/v3/simple/price?ids=dogecoin&vs_currencies=usd&include_last_updated_at=true&precision=full",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:32.872Z",
+      "ms": 79
+     }
+    ],
+    "from_cache": false
+   },
+   "secret_like": false
+  },
+  "CRYPTO_TRANSFER_VERIFY": {
+   "path": "/transfer-verify",
+   "verdict": "confirmed",
+   "receipt": {
+    "id": "2008f6cb-085d-4e6e-9b1b-e6653817b1fb",
+    "deployment": "miner-mz9gh2afy-wukong4.vercel.app",
+    "answered_at": "2026-10-26T05:19:33.504Z",
+    "upstream": [
+     {
+      "url": "https://ethereum-rpc.publicnode.com/",
+      "method": "POST",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:33.210Z",
+      "ms": 26
+     },
+     {
+      "url": "https://eth.drpc.org/",
+      "method": "POST",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:33.236Z",
+      "ms": 71
+     },
+     {
+      "url": "https://eth.drpc.org/",
+      "method": "POST",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:33.308Z",
+      "ms": 85
+     },
+     {
+      "url": "https://ethereum-rpc.publicnode.com/",
+      "method": "POST",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:33.394Z",
+      "ms": 18
+     },
+     {
+      "url": "https://ethereum-rpc.publicnode.com/",
+      "method": "POST",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:33.394Z",
+      "ms": 27
+     },
+     {
+      "url": "https://eth.drpc.org/",
+      "method": "POST",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:33.421Z",
+      "ms": 57
+     },
+     {
+      "url": "https://eth.merkle.io/",
+      "method": "POST",
+      "status": 429,
+      "started_at": "2026-10-26T05:19:33.478Z",
+      "ms": 25
+     }
+    ],
+    "from_cache": false
+   },
+   "secret_like": false
+  },
+  "CURRENCY_EXCHANGE": {
+   "path": "/convert",
+   "verdict": "rate",
+   "receipt": {
+    "id": "03611c6f-5fad-4547-b7b3-7d610e258b75",
+    "deployment": "miner-mz9gh2afy-wukong4.vercel.app",
+    "answered_at": "2026-10-26T05:19:33.764Z",
+    "upstream": [],
+    "from_cache": false,
+    "note": "No upstream request was made for this answer: it was computed from the question alone, or from data this instance already held from an earlier request (for example sanctions lists, the ECB rate table, a weather forecast, a place lookup or a model reply). The answer's own source fields name where that data came from."
+   },
+   "secret_like": false
+  },
+  "CVE_LOOKUP": {
+   "path": "/cve",
+   "verdict": "critical",
+   "receipt": {
+    "id": "4ccd2767-0cc7-4e7b-8085-fa1ac1d5e814",
+    "deployment": "miner-mz9gh2afy-wukong4.vercel.app",
+    "answered_at": "2026-10-26T05:19:34.003Z",
+    "upstream": [
+     {
+      "url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2021-44228",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:17:39.571Z",
+      "ms": 132
+     }
+    ],
+    "from_cache": true
+   },
+   "secret_like": false
+  },
+  "EVENT_OUTCOME_RESOLUTION": {
+   "path": "/event-outcome",
+   "verdict": "no_market_found",
+   "receipt": {
+    "id": "fd750cf1-eaf0-4cde-a7be-160bcaeaa244",
+    "deployment": "miner-mz9gh2afy-wukong4.vercel.app",
+    "answered_at": "2026-10-26T05:19:34.523Z",
+    "upstream": [
+     {
+      "url": "https://gamma-api.polymarket.com/public-search?q=vertex%20s%20vx-522%20enter%20phase%202&limit_per_type=10&keep_closed_markets=1",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:34.240Z",
+      "ms": 275
+     },
+     {
+      "url": "https://gamma-api.polymarket.com/public-search?q=vertex%27s%20vx-522%20phase%20522%202&limit_per_type=10&keep_closed_markets=1",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:34.241Z",
+      "ms": 266
+     },
+     {
+      "url": "https://api.manifold.markets/v0/search-markets?term=vertex%20s%20vx-522%20enter%20phase%202&limit=20",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:34.242Z",
+      "ms": 121
+     }
+    ],
+    "from_cache": false
+   },
+   "secret_like": false
+  },
+  "FACT_CHECK": {
+   "path": "/fact-check",
+   "verdict": "contradicted",
+   "receipt": {
+    "id": "d77b1253-a6a4-4d0a-bd37-1b12958daafe",
+    "deployment": "miner-mz9gh2afy-wukong4.vercel.app",
+    "answered_at": "2026-10-26T05:19:34.879Z",
+    "upstream": [
+     {
+      "url": "https://en.wikipedia.org/w/api.php?action=opensearch&search=Eiffel%20Tower&limit=8&namespace=0&format=json",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:34.780Z",
+      "ms": 12
+     },
+     {
+      "url": "https://en.wikipedia.org/w/api.php?action=query&prop=extracts&explaintext=1&redirects=1&format=json&origin=*&titles=Eiffel%20Tower",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:34.792Z",
+      "ms": 40
+     }
+    ],
+    "from_cache": false
+   },
+   "secret_like": false
+  },
+  "FINANCIAL_DATA": {
+   "path": "/financial",
+   "verdict": "financial_data",
+   "receipt": {
+    "id": "2a30e38d-474a-45b0-a61a-644513c381c5",
+    "deployment": "miner-mz9gh2afy-wukong4.vercel.app",
+    "answered_at": "2026-10-26T05:19:35.380Z",
+    "upstream": [
+     {
+      "url": "https://query1.finance.yahoo.com/v1/finance/search?q=Hitachi%20CO2&quotesCount=5&newsCount=0",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:35.161Z",
+      "ms": 71
+     },
+     {
+      "url": "https://query1.finance.yahoo.com/v1/finance/search?q=Hitachi&quotesCount=5&newsCount=0",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:35.232Z",
+      "ms": 72
+     },
+     {
+      "url": "https://query1.finance.yahoo.com/v8/finance/chart/HTHIY?range=5d&interval=1d",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:35.305Z",
+      "ms": 73
+     }
+    ],
+    "from_cache": false
+   },
+   "secret_like": false
+  },
+  "FRAUD_DETECTION": {
+   "path": "/fraud-check",
+   "verdict": "unknown",
+   "receipt": {
+    "id": "f3e81eed-d33b-4c4e-87c6-87042e5d7ab6",
+    "deployment": "miner-mz9gh2afy-wukong4.vercel.app",
+    "answered_at": "2026-10-26T05:19:35.628Z",
+    "upstream": [],
+    "from_cache": false,
+    "note": "No upstream request was made for this answer: it was computed from the question alone, or from data this instance already held from an earlier request (for example sanctions lists, the ECB rate table, a weather forecast, a place lookup or a model reply). The answer's own source fields name where that data came from."
+   },
+   "secret_like": false
+  },
+  "GAS_PRICE": {
+   "path": "/gas-price",
+   "verdict": "unknown",
+   "receipt": {
+    "id": "a5c013ff-d1dc-4cd7-83a7-50720761932b",
+    "deployment": "miner-mz9gh2afy-wukong4.vercel.app",
+    "answered_at": "2026-10-26T05:19:35.887Z",
+    "upstream": [],
+    "from_cache": false,
+    "note": "No upstream request was made for this answer: it was computed from the question alone, or from data this instance already held from an earlier request (for example sanctions lists, the ECB rate table, a weather forecast, a place lookup or a model reply). The answer's own source fields name where that data came from."
+   },
+   "secret_like": false
+  },
+  "IP_GEOLOCATION": {
+   "path": "/ip-geolocate",
+   "verdict": "anycast",
+   "receipt": {
+    "id": "d1ff8cf1-f223-4e87-82c8-fe67b4f668af",
+    "deployment": "miner-mz9gh2afy-wukong4.vercel.app",
+    "answered_at": "2026-10-26T05:19:36.248Z",
+    "upstream": [
+     {
+      "url": "https://ipinfo.io/94.140.14.14/json",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:36.138Z",
+      "ms": 48
+     },
+     {
+      "url": "http://ip-api.com/json/94.140.14.14?fields=status,city,regionName,country,countryCode,lat,lon,timezone,isp,org,as",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:36.139Z",
+      "ms": 38
+     },
+     {
+      "url": "dns://14.14.140.94.dnsel.torproject.org",
+      "method": "DNS",
+      "status": null,
+      "result": "ENOTFOUND",
+      "started_at": "2026-10-26T05:19:36.138Z",
+      "ms": 110
+     }
+    ],
+    "from_cache": false
+   },
+   "secret_like": false
+  },
+  "LANGUAGE_TRANSLATION": {
+   "path": "/translate",
+   "verdict": "translated",
+   "receipt": {
+    "id": "21dc1548-07c2-49c1-bbf9-ad30c17b8f00",
+    "deployment": "miner-mz9gh2afy-wukong4.vercel.app",
+    "answered_at": "2026-10-26T05:19:36.710Z",
+    "upstream": [
+     {
+      "url": "https://api.groq.com/openai/v1/chat/completions",
+      "method": "POST",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:36.494Z",
+      "ms": 213
+     }
+    ],
+    "from_cache": false
+   },
+   "secret_like": false
+  },
+  "MACRO_ECONOMIC_INDICATOR": {
+   "path": "/macro",
+   "verdict": "reported",
+   "receipt": {
+    "id": "0cc1ce76-3732-41c0-9af6-e47c176729de",
+    "deployment": "miner-mz9gh2afy-wukong4.vercel.app",
+    "answered_at": "2026-10-26T05:19:37.276Z",
+    "upstream": [
+     {
+      "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/prc_hicp_minr?geo=EA&unit=RCH_A&coicop18=TOTAL&lastTimePeriod=3",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:36.978Z",
+      "ms": 297
+     }
+    ],
+    "from_cache": false
+   },
+   "secret_like": false
+  },
+  "NEWS_HEADLINES": {
+   "path": "/headlines",
+   "verdict": "headlines",
+   "receipt": {
+    "id": "eb647dc5-cbf4-4e0a-8be0-7ae05c51e984",
+    "deployment": "miner-mz9gh2afy-wukong4.vercel.app",
+    "answered_at": "2026-10-26T05:19:38.251Z",
+    "upstream": [
+     {
+      "url": "https://news.google.com/rss/search?q=uk%20vs%20russia",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:37.544Z",
+      "ms": 703
+     }
+    ],
+    "from_cache": false
+   },
+   "secret_like": false
+  },
+  "NEWS_SEARCH": {
+   "path": "/news-search",
+   "verdict": "unknown",
+   "receipt": {
+    "id": "9789c458-79a5-4469-80c5-8afc697f5fde",
+    "deployment": "miner-mz9gh2afy-wukong4.vercel.app",
+    "answered_at": "2026-10-26T05:19:38.521Z",
+    "upstream": [],
+    "from_cache": false,
+    "note": "No upstream request was made for this answer: it was computed from the question alone, or from data this instance already held from an earlier request (for example sanctions lists, the ECB rate table, a weather forecast, a place lookup or a model reply). The answer's own source fields name where that data came from."
+   },
+   "secret_like": false
+  },
+  "ONCHAIN_TX_LOOKUP": {
+   "path": "/tx-lookup",
+   "verdict": "contract_activity",
+   "receipt": {
+    "id": "1786a9ee-396c-4e21-8988-3812daa43ad1",
+    "deployment": "miner-mz9gh2afy-wukong4.vercel.app",
+    "answered_at": "2026-10-26T05:19:46.044Z",
+    "upstream": [
+     {
+      "url": "https://api.routescan.io/v2/network/mainnet/evm/1/addresses/0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:38.770Z",
+      "ms": 565
+     },
+     {
+      "url": "https://api.routescan.io/v2/network/mainnet/evm/1/etherscan/api?module=contract&action=getcontractcreation&contractaddresses=0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:38.771Z",
+      "ms": 39
+     },
+     {
+      "url": "https://eth.blockscout.com/api/v2/addresses/0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D",
+      "method": "GET",
+      "status": null,
+      "started_at": "2026-10-26T05:19:38.772Z",
+      "ms": 7000
+     },
+     {
+      "url": "https://eth.blockscout.com/api/v2/addresses/0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D/counters",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:38.772Z",
+      "ms": 567
+     },
+     {
+      "url": "https://ethereum-rpc.publicnode.com/",
+      "method": "POST",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:38.773Z",
+      "ms": 25
+     },
+     {
+      "url": "https://ethereum-rpc.publicnode.com/",
+      "method": "POST",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:38.773Z",
+      "ms": 27
+     },
+     {
+      "url": "https://api.routescan.io/v2/network/mainnet/evm/1/transactions/0x4fc1580e7f66c58b7c26881cce0aab9c3509afe6e507527f30566fbf8039bcd0",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:45.772Z",
+      "ms": 271
+     }
+    ],
+    "from_cache": false
+   },
+   "secret_like": false
+  },
+  "QUESTION_ANSWERING": {
+   "path": "/answer",
+   "verdict": "answered",
+   "receipt": {
+    "id": "baac6495-2fac-403d-95db-f42e12ebe8ea",
+    "deployment": "miner-mz9gh2afy-wukong4.vercel.app",
+    "answered_at": "2026-10-26T05:19:46.303Z",
+    "upstream": [
+     {
+      "url": "https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrlimit=4&prop=extracts%7Cinfo&exintro=1&explaintext=1&inprop=url&format=json&origin=*&gsrsearch=How%20many%20moons%20does%20Mars%20have%3F",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:18:54.075Z",
+      "ms": 327
+     },
+     {
+      "url": "https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrlimit=4&prop=extracts%7Cinfo&exintro=1&explaintext=1&inprop=url&format=json&origin=*&gsrsearch=moons%20mars",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:18:54.076Z",
+      "ms": 168
+     },
+     {
+      "url": "https://api.groq.com/openai/v1/chat/completions",
+      "method": "POST",
+      "status": 200,
+      "started_at": "2026-10-26T05:18:54.404Z",
+      "ms": 385
+     }
+    ],
+    "from_cache": true
+   },
+   "secret_like": false
+  },
+  "REGULATORY_FILING_MONITOR": {
+   "path": "/sec-filings",
+   "verdict": "filed",
+   "receipt": {
+    "id": "824f9f5e-fbaf-4374-8de3-95cbdb6131f6",
+    "deployment": "miner-mz9gh2afy-wukong4.vercel.app",
+    "answered_at": "2026-10-26T05:19:46.822Z",
+    "upstream": [
+     {
+      "url": "https://data.sec.gov/submissions/CIK0000320193.json",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:46.581Z",
+      "ms": 35
+     },
+     {
+      "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000320193/us-gaap/Revenues.json",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:46.619Z",
+      "ms": 38
+     },
+     {
+      "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000320193/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:46.620Z",
+      "ms": 17
+     },
+     {
+      "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000320193/us-gaap/GrossProfit.json",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:46.621Z",
+      "ms": 150
+     },
+     {
+      "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000320193/us-gaap/OperatingIncomeLoss.json",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:46.621Z",
+      "ms": 200
+     },
+     {
+      "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000320193/us-gaap/NetIncomeLoss.json",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:46.622Z",
+      "ms": 100
+     }
+    ],
+    "from_cache": false
+   },
+   "secret_like": false
+  },
+  "RESEARCH_QUERY": {
+   "path": "/research",
+   "verdict": "evidence",
+   "receipt": {
+    "id": "e7d8d884-ce7d-40fa-8207-1132a4df208a",
+    "deployment": "miner-mz9gh2afy-wukong4.vercel.app",
+    "answered_at": "2026-10-26T05:19:47.832Z",
+    "upstream": [
+     {
+      "url": "https://clinicaltrials.gov/api/v2/studies?query.term=Nivolumab&pageSize=4&countTotal=true",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:47.080Z",
+      "ms": 43
+     },
+     {
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=Nivolumab&format=json&pageSize=3&resultType=core",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:47.081Z",
+      "ms": 435
+     },
+     {
+      "url": "https://clinicaltrials.gov/api/v2/studies?query.term=Nivolumab%20improved%20bladder%20cancer%20outcomes&pageSize=4&countTotal=true",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:47.082Z",
+      "ms": 64
+     },
+     {
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=Nivolumab%20improved%20bladder%20cancer%20outcomes&format=json&pageSize=3&resultType=core",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:47.083Z",
+      "ms": 747
+     }
+    ],
+    "from_cache": false
+   },
+   "secret_like": false
+  },
+  "RESEARCH_SYNTHESIS": {
+   "path": "/research-synthesis",
+   "verdict": "synthesis",
+   "receipt": {
+    "id": "da151d51-10bf-4528-b86b-8c7228620b4e",
+    "deployment": "miner-mz9gh2afy-wukong4.vercel.app",
+    "answered_at": "2026-10-26T05:19:48.233Z",
+    "upstream": [],
+    "from_cache": false,
+    "note": "No upstream request was made for this answer: it was computed from the question alone, or from data this instance already held from an earlier request (for example sanctions lists, the ECB rate table, a weather forecast, a place lookup or a model reply). The answer's own source fields name where that data came from."
+   },
+   "secret_like": false
+  },
+  "SANCTIONS_SCREENING_MATCH": {
+   "path": "/sanctions-screen",
+   "verdict": "match",
+   "receipt": {
+    "id": "4f3a801f-c6ac-4d38-9927-3e0d08aec416",
+    "deployment": "miner-mz9gh2afy-wukong4.vercel.app",
+    "answered_at": "2026-10-26T05:19:48.609Z",
+    "upstream": [],
+    "from_cache": false,
+    "note": "No upstream request was made for this answer: it was computed from the question alone, or from data this instance already held from an earlier request (for example sanctions lists, the ECB rate table, a weather forecast, a place lookup or a model reply). The answer's own source fields name where that data came from."
+   },
+   "secret_like": false
+  },
+  "SENTIMENT_ANALYSIS": {
+   "path": "/sentiment",
+   "verdict": "negative",
+   "receipt": {
+    "id": "5ef05ef9-a929-49c2-a24e-3ef8c88c4b38",
+    "deployment": "miner-mz9gh2afy-wukong4.vercel.app",
+    "answered_at": "2026-10-26T05:19:48.982Z",
+    "upstream": [
+     {
+      "url": "https://api.groq.com/openai/v1/chat/completions",
+      "method": "POST",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:48.877Z",
+      "ms": 104
+     }
+    ],
+    "from_cache": false
+   },
+   "secret_like": false
+  },
+  "SSL_VERIFICATION": {
+   "path": "/ssl-check",
+   "verdict": "valid",
+   "receipt": {
+    "id": "f0f1263a-279e-45fb-b84e-f7014e9fb619",
+    "deployment": "miner-mz9gh2afy-wukong4.vercel.app",
+    "answered_at": "2026-10-26T05:19:49.332Z",
+    "upstream": [
+     {
+      "url": "tls://openai.com:443",
+      "method": "TLS",
+      "status": null,
+      "result": "valid",
+      "started_at": "2026-10-26T05:19:49.324Z",
+      "ms": 7
+     }
+    ],
+    "from_cache": false
+   },
+   "secret_like": false
+  },
+  "STOCK_PRICE": {
+   "path": "/stock-price",
+   "verdict": "price",
+   "receipt": {
+    "id": "19884875-d589-47c8-aa81-96e823b86361",
+    "deployment": "miner-mz9gh2afy-wukong4.vercel.app",
+    "answered_at": "2026-10-26T05:19:52.785Z",
+    "upstream": [
+     {
+      "url": "https://query1.finance.yahoo.com/v1/finance/search?q=Summit%20Therapeutics&quotesCount=5&newsCount=0",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:49.604Z",
+      "ms": 73
+     },
+     {
+      "url": "https://query1.finance.yahoo.com/v1/finance/search?q=Summit&quotesCount=5&newsCount=0",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:49.605Z",
+      "ms": 139
+     },
+     {
+      "url": "https://query1.finance.yahoo.com/v8/finance/chart/SMMT?range=1d&interval=1d",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:49.745Z",
+      "ms": 47
+     },
+     {
+      "url": "https://api.nasdaq.com/api/quote/SMMT/info?assetclass=stocks",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:49.746Z",
+      "ms": 3037
+     }
+    ],
+    "from_cache": false
+   },
+   "secret_like": false
+  },
+  "STORM_ALERT": {
+   "path": "/storm-alert",
+   "verdict": "none",
+   "receipt": {
+    "id": "2469027f-c6f9-45ff-bbd6-63abf5d9d28d",
+    "deployment": "miner-mz9gh2afy-wukong4.vercel.app",
+    "answered_at": "2026-10-26T05:19:53.335Z",
+    "upstream": [
+     {
+      "url": "https://api.met.no/weatherapi/locationforecast/2.0/complete?lat=19.0758&lon=72.8775",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:53.021Z",
+      "ms": 313
+     }
+    ],
+    "from_cache": false
+   },
+   "secret_like": false
+  },
+  "TEXT_CLASSIFICATION": {
+   "path": "/classify",
+   "verdict": "classified",
+   "receipt": {
+    "id": "add44120-3458-4f27-bb96-fd4cc72eb480",
+    "deployment": "miner-mz9gh2afy-wukong4.vercel.app",
+    "answered_at": "2026-10-26T05:19:53.698Z",
+    "upstream": [
+     {
+      "url": "https://api.groq.com/openai/v1/chat/completions",
+      "method": "POST",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:53.583Z",
+      "ms": 114
+     },
+     {
+      "url": "https://api.datamuse.com/words?ml=billing&max=100",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:53.585Z",
+      "ms": 59
+     },
+     {
+      "url": "https://api.datamuse.com/words?rel_trg=billing&max=100",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:53.586Z",
+      "ms": 66
+     },
+     {
+      "url": "https://api.datamuse.com/words?ml=technical&max=100",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:53.586Z",
+      "ms": 53
+     },
+     {
+      "url": "https://api.datamuse.com/words?rel_trg=technical&max=100",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:53.587Z",
+      "ms": 63
+     },
+     {
+      "url": "https://api.datamuse.com/words?ml=account&max=100",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:53.587Z",
+      "ms": 92
+     },
+     {
+      "url": "https://api.datamuse.com/words?rel_trg=account&max=100",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:53.588Z",
+      "ms": 54
+     },
+     {
+      "url": "https://api.datamuse.com/words?ml=charged&max=100",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:53.588Z",
+      "ms": 58
+     },
+     {
+      "url": "https://api.datamuse.com/words?rel_trg=charged&max=100",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:53.588Z",
+      "ms": 48
+     },
+     {
+      "url": "https://api.datamuse.com/words?ml=twice&max=100",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:53.589Z",
+      "ms": 58
+     },
+     {
+      "url": "https://api.datamuse.com/words?rel_trg=twice&max=100",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:53.589Z",
+      "ms": 58
+     },
+     {
+      "url": "https://api.datamuse.com/words?ml=month&max=100",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:53.590Z",
+      "ms": 59
+     },
+     {
+      "url": "https://api.datamuse.com/words?rel_trg=month&max=100",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:53.590Z",
+      "ms": 61
+     }
+    ],
+    "from_cache": false
+   },
+   "secret_like": false
+  },
+  "TOKEN_HOLDER_COUNT": {
+   "path": "/token-holders",
+   "verdict": "not_found",
+   "receipt": {
+    "id": "f4ba606e-67c6-4888-a2fa-4c74db7fad00",
+    "deployment": "miner-mz9gh2afy-wukong4.vercel.app",
+    "answered_at": "2026-10-26T05:19:57.003Z",
+    "upstream": [
+     {
+      "url": "https://api.geckoterminal.com/api/v2/search/pools?query=USDC&network=base&page=1",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:53.954Z",
+      "ms": 3031
+     },
+     {
+      "url": "https://base.blockscout.com/api/v2/tokens/0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+      "method": "GET",
+      "status": 403,
+      "started_at": "2026-10-26T05:19:56.986Z",
+      "ms": 17
+     }
+    ],
+    "from_cache": false
+   },
+   "secret_like": false
+  },
+  "URL_SAFE": {
+   "path": "/url-reputation",
+   "verdict": "safe",
+   "receipt": {
+    "id": "fb0ccaac-7a78-455c-b5ce-22c248a22318",
+    "deployment": "miner-mz9gh2afy-wukong4.vercel.app",
+    "answered_at": "2026-10-26T05:19:57.348Z",
+    "upstream": [
+     {
+      "url": "https://security.cloudflare-dns.com/dns-query?name=www.bbc.co.uk&type=A",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:57.260Z",
+      "ms": 19
+     },
+     {
+      "url": "https://cloudflare-dns.com/dns-query?name=www.bbc.co.uk&type=A",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:57.261Z",
+      "ms": 16
+     },
+     {
+      "url": "tls://www.bbc.co.uk:443",
+      "method": "TLS",
+      "status": null,
+      "result": "valid",
+      "started_at": "2026-10-26T05:19:57.276Z",
+      "ms": 10
+     },
+     {
+      "url": "https://dns10.quad9.net/dns-query?dns=AAABAAABAAAAAAAAA3d3dwNiYmMCY28CdWsAAAEAAQ",
+      "method": "GET",
+      "status": 200,
+      "result": "6 answers",
+      "started_at": "2026-10-26T05:19:57.262Z",
+      "ms": 24
+     },
+     {
+      "url": "https://www.bbc.co.uk/",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:57.271Z",
+      "ms": 47
+     },
+     {
+      "url": "https://dns.quad9.net/dns-query?dns=AAABAAABAAAAAAAAA3d3dwNiYmMCY28CdWsAAAEAAQ",
+      "method": "GET",
+      "status": 200,
+      "result": "6 answers",
+      "started_at": "2026-10-26T05:19:57.262Z",
+      "ms": 86
+     }
+    ],
+    "from_cache": false
+   },
+   "secret_like": false
+  },
+  "URL_SCAN": {
+   "path": "/url-scan",
+   "verdict": "unknown",
+   "receipt": {
+    "id": "8162e835-9978-4bf3-b192-402f726f085f",
+    "deployment": "miner-mz9gh2afy-wukong4.vercel.app",
+    "answered_at": "2026-10-26T05:19:57.611Z",
+    "upstream": [],
+    "from_cache": false,
+    "note": "No upstream request was made for this answer: it was computed from the question alone, or from data this instance already held from an earlier request (for example sanctions lists, the ECB rate table, a weather forecast, a place lookup or a model reply). The answer's own source fields name where that data came from."
+   },
+   "secret_like": false
+  },
+  "WALLET_BALANCE_CHECK": {
+   "path": "/wallet-balance",
+   "verdict": "5.77349992 ETH",
+   "receipt": {
+    "id": "6b8eb7b6-0746-4709-880e-2c13c172a448",
+    "deployment": "miner-mz9gh2afy-wukong4.vercel.app",
+    "answered_at": "2026-10-26T05:19:58.020Z",
+    "upstream": [
+     {
+      "url": "https://api.ensideas.com/ens/resolve/vitalik.eth",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:57.914Z",
+      "ms": 75
+     },
+     {
+      "url": "https://ethereum-rpc.publicnode.com/",
+      "method": "POST",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:57.990Z",
+      "ms": 29
+     },
+     {
+      "url": "https://eth.drpc.org/",
+      "method": "POST",
+      "status": null,
+      "started_at": "2026-10-26T05:19:57.991Z",
+      "ms": 0
+     }
+    ],
+    "from_cache": false
+   },
+   "secret_like": false
+  },
+  "WEATHER_CHECK": {
+   "path": "/weather-forecast",
+   "verdict": "light rain",
+   "receipt": {
+    "id": "4917516d-e976-4b68-a3c4-c3e2b68e9222",
+    "deployment": "miner-mz9gh2afy-wukong4.vercel.app",
+    "answered_at": "2026-10-26T05:19:58.584Z",
+    "upstream": [
+     {
+      "url": "https://api.met.no/weatherapi/locationforecast/2.0/complete?lat=6.4561&lon=3.3936",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:58.273Z",
+      "ms": 309
+     }
+    ],
+    "from_cache": false
+   },
+   "secret_like": false
+  },
+  "WEATHER_FORECAST": {
+   "path": "/weather-forecast",
+   "verdict": "heavy rain",
+   "receipt": {
+    "id": "a6acd3d9-ceed-4f41-be9c-a24dab3a02d1",
+    "deployment": "miner-mz9gh2afy-wukong4.vercel.app",
+    "answered_at": "2026-10-26T05:19:58.843Z",
+    "upstream": [],
+    "from_cache": false,
+    "note": "No upstream request was made for this answer: it was computed from the question alone, or from data this instance already held from an earlier request (for example sanctions lists, the ECB rate table, a weather forecast, a place lookup or a model reply). The answer's own source fields name where that data came from."
+   },
+   "secret_like": false
+  },
+  "WEB_SEARCH": {
+   "path": "/web-search",
+   "verdict": "answered",
+   "receipt": {
+    "id": "e6597107-10cf-4dd0-96e5-3c0bc4189624",
+    "deployment": "miner-mz9gh2afy-wukong4.vercel.app",
+    "answered_at": "2026-10-26T05:19:59.498Z",
+    "upstream": [
+     {
+      "url": "https://news.google.com/rss/search?q=Will%20John%20Deere%20expand%20self-repair%20services",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:59.101Z",
+      "ms": 390
+     },
+     {
+      "url": "https://en.wikipedia.org/api/rest_v1/page/summary/John_Deere",
+      "method": "GET",
+      "status": 200,
+      "started_at": "2026-10-26T05:19:59.102Z",
+      "ms": 9
+     }
+    ],
+    "from_cache": false
+   },
+   "secret_like": false
+  }
+ }
+}
