@@ -13,7 +13,9 @@
 
   Build, test and commit each locally. Pause only for deploy, push, keys or `updateMiner`.
 
-- **Item 3, confidence (committed, NOT deployed):**
+- **The confidence rule and OpenAPI are DEPLOYED and pushed (2026-10-26 ~05:47 UTC):** production `miner-ccy6bq1ee`,
+  rollback `miner-mz9gh2afy`, gates at baseline. Evidence: `release-2026-10-26-confidence/`.
+- **Item 3, confidence (now deployed):**
   - On the Oct 21 audit, answers at confidence 1.0 were right only 72% of the time; Brier score 0.210.
   - Confidence is a fixed level per intent, not a per-answer judgement.
   - Too few labels to re-tune per intent. One rule was written down instead: 1.0 only for a direct

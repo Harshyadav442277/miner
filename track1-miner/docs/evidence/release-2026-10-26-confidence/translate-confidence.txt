@@ -1,0 +1,1 @@
+translate: translated confidence 0.9 | La biblioteca cierra a las seis.
