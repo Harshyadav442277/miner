@@ -1,0 +1,38 @@
+ACADEMIC_SEARCH             papers         receipt=yes reads= 1 api.openalex.org
+CONTENT_EXTRACTION          generic        receipt=yes reads= 0 
+CORPORATE_REGISTRY_LOOKUP   found          receipt=yes reads= 7 api.gleif.org, www.sec.gov, data.sec.gov
+CROSS_CHAIN_STATE_VERIFY    insufficient_input receipt=yes reads= 0 
+CRYPTO_PRICE                price          receipt=yes reads= 2 api.exchange.coinbase.com, api.coingecko.com
+CRYPTO_TRANSFER_VERIFY      confirmed      receipt=yes reads= 7 ethereum-rpc.publicnode.com, eth.drpc.org, eth.merkle.io
+CURRENCY_EXCHANGE           rate           receipt=yes reads= 1 www.ecb.europa.eu
+CVE_LOOKUP                  critical       receipt=yes reads= 1 services.nvd.nist.gov
+EVENT_OUTCOME_RESOLUTION    no_market_found receipt=yes reads= 3 gamma-api.polymarket.com, api.manifold.markets
+FACT_CHECK                  contradicted   receipt=yes reads= 2 en.wikipedia.org
+FINANCIAL_DATA              financial_data receipt=yes reads= 3 query1.finance.yahoo.com
+FRAUD_DETECTION             unknown        receipt=yes reads= 0 
+GAS_PRICE                   unknown        receipt=yes reads= 0 
+IP_GEOLOCATION              anycast        receipt=yes reads= 4 ipinfo.io, ip-api.com, 14.14.140.94.dnsel.torproject.org, ipwho.is
+LANGUAGE_TRANSLATION        translated     receipt=yes reads= 1 api.groq.com
+MACRO_ECONOMIC_INDICATOR    reported       receipt=yes reads= 1 ec.europa.eu
+NEWS_HEADLINES              headlines      receipt=yes reads= 1 news.google.com
+NEWS_SEARCH                 unknown        receipt=yes reads= 0 
+ONCHAIN_TX_LOOKUP           contract_activity receipt=yes reads= 7 api.routescan.io, eth.blockscout.com, ethereum-rpc.publicnode.com
+QUESTION_ANSWERING          answered       receipt=yes reads= 3 en.wikipedia.org, api.groq.com
+REGULATORY_FILING_MONITOR   filed          receipt=yes reads= 6 data.sec.gov
+RESEARCH_QUERY              evidence       receipt=yes reads= 4 clinicaltrials.gov, www.ebi.ac.uk
+RESEARCH_SYNTHESIS          synthesis      receipt=yes reads= 0 
+SANCTIONS_SCREENING_MATCH   match          receipt=yes reads= 3 sanctionslistservice.ofac.treas.gov, scsanctions.un.org
+SENTIMENT_ANALYSIS          negative       receipt=yes reads= 1 api.groq.com
+SSL_VERIFICATION            valid          receipt=yes reads= 1 openai.com:443
+STOCK_PRICE                 price          receipt=yes reads= 4 query1.finance.yahoo.com, api.nasdaq.com
+STORM_ALERT                 none           receipt=yes reads= 1 api.met.no
+TEXT_CLASSIFICATION         classified     receipt=yes reads=13 api.groq.com, api.datamuse.com
+TOKEN_HOLDER_COUNT          not_found      receipt=yes reads= 2 api.geckoterminal.com, base.blockscout.com
+URL_SAFE                    safe           receipt=yes reads= 6 security.cloudflare-dns.com, cloudflare-dns.com, www.bbc.co.uk:443, www.bbc.co.uk
+URL_SCAN                    unknown        receipt=yes reads= 0 
+WALLET_BALANCE_CHECK        5.77349992 ETH receipt=yes reads= 3 api.ensideas.com, ethereum-rpc.publicnode.com, eth.drpc.org
+WEATHER_CHECK               cloudy         receipt=yes reads= 2 api.met.no
+WEATHER_FORECAST            heavy rain     receipt=yes reads= 0 
+WEB_SEARCH                  answered       receipt=yes reads= 2 news.google.com, en.wikipedia.org
+
+36 intents; without a receipt: none; secret-like values: none

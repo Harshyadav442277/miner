@@ -26,6 +26,7 @@
 import { request as httpRequest, type IncomingMessage } from "node:http";
 import { request as httpsRequest } from "node:https";
 import { assertPublicHost } from "./guard";
+import { noteRead } from "./receipt";
 
 const UA = "livecert-miner/1.0 (+https://miner-wine.vercel.app)";
 const DOH_TIMEOUT_MS = Number(process.env.URLSCAN_DOH_TIMEOUT_MS ?? 4_000);
@@ -125,11 +126,17 @@ export async function redirectChain(start: URL, maxHops = 5, budgetMs = 6_000): 
       break;
     }
     const here: URL = current;
+    const started = Date.now();
+    // Each hop is a direct socket request, outside fetch, so it is noted for the receipt.
+    const note = (status: number | null, result?: string): void =>
+      noteRead({ url: here.href, method: "GET", status, ...(result ? { result } : {}), started_at: new Date(started).toISOString(), ms: Date.now() - started });
     try {
       const { status, location } = await statusOf(here, guard.address);
+      note(status);
       hops.push({ url: here.href, status });
       current = status >= 300 && status < 400 && location ? new URL(location, here) : null;
     } catch (e) {
+      note(null, (e as Error).message.slice(0, 80));
       hops.push({ url: here.href, status: null, note: (e as Error).message });
       break;
     }

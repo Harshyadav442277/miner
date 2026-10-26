@@ -30,6 +30,12 @@ HTTP 200, with the answer first and the values as fields:
 - `confidence` runs from 0 to 1.
 - `reason` is the full answer, naming its sources.
 - `checked_at` is when the answer was computed.
+- `receipt`, last, lists the upstream requests the miner actually made for this answer. Each entry has the URL
+  with credentials redacted, the method, the HTTP status, the time and the duration. A TLS handshake or DNS read
+  appears as `tls://` or `dns://` with its result. The receipt also has an `id`, the answering `deployment`, and
+  `from_cache` (true when the answer came from the one-minute response cache, with the reads that first produced
+  it). An empty list carries a `note`: the answer used data the miner already held, and its own source fields
+  name where that came from.
 
 An answer that could not be produced carries `confidence: 0` and an `error` code (`upstream_unavailable`,
 `no_subject`, `list_unavailable`, `not_licensed`, …), and never a made-up figure.
@@ -113,7 +119,8 @@ POST https://devnode.telegraphprotocol.com/engine/v1/ask/4433
 ## Verify any answer
 
 Every paid call returns a `signal_hash`. `GET /engine/v1/signal/{hash}` returns the request, the answer
-and the payload the hash was computed over. The miner's source is public at
+and the payload the hash was computed over. To check the answer itself, re-run the requests in its `receipt` and
+compare what the sources say now. The miner's source is public at
 `https://github.com/Harshyadav442277/miner` (`track1-miner/`).
 
 Real usage only: the hackathon rules disqualify artificial traffic, and so do we.

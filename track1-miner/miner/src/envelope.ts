@@ -4,13 +4,15 @@
  * Season I's winners returned an `answer` sentence an app can show as is, then
  * the values as fields; ours returned a prose `reason` and little else, because
  * the scorer's converter rewarded lean payloads (S1_WINNERS_TEARDOWN §1). The
- * route's own fields are left exactly as they are. This only adds two:
+ * route's own fields are left exactly as they are. This only adds three:
  *
  * - `answer`, first: the lead sentence of `reason`. Every reason opens with its
  *   answer, so the lead sentence is the answer and not a summary of one.
  * - `checked_at`, always: when the answer was computed. Thirteen of thirty-five
  *   routes set it themselves; a route that already did keeps its own.
+ * - `receipt`, last: the upstream reads the answer was made from (receipt.ts).
  */
+import type { Receipt } from "./receipt";
 
 /** Words that end in a full stop without ending the sentence. */
 const ABBREVIATION = /(?:^|[\s(])(?:e\.g|i\.e|etc|vs|approx|est|cf|al|Fig|No|Nos|St|Mt|Mr|Mrs|Ms|Dr|Prof|Jr|Sr|Inc|Ltd|Co|Corp|U\.S|U\.K|U\.N|E\.U|[A-Z])$/;
@@ -32,7 +34,7 @@ export function leadSentence(text: string): string {
   return s;
 }
 
-export function envelope(body: unknown, now = new Date()): unknown {
+export function envelope(body: unknown, now = new Date(), receipt?: Receipt): unknown {
   if (body === null || typeof body !== "object" || Array.isArray(body)) return body;
   const b = body as Record<string, unknown>;
   const reason = typeof b.reason === "string" ? b.reason : "";
@@ -40,5 +42,6 @@ export function envelope(body: unknown, now = new Date()): unknown {
     ...(reason ? { answer: leadSentence(reason) } : {}),
     ...b,
     checked_at: typeof b.checked_at === "string" && b.checked_at ? b.checked_at : now.toISOString(),
+    ...(receipt ? { receipt } : {}),
   };
 }

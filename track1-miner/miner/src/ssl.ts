@@ -3,6 +3,7 @@ import { checkServerIdentity } from "node:tls";
 import { isIP } from "node:net";
 import { extractHostname } from "./extract";
 import { assertPublicHost } from "./guard";
+import { noteRead } from "./receipt";
 
 /**
  * A live TLS handshake against the host, reporting what the server is actually
@@ -137,9 +138,13 @@ export async function checkCertificate(
 
   return new Promise((resolve) => {
     let settled = false;
+    const started = Date.now();
     const done = (r: SslResult): void => {
       if (!settled) {
         settled = true;
+        // The handshake is this intent's only upstream read; it goes in the receipt.
+        noteRead({ url: `tls://${host}:${port}`, method: "TLS", status: null, result: r.verdict,
+          started_at: new Date(started).toISOString(), ms: Date.now() - started });
         resolve(r);
       }
     };

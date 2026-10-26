@@ -22,6 +22,7 @@
 
 import { Resolver } from "node:dns/promises";
 import { isIP } from "node:net";
+import { noteRead } from "./receipt";
 
 export interface GeoResult {
   ip: string;
@@ -244,11 +245,17 @@ export async function torExitNode(
   if (ip.includes(":")) return null; // DNSEL answers for IPv4 exits only
   const name = `${ip.split(".").reverse().join(".")}.dnsel.torproject.org`;
   const resolver = resolve4 ? null : new Resolver({ timeout: timeoutMs, tries: 1 });
+  const started = Date.now();
+  // A DNS read outside fetch, noted for the receipt.
+  const note = (result: string): void =>
+    noteRead({ url: `dns://${name}`, method: "DNS", status: null, result, started_at: new Date(started).toISOString(), ms: Date.now() - started });
   try {
     const addrs = await (resolve4 ? resolve4(name) : resolver!.resolve4(name));
+    note(`${addrs.length} address${addrs.length === 1 ? "" : "es"}`);
     return addrs.some((addr) => addr.startsWith("127.0.0."));
   } catch (e) {
     const code = (e as NodeJS.ErrnoException).code;
+    note(code ?? "failed");
     return code === "ENOTFOUND" || code === "ENODATA" ? false : null;
   }
 }

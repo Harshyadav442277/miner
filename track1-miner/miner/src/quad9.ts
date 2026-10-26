@@ -1,6 +1,6 @@
 /**
- * Quad9's threat-blocking resolver as a third URL threat source, beside
- * Cloudflare's security resolver and the URLhaus lists (urlscan.ts).
+ * Quad9's threat-blocking resolver as a URL threat source, beside Cloudflare's
+ * security resolver (urlscan.ts). URLhaus was a third until 2026-10-25 (G210).
  *
  * Quad9 answers NXDOMAIN for a domain its threat intelligence blocks, while its
  * unfiltered resolver (dns10) still resolves it: all twelve live URLhaus hosts
@@ -10,6 +10,7 @@
  * hence node:http2 and a hand-built query rather than fetch.
  */
 import { connect } from "node:http2";
+import { noteRead } from "./receipt";
 
 const TIMEOUT_MS = Number(process.env.QUAD9_TIMEOUT_MS ?? 3_000);
 export const QUAD9_FILTERED = "https://dns.quad9.net";
@@ -33,11 +34,17 @@ export function dnsHeader(buf: Buffer): { rcode: number; answers: number } | nul
 function ask(origin: string, query: string): Promise<{ rcode: number; answers: number } | null> {
   return new Promise((resolve) => {
     let done = false;
+    const started = Date.now();
+    let status: number | null = null;
     const finish = (v: { rcode: number; answers: number } | null): void => {
       if (done) return;
       done = true;
       clearTimeout(timer);
       session.destroy();
+      // HTTP/2 outside fetch, so it is noted for the receipt.
+      noteRead({ url: `${origin}/dns-query?dns=${query}`, method: "GET", status,
+        result: v ? (v.rcode === 3 ? "NXDOMAIN" : `${v.answers} answers`) : "failed",
+        started_at: new Date(started).toISOString(), ms: Date.now() - started });
       resolve(v);
     };
     const session = connect(origin);
@@ -46,7 +53,7 @@ function ask(origin: string, query: string): Promise<{ rcode: number; answers: n
     const req = session.request({ ":path": `/dns-query?dns=${query}`, accept: "application/dns-message" });
     const chunks: Buffer[] = [];
     let ok = false;
-    req.on("response", (h) => { ok = h[":status"] === 200; });
+    req.on("response", (h) => { status = Number(h[":status"]) || null; ok = h[":status"] === 200; });
     req.on("data", (d: Buffer) => chunks.push(d));
     req.on("end", () => finish(ok ? dnsHeader(Buffer.concat(chunks)) : null));
     req.on("error", () => finish(null));

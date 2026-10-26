@@ -6,6 +6,7 @@ import { alertAnswer, asksAlert, officialAlertAnswer, type AlertCheckResult } fr
 import { translate, type TranslationResult } from "./translate";
 import { academicAnswer, findPapers, type PaperResult } from "./papers";
 import { envelope } from "./envelope";
+import { currentReceipt, installRecorder, readsSoFar, replayFromCache, withReceipt, type UpstreamRead } from "./receipt";
 import { MISSION_ROUTES, type MissionAnswer } from "./mission-routes";
 import { getForecast, type ForecastResult } from "./forecast";
 import { asksCurrentConditions, getCurrentConditions } from "./currentweather";
@@ -73,7 +74,8 @@ type Answer =
   | CryptoPriceResult | StockPriceResult | CrossChainResult | EventOutcomeResult
   | UrlScanResult | WebSearchResult | SentimentResult
   | ClassifyResult | SynthesisResult | MissionAnswer;
-const cache = new Map<string, { at: number; value: Answer; ttl: number }>();
+/** `reads` are the upstream reads that produced the value, replayed into a cache hit's receipt. */
+const cache = new Map<string, { at: number; value: Answer; ttl: number; reads: UpstreamRead[] }>();
 
 /**
  * A per-entry TTL, because "how long is this still true" is a property of the
@@ -94,6 +96,7 @@ function fromCache(key: string): Answer | null {
     cache.delete(key);
     return null;
   }
+  replayFromCache(hit.reads);
   return hit.value;
 }
 
@@ -102,7 +105,7 @@ function toCache(key: string, value: Answer, ttl: number = CACHE_TTL_MS): void {
     const oldest = cache.keys().next().value;
     if (oldest !== undefined) cache.delete(oldest);
   }
-  cache.set(key, { at: Date.now(), value, ttl });
+  cache.set(key, { at: Date.now(), value, ttl, reads: readsSoFar() });
 }
 
 /**
@@ -216,7 +219,8 @@ function send(res: ServerResponse, status: number, body: unknown): void {
  * old shape are in git history (`restate.ts`, `lean`).
  */
 function sendAnswer(res: ServerResponse, _question: string, body: unknown): void {
-  send(res, 200, envelope(body));
+  const now = new Date();
+  send(res, 200, envelope(body, now, currentReceipt(now)));
 }
 
 /**
@@ -390,7 +394,13 @@ function coordsFromParams(url: URL): string {
  * This exists so that a future parser change cannot quietly cost an epoch, and
  * because an honest 200 is always worth more here than a correct-looking 500.
  */
+installRecorder();
+
 export function handleRequest(req: IncomingMessage, res: ServerResponse): void {
+  withReceipt(() => handleInContext(req, res));
+}
+
+function handleInContext(req: IncomingMessage, res: ServerResponse): void {
   try {
     route(req, res);
   } catch {

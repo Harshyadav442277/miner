@@ -1,5 +1,18 @@
 # MEMORY.md — session continuity
 
+## 2026-10-26 ~05:00 UTC (10:30 IST): CURRENT — item 2, answer receipts, built and checked locally; NOT deployed
+
+- **Every answer now ends with a `receipt`:** the upstream requests actually made, with credentials redacted, the
+  status, the time, `from_cache` and the deployment. Code: `src/receipt.ts`.
+  - `fetch` is wrapped once and each request runs in its own AsyncLocalStorage context.
+  - TLS, DNS, the redirect walk and Quad9's HTTP/2 queries are noted by their modules.
+- **Checked locally on all 36 intents:** every one has a receipt and none holds a secret-like value.
+  Unit tests 798/798. Evidence: `track1-miner/docs/evidence/receipts-2026-10-26/`. The receipt is documented in
+  `docs/INTEGRATE_LIVECERT.md`.
+- **Next:**
+  1. The owner's yes to land and deploy, then re-run `tools/receipt-check.mjs` against production.
+  2. Item 3, calibrated confidence.
+
 ## 2026-10-25 ~18:00 UTC (23:30 IST): Ahmed answered — miners carry over to v2; listed-intents question pending
 
 - **Registration 4829 carries over to v2** with no re-registration (TELEGRAPH_FACTS item 10).
