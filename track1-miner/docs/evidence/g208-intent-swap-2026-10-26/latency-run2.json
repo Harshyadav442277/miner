@@ -1,0 +1,143 @@
+{
+ "at": "2026-10-26T12:24:33.831Z",
+ "base": "https://miner-wine.vercel.app",
+ "baseline_rtt_ms": 236,
+ "intents": {
+  "DNS_RECORD_LOOKUP": {
+   "path": "/dns",
+   "target": "< 200ms",
+   "target_ms": 200,
+   "server_ms_est": [
+    47,
+    35,
+    7
+   ],
+   "within_target": 3,
+   "runs": [
+    {
+     "q": "What is the IPv4 address of example.org?",
+     "ms": 283,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "resolved"
+    },
+    {
+     "q": "What are the MX records for proton.me?",
+     "ms": 271,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "resolved"
+    },
+    {
+     "q": "Does github.com publish a CAA record?",
+     "ms": 243,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "resolved"
+    }
+   ]
+  },
+  "TOKEN_TOTAL_SUPPLY_VERIFY": {
+   "path": "/token-supply",
+   "target": "< 500ms",
+   "target_ms": 500,
+   "server_ms_est": [
+    3055,
+    162,
+    1207
+   ],
+   "within_target": 1,
+   "runs": [
+    {
+     "q": "What is the total supply of WETH on Base?",
+     "ms": 3291,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "verified"
+    },
+    {
+     "q": "Total supply of 0x514910771AF9Ca656af840dff83E8264EcF986CA on ethereum",
+     "ms": 398,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "verified"
+    },
+    {
+     "q": "What is the total supply of USDC on Optimism?",
+     "ms": 1443,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "verified"
+    }
+   ]
+  },
+  "KEYWORD_EXTRACTION": {
+   "path": "/keywords",
+   "target": "< 400ms",
+   "target_ms": 400,
+   "server_ms_est": [
+    24,
+    88,
+    64
+   ],
+   "within_target": 3,
+   "runs": [
+    {
+     "q": "Extract the top 5 keywords: Volcanic ash from the eruption closed three regional airports. Geologists said the volcano could erupt again within weeks, and authorities extended the evacuation zone.",
+     "ms": 260,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "extracted"
+    },
+    {
+     "q": "Extract the top 5 keywords: The museum reopened its Roman gallery with restored mosaics and a new digital guide. Curators spent two years restoring the mosaics using lime mortar.",
+     "ms": 324,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "extracted"
+    },
+    {
+     "q": "Extract the top 5 keywords: A heatwave pushed electricity demand to a record, and the grid operator asked factories to cut usage during the evening peak to avoid blackouts.",
+     "ms": 300,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "extracted"
+    }
+   ]
+  },
+  "VULNERABILITY_TRIAGE": {
+   "path": "/vuln-triage",
+   "target": "< 2s",
+   "target_ms": 2000,
+   "server_ms_est": [
+    82,
+    87,
+    88
+   ],
+   "within_target": 3,
+   "runs": [
+    {
+     "q": "Rank: CVE-2023-34362, CVE-2023-20198, CVE-2023-22515 on internet-facing systems",
+     "ms": 318,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "ranked"
+    },
+    {
+     "q": "Triage CVE-2024-21762, CVE-2024-1709, CVE-2023-4966",
+     "ms": 323,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "ranked"
+    },
+    {
+     "q": "Order these by risk: CVE-2022-41040, CVE-2022-41082, CVE-2021-26855, CVE-2020-1472",
+     "ms": 324,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "ranked"
+    }
+   ]
+  }
+ }
+}

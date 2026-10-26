@@ -68,7 +68,21 @@ from the URL.
 
 The sandbox run is therefore the owner's, in the console, on a pushed YAML URL. Claude does not sign in.
 
-## Latency: not yet measured where it counts
+## Latency
+
+**On production (12:24 UTC, `latency-run{1,2}`):** miner time after subtracting the /health round trip.
+
+| Intent | Target | Measured |
+|---|---|---|
+| DNS | < 200 ms | 7–56 ms |
+| Keywords | < 400 ms | 17–88 ms |
+| Triage | < 2 s | 82–196 ms |
+| Token supply by address | < 500 ms | 148–162 ms |
+| Token supply by symbol | < 500 ms | 437–3055 ms, 1/4 within target (G213) |
+
+Details: `../release-2026-10-26-g208/`.
+
+**Local, earlier the same day:**
 
 - **Measured from India**, round trip included:
   - DNS: 40–155 ms.
@@ -77,8 +91,6 @@ The sandbox run is therefore the owner's, in the console, on a pushed YAML URL. 
   - **Token supply by symbol: 2.1–3.3 s.** GeckoTerminal symbol resolution dominates; it is cached 24 h per instance
     after the first call.
   - Triage of 5 CVEs: 1.5–1.7 s. That includes the 1.8 MB KEV download, which is cached 6 h.
-- **Production (iad1) numbers come after the deploy.** Run `tools/latency-targets.mjs` and record them here before
-  signing.
 
 ## Message for Ahmed (owner sends on Discord; not sent)
 
@@ -97,10 +109,8 @@ The sandbox run is therefore the owner's, in the console, on a pushed YAML URL. 
 ## Exact next steps (in order)
 
 1. **Owner:** send the message above.
-2. **Owner yes, then Claude:** land this branch on `codex/rank1-14-intents`, then deploy.
-   - Preview first, then production. The production alias is pinned, so run `vercel promote` (G70).
-   - Then `preflight.mjs` and the new routes on production, with latency recorded here.
-   - The new routes are additive, so registration 4829 is unaffected.
+2. ~~Land and deploy.~~ **Done 2026-10-26 ~12:15 UTC** on the owner's yes: production `miner-9ozpb4kgh` (`4d74076`).
+   See `../release-2026-10-26-g208/`.
 3. **Owner yes, then Claude:** push, so the YAML has a pinned commit URL.
 4. **Owner:** sign in to the console.
    - Paste the pinned YAML URL and run the validation.

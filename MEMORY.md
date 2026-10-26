@@ -1,6 +1,31 @@
 # MEMORY.md — session continuity
 
-## 2026-10-26 ~10:50 UTC (16:20 IST): CURRENT — G208 intent-swap updateMiner DRAFTED; nothing signed, deployed or pushed
+## 2026-10-26 ~12:30 UTC (18:00 IST): CURRENT — G208 routes LIVE on production; not pushed, not registered
+
+- **Owner's yes, 2026-10-26:** "land claude/g208-intent-swap on codex/rank1-14-intents, deploy (preview first, then
+  production), and measure the new routes' latency on production. Don't push or sign."
+- **Landed** by fast-forward: `codex/rank1-14-intents` is at the release commit. **NOT pushed.**
+- **Production:** `miner-9ozpb4kgh` (`4d74076`). Rollback target `miner-ccy6bq1ee`, the build before the new routes.
+- **Gates:**
+  - intent answers 39/40 (the known IP Tokyo pin);
+  - upstream health: the two known failures;
+  - unit + live 933/0/1 skipped on re-run (one flaky badssl live test);
+  - registration 4829 active.
+
+  Evidence: `track1-miner/docs/evidence/release-2026-10-26-g208/`.
+- **The first production build `miner-fpwo6m9mt` had a bug, found by its gate run:** a wallet address got
+  "outage" instead of `not_a_token`. Fixed in `4d74076`, together with the four intents' correctness checks.
+- **Latency on production:**
+  - DNS, keywords, triage, and token supply by address are all within target.
+  - **Token supply by symbol is 1/4 within 500 ms (G213).**
+- **Next:**
+  1. Owner sends the Ahmed message.
+  2. Owner's yes to push.
+  3. Owner validates the pinned YAML URL in the console (G212).
+  4. Sign only after G206 is answered.
+  5. Optionally, the G213 fix.
+
+## 2026-10-26 ~10:50 UTC (16:20 IST): G208 intent-swap updateMiner DRAFTED; nothing signed, deployed or pushed (superseded above)
 
 Owner: "Prepare the G208 intent-swap updateMiner: draft YAML, sandbox validation, and the Discord message to Ahmed.
 Don't sign anything."

@@ -15,11 +15,13 @@ pushed or signed.
     address can update it (TELEGRAPH_FACTS).
   - Unknown: whether the console can update an EOA-owned registration, and whether any keyless validator remains.
   - Until answered, hard rule 3 (sandbox first) is met only by the owner signing in to the console.
-- **G213 — TOKEN_TOTAL_SUPPLY_VERIFY by symbol misses its < 500 ms target on a cold instance. `OPEN, measure on
-  production`.**
-  - From India it took 2.1–3.3 s, almost all of it GeckoTerminal symbol resolution. By contract address it took
-    0.5–0.9 s.
-  - The symbol is cached 24 h per instance. Production latency from iad1 is not yet measured.
+- **G213 — TOKEN_TOTAL_SUPPLY_VERIFY by symbol misses its < 500 ms target. `OPEN, confirmed on production
+  2026-10-26`.**
+  - On production `miner-9ozpb4kgh`, four fresh symbol questions took 437, 867, 1207 and 3055 ms of miner time. By
+    contract address it took 148–162 ms (`release-2026-10-26-g208/`).
+  - GeckoTerminal symbol resolution dominates; it is cached 24 h per instance.
+  - Candidate fix: a table of contract addresses for the major tokens on each chain, each one verified against the
+    issuer's published address before it ships. A wrong entry would give a confident wrong answer.
 - **G214 — KEYWORD_EXTRACTION is YAKE without part-of-speech tagging. `KNOWN LIMIT`.**
   - Verbs can rank: "deprecates" and "developed" in the 2026-10-26 checks.
   - English stop words only.

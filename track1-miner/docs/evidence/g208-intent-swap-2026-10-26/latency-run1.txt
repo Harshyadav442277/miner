@@ -1,0 +1,5 @@
+baseline round trip (/health): 244 ms
+DNS_RECORD_LOOKUP          target < 200ms est    56    24    36 ms  within 3/3  200:resolved 200:resolved 200:resolved
+TOKEN_TOTAL_SUPPLY_VERIFY  target < 500ms est   437   148   867 ms  within 2/3  200:verified 200:verified 200:verified
+KEYWORD_EXTRACTION         target < 400ms est    17    43    44 ms  within 3/3  200:extracted 200:extracted 200:extracted
+VULNERABILITY_TRIAGE       target < 2s    est   100   122   196 ms  within 3/3  200:ranked 200:ranked 200:ranked
