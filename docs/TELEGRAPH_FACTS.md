@@ -569,3 +569,19 @@ Source: https://docs.telegraphprotocol.com/docs/using/escrow-inference (not in t
   `track1-miner/docs/evidence/season2-release-2026-10-14/integrate-validate.json`.
 - **Season II miner judging rules:** still "published separately" on the rules page (checked
   2026-10-13 18:28 UTC).
+
+## Integrate console, re-checked 2026-10-26 ~10:45 UTC (GAPS G212)
+
+Checked against the live console and its script bundle: `/register` page chunk and the shared client module.
+
+- **The keyless validator is gone.** `POST https://integrate.telegraphprotocol.com/api/validate` returns the
+  console's HTML 404, although the docs page `miners/validation-api` still documents it.
+- **The console now calls `https://backend.telegraphprotocol.com`** with a bearer token from its own sign-in. Sign-in
+  is by email and OTP, or by a wallet-signed message.
+  - Validation: `POST /registrations/yaml-hash {yamlUrl}`, then `POST /registrations/validate {yaml}`. Without a
+    token the second call returns `401 Unauthorized`.
+  - Updating: `POST /registrations/miner/update {registrationId, yamlUrl, feeAddress, minPriceUsdc,
+    supportedIntents}`, which returns a `txHash`. Registering is `POST /registrations/miner`. The page reads a
+    `smartWalletAddress`.
+- **Canonical intents on-chain:** `isCanonicalIntent` was true for all 40 strings in the G208 draft at Base Sepolia
+  block 50447293 (`track1-miner/docs/evidence/g208-intent-swap-2026-10-26/canonical-intents.json`).

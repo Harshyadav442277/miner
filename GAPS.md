@@ -1,5 +1,36 @@
 # GAPS.md — honesty ledger
 
+## 2026-10-26 G208 intent-swap draft — G212–G215
+
+Evidence: `track1-miner/docs/evidence/g208-intent-swap-2026-10-26/`. Branch `claude/g208-intent-swap`; not deployed,
+pushed or signed.
+
+- **G212 — The validation API moved behind a login, and the console now updates through a smart wallet. `OPEN: asked
+  Ahmed (owner sends)`.**
+  - `POST integrate.telegraphprotocol.com/api/validate` returns an HTML 404 (2026-10-26 10:45 UTC), although
+    the docs' `miners/validation-api` page (updated 2026-09-09) still documents it.
+  - The console calls `backend.telegraphprotocol.com/registrations/validate` and `/registrations/miner/update`,
+    and both need a bearer token: a call without one got 401.
+  - The UI reads a `smartWalletAddress`. Registration 4829 is owned by EOA `0xdad2…a39e`, and only the registering
+    address can update it (TELEGRAPH_FACTS).
+  - Unknown: whether the console can update an EOA-owned registration, and whether any keyless validator remains.
+  - Until answered, hard rule 3 (sandbox first) is met only by the owner signing in to the console.
+- **G213 — TOKEN_TOTAL_SUPPLY_VERIFY by symbol misses its < 500 ms target on a cold instance. `OPEN, measure on
+  production`.**
+  - From India it took 2.1–3.3 s, almost all of it GeckoTerminal symbol resolution. By contract address it took
+    0.5–0.9 s.
+  - The symbol is cached 24 h per instance. Production latency from iad1 is not yet measured.
+- **G214 — KEYWORD_EXTRACTION is YAKE without part-of-speech tagging. `KNOWN LIMIT`.**
+  - Verbs can rank: "deprecates" and "developed" in the 2026-10-26 checks.
+  - English stop words only.
+  - Unlike YAKE proper, phrases with inner stop words are dropped.
+  - Same text, same ranking.
+- **G215 — Terms for the new upstreams are partly unread. `OPEN`.**
+  - FIRST EPSS: free, no registration, attribution requested in products (read 2026-10-26). The triage answer names
+    it in `sources`.
+  - Not read: Cloudflare and Google public DoH terms, and CISA KEV / CVE Program (cveawg) reuse terms. Both are US-government
+    or public-service data; that is believed, not confirmed. Do not call them "licensed" until read.
+
 ## 2026-10-26 registered output schema — G211
 
 - **G211 — The registered `output_schema` omits most of what the routes return. `OPEN, fix at the next updateMiner`.**

@@ -1,5 +1,35 @@
 # MEMORY.md — session continuity
 
+## 2026-10-26 ~10:50 UTC (16:20 IST): CURRENT — G208 intent-swap updateMiner DRAFTED; nothing signed, deployed or pushed
+
+Owner: "Prepare the G208 intent-swap updateMiner: draft YAML, sandbox validation, and the Discord message to Ahmed.
+Don't sign anything."
+
+- **Branch `claude/g208-intent-swap`** in worktree `project-improvement-strategy-5ff8d8`, cut from `b85e1ab`. It is
+  committed locally, not merged into `codex/rank1-14-intents`, not pushed and not deployed.
+- **Four listed intents get four new routes**, each doing the canonical job:
+  - DNS_RECORD_LOOKUP on `/dns`;
+  - TOKEN_TOTAL_SUPPLY_VERIFY on `/token-supply`;
+  - KEYWORD_EXTRACTION on `/keywords`;
+  - VULNERABILITY_TRIAGE on `/vuln-triage`.
+
+  That makes 40 intents and 39 endpoints. The false URLhaus claims are removed from the YAML. Nothing is removed
+  until Ahmed answers G208.
+- **Checks:**
+  - All 40 intents are canonical on-chain (block 50447293).
+  - Unit tests 809/809.
+  - Ten local route probes all returned HTTP 200.
+  - Draft YAML SHA-256 `0x4d17283c…0f94c` (working tree; recompute at the pinned URL).
+- **Sandbox validation was NOT run (G212).** The old API returns 404, and the new backend returns 401 without
+  sign-in. The console now updates through a smart wallet; 4829 is owned by an EOA.
+- **The message to Ahmed is drafted and not sent:** the evidence README, "Message for Ahmed". It covers G208, G206
+  and G212.
+- **Next:** see "Exact next steps" in `track1-miner/docs/evidence/g208-intent-swap-2026-10-26/README.md`.
+  1. Owner sends the message.
+  2. Owner's yes to land and deploy, then production latency (G213).
+  3. Push.
+  4. Owner validates in the console, and signs only after Ahmed answers G206.
+
 ## 2026-10-26 ~05:20 UTC (10:50 IST): CURRENT — item 2, answer receipts, DEPLOYED and pushed
 
 - Production `miner-mz9gh2afy`, rollback `miner-l5taibkkl`.
