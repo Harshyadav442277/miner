@@ -1,0 +1,1152 @@
+{
+ "at": "2026-10-26T05:26:09.308Z",
+ "base": "https://miner-wine.vercel.app",
+ "undocumented": {},
+ "results": {
+  "/ssl-check": {
+   "verdict": "valid",
+   "undocumented": []
+  },
+  "/storm-alert": {
+   "verdict": "none",
+   "undocumented": []
+  },
+  "/papers": {
+   "verdict": "papers",
+   "undocumented": []
+  },
+  "/translate": {
+   "verdict": "translated",
+   "undocumented": []
+  },
+  "/ip-geolocate": {
+   "verdict": "anycast",
+   "undocumented": []
+  },
+  "/weather-forecast": {
+   "verdict": "heavy rain",
+   "undocumented": []
+  },
+  "/extract": {
+   "verdict": "generic",
+   "undocumented": []
+  },
+  "/headlines": {
+   "verdict": "headlines",
+   "undocumented": []
+  },
+  "/wallet-balance": {
+   "verdict": "5.77349992 ETH",
+   "undocumented": []
+  },
+  "/tx-lookup": {
+   "verdict": "contract_activity",
+   "undocumented": []
+  },
+  "/cve": {
+   "verdict": "critical",
+   "undocumented": []
+  },
+  "/news-search": {
+   "verdict": "unknown",
+   "undocumented": []
+  },
+  "/convert": {
+   "verdict": "rate",
+   "undocumented": []
+  },
+  "/gas-price": {
+   "verdict": "unknown",
+   "undocumented": []
+  },
+  "/financial": {
+   "verdict": "financial_data",
+   "undocumented": []
+  },
+  "/fraud-check": {
+   "verdict": "unknown",
+   "undocumented": []
+  },
+  "/token-holders": {
+   "verdict": "not_found",
+   "undocumented": []
+  },
+  "/research": {
+   "verdict": "evidence",
+   "undocumented": []
+  },
+  "/crypto-price": {
+   "verdict": "price",
+   "undocumented": []
+  },
+  "/stock-price": {
+   "verdict": "price",
+   "undocumented": []
+  },
+  "/cross-chain": {
+   "verdict": "insufficient_input",
+   "undocumented": []
+  },
+  "/event-outcome": {
+   "verdict": "no_market_found",
+   "undocumented": []
+  },
+  "/url-scan": {
+   "verdict": "unknown",
+   "undocumented": []
+  },
+  "/web-search": {
+   "verdict": "answered",
+   "undocumented": []
+  },
+  "/sentiment": {
+   "verdict": "negative",
+   "undocumented": []
+  },
+  "/classify": {
+   "verdict": "classified",
+   "undocumented": []
+  },
+  "/research-synthesis": {
+   "verdict": "synthesis",
+   "undocumented": []
+  },
+  "/fact-check": {
+   "verdict": "contradicted",
+   "undocumented": []
+  },
+  "/sanctions-screen": {
+   "verdict": "match",
+   "undocumented": []
+  },
+  "/company-registry": {
+   "verdict": "found",
+   "undocumented": []
+  },
+  "/sec-filings": {
+   "verdict": "filed",
+   "undocumented": []
+  },
+  "/transfer-verify": {
+   "verdict": "confirmed",
+   "undocumented": []
+  },
+  "/macro": {
+   "verdict": "reported",
+   "undocumented": []
+  },
+  "/url-reputation": {
+   "verdict": "safe",
+   "undocumented": []
+  },
+  "/answer": {
+   "verdict": "answered",
+   "undocumented": []
+  }
+ },
+ "samples": {
+  "/ssl-check": {
+   "question": "Can you investigate the current SSL/TLS certificate presented by openai.com as though you were deciding whether an autonomous agent should establish a secure connection to it? Please verify DNS/TLS connectivity, hostname matching, certificate-chain trust, validity dates, issuer information, SAN coverage, negotiated TLS protocol, and whether any observable certificate condition would cause a conventional HTTPS client to reject the connection. Give me a decisive verdict supported by the observed certificate facts rather than a generic statement that HTTPS is enabled.",
+   "body": {
+    "answer": "The TLS/SSL certificate configuration for openai.com is valid.",
+    "domain": "openai.com",
+    "verdict": "valid",
+    "valid": true,
+    "chain_complete": true,
+    "issuer": "Google Trust Services",
+    "valid_to": "2026-12-15",
+    "days_remaining": 50,
+    "confidence": 1,
+    "reason": "The TLS/SSL certificate configuration for openai.com is valid. Certificate validity: the certificate is currently valid, expiring in 50 days on 2026-12-15, issued by Google Trust Services. Chain trust: the server presented a complete chain of 3 certificates including intermediates, building a trusted path to a root. Hostname verification: passes against DNS:openai.com. The connection negotiated TLSv1.3.",
+    "checked_at": "2026-10-26T05:25:57.685Z"
+   }
+  },
+  "/storm-alert": {
+   "question": "Is there a storm risk in Mumbai over the next 48 hours?",
+   "body": {
+    "answer": "No storm conditions are forecast for Mumbai over the next 48 hours.",
+    "location": "Mumbai, Maharashtra, India",
+    "verdict": "none",
+    "risk_score": 0.15,
+    "wind_direction": "north",
+    "max_wind_gust_kmh": null,
+    "max_wind_speed_kmh": 23.8,
+    "max_precipitation_mm": 0,
+    "thunderstorm": false,
+    "window_hours": 48,
+    "valid_at": null,
+    "peak_at": "2026-10-27T13:00",
+    "latitude": 19.0758,
+    "longitude": 72.8775,
+    "confidence": 1,
+    "threshold_exceeded": null,
+    "threshold_hours": null,
+    "reason": "No storm conditions are forecast for Mumbai over the next 48 hours. Overall risk: 0.15 on a scale of 0 to 1, graded none. This grade is computed from the forecast; it is not an official weather warning. Wind speed: sustained winds up to 23.8 km/h, which is 6.6 metres per second. Gusts: no gust forecast is published for this location, so the grade uses sustained wind. Precipitation: up to 0 mm in the wettest forecast step. Wind direction: prevailing from the north. Forecast data from MET Norway (CC BY 4.0).",
+    "checked_at": "2026-10-26T05:25:57.971Z"
+   }
+  },
+  "/papers": {
+   "question": "Find five relevant academic papers on privacy attacks against federated-learning systems, including membership inference, model inversion, gradient leakage, or reconstruction attacks.",
+   "body": {
+    "answer": "Here are 5 papers on privacy attacks against federated-learning systems: 1) AdaFed: An Adaptive Differential Privacy-Based Defense Against Gradient Leakage Attacks for Secure Federated Learning Systems by Cunnian Gao, Wenfeng Deng, Wei Cui, Weikang Zhou (2026), cited 0 times.",
+    "topic": "privacy attacks against federated-learning systems",
+    "from_date": null,
+    "to_date": null,
+    "verdict": "papers",
+    "papers": [
+     {
+      "title": "AdaFed: An Adaptive Differential Privacy-Based Defense Against Gradient Leakage Attacks for Secure Federated Learning Systems",
+      "year": 2026,
+      "authors": [
+       "Cunnian Gao",
+       "Wenfeng Deng",
+       "Wei Cui",
+       "Weikang Zhou"
+      ],
+      "citations": 0,
+      "venue": "SSRN Electronic Journal",
+      "doi": "https://doi.org/10.2139/ssrn.6789499"
+     },
+     {
+      "title": "FLDP-DM: Defense Method Against Poisoning Attacks With Local Differential Privacy in Federated Learning Systems",
+      "year": 2025,
+      "authors": [
+       "Jibo Shi",
+       "Wei Wang",
+       "Yexuan Hu",
+       "Yun Lin"
+      ],
+      "citations": 2,
+      "venue": "IEEE Transactions on Cognitive Communications and Networking",
+      "doi": "https://doi.org/10.1109/tccn.2025.3561316"
+     },
+     {
+      "title": "Adaptive privacy-preserving federated learning for robust IoT systems: A defense against data poisoning attacks",
+      "year": 2025,
+      "authors": [
+       "Sajjad Khan",
+       "Davor Svetinović"
+      ],
+      "citations": 0,
+      "venue": "Internet of Things and Cyber-Physical Systems",
+      "doi": "https://doi.org/10.1016/j.iotcps.2026.03.006"
+     },
+     {
+      "title": "A Defense Mechanism Against LOKI Attacks in Federated Learning for Enhancing Big Data Privacy in Mobile Systems",
+      "year": 2024,
+      "authors": [
+       "Faria Nawshin",
+       "Devrim Ünal",
+       "Ponnuthurai Nagaratnam Suganthan"
+      ],
+      "citations": 0,
+      "venue": "IEEE International Conference on Big Data (BigData)",
+      "doi": "https://doi.org/10.1109/bigdata62323.2024.10825512"
+     },
+     {
+      "title": "On Safeguarding Privacy and Security in the Framework of Federated Learning",
+      "year": 2020,
+      "authors": [
+       "Chuan Ma",
+       "Jun Li",
+       "Ming Ding",
+       "Howard Hua Yang"
+      ],
+      "citations": 317,
+      "venue": "IEEE Network",
+      "doi": "https://doi.org/10.1109/mnet.001.1900506"
+     }
+    ],
+    "count": 5,
+    "confidence": 1,
+    "reason": "Here are 5 papers on privacy attacks against federated-learning systems: 1) AdaFed: An Adaptive Differential Privacy-Based Defense Against Gradient Leakage Attacks for Secure Federated Learning Systems by Cunnian Gao, Wenfeng Deng, Wei Cui, Weikang Zhou (2026), cited 0 times. 2) FLDP-DM: Defense Method Against Poisoning Attacks With Local Differential Privacy in Federated Learning Systems by Jibo Shi, Wei Wang, Yexuan Hu, Yun Lin (2025), cited 2 times. 3) Adaptive privacy-preserving federated learning for robust IoT systems: A defense against data poisoning attacks by Sajjad Khan, Davor Svetinović (2025), cited 0 times. 4) A Defense Mechanism Against LOKI Attacks in Federated Learning for Enhancing Big Data Privacy in Mobile Systems by Faria Nawshin, Devrim Ünal, Ponnuthurai Nagaratnam Suganthan (2024), cited 0 times. 5) On Safeguarding Privacy and Security in the Framework of Federated Learning by Chuan Ma, Jun Li, Ming Ding, Howard Hua Yang (2020), cited 317 times.",
+    "checked_at": "2026-10-26T05:25:58.528Z"
+   }
+  },
+  "/translate": {
+   "question": "Translate the following English passage into natural Hebrew while preserving the original meaning, professional tone, technical terminology, numbers, names, and URLs exactly where appropriate. Do not summarize or explain the passage; I want a faithful translation that sounds like something a fluent Hindi speaker would actually write rather than a word-for-word machine translation: “Artificial intelligence systems are increasingly being deployed in cybersecurity operations to identify suspicious network activity, prioritize alerts, and assist analysts in investigating potential threats.",
+   "body": {
+    "answer": "מערכות בינה מלאכותית משמשות באופן גובר במבצעי אבטחת סייבר לזיהוי פעילות רשת חשודה, תיעדוף התראות, וסיוע למנתחים בחקירת איומים פוטנציאליים.",
+    "source_text": "Artificial intelligence systems are increasingly being deployed in cybersecurity operations to identify suspicious network activity, prioritize alerts, and assist analysts in investigating potential threats.",
+    "target_language": "Hebrew",
+    "target_code": "he",
+    "translation": "מערכות בינה מלאכותית משמשות באופן גובר במבצעי אבטחת סייבר לזיהוי פעילות רשת חשודה, תיעדוף התראות, וסיוע למנתחים בחקירת איומים פוטנציאליים.",
+    "source": "Groq (open-weight model, machine translation)",
+    "verdict": "translated",
+    "confidence": 1,
+    "reason": "מערכות בינה מלאכותית משמשות באופן גובר במבצעי אבטחת סייבר לזיהוי פעילות רשת חשודה, תיעדוף התראות, וסיוע למנתחים בחקירת איומים פוטנציאליים.",
+    "checked_at": "2026-10-26T05:25:59.353Z"
+   }
+  },
+  "/ip-geolocate": {
+   "question": "Please analyze the public IP address 94.140.14.14 from an IP-geolocation perspective and report the country, region, city if available, approximate coordinates, timezone, ISP or organization, and autonomous system details.",
+   "body": {
+    "answer": "The IP address 94.140.14.14 is an anycast address operated by AdGuard Software Limited (AS212772): it is announced from many locations at once, so which server answers depends on where the request comes from, and it has no single physical location.",
+    "ip": "94.140.14.14",
+    "verdict": "anycast",
+    "city": "Limassol",
+    "region": "Limassol District",
+    "country": "Cyprus",
+    "country_code": "CY",
+    "latitude": 34.6864,
+    "longitude": 33.0519,
+    "timezone": "Asia/Nicosia",
+    "asn": "AS212772",
+    "organisation": "AdGuard Software Limited",
+    "confidence": 0.6,
+    "anycast": true,
+    "reason": "The IP address 94.140.14.14 is an anycast address operated by AdGuard Software Limited (AS212772): it is announced from many locations at once, so which server answers depends on where the request comes from, and it has no single physical location. The geolocation database places it in Limassol, Limassol District, Cyprus, which is one of those sites or a registered address, not where every user reaches it.",
+    "checked_at": "2026-10-26T05:26:00.160Z"
+   }
+  },
+  "/weather-forecast": {
+   "question": "Return the 1-day weather forecast for Lagos. Classify this as WEATHER_FORECAST.",
+   "body": {
+    "answer": "A 24-hour hourly weather forecast for Lagos, Lagos State, Nigeria covering October 26 to October 27, 2026: hourly temperature in Celsius from 24.8°C to 29.7°C, 8 mm of total precipitation, the expected condition is heavy rain, and a wind speed of up to 17.6 km/h, from MET Norway (CC BY 4.0).",
+    "location": "Lagos, Lagos State, Nigeria",
+    "verdict": "heavy rain",
+    "window_hours": 24,
+    "span_days": null,
+    "start_time": "2026-10-26T05:00Z",
+    "end_time": "2026-10-27T04:00Z",
+    "hourly_count": 24,
+    "temp_min_c": 24.8,
+    "temp_max_c": 29.7,
+    "total_precipitation_mm": 8,
+    "precipitation_probability_max_pct": null,
+    "max_wind_speed_kmh": 17.6,
+    "precipitation_hours": 12,
+    "latitude": 6.4561,
+    "longitude": 3.3936,
+    "confidence": 1,
+    "reason": "A 24-hour hourly weather forecast for Lagos, Lagos State, Nigeria covering October 26 to October 27, 2026: hourly temperature in Celsius from 24.8°C to 29.7°C, 8 mm of total precipitation, the expected condition is heavy rain, and a wind speed of up to 17.6 km/h, from MET Norway (CC BY 4.0).",
+    "checked_at": "2026-10-26T05:25:29.149Z"
+   }
+  },
+  "/extract": {
+   "question": "Extract faculty details from vtop",
+   "body": {
+    "answer": "No structured values could be extracted from the supplied text.",
+    "verdict": "generic",
+    "extracted": {
+     "values": []
+    },
+    "confidence": 1,
+    "reason": "No structured values could be extracted from the supplied text.",
+    "checked_at": "2026-10-26T05:26:00.711Z"
+   }
+  },
+  "/headlines": {
+   "question": "find latest headlines for uk vs russia",
+   "body": {
+    "answer": "The top uk vs russia headlines, as of October 26, 2026, are: 1.",
+    "topic": "uk vs russia",
+    "region": null,
+    "verdict": "headlines",
+    "headlines": [
+     {
+      "title": "Brits warned ‘we have a little over 1,000 days’ to prepare for war with Russia",
+      "source": "London Business News",
+      "published": "2026-10-25T10:37:53.000Z"
+     },
+     {
+      "title": "London fears nuclear war? UK urges 3 days’ worth of emergency supplies amid Russia–Europe tensions | Videos",
+      "source": "Hindustan Times",
+      "published": "2026-10-24T08:05:32.000Z"
+     },
+     {
+      "title": "How should Britain prepare for being Russia’s leading adversary?",
+      "source": "Britain’s World",
+      "published": "2026-10-23T12:30:53.000Z"
+     },
+     {
+      "title": "UK proposes 14-year prison sentences for undersea cable saboteurs amid Russian trawler threats — government responds to growing threats with new criminal offenses and emergency powers to shut down services",
+      "source": "Tom's Hardware",
+      "published": "2026-10-23T11:45:00.000Z"
+     },
+     {
+      "title": "Half of Britons unwilling to fight for UK in the event of war, poll finds",
+      "source": "The Independent",
+      "published": "2026-10-14T07:00:00.000Z"
+     },
+     {
+      "title": "Iran and Russia are stepping up hybrid campaigns in Britain, UK spy chief says",
+      "source": "Reuters",
+      "published": "2026-10-13T07:00:00.000Z"
+     }
+    ],
+    "count": 6,
+    "confidence": 1,
+    "reason": "The top uk vs russia headlines, as of October 26, 2026, are: 1. Brits warned ‘we have a little over 1,000 days’ to prepare for war with Russia (London Business News, 2026-10-25). 2. London fears nuclear war? UK urges 3 days’ worth of emergency supplies amid Russia–Europe tensions | Videos (Hindustan Times, 2026-10-24). 3. How should Britain prepare for being Russia’s leading adversary? (Britain’s World, 2026-10-23). 4. UK proposes 14-year prison sentences for undersea cable saboteurs amid Russian trawler threats — government responds to growing threats with new criminal offenses and emergency powers to shut down services (Tom's Hardware, 2026-10-23). 5. Half of Britons unwilling to fight for UK in the event of war, poll finds (The Independent, 2026-10-14). 6. Iran and Russia are stepping up hybrid campaigns in Britain, UK spy chief says (Reuters, 2026-10-13).",
+    "checked_at": "2026-10-26T05:26:01.011Z"
+   }
+  },
+  "/wallet-balance": {
+   "question": "What is the ETH balance of vitalik.eth?",
+   "body": {
+    "answer": "The address vitalik.eth (0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045) currently has a native-coin balance of 5.77349992 ETH on ethereum.",
+    "address": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
+    "chain": "ethereum",
+    "balance_eth": 5.773499921329374,
+    "symbol": "ETH",
+    "verdict": "5.77349992 ETH",
+    "confidence": 0.98,
+    "reason": "The address vitalik.eth (0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045) currently has a native-coin balance of 5.77349992 ETH on ethereum. This was determined by querying the eth_getBalance RPC method against the ethereum network, which returns the account's balance in wei at the latest block.",
+    "checked_at": "2026-10-26T05:25:30.345Z"
+   }
+  },
+  "/tx-lookup": {
+   "question": "For the contract address 0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D on ethereum, report its on-chain activity: the date it was deployed and the total number of transactions it has received.",
+   "body": {
+    "answer": "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D is a contract deployed on Ethereum on 5 June 2020, with 90,640,392 transactions recorded against it in Routescan's index, a count that can trail the live chain.",
+    "address": "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D",
+    "chain": "ethereum",
+    "is_contract": true,
+    "name": null,
+    "deployed_at": "2020-06-05T20:17:21.000Z",
+    "deployment_tx": "0x4fc1580e7f66c58b7c26881cce0aab9c3509afe6e507527f30566fbf8039bcd0",
+    "transactions": 90640392,
+    "sent": null,
+    "last_activity": null,
+    "verdict": "contract_activity",
+    "confidence": 0.95,
+    "reason": "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D is a contract deployed on Ethereum on 5 June 2020, with 90,640,392 transactions recorded against it in Routescan's index, a count that can trail the live chain. Read from Routescan's Ethereum index because the Blockscout explorer did not answer, deployment transaction 0x4fc1580e7f66c58b7c26881cce0aab9c3509afe6e507527f30566fbf8039bcd0.",
+    "checked_at": "2026-10-26T05:26:01.569Z"
+   }
+  },
+  "/cve": {
+   "question": "Look up this CVE identifier and report its severity (LOW/MEDIUM/HIGH/CRITICAL) and CVSS score: CVE-2021-44228",
+   "body": {
+    "answer": "CVE-2021-44228 is rated CRITICAL with a CVSS 3.1 base score of 10.0, assigned by NVD.",
+    "cve_id": "CVE-2021-44228",
+    "verdict": "critical",
+    "confidence": 0.97,
+    "severity": "CRITICAL",
+    "cvss_score": 10,
+    "cvss_version": "3.1",
+    "scored_by": "NVD",
+    "affected_product": "apache log4j",
+    "affected_versions": "2.0, plus from 2.0.1 up to but not including 2.3.1, and from 2.4.0 up to but not including 2.12.2, and 1 further range",
+    "other_products_affected": 142,
+    "cwe": [
+     "CWE-20",
+     "CWE-400",
+     "CWE-502",
+     "CWE-917"
+    ],
+    "status": "Analyzed",
+    "published": "2021-12-10T10:15:09.143",
+    "description": "Apache Log4j2 2.0-beta9 through 2.15.0 (excluding security releases 2.12.2, 2.12.3, and 2.3.1) JNDI features used in configuration, log messages, and parameters do not protect against attacker controlled LDAP and other JNDI related endpoints. An attacker who can control log messages or log message parameters can execute arbitrary code loaded from LDAP servers when message lookup substitution is enabled. From log4j 2.15.0, this behavior has been disabled by default. From version 2.16.0 (along with 2.12.2, 2.12.3, and 2.3.1), this functionality has been completely removed. Note that this vulnerability is specific to log4j-core and does not affect log4net, log4cxx, or other Apache Logging Services projects.",
+    "source": "National Vulnerability Database",
+    "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2021-44228",
+    "reason": "CVE-2021-44228 is rated CRITICAL with a CVSS 3.1 base score of 10.0, assigned by NVD. It affects apache log4j 2.0, plus from 2.0.1 up to but not including 2.3.1, and from 2.4.0 up to but not including 2.12.2, and 1 further range. Apache Log4j2 2.0-beta9 through 2.15.0 (excluding security releases 2.12.2, 2.12.3, and 2.3.1) JNDI features used in configuration, log messages, and parameters do not protect against attacker… 142 other products are also listed as affected.",
+    "checked_at": "2026-10-26T05:26:01.835Z"
+   }
+  },
+  "/news-search": {
+   "question": "News Headlines",
+   "body": {
+    "answer": "No topic, entity or time period was identified in this request, so there is nothing to search news coverage for.",
+    "subject": null,
+    "window_days": null,
+    "verdict": "unknown",
+    "articles": [],
+    "count": 0,
+    "confidence": 0,
+    "reason": "No topic, entity or time period was identified in this request, so there is nothing to search news coverage for. Name a subject, for example a company, an event or a policy decision, and recent articles covering it can be returned with their publishers and dates.",
+    "error": "no_subject",
+    "checked_at": "2026-10-26T05:26:02.084Z"
+   }
+  },
+  "/convert": {
+   "question": "what's the usd to inr",
+   "body": {
+    "answer": "1 USD = 94.9451 INR, equivalently 1 INR = 0.01053 USD.",
+    "from": "USD",
+    "to": "INR",
+    "amount": null,
+    "rate": 94.94505494505495,
+    "converted": null,
+    "kind": "ecb_reference",
+    "as_of": "2026-10-23",
+    "verdict": "rate",
+    "confidence": 0.95,
+    "reason": "1 USD = 94.9451 INR, equivalently 1 INR = 0.01053 USD. This is the European Central Bank euro foreign exchange reference rate published for 2026-10-23, not a live trading quote.",
+    "checked_at": "2026-10-26T05:26:02.334Z"
+   }
+  },
+  "/gas-price": {
+   "question": "What is the 24-hour weather forecast for Sydney, Australia starting today, including temperature, precipitation probability, and wind speed?",
+   "body": {
+    "answer": "This request does not ask about network gas fees (\"What is the 24-hour weather forecast for Sydney, Australia starting today, inclu\"), so no gas price was reported for it.",
+    "chain": null,
+    "gwei": null,
+    "base_fee_gwei": null,
+    "priority_gwei": null,
+    "block": null,
+    "verdict": "unknown",
+    "confidence": 0,
+    "error": "not_a_fee_question",
+    "reason": "This request does not ask about network gas fees (\"What is the 24-hour weather forecast for Sydney, Australia starting today, inclu\"), so no gas price was reported for it. Ask for a chain's gas price, for example: What is the current gas price on Base?",
+    "checked_at": "2026-10-26T05:26:02.580Z"
+   }
+  },
+  "/financial": {
+   "question": "Will Hitachi CO2 heat pumps sell well?",
+   "body": {
+    "answer": "Hitachi, Ltd. (HTHIY) has a day range of 35.18 to 35.76 USD, volume of 30,129 shares, a 52-week range of 27.22 to 39.00 USD, a change of -1.38% against the previous close of 36.24 USD.",
+    "subject": "equity",
+    "name": "Hitachi, Ltd.",
+    "chain": null,
+    "verdict": "financial_data",
+    "confidence": 0.9,
+    "reason": "Hitachi, Ltd. (HTHIY) has a day range of 35.18 to 35.76 USD, volume of 30,129 shares, a 52-week range of 27.22 to 39.00 USD, a change of -1.38% against the previous close of 36.24 USD. It last traded at 35.74 USD.",
+    "data": {
+     "symbol": "HTHIY",
+     "name": "Hitachi, Ltd.",
+     "currency": "USD",
+     "price": 35.74,
+     "previous_close": 36.24,
+     "day_low": 35.18,
+     "day_high": 35.76,
+     "volume": 30129,
+     "volume_unit": "shares",
+     "week52_low": 27.22,
+     "week52_high": 39,
+     "source": "yahoo",
+     "observed_at": "2026-10-23T20:00:00.000Z"
+    },
+    "checked_at": "2026-10-26T05:26:02.833Z"
+   }
+  },
+  "/fraud-check": {
+   "question": "replay probe",
+   "body": {
+    "answer": "No wallet address, transaction hash, domain or affirmative scam-language signal was identified, so fraud risk remains unknown.",
+    "subject": null,
+    "verdict": "unknown",
+    "confidence": 0,
+    "reason": "No wallet address, transaction hash, domain or affirmative scam-language signal was identified, so fraud risk remains unknown. Supply the address, the link, or the message itself and it can be checked against sanctions listings, threat-intelligence feeds and known scam patterns.",
+    "error": "no_subject",
+    "checked_at": "2026-10-26T05:26:03.085Z"
+   }
+  },
+  "/token-holders": {
+   "question": "How many addresses hold usdc on base?",
+   "body": {
+    "answer": "The block explorer index that holds holder counts did not answer, so no holder count could be read for USDC.",
+    "symbol": null,
+    "name": null,
+    "address": null,
+    "chain": "base",
+    "holders": null,
+    "top_holder_percent": null,
+    "verdict": "not_found",
+    "confidence": 0,
+    "reason": "The block explorer index that holds holder counts did not answer, so no holder count could be read for USDC. This is an index outage rather than a token with no holders, and the two are not the same thing.",
+    "error": "upstream_unavailable",
+    "checked_at": "2026-10-26T05:26:03.390Z"
+   }
+  },
+  "/research": {
+   "question": "Will Nivolumab show improved bladder cancer outcomes?",
+   "body": {
+    "answer": "Nivolumab is the subject of 3 registered trials, including NCT05468294, a Phase 1/Phase 2 study titled \"F16IL2 in Combination With Nivolumab in Patients With Non-small Cell Lung Cancer\", currently unknown, primary completion 2021-12-31.",
+    "subject": "Nivolumab show improved bladder cancer outcomes",
+    "trials": [
+     {
+      "id": "NCT05468294",
+      "title": "F16IL2 in Combination With Nivolumab in Patients With Non-small Cell Lung Cancer",
+      "status": "unknown",
+      "phase": "Phase 1/Phase 2",
+      "completion": "2021-12-31"
+     },
+     {
+      "id": "NCT05352828",
+      "title": "Autologous CD30.CAR-T in Combination With Nivolumab in cHL Patients After Failure of Frontline Therapy",
+      "status": "active not recruiting",
+      "phase": "Phase 1",
+      "completion": "2025-12-15"
+     },
+     {
+      "id": "NCT03003637",
+      "title": "ImmunoModulation by the Combination of Ipilimumab and Nivolumab Neoadjuvant to Surgery In Advanced or Recurrent Head and Neck Carcinoma",
+      "status": "completed",
+      "phase": "Phase 1/Phase 2",
+      "completion": "2019-10-12"
+     }
+    ],
+    "citations": [
+     {
+      "title": "Neoadjuvant nivolumab plus gemcitabine-cisplatin followed by postsurgical adjuvant nivolumab versus neoadjuvant gemcitabine-cisplatin in patients with muscle-invasive bladder cancer: final results from the phase III CA017-078 trial",
+      "authors": "Sonpavde G, van der Heijden MS, Gupta S, Galsky MD, Steinberg G, Gschwend JE, Sade JP, Bimbatti D, De Giorgi U, Schepisi G, Estévez SV, Panay S, Schinzari G, Kotsakis A, Miyake H, Oh JJ, Zhang J, Jeyamohan C, Neely J, Jacques M, Duong Q, Sarkar S, Necchi A",
+      "year": 2026,
+      "source": "Europe PMC"
+     },
+     {
+      "title": "Durable partial response with low-dose, intermittent nivolumab in combination with gemcitabine for high PD-L1 metastatic triple-negative breast cancer: a case report",
+      "authors": "Ooi P, Elias J, Tieng F",
+      "year": null,
+      "source": "Europe PMC"
+     },
+     {
+      "title": "Nivolumab plus relatlimab with platinum-doublet chemotherapy versus nivolumab with platinum-doublet chemotherapy in stage IV or recurrent non-small cell lung cancer: clinical, translational, and patient-reported outcomes results from the phase II RELATIVITY-104 study",
+      "authors": "Girard N, Burotto M, Paz-Ares LG, Schenker M, Lingua A, Orlandi F, Naidoo J, Beardsley EK, Velcheti V, Martinengo GL, Felip E, Reck M, Qureshi A, Kasbekar P, Samanta S, Neely J, Garnett-Benson C, McDonald L, Yu JX, Cobo-Dols M",
+      "year": 2026,
+      "source": "Europe PMC"
+     }
+    ],
+    "verdict": "evidence",
+    "confidence": 0.9,
+    "reason": "Nivolumab is the subject of 3 registered trials, including NCT05468294, a Phase 1/Phase 2 study titled \"F16IL2 in Combination With Nivolumab in Patients With Non-small Cell Lung Cancer\", currently unknown, primary completion 2021-12-31. The published evidence includes \"Neoadjuvant nivolumab plus gemcitabine-cisplatin followed by postsurgical adjuvant nivolumab versus neoadjuvant gemcitabine-cisplatin in patients with muscle-invasive bladder cancer: final results from the phase III CA017-078 trial\" by Sonpavde G et al. (2026) in Europe PMC. No decision has been recorded, so the trial record above is the evidence and the outcome is not predicted here.",
+    "checked_at": "2026-10-26T05:26:03.658Z"
+   }
+  },
+  "/crypto-price": {
+   "question": "What is the price of dogecoin of elon right now?",
+   "body": {
+    "answer": "Dogecoin (DOGE) is $0.07710 USD, the last Coinbase trade at 2026-10-26 05:25:47 UTC.",
+    "asset": "Dogecoin",
+    "symbol": "DOGE",
+    "verdict": "price",
+    "confidence": 0.9,
+    "price": 0.0771,
+    "quote": "USD",
+    "price_at": "2026-10-26T05:25:47.379Z",
+    "source": "Coinbase",
+    "aggregate_price": 0.07705565016730387,
+    "reason": "Dogecoin (DOGE) is $0.07710 USD, the last Coinbase trade at 2026-10-26 05:25:47 UTC. CoinGecko's aggregate read $0.07706 USD at 2026-10-26 05:25:31 UTC. This is a live market quote and moves between reads.",
+    "checked_at": "2026-10-26T05:26:03.953Z"
+   }
+  },
+  "/stock-price": {
+   "question": "Will Summit Therapeutics stock rise?",
+   "body": {
+    "answer": "Summit Therapeutics Inc. (SMMT) last traded at 15.47 USD on NasdaqGM at Fri 23 Oct 2026 16:00 America/New_York.",
+    "ticker": "SMMT",
+    "name": "Summit Therapeutics Inc.",
+    "verdict": "price",
+    "confidence": 0.9,
+    "price": 15.47,
+    "currency": "USD",
+    "price_at": "2026-10-23T20:00:00.000Z",
+    "exchange": "NasdaqGM",
+    "market_open": false,
+    "source": "Yahoo Finance",
+    "reason": "Summit Therapeutics Inc. (SMMT) last traded at 15.47 USD on NasdaqGM at Fri 23 Oct 2026 16:00 America/New_York. The regular session is closed now, so this is the last session price, not a live quote. Whether the price will rise or fall is a forecast, and no forecast is made here.",
+    "checked_at": "2026-10-26T05:26:05.313Z"
+   }
+  },
+  "/cross-chain": {
+   "question": "Is Wormhole message 2/0000000000000000000000003ee18b2214aff97000d974cf647e7c347e8fa585/1 delivered?",
+   "body": {
+    "answer": "No bridge message was identified: a cross-chain check needs the message's source or destination transaction hash or its GUID.",
+    "verdict": "insufficient_input",
+    "confidence": 0,
+    "error": "no_reference",
+    "reason": "No bridge message was identified: a cross-chain check needs the message's source or destination transaction hash or its GUID. A nonce alone does not identify a message, because nonces are counted per sender-receiver pathway.",
+    "checked_at": "2026-10-26T05:26:05.562Z"
+   }
+  },
+  "/event-outcome": {
+   "question": "Will Vertex's VX-522 enter Phase 2?",
+   "body": {
+    "answer": "No prediction market matching this event was found on Polymarket or Manifold, so no outcome is reported and none is guessed.",
+    "verdict": "no_market_found",
+    "confidence": 0.4,
+    "reason": "No prediction market matching this event was found on Polymarket or Manifold, so no outcome is reported and none is guessed. Official sources such as flight trackers, election authorities and league results are not read here.",
+    "checked_at": "2026-10-26T05:26:05.969Z"
+   }
+  },
+  "/url-scan": {
+   "question": "website safety check",
+   "body": {
+    "answer": "No URL was supplied with this request, so there is no link to scan and no safety verdict was given.",
+    "url": null,
+    "verdict": "unknown",
+    "confidence": 0,
+    "error": "no_url",
+    "reason": "No URL was supplied with this request, so there is no link to scan and no safety verdict was given. Supply a URL such as https://example.com/offer.",
+    "checked_at": "2026-10-26T05:26:06.230Z"
+   }
+  },
+  "/web-search": {
+   "question": "Will John Deere expand self-repair services?",
+   "body": {
+    "answer": "The most relevant available reports are \"John Deere expands self-repair capabilities with new service launch\" (Construction Briefing, 31 July 2025) and \"John Deere Expands Access to Self-repair Resource Service\" (Successful Farming, 31 March 2022).",
+    "articles": [
+     {
+      "title": "John Deere expands self-repair capabilities with new service launch",
+      "source": "Construction Briefing",
+      "published": "2025-07-31T07:00:00.000Z"
+     },
+     {
+      "title": "John Deere Expands Access to Self-repair Resource Service",
+      "source": "Successful Farming",
+      "published": "2022-03-31T07:00:00.000Z"
+     }
+    ],
+    "background": null,
+    "verdict": "answered",
+    "confidence": 0.8,
+    "reason": "The most relevant available reports are \"John Deere expands self-repair capabilities with new service launch\" (Construction Briefing, 31 July 2025) and \"John Deere Expands Access to Self-repair Resource Service\" (Successful Farming, 31 March 2022). Whether it will happen is not settled by these sources; this reports coverage, not a prediction. Source: Google News search.",
+    "checked_at": "2026-10-26T05:26:06.510Z"
+   }
+  },
+  "/sentiment": {
+   "question": "Will \"Sorry, I'm in a meeting\" go viral?",
+   "body": {
+    "answer": "Negative.",
+    "verdict": "negative",
+    "compound": -0.3612,
+    "positive_words": [],
+    "negative_words": [
+     "sorry"
+    ],
+    "tones": [
+     "sad"
+    ],
+    "confidence": 0.69,
+    "reason": "Negative. The sentiment of this text is negative: Sorry, I'm in a meeting. It is carried by the word sorry. Its tone is sad.",
+    "checked_at": "2026-10-26T05:26:06.755Z"
+   }
+  },
+  "/classify": {
+   "question": "Classify this ticket as billing, technical or account issue: 'I was charged twice.'",
+   "body": {
+    "answer": "Billing issue.",
+    "verdict": "classified",
+    "label": "billing",
+    "confidence": 0.67,
+    "reason": "Billing issue. This ticket is a billing issue: I was charged twice. The words charged in it relate to billing.",
+    "checked_at": "2026-10-26T05:26:07.015Z"
+   }
+  },
+  "/research-synthesis": {
+   "question": "Summarise these notes on how to destroy belarus with help over bears research in one paragraph of about 150 words in plain English, keeping the attributions in parentheses and adding nothing that is not in the notes.\n\nNotes:\n- Introductory remarks by Commissioner Hoekstra during an exchange of views with the European Parliament's Committee on the Environment, Climate and Food Safety (ENVI) (European Commission, 2026-09-10)\n- Opening remarks by Commissioner Albuquerque at the structured dialogue with the Committee on Economic and Monetary Affairs and presentation of the Report on the competitiveness of the EU banking sector (European Commission, 2026-09-10)\n- Commission sets out next chapter for European Capitals of Culture after over 40 years of success (European Commission, 2026-09-10)\n- Dust Storm Sweeps Over Mali (NASA, 2026-09-10)\n- Press remarks by Executive Vice-President Fitto on the Outermost Regions Strategy (European Commission, 2026-09-10)\n\nNow write that paragraph.",
+   "body": {
+    "answer": "The notes report five items, four from European Commission and one from NASA.",
+    "verdict": "synthesis",
+    "confidence": 0.6,
+    "sources": [
+     "European Commission",
+     "NASA"
+    ],
+    "reason": "The notes report five items, four from European Commission and one from NASA. Introductory remarks by Commissioner Hoekstra during an exchange of views with the European Parliament's Committee on the Environment, Climate and Food Safety (ENVI) (European Commission, 2026-09-10). Opening remarks by Commissioner Albuquerque at the structured dialogue with the Committee on Economic and Monetary Affairs and presentation of the Report on the competitiveness of the EU banking sector (European Commission, 2026-09-10). Commission sets out next chapter for European Capitals of Culture after over 40 years of success (European Commission, 2026-09-10). Dust Storm Sweeps Over Mali (NASA, 2026-09-10). Press remarks by Executive Vice-President Fitto on the Outermost Regions Strategy (European Commission, 2026-09-10). None of the notes addresses how to destroy belarus with help over bears research, so nothing about it is stated here.",
+    "checked_at": "2026-10-26T05:26:07.292Z"
+   }
+  },
+  "/fact-check": {
+   "question": "Is it true that the Eiffel Tower is in Berlin?",
+   "body": {
+    "answer": "The claim \"the Eiffel Tower is in Berlin\" is contradicted by the reference source consulted.",
+    "claim": "the Eiffel Tower is in Berlin",
+    "verdict": "contradicted",
+    "confidence": 0.7,
+    "source": "Wikipedia",
+    "source_url": "https://en.wikipedia.org/wiki/Eiffel_Tower",
+    "evidence": "The Eiffel Tower ( EYE-fəl; French: Tour Eiffel [tuʁ ɛfɛl] ) is a lattice tower on the Champ de Mars in Paris, France.",
+    "reason": "The claim \"the Eiffel Tower is in Berlin\" is contradicted by the reference source consulted. According to Wikipedia's article \"Eiffel Tower\": The Eiffel Tower ( EYE-fəl; French: Tour Eiffel [tuʁ ɛfɛl] ) is a lattice tower on the Champ de Mars in Paris, France. This check consulted one encyclopaedic source and is not a full adjudication of the claim.",
+    "checked_at": "2026-10-26T05:25:49.401Z"
+   }
+  },
+  "/sanctions-screen": {
+   "question": "Is Rosneft sanctioned?",
+   "body": {
+    "answer": "Potential match: \"Rosneft\" matches OPEN JOINT-STOCK COMPANY ROSNEFT OIL COMPANY on the OFAC SDN list (UKRAINE-EO13662, RUSSIA-EO14024, entity, reference 17022), score 1.",
+    "subject": "Rosneft",
+    "subject_type": null,
+    "dob_year": null,
+    "matches": [
+     {
+      "list": "OFAC SDN",
+      "id": "17022",
+      "name": "OPEN JOINT-STOCK COMPANY ROSNEFT OIL COMPANY",
+      "matched_name": "ROSNEFT",
+      "type": "entity",
+      "programs": [
+       "UKRAINE-EO13662",
+       "RUSSIA-EO14024"
+      ],
+      "score": 1,
+      "dob_years": [],
+      "dob_check": "not_given",
+      "nationalities": [],
+      "listed_on": null,
+      "url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=17022"
+     }
+    ],
+    "closest": {
+     "list": "OFAC SDN",
+     "id": "17022",
+     "name": "OPEN JOINT-STOCK COMPANY ROSNEFT OIL COMPANY",
+     "matched_name": "ROSNEFT",
+     "type": "entity",
+     "programs": [
+      "UKRAINE-EO13662",
+      "RUSSIA-EO14024"
+     ],
+     "score": 1,
+     "dob_years": [],
+     "dob_check": "not_given",
+     "nationalities": [],
+     "listed_on": null,
+     "url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=17022"
+    },
+    "lists_checked": [
+     {
+      "list": "OFAC SDN",
+      "published": "2026-10-20",
+      "entries": 19471
+     },
+     {
+      "list": "UN Security Council Consolidated",
+      "published": "2026-10-24",
+      "entries": 1007
+     }
+    ],
+    "lists_not_checked": [
+     "EU consolidated financial sanctions list",
+     "UK HMT consolidated list"
+    ],
+    "verdict": "match",
+    "confidence": 0.97,
+    "reason": "Potential match: \"Rosneft\" matches OPEN JOINT-STOCK COMPANY ROSNEFT OIL COMPANY on the OFAC SDN list (UKRAINE-EO13662, RUSSIA-EO14024, entity, reference 17022), score 1. A name match alone does not establish identity, so confirm it on further identifiers before acting. Screened against OFAC SDN (published 2026-10-20, 19,471 entries) and UN Security Council Consolidated (generated 2026-10-24, 1,007 entries), names and aliases; the EU and UK lists were not screened.",
+    "checked_at": "2026-10-26T05:26:07.812Z"
+   }
+  },
+  "/company-registry": {
+   "question": "Is Barclays Bank PLC still registered?",
+   "body": {
+    "answer": "BARCLAYS BANK PLC is active, registered with Companies House under company number 01026167 in GB, incorporated 1971-10-04.",
+    "subject": "Barclays Bank PLC",
+    "not_in_sources": [
+     "directors and officers",
+     "beneficial owners (GLEIF records accounting-consolidation parents only)"
+    ],
+    "sources": [
+     "https://search.gleif.org/#/record/G5GSEF7VJP5I7OUK5573",
+     "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0000312070"
+    ],
+    "verdict": "found",
+    "confidence": 0.92,
+    "legal_name": "BARCLAYS BANK PLC",
+    "lei": "G5GSEF7VJP5I7OUK5573",
+    "entity_status": "ACTIVE",
+    "lei_registration_status": "ISSUED",
+    "jurisdiction": "GB",
+    "legal_form": "Public Limited Company",
+    "company_number": "01026167",
+    "register": "Companies House",
+    "registered_address": "1 CHURCHILL PLACE, LONDON, GB-LND, E14 5HP, GB",
+    "registered_agent": null,
+    "headquarters_address": "1 CHURCHILL PLACE, LONDON, GB-LND, E14 5HP, GB",
+    "incorporated": "1971-10-04",
+    "other_names": [],
+    "direct_parent": {
+     "name": "BARCLAYS PLC",
+     "lei": "213800LBQA1Y9L22JB70"
+    },
+    "ultimate_parent": {
+     "name": "BARCLAYS PLC",
+     "lei": "213800LBQA1Y9L22JB70"
+    },
+    "us_filer": {
+     "cik": 312070,
+     "name": "BARCLAYS BANK PLC",
+     "tickers": [
+      "ATMP",
+      "BWVTF",
+      "DJP",
+      "GBUG",
+      "GRN",
+      "JJETF",
+      "TAPR",
+      "VXX",
+      "VXZ"
+     ],
+     "exchanges": [
+      "CBOE",
+      "OTC",
+      "NYSE",
+      "Nasdaq",
+      "NYSE",
+      "OTC",
+      "CBOE",
+      "CBOE",
+      "CBOE"
+     ],
+     "sic": "6029",
+     "sic_description": "Commercial Banks, NEC",
+     "state_of_incorporation": "United Kingdom",
+     "business_address": "1 CHURCHILL PLACE, CANARY WHARF, LONDON, United Kingdom, E14 5HP",
+     "mailing_address": "1 CHURCHILL PLACE, CANARY WHARF, LONDON, United Kingdom, E14 5HP",
+     "former_names": [
+      {
+       "name": "BARCLAYS BANK PLC",
+       "from": "2013-07-05",
+       "to": "2026-10-23"
+      },
+      {
+       "name": "BARCLAYS BANK PLC /ENG/",
+       "from": "2000-03-17",
+       "to": "2013-11-27"
+      }
+     ],
+     "lei": null,
+     "filer_category": "Non-accelerated filer",
+     "source_url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0000312070"
+    },
+    "other_candidates": [
+     {
+      "name": "BARCLAYS BANK UK PLC",
+      "lei": "213800UUGANOMFJ9X769",
+      "jurisdiction": "GB",
+      "status": "ACTIVE"
+     },
+     {
+      "name": "BARCLAYS BANK PLC",
+      "lei": "2549003Q5J2G7ALNU316",
+      "jurisdiction": "GB",
+      "status": "ACTIVE"
+     },
+     {
+      "name": "BARCLAYS BANK PLC PARIS BRANCH",
+      "lei": "213800BOHWWKDL36W902",
+      "jurisdiction": "GB",
+      "status": "ACTIVE"
+     }
+    ],
+    "reason": "BARCLAYS BANK PLC is active, registered with Companies House under company number 01026167 in GB, incorporated 1971-10-04. Registered address: 1 CHURCHILL PLACE, LONDON, GB-LND, E14 5HP, GB; legal form Public Limited Company; LEI G5GSEF7VJP5I7OUK5573 (issued). Its direct parent is BARCLAYS PLC. SEC EDGAR lists it as incorporated in United Kingdom, industry Commercial Banks, NEC, formerly BARCLAYS BANK PLC. Directors and beneficial owners are not in these sources.",
+    "checked_at": "2026-10-26T05:26:08.061Z"
+   }
+  },
+  "/sec-filings": {
+   "question": "Has Apple filed its latest 10-Q?",
+   "body": {
+    "answer": "Yes: Apple Inc.'s latest 10-Q was filed on 2026-07-31 and accepted by EDGAR at 10:01 UTC, for the period ended 2026-06-27, accession 0000320193-26-000020.",
+    "company": "Apple Inc.",
+    "form_asked": "10-Q",
+    "since": null,
+    "cik": 320193,
+    "tickers": [
+     "AAPL"
+    ],
+    "source_url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0000320193",
+    "recent_filings": [
+     {
+      "form": "10-Q",
+      "filed": "2026-07-31",
+      "accepted": "2026-07-31T10:01:02.000Z",
+      "accession": "0000320193-26-000020",
+      "period": "2026-06-27",
+      "items": [],
+      "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/aapl-20260627.htm"
+     },
+     {
+      "form": "10-Q",
+      "filed": "2026-05-01",
+      "accepted": "2026-05-01T10:01:00.000Z",
+      "accession": "0000320193-26-000013",
+      "period": "2026-03-28",
+      "items": [],
+      "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000013/aapl-20260328.htm"
+     },
+     {
+      "form": "10-Q",
+      "filed": "2026-01-30",
+      "accepted": "2026-01-30T11:01:32.000Z",
+      "accession": "0000320193-26-000006",
+      "period": "2025-12-27",
+      "items": [],
+      "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000006/aapl-20251227.htm"
+     },
+     {
+      "form": "10-Q",
+      "filed": "2025-08-01",
+      "accepted": "2025-08-01T10:00:42.000Z",
+      "accession": "0000320193-25-000073",
+      "period": "2025-06-28",
+      "items": [],
+      "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019325000073/aapl-20250628.htm"
+     },
+     {
+      "form": "10-Q",
+      "filed": "2025-05-02",
+      "accepted": "2025-05-02T10:00:46.000Z",
+      "accession": "0000320193-25-000057",
+      "period": "2025-03-29",
+      "items": [],
+      "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019325000057/aapl-20250329.htm"
+     }
+    ],
+    "verdict": "filed",
+    "confidence": 0.95,
+    "filing": {
+     "form": "10-Q",
+     "filed": "2026-07-31",
+     "accepted": "2026-07-31T10:01:02.000Z",
+     "accession": "0000320193-26-000020",
+     "period": "2026-06-27",
+     "items": [],
+     "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/aapl-20260627.htm"
+    },
+    "figures": {
+     "period_start": "2026-03-29",
+     "period_end": "2026-06-27",
+     "revenue": 109417000000,
+     "gross_profit": 54770000000,
+     "gross_margin_pct": 50.1,
+     "operating_income": 35695000000,
+     "net_income": 29789000000
+    },
+    "prior_year_figures": {
+     "period_start": "2025-03-30",
+     "period_end": "2025-06-28",
+     "revenue": 94036000000,
+     "gross_profit": 43718000000,
+     "gross_margin_pct": 46.5,
+     "operating_income": 28202000000,
+     "net_income": 23434000000
+    },
+    "reason": "Yes: Apple Inc.'s latest 10-Q was filed on 2026-07-31 and accepted by EDGAR at 10:01 UTC, for the period ended 2026-06-27, accession 0000320193-26-000020. For 2026-03-29 to 2026-06-27 it reports revenue of $109.42 billion, a gross margin of 50.1% against 46.5% a year earlier, operating income of $35.70 billion and net income of $29.79 billion, as tagged in the filing's XBRL. Filing: https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/aapl-20260627.htm",
+    "checked_at": "2026-10-26T05:26:08.309Z"
+   }
+  },
+  "/transfer-verify": {
+   "question": "Verify transfer 0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060",
+   "body": {
+    "answer": "Transaction 0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060 on ethereum succeeded in block 46147.",
+    "hash": "0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060",
+    "chain": "ethereum",
+    "verdict": "confirmed",
+    "confidence": 0.99,
+    "reason": "Transaction 0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060 on ethereum succeeded in block 46147. It moved 31,337 wei from 0xa1e4380a3b1f749673e270229993ee55f35663b4 to 0x5df9b87991262f6ba471f09758cde1c0fc1de734. It has 26,228,613 confirmations. It paid a fee of 1.05 ETH. This block predates the Byzantium fork, so the canonical receipt carries a state root rather than a status flag; inclusion in the chain is what is confirmed here.",
+    "transaction": {
+     "status": "confirmed",
+     "from": "0xa1e4380a3b1f749673e270229993ee55f35663b4",
+     "to": "0x5df9b87991262f6ba471f09758cde1c0fc1de734",
+     "value_wei": "31337",
+     "value": "0.000000000000031337",
+     "symbol": "ETH",
+     "block_number": 46147,
+     "block_hash": "0x4e3a3754410177e6937ef1f84bba68ea139e8d1a2258c5f85db9f1cd715a1bdd",
+     "receipt_status": "success",
+     "method": null,
+     "method_selector": null,
+     "contract_created": null,
+     "token_transfers": 0,
+     "gas_used": "21000",
+     "fee_wei": "1050000000000000000",
+     "confirmations": 26228613,
+     "base_fee_wei": null,
+     "base_fee_burned": null
+    },
+    "checked_at": "2026-10-26T05:26:08.570Z"
+   }
+  },
+  "/macro": {
+   "question": "What is the euro area's latest inflation rate?",
+   "body": {
+    "answer": "Consumer price inflation in the euro area was 3.8% year on year in September 2026 (Eurostat).",
+    "region": "EA",
+    "verdict": "reported",
+    "confidence": 0.95,
+    "indicators": [
+     {
+      "indicator": "cpi",
+      "region": "EA",
+      "value": 3.8,
+      "unit": "%",
+      "period": "2026-09",
+      "frequency": "monthly",
+      "series": "prc_hicp_minr?geo=EA&unit=RCH_A&coicop18=TOTAL",
+      "source": "Eurostat",
+      "source_url": "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_minr/default/table"
+     }
+    ],
+    "not_covered": [],
+    "reason": "Consumer price inflation in the euro area was 3.8% year on year in September 2026 (Eurostat).",
+    "checked_at": "2026-10-26T05:26:08.808Z"
+   }
+  },
+  "/url-reputation": {
+   "question": "Is https://www.bbc.co.uk safe?",
+   "body": {
+    "answer": "Not listed: www.bbc.co.uk is on none of the 2 threat sources that answered: Cloudflare security DNS, Quad9 threat-blocking DNS.",
+    "url": "https://www.bbc.co.uk/",
+    "verdict": "safe",
+    "confidence": 0.8,
+    "reason": "Not listed: www.bbc.co.uk is on none of the 2 threat sources that answered: Cloudflare security DNS, Quad9 threat-blocking DNS. A clean listing cannot prove a site safe; a new phishing page is often not yet on any list.",
+    "flagged_by": [],
+    "checks": {
+     "cloudflare_filter": "passed",
+     "quad9_filter": "passed",
+     "resolves": true,
+     "tls": "valid",
+     "lookalike_markers": [],
+     "redirects": 0,
+     "final_url": "https://www.bbc.co.uk/"
+    },
+    "listed": false,
+    "sources": [
+     {
+      "source": "Cloudflare security DNS",
+      "kind": "DNS blocklist",
+      "result": "not_listed"
+     },
+     {
+      "source": "Quad9 threat-blocking DNS",
+      "kind": "DNS blocklist",
+      "result": "not_listed"
+     }
+    ],
+    "checked_at": "2026-10-26T05:26:09.049Z"
+   }
+  },
+  "/answer": {
+   "question": "Who wrote War and Peace?",
+   "body": {
+    "answer": "War and Peace was written by Leo Tolstoy [1].",
+    "question": "Who wrote War and Peace?",
+    "verdict": "answered",
+    "confidence": 0.8,
+    "method": "model_phrased_from_sources",
+    "citations": [
+     {
+      "n": 1,
+      "kind": "Wikipedia",
+      "title": "War and Peace",
+      "url": "https://en.wikipedia.org/wiki/War_and_Peace"
+     },
+     {
+      "n": 2,
+      "kind": "Wikipedia",
+      "title": "War and Peace (film series)",
+      "url": "https://en.wikipedia.org/wiki/War_and_Peace_(film_series)"
+     },
+     {
+      "n": 3,
+      "kind": "Wikipedia",
+      "title": "War and Peace (1956 film)",
+      "url": "https://en.wikipedia.org/wiki/War_and_Peace_(1956_film)"
+     },
+     {
+      "n": 4,
+      "kind": "Wikipedia",
+      "title": "World War I",
+      "url": "https://en.wikipedia.org/wiki/World_War_I"
+     },
+     {
+      "n": 5,
+      "kind": "Wikipedia",
+      "title": "Leo Tolstoy",
+      "url": "https://en.wikipedia.org/wiki/Leo_Tolstoy"
+     }
+    ],
+    "reason": "War and Peace was written by Leo Tolstoy [1]. Sources: [1] Wikipedia's \"War and Peace\".",
+    "checked_at": "2026-10-26T05:26:09.294Z"
+   }
+  }
+ }
+}

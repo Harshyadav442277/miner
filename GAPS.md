@@ -1,5 +1,15 @@
 # GAPS.md — honesty ledger
 
+## 2026-10-26 registered output schema — G211
+
+- **G211 — The registered `output_schema` omits most of what the routes return. `OPEN, fix at the next updateMiner`.**
+  - Against production on 2026-10-26, one question per route returned 101 top-level fields that
+    `miner.yaml`'s `output_schema` does not name. All of `/company-registry`'s fields are missing, and so are
+    `/convert`'s rate figures and `/sec-filings`' filing and figures.
+  - The file is hashed into registration 4829, so it changes only with an `updateMiner`.
+  - Until then, `docs/openapi.json` documents every field, typed from real answers
+    (`track1-miner/docs/evidence/openapi-2026-10-26/`). Regenerate the manifest's schema from it at the update.
+
 ## 2026-10-25 intent conformance against the site's Intents page — G208–G210
 
 Evidence: `track1-miner/docs/evidence/conformance-2026-10-25/` (README, `site-intents.json`, `latency.txt`).

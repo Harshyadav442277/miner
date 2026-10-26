@@ -10,6 +10,13 @@ text authenticity, content verification, game result, sports score). The seven i
 below answer at the base URL today, but Telegraph will not route to them until the pending
 `updateMiner` is signed and mined.
 
+## Machine-readable description
+
+[`docs/openapi.json`](openapi.json) is an OpenAPI 3.1 description of all 35 endpoints and the 36 intents they
+serve: every query parameter, the shared answer fields and the receipt. It is generated from `miner.yaml` by
+`track1-miner/tools/openapi.py`. Each route's own fields are typed from a real production answer and marked
+`x-observed`: they describe one answer, not every case. Load the file into any OpenAPI client generator.
+
 ## Every answer has the same shape
 
 HTTP 200, with the answer first and the values as fields:
