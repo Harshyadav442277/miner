@@ -270,6 +270,11 @@ interface Pool {
  * The address it returns is then read for its holder count through Blockscout by
  * ADDRESS, which is the call that does work from Vercel.
  */
+/** The contract address in a GeckoTerminal token id such as "eth_0x…" or "polygon_pos_0x…". Pure. */
+export function poolTokenAddress(id: string | undefined): string | null {
+  return String(id ?? "").match(/0x[0-9a-fA-F]{40}$/)?.[0] ?? null;
+}
+
 export async function addressForSymbol(
   chain: string, symbol: string,
 ): Promise<string | null | "ambiguous" | "unavailable"> {
@@ -301,7 +306,8 @@ export async function addressForSymbol(
     const side = left === want ? "base_token" : right === want ? "quote_token" : null;
     if (!side) continue;
     const id = p.relationships?.[side]?.data?.id;
-    const addr = id?.includes("_") ? id.slice(id.indexOf("_") + 1) : id;
+    // "base_0x…", but "polygon_pos_0x…": the network itself has an underscore (found 2026-10-27).
+    const addr = poolTokenAddress(id);
     if (!addr) continue;
     const reserve = Number(p.attributes?.reserve_in_usd ?? 0);
     weight.set(addr, (weight.get(addr) ?? 0) + (Number.isFinite(reserve) ? reserve : 0));

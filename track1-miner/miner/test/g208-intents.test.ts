@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { cleanData, compare, queryName, readAnswer, recordType } from "../src/dns";
-import { abiString, readable, units, verdictFor } from "../src/token-supply";
+import { abiString, KNOWN_TOKENS, readable, units, verdictFor } from "../src/token-supply";
 import { bodyOf, extractKeywords, wanted, yake } from "../src/keywords";
 import { criticality, cveIds, priority, rank, recordFacts, type Facts } from "../src/vulntriage";
 
@@ -159,4 +159,15 @@ test("triage: a CVE record's CNA score is preferred, CISA-ADP fills the gap, SSV
   assert.equal(f.kev, true);
   assert.equal(f.kev_date_added, "2023-09-13");
   assert.equal(recordFacts("CVE-2023-4863", null).found, false);
+});
+
+test("token supply: every listed contract is a well-formed address on a supported chain", () => {
+  for (const [chain, tokens] of Object.entries(KNOWN_TOKENS)) {
+    assert.ok(["ethereum", "base", "arbitrum", "optimism", "polygon"].includes(chain), chain);
+    for (const [symbol, address] of Object.entries(tokens)) {
+      assert.match(symbol, /^[A-Z]{3,5}$/);
+      assert.match(address, /^0x[0-9a-fA-F]{40}$/, `${chain} ${symbol}`);
+    }
+  }
+  assert.equal(KNOWN_TOKENS.polygon!.USDC, "0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359");
 });

@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
-  addressForSymbol, chainLabel, concentrationPercent, contractAddress, lookupHolders,
+  addressForSymbol, chainLabel, poolTokenAddress, concentrationPercent, contractAddress, lookupHolders,
   resolveChain, supportedChains, tokenSymbol, wantsConcentration,
 } from "../src/holders";
 
@@ -111,4 +111,11 @@ test("a chain's own token ticker is a symbol when the question is about holders"
   assert.equal(tokenSymbol("How many holders does the ARB token have on Arbitrum One?"), "ARB");
   assert.equal(tokenSymbol("How many addresses hold OP on Optimism?"), "OP");
   assert.notEqual(tokenSymbol("What is the gas price on ARB today?"), "ARB");
+});
+
+test("a GeckoTerminal token id gives its address on every network, Polygon's included", () => {
+  assert.equal(poolTokenAddress("base_0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913"), "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913");
+  assert.equal(poolTokenAddress("polygon_pos_0x8f3cf7ad23cd3cadbd9735aff958023239c6a063"), "0x8f3cf7ad23cd3cadbd9735aff958023239c6a063");
+  assert.equal(poolTokenAddress("eth_not-an-address"), null);
+  assert.equal(poolTokenAddress(undefined), null);
 });
