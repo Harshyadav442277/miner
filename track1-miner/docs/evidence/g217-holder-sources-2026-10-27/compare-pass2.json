@@ -1,0 +1,122 @@
+{
+ "checked_at": "2026-10-27T15:32:56.141Z",
+ "spacing_ms": 8000,
+ "rows": [
+  {
+   "kind": "fill",
+   "chain": "optimism",
+   "symbol": "USDT",
+   "status": 504,
+   "ms": 10590,
+   "count": null,
+   "last_updated": null,
+   "blockscout": 999537
+  },
+  {
+   "kind": "fill",
+   "chain": "optimism",
+   "symbol": "WETH",
+   "status": 200,
+   "ms": 1416,
+   "count": 398653,
+   "last_updated": "2026-10-27T14:47:02Z",
+   "blockscout": 331451
+  },
+  {
+   "kind": "fill",
+   "chain": "optimism",
+   "symbol": "OP",
+   "status": 200,
+   "ms": 645,
+   "count": 1374179,
+   "last_updated": "2026-10-27T14:47:02Z",
+   "blockscout": 1376986
+  },
+  {
+   "kind": "fill",
+   "chain": "base",
+   "symbol": "USDC",
+   "status": 200,
+   "ms": 719,
+   "count": 11882040,
+   "last_updated": "2026-10-27T15:25:23Z",
+   "blockscout": null
+  },
+  {
+   "kind": "fill",
+   "chain": "base",
+   "symbol": "WETH",
+   "status": 200,
+   "ms": 1374,
+   "count": 5010818,
+   "last_updated": "2026-10-27T15:25:51Z",
+   "blockscout": null
+  },
+  {
+   "kind": "fill",
+   "chain": "base",
+   "symbol": "DAI",
+   "status": 200,
+   "ms": 995,
+   "count": 439788,
+   "last_updated": "2026-10-27T14:33:44Z",
+   "blockscout": null
+  },
+  {
+   "kind": "fill",
+   "chain": "arbitrum",
+   "symbol": "USDT",
+   "status": 200,
+   "ms": 10575,
+   "count": 4196311,
+   "last_updated": "2026-10-27T15:16:36Z",
+   "blockscout": null
+  },
+  {
+   "kind": "fill",
+   "chain": "polygon",
+   "symbol": "WETH",
+   "status": 200,
+   "ms": 804,
+   "count": 1945507,
+   "last_updated": "2026-10-27T14:25:29Z",
+   "blockscout": null
+  },
+  {
+   "kind": "fill",
+   "chain": "polygon",
+   "symbol": "DAI",
+   "status": 200,
+   "ms": 11757,
+   "count": 3905408,
+   "last_updated": "2026-10-27T14:48:49Z",
+   "blockscout": null
+  },
+  {
+   "kind": "repeat",
+   "chain": "ethereum",
+   "symbol": "USDC",
+   "status": null,
+   "ms": 25007,
+   "count": null
+  },
+  {
+   "kind": "repeat",
+   "chain": "ethereum",
+   "symbol": "LINK",
+   "status": 200,
+   "ms": 1906,
+   "count": 915719,
+   "last_updated": "2026-10-27T14:51:14Z"
+  },
+  {
+   "kind": "repeat",
+   "chain": "arbitrum",
+   "symbol": "ARB",
+   "status": 200,
+   "ms": 927,
+   "count": 2402150,
+   "last_updated": "2026-10-27T14:48:46Z"
+  }
+ ]
+}

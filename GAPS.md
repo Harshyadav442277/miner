@@ -15,13 +15,26 @@ pushed or signed.
     address can update it (TELEGRAPH_FACTS).
   - Unknown: whether the console can update an EOA-owned registration, and whether any keyless validator remains.
   - Until answered, hard rule 3 (sandbox first) is met only by the owner signing in to the console.
-- **G217 — TOKEN_HOLDER_COUNT, a registered intent, fails on production. `OPEN, found 2026-10-27`.**
-  - Production answered `not_found`, "the block explorer index … did not answer", for USDC on Base and DAI on
-    Polygon. Both before and after the 14:39 UTC deploy.
-  - Blockscout is the only holder-count source (holders.ts: Routescan disagrees by 6–26%, G116). Its Base, Arbitrum
-    and Polygon hosts served a Cloudflare challenge to this machine. Not checked: what Vercel's egress gets.
-  - The answer is honest, not fabricated. But until Blockscout answers again, or a second index is chosen, the
-    intent cannot be answered.
+- **G217 — TOKEN_HOLDER_COUNT, a registered intent, fails on Base, Arbitrum and Polygon. `INVESTIGATED 2026-10-27;
+  proposal waits on the owner (Blockscout Pro key)`.** Full record: `track1-miner/docs/evidence/g217-holder-sources-2026-10-27/`.
+  - **From Vercel's egress** (production receipts): `base`, `arbitrum` and `polygon.blockscout.com` return **HTTP
+    403** in about 40 ms; `eth` and `optimism` return 200. The same three hosts serve a Cloudflare challenge to this
+    machine, so the block is per host, not per caller.
+  - **Measured alternatives:**
+    - GeckoTerminal: all 5 chains, but −9% to +20% against Blockscout, 10 calls/min free, 9–25 s responses.
+    - Ethplorer `freekey`: development use only.
+    - Routescan: already ruled out (G116).
+
+    None is recommended.
+  - **Recommended:** a free Blockscout Pro API key (dev.blockscout.com, 5 req/s). With it,
+    `api.blockscout.com/{chain_id}/api/v2/...` serves the same index on all chains; a keyless call returns 402 JSON,
+    not a challenge. The owner creates the key; its terms are unread.
+  - **Also found:**
+    - the outage branch says `verdict: "not_found"` with `error: "upstream_unavailable"`, and should say `unknown`;
+    - `/token-holders` still resolves symbols through GeckoTerminal when the verified `KNOWN_TOKENS` table could
+      answer. Ethereum symbol questions timed out at 6 s today.
+
+    Both are small fixes, not yet made.
 - **G213 — TOKEN_TOTAL_SUPPLY_VERIFY by symbol misses its < 500 ms target. `FIXED AND DEPLOYED 2026-10-27 ~14:39 UTC
   for table symbols (miner-6kvt9zv2p)`.**
   - On production: 8/8 table symbols took 83–277 ms of miner time, and addresses 137–162 ms. Symbols outside the

@@ -1,5 +1,21 @@
 # MEMORY.md — session continuity
 
+## 2026-10-27 ~15:45 UTC (21:15 IST): G217 investigated; no code changed
+
+Owner: "Investigate G217 … propose a second holder-count source with measured agreement before changing anything."
+
+- **From Vercel's egress:** Blockscout's Base, Arbitrum and Polygon hosts return 403; Ethereum and Optimism return
+  200. Read from production receipts.
+- **Candidates measured on 26 tokens:**
+  - GeckoTerminal is fast to reach but unreliable and disagrees (−9% to +20%);
+  - Ethplorer's freekey is for development only;
+  - Routescan was already ruled out.
+- **Recommended:** a free Blockscout Pro API key, which keeps the same index on all chains. The owner creates it.
+- **Two small fixes proposed and not made:**
+  - the outage verdict `not_found` should be `unknown`;
+  - `/token-holders` should use `KNOWN_TOKENS` before GeckoTerminal.
+- Evidence: `track1-miner/docs/evidence/g217-holder-sources-2026-10-27/`; GAPS G217.
+
 ## 2026-10-27 ~14:55 UTC (20:25 IST): CURRENT — G213 release LIVE on production; not pushed, not registered
 
 - **Owner's yes, 2026-10-27:** "deploy codex/rank1-14-intents at 4af4ebd (preview first, then production), run the
