@@ -1,0 +1,57 @@
+preflight against https://miner-wine.vercel.app
+
+  unit + live suite                      PASS
+  verify-deploy                          PASS
+  param shapes (engine-shaped)           PASS
+  intent answers (correctness)           FAIL
+  hostile inputs                         PASS
+  upstream health                        FAIL
+  no-regression (8 identical, 0 differ)  PASS
+
+--- intent answers (correctness) ---
+  IP_GEOLOCATION         FAIL
+      - 142.251.42.174 -> New Haven, Connecticut, United States; not Tokyo, so the primary provider is not answering
+  LANGUAGE_TRANSLATION   PASS
+  ACADEMIC_SEARCH        PASS
+...
+  RESEARCH_SYNTHESIS     PASS
+  SANCTIONS_SCREENING_MATCH PASS
+  CORPORATE_REGISTRY_LOOKUP PASS
+  REGULATORY_FILING_MONITOR PASS
+  CRYPTO_TRANSFER_VERIFY PASS
+  MACRO_ECONOMIC_INDICATOR PASS
+  URL_SAFE               PASS
+  QUESTION_ANSWERING     PASS
+  DNS_RECORD_LOOKUP      PASS
+  TOKEN_TOTAL_SUPPLY_VERIFY PASS
+  KEYWORD_EXTRACTION     PASS
+  VULNERABILITY_TRIAGE   PASS
+
+39/40 intents answering correctly.
+
+--- upstream health ---
+FAIL  ip-api.com (via production)    primary  369ms  answered, but not from the expected provider (wanted /tokyo|japan/i)
+ok    ipwho.is                       failover 103ms
+ok    ipinfo.io                      failover 399ms
+ok    google news rss                primary  752ms
+FAIL  merkle eth rpc                 failover 57ms  HTTP 429
+ok    base rpc                       primary  331ms
+ok    base publicnode rpc            failover 192ms
+ok    arbitrum rpc                   primary  344ms
+...
+ok    drpc eth rpc                   failover 353ms
+ok    flashbots eth rpc              failover 892ms
+FAIL  merkle eth rpc                 failover 57ms  HTTP 429
+ok    base rpc                       primary  331ms
+ok    base publicnode rpc            failover 192ms
+ok    arbitrum rpc                   primary  344ms
+ok    arbitrum publicnode rpc        failover 224ms
+ok    optimism rpc                   primary  957ms
+ok    optimism publicnode rpc        failover 216ms
+ok    polygon publicnode rpc         primary  219ms
+ok    polygon drpc                   failover 127ms
+ok    polygon 1rpc                   failover 930ms
+
+1 primary failing, 1 failover failing, 24 probed
+
+5/7 gates passed — re-run the failing gate alone before believing it.

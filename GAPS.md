@@ -15,8 +15,17 @@ pushed or signed.
     address can update it (TELEGRAPH_FACTS).
   - Unknown: whether the console can update an EOA-owned registration, and whether any keyless validator remains.
   - Until answered, hard rule 3 (sandbox first) is met only by the owner signing in to the console.
-- **G213 — TOKEN_TOTAL_SUPPLY_VERIFY by symbol misses its < 500 ms target. `FIXED IN CODE 2026-10-27 (11f6306), not
-  deployed; production latency not re-measured`.**
+- **G217 — TOKEN_HOLDER_COUNT, a registered intent, fails on production. `OPEN, found 2026-10-27`.**
+  - Production answered `not_found`, "the block explorer index … did not answer", for USDC on Base and DAI on
+    Polygon. Both before and after the 14:39 UTC deploy.
+  - Blockscout is the only holder-count source (holders.ts: Routescan disagrees by 6–26%, G116). Its Base, Arbitrum
+    and Polygon hosts served a Cloudflare challenge to this machine. Not checked: what Vercel's egress gets.
+  - The answer is honest, not fabricated. But until Blockscout answers again, or a second index is chosen, the
+    intent cannot be answered.
+- **G213 — TOKEN_TOTAL_SUPPLY_VERIFY by symbol misses its < 500 ms target. `FIXED AND DEPLOYED 2026-10-27 ~14:39 UTC
+  for table symbols (miner-6kvt9zv2p)`.**
+  - On production: 8/8 table symbols took 83–277 ms of miner time, and addresses 137–162 ms. Symbols outside the
+    table (CRV, MKR) still take 657–731 ms (`release-2026-10-27-g213/`).
   - **The fix:** `KNOWN_TOKENS`, 21 contracts across 5 chains. Each was checked against two independent sources
     (`track1-miner/docs/evidence/g213-token-table-2026-10-27/`).
   - **Found on the way:** Polygon symbol lookups never resolved. GeckoTerminal's `polygon_pos_` id prefix was cut at

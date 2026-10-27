@@ -1,0 +1,2 @@
+baseline round trip (/health): 235 ms
+TOKEN_TOTAL_SUPPLY_VERIFY  target < 500ms est   101   222    83   263 ms  within 4/3  200:verified 200:verified 200:verified 200:verified

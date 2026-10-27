@@ -1,6 +1,31 @@
 # MEMORY.md — session continuity
 
-## 2026-10-27 ~14:10 UTC (19:40 IST): CURRENT — the 2026-10-26 recommendations worked through; new code NOT deployed
+## 2026-10-27 ~14:55 UTC (20:25 IST): CURRENT — G213 release LIVE on production; not pushed, not registered
+
+- **Owner's yes, 2026-10-27:** "deploy codex/rank1-14-intents at 4af4ebd (preview first, then production), run the
+  gates and re-measure token-supply latency. Don't push or sign."
+- **Production:** `miner-6kvt9zv2p` (`4af4ebd`). Rollback target `miner-9ozpb4kgh`.
+- **Gates at baseline:**
+  - unit + live PASS;
+  - intent answers 39/40 (the IP Tokyo pin);
+  - upstream health: the two known failures;
+  - registration 4829 active.
+
+  Evidence: `track1-miner/docs/evidence/release-2026-10-27-g213/`.
+- **Token supply on production:**
+  - table symbols 8/8 within 500 ms (83–277 ms);
+  - addresses 137–162 ms;
+  - symbols outside the table 657–731 ms.
+- **New: G217.** TOKEN_HOLDER_COUNT (registered) answers "index did not answer" on production, because Blockscout is
+  not answering. This predates the release.
+- **Next, all the owner's:**
+  1. push;
+  2. send the Ahmed message and the G32 report;
+  3. the G205 choice;
+  4. publishing the named field results;
+  5. whether to fix G217 with a second holder index.
+
+## 2026-10-27 ~14:10 UTC (19:40 IST): the 2026-10-26 recommendations worked through (superseded above)
 
 Owner: "complete this work", referring to the recommendations of 2026-10-26: the six ideas and the tools.
 
