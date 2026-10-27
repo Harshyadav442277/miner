@@ -134,4 +134,25 @@ and the payload the hash was computed over. To check the answer itself, re-run t
 compare what the sources say now. The miner's source is public at
 `https://github.com/Harshyadav442277/miner` (`track1-miner/`).
 
+`track1-miner/tools/verify-answer.mjs` does that on your own machine.
+
+```bash
+node track1-miner/tools/verify-answer.mjs "https://miner-wine.vercel.app/vuln-triage?cves=CVE-2023-4863,CVE-2024-3094"
+node track1-miner/tools/verify-answer.mjs saved-answer.json
+```
+
+**What it does.** It re-fetches the receipt's GET requests and lists every value in the answer that one of those
+sources still states, with the source host.
+
+**What a ✓ means.** The value appears in that source as stated. This is a text match, not a parse.
+
+**What it cannot check:**
+- **Values read by POST.** JSON-RPC calls are not re-run, because a receipt keeps no request bodies.
+- **Values the miner derived,** such as a supply net of burns or a version range.
+- **Values that have changed since,** such as prices and TTLs.
+- **Small whole numbers and short words.** They are listed as unchecked, because they appear in almost any document.
+
+A catalog the miner already held in memory, such as CISA KEV for `/vuln-triage`, appears in the receipt with
+`status: null` and a `result` saying when it was read.
+
 Real usage only: the hackathon rules disqualify artificial traffic, and so do we.

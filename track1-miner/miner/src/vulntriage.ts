@@ -21,6 +21,7 @@
  *
  * Findings without a CVE id cannot be ranked from public data and are refused.
  */
+import { noteRead } from "./receipt";
 
 const RECORD_TIMEOUT_MS = Number(process.env.CVE_RECORD_TIMEOUT_MS ?? 3_000);
 const KEV_TIMEOUT_MS = Number(process.env.KEV_TIMEOUT_MS ?? 2_500);
@@ -152,7 +153,12 @@ export function rank(facts: Facts[], asset: Criticality): Ranked[] {
 let kevCache: { at: number; byId: Map<string, { dateAdded?: string; knownRansomwareCampaignUse?: string }> } | null = null;
 
 async function kevCatalog(): Promise<typeof kevCache> {
-  if (kevCache && Date.now() - kevCache.at < KEV_TTL_MS) return kevCache;
+  if (kevCache && Date.now() - kevCache.at < KEV_TTL_MS) {
+    // Held, not fetched: named in the receipt so the answer's sources stay complete and re-checkable.
+    noteRead({ url: KEV_URL, method: "GET", status: null, result: `held in memory, read ${new Date(kevCache.at).toISOString()}`,
+      started_at: new Date().toISOString(), ms: 0 });
+    return kevCache;
+  }
   try {
     const r = await fetch(KEV_URL, { signal: AbortSignal.timeout(KEV_TIMEOUT_MS) });
     if (!r.ok) return kevCache;
