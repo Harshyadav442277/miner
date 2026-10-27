@@ -1,6 +1,50 @@
 # MEMORY.md — session continuity
 
-## 2026-10-26 ~12:30 UTC (18:00 IST): CURRENT — G208 routes LIVE on production; not pushed, not registered
+## 2026-10-27 ~14:10 UTC (19:40 IST): CURRENT — the 2026-10-26 recommendations worked through; new code NOT deployed
+
+Owner: "complete this work", referring to the recommendations of 2026-10-26: the six ideas and the tools.
+
+**Status of each:**
+
+1. **G208 intent swap.** Live since 2026-10-26. G213 is fixed in code (`11f6306`):
+   - a verified table of 21 token contracts;
+   - the Polygon `polygon_pos_` resolver bug, which also affected `/token-holders`.
+
+   **Not deployed.** Push, console validation (G212) and signing (G206) are the owner's.
+2. **Validators as the uptime record: not possible for free (G205).**
+   - Vercel logs keep about 1 h, and only invocations that printed something.
+   - Vercel metrics need Observability Plus, a paid Pro feature.
+   - Devnode and the explorer publish no liveness history.
+
+   The owner picks: the uptime workflow, Vercel Pro, or a store.
+3. **Replayable receipts: `tools/verify-answer.mjs`** (`2cb4049`, hardened `7f60ec2`).
+   - It runs on the caller's machine, not as a miner endpoint, to avoid SSRF.
+   - Documented in `docs/INTEGRATE_LIVECERT.md`.
+   - `/vuln-triage` receipts now name a KEV catalog held in memory.
+4. **Field check: `tools/field-check.py`** (`d8fa299`). Evidence: `field-check-2026-10-27/`.
+   - Service endpoints that pass: DNS 3/5, token supply 2/5, triage 2/9. LiveCert passes all three.
+   - Raw public APIs registered as endpoints pass 1 of 22.
+   - **Named results stay outside the repo** (`C:\Users\hyada\tg-deploy\field-2026-10-27\`). Publishing them is the
+     owner's call.
+5. **MCP server: closed.** Telegraph already ships Telegraph-MCP (TELEGRAPH_FACTS 2026-10-27).
+6. **G32 report: drafted in WINNING.md §9, not sent.** It asks whether v2 reuses the converter.
+
+**Tools:**
+- `.claude/skills/release-miner/SKILL.md` is written.
+- Vercel MCP: used for the metrics check above.
+- Playwright demo video: **not started.** It is low urgency; submission is in December.
+
+**Commits on `claude/g208-intent-swap`:** `11f6306`, `2cb4049`, `7f60ec2`, `d8fa299`, plus this record. The main
+branch is fast-forwarded and **not pushed**.
+
+**Next, all the owner's:**
+- a yes to deploy `11f6306`+ (G213 and the Polygon fix) and measure;
+- a yes to push;
+- send the Ahmed message (G206, G208, G212) and the G32 report;
+- the G205 choice;
+- whether to publish the named field results.
+
+## 2026-10-26 ~12:30 UTC (18:00 IST): G208 routes LIVE on production; not pushed, not registered (superseded above)
 
 - **Owner's yes, 2026-10-26:** "land claude/g208-intent-swap on codex/rank1-14-intents, deploy (preview first, then
   production), and measure the new routes' latency on production. Don't push or sign."

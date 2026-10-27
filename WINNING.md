@@ -327,6 +327,32 @@ needs a working mission app that makes an autonomous purchase through Telegraph,
 score of at least 24/35. The same app would also earn the miner's related-party consumption points (A4,
 G204). It costs days of build; the owner decides.
 
+### Report of G32 to the organisers (owner sends; drafted 2026-10-27, not sent)
+
+The facts are from track2 `GAPS.md` G32 on branch `claude/wasm-track-2-quality-e21db3`. On 2026-10-25 Ahmed said
+the current WASM system will move to "v2", so the message asks whether v2 keeps this converter rather than assuming
+it does.
+
+> Hi team, a converter issue in the wide-adapter kit (`telegraph-wasm-baseline`, `feature/v2-integration`, commit
+> `992f2650`) that changes what a ModernBERT adapter scores on the node:
+> 1. `wide_runtime/convert.py` and `hf_helpers._norm_cfg` read `rope_theta`. ModernBERT has no such key; it has
+>    `global_rope_theta` 160000 and `local_rope_theta` 10000. So every layer gets theta 10000, and every layer is
+>    built as global attention, where ModernBERT slides a 128-token window on 2 layers in 3.
+>    The package manifest shows `Config` theta×1000 = 10000000.
+> 2. Effect on one LLM_OUTPUT_EVALUATION adapter: 96.9% pairwise accuracy as trained, 81.0% as the node runs it
+>    (flip 94.1% → 67.4%). `verify_wide` gave Pearson 0.83 against the float model.
+> 3. Proof: in float, with all layers global and theta 10000, our probe answers score within about 0.1 of the WASM
+>    output.
+> 4. Workaround: train against that same architecture (`global_attn_every_n_layers: 1`, both thetas 10000). Our
+>    retrain scores 96.6%, and `verify_wide` gives Pearson 1.00000.
+>
+> Questions: which architecture do you intend the node to run? And does the v2 evaluator system reuse this
+> converter? If you fix it, adapters trained on the workaround would change score again. Happy to share the recipe
+> and the measurement script.
+
+Send only after the owner reads it. The retrain recipe is public on `telegraph-factscore` `season2-evaluators`. The
+adapter package itself was never pushed (track2 MEMORY, 2026-10-25).
+
 ### Should we add intents? Not now
 
 - **Breadth is already maxed for the first award criterion.** Our intents touch all 15 missions, so an extra

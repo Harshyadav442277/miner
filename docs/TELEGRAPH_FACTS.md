@@ -570,6 +570,18 @@ Source: https://docs.telegraphprotocol.com/docs/using/escrow-inference (not in t
 - **Season II miner judging rules:** still "published separately" on the rules page (checked
   2026-10-13 18:28 UTC).
 
+## Checked 2026-10-27 ~13:30–14:00 UTC
+
+- **Telegraph ships an MCP server.** The docs page `using/mcp-server` (updated 2026-10-25) describes
+  `github.com/telegraphprotocol/Telegraph-MCP`: a local Node process that gives MCP agents the miners, Engine and
+  Daemon as tools, auto-discovers miner tools, and pays x402 inside the process. So we do not build one.
+- **There is no public liveness history per miner.** Devnode `/api/miners/<id>` has registration fields only. The
+  explorer answers `/api/epoch` (epoch 444, 9 h epochs), and returns a 404 page for `/api/miners/<id>/health`,
+  `/api/leaderboard` and `/api/spotchecks`.
+- **Devnode `/api/miners` lists 1,921 registrations,** each with `endpoints` (path, method, description; no intents
+  or params), `scores` per intent and epoch, and `total_requests_served`. The intent-to-endpoint mapping is only in
+  each miner's YAML.
+
 ## Integrate console, re-checked 2026-10-26 ~10:45 UTC (GAPS G212)
 
 Checked against the live console and its script bundle: `/register` page chunk and the shared client module.

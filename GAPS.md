@@ -15,8 +15,13 @@ pushed or signed.
     address can update it (TELEGRAPH_FACTS).
   - Unknown: whether the console can update an EOA-owned registration, and whether any keyless validator remains.
   - Until answered, hard rule 3 (sandbox first) is met only by the owner signing in to the console.
-- **G213 — TOKEN_TOTAL_SUPPLY_VERIFY by symbol misses its < 500 ms target. `OPEN, confirmed on production
-  2026-10-26`.**
+- **G213 — TOKEN_TOTAL_SUPPLY_VERIFY by symbol misses its < 500 ms target. `FIXED IN CODE 2026-10-27 (11f6306), not
+  deployed; production latency not re-measured`.**
+  - **The fix:** `KNOWN_TOKENS`, 21 contracts across 5 chains. Each was checked against two independent sources
+    (`track1-miner/docs/evidence/g213-token-table-2026-10-27/`).
+  - **Found on the way:** Polygon symbol lookups never resolved. GeckoTerminal's `polygon_pos_` id prefix was cut at
+    the first underscore. That is fixed too, and it also affects `/token-holders`.
+  - **Still slow:** symbols outside the table still go through GeckoTerminal.
   - On production `miner-9ozpb4kgh`, four fresh symbol questions took 437, 867, 1207 and 3055 ms of miner time. By
     contract address it took 148–162 ms (`release-2026-10-26-g208/`).
   - GeckoTerminal symbol resolution dominates; it is cached 24 h per instance.
@@ -132,6 +137,15 @@ branch `claude/correctness-audit-2026-10-21`, not yet merged here.
   workflow has been `disabled_manually` since 2026-10-01 at the owner's request. Reliability, availability
   and capacity are 20 of the Miner's 100 points. Resuming a record from Nov 1, and adding a capacity test,
   needs the owner's yes. Not measured: Vercel plan limits under concurrent load.
+  - **2026-10-27: no free passive record exists.** Each route was checked:
+    - `vercel logs` keeps about an hour, and only invocations that printed something.
+    - `vercel metrics vercel.request.count` answers `payment_required`: it needs Observability Plus, on Pro.
+    - Neither devnode `/api/miners/4829` nor the explorer API publishes spot-check or liveness history.
+
+    The options, all the owner's call:
+    1. re-enable the `uptime` workflow;
+    2. pay for Vercel Pro;
+    3. let the miner write its own request counts to a free store, which needs an account Claude cannot create.
 - **G207 — Timeless web-search questions quote the wrong Wikipedia article. `OPEN, next WEB_SEARCH fix`.** Seen
   on preview `miner-qazd6wyp9`, 2026-10-23:
   - "Who wrote Pride and Prejudice?" quoted *Pride and Prejudice and Zombies (film)*;
