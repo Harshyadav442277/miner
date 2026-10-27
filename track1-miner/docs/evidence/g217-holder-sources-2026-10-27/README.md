@@ -1,7 +1,8 @@
 # G217: TOKEN_HOLDER_COUNT on production, and a second holder-count source (2026-10-27)
 
 Owner, 2026-10-27: "Investigate G217: check what Blockscout returns to Vercel's egress, and propose a second
-holder-count source with measured agreement before changing anything." **Nothing in the miner was changed.**
+holder-count source with measured agreement before changing anything." The investigation changed nothing in the
+miner; items 3 and 4 of the proposal were made afterwards, on the owner's yes (§4).
 
 ## 1. What Blockscout returns to Vercel
 
@@ -62,3 +63,32 @@ was ranked below one that keeps it.
 **If the owner declines a key:** keep Blockscout, ship items 3 and 4, and accept that Base, Arbitrum and Polygon
 holder counts answer "index unavailable" while the challenge lasts. TOKEN_HOLDER_COUNT is bought by no mission
 (WINNING §6). Dropping it is a candidate for the next `updateMiner`, if the outage persists.
+
+## 4. Items 3 and 4 made (2026-10-27 ~18:40 UTC; committed, not deployed)
+
+Owner: "Yes: change the outage verdict to unknown and make /token-holders use KNOWN_TOKENS before GeckoTerminal,
+with tests, committed locally. Don't deploy yet."
+
+**Changes:**
+- Item 3, plus the same defect in a second branch:
+  - When every index fails, the verdict is `unknown`.
+  - With no chain named, some chains can answer "no such token" while others do not answer. That case used to say
+    `not_found`, "The index answered", about chains that never answered. It is now `unknown` and names both sets.
+- Item 4: `KNOWN_TOKENS` moved to `src/known-tokens.ts`, which `/token-supply` and `/token-holders` both read.
+  `/token-holders` checks it before GeckoTerminal, and adds the table's USDC/USDT note.
+
+**Evidence:**
+- Five offline unit tests in `test/holders.test.ts`; unit suite 816/816.
+- `local-probes.json`, from `probe-holders.mjs`: six questions to a local build at 18:37 UTC, against live
+  upstreams, from India. This machine gets the same 403s as Vercel.
+
+| Question | Verdict | Upstream reads (receipt) |
+|---|---|---|
+| Base USDC by address, on base (the gate's question) | `unknown`, `upstream_unavailable` | base 403 |
+| usdc on base | `unknown`, `upstream_unavailable` | base 403. **No GeckoTerminal call**; it went first before |
+| usdc on optimism | `holder_count`, 661,798 | optimism 200 only |
+| USDC, no chain | `holder_count` on Ethereum, 9,543,675; names Base, Arbitrum and Polygon as not compared | eth and optimism 200, three 403s |
+| Base USDC by address, no chain | `unknown`; not indexed on Ethereum and Optimism, three chains did not answer | eth and optimism 404, three 403s |
+| CRV on ethereum (not in the table) | `holder_count`, 106,964 | GeckoTerminal 200, then eth 200 |
+
+**Not verified:** on Vercel. Item 2 (the keyed source) still waits on the owner's key.

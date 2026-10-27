@@ -1,5 +1,25 @@
 # MEMORY.md — session continuity
 
+## 2026-10-27 ~18:45 UTC (28-10 00:15 IST): CURRENT — G217 holder fixes COMMITTED; not deployed, not pushed
+
+Owner: "Yes: change the outage verdict to unknown and make /token-holders use KNOWN_TOKENS before GeckoTerminal,
+with tests, committed locally. Don't deploy yet."
+
+- **Done:**
+  - Holder-count outages answer `unknown`, not `not_found`. A partial outage with no chain named does too, and
+    names the chains that did not answer.
+  - `/token-holders` reads `KNOWN_TOKENS` first. The table moved to `src/known-tokens.ts`, shared with
+    `/token-supply`.
+- **Verified:**
+  - Unit tests 816/816.
+  - Local build against live upstreams: `evidence/g217-holder-sources-2026-10-27/local-probes.json`.
+  - The gate's outage check (`upstream_unavailable` plus the "index outage" sentence) still holds.
+- **Not verified:** on Vercel. No deploy, by instruction.
+- **Next:**
+  - Owner: deploy on a yes; use the release-miner skill, preview first.
+  - Owner: the Blockscout Pro key (TASKS Owner).
+  - Owner: push `codex/rank1-14-intents`.
+
 ## 2026-10-27 ~15:45 UTC (21:15 IST): G217 investigated; no code changed
 
 Owner: "Investigate G217 … propose a second holder-count source with measured agreement before changing anything."

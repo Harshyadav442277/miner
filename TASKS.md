@@ -38,6 +38,9 @@ licensed for paid use. Season I's board (149 done items, all Season I epoch and 
       closing the stale uptime issue #13 (opened 2026-10-01; the miner answers and the schedule is off).
 - [ ] Optional: Vercel → Deployment Protection off for previews, so `preflight.mjs` can grade a preview.
 - [ ] Optional: `vercel env add OPENALEX_MAILTO production --scope wukong4` (G81's remedy).
+- [ ] G217: create a free Blockscout Pro API key at dev.blockscout.com, read its terms, and put it in
+      `track1-miner/miner/.env.local` as `BLOCKSCOUT_API_KEY`. Or decline it and keep Base, Arbitrum and Polygon
+      holder counts answering `unknown`.
 
 ## Claude
 

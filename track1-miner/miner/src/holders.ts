@@ -33,6 +33,7 @@
  * So symbols resolve, concentration is answered, and a non-token identifier is
  * refused by name rather than guessed at.
  */
+import { knownToken, TABLE_NOTE } from "./known-tokens";
 
 const TIMEOUT_MS = Number(process.env.HOLDERS_TIMEOUT_MS ?? 6_000);
 /** The holders list is the slow one and runs beside the token lookup, not after it. */
@@ -365,6 +366,8 @@ export function concentrationPercent(top: number, totalSupply: string | null): n
 }
 
 const fmt = (n: number): string => n.toLocaleString("en-US");
+const list = (xs: string[]): string =>
+  xs.length <= 1 ? (xs[0] ?? "") : `${xs.slice(0, -1).join(", ")} and ${xs[xs.length - 1]}`;
 
 export interface HolderRequest {
   chain?: string | null;
@@ -436,9 +439,11 @@ export async function lookupHolders(question: string, requested?: HolderRequest)
 
   const found = await Promise.all(chains.map(async (chain) => {
     if (address) return { chain, t: await tokenByAddress(chain, address) };
-    // Symbol first to an address through the fast resolver, then the holder
-    // count by address, which is the call that works from the deployment.
-    const resolved = await addressForSymbol(chain, symbol as string);
+    // Symbol first to an address: a listed major token from the table, anything
+    // else through the fast resolver (G217: it allows 10 calls a minute and timed
+    // out on production). Then the holder count by address, which is the call
+    // that works from the deployment.
+    const resolved = knownToken(chain, symbol as string) ?? await addressForSymbol(chain, symbol as string);
     if (resolved === null || resolved === "unavailable" || resolved === "ambiguous") {
       return { chain, t: resolved };
     }
@@ -446,13 +451,18 @@ export async function lookupHolders(question: string, requested?: HolderRequest)
   }));
 
   const hits = found.filter((f) => f.t && f.t !== "unavailable" && f.t !== "ambiguous") as Array<{ chain: string; t: Token }>;
-  const anyReachable = found.some((f) => f.t !== "unavailable");
+  const down = found.filter((f) => f.t === "unavailable").map((f) => chainLabel(f.chain));
   const ambiguous = found.find((f) => f.t === "ambiguous");
 
+  /**
+   * An index that did not answer says nothing about the token, so the verdict is
+   * unknown, never not_found (G217: Blockscout's Base, Arbitrum and Polygon hosts
+   * answered 403 to Vercel on 2026-10-27, and this said not_found).
+   */
   if (hits.length === 0) {
-    if (!anyReachable) {
+    if (down.length === chains.length) {
       return {
-        ...empty, chain: named, verdict: "not_found", confidence: 0,
+        ...empty, chain: named, verdict: "unknown", confidence: 0,
         reason:
           `The block explorer index that holds holder counts did not answer, so no holder count could ` +
           `be read for ${address ?? symbol}. This is an index outage rather than a token with no ` +
@@ -468,6 +478,19 @@ export async function lookupHolders(question: string, requested?: HolderRequest)
           `dominant one among them, so no holder count is reported for it. Give the contract address ` +
           `and the distinct holder count can be returned exactly.`,
         error: "ambiguous_symbol",
+      };
+    }
+    if (down.length) {
+      // No chain was named, some indexes answered "no such token", and the rest
+      // did not answer: the token may be on one of those.
+      const answered = found.filter((f) => f.t === null).map((f) => chainLabel(f.chain));
+      return {
+        ...empty, symbol, address, verdict: "unknown", confidence: 0,
+        reason:
+          `No ERC-20 token matching ${address ?? symbol} is indexed on ${list(answered)}, and the ` +
+          `indexes for ${list(down)} did not answer, so no holder count could be read. This is an ` +
+          `index outage rather than a token with no holders, and the two are not the same thing.`,
+        error: "upstream_unavailable",
       };
     }
     const where = named ? chainLabel(named) : `any of ${Object.values(CHAINS).map((c) => c.label).join(", ")}`;
@@ -511,9 +534,12 @@ export async function lookupHolders(question: string, requested?: HolderRequest)
     const why = raw === "timeout" ? "did not return in time" : "did not answer";
     tail = ` The largest single holder's share was asked for and the holder list ${why}, so it is not reported.`;
   }
-  const list = (xs: string[]): string =>
-    xs.length <= 1 ? (xs[0] ?? "") : `${xs.slice(0, -1).join(", ")} and ${xs[xs.length - 1]}`;
   const spread = alsoOn.length ? ` The same symbol is also indexed on ${list(alsoOn)}.` : "";
+  // Only when no chain was named: the chain with the most holders was picked
+  // from the indexes that answered, not from all five.
+  const missing = down.length ? ` The indexes for ${list(down)} did not answer, so those chains were not compared.` : "";
+  const tableNote = symbol && knownToken(pick.chain, symbol) ? TABLE_NOTE[symbol.toUpperCase()] : undefined;
+  const note = tableNote ? ` ${tableNote}` : "";
 
   return {
     symbol: token.symbol, name: token.name, address: token.address, chain: pick.chain,
@@ -521,6 +547,6 @@ export async function lookupHolders(question: string, requested?: HolderRequest)
     verdict: "holder_count", confidence: 0.95,
     reason:
       `${name} on ${label} has ${fmt(token.holders)} distinct holder addresses, read from the ` +
-      `chain's own transfer index at contract ${token.address}.${tail}${spread}`,
+      `chain's own transfer index at contract ${token.address}.${note}${tail}${spread}${missing}`,
   };
 }

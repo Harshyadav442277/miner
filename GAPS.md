@@ -16,7 +16,7 @@ pushed or signed.
   - Unknown: whether the console can update an EOA-owned registration, and whether any keyless validator remains.
   - Until answered, hard rule 3 (sandbox first) is met only by the owner signing in to the console.
 - **G217 — TOKEN_HOLDER_COUNT, a registered intent, fails on Base, Arbitrum and Polygon. `INVESTIGATED 2026-10-27;
-  proposal waits on the owner (Blockscout Pro key)`.** Full record: `track1-miner/docs/evidence/g217-holder-sources-2026-10-27/`.
+  verdict and table fixes COMMITTED, NOT DEPLOYED; source change waits on the owner (Blockscout Pro key)`.** Full record: `track1-miner/docs/evidence/g217-holder-sources-2026-10-27/`.
   - **From Vercel's egress** (production receipts): `base`, `arbitrum` and `polygon.blockscout.com` return **HTTP
     403** in about 40 ms; `eth` and `optimism` return 200. The same three hosts serve a Cloudflare challenge to this
     machine, so the block is per host, not per caller.
@@ -29,12 +29,16 @@ pushed or signed.
   - **Recommended:** a free Blockscout Pro API key (dev.blockscout.com, 5 req/s). With it,
     `api.blockscout.com/{chain_id}/api/v2/...` serves the same index on all chains; a keyless call returns 402 JSON,
     not a challenge. The owner creates the key; its terms are unread.
-  - **Also found:**
-    - the outage branch says `verdict: "not_found"` with `error: "upstream_unavailable"`, and should say `unknown`;
-    - `/token-holders` still resolves symbols through GeckoTerminal when the verified `KNOWN_TOKENS` table could
-      answer. Ethereum symbol questions timed out at 6 s today.
-
-    Both are small fixes, not yet made.
+  - **Fixed 2026-10-27 ~18:40 UTC, committed, not deployed** (owner's yes, "Don't deploy yet"):
+    - An outage is now `verdict: "unknown"`, `error: "upstream_unavailable"`; it was `not_found`.
+    - Also fixed: with no chain named, chains that answered "no such token" plus chains that did not answer gave
+      `not_found` with "The index answered" about chains that never answered. It is now `unknown` and names both
+      sets. A count found with no chain named now says which chains were not compared.
+    - `/token-holders` reads `KNOWN_TOKENS` (moved to `src/known-tokens.ts`, shared with `/token-supply`) before
+      GeckoTerminal, and says which USDC/USDT contract was read.
+    - Evidence: 5 offline unit tests (816/816); `local-probes.json`, six questions against live upstreams from a
+      local build. A table symbol made no GeckoTerminal call, and CRV still went through it.
+    - **Not verified on Vercel.** Base, Arbitrum and Polygon answers stay `unknown` until the source changes.
 - **G213 — TOKEN_TOTAL_SUPPLY_VERIFY by symbol misses its < 500 ms target. `FIXED AND DEPLOYED 2026-10-27 ~14:39 UTC
   for table symbols (miner-6kvt9zv2p)`.**
   - On production: 8/8 table symbols took 83–277 ms of miner time, and addresses 137–162 ms. Symbols outside the

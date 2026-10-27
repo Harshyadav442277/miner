@@ -1,7 +1,8 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { cleanData, compare, queryName, readAnswer, recordType } from "../src/dns";
-import { abiString, KNOWN_TOKENS, readable, units, verdictFor } from "../src/token-supply";
+import { KNOWN_TOKENS } from "../src/known-tokens";
+import { abiString, readable, units, verdictFor } from "../src/token-supply";
 import { bodyOf, extractKeywords, wanted, yake } from "../src/keywords";
 import { criticality, cveIds, priority, rank, recordFacts, type Facts } from "../src/vulntriage";
 

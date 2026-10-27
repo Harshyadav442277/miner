@@ -4,6 +4,7 @@ import {
   addressForSymbol, chainLabel, poolTokenAddress, concentrationPercent, contractAddress, lookupHolders,
   resolveChain, supportedChains, tokenSymbol, wantsConcentration,
 } from "../src/holders";
+import { KNOWN_TOKENS } from "../src/known-tokens";
 
 test("the chain named in the question decides which index is read", () => {
   assert.equal(resolveChain("", "How many addresses hold usdc on base?"), "base");
@@ -118,4 +119,119 @@ test("a GeckoTerminal token id gives its address on every network, Polygon's inc
   assert.equal(poolTokenAddress("polygon_pos_0x8f3cf7ad23cd3cadbd9735aff958023239c6a063"), "0x8f3cf7ad23cd3cadbd9735aff958023239c6a063");
   assert.equal(poolTokenAddress("eth_not-an-address"), null);
   assert.equal(poolTokenAddress(undefined), null);
+});
+
+/**
+ * G217: since 2026-10-27 Blockscout's Base, Arbitrum and Polygon hosts answer 403
+ * (a Cloudflare challenge) to Vercel and to this machine, while Ethereum and
+ * Optimism answer. The stub answers every upstream by URL and records each one
+ * asked, so these run offline.
+ */
+const json = (body: unknown, status = 200): Response => new Response(JSON.stringify(body), { status });
+const CHALLENGED = /^https:\/\/(?:base|arbitrum|polygon)\.blockscout\.com\//;
+const ETH_USDC = KNOWN_TOKENS.ethereum!.USDC!;
+const OP_USDC = KNOWN_TOKENS.optimism!.USDC!;
+const BASE_USDC = KNOWN_TOKENS.base!.USDC!;
+const CRV = "0xD533a949740bb3306d119CC777fa900bA034cd52";
+
+async function withUpstreams<T>(answer: (url: string) => Response, run: (urls: string[]) => Promise<T>): Promise<T> {
+  const original = globalThis.fetch;
+  const urls: string[] = [];
+  globalThis.fetch = (async (input: string | URL | Request) => {
+    const url = String(input);
+    urls.push(url);
+    return answer(url);
+  }) as typeof fetch;
+  try {
+    return await run(urls);
+  } finally {
+    globalThis.fetch = original;
+  }
+}
+
+const record = (address: string, holders: number): Response =>
+  json({ address_hash: address, symbol: "USDC", name: "USD Coin", holders_count: String(holders), total_supply: "1" });
+
+test("an index that does not answer is unknown, never not_found (G217)", async () => {
+  await withUpstreams(() => json({ message: "Just a moment..." }, 403), async () => {
+    // The gate's own question (intent-answers.mjs TOKEN_HOLDER_COUNT).
+    const r = await lookupHolders(`How many addresses hold the token ${BASE_USDC} on base?`);
+    assert.equal(r.verdict, "unknown");
+    assert.equal(r.error, "upstream_unavailable");
+    assert.equal(r.holders, null);
+    assert.match(r.reason, /index outage rather than a token with no holders/);
+  });
+});
+
+test("with no chain named, chains that did not answer are named and the verdict is unknown", async () => {
+  const answer = (url: string): Response => (CHALLENGED.test(url) ? json({}, 403) : json({ message: "Not found" }, 404));
+  await withUpstreams(answer, async () => {
+    const r = await lookupHolders(`How many addresses hold ${BASE_USDC}?`);
+    assert.equal(r.verdict, "unknown");
+    assert.equal(r.error, "upstream_unavailable");
+    // Before G217 this said "The index answered; it holds no such token" about
+    // three chains that never answered.
+    assert.match(r.reason, /is indexed on Ethereum and Optimism, and the indexes for Base, Arbitrum and Polygon did not answer/);
+    assert.doesNotMatch(r.reason, /The index answered/);
+  });
+});
+
+test("a listed symbol reads the table's contract and never asks GeckoTerminal", async () => {
+  const answer = (url: string): Response =>
+    url === `https://optimism.blockscout.com/api/v2/tokens/${OP_USDC}` ? record(OP_USDC, 661506) : json({}, 500);
+  await withUpstreams(answer, async (urls) => {
+    const r = await lookupHolders("How many addresses hold usdc on optimism?");
+    assert.equal(r.verdict, "holder_count");
+    assert.equal(r.holders, 661506);
+    assert.equal(r.address, OP_USDC);
+    assert.deepEqual(urls, [`https://optimism.blockscout.com/api/v2/tokens/${OP_USDC}`]);
+    // Native USDC, not a bridged USDC.e, is what was counted, and the answer says so.
+    assert.match(r.reason, /Circle's native USDC contract was read/);
+  });
+  // The symbol parameter, in any letter case, takes the same path.
+  await withUpstreams(answer, async (urls) => {
+    const r = await lookupHolders("How many holders?", { symbol: "usdc", chain: "optimism" });
+    assert.equal(r.holders, 661506);
+    assert.ok(!urls.some((u) => u.includes("geckoterminal")), urls.join(" "));
+  });
+});
+
+test("an unlisted symbol still resolves through GeckoTerminal", async () => {
+  const answer = (url: string): Response => {
+    if (url.startsWith("https://api.geckoterminal.com/")) {
+      return json({ data: [{
+        attributes: { name: "CRV / WETH 0.3%", reserve_in_usd: "5000000" },
+        relationships: { base_token: { data: { id: `eth_${CRV}` } }, quote_token: { data: { id: `eth_${ETH_USDC}` } } },
+      }] });
+    }
+    if (url === `https://eth.blockscout.com/api/v2/tokens/${CRV}`) {
+      return json({ address_hash: CRV, symbol: "CRV", name: "Curve DAO Token", holders_count: "90000", total_supply: "1" });
+    }
+    return json({}, 500);
+  };
+  await withUpstreams(answer, async (urls) => {
+    const r = await lookupHolders("How many addresses hold CRV on ethereum?");
+    assert.equal(r.verdict, "holder_count");
+    assert.equal(r.address, CRV);
+    assert.match(urls[0]!, /geckoterminal\.com\/api\/v2\/search\/pools\?query=CRV&network=eth/);
+    assert.doesNotMatch(r.reason, /Circle's native USDC/);
+  });
+});
+
+test("with no chain named, a count from the chains that answered says which did not", async () => {
+  const answer = (url: string): Response => {
+    if (CHALLENGED.test(url)) return json({}, 403);
+    if (url === `https://eth.blockscout.com/api/v2/tokens/${ETH_USDC}`) return record(ETH_USDC, 9539060);
+    if (url === `https://optimism.blockscout.com/api/v2/tokens/${OP_USDC}`) return record(OP_USDC, 661506);
+    return json({}, 500);
+  };
+  await withUpstreams(answer, async (urls) => {
+    const r = await lookupHolders("How many holders does USDC have?");
+    assert.equal(r.verdict, "holder_count");
+    assert.equal(r.chain, "ethereum");
+    assert.equal(r.holders, 9539060);
+    assert.match(r.reason, /also indexed on Optimism\./);
+    assert.match(r.reason, /The indexes for Base, Arbitrum and Polygon did not answer, so those chains were not compared\./);
+    assert.ok(!urls.some((u) => u.includes("geckoterminal")), urls.join(" "));
+  });
 });
