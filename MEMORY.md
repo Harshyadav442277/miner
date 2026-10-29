@@ -1,6 +1,48 @@
 # MEMORY.md — session continuity
 
-## 2026-10-29 ~17:00 UTC (22:30 IST): CURRENT — Season II rules re-read; V2 docs moved to anjoman.ai; docs updated
+## 2026-10-29 ~17:30 UTC (23:00 IST): CURRENT — branches merged and pruned; licensed-sources awaits the owner
+
+Owner: "merge or fix branches as well so things dont get complicated. remove useless branches"
+
+- **Backup first:** `C:\Users\hyada\telegraph-backups\branches-2026-10-29.bundle` (`--all`, verified; every one of
+  the 18 refs in `refs-2026-10-29.txt` is in it at its old commit). Restore a branch with
+  `git fetch <bundle> refs/heads/<name>:refs/heads/<name>`.
+- **Merged into `codex/rank1-14-intents`:**
+  - `main` (`b5bc712`): 63 scheduled score commits plus c90e4b9. The tree is unchanged; this branch already had
+    `uptime.yml` byte for byte, and its academic deploy check supersedes main's.
+  - `claude/miner-s2-conformance` (`db17364`): the G200 RESEARCH_QUERY qualifier fix. **Not deployed.**
+  - `claude/wasm-track-2-quality-e21db3` (`0684fa1`): comparators, pair generators, adapter recipe, `SIGN_S2.md`.
+    The track2 ledgers keep G28–G32 under the V2 entry and G33; Season I log dropped.
+- **Verified:** unit tests 822/822 (was 816; +6 qualifier tests) and `tsc --noEmit` clean, on `0684fa1` in worktree
+  `gallant-allen-3589e4`. Not run on Vercel; nothing deployed.
+- **Deleted, all contained in codex or patch-equivalent:**
+  - `claude/g208-intent-swap`, `claude/miner-s2-conformance`, `claude/wasm-track-2-quality-e21db3`,
+    `claude/miner-s2-improve`;
+  - the five branches parked at c90e4b9 (`morse-repair-dbb423`, `miner-improvements-0de1a5`,
+    `project-improvement-strategy-5ff8d8`, `winners-github-repo-88c231`, `youthful-nightingale-1c5936`).
+  - Their idle sessions' clean worktrees were **detached, not removed**: project-improvement-strategy,
+    morse-repair, youthful-nightingale and wasm-track-2-quality. Archiving those sessions removes the folders.
+- **Kept:**
+  - `claude/licensed-sources` (owner decision, TASKS);
+  - `claude/hackathon-rules-docs-update-0eb075` (the live session's worktree);
+  - `claude/gallant-allen-3589e4` (this session's worktree).
+  - Local `main` was fast-forwarded to codex. **origin/main is untouched:** updating it needs a PR and the owner's
+    yes.
+- **licensed-sources, trial merge then aborted:** 5 conflicts, 3 in code. Each side added something the other
+  lacks:
+  - `handler.ts`: receipts against the `licensing` field;
+  - `currency.ts`: the 10-minute ECB hold against the Frankfurter fallback;
+  - `geo.ts`: `noteRead` against `permitted`.
+
+  Merging it makes `/stock-price`, `/headlines` and `/news-search` refuse every request. It bars GeckoTerminal,
+  which `/token-holders` still falls back to, as well as ip-api, ipwho.is, IPinfo, Yahoo, Nasdaq, CoinGecko,
+  Google News and Manifold.
+- **Not done, owner's call:**
+  - delete remote `origin/codex/livecert-manifest-19` (Season I);
+  - remove the 3 detached deploy worktrees in `C:\Users\hyada\tg-deploy\` (check node_modules links first);
+  - archive the idle sessions above.
+
+## 2026-10-29 ~17:00 UTC (22:30 IST): Season II rules re-read; V2 docs moved to anjoman.ai; docs updated
 
 Owner: "new hackathon has appeared. update the rules what is required. https://anjoman.ai/ new website as well.
 update all the documentation. remove non useful things"

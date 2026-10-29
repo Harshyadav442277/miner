@@ -13,8 +13,16 @@ commit.
       methods (G218).
 - [ ] Send the organisers the two questions in WINNING.md §8: the grace-period reset (G206, G220) and the
       payment terms (G218).
-- [ ] Say yes to pushing `codex/rank1-14-intents` (13 commits ahead of origin on 2026-10-29). Reviewers
-      reproduce from the public repo. Also close the stale uptime issue #13.
+- [ ] Say yes to pushing `codex/rank1-14-intents`, about 100 commits ahead of origin on 2026-10-29 after the
+      branch merges. Reviewers reproduce from the public repo. Also close the stale uptime issue #13. Updating
+      origin/main to it needs a PR.
+- [ ] `claude/licensed-sources`: merge or drop? Merging makes `/stock-price`, `/headlines` and `/news-search`
+      refuse every request. It stops calling ip-api, ipwho.is, IPinfo, CoinGecko/GeckoTerminal, Yahoo, Nasdaq,
+      Google News and Manifold, and adds a licence ledger at `/sources`. It conflicts with receipts, the ECB
+      hold and geo read-notes, so a yes means an integration pass plus tests (MEMORY 2026-10-29 17:30).
+- [ ] Archive the idle sessions whose worktrees were detached on 2026-10-29: project improvement strategy,
+      Morse repair, miner improvements, high quality wasm. Delete remote `origin/codex/livecert-manifest-19`?
+      Remove the 3 detached worktrees in `C:\Users\hyada\tg-deploy\`?
 - [ ] Deploy the G217 holder fixes (`af568e1`), committed and tested, not deployed: use the release-miner skill,
       preview first.
 - [ ] G217: create a free Blockscout Pro API key at dev.blockscout.com, read its terms, and put it in
@@ -40,8 +48,8 @@ commit.
       §8, Nov 1–13). It earns coverage (15) and is the first delivery-award criterion.
 - [ ] G207: timeless web search quotes the wrong Wikipedia article (Pride and Prejudice → the zombie film).
       WEB_SEARCH is bought by 7 missions.
-- [ ] RESEARCH_QUERY: require the qualifier as well as the entity in trials and papers (G200, 3 of 4 failed),
-      or answer `not_served`.
+- [ ] Deploy the RESEARCH_QUERY qualifier fix (G200, merged 2026-10-29, unit 822/822) with the G217 holder
+      fixes on the owner's yes: release-miner skill, preview first.
 - [ ] The G200 partials, smallest first: NXDOMAIN wording (SSL, URL_SAFE), the threshold answer for
       "will X reach N°C", product-level FINANCIAL questions.
 - [ ] RESEARCH_SYNTHESIS: non-biomedical topics. Synthesis reads only Europe PMC and PubMed, plus two
