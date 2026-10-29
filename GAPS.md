@@ -247,6 +247,12 @@ label); Cape Town's was already fixed by the undeployed places table. **None dep
 
 - **G200 — Fails and partials NOT fixed. `OPEN`.** Recommendation for each: fix, not drop — every one is a
   retrieval or reading defect, and each intent passed its in-scope questions otherwise.
+  - **UPDATE 2026-10-26: RESEARCH_QUERY fixed on branch claude/miner-s2-conformance, NOT deployed.**
+    - All three audit fails are now right: Nivolumab's bladder trial, the creatine-and-cognition review, and
+      Pakistan declined as a political decision.
+    - Replay of the 99 routed questions: 47 leads changed, mostly to the trial or paper on the thing asked, or
+      to an honest "no evidence". Four are still weak.
+    - Evidence: `track1-miner/docs/evidence/research-g200-2026-10-26/`.
   - RESEARCH_QUERY, 3 of 4 fail: the subject collapses to one entity and drops the qualifier, so
     "Nivolumab … bladder cancer" got a head-and-neck trial, "Pakistan sanction Iran" a root-canal trial in
     Iran, and "creatine and cognition" a beetroot-juice review. Needs: require trials and papers to name the
