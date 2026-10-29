@@ -5,10 +5,8 @@ Evaluator rules are now published ([RULES_SEASON2.md](../../RULES_SEASON2.md)). 
 and measured quality is 35 of 100 points, so "Leaderboard rank is not a goal" below no longer holds. This
 file keeps the intent portfolio and the build history.
 
-Written 2026-10-11. Season II runs **1 Nov – 1 Dec 2026**: register before 1 Nov, pick intents
-Nov 1–7, office hours Nov 15–21, submission and judging Nov 22 – Dec 1
-(hackathon.telegraphprotocol.com/timeline, fetched 2026-10-10). The /rules page read 2026-10-22 says
-final submission is Dec 20 23:59 UTC instead (G203).
+Written 2026-10-11. Dates as of 2026-10-29 ([RULES_SEASON2.md](../../RULES_SEASON2.md)): Season II
+opens Nov 1 00:00 UTC and closes **Dec 1 23:59 UTC** for every track; judging runs Dec 2–8.
 
 ## The goal, as the owner set it (2026-10-11)
 

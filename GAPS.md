@@ -1,5 +1,25 @@
 # GAPS.md — honesty ledger
 
+## 2026-10-29 rules re-read and the V2 docs on anjoman.ai — G218–G220; G203 closed; G208, G212 updated
+
+Sources: hackathon.telegraphprotocol.com (/, /rules with every track tab, /timeline, /build, /intents) and
+anjoman.ai/docs, read 2026-10-29 ~16:30–16:47 UTC. Recorded in `RULES_SEASON2.md` and TELEGRAPH_FACTS (top
+section).
+
+- **G218 — The prize-payment terms are not yet published. `OPEN, owner checks before Nov 1`.** /rules: eligible
+  countries, identity and tax checks, payout methods "(including any wallet option)" and timing are "governed by
+  the official prize-payment terms. Those terms must be available before the competition opens." No such page
+  is linked from /, /rules or /build (2026-10-29). Unknown: whether India is eligible and how a prize is paid.
+- **G219 — Anjoman and the miner docs disagree on what a miner is paid in. `OPEN, low stakes`.** Anjoman's Earn
+  page says "Each answer it returns is paid in USDC". The V2 miner docs say the USDC is swapped to MACHINA over
+  24 h and sent to the fee address, with a 100 USDC settlement minimum. Prizes do not depend on it. Earnings
+  claims in the submission do (§05: claim earnings only "when the network records support them").
+- **G220 — The V2 import changed 4829's `registered_at`. `OPEN, part of the G206 question`.** Devnode
+  `/api/miners/4829` reports `registered_at` 2026-10-25T00:48:49Z (checked 2026-10-29 16:47 UTC). The activation
+  was 2026-10-16. The overview page dates the grace period "after registration", and the registration page "after
+  activation". If the import counts, the grace period runs to about 2026-11-01 00:49 UTC, the first hour of the
+  event. Not verified; included in the question to the organisers (WINNING.md §8).
+
 ## 2026-10-26 G208 intent-swap draft — G212–G215
 
 Evidence: `track1-miner/docs/evidence/g208-intent-swap-2026-10-26/`. Branch `claude/g208-intent-swap`; not deployed,
@@ -15,6 +35,8 @@ pushed or signed.
     address can update it (TELEGRAPH_FACTS).
   - Unknown: whether the console can update an EOA-owned registration, and whether any keyless validator remains.
   - Until answered, hard rule 3 (sandbox first) is met only by the owner signing in to the console.
+  - **Re-checked 2026-10-29 16:45 UTC:** still an HTML 404. The V2 registration page (updated 2026-10-27) still
+    documents the endpoint.
 - **G217 — TOKEN_HOLDER_COUNT, a registered intent, fails on Base, Arbitrum and Polygon. `INVESTIGATED 2026-10-27;
   verdict and table fixes COMMITTED, NOT DEPLOYED; source change waits on the owner (Blockscout Pro key)`.** Full record: `track1-miner/docs/evidence/g217-holder-sources-2026-10-27/`.
   - **From Vercel's egress** (production receipts): `base`, `arbitrum` and `polygon.blockscout.com` return **HTTP
@@ -78,7 +100,10 @@ pushed or signed.
 
 Evidence: `track1-miner/docs/evidence/conformance-2026-10-25/` (README, `site-intents.json`, `latency.txt`).
 
-- **G208 — 23 of our 36 intents are not on the hackathon site's Intents page. `OPEN: asked 2026-10-25, Ahmed: "let us check"`.**
+- **G208 — 23 of our 36 intents are not on the hackathon site's Intents page. `CLOSED 2026-10-29 by the site`.**
+  The /intents page now lists 134 intents, and all 36 of our families are among them. That was checked by script
+  against the page text, 36/36, at 2026-10-29 ~16:50 UTC. Ahmed's "let us check" no longer matters. The record
+  below is the 2026-10-25 state.
   The answer is pending (TELEGRAPH_FACTS item 11). Nothing is re-registered until it comes back.
   - The page lists 93 intents. Ours that are missing include WEB_SEARCH, FACT_CHECK, FINANCIAL_DATA,
     CONTENT_EXTRACTION and WEATHER_CHECK, though mission pages name them.
@@ -129,8 +154,10 @@ The Miner and Evaluator rubrics are now on hackathon.telegraphprotocol.com/rules
 They are recorded in `RULES_SEASON2.md`; the strategy built on them is in `WINNING.md`. G200–G202 are on
 branch `claude/correctness-audit-2026-10-21`, not yet merged here.
 
-- **G203 — The organiser's pages disagree. `OPEN, ask the organisers`.** All read 2026-10-22; the table is in
-  `RULES_SEASON2.md`.
+- **G203 — The organiser's pages disagree. `CLOSED 2026-10-29`.** /rules, /timeline and the home page now agree:
+  the deadline is Dec 1 23:59 UTC and the prize pool is $10,000 ($7,000 main, plus $3,000 for separate December
+  challenges). /judging returns 404. Only the track numbering still differs between pages, and it costs
+  nothing. The 2026-10-22 state follows. All read 2026-10-22; the table was in `RULES_SEASON2.md`.
   - Deadline: /rules says Nov 1 – Dec 20 with final submission **Dec 20 23:59 UTC**; /timeline and the home
     page say 1 Nov – 1 Dec.
   - Prize pool: /rules says $10,000; the home page says $15,000.
@@ -138,7 +165,9 @@ branch `claude/correctness-audit-2026-10-21`, not yet merged here.
   - /judging carries an older Apps rubric.
   - We plan to 1 Dec 23:59 UTC and the /rules prizes until the organisers confirm in writing. The message is
     drafted in WINNING.md §8.
-- **G206 — Does `updateMiner` restart the 7-day grace period? `OPEN; asked again 2026-10-25, not answered`.** The same
+- **G206 — Does `updateMiner` restart the 7-day grace period? `OPEN; asked again 2026-10-25, not answered`.** The
+  Oct 24 Option A window passed unsigned, so 4829 is frozen for the season unless this is answered. The V2 import
+  may itself have reset the date (G220). The same
   reply settled that miners carry over to v2 unchanged (TELEGRAPH_FACTS item 10), so the v2 migration itself costs
   registration 4829 nothing. Only a voluntary update still carries this risk. The
   miner docs give a 7-day grace period "after activation": no leaderboard, and a shared 5% of routed

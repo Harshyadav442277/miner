@@ -2,7 +2,8 @@
 
 **Goal (Season II Evaluators track):** scorers that measure an intent's answers better than the incumbent —
 by what an answer asserts, not by how it is worded — so stronger measurement replaces weaker. Rules:
-[../RULES_SEASON2.md](../RULES_SEASON2.md) (the Evaluator rubric was published by 2026-10-22). Goal file:
+[../RULES_SEASON2.md](../RULES_SEASON2.md) (re-read 2026-10-29; deadline Dec 1 23:59 UTC). Protocol V2: only
+float WASM adapters, registered per family; see [README.md](README.md). Goal file:
 [../WINNING.md](../WINNING.md). Nothing here may break the miner in `../track1-miner`, which shares this repo.
 
 ## Docs — read at session start
@@ -21,6 +22,4 @@ by what an answer asserts, not by how it is worded — so stronger measurement r
    computes it (ARCHITECTURE A2). Never hand-write a candidate answer while reading its ground truth.
 4. **No calibration wrappers.** A monotone map on someone else's binary changes no ordering and improves
    nothing; Season I proved it wins slots, which is why it is not quality.
-5. `calibration/dist/text_authenticity_v2.wasm` is registration 1882's on-chain artifact (Season I). Never
-   edit or delete it while that registration is active; it can go once devnode retires it.
-6. Boring, explicit code. Files under ~300 lines. Commit messages describe the change and nothing else.
+5. Boring, explicit code. Files under ~300 lines. Commit messages describe the change and nothing else.

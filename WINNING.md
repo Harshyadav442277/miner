@@ -1,17 +1,16 @@
 # WINNING.md — the goal: win Season II in the Miner and Evaluator tracks
 
-Written 2026-10-22 ~17:10 UTC (22:40 IST). This is the goal file. Every plan, task and review in this repo
-answers to it. Rules: [RULES_SEASON2.md](RULES_SEASON2.md), read from the organiser's site today. Season I
-post-mortem: [track1-miner/docs/S1_LESSONS.md](track1-miner/docs/S1_LESSONS.md).
+Written 2026-10-22 ~17:10 UTC (22:40 IST); dates, prizes and protocol facts re-checked 2026-10-29. This is the
+goal file. Every plan, task and review in this repo answers to it. Rules: [RULES_SEASON2.md](RULES_SEASON2.md).
+Season I post-mortem: [track1-miner/docs/S1_LESSONS.md](track1-miner/docs/S1_LESSONS.md).
 
 **Track names.** This repo calls the miner **Track 1** (`track1-miner/`, LiveCert, registration 4829) and
-the evaluators **Track 2** (`track2/`). The organiser numbers them 02 Miners / Providers and 03 Evaluators.
-We do not enter 01 Apps & Agents (but see A4).
+the evaluators **Track 2** (`track2/`). /rules numbers them 02 Miners / Providers and 03 Evaluators; the home
+and /tracks pages number them 01 and 02. We do not enter Apps & Agents (but see A4).
 
 ## 1. What "win" means, in prize terms
 
-A group can take **one verified-delivery award and one excellence award per technical track**, and at most
-one award per December category.
+A group can take **one verified-delivery award and one excellence award per technical track**.
 
 | Target | Prize | How it is decided |
 |---|---:|---|
@@ -19,20 +18,19 @@ one award per December category.
 | Miners: a verified-delivery award | $300 | most distinct commercial missions enabled, then app workflows enabled, then missing mission-critical intents addressed, then quality |
 | Evaluators: excellence 1st | $500 | highest total out of 100 |
 | Evaluators: a verified-delivery award | $300 | same order as Miners |
-| December technical outcome | $500 | reusable Provider or Evaluator capability that unblocks apps |
-| December adoption | $500 | independently confirmed downstream use |
 
-**Ceiling: $2,600.** Nothing pays unless the entry scores **≥ 70/100** and clears the track minimum:
-Miner quality ≥ 24/35, Evaluator validity ≥ 28/40.
+**Main-competition ceiling: $1,600.** Nothing pays unless the entry scores **≥ 70/100** and clears the track
+minimum: Miner quality ≥ 24/35, Evaluator validity ≥ 28/40.
 
-**Prize pool:** /rules says $10,000 with the split above. The home page still says "$15,000 USD". We plan to
-/rules (G203). Our track numbering matches the /tracks page: 01 Miners, 02 Evaluators.
+**December challenges ($3,000, separate).** These are 4 × $500 for new mission results and technical work, and
+2 × $500 for adoption. They are separate challenges, announced after Dec 1, each with its own rules, evidence and
+deadline. Entering H2 does not enter us in them, and a result already paid cannot be paid again. Up to $1,000
+more is possible (one award per category), but nothing about them is published yet.
 
 **The dated, exactly-what-to-do checklist is §8.**
 
-**Deadline:** the two organiser pages disagree. /timeline says submissions close 1 Dec; /rules says
-**Dec 20 23:59 UTC**. We plan to **1 Dec 23:59 UTC (2 Dec 05:29 IST)** and treat Dec 20 as slack, until
-the organisers confirm in writing (G203).
+**Deadline: Dec 1 2026 23:59 UTC (Dec 2 05:29 IST), for every track.** /rules, /timeline and the home page
+agree since the 2026-10-29 read (G203 closed). Judging runs Dec 2–8, and provisional results come from Dec 9.
 
 ## 2. Where we stand — checked 2026-10-22 16:50 UTC unless noted
 
@@ -106,8 +104,8 @@ ground most competitors ignore.
 | A4 | **Related-party consumption evidence, which the rules allow and cap.** A small H2 mission workflow of our own, for example in Morse, can earn the own-team point (1), repeated use (2), ranked routing (2) and accounting (2): **up to 7 of the 10 consumption points** without waiting for outside adoption. | Most miners will reach December with zero consumption evidence. These points are open to anyone who builds the evidence chain. | **The owner decides (G204).** Folder override 2 says nothing we control counts as a user or as volume. It is labelled related-party, never as users or demand, and never as raw volume (worth 0 points anyway). |
 | A5 | **Run the reviewers' test before they do.** Every week: the audit questions, hostile inputs and parameter shapes, against production. Publish the result. | Reviewers use "realistic unseen inputs [and] relevant error cases". We will have fixed what they would find, with dated evidence. The weekly result is also the weekly X update the rules ask for, so we pay once and get both. | Publish failures too. An audit that only reports passes is fabricated proof. |
 | A6 | **Fill mission-critical gaps nobody serves correctly.** Every mission intent has 9–56 registered miners (`/engine/v1/intents`, 2026-10-22), but registered is not correct: ChainSight answered "Unable to process" to sanctions and macro questions on 2026-10-11. | Delivery tie-break 3 counts "independently verified missing mission-critical Intent needs addressed". Proving a gap with fixtures also serves Track 2's coverage. | A claim of a "gap" needs side-by-side fixtures against the primary source, not a miner count. |
-| A7 | **Aim at the December pool, the largest single pool ($3,000).** It rewards "reusable Provider, Evaluator, or integration capabilities that demonstrably unblock substantive applications", and November work counts. | Our per-mission integration recipes, the comparators and the open evaluation material are exactly that, and they already exist. | Each artifact can be paid only once. Each must show an application it unblocks. |
-| A8 | **Be up every hour from Nov 1, and prove it.** | Reliability is 20 points, more than coverage. Most hobby miners keep no availability record. Validators also spot-check liveness about every 20 s, and consecutive empty answers revoke routing for that intent until the next epoch (docs). | The uptime workflow has been off since 2026-10-01 at the owner's request. It needs the owner's yes to resume (G205). |
+| A7 | **Keep the December challenges in reach.** Since 2026-10-29 they are separate challenges, announced after Dec 1 ($3,000). One category rewards "reusable Provider, Evaluator, and integration work that helps applications run". | Our per-mission integration recipes, the comparators and the open evaluation material fit that category. "Earlier H2 work may be a starting point." | Each needs "its own qualifying submission and a distinct verified result". Nothing is paid twice. Plan nothing on them until their rules are out. |
+| A8 | **Be up every hour from Nov 1, and prove it.** | Reliability is 20 points, more than coverage. Most hobby miners keep no availability record. Validators spot-check liveness about once an hour per intent at random times (V2 docs, 2026-10-27), and consecutive empty answers revoke routing for that intent until the next epoch. | The uptime workflow has been off since 2026-10-01 at the owner's request. It needs the owner's yes to resume (G205). |
 
 ## 5. What to improve, in order of points at stake
 
@@ -219,49 +217,40 @@ spent are not an argument.
 
 ## 8. Exactly what we must do, by date
 
-Taken from /rules §05, §08 and §09 and the miner docs, read 2026-10-22. All times are UTC.
+Taken from /rules §03, §05, §08 and §09 and the V2 docs, re-read 2026-10-29. All times are UTC.
 - **Owner:** registering, signing, posting and anything sent in the owner's name.
 - **Claude:** the rest, each on the owner's yes where noted.
 
-### Now to Oct 24
+**Done since 2026-10-22:** the audit fixes and the places table are on production (2026-10-23); the G208
+routes went live 2026-10-26 and G213 on 2026-10-27; registration 4829 carried over to V2 (TELEGRAPH_FACTS
+item 10). The Oct 24 `updateMiner` window (Option A) passed unsigned. The recommendation therefore falls back to
+Option B: 4829 stays frozen for the season, fixes ship as code deploys, and unlicensed sources answer
+`not_licensed`. The owner can override this once G206 is answered.
 
-- [ ] **Owner: register for Season II** on the site with `harsh.2024a@vitstudent.ac.in`. It is the "Register
-      for Season II" button; one registration covers all three tracks.
-- [ ] **Owner: send the organisers the message below** on Discord (discord.gg/telegraphprotocol).
-- [ ] **Owner: choose when the next `updateMiner` happens (G206).** Every update issues a new
-      `registrationId`, and the first 7 days "after activation" are a grace period off the leaderboard,
-      sharing 5% of routed traffic. If that restarts, an update made in November costs a week of 70/20/10
-      routing while apps are buying.
-  - **Option A: sign by Oct 24 23:59 UTC**, so any new grace period ends by Oct 31. It carries:
-    - the §6 intent cuts;
-    - the weather claims MET cannot meet (G195);
-    - the Google News naming;
-    - rewritten endpoint descriptions.
+### Before Nov 1 00:00 UTC (Nov 1 05:30 IST)
 
-    Do it only if the sandbox validation is green by Oct 24 12:00 UTC.
-  - **Option B: freeze registration 4829 for the season.** All fixes ship as code deploys, which do not
-    touch the registration. Unlicensed sources answer `not_licensed`.
-  - **Recommendation:** A if it is validated in time, otherwise B. Make no `updateMiner` during Nov 1 –
-    Dec 1 unless the organisers confirm the grace period does not restart.
-- [ ] **Claude, on the owner's yes:** deploy the audit branch (22 fixes, including G201) and the places
-      table. Steps: preview, gates, production, `preflight.mjs`. This is code only; the registration is
-      unchanged.
-- [ ] **Owner:** yes to push `codex/rank1-14-intents`. Reviewers reproduce from the public repo, and Option A
-      pins the YAML to a pushed commit.
-
-### Oct 25 – Oct 31
-
-- [ ] **Claude: a mission × intent matrix**, with one reproducible test fixture for each mission our intents
-      enable. That is coverage (15) and the first delivery-award criterion.
-- [ ] **Claude: close G200**, or remove RESEARCH_QUERY: in the update under Option A, or as `not_served`
-      under Option B.
+- [ ] **Owner: register for Season II** on the site with `harsh.2024a@vitstudent.ac.in`, if not already done.
+      It is the "Register for Season II" button; one registration covers all three tracks.
+- [ ] **Owner: read the prize-payment terms** once they appear. /rules says they "must be available before the
+      competition opens". Check that India is an eligible country and which payout methods exist (G218).
+- [ ] **Owner: send the organisers the message below** on Discord (discord.gg/telegraphprotocol). Only the
+      grace-period question is still open.
+- [ ] **Owner: yes to push `codex/rank1-14-intents`.** Reviewers reproduce from the public repo.
 - [ ] **Owner yes, then Claude: an availability record from Nov 1 (G205)**, plus one capacity test at a
       stated concurrency.
-- [ ] **Track 2:**
-  - retrain the adapter and prove it in the node runtime (`verify_wide`);
-  - register the 31 comparators the day `/api/evalpool/status` answers (owner signs; `track2/SIGN_S2.md`).
+- [ ] **No `updateMiner` during Nov 1 – Dec 1** unless the organisers confirm the grace period does not
+      restart (G206). Devnode shows 4829 `registered_at` 2026-10-25 00:48 UTC, the V2 import (G220).
 
-### Nov 1 – 7 (pick intents, start in public)
+### Nov 1 – 13 (pick intents, build)
+
+- [ ] **Claude: a mission × intent matrix**, with one reproducible test fixture for each mission our intents
+      enable. It earns coverage (15) and is the first delivery-award criterion.
+- [ ] **Claude: close G200**, or answer RESEARCH_QUERY as `not_served`.
+- [ ] **Track 2, on V2:** float model adapters registered per family with `registerWasm(hash, url, prefix,
+      feeAddress, runnableUrl)`; the older formats are refused. Read the V2 scoring pages first. The
+      comparators and the adapter must be re-checked against them before any registration.
+
+### Nov 1 – 7 (start in public)
 
 - [ ] **Owner: post an "at the start" update** tagging Telegraph: the miner, the evaluators, the intents we
       serve, and how an app gets our answers.
@@ -274,15 +263,16 @@ Taken from /rules §05, §08 and §09 and the miner docs, read 2026-10-22. All t
 - [ ] **Claude:** the audit re-run, the availability log, a fix for every failure found, and the replay of
       real routed questions ("Miners tune against real requests coming off real builds").
 
-### Nov 15 – 21 office hours; Nov 20 community showcase
+### Nov 15 – 23 build and integrate; Nov 20 community showcase
 
 - [ ] Bring the per-mission recipes to app teams, and ask on Discord which intents their builds buy.
       Independent consuming groups are worth up to 3 of the consumption points.
 - [ ] Show a milestone at the Nov 20 showcase: a verified quality gain or a registered comparator.
 
-### Submission. Planned for 1 Dec 23:59 UTC (2 Dec 05:29 IST); the official rules say Dec 20
+### Submission: Dec 1 23:59 UTC (Dec 2 05:29 IST), every track
 
-Make one submission per track on the H2 website. Each holds the six items /rules §08 lists.
+Make one submission per track on the H2 website; entering several tracks is allowed when each entry is a
+distinct contribution. Each holds the six items /rules §08 lists.
 
 | Item | Miner entry (LiveCert) | Evaluator entry |
 |---|---|---|
@@ -298,20 +288,23 @@ Make one submission per track on the H2 website. Each holds the six items /rules
 
 ### Message for the organisers (owner sends; not sent)
 
-> Hi team. Four questions on the Season II rules before Nov 1:
-> 1. /rules says final submission is Dec 20 23:59 UTC, but /timeline and the home page say 1 Nov – 1 Dec.
->    Which deadline applies to Miner and Evaluator submissions?
-> 2. The home page says the prize pool is $15,000, while /rules says $10,000. Which is current?
-> 3. Does `updateMiner` on an active miner (new registrationId) restart the 7-day grace period?
-> 4. We are entering both the Miner and the Evaluator tracks with related work. Is one H2 registration
->    and one submission per track the right way to do it?
+The deadline, the prize-pool and the two-track questions were answered by the 2026-10-29 /rules text, so
+they are cut. Two questions remain:
+
+> Hi team, two questions before Nov 1:
+> 1. Does `updateMiner` on an active miner (new registrationId) restart the 7-day grace period? Devnode now
+>    shows our registration 4829 with `registered_at` 2026-10-25 00:48 UTC, the V2 import. Did the import
+>    restart it?
+> 2. Where are the prize-payment terms (eligible countries, payout methods)? /rules says they will be
+>    available before the competition opens.
 
 ## 9. Several prizes, and the intent question (decided 2026-10-23)
 
 ### The prize stack and what decides each prize
 
-Per track we can take one delivery award and one excellence award. In December we can take one technical
-award and one adoption award. That makes **six prizes, $2,600**.
+Per track we can take one delivery award and one excellence award: **four prizes, $1,600, in the main
+competition.** The two December rows below belong to separate challenges announced after Dec 1, with their own
+rules (re-read 2026-10-29). They are listed so the work is not lost, not as Season II prizes.
 
 | Prize | What decides it | Where we stand, 2026-10-23 | What we do |
 |---|---|---|---|

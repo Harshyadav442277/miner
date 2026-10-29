@@ -60,8 +60,9 @@ One registration (4829) serves 36 intents on 35 endpoints from one deployment.
 
 ## A5 — Reliability is the product
 
-- **Validators spot-check liveness about every 20 seconds.** Consecutive empty answers revoke routing for
-  that intent until the next epoch. Reliability is 20 of the Miner's 100 points.
+- **Validators spot-check liveness about once an hour per intent, at random times** (V2 docs, 2026-10-27).
+  Consecutive empty answers revoke routing for that intent until the next epoch. Reliability is 20 of the
+  Miner's 100 points.
 - **Keep load off rate-limited upstreams:** cache briefly, answer common places from the built-in Wikidata
   table before Nominatim, and run fallbacks within the request watchdog.
 - **Declare real upstream limits** in `limitations[]` with `property: rate`, so the node refuses calls we

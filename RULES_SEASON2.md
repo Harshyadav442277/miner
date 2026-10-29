@@ -1,61 +1,52 @@
-# Telegraph Hackathon Season II — rules as published
+# Telegraph Hackathon Season II (H2) — rules as published
 
-**Primary source:** https://hackathon.telegraphprotocol.com/rules ("Official Competition Rules"), read
-2026-10-22 16:47 UTC with curl and a browser user-agent. The Miner and Evaluator tabs of sections 5–8 are
-rendered by script: their text was read from the page's own bundle,
-`/_next/static/chunks/app/(s2)/rules/page-ece4e8abc17f7fe1.js`. Text here is quoted or closely paraphrased.
-Nothing is inferred. The earlier read (2026-10-17) found the Miner and Evaluator rules unpublished; they are
-now published.
+**Primary source:** https://hackathon.telegraphprotocol.com/rules ("Official Competition Rules"). Read
+**2026-10-29 ~16:45 UTC** in the browser pane, with each track tab selected in turn, because the Miner and
+Evaluator text only renders after a tab click. The text here is quoted or closely paraphrased, and nothing
+is inferred. This read replaces the 2026-10-22 read, which is in git history.
 
-The organiser numbers the tracks 01 Apps & Agents, 02 Miners / Providers and 03 Evaluators. This repo calls
-the miner "Track 1" (`track1-miner/`) and the evaluators "Track 2" (`track2/`).
+**Protocol docs:** the V2 docs, updated 2026-10-27, are served at **https://anjoman.ai/docs** and at
+https://docs.telegraphprotocol.com. Both hosts serve the same text, and the second also serves raw Markdown
+(`/docs/<page>.md`). The hackathon site still links the second. Anjoman (https://anjoman.ai, "Don't choose the
+AI. Choose the outcome.") is Telegraph's consumer front end. Its dashboard (Earn, Eval, Validate, Jobs; Train
+"SOON") needs a sign-in, and that sign-in is the owner's.
 
-## The organiser's pages disagree (all read 2026-10-22)
+The organiser's track numbers differ between pages. /rules has 01 Apps & Agents, 02 Miners / Providers and
+03 Evaluators. The home, /tracks and /build pages have 01 Miners, 02 Evaluators and 03 Apps & Agents. This
+repo calls the miner "Track 1" (`track1-miner/`) and the evaluators "Track 2" (`track2/`).
 
-| Item | /rules ("Official Competition Rules") | Other pages |
+## What changed since the 2026-10-22 read
+
+| Item | 2026-10-22 | 2026-10-29 |
 |---|---|---|
-| Prize pool | $10,000 | Home page: "Prize pool $15,000 USD". /judging: $10,000, "split … will be announced" |
-| Window | November 1 – December 20 | Home and /timeline: 1 Nov – 1 Dec, "30 days" |
-| Track numbers | 01 Apps & Agents, 02 Miners / Providers, 03 Evaluators | /tracks and /build: 01 Miners, 02 Evaluators, 03 Apps & Agents (this matches our numbering) |
-| Apps judging | 35 / 30 / 15 adoption / 10 / 10 | /judging: 35 / 30 / 20 transaction volume / 10 / 5 novelty, and still says Miner and Evaluator rules "will be published separately" |
+| Final deadline | /rules said Dec 20; /timeline said 1 Dec | **All pages: Dec 1, 2026 23:59 UTC** |
+| Judging, results | Dec 21–27; results from Dec 28 | **Dec 2–8 (planned); provisional results from Dec 9**, then a 72-hour appeal window |
+| Prize pool | /rules $10,000; home $15,000 | **$10,000 everywhere: $7,000 main competition + $3,000 reserved for separate December challenges** |
+| December awards | part of Season II | **Separate challenges** with their own rules and deadlines, announced after Dec 1. "They do not extend Season II." |
+| /judging page | older Apps rubric | **404**: removed |
+| Starting early | not stated | Allowed. "H2-specific activity and transaction evidence must come from the event period." |
+| Entering several tracks | not stated | Allowed, "as long as each entry is a real, distinct contribution" |
+| Miner consumption points | as below | Same 4/2/2/2. Adds: "Direct requests don't earn ranked-routing points", but can earn use, repeat-use and accounting points |
 
-We follow /rules, the only page that calls itself the official rules, and ask the organisers about the rest
-(G203). Registration is a button on the site ("Register for Season II"): one registration covers all three
-tracks. The only external link the site gives is discord.gg/telegraphprotocol.
+The rubric weights, minimums and award counts are unchanged.
 
-## Network rewards, routing and liveness — docs.telegraphprotocol.com (read 2026-10-22)
+## Dates (all UTC; IST is UTC+5:30)
 
-Sources: `/docs/miners/miner-overview.md` and `/docs/miners/miner-registration.md`.
+| Date | What |
+|---|---|
+| Before Nov 1 | Register once on the H2 site ("Register for Season II"). It covers all three tracks |
+| **Nov 1 00:00** | Season II opens (Nov 1 05:30 IST) |
+| Nov 1–13 | Miners and Evaluators pick the Intents they will serve or score |
+| Nov 14 | First Integration Milestone, **Apps & Agents only**. A progress check, "not a submission deadline or a disqualification rule" |
+| Nov 15–23 | Build and integrate. "Miners tune against real requests coming off real builds" |
+| Nov 20 | Community showcase |
+| Final week (Nov 24 – Dec 1) | Anjoman hands-on community session; details to come through official channels |
+| **Dec 1 23:59** | **Season II closes for all three tracks** (Dec 2 05:29 IST) |
+| Dec 2–8 (planned) | Verification and judging |
+| From Dec 9 (planned) | Provisional results; 72 hours from each individual notice to appeal a factual error |
+| After Dec 1 | Separate December challenges (the reserved $3,000) |
 
-- **Miners "earn exclusively from demand — not from protocol emissions".** The agent pays in USDC; 2% goes
-  to the treasury, and 98% is swapped to MACHINA over 24 hours and sent to the fee address. Earnings per
-  request are `min_price_usdc × demand_multiplier × 0.98`. The multiplier runs from 1.0× (under 1,000
-  requests a day for the intent) to 10.0× (over 1,000,000).
-- **Routing** is weighted by leaderboard position: the top-ranked miner gets 70% of routed requests, second
-  20%, third 10%. Fourth place and below get none. Position is the Canonical Score, "the stake-weighted
-  median of all Validator Local Scores".
-- **Grace period:** for 7 days "after activation" a miner is off the leaderboard. All grace-period miners
-  share 5% of routed traffic. `updateMiner` "deregisters the old entry and registers the new one
-  atomically", with a new `registrationId`. **The docs do not say whether that restarts the grace period**
-  (G206).
-- **Liveness spot checks** run about every 20 seconds and test liveness, not quality: any non-empty answer
-  passes. Consecutive failures on an intent trigger a **Routing Revocation**: no traffic for that intent
-  until the next epoch tournament re-scores the miner.
-- **Evaluators:** `registerWasm(wasmHash, wasmUrl, intent, feeAddress)` costs gas only, and MACHINA earnings
-  go to `feeAddress`. Evaluation-pool uploads are signed and "every row is credited to the address that"
-  signed it.
-
-## Dates — the organiser's two pages disagree
-
-| Source | Window | Final submission |
-|---|---|---|
-| /rules, read 2026-10-22 | November 1 – December 20, 2026 | **Dec 20, 2026 23:59 UTC**; judging Dec 21–27; provisional results from Dec 28, then a 72-hour appeal window |
-| /timeline, read 2026-10-22 | 1 November – 1 December 2026 | "22 Nov – 1 Dec: Submissions close and judging runs" |
-
-Other milestones on /rules: Nov 20 community progress showcase; Dec 1 mission-coverage update; final-week
-Anjoman showcase. Other milestones on /timeline: 1–7 Nov pick a track (miners pick their intents); 8–14 Nov
-apps need one settled transaction; 15–21 Nov office hours ("Miners tune against real requests coming off
-real builds"). **Plan to the earlier date** until the organisers confirm in writing (GAPS G203).
+"Dates may shift if a documented platform issue prevents fair testing."
 
 ## Prizes — $10,000
 
@@ -64,103 +55,185 @@ real builds"). **Plan to the earlier date** until the organisers confirm in writ
 | Apps & Agents $3,000 | 8 verified-delivery awards of $225; excellence $700 / $350 / $150 |
 | **Miners / Providers $2,000** | **4 verified-delivery awards of $300; excellence 1st $500, 2nd $300** |
 | **Evaluators $2,000** | **4 verified-delivery awards of $300; excellence 1st $500, 2nd $300** |
-| December $3,000 | 4 × $500 mission and technical outcomes; 2 × $500 adoption and ecosystem activation |
+| December challenges $3,000 | 4 × $500 for new mission results and useful technical work; 2 × $500 for real adoption and ecosystem activity |
 
-- "A participant may receive one verified-delivery award and one excellence award in the same technical
-  track." Each related entrant group may receive at most one award in each December category.
-- Related wallets, materially identical entries and jointly controlled teams count as one group.
+- "A team can win one delivery award and one excellence award in the same track if it qualifies for both."
+  Each independent group can win at most one delivery award per track.
+- Related wallets, jointly controlled teams and materially identical submissions count as one group.
+- December challenges publish their own entry rules, evidence and deadlines before they open. "Entering the
+  main hackathon does not automatically enter you in a later challenge." A result cannot be paid twice.
+- **Payout:** eligible countries, identity and tax checks, payout methods (a wallet option included) and timing
+  are "governed by the official prize-payment terms. Those terms must be available before the competition
+  opens." Registration alone does not confirm eligibility for a cash prize. GitHub bounties and network
+  earnings are separate from the prizes.
 
-## Gate and rubric
+## What every entry must do (§05), before it is scored
 
-Every entry first passes the technical requirements: functional delivery, Telegraph integration,
-reproducibility on new inputs including failure cases, safety and data handling, and accurate evidence. To
-win any award it needs **at least 70/100 and the track's minimum**. Excellence awards go to the highest
-total; ties go to the primary score, then reproducibility.
+1. Something working: an app, a callable Provider service, or a valid Evaluator contribution.
+2. A real Telegraph integration, with genuine evidence for any claim about registration, requests, rankings,
+   payment, accounting or rewards.
+3. Repeatable results: reviewers try new inputs and reasonable error cases.
+4. Safe handling of permissions, spending limits, errors, private data, keys and confidential evaluation
+   material.
+5. Accurate claims: state the network used and what was verified. "Testnet, production, internal testing,
+   and real customer demand are different things."
 
-**Miners / Providers** (quality minimum 24/35)
+**Miners / Providers:** "Your service must answer real calls for a supported Intent. Judges will check
+correctness, independently measured quality, uptime, capacity, speed, costs, useful Intent coverage, and
+whether it helped H2 mission apps." Each Miner–Intent pair is tested on its own task and against relevant
+same-Intent competition. "Only claim live rankings, routed use, or earnings when the network records support
+them."
+
+**Evaluators:** "Submit an adapter, evaluation material, or both, with a sound, repeatable way to measure
+quality." Where a baseline exists, show a fair comparison; for a new or underserved Intent, show credible new
+tests. "Don't claim Canonical status, a finalized ranking change, or paid material use without network
+evidence. Useful evaluation work can qualify even before live activation."
+
+**Apps & Agents** (they buy our answers): at least one "genuinely autonomous machine-to-machine purchase or
+sale using the supported Telegraph flow". A supported testnet implementation can qualify.
+
+## Rubric (§06): out of 100; a winner needs ≥ 70 and the track minimum
+
+**Miners / Providers**, minimum 24/35 on quality
 
 | Points | Criterion |
 |---:|---|
-| 35 | Independently evaluated intelligence quality |
-| 20 | Reliability, availability, and capacity |
-| 15 | Verified Intent coverage and application enablement |
-| 10 | Verified H2 mission application consumption |
+| 35 | Independently tested intelligence quality |
+| 20 | Reliability, uptime, and capacity |
+| 15 | Useful Intent coverage and apps enabled |
+| 10 | Verified use by H2 mission apps |
 | 10 | Cost, latency, and serving economics |
 | 10 | Integration and documentation |
 
-- "Each claimed Miner–Intent capability is checked separately against its supported task and relevant
-  same-Intent competition."
-- "A Provider can qualify through verified functionality and quality while demand for a newly supported
-  Intent develops."
-- The 15 coverage points recognise "useful Miner–Intent capabilities, especially those enabling commercial
-  missions".
-- **There are "no additional points for raw volume or nominal Intent registrations".**
+The 15 coverage points reward "useful Miner–Intent capabilities, especially ones needed by the 15 missions".
+"Creating lots of Intents or generating meaningless traffic does not earn extra points."
 
-The 10 consumption points are computed once per Provider, across its Miner–Intent pairs:
+The 10 consumption points are awarded once per Provider, across all its Miner–Intent pairs:
 
 | Points | Evidence |
 |---:|---|
-| 4 | Use by an H2 mission application: 1 point, "including an application operated by the Provider's own team". Then 1 point for each independently operated consuming app group, up to 3. |
-| 2 | Repeated use: 1 point for ≥ 3 independently verifiable task executions with distinct inputs; 1 point for consumption on ≥ 2 separate UTC dates |
-| 2 | Consumption through the ranked-routing path ("a verifiable routed request made under the applicable Intent ranking and routing policy") |
-| 2 | 1 point for a reconciled request-to-Miner–Intent delivery record; 1 point for the matching cost or payment record, testnet included |
+| up to 4 | 1 for use by a qualifying H2 mission app, "including your own team's app"; +1 for each of up to three independently operated consuming app groups |
+| up to 2 | 1 for ≥ 3 meaningful, independently verifiable executions with different inputs; 1 for use on two different UTC dates |
+| up to 2 | Requests through the ranking and routing policy for that Intent. "Direct requests don't earn ranked-routing points." |
+| up to 2 | 1 for a matched request-to-Miner–Intent delivery record; 1 for verified cost, spend or payment accounting (testnet and batch records count) |
 
-"Related-party activity may establish functional consumption but does not receive the additional
-independent-consumer points."
+- "Related-party use can prove the service works but does not earn extra independent-user points."
+- "Direct requests can earn use, repeat-use, and accounting points if verified."
+- "Development-stage use counts when reviewers can verify the underlying mission work and requests."
 
-**Evaluators** (validity minimum 28/40)
+**Evaluators**, minimum 28/40 on validity
 
 | Points | Criterion |
 |---:|---|
-| 40 | Measurement validity, quality discrimination, and baseline evidence |
-| 20 | Integrity and robustness |
-| 15 | Reproducibility and protocol compatibility |
-| 20 | Useful evaluation coverage and demonstrated improvement |
-| 5 | Documentation and integration clarity |
+| 40 | Valid measurements, ability to distinguish quality, and baseline evidence |
+| 20 | Integrity and resistance to manipulation |
+| 15 | Repeatable results and protocol compatibility |
+| 20 | Useful coverage and demonstrated improvement |
+| 5 | Documentation and integration |
 
-- Submit "an evaluation adapter, evaluation material, or a combined contribution". Reviewers assess
-  correctness, resistance to manipulation, pipeline compatibility, usefulness and documentation.
-- Where a baseline exists, show what the contribution improves or confirms. For new or underserved
-  intents, show credible new coverage.
-- Claims of Canonical status or ranking impact need protocol evidence. Otherwise a contribution "can be
-  judged on independently demonstrated measurement quality and readiness".
+A result that confirms an existing ranking can still be valuable. Adapter-only, material-only and combined
+entries are each judged on what they actually contribute.
 
-**Apps & Agents**, for reference (they buy our answers): technical quality and mainnet readiness 35 (minimum 24),
-commercial viability 30, independent adoption 15, network integration 10, reproducibility and proof 10. An
-app needs at least one autonomous machine-to-machine purchase through Telegraph.
+**Apps & Agents**, for reference: 35 technical quality and mainnet readiness (minimum 24), 30 commercial
+viability, 15 real independent adoption and retention, 10 quality of the Telegraph integration, and 10 proof,
+demo, tutorial and repeatable results.
 
-## How the four verified-delivery awards are picked (Miners and Evaluators alike)
+**Excellence:** ranked by total. Ties go to the track's main technical score, then to independently
+repeatable proof, then to a recorded fair draw.
 
-The four awards are "selected together in this order":
+## Verified-delivery awards (§07): Miners and Evaluators, 4 per track
 
-1. the most distinct commercial missions materially enabled;
-2. the most distinct H2 mission application workflows enabled, unblocked or measurably improved;
-3. the most independently verified missing mission-critical Intent needs addressed;
-4. combined technical quality.
+Judges choose the set of four qualifying independent groups that, in order:
 
-Provider ties are broken by verified H2 application consumption, then the quality score. Evaluator ties
-are broken by demonstrated measurement improvement or new coverage, then the validity score. "Independently
-accepted new Provider and Evaluator capabilities can qualify through mission-specific test evidence while
-applications using them are still being built."
+1. enables the most distinct commercial missions;
+2. enables, unblocks or improves the most distinct H2 app workflows;
+3. meets the most independently verified missing mission-critical Intent needs;
+4. has the strongest combined technical quality.
 
-**December technical awards** cover reusable Provider, Evaluator or integration capabilities that
-"demonstrably unblock substantive applications", and fixes to documented mission-critical blockers. Work
-done in November counts.
+Provider ties go to verified H2 mission-app consumption, then to the quality score. Evaluator ties go to
+proven measurement improvement or valuable new coverage, then to the validity score. Mission impact needs real
+proof: "a reviewer rerunning an app, an accepted integration test, or a repeatable mission-specific test".
+"Each claimed Intent must pass its own relevant tests." A Provider or Evaluator can qualify with a suitable
+test for a new mission-critical capability while the apps that will use it are still being built.
 
-## Routing, verification, fairness
+## What to submit by Dec 1 23:59 UTC (§08), through the H2 website
 
-- **Routing (/how-it-works, read 2026-10-17):** Telegraph routes each request to the highest-ranked miner
-  for its intent, and the app never picks a miner.
-- **Rankings (/rules):** "Rankings are established through the applicable evaluation and finalization
-  process; ordinary live Consumer requests use those rankings and are recorded as consumption."
-- **Reviewers' tests:** "realistic unseen inputs, relevant error cases, test fixtures, and the supplied
-  reproduction instructions."
-- **Disqualifying:** "Fraudulent transactions, fabricated proof, collusive traffic, copied/duplicated
-  artifacts presented as independent work". Related teams and controlled entries must be disclosed.
-- **Submission package:**
-  - a 2–5 minute video;
-  - a beginner tutorial with the network used, costs and limitations;
-  - evidence: receipts, methodology, ranking references, endpoints or fixtures;
-  - a public summary.
-- **Public posts:** aim for one useful progress update per active week, tagging Telegraph. Follower counts
-  and likes are "not mandatory technical-scoring requirements".
+1. Project details: team and contact, track, project name, the missions or Intents chosen, and a working or
+   reviewer-access link.
+2. A 2–5 minute demo video showing the real input, the result and the Telegraph integration.
+3. How to run it: beginner-friendly steps, sample request, expected result, the actual network, spending
+   limits or costs, and known limitations.
+4. Evidence: receipts, requests, accounting records, service endpoints, evaluation methods, tests and
+   rankings. Sensitive material may be shared privately with judges.
+5. A short public summary with one Try, Use, Connect, Build or Compete link.
+6. Showcase permission: what may be shared publicly, including Anjoman experiences, and whether we agree to
+   buyer introductions. It does not affect scores.
+
+**Provider evidence:** list the Miner–Intent pairs. If claiming consumption points, list the consuming
+mission apps, independent groups, repeat use, ranked routes and accounting evidence. Show which
+mission-specific tests or applications the service enables.
+
+**Evaluator evidence:** the Intent, the adapter or material version, the results, and a fair baseline
+comparison or credible new coverage. Show which mission-specific tests or applications it enables.
+
+**Public posts:** encouraged, not scored. Aim for one useful update each active week, tagging Telegraph.
+"Social posts, tags, views, and likes are not required for technical eligibility and do not change the judging
+weights or prize amounts." In the final-week Anjoman session, participants show what they actually did, such
+as exploring an Intent, reading rankings or connecting a service, and say whether it was on testnet or
+production.
+
+## Verification (§09) and fair play (§10)
+
+- **Result labels:** Mission Verified (reproduced on the stated network), Production Verified, Commercially
+  Validated (independently funded third-party customer activity), and Competitive Supply Verified (at least
+  two meaningfully independent Providers meet the quality bar).
+- **"Ranking evaluations and live customer requests are not the same activity."** Demand a Provider receives
+  "also depends on eligibility, quality, price, availability, and the routing policy." A request or payment is
+  never counted twice. Protocol-paid tests, internal demos, testnet traffic and independently funded customer
+  activity are told apart.
+- **Platform problems:** affected milestones are extended by the documented impact.
+- **Disqualifying:** "Fake receipts, manufactured adoption, collusive requests, copied work presented as
+  independent, or disclosure of protected material". Related teams or wallets must be disclosed when asked.
+- **Ownership:** entrants keep their work. Public features, reused media and buyer introductions need consent.
+- **Prior work:** preparing before Nov 1, reusing our own code, and adapting open source under its licence are
+  all allowed. Major reused components must be disclosed.
+
+## Protocol V2: what the miner and evaluators must follow (anjoman.ai/docs, read 2026-10-29)
+
+Sources: `/docs/whats-new-v2`, `/docs/miners/miner-overview` and `/docs/miners/miner-registration`, all
+"Updated October 27, 2026".
+
+- **Intents are families.** Register intents (`FX_NOW_EUR`, `WEATHER_FORECAST_GENERAL`), never family
+  prefixes (`FX_NOW`). Listing a prefix reverts the whole registration with "a prefix is not an intent". There
+  are 21 judgment families with a `_GENERAL` intent. Anyone can propose a new intent, and the admin approves
+  it. Check with `getPrefixes()(string[],uint8[])` as well as `isCanonicalIntent`.
+- **`updateMiner`** changes the YAML, price, fee address or intents in one transaction, and issues a **new
+  `registrationId`**. A revert leaves the old registration untouched. `updateMinerFor` and `registerMinerFor`
+  are relayed EIP-712 twins.
+- **Optional `intent_mapping`:** paths and formulas that read each answer field exactly. Jobs no longer read
+  `on_chain.request` / `on_chain.fields`. The node builds the request from the Intent's inputs. An endpoint
+  without `params` is legal, but it is "the most common reason a registered, active miner fails the calls it
+  is sent".
+- **Shape:** `result` is read into the Intent's own shape (`result_shape`, `field_status`, `format_version`,
+  `shape_error`). `parsed` is gone. `GET /engine/v1/intents/{intent}` returns the request schema, the response
+  format and the on-chain layout.
+- **Spot checks:** "on average about once per hour for each Intent (the node default), at randomised times".
+  Any non-empty answer passes. Consecutive failures trigger a Routing Revocation until the next epoch
+  tournament. The 2026-10-22 docs said about every 20 seconds.
+- **Routing:** 70% / 20% / 10% to ranks 1–3 by Canonical Score, the stake-weighted median of validator local
+  scores. Rank 4 and below get no routed share.
+- **Grace period:** 7 days "after registration" (overview) or "after activation" (registration page). The miner
+  is off the leaderboard, and all grace-period miners share 5% of routed traffic.
+- **Earnings:** from demand only. `min_price_usdc × demand_multiplier × 0.98`, swapped to MACHINA over 24 h;
+  settlement waits for 100 USDC to accumulate. The floor is 10000 (0.01 USDC). Anjoman's Earn page says
+  instead "Each answer it returns is paid in USDC" (G219).
+- **Chain:** Base Sepolia, Diamond `0x5a2324aA18613FAD4e44bDF0d6c73Ec1f6D87ff8`; current addresses are at
+  `/docs/protocol/addresses-and-params`. After a chain move, the admin imports existing miners with the same
+  id and owner.
+- **Evaluators:** "Float model adapters in WASM. The older formats are refused." The new call is
+  `registerWasm(hash, url, prefix, feeAddress, runnableUrl)`, registered on a **prefix (family)** with a
+  runnable endpoint the node checks first. The Anjoman Eval page says an adapter "replaces the live scorer only
+  when it beats the incumbent on a hidden sample by the replacement margin".
+
+**Intent catalogue:** the H2 /intents page lists **134** intents, each Deterministic, Hybrid or Judgment
+(2026-10-29). `devnode /engine/v1/intents` returns **136** on-chain names (2026-10-29 16:47 UTC).

@@ -4,7 +4,45 @@
 verification date. Re-verify anything older than a few days — the canonical intent set and
 contract parameters change on-chain.
 
-Verified **2026-08-26** against https://docs.telegraphprotocol.com (docs updated 2026-08-20).
+Verified **2026-08-26** against https://docs.telegraphprotocol.com (docs updated 2026-08-20). The V2 docs
+(updated 2026-10-27) were read on 2026-10-29: see the next section. Where it disagrees with an older section
+below, the newer section wins.
+
+---
+
+## V2 docs and the Anjoman site, read 2026-10-29 ~16:30–16:47 UTC
+
+Sources: https://anjoman.ai/docs (`introduction`, `whats-new-v2`, `miners/miner-overview`,
+`miners/miner-registration`, all "Updated October 27, 2026"). https://docs.telegraphprotocol.com serves the same
+text and also serves raw Markdown at `/docs/<page>.md`. The Season II rules built on them are in
+[RULES_SEASON2.md](../RULES_SEASON2.md).
+
+- **Two hosts, one doc set.** anjoman.ai/docs is the new address; the H2 site still links
+  docs.telegraphprotocol.com. `anjoman.ai/llms.txt` and `/llms-full.txt` return 404, although the introduction
+  page advertises them.
+- **Intents are families with intents under them.** Register `X_SUFFIX` or `X_GENERAL`, never the prefix `X`
+  ("a prefix is not an intent" reverts). `getPrefixes()(string[],uint8[])` lists the families. Anyone can
+  propose an intent; the admin approves it.
+- **Registration 4829 is on V2:** `active`, no rejection, 36 suffixed intents (`SSL_VERIFICATION_CERT`,
+  `WEATHER_CHECK_TEMPERATURE`, `CURRENCY_EXCHANGE_CONVERT`, 25 `_GENERAL` intents, and others). Devnode
+  `/api/miners/4829` reports `registered_at` **2026-10-25T00:48:49Z** (checked 2026-10-29 16:47 UTC). It
+  activated 2026-10-16, so the date reads like the V2 import. Whether that import restarted the 7-day grace
+  period is not known (G220).
+- **Spot checks:** "on average about once per hour for each Intent (the node default), at randomised times".
+  Any non-empty answer passes. **This replaces "roughly every 20 seconds" below.**
+- **`updateMiner`** still issues a new `registrationId`. The docs now describe it as changing the YAML, price,
+  fee address or intents "in one transaction". A revert leaves the old registration untouched.
+- **`intent_mapping`** (optional) reads each answer field exactly. Jobs no longer read the YAML's `on_chain`
+  blocks. `result` comes back in the Intent's own shape, and `parsed` is gone.
+- **Validation API:** the registration page (2026-10-27) still documents `POST
+  integrate.telegraphprotocol.com/api/validate`, but it returned an HTML 404 at 2026-10-29 16:45 UTC (G212).
+- **Evaluators:** `registerWasm(hash, url, prefix, feeAddress, runnableUrl)`, registered on a family. Only float
+  model adapters in WASM are accepted: "The older formats are refused." Anjoman's Eval page: an adapter
+  "replaces the live scorer only when it beats the incumbent on a hidden sample by the replacement margin".
+- **Anjoman** (anjoman.ai) is Telegraph's consumer front end: "Tell Anjoman what you want done", "Routed on
+  Telegraph Protocol". Its dashboard has Earn (register an endpoint), Eval, Validate, Jobs and Train ("SOON").
+  It is sign-in gated, and the sign-in is the owner's. Earn says "Each answer it returns is paid in USDC". The
+  miner docs say USDC is swapped to MACHINA (G219).
 
 ---
 
@@ -84,7 +122,8 @@ to v2 (and does an update restart the 7-day grace period)?
 
 10. **Miners carry over to v2:** "your miners will carry over." Registration 4829 needs no re-registration
     for the migration.
-11. **On listed versus unlisted intents:** "let us check." Not answered yet (GAPS G208).
+11. **On listed versus unlisted intents:** "let us check." Overtaken on 2026-10-29: the site now lists 134
+    intents, including all 36 of ours (GAPS G208, closed).
 
 Not answered: whether `updateMiner` restarts the 7-day grace period (GAPS G206). It was asked as part of
 question 2, and the reply covered only the carry-over.
@@ -262,6 +301,9 @@ operative rule is **a registration lands in the next epoch's scoring pass** — 
 
 ## Spot checks and revocation
 
+**Superseded 2026-10-29:** the V2 docs say about once per hour per intent, at random times, and that any
+non-empty answer passes (see the top section). The 2026-08 text follows.
+
 Validators spot-check **roughly every 20 seconds**, triggered deterministically by the latest
 Base L2 block hash. If a spot check score drops **more than 20%** below the leaderboard score:
 
@@ -309,6 +351,8 @@ https://devnode.telegraphprotocol.com/engine/v1/intents   canonical intents + mi
 ```
 
 ## Source pages
+
+The same pages are at `https://anjoman.ai/docs/...` (V2, 2026-10-27).
 
 - [What Miners Do](https://docs.telegraphprotocol.com/docs/miners/miner-overview)
 - [YAML Configuration](https://docs.telegraphprotocol.com/docs/miners/yaml-config)

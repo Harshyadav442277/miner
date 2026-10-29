@@ -3,9 +3,14 @@
 **Goal (Season II, 1 Nov – 1 Dec 2026):** a Telegraph miner whose answers are correct, sourced and
 licensed for paid use, so apps buying through Telegraph get the best answer for each intent we serve.
 Season II apps must route through Telegraph, which sends each request to the highest-ranked miner for
-its intent — measured quality is how demand arrives. Rules: [RULES_SEASON2.md](RULES_SEASON2.md); the
-Miner and Evaluator rubrics were published by 2026-10-22, and the two official pages disagree on the final
-deadline (1 Dec or Dec 20, G203). Resolve every deadline in UTC with `date -u`.
+its intent — measured quality is how demand arrives. Rules: [RULES_SEASON2.md](RULES_SEASON2.md), re-read
+2026-10-29. **Opens Nov 1 00:00 UTC; final submission for every track Dec 1 23:59 UTC (Dec 2 05:29 IST).**
+Judging Dec 2–8, provisional results from Dec 9. Prizes: $7,000 in the main competition, plus $3,000 for
+separate December challenges with their own rules. Resolve every deadline in UTC with `date -u`.
+
+**Docs moved:** the V2 protocol docs are at https://anjoman.ai/docs (also served at
+docs.telegraphprotocol.com). Anjoman (anjoman.ai) is Telegraph's consumer front end; its dashboard needs the
+owner's sign-in.
 
 **Season I is over and judged.** Track 2's WASM scorer is in [track2/](track2/CLAUDE.md); Track 3's app,
 Morse, is the separate repo `../telegraph-morse`. **Not this project:** the Midnight / NightSeal hackathon.
@@ -33,9 +38,9 @@ Morse, is the separate repo `../telegraph-morse`. **Not this project:** the Midn
 3. **Sandbox-validate before every on-chain send.** No `registerMiner` / `updateMiner` without a
    clean run at `integrate.telegraphprotocol.com` first. Registration is effectively immutable and
    a rejection releases the slug to anyone.
-4. **Verify protocol facts against live docs**, never memory — https://docs.telegraphprotocol.com.
-   The canonical intent set changes on-chain. Record what was checked, and when, in
-   docs/TELEGRAPH_FACTS.md.
+4. **Verify protocol facts against live docs**, never memory — https://anjoman.ai/docs (raw Markdown:
+   `https://docs.telegraphprotocol.com/docs/<page>.md`). The canonical intent set changes on-chain. Record
+   what was checked, and when, in docs/TELEGRAPH_FACTS.md.
 5. **Look up registrations by `registrationId`, never by slug.** By-slug returns whoever currently
    serves that slug, which may not be us.
 6. **Commit messages describe the change and nothing else** — no attribution or generated-by lines
@@ -54,9 +59,11 @@ curl https://devnode.telegraphprotocol.com/api/miners
 curl -s https://devnode.telegraphprotocol.com/api/miners/<registrationId> \
   | jq '.miner | {activation_status, rejection_reason, retrying}'
 
-# canonical-intent check — one bad string reverts the whole registration
-cast call "$DIAMOND" "isCanonicalIntent(string)(bool)" "WEATHER_CHECK" --rpc-url "$RPC"
+# canonical-intent check — one bad string reverts the whole registration.
+# V2: list intents (WEATHER_CHECK_TEMPERATURE, X_GENERAL), never a family prefix (WEATHER_CHECK).
+cast call "$DIAMOND" "isCanonicalIntent(string)(bool)" "WEATHER_CHECK_TEMPERATURE" --rpc-url "$RPC"
 cast call "$DIAMOND" "getCanonicalIntents()(string[])" --rpc-url "$RPC"
+cast call "$DIAMOND" "getPrefixes()(string[],uint8[])" --rpc-url "$RPC"
 
 # Deploy the miner. NOT `git push` — that deploys nothing (G22).
 # Read GAPS G70 first: a redeploy 404'd every endpoint on 2026-09-04, and after a

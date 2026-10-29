@@ -13,7 +13,21 @@ All of it remains in git history.
 |---|---|
 | [ARCHITECTURE.md](ARCHITECTURE.md) | Season II design decisions: comparators, wide adapters, node-reproduced proof |
 | [GAPS.md](GAPS.md), [MEMORY.md](MEMORY.md) | Open gaps and session state |
-| `calibration/dist/text_authenticity_v2.wasm` | Kept only because registration 1882 is still the TEXT_AUTHENTICITY_CHECK champion on devnode (rule 5 in [CLAUDE.md](CLAUDE.md)). Delete it once that registration is retired |
+
+`calibration/dist/text_authenticity_v2.wasm` (registration 1882, Season I) was deleted on 2026-10-29. Devnode's
+V2 `/api/wasm` no longer lists 1882 or TEXT_AUTHENTICITY_CHECK: 7 families, with registration ids restarted.
+
+## Protocol V2 (anjoman.ai/docs, updated 2026-10-27; read 2026-10-29)
+
+- The only format accepted is float model adapters in WASM. "The older formats are refused."
+- Registration is `registerWasm(hash, url, prefix, feeAddress, runnableUrl)`. It is per **family** (prefix),
+  with a runnable endpoint the node checks first.
+- An adapter "replaces the live scorer only when it beats the incumbent on a hidden sample by the replacement
+  margin" (Anjoman Eval page).
+- On 2026-10-29 devnode `/api/wasm` listed entries for CODE_REVIEW, CONTRACT_OBLIGATION_AUDIT,
+  CUSTOMER_TICKET_RESOLUTION, FX_NOW, LLM_OUTPUT_EVALUATION, TASK_EXECUTION_QUALITY and THREAT_INTELLIGENCE.
+- The comparators and the adapter below predate V2. Re-check them against `/docs/scoring/*` before any
+  registration.
 
 ## Where the Season II work is
 

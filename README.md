@@ -1,8 +1,8 @@
 # LiveCert — Telegraph Hackathon Season II
 
 A Telegraph miner and its evaluators, from wallet `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e`.
-Season II runs 1 Nov – 1 Dec 2026 ([RULES_SEASON2.md](RULES_SEASON2.md)). The Miner and Evaluator
-tracks' rules were still unpublished when last checked, 2026-10-21 06:30 UTC.
+Season II (H2) runs Nov 1 00:00 UTC – Dec 1 23:59 UTC 2026, on Base Sepolia testnet. Rules, read
+2026-10-29: [RULES_SEASON2.md](RULES_SEASON2.md). Protocol docs: <https://anjoman.ai/docs>.
 
 | Track | What | Start here |
 |---|---|---|
