@@ -53,8 +53,8 @@ agree since the 2026-10-29 read (G203 closed). Judging runs Dec 2–8, and provi
 **Track 2, the evaluators**
 
 - **31 comparators**, one per mission-bought deterministic intent. They reproduce the node's own answer key
-  on 234,848 cases. They are published and their hosted hashes match (track2 branch
-  `claude/wasm-track-2-quality-e21db3`).
+  on 234,848 cases. They are published and their hosted hashes match (`track2/comparator/`, merged here
+  2026-10-29). They predate protocol V2 (track2 G33).
 - **Not registered.** `/api/evalpool/status` still returns 404.
 - **The LLM_OUTPUT_EVALUATION adapter was withdrawn.** It scored 96.9% in the kit but 81.0% as the node runs
   it (G32). It is being retrained on the node's base.
@@ -322,7 +322,7 @@ G204). It costs days of build; the owner decides.
 
 ### Report of G32 to the organisers (owner sends; drafted 2026-10-27, not sent)
 
-The facts are from track2 `GAPS.md` G32 on branch `claude/wasm-track-2-quality-e21db3`. On 2026-10-25 Ahmed said
+The facts are from `track2/GAPS.md` G32. On 2026-10-25 Ahmed said
 the current WASM system will move to "v2", so the message asks whether v2 keeps this converter rather than assuming
 it does.
 

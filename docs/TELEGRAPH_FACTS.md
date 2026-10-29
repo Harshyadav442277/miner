@@ -641,3 +641,89 @@ Checked against the live console and its script bundle: `/register` page chunk a
     `smartWalletAddress`.
 - **Canonical intents on-chain:** `isCanonicalIntent` was true for all 40 strings in the G208 draft at Base Sepolia
   block 50447293 (`track1-miner/docs/evidence/g208-intent-swap-2026-10-26/canonical-intents.json`).
+
+## Organiser, 2026-10-25: the current WASM system is about to be deprecated
+
+Ahmed Ali (Telegraph), on Discord, relayed by the operator as a screenshot: "i'd hold off on that for now, as the
+current wasm system will be deprecated in couple of days". The screenshot shows 19:14 with no time zone.
+
+- Read the section below as superseded once that happens.
+- Which system "current" means is unknown. Ahmed then added: **"it will be migrated to v2"**. The kit branch our
+  adapter used is named `feature/v2-integration`, so v2 may be that format; this is unconfirmed.
+- After the operator ("saroj") said they would focus on miners, Ahmed wrote: **"make sure your miners are actually
+  achieving the functionality, in other words, build on intents hackathon website have"**.
+  - Read that against the site's Intents page. For each of about 92 intents it gives the tier, the job, a service
+    type, example data sources, a latency target and a difficulty.
+  - A miner should serve an intent only when it really does that job.
+
+## Season II evaluators: `rank_answer` is retired (read 2026-10-21 ~06:40 UTC)
+
+Sources: `docs/scoring/build-a-scoring-module` and `docs/scoring/train-a-scoring-adapter` (both
+"Updated October 21, 2026"), `docs/scoring/contribute-evaluation-data` (October 19),
+`docs/using/intents.md`, `docs/protocol/how-it-works.md`, fetched with curl + browser UA.
+
+- **The Season I module kind is gone.** The docs say the node "no longer runs" modules exporting
+  `rank_answer`/`alloc`/`dealloc`, and rejects a new one immediately with "MiniLM rank_answer
+  scoring modules are retired and are no longer accepted". Our `track2/scorer` is that kind.
+- **Each intent has a class, and the class fixes the module kind.**
+  - Deterministic intents use a **comparator**. It exports
+    `imw_score_deterministic(truth: i64, miner: i64, spec_ptr: i32) -> i64`, `imw_alloc` and
+    `imw_free`, and returns basis points (0–10000).
+  - The comparator must reproduce a fixed reference rule within ±10 bp on about 1,260 cases.
+    Codes: 0 Exact, 1 AbsTol, 2 RelTol, 3 PassFail. Linear falloff to 0 at 2 × tolerance.
+    Multiplication saturates, RelTol is computed in 128 bits, and an unknown code counts as Exact.
+  - The docs: "there is no 'better' comparator to build". One that passes replaces the
+    previous one.
+  - Judgment and hybrid intents use a **wide adapter**: a ModernBERT-base reward model with a LoRA
+    adapter. It runs in the node's Q32.32 interpreter and is packaged as one `.wasm` of about
+    1.2 GB.
+  - Wide adapters are built with the kit `telegraph-wasm-baseline`, branch
+    `feature/v2-integration` (commit `992f2650`, 2026-10-16). Its `main` branch still holds the
+    August MiniLM baseline.
+- **Wide adapters compete on a hidden evaluation pool** of 200 preference pairs by default.
+  - The first canonical module needs a win rate of at least 70%.
+  - A challenger must beat the incumbent by 2 points on the same sample.
+  - Nothing is evaluated until the intent's pool holds material from at least 5 contributors.
+    Until then the module waits, with no time limit.
+  - A module registered on a family intent (`WEATHER_FORECAST`) serves its `_` children too.
+- **The evaluation pool is public and signed.** Anyone uploads JSONL preference pairs, or
+  truth-source YAMLs for deterministic intents, with an EIP-191 signature. The endpoint is
+  `POST /api/evalpool/submissions`, and the chain ID in the signed message is 84532.
+  - A deterministic intent with no truth source is not ranked.
+  - An intent with no module for its class is not scored, and its miners keep their previous
+    ranking.
+- **`registerWasm` now takes four arguments:** `(bytes32 wasmHash, string wasmUrl, string intent,
+  address feeAddress)`. The Diamond is the same as Season I, `0x5a2324aA…87ff8` on Base Sepolia.
+  Registration 3236 already carries a `FeeAddress`.
+- **Rollout is incomplete on devnode at 06:40 UTC.**
+  - `/api/evalpool/status` returns 404, and `/api/wasm?resolve=` is ignored.
+  - SECURITY_REVIEW registration 3236 (2026-10-20, author `0x23060ffa`) was still judged by the
+    Season I gate (margin, Spearman 0.79) and is `active`.
+  - What was observed: the docs describe a node that devnode is not yet running. What is not
+    known: when devnode switches to it.
+- **Tier of the intents the 15 Season II missions buy** (a count of example builds per intent,
+  taken from the hackathon site's `550-…js` chunk and joined to the intents-doc tier table):
+  - Deterministic: 31 intents, 135 buys. Top: WEATHER_FORECAST_VERIFY 14, SENSOR_TELEMETRY_VERIFY 11.
+  - Judgment: 19 intents, 90 buys. Top: WEB_SEARCH 15, FACT_CHECK 14, TASK_EXECUTION_QUALITY 10.
+  - Hybrid: 11 intents, 39 buys. Top: SANCTIONS_SCREENING_MATCH 6.
+  - Not in the tier table: 15 intents, 59 buys, including QUESTION_ANSWERING 13.
+- **Registry at 06:30 UTC** (`/api/wasm`): 2,421 registrations and 46 active.
+  - `0x8b224783` (zkasuran) holds 43 of the 46, all `rank_answer`.
+  - We hold 2: CURRENCY_EXCHANGE 2945 and TEXT_AUTHENTICITY_CHECK 1882.
+  - Of the 76 intents the missions buy, 15 have any registered scorer, and every one of those
+    is a `rank_answer` module. They are the Season I intents plus SECURITY_REVIEW.
+- **Season I Track 2 result** (hackathon site `/winners`, read 2026-10-21): 1st @zkasuran,
+  **2nd @hyadav42774 (us)**, 3rd @BangDropID.
+- **Evaluator track rules and judging are still unpublished.** `/rules` and `/judging` say
+  "published separately", re-read 2026-10-21 06:30 UTC.
+- **The kit packages only 31 intents, and FACT_CHECK is not one of them** (2026-10-21 ~08:45 UTC).
+  - The kit is at `992f2650`. Its compiled-in classification, `pkg/scoring/catalog/catalog.go`,
+    lists 11 judgment and 20 hybrid intents.
+  - All 31 come from the 63 intents added on 2026-09-08. None of the Season I intents is in it.
+  - `adapterbuild --intent FACT_CHECK` and `--intent WEB_SEARCH` both fail with "not a judgment
+    or hybrid intent in the compiled-in catalog — refusing to guess a class".
+    `TASK_EXECUTION_QUALITY` and `LLM_OUTPUT_EVALUATION` resolve to class judgment.
+  - The packager has no flag to load other classes. The node can load an `intent_classes`
+    table from its database, which would override the compiled map.
+  - `docs/using/intents.md` tiers FACT_CHECK as "B — Judgment". The docs and the kit disagree,
+    and only the organisers can say which one the node follows.

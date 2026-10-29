@@ -247,7 +247,8 @@ label); Cape Town's was already fixed by the undeployed places table. **None dep
 
 - **G200 — Fails and partials NOT fixed. `OPEN`.** Recommendation for each: fix, not drop — every one is a
   retrieval or reading defect, and each intent passed its in-scope questions otherwise.
-  - **UPDATE 2026-10-26: RESEARCH_QUERY fixed on branch claude/miner-s2-conformance, NOT deployed.**
+  - **UPDATE 2026-10-26: RESEARCH_QUERY fixed on branch claude/miner-s2-conformance, NOT deployed.** Merged into
+    `codex/rank1-14-intents` on 2026-10-29 (unit tests 822/822); still NOT deployed.
     - All three audit fails are now right: Nivolumab's bladder trial, the creatine-and-cognition review, and
       Pakistan declined as a political decision.
     - Replay of the 99 routed questions: 47 leads changed, mostly to the trial or paper on the thing asked, or

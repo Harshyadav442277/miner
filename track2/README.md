@@ -31,10 +31,10 @@ V2 `/api/wasm` no longer lists 1882 or TEXT_AUTHENTICITY_CHECK: 7 families, with
 
 ## Where the Season II work is
 
-- **Branch `claude/wasm-track-2-quality-e21db3`:**
-  - the 31 comparators (`track2/comparator/`);
-  - the LLM_OUTPUT_EVALUATION adapter recipe (`track2/adapter/`);
-  - the sign list (`track2/SIGN_S2.md`).
+- **In this tree** (branch `claude/wasm-track-2-quality-e21db3`, merged 2026-10-29):
+  - the 31 comparators ([comparator/](comparator/README.md));
+  - the LLM_OUTPUT_EVALUATION adapter recipe ([adapter/](adapter/llm_output_eval/README.md));
+  - the sign list ([SIGN_S2.md](SIGN_S2.md)). It predates V2: do not sign from it before G33 is closed.
 - **Published releases:** in [`telegraph-factscore`](https://github.com/Harshyadav442277/telegraph-factscore),
   branch `season2-evaluators`.
 - **Training data, models and builds:** in `C:\Users\hyada\tg-eval\`, outside OneDrive.
