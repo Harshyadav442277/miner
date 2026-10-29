@@ -6,8 +6,9 @@ Owner: "new hackathon has appeared. update the rules what is required. https://a
 update all the documentation. remove non useful things"
 
 - **Branch `claude/hackathon-rules-docs-update-0eb075`**, moved to `codex/rank1-14-intents` @ `af568e1` before any edit.
-  `main` was 223 commits behind, and this branch had no commits of its own. Docs only, no code. Not committed,
-  pushed or deployed.
+  `main` was 223 commits behind, and this branch had no commits of its own. Docs only, no code. Committed as
+  `62e4e9c` and fast-forwarded onto `codex/rank1-14-intents` on the owner's yes. Not pushed: 14 commits ahead
+  of origin. Not deployed, and there is nothing to deploy.
 - **The rules changed (read 2026-10-29, `RULES_SEASON2.md`):**
   - the final deadline is **Dec 1 23:59 UTC** for every track (no longer Dec 20);
   - judging runs Dec 2–8, with provisional results from Dec 9;
