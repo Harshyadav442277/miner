@@ -4,6 +4,10 @@ import { placeCandidates } from "../src/extract";
 import { resolvePlace } from "../src/storm";
 import { assessFraud, scamMarkers } from "../src/fraud";
 import { namesCode, webSearch } from "../src/websearch";
+import { openGate } from "./licence-fixtures";
+
+// These tests cover code kept behind its licence gate (GAPS G230).
+openGate("google-news");
 
 const json = (value: unknown) => new Response(JSON.stringify(value));
 async function mocked(stub: typeof fetch, run: () => Promise<void>) {

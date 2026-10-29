@@ -4,6 +4,11 @@ import {
   asksAboutStock, asksForecast, companyMatches, describeQuote, exchangeTime, lookupStockPrice, requestedDate, sessionOpen, writtenTicker,
   type ChartMeta,
 } from "../src/stockprice";
+import { openGate } from "./licence-fixtures";
+
+// These tests cover code kept behind its licence gate (GAPS G230).
+openGate("yahoo");
+openGate("nasdaq");
 
 test("a ticker written as one is read; a capitalised word in a name is not", () => {
   assert.equal(writtenTicker("What is the current share price of Apple (AAPL)?"), "AAPL");

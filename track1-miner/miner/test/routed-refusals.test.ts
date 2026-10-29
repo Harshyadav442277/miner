@@ -13,6 +13,10 @@ import { placeCandidates } from "../src/extract";
 import { parseQuery } from "../src/currency";
 import { resolvePlace } from "../src/storm";
 import { companyName, nameMatchesQuote, resolveTicker } from "../src/financial";
+import { openGate } from "./licence-fixtures";
+
+// These tests cover code kept behind its licence gate (GAPS G230).
+openGate("yahoo");
 
 const LAGOS_FORECAST =
   "What is the 24-hour weather forecast for Lagos Nigeria starting today, " +

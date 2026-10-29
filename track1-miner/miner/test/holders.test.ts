@@ -196,24 +196,19 @@ test("a listed symbol reads the table's contract and never asks GeckoTerminal", 
   });
 });
 
-test("an unlisted symbol still resolves through GeckoTerminal", async () => {
+test("an unlisted symbol resolves through the explorer's own search, never GeckoTerminal (G230)", async () => {
+  const crv = { address_hash: CRV, symbol: "CRV", name: "Curve DAO Token", holders_count: "90000", total_supply: "1" };
   const answer = (url: string): Response => {
-    if (url.startsWith("https://api.geckoterminal.com/")) {
-      return json({ data: [{
-        attributes: { name: "CRV / WETH 0.3%", reserve_in_usd: "5000000" },
-        relationships: { base_token: { data: { id: `eth_${CRV}` } }, quote_token: { data: { id: `eth_${ETH_USDC}` } } },
-      }] });
-    }
-    if (url === `https://eth.blockscout.com/api/v2/tokens/${CRV}`) {
-      return json({ address_hash: CRV, symbol: "CRV", name: "Curve DAO Token", holders_count: "90000", total_supply: "1" });
-    }
+    if (url.startsWith("https://api.geckoterminal.com/")) throw new Error("GeckoTerminal is barred and must not be called");
+    if (url.startsWith("https://eth.blockscout.com/api/v2/tokens?q=CRV")) return json({ items: [crv] });
+    if (url === `https://eth.blockscout.com/api/v2/tokens/${CRV}`) return json(crv);
     return json({}, 500);
   };
   await withUpstreams(answer, async (urls) => {
     const r = await lookupHolders("How many addresses hold CRV on ethereum?");
     assert.equal(r.verdict, "holder_count");
     assert.equal(r.address, CRV);
-    assert.match(urls[0]!, /geckoterminal\.com\/api\/v2\/search\/pools\?query=CRV&network=eth/);
+    assert.ok(!urls.some((u) => u.includes("geckoterminal")), urls.join(", "));
     assert.doesNotMatch(r.reason, /Circle's native USDC/);
   });
 });

@@ -3,6 +3,10 @@ import assert from "node:assert/strict";
 import {
   acceptBackground, clipTitle, codeTokens, isForwardLooking, misroute, namesCode, officialDocument, officialDocumentUrl, timeless, webSearch,
 } from "../src/websearch";
+import { openGate } from "./licence-fixtures";
+
+// These tests cover the Google News code, kept behind its licence gate (GAPS G230).
+openGate("google-news");
 
 test("misroutes are named, and ordinary questions are not", () => {
   assert.match(misroute("Verify the SSL/TLS certificate of the domain www.google.com: is it valid?") ?? "", /SSL_VERIFICATION/);

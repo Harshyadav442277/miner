@@ -1,6 +1,34 @@
 # MEMORY.md — session continuity
 
-## 2026-10-29 ~17:30 UTC (23:00 IST): CURRENT — branches merged and pruned; licensed-sources awaits the owner
+## 2026-10-29 ~18:00 UTC (23:30 IST): CURRENT — licensed-sources MERGED; not deployed, not pushed
+
+Owner: "Merge it" (claude/licensed-sources).
+
+- **Code conflicts resolved by keeping both sides:**
+  - `handler.ts`: the receipt envelope plus the `licensing` field;
+  - `currency.ts`: the 10-minute ECB hold plus the Frankfurter fallback;
+  - `geo.ts`: DNS read-notes plus the licence gates.
+- **Gaps renumbered:** the branch's G208–G212 collided with codex's, so they are now **G230–G234**. The docs
+  session holds G221/G222 and was told G230–G234 are taken.
+- **Ledger brought up to date with codex's routes:**
+  - `/dns`, `/token-supply`, `/keywords` and `/vuln-triage` added;
+  - CISA KEV and FIRST EPSS registered as unread (G233);
+  - URLhaus removed;
+  - a new test fails when an endpoint lacks a ledger entry.
+- **Holders test rewritten** for the gated path: unlisted symbols go through Blockscout search, never GeckoTerminal.
+- **Verified:** unit tests 852/852 and `tsc --noEmit` clean, from a clean `dist-test`. Not deployed.
+- **Behaviour on the next deploy:**
+  - `/stock-price`, `/headlines` and `/news-search` refuse everything;
+  - `/ip-geolocate` answers reserved ranges only;
+  - `/financial` answers SEC figures only;
+  - `/event-outcome` searches Polymarket only;
+  - unlisted holder symbols are likely `unknown` from Vercel.
+
+  The release gates still expect the old answers: update them first (TASKS).
+- **Branch `claude/licensed-sources` deleted** after the merge; it is in the 2026-10-29 bundle. Its worktree
+  `winners-github-repo-88c231` (idle session "Winner's GitHub repo") is detached.
+
+## 2026-10-29 ~17:30 UTC (23:00 IST): branches merged and pruned (licensed-sources merged since, above)
 
 Owner: "merge or fix branches as well so things dont get complicated. remove useless branches"
 

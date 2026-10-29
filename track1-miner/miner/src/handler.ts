@@ -46,6 +46,7 @@ import { analyseSentiment, type SentimentResult } from "./sentiment";
 import { analyseSentimentPhrased } from "./prose-phrase";
 import { classifyText, type ClassifyResult } from "./classify";
 import { synthesise, type SynthesisResult } from "./synthesis";
+import { ledger, licensingFor } from "./sources";
 
 const CACHE_TTL_MS = Number(process.env.CACHE_TTL_MS ?? 60_000);
 const MAX_CACHE = 500;
@@ -139,6 +140,8 @@ function watchdogMs(): number {
 }
 const pending = new WeakMap<ServerResponse, ReturnType<typeof setTimeout>>();
 const answered = new WeakSet<ServerResponse>();
+/** The endpoint each response answers, set at dispatch, so every answer can carry its licensing. */
+const pathOf = new WeakMap<ServerResponse, string>();
 const inflight = new Inflight<ServerResponse>();
 
 /** What each route is fetching, for the watchdog's sentence. */
@@ -220,7 +223,9 @@ function send(res: ServerResponse, status: number, body: unknown): void {
  */
 function sendAnswer(res: ServerResponse, _question: string, body: unknown): void {
   const now = new Date();
-  send(res, 200, envelope(body, now, currentReceipt(now)));
+  const wrapped = envelope(body, now, currentReceipt(now));
+  const licensing = licensingFor(pathOf.get(res) ?? "");
+  send(res, 200, licensing && wrapped && typeof wrapped === "object" && !Array.isArray(wrapped) ? { ...wrapped, licensing } : wrapped);
 }
 
 /**
@@ -484,10 +489,18 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     return;
   }
 
+  // The licence ledger: what each upstream's terms allow, and each endpoint's
+  // weakest upstream. Static, so like /health it makes no outbound call.
+  if (path === "/sources") {
+    send(res, 200, ledger());
+    return;
+  }
+
   // Every route below reaches an upstream, so every route below can hang. Armed
   // once here rather than in ten places; a route that answers normally clears it
   // through `send`.
   if (ENDPOINTS.includes(path)) {
+    pathOf.set(res, path);
     armWatchdog(res, path, firstValue(url, "query", "q", "question", "text", "input"));
     // Preserve values and duplicate-parameter ordering: these can affect parsing.
     // Sorting parameter names allows equivalent engine requests to share work.

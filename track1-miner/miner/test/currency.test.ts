@@ -112,7 +112,8 @@ test("the undated answer text is unchanged (golden case, byte-identical)", async
       r.reason,
       "100.00 USD is 86.10 EUR at a rate of 1 USD = 0.8610 EUR, equivalently 1 EUR = 1.1614 USD. " +
         "This is the European Central Bank euro foreign exchange reference rate published for " +
-        "2026-09-08, not a live trading quote.",
+        "2026-09-08, not a live trading quote. The ECB publishes rates against the euro, so the USD " +
+        "rate here is computed from them.",
     );
     assert.equal(r.as_of, "2026-09-08");
     assert.equal(r.kind, "ecb_reference");
@@ -122,6 +123,56 @@ test("the undated answer text is unchanged (golden case, byte-identical)", async
   } finally {
     globalThis.fetch = original;
     resetRateCache();
+  }
+});
+
+test("a currency the ECB does not publish uses Frankfurter's blended pair rate and never open.er-api", async () => {
+  const original = globalThis.fetch;
+  const urls: string[] = [];
+  globalThis.fetch = (async (url: unknown) => {
+    const u = String(url);
+    urls.push(u);
+    if (u.includes("ecb.europa.eu")) {
+      return { ok: true, text: async () => "<Cube><Cube time='2026-10-23'><Cube currency='USD' rate='1.1600'/></Cube></Cube>" };
+    }
+    return { ok: true, json: async () => ({ date: "2026-10-23", base: "USD", quote: "NGN", rate: 1340.14 }) };
+  }) as unknown as typeof globalThis.fetch;
+  try {
+    const r = await convert("USD", "NGN", 10);
+    assert.ok(!urls.some((u) => u.includes("er-api")), `open.er-api must not be called: ${urls.join(", ")}`);
+    assert.ok(urls.includes("https://api.frankfurter.dev/v2/rate/USD/NGN"), `blended pair URL not called: ${urls.join(", ")}`);
+    assert.equal(r.kind, "blended_reference");
+    assert.equal(r.rate, 1340.14);
+    assert.equal(r.as_of, "2026-10-23");
+    assert.equal(
+      r.reason,
+      "10.00 USD is 13,401.40 NGN at a rate of 1 USD = 1340.14 NGN, equivalently 1 NGN = 0.0007462 USD. " +
+        "This is Frankfurter's blended daily rate from central banks and official sources, whose newest " +
+        "contributing rate is dated 2026-10-23; it is not a European Central Bank reference rate and not a live trading quote.",
+    );
+  } finally {
+    globalThis.fetch = original;
+  }
+});
+
+test("a blended reply for a different pair, or an unknown code (422), is unavailable rather than misused", async () => {
+  const original = globalThis.fetch;
+  for (const reply of [
+    { ok: true, json: async () => ({ date: "2026-10-23", base: "USD", quote: "KES", rate: 129.72 }) },
+    { ok: false, status: 422, json: async () => ({ status: 422, message: "invalid currency" }) },
+  ]) {
+    globalThis.fetch = (async (url: unknown) =>
+      String(url).includes("ecb.europa.eu")
+        ? { ok: true, text: async () => "<Cube><Cube time='2026-10-23'><Cube currency='USD' rate='1.1600'/></Cube></Cube>" }
+        : reply) as unknown as typeof globalThis.fetch;
+    try {
+      const r = await convert("USD", "NGN", 10);
+      assert.equal(r.verdict, "unknown");
+      assert.equal(r.error, "provider_unavailable");
+      assert.equal(r.rate, null);
+    } finally {
+      globalThis.fetch = original;
+    }
   }
 });
 
@@ -233,13 +284,14 @@ test("a conversion is labelled as a reference rate and carries its date (live)",
   assert.ok(r.converted !== null && r.converted > 50 && r.converted < 200, `implausible: ${r.converted}`);
 });
 
-test("a currency the ECB does not publish falls back and says it is a market rate (live)", async () => {
+test("a currency the ECB does not publish falls back and says it is a blended central-bank rate (live)", async () => {
   // The ECB publishes no rate for the Argentine peso.
   const r = await convert("USD", "ARS", 10);
   if (r.verdict === "unknown") return;
-  assert.equal(r.kind, "market");
-  assert.match(r.reason, /market rate/i);
-  assert.ok(!/reference rate published/.test(r.reason), "a market rate must not be labelled a reference rate");
+  assert.equal(r.kind, "blended_reference");
+  assert.match(r.reason, /blended daily rate from central banks and official sources, whose newest contributing rate is dated \d{4}-\d{2}-\d{2}/);
+  assert.match(String(r.as_of), /^\d{4}-\d{2}-\d{2}$/);
+  assert.ok(!/reference rate published/.test(r.reason), "a blended rate must not be labelled the ECB reference rate");
 });
 
 test("a dated conversion matches the published 2024-01-02 GBP/EUR reference rate (live)", async () => {

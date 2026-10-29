@@ -4,6 +4,11 @@ import { getFinancialData } from "../src/financial";
 import {
   annualFacts, fiscalYearAsked, fiscalYearOf, knownCompany, metricAsked, quarterAsked, quarterlyFacts, type Fact,
 } from "../src/fundamentals";
+import { openGate } from "./licence-fixtures";
+
+// These tests cover code kept behind its licence gate (GAPS G230).
+openGate("yahoo");
+openGate("coingecko");
 
 // Rank-loss report F8 (2026-09-15): "What was Apple's revenue in fiscal year
 // 2024?" was answered with today's trading range.

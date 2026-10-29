@@ -84,6 +84,8 @@ test("prices keep their meaningful digits", () => {
   assert.equal(formatPrice(77183.58, "USD"), "$77,183.58 USD");
   assert.equal(formatPrice(0.99986, "USD"), "$0.9999 USD");
   assert.equal(formatPrice(0.00001234, "USD"), "$0.00001234 USD");
+  assert.equal(formatPrice(9.7e-7, "BTC"), "0.0000009700 BTC", "no exponent form below 1e-6");
+  assert.equal(formatPrice(1.2344e-9, "BTC"), "0.000000001234 BTC");
   assert.equal(formatPrice(66543.7, "EUR"), "€66,543.70 EUR");
 });
 
@@ -110,7 +112,7 @@ test("(live) the current BTC price carries a figure, a venue and a UTC time", as
   if (r.error === "upstream_unavailable") return;
   assert.equal(r.verdict, "price");
   assert.match(r.reason, /^Bitcoin \(BTC\) is \$[\d,]+\.\d{2} USD, /);
-  assert.match(r.reason, /(Coinbase|Kraken|CoinGecko)/);
+  assert.match(r.reason, /the last Bitstamp trade at/);
   assert.match(r.reason, /\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} UTC/);
   const n = Number(r.reason.match(/\$([\d,]+\.\d{2})/)?.[1]?.replace(/,/g, ""));
   assert.ok(n > 1000 && n < 10_000_000, `implausible BTC price ${n}`);

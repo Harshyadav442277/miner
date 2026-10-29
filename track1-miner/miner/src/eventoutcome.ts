@@ -25,6 +25,8 @@
  */
 
 
+import { permitted } from "./sources";
+
 const TIMEOUT_MS = Number(process.env.EVENT_TIMEOUT_MS ?? 5_000);
 const GAMMA = "https://gamma-api.polymarket.com/public-search";
 const MANIFOLD = "https://api.manifold.markets/v0";
@@ -292,10 +294,14 @@ export async function resolveEvent(question: string): Promise<EventOutcomeResult
   const short = [...names(q), ...numbers(q)].join(" ");
   const gamma = (t: string): Promise<Candidate[] | null> =>
     getJson(`${GAMMA}?q=${encodeURIComponent(t)}&limit_per_type=10&keep_closed_markets=1`).then(polymarketCandidates).catch(() => null);
+  // Manifold's API allows only non-commercial use (GAPS G230), so it is searched only if that changes.
+  const MANIFOLD_OK = permitted(MANIFOLD);
   const [pmLong, pmShort, mf] = await Promise.all([
     gamma(term),
     short && short !== term ? gamma(short) : Promise.resolve(null),
-    getJson(`${MANIFOLD}/search-markets?term=${encodeURIComponent(term)}&limit=20`).then(manifoldCandidates).catch(() => null),
+    MANIFOLD_OK
+      ? getJson(`${MANIFOLD}/search-markets?term=${encodeURIComponent(term)}&limit=20`).then(manifoldCandidates).catch(() => null)
+      : Promise.resolve(null),
   ]);
   const pm = pmLong || pmShort ? [...(pmLong ?? []), ...(pmShort ?? [])] : null;
   // "Who won …?" asks for a name. A yes/no market that names no candidate cannot
@@ -305,13 +311,14 @@ export async function resolveEvent(question: string): Promise<EventOutcomeResult
   const pool = [...(pm ?? []), ...(mf ?? [])].filter((c) => !who || namedWinner(c) !== null);
   const best = bestMatch(q, pool);
   if (!best) {
-    if (!pm && !mf) {
+    if (!pm && (!mf || !MANIFOLD_OK)) {
       return { verdict: "unknown", confidence: 0, error: "upstream_unavailable",
-        reason: "The outcome could not be checked because neither Polymarket nor Manifold responded. This is an availability problem, not a statement that no market exists." };
+        reason: `The outcome could not be checked because ${MANIFOLD_OK ? "neither Polymarket nor Manifold responded" : "Polymarket did not respond"}. This is an availability problem, not a statement that no market exists.` };
     }
-    const partial = !pm || !mf ? ` ${!pm ? "Polymarket" : "Manifold"} did not respond, so only ${!pm ? "Manifold" : "Polymarket"} was searched.` : "";
+    const searched = MANIFOLD_OK ? "Polymarket or Manifold" : "Polymarket";
+    const partial = MANIFOLD_OK && (!pm || !mf) ? ` ${!pm ? "Polymarket" : "Manifold"} did not respond, so only ${!pm ? "Manifold" : "Polymarket"} was searched.` : "";
     return { verdict: "no_market_found", confidence: 0.4,
-      reason: `No prediction market matching this event was found on Polymarket or Manifold, so no outcome is reported and none is guessed.${partial} Official sources such as flight trackers, election authorities and league results are not read here.` };
+      reason: `No prediction market matching this event was found on ${searched}, so no outcome is reported and none is guessed.${partial} Official sources such as flight trackers, election authorities and league results are not read here.` };
   }
   const { c } = best;
   const play = c.venue === "Manifold" ? " (a play-money market)" : "";

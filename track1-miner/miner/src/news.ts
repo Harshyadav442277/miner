@@ -11,6 +11,7 @@
  */
 
 import { headlineCount, headlineWindow } from "./news-constraints";
+import { notLicensedReason, permitted } from "./sources";
 
 const FEED = "https://news.google.com/rss/search";
 const DEFAULT_TIMEOUT_MS = 8000;
@@ -35,6 +36,7 @@ export interface NewsResult {
   confidence: number;
   reason: string;
   checked_at: string;
+  error?: string;
 }
 
 const TOPICS = [
@@ -185,6 +187,15 @@ export async function getHeadlines(
   const recent = window && window.end >= Date.parse(now) - 300000
     ? ` when:${Math.max(1, Math.ceil((window.end - window.start) / 86400000))}d`
     : "";
+
+  // Google News RSS is the only source here, and its terms bar paid use (GAPS
+  // G189, G230), so until a licensed news source exists no headline is served.
+  if (!permitted(FEED)) {
+    return {
+      topic, region, verdict: "unknown", headlines: [], count: 0, confidence: 0, checked_at: now, error: "not_licensed",
+      reason: `No ${topic ? `${topic} ` : ""}headlines are given: ${notLicensedReason(FEED)}`,
+    };
+  }
 
   const url = `${FEED}?q=${encodeURIComponent(terms + recent)}`;
   const ac = new AbortController();

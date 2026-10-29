@@ -16,10 +16,8 @@ commit.
 - [ ] Say yes to pushing `codex/rank1-14-intents`, about 100 commits ahead of origin on 2026-10-29 after the
       branch merges. Reviewers reproduce from the public repo. Also close the stale uptime issue #13. Updating
       origin/main to it needs a PR.
-- [ ] `claude/licensed-sources`: merge or drop? Merging makes `/stock-price`, `/headlines` and `/news-search`
-      refuse every request. It stops calling ip-api, ipwho.is, IPinfo, CoinGecko/GeckoTerminal, Yahoo, Nasdaq,
-      Google News and Manifold, and adds a licence ledger at `/sources`. It conflicts with receipts, the ECB
-      hold and geo read-notes, so a yes means an integration pass plus tests (MEMORY 2026-10-29 17:30).
+- [x] `claude/licensed-sources` merged 2026-10-29 (owner: "Merge it"), unit tests 852/852. Not deployed (GAPS
+      G230–G234).
 - [ ] Archive the idle sessions whose worktrees were detached on 2026-10-29: project improvement strategy,
       Morse repair, miner improvements, high quality wasm. Delete remote `origin/codex/livecert-manifest-19`?
       Remove the 3 detached worktrees in `C:\Users\hyada\tg-deploy\`?
@@ -48,8 +46,14 @@ commit.
       §8, Nov 1–13). It earns coverage (15) and is the first delivery-award criterion.
 - [ ] G207: timeless web search quotes the wrong Wikipedia article (Pride and Prejudice → the zombie film).
       WEB_SEARCH is bought by 7 missions.
-- [ ] Deploy the RESEARCH_QUERY qualifier fix (G200, merged 2026-10-29, unit 822/822) with the G217 holder
-      fixes on the owner's yes: release-miner skill, preview first.
+- [ ] Before the next release, change the gates that probe licence-gated answers to expect `not_licensed`:
+      `/ip-geolocate` public addresses (the IP Tokyo pin), `/stock-price`, `/headlines` and `/news-search` in
+      `tools/intent-answers.mjs`. Check `no-regression.mjs`, `hostile-inputs.mjs`, `param-shapes.mjs`,
+      `latency-targets.mjs`, `upstream-health.mjs` and `verify-deploy.mjs` the same way. Add the `licensing` field
+      to `docs/openapi.json` (GAPS G230).
+- [ ] Then deploy, on the owner's yes, using the release-miner skill, preview first: the licence gates, the
+      RESEARCH_QUERY qualifier fix (G200) and the G217 holder fixes.
+- [ ] G233: read the CISA KEV and FIRST EPSS terms and record a verdict in `src/sources.ts`.
 - [ ] The G200 partials, smallest first: NXDOMAIN wording (SSL, URL_SAFE), the threshold answer for
       "will X reach N°C", product-level FINANCIAL questions.
 - [ ] RESEARCH_SYNTHESIS: non-biomedical topics. Synthesis reads only Europe PMC and PubMed, plus two

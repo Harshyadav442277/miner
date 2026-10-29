@@ -23,6 +23,11 @@
 import { Resolver } from "node:dns/promises";
 import { isIP } from "node:net";
 import { noteRead } from "./receipt";
+import { notLicensedReason, permitted } from "./sources";
+
+const IP_API = "http://ip-api.com/json/";
+const IPWHOIS = "https://ipwho.is/";
+const IPINFO = "https://ipinfo.io/";
 
 export interface GeoResult {
   ip: string;
@@ -41,6 +46,7 @@ export interface GeoResult {
   confidence: number;
   reason: string;
   checked_at: string;
+  error?: string;
 }
 
 const DEFAULT_TIMEOUT_MS = 6000;
@@ -373,14 +379,26 @@ export async function geolocate(rawIp: string, timeoutMs = DEFAULT_TIMEOUT_MS): 
     };
   }
 
+  // All three geolocation providers bar resale (GAPS G230), so a public address
+  // gets no location until a licensed provider exists. Reserved ranges above
+  // need none and are still answered.
+  if (![IP_API, IPWHOIS, IPINFO].some(permitted)) {
+    return {
+      ...unknown(ip, "no licensed geolocation source"), error: "not_licensed",
+      reason: `No location is given for the IP address ${ip}: ${notLicensedReason(IP_API)} ` +
+        "ipwho.is and IPinfo bar resale too. Private and reserved ranges are still answered.",
+    };
+  }
+
   // The Tor lookup runs alongside the provider fetch so it costs no latency.
   const torPromise = torExitNode(ip);
   // So does ipinfo's anycast flag. An anycast address has no one location:
   // 8.8.8.8, 9.9.9.9, Fastly's 151.101.195.42 and Cloudflare's 103.21.244.0 were
   // each placed in one city, and ip-api, ipinfo and ipwho.is named three
   // different cities for every one of them (2026-10-21).
-  const anycastPromise = getJson(`https://ipinfo.io/${encodeURIComponent(ip)}/json`, Math.min(timeoutMs, 2500))
-    .then((b) => b?.["anycast"] === true).catch(() => false);
+  const anycastPromise = permitted(IPINFO)
+    ? getJson(`${IPINFO}${encodeURIComponent(ip)}/json`, Math.min(timeoutMs, 2500)).then((b) => b?.["anycast"] === true).catch(() => false)
+    : Promise.resolve(false);
 
   // ip-api.com first: it honours operator-published geofeeds, so addresses on
   // large serving infrastructure (Google's 142.250.0.0/15, for one) resolve to
@@ -399,10 +417,10 @@ export async function geolocate(rawIp: string, timeoutMs = DEFAULT_TIMEOUT_MS): 
   let org: string | null = null;
 
   const perProviderMs = Math.min(timeoutMs, 4000);
-  const a0 = await getJson(
-    `http://ip-api.com/json/${encodeURIComponent(ip)}?fields=status,city,regionName,country,countryCode,lat,lon,timezone,isp,org,as`,
+  const a0 = permitted(IP_API) ? await getJson(
+    `${IP_API}${encodeURIComponent(ip)}?fields=status,city,regionName,country,countryCode,lat,lon,timezone,isp,org,as`,
     perProviderMs,
-  );
+  ) : null;
   if (a0 && a0["status"] === "success") {
     city = str(a0["city"]);
     region = str(a0["regionName"]);
@@ -424,7 +442,7 @@ export async function geolocate(rawIp: string, timeoutMs = DEFAULT_TIMEOUT_MS): 
     // the third corroboration that the operator is what belongs here.
     org = str(a0["isp"]) ?? str(a0["org"]);
   } else {
-    const a = await getJson(`https://ipwho.is/${encodeURIComponent(ip)}`, perProviderMs);
+    const a = permitted(IPWHOIS) ? await getJson(`${IPWHOIS}${encodeURIComponent(ip)}`, perProviderMs) : null;
     if (a && a["success"] === true) {
       city = str(a["city"]);
       region = str(a["region"]);
@@ -440,7 +458,7 @@ export async function geolocate(rawIp: string, timeoutMs = DEFAULT_TIMEOUT_MS): 
     } else {
       // Third provider, replacing ipapi.co, which answers HTTP 429 to keyless
       // callers (measured 2026-08-31) and so was not a failover at all.
-      const b = await getJson(`https://ipinfo.io/${encodeURIComponent(ip)}/json`, perProviderMs);
+      const b = permitted(IPINFO) ? await getJson(`${IPINFO}${encodeURIComponent(ip)}/json`, perProviderMs) : null;
       if (!b || b["error"]) return unknown(ip, "no geolocation provider returned a result");
       city = str(b["city"]);
       region = str(b["region"]);

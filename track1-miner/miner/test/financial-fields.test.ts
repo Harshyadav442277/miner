@@ -3,6 +3,11 @@ import assert from "node:assert/strict";
 import type { IncomingMessage, ServerResponse } from "node:http";
 import { getFinancialData } from "../src/financial";
 import { handleRequest } from "../src/handler";
+import { openGate } from "./licence-fixtures";
+
+// These tests cover code kept behind its licence gate (GAPS G230).
+openGate("yahoo");
+openGate("coingecko");
 
 const SOL_MARKET = [{
   id: "solana", symbol: "sol", name: "Solana", current_price: 109.46, market_cap: 64477502878,

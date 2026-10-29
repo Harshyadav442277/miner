@@ -20,6 +20,7 @@
  * the question can be grounded in and says plainly that it is not a prediction.
  */
 import { companyName, resolveTickerChecked } from "./financial";
+import { notLicensedReason, permitted } from "./sources";
 
 const TIMEOUT_MS = Number(process.env.STOCK_TIMEOUT_MS ?? 4_000);
 const UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36";
@@ -210,6 +211,12 @@ async function resolve(question: string, symbolParam: string): Promise<{ ticker:
 }
 
 export async function lookupStockPrice(question: string, symbolParam = "", now = new Date()): Promise<StockPriceResult> {
+  // Yahoo (quotes and the ticker search) and Nasdaq both bar resale (GAPS G230),
+  // and no keyless licensed source of share prices was found, so none is quoted.
+  if (![YAHOO_CHART, NASDAQ].some(permitted)) {
+    return { ticker: null, name: null, verdict: "unknown", confidence: 0, error: "not_licensed",
+      reason: `No share price is given: ${notLicensedReason(YAHOO_CHART)} Nasdaq's terms bar it too, and no licensed source of share prices is available here.` };
+  }
   const { ticker, named, outage, offTopic } = await resolve(question, symbolParam);
   const forecast = asksForecast(question) ? " Whether the price will rise or fall is a forecast, and no forecast is made here." : "";
   if (offTopic) {

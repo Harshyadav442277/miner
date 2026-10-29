@@ -148,6 +148,79 @@ Evidence: `track1-miner/docs/evidence/conformance-2026-10-25/` (README, `site-in
   - **Coverage limit, not a defect:** Google's Safe Browsing test page is listed only by Google Safe Browsing,
     which we do not consult.
 
+## 2026-10-24 licence ledger and source swaps — G230–G234 (G208–G212 on the branch)
+
+Merged into `codex/rank1-14-intents` on 2026-10-29 on the owner's yes ("Merge it"). The branch numbered these
+G208–G212, which codex had already used, so they were renumbered G230–G234 here and in the code comments. Still
+NOT deployed. **What the merge itself changed:**
+- Every answer now carries the receipt and the `licensing` field. The daily ECB table is still held for ten
+  minutes (G209), and Frankfurter replaces open.er-api for currencies the ECB does not publish. Geo keeps its DNS
+  read-notes behind the licence gates.
+- The ledger met codex's newer routes:
+  - `/dns`, `/token-supply`, `/keywords` and `/vuln-triage` were added to `ENDPOINT_SOURCES`. A new test fails
+    when a declared endpoint has no ledger entry.
+  - CISA KEV and FIRST EPSS (`/vuln-triage`) are registered as **unread** (G233).
+  - URLhaus was removed, because codex stopped calling it on 2026-10-25.
+- **`/token-holders` for a symbol outside the built-in table** now resolves through Blockscout's own search, not
+  GeckoTerminal. Codex measured on 2026-09-10 that this search did not return inside the budget from Vercel's
+  egress, so expect `unknown` there on production. Tokens in `KNOWN_TOKENS` are unaffected.
+- **`/ip-geolocate` answers only reserved ranges.** Every public address gets `not_licensed`, so the IP Tokyo pin
+  in `intent-answers.mjs` and the public-address probes will fail at the next release. The same applies to the
+  `/stock-price`, `/headlines` and `/news-search` probes. Update those gates to expect `not_licensed` before
+  deploying, or the release gate will read as a regression.
+- `docs/openapi.json` does not yet document the `licensing` field.
+- Unit tests 852/852 and `tsc --noEmit` clean on the merge (worktree `gallant-allen-3589e4`, 2026-10-29).
+
+Branch `claude/licensed-sources`. Every upstream is now registered in `track1-miner/miner/src/sources.ts` with its
+terms page, the date it was read and a verdict. The ledger is served at `/sources`, and every answer carries a
+`licensing` field (its endpoint's weakest upstream, plus any notice the terms require). `test/sources.test.ts`
+fails when a fetched host has no entry. It sees only URLs written out in full, not ones built from host lists.
+Terms pages are saved offline under `C:\tgw\terms` and `C:\tgw\terms2`. Nothing here is deployed.
+
+- **G230 — 8 of 35 endpoints draw on a source whose terms bar paid use. `OPEN, owner decision`.** Counted by
+  the import graph, which over-counts: an endpoint can look less licensed than it is, never more.
+  - `/ip-geolocate`: ip-api, ipwho.is and ipinfo, all barred (read 2026-10-23/24). Candidate: ipquery.io, whose
+    only grant is an FAQ line ("without restriction"), with no terms page.
+  - `/stock-price` and `/financial`: Yahoo (barred), CoinGecko (barred), Nasdaq (unread).
+  - `/headlines`, `/news-search`, `/web-search`: Google News RSS (barred, G189).
+  - `/token-holders`: GeckoTerminal, under CoinGecko's API terms (barred).
+  - `/event-outcome`: Manifold (barred: "non-commercial use are permitted"); Polymarket unread, because it was
+    unreachable from this network.
+  - Options per endpoint: a licensed replacement, answer `not_licensed` (the G186 convention), or drop the
+    intent.
+  - **UPDATE 2026-10-24: decided "answer not_licensed"; `CODE DONE on claude/licensed-sources, NOT deployed`.**
+    `permitted(url)` in sources.ts gates every call, so a barred source is never called and the registry is the
+    switch. Each endpoint falls back to what is still licensed:
+    - `/ip-geolocate` answers reserved ranges only;
+    - `/financial` answers SEC-filing figures only;
+    - `/token-holders` resolves through Blockscout;
+    - `/web-search` uses Wikipedia and the docs, and never says news was searched;
+    - `/event-outcome` searches Polymarket only;
+    - `/stock-price`, `/headlines` and `/news-search` refuse everything (SERVES_NOTHING).
+  - Nasdaq was read the same day and is barred too ("personal, non-commercial use").
+  - Endpoint statuses after the gates: 4 licensed, 7 conditional, 11 unclear, 10 unread, 3 barred.
+  - `test/licence-gates.test.ts` proves no barred host is called. The gated paths' own tests open the gate
+    per file (`test/licence-fixtures.ts`).
+  - **Cost:** answers on these intents drop until a licensed source exists. Live tests for the gated paths
+    were not re-run.
+- **G231 — OpenAlex now meters keyless calls. `OPEN, owner: create a free key`.** Keyless requests share
+  "$0.10" a day per IP (about 100 calls), and Vercel's egress IPs are shared. Production sets no
+  `OPENALEX_API_KEY` (env names read 2026-10-24); a free key gets $1 a day. `/papers` answered correctly
+  on 2026-10-24, so the pool was not empty then. No mission buys ACADEMIC_SEARCH.
+- **G232 — Bitstamp's bot wall. `OPEN, untested from Vercel`.** It returned 503 after about six requests within
+  seconds from this machine, and cleared seconds later. It is mitigated by a 10 s per-pair cache and reported
+  as an outage, never as a price. Question 3 of the DLA email asks Bitstamp about datacenter IPs.
+- **G233 — 12 sources unread, 8 unclear. `OPEN, Claude next`.**
+  - Unread: dRPC, Merkle, 1RPC, Routescan, LayerZero Scan, OpenChain, ENS Ideas, Eurostat, NY Fed,
+    Polymarket, Blockscout (found 2026-10-24: its hosts are assembled in code), and the doc sites
+    websearch.ts quotes. Nasdaq was read later that day and is barred.
+  - Unclear: PublicNode, the chains' own RPCs, Flashbots, URLhaus, the DNS resolvers, the UN list,
+    ClinicalTrials.gov and Groq (G197).
+  - Two conditions are not fully met. The SEC user agent carries no contact (SEC's exact wording was not
+    read), so `met: unchecked`. MITRE's licence is linked, not reproduced, so `met: partly`.
+- **G234 — `/papers` repeats an author's name. `OPEN, quality`.** On 2026-10-24 production listed "Matin
+  Chehelgerdi" three times for one paper. This is either OpenAlex's own author list or our parsing; not traced.
+
 ## 2026-10-22/23 Season II rules published, audit release — G203–G207
 
 The Miner and Evaluator rubrics are now on hackathon.telegraphprotocol.com/rules (read 2026-10-22 16:47 UTC).

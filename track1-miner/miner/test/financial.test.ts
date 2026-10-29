@@ -3,6 +3,11 @@ import assert from "node:assert/strict";
 import {
   asksFundamentals, companyName, contractAddress, explicitTicker, getFinancialData, resolveNetwork,
 } from "../src/financial";
+import { openGate } from "./licence-fixtures";
+
+// These tests cover code kept behind its licence gate (GAPS G230).
+openGate("yahoo");
+openGate("coingecko");
 
 const USDC_BASE = "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913";
 

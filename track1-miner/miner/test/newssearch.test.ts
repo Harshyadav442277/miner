@@ -4,6 +4,10 @@ import {
   acronyms, distinctiveTerms, extractSubject, extractWindowDays, isRelevant, isSoftRecency,
   searchNews, trimTitle,
 } from "../src/newssearch";
+import { openGate } from "./licence-fixtures";
+
+// These tests cover the Google News code, kept behind its licence gate (GAPS G230).
+openGate("google-news");
 
 test("the canonical example's subject survives the scaffolding", () => {
   // "Find recent articles covering the merger between company X and company Y."
