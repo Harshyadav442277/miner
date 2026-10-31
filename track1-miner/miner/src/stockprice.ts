@@ -193,36 +193,51 @@ async function nasdaqQuote(ticker: string): Promise<{ price: number; when: strin
 }
 
 /** The ticker, from the declared parameter, a written ticker, or the company name. */
-async function resolve(question: string, symbolParam: string): Promise<{ ticker: string | null; named: string | null; outage: boolean; offTopic: boolean }> {
-  // Only an already-uppercase parameter is a ticker: the engine fills `symbol`
-  // from the question and may put a company name there, and "Apple" uppercased
-  // is not Apple's ticker. A name is left to the resolver below.
-  const declared = symbolParam.trim();
-  if (/^[A-Z][A-Z.-]{0,6}$/.test(declared) && !NOT_TICKER.has(declared)) return { ticker: declared, named: declared, outage: false, offTopic: false };
+async function resolve(question: string, symbolParam: string): Promise<{ ticker: string | null; named: string | null; outage: boolean }> {
+  const declared = declaredTicker(symbolParam);
+  if (declared) return { ticker: declared, named: declared, outage: false };
   const written = writtenTicker(question);
-  if (written) return { ticker: written, named: written, outage: false, offTopic: false };
-  // A company name alone is not a stock question: the question itself must ask
-  // about a price or a listing, unless there is no question text at all.
-  if (String(question ?? "").trim() && !asksAboutStock(question)) return { ticker: null, named: null, outage: false, offTopic: true };
-  const named = declared || companyName(question);
-  if (!named) return { ticker: null, named: null, outage: false, offTopic: false };
+  if (written) return { ticker: written, named: written, outage: false };
+  const named = symbolParam.trim() || companyName(question);
+  if (!named) return { ticker: null, named: null, outage: false };
   const { ticker, outage } = await resolveTickerChecked(named);
-  return { ticker, named, outage, offTopic: false };
+  return { ticker, named, outage };
+}
+
+/**
+ * Only an already-uppercase parameter is a ticker: the engine fills `symbol`
+ * from the question and may put a company name there, and "Apple" uppercased
+ * is not Apple's ticker. A name is left to the resolver.
+ */
+function declaredTicker(symbolParam: string): string | null {
+  const declared = symbolParam.trim();
+  return /^[A-Z][A-Z.-]{0,6}$/.test(declared) && !NOT_TICKER.has(declared) ? declared : null;
+}
+
+/**
+ * A company name alone is not a stock question: the question itself must ask
+ * about a price or a listing, unless there is no question text at all. Needs no
+ * network, so it runs before the licence gate: a misrouted weather question is
+ * told it is not about a stock, not that share prices are unlicensed.
+ */
+function offTopic(question: string, symbolParam: string): boolean {
+  if (declaredTicker(symbolParam) || writtenTicker(question)) return false;
+  return Boolean(String(question ?? "").trim()) && !asksAboutStock(question);
 }
 
 export async function lookupStockPrice(question: string, symbolParam = "", now = new Date()): Promise<StockPriceResult> {
+  if (offTopic(question, symbolParam)) {
+    return { ticker: null, name: null, verdict: "unknown", confidence: 0, error: "no_subject",
+      reason: "This request does not ask for a share price or name a listed company's stock, so no share price is reported. Name one, for example: What is the current share price of Apple (AAPL)?" };
+  }
   // Yahoo (quotes and the ticker search) and Nasdaq both bar resale (GAPS G230),
   // and no keyless licensed source of share prices was found, so none is quoted.
   if (![YAHOO_CHART, NASDAQ].some(permitted)) {
     return { ticker: null, name: null, verdict: "unknown", confidence: 0, error: "not_licensed",
       reason: `No share price is given: ${notLicensedReason(YAHOO_CHART)} Nasdaq's terms bar it too, and no licensed source of share prices is available here.` };
   }
-  const { ticker, named, outage, offTopic } = await resolve(question, symbolParam);
+  const { ticker, named, outage } = await resolve(question, symbolParam);
   const forecast = asksForecast(question) ? " Whether the price will rise or fall is a forecast, and no forecast is made here." : "";
-  if (offTopic) {
-    return { ticker: null, name: null, verdict: "unknown", confidence: 0, error: "no_subject",
-      reason: "This request does not ask for a share price or name a listed company's stock, so no share price is reported. Name one, for example: What is the current share price of Apple (AAPL)?" };
-  }
   if (!ticker && outage) {
     return { ticker: null, name: named, verdict: "unknown", confidence: 0, error: "upstream_unavailable",
       reason: `The ticker for ${named} could not be looked up because the symbol search did not respond. This is an availability problem, not a statement that ${named} is unlisted.${forecast}` };

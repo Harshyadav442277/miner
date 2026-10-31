@@ -26,6 +26,19 @@ const get = async (path, params) => {
   return { status: r.status, body: await r.json() };
 };
 
+/**
+ * A source whose terms bar resale answers `not_licensed` (GAPS G230). That
+ * refusal is the correct answer, so it is graded for honesty only: no verdict
+ * beyond unknown, and the licence named.
+ */
+const refusedHonestly = (b, what) => {
+  console.log(`\n      (${what}: source not licensed for resale — checked for an honest refusal only)`);
+  const bad = [];
+  if (b.verdict !== "unknown") bad.push(`${what}: not_licensed with verdict ${b.verdict}`);
+  if (!/does not license its data for resale/.test(String(b.reason ?? ""))) bad.push(`${what}: not_licensed without naming the licence`);
+  return bad;
+};
+
 /** Each check returns an array of failure strings; empty means it passed. */
 const CHECKS = {
   async SSL_VERIFICATION() {
@@ -140,13 +153,16 @@ const CHECKS = {
       query: "Give the market cap and 24h trading volume for token 0x833589fcd6edb6e08f4c7c32d4f71b54bda02913 on base.",
     });
     const t = tok.body;
-    if (t.error) return [`errored: ${t.error}`];   // provider down; re-run the gate alone.
-    const tr = String(t.reason ?? "");
-    if (t.verdict !== "financial_data") bad.push(`token -> ${t.verdict}, want financial_data`);
-    if (!/market capitalisation of \$[\d,]+/.test(tr)) bad.push("no market capitalisation in the token answer");
-    if (!/24-hour trading volume of \$[\d,]+/.test(tr)) bad.push("no 24h volume in the token answer");
-    if (!/USDC/.test(tr)) bad.push("token not identified as USDC");
-    if (!/not a single quoted price/.test(tr)) bad.push("answer does not distinguish itself from a price lookup");
+    if (t.error === "not_licensed") bad.push(...refusedHonestly(t, "token market data"));
+    else if (t.error) return [`errored: ${t.error}`];   // provider down; re-run the gate alone.
+    else {
+      const tr = String(t.reason ?? "");
+      if (t.verdict !== "financial_data") bad.push(`token -> ${t.verdict}, want financial_data`);
+      if (!/market capitalisation of \$[\d,]+/.test(tr)) bad.push("no market capitalisation in the token answer");
+      if (!/24-hour trading volume of \$[\d,]+/.test(tr)) bad.push("no 24h volume in the token answer");
+      if (!/USDC/.test(tr)) bad.push("token not identified as USDC");
+      if (!/not a single quoted price/.test(tr)) bad.push("answer does not distinguish itself from a price lookup");
+    }
 
     // Since 2026-09-15 fundamentals come from SEC 10-K filings (fundamentals.ts).
     // Growth is annual, so the quarterly part must be declared; the P/E is either
@@ -277,6 +293,7 @@ const CHECKS = {
       query: "Find recent articles covering the European Central Bank interest rate decision.",
     });
     const b = r.body;
+    if (b.error === "not_licensed") return refusedHonestly(b, "news search");
     if (b.error) return [`errored: ${b.error}`]; // news index down; re-run the gate alone.
     if (b.verdict !== "articles") bad.push(`ECB search -> ${b.verdict}, want articles`);
     const reason = String(b.reason ?? "");
@@ -469,17 +486,20 @@ const CHECKS = {
   async IP_GEOLOCATION() {
     const bad = [];
     const g = await get("/ip-geolocate", { ip: "8.8.8.8" });
-    if (!/united states/i.test(g.body.reason)) bad.push("8.8.8.8 not placed in the United States");
-    if (!/google/i.test(g.body.reason)) bad.push("8.8.8.8 answer never names Google");
-    // 8.8.8.8 is anycast: one city for it is wrong, and three providers named
-    // three different cities on 2026-10-21. The answer must say so.
-    if (g.body.verdict !== "anycast" || !/anycast/i.test(String(g.body.reason ?? ""))) {
-      bad.push(`8.8.8.8 -> ${g.body.verdict}; an anycast address answered as one location`);
+    if (g.body.error === "not_licensed") bad.push(...refusedHonestly(g.body, "public IP geolocation"));
+    else {
+      if (!/united states/i.test(g.body.reason)) bad.push("8.8.8.8 not placed in the United States");
+      if (!/google/i.test(g.body.reason)) bad.push("8.8.8.8 answer never names Google");
+      // 8.8.8.8 is anycast: one city for it is wrong, and three providers named
+      // three different cities on 2026-10-21. The answer must say so.
+      if (g.body.verdict !== "anycast" || !/anycast/i.test(String(g.body.reason ?? ""))) {
+        bad.push(`8.8.8.8 -> ${g.body.verdict}; an anycast address answered as one location`);
+      }
+      // Only ip-api honours operator geofeeds and puts this in Tokyo; the
+      // ipwho.is fallback misplaces it in Mumbai. Tokyo proves the PRIMARY answered.
+      const geo = await get("/ip-geolocate", { ip: "142.251.42.174" });
+      if (!/tokyo|japan/i.test(geo.body.reason)) bad.push(`142.251.42.174 -> ${geo.body.verdict}; not Tokyo, so the primary provider is not answering`);
     }
-    // Only ip-api honours operator geofeeds and puts this in Tokyo; the
-    // ipwho.is fallback misplaces it in Mumbai. Tokyo proves the PRIMARY answered.
-    const geo = await get("/ip-geolocate", { ip: "142.251.42.174" });
-    if (!/tokyo|japan/i.test(geo.body.reason)) bad.push(`142.251.42.174 -> ${geo.body.verdict}; not Tokyo, so the primary provider is not answering`);
     const priv = await get("/ip-geolocate", { ip: "192.168.1.10" });
     if (priv.body.verdict !== "private") bad.push(`192.168.1.10 -> ${priv.body.verdict}, want private`);
     if (!/rfc 1918|private/i.test(priv.body.reason)) bad.push("private range not explained");
@@ -560,6 +580,7 @@ const CHECKS = {
     const bad = [];
     const r = await get("/headlines", { topic: "technology" });
     const b = r.body;
+    if (b.error === "not_licensed") return refusedHonestly(b, "headlines");
     const heads = b.headlines ?? [];
     if (heads.length < 3) bad.push(`only ${heads.length} headlines returned`);
     if (!heads.every((h) => h.title)) bad.push("a headline has no title");
@@ -755,6 +776,9 @@ const CHECKS = {
     if (b.error === "upstream_unavailable") {
       if (/\d+\.\d{2} USD/.test(prose)) bad.push("an outage answer carries a price figure");
       console.log("\n      (quote providers down — STOCK_PRICE checked for honesty only)");
+    } else if (b.error === "not_licensed") {
+      bad.push(...refusedHonestly(b, "share price"));
+      if (/\d+\.\d{2} USD/.test(prose)) bad.push("a licence refusal carries a price figure");
     } else {
       if (b.verdict !== "price") bad.push(`AAPL -> ${b.verdict}, want price`);
       if (!/\(AAPL\)/.test(prose)) bad.push("ticker not named");
@@ -921,7 +945,12 @@ const CHECKS = {
 
     const r = await get("/web-search", { query: "What's the latest news on the Fed's interest rate decision?" });
     const reason = String(r.body.reason ?? "");
-    if (!newsUp) {
+    if (r.body.error === "not_licensed") bad.push(...refusedHonestly(r.body, "web search news"));
+    else if (/Current news was not searched/.test(reason)) {
+      // Google News is barred (G230): background only, and it must say news was not read.
+      if (/Google News/.test(reason)) bad.push("a background-only answer names Google News");
+      console.log("\n      (news index not licensed — WEB_SEARCH answered from background only)");
+    } else if (!newsUp) {
       // An outage must never be reported as "no reports exist".
       if (r.body.verdict === "no_results") bad.push("the news index is down and the answer claims nothing was published");
       console.log("\n      (Google News unavailable — WEB_SEARCH checked for honesty only)");

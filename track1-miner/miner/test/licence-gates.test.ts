@@ -48,6 +48,13 @@ for (const [url, what] of REFUSED) {
   });
 }
 
+test("a question that is not about a stock is told so, not told the price is unlicensed", async (t) => {
+  const urls = record(t);
+  const body = await get("/stock-price?query=What%20is%20the%2024-hour%20weather%20forecast%20for%20Auckland%3F");
+  assert.equal(body.error, "no_subject", String(body.reason));
+  assert.equal(urls.length, 0);
+});
+
 test("a reserved IP range is still answered: it needs no provider", async (t) => {
   const urls = record(t);
   const body = await get("/ip-geolocate?query=10.0.0.1");
