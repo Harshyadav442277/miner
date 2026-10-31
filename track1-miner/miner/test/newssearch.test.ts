@@ -30,6 +30,13 @@ test("interrogative scaffolding is not searched for", () => {
   assert.equal(extractSubject("Show me news on Tesla from the past month"), "Tesla");
 });
 
+test("a contraction left by the scaffold is not part of the subject", () => {
+  // Read 2026-10-31 on a preview: "News coverage of 's the Fed's interest rate decision".
+  for (const q of ["What's the latest news on the Fed's interest rate decision?", "What’s the latest news on the Fed's interest rate decision?"]) {
+    assert.ok(!/^['’]s\b/.test(extractSubject(q)), extractSubject(q));
+  }
+});
+
 test("a request with no subject is refused rather than searched literally", () => {
   assert.equal(extractSubject("What is the news?"), "");
   assert.equal(extractSubject("latest headlines"), "");

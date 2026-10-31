@@ -114,7 +114,8 @@ const TAIL_JUNK = /[\s,;:-]*\b(?:of|on|about|for|in|to|from|the|a|an|and|or|with
 function tidy(text: string): string {
   let s = String(text ?? "").trim().replace(/[?!.,;:]+$/, "").trim();
   let previous = "";
-  while (s !== previous) { previous = s; s = s.replace(LEAD_JUNK, "").trim(); }
+  // The contraction strip: "What's the news on X" loses "What" here and would keep "'s".
+  while (s !== previous) { previous = s; s = s.replace(LEAD_JUNK, "").replace(/^['’]s\s+/i, "").trim(); }
   previous = "";
   while (s !== previous) { previous = s; s = s.replace(TAIL_JUNK, "").trim(); }
   return s;
