@@ -152,12 +152,15 @@ try {
   // the operator and the country. Latitude and longitude are no longer served at
   // all - they were fields, never prose, and no ground truth in ip_bench asks for
   // them - so this checks the identifiers the answer actually carries.
+  // Every public-IP provider bars resale (GAPS G230), so the right answer is a
+  // refusal that names the address and the licence, with no location.
   const said = `${body.verdict} ${body.reason}`;
-  const located = /ashburn/i.test(said) && /united states/i.test(said) && /google/i.test(said);
-  report(res.ok && located, "8.8.8.8 -> Google, Ashburn, United States",
-    res.ok ? `got ${String(body.verdict).slice(0, 40)}, ${ms}ms` : `HTTP ${res.status}`);
+  const refused = body.error === "not_licensed" && body.verdict === "unknown" && !body.country &&
+    /8\.8\.8\.8/.test(said) && /does not license its data for resale/.test(said);
+  report(res.ok && refused, "8.8.8.8 -> not_licensed, address and licence named",
+    res.ok ? `got ${String(body.error ?? body.verdict).slice(0, 40)}, ${ms}ms` : `HTTP ${res.status}`);
 } catch (e) {
-  report(false, "8.8.8.8 -> Google, Ashburn, United States", e.message);
+  report(false, "8.8.8.8 -> not_licensed, address and licence named", e.message);
 }
 try {
   const { res } = await get(`/ip-geolocate`);

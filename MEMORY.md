@@ -1,6 +1,28 @@
 # MEMORY.md — session continuity
 
-## 2026-10-29 ~18:00 UTC (23:30 IST): CURRENT — licensed-sources MERGED; not deployed, not pushed
+## 2026-10-31 ~16:15 UTC (21:45 IST): CURRENT — licence gates LIVE on production; not pushed, nothing signed
+
+Owner: "i dont see livecert listed on rankings. update our miner and make it ready for the hackathon".
+
+- **Why LiveCert is not on the rankings (G235):** on V2 only families with an evaluator are scored. 71 of 1,875
+  registrations are scored, all in 7 families; none of our 36 families has an evaluator, so no miner at all is
+  ranked in them. 4829 is `active`, the watch is green. Nothing in the miner changes this.
+- **V2 moved to Ethereum Sepolia (G236):** Diamond `0x3624…b99b`. RULES_SEASON2, README and WINNING corrected.
+- **Released `330f2af`** (licence gates, G200 qualifier, G217 holders, plus two fixes found on the preview:
+  off-topic `/stock-price` questions get `no_subject` before the licence refusal; "What's the news on X" no longer
+  leaves "'s" in the subject). Production `miner-h0lnck8v6`; rollback `miner-6kvt9zv2p` (`4af4ebd`).
+- **Gates changed** to grade an honest `not_licensed` as correct; upstream-health no longer probes the nine
+  sources production stopped calling, and probes MET Norway + Nominatim through production.
+- **Verified:** unit 854/854; preflight 7/7 exit 0; intent answers 40/40 (34 answered, 6 honest refusals);
+  watch `activation=active`. Evidence: `track1-miner/docs/evidence/release-2026-10-31-licence-gates/`.
+- **Live consequence:** STOCK_PRICE, NEWS_HEADLINES, NEWS_SEARCH refuse everything; WEB_SEARCH loses current
+  news; IP_GEOLOCATION answers reserved ranges only; FINANCIAL_DATA answers SEC figures only. Licensed sources
+  are the owner's call (TASKS).
+- **Branches:** `codex/rank1-14-intents` fast-forwarded to the docs commit after `330f2af`; not pushed.
+  Deploy tree `C:\Users\hyada\tg-deploy\mc75190b` (detached, `npm ci` done).
+- **Next, the owner's:** register for H2 before Nov 1 00:00 UTC (05:30 IST) if not done; G235 decision; push.
+
+## 2026-10-29 ~18:00 UTC (23:30 IST): licensed-sources MERGED (deployed 2026-10-31, above)
 
 Owner: "Merge it" (claude/licensed-sources).
 

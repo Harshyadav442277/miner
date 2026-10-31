@@ -741,7 +741,7 @@ const CHECKS = {
       if (!Number.isFinite(said)) bad.push("answer does not lead with a BTC figure in USD");
       else if (truth && Math.abs(said - truth) / truth > 0.02) bad.push(`BTC ${said} is more than 2% from Coinbase ${truth}`);
       if (!/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} UTC/.test(prose)) bad.push("no UTC quote time");
-      if (!/Coinbase|Kraken|CoinGecko/.test(prose)) bad.push("no quoting venue named");
+      if (!/Bitstamp|Coinbase|Kraken/.test(prose)) bad.push("no quoting venue named");
     }
 
     // Refusals that reach no upstream, so they hold in every provider state.

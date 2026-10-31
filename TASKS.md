@@ -21,8 +21,10 @@ commit.
 - [ ] Archive the idle sessions whose worktrees were detached on 2026-10-29: project improvement strategy,
       Morse repair, miner improvements, high quality wasm. Delete remote `origin/codex/livecert-manifest-19`?
       Remove the 3 detached worktrees in `C:\Users\hyada\tg-deploy\`?
-- [ ] Deploy the G217 holder fixes (`af568e1`), committed and tested, not deployed: use the release-miner skill,
-      preview first.
+- [x] Deploy the G217 holder fixes: deployed 2026-10-31 with the licence gates (`330f2af`, `miner-h0lnck8v6`).
+- [ ] G235: LiveCert is unranked because no evaluator exists for any of its 36 families. Decide whether to fund
+      Track 2 work on one family (an adapter, $5 MACHINA bond, 70% on 15 public pairs), or ask Telegraph when
+      evaluators for these families are coming.
 - [ ] G217: create a free Blockscout Pro API key at dev.blockscout.com, read its terms, and put it in
       `track1-miner/miner/.env.local` as `BLOCKSCOUT_API_KEY`. Or decline it and keep Base, Arbitrum and Polygon
       holder counts answering `unknown`.
@@ -46,13 +48,10 @@ commit.
       §8, Nov 1–13). It earns coverage (15) and is the first delivery-award criterion.
 - [ ] G207: timeless web search quotes the wrong Wikipedia article (Pride and Prejudice → the zombie film).
       WEB_SEARCH is bought by 7 missions.
-- [ ] Before the next release, change the gates that probe licence-gated answers to expect `not_licensed`:
-      `/ip-geolocate` public addresses (the IP Tokyo pin), `/stock-price`, `/headlines` and `/news-search` in
-      `tools/intent-answers.mjs`. Check `no-regression.mjs`, `hostile-inputs.mjs`, `param-shapes.mjs`,
-      `latency-targets.mjs`, `upstream-health.mjs` and `verify-deploy.mjs` the same way. Add the `licensing` field
-      to `docs/openapi.json` (GAPS G230).
-- [ ] Then deploy, on the owner's yes, using the release-miner skill, preview first: the licence gates, the
-      RESEARCH_QUERY qualifier fix (G200) and the G217 holder fixes.
+- [x] Gates changed to grade `not_licensed` as an honest refusal, and the licence gates, G200 and G217 deployed
+      2026-10-31 (`330f2af`): preflight 7/7, intent answers 40/40 (34 answered, 6 refusals).
+- [ ] Add the `licensing` field to `docs/openapi.json` (GAPS G230). `latency-targets.mjs` was not re-checked.
+- [ ] G236: confirm with `cast` that 4829 is on the Ethereum Sepolia Diamond before any on-chain step.
 - [ ] G233: read the CISA KEV and FIRST EPSS terms and record a verdict in `src/sources.ts`.
 - [ ] The G200 partials, smallest first: NXDOMAIN wording (SSL, URL_SAFE), the threshold answer for
       "will X reach N°C", product-level FINANCIAL questions.

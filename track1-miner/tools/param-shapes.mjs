@@ -106,7 +106,7 @@ const SUBJECTS = [
   ["/storm-alert", { location: "Chennai", query: "Is there a storm risk there in the next 48 hours?" }, "Chennai"],
   ["/translate", { text: "Good morning", target_language: "French", query: "Translate it." }, "onjour"],
   ["/extract", { text: "Reach us at support@example.com or call 555-0192.", query: "Extract the contact details." }, "support@example"],
-  ["/headlines", { topic: "technology", query: "Give me the top 5 on that." }, "\\w"],
+  ["/headlines", { topic: "technology", query: "Give me the top 5 on that." }, "technology"],
   ["/wallet-balance", { address: ADDR, query: "What is the balance of this wallet?" }, ADDR],
 ];
 
@@ -169,7 +169,9 @@ for (const [ep, params, mustMention] of SUBJECTS) {
   try { out = await call(ep, params); }
   catch (e) { fail++; console.log(`FAIL  ${ep}\n      transport: ${e.message}`); continue; }
   const reason = typeof out.body?.reason === "string" ? out.body.reason : "";
-  const ok = out.status === 200 && reason.trim() && new RegExp(mustMention, "i").test(reason) && !out.body?.error;
+  // A licence refusal (GAPS G230) is a correct answer; it must still name the subject.
+  const ok = out.status === 200 && reason.trim() && new RegExp(mustMention, "i").test(reason) &&
+    (!out.body?.error || out.body.error === "not_licensed");
   if (!ok) {
     fail++;
     console.log(`FAIL  ${ep}  want /${mustMention}/  error=${out.body?.error ?? "-"}`);

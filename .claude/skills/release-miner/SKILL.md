@@ -35,9 +35,9 @@ A deploy is not a push, and neither one is an `updateMiner`.
    ```
 
    - Re-run any failing gate alone before believing it. The badssl live test has flaked once (2026-10-26).
-   - **Known baseline, not regressions:**
-     - intent answers: one FAIL, the IP Tokyo pin;
-     - upstream health: the ip-api primary, and the merkle RPC answering 429.
+   - **Known baseline, not regressions** (since 2026-10-31, `330f2af`, all 7/7 green):
+     - intent answers: six intents are graded as honest `not_licensed` refusals (GAPS G230), not failures;
+     - upstream health: the merkle RPC answering 429 is a failover warning only.
    - Anything else failing means fix it, or roll back to the previous production URL with `vercel promote`.
 7. **Check the registration:** `node track1-miner/tools/watch.mjs --registration-id 4829 --base-url https://miner-wine.vercel.app --once`.
    `--once` goes last.

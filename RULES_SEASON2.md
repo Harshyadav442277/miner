@@ -227,7 +227,9 @@ Sources: `/docs/whats-new-v2`, `/docs/miners/miner-overview` and `/docs/miners/m
 - **Earnings:** from demand only. `min_price_usdc × demand_multiplier × 0.98`, swapped to MACHINA over 24 h;
   settlement waits for 100 USDC to accumulate. The floor is 10000 (0.01 USDC). Anjoman's Earn page says
   instead "Each answer it returns is paid in USDC" (G219).
-- **Chain:** Base Sepolia, Diamond `0x5a2324aA18613FAD4e44bDF0d6c73Ec1f6D87ff8`; current addresses are at
+- **Chain (corrected 2026-10-31, G236):** V2 runs on **Ethereum Sepolia** (chain ID 11155111), Diamond
+  `0x3624EB012B5E998BB57B6bE6C9Cfc9c4bc5eb99b`. The Base Sepolia Diamond `0x5a2324aA18613FAD4e44bDF0d6c73Ec1f6D87ff8`
+  below is the earlier chain. Current addresses are at
   `/docs/protocol/addresses-and-params`. After a chain move, the admin imports existing miners with the same
   id and owner.
 - **Evaluators:** "Float model adapters in WASM. The older formats are refused." The new call is

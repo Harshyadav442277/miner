@@ -1,5 +1,31 @@
 # GAPS.md — honesty ledger
 
+## 2026-10-31 "LiveCert is not on the rankings" — G235, G236; G230 deployed
+
+- **G235 — No miner is ranked in any of 4829's 36 intents, because no evaluator exists for their families.
+  `OPEN, network-side`.** Devnode `/api/miners`, 2026-10-31 ~15:35 UTC: 1,875 registrations, 71 `scored: true`,
+  every score in one of 7 families (FX_NOW, CODE_REVIEW, LLM_OUTPUT_EVALUATION, CUSTOMER_TICKET_RESOLUTION,
+  TASK_EXECUTION_QUALITY, CONTRACT_OBLIGATION_AUDIT, THREAT_INTELLIGENCE). `/api/wasm` lists evaluator
+  registrations for exactly those 7 families and no others (all now deregistered, superseded or rejected;
+  `champion: null` on every one). 4829 (catalogue id 4433) is `active`, `scored: false`, with no `scores`
+  field. Telegraph's own `txlens` and `telegraph-verity-intelligence`, which share 33 of our intents, are scored
+  only on THREAT_INTELLIGENCE. So the absence is not our miner's fault and nothing in the miner changes it.
+  - Two other causes ruled out: the grace period (docs: "doesn't appear on the leaderboard" for 7 days after
+    activation; 4829's ends 2026-11-01 00:48 UTC, but miners registered the same night are scored) and
+    liveness (spot checks pass on any non-empty answer; the watch is green).
+  - What would change it: an accepted evaluator adapter for one of our families (Track 2 work, a $5 MACHINA
+    bond and a 70% floor on 15 public pairs, per the rejection reasons in `/api/wasm`), or Telegraph adding one.
+  - Epochs are now 5 minutes (`/api/epoch`: epoch 1934 at 15:39 UTC).
+- **G236 — V2 moved the chain to Ethereum Sepolia. `OPEN, check before any on-chain step`.** The docs
+  (`/docs/whats-new-v2`, `/docs/protocol/addresses-and-params`, read 2026-10-31): chain ID 11155111, Diamond
+  `0x3624EB012B5E998BB57B6bE6C9Cfc9c4bc5eb99b`, test USDC anyone can mint, a MACHINA bond to register.
+  `RULES_SEASON2.md`, `README.md` and WINNING.md's tutorial row named Base Sepolia (all corrected 2026-10-31). 4829 is `active` on
+  the node, so the import carried it; that it sits on the new Diamond was not checked with `cast` (no RPC call
+  made).
+- **G230 deployed 2026-10-31** (`330f2af`, `miner-h0lnck8v6`): six intents now answer `not_licensed` in whole or
+  part. Evidence and the list: `track1-miner/docs/evidence/release-2026-10-31-licence-gates/`. The gates were
+  changed to grade those refusals for honesty.
+
 ## 2026-10-29 rules re-read and the V2 docs on anjoman.ai — G218–G220; G203 closed; G208, G212 updated
 
 Sources: hackathon.telegraphprotocol.com (/, /rules with every track tab, /timeline, /build, /intents) and

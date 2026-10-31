@@ -278,7 +278,7 @@ distinct contribution. Each holds the six items /rules §08 lists.
 |---|---|---|
 | 01 Participant and project | Track Miners / Providers; the intents we claim; `miner-wine.vercel.app` | Track Evaluators; the intents covered; the published release |
 | 02 Video, 2–5 minutes | Realistic input, the answer, the receipt and the ranking | Module proved in the node runtime, against the baseline |
-| 03 Tutorial | How an app gets our answer through Telegraph: an example request, expected output, Base Sepolia, the $0.01 floor price, limitations | How to reproduce the proof and the hashes |
+| 03 Tutorial | How an app gets our answer through Telegraph: an example request, expected output, Ethereum Sepolia, the $0.01 floor price, limitations | How to reproduce the proof and the hashes |
 | 04 Evidence | Registration 4829 and its YAML hash; per-intent ranking references; receipts for any H2 consumption; the availability log; the audit; a latency and cost table | Methodology, results against a baseline, hosted keccak hashes, registration transactions, protected reference material through reviewer access |
 | 05 Public summary | What works today, and one Try or Connect link | What it measures, and one Compete or Build link |
 | 06 Showcase preferences | Owner's choice | Owner's choice |

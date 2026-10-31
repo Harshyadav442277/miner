@@ -10,6 +10,24 @@ below, the newer section wins.
 
 ---
 
+## Checked 2026-10-31 ~15:30–16:00 UTC (GAPS G235, G236)
+
+- **Only families with an evaluator are scored.** Devnode `/api/miners`: 71 of 1,875 registrations are
+  `scored: true`, all in the 7 families that `/api/wasm` lists evaluator registrations for. A scored entry carries
+  `last_scored_epoch`, `last_scored_at` and `scores[]` (`intent_id`, `epoch_id`, `rank`, `score`); an unscored one
+  carries `total_requests_served` instead.
+- **Epochs are 5 minutes** (`/api/epoch`, epoch 1934 at 15:39 UTC).
+- **The chain is Ethereum Sepolia** (11155111), Diamond `0x3624EB012B5E998BB57B6bE6C9Cfc9c4bc5eb99b`
+  (`/docs/protocol/addresses-and-params`). Registration needs a MACHINA bond ($1 first intent, $0.10 to 9,
+  $0.07 after) (`/docs/whats-new-v2`).
+- **Grace period:** a miner "doesn't appear on the leaderboard" for 7 days after activation
+  (`/docs/miners/miner-overview`). This contradicts the Season I observation below ("Unranked was wrong");
+  it is not what keeps 4829 off the rankings now (G235).
+- **Bounties:** the docs now have a bounty board section (`github.com/telegraphprotocol/bounties`, label
+  `source:h2` for Season II issues). Unread beyond `/docs/bounties/overview` and `/season-two`.
+
+---
+
 ## V2 docs and the Anjoman site, read 2026-10-29 ~16:30–16:47 UTC
 
 Sources: https://anjoman.ai/docs (`introduction`, `whats-new-v2`, `miners/miner-overview`,
