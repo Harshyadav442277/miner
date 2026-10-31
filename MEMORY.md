@@ -1,5 +1,17 @@
 # MEMORY.md — session continuity
 
+## 2026-10-31 ~19:00 UTC (00:30 IST Nov 1): CURRENT — strategy rewritten; workflow fixtures 3/9 on production
+
+Owner: "yes start. building. but before create a plan, asymmetrical strategies … use leverage over others".
+
+- **WINNING.md §4 rewritten** (S1–S9) and **§4b experiments** (E1–E6) with kill rules. Leverage refused: extra
+  wallets, own traffic as demand, scorers that know our miner.
+- **Matrix:** 102 example builds; all 15 missions touched; **9 builds buy only families we serve**.
+  TASK_EXECUTION_QUALITY and LLM_OUTPUT_EVALUATION (ranked today) are each the one missing family in 3 builds (S5).
+- **Fixtures on production:** 3/9 workflows pass, 4 fail (G241 fact-check, G242 sentiment, G243 election
+  phrasing), 2 unchecked (SEC). Evidence `track1-miner/docs/evidence/missions-2026-10-31/`.
+- **Next, Claude's:** fix G241–G243 and re-run on a preview (deploy needs the owner's yes).
+
 ## 2026-10-31 ~18:50 UTC (00:20 IST Nov 1): CURRENT — docs re-read; comparator registration withdrawn
 
 Owner: "update the documentation again, because Telegraph have updated them … what's the status … I want to

@@ -38,8 +38,8 @@ Morse, is the separate repo `../telegraph-morse`. **Not this project:** the Midn
 3. **Sandbox-validate before every on-chain send.** No `registerMiner` / `updateMiner` without a
    clean run at `integrate.telegraphprotocol.com` first. Registration is effectively immutable and
    a rejection releases the slug to anyone.
-4. **Verify protocol facts against live docs**, never memory — https://anjoman.ai/docs (raw Markdown:
-   `https://docs.telegraphprotocol.com/docs/<page>.md`). The canonical intent set changes on-chain. Record
+4. **Verify protocol facts against live docs**, never memory — https://anjoman.ai/docs (raw Markdown is gone since
+   2026-10-31; docs.telegraphprotocol.com redirects there). The canonical intent set changes on-chain. Record
    what was checked, and when, in docs/TELEGRAPH_FACTS.md.
 5. **Look up registrations by `registrationId`, never by slug.** By-slug returns whoever currently
    serves that slug, which may not be us.

@@ -1,12 +1,12 @@
 # WINNING.md — the goal: win Season II in the Miner and Evaluator tracks
 
-Written 2026-10-22 ~17:10 UTC (22:40 IST); dates, prizes and protocol facts re-checked 2026-10-29. This is the
+Written 2026-10-22 ~17:10 UTC (22:40 IST); dates, prizes and protocol facts re-checked 2026-10-29; §4 rewritten 2026-10-31. This is the
 goal file. Every plan, task and review in this repo answers to it. Rules: [RULES_SEASON2.md](RULES_SEASON2.md).
 Season I post-mortem: [track1-miner/docs/S1_LESSONS.md](track1-miner/docs/S1_LESSONS.md).
 
 **Track names.** This repo calls the miner **Track 1** (`track1-miner/`, LiveCert, registration 4829) and
 the evaluators **Track 2** (`track2/`). /rules numbers them 02 Miners / Providers and 03 Evaluators; the home
-and /tracks pages number them 01 and 02. We do not enter Apps & Agents (but see A4).
+and /tracks pages number them 01 and 02. We do not enter Apps & Agents (the owner enters it later; see S2).
 
 ## 1. What "win" means, in prize terms
 
@@ -91,21 +91,52 @@ Each decision is tied to the rubric line it serves. Dates are when it was taken;
 | D15 | **Adapter target: LLM_OUTPUT_EVALUATION.** The kit refuses FACT_CHECK; LLM_OUTPUT_EVALUATION is a judgment intent that it packages. | Coverage only counts where a module can actually be accepted. |
 | D16 | **Train only on pairs we never upload to the evaluation pool. No miner fingerprints in any scorer** (track2 rule 2). | Integrity (20). The rules disqualify leaked confidential material and collusive work, and we also run a miner. |
 
-## 4. Asymmetric strategies — what we bet on, and why
+## 4. Asymmetric strategies — what we bet on, and why (rewritten 2026-10-31 ~19:30 UTC)
 
 An asymmetric bet is one where our cost is small or already paid, and the payoff is large or comes from
-ground most competitors ignore.
+ground most competitors ignore. Rewritten after the 2026-10-31 re-check (GAPS G235–G240) and the first
+build-level mission matrix (`track1-miner/docs/evidence/missions-2026-10-31/`, `tools/mission-matrix.mjs`).
 
-| # | Strategy | Why it is asymmetric | Guardrail |
-|---|---|---|---|
-| A1 | **One correctness loop feeds both tracks.** The audit's primary-source questions (154 today) become miner regression tests and evaluator reference material. | Most entrants build one side. We pay for the reference data once and use it twice. Each track's evidence also strengthens the other: "our miner is right, and here is the measurement that proves it". | Scorers stay identity-blind, with our own wrong answers scored down (track2 rule 2). The related entries are disclosed (§10.03). |
-| A2 | **Cheap breadth where breadth is what gets counted.** A comparator is about 2 KB and either passes the fixed rule or does not. One deployment serves every miner intent. | Delivery awards rank by distinct missions enabled. 31 comparators cover the deterministic mission intents at almost no marginal cost, where others build one adapter at a time. | Breadth only where quality holds. Each miner intent is checked separately (D3), and we drop what fails. |
-| A3 | **Licence-clean, keyless supply.** | Most miners resell free APIs whose terms bar commercial use, or depend on a key that can run dry. The swaps cost us days. If anyone checks, our competition shrinks. It also lowers our serving cost (10 points). | Never claim "licensed" for an upstream whose terms we have not read: ip-api and ipinfo are unread (G202). |
-| A4 | **Related-party consumption evidence, which the rules allow and cap.** A small H2 mission workflow of our own, for example in Morse, can earn the own-team point (1), repeated use (2), ranked routing (2) and accounting (2): **up to 7 of the 10 consumption points** without waiting for outside adoption. | Most miners will reach December with zero consumption evidence. These points are open to anyone who builds the evidence chain. | **The owner decides (G204).** Folder override 2 says nothing we control counts as a user or as volume. It is labelled related-party, never as users or demand, and never as raw volume (worth 0 points anyway). |
-| A5 | **Run the reviewers' test before they do.** Every week: the audit questions, hostile inputs and parameter shapes, against production. Publish the result. | Reviewers use "realistic unseen inputs [and] relevant error cases". We will have fixed what they would find, with dated evidence. The weekly result is also the weekly X update the rules ask for, so we pay once and get both. | Publish failures too. An audit that only reports passes is fabricated proof. |
-| A6 | **Fill mission-critical gaps nobody serves correctly.** Every mission intent has 9–56 registered miners (`/engine/v1/intents`, 2026-10-22), but registered is not correct: ChainSight answered "Unable to process" to sanctions and macro questions on 2026-10-11. | Delivery tie-break 3 counts "independently verified missing mission-critical Intent needs addressed". Proving a gap with fixtures also serves Track 2's coverage. | A claim of a "gap" needs side-by-side fixtures against the primary source, not a miner count. |
-| A7 | **Keep the December challenges in reach.** Since 2026-10-29 they are separate challenges, announced after Dec 1 ($3,000). One category rewards "reusable Provider, Evaluator, and integration work that helps applications run". | Our per-mission integration recipes, the comparators and the open evaluation material fit that category. "Earlier H2 work may be a starting point." | Each needs "its own qualifying submission and a distinct verified result". Nothing is paid twice. Plan nothing on them until their rules are out. |
-| A8 | **Be up every hour from Nov 1, and prove it.** | Reliability is 20 points, more than coverage. Most hobby miners keep no availability record. Validators spot-check liveness about once an hour per intent at random times (V2 docs, 2026-10-27), and consecutive empty answers revoke routing for that intent until the next epoch. | The uptime workflow has been off since 2026-10-01 at the owner's request. It needs the owner's yes to resume (G205). |
+**Facts the bets rest on (all checked 2026-10-31):**
+
+- The 15 missions list **102 example builds**. Each build is an app workflow with the intent families it buys.
+  Our 36 intents touch all 15 missions, and **9 builds in 7 missions buy only families we serve**.
+- **Nobody is ranked in any of our 36 intents.** Judgment families need a canonical adapter plus 5 pool
+  contributors; CRYPTO_PRICE_USD's intent is not ready. The only ranked families are the 7 with evaluators.
+- TASK_EXECUTION_QUALITY and LLM_OUTPUT_EVALUATION are **ranked today** and are each the single missing family in
+  3 builds. We trained an LLM_OUTPUT_EVALUATION reward model in October (96.6% as the node computed it then).
+- A registered comparator changes no scoring (G237 killed). The old A2 ("31 comparators, cheap breadth") is dead.
+
+**Leverage we take, and leverage we refuse.** We take leverage from work others skip: supplying whole workflows,
+developer relations, evaluation material, honest licensing, published audits. We refuse every shortcut that the
+rules disqualify or folder override 2 forbids: extra wallets to reach the 5-contributor minimum, our own traffic
+counted as demand, requests between related parties presented as independent, and any scorer that knows our
+miner. These would also lose: a reviewer finds them, and the entry is disqualified, not merely marked down.
+
+| # | Strategy | Why it is asymmetric | Rubric lines | Guardrail |
+|---|---|---|---|---|
+| S1 | **One-stop supplier for the 9 full workflows.** Each becomes a runnable fixture: the build's real inputs, every intent called on production, each answer checked against its primary source. Each also gets a copy-paste client. | An app team on any of those builds integrates one miner instead of stitching 3–5. Delivery awards count missions and workflows enabled, and reviewers want "a repeatable mission-specific test", which almost no miner will ship. | Delivery tie-breaks 1–2; coverage 15; integration 10 | Each intent passes its own test. A workflow is claimed only when every step passes |
+| S2 | **The owner's Apps entry is built on one of the 9 workflows.** | One app then feeds three tracks: the Apps entry itself, our related-party consumption evidence (the rules let "your own team's app" earn 1 point, plus repeat use, routing and accounting: up to 7 of 10), and mission-impact proof for both delivery awards. | Apps 35/30; Miner consumption 10 | Owner decides (G204). Labelled related-party everywhere; never counted as users or demand |
+| S3 | **Recruit independent consumers before Nov 14.** Post the S1 clients where H2 app teams are (Discord), aimed at the 7 missions. | Nov 14 is when app teams must show a first Telegraph request, so they want working suppliers that week. Each independent consuming group is +1 point (up to 3), and most miners do no developer relations. | Consumption 10; delivery tie-break 2 | Count only receipts from groups we do not control |
+| S4 | **Make our families scorable, honestly.** Contribute evaluation material for our intents (truth sources; attested preference pairs), and publish an open contributor kit so other participants can add theirs. | A family nobody can rank pays every miner nothing. We can be only one of the 5 contributors a judgment family needs, so the kit lets others become the other four. It is also a complete Evaluator entry that needs no foundation files. | Evaluator coverage 20, validity 40; December "reusable work" | One wallet, one contributor. Material is identity-blind and scores our own wrong answers down (track2 rule 2). Related party disclosed |
+| S5 | **Enter a family that is ranked today, with work already paid for.** Candidate: LLM_OUTPUT_EVALUATION or TASK_EXECUTION_QUALITY as a miner intent. | It is the only path to a live H2 rank and routed demand (70/20/10). It completes 6 more builds. We already hold a trained judge for the domain, which competitors would have to build. | Quality 35; consumption (ranked routing 2); coverage 15 | Needs `updateMiner`, which issues a new registration id and may restart the grace period (G206). Gated on experiment E4 and the owner's yes |
+| S6 | **Get the blocked deterministic intents fixed.** Send one evidence-backed report: CRYPTO_PRICE_USD "no decimals"; WEATHER_CHECK_TEMPERATURE unscored though ready. | One message could turn on scoring for 51 + 24 miners, us among them. File it on the bounty board too, which makes it citable. | Reliability and quality become measurable by the network; December "verified fixes for mission-critical blockers" | Report facts only; claim nothing about ranks until the network shows them |
+| S7 | **Licence-clean supply** (former A3). We answer `not_licensed` where terms bar resale. | Most miners resell non-commercial APIs. If a reviewer checks licences, the field shrinks and we are left. | Quality 35 (accurate claims); §05 safe handling | Never claim "licensed" for terms we have not read (G202, G233) |
+| S8 | **Run the reviewers' test before they do, weekly, and publish it** (former A5), now including the S1 fixtures. | We fix what reviewers would find, with dated evidence. Each weekly result is also the weekly post. | Quality 35; integration 10 | Publish failures too |
+| S9 | **Be up every hour from Nov 1, and prove it** (former A8). | Reliability is 20 points, more than coverage, and most hobby miners keep no availability record. | Reliability 20 | Needs the owner's yes to resume the monitor (G205) |
+
+## 4b. Experiments that decide the bets
+
+Each experiment has a cost, a measurement and a kill rule. Results go in GAPS.md with dates.
+
+| # | Question | How | Cost | Confirms | Kills |
+|---|---|---|---|---|---|
+| E1 | Does a truth source alone make a deterministic family of ours scored? | Read `/docs/scoring/contribute-evaluation-data` § Truth sources. Build one truth source for SSL_VERIFICATION_CERT (currently none) or a second for WEATHER_CHECK. The owner signs the upload (EIP-191, no gas). | ~2 h Claude, 5 min owner | Miners in that intent get `scores` within 3 hourly epochs | Nothing scored after 24 h → S4 for deterministic intents waits on Telegraph (S6) |
+| E2 | Is "no decimals" the CRYPTO_PRICE_USD blocker? | S6 report to Telegraph | 10 min owner | Telegraph fixes the intent and CRYPTO_PRICE_USD miners get scores | Fixed and still unscored → ask again with the new evidence |
+| E3 | Are we more correct than the miners an app would otherwise buy from, on the 9 workflows? | S1 fixtures run on production, then the same inputs sent to the top 2–3 other miners for each intent at low volume, all graded against the primary source | ~1 day Claude | We pass where others fail → claim "verified missing mission-critical needs" (delivery tie-break 3) | Others equal → our pitch is licensing and one integration, not correctness |
+| E4 | Can we serve a ranked judgment family well enough to rank? | Read the family's request and response schema; build answers for its public prompts; score ours against other miners' with our own judge and by hand against the reference; decide before any `updateMiner` | ~1 day Claude | Clear margin on held-out prompts → owner decides `updateMiner` (after G206 is answered) | No margin → drop S5 |
+| E5 | Will independent app teams use the S1 clients? | Post the clients by Nov 10; track receipts that name 4829 | ~3 h Claude, owner posts | ≥ 1 independent group with a receipt by Nov 22 | Zero by Nov 22 → stop the outreach and put the hours into quality |
+| E6 | What capacity can we state? | A short load test on production at a stated concurrency, p50/p90 latency and error rate recorded | ~1 h Claude | A number for reliability (20) and economics (10) | Errors at low concurrency → fix before claiming any capacity |
 
 ## 5. What to improve, in order of points at stake
 
@@ -131,12 +162,12 @@ ground most competitors ignore.
 6. **Consumption** (10):
    - a recipe for each mission that buys our intents (`docs/INTEGRATE_LIVECERT.md`);
    - office hours Nov 15–21;
-   - A4 if the owner agrees.
+   - S2 if the owner agrees (related-party consumption).
 7. **Submission pack, built from week one:**
    - a 2–5 minute video and a beginner tutorial (network, cost, limits);
    - evidence: receipts, ranking references, the audit;
    - a public summary.
-8. **A weekly post tagging Telegraph**, carrying A5's results. Season I reach was 132 followers against the
+8. **A weekly post tagging Telegraph**, carrying S8's results. Season I reach was 132 followers against the
    winner's 5,469.
 
 **Track 2, the evaluators**
@@ -255,7 +286,7 @@ Option B: 4829 stays frozen for the season, fixes ship as code deploys, and unli
 
 - [ ] **Owner: post an "at the start" update** tagging Telegraph: the miner, the evaluators, the intents we
       serve, and how an app gets our answers.
-- [ ] **Claude: first weekly production audit (A5).** Publish the results, failures included.
+- [ ] **Claude: first weekly production audit (S8).** Publish the results, failures included.
 - [ ] **Confirm the intents we claim** are the ones that pass the audit. Each is "checked separately".
 
 ### Every week until submission
@@ -284,7 +315,7 @@ distinct contribution. Each holds the six items /rules §08 lists.
 | 05 Public summary | What works today, and one Try or Connect link | What it measures, and one Compete or Build link |
 | 06 Showcase preferences | Owner's choice | Owner's choice |
 
-- **Disclose that the two entries are related** (§10.03), and any own app under A4.
+- **Disclose that the two entries are related** (§10.03), and any own app under S2.
 - **Final week:** an Anjoman hands-on showcase post tagging Telegraph, showing the real testnet status.
 
 ### Message for the organisers (owner sends; not sent)
@@ -310,7 +341,7 @@ rules (re-read 2026-10-29). They are listed so the work is not lost, not as Seas
 | Prize | What decides it | Where we stand, 2026-10-23 | What we do |
 |---|---|---|---|
 | Miner excellence 1st, $500 | Highest total /100, with ≥ 70 overall and quality ≥ 24/35 | Production audit 110/154 on Oct 21; fixes deployed Oct 23, re-audit pending. No uptime record. No consumption | §5 items 1–8, in order |
-| Miner delivery, $300 (4 awarded) | Criteria in order: (1) missions materially enabled, (2) app workflows enabled, (3) missing mission-critical needs met, (4) quality | Our intents touch **15/15** missions; no per-mission proof yet | One reproducible fixture per mission showing a real workflow step answered correctly. Side-by-side proof where the field answers wrongly (A6) |
+| Miner delivery, $300 (4 awarded) | Criteria in order: (1) missions materially enabled, (2) app workflows enabled, (3) missing mission-critical needs met, (4) quality | Our intents touch **15/15** missions; no per-mission proof yet | One reproducible fixture per mission showing a real workflow step answered correctly. Side-by-side proof where the field answers wrongly (E3) |
 | Evaluator excellence 1st, $500 | Highest total /100, with ≥ 70 overall and validity ≥ 28/40 | 31 comparators exact on 234,848 cases. Adapter at 96.6% as the node computes it, `verify_wide` PASS (track2 MEMORY, 2026-10-22) | Register the day the pool opens. Publish robustness results and a baseline comparison |
 | Evaluator delivery, $300 | Same order. Ties go to measurement improvement or new coverage | Modules touch **15/15** missions (`SIGN_S2.md` intents against the mission pages) | A mission-by-mission table of what each module lets reviewers measure |
 | December technical, $500 | A reusable capability that unblocks apps, or a verified fix to a documented mission-critical blocker | Track 2 G32: the adapter kit packages a different ModernBERT from the one it trains. We found it and our node-architecture retrain passes | The owner approves a report of G32 to the organisers. Publish the retrain recipe as the fix and claim it here, separately from the track entries |
@@ -318,7 +349,7 @@ rules (re-read 2026-10-29). They are listed so the work is not lost, not as Seas
 
 **Optional, not planned: an Apps & Agents entry** (8 delivery awards of $225, excellence up to $700). It
 needs a working mission app that makes an autonomous purchase through Telegraph, and a mainnet-readiness
-score of at least 24/35. The same app would also earn the miner's related-party consumption points (A4,
+score of at least 24/35. The same app would also earn the miner's related-party consumption points (S2,
 G204). It costs days of build; the owner decides.
 
 ### Report of G32 to the organisers (owner sends; drafted 2026-10-27, not sent)

@@ -49,8 +49,13 @@ commit.
 
 ## Claude
 
-- [ ] A mission × intent matrix, with one reproducible fixture for each mission our intents enable (WINNING.md
-      §8, Nov 1–13). It earns coverage (15) and is the first delivery-award criterion.
+- [x] Mission × intent matrix at build level, and fixtures for the 9 fully-served workflows (2026-10-31,
+      `tools/mission-matrix.mjs`, `tools/mission-fixtures.mjs`): 3/9 pass on production.
+- [ ] Fix G241 (fact-check on settled facts), G242 (finance sentiment), G243 (election phrasing), then re-run the
+      fixtures on a preview; deploy needs the owner's yes. Target 9/9.
+- [ ] Fixtures for the partial workflows, by mission, so every mission has a passing workflow step (S1).
+- [ ] Owner: set `SEC_USER_AGENT` ("Name contact@domain") when running the fixtures, or accept the two SEC steps
+      as unchecked.
 - [ ] G207: timeless web search quotes the wrong Wikipedia article (Pride and Prejudice → the zombie film).
       WEB_SEARCH is bought by 7 missions.
 - [x] Gates changed to grade `not_licensed` as an honest refusal, and the licence gates, G200 and G217 deployed

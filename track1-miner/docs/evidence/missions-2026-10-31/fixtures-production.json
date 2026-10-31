@@ -1,0 +1,358 @@
+{
+ "at": "2026-10-31T18:52:23.681Z",
+ "base": "https://miner-wine.vercel.app",
+ "workflows": [
+  {
+   "mission": "institutional-markets",
+   "build": "Pre-trade diligence between strangers",
+   "steps": [
+    "registry_unilever",
+    "sanctions_rosneft",
+    "sanctions_clean",
+    "financial_msft"
+   ],
+   "state": "unchecked"
+  },
+  {
+   "mission": "legal",
+   "build": "The overnight diligence pack",
+   "steps": [
+    "registry_unilever",
+    "sanctions_rosneft",
+    "websearch_ceo",
+    "factcheck_boe",
+    "sentiment_earnings"
+   ],
+   "state": "fail"
+  },
+  {
+   "mission": "conflict-intelligence",
+   "build": "Verified off-chain facts for on-chain execution",
+   "steps": [
+    "factcheck_eiffel",
+    "event_election",
+    "crosschain_live"
+   ],
+   "state": "fail"
+  },
+  {
+   "mission": "consumer-platform",
+   "build": "The model that pays for what it does not know",
+   "steps": [
+    "qa_capital",
+    "websearch_ceo",
+    "factcheck_boe"
+   ],
+   "state": "fail"
+  },
+  {
+   "mission": "personal-agent",
+   "build": "Give every OpenClaw instance a wallet and a market",
+   "steps": [
+    "websearch_ceo",
+    "qa_moons",
+    "weather_berlin",
+    "crypto_eth"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "asset-management",
+   "build": "Open research with the inputs attached",
+   "steps": [
+    "websearch_ceo",
+    "factcheck_eiffel",
+    "sec_apple",
+    "macro_cpi"
+   ],
+   "state": "unchecked"
+  },
+  {
+   "mission": "asset-management",
+   "build": "A defensible mark on the venture book",
+   "steps": [
+    "websearch_founders",
+    "registry_unilever",
+    "factcheck_stripe_year"
+   ],
+   "state": "fail"
+  },
+  {
+   "mission": "asset-management",
+   "build": "Forecast accountability, scored by machines",
+   "steps": [
+    "event_btc100k",
+    "factcheck_eiffel",
+    "websearch_ceo"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "web3-defi",
+   "build": "The self-settling conditional escrow",
+   "steps": [
+    "event_btc100k",
+    "transfer_first_eth"
+   ],
+   "state": "pass"
+  }
+ ],
+ "steps": {
+  "registry_unilever": {
+   "intent": "CORPORATE_REGISTRY_LOOKUP",
+   "path": "/company-registry",
+   "params": {
+    "query": "Look up Unilever PLC in the company registry: its registered number, status and LEI"
+   },
+   "state": "pass",
+   "fails": [],
+   "ms": 357,
+   "verdict": "found",
+   "answer": "UNILEVER PLC is active, registered with Companies House under company number 00041424 in GB, incorporated 1894-06-21."
+  },
+  "sanctions_rosneft": {
+   "intent": "SANCTIONS_SCREENING_MATCH",
+   "path": "/sanctions-screen",
+   "params": {
+    "query": "Is Rosneft on a sanctions list?"
+   },
+   "state": "pass",
+   "fails": [],
+   "ms": 249,
+   "verdict": "match",
+   "answer": "Potential match: \"Rosneft\" matches OPEN JOINT-STOCK COMPANY ROSNEFT OIL COMPANY on the OFAC SDN list (UKRAINE-EO13662, RUSSIA-EO14024, entity, reference 17022), score 1."
+  },
+  "sanctions_clean": {
+   "intent": "SANCTIONS_SCREENING_MATCH",
+   "path": "/sanctions-screen",
+   "params": {
+    "query": "Screen the counterparty Unilever PLC against sanctions lists"
+   },
+   "state": "pass",
+   "fails": [],
+   "ms": 263,
+   "verdict": "no_match",
+   "answer": "No match: \"counterparty Unilever PLC\" does not closely match any name or alias on these lists."
+  },
+  "financial_msft": {
+   "intent": "FINANCIAL_DATA",
+   "path": "/financial",
+   "params": {
+    "query": "What were Microsoft's total revenues in its latest annual report?"
+   },
+   "state": "unchecked",
+   "fails": [
+    "unchecked: SEC_USER_AGENT not set"
+   ],
+   "ms": 265,
+   "verdict": "financial_data",
+   "answer": "Microsoft Corporation reported revenue of $331.84 billion for fiscal year 2026, which ended 30 June 2026, according to its 10-K filed with the SEC."
+  },
+  "websearch_ceo": {
+   "intent": "WEB_SEARCH",
+   "path": "/web-search",
+   "params": {
+    "query": "Who is the current CEO of Stripe?"
+   },
+   "state": "pass",
+   "fails": [],
+   "ms": 252,
+   "verdict": "answered",
+   "answer": "The current CEO of Stripe is Patrick Collison."
+  },
+  "factcheck_boe": {
+   "intent": "FACT_CHECK",
+   "path": "/fact-check",
+   "params": {
+    "query": "Is it true that the Bank of England is headquartered in London?"
+   },
+   "state": "fail",
+   "fails": [
+    "verdict unverified, want supported (Threadneedle Street, City of London)"
+   ],
+   "ms": 266,
+   "verdict": "unverified",
+   "answer": "The claim \"the Bank of England is headquartered in London\" was checked against the reference source consulted, which does not settle it either way."
+  },
+  "sentiment_earnings": {
+   "intent": "SENTIMENT_ANALYSIS",
+   "path": "/sentiment",
+   "params": {
+    "text": "The company beat earnings expectations and raised guidance; shares jumped 8%."
+   },
+   "state": "fail",
+   "fails": [
+    "verdict neutral, want positive"
+   ],
+   "ms": 265,
+   "verdict": "neutral",
+   "answer": "The sentiment of this text is neutral."
+  },
+  "factcheck_eiffel": {
+   "intent": "FACT_CHECK",
+   "path": "/fact-check",
+   "params": {
+    "query": "Is it true that the Eiffel Tower is located in Paris?"
+   },
+   "state": "pass",
+   "fails": [],
+   "ms": 339,
+   "verdict": "supported",
+   "answer": "The claim \"the Eiffel Tower is located in Paris\" is supported by the reference source consulted."
+  },
+  "event_election": {
+   "intent": "EVENT_OUTCOME_RESOLUTION",
+   "path": "/event-outcome",
+   "params": {
+    "query": "Who won the 2024 United States presidential election?"
+   },
+   "state": "fail",
+   "fails": [
+    "verdict no_market_found, want resolved",
+    "winner (Donald Trump) not named"
+   ],
+   "ms": 290,
+   "verdict": "no_market_found",
+   "answer": "No prediction market matching this event was found on Polymarket, so no outcome is reported and none is guessed."
+  },
+  "crosschain_live": {
+   "intent": "CROSS_CHAIN_STATE_VERIFY",
+   "path": "/cross-chain",
+   "params": {
+    "tx_hash": "0x77985f10126d3f849c9d6f55ea3a071a18b9e007641f2d63da5555ee9f16a7dd",
+    "query": "Did 0x77985f10126d3f849c9d6f55ea3a071a18b9e007641f2d63da5555ee9f16a7dd from robinhood arrive on base?"
+   },
+   "state": "pass",
+   "fails": [],
+   "ms": 272,
+   "verdict": "unsupported",
+   "answer": "LayerZero message 0x85cef8b95740291bd2baae49f1556eedeb943688f7118b34c11e0ca44ae72401 (nonce 541, endpoint 30416 to base) involves a chain whose RPC is not read here, so its delivery was not verified on-chain."
+  },
+  "qa_capital": {
+   "intent": "QUESTION_ANSWERING",
+   "path": "/answer",
+   "params": {
+    "query": "What is the capital of Australia?"
+   },
+   "state": "pass",
+   "fails": [],
+   "ms": 293,
+   "verdict": "answered",
+   "answer": "Canberra is the capital of Australia [1]."
+  },
+  "qa_moons": {
+   "intent": "QUESTION_ANSWERING",
+   "path": "/answer",
+   "params": {
+    "query": "How many moons does Mars have?"
+   },
+   "state": "pass",
+   "fails": [],
+   "ms": 263,
+   "verdict": "answered",
+   "answer": "Mars has two moons[2]."
+  },
+  "weather_berlin": {
+   "intent": "WEATHER_CHECK",
+   "path": "/weather-forecast",
+   "params": {
+    "query": "What is the current temperature in Berlin?"
+   },
+   "state": "pass",
+   "fails": [],
+   "ms": 258,
+   "verdict": "cloudy",
+   "answer": "The current temperature in Berlin, Germany is 8.8°C, and it is cloudy, with no precipitation and wind at 10.4 km/h, as of 18:00 UTC on 2026-10-31, the model value for that hour from MET Norway (CC BY 4.0)."
+  },
+  "crypto_eth": {
+   "intent": "CRYPTO_PRICE",
+   "path": "/crypto-price",
+   "params": {
+    "query": "What is the current price of ETH in USD?"
+   },
+   "state": "pass",
+   "fails": [],
+   "ms": 287,
+   "verdict": "price",
+   "answer": "Ethereum (ETH) is $2,253.40 USD, the last Bitstamp trade at 2026-10-31 18:52:19 UTC."
+  },
+  "sec_apple": {
+   "intent": "REGULATORY_FILING_MONITOR",
+   "path": "/sec-filings",
+   "params": {
+    "query": "What was Apple's most recent 10-K filing date?"
+   },
+   "state": "unchecked",
+   "fails": [
+    "unchecked: SEC_USER_AGENT not set"
+   ],
+   "ms": 254,
+   "verdict": "filed",
+   "answer": "Apple Inc.'s latest 10-K was filed on 2025-10-31 and accepted by EDGAR at 10:01 UTC, for the period ended 2025-09-27, accession 0000320193-25-000079."
+  },
+  "macro_cpi": {
+   "intent": "MACRO_ECONOMIC_INDICATOR",
+   "path": "/macro",
+   "params": {
+    "query": "What is the latest US CPI inflation rate?"
+   },
+   "state": "pass",
+   "fails": [],
+   "ms": 253,
+   "verdict": "reported",
+   "answer": "Consumer price inflation in the US was 3.7% year on year in September 2026 (US Bureau of Labor Statistics)."
+  },
+  "websearch_founders": {
+   "intent": "WEB_SEARCH",
+   "path": "/web-search",
+   "params": {
+    "query": "Who founded Stripe?"
+   },
+   "state": "pass",
+   "fails": [],
+   "ms": 257,
+   "verdict": "answered",
+   "answer": "Stripe was co-founded by Patrick Collison and his younger brother John Collison in 2010 [2][3]."
+  },
+  "factcheck_stripe_year": {
+   "intent": "FACT_CHECK",
+   "path": "/fact-check",
+   "params": {
+    "query": "Is it true that Stripe was founded in 2010?"
+   },
+   "state": "fail",
+   "fails": [
+    "verdict unverified, want supported (Wikidata P571: 2010)"
+   ],
+   "ms": 252,
+   "verdict": "unverified",
+   "answer": "The claim \"Stripe was founded in 2010\" was checked against the reference source consulted, which does not settle it either way."
+  },
+  "event_btc100k": {
+   "intent": "EVENT_OUTCOME_RESOLUTION",
+   "path": "/event-outcome",
+   "params": {
+    "query": "Did Bitcoin reach $100k in 2024?"
+   },
+   "state": "pass",
+   "fails": [],
+   "ms": 258,
+   "verdict": "resolved",
+   "answer": "Resolved Yes: the Polymarket market \"Will Bitcoin hit $100k in 2024?\" has settled on Yes."
+  },
+  "transfer_first_eth": {
+   "intent": "CRYPTO_TRANSFER_VERIFY",
+   "path": "/transfer-verify",
+   "params": {
+    "hash": "0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060",
+    "chain": "ethereum",
+    "query": "Did this transfer settle?"
+   },
+   "state": "pass",
+   "fails": [],
+   "ms": 255,
+   "verdict": "confirmed",
+   "answer": "Transaction 0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060 on ethereum succeeded in block 46147."
+  }
+ }
+}
