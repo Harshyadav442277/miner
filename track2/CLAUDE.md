@@ -2,8 +2,9 @@
 
 **Goal (Season II Evaluators track):** scorers that measure an intent's answers better than the incumbent —
 by what an answer asserts, not by how it is worded — so stronger measurement replaces weaker. Rules:
-[../RULES_SEASON2.md](../RULES_SEASON2.md) (re-read 2026-10-29; deadline Dec 1 23:59 UTC). Protocol V2: only
-float WASM adapters, registered per family; see [README.md](README.md). Goal file:
+[../RULES_SEASON2.md](../RULES_SEASON2.md) (re-read 2026-10-29; deadline Dec 1 23:59 UTC). Protocol V2: float WASM
+adapters for judgment/hybrid families, comparator modules for deterministic ones, registered per family with a
+runnable endpoint; see [README.md](README.md). Goal file:
 [../WINNING.md](../WINNING.md). Nothing here may break the miner in `../track1-miner`, which shares this repo.
 
 ## Docs — read at session start

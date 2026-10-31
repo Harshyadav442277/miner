@@ -1,0 +1,9 @@
+{
+  "name": "livecert-comparator-runnable",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Runnable endpoint for the CRYPTO_PRICE and WEATHER_CHECK comparator modules (Telegraph V2 registerWasm).",
+  "type": "commonjs",
+  "engines": { "node": "24.x" },
+  "scripts": { "test": "node --test test/*.test.js" }
+}

@@ -8,7 +8,23 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 
 ---
 
-## CURRENT — 2026-10-29 · V2 IS LIVE; THE EVALUATOR WORK MUST BE RE-CHECKED AGAINST IT
+## CURRENT — 2026-10-31 · CRYPTO_PRICE COMPARATOR READY FOR REGISTRATION; NOTHING SIGNED
+
+Owner: "Yes, pick a family" (an evaluator so LiveCert can be ranked; root GAPS G235, G237).
+
+- **Picked CRYPTO_PRICE** (deterministic): 5 ranking-half truth sources, RelTol 1% spec, LiveCert serves
+  CRYPTO_PRICE_USD from a licensed source. The evaluator is the existing comparator; comparators are still the V2
+  format for deterministic families.
+- **Built and deployed** the V2 runnable endpoint, [runnable/](runnable/): `https://livecert-comparator.vercel.app/<FAMILY>/runnable`
+  (Vercel project `livecert-comparator`, wukong4; deploy copy `C:\Users\hyada\tg-deploy\runnable`). Serves
+  CRYPTO_PRICE and WEATHER_CHECK from the exact hosted bytes.
+- **Verified:** tests 6/6 (BigInt reference port, ~40k cases per family, twice; two mutants caught); live
+  600/600 per family equal to the local scorer; hosted keccak equals the manifest; reference rule unchanged at kit
+  HEAD `5fa5d68b`.
+- **Blocked on the owner:** the wallet has 0 Sepolia ETH and 0 MACHINA. Runbook: [SIGN_S2.md](SIGN_S2.md), top.
+- **Not verified:** that a live comparator makes the family scored (G237 is a hypothesis from one family).
+
+## 2026-10-29 · V2 IS LIVE; THE EVALUATOR WORK MUST BE RE-CHECKED AGAINST IT
 
 - **V2 docs (anjoman.ai/docs, updated 2026-10-27):**
   - Only float model adapters in WASM are accepted. "The older formats are refused."

@@ -19,7 +19,9 @@ V2 `/api/wasm` no longer lists 1882 or TEXT_AUTHENTICITY_CHECK: 7 families, with
 
 ## Protocol V2 (anjoman.ai/docs, updated 2026-10-27; read 2026-10-29)
 
-- The only format accepted is float model adapters in WASM. "The older formats are refused."
+- Judgment and hybrid families take float model adapters in WASM ("the older formats are refused"). Deterministic
+  families take a **comparator module** (`imw_score_deterministic`), unchanged from Season II's first format
+  (re-read 2026-10-31). Ours: [comparator/](comparator/), served for V2 by [runnable/](runnable/).
 - Registration is `registerWasm(hash, url, prefix, feeAddress, runnableUrl)`. It is per **family** (prefix),
   with a runnable endpoint the node checks first.
 - An adapter "replaces the live scorer only when it beats the incumbent on a hidden sample by the replacement

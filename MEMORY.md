@@ -1,5 +1,15 @@
 # MEMORY.md — session continuity
 
+## 2026-10-31 ~17:00 UTC (22:30 IST): CURRENT — CRYPTO_PRICE comparator ready; owner funds and signs
+
+Owner: "Yes, pick a family". Details: [track2/MEMORY.md](track2/MEMORY.md), runbook [track2/SIGN_S2.md](track2/SIGN_S2.md).
+
+- Picked CRYPTO_PRICE. Its evaluator is our existing, verified comparator (keccak `0x30dd31e3…cd9a3`).
+- Runnable endpoint live: `https://livecert-comparator.vercel.app/CRYPTO_PRICE/runnable` (new Vercel project
+  `livecert-comparator`). Tests 6/6, live 600/600.
+- The wallet `0xdAd2…A39e` has 0 Sepolia ETH and 0 MACHINA: fund, approve, simulate, register (owner).
+- G237: that a live comparator makes the family scored is a hypothesis. The draft question to Telegraph is in TASKS.
+
 ## 2026-10-31 ~16:15 UTC (21:45 IST): CURRENT — licence gates LIVE on production; not pushed, nothing signed
 
 Owner: "i dont see livecert listed on rankings. update our miner and make it ready for the hackathon".

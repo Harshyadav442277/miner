@@ -1,0 +1,3 @@
+CRYPTO_PRICE meta {"family":"CRYPTO_PRICE","kind":"comparator","bytes":2293,"sha256":"c72796f25cd48d2e1a79a9b12e4d714ba633346dc092dff51b3f65b8660ee11c","proto | results 600 of 600 | batches differing 0 | slowest batch 467 ms
+WEATHER_CHECK meta {"family":"WEATHER_CHECK","kind":"comparator","bytes":2294,"sha256":"82f0addaab2e4197b5dc7dc059da87897b8afa089d0e52af8c37798f1569aec6","prot | results 600 of 600 | batches differing 0 | slowest batch 484 ms
+old single form -> 400

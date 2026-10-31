@@ -1,5 +1,80 @@
 # Season II Track 2: publish commands and sign list
 
+## V2, 2026-10-31: register the CRYPTO_PRICE comparator (the current runbook)
+
+Owner's yes to "build an evaluator for one of our families", 2026-10-31. **Prepared and checked by Claude; nothing
+signed or sent.** The steps below are transactions from the owner's wallet, on **Ethereum Sepolia** (GAPS G236).
+
+**Why this family and this module** (GAPS G235, G237): only families with an evaluator are scored, and LiveCert's 36
+are not. CRYPTO_PRICE is deterministic, so its evaluator is a comparator, a fixed network rule with no model. Its
+pool has 5 ranking-half truth sources from 2 contributors, and its on-chain spec is RelTol 1% on BTC, ETH, SOL, BNB
+and XRP. **It is a hypothesis, not a certainty, that a live comparator makes it scored**: the one scored
+deterministic family, FX_NOW, is the one that has had comparators registered; WEATHER_CHECK, CURRENCY_EXCHANGE and
+CRYPTO_PRICE have truth sources and no comparator and are unscored. The $5 bond is refunded on deregistration.
+
+**What is checked (2026-10-31):**
+
+| | |
+|---|---|
+| Module | `CRYPTO_PRICE.wasm`, 2,293 bytes, keccak256 `0x30dd31e3d35f287eaa7ba0db5656a0b067ab62d1eb5d24308a5ce813200cd9a3` |
+| Hosted at | `https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/2825b06f8ae7e4a0cd16e9e8824d66ef8b8fa5a9/season2/comparator/dist/CRYPTO_PRICE.wasm`: downloaded and re-hashed, equal to the manifest |
+| Correctness | 234,848 cases against the node's `ReferenceScore`, 0 mismatches (2026-10-22, [comparator/README.md](comparator/README.md)); `reference.go` is byte-identical at kit HEAD `5fa5d68b` |
+| Runnable URL | `https://livecert-comparator.vercel.app/CRYPTO_PRICE/runnable` (Vercel project `livecert-comparator`, wukong4). Source: [runnable/](runnable/). Serves the same bytes (sha256 `c72796f2…e11c`, equal to the hosted file) |
+| Endpoint tests | `node --test runnable/test/*.test.js`: 6/6, ~40k cases a family equal to an independent BigInt port of `ReferenceScore`, twice; two real mutants caught |
+| Live endpoint | 600/600 results equal to the proven local scorer, per family; slowest 100-question batch 0.66 s (the node allows 2 min); the old single form gets 400 |
+| Chain | prefix `CRYPTO_PRICE` registered (`getPrefixes`), `CRYPTO_PRICE_USD` kind 1; `entityBonds()` WASM bond $5 = 5.744 MACHINA at the pool price |
+| Wallet `0xdAd2…A39e` | **0 Sepolia ETH, 0 MACHINA, 0 allowance.** Fund it first (step 1) |
+
+**Steps (owner, in a shell with Foundry; the key never goes in a file or a chat):**
+
+```bash
+export RPC=https://ethereum-sepolia-rpc.publicnode.com
+export DIAMOND=0x3624EB012B5E998BB57B6bE6C9Cfc9c4bc5eb99b
+export USDC=0xcc194e1a843B658526D0D5C431f670028582Ae17
+export MACHINA=0xd68305cA83C7AF42A4F720144E7416fB53F8AaF4
+export ROUTER=0x3bFA4769FB09eefC5a80d6E87c3B9C650f7Ae48E
+export ME=0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e
+export WASM_HASH=0x30dd31e3d35f287eaa7ba0db5656a0b067ab62d1eb5d24308a5ce813200cd9a3
+export WASM_URL=https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/2825b06f8ae7e4a0cd16e9e8824d66ef8b8fa5a9/season2/comparator/dist/CRYPTO_PRICE.wasm
+export RUNNABLE=https://livecert-comparator.vercel.app/CRYPTO_PRICE/runnable
+```
+
+1. Sepolia ETH for gas from any public Sepolia faucet, to `$ME`.
+2. Mint 10 test USDC, swap 6 for MACHINA (the docs: a $5 bond needs about 7), check the balance is over 5.75e18:
+   ```bash
+   cast send $USDC "mint(address,uint256)" $ME 10000000 --rpc-url $RPC --private-key $KEY
+   cast send $USDC "approve(address,uint256)" $ROUTER 6000000 --rpc-url $RPC --private-key $KEY
+   cast send $ROUTER "exactInputSingle((address,address,uint24,address,uint256,uint256,uint160))" \
+     "($USDC,$MACHINA,3000,$ME,6000000,0,0)" --rpc-url $RPC --private-key $KEY
+   cast call $MACHINA "balanceOf(address)(uint256)" $ME --rpc-url $RPC
+   ```
+3. Approve the bond, then **simulate** the registration (an `eth_call`, nothing sent). It must print a number,
+   not a revert:
+   ```bash
+   cast send $MACHINA "approve(address,uint256)" $DIAMOND 20000000000000000000 --rpc-url $RPC --private-key $KEY
+   cast call --from $ME $DIAMOND "registerWasm(bytes32,string,string,address,string)(uint256)" \
+     $WASM_HASH $WASM_URL CRYPTO_PRICE $ME $RUNNABLE --rpc-url $RPC
+   ```
+4. Register (the transaction):
+   ```bash
+   cast send $DIAMOND "registerWasm(bytes32,string,string,address,string)(uint256)" \
+     $WASM_HASH $WASM_URL CRYPTO_PRICE $ME $RUNNABLE --rpc-url $RPC --private-key $KEY
+   ```
+5. Then Claude watches: `curl -s https://devnode.telegraphprotocol.com/engine/validator/v1/addresses/$ME/wasm`, then
+   `/api/wasm?intent=CRYPTO_PRICE` and `/api/miners/4829` for `scores`. A comparator is usually decided within
+   minutes of the next epoch (5 min). Keep the runnable URL up until it leaves `pending`.
+
+**Disclosure for the submission:** the same owner runs a CRYPTO_PRICE_USD miner (LiveCert, 4829). A comparator is
+the network's fixed rule and cannot favour any miner; the reference value comes from other contributors' truth
+sources. State this as a related party all the same (RULES_SEASON2 §05/§09).
+
+**Undo:** `cast send $DIAMOND "deregisterEntity(uint256,uint8)" <registrationId> 2 …`; the bond is released and
+withdrawn with `withdrawMinerBond()` after 2 days.
+
+---
+
+## Season I/early-V2 sign list (2026-10-22, superseded above except as the comparator's record)
+
 Prepared 2026-10-22. **Nothing in this file has been run.**
 
 > **STOPPED 2026-10-25. Do not register anything in this file.** Ahmed Ali (Telegraph), on Discord, relayed by the

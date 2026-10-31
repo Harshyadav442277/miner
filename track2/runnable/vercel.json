@@ -1,0 +1,4 @@
+{
+  "functions": { "api/runnable.js": { "includeFiles": "wasm/**" } },
+  "rewrites": [{ "source": "/:family/runnable", "destination": "/api/runnable?family=:family" }]
+}

@@ -22,9 +22,13 @@ commit.
       Morse repair, miner improvements, high quality wasm. Delete remote `origin/codex/livecert-manifest-19`?
       Remove the 3 detached worktrees in `C:\Users\hyada\tg-deploy\`?
 - [x] Deploy the G217 holder fixes: deployed 2026-10-31 with the licence gates (`330f2af`, `miner-h0lnck8v6`).
-- [ ] G235: LiveCert is unranked because no evaluator exists for any of its 36 families. Decide whether to fund
-      Track 2 work on one family (an adapter, $5 MACHINA bond, 70% on 15 public pairs), or ask Telegraph when
-      evaluators for these families are coming.
+- [ ] G235/G237: register the CRYPTO_PRICE comparator. Everything is built, deployed and checked; the wallet needs
+      Sepolia ETH and ~6 MACHINA first. Exact commands: `track2/SIGN_S2.md`, top section. Tell Claude the
+      registration id or the tx hash, and Claude watches it.
+- [ ] Ask Telegraph (Ahmed), with the evidence: "WEATHER_CHECK_TEMPERATURE, CRYPTO_PRICE_USD and
+      CURRENCY_EXCHANGE_CONVERT have well-formed on-chain specs and ranking-half truth sources, but no miner is
+      scored in them, while FX_NOW is. Does a deterministic family need a registered comparator to be scored, or
+      is something else missing?"
 - [ ] G217: create a free Blockscout Pro API key at dev.blockscout.com, read its terms, and put it in
       `track1-miner/miner/.env.local` as `BLOCKSCOUT_API_KEY`. Or decline it and keep Base, Arbitrum and Polygon
       holder counts answering `unknown`.

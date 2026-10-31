@@ -1,6 +1,6 @@
 # GAPS.md — honesty ledger
 
-## 2026-10-31 "LiveCert is not on the rankings" — G235, G236; G230 deployed
+## 2026-10-31 "LiveCert is not on the rankings" — G235, G236, G237; G230 deployed
 
 - **G235 — No miner is ranked in any of 4829's 36 intents, because no evaluator exists for their families.
   `OPEN, network-side`.** Devnode `/api/miners`, 2026-10-31 ~15:35 UTC: 1,875 registrations, 71 `scored: true`,
@@ -22,6 +22,16 @@
   `RULES_SEASON2.md`, `README.md` and WINNING.md's tutorial row named Base Sepolia (all corrected 2026-10-31). 4829 is `active` on
   the node, so the import carried it; that it sits on the new Diamond was not checked with `cast` (no RPC call
   made).
+- **G237 — Does a live comparator make a deterministic family scored? `OPEN, hypothesis, test prepared`.** On-chain
+  specs (`getIntentSpec`, read 2026-10-31) are well formed for WEATHER_CHECK_TEMPERATURE (AbsTol 2.0 °C),
+  CRYPTO_PRICE_USD (RelTol 1%), CURRENCY_EXCHANGE_CONVERT (RelTol 0.5%) and SSL_VERIFICATION_CERT (PassFail). The
+  first three also have ranking-half truth sources (1, 5 and 2) and are unscored. The only scored deterministic
+  family, FX_NOW, is the only one that has had comparator modules registered (all now deregistered). n = 1, so this
+  is a guess. The `onchain.ready:false` "no decimals" on CRYPTO/CURRENCY/STOCK is the jobs layout, not scoring.
+  - **Test:** register our verified CRYPTO_PRICE comparator (`track2/SIGN_S2.md`, top section; $5 refundable bond).
+    Confirmed if CRYPTO_PRICE_USD miners get `scores` within a few epochs of it going `active`; killed if it is
+    `active` and nothing is scored after a day. Either way, ask Telegraph (draft in TASKS).
+  - Truth sources are not the lever: another one for WEATHER_CHECK would join a pool that already has one.
 - **G230 deployed 2026-10-31** (`330f2af`, `miner-h0lnck8v6`): six intents now answer `not_licensed` in whole or
   part. Evidence and the list: `track1-miner/docs/evidence/release-2026-10-31-licence-gates/`. The gates were
   changed to grade those refusals for honesty.
