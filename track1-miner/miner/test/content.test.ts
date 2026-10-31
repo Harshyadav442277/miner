@@ -202,3 +202,10 @@ describe("named fields when the text comes in its own parameter (G245)", () => {
     assert.deepEqual(r.fields["total"], ["$90.00"]);
   });
 });
+
+test("a long, space-heavy instruction is read in bounded time (security review, 2026-10-31)", () => {
+  const t = Date.now();
+  extractContent("extract " + "a ".repeat(50000) + "!", "Invoice INV-1 total $1.00.");
+  extractContent("extract" + " ".repeat(100000) + "x", "Invoice INV-1 total $1.00.");
+  assert.ok(Date.now() - t < 500, `took ${Date.now() - t} ms`);
+});

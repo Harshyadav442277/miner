@@ -325,7 +325,10 @@ export function requestedFields(instruction: string): string[] {
   // comes in its own parameter: "Extract the invoice number, total, due date and
   // contact email." named no field at all before G245, and was answered by three
   // overlapping category sweeps that never read the invoice number.
-  const m = String(instruction ?? "").match(/\b(?:extract|pull(?:\s+out)?|get|find|identify|list|give(?:\s+me)?|return|parse|what\s+(?:is|are))\s+(?:out\s+)?(.+?)(?:\s+(?:from|in|out\s+of|contained\s+in)\b|[.?!]?\s*$)/i);
+  // Whitespace collapsed and length capped first: the lazy field list before a "\s*$"
+  // alternative backtracks polynomially on a long, space-heavy query (security review,
+  // 2026-10-31). A field list is a sentence; 300 characters is ample.
+  const m = String(instruction ?? "").replace(/\s+/g, " ").slice(0, 300).match(/\b(?:extract|pull(?:\s+out)?|get|find|identify|list|give(?:\s+me)?|return|parse|what\s+(?:is|are))\s+(?:out\s+)?(.+?)(?:\s+(?:from|in|out\s+of|contained\s+in)\b|[.?!]?\s*$)/i);
   if (!m?.[1]) return [];
   const names = m[1].replace(/\([^)]*\)/g, " ")
     .split(/\s*,\s*(?:and\s+)?|\s+and\s+|\s*;\s*|\s*&\s*/i)
