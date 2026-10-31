@@ -42,6 +42,15 @@ fail, 2 unchecked (SEC needs a contact user agent). Evidence: `track1-miner/docs
 - **G243 — Event outcome misses a phrasing of a settled market. `FIXED, deployed 2026-10-31 (`a8abbcf`)`.** "United States" vs Polymarket's "US": `foldCountries()` folds both sides. "Who won the 2024 United States
   presidential election?" → `no_market_found`; Polymarket has a resolved market. Polymarket is unreachable from
   this machine (connect fails), so the search can be tested only through a deployment.
+- **G244 — TEXT_CLASSIFICATION misses its model deadline about 1 call in 10. `OPEN, owner/latency trade`.** The
+  model has 350 ms (G209: the site target is under 400 ms). Today 1 of ~10 production model calls missed it (351 ms);
+  the others took 164–247 ms. On a miss the keyless word-association fallback answers, and called a motor failure
+  "operator error"; that answer is cached for 60 s. Options: raise the deadline (latency cost), or make the fallback
+  answer "ambiguous" below a margin. Not changed.
+- **G245 — CONTENT_EXTRACTION ignored named fields when the text came in its own parameter. `FIXED in code, preview
+  `miner-ipk9a60l8`, not on production`.** "Extract the invoice number, total, due date and contact email." named no
+  field (the reader needed "… from …") and nothing read identifiers. Fixed in `content.ts`; 869/869 unit.
+  Still open: a multi-category request repeats values across its "Also:" tails.
 
 ## 2026-10-31 "LiveCert is not on the rankings" — G235, G236, G237; G230 deployed
 

@@ -35,3 +35,28 @@ RPC kept no 2015 receipts.
 
 Not yet shown: all 9 workflows passing in one run on production. That needs the production deploy (owner's yes),
 then `node tools/mission-fixtures.mjs https://miner-wine.vercel.app …`.
+
+## All 102 builds on production `a8abbcf` (2026-10-31 19:28 UTC) — `fixtures-all-a8abbcf.json`
+
+`tools/mission-fixtures.mjs` now also grades every PARTIAL build on LiveCert's part only, with one representative
+step per family (`tools/mission-steps.mjs`, `FAMILY_STEPS`). SEC steps are cross-checked against EDGAR and XBRL
+under the miner's own identity; `SEC_USER_AGENT` overrides it.
+
+| Result | Value |
+|---|---|
+| Full builds (every family ours) | **9 pass, 0 fail** of 9 |
+| Partial builds, LiveCert's part | **50 pass, 7 fail, 1 refused** of 58 |
+| Missions with at least one passing build | **15 / 15** |
+
+The 7 failures came from two steps:
+
+- `extract_invoice` (CONTENT_EXTRACTION, 3 builds): the invoice number was never extracted (G245). Fixed in code,
+  869/869 unit; preview `miner-ipk9a60l8` returns all four fields. **Not on production.**
+- `classify_incident` (TEXT_CLASSIFICATION, 4 builds): "operator error" for a motor failure. The model call missed
+  its 350 ms deadline by 1 ms and the keyless fallback guessed; after the 60 s cache expired the same request
+  answered "hardware fault" twice (G244). Intermittent; not changed.
+
+The refusal is STOCK_PRICE (resources-and-agriculture, "Auditable machine decisions"): an honest `not_licensed`
+(G230), so that build is not served.
+
+Limitation: a partial build's grade uses one representative input per family, not that build's own inputs.

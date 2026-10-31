@@ -321,14 +321,21 @@ const KIND_WORDS = /\bquantit|\bunits?\b|\bmeasure|\bcontact|\bemail|\bphone|\bt
  * Empty when every named field is a category, or nothing specific is named.
  */
 export function requestedFields(instruction: string): string[] {
-  const m = String(instruction ?? "").match(/\b(?:extract|pull(?:\s+out)?|get|find|identify|list|give(?:\s+me)?|return|parse|what\s+(?:is|are))\s+(?:out\s+)?(.+?)\s+(?:from|in|out\s+of|contained\s+in)\b/i);
+  // The field list ends at "from …", or at the end of the instruction when the text
+  // comes in its own parameter: "Extract the invoice number, total, due date and
+  // contact email." named no field at all before G245, and was answered by three
+  // overlapping category sweeps that never read the invoice number.
+  const m = String(instruction ?? "").match(/\b(?:extract|pull(?:\s+out)?|get|find|identify|list|give(?:\s+me)?|return|parse|what\s+(?:is|are))\s+(?:out\s+)?(.+?)(?:\s+(?:from|in|out\s+of|contained\s+in)\b|[.?!]?\s*$)/i);
   if (!m?.[1]) return [];
   const names = m[1].replace(/\([^)]*\)/g, " ")
     .split(/\s*,\s*(?:and\s+)?|\s+and\s+|\s*;\s*|\s*&\s*/i)
     .map((n) => n.trim().replace(/^(?:the|its|their|a|an)\s+/i, "").trim())
     .filter((n) => n && n.split(/\s+/).length <= 4 && !GENERIC_FIELD.test(n));
-  return names.some((n) => !KIND_WORDS.test(n)) ? names : [];
+  return names.some((n) => !KIND_WORDS.test(n) || IDENTIFIER_FIELD.test(n)) ? names : [];
 }
+
+/** "invoice number", "order no", "PO number": an identifier, not the numbers category (G245). "phone number" is contact. */
+const IDENTIFIER_FIELD = /^(?!(?:phone|telephone|mobile|fax)\b)[\w.-]+\s+(?:number|no|id|reference|ref|code)$/i;
 
 const FIELD_SYNONYMS: Array<[RegExp, RegExp]> = [
   [/\bsender\b|\bauthor\b/i, /\bfrom\b|\bsender\b|\bauthor\b/i],
@@ -361,6 +368,17 @@ function fieldValue(name: string, source: string, pairs: Array<[string, string]>
   }
   if (/\bemail\b/i.test(name)) { const v = emails(source)[0]; return v ? { label, value: v } : null; }
   if (/\bphone\b/i.test(name)) { const v = phones(source)[0]; return v ? { label, value: v } : null; }
+  // An identifier: "invoice number" in "Invoice INV-2041 from Acme" or "Order #88213" (G245).
+  // The value must hold a digit, so "Invoice from Acme" yields nothing rather than "from".
+  if (/\bnumber\b|\bno\b|\bid\b|\breference\b|\bref\b|\bcode\b/i.test(name)) {
+    const head = name.toLowerCase().split(/\s+/).map((w) => w.replace(/[^a-z0-9]/g, ""))
+      .find((w) => w && !/^(?:number|no|id|reference|ref|code)$/.test(w));
+    const after = head
+      ? source.match(new RegExp(String.raw`\b${head}\b\s*(?:#|no\.?|number|id|ref(?:erence)?)?\s*[:#]?\s*([A-Z0-9][A-Z0-9/-]*\d[A-Z0-9/-]*)`, "i"))?.[1]
+      : undefined;
+    const v = after ?? source.match(/\b[A-Z]{2,6}-\d{2,}\b/)?.[0];
+    return v ? { label, value: v.replace(/[.,;]+$/, "") } : null;
+  }
   if (/\bmerchant\b|\bvendor\b|\bstore\b|\bseller\b|\bcompany\b|\bbusiness\b|\bshop\b/i.test(name)) {
     if (lead && lead.split(/\s+/).length <= 6) return { label, value: lead };
     const org = entities(source).orgs[0];

@@ -178,3 +178,27 @@ test("sentence-initial words are not people and a title's tail is not a place (2
   assert.deepEqual(acme.fields["organizations"], ["Acme Corp", "Beta Ltd"]);
   assert.deepEqual(acme.fields["places"], ["London"]);
 });
+
+describe("named fields when the text comes in its own parameter (G245)", () => {
+  const invoice = "Invoice INV-2041 from Acme Ltd, total $1,250.00, due 2026-11-30. Contact billing@acme.example.";
+
+  test("an instruction with no 'from' still names its fields, the invoice number among them", () => {
+    const r = extractContent("Extract the invoice number, total, due date and contact email.", invoice);
+    assert.deepEqual(r.fields["invoice_number"], ["INV-2041"]);
+    assert.deepEqual(r.fields["total"], ["$1,250.00"]);
+    assert.deepEqual(r.fields["due_date"], ["2026-11-30"]);
+    assert.deepEqual(r.fields["contact_email"], ["billing@acme.example"]);
+    assert.match(r.summary, /^Invoice number: INV-2041\. Total: \$1,250\.00\. Due date: 2026-11-30\. Contact email: billing@acme\.example\./);
+  });
+
+  test("an identifier after its label word, with # or no.", () => {
+    assert.deepEqual(extractContent("Extract the order number.", "Thanks for Order #88213, shipped today.").fields["order_number"], ["88213"]);
+    assert.deepEqual(extractContent("Extract the PO number.", "Please bill against PO no. 4410-B by Friday.").fields["po_number"], ["4410-B"]);
+  });
+
+  test("a label word with no identifier after it yields no value, not the next word", () => {
+    const r = extractContent("Extract the invoice number and total.", "Invoice from Acme Ltd, total $90.00.");
+    assert.deepEqual(r.fields["invoice_number"], []);
+    assert.deepEqual(r.fields["total"], ["$90.00"]);
+  });
+});

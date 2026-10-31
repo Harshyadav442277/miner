@@ -1,6 +1,17 @@
 # MEMORY.md — session continuity
 
-## 2026-10-31 ~19:30 UTC (01:00 IST Nov 1): CURRENT — G241–G243 fixes LIVE on production; workflows 7/9, 0 fail
+## 2026-10-31 ~19:50 UTC (01:20 IST Nov 1): CURRENT — all 102 mission builds graded; G245 fixed on a preview
+
+Owner: "Partial workflow tests".
+
+- **Production `a8abbcf`:** full builds 9/9 (SEC now cross-checked under the miner's own identity); partial builds
+  50/58 on LiveCert's part; **15/15 missions** have a passing build. Evidence `fixtures-all-a8abbcf.json`.
+- **G245 extraction** (invoice number never read; 3 builds) fixed in code, unit 869/869, preview `miner-ipk9a60l8`
+  checked. **Not on production: the owner's yes covered `a8abbcf` only.**
+- **G244 classification** (4 builds): intermittent model deadline miss; owner's trade-off, not changed.
+- Tools: `tools/mission-steps.mjs` (steps, references, FAMILY_STEPS), `tools/mission-fixtures.mjs` (runner).
+
+## 2026-10-31 ~19:30 UTC (01:00 IST Nov 1): G241–G243 fixes LIVE on production; workflows 7/9, 0 fail
 
 Owner: "Yes, deploy it". Release record: track1-miner/docs/evidence/release-2026-10-31-mission-fixes/.
 

@@ -54,8 +54,12 @@ commit.
 - [x] Fix G241, G242, G243 (2026-10-31): unit 866/866; every failing step passes on preview `miner-d881p4yiz`.
 - [x] G241–G243 deployed 2026-10-31 (`a8abbcf`, `miner-htkhwofwv`): preflight 7/7; workflows 7 pass, 0 fail, 2
       unchecked (SEC).
-- [ ] Fixtures for the partial workflows, by mission, so every mission has a passing workflow step (S1).
-- [ ] Owner: set `SEC_USER_AGENT` ("Name contact@domain") when running the fixtures, or accept the two SEC steps
+- [x] Fixtures for the partial workflows (2026-10-31): all 102 builds graded on production `a8abbcf`; full 9/9,
+      partial 50/58 (7 fail: G244, G245; 1 honest licence refusal), 15/15 missions with a passing build.
+- [ ] Owner: yes to deploying the G245 extraction fix (preview `miner-ipk9a60l8` checked); then re-run the fixtures.
+- [ ] Owner: decide G244 (classification deadline vs latency target).
+- [x] ~~Owner: set `SEC_USER_AGENT`~~ Not needed: SEC accepts the miner's own identity (2026-10-31). Kept as an
+      override. Original item: set `SEC_USER_AGENT` when running the fixtures, or accept the two SEC steps
       as unchecked.
 - [ ] G207: timeless web search quotes the wrong Wikipedia article (Pride and Prejudice → the zombie film).
       WEB_SEARCH is bought by 7 missions.
