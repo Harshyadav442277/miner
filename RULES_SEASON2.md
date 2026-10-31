@@ -232,10 +232,23 @@ Sources: `/docs/whats-new-v2`, `/docs/miners/miner-overview` and `/docs/miners/m
   below is the earlier chain. Current addresses are at
   `/docs/protocol/addresses-and-params`. After a chain move, the admin imports existing miners with the same
   id and owner.
-- **Evaluators:** "Float model adapters in WASM. The older formats are refused." The new call is
-  `registerWasm(hash, url, prefix, feeAddress, runnableUrl)`, registered on a **prefix (family)** with a
-  runnable endpoint the node checks first. The Anjoman Eval page says an adapter "replaces the live scorer only
-  when it beats the incumbent on a hidden sample by the replacement margin".
+- **Evaluators (re-read 2026-10-31 ~18:30 UTC; docs updated Oct 31):** judgment and hybrid families take an
+  **Evaluator adapter as a safetensors delta** (LoRA deltas plus a reward head) on the validators' shared
+  Foundation Model (ModernBERT-base). Full-model float `.wasm` adapters are now refused too (`legacy_full_model`).
+  Deterministic families take a comparator module, unchanged; the node holds the reference rule, so a
+  deterministic intent is scored without one (G237 killed). Call: `registerWasm(hash, url, prefix, feeAddress,
+  runnableUrl)` with a $5 MACHINA bond, or `registerWasmFor` relayed. The Anjoman Eval page says an adapter
+  "replaces the live scorer only when it beats the incumbent on a hidden sample by the replacement margin".
+- **Evaluation pool:** judgment questions count only once 5 different contributors have material in the pool;
+  truth sources for deterministic intents have no minimum. Uploads are signed (EIP-191), with no gas and no
+  registration. Each upload is credited to the signer.
+- **Epochs:** 1 hour on devnode since 2026-10-31 (they were 5 minutes earlier that day; G239).
+- **Docs host:** docs.telegraphprotocol.com now redirects to anjoman.ai/docs, and raw `.md` is no longer served
+  (2026-10-31).
+- **Rules additions seen 2026-10-31** (substance otherwise unchanged): Miners, "A high-quality new capability can
+  qualify even if customer demand for its Intent is still growing"; the 10 consumption points reward requests
+  served "to registered H2 Apps & Agents projects". Evaluators: judges check "correctness, robustness, fit with
+  Telegraph's evaluation pipeline, useful coverage, and documentation".
 
 **Intent catalogue:** the H2 /intents page lists **134** intents, each Deterministic, Hybrid or Judgment
 (2026-10-29). `devnode /engine/v1/intents` returns **136** on-chain names (2026-10-29 16:47 UTC).

@@ -8,7 +8,17 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 
 ---
 
-## CURRENT — 2026-10-31 · CRYPTO_PRICE COMPARATOR READY FOR REGISTRATION; NOTHING SIGNED
+## CURRENT — 2026-10-31 18:45 UTC · COMPARATOR REGISTRATION WITHDRAWN; ADAPTER FORMAT CHANGED
+
+- **Withdrawn:** the CRYPTO_PRICE comparator registration. FX_NOW is scored with no registered comparator; CRYPTO_PRICE_USD
+  is blocked by its intent definition ("price_usd has no decimals"). Root GAPS G237 killed, G235 revised.
+- **Adapter format changed (G34):** safetensors LoRA deltas on a shared Foundation Model; full-model `.wasm` refused.
+  Our PEFT checkpoints exist, so no retraining. Blocked on Telegraph publishing `foundation.json` and the reference
+  executor.
+- **Available now without either:** evaluation material for intents LiveCert serves (signed upload, no gas). TASKS.
+- Nothing signed or registered. The endpoint `livecert-comparator.vercel.app` stays up.
+
+## 2026-10-31 · CRYPTO_PRICE COMPARATOR READY FOR REGISTRATION (withdrawn the same evening, above)
 
 Owner: "Yes, pick a family" (an evaluator so LiveCert can be ranked; root GAPS G235, G237).
 

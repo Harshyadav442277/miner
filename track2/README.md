@@ -17,26 +17,29 @@ All of it remains in git history.
 `calibration/dist/text_authenticity_v2.wasm` (registration 1882, Season I) was deleted on 2026-10-29. Devnode's
 V2 `/api/wasm` no longer lists 1882 or TEXT_AUTHENTICITY_CHECK: 7 families, with registration ids restarted.
 
-## Protocol V2 (anjoman.ai/docs, updated 2026-10-27; read 2026-10-29)
+## Protocol V2 (anjoman.ai/docs, updated 2026-10-31; read 2026-10-31)
 
-- Judgment and hybrid families take float model adapters in WASM ("the older formats are refused"). Deterministic
-  families take a **comparator module** (`imw_score_deterministic`), unchanged from Season II's first format
-  (re-read 2026-10-31). Ours: [comparator/](comparator/), served for V2 by [runnable/](runnable/).
+- Judgment and hybrid families take an **Evaluator adapter as a safetensors delta** (LoRA deltas plus a reward
+  head) on the validators' shared Foundation Model; full-model float `.wasm` adapters are refused since the
+  2026-10-31 docs (GAPS G34 in [GAPS.md](GAPS.md), root G238). Deterministic families take a **comparator module**
+  (`imw_score_deterministic`), unchanged, but the node already holds the reference rule and scores deterministic
+  intents without one (root G237 killed). Ours: [comparator/](comparator/), served for V2 by [runnable/](runnable/).
 - Registration is `registerWasm(hash, url, prefix, feeAddress, runnableUrl)`. It is per **family** (prefix),
   with a runnable endpoint the node checks first.
 - An adapter "replaces the live scorer only when it beats the incumbent on a hidden sample by the replacement
   margin" (Anjoman Eval page).
-- On 2026-10-29 devnode `/api/wasm` listed entries for CODE_REVIEW, CONTRACT_OBLIGATION_AUDIT,
-  CUSTOMER_TICKET_RESOLUTION, FX_NOW, LLM_OUTPUT_EVALUATION, TASK_EXECUTION_QUALITY and THREAT_INTELLIGENCE.
-- The comparators and the adapter below predate V2. Re-check them against `/docs/scoring/*` before any
-  registration.
+- On 2026-10-31 18:35 UTC devnode `/api/wasm` listed the same 7 families as on 2026-10-29. Canonical adapters
+  (all safetensors): Telegraph seeds 900001–900004 for CONTRACT_OBLIGATION_AUDIT, LLM_OUTPUT_EVALUATION,
+  THREAT_INTELLIGENCE and TASK_EXECUTION_QUALITY, and participant registration 25 for CUSTOMER_TICKET_RESOLUTION.
+- The comparators are V2-valid but do not change scoring. The adapter must be re-exported as a delta (G34).
 
 ## Where the Season II work is
 
 - **In this tree** (branch `claude/wasm-track-2-quality-e21db3`, merged 2026-10-29):
   - the 31 comparators ([comparator/](comparator/README.md));
   - the LLM_OUTPUT_EVALUATION adapter recipe ([adapter/](adapter/llm_output_eval/README.md));
-  - the sign list ([SIGN_S2.md](SIGN_S2.md)). It predates V2: do not sign from it before G33 is closed.
+  - the sign list ([SIGN_S2.md](SIGN_S2.md)). Its top section (CRYPTO_PRICE comparator) is withdrawn; the rest
+    predates V2. Do not sign anything from it.
 - **Published releases:** in [`telegraph-factscore`](https://github.com/Harshyadav442277/telegraph-factscore),
   branch `season2-evaluators`.
 - **Training data, models and builds:** in `C:\Users\hyada\tg-eval\`, outside OneDrive.

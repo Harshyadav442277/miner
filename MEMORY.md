@@ -1,5 +1,27 @@
 # MEMORY.md — session continuity
 
+## 2026-10-31 ~18:50 UTC (00:20 IST Nov 1): CURRENT — docs re-read; comparator registration withdrawn
+
+Owner: "update the documentation again, because Telegraph have updated them … what's the status … I want to
+participate in all the tracks; apps and agents I will take care of later".
+
+- **Docs re-read:** all 37 anjoman.ai/docs pages (25 updated Oct 30–31) and /rules with every tab. Facts:
+  docs/TELEGRAPH_FACTS.md top section. Rules substance unchanged; prize-payment terms still unpublished (G218).
+- **G237 killed:** FX_NOW is scored with no registered comparator. The CRYPTO_PRICE registration is withdrawn
+  (track2/SIGN_S2.md top). Do not fund the wallet for it.
+- **G235 revised:** judgment/hybrid intents need a canonical adapter and 5 pool contributors (ours: none, 0–1);
+  CRYPTO_PRICE_USD's intent is `ready: false` ("no decimals"); WEATHER_CHECK_TEMPERATURE's cause is unknown. The
+  question to Telegraph in TASKS is rewritten.
+- **Adapters are now safetensors LoRA deltas (G238):** ours can be re-exported without retraining once Telegraph
+  publishes `foundation.json` and the reference executor.
+- **Epochs are 1 hour** since this afternoon (G239).
+- **4829:** `active`, 36 intents, unchanged. Miner production `330f2af`, unchanged this session.
+- **Not done:** G236 `cast` check (`cast` not installed). Nothing pushed, signed or registered.
+- **Next, the owner's:** register for H2 before Nov 1 00:00 UTC (05:30 IST); send the TASKS question to Ahmed;
+  say yes to the push; choose licensed news and stock sources.
+- **Next, Claude's:** mission × intent matrix and fixtures (Nov 1–13); evaluation material for our intents
+  (owner signs uploads); G207; `licensing` in openapi.json; first weekly audit.
+
 ## 2026-10-31 ~17:00 UTC (22:30 IST): CURRENT — CRYPTO_PRICE comparator ready; owner funds and signs
 
 Owner: "Yes, pick a family". Details: [track2/MEMORY.md](track2/MEMORY.md), runbook [track2/SIGN_S2.md](track2/SIGN_S2.md).

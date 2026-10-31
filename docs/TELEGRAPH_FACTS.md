@@ -10,6 +10,62 @@ below, the newer section wins.
 
 ---
 
+## Checked 2026-10-31 ~18:20–18:45 UTC: docs updated Oct 30–31, rules re-read, devnode (GAPS G237–G240)
+
+Sources: all 37 pages under https://anjoman.ai/docs (25 show "Updated October 30" or "October 31, 2026"), diffed
+sentence by sentence against copies taken at ~15:40–16:25 UTC the same day; /rules with the Miners and Evaluators
+tabs in the browser pane; devnode `/api/wasm`, `/api/evalpool/status`, `/api/miners`, `/api/epoch`,
+`/engine/v1/intents/{intent}`.
+
+- **docs.telegraphprotocol.com now 301-redirects to anjoman.ai/docs**, and raw Markdown (`/docs/<page>.md`) is
+  no longer served on either host. Read pages as HTML.
+- **Evaluator adapters are now safetensors deltas** (`/docs/scoring/upgrade-shared-foundation`, Oct 31): every
+  validator runs one shared Foundation Model (ModernBERT-base), and an adapter is "a few MB of LoRA deltas and a
+  reward head". Full-model float `.wasm` adapters are refused (`legacy_full_model`) and active ones are superseded.
+  No retraining is needed if the PEFT LoRA checkpoint exists: export with the kit's `float_runtime.export_adapter`.
+  The docs list the deploy date, the `foundation.json` location and a reference executor as "to be announced".
+- **Devnode already runs it:** at 2026-10-31 16:00 UTC Telegraph seeded safetensors adapters 900001–900004
+  (`wasm_runnable_url: "manual-seed"`) as canonical for CONTRACT_OBLIGATION_AUDIT, LLM_OUTPUT_EVALUATION,
+  THREAT_INTELLIGENCE and TASK_EXECUTION_QUALITY; the earlier adapters read `replaced`. Registration 25, a
+  participant's safetensors adapter with a public runnable URL, became canonical for CUSTOMER_TICKET_RESOLUTION at
+  18:07. CODE_REVIEW and FX_NOW have no champion.
+- **Comparators are unchanged** ("the comparator interface did not change"). "A comparator has no model, so there
+  is no 'better' comparator to build": the node checks a registered one computes its reference rule within ±10
+  bps on ~1,260 cases (100 sent to the runnable URL, in two batches).
+- **Deterministic intents do not need a registered comparator.** FX_NOW's three comparator registrations were all
+  deregistered by 2026-10-28 20:11 UTC, yet 11 miners carry FX_NOW_EUR scores from epoch 1945 (18:02 UTC today).
+  `/api/wasm?resolve=` returns `scorer: "comparator"`, `served_by: null`, `routed: true` for FX_NOW_EUR,
+  CRYPTO_PRICE_USD, WEATHER_CHECK_TEMPERATURE and CURRENCY_EXCHANGE_CONVERT alike.
+- **CRYPTO_PRICE_USD's intent is not ready:** `/engine/v1/intents/CRYPTO_PRICE_USD` has `onchain.ready: false`,
+  `reason: "number field \"price_usd\" has no decimals"`, `format_version: 1`. FX_NOW_EUR and
+  WEATHER_CHECK_TEMPERATURE have `ready: true`, `format_version: 3`. A comparator takes both values "already on
+  the same fixed-point scale", which needs decimals.
+- **Evaluation pool:** "An intent's questions are used only once the pool holds material from at least 5
+  different contributors … Truth sources have no such minimum: one is enough for an intent to be scored." Every
+  scored judgment intent has 6–10 eligible submitters. Of our 36 intents, 5 are deterministic (0–2 submitters),
+  29 judgment (0–1 submitters) and 2 hybrid (CVE_LOOKUP_CVSS 1, URL_SCAN_VERDICT 5). None of the 31
+  judgment/hybrid intents has an adapter (`served_by: null`); URL_SCAN_VERDICT reads `routed: false`.
+- **Uploading evaluation data** needs no on-chain registration and no gas: a JSON Lines file `POST`ed to
+  `/api/evalpool/submissions`, signed with EIP-191 `personal_sign` over a five-line message. The signer is the
+  credited contributor.
+- **Registering a module:** the call is now documented as `registerWasm(bytes32, string, string intent, address,
+  string)`, where `intent` is the prefix. $5 MACHINA bond (`entityBonds()`), refunded in full on deregistration.
+  New: `registerWasmFor` (EIP-712, anyone relays and pays the gas), and "the easy way": submit at
+  integrate.telegraphprotocol.com, where "the platform hashes the file and sends the transaction for you".
+- **Epochs are now 1 hour** (`/api/epoch` at 18:35 UTC: epoch 1945, `epoch_duration: "1h0m0s"`). At 15:39 they
+  were 5 minutes.
+- **4829:** `active`, no rejection, 36 intents, `registered_at` 2026-10-25T00:48:49Z, `updated_at` unchanged.
+  `/api/miners`: 1,876 registrations, 71 scored.
+- **Rules (/rules):** the substance matches the 2026-10-29 read. Added sentences: Miners, "A high-quality new
+  capability can qualify even if customer demand for its Intent is still growing", and the consumption points
+  "reward successful requests your Provider served through Telegraph to registered H2 Apps & Agents projects";
+  Evaluators, "Judges will check correctness, robustness, fit with Telegraph's evaluation pipeline, useful
+  coverage, and documentation". The prize-payment terms are still not linked (G218).
+- **Bounties** (`/docs/bounties/*`): Season II issues carry `source:h2`; bounties use only existing intents;
+  `reward:unfunded` means no payment is committed. "Network incentives and bounty payments are separate systems."
+
+---
+
 ## Checked 2026-10-31 ~15:30–16:00 UTC (GAPS G235, G236)
 
 - **Only families with an evaluator are scored.** Devnode `/api/miners`: 71 of 1,875 registrations are

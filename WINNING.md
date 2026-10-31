@@ -246,9 +246,10 @@ Option B: 4829 stays frozen for the season, fixes ship as code deploys, and unli
 - [ ] **Claude: a mission × intent matrix**, with one reproducible test fixture for each mission our intents
       enable. It earns coverage (15) and is the first delivery-award criterion.
 - [ ] **Claude: close G200**, or answer RESEARCH_QUERY as `not_served`.
-- [ ] **Track 2, on V2:** float model adapters registered per family with `registerWasm(hash, url, prefix,
-      feeAddress, runnableUrl)`; the older formats are refused. Read the V2 scoring pages first. The
-      comparators and the adapter must be re-checked against them before any registration.
+- [ ] **Track 2, on V2 (re-read 2026-10-31):** adapters are safetensors LoRA deltas on a shared Foundation Model,
+      registered per family with `registerWasm(hash, url, prefix, feeAddress, runnableUrl)`. Re-export ours when
+      Telegraph publishes `foundation.json` and the reference executor (GAPS G238). Comparators do not change
+      scoring (G237 killed). Meanwhile, evaluation material for our intents is the entry that can start now.
 
 ### Nov 1 – 7 (start in public)
 

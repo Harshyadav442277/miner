@@ -1,5 +1,34 @@
 # GAPS.md — honesty ledger
 
+## 2026-10-31 ~18:40 UTC docs and devnode re-check — G237 killed; G235 revised; G238–G240 new
+
+Facts and sources: docs/TELEGRAPH_FACTS.md, top section.
+
+- **G237 — KILLED.** A registered comparator is not what makes a deterministic family scored: FX_NOW_EUR is scored
+  at epoch 1945 with every FX_NOW comparator deregistered since 2026-10-28, and the docs say there is "no
+  'better' comparator to build". The CRYPTO_PRICE comparator registration (`track2/SIGN_S2.md`) is withdrawn:
+  it would spend a $5 bond and owner time for no scoring change. The endpoint stays up; it costs nothing.
+- **G235 — revised cause. `OPEN, network-side`.** No miner is ranked in our 36 intents because:
+  - **29 judgment and 2 hybrid intents:** none has a canonical adapter, and the pool needs 5 contributors before
+    questions are used. Ours have 0–1, except URL_SCAN_VERDICT (5, but no adapter, `routed: false`).
+  - **CRYPTO_PRICE_USD** (and probably CURRENCY_EXCHANGE_CONVERT and STOCK_PRICE_US_EQUITY, which carried the
+    same note on 2026-10-31): the intent reads `onchain.ready: false`, "price_usd has no decimals". This is the
+    likely blocker; it is an inference, and only Telegraph can fix the intent.
+  - **WEATHER_CHECK_TEMPERATURE:** `ready: true`, one ranking-half truth source, unscored. **Cause unknown.**
+  - **SSL_VERIFICATION_CERT:** no truth source at all.
+  - Nothing in the miner changes any of this. The owner's question to Telegraph (TASKS) is rewritten to ask these.
+- **G238 — Our LLM_OUTPUT_EVALUATION adapter is in a refused format. `OPEN, Track 2`.** The 1.2 GB full-model
+  `.wasm` is `legacy_full_model`. The PEFT checkpoints exist (`C:\Users\hyada\tg-eval\runs\LLM_OUTPUT_EVALUATION*\adapter\`),
+  so re-export needs no retraining. Blocked on what the docs call "to be announced": the published
+  `foundation.json` and a reference executor that matches the node bit for bit. The family now has an incumbent
+  (seed 900002), which a new adapter must beat by the replacement margin. Also unchecked: whether the shared
+  Foundation Model is the ModernBERT G32 found the node running.
+- **G239 — Epochs went from 5 minutes to 1 hour between 15:39 and 18:35 UTC on 2026-10-31.** Whether this stays
+  for H2 is unknown. Scoring and routing now update hourly.
+- **G240 — Does the integrate.telegraphprotocol.com "easy way" pay the module bond or only the gas? `OPEN`.** Only
+  matters if we register a module.
+- **G236 still open:** `cast` is not installed on this machine, so the Diamond check was not run.
+
 ## 2026-10-31 "LiveCert is not on the rankings" — G235, G236, G237; G230 deployed
 
 - **G235 — No miner is ranked in any of 4829's 36 intents, because no evaluator exists for their families.

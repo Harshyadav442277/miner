@@ -22,13 +22,14 @@ commit.
       Morse repair, miner improvements, high quality wasm. Delete remote `origin/codex/livecert-manifest-19`?
       Remove the 3 detached worktrees in `C:\Users\hyada\tg-deploy\`?
 - [x] Deploy the G217 holder fixes: deployed 2026-10-31 with the licence gates (`330f2af`, `miner-h0lnck8v6`).
-- [ ] G235/G237: register the CRYPTO_PRICE comparator. Everything is built, deployed and checked; the wallet needs
-      Sepolia ETH and ~6 MACHINA first. Exact commands: `track2/SIGN_S2.md`, top section. Tell Claude the
-      registration id or the tx hash, and Claude watches it.
-- [ ] Ask Telegraph (Ahmed), with the evidence: "WEATHER_CHECK_TEMPERATURE, CRYPTO_PRICE_USD and
-      CURRENCY_EXCHANGE_CONVERT have well-formed on-chain specs and ranking-half truth sources, but no miner is
-      scored in them, while FX_NOW is. Does a deterministic family need a registered comparator to be scored, or
-      is something else missing?"
+- [x] ~~G237: register the CRYPTO_PRICE comparator.~~ Withdrawn 2026-10-31 18:40 UTC: FX_NOW is scored with no
+      registered comparator, so it would not change scoring (GAPS G237 killed). Do not fund the wallet for it.
+- [ ] Ask Telegraph (Ahmed), with the evidence (GAPS G235): "CRYPTO_PRICE_USD reads `onchain.ready: false`,
+      'price_usd has no decimals', so no miner is scored in it, while FX_NOW_EUR is. Can the intent get its
+      decimals (and CURRENCY_EXCHANGE_CONVERT and STOCK_PRICE_US_EQUITY too, if they have the same note)? And
+      WEATHER_CHECK_TEMPERATURE is `ready: true` with a ranking truth source, but unscored: what is missing?"
+- [ ] G238: when Telegraph publishes `foundation.json` and the reference executor, say whether Track 2 re-exports
+      the LLM_OUTPUT_EVALUATION adapter as a safetensors delta (no retraining) to compete with seed 900002.
 - [ ] G217: create a free Blockscout Pro API key at dev.blockscout.com, read its terms, and put it in
       `track1-miner/miner/.env.local` as `BLOCKSCOUT_API_KEY`. Or decline it and keep Base, Arbitrum and Polygon
       holder counts answering `unknown`.
@@ -61,6 +62,10 @@ commit.
       "will X reach N°C", product-level FINANCIAL questions.
 - [ ] RESEARCH_SYNTHESIS: non-biomedical topics. Synthesis reads only Europe PMC and PubMed, plus two
       hard-coded technical comparisons (`technical-research.ts`).
-- [ ] Track 2 on V2: read `/docs/scoring/*` on anjoman.ai, then check the comparators and the adapter against
-      the new `registerWasm(hash, url, prefix, feeAddress, runnableUrl)` and the float-adapter-only format.
+- [x] Track 2 on V2: `/docs/scoring/*` read 2026-10-31. Comparators: unchanged and not needed for scoring.
+      Adapter: must become a safetensors delta (G238).
+- [ ] Track 2 entry that needs no foundation files: evaluation material for intents LiveCert serves. Truth
+      sources for the deterministic ones with none (SSL_VERIFICATION_CERT), and attested preference pairs for a
+      judgment family. Claude builds and checks the JSON Lines file; the owner signs the upload (EIP-191). One
+      honest contributor only: never extra wallets to reach the 5-contributor minimum.
 - [ ] First weekly production audit from Nov 1 (WINNING.md A5). Publish it, failures included.

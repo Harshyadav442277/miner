@@ -4,7 +4,19 @@ The Season I gaps (G13–G27: rank_answer corpora, calibration thresholds, regis
 The modules they describe are retired: they were deleted from the tree, and the V2 registry no longer lists 1882.
 They are in `git log -p -- track2/GAPS.md`.
 
-## G33 — the Season II evaluator work predates protocol V2 (2026-10-29) — `OPEN`
+## G34 — the adapter format changed again: safetensors deltas on a shared Foundation Model (2026-10-31) — `OPEN, blocked on Telegraph`
+
+`/docs/scoring/upgrade-shared-foundation` (updated 2026-10-31): an adapter is a LoRA delta plus a reward head in a
+safetensors file; full-model `.wasm` is refused (`legacy_full_model`). Devnode already runs it (seeds 900001–900004
+at 16:00 UTC). Our PEFT checkpoints are in `C:\Users\hyada\tg-eval\runs\LLM_OUTPUT_EVALUATION*\adapter\`, so the
+docs' `export_adapter` path needs no retraining. **Blocked:** `foundation.json` and the reference executor are "to be
+announced", and the runnable endpoint must match the node bit for bit. The family has an incumbent (900002), so a
+new adapter must beat it by the replacement margin. Root GAPS G238.
+
+## G33 — the Season II evaluator work predates protocol V2 (2026-10-29) — `PARTLY CLOSED 2026-10-31`
+
+Comparators: checked, V2-valid, served at `livecert-comparator.vercel.app`, and not needed for scoring (root G237
+killed). Adapter: superseded by G34. The original text follows.
 
 V2 accepts only float model adapters in WASM, and registers them per family with `registerWasm(hash, url, prefix,
 feeAddress, runnableUrl)` (anjoman.ai/docs `whats-new-v2`, updated 2026-10-27). The 31 comparators and the

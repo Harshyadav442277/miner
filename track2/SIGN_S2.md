@@ -1,6 +1,11 @@
 # Season II Track 2: publish commands and sign list
 
-## V2, 2026-10-31: register the CRYPTO_PRICE comparator (the current runbook)
+## V2, 2026-10-31: register the CRYPTO_PRICE comparator — WITHDRAWN 18:40 UTC, do not run
+
+**Do not sign this.** Re-checked the same evening: FX_NOW_EUR is scored at epoch 1945 with every FX_NOW comparator
+deregistered since 2026-10-28, and CRYPTO_PRICE_USD is blocked by its own intent definition (`onchain.ready:
+false`, "price_usd has no decimals"). A registered comparator would not make it scored (root GAPS G237 killed,
+G235 revised). The runbook stays below as a record; the runnable endpoint stays up.
 
 Owner's yes to "build an evaluator for one of our families", 2026-10-31. **Prepared and checked by Claude; nothing
 signed or sent.** The steps below are transactions from the owner's wallet, on **Ethereum Sepolia** (GAPS G236).
