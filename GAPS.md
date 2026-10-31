@@ -34,12 +34,12 @@ Facts and sources: docs/TELEGRAPH_FACTS.md, top section.
 `track1-miner/tools/mission-fixtures.mjs` on production (`330f2af`): 3 of the 9 fully-served workflows pass, 4
 fail, 2 unchecked (SEC needs a contact user agent). Evidence: `track1-miner/docs/evidence/missions-2026-10-31/`.
 
-- **G241 — Fact-check leaves settled facts `unverified`. `OPEN, breaks 3 workflows`.** "The Bank of England is
+- **G241 — Fact-check leaves settled facts `unverified`. `FIXED in code 2026-10-31, preview-checked, not on production`.** Two causes: a possessive subject ("The bank's headquarters have been in London") was always rejected, and a disambiguation page ("Stripe") was read instead of the company. Fixed in `factrelation.ts` (possessive allowed only before the claim's own key), `factarticle.ts` (next candidates after a disambiguation page, support only) and `foundingSentence()`. "The Bank of England is
   headquartered in London" and "Stripe was founded in 2010" both return "does not settle it either way". "The
   Eiffel Tower is located in Paris" passes. FACT_CHECK is bought by 14 builds.
-- **G242 — Sentiment misses finance language. `OPEN`.** "beat earnings expectations and raised guidance; shares
+- **G242 — Sentiment misses finance language. `FIXED in code 2026-10-31, preview-checked, not on production`.** Two causes: no market words in the lexicon (now scored only beside their market noun), and the model prompt called outcome news "a statement of fact" (now outcome news is positive or negative). "beat earnings expectations and raised guidance; shares
   jumped 8%" → `neutral`. Lexicon-based (`sentiment-lexicon.ts`).
-- **G243 — Event outcome misses a phrasing of a settled market. `OPEN`.** "Who won the 2024 United States
+- **G243 — Event outcome misses a phrasing of a settled market. `FIXED in code 2026-10-31, preview-checked, not on production`.** "United States" vs Polymarket's "US": `foldCountries()` folds both sides. "Who won the 2024 United States
   presidential election?" → `no_market_found`; Polymarket has a resolved market. Polymarket is unreachable from
   this machine (connect fails), so the search can be tested only through a deployment.
 

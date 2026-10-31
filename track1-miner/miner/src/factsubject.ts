@@ -22,7 +22,7 @@
  * its honest `unverified`.
  */
 
-import { assertedKeys, clausesOf, placeKeys, presentClaim, rivalPlace } from "./factrelation";
+import { assertedKeys, clausesOf, foundingSentence, placeKeys, presentClaim, rivalPlace } from "./factrelation";
 import { contentTokens, fold } from "./factwords";
 
 /**
@@ -265,6 +265,12 @@ export function settle(claim: string, subject: string, sentences: string[]): Set
 
   const found = best ?? classHit;
   if (found) return found;
+
+  // "X was founded in YEAR", stated in either voice (G241; see foundingSentence()).
+  const founded = foundingSentence(claim, subject, sentences);
+  if (founded >= 0 && !REPORTED.test(sentences[founded] as string)) {
+    return { verdict: "supported", evidence: sentences[founded] as string, at: founded };
+  }
 
   // Nothing states the claim. For "X is in Y", the lead may still put X in a
   // rival of Y's own kind — "in Paris, France" against "in Berlin". The same

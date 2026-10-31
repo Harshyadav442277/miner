@@ -42,6 +42,24 @@ export function scoreTitle(title: string, subjectTokens: Set<string>, claimToken
   return hit * 2 - disambiguation - extra * 0.75;
 }
 
+/** A disambiguation page's lead: "Stripe or stripes may refer to:". */
+const DISAMBIGUATION = /\bmay (?:also )?refer to\b/i;
+
+/** One plain-text extract, redirects followed, or null when it cannot be read. */
+async function readArticle(title: string, getJson: Fetcher, timeoutMs: number): Promise<{ title: string; text: string } | null> {
+  const page = await getJson(
+    `${API}?action=query&prop=extracts&explaintext=1&redirects=1&format=json&origin=*` +
+    `&titles=${encodeURIComponent(title)}`,
+    timeoutMs,
+  );
+  const pages = (page?.["query"] as Record<string, unknown> | undefined)?.["pages"];
+  const first = pages && typeof pages === "object" ? Object.values(pages as Record<string, unknown>)[0] : undefined;
+  const record = first as Record<string, unknown> | undefined;
+  const text = typeof record?.["extract"] === "string" ? (record["extract"] as string) : "";
+  if (!text) return null;
+  return { title: typeof record?.["title"] === "string" ? (record["title"] as string) : title, text };
+}
+
 /**
  * Resolve the subject to its canonical article and read it.
  *
@@ -72,29 +90,31 @@ export async function findSubjectEvidence(
 
   const subjectTokens = new Set(contentTokens(subject));
   const claimTokens = new Set(contentTokens(claim));
-  let title: string | null = null;
-  let bestScore = 0;
-  for (const t of titles) {
-    if (typeof t !== "string" || !t) continue;
-    const score = scoreTitle(t, subjectTokens, claimTokens);
-    if (score > bestScore) { bestScore = score; title = t; }
+  // Best score first; a tie keeps opensearch's order, as the single pick always did.
+  const ranked = titles
+    .map((t, i) => ({ t, i, score: typeof t === "string" && t ? scoreTitle(t, subjectTokens, claimTokens) : 0 }))
+    .filter((c): c is { t: string; i: number; score: number } => c.score > 0)
+    .sort((a, b) => b.score - a.score || a.i - b.i);
+  if (ranked.length === 0) return null;
+
+  // The top title can be a disambiguation page: "Stripe" lists stripes, hyenas and
+  // Stripe, Inc., so "Stripe was founded in 2010" was never read against the
+  // company (G241). Only then are the next candidates read, and from them only
+  // SUPPORT is taken: an article about a different thing of the same name may
+  // well rule the claim out, which says nothing about the thing the asker meant.
+  let resolved = "";
+  let sentences: string[] = [];
+  let settled: ReturnType<typeof settle> = null;
+  for (const [k, cand] of ranked.slice(0, 4).entries()) {
+    const article = await readArticle(cand.t, getJson, timeoutMs);
+    if (!article) return null;
+    if (DISAMBIGUATION.test(article.text.slice(0, 300))) continue;
+    resolved = article.title;
+    sentences = sentencesOf(article.text);
+    settled = settle(claim, subject, sentences);
+    if (k > 0 && settled?.verdict !== "supported") settled = null;
+    if (settled || k === 0) break;
   }
-  if (!title) return null;
-
-  const page = await getJson(
-    `${API}?action=query&prop=extracts&explaintext=1&redirects=1&format=json&origin=*` +
-    `&titles=${encodeURIComponent(title)}`,
-    timeoutMs,
-  );
-  const pages = (page?.["query"] as Record<string, unknown> | undefined)?.["pages"];
-  const first = pages && typeof pages === "object" ? Object.values(pages as Record<string, unknown>)[0] : undefined;
-  const record = first as Record<string, unknown> | undefined;
-  const text = typeof record?.["extract"] === "string" ? (record["extract"] as string) : "";
-  if (!text) return null;
-  const resolved = typeof record?.["title"] === "string" ? (record["title"] as string) : title;
-
-  const sentences = sentencesOf(text);
-  const settled = settle(claim, subject, sentences);
   if (!settled) return null;
 
   // Quote a second sentence when the settling one is terse, so the answer carries

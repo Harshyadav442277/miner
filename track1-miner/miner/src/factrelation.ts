@@ -126,13 +126,23 @@ function names(w: Word, subjectTokens: Set<string>): boolean {
  * a possessive ("the Eiffel Tower's wireless station"), and a relation verb
  * follows within three words — "The Eiffel Tower is a lattice tower". Returns
  * the verb's index, or -1.
+ *
+ * The one possessive that does state something of the subject is the claim's own
+ * relation noun (G241): "The bank's headquarters have been in London's main
+ * financial district" is how the Bank of England article says the bank is
+ * headquartered in London. So a possessive head passes only when the word it
+ * possesses is one of the claim's keys; the wireless station still does not.
  */
-function headed(words: Word[], subjectTokens: Set<string>): number {
+function headed(words: Word[], subjectTokens: Set<string>, keys: string[] = []): number {
   const start = words.findIndex((w) => names(w, subjectTokens));
   if (start < 0 || start > 3) return -1;
   let end = start;
   while (end + 1 < words.length && names(words[end + 1] as Word, subjectTokens)) end++;
-  if (/['’]s?$/.test((words[end] as Word).raw.replace(/[^\w'’]+$/, ""))) return -1;
+  if (/['’]s?$/.test((words[end] as Word).raw.replace(/[^\w'’]+$/, ""))) {
+    const owned = words[end + 1];
+    if (!owned || !keys.includes(owned.f)) return -1;
+    end++;
+  }
   const verb = words.slice(end + 1, end + 4).findIndex((w) => RELATION.has(w.f));
   return verb < 0 ? -1 : end + 1 + verb;
 }
@@ -179,6 +189,33 @@ function locative(words: Word[], i: number): boolean {
   return false;
 }
 
+const FOUNDING = "(?:founded|established|formed|launched|created|incorporated|started)";
+const escapeRe = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+/**
+ * Index of a sentence stating that the subject was founded in the claimed year, or
+ * -1 (G241). The claim "Stripe was founded in 2010" has one key left once the
+ * subject and the light verb are removed, and the article says it in the active
+ * voice, with the subject as the OBJECT: "John and Patrick Collison founded Stripe
+ * in Palo Alto, California, in 2010". headed() cannot see that by design. Both
+ * voices are matched here, within one clause-free stretch, and only the claimed
+ * year counts: another year is not support, and it is not read as refutation
+ * either, since founding, incorporation and launch dates often differ.
+ */
+export function foundingSentence(claim: string, subject: string, sentences: string[]): number {
+  const m = claim.match(new RegExp(`\\b(?:was|were)\\s+(?:first\\s+)?${FOUNDING}\\s+in\\s+(\\d{4})\\s*[.?!]?$`, "i"));
+  if (!m?.[1] || !subject) return -1;
+  const s = escapeRe(subject);
+  // "in 2010", or a full date: "on April 4, 1975", "on 4 April 1975".
+  const when = `\\b(?:in|on)\\s+(?:[A-Za-z]+\\s+\\d{1,2},?\\s+|\\d{1,2}\\s+[A-Za-z]+,?\\s+)?${m[1]}\\b`;
+  const active = new RegExp(`\\b${FOUNDING}\\s+(?:the\\s+)?${s}\\b[^.;:]{0,80}?${when}`, "i");
+  const passive = new RegExp(`\\b${s}\\b[^.;:]{0,60}?\\b(?:was|were)\\s+(?:first\\s+)?${FOUNDING}\\b[^.;:]{0,60}?${when}`, "i");
+  return sentences.findIndex((x) => {
+    const b = bare(x);
+    return (active.test(b) || passive.test(b)) && !/\b(?:not|never)\b/i.test(b);
+  });
+}
+
 /** The claim's keys that name where it puts the subject: "berlin" in "is in Berlin". */
 export function placeKeys(claim: string, keys: string[]): Set<string> {
   const words = wordsOf(claim);
@@ -202,10 +239,10 @@ export function assertedKeys(
 ): { hit: number; clause: string } | null {
   let best: { hit: number; clause: string } | null = null;
   const clauses = clausesOf(bare(sentence));
-  const opensOnSubject = headed(wordsOf(clauses[0] ?? ""), subjectTokens) >= 0;
+  const opensOnSubject = headed(wordsOf(clauses[0] ?? ""), subjectTokens, keys) >= 0;
   for (const clause of clauses) {
     const words = wordsOf(clause);
-    let verb = headed(words, subjectTokens);
+    let verb = headed(words, subjectTokens, keys);
     if (verb < 0) verb = predicative(words, subjectTokens, keys);
     if (verb < 0 && opensOnSubject) verb = relative(words);
     if (verb < 0 || (present && !PRESENT.has(lettersOf(words[verb] as Word)))) continue;

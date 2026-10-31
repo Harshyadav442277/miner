@@ -23,3 +23,15 @@ node tools/mission-fixtures.mjs https://miner-wine.vercel.app docs/evidence/miss
 The first run (18:51 UTC) also failed `qa_moons` and could not check `transfer_first_eth`. Both were fixture
 faults, fixed before the second run: the fixture required "Phobos" when "two" is the complete answer, and its
 RPC kept no 2015 receipts.
+
+## Fixes for G241–G243 (2026-10-31 ~19:15 UTC; not deployed to production)
+
+| Claim | Evidence | Environment | Expected vs observed | Known limitation |
+|---|---|---|---|---|
+| Unit suite and typecheck pass with the three fixes | `unit-fixes.txt`: 866/866 (854 before, 12 new tests) | local, tree at `5a3dba0` + the fix diff | pass vs pass | — |
+| Fact-check settles the two failing claims, and the guards still hold | `fixtures-local-fixes.json` (`factcheck_boe`, `factcheck_stripe_year` pass); ad-hoc live run: Paris/Edinburgh HQ and Stripe 1999/2011, Apple 1980, Microsoft 1976 not supported; Eiffel/Berlin still contradicted; vaccines/autism not supported | local server, live Wikipedia | supported vs supported | Founding rule matches founded/established/launched/… + "in YEAR" or a full date only |
+| Sentiment reads market news by its outcome | 8-text endpoint check: earnings beat → positive, miss/cut/plunge → negative, layoffs → negative, 3 plain facts → neutral, 2 consumer controls unchanged (8/8) | local server with the Groq model | 8/8 vs 8/8 | The local fixture run in `fixtures-local-fixes.json` predates the prompt change, so it still shows `sentiment_earnings` failing |
+| Event outcome resolves the election in both spellings; Rosneft and BTC still pass | `npx vercel curl` on preview `miner-d881p4yiz-wukong4.vercel.app`: "Who won the 2024 United States presidential election?" → resolved, "Donald Trump won."; the "US" spelling the same; BTC $100k → resolved Yes; Rosneft → match (OFAC SDN) | Vercel preview | resolved vs resolved | Polymarket and OFAC are unreachable from this machine, so these steps were checked only on the preview |
+
+Not yet shown: all 9 workflows passing in one run on production. That needs the production deploy (owner's yes),
+then `node tools/mission-fixtures.mjs https://miner-wine.vercel.app …`.

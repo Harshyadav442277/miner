@@ -46,6 +46,34 @@ export const LEXICON: ReadonlyMap<string, number> = new Map(
   ROWS.flatMap(([v, words]) => words.split(" ").map((w): [string, number] => [w, v])),
 );
 
+/**
+ * Market language (G242). "The company beat earnings expectations and raised
+ * guidance; shares jumped 8%" scored NEUTRAL: none of its verbs is an opinion word,
+ * and as bare words they must not become one — "raised concerns", "she fell",
+ * "the dog jumped". So each verb here scores only beside its market noun: a
+ * TARGET verb with the noun it beats or raises within three words after it, a
+ * MOVE verb with the thing that moved within three words before it.
+ */
+export const MARKET_TARGET_VERBS: ReadonlyMap<string, number> = new Map([
+  ["beat", 2], ["beats", 2], ["topped", 2], ["tops", 2], ["exceeded", 2], ["exceeds", 2], ["surpassed", 2],
+  ["raised", 2], ["raises", 2], ["lifted", 2], ["boosted", 2],
+  ["missed", -2], ["misses", -2], ["cut", -2], ["cuts", -2], ["lowered", -1.5], ["lowers", -1.5],
+  ["slashed", -2.5], ["slashes", -2.5], ["withdrew", -2], ["suspended", -2],
+]);
+export const MARKET_TARGETS: ReadonlySet<string> = new Set([
+  "estimate", "estimates", "expectation", "expectations", "forecast", "forecasts", "guidance", "outlook",
+  "consensus", "dividend", "dividends", "target", "targets", "projections",
+]);
+export const MARKET_MOVE_VERBS: ReadonlyMap<string, number> = new Map([
+  ["jumped", 2], ["surged", 2.5], ["soared", 2.5], ["rallied", 2], ["rose", 1.5], ["climbed", 1.5], ["gained", 1.5],
+  ["fell", -1.5], ["dropped", -1.5], ["declined", -1.5], ["slid", -1.5], ["sank", -2], ["plunged", -2.5],
+  ["tumbled", -2.5], ["slumped", -2.5], ["crashed", -3],
+]);
+export const MARKET_MOVERS: ReadonlySet<string> = new Set([
+  "shares", "share", "stock", "stocks", "price", "prices", "revenue", "revenues", "profit", "profits",
+  "sales", "earnings", "index", "market", "markets", "valuation",
+]);
+
 /** Words that intensify the next opinion word (+) or soften it (-). */
 export const BOOSTERS: ReadonlyMap<string, number> = new Map([
   ...["very", "really", "extremely", "so", "totally", "absolutely", "incredibly", "completely", "utterly", "highly", "super", "truly", "most", "especially", "remarkably"]

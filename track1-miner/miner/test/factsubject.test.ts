@@ -2,6 +2,7 @@ import { test, describe } from "node:test";
 import assert from "node:assert/strict";
 import { checkFact } from "../src/factcheck";
 import { extractSubject, sentencesOf, settle } from "../src/factsubject";
+import { foundingSentence } from "../src/factrelation";
 
 /**
  * FACT_CHECK subject resolution, against a mocked Wikimedia.
@@ -74,8 +75,32 @@ const TITLES: Record<string, string[]> = {
   "eiffel tower": ["Eiffel Tower", "Eiffel Tower replicas and derivatives", "Eiffel Tower (Six Flags)",
     "Eiffel Tower (Delaunay series)", "Eiffel Tower (Paris, Tennessee)", "Eiffel Tower (Paris, Texas)",
     "Eiffel Tower (disambiguation)", "Eiffel Towers Den Bosch"],
+  // Live opensearch answers, 2026-10-31 (G241).
+  "bank of england": ["Bank of England", "Bank of England note issues", "Bank of England £5 note"],
+  stripe: ["Stripe", "Striped hyena", "Stripe, Inc.", "Striped polecat", "Striped skunk", "Stripes (film)"],
 };
-const EXTRACTS: Record<string, string> = { Bat: BAT, Shark: SHARK, "Eiffel Tower": EIFFEL };
+
+/** Live article text, 2026-10-31 (G241): the sentences that settle, and the leads before them. */
+const BANK_OF_ENGLAND =
+  "The Bank of England (BoE) is the central bank of the United Kingdom and the model on which most " +
+  "modern central banks have been based. The bank's headquarters have been in London's main financial " +
+  "district, the City of London, since 1694, and on Threadneedle Street since 1734.";
+const STRIPE_DISAMBIGUATION =
+  "Stripe, striped, or stripes may refer to: == Entertainment == Stripe (billiard ball), billiard balls " +
+  "numbered 9 through 15 Stripes (film), a 1981 American comedy film directed by Ivan Reitman";
+const STRIPED_HYENA =
+  "The striped hyena (Hyaena hyaena) is a species of hyena native to North and East Africa, the Middle " +
+  "East, the Caucasus, Central Asia, and the Indian subcontinent.";
+const STRIPE_INC =
+  "Stripe, LLC is an Irish-American multinational financial services and software as a service (SaaS) " +
+  "company dual-headquartered in South San Francisco, California, United States, and Dublin, Ireland. " +
+  "== History == Irish entrepreneur brothers John and Patrick Collison founded Stripe in Palo Alto, " +
+  "California, in 2010, and serve as the company's president and CEO, respectively.";
+
+const EXTRACTS: Record<string, string> = {
+  Bat: BAT, Shark: SHARK, "Eiffel Tower": EIFFEL, "Bank of England": BANK_OF_ENGLAND,
+  Stripe: STRIPE_DISAMBIGUATION, "Striped hyena": STRIPED_HYENA, "Stripe, Inc.": STRIPE_INC,
+};
 
 /** Serves opensearch and prop=extracts; the fallback full-text search finds nothing. */
 function mockWikipedia(): () => void {
@@ -343,5 +368,67 @@ describe("checkFact resolves the subject first", () => {
     } finally {
       restore();
     }
+  });
+});
+
+describe("settled facts a mission workflow asks (G241)", () => {
+  test("headquartered in London: the possessive sentence that names the headquarters supports it", async () => {
+    const restore = mockWikipedia();
+    try {
+      const r = await checkFact("Is it true that the Bank of England is headquartered in London?");
+      assert.equal(r.verdict, "supported");
+      assert.match(String(r.evidence), /headquarters have been in London's main financial district/);
+    } finally {
+      restore();
+    }
+  });
+
+  test("headquartered in Paris: the same sentence is not support", async () => {
+    const restore = mockWikipedia();
+    try {
+      const r = await checkFact("Is it true that the Bank of England is headquartered in Paris?");
+      assert.notEqual(r.verdict, "supported");
+    } finally {
+      restore();
+    }
+  });
+
+  test("a disambiguation page is passed over for the article the claim is about", async () => {
+    const restore = mockWikipedia();
+    try {
+      const r = await checkFact("Is it true that Stripe was founded in 2010?");
+      assert.equal(r.verdict, "supported");
+      assert.equal(r.source_url, "https://en.wikipedia.org/wiki/Stripe%2C_Inc.");
+      assert.match(String(r.evidence), /founded Stripe in Palo Alto, California, in 2010/);
+    } finally {
+      restore();
+    }
+  });
+
+  test("a founding year the article does not state is not support", async () => {
+    const restore = mockWikipedia();
+    try {
+      const r = await checkFact("Is it true that Stripe was founded in 1999?");
+      assert.notEqual(r.verdict, "supported");
+    } finally {
+      restore();
+    }
+  });
+});
+
+describe("foundingSentence", () => {
+  test("matches the active and passive voice, with a year or a full date", () => {
+    const s = [
+      "Gates and Allen established Microsoft on April 4, 1975, with Gates as CEO.",
+      "Google was founded in 1998 by American computer scientists Larry Page and Sergey Brin.",
+    ];
+    assert.equal(foundingSentence("Microsoft was founded in 1975", "Microsoft", s), 0);
+    assert.equal(foundingSentence("Google was founded in 1998", "Google", s), 1);
+  });
+  test("another year, a negation or a non-founding claim finds nothing", () => {
+    const s = ["Google was founded in 1998 by Larry Page and Sergey Brin.", "Acme was not founded in 1990."];
+    assert.equal(foundingSentence("Google was founded in 1997", "Google", s), -1);
+    assert.equal(foundingSentence("Acme was founded in 1990", "Acme", s), -1);
+    assert.equal(foundingSentence("Google is headquartered in 1998", "Google", s), -1);
   });
 });

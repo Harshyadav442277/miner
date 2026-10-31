@@ -51,8 +51,9 @@ commit.
 
 - [x] Mission × intent matrix at build level, and fixtures for the 9 fully-served workflows (2026-10-31,
       `tools/mission-matrix.mjs`, `tools/mission-fixtures.mjs`): 3/9 pass on production.
-- [ ] Fix G241 (fact-check on settled facts), G242 (finance sentiment), G243 (election phrasing), then re-run the
-      fixtures on a preview; deploy needs the owner's yes. Target 9/9.
+- [x] Fix G241, G242, G243 (2026-10-31): unit 866/866; every failing step passes on preview `miner-d881p4yiz`.
+- [ ] Owner: yes to deploying the G241–G243 fixes to production; then Claude runs the 9 workflow fixtures on
+      production (target 9/9, with `SEC_USER_AGENT` for the two SEC steps).
 - [ ] Fixtures for the partial workflows, by mission, so every mission has a passing workflow step (S1).
 - [ ] Owner: set `SEC_USER_AGENT` ("Name contact@domain") when running the fixtures, or accept the two SEC steps
       as unchecked.

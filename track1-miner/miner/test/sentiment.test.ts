@@ -193,3 +193,24 @@ test("praise opening a complaint is sarcasm, and the complaint decides", async (
   assert.equal(sarcasticOpening("Oh great, the update broke everything again.")?.word, "great");
   assert.equal(analyseSentiment("", "Oh great, the update broke everything again.").verdict, "negative");
 });
+
+test("market language: an earnings beat with raised guidance is positive (G242)", () => {
+  const r = analyseSentiment("", "The company beat earnings expectations and raised guidance; shares jumped 8%.");
+  assert.equal(r.verdict, "positive");
+  assert.ok(r.positive_words?.includes("beat"), `counted ${r.positive_words}`);
+});
+
+test("market language: a miss, a cut and a slump is negative", () => {
+  const r = analyseSentiment("", "The retailer missed analyst estimates and cut its dividend; the stock plunged 12%.");
+  assert.equal(r.verdict, "negative");
+});
+
+test("market language: negation flips a market verb", () => {
+  assert.equal(analyseSentiment("", "The bank did not beat expectations this quarter.").verdict, "negative");
+});
+
+test("market verbs without their market noun carry no opinion", () => {
+  for (const text of ["The committee raised concerns about the schedule.", "She fell on the stairs.", "The dog jumped over the fence."]) {
+    assert.equal(scoreText(text).hits.length, 0, text);
+  }
+});

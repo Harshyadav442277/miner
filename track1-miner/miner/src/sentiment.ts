@@ -17,7 +17,10 @@
  *
  * No network. The whole answer is computed from the request.
  */
-import { BOOSTERS, EXPECTED_ACTIONS, LEXICON, NEGATIONS, SYMBOLS, TONES } from "./sentiment-lexicon";
+import {
+  BOOSTERS, EXPECTED_ACTIONS, LEXICON, MARKET_MOVE_VERBS, MARKET_MOVERS, MARKET_TARGET_VERBS, MARKET_TARGETS,
+  NEGATIONS, SYMBOLS, TONES,
+} from "./sentiment-lexicon";
 
 export type SentimentVerdict = "positive" | "negative" | "neutral" | "mixed" | "unknown";
 
@@ -127,6 +130,20 @@ function inAsideQuestion(t: Tokens, i: number): boolean {
   return /\?["”'’)]*$/.test(t.tokens[end] ?? "") && end < t.tokens.length - 1;
 }
 
+/**
+ * A market verb's valence when its market noun is beside it, else 0 (G242; see
+ * MARKET_TARGET_VERBS). "beat … expectations": the noun within three words after.
+ * "shares jumped": the noun within three words before.
+ */
+export function marketValence(lower: string[], i: number): number {
+  const w = lower[i] ?? "";
+  const target = MARKET_TARGET_VERBS.get(w);
+  if (target !== undefined && lower.slice(i + 1, i + 4).some((x) => MARKET_TARGETS.has(x))) return target;
+  const move = MARKET_MOVE_VERBS.get(w);
+  if (move !== undefined && lower.slice(Math.max(0, i - 3), i).some((x) => MARKET_MOVERS.has(x))) return move;
+  return 0;
+}
+
 /** The VADER-method score of a passage, with the words that produced it. */
 export function scoreText(text: string): { compound: number; pos: number; neg: number; hits: Hit[] } {
   const t = tokenise(text);
@@ -140,7 +157,7 @@ export function scoreText(text: string): { compound: number; pos: number; neg: n
   let neg = 0;
   for (let i = 0; i < words.length; i++) {
     const w = lower[i] ?? "";
-    let v = LEXICON.get(w) ?? SYMBOLS.get(tokens[i] ?? "") ?? 0;
+    let v = LEXICON.get(w) ?? SYMBOLS.get(tokens[i] ?? "") ?? marketValence(lower, i);
     if (v === 0) {
       // An expected action that did not happen is the complaint itself: "support
       // never replied". It has no valence to flip, so it is scored directly and

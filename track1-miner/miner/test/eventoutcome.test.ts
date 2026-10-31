@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
-  asksPrediction, bestMatch, coverage, directionConflict, keywords, manifoldCandidates, names, namesEvent, numbers, polymarketCandidates, resolveEvent,
+  asksPrediction, bestMatch, coverage, directionConflict, foldCountries, keywords, manifoldCandidates, namedWinner, names, namesEvent, numbers, polymarketCandidates, resolveEvent,
 } from "../src/eventoutcome";
 
 /** Trimmed from Gamma /public-search on 2026-09-12 ("Fed decision in September?"). */
@@ -148,3 +148,20 @@ test("a who-question is answered only by a market that names the winner", async 
   assert.equal(namedWinner({ ...base, question: "Will Brazil win the 2022 FIFA World Cup?", settled: true, outcome: "No" }), null);
 });
 
+
+test("United States and US are one name, on either side (G243)", () => {
+  const market = "Presidential Election Winner 2024 Will Donald Trump win the 2024 US Presidential Election?";
+  assert.ok(coverage("Who won the 2024 United States presidential election?", market) >= 0.7);
+  assert.ok(coverage("Who won the 2024 U.S. presidential election?", market) >= 0.7);
+  assert.equal(foldCountries("the United Kingdom and the U.K."), "the UK and the UK");
+  // Folding adds no match a missing name would have blocked: France is still not the US.
+  assert.equal(coverage("Who won the 2024 French presidential election?", market), 0);
+});
+
+test("who won: the settled Yes market names the winner, the settled No market is passed over", () => {
+  const c = (question: string, outcome: string) => ({ venue: "Polymarket", question, context: "Presidential Election Winner 2024",
+    settled: true, outcome, closes: null }) as Parameters<typeof bestMatch>[1][number];
+  const pool = [c("Will Kamala Harris win the 2024 US Presidential Election?", "No"), c("Will Donald Trump win the 2024 US Presidential Election?", "Yes")]
+    .filter((x) => namedWinner(x) !== null);
+  assert.equal(namedWinner(bestMatch("Who won the 2024 United States presidential election?", pool)!.c), "Donald Trump");
+});

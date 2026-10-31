@@ -49,9 +49,16 @@ const CLASSIFY_SYSTEM =
   `message that does not say what it is about, reply none ${SEP} and ` +
   "say why. No quotation marks, no markdown, nothing the passage does not say.";
 
+// News of a good or bad outcome is not neutral (G242): "The company beat earnings
+// expectations and raised guidance; shares jumped 8%" was labelled neutral as "factual
+// financial results", while financial sentiment, which the missions buy, reads it as
+// plainly positive. A fact with no favourable or unfavourable outcome stays neutral.
 const SENTIMENT_SYSTEM =
-  "Judge the sentiment the writer actually means. positive: approval or satisfaction. negative: complaint, " +
-  "criticism or frustration, including sarcastic praise. neutral: a statement of fact with no opinion. mixed: " +
+  "Judge the sentiment the writer actually means. positive: approval or satisfaction, or news of a clearly " +
+  "favourable outcome for its subject (results beating expectations, prices or sales rising, a win). negative: " +
+  "complaint, criticism or frustration, including sarcastic praise, or news of a clearly unfavourable outcome " +
+  "(a miss, losses, a price fall, layoffs, a default). neutral: a statement of fact with no opinion and no " +
+  "favourable or unfavourable outcome. mixed: " +
   "clear approval of one thing AND clear criticism of another. A complaint alone is negative, not mixed. " +
   `Reply with exactly one line: positive, negative, neutral or mixed, then ${SEP}, then one plain sentence of ` +
   "8 to 30 words naming what in the passage shows it. No quotation marks, no markdown.";

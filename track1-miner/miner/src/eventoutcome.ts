@@ -131,8 +131,22 @@ export function names(text: string): string[] {
   return [...new Set(out.map((w) => w.toLowerCase()).filter((w) => !STOP.has(w) && !OPENERS.has(w)))];
 }
 
+/**
+ * One spelling for the countries markets abbreviate (G243). "Who won the 2024 United
+ * States presidential election?" found no market: Polymarket writes "the 2024 US
+ * Presidential Election", and every name in the question must appear in the
+ * market, so "united" rejected it. Both sides are folded before any comparison.
+ */
+export function foldCountries(text: string): string {
+  return String(text ?? "")
+    .replace(/\bUnited\s+States(?:\s+of\s+America)?\b|\bU\.S\.(?:A\.)?|\bUSA\b/gi, "US")
+    .replace(/\bUnited\s+Kingdom\b|\bU\.K\./gi, "UK");
+}
+
 /** Share of the question's significant words present in a market's title, 0 when any number or name is missing. */
-export function coverage(question: string, marketText: string): number {
+export function coverage(questionText: string, marketTextRaw: string): number {
+  const question = foldCountries(questionText);
+  const marketText = foldCountries(marketTextRaw);
   const want = keywords(question);
   if (!want.length) return 0;
   if (directionConflict(question, marketText)) return 0;
@@ -277,7 +291,7 @@ export function namesEvent(text: string): boolean {
 }
 
 export async function resolveEvent(question: string): Promise<EventOutcomeResult> {
-  const q = String(question ?? "").trim();
+  const q = foldCountries(String(question ?? "").trim());
   const term = searchTerm(q);
   if (asksPrediction(q)) {
     return { verdict: "unknown", confidence: 0, error: "prediction_requested",
