@@ -1,6 +1,17 @@
 # MEMORY.md — session continuity
 
-## 2026-10-31 ~19:00 UTC (00:30 IST Nov 1): CURRENT — strategy rewritten; workflow fixtures 3/9 on production
+## 2026-10-31 ~19:30 UTC (01:00 IST Nov 1): CURRENT — G241–G243 fixes LIVE on production; workflows 7/9, 0 fail
+
+Owner: "Yes, deploy it". Release record: track1-miner/docs/evidence/release-2026-10-31-mission-fixes/.
+
+- **Production** `miner-htkhwofwv` (`a8abbcf`), alias miner-wine.vercel.app. Rollback `miner-h0lnck8v6` (`330f2af`).
+- **Verified:** unit 866/866; preflight 7/7; watch `active`, 380 ms; mission workflows **7 pass, 0 fail, 2 unchecked**
+  (SEC steps need `SEC_USER_AGENT`). Before: 3 pass, 4 fail.
+- **Not pushed; nothing signed.** Deploy tree `C:\Users\hyada\tg-deploy\mc75190b` is detached at `a8abbcf`.
+- **Next, Claude:** fixtures for the partial workflows (S1); E1 truth-source experiment brief; S3 client recipes.
+- **Next, owner:** H2 registration before Nov 1 00:00 UTC; Ahmed question (TASKS); push yes.
+
+## 2026-10-31 ~19:00 UTC (00:30 IST Nov 1): strategy rewritten; workflow fixtures 3/9 on production (superseded above)
 
 Owner: "yes start. building. but before create a plan, asymmetrical strategies … use leverage over others".
 
