@@ -4,6 +4,28 @@
 verification date. Re-verify anything older than a few days — the canonical intent set and
 contract parameters change on-chain.
 
+**Evaluation material, checked 2026-11-01 ~19:10 UTC** (anjoman.ai/docs/scoring/contribute-evaluation-data,
+updated Nov 1; devnode `/api/evalpool/status`, `/engine/v1/intents/<id>`; github.com/telegraphprotocol/bounties):
+- Upload = signed JSON Lines, one intent per upload, EIP-191 over a 5-line message (body sha256, nonce, chain id
+  11155111). No fee or bond. Rows: `preference_pair` (prompt 16–16,000 chars; chosen/rejected 8–32,000, must
+  differ), `ground_truth`, `graded_exemplar`, or `truth_source` (a keyless miner-format YAML). A prompt ≥85%
+  similar to an existing one is rejected. `http(s)` `source_url` makes a row `attested`; `source_kind`
+  llm/synthetic/generated/model makes it `unverified`.
+- Question rows are used once 5 contributors have material; **truth sources need only one** to get a deterministic
+  intent scored (median of up to 3 sources per question). Rows take effect from the next epoch.
+- Bounty issues #75–#168: one per intent, all `reward:unfunded`; join with `/claim`, `/progress` every 72 h, `/submit`.
+  No issue for SSL_VERIFICATION_CERT.
+- Class of 4829's intents: deterministic SSL_VERIFICATION_CERT (`ready`, answer `certificate_valid` bool),
+  WEATHER_CHECK_TEMPERATURE (`ready`), CRYPTO_PRICE_USD, CURRENCY_EXCHANGE_CONVERT, STOCK_PRICE_US_EQUITY (not ready:
+  "no decimals"); hybrid CVE_LOOKUP_CVSS (not ready), URL_SCAN_VERDICT (`ready`); the rest judgment.
+  CRYPTO_TRANSFER_VERIFY and QUESTION_ANSWERING: "the intent has no response format".
+- Pools (eligible rows/contributors): 15 of our intents empty; at ≥5 contributors only SANCTIONS (7), EVENT_OUTCOME
+  (5), URL_SCAN_VERDICT (5); SSL_VERIFICATION_CERT 1 row from 1 contributor.
+
+**Organiser, Discord, 2026-11-01 (Ahmed Ali), on the unranked intents:** "we are working on resolving it";
+meanwhile start with evaluation material through the bounties (issues) and anjoman.ai/dashboard/eval. On mainnet,
+eligible material used to evaluate miners can earn rewards over time, subject to protocol rules.
+
 **Organiser, Discord, 2026-11-02 00:20 IST (2026-11-01 18:50 UTC), Ahmed Ali:** funding an evaluator bond on
 Sepolia by taking test USDC and swapping it for MACHINA on the MACHINA/USDC pool is the intended way, but the USDC
 is Telegraph's own deployed token: request it from the faucet on anjoman.ai (not a public USDC faucet).
