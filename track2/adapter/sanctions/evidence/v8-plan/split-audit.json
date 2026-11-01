@@ -1,0 +1,51 @@
+{
+ "sizes": {
+  "train": 2400,
+  "val": 400,
+  "test": 400
+ },
+ "query_files": [
+  "track2\\adapter\\sanctions\\evidence\\2026-11-01-miners-r1\\queries.json",
+  "track2\\adapter\\sanctions\\evidence\\2026-11-01-miners-fresh\\queries.json",
+  "track2\\adapter\\sanctions\\evidence\\v7-plan\\queries.json",
+  "track2\\adapter\\sanctions\\evidence\\v8-plan\\bank-queries.json"
+ ],
+ "checks": {
+  "train/val": {
+   "shared_ids": 0,
+   "shared_primary_or_alias_tokens": 0,
+   "shared_prompt_tokens": 0
+  },
+  "train/test": {
+   "shared_ids": 0,
+   "shared_primary_or_alias_tokens": 0,
+   "shared_prompt_tokens": 0
+  },
+  "val/test": {
+   "shared_ids": 0,
+   "shared_primary_or_alias_tokens": 0,
+   "shared_prompt_tokens": 0
+  },
+  "measurement_0_vs_all": {
+   "shared_ids": 0,
+   "shared_primary_or_alias_tokens": 0,
+   "shared_query_tokens": 0
+  },
+  "measurement_1_vs_all": {
+   "shared_ids": 0,
+   "shared_primary_or_alias_tokens": 0,
+   "shared_query_tokens": 0
+  },
+  "measurement_2_vs_all": {
+   "shared_ids": 0,
+   "shared_primary_or_alias_tokens": 0,
+   "shared_query_tokens": 0
+  },
+  "measurement_3_vs_all": {
+   "shared_ids": 0,
+   "shared_primary_or_alias_tokens": 0,
+   "shared_query_tokens": 0
+  }
+ },
+ "pass": true
+}

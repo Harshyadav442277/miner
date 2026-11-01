@@ -1,0 +1,578 @@
+[
+ {
+  "name": "Susser Bank",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "549300KST6N97GYH0O45",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/549300KST6N97GYH0O45"
+ },
+ {
+  "name": "Wells Fargo Bank South Central, National Association",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "254900MQM8125MXFAA42",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/254900MQM8125MXFAA42"
+ },
+ {
+  "name": "McHenry Savings Bank",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "549300BST16INX89WU46",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/549300BST16INX89WU46"
+ },
+ {
+  "name": "THE ROYAL BANK OF SCOTLAND INTERNATIONAL (HOLDINGS) LIMITED",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "213800UR19XKNB4VUZ83",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/213800UR19XKNB4VUZ83"
+ },
+ {
+  "name": "CONTAI CO-OPERATIVE BANK LIMITED",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "335800RS2MGW1WNI9T13",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/335800RS2MGW1WNI9T13"
+ },
+ {
+  "name": "THE KANARA DISTRICT CENTRAL COOPERATIVE BANK LIMITED",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "335800KSANWDG6DSSS39",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/335800KSANWDG6DSSS39"
+ },
+ {
+  "name": "THE JHAJJAR CENTRAL COOP BANK LTD",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "984500EV2A863OC77B67",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/984500EV2A863OC77B67"
+ },
+ {
+  "name": "SHREE GAJANAN URBAN CO-OPERATIVE BANK LTD.",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "984500ACD57CF2FC9037",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/984500ACD57CF2FC9037"
+ },
+ {
+  "name": "NAGARIK SAMABAY BANK LTD",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "33580087Y1E9ECZJ2F48",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/33580087Y1E9ECZJ2F48"
+ },
+ {
+  "name": "PENSION FUND OF ICICI BANK LIMITED",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "335800FNWF7Z28C2VD62",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/335800FNWF7Z28C2VD62"
+ },
+ {
+  "name": "Bear State Bank",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "54930092GUGHO262HP43",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/54930092GUGHO262HP43"
+ },
+ {
+  "name": "Shahjalal Islami Bank PLC",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "254900MDHN871GDYZ694",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/254900MDHN871GDYZ694"
+ },
+ {
+  "name": "THE HAVERI URBAN CO-OP BANK LTD",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "9845009B407EQ50F9E34",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/9845009B407EQ50F9E34"
+ },
+ {
+  "name": "THE URBAN CO-OP BANK LTD ROURKELA",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "984500XATED4C9HE6309",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/984500XATED4C9HE6309"
+ },
+ {
+  "name": "SRI KANNIKAPARAMESHWARI CO-OP BANK LTD",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "3358001ELVRSYK89SD37",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/3358001ELVRSYK89SD37"
+ },
+ {
+  "name": "TAI FUNG BANK LIMITED",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "549300NYBMESYXTWIJ67",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/549300NYBMESYXTWIJ67"
+ },
+ {
+  "name": "PT Bank Danamon Indonesia",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "254900XB9K06L7PWEP97",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/254900XB9K06L7PWEP97"
+ },
+ {
+  "name": "VIVEKANAND NAGRIK SAHAKARI BANK MARYADIT SHUJALPUR",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "335800PLZVJU5M7KH727",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/335800PLZVJU5M7KH727"
+ },
+ {
+  "name": "PORBANDAR COMMERCIAL CO-OPERATIVE BANK LIMITED",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "335800LHGWJ9J8YIQ349",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/335800LHGWJ9J8YIQ349"
+ },
+ {
+  "name": "Platte Valley Bank",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "549300ZFJ1696ECS0S38",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/549300ZFJ1696ECS0S38"
+ },
+ {
+  "name": "The Bank of Tampa",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "549300H3F1P2EQW0FC36",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/549300H3F1P2EQW0FC36"
+ },
+ {
+  "name": "North Brookfield Savings Bank",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "549300WN3VU197CXJH44",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/549300WN3VU197CXJH44"
+ },
+ {
+  "name": "STATE BANK OF INDIA EMPLOYEES PENSION FUND",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "335800LBFW6QLFB59952",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/335800LBFW6QLFB59952"
+ },
+ {
+  "name": "THE KOTTAKKAL CO-OPERATIVE URBAN BANK LIMITED NO.1378",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "648800QSKTFKZ33C5U19",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/648800QSKTFKZ33C5U19"
+ },
+ {
+  "name": "DNB Carnegie Investment Bank AB",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "529900BR5NZNQZEVQ417",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/529900BR5NZNQZEVQ417"
+ },
+ {
+  "name": "Republic Bank",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "549300S4H1VFBIXH4050",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/549300S4H1VFBIXH4050"
+ },
+ {
+  "name": "THE YAVATMAL DISTRICT CENTRAL CO-OPERATIVE BANK LIMITED",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "335800TIWFEZDD3FUX92",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/335800TIWFEZDD3FUX92"
+ },
+ {
+  "name": "Vorsorgeeinrichtung der Goldman Sachs Bank AG",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "894500NEZVT486JYBZ56",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/894500NEZVT486JYBZ56"
+ },
+ {
+  "name": "CENTRAL BANK OF KENYA",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "25490039BSO2ZF8JZ448",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/25490039BSO2ZF8JZ448"
+ },
+ {
+  "name": "THE CHITRADURGA DISTRICT CO-OPERATIVE CENTRAL BANK LTD.",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "335800XPMPHI3PUBOQ41",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/335800XPMPHI3PUBOQ41"
+ },
+ {
+  "name": "THE MAHEMDABAD URBAN PEOPLE S CO OP BANK LIMITED",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "335800LROZ9NHH6A4U82",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/335800LROZ9NHH6A4U82"
+ },
+ {
+  "name": "STANDARD CHARTERED BANK GHANA PLC",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "549300WFGKTC3MGDCX95",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/549300WFGKTC3MGDCX95"
+ },
+ {
+  "name": "THE JALNA PEOPLES CO-OPERATIVE BANK LTD.",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "33580061TJBTGRVE4990",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/33580061TJBTGRVE4990"
+ },
+ {
+  "name": "Shore United Bank, National Association",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "54930009M8OIJWECQX81",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/54930009M8OIJWECQX81"
+ },
+ {
+  "name": "MUZAFFARNAGAR DISTRICT CO-OPERATIVE BANK LTD.",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "335800IYM61RGAM39771",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/335800IYM61RGAM39771"
+ },
+ {
+  "name": "RENUKA NAGRIK SAHKARI BANK MARYADIT",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "894500SZ0LAEANR6VI85",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/894500SZ0LAEANR6VI85"
+ },
+ {
+  "name": "THE MUNICIPAL CO-OPERATIVE BANK LTD MUMBAI",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "335800LNJ2NGEP24YD29",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/335800LNJ2NGEP24YD29"
+ },
+ {
+  "name": "THE RANDER PEOPLES CO OP BANK LTD",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "335800E4HP78PB8O7908",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/335800E4HP78PB8O7908"
+ },
+ {
+  "name": "ZILA SAHKARI BANK LTD MATHURA",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "335800LCLIG76P666618",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/335800LCLIG76P666618"
+ },
+ {
+  "name": "THE PUNJAB STATE COOPERATIVE AGRICULTURAL DEVELOPMENT BANK EMPLOYEES GENERAL PROVIDENT FUND",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "335800XH8CYIPFX6GY26",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/335800XH8CYIPFX6GY26"
+ },
+ {
+  "name": "RESERVE BANK EMPLOYEES CO-OPERATIVE BANK LTD.",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "335800BKGOLB35NMZP73",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/335800BKGOLB35NMZP73"
+ },
+ {
+  "name": "CHIKMAGALUR PATTNA SAHAKARA BANK NIYAMITHA",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "335800PQXH8MP25KHO46",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/335800PQXH8MP25KHO46"
+ },
+ {
+  "name": "INDIAN BANK EMPLOYEES PENSION FUND",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "335800A34JBLX3JBF821",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/335800A34JBLX3JBF821"
+ },
+ {
+  "name": "Atlantic Union Bank",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "549300ZTT08EKQRVTR15",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/549300ZTT08EKQRVTR15"
+ },
+ {
+  "name": "Personalstiftung der Rothschild & Co Bank AG",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "506700RMEH6X0W00S074",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/506700RMEH6X0W00S074"
+ },
+ {
+  "name": "Stellantis Bank SA Niederlassung Deutschland",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "529900NI06KDCOI3KP85",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/529900NI06KDCOI3KP85"
+ },
+ {
+  "name": "THE VEJALPUR NAGRIK SAHAKARI BANK LTD.",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "335800T3TPOZCZT35624",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/335800T3TPOZCZT35624"
+ },
+ {
+  "name": "L.I.C. EMPLOYEES' CO-OPERATIVE BANK LTD., UDUPI",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "335800ZUCNMP1HIWA555",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/335800ZUCNMP1HIWA555"
+ },
+ {
+  "name": "FCNB Bank",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "2549000NTDO0Q5Y5VF72",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/2549000NTDO0Q5Y5VF72"
+ },
+ {
+  "name": "THE TRUSTEE FOR TCORPIM MIDDLE MARKET BANK LOANS FUND B",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "984500ODAC9C5A5BCE82",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/984500ODAC9C5A5BCE82"
+ },
+ {
+  "name": "SHREE MAHAYOGI LAKSHMAMMA CO-OPERATIVE BANK LTD",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "335800IGVSZN76MQIK53",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/335800IGVSZN76MQIK53"
+ },
+ {
+  "name": "Chong Hing Bank Limited",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "549300UE27D3HDTZET39",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/549300UE27D3HDTZET39"
+ },
+ {
+  "name": "THE HARYANA STATE CO-OPERATIVE APEX BANK LTD.",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "335800LY22UYKF4AHT40",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/335800LY22UYKF4AHT40"
+ },
+ {
+  "name": "STANDARD BANK ISLE OF MAN LIMITED",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "213800Y2OJ5121KMJ968",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/213800Y2OJ5121KMJ968"
+ },
+ {
+  "name": "Our Community Bank",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "549300KKX02L29KSGS91",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/549300KKX02L29KSGS91"
+ },
+ {
+  "name": "RESERVE BANK OF INDIA EMPLOYEES CO OPERATIVE CREDIT BANK LTD KANPUR",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "984500AA684ICB7A1132",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/984500AA684ICB7A1132"
+ },
+ {
+  "name": "Pensionskasse Bank CIC (Schweiz)",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "52990094YAVMF5TWW737",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/52990094YAVMF5TWW737"
+ },
+ {
+  "name": "Spendenstiftung Bank Vontobel",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "506700I1HQ8094QGG585",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/506700I1HQ8094QGG585"
+ },
+ {
+  "name": "RESERVE BANK EMPLOYEES CO-OPERATIVE BANK LIMITED",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "9845007843779849FD02",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/9845007843779849FD02"
+ },
+ {
+  "name": "WesBanco Bank, Inc.",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "QGPGHQ1ENZOOLJRFTH41",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/QGPGHQ1ENZOOLJRFTH41"
+ },
+ {
+  "name": "THE BERHAMPUR CO-OPERATIVE URBAN BANK LTD.",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "335800QTF61JC11FPG48",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/335800QTF61JC11FPG48"
+ },
+ {
+  "name": "THE PATDI NAGRIK SAHKARI BANK LTD",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "984500CE5NA0EA8YC863",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/984500CE5NA0EA8YC863"
+ },
+ {
+  "name": "VR-Bank Rottal-Inn eG",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "529900APX10RF2PBTB22",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/529900APX10RF2PBTB22"
+ },
+ {
+  "name": "DBS BANK INDIA LIMITED ERSTWHILE LAKSHMI VILAS BANK EMPLOYEES PENSION FUND TRUST",
+  "expected": false,
+  "sdn_ids": [],
+  "role": "final",
+  "kind": "new_bank_exact_absent",
+  "lei": "3358005I1BF22A8YWE09",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/3358005I1BF22A8YWE09"
+ }
+]

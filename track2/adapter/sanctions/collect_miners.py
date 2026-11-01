@@ -140,6 +140,7 @@ def main():
     ap.add_argument("--alt", type=Path, required=True)
     ap.add_argument("--out", type=Path, required=True)
     ap.add_argument("--queries", type=Path, help="optional pre-frozen queries; validated against the same snapshot")
+    ap.add_argument("--miner-ids", help="optional comma-separated catalog ids for a declared focused stratum")
     a = ap.parse_args()
     a.out.mkdir(parents=True, exist_ok=False)  # immutable captures; choose a new directory to re-collect
     snapshots = {}
@@ -163,6 +164,11 @@ def main():
     save(a.out / "intent.json", live)
     ids = {m["id"] for m in json.loads(live["body"])["miners"]}
     miners = [m for m in json.loads(catalog["body"]) if m["id"] in ids]
+    if a.miner_ids:
+        requested = set(a.miner_ids.split(","))
+        if not requested <= ids:
+            raise ValueError("requested miner not in the live intent")
+        miners = [m for m in miners if m["id"] in requested]
     save(a.out / "miners.json", miners)
     with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
         results = list(pool.map(capture_miner, [(m, a.out, queries) for m in miners]))

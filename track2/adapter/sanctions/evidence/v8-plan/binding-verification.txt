@@ -1,0 +1,3 @@
+PASS v7-binding-development: 40 unaltered pairs; source labels, reversals, visibility, length and disjointness
+PASS v7-binding-final: 40 unaltered pairs; source labels, reversals, visibility, length and disjointness
+PASS v8-bank-final: 20 unaltered pairs; source labels, reversals, visibility, length and disjointness

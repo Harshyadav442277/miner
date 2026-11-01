@@ -1,0 +1,1922 @@
+[
+ {
+  "capture": "responses-4433.json",
+  "row": 0,
+  "miner_id": "4433",
+  "name": "Susser Bank",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 1,
+  "miner_id": "4433",
+  "name": "Wells Fargo Bank South Central, National Association",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 2,
+  "miner_id": "4433",
+  "name": "McHenry Savings Bank",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 3,
+  "miner_id": "4433",
+  "name": "THE ROYAL BANK OF SCOTLAND INTERNATIONAL (HOLDINGS) LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 4,
+  "miner_id": "4433",
+  "name": "CONTAI CO-OPERATIVE BANK LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 5,
+  "miner_id": "4433",
+  "name": "THE KANARA DISTRICT CENTRAL COOPERATIVE BANK LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 6,
+  "miner_id": "4433",
+  "name": "THE JHAJJAR CENTRAL COOP BANK LTD",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 7,
+  "miner_id": "4433",
+  "name": "SHREE GAJANAN URBAN CO-OPERATIVE BANK LTD.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 8,
+  "miner_id": "4433",
+  "name": "NAGARIK SAMABAY BANK LTD",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 9,
+  "miner_id": "4433",
+  "name": "PENSION FUND OF ICICI BANK LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 10,
+  "miner_id": "4433",
+  "name": "Bear State Bank",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 11,
+  "miner_id": "4433",
+  "name": "Shahjalal Islami Bank PLC",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 12,
+  "miner_id": "4433",
+  "name": "THE HAVERI URBAN CO-OP BANK LTD",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 13,
+  "miner_id": "4433",
+  "name": "THE URBAN CO-OP BANK LTD ROURKELA",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 14,
+  "miner_id": "4433",
+  "name": "SRI KANNIKAPARAMESHWARI CO-OP BANK LTD",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 15,
+  "miner_id": "4433",
+  "name": "TAI FUNG BANK LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 16,
+  "miner_id": "4433",
+  "name": "PT Bank Danamon Indonesia",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 17,
+  "miner_id": "4433",
+  "name": "VIVEKANAND NAGRIK SAHAKARI BANK MARYADIT SHUJALPUR",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 18,
+  "miner_id": "4433",
+  "name": "PORBANDAR COMMERCIAL CO-OPERATIVE BANK LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 19,
+  "miner_id": "4433",
+  "name": "Platte Valley Bank",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 20,
+  "miner_id": "4433",
+  "name": "The Bank of Tampa",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 21,
+  "miner_id": "4433",
+  "name": "North Brookfield Savings Bank",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 22,
+  "miner_id": "4433",
+  "name": "STATE BANK OF INDIA EMPLOYEES PENSION FUND",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 23,
+  "miner_id": "4433",
+  "name": "THE KOTTAKKAL CO-OPERATIVE URBAN BANK LIMITED NO.1378",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 24,
+  "miner_id": "4433",
+  "name": "DNB Carnegie Investment Bank AB",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 25,
+  "miner_id": "4433",
+  "name": "Republic Bank",
+  "expected": false,
+  "claim": true,
+  "decision_label": "abstain",
+  "reason": "positive may be fuzzy or from another list"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 26,
+  "miner_id": "4433",
+  "name": "THE YAVATMAL DISTRICT CENTRAL CO-OPERATIVE BANK LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 27,
+  "miner_id": "4433",
+  "name": "Vorsorgeeinrichtung der Goldman Sachs Bank AG",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 28,
+  "miner_id": "4433",
+  "name": "CENTRAL BANK OF KENYA",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 29,
+  "miner_id": "4433",
+  "name": "THE CHITRADURGA DISTRICT CO-OPERATIVE CENTRAL BANK LTD.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 30,
+  "miner_id": "4433",
+  "name": "THE MAHEMDABAD URBAN PEOPLE S CO OP BANK LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 31,
+  "miner_id": "4433",
+  "name": "STANDARD CHARTERED BANK GHANA PLC",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 32,
+  "miner_id": "4433",
+  "name": "THE JALNA PEOPLES CO-OPERATIVE BANK LTD.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 33,
+  "miner_id": "4433",
+  "name": "Shore United Bank, National Association",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 34,
+  "miner_id": "4433",
+  "name": "MUZAFFARNAGAR DISTRICT CO-OPERATIVE BANK LTD.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 35,
+  "miner_id": "4433",
+  "name": "RENUKA NAGRIK SAHKARI BANK MARYADIT",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 36,
+  "miner_id": "4433",
+  "name": "THE MUNICIPAL CO-OPERATIVE BANK LTD MUMBAI",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 37,
+  "miner_id": "4433",
+  "name": "THE RANDER PEOPLES CO OP BANK LTD",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 38,
+  "miner_id": "4433",
+  "name": "ZILA SAHKARI BANK LTD MATHURA",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 39,
+  "miner_id": "4433",
+  "name": "THE PUNJAB STATE COOPERATIVE AGRICULTURAL DEVELOPMENT BANK EMPLOYEES GENERAL PROVIDENT FUND",
+  "expected": false,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "upstream/error status"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 40,
+  "miner_id": "4433",
+  "name": "RESERVE BANK EMPLOYEES CO-OPERATIVE BANK LTD.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 41,
+  "miner_id": "4433",
+  "name": "CHIKMAGALUR PATTNA SAHAKARA BANK NIYAMITHA",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 42,
+  "miner_id": "4433",
+  "name": "INDIAN BANK EMPLOYEES PENSION FUND",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 43,
+  "miner_id": "4433",
+  "name": "Atlantic Union Bank",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 44,
+  "miner_id": "4433",
+  "name": "Personalstiftung der Rothschild & Co Bank AG",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 45,
+  "miner_id": "4433",
+  "name": "Stellantis Bank SA Niederlassung Deutschland",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 46,
+  "miner_id": "4433",
+  "name": "THE VEJALPUR NAGRIK SAHAKARI BANK LTD.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 47,
+  "miner_id": "4433",
+  "name": "L.I.C. EMPLOYEES' CO-OPERATIVE BANK LTD., UDUPI",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 48,
+  "miner_id": "4433",
+  "name": "FCNB Bank",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 49,
+  "miner_id": "4433",
+  "name": "THE TRUSTEE FOR TCORPIM MIDDLE MARKET BANK LOANS FUND B",
+  "expected": false,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "upstream/error status"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 50,
+  "miner_id": "4433",
+  "name": "SHREE MAHAYOGI LAKSHMAMMA CO-OPERATIVE BANK LTD",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 51,
+  "miner_id": "4433",
+  "name": "Chong Hing Bank Limited",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 52,
+  "miner_id": "4433",
+  "name": "THE HARYANA STATE CO-OPERATIVE APEX BANK LTD.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 53,
+  "miner_id": "4433",
+  "name": "STANDARD BANK ISLE OF MAN LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 54,
+  "miner_id": "4433",
+  "name": "Our Community Bank",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 55,
+  "miner_id": "4433",
+  "name": "RESERVE BANK OF INDIA EMPLOYEES CO OPERATIVE CREDIT BANK LTD KANPUR",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 56,
+  "miner_id": "4433",
+  "name": "Pensionskasse Bank CIC (Schweiz)",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 57,
+  "miner_id": "4433",
+  "name": "Spendenstiftung Bank Vontobel",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 58,
+  "miner_id": "4433",
+  "name": "RESERVE BANK EMPLOYEES CO-OPERATIVE BANK LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 59,
+  "miner_id": "4433",
+  "name": "WesBanco Bank, Inc.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 60,
+  "miner_id": "4433",
+  "name": "THE BERHAMPUR CO-OPERATIVE URBAN BANK LTD.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 61,
+  "miner_id": "4433",
+  "name": "THE PATDI NAGRIK SAHKARI BANK LTD",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 62,
+  "miner_id": "4433",
+  "name": "VR-Bank Rottal-Inn eG",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 63,
+  "miner_id": "4433",
+  "name": "DBS BANK INDIA LIMITED ERSTWHILE LAKSHMI VILAS BANK EMPLOYEES PENSION FUND TRUST",
+  "expected": false,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "upstream/error status"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 0,
+  "miner_id": "710637",
+  "name": "Susser Bank",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 1,
+  "miner_id": "710637",
+  "name": "Wells Fargo Bank South Central, National Association",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 2,
+  "miner_id": "710637",
+  "name": "McHenry Savings Bank",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 3,
+  "miner_id": "710637",
+  "name": "THE ROYAL BANK OF SCOTLAND INTERNATIONAL (HOLDINGS) LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 4,
+  "miner_id": "710637",
+  "name": "CONTAI CO-OPERATIVE BANK LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 5,
+  "miner_id": "710637",
+  "name": "THE KANARA DISTRICT CENTRAL COOPERATIVE BANK LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 6,
+  "miner_id": "710637",
+  "name": "THE JHAJJAR CENTRAL COOP BANK LTD",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 7,
+  "miner_id": "710637",
+  "name": "SHREE GAJANAN URBAN CO-OPERATIVE BANK LTD.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 8,
+  "miner_id": "710637",
+  "name": "NAGARIK SAMABAY BANK LTD",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 9,
+  "miner_id": "710637",
+  "name": "PENSION FUND OF ICICI BANK LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 10,
+  "miner_id": "710637",
+  "name": "Bear State Bank",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 11,
+  "miner_id": "710637",
+  "name": "Shahjalal Islami Bank PLC",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 12,
+  "miner_id": "710637",
+  "name": "THE HAVERI URBAN CO-OP BANK LTD",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 13,
+  "miner_id": "710637",
+  "name": "THE URBAN CO-OP BANK LTD ROURKELA",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 14,
+  "miner_id": "710637",
+  "name": "SRI KANNIKAPARAMESHWARI CO-OP BANK LTD",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 15,
+  "miner_id": "710637",
+  "name": "TAI FUNG BANK LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 16,
+  "miner_id": "710637",
+  "name": "PT Bank Danamon Indonesia",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 17,
+  "miner_id": "710637",
+  "name": "VIVEKANAND NAGRIK SAHAKARI BANK MARYADIT SHUJALPUR",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 18,
+  "miner_id": "710637",
+  "name": "PORBANDAR COMMERCIAL CO-OPERATIVE BANK LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 19,
+  "miner_id": "710637",
+  "name": "Platte Valley Bank",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 20,
+  "miner_id": "710637",
+  "name": "The Bank of Tampa",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 21,
+  "miner_id": "710637",
+  "name": "North Brookfield Savings Bank",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 22,
+  "miner_id": "710637",
+  "name": "STATE BANK OF INDIA EMPLOYEES PENSION FUND",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 23,
+  "miner_id": "710637",
+  "name": "THE KOTTAKKAL CO-OPERATIVE URBAN BANK LIMITED NO.1378",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 24,
+  "miner_id": "710637",
+  "name": "DNB Carnegie Investment Bank AB",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 25,
+  "miner_id": "710637",
+  "name": "Republic Bank",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 26,
+  "miner_id": "710637",
+  "name": "THE YAVATMAL DISTRICT CENTRAL CO-OPERATIVE BANK LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 27,
+  "miner_id": "710637",
+  "name": "Vorsorgeeinrichtung der Goldman Sachs Bank AG",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 28,
+  "miner_id": "710637",
+  "name": "CENTRAL BANK OF KENYA",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 29,
+  "miner_id": "710637",
+  "name": "THE CHITRADURGA DISTRICT CO-OPERATIVE CENTRAL BANK LTD.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 30,
+  "miner_id": "710637",
+  "name": "THE MAHEMDABAD URBAN PEOPLE S CO OP BANK LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 31,
+  "miner_id": "710637",
+  "name": "STANDARD CHARTERED BANK GHANA PLC",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 32,
+  "miner_id": "710637",
+  "name": "THE JALNA PEOPLES CO-OPERATIVE BANK LTD.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 33,
+  "miner_id": "710637",
+  "name": "Shore United Bank, National Association",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 34,
+  "miner_id": "710637",
+  "name": "MUZAFFARNAGAR DISTRICT CO-OPERATIVE BANK LTD.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 35,
+  "miner_id": "710637",
+  "name": "RENUKA NAGRIK SAHKARI BANK MARYADIT",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 36,
+  "miner_id": "710637",
+  "name": "THE MUNICIPAL CO-OPERATIVE BANK LTD MUMBAI",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 37,
+  "miner_id": "710637",
+  "name": "THE RANDER PEOPLES CO OP BANK LTD",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 38,
+  "miner_id": "710637",
+  "name": "ZILA SAHKARI BANK LTD MATHURA",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 39,
+  "miner_id": "710637",
+  "name": "THE PUNJAB STATE COOPERATIVE AGRICULTURAL DEVELOPMENT BANK EMPLOYEES GENERAL PROVIDENT FUND",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 40,
+  "miner_id": "710637",
+  "name": "RESERVE BANK EMPLOYEES CO-OPERATIVE BANK LTD.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 41,
+  "miner_id": "710637",
+  "name": "CHIKMAGALUR PATTNA SAHAKARA BANK NIYAMITHA",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 42,
+  "miner_id": "710637",
+  "name": "INDIAN BANK EMPLOYEES PENSION FUND",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 43,
+  "miner_id": "710637",
+  "name": "Atlantic Union Bank",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 44,
+  "miner_id": "710637",
+  "name": "Personalstiftung der Rothschild & Co Bank AG",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 45,
+  "miner_id": "710637",
+  "name": "Stellantis Bank SA Niederlassung Deutschland",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 46,
+  "miner_id": "710637",
+  "name": "THE VEJALPUR NAGRIK SAHAKARI BANK LTD.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 47,
+  "miner_id": "710637",
+  "name": "L.I.C. EMPLOYEES' CO-OPERATIVE BANK LTD., UDUPI",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 48,
+  "miner_id": "710637",
+  "name": "FCNB Bank",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 49,
+  "miner_id": "710637",
+  "name": "THE TRUSTEE FOR TCORPIM MIDDLE MARKET BANK LOANS FUND B",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 50,
+  "miner_id": "710637",
+  "name": "SHREE MAHAYOGI LAKSHMAMMA CO-OPERATIVE BANK LTD",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 51,
+  "miner_id": "710637",
+  "name": "Chong Hing Bank Limited",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 52,
+  "miner_id": "710637",
+  "name": "THE HARYANA STATE CO-OPERATIVE APEX BANK LTD.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 53,
+  "miner_id": "710637",
+  "name": "STANDARD BANK ISLE OF MAN LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 54,
+  "miner_id": "710637",
+  "name": "Our Community Bank",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 55,
+  "miner_id": "710637",
+  "name": "RESERVE BANK OF INDIA EMPLOYEES CO OPERATIVE CREDIT BANK LTD KANPUR",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 56,
+  "miner_id": "710637",
+  "name": "Pensionskasse Bank CIC (Schweiz)",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 57,
+  "miner_id": "710637",
+  "name": "Spendenstiftung Bank Vontobel",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 58,
+  "miner_id": "710637",
+  "name": "RESERVE BANK EMPLOYEES CO-OPERATIVE BANK LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 59,
+  "miner_id": "710637",
+  "name": "WesBanco Bank, Inc.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 60,
+  "miner_id": "710637",
+  "name": "THE BERHAMPUR CO-OPERATIVE URBAN BANK LTD.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 61,
+  "miner_id": "710637",
+  "name": "THE PATDI NAGRIK SAHKARI BANK LTD",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 62,
+  "miner_id": "710637",
+  "name": "VR-Bank Rottal-Inn eG",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 63,
+  "miner_id": "710637",
+  "name": "DBS BANK INDIA LIMITED ERSTWHILE LAKSHMI VILAS BANK EMPLOYEES PENSION FUND TRUST",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 0,
+  "miner_id": "9002",
+  "name": "Susser Bank",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 1,
+  "miner_id": "9002",
+  "name": "Wells Fargo Bank South Central, National Association",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 2,
+  "miner_id": "9002",
+  "name": "McHenry Savings Bank",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 3,
+  "miner_id": "9002",
+  "name": "THE ROYAL BANK OF SCOTLAND INTERNATIONAL (HOLDINGS) LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 4,
+  "miner_id": "9002",
+  "name": "CONTAI CO-OPERATIVE BANK LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 5,
+  "miner_id": "9002",
+  "name": "THE KANARA DISTRICT CENTRAL COOPERATIVE BANK LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 6,
+  "miner_id": "9002",
+  "name": "THE JHAJJAR CENTRAL COOP BANK LTD",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 7,
+  "miner_id": "9002",
+  "name": "SHREE GAJANAN URBAN CO-OPERATIVE BANK LTD.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 8,
+  "miner_id": "9002",
+  "name": "NAGARIK SAMABAY BANK LTD",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 9,
+  "miner_id": "9002",
+  "name": "PENSION FUND OF ICICI BANK LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 10,
+  "miner_id": "9002",
+  "name": "Bear State Bank",
+  "expected": false,
+  "claim": true,
+  "decision_label": "abstain",
+  "reason": "positive may be fuzzy or from another list"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 11,
+  "miner_id": "9002",
+  "name": "Shahjalal Islami Bank PLC",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 12,
+  "miner_id": "9002",
+  "name": "THE HAVERI URBAN CO-OP BANK LTD",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 13,
+  "miner_id": "9002",
+  "name": "THE URBAN CO-OP BANK LTD ROURKELA",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 14,
+  "miner_id": "9002",
+  "name": "SRI KANNIKAPARAMESHWARI CO-OP BANK LTD",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 15,
+  "miner_id": "9002",
+  "name": "TAI FUNG BANK LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 16,
+  "miner_id": "9002",
+  "name": "PT Bank Danamon Indonesia",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 17,
+  "miner_id": "9002",
+  "name": "VIVEKANAND NAGRIK SAHAKARI BANK MARYADIT SHUJALPUR",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 18,
+  "miner_id": "9002",
+  "name": "PORBANDAR COMMERCIAL CO-OPERATIVE BANK LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 19,
+  "miner_id": "9002",
+  "name": "Platte Valley Bank",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 20,
+  "miner_id": "9002",
+  "name": "The Bank of Tampa",
+  "expected": false,
+  "claim": true,
+  "decision_label": "abstain",
+  "reason": "positive may be fuzzy or from another list"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 21,
+  "miner_id": "9002",
+  "name": "North Brookfield Savings Bank",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 22,
+  "miner_id": "9002",
+  "name": "STATE BANK OF INDIA EMPLOYEES PENSION FUND",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 23,
+  "miner_id": "9002",
+  "name": "THE KOTTAKKAL CO-OPERATIVE URBAN BANK LIMITED NO.1378",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 24,
+  "miner_id": "9002",
+  "name": "DNB Carnegie Investment Bank AB",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 25,
+  "miner_id": "9002",
+  "name": "Republic Bank",
+  "expected": false,
+  "claim": true,
+  "decision_label": "abstain",
+  "reason": "positive may be fuzzy or from another list"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 26,
+  "miner_id": "9002",
+  "name": "THE YAVATMAL DISTRICT CENTRAL CO-OPERATIVE BANK LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 27,
+  "miner_id": "9002",
+  "name": "Vorsorgeeinrichtung der Goldman Sachs Bank AG",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 28,
+  "miner_id": "9002",
+  "name": "CENTRAL BANK OF KENYA",
+  "expected": false,
+  "claim": true,
+  "decision_label": "abstain",
+  "reason": "positive may be fuzzy or from another list"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 29,
+  "miner_id": "9002",
+  "name": "THE CHITRADURGA DISTRICT CO-OPERATIVE CENTRAL BANK LTD.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 30,
+  "miner_id": "9002",
+  "name": "THE MAHEMDABAD URBAN PEOPLE S CO OP BANK LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 31,
+  "miner_id": "9002",
+  "name": "STANDARD CHARTERED BANK GHANA PLC",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 32,
+  "miner_id": "9002",
+  "name": "THE JALNA PEOPLES CO-OPERATIVE BANK LTD.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 33,
+  "miner_id": "9002",
+  "name": "Shore United Bank, National Association",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 34,
+  "miner_id": "9002",
+  "name": "MUZAFFARNAGAR DISTRICT CO-OPERATIVE BANK LTD.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 35,
+  "miner_id": "9002",
+  "name": "RENUKA NAGRIK SAHKARI BANK MARYADIT",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 36,
+  "miner_id": "9002",
+  "name": "THE MUNICIPAL CO-OPERATIVE BANK LTD MUMBAI",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 37,
+  "miner_id": "9002",
+  "name": "THE RANDER PEOPLES CO OP BANK LTD",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 38,
+  "miner_id": "9002",
+  "name": "ZILA SAHKARI BANK LTD MATHURA",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 39,
+  "miner_id": "9002",
+  "name": "THE PUNJAB STATE COOPERATIVE AGRICULTURAL DEVELOPMENT BANK EMPLOYEES GENERAL PROVIDENT FUND",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 40,
+  "miner_id": "9002",
+  "name": "RESERVE BANK EMPLOYEES CO-OPERATIVE BANK LTD.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 41,
+  "miner_id": "9002",
+  "name": "CHIKMAGALUR PATTNA SAHAKARA BANK NIYAMITHA",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 42,
+  "miner_id": "9002",
+  "name": "INDIAN BANK EMPLOYEES PENSION FUND",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 43,
+  "miner_id": "9002",
+  "name": "Atlantic Union Bank",
+  "expected": false,
+  "claim": true,
+  "decision_label": "abstain",
+  "reason": "positive may be fuzzy or from another list"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 44,
+  "miner_id": "9002",
+  "name": "Personalstiftung der Rothschild & Co Bank AG",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 45,
+  "miner_id": "9002",
+  "name": "Stellantis Bank SA Niederlassung Deutschland",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 46,
+  "miner_id": "9002",
+  "name": "THE VEJALPUR NAGRIK SAHAKARI BANK LTD.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 47,
+  "miner_id": "9002",
+  "name": "L.I.C. EMPLOYEES' CO-OPERATIVE BANK LTD., UDUPI",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 48,
+  "miner_id": "9002",
+  "name": "FCNB Bank",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 49,
+  "miner_id": "9002",
+  "name": "THE TRUSTEE FOR TCORPIM MIDDLE MARKET BANK LOANS FUND B",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 50,
+  "miner_id": "9002",
+  "name": "SHREE MAHAYOGI LAKSHMAMMA CO-OPERATIVE BANK LTD",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 51,
+  "miner_id": "9002",
+  "name": "Chong Hing Bank Limited",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 52,
+  "miner_id": "9002",
+  "name": "THE HARYANA STATE CO-OPERATIVE APEX BANK LTD.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 53,
+  "miner_id": "9002",
+  "name": "STANDARD BANK ISLE OF MAN LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 54,
+  "miner_id": "9002",
+  "name": "Our Community Bank",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 55,
+  "miner_id": "9002",
+  "name": "RESERVE BANK OF INDIA EMPLOYEES CO OPERATIVE CREDIT BANK LTD KANPUR",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 56,
+  "miner_id": "9002",
+  "name": "Pensionskasse Bank CIC (Schweiz)",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 57,
+  "miner_id": "9002",
+  "name": "Spendenstiftung Bank Vontobel",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 58,
+  "miner_id": "9002",
+  "name": "RESERVE BANK EMPLOYEES CO-OPERATIVE BANK LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 59,
+  "miner_id": "9002",
+  "name": "WesBanco Bank, Inc.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 60,
+  "miner_id": "9002",
+  "name": "THE BERHAMPUR CO-OPERATIVE URBAN BANK LTD.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 61,
+  "miner_id": "9002",
+  "name": "THE PATDI NAGRIK SAHKARI BANK LTD",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 62,
+  "miner_id": "9002",
+  "name": "VR-Bank Rottal-Inn eG",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 63,
+  "miner_id": "9002",
+  "name": "DBS BANK INDIA LIMITED ERSTWHILE LAKSHMI VILAS BANK EMPLOYEES PENSION FUND TRUST",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ }
+]

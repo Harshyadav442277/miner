@@ -1,0 +1,7 @@
+{
+ "pass": true,
+ "recipe": "prepare_bank_queries.py --replay",
+ "source_envelopes": "outside repository: tg-eval/data/v8-gleif/page-N.json",
+ "selected_query_bytes_identical": true,
+ "scope": "Only frozen query selection, not model performance"
+}

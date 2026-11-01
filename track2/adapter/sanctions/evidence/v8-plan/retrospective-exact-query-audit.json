@@ -1,0 +1,64 @@
+{
+ "sanctions_v7_binding": {
+  "train": {
+   "pairs": 3000,
+   "invalid_exact_query_labels": [
+    {
+     "query": "RAYYAN SHIPPING PRIVATE LIMITED",
+     "block_id": "train-fact-2541",
+     "declared_listed": true,
+     "actual_exact_member": false
+    },
+    {
+     "query": "VIC DEL INC.",
+     "block_id": "train-query-303",
+     "declared_listed": true,
+     "actual_exact_member": false
+    }
+   ]
+  },
+  "val": {
+   "pairs": 400,
+   "invalid_exact_query_labels": []
+  },
+  "test": {
+   "pairs": 400,
+   "invalid_exact_query_labels": []
+  }
+ },
+ "sanctions_v8_hard_binding": {
+  "train": {
+   "pairs": 2400,
+   "invalid_exact_query_labels": [
+    {
+     "query": "VIC DEL INC.",
+     "block_id": "train-query-303",
+     "declared_listed": true,
+     "actual_exact_member": false
+    }
+   ]
+  },
+  "val": {
+   "pairs": 400,
+   "invalid_exact_query_labels": []
+  },
+  "test": {
+   "pairs": 400,
+   "invalid_exact_query_labels": []
+  }
+ },
+ "sanctions_v8_hard_binding_r2": {
+  "train": {
+   "pairs": 2400,
+   "invalid_exact_query_labels": []
+  },
+  "val": {
+   "pairs": 400,
+   "invalid_exact_query_labels": []
+  },
+  "test": {
+   "pairs": 400,
+   "invalid_exact_query_labels": []
+  }
+ }
+}

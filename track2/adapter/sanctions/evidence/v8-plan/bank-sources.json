@@ -1,0 +1,25 @@
+{
+ "sources": [
+  {
+   "url": "https://api.gleif.org/api/v1/lei-records?filter%5Bfulltext%5D=bank&page%5Bsize%5D=200&page%5Bnumber%5D=1",
+   "sha256": "ec5bdb3ebb1f0c578c696f67764fc21493eab356312863299d8d305f861fe96c",
+   "started_at": "2026-11-01T20:22:07.781255+00:00",
+   "finished_at": "2026-11-01T20:22:10.620144+00:00"
+  },
+  {
+   "url": "https://api.gleif.org/api/v1/lei-records?filter%5Bfulltext%5D=bank&page%5Bsize%5D=200&page%5Bnumber%5D=2",
+   "sha256": "dfcaa76d58dc73fa003447f85670f6a69a8ab8c175e53b51affe4ff90538fdb3",
+   "started_at": "2026-11-01T20:22:10.628948+00:00",
+   "finished_at": "2026-11-01T20:22:13.281217+00:00"
+  },
+  {
+   "url": "https://api.gleif.org/api/v1/lei-records?filter%5Bfulltext%5D=bank&page%5Bsize%5D=200&page%5Bnumber%5D=3",
+   "sha256": "37cb30814cf220b0660e0065e80ac3278a6ada1e4712d456048c494453c2a49b",
+   "started_at": "2026-11-01T20:22:13.291214+00:00",
+   "finished_at": "2026-11-01T20:22:15.925250+00:00"
+  }
+ ],
+ "queries": 64,
+ "scope": "Untested bank-name query binding only; exact absence is not sanctions clearance. No response-based selection.",
+ "seed": 920261102
+}

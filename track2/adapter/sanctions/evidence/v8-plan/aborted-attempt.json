@@ -1,0 +1,9 @@
+{
+ "status": "aborted_before_result",
+ "data": "sanctions_v8_hard_binding",
+ "reason": "Chosen exact-name source audit failed on inherited parenthetical-stripped name",
+ "replacement_data": "sanctions_v8_hard_binding_r2",
+ "replacement_source_audit": "source-audit.json",
+ "first_completed_checkpoint": false,
+ "note": "No original or fresh external model measurements were used to select this correction."
+}

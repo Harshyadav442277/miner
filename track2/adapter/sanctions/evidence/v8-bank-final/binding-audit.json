@@ -1,0 +1,27 @@
+{
+ "pairs": 20,
+ "independent_reversal_blocks": 10,
+ "distinct_queries": 20,
+ "membership_counts": {
+  "False": 20
+ },
+ "source_counts": {
+  "4433": 10,
+  "710637": 10
+ },
+ "character_length_baseline_tie_aware": 0.5,
+ "visible_token_length_baseline_tie_aware": 0.5,
+ "fixed_answer_only_upper_bound": 0.5,
+ "query_name_overlap_reference": 1.0,
+ "prefix_length_and_visible_token_invariance": true,
+ "role": "final",
+ "seed": 820261102,
+ "exclusions": {
+  "9002": "insufficient equally tokenized, visible, unambiguous disjoint pairs in both classes"
+ },
+ "registration_eligible": false,
+ "membership_scope": "absent",
+ "min_name_token_jaccard": 0.25,
+ "benchmark_axis": "query binding only; not independent factual accuracy",
+ "pairs_sha256": "cada526ff5bbf1ae0e74332eb15314724d9da1e39335e7267cfcf11208e261f4"
+}

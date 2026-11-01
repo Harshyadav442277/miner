@@ -1,0 +1,25 @@
+{
+ "finished_at": "2026-11-01T20:24:14.413946+00:00",
+ "queries": 64,
+ "live_miners": 15,
+ "results": [
+  {
+   "id": "4433",
+   "queryable": true,
+   "requests": 64,
+   "http_200": 64
+  },
+  {
+   "id": "9002",
+   "queryable": true,
+   "requests": 64,
+   "http_200": 64
+  },
+  {
+   "id": "710637",
+   "queryable": true,
+   "requests": 64,
+   "http_200": 64
+  }
+ ]
+}

@@ -1,0 +1,47 @@
+{
+ "seed": 520261102,
+ "splits": {
+  "train": {
+   "pairs": 2400,
+   "blocks": 1300,
+   "kinds": {
+    "wrong_query:shared_words_absent": 1600,
+    "verdict_flip": 200,
+    "wrong_query:absent": 200,
+    "wrong_query:listed": 400
+   },
+   "sha256": "3db480fd865eabd57aa4d4969106efaa49e8a2aea84de96273c50db34e528bb8"
+  },
+  "val": {
+   "pairs": 400,
+   "blocks": 225,
+   "kinds": {
+    "wrong_query:absent": 50,
+    "wrong_query:listed": 100,
+    "wrong_query:shared_words_absent": 200,
+    "verdict_flip": 50
+   },
+   "sha256": "49315b84a00fc6c99e9d35434a8d2ec0d1d73bbbb5fc45163b245bae9f661e79"
+  },
+  "test": {
+   "pairs": 400,
+   "blocks": 225,
+   "kinds": {
+    "wrong_query:shared_words_absent": 200,
+    "wrong_query:listed": 100,
+    "wrong_query:absent": 50,
+    "verdict_flip": 50
+   },
+   "sha256": "fe4b216f9e792dbeb1a23cbce74ae3b9443c987d62c414fed909938bc653d2f0"
+  }
+ },
+ "sdn_sha256": "5f240bed79d504e7a54788b4cd1c7f84e6afa56cd4778653b70b0771b6a8509d",
+ "alt_sha256": "b0e2811fbb49ba6e9941a497e6b05fa2c9037b45ae7923196a01e2363a402259",
+ "excluded_query_files": [
+  "track2\\adapter\\sanctions\\evidence\\2026-11-01-miners-r1\\queries.json",
+  "track2\\adapter\\sanctions\\evidence\\2026-11-01-miners-fresh\\queries.json",
+  "track2\\adapter\\sanctions\\evidence\\v7-plan\\queries.json",
+  "track2\\adapter\\sanctions\\evidence\\v8-plan\\bank-queries.json"
+ ],
+ "scope": "Generic overlapping-name query binding; comparison evidence is computed, no external answers"
+}

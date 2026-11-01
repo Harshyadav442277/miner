@@ -1,0 +1,45 @@
+{
+ "queries": 64,
+ "responses": 192,
+ "pairs": 0,
+ "paired_names": 0,
+ "pairs_by_kind": {},
+ "by_miner": {
+  "4433": {
+   "correct": 60,
+   "abstain": 4
+  },
+  "710637": {
+   "correct": 64
+  },
+  "9002": {
+   "correct": 59,
+   "abstain": 5
+  }
+ },
+ "agreement": {
+  "4433/710637": {
+   "compared": 60,
+   "agree": 60,
+   "rate": 1.0
+  },
+  "4433/9002": {
+   "compared": 56,
+   "agree": 56,
+   "rate": 1.0
+  },
+  "710637/9002": {
+   "compared": 59,
+   "agree": 59,
+   "rate": 1.0
+  }
+ },
+ "longer_answer_baseline": null,
+ "limitations": [
+  "Decision labels only, not verification of every response field",
+  "No fuzzy/other-list positive treated as wrong from exact-name absence",
+  "Cross-miner pairs share queries: pair count is not independent sample size",
+  "LiveCert is related-party; no adoption or miner superiority claim",
+  "Engine ids are catalog identities, not registration ids"
+ ]
+}
