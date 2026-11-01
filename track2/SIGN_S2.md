@@ -1,6 +1,12 @@
 # Season II Track 2: publish commands and sign list
 
-## V2, 2026-11-01: register the SANCTIONS_SCREENING_MATCH adapter (v3) — READY (owner: claim, approve, register)
+## V2, 2026-11-01: register the SANCTIONS_SCREENING_MATCH adapter (v3) — REGISTERED #46, awaiting the node
+
+**Signed by the owner in MetaMask, 2026-11-01 (UTC):** approve 10 MACHINA `0x50a728ee…74f6` (block 12041801) and a
+redundant second approve `0x77a10bde…2218` (12041802); `registerWasm` `0x89c9c25d…886c`, block 12041861, 15:20:40 UTC,
+status 1. Logs: registration id **46** (0x2e), bond 4.835 MACHINA pulled (entityBonds fell from 5.132 at 14:40 to
+4.841 at 15:09, so the claim was not needed), keccak `0x49de4107…f2f0` in the event. No MACHINA claimed; wallet
+holds 0.165 MACHINA after the bond. `/api/wasm/46` returned "not found" at 15:21 UTC (not yet indexed).
 
 Owner, 2026-11-01: "Automate everything … only call me to sign." **Prepared and checked by Claude; nothing signed or
 sent.** No champion for the family at 13:28 UTC; `0x3035…`'s registration 31 failed the public check at 9/15.
