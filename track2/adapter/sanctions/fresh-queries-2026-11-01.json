@@ -1,0 +1,242 @@
+[
+ {
+  "name": "RADA, Samer Akil",
+  "expected": true,
+  "sdn_ids": [
+   "44522"
+  ],
+  "kind": "individual",
+  "program": "SDGT"
+ },
+ {
+  "name": "NAJAFZADEH, Sorush",
+  "expected": true,
+  "sdn_ids": [
+   "58950"
+  ],
+  "kind": "individual",
+  "program": "IRAN-EO13902"
+ },
+ {
+  "name": "RAMIREZ TORRES, Jose de Jesus",
+  "expected": true,
+  "sdn_ids": [
+   "57232"
+  ],
+  "kind": "individual",
+  "program": "ILLICIT-DRUGS-EO14059"
+ },
+ {
+  "name": "KASBAR, Samer",
+  "expected": true,
+  "sdn_ids": [
+   "56286"
+  ],
+  "kind": "individual",
+  "program": "SDGT"
+ },
+ {
+  "name": "CHEPIGA, Anatoliy Vladimirovich",
+  "expected": true,
+  "sdn_ids": [
+   "26171"
+  ],
+  "kind": "individual",
+  "program": "NPWMD] [CAATSA - RUSSIA"
+ },
+ {
+  "name": "AL-QUBAYSI, Abd-al-Munim",
+  "expected": true,
+  "sdn_ids": [
+   "11495"
+  ],
+  "kind": "individual",
+  "program": "SDGT"
+ },
+ {
+  "name": "KARASAVIDI, Dmitrii",
+  "expected": true,
+  "sdn_ids": [
+   "29585"
+  ],
+  "kind": "individual",
+  "program": "CYBER2"
+ },
+ {
+  "name": "BULGAKOV, Vadim Viktorovich",
+  "expected": true,
+  "sdn_ids": [
+   "22203"
+  ],
+  "kind": "individual",
+  "program": "UKRAINE-EO13660"
+ },
+ {
+  "name": "LIMITED LIABILITY COMPANY YATEK INVEST",
+  "expected": true,
+  "sdn_ids": [
+   "50312"
+  ],
+  "kind": "entity",
+  "program": "RUSSIA-EO14024"
+ },
+ {
+  "name": "OOO RUSKHIMALYANS",
+  "expected": true,
+  "sdn_ids": [
+   "47914"
+  ],
+  "kind": "entity",
+  "program": "RUSSIA-EO14024"
+ },
+ {
+  "name": "ARIMERO HOLDING LIMITED",
+  "expected": true,
+  "sdn_ids": [
+   "34616"
+  ],
+  "kind": "entity",
+  "program": "RUSSIA-EO14024"
+ },
+ {
+  "name": "WOODFORD ENTERPRISES LIMITED SASU",
+  "expected": true,
+  "sdn_ids": [
+   "34063"
+  ],
+  "kind": "entity",
+  "program": "GLOMAG"
+ },
+ {
+  "name": "INVERSORA PANACOL S.A.",
+  "expected": true,
+  "sdn_ids": [
+   "15867"
+  ],
+  "kind": "entity",
+  "program": "SDNTK"
+ },
+ {
+  "name": "CELESTIAL STAR CORPORATION",
+  "expected": true,
+  "sdn_ids": [
+   "51688"
+  ],
+  "kind": "entity",
+  "program": "UKRAINE-EO13662] [RUSSIA-EO14024"
+ },
+ {
+  "name": "HAVANATUR S.A.",
+  "expected": true,
+  "sdn_ids": [
+   "8129"
+  ],
+  "kind": "entity",
+  "program": "CUBA"
+ },
+ {
+  "name": "AGUILAR ALVAREZ Y CIA. LTDA.",
+  "expected": true,
+  "sdn_ids": [
+   "11882"
+  ],
+  "kind": "entity",
+  "program": "SDNTK"
+ },
+ {
+  "name": "Bank of America",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "real_negative"
+ },
+ {
+  "name": "Bank of India",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "real_negative"
+ },
+ {
+  "name": "Bank of Japan",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "real_negative"
+ },
+ {
+  "name": "Reserve Bank of India",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "real_negative"
+ },
+ {
+  "name": "Deutsche Bank AG",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "real_negative"
+ },
+ {
+  "name": "BNP Paribas",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "real_negative"
+ },
+ {
+  "name": "Barclays PLC",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "real_negative"
+ },
+ {
+  "name": "Royal Bank of Canada",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "real_negative"
+ },
+ {
+  "name": "Sony Group Corporation",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "real_negative"
+ },
+ {
+  "name": "Canon Inc.",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "real_negative"
+ },
+ {
+  "name": "Panasonic Holdings Corporation",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "real_negative"
+ },
+ {
+  "name": "Honda Motor Co., Ltd.",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "real_negative"
+ },
+ {
+  "name": "Niels Bohr",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "real_negative"
+ },
+ {
+  "name": "James Clerk Maxwell",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "real_negative"
+ },
+ {
+  "name": "Rosalind Franklin",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "real_negative"
+ },
+ {
+  "name": "Dorothy Hodgkin",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "real_negative"
+ }
+]

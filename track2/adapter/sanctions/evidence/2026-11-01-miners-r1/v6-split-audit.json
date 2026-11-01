@@ -1,0 +1,39 @@
+{
+ "sizes": {
+  "train": 5958,
+  "val": 795,
+  "test": 794
+ },
+ "query_files": [
+  "track2\\adapter\\sanctions\\evidence\\2026-11-01-miners-r1\\queries.json",
+  "track2\\adapter\\sanctions\\fresh-queries-2026-11-01.json"
+ ],
+ "checks": {
+  "train/val": {
+   "shared_ids": 0,
+   "shared_primary_or_alias_tokens": 0,
+   "shared_prompt_tokens": 0
+  },
+  "train/test": {
+   "shared_ids": 0,
+   "shared_primary_or_alias_tokens": 0,
+   "shared_prompt_tokens": 0
+  },
+  "val/test": {
+   "shared_ids": 0,
+   "shared_primary_or_alias_tokens": 0,
+   "shared_prompt_tokens": 0
+  },
+  "measurement_0_vs_all": {
+   "shared_ids": 0,
+   "shared_primary_or_alias_tokens": 0,
+   "shared_query_tokens": 0
+  },
+  "measurement_1_vs_all": {
+   "shared_ids": 0,
+   "shared_primary_or_alias_tokens": 0,
+   "shared_query_tokens": 0
+  }
+ },
+ "pass": true
+}

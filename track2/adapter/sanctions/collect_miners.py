@@ -54,7 +54,7 @@ def save(path, value):
     path.write_text(json.dumps(value, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
 
 
-def names(sdn, alt):
+def snapshot_index(sdn, alt):
     rows = list(csv.reader(sdn.decode("latin-1").splitlines()))
     aliases = list(csv.reader(alt.decode("latin-1").splitlines()))
     index = {}
@@ -64,6 +64,11 @@ def names(sdn, alt):
     for r in aliases:
         if len(r) >= 4 and r[0].isdigit():
             index.setdefault(norm(r[3]), []).append(r[0])
+    return rows, index
+
+
+def names(sdn, alt):
+    rows, index = snapshot_index(sdn, alt)
     rng = random.Random(20261101)
     # Random primary names, stratified across people and entities; no miner outputs consulted.
     selected = []
@@ -134,6 +139,7 @@ def main():
     ap.add_argument("--sdn", type=Path, required=True)
     ap.add_argument("--alt", type=Path, required=True)
     ap.add_argument("--out", type=Path, required=True)
+    ap.add_argument("--queries", type=Path, help="optional pre-frozen queries; validated against the same snapshot")
     a = ap.parse_args()
     a.out.mkdir(parents=True, exist_ok=False)  # immutable captures; choose a new directory to re-collect
     snapshots = {}
@@ -144,7 +150,12 @@ def main():
                                 "source": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
                                 "note": "Existing local snapshot; original HTTP retrieval time not recorded"}
     save(a.out / "source-manifest.json", snapshots)
-    queries = names(a.sdn.read_bytes(), a.alt.read_bytes())
+    queries = (json.loads(a.queries.read_text(encoding="utf-8")) if a.queries else
+               names(a.sdn.read_bytes(), a.alt.read_bytes()))
+    _, index = snapshot_index(a.sdn.read_bytes(), a.alt.read_bytes())
+    for q in queries:
+        assert q["expected"] == bool(index.get(norm(q["name"])))
+        assert set(q["sdn_ids"]) == set(index.get(norm(q["name"]), []))
     save(a.out / "queries.json", queries)
     catalog = fetch(NODE + "/api/miners", max_bytes=25000000)
     live = fetch(NODE + "/engine/v1/intents/" + INTENT)

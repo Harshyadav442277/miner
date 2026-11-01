@@ -1,0 +1,12 @@
+{
+ "url": "https://paste.rs/1gvUx",
+ "method": "GET",
+ "request_body": null,
+ "started_at": "2026-11-01T18:46:13.529730+00:00",
+ "finished_at": "2026-11-01T18:46:15.937232+00:00",
+ "status": 200,
+ "curl_exit": 0,
+ "error": "",
+ "sha256": "5cf83ff7494b38f10484dbd6895c3eb4929d825918c1d36edaad41ee7204b35a",
+ "body": "version: \"1\"\nkind: miner\nid: 78008\nslug: san-peps\nprotocol: generic\nname: EveryPolitician Countries\ndescription: >\n  EveryPolitician countries index for PEP context. Intent SANCTIONS_SCREENING_MATCH.\n\nbase_url: https://cdn.jsdelivr.net\n\nauth:\n  type: none\n\nrate_limit_per_sec: 1\ncache_ttl_sec: 60\ncircuit_threshold: 5\ncircuit_cooldown_seconds: 30\n\ndocs:\n  documentation: https://everypolitician.org/\n  website: https://everypolitician.org\n\nendpoints:\n  - path: /query\n    external_path: /gh/everypolitician/everypolitician-data@master/countries.json\n    method: GET\n    description: Query for intent SANCTIONS_SCREENING_MATCH via EveryPolitician Countries.\n    intents: [SANCTIONS_SCREENING_MATCH]\n\ninput_schema:\n  type: object\n  required: []\n  properties: {}\n\nsemantics:\n  signal_mapping:\n    label_field: \"0\"\n  supported_intents:\n    - SANCTIONS_SCREENING_MATCH\n\non_chain:\n  description: Stores signal for SANCTIONS_SCREENING_MATCH.\n  transform: direct\n  min_price_usdc: 0.01\n  fields:\n    strings:\n      - index: 0\n        name: result\n        description: Primary result\n        source_path: result\n      - index: 1\n        name: intent\n        description: Intent name\n        source_path: intent\n    integers:\n      - index: 0\n        name: ok\n        description: Success flag\n        source_path: ok\n\n"
+}

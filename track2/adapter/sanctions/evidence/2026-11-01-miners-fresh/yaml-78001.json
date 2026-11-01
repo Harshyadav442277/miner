@@ -1,0 +1,12 @@
+{
+ "url": "https://paste.rs/Us0mn",
+ "method": "GET",
+ "request_body": null,
+ "started_at": "2026-11-01T18:46:09.689875+00:00",
+ "finished_at": "2026-11-01T18:46:12.002041+00:00",
+ "status": 200,
+ "curl_exit": 0,
+ "error": "",
+ "sha256": "bcd412a61ad0a30cd7aebf265b6d6c0b18f13b02f6f7e6218b6690731f08b30e",
+ "body": "version: \"1\"\nkind: miner\nid: 78001\nslug: san-os-eu\nprotocol: generic\nname: OpenSanctions EU FSF Index\ndescription: >\n  OpenSanctions EU financial sanctions dataset index. Intent SANCTIONS_SCREENING_MATCH.\n\nbase_url: https://data.opensanctions.org\n\nauth:\n  type: none\n\nrate_limit_per_sec: 1\ncache_ttl_sec: 60\ncircuit_threshold: 5\ncircuit_cooldown_seconds: 30\n\ndocs:\n  documentation: https://www.opensanctions.org/docs/api/\n  website: https://www.opensanctions.org\n\nendpoints:\n  - path: /query\n    external_path: /datasets/latest/eu_fsf/index.json\n    method: GET\n    description: Query for intent SANCTIONS_SCREENING_MATCH via OpenSanctions EU FSF Index.\n    intents: [SANCTIONS_SCREENING_MATCH]\n\ninput_schema:\n  type: object\n  required: []\n  properties: {}\n\nsemantics:\n  signal_mapping:\n    label_field: name\n  supported_intents:\n    - SANCTIONS_SCREENING_MATCH\n\non_chain:\n  description: Stores signal for SANCTIONS_SCREENING_MATCH.\n  transform: direct\n  min_price_usdc: 0.01\n  fields:\n    strings:\n      - index: 0\n        name: result\n        description: Primary result\n        source_path: result\n      - index: 1\n        name: intent\n        description: Intent name\n        source_path: intent\n    integers:\n      - index: 0\n        name: ok\n        description: Success flag\n        source_path: ok\n\n"
+}

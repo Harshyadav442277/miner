@@ -1,0 +1,17 @@
+[
+ {
+  "miner_id": "78003",
+  "name": "RADA, Samer Akil",
+  "queryable": false,
+  "url": "https://www.treasury.gov/ofac/downloads/sdn.xml?name=RADA%2C+Samer+Akil",
+  "method": "GET",
+  "request_body": null,
+  "started_at": "2026-11-01T18:45:58.683871+00:00",
+  "finished_at": "2026-11-01T18:46:01.667816+00:00",
+  "status": 200,
+  "curl_exit": 63,
+  "error": "curl: (63) Maximum file size exceeded\r\n",
+  "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "body": ""
+ }
+]

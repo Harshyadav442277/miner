@@ -1,0 +1,12 @@
+{
+ "url": "https://paste.rs/WNwNj",
+ "method": "GET",
+ "request_body": null,
+ "started_at": "2026-11-01T18:46:08.596825+00:00",
+ "finished_at": "2026-11-01T18:46:10.890407+00:00",
+ "status": 200,
+ "curl_exit": 0,
+ "error": "",
+ "sha256": "d039580fc485a74a1ea839afd8fa6cda3c7541304cd0de19ec520fee1b7a57b3",
+ "body": "version: \"1\"\nkind: miner\nid: 78007\nslug: san-os-au\nprotocol: generic\nname: OpenSanctions AU DFAT Index\ndescription: >\n  OpenSanctions Australia DFAT sanctions dataset index. Intent SANCTIONS_SCREENING_MATCH.\n\nbase_url: https://data.opensanctions.org\n\nauth:\n  type: none\n\nrate_limit_per_sec: 1\ncache_ttl_sec: 60\ncircuit_threshold: 5\ncircuit_cooldown_seconds: 30\n\ndocs:\n  documentation: https://www.opensanctions.org/docs/api/\n  website: https://www.opensanctions.org\n\nendpoints:\n  - path: /query\n    external_path: /datasets/latest/au_dfat_sanctions/index.json\n    method: GET\n    description: Query for intent SANCTIONS_SCREENING_MATCH via OpenSanctions AU DFAT Index.\n    intents: [SANCTIONS_SCREENING_MATCH]\n\ninput_schema:\n  type: object\n  required: []\n  properties: {}\n\nsemantics:\n  signal_mapping:\n    label_field: name\n  supported_intents:\n    - SANCTIONS_SCREENING_MATCH\n\non_chain:\n  description: Stores signal for SANCTIONS_SCREENING_MATCH.\n  transform: direct\n  min_price_usdc: 0.01\n  fields:\n    strings:\n      - index: 0\n        name: result\n        description: Primary result\n        source_path: result\n      - index: 1\n        name: intent\n        description: Intent name\n        source_path: intent\n    integers:\n      - index: 0\n        name: ok\n        description: Success flag\n        source_path: ok\n"
+}

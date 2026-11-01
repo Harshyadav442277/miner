@@ -1,0 +1,9 @@
+{
+ "base_url": "https://data.opensanctions.org",
+ "path": "/datasets/latest/us_ofac_sdn/index.json",
+ "method": "GET",
+ "parameters": [],
+ "queryable": false,
+ "required": [],
+ "min_interval_seconds": 1.0
+}

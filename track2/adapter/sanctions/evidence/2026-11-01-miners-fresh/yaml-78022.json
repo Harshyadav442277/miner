@@ -1,0 +1,12 @@
+{
+ "url": "https://omni-chat.13.237.89.59.sslip.io/miner-yamls/san-un-list.yaml",
+ "method": "GET",
+ "request_body": null,
+ "started_at": "2026-11-01T18:46:13.588566+00:00",
+ "finished_at": "2026-11-01T18:46:14.492842+00:00",
+ "status": 200,
+ "curl_exit": 0,
+ "error": "",
+ "sha256": "2d5f4cd25d1c7c5ff1ee224e8eeac4d61e215b25845e4af41de90a7b5d634b9d",
+ "body": "version: \"1\"\nkind: miner\nid: 78022\nslug: san-un-list\nprotocol: generic\nname: UN Consolidated Sanctions Screen\ndescription: >\n  UN Security Council consolidated sanctions XML → on_list (1/0) for pinned entity.\n  Intent SANCTIONS_SCREENING_MATCH — Usman truth-spec miner.\n\nbase_url: https://omni-chat.13.237.89.59.sslip.io\n\nauth:\n  type: none\n\nrate_limit_per_sec: 1\ncache_ttl_sec: 60\ncircuit_threshold: 5\ncircuit_cooldown_seconds: 30\n\ndocs:\n  documentation: https://main.un.org/securitycouncil/en/sanctions/information\n  website: https://omni-chat.13.237.89.59.sslip.io\n\nendpoints:\n  - path: /query\n    external_path: /truth/san-un\n    method: GET\n    description: Query for intent SANCTIONS_SCREENING_MATCH via UN consolidated list.\n    intents: [SANCTIONS_SCREENING_MATCH]\n    params:\n      query:\n        required:\n          - name: entity\n            type: string\n            intents: [\"*\"]\n            description: Entity name\n\ninput_schema:\n  type: object\n  required: [entity]\n  properties:\n    entity: {type: string, description: \"Entity name\", default: \"Laden\"}\n\nsemantics:\n  signal_mapping:\n    label_field: on_list\n  supported_intents:\n    - SANCTIONS_SCREENING_MATCH\n\non_chain:\n  description: Stores signal for SANCTIONS_SCREENING_MATCH.\n  transform: direct\n  min_price_usdc: 0.01\n  fields:\n    strings:\n      - index: 0\n        name: result\n        description: Primary result\n        source_path: result\n      - index: 1\n        name: intent\n        description: Intent name\n        source_path: intent\n    integers:\n      - index: 0\n        name: ok\n        description: Success flag\n        source_path: ok\n"
+}

@@ -1,0 +1,12 @@
+{
+ "url": "https://omni-chat.13.237.89.59.sslip.io/miner-yamls/san-ofac-entity.yaml",
+ "method": "GET",
+ "request_body": null,
+ "started_at": "2026-11-01T18:45:05.355968+00:00",
+ "finished_at": "2026-11-01T18:45:06.295032+00:00",
+ "status": 200,
+ "curl_exit": 0,
+ "error": "",
+ "sha256": "1cd5c99f5d4e36709eea77ba81c7eb465a2bf660eb4d70882ebe653f6407ff33",
+ "body": "version: \"1\"\nkind: miner\nid: 78021\nslug: san-ofac-entity\nprotocol: generic\nname: OFAC SDN Entity Screen\ndescription: >\n  OFAC SDN name screen → on_list (1/0).\n  Intent SANCTIONS_SCREENING_MATCH — Usman truth-spec miner.\n\nbase_url: https://omni-chat.13.237.89.59.sslip.io\n\nauth:\n  type: none\n\nrate_limit_per_sec: 1\ncache_ttl_sec: 60\ncircuit_threshold: 5\ncircuit_cooldown_seconds: 30\n\ndocs:\n  documentation: https://docs.telegraphprotocol.com/\n  website: https://omni-chat.13.237.89.59.sslip.io\n\nendpoints:\n  - path: /query\n    external_path: /truth/ofac-screen\n    method: GET\n    description: Query for intent SANCTIONS_SCREENING_MATCH via OFAC SDN Entity Screen.\n    intents: [SANCTIONS_SCREENING_MATCH]\n    params:\n      query:\n        required:\n          - name: entity\n            type: string\n            intents: [\"*\"]\n            description: Entity name\n\ninput_schema:\n  type: object\n  required: [entity]\n  properties:\n    entity: {type: string, description: \"Entity name\", default: \"PUTIN\"}\n\nsemantics:\n  signal_mapping:\n    label_field: on_list\n  supported_intents:\n    - SANCTIONS_SCREENING_MATCH\n\non_chain:\n  description: Stores signal for SANCTIONS_SCREENING_MATCH.\n  transform: direct\n  min_price_usdc: 0.01\n  fields:\n    strings:\n      - index: 0\n        name: result\n        description: Primary result\n        source_path: result\n      - index: 1\n        name: intent\n        description: Intent name\n        source_path: intent\n    integers:\n      - index: 0\n        name: ok\n        description: Success flag\n        source_path: ok\n"
+}

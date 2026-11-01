@@ -1,0 +1,4449 @@
+[
+ {
+  "id": "4433",
+  "slug": "livecert",
+  "kind": "miner",
+  "protocol": "generic",
+  "name": "LiveCert — Sourced Answers for Agents",
+  "description": "Sourced answers for agents and apps across 36 intents, each read live from a named primary source so the caller can check it. Every answer opens with a one-sentence answer, then returns the values as fields, the source and the time it was checked. Compliance: sanctions screening of people, companies and wallets against the OFAC SDN and UN lists with near-match scores; company register records (status, company number, register, registered address and agent, parents) from GLEIF and SEC EDGAR; SEC filings with acceptance times and each 10-Q or 10-K's own XBRL figures; URL reputation from Cloudflare and Quad9 threat DNS and URLhaus, each source named. Research: question answering with every claim cited, web search with dated reports, fact checks with the source URL and evidence sentence, and academic, clinical and news search. Markets: prices and market data for coins, tokens and listed companies, 10-K revenue and earnings, exchange rates and macroeconomic prints (US CPI and unemployment from BLS, the federal funds target range from the New York Fed, euro-area HICP from Eurostat and ECB rates). On-chain: transfer verification with confirmations and the burned base fee, transaction and contract activity across EVM chains, wallet balances, gas, token holders and cross-chain messages. Security: live TLS certificates, URL scans, CVE records and fraud signals. Weather: forecasts, current conditions and storm risk. Also translation, IP geolocation, prediction market outcomes, text extraction, sentiment and classification. Only the question-answering, sentiment and classification sentences are phrased by a model, each with a keyless fallback, and a phrased answer is kept only when every claim cites a numbered source; everything else is computed, not generated.",
+  "endpoints": [
+   {
+    "path": "/ssl-check",
+    "method": "GET",
+    "description": "Example questions: \"Is the TLS certificate for github.com valid?\", \"When does example.com's certificate expire?\". Returns answer, verdict, confidence, reason, checked_at and domain, valid, chain_complete, issuer, valid_to, days_remaining. Live TLS certificate check for one domain. Accepts a bare hostname, a full URL, or host:port."
+   },
+   {
+    "path": "/storm-alert",
+    "method": "GET",
+    "description": "Example questions: \"Is there a storm risk in Chennai in the next 48 hours?\", \"Will gusts exceed 60 km/h in Miami tonight?\". Returns answer, verdict, confidence, reason, checked_at and location, risk_score, wind_direction, max_wind_gust_kmh, max_wind_speed_kmh, max_precipitation_mm, thunderstorm, window_hours, valid_at, peak_at, latitude, longitude, threshold_exceeded, threshold_hours. Severe-weather risk for a location over the next 48 hours. Accepts a place name or \"lat,lon\"."
+   },
+   {
+    "path": "/papers",
+    "method": "GET",
+    "description": "Example questions: \"Find recent peer-reviewed papers on CRISPR gene editing\", \"Most cited papers on transformer models since 2023\". Returns answer, verdict, confidence, reason, checked_at and topic, from_date, to_date, papers, count. Finds peer-reviewed papers on a topic, optionally within a date range, via OpenAlex. Returns title, authors, year and citation count for each."
+   },
+   {
+    "path": "/translate",
+    "method": "GET",
+    "description": "Example questions: \"Translate 'Good morning' into French\", \"Say hello in Spanish\". Returns answer, verdict, confidence, reason, checked_at and source_text, target_language, target_code, translation, source. Translates quoted text into a named target language. Returns the translation itself, in the target script."
+   },
+   {
+    "path": "/ip-geolocate",
+    "method": "GET",
+    "description": "Example questions: \"Where is 8.8.8.8 located?\", \"Which network owns 1.1.1.1?\". Returns answer, verdict, confidence, reason, checked_at and ip, city, region, country, country_code, latitude, longitude, timezone, asn, organisation. Live IP geolocation. Accepts an IPv4 or IPv6 address, or a whole question containing one."
+   },
+   {
+    "path": "/weather-forecast",
+    "method": "GET",
+    "description": "Example questions: \"What is the forecast for London tomorrow?\", \"What is the weather in Tokyo right now?\". Returns answer, verdict, confidence, reason, checked_at and location, window_hours, span_days, start_time, end_time, hourly_count, temp_min_c, temp_max_c, total_precipitation_mm, precipitation_probability_max_pct, max_wind_speed_kmh, precipitation_hours, latitude, longitude. Current and future conditions for a location. hours=0 reports the present hour; any other value gives a window of up to 168h, and the default with no hours parameter is 24h. Accepts a place name or \"lat,lon\"."
+   },
+   {
+    "path": "/extract",
+    "method": "GET",
+    "description": "Example questions: \"Extract the dates and amounts from this invoice: …\". Returns answer, verdict, confidence, reason, checked_at and extracted. Structured extraction from text supplied inline in the question. Reads quantities and units, contact details, named entities, action items, dates and events, or bare numeric values, and answers with the extracted fields themselves. The text is carried in the question, so nothing is fetched and the answer is deterministic and checkable against the input."
+   },
+   {
+    "path": "/headlines",
+    "method": "GET",
+    "description": "Example questions: \"What are today's technology headlines?\", \"Top business news in Europe\". Returns answer, verdict, confidence, reason, checked_at and topic, region, headlines, count. Current news headlines for a topic and optional region, read live from Google News at request time and returned as a numbered list with each source named. Honours a requested count such as \"top 5\". Headlines rotate, so the answer states the date it was read."
+   },
+   {
+    "path": "/wallet-balance",
+    "method": "GET",
+    "description": "Example questions: \"What is the ETH balance of vitalik.eth?\", \"Balance of 0x… on Base\". Returns answer, verdict, confidence, reason, checked_at and address, chain, balance_eth, symbol. Native-coin balance of an EVM address, read with eth_getBalance at the latest block from public JSON-RPC on the chain the question names — Ethereum, Base, Arbitrum, Optimism or Polygon. A zero balance is reported as zero; an RPC that does not answer is reported as unavailable rather than as zero. Token balances such as USDT are not included, and the answer says so when one was asked about."
+   },
+   {
+    "path": "/tx-lookup",
+    "method": "GET",
+    "description": "On-chain activity, asked about a transaction or about an address. Example questions: \"Did transaction 0x… succeed, and who sent it to whom?\", \"When was contract 0x… deployed and how many transactions does it have?\". For a transaction it returns verdict and a transaction object with status, from, to, value_wei, value, symbol, block_number, block_hash, receipt_status, method, gas_used, fee_wei, confirmations, base_fee_wei and base_fee_burned, which is true on Ethereum and Polygon, where the EIP-1559 base fee is burned, and false on rollups, where it is paid to the sequencer. A transaction is read by hash from public JSON-RPC on Ethereum, Base, Arbitrum, Optimism, Polygon, BNB Chain or Avalanche; where no chain is named every one of them is searched rather than one being assumed. It reports confirmed, reverted, pending or not found, with the sender and recipient, value moved, total fee, the base fee and whether it was burned, confirmations, gas used, block number, any contract deployed and the count of ERC-20 transfers in the receipt. An address is answered from the chain and its block explorer on Ethereum, Base, Arbitrum, Optimism or Polygon: whether it is a contract, an externally owned account, or an account carrying an EIP-7702 delegation; when a contract was deployed; how many transactions are recorded against it; how many an account has sent; and when it was last active, where a recency read the index could not date is reported as undated rather than as inactive. On Ethereum an explorer outage fails over to a second index whose count is attributed and may trail the chain. A reverted transaction is reported as reverted, not as a failure to answer; an RPC or explorer that does not respond is reported as unknown rather than as not found, because those are different facts; and a chain this endpoint does not read is named as unsupported rather than answered from a different chain."
+   },
+   {
+    "path": "/cve",
+    "method": "GET",
+    "description": "Example questions: \"What is the severity and affected versions of CVE-2021-44228?\". Returns answer, verdict, confidence, reason, checked_at and cve_id, severity, cvss_score, cvss_version, scored_by, affected_product, affected_versions, other_products_affected, cwe, status, published, description, source, source_url. Vulnerabilities from the National Vulnerability Database, asked three ways. By CVE identifier: the severity rating and CVSS base score with the CVSS version and the source that assigned it, the affected product and versions resolved from the record's CPE configuration — exact versions and half-open ranges alike — and what the flaw is. By year or severity, such as \"critical CVEs 2025\" or \"latest CVEs\": the vulnerabilities published in a stated window of at most 120 days with the highest-scored named, where a severity band is applied to each record's own CVSS base score rather than to the database's severity flag. By product and vulnerability class, such as \"Forgejo remote code execution\": the matching record and the fixed release where one is documented, used only when the record names the product asked about. A record with no CVSS score yet is reported as unscored rather than given an invented severity; a REJECTED identifier is reported as rejected rather than as not found; a truncated identifier is named as incomplete; and a rate-limited or unreachable database is reported as unknown, never as a vulnerability that does not exist."
+   },
+   {
+    "path": "/news-search",
+    "method": "GET",
+    "description": "Example questions: \"Latest news about the EU AI Act\", \"What happened with Boeing this week?\". Returns answer, verdict, confidence, reason, checked_at and subject, window_days, articles, count. News article coverage of a topic, entity or time period, searched rather than browsed. Returns individual articles — each with its headline, the publisher that ran it and its publication date, most relevant first — for a subject read from the question, over a window the question may state (\"in the last 3 days\", \"this month\"). A recency word with no explicit window is treated as a request rather than a filter: the last 30 days are searched first and the search is widened only if nothing on the subject was published in them, and the answer says when that happened. Articles that are not about the subject are dropped rather than used as padding, with the acronym of a named entity counted as naming it. This is article coverage; a plain list of current headlines is /headlines. A news index that does not respond is reported as unknown, never as an absence of coverage."
+   },
+   {
+    "path": "/convert",
+    "method": "GET",
+    "description": "Example questions: \"Convert 100 USD to EUR\", \"What is 5,000 yen in dollars?\". Returns answer, verdict, confidence, reason, checked_at and from, to, amount, rate, converted, kind, as_of. An exchange rate, or an amount converted between two currencies. The primary source is the European Central Bank's euro foreign exchange reference rate, which is published once per day and therefore does not move between reads; the answer states that it is a reference rate and the date it was published for, so it is never mistaken for a live trading quote. The rate is given in both directions and the conversion direction is taken from the question, including the \"how many X is Y\" phrasing that names the target first. Currencies the ECB does not publish fall back to a market rate, and that answer says it is a market rate instead. A request naming only one currency is refused rather than half-answered, and a source that does not respond is reported as unknown rather than as a rate of zero."
+   },
+   {
+    "path": "/gas-price",
+    "method": "GET",
+    "description": "Example questions: \"What is the gas price on Ethereum right now?\", \"Gas on Base in Gwei\". Returns answer, verdict, confidence, reason, checked_at and chain, gwei, base_fee_gwei, priority_gwei, block. The current transaction fee level on a named chain, read from that chain's own JSON-RPC. Reports the gas price in Gwei both exactly and rounded, the base fee and priority fee that make it up, the block the reading is from so the figure is checkable, and what a standard 21,000-gas transfer costs at that rate. This is the fee level and never the chain token's price, which is a different intent. Covers ethereum, base, arbitrum, optimism and polygon; a chain outside that list is named as uncovered rather than answered with a different chain's fee, and an unresponsive endpoint is reported as unknown rather than as a fee of zero."
+   },
+   {
+    "path": "/financial",
+    "method": "GET",
+    "description": "Example questions: \"What is Solana's market cap and 24-hour volume?\", \"Apple's revenue and P/E from its 10-K\". Returns answer, verdict, confidence, reason, checked_at and subject, name, chain, data. Market data and financial statistics for a coin, a token or a listed company, deliberately beyond a single quoted price. A coin named in words, such as Solana or Bitcoin, returns market capitalisation, 24-hour trading volume in dollars, fully diluted valuation, 24-hour range and change. A token contract address with its chain returns market capitalisation, 24-hour trading volume, fully diluted valuation and last traded price. A ticker or company name returns the day range, share volume, 52-week range and change against the previous close, with the ticker resolved from the company name where only a name is given. Revenue, net income and earnings per share come from the company's latest 10-K, and a price-to-earnings ratio is computed from the last traded price and the 10-K's diluted earnings per share, with both inputs named. A figure that could not be retrieved, such as margins, is stated as not retrieved rather than substituted."
+   },
+   {
+    "path": "/fraud-check",
+    "method": "GET",
+    "description": "Example questions: \"Is 0x… a scam address?\", \"This email asks me to pay an invoice in gift cards: is it fraud?\". Returns answer, verdict, confidence, reason, checked_at and subject, evidence, not_checked, sanctioned, flagged_hosts, scam_markers. How likely a named address, link or message is to be fraudulent, assessed from checks that are actually performed and named in the answer: the OFAC sanctioned digital-currency address listing, Cloudflare's threat-intelligence resolver for any domain in the text, the address's own on-chain state (contract, externally owned account, or an account carrying an EIP-7702 delegation, with its transaction count and balance), and specific scam wording such as a request for a seed phrase, gift-card payment or changed banking details. A sanctions hit or a domain blocked as malware is reported as high risk. A clean result is reported as no indicators found among the checks performed, with the checks listed, and explicitly not as a statement that the subject is safe; a check that could not be completed is named as such rather than counted as clean. An academic paper named by title is checked against OpenAlex's retraction record, and a retraction is reported as high risk. No keyless source records misconduct findings, paper-mill membership or predatory-publisher status, so the answer names those three as not checked rather than implying a clean record, and a title that cannot be matched to one indexed work is reported as not found rather than matched loosely to a similar one."
+   },
+   {
+    "path": "/token-holders",
+    "method": "GET",
+    "description": "Example questions: \"How many holders does USDC have on Ethereum?\". Returns answer, verdict, confidence, reason, checked_at and symbol, name, address, chain, holders, top_holder_percent. How many distinct addresses hold a named ERC-20 token, read from the chain's own transfer index via Blockscout. The token may be given as a contract address or as a symbol together with its chain, and where no chain is named every supported chain is checked rather than one being assumed, because the same symbol carries different holder counts on different chains. The answer names the contract the figure came from so it is checkable. Where the question also asks about concentration, the share of supply held by the single largest holder is reported, and where that list does not return in time the answer says so rather than omitting it silently. This is a headcount of holders and never a balance, a price, a supply figure or pool liquidity, each of which is a different intent. An identifier that is not a token, such as a CVE number, is named as such rather than searched for. Where more than one token on a chain shares a symbol with no dominant one among them, a contract address is asked for instead of one being picked. Covers ethereum, base, arbitrum, optimism and polygon."
+   },
+   {
+    "path": "/research",
+    "method": "GET",
+    "description": "Example questions: \"What clinical trials are testing semaglutide for Alzheimer's?\". Returns answer, verdict, confidence, reason, checked_at and subject, trials, citations. An answer to one research question, drawn from named sources: the ClinicalTrials.gov registry for trial phase, status and completion dates, Europe PMC for published literature, and Wikipedia for subjects that are neither. Every source is cited by identifier — the NCT number of a trial, the title, first author and year of a paper — so the answer can be checked rather than taken on trust, and a source is only cited when it actually names the subject asked about. Where the question asks about an outcome that has not been decided, such as whether a drug will be approved, the registered evidence to date is reported and the answer states plainly that no decision has been recorded; no outcome is predicted. Where neither index holds anything on the subject that is what the answer says, named as an absence in those indexes rather than as an absence of research. A request to combine findings across many sources into a synthesis is the RESEARCH_SYNTHESIS intent rather than this one."
+   },
+   {
+    "path": "/crypto-price",
+    "method": "GET",
+    "description": "Example questions: \"What is the price of ETH?\", \"BTC price in EUR on 2025-01-01\". Returns answer, verdict, confidence, reason, checked_at and asset, symbol, price, quote, price_at, source, aggregate_price. The current or historical price of one named cryptocurrency, as a single quoted figure with the venue that quoted it and the UTC time of the quote. The current price is the last Coinbase trade where Coinbase lists the pair, Kraken's last trade where it does not, and CoinGecko's cross-venue aggregate as a cross-check or fallback; the answer says it is a live quote that moves between reads. The quote currency follows the question (USD by default; EUR, GBP, JPY, INR and other major fiat, or BTC and ETH). A dollar stablecoin's answer also states its distance from the one-dollar peg. A date returns that UTC day's Coinbase open and close and CoinGecko's daily snapshot, labelled as historical. This is one price, never market capitalisation or volume, which is FINANCIAL_DATA, and never what an address holds, which is WALLET_BALANCE_CHECK. A fork or wrapped asset such as Bitcoin Cash, Ethereum Classic or Wrapped Bitcoin is priced as itself, never as the major whose name it contains, and a multi-word coin name is matched whole. Testnet assets are answered as having no market price, a future date is declined as a prediction, an asset name that matches no listed coin exactly is not substituted with a similar one, and a provider outage is reported as an outage rather than a missing price."
+   },
+   {
+    "path": "/stock-price",
+    "method": "GET",
+    "description": "Example questions: \"What is Apple's share price?\", \"TSLA closing price on 2026-09-01\". Returns answer, verdict, confidence, reason, checked_at and ticker, name, price, currency, price_at, exchange, market_open, source. The current or historical share price of one listed equity, given as a ticker or a company name. Every answer states the exchange, the quote time in the exchange's own time zone, and whether the regular trading session is open right now; outside the session the figure is labelled as the last session price and never presented as a live quote. A company name is resolved to its ticker and accepted only when the listing carries every word of the name asked about, so an unlisted subsidiary is answered as not found rather than with a related company's price. A ticker is read only when it is written as one in capitals, and a currency code such as (USD) is never taken for a ticker. A question that does not ask about a share price, such as a weather question naming a city, is refused rather than priced. An ISO date returns that day's closing price, and a date with no session is said to have none. A question asking whether a stock will rise or fall is answered with the price and an explicit statement that no forecast is made. Company fundamentals and statistics beyond one price are FINANCIAL_DATA. A provider outage, including a failed ticker search, is reported as an outage and never as the company not being listed."
+   },
+   {
+    "path": "/cross-chain",
+    "method": "GET",
+    "description": "Example questions: \"Was LayerZero message 0x… delivered from Ethereum to Arbitrum?\", \"Did bridge transaction 0x… arrive on Base?\". Returns answer, verdict, confidence, reason, checked_at and message (guid, nonce, source_chain, destination_chain, sender, receiver, source_tx, destination_tx, scan_status). Whether a LayerZero V2 bridge message sent from one chain was executed on another, verified from both chains' own receipts rather than taken from an indexer's status. The message is located on LayerZero Scan by its source or destination transaction hash or its GUID; the source receipt must carry the endpoint's PacketSent event and the destination receipt its PacketDelivered event, and both must agree on nonce, sender, receiver and GUID. Answers are verified, not yet delivered, mismatch (including a message that travels between different chains than the ones asked about), or not found. Covers ethereum, base, arbitrum, optimism, polygon, bsc and avalanche. State roots, Merkle-Patricia proofs and block headers are not verified cryptographically, and every answer to a request for one says so. Other bridges such as Wormhole or native rollup bridges are not checked. A nonce with no transaction hash, GUID or sender does not identify a message, and one is asked for. An RPC or indexer outage is reported as an outage."
+   },
+   {
+    "path": "/event-outcome",
+    "method": "GET",
+    "description": "Example questions: \"Who won the 2024 US presidential election?\", \"Has the Polymarket market on … resolved?\". Returns answer, verdict, confidence, reason, checked_at and outcome, winner, event, source. The actual outcome of a named, checkable event, as settled by a public prediction market, for a market or conditional contract to resolve against. Polymarket's real-money markets and Manifold's play-money markets are searched, and a market is used only when it carries every name and number in the question, asks about the same move (a cut, a rise or no change), and is mostly about that event, so a market on a different subject or the opposite proposition that shares most of the words is not used. A settled market is reported with its settled outcome and the market's own wording, and a Manifold settlement is labelled as play money. An unsettled market is reported as unresolved with its scheduled close, and its trading odds are never given as an outcome. Nothing is predicted: a request for an opinion or forecast is declined by name, and a question that names no specific event is asked to name one. Where no matching market exists the answer says so; official sources such as flight trackers, election authorities and league results are not read. A provider outage is reported as an outage."
+   },
+   {
+    "path": "/url-scan",
+    "method": "GET",
+    "description": "Example questions: \"Is https://example.com/offer safe to click?\". Returns answer, verdict, confidence, reason, checked_at and url, flagged_by, checks. A safe or unsafe verdict on one URL, with the evidence behind it named. The host is resolved through Cloudflare's malware-and-phishing filtering resolver and compared with an unfiltered resolver, so a block is reported only when the filter answers 0.0.0.0 for a name that really resolves; Quad9 threat-blocking DNS is compared with its unfiltered resolver the same way; the host and exact URL are looked up in URLhaus's current malware lists; the TLS certificate is inspected; and the redirect chain is walked hop by hop, each hop checked to be a public address before it is contacted. A listing makes a URL unsafe. A brand name used on a domain that is not a known domain of that brand, punycode, a bare IP address or an invalid certificate makes it suspicious. With none of those, and only when both the filtering resolver and URLhaus answered, the URL is reported as appearing safe, and the answer says plainly that no blocklist can prove a site safe. A host that does not resolve is reported as unreachable. When either threat source does not answer, that is reported as an outage and never as a safe verdict. A question only about a certificate is SSL_VERIFICATION and is refused by name, and a list of which engines flag a URL is URL_SAFE."
+   },
+   {
+    "path": "/web-search",
+    "method": "GET",
+    "description": "Example questions: \"What is the latest news on the Fed's rate decision?\", \"Who is the CEO of OpenAI?\". Returns answer, verdict, confidence, reason, checked_at and articles, background. Current, externally sourced information for a question that static knowledge cannot answer, taken from Google News search and, when no current report exists, from Wikipedia. The answer quotes the most relevant reports' headlines with publisher and publication date, so every clause can be checked; nothing is paraphrased by a model. A report is only cited when it names the subject, and when the question names a product or trial code such as MK-2870 the headline must name that code. A question about a future outcome is answered with the current coverage and states that it is not a prediction. A TLS certificate check, a scholarly literature search, a single CVE record or a request to explain a concept from static knowledge is refused by name as the intent it belongs to. When the sources that answered find nothing on the subject, that is reported as an absence in those sources only; when Google News does not answer, that is reported as an outage."
+   },
+   {
+    "path": "/sentiment",
+    "method": "GET",
+    "description": "Example questions: \"What is the sentiment of this review: 'The product broke after one day'?\". Returns answer, verdict, confidence, reason, checked_at and compound, positive_words, negative_words, tones. The sentiment a supplied text expresses — positive, negative, neutral or mixed — read by a hosted open-weight language model called over the network, which writes the label and a short explanation. When that model does not answer within its time budget the text is read instead with a rule-based word list and the VADER method (negation, intensifiers, a contrastive \"but\", capitals and exclamation marks), and everything below describes that fallback. A negation reaches at most three words forward and never across a comma or full stop, so \"No problems, great service\" reads as positive. The answer names the words that carried the label, so it can be checked against the text, and names an emotional tone such as frustrated or joyful only when a word in the text states it and is not negated. A text with no opinion word is reported as neutral with that reason given. Sarcasm, irony and opinion words outside the list are not detected, so a neutral reading can be a miss. Assigning a text to caller-supplied categories is TEXT_CLASSIFICATION rather than this intent. A request with no text is refused by name rather than scored."
+   },
+   {
+    "path": "/classify",
+    "method": "GET",
+    "description": "Example questions: \"Classify this ticket as billing, technical or account: 'I was charged twice'\". Returns answer, verdict, confidence, reason, checked_at and label. Assigns a supplied text to one of the labels the request itself supplies, such as billing, technical or account issue. There is no fixed taxonomy. A hosted open-weight language model called over the network chooses among the supplied labels and explains the choice in a sentence or two; a label outside the supplied set is discarded. When that model does not answer within its time budget, everything below applies instead: a label wins on lexical relatedness, when a label word appears in the text or when text and label words are neighbours in the keyless Datamuse word index, and the answer names the words that matched so the choice can be checked. When no label clears the runner-up by a clear margin the text is reported as ambiguous between them rather than a label being guessed, and a negated label such as \"not spam\" is never chosen merely because evidence for the other is absent. Label sets of positive, negative and neutral are read with the sentiment word list instead. Where the word index does not respond, only direct label-word matches are counted and the answer says so; an ambiguity reached that way is reported as a source outage. Emotional tone on its own is SENTIMENT_ANALYSIS. A request without a label set or without text is refused by name."
+   },
+   {
+    "path": "/research-synthesis",
+    "method": "GET",
+    "description": "Example questions: \"Summarise the evidence on intermittent fasting and weight loss\". Returns answer, verdict, confidence, reason, checked_at and sources. Findings on a topic gathered across several published studies and combined into one answer. PubMed and Europe PMC are searched on title and abstract, and from each study a single sentence reporting a result is quoted verbatim from its abstract and attributed by first author, year and PubMed id. A sentence is quoted only when it states a result, such as an association, a reduction or a conclusion, and when every topic word appears as a whole word in it or in the study's title. Statements of purpose (\"To examine ...\"), search and methods descriptions, definitions, background attributed to earlier work and calls for further research are never quoted as findings. Nothing is generated, and whether the studies agree is explicitly not assessed. Requests for the latest or recent studies are limited to the last five years. When the request supplies its own notes, on separate lines or run together on one line, they are restated grouped by source with their attributions kept, nothing is fetched, and a stated topic that no note addresses is named as unaddressed. Where only one study yields a quotable finding the answer says no synthesis across sources was possible; where both indexes fail that is reported as an outage and never as an absence of research. A cited answer to one narrow question is RESEARCH_QUERY rather than this intent."
+   },
+   {
+    "path": "/fact-check",
+    "method": "GET",
+    "description": "Example questions: \"Is it true that the Eiffel Tower is in Paris?\", \"Fact-check: water boils at 100 °C at sea level\". Returns answer, verdict, confidence, reason, checked_at and claim, source, source_url, evidence. A specific claim, looked up against a citable encyclopaedic reference and reported with the article named and quoted. Reports an explicit refutation when the source states one, and otherwise says plainly that the source does not settle the claim. It does not adjudicate contested claims and never asserts that a claim is true on the strength of a topical match."
+   },
+   {
+    "path": "/sanctions-screen",
+    "method": "GET",
+    "description": "Screens a person, company or wallet against the OFAC SDN list and the UN Security Council Consolidated List, read live, including every listed alias and near-matches on spelling or transliteration. Example questions: \"Screen 'Ivan Petrov, DOB 1974, Cyprus' against the OFAC SDN list\", \"Is Viktor But sanctioned?\", \"Is wallet 0x… on a sanctions list?\". A birth year in the question is checked against the listed ones. Returns verdict (match, possible_match, no_match or unknown), confidence, matches (up to five, each with list, reference id, listed name, the name or alias that matched, type, programmes, score 0-1, listed birth years, whether the birth year agrees, nationalities, listing date and the OFAC record URL), closest (the nearest entry when nothing matched), lists_checked (each list with its published date and entry count) and lists_not_checked. The EU and UK lists are not screened and the answer says so. A name match alone never establishes identity, and the answer says that too."
+   },
+   {
+    "path": "/company-registry",
+    "method": "GET",
+    "description": "A company's official register record, read live from the GLEIF LEI register and, for a US filer, SEC EDGAR. Example questions: \"What is the incorporation status and registered agent for Tesla, Inc.?\", \"Is Barclays Bank PLC still registered?\", \"UK company number 01026167\", \"Look up LEI 5493001KJTIIGC8Y1R12\". Returns verdict (found, not_found or unknown), legal_name, lei, entity_status (ACTIVE or INACTIVE), lei_registration_status, jurisdiction, legal_form, company_number and the register that issued it (Companies House, a US Secretary of State, …), registered_address, registered_agent when the registered address is an agent's, headquarters_address, incorporated, other_names, direct_parent and ultimate_parent (name and LEI), us_filer (CIK, state of incorporation, industry code, addresses and former names from EDGAR), other_candidates with similar names, and sources. Directors and beneficial owners are in neither source, and every answer says so instead of leaving them out silently."
+   },
+   {
+    "path": "/sec-filings",
+    "method": "GET",
+    "description": "Whether an issuer has filed a statutory filing on SEC EDGAR, when it was accepted, and what it reports, read live from the issuer's own EDGAR filing index. Example questions: \"Has Tesla filed its latest 10-Q on SEC EDGAR, on what date was it accepted, and what did it disclose about margins?\", \"Did Apple file an 8-K in the last 30 days?\", \"What is Microsoft's most recent filing?\". Covers 10-K, 10-Q, 8-K, 20-F, 6-K, 40-F, S-1, DEF 14A and amendments. Returns verdict (filed, not_filed, not_found or unknown), company, cik, tickers, filing (form, filed date, EDGAR acceptance time in UTC, accession number, period or event date, 8-K items with their names, and the document URL), recent_filings (up to five), and for a 10-Q, 10-K or 20-F the figures tagged in that filing's XBRL: revenue, gross profit, gross margin, operating income and net income for its period, with prior_year_figures for the same period a year earlier. Only SEC EDGAR is read; a question about another regulator says that it is not covered."
+   },
+   {
+    "path": "/transfer-verify",
+    "method": "GET",
+    "description": "Verifies one on-chain transfer by hash, read from public JSON-RPC on Ethereum, Base, Arbitrum, Optimism, Polygon, BNB Chain or Avalanche, with every chain searched when none is named. Example questions: \"Verify transfer 0x…: did it succeed, who sent it to whom, how much fee was burned and how many confirmations does it have?\". Returns verdict (confirmed, reverted, pending, not_found or unknown) and a transaction object with status, from, to, value_wei, value, symbol, block_number, block_hash, receipt_status, method, gas_used, fee_wei, confirmations, base_fee_wei and base_fee_burned: true on Ethereum and Polygon, where the EIP-1559 base fee is burned, false on rollups, where it is paid to the sequencer, and null before London or when the block could not be read. Confirmations are counted from the chain head at the time of the answer."
+   },
+   {
+    "path": "/macro",
+    "method": "GET",
+    "description": "The latest released value of a macroeconomic statistic, read from the agency that publishes it. Example questions: \"What was the latest US CPI year-over-year print, and what is the current federal funds target range?\", \"What is euro area inflation and the ECB deposit rate?\", \"What is the unemployment rate in Germany?\", \"What was Japan's GDP growth last year?\". US CPI, core CPI and unemployment come from the Bureau of Labor Statistics, monthly, with CPI computed year on year from the index; the federal funds target range and effective rate from the New York Fed, daily; euro area and EU inflation (HICP) and unemployment from Eurostat, monthly; ECB deposit and main refinancing rates from the ECB, daily; other countries' inflation, unemployment and GDP from the World Bank, annual and labelled annual. Returns verdict (reported, not_covered or unknown), region and indicators, each with value (and value_high for a range), unit, period, frequency, series id, source and source_url. Several statistics can be asked for at once. A policy rate outside the US and the euro area is named as not covered rather than replaced by another figure."
+   },
+   {
+    "path": "/url-reputation",
+    "method": "GET",
+    "description": "Whether a URL or domain is listed as malicious, and by which sources, read live from three keyless threat sources: Cloudflare security DNS and Quad9 threat-blocking DNS (each compared with an unfiltered resolver, so a block is reported only for a name that really resolves) and abuse.ch URLhaus, matched on the exact URL and on the host. Example questions: \"Check https://login-secure-update.example.com against threat feeds and DNS blocklists: is it listed for phishing, and by which engines?\", \"Is malware.testcategory.com on any blocklist?\". Returns verdict, listed (true, false, or null when a source did not answer), sources (each with source, kind, result listed, not_listed, unknown, unavailable or not_applicable, and whether URLhaus matched the exact URL or the host), flagged_by, and the underlying checks: TLS certificate, lookalike markers, whether the host resolves, redirect count and final URL. A clean listing is never called proof of safety."
+   },
+   {
+    "path": "/answer",
+    "method": "GET",
+    "description": "Answers an open-domain question, or a question about a passage supplied with it, with every factual claim cited to a numbered source. Example questions: \"Who won the 2022 FIFA World Cup and where was it held?\", \"Why is the sky blue?\", \"Based on the following text: … When did the war end?\". Open-domain sources are up to five English Wikipedia article introductions, found by searching the question, its keywords and its subject phrase; a supplied passage is the only source when one is given. A free model phrases the answer from those sources only, and the reply is kept only if every sentence cites a source that exists; otherwise the answer is the source sentence that best matches the question, quoted and cited. Returns verdict (answered, not_in_sources or unknown), method (model_phrased_from_sources or extracted_from_sources), and citations (number, title, URL and kind for each source). When the sources do not contain the answer it says so instead of guessing."
+   }
+  ],
+  "input_schema": {
+   "description": "Telegraph's engine fills the parameters a miner declares here and does not pass the rest of the question, so anything not declared is invisible. The query field is declared first because it carries the wording the structured fields cannot — an explicit start date, a time window, a wind threshold.",
+   "properties": {
+    "company": {
+     "description": "Company name or LEI for a register lookup, e.g. Tesla, Inc.",
+     "type": "string"
+    },
+    "company_number": {
+     "description": "The number a company is registered under, e.g. UK company number 01026167.",
+     "type": "string"
+    },
+    "country": {
+     "description": "Country or region for a macroeconomic statistic, e.g. US, euro area or Japan.",
+     "type": "string"
+    },
+    "days": {
+     "description": "Forecast span in days, converted to hours.",
+     "maximum": 16,
+     "minimum": 1,
+     "type": "integer"
+    },
+    "domain": {
+     "description": "/ssl-check. Hostname to check. Accepts \"example.com\", \"https://example.com/path\", or \"example.com:8443\".",
+     "examples": [
+      "example.com",
+      "expired.badssl.com"
+     ],
+     "type": "string"
+    },
+    "forecast_days": {
+     "description": "Alias for days.",
+     "type": "integer"
+    },
+    "forecast_hours": {
+     "description": "Alias for hours.",
+     "type": "integer"
+    },
+    "form": {
+     "description": "SEC form type for a filing check, e.g. 10-Q, 10-K or 8-K.",
+     "type": "string"
+    },
+    "hours": {
+     "description": "/storm-alert and /weather-forecast. Forecast window in hours. Also read from the question itself, e.g. \"over the next 44 hours\".",
+     "maximum": 384,
+     "minimum": 1,
+     "type": "integer"
+    },
+    "indicator": {
+     "description": "A macroeconomic statistic, e.g. CPI, unemployment, policy rate or GDP growth.",
+     "type": "string"
+    },
+    "ip": {
+     "description": "/ip-geolocate. IPv4 or IPv6 address.",
+     "examples": [
+      "8.8.8.8"
+     ],
+     "type": "string"
+    },
+    "lat": {
+     "description": "Alias for latitude.",
+     "type": "number"
+    },
+    "latitude": {
+     "description": "/storm-alert and /weather-forecast. Use with longitude when the question names coordinates rather than a place.",
+     "maximum": 90,
+     "minimum": -90,
+     "type": "number"
+    },
+    "location": {
+     "description": "/storm-alert and /weather-forecast. Place name, e.g. \"Chennai\" or \"Tokyo, Japan\".",
+     "examples": [
+      "Chennai",
+      "Tokyo, Japan"
+     ],
+     "type": "string"
+    },
+    "lon": {
+     "description": "Alias for longitude.",
+     "type": "number"
+    },
+    "longitude": {
+     "maximum": 180,
+     "minimum": -180,
+     "type": "number"
+    },
+    "name": {
+     "description": "Person or company to screen for sanctions, e.g. Ivan Petrov.",
+     "type": "string"
+    },
+    "q": {
+     "description": "Alias for query.",
+     "type": "string"
+    },
+    "query": {
+     "description": "The user's original question, verbatim. Preferred over the structured fields: it carries detail they cannot, such as \"starting next Monday\", \"in 44 hours\", or \"flag winds above 25 knots\".",
+     "examples": [
+      "What is the storm risk at latitude 12.97, longitude 77.59 in 44 hours?",
+      "Can you analyze the TLS certificate chain and hostname match for api.github.com?"
+     ],
+     "type": "string"
+    },
+    "source_language": {
+     "description": "/translate. The language of the source text, when stated.",
+     "examples": [
+      "English"
+     ],
+     "type": "string"
+    },
+    "target_language": {
+     "description": "/translate. The language to translate into, by name or ISO 639-1 code.",
+     "examples": [
+      "Spanish",
+      "fr"
+     ],
+     "type": "string"
+    },
+    "text": {
+     "description": "/translate and /ai-detect. The text to translate, or the passage whose authorship is to be analysed, with or without quotes. Registration 260 declared no translation-shaped parameter and both scored epochs arrived with none filled — the engine fills only parameters a miner declares, so this field is what makes translation questions reach us.",
+     "examples": [
+      "The weather is beautiful today."
+     ],
+     "type": "string"
+    },
+    "topic": {
+     "description": "/papers. Research subject to search for, e.g. \"zero knowledge proofs\".",
+     "type": "string"
+    },
+    "wallet": {
+     "description": "Crypto wallet address to screen against OFAC's listed digital currency addresses.",
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "output_schema": {
+   "properties": {
+    "address": {
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "asn": {
+     "description": "Autonomous system number of the announcing network.",
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "balance_eth": {
+     "description": "Native-coin balance. Null when the RPC did not answer, which is not the same as zero.",
+     "type": [
+      "number",
+      "null"
+     ]
+    },
+    "chain": {
+     "description": "ethereum, base, arbitrum, optimism or polygon.",
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "chain_complete": {
+     "description": "Whether intermediates were sent, not just the leaf.",
+     "type": [
+      "boolean",
+      "null"
+     ]
+    },
+    "chain_length": {
+     "description": "Certificates the server presented, leaf included. /ssl-check only.",
+     "type": [
+      "integer",
+      "null"
+     ]
+    },
+    "checked_at": {
+     "type": "string"
+    },
+    "city": {
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "claim": {
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "confidence": {
+     "type": "number"
+    },
+    "count": {
+     "description": "Number of papers or headlines returned.",
+     "type": [
+      "integer",
+      "null"
+     ]
+    },
+    "country": {
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "country_code": {
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "days_remaining": {
+     "type": [
+      "integer",
+      "null"
+     ]
+    },
+    "domain": {
+     "type": "string"
+    },
+    "end_time": {
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "evidence": {
+     "description": "The passage the verdict was read from.",
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "expired": {
+     "type": "boolean"
+    },
+    "extracted": {
+     "description": "The fields the question asked for. Keys vary with the request — emails, phones, urls, quantities, dates, entities, action items.",
+     "type": [
+      "object",
+      "null"
+     ]
+    },
+    "formulaic_markers": {
+     "items": {
+      "type": "string"
+     },
+     "type": [
+      "array",
+      "null"
+     ]
+    },
+    "from_date": {
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "headlines": {
+     "items": {
+      "properties": {
+       "published": {
+        "type": [
+         "string",
+         "null"
+        ]
+       },
+       "source": {
+        "type": [
+         "string",
+         "null"
+        ]
+       },
+       "title": {
+        "type": "string"
+       }
+      },
+      "type": "object"
+     },
+     "type": [
+      "array",
+      "null"
+     ]
+    },
+    "hostname_match": {
+     "type": "boolean"
+    },
+    "hourly_count": {
+     "description": "Number of hourly values returned.",
+     "type": "integer"
+    },
+    "hourly_max_precipitation_mm": {
+     "type": [
+      "number",
+      "null"
+     ]
+    },
+    "hourly_min_precipitation_mm": {
+     "type": [
+      "number",
+      "null"
+     ]
+    },
+    "ip": {
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "issuer": {
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "latitude": {
+     "type": [
+      "number",
+      "null"
+     ]
+    },
+    "location": {
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "longitude": {
+     "type": [
+      "number",
+      "null"
+     ]
+    },
+    "max_precipitation_mm": {
+     "type": [
+      "number",
+      "null"
+     ]
+    },
+    "max_wind_gust_kmh": {
+     "type": [
+      "number",
+      "null"
+     ]
+    },
+    "max_wind_speed_kmh": {
+     "type": [
+      "number",
+      "null"
+     ]
+    },
+    "mean_sentence_words": {
+     "type": [
+      "number",
+      "null"
+     ]
+    },
+    "organisation": {
+     "description": "Network operator the address is registered to.",
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "papers": {
+     "description": "Each entry carries title, authors, year, citations, venue and doi.",
+     "items": {
+      "properties": {
+       "authors": {
+        "items": {
+         "type": "string"
+        },
+        "type": "array"
+       },
+       "citations": {
+        "type": [
+         "integer",
+         "null"
+        ]
+       },
+       "doi": {
+        "type": [
+         "string",
+         "null"
+        ]
+       },
+       "title": {
+        "type": "string"
+       },
+       "venue": {
+        "type": [
+         "string",
+         "null"
+        ]
+       },
+       "year": {
+        "type": [
+         "integer",
+         "null"
+        ]
+       }
+      },
+      "type": "object"
+     },
+     "type": [
+      "array",
+      "null"
+     ]
+    },
+    "peak_at": {
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "precipitation_hours": {
+     "type": [
+      "integer",
+      "null"
+     ]
+    },
+    "precipitation_probability_max_pct": {
+     "type": [
+      "number",
+      "null"
+     ]
+    },
+    "reason": {
+     "type": "string"
+    },
+    "region": {
+     "description": "Subdivision for an IP; requested news region for /headlines.",
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "repeated_bigrams": {
+     "type": [
+      "integer",
+      "null"
+     ]
+    },
+    "risk_score": {
+     "description": "Storm risk from 0 (none) to 1 (severe). /storm-alert only.",
+     "maximum": 1,
+     "minimum": 0,
+     "type": "number"
+    },
+    "sentence_length_stdev": {
+     "type": [
+      "number",
+      "null"
+     ]
+    },
+    "sentences": {
+     "type": [
+      "integer",
+      "null"
+     ]
+    },
+    "source": {
+     "description": "The reference consulted, named so a reader can weigh it.",
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "source_url": {
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "span_days": {
+     "description": "Forecast span in days when the question asked in days.",
+     "type": [
+      "integer",
+      "null"
+     ]
+    },
+    "start_time": {
+     "description": "First hour of the returned series, UTC. /weather-forecast honours an explicit start named in the question.",
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "storm_expected": {
+     "type": "boolean"
+    },
+    "subject": {
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "subject_alt_names": {
+     "description": "Subject Alternative Names on the leaf certificate.",
+     "items": {
+      "type": "string"
+     },
+     "type": [
+      "array",
+      "null"
+     ]
+    },
+    "symbol": {
+     "description": "Native coin of the chain — POL on polygon, ETH elsewhere.",
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "temp_max_c": {
+     "type": [
+      "number",
+      "null"
+     ]
+    },
+    "temp_min_c": {
+     "type": [
+      "number",
+      "null"
+     ]
+    },
+    "threshold_exceeded": {
+     "description": "Whether a wind threshold named in the question was crossed.",
+     "type": [
+      "boolean",
+      "null"
+     ]
+    },
+    "threshold_hours": {
+     "description": "The UTC hours at which it was crossed.",
+     "items": {
+      "type": "string"
+     },
+     "type": [
+      "array",
+      "null"
+     ]
+    },
+    "thunderstorm": {
+     "type": "boolean"
+    },
+    "time_mode": {
+     "description": "\"point\" when the question asked about one moment (\"in 44 hours\", \"right now\"); \"window\" when it asked about a span (\"over the next 44 hours\").",
+     "enum": [
+      "point",
+      "window"
+     ],
+     "type": "string"
+    },
+    "timezone": {
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "tls_protocol": {
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "to_date": {
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "topic": {
+     "description": "Subject actually searched for, after parsing the question.",
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "total_precipitation_mm": {
+     "type": [
+      "number",
+      "null"
+     ]
+    },
+    "translation": {
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "trusted": {
+     "type": "boolean"
+    },
+    "type_token_ratio": {
+     "type": [
+      "number",
+      "null"
+     ]
+    },
+    "unreachable_reason": {
+     "description": "Why the host could not be reached, when it could not be.",
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "valid": {
+     "type": "boolean"
+    },
+    "valid_at": {
+     "description": "For a point answer, the UTC hour the values describe. Null for a window.",
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "valid_from": {
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "valid_to": {
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "verdict": {
+     "description": "The answer's label, and its vocabulary is per endpoint. /ssl-check returns a certificate state (valid, expired, not_yet_valid, hostname_mismatch, self_signed, untrusted, unreachable); /storm-alert a storm-risk grade (none, low, moderate, high, severe); /weather-forecast a condition (clear, mostly clear, cloudy, fog, drizzle, rain, heavy rain, snow, thunderstorms); /translate \"translated\"; /papers \"papers\"; /ai-detect likely_human, likely_ai or inconclusive; and /ip-geolocate the resolved place itself, or the class of a special-use range (private, reserved, loopback, link_local, shared, multicast, broadcast). Any endpoint returns \"unknown\" when it could not answer. A closed enum was declared here previously and four endpoints did not conform to it, /ip-geolocate least of all because a place name cannot be enumerated.",
+     "type": "string"
+    },
+    "wind_direction": {
+     "description": "Compass direction of the peak wind.",
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "window_hours": {
+     "type": [
+      "integer",
+      "null"
+     ]
+    },
+    "words": {
+     "type": [
+      "integer",
+      "null"
+     ]
+    }
+   },
+   "type": "object"
+  },
+  "signal_mapping": {
+   "confidence_field": "confidence",
+   "label_field": "verdict",
+   "reason_field": "reason"
+  },
+  "supported_intents": [
+   "SSL_VERIFICATION_CERT",
+   "STORM_ALERT_GENERAL",
+   "WEATHER_FORECAST_GENERAL",
+   "IP_GEOLOCATION_GENERAL",
+   "LANGUAGE_TRANSLATION_GENERAL",
+   "ACADEMIC_SEARCH_GENERAL",
+   "CONTENT_EXTRACTION_GENERAL",
+   "NEWS_HEADLINES_GENERAL",
+   "WALLET_BALANCE_CHECK_GENERAL",
+   "WEATHER_CHECK_TEMPERATURE",
+   "FACT_CHECK_GENERAL",
+   "ONCHAIN_TX_LOOKUP_GENERAL",
+   "CVE_LOOKUP_CVSS",
+   "NEWS_SEARCH_GENERAL",
+   "CURRENCY_EXCHANGE_CONVERT",
+   "GAS_PRICE_GENERAL",
+   "FINANCIAL_DATA_GENERAL",
+   "FRAUD_DETECTION_GENERAL",
+   "TOKEN_HOLDER_COUNT_GENERAL",
+   "RESEARCH_QUERY_GENERAL",
+   "CRYPTO_PRICE_USD",
+   "STOCK_PRICE_US_EQUITY",
+   "CROSS_CHAIN_STATE_VERIFY_GENERAL",
+   "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "URL_SCAN_VERDICT",
+   "WEB_SEARCH_GENERAL",
+   "SENTIMENT_ANALYSIS_GENERAL",
+   "TEXT_CLASSIFICATION_GENERAL",
+   "RESEARCH_SYNTHESIS_GENERAL",
+   "SANCTIONS_SCREENING_MATCH_GENERAL",
+   "CORPORATE_REGISTRY_LOOKUP_GENERAL",
+   "REGULATORY_FILING_MONITOR_GENERAL",
+   "CRYPTO_TRANSFER_VERIFY_GENERAL",
+   "MACRO_ECONOMIC_INDICATOR_GENERAL",
+   "URL_SAFE_GENERAL",
+   "QUESTION_ANSWERING_GENERAL"
+  ],
+  "docs": {
+   "repository": "https://github.com/Harshyadav442277/miner"
+  },
+  "base_url": "https://miner-wine.vercel.app",
+  "wallet_address": "0xdad201ef02f5c1fbb8f9e931ae9b7c1bf493a39e",
+  "fee_address": "0xdad201ef02f5c1fbb8f9e931ae9b7c1bf493a39e",
+  "activation_status": "active",
+  "min_price_usdc": 10000,
+  "yaml_url": "https://raw.githubusercontent.com/Harshyadav442277/miner/2e8d1cfd418dab47694e2fd5d2f8f4c0fee6f5cc/track1-miner/miner.yaml",
+  "registered_at": "2026-10-25T00:48:49Z",
+  "total_requests_served": 5,
+  "scored": true,
+  "last_scored_epoch": 1969,
+  "last_scored_at": "2026-11-01T18:21:12Z",
+  "scores": [
+   {
+    "intent_id": "CRYPTO_PRICE_USD",
+    "epoch_id": 1969,
+    "rank": 4,
+    "score": 0.99700004,
+    "scored_at": "2026-11-01T18:10:29.934582Z"
+   },
+   {
+    "intent_id": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+    "epoch_id": 1969,
+    "rank": 9,
+    "score": 0.019,
+    "scored_at": "2026-11-01T18:21:12.312195Z"
+   }
+  ]
+ },
+ {
+  "id": "78021",
+  "slug": "san-ofac-entity",
+  "kind": "miner",
+  "protocol": "generic",
+  "name": "OFAC SDN Entity Screen",
+  "description": "OFAC SDN name screen → on_list (1/0). Intent SANCTIONS_SCREENING_MATCH — Usman truth-spec miner.\n",
+  "endpoints": [
+   {
+    "path": "/query",
+    "method": "GET",
+    "description": "Query for intent SANCTIONS_SCREENING_MATCH via OFAC SDN Entity Screen."
+   }
+  ],
+  "input_schema": {
+   "properties": {
+    "entity": {
+     "default": "PUTIN",
+     "description": "Entity name",
+     "type": "string"
+    }
+   },
+   "required": [
+    "entity"
+   ],
+   "type": "object"
+  },
+  "output_schema": null,
+  "signal_mapping": {
+   "label_field": "on_list"
+  },
+  "supported_intents": [
+   "SANCTIONS_SCREENING_MATCH_GENERAL"
+  ],
+  "docs": {
+   "website": "https://omni-chat.13.237.89.59.sslip.io",
+   "documentation": "https://docs.telegraphprotocol.com/"
+  },
+  "base_url": "https://omni-chat.13.237.89.59.sslip.io",
+  "wallet_address": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+  "fee_address": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+  "activation_status": "active",
+  "min_price_usdc": 10000,
+  "yaml_url": "https://omni-chat.13.237.89.59.sslip.io/miner-yamls/san-ofac-entity.yaml",
+  "registered_at": "2026-10-24T23:28:13Z",
+  "total_requests_served": 3,
+  "scored": false
+ },
+ {
+  "id": "302",
+  "slug": "chainsight-oracle",
+  "kind": "miner",
+  "protocol": "generic",
+  "name": "ChainSight — On-Chain Intelligence Hub",
+  "description": "A single authoritative oracle for real-time on-chain and market intelligence: crypto prices, market cap and volume, DeFi TVL, fiat exchange rates, network gas prices, wallet balances and transaction lookups across Ethereum and Base. Every answer is number-first, canonical and independently reproducible — sourced from professional public feeds (CoinGecko, DefiLlama, public RPC, exchange-rate feeds) and recorded on Telegraph as a hashed, verifiable signal. Purpose-built for trading, risk and analytics agents that need one reliable endpoint for the full on-chain data surface. Accepts explicit params or a plain-language question and returns the exact figure with a concise statement.\n",
+  "endpoints": [
+   {
+    "path": "/price",
+    "method": "GET",
+    "description": "Current USD price of a crypto asset (CRYPTO_PRICE)."
+   },
+   {
+    "path": "/financial",
+    "method": "GET",
+    "description": "Price, market cap, 24h volume and change (FINANCIAL_DATA)."
+   },
+   {
+    "path": "/tvl",
+    "method": "GET",
+    "description": "Total value locked of a DeFi protocol or chain (TVL_LOOKUP)."
+   },
+   {
+    "path": "/fx",
+    "method": "GET",
+    "description": "Fiat exchange rate between two currencies (CURRENCY_EXCHANGE)."
+   },
+   {
+    "path": "/gas",
+    "method": "GET",
+    "description": "Current network gas price in gwei (GAS_PRICE)."
+   },
+   {
+    "path": "/balance",
+    "method": "GET",
+    "description": "Native ETH balance of a wallet address (WALLET_BALANCE_CHECK)."
+   },
+   {
+    "path": "/tx",
+    "method": "GET",
+    "description": "Details of an on-chain transaction by hash (ONCHAIN_TX_LOOKUP)."
+   },
+   {
+    "path": "/holders",
+    "method": "GET",
+    "description": "Number of holders of a token contract (TOKEN_HOLDER_COUNT)."
+   },
+   {
+    "path": "/stock",
+    "method": "GET",
+    "description": "Current price of a stock ticker (STOCK_PRICE)."
+   },
+   {
+    "path": "/fraud",
+    "method": "GET",
+    "description": "Malicious-activity risk assessment of an address (FRAUD_DETECTION)."
+   },
+   {
+    "path": "/urlscan",
+    "method": "GET",
+    "description": "Phishing/scam assessment of a URL (URL_SCAN)."
+   },
+   {
+    "path": "/wforecast",
+    "method": "GET",
+    "description": "Multi-day weather forecast for a location (WEATHER_FORECAST)."
+   },
+   {
+    "path": "/wcheck",
+    "method": "GET",
+    "description": "Current weather conditions for a location (WEATHER_CHECK)."
+   },
+   {
+    "path": "/wstorm",
+    "method": "GET",
+    "description": "Storm risk (wind, gusts, precipitation) at coordinates (STORM_ALERT)."
+   },
+   {
+    "path": "/geoip",
+    "method": "GET",
+    "description": "Geolocate an IP address or a domain (IP_GEOLOCATION)."
+   },
+   {
+    "path": "/extract",
+    "method": "GET",
+    "description": "Extract the clean main text of a web page (CONTENT_EXTRACTION)."
+   },
+   {
+    "path": "/ssl",
+    "method": "GET",
+    "description": "Live TLS certificate check for a host (SSL_VERIFICATION)."
+   },
+   {
+    "path": "/cve",
+    "method": "GET",
+    "description": "Look up a CVE in the NIST NVD (CVE_LOOKUP)."
+   },
+   {
+    "path": "/chat",
+    "method": "POST",
+    "description": "Answer any question with the model (CHAT_COMPLETION)."
+   },
+   {
+    "path": "/gen",
+    "method": "POST",
+    "description": "Follow a text generation or rewrite instruction (TEXT_GENERATION)."
+   },
+   {
+    "path": "/lang",
+    "method": "POST",
+    "description": "Language generation, translation or summarization (LANGUAGE_GENERATION)."
+   },
+   {
+    "path": "/factcheck",
+    "method": "POST",
+    "description": "Assess whether a claim is true, false or unverified (FACT_CHECK)."
+   },
+   {
+    "path": "/websearch",
+    "method": "POST",
+    "description": "Search the web and answer grounded in the findings (WEB_SEARCH)."
+   },
+   {
+    "path": "/news",
+    "method": "POST",
+    "description": "Find recent news headlines on a topic (NEWS_SEARCH)."
+   },
+   {
+    "path": "/research",
+    "method": "POST",
+    "description": "Answer a research question grounded in web findings."
+   },
+   {
+    "path": "/synth",
+    "method": "POST",
+    "description": "Synthesize provided notes or text into a faithful summary."
+   },
+   {
+    "path": "/academic",
+    "method": "POST",
+    "description": "Find relevant peer-reviewed papers (OpenAlex)."
+   },
+   {
+    "path": "/translate",
+    "method": "POST",
+    "description": "Translate text into a target language."
+   },
+   {
+    "path": "/sentiment",
+    "method": "POST",
+    "description": "Classify the sentiment of a text."
+   },
+   {
+    "path": "/classify",
+    "method": "POST",
+    "description": "Classify a text into a category/label."
+   },
+   {
+    "path": "/aidetect",
+    "method": "POST",
+    "description": "Judge whether a passage was written by AI or a human."
+   },
+   {
+    "path": "/moderate",
+    "method": "POST",
+    "description": "Moderate content and flag harmful or injected instructions."
+   },
+   {
+    "path": "/authcheck",
+    "method": "POST",
+    "description": "Judge whether text is authentic or fabricated."
+   },
+   {
+    "path": "/verify",
+    "method": "POST",
+    "description": "Verify a claim or content against web evidence."
+   },
+   {
+    "path": "/tgk",
+    "method": "POST",
+    "description": "Answer general questions (chat)."
+   },
+   {
+    "path": "/headlines",
+    "method": "POST",
+    "description": "List current news headlines on a topic."
+   },
+   {
+    "path": "/event",
+    "method": "POST",
+    "description": "Resolve the outcome of an event or question."
+   },
+   {
+    "path": "/crosschain",
+    "method": "POST",
+    "description": "Verify a transaction's state across chains via RPC."
+   },
+   {
+    "path": "/imgverify",
+    "method": "POST",
+    "description": "Assess whether described media is authentic or manipulated."
+   },
+   {
+    "path": "/deepfake",
+    "method": "POST",
+    "description": "Judge whether described media is a deepfake."
+   },
+   {
+    "path": "/videoverify",
+    "method": "POST",
+    "description": "Assess whether a video is authentic or manipulated."
+   },
+   {
+    "path": "/mediacheck",
+    "method": "POST",
+    "description": "Assess media authenticity."
+   },
+   {
+    "path": "/summarize",
+    "method": "POST",
+    "description": "Summarize text concisely."
+   },
+   {
+    "path": "/codegen",
+    "method": "POST",
+    "description": "Generate code from an instruction."
+   },
+   {
+    "path": "/codereview",
+    "method": "POST",
+    "description": "Review code for bugs and improvements."
+   },
+   {
+    "path": "/grammar",
+    "method": "POST",
+    "description": "Correct grammar and spelling."
+   },
+   {
+    "path": "/semsim",
+    "method": "POST",
+    "description": "Judge semantic similarity of two texts."
+   },
+   {
+    "path": "/threatintel",
+    "method": "POST",
+    "description": "Assess a security threat."
+   },
+   {
+    "path": "/vulntriage",
+    "method": "POST",
+    "description": "Triage a vulnerability by priority."
+   },
+   {
+    "path": "/secreview",
+    "method": "POST",
+    "description": "Security review verdict."
+   },
+   {
+    "path": "/ticket",
+    "method": "POST",
+    "description": "Resolve a support ticket."
+   },
+   {
+    "path": "/taskqual",
+    "method": "POST",
+    "description": "Evaluate task quality pass/fail."
+   },
+   {
+    "path": "/llmeval",
+    "method": "POST",
+    "description": "Evaluate an LLM answer quality."
+   },
+   {
+    "path": "/chatbot",
+    "method": "POST",
+    "description": "Conversational reply."
+   },
+   {
+    "path": "/contract",
+    "method": "POST",
+    "description": "Audit a contract obligation."
+   },
+   {
+    "path": "/sanctions",
+    "method": "POST",
+    "description": "Screen an entity against sanctions."
+   },
+   {
+    "path": "/macro",
+    "method": "POST",
+    "description": "Answer a macroeconomic indicator question."
+   },
+   {
+    "path": "/dns",
+    "method": "POST",
+    "description": "Look up DNS records for a domain."
+   },
+   {
+    "path": "/supply",
+    "method": "POST",
+    "description": "Verify a token's total supply."
+   },
+   {
+    "path": "/corp",
+    "method": "POST",
+    "description": "Look up a company in the LEI registry."
+   },
+   {
+    "path": "/fxnow",
+    "method": "GET",
+    "description": "Current mid-market fiat exchange rate (FX_NOW)."
+   },
+   {
+    "path": "/cryptoyield",
+    "method": "GET",
+    "description": "Current DeFi pool yield/APY (CRYPTO_YIELD_RATE)."
+   },
+   {
+    "path": "/ipthreat",
+    "method": "GET",
+    "description": "IP threat reputation and abuse history (THREAT_IP_REPUTATION)."
+   },
+   {
+    "path": "/regfiling",
+    "method": "GET",
+    "description": "Latest regulatory/SEC EDGAR filing for a company (REGULATORY_FILING_MONITOR)."
+   },
+   {
+    "path": "/loanrate",
+    "method": "GET",
+    "description": "Benchmark lending reference rate, e.g. SOFR (LOAN_INTEREST_RATE_QUOTE)."
+   },
+   {
+    "path": "/emailsec",
+    "method": "GET",
+    "description": "Domain email security posture: MX/SPF/DMARC (EMAIL_SECURITY)."
+   },
+   {
+    "path": "/apihealth",
+    "method": "GET",
+    "description": "HTTP health check of an API endpoint (API_HEALTH_CHECK)."
+   },
+   {
+    "path": "/uptime",
+    "method": "GET",
+    "description": "Up/down status of a server or URL (SERVER_UPTIME_MONITOR)."
+   },
+   {
+    "path": "/sla",
+    "method": "GET",
+    "description": "Service availability vs SLA at this check (SLA_COMPLIANCE)."
+   },
+   {
+    "path": "/vendor",
+    "method": "GET",
+    "description": "Vendor/supplier screening incl. OFAC sanctions (VENDOR_VERIFY)."
+   },
+   {
+    "path": "/qa",
+    "method": "GET",
+    "description": "Direct factual question answering (QUESTION_ANSWERING)."
+   },
+   {
+    "path": "/keywords",
+    "method": "GET",
+    "description": "Extract key terms from text (KEYWORD_EXTRACTION)."
+   },
+   {
+    "path": "/entities",
+    "method": "GET",
+    "description": "Extract named entities from text (ENTITY_EXTRACTION)."
+   },
+   {
+    "path": "/onchainmetric",
+    "method": "GET",
+    "description": "Global on-chain/market metric verification (ONCHAIN_METRIC_VERIFY)."
+   },
+   {
+    "path": "/b2b",
+    "method": "GET",
+    "description": "Business identity enrichment via GLEIF LEI registry (B2B_IDENTITY_ENRICHMENT)."
+   },
+   {
+    "path": "/paymethod",
+    "method": "GET",
+    "description": "Payment card BIN/issuer verification (PAYMENT_METHOD_VERIFY)."
+   },
+   {
+    "path": "/xferverify",
+    "method": "GET",
+    "description": "Verify an on-chain crypto transfer by tx hash (CRYPTO_TRANSFER_VERIFY)."
+   },
+   {
+    "path": "/scaudit",
+    "method": "GET",
+    "description": "Smart-contract/token security audit (SMART_CONTRACT_AUDIT)."
+   },
+   {
+    "path": "/txrisk",
+    "method": "GET",
+    "description": "Address transaction-risk assessment (TRANSACTION_RISK)."
+   },
+   {
+    "path": "/botdetect",
+    "method": "GET",
+    "description": "Social media bot detection (SOCIAL_BOT_DETECTION)."
+   },
+   {
+    "path": "/docauth",
+    "method": "GET",
+    "description": "Document authenticity assessment (DOCUMENT_AUTHENTICITY)."
+   },
+   {
+    "path": "/prodauth",
+    "method": "GET",
+    "description": "Product authenticity assessment (PRODUCT_AUTHENTICITY)."
+   },
+   {
+    "path": "/wfverify",
+    "method": "GET",
+    "description": "Weather forecast reconciled against observation (WEATHER_FORECAST_VERIFY)."
+   },
+   {
+    "path": "/assetreserve",
+    "method": "GET",
+    "description": "Proof-of-reserves backing a stablecoin or tokenized asset (ASSET_RESERVE_ATTESTATION)."
+   },
+   {
+    "path": "/liquiditydepth",
+    "method": "GET",
+    "description": "DEX liquidity depth and slippage for a token (LIQUIDITY_DEPTH_VERIFY)."
+   },
+   {
+    "path": "/washtrading",
+    "method": "GET",
+    "description": "Artificial-volume and wash-trading risk for a token (WASH_TRADING_DETECTION)."
+   },
+   {
+    "path": "/mediaforensic",
+    "method": "GET",
+    "description": "Deepfake and media-manipulation assessment (MEDIA_FORENSIC_VERIFY)."
+   },
+   {
+    "path": "/mininghash",
+    "method": "GET",
+    "description": "Bitcoin network hashrate and difficulty for hashprice (MINING_HASHPRICE_VERIFY)."
+   },
+   {
+    "path": "/airquality",
+    "method": "GET",
+    "description": "Air quality index and pollutants for a location (AIR_QUALITY_INDEX)."
+   },
+   {
+    "path": "/urlsafe",
+    "method": "GET",
+    "description": "Phishing and malware safety assessment of a URL (URL_SAFE)."
+   },
+   {
+    "path": "/fraudrisk",
+    "method": "GET",
+    "description": "Transaction and entity fraud risk assessment (FRAUD_RISK)."
+   },
+   {
+    "path": "/routeeta",
+    "method": "GET",
+    "description": "Driving distance and ETA between two places (ROUTE_ETA)."
+   },
+   {
+    "path": "/sensortel",
+    "method": "GET",
+    "description": "IoT sensor telemetry validity and calibration check (SENSOR_TELEMETRY_VERIFY)."
+   },
+   {
+    "path": "/satimagery",
+    "method": "GET",
+    "description": "Satellite imagery scene interpretation (SATELLITE_IMAGERY_ANALYSIS)."
+   },
+   {
+    "path": "/imgcaption",
+    "method": "GET",
+    "description": "Factual caption of an image scene (IMAGE_CAPTIONING)."
+   },
+   {
+    "path": "/vesseltel",
+    "method": "GET",
+    "description": "Maritime AIS vessel telemetry consistency check (VESSEL_TELEMETRY_VERIFY)."
+   },
+   {
+    "path": "/gridprice",
+    "method": "GET",
+    "description": "Wholesale ISO/RTO electricity settlement price (GRID_POWER_PRICE)."
+   },
+   {
+    "path": "/shelfprice",
+    "method": "GET",
+    "description": "Current retail shelf price of a product (LIVE_SHELF_PRICE)."
+   },
+   {
+    "path": "/portcongestion",
+    "method": "GET",
+    "description": "Port congestion assessment from vessel activity (LIVE_PORT_CONGESTION)."
+   },
+   {
+    "path": "/shiprate",
+    "method": "GET",
+    "description": "Shipping rate and delivery ETA (SHIP_RATE_ETA)."
+   },
+   {
+    "path": "/carrierserv",
+    "method": "GET",
+    "description": "Carrier lane serviceability check (CARRIER_SERVICEABILITY)."
+   },
+   {
+    "path": "/shipdelay",
+    "method": "GET",
+    "description": "Forward-looking shipment delay risk (SHIPMENT_DELAY_RISK)."
+   },
+   {
+    "path": "/packagestatus",
+    "method": "GET",
+    "description": "Parcel tracking status and milestone (PACKAGE_STATUS)."
+   },
+   {
+    "path": "/skustock",
+    "method": "GET",
+    "description": "Product SKU stock availability (SKU_IN_STOCK)."
+   },
+   {
+    "path": "/warehouseinv",
+    "method": "GET",
+    "description": "Warehouse bin/pallet stock audit (WAREHOUSE_INVENTORY)."
+   },
+   {
+    "path": "/commercepurchase",
+    "method": "GET",
+    "description": "Order and purchase existence verification (COMMERCE_PURCHASE_VERIFY)."
+   },
+   {
+    "path": "/datacentertel",
+    "method": "GET",
+    "description": "Datacenter PUE and thermal telemetry audit (DATACENTER_TELEMETRY_VERIFY)."
+   },
+   {
+    "path": "/cloudusage",
+    "method": "GET",
+    "description": "Cloud CPU/memory/network utilization summary (CLOUD_RESOURCE_USAGE)."
+   },
+   {
+    "path": "/codepatch",
+    "method": "GET",
+    "description": "Code patch build and test verification (CODE_PATCH_VERIFY)."
+   },
+   {
+    "path": "/regressionverify",
+    "method": "GET",
+    "description": "Regression detection for a code change (REGRESSION_VERIFY)."
+   },
+   {
+    "path": "/agenttask",
+    "method": "GET",
+    "description": "General autonomous task execution (AGENT_TASK)."
+   },
+   {
+    "path": "/validatorperf",
+    "method": "GET",
+    "description": "Blockchain validator uptime and performance (VALIDATOR_PERFORMANCE_VERIFY)."
+   },
+   {
+    "path": "/traveldisruption",
+    "method": "GET",
+    "description": "Flight/route travel disruption status (TRAVEL_DISRUPTION)."
+   }
+  ],
+  "input_schema": {
+   "properties": {
+    "address": {
+     "description": "0x wallet address (40 hex).",
+     "type": "string"
+    },
+    "base": {
+     "description": "Base fiat currency code, e.g. EUR.",
+     "type": "string"
+    },
+    "chain": {
+     "description": "Chain name: ethereum or base.",
+     "type": "string"
+    },
+    "hash": {
+     "description": "0x transaction hash (64 hex).",
+     "type": "string"
+    },
+    "intent": {
+     "description": "Optional intent hint.",
+     "type": "string"
+    },
+    "protocol": {
+     "description": "DeFi protocol slug, e.g. aave, uniswap.",
+     "type": "string"
+    },
+    "query": {
+     "description": "Natural-language question if params are not supplied.",
+     "type": "string"
+    },
+    "quote": {
+     "description": "Quote fiat currency code, e.g. USD.",
+     "type": "string"
+    },
+    "symbol": {
+     "description": "Asset ticker or name, e.g. BTC, ethereum.",
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "output_schema": {
+   "properties": {
+    "balance_eth": {
+     "type": "number"
+    },
+    "gas_price_gwei": {
+     "type": "number"
+    },
+    "market_cap_usd": {
+     "type": "number"
+    },
+    "price_usd": {
+     "type": "number"
+    },
+    "rate": {
+     "type": "number"
+    },
+    "signal": {
+     "description": "Concise canonical answer (number-first).",
+     "type": "string"
+    },
+    "source": {
+     "type": "string"
+    },
+    "tvl_usd": {
+     "type": "number"
+    },
+    "value_eth": {
+     "type": "number"
+    },
+    "volume_24h_usd": {
+     "type": "number"
+    }
+   },
+   "type": "object"
+  },
+  "signal_mapping": {
+   "label_field": "signal",
+   "reason_field": "source"
+  },
+  "supported_intents": [
+   "ACADEMIC_SEARCH_GENERAL",
+   "AGENT_TASK_GENERAL",
+   "AIR_QUALITY_INDEX_GENERAL",
+   "AI_TEXT_DETECTION_GENERAL",
+   "API_HEALTH_CHECK_GENERAL",
+   "ASSET_RESERVE_ATTESTATION_GENERAL",
+   "B2B_IDENTITY_ENRICHMENT_GENERAL",
+   "CARRIER_SERVICEABILITY_GENERAL",
+   "CHATBOT_CONVERSATION_GENERAL",
+   "CHAT_COMPLETION_GENERAL",
+   "CLOUD_RESOURCE_USAGE_GENERAL",
+   "CODE_GENERATION_GENERAL",
+   "CODE_PATCH_VERIFY_GENERAL",
+   "CODE_REVIEW_GENERAL",
+   "COMMERCE_PURCHASE_VERIFY_GENERAL",
+   "CONTENT_EXTRACTION_GENERAL",
+   "CONTENT_MODERATION_GENERAL",
+   "CONTENT_VERIFICATION_GENERAL",
+   "CONTRACT_OBLIGATION_AUDIT_GENERAL",
+   "CORPORATE_REGISTRY_LOOKUP_GENERAL",
+   "CROSS_CHAIN_STATE_VERIFY_GENERAL",
+   "CRYPTO_PRICE_USD",
+   "CRYPTO_TRANSFER_VERIFY_GENERAL",
+   "CRYPTO_YIELD_RATE_GENERAL",
+   "CURRENCY_EXCHANGE_CONVERT",
+   "CUSTOMER_TICKET_RESOLUTION_GENERAL",
+   "CVE_LOOKUP_CVSS",
+   "DATACENTER_TELEMETRY_VERIFY_GENERAL",
+   "DEEPFAKE_DETECTION_GENERAL",
+   "DNS_RECORD_LOOKUP_GENERAL",
+   "DOCUMENT_AUTHENTICITY_GENERAL",
+   "EMAIL_SECURITY_GENERAL",
+   "ENTITY_EXTRACTION_GENERAL",
+   "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "FACT_CHECK_GENERAL",
+   "FINANCIAL_DATA_GENERAL",
+   "FRAUD_DETECTION_GENERAL",
+   "FRAUD_RISK_GENERAL",
+   "FX_NOW_CAD",
+   "FX_NOW_EUR",
+   "FX_NOW_SEK",
+   "GAS_PRICE_GENERAL",
+   "GRAMMAR_SPELL_CHECK_GENERAL",
+   "GRID_POWER_PRICE_GENERAL",
+   "IMAGE_CAPTIONING_GENERAL",
+   "IMAGE_VERIFICATION_GENERAL",
+   "IP_GEOLOCATION_GENERAL",
+   "KEYWORD_EXTRACTION_GENERAL",
+   "LANGUAGE_GENERATION_GENERAL",
+   "LANGUAGE_TRANSLATION_GENERAL",
+   "LIQUIDITY_DEPTH_VERIFY_GENERAL",
+   "LIVE_PORT_CONGESTION_GENERAL",
+   "LIVE_SHELF_PRICE_GENERAL",
+   "LLM_OUTPUT_EVALUATION_GENERAL",
+   "LOAN_INTEREST_RATE_QUOTE_GENERAL",
+   "MACRO_ECONOMIC_INDICATOR_GENERAL",
+   "MEDIA_AUTHENTICITY_CHECK_GENERAL",
+   "MEDIA_FORENSIC_VERIFY_GENERAL",
+   "MINING_HASHPRICE_VERIFY_GENERAL",
+   "NEWS_HEADLINES_GENERAL",
+   "NEWS_SEARCH_GENERAL",
+   "ONCHAIN_METRIC_VERIFY_GENERAL",
+   "ONCHAIN_TX_LOOKUP_GENERAL",
+   "PACKAGE_STATUS_GENERAL",
+   "PAYMENT_METHOD_VERIFY_GENERAL",
+   "PRODUCT_AUTHENTICITY_GENERAL",
+   "QUESTION_ANSWERING_GENERAL",
+   "REGRESSION_VERIFY_GENERAL",
+   "REGULATORY_FILING_MONITOR_GENERAL",
+   "RESEARCH_QUERY_GENERAL",
+   "RESEARCH_SYNTHESIS_GENERAL",
+   "ROUTE_ETA_GENERAL",
+   "SANCTIONS_SCREENING_MATCH_GENERAL",
+   "SATELLITE_IMAGERY_ANALYSIS_GENERAL",
+   "SECURITY_REVIEW_GENERAL",
+   "SEMANTIC_SIMILARITY_GENERAL",
+   "SENSOR_TELEMETRY_VERIFY_GENERAL",
+   "SENTIMENT_ANALYSIS_GENERAL",
+   "SERVER_UPTIME_MONITOR_GENERAL",
+   "SHIPMENT_DELAY_RISK_GENERAL",
+   "SHIP_RATE_ETA_GENERAL",
+   "SKU_IN_STOCK_GENERAL",
+   "SLA_COMPLIANCE_GENERAL",
+   "SMART_CONTRACT_AUDIT_GENERAL",
+   "SOCIAL_BOT_DETECTION_GENERAL",
+   "SSL_VERIFICATION_CERT",
+   "STOCK_PRICE_US_EQUITY",
+   "STORM_ALERT_GENERAL",
+   "TASK_EXECUTION_QUALITY_GENERAL",
+   "TELEGRAPH_KNOWLEDGE_GENERAL",
+   "TEXT_AUTHENTICITY_CHECK_GENERAL",
+   "TEXT_CLASSIFICATION_GENERAL",
+   "TEXT_GENERATION_GENERAL",
+   "TEXT_SUMMARIZATION_GENERAL",
+   "THREAT_INTELLIGENCE_INDICATOR",
+   "THREAT_IP_REPUTATION_GENERAL",
+   "TOKEN_HOLDER_COUNT_GENERAL",
+   "TOKEN_TOTAL_SUPPLY_VERIFY_GENERAL",
+   "TRANSACTION_RISK_GENERAL",
+   "TRAVEL_DISRUPTION_GENERAL",
+   "TVL_LOOKUP_GENERAL",
+   "URL_SAFE_GENERAL",
+   "URL_SCAN_VERDICT",
+   "VALIDATOR_PERFORMANCE_VERIFY_GENERAL",
+   "VENDOR_VERIFY_GENERAL",
+   "VESSEL_TELEMETRY_VERIFY_GENERAL",
+   "VIDEO_VERIFICATION_GENERAL",
+   "VULNERABILITY_TRIAGE_GENERAL",
+   "WALLET_BALANCE_CHECK_GENERAL",
+   "WAREHOUSE_INVENTORY_GENERAL",
+   "WASH_TRADING_DETECTION_GENERAL",
+   "WEATHER_CHECK_TEMPERATURE",
+   "WEATHER_FORECAST_GENERAL",
+   "WEATHER_FORECAST_VERIFY_GENERAL",
+   "WEB_SEARCH_GENERAL"
+  ],
+  "base_url": "https://hub.shadrakbessanh.me",
+  "wallet_address": "0xd4c73e9986c0b48eac22db24b5eef0c8ecef8ef9",
+  "fee_address": "0xd4c73e9986c0b48eac22db24b5eef0c8ecef8ef9",
+  "activation_status": "active",
+  "min_price_usdc": 10000,
+  "yaml_url": "https://hub.shadrakbessanh.me/miner.yaml",
+  "registered_at": "2026-11-01T15:16:55Z",
+  "scored": true,
+  "last_scored_epoch": 1969,
+  "last_scored_at": "2026-11-01T18:35:20Z",
+  "scores": [
+   {
+    "intent_id": "CODE_REVIEW_GENERAL",
+    "epoch_id": 1969,
+    "rank": 1,
+    "score": 1,
+    "scored_at": "2026-11-01T18:28:18.50088Z"
+   },
+   {
+    "intent_id": "PRODUCT_AUTHENTICITY_GENERAL",
+    "epoch_id": 1969,
+    "rank": 1,
+    "score": 1,
+    "scored_at": "2026-11-01T18:23:14.037464Z"
+   },
+   {
+    "intent_id": "CONTRACT_OBLIGATION_AUDIT_GENERAL",
+    "epoch_id": 1969,
+    "rank": 3,
+    "score": 0.9937,
+    "scored_at": "2026-11-01T18:35:20.014878Z"
+   },
+   {
+    "intent_id": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+    "epoch_id": 1969,
+    "rank": 3,
+    "score": 0.3474,
+    "scored_at": "2026-11-01T18:21:12.312195Z"
+   },
+   {
+    "intent_id": "CUSTOMER_TICKET_RESOLUTION_GENERAL",
+    "epoch_id": 1969,
+    "rank": 4,
+    "score": 1,
+    "scored_at": "2026-11-01T18:15:46.785069Z"
+   },
+   {
+    "intent_id": "SECURITY_REVIEW_GENERAL",
+    "epoch_id": 1969,
+    "rank": 4,
+    "score": 0.9962,
+    "scored_at": "2026-11-01T18:28:09.756084Z"
+   },
+   {
+    "intent_id": "THREAT_INTELLIGENCE_INDICATOR",
+    "epoch_id": 1969,
+    "rank": 5,
+    "score": 0.1,
+    "scored_at": "2026-11-01T18:31:40.83374Z"
+   },
+   {
+    "intent_id": "WASH_TRADING_DETECTION_GENERAL",
+    "epoch_id": 1969,
+    "rank": 5,
+    "score": 1,
+    "scored_at": "2026-11-01T18:22:43.099285Z"
+   },
+   {
+    "intent_id": "FX_NOW_EUR",
+    "epoch_id": 1969,
+    "rank": 6,
+    "score": 0.66,
+    "scored_at": "2026-11-01T18:05:23.506529Z"
+   },
+   {
+    "intent_id": "VENDOR_VERIFY_GENERAL",
+    "epoch_id": 1969,
+    "rank": 6,
+    "score": 0.9819,
+    "scored_at": "2026-11-01T18:14:39.055098Z"
+   },
+   {
+    "intent_id": "LLM_OUTPUT_EVALUATION_GENERAL",
+    "epoch_id": 1969,
+    "rank": 8,
+    "score": 0.1526,
+    "scored_at": "2026-11-01T18:12:11.490531Z"
+   },
+   {
+    "intent_id": "TASK_EXECUTION_QUALITY_GENERAL",
+    "epoch_id": 1969,
+    "rank": 10,
+    "score": 0.8119,
+    "scored_at": "2026-11-01T18:33:39.749584Z"
+   },
+   {
+    "intent_id": "EMAIL_SECURITY_GENERAL",
+    "epoch_id": 1969,
+    "rank": 11,
+    "score": 0.8739,
+    "scored_at": "2026-11-01T18:24:40.496127Z"
+   },
+   {
+    "intent_id": "CRYPTO_PRICE_USD",
+    "epoch_id": 1969,
+    "rank": 20,
+    "score": 0.962,
+    "scored_at": "2026-11-01T18:10:29.954009Z"
+   },
+   {
+    "intent_id": "VULNERABILITY_TRIAGE_GENERAL",
+    "epoch_id": 1969,
+    "rank": 23,
+    "score": 0,
+    "scored_at": "2026-11-01T18:27:36.265444Z"
+   }
+  ]
+ },
+ {
+  "id": "78010",
+  "slug": "san-courtlistener",
+  "kind": "miner",
+  "protocol": "generic",
+  "name": "CourtListener Entity Search",
+  "description": "CourtListener search for enforcement records. Intent SANCTIONS_SCREENING_MATCH.\n",
+  "endpoints": [
+   {
+    "path": "/query",
+    "method": "GET",
+    "description": "Query for intent SANCTIONS_SCREENING_MATCH via CourtListener Entity Search."
+   }
+  ],
+  "input_schema": {
+   "properties": {
+    "format": {
+     "default": "json",
+     "description": "Format",
+     "type": "string"
+    },
+    "q": {
+     "default": "sanctions",
+     "description": "Query",
+     "type": "string"
+    },
+    "type": {
+     "default": "o",
+     "description": "Type",
+     "type": "string"
+    }
+   },
+   "required": [
+    "q",
+    "type",
+    "format"
+   ],
+   "type": "object"
+  },
+  "output_schema": null,
+  "signal_mapping": {
+   "label_field": "results"
+  },
+  "supported_intents": [
+   "SANCTIONS_SCREENING_MATCH_GENERAL"
+  ],
+  "docs": {
+   "website": "https://www.courtlistener.com",
+   "documentation": "https://www.courtlistener.com/api/"
+  },
+  "base_url": "https://www.courtlistener.com",
+  "wallet_address": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+  "fee_address": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+  "activation_status": "active",
+  "min_price_usdc": 10000,
+  "yaml_url": "https://paste.rs/uaUuO",
+  "registered_at": "2026-10-25T00:09:46Z",
+  "scored": false
+ },
+ {
+  "id": "78003",
+  "slug": "san-ofac-sdn",
+  "kind": "miner",
+  "protocol": "generic",
+  "name": "OFAC SDN XML",
+  "description": "US OFAC Specially Designated Nationals list. Intent SANCTIONS_SCREENING_MATCH.\n",
+  "endpoints": [
+   {
+    "path": "/query",
+    "method": "GET",
+    "description": "Query for intent SANCTIONS_SCREENING_MATCH via OFAC SDN XML."
+   }
+  ],
+  "input_schema": {
+   "properties": {},
+   "required": [],
+   "type": "object"
+  },
+  "output_schema": null,
+  "signal_mapping": {
+   "label_field": "sdnList"
+  },
+  "supported_intents": [
+   "SANCTIONS_SCREENING_MATCH_GENERAL"
+  ],
+  "docs": {
+   "website": "https://ofac.treasury.gov",
+   "documentation": "https://ofac.treasury.gov/specially-designated-nationals-list-sdn-list"
+  },
+  "base_url": "https://www.treasury.gov",
+  "wallet_address": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+  "fee_address": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+  "activation_status": "active",
+  "min_price_usdc": 10000,
+  "yaml_url": "https://paste.rs/piiTv",
+  "registered_at": "2026-10-25T00:09:50Z",
+  "scored": false
+ },
+ {
+  "id": "78005",
+  "slug": "san-opensanc-idx",
+  "kind": "miner",
+  "protocol": "generic",
+  "name": "OpenSanctions Dataset Index",
+  "description": "OpenSanctions default dataset index metadata. Intent SANCTIONS_SCREENING_MATCH.\n",
+  "endpoints": [
+   {
+    "path": "/query",
+    "method": "GET",
+    "description": "Query for intent SANCTIONS_SCREENING_MATCH via OpenSanctions Dataset Index."
+   }
+  ],
+  "input_schema": {
+   "properties": {},
+   "required": [],
+   "type": "object"
+  },
+  "output_schema": null,
+  "signal_mapping": {
+   "label_field": "name"
+  },
+  "supported_intents": [
+   "SANCTIONS_SCREENING_MATCH_GENERAL"
+  ],
+  "docs": {
+   "website": "https://www.opensanctions.org",
+   "documentation": "https://www.opensanctions.org/docs/api/"
+  },
+  "base_url": "https://data.opensanctions.org",
+  "wallet_address": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+  "fee_address": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+  "activation_status": "active",
+  "min_price_usdc": 10000,
+  "yaml_url": "https://paste.rs/1Qx1A",
+  "registered_at": "2026-10-25T00:09:53Z",
+  "scored": false
+ },
+ {
+  "id": "78009",
+  "slug": "san-opensanc-issues",
+  "kind": "miner",
+  "protocol": "generic",
+  "name": "OpenSanctions Issue Levels",
+  "description": "OpenSanctions dataset issue levels metadata. Intent SANCTIONS_SCREENING_MATCH.\n",
+  "endpoints": [
+   {
+    "path": "/query",
+    "method": "GET",
+    "description": "Query for intent SANCTIONS_SCREENING_MATCH via OpenSanctions Issue Levels."
+   }
+  ],
+  "input_schema": {
+   "properties": {},
+   "required": [],
+   "type": "object"
+  },
+  "output_schema": null,
+  "signal_mapping": {
+   "label_field": "issue_levels"
+  },
+  "supported_intents": [
+   "SANCTIONS_SCREENING_MATCH_GENERAL"
+  ],
+  "docs": {
+   "website": "https://www.opensanctions.org",
+   "documentation": "https://www.opensanctions.org/docs/api/"
+  },
+  "base_url": "https://data.opensanctions.org",
+  "wallet_address": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+  "fee_address": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+  "activation_status": "active",
+  "min_price_usdc": 10000,
+  "yaml_url": "https://paste.rs/R8XyU",
+  "registered_at": "2026-10-25T00:09:56Z",
+  "scored": false
+ },
+ {
+  "id": "78006",
+  "slug": "san-opensanc-stats",
+  "kind": "miner",
+  "protocol": "generic",
+  "name": "OpenSanctions Dataset Stats",
+  "description": "OpenSanctions default dataset statistics. Intent SANCTIONS_SCREENING_MATCH.\n",
+  "endpoints": [
+   {
+    "path": "/query",
+    "method": "GET",
+    "description": "Query for intent SANCTIONS_SCREENING_MATCH via OpenSanctions Dataset Stats."
+   }
+  ],
+  "input_schema": {
+   "properties": {},
+   "required": [],
+   "type": "object"
+  },
+  "output_schema": null,
+  "signal_mapping": {
+   "label_field": "schemata"
+  },
+  "supported_intents": [
+   "SANCTIONS_SCREENING_MATCH_GENERAL"
+  ],
+  "docs": {
+   "website": "https://www.opensanctions.org",
+   "documentation": "https://www.opensanctions.org/docs/api/"
+  },
+  "base_url": "https://data.opensanctions.org",
+  "wallet_address": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+  "fee_address": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+  "activation_status": "active",
+  "min_price_usdc": 10000,
+  "yaml_url": "https://paste.rs/uni33",
+  "registered_at": "2026-10-25T00:10:00Z",
+  "scored": false
+ },
+ {
+  "id": "78007",
+  "slug": "san-os-au",
+  "kind": "miner",
+  "protocol": "generic",
+  "name": "OpenSanctions AU DFAT Index",
+  "description": "OpenSanctions Australia DFAT sanctions dataset index. Intent SANCTIONS_SCREENING_MATCH.\n",
+  "endpoints": [
+   {
+    "path": "/query",
+    "method": "GET",
+    "description": "Query for intent SANCTIONS_SCREENING_MATCH via OpenSanctions AU DFAT Index."
+   }
+  ],
+  "input_schema": {
+   "properties": {},
+   "required": [],
+   "type": "object"
+  },
+  "output_schema": null,
+  "signal_mapping": {
+   "label_field": "name"
+  },
+  "supported_intents": [
+   "SANCTIONS_SCREENING_MATCH_GENERAL"
+  ],
+  "docs": {
+   "website": "https://www.opensanctions.org",
+   "documentation": "https://www.opensanctions.org/docs/api/"
+  },
+  "base_url": "https://data.opensanctions.org",
+  "wallet_address": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+  "fee_address": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+  "activation_status": "active",
+  "min_price_usdc": 10000,
+  "yaml_url": "https://paste.rs/WNwNj",
+  "registered_at": "2026-10-25T00:10:04Z",
+  "scored": false
+ },
+ {
+  "id": "78001",
+  "slug": "san-os-eu",
+  "kind": "miner",
+  "protocol": "generic",
+  "name": "OpenSanctions EU FSF Index",
+  "description": "OpenSanctions EU financial sanctions dataset index. Intent SANCTIONS_SCREENING_MATCH.\n",
+  "endpoints": [
+   {
+    "path": "/query",
+    "method": "GET",
+    "description": "Query for intent SANCTIONS_SCREENING_MATCH via OpenSanctions EU FSF Index."
+   }
+  ],
+  "input_schema": {
+   "properties": {},
+   "required": [],
+   "type": "object"
+  },
+  "output_schema": null,
+  "signal_mapping": {
+   "label_field": "name"
+  },
+  "supported_intents": [
+   "SANCTIONS_SCREENING_MATCH_GENERAL"
+  ],
+  "docs": {
+   "website": "https://www.opensanctions.org",
+   "documentation": "https://www.opensanctions.org/docs/api/"
+  },
+  "base_url": "https://data.opensanctions.org",
+  "wallet_address": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+  "fee_address": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+  "activation_status": "active",
+  "min_price_usdc": 10000,
+  "yaml_url": "https://paste.rs/Us0mn",
+  "registered_at": "2026-10-25T00:10:07Z",
+  "scored": false
+ },
+ {
+  "id": "78004",
+  "slug": "san-os-ofac",
+  "kind": "miner",
+  "protocol": "generic",
+  "name": "OpenSanctions US OFAC Index",
+  "description": "OpenSanctions US OFAC SDN dataset index. Intent SANCTIONS_SCREENING_MATCH.\n",
+  "endpoints": [
+   {
+    "path": "/query",
+    "method": "GET",
+    "description": "Query for intent SANCTIONS_SCREENING_MATCH via OpenSanctions US OFAC Index."
+   }
+  ],
+  "input_schema": {
+   "properties": {},
+   "required": [],
+   "type": "object"
+  },
+  "output_schema": null,
+  "signal_mapping": {
+   "label_field": "name"
+  },
+  "supported_intents": [
+   "SANCTIONS_SCREENING_MATCH_GENERAL"
+  ],
+  "docs": {
+   "website": "https://www.opensanctions.org",
+   "documentation": "https://www.opensanctions.org/docs/api/"
+  },
+  "base_url": "https://data.opensanctions.org",
+  "wallet_address": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+  "fee_address": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+  "activation_status": "active",
+  "min_price_usdc": 10000,
+  "yaml_url": "https://paste.rs/hfoHL",
+  "registered_at": "2026-10-25T00:10:11Z",
+  "scored": false
+ },
+ {
+  "id": "78008",
+  "slug": "san-peps",
+  "kind": "miner",
+  "protocol": "generic",
+  "name": "EveryPolitician Countries",
+  "description": "EveryPolitician countries index for PEP context. Intent SANCTIONS_SCREENING_MATCH.\n",
+  "endpoints": [
+   {
+    "path": "/query",
+    "method": "GET",
+    "description": "Query for intent SANCTIONS_SCREENING_MATCH via EveryPolitician Countries."
+   }
+  ],
+  "input_schema": {
+   "properties": {},
+   "required": [],
+   "type": "object"
+  },
+  "output_schema": null,
+  "signal_mapping": {
+   "label_field": "0"
+  },
+  "supported_intents": [
+   "SANCTIONS_SCREENING_MATCH_GENERAL"
+  ],
+  "docs": {
+   "website": "https://everypolitician.org",
+   "documentation": "https://everypolitician.org/"
+  },
+  "base_url": "https://cdn.jsdelivr.net",
+  "wallet_address": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+  "fee_address": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+  "activation_status": "active",
+  "min_price_usdc": 10000,
+  "yaml_url": "https://paste.rs/1gvUx",
+  "registered_at": "2026-10-25T00:10:15Z",
+  "scored": false
+ },
+ {
+  "id": "78022",
+  "slug": "san-un-list",
+  "kind": "miner",
+  "protocol": "generic",
+  "name": "UN Consolidated Sanctions Screen",
+  "description": "UN Security Council consolidated sanctions XML → on_list (1/0) for pinned entity. Intent SANCTIONS_SCREENING_MATCH — Usman truth-spec miner.\n",
+  "endpoints": [
+   {
+    "path": "/query",
+    "method": "GET",
+    "description": "Query for intent SANCTIONS_SCREENING_MATCH via UN consolidated list."
+   }
+  ],
+  "input_schema": {
+   "properties": {
+    "entity": {
+     "default": "Laden",
+     "description": "Entity name",
+     "type": "string"
+    }
+   },
+   "required": [
+    "entity"
+   ],
+   "type": "object"
+  },
+  "output_schema": null,
+  "signal_mapping": {
+   "label_field": "on_list"
+  },
+  "supported_intents": [
+   "SANCTIONS_SCREENING_MATCH_GENERAL"
+  ],
+  "docs": {
+   "website": "https://omni-chat.13.237.89.59.sslip.io",
+   "documentation": "https://main.un.org/securitycouncil/en/sanctions/information"
+  },
+  "base_url": "https://omni-chat.13.237.89.59.sslip.io",
+  "wallet_address": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+  "fee_address": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+  "activation_status": "active",
+  "min_price_usdc": 10000,
+  "yaml_url": "https://omni-chat.13.237.89.59.sslip.io/miner-yamls/san-un-list.yaml",
+  "registered_at": "2026-10-24T23:28:13Z",
+  "scored": false
+ },
+ {
+  "id": "9002",
+  "slug": "txlens",
+  "kind": "miner",
+  "protocol": "generic",
+  "name": "TxLens",
+  "description": "TxLens provides live, verifiable answers to on-chain and market questions from authoritative sources. Covering 72 intents across blockchain, finance, weather, content, security, and general intelligence domains—each answer includes source attribution and fetch timestamps for transparency.\n",
+  "endpoints": [
+   {
+    "path": "/check-tx",
+    "method": "GET",
+    "description": "ONCHAIN_TX_LOOKUP. Answers \"is transaction 0xabc... confirmed or did it fail\", \"what did this tx hash do\", \"what is the status of this transaction on Base\". Takes a specific transaction reference and returns its details, status and effects: confirmed, reverted, pending or not_found, plus from, to, value_wei, value_eth, block_number, block_hash, receipt_status, and the decoded contract method where the calldata identifies one. Confidence scales with confirmation depth. Params: tx_hash (required, 0x-prefixed, 64 hex characters), chain (optional, one of eth, base, arbitrum, polygon, default eth).\n"
+   },
+   {
+    "path": "/gas-price",
+    "method": "GET",
+    "description": "GAS_PRICE. Answers \"what is gas right now on Ethereum\", \"how much does a transfer cost on Polygon\", \"are fees high on Base\". Returns the current transaction fee level on a named chain in wei and gwei, plus the estimated USD cost of a standard 21,000-gas transfer. This is the fee to transact, not the price of the chain's token, which is CRYPTO_PRICE. Params: chain (optional, one of eth, base, arbitrum, polygon, default eth).\n"
+   },
+   {
+    "path": "/wallet-balance",
+    "method": "GET",
+    "description": "WALLET_BALANCE_CHECK. Answers \"how much ETH does 0xabc... hold\", \"what is the USDC balance of this address on Arbitrum\". Takes a specific blockchain address and returns its current native-coin or ERC-20 token balance on a named chain. Params: address (required, 0x-prefixed, 40 hex characters), chain (optional, one of eth, base, arbitrum, polygon, default eth), token (optional, 0x-prefixed, 40 hex characters, an ERC-20 contract address; when supplied, returns that token's balance instead of the chain's native coin).\n"
+   },
+   {
+    "path": "/token-holders",
+    "method": "GET",
+    "description": "TOKEN_HOLDER_COUNT. Answers \"how many wallets hold this token\", \"how many distinct addresses own 0xabc...\". Takes a specific token contract address and returns the count of distinct holding addresses. This is a holder count, not price, supply or market data. Params: token (required, 0x-prefixed, 40 hex characters), chain (optional, one of eth, base, arbitrum, optimism, polygon, default eth).\n"
+   },
+   {
+    "path": "/tvl",
+    "method": "GET",
+    "description": "TVL_LOOKUP. Answers \"what is the TVL of Aave\", \"how much value is locked in Uniswap\", \"what is total value locked on Ethereum\". Takes a named DeFi protocol, pool or chain and returns the total value locked in it in USD. This is value locked, not market capitalisation. When both a protocol and a chain are supplied it returns that protocol's TVL on that chain alongside its total across all chains. Params: exactly one of protocol (a DefiLlama protocol slug, e.g. \"uniswap\") or tvl_chain (a free-text DefiLlama chain name, e.g. \"Ethereum\", covering DefiLlama's ~460 chains rather than only the five EVM chains above, which is why the param name differs from `chain`).\n"
+   },
+   {
+    "path": "/crypto-price",
+    "method": "GET",
+    "description": "CRYPTO_PRICE. Answers \"what is Bitcoin worth\", \"price of ETH in USD\", \"how much is the token at 0xabc... trading for\". Names a cryptocurrency asset and returns its current USD price, with 24-hour change and market cap where the feed supplies them, cross-checked across independent sources and reported with a source count. For the cost of transacting on a chain use GAS_PRICE instead. Params: either coin_id alone, or price_chain together with token. Exactly one of those two modes. Any coin named in words goes in coin_id, including a coin that shares its name with a chain: ether or Ethereum is coin_id=\"ethereum\", and likewise \"bitcoin\", \"solana\". price_chain is only for pricing one specific contract, is never sent on its own, and always needs token (0x-prefixed, 40 hex characters, the token's contract address) alongside it, as in price_chain=\"base\" with the contract to price. It also answers what a coin was worth on a past day: send that day as date (\"2023-01-01\"), in either mode, and the answer is the price on that date rather than the price now. Leave date off for the current price.\n"
+   },
+   {
+    "path": "/stock-price",
+    "method": "GET",
+    "description": "STOCK_PRICE. Answers \"what is Apple trading at\", \"current share price of TSLA\", \"how much is NVDA stock\". Names a listed equity or ticker and returns its current USD share price. It also answers what a stock was worth on a past day, such as \"what did NVDA close at on 15 January 2024\": send that day as date and the answer is the closing price on it, naming the last trading day before it when the market was shut that day. Params: ticker (required, a stock symbol, e.g. \"AAPL\") and date (optional, a past day as \"2024-01-15\"; leave it off for the current price).\n"
+   },
+   {
+    "path": "/ssl-check",
+    "method": "GET",
+    "description": "SSL_VERIFICATION. Answers \"is the SSL certificate for example.com valid\", \"when does this domain's TLS certificate expire\", \"who issued the certificate for this host\". Takes a hostname and reports the certificate that host is actually serving right now, from a real live TLS handshake performed at request time rather than a cached or certificate-transparency lookup, which disagree whenever a host still serves an old certificate. Reports a named verdict (valid, expired, self_signed, hostname_mismatch, untrusted), issuer, validity window, days to expiry, how many certificates the server presented and whether the chain reaches a trusted root, which name on the certificate the request matched, and the TLS version and cipher actually negotiated, flagging deprecated TLS 1.0/1.1 that will fail for modern clients whatever the certificate says. Params: domain (required, a bare hostname such as \"example.com\", a full URL, a host:port pair, or a question naming the domain).\n"
+   },
+   {
+    "path": "/weather-forecast",
+    "method": "GET",
+    "description": "WEATHER_FORECAST. Answers \"what's the weather in Tokyo the next three days\", \"will it rain in London tomorrow\", \"how windy will it be in Cape Town on Friday\", \"will it snow in Oslo next week\", and coordinate forms such as \"what is the forecast at latitude 14.6042, longitude 120.9822 in 44 hours?\". Accepts coordinates written out in full (\"latitude 14.6042, longitude 120.9822\"), a compact \"lat,lon\" pair, a place name, or the whole question, and answers the specific thing asked: the day or window named (right now, today, tonight, tomorrow, a weekday, this weekend, this week, in N hours, the next N days or hours) and the aspect emphasised (rain, wind, snow, storm, freeze, temperature), leading with a direct yes or no on that aspect the way a person would answer, then giving the expected condition in plain words, temperature range, precipitation total and chance of precipitation, snowfall, and peak wind speed with gusts and direction. Read live from the forecast service at request time. Params: location (required, coordinates in either form, a place name, or a whole question), days (optional, 1-16), when (optional, overrides the window parsed from the question), focus (optional, one of rain, wind, snow, storm, freeze, temperature).\n"
+   },
+   {
+    "path": "/storm-alert",
+    "method": "GET",
+    "description": "STORM_ALERT. Reports storm risk at a location over a stated window, answering questions of the form \"what is the storm risk at latitude 14.6042, longitude 120.9822 in 44 hours?\" and \"what is the storm risk at latitude -5.1486, longitude 119.4319 right now?\", as well as \"is there a storm risk in Miami this weekend\". Reports exactly what such a question asks for: wind speed, gusts, precipitation, and an overall risk between 0 and 1. Accepts coordinates written out in full (\"latitude 14.6042, longitude 120.9822\"), a compact \"lat,lon\" pair, a place name, or the whole question, and reads the window from it (\"right now\", \"in N hours\", \"over the next 48 hours\", \"this weekend\"). Alongside the 0-1 risk score a contract can threshold on, it returns a disruption grade (LOW/MODERATE/HIGH/SEVERE) from peak wind gust and its Beaufort force named in plain words, sustained wind speed and direction, total precipitation, forecast thunderstorm and hail hours, and the operational response that grade calls for. The window runs from the current hour forward, not from midnight, so the peak gust reported is always still ahead. Read live at request time. Params: location (required, coordinates in either form, a place name, or a whole question), hours (optional, default 48, also read from the question).\n"
+   },
+   {
+    "path": "/ip-geolocate",
+    "method": "GET",
+    "description": "IP_GEOLOCATION. Answers \"where is 8.8.8.8 located\", \"what country is this IP address from\", \"is this IP a VPN or a datacenter\". Takes an IPv4 or IPv6 address and reports its country, region, city, postal code, coordinates, timezone, and network owner with ASN, plus privacy and risk flags saying whether the address is a known proxy or VPN exit, a hosting or datacenter network, or a mobile carrier network, which is what fraud, bot-screening and geo-gating callers actually need. Read live at request time. Confidence is reported as 0.95 rather than 1.0 because IP geolocation is reliable to the country and only approximate to the city. Params: ip (required, a bare IPv4 or IPv6 address such as \"8.8.8.8\" or \"2001:4860:4860::8888\", or a whole question naming one).\n"
+   },
+   {
+    "path": "/academic-search",
+    "method": "GET",
+    "description": "ACADEMIC_SEARCH. Answers \"find papers on federated learning\", \"peer-reviewed research on fraud detection since 2020\". Takes a topic, or the whole question, and lists peer-reviewed journal articles on it in relevance order, with preprints, theses and datasets excluded, naming every paper found in the answer itself with its title, authors, publishing journal, year, citation count and DOI, plus a real excerpt from the leading paper's abstract and a note on which of the results is the most cited. A date range stated in the question (\"since 2020\", \"between 2010 and 2020\") is applied. Read live from OpenAlex, with Crossref as a fallback, at request time. Params: topic (required), limit (optional, 1-25, default 5), from_year (optional), to_year (optional).\n"
+   },
+   {
+    "path": "/web-search",
+    "method": "GET",
+    "description": "WEB_SEARCH. Answers an open question of any kind from a live web search performed at request time, for questions that have no single authoritative feed behind them: \"what happened at the summit this week\", \"how does a heat pump work\", \"will El Nino disrupt shipping this season\", \"what did the company announce\". Takes the whole question as the caller wrote it and returns a direct written answer followed by the sources it drew on, naming the most relevant three with their URLs. Questions about current events are searched against a news index and questions about markets and company results against a finance index, chosen from the wording of the question itself. Confidence is reported as 0.9 rather than 1.0 because a synthesized web answer is only as reliable as the pages behind it, unlike a chain read or a live TLS handshake. For a peer-reviewed literature search use ACADEMIC_SEARCH instead, and for a live number such as a price, gas fee, balance or forecast use the specific intent for it, which reads the value from its own provider rather than from the open web. Params: query (required, the whole question), max_results (optional, 1-20, default 5), topic_mode (optional, one of general, news, finance, overriding what the question implies).\n"
+   },
+   {
+    "path": "/content-extract",
+    "method": "GET",
+    "description": "CONTENT_EXTRACTION. Answers \"what does this page say\", \"extract the text from this URL\", \"summarize the content at this link\". Fetches a live URL at request time and returns its title and readable text, stripped of scripts, navigation, and markup. Params: url (required, a full http or https URL, a bare host such as github.com/torvalds, or a whole question containing one; also accepted as link or question). If the value is a passage of text with no URL, the dates, quantities, named entities and events are extracted from the text itself.\n"
+   },
+   {
+    "path": "/text-classify",
+    "method": "GET",
+    "description": "TEXT_CLASSIFICATION. Answers \"what category is this text\", \"is this email spam or not\", \"classify this review as positive or negative\". Takes a piece of text and returns the single best category it belongs to, with a brief reason. Params: text (required; also accepted as content or input), labels (optional, also accepted as categories or classes; comma-separated candidate categories the answer must pick from; if omitted, the category is chosen freely).\n"
+   },
+   {
+    "path": "/text-generate",
+    "method": "GET",
+    "description": "TEXT_GENERATION. Answers \"write a short bio for a software engineer\", \"draft a product description for a water bottle\". Takes an instruction or prompt and writes the requested text directly, with no preamble. Params: prompt (required).\n"
+   },
+   {
+    "path": "/language-generate",
+    "method": "GET",
+    "description": "LANGUAGE_GENERATION. Answers \"translate this into French\", \"rewrite this in a formal tone\", \"paraphrase this sentence\". Takes existing text and transforms it into another language, tone, or style. Params: text (required), target (optional, the target language/tone/style; also read from the instruction inside text when omitted).\n"
+   },
+   {
+    "path": "/research-synthesis",
+    "method": "GET",
+    "description": "RESEARCH_SYNTHESIS. Answers broader research questions such as \"what are the main approaches to carbon capture\" or \"summarize the current state of quantum error correction\". Combines multiple live web sources into one written synthesis, wider and more source-dense than WEB_SEARCH. Params: query (required; also q, question, topic, text), max_sources (optional, 1-20, default 10; also max_results, limit).\n"
+   },
+   {
+    "path": "/cross-chain-state",
+    "method": "GET",
+    "description": "CROSS_CHAIN_STATE_VERIFY. Answers \"which chains is this address active on\", \"does this wallet exist on Base and Arbitrum\", \"is this a contract on any chain\". Checks the same address's native balance and contract status on every supported chain at once. Params: address (required, 0x-prefixed, 40 hex characters), chains (optional, comma-separated list restricting which chains are checked; defaults to every RPC-enabled chain). Chains named in the question (\"on Base and Arbitrum\") restrict the check when chains is omitted; chains this miner cannot read (Solana, Bitcoin, Optimism) are named as unchecked in the answer.\n"
+   },
+   {
+    "path": "/event-outcome",
+    "method": "GET",
+    "description": "EVENT_OUTCOME_RESOLUTION. Answers \"did the merger go through\", \"who won the election\", \"was the proposal approved\". Resolves a question about whether something happened to a stated outcome from a live web search, leading with the verdict (yes/no/winner) before the supporting facts. Params: query (required; also q, question, event, market). Answer leads with \"Yes,\", \"No,\", the winner's name, or \"Not yet resolved,\" for events that have not happened; the outcome field carries yes/no/unresolved.\n"
+   },
+   {
+    "path": "/weather-check",
+    "method": "GET",
+    "description": "WEATHER_CHECK. Answers \"what's the weather like in Tokyo right now\", \"current temperature in London\", \"is it raining in Cape Town at the moment\". Returns a single live current-conditions reading at a named place: temperature, apparent temperature, humidity, wind speed and direction, precipitation, cloud cover, and plain-words condition, read live at request time rather than forecast. Params: location (required, a place name, \"lat,lon\" pair, or a whole question naming the place; also accepted as city, place, q, query or question, or as lat/lon or latitude/longitude).\n"
+   },
+   {
+    "path": "/language-translate",
+    "method": "GET",
+    "description": "LANGUAGE_TRANSLATION. Answers \"translate 'good morning' into Japanese\", \"how do you say thank you in French\". Takes text and a target language and returns the translation only, with no explanation. Params: text (required; a whole instruction such as \"Translate 'good morning' into Spanish\" is accepted and the language is read from it), target (optional when the text names the language; also accepted as target_language, to, language or langpair such as \"en|de\").\n"
+   },
+   {
+    "path": "/chat-complete",
+    "method": "GET",
+    "description": "CHAT_COMPLETION. Answers a message directly and conversationally, the way a chat assistant would, with no preamble. A \"will X happen\" question is answered with a verdict word (Likely, Unlikely, Uncertain) followed by the reason. Params: message (required; also accepted as prompt, text, question, query, or an OpenAI-style messages array whose last user turn is answered).\n"
+   },
+   {
+    "path": "/news-search",
+    "method": "GET",
+    "description": "NEWS_SEARCH. Answers \"what's the latest on the trade talks\", \"has the company announced results yet\" from a live news-focused web search at request time, with sources named. Params: query (required; also q, question, topic, text, search, keywords, subject, category), max_results (optional, 1-20, default 5; also max, limit), recent_days (optional, default 7), country and language (optional hints).\n"
+   },
+   {
+    "path": "/news-headlines",
+    "method": "GET",
+    "description": "NEWS_HEADLINES. Answers \"what are today's headlines on the election\", \"top news about the central bank\". Returns a short list of current headlines on a named topic, each with its source URL. Params: topic (required; also query, q, question, category, subject, keywords; a whole question such as \"What are the top news headlines about X today?\" is accepted), max_results (optional, 1-10, default 6; also max, limit, count). Returns headlines as [{title, source, published, url}].\n"
+   },
+   {
+    "path": "/fact-check",
+    "method": "GET",
+    "description": "FACT_CHECK. Answers \"is it true that X\", \"fact check this claim: ...\". Checks a stated claim against live web sources and returns a True/False/Unverified verdict with the reasoning and sources behind it. Params: claim (required; also statement, text, query, q, question). Returns verdict (True, False, Mostly True, Mostly False, Misleading, Unverified) and the graded answer leads with that verdict word.\n"
+   },
+   {
+    "path": "/sentiment-analyze",
+    "method": "GET",
+    "description": "SENTIMENT_ANALYSIS. Answers \"is this review positive or negative\", \"what's the sentiment of this message\". Classifies text as exactly one of Positive, Negative, Neutral or Mixed, with a short reason. Also answers \"what is the general sentiment toward X\" for a named company, token or event. Params: text (required; also accepted as content, review, message or comment).\n"
+   },
+   {
+    "path": "/content-moderate",
+    "method": "GET",
+    "description": "CONTENT_MODERATION. Answers \"does this text violate policy\", \"is this message safe to post\". Judges text as Safe or Flagged against common platform policies (hate speech, harassment, threats, illegal activity), with a short reason naming the concern. Params: text (required; also accepted as content, message, comment or post).\n"
+   },
+   {
+    "path": "/cve-lookup",
+    "method": "GET",
+    "description": "CVE_LOOKUP. Answers \"what is CVE-2021-44228\", \"known vulnerabilities in log4j\". Takes a CVE id or a keyword and returns matching vulnerability records from the National Vulnerability Database, with description, severity score, and references. Params: cve (required, a CVE id such as \"CVE-2021-44228\", a sentence containing one, or a product keyword such as \"log4j\"; also accepted as cve_id, id, vulnerability, query or question).\n"
+   },
+   {
+    "path": "/telegraph-knowledge",
+    "method": "GET",
+    "description": "TELEGRAPH_KNOWLEDGE. Answers general-knowledge questions and questions about Telegraph Protocol itself, grounded against telegraphprotocol.com for protocol-specific questions rather than guessing about a protocol the model was not trained on. Params: question (required, also accepted as query, q, text, input).\n"
+   },
+   {
+    "path": "/text-summarize",
+    "method": "GET",
+    "description": "TEXT_SUMMARIZATION. Summarizes supplied text to a given length or style, or a sensible default when none is named. Params: text (required), length (optional, e.g. \"50 words\" or \"one sentence\").\n"
+   },
+   {
+    "path": "/chatbot-conversation",
+    "method": "GET",
+    "description": "CHATBOT_CONVERSATION. Replies to a chat message, using a supplied messages/history array as context when given. Params: message (required), messages (optional, a JSON array of {role, content} turns, also accepted as history).\n"
+   },
+   {
+    "path": "/semantic-similarity",
+    "method": "GET",
+    "description": "SEMANTIC_SIMILARITY. Returns a 0-1 semantic similarity score and a short reason for two supplied texts. Params: text1, text2 (required, also accepted as a and b).\n"
+   },
+   {
+    "path": "/grammar-spell-check",
+    "method": "GET",
+    "description": "GRAMMAR_SPELL_CHECK. Returns corrected text plus a count and list of the grammar and spelling fixes made. Params: text (required).\n"
+   },
+   {
+    "path": "/ai-text-detect",
+    "method": "GET",
+    "description": "AI_TEXT_DETECTION. Returns an approximate self-assessment of how likely supplied text is AI-generated, with named cues and an honest disclaimer that this is a language-model estimate, not a certified detector. Params: text (required).\n"
+   },
+   {
+    "path": "/research-query",
+    "method": "GET",
+    "description": "RESEARCH_QUERY. Answers an open research question from live web sources in one well-sourced paragraph. Params: query (required, also accepted as q, question, topic, text, research, search, prompt, subject), max_results (optional, 1-20, default 6).\n"
+   },
+   {
+    "path": "/threat-intelligence",
+    "method": "GET",
+    "description": "THREAT_INTELLIGENCE. Given an IP, domain, file hash, CVE id, or threat actor/malware family name, reports whether it is a known threat: malicious/clean verdict and pulse count from AlienVault OTX for IPs/domains/hashes, exploitation status and CVSS severity from CIRCL/NVD for CVE ids, or a web-search-sourced profile for actor and malware-family names. Params: indicator (required, also accepted as ioc, ip, domain, hash, cve, actor, query, q, question, text, input).\n"
+   },
+   {
+    "path": "/package-status",
+    "method": "GET",
+    "description": "PACKAGE_STATUS. Given a shipment tracking number, reports its current status via live web search, since no free universal carrier API exists; answers honestly when no authoritative status can be found rather than guessing. Params: tracking_number (required, also accepted as tracking, tracking_id, number, package_id, query, q, question, text, input).\n"
+   },
+   {
+    "path": "/url-scan",
+    "method": "GET",
+    "description": "URL_SCAN. Given a URL, returns a Safe/Suspicious/Unknown verdict combining live reachability and redirect-chain checking, TLS certificate validity, and a web-search reputation check for phishing/malware/scam reports. Params: url (required, also accepted as link, website, target, query, q, question, text, input).\n"
+   },
+   {
+    "path": "/currency-exchange",
+    "method": "GET",
+    "description": "CURRENCY_EXCHANGE. Answers \"how much is 100 dollars in euros\", \"convert 50 GBP to JPY\", using live ECB reference rates. Params: from, to (currency codes or names such as \"dollars\", \"euros\"), amount (optional, default 1).\n"
+   },
+   {
+    "path": "/fx-now",
+    "method": "GET",
+    "description": "FX_NOW. Answers \"what is the USD to EUR rate right now\", \"current GBP JPY exchange rate\", \"how much is 250 dollars in naira today\" with the current mid-market rate from a live FX feed covering 166 currencies, falling back to the ECB reference rate. Params: from (also base), to (also symbols, quote_currency), both currency codes or names such as \"dollars\", \"euros\"; amount (optional, default 1); or the whole question as query.\n"
+   },
+   {
+    "path": "/sanctions-screening",
+    "method": "GET",
+    "description": "SANCTIONS_SCREENING_MATCH. Answers \"is John Doe sanctioned\", \"check this company against the OFAC list\". Screens a name against the US Treasury OFAC Specially Designated Nationals list with fuzzy matching. Params: name (required, a person or entity name).\n"
+   },
+   {
+    "path": "/vulnerability-triage",
+    "method": "GET",
+    "description": "VULNERABILITY_TRIAGE. Answers \"how urgent is CVE-2021-44228\", \"should I patch log4j now\". Same CIRCL/NVD CVE data as CVE_LOOKUP, framed as a triage decision: severity tier, CISA Known Exploited Vulnerabilities status, and a recommended remediation urgency. Params: cve (required, a CVE id or product keyword).\n"
+   },
+   {
+    "path": "/sports-score",
+    "method": "GET",
+    "description": "SPORTS_SCORE. Answers \"what is the score of the Lakers game\". Most recent or in-progress score for a named team, via TheSportsDB, with a live web-search fallback for teams outside its coverage. Params: team (required, a club or franchise name).\n"
+   },
+   {
+    "path": "/game-result",
+    "method": "GET",
+    "description": "GAME_RESULT. Answers \"who won the Knicks game\". Winner of a named team's most recently completed match, via TheSportsDB, with a live web-search fallback for teams outside its coverage. Params: team (required, a club or franchise name).\n"
+   },
+   {
+    "path": "/route-eta",
+    "method": "GET",
+    "description": "ROUTE_ETA. Answers \"how long to drive from London to Paris\", \"what is the distance between Miami and Orlando\". Driving distance and estimated travel time via OSRM, with a route that can only be completed by ferry named honestly rather than reported as an ordinary driving time. Params: origin, destination (required, place names or \"lat,lon\"), mode (optional, driving only; other modes are refused honestly).\n"
+   },
+   {
+    "path": "/regulatory-filing-monitor",
+    "method": "GET",
+    "description": "REGULATORY_FILING_MONITOR. Answers \"will the FDA fine this company\", \"has this drug had a warning filed against it\". Searches the US Federal Register for real, published filings and notices matching a named company, product, drug, device, or industry concern, reporting what has actually been filed rather than predicting future action. Params: company (required, also accepted as product, drug, device, or concern).\n"
+   },
+   {
+    "path": "/credit-score-verify",
+    "method": "GET",
+    "description": "CREDIT_SCORE_VERIFY. Answers \"is this a registered business\", \"verify this company's legal entity status\". Checks a company name against the GLEIF Legal Entity Identifier registry: whether it has a registered LEI, its legal name, jurisdiction, and status. States plainly that LEI registration is not itself a credit score. Params: company (required).\n"
+   },
+   {
+    "path": "/macro-economic-indicator",
+    "method": "GET",
+    "description": "MACRO_ECONOMIC_INDICATOR. Answers \"what is Japan's inflation rate\", \"how fast is the US economy growing\". Reads GDP growth, inflation, or unemployment for a named country from World Bank data. Params: country (required, name or ISO code), economic_indicator (required, also accepted as indicator; GDP growth, inflation, or unemployment).\n"
+   },
+   {
+    "path": "/weather-forecast-verify",
+    "method": "GET",
+    "description": "WEATHER_FORECAST_VERIFY. Answers \"what was the actual weather in London on August 1st\". Reports what actually happened at a named place on a past date, from Open-Meteo's historical archive, distinct from WEATHER_FORECAST's forward-looking forecast; a date that is today or in the future is refused honestly. Params: location (required), date (required, YYYY-MM-DD, must be in the past).\n"
+   },
+   {
+    "path": "/customer-ticket-resolution",
+    "method": "GET",
+    "description": "CUSTOMER_TICKET_RESOLUTION. Answers \"how do I fix this error\", given a described technical problem. Searches live web sources for a known fix or resolution and reports it, sources named, or says honestly that none was found. Params: ticket (required, also accepted as description, issue, problem, error, or error_message).\n"
+   },
+   {
+    "path": "/return-policy-verify",
+    "method": "GET",
+    "description": "RETURN_POLICY_VERIFY. Answers \"what is Costco's return policy\". Given a retailer name, finds and reports that retailer's actual return policy (window, conditions) from a live search, sources named. Params: retailer (required, also accepted as store, merchant, or brand), product (optional purchase context).\n"
+   },
+   {
+    "path": "/task-execution-quality",
+    "method": "GET",
+    "description": "TASK_EXECUTION_QUALITY. Given a task description and a produced result, judges whether the result actually satisfies the task (satisfies, partially_satisfies, or fails), with a reason. Params: task (required, also accepted as task_description or instructions), result (required, also accepted as output or response).\n"
+   },
+   {
+    "path": "/carrier-serviceability",
+    "method": "GET",
+    "description": "CARRIER_SERVICEABILITY. Answers \"does UPS deliver to this ZIP code\". Given an address or ZIP code and optionally a carrier name, reports whether that carrier serves the area. Params: zip_code (required, also accepted as address), carrier (optional).\n"
+   },
+   {
+    "path": "/delivery-window-verify",
+    "method": "GET",
+    "description": "DELIVERY_WINDOW_VERIFY. Answers \"how long does FedEx ground take from New York to LA\". Given an origin, destination, and carrier/service level, estimates a realistic delivery window, honestly caveated as an estimate, not a guarantee. Params: origin, destination (optional, also accepted together as route), carrier (optional), service (optional, e.g. ground, express, overnight).\n"
+   },
+   {
+    "path": "/payment-method-verify",
+    "method": "GET",
+    "description": "PAYMENT_METHOD_VERIFY. Answers \"what card network is this BIN\", \"is this a Visa or Mastercard number\". Identifies the card network and, where possible, issuing bank and country from a card's leading digits (the BIN), a public and static lookup; states plainly that full card validity cannot be confirmed without processor access. Params: card_number (required, also accepted as payment_method for a network or app name).\n"
+   },
+   {
+    "path": "/invoice-ledger-reconcile",
+    "method": "GET",
+    "description": "INVOICE_LEDGER_RECONCILE. Given two described figures or a described invoice/ledger discrepancy, reconciles what can be reconciled from arithmetic and the stated facts alone; states plainly this is not a lookup against any real ledger system. Params: description (required, also accepted as invoice, ledger, or discrepancy).\n"
+   },
+   {
+    "path": "/fraud-query",
+    "method": "POST",
+    "description": "FRAUD_DETECTION. Answers \"was BitConnect a scam\", \"is this scheme fraudulent\", \"what happened in the FTX fraud\". Assesses how likely a named entity, scheme or action is to be fraudulent, answering from source-backed fraud knowledge rather than speculation, and returning INCONCLUSIVE rather than guessing when the record does not support a verdict. JSON body: { \"query\": \"...\" } (8 to 1000 characters).\n"
+   },
+   {
+    "path": "/assess-wallet",
+    "method": "GET",
+    "description": "FRAUD_DETECTION for a specific address. Answers \"is 0xabc... a scam wallet\", \"how risky is this address\", \"is it safe to receive funds from this wallet\". Returns a 0-1 risk score with named contributing signals, checked against a built-in registry of over 2,600 known entities (OFAC-sanctioned addresses, reported scam addresses, exchange and bridge wallets, mixers and burn addresses) so that known-legitimate infrastructure is not flagged as fraud. Risk and confidence are reported separately: a low-risk verdict from bounded scanning is returned as low risk with low confidence rather than overstated. Params: wallet (required, 0x-prefixed, 40 hex characters).\n"
+   },
+   {
+    "path": "/assess-wallet",
+    "method": "POST",
+    "description": "FRAUD_DETECTION for a specific address, identical to the GET form above and accepting the address in a JSON body instead of the query string. JSON body: { \"wallet\": \"0x...\" }.\n"
+   },
+   {
+    "path": "/url-safe",
+    "method": "GET",
+    "description": "URL_SAFE. Given a URL, checks it against URLhaus, VirusTotal, and reputation services, returning Safe/Suspicious/Unknown with detection count. URLhaus provides free malicious URL database checks. VirusTotal returns multi-engine detection count. Web reputation search provides additional context. Params: url (required, also accepted as link, website, target, query, q, question, text, input).\n"
+   },
+   {
+    "path": "/malware-detection",
+    "method": "GET",
+    "description": "MALWARE_DETECTION. Given a domain, IP address, or file hash, checks it against VirusTotal, AbuseIPDB, and AlienVault OTX reputation databases, returning threat level (None/Low/Medium/High/Critical) and match count. VirusTotal provides multi-engine detections for all indicator types. AbuseIPDB provides IP abuse confidence scoring. OTX provides free threat intelligence pulses. Params: indicator (required, an IP address, domain, or file hash, also accepted as ioc, ip, domain, hash, query, q, question, text, input).\n"
+   },
+   {
+    "path": "/dns-check",
+    "method": "GET",
+    "description": "DNS_RECORD_LOOKUP. Answers \"what are the DNS records for example.com\", \"what DNS entries does this domain have\". Takes a hostname and returns A, AAAA, CNAME, MX, TXT, NS, and SOA records queried live at request time using native DNS resolution. Params: hostname (required, a bare domain name like \"example.com\"; also accepted as domain, host, url, or a whole question naming the domain).\n"
+   },
+   {
+    "path": "/threat-ip-reputation",
+    "method": "GET",
+    "description": "THREAT_IP_REPUTATION. Answers \"is this IP address malicious\", \"is example.com a known threat domain\", \"what is the reputation of this IP\". Takes an IP address or domain and returns threat assessment from AlienVault OTX and AbuseIPDB free APIs (no key required for OTX; AbuseIPDB key optional and rate-limited). Confidence scales with number of sources that returned data. Params: ip or domain (required; also accepted as indicator, ioc, host, query, q, or question).\n"
+   },
+   {
+    "path": "/token-total-supply",
+    "method": "GET",
+    "description": "TOKEN_TOTAL_SUPPLY_VERIFY. Answers \"what is the total supply of USDC on Ethereum\", \"verify the supply of token 0xA0b8... at block 23000000\". Reads totalSupply(), decimals() and symbol() straight from the chain and returns total_supply (human units), total_supply_raw (the exact on-chain integer), decimals, symbol and block. Params: token (a 0x contract address, or a symbol such as USDC, USDT, DAI, WETH), chain (also venue or network: ethereum, eth-mainnet, 1, base, arbitrum, polygon, avalanche; default ethereum), block (optional block number, default latest).\n"
+   },
+   {
+    "path": "/corporate-registry",
+    "method": "GET",
+    "description": "CORPORATE_REGISTRY_LOOKUP. Answers \"what is the registered address and incorporation status of Acme Inc. in Delaware\", \"is SpaceX an active company\". Looks the company up in GLEIF, the global Legal Entity Identifier register: legal name, LEI, active status (status_active 1 or 0), jurisdiction, registered and headquarters address, creation date. Says plainly when no record exists. Params: name (also company, entity, legal_name; the company name), jurisdiction (optional, a state or country), or the whole question as query.\n"
+   },
+   {
+    "path": "/email-security",
+    "method": "GET",
+    "description": "EMAIL_SECURITY. Answers \"is gmail.com protected against email spoofing\", \"check SPF, DKIM and DMARC for example.com\". Reads the domain's live DNS (MX, SPF with redirects followed, DMARC policy, DKIM at common selectors, MTA-STS) and grades it Strong, Good, Weak or Unprotected with the specific gaps. Params: domain (a bare domain, also email, name or host; an email address works too), or the whole question as query.\n"
+   },
+   {
+    "path": "/mining-hashprice",
+    "method": "GET",
+    "description": "MINING_HASHPRICE_VERIFY. Answers \"what is the Bitcoin hashprice at block 800000\", \"current hashprice\". Computes hashprice in sats per PH/s per day (hashprice_sats_per_ph_s_day) from the block's coinbase reward and difficulty: reward x 144 / (difficulty x 2^32 / 600 / 1e15), plus the fee-free figure and implied network hashrate. Params: height (a block height, or latest; also block).\n"
+   },
+   {
+    "path": "/security-review",
+    "method": "GET",
+    "description": "SECURITY_REVIEW. Reviews supplied code, configuration or a system description for security weaknesses. The answer leads with a verdict (Secure, Needs changes, Insecure), then the most serious issues with CWE/OWASP category and the concrete fix. Params: code (also snippet, config, diff, description), or the whole request as query.\n"
+   },
+   {
+    "path": "/llm-output-evaluation",
+    "method": "GET",
+    "description": "LLM_OUTPUT_EVALUATION. Grades a language model's answer for accuracy, completeness, relevance and clarity. The answer leads with a rating (Excellent, Good, Acceptable, Poor, Fails) and \"Score: N/10\", then the specific strengths and errors. Params: prompt (the original question), output (also response, answer, completion; the model answer to grade), reference (optional expected answer), criteria (optional), or all of it as query.\n"
+   },
+   {
+    "path": "/contract-obligation-audit",
+    "method": "GET",
+    "description": "CONTRACT_OBLIGATION_AUDIT. Audits contract obligations: who owes what by when, and, given performance facts, whether each was met. The answer leads with a verdict (Compliant, Partially compliant, Non-compliant, Unclear) and cites the clause wording. Params: contract (also clause, agreement), obligation (optional), facts (also evidence, performance; optional), or the whole request as query.\n"
+   },
+   {
+    "path": "/code-generation",
+    "method": "GET",
+    "description": "CODE_GENERATION. Writes complete, runnable code for an instruction, in the requested language (Python by default), as one fenced code block followed by a short note. Params: instruction (also task, spec, description), language (optional), or the whole request as query.\n"
+   },
+   {
+    "path": "/code-review",
+    "method": "GET",
+    "description": "CODE_REVIEW. Reviews supplied code or a diff for correctness bugs, security, performance and readability. The answer leads with a verdict (Approve, Request changes, Comment), then the findings in severity order with concrete fixes. Params: code (also diff, patch, snippet), language (optional), focus (optional), or the whole request as query.\n"
+   },
+   {
+    "path": "/text-authenticity",
+    "method": "GET",
+    "description": "TEXT_AUTHENTICITY_CHECK. Judges whether a text is authentic, genuinely from its attributed source and not fabricated, altered or machine-generated to deceive. The answer leads with a verdict (Authentic, Likely authentic, Likely fabricated, Fabricated, Unverifiable) and the strongest reasons. Params: text (also content, passage, quote), source or author (optional attribution), or the whole request as query.\n"
+   }
+  ],
+  "input_schema": {
+   "properties": {
+    "address": {
+     "description": "EVM address to check. Used by /wallet-balance only.",
+     "pattern": "^0x[0-9a-fA-F]{40}$",
+     "type": "string"
+    },
+    "amount": {
+     "description": "Amount to convert on /currency-exchange. Defaults to 1.",
+     "type": "number"
+    },
+    "block": {
+     "description": "Block number for /token-total-supply (default latest).\n",
+     "type": "string"
+    },
+    "card_number": {
+     "description": "Full or partial card number, or its leading 6-8 digits (the BIN), on /payment-method-verify.\n",
+     "type": "string"
+    },
+    "carrier": {
+     "description": "Carrier name (e.g. UPS, FedEx, USPS, DHL) on /carrier-serviceability and /delivery-window-verify. Optional on both.\n",
+     "type": "string"
+    },
+    "categories": {
+     "description": "Alias of labels on /text-classify.",
+     "type": "string"
+    },
+    "chain": {
+     "default": "eth",
+     "description": "Which chain to query. Defaults to eth if omitted. Used by /check-tx, /gas-price, /wallet-balance, /token-holders only — not used by /tvl or /crypto-price, which take tvl_chain / price_chain instead (see below).\n",
+     "enum": [
+      "eth",
+      "base",
+      "arbitrum",
+      "optimism",
+      "polygon"
+     ],
+     "type": "string"
+    },
+    "chains": {
+     "description": "Comma-separated list of chains to check on /cross-chain-state. Defaults to every RPC-enabled chain when omitted.\n",
+     "type": "string"
+    },
+    "claim": {
+     "description": "Claim to fact-check on /fact-check.",
+     "type": "string"
+    },
+    "code": {
+     "description": "Source code or a diff on /security-review and /code-review.\n",
+     "type": "string"
+    },
+    "coin_id": {
+     "description": "CoinGecko coin id, e.g. \"bitcoin\". Used by /crypto-price only. Exactly one of coin_id / (price_chain+token) required for /crypto-price.\n",
+     "type": "string"
+    },
+    "company": {
+     "description": "Company, product, drug, device, or industry concern to search Federal Register filings for on /regulatory-filing-monitor, or a company name to verify against the GLEIF legal-entity registry on /credit-score-verify.\n",
+     "type": "string"
+    },
+    "content": {
+     "description": "Alias of text on /text-classify, /sentiment-analyze and /content-moderate.",
+     "type": "string"
+    },
+    "contract": {
+     "description": "Contract text or clause on /contract-obligation-audit.\n",
+     "type": "string"
+    },
+    "cve": {
+     "description": "CVE id (e.g. \"CVE-2021-44228\"), a question containing one, or a product keyword to search on /cve-lookup or /vulnerability-triage. Also read from cve_id, id, vulnerability, query and question.\n",
+     "type": "string"
+    },
+    "cve_id": {
+     "description": "Alias for cve on /cve-lookup.",
+     "type": "string"
+    },
+    "date": {
+     "description": "A past date (YYYY-MM-DD) to verify actual weather conditions for on /weather-forecast-verify. A date that is today or in the future is refused; use /weather-forecast for that instead.\n",
+     "type": "string"
+    },
+    "days": {
+     "description": "Forecast length in days on /weather-forecast. Defaults to 3, or to what the question asks for.",
+     "maximum": 16,
+     "minimum": 1,
+     "type": "integer"
+    },
+    "description": {
+     "description": "Free-text description of the figures and any claimed discrepancy on /invoice-ledger-reconcile. Also accepted as invoice, ledger, or discrepancy.\n",
+     "type": "string"
+    },
+    "destination": {
+     "description": "Ending place name or \"lat,lon\" on /route-eta. Also accepted as to, end, or target. On /delivery-window-verify, the shipment's destination place (optional; a whole route description in `route` is also accepted).\n",
+     "type": "string"
+    },
+    "domain": {
+     "description": "Host to check on /ssl-check. A bare hostname (\"example.com\") is the canonical form, but a full URL, a host:port pair, or a whole question naming the domain are all accepted and reduced to the hostname.\n",
+     "type": "string"
+    },
+    "economic_indicator": {
+     "description": "GDP growth, inflation, or unemployment on /macro-economic-indicator. Also accepted as indicator. Used with country.\n",
+     "type": "string"
+    },
+    "facts": {
+     "description": "What actually happened, on /contract-obligation-audit. Optional.\n",
+     "type": "string"
+    },
+    "focus": {
+     "description": "Optional on /weather-forecast. Which aspect the answer should lead with. Read from the question when omitted.\n",
+     "enum": [
+      "rain",
+      "wind",
+      "snow",
+      "storm",
+      "freeze",
+      "temperature"
+     ],
+     "type": "string"
+    },
+    "from": {
+     "description": "Source currency code or name on /currency-exchange, e.g. \"USD\" or \"dollars\". Also accepted as an alias of origin on /route-eta.\n",
+     "type": "string"
+    },
+    "from_year": {
+     "description": "Earliest publication year on /academic-search. Read from the question when omitted.",
+     "type": "integer"
+    },
+    "height": {
+     "description": "Bitcoin block height for /mining-hashprice, or latest.\n",
+     "type": "string"
+    },
+    "hours": {
+     "description": "Window length in hours on /storm-alert, counted from the current hour. Defaults to 48.",
+     "maximum": 384,
+     "minimum": 1,
+     "type": "integer"
+    },
+    "indicator": {
+     "description": "IP address, domain, file hash, CVE id, or threat actor/malware family name to check on /threat-intelligence. Also accepted as ioc, ip, domain, hash, cve, or actor.\n",
+     "type": "string"
+    },
+    "instruction": {
+     "description": "What the code should do, on /code-generation.\n",
+     "type": "string"
+    },
+    "ip": {
+     "description": "IPv4 or IPv6 address to locate on /ip-geolocate, e.g. \"8.8.8.8\" or \"2001:4860:4860::8888\". A whole question containing one is also accepted.\n",
+     "type": "string"
+    },
+    "jurisdiction": {
+     "description": "State or country the company is registered in, on /corporate-registry. Optional.\n",
+     "type": "string"
+    },
+    "labels": {
+     "description": "Comma-separated candidate categories on /text-classify. When supplied, the answer must pick exactly one of these.\n",
+     "type": "string"
+    },
+    "language": {
+     "description": "Programming language on /code-generation and /code-review.\n",
+     "type": "string"
+    },
+    "length": {
+     "description": "Optional target length or style for /text-summarize, e.g. \"50 words\" or \"one sentence\".\n",
+     "type": "string"
+    },
+    "limit": {
+     "description": "How many papers to return on /academic-search. Defaults to 5.",
+     "maximum": 25,
+     "minimum": 1,
+     "type": "integer"
+    },
+    "location": {
+     "description": "Place to forecast for, on /weather-forecast and /storm-alert, or to verify actual past conditions for, on /weather-forecast-verify. A place name (\"London\"), a \"lat,lon\" pair (\"51.5,-0.13\"), or the whole question (\"Will it rain in London tomorrow?\"), in which case the day or window and the aspect asked about are read from it too.\n",
+     "type": "string"
+    },
+    "max_results": {
+     "description": "How many web sources to draw on for /web-search (default 5) or /research-query (default 6).\n",
+     "maximum": 20,
+     "minimum": 1,
+     "type": "integer"
+    },
+    "max_sources": {
+     "description": "How many web sources to draw on for /research-synthesis. Defaults to 10.",
+     "maximum": 20,
+     "minimum": 1,
+     "type": "integer"
+    },
+    "message": {
+     "description": "Message to reply to on /chat-complete or /chatbot-conversation. Also accepted as an alias of text on /sentiment-analyze and /content-moderate.\n",
+     "type": "string"
+    },
+    "messages": {
+     "description": "/chat-complete and /chatbot-conversation alternative to message: an OpenAI-style JSON array of {role, content} turns. The last user turn is answered. Also accepted as history on /chatbot-conversation.\n",
+     "type": "string"
+    },
+    "mode": {
+     "description": "Travel mode on /route-eta. Only driving is reliably available on the public routing server this endpoint uses; other modes are refused honestly. Also accepted as profile or travel_mode.\n",
+     "type": "string"
+    },
+    "name": {
+     "description": "Person or entity name to screen on /sanctions-screening.",
+     "type": "string"
+    },
+    "origin": {
+     "description": "Starting place name or \"lat,lon\" on /route-eta. Also accepted as from, start, or source. On /delivery-window-verify, the shipment's origin place (optional; a whole route description in `route` is also accepted).\n",
+     "type": "string"
+    },
+    "output": {
+     "description": "The model answer to grade on /llm-output-evaluation.\n",
+     "type": "string"
+    },
+    "payment_method": {
+     "description": "Card network name or payment app name on /payment-method-verify. Alternative to card_number.\n",
+     "type": "string"
+    },
+    "price_chain": {
+     "description": "Free-text DefiLlama chain name for an on-chain token price lookup, e.g. \"ethereum\" (same namespace as tvl_chain, separate field since it's paired with `token` rather than used alone). Used by /crypto-price only, together with `token`.\n",
+     "type": "string"
+    },
+    "prompt": {
+     "description": "Instruction to write to on /text-generate.",
+     "type": "string"
+    },
+    "protocol": {
+     "description": "DefiLlama protocol slug, e.g. \"uniswap\". Used by /tvl only. Exactly one of protocol/tvl_chain required for /tvl.",
+     "type": "string"
+    },
+    "query": {
+     "description": "The whole question to answer on /web-search and /research-query, where it is the primary parameter rather than an alias. Also the general factual fraud question for /fraud-query, and a fallback alias for the main parameter on /ssl-check, /weather-forecast, /storm-alert, /ip-geolocate, /academic-search, /threat-intelligence, /package-status and /url-scan, so a caller that forwards the raw question under a generic name is still answered rather than refused.\n",
+     "type": "string"
+    },
+    "question": {
+     "description": "A question to answer on /telegraph-knowledge. Also accepted as query, q, text or input.\n",
+     "type": "string"
+    },
+    "reference": {
+     "description": "Optional expected answer on /llm-output-evaluation.\n",
+     "type": "string"
+    },
+    "result": {
+     "description": "The produced result to assess against task on /task-execution-quality. Also accepted as output or response.\n",
+     "type": "string"
+    },
+    "retailer": {
+     "description": "The retailer or store name on /return-policy-verify. Also accepted as store, merchant, or brand.\n",
+     "type": "string"
+    },
+    "review": {
+     "description": "Alias of text on /sentiment-analyze.",
+     "type": "string"
+    },
+    "route": {
+     "description": "Free-text route description on /delivery-window-verify, when origin and destination are not given separately.\n",
+     "type": "string"
+    },
+    "service": {
+     "description": "Service level (e.g. ground, express, overnight) on /delivery-window-verify. Optional.\n",
+     "type": "string"
+    },
+    "target": {
+     "description": "Target language, tone, or style on /language-generate. Also read from an instruction inside `text` when omitted.\n",
+     "type": "string"
+    },
+    "target_language": {
+     "description": "Alias of target on /language-translate. Also accepted as to, language, or langpair (\"en|de\").",
+     "type": "string"
+    },
+    "task": {
+     "description": "The original task description on /task-execution-quality. Also accepted as task_description or instructions. Used with result.\n",
+     "type": "string"
+    },
+    "team": {
+     "description": "Club or franchise name on /sports-score or /game-result.",
+     "type": "string"
+    },
+    "text": {
+     "description": "Text to classify on /text-classify, to transform on /language-generate, to summarize on /text-summarize, or to check on /grammar-spell-check and /ai-text-detect.\n",
+     "type": "string"
+    },
+    "text1": {
+     "description": "First text to compare on /semantic-similarity. Also accepted as a.",
+     "type": "string"
+    },
+    "text2": {
+     "description": "Second text to compare on /semantic-similarity. Also accepted as b.",
+     "type": "string"
+    },
+    "ticker": {
+     "description": "Stock ticker symbol, e.g. \"AAPL\". Required on /stock-price only.",
+     "type": "string"
+    },
+    "ticket": {
+     "description": "The described error or technical problem on /customer-ticket-resolution. Also accepted as description, issue, problem, error, or error_message.\n",
+     "type": "string"
+    },
+    "to": {
+     "description": "Target currency code or name on /currency-exchange, e.g. \"EUR\" or \"euros\". Also accepted as an alias of destination on /route-eta and of target_language on /language-translate.\n",
+     "type": "string"
+    },
+    "to_year": {
+     "description": "Latest publication year on /academic-search. Read from the question when omitted.",
+     "type": "integer"
+    },
+    "token": {
+     "description": "ERC-20 token contract address. Required on /token-holders. Optional on /wallet-balance (switches to ERC-20 balance instead of native). Required alongside price_chain on /crypto-price's chain_token mode.\n",
+     "pattern": "^0x[0-9a-fA-F]{40}$",
+     "type": "string"
+    },
+    "topic": {
+     "description": "Research topic to search for on /academic-search. A whole question is accepted, and a date range stated in it (\"since 2020\") is applied. On /news-headlines, the topic to list current headlines on.\n",
+     "type": "string"
+    },
+    "topic_mode": {
+     "description": "Which search index /web-search should use. Read from the wording of the question when omitted: current-events phrasing selects news and markets phrasing selects finance.\n",
+     "enum": [
+      "general",
+      "news",
+      "finance"
+     ],
+     "type": "string"
+    },
+    "tracking_number": {
+     "description": "Carrier shipment tracking number on /package-status. Also accepted as tracking, tracking_id, number, or package_id.\n",
+     "type": "string"
+    },
+    "tvl_chain": {
+     "description": "Free-text DefiLlama chain name, e.g. \"Ethereum\" (not restricted to the `chain` enum above — DefiLlama covers ~460 chains). Used by /tvl only. Exactly one of protocol/tvl_chain required for /tvl.\n",
+     "type": "string"
+    },
+    "tx_hash": {
+     "description": "EVM transaction hash to look up. Used by /check-tx only.",
+     "pattern": "^0x[0-9a-fA-F]{64}$",
+     "type": "string"
+    },
+    "url": {
+     "description": "Full http or https URL to fetch on /content-extract, or to assess for safety on /url-scan. A whole question containing one is also accepted; also accepted as link, website or target on /url-scan.\n",
+     "type": "string"
+    },
+    "venue": {
+     "description": "Chain for /token-total-supply, same as chain (ethereum, eth-mainnet, or a chain id such as 1).\n",
+     "type": "string"
+    },
+    "wallet": {
+     "description": "Ethereum address assessed by /assess-wallet.",
+     "pattern": "^0x[0-9a-fA-F]{40}$",
+     "type": "string"
+    },
+    "when": {
+     "description": "Optional on /weather-forecast and /storm-alert. The day or window asked about: today, tonight, tomorrow, a weekday name, this weekend, this week, next week, or \"the next N days\"/\"the next N hours\". Overrides whatever the question itself implies.\n",
+     "type": "string"
+    },
+    "zip_code": {
+     "description": "Address or ZIP code on /carrier-serviceability. Also accepted as address.\n",
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "output_schema": {
+   "properties": {
+    "address": {
+     "description": "/wallet-balance only.",
+     "type": "string"
+    },
+    "ai_generated_likelihood": {
+     "description": "/ai-text-detect only. Approximate 0-1 likelihood the supplied text is AI-generated, a language-model self-assessment, not a certified detector result.",
+     "type": "number"
+    },
+    "analysis_tier": {
+     "enum": [
+      "fast",
+      "deep"
+     ],
+     "type": "string"
+    },
+    "answer": {
+     "description": "The graded answer: one self-contained sentence stating the result and the facts behind it, on every endpoint. This is the field named by semantics.signal_mapping.label_field. It repeats `summary` unless a route supplies its own fuller wording (the fraud routes do).\n",
+     "type": "string"
+    },
+    "apparent_temperature_c": {
+     "description": "/weather-check only. Feels-like temperature, Celsius.",
+     "type": "number"
+    },
+    "area": {
+     "description": "/carrier-serviceability only. The address or ZIP code checked, echoed back.",
+     "type": "string"
+    },
+    "as_of": {
+     "description": "ISO timestamp of the source reading on gas, balance, holders, TVL, crypto and stock routes. On /stock-price this is the provider's quote observation time and is null when the provider did not supply one; it is never replaced by the response retrieval time.\n",
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "asn": {
+     "description": "/ip-geolocate only. Autonomous system number and name.",
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "assessment_status": {
+     "enum": [
+      "ASSESSED",
+      "LIMITED",
+      "INCONCLUSIVE"
+     ],
+     "type": "string"
+    },
+    "authorization_error": {
+     "description": "/ssl-check only. Reason authorized is false, e.g. a self-signed or expired certificate.",
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "authorized": {
+     "description": "/ssl-check only. Whether Node's default trust store accepts the certificate chain.",
+     "type": [
+      "boolean",
+      "null"
+     ]
+    },
+    "away_score": {
+     "description": "/sports-score and /game-result. The away team's score.",
+     "type": [
+      "number",
+      "null"
+     ]
+    },
+    "balance_native": {
+     "description": "/wallet-balance only. Human-normalized amount. Always present for native balance; null for an ERC-20 balance if Blockscout didn't recognize the token (decimals unknown, balance_wei still valid).\n",
+     "type": [
+      "number",
+      "null"
+     ]
+    },
+    "balance_wei": {
+     "description": "/wallet-balance only. Raw integer amount, native wei or the ERC-20's smallest unit depending on whether token was supplied.",
+     "type": "string"
+    },
+    "beaufort_description": {
+     "description": "/storm-alert only. That Beaufort force in plain words, e.g. \"gale\".",
+     "type": "string"
+    },
+    "beaufort_force": {
+     "description": "/storm-alert only. Beaufort force of the peak gust.",
+     "maximum": 12,
+     "minimum": 0,
+     "type": "integer"
+    },
+    "block_hash": {
+     "description": "/check-tx only. Null while pending / no receipt yet.",
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "block_number": {
+     "description": "Null while pending / no receipt yet, or if the block-number read failed best-effort.",
+     "type": [
+      "number",
+      "null"
+     ]
+    },
+    "can_verify_live_status": {
+     "description": "/payment-method-verify only. Always false. States plainly that live card validity cannot be confirmed without processor access.\n",
+     "type": "boolean"
+    },
+    "canonical": {
+     "description": "Compact deterministic one-line verdict summary, shape varies per endpoint (documented in each route's description).\n",
+     "type": "string"
+    },
+    "carrier": {
+     "description": "On /package-status, detected shipping carrier, when named in the input. On /carrier-serviceability and /delivery-window-verify, the carrier name checked, echoed or resolved from the input.\n",
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "category": {
+     "description": "/ssl-check only. The named certificate verdict.",
+     "enum": [
+      "valid",
+      "expired",
+      "self_signed",
+      "hostname_mismatch",
+      "untrusted"
+     ],
+     "type": "string"
+    },
+    "chain": {
+     "type": "string"
+    },
+    "chain_complete": {
+     "description": "/ssl-check only. Null when the host is unreachable and the chain cannot be inspected.",
+     "type": [
+      "boolean",
+      "null"
+     ]
+    },
+    "chain_length": {
+     "description": "/ssl-check only. How many certificates the server itself presented. Excludes the trust anchor the local store supplies, which the server did not send.\n",
+     "type": "integer"
+    },
+    "chain_tvl_usd": {
+     "description": "/tvl only. Protocol TVL on the requested chain when both protocol and tvl_chain are supplied.",
+     "type": [
+      "number",
+      "null"
+     ]
+    },
+    "chains_checked": {
+     "description": "/cross-chain-state only. Which chains were actually queried.",
+     "items": {
+      "type": "string"
+     },
+     "type": "array"
+    },
+    "change_24h_pct": {
+     "description": "/crypto-price only. CoinPaprika 24-hour USD price change percentage when available.",
+     "type": [
+      "number",
+      "null"
+     ]
+    },
+    "checked_at": {
+     "description": "ISO timestamp of the live read, on /ssl-check, /weather-forecast, /storm-alert, /ip-geolocate and /academic-search.\n",
+     "type": "string"
+    },
+    "cipher": {
+     "description": "/ssl-check only. Cipher suite actually negotiated.",
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "city": {
+     "description": "/ip-geolocate only. Approximate, see confidence.",
+     "type": "string"
+    },
+    "claim": {
+     "description": "/fact-check only. Echoes the claim that was checked.",
+     "type": "string"
+    },
+    "classification": {
+     "description": "/text-classify only. The chosen label alone.",
+     "type": "string"
+    },
+    "cloud_cover_pct": {
+     "description": "/weather-check only. Cloud cover percentage, when reported.",
+     "type": [
+      "number",
+      "null"
+     ]
+    },
+    "company_name": {
+     "description": "/stock-price only. Provider-supplied company name, or null when the provider omitted it.",
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "condition": {
+     "description": "On /weather-forecast, the expected condition in plain words, from the WMO weather code. On /weather-forecast-verify, the recorded condition for the verified past date.\n",
+     "type": "string"
+    },
+    "confidence": {
+     "maximum": 1,
+     "minimum": 0,
+     "type": "number"
+    },
+    "converted_amount": {
+     "description": "/currency-exchange only. The converted amount.",
+     "type": "number"
+    },
+    "corrected_text": {
+     "description": "/grammar-spell-check only. The corrected text.",
+     "type": "string"
+    },
+    "country": {
+     "description": "On /ip-geolocate, the country the address resolves to. On /macro-economic-indicator, the country the value applies to, echoed back from the resolved country name.\n",
+     "type": "string"
+    },
+    "country_code": {
+     "description": "/ip-geolocate only. ISO 3166-1 alpha-2.",
+     "type": "string"
+    },
+    "coverage": {
+     "type": "object"
+    },
+    "covers_hostnames": {
+     "description": "/ssl-check only. Every DNS name and IP the certificate covers.",
+     "items": {
+      "type": "string"
+     },
+     "type": "array"
+    },
+    "credit_score_available": {
+     "description": "/credit-score-verify only. Always false. States plainly that a GLEIF registration is not a credit score.\n",
+     "type": "boolean"
+    },
+    "currency": {
+     "description": "/stock-price only. Exact provider denomination, including case when it distinguishes units such as GBp (pence) from GBP (pounds).\n",
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "cves": {
+     "description": "/cve-lookup only. Matching CVE records, each carrying id, description, severity, published, last_modified, status and references.\n",
+     "items": {
+      "type": "object"
+     },
+     "type": "array"
+    },
+    "date": {
+     "description": "/weather-forecast-verify only. The verified past date, echoed back.",
+     "type": "string"
+    },
+    "days": {
+     "description": "/weather-forecast only. Day-by-day breakdown of every field above.",
+     "items": {
+      "type": "object"
+     },
+     "type": "array"
+    },
+    "days_until_expiry": {
+     "description": "/ssl-check only. Negative if already expired.",
+     "type": "integer"
+    },
+    "degraded": {
+     "description": "/chat-complete only, present only when the primary model failed and a fallback answered. Names the cause.\n",
+     "type": "string"
+    },
+    "disclaimer": {
+     "description": "/ai-text-detect only. States plainly that the likelihood is an approximation, not a certified detection.",
+     "type": "string"
+    },
+    "distance_km": {
+     "description": "/route-eta only. Driving distance in kilometers.",
+     "type": "number"
+    },
+    "documents": {
+     "description": "/regulatory-filing-monitor only. Matching Federal Register documents, each carrying title, date, and URL.",
+     "items": {
+      "type": "object"
+     },
+     "type": "array"
+    },
+    "duration_minutes": {
+     "description": "/route-eta only. Estimated driving time in minutes.",
+     "type": "number"
+    },
+    "economic_indicator": {
+     "description": "/macro-economic-indicator only. Which indicator was read (GDP growth, inflation, or unemployment).",
+     "type": "string"
+    },
+    "evidence": {
+     "items": {
+      "type": "object"
+     },
+     "type": "array"
+    },
+    "exchange": {
+     "description": "/stock-price only. The exchange the ticker trades on.",
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "exchange_rate": {
+     "description": "/currency-exchange only. The from-to conversion rate used.",
+     "type": "number"
+    },
+    "fee_usd": {
+     "description": "/gas-price only. Estimated USD cost of a standard 21,000-gas transfer at the current gas price. Null if the native token's USD price could not be looked up — gas_price_wei/gwei are still valid in that case.\n",
+     "type": [
+      "number",
+      "null"
+     ]
+    },
+    "ferry": {
+     "description": "/route-eta only. When includes_ferry is true, the ferry leg's duration, distance and named crossing; null otherwise.\n",
+     "type": [
+      "object",
+      "null"
+     ]
+    },
+    "fingerprint_sha256": {
+     "description": "/ssl-check only. SHA-256 fingerprint of the leaf certificate.",
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "fix_count": {
+     "description": "/grammar-spell-check only. Number of grammar or spelling fixes made.",
+     "type": "integer"
+    },
+    "fixes": {
+     "description": "/grammar-spell-check only. Short description of each fix made.",
+     "items": {
+      "type": "string"
+     },
+     "type": "array"
+    },
+    "flagged": {
+     "description": "/content-moderate only. Whether the text was judged to violate policy.",
+     "type": [
+      "boolean",
+      "null"
+     ]
+    },
+    "focus": {
+     "description": "/weather-forecast only. The aspect the answer leads with, as understood from the request.",
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "found": {
+     "description": "/package-status only. Whether an authoritative tracking status was found.",
+     "type": "boolean"
+    },
+    "from": {
+     "description": "/check-tx only.",
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "from_year": {
+     "description": "/academic-search only. Earliest publication year applied, whether passed or read from the question.",
+     "type": [
+      "integer",
+      "null"
+     ]
+    },
+    "full_length": {
+     "description": "/content-extract only. Character length of the full extracted text before truncation.",
+     "type": "integer"
+    },
+    "gas_price_gwei": {
+     "description": "/gas-price only.",
+     "type": "number"
+    },
+    "gas_price_wei": {
+     "description": "/gas-price only.",
+     "type": "string"
+    },
+    "has_history": {
+     "description": "/chatbot-conversation only. Whether a messages/history array was supplied.",
+     "type": "boolean"
+    },
+    "headlines": {
+     "description": "/news-headlines only. Each entry carries title, source, published and url.",
+     "items": {
+      "type": "object"
+     },
+     "type": "array"
+    },
+    "holders_count": {
+     "description": "/token-holders only. Null when status is not_found.",
+     "type": [
+      "integer",
+      "null"
+     ]
+    },
+    "home_score": {
+     "description": "/sports-score and /game-result. The home team's score.",
+     "type": [
+      "number",
+      "null"
+     ]
+    },
+    "hostname_valid": {
+     "description": "/ssl-check only. Null when the host is unreachable and hostname validation cannot run.",
+     "type": [
+      "boolean",
+      "null"
+     ]
+    },
+    "hours_assessed": {
+     "description": "/storm-alert only. Length of the assessed window in hours.",
+     "type": "integer"
+    },
+    "humidity_pct": {
+     "description": "/weather-check only. Relative humidity percentage.",
+     "type": "number"
+    },
+    "includes_ferry": {
+     "description": "/route-eta only. True when the route can only be completed by crossing water on a ferry the public routing server included as a driving leg, in which case confidence is lower than an ordinary driving route.\n",
+     "type": "boolean"
+    },
+    "is_estimate": {
+     "description": "/delivery-window-verify only. Always true. States plainly that the window is an estimate, not a guarantee.",
+     "type": "boolean"
+    },
+    "is_hosting": {
+     "description": "/ip-geolocate only. Address belongs to a hosting or datacenter network rather than a residential connection.",
+     "type": "boolean"
+    },
+    "is_mobile": {
+     "description": "/ip-geolocate only. Address belongs to a mobile carrier network.",
+     "type": "boolean"
+    },
+    "is_proxy_or_vpn": {
+     "description": "/ip-geolocate only. Address is a known proxy or VPN exit.",
+     "type": "boolean"
+    },
+    "isp": {
+     "description": "/ip-geolocate only. Network operator.",
+     "type": "string"
+    },
+    "issuer": {
+     "description": "/ssl-check only. Certificate authority organization or common name.",
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "issuing_bank": {
+     "description": "/payment-method-verify only. Issuing bank, when identifiable from the BIN.",
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "issuing_country": {
+     "description": "/payment-method-verify only. Issuing country, when identifiable from the BIN.",
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "key_bits": {
+     "description": "/ssl-check only. Certificate public key size in bits.",
+     "type": [
+      "integer",
+      "null"
+     ]
+    },
+    "knowledge_topic": {
+     "description": "/telegraph-knowledge only. Whether the question was about Telegraph Protocol itself or general knowledge.",
+     "enum": [
+      "telegraph-protocol",
+      "general"
+     ],
+     "type": "string"
+    },
+    "known_exploited": {
+     "description": "On /threat-intelligence and /vulnerability-triage, whether the CVE is in CISA's Known Exploited Vulnerabilities catalog.",
+     "type": "boolean"
+    },
+    "label": {
+     "description": "Sentinel fraud verdict, also returned as status for TxLens compatibility.",
+     "type": "string"
+    },
+    "labels": {
+     "description": "/text-classify only. The candidate categories supplied, or null when the category was chosen freely.",
+     "items": {
+      "type": "string"
+     },
+     "type": [
+      "array",
+      "null"
+     ]
+    },
+    "latency_ms": {
+     "type": "number"
+    },
+    "latitude": {
+     "description": "/ip-geolocate, /weather-forecast and /storm-alert.",
+     "type": "number"
+    },
+    "lei_registered": {
+     "description": "/credit-score-verify only. Whether the company has a registered Legal Entity Identifier.",
+     "type": [
+      "boolean",
+      "null"
+     ]
+    },
+    "location": {
+     "description": "/weather-forecast and /storm-alert. The resolved place, as name, region, country.",
+     "type": "string"
+    },
+    "longitude": {
+     "description": "/ip-geolocate, /weather-forecast and /storm-alert.",
+     "type": "number"
+    },
+    "malicious": {
+     "description": "/threat-intelligence only. Whether the indicator is a known threat.",
+     "type": [
+      "boolean",
+      "null"
+     ]
+    },
+    "market_cap_usd": {
+     "description": "/crypto-price only. Current CoinPaprika market capitalization when available.",
+     "type": [
+      "number",
+      "null"
+     ]
+    },
+    "matched": {
+     "description": "/sanctions-screening only. Whether the screened name matched an OFAC SDN entry.",
+     "type": "boolean"
+    },
+    "matched_hostname": {
+     "description": "/ssl-check only. Which name on the certificate the requested host matched, wildcards included. Null on a hostname mismatch.",
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "matches": {
+     "description": "On /sanctions-screening, matching OFAC SDN records. On /credit-score-verify, matching GLEIF legal-entity records.\n",
+     "items": {
+      "type": "object"
+     },
+     "type": "array"
+    },
+    "max_wind_speed_kmh": {
+     "description": "/storm-alert only. Strongest sustained wind in the window.",
+     "type": [
+      "number",
+      "null"
+     ]
+    },
+    "message": {
+     "description": "/chat-complete only. Echoes the message that was replied to.",
+     "type": "string"
+    },
+    "method": {
+     "description": "/check-tx only. Decoded contract method name when available.",
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "method_selector": {
+     "description": "/check-tx only. First four calldata bytes for contract calls.",
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "method_signature": {
+     "description": "/check-tx only. Decoded contract method signature when available.",
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "mode": {
+     "enum": [
+      "fraud_knowledge",
+      "wallet_risk"
+     ],
+     "type": "string"
+    },
+    "most_cited": {
+     "description": "/academic-search only. Whichever returned paper carries the most citations. Reported alongside the results, not used to order them.",
+     "type": [
+      "object",
+      "null"
+     ]
+    },
+    "native_price_usd": {
+     "description": "/gas-price only. USD price of the chain's native gas token used to compute fee_usd. Null under the same condition as fee_usd.",
+     "type": [
+      "number",
+      "null"
+     ]
+    },
+    "network": {
+     "description": "/payment-method-verify only. Card network identified from the BIN (e.g. Visa, Mastercard), when recognizable.",
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "observed_at": {
+     "description": "/weather-check only. Timestamp of the underlying reading, distinct from checked_at.",
+     "type": "string"
+    },
+    "org": {
+     "description": "/ip-geolocate only. Registrant organization, when it differs from the operator.",
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "outcome": {
+     "description": "/event-outcome only. yes, no or unresolved.",
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "papers": {
+     "description": "/academic-search only. Each entry carries title, year, citation_count, authors, venue, doi and abstract_snippet. Listed in relevance order.\n",
+     "items": {
+      "type": "object"
+     },
+     "type": "array"
+    },
+    "payment_app": {
+     "description": "/payment-method-verify only. Named payment app, when one was identified instead of a card network.",
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "peak_gust_kmh": {
+     "description": "/storm-alert and /weather-forecast. Strongest wind gust in the window.",
+     "type": "number"
+    },
+    "peak_gust_time": {
+     "description": "/storm-alert only. Local time of the strongest gust. Always inside the future window.",
+     "type": "string"
+    },
+    "peak_wind_kmh": {
+     "description": "/weather-forecast only. Highest sustained wind across the window.",
+     "type": "number"
+    },
+    "precipitation_mm": {
+     "description": "/weather-check only. Current precipitation rate.",
+     "type": "number"
+    },
+    "precipitation_probability_max_pct": {
+     "description": "/weather-forecast only. Peak chance of precipitation across the window.",
+     "type": "number"
+    },
+    "precipitation_total_mm": {
+     "description": "/weather-forecast only. Total precipitation across the window.",
+     "type": "number"
+    },
+    "price": {
+     "description": "/stock-price only. The listing price in the units named by currency.",
+     "type": [
+      "number",
+      "null"
+     ]
+    },
+    "price_source": {
+     "description": "/crypto-price and /stock-price. Which upstream actually supplied the selected price.\n",
+     "enum": [
+      "coinpaprika",
+      "defillama",
+      "twelve_data",
+      "yahoo_finance"
+     ],
+     "type": "string"
+    },
+    "price_usd": {
+     "description": "/crypto-price and /stock-price. On /stock-price this is populated only when the provider quote is denominated in USD; it is null for non-USD listings and when status is not_found.\n",
+     "type": [
+      "number",
+      "null"
+     ]
+    },
+    "protocol": {
+     "description": "/ssl-check only. TLS version actually negotiated, e.g. TLSv1.3.",
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "protocol_deprecated": {
+     "description": "/ssl-check only. True for TLS 1.0/1.1, which most modern clients refuse regardless of certificate validity.",
+     "type": "boolean"
+    },
+    "protocol_total_tvl_usd": {
+     "description": "/tvl only. Total protocol TVL across all chains when both protocol and tvl_chain are supplied.",
+     "type": [
+      "number",
+      "null"
+     ]
+    },
+    "provider": {
+     "description": "/web-search only. Which search service supplied the answer.",
+     "type": "string"
+    },
+    "pulse_count": {
+     "description": "/threat-intelligence only. Number of AlienVault OTX threat pulses referencing this indicator.",
+     "type": "integer"
+    },
+    "query": {
+     "description": "Echoes the main lookup value on routes that return it, including TVL, crypto, stock, weather and academic search.\n",
+     "type": "string"
+    },
+    "query_type": {
+     "description": "/tvl and /crypto-price only. Which query mode the request used (protocol/chain for /tvl, coin_id/chain_token for /crypto-price).\n",
+     "enum": [
+      "protocol",
+      "chain",
+      "protocol_chain",
+      "coin_id",
+      "chain_token"
+     ],
+     "type": "string"
+    },
+    "reachable": {
+     "description": "/url-scan only. Whether the URL responded to a live fetch.",
+     "type": "boolean"
+    },
+    "reason": {
+     "description": "Complete fraud answer or wallet-risk explanation. On /task-execution-quality, why the result was judged to satisfy or fail the task.\n",
+     "type": "string"
+    },
+    "reason_codes": {
+     "items": {
+      "type": "string"
+     },
+     "type": "array"
+    },
+    "receipt_status": {
+     "description": "/check-tx only. Explicit receipt outcome, independent of `status`. Null while pending / not found (no receipt exists yet).\n",
+     "enum": [
+      "success",
+      "failed",
+      null
+     ],
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "recommended_action": {
+     "description": "On /storm-alert, the operational response the risk grade calls for. On /vulnerability-triage, the recommended remediation urgency.\n",
+     "type": "string"
+    },
+    "region": {
+     "description": "/ip-geolocate only.",
+     "type": "string"
+    },
+    "reputation_flagged": {
+     "description": "/url-scan only. Whether web-search reputation checking found malicious reports.",
+     "type": [
+      "boolean",
+      "null"
+     ]
+    },
+    "resolved": {
+     "description": "/customer-ticket-resolution only. Whether a real fix or resolution was found.",
+     "type": "boolean"
+    },
+    "result_count": {
+     "description": "/web-search, /event-outcome, /news-search, /news-headlines and /cve-lookup. How many web sources or CVE records the answer drew on.\n",
+     "type": "integer"
+    },
+    "results": {
+     "description": "/cross-chain-state only. Per-chain balance, contract status, and reachability.",
+     "items": {
+      "type": "object"
+     },
+     "type": "array"
+    },
+    "retailer": {
+     "description": "/return-policy-verify only. The retailer name, echoed or resolved from the question.",
+     "type": "string"
+    },
+    "retrieved_at": {
+     "description": "/stock-price only. ISO timestamp when TxLens retrieved the quote, distinct from provider observation time in as_of.",
+     "type": "string"
+    },
+    "risk_level": {
+     "description": "Named risk grade. LOW/ELEVATED/HIGH/NOT_APPLICABLE on /assess-wallet; LOW/MODERATE/HIGH/SEVERE on /storm-alert.\n",
+     "enum": [
+      "LOW",
+      "ELEVATED",
+      "HIGH",
+      "NOT_APPLICABLE",
+      "MODERATE",
+      "SEVERE"
+     ],
+     "type": "string"
+    },
+    "risk_score": {
+     "description": "Wallet fraud risk on /assess-wallet. On /storm-alert, weather disruption risk on the same 0-1 scale, for callers that threshold rather than branch on the named grade.\n",
+     "maximum": 1,
+     "minimum": 0,
+     "type": "number"
+    },
+    "search_query": {
+     "description": "/web-search only. The text actually sent to the search index, after an instruction aimed at the miner (\"search the web for ...\") has been removed from the front of the question.\n",
+     "type": "string"
+    },
+    "sentiment": {
+     "description": "/sentiment-analyze only. Positive/Negative/Neutral/Mixed.",
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "severe_hail_hours": {
+     "description": "/storm-alert only. Forecast hours with a hail-bearing thunderstorm.",
+     "type": "integer"
+    },
+    "similarity": {
+     "description": "/semantic-similarity only. 0-1 semantic similarity score for the two supplied texts.",
+     "type": "number"
+    },
+    "snowfall_total_cm": {
+     "description": "/weather-forecast only. Total snowfall across the window.",
+     "type": "number"
+    },
+    "source": {
+     "description": "On several routes (/currency-exchange, /cve-lookup, /regulatory-filing-monitor, /credit-score-verify, /macro-economic-indicator, /weather-forecast-verify), a plain string naming the data provider. On the fraud/wallet-risk routes, an object with structured detail.\n",
+     "type": [
+      "object",
+      "string"
+     ]
+    },
+    "source_count": {
+     "description": "On /crypto-price, the number of independent price feeds that answered. On /research-synthesis and /research-query, how many web sources the answer drew on.\n",
+     "type": "integer"
+    },
+    "source_note": {
+     "description": "/news-search, /fact-check, /research-synthesis and /event-outcome. Plain-language note on how many sources were used and which ones, kept separate from summary.\n",
+     "type": "string"
+    },
+    "sources": {
+     "description": "On /crypto-price, the independent price feeds that answered. On /web-search, /news-search and /fact-check, the pages the answer drew on, each carrying title, url, snippet and the provider's relevance score, in relevance order.\n",
+     "items": {
+      "type": "object"
+     },
+     "type": "array"
+    },
+    "status": {
+     "description": "confirmed/reverted/pending/not_found/error on /check-tx; ok/error on /gas-price and /wallet-balance (live reads have no confirmation states); ok/not_found/error on /token-holders (not_found means the address isn't a known ERC-20 token on that chain, not a failure). Fraud routes may use Sentinel's named verdict. A Sentinel outage is inconclusive rather than a failed HTTP request. invalid_input can be returned by any endpoint and is an answer, not a failure: it means the parameters supplied could not identify anything to look up, and summary explains in plain language what the endpoint needs instead. It is returned with HTTP 200 and no error field, because the input was unusable rather than TxLens being unable to serve.\n",
+     "type": "string"
+    },
+    "summary": {
+     "type": "string"
+    },
+    "target": {
+     "description": "/language-translate only. Target language the text was translated into.",
+     "type": "string"
+    },
+    "temp_max_c": {
+     "description": "On /weather-forecast, the highest temperature across the forecast window. On /weather-forecast-verify, the recorded high for the verified past date. Celsius.\n",
+     "type": "number"
+    },
+    "temp_min_c": {
+     "description": "On /weather-forecast, the lowest temperature across the forecast window. On /weather-forecast-verify, the recorded low for the verified past date. Celsius.\n",
+     "type": "number"
+    },
+    "temperature_c": {
+     "description": "/weather-check only. Current air temperature, Celsius.",
+     "type": "number"
+    },
+    "thunderstorm_hours": {
+     "description": "/storm-alert only. Forecast hours with a thunderstorm in the window.",
+     "type": "integer"
+    },
+    "timezone": {
+     "description": "/ip-geolocate, /weather-forecast and /storm-alert. IANA timezone name.",
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "title": {
+     "description": "/content-extract only. Page title, or null if none was found.",
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "to": {
+     "description": "/check-tx only. Null for contract-creation transactions.",
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "to_year": {
+     "description": "/academic-search only. Latest publication year applied, whether passed or read from the question.",
+     "type": [
+      "integer",
+      "null"
+     ]
+    },
+    "token": {
+     "description": "/token-holders always; /wallet-balance only when the token param was supplied.",
+     "type": "string"
+    },
+    "token_decimals": {
+     "description": "/wallet-balance only, when token was supplied. Null if Blockscout didn't recognize the token.",
+     "type": [
+      "integer",
+      "null"
+     ]
+    },
+    "token_name": {
+     "description": "/token-holders always; /wallet-balance only when token was supplied.",
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "token_symbol": {
+     "description": "/token-holders always; /wallet-balance and /crypto-price only when applicable.",
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "topic": {
+     "description": "/web-search only. Which search index answered, whether passed as topic_mode or read from the question.",
+     "enum": [
+      "general",
+      "news",
+      "finance"
+     ],
+     "type": "string"
+    },
+    "total_matches": {
+     "description": "On /academic-search, how many peer-reviewed articles matched, of which `papers` is the returned page. On /regulatory-filing-monitor, how many Federal Register documents matched.\n",
+     "type": "integer"
+    },
+    "translation": {
+     "description": "/language-translate only. The translated text alone.",
+     "type": "string"
+    },
+    "triage_tier": {
+     "description": "/vulnerability-triage only. Severity and exploitability tier the CVE was placed in.",
+     "enum": [
+      "URGENT",
+      "CRITICAL",
+      "HIGH",
+      "MEDIUM",
+      "LOW",
+      "UNKNOWN"
+     ],
+     "type": "string"
+    },
+    "truncated": {
+     "description": "On /content-extract, true when the extracted text was cut off at the length cap. On /invoice-ledger-reconcile, true when the supplied description was cut off at the length cap.\n",
+     "type": "boolean"
+    },
+    "tvl_usd": {
+     "description": "/tvl only. Null when status is not_found.",
+     "type": [
+      "number",
+      "null"
+     ]
+    },
+    "tx_hash": {
+     "description": "/check-tx only.",
+     "type": "string"
+    },
+    "unreachable_reason": {
+     "description": "/ssl-check only. Connection or DNS failure when the host cannot be inspected.",
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "valid": {
+     "description": "/ssl-check only. Null when status is unreachable (the handshake itself failed, so validity is unknown, not false).",
+     "type": [
+      "boolean",
+      "null"
+     ]
+    },
+    "valid_from": {
+     "description": "/ssl-check only. ISO timestamp of certificate issuance.",
+     "type": "string"
+    },
+    "valid_to": {
+     "description": "/ssl-check only. ISO timestamp of certificate expiry.",
+     "type": "string"
+    },
+    "value": {
+     "description": "/macro-economic-indicator only. The indicator's value.",
+     "type": [
+      "number",
+      "null"
+     ]
+    },
+    "value_eth": {
+     "description": "/check-tx only. Native-token value in human-readable units. The legacy field name is value_eth, including on Polygon where the native token is POL.",
+     "type": [
+      "number",
+      "null"
+     ]
+    },
+    "value_wei": {
+     "description": "/check-tx only.",
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "verdict": {
+     "description": "On /fact-check, the True/False/Unverified verdict extracted from the answer. On /chat-complete, Likely/Unlikely/Uncertain for a \"will X happen\" question, null otherwise. On /url-scan, Safe/Suspicious/Unknown. On /task-execution-quality, satisfies/partially_satisfies/fails.\n",
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "verified": {
+     "description": "/return-policy-verify only. Whether an actual policy was found and confirmed live.",
+     "type": "boolean"
+    },
+    "verified_against_live_ledger": {
+     "description": "/invoice-ledger-reconcile only. Always false. States plainly that this is an arithmetic check over the supplied text, not a lookup against a real ledger system.\n",
+     "type": "boolean"
+    },
+    "wallet": {
+     "type": "string"
+    },
+    "when": {
+     "description": "/weather-forecast only. The day or window the answer covers, as understood from the request.",
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "wind_direction": {
+     "description": "On /storm-alert, the prevailing wind direction at the peak, as a compass word. On /weather-check, the compass direction the wind is blowing from right now.\n",
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "wind_speed_kmh": {
+     "description": "/weather-check only. Current wind speed.",
+     "type": "number"
+    },
+    "window": {
+     "description": "/news-headlines only. The time window the headlines were drawn from.",
+     "type": "string"
+    },
+    "window_end": {
+     "description": "/storm-alert only. Local time of the last assessed hour.",
+     "type": "string"
+    },
+    "window_start": {
+     "description": "/storm-alert only. Local time of the first assessed hour. Starts at the current hour, not midnight.",
+     "type": "string"
+    },
+    "winner": {
+     "description": "/game-result only. The winning team, or null if the match was a draw or has not concluded.",
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "year": {
+     "description": "/macro-economic-indicator only. The most recent year data was available for.",
+     "type": "string"
+    },
+    "zip": {
+     "description": "/ip-geolocate only.",
+     "type": [
+      "string",
+      "null"
+     ]
+    }
+   },
+   "type": "object"
+  },
+  "signal_mapping": {
+   "confidence_field": "confidence",
+   "label_field": "answer",
+   "reason_field": "summary"
+  },
+  "supported_intents": [
+   "ONCHAIN_TX_LOOKUP_GENERAL",
+   "GAS_PRICE_GENERAL",
+   "WALLET_BALANCE_CHECK_GENERAL",
+   "TOKEN_HOLDER_COUNT_GENERAL",
+   "TVL_LOOKUP_GENERAL",
+   "CRYPTO_PRICE_USD",
+   "STOCK_PRICE_US_EQUITY",
+   "SSL_VERIFICATION_CERT",
+   "WEATHER_FORECAST_GENERAL",
+   "STORM_ALERT_GENERAL",
+   "IP_GEOLOCATION_GENERAL",
+   "ACADEMIC_SEARCH_GENERAL",
+   "FRAUD_DETECTION_GENERAL",
+   "WEB_SEARCH_GENERAL",
+   "CONTENT_EXTRACTION_GENERAL",
+   "TEXT_CLASSIFICATION_GENERAL",
+   "TEXT_GENERATION_GENERAL",
+   "LANGUAGE_GENERATION_GENERAL",
+   "RESEARCH_SYNTHESIS_GENERAL",
+   "CROSS_CHAIN_STATE_VERIFY_GENERAL",
+   "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "WEATHER_CHECK_TEMPERATURE",
+   "LANGUAGE_TRANSLATION_GENERAL",
+   "CHAT_COMPLETION_GENERAL",
+   "NEWS_SEARCH_GENERAL",
+   "NEWS_HEADLINES_GENERAL",
+   "FACT_CHECK_GENERAL",
+   "SENTIMENT_ANALYSIS_GENERAL",
+   "CONTENT_MODERATION_GENERAL",
+   "CVE_LOOKUP_CVSS",
+   "TELEGRAPH_KNOWLEDGE_GENERAL",
+   "TEXT_SUMMARIZATION_GENERAL",
+   "CHATBOT_CONVERSATION_GENERAL",
+   "SEMANTIC_SIMILARITY_GENERAL",
+   "GRAMMAR_SPELL_CHECK_GENERAL",
+   "AI_TEXT_DETECTION_GENERAL",
+   "RESEARCH_QUERY_GENERAL",
+   "THREAT_INTELLIGENCE_INDICATOR",
+   "PACKAGE_STATUS_GENERAL",
+   "URL_SCAN_VERDICT",
+   "CURRENCY_EXCHANGE_CONVERT",
+   "SANCTIONS_SCREENING_MATCH_GENERAL",
+   "VULNERABILITY_TRIAGE_GENERAL",
+   "SPORTS_SCORE_GENERAL",
+   "GAME_RESULT_GENERAL",
+   "ROUTE_ETA_GENERAL",
+   "REGULATORY_FILING_MONITOR_GENERAL",
+   "CREDIT_SCORE_VERIFY_GENERAL",
+   "MACRO_ECONOMIC_INDICATOR_GENERAL",
+   "WEATHER_FORECAST_VERIFY_GENERAL",
+   "CUSTOMER_TICKET_RESOLUTION_GENERAL",
+   "RETURN_POLICY_VERIFY_GENERAL",
+   "TASK_EXECUTION_QUALITY_GENERAL",
+   "CARRIER_SERVICEABILITY_GENERAL",
+   "DELIVERY_WINDOW_VERIFY_GENERAL",
+   "PAYMENT_METHOD_VERIFY_GENERAL",
+   "INVOICE_LEDGER_RECONCILE_GENERAL",
+   "URL_SAFE_GENERAL",
+   "MALWARE_DETECTION_HASH",
+   "DNS_RECORD_LOOKUP_GENERAL",
+   "THREAT_IP_REPUTATION_GENERAL",
+   "FX_NOW_CAD",
+   "FX_NOW_EUR",
+   "FX_NOW_SEK",
+   "TOKEN_TOTAL_SUPPLY_VERIFY_GENERAL",
+   "CORPORATE_REGISTRY_LOOKUP_GENERAL",
+   "EMAIL_SECURITY_GENERAL",
+   "MINING_HASHPRICE_VERIFY_GENERAL",
+   "SECURITY_REVIEW_GENERAL",
+   "LLM_OUTPUT_EVALUATION_GENERAL",
+   "CONTRACT_OBLIGATION_AUDIT_GENERAL",
+   "CODE_GENERATION_GENERAL",
+   "CODE_REVIEW_GENERAL",
+   "TEXT_AUTHENTICITY_CHECK_GENERAL"
+  ],
+  "docs": {
+   "repository": "https://github.com/Sireadell/onchain-tx"
+  },
+  "limitations": [
+   {
+    "code": "MAX_PARAM_VALUE",
+    "message": "tx_hash must be exactly 66 characters (0x-prefixed, 64 hex characters).",
+    "param": "tx_hash",
+    "property": "length",
+    "value_num": 66,
+    "operator": "eq"
+   },
+   {
+    "code": "MAX_PARAM_VALUE",
+    "message": "address must be exactly 42 characters (0x-prefixed, 40 hex characters).",
+    "param": "address",
+    "property": "length",
+    "value_num": 42,
+    "operator": "eq"
+   },
+   {
+    "code": "MAX_PARAM_VALUE",
+    "message": "token must be exactly 42 characters (0x-prefixed, 40 hex characters).",
+    "param": "token",
+    "property": "length",
+    "value_num": 42,
+    "operator": "eq"
+   },
+   {
+    "code": "MAX_PARAM_VALUE",
+    "message": "wallet must be a valid 0x-prefixed, 40 hex character EVM address.",
+    "param": "wallet",
+    "property": "length",
+    "value_num": 42,
+    "operator": "eq"
+   }
+  ],
+  "base_url": "https://telegraph-onchain-tx-lookup-miner.onrender.com",
+  "wallet_address": "0xb3fb14fecac09efbd0c74fc07d50d7ed1eef2b53",
+  "fee_address": "0x6f477610a93c5b255c29c489760045272bceda99",
+  "activation_status": "active",
+  "min_price_usdc": 10000,
+  "yaml_url": "https://raw.githubusercontent.com/Sireadell/onchain-tx/eea962548e5a72492e33565664e9ab5473bf469e/miner.yaml",
+  "registered_at": "2026-10-25T00:40:07Z",
+  "scored": true,
+  "last_scored_epoch": 1969,
+  "last_scored_at": "2026-11-01T18:35:20Z",
+  "scores": [
+   {
+    "intent_id": "EMAIL_SECURITY_GENERAL",
+    "epoch_id": 1969,
+    "rank": 2,
+    "score": 0.9966,
+    "scored_at": "2026-11-01T18:24:40.496127Z"
+   },
+   {
+    "intent_id": "THREAT_INTELLIGENCE_INDICATOR",
+    "epoch_id": 1969,
+    "rank": 4,
+    "score": 0.1003,
+    "scored_at": "2026-11-01T18:31:40.832388Z"
+   },
+   {
+    "intent_id": "FX_NOW_EUR",
+    "epoch_id": 1969,
+    "rank": 8,
+    "score": 0.66,
+    "scored_at": "2026-11-01T18:05:23.509958Z"
+   },
+   {
+    "intent_id": "CODE_REVIEW_GENERAL",
+    "epoch_id": 1969,
+    "rank": 13,
+    "score": 0,
+    "scored_at": "2026-11-01T18:28:18.50088Z"
+   },
+   {
+    "intent_id": "CONTRACT_OBLIGATION_AUDIT_GENERAL",
+    "epoch_id": 1969,
+    "rank": 13,
+    "score": 0,
+    "scored_at": "2026-11-01T18:35:20.014878Z"
+   },
+   {
+    "intent_id": "CUSTOMER_TICKET_RESOLUTION_GENERAL",
+    "epoch_id": 1969,
+    "rank": 13,
+    "score": 0,
+    "scored_at": "2026-11-01T18:15:46.785069Z"
+   },
+   {
+    "intent_id": "LLM_OUTPUT_EVALUATION_GENERAL",
+    "epoch_id": 1969,
+    "rank": 13,
+    "score": 0,
+    "scored_at": "2026-11-01T18:12:11.490531Z"
+   },
+   {
+    "intent_id": "TASK_EXECUTION_QUALITY_GENERAL",
+    "epoch_id": 1969,
+    "rank": 13,
+    "score": 0,
+    "scored_at": "2026-11-01T18:33:39.749584Z"
+   },
+   {
+    "intent_id": "CRYPTO_PRICE_USD",
+    "epoch_id": 1969,
+    "rank": 14,
+    "score": 0.976,
+    "scored_at": "2026-11-01T18:10:29.946449Z"
+   },
+   {
+    "intent_id": "VULNERABILITY_TRIAGE_GENERAL",
+    "epoch_id": 1969,
+    "rank": 20,
+    "score": 0,
+    "scored_at": "2026-11-01T18:27:36.265444Z"
+   },
+   {
+    "intent_id": "SECURITY_REVIEW_GENERAL",
+    "epoch_id": 1969,
+    "rank": 22,
+    "score": 0,
+    "scored_at": "2026-11-01T18:28:09.756084Z"
+   },
+   {
+    "intent_id": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+    "epoch_id": 1969,
+    "rank": 30,
+    "score": 0,
+    "scored_at": "2026-11-01T18:21:12.312195Z"
+   }
+  ]
+ },
+ {
+  "id": "710637",
+  "slug": "zk-sanctions",
+  "kind": "miner",
+  "protocol": "generic",
+  "name": "Sanctions Name Evidence",
+  "description": "Keyless name screening from official OFAC SDN and non-SDN snapshots with published dates, plus UK entity designations. Returns listed names, aliases, program tags and explainable similarity scores. A name match needs identity review and a negative is not sanctions clearance.",
+  "endpoints": [
+   {
+    "path": "/screen",
+    "method": "GET",
+    "description": "Screen exactly one person or entity name using ?name=. Matches official primary names and aliases, reordered names and close spelling. The matched boolean is a name alert, not confirmed identity. Lists are dated snapshots; UK coverage is entities only. Do not pass a full question, DOB, wallet address or country in name."
+   }
+  ],
+  "input_schema": {
+   "properties": {
+    "name": {
+     "description": "Person or entity name, not a question or wallet address.",
+     "maxLength": 256,
+     "minLength": 1,
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "output_schema": {
+   "properties": {
+    "as_of": {
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "confidence": {
+     "maximum": 1,
+     "minimum": 0,
+     "type": "number"
+    },
+    "lists": {
+     "items": {
+      "type": "string"
+     },
+     "type": "array"
+    },
+    "match_score": {
+     "maximum": 1,
+     "minimum": 0,
+     "type": [
+      "number",
+      "null"
+     ]
+    },
+    "matched": {
+     "type": [
+      "boolean",
+      "null"
+     ]
+    },
+    "matches": {
+     "items": {
+      "type": "object"
+     },
+     "type": "array"
+    },
+    "name": {
+     "type": "string"
+    },
+    "source": {
+     "items": {
+      "type": "object"
+     },
+     "type": "array"
+    },
+    "status": {
+     "enum": [
+      "ok",
+      "unavailable"
+     ],
+     "type": "string"
+    },
+    "summary": {
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "signal_mapping": {
+   "confidence_field": "confidence",
+   "label_field": "summary",
+   "reason_field": "summary"
+  },
+  "supported_intents": [
+   "SANCTIONS_SCREENING_MATCH_GENERAL"
+  ],
+  "docs": {
+   "documentation": "https://telegraph-s2-sanctions.margyn.workers.dev/health"
+  },
+  "limitations": [
+   {
+    "code": "MAX_PARAM_SIZE",
+    "message": "Name must be at most 256 UTF-8 bytes.",
+    "param": "name",
+    "property": "size_bytes",
+    "value_bytes": 256,
+    "operator": "lte"
+   }
+  ],
+  "base_url": "https://telegraph-s2-sanctions.margyn.workers.dev",
+  "wallet_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+  "fee_address": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+  "activation_status": "active",
+  "min_price_usdc": 10000,
+  "yaml_url": "https://raw.githubusercontent.com/zkasuran/telegraph-catalog-miners/7d3634546f21a37f3b480ac68679e0ec18d77f88/s2/zk-sanctions.yaml",
+  "registered_at": "2026-11-01T00:27:18Z",
+  "scored": false
+ }
+]

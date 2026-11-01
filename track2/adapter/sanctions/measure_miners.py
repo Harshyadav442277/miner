@@ -105,7 +105,8 @@ def run_version(a, version, pairs, keys, all_keys, token_stats):
                        for i, port in enumerate((18081, 18082, 18083))]
             for future in futures:
                 scores.update(future.result())
-        rows = [{"name": p["name"], "kind": p["kind"], "chosen": scores[c], "rejected": scores[r],
+        rows = [{"name": p["name"], "kind": p["kind"], "source_id_metadata_only": p.get("source_id_metadata_only"),
+                 "chosen": scores[c], "rejected": scores[r],
                  "correct": scores[c]["value"] > scores[r]["value"]}
                 for p, (c, r) in zip(pairs, keys, strict=True)]
         names = sorted({r["name"] for r in rows})
@@ -115,16 +116,24 @@ def run_version(a, version, pairs, keys, all_keys, token_stats):
         accuracy = sum(r["correct"] for r in rows) / len(rows)
         lower = wilson(name_wins, len(names))
         gate = accuracy >= .8 and lower >= .8 and len(summary["pairs_by_kind"]) >= 2 \
-            and summary["longer_answer_baseline"] <= .65
+            and summary["longer_answer_baseline"] <= .65 and summary.get("registration_eligible", True)
         result = {"version": version, "started_at": started_at, "finished_at": now(),
                   "seconds": round(time.time()-started, 2),
                   "runtime_commands": commands, "package_sha256": sha(pkg), "identity": identity,
                   "pairs_sha256": sha(a.capture / "pairs.jsonl"), "pairs": len(rows),
-                  "accuracy": accuracy, "ties": sum(r["chosen"]["bits"] == r["rejected"]["bits"] for r in rows),
+                  "accuracy": accuracy, "ties": sum(r["chosen"]["value"] == r["rejected"]["value"] for r in rows),
                   "names": len(names), "all_comparisons_correct_names": name_wins,
                   "name_level_wilson_95_lower": lower, "registration_gate_pass": gate,
                   "gate_note": "Requires >=80% point and name-level lower bound, both labels, length baseline <=65%",
                   "tokens": token_stats, "rows": rows}
+        for field in ("kind", "source_id_metadata_only"):
+            groups = {}
+            for row in rows:
+                if row.get(field) is not None:
+                    groups.setdefault(row[field], []).append(row["correct"])
+            if groups:
+                result["by_" + field] = {k: {"pairs": len(v), "accuracy": sum(v)/len(v)}
+                                         for k, v in sorted(groups.items())}
         save(a.capture / f"v{version}-node-scores.json", result)
         save(a.capture / f"v{version}-package-manifest.json", manifest)
         print(json.dumps({k: v for k, v in result.items() if k not in ("rows", "runtime_commands", "identity")}), flush=True)

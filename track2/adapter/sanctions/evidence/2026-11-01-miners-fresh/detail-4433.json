@@ -1,0 +1,12 @@
+{
+ "url": "https://devnode.telegraphprotocol.com/api/miners/4433",
+ "method": "GET",
+ "request_body": null,
+ "started_at": "2026-11-01T18:45:04.566515+00:00",
+ "finished_at": "2026-11-01T18:45:05.326645+00:00",
+ "status": 200,
+ "curl_exit": 0,
+ "error": "",
+ "sha256": "d3e5b1374aefa4ef2849a9b1eb8ed0b12ebf81789d9f40d942f56c9e9091ddeb",
+ "body": "{\"miner\":{\"registration_id\":4433,\"slug\":\"verifywire-fx-now\",\"miner_address\":\"0x8b224783fe5b3c52b7db0cb9b1754f8812b75287\",\"activation_status\":\"active\",\"yaml_url\":\"https://raw.githubusercontent.com/zkasuran/telegraph-catalog-miners/master/verifywire-fx-now.yaml\",\"yaml_hash\":\"e5a45e25d89a44204c4472910988dc6d782eed7ea22f333c7104ded3fa584974\",\"supported_intents\":[\"FX_NOW_CAD\",\"FX_NOW_EUR\",\"FX_NOW_SEK\"],\"fee_address\":\"0x8b224783fe5b3c52b7db0cb9b1754f8812b75287\",\"min_price_usdc\":10000,\"rejection_reason\":null,\"fetch_attempts\":0,\"retrying\":false,\"registered_at\":\"2026-10-25T00:41:51Z\",\"updated_at\":\"2026-10-25T00:41:52Z\"}}\n"
+}

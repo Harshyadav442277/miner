@@ -1,0 +1,9 @@
+{
+ "base_url": "https://www.treasury.gov",
+ "path": "/ofac/downloads/sdn.xml",
+ "method": "GET",
+ "parameters": [],
+ "queryable": false,
+ "required": [],
+ "min_interval_seconds": 1.0
+}

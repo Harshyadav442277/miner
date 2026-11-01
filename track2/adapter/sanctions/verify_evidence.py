@@ -1,10 +1,12 @@
 """Offline checks: source hashes, raw bodies, verbatim pairs, exact f32 ordering and historical numbers."""
 import argparse
+import datetime
 import gzip
 import hashlib
 import json
 from pathlib import Path
 import struct
+import urllib.parse
 
 
 def digest(raw):
@@ -33,8 +35,27 @@ def main():
             file, row = pair[side + "_capture"]
             original = json.loads((p / file).read_text(encoding="utf-8"))[row]
             assert original["body"] == pair[side]
-            assert original["name"] == pair["name"]
+            expected_name = pair.get("rejected_name", pair["name"]) if side == "rejected" else pair["name"]
+            assert original["name"] == expected_name
+    route_count = 0
+    for plan_file in p.glob("plan-*.json"):
+        plan = json.loads(plan_file.read_text())
+        if "error" in plan:
+            continue
+        file = p / plan_file.name.replace("plan-", "responses-")
+        for record in json.loads(file.read_text(encoding="utf-8")):
+            actual = urllib.parse.urlsplit(record["url"])
+            expected = urllib.parse.urlsplit(plan["base_url"].rstrip("/") + plan["path"])
+            assert (actual.scheme, actual.netloc, actual.path) == (expected.scheme, expected.netloc, expected.path)
+            query = urllib.parse.parse_qs(actual.query)
+            for key in ["name", *plan["parameters"]]:
+                assert query[key] == [record["name"]]
+            assert record["method"] == plan["method"]
+            assert datetime.datetime.fromisoformat(record["started_at"]) <= datetime.datetime.fromisoformat(record["finished_at"])
+            route_count += 1
     print(f"PASS sources; {raw_count} raw body hashes; {len(pairs)} verbatim pairs")
+    if route_count:
+        print(f"PASS {route_count} declared request routes, parameter mappings and timestamp orders")
     for f in sorted(p.glob("v*-node-scores.json")):
         data = json.loads(f.read_text())
         assert data["pairs_sha256"] == digest((p / "pairs.jsonl").read_bytes()), f
@@ -50,6 +71,8 @@ def main():
         assert correct / len(data["rows"]) == data["accuracy"]
         print(f"PASS v{data['version']} {correct}/{len(data['rows'])} = {data['accuracy']:.6f}; gate={data['registration_gate_pass']}")
     hist = p / "historical"
+    if not (hist / "dataset-manifest.json").exists():
+        return
     data_manifest = json.loads((hist / "dataset-manifest.json").read_text())
     for version, item in data_manifest.items():
         for split, entry in item["files"].items():

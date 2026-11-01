@@ -1,0 +1,16 @@
+Public shallow clone verification, 2026-11-01 UTC
+Command: git -c core.autocrlf=true clone --depth 1 --single-branch --branch claude/evaluators-status-a51518 https://github.com/Harshyadav442277/miner.git C:/Users/hyada/tg-eval/reviewer-replay-20261101
+Checkout: d3fc7843286865035872c7eef4ff9edd4089b12c
+Command from clone: python track2/adapter/sanctions/verify_evidence.py track2/adapter/sanctions/evidence/2026-11-01-miners-r1
+PASS sources; 264 raw body hashes; 32 verbatim pairs
+PASS v3 29/32 = 0.906250; gate=False
+PASS v4 12/32 = 0.375000; gate=False
+PASS v5 24/32 = 0.750000; gate=False
+PASS historical v1 probe 29/48 = 0.604167
+PASS historical v2 probe 46/80 = 0.575000
+PASS historical v3 probe 58/80 = 0.725000
+PASS historical v4 probe 48/80 = 0.600000
+PASS historical v5 probe 43/80 = 0.537500
+Pairs SHA-256: 39014a9003f4584e9339817c7a47be6265ea0b36d5c58ad7283b7533a25226f8
+core.autocrlf: true
+This is the author replay, not independent developer activation.
