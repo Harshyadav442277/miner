@@ -19,10 +19,13 @@ const ADDR = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045";
 
 /** [label, role, request] — role is "primary" or "failover". */
 const PROBES = [
-  ["open-meteo forecast", "primary", { url: "https://api.open-meteo.com/v1/forecast?latitude=51.5&longitude=-0.12&hourly=temperature_2m&forecast_days=1" }],
-  ["open-meteo geocoding", "primary", { url: "https://geocoding-api.open-meteo.com/v1/search?name=Chennai&count=1" }],
-  ["bigdatacloud reverse-geocode", "failover", { url: "https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=40.71&longitude=-74.01&localityLanguage=en" }],
-  // Checked through production, for the same reason as ip-api below: OpenAlex
+  // MET Norway and Nominatim both require the miner's own User-Agent, so they are
+  // checked through production: a placed city and MET Norway's credit prove both.
+  ["met norway + nominatim (via production)", "primary", {
+    url: "https://miner-wine.vercel.app/weather-forecast?location=London",
+    expect: /London, England.*MET Norway/,
+  }],
+  // Checked through production: OpenAlex
   // rate-limits PER IP, and a dev machine that has been running answer-shape
   // sweeps gets 429/503 for a while afterwards while production, calling from
   // Vercel, is unaffected. Probing it directly from here reports a primary
@@ -42,27 +45,14 @@ const PROBES = [
   // "1) <title>" entry in `reason` is what proves papers came back. An empty
   // result is a visible product degradation and worth seeing, not a reason to
   // block a deploy (the honest none-found answer still restates the question,
-  // which is most of what the converter keeps — bench/acad_shape.mjs).
+  // which is most of what the converter keeps — the Season I bench, in git history).
   ["openalex yielding papers", "failover", {
     url: "https://miner-wine.vercel.app/papers?query=" +
       encodeURIComponent("Find recent peer-reviewed papers on CRISPR gene editing"),
     expect: /1\)\s[^"]{5,}/,
   }],
-  ["google translate (keyless)", "primary", { url: "https://clients5.google.com/translate_a/t?client=dict-chrome-ex&sl=en&tl=fr&q=good%20morning" }],
-  ["mymemory", "failover", { url: "https://api.mymemory.translated.net/get?q=good%20morning&langpair=en|fr" }],
-  // NOT probed directly: ip-api.com is TCP-blocked from the dev machine (GAPS
-  // G27), so a direct probe reports a false primary outage. It is checked
-  // through production instead, where the answer identifies the provider: only
-  // ip-api honours operator geofeeds and places 142.251.42.174 in Tokyo, while
-  // the ipwho.is fallback misplaces it in Mumbai. Tokyo therefore proves the
-  // primary answered.
-  ["ip-api.com (via production)", "primary", {
-    url: "https://miner-wine.vercel.app/ip-geolocate?ip=142.251.42.174",
-    expect: /tokyo|japan/i,
-  }],
-  ["ipwho.is", "failover", { url: "https://ipwho.is/8.8.8.8" }],
-  ["ipinfo.io", "failover", { url: "https://ipinfo.io/8.8.8.8/json" }],
-  ["google news rss", "primary", { url: "https://news.google.com/rss/search?q=technology&hl=en-US&gl=US&ceid=US:en" }],
+  // Google Translate, MyMemory, ip-api, ipwho.is, IPinfo and Google News are not
+  // probed: their terms bar resale and production no longer calls them (G189, G230).
   ["publicnode eth rpc", "primary", { rpc: "https://ethereum-rpc.publicnode.com" }],
   ["drpc eth rpc", "failover", { rpc: "https://eth.drpc.org" }],
   ["flashbots eth rpc", "failover", { rpc: "https://rpc.flashbots.net" }],

@@ -1,0 +1,80 @@
+
+## Who wrote Pride and Prejudice?
+  sources: Pride and Prejudice and Zombies (film) | Pride and Prejudice | Pride & Prejudice (2005 film) | Pride and Prejudice and Zombies
+  web: answered: From Wikipedia's "Pride and Prejudice and Zombies (film)": "Pride and Prejudice and Zombies (stylized as Pride + Prejudice + Zombies) is a 2016 action comedy horror film based on Seth Grahame-Smith's 2009 novel of the same name, which parodies the 1813 novel P
+
+## What is the capital of Australia?
+  sources: Question | Australian Capital Territory | List of Australian capital cities | Canberra | Capital punishment in Australia
+  web: answered: From Wikipedia's "Australian Capital Territory": "The Australian Capital Territory (ACT), known as the Federal Capital Territory until 1938, is an internal territory of Australia." [2] This sentence is quoted from the source, not phrased.
+
+## Who painted the Mona Lisa?
+  sources: Mona Lisa | Mona Lisa Smile | Two–Mona Lisa theory | Mona Lisa (Prado) | Mona Lisa (film)
+  web: answered: From Wikipedia's "Two–Mona Lisa theory": "The two–Mona Lisa theory is a longstanding theory proposed by various historians, art experts, and others that Leonardo da Vinci painted two versions of the Mona Lisa." [3] This sentence is quoted from the source, not 
+
+## Who invented the telephone?
+  sources: Telephone | History of the telephone | The Telephone Cases | Alexander Graham Bell | Bell Telephone Company
+  web: answered: From Wikipedia's "History of the telephone": "The first telephone patent was granted to Alexander Graham Bell in 1876." [2] This sentence is quoted from the source, not phrased.
+
+## What is the capital of Canada?
+  sources: Capital punishment in Canada | Ottawa | National Capital Region (Canada) | Growth capital | Capital
+  web: answered: From Wikipedia's "Capital punishment in Canada": "Capital punishment in Canada dates to Canada's earliest history, including its period as first a French and then a British colony." [1] This sentence is quoted from the source, not phrased.
+
+## Who wrote War and Peace?
+  sources: War and Peace | War and Peace (film series) | War and Peace (1956 film) | The Stone Roses: War and Peace | Judaism and peace
+  web: answered: From Wikipedia's "War and Peace": "War and Peace (Russian: Война и мир, romanized: Voyna i mir; pre-reform Russian: Война и миръ; IPA: [vɐjˈna i ˈmʲir]) is an epic novel by the Russian author Leo Tolstoy." [1] This sentence is quoted from the source, not phras
+
+## Who directed The Godfather?
+  sources: The Godfather | The Godfather (film series) | The Godfather Part II | Varalaru | Godfather
+  web: answered: From Wikipedia's "The Godfather": "The Godfather is a 1972 American epic gangster film directed by Francis Ford Coppola, who co-wrote the screenplay with Mario Puzo based on Puzo's best-selling 1969 novel." [1] This sentence is quoted from the source, not phra
+
+## When did the Berlin Wall fall?
+  sources: Berlin Wall | Fall of the Berlin Wall | The Wall – Live in Berlin | Berlin | German reunification
+  web: answered: From Wikipedia's "Fall of the Berlin Wall": "The Fall of the Berlin Wall and the fortified inner German border occurred immediately... without delay after a Politburo press conference on 9 November 1989 prematurely announced that East Germans could travel with
+
+## How many moons does Mars have?
+  sources: Moons of Mars | A Princess of Mars | Martian Moons eXploration | Mars | List of missions to Mars
+  web: answered: From Wikipedia's "Moons of Mars": "The two moons of Mars are Phobos and Deimos." [1] This sentence is quoted from the source, not phrased.
+
+## What is the tallest mountain in the world?
+  sources: Tallest mountain | List of tallest people | List of highest mountains on Earth | List of tallest statues | List of mountain peaks by prominence
+  web: answered: From Wikipedia's "Tallest mountain": "The superlative, tallest mountain is often used when what is meant is highest mountain." [1] This sentence is quoted from the source, not phrased.
+
+## Who discovered penicillin?
+  sources: Penicillin | Discovery of penicillin | Alexander Fleming | History of penicillin
+  web: answered: From Wikipedia's "Penicillin": "Penicillin was discovered in 1928 by the Scottish physician Alexander Fleming as a crude extract of P. rubens." [1] This sentence is quoted from the source, not phrased.
+
+## What is the largest ocean on Earth?
+  sources: Ocean | Earth | List of lakes by area | Pacific Ocean | Indian Ocean Geoid Low
+  web: answered: From Wikipedia's "Pacific Ocean": "The Pacific Ocean is the largest and deepest of Earth's five oceanic divisions." [3] This sentence is quoted from the source, not phrased.
+
+## Who wrote Romeo and Juliet?
+  sources: Romeo + Juliet | Romeo and Juliet (1936 film) | Juliet & Romeo (film) | Romeo and Juliet (Tchaikovsky) | Romeo and Juliet
+  web: answered: From Wikipedia's "Romeo + Juliet": "William Shakespeare's Romeo & Juliet (stylized as William Shakespeare's Romeo + Juliet) is a 1996 romantic crime film directed, produced, and co-written by Baz Luhrmann." [1] This sentence is quoted from the source, not phra
+
+## What is the capital of Brazil?
+  sources: Brazil | Capital punishment in Brazil | Das Kapital | Capitals of Brazil | 3G Capital
+  web: answered: From Wikipedia's "Brazil": "Brazil is a federation composed of 26 states and a Federal District, which hosts the capital, Brasília." [1] This sentence is quoted from the source, not phrased.
+
+## Who is the current CEO of Microsoft?
+  sources: Microsoft | Satya Nadella | Acquisition of Activision Blizzard by Microsoft | Xbox (division) | Asha Sharma
+  web: answered: The current CEO of Microsoft is Satya Nadella, in office since 2014. Source: Wikidata.
+
+## Where is the Taj Mahal?
+  sources: Taj Mahal | Taj Mahal Palace Hotel | The Taj Story | Taj Mahal (musician) | Hard Rock Hotel & Casino Atlantic City
+  web: answered: From Wikipedia's "Taj Mahal": "The Taj Mahal ( TAHJ mə-HAHL, TAHZH -⁠; Hindustani: [t̪ɑːd͡ʒ ˈmɛɦ(ɛ)l]; lit. 'Crown of the Palace') is an ivory-white marble mausoleum on the right bank of the river Yamuna in Agra, Uttar Pradesh, India." [1] This sentence is quo
+
+## What language is spoken in Brazil?
+  sources: Languages of Brazil | Language Spoken at Home | Brazilian Portuguese | Kalina language | Guarani language
+  web: answered: From Wikipedia's "Languages of Brazil": "Portuguese is the official and national language of Brazil, being widely spoken by nearly all of its population." [1] This sentence is quoted from the source, not phrased.
+
+## Who composed The Four Seasons?
+  sources: The Four Seasons (band) | The Four Seasons (Vivaldi) | Agents of the Four Seasons | The Four Seasons (1981 film) | Four Seasons Hotels and Resorts
+  web: answered: From Wikipedia's "The Four Seasons (band)": "The Four Seasons were an American pop and rock band formed in 1960 in Newark, New Jersey." [1] This sentence is quoted from the source, not phrased.
+
+## What is the boiling point of water?
+  sources: Boiling Point (2021 film) | Boiling point | Boiling | Boiling water reactor | Boiling-point elevation
+  web: answered: From Wikipedia's "Boiling Point (2021 film)": "Boiling Point is a 2021 British drama film directed by Philip Barantini and written by Barantini and James Cummings, based on a 2019 short film of the same name." [1] This sentence is quoted from the source, not p
+
+## Who was the first person to walk on the Moon?
+  sources: A Walk on the Moon | List of people who have flown to the Moon | List of Apollo astronauts | Apollo 11 | The Midnight Walk
+  web: answered: From Wikipedia's "A Walk on the Moon": "A Walk on the Moon is a 1999 American drama film starring Diane Lane, Viggo Mortensen, Liev Schreiber, and Anna Paquin." [1] This sentence is quoted from the source, not phrased.

@@ -1,0 +1,449 @@
+{
+ "at": "2026-10-25T16:42:40.701Z",
+ "base": "https://miner-wine.vercel.app",
+ "baseline_rtt_ms": 239,
+ "intents": {
+  "CURRENCY_EXCHANGE": {
+   "path": "/convert",
+   "target": "< 250ms",
+   "target_ms": 250,
+   "server_ms_est": [
+    37,
+    44,
+    77
+   ],
+   "within_target": 3,
+   "runs": [
+    {
+     "q": "Convert 320 CHF to SEK",
+     "ms": 276,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "converted"
+    },
+    {
+     "q": "How many Polish zloty is 45 euros?",
+     "ms": 283,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "converted"
+    },
+    {
+     "q": "What is 1200 NOK in USD?",
+     "ms": 316,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "converted"
+    }
+   ]
+  },
+  "LANGUAGE_TRANSLATION": {
+   "path": "/translate",
+   "target": "< 1.5s",
+   "target_ms": 1500,
+   "server_ms_est": [
+    190,
+    268,
+    237
+   ],
+   "within_target": 3,
+   "runs": [
+    {
+     "q": "Translate \"The museum opens at nine\" into Italian.",
+     "ms": 429,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "translated"
+    },
+    {
+     "q": "Translate \"My luggage is missing\" into Portuguese.",
+     "ms": 507,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "translated"
+    },
+    {
+     "q": "Translate \"Please call a doctor\" into Dutch.",
+     "ms": 476,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "translated"
+    }
+   ]
+  },
+  "SENTIMENT_ANALYSIS": {
+   "path": "/sentiment",
+   "target": "< 300ms",
+   "target_ms": 300,
+   "server_ms_est": [
+    104,
+    143,
+    163
+   ],
+   "within_target": 3,
+   "runs": [
+    {
+     "q": "Sentiment of this review: 'The noise cancelling is magic, worth every penny.'",
+     "ms": 343,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "positive"
+    },
+    {
+     "q": "What is the sentiment of: 'Waited forty minutes and the soup was cold.'",
+     "ms": 382,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "negative"
+    },
+    {
+     "q": "Sentiment of this comment: 'Decent value, though the strap feels flimsy.'",
+     "ms": 402,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "mixed"
+    }
+   ]
+  },
+  "TEXT_CLASSIFICATION": {
+   "path": "/classify",
+   "target": "< 400ms",
+   "target_ms": 400,
+   "server_ms_est": [
+    245,
+    176,
+    345
+   ],
+   "within_target": 3,
+   "runs": [
+    {
+     "q": "Classify this headline as politics, sport or science: 'Astronomers detect water vapour on a distant exoplanet.'",
+     "ms": 484,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "ambiguous"
+    },
+    {
+     "q": "Classify this ticket as billing, technical or account issue: 'My invoice shows the wrong VAT number.'",
+     "ms": 415,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "ambiguous"
+    },
+    {
+     "q": "Classify into travel, food or finance: 'The best ramen shops near Shinjuku station.'",
+     "ms": 584,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "classified"
+    }
+   ]
+  },
+  "SANCTIONS_SCREENING_MATCH": {
+   "path": "/sanctions-screen",
+   "target": "< 500ms",
+   "target_ms": 500,
+   "server_ms_est": [
+    161,
+    99,
+    168
+   ],
+   "within_target": 3,
+   "runs": [
+    {
+     "q": "Screen Sberbank against sanctions lists",
+     "ms": 400,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "match"
+    },
+    {
+     "q": "Is Maria Gonzalez Lopez on any sanctions list?",
+     "ms": 338,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "no_match"
+    },
+    {
+     "q": "Screen the vessel name Ocean Glory against OFAC",
+     "ms": 407,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "no_match"
+    }
+   ]
+  },
+  "CORPORATE_REGISTRY_LOOKUP": {
+   "path": "/company-registry",
+   "target": "< 2.5s",
+   "target_ms": 2500,
+   "server_ms_est": [
+    981,
+    446,
+    1099
+   ],
+   "within_target": 3,
+   "runs": [
+    {
+     "q": "Look up Unilever PLC in the company registry",
+     "ms": 1220,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "found"
+    },
+    {
+     "q": "Is Nvidia Corporation an active registered company?",
+     "ms": 685,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "not_found"
+    },
+    {
+     "q": "What is the LEI of Deutsche Bank AG?",
+     "ms": 1338,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "found"
+    }
+   ]
+  },
+  "REGULATORY_FILING_MONITOR": {
+   "path": "/sec-filings",
+   "target": "< 3s",
+   "target_ms": 3000,
+   "server_ms_est": [
+    419,
+    134,
+    270
+   ],
+   "within_target": 3,
+   "runs": [
+    {
+     "q": "What was Nvidia's most recent 10-Q filing date?",
+     "ms": 658,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "filed"
+    },
+    {
+     "q": "Has Amazon filed an 8-K this month?",
+     "ms": 373,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "not_found"
+    },
+    {
+     "q": "Latest annual report filing from Coca-Cola on EDGAR",
+     "ms": 509,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "unknown"
+    }
+   ]
+  },
+  "CRYPTO_TRANSFER_VERIFY": {
+   "path": "/transfer-verify",
+   "target": "< 1.5s",
+   "target_ms": 1500,
+   "server_ms_est": [
+    300,
+    391,
+    273
+   ],
+   "within_target": 3,
+   "runs": [
+    {
+     "q": "Verify transfer 0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060 on mainnet",
+     "ms": 539,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "confirmed"
+    },
+    {
+     "q": "Was transaction 0x88df016429689c079f3b2f6ad39fa052532c56795b733da78a91ebe6a713944b confirmed?",
+     "ms": 630,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "confirmed"
+    },
+    {
+     "q": "Status of transfer 0x2f1c5c2b44f771e942a8506148e256f94f1a464babc938ae0690c6e34cd79190",
+     "ms": 512,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "confirmed"
+    }
+   ]
+  },
+  "MACRO_ECONOMIC_INDICATOR": {
+   "path": "/macro",
+   "target": "< 2s",
+   "target_ms": 2000,
+   "server_ms_est": [
+    331,
+    163,
+    699
+   ],
+   "within_target": 3,
+   "runs": [
+    {
+     "q": "What is the euro area's latest inflation rate?",
+     "ms": 570,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "reported"
+    },
+    {
+     "q": "What is Germany's unemployment rate?",
+     "ms": 402,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "reported"
+    },
+    {
+     "q": "What is the current ECB deposit facility rate?",
+     "ms": 938,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "reported"
+    }
+   ]
+  },
+  "URL_SAFE": {
+   "path": "/url-reputation",
+   "target": "< 300ms",
+   "target_ms": 300,
+   "server_ms_est": [
+    179,
+    153,
+    68
+   ],
+   "within_target": 3,
+   "runs": [
+    {
+     "q": "Is https://www.bbc.co.uk safe?",
+     "ms": 418,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "unknown"
+    },
+    {
+     "q": "Check http://testsafebrowsing.appspot.com/s/malware.html for malware",
+     "ms": 392,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "unknown"
+    },
+    {
+     "q": "Is https://docs.python.org a phishing site?",
+     "ms": 307,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "unknown"
+    }
+   ]
+  },
+  "QUESTION_ANSWERING": {
+   "path": "/answer",
+   "target": "< 2s",
+   "target_ms": 2000,
+   "server_ms_est": [
+    691,
+    611,
+    813
+   ],
+   "within_target": 3,
+   "runs": [
+    {
+     "q": "Who painted The Starry Night?",
+     "ms": 930,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "answered"
+    },
+    {
+     "q": "What is the capital of Kenya?",
+     "ms": 850,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "answered"
+    },
+    {
+     "q": "How many bones are in the adult human body?",
+     "ms": 1052,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "answered"
+    }
+   ]
+  },
+  "CROSS_CHAIN_STATE_VERIFY": {
+   "path": "/cross-chain",
+   "target": "< 3s",
+   "target_ms": 3000,
+   "server_ms_est": [
+    17,
+    138,
+    0
+   ],
+   "within_target": 3,
+   "runs": [
+    {
+     "q": "Has LayerZero message 0x0aa1b2c3d4e5f60718293a4b5c6d7e8f9011223344556677889900aabbccddeeff delivered?",
+     "ms": 256,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "insufficient_input"
+    },
+    {
+     "q": "Verify the bridge transfer 0x3c4d5e6f708192a3b4c5d6e7f8091a2b3c4d5e6f708192a3b4c5d6e7f8091a2b on LayerZero",
+     "ms": 377,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "not_found"
+    },
+    {
+     "q": "Is Wormhole message 2/0000000000000000000000003ee18b2214aff97000d974cf647e7c347e8fa585/2 delivered?",
+     "ms": 239,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "insufficient_input"
+    }
+   ]
+  },
+  "EVENT_OUTCOME_RESOLUTION": {
+   "path": "/event-outcome",
+   "target": "< 5s",
+   "target_ms": 5000,
+   "server_ms_est": [
+    436,
+    315,
+    452
+   ],
+   "within_target": 3,
+   "runs": [
+    {
+     "q": "Who won the 2023 Rugby World Cup final?",
+     "ms": 675,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "no_market_found"
+    },
+    {
+     "q": "Did Spain win Euro 2024?",
+     "ms": 554,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "resolved"
+    },
+    {
+     "q": "Who won the 2022 Wimbledon men's singles title?",
+     "ms": 691,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "no_market_found"
+    }
+   ]
+  }
+ }
+}

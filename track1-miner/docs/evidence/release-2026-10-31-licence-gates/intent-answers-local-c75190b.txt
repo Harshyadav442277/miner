@@ -1,0 +1,67 @@
+intent answers against http://127.0.0.1:8791
+
+  coverage: 40 declared intents, 40 cases
+
+  SSL_VERIFICATION       PASS
+  STORM_ALERT            PASS
+  WEATHER_FORECAST       PASS
+  GAS_PRICE              PASS
+  FINANCIAL_DATA         FAIL
+      - errored: not_licensed
+  FRAUD_DETECTION        PASS
+  CURRENCY_EXCHANGE      PASS
+  NEWS_SEARCH            FAIL
+      - errored: not_licensed
+  CVE_LOOKUP             PASS
+  ONCHAIN_TX_LOOKUP      PASS
+  WEATHER_CHECK          PASS
+  IP_GEOLOCATION         FAIL
+      - 8.8.8.8 not placed in the United States
+      - 8.8.8.8 answer never names Google
+      - 8.8.8.8 -> unknown; an anycast address answered as one location
+      - 142.251.42.174 -> unknown; not Tokyo, so the primary provider is not answering
+  LANGUAGE_TRANSLATION   PASS
+  ACADEMIC_SEARCH        PASS
+  CONTENT_EXTRACTION     PASS
+  NEWS_HEADLINES         FAIL
+      - only 0 headlines returned
+      - no headline names its source
+  FACT_CHECK             PASS
+  WALLET_BALANCE_CHECK   PASS
+  TOKEN_HOLDER_COUNT     
+      (blockscout shedding — holder counts checked for honesty only)
+PASS
+  RESEARCH_QUERY         PASS
+  CRYPTO_PRICE           
+      (price providers down — CRYPTO_PRICE checked for honesty only)
+PASS
+  STOCK_PRICE            FAIL
+      - AAPL -> unknown, want price
+      - ticker not named
+      - quote time not given in the exchange's zone
+      - market is closed but the last price is not labelled as such
+      - misrouted weather -> unknown, want no_subject
+  CROSS_CHAIN_STATE_VERIFY PASS
+  EVENT_OUTCOME_RESOLUTION 
+      (Polymarket unreachable from the checker — EVENT_OUTCOME checked for honesty only)
+PASS
+  URL_SCAN               PASS
+  WEB_SEARCH             FAIL
+      - Fed question -> unknown, want answered
+      - no cited report carries a publisher and a date
+  SENTIMENT_ANALYSIS     PASS
+  TEXT_CLASSIFICATION    PASS
+  RESEARCH_SYNTHESIS     PASS
+  SANCTIONS_SCREENING_MATCH PASS
+  CORPORATE_REGISTRY_LOOKUP PASS
+  REGULATORY_FILING_MONITOR PASS
+  CRYPTO_TRANSFER_VERIFY PASS
+  MACRO_ECONOMIC_INDICATOR PASS
+  URL_SAFE               PASS
+  QUESTION_ANSWERING     PASS
+  DNS_RECORD_LOOKUP      PASS
+  TOKEN_TOTAL_SUPPLY_VERIFY PASS
+  KEYWORD_EXTRACTION     PASS
+  VULNERABILITY_TRIAGE   PASS
+
+34/40 intents answering correctly.

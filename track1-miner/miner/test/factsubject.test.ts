@@ -1,0 +1,434 @@
+import { test, describe } from "node:test";
+import assert from "node:assert/strict";
+import { checkFact } from "../src/factcheck";
+import { extractSubject, sentencesOf, settle } from "../src/factsubject";
+import { foundingSentence } from "../src/factrelation";
+
+/**
+ * FACT_CHECK subject resolution, against a mocked Wikimedia.
+ *
+ * The article text below is transcribed from the live articles on 2026-09-16 —
+ * including the two Shark sentences that mention mammals without saying what a
+ * shark is, which is what made "sharks are mammals" answer `supported` while the
+ * classification guard was too loose. Fixtures, not paraphrase: a test that
+ * invents the encyclopaedia's wording proves nothing about the encyclopaedia.
+ */
+const BAT =
+  "Bats (order Chiroptera ) are winged mammals, the only mammals capable of true and sustained " +
+  "flight. Bats are more agile in flight than most birds, using long, spread-out digits covered " +
+  "with a thin membrane or patagium. ==== Vision ==== Microbats tend to have small eyes but are " +
+  "still sensitive to light, and no species is truly blind. Most microbats have mesopic vision, " +
+  "meaning that they can detect light only in low levels, whereas other mammals have photopic " +
+  "vision, which allows colour vision.";
+
+const SHARK =
+  "Sharks are a group of elasmobranch cartilaginous fishes characterized by a ribless " +
+  "endoskeleton, dermal denticles, five to seven gill slits on each side, and pectoral fins that " +
+  "are not fused to the head. Modern sharks are classified within the division Selachii and are " +
+  "the sister group to the Batomorphi. Tooth shape depends on the shark's diet: those that feed " +
+  "on mollusks and crustaceans have dense and flattened teeth used for crushing, those that feed " +
+  "on fish have needle-like teeth for gripping, and those that feed on larger prey such as " +
+  "mammals have pointed lower teeth for gripping and triangular upper teeth with serrated edges " +
+  "for cutting. Sharks possess brain-to-body mass ratios that are similar to mammals and birds, " +
+  "and have exhibited apparent curiosity and behavior resembling play in the wild.";
+
+/**
+ * Sentences of the live Eiffel Tower article, transcribed 2026-10-11 (G188). The
+ * last is the one production quoted as SUPPORT for "The Eiffel Tower is in
+ * Berlin." — it names the tower and Berlin and says nothing about where the
+ * tower is.
+ */
+const WIRELESS =
+  "During World War I, the Eiffel Tower's wireless station played a crucial role in intercepting " +
+  "enemy communications from Berlin.";
+const EIFFEL =
+  "The Eiffel Tower (  EYE-fəl; French: Tour Eiffel [tuʁ ɛfɛl] ) is a lattice tower on the Champ de " +
+  "Mars in Paris, France. It is named after the engineer Gustave Eiffel, whose company designed and " +
+  "built the tower from 1887 to 1889. The tower is 330 metres (1,083 ft) tall, about the same height " +
+  "as an 81-storey building, and the tallest structure in Paris. During its construction, the Eiffel " +
+  "Tower surpassed the Washington Monument to become by far the tallest human-made structure in the " +
+  "world, a title it held for 41 years until the Chrysler Building in New York City was finished in " +
+  "1930. " + WIRELESS;
+
+/** Live lead sentences, 2026-10-11, pronunciation notes and all (\u escapes as served). */
+const COLOSSEUM_LEAD =
+  "The Colosseum ( KOL-ə-SEE-əm; Italian: Colosseo [kolosˈsɛːo]) is an " +
+  "elliptical amphitheatre in the centre of the city of Rome, Italy, just east of the Roman Forum.";
+const TAJ_LEAD =
+  "The Taj Mahal ( TAHJ mə-HAHL, TAHZH -⁠; Hindustani: [t̪ɑːd͡ʒ " +
+  "ˈmɛɦ(ɛ)l]; lit. 'Crown of the Palace') is an ivory-white marble mausoleum " +
+  "on the right bank of the river Yamuna in Agra, Uttar Pradesh, India.";
+const BIG_BEN_LEAD =
+  "Big Ben is the nickname for the Great Bell of the Great Clock of Westminster, and, by extension, " +
+  "for the clock tower that stands at the north end of the Palace of Westminster in London, England.";
+const LIBERTY_IN_PARIS =
+  "The statue remained intact in Paris pending sufficient progress on the pedestal; by January 1885, " +
+  "this had occurred and the statue was disassembled and crated for its ocean voyage.";
+const TAJ_UNESCO =
+  "The Taj Mahal was designated as a UNESCO World Heritage Site in 1983 for being \"the jewel of " +
+  "Muslim art in India and one of the universally admired masterpieces of the world's heritage\".";
+
+const TITLES: Record<string, string[]> = {
+  bats: ["Bat", "Bathsheba", "Bats language", "Batsuit"],
+  sharks: ["Shark", "Shark Tale", "Sharks (rugby union)", "List of sharks"],
+  // opensearch's live answer for "Eiffel Tower", 2026-10-11.
+  "eiffel tower": ["Eiffel Tower", "Eiffel Tower replicas and derivatives", "Eiffel Tower (Six Flags)",
+    "Eiffel Tower (Delaunay series)", "Eiffel Tower (Paris, Tennessee)", "Eiffel Tower (Paris, Texas)",
+    "Eiffel Tower (disambiguation)", "Eiffel Towers Den Bosch"],
+  // Live opensearch answers, 2026-10-31 (G241).
+  "bank of england": ["Bank of England", "Bank of England note issues", "Bank of England £5 note"],
+  stripe: ["Stripe", "Striped hyena", "Stripe, Inc.", "Striped polecat", "Striped skunk", "Stripes (film)"],
+};
+
+/** Live article text, 2026-10-31 (G241): the sentences that settle, and the leads before them. */
+const BANK_OF_ENGLAND =
+  "The Bank of England (BoE) is the central bank of the United Kingdom and the model on which most " +
+  "modern central banks have been based. The bank's headquarters have been in London's main financial " +
+  "district, the City of London, since 1694, and on Threadneedle Street since 1734.";
+const STRIPE_DISAMBIGUATION =
+  "Stripe, striped, or stripes may refer to: == Entertainment == Stripe (billiard ball), billiard balls " +
+  "numbered 9 through 15 Stripes (film), a 1981 American comedy film directed by Ivan Reitman";
+const STRIPED_HYENA =
+  "The striped hyena (Hyaena hyaena) is a species of hyena native to North and East Africa, the Middle " +
+  "East, the Caucasus, Central Asia, and the Indian subcontinent.";
+const STRIPE_INC =
+  "Stripe, LLC is an Irish-American multinational financial services and software as a service (SaaS) " +
+  "company dual-headquartered in South San Francisco, California, United States, and Dublin, Ireland. " +
+  "== History == Irish entrepreneur brothers John and Patrick Collison founded Stripe in Palo Alto, " +
+  "California, in 2010, and serve as the company's president and CEO, respectively.";
+
+const EXTRACTS: Record<string, string> = {
+  Bat: BAT, Shark: SHARK, "Eiffel Tower": EIFFEL, "Bank of England": BANK_OF_ENGLAND,
+  Stripe: STRIPE_DISAMBIGUATION, "Striped hyena": STRIPED_HYENA, "Stripe, Inc.": STRIPE_INC,
+};
+
+/** Serves opensearch and prop=extracts; the fallback full-text search finds nothing. */
+function mockWikipedia(): () => void {
+  const real = globalThis.fetch;
+  globalThis.fetch = (async (u: string) => {
+    const url = new URL(String(u));
+    const json = (body: unknown) =>
+      new Response(JSON.stringify(body), { status: 200, headers: { "content-type": "application/json" } });
+    const action = url.searchParams.get("action");
+    if (action === "opensearch") {
+      const term = (url.searchParams.get("search") ?? "").toLowerCase();
+      return json([term, TITLES[term] ?? [], [], []]);
+    }
+    if (action === "query" && url.searchParams.get("prop") === "extracts") {
+      const title = url.searchParams.get("titles") ?? "";
+      const extract = EXTRACTS[title];
+      if (!extract) return json({ query: { pages: { "-1": { title, missing: "" } } } });
+      return json({ query: { pages: { "1": { title, extract } } } });
+    }
+    if (action === "query" && url.searchParams.get("list") === "search") {
+      return json({ query: { search: [] } });
+    }
+    return new Response("not found", { status: 404 });
+  }) as typeof fetch;
+  return () => { globalThis.fetch = real; };
+}
+
+describe("extractSubject", () => {
+  test("takes the noun phrase before the predicate", () => {
+    assert.equal(extractSubject("Bats are the only mammals capable of sustained flight"), "Bats");
+    assert.equal(extractSubject("sharks are mammals"), "sharks");
+    assert.equal(extractSubject("humans only use 10% of their brains"), "humans");
+  });
+  test("drops the leading article, which retrieves a different page", () => {
+    // Wikipedia's title search answers "the Eiffel Tower" with *The Eiffel
+    // Tower*, a Barthes essay, and "Eiffel Tower" with the tower.
+    assert.equal(extractSubject("the Eiffel Tower is located in Paris"), "Eiffel Tower");
+  });
+  test("a question with no asserted subject yields nothing, not a guess", () => {
+    assert.equal(extractSubject("Will Sudan violence escalate further"), "");
+    assert.equal(extractSubject(""), "");
+    // No verb in the closed list: fall back to search rather than invent a subject.
+    assert.equal(extractSubject("water boils at 100 degrees Celsius"), "");
+  });
+});
+
+describe("settle", () => {
+  test("a section heading is not glued to the sentence after it", () => {
+    const s = sentencesOf(BAT);
+    assert.ok(s.some((x) => x.startsWith("Microbats tend to have small eyes")), s.join(" | "));
+    assert.ok(!s.some((x) => x.includes("====")), "headings must be stripped");
+  });
+
+  test("a sentence that merely shares a word is not evidence", () => {
+    // Both Shark sentences below name sharks AND mammals. Neither says what a
+    // shark is, so neither may settle "sharks are mammals".
+    const decoys = sentencesOf(SHARK).filter((s) => /mammals/.test(s) && !/cartilaginous/.test(s));
+    assert.equal(decoys.length, 2, decoys.join(" | "));
+    const found = settle("sharks are mammals", "sharks", decoys);
+    assert.equal(found, null);
+  });
+
+  test("an unmentioned predicate settles nothing", () => {
+    assert.equal(settle("bats are made of solid gold", "bats", sentencesOf(BAT)), null);
+  });
+
+  test("a one-term claim is not settled by the term merely appearing (G188)", () => {
+    // The only key left after the subject is "berlin". The sentence names the
+    // tower and Berlin, but the tower is a possessive modifier and Berlin is where
+    // intercepted messages came FROM: nothing here says where the tower is.
+    assert.equal(settle("The Eiffel Tower is in Berlin.", "Eiffel Tower", [WIRELESS]), null);
+  });
+
+  test("a sentence reporting what a newspaper said never supports the claim (2026-10-21)", () => {
+    // Production answered the Great Wall myth `supported` from this sentence,
+    // transcribed from the live article on 2026-10-21. Its neighbours call the
+    // claim a factoid and say NASA finds the wall barely visible.
+    const reported =
+      "Based on the photograph, the China Daily later reported that the Great Wall can be seen from 'space' " +
+      "with the naked eye, under favorable viewing conditions, if one knows exactly where to look.";
+    const found = settle("The Great Wall of China is visible from space with the naked eye.", "Great Wall of China", [reported]);
+    assert.notEqual(found?.verdict, "supported");
+  });
+
+  test("a place in the centre of a city is in that city", () => {
+    const lead = sentencesOf(COLOSSEUM_LEAD);
+    assert.equal(settle("The Colosseum is in Rome.", "Colosseum", lead)?.verdict, "supported");
+    assert.equal(settle("The Colosseum is in Italy.", "Colosseum", lead)?.verdict, "supported");
+    assert.equal(settle("The Colosseum is in Athens.", "Colosseum", lead)?.verdict, "contradicted");
+  });
+
+  test("a full stop inside a parenthesis does not cut the lead off from its subject", () => {
+    const s = sentencesOf(`${TAJ_LEAD} ${TAJ_UNESCO}`);
+    assert.match(s[0] ?? "", /^The Taj Mahal \(.*\) is an ivory-white marble mausoleum/);
+    assert.equal(settle("The Taj Mahal is in Agra.", "Taj Mahal", s)?.verdict, "supported");
+    assert.equal(settle("The Taj Mahal is in Pakistan.", "Taj Mahal", s)?.verdict, "contradicted");
+  });
+
+  test("a place a preposition hands to something else is not where the subject is", () => {
+    // Headed by the subject, "in India" in the same clause — but "for being the
+    // jewel of Muslim art in India" locates the art, not the mausoleum.
+    assert.equal(settle("The Taj Mahal is in India.", "Taj Mahal", [TAJ_UNESCO]), null);
+  });
+
+  test("where a thing was is not where it is", () => {
+    // Where the statue stood in 1884, waiting for its pedestal.
+    assert.equal(settle("The Statue of Liberty is in Paris.", "Statue of Liberty", [LIBERTY_IN_PARIS]), null);
+  });
+
+  test("a relative clause in a sentence the subject opens still speaks of it", () => {
+    const lead = sentencesOf(BIG_BEN_LEAD);
+    assert.equal(settle("Big Ben is in London.", "Big Ben", lead)?.verdict, "supported");
+    assert.equal(settle("Big Ben is in Paris.", "Big Ben", lead)?.verdict, "contradicted");
+  });
+});
+
+describe("checkFact on a one-term locative claim (G188)", () => {
+  test("in Berlin: contradicted by the lead, not supported by the wireless sentence", async () => {
+    const restore = mockWikipedia();
+    try {
+      const r = await checkFact("The Eiffel Tower is in Berlin.");
+      assert.equal(r.verdict, "contradicted");
+      assert.equal(r.source_url, "https://en.wikipedia.org/wiki/Eiffel_Tower");
+      assert.match(String(r.evidence), /on the Champ de Mars in Paris, France/);
+      assert.doesNotMatch(String(r.evidence), /wireless station|communications from Berlin/);
+    } finally {
+      restore();
+    }
+  });
+
+  test("in Paris: still supported, quoting the lead", async () => {
+    const restore = mockWikipedia();
+    try {
+      const r = await checkFact("The Eiffel Tower is in Paris.");
+      assert.equal(r.verdict, "supported");
+      assert.match(String(r.evidence), /on the Champ de Mars in Paris, France/);
+    } finally {
+      restore();
+    }
+  });
+
+  test("in France: supported through the appositive after Paris", async () => {
+    const restore = mockWikipedia();
+    try {
+      const r = await checkFact("Fact check: the Eiffel Tower is located in France.");
+      assert.equal(r.verdict, "supported");
+      assert.match(String(r.evidence), /in Paris, France/);
+    } finally {
+      restore();
+    }
+  });
+
+  test("in New York: the Chrysler Building sentence is not support", async () => {
+    // The article does say "in New York City" — about a different building.
+    const restore = mockWikipedia();
+    try {
+      const r = await checkFact("The Eiffel Tower is in New York.");
+      assert.equal(r.verdict, "contradicted");
+      assert.match(String(r.evidence), /in Paris, France/);
+    } finally {
+      restore();
+    }
+  });
+
+  test("in Europe: a containing place is never contradicted by a contained one", async () => {
+    // Paris is in Europe. The article never says so, and a city is not a rival
+    // of a continent, so the honest answer is unverified, not "contradicted".
+    const restore = mockWikipedia();
+    try {
+      const r = await checkFact("The Eiffel Tower is in Europe.");
+      assert.equal(r.verdict, "unverified");
+    } finally {
+      restore();
+    }
+  });
+
+  test("not in Berlin: the negated claim holds, on the same lead sentence", async () => {
+    const restore = mockWikipedia();
+    try {
+      const r = await checkFact("The Eiffel Tower is not in Berlin.");
+      assert.equal(r.verdict, "supported");
+      assert.match(String(r.evidence), /in Paris, France/);
+    } finally {
+      restore();
+    }
+  });
+});
+
+describe("checkFact resolves the subject first", () => {
+  test("bats and flight: supported, quoting the lead sentence", async () => {
+    const restore = mockWikipedia();
+    try {
+      const r = await checkFact("Fact-check this claim: Bats are the only mammals capable of sustained flight.");
+      assert.equal(r.verdict, "supported");
+      assert.equal(r.source, "Wikipedia");
+      assert.equal(r.source_url, "https://en.wikipedia.org/wiki/Bat");
+      assert.match(String(r.evidence), /the only mammals capable of true and sustained flight/);
+      assert.match(r.reason, /is supported by the reference source consulted/);
+      assert.match(r.reason, /not a full adjudication/);
+    } finally {
+      restore();
+    }
+  });
+
+  test("sharks and mammals: contradicted, quoting the sentence that says fishes", async () => {
+    const restore = mockWikipedia();
+    try {
+      const r = await checkFact("Fact check: sharks are mammals.");
+      assert.equal(r.verdict, "contradicted");
+      assert.equal(r.source_url, "https://en.wikipedia.org/wiki/Shark");
+      assert.match(String(r.evidence), /a group of elasmobranch cartilaginous fishes/);
+      // Not the tooth sentence and not the brain-mass sentence.
+      assert.doesNotMatch(String(r.evidence), /Tooth shape|brain-to-body/);
+    } finally {
+      restore();
+    }
+  });
+
+  test("bats are blind: contradicted by the article's own Vision section", async () => {
+    const restore = mockWikipedia();
+    try {
+      const r = await checkFact("Fact check: bats are blind.");
+      assert.equal(r.verdict, "contradicted");
+      assert.equal(r.source_url, "https://en.wikipedia.org/wiki/Bat");
+      assert.match(String(r.evidence), /no species is truly blind/);
+    } finally {
+      restore();
+    }
+  });
+
+  test("a predicate the subject's article never mentions stays unverified", async () => {
+    const restore = mockWikipedia();
+    try {
+      const r = await checkFact("Fact check: bats are made of solid gold.");
+      assert.equal(r.verdict, "unverified");
+      assert.doesNotMatch(r.reason, /\bis supported\b/i);
+    } finally {
+      restore();
+    }
+  });
+
+  test("a negated claim is judged on polarity, not on the words it shares", async () => {
+    const restore = mockWikipedia();
+    try {
+      // Negated claim, negated evidence: the same finding, so the claim holds.
+      const blind = await checkFact("Fact check: bats are not blind.");
+      assert.equal(blind.verdict, "supported");
+      assert.match(String(blind.evidence), /no species is truly blind/);
+      // Negated claim, incompatible class: also the same finding.
+      const sharks = await checkFact("Fact check: sharks are not mammals.");
+      assert.equal(sharks.verdict, "supported");
+      assert.match(String(sharks.evidence), /cartilaginous fishes/);
+    } finally {
+      restore();
+    }
+  });
+
+  test("the subject's own article is preferred over a full-text match", async () => {
+    // The fallback search is mocked to find nothing at all, so a verdict here can
+    // only have come from the subject article.
+    const restore = mockWikipedia();
+    try {
+      const r = await checkFact("Fact-check this claim: Bats are the only mammals capable of sustained flight.");
+      assert.equal(r.source_url, "https://en.wikipedia.org/wiki/Bat");
+    } finally {
+      restore();
+    }
+  });
+});
+
+describe("settled facts a mission workflow asks (G241)", () => {
+  test("headquartered in London: the possessive sentence that names the headquarters supports it", async () => {
+    const restore = mockWikipedia();
+    try {
+      const r = await checkFact("Is it true that the Bank of England is headquartered in London?");
+      assert.equal(r.verdict, "supported");
+      assert.match(String(r.evidence), /headquarters have been in London's main financial district/);
+    } finally {
+      restore();
+    }
+  });
+
+  test("headquartered in Paris: the same sentence is not support", async () => {
+    const restore = mockWikipedia();
+    try {
+      const r = await checkFact("Is it true that the Bank of England is headquartered in Paris?");
+      assert.notEqual(r.verdict, "supported");
+    } finally {
+      restore();
+    }
+  });
+
+  test("a disambiguation page is passed over for the article the claim is about", async () => {
+    const restore = mockWikipedia();
+    try {
+      const r = await checkFact("Is it true that Stripe was founded in 2010?");
+      assert.equal(r.verdict, "supported");
+      assert.equal(r.source_url, "https://en.wikipedia.org/wiki/Stripe%2C_Inc.");
+      assert.match(String(r.evidence), /founded Stripe in Palo Alto, California, in 2010/);
+    } finally {
+      restore();
+    }
+  });
+
+  test("a founding year the article does not state is not support", async () => {
+    const restore = mockWikipedia();
+    try {
+      const r = await checkFact("Is it true that Stripe was founded in 1999?");
+      assert.notEqual(r.verdict, "supported");
+    } finally {
+      restore();
+    }
+  });
+});
+
+describe("foundingSentence", () => {
+  test("matches the active and passive voice, with a year or a full date", () => {
+    const s = [
+      "Gates and Allen established Microsoft on April 4, 1975, with Gates as CEO.",
+      "Google was founded in 1998 by American computer scientists Larry Page and Sergey Brin.",
+    ];
+    assert.equal(foundingSentence("Microsoft was founded in 1975", "Microsoft", s), 0);
+    assert.equal(foundingSentence("Google was founded in 1998", "Google", s), 1);
+  });
+  test("another year, a negation or a non-founding claim finds nothing", () => {
+    const s = ["Google was founded in 1998 by Larry Page and Sergey Brin.", "Acme was not founded in 1990."];
+    assert.equal(foundingSentence("Google was founded in 1997", "Google", s), -1);
+    assert.equal(foundingSentence("Acme was founded in 1990", "Acme", s), -1);
+    assert.equal(foundingSentence("Google is headquartered in 1998", "Google", s), -1);
+  });
+});

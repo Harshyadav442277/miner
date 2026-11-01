@@ -2,7 +2,7 @@
 /**
  * Replays the questions the network actually routes, for every intent we serve.
  *
- * `replay-corpus.mjs` covers three intents and selects their questions with a
+ * It replaced `replay-corpus.mjs` (deleted 2026-10-22), which covered three intents and selected questions with a
  * regex over the text, which cannot tell WEATHER_CHECK from WEATHER_FORECAST and
  * silently drops the other ten. The feed labels every row with the intent the
  * Daemon classified it as (`routing.intent`), so the corpus can be built from the
@@ -18,6 +18,7 @@
  * against exactly the questions that failed.
  */
 import { readFile, writeFile } from "node:fs/promises";
+import { readManifest } from "./manifest.mjs";
 
 const BASE = process.argv.find((a) => a.startsWith("http")) ?? "https://miner-wine.vercel.app";
 const CORPUS = new URL("./routed-questions.json", import.meta.url);
@@ -28,46 +29,42 @@ const arg = (name, fallback) => {
 const ONLY = arg("--intent", null);
 const PAGES = Number(arg("--pages", 30));
 
+// The feed 502s or hangs on limit=100 (measured 2026-09-10: 45 s timeout at 100,
+// 3 s at 50). Page size is therefore 50, and a failed page is retried rather than
+// ending the sweep — one bad page used to abort the whole refresh.
+const PAGE = 50;
 const FEED = (offset) =>
-  `https://explorer.telegraphprotocol.com/api/daemon/api/questions?sort=recent&order=desc&since_hours=720&limit=100&offset=${offset}`;
+  `https://explorer.telegraphprotocol.com/api/daemon/api/questions?sort=recent&order=desc&since_hours=720&limit=${PAGE}&offset=${offset}`;
 
-/** Every intent in registration 402, and the endpoint the manifest routes it to. */
-const ENDPOINT = {
-  SSL_VERIFICATION: "/ssl-check",
-  STORM_ALERT: "/storm-alert",
-  ACADEMIC_SEARCH: "/papers",
-  LANGUAGE_TRANSLATION: "/translate",
-  IP_GEOLOCATION: "/ip-geolocate",
-  WEATHER_FORECAST: "/weather-forecast",
-  WEATHER_CHECK: "/weather-forecast",
-  CONTENT_EXTRACTION: "/extract",
-  NEWS_HEADLINES: "/headlines",
-  WALLET_BALANCE_CHECK: "/wallet-balance",
-  FACT_CHECK: "/fact-check",
-  TELEGRAPH_KNOWLEDGE: "/telegraph",
-  AI_TEXT_DETECTION: "/ai-detect",
-};
+/** Expansion immediately enters replay coverage, without another hand-kept list. */
+const ENDPOINT = Object.fromEntries(readManifest().endpoints.flatMap(e => e.intents.map(i => [i, e.path])));
 
 async function refresh() {
   const byIntent = {};
   const seen = new Set();
   let rows = 0;
+  let consecutiveFailures = 0;
   for (let p = 0; p < PAGES; p++) {
     let body;
-    try {
-      const res = await fetch(FEED(p * 100), {
-        headers: { "user-agent": "Mozilla/5.0", referer: "https://explorer.telegraphprotocol.com/signals" },
-        signal: AbortSignal.timeout(30_000),
-      });
-      if (!res.ok) {
-        console.error(`feed page ${p}: HTTP ${res.status}`);
-        break;
+    for (let attempt = 0; attempt < 3 && !body; attempt++) {
+      try {
+        const res = await fetch(FEED(p * PAGE), {
+          headers: { "user-agent": "Mozilla/5.0", referer: "https://explorer.telegraphprotocol.com/signals" },
+          signal: AbortSignal.timeout(45_000),
+        });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        body = await res.json();
+      } catch (e) {
+        console.error(`feed page ${p} attempt ${attempt + 1}: ${e.message}`);
+        if (attempt < 2) await new Promise((r) => setTimeout(r, 1500 * (attempt + 1)));
       }
-      body = await res.json();
-    } catch (e) {
-      console.error(`feed page ${p}: ${e.message}`);
-      break;
     }
+    if (!body) {
+      // Three consecutive dead pages is a dead feed; one is the node shedding.
+      if (++consecutiveFailures >= 3) break;
+      continue;
+    }
+    consecutiveFailures = 0;
     const results = body.results ?? [];
     if (results.length === 0) break;
     rows += results.length;
@@ -82,7 +79,12 @@ async function refresh() {
       (byIntent[intent] ??= []).push(text);
     }
   }
-  await writeFile(CORPUS, JSON.stringify(byIntent, null, 1));
+  if (!rows || !Object.keys(byIntent).length) throw new Error("Feed returned no usable questions; saved corpus preserved");
+  const prior = JSON.parse(await readFile(CORPUS, "utf8"));
+  for (const [intent, questions] of Object.entries(byIntent)) {
+    prior[intent] = [...new Set([...(prior[intent] ?? []), ...questions])];
+  }
+  await writeFile(CORPUS, JSON.stringify(prior, null, 1) + "\n");
   const n = Object.values(byIntent).reduce((a, b) => a + b.length, 0);
   console.log(`refreshed from ${rows} rows: ${n} distinct questions across ${Object.keys(byIntent).length} intents`);
 }
@@ -104,6 +106,7 @@ function classify(status, json) {
 }
 
 if (process.argv.includes("--refresh")) await refresh();
+if (process.argv.includes("--refresh-only")) process.exit(0);
 
 const corpus = JSON.parse(await readFile(CORPUS, "utf8"));
 const intents = Object.keys(ENDPOINT).filter((i) => (ONLY ? i === ONLY : true));

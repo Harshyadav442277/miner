@@ -1,0 +1,99 @@
+preflight against https://miner-wine.vercel.app
+
+  unit + live suite                      FAIL
+  verify-deploy                          FAIL
+  param shapes (engine-shaped)           PASS
+  intent answers (correctness)           FAIL
+  hostile inputs                         PASS
+  upstream health                        FAIL
+  no-regression (8 identical, 0 differ)  PASS
+
+--- unit + live suite ---
+...
+
+✖ failing tests:
+
+test at dist-test\test\storm.test.js:50:26
+✖ risk_score and verdict agree (16275.1009ms)
+  [AbortError: This operation was aborted]
+
+test at dist-test\test\storm.test.js:105:26
+✖ peak_at falls inside the forecast window (16290.0799ms)
+  [AbortError: This operation was aborted]
+
+test at dist-test\test\storm.test.js:117:26
+✖ a window answer reports wind, gusts and an overall risk (16687.7845ms)
+  [AbortError: This operation was aborted]
+
+--- verify-deploy ---
+  FAIL  wrong.host.badssl.com -> hostname_mismatch — got unreachable, 8258ms
+  PASS  untrusted-root.badssl.com -> untrusted — got untrusted, 563ms
+  PASS  no-such-host-xyz123-telegraph.invalid -> unreachable — got unreachable, 297ms
+
+...
+  PASS  missing ip -> honest 200 — got 200
+
+  translate:
+  PASS  French "good morning" -> Bonjour — got Bonjour, 245ms
+  PASS  missing text -> honest 200 — got 200
+
+  papers:
+  PASS  bare topic -> real papers — 5 papers in prose, 937ms
+  PASS  missing topic -> honest 200 — got 200
+
+  latency: median 481ms, p95 8258ms, max 8258ms
+  !! p95 above 5s — validators spot-check every ~20s; this will cost score.
+
+2 CHECK(S) FAILED — fix before registering.
+
+--- intent answers (correctness) ---
+  SSL_VERIFICATION       FAIL
+      - wrong.host -> unreachable, want hostname_mismatch
+  STORM_ALERT            PASS
+  WEATHER_FORECAST       PASS
+  IP_GEOLOCATION         FAIL
+      - 142.251.42.174 -> New Haven, Connecticut, United States; not Tokyo, so the primary provider is not answering
+  LANGUAGE_TRANSLATION   PASS
+  ACADEMIC_SEARCH        PASS
+...
+  URL_SCAN               PASS
+  WEB_SEARCH             PASS
+  SENTIMENT_ANALYSIS     PASS
+  TEXT_CLASSIFICATION    PASS
+  RESEARCH_SYNTHESIS     PASS
+  SANCTIONS_SCREENING_MATCH PASS
+  CORPORATE_REGISTRY_LOOKUP PASS
+  REGULATORY_FILING_MONITOR PASS
+  CRYPTO_TRANSFER_VERIFY PASS
+  MACRO_ECONOMIC_INDICATOR PASS
+  URL_SAFE               PASS
+  QUESTION_ANSWERING     PASS
+
+34/36 intents answering correctly.
+
+--- upstream health ---
+FAIL  ip-api.com (via production)    primary  463ms  answered, but not from the expected provider (wanted /tokyo|japan/i)
+ok    ipwho.is                       failover 84ms
+ok    ipinfo.io                      failover 505ms
+ok    google news rss                primary  705ms
+FAIL  merkle eth rpc                 failover 74ms  HTTP 429
+ok    base rpc                       primary  308ms
+ok    base publicnode rpc            failover 207ms
+ok    arbitrum rpc                   primary  332ms
+...
+ok    drpc eth rpc                   failover 279ms
+ok    flashbots eth rpc              failover 4085ms
+FAIL  merkle eth rpc                 failover 74ms  HTTP 429
+ok    base rpc                       primary  308ms
+ok    base publicnode rpc            failover 207ms
+ok    arbitrum rpc                   primary  332ms
+ok    arbitrum publicnode rpc        failover 196ms
+ok    optimism rpc                   primary  537ms
+ok    optimism publicnode rpc        failover 195ms
+ok    polygon publicnode rpc         primary  192ms
+ok    polygon drpc                   failover 94ms
+ok    polygon 1rpc                   failover 496ms
+
+1 primary failing, 1 failover failing, 24 probed
+
+3/7 gates passed — re-run the failing gate alone before believing it.

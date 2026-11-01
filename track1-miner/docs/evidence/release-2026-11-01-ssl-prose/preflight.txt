@@ -1,0 +1,49 @@
+preflight against https://miner-wine.vercel.app
+
+  unit + live suite                      FAIL
+  verify-deploy                          PASS
+  param shapes (engine-shaped)           PASS
+  intent answers (correctness)           FAIL
+  hostile inputs                         PASS
+  upstream health                        PASS
+  no-regression (8 identical, 0 differ)  PASS
+
+--- unit + live suite ---
+...
+test at dist-test\test\ssl.test.js:100:26
+✖ expired certificates report a negative days_remaining (492.5736ms)
+  AssertionError [ERR_ASSERTION]: days_remaining=null
+      at TestContext.<anonymous> (C:\Users\hyada\tg-deploy\mc75190b\track1-miner\miner\dist-test\test\ssl.test.js:102:26)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+--- intent answers (correctness) ---
+  MACRO_ECONOMIC_INDICATOR FAIL
+      - CPI not read monthly from BLS
+      - the fed funds range is not from the New York Fed
+      - target range undefined-undefined is not 25 bp wide
+...
+  REGULATORY_FILING_MONITOR PASS
+  CRYPTO_TRANSFER_VERIFY PASS
+  MACRO_ECONOMIC_INDICATOR FAIL
+      - CPI not read monthly from BLS
+      - the fed funds range is not from the New York Fed
+      - target range undefined-undefined is not 25 bp wide
+  URL_SAFE               PASS
+  QUESTION_ANSWERING     PASS
+  DNS_RECORD_LOOKUP      PASS
+  TOKEN_TOTAL_SUPPLY_VERIFY PASS
+  KEYWORD_EXTRACTION     PASS
+  VULNERABILITY_TRIAGE   PASS
+
+39/40 intents answering correctly.
+
+5/7 gates passed — re-run the failing gate alone before believing it.

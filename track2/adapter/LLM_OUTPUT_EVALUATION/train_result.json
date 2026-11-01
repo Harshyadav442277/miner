@@ -1,0 +1,50 @@
+{
+  "intent": "LLM_OUTPUT_EVALUATION",
+  "base_model": "answerdotai/ModernBERT-base weights with base-node-config.json (every layer global, rope theta 10000)",
+  "adapter_dir": "runs/LLM_OUTPUT_EVALUATION_node/adapter",
+  "train_pairs": 6000,
+  "gate_split": "test",
+  "dataset_gate": {
+    "ok": true,
+    "n": 6000,
+    "metrics": {
+      "unique_rejected_frac": 1.0,
+      "top_rejected_share": 0.0002,
+      "length_shortcut_acc": 0.5099,
+      "eval_negative_leak": 0.0,
+      "surface_probe_acc": 0.5277,
+      "mean_len_chosen": 135.1,
+      "mean_len_rejected": 134.9
+    },
+    "failures": []
+  },
+  "n_eval": 800,
+  "pairwise_accuracy": 0.9663,
+  "val_loss": 0.131094,
+  "length_baseline": 0.5169,
+  "beats_length_baseline": true,
+  "verdict": "PASS",
+  "negative_memorisation": 0.0,
+  "hyperparameters": {
+    "max_length": 256,
+    "batch_size": 8,
+    "grad_accum": 2,
+    "grad_checkpointing": true,
+    "lora_rank": 8,
+    "lora_alpha": 32,
+    "lora_dropout": 0.1,
+    "epochs": 3,
+    "lr": 0.0001,
+    "weight_decay": 0.01,
+    "eval_split": 0.15,
+    "seed": 42,
+    "eval_batch": 4,
+    "gate_min_acc": 0.65,
+    "gate_min_margin_over_baseline": 0.1,
+    "early_stopping": true,
+    "es_metric": "val_loss",
+    "es_patience": 1,
+    "es_min_delta": 0.001,
+    "loss_floor": 0.0001
+  }
+}

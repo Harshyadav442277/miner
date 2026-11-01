@@ -5,7 +5,7 @@
  * drifted: `preflight.mjs` asserted the literal string "12/12 intents answering
  * correctly" while the manifest declared thirteen, so WEATHER_CHECK had no
  * correctness probe at all and the gate still reported a clean pass;
- * `opportunity-scan.mjs` scanned against a ten-intent ownership list that
+ * `opportunity-scan.mjs` (Season I, deleted) scanned against a ten-intent ownership list that
  * predated FACT_CHECK, TELEGRAPH_KNOWLEDGE and WEATHER_CHECK. A tool that
  * measures a stale list reports confidently on the wrong thing, which is worse
  * than not measuring.

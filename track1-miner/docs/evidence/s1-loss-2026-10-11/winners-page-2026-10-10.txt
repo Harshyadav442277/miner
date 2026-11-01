@@ -1,0 +1,140 @@
+Season I winners | Telegraph Hackathon
+Telegraph
+Hackathon
+Season II
+S1 Winners
+Docs ↗
+Register
+01
+Overview
+02
+Why
+03
+How it works
+04
+Tracks
+05
+Missions
+06
+Intents
+07
+Rules
+08
+Timeline
+09
+Judging
+10
+Build
+Season I winners
+Docs ↗
+Season I archive
+Register
+Season I / Winners
+Season I winners.
+Three tracks ran in Season I: Miners supplying intelligence, Evaluation WASMs deciding how that intelligence is scored, and apps built on top. More details about the winners of each are below.
+Track
+1
+Miners / Intelligence Providers
+1st
+Score
+97.9
+TXlens
+@
+sireadell
+TXlens takes a specific blockchain transaction reference and returns structured transaction intelligence, including confirmed, reverted, pending or not-found status, sender and recipient, value in wei and ETH, block number and block hash, receipt status, and decoded contract method where calldata permits it.
+It turns raw blockchain transaction data into a machine-callable intelligence service that other applications and agents can consume through Telegraph.
+View on Explorer
+↗
+2nd
+Score
+86.9
+Chainsight Oracle
+@
+shadrakbsh
+Chainsight Oracle provides a broad source of real-time onchain and market intelligence, including crypto prices, market capitalization and volume, DeFi TVL, fiat exchange rates, network gas prices, wallet balances, and Ethereum/Base transaction lookups.
+It demonstrates the broader definition of a Telegraph Miner: not simply an AI model, but any useful machine-callable intelligence service that can participate in an Intent and be ranked against alternatives.
+View on Explorer
+↗
+3rd
+Score
+85.4
+Oathcast Weather
+@
+fexx_off
+Oathcast Weather serves Telegraph's WEATHER_FORECAST Intent, providing location-based forecast intelligence to applications and autonomous agents through Telegraph.
+It shows the core model clearly: the application asks for the intelligence it needs, while Telegraph routes that demand through ranked providers rather than forcing the application to hardcode a single weather source.
+View on Explorer
+↗
+Track
+2
+Evaluation WASMs
+The Evaluation track focused on the other side of Telegraph's ranking system: determining how Miner performance should be measured.
+Evaluation is a core part of Telegraph because an open intelligence market only works if the method used to measure competing intelligence can itself improve. Season I participants helped build that layer rather than Telegraph defining every evaluation internally.
+1st
+@
+zkasuran
+2nd
+@
+hyadav42774
+3rd
+@
+BangDropID
+Track
+3
+Apps / Use Cases
+1st
+Score
+0.69 / 1
+Scam Shield
+@
+mshoaibfiaz47
+Scam Shield detects potential scams across messages, emails and other communication.
+What made the project stand out was that it extended beyond a standalone demo into multiple real user surfaces. The team built:
+A browser extension that works directly inside Gmail and can scan an opened email for scam indicators with one click
+A mobile application that scans incoming SMS messages for potential scams
+Telegraph-powered intelligence underneath the experience
+The result is a practical example of ranked machine intelligence being embedded directly where users already encounter risk.
+Open the app
+↗
+2nd
+Score
+0.59 / 1
+Truvian Shield
+@
+encrypt_wizard
+Truvian Shield acts as an execution-safety checkpoint for autonomous onchain agents.
+Before an agent signs a transaction, Shield purchases four separate pieces of intelligence from live Telegraph Miners:
+Current gas conditions
+Whether the counterparty's referenced transaction actually succeeded
+The dollar value at risk
+Protocol liquidity
+It then combines those inputs into a SAFE / CAUTION / BLOCK decision with the supporting evidence attached.
+Instead of allowing an autonomous agent to rely on a single hardcoded data provider, Shield demonstrates how a machine can buy multiple pieces of ranked intelligence before making an irreversible decision.
+Open the app
+↗
+3rd
+Score
+0.45 / 1
+ProofPact
+@
+DefiPreacherr
+ProofPact is a verified settlement layer connecting work environments with payment rails.
+It freezes acceptance criteria before funding, collects signed delivery evidence, purchases independent intelligence through Telegraph's ranked Miner network, and applies deterministic settlement policy to determine whether payment conditions have been met.
+The project shows how Telegraph can sit inside a larger autonomous workflow rather than existing as an isolated query layer.
+Open the app
+↗
+Season II
+Build the next one.
+Season II runs 1 November to 1 December 2026, with the same three tracks and fifteen commercial missions for app builders.
+Register for Season II
+See the 3 tracks
+Telegraph
+[email&#160;protected]
+Protocol ↗
+Alexandria ↗
+Docs ↗
+Whitepaper ↗
+Season I winners
+Season I archive
+Companies named in the commercial missions are examples of the buyers each use case is designed for. Telegraph is not affiliated with, sponsored by or endorsed by any of them, and naming them does not imply they have reviewed or requested these builds.
+© 2026 Telegraph Protocol

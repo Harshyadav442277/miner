@@ -1,0 +1,49 @@
+{
+ "at": "2026-10-27T14:46:20.264Z",
+ "base": "https://miner-wine.vercel.app",
+ "baseline_rtt_ms": 235,
+ "intents": {
+  "TOKEN_TOTAL_SUPPLY_VERIFY": {
+   "path": "/token-supply",
+   "target": "< 500ms",
+   "target_ms": 500,
+   "server_ms_est": [
+    101,
+    222,
+    83,
+    263
+   ],
+   "within_target": 4,
+   "runs": [
+    {
+     "q": "What is the total supply of USDC on Base?",
+     "ms": 336,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "verified"
+    },
+    {
+     "q": "What is the total supply of USDT on Ethereum?",
+     "ms": 457,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "verified"
+    },
+    {
+     "q": "What is the total supply of DAI on Base?",
+     "ms": 318,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "verified"
+    },
+    {
+     "q": "What is the total supply of WETH on Optimism?",
+     "ms": 498,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "verified"
+    }
+   ]
+  }
+ }
+}

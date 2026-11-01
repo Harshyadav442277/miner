@@ -1,147 +1,60 @@
-# ARCHITECTURE.md — Track 2 design decisions
+# ARCHITECTURE.md — Track 2 design decisions (Season II evaluators)
 
 Code must conform to this. **Update this file before deviating from it**, not after.
 
----
+**Rewritten 2026-10-23.** Season I's decisions pinned the `rank_answer` module kind: its ABI, gate, portfolio
+and harness. The node no longer accepts that kind (docs, 2026-10-21), so those decisions and the code built
+on them were deleted; they remain in git history. Protocol facts with their sources are in
+`../docs/TELEGRAPH_FACTS.md`, "Season II evaluators". Scoring is in `../RULES_SEASON2.md`: validity 40,
+with a minimum of 28; integrity 20; reproducibility 15; coverage 20; docs 5.
 
-## A1 — Match the canonical ABI exactly · CONFIRMED 2026-08-27
+## A1 — Two module kinds, chosen by the intent's class
 
-WASM module, freestanding `wasm32-unknown-unknown`, **zero imports** (WASI `module[env]` and
-wasm-bindgen `*_bg.js` builds are instant rejects). Exports `alloc`, `dealloc`, `rank_answer`
-(and `memory`). `rank_answer` is **exactly six `i32`** — `(q_ptr, q_len, gt_ptr, gt_len, ma_ptr,
-ma_len)` in that order — returning one `f32` in `[0,1]`. A 3-param build was rejected. Hard
-Stage-1 traps, each seen in a live rejection (`recon/2026-08-27-node-gate-analysis.md` §5):
+- **Deterministic intents get a comparator.**
+  - It exports `imw_score_deterministic(truth: i64, miner: i64, spec_ptr: i32) -> i64` (basis points,
+    0–10000), plus `imw_alloc` and `imw_free`.
+  - It must reproduce the network's reference rule exactly; the docs say there is no "better" comparator.
+  - So the work is correctness, proved: a line-for-line port, checked in the node's own runtime against the
+    reference on every edge case and on a large seeded random set.
+- **Judgment and hybrid intents get a wide adapter.**
+  - It is a ModernBERT-base LoRA reward model, packaged with the kit `telegraph-wasm-baseline` (branch
+    `feature/v2-integration`) as one `.wasm` of about 1.2 GB.
+  - It competes on a hidden pool of 200 preference pairs. The first canonical module needs ≥ 70%; a
+    challenger must beat the incumbent by 2 points. Nothing is evaluated before an intent's pool holds
+    material from 5 contributors.
 
-- Empty answer → **exactly 0.0**; whitespace-only → **exactly 0.0** (a `0.0007` failed). Trim first.
-- The host passes **`ptr=0, len=0` for an empty string without calling `alloc`** — check `len==0`
-  before constructing any slice, or trap at address 0.
-- `self-match(q,gt,gt)` must be **strictly greater** than an unrelated cross-match.
-- No trap on a ~54 KB repeated-text answer or on emoji/CJK/accented input.
-- Host caps each text at **128 KiB** (`MaxTextBytes`); returned score is clamped to `[0,1]` and
-  **NaN/Inf collapse to 0** before the node trusts it. `alloc` must return a pointer inside
-  already-committed linear memory (the host fails the call rather than growing memory).
+## A2 — A number counts only if the node reproduces it
 
-Keep an optional `breakdown_answer` (5 floats) and `embed`/`rank_answer_cached` exports for
-legibility and the Stage-2 speed path — **debug/insurance only, no effect on pass/fail**.
+Every claim is measured as the node computes it: the node's runtime, the node's model architecture, and the
+bytes hosted at the registered URL (keccak re-hashed from the URL). An adapter that scored 96.9% in the kit
+and 81.0% on the node was withdrawn for this reason (GAPS G32).
 
-## A2 — Rust `no_std`, and no heavy embedding in the hot path · CONFIRMED 2026-08-27
+## A3 — Measure what an answer asserts (the thesis, carried over from Season I)
 
-Rust `#![no_std]` → `wasm32-unknown-unknown`, zero host imports, no nondeterminism (no clock, no
-randomness). Toolchain installed and proven (GAPS G6). Reviewers read Rust against the salience
-champion's public Rust; diffing is legible.
+Correctness lives in what an answer asserts: verdicts, figures with units, identifiers and dates. Training
+pairs and evaluation material therefore follow these rules:
 
-**The 10-minute whole-gate budget (§2.6) is a design constraint, not a footnote.** The gate runs
-~15 fixtures × (2 answers + self-match) × 2 modules + load inside 10 min, 3-attempt cap;
-embedding-heavy modules have been rejected on wall-clock alone. So the scorer is **pure
-lexical/fact computation** — which is also exactly our thesis (A3). No MiniLM in the scoring path.
-An `embed` export may exist as dead insurance but nothing hot may call it.
+1. A refusal, an echo of the question or an empty answer loses to a real answer.
+2. A fabricated, flipped or misquoted fact loses to the correct one, however fluent it is.
+3. Keyword stuffing, length and the right vocabulary around a wrong value never win.
+4. Wording is a tie-breaker at most.
 
-## A3 — Fact-aware scoring over embedding similarity (the thesis)
+## A4 — The legitimacy boundary
 
-For Tier A deterministic intents, correctness lives in **typed facts**: verdicts, numbers with
-units, identifiers (CVE ids, hostnames, coordinates), timestamps. The scorer:
+General intent correctness only. A module must not fingerprint any miner in either direction: no slug,
+wallet, field name, schema or phrasing. Our own miner's answer style must be scored down when it is
+factually wrong. Train only on pairs we never upload to the evaluation pool. Disclose that we also run a
+miner.
 
-1. extracts typed facts from `ground_truth` and from the miner answer;
-2. compares them with typed tolerance (numeric epsilon/relative bands, unit normalization,
-   identifier canonicalization, timestamp parsing);
-3. scores fact agreement as the dominant signal;
-4. uses lexical/semantic overlap only as a low-weight tie-breaker for prose quality;
-5. is robust to gaming: keyword stuffing, ground-truth-shaped refusals, length manipulation, and
-   contradiction (an answer containing both the right and wrong value must not win).
+## A5 — The proof is part of the product
 
-A refusal or error must score near zero when the ground truth contains a real answer — the
-measured baseline failure (refusal 0.99 vs correct 0.007) is the canonical counter-example.
+Reviewers score validity, integrity and reproducibility, so each module ships with:
+- a one-command check in the node runtime;
+- the hosted-hash check;
+- the training or derivation recipe;
+- robustness results on adversarial pairs.
 
-Two requirements added from measurement (2026-08-27):
+## A6 — Conventions
 
-6. **Answered-vs-unanswered detection is first-class.** The live champion scores a contentless
-   question-echo 0.9933 — identical to a real answer (fable_review_audit.md §2, measured). Our
-   scorer must score an answer near zero when it contributes no information beyond the question's
-   own content and the ground truth contains an answer. This single property, demonstrated
-   side-by-side, is the strongest improvement exhibit we hold.
-7. **Continuity over cliffs.** The champion is a step function (16 words 0.011 → 17 words 0.992;
-   one synonym swap collapses it). Ours must degrade smoothly with factual disagreement — cliffs
-   are what make parroting dominant and near-misses indistinguishable from garbage. Calibration
-   for the gate (stddev, margin) must come from genuine spread, not a step band.
-8. **Precision of the answer, not recall of the truth.** The text scored is `converted_answer` — a
-   flat third-person summary, 86.9% opening literally "The data …", **2.25× shorter** than the
-   markdown/first-person ground truth (`recon/2026-08-27-node-gate-analysis.md` §4.1). A
-   recall-of-truth scorer penalizes every terse-but-correct answer (why live medians sit at
-   ~0.006); score *of what the answer asserts, how much the ground truth supports it*. Normalize
-   the boilerplate prefix before scoring.
-9. **Non-answers are near-zero.** Empty `converted_answer` (~47% of live traffic) and the literal
-   content-filter refusal `"- The generated text has been blocked by our content filters."` must
-   both score ~0 whenever the ground truth carries a real answer. Degrade gracefully if handed raw
-   JSON (conversion occasionally yields nothing and the raw `miner_answer` may be passed instead).
-
-## A4 — The legitimacy boundary is a design constraint
-
-General intent correctness only. JSON and prose answers with equal facts score equally. No
-fingerprints of any specific miner (slug, wallet, field names, phrasing) — favoring OR
-disfavoring. The fixture suite must include adversarial cases where a livecert-style answer is
-factually wrong and scored down. Source and reasoning are published for manual review.
-
-## A5 — The proof harness is part of the product
-
-Manual review decides winners, so the deliverable is script + evidence. The harness must:
-
-- run baseline and candidate side-by-side on the same fixture corpus (pinned binaries);
-- report an interpretable accuracy metric: **pairwise ranking accuracy** (does the scorer rank
-  the factually-better answer above the worse one?) plus score-vs-correctness correlation;
-- include three fixture classes: neutral (typical answers), adversarial (gaming attempts,
-  refusals, stuffing), and **real recorded traffic** (public `/scores` records with actual
-  question/ground_truth/answer triples);
-- be one command, reproducible by a reviewer.
-
-## A6 — Portfolio: one generic core, tuned per intent, registered on soft targets · LOCKED 2026-08-27
-
-One generic fact-aware `no_std` core with thin per-intent fact extractors — the same
-one-source-compiled-per-intent shape the salience champion uses (`tune.py` over ~700 builds).
-Registration is gas-only and reversible, so multiple champion slots are the realistic Track 2 win
-(pending the organizer ranking-formula answer, G-open). **Target selection is measured and timed,
-not fixed** — the champion_margin bar drifts with fixture rotation (weather swung 0.53→0.99 in
-48 h), so poll `/api/wasm` for the target's current bar and register at a local low.
-
-**Correction 2026-08-27:** the committed `track1-miner/miner.yaml` declares `supported_intents:
-SSL_VERIFICATION, STORM_ALERT, WEATHER_FORECAST, IP_GEOLOCATION, CVE_LOOKUP` — so **all five
-natural targets are mined by livecert.** Registration and proof therefore split:
-
-- **Proof corpus (the 50% exhibit): any Tier A intent, mined ones included.** Demonstrating our
-  scorer out-ranks the champion is analysis, not self-dealing — a scorer only affects an intent it
-  is *registered* on. Use the mined intents freely here; that is where our data is richest.
-- **On-chain champion registration — G10 CLOSED 2026-08-27: overlap allowed with full
-  disclosure** (organizer answer; they will flag it for transparent review themselves). Target
-  by the softest gate, disclosure attached: **1) STORM_ALERT** — lowest measured bar (~0.859),
-  richest data, mined-with-disclosure; **2) IP_GEOLOCATION** — single miner → Spearman skipped,
-  cleanest gate shape; **3) SSL_VERIFICATION** (~0.913). Poll `/api/wasm` immediately before
-  registering — bars drift with fixture rotation; register at a local low.
-- **Depth over breadth for the review** (organizer answer): "Improvement over Baseline" is the
-  module's **measured performance against the incumbent during review** — multiple champion slots
-  do **not** automatically stack into an improvement claim. So: one scorer, one rigorous proof
-  pack, registered where it demonstrably wins; extra slots are upside, not the thesis.
-
-Build/validation starts on **IP_GEOLOCATION + STORM_ALERT** (single-miner IP_GEO gives a
-Spearman-free validation of the core); both double as proof intents.
-
-## A8 — The gate we must clear · reference (`recon/2026-08-27-node-gate-analysis.md`)
-
-Two agreeing sources (git-history docs + 1,033 live rejections). A candidate is promoted only if it
-clears **every** check for the intent:
-
-| Check | Bar | Note |
-|---|---|---|
-| stddev | scores' stddev **> 0.05** (strict) | a flat scorer is rejected |
-| self-match | `rank_answer(q,gt,gt)` **≥ max(0.75, incumbent self-match)** | a ratchet; never regresses |
-| Spearman | rank-corr vs champion on real answers **≥ 0.60** | **skipped when <2 distinct miners** |
-| margin | mean(good)−mean(bad) **strictly > champion_margin** AND **≥ 0.15** | docs say "≥"; live gate is strict `>` (186 promotions). Exact ties fail |
-| wins | good>bad on **≥** as many cases as champion | ties are fine |
-| wall-clock | full fixture gate **< 10 min** incl. load | 3-attempt cap; no heavy embed |
-
-Fixture **contents** are closed-source and unrecoverable (GAPS G11); the harness proxies them with
-real `/scores` traffic, which §3.1 argues is plausibly their actual source. A real (cheap,
-reversible) registration is the final confirmation.
-
-## A7 — Conventions
-
-Boring, explicit code; files under ~300 lines; TypeScript for harness tooling, Rust for the
-module; one task = one change = one commit; no secrets anywhere (nothing here needs any).
+Boring, explicit code; files under ~300 lines; one task = one change = one commit; no secrets anywhere.
+Large training runs and model files live outside OneDrive, in `C:\Users\hyada\tg-eval\`.

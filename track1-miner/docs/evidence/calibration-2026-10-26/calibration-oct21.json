@@ -1,0 +1,508 @@
+{
+ "at": "2026-10-26T05:21:03.147Z",
+ "brier": 0.20989090909090938,
+ "buckets": [
+  {
+   "range": "0-0.001",
+   "n": 10,
+   "mean_confidence": 0,
+   "observed_right": 0.7,
+   "pass": 5,
+   "partial": 4,
+   "fail": 1
+  },
+  {
+   "range": "0.001-0.5",
+   "n": 2,
+   "mean_confidence": 0.35,
+   "observed_right": 0.75,
+   "pass": 1,
+   "partial": 1,
+   "fail": 0
+  },
+  {
+   "range": "0.5-0.7",
+   "n": 6,
+   "mean_confidence": 0.5816666666666667,
+   "observed_right": 0.75,
+   "pass": 4,
+   "partial": 1,
+   "fail": 1
+  },
+  {
+   "range": "0.7-0.9",
+   "n": 32,
+   "mean_confidence": 0.7821875000000004,
+   "observed_right": 0.796875,
+   "pass": 24,
+   "partial": 3,
+   "fail": 5
+  },
+  {
+   "range": "0.9-0.999",
+   "n": 74,
+   "mean_confidence": 0.9359459459459462,
+   "observed_right": 0.7905405405405406,
+   "pass": 58,
+   "partial": 1,
+   "fail": 15
+  },
+  {
+   "range": "0.999-1",
+   "n": 30,
+   "mean_confidence": 1,
+   "observed_right": 0.7166666666666667,
+   "pass": 18,
+   "partial": 7,
+   "fail": 5
+  }
+ ],
+ "confident_wrong": [
+  {
+   "i": 10,
+   "intent": "WEATHER_FORECAST",
+   "confidence": 1,
+   "verdict": "fail",
+   "error": null,
+   "label": "heavy rain"
+  },
+  {
+   "i": 11,
+   "intent": "WEATHER_FORECAST",
+   "confidence": 1,
+   "verdict": "fail",
+   "error": null,
+   "label": "clear"
+  },
+  {
+   "i": 16,
+   "intent": "IP_GEOLOCATION",
+   "confidence": 0.95,
+   "verdict": "fail",
+   "error": null,
+   "label": "Ashburn, Virginia, United States"
+  },
+  {
+   "i": 17,
+   "intent": "IP_GEOLOCATION",
+   "confidence": 0.95,
+   "verdict": "fail",
+   "error": null,
+   "label": "Berkeley, California, United States"
+  },
+  {
+   "i": 18,
+   "intent": "IP_GEOLOCATION",
+   "confidence": 0.95,
+   "verdict": "fail",
+   "error": null,
+   "label": "Montreal, Quebec, Canada"
+  },
+  {
+   "i": 19,
+   "intent": "IP_GEOLOCATION",
+   "confidence": 0.95,
+   "verdict": "fail",
+   "error": null,
+   "label": "Toronto, Ontario, Canada"
+  },
+  {
+   "i": 28,
+   "intent": "ACADEMIC_SEARCH",
+   "confidence": 1,
+   "verdict": "fail",
+   "error": null,
+   "label": "papers"
+  },
+  {
+   "i": 29,
+   "intent": "CONTENT_EXTRACTION",
+   "confidence": 1,
+   "verdict": "fail",
+   "error": null,
+   "label": "multiple"
+  },
+  {
+   "i": 34,
+   "intent": "NEWS_HEADLINES",
+   "confidence": 1,
+   "verdict": "fail",
+   "error": null,
+   "label": "headlines"
+  },
+  {
+   "i": 43,
+   "intent": "WEB_SEARCH",
+   "confidence": 0.8,
+   "verdict": "fail",
+   "error": null,
+   "label": "answered"
+  },
+  {
+   "i": 44,
+   "intent": "WEB_SEARCH",
+   "confidence": 0.8,
+   "verdict": "fail",
+   "error": null,
+   "label": "answered"
+  },
+  {
+   "i": 55,
+   "intent": "RESEARCH_QUERY",
+   "confidence": 0.9,
+   "verdict": "fail",
+   "error": null,
+   "label": "evidence"
+  },
+  {
+   "i": 57,
+   "intent": "RESEARCH_QUERY",
+   "confidence": 0.8,
+   "verdict": "fail",
+   "error": null,
+   "label": "evidence"
+  },
+  {
+   "i": 58,
+   "intent": "RESEARCH_QUERY",
+   "confidence": 0.9,
+   "verdict": "fail",
+   "error": null,
+   "label": "evidence"
+  },
+  {
+   "i": 89,
+   "intent": "GAS_PRICE",
+   "confidence": 0.95,
+   "verdict": "fail",
+   "error": null,
+   "label": "gas_price"
+  },
+  {
+   "i": 91,
+   "intent": "GAS_PRICE",
+   "confidence": 0.95,
+   "verdict": "fail",
+   "error": null,
+   "label": "gas_price"
+  },
+  {
+   "i": 100,
+   "intent": "CRYPTO_PRICE",
+   "confidence": 0.9,
+   "verdict": "fail",
+   "error": null,
+   "label": "price"
+  },
+  {
+   "i": 107,
+   "intent": "FINANCIAL_DATA",
+   "confidence": 0.9,
+   "verdict": "fail",
+   "error": null,
+   "label": "financial_data"
+  },
+  {
+   "i": 108,
+   "intent": "FINANCIAL_DATA",
+   "confidence": 0.9,
+   "verdict": "fail",
+   "error": null,
+   "label": "financial_data"
+  },
+  {
+   "i": 112,
+   "intent": "CURRENCY_EXCHANGE",
+   "confidence": 0.95,
+   "verdict": "fail",
+   "error": null,
+   "label": "converted"
+  },
+  {
+   "i": 121,
+   "intent": "EVENT_OUTCOME_RESOLUTION",
+   "confidence": 0.9,
+   "verdict": "fail",
+   "error": null,
+   "label": "resolved"
+  },
+  {
+   "i": 142,
+   "intent": "SANCTIONS_SCREENING_MATCH",
+   "confidence": 0.85,
+   "verdict": "fail",
+   "error": null,
+   "label": "no_match"
+  },
+  {
+   "i": 151,
+   "intent": "REGULATORY_FILING_MONITOR",
+   "confidence": 0.95,
+   "verdict": "fail",
+   "error": null,
+   "label": "filed"
+  },
+  {
+   "i": 153,
+   "intent": "REGULATORY_FILING_MONITOR",
+   "confidence": 0.95,
+   "verdict": "fail",
+   "error": null,
+   "label": "filed"
+  }
+ ],
+ "intents": [
+  {
+   "intent": "RESEARCH_QUERY",
+   "n": 4,
+   "mean_confidence": 0.88,
+   "observed_right": 0.25,
+   "confident_fails": 3
+  },
+  {
+   "intent": "REGULATORY_FILING_MONITOR",
+   "n": 4,
+   "mean_confidence": 0.95,
+   "observed_right": 0.38,
+   "confident_fails": 2
+  },
+  {
+   "intent": "IP_GEOLOCATION",
+   "n": 5,
+   "mean_confidence": 0.76,
+   "observed_right": 0.2,
+   "confident_fails": 4
+  },
+  {
+   "intent": "WEATHER_FORECAST",
+   "n": 4,
+   "mean_confidence": 1,
+   "observed_right": 0.5,
+   "confident_fails": 2
+  },
+  {
+   "intent": "ACADEMIC_SEARCH",
+   "n": 4,
+   "mean_confidence": 1,
+   "observed_right": 0.5,
+   "confident_fails": 1
+  },
+  {
+   "intent": "GAS_PRICE",
+   "n": 4,
+   "mean_confidence": 0.95,
+   "observed_right": 0.5,
+   "confident_fails": 2
+  },
+  {
+   "intent": "FINANCIAL_DATA",
+   "n": 4,
+   "mean_confidence": 0.9,
+   "observed_right": 0.5,
+   "confident_fails": 2
+  },
+  {
+   "intent": "CONTENT_EXTRACTION",
+   "n": 4,
+   "mean_confidence": 1,
+   "observed_right": 0.63,
+   "confident_fails": 1
+  },
+  {
+   "intent": "WEB_SEARCH",
+   "n": 4,
+   "mean_confidence": 0.8,
+   "observed_right": 0.5,
+   "confident_fails": 2
+  },
+  {
+   "intent": "CURRENCY_EXCHANGE",
+   "n": 4,
+   "mean_confidence": 0.95,
+   "observed_right": 0.75,
+   "confident_fails": 1
+  },
+  {
+   "intent": "SSL_VERIFICATION",
+   "n": 4,
+   "mean_confidence": 1,
+   "observed_right": 0.88,
+   "confident_fails": 0
+  },
+  {
+   "intent": "STORM_ALERT",
+   "n": 4,
+   "mean_confidence": 1,
+   "observed_right": 0.88,
+   "confident_fails": 0
+  },
+  {
+   "intent": "NEWS_HEADLINES",
+   "n": 4,
+   "mean_confidence": 0.75,
+   "observed_right": 0.63,
+   "confident_fails": 1
+  },
+  {
+   "intent": "CRYPTO_PRICE",
+   "n": 5,
+   "mean_confidence": 0.9,
+   "observed_right": 0.8,
+   "confident_fails": 1
+  },
+  {
+   "intent": "SANCTIONS_SCREENING_MATCH",
+   "n": 5,
+   "mean_confidence": 0.9,
+   "observed_right": 0.8,
+   "confident_fails": 1
+  },
+  {
+   "intent": "WEATHER_CHECK",
+   "n": 4,
+   "mean_confidence": 0.97,
+   "observed_right": 0.88,
+   "confident_fails": 0
+  },
+  {
+   "intent": "CORPORATE_REGISTRY_LOOKUP",
+   "n": 4,
+   "mean_confidence": 0.84,
+   "observed_right": 0.75,
+   "confident_fails": 0
+  },
+  {
+   "intent": "EVENT_OUTCOME_RESOLUTION",
+   "n": 4,
+   "mean_confidence": 0.78,
+   "observed_right": 0.75,
+   "confident_fails": 1
+  },
+  {
+   "intent": "LANGUAGE_TRANSLATION",
+   "n": 4,
+   "mean_confidence": 1,
+   "observed_right": 1,
+   "confident_fails": 0
+  },
+  {
+   "intent": "WALLET_BALANCE_CHECK",
+   "n": 4,
+   "mean_confidence": 0.98,
+   "observed_right": 1,
+   "confident_fails": 0
+  },
+  {
+   "intent": "CVE_LOOKUP",
+   "n": 5,
+   "mean_confidence": 0.96,
+   "observed_right": 1,
+   "confident_fails": 0
+  },
+  {
+   "intent": "URL_SAFE",
+   "n": 4,
+   "mean_confidence": 0.84,
+   "observed_right": 0.88,
+   "confident_fails": 0
+  },
+  {
+   "intent": "MACRO_ECONOMIC_INDICATOR",
+   "n": 5,
+   "mean_confidence": 0.95,
+   "observed_right": 1,
+   "confident_fails": 0
+  },
+  {
+   "intent": "FACT_CHECK",
+   "n": 5,
+   "mean_confidence": 0.62,
+   "observed_right": 0.7,
+   "confident_fails": 0
+  },
+  {
+   "intent": "STOCK_PRICE",
+   "n": 4,
+   "mean_confidence": 0.9,
+   "observed_right": 1,
+   "confident_fails": 0
+  },
+  {
+   "intent": "RESEARCH_SYNTHESIS",
+   "n": 4,
+   "mean_confidence": 0.75,
+   "observed_right": 0.88,
+   "confident_fails": 0
+  },
+  {
+   "intent": "CRYPTO_TRANSFER_VERIFY",
+   "n": 4,
+   "mean_confidence": 0.74,
+   "observed_right": 0.88,
+   "confident_fails": 0
+  },
+  {
+   "intent": "CROSS_CHAIN_STATE_VERIFY",
+   "n": 4,
+   "mean_confidence": 0.85,
+   "observed_right": 1,
+   "confident_fails": 0
+  },
+  {
+   "intent": "ONCHAIN_TX_LOOKUP",
+   "n": 4,
+   "mean_confidence": 0.72,
+   "observed_right": 0.88,
+   "confident_fails": 0
+  },
+  {
+   "intent": "TEXT_CLASSIFICATION",
+   "n": 4,
+   "mean_confidence": 0.45,
+   "observed_right": 0.63,
+   "confident_fails": 0
+  },
+  {
+   "intent": "SENTIMENT_ANALYSIS",
+   "n": 5,
+   "mean_confidence": 0.72,
+   "observed_right": 0.9,
+   "confident_fails": 0
+  },
+  {
+   "intent": "TOKEN_HOLDER_COUNT",
+   "n": 4,
+   "mean_confidence": 0.7,
+   "observed_right": 0.88,
+   "confident_fails": 0
+  },
+  {
+   "intent": "QUESTION_ANSWERING",
+   "n": 5,
+   "mean_confidence": 0.8,
+   "observed_right": 1,
+   "confident_fails": 0
+  },
+  {
+   "intent": "FRAUD_DETECTION",
+   "n": 5,
+   "mean_confidence": 0.6,
+   "observed_right": 0.9,
+   "confident_fails": 0
+  },
+  {
+   "intent": "URL_SCAN",
+   "n": 5,
+   "mean_confidence": 0.67,
+   "observed_right": 1,
+   "confident_fails": 0
+  },
+  {
+   "intent": "NEWS_SEARCH",
+   "n": 4,
+   "mean_confidence": 0.57,
+   "observed_right": 1,
+   "confident_fails": 0
+  }
+ ]
+}

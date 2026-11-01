@@ -1,0 +1,190 @@
+
+Will Nivolumab show improved bladder cancer outcomes?
+  BEFORE [evidence] Nivolumab is the subject of 3 registered trials, including NCT05468294, a Phase 1/Phase 2 study titled "F16IL2 in Combination With Nivolumab
+  AFTER  [evidence] Nivolumab is the subject of 5 registered trials, including NCT03980041, a Phase 2 study titled "Study to Evaluate the Efficacy/Safety of IPI
+
+Will Sony face a digital game ownership lawsuit?
+  BEFORE [evidence] Wikipedia: Sony Group Corporation is a Japanese multinational conglomerate headquartered at the Sony City building in Minato, Tokyo.
+  AFTER  [no_evidence] No registered trial and no indexed publication on Sony digital game ownership lawsuit was found, so nothing is claimed about Sony face a dig
+
+Will Delcath Systems receive FDA approval for PHP?
+  BEFORE [evidence] The published evidence includes "Safety of Percutaneous Hepatic Perfusion with Melphalan in Patients with Unresectable Liver Metastases from
+  AFTER  [evidence] Research on Delcath Systems covers 2 registered trials, including NCT01728051, a study titled "Expanded Access Study of Melphalan With Delca
+
+Will Novartis' malaria drug be approved?
+  BEFORE [evidence] Wikipedia: Novartis AG is a Swiss multinational pharmaceutical corporation based in Basel, Switzerland.
+  AFTER  [evidence] Novartis is the subject of 10 registered trials, including NCT01228344, a study titled "Surveillance of Effectiveness/Safety of Artemether-l
+
+Is it true that the Eiffel Tower is in Berlin?
+  BEFORE [evidence] The published evidence includes "Assembling a Vocal “Eiffel Tower” to Improve the Quality of the Singing Voice" by Carp T et al. (2025) in E
+  AFTER  [no_evidence] No registered trial and no indexed publication on Eiffel Tower true berlin was found, so nothing is claimed about it true that the Eiffel To
+
+Will Pakistan mediate Houthi-Iran tensions?
+  BEFORE [evidence] Wikipedia: Pakistan, officially the Islamic Republic of Pakistan, is a country in South Asia.
+  AFTER  [unknown] "Pakistan mediate Houthi-Iran tensions" asks whether a government will take a political decision.
+
+Will Pakistan sanction Iran?
+  BEFORE [evidence] Wikipedia: Pakistan, officially the Islamic Republic of Pakistan, is a country in South Asia.
+  AFTER  [unknown] "Pakistan sanction Iran" asks whether a government will take a political decision.
+
+Will FDA fine Fresenius Kabi?
+  BEFORE [evidence] The published evidence includes "In Vitro Evaluation of the Fresenius Kabi CATSmart Autotransfusion System" by Alberts M et al. (2017) in Eu
+  AFTER  [no_evidence] No registered trial and no indexed publication on Fresenius Kabi fine was found, so nothing is claimed about FDA fine Fresenius Kabi.
+
+Will Nivolumab treat bladder cancer?
+  BEFORE [evidence] Nivolumab is the subject of 3 registered trials, including NCT05468294, a Phase 1/Phase 2 study titled "F16IL2 in Combination With Nivolumab
+  AFTER  [evidence] Nivolumab is the subject of 5 registered trials, including NCT03980041, a Phase 2 study titled "Study to Evaluate the Efficacy/Safety of IPI
+
+Will Holy Basil treat sensitive skin?
+  BEFORE [evidence] The published evidence includes "Preharvest temperature treatments influence physiological traits, secondary metabolites, and volatile compo
+  AFTER  [evidence] Research on Holy Basil covers one registered trial, NCT07811310, a study titled "Effect of Holy Basil on Subjects With Sensitive Skin", curr
+
+Will Novo Nordisk's Cagrilintide/Semaglutide trial succeed?
+  BEFORE [evidence] The published evidence includes "pXg: Comprehensive and Reliable Identification of MHC-I Antigens Using De Novo Peptide Sequencing and Immun
+  AFTER  [evidence] Research on Novo Nordisk covers 4 registered trials, including NCT07184086, a Phase 1 study titled "A Study to See How Metabolism is Influen
+
+Will Moderna's mRNA-1469 vaccine enter Phase 2?
+  BEFORE [evidence] Moderna is the subject of one registered trial, NCT05280158, a Phase 1/Phase 2 study titled "High-Dose Moderna mRNA-1273 Booster Study for L
+  AFTER  [evidence] Moderna is the subject of one registered trial, NCT07737717, a Phase 1 study titled "A Study to Investigate the Safety, Reactogenicity, and 
+
+Will Intuitive Surgical's GYN study succeed?
+  BEFORE [evidence] The published evidence includes "An intuitive surgical handle design for robotic neurosurgery" by Dimitrakakis E et al. (2021) in Europe PMC
+  AFTER  [evidence] Research on Intuitive Surgical covers 3 registered trials, including NCT06082011, a study titled "A Real-World Study to Evaluate the Clinica
+
+Will Luspatercept be approved for alpha-thalassemia?
+  BEFORE [evidence] Luspatercept is the subject of 4 registered trials, including NCT01749540, a Phase 2 study titled "Study to Evaluate the Safety and Efficacy
+  AFTER  [evidence] Luspatercept is the subject of one registered trial, NCT05664737, a Phase 2 study titled "A Study to Determine the Efficacy and Safety of Lu
+
+Will Varian's pancreatic cancer trial succeed?
+  BEFORE [evidence] The published evidence includes "Evaluating Image Quality of Cone Beam Computed Tomography Using HyperSight® on the Varian TrueBeam" by Lohe
+  AFTER  [evidence] Varian is the subject of 8 registered trials, including NCT03718650, a EARLY_PHASE1 study titled "Total Tumor Mapping (TTM) for Resectable P
+
+Will Research Inc's study find contracture predictors?
+  BEFORE [evidence] Research on Research Inc contracture predictors covers one registered trial, NCT07810231, a study titled "Prospective Longitudinal Cohort St
+  AFTER  [evidence] Research on Inc contracture predictors covers one registered trial, NCT07810231, a study titled "Prospective Longitudinal Cohort Study of Im
+
+Will Winclove probiotic treat allergic rhinitis?
+  BEFORE [evidence] Research on Winclove probiotic allergic rhinitis covers one registered trial, NCT07157462, a study titled "Investigation of the Effects of a
+  AFTER  [evidence] Winclove is the subject of one registered trial, NCT07157462, a study titled "Investigation of the Effects of a Multispecies Probiotic Formu
+
+Will Planet Labs open more satellite feeds?
+  BEFORE [evidence] The published evidence includes "Deriving high-spatiotemporal-resolution leaf area index for agroecosystems in the U.S.
+  AFTER  [no_evidence] No registered trial and no indexed publication on Planet Labs open satellite feeds was found, so nothing is claimed about Planet Labs open m
+
+Will Gilteritinib combination treat AML?
+  BEFORE [evidence] Gilteritinib is the subject of one registered trial, NCT05546580, a Phase 1 study titled "Study of Iadademstat and Gilteritinib in Patients 
+  AFTER  [evidence] Gilteritinib is the subject of 4 registered trials, including NCT05546580, a Phase 1 study titled "Study of Iadademstat and Gilteritinib in 
+
+Will BAROSTIM NEO treat hypertension?
+  BEFORE [evidence] Research on BAROSTIM NEO covers one registered trial, NCT02880631, a study titled "BAROSTIM THERAPY™ In Resistant Hypertension", currently r
+  AFTER  [evidence] Research on BAROSTIM NEO covers 6 registered trials, including NCT02880631, a study titled "BAROSTIM THERAPY™ In Resistant Hypertension", cu
+
+Was Bausch & Lomb BL1332 study successful?
+  BEFORE [evidence] Wikipedia: Bausch is a German surname.
+  AFTER  [evidence] BL1332 is the subject of 3 registered trials, including NCT06978244, a Phase 1 study titled "A Study to Assess Safety, Tolerability, and Pha
+
+Will Cagrilintide show positive bone metabolism results?
+  BEFORE [evidence] Cagrilintide is the subject of 3 registered trials, including NCT07184086, a Phase 1 study titled "A Study to See How Metabolism is Influenc
+  AFTER  [evidence] Cagrilintide is the subject of one registered trial, NCT07010432, a Phase 1 study titled "The Role of the Amylin Analogue Cagrilintide in Bo
+
+Can researchers trust OpenAI?
+  BEFORE [evidence] The published evidence includes "Generative Artificial Intelligence in Periodontology: Application of OpenAI Models for the Classification o
+  AFTER  [no_evidence] No registered trial and no indexed publication on OpenAI researchers trust was found, so nothing is claimed about researchers trust OpenAI.
+
+Will Cagrilintide show bone metabolism benefits?
+  BEFORE [evidence] Cagrilintide is the subject of 3 registered trials, including NCT07184086, a Phase 1 study titled "A Study to See How Metabolism is Influenc
+  AFTER  [evidence] Cagrilintide is the subject of one registered trial, NCT07010432, a Phase 1 study titled "The Role of the Amylin Analogue Cagrilintide in Bo
+
+Will AstraZeneca's SLE study complete?
+  BEFORE [evidence] The published evidence includes "Operational Transformation in LATAM Medical Affairs: Building a Shared Regional Vision for Latin America Ba
+  AFTER  [evidence] AstraZeneca is the subject of 3 registered trials, including NCT07424261, a study titled "NIS to Examine Disease Activity in SLE Patients Tr
+
+Will Boston Scientific's DBS registry expand?
+  BEFORE [evidence] The published evidence includes "Complications Associated With Safety Mode Initiation in Recalled Boston Scientific Pacemakers" by Caughron 
+  AFTER  [evidence] Research on Boston Scientific covers one registered trial, NCT02071134, a study titled "Registry of Deep Brain Stimulation With the VERCISE™
+
+Will Qilu Pharm launch Fosaprepitant Dimeglumine?
+  BEFORE [evidence] Wikipedia: Qi–Lu culture, also known as Haidai culture, is a regional culture that originated and developed in Shandong Province, China.
+  AFTER  [evidence] The published evidence includes "Pharmacokinetic evaluation of fosaprepitant dimeglumine" by Colon-Gonzalez F et al. (2010) in Europe PMC.
+
+Will FDA issue CAMZYOS safety warning?
+  BEFORE [no_evidence] No registered trial and no indexed publication on CAMZYOS was found, so nothing is claimed about FDA issue CAMZYOS safety warning.
+  AFTER  [no_evidence] No registered trial and no indexed publication on CAMZYOS warning was found, so nothing is claimed about FDA issue CAMZYOS safety warning.
+
+Will Essilor's lens control myopia?
+  BEFORE [evidence] The published evidence includes "Google Trends Analysis of Interest in Pediatric Myopia-Control Spectacle Lenses Following FDA Authorization
+  AFTER  [evidence] Essilor is the subject of 8 registered trials, including NCT05534022, a study titled "Clinical Evaluation of a Myopia Control Lens in Slowin
+
+Will prion disease drug trial succeed?
+  BEFORE [evidence] The published evidence includes "Multi-target approaches to prion disease drug discovery: a status update" by Nikolić L et al. (2026) in Eur
+  AFTER  [evidence] Research on prion disease drug covers one registered trial, NCT07444580, a Phase 1 study titled "PrP-targeting siRNA Safety & Mechanism Stud
+
+Will Lo.Li.Pharma treat Amenorrhea?
+  BEFORE [evidence] The published evidence includes "Primary Amenorrhea Revealing Adamantinomatous Craniopharyngioma Associated With Central Hypogonadotropic Hy
+  AFTER  [evidence] Amenorrhea is the subject of one registered trial, NCT02614781, a study titled "Efficacy of Mifepristone - Prostaglandin Analogue Combinatio
+
+Will Pirtobrutinib treat ITP?
+  BEFORE [evidence] Pirtobrutinib is the subject of 4 registered trials, including NCT07796373, a Phase 2 study titled "Nemtabrutinib for Chronic Lymphocytic Le
+  AFTER  [evidence] Pirtobrutinib is the subject of one registered trial, NCT06721013, a Phase 1/Phase 2 study titled "A Study of Pirtobrutinib in Participants 
+
+Will MeMed BV® improve LRTI management?
+  BEFORE [evidence] MeMed is the subject of 2 registered trials, including NCT05439551, a study titled "Evaluating the Analytical Equivalency of Serum and Whole
+  AFTER  [evidence] MeMed is the subject of one registered trial, NCT05762302, a study titled "The Impact of MeMed BV® on Management of Patients With Suspected 
+
+Will Ponatinib treat pediatric leukemia?
+  BEFORE [evidence] Ponatinib is the subject of 2 registered trials, including NCT06514534, a Phase 2 study titled "Open-label Study of Asciminib for CML-CP or 
+  AFTER  [evidence] Ponatinib is the subject of 3 registered trials, including NCT03934372, a Phase 1/Phase 2 study titled "Safety and Efficacy of Ponatinib for
+
+Will Tigertriever improve stroke cognition?
+  BEFORE [evidence] Tigertriever is the subject of 2 registered trials, including NCT05531461, a study titled "Cognition and Imaging With Tigertriever", current
+  AFTER  [evidence] Tigertriever is the subject of one registered trial, NCT05531461, a study titled "Cognition and Imaging With Tigertriever", currently recrui
+
+Will chronotherapy treat ADHD?
+  BEFORE [evidence] ADHD is the subject of one registered trial, NCT02675400, a Phase 4 study titled "Treatments for Fathers With ADHD and Their At-Risk Childre
+  AFTER  [evidence] The published evidence includes "ADHD as a circadian rhythm disorder: evidence and implications for chronotherapy" by Luu B et al. (2025) in
+
+Will Eli Lilly complete LY3537021 recruitment?
+  BEFORE [evidence] The published evidence includes "Eli Lilly inks dual-payload ADCs deal" by Mullard A et al. (2026) in Europe PMC.
+  AFTER  [evidence] LY3537021 is the subject of 3 registered trials, including NCT04586907, a Phase 1 study titled "A Study of LY3537021 in Healthy Participants
+
+Will Eli Lilly's Baricitinib delay Type 1 Diabetes?
+  BEFORE [evidence] The published evidence includes "Eli Lilly inks dual-payload ADCs deal" by Mullard A et al. (2026) in Europe PMC.
+  AFTER  [evidence] Research on Eli Lilly covers 5 registered trials, including NCT07222137, a Phase 3 study titled "A Study of Baricitinib (LY3009104) for the 
+
+Will Patisiran-LNP be approved for pregnancy?
+  BEFORE [no_evidence] No registered trial and no indexed publication on Patisiran-LNP was found, so nothing is claimed about Patisiran-LNP be approved for pregnan
+  AFTER  [evidence] Patisiran-LNP is the subject of one registered trial, NCT05040373, a study titled "Patisiran-Lipid Nanoparticle (LNP) Pregnancy Surveillance
+
+Will Axogen's Avance graft outperform autograft?
+  BEFORE [evidence] Avance is the subject of one registered trial, NCT05293145, a study titled "AVANCE-Houston Building Futures Program Evaluation", currently c
+  AFTER  [evidence] Axogen is the subject of one registered trial, NCT07657182, a Phase 4 study titled "Study Comparing Avance Nerve Graft and Autograft for Fun
+
+Was Rosalind Franklin's DNA image misinterpreted?
+  BEFORE [evidence] Wikipedia: Rosalind Elsie Franklin was an English chemist and X-ray crystallographer.
+  AFTER  [evidence] The published evidence includes "Photograph 49 is the Key to Understanding the History of Rosalind Franklin's DNA Photograph 51" by Sponsel 
+
+Will Semaglutide show positive eye disease effects?
+  BEFORE [evidence] Semaglutide is the subject of 2 registered trials, including NCT03552757, a Phase 3 study titled "Research Study Investigating How Well Sema
+  AFTER  [evidence] Semaglutide is the subject of one registered trial, NCT06792422, a Phase 4 study titled "A Study Investigating Oral Semaglutide in People wi
+
+Will Tezepelumab treat chronic rhinosinusitis?
+  BEFORE [evidence] Tezepelumab is the subject of 4 registered trials, including NCT04673630, a Phase 1 study titled "Study to Evaluate the Pharmacokinetics of 
+  AFTER  [evidence] Tezepelumab is the subject of 8 registered trials, including NCT07046117, a study titled "Effect of Tezepelumab on Barrier Function in Sever
+
+Will Calderasib (MK-1084) complete Phase 3?
+  BEFORE [evidence] Calderasib is the subject of 4 registered trials, including NCT07190248, a Phase 3 study titled "A Clinical Study of Calderasib (MK-1084) an
+  AFTER  [evidence] Calderasib is the subject of 10 registered trials, including NCT07190248, a Phase 3 study titled "A Clinical Study of Calderasib (MK-1084) a
+
+Will Semaglutide treat diabetic eye disease?
+  BEFORE [evidence] Semaglutide is the subject of 2 registered trials, including NCT03552757, a Phase 3 study titled "Research Study Investigating How Well Sema
+  AFTER  [evidence] Semaglutide is the subject of one registered trial, NCT07536516, a study titled "Measurement of Ocular Blood Flow and Retinal Oxygen Extract
+
+Will Glufosfamide outperform 5-FU?
+  BEFORE [evidence] Glufosfamide is the subject of 4 registered trials, including NCT00102752, a Phase 1/Phase 2 study titled "Study of Safety and Efficacy of G
+  AFTER  [evidence] Glufosfamide is the subject of one registered trial, NCT01954992, a Phase 3 study titled "Glufosfamide Versus 5-FU in Second Line Metastatic
+
+What does research say about creatine supplementation and cognition?
+  BEFORE [evidence] "Beetroot Juice Supplementation as a Healthy Aging Strategy Through Improving Physical Performance and Cognitive Functions: A Systematic Rev
+  AFTER  [evidence] "The cognitive effects of creatine supplementation in older adults and preclinical models of dementia: A scoping review" (Whitford T et al.,
+
+changed: 47

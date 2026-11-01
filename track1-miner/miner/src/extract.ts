@@ -123,12 +123,35 @@ export function placeCandidates(text: string): string[] {
     if (!junk && !out.includes(tail)) out.push(tail);
   }
 
+  // The same locative tail, but ending at a comma rather than at the end of the
+  // string. The block above is anchored to the end, so it sees nothing in
+  // "...forecast for lagos nigeria starting today, including temperature,
+  // precipitation probability and wind?" - the shape the Daemon actually routes.
+  // That question is all lowercase, so the proper-noun pass finds nothing
+  // either, and it was refused with no candidate tried at all. Every clause
+  // between commas is scanned here, cleaned exactly the way the end-anchored
+  // tail is, and appended after it.
+  for (const m of raw.matchAll(/\b(?:in|at|near|around|for)\s+([^,?.!]{2,40})(?=[,?.!]|$)/gi)) {
+    let clause = (m[1] ?? "")
+      .replace(/\b(?:starting|beginning|start(?:s|ing)? on|from|over|during|next|this|later|including)\b.*$/i, "")
+      .trim();
+    let seen = "";
+    while (clause !== seen) {
+      seen = clause;
+      clause = clause.replace(TRAILING, "").trim();
+    }
+    const head = clause.split(/\s+/)[0]?.toLowerCase() ?? "";
+    const unusable = /^\d/.test(clause) || !/[a-z]{2}/i.test(clause) ||
+      ["which", "the", "a", "an", "what", "how", "that", "this"].includes(head);
+    if (!unusable && !out.includes(clause)) out.push(clause);
+  }
+
   // Proper-noun runs are the strongest signal in an English question.
   const proper = raw.match(/\b[A-Z][a-z]+(?:[ -][A-Z][a-z]+)*/g);
   if (proper) {
     const stop = new Set([
       "will", "what", "how", "is", "are", "the", "a", "an", "i", "can", "could",
-      "would", "please", "give", "show", "tell", "provide", "report", "include",
+      "would", "please", "give", "show", "tell", "provide", "report", "include", "return", "classify",
       "celsius", "fahrenheit", "utc", "gmt",
       // Weekdays and months are time expressions, not places. "next Monday"
       // geocoded to Munday, a real town, and produced a confident forecast for
@@ -161,10 +184,29 @@ export function placeCandidates(text: string): string[] {
     // "Tokyo, Japan" reads as one place; the pair beats either half alone.
     for (let i = 0; i + 1 < kept.length; i++) {
       const joined = `${kept[i]}, ${kept[i + 1]}`;
-      if (raw.includes(joined) && !out.includes(joined)) out.push(joined);
+      if (raw.includes(joined) && !out.includes(joined)) out.unshift(joined);
     }
     for (const p of kept) if (!out.includes(p)) out.push(p);
   }
+  // Open-Meteo's gazetteer searches a NAME, not a "city country" phrase.
+  // "Lagos Nigeria", "lagos nigeria" and "Houston Texas" all return zero
+  // results where "Lagos, Nigeria", "Houston, Texas" and a bare "Lagos"
+  // resolve, and six real routed questions across WEATHER_FORECAST,
+  // WEATHER_CHECK and STORM_ALERT arrive with no comma. So every multi-word
+  // candidate also offers the comma-separated form and its leading words. Both
+  // are appended AFTER every candidate already found, so they cost a geocoder
+  // round-trip only on a question that would otherwise be refused, and the
+  // geocoder stays the arbiter of whether a string names a place.
+  for (const candidate of [...out]) {
+    if (candidate.includes(",")) continue;
+    const words = candidate.split(/\s+/).filter(Boolean);
+    if (words.length < 2 || words.length > 4) continue;
+    const head = words.slice(0, -1).join(" ");
+    for (const derived of [head + ", " + words[words.length - 1], head]) {
+      if (derived && !out.includes(derived)) out.push(derived);
+    }
+  }
+
   // A place name is not a sentence. Handing the geocoder 90 characters of
   // question resolved "Can you provide a 48-hour forecast for Tokyo, Japan..."
   // to Guangzhou — a confident answer about the wrong city.
@@ -173,7 +215,12 @@ export function placeCandidates(text: string): string[] {
   // Each candidate costs a geocode round-trip, and latency is scored. For a long
   // sentence the raw string is the least likely to resolve, so try the extracted
   // candidates first; for a short input it is almost certainly the place itself.
-  if (raw.split(/\s+/).length > 4) return [...unique.slice(1), unique[0]!].filter(Boolean);
+  if (raw.split(/\s+/).length > 4) {
+    // Filtering long raw questions may already have removed raw. Rotating by
+    // index then discards the best extracted place (Lagos) in favour of a verb
+    // such as Return, which is also a real town in South Carolina.
+    return [...unique.filter(c => c !== raw), ...unique.filter(c => c === raw)];
+  }
   return unique;
 }
 
@@ -449,17 +496,21 @@ export function extractSpanHours(text: string): number | null {
 export function extractWrittenStart(text: string, now = new Date()): string | null {
   const s = String(text ?? "");
 
-  const md = s.match(/\b([A-Za-z]{3,9})\s+(\d{1,2})(?:st|nd|rd|th)?(?:,\s*(\d{4}))?\b/);
-  const m1 = md?.[1]?.toLowerCase();
-  if (m1 && MONTHS[m1] !== undefined && md?.[2]) {
+  // Every "word number" pair is tried, not only the first: in "Will Dubai
+  // exceed 40°C on September 13?" the first is "exceed 40", and the date was
+  // never read, so today's forecast answered a question about another day
+  // (2026-10-21).
+  for (const md of s.matchAll(/\b([A-Za-z]{3,9})\s+(\d{1,2})(?:st|nd|rd|th)?(?:,\s*(\d{4}))?\b/g)) {
+    const m1 = md[1]?.toLowerCase();
+    if (!m1 || MONTHS[m1] === undefined || !md[2]) continue;
     const year = md[3] ? Number(md[3]) : now.getUTCFullYear();
     const d = new Date(Date.UTC(year, MONTHS[m1]!, Number(md[2])));
     if (!Number.isNaN(d.getTime())) return d.toISOString();
   }
 
-  const dm = s.match(/\b(\d{1,2})(?:st|nd|rd|th)?\s+([A-Za-z]{3,9})(?:\s+(\d{4}))?\b/);
-  const m2 = dm?.[2]?.toLowerCase();
-  if (m2 && MONTHS[m2] !== undefined && dm?.[1]) {
+  for (const dm of s.matchAll(/\b(\d{1,2})(?:st|nd|rd|th)?\s+([A-Za-z]{3,9})(?:\s+(\d{4}))?\b/g)) {
+    const m2 = dm[2]?.toLowerCase();
+    if (!m2 || MONTHS[m2] === undefined || !dm[1]) continue;
     const year = dm[3] ? Number(dm[3]) : now.getUTCFullYear();
     const d = new Date(Date.UTC(year, MONTHS[m2]!, Number(dm[1])));
     if (!Number.isNaN(d.getTime())) return d.toISOString();
@@ -494,6 +545,18 @@ export function resolveDateRequest(text: string): DateRequest | null {
 
   const written = extractWrittenStart(text);
   if (written) return { startIso: written, hours };
+  // "This weekend" is Saturday and Sunday, UTC; on a Sunday, what is left of it.
+  // "Should someone in Cape Town plan around rain this weekend?" was answered
+  // with the next 24 hours from a Wednesday (2026-10-21).
+  if (/\b(?:this|the|over\s+the|coming)\s+weekend\b/i.test(String(text ?? ""))) {
+    const now = new Date();
+    const d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
+    const day = d.getUTCDay();
+    if (day !== 0 && day !== 6) d.setUTCDate(d.getUTCDate() + (6 - day));
+    const start = day === 0 || day === 6 ? now : d;
+    const end = Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate() + (day === 0 ? 1 : 2));
+    return { startIso: start.toISOString(), hours: hours ?? Math.max(1, Math.round((end - start.getTime()) / 3_600_000)) };
+  }
   if (hours !== null) return { startIso: new Date().toISOString(), hours };
   return null;
 }

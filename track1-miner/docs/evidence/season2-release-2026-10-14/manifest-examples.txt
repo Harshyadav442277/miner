@@ -1,0 +1,76 @@
+/ssl-check           ok                           Is the TLS certificate for github.com valid? 
+/ssl-check           ok                           When does example.com's certificate expire? 
+/storm-alert         ok                           Is there a storm risk in Chennai in the next 48 hours? 
+/storm-alert         ok                           Will gusts exceed 60 km/h in Miami tonight? 
+/papers              ok                           Find recent peer-reviewed papers on CRISPR gene editing 
+/papers              ok                           Most cited papers on transformer models since 2023 
+/translate           ok                           Translate 'Good morning' into French 
+/translate           ok                           Say hello in Spanish 
+/ip-geolocate        ok                           Where is 8.8.8.8 located? 
+/ip-geolocate        ok                           Which network owns 1.1.1.1? 
+/weather-forecast    ok                           What is the forecast for London tomorrow? 
+/weather-forecast    ok                           What is the weather in Tokyo right now? 
+/extract             skip (placeholder)           Extract the dates and amounts from this invoice: … 
+/headlines           ok                           What are today's technology headlines? 
+/headlines           ok                           Top business news in Europe 
+/wallet-balance      ok                           What is the ETH balance of vitalik.eth? 
+/wallet-balance      skip (placeholder)           Balance of 0x… on Base 
+/tx-lookup           skip (placeholder)           Did transaction 0x… succeed, and who sent it to whom? 
+/tx-lookup           skip (placeholder)           When was contract 0x… deployed and how many transactions does it have? 
+/cve                 ok                           What is the severity and affected versions of CVE-2021-44228? 
+/tvl                 skip (placeholder)           How deep is the DEX pool liquidity for token 0x8335…2913 on Base? 
+/news-search         ok                           Latest news about the EU AI Act 
+/news-search         ok                           What happened with Boeing this week? 
+/convert             ok                           Convert 100 USD to EUR 
+/convert             ok                           What is 5,000 yen in dollars? 
+/game-result         ok                           Who won Argentina vs France in the 2022 World Cup final? 
+/gas-price           ok                           What is the gas price on Ethereum right now? 
+/gas-price           ok                           Gas on Base in Gwei 
+/financial           ok                           What is Solana's market cap and 24-hour volume? 
+/financial           ok                           Apple's revenue and P/E from its 10-K 
+/fraud-check         skip (placeholder)           Is 0x… a scam address? 
+/fraud-check         ok                           This email asks me to pay an invoice in gift cards: is it fraud? 
+/sports-score        ok                           What was the score of the last Lakers game? 
+/token-holders       ok                           How many holders does USDC have on Ethereum? 
+/research            ok                           What clinical trials are testing semaglutide for Alzheimer's? 
+/authenticity        skip (placeholder)           Is this quote really from Einstein: '…'? 
+/crypto-price        ok                           What is the price of ETH? 
+/crypto-price        ok                           BTC price in EUR on 2025-01-01 
+/stock-price         ok                           What is Apple's share price? 
+/stock-price         ok                           TSLA closing price on 2026-09-01 
+/cross-chain         skip (placeholder)           Was LayerZero message 0x… delivered from Ethereum to Arbitrum? 
+/cross-chain         skip (placeholder)           Did bridge transaction 0x… arrive on Base? 
+/event-outcome       ok                           Who won the 2024 US presidential election? 
+/event-outcome       skip (placeholder)           Has the Polymarket market on … resolved? 
+/url-scan            ok                           Is https://example.com/offer safe to click? 
+/web-search          ok                           What is the latest news on the Fed's rate decision? 
+/web-search          ok                           Who is the CEO of OpenAI? 
+/content-verify      skip (placeholder)           Is this the original wording of the Gettysburg Address: '…'? 
+/sentiment           ok                           What is the sentiment of this review: 'The product broke after one day'? 
+/classify            ok                           Classify this ticket as billing, technical or account: 'I was charged twice' 
+/research-synthesis  ok                           Summarise the evidence on intermittent fasting and weight loss 
+/fact-check          ok                           Is it true that the Eiffel Tower is in Paris? 
+/fact-check          ok                           Fact-check: water boils at 100 °C at sea level 
+/telegraph           ok                           How do I register a miner on Telegraph? 
+/telegraph           ok                           How are miner answers scored? 
+/ai-detect           skip (placeholder)           Was this passage written by an AI: '…'? 
+/sanctions-screen    ok                           Screen 'Ivan Petrov, DOB 1974, Cyprus' against the OFAC SDN list 
+/sanctions-screen    ok                           Is Viktor But sanctioned? 
+/sanctions-screen    skip (placeholder)           Is wallet 0x… on a sanctions list? 
+/company-registry    ok                           What is the incorporation status and registered agent for Tesla, Inc.? 
+/company-registry    ok                           Is Barclays Bank PLC still registered? 
+/company-registry    ok                           UK company number 01026167 
+/company-registry    ok                           Look up LEI 5493001KJTIIGC8Y1R12 
+/sec-filings         ok                           Has Tesla filed its latest 10-Q on SEC EDGAR, on what date was it accepted, and what did it disclose about margins? 
+/sec-filings         ok                           Did Apple file an 8-K in the last 30 days? 
+/sec-filings         ok                           What is Microsoft's most recent filing? 
+/transfer-verify     skip (placeholder)           Verify transfer 0x…: did it succeed, who sent it to whom, how much fee was burned and how many confirmations does it have? 
+/macro               ok                           What was the latest US CPI year-over-year print, and what is the current federal funds target range? 
+/macro               ok                           What is euro area inflation and the ECB deposit rate? 
+/macro               ok                           What is the unemployment rate in Germany? 
+/macro               ok                           What was Japan's GDP growth last year? 
+/url-reputation      ok                           Check https://login-secure-update.example.com against threat feeds and DNS blocklists: is it listed for phishing, and by which engines? 
+/url-reputation      ok                           Is malware.testcategory.com on any blocklist? 
+/answer              ok                           Who won the 2022 FIFA World Cup and where was it held? 
+/answer              ok                           Why is the sky blue? 
+/answer              skip (placeholder)           Based on the following text: … When did the war end? 

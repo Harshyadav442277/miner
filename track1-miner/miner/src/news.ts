@@ -10,6 +10,9 @@
  * is no SSRF surface: only the query string varies.
  */
 
+import { headlineCount, headlineWindow } from "./news-constraints";
+import { notLicensedReason, permitted } from "./sources";
+
 const FEED = "https://news.google.com/rss/search";
 const DEFAULT_TIMEOUT_MS = 8000;
 
@@ -33,6 +36,7 @@ export interface NewsResult {
   confidence: number;
   reason: string;
   checked_at: string;
+  error?: string;
 }
 
 const TOPICS = [
@@ -44,6 +48,10 @@ const TOPICS = [
 const GENERIC_TOPIC = new Set([
   "news", "headlines", "headline", "top stories", "stories", "top news", "general", "latest",
   "latest news", "top headlines", "current events", "breaking news", "any", "all",
+  // "headlines about happening in India today" (routed 2026-10-10): once the
+  // locative tail is gone the phrase is a verb, and the feed was searched for it.
+  "happening", "what's happening", "whats happening", "what is happening", "going on",
+  "current affairs",
 ]);
 
 /** Time words and locative tails that trail a subject phrase but are not part of it. */
@@ -71,9 +79,38 @@ export function extractTopic(text: string, declared = ""): string | null {
   };
   const d = clean(String(declared ?? ""));
   if (d) return d;
-  const m = String(text ?? "").match(/\b(?:about|on|regarding|concerning|related to|covering)\s+([^?.!:;]{2,80})/i);
-  return m?.[1] ? clean(m[1]) : null;
+  const m = String(text ?? "").match(/\b(?:about|on|regarding|concerning|related to|covering)\s+([^?.!:;]{2,80})/i) ??
+    // "find latest headlines for uk vs russia" was answered with generic top
+    // stories, the Pope and a castle sale among them (2026-10-21).
+    String(text ?? "").match(/\b(?:headlines?|news|stories)\s+for\s+([^?.!:;]{2,80})/i);
+  if (m?.[1]) return clean(m[1]);
+  // "Give three spaceflight news headlines…", "top 5 semiconductor headlines": the
+  // subject is the phrase in front of the news noun, once the count and the
+  // request words in front of it are gone. Without this, that question class
+  // was answered with generic top stories (the engine does not always pass `topic`).
+  const before = String(text ?? "").match(/(?:^|\b)((?:[A-Za-z0-9][A-Za-z0-9&'’-]*\s+){1,5})(?:news\s+)?(?:headlines?|stories|news)\b/i);
+  if (!before?.[1]) return null;
+  const words = before[1].trim().split(/\s+/);
+  while (words.length && LEAD_WORDS.has(words[0]!.toLowerCase())) words.shift();
+  if (words.length && /^news$/i.test(words[words.length - 1]!)) words.pop();
+  return words.length ? clean(words.join(" ")) : null;
 }
+
+/** Request words that precede a subject phrase and are not part of it. */
+const LEAD_WORDS = new Set([
+  "give", "show", "tell", "list", "find", "get", "fetch", "provide", "share", "me", "us", "the",
+  "a", "an", "some", "any", "top", "latest", "current", "breaking", "recent", "first", "major",
+  "biggest", "main", "key", "important", "today's", "todays", "please", "what", "are", "is",
+  "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
+  "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
+]);
+
+/** Multi-word world regions, matched whatever their case. "Southeast Asia" precedes "East Asia". */
+const WORLD_REGIONS = [
+  "Southeast Asia", "South Asia", "East Asia", "Central Asia", "Asia Pacific", "Middle East",
+  "North Africa", "West Africa", "East Africa", "Sub-Saharan Africa", "Latin America",
+  "South America", "North America", "Central America", "Eastern Europe", "Western Europe",
+];
 
 /**
  * A place named in the question, as a proper noun that is not a time word.
@@ -96,7 +133,14 @@ export function extractRegion(text: string, topic: string | null = null): string
     "january", "february", "march", "april", "may", "june", "july",
     "august", "september", "october", "november", "december",
   ]);
-  const m = s.match(/\b(?:from|in|for)\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)/);
+  // Callers do not capitalise world regions: "happening in Southeast asia today"
+  // answered "headlines from Southeast" (2026-10-10).
+  for (const r of WORLD_REGIONS) {
+    if (new RegExp(String.raw`\b` + r.replace(/[ -]/g, "[\\s-]+") + String.raw`\b`, "i").test(s) && !inTopic(r)) return r;
+  }
+  // "from the Middle East" used to fall through to the single-word scan below and
+  // answer "headlines from Middle"; the article is not part of the place.
+  const m = s.match(/\b(?:from|in|for)\s+(?:the\s+)?([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)/);
   if (m?.[1] && !stop.has(m[1].toLowerCase()) && !inTopic(m[1])) return m[1];
   for (const n of s.matchAll(/\b([A-Z][a-z]{2,})\b/g)) {
     const v = n[1]!;
@@ -133,11 +177,27 @@ export async function getHeadlines(
   const topic = extractTopic(query, declaredTopic);
   const region = extractRegion(query, topic);
   // "top 5 headlines" is a count, and an answer with six items did not honour it.
-  const askedN = String(query ?? "").match(/\b(?:top|latest|first)\s+(\d{1,2})\b/i);
-  const wantN = askedN?.[1] ? Math.max(1, Math.min(10, Number(askedN[1]))) : null;
+  const wantN = headlineCount(String(query ?? ""));
+  const window = headlineWindow(query, Date.parse(now));
   const terms = [topic, region].filter(Boolean).join(" ") || "top stories";
+  // The feed ranks by relevance, so the hundred items for "sports Middle East"
+  // held none from the last day and "today" was answered with nothing
+  // (2026-10-10). A window ending now is asked of the feed itself; the filter
+  // below still enforces it.
+  const recent = window && window.end >= Date.parse(now) - 300000
+    ? ` when:${Math.max(1, Math.ceil((window.end - window.start) / 86400000))}d`
+    : "";
 
-  const url = `${FEED}?q=${encodeURIComponent(terms)}`;
+  // Google News RSS is the only source here, and its terms bar paid use (GAPS
+  // G189, G230), so until a licensed news source exists no headline is served.
+  if (!permitted(FEED)) {
+    return {
+      topic, region, verdict: "unknown", headlines: [], count: 0, confidence: 0, checked_at: now, error: "not_licensed",
+      reason: `No ${topic ? `${topic} ` : ""}headlines are given: ${notLicensedReason(FEED)}`,
+    };
+  }
+
+  const url = `${FEED}?q=${encodeURIComponent(terms + recent)}`;
   const ac = new AbortController();
   const t = setTimeout(() => ac.abort(), timeoutMs);
   let xml = "";
@@ -149,16 +209,25 @@ export async function getHeadlines(
     clearTimeout(t);
   }
 
-  const items = [...xml.matchAll(/<item>([\s\S]*?)<\/item>/g)].slice(0, wantN ?? limit);
+  const items = [...xml.matchAll(/<item>([\s\S]*?)<\/item>/g)];
   const headlines: Headline[] = [];
+  const seen = new Set<string>();
   for (const it of items) {
     const block = it[1] ?? "";
     const rawTitle = block.match(/<title>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/title>/)?.[1];
     if (!rawTitle) continue;
     const { title, source } = splitSource(decode(rawTitle));
     const pub = block.match(/<pubDate>([\s\S]*?)<\/pubDate>/)?.[1];
-    headlines.push({ title, source, published: pub ? new Date(pub).toISOString() : null });
+    const at = pub ? Date.parse(pub) : NaN;
+    if (Number.isFinite(at) && at > Date.parse(now)+300000) continue;
+    if (window && (!Number.isFinite(at) || at < window.start || at > window.end)) continue;
+    const key = title.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, " ").trim();
+    if (seen.has(key)) continue;
+    seen.add(key);
+    headlines.push({ title, source, published: Number.isFinite(at) ? new Date(at).toISOString() : null });
   }
+  headlines.sort((a,b) => Date.parse(b.published ?? "")-Date.parse(a.published ?? ""));
+  headlines.splice(wantN ?? limit);
 
   const day = new Date().toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
   // "top 5 technology headlines from Japan", numbered like a person would list
@@ -166,12 +235,15 @@ export async function getHeadlines(
   // those words, and the answer should read as directly addressing each one.
   const subject = topic ? `${topic} ` : "";
   const where = region ? ` from ${region}` : "";
-  const countWord = wantN ? `${wantN} ` : "";
+  const countWord = wantN ? `${headlines.length} ` : "";
+  // An undated question gets no period word: "headlines from Japan available" is not English.
+  const period = window ? ` ${window.label}` : "";
 
   const reason = headlines.length
-    ? `The top ${countWord}${subject}headlines${where} today, as of ${day}, are: ` +
-      headlines.map((h, i) => `${i + 1}. ${h.title}${h.source ? ` (${h.source})` : ""}.`).join(" ")
-    : `No current ${subject}headlines${where} could be retrieved as of ${day}.`;
+    ? `The top ${countWord}${subject}headlines${where}${period}, as of ${day}, are: ` +
+      headlines.map((h, i) => `${i + 1}. ${h.title}${h.source ? ` (${h.source}${h.published ? `, ${h.published.slice(0,10)}` : ""})` : ""}.`).join(" ") +
+      (wantN && headlines.length < wantN ? ` Only ${headlines.length} matching headlines were found out of ${wantN} requested.` : "")
+    : `No ${subject}headlines${where}${period} could be retrieved as of ${day}.`;
 
   return {
     topic,

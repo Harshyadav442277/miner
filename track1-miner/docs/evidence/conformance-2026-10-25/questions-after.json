@@ -1,0 +1,15 @@
+{
+ "CURRENCY_EXCHANGE": ["/convert", ["Convert 320 CHF to SEK", "How many Polish zloty is 45 euros?", "What is 1200 NOK in USD?"]],
+ "LANGUAGE_TRANSLATION": ["/translate", ["Translate \"The museum opens at nine\" into Italian.", "Translate \"My luggage is missing\" into Portuguese.", "Translate \"Please call a doctor\" into Dutch."]],
+ "SENTIMENT_ANALYSIS": ["/sentiment", ["Sentiment of this review: 'The noise cancelling is magic, worth every penny.'", "What is the sentiment of: 'Waited forty minutes and the soup was cold.'", "Sentiment of this comment: 'Decent value, though the strap feels flimsy.'"]],
+ "TEXT_CLASSIFICATION": ["/classify", ["Classify this headline as politics, sport or science: 'Astronomers detect water vapour on a distant exoplanet.'", "Classify this ticket as billing, technical or account issue: 'My invoice shows the wrong VAT number.'", "Classify into travel, food or finance: 'The best ramen shops near Shinjuku station.'"]],
+ "SANCTIONS_SCREENING_MATCH": ["/sanctions-screen", ["Screen Sberbank against sanctions lists", "Is Maria Gonzalez Lopez on any sanctions list?", "Screen the vessel name Ocean Glory against OFAC"]],
+ "CORPORATE_REGISTRY_LOOKUP": ["/company-registry", ["Look up Unilever PLC in the company registry", "Is Nvidia Corporation an active registered company?", "What is the LEI of Deutsche Bank AG?"]],
+ "REGULATORY_FILING_MONITOR": ["/sec-filings", ["What was Nvidia's most recent 10-Q filing date?", "Has Amazon filed an 8-K this month?", "Latest annual report filing from Coca-Cola on EDGAR"]],
+ "CRYPTO_TRANSFER_VERIFY": ["/transfer-verify", ["Verify transfer 0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060 on mainnet", "Was transaction 0x88df016429689c079f3b2f6ad39fa052532c56795b733da78a91ebe6a713944b confirmed?", "Status of transfer 0x2f1c5c2b44f771e942a8506148e256f94f1a464babc938ae0690c6e34cd79190"]],
+ "MACRO_ECONOMIC_INDICATOR": ["/macro", ["What is the euro area's latest inflation rate?", "What is Germany's unemployment rate?", "What is the current ECB deposit facility rate?"]],
+ "URL_SAFE": ["/url-reputation", ["Is https://www.bbc.co.uk safe?", "Check http://testsafebrowsing.appspot.com/s/malware.html for malware", "Is https://docs.python.org a phishing site?"]],
+ "QUESTION_ANSWERING": ["/answer", ["Who painted The Starry Night?", "What is the capital of Kenya?", "How many bones are in the adult human body?"]],
+ "CROSS_CHAIN_STATE_VERIFY": ["/cross-chain", ["Has LayerZero message 0x0aa1b2c3d4e5f60718293a4b5c6d7e8f9011223344556677889900aabbccddeeff delivered?", "Verify the bridge transfer 0x3c4d5e6f708192a3b4c5d6e7f8091a2b3c4d5e6f708192a3b4c5d6e7f8091a2b on LayerZero", "Is Wormhole message 2/0000000000000000000000003ee18b2214aff97000d974cf647e7c347e8fa585/2 delivered?"]],
+ "EVENT_OUTCOME_RESOLUTION": ["/event-outcome", ["Who won the 2023 Rugby World Cup final?", "Did Spain win Euro 2024?", "Who won the 2022 Wimbledon men's singles title?"]]
+}

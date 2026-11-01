@@ -38,7 +38,9 @@ describe("checkStorm (live)", () => {
   test("returns a graded verdict for a real city", async () => {
     const r = await checkStorm("Chennai");
     assert.ok(["none", "low", "moderate", "high", "severe"].includes(r.verdict), `got ${r.verdict}`);
-    assert.ok(r.max_wind_gust_kmh !== null && r.max_wind_gust_kmh >= 0);
+    assert.ok(r.max_wind_speed_kmh !== null && r.max_wind_speed_kmh >= 0);
+    // MET Norway publishes gusts only around the Nordic countries: null here, never a guess.
+    assert.ok(r.max_wind_gust_kmh === null || r.max_wind_gust_kmh >= 0);
     assert.equal(r.window_hours, 48);
     assert.ok(r.reason.length > 0);
     assert.ok(r.latitude !== null && r.longitude !== null);
@@ -65,7 +67,7 @@ describe("checkStorm (live)", () => {
 
   // "in 12 hours" names a moment; "over the next 12 hours" names a span, and a
   // point question answered with a span maximum is wrong while looking well
-  // formed. Nothing covered this: replay-corpus.mjs read `time_mode` off the
+  // formed. Nothing covered this: replay-corpus.mjs (deleted) read `time_mode` off the
   // HTTP response, and no endpoint has ever served that field — it is declared
   // in miner.yaml and produced nowhere, so the check compared undefined and
   // passed everything. The mode is really carried by which of the two timestamps
@@ -94,23 +96,20 @@ describe("checkStorm (live)", () => {
     const r = await checkStorm(`storm risk at ${lat},${lon} in 12 hours?`);
     assert.ok(r.valid_at, "a point answer must name the hour it describes");
 
-    const u =
-      `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}` +
-      `&hourly=wind_gusts_10m,wind_speed_10m&forecast_days=2&timezone=UTC&wind_speed_unit=kmh`;
-    const truth = (await (await fetch(u)).json()) as {
-      hourly: { time: string[]; wind_gusts_10m: number[]; wind_speed_10m: number[] };
+    // MET Norway's own series for the same point, read independently in UTC.
+    const u = `https://api.met.no/weatherapi/locationforecast/2.0/complete?lat=${lat}&lon=${lon}`;
+    const truth = (await (await fetch(u, { headers: { "user-agent": "livecert-miner-tests/1.0 (+https://github.com/Harshyadav442277/miner)" } })).json()) as {
+      properties: { timeseries: Array<{ time: string; data: { instant: { details: { wind_speed: number } } } }> };
     };
+    const rows = truth.properties.timeseries;
     const target = Date.now() + 12 * 36e5;
-    let i = truth.hourly.time.findIndex((t) => new Date(`${t}Z`).getTime() >= target);
-    if (i < 0) i = truth.hourly.time.length - 1;
+    const row = rows.find((t, k) => Date.parse(t.time) <= target && target < Date.parse(rows[k + 1]?.time ?? t.time) + 1);
 
     const hoursOut = (new Date(`${r.valid_at}Z`).getTime() - Date.now()) / 36e5;
     assert.ok(Math.abs(hoursOut - 12) <= 2, `valid_at is ${hoursOut.toFixed(1)}h out, asked 12h`);
-    assert.equal(
-      r.max_wind_gust_kmh,
-      truth.hourly.wind_gusts_10m[i],
-      `gust must match the real ${truth.hourly.time[i]}Z row, not a local-clock one`,
-    );
+    assert.ok(row, "MET Norway's series must cover now+12h");
+    assert.equal(r.valid_at, row.time.slice(0, 16), "the answer must describe the real UTC step, not a local-clock one");
+    assert.equal(r.max_wind_speed_kmh, Math.round(row.data.instant.details.wind_speed * 3.6 * 10) / 10);
   });
   test("peak_at falls inside the forecast window", async () => {
     const r = await checkStorm("London");
@@ -132,14 +131,12 @@ describe("answer completeness (live)", () => {
     assert.match(r.reason, /wind speed:/i);
     assert.match(r.reason, /gusts:/i);
     assert.match(r.reason, /overall risk: 0/i);
-    // Operational questions (epoch 289) are invisible to us — the engine sends
-    // only coordinates — so the guidance must be present unconditionally.
-    assert.match(r.reason, /operational adjustments to safeguard equipment and personnel/i);
+    assert.match(r.reason, /not an official weather warning/);
   });
 
   test("an unresolvable place carries no operational guidance", async () => {
     const r = await checkStorm("Nowhereville XYZ123 QQQ");
-    assert.doesNotMatch(r.reason, /operational adjustments/i);
+    assert.doesNotMatch(r.reason, /Exposed operations|To prepare for these conditions/);
   });
 
   test("a question asking what to do leads with the guidance", async () => {
@@ -148,15 +145,14 @@ describe("answer completeness (live)", () => {
         "longitude -104.9903 in the next 24 hours, what specific operational adjustments should " +
         "crews implement to safeguard equipment and personnel?",
     );
-    assert.match(r.reason, /^To prepare for these conditions, implement operational adjustments/);
+    assert.match(r.reason, /^To prepare for these conditions, secure loose equipment/);
     // The forecast still follows — an advisory answer without the numbers
     // answers only half the question.
     assert.match(r.reason, /wind speed:/i);
   });
 
-  test("a forecast question keeps the guidance at the tail", async () => {
+  test("a forecast question leads with the graded answer", async () => {
     const r = await checkStorm("storm risk at 37.7749,-122.4194 over the next 48 hours");
-    assert.match(r.reason, /^The wind and storm forecast/);
-    assert.match(r.reason, /If operations are exposed, implement operational adjustments/);
+    assert.match(r.reason, /^(?:No storm conditions are forecast|(?:Low|Moderate|High|Severe) storm risk is forecast)/);
   });
 });

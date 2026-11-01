@@ -19,12 +19,22 @@ describe("normalizeTarget", () => {
     assert.deepEqual(normalizeTarget("https://example.com:8443/x"), { host: "example.com", port: 8443 });
   });
 
+  test("keeps a URL and port embedded in a natural-language question", () => {
+    assert.deepEqual(normalizeTarget("Can you verify https://example.com:8443?"), { host: "example.com", port: 8443 });
+  });
+
   test("lowercases", () => {
     assert.deepEqual(normalizeTarget("EXAMPLE.COM"), { host: "example.com", port: 443 });
   });
 
   test("accepts a bare IPv4", () => {
     assert.deepEqual(normalizeTarget("1.1.1.1"), { host: "1.1.1.1", port: 443 });
+  });
+
+  test("accepts IPv6 URLs and legal IDN/punycode hostnames", () => {
+    assert.deepEqual(normalizeTarget("https://[2606:4700:4700::1111]:443"), { host: "2606:4700:4700::1111", port: 443 });
+    assert.deepEqual(normalizeTarget("EXAMPLE.COM."), { host: "example.com", port: 443 });
+    assert.deepEqual(normalizeTarget("https://xn--bcher-kva.example"), { host: "xn--bcher-kva.example", port: 443 });
   });
 
   test("accepts subdomains", () => {
@@ -98,7 +108,8 @@ describe("checkCertificate (live)", { concurrency: 4 }, () => {
   });
 
   test("expired certificates report a negative days_remaining", async () => {
-    const r = await checkCertificate("expired.badssl.com", 443, 12_000);
+    // ssl.com's expired host, not badssl's: that server resets about a third of handshakes (G246).
+    const r = await checkCertificate("expired-rsa-dv.ssl.com", 443, 12_000);
     assert.ok(r.days_remaining !== null && r.days_remaining < 0, `days_remaining=${r.days_remaining}`);
     assert.equal(r.verdict, "expired");
     assert.equal(r.valid, false);
@@ -116,6 +127,21 @@ describe("answer completeness (live)", () => {
     assert.match(r.reason, /chain trust/i);
     assert.match(r.reason, /hostname verification/i);
     assert.match(r.reason, /certificate validity/i);
+  });
+
+  test("a failing answer states the chain as its own sentence and never claims a trusted root", async (t) => {
+    // G246: the untrusted answer said the chain "does not reach a trusted root", then
+    // "the server presented a complete chain ..., building a trusted path to a root".
+    const cases: Array<[string, string]> = [["expired-rsa-dv.ssl.com", "expired"], ["untrusted-root.badssl.com", "untrusted"]];
+    for (const [host, verdict] of cases) {
+      let r = await checkCertificate(host, 443, 12_000);
+      if (r.verdict === "unreachable") r = await checkCertificate(host, 443, 12_000);
+      if (r.verdict === "unreachable") { t.diagnostic(`${host} unreachable after a retry`); continue; }
+      assert.equal(r.verdict, verdict);
+      assert.match(r.reason, /\. The server presented /);
+      assert.doesNotMatch(r.reason, /\. the /);
+      assert.doesNotMatch(r.reason, /trusted path to a root/);
+    }
   });
 
   test("an unreachable answer still names the checks it could not perform", async () => {

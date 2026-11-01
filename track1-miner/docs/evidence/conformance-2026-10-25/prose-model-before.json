@@ -1,0 +1,567 @@
+{
+ "at": "2026-10-25T16:16:17.447Z",
+ "keyless": [
+  {
+   "intent": "SENTIMENT_ANALYSIS",
+   "text": "The product broke after one day, terrible quality.",
+   "gold": "negative",
+   "got": "negative",
+   "ms": 2
+  },
+  {
+   "intent": "SENTIMENT_ANALYSIS",
+   "text": "Delivery was quick and the staff were lovely.",
+   "gold": "positive",
+   "got": "positive",
+   "ms": 1
+  },
+  {
+   "intent": "SENTIMENT_ANALYSIS",
+   "text": "It works, but the battery life is disappointing.",
+   "gold": "mixed",
+   "got": "negative",
+   "ms": 0
+  },
+  {
+   "intent": "SENTIMENT_ANALYSIS",
+   "text": "Absolutely love this phone, best purchase this year.",
+   "gold": "positive",
+   "got": "positive",
+   "ms": 0
+  },
+  {
+   "intent": "SENTIMENT_ANALYSIS",
+   "text": "The hotel room was filthy and the staff were rude.",
+   "gold": "negative",
+   "got": "negative",
+   "ms": 0
+  },
+  {
+   "intent": "SENTIMENT_ANALYSIS",
+   "text": "Oh great, another update that deletes all my settings. Fantastic.",
+   "gold": "negative",
+   "got": "positive",
+   "ms": 0
+  },
+  {
+   "intent": "SENTIMENT_ANALYSIS",
+   "text": "The food was cold but the service was excellent.",
+   "gold": "mixed",
+   "got": "positive",
+   "ms": 0
+  },
+  {
+   "intent": "SENTIMENT_ANALYSIS",
+   "text": "Not bad at all, I was pleasantly surprised.",
+   "gold": "positive",
+   "got": "positive",
+   "ms": 0
+  },
+  {
+   "intent": "SENTIMENT_ANALYSIS",
+   "text": "I would not recommend this to anyone.",
+   "gold": "negative",
+   "got": "negative",
+   "ms": 0
+  },
+  {
+   "intent": "SENTIMENT_ANALYSIS",
+   "text": "The package arrived on Tuesday.",
+   "gold": "neutral",
+   "got": "neutral",
+   "ms": 0
+  },
+  {
+   "intent": "SENTIMENT_ANALYSIS",
+   "text": "Customer support never replied to my three emails.",
+   "gold": "negative",
+   "got": "negative",
+   "ms": 0
+  },
+  {
+   "intent": "SENTIMENT_ANALYSIS",
+   "text": "Five stars, would buy again without hesitation.",
+   "gold": "positive",
+   "got": "neutral",
+   "ms": 0
+  },
+  {
+   "intent": "SENTIMENT_ANALYSIS",
+   "text": "The camera is superb, though the app keeps crashing.",
+   "gold": "mixed",
+   "got": "positive",
+   "ms": 0
+  },
+  {
+   "intent": "SENTIMENT_ANALYSIS",
+   "text": "Meh. It does what it says, nothing more.",
+   "gold": "neutral",
+   "got": "negative",
+   "ms": 0
+  },
+  {
+   "intent": "SENTIMENT_ANALYSIS",
+   "text": "This is the worst airline I have ever flown with.",
+   "gold": "negative",
+   "got": "negative",
+   "ms": 0
+  },
+  {
+   "intent": "SENTIMENT_ANALYSIS",
+   "text": "Thanks so much, you saved my day!",
+   "gold": "positive",
+   "got": "positive",
+   "ms": 0
+  },
+  {
+   "intent": "SENTIMENT_ANALYSIS",
+   "text": "The movie was not as good as the book, but still enjoyable.",
+   "gold": "mixed",
+   "got": "positive",
+   "ms": 0
+  },
+  {
+   "intent": "SENTIMENT_ANALYSIS",
+   "text": "I can't believe how easy the setup was.",
+   "gold": "positive",
+   "got": "negative",
+   "ms": 0
+  },
+  {
+   "intent": "SENTIMENT_ANALYSIS",
+   "text": "Prices went up again and the portions got smaller.",
+   "gold": "negative",
+   "got": "neutral",
+   "ms": 0
+  },
+  {
+   "intent": "SENTIMENT_ANALYSIS",
+   "text": "The meeting has been moved to 3 pm.",
+   "gold": "neutral",
+   "got": "neutral",
+   "ms": 0
+  },
+  {
+   "intent": "SENTIMENT_ANALYSIS",
+   "text": "Nothing works and nobody seems to care.",
+   "gold": "negative",
+   "got": "negative",
+   "ms": 0
+  },
+  {
+   "intent": "SENTIMENT_ANALYSIS",
+   "text": "Honestly the best customer service I've had in years.",
+   "gold": "positive",
+   "got": "positive",
+   "ms": 0
+  },
+  {
+   "intent": "SENTIMENT_ANALYSIS",
+   "text": "Great screen, terrible keyboard.",
+   "gold": "mixed",
+   "got": "mixed",
+   "ms": 0
+  },
+  {
+   "intent": "SENTIMENT_ANALYSIS",
+   "text": "Yeah right, like that's ever going to arrive on time.",
+   "gold": "negative",
+   "got": "positive",
+   "ms": 0
+  },
+  {
+   "intent": "TEXT_CLASSIFICATION",
+   "text": "The striker scored twice in the derby.",
+   "gold": "sports",
+   "got": "sports",
+   "ms": 646
+  },
+  {
+   "intent": "TEXT_CLASSIFICATION",
+   "text": "Parliament passed the budget bill after a late-night vote.",
+   "gold": "politics",
+   "got": "politics",
+   "ms": 498
+  },
+  {
+   "intent": "TEXT_CLASSIFICATION",
+   "text": "The new chip doubles battery life on laptops.",
+   "gold": "technology",
+   "got": "technology",
+   "ms": 448
+  },
+  {
+   "intent": "TEXT_CLASSIFICATION",
+   "text": "I was charged twice for my subscription this month.",
+   "gold": "billing",
+   "got": "billing",
+   "ms": 464
+  },
+  {
+   "intent": "TEXT_CLASSIFICATION",
+   "text": "The app crashes every time I open the camera.",
+   "gold": "technical",
+   "got": "technical",
+   "ms": 459
+  },
+  {
+   "intent": "TEXT_CLASSIFICATION",
+   "text": "I can't log into my account after resetting my password.",
+   "gold": "account issue",
+   "got": "account issue",
+   "ms": 343
+  },
+  {
+   "intent": "TEXT_CLASSIFICATION",
+   "text": "You have won a free cruise, click now to claim!",
+   "gold": "spam",
+   "got": "spam",
+   "ms": 443
+  },
+  {
+   "intent": "TEXT_CLASSIFICATION",
+   "text": "Hi Sam, the minutes from Tuesday's meeting are attached.",
+   "gold": "not spam",
+   "got": "ambiguous",
+   "ms": 306
+  },
+  {
+   "intent": "TEXT_CLASSIFICATION",
+   "text": "Bond yields rose sharply after the inflation report.",
+   "gold": "finance",
+   "got": "finance",
+   "ms": 532
+  },
+  {
+   "intent": "TEXT_CLASSIFICATION",
+   "text": "Regular exercise lowers the risk of heart disease.",
+   "gold": "health",
+   "got": "health",
+   "ms": 476
+  },
+  {
+   "intent": "TEXT_CLASSIFICATION",
+   "text": "Production is down for all customers right now.",
+   "gold": "urgent",
+   "got": "ambiguous",
+   "ms": 361
+  },
+  {
+   "intent": "TEXT_CLASSIFICATION",
+   "text": "Could we move next month's review to Thursday?",
+   "gold": "not urgent",
+   "got": "ambiguous",
+   "ms": 415
+  },
+  {
+   "intent": "TEXT_CLASSIFICATION",
+   "text": "Why does shipping to Canada take three weeks?",
+   "gold": "question",
+   "got": "praise",
+   "ms": 492
+  },
+  {
+   "intent": "TEXT_CLASSIFICATION",
+   "text": "Your team went above and beyond, thank you.",
+   "gold": "praise",
+   "got": "praise",
+   "ms": 316
+  },
+  {
+   "intent": "TEXT_CLASSIFICATION",
+   "text": "The replacement part arrived broken, again.",
+   "gold": "complaint",
+   "got": "ambiguous",
+   "ms": 379
+  },
+  {
+   "intent": "TEXT_CLASSIFICATION",
+   "text": "A crash on the M25 has closed two lanes near Heathrow.",
+   "gold": "traffic",
+   "got": "traffic",
+   "ms": 445
+  }
+ ],
+ "model": [
+  {
+   "intent": "SENTIMENT_ANALYSIS",
+   "text": "The product broke after one day, terrible quality.",
+   "gold": "negative",
+   "got": "negative",
+   "ms": 766
+  },
+  {
+   "intent": "SENTIMENT_ANALYSIS",
+   "text": "Delivery was quick and the staff were lovely.",
+   "gold": "positive",
+   "got": "positive",
+   "ms": 757
+  },
+  {
+   "intent": "SENTIMENT_ANALYSIS",
+   "text": "It works, but the battery life is disappointing.",
+   "gold": "mixed",
+   "got": "mixed",
+   "ms": 1372
+  },
+  {
+   "intent": "SENTIMENT_ANALYSIS",
+   "text": "Absolutely love this phone, best purchase this year.",
+   "gold": "positive",
+   "got": "positive",
+   "ms": 926
+  },
+  {
+   "intent": "SENTIMENT_ANALYSIS",
+   "text": "The hotel room was filthy and the staff were rude.",
+   "gold": "negative",
+   "got": "negative",
+   "ms": 1348
+  },
+  {
+   "intent": "SENTIMENT_ANALYSIS",
+   "text": "Oh great, another update that deletes all my settings. Fantastic.",
+   "gold": "negative",
+   "got": "negative",
+   "ms": 670
+  },
+  {
+   "intent": "SENTIMENT_ANALYSIS",
+   "text": "The food was cold but the service was excellent.",
+   "gold": "mixed",
+   "got": "mixed",
+   "ms": 1094
+  },
+  {
+   "intent": "SENTIMENT_ANALYSIS",
+   "text": "Not bad at all, I was pleasantly surprised.",
+   "gold": "positive",
+   "got": "positive",
+   "ms": 770
+  },
+  {
+   "intent": "SENTIMENT_ANALYSIS",
+   "text": "I would not recommend this to anyone.",
+   "gold": "negative",
+   "got": "negative",
+   "ms": 561
+  },
+  {
+   "intent": "SENTIMENT_ANALYSIS",
+   "text": "The package arrived on Tuesday.",
+   "gold": "neutral",
+   "got": "neutral",
+   "ms": 0
+  },
+  {
+   "intent": "SENTIMENT_ANALYSIS",
+   "text": "Customer support never replied to my three emails.",
+   "gold": "negative",
+   "got": "negative",
+   "ms": 427
+  },
+  {
+   "intent": "SENTIMENT_ANALYSIS",
+   "text": "Five stars, would buy again without hesitation.",
+   "gold": "positive",
+   "got": "neutral",
+   "ms": 0
+  },
+  {
+   "intent": "SENTIMENT_ANALYSIS",
+   "text": "The camera is superb, though the app keeps crashing.",
+   "gold": "mixed",
+   "got": "mixed",
+   "ms": 700
+  },
+  {
+   "intent": "SENTIMENT_ANALYSIS",
+   "text": "Meh. It does what it says, nothing more.",
+   "gold": "neutral",
+   "got": "neutral",
+   "ms": 883
+  },
+  {
+   "intent": "SENTIMENT_ANALYSIS",
+   "text": "This is the worst airline I have ever flown with.",
+   "gold": "negative",
+   "got": "negative",
+   "ms": 668
+  },
+  {
+   "intent": "SENTIMENT_ANALYSIS",
+   "text": "Thanks so much, you saved my day!",
+   "gold": "positive",
+   "got": "positive",
+   "ms": 645
+  },
+  {
+   "intent": "SENTIMENT_ANALYSIS",
+   "text": "The movie was not as good as the book, but still enjoyable.",
+   "gold": "mixed",
+   "got": "positive",
+   "ms": 496
+  },
+  {
+   "intent": "SENTIMENT_ANALYSIS",
+   "text": "I can't believe how easy the setup was.",
+   "gold": "positive",
+   "got": "positive",
+   "ms": 716
+  },
+  {
+   "intent": "SENTIMENT_ANALYSIS",
+   "text": "Prices went up again and the portions got smaller.",
+   "gold": "negative",
+   "got": "neutral",
+   "ms": 0
+  },
+  {
+   "intent": "SENTIMENT_ANALYSIS",
+   "text": "The meeting has been moved to 3 pm.",
+   "gold": "neutral",
+   "got": "neutral",
+   "ms": 0
+  },
+  {
+   "intent": "SENTIMENT_ANALYSIS",
+   "text": "Nothing works and nobody seems to care.",
+   "gold": "negative",
+   "got": "negative",
+   "ms": 1252
+  },
+  {
+   "intent": "SENTIMENT_ANALYSIS",
+   "text": "Honestly the best customer service I've had in years.",
+   "gold": "positive",
+   "got": "positive",
+   "ms": 801
+  },
+  {
+   "intent": "SENTIMENT_ANALYSIS",
+   "text": "Great screen, terrible keyboard.",
+   "gold": "mixed",
+   "got": "mixed",
+   "ms": 639
+  },
+  {
+   "intent": "SENTIMENT_ANALYSIS",
+   "text": "Yeah right, like that's ever going to arrive on time.",
+   "gold": "negative",
+   "got": "negative",
+   "ms": 559
+  },
+  {
+   "intent": "TEXT_CLASSIFICATION",
+   "text": "The striker scored twice in the derby.",
+   "gold": "sports",
+   "got": "sports",
+   "ms": 625
+  },
+  {
+   "intent": "TEXT_CLASSIFICATION",
+   "text": "Parliament passed the budget bill after a late-night vote.",
+   "gold": "politics",
+   "got": "politics",
+   "ms": 699
+  },
+  {
+   "intent": "TEXT_CLASSIFICATION",
+   "text": "The new chip doubles battery life on laptops.",
+   "gold": "technology",
+   "got": "technology",
+   "ms": 604
+  },
+  {
+   "intent": "TEXT_CLASSIFICATION",
+   "text": "I was charged twice for my subscription this month.",
+   "gold": "billing",
+   "got": "billing",
+   "ms": 648
+  },
+  {
+   "intent": "TEXT_CLASSIFICATION",
+   "text": "The app crashes every time I open the camera.",
+   "gold": "technical",
+   "got": "technical",
+   "ms": 550
+  },
+  {
+   "intent": "TEXT_CLASSIFICATION",
+   "text": "I can't log into my account after resetting my password.",
+   "gold": "account issue",
+   "got": "account issue",
+   "ms": 774
+  },
+  {
+   "intent": "TEXT_CLASSIFICATION",
+   "text": "You have won a free cruise, click now to claim!",
+   "gold": "spam",
+   "got": "spam",
+   "ms": 539
+  },
+  {
+   "intent": "TEXT_CLASSIFICATION",
+   "text": "Hi Sam, the minutes from Tuesday's meeting are attached.",
+   "gold": "not spam",
+   "got": "ambiguous",
+   "ms": 435
+  },
+  {
+   "intent": "TEXT_CLASSIFICATION",
+   "text": "Bond yields rose sharply after the inflation report.",
+   "gold": "finance",
+   "got": "finance",
+   "ms": 412
+  },
+  {
+   "intent": "TEXT_CLASSIFICATION",
+   "text": "Regular exercise lowers the risk of heart disease.",
+   "gold": "health",
+   "got": "health",
+   "ms": 608
+  },
+  {
+   "intent": "TEXT_CLASSIFICATION",
+   "text": "Production is down for all customers right now.",
+   "gold": "urgent",
+   "got": "ambiguous",
+   "ms": 246
+  },
+  {
+   "intent": "TEXT_CLASSIFICATION",
+   "text": "Could we move next month's review to Thursday?",
+   "gold": "not urgent",
+   "got": "ambiguous",
+   "ms": 661
+  },
+  {
+   "intent": "TEXT_CLASSIFICATION",
+   "text": "Why does shipping to Canada take three weeks?",
+   "gold": "question",
+   "got": "question",
+   "ms": 489
+  },
+  {
+   "intent": "TEXT_CLASSIFICATION",
+   "text": "Your team went above and beyond, thank you.",
+   "gold": "praise",
+   "got": "praise",
+   "ms": 570
+  },
+  {
+   "intent": "TEXT_CLASSIFICATION",
+   "text": "The replacement part arrived broken, again.",
+   "gold": "complaint",
+   "got": "ambiguous",
+   "ms": 566
+  },
+  {
+   "intent": "TEXT_CLASSIFICATION",
+   "text": "A crash on the M25 has closed two lanes near Heathrow.",
+   "gold": "traffic",
+   "got": "traffic",
+   "ms": 445
+  }
+ ]
+}

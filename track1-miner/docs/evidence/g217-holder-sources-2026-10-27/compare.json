@@ -1,0 +1,445 @@
+{
+ "checked_at": "2026-10-27T15:29:50.768Z",
+ "rows": [
+  {
+   "chain": "ethereum",
+   "symbol": "USDC",
+   "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+   "gecko": {
+    "status": 200,
+    "ms": 9250,
+    "count": 9131821,
+    "last_updated": "2026-10-27T15:20:53Z"
+   },
+   "blockscout": {
+    "status": 200,
+    "ms": 1557,
+    "count": 9539182
+   },
+   "ethplorer": {
+    "status": 200,
+    "ms": 586,
+    "count": 9131778
+   }
+  },
+  {
+   "chain": "ethereum",
+   "symbol": "USDT",
+   "address": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+   "gecko": {
+    "status": 200,
+    "ms": 10835,
+    "count": 15386332,
+    "last_updated": "2026-10-27T14:39:27Z"
+   },
+   "blockscout": {
+    "status": 200,
+    "ms": 999,
+    "count": 16955211
+   },
+   "ethplorer": {
+    "status": 200,
+    "ms": 643,
+    "count": 15385752
+   }
+  },
+  {
+   "chain": "ethereum",
+   "symbol": "DAI",
+   "address": "0x6B175474E89094C44Da98b954EedeAC495271d0F",
+   "gecko": {
+    "status": 200,
+    "ms": 10599,
+    "count": 707940,
+    "last_updated": "2026-10-27T13:23:10Z"
+   },
+   "blockscout": {
+    "status": 200,
+    "ms": 366,
+    "count": 767869
+   },
+   "ethplorer": {
+    "status": 200,
+    "ms": 716,
+    "count": 707946
+   }
+  },
+  {
+   "chain": "ethereum",
+   "symbol": "WETH",
+   "address": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+   "gecko": {
+    "status": 200,
+    "ms": 336,
+    "count": 3641825,
+    "last_updated": "2026-10-27T15:09:32Z"
+   },
+   "blockscout": {
+    "status": 200,
+    "ms": 450,
+    "count": 3359476
+   },
+   "ethplorer": {
+    "status": 200,
+    "ms": 220,
+    "count": 3337334
+   }
+  },
+  {
+   "chain": "ethereum",
+   "symbol": "WBTC",
+   "address": "0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599",
+   "gecko": {
+    "status": 200,
+    "ms": 11597,
+    "count": 196745,
+    "last_updated": "2026-10-27T14:53:40Z"
+   },
+   "blockscout": {
+    "status": 200,
+    "ms": 436,
+    "count": 203799
+   },
+   "ethplorer": {
+    "status": 200,
+    "ms": 626,
+    "count": 196737
+   }
+  },
+  {
+   "chain": "ethereum",
+   "symbol": "LINK",
+   "address": "0x514910771AF9Ca656af840dff83E8264EcF986CA",
+   "gecko": {
+    "status": 200,
+    "ms": 12711,
+    "count": 915719,
+    "last_updated": "2026-10-27T14:51:14Z"
+   },
+   "blockscout": {
+    "status": 200,
+    "ms": 411,
+    "count": 1008273
+   },
+   "ethplorer": {
+    "status": 200,
+    "ms": 228,
+    "count": 915728
+   }
+  },
+  {
+   "chain": "ethereum",
+   "symbol": "UNI",
+   "address": "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984",
+   "gecko": {
+    "status": 200,
+    "ms": 13171,
+    "count": 405229,
+    "last_updated": "2026-10-27T14:42:55Z"
+   },
+   "blockscout": {
+    "status": 200,
+    "ms": 378,
+    "count": 431597
+   },
+   "ethplorer": {
+    "status": 200,
+    "ms": 591,
+    "count": 405278
+   }
+  },
+  {
+   "chain": "ethereum",
+   "symbol": "AAVE",
+   "address": "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+   "gecko": {
+    "status": 200,
+    "ms": 560,
+    "count": 190333,
+    "last_updated": "2026-10-27T14:27:15Z"
+   },
+   "blockscout": {
+    "status": 200,
+    "ms": 323,
+    "count": 200317
+   },
+   "ethplorer": {
+    "status": 200,
+    "ms": 218,
+    "count": 190337
+   }
+  },
+  {
+   "chain": "optimism",
+   "symbol": "USDC",
+   "address": "0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85",
+   "gecko": {
+    "status": 200,
+    "ms": 708,
+    "count": 625826,
+    "last_updated": "2026-10-27T14:59:12Z"
+   },
+   "blockscout": {
+    "status": 200,
+    "ms": 1949,
+    "count": 661506
+   },
+   "ethplorer": null
+  },
+  {
+   "chain": "optimism",
+   "symbol": "USDT",
+   "address": "0x94b008aA00579c1307B0EF2c499aD98a8ce58e58",
+   "gecko": {
+    "status": 429,
+    "ms": 45,
+    "count": null,
+    "last_updated": null
+   },
+   "blockscout": {
+    "status": 200,
+    "ms": 703,
+    "count": 999537
+   },
+   "ethplorer": null
+  },
+  {
+   "chain": "optimism",
+   "symbol": "WETH",
+   "address": "0x4200000000000000000000000000000000000006",
+   "gecko": {
+    "status": 429,
+    "ms": 31,
+    "count": null,
+    "last_updated": null
+   },
+   "blockscout": {
+    "status": 200,
+    "ms": 494,
+    "count": 331451
+   },
+   "ethplorer": null
+  },
+  {
+   "chain": "optimism",
+   "symbol": "DAI",
+   "address": "0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1",
+   "gecko": {
+    "status": 200,
+    "ms": 678,
+    "count": 119401,
+    "last_updated": "2026-10-26T15:56:36Z"
+   },
+   "blockscout": {
+    "status": 200,
+    "ms": 597,
+    "count": 122051
+   },
+   "ethplorer": null
+  },
+  {
+   "chain": "optimism",
+   "symbol": "OP",
+   "address": "0x4200000000000000000000000000000000000042",
+   "gecko": {
+    "status": 429,
+    "ms": 75,
+    "count": null,
+    "last_updated": null
+   },
+   "blockscout": {
+    "status": 200,
+    "ms": 576,
+    "count": 1376986
+   },
+   "ethplorer": null
+  },
+  {
+   "chain": "base",
+   "symbol": "USDC",
+   "address": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+   "gecko": {
+    "status": 429,
+    "ms": 34,
+    "count": null,
+    "last_updated": null
+   },
+   "blockscout": {
+    "status": 403,
+    "ms": 55,
+    "count": null
+   },
+   "ethplorer": null
+  },
+  {
+   "chain": "base",
+   "symbol": "WETH",
+   "address": "0x4200000000000000000000000000000000000006",
+   "gecko": {
+    "status": 429,
+    "ms": 60,
+    "count": null,
+    "last_updated": null
+   },
+   "blockscout": {
+    "status": 403,
+    "ms": 59,
+    "count": null
+   },
+   "ethplorer": null
+  },
+  {
+   "chain": "base",
+   "symbol": "DAI",
+   "address": "0x50c5725949A6F0c72E6C4a641F24049A917DB0Cb",
+   "gecko": {
+    "status": 429,
+    "ms": 93,
+    "count": null,
+    "last_updated": null
+   },
+   "blockscout": {
+    "status": 403,
+    "ms": 64,
+    "count": null
+   },
+   "ethplorer": null
+  },
+  {
+   "chain": "arbitrum",
+   "symbol": "USDC",
+   "address": "0xaf88d065e77c8cC2239327C5EDb3A432268e5831",
+   "gecko": {
+    "status": 200,
+    "ms": 13616,
+    "count": 5729616,
+    "last_updated": "2026-10-27T15:21:44Z"
+   },
+   "blockscout": {
+    "status": 403,
+    "ms": 54,
+    "count": null
+   },
+   "ethplorer": null
+  },
+  {
+   "chain": "arbitrum",
+   "symbol": "USDT",
+   "address": "0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9",
+   "gecko": {
+    "status": null,
+    "ms": 20015,
+    "count": null,
+    "last_updated": null
+   },
+   "blockscout": {
+    "status": 403,
+    "ms": 45,
+    "count": null
+   },
+   "ethplorer": null
+  },
+  {
+   "chain": "arbitrum",
+   "symbol": "WETH",
+   "address": "0x82aF49447D8a07e3bd95BD0d56f35241523fBab1",
+   "gecko": {
+    "status": 200,
+    "ms": 1344,
+    "count": 422460,
+    "last_updated": "2026-10-27T15:20:57Z"
+   },
+   "blockscout": {
+    "status": 403,
+    "ms": 42,
+    "count": null
+   },
+   "ethplorer": null
+  },
+  {
+   "chain": "arbitrum",
+   "symbol": "ARB",
+   "address": "0x912CE59144191C1204E64559FE8253a0e49E6548",
+   "gecko": {
+    "status": 200,
+    "ms": 10328,
+    "count": 2402064,
+    "last_updated": "2026-10-27T10:37:20Z"
+   },
+   "blockscout": {
+    "status": 403,
+    "ms": 50,
+    "count": null
+   },
+   "ethplorer": null
+  },
+  {
+   "chain": "polygon",
+   "symbol": "USDC",
+   "address": "0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359",
+   "gecko": {
+    "status": 200,
+    "ms": 10513,
+    "count": 5065097,
+    "last_updated": "2026-10-27T06:47:41Z"
+   },
+   "blockscout": {
+    "status": 403,
+    "ms": 76,
+    "count": null
+   },
+   "ethplorer": null
+  },
+  {
+   "chain": "polygon",
+   "symbol": "USDT",
+   "address": "0xc2132D05D31c914a87C6611C10748AEb04B58e8F",
+   "gecko": {
+    "status": 200,
+    "ms": 917,
+    "count": 7949552,
+    "last_updated": "2026-10-27T14:47:54Z"
+   },
+   "blockscout": {
+    "status": 403,
+    "ms": 48,
+    "count": null
+   },
+   "ethplorer": null
+  },
+  {
+   "chain": "polygon",
+   "symbol": "WETH",
+   "address": "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619",
+   "gecko": {
+    "status": 429,
+    "ms": 19,
+    "count": null,
+    "last_updated": null
+   },
+   "blockscout": {
+    "status": 403,
+    "ms": 60,
+    "count": null
+   },
+   "ethplorer": null
+  },
+  {
+   "chain": "polygon",
+   "symbol": "DAI",
+   "address": "0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063",
+   "gecko": {
+    "status": 429,
+    "ms": 28,
+    "count": null,
+    "last_updated": null
+   },
+   "blockscout": {
+    "status": 403,
+    "ms": 35,
+    "count": null
+   },
+   "ethplorer": null
+  }
+ ]
+}

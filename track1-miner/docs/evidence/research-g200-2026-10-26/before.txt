@@ -1,0 +1,102 @@
+[evidence   ] Will Nivolumab show improved bladder cancer outcomes?                  | Nivolumab is the subject of 3 registered trials, including NCT05468294, a Phase 1/Phase 2 study titled "F16IL2
+[evidence   ] Will YESAFILI gain market share?                                       | The published evidence includes "Comparative Clinical and Therapeutic Landscape of Aflibercept Biosimilars (YE
+[evidence   ] Will Microsoft increase Rust adoption?                                 | The published evidence includes "Wheat Rust Diseases: Global Impact, Integrated Disease Management, and Emergi
+[evidence   ] Will Sony face a digital game ownership lawsuit?                       | Wikipedia: Sony Group Corporation is a Japanese multinational conglomerate headquartered at the Sony City buil
+[evidence   ] Will Luspatercept complete Phase 2 trials?                             | Luspatercept is the subject of 4 registered trials, including NCT01749540, a Phase 2 study titled "Study to Ev
+[evidence   ] Will Delcath Systems receive FDA approval for PHP?                     | The published evidence includes "Safety of Percutaneous Hepatic Perfusion with Melphalan in Patients with Unre
+[evidence   ] Will Versius Paediatrics Study recruit patients?                       | Research on Versius Paediatrics covers one registered trial, NCT06539442, a study titled "Versius Paediatrics 
+[evidence   ] Will Novartis' malaria drug be approved?                               | Wikipedia: Novartis AG is a Swiss multinational pharmaceutical corporation based in Basel, Switzerland.
+[evidence   ] Will Novo Nordisk's NNC0471-0119 be approved?                          | NNC0471-0119 is the subject of 4 registered trials, including NCT05262595, a Phase 1 study titled "A Study to 
+[evidence   ] Will Philogen's IL12-L19L19 enter Phase 2?                             | IL12-L19L19 is the subject of one registered trial, NCT04471987, a Phase 1 study titled "Safety and Early Sign
+[evidence   ] Is it true that the Eiffel Tower is in Berlin?                         | The published evidence includes "Assembling a Vocal “Eiffel Tower” to Improve the Quality of the Singing Voice
+[evidence   ] Will Pakistan mediate Houthi-Iran tensions?                            | Wikipedia: Pakistan, officially the Islamic Republic of Pakistan, is a country in South Asia.
+[evidence   ] Will Pakistan sanction Iran?                                           | Wikipedia: Pakistan, officially the Islamic Republic of Pakistan, is a country in South Asia.
+[evidence   ] Will FDA fine Fresenius Kabi?                                          | The published evidence includes "In Vitro Evaluation of the Fresenius Kabi CATSmart Autotransfusion System" by
+[evidence   ] Will Nivolumab treat bladder cancer?                                   | Nivolumab is the subject of 3 registered trials, including NCT05468294, a Phase 1/Phase 2 study titled "F16IL2
+[evidence   ] Will SRP-3D (DA) enter Phase 2 trials?                                 | SRP-3D is the subject of one registered trial, NCT05484414, a Phase 1 study titled "Safety and Pharmacokinetic
+[evidence   ] Will JZP815 enter Phase 2 trials?                                      | JZP815 is the subject of one registered trial, NCT05557045, a Phase 1 study titled "A Study of JZP815 Oral Cap
+[evidence   ] Will Holy Basil treat sensitive skin?                                  | The published evidence includes "Preharvest temperature treatments influence physiological traits, secondary m
+[evidence   ] Will Callavid enter Phase 2 trials?                                    | Callavid is the subject of one registered trial, NCT07136922, a Phase 1 study titled "First in Human Safety an
+[evidence   ] Will Novo Nordisk's Cagrilintide/Semaglutide trial succeed?            | The published evidence includes "pXg: Comprehensive and Reliable Identification of MHC-I Antigens Using De Nov
+[evidence   ] Will Moderna's mRNA-1469 vaccine enter Phase 2?                        | Moderna is the subject of one registered trial, NCT05280158, a Phase 1/Phase 2 study titled "High-Dose Moderna
+[no_evidence] Will Imeroprubart complete Phase 2 trials?                             | No registered trial and no indexed publication on Imeroprubart was found, so nothing is claimed about Imeropru
+[evidence   ] Will Trontinemab complete Phase 3 trials?                              | Trontinemab is the subject of 3 registered trials, including NCT07170150, a Phase 3 study titled "A Clinical T
+[evidence   ] Will Netakimab be approved for psoriasis?                              | Netakimab is the subject of 2 registered trials, including NCT07008547, a Phase 3 study titled "To Evaluate th
+[evidence   ] Will Intuitive Surgical's GYN study succeed?                           | The published evidence includes "An intuitive surgical handle design for robotic neurosurgery" by Dimitrakakis
+[evidence   ] Will Luspatercept be approved for alpha-thalassemia?                   | Luspatercept is the subject of 4 registered trials, including NCT01749540, a Phase 2 study titled "Study to Ev
+[evidence   ] Will Varian's pancreatic cancer trial succeed?                         | The published evidence includes "Evaluating Image Quality of Cone Beam Computed Tomography Using HyperSight® o
+[evidence   ] Will EPI-326 complete Phase 1 trials?                                  | EPI-326 is the subject of one registered trial, NCT07462377, a Phase 1 study titled "A Phase 1 Study of EPI-32
+[evidence   ] Will Anifrolumab succeed in Phase 3?                                   | Anifrolumab is the subject of 3 registered trials, including NCT04877691, a Phase 3 study titled "Subcutaneous
+[evidence   ] Will Novartis' Ianalumab be approved?                                  | The published evidence includes "Ianalumab in Sjögren's Disease - A First Step" by Negrini S et al. (2026) in 
+[evidence   ] Was BIOSTREAM.HF trial successful?                                     | BIOSTREAM.HF is the subject of one registered trial, NCT05761249, a study titled "BIOSTREAM.HF HeartInsight", 
+[evidence   ] Will Research Inc's study find contracture predictors?                 | Research on Research Inc contracture predictors covers one registered trial, NCT07810231, a study titled "Pros
+[evidence   ] Will Winclove probiotic treat allergic rhinitis?                       | Research on Winclove probiotic allergic rhinitis covers one registered trial, NCT07157462, a study titled "Inv
+[evidence   ] Will Planet Labs open more satellite feeds?                            | The published evidence includes "Deriving high-spatiotemporal-resolution leaf area index for agroecosystems in
+[evidence   ] Extract the dates, quantities, named entities and events from: Can asy | The published evidence includes "Unified Ott-Antonsen framework for stability and bifurcations in ring swarmal
+[evidence   ] Will Calderasib plus Pembrolizumab succeed?                            | Calderasib is the subject of 4 registered trials, including NCT07190248, a Phase 3 study titled "A Clinical St
+[evidence   ] Extract the dates, quantities, named entities and events from: We intr | The published evidence includes "PA-BERT: Policy-Aware BERT for Development Planning Text Classification and G
+[evidence   ] Will Gilteritinib combination treat AML?                               | Gilteritinib is the subject of one registered trial, NCT05546580, a Phase 1 study titled "Study of Iadademstat
+[evidence   ] Will Sterinova profit from Naloxone?                                   | Naloxone is the subject of one registered trial, NCT05301712, a Phase 4 study titled "A Phase 4 Clinical Study
+[evidence   ] Will GUB-UCN2 show positive Phase 1 results?                           | GUB-UCN2 is the subject of one registered trial, NCT07702890, a Phase 1/Phase 2 study titled "A Three-part Fir
+[evidence   ] Will BAROSTIM NEO treat hypertension?                                  | Research on BAROSTIM NEO covers one registered trial, NCT02880631, a study titled "BAROSTIM THERAPY™ In Resist
+[evidence   ] Was Bausch & Lomb BL1332 study successful?                             | Wikipedia: Bausch is a German surname.
+[evidence   ] Will Delcath Systems get FDA approval?                                 | The published evidence includes "Safety of Percutaneous Hepatic Perfusion with Melphalan in Patients with Unre
+[evidence   ] Will Anifrolumab be approved for Systemic Sclerosis?                   | Anifrolumab is the subject of 3 registered trials, including NCT04877691, a Phase 3 study titled "Subcutaneous
+[evidence   ] Will BPL-003 be approved?                                              | BPL-003 is the subject of 3 registered trials, including NCT05660642, a Phase 2 study titled "An Open-Label St
+[evidence   ] Will Cagrilintide show positive bone metabolism results?               | Cagrilintide is the subject of 3 registered trials, including NCT07184086, a Phase 1 study titled "A Study to 
+[evidence   ] Will Anifrolumab gain FDA approval?                                    | Anifrolumab is the subject of 3 registered trials, including NCT04877691, a Phase 3 study titled "Subcutaneous
+[evidence   ] Was BL1332 effective for ocular pain?                                  | BL1332 is the subject of 3 registered trials, including NCT07412496, a Phase 2 study titled "A Study to Evalua
+[evidence   ] Can researchers trust OpenAI?                                          | The published evidence includes "Generative Artificial Intelligence in Periodontology: Application of OpenAI M
+[evidence   ] Will Cagrilintide show bone metabolism benefits?                       | Cagrilintide is the subject of 3 registered trials, including NCT07184086, a Phase 1 study titled "A Study to 
+[evidence   ] Will AstraZeneca's SLE study complete?                                 | The published evidence includes "Operational Transformation in LATAM Medical Affairs: Building a Shared Region
+[evidence   ] Will Boston Scientific's DBS registry expand?                          | The published evidence includes "Complications Associated With Safety Mode Initiation in Recalled Boston Scien
+[evidence   ] Will Qilu Pharm launch Fosaprepitant Dimeglumine?                      | Wikipedia: Qi–Lu culture, also known as Haidai culture, is a regional culture that originated and developed in
+[no_evidence] Will FDA issue CAMZYOS safety warning?                                 | No registered trial and no indexed publication on CAMZYOS was found, so nothing is claimed about FDA issue CAM
+[evidence   ] Will Glycotest HCC Panel outperform AFP?                               | Research on Glycotest HCC Panel covers one registered trial, NCT03878550, a study titled "Case-Control Study o
+[evidence   ] Will Inari Medical complete PERSEVERE study?                           | The published evidence includes "Percutaneous aortic thrombectomy with Inari ProTrieve Sheath and Penumbra Asp
+[evidence   ] Will Essilor's lens control myopia?                                    | The published evidence includes "Google Trends Analysis of Interest in Pediatric Myopia-Control Spectacle Lens
+[evidence   ] Will prion disease drug trial succeed?                                 | The published evidence includes "Multi-target approaches to prion disease drug discovery: a status update" by 
+[evidence   ] Will UB-VV400 enter Phase 2 trials?                                    | UB-VV400 is the subject of 2 registered trials, including NCT06743503, a Phase 1 study titled "UB-VV400 in Com
+[evidence   ] Will Mirvetuximab Soravtansine enter Phase 3?                          | Research on Mirvetuximab Soravtansine covers 3 registered trials, including NCT04209855, a Phase 3 study title
+[evidence   ] Will Lo.Li.Pharma treat Amenorrhea?                                    | The published evidence includes "Primary Amenorrhea Revealing Adamantinomatous Craniopharyngioma Associated Wi
+[evidence   ] Will Incyte complete Povorcitinib trials?                              | Povorcitinib is the subject of 2 registered trials, including NCT06441318, a Phase 1 study titled "A Study to 
+[evidence   ] Will Izalontamab Brengitecan receive FDA approval?                     | The published evidence includes "[Expert Consensus on Clinical Application of Izalontamab Brengitecan (2026 Ed
+[evidence   ] Will TEV-53408 treat Vitiligo?                                         | TEV-53408 is the subject of 2 registered trials, including NCT06625177, a Phase 1 study titled "A Trial to Tes
+[evidence   ] Will Stratagen Bio develop a prostate cancer drug?                     | Research on Stratagen Bio covers one registered trial, NCT06985238, a study titled "Stratagen Quantitative Pro
+[evidence   ] Will LY3457263 complete Phase 2 trials?                                | LY3457263 is the subject of 4 registered trials, including NCT06897475, a Phase 2 study titled "A Study of LY3
+[evidence   ] Will TEV-53408 successfully treat Vitiligo?                            | TEV-53408 is the subject of 2 registered trials, including NCT06625177, a Phase 1 study titled "A Trial to Tes
+[evidence   ] Will Salts Healthcare complete NCT07719309 recruitment?                | The published evidence includes "Anion-specific fluorescence enhancement via counterion modulation in biphenyl
+[evidence   ] Will Pirtobrutinib treat ITP?                                          | Pirtobrutinib is the subject of 4 registered trials, including NCT07796373, a Phase 2 study titled "Nemtabruti
+[evidence   ] Will MeMed BV® improve LRTI management?                                | MeMed is the subject of 2 registered trials, including NCT05439551, a study titled "Evaluating the Analytical 
+[no_evidence] Will 'big-arrow-on-the-screen' be acquired?                            | No registered trial and no indexed publication on big-arrow-on-the-screen acquired was found, so nothing is cl
+[evidence   ] Will Leadiant Biosci increase MATULANE production?                     | Leadiant is the subject of one registered trial, NCT06180057, a Phase 1 study titled "Bioequivalence Study to 
+[evidence   ] Will Sonelokimab get FDA approval?                                     | Sonelokimab is the subject of 3 registered trials, including NCT06411379, a Phase 3 study titled "Study to Eva
+[evidence   ] Will Ponatinib treat pediatric leukemia?                               | Ponatinib is the subject of 2 registered trials, including NCT06514534, a Phase 2 study titled "Open-label Stu
+[evidence   ] Will Axatilimab complete Phase 2 trials?                               | Axatilimab is the subject of 3 registered trials, including NCT06263478, a Phase 3 study titled "A Study to Ev
+[evidence   ] Will Tigertriever improve stroke cognition?                            | Tigertriever is the subject of 2 registered trials, including NCT05531461, a study titled "Cognition and Imagi
+[evidence   ] Will Pirtobrutinib complete Phase 1 trials?                            | Pirtobrutinib is the subject of 4 registered trials, including NCT07796373, a Phase 2 study titled "Nemtabruti
+[evidence   ] Will AZD4117 vaccine be approved?                                      | AZD4117 is the subject of one registered trial, NCT07128615, a Phase 1/Phase 2 study titled "A Phase I/II Stud
+[evidence   ] Was Merck MK-1403 Phase 1 successful?                                  | MK-1403 is the subject of 2 registered trials, including NCT07242469, a Phase 1 study titled "A Clinical Trial
+[evidence   ] Will 611 succeed in Phase 3 trials?                                    | Wikipedia: Year 611 (DCXI) was a common year starting on Friday of the Julian calendar.
+[evidence   ] Will Apotex profit from Atovaquone?                                    | Apotex is the subject of one registered trial, NCT01228240, a Phase 4 study titled "The Efficacy of Metformin 
+[evidence   ] Will Med-El publish trial results?                                     | The published evidence includes "Multicenter Study Results on Expanded Indications in Med-EL Pediatric Cochlea
+[evidence   ] Will chronotherapy treat ADHD?                                         | ADHD is the subject of one registered trial, NCT02675400, a Phase 4 study titled "Treatments for Fathers With 
+[evidence   ] Will the Virtual Biology Initiative expand?                            | Virtual is the subject of 2 registered trials, including NCT04288505, a study titled "Evaluation of a Virtual 
+[evidence   ] Will NXT007 enter Phase 2 trials?                                      | NXT007 is the subject of 4 registered trials, including NCT07416526, a Phase 3 study titled "A Clinical Study 
+[evidence   ] Will Han Xu's HIV biologic succeed?                                    | Research on Han HIV biologic covers one registered trial, NCT07182838, a EARLY_PHASE1 study titled "Proof-of-C
+[evidence   ] Will Eli Lilly complete LY3537021 recruitment?                         | The published evidence includes "Eli Lilly inks dual-payload ADCs deal" by Mullard A et al. (2026) in Europe P
+[evidence   ] Will Eli Lilly's Baricitinib delay Type 1 Diabetes?                    | The published evidence includes "Eli Lilly inks dual-payload ADCs deal" by Mullard A et al. (2026) in Europe P
+[no_evidence] Will Patisiran-LNP be approved for pregnancy?                          | No registered trial and no indexed publication on Patisiran-LNP was found, so nothing is claimed about Patisir
+[evidence   ] Will hu14 show efficacy in neuroblastoma?                              | Research on hu14 efficacy neuroblastoma covers one registered trial, NCT07549321, a Phase 2/Phase 3 study titl
+[evidence   ] Will Lepodisiran reduce MACE?                                          | Lepodisiran is the subject of 3 registered trials, including NCT06292013, a Phase 3 study titled "A Study to I
+[evidence   ] Will Axogen's Avance graft outperform autograft?                       | Avance is the subject of one registered trial, NCT05293145, a study titled "AVANCE-Houston Building Futures Pr
+[evidence   ] Was Rosalind Franklin's DNA image misinterpreted?                      | Wikipedia: Rosalind Elsie Franklin was an English chemist and X-ray crystallographer.
+[evidence   ] Will Semaglutide show positive eye disease effects?                    | Semaglutide is the subject of 2 registered trials, including NCT03552757, a Phase 3 study titled "Research Stu
+[evidence   ] Will Tezepelumab treat chronic rhinosinusitis?                         | Tezepelumab is the subject of 4 registered trials, including NCT04673630, a Phase 1 study titled "Study to Eva
+[evidence   ] Will Calderasib (MK-1084) complete Phase 3?                            | Calderasib is the subject of 4 registered trials, including NCT07190248, a Phase 3 study titled "A Clinical St
+[evidence   ] Will Semaglutide treat diabetic eye disease?                           | Semaglutide is the subject of 2 registered trials, including NCT03552757, a Phase 3 study titled "Research Stu
+[evidence   ] Will Menarini's Vaborem® complete Phase 2?                             | Vaborem is the subject of one registered trial, NCT06828848, a Phase 2 study titled "A Study to Assess How Vab
+[evidence   ] Will Glufosfamide outperform 5-FU?                                     | Glufosfamide is the subject of 4 registered trials, including NCT00102752, a Phase 1/Phase 2 study titled "Stu
+[evidence   ] What does research say about creatine supplementation and cognition?   | "Beetroot Juice Supplementation as a Healthy Aging Strategy Through Improving Physical Performance and Cogniti
+
+ {"evidence":96,"no_evidence":4}

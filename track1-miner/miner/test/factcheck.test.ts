@@ -55,3 +55,23 @@ describe("checkFact", () => {
     assert.ok(r.reason.trim().length > 0);
   });
 });
+
+// 2026-09-15: a search Wikipedia refused (HTTP 429 to a user-agent without a
+// contact) was reported as "no matching reference article was found".
+test("a reference search that does not answer is an outage, not an absence", async () => {
+  const real = globalThis.fetch;
+  const agents: string[] = [];
+  globalThis.fetch = (async (_u: string, init?: RequestInit) => {
+    agents.push(String((init?.headers as Record<string, string> | undefined)?.["user-agent"] ?? ""));
+    return new Response("You are making too many requests to the API.", { status: 429 });
+  }) as typeof fetch;
+  try {
+    const r = await checkFact("Is it true that bats are blind?");
+    assert.equal(r.verdict, "unknown");
+    assert.equal(r.error, "upstream_unavailable");
+    assert.doesNotMatch(r.reason, /no matching reference article/);
+    assert.match(agents[0] ?? "", /https:\/\//, "Wikimedia needs a contact in the user-agent");
+  } finally {
+    globalThis.fetch = real;
+  }
+});

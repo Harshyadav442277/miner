@@ -1,0 +1,54 @@
+▶ resolvePlace (live)
+  ✔ keeps exact coordinates and names the place (269.2784ms)
+  ✔ rejects out-of-range coordinates (7.7912ms)
+  ✔ rejects empty input (0.1493ms)
+  ✔ geocodes a city name (1.7892ms)
+  ✔ returns null for nonsense (3779.8681ms)
+✔ resolvePlace (live) (4060.1036ms)
+▶ checkStorm (live)
+  ✖ returns a graded verdict for a real city (16286.1461ms)
+  ✔ risk_score and verdict agree (1332.3551ms)
+  ✔ an unresolvable place is 'unknown', not a crash (0.662ms)
+  ✖ a point question is answered at a point, a span over the span (16271.2821ms)
+  ✖ a point answer describes the real hour asked for, not a local-clock lookalike (22846.1452ms)
+  ✖ peak_at falls inside the forecast window (16284.4517ms)
+✖ checkStorm (live) (73022.7611ms)
+▶ answer completeness (live)
+  ✔ a window answer reports wind, gusts and an overall risk (7028.4118ms)
+  ✔ an unresolvable place carries no operational guidance (0.6492ms)
+  ✔ a question asking what to do leads with the guidance (13828.01ms)
+  ✔ a forecast question leads with the graded answer (0.9572ms)
+✔ answer completeness (live) (20858.9281ms)
+ℹ tests 15
+ℹ suites 3
+ℹ pass 11
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 98014.2737
+
+✖ failing tests:
+
+test at dist-test\test\storm.test.js:37:26
+✖ returns a graded verdict for a real city (16286.1461ms)
+  [AbortError: This operation was aborted]
+
+test at dist-test\test\storm.test.js:73:26
+✖ a point question is answered at a point, a span over the span (16271.2821ms)
+  [AbortError: This operation was aborted]
+
+test at dist-test\test\storm.test.js:89:26
+✖ a point answer describes the real hour asked for, not a local-clock lookalike (22846.1452ms)
+  [TypeError: fetch failed] {
+    [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted address: api.met.no:443, timeout: 10000ms)
+        at onConnectTimeout (node:internal/deps/undici/undici:1991:23)
+        at Immediate._onImmediate (node:internal/deps/undici/undici:1957:35)
+        at process.processImmediate (node:internal/timers:534:21) {
+      code: 'UND_ERR_CONNECT_TIMEOUT'
+    }
+  }
+
+test at dist-test\test\storm.test.js:105:26
+✖ peak_at falls inside the forecast window (16284.4517ms)
+  [AbortError: This operation was aborted]

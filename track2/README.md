@@ -1,68 +1,45 @@
-# Track 2 — Script Author submission
+# track2 — Season II evaluators
 
-**Start here: [SUBMISSION.md](SUBMISSION.md).** It is the judge-facing document and it opens with
-the four submitted registrations and what each one actually is.
+The Evaluators track: "build or improve how that intelligence is measured … per Intent". Rules and scoring
+are in [../RULES_SEASON2.md](../RULES_SEASON2.md); the goal is in [../WINNING.md](../WINNING.md).
 
-Wallet `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e` · X [@hyadav42774](https://x.com/hyadav42774)
-
----
-
-## In one paragraph
-
-The Canonical Script scores how much an answer's vocabulary resembles the ground truth, not what it
-asserts. We measured that: a contentless restatement of the question scores 0.9933 while the answer
-carrying the correct data scores 0.0080. We wrote a scorer that grades assertions instead — figures,
-identifiers, units, verdicts, coordinates — and it out-separated the incumbent on the node's own
-fixtures. It was rejected anyway, for disagreeing with the incumbent on live traffic. That
-rejection, and what it says about the promotion gate, is the substance of this submission.
+Season I's `rank_answer` scorer, its harness, fixtures, recon and release tooling were deleted on
+2026-10-23. The node no longer accepts that module kind, and none of it was used by the Season II work.
+All of it remains in git history.
 
 ## What is here
 
-| path | what it is |
+| Path | What it is |
 |---|---|
-| **[SUBMISSION.md](SUBMISSION.md)** | the entry document — read this |
-| [scorer/](scorer/) | the original fact-aware scorer, `no_std` Rust, ~32 KB, zero imports |
-| [scorer/dist/head/](scorer/dist/head/) | its compiled artifacts, one per intent profile |
-| [harness/](harness/) | the offline gate proxy that reproduces node scores to six significant figures |
-| [recon/](recon/) | protocol measurements, each with a reproducer |
-| [calibration/](calibration/) | the calibration experiments, and the registry ceiling screen |
-| [GAPS.md](GAPS.md) | the honesty ledger — everything unverified or broken, including in our own work |
-| [PROOF.md](PROOF.md) | generated proof pack, regenerated from the artifacts it describes |
+| [ARCHITECTURE.md](ARCHITECTURE.md) | Season II design decisions: comparators, wide adapters, node-reproduced proof |
+| [GAPS.md](GAPS.md), [MEMORY.md](MEMORY.md) | Open gaps and session state |
 
-## The four findings
+`calibration/dist/text_authenticity_v2.wasm` (registration 1882, Season I) was deleted on 2026-10-29. Devnode's
+V2 `/api/wasm` no longer lists 1882 or TEXT_AUTHENTICITY_CHECK: 7 families, with registration ids restarted.
 
-Each is measured, and each has something you can run.
+## Protocol V2 (anjoman.ai/docs, updated 2026-10-31; read 2026-10-31)
 
-1. **The agreement gate structurally protects incumbent errors.** A scorer that fixes the
-   incumbent's mistakes necessarily diverges from its ranking and fails the real-traffic check.
-   Registration 1725 is the live demonstration.
-2. **The margin axis measures calibration, not evaluation quality.** A strictly increasing map
-   appended to an incumbent's own binary changes no ranking of any answer, yet moves the margin
-   axis freely — and took champion slots on eleven intents.
-3. **The hidden fixture geometry is recoverable from public data.** `node
-   calibration/screen-registry.mjs` prints, for all 45 intents, how many fixture pairs each
-   champion separates and what beating it requires. Nine intents sit at an unbeatable 1.0.
-4. **The gate's time budget freezes seven intents.** The incumbent 24 MB transformer family has never
-   once finished the ten-minute gate on ACADEMIC_SEARCH, IP_GEOLOCATION, WEATHER_FORECAST,
-   SSL_VERIFICATION, WEATHER_CHECK, WEB_SEARCH or NEWS_HEADLINES — fifteen attempts, zero verdicts
-   — so nobody can improve those intents while building on it. Registration 2961 shows the cost
-   exactly: 7 of 7 orderings and separation 0.9998413 against the champion's 0.9915076, rejected
-   at 13m13s on the clock alone.
-   ([method](recon/2026-08-31-runtime-budget-lock.md), `node harness/time-base.mjs <module.wasm>`)
+- Judgment and hybrid families take an **Evaluator adapter as a safetensors delta** (LoRA deltas plus a reward
+  head) on the validators' shared Foundation Model; full-model float `.wasm` adapters are refused since the
+  2026-10-31 docs (GAPS G34 in [GAPS.md](GAPS.md), root G238). Deterministic families take a **comparator module**
+  (`imw_score_deterministic`), unchanged, but the node already holds the reference rule and scores deterministic
+  intents without one (root G237 killed). Ours: [comparator/](comparator/), served for V2 by [runnable/](runnable/).
+- Registration is `registerWasm(hash, url, prefix, feeAddress, runnableUrl)`. It is per **family** (prefix),
+  with a runnable endpoint the node checks first.
+- An adapter "replaces the live scorer only when it beats the incumbent on a hidden sample by the replacement
+  margin" (Anjoman Eval page).
+- On 2026-10-31 18:35 UTC devnode `/api/wasm` listed the same 7 families as on 2026-10-29. Canonical adapters
+  (all safetensors): Telegraph seeds 900001–900004 for CONTRACT_OBLIGATION_AUDIT, LLM_OUTPUT_EVALUATION,
+  THREAT_INTELLIGENCE and TASK_EXECUTION_QUALITY, and participant registration 25 for CUSTOMER_TICKET_RESOLUTION.
+- The comparators are V2-valid but do not change scoring. The adapter must be re-exported as a delta (G34).
 
-## Reproduce
+## Where the Season II work is
 
-```bash
-node calibration/screen-registry.mjs                      # live board, ceilings, headroom
-node harness/time-base.mjs scorer/dist/head/generic.wasm   # per-call cost
-cargo build --release --target wasm32-unknown-unknown \
-  --no-default-features --features generic                 # rebuild the scorer
-```
-
-## What we are not claiming
-
-The champion slots this wallet holds were won with calibration wrappers around another team's
-MIT-licensed modules, with attribution and licence preserved. They are ranking-identical by
-construction and improve nothing about evaluation quality. They are evidence for finding 2 and
-should not be read as the improvement claim — see [GAPS.md](GAPS.md) G23, and section 1 of
-SUBMISSION.md.
+- **In this tree** (branch `claude/wasm-track-2-quality-e21db3`, merged 2026-10-29):
+  - the 31 comparators ([comparator/](comparator/README.md));
+  - the LLM_OUTPUT_EVALUATION adapter recipe ([adapter/](adapter/llm_output_eval/README.md));
+  - the sign list ([SIGN_S2.md](SIGN_S2.md)). Its top section (CRYPTO_PRICE comparator) is withdrawn; the rest
+    predates V2. Do not sign anything from it.
+- **Published releases:** in [`telegraph-factscore`](https://github.com/Harshyadav442277/telegraph-factscore),
+  branch `season2-evaluators`.
+- **Training data, models and builds:** in `C:\Users\hyada\tg-eval\`, outside OneDrive.

@@ -1,0 +1,11 @@
+{
+ "TOKEN_TOTAL_SUPPLY_VERIFY": [
+  "/token-supply",
+  [
+   "What is the total supply of USDC on Base?",
+   "What is the total supply of USDT on Ethereum?",
+   "What is the total supply of DAI on Base?",
+   "What is the total supply of WETH on Optimism?"
+  ]
+ ]
+}

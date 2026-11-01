@@ -2,6 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import type { IncomingMessage, ServerResponse } from "node:http";
 import { handleRequest } from "../src/handler";
+import { groqReply, withGroqKey } from "./groq-fixtures";
 
 function healthRequest(query: string): { req: IncomingMessage; res: ServerResponse } {
   const req = { method: "GET", url: `/health?query=${encodeURIComponent(query)}` } as IncomingMessage;
@@ -50,15 +51,11 @@ test("opt-in logging records parameter names, never values", () => {
   }
 });
 
-test("/translate answers with the bare translation, unrestated", async () => {
+test("/translate answers with the translation first and its languages as fields", async () => {
   const originalFetch = globalThis.fetch;
-  globalThis.fetch = (async () =>
-    new Response(JSON.stringify(["Бонжур"]), {
-      status: 200,
-      headers: { "content-type": "application/json" },
-    })) as typeof globalThis.fetch;
+  globalThis.fetch = (async () => groqReply("Бонжур")) as typeof globalThis.fetch;
   try {
-    const body = await new Promise<Record<string, unknown>>((resolve) => {
+    const body = await withGroqKey(() => new Promise<Record<string, unknown>>((resolve) => {
       const req = {
         method: "GET",
         url: `/translate?query=${encodeURIComponent('Translate "good morning" into Russian.')}`,
@@ -70,26 +67,22 @@ test("/translate answers with the bare translation, unrestated", async () => {
         },
       } as unknown as ServerResponse;
       handleRequest(req, res);
-    });
-    // The recorded ground truths are bare translations, and Telegraph converts
-    // the WHOLE payload into the prose it scores — so the payload carries the
-    // answer and nothing English for the converter to wrap around it. Only the
-    // three signal_mapping fields are required by the manifest.
-    assert.equal(body.reason, "Бонжур");
+    }));
+    // Season II: an app needs to know what was translated into what, so the
+    // fields Season I stripped for the scorer's converter are sent again.
+    assert.equal(body.answer, "Бонжур");
     assert.equal(body.translation, "Бонжур");
-    assert.deepEqual(
-      Object.keys(body).sort(),
-      ["confidence", "reason", "translation", "verdict"],
-    );
-    for (const k of ["source", "source_text", "target_language", "target_code", "checked_at"]) {
-      assert.ok(!(k in body), `${k} must not reach the converter`);
-    }
+    assert.equal(Object.keys(body)[0], "answer");
+    assert.equal(body.source_text, "good morning");
+    assert.equal(body.target_language, "Russian");
+    assert.equal(body.target_code, "ru");
+    assert.equal(typeof body.checked_at, "string");
   } finally {
     globalThis.fetch = originalFetch;
   }
 });
 
-test("/papers serves only the signal fields around the restated prose", async () => {
+test("/papers answers with the papers as fields and prose that does not echo the question", async () => {
   const originalFetch = globalThis.fetch;
   globalThis.fetch = (async () =>
     new Response(
@@ -117,16 +110,12 @@ test("/papers serves only the signal fields around the restated prose", async ()
       } as unknown as ServerResponse;
       handleRequest(req, res);
     });
-    // The converter summarises the WHOLE payload with keys re-sorted, so the
-    // full PaperResult buried the restated question behind checked_at and the
-    // papers JSON — measured 0.006041 vs 0.013419 for this shape (22/22 rows,
-    // champion 688, bench/acad_shape.mjs). Only the signal_mapping fields and
-    // the prose reach the converter now; the prose still names every paper.
-    assert.deepEqual(Object.keys(body).sort(), ["confidence", "reason", "verdict"]);
-    assert.match(String(body.reason), /^Regarding find recent peer-reviewed papers on CRISPR gene editing:/);
+    // App-first since 2026-10-11: the caller gets the papers as data and prose
+    // that answers rather than repeating the question back.
+    assert.doesNotMatch(String(body.reason), /^(?:Regarding|Here is)\b/);
     assert.match(String(body.reason), /CRISPR-based gene therapy advances by A\. Researcher \(2024\), cited 42 times/);
-    for (const k of ["papers", "count", "topic", "from_date", "to_date", "checked_at"]) {
-      assert.ok(!(k in body), `${k} must not reach the converter`);
+    for (const k of ["verdict", "confidence", "reason", "papers", "checked_at"]) {
+      assert.ok(k in body, `${k} is part of the answer`);
     }
   } finally {
     globalThis.fetch = originalFetch;
@@ -197,17 +186,18 @@ test("the engine's zero-address filler is not reported as the asked-about wallet
 
 test("a paraphrasing query does not discard the declared text to translate", async () => {
   const originalFetch = globalThis.fetch;
-  globalThis.fetch = (async () =>
-    new Response(JSON.stringify(["Bonjour"]), {
-      status: 200,
-      headers: { "content-type": "application/json" },
-    })) as typeof globalThis.fetch;
+  let sent = "";
+  globalThis.fetch = (async (_input: string | URL | Request, init?: RequestInit) => {
+    sent = JSON.parse(String(init?.body)).messages[1].content;
+    return groqReply("Bonjour");
+  }) as typeof globalThis.fetch;
   try {
-    const { body } = await capture(
+    const { body } = await withGroqKey(() => capture(
       "/translate?text=Good%20morning&target_language=French&query=" +
         encodeURIComponent("Translate it."),
-    );
+    ));
     assert.equal(body.reason, "Bonjour");
+    assert.equal(sent, "Good morning", "the declared text is what gets translated");
   } finally {
     globalThis.fetch = originalFetch;
   }

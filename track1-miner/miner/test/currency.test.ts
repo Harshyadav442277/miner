@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { convert, crossRate, fetchEcb, formatRate, parseQuery } from "../src/currency";
+import { convert, crossRate, fetchEcb, formatRate, parseDate, parseQuery, resetRateCache } from "../src/currency";
 
 test("the canonical example parses with the right direction", () => {
   assert.deepEqual(parseQuery("What is 100 USD in EUR right now?"), { from: "USD", to: "EUR", amount: 100 });
@@ -69,6 +69,7 @@ test("the same currency converts at exactly 1 without an upstream call", async (
 });
 
 test("a dead provider is unknown, never a rate of zero", async () => {
+  resetRateCache();
   const original = globalThis.fetch;
   globalThis.fetch = (async () => { throw new Error("network down"); }) as unknown as typeof globalThis.fetch;
   try {
@@ -79,6 +80,175 @@ test("a dead provider is unknown, never a rate of zero", async () => {
     assert.equal(r.converted, null);
     assert.ok(!/\b0\.00\b/.test(r.reason), "a failed lookup must not produce a zero amount");
     assert.match(r.reason, /availability problem/i);
+  } finally {
+    globalThis.fetch = original;
+  }
+});
+
+test("an explicit reference date is read only when a trigger word introduces it", () => {
+  assert.equal(parseDate("Convert 100 GBP to EUR using the reference rate on 2024-01-02."), "2024-01-02");
+  assert.equal(parseDate("What was the exchange rate as of 2 January 2024?"), "2024-01-02");
+  assert.equal(parseDate("GBP to EUR rate for 2024-01-02"), "2024-01-02");
+  assert.equal(parseDate("100 USD to EUR dated January 2, 2024"), "2024-01-02");
+  assert.equal(parseDate("What is the USD to EUR exchange rate?"), null);
+  assert.equal(parseDate("Convert 2024 USD to EUR"), null, "a bare year is not a date");
+  assert.equal(parseDate("Convert 100 USD to EUR on 2024-02-30"), null, "30 February does not exist");
+});
+
+test("the undated answer text is unchanged (golden case, byte-identical)", async () => {
+  resetRateCache();
+  const original = globalThis.fetch;
+  let calls = 0;
+  globalThis.fetch = (async () => {
+    calls++;
+    return {
+      ok: true,
+      text: async () => "<Cube><Cube time='2026-09-08'><Cube currency='USD' rate='1.1614'/></Cube></Cube>",
+    };
+  }) as unknown as typeof globalThis.fetch;
+  try {
+    const r = await convert("USD", "EUR", 100);
+    assert.equal(
+      r.reason,
+      "100.00 USD is 86.10 EUR at a rate of 1 USD = 0.8610 EUR, equivalently 1 EUR = 1.1614 USD. " +
+        "This is the European Central Bank euro foreign exchange reference rate published for " +
+        "2026-09-08, not a live trading quote. The ECB publishes rates against the euro, so the USD " +
+        "rate here is computed from them.",
+    );
+    assert.equal(r.as_of, "2026-09-08");
+    assert.equal(r.kind, "ecb_reference");
+    // G209: the daily table is held, so a second conversion makes no request.
+    assert.equal((await convert("EUR", "USD", 50)).converted, 58.07);
+    assert.equal(calls, 1);
+  } finally {
+    globalThis.fetch = original;
+    resetRateCache();
+  }
+});
+
+test("a currency the ECB does not publish uses Frankfurter's blended pair rate and never open.er-api", async () => {
+  const original = globalThis.fetch;
+  const urls: string[] = [];
+  globalThis.fetch = (async (url: unknown) => {
+    const u = String(url);
+    urls.push(u);
+    if (u.includes("ecb.europa.eu")) {
+      return { ok: true, text: async () => "<Cube><Cube time='2026-10-23'><Cube currency='USD' rate='1.1600'/></Cube></Cube>" };
+    }
+    return { ok: true, json: async () => ({ date: "2026-10-23", base: "USD", quote: "NGN", rate: 1340.14 }) };
+  }) as unknown as typeof globalThis.fetch;
+  try {
+    const r = await convert("USD", "NGN", 10);
+    assert.ok(!urls.some((u) => u.includes("er-api")), `open.er-api must not be called: ${urls.join(", ")}`);
+    assert.ok(urls.includes("https://api.frankfurter.dev/v2/rate/USD/NGN"), `blended pair URL not called: ${urls.join(", ")}`);
+    assert.equal(r.kind, "blended_reference");
+    assert.equal(r.rate, 1340.14);
+    assert.equal(r.as_of, "2026-10-23");
+    assert.equal(
+      r.reason,
+      "10.00 USD is 13,401.40 NGN at a rate of 1 USD = 1340.14 NGN, equivalently 1 NGN = 0.0007462 USD. " +
+        "This is Frankfurter's blended daily rate from central banks and official sources, whose newest " +
+        "contributing rate is dated 2026-10-23; it is not a European Central Bank reference rate and not a live trading quote.",
+    );
+  } finally {
+    globalThis.fetch = original;
+  }
+});
+
+test("a blended reply for a different pair, or an unknown code (422), is unavailable rather than misused", async () => {
+  const original = globalThis.fetch;
+  for (const reply of [
+    { ok: true, json: async () => ({ date: "2026-10-23", base: "USD", quote: "KES", rate: 129.72 }) },
+    { ok: false, status: 422, json: async () => ({ status: 422, message: "invalid currency" }) },
+  ]) {
+    globalThis.fetch = (async (url: unknown) =>
+      String(url).includes("ecb.europa.eu")
+        ? { ok: true, text: async () => "<Cube><Cube time='2026-10-23'><Cube currency='USD' rate='1.1600'/></Cube></Cube>" }
+        : reply) as unknown as typeof globalThis.fetch;
+    try {
+      const r = await convert("USD", "NGN", 10);
+      assert.equal(r.verdict, "unknown");
+      assert.equal(r.error, "provider_unavailable");
+      assert.equal(r.rate, null);
+    } finally {
+      globalThis.fetch = original;
+    }
+  }
+});
+
+test("a dated question fetches the Frankfurter historical URL, pinned to the ECB provider, and answers with that rate", async () => {
+  const original = globalThis.fetch;
+  let capturedUrl = "";
+  globalThis.fetch = (async (url: unknown) => {
+    capturedUrl = String(url);
+    return { ok: true, json: async () => [{ date: "2024-01-02", base: "GBP", quote: "EUR", rate: 1.1541 }] };
+  }) as unknown as typeof globalThis.fetch;
+  try {
+    const r = await convert("GBP", "EUR", 100, "2024-01-02");
+    assert.match(capturedUrl, /^https:\/\/api\.frankfurter\.dev\/v2\/rates\?/);
+    assert.match(capturedUrl, /date=2024-01-02/);
+    assert.match(capturedUrl, /base=GBP/);
+    assert.match(capturedUrl, /quotes=EUR/);
+    assert.match(capturedUrl, /providers=ecb/);
+    assert.equal(r.verdict, "converted");
+    assert.equal(r.kind, "ecb_reference");
+    assert.equal(r.as_of, "2024-01-02");
+    assert.equal(r.rate, 1.1541);
+    assert.equal(r.from, "GBP");
+    assert.equal(r.to, "EUR");
+    assert.equal(r.amount, 100);
+    assert.match(r.reason, /published for 2024-01-02/);
+    assert.match(r.reason, /115\.41 EUR/);
+  } finally {
+    globalThis.fetch = original;
+  }
+});
+
+test("a dated question on a non-trading day reports the publication date it actually got, not the requested one", async () => {
+  const original = globalThis.fetch;
+  globalThis.fetch = (async () =>
+    ({ ok: true, json: async () => [{ date: "2024-01-05", base: "GBP", quote: "EUR", rate: 1.16 }] })) as unknown as typeof globalThis.fetch;
+  try {
+    // 2024-01-06 was a Saturday; Frankfurter backdates to the Friday before it.
+    const r = await convert("GBP", "EUR", 100, "2024-01-06");
+    assert.equal(r.as_of, "2024-01-05");
+    assert.match(r.reason, /published for 2024-01-05/);
+    assert.match(r.reason, /last publication on or before the requested 2024-01-06/);
+  } finally {
+    globalThis.fetch = original;
+  }
+});
+
+test("a failed dated fetch is reported unavailable and never falls back to today's rate", async () => {
+  const original = globalThis.fetch;
+  let calls = 0;
+  const urls: string[] = [];
+  globalThis.fetch = (async (url: unknown) => {
+    calls++;
+    urls.push(String(url));
+    throw new Error("network down");
+  }) as unknown as typeof globalThis.fetch;
+  try {
+    const r = await convert("GBP", "EUR", 100, "2024-01-02");
+    assert.equal(r.verdict, "unknown");
+    assert.equal(r.error, "historical_unavailable");
+    assert.equal(r.rate, null);
+    assert.equal(r.converted, null);
+    assert.match(r.reason, /not a reason to answer with today's rate/);
+    assert.equal(calls, 1, "must not also try the ECB daily feed or the market source as a fallback");
+    assert.ok(!urls[0]!.includes("eurofxref"), "must not fall back to the ECB daily (today's) feed");
+  } finally {
+    globalThis.fetch = original;
+  }
+});
+
+test("a dated fetch with no data for that date (future, or before the feed's start) is unavailable, not a fallback", async () => {
+  const original = globalThis.fetch;
+  globalThis.fetch = (async () => ({ ok: true, json: async () => [] })) as unknown as typeof globalThis.fetch;
+  try {
+    const r = await convert("GBP", "EUR", 100, "2099-01-01");
+    assert.equal(r.verdict, "unknown");
+    assert.equal(r.error, "historical_unavailable");
   } finally {
     globalThis.fetch = original;
   }
@@ -114,11 +284,24 @@ test("a conversion is labelled as a reference rate and carries its date (live)",
   assert.ok(r.converted !== null && r.converted > 50 && r.converted < 200, `implausible: ${r.converted}`);
 });
 
-test("a currency the ECB does not publish falls back and says it is a market rate (live)", async () => {
+test("a currency the ECB does not publish falls back and says it is a blended central-bank rate (live)", async () => {
   // The ECB publishes no rate for the Argentine peso.
   const r = await convert("USD", "ARS", 10);
   if (r.verdict === "unknown") return;
-  assert.equal(r.kind, "market");
-  assert.match(r.reason, /market rate/i);
-  assert.ok(!/reference rate published/.test(r.reason), "a market rate must not be labelled a reference rate");
+  assert.equal(r.kind, "blended_reference");
+  assert.match(r.reason, /blended daily rate from central banks and official sources, whose newest contributing rate is dated \d{4}-\d{2}-\d{2}/);
+  assert.match(String(r.as_of), /^\d{4}-\d{2}-\d{2}$/);
+  assert.ok(!/reference rate published/.test(r.reason), "a blended rate must not be labelled the ECB reference rate");
+});
+
+test("a dated conversion matches the published 2024-01-02 GBP/EUR reference rate (live)", async () => {
+  // A closed historical date's ECB reference rate is permanently fixed, so this
+  // is safe to pin exactly rather than just shape-check, unlike the "today" tests.
+  const r = await convert("GBP", "EUR", 100, "2024-01-02");
+  if (r.verdict === "unknown") return; // feed down is not a test failure
+  assert.equal(r.verdict, "converted");
+  assert.equal(r.kind, "ecb_reference");
+  assert.equal(r.as_of, "2024-01-02");
+  assert.equal(r.rate, 1.1541);
+  assert.equal(r.converted, 115.41);
 });

@@ -1,0 +1,37 @@
+/ssl-check             valid            all fields documented
+/storm-alert           none             all fields documented
+/papers                papers           all fields documented
+/translate             translated       all fields documented
+/ip-geolocate          anycast          all fields documented
+/weather-forecast      heavy rain       all fields documented
+/extract               generic          all fields documented
+/headlines             headlines        all fields documented
+/wallet-balance        5.77349992 ETH   all fields documented
+/tx-lookup             contract_activity all fields documented
+/cve                   critical         all fields documented
+/news-search           unknown          all fields documented
+/convert               rate             all fields documented
+/gas-price             unknown          all fields documented
+/financial             financial_data   all fields documented
+/fraud-check           unknown          all fields documented
+/token-holders         not_found        all fields documented
+/research              evidence         all fields documented
+/crypto-price          price            all fields documented
+/stock-price           price            all fields documented
+/cross-chain           insufficient_input all fields documented
+/event-outcome         no_market_found  all fields documented
+/url-scan              unknown          all fields documented
+/web-search            answered         all fields documented
+/sentiment             negative         all fields documented
+/classify              classified       all fields documented
+/research-synthesis    synthesis        all fields documented
+/fact-check            contradicted     all fields documented
+/sanctions-screen      match            all fields documented
+/company-registry      found            all fields documented
+/sec-filings           filed            all fields documented
+/transfer-verify       confirmed        all fields documented
+/macro                 reported         all fields documented
+/url-reputation        safe             all fields documented
+/answer                answered         all fields documented
+
+0 undocumented top-level fields

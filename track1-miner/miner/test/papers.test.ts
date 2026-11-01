@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { academicAnswer, searchTopic, dateWindow, requestedLimit, requestedSort, findPapers, type PaperResult } from "../src/papers";
+import { academicAnswer, searchTopic, paperTopic, dateWindow, requestedLimit, requestedSort, findPapers, type PaperResult } from "../src/papers";
 
 // The four questions below are the real recorded ACADEMIC_SEARCH questions from
 // the public score feed, verbatim. Two of them used to make searchTopic return
@@ -48,6 +48,73 @@ test("a bare publication year still parses", () => {
   assert.deepEqual(dateWindow(Q_FIELD_OF), { from: "2025-01-01", to: "2025-12-31" });
 });
 
+// Both questions below are real recorded ACADEMIC_SEARCH questions (bench rows
+// 10 and 14 of track1-miner/bench/acad_bench.json), and both write the range
+// with a comma after the first year: "between January 1, 2023, and December 31,
+// 2023". The pair pattern required whitespace immediately after that year, so
+// the comma made it miss, every later pattern missed too, and the window came
+// back null — the date filter was dropped in silence and the search ran over the
+// whole corpus on a question that named its years explicitly.
+
+const Q_COMMA_RANGE = `Search Semantic Scholar for papers published between January 1, 2023, and December 31, 2023, that mention 'decentralized finance' in the abstract and have at least 50 citations, returning the title, abstract, and citation count for each result, limited to 10 papers.`;
+const Q_ORDINAL_COMMA_RANGE = `Find peer-reviewed articles in the field of quantum computing published between January 1st, 2023, and December 31st, 2025, that mention either 'error correction' or 'fault tolerance' in the abstract, returning up to 10 results.`;
+
+test("a comma after the first year does not drop the range", () => {
+  assert.deepEqual(dateWindow(Q_COMMA_RANGE), { from: "2023-01-01", to: "2023-12-31" });
+});
+
+test("ordinal day numbers with a comma after the year still parse", () => {
+  assert.deepEqual(dateWindow(Q_ORDINAL_COMMA_RANGE), { from: "2023-01-01", to: "2025-12-31" });
+});
+
+// The "mention X in the abstract" family. These are real recorded questions
+// (bench rows 5, 6, 10 and 20) whose subject sits inside a filter clause rather
+// than after "on"/"in the field of", so the fallback strip handled them — and it
+// only knew bare-year date phrases and no filter scaffolding, so the topic came
+// out as "all that mention quantum computing in the abstract" and
+// "published between January 1, 2023, and December 31, 2023, that mention
+// decentralized finance in". Those go to OpenAlex verbatim as `search=`, which
+// ranks the scaffolding words alongside the subject and returns off-topic work.
+
+test("'mention X in the abstract' yields the subject, not the scaffolding", () => {
+  assert.equal(
+    searchTopic("Find all papers published in 2023 that mention 'quantum computing' in the abstract, returning the paper title, authors, citation count, and abstract, sorted by citation count descending."),
+    "quantum computing",
+  );
+  assert.equal(
+    searchTopic("Find scholarly articles published between 2020 and 2026 that mention 'climate change adaptation' in the abstract, returning up to 10 results."),
+    "climate change adaptation",
+  );
+  assert.equal(
+    searchTopic("Find papers with 'machine learning' in the abstract published after 2020, limiting results to 10, and return titles and abstract fields only."),
+    "machine learning",
+  );
+});
+
+test("a spoken date range is not mistaken for the subject", () => {
+  assert.equal(
+    searchTopic("Search Semantic Scholar for papers published between January 1, 2023, and December 31, 2023, that mention 'decentralized finance' in the abstract and have at least 50 citations, returning the title, abstract, and citation count for each result, limited to 10 papers."),
+    "decentralized finance",
+  );
+});
+
+test("subject words that merely look like scaffolding survive", () => {
+  // "abstract" as a field of study, "mention" nowhere, a leading "all-" that is
+  // part of the term, and a mid-sentence "with" that joins two real terms.
+  assert.equal(searchTopic("abstract algebra"), "abstract algebra");
+  assert.equal(searchTopic("all-optical computing"), "all-optical computing");
+  assert.match(searchTopic("transformer models with attention mechanisms") ?? "", /with attention mechanisms/);
+});
+
+test("a comma cannot invent a range that the question did not write", () => {
+  // The comma is tolerated only between the two halves of an explicit range.
+  // A sentence that merely lists years must still come back unbounded.
+  assert.deepEqual(dateWindow("papers on quantum computing, 2023, 2024, and 2025 alike"), {
+    from: null,
+    to: null,
+  });
+});
+
 test("the requested result count is honoured", () => {
   assert.equal(requestedLimit(Q_FIELD_OF), 10, "'the most recent 10 results'");
   assert.equal(requestedLimit(Q_QUOTED_FIELD), 10, "'limited to 10 results'");
@@ -90,12 +157,9 @@ test("an explicitly requested ordering is honoured, and only then", () => {
   assert.equal(requestedSort("zero knowledge proofs"), null);
 });
 
-test("the served academic body carries only the signal fields and the prose", () => {
-  // Telegraph converts the WHOLE payload (keys re-sorted) into the ~32 words it
-  // scores, so every extra field competes with the restated reason. Measured in
-  // bench/acad_shape.mjs against champion 688: the full PaperResult scores
-  // 0.006041 on the payload surface, this shape 0.013419, winning 22/22 rows
-  // with the prose surface unchanged.
+test("the served academic body is the whole result; the bench can still ask for the lean shape", () => {
+  // App-first since 2026-10-11: an app gets the papers as data. The lean shape
+  // stays available because bench/acad_shape.mjs scores old against new.
   const r: PaperResult = {
     topic: "CRISPR gene editing", from_date: "2024-01-01", to_date: "2024-12-31",
     verdict: "papers",
@@ -104,29 +168,8 @@ test("the served academic body carries only the signal fields and the prose", ()
     reason: "Here are 1 peer-reviewed papers on CRISPR gene editing: 1) A Paper by A. Researcher (2024), cited 42 times.",
     checked_at: "2026-08-31T00:00:00.000Z",
   };
-  const body = academicAnswer(r);
-  assert.deepEqual(Object.keys(body).sort(), ["confidence", "reason", "verdict"]);
-  assert.equal(body.reason, r.reason);
-  assert.equal(body.verdict, "papers");
-  assert.equal(body.confidence, 1);
-  // The bench still needs the old payload to score the before/after honestly.
-  assert.deepEqual(academicAnswer(r, "full"), { ...r });
-});
-
-test("a failed search stays lean too, so the degraded answer is the question echo", () => {
-  // OpenAlex sheds anonymous load (G43). When it does, the whole payload should
-  // be the restated question plus the honest "none found" — the highest-scoring
-  // real conversion ever archived for this intent (0.0149) was exactly that
-  // shape from another miner, while a bare "no results" scored 0.0009.
-  const r: PaperResult = {
-    topic: "quantum computing", from_date: null, to_date: null,
-    verdict: "unknown", papers: [], count: 0, confidence: 0,
-    reason: "No peer-reviewed papers on quantum computing were found for the requested period.",
-    checked_at: "2026-08-31T00:00:00.000Z",
-  };
-  const body = academicAnswer(r);
-  assert.deepEqual(Object.keys(body).sort(), ["confidence", "reason", "verdict"]);
-  assert.equal(body.confidence, 0, "confidence 0 keeps the honest-failure marker isAnswered() reads");
+  assert.deepEqual(academicAnswer(r), { ...r });
+  assert.deepEqual(academicAnswer(r, "lean"), { verdict: "papers", confidence: 1, reason: r.reason });
 });
 
 test("a title's hard wrapping never reaches the scored prose", async () => {
@@ -165,8 +208,9 @@ test("a timing-out upstream still falls through to the narrower retry", async ()
   let calls = 0;
   globalThis.fetch = (async (input: unknown) => {
     calls++;
-    // The first call carries the date filter; fail it the way OpenAlex does.
-    if (String(input).includes("filter=")) {
+    assert.ok(String(input).includes("filter="), "the retry must retain the date restriction");
+    // Fail the first request, then let the retry succeed within the same window.
+    if (calls === 1) {
       return new Response(JSON.stringify({ error: "Gateway timeout", reason: "query_timeout" }), { status: 504 });
     }
     return new Response(
@@ -282,4 +326,97 @@ test("an index that answers with nothing still says no papers were found", async
   } finally {
     globalThis.fetch = original;
   }
+});
+
+// Rank-loss report F6 (2026-09-15): "Find three peer-reviewed papers about
+// transformer language models" returned five papers, led by a 1998
+// document-recognition paper and a vision transformer.
+test("a spelled-out count is honoured", () => {
+  assert.equal(requestedLimit("Find three peer-reviewed papers about transformer language models."), 3);
+  assert.equal(requestedLimit("Give me the top seven articles on CRISPR"), 7);
+  assert.equal(requestedLimit("List ten recent studies on sleep"), 10);
+  assert.equal(requestedLimit("Find 3 open-access papers on climate adaptation"), 3);
+  assert.equal(requestedLimit("Find papers on proof of stake from the last five years"), 5);
+  assert.equal(requestedLimit("Papers published in 2023 with at least 50 citations"), 5);
+});
+
+test("works carrying every topic term rank ahead of off-topic hits, in index order", async () => {
+  const { rankByTopic } = await import("../src/papers");
+  const results = [
+    { title: "Gradient-based learning applied to document recognition" },
+    { title: "Swin Transformer: Hierarchical Vision Transformer using Shifted Windows" },
+    { title: "Deep Transfer Learning & Beyond: Transformer Language Models in Information Systems Research" },
+    { title: "BioBERT", abstract_inverted_index: { transformer: [1], language: [2], model: [3] } },
+  ];
+  assert.deepEqual(rankByTopic(results, "transformer language models").map((r) => r.title),
+    [results[2]!.title, "BioBERT", results[1]!.title, results[0]!.title]);
+});
+
+test("peer-reviewed is filtered to journal articles and said as such; otherwise the answer says papers", async () => {
+  const original = globalThis.fetch;
+  const urls: string[] = [];
+  globalThis.fetch = (async (u: string) => {
+    urls.push(String(u));
+    return new Response(JSON.stringify({ results: [{ title: "Transformer language models survey", publication_year: 2023, cited_by_count: 5, authorships: [] }] }), { status: 200 });
+  }) as typeof fetch;
+  try {
+    const r = await findPapers("Find three peer-reviewed papers about transformer language models.");
+    assert.match(decodeURIComponent(urls[0]!), /type:article,primary_location\.source\.type:journal/);
+    assert.match(r.reason, /^Here are 1 peer-reviewed journal articles on transformer language models/);
+    // Relevance is OpenAlex's ranking, not verified here (calibration-2026-10-26).
+    assert.equal(r.confidence, 0.8);
+    const p = await findPapers("Find papers about transformer language models");
+    assert.doesNotMatch(decodeURIComponent(urls[1]!), /source\.type/);
+    assert.match(p.reason, /^Here are 1 papers on/);
+  } finally {
+    globalThis.fetch = original;
+  }
+});
+
+test("a question that only points at the subject searches the declared topic", () => {
+  const q = "Find me recent papers on this subject. CRISPR gene editing";
+  assert.equal(searchTopic(q), "this subject");
+  assert.equal(paperTopic(q, "CRISPR gene editing"), "CRISPR gene editing");
+  assert.equal(paperTopic("What has been published on it?", "zero knowledge proofs"), "zero knowledge proofs");
+});
+
+test("a question that names its own subject keeps it over the declared topic", () => {
+  assert.equal(paperTopic("Find papers on CRISPR CRISPR gene editing", "CRISPR gene editing"), "CRISPR CRISPR gene editing");
+  assert.equal(paperTopic("Find papers on quantum error correction"), "quantum error correction");
+  assert.equal(paperTopic("", "CRISPR gene editing"), "CRISPR gene editing");
+});
+
+// G200, audit 2026-10-21: the title lookup searched "the Attention Is All You
+// Need and its citation count" and returned five papers about citations.
+test("a named paper is searched by its title alone and served first when it matches exactly", async () => {
+  const { paperTitle } = await import("../src/papers");
+  assert.equal(paperTitle("Find the paper 'Attention Is All You Need' and its citation count"), "Attention Is All You Need");
+  assert.equal(paperTitle(`Look up the article titled "Deep Residual Learning for Image Recognition"`), "Deep Residual Learning for Image Recognition");
+  assert.equal(paperTitle(Q_QUOTED_FIELD), null, "a quoted search term is not a title");
+  const original = globalThis.fetch;
+  const urls: string[] = [];
+  globalThis.fetch = (async (u: string) => {
+    urls.push(String(u));
+    return new Response(JSON.stringify({ results: [
+      { title: "Attention Is All You Need In Speech Separation", publication_year: 2021, cited_by_count: 693, authorships: [] },
+      { title: "Attention Is All You Need", publication_year: 2017, cited_by_count: 78269, authorships: [{ author: { display_name: "Ashish Vaswani" } }] },
+    ] }), { status: 200 });
+  }) as typeof fetch;
+  try {
+    const r = await findPapers("Find the paper 'Attention Is All You Need' and its citation count");
+    assert.match(decodeURIComponent(urls[0]!), /search=Attention Is All You Need&/);
+    assert.equal(r.count, 1);
+    assert.equal(r.papers[0]!.citations, 78269);
+    assert.match(r.reason, /^OpenAlex records the paper "Attention Is All You Need": 1\) Attention Is All You Need by Ashish Vaswani \(2017\), cited 78269 times\.$/);
+    const miss = await findPapers("Find the paper 'Attention Is Most Of What You Need'");
+    assert.equal(miss.confidence, 0.4);
+    assert.match(miss.reason, /^OpenAlex has no work titled exactly "Attention Is Most Of What You Need"\. The closest match is: 1\)/);
+  } finally {
+    globalThis.fetch = original;
+  }
+});
+
+test("'do academic search for X' searches X", () => {
+  assert.equal(searchTopic("do academic search for netanyahu"), "netanyahu");
+  assert.equal(searchTopic("run a literature search on perovskite degradation"), "perovskite degradation");
 });

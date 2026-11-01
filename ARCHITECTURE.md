@@ -1,130 +1,144 @@
-# ARCHITECTURE.md — decisions and rationale
+# ARCHITECTURE.md — the miner's design decisions (Season II)
 
-Code must conform to this. **Update this file before deviating from it**, not after.
+Code must conform to this. **Update this file before deviating from it**, not after. The goal these serve is
+[WINNING.md](WINNING.md); protocol facts and their sources are in [docs/TELEGRAPH_FACTS.md](docs/TELEGRAPH_FACTS.md).
 
-Grounded in [docs/TELEGRAPH_FACTS.md](docs/TELEGRAPH_FACTS.md) (verified 2026-08-26).
+**Rewritten 2026-10-23.** Season I's reasons were scorer champions and rank chasing, and that scoring kind is
+retired. Decisions still in effect in the code are kept below. Those tied to removed intents (sports, TVL) or
+to Season I scoring are in git history.
 
----
-
-## The shape of a Telegraph miner
+## The shape of the miner
 
 ```
-   agent / validator
-          │
-          ▼
-   Telegraph node ──reads──►  our YAML  (IPFS, SHA-256 committed on-chain)
-          │
-          │ proxies the request, per param_map / endpoints[]
-          ▼
-     base_url  ◄── the upstream API. Ours, or a third party's.
+   app / agent ──► Telegraph node ──reads──► miner.yaml (commit-pinned GitHub URL, SHA-256 on-chain)
+                         │
+                         ▼  routes by intent and ranking (70/20/10)
+                miner-wine.vercel.app  ── our TypeScript service (track1-miner/miner)
+                         │
+                         ▼
+          licensed upstreams: MET Norway, Nominatim, Wikidata, SEC EDGAR, OFAC/UN lists,
+          GLEIF, World Bank, public chain RPCs, Groq (model phrasing only), and others
 ```
 
-We author **a YAML file**, not a service — unless a deliberate decision says otherwise (D2 in
-[PRD.md](PRD.md)). Everything the protocol knows about us lives in that file.
+One registration (4829) serves 36 intents on 35 endpoints from one deployment.
 
-## A1 — Registration goes through the web console, not `cast`
+## A1 — Correct, sourced and licensed, per intent
 
-`integrate.telegraphprotocol.com` validates the schema, **sandbox-tests every declared endpoint
-against the real upstream**, pins to IPFS, sends `registerMiner`, and stores the API key.
+- **Each claimed intent must be answered correctly from its primary source.** Each is reviewed separately,
+  and registrations earn nothing (WINNING §6, §9).
+- **An intent we cannot answer correctly, or cannot resell under its source's licence, is removed.**
+- **Every upstream's terms are read for commercial resale before it is used** (GAPS G189). Attribution is
+  given where the licence requires it: "© OpenStreetMap contributors (ODbL)" whenever Nominatim named the
+  place.
 
-The manual `cast` path exists and is documented, but the console is the only path that can install
-an API key on our behalf, and its sandbox catches exactly the failures that are expensive on-chain.
-We use `cast` only for read calls (`isCanonicalIntent`, `getCanonicalIntents`, `getMiner`).
+## A2 — The answer envelope
 
-**Rationale:** registration is effectively immutable. A rejected registration also releases the
-slug immediately, so a careless send can lose the name to someone else. Validating first is not
-optional caution, it is the cheap path.
+- **Every route answers in the same order:** `answer` (the direct answer first), then `verdict`,
+  `confidence`, every value as a field, the source, and `checked_at` (`src/envelope.ts`).
+- **The question is never echoed back.**
+- **The manifest describes each endpoint** by example questions, parameters and returned fields.
 
-## A2 — Validate before every on-chain send
+## A3 — Refuse honestly; never fabricate
 
-No `registerMiner` or `updateMiner` without a clean sandbox run first. This is a hard rule, not a
-preference. `updateMiner` issues a **new `registrationId` and `intentId`**, breaking anything that
-targeted the old one — so each mistake has a blast radius beyond gas.
+- **Unanswerable input gets a reason:** what was wrong and what would work. An upstream outage is reported
+  as an outage, never as `invalid_input` and never as "no result".
+- **No value is invented.** A missing figure stays unknown.
+- **A safety-relevant list that fails to load is an unread list.** It is never treated as a clear (G201).
 
-## A3 — Uptime is the product
+## A4 — Model use is narrow and fails closed
 
-Spot checks fire roughly every 20 seconds, deterministically seeded by the Base L2 block hash. A
-score more than 20% below the leaderboard score triggers **immediate Routing Revocation**, and
-traffic does not return until the next epoch tournament.
+- **No other route is generative.** A language model (Groq's open-weight models) may only:
+  - phrase TEXT_CLASSIFICATION and SENTIMENT_ANALYSIS answers, choosing only between labels the parser
+    already extracted;
+  - phrase QUESTION_ANSWERING answers, which are kept only when every claim is cited (`src/qa.ts`, which
+    web search's timeless-question path reuses);
+  - translate.
+- **Every failure returns the keyless answer unchanged:** no key, budget, rate limit, timeout, an empty or
+  refusing completion, or a label outside the set.
+- **`GROQ_API_KEY` stays in the environment.** It is sent only to api.groq.com, and never written to a
+  tracked file, log, answer or error.
 
-Consequences that bind our hosting choice:
+## A5 — Reliability is the product
 
-- **No cold starts.** Anything that sleeps (Render free, Railway idle, scale-to-zero) reads as
-  failure. If we host, use a zero-cold-start runtime — Cloudflare Workers by default.
-- **No fragile upstreams.** An upstream rate limit or outage becomes *our* revocation. If we
-  proxy a third-party API, declare its real allowance in `limitations[]` with `property: rate` so
-  the node refuses calls it cannot serve instead of burning our score on failures.
-- **Latency is scored,** not just success. Prefer edge-deployed and geographically close.
+- **Validators spot-check liveness about once an hour per intent, at random times** (V2 docs, 2026-10-27).
+  Consecutive empty answers revoke routing for that intent until the next epoch. Reliability is 20 of the
+  Miner's 100 points.
+- **Keep load off rate-limited upstreams:** cache briefly, answer common places from the built-in Wikidata
+  table before Nominatim, and run fallbacks within the request watchdog.
+- **Declare real upstream limits** in `limitations[]` with `property: rate`, so the node refuses calls we
+  cannot serve.
+- **Handle "liar-200" upstreams explicitly.** Some return HTTP 200 with a failure in the body: declare
+  `errors.status_path` only when the upstream does this.
 
-## A4 — Declare upstream limits honestly
+## A6 — Data-handling rules still in effect
 
-```yaml
-limitations:
-  - code: ACCOUNT_QUOTA
-    message: Free tier allows 100 requests per month
-    property: rate
-    value_num: 100
-    window_seconds: 2592000
-```
+- **Places and time:**
+  - weather candidates keep the first extracted city;
+  - explicit city and country pairs win;
+  - a current-hour answer uses the interval containing now;
+  - an uncovered future point is never filled with the last hour;
+  - stale or incomplete measurements cannot support a known answer.
+- **Wallets:**
+  - a recognised structured chain, including a numeric chain ID, wins over question prose;
+  - token balances use read-only `balanceOf` on issuer-documented contracts;
+  - bridged variants are distinct assets;
+  - a malformed address cannot substantiate a zero balance;
+  - at most two concurrent RPC attempts under one deadline.
+- **CVE:** NVD first. The public CVE Program record is the fallback; it must match the ID and publication
+  state, and name the CNA.
+- **Academic:** OpenAlex, with DOAJ for explicit open-access searches and as the fallback. Publication
+  dates must fit the requested window; unknown dates cannot satisfy a precise bound.
+- **News and web:**
+  - relevance comes from normalised headline words, not substrings or the publisher's name;
+  - a timestamp more than five minutes in the future cannot establish coverage;
+  - older coverage is labelled as available, not current.
+- **TLS:**
+  - an explicit port in an embedded URL is kept;
+  - bracketed IPv6, trailing-dot names and punycode are accepted;
+  - the public-address DNS guard runs before any socket opens.
+- **Fraud:**
+  - only the parties of a resolved transaction are screened;
+  - missing evidence yields unknown;
+  - it is a limited sanctions screen, not an execution simulation.
 
-`property: rate` is the one limitation a node cannot infer from the request — it depends on how
-many times the node has already called us. Declaring the real number makes the node check before
-spending a caller's money. Undeclared, we inherit a 600 calls/min backstop that is far above any
-free tier and protects nothing.
+## A7 — On-chain sends: validate, then the owner signs
 
-## A5 — Handle liar-200 upstreams explicitly
+- **No `registerMiner` or `updateMiner` without a clean run** at integrate.telegraphprotocol.com.
+- **The YAML is served from a pushed, commit-pinned URL** and hashed with SHA-256.
+- **The owner signs.** Claude never signs, connects or sends.
+- **`updateMiner` issues a new `registrationId`.** Whether it restarts the 7-day grace period is open
+  (G206), so no update runs during the season without that answer.
 
-Some APIs return HTTP 200 while reporting failure in the body. To Telegraph that is a success: the
-caller is charged and the error text is stored as our signal. If our upstream does this, declare it:
+## A8 — Deploys: preview, gates, production
 
-```yaml
-errors:
-  message_path: responseDetails
-  status_path: responseStatus
-  success_values: ["200"]
-```
+- **Build from a clean git worktree**, outside OneDrive and at a short path: no `.env.local` and no build
+  output gets uploaded.
+- **Order:**
+  1. preview first;
+  2. probe the changed routes with `npx vercel curl`;
+  3. `--prod`;
+  4. `preflight.mjs` and `watch.mjs` against production.
+- **Record the rollback target and the evidence** in `track1-miner/docs/evidence/release-<date>/`.
+- **`git push` deploys nothing** (G22). After a rollback, production is pinned until `vercel promote`
+  (G70).
 
-If the upstream uses real HTTP status codes, **omit `status_path` entirely**. The check is
-conservative — an unresolved path is never treated as a failure — so declaring it speculatively
-is harmless but declaring it wrongly is not.
+## A9 — Secrets and schema
 
-## A6 — Secrets never enter the repo or the YAML
-
-The YAML is public, pinned to IPFS, and hashed on-chain. API keys are installed *after*
-registration against the slug, via an EIP-191 `personal_sign` challenge, bound to the registering
-wallet.
-
-- No `.env` in git, from the first commit.
-- No key, seed, or private key in any tracked file — including YAML, docs, and commit messages.
-- Wallet actions are the user's to perform. Claude never signs, connects, or sends.
-
-## A7 — Schema strictness is a design constraint, not a footgun to discover
-
-`additionalProperties: false` applies at the root and inside `endpoints[]`, `auth`, and
-`semantics.signal_mapping`. An unknown key is a hard rejection.
-
-Two we will hit if we are not deliberate:
-
-- `input_schema` / `output_schema` are **top-level only**, never nested under the endpoint they
-  describe. A single top-level `input_schema` covers all endpoints; it is documentation surfaced
-  to callers, not a validator the node enforces.
-- `semantics.signal_mapping` takes only `confidence_field`, `label_field`, `reason_field`.
-
-## A8 — One miner, one intent, depth over breadth
-
-Routing pays 70/20/10 and nothing to 4th. Two mediocre miners in contested intents earn less than
-one dominant miner in a quiet one, and cost twice the attention across a 12-day window.
-
-## A9 — Ship without the `on_chain` block
-
-`on_chain` enables ERC-8183 job targeting and on-chain callbacks. It is optional, adds
-meaningful schema surface (`transform`, field arrays, request mapping), and is irrelevant to
-leaderboard ranking. Excluded from H1 scope. Revisit for H2.
+- **Secrets:**
+  - the YAML is public;
+  - no key, seed or private key goes in any tracked file, doc or commit message;
+  - `.env*` is ignored from the first commit;
+  - API keys are installed against the slug by a wallet-signed challenge.
+- **Schema:**
+  - `additionalProperties: false` holds at the root and inside `endpoints[]`, `auth` and
+    `semantics.signal_mapping`, so an unknown key is a hard rejection;
+  - `input_schema` and `output_schema` are top-level only;
+  - `signal_mapping` takes only `confidence_field`, `label_field` and `reason_field`.
+- **No `on_chain` block** (ERC-8183 callbacks) unless a Season II app needs it.
 
 ## A10 — Conventions
 
-- Boring, explicit code. Files under ~300 lines. TypeScript strict if we write any.
-- One task = one change = one commit. Commit messages describe the change and nothing else.
-- Docs are the handoff medium across sessions and models: keep them exact.
-- Verify protocol facts against live docs, never memory. Record what was checked, and when, in
-  [docs/TELEGRAPH_FACTS.md](docs/TELEGRAPH_FACTS.md).
+- **Code:** boring and explicit, TypeScript strict, files under ~300 lines.
+- **Commits:** one task, one change, one commit. Messages describe the change and nothing else.
+- **Docs** are the handoff between sessions; keep them exact.
+- **Protocol facts** are verified against live docs, never memory, and recorded with dates.

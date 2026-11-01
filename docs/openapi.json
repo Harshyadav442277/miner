@@ -1,0 +1,3439 @@
+{
+ "openapi": "3.1.0",
+ "info": {
+  "title": "LiveCert — Sourced Answers for Agents",
+  "version": "1",
+  "description": "Sourced answers for agents and apps across 36 intents, each read live from a named primary source so the caller can check it. Every answer opens with a one-sentence answer, then returns the values as fields, the source and the time it was checked. Compliance: sanctions screening of people, companies and wallets against the OFAC SDN and UN lists with near-match scores; company register records (status, company number, register, registered address and agent, parents) from GLEIF and SEC EDGAR; SEC filings with acceptance times and each 10-Q or 10-K's own XBRL figures; URL reputation from Cloudflare and Quad9 threat DNS and URLhaus, each source named. Research: question answering with every claim cited, web search with dated reports, fact checks with the source URL and evidence sentence, and academic, clinical and news search. Markets: prices and market data for coins, tokens and listed companies, 10-K revenue and earnings, exchange rates and macroeconomic prints (US CPI and unemployment from BLS, the federal funds target range from the New York Fed, euro-area HICP from Eurostat and ECB rates). On-chain: transfer verification with confirmations and the burned base fee, transaction and contract activity across EVM chains, wallet balances, gas, token holders and cross-chain messages. Security: live TLS certificates, URL scans, CVE records and fraud signals. Weather: forecasts, current conditions and storm risk. Also translation, IP geolocation, prediction market outcomes, text extraction, sentiment and classification. Only the question-answering, sentiment and classification sentences are phrased by a model, each with a keyless fallback, and a phrased answer is kept only when every claim cites a numbered source; everything else is computed, not generated."
+ },
+ "servers": [
+  {
+   "url": "https://miner-wine.vercel.app"
+  }
+ ],
+ "externalDocs": {
+  "url": "https://github.com/Harshyadav442277/miner"
+ },
+ "paths": {
+  "/ssl-check": {
+   "get": {
+    "operationId": "ssl_check",
+    "summary": "SSL_VERIFICATION",
+    "description": "Example questions: \"Is the TLS certificate for github.com valid?\", \"When does example.com's certificate expire?\". Returns answer, verdict, confidence, reason, checked_at and domain, valid, chain_complete, issuer, valid_to, days_remaining. Live TLS certificate check for one domain. Accepts a bare hostname, a full URL, or host:port.",
+    "x-telegraph-intents": [
+     "SSL_VERIFICATION"
+    ],
+    "parameters": [
+     {
+      "name": "domain",
+      "in": "query",
+      "required": true,
+      "description": "Hostname to check. Accepts example.com, https://example.com/path, or example.com:8443.",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "description": "The user's original question, verbatim. The hostname is extracted from it.",
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Always 200: an answer, or confidence 0 with an error code. Never a made-up value.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Answer"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/storm-alert": {
+   "get": {
+    "operationId": "storm_alert",
+    "summary": "STORM_ALERT",
+    "description": "Example questions: \"Is there a storm risk in Chennai in the next 48 hours?\", \"Will gusts exceed 60 km/h in Miami tonight?\". Returns answer, verdict, confidence, reason, checked_at and location, risk_score, wind_direction, max_wind_gust_kmh, max_wind_speed_kmh, max_precipitation_mm, thunderstorm, window_hours, valid_at, peak_at, latitude, longitude, threshold_exceeded, threshold_hours. Severe-weather risk for a location over the next 48 hours. Accepts a place name or \"lat,lon\".",
+    "x-telegraph-intents": [
+     "STORM_ALERT"
+    ],
+    "parameters": [
+     {
+      "name": "location",
+      "in": "query",
+      "required": false,
+      "description": "Place name, e.g. Chennai or Tokyo, Japan. Provide either location, or lat and lon together.",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "lat",
+      "in": "query",
+      "required": false,
+      "description": "Latitude in decimal degrees, -90 to 90. Use with lon when the question names coordinates.",
+      "schema": {
+       "type": "number"
+      }
+     },
+     {
+      "name": "lon",
+      "in": "query",
+      "required": false,
+      "description": "Longitude in decimal degrees, -180 to 180.",
+      "schema": {
+       "type": "number"
+      }
+     },
+     {
+      "name": "hours",
+      "in": "query",
+      "required": false,
+      "description": "Forecast window in hours, 1 to 168. Defaults to 48.",
+      "schema": {
+       "type": "integer"
+      }
+     },
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "description": "The user's original question, verbatim. Carries wording the structured fields cannot: a point in time such as 'in 44 hours', a wind threshold such as 'above 25 knots', or an operational context.",
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Always 200: an answer, or confidence 0 with an error code. Never a made-up value.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Answer"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/papers": {
+   "get": {
+    "operationId": "papers",
+    "summary": "ACADEMIC_SEARCH",
+    "description": "Example questions: \"Find recent peer-reviewed papers on CRISPR gene editing\", \"Most cited papers on transformer models since 2023\". Returns answer, verdict, confidence, reason, checked_at and topic, from_date, to_date, papers, count. Finds peer-reviewed papers on a topic, optionally within a date range, via OpenAlex. Returns title, authors, year and citation count for each.",
+    "x-telegraph-intents": [
+     "ACADEMIC_SEARCH"
+    ],
+    "parameters": [
+     {
+      "name": "topic",
+      "in": "query",
+      "required": true,
+      "description": "Research subject to search for, e.g. zero knowledge proofs. A bare topic with no question scaffolding is fine.",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "description": "The user's original question, verbatim. Carries constraints the topic alone cannot: a date range, a result count, or a requested ordering.",
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Always 200: an answer, or confidence 0 with an error code. Never a made-up value.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Answer"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/translate": {
+   "get": {
+    "operationId": "translate",
+    "summary": "LANGUAGE_TRANSLATION",
+    "description": "Example questions: \"Translate 'Good morning' into French\", \"Say hello in Spanish\". Returns answer, verdict, confidence, reason, checked_at and source_text, target_language, target_code, translation, source. Translates quoted text into a named target language. Returns the translation itself, in the target script.",
+    "x-telegraph-intents": [
+     "LANGUAGE_TRANSLATION"
+    ],
+    "parameters": [
+     {
+      "name": "text",
+      "in": "query",
+      "required": true,
+      "description": "The text to translate, exactly as given, without surrounding quotes.",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "target_language",
+      "in": "query",
+      "required": true,
+      "description": "The language to translate into, by name or ISO 639-1 code, e.g. Spanish or fr.",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "source_language",
+      "in": "query",
+      "required": false,
+      "description": "The language of the source text, when stated. Detected automatically when omitted.",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "description": "The user's original question, verbatim, e.g. Translate \"Good morning\" into French.",
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Always 200: an answer, or confidence 0 with an error code. Never a made-up value.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "allOf": [
+          {
+           "$ref": "#/components/schemas/Answer"
+          },
+          {
+           "type": "object",
+           "properties": {
+            "source_text": {
+             "type": "string"
+            },
+            "target_language": {
+             "type": "string"
+            },
+            "target_code": {
+             "type": "string"
+            }
+           },
+           "x-observed": "Fields and types from one production answer on 2026-10-26T05:25:56.942Z to: Translate the following English passage into natural Hebrew while preserving the original meaning, professional tone, technical terminology, numbers, names, and"
+          }
+         ]
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/ip-geolocate": {
+   "get": {
+    "operationId": "ip_geolocate",
+    "summary": "IP_GEOLOCATION",
+    "description": "Example questions: \"Where is 8.8.8.8 located?\", \"Which network owns 1.1.1.1?\". Returns answer, verdict, confidence, reason, checked_at and ip, city, region, country, country_code, latitude, longitude, timezone, asn, organisation. Live IP geolocation. Accepts an IPv4 or IPv6 address, or a whole question containing one.",
+    "x-telegraph-intents": [
+     "IP_GEOLOCATION"
+    ],
+    "parameters": [
+     {
+      "name": "ip",
+      "in": "query",
+      "required": true,
+      "description": "IPv4 or IPv6 address to geolocate, e.g. 8.8.8.8.",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "description": "The user's original question, verbatim. The address is extracted from it.",
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Always 200: an answer, or confidence 0 with an error code. Never a made-up value.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "allOf": [
+          {
+           "$ref": "#/components/schemas/Answer"
+          },
+          {
+           "type": "object",
+           "properties": {
+            "anycast": {
+             "type": "boolean"
+            }
+           },
+           "x-observed": "Fields and types from one production answer on 2026-10-26T05:25:56.942Z to: Please analyze the public IP address 94.140.14.14 from an IP-geolocation perspective and report the country, region, city if available, approximate coordinates,"
+          }
+         ]
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/weather-forecast": {
+   "get": {
+    "operationId": "weather_forecast",
+    "summary": "WEATHER_FORECAST, WEATHER_CHECK",
+    "description": "Example questions: \"What is the forecast for London tomorrow?\", \"What is the weather in Tokyo right now?\". Returns answer, verdict, confidence, reason, checked_at and location, window_hours, span_days, start_time, end_time, hourly_count, temp_min_c, temp_max_c, total_precipitation_mm, precipitation_probability_max_pct, max_wind_speed_kmh, precipitation_hours, latitude, longitude. Current and future conditions for a location. hours=0 reports the present hour; any other value gives a window of up to 168h, and the default with no hours parameter is 24h. Accepts a place name or \"lat,lon\".",
+    "x-telegraph-intents": [
+     "WEATHER_FORECAST",
+     "WEATHER_CHECK"
+    ],
+    "parameters": [
+     {
+      "name": "location",
+      "in": "query",
+      "required": false,
+      "description": "Place name, e.g. New York City. Provide either location, or lat and lon together.",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "lat",
+      "in": "query",
+      "required": false,
+      "description": "Latitude in decimal degrees, -90 to 90. Use with lon when the question names coordinates.",
+      "schema": {
+       "type": "number"
+      }
+     },
+     {
+      "name": "lon",
+      "in": "query",
+      "required": false,
+      "description": "Longitude in decimal degrees, -180 to 180.",
+      "schema": {
+       "type": "number"
+      }
+     },
+     {
+      "name": "days",
+      "in": "query",
+      "required": false,
+      "description": "Forecast span in days, 1 to 16, e.g. 7 for a 7-day forecast.",
+      "schema": {
+       "type": "integer"
+      }
+     },
+     {
+      "name": "hours",
+      "in": "query",
+      "required": false,
+      "description": "Forecast window in hours, 1 to 168. An alternative to days.",
+      "schema": {
+       "type": "integer"
+      }
+     },
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "description": "The user's original question, verbatim. Carries wording the structured fields cannot, such as an explicit start date like 'starting September 1st' — without it the forecast starts today.",
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Always 200: an answer, or confidence 0 with an error code. Never a made-up value.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Answer"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/extract": {
+   "get": {
+    "operationId": "extract",
+    "summary": "CONTENT_EXTRACTION",
+    "description": "Example questions: \"Extract the dates and amounts from this invoice: …\". Returns answer, verdict, confidence, reason, checked_at and extracted. Structured extraction from text supplied inline in the question. Reads quantities and units, contact details, named entities, action items, dates and events, or bare numeric values, and answers with the extracted fields themselves. The text is carried in the question, so nothing is fetched and the answer is deterministic and checkable against the input.",
+    "x-telegraph-intents": [
+     "CONTENT_EXTRACTION"
+    ],
+    "parameters": [
+     {
+      "name": "text",
+      "in": "query",
+      "required": true,
+      "description": "The text to extract from, usually quoted after a colon in the question.",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "description": "The user's original question, verbatim. It names which fields to extract, e.g. Extract the contact details from: \"...\".",
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Always 200: an answer, or confidence 0 with an error code. Never a made-up value.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Answer"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/headlines": {
+   "get": {
+    "operationId": "headlines",
+    "summary": "NEWS_HEADLINES",
+    "description": "Example questions: \"What are today's technology headlines?\", \"Top business news in Europe\". Returns answer, verdict, confidence, reason, checked_at and topic, region, headlines, count. Current news headlines for a topic and optional region, read live from Google News at request time and returned as a numbered list with each source named. Honours a requested count such as \"top 5\". Headlines rotate, so the answer states the date it was read.",
+    "x-telegraph-intents": [
+     "NEWS_HEADLINES"
+    ],
+    "parameters": [
+     {
+      "name": "topic",
+      "in": "query",
+      "required": true,
+      "description": "Subject to fetch headlines for, e.g. technology, business.",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "description": "The user's original question, verbatim. Carries the region and any requested count.",
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Always 200: an answer, or confidence 0 with an error code. Never a made-up value.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Answer"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/wallet-balance": {
+   "get": {
+    "operationId": "wallet_balance",
+    "summary": "WALLET_BALANCE_CHECK",
+    "description": "Example questions: \"What is the ETH balance of vitalik.eth?\", \"Balance of 0x… on Base\". Returns answer, verdict, confidence, reason, checked_at and address, chain, balance_eth, symbol. Native-coin balance of an EVM address, read with eth_getBalance at the latest block from public JSON-RPC on the chain the question names — Ethereum, Base, Arbitrum, Optimism or Polygon. A zero balance is reported as zero; an RPC that does not answer is reported as unavailable rather than as zero. Token balances such as USDT are not included, and the answer says so when one was asked about.",
+    "x-telegraph-intents": [
+     "WALLET_BALANCE_CHECK"
+    ],
+    "parameters": [
+     {
+      "name": "address",
+      "in": "query",
+      "required": true,
+      "description": "The 20-byte EVM address to read, e.g. 0x742d35Cc6634C0532925a3b844Bc454e4438f44e.",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "description": "The user's original question, verbatim. It names the chain and any token asked about alongside the native coin.",
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Always 200: an answer, or confidence 0 with an error code. Never a made-up value.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Answer"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/tx-lookup": {
+   "get": {
+    "operationId": "tx_lookup",
+    "summary": "ONCHAIN_TX_LOOKUP",
+    "description": "On-chain activity, asked about a transaction or about an address. Example questions: \"Did transaction 0x… succeed, and who sent it to whom?\", \"When was contract 0x… deployed and how many transactions does it have?\". For a transaction it returns verdict and a transaction object with status, from, to, value_wei, value, symbol, block_number, block_hash, receipt_status, method, gas_used, fee_wei, confirmations, base_fee_wei and base_fee_burned, which is true on Ethereum and Polygon, where the EIP-1559 base fee is burned, and false on rollups, where it is paid to the sequencer. A transaction is read by hash from public JSON-RPC on Ethereum, Base, Arbitrum, Optimism, Polygon, BNB Chain or Avalanche; where no chain is named every one of them is searched rather than one being assumed. It reports confirmed, reverted, pending or not found, with the sender and recipient, value moved, total fee, the base fee and whether it was burned, confirmations, gas used, block number, any contract deployed and the count of ERC-20 transfers in the receipt. An address is answered from the chain and its block explorer on Ethereum, Base, Arbitrum, Optimism or Polygon: whether it is a contract, an externally owned account, or an account carrying an EIP-7702 delegation; when a contract was deployed; how many transactions are recorded against it; how many an account has sent; and when it was last active, where a recency read the index could not date is reported as undated rather than as inactive. On Ethereum an explorer outage fails over to a second index whose count is attributed and may trail the chain. A reverted transaction is reported as reverted, not as a failure to answer; an RPC or explorer that does not respond is reported as unknown rather than as not found, because those are different facts; and a chain this endpoint does not read is named as unsupported rather than answered from a different chain.",
+    "x-telegraph-intents": [
+     "ONCHAIN_TX_LOOKUP"
+    ],
+    "parameters": [
+     {
+      "name": "hash",
+      "in": "query",
+      "required": false,
+      "description": "The 32-byte transaction hash, 0x followed by 64 hex characters. Omit it for a question about an address.",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "chain",
+      "in": "query",
+      "required": false,
+      "description": "One of ethereum, base, arbitrum, optimism, polygon, bsc or avalanche. When absent, a chain named in the question is used, and otherwise every chain is searched for a hash.",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "description": "The user's original question, verbatim. A hash or an address, the chain, and what is asked about the address are read from it.",
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Always 200: an answer, or confidence 0 with an error code. Never a made-up value.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "allOf": [
+          {
+           "$ref": "#/components/schemas/Answer"
+          },
+          {
+           "type": "object",
+           "properties": {
+            "is_contract": {
+             "type": "boolean"
+            },
+            "name": {
+             "description": "null in the sampled answer; its type when set was not observed"
+            },
+            "deployed_at": {
+             "type": "string"
+            },
+            "deployment_tx": {
+             "type": "string"
+            },
+            "transactions": {
+             "type": "integer"
+            },
+            "sent": {
+             "description": "null in the sampled answer; its type when set was not observed"
+            },
+            "last_activity": {
+             "description": "null in the sampled answer; its type when set was not observed"
+            }
+           },
+           "x-observed": "Fields and types from one production answer on 2026-10-26T05:25:56.942Z to: For the contract address 0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D on ethereum, report its on-chain activity: the date it was deployed and the total number of "
+          }
+         ]
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/cve": {
+   "get": {
+    "operationId": "cve",
+    "summary": "CVE_LOOKUP",
+    "description": "Example questions: \"What is the severity and affected versions of CVE-2021-44228?\". Returns answer, verdict, confidence, reason, checked_at and cve_id, severity, cvss_score, cvss_version, scored_by, affected_product, affected_versions, other_products_affected, cwe, status, published, description, source, source_url. Vulnerabilities from the National Vulnerability Database, asked three ways. By CVE identifier: the severity rating and CVSS base score with the CVSS version and the source that assigned it, the affected product and versions resolved from the record's CPE configuration — exact versions and half-open ranges alike — and what the flaw is. By year or severity, such as \"critical CVEs 2025\" or \"latest CVEs\": the vulnerabilities published in a stated window of at most 120 days with the highest-scored named, where a severity band is applied to each record's own CVSS base score rather than to the database's severity flag. By product and vulnerability class, such as \"Forgejo remote code execution\": the matching record and the fixed release where one is documented, used only when the record names the product asked about. A record with no CVSS score yet is reported as unscored rather than given an invented severity; a REJECTED identifier is reported as rejected rather than as not found; a truncated identifier is named as incomplete; and a rate-limited or unreachable database is reported as unknown, never as a vulnerability that does not exist.",
+    "x-telegraph-intents": [
+     "CVE_LOOKUP"
+    ],
+    "parameters": [
+     {
+      "name": "cve_id",
+      "in": "query",
+      "required": false,
+      "description": "The CVE identifier, e.g. CVE-2024-3094. Omit it for a question by year, severity or product.",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "description": "The user's original question, verbatim. An identifier, a year, a severity such as critical, or a product and vulnerability class are read from it.",
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Always 200: an answer, or confidence 0 with an error code. Never a made-up value.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "allOf": [
+          {
+           "$ref": "#/components/schemas/Answer"
+          },
+          {
+           "type": "object",
+           "properties": {
+            "cve_id": {
+             "type": "string"
+            },
+            "severity": {
+             "type": "string"
+            },
+            "cvss_score": {
+             "type": "integer"
+            },
+            "cvss_version": {
+             "type": "string"
+            },
+            "scored_by": {
+             "type": "string"
+            },
+            "affected_product": {
+             "type": "string"
+            },
+            "affected_versions": {
+             "type": "string"
+            },
+            "other_products_affected": {
+             "type": "integer"
+            },
+            "cwe": {
+             "type": "array",
+             "items": {
+              "type": "string"
+             }
+            },
+            "status": {
+             "type": "string"
+            },
+            "published": {
+             "type": "string"
+            },
+            "description": {
+             "type": "string"
+            }
+           },
+           "x-observed": "Fields and types from one production answer on 2026-10-26T05:25:56.942Z to: Look up this CVE identifier and report its severity (LOW/MEDIUM/HIGH/CRITICAL) and CVSS score: CVE-2021-44228"
+          }
+         ]
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/news-search": {
+   "get": {
+    "operationId": "news_search",
+    "summary": "NEWS_SEARCH",
+    "description": "Example questions: \"Latest news about the EU AI Act\", \"What happened with Boeing this week?\". Returns answer, verdict, confidence, reason, checked_at and subject, window_days, articles, count. News article coverage of a topic, entity or time period, searched rather than browsed. Returns individual articles — each with its headline, the publisher that ran it and its publication date, most relevant first — for a subject read from the question, over a window the question may state (\"in the last 3 days\", \"this month\"). A recency word with no explicit window is treated as a request rather than a filter: the last 30 days are searched first and the search is widened only if nothing on the subject was published in them, and the answer says when that happened. Articles that are not about the subject are dropped rather than used as padding, with the acronym of a named entity counted as naming it. This is article coverage; a plain list of current headlines is /headlines. A news index that does not respond is reported as unknown, never as an absence of coverage.",
+    "x-telegraph-intents": [
+     "NEWS_SEARCH"
+    ],
+    "parameters": [
+     {
+      "name": "topic",
+      "in": "query",
+      "required": false,
+      "description": "The subject to search for: a topic, company, person or event. Read from the question when absent.",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "days",
+      "in": "query",
+      "required": false,
+      "description": "Only return articles published within this many days. Read from the question when absent; omitted means no date restriction.",
+      "schema": {
+       "type": "number"
+      }
+     },
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "description": "The user's original question, verbatim. The subject and the time window are read from it.",
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Always 200: an answer, or confidence 0 with an error code. Never a made-up value.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "allOf": [
+          {
+           "$ref": "#/components/schemas/Answer"
+          },
+          {
+           "type": "object",
+           "properties": {
+            "window_days": {
+             "description": "null in the sampled answer; its type when set was not observed"
+            },
+            "articles": {
+             "type": "array"
+            }
+           },
+           "x-observed": "Fields and types from one production answer on 2026-10-26T05:25:56.942Z to: News Headlines"
+          }
+         ]
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/convert": {
+   "get": {
+    "operationId": "convert",
+    "summary": "CURRENCY_EXCHANGE",
+    "description": "Example questions: \"Convert 100 USD to EUR\", \"What is 5,000 yen in dollars?\". Returns answer, verdict, confidence, reason, checked_at and from, to, amount, rate, converted, kind, as_of. An exchange rate, or an amount converted between two currencies. The primary source is the European Central Bank's euro foreign exchange reference rate, which is published once per day and therefore does not move between reads; the answer states that it is a reference rate and the date it was published for, so it is never mistaken for a live trading quote. The rate is given in both directions and the conversion direction is taken from the question, including the \"how many X is Y\" phrasing that names the target first. Currencies the ECB does not publish fall back to a market rate, and that answer says it is a market rate instead. A request naming only one currency is refused rather than half-answered, and a source that does not respond is reported as unknown rather than as a rate of zero.",
+    "x-telegraph-intents": [
+     "CURRENCY_EXCHANGE"
+    ],
+    "parameters": [
+     {
+      "name": "from",
+      "in": "query",
+      "required": false,
+      "description": "ISO 4217 code of the currency being converted from, e.g. USD. Read from the question when absent.",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "to",
+      "in": "query",
+      "required": false,
+      "description": "ISO 4217 code of the currency being converted to, e.g. EUR. Read from the question when absent.",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "amount",
+      "in": "query",
+      "required": false,
+      "description": "Amount to convert. Omitted means the question asks for the rate itself, and no amount is invented.",
+      "schema": {
+       "type": "number"
+      }
+     },
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "description": "The user's original question, verbatim. Both currencies, the direction and the amount are read from it.",
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Always 200: an answer, or confidence 0 with an error code. Never a made-up value.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "allOf": [
+          {
+           "$ref": "#/components/schemas/Answer"
+          },
+          {
+           "type": "object",
+           "properties": {
+            "from": {
+             "type": "string"
+            },
+            "to": {
+             "type": "string"
+            },
+            "amount": {
+             "description": "null in the sampled answer; its type when set was not observed"
+            },
+            "rate": {
+             "type": "number"
+            },
+            "converted": {
+             "description": "null in the sampled answer; its type when set was not observed"
+            },
+            "kind": {
+             "type": "string"
+            },
+            "as_of": {
+             "type": "string"
+            }
+           },
+           "x-observed": "Fields and types from one production answer on 2026-10-26T05:25:56.942Z to: what's the usd to inr"
+          }
+         ]
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/gas-price": {
+   "get": {
+    "operationId": "gas_price",
+    "summary": "GAS_PRICE",
+    "description": "Example questions: \"What is the gas price on Ethereum right now?\", \"Gas on Base in Gwei\". Returns answer, verdict, confidence, reason, checked_at and chain, gwei, base_fee_gwei, priority_gwei, block. The current transaction fee level on a named chain, read from that chain's own JSON-RPC. Reports the gas price in Gwei both exactly and rounded, the base fee and priority fee that make it up, the block the reading is from so the figure is checkable, and what a standard 21,000-gas transfer costs at that rate. This is the fee level and never the chain token's price, which is a different intent. Covers ethereum, base, arbitrum, optimism and polygon; a chain outside that list is named as uncovered rather than answered with a different chain's fee, and an unresponsive endpoint is reported as unknown rather than as a fee of zero.",
+    "x-telegraph-intents": [
+     "GAS_PRICE"
+    ],
+    "parameters": [
+     {
+      "name": "chain",
+      "in": "query",
+      "required": false,
+      "description": "Chain to read: ethereum, base, arbitrum, optimism or polygon. Read from the question when absent.",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "description": "The user's original question, verbatim. The chain is read from it when the parameter is absent.",
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Always 200: an answer, or confidence 0 with an error code. Never a made-up value.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "allOf": [
+          {
+           "$ref": "#/components/schemas/Answer"
+          },
+          {
+           "type": "object",
+           "properties": {
+            "gwei": {
+             "description": "null in the sampled answer; its type when set was not observed"
+            },
+            "base_fee_gwei": {
+             "description": "null in the sampled answer; its type when set was not observed"
+            },
+            "priority_gwei": {
+             "description": "null in the sampled answer; its type when set was not observed"
+            },
+            "block": {
+             "description": "null in the sampled answer; its type when set was not observed"
+            }
+           },
+           "x-observed": "Fields and types from one production answer on 2026-10-26T05:25:56.942Z to: What is the 24-hour weather forecast for Sydney, Australia starting today, including temperature, precipitation probability, and wind speed?"
+          }
+         ]
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/financial": {
+   "get": {
+    "operationId": "financial",
+    "summary": "FINANCIAL_DATA",
+    "description": "Example questions: \"What is Solana's market cap and 24-hour volume?\", \"Apple's revenue and P/E from its 10-K\". Returns answer, verdict, confidence, reason, checked_at and subject, name, chain, data. Market data and financial statistics for a coin, a token or a listed company, deliberately beyond a single quoted price. A coin named in words, such as Solana or Bitcoin, returns market capitalisation, 24-hour trading volume in dollars, fully diluted valuation, 24-hour range and change. A token contract address with its chain returns market capitalisation, 24-hour trading volume, fully diluted valuation and last traded price. A ticker or company name returns the day range, share volume, 52-week range and change against the previous close, with the ticker resolved from the company name where only a name is given. Revenue, net income and earnings per share come from the company's latest 10-K, and a price-to-earnings ratio is computed from the last traded price and the 10-K's diluted earnings per share, with both inputs named. A figure that could not be retrieved, such as margins, is stated as not retrieved rather than substituted.",
+    "x-telegraph-intents": [
+     "FINANCIAL_DATA"
+    ],
+    "parameters": [
+     {
+      "name": "address",
+      "in": "query",
+      "required": false,
+      "description": "Token contract address, e.g. 0x833589fcd6edb6e08f4c7c32d4f71b54bda02913. Use with the chain named in the question.",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "symbol",
+      "in": "query",
+      "required": false,
+      "description": "Ticker symbol or company name, e.g. AAPL or Apple. Read from the question when absent.",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "description": "The user's original question, verbatim. The subject and chain are read from it.",
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Always 200: an answer, or confidence 0 with an error code. Never a made-up value.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "allOf": [
+          {
+           "$ref": "#/components/schemas/Answer"
+          },
+          {
+           "type": "object",
+           "properties": {
+            "name": {
+             "type": "string"
+            },
+            "data": {
+             "type": "object",
+             "properties": {
+              "symbol": {
+               "type": "string"
+              },
+              "name": {
+               "type": "string"
+              },
+              "currency": {
+               "type": "string"
+              },
+              "price": {
+               "type": "number"
+              },
+              "previous_close": {
+               "type": "number"
+              },
+              "day_low": {
+               "type": "number"
+              },
+              "day_high": {
+               "type": "number"
+              },
+              "volume": {
+               "type": "integer"
+              },
+              "volume_unit": {
+               "type": "string"
+              },
+              "week52_low": {
+               "type": "number"
+              },
+              "week52_high": {
+               "type": "integer"
+              },
+              "source": {
+               "type": "string"
+              },
+              "observed_at": {
+               "type": "string"
+              }
+             }
+            }
+           },
+           "x-observed": "Fields and types from one production answer on 2026-10-26T05:25:56.942Z to: Will Hitachi CO2 heat pumps sell well?"
+          }
+         ]
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/fraud-check": {
+   "get": {
+    "operationId": "fraud_check",
+    "summary": "FRAUD_DETECTION",
+    "description": "Example questions: \"Is 0x… a scam address?\", \"This email asks me to pay an invoice in gift cards: is it fraud?\". Returns answer, verdict, confidence, reason, checked_at and subject, evidence, not_checked, sanctioned, flagged_hosts, scam_markers. How likely a named address, link or message is to be fraudulent, assessed from checks that are actually performed and named in the answer: the OFAC sanctioned digital-currency address listing, Cloudflare's threat-intelligence resolver for any domain in the text, the address's own on-chain state (contract, externally owned account, or an account carrying an EIP-7702 delegation, with its transaction count and balance), and specific scam wording such as a request for a seed phrase, gift-card payment or changed banking details. A sanctions hit or a domain blocked as malware is reported as high risk. A clean result is reported as no indicators found among the checks performed, with the checks listed, and explicitly not as a statement that the subject is safe; a check that could not be completed is named as such rather than counted as clean. An academic paper named by title is checked against OpenAlex's retraction record, and a retraction is reported as high risk. No keyless source records misconduct findings, paper-mill membership or predatory-publisher status, so the answer names those three as not checked rather than implying a clean record, and a title that cannot be matched to one indexed work is reported as not found rather than matched loosely to a similar one.",
+    "x-telegraph-intents": [
+     "FRAUD_DETECTION"
+    ],
+    "parameters": [
+     {
+      "name": "address",
+      "in": "query",
+      "required": false,
+      "description": "Wallet address, URL, message text, or the title of an academic paper to assess. Read from the question when absent.",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "description": "The user's original question, verbatim, including the message being asked about.",
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Always 200: an answer, or confidence 0 with an error code. Never a made-up value.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Answer"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/token-holders": {
+   "get": {
+    "operationId": "token_holders",
+    "summary": "TOKEN_HOLDER_COUNT",
+    "description": "Example questions: \"How many holders does USDC have on Ethereum?\". Returns answer, verdict, confidence, reason, checked_at and symbol, name, address, chain, holders, top_holder_percent. How many distinct addresses hold a named ERC-20 token, read from the chain's own transfer index via Blockscout. The token may be given as a contract address or as a symbol together with its chain, and where no chain is named every supported chain is checked rather than one being assumed, because the same symbol carries different holder counts on different chains. The answer names the contract the figure came from so it is checkable. Where the question also asks about concentration, the share of supply held by the single largest holder is reported, and where that list does not return in time the answer says so rather than omitting it silently. This is a headcount of holders and never a balance, a price, a supply figure or pool liquidity, each of which is a different intent. An identifier that is not a token, such as a CVE number, is named as such rather than searched for. Where more than one token on a chain shares a symbol with no dominant one among them, a contract address is asked for instead of one being picked. Covers ethereum, base, arbitrum, optimism and polygon.",
+    "x-telegraph-intents": [
+     "TOKEN_HOLDER_COUNT"
+    ],
+    "parameters": [
+     {
+      "name": "address",
+      "in": "query",
+      "required": false,
+      "description": "ERC-20 contract address, e.g. 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913. Read from the question when absent.",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "symbol",
+      "in": "query",
+      "required": false,
+      "description": "Token symbol, e.g. USDC. Used when no contract address is given.",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "chain",
+      "in": "query",
+      "required": false,
+      "description": "Chain to read: ethereum, base, arbitrum, optimism or polygon. Every supported chain is checked when absent.",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "description": "The user's original question, verbatim. Carries the chain, and whether holder concentration was also asked for.",
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Always 200: an answer, or confidence 0 with an error code. Never a made-up value.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "allOf": [
+          {
+           "$ref": "#/components/schemas/Answer"
+          },
+          {
+           "type": "object",
+           "properties": {
+            "name": {
+             "description": "null in the sampled answer; its type when set was not observed"
+            },
+            "holders": {
+             "description": "null in the sampled answer; its type when set was not observed"
+            },
+            "top_holder_percent": {
+             "description": "null in the sampled answer; its type when set was not observed"
+            }
+           },
+           "x-observed": "Fields and types from one production answer on 2026-10-26T05:25:56.942Z to: How many addresses hold usdc on base?"
+          }
+         ]
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/research": {
+   "get": {
+    "operationId": "research",
+    "summary": "RESEARCH_QUERY",
+    "description": "Example questions: \"What clinical trials are testing semaglutide for Alzheimer's?\". Returns answer, verdict, confidence, reason, checked_at and subject, trials, citations. An answer to one research question, drawn from named sources: the ClinicalTrials.gov registry for trial phase, status and completion dates, Europe PMC for published literature, and Wikipedia for subjects that are neither. Every source is cited by identifier — the NCT number of a trial, the title, first author and year of a paper — so the answer can be checked rather than taken on trust, and a source is only cited when it actually names the subject asked about. Where the question asks about an outcome that has not been decided, such as whether a drug will be approved, the registered evidence to date is reported and the answer states plainly that no decision has been recorded; no outcome is predicted. Where neither index holds anything on the subject that is what the answer says, named as an absence in those indexes rather than as an absence of research. A request to combine findings across many sources into a synthesis is the RESEARCH_SYNTHESIS intent rather than this one.",
+    "x-telegraph-intents": [
+     "RESEARCH_QUERY"
+    ],
+    "parameters": [
+     {
+      "name": "query",
+      "in": "query",
+      "required": true,
+      "description": "The research question, verbatim. The subject and any named drug, trial or organisation are read from it.",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "topic",
+      "in": "query",
+      "required": false,
+      "description": "The subject to research, when it is available separately from the question.",
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Always 200: an answer, or confidence 0 with an error code. Never a made-up value.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "allOf": [
+          {
+           "$ref": "#/components/schemas/Answer"
+          },
+          {
+           "type": "object",
+           "properties": {
+            "trials": {
+             "type": "array",
+             "items": {
+              "type": "object",
+              "properties": {
+               "id": {
+                "type": "string"
+               },
+               "title": {
+                "type": "string"
+               },
+               "status": {
+                "type": "string"
+               },
+               "phase": {
+                "type": "string"
+               },
+               "completion": {
+                "type": "string"
+               }
+              }
+             }
+            },
+            "citations": {
+             "type": "array",
+             "items": {
+              "type": "object",
+              "properties": {
+               "title": {
+                "type": "string"
+               },
+               "authors": {
+                "type": "string"
+               },
+               "year": {
+                "type": "integer"
+               },
+               "source": {
+                "type": "string"
+               }
+              }
+             }
+            }
+           },
+           "x-observed": "Fields and types from one production answer on 2026-10-26T05:25:56.942Z to: Will Nivolumab show improved bladder cancer outcomes?"
+          }
+         ]
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/crypto-price": {
+   "get": {
+    "operationId": "crypto_price",
+    "summary": "CRYPTO_PRICE",
+    "description": "Example questions: \"What is the price of ETH?\", \"BTC price in EUR on 2025-01-01\". Returns answer, verdict, confidence, reason, checked_at and asset, symbol, price, quote, price_at, source, aggregate_price. The current or historical price of one named cryptocurrency, as a single quoted figure with the venue that quoted it and the UTC time of the quote. The current price is the last Coinbase trade where Coinbase lists the pair, Kraken's last trade where it does not, and CoinGecko's cross-venue aggregate as a cross-check or fallback; the answer says it is a live quote that moves between reads. The quote currency follows the question (USD by default; EUR, GBP, JPY, INR and other major fiat, or BTC and ETH). A dollar stablecoin's answer also states its distance from the one-dollar peg. A date returns that UTC day's Coinbase open and close and CoinGecko's daily snapshot, labelled as historical. This is one price, never market capitalisation or volume, which is FINANCIAL_DATA, and never what an address holds, which is WALLET_BALANCE_CHECK. A fork or wrapped asset such as Bitcoin Cash, Ethereum Classic or Wrapped Bitcoin is priced as itself, never as the major whose name it contains, and a multi-word coin name is matched whole. Testnet assets are answered as having no market price, a future date is declined as a prediction, an asset name that matches no listed coin exactly is not substituted with a similar one, and a provider outage is reported as an outage rather than a missing price.",
+    "x-telegraph-intents": [
+     "CRYPTO_PRICE"
+    ],
+    "parameters": [
+     {
+      "name": "symbol",
+      "in": "query",
+      "required": false,
+      "description": "Asset name or ticker, e.g. ETH or Ethereum. Read from the question when absent.",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "description": "The user's original question, verbatim. The asset, the quote currency and any date are read from it.",
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Always 200: an answer, or confidence 0 with an error code. Never a made-up value.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "allOf": [
+          {
+           "$ref": "#/components/schemas/Answer"
+          },
+          {
+           "type": "object",
+           "properties": {
+            "asset": {
+             "type": "string"
+            },
+            "price": {
+             "type": "number"
+            },
+            "quote": {
+             "type": "string"
+            },
+            "price_at": {
+             "type": "string"
+            },
+            "aggregate_price": {
+             "type": "number"
+            }
+           },
+           "x-observed": "Fields and types from one production answer on 2026-10-26T05:25:56.942Z to: What is the price of dogecoin of elon right now?"
+          }
+         ]
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/stock-price": {
+   "get": {
+    "operationId": "stock_price",
+    "summary": "STOCK_PRICE",
+    "description": "Example questions: \"What is Apple's share price?\", \"TSLA closing price on 2026-09-01\". Returns answer, verdict, confidence, reason, checked_at and ticker, name, price, currency, price_at, exchange, market_open, source. The current or historical share price of one listed equity, given as a ticker or a company name. Every answer states the exchange, the quote time in the exchange's own time zone, and whether the regular trading session is open right now; outside the session the figure is labelled as the last session price and never presented as a live quote. A company name is resolved to its ticker and accepted only when the listing carries every word of the name asked about, so an unlisted subsidiary is answered as not found rather than with a related company's price. A ticker is read only when it is written as one in capitals, and a currency code such as (USD) is never taken for a ticker. A question that does not ask about a share price, such as a weather question naming a city, is refused rather than priced. An ISO date returns that day's closing price, and a date with no session is said to have none. A question asking whether a stock will rise or fall is answered with the price and an explicit statement that no forecast is made. Company fundamentals and statistics beyond one price are FINANCIAL_DATA. A provider outage, including a failed ticker search, is reported as an outage and never as the company not being listed.",
+    "x-telegraph-intents": [
+     "STOCK_PRICE"
+    ],
+    "parameters": [
+     {
+      "name": "symbol",
+      "in": "query",
+      "required": false,
+      "description": "Ticker in capitals, e.g. AAPL, or a company name, e.g. Apple. Read from the question when absent.",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "description": "The user's original question, verbatim. The company, ticker and any ISO date are read from it.",
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Always 200: an answer, or confidence 0 with an error code. Never a made-up value.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "allOf": [
+          {
+           "$ref": "#/components/schemas/Answer"
+          },
+          {
+           "type": "object",
+           "properties": {
+            "ticker": {
+             "type": "string"
+            },
+            "name": {
+             "type": "string"
+            },
+            "price": {
+             "type": "number"
+            },
+            "currency": {
+             "type": "string"
+            },
+            "price_at": {
+             "type": "string"
+            },
+            "exchange": {
+             "type": "string"
+            },
+            "market_open": {
+             "type": "boolean"
+            }
+           },
+           "x-observed": "Fields and types from one production answer on 2026-10-26T05:25:56.942Z to: Will Summit Therapeutics stock rise?"
+          }
+         ]
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/cross-chain": {
+   "get": {
+    "operationId": "cross_chain",
+    "summary": "CROSS_CHAIN_STATE_VERIFY",
+    "description": "Example questions: \"Was LayerZero message 0x… delivered from Ethereum to Arbitrum?\", \"Did bridge transaction 0x… arrive on Base?\". Returns answer, verdict, confidence, reason, checked_at and message (guid, nonce, source_chain, destination_chain, sender, receiver, source_tx, destination_tx, scan_status). Whether a LayerZero V2 bridge message sent from one chain was executed on another, verified from both chains' own receipts rather than taken from an indexer's status. The message is located on LayerZero Scan by its source or destination transaction hash or its GUID; the source receipt must carry the endpoint's PacketSent event and the destination receipt its PacketDelivered event, and both must agree on nonce, sender, receiver and GUID. Answers are verified, not yet delivered, mismatch (including a message that travels between different chains than the ones asked about), or not found. Covers ethereum, base, arbitrum, optimism, polygon, bsc and avalanche. State roots, Merkle-Patricia proofs and block headers are not verified cryptographically, and every answer to a request for one says so. Other bridges such as Wormhole or native rollup bridges are not checked. A nonce with no transaction hash, GUID or sender does not identify a message, and one is asked for. An RPC or indexer outage is reported as an outage.",
+    "x-telegraph-intents": [
+     "CROSS_CHAIN_STATE_VERIFY"
+    ],
+    "parameters": [
+     {
+      "name": "tx_hash",
+      "in": "query",
+      "required": false,
+      "description": "Source or destination transaction hash, or the LayerZero message GUID, 0x-prefixed 64 hex characters. Read from the question when absent.",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "source_chain",
+      "in": "query",
+      "required": false,
+      "description": "Chain the message was sent from, e.g. arbitrum.",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "destination_chain",
+      "in": "query",
+      "required": false,
+      "description": "Chain the message should have executed on, e.g. base.",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "description": "The user's original question, verbatim. The reference, both chains and any nonce are read from it.",
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Always 200: an answer, or confidence 0 with an error code. Never a made-up value.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Answer"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/event-outcome": {
+   "get": {
+    "operationId": "event_outcome",
+    "summary": "EVENT_OUTCOME_RESOLUTION",
+    "description": "Example questions: \"Who won the 2024 US presidential election?\", \"Has the Polymarket market on … resolved?\". Returns answer, verdict, confidence, reason, checked_at and outcome, winner, event, source. The actual outcome of a named, checkable event, as settled by a public prediction market, for a market or conditional contract to resolve against. Polymarket's real-money markets and Manifold's play-money markets are searched, and a market is used only when it carries every name and number in the question, asks about the same move (a cut, a rise or no change), and is mostly about that event, so a market on a different subject or the opposite proposition that shares most of the words is not used. A settled market is reported with its settled outcome and the market's own wording, and a Manifold settlement is labelled as play money. An unsettled market is reported as unresolved with its scheduled close, and its trading odds are never given as an outcome. Nothing is predicted: a request for an opinion or forecast is declined by name, and a question that names no specific event is asked to name one. Where no matching market exists the answer says so; official sources such as flight trackers, election authorities and league results are not read. A provider outage is reported as an outage.",
+    "x-telegraph-intents": [
+     "EVENT_OUTCOME_RESOLUTION"
+    ],
+    "parameters": [
+     {
+      "name": "event",
+      "in": "query",
+      "required": false,
+      "description": "The event to resolve, e.g. Fed rate decision at the September 2025 meeting. Read from the question when absent.",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "description": "The user's original question, verbatim. The event, its names, numbers and dates are read from it.",
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Always 200: an answer, or confidence 0 with an error code. Never a made-up value.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Answer"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/url-scan": {
+   "get": {
+    "operationId": "url_scan",
+    "summary": "URL_SCAN",
+    "description": "Example questions: \"Is https://example.com/offer safe to click?\". Returns answer, verdict, confidence, reason, checked_at and url, flagged_by, checks. A safe or unsafe verdict on one URL, with the evidence behind it named. The host is resolved through Cloudflare's malware-and-phishing filtering resolver and compared with an unfiltered resolver, so a block is reported only when the filter answers 0.0.0.0 for a name that really resolves; Quad9 threat-blocking DNS is compared with its unfiltered resolver the same way; the host and exact URL are looked up in URLhaus's current malware lists; the TLS certificate is inspected; and the redirect chain is walked hop by hop, each hop checked to be a public address before it is contacted. A listing makes a URL unsafe. A brand name used on a domain that is not a known domain of that brand, punycode, a bare IP address or an invalid certificate makes it suspicious. With none of those, and only when both the filtering resolver and URLhaus answered, the URL is reported as appearing safe, and the answer says plainly that no blocklist can prove a site safe. A host that does not resolve is reported as unreachable. When either threat source does not answer, that is reported as an outage and never as a safe verdict. A question only about a certificate is SSL_VERIFICATION and is refused by name, and a list of which engines flag a URL is URL_SAFE.",
+    "x-telegraph-intents": [
+     "URL_SCAN"
+    ],
+    "parameters": [
+     {
+      "name": "url",
+      "in": "query",
+      "required": false,
+      "description": "The URL to scan, e.g. https://example.com/offer. A bare host is read as https. Read from the question when absent.",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "description": "The user's original question, verbatim, including the URL when it is not sent separately.",
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Always 200: an answer, or confidence 0 with an error code. Never a made-up value.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "allOf": [
+          {
+           "$ref": "#/components/schemas/Answer"
+          },
+          {
+           "type": "object",
+           "properties": {
+            "url": {
+             "description": "null in the sampled answer; its type when set was not observed"
+            }
+           },
+           "x-observed": "Fields and types from one production answer on 2026-10-26T05:25:56.942Z to: website safety check"
+          }
+         ]
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/web-search": {
+   "get": {
+    "operationId": "web_search",
+    "summary": "WEB_SEARCH",
+    "description": "Example questions: \"What is the latest news on the Fed's rate decision?\", \"Who is the CEO of OpenAI?\". Returns answer, verdict, confidence, reason, checked_at and articles, background. Current, externally sourced information for a question that static knowledge cannot answer, taken from Google News search and, when no current report exists, from Wikipedia. The answer quotes the most relevant reports' headlines with publisher and publication date, so every clause can be checked; nothing is paraphrased by a model. A report is only cited when it names the subject, and when the question names a product or trial code such as MK-2870 the headline must name that code. A question about a future outcome is answered with the current coverage and states that it is not a prediction. A TLS certificate check, a scholarly literature search, a single CVE record or a request to explain a concept from static knowledge is refused by name as the intent it belongs to. When the sources that answered find nothing on the subject, that is reported as an absence in those sources only; when Google News does not answer, that is reported as an outage.",
+    "x-telegraph-intents": [
+     "WEB_SEARCH"
+    ],
+    "parameters": [
+     {
+      "name": "query",
+      "in": "query",
+      "required": true,
+      "description": "The question, verbatim. The subject, any named organisation and any product or trial code are read from it.",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "topic",
+      "in": "query",
+      "required": false,
+      "description": "The subject to search for, when it is available separately from the question.",
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Always 200: an answer, or confidence 0 with an error code. Never a made-up value.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "allOf": [
+          {
+           "$ref": "#/components/schemas/Answer"
+          },
+          {
+           "type": "object",
+           "properties": {
+            "articles": {
+             "type": "array",
+             "items": {
+              "type": "object",
+              "properties": {
+               "title": {
+                "type": "string"
+               },
+               "source": {
+                "type": "string"
+               },
+               "published": {
+                "type": "string"
+               }
+              }
+             }
+            },
+            "background": {
+             "description": "null in the sampled answer; its type when set was not observed"
+            }
+           },
+           "x-observed": "Fields and types from one production answer on 2026-10-26T05:25:56.942Z to: Will John Deere expand self-repair services?"
+          }
+         ]
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/sentiment": {
+   "get": {
+    "operationId": "sentiment",
+    "summary": "SENTIMENT_ANALYSIS",
+    "description": "Example questions: \"What is the sentiment of this review: 'The product broke after one day'?\". Returns answer, verdict, confidence, reason, checked_at and compound, positive_words, negative_words, tones. The sentiment a supplied text expresses — positive, negative, neutral or mixed — read by a hosted open-weight language model called over the network, which writes the label and a short explanation. When that model does not answer within its time budget the text is read instead with a rule-based word list and the VADER method (negation, intensifiers, a contrastive \"but\", capitals and exclamation marks), and everything below describes that fallback. A negation reaches at most three words forward and never across a comma or full stop, so \"No problems, great service\" reads as positive. The answer names the words that carried the label, so it can be checked against the text, and names an emotional tone such as frustrated or joyful only when a word in the text states it and is not negated. A text with no opinion word is reported as neutral with that reason given. Sarcasm, irony and opinion words outside the list are not detected, so a neutral reading can be a miss. Assigning a text to caller-supplied categories is TEXT_CLASSIFICATION rather than this intent. A request with no text is refused by name rather than scored.",
+    "x-telegraph-intents": [
+     "SENTIMENT_ANALYSIS"
+    ],
+    "parameters": [
+     {
+      "name": "text",
+      "in": "query",
+      "required": false,
+      "description": "The passage whose sentiment is asked about, exactly as given. Read from the question when absent.",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "description": "The user's original question, verbatim, including the quoted passage when it is not sent separately.",
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Always 200: an answer, or confidence 0 with an error code. Never a made-up value.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "allOf": [
+          {
+           "$ref": "#/components/schemas/Answer"
+          },
+          {
+           "type": "object",
+           "properties": {
+            "compound": {
+             "type": "number"
+            },
+            "positive_words": {
+             "type": "array"
+            },
+            "negative_words": {
+             "type": "array",
+             "items": {
+              "type": "string"
+             }
+            },
+            "tones": {
+             "type": "array",
+             "items": {
+              "type": "string"
+             }
+            }
+           },
+           "x-observed": "Fields and types from one production answer on 2026-10-26T05:25:56.942Z to: Will \"Sorry, I'm in a meeting\" go viral?"
+          }
+         ]
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/classify": {
+   "get": {
+    "operationId": "classify",
+    "summary": "TEXT_CLASSIFICATION",
+    "description": "Example questions: \"Classify this ticket as billing, technical or account: 'I was charged twice'\". Returns answer, verdict, confidence, reason, checked_at and label. Assigns a supplied text to one of the labels the request itself supplies, such as billing, technical or account issue. There is no fixed taxonomy. A hosted open-weight language model called over the network chooses among the supplied labels and explains the choice in a sentence or two; a label outside the supplied set is discarded. When that model does not answer within its time budget, everything below applies instead: a label wins on lexical relatedness, when a label word appears in the text or when text and label words are neighbours in the keyless Datamuse word index, and the answer names the words that matched so the choice can be checked. When no label clears the runner-up by a clear margin the text is reported as ambiguous between them rather than a label being guessed, and a negated label such as \"not spam\" is never chosen merely because evidence for the other is absent. Label sets of positive, negative and neutral are read with the sentiment word list instead. Where the word index does not respond, only direct label-word matches are counted and the answer says so; an ambiguity reached that way is reported as a source outage. Emotional tone on its own is SENTIMENT_ANALYSIS. A request without a label set or without text is refused by name.",
+    "x-telegraph-intents": [
+     "TEXT_CLASSIFICATION"
+    ],
+    "parameters": [
+     {
+      "name": "text",
+      "in": "query",
+      "required": false,
+      "description": "The passage to classify, exactly as given. Read from the question when absent.",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "labels",
+      "in": "query",
+      "required": false,
+      "description": "The candidate labels as a comma-separated list, e.g. billing, technical, account issue. Read from the question when absent.",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "description": "The user's original question, verbatim, including the labels and the quoted passage when they are not sent separately.",
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Always 200: an answer, or confidence 0 with an error code. Never a made-up value.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "allOf": [
+          {
+           "$ref": "#/components/schemas/Answer"
+          },
+          {
+           "type": "object",
+           "properties": {
+            "label": {
+             "type": "string"
+            }
+           },
+           "x-observed": "Fields and types from one production answer on 2026-10-26T05:25:56.942Z to: Classify this ticket as billing, technical or account issue: 'I was charged twice.'"
+          }
+         ]
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/research-synthesis": {
+   "get": {
+    "operationId": "research_synthesis",
+    "summary": "RESEARCH_SYNTHESIS",
+    "description": "Example questions: \"Summarise the evidence on intermittent fasting and weight loss\". Returns answer, verdict, confidence, reason, checked_at and sources. Findings on a topic gathered across several published studies and combined into one answer. PubMed and Europe PMC are searched on title and abstract, and from each study a single sentence reporting a result is quoted verbatim from its abstract and attributed by first author, year and PubMed id. A sentence is quoted only when it states a result, such as an association, a reduction or a conclusion, and when every topic word appears as a whole word in it or in the study's title. Statements of purpose (\"To examine ...\"), search and methods descriptions, definitions, background attributed to earlier work and calls for further research are never quoted as findings. Nothing is generated, and whether the studies agree is explicitly not assessed. Requests for the latest or recent studies are limited to the last five years. When the request supplies its own notes, on separate lines or run together on one line, they are restated grouped by source with their attributions kept, nothing is fetched, and a stated topic that no note addresses is named as unaddressed. Where only one study yields a quotable finding the answer says no synthesis across sources was possible; where both indexes fail that is reported as an outage and never as an absence of research. A cited answer to one narrow question is RESEARCH_QUERY rather than this intent.",
+    "x-telegraph-intents": [
+     "RESEARCH_SYNTHESIS"
+    ],
+    "parameters": [
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "description": "The user's original request, verbatim, including any notes to be summarised.",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "topic",
+      "in": "query",
+      "required": false,
+      "description": "The subject to synthesise, e.g. intermittent fasting, when it is available separately from the request.",
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Always 200: an answer, or confidence 0 with an error code. Never a made-up value.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "allOf": [
+          {
+           "$ref": "#/components/schemas/Answer"
+          },
+          {
+           "type": "object",
+           "properties": {
+            "sources": {
+             "type": "array",
+             "items": {
+              "type": "string"
+             }
+            }
+           },
+           "x-observed": "Fields and types from one production answer on 2026-10-26T05:25:56.942Z to: Summarise these notes on how to destroy belarus with help over bears research in one paragraph of about 150 words in plain English, keeping the attributions in "
+          }
+         ]
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/fact-check": {
+   "get": {
+    "operationId": "fact_check",
+    "summary": "FACT_CHECK",
+    "description": "Example questions: \"Is it true that the Eiffel Tower is in Paris?\", \"Fact-check: water boils at 100 °C at sea level\". Returns answer, verdict, confidence, reason, checked_at and claim, source, source_url, evidence. A specific claim, looked up against a citable encyclopaedic reference and reported with the article named and quoted. Reports an explicit refutation when the source states one, and otherwise says plainly that the source does not settle the claim. It does not adjudicate contested claims and never asserts that a claim is true on the strength of a topical match.",
+    "x-telegraph-intents": [
+     "FACT_CHECK"
+    ],
+    "parameters": [
+     {
+      "name": "claim",
+      "in": "query",
+      "required": true,
+      "description": "The claim to check, e.g. The Eiffel Tower is located in Paris.",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "description": "The user's original question, verbatim. The claim is extracted from it.",
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Always 200: an answer, or confidence 0 with an error code. Never a made-up value.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Answer"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/sanctions-screen": {
+   "get": {
+    "operationId": "sanctions_screen",
+    "summary": "SANCTIONS_SCREENING_MATCH",
+    "description": "Screens a person, company or wallet against the OFAC SDN list and the UN Security Council Consolidated List, read live, including every listed alias and near-matches on spelling or transliteration. Example questions: \"Screen 'Ivan Petrov, DOB 1974, Cyprus' against the OFAC SDN list\", \"Is Viktor But sanctioned?\", \"Is wallet 0x… on a sanctions list?\". A birth year in the question is checked against the listed ones. Returns verdict (match, possible_match, no_match or unknown), confidence, matches (up to five, each with list, reference id, listed name, the name or alias that matched, type, programmes, score 0-1, listed birth years, whether the birth year agrees, nationalities, listing date and the OFAC record URL), closest (the nearest entry when nothing matched), lists_checked (each list with its published date and entry count) and lists_not_checked. The EU and UK lists are not screened and the answer says so. A name match alone never establishes identity, and the answer says that too.",
+    "x-telegraph-intents": [
+     "SANCTIONS_SCREENING_MATCH"
+    ],
+    "parameters": [
+     {
+      "name": "name",
+      "in": "query",
+      "required": false,
+      "description": "Person or company to screen, e.g. Ivan Petrov or Banco Nacional de Cuba. Read from the question when absent.",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "wallet",
+      "in": "query",
+      "required": false,
+      "description": "A crypto wallet address to screen against OFAC's listed digital currency addresses.",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "description": "The user's original question, verbatim. A birth year and whether the subject is a person or a company are read from it.",
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Always 200: an answer, or confidence 0 with an error code. Never a made-up value.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "allOf": [
+          {
+           "$ref": "#/components/schemas/Answer"
+          },
+          {
+           "type": "object",
+           "properties": {
+            "subject_type": {
+             "description": "null in the sampled answer; its type when set was not observed"
+            },
+            "dob_year": {
+             "description": "null in the sampled answer; its type when set was not observed"
+            },
+            "matches": {
+             "type": "array",
+             "items": {
+              "type": "object",
+              "properties": {
+               "list": {
+                "type": "string"
+               },
+               "id": {
+                "type": "string"
+               },
+               "name": {
+                "type": "string"
+               },
+               "matched_name": {
+                "type": "string"
+               },
+               "type": {
+                "type": "string"
+               },
+               "programs": {
+                "type": "array",
+                "items": {
+                 "type": "string"
+                }
+               },
+               "score": {
+                "type": "integer"
+               },
+               "dob_years": {
+                "type": "array"
+               },
+               "dob_check": {
+                "type": "string"
+               },
+               "nationalities": {
+                "type": "array"
+               },
+               "listed_on": {
+                "description": "null in the sampled answer; its type when set was not observed"
+               },
+               "url": {
+                "type": "string"
+               }
+              }
+             }
+            },
+            "closest": {
+             "type": "object",
+             "properties": {
+              "list": {
+               "type": "string"
+              },
+              "id": {
+               "type": "string"
+              },
+              "name": {
+               "type": "string"
+              },
+              "matched_name": {
+               "type": "string"
+              },
+              "type": {
+               "type": "string"
+              },
+              "programs": {
+               "type": "array",
+               "items": {
+                "type": "string"
+               }
+              },
+              "score": {
+               "type": "integer"
+              },
+              "dob_years": {
+               "type": "array"
+              },
+              "dob_check": {
+               "type": "string"
+              },
+              "nationalities": {
+               "type": "array"
+              },
+              "listed_on": {
+               "description": "null in the sampled answer; its type when set was not observed"
+              },
+              "url": {
+               "type": "string"
+              }
+             }
+            },
+            "lists_checked": {
+             "type": "array",
+             "items": {
+              "type": "object",
+              "properties": {
+               "list": {
+                "type": "string"
+               },
+               "published": {
+                "type": "string"
+               },
+               "entries": {
+                "type": "integer"
+               }
+              }
+             }
+            },
+            "lists_not_checked": {
+             "type": "array",
+             "items": {
+              "type": "string"
+             }
+            }
+           },
+           "x-observed": "Fields and types from one production answer on 2026-10-26T05:25:56.942Z to: Is Rosneft sanctioned?"
+          }
+         ]
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/company-registry": {
+   "get": {
+    "operationId": "company_registry",
+    "summary": "CORPORATE_REGISTRY_LOOKUP",
+    "description": "A company's official register record, read live from the GLEIF LEI register and, for a US filer, SEC EDGAR. Example questions: \"What is the incorporation status and registered agent for Tesla, Inc.?\", \"Is Barclays Bank PLC still registered?\", \"UK company number 01026167\", \"Look up LEI 5493001KJTIIGC8Y1R12\". Returns verdict (found, not_found or unknown), legal_name, lei, entity_status (ACTIVE or INACTIVE), lei_registration_status, jurisdiction, legal_form, company_number and the register that issued it (Companies House, a US Secretary of State, …), registered_address, registered_agent when the registered address is an agent's, headquarters_address, incorporated, other_names, direct_parent and ultimate_parent (name and LEI), us_filer (CIK, state of incorporation, industry code, addresses and former names from EDGAR), other_candidates with similar names, and sources. Directors and beneficial owners are in neither source, and every answer says so instead of leaving them out silently.",
+    "x-telegraph-intents": [
+     "CORPORATE_REGISTRY_LOOKUP"
+    ],
+    "parameters": [
+     {
+      "name": "company",
+      "in": "query",
+      "required": false,
+      "description": "Company name, e.g. Tesla, Inc. or Revolut Ltd, or a 20-character LEI. Read from the question when absent.",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "company_number",
+      "in": "query",
+      "required": false,
+      "description": "The number the company is registered under, e.g. UK company number 01026167.",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "description": "The user's original question, verbatim. A country named in it, such as UK or Delaware, narrows the search.",
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Always 200: an answer, or confidence 0 with an error code. Never a made-up value.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "allOf": [
+          {
+           "$ref": "#/components/schemas/Answer"
+          },
+          {
+           "type": "object",
+           "properties": {
+            "not_in_sources": {
+             "type": "array",
+             "items": {
+              "type": "string"
+             }
+            },
+            "sources": {
+             "type": "array",
+             "items": {
+              "type": "string"
+             }
+            },
+            "legal_name": {
+             "type": "string"
+            },
+            "lei": {
+             "type": "string"
+            },
+            "entity_status": {
+             "type": "string"
+            },
+            "lei_registration_status": {
+             "type": "string"
+            },
+            "jurisdiction": {
+             "type": "string"
+            },
+            "legal_form": {
+             "type": "string"
+            },
+            "company_number": {
+             "type": "string"
+            },
+            "register": {
+             "type": "string"
+            },
+            "registered_address": {
+             "type": "string"
+            },
+            "registered_agent": {
+             "description": "null in the sampled answer; its type when set was not observed"
+            },
+            "headquarters_address": {
+             "type": "string"
+            },
+            "incorporated": {
+             "type": "string"
+            },
+            "other_names": {
+             "type": "array"
+            },
+            "direct_parent": {
+             "type": "object",
+             "properties": {
+              "name": {
+               "type": "string"
+              },
+              "lei": {
+               "type": "string"
+              }
+             }
+            },
+            "ultimate_parent": {
+             "type": "object",
+             "properties": {
+              "name": {
+               "type": "string"
+              },
+              "lei": {
+               "type": "string"
+              }
+             }
+            },
+            "us_filer": {
+             "type": "object",
+             "properties": {
+              "cik": {
+               "type": "integer"
+              },
+              "name": {
+               "type": "string"
+              },
+              "tickers": {
+               "type": "array",
+               "items": {
+                "type": "string"
+               }
+              },
+              "exchanges": {
+               "type": "array",
+               "items": {
+                "type": "string"
+               }
+              },
+              "sic": {
+               "type": "string"
+              },
+              "sic_description": {
+               "type": "string"
+              },
+              "state_of_incorporation": {
+               "type": "string"
+              },
+              "business_address": {
+               "type": "string"
+              },
+              "mailing_address": {
+               "type": "string"
+              },
+              "former_names": {
+               "type": "array",
+               "items": {
+                "type": "object",
+                "properties": {
+                 "name": {
+                  "type": "string"
+                 },
+                 "from": {
+                  "type": "string"
+                 },
+                 "to": {
+                  "type": "string"
+                 }
+                }
+               }
+              },
+              "lei": {
+               "description": "null in the sampled answer; its type when set was not observed"
+              },
+              "filer_category": {
+               "type": "string"
+              },
+              "source_url": {
+               "type": "string"
+              }
+             }
+            },
+            "other_candidates": {
+             "type": "array",
+             "items": {
+              "type": "object",
+              "properties": {
+               "name": {
+                "type": "string"
+               },
+               "lei": {
+                "type": "string"
+               },
+               "jurisdiction": {
+                "type": "string"
+               },
+               "status": {
+                "type": "string"
+               }
+              }
+             }
+            }
+           },
+           "x-observed": "Fields and types from one production answer on 2026-10-26T05:25:56.942Z to: Is Barclays Bank PLC still registered?"
+          }
+         ]
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/sec-filings": {
+   "get": {
+    "operationId": "sec_filings",
+    "summary": "REGULATORY_FILING_MONITOR",
+    "description": "Whether an issuer has filed a statutory filing on SEC EDGAR, when it was accepted, and what it reports, read live from the issuer's own EDGAR filing index. Example questions: \"Has Tesla filed its latest 10-Q on SEC EDGAR, on what date was it accepted, and what did it disclose about margins?\", \"Did Apple file an 8-K in the last 30 days?\", \"What is Microsoft's most recent filing?\". Covers 10-K, 10-Q, 8-K, 20-F, 6-K, 40-F, S-1, DEF 14A and amendments. Returns verdict (filed, not_filed, not_found or unknown), company, cik, tickers, filing (form, filed date, EDGAR acceptance time in UTC, accession number, period or event date, 8-K items with their names, and the document URL), recent_filings (up to five), and for a 10-Q, 10-K or 20-F the figures tagged in that filing's XBRL: revenue, gross profit, gross margin, operating income and net income for its period, with prior_year_figures for the same period a year earlier. Only SEC EDGAR is read; a question about another regulator says that it is not covered.",
+    "x-telegraph-intents": [
+     "REGULATORY_FILING_MONITOR"
+    ],
+    "parameters": [
+     {
+      "name": "company",
+      "in": "query",
+      "required": false,
+      "description": "Issuer name or ticker, e.g. Tesla or TSLA. Read from the question when absent.",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "form",
+      "in": "query",
+      "required": false,
+      "description": "Form type, e.g. 10-Q, 10-K or 8-K. Read from the question when absent; \"annual report\" means 10-K.",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "description": "The user's original question, verbatim. A window such as \"in the last 30 days\" or \"since 2026-09-01\" is read from it.",
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Always 200: an answer, or confidence 0 with an error code. Never a made-up value.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "allOf": [
+          {
+           "$ref": "#/components/schemas/Answer"
+          },
+          {
+           "type": "object",
+           "properties": {
+            "company": {
+             "type": "string"
+            },
+            "form_asked": {
+             "type": "string"
+            },
+            "since": {
+             "description": "null in the sampled answer; its type when set was not observed"
+            },
+            "cik": {
+             "type": "integer"
+            },
+            "tickers": {
+             "type": "array",
+             "items": {
+              "type": "string"
+             }
+            },
+            "recent_filings": {
+             "type": "array",
+             "items": {
+              "type": "object",
+              "properties": {
+               "form": {
+                "type": "string"
+               },
+               "filed": {
+                "type": "string"
+               },
+               "accepted": {
+                "type": "string"
+               },
+               "accession": {
+                "type": "string"
+               },
+               "period": {
+                "type": "string"
+               },
+               "items": {
+                "type": "array"
+               },
+               "url": {
+                "type": "string"
+               }
+              }
+             }
+            },
+            "filing": {
+             "type": "object",
+             "properties": {
+              "form": {
+               "type": "string"
+              },
+              "filed": {
+               "type": "string"
+              },
+              "accepted": {
+               "type": "string"
+              },
+              "accession": {
+               "type": "string"
+              },
+              "period": {
+               "type": "string"
+              },
+              "items": {
+               "type": "array"
+              },
+              "url": {
+               "type": "string"
+              }
+             }
+            },
+            "figures": {
+             "type": "object",
+             "properties": {
+              "period_start": {
+               "type": "string"
+              },
+              "period_end": {
+               "type": "string"
+              },
+              "revenue": {
+               "type": "integer"
+              },
+              "gross_profit": {
+               "type": "integer"
+              },
+              "gross_margin_pct": {
+               "type": "number"
+              },
+              "operating_income": {
+               "type": "integer"
+              },
+              "net_income": {
+               "type": "integer"
+              }
+             }
+            },
+            "prior_year_figures": {
+             "type": "object",
+             "properties": {
+              "period_start": {
+               "type": "string"
+              },
+              "period_end": {
+               "type": "string"
+              },
+              "revenue": {
+               "type": "integer"
+              },
+              "gross_profit": {
+               "type": "integer"
+              },
+              "gross_margin_pct": {
+               "type": "number"
+              },
+              "operating_income": {
+               "type": "integer"
+              },
+              "net_income": {
+               "type": "integer"
+              }
+             }
+            }
+           },
+           "x-observed": "Fields and types from one production answer on 2026-10-26T05:25:56.942Z to: Has Apple filed its latest 10-Q?"
+          }
+         ]
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/transfer-verify": {
+   "get": {
+    "operationId": "transfer_verify",
+    "summary": "CRYPTO_TRANSFER_VERIFY",
+    "description": "Verifies one on-chain transfer by hash, read from public JSON-RPC on Ethereum, Base, Arbitrum, Optimism, Polygon, BNB Chain or Avalanche, with every chain searched when none is named. Example questions: \"Verify transfer 0x…: did it succeed, who sent it to whom, how much fee was burned and how many confirmations does it have?\". Returns verdict (confirmed, reverted, pending, not_found or unknown) and a transaction object with status, from, to, value_wei, value, symbol, block_number, block_hash, receipt_status, method, gas_used, fee_wei, confirmations, base_fee_wei and base_fee_burned: true on Ethereum and Polygon, where the EIP-1559 base fee is burned, false on rollups, where it is paid to the sequencer, and null before London or when the block could not be read. Confirmations are counted from the chain head at the time of the answer.",
+    "x-telegraph-intents": [
+     "CRYPTO_TRANSFER_VERIFY"
+    ],
+    "parameters": [
+     {
+      "name": "hash",
+      "in": "query",
+      "required": false,
+      "description": "The 32-byte transaction hash, 0x followed by 64 hex characters.",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "chain",
+      "in": "query",
+      "required": false,
+      "description": "ethereum, base, arbitrum, optimism, polygon, bsc or avalanche. Every chain is searched when absent.",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "description": "The user's original question, verbatim. The hash and chain are read from it when the parameters are absent.",
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Always 200: an answer, or confidence 0 with an error code. Never a made-up value.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "allOf": [
+          {
+           "$ref": "#/components/schemas/Answer"
+          },
+          {
+           "type": "object",
+           "properties": {
+            "hash": {
+             "type": "string"
+            },
+            "transaction": {
+             "type": "object",
+             "properties": {
+              "status": {
+               "type": "string"
+              },
+              "from": {
+               "type": "string"
+              },
+              "to": {
+               "type": "string"
+              },
+              "value_wei": {
+               "type": "string"
+              },
+              "value": {
+               "type": "string"
+              },
+              "symbol": {
+               "type": "string"
+              },
+              "block_number": {
+               "type": "integer"
+              },
+              "block_hash": {
+               "type": "string"
+              },
+              "receipt_status": {
+               "type": "string"
+              },
+              "method": {
+               "description": "null in the sampled answer; its type when set was not observed"
+              },
+              "method_selector": {
+               "description": "null in the sampled answer; its type when set was not observed"
+              },
+              "contract_created": {
+               "description": "null in the sampled answer; its type when set was not observed"
+              },
+              "token_transfers": {
+               "type": "integer"
+              },
+              "gas_used": {
+               "type": "string"
+              },
+              "fee_wei": {
+               "type": "string"
+              },
+              "confirmations": {
+               "type": "integer"
+              },
+              "base_fee_wei": {
+               "description": "null in the sampled answer; its type when set was not observed"
+              },
+              "base_fee_burned": {
+               "description": "null in the sampled answer; its type when set was not observed"
+              }
+             }
+            }
+           },
+           "x-observed": "Fields and types from one production answer on 2026-10-26T05:25:56.942Z to: Verify transfer 0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060"
+          }
+         ]
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/macro": {
+   "get": {
+    "operationId": "macro",
+    "summary": "MACRO_ECONOMIC_INDICATOR",
+    "description": "The latest released value of a macroeconomic statistic, read from the agency that publishes it. Example questions: \"What was the latest US CPI year-over-year print, and what is the current federal funds target range?\", \"What is euro area inflation and the ECB deposit rate?\", \"What is the unemployment rate in Germany?\", \"What was Japan's GDP growth last year?\". US CPI, core CPI and unemployment come from the Bureau of Labor Statistics, monthly, with CPI computed year on year from the index; the federal funds target range and effective rate from the New York Fed, daily; euro area and EU inflation (HICP) and unemployment from Eurostat, monthly; ECB deposit and main refinancing rates from the ECB, daily; other countries' inflation, unemployment and GDP from the World Bank, annual and labelled annual. Returns verdict (reported, not_covered or unknown), region and indicators, each with value (and value_high for a range), unit, period, frequency, series id, source and source_url. Several statistics can be asked for at once. A policy rate outside the US and the euro area is named as not covered rather than replaced by another figure.",
+    "x-telegraph-intents": [
+     "MACRO_ECONOMIC_INDICATOR"
+    ],
+    "parameters": [
+     {
+      "name": "indicator",
+      "in": "query",
+      "required": false,
+      "description": "The statistic, e.g. CPI, core inflation, unemployment, policy rate or GDP growth. Read from the question when absent.",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "country",
+      "in": "query",
+      "required": false,
+      "description": "Country or region, e.g. US, euro area, Germany or Japan. Read from the question when absent.",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "description": "The user's original question, verbatim.",
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Always 200: an answer, or confidence 0 with an error code. Never a made-up value.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "allOf": [
+          {
+           "$ref": "#/components/schemas/Answer"
+          },
+          {
+           "type": "object",
+           "properties": {
+            "indicators": {
+             "type": "array",
+             "items": {
+              "type": "object",
+              "properties": {
+               "indicator": {
+                "type": "string"
+               },
+               "region": {
+                "type": "string"
+               },
+               "value": {
+                "type": "number"
+               },
+               "unit": {
+                "type": "string"
+               },
+               "period": {
+                "type": "string"
+               },
+               "frequency": {
+                "type": "string"
+               },
+               "series": {
+                "type": "string"
+               },
+               "source": {
+                "type": "string"
+               },
+               "source_url": {
+                "type": "string"
+               }
+              }
+             }
+            },
+            "not_covered": {
+             "type": "array"
+            }
+           },
+           "x-observed": "Fields and types from one production answer on 2026-10-26T05:25:56.942Z to: What is the euro area's latest inflation rate?"
+          }
+         ]
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/url-reputation": {
+   "get": {
+    "operationId": "url_reputation",
+    "summary": "URL_SAFE",
+    "description": "Whether a URL or domain is listed as malicious, and by which sources, read live from three keyless threat sources: Cloudflare security DNS and Quad9 threat-blocking DNS (each compared with an unfiltered resolver, so a block is reported only for a name that really resolves) and abuse.ch URLhaus, matched on the exact URL and on the host. Example questions: \"Check https://login-secure-update.example.com against threat feeds and DNS blocklists: is it listed for phishing, and by which engines?\", \"Is malware.testcategory.com on any blocklist?\". Returns verdict, listed (true, false, or null when a source did not answer), sources (each with source, kind, result listed, not_listed, unknown, unavailable or not_applicable, and whether URLhaus matched the exact URL or the host), flagged_by, and the underlying checks: TLS certificate, lookalike markers, whether the host resolves, redirect count and final URL. A clean listing is never called proof of safety.",
+    "x-telegraph-intents": [
+     "URL_SAFE"
+    ],
+    "parameters": [
+     {
+      "name": "url",
+      "in": "query",
+      "required": false,
+      "description": "The URL or domain to check, e.g. https://login-secure-update.example.com. Read from the question when absent.",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "description": "The user's original question, verbatim.",
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Always 200: an answer, or confidence 0 with an error code. Never a made-up value.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "allOf": [
+          {
+           "$ref": "#/components/schemas/Answer"
+          },
+          {
+           "type": "object",
+           "properties": {
+            "url": {
+             "type": "string"
+            },
+            "flagged_by": {
+             "type": "array"
+            },
+            "checks": {
+             "type": "object",
+             "properties": {
+              "cloudflare_filter": {
+               "type": "string"
+              },
+              "quad9_filter": {
+               "type": "string"
+              },
+              "resolves": {
+               "type": "boolean"
+              },
+              "tls": {
+               "type": "string"
+              },
+              "lookalike_markers": {
+               "type": "array"
+              },
+              "redirects": {
+               "type": "integer"
+              },
+              "final_url": {
+               "type": "string"
+              }
+             }
+            },
+            "listed": {
+             "type": "boolean"
+            },
+            "sources": {
+             "type": "array",
+             "items": {
+              "type": "object",
+              "properties": {
+               "source": {
+                "type": "string"
+               },
+               "kind": {
+                "type": "string"
+               },
+               "result": {
+                "type": "string"
+               }
+              }
+             }
+            }
+           },
+           "x-observed": "Fields and types from one production answer on 2026-10-26T05:25:56.942Z to: Is https://www.bbc.co.uk safe?"
+          }
+         ]
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/answer": {
+   "get": {
+    "operationId": "answer",
+    "summary": "QUESTION_ANSWERING",
+    "description": "Answers an open-domain question, or a question about a passage supplied with it, with every factual claim cited to a numbered source. Example questions: \"Who won the 2022 FIFA World Cup and where was it held?\", \"Why is the sky blue?\", \"Based on the following text: … When did the war end?\". Open-domain sources are up to five English Wikipedia article introductions, found by searching the question, its keywords and its subject phrase; a supplied passage is the only source when one is given. A free model phrases the answer from those sources only, and the reply is kept only if every sentence cites a source that exists; otherwise the answer is the source sentence that best matches the question, quoted and cited. Returns verdict (answered, not_in_sources or unknown), method (model_phrased_from_sources or extracted_from_sources), and citations (number, title, URL and kind for each source). When the sources do not contain the answer it says so instead of guessing.",
+    "x-telegraph-intents": [
+     "QUESTION_ANSWERING"
+    ],
+    "parameters": [
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "description": "The question, verbatim. A passage may be included: \"Context: … Question: …\" or \"Based on the following text: … ?\".",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "context",
+      "in": "query",
+      "required": false,
+      "description": "A passage to answer from. When given, it is the only source.",
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Always 200: an answer, or confidence 0 with an error code. Never a made-up value.",
+      "content": {
+       "application/json": {
+        "schema": {
+         "allOf": [
+          {
+           "$ref": "#/components/schemas/Answer"
+          },
+          {
+           "type": "object",
+           "properties": {
+            "question": {
+             "type": "string"
+            },
+            "method": {
+             "type": "string"
+            },
+            "citations": {
+             "type": "array",
+             "items": {
+              "type": "object",
+              "properties": {
+               "n": {
+                "type": "integer"
+               },
+               "kind": {
+                "type": "string"
+               },
+               "title": {
+                "type": "string"
+               },
+               "url": {
+                "type": "string"
+               }
+              }
+             }
+            }
+           },
+           "x-observed": "Fields and types from one production answer on 2026-10-26T05:25:56.942Z to: Who wrote War and Peace?"
+          }
+         ]
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ },
+ "components": {
+  "schemas": {
+   "Answer": {
+    "type": "object",
+    "properties": {
+     "answer": {
+      "type": "string",
+      "description": "One sentence an app can show as is: the lead sentence of reason."
+     },
+     "domain": {
+      "type": "string"
+     },
+     "chain_length": {
+      "type": [
+       "integer",
+       "null"
+      ],
+      "description": "Certificates the server presented, leaf included. /ssl-check only."
+     },
+     "chain_complete": {
+      "type": [
+       "boolean",
+       "null"
+      ],
+      "description": "Whether intermediates were sent, not just the leaf."
+     },
+     "subject_alt_names": {
+      "type": [
+       "array",
+       "null"
+      ],
+      "items": {
+       "type": "string"
+      },
+      "description": "Subject Alternative Names on the leaf certificate."
+     },
+     "unreachable_reason": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "description": "Why the host could not be reached, when it could not be."
+     },
+     "start_time": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "description": "First hour of the returned series, UTC. /weather-forecast honours an explicit start named in the question."
+     },
+     "end_time": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "hourly_count": {
+      "type": "integer",
+      "description": "Number of hourly values returned."
+     },
+     "hourly_min_precipitation_mm": {
+      "type": [
+       "number",
+       "null"
+      ]
+     },
+     "hourly_max_precipitation_mm": {
+      "type": [
+       "number",
+       "null"
+      ]
+     },
+     "time_mode": {
+      "type": "string",
+      "description": "\"point\" when the question asked about one moment (\"in 44 hours\", \"right now\"); \"window\" when it asked about a span (\"over the next 44 hours\").",
+      "enum": [
+       "point",
+       "window"
+      ]
+     },
+     "valid_at": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "description": "For a point answer, the UTC hour the values describe. Null for a window."
+     },
+     "risk_score": {
+      "type": "number",
+      "description": "Storm risk from 0 (none) to 1 (severe). /storm-alert only.",
+      "minimum": 0,
+      "maximum": 1
+     },
+     "verdict": {
+      "type": "string",
+      "description": "The answer's label, and its vocabulary is per endpoint. /ssl-check returns a certificate state (valid, expired, not_yet_valid, hostname_mismatch, self_signed, untrusted, unreachable); /storm-alert a storm-risk grade (none, low, moderate, high, severe); /weather-forecast a condition (clear, mostly clear, cloudy, fog, drizzle, rain, heavy rain, snow, thunderstorms); /translate \"translated\"; /papers \"papers\"; /ai-detect likely_human, likely_ai or inconclusive; and /ip-geolocate the resolved place itself, or the class of a special-use range (private, reserved, loopback, link_local, shared, multicast, broadcast). Any endpoint returns \"unknown\" when it could not answer. A closed enum was declared here previously and four endpoints did not conform to it, /ip-geolocate least of all because a place name cannot be enumerated."
+     },
+     "valid": {
+      "type": "boolean"
+     },
+     "trusted": {
+      "type": "boolean"
+     },
+     "expired": {
+      "type": "boolean"
+     },
+     "hostname_match": {
+      "type": "boolean"
+     },
+     "issuer": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "subject": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "valid_from": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "valid_to": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "days_remaining": {
+      "type": [
+       "integer",
+       "null"
+      ]
+     },
+     "tls_protocol": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "confidence": {
+      "type": "number"
+     },
+     "reason": {
+      "type": "string"
+     },
+     "checked_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the answer was computed."
+     },
+     "location": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "storm_expected": {
+      "type": "boolean"
+     },
+     "max_wind_gust_kmh": {
+      "type": [
+       "number",
+       "null"
+      ]
+     },
+     "max_wind_speed_kmh": {
+      "type": [
+       "number",
+       "null"
+      ]
+     },
+     "max_precipitation_mm": {
+      "type": [
+       "number",
+       "null"
+      ]
+     },
+     "thunderstorm": {
+      "type": "boolean"
+     },
+     "window_hours": {
+      "type": [
+       "integer",
+       "null"
+      ]
+     },
+     "peak_at": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "latitude": {
+      "type": [
+       "number",
+       "null"
+      ]
+     },
+     "longitude": {
+      "type": [
+       "number",
+       "null"
+      ]
+     },
+     "temp_min_c": {
+      "type": [
+       "number",
+       "null"
+      ]
+     },
+     "temp_max_c": {
+      "type": [
+       "number",
+       "null"
+      ]
+     },
+     "total_precipitation_mm": {
+      "type": [
+       "number",
+       "null"
+      ]
+     },
+     "precipitation_hours": {
+      "type": [
+       "integer",
+       "null"
+      ]
+     },
+     "wind_direction": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "description": "Compass direction of the peak wind."
+     },
+     "threshold_exceeded": {
+      "type": [
+       "boolean",
+       "null"
+      ],
+      "description": "Whether a wind threshold named in the question was crossed."
+     },
+     "threshold_hours": {
+      "type": [
+       "array",
+       "null"
+      ],
+      "items": {
+       "type": "string"
+      },
+      "description": "The UTC hours at which it was crossed."
+     },
+     "precipitation_probability_max_pct": {
+      "type": [
+       "number",
+       "null"
+      ]
+     },
+     "span_days": {
+      "type": [
+       "integer",
+       "null"
+      ],
+      "description": "Forecast span in days when the question asked in days."
+     },
+     "ip": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "city": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "region": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "description": "Subdivision for an IP; requested news region for /headlines."
+     },
+     "country": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "country_code": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "timezone": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "asn": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "description": "Autonomous system number of the announcing network."
+     },
+     "organisation": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "description": "Network operator the address is registered to."
+     },
+     "translation": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "papers": {
+      "type": [
+       "array",
+       "null"
+      ],
+      "description": "Each entry carries title, authors, year, citations, venue and doi.",
+      "items": {
+       "type": "object",
+       "properties": {
+        "title": {
+         "type": "string"
+        },
+        "year": {
+         "type": [
+          "integer",
+          "null"
+         ]
+        },
+        "authors": {
+         "type": "array",
+         "items": {
+          "type": "string"
+         }
+        },
+        "citations": {
+         "type": [
+          "integer",
+          "null"
+         ]
+        },
+        "venue": {
+         "type": [
+          "string",
+          "null"
+         ]
+        },
+        "doi": {
+         "type": [
+          "string",
+          "null"
+         ]
+        }
+       }
+      }
+     },
+     "topic": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "description": "Subject actually searched for, after parsing the question."
+     },
+     "from_date": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "to_date": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "count": {
+      "type": [
+       "integer",
+       "null"
+      ],
+      "description": "Number of papers or headlines returned."
+     },
+     "words": {
+      "type": [
+       "integer",
+       "null"
+      ]
+     },
+     "sentences": {
+      "type": [
+       "integer",
+       "null"
+      ]
+     },
+     "mean_sentence_words": {
+      "type": [
+       "number",
+       "null"
+      ]
+     },
+     "sentence_length_stdev": {
+      "type": [
+       "number",
+       "null"
+      ]
+     },
+     "type_token_ratio": {
+      "type": [
+       "number",
+       "null"
+      ]
+     },
+     "repeated_bigrams": {
+      "type": [
+       "integer",
+       "null"
+      ]
+     },
+     "formulaic_markers": {
+      "type": [
+       "array",
+       "null"
+      ],
+      "items": {
+       "type": "string"
+      }
+     },
+     "extracted": {
+      "type": [
+       "object",
+       "null"
+      ],
+      "description": "The fields the question asked for. Keys vary with the request — emails, phones, urls, quantities, dates, entities, action items."
+     },
+     "headlines": {
+      "type": [
+       "array",
+       "null"
+      ],
+      "items": {
+       "type": "object",
+       "properties": {
+        "title": {
+         "type": "string"
+        },
+        "source": {
+         "type": [
+          "string",
+          "null"
+         ]
+        },
+        "published": {
+         "type": [
+          "string",
+          "null"
+         ]
+        }
+       }
+      }
+     },
+     "claim": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "source": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "description": "The reference consulted, named so a reader can weigh it."
+     },
+     "source_url": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "evidence": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "description": "The passage the verdict was read from."
+     },
+     "address": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "chain": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "description": "ethereum, base, arbitrum, optimism or polygon."
+     },
+     "balance_eth": {
+      "type": [
+       "number",
+       "null"
+      ],
+      "description": "Native-coin balance. Null when the RPC did not answer, which is not the same as zero."
+     },
+     "symbol": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "description": "Native coin of the chain — POL on polygon, ETH elsewhere."
+     },
+     "error": {
+      "type": "string",
+      "description": "Present when no answer could be produced (confidence 0): upstream_unavailable, no_subject, not_licensed and similar. Never paired with a made-up value."
+     },
+     "receipt": {
+      "$ref": "#/components/schemas/Receipt"
+     }
+    }
+   },
+   "Receipt": {
+    "type": "object",
+    "description": "The upstream requests the miner actually made to produce this answer (src/receipt.ts).",
+    "required": [
+     "id",
+     "deployment",
+     "answered_at",
+     "upstream",
+     "from_cache"
+    ],
+    "properties": {
+     "id": {
+      "type": "string",
+      "format": "uuid"
+     },
+     "deployment": {
+      "type": "string",
+      "description": "The deployment that answered."
+     },
+     "answered_at": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "upstream": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/UpstreamRead"
+      }
+     },
+     "from_cache": {
+      "type": "boolean",
+      "description": "True when the one-minute response cache answered."
+     },
+     "note": {
+      "type": "string",
+      "description": "Present only when upstream is empty, saying why."
+     }
+    }
+   },
+   "UpstreamRead": {
+    "type": "object",
+    "required": [
+     "url",
+     "method",
+     "status",
+     "started_at",
+     "ms"
+    ],
+    "properties": {
+     "url": {
+      "type": "string",
+      "description": "The URL read, credentials redacted; tls:// or dns:// for socket reads."
+     },
+     "method": {
+      "type": "string",
+      "description": "An HTTP method, or TLS / DNS."
+     },
+     "status": {
+      "type": [
+       "integer",
+       "null"
+      ],
+      "description": "HTTP status; null when the read failed or was not HTTP."
+     },
+     "result": {
+      "type": "string",
+      "description": "For a TLS or DNS read, what came back."
+     },
+     "started_at": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "ms": {
+      "type": "integer"
+     }
+    }
+   }
+  }
+ }
+}

@@ -1,0 +1,2143 @@
+{
+ "at": "2026-10-31T18:46:50.394Z",
+ "chunk": "https://hackathon.telegraphprotocol.com/_next/static/chunks/550-de6b6e82a0099672.js",
+ "registration": 4829,
+ "ours": [
+  "SSL_VERIFICATION_CERT",
+  "STORM_ALERT_GENERAL",
+  "WEATHER_FORECAST_GENERAL",
+  "IP_GEOLOCATION_GENERAL",
+  "LANGUAGE_TRANSLATION_GENERAL",
+  "ACADEMIC_SEARCH_GENERAL",
+  "CONTENT_EXTRACTION_GENERAL",
+  "NEWS_HEADLINES_GENERAL",
+  "WALLET_BALANCE_CHECK_GENERAL",
+  "WEATHER_CHECK_TEMPERATURE",
+  "FACT_CHECK_GENERAL",
+  "ONCHAIN_TX_LOOKUP_GENERAL",
+  "CVE_LOOKUP_CVSS",
+  "NEWS_SEARCH_GENERAL",
+  "CURRENCY_EXCHANGE_CONVERT",
+  "GAS_PRICE_GENERAL",
+  "FINANCIAL_DATA_GENERAL",
+  "FRAUD_DETECTION_GENERAL",
+  "TOKEN_HOLDER_COUNT_GENERAL",
+  "RESEARCH_QUERY_GENERAL",
+  "CRYPTO_PRICE_USD",
+  "STOCK_PRICE_US_EQUITY",
+  "CROSS_CHAIN_STATE_VERIFY_GENERAL",
+  "EVENT_OUTCOME_RESOLUTION_GENERAL",
+  "URL_SCAN_VERDICT",
+  "WEB_SEARCH_GENERAL",
+  "SENTIMENT_ANALYSIS_GENERAL",
+  "TEXT_CLASSIFICATION_GENERAL",
+  "RESEARCH_SYNTHESIS_GENERAL",
+  "SANCTIONS_SCREENING_MATCH_GENERAL",
+  "CORPORATE_REGISTRY_LOOKUP_GENERAL",
+  "REGULATORY_FILING_MONITOR_GENERAL",
+  "CRYPTO_TRANSFER_VERIFY_GENERAL",
+  "MACRO_ECONOMIC_INDICATOR_GENERAL",
+  "URL_SAFE_GENERAL",
+  "QUESTION_ANSWERING_GENERAL"
+ ],
+ "served_families": {
+  "LANGUAGE_TRANSLATION": [
+   "LANGUAGE_TRANSLATION_GENERAL"
+  ],
+  "CONTENT_EXTRACTION": [
+   "CONTENT_EXTRACTION_GENERAL"
+  ],
+  "WEATHER_CHECK": [
+   "WEATHER_CHECK_TEMPERATURE"
+  ],
+  "FACT_CHECK": [
+   "FACT_CHECK_GENERAL"
+  ],
+  "GAS_PRICE": [
+   "GAS_PRICE_GENERAL"
+  ],
+  "FINANCIAL_DATA": [
+   "FINANCIAL_DATA_GENERAL"
+  ],
+  "RESEARCH_QUERY": [
+   "RESEARCH_QUERY_GENERAL"
+  ],
+  "CRYPTO_PRICE": [
+   "CRYPTO_PRICE_USD"
+  ],
+  "STOCK_PRICE": [
+   "STOCK_PRICE_US_EQUITY"
+  ],
+  "CROSS_CHAIN_STATE_VERIFY": [
+   "CROSS_CHAIN_STATE_VERIFY_GENERAL"
+  ],
+  "EVENT_OUTCOME_RESOLUTION": [
+   "EVENT_OUTCOME_RESOLUTION_GENERAL"
+  ],
+  "WEB_SEARCH": [
+   "WEB_SEARCH_GENERAL"
+  ],
+  "SENTIMENT_ANALYSIS": [
+   "SENTIMENT_ANALYSIS_GENERAL"
+  ],
+  "TEXT_CLASSIFICATION": [
+   "TEXT_CLASSIFICATION_GENERAL"
+  ],
+  "SANCTIONS_SCREENING_MATCH": [
+   "SANCTIONS_SCREENING_MATCH_GENERAL"
+  ],
+  "CORPORATE_REGISTRY_LOOKUP": [
+   "CORPORATE_REGISTRY_LOOKUP_GENERAL"
+  ],
+  "REGULATORY_FILING_MONITOR": [
+   "REGULATORY_FILING_MONITOR_GENERAL"
+  ],
+  "CRYPTO_TRANSFER_VERIFY": [
+   "CRYPTO_TRANSFER_VERIFY_GENERAL"
+  ],
+  "MACRO_ECONOMIC_INDICATOR": [
+   "MACRO_ECONOMIC_INDICATOR_GENERAL"
+  ],
+  "URL_SAFE": [
+   "URL_SAFE_GENERAL"
+  ],
+  "QUESTION_ANSWERING": [
+   "QUESTION_ANSWERING_GENERAL"
+  ]
+ },
+ "unmapped_intents": [
+  "SSL_VERIFICATION_CERT",
+  "STORM_ALERT_GENERAL",
+  "WEATHER_FORECAST_GENERAL",
+  "IP_GEOLOCATION_GENERAL",
+  "ACADEMIC_SEARCH_GENERAL",
+  "NEWS_HEADLINES_GENERAL",
+  "WALLET_BALANCE_CHECK_GENERAL",
+  "ONCHAIN_TX_LOOKUP_GENERAL",
+  "CVE_LOOKUP_CVSS",
+  "NEWS_SEARCH_GENERAL",
+  "CURRENCY_EXCHANGE_CONVERT",
+  "FRAUD_DETECTION_GENERAL",
+  "TOKEN_HOLDER_COUNT_GENERAL",
+  "URL_SCAN_VERDICT",
+  "RESEARCH_SYNTHESIS_GENERAL"
+ ],
+ "totals": {
+  "missions": 15,
+  "examples": 102,
+  "full": 9,
+  "partial": 58,
+  "none": 35
+ },
+ "family_use": {
+  "SMART_CONTRACT_AUDIT": 3,
+  "ONCHAIN_METRIC_VERIFY": 7,
+  "SANCTIONS_SCREENING_MATCH": 6,
+  "SOCIAL_BOT_DETECTION": 5,
+  "CODE_REVIEW": 2,
+  "WASH_TRADING_DETECTION": 5,
+  "LIQUIDITY_DEPTH_VERIFY": 5,
+  "ASSET_RESERVE_ATTESTATION": 8,
+  "CROSS_CHAIN_STATE_VERIFY": 3,
+  "CRYPTO_TRANSFER_VERIFY": 5,
+  "TASK_EXECUTION_QUALITY": 10,
+  "GAS_PRICE": 1,
+  "TRANSACTION_RISK": 1,
+  "FRAUD_RISK": 2,
+  "REGULATORY_FILING_MONITOR": 7,
+  "VESSEL_TELEMETRY_VERIFY": 7,
+  "DOCUMENT_AUTHENTICITY": 4,
+  "PACKAGE_STATUS": 2,
+  "QUESTION_ANSWERING": 13,
+  "FX_NOW": 5,
+  "WEATHER_CHECK": 4,
+  "CRYPTO_PRICE": 5,
+  "FINANCIAL_DATA": 5,
+  "CRYPTO_YIELD_RATE": 3,
+  "CORPORATE_REGISTRY_LOOKUP": 8,
+  "MACRO_ECONOMIC_INDICATOR": 6,
+  "TEXT_SUMMARIZATION": 5,
+  "LOAN_INTEREST_RATE_QUOTE": 3,
+  "CONTENT_EXTRACTION": 3,
+  "LANGUAGE_TRANSLATION": 2,
+  "WEB_SEARCH": 15,
+  "FACT_CHECK": 14,
+  "SENTIMENT_ANALYSIS": 3,
+  "CONTRACT_OBLIGATION_AUDIT": 3,
+  "SEMANTIC_SIMILARITY": 1,
+  "MEDIA_FORENSIC_VERIFY": 5,
+  "SATELLITE_IMAGERY_ANALYSIS": 10,
+  "LIVE_PORT_CONGESTION": 5,
+  "IMAGE_CAPTIONING": 9,
+  "GRID_POWER_PRICE": 7,
+  "EVENT_OUTCOME_RESOLUTION": 4,
+  "WEATHER_FORECAST_VERIFY": 14,
+  "ROUTE_ETA": 3,
+  "TRAVEL_DISRUPTION": 2,
+  "SHIPMENT_DELAY_RISK": 1,
+  "STOCK_PRICE": 1,
+  "SENSOR_TELEMETRY_VERIFY": 11,
+  "AIR_QUALITY_INDEX": 1,
+  "SHIP_RATE_ETA": 4,
+  "LIVE_SHELF_PRICE": 7,
+  "LLM_OUTPUT_EVALUATION": 7,
+  "PRODUCT_AUTHENTICITY": 3,
+  "SKU_IN_STOCK": 2,
+  "URL_SAFE": 3,
+  "CONTENT_MODERATION": 1,
+  "TEXT_CLASSIFICATION": 4,
+  "CODE_GENERATION": 6,
+  "AGENT_TASK": 1,
+  "VENDOR_VERIFY": 1,
+  "CARRIER_SERVICEABILITY": 1,
+  "CLOUD_RESOURCE_USAGE": 3,
+  "SECURITY_REVIEW": 2,
+  "VULNERABILITY_TRIAGE": 2,
+  "RESEARCH_QUERY": 1,
+  "CODE_PATCH_VERIFY": 2,
+  "REGRESSION_VERIFY": 1,
+  "CHATBOT_CONVERSATION": 1,
+  "WAREHOUSE_INVENTORY": 1,
+  "MINING_HASHPRICE_VERIFY": 2,
+  "DATACENTER_TELEMETRY_VERIFY": 4,
+  "SLA_COMPLIANCE": 2,
+  "SERVER_UPTIME_MONITOR": 2,
+  "ENTITY_EXTRACTION": 1,
+  "TOKEN_TOTAL_SUPPLY_VERIFY": 3,
+  "VALIDATOR_PERFORMANCE_VERIFY": 1,
+  "COMMERCE_PURCHASE_VERIFY": 1
+ },
+ "missions": [
+  {
+   "n": 1,
+   "slug": "exchange",
+   "name": "Exchange",
+   "examples": [
+    {
+     "title": "The autonomous listings desk",
+     "tag": "Full",
+     "output": "Signed listing risk memo with a cost line",
+     "intents": [
+      "SMART_CONTRACT_AUDIT",
+      "ONCHAIN_METRIC_VERIFY",
+      "SANCTIONS_SCREENING_MATCH",
+      "SOCIAL_BOT_DETECTION",
+      "CODE_REVIEW"
+     ],
+     "ours": [
+      "SANCTIONS_SCREENING_MATCH"
+     ],
+     "missing": [
+      "SMART_CONTRACT_AUDIT",
+      "ONCHAIN_METRIC_VERIFY",
+      "SOCIAL_BOT_DETECTION",
+      "CODE_REVIEW"
+     ],
+     "cover": "partial"
+    },
+    {
+     "title": "Surveillance that only bills when it finds something",
+     "tag": "Full",
+     "output": "A ranked alert feed, resold as a miner",
+     "intents": [
+      "WASH_TRADING_DETECTION",
+      "LIQUIDITY_DEPTH_VERIFY"
+     ],
+     "ours": [],
+     "missing": [
+      "WASH_TRADING_DETECTION",
+      "LIQUIDITY_DEPTH_VERIFY"
+     ],
+     "cover": "none"
+    },
+    {
+     "title": "The solvency handshake",
+     "tag": "Mechanism",
+     "output": "Mutual solvency check before credit",
+     "intents": [
+      "ASSET_RESERVE_ATTESTATION",
+      "ONCHAIN_METRIC_VERIFY",
+      "CROSS_CHAIN_STATE_VERIFY"
+     ],
+     "ours": [
+      "CROSS_CHAIN_STATE_VERIFY"
+     ],
+     "missing": [
+      "ASSET_RESERVE_ATTESTATION",
+      "ONCHAIN_METRIC_VERIFY"
+     ],
+     "cover": "partial"
+    }
+   ]
+  },
+  {
+   "n": 2,
+   "slug": "stablecoin",
+   "name": "Stablecoin",
+   "examples": [
+    {
+     "title": "The agent expense ledger",
+     "tag": "Full",
+     "output": "Expense ledger: burn per category, cost per task",
+     "intents": [
+      "CRYPTO_TRANSFER_VERIFY",
+      "TASK_EXECUTION_QUALITY",
+      "GAS_PRICE"
+     ],
+     "ours": [
+      "CRYPTO_TRANSFER_VERIFY",
+      "GAS_PRICE"
+     ],
+     "missing": [
+      "TASK_EXECUTION_QUALITY"
+     ],
+     "cover": "partial"
+    },
+    {
+     "title": "Compliance attached to the payment itself",
+     "tag": "Full",
+     "output": "A payment that carries its own compliance proof",
+     "intents": [
+      "SANCTIONS_SCREENING_MATCH",
+      "TRANSACTION_RISK",
+      "FRAUD_RISK",
+      "REGULATORY_FILING_MONITOR"
+     ],
+     "ours": [
+      "SANCTIONS_SCREENING_MATCH",
+      "REGULATORY_FILING_MONITOR"
+     ],
+     "missing": [
+      "TRANSACTION_RISK",
+      "FRAUD_RISK"
+     ],
+     "cover": "partial"
+    },
+    {
+     "title": "Treasury agents choosing on evidence",
+     "tag": "Mechanism",
+     "output": "Evidence-backed rebalance, simulated until mainnet",
+     "intents": [
+      "ASSET_RESERVE_ATTESTATION",
+      "LIQUIDITY_DEPTH_VERIFY",
+      "CROSS_CHAIN_STATE_VERIFY"
+     ],
+     "ours": [
+      "CROSS_CHAIN_STATE_VERIFY"
+     ],
+     "missing": [
+      "ASSET_RESERVE_ATTESTATION",
+      "LIQUIDITY_DEPTH_VERIFY"
+     ],
+     "cover": "partial"
+    },
+    {
+     "title": "Machine-settled trade finance",
+     "tag": "Mechanism",
+     "output": "Payment released only against verified shipment facts",
+     "intents": [
+      "VESSEL_TELEMETRY_VERIFY",
+      "DOCUMENT_AUTHENTICITY",
+      "PACKAGE_STATUS"
+     ],
+     "ours": [],
+     "missing": [
+      "VESSEL_TELEMETRY_VERIFY",
+      "DOCUMENT_AUTHENTICITY",
+      "PACKAGE_STATUS"
+     ],
+     "cover": "none"
+    },
+    {
+     "title": "Edge agents that pay when they can reach the network",
+     "tag": "Full",
+     "output": "Offline-first agent with cached verified answers",
+     "intents": [
+      "QUESTION_ANSWERING",
+      "FX_NOW",
+      "WEATHER_CHECK"
+     ],
+     "ours": [
+      "QUESTION_ANSWERING",
+      "WEATHER_CHECK"
+     ],
+     "missing": [
+      "FX_NOW"
+     ],
+     "cover": "partial"
+    },
+    {
+     "title": "Gold-collateralised agent wallets",
+     "tag": "Mechanism",
+     "output": "Intelligence budget funded from tokenised gold",
+     "intents": [
+      "ASSET_RESERVE_ATTESTATION",
+      "CRYPTO_PRICE",
+      "FX_NOW"
+     ],
+     "ours": [
+      "CRYPTO_PRICE"
+     ],
+     "missing": [
+      "ASSET_RESERVE_ATTESTATION",
+      "FX_NOW"
+     ],
+     "cover": "partial"
+    },
+    {
+     "title": "A machine with a balance sheet",
+     "tag": "Mechanism",
+     "output": "Borrow, spend, earn and repay, all by one agent",
+     "intents": [
+      "FINANCIAL_DATA",
+      "CRYPTO_YIELD_RATE",
+      "ONCHAIN_METRIC_VERIFY"
+     ],
+     "ours": [
+      "FINANCIAL_DATA"
+     ],
+     "missing": [
+      "CRYPTO_YIELD_RATE",
+      "ONCHAIN_METRIC_VERIFY"
+     ],
+     "cover": "partial"
+    },
+    {
+     "title": "Collateral quality bought per request",
+     "tag": "Full",
+     "output": "On-chain parameter proposal with every input receipted",
+     "intents": [
+      "FINANCIAL_DATA",
+      "ASSET_RESERVE_ATTESTATION",
+      "CORPORATE_REGISTRY_LOOKUP"
+     ],
+     "ours": [
+      "FINANCIAL_DATA",
+      "CORPORATE_REGISTRY_LOOKUP"
+     ],
+     "missing": [
+      "ASSET_RESERVE_ATTESTATION"
+     ],
+     "cover": "partial"
+    },
+    {
+     "title": "A treasury that shows its working",
+     "tag": "Full",
+     "output": "Governance proposal with its receipts attached",
+     "intents": [
+      "LIQUIDITY_DEPTH_VERIFY",
+      "CRYPTO_YIELD_RATE",
+      "MACRO_ECONOMIC_INDICATOR",
+      "TEXT_SUMMARIZATION"
+     ],
+     "ours": [
+      "MACRO_ECONOMIC_INDICATOR"
+     ],
+     "missing": [
+      "LIQUIDITY_DEPTH_VERIFY",
+      "CRYPTO_YIELD_RATE",
+      "TEXT_SUMMARIZATION"
+     ],
+     "cover": "partial"
+    }
+   ]
+  },
+  {
+   "n": 3,
+   "slug": "institutional-markets",
+   "name": "Institutional Markets",
+   "examples": [
+    {
+     "title": "A defensible mark on a private asset",
+     "tag": "Full",
+     "output": "NAV with provenance on every pricing input",
+     "intents": [
+      "FINANCIAL_DATA",
+      "LOAN_INTEREST_RATE_QUOTE",
+      "MACRO_ECONOMIC_INDICATOR",
+      "FX_NOW"
+     ],
+     "ours": [
+      "FINANCIAL_DATA",
+      "MACRO_ECONOMIC_INDICATOR"
+     ],
+     "missing": [
+      "LOAN_INTEREST_RATE_QUOTE",
+      "FX_NOW"
+     ],
+     "cover": "partial"
+    },
+    {
+     "title": "The autonomous issuance desk",
+     "tag": "Full",
+     "output": "Draft issuance memo with a cost line",
+     "intents": [
+      "CORPORATE_REGISTRY_LOOKUP",
+      "SANCTIONS_SCREENING_MATCH",
+      "LOAN_INTEREST_RATE_QUOTE",
+      "MACRO_ECONOMIC_INDICATOR",
+      "REGULATORY_FILING_MONITOR"
+     ],
+     "ours": [
+      "CORPORATE_REGISTRY_LOOKUP",
+      "SANCTIONS_SCREENING_MATCH",
+      "MACRO_ECONOMIC_INDICATOR",
+      "REGULATORY_FILING_MONITOR"
+     ],
+     "missing": [
+      "LOAN_INTEREST_RATE_QUOTE"
+     ],
+     "cover": "partial"
+    },
+    {
+     "title": "Pre-trade diligence between strangers",
+     "tag": "Full",
+     "output": "A trade that clears, or does not, on verified inputs",
+     "intents": [
+      "CORPORATE_REGISTRY_LOOKUP",
+      "SANCTIONS_SCREENING_MATCH",
+      "FINANCIAL_DATA"
+     ],
+     "ours": [
+      "CORPORATE_REGISTRY_LOOKUP",
+      "SANCTIONS_SCREENING_MATCH",
+      "FINANCIAL_DATA"
+     ],
+     "missing": [],
+     "cover": "full"
+    }
+   ]
+  },
+  {
+   "n": 4,
+   "slug": "legal",
+   "name": "Legal",
+   "examples": [
+    {
+     "title": "Regulatory monitoring with a chain of custody",
+     "tag": "Full",
+     "output": "Citable regulatory digest, every item receipted",
+     "intents": [
+      "REGULATORY_FILING_MONITOR",
+      "CONTENT_EXTRACTION",
+      "TEXT_SUMMARIZATION",
+      "LANGUAGE_TRANSLATION"
+     ],
+     "ours": [
+      "REGULATORY_FILING_MONITOR",
+      "CONTENT_EXTRACTION",
+      "LANGUAGE_TRANSLATION"
+     ],
+     "missing": [
+      "TEXT_SUMMARIZATION"
+     ],
+     "cover": "partial"
+    },
+    {
+     "title": "The overnight diligence pack",
+     "tag": "Full",
+     "output": "Five-jurisdiction diligence pack with per-item cost",
+     "intents": [
+      "CORPORATE_REGISTRY_LOOKUP",
+      "SANCTIONS_SCREENING_MATCH",
+      "WEB_SEARCH",
+      "FACT_CHECK",
+      "SENTIMENT_ANALYSIS"
+     ],
+     "ours": [
+      "CORPORATE_REGISTRY_LOOKUP",
+      "SANCTIONS_SCREENING_MATCH",
+      "WEB_SEARCH",
+      "FACT_CHECK",
+      "SENTIMENT_ANALYSIS"
+     ],
+     "missing": [],
+     "cover": "full"
+    },
+    {
+     "title": "Two agents negotiating with paid evidence",
+     "tag": "Full",
+     "output": "Agreed terms in escrow, with a receipt trail per clause",
+     "intents": [
+      "CONTRACT_OBLIGATION_AUDIT",
+      "QUESTION_ANSWERING",
+      "SEMANTIC_SIMILARITY",
+      "REGULATORY_FILING_MONITOR"
+     ],
+     "ours": [
+      "QUESTION_ANSWERING",
+      "REGULATORY_FILING_MONITOR"
+     ],
+     "missing": [
+      "CONTRACT_OBLIGATION_AUDIT",
+      "SEMANTIC_SIMILARITY"
+     ],
+     "cover": "partial"
+    }
+   ]
+  },
+  {
+   "n": 5,
+   "slug": "conflict-intelligence",
+   "name": "Conflict Intelligence",
+   "examples": [
+    {
+     "title": "An escalation score you can trace to its source",
+     "tag": "Full",
+     "output": "Country escalation score, disagreement visible",
+     "intents": [
+      "MEDIA_FORENSIC_VERIFY",
+      "FACT_CHECK",
+      "WEB_SEARCH",
+      "SATELLITE_IMAGERY_ANALYSIS"
+     ],
+     "ours": [
+      "FACT_CHECK",
+      "WEB_SEARCH"
+     ],
+     "missing": [
+      "MEDIA_FORENSIC_VERIFY",
+      "SATELLITE_IMAGERY_ANALYSIS"
+     ],
+     "cover": "partial"
+    },
+    {
+     "title": "The gap between reported and observed",
+     "tag": "Full",
+     "output": "The priced gap between reported and observed",
+     "intents": [
+      "VESSEL_TELEMETRY_VERIFY",
+      "LIVE_PORT_CONGESTION",
+      "SATELLITE_IMAGERY_ANALYSIS",
+      "MACRO_ECONOMIC_INDICATOR"
+     ],
+     "ours": [
+      "MACRO_ECONOMIC_INDICATOR"
+     ],
+     "missing": [
+      "VESSEL_TELEMETRY_VERIFY",
+      "LIVE_PORT_CONGESTION",
+      "SATELLITE_IMAGERY_ANALYSIS"
+     ],
+     "cover": "partial"
+    },
+    {
+     "title": "Research priced per fact",
+     "tag": "Mechanism",
+     "output": "Country note with cost and proof per input",
+     "intents": [
+      "FACT_CHECK",
+      "WEB_SEARCH",
+      "TEXT_SUMMARIZATION"
+     ],
+     "ours": [
+      "FACT_CHECK",
+      "WEB_SEARCH"
+     ],
+     "missing": [
+      "TEXT_SUMMARIZATION"
+     ],
+     "cover": "partial"
+    },
+    {
+     "title": "Conflict to barrel",
+     "tag": "Full",
+     "output": "Supply disruption estimate, in barrels",
+     "intents": [
+      "VESSEL_TELEMETRY_VERIFY",
+      "LIVE_PORT_CONGESTION",
+      "SATELLITE_IMAGERY_ANALYSIS",
+      "WEB_SEARCH"
+     ],
+     "ours": [
+      "WEB_SEARCH"
+     ],
+     "missing": [
+      "VESSEL_TELEMETRY_VERIFY",
+      "LIVE_PORT_CONGESTION",
+      "SATELLITE_IMAGERY_ANALYSIS"
+     ],
+     "cover": "partial"
+    },
+    {
+     "title": "Provenance before the position",
+     "tag": "Full",
+     "output": "Position sized on verified content",
+     "intents": [
+      "MEDIA_FORENSIC_VERIFY",
+      "SOCIAL_BOT_DETECTION",
+      "IMAGE_CAPTIONING",
+      "SATELLITE_IMAGERY_ANALYSIS",
+      "WEB_SEARCH"
+     ],
+     "ours": [
+      "WEB_SEARCH"
+     ],
+     "missing": [
+      "MEDIA_FORENSIC_VERIFY",
+      "SOCIAL_BOT_DETECTION",
+      "IMAGE_CAPTIONING",
+      "SATELLITE_IMAGERY_ANALYSIS"
+     ],
+     "cover": "partial"
+    },
+    {
+     "title": "Paying for depth only at the tail",
+     "tag": "Mechanism",
+     "output": "Spend that concentrates where it mattered",
+     "intents": [
+      "FACT_CHECK",
+      "VESSEL_TELEMETRY_VERIFY",
+      "MEDIA_FORENSIC_VERIFY"
+     ],
+     "ours": [
+      "FACT_CHECK"
+     ],
+     "missing": [
+      "VESSEL_TELEMETRY_VERIFY",
+      "MEDIA_FORENSIC_VERIFY"
+     ],
+     "cover": "partial"
+    },
+    {
+     "title": "One answer, three desks",
+     "tag": "Full",
+     "output": "One purchase mapped across rates, FX and energy",
+     "intents": [
+      "FACT_CHECK",
+      "FX_NOW",
+      "LOAN_INTEREST_RATE_QUOTE",
+      "GRID_POWER_PRICE"
+     ],
+     "ours": [
+      "FACT_CHECK"
+     ],
+     "missing": [
+      "FX_NOW",
+      "LOAN_INTEREST_RATE_QUOTE",
+      "GRID_POWER_PRICE"
+     ],
+     "cover": "partial"
+    },
+    {
+     "title": "The fund as a miner",
+     "tag": "Full",
+     "output": "Composite conflict index, sold as a miner",
+     "intents": [
+      "FACT_CHECK",
+      "SENTIMENT_ANALYSIS",
+      "TEXT_SUMMARIZATION"
+     ],
+     "ours": [
+      "FACT_CHECK",
+      "SENTIMENT_ANALYSIS"
+     ],
+     "missing": [
+      "TEXT_SUMMARIZATION"
+     ],
+     "cover": "partial"
+    },
+    {
+     "title": "Verified off-chain facts for on-chain execution",
+     "tag": "Mechanism",
+     "output": "On-chain execution with provable off-chain inputs",
+     "intents": [
+      "FACT_CHECK",
+      "EVENT_OUTCOME_RESOLUTION",
+      "CROSS_CHAIN_STATE_VERIFY"
+     ],
+     "ours": [
+      "FACT_CHECK",
+      "EVENT_OUTCOME_RESOLUTION",
+      "CROSS_CHAIN_STATE_VERIFY"
+     ],
+     "missing": [],
+     "cover": "full"
+    }
+   ]
+  },
+  {
+   "n": 6,
+   "slug": "resources-and-agriculture",
+   "name": "Resources and Agriculture",
+   "examples": [
+    {
+     "title": "Days-to-impact",
+     "tag": "Full",
+     "output": "Days-to-impact per site, haulage pre-booked",
+     "intents": [
+      "WEATHER_FORECAST_VERIFY",
+      "SATELLITE_IMAGERY_ANALYSIS",
+      "LIVE_PORT_CONGESTION",
+      "ROUTE_ETA",
+      "TRAVEL_DISRUPTION"
+     ],
+     "ours": [],
+     "missing": [
+      "WEATHER_FORECAST_VERIFY",
+      "SATELLITE_IMAGERY_ANALYSIS",
+      "LIVE_PORT_CONGESTION",
+      "ROUTE_ETA",
+      "TRAVEL_DISRUPTION"
+     ],
+     "cover": "none"
+    },
+    {
+     "title": "Auditable machine decisions",
+     "tag": "Mechanism",
+     "output": "Hedge trigger with a reconstructable audit trail",
+     "intents": [
+      "WEATHER_FORECAST_VERIFY",
+      "SHIPMENT_DELAY_RISK",
+      "ROUTE_ETA",
+      "STOCK_PRICE"
+     ],
+     "ours": [
+      "STOCK_PRICE"
+     ],
+     "missing": [
+      "WEATHER_FORECAST_VERIFY",
+      "SHIPMENT_DELAY_RISK",
+      "ROUTE_ETA"
+     ],
+     "cover": "partial"
+    },
+    {
+     "title": "Competitors trading intelligence anonymously",
+     "tag": "Full",
+     "output": "Anonymous site data, sold as a miner",
+     "intents": [
+      "SENSOR_TELEMETRY_VERIFY",
+      "AIR_QUALITY_INDEX",
+      "WEATHER_CHECK"
+     ],
+     "ours": [
+      "WEATHER_CHECK"
+     ],
+     "missing": [
+      "SENSOR_TELEMETRY_VERIFY",
+      "AIR_QUALITY_INDEX"
+     ],
+     "cover": "partial"
+    },
+    {
+     "title": "The destocking clock",
+     "tag": "Full",
+     "output": "Weeks of carrying capacity left",
+     "intents": [
+      "SATELLITE_IMAGERY_ANALYSIS",
+      "SENSOR_TELEMETRY_VERIFY",
+      "WEATHER_FORECAST_VERIFY",
+      "SHIP_RATE_ETA",
+      "LIVE_SHELF_PRICE"
+     ],
+     "ours": [],
+     "missing": [
+      "SATELLITE_IMAGERY_ANALYSIS",
+      "SENSOR_TELEMETRY_VERIFY",
+      "WEATHER_FORECAST_VERIFY",
+      "SHIP_RATE_ETA",
+      "LIVE_SHELF_PRICE"
+     ],
+     "cover": "none"
+    },
+    {
+     "title": "Provenance the buyer's machine can verify",
+     "tag": "Full",
+     "output": "Chain-of-custody pack the importer's agent buys",
+     "intents": [
+      "SENSOR_TELEMETRY_VERIFY",
+      "DOCUMENT_AUTHENTICITY"
+     ],
+     "ours": [],
+     "missing": [
+      "SENSOR_TELEMETRY_VERIFY",
+      "DOCUMENT_AUTHENTICITY"
+     ],
+     "cover": "none"
+    },
+    {
+     "title": "Machine-negotiated agistment",
+     "tag": "Mechanism",
+     "output": "Agistment booked machine to machine",
+     "intents": [
+      "SATELLITE_IMAGERY_ANALYSIS",
+      "SENSOR_TELEMETRY_VERIFY",
+      "WEATHER_FORECAST_VERIFY"
+     ],
+     "ours": [],
+     "missing": [
+      "SATELLITE_IMAGERY_ANALYSIS",
+      "SENSOR_TELEMETRY_VERIFY",
+      "WEATHER_FORECAST_VERIFY"
+     ],
+     "cover": "none"
+    },
+    {
+     "title": "Beating the official estimate",
+     "tag": "Full",
+     "output": "Yield forecast published before the official report",
+     "intents": [
+      "SATELLITE_IMAGERY_ANALYSIS",
+      "WEATHER_FORECAST_VERIFY",
+      "MACRO_ECONOMIC_INDICATOR",
+      "SENSOR_TELEMETRY_VERIFY"
+     ],
+     "ours": [
+      "MACRO_ECONOMIC_INDICATOR"
+     ],
+     "missing": [
+      "SATELLITE_IMAGERY_ANALYSIS",
+      "WEATHER_FORECAST_VERIFY",
+      "SENSOR_TELEMETRY_VERIFY"
+     ],
+     "cover": "partial"
+    },
+    {
+     "title": "Autonomous input procurement",
+     "tag": "Mechanism",
+     "output": "Input orders timed to the weather window",
+     "intents": [
+      "WEATHER_FORECAST_VERIFY",
+      "SHIP_RATE_ETA",
+      "LIVE_SHELF_PRICE"
+     ],
+     "ours": [],
+     "missing": [
+      "WEATHER_FORECAST_VERIFY",
+      "SHIP_RATE_ETA",
+      "LIVE_SHELF_PRICE"
+     ],
+     "cover": "none"
+    },
+    {
+     "title": "Parametric payout without an adjuster",
+     "tag": "Mechanism",
+     "output": "Payout agreed on proved facts",
+     "intents": [
+      "WEATHER_FORECAST_VERIFY",
+      "SATELLITE_IMAGERY_ANALYSIS",
+      "EVENT_OUTCOME_RESOLUTION"
+     ],
+     "ours": [
+      "EVENT_OUTCOME_RESOLUTION"
+     ],
+     "missing": [
+      "WEATHER_FORECAST_VERIFY",
+      "SATELLITE_IMAGERY_ANALYSIS"
+     ],
+     "cover": "partial"
+    }
+   ]
+  },
+  {
+   "n": 7,
+   "slug": "consumer-platform",
+   "name": "Consumer Platform",
+   "examples": [
+    {
+     "title": "The model that pays for what it does not know",
+     "tag": "Full",
+     "output": "Inline answer with its price and proof",
+     "intents": [
+      "QUESTION_ANSWERING",
+      "WEB_SEARCH",
+      "FACT_CHECK"
+     ],
+     "ours": [
+      "QUESTION_ANSWERING",
+      "WEB_SEARCH",
+      "FACT_CHECK"
+     ],
+     "missing": [],
+     "cover": "full"
+    },
+    {
+     "title": "Receipts",
+     "tag": "Full",
+     "output": "Public verdict post with a receipt link",
+     "intents": [
+      "FACT_CHECK",
+      "MEDIA_FORENSIC_VERIFY",
+      "SOCIAL_BOT_DETECTION"
+     ],
+     "ours": [
+      "FACT_CHECK"
+     ],
+     "missing": [
+      "MEDIA_FORENSIC_VERIFY",
+      "SOCIAL_BOT_DETECTION"
+     ],
+     "cover": "partial"
+    },
+    {
+     "title": "Model versus market",
+     "tag": "Full",
+     "output": "Published win rate across a thousand questions",
+     "intents": [
+      "QUESTION_ANSWERING",
+      "LLM_OUTPUT_EVALUATION"
+     ],
+     "ours": [
+      "QUESTION_ANSWERING"
+     ],
+     "missing": [
+      "LLM_OUTPUT_EVALUATION"
+     ],
+     "cover": "partial"
+    },
+    {
+     "title": "A lens that tells you what is real",
+     "tag": "Full",
+     "output": "A verified verdict on the frame in under two seconds",
+     "intents": [
+      "MEDIA_FORENSIC_VERIFY",
+      "PRODUCT_AUTHENTICITY",
+      "FACT_CHECK",
+      "IMAGE_CAPTIONING",
+      "LIVE_SHELF_PRICE"
+     ],
+     "ours": [
+      "FACT_CHECK"
+     ],
+     "missing": [
+      "MEDIA_FORENSIC_VERIFY",
+      "PRODUCT_AUTHENTICITY",
+      "IMAGE_CAPTIONING",
+      "LIVE_SHELF_PRICE"
+     ],
+     "cover": "partial"
+    },
+    {
+     "title": "The map as a live market",
+     "tag": "Mechanism",
+     "output": "Hyperlocal answers supplied by other users' devices",
+     "intents": [
+      "WEATHER_FORECAST_VERIFY",
+      "SENSOR_TELEMETRY_VERIFY"
+     ],
+     "ours": [],
+     "missing": [
+      "WEATHER_FORECAST_VERIFY",
+      "SENSOR_TELEMETRY_VERIFY"
+     ],
+     "cover": "none"
+    },
+    {
+     "title": "Point, compare, buy",
+     "tag": "Mechanism",
+     "output": "A verified purchase option, bought from the camera",
+     "intents": [
+      "IMAGE_CAPTIONING",
+      "LIVE_SHELF_PRICE",
+      "SKU_IN_STOCK",
+      "URL_SAFE"
+     ],
+     "ours": [
+      "URL_SAFE"
+     ],
+     "missing": [
+      "IMAGE_CAPTIONING",
+      "LIVE_SHELF_PRICE",
+      "SKU_IN_STOCK"
+     ],
+     "cover": "partial"
+    },
+    {
+     "title": "Marketplace agents that verify each other",
+     "tag": "Full",
+     "output": "A used-goods trade both agents verified first",
+     "intents": [
+      "PRODUCT_AUTHENTICITY",
+      "LIVE_SHELF_PRICE",
+      "FRAUD_RISK"
+     ],
+     "ours": [],
+     "missing": [
+      "PRODUCT_AUTHENTICITY",
+      "LIVE_SHELF_PRICE",
+      "FRAUD_RISK"
+     ],
+     "cover": "none"
+    },
+    {
+     "title": "Glasses that buy context",
+     "tag": "Full",
+     "output": "Spend per glance over a twenty-minute walk",
+     "intents": [
+      "LANGUAGE_TRANSLATION",
+      "IMAGE_CAPTIONING",
+      "QUESTION_ANSWERING"
+     ],
+     "ours": [
+      "LANGUAGE_TRANSLATION",
+      "QUESTION_ANSWERING"
+     ],
+     "missing": [
+      "IMAGE_CAPTIONING"
+     ],
+     "cover": "partial"
+    },
+    {
+     "title": "A machine-to-machine ad clearing",
+     "tag": "Mechanism",
+     "output": "Ad placement priced on verified audience evidence",
+     "intents": [
+      "SOCIAL_BOT_DETECTION",
+      "CONTENT_MODERATION",
+      "TEXT_CLASSIFICATION"
+     ],
+     "ours": [
+      "TEXT_CLASSIFICATION"
+     ],
+     "missing": [
+      "SOCIAL_BOT_DETECTION",
+      "CONTENT_MODERATION"
+     ],
+     "cover": "partial"
+    }
+   ]
+  },
+  {
+   "n": 8,
+   "slug": "commodities",
+   "name": "Commodities",
+   "examples": [
+    {
+     "title": "Intelligence ROI",
+     "tag": "Mechanism",
+     "output": "P&L per unit of intelligence, on paper positions",
+     "intents": [
+      "LIVE_PORT_CONGESTION",
+      "VESSEL_TELEMETRY_VERIFY",
+      "WEATHER_FORECAST_VERIFY",
+      "SHIP_RATE_ETA",
+      "WEB_SEARCH"
+     ],
+     "ours": [
+      "WEB_SEARCH"
+     ],
+     "missing": [
+      "LIVE_PORT_CONGESTION",
+      "VESSEL_TELEMETRY_VERIFY",
+      "WEATHER_FORECAST_VERIFY",
+      "SHIP_RATE_ETA"
+     ],
+     "cover": "partial"
+    },
+    {
+     "title": "Cargo and counterparty provenance",
+     "tag": "Full",
+     "output": "A trade that clears with its own evidence file",
+     "intents": [
+      "VESSEL_TELEMETRY_VERIFY",
+      "CORPORATE_REGISTRY_LOOKUP",
+      "SANCTIONS_SCREENING_MATCH",
+      "DOCUMENT_AUTHENTICITY"
+     ],
+     "ours": [
+      "CORPORATE_REGISTRY_LOOKUP",
+      "SANCTIONS_SCREENING_MATCH"
+     ],
+     "missing": [
+      "VESSEL_TELEMETRY_VERIFY",
+      "DOCUMENT_AUTHENTICITY"
+     ],
+     "cover": "partial"
+    },
+    {
+     "title": "Live price discovery for a scarce answer",
+     "tag": "Mechanism",
+     "output": "A visible clearing price for one scarce answer",
+     "intents": [
+      "VESSEL_TELEMETRY_VERIFY",
+      "LIVE_PORT_CONGESTION"
+     ],
+     "ours": [],
+     "missing": [
+      "VESSEL_TELEMETRY_VERIFY",
+      "LIVE_PORT_CONGESTION"
+     ],
+     "cover": "none"
+    }
+   ]
+  },
+  {
+   "n": 9,
+   "slug": "personal-agent",
+   "name": "Personal Agent",
+   "examples": [
+    {
+     "title": "Give every OpenClaw instance a wallet and a market",
+     "tag": "Full",
+     "output": "A live leaderboard of agent spend",
+     "intents": [
+      "WEB_SEARCH",
+      "QUESTION_ANSWERING",
+      "WEATHER_CHECK",
+      "CRYPTO_PRICE"
+     ],
+     "ours": [
+      "WEB_SEARCH",
+      "QUESTION_ANSWERING",
+      "WEATHER_CHECK",
+      "CRYPTO_PRICE"
+     ],
+     "missing": [],
+     "cover": "full"
+    },
+    {
+     "title": "The assistant that earns while you sleep",
+     "tag": "Mechanism",
+     "output": "An assistant's capability, published as a miner",
+     "intents": [
+      "CONTENT_EXTRACTION",
+      "TASK_EXECUTION_QUALITY"
+     ],
+     "ours": [
+      "CONTENT_EXTRACTION"
+     ],
+     "missing": [
+      "TASK_EXECUTION_QUALITY"
+     ],
+     "cover": "partial"
+    },
+    {
+     "title": "Two assistants settling up in a group chat",
+     "tag": "Full",
+     "output": "A task swap settled inside a group chat",
+     "intents": [
+      "TASK_EXECUTION_QUALITY",
+      "URL_SAFE"
+     ],
+     "ours": [
+      "URL_SAFE"
+     ],
+     "missing": [
+      "TASK_EXECUTION_QUALITY"
+     ],
+     "cover": "partial"
+    },
+    {
+     "title": "An internal economy between bots",
+     "tag": "Full",
+     "output": "Price signals for delegated work between bots",
+     "intents": [
+      "TASK_EXECUTION_QUALITY",
+      "CODE_GENERATION",
+      "TEXT_SUMMARIZATION"
+     ],
+     "ours": [],
+     "missing": [
+      "TASK_EXECUTION_QUALITY",
+      "CODE_GENERATION",
+      "TEXT_SUMMARIZATION"
+     ],
+     "cover": "none"
+    },
+    {
+     "title": "Skills that earn after they are learned",
+     "tag": "Mechanism",
+     "output": "A learned skill sold to other instances",
+     "intents": [
+      "TASK_EXECUTION_QUALITY",
+      "AGENT_TASK"
+     ],
+     "ours": [],
+     "missing": [
+      "TASK_EXECUTION_QUALITY",
+      "AGENT_TASK"
+     ],
+     "cover": "none"
+    },
+    {
+     "title": "Buying its own training data",
+     "tag": "Full",
+     "output": "A training run fed by bought, proved data",
+     "intents": [
+      "LLM_OUTPUT_EVALUATION",
+      "TASK_EXECUTION_QUALITY"
+     ],
+     "ours": [],
+     "missing": [
+      "LLM_OUTPUT_EVALUATION",
+      "TASK_EXECUTION_QUALITY"
+     ],
+     "cover": "none"
+    },
+    {
+     "title": "Priced, proved skills in the browser",
+     "tag": "Full",
+     "output": "Browser skills with cost and proof in the session",
+     "intents": [
+      "CONTENT_EXTRACTION",
+      "WEB_SEARCH",
+      "LIVE_SHELF_PRICE"
+     ],
+     "ours": [
+      "CONTENT_EXTRACTION",
+      "WEB_SEARCH"
+     ],
+     "missing": [
+      "LIVE_SHELF_PRICE"
+     ],
+     "cover": "partial"
+    },
+    {
+     "title": "Cross-border commerce agents",
+     "tag": "Mechanism",
+     "output": "A verified supplier and corridor quote",
+     "intents": [
+      "VENDOR_VERIFY",
+      "CARRIER_SERVICEABILITY",
+      "SHIP_RATE_ETA",
+      "FX_NOW"
+     ],
+     "ours": [],
+     "missing": [
+      "VENDOR_VERIFY",
+      "CARRIER_SERVICEABILITY",
+      "SHIP_RATE_ETA",
+      "FX_NOW"
+     ],
+     "cover": "none"
+    },
+    {
+     "title": "The agent that pays for its own hosting",
+     "tag": "Mechanism",
+     "output": "A 30-day running balance against compute cost",
+     "intents": [
+      "CLOUD_RESOURCE_USAGE",
+      "TASK_EXECUTION_QUALITY"
+     ],
+     "ours": [],
+     "missing": [
+      "CLOUD_RESOURCE_USAGE",
+      "TASK_EXECUTION_QUALITY"
+     ],
+     "cover": "none"
+    }
+   ]
+  },
+  {
+   "n": 10,
+   "slug": "model-economy",
+   "name": "Model Economy",
+   "examples": [
+    {
+     "title": "Cost per verified correct answer",
+     "tag": "Full",
+     "output": "A live leaderboard by price per correct answer",
+     "intents": [
+      "LLM_OUTPUT_EVALUATION",
+      "QUESTION_ANSWERING",
+      "CODE_GENERATION"
+     ],
+     "ours": [
+      "QUESTION_ANSWERING"
+     ],
+     "missing": [
+      "LLM_OUTPUT_EVALUATION",
+      "CODE_GENERATION"
+     ],
+     "cover": "partial"
+    },
+    {
+     "title": "Procurement, not selection",
+     "tag": "Full",
+     "output": "Mid-task provider switching, on screen",
+     "intents": [
+      "LLM_OUTPUT_EVALUATION",
+      "TASK_EXECUTION_QUALITY"
+     ],
+     "ours": [],
+     "missing": [
+      "LLM_OUTPUT_EVALUATION",
+      "TASK_EXECUTION_QUALITY"
+     ],
+     "cover": "none"
+    },
+    {
+     "title": "Revenue for the long tail",
+     "tag": "Mechanism",
+     "output": "An earnings dashboard for a niche model",
+     "intents": [
+      "LLM_OUTPUT_EVALUATION",
+      "TEXT_CLASSIFICATION"
+     ],
+     "ours": [
+      "TEXT_CLASSIFICATION"
+     ],
+     "missing": [
+      "LLM_OUTPUT_EVALUATION"
+     ],
+     "cover": "partial"
+    },
+    {
+     "title": "Supply chain verification priced per commit",
+     "tag": "Full",
+     "output": "A receipt posted back as a PR status check",
+     "intents": [
+      "SECURITY_REVIEW",
+      "VULNERABILITY_TRIAGE",
+      "CODE_REVIEW",
+      "SOCIAL_BOT_DETECTION"
+     ],
+     "ours": [],
+     "missing": [
+      "SECURITY_REVIEW",
+      "VULNERABILITY_TRIAGE",
+      "CODE_REVIEW",
+      "SOCIAL_BOT_DETECTION"
+     ],
+     "cover": "none"
+    },
+    {
+     "title": "The repository as a miner",
+     "tag": "Mechanism",
+     "output": "A paid answering service over a library",
+     "intents": [
+      "QUESTION_ANSWERING",
+      "CODE_GENERATION",
+      "RESEARCH_QUERY"
+     ],
+     "ours": [
+      "QUESTION_ANSWERING",
+      "RESEARCH_QUERY"
+     ],
+     "missing": [
+      "CODE_GENERATION"
+     ],
+     "cover": "partial"
+    },
+    {
+     "title": "The coding agent that buys what it does not know",
+     "tag": "Full",
+     "output": "Cost per merged pull request",
+     "intents": [
+      "QUESTION_ANSWERING",
+      "CODE_GENERATION",
+      "CODE_PATCH_VERIFY",
+      "REGRESSION_VERIFY"
+     ],
+     "ours": [
+      "QUESTION_ANSWERING"
+     ],
+     "missing": [
+      "CODE_GENERATION",
+      "CODE_PATCH_VERIFY",
+      "REGRESSION_VERIFY"
+     ],
+     "cover": "partial"
+    },
+    {
+     "title": "Verification on top of routing",
+     "tag": "Full",
+     "output": "One verified answer with confidence and proof",
+     "intents": [
+      "LLM_OUTPUT_EVALUATION",
+      "QUESTION_ANSWERING",
+      "FACT_CHECK"
+     ],
+     "ours": [
+      "QUESTION_ANSWERING",
+      "FACT_CHECK"
+     ],
+     "missing": [
+      "LLM_OUTPUT_EVALUATION"
+     ],
+     "cover": "partial"
+    },
+    {
+     "title": "Buying inference with a wallet and no account",
+     "tag": "Full",
+     "output": "Inference bought with no signup and no card",
+     "intents": [
+      "CHATBOT_CONVERSATION",
+      "QUESTION_ANSWERING",
+      "CRYPTO_TRANSFER_VERIFY"
+     ],
+     "ours": [
+      "QUESTION_ANSWERING",
+      "CRYPTO_TRANSFER_VERIFY"
+     ],
+     "missing": [
+      "CHATBOT_CONVERSATION"
+     ],
+     "cover": "partial"
+    },
+    {
+     "title": "Price per correct answer, not per token",
+     "tag": "Full",
+     "output": "Routing ranked on correctness against cost",
+     "intents": [
+      "LLM_OUTPUT_EVALUATION",
+      "CODE_GENERATION"
+     ],
+     "ours": [],
+     "missing": [
+      "LLM_OUTPUT_EVALUATION",
+      "CODE_GENERATION"
+     ],
+     "cover": "none"
+    }
+   ]
+  },
+  {
+   "n": 11,
+   "slug": "autonomous-systems",
+   "name": "Autonomous Systems",
+   "examples": [
+    {
+     "title": "One budget, many machines",
+     "tag": "Full",
+     "output": "Cost of intelligence per operating hour, per asset",
+     "intents": [
+      "SATELLITE_IMAGERY_ANALYSIS",
+      "WEATHER_FORECAST_VERIFY",
+      "ROUTE_ETA"
+     ],
+     "ours": [],
+     "missing": [
+      "SATELLITE_IMAGERY_ANALYSIS",
+      "WEATHER_FORECAST_VERIFY",
+      "ROUTE_ETA"
+     ],
+     "cover": "none"
+    },
+    {
+     "title": "A closed economy inside one portfolio",
+     "tag": "Full",
+     "output": "Machines trading with each other across companies",
+     "intents": [
+      "SENSOR_TELEMETRY_VERIFY",
+      "GRID_POWER_PRICE",
+      "WEATHER_FORECAST_VERIFY"
+     ],
+     "ours": [],
+     "missing": [
+      "SENSOR_TELEMETRY_VERIFY",
+      "GRID_POWER_PRICE",
+      "WEATHER_FORECAST_VERIFY"
+     ],
+     "cover": "none"
+    },
+    {
+     "title": "The robot that bought a skill",
+     "tag": "Full",
+     "output": "Job finished, receipt logged",
+     "intents": [
+      "IMAGE_CAPTIONING",
+      "QUESTION_ANSWERING"
+     ],
+     "ours": [
+      "QUESTION_ANSWERING"
+     ],
+     "missing": [
+      "IMAGE_CAPTIONING"
+     ],
+     "cover": "partial"
+    },
+    {
+     "title": "The robot that checks before it acts",
+     "tag": "Full",
+     "output": "One photo, one ranked answer, one decision",
+     "intents": [
+      "IMAGE_CAPTIONING",
+      "TEXT_CLASSIFICATION"
+     ],
+     "ours": [
+      "TEXT_CLASSIFICATION"
+     ],
+     "missing": [
+      "IMAGE_CAPTIONING"
+     ],
+     "cover": "partial"
+    },
+    {
+     "title": "The warehouse robot as buyer and seller",
+     "tag": "Full",
+     "output": "Both sides of the market inside one shift",
+     "intents": [
+      "WAREHOUSE_INVENTORY",
+      "DOCUMENT_AUTHENTICITY",
+      "SENSOR_TELEMETRY_VERIFY",
+      "IMAGE_CAPTIONING"
+     ],
+     "ours": [],
+     "missing": [
+      "WAREHOUSE_INVENTORY",
+      "DOCUMENT_AUTHENTICITY",
+      "SENSOR_TELEMETRY_VERIFY",
+      "IMAGE_CAPTIONING"
+     ],
+     "cover": "none"
+    },
+    {
+     "title": "Experience sold between fleets",
+     "tag": "Mechanism",
+     "output": "A failure classifier bought across fleets",
+     "intents": [
+      "IMAGE_CAPTIONING",
+      "TEXT_CLASSIFICATION"
+     ],
+     "ours": [
+      "TEXT_CLASSIFICATION"
+     ],
+     "missing": [
+      "IMAGE_CAPTIONING"
+     ],
+     "cover": "partial"
+    },
+    {
+     "title": "Buying a skill it was never trained on",
+     "tag": "Full",
+     "output": "An unfamiliar task, completed",
+     "intents": [
+      "QUESTION_ANSWERING",
+      "IMAGE_CAPTIONING",
+      "CODE_GENERATION"
+     ],
+     "ours": [
+      "QUESTION_ANSWERING"
+     ],
+     "missing": [
+      "IMAGE_CAPTIONING",
+      "CODE_GENERATION"
+     ],
+     "cover": "partial"
+    },
+    {
+     "title": "The energy-aware fleet",
+     "tag": "Full",
+     "output": "Kilowatt hours saved against intelligence bought",
+     "intents": [
+      "GRID_POWER_PRICE",
+      "WEATHER_FORECAST_VERIFY"
+     ],
+     "ours": [],
+     "missing": [
+      "GRID_POWER_PRICE",
+      "WEATHER_FORECAST_VERIFY"
+     ],
+     "cover": "none"
+    },
+    {
+     "title": "The robot that earns",
+     "tag": "Mechanism",
+     "output": "A labelled 30-day running balance",
+     "intents": [
+      "SENSOR_TELEMETRY_VERIFY",
+      "TASK_EXECUTION_QUALITY"
+     ],
+     "ours": [],
+     "missing": [
+      "SENSOR_TELEMETRY_VERIFY",
+      "TASK_EXECUTION_QUALITY"
+     ],
+     "cover": "none"
+    }
+   ]
+  },
+  {
+   "n": 12,
+   "slug": "mining-and-power",
+   "name": "Mining and Power",
+   "examples": [
+    {
+     "title": "The allocation agent",
+     "tag": "Full",
+     "output": "An hourly allocation call per site",
+     "intents": [
+      "MINING_HASHPRICE_VERIFY",
+      "GRID_POWER_PRICE",
+      "WEB_SEARCH"
+     ],
+     "ours": [
+      "WEB_SEARCH"
+     ],
+     "missing": [
+      "MINING_HASHPRICE_VERIFY",
+      "GRID_POWER_PRICE"
+     ],
+     "cover": "partial"
+    },
+    {
+     "title": "Treasury moves with evidence attached",
+     "tag": "Mechanism",
+     "output": "Diligence attached to the pledge decision",
+     "intents": [
+      "ASSET_RESERVE_ATTESTATION",
+      "CORPORATE_REGISTRY_LOOKUP",
+      "FINANCIAL_DATA"
+     ],
+     "ours": [
+      "CORPORATE_REGISTRY_LOOKUP",
+      "FINANCIAL_DATA"
+     ],
+     "missing": [
+      "ASSET_RESERVE_ATTESTATION"
+     ],
+     "cover": "partial"
+    },
+    {
+     "title": "Fleet efficiency bought from rivals",
+     "tag": "Full",
+     "output": "One operator's lesson, sold anonymously",
+     "intents": [
+      "SENSOR_TELEMETRY_VERIFY",
+      "DATACENTER_TELEMETRY_VERIFY"
+     ],
+     "ours": [],
+     "missing": [
+      "SENSOR_TELEMETRY_VERIFY",
+      "DATACENTER_TELEMETRY_VERIFY"
+     ],
+     "cover": "none"
+    },
+    {
+     "title": "SLA verification neither party has to trust",
+     "tag": "Full",
+     "output": "An independently verified delivery report",
+     "intents": [
+      "SLA_COMPLIANCE",
+      "SERVER_UPTIME_MONITOR",
+      "DATACENTER_TELEMETRY_VERIFY",
+      "CLOUD_RESOURCE_USAGE"
+     ],
+     "ours": [],
+     "missing": [
+      "SLA_COMPLIANCE",
+      "SERVER_UPTIME_MONITOR",
+      "DATACENTER_TELEMETRY_VERIFY",
+      "CLOUD_RESOURCE_USAGE"
+     ],
+     "cover": "none"
+    },
+    {
+     "title": "The power portfolio as a miner",
+     "tag": "Mechanism",
+     "output": "Operating data about power, sold per question",
+     "intents": [
+      "GRID_POWER_PRICE",
+      "SENSOR_TELEMETRY_VERIFY",
+      "DATACENTER_TELEMETRY_VERIFY"
+     ],
+     "ours": [],
+     "missing": [
+      "GRID_POWER_PRICE",
+      "SENSOR_TELEMETRY_VERIFY",
+      "DATACENTER_TELEMETRY_VERIFY"
+     ],
+     "cover": "none"
+    },
+    {
+     "title": "The site selection agent",
+     "tag": "Full",
+     "output": "A ranked site list with the evidence attached",
+     "intents": [
+      "WEB_SEARCH",
+      "REGULATORY_FILING_MONITOR",
+      "SENTIMENT_ANALYSIS",
+      "WEATHER_FORECAST_VERIFY"
+     ],
+     "ours": [
+      "WEB_SEARCH",
+      "REGULATORY_FILING_MONITOR",
+      "SENTIMENT_ANALYSIS"
+     ],
+     "missing": [
+      "WEATHER_FORECAST_VERIFY"
+     ],
+     "cover": "partial"
+    },
+    {
+     "title": "The curtailment agent",
+     "tag": "Full",
+     "output": "A curtailment decision with a receipt",
+     "intents": [
+      "GRID_POWER_PRICE",
+      "WEATHER_FORECAST_VERIFY",
+      "MINING_HASHPRICE_VERIFY"
+     ],
+     "ours": [],
+     "missing": [
+      "GRID_POWER_PRICE",
+      "WEATHER_FORECAST_VERIFY",
+      "MINING_HASHPRICE_VERIFY"
+     ],
+     "cover": "none"
+    },
+    {
+     "title": "Better inputs into hash allocation",
+     "tag": "Full",
+     "output": "Existing software, better inputs, priced per decision",
+     "intents": [
+      "WEATHER_CHECK",
+      "GRID_POWER_PRICE",
+      "DATACENTER_TELEMETRY_VERIFY"
+     ],
+     "ours": [
+      "WEATHER_CHECK"
+     ],
+     "missing": [
+      "GRID_POWER_PRICE",
+      "DATACENTER_TELEMETRY_VERIFY"
+     ],
+     "cover": "partial"
+    },
+    {
+     "title": "Selling idle compute into a spot market",
+     "tag": "Mechanism",
+     "output": "Idle capacity sold per request",
+     "intents": [
+      "CLOUD_RESOURCE_USAGE",
+      "TASK_EXECUTION_QUALITY"
+     ],
+     "ours": [],
+     "missing": [
+      "CLOUD_RESOURCE_USAGE",
+      "TASK_EXECUTION_QUALITY"
+     ],
+     "cover": "none"
+    }
+   ]
+  },
+  {
+   "n": 13,
+   "slug": "asset-management",
+   "name": "Asset Management",
+   "examples": [
+    {
+     "title": "Open research with the inputs attached",
+     "tag": "Full",
+     "output": "An open model with a receipt on every input",
+     "intents": [
+      "WEB_SEARCH",
+      "FACT_CHECK",
+      "REGULATORY_FILING_MONITOR",
+      "MACRO_ECONOMIC_INDICATOR"
+     ],
+     "ours": [
+      "WEB_SEARCH",
+      "FACT_CHECK",
+      "REGULATORY_FILING_MONITOR",
+      "MACRO_ECONOMIC_INDICATOR"
+     ],
+     "missing": [],
+     "cover": "full"
+    },
+    {
+     "title": "A defensible mark on the venture book",
+     "tag": "Full",
+     "output": "A private mark anyone can reconstruct",
+     "intents": [
+      "WEB_SEARCH",
+      "CORPORATE_REGISTRY_LOOKUP",
+      "FACT_CHECK"
+     ],
+     "ours": [
+      "WEB_SEARCH",
+      "CORPORATE_REGISTRY_LOOKUP",
+      "FACT_CHECK"
+     ],
+     "missing": [],
+     "cover": "full"
+    },
+    {
+     "title": "Forecast accountability, scored by machines",
+     "tag": "Full",
+     "output": "A running forecast scorecard nobody controls",
+     "intents": [
+      "EVENT_OUTCOME_RESOLUTION",
+      "FACT_CHECK",
+      "WEB_SEARCH"
+     ],
+     "ours": [
+      "EVENT_OUTCOME_RESOLUTION",
+      "FACT_CHECK",
+      "WEB_SEARCH"
+     ],
+     "missing": [],
+     "cover": "full"
+    },
+    {
+     "title": "The thematic screener that buys evidence",
+     "tag": "Full",
+     "output": "A ranked screen with sources attached",
+     "intents": [
+      "WEB_SEARCH",
+      "REGULATORY_FILING_MONITOR",
+      "ENTITY_EXTRACTION",
+      "PACKAGE_STATUS"
+     ],
+     "ours": [
+      "WEB_SEARCH",
+      "REGULATORY_FILING_MONITOR"
+     ],
+     "missing": [
+      "ENTITY_EXTRACTION",
+      "PACKAGE_STATUS"
+     ],
+     "cover": "partial"
+    },
+    {
+     "title": "A token income statement",
+     "tag": "Full",
+     "output": "A token income statement an analyst can read",
+     "intents": [
+      "ONCHAIN_METRIC_VERIFY",
+      "WASH_TRADING_DETECTION",
+      "TOKEN_TOTAL_SUPPLY_VERIFY"
+     ],
+     "ours": [],
+     "missing": [
+      "ONCHAIN_METRIC_VERIFY",
+      "WASH_TRADING_DETECTION",
+      "TOKEN_TOTAL_SUPPLY_VERIFY"
+     ],
+     "cover": "none"
+    },
+    {
+     "title": "Tokenized fund NAV with the proof attached",
+     "tag": "Mechanism",
+     "output": "An on-chain NAV with provable inputs",
+     "intents": [
+      "ASSET_RESERVE_ATTESTATION",
+      "CRYPTO_PRICE",
+      "ONCHAIN_METRIC_VERIFY"
+     ],
+     "ours": [
+      "CRYPTO_PRICE"
+     ],
+     "missing": [
+      "ASSET_RESERVE_ATTESTATION",
+      "ONCHAIN_METRIC_VERIFY"
+     ],
+     "cover": "partial"
+    },
+    {
+     "title": "Index rebalancing with receipts",
+     "tag": "Full",
+     "output": "A rebalance published with its receipts",
+     "intents": [
+      "LIQUIDITY_DEPTH_VERIFY",
+      "TOKEN_TOTAL_SUPPLY_VERIFY",
+      "WASH_TRADING_DETECTION"
+     ],
+     "ours": [],
+     "missing": [
+      "LIQUIDITY_DEPTH_VERIFY",
+      "TOKEN_TOTAL_SUPPLY_VERIFY",
+      "WASH_TRADING_DETECTION"
+     ],
+     "cover": "none"
+    },
+    {
+     "title": "The fake volume screen",
+     "tag": "Full",
+     "output": "The gap between reported and verified volume",
+     "intents": [
+      "WASH_TRADING_DETECTION",
+      "LIQUIDITY_DEPTH_VERIFY",
+      "CRYPTO_PRICE"
+     ],
+     "ours": [
+      "CRYPTO_PRICE"
+     ],
+     "missing": [
+      "WASH_TRADING_DETECTION",
+      "LIQUIDITY_DEPTH_VERIFY"
+     ],
+     "cover": "partial"
+    },
+    {
+     "title": "The index as a miner",
+     "tag": "Mechanism",
+     "output": "Index values sold per request",
+     "intents": [
+      "CRYPTO_PRICE",
+      "TOKEN_TOTAL_SUPPLY_VERIFY"
+     ],
+     "ours": [
+      "CRYPTO_PRICE"
+     ],
+     "missing": [
+      "TOKEN_TOTAL_SUPPLY_VERIFY"
+     ],
+     "cover": "partial"
+    },
+    {
+     "title": "Daily proof of holdings",
+     "tag": "Full",
+     "output": "A daily holdings proof",
+     "intents": [
+      "ASSET_RESERVE_ATTESTATION",
+      "ONCHAIN_METRIC_VERIFY",
+      "CRYPTO_TRANSFER_VERIFY"
+     ],
+     "ours": [
+      "CRYPTO_TRANSFER_VERIFY"
+     ],
+     "missing": [
+      "ASSET_RESERVE_ATTESTATION",
+      "ONCHAIN_METRIC_VERIFY"
+     ],
+     "cover": "partial"
+    },
+    {
+     "title": "Staking yield priced against verified risk",
+     "tag": "Full",
+     "output": "Yield priced against verified validator risk",
+     "intents": [
+      "VALIDATOR_PERFORMANCE_VERIFY",
+      "CRYPTO_YIELD_RATE"
+     ],
+     "ours": [],
+     "missing": [
+      "VALIDATOR_PERFORMANCE_VERIFY",
+      "CRYPTO_YIELD_RATE"
+     ],
+     "cover": "none"
+    },
+    {
+     "title": "The investor agent that does its own diligence",
+     "tag": "Mechanism",
+     "output": "Investor-side diligence before allocating",
+     "intents": [
+      "CORPORATE_REGISTRY_LOOKUP",
+      "ASSET_RESERVE_ATTESTATION",
+      "CONTRACT_OBLIGATION_AUDIT"
+     ],
+     "ours": [
+      "CORPORATE_REGISTRY_LOOKUP"
+     ],
+     "missing": [
+      "ASSET_RESERVE_ATTESTATION",
+      "CONTRACT_OBLIGATION_AUDIT"
+     ],
+     "cover": "partial"
+    }
+   ]
+  },
+  {
+   "n": 14,
+   "slug": "web3-defi",
+   "name": "Web3 Native and DeFi",
+   "examples": [
+    {
+     "title": "The rug-proof memecoin sniper",
+     "tag": "Full",
+     "output": "Five honeypots dodged, execution on the sixth",
+     "intents": [
+      "SMART_CONTRACT_AUDIT",
+      "WASH_TRADING_DETECTION",
+      "ONCHAIN_METRIC_VERIFY"
+     ],
+     "ours": [],
+     "missing": [
+      "SMART_CONTRACT_AUDIT",
+      "WASH_TRADING_DETECTION",
+      "ONCHAIN_METRIC_VERIFY"
+     ],
+     "cover": "none"
+    },
+    {
+     "title": "The self-settling conditional escrow",
+     "tag": "Mechanism",
+     "output": "An escrow that settles itself on a verified outcome",
+     "intents": [
+      "EVENT_OUTCOME_RESOLUTION",
+      "CRYPTO_TRANSFER_VERIFY"
+     ],
+     "ours": [
+      "EVENT_OUTCOME_RESOLUTION",
+      "CRYPTO_TRANSFER_VERIFY"
+     ],
+     "missing": [],
+     "cover": "full"
+    },
+    {
+     "title": "The autonomous bug bounty hunter",
+     "tag": "Mechanism",
+     "output": "A bounty paid to the machine that proved the bug",
+     "intents": [
+      "SMART_CONTRACT_AUDIT",
+      "VULNERABILITY_TRIAGE",
+      "SECURITY_REVIEW",
+      "CODE_PATCH_VERIFY"
+     ],
+     "ours": [],
+     "missing": [
+      "SMART_CONTRACT_AUDIT",
+      "VULNERABILITY_TRIAGE",
+      "SECURITY_REVIEW",
+      "CODE_PATCH_VERIFY"
+     ],
+     "cover": "none"
+    }
+   ]
+  },
+  {
+   "n": 15,
+   "slug": "consumer-automation",
+   "name": "Consumer Automation",
+   "examples": [
+    {
+     "title": "The automated bureaucracy hacker",
+     "tag": "Full",
+     "output": "A refund claim filed with the receipt attached",
+     "intents": [
+      "TRAVEL_DISRUPTION",
+      "SERVER_UPTIME_MONITOR",
+      "SLA_COMPLIANCE",
+      "CONTRACT_OBLIGATION_AUDIT"
+     ],
+     "ours": [],
+     "missing": [
+      "TRAVEL_DISRUPTION",
+      "SERVER_UPTIME_MONITOR",
+      "SLA_COMPLIANCE",
+      "CONTRACT_OBLIGATION_AUDIT"
+     ],
+     "cover": "none"
+    },
+    {
+     "title": "The zero-cache commerce sniper",
+     "tag": "Full",
+     "output": "Checkout triggered only on proof of stock",
+     "intents": [
+      "LIVE_SHELF_PRICE",
+      "SKU_IN_STOCK",
+      "COMMERCE_PURCHASE_VERIFY"
+     ],
+     "ours": [],
+     "missing": [
+      "LIVE_SHELF_PRICE",
+      "SKU_IN_STOCK",
+      "COMMERCE_PURCHASE_VERIFY"
+     ],
+     "cover": "none"
+    },
+    {
+     "title": "The peer-to-peer reality check",
+     "tag": "Full",
+     "output": "A verified payment between two assistants",
+     "intents": [
+      "URL_SAFE",
+      "PRODUCT_AUTHENTICITY",
+      "CRYPTO_TRANSFER_VERIFY"
+     ],
+     "ours": [
+      "URL_SAFE",
+      "CRYPTO_TRANSFER_VERIFY"
+     ],
+     "missing": [
+      "PRODUCT_AUTHENTICITY"
+     ],
+     "cover": "partial"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,99 @@
+Gates against production miner-q5qepqluk (alias miner-wine.vercel.app), built from 1d1969e in a clean worktree, run one at a time 2026-10-18 08:15-08:21 UTC.
+Not run: the local unit+live suite (Nominatim was returning 429 to this machine after parallel live tests) and upstream health (known ip-api/merkle/1rpc failures).
+
+#### verify-deploy
+
+  weather-forecast:
+  PASS  London -> condition — got heavy rain, 1063ms
+  PASS  temperature range is sane — 7.6 to 14.4
+  PASS  missing location -> honest 200 — got 200
+
+  input handling:
+  PASS  malformed domain -> honest 200 — got 200
+  PASS  accepts a full URL via ?url= — reason names cloudflare.com=true
+
+  ip-geolocate:
+  PASS  8.8.8.8 -> Google, Ashburn, United States — got Ashburn, Virginia, United States, 607ms
+  PASS  missing ip -> honest 200 — got 200
+
+  translate:
+  PASS  French "good morning" -> Bonjour — got Bonjour, 383ms
+  PASS  missing text -> honest 200 — got 200
+
+  papers:
+  PASS  bare topic -> real papers — 5 papers in prose, 723ms
+  PASS  missing topic -> honest 200 — got 200
+
+  latency: median 574ms, p95 1063ms, max 1063ms
+
+ALL CHECKS PASSED — safe to register.
+
+#### param-shapes
+ok    /headlines  {"topic":"technology"}  [601ms]
+ok    /headlines  {"query":"What are the top 5 technology headlines today?"}  [761ms]
+ok    /headlines  {"topic":"technology","query":"Give me the top 5 headlines in Japan."}  [804ms]
+ok    /wallet-balance  {"address":"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"}  [288ms]
+ok    /wallet-balance  {"query":"What is the ETH balance of 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA9604  [291ms]
+ok    /wallet-balance  {"address":"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045","query":"What is the E  [239ms]
+ok    /wallet-balance  {"address":"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045","query":"What is the E  [268ms]
+ok    /wallet-balance  {"address":"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045","query":"How much USDT  [240ms]
+ok    /ssl-check  {"domain":"","query":""}  [250ms]
+ok    /wallet-balance  {"address":"","query":""}  [249ms]
+ok    /extract  {"text":"","query":""}  [251ms]
+
+subject survives a paraphrasing query
+
+ok    /ssl-check  [259ms]
+ok    /papers  [518ms]
+ok    /ip-geolocate  [239ms]
+ok    /weather-forecast  [258ms]
+ok    /storm-alert  [994ms]
+ok    /translate  [238ms]
+ok    /extract  [243ms]
+ok    /headlines  [316ms]
+ok    /wallet-balance  [283ms]
+
+54 passed, 0 failed, 54 total
+
+#### hostile-inputs
+
+162 clean, 0 bad, 162 probes
+
+#### no-regression
+identical  /ssl-check
+identical  /storm-alert
+identical  /weather-forecast
+identical  /ip-geolocate
+identical  /papers
+identical  /cve
+identical  /extract
+identical  /wallet-balance
+
+8 identical, 0 differ
+
+#### intent-answers
+  WALLET_BALANCE_CHECK   PASS
+  TOKEN_HOLDER_COUNT     
+      (blockscout shedding — holder counts checked for honesty only)
+PASS
+  RESEARCH_QUERY         PASS
+  CRYPTO_PRICE           PASS
+  STOCK_PRICE            PASS
+  CROSS_CHAIN_STATE_VERIFY PASS
+  EVENT_OUTCOME_RESOLUTION 
+      (Polymarket unreachable from the checker — EVENT_OUTCOME checked for honesty only)
+PASS
+  URL_SCAN               PASS
+  WEB_SEARCH             PASS
+  SENTIMENT_ANALYSIS     PASS
+  TEXT_CLASSIFICATION    PASS
+  RESEARCH_SYNTHESIS     PASS
+  SANCTIONS_SCREENING_MATCH PASS
+  CORPORATE_REGISTRY_LOOKUP PASS
+  REGULATORY_FILING_MONITOR PASS
+  CRYPTO_TRANSFER_VERIFY PASS
+  MACRO_ECONOMIC_INDICATOR PASS
+  URL_SAFE               PASS
+  QUESTION_ANSWERING     PASS
+
+35/36 intents answering correctly.

@@ -104,3 +104,108 @@ test("payload with no instruction still extracts what is there", () => {
   assert.ok(e.fields["values"]?.includes("2.3 meters"));
   assert.doesNotMatch(e.summary, /No structured values/);
 });
+
+// Rank-loss report F1 (2026-09-15). The first three are the report's live
+// production failures; the rest are payloads the node sent in epochs 330-333,
+// read from a competitor's failure_reason, sent as bare text with no instruction.
+describe("report F1: extraction reads what the text carries", () => {
+  test("people, organizations and places are told apart", () => {
+    const e = extractContent("Extract people, organizations and places from: Alice Johnson works for OpenAI in New York.");
+    assert.deepEqual(e.fields, { people: ["Alice Johnson"], organizations: ["OpenAI"], places: ["New York"] });
+  });
+
+  test("fractions, attached units and hyphenated units are quantities", () => {
+    const e = extractContent("Extract quantities and units from: Add 1/2 cup milk, 250ml water and 2.5kg flour.");
+    assert.deepEqual(e.fields["quantities"], ["1/2 cup", "250ml", "2.5kg"]);
+    assert.deepEqual(extractContent('Extract the quantities from: "Use 1 1/2 cups of sugar and bake 45 minutes."').fields["quantities"],
+      ["1 1/2 cups of sugar", "45 minutes"]);
+  });
+
+  test("a receipt's named fields are answered, and header words are not places", () => {
+    const e = extractContent("Extract merchant name, date and total amount from this receipt: Acme Store. Date: 2026-09-14. Total: $42.50.");
+    assert.equal(e.summary, "Merchant name: Acme Store. Date: 2026-09-14. Total: $42.50.");
+  });
+
+  test("an email header is read as its labelled fields, with or without an instruction", () => {
+    const bare = extractContent("", "From: John Smith, Subject: Quarterly Budget Review Meeting.");
+    assert.equal(bare.summary, "From: John Smith. Subject: Quarterly Budget Review Meeting.");
+    const asked = extractContent('Extract the sender and subject from: "From: John Smith, Subject: Quarterly Budget Review Meeting."');
+    assert.equal(asked.summary, "From: John Smith. Subject: Quarterly Budget Review Meeting.");
+    assert.equal(extractContent("From: John Smith, Subject: Quarterly Budget Review Meeting.").summary, bare.summary);
+  });
+
+  test("bare contact text is labelled as the recorded ground truth words it", () => {
+    assert.equal(extractContent("", "Reach us at support@example.com or call 555-0192.").summary,
+      "Email: support@example.com. Phone number: 555-0192.");
+  });
+
+  test("bare imperative text is answered as action items", () => {
+    assert.equal(extractContent("", "Please submit the report by Friday and schedule a follow-up call.").summary,
+      "1) Submit the report by Friday. 2) Schedule a follow-up call.");
+  });
+
+  test("a product description keeps its hyphenated size", () => {
+    const s = extractContent("", "The new laptop is priced at $1,299 and features a 16-inch display.").summary;
+    for (const v of ["$1,299", "16-inch"]) assert.ok(s.includes(v), `${v} missing from ${s}`);
+    const q = extractContent('Extract the product details from: "The new laptop is priced at $1,299 and features a 16-inch display."').summary;
+    for (const v of ["$1,299", "16-inch"]) assert.ok(q.includes(v), `${v} missing from ${q}`);
+  });
+
+  test("the recorded bare payloads still extract as before", () => {
+    assert.equal(extractContent("", "The recipe calls for 2 cups of flour and 1 teaspoon of salt.").summary,
+      "Extracted from the supplied text: 2 cups of flour, 1 teaspoon of salt.");
+    assert.equal(extractContent("", "Revenue grew by 12% to reach $4.5 million in Q3.").summary,
+      "Extracted from the supplied text: 12%, $4.5 million, Q3.");
+  });
+});
+
+// Epoch 334's payload, read from a competitor's failure_reason.
+test("a work and its creator are split on 'by'", () => {
+  assert.equal(extractContent("", "Book: 'The Silent Patient' by Alex Michaelides.").summary, "Book: 'The Silent Patient' by Alex Michaelides.");
+  assert.equal(extractContent('Extract the book title and author from: "Book: \'The Silent Patient\' by Alex Michaelides."').summary,
+    "Book: The Silent Patient. Author: Alex Michaelides.");
+  assert.equal(extractContent("Extract the title and director from: Inception by Christopher Nolan.").summary,
+    "Title: Inception. Director: Christopher Nolan.");
+});
+
+test("sentence-initial words are not people and a title's tail is not a place (2026-10-21)", () => {
+  // The routed BERT abstract, verbatim.
+  const bert = extractContent("Extract the dates, quantities, named entities and events from: We introduce a new language representation model called BERT, which stands for Bidirectional Encoder Representations from Transformers. Unlike recent language representation models, BERT is designed to pre-train deep bidirectional representations from unlabeled text by jointly conditioning on both left and right context in all layers. It obtains new state-of-the-art results on eleven natural language processing tasks, including pushing the GLUE score to 80.5% (7.7% point absolute improvement).");
+  assert.deepEqual(bert.fields["people"], []);
+  assert.deepEqual(bert.fields["places"], []);
+  assert.ok(bert.fields["organizations"]!.includes("Transformers"));
+  const acme = extractContent("Extract the dates, amounts and organisations from: On 3 March 2025, Acme Corp paid $4.2 million to Beta Ltd in London for 1,200 units.");
+  assert.deepEqual(acme.fields["organizations"], ["Acme Corp", "Beta Ltd"]);
+  assert.deepEqual(acme.fields["places"], ["London"]);
+});
+
+describe("named fields when the text comes in its own parameter (G245)", () => {
+  const invoice = "Invoice INV-2041 from Acme Ltd, total $1,250.00, due 2026-11-30. Contact billing@acme.example.";
+
+  test("an instruction with no 'from' still names its fields, the invoice number among them", () => {
+    const r = extractContent("Extract the invoice number, total, due date and contact email.", invoice);
+    assert.deepEqual(r.fields["invoice_number"], ["INV-2041"]);
+    assert.deepEqual(r.fields["total"], ["$1,250.00"]);
+    assert.deepEqual(r.fields["due_date"], ["2026-11-30"]);
+    assert.deepEqual(r.fields["contact_email"], ["billing@acme.example"]);
+    assert.match(r.summary, /^Invoice number: INV-2041\. Total: \$1,250\.00\. Due date: 2026-11-30\. Contact email: billing@acme\.example\./);
+  });
+
+  test("an identifier after its label word, with # or no.", () => {
+    assert.deepEqual(extractContent("Extract the order number.", "Thanks for Order #88213, shipped today.").fields["order_number"], ["88213"]);
+    assert.deepEqual(extractContent("Extract the PO number.", "Please bill against PO no. 4410-B by Friday.").fields["po_number"], ["4410-B"]);
+  });
+
+  test("a label word with no identifier after it yields no value, not the next word", () => {
+    const r = extractContent("Extract the invoice number and total.", "Invoice from Acme Ltd, total $90.00.");
+    assert.deepEqual(r.fields["invoice_number"], []);
+    assert.deepEqual(r.fields["total"], ["$90.00"]);
+  });
+});
+
+test("a long, space-heavy instruction is read in bounded time (security review, 2026-10-31)", () => {
+  const t = Date.now();
+  extractContent("extract " + "a ".repeat(50000) + "!", "Invoice INV-1 total $1.00.");
+  extractContent("extract" + " ".repeat(100000) + "x", "Invoice INV-1 total $1.00.");
+  assert.ok(Date.now() - t < 500, `took ${Date.now() - t} ms`);
+});

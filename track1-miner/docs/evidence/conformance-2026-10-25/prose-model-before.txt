@@ -1,0 +1,12 @@
+SENTIMENT_ANALYSIS   keyless  correct 14/24  p50 0 ms  p90 0 ms
+SENTIMENT_ANALYSIS   model    correct 21/24  p50 700 ms  p90 1252 ms
+   differ: "It works, but the battery life is disappointing." gold=mixed keyless=negative model=mixed
+   differ: "Oh great, another update that deletes all my settings. Fantastic." gold=negative keyless=positive model=negative
+   differ: "The food was cold but the service was excellent." gold=mixed keyless=positive model=mixed
+   differ: "The camera is superb, though the app keeps crashing." gold=mixed keyless=positive model=mixed
+   differ: "Meh. It does what it says, nothing more." gold=neutral keyless=negative model=neutral
+   differ: "I can't believe how easy the setup was." gold=positive keyless=negative model=positive
+   differ: "Yeah right, like that's ever going to arrive on time." gold=negative keyless=positive model=negative
+TEXT_CLASSIFICATION  keyless  correct 11/16  p50 448 ms  p90 532 ms
+TEXT_CLASSIFICATION  model    correct 12/16  p50 570 ms  p90 699 ms
+   differ: "Why does shipping to Canada take three weeks?" gold=question keyless=praise model=question

@@ -1,0 +1,18 @@
+SENTIMENT_ANALYSIS   keyless  correct 14/24  p50 0 ms  p90 0 ms
+SENTIMENT_ANALYSIS   model    correct 22/24  p50 161 ms  p90 226 ms
+   differ: "It works, but the battery life is disappointing." gold=mixed keyless=negative model=mixed
+   differ: "Oh great, another update that deletes all my settings. Fantastic." gold=negative keyless=positive model=negative
+   differ: "The food was cold but the service was excellent." gold=mixed keyless=positive model=mixed
+   differ: "Five stars, would buy again without hesitation." gold=positive keyless=neutral model=positive
+   differ: "The camera is superb, though the app keeps crashing." gold=mixed keyless=positive model=mixed
+   differ: "The movie was not as good as the book, but still enjoyable." gold=mixed keyless=positive model=mixed
+   differ: "I can't believe how easy the setup was." gold=positive keyless=negative model=positive
+   differ: "Prices went up again and the portions got smaller." gold=negative keyless=neutral model=negative
+TEXT_CLASSIFICATION  keyless  correct 16/24  p50 35 ms  p90 95 ms
+TEXT_CLASSIFICATION  model    correct 22/24  p50 168 ms  p90 358 ms
+   differ: "Production is down for all customers right now." gold=urgent keyless=ambiguous model=urgent
+   differ: "Could we move next month's review to Thursday?" gold=not urgent keyless=ambiguous model=not urgent
+   differ: "Why does shipping to Canada take three weeks?" gold=question keyless=praise model=question
+   differ: "The replacement part arrived broken, again." gold=complaint keyless=ambiguous model=complaint
+   differ: "Astronomers detect water vapour on a distant exoplanet." gold=science keyless=ambiguous model=science
+   differ: "My invoice shows the wrong VAT number." gold=billing keyless=ambiguous model=billing

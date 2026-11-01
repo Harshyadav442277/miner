@@ -1,0 +1,202 @@
+G188 live check, 2026-10-11, all runs finished before 06:05 UTC (11:35 IST). Base 63bc659 (pre-fix) vs branch claude/factcheck-g188 (fixed).
+Both run locally against live en.wikipedia.org; nothing deployed. Produced by a throwaway script that calls checkFact()/settle().
+
+#### settle() on the live Eiffel Tower extract, pre-fix vs fixed
+== settle() on live "Eiffel Tower" extract, 44988 chars ==
+
+The Eiffel Tower is in Berlin.
+  before: supported    "During World War I, the Eiffel Tower's wireless station played a crucial role in intercept"
+  after:  contradicted "The Eiffel Tower ( EYE-fəl; French: Tour Eiffel [tuʁ ɛfɛl] ) is a lattice tower on the Cha"
+
+The Eiffel Tower is in Paris.
+  before: supported    "The Eiffel Tower ( EYE-fəl; French: Tour Eiffel [tuʁ ɛfɛl] ) is a lattice tower on the Cha"
+  after:  supported    "The Eiffel Tower ( EYE-fəl; French: Tour Eiffel [tuʁ ɛfɛl] ) is a lattice tower on the Cha"
+
+The Eiffel Tower is located in France.
+  before: supported    "The Eiffel Tower ( EYE-fəl; French: Tour Eiffel [tuʁ ɛfɛl] ) is a lattice tower on the Cha"
+  after:  supported    "The Eiffel Tower ( EYE-fəl; French: Tour Eiffel [tuʁ ɛfɛl] ) is a lattice tower on the Cha"
+
+The Eiffel Tower is in Europe.
+  before: null (unverified)
+  after:  null (unverified)
+
+The Eiffel Tower is in New York.
+  before: supported    "During its construction, the Eiffel Tower surpassed the Washington Monument to become by f"
+  after:  contradicted "The Eiffel Tower ( EYE-fəl; French: Tour Eiffel [tuʁ ɛfɛl] ) is a lattice tower on the Cha"
+
+The Eiffel Tower is not in Berlin.
+  before: contradicted "During World War I, the Eiffel Tower's wireless station played a crucial role in intercept"
+  after:  supported    "The Eiffel Tower ( EYE-fəl; French: Tour Eiffel [tuʁ ɛfɛl] ) is a lattice tower on the Cha"
+
+The Eiffel Tower is in London.
+  before: null (unverified)
+  after:  contradicted "The Eiffel Tower ( EYE-fəl; French: Tour Eiffel [tuʁ ɛfɛl] ) is a lattice tower on the Cha"
+
+The Eiffel Tower is in Germany.
+  before: supported    "By 1918, it had become a symbol of Paris and of France after Guillaume Apollinaire wrote a"
+  after:  contradicted "The Eiffel Tower ( EYE-fəl; French: Tour Eiffel [tuʁ ɛfɛl] ) is a lattice tower on the Cha"
+
+
+#### checkFact(), PRE-FIX (63bc659), live Wikipedia
+
+The Eiffel Tower is in Berlin.
+  supported    https://en.wikipedia.org/wiki/Eiffel_Tower
+  "During World War I, the Eiffel Tower's wireless station played a crucial role in intercepting enemy communicat"
+
+Big Ben is in Paris.
+  unverified   https://en.wikipedia.org/wiki/Paris_Basketball
+  "Paris Basketball is a French professional basketball club based in Paris. The club currently plays in the LNB "
+
+Big Ben is in London.
+  supported    https://en.wikipedia.org/wiki/Big_Ben
+  "Big Ben is the nickname for the Great Bell of the Great Clock of Westminster, and, by extension, for the clock"
+
+The Colosseum is in Athens.
+  supported    https://en.wikipedia.org/wiki/Colosseum
+  "At the 2004 Summer Olympics in Athens the Colosseum was replaced by a depiction of the Panathinaiko Stadium Th"
+
+The Colosseum is in Rome.
+  supported    https://en.wikipedia.org/wiki/Colosseum
+  "The Colosseum ( KOL-ə-SEE-əm; Italian: Colosseo [kolosˈsɛːo]) is an elliptical amphitheatre in the centre of t"
+
+The Statue of Liberty is in New York.
+  supported    https://en.wikipedia.org/wiki/Statue_of_Liberty
+  "The Statue of Liberty (Liberty Enlightening the World; French: La Liberté éclairant le monde) is a colossal ne"
+
+The Statue of Liberty is in Paris.
+  supported    https://en.wikipedia.org/wiki/Statue_of_Liberty
+  "The completed statue was formally presented to Ambassador Morton at a ceremony in Paris on July 4, 1884, and L"
+
+The Taj Mahal is in Pakistan.
+  unverified   https://en.wikipedia.org/wiki/Taj_Mahal
+  "The Taj Mahal is an ivory-white marble mausoleum on the right bank of the river Yamuna in Agra, Uttar Pradesh,"
+
+The Taj Mahal is in India.
+  supported    https://en.wikipedia.org/wiki/Taj_Mahal
+  "The Taj Mahal was designated as a UNESCO World Heritage Site in 1983 for being "the jewel of Muslim art in Ind"
+
+The Louvre is in Paris.
+  supported    https://en.wikipedia.org/wiki/Louvre
+  "The Louvre (French: Musée du Louvre [myze dy luvʁ] ) is a national art museum in Paris, France."
+
+The Brandenburg Gate is in Berlin.
+  supported    https://en.wikipedia.org/wiki/Brandenburg_Gate
+  "The Brandenburg Gate (German: Brandenburger Tor [ˈbʁandn̩ˌbʊʁɡɐ ˈtoːɐ̯] ) is an 18th-century neoclassical monu"
+
+The Golden Gate Bridge is in San Francisco.
+  supported    https://en.wikipedia.org/wiki/Golden_Gate_Bridge
+  "The Golden Gate Bridge is a suspension bridge spanning the Golden Gate, the one-mile-wide (1.6 km) strait conn"
+
+The Sydney Opera House is in Sydney.
+  unverified   https://en.wikipedia.org/wiki/Sydney_Opera_House
+  "The Sydney Opera House is a multi-venue performing arts centre in Sydney, New South Wales, Australia. Located "
+
+The Acropolis of Athens is in Rome.
+  unverified   https://en.wikipedia.org/wiki/Acropolis
+  "An acropolis was the settlement of an upper part of an ancient Greek city, especially a citadel, and frequentl"
+
+Machu Picchu is in Peru.
+  supported    https://en.wikipedia.org/wiki/Machu_Picchu
+  "Machu Picchu is a 15th-century Inca citadel located in the Eastern Cordillera of southern Peru on a mountain r"
+
+Mount Everest is in Asia.
+  supported    https://en.wikipedia.org/wiki/Mount_Everest
+  "Mount Everest consists of sedimentary and metamorphic rocks that have been faulted southward over continental "
+
+Bats are blind.
+  contradicted https://en.wikipedia.org/wiki/Bat
+  "Microbats tend to have small eyes but are still sensitive to light, and no species is truly blind."
+
+Bats are nocturnal.
+  supported    https://en.wikipedia.org/wiki/Bat
+  "Most bats are nocturnal, and many roost in caves or other refuges; it is uncertain whether bats have these beh"
+
+Sharks are mammals.
+  contradicted https://en.wikipedia.org/wiki/Shark
+  "Sharks are a group of elasmobranch cartilaginous fishes characterized by a ribless endoskeleton, dermal dentic"
+
+Bats are the only mammals capable of sustained flight.
+  supported    https://en.wikipedia.org/wiki/Bat
+  "Bats (order Chiroptera ) are winged mammals, the only mammals capable of true and sustained flight."
+
+#### checkFact(), FIXED, live Wikipedia
+
+The Eiffel Tower is in Berlin.
+  contradicted https://en.wikipedia.org/wiki/Eiffel_Tower
+  "The Eiffel Tower ( EYE-fəl; French: Tour Eiffel [tuʁ ɛfɛl] ) is a lattice tower on the Champ de Mars in Paris,"
+
+Big Ben is in Paris.
+  contradicted https://en.wikipedia.org/wiki/Big_Ben
+  "Big Ben is the nickname for the Great Bell of the Great Clock of Westminster, and, by extension, for the clock"
+
+Big Ben is in London.
+  supported    https://en.wikipedia.org/wiki/Big_Ben
+  "Big Ben is the nickname for the Great Bell of the Great Clock of Westminster, and, by extension, for the clock"
+
+The Colosseum is in Athens.
+  contradicted https://en.wikipedia.org/wiki/Colosseum
+  "The Colosseum ( KOL-ə-SEE-əm; Italian: Colosseo [kolosˈsɛːo]) is an elliptical amphitheatre in the centre of t"
+
+The Colosseum is in Rome.
+  supported    https://en.wikipedia.org/wiki/Colosseum
+  "The Colosseum ( KOL-ə-SEE-əm; Italian: Colosseo [kolosˈsɛːo]) is an elliptical amphitheatre in the centre of t"
+
+The Statue of Liberty is in New York.
+  supported    https://en.wikipedia.org/wiki/Statue_of_Liberty
+  "The statue is situated in Upper New York Bay on Liberty Island south of Ellis Island, which together comprise "
+
+The Statue of Liberty is in Paris.
+  contradicted https://en.wikipedia.org/wiki/Statue_of_Liberty
+  "The Statue of Liberty (Liberty Enlightening the World; French: La Liberté éclairant le monde) is a colossal ne"
+
+The Taj Mahal is in Pakistan.
+  contradicted https://en.wikipedia.org/wiki/Taj_Mahal
+  "The Taj Mahal ( TAHJ mə-HAHL, TAHZH -⁠; Hindustani: [t̪ɑːd͡ʒ ˈmɛɦ(ɛ)l]; lit. 'Crown of the Palace') is an ivor"
+
+The Taj Mahal is in India.
+  supported    https://en.wikipedia.org/wiki/Taj_Mahal
+  "The Taj Mahal ( TAHJ mə-HAHL, TAHZH -⁠; Hindustani: [t̪ɑːd͡ʒ ˈmɛɦ(ɛ)l]; lit. 'Crown of the Palace') is an ivor"
+
+The Louvre is in Paris.
+  supported    https://en.wikipedia.org/wiki/Louvre
+  "The Louvre (French: Musée du Louvre [myze dy luvʁ] ) is a national art museum in Paris, France."
+
+The Brandenburg Gate is in Berlin.
+  supported    https://en.wikipedia.org/wiki/Brandenburg_Gate
+  "The Brandenburg Gate (German: Brandenburger Tor [ˈbʁandn̩ˌbʊʁɡɐ ˈtoːɐ̯] ) is an 18th-century neoclassical monu"
+
+The Golden Gate Bridge is in San Francisco.
+  unverified   https://en.wikipedia.org/wiki/Golden_Gate_Bridge
+  "The Golden Gate Bridge is a suspension bridge spanning the Golden Gate, the one-mile-wide (1.6 km) strait conn"
+
+The Sydney Opera House is in Sydney.
+  unverified   https://en.wikipedia.org/wiki/Sydney_Opera_House
+  "The Sydney Opera House is a multi-venue performing arts centre in Sydney, New South Wales, Australia. Located "
+
+The Acropolis of Athens is in Rome.
+  unverified   https://en.wikipedia.org/wiki/Acropolis
+  "An acropolis was the settlement of an upper part of an ancient Greek city, especially a citadel, and frequentl"
+
+Machu Picchu is in Peru.
+  supported    https://en.wikipedia.org/wiki/Machu_Picchu
+  "Machu Picchu is a 15th-century Inca citadel located in the Eastern Cordillera of southern Peru on a mountain r"
+
+Mount Everest is in Asia.
+  unverified   https://en.wikipedia.org/wiki/Mount_Everest
+  "Mount Everest (known in Nepali as Sagarmāthā, in Sherpa as Chamolangma, and in Tibetan as Jomolangma/Čhomolang"
+
+Bats are blind.
+  contradicted https://en.wikipedia.org/wiki/Bat
+  "Microbats tend to have small eyes but are still sensitive to light, and no species is truly blind."
+
+Bats are nocturnal.
+  supported    https://en.wikipedia.org/wiki/Bat
+  "Most bats are nocturnal, and many roost in caves or other refuges; it is uncertain whether bats have these beh"
+
+Sharks are mammals.
+  contradicted https://en.wikipedia.org/wiki/Shark
+  "Sharks are a group of elasmobranch cartilaginous fishes characterized by a ribless endoskeleton, dermal dentic"
+
+Bats are the only mammals capable of sustained flight.
+  supported    https://en.wikipedia.org/wiki/Bat
+  "Bats (order Chiroptera ) are winged mammals, the only mammals capable of true and sustained flight."

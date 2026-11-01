@@ -1,1012 +1,436 @@
 # MEMORY.md — session continuity
 
-**Read this first every session.** Update it at session end. It is the handoff medium between
-sessions and between models.
-
----
-
-## Where to go, by track
-
-| Working on | Read |
-|---|---|
-| **Track 1 — miner** | **[track1-miner/MEMORY.md](track1-miner/MEMORY.md)** — the authoritative Track 1 handoff. Current state, what needs the operator, the rules that survived measurement, and the theories that did not. |
-| **Track 2 — scorer** | [track2/MEMORY.md](track2/MEMORY.md) |
-| **Track 3 — app** | **Separate repo and folder:** `../telegraph-morse` — <https://github.com/Harshyadav442277/telegraph-morse>. CertWatch was retired and deleted on 2026-09-02 (never funded, no users). Read its `PLAN.md` first. |
-| Anything | [README.md](README.md) for ownership and shared facts, [docs/](docs/) for protocol and rules |
-
-## 2026-09-09 ~21:30 UTC — THE CTO RULED STANDING WATCHES ORGANIC; NOTHING IN TRACK 1 OR 2 CHANGES
-
-No code was touched. This entry exists so the ruling is not lost between repos.
-
-**What happened.** On 2026-09-07 the operator sent the Telegraph CTO field research from friends and
-CS students, plus a bounded design for a standing "watch" in a group chat, and asked for a ruling
-rather than guessing. The answer, verbatim: **"Yes, it will count."** Followed by a pointer to their
-WebSocket signal subscription as the macro version of the same idea. Replied 2026-09-09 21:29 UTC;
-answered "awesome". Both answers are transcribed as items 8–9 in
-[docs/TELEGRAPH_FACTS.md](docs/TELEGRAPH_FACTS.md).
-
-**Why it matters.** The 2026-09-04 pivot (items 5–7) established that re-ranking miners and paying
-several per question is spam. It left unanswered whether *repetition itself* is spam. It is not,
-provided a human started it, it ends, and the ledger says who subscribed. That distinction is the
-whole licence for the watch feature, and it was previously the reason the capped-watch stretch item
-in the Morse repo was left unbuilt.
-
-**Where the work lives.** The watch is a Morse feature, not a Track 1 or Track 2 one, so the design
-and its obstacles are in `../telegraph-morse` GAPS **G37** (new) and **G28** (amended). Nothing here
-changes: the miner stays live and nineteen intents stay deployed and unregistered per the entry
-below.
-
-**Two things carried forward.** One commitment: test the bots in real Telegram and WhatsApp groups
-after the judging window closes 2026-09-18, and report what comes back. One question held back on
-purpose: whether many named watches under a single bot-held wallet is acceptable, or whether each
-needs its own wallet and escrow. Ask it with a test result attached, not before.
-
-## 2026-09-08 ~22:00 UTC — SIX INTENTS ADDED, 13 → 19 DECLARED, ALL DEPLOYED AND NONE REGISTERED
-
-Continued the expansion. **Six additional intents are live on production and answering:
-ONCHAIN_TX_LOOKUP, CVE_LOOKUP, TVL_LOOKUP, NEWS_SEARCH, CURRENCY_EXCHANGE, GAME_RESULT.**
-Gates: **preflight 7/7 exit 0**, **19/19 intents answering correctly**, 274 unit tests + live
-suite green, production `miner-ktnabze5f`, alias clean.
-
-**REGISTERED 2026-09-09 07:47Z as registration 1378** — `active`, nineteen intents,
-`rejection_reason` null, `fetch_attempts` 0, yaml_hash `8d62ebe0…c94d874` matching the published
-file byte for byte. **402 is `superseded`**, so the handover was clean with no gap. Monitoring
-moved: `REGISTRATION_ID=1378`, watcher green. The status of all six is **registered; ranking
-unverified** — no epoch has scored them yet, and no rank is claimed.
-
-**The registration nearly went out with the wrong hash (G86).** `core.autocrlf=true` and no
-`.gitattributes` means `miner.yaml` sits on disk as CRLF and is stored as LF; GitHub raw serves the
-LF version, which is what the node fetches and hashes. The doc's own `sha256sum` instruction and the
-console's "Generate from file" button both hash the CRLF copy and give `d517e6a7…`, which the node
-would have rejected. Verify with `curl -sL "<url>" | sha256sum` or `git show HEAD:…`, never the
-working copy.
-
-**THE CEILING NOBODY HAD MEASURED (G82).** The candidate set is not the 108 canonical intents.
-Only **45 have a champion scorer**, and without one nothing is ever scored. The 65 zero-miner
-intents that look like open ground — EMAIL_SECURITY, URL_SAFE, MACRO_ECONOMIC_INDICATOR,
-SANCTIONS_SCREENING_MATCH — return `{"count":0,"intents":{}}` from `/api/wasm`. So the reachable
-expansion from thirteen was **32**, not 93. Full record in
-[track1-miner/docs/EXPANSION_MATRIX.md](track1-miner/docs/EXPANSION_MATRIX.md).
-
-**The ordering principle that decided the queue**, measured rather than assumed: an intent is
-winnable by engineering when its answer is a fact that does not change between our read and the
-scorer's, and a lottery when the answer is a number that moves. GAS_PRICE was dropped on that
-basis (0.1% tolerance on a per-block quantity, 0 crossings in 12 epochs) and TVL_LOOKUP kept
-despite being volatile, because its scorer is the only **gradient** — partial credit, so being
-better scores better without matching a snapshot. CURRENCY_EXCHANGE is the bet the principle makes
-available: a live quote can never equal another live quote, but the **ECB reference rate does not
-move**, so two answers derived from it agree all day.
-
-**TWO SCORERS REWARD ANSWERS WE WILL NOT SERVE (G83).** GAME_RESULT's champion scores the WRONG
-winner at 0.854 and an invented winner for a 2-2 draw at 0.951, both above the correct answer's
-0.822 — it is lexical similarity and does not track correctness. TVL_LOOKUP's scores an honest
-"no data" above a correct token-liquidity figure on two of three registers. Neither is exploited.
-Recorded so a later session does not "discover" them and take the trade.
-
-**THE DEPLOYMENT IS NOT THE LAPTOP (G84).** GAME_RESULT passed every local test and returned
-`provider_unavailable` for every fixture in production: ESPN refuses Vercel's egress, and
-separately returns 403 to a custom user-agent. Worse, the "nothing responded" branch returned
-before the second provider could be tried. Reachability now has to be checked with
-`npx vercel curl` against a preview before promotion.
-
-**`\b` BECAME A BACKSPACE BYTE TWICE MORE (G85).** Same defect as G74, both times in files written
-through a shell heredoc. One silently disabled the entire soft-recency window in NEWS_SEARCH; a
-third instance was found already in the tree, where the ONCHAIN probe's "a missing transaction was
-given a gas figure" check had never once been able to fire. There is now a test scanning src, test,
-tools and bench for raw control bytes, which asserts it actually scanned files. **Write regexes with
-the Write tool, never through a heredoc.**
-
-Also fixed: two ONCHAIN correctness defects found by the gates rather than by reading code — a
-pre-Byzantium receipt was decided by which fields a provider happened to return (the three ethereum
-endpoints disagree), and a mined transaction whose receipt would not load was reported as
-"pending: in the mempool". And `intent-answers.mjs` now refuses a protected preview instead of
-grading Vercel's login page as sixteen failures.
-
-## 2026-09-08 ~10:30 UTC — RANK REPORT, SIX CORRECTNESS FIXES DEPLOYED, DEAD FILES REMOVED; WE ARE THIRD BY SUM
-
-The operator asked why we are not rank 1 in every intent, for fixes, and for a cleanup. The answer is
-**[track1-miner/docs/RANK_REPORT_2026-09-08.md](track1-miner/docs/RANK_REPORT_2026-09-08.md)**, the
-record is GAPS **G79**. Headline: at epoch 315 (2026-09-08 04:45Z) we hold **2 × #1 of 13** and are
-**third by normalized sum — 10.30 behind chainsight-oracle 11.23 and txlens 10.74, both on 14
-intents** (computed from `/api/miners` over all 341 scored miners); sixth by average among ≥3-intent
-miners. The sum has been flat at ~10.3 since 308 while the rank-1 count fell 6 → 2: saturated intents
-(SSL, IP, WALLET — four or five miners within 0.3% above the cliff) changed hands at the third decimal
-and the noise bands reshuffled. Rank 1 in all thirteen is not reachable by any miner: one hidden
-question per intent per epoch, cliff scorers, no ground truths since G24.
-
-**Shipped (`miner-o50wpiyof`, preflight green after the documented papers re-run, 208 unit tests,
-manifest unchanged):** G69 `/extract` day-month-year dates and payload colons (plus bare area codes
-and plural "dates"); G68 `/headlines` uses the declared topic or the about/on phrase; G77 `/fact-check`
-stemmed article choice; G71 seven Telegraph-knowledge entries, context-guarded, 96 routes pinned
-(0 stolen from specific entries); G78 `preflight.mjs` refuses a protected preview instead of grading
-Vercel's login page. **Declined on evidence:** the WEATHER_CHECK one-hour window (we are #1 at 0.9993
-on the current behaviour), leaning the six fat payloads (no bench exists), a fourteenth intent
-(needs a new registration), logging question values (operator's privacy call).
-
-**Process:** the plan was critiqued by an independent session before execution and changed in five
-places (G79 lists them). **Removed:** 18 dead files — one-off bench sweeps, executed runbooks, a
-duplicate bench, a stale review prompt, a root scratch script. Dated reports stay; `track2/` untouched.
-**Gotcha:** `tools/watch.mjs` parses `--key value` pairs, so `--once` must come LAST or the
-registration id is swallowed.
-
-**Tripwire, read the same day (G80):** the last two scheduled `uptime` runs were red on one live
-test — MyMemory refusing GitHub's shared runner IPs (per-IP daily quota), not the miner: `check` and
-`scores` passed, production translated through Google. Issue #10 was that false alarm. Fixed by
-probing the provider and skipping with its status, and, found on the way, `fetchMyMemory` trusted any
-HTTP 200 — MyMemory reports an exhausted quota as 200 with a "MYMEMORY WARNING…" translation, which
-would have been served as the answer (A5). Guarded and unit-tested.
-
-**Then a real upstream degradation (G81):** the re-dispatched `uptime` run and two preflights each
-failed only the `/papers` probe — OpenAlex is rate-limiting anonymous search network-wide (429 on
-five of seven direct probes). Cache-cold ACADEMIC questions get an honest "no papers" while it lasts.
-Shipped one in-budget retry of the same query; the lever that lifts the limit is
-`OPENALEX_MAILTO` / `OPENALEX_API_KEY` in the Vercel environment — code support is in, the address is
-the operator's to give (G43). Issue #10 stays open honestly while the shedding coincides with a run.
-**Production ends the day on `miner-y1118mdz5`** (after `miner-o50wpiyof`, `miner-m3jzb6437` and
-`miner-e08uy72lg`; the last step shortened the retry wait to 1.5 s because the 2.5 s wait tripped
-verify-deploy's hard 5 s p95 budget during a shed window).
-
-## 2026-09-06 ~06:00 UTC — HEALTH CHECK: TWO DEFECTS FIXED, AND RANK IS NOT THE LEVER ON REQUEST VOLUME
-
-Full health check requested. Everything the gates cover was green — registration 402 `active`,
-thirteen intents, `rejection_reason` null; local = hosted = registered YAML hash `7538…7640`; all
-twelve endpoints 200 in 0.38–1.52 s; preflight **7/7**; `watch --once` ok; upstreams 0 primaries
-failing (flashbots and merkle failovers down); alias on the latest build. The score recorder was
-never broken — epoch 310 was committed on `origin`, the local checkout was one commit behind.
-
-**The headline finding is strategic, not a bug (TELEGRAPH_FACTS, new section).** The operator asked
-why other miners get the requests while we lead IP_GEOLOCATION and CONTENT_EXTRACTION. Paged the
-question feed over 8 h — 3,000 rows: **2,952 `direct`, 48 `daemon`**. The 70/20/10 rank share
-governs the `daemon` slice only. Across our thirteen intents: **237 requests, livecert got 2**, and
-zero of the IP and CONTENT ones, because every one was a `direct` call addressed by miner id to
-somebody else — the `skywire-`/`netwire-`/`langwire-`/`scholarwire-`/`finwire-` family driving its
-own volume. Of the 48 routed, none were in an intent we lead. Routed volume is ~150/day across all
-45 intents. **Rank and volume are different goals**: rank work means the intents where we are 4+ and
-earn nothing (WEATHER_CHECK #7 0.0996, WALLET #7 0.0000); volume needs something calling
-`ask/4433`, which no miner-side change can produce. Morse is the only direct caller we control.
-Note the feed's `limit` caps at 100 — page with `offset` or you silently get zero rows.
-
-**G76 — STORM_ALERT answered point questions at the wrong hour, by exactly the location's UTC
-offset.** `timezone=auto` returns the location's wall-clock strings with no offset; every parse read
-them as `` `${t}Z` ``. Tokyo answered now+3.4h, Chennai now+6.9h, Honolulu now+22.4h against the 12h
-asked. `forecast.ts` had always asked for UTC, so weather was never affected. **The test could not
-catch it** — it repeated the same misparse, the errors cancelled to 0.4h drift, and it only went red
-when the shift also clamped the window index, which is the intermittent `checkStorm (live)` failure
-that broke 4 of the last 10 uptime runs and had been read as upstream flakiness; both CI drifts
-reproduce exactly from the model. Fixed to `timezone=UTC`; the new test pins the gust against an
-independent UTC series and fails on `auto` (verified by reverting the line). Live prose now matches
-UTC truth at three offsets. **The payload is lean (G75), so `valid_at` is not served — the prose was
-the entire defect.**
-
-**G77 — `/fact-check` quoted the wrong Eiffel Tower.** `miner.yaml`'s own worked example resolved to
-`Eiffel_Tower_(Paris,_Tennessee)`, a 60-foot replica, beating the real article 8–7 because its
-snippet contains "located" while its parenthetical contributed nothing (punctuation was never
-stripped). Now excludes the parenthetical from the title score and penalises it unless the claim
-names **every** word inside — an `any` test does not work, because the claim really does say
-"Paris". Two further weaknesses measured and left: the 10%-of-brains case still picks *Flight of the
-Navigator* (the case the code comment claims to have fixed) and "water boils at 100°C" picks *Anders
-Celsius*. Both need stemming, not a scoring tweak.
-
-**G78 — `preflight.mjs` cannot grade a preview, and says 2/7 instead of saying so.** Preview
-deployments 302 to Vercel's auth page, so it scored Vercel's HTML: "180 bad, 0 clean". The same
-build answered fine through `npx vercel curl`. This is the G74 shape — a gate reporting confidently
-on nothing — and it means "preview first, always" is currently ungateable. This session therefore
-promoted and ran the gates against production with a rollback to `miner-9me29eapa` held ready.
-
-**Shipped:** `59806f6`, production `miner-3d806mm3e`, alias moved cleanly (no G70 recurrence),
-**preflight 7/7** against production, 258 tests (+1), registration 402 still `active` with the
-manifest hash unchanged, so **no `updateMiner`**. Epoch 311 is the acceptance test for G76.
-
-## 2026-09-05 ~16:20 UTC — "NOT ANSWERING NEWS/TRANSLATION" WAS THE ROUTER'S SPREAD; TWO PARSER FIXES SHIPPED
-
-Livecert answered 136 of 136 routed calls in the previous 24 h, headlines and translations
-included; the operator had seen the router send those questions to other miners. Two defects found
-while reproducing it are fixed and deployed (`miner-9me29eapa`, preflight 7/7, 257 tests): "What"
-parsed as a news region, and "How do you say X in Y?" refused as no text. Record in
-[track1-miner/MEMORY.md](track1-miner/MEMORY.md) § 0000000000000.
-
-## 2026-09-05 ~08:30 UTC — STORM AND IP GO LEAN; TWO CHECKS HAD NEVER RUN
-
-The operator asked the organisers, who encouraged continued work on the miner, so the 2026-09-03
-freeze no longer applies. **Epoch 309 confirmed the 09-04 refusal fixes**: TELEGRAPH_KNOWLEDGE
-0.0536 -> 1.0 ratio (#2 -> #1), WEATHER_CHECK #4 -> #1, SSL #1 — normalized sum 10.297, flat against
-308 only because rivals crossed cliffs in STORM, FACT_CHECK and AI_TEXT.
-
-G56's lean payload was applied to three intents in August and never revisited; both intents it
-leaned have since crossed their cliffs while STORM (17 fields) and IP (14) stayed fat. Measured
-under each live champion, prose byte-identical: **STORM +32% (11/12), IP +27% (17/21)**. Both
-deployed (`miner-1usikt6vq`, preflight 7/7, activation active). Honest projection: STORM ~0.014 —
-second place, not the intent.
-
-**Two checks had never executed**, because `\b` was stored as a literal backspace byte: the STORM
-deploy probe reported 31/31 while testing nothing, and a storm.ts regex could only match
-"u-component". Restoring the latter was measured at -30%/-61% and deliberately not shipped. Full
-record in § 000000000000 of [track1-miner/MEMORY.md](track1-miner/MEMORY.md), G74 and G75 in
-[GAPS.md](GAPS.md).
-
-## 2026-09-04 ~20:50 UTC — REDEPLOYING 404'd THE WHOLE MINER (G70), AND FOUR REFUSAL DEFECTS FIXED
-
-**Before you deploy the miner, read G70.** `vercel.json` rewrites every path to `/api/index`. The
-platform used to hand the function the original request line; **Vercel CLI 59.5.0 hands it the
-destination**, so `req.url` is `/api/index?query=…`, `ENDPOINTS` matches nothing, and every declared
-endpoint 404s — a total outage of a registered miner, triggered by *redeploying* rather than by any
-code change. Found and fixed the same session: the rewrite now carries the original path as
-`__path` and `route()` prefers it. Production was down for a few minutes between the promote and the
-rollback. **Morse was not affected** — its last routed call was 19:45:11Z, before the window, and
-every `livecert` row in its ledger is `ok`. Second lesson: after `vercel rollback`, production is
-pinned, and a later `vercel --prod` does **not** move the alias — it needs `vercel promote <url>`.
-
-**The method worth keeping: replay the questions the network actually routes.** The explorer's
-`api/daemon/api/questions` feed carries 18,754 real routed questions with their intent. Replaying
-them against production shows which we *refuse* — and a refusal scores ~1e-11 where an answer can
-cross to 1.0, so it is a far bigger lever than any wording change. Four defects came out of it, all
-deployed and verified (preflight 7/7, 249 tests, registration 402 active, **no manifest change so no
-`updateMiner`**):
-
-- **TELEGRAPH_KNOWLEDGE** answered 13 of 34 core questions, now 34 of 34 — *"What is Telegraph
-  Protocol?"* used to return `not_covered`. Under champion 2104, nine of fourteen now cross to 1.0
-  where a refusal is 1.3e-11.
-- **WEATHER_CHECK** refused 9 of 18 routed questions, now 3, all correct. "Will Dubai experience
-  extreme heat today?" is 14 of the 50 routed questions and every one was refused, because a
-  greedy proper-noun run made the candidate "Will Dubai" and the stop-word filter compares whole runs.
-- **LANGUAGE_TRANSLATION** refused 5 of 18, now 2, both correct — and one case was worse than a
-  refusal: *"Translate this to finnish"* with the text on the next line returned Finnish for the
-  word "this".
-- A false positive removed: *"Which ocean is the deepest point on Earth found in?"* was answered
-  with weather, because "Earth" geocoded.
-
-**Measured and deliberately not changed:** WALLET (#7, ratio 0.680) has **no defect** — under the
-current champion 3022 our live answers beat the best recorded answer on 13 of 16 real questions and
-the live field is noise at 1e-13 (G72). IP (#3, 0.996) was measured and left alone. Peeling clock
-times off a place candidate was tried and reverted: it turns two honest refusals into two confident
-answers about Bangalore Town, Pakistan.
-
-**The scoring oracle is validated (G73).** G24 said the champion WASM could no longer be checked
-against reported scores; it can, from the Preflight receipts, which kept `converted_answer`. Scoring
-`(question, ground_truth, converted_answer)` reproduces the recorded score **exactly** — SSL 32/34,
-every miss a pre-rotation epoch, our own IP rows to eight digits.
-
-**Standing at epoch 308, before these fixes:** livecert **10.59 normalized sum — first on the
-network**, over chainsight-oracle 8.95 and txlens 8.93, 6 × #1 of 13. **Epoch 309 is the acceptance
-test.** Full record: § 00000000000 of [track1-miner/MEMORY.md](track1-miner/MEMORY.md).
-
-## 2026-09-03 ~19:50 UTC — POST-CLOSE CHECK: LIVE, RANKED, TRIPWIRE RE-ARMED, DEAD FILES REMOVED
-
-Track 3 closes **Sep 7 23:59 UTC**; nothing on the miner changes before then. This session ran the
-full feedback loop against production and every gate passed: typecheck, 182 unit + 67 live tests,
-`verify-deploy` (median 406 ms, p95 1.11 s), `preflight.mjs` 7/7, `watch.mjs --once` against 402,
-and the hosted manifest still hashes to the registered `7538…7640` (the local `miner.yaml` now
-hashes identically). Registration **402** is `active`, thirteen intents, `rejection_reason` null.
-
-**Post-close epochs 299–305, normalized-ratio sums:** 9.22 · 10.21 · 10.19 · 9.51 · 10.46 · 10.56 ·
-10.17 — the epoch-298 level (10.125) has held. Epoch 305: **6 × #1** (ACADEMIC, CONTENT,
-TRANSLATION, NEWS, TELEGRAPH_KNOWLEDGE, WEATHER_FORECAST), 4 × #2 (AI_TEXT, FACT_CHECK, SSL,
-WEATHER_CHECK), 2 × #3 (IP, STORM), #6 WALLET. Two fields changed hands by cliff crossings that
-are not chased during the freeze: `txlens` crossed in SSL (0.9914 vs our 0.0109) and
-`skywire-storm-alert` in STORM (0.9941 vs our 0.0142). All in `score-history.jsonl` — the CI
-`scores` job has recorded every epoch on time.
-
-**The uptime tripwire had been red since Sep 1 on the retired id 389 — fixed (G66).** TB.6a was
-never done; `watch.mjs` correctly called 389 `deregistered` and failed every run, issue #5
-accumulated eight comments, and nobody was reading it. `REGISTRATION_ID` is now 402, a dispatched
-run is green on every job, and #5 is closed. An open `uptime` issue again means "failing right now".
-
-**Cleanup:** four stale agent worktrees under `.claude/` (~7 GB; every added line already in main;
-their patches parked in the session scratchpad) and their branches removed, including
-`PR/trusting-lewin-a68645` on origin; the never-used Fly/Docker deployment files and three scratch
-files in `tools/` deleted; README, SETUP, the submission checklist and the miner README brought up
-to registration 402 and thirteen intents. Sandbox validator re-checked: still 404 (G60). Nothing
-under `track2/` was touched.
-
-**Consumer surfaces recorded** (operator pointed at the console's Integrate Out page): the direct
-`POST /engine/v1/ask/:id` path (id = miner id **4433**, x402-gated, halts instead of falling back),
-the WebSocket (`wss://devnode…/engine/ws`, wallet auth + ≥ $1 USDC escrow, `ask` unpaid at the WS
-layer per the docs, Daemon pushes on a 3-hour cycle), payment mechanics (floor × demand
-multiplier, failed calls free, `signal_hash` verification), and the MCP server's auto-generated
-`tg_livecert_*` tools. All in docs/TELEGRAPH_FACTS.md; none of it changes Track 1, all of it is
-input for Morse. **The organizers' own reference apps never use routing** — they call
-`/subnet-dispatcher/v1/<id>/<endpoint>` directly — so direct calls must count toward intent demand
-(G13 reframed). LiveCert sits in the node's OpenAPI as twelve `/v1/4433/…` operations; the spec
-unions our shared params onto every endpoint (G67, cosmetic, not for the freeze).
-
-**Organizer feedback 2026-09-04 ~14:50 UTC (Discord, recorded in docs/TELEGRAPH_FACTS.md):** a
-"Miner Proof" tool I recommended as Morse's number-one next move was rejected — the explorer holds
-that data, checking or re-ranking miners is building a router/validator for their miners, and
-paying N miners per question is uneconomic and reads as spam. The same verdict retired Morse's
-podium and automatic second opinion. What they praised: Telegraph inside Telegram. **Lesson:** ask
-the organizers before recommending anything that sits between a user and the protocol's own
-judgement. The recommendation was mine and it was wrong.
-
-### The things that need a human, in order (2026-09-03)
-
-1. **Post the X series** — [docs/X_POSTS.md](docs/X_POSTS.md), P1–P13. Still 25% of the Track 1
-   score and still unposted as far as this repo knows. Consistency is scored: two a day through Sep 7.
-2. **Confirm the submissions platform** shows miner ID 4433 with registration 402 for Track 1, and
-   the intended champions for Track 2 — it needs the wallet-signed session Claude cannot open.
-3. **Delete the retired CertWatch Vercel project** — `app-five-blond-45.vercel.app` still answers
-   200 (G64).
-4. **Decide on `Harshyadav442277/Telegraph`** — still public, still a copy of the rival PREFLIGHT
-   miner (G65).
-5. Track 3 (Morse) work happens in `../telegraph-morse`, not here.
-
-## EPOCH 298 — THE CLOSING RECORD: #1 MINER ON THE NETWORK (2026-09-01 ~00:20 UTC)
-
-The final scored epoch of Track 1. Over thirteen intents: **7 x #1** (WEATHER_FORECAST **crossed
-the cliff for the first time ever live** at 0.9928282 — the lean payload shipped hours earlier won
-it by 0.055% over isobar, 118x our epoch-297 score; ACADEMIC recovered #4 -> #1 at 0.01363, +3.1%
-over txlens — the lean payload again; CONTENT a perfect 1.0 for the third straight epoch; STORM,
-NEWS, TRANSLATION held; TELEGRAPH_KNOWLEDGE debuted #1), **4 x #2** (SSL 0.00705 — lean helped
-+13% but preflight improved too; WEATHER_CHECK debut −8.6%; FACT_CHECK debut −6.9% in a 1e-9 band;
-AI_TEXT noise-band shuffle), **2 x #4** (WALLET crossed at 0.9999696 with the whole top four
-inside 0.0000020 — ratio 0.999998; IP drew another off-bench question rotation, the 296 pattern).
-
-**Normalized-ratio sums, epoch 298: livecert 10.125 — first on the network** — over
-chainsight-oracle 7.774, txlens 7.337, preflight-ssl-verification 7.32. We entered the day second
-at 8.14 behind chainsight's 9.05. Recorded in `track1-miner/docs/score-history.jsonl`.
-
-The day's causal chain, for the record: champion-registry checks before touching answers (G52/G53),
-engine-shape honesty fixes, the ISO-code refusal fix, and the payload-dilution discovery (G56) —
-prose byte-identical, metadata stripped — which produced the weather crossing and the academic
-recovery. The second-account twelve-intent entry (`harsh-track1-intelligence`) was deployed and
-prepared but never registered before the 23:59:59Z close; it is not in the catalog.
-
-The miner stays live and untouched through **Sep 7** — rankings feed judged Track 3 routing.
-Remaining human items: the X series (25% of judging, until Sep 8), and verifying the submissions
-platform reflects registration 402.
-
-## Track 1 was NOT closed — thirteen intents signed in its last hours (2026-08-31 ~21:30 UTC)
-
-A previous session recorded Track 1 as closed. **That was a timezone error**: the note was written
-at 02:16 IST on "Sep 1", which is 20:46 UTC on Aug 31, roughly three hours before the real
-**Aug 31 23:59 UTC** close. The operator caught it. `docs/TELEGRAPH_FACTS.md` and `CLAUDE.md` are
-corrected, and every deadline there is now stated in UTC with an instruction to resolve it via
-`date -u`. A second claim from the same note — that a new registration sits unranked for 7 days —
-is also false (G58): `txlens` registered 13:34Z and was scored across 13 intents ~40 minutes later.
-
-**Signed and mined at ~21:37Z: registration is now 402, and 389 no longer exists.** Tx
-`0x0e54dcc7b31b7f30b110f77f09e7719267d1179fbac8e4795a9649ff20f27fd3`, status 1, thirteen intents
-decoded from the receipt logs and matched against what was signed.
-
-`updateMiner(389, ...)` took the miner from ten intents to **thirteen**:
-`WEATHER_CHECK`, `FACT_CHECK`, `TELEGRAPH_KNOWLEDGE`. Two needed **no new code** — `/fact-check`
-and `/telegraph` were already built, tested and deployed, but reg 389 was pinned to a commit that
-predated them, so this was mostly a re-pin. One real bug was fixed on the way: `hours=0` meant "the
-current hour" in our own `input_schema` but a falsy-zero `||` turned it into the 24-hour default.
-Preflight 7/7, 182 unit + 67 live tests green, `cast call` simulated clean. The operator signs;
-Claude never touches the wallet. Full record: § 000000000 of
-[track1-miner/MEMORY.md](track1-miner/MEMORY.md). Open questions: G59 (sum vs average judging),
-G60 (sandbox validator down), G61 (does epoch 298 count).
-
-**Rivals, re-measured:** `chainsight-oracle` (14 intents, sum 9.05) is the miner to beat, not
-`preflight` (7.27) or the `*-onchain-*` cluster, four of whom score exactly 0.0 in their own
-intent. We sit second at 8.14 with four rank-1s.
-
-## Three-intent push deployed (2026-08-31 ~15:45 UTC) — epoch 298 is the acceptance test
-
-The three intents epoch 297 lost were each diagnosed by measurement and fixed the same day:
-WALLET's field-wide zero was a champion swap (score² — nothing was wrong with us, G52);
-TRANSLATION was refusing the engine's ISO-code shape our manifest promises (0/9 → 8/9 crossings,
-verified live, G53); ACADEMIC's `papers[]` was diluting the converted payload the scorer actually
-reads (+122% payload-proxy, 22/22 rows, G40/G42 corrected). All deployed via `vercel --prod`,
-preflight 7/7, 237/237 tests. **Champions rotated 3x today — always check `/api/wasm?intent=…`
-before touching answers.** Full record: § 00000000 of [track1-miner/MEMORY.md](track1-miner/MEMORY.md).
-
-## Epochs 296/297 scored — likely the closing Track 1 record (2026-08-31 ~14:30 UTC)
-
-Epoch 297 (the last one scored inside the Aug-31 window): **4 × #1** (STORM, AI_TEXT,
-CONTENT_EXTRACTION at 1.0, NEWS), **2 × #2** (IP by −0.094% after the G41 fix verified live
-0.0106 → 0.9955; SSL lost to `preflight-ssl-verification`), 2 × #3, 2 × #4 (both in fields that
-collapsed to noise network-wide). Epoch 296 settled at 6 × #1 / 2 × #2 / #4 / #5. Full record and
-the competitor analysis: **§ 0000000 of [track1-miner/MEMORY.md](track1-miner/MEMORY.md)**;
-history in `track1-miner/docs/score-history.jsonl`. Epoch 298 settles past the close; the miner
-stays live through Sep 7 because rankings feed Track 3 routing.
-
-## Registration is now **389** (2026-08-31 04:01 UTC)
-
-`updateMiner(334, …)` mined and **active with ten intents** — the seven, plus CONTENT_EXTRACTION,
-NEWS_HEADLINES and WALLET_BALANCE_CHECK. **334 no longer exists; look up 389.** The manifest is now
-served from a commit-pinned GitHub raw URL rather than IPFS, hash `78932fb1…` (the HOSTED bytes —
-the local file is CRLF and hashes differently). `REGISTRATION_ID` variable updated. Preflight 6/6.
-
-**Track 2: your disclosure docs still cite 334 and need updating** — see GAPS G36.
-
----
-
-## State at 2026-08-31 ~04:15 UTC — CI GREEN, UPTIME ALARM NOW TWO-WAY
-
-- **`ci` is green on `main` again.** It had failed on every push since `6d4d262` at the
-  `track2-scorer` release-identity step. Cause and fix in [track2/GAPS.md](track2/GAPS.md) G26 and
-  [track2/MEMORY.md](track2/MEMORY.md); nothing under `track1-miner/` was involved.
-- **The uptime alarm was one-way** and issue #2 had been stale since 2026-08-30 19:51 across three
-  clean runs. Because the alarm reuses `existing[0]`, that one stale issue would have downgraded
-  the next real outage into a comment nobody reads. A `resolve` job now closes any open `uptime`
-  issue on a clean run; **proven live** — dispatch 33356183513 closed #2 at 04:11:21Z with a
-  recovery comment. G21 updated. An open `uptime` issue now means "failing right now".
-
----
-
-
-## State at 2026-08-30 ~21:45 UTC — PRODUCTION AUDIT
-
-**Three live defects found and fixed today, two of them serving confidently wrong answers on
-intents we lead.** The engine fills the parameters we declare *and* may send a paraphrasing
-`query`; six of ten routes discarded their own declared subject in that case. `/storm-alert` asked
-about Chennai reported **Teresopolis, Brazil**; `/papers` asked about CRISPR returned neuroimaging.
-Four other routes refused outright, which is a guaranteed zero. Also fixed: a hung upstream could
-become a Vercel 504 (scores the same as a 400), and `polygon-rpc.com`, the primary for Polygon
-balances, is dead. All deployed and verified live — 196/196 tests, `verify-deploy` green.
-
-Two new tools, because `verify-deploy` passed green through all three:
-`tools/param-shapes.mjs` calls every route the way the **engine** does; `tools/upstream-health.mjs`
-probes all 23 providers. Full record: **§ 00000 of [track1-miner/MEMORY.md](track1-miner/MEMORY.md)**
-and GAPS **G30–G32**.
-
-Network is back up. Registration 334 active, 7 intents. Latest epoch still 295; **296 lands
-2026-08-31T03:53:43Z** and is the acceptance test for these fixes plus the translation payload fix.
-
----
-
-## State at 2026-08-30 (evening)
-
-**Epoch 294: rank 1 in five of seven. The two losers were diagnosed, fixed, measured and DEPLOYED
-the same day — epoch 295 tests 7/7.** Registration **334** is `active`, healthy, seven intents,
-`https://miner-wine.vercel.app`. (The restatement fix went live earlier the same day and is
-confirmed by epoch 293/294 rows: SSL recovered #1 at +25.7%, weather reached #1.)
-
-```
-SSL_VERIFICATION      #1   held        STORM_ALERT        #1   held
-WEATHER_FORECAST      #1   held        ACADEMIC_SEARCH    #1   held
-AI_TEXT_DETECTION     #1   held (debut 293)
-IP_GEOLOCATION        #2   -5.2% to preflight      -> FIXED + DEPLOYED ~15:45Z
-LANGUAGE_TRANSLATION  #2   2.7e-5, near-zero field -> FIXED + DEPLOYED ~15:45Z
-```
-
-**The two fixes (173/173 tests, verify-deploy green, production probed):**
-- **IP_GEOLOCATION** — three defects: half the recorded questions are private/reserved IPs we
-  answered as lookup failures (now classified definitionally, restatement skipped there);
-  nearly all ask about abuse history we never addressed (now answered honestly, with a live Tor
-  exit-node DNSEL check); and ipwho.is misplaces geofeed-published infrastructure IPs (ip-api.com
-  is now primary — verified live, GAPS G27). Frozen-bench clip32 vs the rank-1: **0.384 → 0.807
-  mean, 4/21 → 14/21 wins — the floor, since local benches cannot reach ip-api (G27)**.
-- **LANGUAGE_TRANSLATION** — the champion changed again (reg 1996 `w1`, a binary cliff; GAPS
-  G26). Ground truths are bare translations, so the answer is now the bare translation, Google
-  primary / MyMemory failover, no restatement: **9/10 crossings vs the leader's 8/10**.
-
-**Measurement rule:** score champion WASMs only through `track2/harness/wasm-abi.mjs` — their
-bump allocator wraps silently and a naive loader returns run-order-dependent garbage.
-
-Read **§ 00 of [track1-miner/MEMORY.md](track1-miner/MEMORY.md)** for the full record.
-Full autopsy of 292: **[track1-miner/docs/EPOCH_292_AUTOPSY.md](track1-miner/docs/EPOCH_292_AUTOPSY.md)**.
-Expansion recon: **[track1-miner/docs/EXPANSION_TARGETS.md](track1-miner/docs/EXPANSION_TARGETS.md)**.
-
-### Organizer answers landed 2026-08-30 (via user) → recorded in [docs/TELEGRAPH_FACTS.md](docs/TELEGRAPH_FACTS.md)
-
-Third-party upstreams are explicitly allowed but their uptime is **our responsibility**; the
-exact submission deadline is posted in Discord `#announcements` (read and transcribe it before
-planning the last day); building may continue permissionlessly through and after the close; and
-**rankings persist after the hackathon — Track 3 agent requests route to the higher-ranked miner
-and are counted in judging**. That sharpens item 1 below: the restatement fix should be live
-before Track 3 opens on Aug 31, because rank at that moment compounds into judged traffic. It
-also half-answers item 3: the routing/counting mechanism is now confirmed; the guardrail-waiver
-question itself is still open. (Track 2 note, same date: the live miner registration is now
-**334** — 225/260/297 are superseded or deregistered — and Track 2's disclosure docs reference
-it; if Track 1 re-registers again, tell the Track 2 session so GAPS G25 and SUBMISSION.md stay
-correct.)
-
-### The things that needed a human, as of 2026-08-30 — superseded
-
-Superseded by the 2026-09-03 list at the top of this file. Of the three items that stood here:
-epoch 295 was read (IP and translation both recovered, § 00 of track1-miner/MEMORY.md); the X series
-is still the open item; the guardrail question was half-answered on 2026-08-30 (routing and counting
-confirmed, the waiver itself never answered).
-
-### Read these before touching anything
-
-- **[GAPS.md](GAPS.md) G24 — the `/scores` feed has stopped returning `question`, `ground_truth`
-  and `converted_answer`.** Every real finding in this repo came from that feed. The offline benches
-  are now a frozen snapshot that **cannot be refreshed**, and the champion WASM can no longer be
-  validated against reported scores.
-- **[GAPS.md](GAPS.md) G25** — the restatement's survival through the ~32-word converter is
-  simulated, not measured. Storm is the risky one: 4 of 12 questions score lower on full prose and
-  we hold storm by 0.7%.
-- **[GAPS.md](GAPS.md) G19 — the miner wallet's seed phrase is compromised.** Risk assessed and
-  **accepted**, not mitigated. If the miner is ever found deregistered, that is the likely cause.
-  Its tripwire is weaker than G19 assumes — see G21.
-- **[track1-miner/MEMORY.md](track1-miner/MEMORY.md)** — the authoritative Track 1 handoff.
-  Seven scoring theories have now been disproven in this repo. Do not re-derive them.
-
-### Eligibility is still the binding constraint
-
-Five of six intents clear the 3-miner half; `IP_GEOLOCATION` has 4 now but **no intent has its 100
-Track 3 requests**, because Track 3 has not opened — `total_requests_served` is **57** for the whole
-miner across all six intents, against a floor of **100 per intent**. Rank 1 in an ineligible intent
-wins nothing → [track1-miner/docs/ELIGIBILITY.md](track1-miner/docs/ELIGIBILITY.md).
-
----
-
-Everything below this line is **historical** — the day-by-day record of how Track 1 got here. It is
-kept because the reasoning is often more useful than the conclusion, but for current Track 1 state
-read `track1-miner/MEMORY.md` instead. Registrations **225 and 236 are superseded**; the live one is
-**260** (six intents, active 2026-08-28).
-
----
-
-## 2026-08-27 — TRACK 2 PIVOT
-
-
-Build focus moved to **Track 2 (Script Authors)** by user directive: rank 1 is the goal, Fable
-orchestrates and plans, Opus 5 executes (all security-domain work on Opus). All Track 2 state
-lives in [track2/MEMORY.md](track2/MEMORY.md) — read that first when working Track 2. The miner
-(registration 225) stays live and untouched; everything below remains true for Track 1 operations.
-
----
-
-## Where things stand — 2026-08-26
-
-**Day 1.** Planning only. No code, no YAML, no registration. Repo is docs and a fresh `git init`.
-
-### Done
-- Hackathon account registered (`harsh.2024a@vitstudent.ac.in`), email verified, **Discord joined**
-- **Track 1 (Miner)** chosen
-- Protocol mechanics verified against live docs → [docs/TELEGRAPH_FACTS.md](docs/TELEGRAPH_FACTS.md)
-- Planning docs written: PRD, ARCHITECTURE, TASKS, GAPS, BUILD_IN_PUBLIC
-
-### The finding that reframed the project
-**`base_url` is the UPSTREAM API being wrapped — not a server we have to write.** Telegraph is
-declarative: publish a YAML describing an existing API, nodes proxy to it. A valid miner can be
-**pure YAML with zero code**.
-
-An earlier session assumption — that a Cloudflare Worker had to be built and deployed first — was
-wrong as a *requirement*. Hosting our own endpoint is now a strategic option (differentiation,
-latency control), not a gate. See PRD **D2**.
-
-### Intent decided: `SSL_VERIFICATION` — and why
-Chosen on **occupancy × scoring tier** → [track1-miner/docs/INTENT_OCCUPANCY.md](track1-miner/docs/INTENT_OCCUPANCY.md).
-
-Scoring has two tiers. **Tier A = deterministic WASM exact match** (one right answer).
-**Tier B = LLM-judge** (open-ended). Tier A is strictly better for winning rank 1 — we can be
-exactly right on demand, but cannot guarantee an LLM agrees with us.
-
-The three zero-occupancy intents (`RESEARCH_SYNTHESIS`, `TEXT_AUTHENTICITY_CHECK`,
-`TWITTER_SEARCH`) are **all Tier B**, which is why `TEXT_AUTHENTICITY_CHECK` was dropped despite
-being the occupancy front-runner.
-
-`SSL_VERIFICATION` is Tier A with **3 incumbents, each with a specific weakness**:
-- **TxLens** (9002) — on Render, cold starts against a ~20s spot-check cadence; SSL is 1 of 8 caps
-- **certspotter** (10) — answers from **CT logs** = what was *issued*, not what is *deployed*
-- **ssllabs** (227) — a full Qualys assessment takes **60–120s** on an uncached host
-
-### Built: `livecert`
-[miner/](track1-miner/miner/) — Node, **zero runtime dependencies**, live TLS handshake. All six verdicts
-verified against badssl.com (valid / expired / self_signed / hostname_mismatch / untrusted /
-unreachable). ~100ms cold, **12ms cached**. Typecheck clean.
-[track1-miner/miner.yaml](track1-miner/miner.yaml) written and passing a local strict-schema precheck.
-`slug: livecert`, `id: 4433` — both verified free.
-
-**Scoring insight driving the response shape:** the WASM scorer compares *plain strings* and the
-reference module scores `matched ÷ total words in the miner's answer`. Verbose answers are
-**penalised**. Our `reason` is one tight factual sentence on purpose — and SSL Labs returning a
-full grade report is actively hurt by that arithmetic.
-
-### Timeline correction — read this first
-**Track 1 closes 2026-08-31**, not Sep 7 → [docs/JUDGING.md](docs/JUDGING.md). Sep 7 is Track 3's
-close. **~5 days, not 12.** Registering early also matters because the 7-day grace-period score
-sets the opening leaderboard position — every day of delay shortens the record we are judged on.
-
-### Judging is published and explicit
-`75 pts` normalized performance (**your score ÷ the best score in your intent** — so rank 1 in any
-intent gets full marks) + `25 pts` **X engagement**, tagged `@Telegraphprotoc`.
-
-**The biggest risk is the eligibility guardrail:** an intent needs ≥3 active miners *and* **≥100
-real requests from Track 3 applications** to be eligible for cash prizes. `SSL_VERIFICATION` meets
-the first (4 miners once we register) but the second is outside our control — we could rank 1 and
-win nothing if no Track 3 app checks certificates. Mitigation: **build a Track 3 app ourselves
-that genuinely consumes it** (a real TLS expiry monitor, not a request generator — rule 04 forbids
-artificial inflation). That also competes for a second $2,000 pool.
-
-### Also built
-- `track1-miner/tools/watch.mjs` — uptime + routing-revocation watcher. `--once` mode for cron; exits non-zero
-  on failure or terminal rejection.
-- [SETUP.md](SETUP.md) — the two manual steps, written out precisely.
-- [docs/X_POSTS.md](docs/X_POSTS.md) — 8 drafts. Posts 1–3 are postable now (they are insights,
-  not status updates, which is what actually earns reach). Post 7 targets Track 3 builders before
-  Aug 31 and is doing eligibility work, not marketing.
-- Root [README.md](README.md) with an honest limitations section.
-
-### Major correction: demand, not just occupancy → now serving TWO intents
-Live data from `/api/miners` (89 miners, exposes `total_requests_served` + `scores`) →
-[track1-miner/docs/MARKET_DATA.md](track1-miner/docs/MARKET_DATA.md).
-
-**The whole network has served 1,574 requests. `SSL_VERIFICATION` has 17.**
-`STORM_ALERT` has **334** with the same 3-miner field and the same near-zero top score (0.0066).
-
-The original analysis optimised for low occupancy alone. But G13 needs **≥100 Track 3 requests to
-the intent** — ranking first in a dead intent pays nothing. The miner now serves **both**
-`SSL_VERIFICATION` and `STORM_ALERT` from one deployment (`/ssl-check`, `/storm-alert`): one Fly
-app, one registration, two eligibility paths. TxLens proves one miner can rank in several intents.
-
-**Live SSL_VERIFICATION leaderboard, epoch 283:** txlens 0.0063 (rank 1), ssllabs 0.0042,
-certspotter 0.0000. The bar is extremely low. Notably `ssllabs` maps `label_field: host` and
-`txlens` maps `label_field: status` (value `"ok"`) — neither is a verdict. Ours maps
-`label_field: verdict`. Possible real edge, but inference about an unpublished scorer, not fact.
-
-**We were wrong about something and fixed it:** we claimed TxLens was beatable on Render cold
-starts. Measured 675ms cold / 324ms warm — **no cold start**, because ~20s spot checks keep it
-permanently warm. TxLens also does a real TLS handshake. Claim retracted in docs and in the draft
-X post before it was posted.
-
-### Why the two chosen intents are winnable
-Judging normalizes: **75 pts × (your score ÷ best score in your intent)** — so rank 1 gets the full
-75 *regardless of absolute score*. The only number that matters is the bar in our own intent:
-
-```
-WEATHER_FORECAST  beat 0.0080   941 network requests, 9 miners — all under 0.008
-STORM_ALERT       beat 0.0066   334 requests, 3 miners (leader maps label_field: model)
-SSL_VERIFICATION  beat 0.0063   17 requests,  3 miners (leader maps label_field: status = "ok")
-```
-
-**The miner serves all three from one deployment** — `/ssl-check`, `/storm-alert`,
-`/weather-forecast`. One Fly app, one registration, three eligibility paths against G13.
-`WEATHER_FORECAST` was added last: highest demand on the whole network, and all nine incumbents
-score under 0.008. 37 tests passing.
-
-Both are the **lowest bars on the board**. Compare WEATHER_CHECK (0.768) or
-WALLET_BALANCE_CHECK (0.992), where a real incumbent already answers well.
-
-83% of all network scores are below 0.05. And shape is not the driver: `chainsight-oracle` uses one
-mapping across 11 intents and scores 0.990 in one, ~0.00–0.07 in the other ten. Also note
-`skywire-storm-alert` maps a sensible `label_field: level` and still scores 0.0000 — **a sensible
-mapping is not sufficient**. Our edge is a reasoned bet, not a measured result.
-
-### DEPLOYED: `CertWatch` — `https://app-five-blond-45.vercel.app`
-Live on Vercel. Dashboard renders, `/api/state` returns 200, `keyConfigured: false` correctly
-reported until an EVM key is set. Vercel project renamed `app` → `certwatch`, but the stable
-public alias stays `app-five-blond-45.vercel.app` (`certwatch.vercel.app` is taken by someone else).
-
-Two serverless adaptations were needed, both real bugs that would only have appeared in production:
-- **Read-only filesystem.** State now falls back to `/tmp` on Vercel and `save()` swallows write
-  failures, so a read-only FS cannot take the dashboard down. `WATCH_DOMAINS` (comma-separated)
-  seeds the watchlist since `/tmp` does not survive cold starts.
-- **`Invalid export found in module server.js`.** Vercel used `package.json` `main` as the
-  entrypoint and found no default export. Fixed with `export default app` (an `http.Server`, which
-  Vercel accepts); `listen()` is skipped when `process.env.VERCEL` is set.
-- The dashboard HTML is now **inlined** into `src/dashboard.ts` rather than read from disk —
-  serverless bundlers do not reliably ship sibling asset directories. Generated by
-  `npm run build:dashboard` from `public/index.html`, escaped via `JSON.stringify` (a template
-  literal was a bug farm: the dashboard's own client script contains backticks and `${...}`).
-
-### Built: `CertWatch` (Track 3 app)
-[app/](track3-certwatch/) — TLS expiry monitor. ESM Node + viem + `@x402/fetch`/`@x402/evm`, dashboard tested
-and rendering. Uses the **auto-routed** `/engine/v1/ask` so Telegraph's router classifies the
-query and demand lands on the *intent* (what the G13 guardrail counts), not on our miner directly.
-Counts `SSL_VERIFICATION`-classified requests separately.
-
-**Gotcha worth remembering:** the Telegraph docs are **drifted from their own SDK**. Docs say
-`createSigner` from `@x402/evm`; the shipped 2.23.0 exports `toClientEvmSigner(account, publicClient)`
-and wants an `x402Client.fromConfig({schemes})`. Read the `.d.ts`, not the page.
-
-### DEPLOYED 2026-08-26 — `https://miner-wine.vercel.app`
-Live on Vercel, **all 18 acceptance checks pass** (`node track1-miner/tools/verify-deploy.mjs <url>`).
-Median 482ms, p95 1200ms. TLS handshake works from serverless — that was the main technical risk.
-
-Fly.io was tried first and rejected: it now demands a payment method before placing any machine.
-Vercel needs no card, and the live Telegraph miner `amanat-weather-risk` already runs there.
-The miner was refactored for it — routing lives in `src/handler.ts`, shared by `src/server.ts`
-(local) and `api/index.ts` (serverless), so neither target has a divergent copy. Fly config stays
-committed if a card is ever added.
-
-`track1-miner/miner.yaml` now points at the deployed URL and re-passes the schema precheck. Re-verified
-2026-08-26: all three intents canonical, `id 4433` and `slug livecert` both still free.
-
-### Repo + monitoring live — 2026-08-26
-`https://github.com/Harshyadav442277/livecert` — **PRIVATE**. Created private deliberately:
-publishing is the user's call, and `track1-miner/docs/MARKET_DATA.md` contains competitive analysis of other
-hackathon entrants' weaknesses. Publishing that under their name mid-competition is a judgement
-they should make, not me.
-
-Repo variable `MINER_BASE_URL` is set, and the **uptime workflow ran successfully from GitHub's
-runners: all 18 checks pass, median 267ms, p95 1013ms**. Add `REGISTRATION_ID` as a repo variable
-once registered so it also watches `activation_status`.
-
-**Caveat if it stays private:** free-tier private repos get 2000 Actions minutes/month; a 15-minute
-cadence is ~2900/month. Either make the repo public (unlimited Actions) or widen the cron.
-
-Secrets scan before the push came back clean — no `.env` tracked, no key-shaped strings, no
-password in history.
-
-### REGISTERED ON-CHAIN — 2026-08-26 ~20:20 IST
-```
-registrationId   225
-tx               0x55b4d8e736c9625e…503348bc   (Base Sepolia, CONFIRMED)
-slug             livecert
-id               4433
-base_url         https://miner-wine.vercel.app
-fee address      0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e
-floor price      0.01 USDC
-intents          SSL_VERIFICATION, STORM_ALERT, WEATHER_FORECAST
-IPFS             QmWmgbY7pbUdWo1ZPVHEh7Bbq1hGQGwVCCcyLxZToEzW2c
-```
-Registered via the console's **Import & Upload** path (card 02), not the from-scratch wizard —
-it takes the existing track1-miner/miner.yaml, sandbox-tests every endpoint, and pins to Pinata.
-
-Sandbox results: all three endpoints green. `/ssl-check` reported HTTP 405 because the probe used
-OPTIONS (not GET as labelled); real GET traffic returns 200. Hardened anyway — the server now
-answers OPTIONS with 204 + Allow. That redeploy does **not** change base_url or the pinned hash,
-so it did not disturb the registration.
-
-`REGISTRATION_ID=225` is set as a repo variable, so the uptime workflow now watches
-`activation_status` as well as the endpoint.
-
-**`activation_status: active` confirmed 2026-08-26 14:51 UTC.** Present in all three intent
-listings: SSL_VERIFICATION 3→4 miners, STORM_ALERT 3→4, WEATHER_FORECAST 10→11. Network 90→91.
-
-**Routed queries cost $0.01 USDC (x402, Base Sepolia).** `/engine/v1/ask` returns 402 without
-payment. The wallet holds **0 USDC** — so CertWatch cannot yet generate the routed demand that the
-eligibility guardrail (G13) requires. ~$1.00 buys the 100-request floor. Needs: testnet USDC from
-faucet.circle.com, and `EVM_PRIVATE_KEY` set as a Vercel env var by the **user** (Claude never
-handles keys).
-
-**Free-text input handling added 2026-08-26 (important).** The engine classifies a
-natural-language question and may hand the miner the raw sentence. Before the fix,
-`?query=Is the SSL certificate for expired.badssl.com valid?` returned **HTTP 400** — a scored
-question answered with an error is a zero. Now all three endpoints extract the parameter from
-free text (`src/extract.ts`), while still rejecting typo'd fragments like `"exa mple.com"`.
-57 tests pass; p95 latency improved 1136ms → 523ms.
-
-**Scoring intelligence (2026-08-26)** → [track1-miner/docs/SCORE_INTELLIGENCE.md](track1-miner/docs/SCORE_INTELLIGENCE.md).
-Three things settled by live data:
-1. **Multi-intent miners are scored independently per intent** — `txlens` holds rank 1 in three
-   intents and rank 5 in another simultaneously. Breadth is free upside; a weak intent cannot drag
-   down a strong one.
-2. **Only rank matters, not absolute score.** Rank 1 gets the full 75 whether the score is 0.99 or
-   0.006. The bars to beat: SSL **0.00627648**, STORM **0.00657676**, FORECAST **0.00800136**.
-3. **Refusing natural language scores zero, not badly.** `chainwire` (0.992) parses a whole
-   question from `?query=`; `txlens` (0.000, same intent) returns an error object. The scorer
-   compares text and an error shares no vocabulary with the ground truth. We had this exact bug
-   until today.
-
-**Answer shape measured, not assumed.** `track1-miner/tools/score-sim.mjs` runs our live answers through the
-documented reference scorer against the incumbents' answer shapes: **ours 0.9453**, certspotter-style
-0.0569, ssllabs-style 0.0385, txlens-style 0.0238. Live bar to beat is 0.0063. Removing a
-`(35 days remaining)` parenthetical from the prose — while keeping `days_remaining` as a field —
-moved the mean 0.7697 → 0.9453. Rule: facts in fields, answer in prose, nothing in the prose the
-question did not ask for.
-
-**Telegraph devnode was DOWN at 2026-08-26 ~15:45 UTC** — three consecutive 20s timeouts on
-`devnode.telegraphprotocol.com` while our miner answered in 0.5s and the wider internet was fine.
-Not our outage. While it lasts: no scoring, no catalog reads, and the registration console likely
-cannot complete an `updateMiner`. Re-check before assuming anything is wrong on our side.
-
-**Codex review landed 2026-08-26** → `track1-miner/docs/codex-worklog/`. It found two real defects that local
-tests could not: (1) the natural-language regexes were built from strings, so `\s` `\d` `\b` were
-corrupted and the scaffolding stripper was dead — now regex literals; (2) real *paid* storm
-questions ask for coordinates in prose with a stated window and a 0–1 risk, and we returned
-`unknown` — now handled, with the hourly series actually truncated to the requested window.
-
-It also corrected two of our claims: `total_requests_served` is per **miner**, not per intent, so
-the demand attribution in MARKET_DATA was unsound; and the cross-intent prize aggregation is
-genuinely undefined in the rules, so **do not `updateMiner` to add intents** until the organisers
-answer. The IP_GEOLOCATION endpoint is built and deployed but that intent is NOT registered.
-
-**Do not fund CertWatch's wallet** until G18 is closed — its endpoints are now authenticated
-(G17) but state is still ephemeral and sweeps do not run on Vercel.
-
-**FIRST SCORED EPOCH 284 (2026-08-26)** → [track1-miner/docs/EPOCH_284.md](track1-miner/docs/EPOCH_284.md)
-```
-SSL_VERIFICATION   rank 3 of 4    0.00449282   (rank 1 txlens 0.00601)
-STORM_ALERT        rank 3 of 4    0.00000000   (rank 1 amanat  0.00651)
-WEATHER_FORECAST   rank 7 of 11   0.00698984   (rank 1 verity  0.00992)
-```
-**`track1-miner/tools/score-sim.mjs` was wrong.** It predicted 0.9453 for us vs 0.02–0.06 for the incumbents;
-reality has txlens ahead of us. It used the documented *reference* scorer and ground truths written
-by hand — neither is what runs. Do not make decisions from it.
-
-**Focus `STORM_ALERT`.** Three of four miners there scored exactly 0.0. It is the only one of our
-intents with real recurring demand (15 real questions in 72h; SSL had **zero**). Our zero is
-plausibly stale — the coordinate/window fixes landed around the 15:52 scoring time and `"right now"`
-after it. We now answer 15/15 of the real corpus. **Epoch 285 is the test.**
-
-**EPOCHS ARE 9 HOURS LONG.** `/api/epoch` on the explorer: `epoch_duration: 9h0m0s`. Scoring lands
-~3× a day, not every few minutes — the landing-page ticker misleads. Epoch 285 lands
-**2026-08-27T00:36:55Z**. Do not poll for score changes shortly after deploying; verify with
-`track1-miner/tools/replay-corpus.mjs` instead, which answers in seconds.
-
-**HOW SCORING ACTUALLY WORKS** (Codex recon, `track1-miner/docs/codex-worklog/2026-08-26-live-scoring-recon.md`)
-The score API exposes `question`, `ground_truth`, `miner_answer`, **`converted_answer`**, and
-`score`. Running the live champion WASM locally reproduces the reported score **exactly** from
-`converted_answer` — the natural-language conversion of our JSON, not the raw JSON and not
-`label_field`. That kills the label-field hypothesis for good and gives a real offline loop:
-pin the champion binaries and iterate without waiting 9 hours.
-
-**Two gates now:** the endpoint must return the right structure, AND Telegraph's converted prose
-must retain every requested fact.
-
-**Codex's P0 queue, with measured leverage:**
-1. `WEATHER_FORECAST` — **DONE.** Questions name an explicit **start date** ("48 hourly values starting
-   2026-09-01T06:00Z"); we return "next N hours from now". Truthful date-aware candidate scored
-   **0.996 vs our 0.0070 — 142x**, and 100x the epoch leader. Now parsed and sliced by timestamp,
-   with the full hourly series and precipitation in both structure and prose. The live answer's
-   temperature range (24.5–30.5°C) matches Codex's independently measured values exactly.
-2. `SSL_VERIFICATION` — **DONE.** Answers now carry the dimensions the questions ask about,
-   rendered from real fields: chain length and completeness (walked via `issuerCertificate`),
-   Subject Alternative Names, hostname validation, trust path. An unreachable host no longer
-   stops at "DNS failed" — it names what could not be established and how to establish it.
-**THE STORM ZERO'S ROOT CAUSE** — the `/scores` API gives the actual record. The engine called us
-with `location=""` (present but empty); our `??` chain does not fall through on an empty string, so
-we never read `query`, never saw the question, and returned **400**. The engine treats any 4xx as a
-failed call: empty `miner_answer`, no `converted_answer`, score **0**. A well-shaped 400 body is
-worthless because it is never read. Fixed: empty params treated as absent, and **no endpoint
-returns 4xx any more** — an unanswerable request gets an honest 200.
-
-3. `STORM_ALERT` — **DONE.** "in 44 hours" is a *point* offset, not a window; we returned the
-   44-hour maximum (gusts 70.9) where the paid responder returned the value at hour 44 (49.7).
-   Now `time_mode` point/window with `valid_at`, and the replay harness checks `valid_at` lands
-   near the hour asked rather than just echoing a number.
-
-**OFFLINE SCORING LOOP EXISTS.** Champion scorers are public commit-pinned WASM (24 MB each, from
-`/api/wasm`), and `track1-miner/docs/codex-worklog/probe-champion.mjs` runs them. Measured on the epoch-284 storm
-question: what actually scored **0.0** (our 400), terse **0.00658**, full answer **0.00753**, plus
-reverse-geocoded place name **0.00819** — against a leader of **0.00651**, so **1.26x**.
-**Fuller answers score better**, disproving the terse-answer theory. Trust the champion binary, not
-`track1-miner/tools/score-sim.mjs`.
-
-**ALL THREE INTENTS NOW MEASURE ABOVE THE EPOCH-284 LEADER** (real champion WASM, real questions):
-```
-SSL_VERIFICATION   0.00449 -> 0.01061   leader 0.00601   1.77x
-STORM_ALERT        0.00000 -> 0.00819   leader 0.00651   1.26x
-WEATHER_FORECAST   0.00699 -> 0.99482   leader 0.00992    100x
-```
-Weather needed three bugs fixed: the whole question was being geocoded (resolved Tokyo to
-**Guangzhou**), question openers like "Can" passed as proper nouns, and "48-hour" did not parse
-because a hyphen is not whitespace. All found by measuring, none by reading code.
-
-**BENCHMARKED OVER 12 REAL QUESTIONS PER INTENT** (`track1-miner/tools/bench-champion.mjs`, real champions):
-`SSL 0.00913 · STORM 0.00938 · WEATHER 0.17346`. Single-question results were misleading — weather
-scored 0.99 on the one question it was written against and ~0.008 on eleven others, because
-"7-day"/"five-day"/"next Monday"/"September 1, 2026" did not parse. Fixed via `resolveDateRequest`.
-
-**NEVER RETURN NON-2XX.** The engine treats any non-2xx as a failed call: empty answer, no
-conversion, score 0. A transient Open-Meteo rate limit was returning **502** and costing whole
-questions. All upstream failures now return 200 with an honest "temporarily unavailable" answer.
-
-**Coordinates with hemisphere letters** (`39.6438° N, 104.8669° W`) now parse, including the
-mangled `Â°` and U+FFFD forms real traffic carries. W/S are negative — reading `104.8669° W` as
-positive answers for China instead of Colorado. The storm benchmark mean dipped slightly
-(0.00938 -> 0.00912) because two questions previously *failed* and now resolve; correctness beats
-the benchmark, so this was kept.
-
-**Weekday/month names are no longer treated as places.** "New York City starting next Monday"
-resolved to **Munḏay**, a real town — a confident forecast for the wrong continent. Fixed.
-
-**Do not chase the low weather scores by declining to answer.** Most of those ground truths
-themselves say "I cannot provide the exact forecast", so a refusal would score higher. That is
-gaming the scorer rather than answering the buyer (Rule 04). The one question with a real ground
-truth is the one we score 0.99 on.
-
-**THE RULE THAT SURVIVED EVERY MEASUREMENT: answer every clause of the question; keep in fields
-what was not asked.** Naming the ISP in a geolocation answer moved it **0.01027 -> 0.99362 (97x)**.
-Every large gain today came from finding a clause going unanswered — storm threshold, weather
-period and place, SSL chain/hostname, geolocation ISP. Every attempt to tune phrasing instead
-(terse vs verbose, label_field, word-overlap) failed.
-
-**MEASUREMENT TRAP:** a candidate answer written by hand while reading the ground truth leaks that
-ground truth. A storm candidate scored 0.614 that way; the honest implementation scores 0.0086
-(+4.7%, still kept). **Only measure answers produced by the deployed code.**
-
-**TWO STRUCTURAL FINDINGS FROM EPOCH 285:**
-1. **The engine sends only declared parameters, never the question.** #1 weather declares `q`,
-   #1 storm declares `lat`/`lon`; we declared neither and failed exactly those question types.
-   Code now accepts them; **the YAML change needs an updateMiner (wallet action, pending).**
-2. **Prose conversion has a size limit.** Our epoch-285 SSL answer was 862 bytes and
-   `converted_answer` came back **EMPTY** — every miner that converts is under ~430. Trimmed to
-   509-638 bytes; measured score barely moved (0.00949/0.01064 vs txlens 0.00826). A test pins
-   the response under 650 bytes.
-
-**THERE IS NO CONVERSION SIZE LIMIT — that theory was wrong.** Across 480 scored answers,
-conversion fails ~6.7% of the time at **every** size: `weatherapi` converts 52,943 bytes fine,
-`ssllabs` failed at 161 bytes. Our 862-byte empty conversion was intermittency, not a threshold.
-Trimming the SSL answer on that false premise cost **11%** (0.01061 -> 0.00949); restored.
-The storm period breakdown stays removed on its own measurement (0.00892 with, 0.00902 without).
-
-**ECHO THE QUESTION'S OWN IDENTIFIERS.** Resolving `37.7749,-122.4194` to "San Francisco" and
-answering with only the place name dropped the identifier the caller used. Adding the coordinates
-back **doubled** the score (0.00676 -> 0.01347); with a u-component note, 0.01456. Deployed answer
-now scores **0.01327 vs zeus 0.00802 — 1.65x the rank-1 storm miner.** Also added metres per second
-and prevailing wind direction: `10u`/`100u` are the *directional* components of the wind vector, so
-a scalar speed answers a different question.
-
-**LABEL THE ANSWER WITH THE QUESTION'S OWN TERMS.** SSL questions ask for "certificate validity,
-chain trust, hostname verification"; storm questions say "Report wind speed, gusts, precipitation
-and an overall risk between 0 and 1". Answering under those exact labels, same facts:
-SSL **0.01020 -> 0.01074**, storm **0.00835 -> 0.00862**. Same family as echoing coordinates — an
-answer that visibly addresses each clause reads as answering it.
-
-**GitHub throttles scheduled workflows.** The uptime/score-recording cron was set to `*/10` and
-actually ran **once every 2-3 hours**. Changed to hourly, which is honest and ample against
-9-hour epochs. Do not trust a sub-hourly GitHub cron to fire.
-
-**BREADTH IS THE STRATEGY** — `chainsight-oracle` holds **11 intents and is #1 in four**, mostly
-with small scores in quiet corners. It won by covering ground, not by answering better. We went
-3 -> 4 (registration 236, live) and the YAML now declares **6**.
-
-**FIVE new endpoints, every one targeting an intent whose incumbents are failing:**
-- `/extract` -> `CONTENT_EXTRACTION` (1 miner, **0.000 on all 6**; it is a URL extractor and the
-  questions supply text inline). Deterministic regex; **5 of 6 reproduce the ground truth exactly.**
-- `/translate` -> `LANGUAGE_TRANSLATION` (2 miners, **best 0.000**). MyMemory, keyless — the same
-  API both incumbents are named after. Russian comes back exact, Mandarin off by one character.
-- `/cve` -> `CVE_LOOKUP` (3 miners, **all 0.000**). NVD, authoritative and deterministic.
-  Its 5-req/30s limit is declared in `limitations`.
-- `/papers` -> `ACADEMIC_SEARCH` (2 miners, 0.000-0.015). OpenAlex, keyless.
-- `/headlines` -> `NEWS_HEADLINES` (1 miner, 0.000-0.003). Google News RSS, keyless.
-
-**Gotchas found building these:**
-- Google News RSS returns an **empty channel** if you pass `hl`/`gl`/`ceid`. Drop them.
-- OpenAlex sorted by `cited_by_count` returns a 6G survey for a blockchain query. Use default
-  relevance.
-- **SPORTS_SCORE was deliberately skipped**: the free sports API returned a friendly against AC
-  Milan when asked for the most recent Premier League meeting. A confidently wrong score is worse
-  than not serving the intent.
-
-**Grace period runs ~7 days from activation** — unranked during it, sharing 5% of routed traffic
-equally with other new miners. The score earned there sets the opening leaderboard position.
-
-### Next action
-2. **Create an EVM wallet + Base Sepolia testnet ETH** — user has no wallet yet. Claude cannot do
-   this: no wallet creation, no seed phrases, no signing. Steps are in SETUP.md.
-
-Once the URL exists: put it in `track1-miner/miner.yaml`, sandbox-validate at integrate.telegraphprotocol.com,
-then the **user** sends `registerMiner`. Capture `registrationId` into the table below.
-
----
-
-## Key numbers
-
-| | |
-|---|---|
-| **Track 1 (ours) closes** | **2026-08-31** — ~5 days. NOT Sep 7. |
-| Track 3 (Applications) | 2026-08-31 → 2026-09-07 |
-| Miner must stay live until | **2026-09-07** (rule: live throughout Track 3) |
-| Prize | Miner track **$2,000** ($1000/$600/$400). App track $2,000. Script $1,000. |
-| Scoring | **75% normalized performance + 25% X engagement** |
-| Eligibility guardrail | intent needs **≥3 miners AND ≥100 Track 3 requests** |
-
-| Chain | **Base Sepolia** (testnet — gas only, no bond, no stake) |
-| Diamond | `0x5a2324aA18613FAD4e44bDF0d6c73Ec1f6D87ff8` |
-| Routing | 70% / 20% / 10% to ranks 1/2/3, **nothing to 4th** |
-| Grace period | 7 days, unranked, equal share of 5% of traffic |
-| Spot checks | ~every 20s; >20% score drop ⇒ immediate Routing Revocation |
-| Registrants | 300+ as of 2026-08-26 |
-
-## Open decisions
-
-**D1 intent** · **D2 own endpoint vs. pure proxy** · **D3 slug + numeric id** · **D4 fee address**
-All four are unresolved and detailed in [PRD.md](PRD.md). D1 blocks the rest.
-
-## Standing context
-
-- **Wallet operations are the user's.** Claude does not connect wallets, sign messages, or send
-  transactions. Claude drafts; the user clicks.
-- **Verify protocol facts against live docs, never memory.** The canonical intent set changes
-  on-chain. Record what was checked and when.
-- Registration is effectively immutable; a rejected registration **releases its slug immediately**.
-  Always sandbox-validate first.
-- Judging weights **X posts and engagement** on every track — see
-  [docs/BUILD_IN_PUBLIC.md](docs/BUILD_IN_PUBLIC.md). Easy to neglect, scored anyway.
-
-## Not this project
-
-The **Midnight / Brainwave** hackathon (NightSeal, ZK firmware attestation) is a **separate,
-unrelated project** in a different folder. Do not conflate the two — an earlier session in this
-conversation carried Midnight's deadline over by mistake.
-
-## After registration, record here
-
-```
-registrationId   —      (use this for every lookup, never the slug)
-intentId         —
-slug             —
-numeric id       —
-base_url         —
-fee address      —
-IPFS YAML URL    —
-```
+## 2026-11-01 ~11:55 UTC (17:25 IST): CURRENT — `5939c49` LIVE (SSL prose, G246)
+
+Owner: "Yes, deploy it". Release: track1-miner/docs/evidence/release-2026-11-01-ssl-prose/.
+
+- **Production** `miner-1aoi3y0wt` (`5939c49`). Rollback `miner-jyh9t9upq` (`e63df93`). Watch `active`, 657 ms.
+- Preflight 5/7, both failures re-run clean: intent answers 40/40 (a transient `/macro` upstream read), unit + live
+  997/0/1 after the last badssl live test moved to ssl.com's expired host (follow-up commit, test only).
+- Deploy tree detached at `5939c49` with that test change applied. Nothing signed.
+- **Pushed** `codex/rank1-14-intents` to origin 2026-11-01 ~18:55 UTC (owner: "push branch"), up to `823d0ab`.
+  Owner confirmed the Season II registration is done. Ahmed message drafted in chat (G235 scoring blockers).
+
+## 2026-11-01 ~11:25 UTC (16:55 IST): G246 explained; gates fixed; SSL prose fix deployed later as `5939c49`
+
+Owner: "Yes, investigate".
+
+- **G246 cause:** badssl.com's one server (104.154.89.105) resets ~1/3 of TLS handshakes from anywhere (7/20
+  from this machine); ssl.com's expired host 20/20. Not Vercel, not our code.
+- **Gates:** verify-deploy and intent-answers retry badssl twice then SKIP, and grade `expired-rsa-dv.ssl.com`.
+  On production 11:19 UTC: verify-deploy ALL PASSED (2 SKIPs), intent answers 40/40. Takes effect without a deploy.
+- **`ssl.ts` prose fix** (untrusted answer contradicted itself; lowercase chain sentence): unit 871/871, live
+  locally on 5 verdicts. **Not deployed — needs the owner's yes.** Deploy tree has it applied, uncommitted, on `e63df93`.
+- Production unchanged: `miner-jyh9t9upq` (`e63df93`). Not pushed; nothing signed.
+
+## 2026-11-01 ~09:45 UTC (15:15 IST): `e63df93` LIVE (G244); mission builds 9/9 + 57/58
+
+Owner: "Answer ambiguous", "Yes, deploy it". Release: track1-miner/docs/evidence/release-2026-11-01-classify-ambiguous/.
+
+- **Production** `miner-jyh9t9upq` (`e63df93`). Rollback `miner-rbjurfgjl` (`130e16c`). Cold classify call →
+  ambiguous (was a wrong label); warm → hardware fault. Watch `active`, 369 ms.
+- **Mission builds:** full 9/9; partial 57 pass, 0 fail, 1 refused (STOCK_PRICE); 15/15 missions.
+- **Preflight 5/7 (G246):** badssl.com hosts `unreachable` from Vercel, also on the previous deployment; intent
+  answers 40/40 when re-run alone. Re-check before the next release.
+- Deploy tree detached at `e63df93`. Not pushed; nothing signed.
+
+## 2026-11-01 ~08:15 UTC (13:45 IST): `130e16c` LIVE; mission builds full 9/9, partial 53/58
+
+Owner: "Yes, deploy it". Release record: track1-miner/docs/evidence/release-2026-11-01-extraction/.
+
+- **Production** `miner-rbjurfgjl` (`130e16c`: G245 extraction + bounded field-list match from the security
+  review). Rollback `miner-htkhwofwv` (`a8abbcf`). Preflight 7/7; watch `active`, 376 ms.
+- **Mission builds:** full 9/9; partial 53 pass, 4 fail (all G244 classification), 1 refused (STOCK_PRICE); 15/15.
+- **G244** recurs on every fresh deployment's first classify call. Owner chose "Answer ambiguous": fixed in
+  `e63df93` (unit 871/871), **not on production**; previews have no model key, so only production shows it.
+- **H2 is open** (since Nov 1 00:00 UTC). Not pushed; nothing signed. Deploy tree detached at `e63df93`.
+
+## 2026-10-31 ~19:50 UTC (01:20 IST Nov 1): all 102 mission builds graded; G245 fixed on a preview
+
+Owner: "Partial workflow tests".
+
+- **Production `a8abbcf`:** full builds 9/9 (SEC now cross-checked under the miner's own identity); partial builds
+  50/58 on LiveCert's part; **15/15 missions** have a passing build. Evidence `fixtures-all-a8abbcf.json`.
+- **G245 extraction** (invoice number never read; 3 builds) fixed in code, unit 869/869, preview `miner-ipk9a60l8`
+  checked. **Not on production: the owner's yes covered `a8abbcf` only.**
+- **G244 classification** (4 builds): intermittent model deadline miss; owner's trade-off, not changed.
+- Tools: `tools/mission-steps.mjs` (steps, references, FAMILY_STEPS), `tools/mission-fixtures.mjs` (runner).
+
+## 2026-10-31 ~19:30 UTC (01:00 IST Nov 1): G241–G243 fixes LIVE on production; workflows 7/9, 0 fail
+
+Owner: "Yes, deploy it". Release record: track1-miner/docs/evidence/release-2026-10-31-mission-fixes/.
+
+- **Production** `miner-htkhwofwv` (`a8abbcf`), alias miner-wine.vercel.app. Rollback `miner-h0lnck8v6` (`330f2af`).
+- **Verified:** unit 866/866; preflight 7/7; watch `active`, 380 ms; mission workflows **7 pass, 0 fail, 2 unchecked**
+  (SEC steps need `SEC_USER_AGENT`). Before: 3 pass, 4 fail.
+- **Not pushed; nothing signed.** Deploy tree `C:\Users\hyada\tg-deploy\mc75190b` is detached at `a8abbcf`.
+- **Next, Claude:** fixtures for the partial workflows (S1); E1 truth-source experiment brief; S3 client recipes.
+- **Next, owner:** H2 registration before Nov 1 00:00 UTC; Ahmed question (TASKS); push yes.
+
+## 2026-10-31 ~19:00 UTC (00:30 IST Nov 1): strategy rewritten; workflow fixtures 3/9 on production (superseded above)
+
+Owner: "yes start. building. but before create a plan, asymmetrical strategies … use leverage over others".
+
+- **WINNING.md §4 rewritten** (S1–S9) and **§4b experiments** (E1–E6) with kill rules. Leverage refused: extra
+  wallets, own traffic as demand, scorers that know our miner.
+- **Matrix:** 102 example builds; all 15 missions touched; **9 builds buy only families we serve**.
+  TASK_EXECUTION_QUALITY and LLM_OUTPUT_EVALUATION (ranked today) are each the one missing family in 3 builds (S5).
+- **Fixtures on production:** 3/9 workflows pass, 4 fail (G241 fact-check, G242 sentiment, G243 election
+  phrasing), 2 unchecked (SEC). Evidence `track1-miner/docs/evidence/missions-2026-10-31/`.
+- **G241–G243 fixed in code** (owner: "Yes, fix them"): unit 866/866; local fixtures plus preview `miner-d881p4yiz` show every failing step passing. **Not on production**: deploy needs the owner's yes, then re-run the fixtures on production. Deploy tree `C:Usershyada	g-deploymc75190b` is at `5a3dba0` plus the fix files (detached).
+
+## 2026-10-31 ~18:50 UTC (00:20 IST Nov 1): CURRENT — docs re-read; comparator registration withdrawn
+
+Owner: "update the documentation again, because Telegraph have updated them … what's the status … I want to
+participate in all the tracks; apps and agents I will take care of later".
+
+- **Docs re-read:** all 37 anjoman.ai/docs pages (25 updated Oct 30–31) and /rules with every tab. Facts:
+  docs/TELEGRAPH_FACTS.md top section. Rules substance unchanged; prize-payment terms still unpublished (G218).
+- **G237 killed:** FX_NOW is scored with no registered comparator. The CRYPTO_PRICE registration is withdrawn
+  (track2/SIGN_S2.md top). Do not fund the wallet for it.
+- **G235 revised:** judgment/hybrid intents need a canonical adapter and 5 pool contributors (ours: none, 0–1);
+  CRYPTO_PRICE_USD's intent is `ready: false` ("no decimals"); WEATHER_CHECK_TEMPERATURE's cause is unknown. The
+  question to Telegraph in TASKS is rewritten.
+- **Adapters are now safetensors LoRA deltas (G238):** ours can be re-exported without retraining once Telegraph
+  publishes `foundation.json` and the reference executor.
+- **Epochs are 1 hour** since this afternoon (G239).
+- **4829:** `active`, 36 intents, unchanged. Miner production `330f2af`, unchanged this session.
+- **Not done:** G236 `cast` check (`cast` not installed). Nothing pushed, signed or registered.
+- **Next, the owner's:** register for H2 before Nov 1 00:00 UTC (05:30 IST); send the TASKS question to Ahmed;
+  say yes to the push; choose licensed news and stock sources.
+- **Next, Claude's:** mission × intent matrix and fixtures (Nov 1–13); evaluation material for our intents
+  (owner signs uploads); G207; `licensing` in openapi.json; first weekly audit.
+
+## 2026-10-31 ~17:00 UTC (22:30 IST): CURRENT — CRYPTO_PRICE comparator ready; owner funds and signs
+
+Owner: "Yes, pick a family". Details: [track2/MEMORY.md](track2/MEMORY.md), runbook [track2/SIGN_S2.md](track2/SIGN_S2.md).
+
+- Picked CRYPTO_PRICE. Its evaluator is our existing, verified comparator (keccak `0x30dd31e3…cd9a3`).
+- Runnable endpoint live: `https://livecert-comparator.vercel.app/CRYPTO_PRICE/runnable` (new Vercel project
+  `livecert-comparator`). Tests 6/6, live 600/600.
+- The wallet `0xdAd2…A39e` has 0 Sepolia ETH and 0 MACHINA: fund, approve, simulate, register (owner).
+- G237: that a live comparator makes the family scored is a hypothesis. The draft question to Telegraph is in TASKS.
+
+## 2026-10-31 ~16:15 UTC (21:45 IST): CURRENT — licence gates LIVE on production; not pushed, nothing signed
+
+Owner: "i dont see livecert listed on rankings. update our miner and make it ready for the hackathon".
+
+- **Why LiveCert is not on the rankings (G235):** on V2 only families with an evaluator are scored. 71 of 1,875
+  registrations are scored, all in 7 families; none of our 36 families has an evaluator, so no miner at all is
+  ranked in them. 4829 is `active`, the watch is green. Nothing in the miner changes this.
+- **V2 moved to Ethereum Sepolia (G236):** Diamond `0x3624…b99b`. RULES_SEASON2, README and WINNING corrected.
+- **Released `330f2af`** (licence gates, G200 qualifier, G217 holders, plus two fixes found on the preview:
+  off-topic `/stock-price` questions get `no_subject` before the licence refusal; "What's the news on X" no longer
+  leaves "'s" in the subject). Production `miner-h0lnck8v6`; rollback `miner-6kvt9zv2p` (`4af4ebd`).
+- **Gates changed** to grade an honest `not_licensed` as correct; upstream-health no longer probes the nine
+  sources production stopped calling, and probes MET Norway + Nominatim through production.
+- **Verified:** unit 854/854; preflight 7/7 exit 0; intent answers 40/40 (34 answered, 6 honest refusals);
+  watch `activation=active`. Evidence: `track1-miner/docs/evidence/release-2026-10-31-licence-gates/`.
+- **Live consequence:** STOCK_PRICE, NEWS_HEADLINES, NEWS_SEARCH refuse everything; WEB_SEARCH loses current
+  news; IP_GEOLOCATION answers reserved ranges only; FINANCIAL_DATA answers SEC figures only. Licensed sources
+  are the owner's call (TASKS).
+- **Branches:** `codex/rank1-14-intents` fast-forwarded to the docs commit after `330f2af`; not pushed.
+  Deploy tree `C:\Users\hyada\tg-deploy\mc75190b` (detached, `npm ci` done).
+- **Next, the owner's:** register for H2 before Nov 1 00:00 UTC (05:30 IST) if not done; G235 decision; push.
+
+## 2026-10-29 ~18:00 UTC (23:30 IST): licensed-sources MERGED (deployed 2026-10-31, above)
+
+Owner: "Merge it" (claude/licensed-sources).
+
+- **Code conflicts resolved by keeping both sides:**
+  - `handler.ts`: the receipt envelope plus the `licensing` field;
+  - `currency.ts`: the 10-minute ECB hold plus the Frankfurter fallback;
+  - `geo.ts`: DNS read-notes plus the licence gates.
+- **Gaps renumbered:** the branch's G208–G212 collided with codex's, so they are now **G230–G234**. The docs
+  session holds G221/G222 and was told G230–G234 are taken.
+- **Ledger brought up to date with codex's routes:**
+  - `/dns`, `/token-supply`, `/keywords` and `/vuln-triage` added;
+  - CISA KEV and FIRST EPSS registered as unread (G233);
+  - URLhaus removed;
+  - a new test fails when an endpoint lacks a ledger entry.
+- **Holders test rewritten** for the gated path: unlisted symbols go through Blockscout search, never GeckoTerminal.
+- **Verified:** unit tests 852/852 and `tsc --noEmit` clean, from a clean `dist-test`. Not deployed.
+- **Behaviour on the next deploy:**
+  - `/stock-price`, `/headlines` and `/news-search` refuse everything;
+  - `/ip-geolocate` answers reserved ranges only;
+  - `/financial` answers SEC figures only;
+  - `/event-outcome` searches Polymarket only;
+  - unlisted holder symbols are likely `unknown` from Vercel.
+
+  The release gates still expect the old answers: update them first (TASKS).
+- **Branch `claude/licensed-sources` deleted** after the merge; it is in the 2026-10-29 bundle. Its worktree
+  `winners-github-repo-88c231` (idle session "Winner's GitHub repo") is detached.
+
+## 2026-10-29 ~17:30 UTC (23:00 IST): branches merged and pruned (licensed-sources merged since, above)
+
+Owner: "merge or fix branches as well so things dont get complicated. remove useless branches"
+
+- **Backup first:** `C:\Users\hyada\telegraph-backups\branches-2026-10-29.bundle` (`--all`, verified; every one of
+  the 18 refs in `refs-2026-10-29.txt` is in it at its old commit). Restore a branch with
+  `git fetch <bundle> refs/heads/<name>:refs/heads/<name>`.
+- **Merged into `codex/rank1-14-intents`:**
+  - `main` (`b5bc712`): 63 scheduled score commits plus c90e4b9. The tree is unchanged; this branch already had
+    `uptime.yml` byte for byte, and its academic deploy check supersedes main's.
+  - `claude/miner-s2-conformance` (`db17364`): the G200 RESEARCH_QUERY qualifier fix. **Not deployed.**
+  - `claude/wasm-track-2-quality-e21db3` (`0684fa1`): comparators, pair generators, adapter recipe, `SIGN_S2.md`.
+    The track2 ledgers keep G28–G32 under the V2 entry and G33; Season I log dropped.
+- **Verified:** unit tests 822/822 (was 816; +6 qualifier tests) and `tsc --noEmit` clean, on `0684fa1` in worktree
+  `gallant-allen-3589e4`. Not run on Vercel; nothing deployed.
+- **Deleted, all contained in codex or patch-equivalent:**
+  - `claude/g208-intent-swap`, `claude/miner-s2-conformance`, `claude/wasm-track-2-quality-e21db3`,
+    `claude/miner-s2-improve`;
+  - the five branches parked at c90e4b9 (`morse-repair-dbb423`, `miner-improvements-0de1a5`,
+    `project-improvement-strategy-5ff8d8`, `winners-github-repo-88c231`, `youthful-nightingale-1c5936`).
+  - Their idle sessions' clean worktrees were **detached, not removed**: project-improvement-strategy,
+    morse-repair, youthful-nightingale and wasm-track-2-quality. Archiving those sessions removes the folders.
+- **Kept:**
+  - `claude/licensed-sources` (owner decision, TASKS);
+  - `claude/hackathon-rules-docs-update-0eb075` (the live session's worktree);
+  - `claude/gallant-allen-3589e4` (this session's worktree).
+  - Local `main` was fast-forwarded to codex. **origin/main is untouched:** updating it needs a PR and the owner's
+    yes.
+- **licensed-sources, trial merge then aborted:** 5 conflicts, 3 in code. Each side added something the other
+  lacks:
+  - `handler.ts`: receipts against the `licensing` field;
+  - `currency.ts`: the 10-minute ECB hold against the Frankfurter fallback;
+  - `geo.ts`: `noteRead` against `permitted`.
+
+  Merging it makes `/stock-price`, `/headlines` and `/news-search` refuse every request. It bars GeckoTerminal,
+  which `/token-holders` still falls back to, as well as ip-api, ipwho.is, IPinfo, Yahoo, Nasdaq, CoinGecko,
+  Google News and Manifold.
+- **Not done, owner's call:**
+  - delete remote `origin/codex/livecert-manifest-19` (Season I);
+  - remove the 3 detached deploy worktrees in `C:\Users\hyada\tg-deploy\` (check node_modules links first);
+  - archive the idle sessions above.
+
+## 2026-10-29 ~17:00 UTC (22:30 IST): Season II rules re-read; V2 docs moved to anjoman.ai; docs updated
+
+Owner: "new hackathon has appeared. update the rules what is required. https://anjoman.ai/ new website as well.
+update all the documentation. remove non useful things"
+
+- **Branch `claude/hackathon-rules-docs-update-0eb075`**, moved to `codex/rank1-14-intents` @ `af568e1` before any edit.
+  `main` was 223 commits behind, and this branch had no commits of its own. Docs only, no code. Committed as
+  `62e4e9c` and fast-forwarded onto `codex/rank1-14-intents` on the owner's yes. Not pushed: 14 commits ahead
+  of origin. Not deployed, and there is nothing to deploy.
+- **The rules changed (read 2026-10-29, `RULES_SEASON2.md`):**
+  - the final deadline is **Dec 1 23:59 UTC** for every track (no longer Dec 20);
+  - judging runs Dec 2–8, with provisional results from Dec 9;
+  - prizes: $7,000 main, plus $3,000 for separate December challenges with their own rules;
+  - /judging returns 404, and the pages agree, so G203 is closed;
+  - starting early is allowed; event evidence must come from the event period.
+- **New site:** anjoman.ai is Telegraph's consumer front end and the new home of the V2 docs (also at
+  docs.telegraphprotocol.com). Its dashboard needs the owner's sign-in.
+- **V2 facts that touch us:**
+  - intents are families, so register `X_SUFFIX` / `X_GENERAL`, never a prefix;
+  - spot checks run about hourly per intent;
+  - evaluators: float WASM adapters only, `registerWasm(..., prefix, ..., runnableUrl)`.
+- **Registration 4829:** `active` on V2 with 36 suffixed intents. All 36 families are on the site's 134-intent
+  catalogue (G208 closed). Its `registered_at` reads 2026-10-25 00:48 UTC (G220).
+- **New gaps:** G218 prize-payment terms unpublished; G219 USDC vs MACHINA wording; G220 grace period after
+  the import.
+- **Removed:** superseded MEMORY entries for 2026-10-14 → 2026-10-25 17:30 and 2026-10-26 10:50/12:30 (their
+  facts are in GAPS; `git log -p -- MEMORY.md`); done and past-dated TASKS items.
+- **Next, the owner's:**
+  - register before Nov 1 00:00 UTC (05:30 IST);
+  - read the payment terms;
+  - send the two WINNING.md §8 questions;
+  - push;
+  - deploy G217.
+
+## 2026-10-27 ~18:45 UTC (28-10 00:15 IST): CURRENT — G217 holder fixes COMMITTED; not deployed, not pushed
+
+Owner: "Yes: change the outage verdict to unknown and make /token-holders use KNOWN_TOKENS before GeckoTerminal,
+with tests, committed locally. Don't deploy yet."
+
+- **Done:**
+  - Holder-count outages answer `unknown`, not `not_found`. A partial outage with no chain named does too, and
+    names the chains that did not answer.
+  - `/token-holders` reads `KNOWN_TOKENS` first. The table moved to `src/known-tokens.ts`, shared with
+    `/token-supply`.
+- **Verified:**
+  - Unit tests 816/816.
+  - Local build against live upstreams: `evidence/g217-holder-sources-2026-10-27/local-probes.json`.
+  - The gate's outage check (`upstream_unavailable` plus the "index outage" sentence) still holds.
+- **Not verified:** on Vercel. No deploy, by instruction.
+- **Next:**
+  - Owner: deploy on a yes; use the release-miner skill, preview first.
+  - Owner: the Blockscout Pro key (TASKS Owner).
+  - Owner: push `codex/rank1-14-intents`.
+
+## 2026-10-27 ~15:45 UTC (21:15 IST): G217 investigated; no code changed
+
+Owner: "Investigate G217 … propose a second holder-count source with measured agreement before changing anything."
+
+- **From Vercel's egress:** Blockscout's Base, Arbitrum and Polygon hosts return 403; Ethereum and Optimism return
+  200. Read from production receipts.
+- **Candidates measured on 26 tokens:**
+  - GeckoTerminal is fast to reach but unreliable and disagrees (−9% to +20%);
+  - Ethplorer's freekey is for development only;
+  - Routescan was already ruled out.
+- **Recommended:** a free Blockscout Pro API key, which keeps the same index on all chains. The owner creates it.
+- **Two small fixes proposed and not made:**
+  - the outage verdict `not_found` should be `unknown`;
+  - `/token-holders` should use `KNOWN_TOKENS` before GeckoTerminal.
+- Evidence: `track1-miner/docs/evidence/g217-holder-sources-2026-10-27/`; GAPS G217.
+
+## 2026-10-27 ~14:55 UTC (20:25 IST): CURRENT — G213 release LIVE on production; not pushed, not registered
+
+- **Owner's yes, 2026-10-27:** "deploy codex/rank1-14-intents at 4af4ebd (preview first, then production), run the
+  gates and re-measure token-supply latency. Don't push or sign."
+- **Production:** `miner-6kvt9zv2p` (`4af4ebd`). Rollback target `miner-9ozpb4kgh`.
+- **Gates at baseline:**
+  - unit + live PASS;
+  - intent answers 39/40 (the IP Tokyo pin);
+  - upstream health: the two known failures;
+  - registration 4829 active.
+
+  Evidence: `track1-miner/docs/evidence/release-2026-10-27-g213/`.
+- **Token supply on production:**
+  - table symbols 8/8 within 500 ms (83–277 ms);
+  - addresses 137–162 ms;
+  - symbols outside the table 657–731 ms.
+- **New: G217.** TOKEN_HOLDER_COUNT (registered) answers "index did not answer" on production, because Blockscout is
+  not answering. This predates the release.
+- **Next, all the owner's:**
+  1. push;
+  2. send the Ahmed message and the G32 report;
+  3. the G205 choice;
+  4. publishing the named field results;
+  5. whether to fix G217 with a second holder index.
+
+## 2026-10-27 ~14:10 UTC (19:40 IST): the 2026-10-26 recommendations worked through (superseded above)
+
+Owner: "complete this work", referring to the recommendations of 2026-10-26: the six ideas and the tools.
+
+**Status of each:**
+
+1. **G208 intent swap.** Live since 2026-10-26. G213 is fixed in code (`11f6306`):
+   - a verified table of 21 token contracts;
+   - the Polygon `polygon_pos_` resolver bug, which also affected `/token-holders`.
+
+   **Not deployed.** Push, console validation (G212) and signing (G206) are the owner's.
+2. **Validators as the uptime record: not possible for free (G205).**
+   - Vercel logs keep about 1 h, and only invocations that printed something.
+   - Vercel metrics need Observability Plus, a paid Pro feature.
+   - Devnode and the explorer publish no liveness history.
+
+   The owner picks: the uptime workflow, Vercel Pro, or a store.
+3. **Replayable receipts: `tools/verify-answer.mjs`** (`2cb4049`, hardened `7f60ec2`).
+   - It runs on the caller's machine, not as a miner endpoint, to avoid SSRF.
+   - Documented in `docs/INTEGRATE_LIVECERT.md`.
+   - `/vuln-triage` receipts now name a KEV catalog held in memory.
+4. **Field check: `tools/field-check.py`** (`d8fa299`). Evidence: `field-check-2026-10-27/`.
+   - Service endpoints that pass: DNS 3/5, token supply 2/5, triage 2/9. LiveCert passes all three.
+   - Raw public APIs registered as endpoints pass 1 of 22.
+   - **Named results stay outside the repo** (`C:\Users\hyada\tg-deploy\field-2026-10-27\`). Publishing them is the
+     owner's call.
+5. **MCP server: closed.** Telegraph already ships Telegraph-MCP (TELEGRAPH_FACTS 2026-10-27).
+6. **G32 report: drafted in WINNING.md §9, not sent.** It asks whether v2 reuses the converter.
+
+**Tools:**
+- `.claude/skills/release-miner/SKILL.md` is written.
+- Vercel MCP: used for the metrics check above.
+- Playwright demo video: **not started.** It is low urgency; submission is in December.
+
+**Commits on `claude/g208-intent-swap`:** `11f6306`, `2cb4049`, `7f60ec2`, `d8fa299`, plus this record. The main
+branch is fast-forwarded and **not pushed**.
+
+**Next, all the owner's:**
+- a yes to deploy `11f6306`+ (G213 and the Polygon fix) and measure;
+- a yes to push;
+- send the Ahmed message (G206, G208, G212) and the G32 report;
+- the G205 choice;
+- whether to publish the named field results.
+
+## 2026-10-26 ~05:20 UTC (10:50 IST): CURRENT — item 2, answer receipts, DEPLOYED and pushed
+
+- Production `miner-mz9gh2afy`, rollback `miner-l5taibkkl`.
+- All 36 intents carry receipts on production, with no secret-like values.
+- Gates are at baseline after `no-regression.mjs` learned to ignore `receipt`.
+- Evidence: `track1-miner/docs/evidence/release-2026-10-26-receipts/`.
+- **Owner said "keep working, give prompt to yourself"** (2026-10-26). Self-set order:
+  1. item 3, calibrated confidence, from labelled answers;
+  2. item 5, nightly self-check;
+  3. item 6, OpenAPI spec.
+
+  Build, test and commit each locally. Pause only for deploy, push, keys or `updateMiner`.
+
+- **The confidence rule and OpenAPI are DEPLOYED and pushed (2026-10-26 ~05:47 UTC):** production `miner-ccy6bq1ee`,
+  rollback `miner-mz9gh2afy`, gates at baseline. Evidence: `release-2026-10-26-confidence/`.
+- **Item 3, confidence (now deployed):**
+  - On the Oct 21 audit, answers at confidence 1.0 were right only 72% of the time; Brier score 0.210.
+  - Confidence is a fixed level per intent, not a per-answer judgement.
+  - Too few labels to re-tune per intent. One rule was written down instead: 1.0 only for a direct
+    authoritative read. Under it, translation is now 0.9 and academic topic search 0.8.
+  - Evidence: `track1-miner/docs/evidence/calibration-2026-10-26/`.
+  - The real fix is a fresh graded set of at least 10 per intent on current production.
+
+- **Item 5, nightly self-check: blocked on the owner.** A scheduled job against production is like the `uptime`
+  workflow the owner turned off (G205).
+- **Item 6, OpenAPI (committed, not deployed; it is a repo doc):** `docs/openapi.json`, 35 operations, generated by
+  `tools/openapi.py`.
+  - Every field production returns is documented: 0 undocumented on the re-check.
+  - Found G211: the registered `output_schema` omits 101 returned fields.
+
+- **G200, RESEARCH_QUERY (committed, NOT deployed):**
+  - `src/research.ts` now searches the name together with the question's qualifier.
+  - It requires the qualifier in a trial's title or conditions (with a small clinical-synonym map).
+  - Drug codes go first; bare company words are dropped.
+  - Concept papers need every word.
+  - A state's political decision is declined.
+  - Replay of 100 questions (`tools/research-replay.mjs`): the 3 audit fails are fixed, 47 leads changed
+    (read by hand), 4 still weak. Unit tests 804/804.
+
+### Earlier the same morning
+
+
+- **Every answer now ends with a `receipt`:** the upstream requests actually made, with credentials redacted, the
+  status, the time, `from_cache` and the deployment. Code: `src/receipt.ts`.
+  - `fetch` is wrapped once and each request runs in its own AsyncLocalStorage context.
+  - TLS, DNS, the redirect walk and Quad9's HTTP/2 queries are noted by their modules.
+- **Checked locally on all 36 intents:** every one has a receipt and none holds a secret-like value.
+  Unit tests 798/798. Evidence: `track1-miner/docs/evidence/receipts-2026-10-26/`. The receipt is documented in
+  `docs/INTEGRATE_LIVECERT.md`.
+- **Next:**
+  1. The owner's yes to land and deploy, then re-run `tools/receipt-check.mjs` against production.
+  2. Item 3, calibrated confidence.
+
+## 2026-10-25 ~18:00 UTC (23:30 IST): Ahmed answered — miners carry over to v2; listed-intents question pending
+
+- **Registration 4829 carries over to v2** with no re-registration (TELEGRAPH_FACTS item 10).
+- **On unlisted intents (G208), Ahmed said "let us check".** Pending; nothing is re-registered until the answer.
+- **G206 (does an update restart the grace period?) is still unanswered.**
+
+## Durable facts (true across sessions; re-verify protocol facts against live docs)
+
+**Identity.**
+- Hackathon signup: `harsh.2024a@vitstudent.ac.in`. X: `@hyadav42774`.
+- Miner, fee and Track 2 script wallet: `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e`. Wallet operations
+  are the owner's: Claude drafts and validates, the owner signs.
+- Chain: Base Sepolia testnet, Diamond `0x5a2324aA18613FAD4e44bDF0d6c73Ec1f6D87ff8` (V2 docs, 2026-10-27).
+  Season II rules: `RULES_SEASON2.md` (re-read 2026-10-29). Protocol docs: anjoman.ai/docs.
+
+**Registration.**
+- Look up by registrationId, never by slug. The catalog's `id` is not a registrationId either
+  (`/api/miners/4433` is someone else's miner).
+- Sandbox-validate at integrate.telegraphprotocol.com first; a rejection releases the slug.
+- The YAML is served from a commit-pinned raw GitHub URL, so push before signing. The registered hash is
+  the SHA-256 of the hosted bytes.
+
+**Deploy (read GAPS G70).**
+- Only from a clean `git worktree` at the release commit: `vercel deploy` uploads the working directory.
+- Preview first, then `--prod`. After a `vercel rollback` the alias is pinned and `--prod` does not move it:
+  run `vercel promote <url>`. Then `preflight.mjs`.
+- Deploy new code only after a registration change it depends on is mined.
+
+**Working here.**
+- The tree is shared between sessions: commit with explicit pathspecs, never `git add -A`.
+- Git Bash: run `manifest-diff.mjs` with `MSYS_NO_PATHCONV=1`; use `curl -4` (IPv6 hangs); files are CRLF.
+- `tools/watch.mjs`: `--once` goes last. The explorer feed labels miners by display name; use
+  `routing.subnet_id`. `git worktree remove` can hit a Windows lock; run `git worktree prune` after.
+
+**Elsewhere.** Track 2 (WASM scorer): `track2/`. Track 3 app Morse: `../telegraph-morse`, its own repo.
+The Midnight / NightSeal hackathon is a different, unrelated project.
+
+**Older history** (Season I sessions, Aug 26 – Oct 13) was cut on 2026-10-17, and Oct 14 – Oct 25 was cut on
+2026-10-29, to keep this file short: `git log -p -- MEMORY.md`.

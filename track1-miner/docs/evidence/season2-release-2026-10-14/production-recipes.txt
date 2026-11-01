@@ -1,0 +1,8 @@
+/sanctions-screen  no_match        | No match: "Ivan Petrov" does not closely match any name or alias on these lists; the closest was IVANOV, Victor Petrovich (score 0.887), below the 0.9
+/company-registry  found           | TESLA, INC. is active, registered with Corporations Section (Texas Secretary of State) under company number 0805587591 in US-TX, incorporated 2024-06-
+/sec-filings       filed           | Tesla, Inc.'s latest 10-Q was filed on 2026-07-23 and accepted by EDGAR at 01:02 UTC, for the period ended 2026-06-30, accession 0001628280-26-049270.
+/transfer-verify   confirmed       | Transaction 0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060 on ethereum succeeded in block 46147.
+/macro             reported        | Consumer price inflation in the US was 3.4% year on year in August 2026 (US Bureau of Labor Statistics).
+/url-reputation    safe            | Not listed: login-secure-update.example.com is on none of the 3 threat sources that answered: Cloudflare security DNS, Quad9 threat-blocking DNS, URLh
+/answer            answered        | The war ended in 1648 [1].
+/answer            answered        | Mars has two moons [1].

@@ -1,0 +1,49 @@
+{
+ "at": "2026-10-27T14:46:23.991Z",
+ "base": "https://miner-wine.vercel.app",
+ "baseline_rtt_ms": 240,
+ "intents": {
+  "TOKEN_TOTAL_SUPPLY_VERIFY": {
+   "path": "/token-supply",
+   "target": "< 500ms",
+   "target_ms": 500,
+   "server_ms_est": [
+    731,
+    657,
+    137,
+    162
+   ],
+   "within_target": 2,
+   "runs": [
+    {
+     "q": "What is the total supply of CRV on Ethereum?",
+     "ms": 971,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "verified"
+    },
+    {
+     "q": "What is the total supply of MKR on Ethereum?",
+     "ms": 897,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "verified"
+    },
+    {
+     "q": "What is the total supply of 0x6B175474E89094C44Da98b954EedeAC495271d0F on Ethereum?",
+     "ms": 377,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "verified"
+    },
+    {
+     "q": "What is the total supply of 0x82aF49447D8a07e3bd95BD0d56f35241523fBab1 on Arbitrum?",
+     "ms": 402,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "verified"
+    }
+   ]
+  }
+ }
+}

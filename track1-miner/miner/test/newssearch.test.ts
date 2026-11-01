@@ -4,6 +4,10 @@ import {
   acronyms, distinctiveTerms, extractSubject, extractWindowDays, isRelevant, isSoftRecency,
   searchNews, trimTitle,
 } from "../src/newssearch";
+import { openGate } from "./licence-fixtures";
+
+// These tests cover the Google News code, kept behind its licence gate (GAPS G230).
+openGate("google-news");
 
 test("the canonical example's subject survives the scaffolding", () => {
   // "Find recent articles covering the merger between company X and company Y."
@@ -24,6 +28,13 @@ test("interrogative scaffolding is not searched for", () => {
   // This produced "What has there been of the Federal Reserve in the".
   assert.equal(extractSubject("What coverage has there been of the Federal Reserve in the last 3 days?"), "Federal Reserve");
   assert.equal(extractSubject("Show me news on Tesla from the past month"), "Tesla");
+});
+
+test("a contraction left by the scaffold is not part of the subject", () => {
+  // Read 2026-10-31 on a preview: "News coverage of 's the Fed's interest rate decision".
+  for (const q of ["What's the latest news on the Fed's interest rate decision?", "What’s the latest news on the Fed's interest rate decision?"]) {
+    assert.ok(!/^['’]s\b/.test(extractSubject(q)), extractSubject(q));
+  }
 });
 
 test("a request with no subject is refused rather than searched literally", () => {

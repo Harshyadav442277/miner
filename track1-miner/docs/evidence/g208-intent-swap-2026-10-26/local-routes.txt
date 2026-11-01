@@ -1,0 +1,20 @@
+GET /dns
+  HTTP 200 0.003722 s | insufficient_input | No domain name was supplied, so no DNS record could be looked up.
+GET /token-supply
+  HTTP 200 0.003310 s | insufficient_input | No token contract address or symbol was supplied, so no supply could be read.
+GET /keywords
+  HTTP 200 0.002714 s | insufficient_input | No body text long enough to extract keywords from was supplied.
+GET /vuln-triage
+  HTTP 200 0.003117 s | insufficient_input | No CVE identifiers were supplied, so nothing could be ranked.
+GET /dns?domain=github.com&type=MX
+  HTTP 200 0.155493 s | resolved | github.com has 1 MX record: 0 github-com.mail.protection.outlook.com.
+GET /dns?query=Does%20paypal.com%20publish%20a%20DMARC%20record%3F
+  HTTP 200 0.042083 s | resolved | _dmarc.paypal.com has 1 TXT record: v=DMARC1; p=reject; rua=mailto:d@rua.agari.com,mailto:dmarc_agg@vali.email; ruf=mailto:d@ruf.agari.com,mailto:MTc4Mzcw@ruf.vali.email.
+GET /token-supply?query=What%20is%20the%20total%20supply%20of%20USDC%20on%20Base%3F
+  HTTP 200 3.154337 s | verified | USDC's total supply on Base at block 53111130 is 4,298,513,719.43 USDC (exact: 4298513719.426961).
+GET /token-supply?token=0x95aD61b0a150d79219dCF64E1E6Cc01f0B64C4cE
+  HTTP 200 0.926609 s | verified | SHIB's total supply on Ethereum at block 26276354 (no chain was named, so Ethereum was read) is 999,982,326,618,451.4 SHIB (exact: 999982326618451.39042300029358933).
+GET /keywords?query=Extract%20the%20top%205%20keywords%3A%20Kubernetes%201.31%20deprecates%20the%20in-tree%20cloud%20provider%20integrations.%20Cluster%20operators%20must%20migrate%20to%20external%20cloud%20controller%20managers%20before%20upgrading.
+  HTTP 200 0.006258 s | extracted | The top keyphrases of the 20-word text are: cloud provider integrations, in-tree cloud, kubernetes, deprecates, cluster operators.
+GET /vuln-triage?query=Rank%20these%20findings%20on%20an%20internet-facing%20payments%20service%3A%20CVE-2024-3094%2C%20CVE-2023-4863%2C%20CVE-2024-26581%2C%20CVE-2021-44228%2C%20CVE-2022-0001
+  HTTP 200 1.677045 s | ranked | Fix first: CVE-2021-44228 (act now: on CISA's Known Exploited Vulnerabilities list since 2021-12-10), then CVE-2023-4863 (act now: on CISA's Known Exploited Vulnerabilities list since 2023-09-13), then CVE-2024-3094 (high: EPSS gives a 90.9% chance of exploitation in the next 30 days).

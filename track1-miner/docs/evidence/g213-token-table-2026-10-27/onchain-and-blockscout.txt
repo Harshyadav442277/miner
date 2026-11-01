@@ -1,0 +1,21 @@
+ethereum  USDC  onchain=USDC     scout=USDC     USDC                         holders=9537285
+ethereum  USDT  onchain=USDT     scout=USDT     Tether                       holders=16951433
+ethereum  DAI   onchain=DAI      scout=DAI      Dai                          holders=767828
+ethereum  WETH  onchain=WETH     scout=WETH     WETH                         holders=3359468
+ethereum  WBTC  onchain=WBTC     scout=WBTC     Wrapped Bitcoin              holders=203782
+ethereum  LINK  onchain=LINK     scout=LINK     Chainlink                    holders=1008234
+base      USDC  onchain=USDC     scout=null     null                         holders=NaN
+base      WETH  onchain=WETH     scout=null     null                         holders=NaN
+base      DAI   onchain=DAI      scout=null     null                         holders=NaN
+arbitrum  USDC  onchain=USDC     scout=null     null                         holders=NaN
+arbitrum  USDT  onchain=USD₮0    scout=null     null                         holders=NaN
+arbitrum  WETH  onchain=WETH     scout=null     null                         holders=NaN
+arbitrum  DAI   onchain=DAI      scout=null     null                         holders=NaN
+optimism  USDC  onchain=USDC     scout=USDC     USD Coin                     holders=661540
+optimism  USDT  onchain=USDT     scout=USDT     Bridged USDT                 holders=999530
+optimism  WETH  onchain=WETH     scout=WETH     L2 Standard Bridged WETH (Op holders=331449
+optimism  DAI   onchain=DAI      scout=DAI      MakerDAO Optimism Bridged DA holders=122052
+polygon   USDC  onchain=USDC     scout=null     null                         holders=NaN
+polygon   USDT  onchain=USDT0    scout=null     null                         holders=NaN
+polygon   WETH  onchain=WETH     scout=null     null                         holders=NaN
+polygon   DAI   onchain=DAI      scout=null     null                         holders=NaN

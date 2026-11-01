@@ -1,0 +1,68 @@
+track1 Aug17-Aug31 194 .. 298 (105 epochs)
+through Sep7 194 .. 315 (122 epochs)
+epoch 298 only 298 .. 298 (1 epochs)
+Aug26-Aug31 (our life) 277 .. 298 (22 epochs)
+
+== track1 Aug17-Aug31 | absent epochs ignored ==
+top 8 by mean×75: verity-news-search(1) 75.0 | veritarach-ai-text-detector(1) 75.0 | fx-rate-mirror(1) 75.0 | sportwire-game-result(1) 75.0 | test-mymemory-translate(1) 75.0 | scholarwire-research-query(1) 75.0 | telegraph-defi-miner(1) 75.0 | scholarwire-academic-search(1) 75.0
+top 5 by sum: chainsight-oracle(14) 7.05 | preflight-ssl-verification(12) 6.89 | telegraph-chatbot(6) 5.58 | txlens(14) 5.34 | livecert(13) 5.25
+ livecert: intents 13, mean×75 30.26 (rank 43/132), sum 5.245 (rank 5), ratio=1 in 2
+ txlens: intents 14, mean×75 28.62 (rank 47/132), sum 5.343 (rank 4), ratio=1 in 2
+ chainsight-oracle: intents 14, mean×75 37.79 (rank 30/132), sum 7.053 (rank 1), ratio=1 in 4
+ oathcast-weather: intents 1, mean×75 29.38 (rank 45/132), sum 0.392 (rank 53), ratio=1 in 0
+
+== track1 Aug17-Aug31 | absent epochs count as 0 ==
+top 8 by mean×75: verity-news-search(1) 75.0 | elcaro-ipi-detection(2) 75.0 | veritarach-ai-text-detector(1) 75.0 | patchsignal-cve(1) 75.0 | test-mymemory-translate(1) 75.0 | ssllabs(1) 75.0 | telegraph-defi-miner(1) 75.0 | chainwire-wallet-balance(1) 75.0
+top 5 by sum: chainsight-oracle(14) 8.79 | telegraph-chatbot(6) 5.58 | bedrock-nova-2-lite(5) 4.89 | txlens(14) 4.64 | livecert(13) 4.47
+ livecert: intents 13, mean×75 25.81 (rank 45/132), sum 4.473 (rank 5), ratio=1 in 3
+ txlens: intents 14, mean×75 24.84 (rank 47/132), sum 4.637 (rank 4), ratio=1 in 0
+ chainsight-oracle: intents 14, mean×75 47.09 (rank 29/132), sum 8.791 (rank 1), ratio=1 in 7
+ oathcast-weather: intents 1, mean×75 29.38 (rank 43/132), sum 0.392 (rank 53), ratio=1 in 0
+
+== through Sep7 | absent epochs ignored ==
+top 8 by mean×75: verity-news-search(1) 75.0 | veritarach-ai-text-detector(1) 75.0 | patchsignal-cve(1) 75.0 | sportwire-game-result(1) 75.0 | netwire-ip-geolocation(1) 75.0 | test-mymemory-translate(1) 75.0 | scholarwire-research-query(1) 75.0 | finwire-tvl(1) 75.0
+top 5 by sum: chainsight-oracle(14) 8.30 | livecert(13) 8.22 | txlens(14) 6.65 | preflight-ssl-verification(12) 6.13 | telegraph-chatbot(6) 5.49
+ livecert: intents 13, mean×75 47.43 (rank 29/346), sum 8.221 (rank 2), ratio=1 in 3
+ txlens: intents 14, mean×75 35.60 (rank 45/346), sum 6.646 (rank 3), ratio=1 in 2
+ chainsight-oracle: intents 14, mean×75 44.46 (rank 32/346), sum 8.300 (rank 1), ratio=1 in 5
+ oathcast-weather: intents 1, mean×75 29.39 (rank 53/346), sum 0.392 (rank 63), ratio=1 in 0
+
+== through Sep7 | absent epochs count as 0 ==
+top 8 by mean×75: verity-news-search(1) 75.0 | veritarach-ai-text-detector(1) 75.0 | patchsignal-cve(1) 75.0 | sportwire-game-result(1) 75.0 | test-mymemory-translate(1) 75.0 | telegraph-defi-miner(1) 75.0 | openweathermap(2) 74.7 | groq-llama31-instant-miner(3) 72.7
+top 5 by sum: chainsight-oracle(14) 8.87 | livecert(13) 5.79 | txlens(14) 5.54 | telegraph-chatbot(6) 5.49 | bedrock-nova-2-lite(5) 4.84
+ livecert: intents 13, mean×75 33.40 (rank 44/346), sum 5.790 (rank 2), ratio=1 in 4
+ txlens: intents 14, mean×75 29.68 (rank 46/346), sum 5.540 (rank 3), ratio=1 in 0
+ chainsight-oracle: intents 14, mean×75 47.53 (rank 27/346), sum 8.873 (rank 1), ratio=1 in 8
+ oathcast-weather: intents 1, mean×75 29.39 (rank 47/346), sum 0.392 (rank 57), ratio=1 in 0
+
+== epoch 298 only | absent epochs ignored ==
+top 8 by mean×75: caliber-truthport-text-auth(1) 75.0 | patchsignal-cve(1) 75.0 | fourcast-sports-intelligence(2) 75.0 | netwire-url-scan(1) 75.0 | skywire-weather-check(1) 75.0 | balancepulse-evm-balance(1) 75.0 | chainwire-wallet-balance(1) 75.0 | qarinah-proofpack(2) 72.0
+top 5 by sum: livecert(13) 10.13 | chainsight-oracle(14) 7.77 | txlens(14) 7.34 | preflight-ssl-verification(10) 7.32 | kriterion-pramagraph(10) 4.25
+ livecert: intents 13, mean×75 58.41 (rank 15/129), sum 10.125 (rank 1), ratio=1 in 6
+ txlens: intents 14, mean×75 39.31 (rank 33/129), sum 7.337 (rank 3), ratio=1 in 3
+ chainsight-oracle: intents 14, mean×75 41.64 (rank 29/129), sum 7.774 (rank 2), ratio=1 in 4
+ oathcast-weather: intents 1, mean×75 0.53 (rank 64/129), sum 0.007 (rank 64), ratio=1 in 0
+
+== epoch 298 only | absent epochs count as 0 ==
+top 8 by mean×75: caliber-truthport-text-auth(1) 75.0 | patchsignal-cve(1) 75.0 | fourcast-sports-intelligence(2) 75.0 | netwire-url-scan(1) 75.0 | skywire-weather-check(1) 75.0 | balancepulse-evm-balance(1) 75.0 | chainwire-wallet-balance(1) 75.0 | qarinah-proofpack(2) 72.0
+top 5 by sum: livecert(13) 10.13 | chainsight-oracle(14) 7.77 | txlens(14) 7.34 | preflight-ssl-verification(10) 7.32 | kriterion-pramagraph(10) 4.25
+ livecert: intents 13, mean×75 58.41 (rank 15/129), sum 10.125 (rank 1), ratio=1 in 6
+ txlens: intents 14, mean×75 39.31 (rank 33/129), sum 7.337 (rank 3), ratio=1 in 3
+ chainsight-oracle: intents 14, mean×75 41.64 (rank 29/129), sum 7.774 (rank 2), ratio=1 in 4
+ oathcast-weather: intents 1, mean×75 0.53 (rank 64/129), sum 0.007 (rank 64), ratio=1 in 0
+
+== Aug26-Aug31 (our life) | absent epochs ignored ==
+top 8 by mean×75: veritarach-ai-text-detector(1) 75.0 | sportwire-game-result(1) 75.0 | test-mymemory-translate(1) 75.0 | scholarwire-academic-search(1) 75.0 | sportwire-score(1) 75.0 | fx-rate-mirror(1) 75.0 | mymemory-translate(1) 74.9 | isobar-weather(2) 74.5
+top 5 by sum: chainsight-oracle(14) 8.92 | livecert(13) 7.49 | preflight-ssl-verification(12) 7.48 | txlens(14) 6.68 | telegraph-chatbot(5) 3.76
+ livecert: intents 13, mean×75 43.23 (rank 28/131), sum 7.494 (rank 2), ratio=1 in 5
+ txlens: intents 14, mean×75 35.78 (rank 33/131), sum 6.679 (rank 4), ratio=1 in 1
+ chainsight-oracle: intents 14, mean×75 47.80 (rank 24/131), sum 8.923 (rank 1), ratio=1 in 5
+ oathcast-weather: intents 1, mean×75 2.65 (rank 71/131), sum 0.035 (rank 74), ratio=1 in 0
+
+== Aug26-Aug31 (our life) | absent epochs count as 0 ==
+top 8 by mean×75: veritarach-ai-text-detector(1) 75.0 | patchsignal-cve(1) 75.0 | telegraph-sentinel(1) 75.0 | fourcast-sports-intelligence(2) 75.0 | test-mymemory-translate(1) 75.0 | newswire-headlines(1) 75.0 | mymemory-translate(1) 74.9 | chainwire-wallet-balance(1) 74.5
+top 5 by sum: chainsight-oracle(14) 9.82 | livecert(13) 7.19 | txlens(14) 5.69 | preflight-ssl-verification(12) 4.13 | kriterion-pramagraph(10) 3.78
+ livecert: intents 13, mean×75 41.50 (rank 25/131), sum 7.193 (rank 2), ratio=1 in 6
+ txlens: intents 14, mean×75 30.50 (rank 31/131), sum 5.694 (rank 3), ratio=1 in 0
+ chainsight-oracle: intents 14, mean×75 52.61 (rank 23/131), sum 9.821 (rank 1), ratio=1 in 7
+ oathcast-weather: intents 1, mean×75 3.70 (rank 66/131), sum 0.049 (rank 69), ratio=1 in 0

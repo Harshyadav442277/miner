@@ -4,7 +4,145 @@
 verification date. Re-verify anything older than a few days — the canonical intent set and
 contract parameters change on-chain.
 
-Verified **2026-08-26** against https://docs.telegraphprotocol.com (docs updated 2026-08-20).
+**Evaluation material, checked 2026-11-01 ~19:10 UTC** (anjoman.ai/docs/scoring/contribute-evaluation-data,
+updated Nov 1; devnode `/api/evalpool/status`, `/engine/v1/intents/<id>`; github.com/telegraphprotocol/bounties):
+- Upload = signed JSON Lines, one intent per upload, EIP-191 over a 5-line message (body sha256, nonce, chain id
+  11155111). No fee or bond. Rows: `preference_pair` (prompt 16–16,000 chars; chosen/rejected 8–32,000, must
+  differ), `ground_truth`, `graded_exemplar`, or `truth_source` (a keyless miner-format YAML). A prompt ≥85%
+  similar to an existing one is rejected. `http(s)` `source_url` makes a row `attested`; `source_kind`
+  llm/synthetic/generated/model makes it `unverified`.
+- Question rows are used once 5 contributors have material; **truth sources need only one** to get a deterministic
+  intent scored (median of up to 3 sources per question). Rows take effect from the next epoch.
+- Bounty issues #75–#168: one per intent, all `reward:unfunded`; join with `/claim`, `/progress` every 72 h, `/submit`.
+  No issue for SSL_VERIFICATION_CERT.
+- Class of 4829's intents: deterministic SSL_VERIFICATION_CERT (`ready`, answer `certificate_valid` bool),
+  WEATHER_CHECK_TEMPERATURE (`ready`), CRYPTO_PRICE_USD, CURRENCY_EXCHANGE_CONVERT, STOCK_PRICE_US_EQUITY (not ready:
+  "no decimals"); hybrid CVE_LOOKUP_CVSS (not ready), URL_SCAN_VERDICT (`ready`); the rest judgment.
+  CRYPTO_TRANSFER_VERIFY and QUESTION_ANSWERING: "the intent has no response format".
+- Pools (eligible rows/contributors): 15 of our intents empty; at ≥5 contributors only SANCTIONS (7), EVENT_OUTCOME
+  (5), URL_SCAN_VERDICT (5); SSL_VERIFICATION_CERT 1 row from 1 contributor.
+
+**Organiser, Discord, 2026-11-01 (Ahmed Ali), on the unranked intents:** "we are working on resolving it";
+meanwhile start with evaluation material through the bounties (issues) and anjoman.ai/dashboard/eval. On mainnet,
+eligible material used to evaluate miners can earn rewards over time, subject to protocol rules.
+
+**Organiser, Discord, 2026-11-02 00:20 IST (2026-11-01 18:50 UTC), Ahmed Ali:** funding an evaluator bond on
+Sepolia by taking test USDC and swapping it for MACHINA on the MACHINA/USDC pool is the intended way, but the USDC
+is Telegraph's own deployed token: request it from the faucet on anjoman.ai (not a public USDC faucet).
+
+Verified **2026-08-26** against https://docs.telegraphprotocol.com (docs updated 2026-08-20). The V2 docs
+(updated 2026-10-27) were read on 2026-10-29: see the next section. Where it disagrees with an older section
+below, the newer section wins.
+
+---
+
+## Checked 2026-10-31 ~18:20–18:45 UTC: docs updated Oct 30–31, rules re-read, devnode (GAPS G237–G240)
+
+Sources: all 37 pages under https://anjoman.ai/docs (25 show "Updated October 30" or "October 31, 2026"), diffed
+sentence by sentence against copies taken at ~15:40–16:25 UTC the same day; /rules with the Miners and Evaluators
+tabs in the browser pane; devnode `/api/wasm`, `/api/evalpool/status`, `/api/miners`, `/api/epoch`,
+`/engine/v1/intents/{intent}`.
+
+- **docs.telegraphprotocol.com now 301-redirects to anjoman.ai/docs**, and raw Markdown (`/docs/<page>.md`) is
+  no longer served on either host. Read pages as HTML.
+- **Evaluator adapters are now safetensors deltas** (`/docs/scoring/upgrade-shared-foundation`, Oct 31): every
+  validator runs one shared Foundation Model (ModernBERT-base), and an adapter is "a few MB of LoRA deltas and a
+  reward head". Full-model float `.wasm` adapters are refused (`legacy_full_model`) and active ones are superseded.
+  No retraining is needed if the PEFT LoRA checkpoint exists: export with the kit's `float_runtime.export_adapter`.
+  The docs list the deploy date, the `foundation.json` location and a reference executor as "to be announced".
+- **Devnode already runs it:** at 2026-10-31 16:00 UTC Telegraph seeded safetensors adapters 900001–900004
+  (`wasm_runnable_url: "manual-seed"`) as canonical for CONTRACT_OBLIGATION_AUDIT, LLM_OUTPUT_EVALUATION,
+  THREAT_INTELLIGENCE and TASK_EXECUTION_QUALITY; the earlier adapters read `replaced`. Registration 25, a
+  participant's safetensors adapter with a public runnable URL, became canonical for CUSTOMER_TICKET_RESOLUTION at
+  18:07. CODE_REVIEW and FX_NOW have no champion.
+- **Comparators are unchanged** ("the comparator interface did not change"). "A comparator has no model, so there
+  is no 'better' comparator to build": the node checks a registered one computes its reference rule within ±10
+  bps on ~1,260 cases (100 sent to the runnable URL, in two batches).
+- **Deterministic intents do not need a registered comparator.** FX_NOW's three comparator registrations were all
+  deregistered by 2026-10-28 20:11 UTC, yet 11 miners carry FX_NOW_EUR scores from epoch 1945 (18:02 UTC today).
+  `/api/wasm?resolve=` returns `scorer: "comparator"`, `served_by: null`, `routed: true` for FX_NOW_EUR,
+  CRYPTO_PRICE_USD, WEATHER_CHECK_TEMPERATURE and CURRENCY_EXCHANGE_CONVERT alike.
+- **CRYPTO_PRICE_USD's intent is not ready:** `/engine/v1/intents/CRYPTO_PRICE_USD` has `onchain.ready: false`,
+  `reason: "number field \"price_usd\" has no decimals"`, `format_version: 1`. FX_NOW_EUR and
+  WEATHER_CHECK_TEMPERATURE have `ready: true`, `format_version: 3`. A comparator takes both values "already on
+  the same fixed-point scale", which needs decimals.
+- **Evaluation pool:** "An intent's questions are used only once the pool holds material from at least 5
+  different contributors … Truth sources have no such minimum: one is enough for an intent to be scored." Every
+  scored judgment intent has 6–10 eligible submitters. Of our 36 intents, 5 are deterministic (0–2 submitters),
+  29 judgment (0–1 submitters) and 2 hybrid (CVE_LOOKUP_CVSS 1, URL_SCAN_VERDICT 5). None of the 31
+  judgment/hybrid intents has an adapter (`served_by: null`); URL_SCAN_VERDICT reads `routed: false`.
+- **Uploading evaluation data** needs no on-chain registration and no gas: a JSON Lines file `POST`ed to
+  `/api/evalpool/submissions`, signed with EIP-191 `personal_sign` over a five-line message. The signer is the
+  credited contributor.
+- **Registering a module:** the call is now documented as `registerWasm(bytes32, string, string intent, address,
+  string)`, where `intent` is the prefix. $5 MACHINA bond (`entityBonds()`), refunded in full on deregistration.
+  New: `registerWasmFor` (EIP-712, anyone relays and pays the gas), and "the easy way": submit at
+  integrate.telegraphprotocol.com, where "the platform hashes the file and sends the transaction for you".
+- **Epochs are now 1 hour** (`/api/epoch` at 18:35 UTC: epoch 1945, `epoch_duration: "1h0m0s"`). At 15:39 they
+  were 5 minutes.
+- **4829:** `active`, no rejection, 36 intents, `registered_at` 2026-10-25T00:48:49Z, `updated_at` unchanged.
+  `/api/miners`: 1,876 registrations, 71 scored.
+- **Rules (/rules):** the substance matches the 2026-10-29 read. Added sentences: Miners, "A high-quality new
+  capability can qualify even if customer demand for its Intent is still growing", and the consumption points
+  "reward successful requests your Provider served through Telegraph to registered H2 Apps & Agents projects";
+  Evaluators, "Judges will check correctness, robustness, fit with Telegraph's evaluation pipeline, useful
+  coverage, and documentation". The prize-payment terms are still not linked (G218).
+- **Bounties** (`/docs/bounties/*`): Season II issues carry `source:h2`; bounties use only existing intents;
+  `reward:unfunded` means no payment is committed. "Network incentives and bounty payments are separate systems."
+
+---
+
+## Checked 2026-10-31 ~15:30–16:00 UTC (GAPS G235, G236)
+
+- **Only families with an evaluator are scored.** Devnode `/api/miners`: 71 of 1,875 registrations are
+  `scored: true`, all in the 7 families that `/api/wasm` lists evaluator registrations for. A scored entry carries
+  `last_scored_epoch`, `last_scored_at` and `scores[]` (`intent_id`, `epoch_id`, `rank`, `score`); an unscored one
+  carries `total_requests_served` instead.
+- **Epochs are 5 minutes** (`/api/epoch`, epoch 1934 at 15:39 UTC).
+- **The chain is Ethereum Sepolia** (11155111), Diamond `0x3624EB012B5E998BB57B6bE6C9Cfc9c4bc5eb99b`
+  (`/docs/protocol/addresses-and-params`). Registration needs a MACHINA bond ($1 first intent, $0.10 to 9,
+  $0.07 after) (`/docs/whats-new-v2`).
+- **Grace period:** a miner "doesn't appear on the leaderboard" for 7 days after activation
+  (`/docs/miners/miner-overview`). This contradicts the Season I observation below ("Unranked was wrong");
+  it is not what keeps 4829 off the rankings now (G235).
+- **Bounties:** the docs now have a bounty board section (`github.com/telegraphprotocol/bounties`, label
+  `source:h2` for Season II issues). Unread beyond `/docs/bounties/overview` and `/season-two`.
+
+---
+
+## V2 docs and the Anjoman site, read 2026-10-29 ~16:30–16:47 UTC
+
+Sources: https://anjoman.ai/docs (`introduction`, `whats-new-v2`, `miners/miner-overview`,
+`miners/miner-registration`, all "Updated October 27, 2026"). https://docs.telegraphprotocol.com serves the same
+text and also serves raw Markdown at `/docs/<page>.md`. The Season II rules built on them are in
+[RULES_SEASON2.md](../RULES_SEASON2.md).
+
+- **Two hosts, one doc set.** anjoman.ai/docs is the new address; the H2 site still links
+  docs.telegraphprotocol.com. `anjoman.ai/llms.txt` and `/llms-full.txt` return 404, although the introduction
+  page advertises them.
+- **Intents are families with intents under them.** Register `X_SUFFIX` or `X_GENERAL`, never the prefix `X`
+  ("a prefix is not an intent" reverts). `getPrefixes()(string[],uint8[])` lists the families. Anyone can
+  propose an intent; the admin approves it.
+- **Registration 4829 is on V2:** `active`, no rejection, 36 suffixed intents (`SSL_VERIFICATION_CERT`,
+  `WEATHER_CHECK_TEMPERATURE`, `CURRENCY_EXCHANGE_CONVERT`, 25 `_GENERAL` intents, and others). Devnode
+  `/api/miners/4829` reports `registered_at` **2026-10-25T00:48:49Z** (checked 2026-10-29 16:47 UTC). It
+  activated 2026-10-16, so the date reads like the V2 import. Whether that import restarted the 7-day grace
+  period is not known (G220).
+- **Spot checks:** "on average about once per hour for each Intent (the node default), at randomised times".
+  Any non-empty answer passes. **This replaces "roughly every 20 seconds" below.**
+- **`updateMiner`** still issues a new `registrationId`. The docs now describe it as changing the YAML, price,
+  fee address or intents "in one transaction". A revert leaves the old registration untouched.
+- **`intent_mapping`** (optional) reads each answer field exactly. Jobs no longer read the YAML's `on_chain`
+  blocks. `result` comes back in the Intent's own shape, and `parsed` is gone.
+- **Validation API:** the registration page (2026-10-27) still documents `POST
+  integrate.telegraphprotocol.com/api/validate`, but it returned an HTML 404 at 2026-10-29 16:45 UTC (G212).
+- **Evaluators:** `registerWasm(hash, url, prefix, feeAddress, runnableUrl)`, registered on a family. Only float
+  model adapters in WASM are accepted: "The older formats are refused." Anjoman's Eval page: an adapter
+  "replaces the live scorer only when it beats the incumbent on a hidden sample by the replacement margin".
+- **Anjoman** (anjoman.ai) is Telegraph's consumer front end: "Tell Anjoman what you want done", "Routed on
+  Telegraph Protocol". Its dashboard has Earn (register an endpoint), Eval, Validate, Jobs and Train ("SOON").
+  It is sign-in gated, and the sign-in is the owner's. Earn says "Each answer it returns is paid in USDC". The
+  miner docs say USDC is swapped to MACHINA (G219).
 
 ---
 
@@ -74,6 +212,21 @@ it, and to test the bots in Telegram and WhatsApp groups after the judging windo
 Answered "awesome". One question was deliberately **not** asked and is still open: whether many
 named watches fanned out under one bot-held wallet is acceptable, or whether each watch must resolve
 to its own wallet and escrow. Ask it once there is a test result to attach to it.
+
+## Organizer answers — Discord, 2026-10-25 by ~17:59 UTC (Ahmed, via the user)
+
+Earlier the same day Ahmed had said the current WASM system will be deprecated "in couple of days" and
+"migrated to v2", and told builders to build on the intents the hackathon site lists. Two questions were sent
+in reply: are miners judged and routed only on the site's 93 listed intents, and do registrations carry over
+to v2 (and does an update restart the 7-day grace period)?
+
+10. **Miners carry over to v2:** "your miners will carry over." Registration 4829 needs no re-registration
+    for the migration.
+11. **On listed versus unlisted intents:** "let us check." Overtaken on 2026-10-29: the site now lists 134
+    intents, including all 36 of ours (GAPS G208, closed).
+
+Not answered: whether `updateMiner` restarts the 7-day grace period (GAPS G206). It was asked as part of
+question 2, and the reply covered only the carry-over.
 
 ---
 
@@ -248,6 +401,9 @@ operative rule is **a registration lands in the next epoch's scoring pass** — 
 
 ## Spot checks and revocation
 
+**Superseded 2026-10-29:** the V2 docs say about once per hour per intent, at random times, and that any
+non-empty answer passes (see the top section). The 2026-08 text follows.
+
 Validators spot-check **roughly every 20 seconds**, triggered deterministically by the latest
 Base L2 block hash. If a spot check score drops **more than 20%** below the leaderboard score:
 
@@ -295,6 +451,8 @@ https://devnode.telegraphprotocol.com/engine/v1/intents   canonical intents + mi
 ```
 
 ## Source pages
+
+The same pages are at `https://anjoman.ai/docs/...` (V2, 2026-10-27).
 
 - [What Miners Do](https://docs.telegraphprotocol.com/docs/miners/miner-overview)
 - [YAML Configuration](https://docs.telegraphprotocol.com/docs/miners/yaml-config)
@@ -438,54 +596,8 @@ constantly. They do not — **scoring lands roughly three times a day.** So:
   raises the bar for making one on a hypothesis rather than evidence.
 
 Corollary for working method: prefer changes justified by **replaying real paid questions**
-(`tools/replay-corpus.mjs`), which gives an answer in seconds, over changes justified by a scoring
+(`tools/replay-intents.mjs`; the Season I `replay-corpus.mjs` is in git history), which gives an answer in seconds, over changes justified by a scoring
 theory, which take up to 9 hours to test and have twice been wrong.
-
-## Track 1 deadline — RESOLVED (verified 2026-09-01, rules page)
-
-Track 1 and Track 2 ran **Aug 17 – Aug 31, 2026**; Track 3 runs Aug 31 – Sep 7; Winner Selection
-Sep 8–18; announcement Sep 19–25. The home-page "SEP 7 23:59 UTC SUBMISSIONS CLOSE" countdown is
-the **Track 3** deadline, not Track 1's. Source: https://hackathon.telegraphprotocol.com/rules,
-read 2026-09-01 local (= 2026-08-31 UTC). Consequences: what matters post-close is the miner
-staying LIVE and ranked through Track 3, whose routed requests are counted in judging.
-
-**Two conclusions first drawn here were wrong, and cost most of the remaining window before they
-were caught (2026-08-31 ~21:00Z).**
-
-1. **"Track 1 has closed" was a timezone error.** The close is Aug 31 **23:59 UTC**. This file was
-   written at 02:16 local (IST, UTC+5:30) on Sep 1, which is **20:46 UTC on Aug 31** — nearly three
-   hours *before* the deadline, not after it. Always resolve the deadline in UTC against `date -u`,
-   never against the local date the environment reports.
-2. **"A new registration's ~7-day unranked grace period would outlast Winner Selection" is false.**
-   See G58: registrations are scored in the next epoch's pass, same day. The grace period is a
-   traffic-share throttle.
-
-What survives: the Aug 17 – Aug 31 dates themselves, which the rules page confirms verbatim.
-
-## Rival: preflight-ssl-verification is public — github.com/shreshth006/Preflight
-
-Registered 2026-08-30T20:06Z, runs a six-hour Claude autopilot, and iterates fast. On 2026-08-31
-every commit targeted URL_SCAN (not an intent we serve); no SSL/IP/wallet answer changes were
-committed the day of the close. Their wallet caveat-first past-dated shape is what G55's reorder
-matched. Endpoint watchdog stays the ground truth for deploys.
-
-## Submitting is a SEPARATE step from registering (verified 2026-08-31 ~21:45Z)
-
-`https://submissions.telegraphprotocol.com` — tabs for Track 1 (Miner), Track 2 (WASM), Track 3
-(coming soon). Track 1 takes an **X username**, then one or more rows of **miner ID + its YAML
-config file**, and a wallet **SIGN & SUBMIT**. Deadline shown in-page: **Mon, 31 Aug 2026 23:59:59
-UTC**, matching the rules page.
-
-**Being registered on-chain and ranked does not enter you.** A miner can be active, scoring and
-holding rank 1 and still not be submitted. This was found with about two hours left.
-
-- **"Miner ID" is the on-chain registration id** (1378 since 2026-09-09; 402 before it), not the
-  `id:` field inside the YAML (4433). `/api/miners/4433` does not resolve; `/api/miners/1378` does.
-- **Upload `track1-miner/miner.yaml`** — the file whose bytes hash to the registered `yaml_hash`.
-  The root-level `SUBMIT-THIS-miner.yaml` is a stale 10-intent snapshot (22,807 bytes,
-  `0x78932fb1...`) kept from the 389 registration. Its name is a trap; do not upload it.
-- A re-`updateMiner` mints a new registration id, which would make an already-submitted id stale.
-  Submit only after the registration you intend to be judged on is `active`.
 
 ## This machine's IPv6 path to raw.githubusercontent.com hangs (2026-08-31)
 
@@ -493,3 +605,242 @@ holding rank 1 and still not be submitted. This was found with about two hours l
 **0.036s with `-4`**, reproducibly. `github.com`, Vercel and devnode are all sub-100ms. It is a
 local IPv6 problem, not GitHub and not the manifest. Use `curl -4` here before concluding a host is
 slow — a 15-second hang measured from this machine says nothing about what Telegraph's node sees.
+
+## Docs re-check 2026-09-16 (~08:40 UTC) — all 25 pages read; 13 updated 2026-09-08/09
+
+Source: https://docs.telegraphprotocol.com/docs/* fetched with curl and a browser user-agent
+(the root answers a 307 loop to curl; the browser pane loads it). Pages updated 2026-09-09:
+introduction, miners/{miner-overview, miner-registration, validation-api, yaml-config},
+scoring/build-a-scoring-module, troubleshooting, using/{engine-ask, inference-paths, mcp-server,
+websocket-signals}; 2026-09-08: using/{intents, erc8183-jobs}. Everything else is August or older.
+
+**What changed, and what it means for this miner**
+
+| Fact | Now (docs) | Live check | Effect on us |
+|---|---|---|---|
+| Payment for the HTTP ask | Still x402 per call (`PAYMENT-SIGNATURE`; the library handles the 402 challenge). The new page `inference-paths` lists six rails: HTTP ask, ask/{id}, WebSocket ask ($0.01 from escrow per call), WebSocket subscribe (per delivered signal), ERC-8183 job (jobBasePrice, 1 USDC), on-chain miner request (gas only), plus the free Daemon feed | not re-verified | None. "402 changed" is not supported by the docs; the docs added a chooser, not a replacement |
+| Scoring tiers | Every intent labelled Tier A (deterministic, "WASM exact match"), Tier B (LLM-Judge: "LLM context + WASM"), or A/B hybrid. Of ours: A = STOCK, CRYPTO, FINANCIAL, CURRENCY, WALLET, GAS, TOKEN_HOLDER, TVL, ONCHAIN, WEATHER_CHECK, STORM, WEATHER_FORECAST, SPORTS, GAME, SSL, CVE, IP, URL_SCAN, FRAUD; B = WEB_SEARCH, NEWS_HEADLINES, NEWS_SEARCH, RESEARCH_SYNTHESIS, RESEARCH_QUERY, ACADEMIC, FACT_CHECK, TELEGRAPH_KNOWLEDGE, SENTIMENT, TEXT_CLASSIFICATION, CONTENT_VERIFICATION, AI_TEXT, TEXT_AUTHENTICITY, CONTENT_EXTRACTION, LANGUAGE_TRANSLATION; hybrid = EVENT_OUTCOME; A = CROSS_CHAIN | consistent with G154/G168: the B-tier references are LLM prose | Tier B leaders are LLMs; keyless prose scores near zero there unless the reference is a short verdict (FACT_CHECK, CONTENT_EXTRACTION still cross) |
+| Canonical intents | Page: 108 as of 2026-09-08 (63 added that day) | `/engine/v1/intents`: **134** on chain; **45 champions**, unchanged (G82) | None of the 89 new intents can rank (G118). Ten miners already sit on most of them. Rankable and unserved by us: AGENT_TASK, CHAT_COMPLETION, CONTENT_MODERATION, DEEPFAKE_DETECTION, IMAGE_VERIFICATION, LANGUAGE_GENERATION, MEDIA_AUTHENTICITY_CHECK, TASK_COMPLETION, TEXT_GENERATION, TWITTER_SEARCH (0 miners), VIDEO_VERIFICATION |
+| Registration checks | New "request-contract rejections": every endpoint serving an intent must declare `intents:` and a `description:`; `semantics.supported_intents` non-empty; an endpoint intent must be in supported_intents. Warnings: an endpoint without `params` ("the node has to guess your field names — the most common reason an active miner fails the calls it is sent"); a utility endpoint without intents is legal | our 1408 is active and predates the checks | They apply on the NEXT `updateMiner`. Validate at integrate.telegraphprotocol.com first (unchanged rule 3) |
+| Activation | Event-driven, "usually within a minute"; not epoch-gated. `unreachable` retries every ~5 min up to 5 times; `rejected` is terminal (fix, then updateMiner); a rejected registration releases its slug immediately | matches G60/G87 | None |
+| Validation API | `POST https://integrate.telegraphprotocol.com/api/validate {yaml, api_key, miner_address}` — same checks and messages as the console, no wallet; per-endpoint timeout 30 s on the default node | not run today | Scriptable pre-check for the next update |
+| API keys | Stored per slug, bound to the registering wallet; installed via a keccak fingerprint challenge + personal_sign; not in the YAML; not from the environment | n/a (keyless miner) | None |
+| Scoring ABI | `rank_answer(q, gt, ma)` → f32; the documented example scores the fraction of the miner answer's words that appear in the ground truth | matches the harness (`track2/harness/wasm-abi.mjs`) and the G153/G168 measurements | Extra words and numbers the reference lacks are what cost score |
+| Spot checks | ~every 20 s, keyed on the latest Base L2 block hash; a >20 % drop against the last leaderboard score triggers routing revocation | unchanged from 2026-08 | None |
+
+Not re-read today: protocol/{tokenomics, roles, addresses-and-params}, validators/*, deployment
+(dated August or earlier; unchanged since the last check). The intents page is explicitly behind
+the chain ("the chain is what actually decides"): 26 intents on chain are not on the page.
+
+## Rules and protocol re-check 2026-09-16 (~09:10 UTC)
+
+**Rules page (https://hackathon.telegraphprotocol.com/rules): unchanged.** The Track 1 tab text
+fetched today matches docs/JUDGING.md (Season I, removed) (read 2026-08-29/30) word for word: track
+windows (Track 1 and 2 Aug 17–31, Track 3 Aug 31–Sep 7, winner selection Sep 8–18, announcement
+Sep 19–25), the 75/25 split, "the best Miner in every Intent automatically gets full points", the
+guardrail (≥3 active miners and ≥100 real Track 3 requests per intent), the six important rules,
+and the prize table ($2,000 / $1,000 / $2,000). Only the Track 1 tab was compared; the Track 2 and
+3 tabs are JS-rendered and were not re-clicked. Snapshot:
+`track1-miner/docs/evidence/rank1-build-2026-09-16/rules-page-2026-09-16.txt`.
+
+**Landing page:** Season I is a three-hackathon series — H1 $5K (Aug 17–Sep 7, this one),
+**H2 $10K "mid October 2026"** ("improve on Hackathon 1, attract more participants, refine Miners
+and evaluation scripts"), H3 mainnet "December 2026 onwards, rewards TBD". The page's own miner
+judging bullets add "number of applications built on your Miner" and "total requests served" to
+ranking and X updates; the rules page's 75/25 formula is the binding one. The static countdown in
+the HTML is stale server-rendered text, not a new deadline.
+
+**Protocol pages (protocol/how-it-works, roles, tokenomics, addresses-and-params; all dated
+2026-08-12/13): unchanged** against the facts above — 2 % treasury / 98 % TWAP, 100 USDC settlement
+minimum, the demand-multiplier table, 70/20/10 routing, 5 % grace share for 7 days, spot checks
+~every 20 s with revocation on a >20 % drop, 43/64 governance, jobBasePrice with the same
+multiplier table for ERC-8183 jobs, Diamond `0x5a2324aA18613FAD4e44bDF0d6c73Ec1f6D87ff8`. The
+miner-overview page (updated 2026-09-09) repeats the same numbers; it still says a grace-period
+miner "doesn't appear on the leaderboard", which G58 disproved by observation.
+
+**YAML schema drift since the "eight keys" note above:** `endpoints[]` now accepts **ten** keys —
+the eight listed plus `intents` (required on at least one endpoint) and `params` (recommended; the
+request contract by location, `required`/`optional`). Our manifest already declares `intents`,
+`description` and `params` on all 35 endpoints, so the new request-contract rejections would pass
+on an `updateMiner`; validate at integrate.telegraphprotocol.com first regardless.
+
+## Escrow is the default payment rail (announced on Discord 2026-09-16; docs page dated 2026-09-16)
+
+Source: https://docs.telegraphprotocol.com/docs/using/escrow-inference (not in the docs nav at the
+09:00 UTC crawl; snapshot `track1-miner/docs/evidence/rank1-build-2026-09-16/docs-escrow-inference-2026-09-16.txt`).
+
+- **What it is.** A second scheme inside the same x402 challenge: the 402 body's `accepts` array
+  now carries `{"scheme":"escrow","network":"eip155:84532","price":"$0.01","payTo":<Diamond>}`
+  next to the EVM exact scheme. The caller deposits USDC once (`EscrowFacet.depositUSDC` on the
+  Diamond, `0x036C…CF7e` USDC on Base Sepolia), then signs a human-readable EIP-191 message per call
+  (wallet lowercased, amount in μUSDC from the template, ≤2-minute validity window, fresh nonce)
+  and sends it base64 in `X-PAYMENT` (not `PAYMENT-SIGNATURE`). No facilitator, no per-request
+  on-chain transaction; charges settle once per epoch in `submitEpoch`. Receipt in
+  `X-PAYMENT-RESPONSE` with `rail: "escrow"`, `receipt_hash`, `epoch_id`, no `tx_hash`.
+- **x402 exact is still accepted** — the page calls escrow "the second way to pay"; the
+  announcement calls it the default for new integrations and asks existing apps to migrate.
+  Announced latency: escrow 2.38 s vs 5.82 s x402 (Base) and 7.01 s (Solana), "varies by miner".
+- **Effect on this miner: none.** "Both rails converge on exactly the same aggregator, the same
+  merkle root and the same claim path. A miner cannot tell which one paid it." Our earnings path,
+  registration, scoring and routing are unchanged. Nothing to deploy.
+- **Effect on callers we control.** Morse (`../telegraph-morse`, Track 3) pays miners with x402;
+  it keeps working, but the organisers now ask apps to migrate to escrow. That is a change for the
+  Morse repo, not this one, and it is logged there, not here.
+- Same-day operational notes for a caller: the body field is `query`; a refusal burns the nonce
+  only after the signature verifies; `insufficient escrow … available=0` means the signature was
+  fine and only funding is missing; withdrawals are timelocked.
+
+## Season II intents and manifest validation (verified 2026-10-13/14)
+
+- **Canonical definitions** of the seven added intents and TVL_LOOKUP were read from
+  `https://devnode.telegraphprotocol.com/engine/v1/intents` on 2026-10-13 (134 intents listed). All
+  eight are `canonical: true`. Miner counts that day:
+  - URL_SAFE 13
+  - CRYPTO_TRANSFER_VERIFY 19
+  - REGULATORY_FILING_MONITOR 14
+  - SANCTIONS_SCREENING_MATCH 13
+  - CORPORATE_REGISTRY_LOOKUP 19
+  - MACRO_ECONOMIC_INDICATOR 23
+  - QUESTION_ANSWERING 10
+  - TVL_LOOKUP 21
+
+  The descriptions are quoted in the endpoint docstrings (`src/sanctions.ts`, `src/qa.ts`, …).
+- **Validation API works as documented.** `POST https://integrate.telegraphprotocol.com/api/validate`
+  with `{yaml, api_key: "", miner_address}` returned HTTP 200 in 14 s on 2026-10-14 ~05:45 UTC:
+  `valid: true`, all 42 endpoints sandbox-called with HTTP 200 (226–545 ms), `api_key_stored: false`.
+  The bytes validated were `git show f67834d:track1-miner/miner.yaml`, SHA-256
+  `0x4bc7011c38d29fd4b96532f4e189b18b7a3335bcfd6203cd6b24e72bfab60ef0`. Result file:
+  `track1-miner/docs/evidence/season2-release-2026-10-14/integrate-validate.json`.
+- **Season II miner judging rules:** still "published separately" on the rules page (checked
+  2026-10-13 18:28 UTC).
+
+## Checked 2026-10-27 ~13:30–14:00 UTC
+
+- **Telegraph ships an MCP server.** The docs page `using/mcp-server` (updated 2026-10-25) describes
+  `github.com/telegraphprotocol/Telegraph-MCP`: a local Node process that gives MCP agents the miners, Engine and
+  Daemon as tools, auto-discovers miner tools, and pays x402 inside the process. So we do not build one.
+- **There is no public liveness history per miner.** Devnode `/api/miners/<id>` has registration fields only. The
+  explorer answers `/api/epoch` (epoch 444, 9 h epochs), and returns a 404 page for `/api/miners/<id>/health`,
+  `/api/leaderboard` and `/api/spotchecks`.
+- **Devnode `/api/miners` lists 1,921 registrations,** each with `endpoints` (path, method, description; no intents
+  or params), `scores` per intent and epoch, and `total_requests_served`. The intent-to-endpoint mapping is only in
+  each miner's YAML.
+
+## Integrate console, re-checked 2026-10-26 ~10:45 UTC (GAPS G212)
+
+Checked against the live console and its script bundle: `/register` page chunk and the shared client module.
+
+- **The keyless validator is gone.** `POST https://integrate.telegraphprotocol.com/api/validate` returns the
+  console's HTML 404, although the docs page `miners/validation-api` still documents it.
+- **The console now calls `https://backend.telegraphprotocol.com`** with a bearer token from its own sign-in. Sign-in
+  is by email and OTP, or by a wallet-signed message.
+  - Validation: `POST /registrations/yaml-hash {yamlUrl}`, then `POST /registrations/validate {yaml}`. Without a
+    token the second call returns `401 Unauthorized`.
+  - Updating: `POST /registrations/miner/update {registrationId, yamlUrl, feeAddress, minPriceUsdc,
+    supportedIntents}`, which returns a `txHash`. Registering is `POST /registrations/miner`. The page reads a
+    `smartWalletAddress`.
+- **Canonical intents on-chain:** `isCanonicalIntent` was true for all 40 strings in the G208 draft at Base Sepolia
+  block 50447293 (`track1-miner/docs/evidence/g208-intent-swap-2026-10-26/canonical-intents.json`).
+
+## Organiser, 2026-10-25: the current WASM system is about to be deprecated
+
+Ahmed Ali (Telegraph), on Discord, relayed by the operator as a screenshot: "i'd hold off on that for now, as the
+current wasm system will be deprecated in couple of days". The screenshot shows 19:14 with no time zone.
+
+- Read the section below as superseded once that happens.
+- Which system "current" means is unknown. Ahmed then added: **"it will be migrated to v2"**. The kit branch our
+  adapter used is named `feature/v2-integration`, so v2 may be that format; this is unconfirmed.
+- After the operator ("saroj") said they would focus on miners, Ahmed wrote: **"make sure your miners are actually
+  achieving the functionality, in other words, build on intents hackathon website have"**.
+  - Read that against the site's Intents page. For each of about 92 intents it gives the tier, the job, a service
+    type, example data sources, a latency target and a difficulty.
+  - A miner should serve an intent only when it really does that job.
+
+## Season II evaluators: `rank_answer` is retired (read 2026-10-21 ~06:40 UTC)
+
+Sources: `docs/scoring/build-a-scoring-module` and `docs/scoring/train-a-scoring-adapter` (both
+"Updated October 21, 2026"), `docs/scoring/contribute-evaluation-data` (October 19),
+`docs/using/intents.md`, `docs/protocol/how-it-works.md`, fetched with curl + browser UA.
+
+- **The Season I module kind is gone.** The docs say the node "no longer runs" modules exporting
+  `rank_answer`/`alloc`/`dealloc`, and rejects a new one immediately with "MiniLM rank_answer
+  scoring modules are retired and are no longer accepted". Our `track2/scorer` is that kind.
+- **Each intent has a class, and the class fixes the module kind.**
+  - Deterministic intents use a **comparator**. It exports
+    `imw_score_deterministic(truth: i64, miner: i64, spec_ptr: i32) -> i64`, `imw_alloc` and
+    `imw_free`, and returns basis points (0–10000).
+  - The comparator must reproduce a fixed reference rule within ±10 bp on about 1,260 cases.
+    Codes: 0 Exact, 1 AbsTol, 2 RelTol, 3 PassFail. Linear falloff to 0 at 2 × tolerance.
+    Multiplication saturates, RelTol is computed in 128 bits, and an unknown code counts as Exact.
+  - The docs: "there is no 'better' comparator to build". One that passes replaces the
+    previous one.
+  - Judgment and hybrid intents use a **wide adapter**: a ModernBERT-base reward model with a LoRA
+    adapter. It runs in the node's Q32.32 interpreter and is packaged as one `.wasm` of about
+    1.2 GB.
+  - Wide adapters are built with the kit `telegraph-wasm-baseline`, branch
+    `feature/v2-integration` (commit `992f2650`, 2026-10-16). Its `main` branch still holds the
+    August MiniLM baseline.
+- **Wide adapters compete on a hidden evaluation pool** of 200 preference pairs by default.
+  - The first canonical module needs a win rate of at least 70%.
+  - A challenger must beat the incumbent by 2 points on the same sample.
+  - Nothing is evaluated until the intent's pool holds material from at least 5 contributors.
+    Until then the module waits, with no time limit.
+  - A module registered on a family intent (`WEATHER_FORECAST`) serves its `_` children too.
+- **The evaluation pool is public and signed.** Anyone uploads JSONL preference pairs, or
+  truth-source YAMLs for deterministic intents, with an EIP-191 signature. The endpoint is
+  `POST /api/evalpool/submissions`, and the chain ID in the signed message is 84532.
+  - A deterministic intent with no truth source is not ranked.
+  - An intent with no module for its class is not scored, and its miners keep their previous
+    ranking.
+- **`registerWasm` now takes four arguments:** `(bytes32 wasmHash, string wasmUrl, string intent,
+  address feeAddress)`. The Diamond is the same as Season I, `0x5a2324aA…87ff8` on Base Sepolia.
+  Registration 3236 already carries a `FeeAddress`.
+- **Rollout is incomplete on devnode at 06:40 UTC.**
+  - `/api/evalpool/status` returns 404, and `/api/wasm?resolve=` is ignored.
+  - SECURITY_REVIEW registration 3236 (2026-10-20, author `0x23060ffa`) was still judged by the
+    Season I gate (margin, Spearman 0.79) and is `active`.
+  - What was observed: the docs describe a node that devnode is not yet running. What is not
+    known: when devnode switches to it.
+- **Tier of the intents the 15 Season II missions buy** (a count of example builds per intent,
+  taken from the hackathon site's `550-…js` chunk and joined to the intents-doc tier table):
+  - Deterministic: 31 intents, 135 buys. Top: WEATHER_FORECAST_VERIFY 14, SENSOR_TELEMETRY_VERIFY 11.
+  - Judgment: 19 intents, 90 buys. Top: WEB_SEARCH 15, FACT_CHECK 14, TASK_EXECUTION_QUALITY 10.
+  - Hybrid: 11 intents, 39 buys. Top: SANCTIONS_SCREENING_MATCH 6.
+  - Not in the tier table: 15 intents, 59 buys, including QUESTION_ANSWERING 13.
+- **Registry at 06:30 UTC** (`/api/wasm`): 2,421 registrations and 46 active.
+  - `0x8b224783` (zkasuran) holds 43 of the 46, all `rank_answer`.
+  - We hold 2: CURRENCY_EXCHANGE 2945 and TEXT_AUTHENTICITY_CHECK 1882.
+  - Of the 76 intents the missions buy, 15 have any registered scorer, and every one of those
+    is a `rank_answer` module. They are the Season I intents plus SECURITY_REVIEW.
+- **Season I Track 2 result** (hackathon site `/winners`, read 2026-10-21): 1st @zkasuran,
+  **2nd @hyadav42774 (us)**, 3rd @BangDropID.
+- **Evaluator track rules and judging are still unpublished.** `/rules` and `/judging` say
+  "published separately", re-read 2026-10-21 06:30 UTC.
+- **The kit packages only 31 intents, and FACT_CHECK is not one of them** (2026-10-21 ~08:45 UTC).
+  - The kit is at `992f2650`. Its compiled-in classification, `pkg/scoring/catalog/catalog.go`,
+    lists 11 judgment and 20 hybrid intents.
+  - All 31 come from the 63 intents added on 2026-09-08. None of the Season I intents is in it.
+  - `adapterbuild --intent FACT_CHECK` and `--intent WEB_SEARCH` both fail with "not a judgment
+    or hybrid intent in the compiled-in catalog — refusing to guess a class".
+    `TASK_EXECUTION_QUALITY` and `LLM_OUTPUT_EVALUATION` resolve to class judgment.
+  - The packager has no flag to load other classes. The node can load an `intent_classes`
+    table from its database, which would override the compiled map.
+  - `docs/using/intents.md` tiers FACT_CHECK as "B — Judgment". The docs and the kit disagree,
+    and only the organisers can say which one the node follows.
+## Evaluator adapter size and fetch limits (read 2026-10-24 ~06:20 UTC)
+
+Source: https://docs.telegraphprotocol.com/llms-full.txt, sections "Evaluator Adapters" and node configuration.
+
+- **A wide (judgment/hybrid) package may be just under 4 GiB** (`WIDE_WASM_MAX_BYTES`), and the node must
+  download it within **30 minutes** (`WIDE_WASM_FETCH_BUDGET` = `30m`). The docs call ~1.2 GB typical.
+- **The node decides a file is wide from its export section, read from the first MiB of the download.** A file
+  it does not recognise as wide is held to the **32 MB** comparator limit and refused with
+  "`WASM from … exceeds the 32 MB limit`". A wide package must export `imwq_embedded`.
+- **Our package passes both byte checks.** `C:/Users/hyada/tg-eval/runs/LLM_OUTPUT_EVALUATION_node/LLM_OUTPUT_EVALUATION.wasm`
+  is 1,205,363,765 bytes, and its export section starts at byte 287 (section headers read with a read-only
+  parser on 2026-10-24).
+- **Host:** GitHub release assets must each be "under 2 GiB", with no bandwidth limit
+  (docs.github.com, "About releases", read 2026-10-24). That fits the 1.2 GB package.
+- **Not verified:** whether the node follows the GitHub release-asset redirect, and whether the download
+  finishes inside 30 minutes. The docs say nothing about redirects. Both can only be checked once the release
+  exists: hash the release URL with `cmptool.exe hash`, as track2 SIGN_S2.md step 1b says.

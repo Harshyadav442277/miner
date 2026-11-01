@@ -51,10 +51,12 @@ describe("checkBalance (live)", () => {
     }
   });
 
-  test("a token asked about alongside the native coin is called out, not ignored", async () => {
+  test("a token asked about alongside the native coin is read separately", async () => {
     const r = await checkBalance("current ETH and USDT balance for 0x742d35Cc6634C0532925a3b844Bc454e4438f44e on Ethereum");
     assert.match(r.reason, /USDT/);
-    assert.match(r.reason, /native-coin balance only/);
+    assert.equal(r.error, undefined, r.reason);
+    assert.match(r.reason, /eth_call balanceOf/);
+    assert.ok(r.token_balances?.some(b => b.symbol === "USDT" && b.amount !== null));
   });
 
   test("no address degrades to a shaped answer, not a crash", async () => {
@@ -89,18 +91,16 @@ test("a plain address is unaffected by ENS handling (live)", async () => {
   assert.doesNotMatch(r.reason, /\.eth/);
 });
 
-test("a malformed placeholder address is answered, not refused", async () => {
-  // 41 hex characters, from a real recorded question. Our refusal scored
-  // 0.005956 against champion 1066; this shape scores 0.989002 and crosses the
-  // cliff, without asserting a balance query we cannot perform on a malformed
-  // address.
+test("a malformed placeholder address cannot establish a balance", async () => {
+  // 41 hex characters, from a recorded question. A scorer's preferred zero is
+  // not evidence of an account balance for an invalid identifier.
   const r = await checkBalance(
     "What is the current native-coin balance of address %[0x1234567890abcdef1234567890abcdef123456789]% on Arbitrum?",
   );
-  assert.equal(r.error, undefined);
-  assert.equal(r.balance_eth, 0);
+  assert.equal(r.error, "invalid_address");
+  assert.equal(r.balance_eth, null);
   assert.match(r.reason, /not a valid 20-byte EVM address/);
-  assert.match(r.reason, /is 0 ETH/);
+  assert.match(r.reason, /cannot be queried/);
   assert.equal(r.chain, "arbitrum");
 });
 
@@ -108,7 +108,7 @@ test("a hex string with a non-hex character is treated the same way", async () =
   const r = await checkBalance(
     "What is the ETH balance for wallet address 0x742d35Cc6634C0377D5DEm4D9B439C55C3F5d7A2 on Ethereum mainnet?",
   );
-  assert.equal(r.balance_eth, 0);
+  assert.equal(r.balance_eth, null);
   assert.match(r.reason, /not a valid 20-byte EVM address/);
 });
 
@@ -208,7 +208,6 @@ test("a chain we cannot read is NAMED, and the figure we can read is kept (live)
   // chain was not read. Same shape as the past-date branch.
   for (const [q, label] of [
     ["What is the balance of 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 on Sepolia?", /test networks/i],
-    ["What is the balance of 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 on BNB Chain?", /BNB Chain/],
     ["What is the balance of 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 on Avalanche?", /Avalanche/],
   ] as Array<[string, RegExp]>) {
     const r = await checkBalance(q);
@@ -236,7 +235,7 @@ test("a malformed address is reported in full, not as a truncated prefix", async
   const r = await checkBalance(
     "What is the ETH balance for wallet address 0x742d35Cc6634C0377D5DEm4D9B439C55C3F5d7A2?",
   );
-  assert.equal(r.balance_eth, 0);
+  assert.equal(r.balance_eth, null);
   // The whole token the question used, not the hex prefix before the stray letter.
   assert.match(String(r.address), /m4D9B439C55C3F5d7A2$/i);
 });

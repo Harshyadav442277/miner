@@ -1,0 +1,4 @@
+test/
+live-check.js
+live-check-*.txt
+.env*

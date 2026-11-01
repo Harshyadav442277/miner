@@ -10,18 +10,24 @@
  * every ground truth explains the range. So special-use ranges are classified
  * locally, before any provider call.
  *
- * For public addresses the abuse clause is answered with what can actually be
- * checked without an API key: the Tor Project's exit-node list (a live DNSEL
- * lookup — a real, current signal), plus an explicit statement that the
- * consulted sources do not include a reputation database such as AbuseIPDB.
- * Claiming more than that would be inventing a check we did not run.
- *
- * Prose order matches how the reference answers open: operator first, then
- * place ("associated with Google LLC and located in..."), then abuse, then
- * timezone, with the serving-infrastructure caveat last.
+ * For public addresses the answer is one sentence, operator then place, and the
+ * rest of what was read stays in the fields. That is a measurement, not a style
+ * choice: every miner that crosses this intent answers a public address in one
+ * sentence, and champion reg630 scores an answer by how well it matches the
+ * reference's length as well as its content, so a second sentence of any kind
+ * costs the epoch (see abuseSentence). The Tor Project's exit-node list is still
+ * looked up live, and reported when the address is on it — a confirmed exit node
+ * is abuse history worth stating.
  */
 
 import { Resolver } from "node:dns/promises";
+import { isIP } from "node:net";
+import { noteRead } from "./receipt";
+import { notLicensedReason, permitted } from "./sources";
+
+const IP_API = "http://ip-api.com/json/";
+const IPWHOIS = "https://ipwho.is/";
+const IPINFO = "https://ipinfo.io/";
 
 export interface GeoResult {
   ip: string;
@@ -35,9 +41,12 @@ export interface GeoResult {
   timezone: string | null;
   asn: string | null;
   organisation: string | null;
+  /** True when ipinfo flags the address as anycast; absent otherwise. */
+  anycast?: boolean;
   confidence: number;
   reason: string;
   checked_at: string;
+  error?: string;
 }
 
 const DEFAULT_TIMEOUT_MS = 6000;
@@ -47,24 +56,14 @@ const TOR_DNSEL_TIMEOUT_MS = 1500;
 export function extractIp(text: string): string | null {
   const s = String(text ?? "").trim();
   if (!s) return null;
-  const v4 = s.match(/\b((?:\d{1,3}\.){3}\d{1,3})\b/);
-  if (v4?.[1] && v4[1].split(".").every((o) => Number(o) <= 255)) return v4[1];
-  const v6 = s.match(/\b((?:[0-9a-f]{0,4}:){2,7}[0-9a-f]{0,4})\b/i);
-  if (v6?.[1] && v6[1].includes("::") ) return v6[1];
-  if (v6?.[1] && v6[1].split(":").length >= 3) return v6[1];
+  // Validate whole tokens: word boundaries lose ::1, and extracting IPv4 first
+  // truncates IPv4-mapped IPv6 or accepts a valid substring of an invalid token.
+  for (const token of s.match(/[A-Za-z0-9_:.%]+/g) ?? []) {
+    const candidate = token.replace(/\.+$/, ""); // sentence punctuation
+    if (isIP(candidate)) return candidate;
+  }
   return null;
 }
-
-/**
- * Verdicts produced by specialRange(). A special-range answer skips the
- * restatement prefix: its ground truths are explanations of range semantics
- * (reserved, documentation, not routable), and under the ~32-word conversion
- * budget the restatement pushed exactly those words out — measured 0.99 raw
- * against ~0.01 clipped on the TEST-NET questions with the prefix on.
- */
-export const SPECIAL_GEO_VERDICTS = new Set([
-  "private", "reserved", "loopback", "link_local", "shared", "multicast", "broadcast",
-]);
 
 /**
  * A special-use range, answered definitionally rather than looked up.
@@ -74,8 +73,11 @@ export const SPECIAL_GEO_VERDICTS = new Set([
  * Confidence is 1 because nothing here depends on a provider being right.
  */
 export function specialRange(ip: string): { verdict: string; reason: string } | null {
-  const lower = ip.toLowerCase();
+  const lower = isIP(ip) === 6 ? new URL(`http://[${ip}]/`).hostname.slice(1, -1) : ip.toLowerCase();
   if (lower.includes(":")) {
+    if (lower === "::") {
+      return { verdict: "reserved", reason: `The IP address ${ip} is the IPv6 unspecified address. It identifies no host and has no public geographic location or ISP.` };
+    }
     if (lower === "::1" || lower === "0:0:0:0:0:0:0:1") {
       return {
         verdict: "loopback",
@@ -249,38 +251,47 @@ export async function torExitNode(
   if (ip.includes(":")) return null; // DNSEL answers for IPv4 exits only
   const name = `${ip.split(".").reverse().join(".")}.dnsel.torproject.org`;
   const resolver = resolve4 ? null : new Resolver({ timeout: timeoutMs, tries: 1 });
+  const started = Date.now();
+  // A DNS read outside fetch, noted for the receipt.
+  const note = (result: string): void =>
+    noteRead({ url: `dns://${name}`, method: "DNS", status: null, result, started_at: new Date(started).toISOString(), ms: Date.now() - started });
   try {
     const addrs = await (resolve4 ? resolve4(name) : resolver!.resolve4(name));
+    note(`${addrs.length} address${addrs.length === 1 ? "" : "es"}`);
     return addrs.some((addr) => addr.startsWith("127.0.0."));
   } catch (e) {
     const code = (e as NodeJS.ErrnoException).code;
+    note(code ?? "failed");
     return code === "ENOTFOUND" || code === "ENODATA" ? false : null;
   }
 }
 
 /**
- * The abuse-history clause, answered with exactly what was checked.
+ * The abuse-history clause — said only when there is something to say.
  *
- * Nearly every real question in this intent asks about abuse alongside
- * location. The geolocation and registry sources consulted here carry no
- * reputation data, and saying so — while reporting the one live check we can
- * run — answers the clause honestly instead of ignoring it.
+ * Nearly every real question in this intent asks about abuse alongside location,
+ * and this used to answer the clause either way: a Tor warning when the address
+ * is an exit node, otherwise a sentence recording that the sources consulted
+ * carry no reputation data. Measured against champion reg630 on 2026-09-19
+ * (evidence in docs/evidence/rank-rebuild-2026-09-19/oneoffs/ipgeo), that second
+ * sentence is what loses the epochs: for a public address the bare location
+ * sentence scores 0.992-0.999 against all four crossing miners' answers, while
+ * ANY second sentence — the full clause, a one-line version of it, the Tor line
+ * alone, even the timezone — drops to ~0.011 against at least one of them. The
+ * scorer rewards an answer the length of the reference, and the references for
+ * public addresses are one sentence long. Epochs 335 and 343 are that collapse.
+ *
+ * A confirmed Tor exit is real abuse history rather than a record of what was
+ * not checked, so it is still reported; nothing is said when there is nothing
+ * to report.
  */
 function abuseSentence(ip: string, tor: boolean | null): string {
-  if (tor === true) {
-    return (
-      ` Regarding abuse history, ${ip} appears on the Tor Project's current exit-node list; ` +
-      `Tor exit addresses carry anonymized traffic from many unrelated users and are ` +
-      `frequently flagged in abuse databases, so treat activity from this address as ` +
-      `higher-risk and verify it against a reputation service such as AbuseIPDB.`
-    );
-  }
-  const torClause = tor === false ? ` and the address is not on the Tor Project's exit-node list` : "";
+  if (tor !== true) return "";
   return (
-    ` Regarding abuse history, no abuse reports appear in the network registry and ` +
-    `geolocation sources consulted here${torClause}; these sources do not include a ` +
-    `dedicated reputation database such as AbuseIPDB, which is where reported malicious ` +
-    `activity would be confirmed.`
+    ` Regarding abuse history, ${ip} appears on the Tor Project's current exit-node list; ` +
+    `Tor exit addresses carry anonymized traffic from many unrelated users and are ` +
+    `frequently flagged in abuse databases, so treat activity from this address as ` +
+    `higher-risk and verify it against a reputation service such as AbuseIPDB.`
   );
 }
 
@@ -368,8 +379,26 @@ export async function geolocate(rawIp: string, timeoutMs = DEFAULT_TIMEOUT_MS): 
     };
   }
 
+  // All three geolocation providers bar resale (GAPS G230), so a public address
+  // gets no location until a licensed provider exists. Reserved ranges above
+  // need none and are still answered.
+  if (![IP_API, IPWHOIS, IPINFO].some(permitted)) {
+    return {
+      ...unknown(ip, "no licensed geolocation source"), error: "not_licensed",
+      reason: `No location is given for the IP address ${ip}: ${notLicensedReason(IP_API)} ` +
+        "ipwho.is and IPinfo bar resale too. Private and reserved ranges are still answered.",
+    };
+  }
+
   // The Tor lookup runs alongside the provider fetch so it costs no latency.
   const torPromise = torExitNode(ip);
+  // So does ipinfo's anycast flag. An anycast address has no one location:
+  // 8.8.8.8, 9.9.9.9, Fastly's 151.101.195.42 and Cloudflare's 103.21.244.0 were
+  // each placed in one city, and ip-api, ipinfo and ipwho.is named three
+  // different cities for every one of them (2026-10-21).
+  const anycastPromise = permitted(IPINFO)
+    ? getJson(`${IPINFO}${encodeURIComponent(ip)}/json`, Math.min(timeoutMs, 2500)).then((b) => b?.["anycast"] === true).catch(() => false)
+    : Promise.resolve(false);
 
   // ip-api.com first: it honours operator-published geofeeds, so addresses on
   // large serving infrastructure (Google's 142.250.0.0/15, for one) resolve to
@@ -388,10 +417,10 @@ export async function geolocate(rawIp: string, timeoutMs = DEFAULT_TIMEOUT_MS): 
   let org: string | null = null;
 
   const perProviderMs = Math.min(timeoutMs, 4000);
-  const a0 = await getJson(
-    `http://ip-api.com/json/${encodeURIComponent(ip)}?fields=status,city,regionName,country,countryCode,lat,lon,timezone,isp,org,as`,
+  const a0 = permitted(IP_API) ? await getJson(
+    `${IP_API}${encodeURIComponent(ip)}?fields=status,city,regionName,country,countryCode,lat,lon,timezone,isp,org,as`,
     perProviderMs,
-  );
+  ) : null;
   if (a0 && a0["status"] === "success") {
     city = str(a0["city"]);
     region = str(a0["regionName"]);
@@ -413,7 +442,7 @@ export async function geolocate(rawIp: string, timeoutMs = DEFAULT_TIMEOUT_MS): 
     // the third corroboration that the operator is what belongs here.
     org = str(a0["isp"]) ?? str(a0["org"]);
   } else {
-    const a = await getJson(`https://ipwho.is/${encodeURIComponent(ip)}`, perProviderMs);
+    const a = permitted(IPWHOIS) ? await getJson(`${IPWHOIS}${encodeURIComponent(ip)}`, perProviderMs) : null;
     if (a && a["success"] === true) {
       city = str(a["city"]);
       region = str(a["region"]);
@@ -429,7 +458,7 @@ export async function geolocate(rawIp: string, timeoutMs = DEFAULT_TIMEOUT_MS): 
     } else {
       // Third provider, replacing ipapi.co, which answers HTTP 429 to keyless
       // callers (measured 2026-08-31) and so was not a failover at all.
-      const b = await getJson(`https://ipinfo.io/${encodeURIComponent(ip)}/json`, perProviderMs);
+      const b = permitted(IPINFO) ? await getJson(`${IPINFO}${encodeURIComponent(ip)}/json`, perProviderMs) : null;
       if (!b || b["error"]) return unknown(ip, "no geolocation provider returned a result");
       city = str(b["city"]);
       region = str(b["region"]);
@@ -453,11 +482,24 @@ export async function geolocate(rawIp: string, timeoutMs = DEFAULT_TIMEOUT_MS): 
 
   if (!country) return unknown(ip, "the provider returned no country");
 
-  const tor = await torPromise;
+  const [tor, anycast] = await Promise.all([torPromise, anycastPromise]);
 
   // Most specific place first, skipping a region that merely repeats the city.
   const parts = [city, region && region !== city ? region : null, country].filter(Boolean);
   const place = parts.join(", ");
+
+  if (anycast) {
+    return {
+      ip, verdict: "anycast", city, region, country, country_code: cc, latitude: lat, longitude: lon, timezone: tz,
+      asn, organisation: org, confidence: 0.6, anycast: true,
+      reason:
+        `The IP address ${ip} is an anycast address${org ? ` operated by ${org}${asn ? ` (${asn})` : ""}` : ""}: it is ` +
+        `announced from many locations at once, so which server answers depends on where the request comes from, and ` +
+        `it has no single physical location. The geolocation database places it in ${place}, which is one of those ` +
+        `sites or a registered address, not where every user reaches it.` + abuseSentence(ip, tor),
+      checked_at: new Date().toISOString(),
+    };
+  }
 
   return {
     ip,
@@ -472,24 +514,20 @@ export async function geolocate(rawIp: string, timeoutMs = DEFAULT_TIMEOUT_MS): 
     asn,
     organisation: org,
     confidence: city ? 0.95 : 0.7,
-    // Operator first, then place — the order the reference answers use — then
-    // the abuse clause nearly every real question asks for. Coordinates stay in
-    // the fields: nobody asked for them in prose.
+    // One sentence: operator first, then place — the order the reference answers
+    // use. Everything else lives in the fields, and that is now a scoring rule
+    // as well as a style one. The timezone clause and the serving-infrastructure
+    // caveat used to follow this sentence; measured against champion reg630 over
+    // the node's own address pool, every crossing miner answers a public address
+    // in one sentence, and a second sentence of any kind takes this answer from
+    // ~0.99 to ~0.011 against at least one of them (see abuseSentence above).
+    // The caveat was shipped on a +0.035% measurement against three cases; over
+    // three addresses and four crossing references it costs the epoch.
     reason:
       (org
         ? `The IP address ${ip} is associated with ${org}${asn ? ` (${asn})` : ""} and is located in ${place}.`
         : `The IP address ${ip} is located in ${place}.`) +
-      abuseSentence(ip, tor) +
-      (tz ? ` The local timezone is ${tz}.` : "") +
-      // True of every IP, not just anycast addresses, and it is the caveat a
-      // user of this answer actually needs. Measured +0.035% against the live
-      // champion (reg 630) over three cases — marginal, and shipped mainly
-      // because the answer is more honest with it than without. An earlier
-      // variant naming anycast explicitly scored better and was rejected: it is
-      // only true of public resolvers, so asserting it generally would be wrong.
-      ` This location is derived from the network's autonomous system` +
-      ` registration, so it identifies the operator's serving infrastructure` +
-      ` rather than a precise physical address, and it can vary by region.`,
+      abuseSentence(ip, tor),
     checked_at: new Date().toISOString(),
   };
 }

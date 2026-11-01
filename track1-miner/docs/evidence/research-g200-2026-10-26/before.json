@@ -1,0 +1,709 @@
+{
+ "at": "2026-10-26T06:08:51.823Z",
+ "tally": {
+  "evidence": 96,
+  "no_evidence": 4
+ },
+ "answers": [
+  {
+   "q": "Will Nivolumab show improved bladder cancer outcomes?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "Nivolumab is the subject of 3 registered trials, including NCT05468294, a Phase 1/Phase 2 study titled \"F16IL2 in Combination With Nivolumab in Patients With Non-small Cell Lung Cancer\", currently unknown, primary completion 2021-12-31."
+  },
+  {
+   "q": "Will YESAFILI gain market share?",
+   "verdict": "evidence",
+   "confidence": 0.75,
+   "error": null,
+   "lead": "The published evidence includes \"Comparative Clinical and Therapeutic Landscape of Aflibercept Biosimilars (YESAFILI), High-Dose Aflibercept 8 mg (EYLEA HD), and Faricimab (VABYSMO): A Structured Narrative Review\" by Balian C et al. (2026) in Europe PMC."
+  },
+  {
+   "q": "Will Microsoft increase Rust adoption?",
+   "verdict": "evidence",
+   "confidence": 0.75,
+   "error": null,
+   "lead": "The published evidence includes \"Wheat Rust Diseases: Global Impact, Integrated Disease Management, and Emerging Biotechnological Innovations for Sustainable Crop Protection\" by Duan M et al. (2026) in Europe PMC."
+  },
+  {
+   "q": "Will Sony face a digital game ownership lawsuit?",
+   "verdict": "evidence",
+   "confidence": 0.75,
+   "error": null,
+   "lead": "Wikipedia: Sony Group Corporation is a Japanese multinational conglomerate headquartered at the Sony City building in Minato, Tokyo."
+  },
+  {
+   "q": "Will Luspatercept complete Phase 2 trials?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "Luspatercept is the subject of 4 registered trials, including NCT01749540, a Phase 2 study titled \"Study to Evaluate the Safety and Efficacy of Luspatercept (ACE-536) in Participants With Beta-thalassemia (A536-04/MK-6143-002)\", currently completed, primary completion 2015-11-11."
+  },
+  {
+   "q": "Will Delcath Systems receive FDA approval for PHP?",
+   "verdict": "evidence",
+   "confidence": 0.75,
+   "error": null,
+   "lead": "The published evidence includes \"Safety of Percutaneous Hepatic Perfusion with Melphalan in Patients with Unresectable Liver Metastases from Ocular Melanoma Using the Delcath Systems' Second-Generation Hemofiltration System: A Prospective Non-randomized Phase II Trial\" by Meijer TS et al. (2019) in "
+  },
+  {
+   "q": "Will Versius Paediatrics Study recruit patients?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "Research on Versius Paediatrics covers one registered trial, NCT06539442, a study titled \"Versius Paediatrics Study\", currently active not recruiting, primary completion 2027-01-01."
+  },
+  {
+   "q": "Will Novartis' malaria drug be approved?",
+   "verdict": "evidence",
+   "confidence": 0.75,
+   "error": null,
+   "lead": "Wikipedia: Novartis AG is a Swiss multinational pharmaceutical corporation based in Basel, Switzerland."
+  },
+  {
+   "q": "Will Novo Nordisk's NNC0471-0119 be approved?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "NNC0471-0119 is the subject of 4 registered trials, including NCT05262595, a Phase 1 study titled \"A Study to Look at How Insulin NNC0471-0119 Works in the Body in People With Type 1 Diabetes When Injected by Insulin Pump\", currently completed, primary completion 2022-08-29."
+  },
+  {
+   "q": "Will Philogen's IL12-L19L19 enter Phase 2?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "IL12-L19L19 is the subject of one registered trial, NCT04471987, a Phase 1 study titled \"Safety and Early Signs of Efficacy of IL12-L19L19.\", currently recruiting, primary completion 2026-12."
+  },
+  {
+   "q": "Is it true that the Eiffel Tower is in Berlin?",
+   "verdict": "evidence",
+   "confidence": 0.75,
+   "error": null,
+   "lead": "The published evidence includes \"Assembling a Vocal “Eiffel Tower” to Improve the Quality of the Singing Voice\" by Carp T et al. (2025) in Europe PMC."
+  },
+  {
+   "q": "Will Pakistan mediate Houthi-Iran tensions?",
+   "verdict": "evidence",
+   "confidence": 0.75,
+   "error": null,
+   "lead": "Wikipedia: Pakistan, officially the Islamic Republic of Pakistan, is a country in South Asia."
+  },
+  {
+   "q": "Will Pakistan sanction Iran?",
+   "verdict": "evidence",
+   "confidence": 0.75,
+   "error": null,
+   "lead": "Wikipedia: Pakistan, officially the Islamic Republic of Pakistan, is a country in South Asia."
+  },
+  {
+   "q": "Will FDA fine Fresenius Kabi?",
+   "verdict": "evidence",
+   "confidence": 0.75,
+   "error": null,
+   "lead": "The published evidence includes \"In Vitro Evaluation of the Fresenius Kabi CATSmart Autotransfusion System\" by Alberts M et al. (2017) in Europe PMC."
+  },
+  {
+   "q": "Will Nivolumab treat bladder cancer?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "Nivolumab is the subject of 3 registered trials, including NCT05468294, a Phase 1/Phase 2 study titled \"F16IL2 in Combination With Nivolumab in Patients With Non-small Cell Lung Cancer\", currently unknown, primary completion 2021-12-31."
+  },
+  {
+   "q": "Will SRP-3D (DA) enter Phase 2 trials?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "SRP-3D is the subject of one registered trial, NCT05484414, a Phase 1 study titled \"Safety and Pharmacokinetics of SAD/MAD Oral Doses of SRP-3D (DA)\", currently completed, primary completion 2023-11-06."
+  },
+  {
+   "q": "Will JZP815 enter Phase 2 trials?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "JZP815 is the subject of one registered trial, NCT05557045, a Phase 1 study titled \"A Study of JZP815 Oral Capsules in Adult Participants With Advanced or Metastatic Solid Tumors Harboring Mitogen Activated Protein Kinase (MAPK) Pathway Alterations to Investigate the Safety, Dosing, and Antitumor Ac"
+  },
+  {
+   "q": "Will Holy Basil treat sensitive skin?",
+   "verdict": "evidence",
+   "confidence": 0.75,
+   "error": null,
+   "lead": "The published evidence includes \"Preharvest temperature treatments influence physiological traits, secondary metabolites, and volatile compounds in holy basil under controlled environment conditions\" by Boonkorkaew P et al. (2026) in Europe PMC."
+  },
+  {
+   "q": "Will Callavid enter Phase 2 trials?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "Callavid is the subject of one registered trial, NCT07136922, a Phase 1 study titled \"First in Human Safety and Ease of Use Assessment of 400mg Progesterone Callavid in Women With Luteal Phase Insufficiency\", currently recruiting, primary completion 2026-12-31."
+  },
+  {
+   "q": "Will Novo Nordisk's Cagrilintide/Semaglutide trial succeed?",
+   "verdict": "evidence",
+   "confidence": 0.75,
+   "error": null,
+   "lead": "The published evidence includes \"pXg: Comprehensive and Reliable Identification of MHC-I Antigens Using De Novo Peptide Sequencing and Immunotranscriptomic Datasets\" by Choi S et al. (2027) in Europe PMC."
+  },
+  {
+   "q": "Will Moderna's mRNA-1469 vaccine enter Phase 2?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "Moderna is the subject of one registered trial, NCT05280158, a Phase 1/Phase 2 study titled \"High-Dose Moderna mRNA-1273 Booster Study for Lung Transplant Recipients\", currently terminated, primary completion 2023-02-27."
+  },
+  {
+   "q": "Will Imeroprubart complete Phase 2 trials?",
+   "verdict": "no_evidence",
+   "confidence": 0.6,
+   "error": null,
+   "lead": "No registered trial and no indexed publication on Imeroprubart was found, so nothing is claimed about Imeroprubart complete Phase 2 trials."
+  },
+  {
+   "q": "Will Trontinemab complete Phase 3 trials?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "Trontinemab is the subject of 3 registered trials, including NCT07170150, a Phase 3 study titled \"A Clinical Trial of Trontinemab in Participants With Early Symptomatic Alzheimer's Disease\", currently active not recruiting, primary completion 2028-02-16."
+  },
+  {
+   "q": "Will Netakimab be approved for psoriasis?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "Netakimab is the subject of 2 registered trials, including NCT07008547, a Phase 3 study titled \"To Evaluate the Efficacy and Safety of Netakimab in Chinese Patients With Moderate to Severe Plaque Psoriasis\", currently completed, primary completion 2025-03-28."
+  },
+  {
+   "q": "Will Intuitive Surgical's GYN study succeed?",
+   "verdict": "evidence",
+   "confidence": 0.75,
+   "error": null,
+   "lead": "The published evidence includes \"An intuitive surgical handle design for robotic neurosurgery\" by Dimitrakakis E et al. (2021) in Europe PMC."
+  },
+  {
+   "q": "Will Luspatercept be approved for alpha-thalassemia?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "Luspatercept is the subject of 4 registered trials, including NCT01749540, a Phase 2 study titled \"Study to Evaluate the Safety and Efficacy of Luspatercept (ACE-536) in Participants With Beta-thalassemia (A536-04/MK-6143-002)\", currently completed, primary completion 2015-11-11."
+  },
+  {
+   "q": "Will Varian's pancreatic cancer trial succeed?",
+   "verdict": "evidence",
+   "confidence": 0.75,
+   "error": null,
+   "lead": "The published evidence includes \"Evaluating Image Quality of Cone Beam Computed Tomography Using HyperSight® on the Varian TrueBeam\" by Lohela J et al. (2026) in Europe PMC."
+  },
+  {
+   "q": "Will EPI-326 complete Phase 1 trials?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "EPI-326 is the subject of one registered trial, NCT07462377, a Phase 1 study titled \"A Phase 1 Study of EPI-326 in EGFR-mutant NSCLC and HNSCC\", currently recruiting, primary completion 2029-07."
+  },
+  {
+   "q": "Will Anifrolumab succeed in Phase 3?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "Anifrolumab is the subject of 3 registered trials, including NCT04877691, a Phase 3 study titled \"Subcutaneous Anifrolumab in Adult Patients With Systemic Lupus Erythematosus\", currently active not recruiting, primary completion 2025-08-22."
+  },
+  {
+   "q": "Will Novartis' Ianalumab be approved?",
+   "verdict": "evidence",
+   "confidence": 0.75,
+   "error": null,
+   "lead": "The published evidence includes \"Ianalumab in Sjögren's Disease - A First Step\" by Negrini S et al. (2026) in Europe PMC."
+  },
+  {
+   "q": "Was BIOSTREAM.HF trial successful?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "BIOSTREAM.HF is the subject of one registered trial, NCT05761249, a study titled \"BIOSTREAM.HF HeartInsight\", currently completed, primary completion 2025-07-09."
+  },
+  {
+   "q": "Will Research Inc's study find contracture predictors?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "Research on Research Inc contracture predictors covers one registered trial, NCT07810231, a study titled \"Prospective Longitudinal Cohort Study of Implant Age, Pocket Plane, Incision, Surface Texture, and Volume as Predictors of Clinically Significant Capsular Contracture\", currently recruiting, pri"
+  },
+  {
+   "q": "Will Winclove probiotic treat allergic rhinitis?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "Research on Winclove probiotic allergic rhinitis covers one registered trial, NCT07157462, a study titled \"Investigation of the Effects of a Multispecies Probiotic Formulation on Perennial Allergic Rhinitis\", currently completed, primary completion 2026-02-19."
+  },
+  {
+   "q": "Will Planet Labs open more satellite feeds?",
+   "verdict": "evidence",
+   "confidence": 0.75,
+   "error": null,
+   "lead": "The published evidence includes \"Deriving high-spatiotemporal-resolution leaf area index for agroecosystems in the U.S."
+  },
+  {
+   "q": "Extract the dates, quantities, named entities and events from: Can asymmetry between two interacting networks fundamentally change how they synchronize? We identify double explosive transitions in the forward direction, backward direction, or a combination thereof, with single or double hysteresis loops in an adaptive bilayer multiplex network of Kuramoto oscillators with pairwise and three-body interactions and asymmetric phase lags. Using the Ott-Antonsen reduction, we derive a low-dimensional system and perform a stability analysis. The reduced model accurately captures the full microscopic dynamics and enables analytical expressions for the bifurcation points. Systematic mapping across multiple parameter planes reveals eight distinct synchronization regimes. The relative ordering of saddle-node and pitchfork bifurcation points---controlled by phase-lag asymmetry, cross-layer adaptation, and the higher-order interaction strength---creates two distinct coherent branches (weak and strong), giving rise to double explosive transitions. Crucially, phase-lag asymmetry acts as a robust control knob: while symmetric phase lags suppress explosive transitions, layer-specific differences promote multistability and double explosive transitions. The higher-order interaction strength K_2 and adaptation strengths q, p, and h further modulate these transitions in a complex, parameter-dependent manner. Excellent agreement between analytical predictions and numerical simulations confirms the robustness of our reduced description.",
+   "verdict": "evidence",
+   "confidence": 0.75,
+   "error": null,
+   "lead": "The published evidence includes \"Unified Ott-Antonsen framework for stability and bifurcations in ring swarmalators\" by Xu C et al. (2026) in Europe PMC."
+  },
+  {
+   "q": "Will Calderasib plus Pembrolizumab succeed?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "Calderasib is the subject of 4 registered trials, including NCT07190248, a Phase 3 study titled \"A Clinical Study of Calderasib (MK-1084) and Other Treatments for Participants With Non-Small Cell Lung Cancer (MK-1084-007/KANDLELIT-007)\", currently recruiting, primary completion 2029-12-07."
+  },
+  {
+   "q": "Extract the dates, quantities, named entities and events from: We introduce a new language representation model called BERT, which stands for Bidirectional Encoder Representations from Transformers. Unlike recent language representation models, BERT is designed to pre-train deep bidirectional representations from unlabeled text by jointly conditioning on both left and right context in all layers. As a result, the pre-trained BERT model can be fine-tuned with just one additional output layer to create state-of-the-art models for a wide range of tasks, such as question answering and language inference, without substantial task-specific architecture modifications. BERT is conceptually simple and empirically powerful. It obtains new state-of-the-art results on eleven natural language processing tasks, including pushing the GLUE score to 80.5% (7.7% point absolute improvement), MultiNLI accuracy to 86.7% (4.6% absolute improvement), SQuAD v1.1 question answering Test F1 to 93.2 (1.5 point absolute improvement) and SQuAD v2.0 Test F1 to 83.1 (5.1 point absolute improvement).",
+   "verdict": "evidence",
+   "confidence": 0.75,
+   "error": null,
+   "lead": "The published evidence includes \"PA-BERT: Policy-Aware BERT for Development Planning Text Classification and Governance in the Potato Industry\" by Zhang A et al. (2026) in Europe PMC."
+  },
+  {
+   "q": "Will Gilteritinib combination treat AML?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "Gilteritinib is the subject of one registered trial, NCT05546580, a Phase 1 study titled \"Study of Iadademstat and Gilteritinib in Patients With R/R AML With FMS-like Tyrosine Kinase Mutation (FLT3 Mut+)\", currently active not recruiting, primary completion 2026-01-30."
+  },
+  {
+   "q": "Will Sterinova profit from Naloxone?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "Naloxone is the subject of one registered trial, NCT05301712, a Phase 4 study titled \"A Phase 4 Clinical Study to Investigate the Efficacy and Safety of Naloxone HCI IV in Patients With Stroke\", currently completed, primary completion 2022-10-25."
+  },
+  {
+   "q": "Will GUB-UCN2 show positive Phase 1 results?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "GUB-UCN2 is the subject of one registered trial, NCT07702890, a Phase 1/Phase 2 study titled \"A Three-part First-in-human Trial to Assess Safety, Tolerability, Pharmacokinetics and Pharmacodynamics of GUB-UCN2 in Healthy Lean and Obese Participants and Participants With T2D\", currently recruiting, p"
+  },
+  {
+   "q": "Will BAROSTIM NEO treat hypertension?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "Research on BAROSTIM NEO covers one registered trial, NCT02880631, a study titled \"BAROSTIM THERAPY™ In Resistant Hypertension\", currently recruiting, primary completion 2027-07."
+  },
+  {
+   "q": "Was Bausch & Lomb BL1332 study successful?",
+   "verdict": "evidence",
+   "confidence": 0.75,
+   "error": null,
+   "lead": "Wikipedia: Bausch is a German surname."
+  },
+  {
+   "q": "Will Delcath Systems get FDA approval?",
+   "verdict": "evidence",
+   "confidence": 0.75,
+   "error": null,
+   "lead": "The published evidence includes \"Safety of Percutaneous Hepatic Perfusion with Melphalan in Patients with Unresectable Liver Metastases from Ocular Melanoma Using the Delcath Systems' Second-Generation Hemofiltration System: A Prospective Non-randomized Phase II Trial\" by Meijer TS et al. (2019) in "
+  },
+  {
+   "q": "Will Anifrolumab be approved for Systemic Sclerosis?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "Anifrolumab is the subject of 3 registered trials, including NCT04877691, a Phase 3 study titled \"Subcutaneous Anifrolumab in Adult Patients With Systemic Lupus Erythematosus\", currently active not recruiting, primary completion 2025-08-22."
+  },
+  {
+   "q": "Will BPL-003 be approved?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "BPL-003 is the subject of 3 registered trials, including NCT05660642, a Phase 2 study titled \"An Open-Label Study to Evaluate the Safety, Tolerability and Pharmacodynamics of BPL-003 in Patients With Treatment Resistant Depression\", currently recruiting, primary completion 2026-11."
+  },
+  {
+   "q": "Will Cagrilintide show positive bone metabolism results?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "Cagrilintide is the subject of 3 registered trials, including NCT07184086, a Phase 1 study titled \"A Study to See How Metabolism is Influenced by Weight Loss Due to Intervention With Cagrilintide and Semaglutide Compared to Diet\", currently active not recruiting, primary completion 2027-10-12."
+  },
+  {
+   "q": "Will Anifrolumab gain FDA approval?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "Anifrolumab is the subject of 3 registered trials, including NCT04877691, a Phase 3 study titled \"Subcutaneous Anifrolumab in Adult Patients With Systemic Lupus Erythematosus\", currently active not recruiting, primary completion 2025-08-22."
+  },
+  {
+   "q": "Was BL1332 effective for ocular pain?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "BL1332 is the subject of 3 registered trials, including NCT07412496, a Phase 2 study titled \"A Study to Evaluate the Use of Topical Ocular BL1332 for the Management of Postoperative Ocular Pain Following Photorefractive Keratectomy\", currently completed, primary completion 2026-10-04."
+  },
+  {
+   "q": "Can researchers trust OpenAI?",
+   "verdict": "evidence",
+   "confidence": 0.75,
+   "error": null,
+   "lead": "The published evidence includes \"Generative Artificial Intelligence in Periodontology: Application of OpenAI Models for the Classification of Periodontitis and Risk Assessment in Patients Undergoing Supportive Periodontal Care\" by Camlet A et al. (2026) in Europe PMC."
+  },
+  {
+   "q": "Will Cagrilintide show bone metabolism benefits?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "Cagrilintide is the subject of 3 registered trials, including NCT07184086, a Phase 1 study titled \"A Study to See How Metabolism is Influenced by Weight Loss Due to Intervention With Cagrilintide and Semaglutide Compared to Diet\", currently active not recruiting, primary completion 2027-10-12."
+  },
+  {
+   "q": "Will AstraZeneca's SLE study complete?",
+   "verdict": "evidence",
+   "confidence": 0.75,
+   "error": null,
+   "lead": "The published evidence includes \"Operational Transformation in LATAM Medical Affairs: Building a Shared Regional Vision for Latin America Based on the AstraZeneca Spain Model\" by Iglesias I et al. (2026) in Europe PMC."
+  },
+  {
+   "q": "Will Boston Scientific's DBS registry expand?",
+   "verdict": "evidence",
+   "confidence": 0.75,
+   "error": null,
+   "lead": "The published evidence includes \"Complications Associated With Safety Mode Initiation in Recalled Boston Scientific Pacemakers\" by Caughron H et al. (2025) in Europe PMC."
+  },
+  {
+   "q": "Will Qilu Pharm launch Fosaprepitant Dimeglumine?",
+   "verdict": "evidence",
+   "confidence": 0.75,
+   "error": null,
+   "lead": "Wikipedia: Qi–Lu culture, also known as Haidai culture, is a regional culture that originated and developed in Shandong Province, China."
+  },
+  {
+   "q": "Will FDA issue CAMZYOS safety warning?",
+   "verdict": "no_evidence",
+   "confidence": 0.6,
+   "error": null,
+   "lead": "No registered trial and no indexed publication on CAMZYOS was found, so nothing is claimed about FDA issue CAMZYOS safety warning."
+  },
+  {
+   "q": "Will Glycotest HCC Panel outperform AFP?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "Research on Glycotest HCC Panel covers one registered trial, NCT03878550, a study titled \"Case-Control Study of the Glycotest™ HCC Panel vs AFP for the Detection of Early-stage Hepatocellular Carcinoma\", currently active not recruiting, primary completion 2023-08-25."
+  },
+  {
+   "q": "Will Inari Medical complete PERSEVERE study?",
+   "verdict": "evidence",
+   "confidence": 0.75,
+   "error": null,
+   "lead": "The published evidence includes \"Percutaneous aortic thrombectomy with Inari ProTrieve Sheath and Penumbra Aspiration Catheter\" by Figueroa J et al. (2026) in Europe PMC."
+  },
+  {
+   "q": "Will Essilor's lens control myopia?",
+   "verdict": "evidence",
+   "confidence": 0.75,
+   "error": null,
+   "lead": "The published evidence includes \"Google Trends Analysis of Interest in Pediatric Myopia-Control Spectacle Lenses Following FDA Authorization of Essilor Stellest\" by Gill AS et al. (2026) in Europe PMC."
+  },
+  {
+   "q": "Will prion disease drug trial succeed?",
+   "verdict": "evidence",
+   "confidence": 0.75,
+   "error": null,
+   "lead": "The published evidence includes \"Multi-target approaches to prion disease drug discovery: a status update\" by Nikolić L et al. (2026) in Europe PMC."
+  },
+  {
+   "q": "Will UB-VV400 enter Phase 2 trials?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "UB-VV400 is the subject of 2 registered trials, including NCT06743503, a Phase 1 study titled \"UB-VV400 in Combination With Rapamycin in Relapsed or Refractory B-cell Malignancies\", currently recruiting, primary completion 2028-05-21."
+  },
+  {
+   "q": "Will Mirvetuximab Soravtansine enter Phase 3?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "Research on Mirvetuximab Soravtansine covers 3 registered trials, including NCT04209855, a Phase 3 study titled \"A Study of Mirvetuximab Soravtansine vs."
+  },
+  {
+   "q": "Will Lo.Li.Pharma treat Amenorrhea?",
+   "verdict": "evidence",
+   "confidence": 0.75,
+   "error": null,
+   "lead": "The published evidence includes \"Primary Amenorrhea Revealing Adamantinomatous Craniopharyngioma Associated With Central Hypogonadotropic Hypogonadism in an Adolescent Girl: A Case Report\" by Shanker A et al. in Europe PMC."
+  },
+  {
+   "q": "Will Incyte complete Povorcitinib trials?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "Povorcitinib is the subject of 2 registered trials, including NCT06441318, a Phase 1 study titled \"A Study to Evaluate the Effect of Povorcitinib on the QT/QTc Interval in Healthy Participants\", currently completed, primary completion 2024-09-10."
+  },
+  {
+   "q": "Will Izalontamab Brengitecan receive FDA approval?",
+   "verdict": "evidence",
+   "confidence": 0.75,
+   "error": null,
+   "lead": "The published evidence includes \"[Expert Consensus on Clinical Application of Izalontamab Brengitecan (2026 Edition)]\" by Expert Consensus Group on Clinical Application of Izalontamab Brengitecan et al. (2026) in Europe PMC."
+  },
+  {
+   "q": "Will TEV-53408 treat Vitiligo?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "TEV-53408 is the subject of 2 registered trials, including NCT06625177, a Phase 1 study titled \"A Trial to Test the Safety and Efficacy of TEV-53408 in Participants With Vitiligo\", currently recruiting, primary completion 2028-04-26."
+  },
+  {
+   "q": "Will Stratagen Bio develop a prostate cancer drug?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "Research on Stratagen Bio covers one registered trial, NCT06985238, a study titled \"Stratagen Quantitative Prostate MRI Platform Pilot Study\", currently active not recruiting, primary completion 2026-11-30."
+  },
+  {
+   "q": "Will LY3457263 complete Phase 2 trials?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "LY3457263 is the subject of 4 registered trials, including NCT06897475, a Phase 2 study titled \"A Study of LY3457263 Compared With Placebo in Participants With Type 2 Diabetes on a Stable Dose of Semaglutide or Tirzepatide\", currently recruiting, primary completion 2027-05."
+  },
+  {
+   "q": "Will TEV-53408 successfully treat Vitiligo?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "TEV-53408 is the subject of 2 registered trials, including NCT06625177, a Phase 1 study titled \"A Trial to Test the Safety and Efficacy of TEV-53408 in Participants With Vitiligo\", currently recruiting, primary completion 2028-04-26."
+  },
+  {
+   "q": "Will Salts Healthcare complete NCT07719309 recruitment?",
+   "verdict": "evidence",
+   "confidence": 0.75,
+   "error": null,
+   "lead": "The published evidence includes \"Anion-specific fluorescence enhancement via counterion modulation in biphenyl-based porous cage salts\" by Sabatino R et al. in Europe PMC."
+  },
+  {
+   "q": "Will Pirtobrutinib treat ITP?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "Pirtobrutinib is the subject of 4 registered trials, including NCT07796373, a Phase 2 study titled \"Nemtabrutinib for Chronic Lymphocytic Leukemia (CLL)/Small Lymphocytic Leukemia (SLL) Refractory to Covalent Bruton Tyrosine Kinase Inhibitor or Pirtobrutinib and Previously Treated With a BCL2 Inhibi"
+  },
+  {
+   "q": "Will MeMed BV® improve LRTI management?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "MeMed is the subject of 2 registered trials, including NCT05439551, a study titled \"Evaluating the Analytical Equivalency of Serum and Whole Blood Samples Run on the MeMed Key® Platform (Perseverance Study)\", currently completed, primary completion 2022-11-13."
+  },
+  {
+   "q": "Will 'big-arrow-on-the-screen' be acquired?",
+   "verdict": "no_evidence",
+   "confidence": 0.6,
+   "error": null,
+   "lead": "No registered trial and no indexed publication on big-arrow-on-the-screen acquired was found, so nothing is claimed about 'big-arrow-on-the-screen' be acquired."
+  },
+  {
+   "q": "Will Leadiant Biosci increase MATULANE production?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "Leadiant is the subject of one registered trial, NCT06180057, a Phase 1 study titled \"Bioequivalence Study to Compare Chenodeoxycholic Acid Capsules (250mg Chenodeoxycholic Acid) Versus Chenodeoxycholic Acid Leadiant 250 mg Hard Capsules (250mg Chenodeoxycholic Acid)\", currently completed, primary c"
+  },
+  {
+   "q": "Will Sonelokimab get FDA approval?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "Sonelokimab is the subject of 3 registered trials, including NCT06411379, a Phase 3 study titled \"Study to Evaluate the Efficacy and Safety of Subcutaneous Sonelokimab Compared With Placebo in Adult Participants With Moderate to Severe Hidradenitis Suppurativa\", currently completed, primary completi"
+  },
+  {
+   "q": "Will Ponatinib treat pediatric leukemia?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "Ponatinib is the subject of 2 registered trials, including NCT06514534, a Phase 2 study titled \"Open-label Study of Asciminib for CML-CP or CML-AP Patients With T315I Mutation Who Are Resistant, Intolerant or Ineligible to Ponatinib.\", currently recruiting, primary completion 2029-02-17."
+  },
+  {
+   "q": "Will Axatilimab complete Phase 2 trials?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "Axatilimab is the subject of 3 registered trials, including NCT06263478, a Phase 3 study titled \"A Study to Evaluate the Efficacy, Safety, and Pharmacokinetics of Axatilimab Monotherapy in Japanese Participants With Recurrent or Refractory Active Chronic Graft-Versus-Host Disease\", currently active "
+  },
+  {
+   "q": "Will Tigertriever improve stroke cognition?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "Tigertriever is the subject of 2 registered trials, including NCT05531461, a study titled \"Cognition and Imaging With Tigertriever\", currently recruiting, primary completion 2026-11."
+  },
+  {
+   "q": "Will Pirtobrutinib complete Phase 1 trials?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "Pirtobrutinib is the subject of 4 registered trials, including NCT07796373, a Phase 2 study titled \"Nemtabrutinib for Chronic Lymphocytic Leukemia (CLL)/Small Lymphocytic Leukemia (SLL) Refractory to Covalent Bruton Tyrosine Kinase Inhibitor or Pirtobrutinib and Previously Treated With a BCL2 Inhibi"
+  },
+  {
+   "q": "Will AZD4117 vaccine be approved?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "AZD4117 is the subject of one registered trial, NCT07128615, a Phase 1/Phase 2 study titled \"A Phase I/II Study on Safety AND Immunogenicity of AZD4117 and AZD5315 Vaccines (PANDA)\", currently active not recruiting, primary completion 2026-01-28."
+  },
+  {
+   "q": "Was Merck MK-1403 Phase 1 successful?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "MK-1403 is the subject of 2 registered trials, including NCT07242469, a Phase 1 study titled \"A Clinical Trial of MK-1403 in Participants With Type 2 Diabetes Mellitus (MK-1403-006)\", currently completed, primary completion 2026-09-02."
+  },
+  {
+   "q": "Will 611 succeed in Phase 3 trials?",
+   "verdict": "evidence",
+   "confidence": 0.75,
+   "error": null,
+   "lead": "Wikipedia: Year 611 (DCXI) was a common year starting on Friday of the Julian calendar."
+  },
+  {
+   "q": "Will Apotex profit from Atovaquone?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "Apotex is the subject of one registered trial, NCT01228240, a Phase 4 study titled \"The Efficacy of Metformin Produced by Pars Mino Co in Comparison With Canadian Apotex Co.\", currently completed, primary completion 2009-07."
+  },
+  {
+   "q": "Will Med-El publish trial results?",
+   "verdict": "evidence",
+   "confidence": 0.75,
+   "error": null,
+   "lead": "The published evidence includes \"Multicenter Study Results on Expanded Indications in Med-EL Pediatric Cochlear Implant Population\" by Young NM et al. (2026) in Europe PMC."
+  },
+  {
+   "q": "Will chronotherapy treat ADHD?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "ADHD is the subject of one registered trial, NCT02675400, a Phase 4 study titled \"Treatments for Fathers With ADHD and Their At-Risk Children (Fathers Too)\", currently completed, primary completion 2018-08-31."
+  },
+  {
+   "q": "Will the Virtual Biology Initiative expand?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "Virtual is the subject of 2 registered trials, including NCT04288505, a study titled \"Evaluation of a Virtual Reality Tool for Identifying the Cognitive Functions of the Right Hemisphere in Patients With Brain Damage -TANGO\", currently completed, primary completion 2025-02-04."
+  },
+  {
+   "q": "Will NXT007 enter Phase 2 trials?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "NXT007 is the subject of 4 registered trials, including NCT07416526, a Phase 3 study titled \"A Clinical Study to Evaluate the Effects of NXT007 Compared to Factor VIII Prophylaxis in Participants With Hemophilia A\", currently recruiting, primary completion 2027-09-23."
+  },
+  {
+   "q": "Will Han Xu's HIV biologic succeed?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "Research on Han HIV biologic covers one registered trial, NCT07182838, a EARLY_PHASE1 study titled \"Proof-of-Concept Clinical Pharmacology Trial for HIV Antigen Presentation Therapeutic Biologic Mix\", currently active not recruiting, primary completion 2027-06-18."
+  },
+  {
+   "q": "Will Eli Lilly complete LY3537021 recruitment?",
+   "verdict": "evidence",
+   "confidence": 0.75,
+   "error": null,
+   "lead": "The published evidence includes \"Eli Lilly inks dual-payload ADCs deal\" by Mullard A et al. (2026) in Europe PMC."
+  },
+  {
+   "q": "Will Eli Lilly's Baricitinib delay Type 1 Diabetes?",
+   "verdict": "evidence",
+   "confidence": 0.75,
+   "error": null,
+   "lead": "The published evidence includes \"Eli Lilly inks dual-payload ADCs deal\" by Mullard A et al. (2026) in Europe PMC."
+  },
+  {
+   "q": "Will Patisiran-LNP be approved for pregnancy?",
+   "verdict": "no_evidence",
+   "confidence": 0.6,
+   "error": null,
+   "lead": "No registered trial and no indexed publication on Patisiran-LNP was found, so nothing is claimed about Patisiran-LNP be approved for pregnancy."
+  },
+  {
+   "q": "Will hu14 show efficacy in neuroblastoma?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "Research on hu14 efficacy neuroblastoma covers one registered trial, NCT07549321, a Phase 2/Phase 3 study titled \"A Safety and Efficacy Study of hu14 in High-Risk Neuroblastoma Patients\", currently recruiting, primary completion 2031-03."
+  },
+  {
+   "q": "Will Lepodisiran reduce MACE?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "Lepodisiran is the subject of 3 registered trials, including NCT06292013, a Phase 3 study titled \"A Study to Investigate the Effect of Lepodisiran on the Reduction of Major Adverse Cardiovascular Events in Adults With Elevated Lipoprotein(a) - ACCLAIM-Lp(a)\", currently active not recruiting, primary"
+  },
+  {
+   "q": "Will Axogen's Avance graft outperform autograft?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "Avance is the subject of one registered trial, NCT05293145, a study titled \"AVANCE-Houston Building Futures Program Evaluation\", currently completed, primary completion 2025-04-30."
+  },
+  {
+   "q": "Was Rosalind Franklin's DNA image misinterpreted?",
+   "verdict": "evidence",
+   "confidence": 0.75,
+   "error": null,
+   "lead": "Wikipedia: Rosalind Elsie Franklin was an English chemist and X-ray crystallographer."
+  },
+  {
+   "q": "Will Semaglutide show positive eye disease effects?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "Semaglutide is the subject of 2 registered trials, including NCT03552757, a Phase 3 study titled \"Research Study Investigating How Well Semaglutide Works in People With Type 2 Diabetes Suffering From Overweight or Obesity\", currently completed, primary completion 2020-03-24."
+  },
+  {
+   "q": "Will Tezepelumab treat chronic rhinosinusitis?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "Tezepelumab is the subject of 4 registered trials, including NCT04673630, a Phase 1 study titled \"Study to Evaluate the Pharmacokinetics of Tezepelumab in Children With Asthma\", currently completed, primary completion 2022-09-27."
+  },
+  {
+   "q": "Will Calderasib (MK-1084) complete Phase 3?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "Calderasib is the subject of 4 registered trials, including NCT07190248, a Phase 3 study titled \"A Clinical Study of Calderasib (MK-1084) and Other Treatments for Participants With Non-Small Cell Lung Cancer (MK-1084-007/KANDLELIT-007)\", currently recruiting, primary completion 2029-12-07."
+  },
+  {
+   "q": "Will Semaglutide treat diabetic eye disease?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "Semaglutide is the subject of 2 registered trials, including NCT03552757, a Phase 3 study titled \"Research Study Investigating How Well Semaglutide Works in People With Type 2 Diabetes Suffering From Overweight or Obesity\", currently completed, primary completion 2020-03-24."
+  },
+  {
+   "q": "Will Menarini's Vaborem® complete Phase 2?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "Vaborem is the subject of one registered trial, NCT06828848, a Phase 2 study titled \"A Study to Assess How Vaborem® is Taking up in the Body and Tolerated in Paediatric Patients With Gram Negative Infections, Including But Not Restricted to Complicated Urinary Tract Infections\", currently recruiting"
+  },
+  {
+   "q": "Will Glufosfamide outperform 5-FU?",
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "error": null,
+   "lead": "Glufosfamide is the subject of 4 registered trials, including NCT00102752, a Phase 1/Phase 2 study titled \"Study of Safety and Efficacy of Glufosfamide in Combination With Gemcitabine in Cancer\", currently completed, primary completion 2007-07."
+  },
+  {
+   "q": "What does research say about creatine supplementation and cognition?",
+   "verdict": "evidence",
+   "confidence": 0.8,
+   "error": null,
+   "lead": "\"Beetroot Juice Supplementation as a Healthy Aging Strategy Through Improving Physical Performance and Cognitive Functions: A Systematic Review\" (Nowak A et al., 2025) concludes: Further research, particularly involving female or elite athletes, is needed to establish clear recommendations of beetro"
+  }
+ ]
+}

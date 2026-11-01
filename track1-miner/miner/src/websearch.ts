@@ -1,0 +1,335 @@
+/**
+ * WEB_SEARCH — a question that needs current, externally sourced information.
+ *
+ * The canonical description: "needs current, live, or externally-sourced
+ * information not reliably answerable from static knowledge", with "What's the
+ * latest news on the Fed's interest rate decision?" as its example.
+ *
+ * NO MODEL, SO NO SYNTHESIS. The answer is extractive: it quotes the most
+ * relevant current reports verbatim, with publisher and date, so every clause can
+ * be checked, and adds one encyclopedia sentence for background when the subject
+ * has an article. Nothing is paraphrased and nothing is predicted.
+ *
+ * TWO DOCUMENTED ANONYMOUS SOURCES, queried together:
+ *   Google News RSS — through newssearch.ts, which already carries the relevance
+ *                     filter that stops a nearby-but-wrong article being cited.
+ *   Wikipedia REST  — through research.ts, accepted only when the article title
+ *                     contains the entity asked about.
+ * No HTML result page of any commercial search engine is fetched.
+ *
+ * WHAT THE ROUTED QUESTIONS ARE, read from the explorer feed 2026-09-12: 70, and
+ * 64 of them are forward-looking ("Will MK-2870 receive FDA approval?", "Will
+ * Sony lose digital game ownership lawsuit?"). Nobody can answer those with a
+ * fact, so the answer reports what the latest coverage says and states that it
+ * is coverage, not a prediction. Three are misroutes (a TLS certificate check, two
+ * scholarly-literature searches) and are refused by name.
+ *
+ * MEASURED BEFORE BUILDING (the Season I bench, in git history): champion 2789 scored prose
+ * 0.833, a headline list 0.167 and static knowledge ~1e-11 against authored
+ * ground truths. Those are authored, not real, so they chose nothing here.
+ */
+import { currentFact } from "./currentfacts";
+import { answerQuestion } from "./qa";
+import { searchNews, type Article } from "./newssearch";
+import { findEncyclopedia, namedEntity } from "./research";
+
+/**
+ * 4.5 s, not newssearch's own 8 s: a "latest" question can take a second,
+ * widened pass after an empty first one, and two 8 s passes would outrun the
+ * route's 11 s watchdog before either failed.
+ */
+const NEWS_TIMEOUT_MS = Number(process.env.WEBSEARCH_NEWS_TIMEOUT_MS ?? 4_500);
+const DOC_TIMEOUT_MS = Number(process.env.WEBSEARCH_DOC_TIMEOUT_MS ?? 2_500);
+const DOC_UA = "livecert-miner/1.0 (+https://miner-wine.vercel.app)";
+
+const DOCS: Array<{ re: RegExp; url: string; title: string }> = [
+  { re: /\b(?:python\s+)?(?:asyncio\s+)?task\s*group\b|\basyncio\.TaskGroup\b/i, url: "https://docs.python.org/3/library/asyncio-task.html#task-groups", title: "Python asyncio Task Groups documentation" },
+  { re: /\bpython\b[\s\S]*\basyncio\b|\basyncio\b[\s\S]*\bpython\b/i, url: "https://docs.python.org/3/library/asyncio.html", title: "Python asyncio documentation" },
+  { re: /\bnode(?:\.js)?\b[\s\S]*\bevent\s+loop\b|\bevent\s+loop\b[\s\S]*\bnode(?:\.js)?\b/i, url: "https://nodejs.org/en/learn/asynchronous-work/event-loop-timers-and-nexttick", title: "Node.js event loop documentation" },
+];
+const DOC_HOSTS = new Set([
+  "docs.python.org", "nodejs.org", "developer.mozilla.org", "docs.github.com", "docs.aws.amazon.com",
+  "kubernetes.io", "rust-lang.org", "go.dev", "learn.microsoft.com", "postgresql.org",
+]);
+const DOC_STOP = new Set("what is are how does do explain the a an and for from to of in on with about latest current official documentation docs reference tell me please".split(" "));
+
+export interface OfficialDocument {
+  title: string;
+  url: string;
+  excerpt: string;
+}
+
+function decodeHtml(s: string): string {
+  return s.replace(/&(?:amp|lt|gt|quot|apos|nbsp);/gi, (x) => ({ "&amp;": "&", "&lt;": "<", "&gt;": ">", "&quot;": '"', "&apos;": "'", "&nbsp;": " " }[x.toLowerCase()] ?? x))
+    .replace(/&#(\d+);/g, (_, n: string) => String.fromCodePoint(Number(n)))
+    .replace(/&#x([0-9a-f]+);/gi, (_, n: string) => String.fromCodePoint(parseInt(n, 16)));
+}
+
+function docTerms(question: string): string[] {
+  return [...new Set(String(question ?? "").toLowerCase().match(/[a-z][a-z0-9]{2,}/g) ?? [])].filter((w) => !DOC_STOP.has(w));
+}
+
+/** Resolve only known or explicitly allowlisted documentation hosts; never arbitrary web pages. */
+export function officialDocumentUrl(question: string): { url: string; title: string } | null {
+  const q = String(question ?? "");
+  const explicit = q.match(/https?:\/\/[^\s)>]+/i)?.[0]?.replace(/[.,;!?]+$/, "");
+  if (explicit) {
+    try {
+      const u = new URL(explicit);
+      if ([...DOC_HOSTS].some((host) => u.hostname === host || u.hostname.endsWith(`.${host}`))) {
+        return { url: u.toString(), title: u.hostname };
+      }
+      return null;
+    } catch { /* not a URL */ }
+  }
+  return DOCS.find((d) => d.re.test(q)) ?? null;
+}
+
+function htmlPassages(html: string): string[] {
+  const blocks = [...String(html ?? "").matchAll(/<(?:h1|h2|h3|p|li|dt|dd)[^>]*>([\s\S]*?)<\/\s*(?:h1|h2|h3|p|li|dt|dd)>/gi)]
+    .map((m) => decodeHtml((m[1] ?? "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim()))
+    .filter((x) => x.length >= 35 && x.length <= 700);
+  if (blocks.length) return blocks;
+  return [decodeHtml(String(html ?? "").replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/gi, "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim())].filter(Boolean);
+}
+
+/** Extract one relevant passage from an allowlisted official documentation page. */
+export async function officialDocument(question: string): Promise<OfficialDocument | null> {
+  const target = officialDocumentUrl(question);
+  if (!target) return null;
+  try {
+    const r = await fetch(target.url, { headers: { accept: "text/html,application/xhtml+xml", "user-agent": DOC_UA }, signal: AbortSignal.timeout(DOC_TIMEOUT_MS) });
+    if (!r.ok) return null;
+    const html = await r.text();
+    const terms = docTerms(question);
+    const ranked = htmlPassages(html).map((text, index) => ({ text, index, score: terms.reduce((n, t) => n + (new RegExp(`\\b${t.replace(/[.*+?^${}()|[\\]\\\\]/g, "\\\\$&")}\\b`, "i").test(text) ? 1 : 0), 0) }))
+      .sort((a, b) => b.score - a.score || a.index - b.index);
+    const best = ranked[0];
+    if (!best || (terms.length >= 2 && best.score < 1)) return null;
+    const excerpt = best.text.length > 360 ? `${best.text.slice(0, 357).replace(/\s+\S*$/, "")}…` : best.text;
+    return { ...target, excerpt };
+  } catch { return null; }
+}
+
+export type WebSearchVerdict = "answered" | "no_results" | "out_of_scope" | "unknown";
+
+export interface WebSearchResult {
+  articles: Article[];
+  background: string | null;
+  verdict: WebSearchVerdict;
+  confidence: number;
+  reason: string;
+  error?: string;
+}
+
+/** Questions another intent exists to answer, named so the refusal says where they belong. */
+const MISROUTES: Array<[RegExp, string]> = [
+  [/\b(?:ssl|tls)\b[\s\S]{0,40}\bcertificate\b|\bcertificate\b[\s\S]{0,40}\b(?:ssl|tls)\b/i, "a TLS certificate check of a named host, which is SSL_VERIFICATION"],
+  [/\b(?:scholarly|peer-?reviewed|academic)\s+(?:literature|papers?|articles?|journals?)\b/i, "a search of scholarly literature, which is ACADEMIC_SEARCH"],
+  [/\bCVE-\d{4}-\d{4,7}\b/i, "a lookup of one CVE record, which is CVE_LOOKUP"],
+  [/\b0x[a-fA-F0-9]{64}\b/, "a transaction lookup, which is ONCHAIN_TX_LOOKUP"],
+];
+
+/** Words that make a definition-shaped question need current information after all. */
+const CURRENT = /\b(?:latest|current(?:ly)?|today|now|recent(?:ly)?|news|this\s+(?:week|month|year)|20\d\d|yesterday|tomorrow|live|price|rate\s+decision)\b/i;
+
+export function misroute(text: string): string | null {
+  const s = String(text ?? "");
+  const hit = MISROUTES.find(([re]) => re.test(s))?.[1];
+  if (hit) return hit;
+  // The canonical "Not" example: "Explain what an interest rate is." is static
+  // knowledge, which is CHAT_COMPLETION.
+  if (/^\s*(?:explain|define|what\s+(?:is|are)\s+(?:an?\s|the\s+(?:meaning|definition)\s+of\s))/i.test(s) && !CURRENT.test(s) && !officialDocumentUrl(s)) {
+    return "a request to explain a concept from static knowledge, which is CHAT_COMPLETION";
+  }
+  return null;
+}
+
+/** "Will X…?", "Is X going to…?" — an outcome no source can state as fact yet. */
+export function isForwardLooking(text: string): boolean {
+  return /^\s*(?:will|would|is\s+[\w' ]{1,40}\s+going\s+to|are\s+[\w' ]{1,40}\s+going\s+to)\b/i.test(String(text ?? ""));
+}
+
+const fmtDate = (iso: string | null): string => {
+  if (!iso) return "date not stated";
+  const d = new Date(iso);
+  return Number.isNaN(d.getTime())
+    ? "date not stated"
+    : d.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
+};
+
+/** A headline, cut at a word boundary so one long title cannot fill the scored window alone. */
+export function clipTitle(title: string, words = 18): string {
+  const w = String(title ?? "").trim().split(/\s+/);
+  return w.length <= words ? w.join(" ") : `${w.slice(0, words).join(" ").replace(/[,;:.—-]+$/, "")}…`;
+}
+
+export const cite = (a: Article): string => `"${clipTitle(a.title)}" (${a.source ?? "publisher not stated"}, ${fmtDate(a.published)})`;
+
+/**
+ * An encyclopedia sentence only when its article is ABOUT the entity. Asked
+ * "Who is the current Secretary-General of the United Nations?", the entity
+ * resolved to Wikipedia's "Secretary (title)", which is the wrong subject; the
+ * title-contains-entity test drops it.
+ */
+export function acceptBackground(entity: string | null, title: string, source: string): string | null {
+  if (!entity || !title.toLowerCase().includes(entity.toLowerCase())) return null;
+  const sentence = source.replace(/^Wikipedia:\s*/, "").trim();
+  /**
+   * The entity must appear with its OWN capitalisation. Asked "Will Apple release
+   * Neural Engine details?", the article titled "Apple" opens "An apple is the
+   * round, edible fruit of an apple tree": a common noun is written lower-case,
+   * the company would not be, and that is the whole difference between the two.
+   */
+  if (!sentence.includes(entity)) return null;
+  return sentence.length >= 20 ? sentence : null;
+}
+
+/**
+ * Product and trial codes — MK-2870, ABBV-706, SAR441566. A question that names
+ * one is about that exact asset, and a headline about the same company's other
+ * drug is not evidence about it: measured 2026-09-12, "Will AbbVie's ABBV-706
+ * succeed in Phase 3?" was answered with AbbVie's etentamig myeloma results.
+ */
+export function codeTokens(text: string): string[] {
+  return (String(text ?? "").match(/\b[A-Za-z]{1,6}-?\d{2,}(?:-\d+)*[A-Za-z]?\b/g) ?? [])
+    .filter((t) => /[A-Za-z]/.test(t) && /\d/.test(t) && t.length >= 4);
+}
+
+export function namesCode(title: string, codes: string[]): boolean {
+  return codes.length === 0 || codes.some(c => {
+    const parts = c.match(/[A-Za-z]+|\d+/g) ?? [];
+    return new RegExp(`\\b${parts.join("[- ]?")}(?![A-Za-z0-9]|-\\d)`, "i").test(title);
+  });
+}
+
+/** A what/who/where question with no recency cue, so news coverage is not its source. */
+export function timeless(text: string): boolean {
+  const q = String(text ?? "");
+  return /^\s*(?:what|who|when|where|which|how\s+(?:many|much|tall|long|old|far|big|deep|high))\b/i.test(q) &&
+    !/\b(?:latest|newest|current(?:ly)?|today|tonight|now|recent(?:ly)?|news|headlines?|this\s+(?:week|month|year)|yesterday|tomorrow|price|stock|shares?|score|weather|forecast|rate|20[2-9]\d)\b/i.test(q) &&
+    !isForwardLooking(q);
+}
+
+export async function webSearch(question: string): Promise<WebSearchResult> {
+  const q = String(question ?? "").trim();
+  const empty = { articles: [] as Article[], background: null };
+  if (!q) {
+    return {
+      ...empty, verdict: "unknown", confidence: 0, error: "no_query",
+      reason: "No question was supplied with this request, so nothing was searched. Ask something that needs current information, for example: What's the latest news on the Fed's interest rate decision?",
+    };
+  }
+  const elsewhere = misroute(q);
+  if (elsewhere) {
+    return {
+      ...empty, verdict: "out_of_scope", confidence: 0.6, error: "out_of_scope",
+      reason: `This request is ${elsewhere}, not a web search, so no search was run and no answer was substituted for it.`,
+    };
+  }
+
+  // Documentation questions are answered from a bounded allowlist before
+  // current-fact and news providers. This covers canonical technical queries
+  // that Google News and Wikipedia routinely miss (for example Python's
+  // asyncio.TaskGroup semantics) without turning web search into an SSRF proxy.
+  const doc = await officialDocument(q);
+  if (doc) {
+    return {
+      ...empty, verdict: "answered", confidence: 0.9,
+      reason: `According to ${doc.title}: ${doc.excerpt} Source: ${doc.url}`,
+    };
+  }
+
+  /**
+   * A single current fact (a release number, an office holder) is read from a
+   * structured source before any headline search: rank-loss report F5,
+   * 2026-09-15, answered "latest stable Python release" with a CUDA headline.
+   * A null means not applicable or not found, and the news path runs unchanged.
+   */
+  const fact = await currentFact(q);
+  if (fact) return { ...empty, verdict: "answered", confidence: 0.9, reason: fact };
+
+  // A timeless encyclopaedic question is answered from cited Wikipedia
+  // introductions, the QUESTION_ANSWERING path: "What is the capital of
+  // Australia?" was answered with two Commonwealth Bank headlines (2026-10-21).
+  if (timeless(q)) {
+    const qa = await answerQuestion(q).catch(() => null);
+    if (qa?.verdict === "answered") return { ...empty, verdict: "answered", confidence: 0.8, reason: qa.reason };
+  }
+
+  const entity = namedEntity(q);
+  const codes = codeTokens(q);
+  // Each search may perform two recency passes; reserve time for both searches.
+  const searchTimeout = Math.min(NEWS_TIMEOUT_MS, codes.length ? 2200 : 4500);
+  let [news, wiki] = await Promise.all([
+    searchNews(q, "", null, 3, searchTimeout).catch(() => null),
+    entity ? findEncyclopedia(entity).catch(() => "unavailable" as const) : Promise.resolve(null),
+  ]);
+  let articles = news?.verdict === "articles" ? news.articles.filter((a) => namesCode(a.title, codes)).slice(0, 2) : [];
+  // A speculative predicate can hide all coverage of the actual product. Keep
+  // the named code and the requested time window when retrying retrieval.
+  if (!articles.length && codes.length) {
+    const retry = await searchNews(q, codes.join(" "), null, 3, searchTimeout).catch(() => null);
+    const matches = retry?.verdict === "articles" ? retry.articles.filter(a => namesCode(a.title, codes)).slice(0, 2) : [];
+    if (matches.length) { news = retry; articles = matches; }
+  }
+  const background = wiki && wiki !== "unavailable" && namesCode(wiki.source, codes) ? acceptBackground(entity, wiki.title, wiki.source) : null;
+  const newsDown = !news || news.error === "provider_unavailable";
+  // Not searched at all: the only news index is barred (GAPS G230). Never reported as "not found".
+  const newsBarred = news?.error === "not_licensed";
+  const wikiDown = wiki === "unavailable";
+  const future = isForwardLooking(q);
+  const caveat = future ? " Whether it will happen is not settled by these sources; this reports coverage, not a prediction." : "";
+
+  if (articles.length) {
+    const current = articles.every(a => a.published && Date.now() - Date.parse(a.published) <= 30 * 86400000);
+    const age = current ? "current" : "available";
+    const lead = articles.length === 1
+      ? `The most relevant ${age} report is ${cite(articles[0] as Article)}.`
+      : `The most relevant ${age} reports are ${cite(articles[0] as Article)} and ${cite(articles[1] as Article)}.`;
+    return {
+      articles, background, verdict: "answered", confidence: 0.8,
+      // No encyclopedia clause beside current reports: it would spend the
+      // ~32 scored words on static background the intent is defined against.
+      reason: `${lead}${caveat} Source: Google News search.`,
+    };
+  }
+
+  if (background) {
+    const note = newsBarred ? " Current news was not searched, because no news index licensed for paid use is available."
+      : newsDown ? " The news index did not answer, so no current reporting is included." : " No current news report on this subject was found.";
+    return {
+      articles, background, verdict: "answered", confidence: 0.5,
+      reason: `According to Wikipedia: ${background}${note}${caveat}`,
+    };
+  }
+
+  /**
+   * An absence is only reported over sources that were read. Measured 2026-09-13
+   * (verifier): with Google News down and Wikipedia's article rejected as off
+   * subject, the answer said nothing was found "in Google News or Wikipedia",
+   * though Google News was never read. News is the primary source for this
+   * intent, so its outage is an outage whatever Wikipedia said.
+   */
+  if (newsBarred) {
+    return {
+      ...empty, verdict: "unknown", confidence: 0, error: "not_licensed",
+      reason: `No answer is given from current reporting. ${news!.reason}`,
+    };
+  }
+
+  if (newsDown) {
+    return {
+      ...empty, verdict: "unknown", confidence: 0, error: "upstream_unavailable",
+      reason: "Google News, the current-reporting source, did not answer, so no current information was retrieved for this question. That is a data outage, not a finding that no information exists.",
+    };
+  }
+
+  const about = codes[0] ? ` about ${codes[0]}` : entity ? ` about ${entity}` : "";
+  const read = entity && !wikiDown ? "Google News or Wikipedia" : "Google News";
+  const wikiGap = entity && wikiDown ? " Wikipedia did not answer, so it was not checked." : "";
+  return {
+    ...empty, verdict: "no_results", confidence: 0.4,
+    reason: `No current report${entity && !wikiDown ? " or encyclopedia article" : ""}${about} matching this question was found in ${read}, so no answer is given rather than an unrelated one. That is an absence in ${read === "Google News" ? "that source" : "those two sources"}, not proof that nothing has been published.${wikiGap}`,
+  };
+}

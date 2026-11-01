@@ -1,0 +1,74 @@
+preflight against https://miner-wine.vercel.app
+
+  unit + live suite                      FAIL
+  verify-deploy                          PASS
+  param shapes (engine-shaped)           PASS
+  intent answers (correctness)           FAIL
+  hostile inputs                         PASS
+  upstream health                        FAIL
+  no-regression (8 identical, 0 differ)  PASS
+
+--- unit + live suite ---
+...
+  
+  'The IP address 8.8.8.8 is an anycast address operated by Google LLC (AS15169): it is announced from many locations at once, so which server answers depends on where the request comes from, and it has no single physical location. The geolocation database places it in San Jose, California, United States, which is one of those sites or a registered address, not where every user reaches it.'
+  
+      at TestContext.<anonymous> (C:\Users\hyada\OneDrive\Documents\Work-Related\Hackathons\Telegraph\track1-miner\miner\dist-test\test\geo.test.js:104:26)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'The IP address 8.8.8.8 is an anycast address operated by Google LLC (AS15169): it is announced from many locations at once, so which server answers depends on where the request comes from, and it has no single physical location. The geolocation database places it in San Jose, California, United States, which is one of those sites or a registered address, not where every user reaches it.',
+    expected: /^The IP address 8\.8\.8\.8 is associated with /,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+--- intent answers (correctness) ---
+  IP_GEOLOCATION         FAIL
+      - 142.251.42.174 -> New Haven, Connecticut, United States; not Tokyo, so the primary provider is not answering
+  LANGUAGE_TRANSLATION   PASS
+  ACADEMIC_SEARCH        PASS
+...
+  URL_SCAN               PASS
+  WEB_SEARCH             PASS
+  SENTIMENT_ANALYSIS     PASS
+  TEXT_CLASSIFICATION    PASS
+  RESEARCH_SYNTHESIS     PASS
+  SANCTIONS_SCREENING_MATCH PASS
+  CORPORATE_REGISTRY_LOOKUP PASS
+  REGULATORY_FILING_MONITOR PASS
+  CRYPTO_TRANSFER_VERIFY PASS
+  MACRO_ECONOMIC_INDICATOR PASS
+  URL_SAFE               PASS
+  QUESTION_ANSWERING     PASS
+
+35/36 intents answering correctly.
+
+--- upstream health ---
+FAIL  ip-api.com (via production)    primary  339ms  answered, but not from the expected provider (wanted /tokyo|japan/i)
+ok    ipwho.is                       failover 110ms
+ok    ipinfo.io                      failover 381ms
+ok    google news rss                primary  1859ms
+FAIL  merkle eth rpc                 failover 48ms  HTTP 429
+ok    base rpc                       primary  319ms
+ok    base publicnode rpc            failover 164ms
+ok    arbitrum rpc                   primary  376ms
+...
+ok    drpc eth rpc                   failover 338ms
+ok    flashbots eth rpc              failover 863ms
+FAIL  merkle eth rpc                 failover 48ms  HTTP 429
+ok    base rpc                       primary  319ms
+ok    base publicnode rpc            failover 164ms
+ok    arbitrum rpc                   primary  376ms
+ok    arbitrum publicnode rpc        failover 228ms
+ok    optimism rpc                   primary  877ms
+ok    optimism publicnode rpc        failover 210ms
+ok    polygon publicnode rpc         primary  202ms
+ok    polygon drpc                   failover 285ms
+ok    polygon 1rpc                   failover 413ms
+
+1 primary failing, 1 failover failing, 24 probed
+
+4/7 gates passed — re-run the failing gate alone before believing it.

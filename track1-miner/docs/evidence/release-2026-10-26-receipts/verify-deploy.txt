@@ -1,0 +1,43 @@
+verifying https://miner-wine.vercel.app
+
+  PASS  served over HTTPS
+  PASS  GET /health — 200 in 709ms
+
+  verdict matrix:
+  PASS  github.com -> valid — got valid, 567ms
+  PASS  expired.badssl.com -> expired — got expired, 752ms
+  PASS  self-signed.badssl.com -> self_signed — got self_signed, 708ms
+  PASS  wrong.host.badssl.com -> hostname_mismatch — got hostname_mismatch, 1189ms
+  PASS  untrusted-root.badssl.com -> untrusted — got untrusted, 527ms
+  PASS  no-such-host-xyz123-telegraph.invalid -> unreachable — got unreachable, 464ms
+
+  storm-alert:
+  PASS  Chennai -> graded verdict — got none, 737ms
+  PASS  reports a 48h window — reason names the window
+  PASS  unresolvable place -> unknown — got unknown
+  PASS  missing location -> honest 200 — got 200
+
+  weather-forecast:
+  PASS  London -> condition — got rain, 610ms
+  PASS  temperature range is sane — 9.1 to 15.7
+  PASS  missing location -> honest 200 — got 200
+
+  input handling:
+  PASS  malformed domain -> honest 200 — got 200
+  PASS  accepts a full URL via ?url= — reason names cloudflare.com=true
+
+  ip-geolocate:
+  PASS  8.8.8.8 -> Google, Ashburn, United States — got anycast, 357ms
+  PASS  missing ip -> honest 200 — got 200
+
+  translate:
+  PASS  French "good morning" -> Bonjour — got bonjour, 429ms
+  PASS  missing text -> honest 200 — got 200
+
+  papers:
+  PASS  bare topic -> real papers — 5 papers in prose, 849ms
+  PASS  missing topic -> honest 200 — got 200
+
+  latency: median 610ms, p95 1189ms, max 1189ms
+
+ALL CHECKS PASSED — safe to register.

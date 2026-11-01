@@ -1,0 +1,47 @@
+intent answers against https://miner-wine.vercel.app
+
+  coverage: 36 declared intents, 36 cases
+
+  SSL_VERIFICATION       PASS
+  STORM_ALERT            PASS
+  WEATHER_FORECAST       PASS
+  GAS_PRICE              PASS
+  FINANCIAL_DATA         PASS
+  FRAUD_DETECTION        PASS
+  CURRENCY_EXCHANGE      PASS
+  NEWS_SEARCH            PASS
+  CVE_LOOKUP             PASS
+  ONCHAIN_TX_LOOKUP      PASS
+  WEATHER_CHECK          PASS
+  IP_GEOLOCATION         FAIL
+      - 142.251.42.174 -> New Haven, Connecticut, United States; not Tokyo, so the primary provider is not answering
+  LANGUAGE_TRANSLATION   PASS
+  ACADEMIC_SEARCH        PASS
+  CONTENT_EXTRACTION     PASS
+  NEWS_HEADLINES         PASS
+  FACT_CHECK             PASS
+  WALLET_BALANCE_CHECK   PASS
+  TOKEN_HOLDER_COUNT     
+      (blockscout shedding — holder counts checked for honesty only)
+PASS
+  RESEARCH_QUERY         PASS
+  CRYPTO_PRICE           PASS
+  STOCK_PRICE            PASS
+  CROSS_CHAIN_STATE_VERIFY PASS
+  EVENT_OUTCOME_RESOLUTION 
+      (Polymarket unreachable from the checker — EVENT_OUTCOME checked for honesty only)
+PASS
+  URL_SCAN               PASS
+  WEB_SEARCH             PASS
+  SENTIMENT_ANALYSIS     PASS
+  TEXT_CLASSIFICATION    PASS
+  RESEARCH_SYNTHESIS     PASS
+  SANCTIONS_SCREENING_MATCH PASS
+  CORPORATE_REGISTRY_LOOKUP PASS
+  REGULATORY_FILING_MONITOR PASS
+  CRYPTO_TRANSFER_VERIFY PASS
+  MACRO_ECONOMIC_INDICATOR PASS
+  URL_SAFE               PASS
+  QUESTION_ANSWERING     PASS
+
+35/36 intents answering correctly.

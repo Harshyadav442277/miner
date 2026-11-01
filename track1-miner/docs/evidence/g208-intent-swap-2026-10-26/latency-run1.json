@@ -1,0 +1,143 @@
+{
+ "at": "2026-10-26T12:24:26.655Z",
+ "base": "https://miner-wine.vercel.app",
+ "baseline_rtt_ms": 244,
+ "intents": {
+  "DNS_RECORD_LOOKUP": {
+   "path": "/dns",
+   "target": "< 200ms",
+   "target_ms": 200,
+   "server_ms_est": [
+    56,
+    24,
+    36
+   ],
+   "within_target": 3,
+   "runs": [
+    {
+     "q": "What are the AAAA records for cloudflare.com?",
+     "ms": 300,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "resolved"
+    },
+    {
+     "q": "What name servers does wikipedia.org use?",
+     "ms": 268,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "resolved"
+    },
+    {
+     "q": "Show the TXT records for stripe.com",
+     "ms": 280,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "resolved"
+    }
+   ]
+  },
+  "TOKEN_TOTAL_SUPPLY_VERIFY": {
+   "path": "/token-supply",
+   "target": "< 500ms",
+   "target_ms": 500,
+   "server_ms_est": [
+    437,
+    148,
+    867
+   ],
+   "within_target": 2,
+   "runs": [
+    {
+     "q": "What is the total supply of DAI on Ethereum?",
+     "ms": 681,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "verified"
+    },
+    {
+     "q": "Verify the total supply of token 0x6B175474E89094C44Da98b954EedeAC495271d0F",
+     "ms": 392,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "verified"
+    },
+    {
+     "q": "What is the total supply of USDC on Arbitrum?",
+     "ms": 1111,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "verified"
+    }
+   ]
+  },
+  "KEYWORD_EXTRACTION": {
+   "path": "/keywords",
+   "target": "< 400ms",
+   "target_ms": 400,
+   "server_ms_est": [
+    17,
+    43,
+    44
+   ],
+   "within_target": 3,
+   "runs": [
+    {
+     "q": "Extract the top 5 keywords: The city council approved a new bike lane network that will connect the university campus to the downtown business district. Cyclists welcomed the plan, while some shop owners worried about losing parking spaces.",
+     "ms": 261,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "extracted"
+    },
+    {
+     "q": "Extract the top 5 keywords: Researchers sequenced the genome of an ancient wheat variety found in Egyptian tombs. The ancient wheat genome shows resistance genes that modern breeders may reintroduce.",
+     "ms": 287,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "extracted"
+    },
+    {
+     "q": "Extract the top 5 keywords: The airline cancelled hundreds of flights after a software outage grounded its fleet. Passengers waited hours for rebooking as the airline restored its booking systems.",
+     "ms": 288,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "extracted"
+    }
+   ]
+  },
+  "VULNERABILITY_TRIAGE": {
+   "path": "/vuln-triage",
+   "target": "< 2s",
+   "target_ms": 2000,
+   "server_ms_est": [
+    100,
+    122,
+    196
+   ],
+   "within_target": 3,
+   "runs": [
+    {
+     "q": "Rank by exploitability: CVE-2023-44487, CVE-2023-38545, CVE-2023-4911",
+     "ms": 344,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "ranked"
+    },
+    {
+     "q": "Prioritise these on a production web server: CVE-2024-6387, CVE-2024-3400, CVE-2023-46604, CVE-2022-22965",
+     "ms": 366,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "ranked"
+    },
+    {
+     "q": "Which should we patch first on our staging box: CVE-2021-3156, CVE-2022-0847",
+     "ms": 440,
+     "status": 200,
+     "cache": "MISS",
+     "verdict": "ranked"
+    }
+   ]
+  }
+ }
+}

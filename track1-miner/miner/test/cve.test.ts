@@ -83,8 +83,15 @@ test("a real record carries severity, score and affected versions (live)", async
   // The canonical tokens the scorer was measured to need.
   assert.match(r.reason, /CRITICAL/);
   assert.match(r.reason, /CVSS 3\.1 base score of 10\.0/);
-  assert.match(r.reason, /5\.6\.0 and 5\.6\.1/);
-  assert.match(r.reason, /assigned by NVD/);
+  if (r.reason.includes("Source: CVE Program record")) {
+    // An NVD outage now yields the assigning CNA's independently attributed
+    // record. Do not demand NVD attribution for data obtained from that source.
+    assert.match(r.reason, /Affected: xz 5\.6\.0, 5\.6\.1\./);
+    assert.match(r.reason, /Source: CVE Program record from redhat\./);
+  } else {
+    assert.match(r.reason, /5\.6\.0 and 5\.6\.1/);
+    assert.match(r.reason, /assigned by NVD/);
+  }
   // The measured trims: neither tail may come back without re-measuring.
   assert.ok(!/CWE-/.test(r.reason), "CWE tail costs a ground-truth register");
   assert.ok(!/Published \d{4}-/.test(r.reason), "publication-date tail costs a ground-truth register");

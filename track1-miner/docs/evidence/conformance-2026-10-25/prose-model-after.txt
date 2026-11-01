@@ -1,0 +1,4 @@
+SENTIMENT_ANALYSIS   keyless  correct 14/24  p50 0 ms  p90 0 ms
+SENTIMENT_ANALYSIS   model    correct 23/24  p50 164 ms  p90 203 ms
+TEXT_CLASSIFICATION  keyless  correct 11/16  p50 67 ms  p90 273 ms
+TEXT_CLASSIFICATION  model    correct 12/16  p50 168 ms  p90 329 ms

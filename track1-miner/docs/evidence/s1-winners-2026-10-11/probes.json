@@ -1,0 +1,977 @@
+{
+ "at": "2026-10-11T05:33:02.708Z",
+ "out": [
+  {
+   "intent": "ONCHAIN_TX_LOOKUP",
+   "label": "explicit hash",
+   "miner": "txlens",
+   "method": "GET",
+   "url": "https://telegraph-onchain-tx-lookup-miner.onrender.com/check-tx?tx_hash=0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060",
+   "status": 200,
+   "ms": 591,
+   "json": {
+    "tx_hash": "0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060",
+    "chain": "eth",
+    "status": "confirmed",
+    "summary": "The recipient was 0x5df9b87991262f6ba471f09758cde1c0fc1de734, and the transaction carried 0.000000000000031337 ETH in native value. It was sent from 0xa1e4380a3b1f749673e270229993ee55f35663b4 in block 46147 with status success, on Ethereum (transaction 0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060).",
+    "confidence": 1,
+    "canonical": "eth:0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060:confirmed:46147:0x4e3a3754410177e6937ef1f84bba68ea139e8d1a2258c5f85db9f1cd715a1bdd:success",
+    "from": "0xa1e4380a3b1f749673e270229993ee55f35663b4",
+    "to": "0x5df9b87991262f6ba471f09758cde1c0fc1de734",
+    "value_wei": "31337",
+    "value_eth": 3.1337e-14,
+    "method": null,
+    "method_signature": null,
+    "method_selector": null,
+    "block_number": 46147,
+    "block_hash": "0x4e3a3754410177e6937ef1f84bba68ea139e8d1a2258c5f85db9f1cd715a1bdd",
+    "receipt_status": "success",
+    "answer": "The recipient was 0x5df9b87991262f6ba471f09758cde1c0fc1de734, and the transaction carried 0.000000000000031337 ETH in native value. It was sent from 0xa1e4380a3b1f749673e270229993ee55f35663b4 in block 46147 with status success, on Ethereum (transaction 0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060)."
+   }
+  },
+  {
+   "intent": "ONCHAIN_TX_LOOKUP",
+   "label": "explicit hash",
+   "miner": "chainsight",
+   "method": "GET",
+   "url": "https://hub.shadrakbessanh.me/tx?hash=0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060",
+   "status": 200,
+   "ms": 744,
+   "json": {
+    "hash": "0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060",
+    "chain": "ethereum",
+    "from": "0xa1e4380a3b1f749673e270229993ee55f35663b4",
+    "to": "0x5df9b87991262f6ba471f09758cde1c0fc1de734",
+    "contract_name": null,
+    "is_contract_call": false,
+    "self_transfer": false,
+    "status": null,
+    "value_eth": 3.1337e-14,
+    "value_eth_exact": "0.000000000000031337",
+    "block_number": 46147,
+    "selector": null,
+    "method": null,
+    "source": "rpc",
+    "answer": "The recipient was 0x5df9b87991262f6ba471f09758cde1c0fc1de734, and the transaction carried 0.000000000000031337 ETH in native value. It was sent from 0xa1e4380a3b1f749673e270229993ee55f35663b4 in block 46147 with status success.",
+    "signal": "The recipient was 0x5df9b87991262f6ba471f09758cde1c0fc1de734, and the transaction carried 0.000000000000031337 ETH in native value. It was sent from 0xa1e4380a3b1f749673e270229993ee55f35663b4 in block 46147 with status success."
+   }
+  },
+  {
+   "intent": "ONCHAIN_TX_LOOKUP",
+   "label": "explicit hash",
+   "miner": "livecert",
+   "method": "GET",
+   "url": "https://miner-wine.vercel.app/tx-lookup?query=0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060",
+   "status": 200,
+   "ms": 1181,
+   "json": {
+    "verdict": "confirmed",
+    "confidence": 0.99,
+    "reason": "Transaction 0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060 on ethereum succeeded in block 46147. It moved 31,337 wei from 0xa1e4380a3b1f749673e270229993ee55f35663b4 to 0x5df9b87991262f6ba471f09758cde1c0fc1de734. This block predates the Byzantium fork, so the canonical receipt carries a state root rather than a status flag; inclusion in the chain is what is confirmed here."
+   }
+  },
+  {
+   "intent": "ONCHAIN_TX_LOOKUP",
+   "label": "question only",
+   "miner": "txlens",
+   "method": "GET",
+   "url": "https://telegraph-onchain-tx-lookup-miner.onrender.com/check-tx?query=Did+transaction+0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060+succeed%3F",
+   "status": 200,
+   "ms": 262,
+   "json": {
+    "tx_hash": "0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060",
+    "chain": "eth",
+    "status": "confirmed",
+    "summary": "The recipient was 0x5df9b87991262f6ba471f09758cde1c0fc1de734, and the transaction carried 0.000000000000031337 ETH in native value. It was sent from 0xa1e4380a3b1f749673e270229993ee55f35663b4 in block 46147 with status success, on Ethereum (transaction 0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060).",
+    "confidence": 1,
+    "canonical": "eth:0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060:confirmed:46147:0x4e3a3754410177e6937ef1f84bba68ea139e8d1a2258c5f85db9f1cd715a1bdd:success",
+    "from": "0xa1e4380a3b1f749673e270229993ee55f35663b4",
+    "to": "0x5df9b87991262f6ba471f09758cde1c0fc1de734",
+    "value_wei": "31337",
+    "value_eth": 3.1337e-14,
+    "method": null,
+    "method_signature": null,
+    "method_selector": null,
+    "block_number": 46147,
+    "block_hash": "0x4e3a3754410177e6937ef1f84bba68ea139e8d1a2258c5f85db9f1cd715a1bdd",
+    "receipt_status": "success",
+    "answer": "The recipient was 0x5df9b87991262f6ba471f09758cde1c0fc1de734, and the transaction carried 0.000000000000031337 ETH in native value. It was sent from 0xa1e4380a3b1f749673e270229993ee55f35663b4 in block 46147 with status success, on Ethereum (transaction 0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060)."
+   }
+  },
+  {
+   "intent": "ONCHAIN_TX_LOOKUP",
+   "label": "question only",
+   "miner": "chainsight",
+   "method": "GET",
+   "url": "https://hub.shadrakbessanh.me/tx?query=Did+transaction+0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060+succeed%3F",
+   "status": 200,
+   "ms": 367,
+   "json": {
+    "hash": "0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060",
+    "chain": "ethereum",
+    "from": "0xa1e4380a3b1f749673e270229993ee55f35663b4",
+    "to": "0x5df9b87991262f6ba471f09758cde1c0fc1de734",
+    "contract_name": null,
+    "is_contract_call": false,
+    "self_transfer": false,
+    "status": null,
+    "value_eth": 3.1337e-14,
+    "value_eth_exact": "0.000000000000031337",
+    "block_number": 46147,
+    "selector": null,
+    "method": null,
+    "source": "rpc",
+    "answer": "The recipient was 0x5df9b87991262f6ba471f09758cde1c0fc1de734, and the transaction carried 0.000000000000031337 ETH in native value. It was sent from 0xa1e4380a3b1f749673e270229993ee55f35663b4 in block 46147 with status success.",
+    "signal": "The recipient was 0x5df9b87991262f6ba471f09758cde1c0fc1de734, and the transaction carried 0.000000000000031337 ETH in native value. It was sent from 0xa1e4380a3b1f749673e270229993ee55f35663b4 in block 46147 with status success."
+   }
+  },
+  {
+   "intent": "ONCHAIN_TX_LOOKUP",
+   "label": "question only",
+   "miner": "livecert",
+   "method": "GET",
+   "url": "https://miner-wine.vercel.app/tx-lookup?query=Did+transaction+0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060+succeed%3F",
+   "status": 200,
+   "ms": 549,
+   "json": {
+    "verdict": "confirmed",
+    "confidence": 0.99,
+    "reason": "Transaction 0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060 on ethereum succeeded in block 46147. It moved 31,337 wei from 0xa1e4380a3b1f749673e270229993ee55f35663b4 to 0x5df9b87991262f6ba471f09758cde1c0fc1de734. This block predates the Byzantium fork, so the canonical receipt carries a state root rather than a status flag; inclusion in the chain is what is confirmed here."
+   }
+  },
+  {
+   "intent": "ONCHAIN_TX_LOOKUP",
+   "label": "malformed hash",
+   "miner": "txlens",
+   "method": "GET",
+   "url": "https://telegraph-onchain-tx-lookup-miner.onrender.com/check-tx?tx_hash=0x1234",
+   "status": 200,
+   "ms": 258,
+   "json": {
+    "status": "invalid_input",
+    "summary": "I cannot look up this transaction because \"0x1234\" does not contain a valid Ethereum transaction hash. A transaction hash is 66 characters long: \"0x\" followed by 64 hexadecimal characters. Pass one as the tx_hash parameter and I will report its confirmation status, block, sender, recipient, value in ETH, and decoded contract method.",
+    "confidence": 0.1,
+    "answer": "I cannot look up this transaction because \"0x1234\" does not contain a valid Ethereum transaction hash. A transaction hash is 66 characters long: \"0x\" followed by 64 hexadecimal characters. Pass one as the tx_hash parameter and I will report its confirmation status, block, sender, recipient, value in ETH, and decoded contract method."
+   }
+  },
+  {
+   "intent": "ONCHAIN_TX_LOOKUP",
+   "label": "malformed hash",
+   "miner": "chainsight",
+   "method": "GET",
+   "url": "https://hub.shadrakbessanh.me/tx?hash=0x1234",
+   "status": 200,
+   "ms": 250,
+   "json": {
+    "hash": "0x1234",
+    "source": "rpc",
+    "answer": "The referenced transaction 0x1234 was processed on Ethereum and confirmed successfully, carrying 0 ETH in native value as a standard contract call.",
+    "signal": "The referenced transaction 0x1234 was processed on Ethereum and confirmed successfully, carrying 0 ETH in native value as a standard contract call."
+   }
+  },
+  {
+   "intent": "ONCHAIN_TX_LOOKUP",
+   "label": "malformed hash",
+   "miner": "livecert",
+   "method": "GET",
+   "url": "https://miner-wine.vercel.app/tx-lookup?query=0x1234",
+   "status": 200,
+   "ms": 290,
+   "json": {
+    "verdict": "unknown",
+    "confidence": 0,
+    "reason": "The value 0x1234 is not a valid transaction hash: an EVM transaction hash is exactly 32 bytes, written as 0x followed by 64 hexadecimal characters. Supply a hash such as 0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060 and the status, gas used, effective gas price, total fee, value moved, sender, recipient and block number can be returned.",
+    "error": "invalid_hash"
+   }
+  },
+  {
+   "intent": "CRYPTO_PRICE",
+   "label": "ETH",
+   "miner": "txlens",
+   "method": "GET",
+   "url": "https://telegraph-onchain-tx-lookup-miner.onrender.com/crypto-price?coin_id=ethereum",
+   "status": 200,
+   "ms": 541,
+   "json": {
+    "query_type": "coin_id",
+    "query": "ethereum",
+    "status": "ok",
+    "summary": "ETH is currently $2507.04 USD, up 0.47% over 24 hours, with a market capitalization of about $306172238637. CoinPaprika and DefiLlama currently report a range of $2505.57 to $2507.04.",
+    "confidence": 1,
+    "canonical": "coin_id:ethereum:2507.0438281360734",
+    "price_usd": 2507.0438281360734,
+    "symbol": "ETH",
+    "price_source": "coinpaprika",
+    "sources": [
+     {
+      "source": "coinpaprika",
+      "price_usd": 2507.0438281360734
+     },
+     {
+      "source": "defillama",
+      "price_usd": 2505.5723553469006
+     }
+    ],
+    "source_count": 2,
+    "price_range_low_usd": 2505.5723553469006,
+    "price_range_high_usd": 2507.0438281360734,
+    "change_24h_pct": 0.4699999988079071,
+    "market_cap_usd": 306172238637,
+    "as_of": "2026-10-11T05:27:13.000Z",
+    "requested_date": null,
+    "answer": "ETH is currently $2507.04 USD, up 0.47% over 24 hours, with a market capitalization of about $306172238637. CoinPaprika and DefiLlama currently report a range of $2505.57 to $2507.04."
+   }
+  },
+  {
+   "intent": "CRYPTO_PRICE",
+   "label": "ETH",
+   "miner": "chainsight",
+   "method": "GET",
+   "url": "https://hub.shadrakbessanh.me/price?symbol=ETH",
+   "status": 200,
+   "ms": 491,
+   "json": {
+    "symbol": "ETH",
+    "coingecko_id": "ethereum",
+    "price_usd": 2505.71,
+    "market_cap_usd": 306009132710,
+    "change_24h_pct": 0.4882,
+    "circulating_supply": 122124805.03090109,
+    "currency": "USD",
+    "source": "coingecko",
+    "signal": "Ethereum (ETH): $2,505.71 USD. Observed at: 2026-10-11T05:32:27.053343Z. Ethereum (ETH) is trading at $2,505.71 ($2,506, $2,500, $3,000, $2505.71, $2.5 thousand) USD, up 0.49% over the past 24 hours."
+   }
+  },
+  {
+   "intent": "CRYPTO_PRICE",
+   "label": "ETH",
+   "miner": "livecert",
+   "method": "GET",
+   "url": "https://miner-wine.vercel.app/crypto-price?query=What+is+the+price+of+ETH+in+USD%3F",
+   "status": 200,
+   "ms": 371,
+   "json": {
+    "verdict": "price",
+    "confidence": 0.9,
+    "reason": "Ethereum (ETH) is $2,505.64 USD, the last Coinbase trade at 2026-10-11 05:32:24 UTC. CoinGecko's aggregate read $2,505.70 USD at 2026-10-11 05:31:35 UTC. This is a live market quote and moves between reads."
+   }
+  },
+  {
+   "intent": "STORM_ALERT",
+   "label": "Lagos app question",
+   "miner": "txlens",
+   "method": "GET",
+   "url": "https://telegraph-onchain-tx-lookup-miner.onrender.com/storm-alert?query=Is+there+an+active+storm+alert+or+severe+weather+warning+for+Lagos+right+now%3F",
+   "status": 200,
+   "ms": 1700,
+   "json": {
+    "query": "Is there an active storm alert or severe weather warning for Lagos right now?",
+    "status": "ok",
+    "summary": "No storm is expected in Lagos, Lagos, Nigeria over the next 24 hours, so the risk is low. Scored 0.25 on a scale of 0 to 1 (low disruption risk). Gusts: peak gusts of 31 km/h (19 mph, 8.5 m/s) around 2026-10-11T15:00, which is Beaufort force 5, a fresh breeze. Sustained wind: up to 17 km/h (11 mph, 4.8 m/s), prevailing from the southwest. Precipitation: 0.4 mm. No thunderstorms are forecast in this window.",
+    "confidence": 1,
+    "canonical": "storm:Lagos, Lagos, Nigeria:LOW",
+    "location": "Lagos, Lagos, Nigeria",
+    "latitude": 6.45407,
+    "longitude": 3.39467,
+    "timezone": "Africa/Lagos",
+    "risk_level": "LOW",
+    "risk_score": 0.25,
+    "breach": false,
+    "level": "none",
+    "hours_assessed": 24,
+    "window_start": "2026-10-11T06:00",
+    "window_end": "2026-10-12T05:00",
+    "peak_gust_kmh": 30.6,
+    "peak_gust_mph": 19,
+    "peak_gust_ms": 8.5,
+    "peak_gust_time": "2026-10-11T15:00",
+    "max_wind_speed_kmh": 17.3,
+    "wind_direction": "southwest",
+    "total_precipitation_mm": 1,
+    "peak_precipitation_mm": 0.4,
+    "total_snowfall_cm": 0,
+    "beaufort_force": 5,
+    "beaufort_description": "fresh breeze",
+    "thunderstorm_hours": 0,
+    "severe_hail_hours": 0,
+    "recommended_action": "No disruption expected. Routine operations can proceed; no storm-specific precautions are indicated over this window.",
+    "checked_at": "2026-10-11T05:32:29.951Z",
+    "answer": "No storm is expected in Lagos, Lagos, Nigeria over the next 24 hours, so the risk is low. Scored 0.25 on a scale of 0 to 1 (low disruption risk). Gusts: peak gusts of 31 km/h (19 mph, 8.5 m/s) around 2026-10-11T15:00, which is Beaufort force 5, a fresh breeze. Sustained wind: up to 17 km/h (11 mph, 4.8 m/s), prevailing from the southwest. Precipitation: 0.4 mm. No thunderstorms are forecast in this window."
+   }
+  },
+  {
+   "intent": "STORM_ALERT",
+   "label": "Lagos app question",
+   "miner": "chainsight",
+   "method": "GET",
+   "url": "https://hub.shadrakbessanh.me/wstorm?query=Is+there+an+active+storm+alert+or+severe+weather+warning+for+Lagos+right+now%3F",
+   "status": 200,
+   "ms": 505,
+   "json": {
+    "place": "Lagos, Nigeria",
+    "latitude": 6.45407,
+    "longitude": 3.39467,
+    "hours": 48,
+    "wind_speed_kmh": 17.3,
+    "wind_gust_kmh": 38.5,
+    "precipitation_mm": 0.4,
+    "risk": 0.3,
+    "verdict": "low",
+    "wind_direction": "south-west",
+    "thunderstorm": false,
+    "source": "open-meteo",
+    "answer": "Regarding Is there an active storm alert or severe weather warning for Lagos right now?: The wind and storm forecast for Lagos over the next 48 hours is as follows. Wind speed: sustained winds up to 17.3 km/h, which is 4.8 metres per second. Gusts: peak wind gusts of 38.5 km/h, or 10.7 metres per second. Precipitation: 0.4 mm. Wind direction: prevailing from the south-west. Overall risk: 0.3 on a scale of 0 to 1, graded low. If operations are exposed, implement operational adjustments to safeguard equipment and personnel: secure loose equipment, tools and materials, move non-essential personnel to safe shelters with appropriate personal protective equipment, suspend or shut down exposed operations such as lifting, drilling or hauling during peak gusts, inspect the site for hazards, maintain clear communication, activate the emergency response plan, and continuously monitor weather updates and forecasts.",
+    "signal": "Regarding Is there an active storm alert or severe weather warning for Lagos right now?: The wind and storm forecast for Lagos over the next 48 hours is as follows. Wind speed: sustained winds up to 17.3 km/h, which is 4.8 metres per second. Gusts: peak wind gusts of 38.5 km/h, or 10.7 metres per second. Precipitation: 0.4 mm. Wind direction: prevailing from the south-west. Overall risk: 0.3 on a scale of 0 to 1, graded low. If operations are exposed, implement operational adjustments to safeguard equipment and personnel: secure loose equipment, tools and materials, move non-essential personnel to safe shelters with appropriate personal protective equipment, suspend or shut down exposed operations such as lifting, drilling or hauling during peak gusts, inspect the site for hazards, maintain clear communication, activate the emergency response plan, and continuously monitor weather updates and forecasts."
+   }
+  },
+  {
+   "intent": "STORM_ALERT",
+   "label": "Lagos app question",
+   "miner": "livecert",
+   "method": "GET",
+   "url": "https://miner-wine.vercel.app/storm-alert?location=Lagos&query=Is+there+an+active+storm+alert+or+severe+weather+warning+for+Lagos+right+now%3F",
+   "status": 200,
+   "ms": 1646,
+   "json": {
+    "verdict": "none",
+    "confidence": 1,
+    "reason": "Regarding is there an active storm alert or severe weather warning for Lagos right now: The wind and storm forecast for Lagos right now is as follows. Wind speed: sustained winds of 9.3 km/h, which is 2.6 metres per second. Gusts: wind gusts of 18.7 km/h, or 5.2 metres per second. Precipitation: 0.1 mm. Wind direction: prevailing from the west. Overall risk: 0.12 on a scale of 0 to 1, graded none. If operations are exposed, implement operational adjustments to safeguard equipment and personnel: secure loose equipment, tools and materials, move non-essential personnel to safe shelters with appropriate personal protective equipment, suspend or shut down exposed operations such as lifting, drilling or hauling during peak gusts, inspect the site for hazards, maintain clear communication, activate the emergency response plan, and continuously monitor weather updates and forecasts."
+   }
+  },
+  {
+   "intent": "WEATHER_FORECAST",
+   "label": "Lagos 24h",
+   "miner": "txlens",
+   "method": "GET",
+   "url": "https://telegraph-onchain-tx-lookup-miner.onrender.com/weather-forecast?query=What+is+the+24-hour+weather+forecast+for+Lagos%2C+Nigeria%3F",
+   "status": 200,
+   "ms": 486,
+   "json": {
+    "query": "What is the 24-hour weather forecast for Lagos, Nigeria?",
+    "status": "ok",
+    "summary": "The weather forecast for Lagos, Lagos, Nigeria over the next 3 days (2026-10-11 to 2026-10-13) is as follows. Conditions: light drizzle, turning to dense drizzle by 2026-10-13. Temperature: 25.7°C to 29.2°C. Precipitation: 5.4 mm in total, with the chance of precipitation peaking at 100%. Wind: up to 17 km/h from the west-southwest, gusting to 39 km/h. Read live from the Open-Meteo forecast service at request time, not from a cache.",
+    "confidence": 0.95,
+    "canonical": "weather:Lagos, Lagos, Nigeria:2026-10-11:general",
+    "location": "Lagos, Lagos, Nigeria",
+    "latitude": 6.45407,
+    "longitude": 3.39467,
+    "timezone": "Africa/Lagos",
+    "when": null,
+    "focus": null,
+    "condition": "light drizzle",
+    "temp_min_c": 25.7,
+    "temp_max_c": 29.2,
+    "precipitation_total_mm": 5.4,
+    "precipitation_probability_max_pct": 100,
+    "snowfall_total_cm": 0,
+    "peak_wind_kmh": 17.3,
+    "peak_gust_kmh": 38.5,
+    "days": [
+     {
+      "date": "2026-10-11",
+      "code": 51,
+      "condition": "light drizzle",
+      "temp_min": 26.1,
+      "temp_max": 29.2,
+      "precipitation_mm": 0.6,
+      "precipitation_probability_pct": 83,
+      "precipitation_hours": 5,
+      "snowfall_cm": 0,
+      "wind_max_kmh": 17.3,
+      "wind_gust_max_kmh": 38.5,
+      "wind_direction": "west-southwest"
+     },
+     {
+      "date": "2026-10-12",
+      "code": 51,
+      "condition": "light drizzle",
+      "temp_min": 25.7,
+      "temp_max": 28.9,
+      "precipitation_mm": 1.2,
+      "precipitation_probability_pct": 100,
+      "precipitation_hours": 7,
+      "snowfall_cm": 0,
+      "wind_max_kmh": 16.1,
+      "wind_gust_max_kmh": 36.7,
+      "wind_direction": "southwest"
+     },
+     {
+      "date": "2026-10-13",
+      "code": 55,
+      "condition": "dense drizzle",
+      "temp_min": 25.7,
+      "temp_max": 27.7,
+      "precipitation_mm": 3.6,
+      "precipitation_probability_pct": 100,
+      "precipitation_hours": 12,
+      "snowfall_cm": 0,
+      "wind_max_kmh": 13.8,
+      "wind_gust_max_kmh": 33.8,
+      "wind_direction": "southwest"
+     }
+    ],
+    "checked_at": "2026-10-11T05:32:33.752Z",
+    "answer": "The weather forecast for Lagos, Lagos, Nigeria over the next 3 days (2026-10-11 to 2026-10-13) is as follows. Conditions: light drizzle, turning to dense drizzle by 2026-10-13. Temperature: 25.7°C to 29.2°C. Precipitation: 5.4 mm in total, with the chance of precipitation peaking at 100%. Wind: up to 17 km/h from the west-southwest, gusting to 39 km/h. Read live from the Open-Meteo forecast service at request time, not from a cache."
+   }
+  },
+  {
+   "intent": "WEATHER_FORECAST",
+   "label": "Lagos 24h",
+   "miner": "chainsight",
+   "method": "GET",
+   "url": "https://hub.shadrakbessanh.me/wforecast?query=What+is+the+24-hour+weather+forecast+for+Lagos%2C+Nigeria%3F",
+   "status": 200,
+   "ms": 500,
+   "json": {
+    "place": "Lagos, Nigeria",
+    "latitude": 6.45407,
+    "longitude": 3.39467,
+    "hours": 24,
+    "temp_min_c": 26.1,
+    "temp_max_c": 29.2,
+    "source": "open-meteo",
+    "answer": "A 24-hour hourly weather forecast for Lagos, Nigeria covering October 11 to October 11, 2026: hourly temperature in Celsius from 26.1°C to 29.2°C, a precipitation probability of up to 83%, up to 0.6 mm of precipitation, the expected condition is drizzle, and a wind speed of up to 17.3 km/h, from the Open-Meteo weather service.",
+    "signal": "A 24-hour hourly weather forecast for Lagos, Nigeria covering October 11 to October 11, 2026: hourly temperature in Celsius from 26.1°C to 29.2°C, a precipitation probability of up to 83%, up to 0.6 mm of precipitation, the expected condition is drizzle, and a wind speed of up to 17.3 km/h, from the Open-Meteo weather service."
+   }
+  },
+  {
+   "intent": "WEATHER_FORECAST",
+   "label": "Lagos 24h",
+   "miner": "livecert",
+   "method": "GET",
+   "url": "https://miner-wine.vercel.app/weather-forecast?location=Lagos+Nigeria&hours=24&query=What+is+the+24-hour+weather+forecast+for+Lagos%2C+Nigeria%3F",
+   "status": 200,
+   "ms": 541,
+   "json": {
+    "verdict": "drizzle",
+    "confidence": 1,
+    "reason": "Regarding what is the 24-hour weather forecast for Lagos, Nigeria? Lagos Nigeria: A 24-hour hourly weather forecast for Lagos, Nigeria covering October 11 to October 12, 2026: hourly temperature in Celsius from 25.7°C to 29.2°C, a precipitation probability of up to 83%, 1 mm of total precipitation, the expected condition is drizzle, and a wind speed of up to 17.3 km/h, from the Open-Meteo weather service."
+   }
+  },
+  {
+   "intent": "SSL_VERIFICATION",
+   "label": "github.com",
+   "miner": "txlens",
+   "method": "GET",
+   "url": "https://telegraph-onchain-tx-lookup-miner.onrender.com/ssl-check?domain=github.com",
+   "status": 200,
+   "ms": 446,
+   "json": {
+    "query": "github.com",
+    "status": "ok",
+    "summary": "The TLS/SSL certificate configuration for github.com is valid. Certificate validity: currently valid, expiring in 49 days on 2026-11-29, issued by Sectigo Limited on 2026-09-01. Chain trust: the complete chain of 4 certificate(s), including intermediates and the root, builds a trusted path to a root in the public trust store. Hostname verification: passes, matching github.com on the certificate out of 2 names it covers. Connection: negotiated over TLSv1.3 using TLS_AES_128_GCM_SHA256, with a 256-bit key. Read from a real TLS handshake performed against the host at request time, so this is the certificate it is serving right now, not what certificate transparency logs say was issued.",
+    "confidence": 1,
+    "canonical": "ssl:github.com:valid:49",
+    "valid": true,
+    "category": "valid",
+    "authorized": true,
+    "authorization_error": null,
+    "chain_complete": true,
+    "chain_length": 4,
+    "hostname_valid": true,
+    "matched_hostname": "github.com",
+    "covers_hostnames": [
+     "github.com",
+     "www.github.com"
+    ],
+    "protocol": "TLSv1.3",
+    "cipher": "TLS_AES_128_GCM_SHA256",
+    "protocol_deprecated": false,
+    "key_bits": 256,
+    "serial_number": "A59EBDB596751DB7F5C095079613953C",
+    "fingerprint_sha256": "46:B6:01:EE:08:B4:18:CF:8A:3A:1E:BF:E6:70:BA:5C:E4:3B:B0:5A:91:7F:A8:B2:DD:08:7A:30:47:1C:FC:63",
+    "issuer": "Sectigo Limited",
+    "valid_from": "2026-09-01T00:00:00.000Z",
+    "valid_to": "2026-11-29T23:59:59.000Z",
+    "days_until_expiry": 49,
+    "checked_at": "2026-10-11T05:32:36.489Z",
+    "answer": "The TLS/SSL certificate configuration for github.com is valid. Certificate validity: currently valid, expiring in 49 days on 2026-11-29, issued by Sectigo Limited on 2026-09-01. Chain trust: the complete chain of 4 certificate(s), including intermediates and the root, builds a trusted path to a root in the public trust store. Hostname verification: passes, matching github.com on the certificate out of 2 names it covers. Connection: negotiated over TLSv1.3 using TLS_AES_128_GCM_SHA256, with a 256-bit key. Read from a real TLS handshake performed against the host at request time, so this is the certificate it is serving right now, not what certificate transparency logs say was issued."
+   }
+  },
+  {
+   "intent": "SSL_VERIFICATION",
+   "label": "github.com",
+   "miner": "chainsight",
+   "method": "GET",
+   "url": "https://hub.shadrakbessanh.me/ssl?query=github.com",
+   "status": 200,
+   "ms": 388,
+   "json": {
+    "host": "github.com",
+    "verdict": "valid",
+    "reason": "The TLS certificate for github.com is valid and trusted, issued by Sectigo Limited, valid until 29 November 2026 (49 days remaining); the hostname matches and it is served over TLSv1.3.",
+    "source": "tls",
+    "signal": "valid",
+    "answer": "valid",
+    "issuer": "Sectigo Limited",
+    "valid_until": "2026-11-29",
+    "days_remaining": 49,
+    "tls_version": "TLSv1.3"
+   }
+  },
+  {
+   "intent": "SSL_VERIFICATION",
+   "label": "github.com",
+   "miner": "livecert",
+   "method": "GET",
+   "url": "https://miner-wine.vercel.app/ssl-check?domain=github.com",
+   "status": 200,
+   "ms": 520,
+   "json": {
+    "verdict": "valid",
+    "confidence": 1,
+    "reason": "The TLS/SSL certificate configuration for github.com is valid. Certificate validity: the certificate is currently valid, expiring in 49 days on 2026-11-29, issued by Sectigo Limited. Chain trust: the server presented a complete chain of 4 certificates including intermediates, building a trusted path to a root. Hostname verification: passes against DNS:github.com. The connection negotiated TLSv1.3."
+   }
+  },
+  {
+   "intent": "FACT_CHECK",
+   "label": "false claim",
+   "miner": "txlens",
+   "method": "GET",
+   "url": "https://telegraph-onchain-tx-lookup-miner.onrender.com/fact-check?claim=The+Eiffel+Tower+is+in+Berlin.",
+   "status": 502,
+   "ms": 406,
+   "json": {
+    "status": "error",
+    "summary": "Fact-checking sources are temporarily unavailable for \"The Eiffel Tower is in Berlin.\". Retry shortly.",
+    "confidence": 0,
+    "error": "the perplexity key has no credit left",
+    "answer": "Fact-checking sources are temporarily unavailable for \"The Eiffel Tower is in Berlin.\". Retry shortly."
+   }
+  },
+  {
+   "intent": "FACT_CHECK",
+   "label": "false claim",
+   "miner": "chainsight",
+   "method": "POST",
+   "url": "https://hub.shadrakbessanh.me/factcheck",
+   "body": {
+    "query": "The Eiffel Tower is in Berlin."
+   },
+   "status": 200,
+   "ms": 1765,
+   "json": {
+    "signal": "Unverified. There is no reliable public evidence available to confirm or refute this claim at this time.",
+    "answer": "Unverified. There is no reliable public evidence available to confirm or refute this claim at this time.",
+    "verdict": "unverified"
+   }
+  },
+  {
+   "intent": "FACT_CHECK",
+   "label": "false claim",
+   "miner": "livecert",
+   "method": "GET",
+   "url": "https://miner-wine.vercel.app/fact-check?query=The+Eiffel+Tower+is+in+Berlin.",
+   "status": 200,
+   "ms": 369,
+   "json": {
+    "claim": "The Eiffel Tower is in Berlin.",
+    "verdict": "supported",
+    "confidence": 0.7,
+    "source": "Wikipedia",
+    "source_url": "https://en.wikipedia.org/wiki/Eiffel_Tower",
+    "evidence": "During World War I, the Eiffel Tower's wireless station played a crucial role in intercepting enemy communications from Berlin.",
+    "reason": "Regarding the Eiffel Tower is in Berlin: The claim \"The Eiffel Tower is in Berlin.\" is supported by the reference source consulted. According to Wikipedia's article \"Eiffel Tower\": During World War I, the Eiffel Tower's wireless station played a crucial role in intercepting enemy communications from Berlin. This check consulted one encyclopaedic source and is not a full adjudication of the claim.",
+    "checked_at": "2026-10-11T05:32:41.895Z"
+   }
+  },
+  {
+   "intent": "WEB_SEARCH",
+   "label": "Fed decision",
+   "miner": "txlens",
+   "method": "GET",
+   "url": "https://telegraph-onchain-tx-lookup-miner.onrender.com/web-search?query=What+did+the+US+Federal+Reserve+decide+at+its+most+recent+rate+meeting%3F",
+   "status": 502,
+   "ms": 356,
+   "json": {
+    "status": "error",
+    "summary": "Web sources are temporarily unavailable for \"What did the US Federal Reserve decide at its most recent rate meeting?\". Retry shortly.",
+    "confidence": 0,
+    "error": "the perplexity key has no credit left",
+    "answer": "Web sources are temporarily unavailable for \"What did the US Federal Reserve decide at its most recent rate meeting?\". Retry shortly."
+   }
+  },
+  {
+   "intent": "WEB_SEARCH",
+   "label": "Fed decision",
+   "miner": "chainsight",
+   "method": "POST",
+   "url": "https://hub.shadrakbessanh.me/websearch",
+   "body": {
+    "query": "What did the US Federal Reserve decide at its most recent rate meeting?"
+   },
+   "status": 200,
+   "ms": 2875,
+   "json": {
+    "query": "What did the US Federal Reserve decide at its most recent rate meeting?",
+    "source": "langsearch+llm",
+    "signal": "- RBI Rate Hike Divides the Street! BofA Predicts a 100-bps Hike, Goldman and Citi Bet on a Milder Cycle, What It Means For You?: RBI Rate Hike Divides the Street! BofA Predicts a 100-bps Hike, Goldman and Citi Bet on a Milder Cycle, What It Means For You?\n\nThe Reserve Bank of India has lifted the repo rate from 5.25% to 5.5%, its first increase since February 2023. The move follows rate hikes by major central banks, including\n- Gold Rates Today (8/10/2026) Flat: 24K, 22K, 18K Gold Prices At Tanishq, IBJA, Joyalukkas, Kalyan, Malabar: Gold Rates Today (8/10/2026) Flat: 24K, 22K, 18K Gold Prices At Tanishq, IBJA, Joyalukkas, Kalyan, Malabar\n\nGold rates in India are broadly unchanged on Thursday, despite MCX gold and silver prices performing volatile following the trend in the global bullion market as the US Federal Reserve's minut\n- Gold prices rise in Pakistan as global bullion rates rebound: Gold is traditionally viewed as a hedge against inflation and a safe-haven asset during periods of economic and geopolitical uncertainty. However, higher interest rates can weigh on demand for gold, which does not generate interest, by making yield-bearing assets more attractive.\n\nInvestors were als\n- Fed officials reportedly increasingly cite surging AI investments, not tariffs, as the driver of rising goods inflation: Fed officials reportedly increasingly cite surging AI investments, not tariffs, as the driver of rising goods inflation\n\nTechmeme, citing The Washington Post, points to the Fed's September meeting as evidence of that shift.\n\nHome\n\nTechnology\n\nGaming\n\nEntertainment\n\nWorld & Business\n\nScience\n\nSports\n\n- National Wildlife Refuges Day on October 10 | TheDayOf: National Wildlife Refuges Day\n\nExplore America's wildlife refuges! This day celebrates the National Wildlife Refuge System protecting animals and habitats across the US. Visit refuges, spot wildlife, and support conservation of these vital ecosystems.\n\nAbout National Wildlife Refuges Day\n\nExplore Am\n- South Korea’s Kospi Slides Over 2.6 pc as Oil Prices Fuel Inflation and Rate Concerns: South Korea’s Kospi Slides Over 2.6 pc as Oil Prices Fuel Inflation and Rate Concerns\n\nSeoul, Oct 8: South Korean stocks extended their decline for a third straight session on Thursday as rising oil prices heightened concerns over inflation and the possibility of higher interest rates. Technology sh",
+    "answer": "- RBI Rate Hike Divides the Street! BofA Predicts a 100-bps Hike, Goldman and Citi Bet on a Milder Cycle, What It Means For You?: RBI Rate Hike Divides the Street! BofA Predicts a 100-bps Hike, Goldman and Citi Bet on a Milder Cycle, What It Means For You?\n\nThe Reserve Bank of India has lifted the repo rate from 5.25% to 5.5%, its first increase since February 2023. The move follows rate hikes by major central banks, including\n- Gold Rates Today (8/10/2026) Flat: 24K, 22K, 18K Gold Prices At Tanishq, IBJA, Joyalukkas, Kalyan, Malabar: Gold Rates Today (8/10/2026) Flat: 24K, 22K, 18K Gold Prices At Tanishq, IBJA, Joyalukkas, Kalyan, Malabar\n\nGold rates in India are broadly unchanged on Thursday, despite MCX gold and silver prices performing volatile following the trend in the global bullion market as the US Federal Reserve's minut\n- Gold prices rise in Pakistan as global bullion rates rebound: Gold is traditionally viewed as a hedge against inflation and a safe-haven asset during periods of economic and geopolitical uncertainty. However, higher interest rates can weigh on demand for gold, which does not generate interest, by making yield-bearing assets more attractive.\n\nInvestors were als\n- Fed officials reportedly increasingly cite surging AI investments, not tariffs, as the driver of rising goods inflation: Fed officials reportedly increasingly cite surging AI investments, not tariffs, as the driver of rising goods inflation\n\nTechmeme, citing The Washington Post, points to the Fed's September meeting as evidence of that shift.\n\nHome\n\nTechnology\n\nGaming\n\nEntertainment\n\nWorld & Business\n\nScience\n\nSports\n\n- National Wildlife Refuges Day on October 10 | TheDayOf: National Wildlife Refuges Day\n\nExplore America's wildlife refuges! This day celebrates the National Wildlife Refuge System protecting animals and habitats across the US. Visit refuges, spot wildlife, and support conservation of these vital ecosystems.\n\nAbout National Wildlife Refuges Day\n\nExplore Am\n- South Korea’s Kospi Slides Over 2.6 pc as Oil Prices Fuel Inflation and Rate Concerns: South Korea’s Kospi Slides Over 2.6 pc as Oil Prices Fuel Inflation and Rate Concerns\n\nSeoul, Oct 8: South Korean stocks extended their decline for a third straight session on Thursday as rising oil prices heightened concerns over inflation and the possibility of higher interest rates. Technology sh"
+   }
+  },
+  {
+   "intent": "WEB_SEARCH",
+   "label": "Fed decision",
+   "miner": "livecert",
+   "method": "GET",
+   "url": "https://miner-wine.vercel.app/web-search?query=What+did+the+US+Federal+Reserve+decide+at+its+most+recent+rate+meeting%3F",
+   "status": 200,
+   "ms": 954,
+   "json": {
+    "verdict": "answered",
+    "confidence": 0.8,
+    "reason": "The most relevant current reports are \"What makes the Federal Reserve decide to raise or lower interest rates?\" (Chase Bank, 28 September 2026) and \"Federal Reserve to Decide on Rate Hike on 15th-16th; Market Prices in 90% Odds Amid Stock Rally and…\" (BigGo Finance, 12 September 2026). Source: Google News search."
+   }
+  },
+  {
+   "intent": "GAS_PRICE",
+   "label": "eth",
+   "miner": "txlens",
+   "method": "GET",
+   "url": "https://telegraph-onchain-tx-lookup-miner.onrender.com/gas-price?chain=eth",
+   "status": 200,
+   "ms": 992,
+   "json": {
+    "chain": "eth",
+    "status": "ok",
+    "summary": "Ethereum gas price: 0.056837775 gwei. A standard 21000-gas transfer costs about $0.0030 USD. Observed at: 2026-10-11T05:32:48.772Z.",
+    "confidence": 1,
+    "canonical": "eth:gas_price:56837775:26167138",
+    "gas_price_wei": "56837775",
+    "gas_price_gwei": 0.056837775,
+    "fee_usd": 0.0029906343133679707,
+    "native_price_usd": 2505.5723553469006,
+    "block_number": 26167138,
+    "as_of": "2026-10-11T05:32:48.772Z",
+    "answer": "Ethereum gas price: 0.056837775 gwei. A standard 21000-gas transfer costs about $0.0030 USD. Observed at: 2026-10-11T05:32:48.772Z."
+   }
+  },
+  {
+   "intent": "GAS_PRICE",
+   "label": "eth",
+   "miner": "chainsight",
+   "method": "GET",
+   "url": "https://hub.shadrakbessanh.me/gas?chain=ethereum",
+   "status": 200,
+   "ms": 329,
+   "json": {
+    "chain": "ethereum",
+    "network": "Ethereum",
+    "gas_price_wei": 63880298,
+    "gas_price_gwei": 0.0639,
+    "tx_cost_usd": 0.0033613621166706,
+    "native_eth": 0.0000013414862580000001,
+    "source": "rpc",
+    "answer": "Ethereum average transaction fee (ESTIMATED_TRANSACTION_FEE_USD): $0.00336136 USD; Ethereum average transaction fee (ESTIMATED_TRANSACTION_FEE_NATIVE): 1.3415e-06 ETH. Observed at: 2026-10-11T05:32:49.566723Z.",
+    "signal": "Ethereum average transaction fee (ESTIMATED_TRANSACTION_FEE_USD): $0.00336136 USD; Ethereum average transaction fee (ESTIMATED_TRANSACTION_FEE_NATIVE): 1.3415e-06 ETH. Observed at: 2026-10-11T05:32:49.566723Z."
+   }
+  },
+  {
+   "intent": "GAS_PRICE",
+   "label": "eth",
+   "miner": "livecert",
+   "method": "GET",
+   "url": "https://miner-wine.vercel.app/gas-price?query=What+is+the+gas+price+on+Ethereum+right+now%3F",
+   "status": 200,
+   "ms": 300,
+   "json": {
+    "verdict": "gas_price",
+    "confidence": 0.95,
+    "reason": "The current gas price on ethereum is 0.06388 Gwei, or about 0.064 Gwei, as of block 26,167,139. That is a base fee of 0.06388 Gwei plus a priority fee of 0 Gwei. At that rate a standard 21,000-gas transfer costs about 0.00000134 ETH. This is the transaction fee level, not the price of ETH."
+   }
+  },
+  {
+   "intent": "SANCTIONS_SCREENING_MATCH",
+   "label": "listed person",
+   "miner": "txlens",
+   "method": "GET",
+   "url": "https://telegraph-onchain-tx-lookup-miner.onrender.com/sanctions-screening?name=Vladimir+Putin",
+   "status": 200,
+   "ms": 770,
+   "json": {
+    "status": "ok",
+    "summary": "\"Vladimir Putin\" is a match for \"PUTIN, Vladimir Vladimirovich\" on the US Treasury OFAC SDN list under the program RUSSIA-EO14024, listed as President of the Russian Federation.",
+    "confidence": 1,
+    "canonical": "sanctions-screening:vladimir-putin",
+    "query": "Vladimir Putin",
+    "matched": true,
+    "matches": [
+     {
+      "name": "PUTIN, Vladimir Vladimirovich",
+      "ent_num": "35096",
+      "type": "individual",
+      "program": "RUSSIA-EO14024",
+      "title": "President of the Russian Federation",
+      "remarks": "DOB 07 Oct 1952; POB Leningrad, Russia; nationality Russia; citizen Russia; Gender Male; Secondary sanctions risk: See Section 11 of Executive Order 14024.; President of the Russian Federation.",
+      "match_score": 1
+     }
+    ],
+    "records_screened": 19416,
+    "source": "OFAC SDN list (treasury.gov)",
+    "attribution": "Screened against the US Treasury OFAC Specially Designated Nationals (SDN) list, a public US government dataset.",
+    "checked_at": "2026-10-11T05:32:51.453Z",
+    "answer": "\"Vladimir Putin\" is a match for \"PUTIN, Vladimir Vladimirovich\" on the US Treasury OFAC SDN list under the program RUSSIA-EO14024, listed as President of the Russian Federation."
+   }
+  },
+  {
+   "intent": "SANCTIONS_SCREENING_MATCH",
+   "label": "listed person",
+   "miner": "chainsight",
+   "method": "POST",
+   "url": "https://hub.shadrakbessanh.me/sanctions",
+   "body": {
+    "query": "Is Vladimir Putin on a sanctions list?"
+   },
+   "status": 200,
+   "ms": 358,
+   "json": {
+    "signal": "Unable to process: Is Vladimir Putin on a sanctions list?",
+    "answer": "Unable to process: Is Vladimir Putin on a sanctions list?"
+   }
+  },
+  {
+   "intent": "CORPORATE_REGISTRY_LOOKUP",
+   "label": "Apple",
+   "miner": "txlens",
+   "method": "GET",
+   "url": "https://telegraph-onchain-tx-lookup-miner.onrender.com/corporate-registry?name=Apple+Inc.",
+   "status": 200,
+   "ms": 2308,
+   "json": {
+    "status": "ok",
+    "summary": "Apple Inc. is an active company in the GLEIF register (LEI HWUPKR0MPOU8FGXBT394), registered in US-CA and created on 1977-01-03. Its registered legal address is C/O C T Corporation System, 330 N. Brand Blvd, Suite 700, Glendale, US-CA, 91203, US. Its headquarters address is One Apple Park Way, Cupertino, US-CA, 95014, US. LEI registration status is ISSUED, last updated 2026-03-03. 4 other record(s) matched the name. Directors and officers are not part of an LEI record, so they are not stated here.",
+    "confidence": 0.9,
+    "canonical": "corporate-registry:HWUPKR0MPOU8FGXBT394",
+    "name": "Apple Inc.",
+    "found": true,
+    "status_active": 1,
+    "legal_name": "Apple Inc.",
+    "lei": "HWUPKR0MPOU8FGXBT394",
+    "entity_status": "ACTIVE",
+    "registration_status": "ISSUED",
+    "jurisdiction": "US-CA",
+    "legal_address": "C/O C T Corporation System, 330 N. Brand Blvd, Suite 700, Glendale, US-CA, 91203, US",
+    "headquarters_address": "One Apple Park Way, Cupertino, US-CA, 95014, US",
+    "registered_as": "806592",
+    "creation_date": "1977-01-03T00:00:00Z",
+    "source": "GLEIF LEI register (api.gleif.org)",
+    "checked_at": "2026-10-11T05:32:54.926Z",
+    "answer": "Apple Inc. is an active company in the GLEIF register (LEI HWUPKR0MPOU8FGXBT394), registered in US-CA and created on 1977-01-03. Its registered legal address is C/O C T Corporation System, 330 N. Brand Blvd, Suite 700, Glendale, US-CA, 91203, US. Its headquarters address is One Apple Park Way, Cupertino, US-CA, 95014, US. LEI registration status is ISSUED, last updated 2026-03-03. 4 other record(s) matched the name. Directors and officers are not part of an LEI record, so they are not stated here."
+   }
+  },
+  {
+   "intent": "CORPORATE_REGISTRY_LOOKUP",
+   "label": "Apple",
+   "miner": "chainsight",
+   "method": "POST",
+   "url": "https://hub.shadrakbessanh.me/corp",
+   "body": {
+    "query": "Apple Inc."
+   },
+   "status": 200,
+   "ms": 795,
+   "json": {
+    "legal_name": "Apple Inc.",
+    "lei": "HWUPKR0MPOU8FGXBT394",
+    "jurisdiction": "US-CA",
+    "status": "ACTIVE",
+    "source": "gleif",
+    "signal": "Apple Inc. is registered (LEI HWUPKR0MPOU8FGXBT394) in jurisdiction US-CA, status ACTIVE, headquartered in Glendale, US.",
+    "answer": "Apple Inc. is registered (LEI HWUPKR0MPOU8FGXBT394) in jurisdiction US-CA, status ACTIVE, headquartered in Glendale, US."
+   }
+  },
+  {
+   "intent": "REGULATORY_FILING_MONITOR",
+   "label": "Pfizer",
+   "miner": "txlens",
+   "method": "GET",
+   "url": "https://telegraph-onchain-tx-lookup-miner.onrender.com/regulatory-filing-monitor?company=Pfizer",
+   "status": 200,
+   "ms": 483,
+   "json": {
+    "status": "ok",
+    "summary": "The most relevant Federal Register filing for Pfizer is \"Revocation of Two Authorizations of Emergency Use of In Vitro Diagnostic Devices for Detection and/or Diagnosis of COVID-19; Availability\" from Health and Human Services Department, Food and Drug Administration, published 2026-01-02. The Food and Drug Administration (FDA) is announcing the revocation of the Emergency Use Authorizations (EUAs) (the Authorizations) issued to Pfizer Inc. for the Lucira by Pfizer COVID-19 & Flu Test and Lucira by Pfizer COVID-19 & Flu Home Test. FDA revoked the Authorizations under the Federal Food, 870 total documents matched; 5 are listed below. This reports what has actually been filed or published, not a prediction of future regulatory action.",
+    "confidence": 0.75,
+    "canonical": "regulatory-filing-monitor:pfizer",
+    "query": "Pfizer",
+    "total_matches": 870,
+    "documents": [
+     {
+      "title": "Revocation of Two Authorizations of Emergency Use of In Vitro Diagnostic Devices for Detection and/or Diagnosis of COVID-19; Availability",
+      "type": "Notice",
+      "abstract": "The Food and Drug Administration (FDA) is announcing the revocation of the Emergency Use Authorizations (EUAs) (the Authorizations) issued to Pfizer Inc. for the Lucira by Pfizer COVID-19 & Flu Test and Lucira by Pfizer COVID-19 & Flu Home Test. FDA revoked the Authorizations under the Federal Food, Drug, and Cosmetic Act (FD&C Act) as requested by the Authorization holder. The revocations, which include an explanation of the reasons for each revocation, are reprinted at the end of this document.",
+      "agencies": [
+       "Health and Human Services Department",
+       "Food and Drug Administration"
+      ],
+      "publication_date": "2026-01-02",
+      "url": "https://www.federalregister.gov/documents/2026/01/02/2025-24155/revocation-of-two-authorizations-of-emergency-use-of-in-vitro-diagnostic-devices-for-detection-andor",
+      "document_number": "2025-24155"
+     },
+     {
+      "title": "Revocation of Emergency Use of Three Biological Products; Availability",
+      "type": "Notice",
+      "abstract": "The Food and Drug Administration (FDA) is announcing the revocation of the Emergency Use Authorizations (EUA) (the Authorizations) issued to Pfizer, Inc. for Pfizer-BioNTech COVID-19 Vaccine; to ModernaTX, Inc. for Moderna COVID-19 Vaccine; and to Novavax, Inc. for Novavax COVID-19 Vaccine, Adjuvanted. FDA revoked these Authorizations under the Federal Food, Drug, and Cosmetic Act (FD&C Act). The revocations, which include an explanation of the reasons for each revocation, are reprinted in this document.",
+      "agencies": [
+       "Health and Human Services Department",
+       "Food and Drug Administration"
+      ],
+      "publication_date": "2025-10-02",
+      "url": "https://www.federalregister.gov/documents/2025/10/02/2025-19272/revocation-of-emergency-use-of-three-biological-products-availability",
+      "document_number": "2025-19272"
+     },
+     {
+      "title": "Pfizer Inc., U.S. Agent for King Pharmaceuticals LLC, et al.; Withdrawal of Approval of 20 Abbreviated New Drug Applications",
+      "type": "Notice",
+      "abstract": "The Food and Drug Administration (FDA or Agency) is withdrawing approval of 20 abbreviated new drug applications (ANDAs) from multiple applicants. The applicants notified the Agency in writing that the drug products were no longer marketed and requested that the approval of the applications be withdrawn.",
+      "agencies": [
+       "Health and Human Services Department",
+       "Food and Drug Administration"
+      ],
+      "publication_date": "2025-12-12",
+      "url": "https://www.federalregister.gov/documents/2025/12/12/2025-22683/pfizer-inc-us-agent-for-king-pharmaceuticals-llc-et-al-withdrawal-of-approval-of-20-abbreviated-new",
+      "document_number": "2025-22683"
+     },
+     {
+      "title": "Foreign-Trade Zone (FTZ) 43, Notification of Proposed Production Activity; Pfizer Inc.; (Pharmaceutical Products); Kalamazoo and Portage, Michigan",
+      "type": "Notice",
+      "abstract": null,
+      "agencies": [
+       "Commerce Department",
+       "Foreign-Trade Zones Board"
+      ],
+      "publication_date": "2026-07-20",
+      "url": "https://www.federalregister.gov/documents/2026/07/20/2026-14572/foreign-trade-zone-ftz-43-notification-of-proposed-production-activity-pfizer-inc-pharmaceutical",
+      "document_number": "2026-14572"
+     },
+     {
+      "title": "Foreign-Trade Zone (FTZ) 43; Authorization of Limited Production Activity; Pfizer, Inc.; (Pharmaceutical Intermediate Product); Kalamazoo, Michigan",
+      "type": "Notice",
+      "abstract": null,
+      "agencies": [
+       "Commerce Department",
+       "Foreign-Trade Zones Board"
+      ],
+      "publication_date": "2025-11-26",
+      "url": "https://www.federalregister.gov/documents/2025/11/26/2025-21263/foreign-trade-zone-ftz-43-authorization-of-limited-production-activity-pfizer-inc-pharmaceutical",
+      "document_number": "2025-21263"
+     }
+    ],
+    "source": "Federal Register",
+    "attribution": "Federal Register (federalregister.gov), the official daily journal of the US federal government, via its public API.",
+    "checked_at": "2026-10-11T05:32:57.021Z",
+    "answer": "The most relevant Federal Register filing for Pfizer is \"Revocation of Two Authorizations of Emergency Use of In Vitro Diagnostic Devices for Detection and/or Diagnosis of COVID-19; Availability\" from Health and Human Services Department, Food and Drug Administration, published 2026-01-02. The Food and Drug Administration (FDA) is announcing the revocation of the Emergency Use Authorizations (EUAs) (the Authorizations) issued to Pfizer Inc. for the Lucira by Pfizer COVID-19 & Flu Test and Lucira by Pfizer COVID-19 & Flu Home Test. FDA revoked the Authorizations under the Federal Food, 870 total documents matched; 5 are listed below. This reports what has actually been filed or published, not a prediction of future regulatory action."
+   }
+  },
+  {
+   "intent": "MACRO_ECONOMIC_INDICATOR",
+   "label": "Japan inflation",
+   "miner": "txlens",
+   "method": "GET",
+   "url": "https://telegraph-onchain-tx-lookup-miner.onrender.com/macro-economic-indicator?country=Japan&economic_indicator=inflation",
+   "status": 200,
+   "ms": 628,
+   "json": {
+    "status": "ok",
+    "summary": "Japan's inflation was +3.17% in 2025, the most recent year the World Bank has published data for.",
+    "confidence": 0.85,
+    "canonical": "macro-economic-indicator:jp:fp.cpi.totl.zg",
+    "country": "Japan",
+    "country_code": "JP",
+    "indicator": "inflation",
+    "indicator_code": "FP.CPI.TOTL.ZG",
+    "year": "2025",
+    "value": 3.17253034260247,
+    "unit": "percent",
+    "source": "World Bank",
+    "attribution": "World Bank Open Data (worldbank.org), via its public API.",
+    "checked_at": "2026-10-11T05:32:58.056Z",
+    "answer": "Japan's inflation was +3.17% in 2025, the most recent year the World Bank has published data for."
+   }
+  },
+  {
+   "intent": "MACRO_ECONOMIC_INDICATOR",
+   "label": "Japan inflation",
+   "miner": "chainsight",
+   "method": "POST",
+   "url": "https://hub.shadrakbessanh.me/macro",
+   "body": {
+    "query": "What is Japan's inflation rate?"
+   },
+   "status": 200,
+   "ms": 370,
+   "json": {
+    "signal": "Unable to process: What is Japan's inflation rate?",
+    "answer": "Unable to process: What is Japan's inflation rate?"
+   }
+  },
+  {
+   "intent": "URL_SAFE",
+   "label": "known-good",
+   "miner": "txlens",
+   "method": "GET",
+   "url": "https://telegraph-onchain-tx-lookup-miner.onrender.com/url-safe?url=https%3A%2F%2Fgithub.com",
+   "status": 200,
+   "ms": 968,
+   "json": {
+    "query": "https://github.com/",
+    "status": "ok",
+    "summary": "Unknown. URLhaus check unavailable: URLhaus request failed with status 401.",
+    "confidence": 0.4,
+    "canonical": "url-safe:github.com",
+    "verdict": "Unknown",
+    "detection_count": 0,
+    "urlhaus_flagged": null,
+    "virustotal_detections": null,
+    "reputation_flagged": null,
+    "checked_at": "2026-10-11T05:33:00.206Z",
+    "answer": "Unknown. URLhaus check unavailable: URLhaus request failed with status 401."
+   }
+  },
+  {
+   "intent": "MISROUTE",
+   "label": "weather to tx endpoint",
+   "miner": "txlens",
+   "method": "GET",
+   "url": "https://telegraph-onchain-tx-lookup-miner.onrender.com/check-tx?query=Will+it+rain+in+London+tomorrow%3F",
+   "status": 200,
+   "ms": 238,
+   "json": {
+    "status": "invalid_input",
+    "summary": "I cannot look up this transaction because \"Will it rain in London tomorrow?\" does not contain a valid Ethereum transaction hash. A transaction hash is 66 characters long: \"0x\" followed by 64 hexadecimal characters. Pass one as the tx_hash parameter and I will report its confirmation status, block, sender, recipient, value in ETH, and decoded contract method.",
+    "confidence": 0.1,
+    "answer": "I cannot look up this transaction because \"Will it rain in London tomorrow?\" does not contain a valid Ethereum transaction hash. A transaction hash is 66 characters long: \"0x\" followed by 64 hexadecimal characters. Pass one as the tx_hash parameter and I will report its confirmation status, block, sender, recipient, value in ETH, and decoded contract method."
+   }
+  },
+  {
+   "intent": "MISROUTE",
+   "label": "weather to tx endpoint",
+   "miner": "chainsight",
+   "method": "GET",
+   "url": "https://hub.shadrakbessanh.me/tx?query=Will+it+rain+in+London+tomorrow%3F",
+   "status": 200,
+   "ms": 230,
+   "json": {
+    "hash": "Will it rain in London tomorrow?",
+    "source": "rpc",
+    "answer": "The referenced transaction Will it rain in London tomorrow? was processed on Ethereum and confirmed successfully, carrying 0 ETH in native value as a standard contract call.",
+    "signal": "The referenced transaction Will it rain in London tomorrow? was processed on Ethereum and confirmed successfully, carrying 0 ETH in native value as a standard contract call."
+   }
+  },
+  {
+   "intent": "MISROUTE",
+   "label": "weather to tx endpoint",
+   "miner": "livecert",
+   "method": "GET",
+   "url": "https://miner-wine.vercel.app/tx-lookup?query=Will+it+rain+in+London+tomorrow%3F",
+   "status": 200,
+   "ms": 332,
+   "json": {
+    "verdict": "unknown",
+    "confidence": 0,
+    "reason": "No transaction hash was supplied with this request. Supply a hash such as 0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060 and the status, gas used, effective gas price, total fee, value moved, sender, recipient and block number can be returned.",
+    "error": "invalid_hash"
+   }
+  }
+ ]
+}

@@ -1,0 +1,80 @@
+
+## Who wrote Pride and Prejudice?
+  branch: answered | Jane Austen wrote Pride and Prejudice [2]. Sources: [2] Wikipedia's "Pride and Prejudice".
+  prod:   answered | Jane Austen wrote Pride and Prejudice [2]. Sources: [2] Wikipedia's "Pride and Prejudice".
+
+## What is the capital of Australia?
+  branch: answered | Canberra is the capital of Australia[4]. Sources: [4] Wikipedia's "Canberra".
+  prod:   answered | Canberra is the capital city of Australia[2]. The sources do not mention any alternative answer. Sources: [2] Wikipedia's "Australian Capital Territory".
+
+## Who painted the Mona Lisa?
+  branch: answered | The Mona Lisa was painted by the Italian artist Leonardo da Vinci [1]. Sources: [1] Wikipedia's "Mona Lisa".
+  prod:   answered | The Mona Lisa was painted by the Italian artist Leonardo da Vinci [1]. Sources: [1] Wikipedia's "Mona Lisa".
+
+## Who invented the telephone?
+  branch: answered | Alexander Graham Bell invented the telephone [1][5]. Sources: [1] Wikipedia's "Telephone"; [5] Wikipedia's "Alexander Graham Bell".
+  prod:   answered | Alexander Graham Bell invented the telephone [1]. Sources: [1] Wikipedia's "Telephone".
+
+## What is the capital of Canada?
+  branch: answered | Ottawa is the capital city of Canada[2]. The sources do not mention any alternative capital. Sources: [2] Wikipedia's "Ottawa".
+  prod:   answered | Ottawa is the capital of Canada[2]. The sources do not mention any alternative capital. Sources: [2] Wikipedia's "Ottawa".
+
+## Who wrote War and Peace?
+  branch: answered | War and Peace is an epic novel by the Russian author Leo Tolstoy [1]. Sources: [1] Wikipedia's "War and Peace".
+  prod:   answered | War and Peace is an epic novel by the Russian author Leo Tolstoy [1]. Sources: [1] Wikipedia's "War and Peace".
+
+## Who directed The Godfather?
+  branch: answered | The Godfather was directed by Francis Ford Coppola [1]. Sources: [1] Wikipedia's "The Godfather".
+  prod:   answered | The Godfather was directed by Francis Ford Coppola [1]. Sources: [1] Wikipedia's "The Godfather".
+
+## When did the Berlin Wall fall?
+  branch: answered | The Berlin Wall fell on 9 November 1989[2]. Sources: [2] Wikipedia's "Fall of the Berlin Wall".
+  prod:   answered | The Berlin Wall fell on 9 November 1989[2]. Sources: [2] Wikipedia's "Fall of the Berlin Wall".
+
+## How many moons does Mars have?
+  branch: answered | Mars has two moons: Phobos and Deimos [1]. Sources: [1] Wikipedia's "Moons of Mars".
+  prod:   answered | Mars has two moons, Phobos and Deimos [1]. Sources: [1] Wikipedia's "Moons of Mars".
+
+## What is the tallest mountain in the world?
+  branch: answered | Mauna Kea, measured from its base on the ocean floor to its summit, is the tallest mountain in the world [1]. Sources: [1] Wikipedia's "Tallest mountain".
+  prod:   answered | The tallest mountain in the world, measured from its base to its peak, is Mauna Kea on Hawaii [1]. Sources: [1] Wikipedia's "Tallest mountain".
+
+## Who discovered penicillin?
+  branch: answered | Alexander Fleming was the first to discover penicillin [2][3][4]. Sources: [2] Wikipedia's "Discovery of penicillin"; [3] Wikipedia's "Alexander Fleming"; [4] Wikipedia's "History of penicillin".
+  prod:   answered | Alexander Fleming was the first to discover penicillin [2][4]. Sources: [2] Wikipedia's "Discovery of penicillin"; [4] Wikipedia's "History of penicillin".
+
+## What is the largest ocean on Earth?
+  branch: answered | The Pacific Ocean is the largest ocean on Earth [3]. It is listed first in descending order by area among Earth's five oceanic divisions [1]. Sources: [3] Wikipedia's "Pacific Ocean"; [1] Wikipedia's 
+  prod:   answered | The Pacific Ocean is the largest ocean on Earth, covering approximately 46% of Earth's water surface and about 32% of the planet's total surface [3]. It is also the deepest of Earth's five oceanic div
+
+## Who wrote Romeo and Juliet?
+  branch: answered | Romeo and Juliet was written by William Shakespeare [5]. Sources: [5] Wikipedia's "Romeo and Juliet".
+  prod:   answered | Romeo and Juliet was written by William Shakespeare [5]. Sources: [5] Wikipedia's "Romeo and Juliet".
+
+## What is the capital of Brazil?
+  branch: answered | Brasília is the current capital of Brazil[4]. Sources: [4] Wikipedia's "Capitals of Brazil".
+  prod:   answered | Brasília is the current capital of Brazil[4]. The sources do not mention any alternative capital. Sources: [4] Wikipedia's "Capitals of Brazil".
+
+## Who is the current CEO of Microsoft?
+  branch: answered | The current CEO of Microsoft is Satya Nadella, in office since 2014. Source: Wikidata.
+  prod:   answered | The current CEO of Microsoft is Satya Nadella, in office since 2014. Source: Wikidata.
+
+## Where is the Taj Mahal?
+  branch: answered | The Taj Mahal is an ivory-white marble mausoleum on the right bank of the river Yamuna in Agra, Uttar Pradesh, India [1]. Sources: [1] Wikipedia's "Taj Mahal".
+  prod:   answered | The Taj Mahal is located in Agra, Uttar Pradesh, India [1]. Sources: [1] Wikipedia's "Taj Mahal".
+
+## What language is spoken in Brazil?
+  branch: answered | Portuguese is the official and national language of Brazil, spoken by nearly all of its population [1]. Sources: [1] Wikipedia's "Languages of Brazil".
+  prod:   answered | Portuguese is the official and national language spoken by nearly all of Brazil’s population, with Brazilian Portuguese being the local variety[1][3]. The country also has many minority languages, inc
+
+## Who composed The Four Seasons?
+  branch: answered | Antonio Vivaldi composed The Four Seasons [2]. Sources: [2] Wikipedia's "The Four Seasons (Vivaldi)".
+  prod:   answered | From Wikipedia's "The Four Seasons (band)": "The Four Seasons were an American pop and rock band formed in 1960 in Newark, New Jersey." [1] This sentence is quoted from the source, not phrased.
+
+## What is the boiling point of water?
+  branch: answered | Water boils at 100 °C (rounded from the precise 99.97 °C) under standard atmospheric pressure at sea level[2]. The sources do not mention variations at different pressures. Sources: [2] Wikipedia's "B
+  prod:   answered | From Wikipedia's "Boiling Point (2021 film)": "Boiling Point is a 2021 British drama film directed by Philip Barantini and written by Barantini and James Cummings, based on a 2019 short film of the sa
+
+## Who was the first person to walk on the Moon?
+  branch: answered | The first person to walk on the Moon was Neil Armstrong, who landed on the lunar surface in July 1969 as part of Apollo 11 [2][4]. Sources: [2] Wikipedia's "List of people who have flown to the Moon";
+  prod:   answered | From Wikipedia's "A Walk on the Moon": "A Walk on the Moon is a 1999 American drama film starring Diane Lane, Viggo Mortensen, Liev Schreiber, and Anna Paquin." [1] This sentence is quoted from the so

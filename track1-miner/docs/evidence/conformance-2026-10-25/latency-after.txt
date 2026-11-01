@@ -1,0 +1,14 @@
+baseline round trip (/health): 239 ms
+CURRENCY_EXCHANGE          target < 250ms est    37    44    77 ms  within 3/3  200:converted 200:converted 200:converted
+LANGUAGE_TRANSLATION       target < 1.5s  est   190   268   237 ms  within 3/3  200:translated 200:translated 200:translated
+SENTIMENT_ANALYSIS         target < 300ms est   104   143   163 ms  within 3/3  200:positive 200:negative 200:mixed
+TEXT_CLASSIFICATION        target < 400ms est   245   176   345 ms  within 3/3  200:ambiguous 200:ambiguous 200:classified
+SANCTIONS_SCREENING_MATCH  target < 500ms est   161    99   168 ms  within 3/3  200:match 200:no_match 200:no_match
+CORPORATE_REGISTRY_LOOKUP  target < 2.5s  est   981   446  1099 ms  within 3/3  200:found 200:not_found 200:found
+REGULATORY_FILING_MONITOR  target < 3s    est   419   134   270 ms  within 3/3  200:filed 200:not_found 200:unknown
+CRYPTO_TRANSFER_VERIFY     target < 1.5s  est   300   391   273 ms  within 3/3  200:confirmed 200:confirmed 200:confirmed
+MACRO_ECONOMIC_INDICATOR   target < 2s    est   331   163   699 ms  within 3/3  200:reported 200:reported 200:reported
+URL_SAFE                   target < 300ms est   179   153    68 ms  within 3/3  200:unknown 200:unknown 200:unknown
+QUESTION_ANSWERING         target < 2s    est   691   611   813 ms  within 3/3  200:answered 200:answered 200:answered
+CROSS_CHAIN_STATE_VERIFY   target < 3s    est    17   138     0 ms  within 3/3  200:insufficient_input 200:not_found 200:insufficient_input
+EVENT_OUTCOME_RESOLUTION   target < 5s    est   436   315   452 ms  within 3/3  200:no_market_found 200:resolved 200:no_market_found

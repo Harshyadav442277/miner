@@ -1,0 +1,34 @@
+{
+ "DNS_RECORD_LOOKUP": [
+  "/dns",
+  [
+   "What is the IPv4 address of example.org?",
+   "What are the MX records for proton.me?",
+   "Does github.com publish a CAA record?"
+  ]
+ ],
+ "TOKEN_TOTAL_SUPPLY_VERIFY": [
+  "/token-supply",
+  [
+   "What is the total supply of WETH on Base?",
+   "Total supply of 0x514910771AF9Ca656af840dff83E8264EcF986CA on ethereum",
+   "What is the total supply of USDC on Optimism?"
+  ]
+ ],
+ "KEYWORD_EXTRACTION": [
+  "/keywords",
+  [
+   "Extract the top 5 keywords: Volcanic ash from the eruption closed three regional airports. Geologists said the volcano could erupt again within weeks, and authorities extended the evacuation zone.",
+   "Extract the top 5 keywords: The museum reopened its Roman gallery with restored mosaics and a new digital guide. Curators spent two years restoring the mosaics using lime mortar.",
+   "Extract the top 5 keywords: A heatwave pushed electricity demand to a record, and the grid operator asked factories to cut usage during the evening peak to avoid blackouts."
+  ]
+ ],
+ "VULNERABILITY_TRIAGE": [
+  "/vuln-triage",
+  [
+   "Rank: CVE-2023-34362, CVE-2023-20198, CVE-2023-22515 on internet-facing systems",
+   "Triage CVE-2024-21762, CVE-2024-1709, CVE-2023-4966",
+   "Order these by risk: CVE-2022-41040, CVE-2022-41082, CVE-2021-26855, CVE-2020-1472"
+  ]
+ ]
+}
