@@ -1,0 +1,38 @@
+{
+ "pairs": 62,
+ "distinct_queries": 14,
+ "membership_counts": {
+  "True": 62
+ },
+ "always_prefer_match_baseline": 1.0,
+ "always_prefer_no_match_baseline": 0.0,
+ "length_baseline": 0.7419354838709677,
+ "source_roles": {
+  "4433": {
+   "chosen": 19
+  },
+  "302": {
+   "rejected": 37
+  },
+  "710637": {
+   "chosen": 20
+  },
+  "78021": {
+   "rejected": 5,
+   "chosen": 16
+  },
+  "9002": {
+   "rejected": 20,
+   "chosen": 7
+  }
+ },
+ "factual_readiness_supported": false,
+ "blocking_reasons": [
+  "observed errors do not cover both membership classes",
+  "constant verdict preference solves too many pairs",
+  "length-only preference solves too many pairs",
+  "some providers occur only on the rejected side",
+  "fewer than 30 distinct disagreement queries"
+ ],
+ "scope": "observed exact-SDN decisions only; no fabricated errors or global clearance claims"
+}

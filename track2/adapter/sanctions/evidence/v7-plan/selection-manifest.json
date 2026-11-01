@@ -1,0 +1,42 @@
+{
+ "seed": 720261102,
+ "queries": 128,
+ "roles": {
+  "development": 64,
+  "final": 64
+ },
+ "classes_per_role": {
+  "listed": 32,
+  "exact_name_absent": 32
+ },
+ "negative_source": "GLEIF legal names, CC0; only name/LEI/source refs published",
+ "terms_url": "https://www.gleif.org/en/meta/lei-data-terms-of-use",
+ "source_fetches": [
+  {
+   "url": "https://api.gleif.org/api/v1/lei-records?page%5Bsize%5D=200&page%5Bnumber%5D=1",
+   "started_at": "2026-11-01T19:40:21.921604+00:00",
+   "finished_at": "2026-11-01T19:40:23.940497+00:00",
+   "sha256": "2faaa1d6589e33c194c32cbd8c7b2c65eebb5f03d4552850a2e235b8bc999b8a",
+   "status": 200
+  },
+  {
+   "url": "https://api.gleif.org/api/v1/lei-records?page%5Bsize%5D=200&page%5Bnumber%5D=2",
+   "started_at": "2026-11-01T19:40:24.963362+00:00",
+   "finished_at": "2026-11-01T19:40:26.949635+00:00",
+   "sha256": "2d3c7b7c014e26481c57e0f82a6286fb951b85cfd578681c842a81e9888cb55d",
+   "status": 200
+  },
+  {
+   "url": "https://api.gleif.org/api/v1/lei-records?page%5Bsize%5D=200&page%5Bnumber%5D=3",
+   "started_at": "2026-11-01T19:40:27.967837+00:00",
+   "finished_at": "2026-11-01T19:40:30.019454+00:00",
+   "sha256": "503500fd2436a2af2cd373d9096c7e27c5b905cb7e49b6f6303b150853fa6d07",
+   "status": 200
+  }
+ ],
+ "sdn_sha256": "5f240bed79d504e7a54788b4cd1c7f84e6afa56cd4778653b70b0771b6a8509d",
+ "alt_sha256": "b0e2811fbb49ba6e9941a497e6b05fa2c9037b45ae7923196a01e2363a402259",
+ "queries_sha256": "e4b2704d747c9492499caa191c545ebd16e72a84c79c37160affa59944040d6a",
+ "note": "Exact absence is not all-list, fuzzy or ownership clearance. No miner answers consulted.",
+ "scope": "SDN organization/entity names and GLEIF legal-entity names; no claim of verified incorporation for SDN entities"
+}

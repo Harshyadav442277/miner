@@ -1,0 +1,12 @@
+{
+ "url": "https://paste.rs/uni33",
+ "method": "GET",
+ "request_body": null,
+ "started_at": "2026-11-01T19:45:40.889400+00:00",
+ "finished_at": "2026-11-01T19:45:43.318408+00:00",
+ "status": 200,
+ "curl_exit": 0,
+ "error": "",
+ "sha256": "2d44228c7a1eea7871f3c0f0c20711c5ea389cde3194b98b27ee021b3572a099",
+ "body": "version: \"1\"\nkind: miner\nid: 78006\nslug: san-opensanc-stats\nprotocol: generic\nname: OpenSanctions Dataset Stats\ndescription: >\n  OpenSanctions default dataset statistics. Intent SANCTIONS_SCREENING_MATCH.\n\nbase_url: https://data.opensanctions.org\n\nauth:\n  type: none\n\nrate_limit_per_sec: 1\ncache_ttl_sec: 60\ncircuit_threshold: 5\ncircuit_cooldown_seconds: 30\n\ndocs:\n  documentation: https://www.opensanctions.org/docs/api/\n  website: https://www.opensanctions.org\n\nendpoints:\n  - path: /query\n    external_path: /datasets/latest/default/statistics.json\n    method: GET\n    description: Query for intent SANCTIONS_SCREENING_MATCH via OpenSanctions Dataset Stats.\n    intents: [SANCTIONS_SCREENING_MATCH]\n\ninput_schema:\n  type: object\n  required: []\n  properties: {}\n\nsemantics:\n  signal_mapping:\n    label_field: schemata\n  supported_intents:\n    - SANCTIONS_SCREENING_MATCH\n\non_chain:\n  description: Stores signal for SANCTIONS_SCREENING_MATCH.\n  transform: direct\n  min_price_usdc: 0.01\n  fields:\n    strings:\n      - index: 0\n        name: result\n        description: Primary result\n        source_path: result\n      - index: 1\n        name: intent\n        description: Intent name\n        source_path: intent\n    integers:\n      - index: 0\n        name: ok\n        description: Success flag\n        source_path: ok\n\n"
+}

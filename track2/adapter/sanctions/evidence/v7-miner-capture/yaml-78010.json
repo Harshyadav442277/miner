@@ -1,0 +1,12 @@
+{
+ "url": "https://paste.rs/uaUuO",
+ "method": "GET",
+ "request_body": null,
+ "started_at": "2026-11-01T19:42:11.737201+00:00",
+ "finished_at": "2026-11-01T19:42:14.164284+00:00",
+ "status": 200,
+ "curl_exit": 0,
+ "error": "",
+ "sha256": "99661c77e9d71fcdba174a3109dedfec7f2bbcc4dae2e7a593bab91fe2a4e6b2",
+ "body": "version: \"1\"\nkind: miner\nid: 78010\nslug: san-courtlistener\nprotocol: generic\nname: CourtListener Entity Search\ndescription: >\n  CourtListener search for enforcement records. Intent SANCTIONS_SCREENING_MATCH.\n\nbase_url: https://www.courtlistener.com\n\nauth:\n  type: none\n\nrate_limit_per_sec: 1\ncache_ttl_sec: 60\ncircuit_threshold: 5\ncircuit_cooldown_seconds: 30\n\ndocs:\n  documentation: https://www.courtlistener.com/api/\n  website: https://www.courtlistener.com\n\nendpoints:\n  - path: /query\n    external_path: /api/rest/v4/search/\n    method: GET\n    description: Query for intent SANCTIONS_SCREENING_MATCH via CourtListener Entity Search.\n    intents: [SANCTIONS_SCREENING_MATCH]\n    params:\n      query:\n        required:\n          - name: q\n            type: string\n            intents: [\"*\"]\n            description: Query\n          - name: type\n            type: string\n            intents: [\"*\"]\n            description: Type\n          - name: format\n            type: string\n            intents: [\"*\"]\n            description: Format\n\ninput_schema:\n  type: object\n  required: [q, type, format]\n  properties:\n    q: {type: string, description: Query, default: \"sanctions\"}\n    type: {type: string, description: Type, default: \"o\"}\n    format: {type: string, description: Format, default: \"json\"}\n\nsemantics:\n  signal_mapping:\n    label_field: results\n  supported_intents:\n    - SANCTIONS_SCREENING_MATCH\n\non_chain:\n  description: Stores signal for SANCTIONS_SCREENING_MATCH.\n  transform: direct\n  min_price_usdc: 0.01\n  fields:\n    strings:\n      - index: 0\n        name: result\n        description: Primary result\n        source_path: result\n      - index: 1\n        name: intent\n        description: Intent name\n        source_path: intent\n    integers:\n      - index: 0\n        name: ok\n        description: Success flag\n        source_path: ok\n\n"
+}

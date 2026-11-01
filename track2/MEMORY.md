@@ -8,6 +8,25 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 
 ---
 
+## 2026-11-02 IST: query-binding validity and overlapping-name continuation
+
+- Worktree: `C:/Users/hyada/.codex/worktrees/sanctions-benchmark-v7/Telegraph`, branch
+  `codex/sanctions-benchmark-v7`, from `bd03fd1`. Shared Claude worktree untouched.
+- V7: 904 new requests on 128 unused public names. Balanced binding development
+  v6 33/40, v7 40/40; final v6 36/40, v7 40/40. Each 20 reversal blocks, both
+  classes/providers balanced, token visibility invariant, length baselines 50%.
+- Old controls v7 19/20, own 3/4: Bank of America fixed, Bank of India now fails.
+  Continue generic overlapping-word correction; do not call the regression fixed.
+- Genuine new disagreements 62/14 names, all listed; constant-match baseline100%.
+  No sanctions registration-readiness claim. Source labels check decisions only.
+- Source audit: two v7 training queries have parentheticals stripped, invalidating
+  exact-name labels. No such val/test query. Archive preserves it; v8 excludes both
+  parent blocks, but inherits v7 weights. First v8 attempt stopped before completion.
+- `BENCHMARK_VALIDITY.md`, new generators/audits and exact gz inputs retain failures
+  and methods. V8 uses 2,400/400/400 pairs, generic shared words and true computed
+  source comparisons; fresh absent-bank cohort separately frozen, no external bodies
+  in training. V7 final is now regression evidence. Preserve FX_NOW block below.
+
 ## CURRENT FX_NOW and funding — 2026-11-01 18:45 UTC (Nov 2 00:15 IST), Claude session
 
 Runs alongside the Codex sanctions session (block below), in the same worktree. The two sessions commit only their own paths.

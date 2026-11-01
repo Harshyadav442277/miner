@@ -67,3 +67,27 @@ Reviewers score validity, integrity and reproducibility, so each module ships wi
 
 Boring, explicit code; files under ~300 lines; one task = one change = one commit; no secrets anywhere.
 Large training runs and model files live outside OneDrive, in `C:\Users\hyada\tg-eval\`.
+
+## A7 — Benchmark validity and query binding (2026-11-02 IST)
+
+- Keep two measurements separate: factual decisions on genuine same-query miner disagreements, and
+  declared counterfactual wrong-query tests using unchanged public miner answer bodies. Neither a
+  synthetic control nor a one-sided/source-confounded disagreement set can establish registration readiness.
+- Query-binding tests use reversed pairs within provider and membership class. Questions must have equal
+  pinned-tokenizer prefix lengths; verify the visible answer token sequences are identical across reversal.
+  Reject invisible/identical or ambiguous name echoes. Balance listed/exact-name-absent cases and provider
+  roles. Report tie-aware character/token-length baselines, block counts and query-echo reference accuracy.
+- Freeze new public query cohorts before calls. Reserve their entities, aliases and query strings from all
+  training/validation. Older Bank of America/India controls are regression/development evidence only.
+- V7 uses our v6 checkpoint and new source-faithful synthetic data. Both listed and absent wrong-query
+  replacements must retain their original verdict; no-match/no-match swaps are explicitly taught. Chosen
+  answers may claim only verified exact membership/absence; no invented nearest candidates or random scores.
+- Fix configuration before final external evaluation; select checkpoints on synthetic validation only.
+  Keep no provider ids, brands, wallets or distinctive provider templates in training or scoring logic.
+  Run unchanged v6 and v7 on the same held-out external-answer benchmark in the actual node runtime.
+- A query-binding improvement is a narrow robustness result. Factual validity, hidden-pool performance,
+  canonical status and registration readiness require their own evidence. No wallet action is part of this work.
+- If an overlapping-name regression persists, add generic hard shared-word training fixtures, excluding
+  the named bank regression itself. Candidate metadata must be computed from the public snapshot, never
+  invented or copied from miner answers. A separate absent-name bank stratum may isolate this failure;
+  report it separately from the balanced corpus. Previously evaluated v7 sets then become regression sets.

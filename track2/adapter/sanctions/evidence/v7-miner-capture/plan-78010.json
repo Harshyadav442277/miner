@@ -1,0 +1,15 @@
+{
+ "base_url": "https://www.courtlistener.com",
+ "path": "/api/rest/v4/search/",
+ "method": "GET",
+ "parameters": [
+  "q"
+ ],
+ "queryable": true,
+ "required": [
+  "q",
+  "type",
+  "format"
+ ],
+ "min_interval_seconds": 1.0
+}

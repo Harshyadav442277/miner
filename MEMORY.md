@@ -1,5 +1,15 @@
 # MEMORY.md — session continuity
 
+## 2026-11-02 IST: isolated sanctions validity continuation
+
+Branch `codex/sanctions-benchmark-v7` uses a managed worktree outside the shared
+Claude checkout. See `track2/adapter/sanctions/BENCHMARK_VALIDITY.md` for exact
+results: v7 new final query binding 40/40 vs v6 36/40, but old own-format controls
+remain 3/4 and genuine factual disagreements remain all-positive/confounded.
+Independent source audit caught two v7 training labels affected by stripped
+parentheticals. V8 continuation filters those blocks and trains generic shared-word
+fixtures; no captured response training. FX_NOW and all wallet flows remain separate.
+
 ## 2026-11-01 19:13 UTC (Nov 2 IST): sanctions Evaluator measurements complete
 
 On `claude/evaluators-status-a51518`: 232 public responses, 32 pairs; node v3/v4/v5 90.625%/37.5%/75%.

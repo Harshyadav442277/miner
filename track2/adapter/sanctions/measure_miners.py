@@ -105,7 +105,8 @@ def run_version(a, version, pairs, keys, all_keys, token_stats):
                        for i, port in enumerate((18081, 18082, 18083))]
             for future in futures:
                 scores.update(future.result())
-        rows = [{"name": p["name"], "kind": p["kind"], "source_id_metadata_only": p.get("source_id_metadata_only"),
+        rows = [{"name": p["name"], "kind": p["kind"], "block_id": p.get("block_id"),
+                 "source_id_metadata_only": p.get("source_id_metadata_only"),
                  "chosen": scores[c], "rejected": scores[r],
                  "correct": scores[c]["value"] > scores[r]["value"]}
                 for p, (c, r) in zip(pairs, keys, strict=True)]
@@ -134,6 +135,15 @@ def run_version(a, version, pairs, keys, all_keys, token_stats):
             if groups:
                 result["by_" + field] = {k: {"pairs": len(v), "accuracy": sum(v)/len(v)}
                                          for k, v in sorted(groups.items())}
+        blocks = {}
+        for row in rows:
+            if row["block_id"] is not None:
+                blocks.setdefault(row["block_id"], []).append(row["correct"])
+        if blocks:
+            wins = sum(all(v) for v in blocks.values())
+            result["reversal_blocks"] = {"blocks": len(blocks), "all_comparisons_correct": wins,
+                                          "all_correct_fraction": wins/len(blocks),
+                                          "wilson_95_lower": wilson(wins, len(blocks))}
         save(a.capture / f"v{version}-node-scores.json", result)
         save(a.capture / f"v{version}-package-manifest.json", manifest)
         print(json.dumps({k: v for k, v in result.items() if k not in ("rows", "runtime_commands", "identity")}), flush=True)

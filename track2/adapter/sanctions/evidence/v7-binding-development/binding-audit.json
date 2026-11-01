@@ -1,0 +1,27 @@
+{
+ "pairs": 40,
+ "independent_reversal_blocks": 20,
+ "distinct_queries": 40,
+ "membership_counts": {
+  "True": 20,
+  "False": 20
+ },
+ "source_counts": {
+  "302": 8,
+  "9002": 8,
+  "4433": 8,
+  "78021": 8,
+  "710637": 8
+ },
+ "character_length_baseline_tie_aware": 0.5,
+ "visible_token_length_baseline_tie_aware": 0.5,
+ "fixed_answer_only_upper_bound": 0.5,
+ "query_name_overlap_reference": 1.0,
+ "prefix_length_and_visible_token_invariance": true,
+ "role": "development",
+ "seed": 820261102,
+ "exclusions": {},
+ "registration_eligible": false,
+ "benchmark_axis": "query binding only; not independent factual accuracy",
+ "pairs_sha256": "594b27e5244dc6b099d0c5e1afef759bdf9896146197395bca06037cc42665b7"
+}

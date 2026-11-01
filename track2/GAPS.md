@@ -6,6 +6,16 @@ They are in `git log -p -- track2/GAPS.md`.
 
 ## G41 — real-answer sanctions measurement exposes source/length confounding (2026-11-01) — `OPEN`
 
+**Nov 2 continuation:** v7's new query-binding final cohort scores 40/40 versus
+v6 36/40, with reversal-balanced providers/classes, 50% tie-aware length baselines,
+and identical visible answer tokens across reversed questions. This is relevance
+only. Genuine new disagreements: 62 pairs/14 queries, all listed; constant-match
+baseline 100%, length 74.19%. Factual validity remains unresolved. Old controls
+improve 16/20 to 19/20, but our format remains 3/4: the bank error reverses direction.
+An independent audit also found two v7 training exact-name labels affected by
+parenthetical stripping; both parent blocks are excluded from the next dataset.
+Full methods, scores and limitations: `adapter/sanctions/BENCHMARK_VALIDITY.md`.
+
 Evidence: `adapter/sanctions/evidence/2026-11-01-miners-r1/`. Frozen 32-name queries, 15 YAML routes,
 232 responses; 32 unchanged answer pairs from 8 listed names. No negative-name pairs can be labeled
 defensibly from observed disagreements. LiveCert is our related miner, disclosed throughout.

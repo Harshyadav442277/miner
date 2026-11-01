@@ -1,0 +1,691 @@
+{
+ "version": 6,
+ "started_at": "2026-11-01T20:00:38.780591+00:00",
+ "finished_at": "2026-11-01T20:03:12.594280+00:00",
+ "seconds": 153.81,
+ "runtime_commands": [
+  [
+   "C:\\Users\\hyada\\tg-eval\\bin-v2\\adapterexec.exe",
+   "-listen",
+   "127.0.0.1:18081",
+   "-package",
+   "C:\\Users\\hyada\\tg-eval\\runs-v2\\SANCTIONS_SCREENING_MATCH_v6\\SANCTIONS_SCREENING_MATCH.safetensors"
+  ],
+  [
+   "C:\\Users\\hyada\\tg-eval\\bin-v2\\adapterexec.exe",
+   "-listen",
+   "127.0.0.1:18082",
+   "-package",
+   "C:\\Users\\hyada\\tg-eval\\runs-v2\\SANCTIONS_SCREENING_MATCH_v6\\SANCTIONS_SCREENING_MATCH.safetensors"
+  ],
+  [
+   "C:\\Users\\hyada\\tg-eval\\bin-v2\\adapterexec.exe",
+   "-listen",
+   "127.0.0.1:18083",
+   "-package",
+   "C:\\Users\\hyada\\tg-eval\\runs-v2\\SANCTIONS_SCREENING_MATCH_v6\\SANCTIONS_SCREENING_MATCH.safetensors"
+  ]
+ ],
+ "package_sha256": "71cbf5d1812fbc240dfc3fc604e1f97c527ae45061feccc29850e5f000ac464a",
+ "identity": {
+  "foundation_hash": "0a49b325304bb4cf292e683929689d0457966be264f60bfc94d0072b614bf8e6",
+  "adapter_hash": "6b44ebdc9acd4b471c8a174be5f59a74e58ef245a56d34711accc20bd138981b",
+  "tokenizer_hash": "67bc76f8b9386efba1a761c1c8e5ad439fd0eaf1c2826e9dd1a205c7af4dc456"
+ },
+ "pairs_sha256": "594b27e5244dc6b099d0c5e1afef759bdf9896146197395bca06037cc42665b7",
+ "pairs": 40,
+ "accuracy": 0.825,
+ "ties": 0,
+ "names": 40,
+ "all_comparisons_correct_names": 33,
+ "name_level_wilson_95_lower": 0.6804970794560756,
+ "registration_gate_pass": false,
+ "gate_note": "Requires >=80% point and name-level lower bound, both labels, length baseline <=65%",
+ "tokens": {
+  "max_tokens": 256,
+  "rendered_max_before_truncation": 1018,
+  "texts_truncated": 48,
+  "texts": 80,
+  "unique_token_sequences": 80
+ },
+ "rows": [
+  {
+   "name": "GLOBOVISION",
+   "kind": "binding:listed",
+   "block_id": "development-302-True-0",
+   "source_id_metadata_only": "302",
+   "chosen": {
+    "bits": 1093739424,
+    "value": 11.071197509765625
+   },
+   "rejected": {
+    "bits": 1089848514,
+    "value": 7.680268287658691
+   },
+   "correct": true
+  },
+  {
+   "name": "PHOTON PRO LLP",
+   "kind": "binding:listed",
+   "block_id": "development-302-True-0",
+   "source_id_metadata_only": "302",
+   "chosen": {
+    "bits": 1091799954,
+    "value": 9.221574783325195
+   },
+   "rejected": {
+    "bits": 1087133698,
+    "value": 6.385743141174316
+   },
+   "correct": true
+  },
+  {
+   "name": "DANESH SHIPPING COMPANY LIMITED",
+   "kind": "binding:listed",
+   "block_id": "development-302-True-1",
+   "source_id_metadata_only": "302",
+   "chosen": {
+    "bits": 1090931490,
+    "value": 8.393342971801758
+   },
+   "rejected": {
+    "bits": 1063809050,
+    "value": 0.9079605340957642
+   },
+   "correct": true
+  },
+  {
+   "name": "MOMTAZ ELECTRIC",
+   "kind": "binding:listed",
+   "block_id": "development-302-True-1",
+   "source_id_metadata_only": "302",
+   "chosen": {
+    "bits": 1092624635,
+    "value": 10.008051872253418
+   },
+   "rejected": {
+    "bits": 1055977672,
+    "value": 0.47058701515197754
+   },
+   "correct": true
+  },
+  {
+   "name": "First Breeze Limited",
+   "kind": "binding:exact_absent",
+   "block_id": "development-302-False-0",
+   "source_id_metadata_only": "302",
+   "chosen": {
+    "bits": 1088972063,
+    "value": 7.262343883514404
+   },
+   "rejected": {
+    "bits": 1084459648,
+    "value": 5.11065673828125
+   },
+   "correct": true
+  },
+  {
+   "name": "RES B.V.",
+   "kind": "binding:exact_absent",
+   "block_id": "development-302-False-0",
+   "source_id_metadata_only": "302",
+   "chosen": {
+    "bits": 1086749241,
+    "value": 6.202419757843018
+   },
+   "rejected": {
+    "bits": 1086543972,
+    "value": 6.10453987121582
+   },
+   "correct": true
+  },
+  {
+   "name": "JYOTHI QUARTZ INDIA PRIVATE LIMITED",
+   "kind": "binding:exact_absent",
+   "block_id": "development-302-False-1",
+   "source_id_metadata_only": "302",
+   "chosen": {
+    "bits": 1086508172,
+    "value": 6.087469100952148
+   },
+   "rejected": {
+    "bits": 1045791173,
+    "value": 0.2085028439760208
+   },
+   "correct": true
+  },
+  {
+   "name": "CUTWELL ABRASIVES PRIVATE LIMITED",
+   "kind": "binding:exact_absent",
+   "block_id": "development-302-False-1",
+   "source_id_metadata_only": "302",
+   "chosen": {
+    "bits": 1089612008,
+    "value": 7.567493438720703
+   },
+   "rejected": {
+    "bits": 1042798356,
+    "value": 0.16390639543533325
+   },
+   "correct": true
+  },
+  {
+   "name": "ADVANCED PERSISTENT THREAT 39",
+   "kind": "binding:listed",
+   "block_id": "development-9002-True-0",
+   "source_id_metadata_only": "9002",
+   "chosen": {
+    "bits": 1083988847,
+    "value": 4.8861613273620605
+   },
+   "rejected": {
+    "bits": 3206242577,
+    "value": -0.6069498658180237
+   },
+   "correct": true
+  },
+  {
+   "name": "JOINT STOCK COMPANY VNIIR PROGRESS",
+   "kind": "binding:listed",
+   "block_id": "development-9002-True-0",
+   "source_id_metadata_only": "9002",
+   "chosen": {
+    "bits": 1088908238,
+    "value": 7.23190975189209
+   },
+   "rejected": {
+    "bits": 1084669421,
+    "value": 5.210684299468994
+   },
+   "correct": true
+  },
+  {
+   "name": "LIMITED LIABILITY COMPANY GENERAL CONTRACTOR MFS",
+   "kind": "binding:listed",
+   "block_id": "development-9002-True-1",
+   "source_id_metadata_only": "9002",
+   "chosen": {
+    "bits": 1088694137,
+    "value": 7.129818439483643
+   },
+   "rejected": {
+    "bits": 3215429620,
+    "value": -1.3090806007385254
+   },
+   "correct": true
+  },
+  {
+   "name": "YUESEM MARKIROVKA OOO",
+   "kind": "binding:listed",
+   "block_id": "development-9002-True-1",
+   "source_id_metadata_only": "9002",
+   "chosen": {
+    "bits": 1091072875,
+    "value": 8.528178215026855
+   },
+   "rejected": {
+    "bits": 1085965981,
+    "value": 5.828932285308838
+   },
+   "correct": true
+  },
+  {
+   "name": "UMA DEVI AGRAWAL",
+   "kind": "binding:exact_absent",
+   "block_id": "development-9002-False-0",
+   "source_id_metadata_only": "9002",
+   "chosen": {
+    "bits": 1082339847,
+    "value": 4.099856853485107
+   },
+   "rejected": {
+    "bits": 1075721233,
+    "value": 2.4719278812408447
+   },
+   "correct": true
+  },
+  {
+   "name": "FINANCIERE TURIN",
+   "kind": "binding:exact_absent",
+   "block_id": "development-9002-False-0",
+   "source_id_metadata_only": "9002",
+   "chosen": {
+    "bits": 1081065995,
+    "value": 3.74621844291687
+   },
+   "rejected": {
+    "bits": 1084906910,
+    "value": 5.323927879333496
+   },
+   "correct": false
+  },
+  {
+   "name": "SEIKH MEHMUD ALI",
+   "kind": "binding:exact_absent",
+   "block_id": "development-9002-False-1",
+   "source_id_metadata_only": "9002",
+   "chosen": {
+    "bits": 1083574312,
+    "value": 4.688495635986328
+   },
+   "rejected": {
+    "bits": 1083630728,
+    "value": 4.715396881103516
+   },
+   "correct": false
+  },
+  {
+   "name": "MEHAR RICE MILLS",
+   "kind": "binding:exact_absent",
+   "block_id": "development-9002-False-1",
+   "source_id_metadata_only": "9002",
+   "chosen": {
+    "bits": 1082467500,
+    "value": 4.160726547241211
+   },
+   "rejected": {
+    "bits": 1079670451,
+    "value": 3.413494825363159
+   },
+   "correct": true
+  },
+  {
+   "name": "GHARCHAK PRISON",
+   "kind": "binding:listed",
+   "block_id": "development-4433-True-0",
+   "source_id_metadata_only": "4433",
+   "chosen": {
+    "bits": 1082389358,
+    "value": 4.123465538024902
+   },
+   "rejected": {
+    "bits": 1085200340,
+    "value": 5.463846206665039
+   },
+   "correct": false
+  },
+  {
+   "name": "UNITED WA STATE ARMY",
+   "kind": "binding:listed",
+   "block_id": "development-4433-True-0",
+   "source_id_metadata_only": "4433",
+   "chosen": {
+    "bits": 1083321712,
+    "value": 4.568046569824219
+   },
+   "rejected": {
+    "bits": 1084090482,
+    "value": 4.934624671936035
+   },
+   "correct": false
+  },
+  {
+   "name": "EMBRACE QUE LIMITED",
+   "kind": "binding:listed",
+   "block_id": "development-4433-True-1",
+   "source_id_metadata_only": "4433",
+   "chosen": {
+    "bits": 1081549216,
+    "value": 3.8614273071289062
+   },
+   "rejected": {
+    "bits": 1083642494,
+    "value": 4.721007347106934
+   },
+   "correct": false
+  },
+  {
+   "name": "OOO SERTAL",
+   "kind": "binding:listed",
+   "block_id": "development-4433-True-1",
+   "source_id_metadata_only": "4433",
+   "chosen": {
+    "bits": 1079981638,
+    "value": 3.487687587738037
+   },
+   "rejected": {
+    "bits": 1087119328,
+    "value": 6.3788909912109375
+   },
+   "correct": false
+  },
+  {
+   "name": "INKO TECNOLOGIA SA DE CV",
+   "kind": "binding:exact_absent",
+   "block_id": "development-4433-False-0",
+   "source_id_metadata_only": "4433",
+   "chosen": {
+    "bits": 1083096352,
+    "value": 4.4605865478515625
+   },
+   "rejected": {
+    "bits": 1089623150,
+    "value": 7.572806358337402
+   },
+   "correct": false
+  },
+  {
+   "name": "SHIV BIOFUEL INDUSTRY",
+   "kind": "binding:exact_absent",
+   "block_id": "development-4433-False-0",
+   "source_id_metadata_only": "4433",
+   "chosen": {
+    "bits": 1083006934,
+    "value": 4.4179487228393555
+   },
+   "rejected": {
+    "bits": 1077622396,
+    "value": 2.9252004623413086
+   },
+   "correct": true
+  },
+  {
+   "name": "MEZCLAS Y FERTILIZANTES SA DE CV",
+   "kind": "binding:exact_absent",
+   "block_id": "development-4433-False-1",
+   "source_id_metadata_only": "4433",
+   "chosen": {
+    "bits": 1083474768,
+    "value": 4.641029357910156
+   },
+   "rejected": {
+    "bits": 1078847782,
+    "value": 3.217355251312256
+   },
+   "correct": true
+  },
+  {
+   "name": "PROTECH MICROSYSTEMS INDIA PRIVATE LIMITED",
+   "kind": "binding:exact_absent",
+   "block_id": "development-4433-False-1",
+   "source_id_metadata_only": "4433",
+   "chosen": {
+    "bits": 1082329272,
+    "value": 4.094814300537109
+   },
+   "rejected": {
+    "bits": 1076052978,
+    "value": 2.5510220527648926
+   },
+   "correct": true
+  },
+  {
+   "name": "LLC PSO RSB-GROUP",
+   "kind": "binding:listed",
+   "block_id": "development-78021-True-0",
+   "source_id_metadata_only": "78021",
+   "chosen": {
+    "bits": 1089739018,
+    "value": 7.628056526184082
+   },
+   "rejected": {
+    "bits": 3238742272,
+    "value": -8.705322265625
+   },
+   "correct": true
+  },
+  {
+   "name": "NATIONAL LOTTERY OOD",
+   "kind": "binding:listed",
+   "block_id": "development-78021-True-0",
+   "source_id_metadata_only": "78021",
+   "chosen": {
+    "bits": 1084228620,
+    "value": 5.000494003295898
+   },
+   "rejected": {
+    "bits": 3239192286,
+    "value": -9.134489059448242
+   },
+   "correct": true
+  },
+  {
+   "name": "AL-MUKHTAR COMPANIES",
+   "kind": "binding:listed",
+   "block_id": "development-78021-True-1",
+   "source_id_metadata_only": "78021",
+   "chosen": {
+    "bits": 1082877636,
+    "value": 4.356294631958008
+   },
+   "rejected": {
+    "bits": 3239432810,
+    "value": -9.363870620727539
+   },
+   "correct": true
+  },
+  {
+   "name": "AO NPO KURGANPRIBOR",
+   "kind": "binding:listed",
+   "block_id": "development-78021-True-1",
+   "source_id_metadata_only": "78021",
+   "chosen": {
+    "bits": 1080081558,
+    "value": 3.5115103721618652
+   },
+   "rejected": {
+    "bits": 3238596703,
+    "value": -8.566496849060059
+   },
+   "correct": true
+  },
+  {
+   "name": "PHARMACIE DES REYNATS",
+   "kind": "binding:exact_absent",
+   "block_id": "development-78021-False-0",
+   "source_id_metadata_only": "78021",
+   "chosen": {
+    "bits": 1091973182,
+    "value": 9.386777877807617
+   },
+   "rejected": {
+    "bits": 3238362256,
+    "value": -8.342910766601562
+   },
+   "correct": true
+  },
+  {
+   "name": "BINEAU INVESTISSEMENTS",
+   "kind": "binding:exact_absent",
+   "block_id": "development-78021-False-0",
+   "source_id_metadata_only": "78021",
+   "chosen": {
+    "bits": 1089715334,
+    "value": 7.616763114929199
+   },
+   "rejected": {
+    "bits": 3236967122,
+    "value": -7.506203651428223
+   },
+   "correct": true
+  },
+  {
+   "name": "LES ALIZES",
+   "kind": "binding:exact_absent",
+   "block_id": "development-78021-False-1",
+   "source_id_metadata_only": "78021",
+   "chosen": {
+    "bits": 1091026289,
+    "value": 8.483750343322754
+   },
+   "rejected": {
+    "bits": 3229614917,
+    "value": -4.000399112701416
+   },
+   "correct": true
+  },
+  {
+   "name": "AMON GROUPE",
+   "kind": "binding:exact_absent",
+   "block_id": "development-78021-False-1",
+   "source_id_metadata_only": "78021",
+   "chosen": {
+    "bits": 1085999150,
+    "value": 5.844748497009277
+   },
+   "rejected": {
+    "bits": 3233188223,
+    "value": -5.704284191131592
+   },
+   "correct": true
+  },
+  {
+   "name": "YEMEN ABBOT TRADING CO., LTD.",
+   "kind": "binding:listed",
+   "block_id": "development-710637-True-0",
+   "source_id_metadata_only": "710637",
+   "chosen": {
+    "bits": 1088899268,
+    "value": 7.227632522583008
+   },
+   "rejected": {
+    "bits": 1081408876,
+    "value": 3.827967643737793
+   },
+   "correct": true
+  },
+  {
+   "name": "HAMOON SEPAHAN COMMERCIAL TRADING",
+   "kind": "binding:listed",
+   "block_id": "development-710637-True-0",
+   "source_id_metadata_only": "710637",
+   "chosen": {
+    "bits": 1085602108,
+    "value": 5.655424118041992
+   },
+   "rejected": {
+    "bits": 3209127670,
+    "value": -0.7789148092269897
+   },
+   "correct": true
+  },
+  {
+   "name": "TABRIZ PETROCHEMICAL COMPANY",
+   "kind": "binding:listed",
+   "block_id": "development-710637-True-1",
+   "source_id_metadata_only": "710637",
+   "chosen": {
+    "bits": 1090668288,
+    "value": 8.142333984375
+   },
+   "rejected": {
+    "bits": 1081516406,
+    "value": 3.853604793548584
+   },
+   "correct": true
+  },
+  {
+   "name": "RUNNING BROOK, LLC (USA)",
+   "kind": "binding:listed",
+   "block_id": "development-710637-True-1",
+   "source_id_metadata_only": "710637",
+   "chosen": {
+    "bits": 1090433914,
+    "value": 7.959408760070801
+   },
+   "rejected": {
+    "bits": 1090220198,
+    "value": 7.857501029968262
+   },
+   "correct": true
+  },
+  {
+   "name": "West Street Private Opportunities (A) Sub-Fund 4 US SDL Holdings LLC",
+   "kind": "binding:exact_absent",
+   "block_id": "development-710637-False-0",
+   "source_id_metadata_only": "710637",
+   "chosen": {
+    "bits": 1091397161,
+    "value": 8.837441444396973
+   },
+   "rejected": {
+    "bits": 1061366585,
+    "value": 0.7623782753944397
+   },
+   "correct": true
+  },
+  {
+   "name": "FIDELITY INSTITUTIONAL AM HYBRID TARGET DATE SERIES",
+   "kind": "binding:exact_absent",
+   "block_id": "development-710637-False-0",
+   "source_id_metadata_only": "710637",
+   "chosen": {
+    "bits": 1092447850,
+    "value": 9.839456558227539
+   },
+   "rejected": {
+    "bits": 1081412174,
+    "value": 3.82875394821167
+   },
+   "correct": true
+  },
+  {
+   "name": "ISONIC INVESTISSEMENTS",
+   "kind": "binding:exact_absent",
+   "block_id": "development-710637-False-1",
+   "source_id_metadata_only": "710637",
+   "chosen": {
+    "bits": 1091906616,
+    "value": 9.323295593261719
+   },
+   "rejected": {
+    "bits": 1091881302,
+    "value": 9.299154281616211
+   },
+   "correct": true
+  },
+  {
+   "name": "Sunrise Energy (B.C.) Corp",
+   "kind": "binding:exact_absent",
+   "block_id": "development-710637-False-1",
+   "source_id_metadata_only": "710637",
+   "chosen": {
+    "bits": 1092878776,
+    "value": 10.250419616699219
+   },
+   "rejected": {
+    "bits": 1088273312,
+    "value": 6.9291534423828125
+   },
+   "correct": true
+  }
+ ],
+ "by_kind": {
+  "binding:exact_absent": {
+   "pairs": 20,
+   "accuracy": 0.85
+  },
+  "binding:listed": {
+   "pairs": 20,
+   "accuracy": 0.8
+  }
+ },
+ "by_source_id_metadata_only": {
+  "302": {
+   "pairs": 8,
+   "accuracy": 1.0
+  },
+  "4433": {
+   "pairs": 8,
+   "accuracy": 0.375
+  },
+  "710637": {
+   "pairs": 8,
+   "accuracy": 1.0
+  },
+  "78021": {
+   "pairs": 8,
+   "accuracy": 1.0
+  },
+  "9002": {
+   "pairs": 8,
+   "accuracy": 0.75
+  }
+ },
+ "reversal_blocks": {
+  "blocks": 20,
+  "all_comparisons_correct": 15,
+  "all_correct_fraction": 0.75,
+  "wilson_95_lower": 0.5312949900419365
+ }
+}

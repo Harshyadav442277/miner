@@ -14,6 +14,8 @@ commit.
 - [x] Reconcile Evaluator rubric; draft submission, tutorial and separate-date update plans.
 - [x] Finish v6 pilot, export/Stage 1 and node measurement. Fresh set: 79.17% vs v3 83.33%, length 100%.
 - [ ] New independent final set: more names, both classes and source/length-balanced mistakes.
+- [x] Build and measure a separate reversal-balanced query-binding benchmark: v7 40/40 vs v6 36/40.
+- [ ] Resolve the overlapping-bank-name regression in both directions; verify on new public bank names.
 - [ ] Only after sanctions quality gate: fresh hosted hash, public executor check, read-only cast dry run,
       exact Anjoman values. Do not reuse the rejected v3 table. FX_NOW remains a separate session's flow.
 - [ ] Owner: actual separate-date publications, independent activation evidence, demo and final submission.

@@ -1,0 +1,12 @@
+{
+ "url": "https://paste.rs/piiTv",
+ "method": "GET",
+ "request_body": null,
+ "started_at": "2026-11-01T19:45:20.505269+00:00",
+ "finished_at": "2026-11-01T19:45:22.957174+00:00",
+ "status": 200,
+ "curl_exit": 0,
+ "error": "",
+ "sha256": "828b7e56bb875cdce61c7bf724c94fcc67eb920271eaa5c5603ae9a9c2c77213",
+ "body": "version: \"1\"\nkind: miner\nid: 78003\nslug: san-ofac-sdn\nprotocol: generic\nname: OFAC SDN XML\ndescription: >\n  US OFAC Specially Designated Nationals list. Intent SANCTIONS_SCREENING_MATCH.\n\nbase_url: https://www.treasury.gov\n\nauth:\n  type: none\n\nrate_limit_per_sec: 1\ncache_ttl_sec: 60\ncircuit_threshold: 5\ncircuit_cooldown_seconds: 30\n\ndocs:\n  documentation: https://ofac.treasury.gov/specially-designated-nationals-list-sdn-list\n  website: https://ofac.treasury.gov\n\nendpoints:\n  - path: /query\n    external_path: /ofac/downloads/sdn.xml\n    method: GET\n    description: Query for intent SANCTIONS_SCREENING_MATCH via OFAC SDN XML.\n    intents: [SANCTIONS_SCREENING_MATCH]\n\ninput_schema:\n  type: object\n  required: []\n  properties: {}\n\nsemantics:\n  signal_mapping:\n    label_field: sdnList\n  supported_intents:\n    - SANCTIONS_SCREENING_MATCH\n\non_chain:\n  description: Stores signal for SANCTIONS_SCREENING_MATCH.\n  transform: direct\n  min_price_usdc: 0.01\n  fields:\n    strings:\n      - index: 0\n        name: result\n        description: Primary result\n        source_path: result\n      - index: 1\n        name: intent\n        description: Intent name\n        source_path: intent\n    integers:\n      - index: 0\n        name: ok\n        description: Success flag\n        source_path: ok\n\n"
+}

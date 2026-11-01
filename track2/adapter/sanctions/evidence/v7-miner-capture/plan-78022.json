@@ -1,0 +1,13 @@
+{
+ "base_url": "https://omni-chat.13.237.89.59.sslip.io",
+ "path": "/truth/san-un",
+ "method": "GET",
+ "parameters": [
+  "entity"
+ ],
+ "queryable": true,
+ "required": [
+  "entity"
+ ],
+ "min_interval_seconds": 1.0
+}
