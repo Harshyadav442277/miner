@@ -1,5 +1,18 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-01 ~06:50 UTC devnode re-check from the Track 2 session — G246 new; G235, G238 updated
+
+- **G246 — CRYPTO_PRICE_USD is scored now, and 4829 is not. `OPEN, Track 1, not investigated`.** Devnode
+  `/api/miners` scores: CRYPTO_PRICE_USD 27 miners at epoch 1957 (also FX_NOW_EUR and six judgment families).
+  `/api/miners/4829`: `active`, `scores: []`. So G235's "no decimals" blocker is gone for this intent (the
+  intent still reads `onchain.ready: false`), and something else keeps LiveCert out. Unchecked candidates:
+  the 7-day grace period, the family-vs-child intent name, or our answers failing the comparator.
+- **G235 update:** SSL_VERIFICATION_CERT (`ready`, 1 eligible row) and WEATHER_CHECK_TEMPERATURE (`ready`, 3 rows
+  from 2 contributors) score no miner. A truth source alone does not make an intent scored (WINNING E1: no, for
+  now). Judgment intents need a canonical adapter: track2 MEMORY 2026-11-01.
+- **G238 update: UNBLOCKED.** The foundation and the reference executor are published; our delta is exported and
+  passes Stage 1 and a foundation load (track2 GAPS G34, G35).
+
 ## 2026-10-31 ~18:40 UTC docs and devnode re-check — G237 killed; G235 revised; G238–G240 new
 
 Facts and sources: docs/TELEGRAPH_FACTS.md, top section.

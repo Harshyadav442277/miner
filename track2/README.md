@@ -13,6 +13,8 @@ All of it remains in git history.
 |---|---|
 | [ARCHITECTURE.md](ARCHITECTURE.md) | Season II design decisions: comparators, wide adapters, node-reproduced proof |
 | [GAPS.md](GAPS.md), [MEMORY.md](MEMORY.md) | Open gaps and session state |
+| [adapter/score_pairs.py](adapter/score_pairs.py) | Scores preference pairs through a runnable-URL executor (the kit's `adapterexec`) exactly as the node orders them; per-type accuracy and the length baseline |
+| [adapter/event_outcome/](adapter/event_outcome/) | EVENT_OUTCOME_RESOLUTION training data: Wikidata fetch and the pair builder |
 
 `calibration/dist/text_authenticity_v2.wasm` (registration 1882, Season I) was deleted on 2026-10-29. Devnode's
 V2 `/api/wasm` no longer lists 1882 or TEXT_AUTHENTICITY_CHECK: 7 families, with registration ids restarted.

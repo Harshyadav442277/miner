@@ -16,12 +16,20 @@ with a minimum of 28; integrity 20; reproducibility 15; coverage 20; docs 5.
   - It must reproduce the network's reference rule exactly; the docs say there is no "better" comparator.
   - So the work is correctness, proved: a line-for-line port, checked in the node's own runtime against the
     reference on every edge case and on a large seeded random set.
-- **Judgment and hybrid intents get a wide adapter.**
-  - It is a ModernBERT-base LoRA reward model, packaged with the kit `telegraph-wasm-baseline` (branch
-    `feature/v2-integration`) as one `.wasm` of about 1.2 GB.
-  - It competes on a hidden pool of 200 preference pairs. The first canonical module needs ≥ 70%; a
-    challenger must beat the incumbent by 2 points. Nothing is evaluated before an intent's pool holds
-    material from 5 contributors.
+- **Judgment and hybrid intents get an adapter delta (rewritten 2026-11-01).**
+  - It is a ModernBERT-base LoRA reward model (rank ≤ 16 on Wqkv/Wo/Wi plus a one-number head), exported
+    with the kit `telegraph-wasm-baseline` `main` as a safetensors delta of ~6.8 MB for the shared Foundation
+    Model `modernbert-base-lora16-v1`. Full-model `.wasm` is refused (`legacy_full_model`).
+  - The class in the package must be the **live** class from `/engine/v1/intents/<INTENT>_GENERAL`, not the
+    kit's compiled list: EVENT_OUTCOME_RESOLUTION and SANCTIONS_SCREENING_MATCH are listed hybrid in the kit
+    and judgment on the node (another author's registration 30 was rejected for this, 2026-11-01).
+  - The node first scores 15 public pairs at our runnable URL (≥ 70% to pass), re-scores them itself bit for
+    bit, then runs the hidden round. The first canonical needs ≥ 70%; a challenger must beat the incumbent by
+    2 points. Nothing is evaluated before an intent's pool holds material from 5 contributors.
+  - Training data comes only from public primary sources we may use (Wikidata CC0, US-government data), with
+    the source URL on every row; never from pool rows, ranking-half questions or another author's weights.
+  - Validation and test splits are by event series (or the intent's equivalent), so the reported accuracy is
+    on items the model never saw. Results are reported per failure type, not only overall.
 
 ## A2 — A number counts only if the node reproduces it
 

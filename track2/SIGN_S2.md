@@ -1,5 +1,51 @@
 # Season II Track 2: publish commands and sign list
 
+## V2, 2026-11-01: register the EVENT_OUTCOME_RESOLUTION adapter — READY (owner: ETH, claim, register)
+
+Owner's yes to "set it up" (hosting and tunnel), 2026-11-01. **Prepared and checked by Claude; nothing signed or
+sent.** Transactions are the owner's, on Ethereum Sepolia.
+
+**Why:** EVENT_OUTCOME_RESOLUTION is a judgment intent with 5 pool contributors and no canonical adapter (29 miners,
+LiveCert among them, are unranked in it). The first adapter at ≥ 70% becomes canonical. **Risk (GAPS G38):** the
+adapter is 100% on structural failures and at chance on factual flips; if the hidden pool is mostly factual flips it
+fails the 15-pair public check, which costs gas and leaves the bond to be released by deregistering.
+
+| | |
+|---|---|
+| Package | `EVENT_OUTCOME_RESOLUTION.safetensors`, 6,776,916 B, sha256 `8f0de689…90ed` |
+| keccak256 | `0xc23ad1c6268d27f1a33de975c39b547844fef14e95868b5158f3e020e5b5e9e0` |
+| Hosted at | `https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/1d455d46d931436eec260b3cb405431fdb80d71b/season2/adapter/EVENT_OUTCOME_RESOLUTION/EVENT_OUTCOME_RESOLUTION.safetensors`: HTTP 200, 0 redirects, 4.2 s, re-hashed equal (branch `season2-adapters-v2`) |
+| Checks | Stage 1 + foundation load (kit `1ed063e` with the live class, `adapter/live_class/`); class `judgment` from `/engine/v1/intents/EVENT_OUTCOME_RESOLUTION_GENERAL` |
+| Executor | kit `adapterexec` on this laptop, serving the downloaded hosted bytes on 127.0.0.1:8081; `adapter/check_executor.py`: PASS (identity echo, deterministic bits `0x401da773`, equal to adapterbuild's) |
+| Runnable URL | `https://favourite-prohibited-rebate-treasure.trycloudflare.com/` — Cloudflare quick tunnel (cloudflared 2026.10.7) → `adapter/fanout_exec.py` on 127.0.0.1:8090 → 3 `adapterexec` workers (8081–8083) on the hosted bytes. `check_executor.py` PASS through the tunnel, bits equal to loopback; worst-case 30 × 243-token batch 74 s (Cloudflare cuts at 100 s; one worker took 126 s → 524). **The URL changes if cloudflared restarts: re-check before signing** (G39) |
+| Prefix | `EVENT_OUTCOME_RESOLUTION` is registrable: registration 30 (another author) used it on 2026-11-01 |
+| Wallet `0xdAd2…A39e` | 0 Sepolia ETH, 5.0 MACHINA (read 2026-11-01). Claim 3.35 MACHINA on Anjoman Activity after getting ETH |
+
+**Steps (owner):**
+
+1. Sepolia ETH to the wallet; then Anjoman → Activity → Claim all (≈ 8.35 MACHINA after).
+2. Tell Claude before signing; Claude re-runs `check_executor.py --url <public> --compare http://127.0.0.1:8081/`.
+   The laptop stays on, lid open, awake and online until `/api/wasm/<id>` leaves `pending` (about 1.5 h).
+3. Register, either way:
+   - **Anjoman → Evaluate:** paste the hosted URL above, Verify & hash (must show the keccak above), and only if
+     step 3 asks for a runnable URL, enter it and publish. If it does not ask, use the direct call.
+   - **Direct (Foundry):**
+     ```bash
+     export RPC=https://ethereum-sepolia-rpc.publicnode.com
+     export DIAMOND=0x3624EB012B5E998BB57B6bE6C9Cfc9c4bc5eb99b
+     export MACHINA=0xd68305cA83C7AF42A4F720144E7416fB53F8AaF4
+     export ME=0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e
+     export WASM_HASH=0xc23ad1c6268d27f1a33de975c39b547844fef14e95868b5158f3e020e5b5e9e0
+     export WASM_URL=https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/1d455d46d931436eec260b3cb405431fdb80d71b/season2/adapter/EVENT_OUTCOME_RESOLUTION/EVENT_OUTCOME_RESOLUTION.safetensors
+     export RUNNABLE=https://favourite-prohibited-rebate-treasure.trycloudflare.com/
+     cast send $MACHINA "approve(address,uint256)" $DIAMOND 20000000000000000000 --rpc-url $RPC --private-key $KEY
+     cast call --from $ME $DIAMOND "registerWasm(bytes32,string,string,address,string)(uint256)" \
+       $WASM_HASH $WASM_URL EVENT_OUTCOME_RESOLUTION $ME $RUNNABLE --rpc-url $RPC      # dry run: must print a number
+     cast send $DIAMOND "registerWasm(bytes32,string,string,address,string)" \
+       $WASM_HASH $WASM_URL EVENT_OUTCOME_RESOLUTION $ME $RUNNABLE --rpc-url $RPC --private-key $KEY
+     ```
+4. Claude follows `GET /api/wasm/<registrationId>` to `active` / `canonical` or a rejection reason.
+
 ## V2, 2026-10-31: register the CRYPTO_PRICE comparator — WITHDRAWN 18:40 UTC, do not run
 
 **Do not sign this.** Re-checked the same evening: FX_NOW_EUR is scored at epoch 1945 with every FX_NOW comparator

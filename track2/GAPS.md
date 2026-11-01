@@ -4,7 +4,57 @@ The Season I gaps (G13–G27: rank_answer corpora, calibration thresholds, regis
 The modules they describe are retired: they were deleted from the tree, and the V2 registry no longer lists 1882.
 They are in `git log -p -- track2/GAPS.md`.
 
-## G34 — the adapter format changed again: safetensors deltas on a shared Foundation Model (2026-10-31) — `OPEN, blocked on Telegraph`
+## G39 — no public tunnel for the executor yet (2026-11-01) — `WORKAROUND 14:50 IST`
+
+**Update:** owner chose cloudflared (winget, 2026.10.7, installer hash verified). A quick tunnel has a 100 s
+response cap: one `adapterexec` took 126 s on a worst-case 30-text batch (HTTP 524). `track2/adapter/fanout_exec.py`
+splits the batch over 3 workers: 74 s, 200. Remaining risks: the quick-tunnel URL is ephemeral (a restart gives a new
+one, which would not match a signed registration); 3 workers leave ~1.2 GB RAM free; a larger pool text than 256
+tokens is truncated by the node too, so 74 s is the ceiling on this CPU. The original text follows.
+
+The account's one ngrok domain (`grippelike-foliiferous-richie.ngrok-free.dev`) is already online from another
+machine, serving "The Archive of Constantinople"; ngrok refuses a second agent (ERR_NGROK_334). Not touched.
+Options: install Cloudflare's `cloudflared` for a quick tunnel; stop the other ngrok agent for the registration
+window; or a VM. The validator needs a public https URL, no redirect, for about 1.5 h.
+
+## G38 — the EVENT_OUTCOME_RESOLUTION adapter cannot verify facts about events it never saw (2026-11-01) — `OPEN, the main risk`
+
+Node runtime, 200 test pairs from event series held out of training (`runs-v2\EVENT_OUTCOME_RESOLUTION\
+node_scores_test200.json`): 75.5% overall, 0 ties, length baseline 0.42. By failure type: contradiction 12/12,
+prediction 17/17, unresolved 13/13, wrong_event 61/61, **flipped 51.9% (52), wrong_winner 46.7% (45)**. The kit's
+own test gate: 74.7% on 2,566 pairs. So the model checks form, internal consistency and relevance, not who
+actually won; a 150M encoder cannot know unseen outcomes. Whether it clears 70% on the hidden pool depends on how
+many of the pool's worse answers are factual flips, which we cannot see. Not yet measured: the famous-event
+subset (high sitelinks), where pretraining may know the answer. Say this limitation wherever the adapter is
+claimed.
+
+## G37 — which text does a judgment adapter see for a ranked miner answer: prose or the response JSON? (2026-11-01) — `OPEN`
+
+The docs say a hybrid adapter sees "the miner's whole response"; for judgment intents they say only "a miner's
+answer". Pool rows are contributor prose. Our EVENT_OUTCOME_RESOLUTION data renders 40% of pairs as the intent's
+response JSON and 60% as prose, so either reading is covered. Close it by asking Telegraph, or from a ranked
+epoch's record if one is ever published.
+
+## G36 — the kit's compiled class list disagrees with the live node (2026-11-01) — `OPEN, workaround in use`
+
+`pkg/scoring/catalog` lists EVENT_OUTCOME_RESOLUTION and SANCTIONS_SCREENING_MATCH as hybrid;
+`/engine/v1/intents/<INTENT>_GENERAL` says `judgment` for both, and registration 30 (another author) was rejected
+`class_mismatch: class "hybrid", the intent needs "judgment"`. We export with the live class (ARCHITECTURE A1).
+Worth reporting to Telegraph: it will cost every adapter author a bond cycle.
+
+## G35 — the tokenizer saved with our October run differs from the pinned one (2026-11-01) — `CLOSED`
+
+`export_adapter` refused `runs/LLM_OUTPUT_EVALUATION/adapter/tokenizer.json` (sha256 `a4285a69…`, pinned
+`67bc76f8…`). The only difference is `truncation.max_length` (256 saved by training, 1536 pinned); token ids are
+identical on all 22,800 rendered training texts. The pinned file was copied into the export copy
+(`C:\Users\hyada\tg-eval\runs-v2\`), not the original run. Export, Stage 1 and the foundation load then passed.
+
+## G34 — the adapter format changed again: safetensors deltas on a shared Foundation Model (2026-10-31) — `UNBLOCKED 2026-11-01`
+
+**Update 2026-11-01:** Telegraph published `telegraphprotocol/telegraph-foundation` release
+`modernbert-base-lora16-v1` (2026-10-31 18:19 UTC; all four sha256 checked `OK`) and the reference executor
+`cmd/adapterexec` (kit `main` `1ed063e`). Our LLM_OUTPUT_EVALUATION delta is exported and passes Stage 1 and the
+foundation load (track2 MEMORY, 2026-11-01). The original text follows.
 
 `/docs/scoring/upgrade-shared-foundation` (updated 2026-10-31): an adapter is a LoRA delta plus a reward head in a
 safetensors file; full-model `.wasm` is refused (`legacy_full_model`). Devnode already runs it (seeds 900001–900004
