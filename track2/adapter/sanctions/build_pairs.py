@@ -8,8 +8,9 @@ for an unlisted name it reports no match. The worse answer is one of:
   contradiction  the verdict disagrees with the answer's own score (NO MATCH at 0.96, MATCH at 0.12)
   wrong_entity   a correct-looking screening of a different name
   refusal        declines or hedges (kept to STYLE_SHARE: it has its own vocabulary)
-Both answers share one shape (FORMATS): prose, the full response JSON, thin JSON, a bare {"matched": bool}, or a
-one-line verdict. Bare and one-line answers carry only the verdict, so their worse answer is always flipped.
+Each answer has a shape (FORMATS): prose, the full response JSON, thin JSON, a bare {"matched": bool}, or a
+one-line verdict; half the pairs mix two shapes (CROSS_SHARE). A bare or one-line worse answer carries only the
+verdict, so it is always flipped.
 Unlisted names are recombined from listed individuals' own first and last names (and listed
 vessels' and entities' own words), then checked against every listed name and alias, so both
 classes come from the same name distribution. The split is by SDN entity: val and test entities
@@ -64,6 +65,9 @@ PROSE = {
 # Answer shapes, so the verdict is judged however a miner words it (the first build knew only prose and full JSON,
 # and scored 60% on bare verdicts and string-match JSON).
 FORMATS = {"prose": 0.3, "json": 0.25, "min_json": 0.2, "bare": 0.1, "word": 0.15}
+# The adapter scores each answer alone, so a short right answer must outscore a detailed wrong one: this share of
+# pairs draws the worse answer's shape independently (v2, same shape only, scored 0% on short-right/rich-wrong).
+CROSS_SHARE = 0.5
 # Short verdicts name the query, except a NAMELESS share kept under the kit's 2% cap on any one rejected answer.
 NAMELESS = 0.2
 WORD = {
@@ -243,10 +247,12 @@ def main():
         rng.shuffle(rows)
         with open(os.path.join(a.out_dir, f"{split}.jsonl"), "w", encoding="utf-8") as f:
             for q, kind, e in rows:
-                fmt = rng.choices(list(FORMATS), weights=list(FORMATS.values()))[0]
-                how, question, good, bad = make_pair(q, kind, e, part, rng, fmt)
+                fg = rng.choices(list(FORMATS), weights=list(FORMATS.values()))[0]
+                fb = rng.choices(list(FORMATS), weights=list(FORMATS.values()))[0] if rng.random() < CROSS_SHARE else fg
+                how, question, good, bad = make_pair(q, kind, e, part, rng, fb)
                 t = rng.randrange(1000)
-                chosen, rejected = render(good, fmt, t), render(bad, fmt, t)
+                chosen, rejected = render(good, fg, t), render(bad, fb, t)
+                fmt = fg if fg == fb else f"{fg}/{fb}"
                 if chosen == rejected:
                     continue
                 f.write(json.dumps({"prompt": question, "chosen": chosen, "rejected": rejected,

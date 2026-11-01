@@ -21,6 +21,11 @@ def shapes(q, hit):
     yield json.dumps({"matched": good["matched"]}), json.dumps({"matched": bad["matched"]}), "bare_bool"
     w = lambda m: "Match" if m else "No match"
     yield w(good["matched"]), w(bad["matched"]), "one_word"
+    # mixed shapes, as hand-written pool rows tend to be: one detailed answer against one short one
+    rich = (lambda m: f"{q} matches an OFAC SDN entry ({q}); block the transaction and escalate for review." if m
+            else f"Screened {q} against the OFAC SDN and UN consolidated lists: no entries found.")
+    yield rich(good["matched"]), w(bad["matched"]), "rich_vs_short"
+    yield w(good["matched"]), rich(bad["matched"]), "short_vs_rich"
 
 
 sdn = open(sys.argv[1], encoding="latin-1").read().upper()

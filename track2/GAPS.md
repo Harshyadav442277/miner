@@ -4,7 +4,16 @@ The Season I gaps (G13–G27: rank_answer corpora, calibration thresholds, regis
 The modules they describe are retired: they were deleted from the tree, and the V2 registry no longer lists 1882.
 They are in `git log -p -- track2/GAPS.md`.
 
-## G40 — the first SANCTIONS_SCREENING_MATCH adapter only judged our own answer shapes (2026-11-01) — `OPEN, v2 training`
+## G40 — the first SANCTIONS_SCREENING_MATCH adapter only judged our own answer shapes (2026-11-01) — `OPEN, v3 training`
+
+**v2 (17:30 IST, keccak `0x7cf777b7…562a`, not hosted):** kit test 91.2%, but the probe (now 80 pairs, with
+mixed shapes) gave **57.5%**. With one detailed and one short answer it always preferred the detailed one:
+right-detailed 100%, right-short 0%. Every v2 pair kept both answers in one shape, and the adapter scores each
+answer alone, so it never learned a scale shared across shapes. Bare and one-word verdicts on listed names
+stayed at chance (50%, 12.5%): it does not know which names are listed. v3 draws the worse answer's
+shape independently in half the pairs (`CROSS_SHARE`; gate PASS, length 52.1%, surface 57.3%).
+One `adapterexec` worker died silently mid-run (`exec_8083_died.log`, no error line): the fan-out then answers 502.
+Before registering, watch the worker count during the remote check.
 
 v1 (`pairs/sanctions_v1`, keccak `0x23bbe60e…7145`, not hosted or registered) scored 95.1% on the kit test gate and
 96.0% on 200 held-out pairs in `adapterexec` (flipped 89.6%, the other kinds 100%). On 48 pairs written in
