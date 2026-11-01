@@ -51,11 +51,19 @@ fail, 2 unchecked (SEC needs a contact user agent). Evidence: `track1-miner/docs
 - **G245 — CONTENT_EXTRACTION ignored named fields when the text came in its own parameter. `FIXED, deployed 2026-11-01 (`130e16c`)`.** "Extract the invoice number, total, due date and contact email." named no
   field (the reader needed "… from …") and nothing read identifiers. Fixed in `content.ts`; 869/869 unit.
   Still open: a multi-category request repeats values across its "Also:" tails.
-- **G246 — Production cannot reach some badssl.com test hosts. `OPEN, external`.** From 2026-11-01 ~09:20 UTC
-  `/ssl-check` answers `unreachable` for expired, self-signed, wrong.host or untrusted-root.badssl.com, a different
-  host each run, on both `e63df93` and the previous `130e16c` deployment; all answer HTTP 200 from this machine.
-  Preflight is 5/7 because of it (intent answers 40/40 when re-run alone). Unknown whether Vercel egress or badssl
-  is at fault, and whether real hosts are affected (github.com answers `valid`). Re-check before the next release.
+- **G246 — badssl.com's server resets about a third of TLS handshakes. `CAUSE FOUND (external); gates fixed;
+  prose fix not deployed`.** From 2026-11-01 ~09:20 UTC `/ssl-check` answered `unreachable` for a different
+  badssl.com host each run. Checked 11:10–11:20 UTC: production gives `unreachable_reason: ECONNRESET`. Every
+  badssl host is one address (104.154.89.105), and **from this machine** a raw Node TLS handshake to it reset 7 of
+  20 per host and timed out 1 (even successes took 0.9–4 s), while `expired-rsa-dv.ssl.com` answered 20/20. So it
+  is badssl, not Vercel egress and not our code; real hosts are unaffected (github.com, ssl.com `valid`/`expired`).
+  The miner does not retry: a second try costs a caller up to ~4 s on a host still failing a third of the time.
+  Fix in the gates: `verify-deploy.mjs` and `intent-answers.mjs` retry a badssl case twice, then SKIP (the
+  `ssl.test.ts` policy), and also grade `expired-rsa-dv.ssl.com`, which must pass. Against production 11:19 UTC:
+  verify-deploy ALL PASSED (2 badssl SKIPs), intent answers 40/40.
+  Found while checking: the untrusted answer denied a trusted root, then said the chain was "building a trusted
+  path to a root", and failing verdicts started the chain sentence in lowercase. Fixed in `ssl.ts` (valid wording
+  unchanged); unit 871/871 and live-checked locally on all five verdicts. **Not deployed.**
 
 ## 2026-10-31 "LiveCert is not on the rankings" — G235, G236, G237; G230 deployed
 

@@ -128,6 +128,21 @@ describe("answer completeness (live)", () => {
     assert.match(r.reason, /certificate validity/i);
   });
 
+  test("a failing answer states the chain as its own sentence and never claims a trusted root", async (t) => {
+    // G246: the untrusted answer said the chain "does not reach a trusted root", then
+    // "the server presented a complete chain ..., building a trusted path to a root".
+    const cases: Array<[string, string]> = [["expired-rsa-dv.ssl.com", "expired"], ["untrusted-root.badssl.com", "untrusted"]];
+    for (const [host, verdict] of cases) {
+      let r = await checkCertificate(host, 443, 12_000);
+      if (r.verdict === "unreachable") r = await checkCertificate(host, 443, 12_000);
+      if (r.verdict === "unreachable") { t.diagnostic(`${host} unreachable after a retry`); continue; }
+      assert.equal(r.verdict, verdict);
+      assert.match(r.reason, /\. The server presented /);
+      assert.doesNotMatch(r.reason, /\. the /);
+      assert.doesNotMatch(r.reason, /trusted path to a root/);
+    }
+  });
+
   test("an unreachable answer still names the checks it could not perform", async () => {
     const r = await checkCertificate("no-such-host-xyz123-telegraph.invalid", 443, 8_000);
     assert.match(r.reason, /chain completeness/i);

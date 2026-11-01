@@ -43,16 +43,26 @@ const refusedHonestly = (b, what) => {
 const CHECKS = {
   async SSL_VERIFICATION() {
     const bad = [];
-    const exp = await get("/ssl-check", { domain: "expired.badssl.com" });
-    if (exp.body.verdict !== "expired") bad.push(`expired.badssl.com -> ${exp.body.verdict}, want expired`);
+    // badssl.com's one server resets about a third of handshakes (G246): retry it twice,
+    // and grade expiry on ssl.com's expired host too, which must always answer.
+    const badssl = async (domain) => {
+      let r;
+      for (let i = 0; i < 3; i++) if ((r = await get("/ssl-check", { domain })).body.verdict !== "unreachable") break;
+      if (r.body.verdict === "unreachable") console.log(`\n      (${domain}: unreachable 3 times, ${r.body.unreachable_reason ?? "no reason"}; skipped)`);
+      return r.body.verdict === "unreachable" ? null : r;
+    };
+    const exp = await badssl("expired.badssl.com");
+    if (exp && exp.body.verdict !== "expired") bad.push(`expired.badssl.com -> ${exp.body.verdict}, want expired`);
+    const exp2 = await get("/ssl-check", { domain: "expired-rsa-dv.ssl.com" });
+    if (exp2.body.verdict !== "expired") bad.push(`expired-rsa-dv.ssl.com -> ${exp2.body.verdict}, want expired`);
     const good = await get("/ssl-check", { domain: "github.com" });
     if (good.body.verdict !== "valid") bad.push(`github.com -> ${good.body.verdict}, want valid`);
     // Lean body: the expiry horizon and issuer live in the prose the scorer reads.
     const gdays = String(good.body.reason ?? "").match(/(?:in|expires? in)\s+(\d+)\s+days/i);
     if (!gdays || Number(gdays[1]) <= 0) bad.push("github.com prose names no positive expiry-days figure");
     if (!/issued by\s+\S/i.test(String(good.body.reason ?? ""))) bad.push("github.com answer names no issuer");
-    const mismatch = await get("/ssl-check", { domain: "wrong.host.badssl.com" });
-    if (mismatch.body.verdict !== "hostname_mismatch") bad.push(`wrong.host -> ${mismatch.body.verdict}, want hostname_mismatch`);
+    const mismatch = await badssl("wrong.host.badssl.com");
+    if (mismatch && mismatch.body.verdict !== "hostname_mismatch") bad.push(`wrong.host -> ${mismatch.body.verdict}, want hostname_mismatch`);
     return bad;
   },
 

@@ -332,12 +332,18 @@ function describe(
   }
 
   const by = issuer ? `, issued by ${issuer}` : "";
-  const chain =
+  const presented =
     chainLength === null
-      ? ""
+      ? null
       : chainComplete
-        ? ` the server presented a complete chain of ${chainLength} certificates including intermediates, building a trusted path to a root.`
-        : ` the server presented only ${chainLength} certificate, so the chain is incomplete and missing intermediates.`;
+        ? `a complete chain of ${chainLength} certificates including intermediates`
+        : `only ${chainLength} certificate, so the chain is incomplete and missing intermediates`;
+  // Its own sentence after a failing verdict. Only a valid certificate is said to reach a
+  // trusted root: the untrusted answer used to deny that and then assert it (G246).
+  const chain = presented ? ` The server presented ${presented}.` : "";
+  const trustedChain = presented
+    ? ` the server presented ${presented}${chainComplete ? ", building a trusted path to a root" : ""}.`
+    : "";
   // Protocol version only. The cipher suite and key size were the least-asked
   // facts and the most expensive in characters, and the conversion budget is
   // better spent on validity, chain and hostname.
@@ -359,7 +365,7 @@ function describe(
       return (
         `The TLS/SSL certificate configuration for ${host} is valid. ` +
         `Certificate validity: the certificate is currently valid, ${when}${by}. ` +
-        `Chain trust:${chain || " the chain was not inspected."} ` +
+        `Chain trust:${trustedChain || " the chain was not inspected."} ` +
         `Hostname verification:${namecheck || " not established."}` +
         security
       );

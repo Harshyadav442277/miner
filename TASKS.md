@@ -61,8 +61,9 @@ commit.
 - [x] G244 decided 2026-11-01 ("Answer ambiguous") and fixed in `e63df93`: unit 871/871.
 - [x] `e63df93` deployed 2026-11-01 (`miner-jyh9t9upq`): mission builds full 9/9, partial 57/58 (1 refused);
       preflight 5/7 from badssl.com reachability (G246), not this release.
-- [ ] G246: re-check badssl.com reachability from production; if it persists, find whether real expired or
-      self-signed hosts are also reported `unreachable`, and pick other test hosts for the gates.
+- [x] G246 (2026-11-01): badssl.com's own server resets ~1/3 of handshakes, from here too; real hosts unaffected.
+      Gates retry badssl twice then skip, and grade ssl.com's expired host. Verify-deploy passes, intents 40/40.
+- [ ] Deploy the G246 SSL prose fix (untrusted answer no longer claims a trusted root) when the owner says yes.
 - [x] ~~Owner: set `SEC_USER_AGENT`~~ Not needed: SEC accepts the miner's own identity (2026-10-31). Kept as an
       override. Original item: set `SEC_USER_AGENT` when running the fixtures, or accept the two SEC steps
       as unchecked.

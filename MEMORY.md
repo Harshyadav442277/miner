@@ -1,6 +1,18 @@
 # MEMORY.md — session continuity
 
-## 2026-11-01 ~09:45 UTC (15:15 IST): CURRENT — `e63df93` LIVE (G244); mission builds 9/9 + 57/58
+## 2026-11-01 ~11:25 UTC (16:55 IST): CURRENT — G246 explained; gates fixed; SSL prose fix NOT deployed
+
+Owner: "Yes, investigate".
+
+- **G246 cause:** badssl.com's one server (104.154.89.105) resets ~1/3 of TLS handshakes from anywhere (7/20
+  from this machine); ssl.com's expired host 20/20. Not Vercel, not our code.
+- **Gates:** verify-deploy and intent-answers retry badssl twice then SKIP, and grade `expired-rsa-dv.ssl.com`.
+  On production 11:19 UTC: verify-deploy ALL PASSED (2 SKIPs), intent answers 40/40. Takes effect without a deploy.
+- **`ssl.ts` prose fix** (untrusted answer contradicted itself; lowercase chain sentence): unit 871/871, live
+  locally on 5 verdicts. **Not deployed — needs the owner's yes.** Deploy tree has it applied, uncommitted, on `e63df93`.
+- Production unchanged: `miner-jyh9t9upq` (`e63df93`). Not pushed; nothing signed.
+
+## 2026-11-01 ~09:45 UTC (15:15 IST): `e63df93` LIVE (G244); mission builds 9/9 + 57/58
 
 Owner: "Answer ambiguous", "Yes, deploy it". Release: track1-miner/docs/evidence/release-2026-11-01-classify-ambiguous/.
 
