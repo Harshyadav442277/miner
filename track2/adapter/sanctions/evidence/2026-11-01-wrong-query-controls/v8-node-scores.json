@@ -1,0 +1,385 @@
+{
+ "version": 8,
+ "started_at": "2026-11-01T20:38:41.634822+00:00",
+ "finished_at": "2026-11-01T20:40:13.474755+00:00",
+ "seconds": 91.84,
+ "runtime_commands": [
+  [
+   "C:\\Users\\hyada\\tg-eval\\bin-v2\\adapterexec.exe",
+   "-listen",
+   "127.0.0.1:18081",
+   "-package",
+   "C:\\Users\\hyada\\tg-eval\\runs-v2\\SANCTIONS_SCREENING_MATCH_v8\\SANCTIONS_SCREENING_MATCH.safetensors"
+  ],
+  [
+   "C:\\Users\\hyada\\tg-eval\\bin-v2\\adapterexec.exe",
+   "-listen",
+   "127.0.0.1:18082",
+   "-package",
+   "C:\\Users\\hyada\\tg-eval\\runs-v2\\SANCTIONS_SCREENING_MATCH_v8\\SANCTIONS_SCREENING_MATCH.safetensors"
+  ],
+  [
+   "C:\\Users\\hyada\\tg-eval\\bin-v2\\adapterexec.exe",
+   "-listen",
+   "127.0.0.1:18083",
+   "-package",
+   "C:\\Users\\hyada\\tg-eval\\runs-v2\\SANCTIONS_SCREENING_MATCH_v8\\SANCTIONS_SCREENING_MATCH.safetensors"
+  ]
+ ],
+ "package_sha256": "6dcf705b5f0550a0904d793fd71a6073c29ea024bba38cc2266794cbce778f4c",
+ "identity": {
+  "foundation_hash": "0a49b325304bb4cf292e683929689d0457966be264f60bfc94d0072b614bf8e6",
+  "adapter_hash": "083cd65e298ac96b2a79804890c00e79dda968734b1d8cee93ea5a0f69851976",
+  "tokenizer_hash": "67bc76f8b9386efba1a761c1c8e5ad439fd0eaf1c2826e9dd1a205c7af4dc456"
+ },
+ "pairs_sha256": "e846b2ff760198fb6685562b69f6f8069b5a5e84bc94f14d02f1cb38c76c4ee1",
+ "pairs": 20,
+ "accuracy": 1.0,
+ "ties": 0,
+ "names": 9,
+ "all_comparisons_correct_names": 9,
+ "name_level_wilson_95_lower": 0.7008472464490406,
+ "registration_gate_pass": false,
+ "gate_note": "Requires >=80% point and name-level lower bound, both labels, length baseline <=65%",
+ "tokens": {
+  "max_tokens": 256,
+  "rendered_max_before_truncation": 976,
+  "texts_truncated": 22,
+  "texts": 40,
+  "unique_token_sequences": 40
+ },
+ "rows": [
+  {
+   "name": "RADA, Samer Akil",
+   "kind": "wrong_query:list_member",
+   "block_id": null,
+   "source_id_metadata_only": "302",
+   "chosen": {
+    "bits": 1100420526,
+    "value": 18.88558578491211
+   },
+   "rejected": {
+    "bits": 3240585638,
+    "value": -10.463293075561523
+   },
+   "correct": true
+  },
+  {
+   "name": "NAJAFZADEH, Sorush",
+   "kind": "wrong_query:list_member",
+   "block_id": null,
+   "source_id_metadata_only": "302",
+   "chosen": {
+    "bits": 1099408174,
+    "value": 16.95467758178711
+   },
+   "rejected": {
+    "bits": 3238899639,
+    "value": -8.855399131774902
+   },
+   "correct": true
+  },
+  {
+   "name": "Deutsche Bank AG",
+   "kind": "wrong_query:exact_name_absent",
+   "block_id": null,
+   "source_id_metadata_only": "302",
+   "chosen": {
+    "bits": 1100581198,
+    "value": 19.19204330444336
+   },
+   "rejected": {
+    "bits": 1084776720,
+    "value": 5.261848449707031
+   },
+   "correct": true
+  },
+  {
+   "name": "BNP Paribas",
+   "kind": "wrong_query:exact_name_absent",
+   "block_id": null,
+   "source_id_metadata_only": "302",
+   "chosen": {
+    "bits": 1099832400,
+    "value": 17.763824462890625
+   },
+   "rejected": {
+    "bits": 1083096933,
+    "value": 4.4608635902404785
+   },
+   "correct": true
+  },
+  {
+   "name": "RADA, Samer Akil",
+   "kind": "wrong_query:list_member",
+   "block_id": null,
+   "source_id_metadata_only": "4433",
+   "chosen": {
+    "bits": 1100800620,
+    "value": 19.610557556152344
+   },
+   "rejected": {
+    "bits": 3230658340,
+    "value": -4.497941970825195
+   },
+   "correct": true
+  },
+  {
+   "name": "NAJAFZADEH, Sorush",
+   "kind": "wrong_query:list_member",
+   "block_id": null,
+   "source_id_metadata_only": "4433",
+   "chosen": {
+    "bits": 1100413271,
+    "value": 18.871747970581055
+   },
+   "rejected": {
+    "bits": 3227573700,
+    "value": -3.513535499572754
+   },
+   "correct": true
+  },
+  {
+   "name": "Bank of America",
+   "kind": "wrong_query:exact_name_absent",
+   "block_id": null,
+   "source_id_metadata_only": "4433",
+   "chosen": {
+    "bits": 1099603009,
+    "value": 17.326295852661133
+   },
+   "rejected": {
+    "bits": 1091542332,
+    "value": 8.975887298583984
+   },
+   "correct": true
+  },
+  {
+   "name": "Bank of India",
+   "kind": "wrong_query:exact_name_absent",
+   "block_id": null,
+   "source_id_metadata_only": "4433",
+   "chosen": {
+    "bits": 1098951770,
+    "value": 16.084156036376953
+   },
+   "rejected": {
+    "bits": 1098719222,
+    "value": 15.820302963256836
+   },
+   "correct": true
+  },
+  {
+   "name": "RADA, Samer Akil",
+   "kind": "wrong_query:list_member",
+   "block_id": null,
+   "source_id_metadata_only": "710637",
+   "chosen": {
+    "bits": 1100567982,
+    "value": 19.16683578491211
+   },
+   "rejected": {
+    "bits": 3238473251,
+    "value": -8.448763847351074
+   },
+   "correct": true
+  },
+  {
+   "name": "NAJAFZADEH, Sorush",
+   "kind": "wrong_query:list_member",
+   "block_id": null,
+   "source_id_metadata_only": "710637",
+   "chosen": {
+    "bits": 1100605954,
+    "value": 19.239261627197266
+   },
+   "rejected": {
+    "bits": 3234222402,
+    "value": -6.197419166564941
+   },
+   "correct": true
+  },
+  {
+   "name": "Bank of America",
+   "kind": "wrong_query:exact_name_absent",
+   "block_id": null,
+   "source_id_metadata_only": "710637",
+   "chosen": {
+    "bits": 1100654446,
+    "value": 19.33175277709961
+   },
+   "rejected": {
+    "bits": 1099633269,
+    "value": 17.38401222229004
+   },
+   "correct": true
+  },
+  {
+   "name": "Bank of India",
+   "kind": "wrong_query:exact_name_absent",
+   "block_id": null,
+   "source_id_metadata_only": "710637",
+   "chosen": {
+    "bits": 1100196987,
+    "value": 18.459218978881836
+   },
+   "rejected": {
+    "bits": 1099049218,
+    "value": 16.270023345947266
+   },
+   "correct": true
+  },
+  {
+   "name": "RADA, Samer Akil",
+   "kind": "wrong_query:list_member",
+   "block_id": null,
+   "source_id_metadata_only": "78021",
+   "chosen": {
+    "bits": 1091185457,
+    "value": 8.635544776916504
+   },
+   "rejected": {
+    "bits": 3244545901,
+    "value": -14.240094184875488
+   },
+   "correct": true
+  },
+  {
+   "name": "RAMIREZ TORRES, Jose de Jesus",
+   "kind": "wrong_query:list_member",
+   "block_id": null,
+   "source_id_metadata_only": "78021",
+   "chosen": {
+    "bits": 1085870733,
+    "value": 5.783514499664307
+   },
+   "rejected": {
+    "bits": 3243388150,
+    "value": -13.135976791381836
+   },
+   "correct": true
+  },
+  {
+   "name": "Bank of India",
+   "kind": "wrong_query:exact_name_absent",
+   "block_id": null,
+   "source_id_metadata_only": "78021",
+   "chosen": {
+    "bits": 1093932625,
+    "value": 11.255448341369629
+   },
+   "rejected": {
+    "bits": 1089880040,
+    "value": 7.695301055908203
+   },
+   "correct": true
+  },
+  {
+   "name": "Bank of Japan",
+   "kind": "wrong_query:exact_name_absent",
+   "block_id": null,
+   "source_id_metadata_only": "78021",
+   "chosen": {
+    "bits": 1094975728,
+    "value": 12.250228881835938
+   },
+   "rejected": {
+    "bits": 1088719183,
+    "value": 7.141761302947998
+   },
+   "correct": true
+  },
+  {
+   "name": "RADA, Samer Akil",
+   "kind": "wrong_query:list_member",
+   "block_id": null,
+   "source_id_metadata_only": "9002",
+   "chosen": {
+    "bits": 1095735756,
+    "value": 12.975048065185547
+   },
+   "rejected": {
+    "bits": 3239454858,
+    "value": -9.384897232055664
+   },
+   "correct": true
+  },
+  {
+   "name": "NAJAFZADEH, Sorush",
+   "kind": "wrong_query:list_member",
+   "block_id": null,
+   "source_id_metadata_only": "9002",
+   "chosen": {
+    "bits": 1100120816,
+    "value": 18.313934326171875
+   },
+   "rejected": {
+    "bits": 3233084435,
+    "value": -5.654794216156006
+   },
+   "correct": true
+  },
+  {
+   "name": "Reserve Bank of India",
+   "kind": "wrong_query:exact_name_absent",
+   "block_id": null,
+   "source_id_metadata_only": "9002",
+   "chosen": {
+    "bits": 1100942544,
+    "value": 19.881256103515625
+   },
+   "rejected": {
+    "bits": 1096260028,
+    "value": 13.475032806396484
+   },
+   "correct": true
+  },
+  {
+   "name": "Deutsche Bank AG",
+   "kind": "wrong_query:exact_name_absent",
+   "block_id": null,
+   "source_id_metadata_only": "9002",
+   "chosen": {
+    "bits": 1101180117,
+    "value": 20.33439064025879
+   },
+   "rejected": {
+    "bits": 1090549594,
+    "value": 8.029138565063477
+   },
+   "correct": true
+  }
+ ],
+ "by_kind": {
+  "wrong_query:exact_name_absent": {
+   "pairs": 10,
+   "accuracy": 1.0
+  },
+  "wrong_query:list_member": {
+   "pairs": 10,
+   "accuracy": 1.0
+  }
+ },
+ "by_source_id_metadata_only": {
+  "302": {
+   "pairs": 4,
+   "accuracy": 1.0
+  },
+  "4433": {
+   "pairs": 4,
+   "accuracy": 1.0
+  },
+  "710637": {
+   "pairs": 4,
+   "accuracy": 1.0
+  },
+  "78021": {
+   "pairs": 4,
+   "accuracy": 1.0
+  },
+  "9002": {
+   "pairs": 4,
+   "accuracy": 1.0
+  }
+ }
+}

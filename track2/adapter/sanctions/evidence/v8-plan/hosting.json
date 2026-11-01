@@ -1,0 +1,10 @@
+{
+ "version": 8,
+ "commit": "4e2c76a161d4348d0c41490ca4320837027823be",
+ "url": "https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/4e2c76a161d4348d0c41490ca4320837027823be/season2/experiments/sanctions/v8/SANCTIONS_SCREENING_MATCH.safetensors",
+ "http_status": 200,
+ "bytes": 6776916,
+ "sha256": "6dcf705b5f0550a0904d793fd71a6073c29ea024bba38cc2266794cbce778f4c",
+ "matches_measured_post_stage1_package": true,
+ "checked_at": "2026-11-01T20:40:39.352100+00:00"
+}

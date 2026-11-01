@@ -13,9 +13,12 @@ commit.
 - [x] Measure v3/v4/v5 in node runtime; publish baseline and sample limitations (track2 G41).
 - [x] Reconcile Evaluator rubric; draft submission, tutorial and separate-date update plans.
 - [x] Finish v6 pilot, export/Stage 1 and node measurement. Fresh set: 79.17% vs v3 83.33%, length 100%.
-- [ ] New independent final set: more names, both classes and source/length-balanced mistakes.
+- [ ] Genuine factual final set: more names, both classes and source/length-balanced observed mistakes.
 - [x] Build and measure a separate reversal-balanced query-binding benchmark: v7 40/40 vs v6 36/40.
-- [ ] Resolve the overlapping-bank-name regression in both directions; verify on new public bank names.
+- [x] Resolve the overlapping-bank-name regression in both directions; v8 old controls 20/20, own 4/4,
+      balanced binding regression 40/40, fresh bank stratum 20/20 (v7 also 20/20).
+- [x] Audit synthetic chosen facts against the source; fix parenthetical stripping in the generator,
+      exclude two affected parent blocks from v8 data, retain historical provenance and aborted attempt.
 - [ ] Only after sanctions quality gate: fresh hosted hash, public executor check, read-only cast dry run,
       exact Anjoman values. Do not reuse the rejected v3 table. FX_NOW remains a separate session's flow.
 - [ ] Owner: actual separate-date publications, independent activation evidence, demo and final submission.

@@ -13,7 +13,7 @@ import random
 import sys
 
 from tokenizers import Tokenizer
-from build_pairs import SOURCE, display, load, norm, unlisted_names
+from build_pairs import SOURCE, load, norm, unlisted_names
 from collect_miners import save
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
@@ -79,7 +79,8 @@ def main():
         ids = {r[k] for r in original for k in ("sdn_entity_id", "other_entity_id")}
         assert not ids & excluded_ids
         part = [entities[i] for i in sorted(ids)]
-        positive = [(display(e["name"], e["kind"]), True, e) for e in part]
+        # An exact-name fixture must retain parentheticals in the source name.
+        positive = [(e["name"], True, e) for e in part]
         negative = [(q, False, rng.choice(part)) for q, _ in unlisted_names(part, listed, rng, len(part)*2)]
         rows, reserved = [], set()
         pools = {}

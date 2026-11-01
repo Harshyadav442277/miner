@@ -1,0 +1,691 @@
+{
+ "version": 8,
+ "started_at": "2026-11-01T20:40:15.319983+00:00",
+ "finished_at": "2026-11-01T20:42:46.792573+00:00",
+ "seconds": 151.47,
+ "runtime_commands": [
+  [
+   "C:\\Users\\hyada\\tg-eval\\bin-v2\\adapterexec.exe",
+   "-listen",
+   "127.0.0.1:18081",
+   "-package",
+   "C:\\Users\\hyada\\tg-eval\\runs-v2\\SANCTIONS_SCREENING_MATCH_v8\\SANCTIONS_SCREENING_MATCH.safetensors"
+  ],
+  [
+   "C:\\Users\\hyada\\tg-eval\\bin-v2\\adapterexec.exe",
+   "-listen",
+   "127.0.0.1:18082",
+   "-package",
+   "C:\\Users\\hyada\\tg-eval\\runs-v2\\SANCTIONS_SCREENING_MATCH_v8\\SANCTIONS_SCREENING_MATCH.safetensors"
+  ],
+  [
+   "C:\\Users\\hyada\\tg-eval\\bin-v2\\adapterexec.exe",
+   "-listen",
+   "127.0.0.1:18083",
+   "-package",
+   "C:\\Users\\hyada\\tg-eval\\runs-v2\\SANCTIONS_SCREENING_MATCH_v8\\SANCTIONS_SCREENING_MATCH.safetensors"
+  ]
+ ],
+ "package_sha256": "6dcf705b5f0550a0904d793fd71a6073c29ea024bba38cc2266794cbce778f4c",
+ "identity": {
+  "foundation_hash": "0a49b325304bb4cf292e683929689d0457966be264f60bfc94d0072b614bf8e6",
+  "adapter_hash": "083cd65e298ac96b2a79804890c00e79dda968734b1d8cee93ea5a0f69851976",
+  "tokenizer_hash": "67bc76f8b9386efba1a761c1c8e5ad439fd0eaf1c2826e9dd1a205c7af4dc456"
+ },
+ "pairs_sha256": "41b4a477c762727b0b5d279ff08d9feb1df93df23d395c494e43bd56cde0dd0f",
+ "pairs": 40,
+ "accuracy": 1.0,
+ "ties": 0,
+ "names": 40,
+ "all_comparisons_correct_names": 40,
+ "name_level_wilson_95_lower": 0.9123754607496077,
+ "registration_gate_pass": false,
+ "gate_note": "Requires >=80% point and name-level lower bound, both labels, length baseline <=65%",
+ "tokens": {
+  "max_tokens": 256,
+  "rendered_max_before_truncation": 1008,
+  "texts_truncated": 52,
+  "texts": 80,
+  "unique_token_sequences": 80
+ },
+ "rows": [
+  {
+   "name": "SAZEH MORAKAB CO. LTD",
+   "kind": "binding:listed",
+   "block_id": "final-302-True-0",
+   "source_id_metadata_only": "302",
+   "chosen": {
+    "bits": 1098685245,
+    "value": 15.7878999710083
+   },
+   "rejected": {
+    "bits": 3241922528,
+    "value": -11.738250732421875
+   },
+   "correct": true
+  },
+  {
+   "name": "AROHI SYSTEMS TRADING LIMITED LIABILITY COMPANY",
+   "kind": "binding:listed",
+   "block_id": "final-302-True-0",
+   "source_id_metadata_only": "302",
+   "chosen": {
+    "bits": 1100274382,
+    "value": 18.60683822631836
+   },
+   "rejected": {
+    "bits": 3240122142,
+    "value": -10.021268844604492
+   },
+   "correct": true
+  },
+  {
+   "name": "TOSONG TECHNOLOGY TRADING CORPORATION",
+   "kind": "binding:listed",
+   "block_id": "final-302-True-1",
+   "source_id_metadata_only": "302",
+   "chosen": {
+    "bits": 1098973864,
+    "value": 16.126296997070312
+   },
+   "rejected": {
+    "bits": 3239842723,
+    "value": -9.754794120788574
+   },
+   "correct": true
+  },
+  {
+   "name": "TEHRAN GOSTARESH COMPANY, P.J.S.",
+   "kind": "binding:listed",
+   "block_id": "final-302-True-1",
+   "source_id_metadata_only": "302",
+   "chosen": {
+    "bits": 1098844090,
+    "value": 15.939386367797852
+   },
+   "rejected": {
+    "bits": 3240651169,
+    "value": -10.525788307189941
+   },
+   "correct": true
+  },
+  {
+   "name": "MISRIMAL VIMALCHAND",
+   "kind": "binding:exact_absent",
+   "block_id": "final-302-False-0",
+   "source_id_metadata_only": "302",
+   "chosen": {
+    "bits": 1100153145,
+    "value": 18.37559700012207
+   },
+   "rejected": {
+    "bits": 3237711896,
+    "value": -7.861339569091797
+   },
+   "correct": true
+  },
+  {
+   "name": "GOPALAKRISHNAN SATHISH",
+   "kind": "binding:exact_absent",
+   "block_id": "final-302-False-0",
+   "source_id_metadata_only": "302",
+   "chosen": {
+    "bits": 1099746022,
+    "value": 17.599071502685547
+   },
+   "rejected": {
+    "bits": 3226367662,
+    "value": -3.2259936332702637
+   },
+   "correct": true
+  },
+  {
+   "name": "RAVINDAR AGARWAL",
+   "kind": "binding:exact_absent",
+   "block_id": "final-302-False-1",
+   "source_id_metadata_only": "302",
+   "chosen": {
+    "bits": 1098110376,
+    "value": 15.239662170410156
+   },
+   "rejected": {
+    "bits": 3234681284,
+    "value": -6.416231155395508
+   },
+   "correct": true
+  },
+  {
+   "name": "SHUSHRUSHA MEDICALS",
+   "kind": "binding:exact_absent",
+   "block_id": "final-302-False-1",
+   "source_id_metadata_only": "302",
+   "chosen": {
+    "bits": 1100022750,
+    "value": 18.126888275146484
+   },
+   "rejected": {
+    "bits": 1060919682,
+    "value": 0.7357407808303833
+   },
+   "correct": true
+  },
+  {
+   "name": "PALM SERVICE LIMITED",
+   "kind": "binding:listed",
+   "block_id": "final-9002-True-0",
+   "source_id_metadata_only": "9002",
+   "chosen": {
+    "bits": 1094993539,
+    "value": 12.26721477508545
+   },
+   "rejected": {
+    "bits": 3232360240,
+    "value": -5.309471130371094
+   },
+   "correct": true
+  },
+  {
+   "name": "OMRAN SAHEL",
+   "kind": "binding:listed",
+   "block_id": "final-9002-True-0",
+   "source_id_metadata_only": "9002",
+   "chosen": {
+    "bits": 1099508244,
+    "value": 17.145545959472656
+   },
+   "rejected": {
+    "bits": 3234454120,
+    "value": -6.307910919189453
+   },
+   "correct": true
+  },
+  {
+   "name": "GOMEI AIR SERVICES CO., LTD.",
+   "kind": "binding:listed",
+   "block_id": "final-9002-True-1",
+   "source_id_metadata_only": "9002",
+   "chosen": {
+    "bits": 1098718413,
+    "value": 15.819531440734863
+   },
+   "rejected": {
+    "bits": 3227493932,
+    "value": -3.4945173263549805
+   },
+   "correct": true
+  },
+  {
+   "name": "LIMITED LIABILITY COMPANY BONUM MANAGEMENT",
+   "kind": "binding:listed",
+   "block_id": "final-9002-True-1",
+   "source_id_metadata_only": "9002",
+   "chosen": {
+    "bits": 1098533614,
+    "value": 15.643293380737305
+   },
+   "rejected": {
+    "bits": 3236657161,
+    "value": -7.358402729034424
+   },
+   "correct": true
+  },
+  {
+   "name": "FIRESIDE (STB) FILMS INC.",
+   "kind": "binding:exact_absent",
+   "block_id": "final-9002-False-0",
+   "source_id_metadata_only": "9002",
+   "chosen": {
+    "bits": 1099989239,
+    "value": 18.062971115112305
+   },
+   "rejected": {
+    "bits": 3234894426,
+    "value": -6.517865180969238
+   },
+   "correct": true
+  },
+  {
+   "name": "VIS INFRA AND MINING PRIVATE LIMITED",
+   "kind": "binding:exact_absent",
+   "block_id": "final-9002-False-0",
+   "source_id_metadata_only": "9002",
+   "chosen": {
+    "bits": 1099320980,
+    "value": 16.788368225097656
+   },
+   "rejected": {
+    "bits": 3232920724,
+    "value": -5.576730728149414
+   },
+   "correct": true
+  },
+  {
+   "name": "755 Bush Street Owner, LLC",
+   "kind": "binding:exact_absent",
+   "block_id": "final-9002-False-1",
+   "source_id_metadata_only": "9002",
+   "chosen": {
+    "bits": 1100495767,
+    "value": 19.029096603393555
+   },
+   "rejected": {
+    "bits": 3211622537,
+    "value": -0.9276204705238342
+   },
+   "correct": true
+  },
+  {
+   "name": "PHARMACIE MAVIA",
+   "kind": "binding:exact_absent",
+   "block_id": "final-9002-False-1",
+   "source_id_metadata_only": "9002",
+   "chosen": {
+    "bits": 1100008388,
+    "value": 18.09949493408203
+   },
+   "rejected": {
+    "bits": 3235978756,
+    "value": -7.034914016723633
+   },
+   "correct": true
+  },
+  {
+   "name": "LIMITED LIABILITY COMPANY REDMETKONTSENTRAT",
+   "kind": "binding:listed",
+   "block_id": "final-4433-True-0",
+   "source_id_metadata_only": "4433",
+   "chosen": {
+    "bits": 1101096015,
+    "value": 20.173978805541992
+   },
+   "rejected": {
+    "bits": 3237521854,
+    "value": -7.770720481872559
+   },
+   "correct": true
+  },
+  {
+   "name": "AO ELEKTROISTOCHNIK",
+   "kind": "binding:listed",
+   "block_id": "final-4433-True-0",
+   "source_id_metadata_only": "4433",
+   "chosen": {
+    "bits": 1100997063,
+    "value": 19.98524284362793
+   },
+   "rejected": {
+    "bits": 3235751436,
+    "value": -6.926519393920898
+   },
+   "correct": true
+  },
+  {
+   "name": "GOOD SIBLINGS LTD",
+   "kind": "binding:listed",
+   "block_id": "final-4433-True-1",
+   "source_id_metadata_only": "4433",
+   "chosen": {
+    "bits": 1101438481,
+    "value": 20.827180862426758
+   },
+   "rejected": {
+    "bits": 3216379911,
+    "value": -1.4223641157150269
+   },
+   "correct": true
+  },
+  {
+   "name": "ASIA PACIFIC LINKS LIMITED",
+   "kind": "binding:listed",
+   "block_id": "final-4433-True-1",
+   "source_id_metadata_only": "4433",
+   "chosen": {
+    "bits": 1099753413,
+    "value": 17.613168716430664
+   },
+   "rejected": {
+    "bits": 3233485328,
+    "value": -5.845954895019531
+   },
+   "correct": true
+  },
+  {
+   "name": "DEEN DAYAL UPADHYAY SHIKSHAN SAMITI",
+   "kind": "binding:exact_absent",
+   "block_id": "final-4433-False-0",
+   "source_id_metadata_only": "4433",
+   "chosen": {
+    "bits": 1101103810,
+    "value": 20.188846588134766
+   },
+   "rejected": {
+    "bits": 3236072084,
+    "value": -7.079416275024414
+   },
+   "correct": true
+  },
+  {
+   "name": "MAKKAR DEVELOPERS & PROMOTERS PRIVATE LIMITED",
+   "kind": "binding:exact_absent",
+   "block_id": "final-4433-False-0",
+   "source_id_metadata_only": "4433",
+   "chosen": {
+    "bits": 1099916610,
+    "value": 17.924442291259766
+   },
+   "rejected": {
+    "bits": 3239725130,
+    "value": -9.642648696899414
+   },
+   "correct": true
+  },
+  {
+   "name": "AMIT GUPTA",
+   "kind": "binding:exact_absent",
+   "block_id": "final-4433-False-1",
+   "source_id_metadata_only": "4433",
+   "chosen": {
+    "bits": 1099831624,
+    "value": 17.762344360351562
+   },
+   "rejected": {
+    "bits": 3228793678,
+    "value": -3.80440092086792
+   },
+   "correct": true
+  },
+  {
+   "name": "51 Media LTD.",
+   "kind": "binding:exact_absent",
+   "block_id": "final-4433-False-1",
+   "source_id_metadata_only": "4433",
+   "chosen": {
+    "bits": 1099248970,
+    "value": 16.651020050048828
+   },
+   "rejected": {
+    "bits": 1086474187,
+    "value": 6.071263790130615
+   },
+   "correct": true
+  },
+  {
+   "name": "JOINT STOCK COMPANY RAMEC VS",
+   "kind": "binding:listed",
+   "block_id": "final-710637-True-0",
+   "source_id_metadata_only": "710637",
+   "chosen": {
+    "bits": 1101230962,
+    "value": 20.43136978149414
+   },
+   "rejected": {
+    "bits": 3221328357,
+    "value": -2.0245296955108643
+   },
+   "correct": true
+  },
+  {
+   "name": "PJSC TRANSCONTAINER",
+   "kind": "binding:listed",
+   "block_id": "final-710637-True-0",
+   "source_id_metadata_only": "710637",
+   "chosen": {
+    "bits": 1102006711,
+    "value": 21.910993576049805
+   },
+   "rejected": {
+    "bits": 3239316433,
+    "value": -9.252884864807129
+   },
+   "correct": true
+  },
+  {
+   "name": "QUDS RAZAVI HOUSING AND CONSTRUCTION CO.",
+   "kind": "binding:listed",
+   "block_id": "final-710637-True-1",
+   "source_id_metadata_only": "710637",
+   "chosen": {
+    "bits": 1100342664,
+    "value": 18.737075805664062
+   },
+   "rejected": {
+    "bits": 3242002172,
+    "value": -11.814205169677734
+   },
+   "correct": true
+  },
+  {
+   "name": "BRILLIANCE BANKING CORPORATION, LTD.",
+   "kind": "binding:listed",
+   "block_id": "final-710637-True-1",
+   "source_id_metadata_only": "710637",
+   "chosen": {
+    "bits": 1100229064,
+    "value": 18.520401000976562
+   },
+   "rejected": {
+    "bits": 3237922368,
+    "value": -7.961700439453125
+   },
+   "correct": true
+  },
+  {
+   "name": "FINANCIERE DE L'ENGRANNE",
+   "kind": "binding:exact_absent",
+   "block_id": "final-710637-False-0",
+   "source_id_metadata_only": "710637",
+   "chosen": {
+    "bits": 1100329942,
+    "value": 18.712810516357422
+   },
+   "rejected": {
+    "bits": 3238854085,
+    "value": -8.811955451965332
+   },
+   "correct": true
+  },
+  {
+   "name": "ENTREPRISE DENIS WATTEZ",
+   "kind": "binding:exact_absent",
+   "block_id": "final-710637-False-0",
+   "source_id_metadata_only": "710637",
+   "chosen": {
+    "bits": 1098002789,
+    "value": 15.137059211730957
+   },
+   "rejected": {
+    "bits": 3235566864,
+    "value": -6.838508605957031
+   },
+   "correct": true
+  },
+  {
+   "name": "SELARL BRILLAT-ZARATZIAN",
+   "kind": "binding:exact_absent",
+   "block_id": "final-710637-False-1",
+   "source_id_metadata_only": "710637",
+   "chosen": {
+    "bits": 1098902186,
+    "value": 15.994791030883789
+   },
+   "rejected": {
+    "bits": 3239197179,
+    "value": -9.139155387878418
+   },
+   "correct": true
+  },
+  {
+   "name": "TRANDIS ELECTRO MECHANICAL SERVICES PRIVATE LIMITED",
+   "kind": "binding:exact_absent",
+   "block_id": "final-710637-False-1",
+   "source_id_metadata_only": "710637",
+   "chosen": {
+    "bits": 1099196483,
+    "value": 16.5509090423584
+   },
+   "rejected": {
+    "bits": 3237809896,
+    "value": -7.908069610595703
+   },
+   "correct": true
+  },
+  {
+   "name": "LIMITED LIABILITY COMPANY POINTER",
+   "kind": "binding:listed",
+   "block_id": "final-78021-True-0",
+   "source_id_metadata_only": "78021",
+   "chosen": {
+    "bits": 1081836742,
+    "value": 3.929978847503662
+   },
+   "rejected": {
+    "bits": 3241165234,
+    "value": -11.01603889465332
+   },
+   "correct": true
+  },
+  {
+   "name": "REBEL SECT",
+   "kind": "binding:listed",
+   "block_id": "final-78021-True-0",
+   "source_id_metadata_only": "78021",
+   "chosen": {
+    "bits": 1089638930,
+    "value": 7.580330848693848
+   },
+   "rejected": {
+    "bits": 3241089053,
+    "value": -10.943387031555176
+   },
+   "correct": true
+  },
+  {
+   "name": "IRANIAN CYBER POLICE",
+   "kind": "binding:listed",
+   "block_id": "final-78021-True-1",
+   "source_id_metadata_only": "78021",
+   "chosen": {
+    "bits": 1084061784,
+    "value": 4.920940399169922
+   },
+   "rejected": {
+    "bits": 3240331006,
+    "value": -10.220457077026367
+   },
+   "correct": true
+  },
+  {
+   "name": "RAD D.O.O.",
+   "kind": "binding:listed",
+   "block_id": "final-78021-True-1",
+   "source_id_metadata_only": "78021",
+   "chosen": {
+    "bits": 1094598495,
+    "value": 11.890471458435059
+   },
+   "rejected": {
+    "bits": 3240986938,
+    "value": -10.846002578735352
+   },
+   "correct": true
+  },
+  {
+   "name": "Cisco Dutch Holdings B.V.",
+   "kind": "binding:exact_absent",
+   "block_id": "final-78021-False-0",
+   "source_id_metadata_only": "78021",
+   "chosen": {
+    "bits": 1095276412,
+    "value": 12.536983489990234
+   },
+   "rejected": {
+    "bits": 3242056289,
+    "value": -11.865815162658691
+   },
+   "correct": true
+  },
+  {
+   "name": "FOURNIER JULIEN",
+   "kind": "binding:exact_absent",
+   "block_id": "final-78021-False-0",
+   "source_id_metadata_only": "78021",
+   "chosen": {
+    "bits": 1085631895,
+    "value": 5.669627666473389
+   },
+   "rejected": {
+    "bits": 3242781473,
+    "value": -12.557404518127441
+   },
+   "correct": true
+  },
+  {
+   "name": "SHADOWFAX",
+   "kind": "binding:exact_absent",
+   "block_id": "final-78021-False-1",
+   "source_id_metadata_only": "78021",
+   "chosen": {
+    "bits": 1093937852,
+    "value": 11.260433197021484
+   },
+   "rejected": {
+    "bits": 3239288361,
+    "value": -9.226113319396973
+   },
+   "correct": true
+  },
+  {
+   "name": "SC SOPHCLE",
+   "kind": "binding:exact_absent",
+   "block_id": "final-78021-False-1",
+   "source_id_metadata_only": "78021",
+   "chosen": {
+    "bits": 1096114018,
+    "value": 13.335786819458008
+   },
+   "rejected": {
+    "bits": 3240114114,
+    "value": -10.013612747192383
+   },
+   "correct": true
+  }
+ ],
+ "by_kind": {
+  "binding:exact_absent": {
+   "pairs": 20,
+   "accuracy": 1.0
+  },
+  "binding:listed": {
+   "pairs": 20,
+   "accuracy": 1.0
+  }
+ },
+ "by_source_id_metadata_only": {
+  "302": {
+   "pairs": 8,
+   "accuracy": 1.0
+  },
+  "4433": {
+   "pairs": 8,
+   "accuracy": 1.0
+  },
+  "710637": {
+   "pairs": 8,
+   "accuracy": 1.0
+  },
+  "78021": {
+   "pairs": 8,
+   "accuracy": 1.0
+  },
+  "9002": {
+   "pairs": 8,
+   "accuracy": 1.0
+  }
+ },
+ "reversal_blocks": {
+  "blocks": 20,
+  "all_comparisons_correct": 20,
+  "all_correct_fraction": 1.0,
+  "wilson_95_lower": 0.8388698745050667
+ }
+}

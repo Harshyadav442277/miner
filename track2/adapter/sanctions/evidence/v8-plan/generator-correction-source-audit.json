@@ -1,0 +1,9 @@
+{
+ "pass": true,
+ "counts": {
+  "train": 3000,
+  "val": 400,
+  "test": 400
+ },
+ "scope": "Chosen synthetic exact-name verdicts and source comparison fields; no external factual-readiness claim"
+}

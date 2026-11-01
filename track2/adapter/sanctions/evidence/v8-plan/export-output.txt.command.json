@@ -1,0 +1,20 @@
+{
+  "program": "C:\\Users\\hyada\\tg-eval\\.venv\\Scripts\\python.exe",
+  "cwd": "C:\\Users\\hyada\\tg-eval\\kit-v2",
+  "arguments": [
+    "-m",
+    "float_runtime.export_adapter",
+    "--adapter",
+    "C:\\Users\\hyada\\tg-eval\\runs-v2\\SANCTIONS_SCREENING_MATCH_v8\\adapter",
+    "--intent",
+    "SANCTIONS_SCREENING_MATCH",
+    "--class",
+    "judgment",
+    "--foundation",
+    "C:\\Users\\hyada\\tg-eval\\foundation\\foundation.json",
+    "--max-tokens",
+    "256",
+    "--out",
+    "C:\\Users\\hyada\\tg-eval\\runs-v2\\SANCTIONS_SCREENING_MATCH_v8\\SANCTIONS_SCREENING_MATCH.safetensors"
+  ]
+}

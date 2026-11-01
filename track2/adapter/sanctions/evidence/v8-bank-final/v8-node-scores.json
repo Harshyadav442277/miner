@@ -1,0 +1,375 @@
+{
+ "version": 8,
+ "started_at": "2026-11-01T20:44:20.890641+00:00",
+ "finished_at": "2026-11-01T20:45:52.351078+00:00",
+ "seconds": 91.46,
+ "runtime_commands": [
+  [
+   "C:\\Users\\hyada\\tg-eval\\bin-v2\\adapterexec.exe",
+   "-listen",
+   "127.0.0.1:18081",
+   "-package",
+   "C:\\Users\\hyada\\tg-eval\\runs-v2\\SANCTIONS_SCREENING_MATCH_v8\\SANCTIONS_SCREENING_MATCH.safetensors"
+  ],
+  [
+   "C:\\Users\\hyada\\tg-eval\\bin-v2\\adapterexec.exe",
+   "-listen",
+   "127.0.0.1:18082",
+   "-package",
+   "C:\\Users\\hyada\\tg-eval\\runs-v2\\SANCTIONS_SCREENING_MATCH_v8\\SANCTIONS_SCREENING_MATCH.safetensors"
+  ],
+  [
+   "C:\\Users\\hyada\\tg-eval\\bin-v2\\adapterexec.exe",
+   "-listen",
+   "127.0.0.1:18083",
+   "-package",
+   "C:\\Users\\hyada\\tg-eval\\runs-v2\\SANCTIONS_SCREENING_MATCH_v8\\SANCTIONS_SCREENING_MATCH.safetensors"
+  ]
+ ],
+ "package_sha256": "6dcf705b5f0550a0904d793fd71a6073c29ea024bba38cc2266794cbce778f4c",
+ "identity": {
+  "foundation_hash": "0a49b325304bb4cf292e683929689d0457966be264f60bfc94d0072b614bf8e6",
+  "adapter_hash": "083cd65e298ac96b2a79804890c00e79dda968734b1d8cee93ea5a0f69851976",
+  "tokenizer_hash": "67bc76f8b9386efba1a761c1c8e5ad439fd0eaf1c2826e9dd1a205c7af4dc456"
+ },
+ "pairs_sha256": "cada526ff5bbf1ae0e74332eb15314724d9da1e39335e7267cfcf11208e261f4",
+ "pairs": 20,
+ "accuracy": 1.0,
+ "ties": 0,
+ "names": 20,
+ "all_comparisons_correct_names": 20,
+ "name_level_wilson_95_lower": 0.8388698745050667,
+ "registration_gate_pass": false,
+ "gate_note": "Requires >=80% point and name-level lower bound, both labels, length baseline <=65%",
+ "tokens": {
+  "max_tokens": 256,
+  "rendered_max_before_truncation": 854,
+  "texts_truncated": 40,
+  "texts": 40,
+  "unique_token_sequences": 40
+ },
+ "rows": [
+  {
+   "name": "Susser Bank",
+   "kind": "binding:exact_absent",
+   "block_id": "final-4433-False-0",
+   "source_id_metadata_only": "4433",
+   "chosen": {
+    "bits": 1099702089,
+    "value": 17.515275955200195
+   },
+   "rejected": {
+    "bits": 1082277252,
+    "value": 4.070009231567383
+   },
+   "correct": true
+  },
+  {
+   "name": "Platte Valley Bank",
+   "kind": "binding:exact_absent",
+   "block_id": "final-4433-False-0",
+   "source_id_metadata_only": "4433",
+   "chosen": {
+    "bits": 1099952846,
+    "value": 17.99355697631836
+   },
+   "rejected": {
+    "bits": 1087932885,
+    "value": 6.766825199127197
+   },
+   "correct": true
+  },
+  {
+   "name": "THE YAVATMAL DISTRICT CENTRAL CO-OPERATIVE BANK LIMITED",
+   "kind": "binding:exact_absent",
+   "block_id": "final-4433-False-1",
+   "source_id_metadata_only": "4433",
+   "chosen": {
+    "bits": 1100731658,
+    "value": 19.479022979736328
+   },
+   "rejected": {
+    "bits": 3238143500,
+    "value": -8.134288787841797
+   },
+   "correct": true
+  },
+  {
+   "name": "THE BERHAMPUR CO-OPERATIVE URBAN BANK LTD.",
+   "kind": "binding:exact_absent",
+   "block_id": "final-4433-False-1",
+   "source_id_metadata_only": "4433",
+   "chosen": {
+    "bits": 1100922462,
+    "value": 19.842952728271484
+   },
+   "rejected": {
+    "bits": 3236993488,
+    "value": -7.518775939941406
+   },
+   "correct": true
+  },
+  {
+   "name": "MUZAFFARNAGAR DISTRICT CO-OPERATIVE BANK LTD.",
+   "kind": "binding:exact_absent",
+   "block_id": "final-4433-False-2",
+   "source_id_metadata_only": "4433",
+   "chosen": {
+    "bits": 1100867000,
+    "value": 19.737167358398438
+   },
+   "rejected": {
+    "bits": 3240028180,
+    "value": -9.931659698486328
+   },
+   "correct": true
+  },
+  {
+   "name": "RESERVE BANK EMPLOYEES CO-OPERATIVE BANK LIMITED",
+   "kind": "binding:exact_absent",
+   "block_id": "final-4433-False-2",
+   "source_id_metadata_only": "4433",
+   "chosen": {
+    "bits": 1100588462,
+    "value": 19.20589828491211
+   },
+   "rejected": {
+    "bits": 3239963802,
+    "value": -9.870264053344727
+   },
+   "correct": true
+  },
+  {
+   "name": "ZILA SAHKARI BANK LTD MATHURA",
+   "kind": "binding:exact_absent",
+   "block_id": "final-4433-False-3",
+   "source_id_metadata_only": "4433",
+   "chosen": {
+    "bits": 1100595230,
+    "value": 19.218807220458984
+   },
+   "rejected": {
+    "bits": 1081120681,
+    "value": 3.759256601333618
+   },
+   "correct": true
+  },
+  {
+   "name": "THE PATDI NAGRIK SAHKARI BANK LTD",
+   "kind": "binding:exact_absent",
+   "block_id": "final-4433-False-3",
+   "source_id_metadata_only": "4433",
+   "chosen": {
+    "bits": 1100810471,
+    "value": 19.62934684753418
+   },
+   "rejected": {
+    "bits": 3234083743,
+    "value": -6.131301403045654
+   },
+   "correct": true
+  },
+  {
+   "name": "THE KOTTAKKAL CO-OPERATIVE URBAN BANK LIMITED NO.1378",
+   "kind": "binding:exact_absent",
+   "block_id": "final-4433-False-4",
+   "source_id_metadata_only": "4433",
+   "chosen": {
+    "bits": 1100097252,
+    "value": 18.26898956298828
+   },
+   "rejected": {
+    "bits": 3238322248,
+    "value": -8.304756164550781
+   },
+   "correct": true
+  },
+  {
+   "name": "THE CHITRADURGA DISTRICT CO-OPERATIVE CENTRAL BANK LTD.",
+   "kind": "binding:exact_absent",
+   "block_id": "final-4433-False-4",
+   "source_id_metadata_only": "4433",
+   "chosen": {
+    "bits": 1101241711,
+    "value": 20.451871871948242
+   },
+   "rejected": {
+    "bits": 3239845582,
+    "value": -9.75752067565918
+   },
+   "correct": true
+  },
+  {
+   "name": "SHREE GAJANAN URBAN CO-OPERATIVE BANK LTD.",
+   "kind": "binding:exact_absent",
+   "block_id": "final-710637-False-0",
+   "source_id_metadata_only": "710637",
+   "chosen": {
+    "bits": 1097302514,
+    "value": 14.46922492980957
+   },
+   "rejected": {
+    "bits": 3236857751,
+    "value": -7.454051494598389
+   },
+   "correct": true
+  },
+  {
+   "name": "THE MUNICIPAL CO-OPERATIVE BANK LTD MUMBAI",
+   "kind": "binding:exact_absent",
+   "block_id": "final-710637-False-0",
+   "source_id_metadata_only": "710637",
+   "chosen": {
+    "bits": 1089288360,
+    "value": 7.413166046142578
+   },
+   "rejected": {
+    "bits": 3236025388,
+    "value": -7.057149887084961
+   },
+   "correct": true
+  },
+  {
+   "name": "McHenry Savings Bank",
+   "kind": "binding:exact_absent",
+   "block_id": "final-710637-False-1",
+   "source_id_metadata_only": "710637",
+   "chosen": {
+    "bits": 1100379075,
+    "value": 18.8065242767334
+   },
+   "rejected": {
+    "bits": 1078565736,
+    "value": 3.1501102447509766
+   },
+   "correct": true
+  },
+  {
+   "name": "FCNB Bank",
+   "kind": "binding:exact_absent",
+   "block_id": "final-710637-False-1",
+   "source_id_metadata_only": "710637",
+   "chosen": {
+    "bits": 1099506322,
+    "value": 17.14188003540039
+   },
+   "rejected": {
+    "bits": 1092769896,
+    "value": 10.146583557128906
+   },
+   "correct": true
+  },
+  {
+   "name": "PORBANDAR COMMERCIAL CO-OPERATIVE BANK LIMITED",
+   "kind": "binding:exact_absent",
+   "block_id": "final-710637-False-2",
+   "source_id_metadata_only": "710637",
+   "chosen": {
+    "bits": 1099236287,
+    "value": 16.626829147338867
+   },
+   "rejected": {
+    "bits": 3239317828,
+    "value": -9.254215240478516
+   },
+   "correct": true
+  },
+  {
+   "name": "THE MAHEMDABAD URBAN PEOPLE S CO OP BANK LIMITED",
+   "kind": "binding:exact_absent",
+   "block_id": "final-710637-False-2",
+   "source_id_metadata_only": "710637",
+   "chosen": {
+    "bits": 1096758290,
+    "value": 13.950212478637695
+   },
+   "rejected": {
+    "bits": 3235806884,
+    "value": -6.952959060668945
+   },
+   "correct": true
+  },
+  {
+   "name": "CENTRAL BANK OF KENYA",
+   "kind": "binding:exact_absent",
+   "block_id": "final-710637-False-3",
+   "source_id_metadata_only": "710637",
+   "chosen": {
+    "bits": 1099814838,
+    "value": 17.730327606201172
+   },
+   "rejected": {
+    "bits": 3232936558,
+    "value": -5.584280967712402
+   },
+   "correct": true
+  },
+  {
+   "name": "STANDARD BANK ISLE OF MAN LIMITED",
+   "kind": "binding:exact_absent",
+   "block_id": "final-710637-False-3",
+   "source_id_metadata_only": "710637",
+   "chosen": {
+    "bits": 1097799450,
+    "value": 14.943140029907227
+   },
+   "rejected": {
+    "bits": 3231196200,
+    "value": -4.754413604736328
+   },
+   "correct": true
+  },
+  {
+   "name": "THE JHAJJAR CENTRAL COOP BANK LTD",
+   "kind": "binding:exact_absent",
+   "block_id": "final-710637-False-4",
+   "source_id_metadata_only": "710637",
+   "chosen": {
+    "bits": 1094331208,
+    "value": 11.635566711425781
+   },
+   "rejected": {
+    "bits": 3231867608,
+    "value": -5.074565887451172
+   },
+   "correct": true
+  },
+  {
+   "name": "THE HAVERI URBAN CO-OP BANK LTD",
+   "kind": "binding:exact_absent",
+   "block_id": "final-710637-False-4",
+   "source_id_metadata_only": "710637",
+   "chosen": {
+    "bits": 1096902202,
+    "value": 14.087457656860352
+   },
+   "rejected": {
+    "bits": 3233636342,
+    "value": -5.917963981628418
+   },
+   "correct": true
+  }
+ ],
+ "by_kind": {
+  "binding:exact_absent": {
+   "pairs": 20,
+   "accuracy": 1.0
+  }
+ },
+ "by_source_id_metadata_only": {
+  "4433": {
+   "pairs": 10,
+   "accuracy": 1.0
+  },
+  "710637": {
+   "pairs": 10,
+   "accuracy": 1.0
+  }
+ },
+ "reversal_blocks": {
+  "blocks": 10,
+  "all_comparisons_correct": 10,
+  "all_correct_fraction": 1.0,
+  "wilson_95_lower": 0.7224598312333834
+ }
+}

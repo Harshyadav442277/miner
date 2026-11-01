@@ -8,17 +8,21 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 
 ---
 
-## 2026-11-02 IST: query-binding validity and overlapping-name continuation
+## 2026-11-02 IST: v8 fixes the target regression; factual quality remains open
 
 - Worktree: `C:/Users/hyada/.codex/worktrees/sanctions-benchmark-v7/Telegraph`, branch
   `codex/sanctions-benchmark-v7`, from `bd03fd1`. Shared Claude worktree untouched.
 - V7: 904 new requests on 128 unused public names. Balanced binding development
   v6 33/40, v7 40/40; final v6 36/40, v7 40/40. Each 20 reversal blocks, both
   classes/providers balanced, token visibility invariant, length baselines 50%.
-- Old controls v7 19/20, own 3/4: Bank of America fixed, Bank of India now fails.
-  Continue generic overlapping-word correction; do not call the regression fixed.
-- Genuine new disagreements 62/14 names, all listed; constant-match baseline100%.
-  No sanctions registration-readiness claim. Source labels check decisions only.
+- Old controls v7 19/20, own 3/4. V8 fixes both bank directions: 20/20 controls,
+  own 4/4. India margin is modest, 16.084156 vs 15.820303. V8 balanced regression
+  40/40; fresh bank stratum 20/20 (v7 also 20/20, so no improvement claimed there).
+- Genuine new disagreements 62/14 names, all listed. Node v6 29/62, v7 20/62,
+  v8 31/62, length 46/62, constant-match 62/62. G41 remains OPEN; no readiness claim.
+  Actual visible-token-length baseline is 42/62 tie-aware. 57/124 factual texts
+  truncate; decisive-claim visibility remains unaudited. Raw length/verdict
+  baselines are full-response dataset diagnostics, not guaranteed runtime rules.
 - Source audit: two v7 training queries have parentheticals stripped, invalidating
   exact-name labels. No such val/test query. Archive preserves it; v8 excludes both
   parent blocks, but inherits v7 weights. First v8 attempt stopped before completion.
@@ -26,6 +30,18 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
   and methods. V8 uses 2,400/400/400 pairs, generic shared words and true computed
   source comparisons; fresh absent-bank cohort separately frozen, no external bodies
   in training. V7 final is now regression evidence. Preserve FX_NOW block below.
+- V8 kit test 96.25%; checkpoint selected on synthetic val loss (epoch 0), never
+  external scores. All 3,200 new chosen fixtures/source comparisons audit clean;
+  query/entity/alias splits have zero overlap; tokenizer parity 6,400/0 differences;
+  16 unit tests pass. Exact dataset rebuilding and public-clone replay pass.
+- V8 Stage 1 and actual node checks pass. Final SHA-256
+  `6dcf705b5f0550a0904d793fd71a6073c29ea024bba38cc2266794cbce778f4c`, keccak
+  `0x083cd65e298ac96b2a79804890c00e79dda968734b1d8cee93ea5a0f69851976`.
+  Experimental package hosted at factscore `4e2c76a`, v7 at `0b177f7`; both downloaded
+  and hash-checked. Source/results on `codex/sanctions-benchmark-v7`; protocol freeze
+  `4e81b5e`. No live sanctions executor/tunnel left running, wallet or pool action.
+  The next step is valid factual coverage and cross-format factual discrimination,
+  not another registration based on relevance controls.
 
 ## CURRENT FX_NOW and funding — 2026-11-01 18:45 UTC (Nov 2 00:15 IST), Claude session
 

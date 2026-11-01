@@ -1,0 +1,17 @@
+{
+  "program": "C:\\Users\\hyada\\tg-eval\\.venv\\Scripts\\python.exe",
+  "cwd": "C:\\Users\\hyada\\.codex\\worktrees\\sanctions-benchmark-v7\\Telegraph",
+  "arguments": [
+    "track2/adapter/sanctions/check_tokenizer_parity.py",
+    "--trained",
+    "C:\\Users\\hyada\\tg-eval\\runs-v2\\SANCTIONS_SCREENING_MATCH_v8\\adapter\\tokenizer.json",
+    "--pinned",
+    "C:\\Users\\hyada\\tg-eval\\foundation\\tokenizer.json",
+    "--pairs",
+    "C:\\Users\\hyada\\tg-eval\\pairs\\sanctions_v8_hard_binding_r2\\train.jsonl",
+    "C:\\Users\\hyada\\tg-eval\\pairs\\sanctions_v8_hard_binding_r2\\val.jsonl",
+    "C:\\Users\\hyada\\tg-eval\\pairs\\sanctions_v8_hard_binding_r2\\test.jsonl",
+    "--out",
+    "C:\\Users\\hyada\\.codex\\worktrees\\sanctions-benchmark-v7\\Telegraph\\track2\\adapter\\sanctions\\evidence\\v8-plan\\tokenizer-parity.json"
+  ]
+}

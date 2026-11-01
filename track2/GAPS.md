@@ -16,6 +16,19 @@ An independent audit also found two v7 training exact-name labels affected by
 parenthetical stripping; both parent blocks are excluded from the next dataset.
 Full methods, scores and limitations: `adapter/sanctions/BENCHMARK_VALIDITY.md`.
 
+**V8 result:** the targeted overlapping-name relevance regression passes in both
+directions: 20/20 old controls, own format 4/4. Balanced binding regression 40/40;
+fresh absent-bank stratum 20/20 (v7 also 20/20). All 3,200 new chosen fixtures pass
+the source audit; full primary names are now preserved by the generator. Tokenizer
+parity/export/Stage 1 and hosted-byte checks pass. Genuine same-query results:
+v6 29/62, v7 20/62, v8 31/62, versus length 46/62 and constant-match 62/62.
+Thus query binding is improved, while factual readiness remains **OPEN**. No
+pool-derived training, captured-answer training, wallet action or registration.
+At the actual token limit, the tie-aware length reference scores 42/62 (67.74%).
+57/124 factual texts are truncated; decisive-verdict visibility has not been fully
+audited there. Full-body length/verdict references may use fields hidden from the
+scorer and are explicitly labeled as dataset diagnostics, not runtime implementations.
+
 Evidence: `adapter/sanctions/evidence/2026-11-01-miners-r1/`. Frozen 32-name queries, 15 YAML routes,
 232 responses; 32 unchanged answer pairs from 8 listed names. No negative-name pairs can be labeled
 defensibly from observed disagreements. LiveCert is our related miner, disclosed throughout.

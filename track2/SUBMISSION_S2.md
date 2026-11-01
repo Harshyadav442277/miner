@@ -1,6 +1,13 @@
 # Season II Evaluator entry draft: learning what our sanctions judge measures
 
 Status: **research/tooling contribution; registration readiness not established**.
+
+Latest continuation: [benchmark validity and query binding](adapter/sanctions/BENCHMARK_VALIDITY.md).
+V8 fixes the original wrong-query regression: 20/20 controls, including 4/4 in our
+miner format; balanced binding regression 40/40, fresh bank stratum 20/20. These
+are relevance measurements. The genuine factual-disagreement sample remains
+one-sided and cannot establish readiness. The report preserves discovered training
+label defects and their correction, rather than treating all synthetic labels as clean.
 Network: Ethereum Sepolia / Telegraph devnode. The owner also operates LiveCert, a
 sanctions miner included in the public captures. That relationship is disclosed; our
 calls are not independent adoption, paid demand or ranked-routing evidence.

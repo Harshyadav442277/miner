@@ -1,4 +1,4 @@
-"""Freeze matched-length, new corporate names before any miner calls. No pool access.
+"""Freeze matched-length, new entity names before any miner calls. No pool access.
 
 SDN exact-name members are paired in token-length strata with public GLEIF legal
 names absent from the exact-name index. Absence does not imply sanctions clearance.

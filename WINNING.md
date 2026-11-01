@@ -66,6 +66,9 @@ agree since the 2026-10-29 read (G203 closed). Judging runs Dec 2–8, and provi
   v3–v6 are measured in the node runtime. The v6 longer-answer pilot scored 90.18% on its synthetic test
   but only 79.17% on a fresh real-answer set; v3 scored 83.33% there against a 100% length baseline.
   A source/length shortcut or a small one-sided sample cannot establish readiness, even above 80%.
+  Follow-up v8 fixes the original wrong-query control (20/20, own format 4/4), retains 40/40
+  balanced binding regressions and passes 20/20 fresh bank controls. These are relevance tests;
+  genuine factual disagreements remain one-sided. See `track2/adapter/sanctions/BENCHMARK_VALIDITY.md`.
 - **The kit refuses to package FACT_CHECK and WEB_SEARCH** (track2 G29, question to the organisers).
 
 ## 3. Decisions taken, and why each is needed to win
@@ -248,8 +251,8 @@ every export is used (checked 2026-10-22). Code leaves only with the intents abo
 | Consumption (10) | Receipts from H2 app requests: routed, repeated, accounted | none |
 | Cost and latency (10) | Per-request upstream cost (mostly 0) and p50/p90 latency | latency is in the feed, not written up |
 | Integration and docs (10) | Recipes, tutorial, video | recipes exist; no tutorial or video |
-| Evaluator validity (40, ≥ 28) | Unseen-answer node-runtime measurement, credible labels, baselines and uncertainty | Two real-answer captures; v3–v6 measured; no candidate establishes readiness |
-| Evaluator integrity (15) | Split/leakage audit, no pool-derived training, no miner fingerprints | Public-source pipeline; v6 excludes measured names and SDN ids |
+| Evaluator validity (40, ≥ 28) | Unseen-answer node-runtime measurement, credible labels, baselines and uncertainty | Genuine factual disagreements separated from v7/v8 balanced relevance tests; no candidate establishes readiness |
+| Evaluator integrity (15) | Split/leakage audit, no pool-derived training, no miner fingerprints | Source/query audits, captured answers excluded from training; two discovered source-label defects disclosed and excluded from v8 data |
 | Evaluator reproducibility (10) | Frozen data, hashes, commands, per-pair scores and actual runtime identity | Capture, offline labeling and node-runtime scripts in track2/adapter/sanctions |
 | Evaluator coverage (10) | Measured useful new tests/improvement for a supported intent | One sanctions measurement; no newly activated intent or ranking improvement claimed |
 | Evaluator docs (5) | Clear entry point, tutorial, failure cases and limits | track2/SUBMISSION_S2.md and sanctions/README.md |

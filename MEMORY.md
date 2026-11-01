@@ -1,14 +1,18 @@
 # MEMORY.md — session continuity
 
-## 2026-11-02 IST: isolated sanctions validity continuation
+## 2026-11-02 IST: sanctions v8 target regression fixed; factual gate remains open
 
 Branch `codex/sanctions-benchmark-v7` uses a managed worktree outside the shared
 Claude checkout. See `track2/adapter/sanctions/BENCHMARK_VALIDITY.md` for exact
-results: v7 new final query binding 40/40 vs v6 36/40, but old own-format controls
-remain 3/4 and genuine factual disagreements remain all-positive/confounded.
+results: v8 old query controls 20/20 (v6 16/20), own format 4/4; balanced binding
+regression 40/40; fresh bank stratum 20/20 (v7 also 20/20). Genuine factual slice
+v6 29/62, v7 20/62, v8 31/62; length 46/62 and constant-match 62/62. Not ready to sign.
 Independent source audit caught two v7 training labels affected by stripped
-parentheticals. V8 continuation filters those blocks and trains generic shared-word
-fixtures; no captured response training. FX_NOW and all wallet flows remain separate.
+parentheticals. V8 excludes those blocks; generator now preserves complete names.
+All 3,200 v8 fixtures pass source/split audits; no captured-response training.
+16 tests, 6,400-text tokenizer parity, node checks, public-clone replay and hosted
+package hashes pass. Source/results branch and experimental packages are published.
+FX_NOW and all wallet flows remain separate. Next gap: valid genuine factual coverage.
 
 ## 2026-11-01 19:13 UTC (Nov 2 IST): sanctions Evaluator measurements complete
 

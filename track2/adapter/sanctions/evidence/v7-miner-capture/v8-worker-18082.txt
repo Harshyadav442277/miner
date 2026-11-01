@@ -1,0 +1,29 @@
+2026/11/02 02:19:48 loaded C:\Users\hyada\tg-eval\runs-v2\SANCTIONS_SCREENING_MATCH_v8\SANCTIONS_SCREENING_MATCH.safetensors: intent SANCTIONS_SCREENING_MATCH, class judgment, keccak256 0x083cd65e298ac96b2a79804890c00e79dda968734b1d8cee93ea5a0f69851976, foundation 0a49b325304bb4cf292e683929689d0457966be264f60bfc94d0072b614bf8e6, tokenizer 67bc76f8b9386efba1a761c1c8e5ad439fd0eaf1c2826e9dd1a205c7af4dc456
+2026/11/02 02:19:48 adapterexec listening on 127.0.0.1:18082
+2026/11/02 02:19:50 item 0: tokens_len=71 -> score=1086260751 (0x40bf060f)
+2026/11/02 02:19:56 item 1: tokens_len=256 -> score=1099404922 (0x4187967a)
+2026/11/02 02:20:02 item 2: tokens_len=256 -> score=1100419254 (0x419710b6)
+2026/11/02 02:20:07 item 3: tokens_len=221 -> score=1100315792 (0x41957c90)
+2026/11/02 02:20:12 item 4: tokens_len=256 -> score=1101388324 (0x41a5da24)
+2026/11/02 02:20:14 item 5: tokens_len=66 -> score=1091757322 (0x4112e50a)
+2026/11/02 02:20:19 item 6: tokens_len=241 -> score=1100098864 (0x41922d30)
+2026/11/02 02:20:25 item 7: tokens_len=256 -> score=1100547236 (0x419904a4)
+2026/11/02 02:20:25 batch of 8 scored in 36.703s
+2026/11/02 02:20:31 item 0: tokens_len=256 -> score=1101382564 (0x41a5c3a4)
+2026/11/02 02:20:32 item 1: tokens_len=62 -> score=1092446765 (0x411d6a2d)
+2026/11/02 02:20:38 item 2: tokens_len=256 -> score=1097502472 (0x416a8f08)
+2026/11/02 02:20:44 item 3: tokens_len=256 -> score=1100888282 (0x419e38da)
+2026/11/02 02:20:49 item 4: tokens_len=234 -> score=1099894544 (0x418f0f10)
+2026/11/02 02:20:55 item 5: tokens_len=256 -> score=1098887480 (0x417fb138)
+2026/11/02 02:20:56 item 6: tokens_len=71 -> score=1083336376 (0x409266b8)
+2026/11/02 02:21:02 item 7: tokens_len=253 -> score=1100063805 (0x4191a43d)
+2026/11/02 02:21:02 batch of 8 scored in 36.738s
+2026/11/02 02:21:08 item 0: tokens_len=256 -> score=1097881251 (0x417056a3)
+2026/11/02 02:21:13 item 1: tokens_len=256 -> score=1097052634 (0x4163b1da)
+2026/11/02 02:21:19 item 2: tokens_len=256 -> score=1100741684 (0x419bfc34)
+2026/11/02 02:21:24 item 3: tokens_len=246 -> score=1099801705 (0x418da469)
+2026/11/02 02:21:29 item 4: tokens_len=256 -> score=1100726692 (0x419bc1a4)
+2026/11/02 02:21:31 item 5: tokens_len=68 -> score=1093049454 (0x41269c6e)
+2026/11/02 02:21:36 item 6: tokens_len=256 -> score=1100120880 (0x41928330)
+2026/11/02 02:21:41 item 7: tokens_len=243 -> score=1099553238 (0x4189d9d6)
+2026/11/02 02:21:41 batch of 8 scored in 39.571s

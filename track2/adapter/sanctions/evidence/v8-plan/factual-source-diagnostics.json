@@ -1,0 +1,131 @@
+{
+ "scope": "Observed source-pair diagnostic only; metadata never enters scorer or training",
+ "by_version": {
+  "6": {
+   "responses-4433.json / responses-302.json": {
+    "pairs": 10,
+    "correct": 1
+   },
+   "responses-4433.json / responses-78021.json": {
+    "pairs": 2,
+    "correct": 2
+   },
+   "responses-4433.json / responses-9002.json": {
+    "pairs": 7,
+    "correct": 5
+   },
+   "responses-710637.json / responses-302.json": {
+    "pairs": 11,
+    "correct": 5
+   },
+   "responses-710637.json / responses-78021.json": {
+    "pairs": 2,
+    "correct": 1
+   },
+   "responses-710637.json / responses-9002.json": {
+    "pairs": 7,
+    "correct": 7
+   },
+   "responses-78021.json / responses-302.json": {
+    "pairs": 10,
+    "correct": 2
+   },
+   "responses-78021.json / responses-9002.json": {
+    "pairs": 6,
+    "correct": 5
+   },
+   "responses-9002.json / responses-302.json": {
+    "pairs": 6,
+    "correct": 0
+   },
+   "responses-9002.json / responses-78021.json": {
+    "pairs": 1,
+    "correct": 1
+   }
+  },
+  "7": {
+   "responses-4433.json / responses-302.json": {
+    "pairs": 10,
+    "correct": 6
+   },
+   "responses-4433.json / responses-78021.json": {
+    "pairs": 2,
+    "correct": 1
+   },
+   "responses-4433.json / responses-9002.json": {
+    "pairs": 7,
+    "correct": 4
+   },
+   "responses-710637.json / responses-302.json": {
+    "pairs": 11,
+    "correct": 5
+   },
+   "responses-710637.json / responses-78021.json": {
+    "pairs": 2,
+    "correct": 1
+   },
+   "responses-710637.json / responses-9002.json": {
+    "pairs": 7,
+    "correct": 2
+   },
+   "responses-78021.json / responses-302.json": {
+    "pairs": 10,
+    "correct": 0
+   },
+   "responses-78021.json / responses-9002.json": {
+    "pairs": 6,
+    "correct": 0
+   },
+   "responses-9002.json / responses-302.json": {
+    "pairs": 6,
+    "correct": 0
+   },
+   "responses-9002.json / responses-78021.json": {
+    "pairs": 1,
+    "correct": 1
+   }
+  },
+  "8": {
+   "responses-4433.json / responses-302.json": {
+    "pairs": 10,
+    "correct": 8
+   },
+   "responses-4433.json / responses-78021.json": {
+    "pairs": 2,
+    "correct": 2
+   },
+   "responses-4433.json / responses-9002.json": {
+    "pairs": 7,
+    "correct": 6
+   },
+   "responses-710637.json / responses-302.json": {
+    "pairs": 11,
+    "correct": 8
+   },
+   "responses-710637.json / responses-78021.json": {
+    "pairs": 2,
+    "correct": 2
+   },
+   "responses-710637.json / responses-9002.json": {
+    "pairs": 7,
+    "correct": 3
+   },
+   "responses-78021.json / responses-302.json": {
+    "pairs": 10,
+    "correct": 0
+   },
+   "responses-78021.json / responses-9002.json": {
+    "pairs": 6,
+    "correct": 0
+   },
+   "responses-9002.json / responses-302.json": {
+    "pairs": 6,
+    "correct": 1
+   },
+   "responses-9002.json / responses-78021.json": {
+    "pairs": 1,
+    "correct": 1
+   }
+  }
+ }
+}

@@ -1,0 +1,4 @@
+PASS sources; 160 raw body hashes; 20 verbatim pairs
+PASS v6 16/20 = 0.800000; gate=False
+PASS v7 19/20 = 0.950000; gate=False
+PASS v8 20/20 = 1.000000; gate=False

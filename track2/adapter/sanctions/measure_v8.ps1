@@ -52,6 +52,9 @@ foreach ($measurement in $measurements) {
     Invoke-Logged $evalPython @('track2/adapter/sanctions/verify_evidence.py',$benchmark) `
         (Join-Path $plan ($measurement.name+'-verify.txt'))
 }
+Invoke-Logged $evalPython @('track2/adapter/sanctions/audit_factual_benchmark.py',
+    (Join-Path $PSScriptRoot 'evidence/v7-miner-capture'),'--tokenizer',
+    (Join-Path $EvalRoot 'foundation/tokenizer.json')) (Join-Path $plan 'factual-audit-output.txt')
 Copy-Item -LiteralPath (Join-Path $evalRun 'result.json') -Destination (Join-Path $plan 'training-result.json')
 Copy-Item -LiteralPath (Join-Path $evalRun 'initialization.json') -Destination (Join-Path $plan 'initialization.json')
 Copy-Item -LiteralPath (Join-Path $EvalRoot 'train_sanctions_v8_r2.log') -Destination (Join-Path $plan 'training-log.txt')

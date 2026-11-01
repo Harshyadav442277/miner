@@ -1,0 +1,21 @@
+test_explicit_absent_stratum_remains_narrow (test_binding_benchmark.BindingTests.test_explicit_absent_stratum_remains_narrow) ... ok
+test_invisible_or_ambiguous_names_rejected (test_binding_benchmark.BindingTests.test_invisible_or_ambiguous_names_rejected) ... ok
+test_provider_imbalance_rejected (test_binding_benchmark.BindingTests.test_provider_imbalance_rejected) ... ok
+test_single_membership_class_rejected (test_binding_benchmark.BindingTests.test_single_membership_class_rejected) ... ok
+test_unequal_question_prefix_rejected (test_binding_benchmark.BindingTests.test_unequal_question_prefix_rejected) ... ok
+test_unreversed_answers_rejected (test_binding_benchmark.BindingTests.test_unreversed_answers_rejected) ... ok
+test_valid_reversal_has_half_length_baselines (test_binding_benchmark.BindingTests.test_valid_reversal_has_half_length_baselines) ... ok
+test_contradiction_abstains (test_label_miners.LabelTests.test_contradiction_abstains) ... ok
+test_exact_positive (test_label_miners.LabelTests.test_exact_positive) ... ok
+test_false_negative (test_label_miners.LabelTests.test_false_negative) ... ok
+test_negative_not_global_clearance (test_label_miners.LabelTests.test_negative_not_global_clearance) ... ok
+test_numeric_and_alternate_boolean (test_label_miners.LabelTests.test_numeric_and_alternate_boolean) ... ok
+test_scope_and_unknown_abstain (test_label_miners.LabelTests.test_scope_and_unknown_abstain) ... ok
+test_static_and_unrelated_answers_abstain (test_label_miners.LabelTests.test_static_and_unrelated_answers_abstain) ... ok
+test_transport_error_not_incorrect (test_label_miners.LabelTests.test_transport_error_not_incorrect) ... ok
+test_wrong_evidence_abstains (test_label_miners.LabelTests.test_wrong_evidence_abstains) ... ok
+
+----------------------------------------------------------------------
+Ran 16 tests in 1.258s
+
+OK

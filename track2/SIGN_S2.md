@@ -36,7 +36,15 @@ runtime 68.75% on the initial set and 79.17% on the fresh set. Fresh v3 scores 8
 the length baseline remains 100%, only 6 names contribute and there are no negative
 pairs. None is ready to sign. The v6 package is hosted solely for reproduction.
 Separate wrong-query controls score 16/20; only 3/4 in our own LiveCert format pass.
-That synthetic relevance failure also remains open; it is not an actual miner error.
+That synthetic relevance failure was open in v6; it is not an actual miner error.
+
+**V8 follow-up:** the specific relevance failure now passes in both directions:
+20/20 old controls, own format 4/4; balanced binding regression 40/40; fresh
+absent-bank stratum 20/20 (v7 also 20/20). These are declared wrong-query controls,
+not factual-accuracy evidence. The genuine new disagreement slice is still all
+listed, with a 100% constant-match baseline. No sanctions adapter is ready to sign.
+See `adapter/sanctions/BENCHMARK_VALIDITY.md` for the source-label correction,
+uncertainty, replay commands and experimental hosted hashes.
 
 Only after a new independent set supports ≥80% with a defensible margin and passes
 source/length/coverage checks: host and re-download exact bytes, verify live class and

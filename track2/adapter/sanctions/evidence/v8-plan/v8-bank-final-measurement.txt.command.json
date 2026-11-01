@@ -1,0 +1,12 @@
+{
+  "program": "C:\\Users\\hyada\\tg-eval\\.venv\\Scripts\\python.exe",
+  "cwd": "C:\\Users\\hyada\\.codex\\worktrees\\sanctions-benchmark-v7\\Telegraph",
+  "arguments": [
+    "track2/adapter/sanctions/measure_miners.py",
+    "C:\\Users\\hyada\\.codex\\worktrees\\sanctions-benchmark-v7\\Telegraph\\track2\\adapter\\sanctions\\evidence\\v8-bank-final",
+    "--home",
+    "C:/Users/hyada/tg-eval",
+    "--versions",
+    "7,8"
+  ]
+}

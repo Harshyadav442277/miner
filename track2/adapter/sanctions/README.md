@@ -52,7 +52,7 @@ under `season2/experiments/sanctions/vN`, on `season2-adapters-v2`. Use recorded
 pins. The observed library versions and binary hashes are in `environment.json`.
 
 To retrain, decompress `v6-training/{train,val,test}.jsonl.gz` outside OneDrive; the
-manifest records exact hashes. `COMMANDS.md` supplies the two-epoch recipe.
+manifest records exact hashes. The capture's `COMMANDS.md` supplies the two-epoch recipe.
 `audit_splits.py` checks ids, aliases and query strings; `check_tokenizer_parity.py`
 compares every rendered text before export. The Windows `finish_v6.ps1` serializes
 export and node checks after training; it assumes the kit/foundation/run already exist

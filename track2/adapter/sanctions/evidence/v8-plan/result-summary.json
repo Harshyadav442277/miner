@@ -1,0 +1,144 @@
+{
+ "scope": "Query binding and genuine factual decisions reported separately",
+ "registration_ready": false,
+ "protocol_freeze_commit": "4e81b5e",
+ "axes": {
+  "2026-11-01-wrong-query-controls": {
+   "6": {
+    "pairs": 20,
+    "accuracy": 0.8,
+    "ties": 0,
+    "registration_gate_pass": false,
+    "package_sha256": "71cbf5d1812fbc240dfc3fc604e1f97c527ae45061feccc29850e5f000ac464a",
+    "pairs_sha256": "e846b2ff760198fb6685562b69f6f8069b5a5e84bc94f14d02f1cb38c76c4ee1"
+   },
+   "7": {
+    "pairs": 20,
+    "accuracy": 0.95,
+    "ties": 0,
+    "registration_gate_pass": false,
+    "package_sha256": "12a8a4bf5d84d142c903a5d6497985c291300f78e30d8c46e7a7918029845972",
+    "pairs_sha256": "e846b2ff760198fb6685562b69f6f8069b5a5e84bc94f14d02f1cb38c76c4ee1"
+   },
+   "8": {
+    "pairs": 20,
+    "accuracy": 1.0,
+    "ties": 0,
+    "registration_gate_pass": false,
+    "package_sha256": "6dcf705b5f0550a0904d793fd71a6073c29ea024bba38cc2266794cbce778f4c",
+    "pairs_sha256": "e846b2ff760198fb6685562b69f6f8069b5a5e84bc94f14d02f1cb38c76c4ee1"
+   }
+  },
+  "v7-binding-final": {
+   "6": {
+    "pairs": 40,
+    "accuracy": 0.9,
+    "ties": 0,
+    "registration_gate_pass": false,
+    "package_sha256": "71cbf5d1812fbc240dfc3fc604e1f97c527ae45061feccc29850e5f000ac464a",
+    "pairs_sha256": "41b4a477c762727b0b5d279ff08d9feb1df93df23d395c494e43bd56cde0dd0f",
+    "reversal_blocks": {
+     "blocks": 20,
+     "all_comparisons_correct": 16,
+     "all_correct_fraction": 0.8,
+     "wilson_95_lower": 0.5839782779742402
+    }
+   },
+   "7": {
+    "pairs": 40,
+    "accuracy": 1.0,
+    "ties": 0,
+    "registration_gate_pass": false,
+    "package_sha256": "12a8a4bf5d84d142c903a5d6497985c291300f78e30d8c46e7a7918029845972",
+    "pairs_sha256": "41b4a477c762727b0b5d279ff08d9feb1df93df23d395c494e43bd56cde0dd0f",
+    "reversal_blocks": {
+     "blocks": 20,
+     "all_comparisons_correct": 20,
+     "all_correct_fraction": 1.0,
+     "wilson_95_lower": 0.8388698745050667
+    }
+   },
+   "8": {
+    "pairs": 40,
+    "accuracy": 1.0,
+    "ties": 0,
+    "registration_gate_pass": false,
+    "package_sha256": "6dcf705b5f0550a0904d793fd71a6073c29ea024bba38cc2266794cbce778f4c",
+    "pairs_sha256": "41b4a477c762727b0b5d279ff08d9feb1df93df23d395c494e43bd56cde0dd0f",
+    "reversal_blocks": {
+     "blocks": 20,
+     "all_comparisons_correct": 20,
+     "all_correct_fraction": 1.0,
+     "wilson_95_lower": 0.8388698745050667
+    }
+   }
+  },
+  "v8-bank-final": {
+   "7": {
+    "pairs": 20,
+    "accuracy": 1.0,
+    "ties": 0,
+    "registration_gate_pass": false,
+    "package_sha256": "12a8a4bf5d84d142c903a5d6497985c291300f78e30d8c46e7a7918029845972",
+    "pairs_sha256": "cada526ff5bbf1ae0e74332eb15314724d9da1e39335e7267cfcf11208e261f4",
+    "reversal_blocks": {
+     "blocks": 10,
+     "all_comparisons_correct": 10,
+     "all_correct_fraction": 1.0,
+     "wilson_95_lower": 0.7224598312333834
+    }
+   },
+   "8": {
+    "pairs": 20,
+    "accuracy": 1.0,
+    "ties": 0,
+    "registration_gate_pass": false,
+    "package_sha256": "6dcf705b5f0550a0904d793fd71a6073c29ea024bba38cc2266794cbce778f4c",
+    "pairs_sha256": "cada526ff5bbf1ae0e74332eb15314724d9da1e39335e7267cfcf11208e261f4",
+    "reversal_blocks": {
+     "blocks": 10,
+     "all_comparisons_correct": 10,
+     "all_correct_fraction": 1.0,
+     "wilson_95_lower": 0.7224598312333834
+    }
+   }
+  },
+  "v7-miner-capture": {
+   "6": {
+    "pairs": 62,
+    "accuracy": 0.46774193548387094,
+    "ties": 0,
+    "registration_gate_pass": false,
+    "package_sha256": "71cbf5d1812fbc240dfc3fc604e1f97c527ae45061feccc29850e5f000ac464a",
+    "pairs_sha256": "770f201729650039fdacfe3582ef0a2d06271ed01e0a74ba8d440cd8e691ecb6"
+   },
+   "7": {
+    "pairs": 62,
+    "accuracy": 0.3225806451612903,
+    "ties": 0,
+    "registration_gate_pass": false,
+    "package_sha256": "12a8a4bf5d84d142c903a5d6497985c291300f78e30d8c46e7a7918029845972",
+    "pairs_sha256": "770f201729650039fdacfe3582ef0a2d06271ed01e0a74ba8d440cd8e691ecb6"
+   },
+   "8": {
+    "pairs": 62,
+    "accuracy": 0.5,
+    "ties": 0,
+    "registration_gate_pass": false,
+    "package_sha256": "6dcf705b5f0550a0904d793fd71a6073c29ea024bba38cc2266794cbce778f4c",
+    "pairs_sha256": "770f201729650039fdacfe3582ef0a2d06271ed01e0a74ba8d440cd8e691ecb6"
+   }
+  }
+ },
+ "factual_shortcut_baselines": {
+  "longer_answer": 0.7419354838709677,
+  "always_match": 1.0,
+  "distinct_questions": 14,
+  "all_queries_listed": true,
+  "visible_token_length_tie_aware": 0.6774193548387096,
+  "full_response_baselines_may_use_hidden_fields": true,
+  "texts_truncated": 57,
+  "texts": 124,
+  "decisive_verdict_visibility": "not fully audited"
+ }
+}
