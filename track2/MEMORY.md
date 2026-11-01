@@ -8,6 +8,39 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 
 ---
 
+## CURRENT FX_NOW and funding — 2026-11-01 18:45 UTC (Nov 2 00:15 IST), Claude session
+
+Runs alongside the Codex sanctions session (block below), in the same worktree. The two sessions commit only their own paths.
+
+- **FX_NOW comparator, READY except funding (SIGN_S2 top, commits 9483970 and 322e087).**
+  - Runnable `https://livecert-comparator.vercel.app/FX_NOW/runnable`: production, live-check 600/600.
+  - File: telegraph-factscore `2825b06…`, `season2/comparator/dist/FX_NOW.wasm`, keccak `0xa92fd576…13ca`.
+  - Fee: the owner's wallet.
+  - Dry run at 18:38 UTC fails only on balance: the wallet holds **3.547 MACHINA** and the bond is **4.477**.
+    The allowance (5.165) already covers it.
+  - To fund it: the faucet reopens around 08:05 UTC Nov 2 (+5), or a swap. A fork test showed 6 test USDC → 5.479
+    MACHINA, after which the register call simulates as id 51. The owner has not chosen yet. I advised no need
+    to ask Ahmed, because the docs state the USDC mint-and-swap route.
+  - **Next:** after funding, the owner publishes on Anjoman Evaluators (file URL, `FX_NOW`, fee, runnable URL).
+    Then follow `/api/wasm` to `canonical`.
+- **Why comparators:** another author's WEATHER_CHECK comparator (#45) went canonical in about an hour on the
+  node's exact-match gate (1,120 cases, 0 mismatches). There are 6 deterministic families. 5 are taken:
+  WEATHER_CHECK #45, and CRYPTO_PRICE #47, CURRENCY_EXCHANGE #48, STOCK_PRICE #49, SSL_VERIFICATION #50 by
+  `0xd4c73e99…` at 16:08–16:14 UTC. An exact comparator ties the incumbent and cannot gain the +2 margin, so
+  **FX_NOW is the only target.**
+- **#46 deregistered by the owner** (nonce 6, plus contribution rewards claimed). `releasedMinerBond` shows
+  4.835 MACHINA locked until **2026-11-03 18:36:48 UTC**. After that: My registrations → Released bond →
+  Withdraw bond. Anjoman's Deregister needs a second click on "Confirm deregister?" within 4 s; the first
+  attempt sent nothing.
+- **Open-family scan, ~18:50 UTC:** 124 families; 14 have ≥ 5 eligible pool submitters. **Only
+  SANCTIONS_SCREENING_MATCH lacks a champion among them.** About 30 judgment families with no champion have
+  only 1–3 submitters, so a registration there waits as "awaiting material". Weakest incumbent:
+  SECURITY_REVIEW, 71.43%. Mass registrations to "see which works" are not useful: one family, a 15-pair noisy
+  gate, and a bond locked about 50 h each.
+- **MACHINA/USDC pool:** 662 MACHINA / 740 USDC. Do not mass-swap: the pool prices every bond, and it is shared.
+- **No real money:** everything is on Sepolia (test ETH, test MACHINA, test USDC). Real money is only prizes.
+- **Live Evaluator rubric:** 40/15/10/10/5 plus growth 20 (RULES_SEASON2.md, commit 6b09093).
+
 ## CURRENT — 2026-11-01 ~07:15 UTC · V2 PIPELINE PROVEN; EVENT_OUTCOME_RESOLUTION ADAPTER TRAINING
 
 Owner: "start building whatever this track requires. do the work in phases". Worktree branch
