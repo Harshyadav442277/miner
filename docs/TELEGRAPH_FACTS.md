@@ -4,6 +4,10 @@
 verification date. Re-verify anything older than a few days — the canonical intent set and
 contract parameters change on-chain.
 
+**Organiser, Discord, 2026-11-02 00:20 IST (2026-11-01 18:50 UTC), Ahmed Ali:** funding an evaluator bond on
+Sepolia by taking test USDC and swapping it for MACHINA on the MACHINA/USDC pool is the intended way, but the USDC
+is Telegraph's own deployed token: request it from the faucet on anjoman.ai (not a public USDC faucet).
+
 Verified **2026-08-26** against https://docs.telegraphprotocol.com (docs updated 2026-08-20). The V2 docs
 (updated 2026-10-27) were read on 2026-10-29: see the next section. Where it disagrees with an older section
 below, the newer section wins.
