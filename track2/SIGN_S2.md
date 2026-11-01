@@ -7,6 +7,9 @@ redundant second approve `0x77a10bde…2218` (12041802); `registerWasm` `0x89c9c
 status 1. Logs: registration id **46** (0x2e), bond 4.835 MACHINA pulled (entityBonds fell from 5.132 at 14:40 to
 4.841 at 15:09, so the claim was not needed), keccak `0x49de4107…f2f0` in the event. No MACHINA claimed; wallet
 holds 0.165 MACHINA after the bond. `/api/wasm/46` returned "not found" at 15:21 UTC (not yet indexed).
+**Owner, 2026-11-01:** claim GitHub bounty telegraphprotocol/bounties#78 (SANCTIONS_SCREENING_MATCH, unfunded)
+with `/claim` + `/submit` + registration id 46 **only after #46 is canonical**. Anjoman's Evaluators page takes the
+same five fields (runnable URL included): use it for the next registration instead of a local signing page.
 
 Owner, 2026-11-01: "Automate everything … only call me to sign." **Prepared and checked by Claude; nothing signed or
 sent.** No champion for the family at 13:28 UTC; `0x3035…`'s registration 31 failed the public check at 9/15.
