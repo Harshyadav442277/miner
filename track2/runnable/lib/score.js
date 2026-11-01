@@ -14,7 +14,7 @@ const fs = require("node:fs");
 const path = require("node:path");
 const crypto = require("node:crypto");
 
-const FAMILIES = ["CRYPTO_PRICE", "WEATHER_CHECK"];
+const FAMILIES = ["CRYPTO_PRICE", "WEATHER_CHECK", "FX_NOW"];
 const MAX_BATCH = 100;
 const I64_MIN = -(2n ** 63n);
 const I64_MAX = 2n ** 63n - 1n;

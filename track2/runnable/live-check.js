@@ -6,7 +6,7 @@ const BASE = "https://livecert-comparator.vercel.app";
   const truths = [1n, 1000n, 77458000000n, 10n ** 18n, -(10n ** 18n), 9223372036854775807n];
   for (const code of [0n, 1n, 2n, 3n, 7n]) for (const tol of [0n, 50n, 100n, 10n ** 9n]) for (const t of truths)
     for (const d of [0n, 1n, -tol, 2n * tol, t / 200n]) qs.push(`{"ground_truth_value":${t},"miner_value":${BigInt.asIntN(64, t + d)},"spec":[${code},${tol}]}`);
-  for (const fam of ["CRYPTO_PRICE", "WEATHER_CHECK"]) {
+  for (const fam of ["CRYPTO_PRICE", "WEATHER_CHECK", "FX_NOW"]) {
     const meta = await (await fetch(`${BASE}/${fam}/runnable`)).json();
     let bad = 0, n = 0, maxMs = 0;
     for (let i = 0; i < qs.length; i += 100) {
