@@ -1,6 +1,10 @@
 # Season II Track 2: publish commands and sign list
 
-## V2, 2026-11-01: register the SANCTIONS_SCREENING_MATCH adapter (v3) — REGISTERED #46, awaiting the node
+## V2, 2026-11-01: register the SANCTIONS_SCREENING_MATCH adapter (v3) — REJECTED #46 (7/15), deregister to free the bond
+
+**Result, 16:25:59 UTC:** rejected at the remote check, 7 of 15 public pairs (46.7%), GAPS G40. Executors, tunnel and
+signing page stopped at 16:27 UTC. **Owner:** Anjoman → My registrations → Evaluation WASMs → #46 → Deregister
+(`deregisterEntity(46, wasm)`), then withdraw the released bond when it unlocks. Bounty #78: not claimable.
 
 **Signed by the owner in MetaMask, 2026-11-01 (UTC):** approve 10 MACHINA `0x50a728ee…74f6` (block 12041801) and a
 redundant second approve `0x77a10bde…2218` (12041802); `registerWasm` `0x89c9c25d…886c`, block 12041861, 15:20:40 UTC,

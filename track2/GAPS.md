@@ -4,7 +4,15 @@ The Season I gaps (G13–G27: rank_answer corpora, calibration thresholds, regis
 The modules they describe are retired: they were deleted from the tree, and the V2 registry no longer lists 1882.
 They are in `git log -p -- track2/GAPS.md`.
 
-## G40 — the first SANCTIONS_SCREENING_MATCH adapter only judged our own answer shapes (2026-11-01) — `OPEN, v4 training`
+## G40 — the first SANCTIONS_SCREENING_MATCH adapter only judged our own answer shapes (2026-11-01) — `OPEN: v3 REJECTED at 7/15`
+
+**Registration 46 (v3) rejected, 16:25:59 UTC:** "at its runnable URL the adapter ordered 7 of 15 public pairs
+correctly (46.7%), below the 70% floor". The node sent one batch of 30 texts, the longest 279 tokens; we answered in
+54.4 s with the right identity, so the infrastructure worked and the judgement failed. **Our 72.5% probe did not
+predict the pool**: we wrote the probe ourselves, so it shares our assumptions. Pool texts run longer than anything
+we trained on (training p99 154 tokens, pool max 279). `0x3035…` scored 9/15 on the same check. Do not register
+again on a self-written probe. First get a measurement whose answers we did not write: real sanctions miners'
+responses, or another public source. Bond 4.835 MACHINA stays locked until the owner deregisters 46.
 
 **v3 (18:51 IST, keccak `0x49de4107…f2f0`, not hosted):** probe **72.5%** (80 pairs; one cell still 0/8: an
 unlisted name's detailed "no entries found" lost to a bare "Match"); held-out 200 pairs 93.0%, 0 ties, length
