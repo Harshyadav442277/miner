@@ -7,8 +7,9 @@ Owner: "Yes, deploy it". Release record: track1-miner/docs/evidence/release-2026
 - **Production** `miner-rbjurfgjl` (`130e16c`: G245 extraction + bounded field-list match from the security
   review). Rollback `miner-htkhwofwv` (`a8abbcf`). Preflight 7/7; watch `active`, 376 ms.
 - **Mission builds:** full 9/9; partial 53 pass, 4 fail (all G244 classification), 1 refused (STOCK_PRICE); 15/15.
-- **G244** recurs on every fresh deployment's first classify call; owner decides deadline vs fallback.
-- **H2 is open** (since Nov 1 00:00 UTC). Not pushed; nothing signed. Deploy tree detached at `130e16c`.
+- **G244** recurs on every fresh deployment's first classify call. Owner chose "Answer ambiguous": fixed in
+  `e63df93` (unit 871/871), **not on production**; previews have no model key, so only production shows it.
+- **H2 is open** (since Nov 1 00:00 UTC). Not pushed; nothing signed. Deploy tree detached at `e63df93`.
 
 ## 2026-10-31 ~19:50 UTC (01:20 IST Nov 1): all 102 mission builds graded; G245 fixed on a preview
 
