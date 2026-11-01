@@ -4,7 +4,15 @@ The Season I gaps (G13–G27: rank_answer corpora, calibration thresholds, regis
 The modules they describe are retired: they were deleted from the tree, and the V2 registry no longer lists 1882.
 They are in `git log -p -- track2/GAPS.md`.
 
-## G40 — the first SANCTIONS_SCREENING_MATCH adapter only judged our own answer shapes (2026-11-01) — `OPEN, v3 training`
+## G40 — the first SANCTIONS_SCREENING_MATCH adapter only judged our own answer shapes (2026-11-01) — `OPEN, v4 training`
+
+**v3 (18:51 IST, keccak `0x49de4107…f2f0`, not hosted):** probe **72.5%** (80 pairs; one cell still 0/8: an
+unlisted name's detailed "no entries found" lost to a bare "Match"); held-out 200 pairs 93.0%, 0 ties, length
+50.5%. But bare verdicts on never-seen names scored 8/8, which knowledge cannot explain: name shape alone (word
+count, capitals) predicted "listed" 71.7% on the v3 test set, because unlisted people were built as 2-word
+names. v4 builds every unlisted name from a listed template, word for word, and gives both classes the same
+25% typo rate. The words+caps+length rule now predicts listed 58.3% (the remainder is aliases); gate PASS.
+v3's 93% is not a judgement number.
 
 **v2 (17:30 IST, keccak `0x7cf777b7…562a`, not hosted):** kit test 91.2%, but the probe (now 80 pairs, with
 mixed shapes) gave **57.5%**. With one detailed and one short answer it always preferred the detailed one:

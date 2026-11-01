@@ -119,26 +119,30 @@ def load(sdn_path, alt_path):
 
 
 def unlisted_names(ents, listed_norms, rng, n):
-    """Recombine listed names' own parts, so negatives share the positives' name distribution."""
+    """One unlisted name per listed template: each word of a listed name is swapped for a word from the same
+    position class of another listed name of that kind, so the two classes share kind, word count and casing
+    (v3's recombination gave 2-word people and short entities: name shape alone predicted 'listed' 71.7%)."""
     firsts, lasts, words = [], [], collections.defaultdict(list)
     for e in ents:
         if e["kind"] == "individual" and ", " in e["name"]:
             last, first = _PAREN.sub("", e["name"]).split(", ", 1)
-            firsts.append(first.split()[0])
-            lasts.append(last.title())
+            firsts.extend(first.split())
+            lasts.extend(last.split())
         else:
             words[e["kind"]].extend(_PAREN.sub("", e["name"]).split())
     out = []
-    for _ in range(n * 3):
-        kind = rng.choice(["individual"] * 3 + [k for k in words if len(words[k]) > 20])
-        if kind == "individual":
-            if not firsts:
-                continue
-            name = f"{rng.choice(firsts)} {rng.choice(lasts)}"
+    for e in rng.sample(ents, len(ents)) * 2:
+        raw = _PAREN.sub("", e["name"])
+        if e["kind"] == "individual" and ", " in raw:
+            last, first = raw.split(", ", 1)
+            name = display(", ".join([" ".join(rng.choice(lasts) for _ in last.split()),
+                                      " ".join(rng.choice(firsts) for _ in first.split())]), "individual")
+        elif len(words[e["kind"]]) > 20:
+            name = " ".join(rng.choice(words[e["kind"]]) for _ in raw.split())
         else:
-            name = " ".join(rng.choice(words[kind]) for _ in range(rng.randint(2, 3)))
+            continue
         if norm(name) not in listed_norms:
-            out.append((name, kind))
+            out.append((name, e["kind"]))
         if len(out) >= n:
             break
     return out
@@ -243,7 +247,8 @@ def main():
             if rng.random() < 0.25:
                 q = typo(q, rng)
             rows.append((q, e["kind"], e))
-        rows += [(q, k, None) for q, k in unlisted_names(part, listed_norms, rng, len(part))]
+        for q, k in unlisted_names(part, listed_norms, rng, len(part)):
+            rows.append((typo(q, rng) if rng.random() < 0.25 else q, k, None))
         rng.shuffle(rows)
         with open(os.path.join(a.out_dir, f"{split}.jsonl"), "w", encoding="utf-8") as f:
             for q, kind, e in rows:
