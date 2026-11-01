@@ -1,6 +1,15 @@
 # MEMORY.md — session continuity
 
-## 2026-11-01 ~11:25 UTC (16:55 IST): CURRENT — G246 explained; gates fixed; SSL prose fix NOT deployed
+## 2026-11-01 ~11:55 UTC (17:25 IST): CURRENT — `5939c49` LIVE (SSL prose, G246)
+
+Owner: "Yes, deploy it". Release: track1-miner/docs/evidence/release-2026-11-01-ssl-prose/.
+
+- **Production** `miner-1aoi3y0wt` (`5939c49`). Rollback `miner-jyh9t9upq` (`e63df93`). Watch `active`, 657 ms.
+- Preflight 5/7, both failures re-run clean: intent answers 40/40 (a transient `/macro` upstream read), unit + live
+  997/0/1 after the last badssl live test moved to ssl.com's expired host (follow-up commit, test only).
+- Deploy tree detached at `5939c49` with that test change applied. Not pushed; nothing signed.
+
+## 2026-11-01 ~11:25 UTC (16:55 IST): G246 explained; gates fixed; SSL prose fix deployed later as `5939c49`
 
 Owner: "Yes, investigate".
 

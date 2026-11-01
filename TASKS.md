@@ -63,7 +63,8 @@ commit.
       preflight 5/7 from badssl.com reachability (G246), not this release.
 - [x] G246 (2026-11-01): badssl.com's own server resets ~1/3 of handshakes, from here too; real hosts unaffected.
       Gates retry badssl twice then skip, and grade ssl.com's expired host. Verify-deploy passes, intents 40/40.
-- [ ] Deploy the G246 SSL prose fix (untrusted answer no longer claims a trusted root) when the owner says yes.
+- [x] G246 SSL prose fix deployed 2026-11-01 (`5939c49`, `miner-1aoi3y0wt`): preflight 5/7, both failures re-run
+      clean (intent answers 40/40; unit + live 997/0/1 after moving the last badssl live test to ssl.com).
 - [x] ~~Owner: set `SEC_USER_AGENT`~~ Not needed: SEC accepts the miner's own identity (2026-10-31). Kept as an
       override. Original item: set `SEC_USER_AGENT` when running the fixtures, or accept the two SEC steps
       as unchecked.

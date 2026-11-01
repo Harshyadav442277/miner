@@ -63,7 +63,8 @@ fail, 2 unchecked (SEC needs a contact user agent). Evidence: `track1-miner/docs
   verify-deploy ALL PASSED (2 badssl SKIPs), intent answers 40/40.
   Found while checking: the untrusted answer denied a trusted root, then said the chain was "building a trusted
   path to a root", and failing verdicts started the chain sentence in lowercase. Fixed in `ssl.ts` (valid wording
-  unchanged); unit 871/871 and live-checked locally on all five verdicts. **Not deployed.**
+  unchanged); unit 871/871 and live-checked locally on all five verdicts. Deployed 2026-11-01 as `5939c49`
+  (`miner-1aoi3y0wt`). The last live test calling `expired.badssl.com` without a retry now uses ssl.com's host.
 
 ## 2026-10-31 "LiveCert is not on the rankings" — G235, G236, G237; G230 deployed
 

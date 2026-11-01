@@ -108,7 +108,8 @@ describe("checkCertificate (live)", { concurrency: 4 }, () => {
   });
 
   test("expired certificates report a negative days_remaining", async () => {
-    const r = await checkCertificate("expired.badssl.com", 443, 12_000);
+    // ssl.com's expired host, not badssl's: that server resets about a third of handshakes (G246).
+    const r = await checkCertificate("expired-rsa-dv.ssl.com", 443, 12_000);
     assert.ok(r.days_remaining !== null && r.days_remaining < 0, `days_remaining=${r.days_remaining}`);
     assert.equal(r.verdict, "expired");
     assert.equal(r.valid, false);
