@@ -4,6 +4,19 @@ The Season I gaps (G13–G27: rank_answer corpora, calibration thresholds, regis
 The modules they describe are retired: they were deleted from the tree, and the V2 registry no longer lists 1882.
 They are in `git log -p -- track2/GAPS.md`.
 
+## G40 — the first SANCTIONS_SCREENING_MATCH adapter only judged our own answer shapes (2026-11-01) — `OPEN, v2 training`
+
+v1 (`pairs/sanctions_v1`, keccak `0x23bbe60e…7145`, not hosted or registered) scored 95.1% on the kit test gate and
+96.0% on 200 held-out pairs in `adapterexec` (flipped 89.6%, the other kinds 100%). On 48 pairs written in
+shapes the builder never produced (`adapter/sanctions/ood_probe.py`: schema JSON with string `matches`,
+`{"matched": bool}`, one-word verdicts; 8 SDN-listed and 8 unlisted names) it scored **60.4%**. It preferred
+"no match" whenever an answer carried no nearest entry: listed names scored 0% on bare and one-word answers. That
+is the 60% that got `0x3035…` rejected on the 15 public pairs. v2 adds those shapes (prose 30%, full JSON 25%,
+thin JSON 20%, bare 10%, word 15%; dataset gate PASS, surface 57.9%). On a bare verdict about a name it
+never saw, the adapter can only guess: measure held-out and probe results by format before hosting.
+The public pairs themselves are not readable from any devnode endpoint tried (`/api/evalpool/status` shows
+416 eligible rows from 7 submitters, snapshot `1d53d852…`).
+
 ## G39 — no public tunnel for the executor yet (2026-11-01) — `WORKAROUND 14:50 IST`
 
 **Update:** owner chose cloudflared (winget, 2026.10.7, installer hash verified). A quick tunnel has a 100 s

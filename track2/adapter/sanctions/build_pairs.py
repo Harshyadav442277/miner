@@ -8,6 +8,8 @@ for an unlisted name it reports no match. The worse answer is one of:
   contradiction  the verdict disagrees with the answer's own score (NO MATCH at 0.96, MATCH at 0.12)
   wrong_entity   a correct-looking screening of a different name
   refusal        declines or hedges (kept to STYLE_SHARE: it has its own vocabulary)
+Both answers share one shape (FORMATS): prose, the full response JSON, thin JSON, a bare {"matched": bool}, or a
+one-line verdict. Bare and one-line answers carry only the verdict, so their worse answer is always flipped.
 Unlisted names are recombined from listed individuals' own first and last names (and listed
 vessels' and entities' own words), then checked against every listed name and alias, so both
 classes come from the same name distribution. The split is by SDN entity: val and test entities
@@ -33,6 +35,8 @@ Q = {
         "Run a sanctions check on {q}{ctx}.",
         "Check whether {q} appears on the OFAC SDN or UN consolidated lists, including near-matches.",
         "Sanctions screening request: {q}{ctx}. Report matches with confidence.",
+        "{q}",
+        '{{"name": "{q}"}}',
     ],
     "vessel": ["Screen the vessel name {q} against OFAC", "Is the vessel {q} sanctioned?"],
     "aircraft": ["Screen the aircraft {q} against OFAC", "Is the aircraft {q} on a sanctions list?"],
@@ -57,6 +61,21 @@ PROSE = {
         "I'm unable to determine whether {q} is on a sanctions list.",
     ],
 }
+# Answer shapes, so the verdict is judged however a miner words it (the first build knew only prose and full JSON,
+# and scored 60% on bare verdicts and string-match JSON).
+FORMATS = {"prose": 0.3, "json": 0.25, "min_json": 0.2, "bare": 0.1, "word": 0.15}
+# Short verdicts name the query, except a NAMELESS share kept under the kit's 2% cap on any one rejected answer.
+NAMELESS = 0.2
+WORD = {
+    "match": ["{q}: MATCH", "Match: {q}", "Yes, {q} is on the OFAC SDN list.", "{q} is sanctioned.",
+              "{q}: listed (OFAC SDN).", "{q}: true"],
+    "nomatch": ["{q}: NO MATCH", "No match: {q}", "No, {q} is not on the OFAC SDN list.", "{q} is not sanctioned.",
+                "{q}: clear.", "{q}: false"],
+    "refusal": ["{q}: UNKNOWN", "Unknown: {q}", "Cannot determine whether {q} is listed.", "Unable to check {q}.",
+                "{q}: no data.", "{q}: null"],
+}
+BARE_WORD = {"match": ["MATCH", "Match", "true"], "nomatch": ["NO MATCH", "No match", "false"],
+             "refusal": ["UNKNOWN", "Unknown", "null"]}
 _PAREN = re.compile(r"\s*\(.*?\)")
 
 
@@ -127,19 +146,34 @@ def ctx_for(e, rng):
 
 
 def render(side, fmt, t):
+    say = side["say"]
     if fmt == "prose":
-        ts = PROSE[side["say"]]
+        ts = PROSE[say]
         return ts[t % len(ts)].format(**side)
-    say, s = side["say"], float(side["s"])
+    nameless = (t % 100) < NAMELESS * 100
+    if fmt == "word":
+        ts = BARE_WORD[say] if nameless else WORD[say]
+        return ts[t % len(ts)].format(q=side["q"])
+    if fmt == "bare":
+        verdict = {"matched": {"match": True, "nomatch": False}.get(say)}
+        return json.dumps(verdict if nameless else {"name": side["q"], **verdict}, ensure_ascii=False)
+    s = float(side["s"])
     if say == "refusal":
         return json.dumps({"name": side["q"], "matched": None, "matches": [], "lists": [], "match_score": None})
+    if fmt == "min_json":
+        # Thin miners: string matches, empty when clear, no nearest candidate.
+        out = {"name": side["q"], "matched": say == "match", "matches": [side["listed"]] if say == "match" else [],
+               "lists": ["OFAC SDN"], "match_score": s}
+        if t % 3 == 0:
+            del out["lists"]
+        return json.dumps(out, ensure_ascii=False)
     # Screening tools list the nearest candidate with its score whether or not it is a match.
     hit = {"name": side["listed"], "list": "OFAC SDN", "program": side["prog"], "score": s}
     return json.dumps({"name": side["q"], "matched": say == "match", "matches": [hit], "lists": ["OFAC SDN"],
                        "match_score": s}, ensure_ascii=False)
 
 
-def make_pair(q, kind, entity, pool, rng):
+def make_pair(q, kind, entity, pool, rng, fmt):
     """entity: the SDN entry q matches, or None for an unlisted q. pool: listed entries of this split."""
     other, near = rng.choice(pool), rng.choice(pool)
     o_listed = display(other["name"], other["kind"])
@@ -157,19 +191,23 @@ def make_pair(q, kind, entity, pool, rng):
     else:
         good = {"say": "nomatch", "q": q, "listed": n_listed, "prog": near["prog"], "s": lo()}
     if rng.random() < STYLE_SHARE:
-        bad, how = {**good, "say": "refusal"}, "refusal"
+        how = "refusal"
+    elif fmt in ("bare", "word"):
+        how = "flipped"  # a verdict alone carries no entry or score: only the opposite verdict differs
     else:
         how = rng.choice(["flipped", "flipped", "wrong_match", "contradiction", "wrong_entity"])
-        if how == "flipped":
-            bad = ({"say": "nomatch", "q": q, "listed": n_listed, "prog": near["prog"], "s": lo()} if entity else
-                   {"say": "match", "q": q, "listed": q, "prog": other["prog"], "s": hi()})
-        elif how == "wrong_match":
-            bad = {"say": "match", "q": q, "listed": o_listed, "prog": other["prog"], "s": hi()}
-        elif how == "contradiction":
-            # the verdict disagrees with the answer's own score
-            bad = {**good, "say": "nomatch", "s": hi()} if entity else {**good, "say": "match", "s": lo()}
-        else:
-            bad = {"say": "match", "q": o_listed, "listed": o_listed, "prog": other["prog"], "s": hi()}
+    if how == "refusal":
+        bad = {**good, "say": "refusal"}
+    elif how == "flipped":
+        bad = ({"say": "nomatch", "q": q, "listed": n_listed, "prog": near["prog"], "s": lo()} if entity else
+               {"say": "match", "q": q, "listed": q, "prog": other["prog"], "s": hi()})
+    elif how == "wrong_match":
+        bad = {"say": "match", "q": q, "listed": o_listed, "prog": other["prog"], "s": hi()}
+    elif how == "contradiction":
+        # the verdict disagrees with the answer's own score
+        bad = {**good, "say": "nomatch", "s": hi()} if entity else {**good, "say": "match", "s": lo()}
+    else:
+        bad = {"say": "match", "q": o_listed, "listed": o_listed, "prog": other["prog"], "s": hi()}
     qkind = kind if kind in ("vessel", "aircraft") and rng.random() < 0.6 else "any"
     question = rng.choice(Q[qkind]).format(q=q, ctx=ctx_for(entity, rng))
     return how, question, good, bad
@@ -181,7 +219,6 @@ def main():
     ap.add_argument("--alt", required=True)
     ap.add_argument("--out-dir", required=True)
     ap.add_argument("--seed", type=int, default=42)
-    ap.add_argument("--json-frac", type=float, default=0.4)
     a = ap.parse_args()
     rng = random.Random(a.seed)
 
@@ -206,8 +243,8 @@ def main():
         rng.shuffle(rows)
         with open(os.path.join(a.out_dir, f"{split}.jsonl"), "w", encoding="utf-8") as f:
             for q, kind, e in rows:
-                how, question, good, bad = make_pair(q, kind, e, part, rng)
-                fmt = "json" if rng.random() < a.json_frac else "prose"
+                fmt = rng.choices(list(FORMATS), weights=list(FORMATS.values()))[0]
+                how, question, good, bad = make_pair(q, kind, e, part, rng, fmt)
                 t = rng.randrange(1000)
                 chosen, rejected = render(good, fmt, t), render(bad, fmt, t)
                 if chosen == rejected:
