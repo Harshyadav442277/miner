@@ -1,0 +1,7 @@
+{
+ "source_url": "https://hackathon.telegraphprotocol.com/rules",
+ "asset_url": "https://hackathon.telegraphprotocol.com/_next/static/chunks/app/(s2)/rules/page-fdf0e2caccc8f909.js",
+ "checked_at": "2026-11-01T18:23:00Z",
+ "asset_sha256": "f44555476c7c514012da6970d47e6d4dbdc63447146a474c1a607084e5f7fe68",
+ "rubric_source_excerpt": "evaluators:{criteria:[{title:\"Measurement validity, quality discrimination, and baseline evidence\",points:40,min:28},{title:\"Integrity and robustness\",points:15},{title:\"Reproducibility and protocol compatibility\",points:10},{title:\"Useful evaluation coverage and demonstrated improvement\",points:10},{title:\"Documentation and integration clarity\",points:5},{title:\"Organic growth, education, and developer activation\",points:20}],minimum:\"Minimum: 28/40 for measurement validity.\",notes:[\"Judges will test evaluators using repeatable methods, appropriate unseen examples, and credible reference answers or other defensible checks. If a baseline exists, compare against it under similar conditions.\",\"Useful contributions can improve measurement accuracy, distinguish better Providers, make evaluation more reliable, improve reference material, or add coverage for an underserved Intent. A result that confirms an existing ranking can still be valuable; claim a ranking change only with evidence. Adapter-only, material-only, and combined entries are judged on what they actually contribute.\"]}}"
+}

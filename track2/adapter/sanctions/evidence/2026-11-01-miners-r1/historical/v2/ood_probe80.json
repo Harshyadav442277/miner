@@ -1,0 +1,640 @@
+{
+ "pairs": 80,
+ "accuracy": 0.575,
+ "ties": 0,
+ "length_baseline": 0.4875,
+ "max_tokens": 256,
+ "source": "C:/Users/hyada/AppData/Local/Temp/claude/C--Users-hyada-OneDrive-Documents-Work-Related-Hackathons-Telegraph--claude-worktrees-evaluators-status-a51518/b1c8560b-affe-4c52-9768-68481e447368/scratchpad/ood80.jsonl",
+ "seed": 1,
+ "identity": {
+  "foundation_hash": "",
+  "adapter_hash": "",
+  "tokenizer_hash": ""
+ },
+ "by_kind": {
+  "bare_bool:listed": {
+   "pairs": 8,
+   "accuracy": 0.5
+  },
+  "bare_bool:unlisted": {
+   "pairs": 8,
+   "accuracy": 0.75
+  },
+  "one_word:listed": {
+   "pairs": 8,
+   "accuracy": 0.125
+  },
+  "one_word:unlisted": {
+   "pairs": 8,
+   "accuracy": 1.0
+  },
+  "rich_vs_short:listed": {
+   "pairs": 8,
+   "accuracy": 1.0
+  },
+  "rich_vs_short:unlisted": {
+   "pairs": 8,
+   "accuracy": 1.0
+  },
+  "schema_json:listed": {
+   "pairs": 8,
+   "accuracy": 1.0
+  },
+  "schema_json:unlisted": {
+   "pairs": 8,
+   "accuracy": 0.375
+  },
+  "short_vs_rich:listed": {
+   "pairs": 8,
+   "accuracy": 0.0
+  },
+  "short_vs_rich:unlisted": {
+   "pairs": 8,
+   "accuracy": 0.0
+  }
+ },
+ "by_format": {
+  "bare_bool": {
+   "pairs": 16,
+   "accuracy": 0.625
+  },
+  "one_word": {
+   "pairs": 16,
+   "accuracy": 0.5625
+  },
+  "rich_vs_short": {
+   "pairs": 16,
+   "accuracy": 1.0
+  },
+  "schema_json": {
+   "pairs": 16,
+   "accuracy": 0.6875
+  },
+  "short_vs_rich": {
+   "pairs": 16,
+   "accuracy": 0.0
+  }
+ },
+ "rows": [
+  {
+   "chosen": 1.7803095579147339,
+   "rejected": 1.485221266746521,
+   "kind": "schema_json:listed",
+   "format": "schema_json",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": -3.223642110824585,
+   "rejected": -3.1669769287109375,
+   "kind": "bare_bool:listed",
+   "format": "bare_bool",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": -4.181019306182861,
+   "rejected": -3.1688120365142822,
+   "kind": "one_word:listed",
+   "format": "one_word",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 1.5197126865386963,
+   "rejected": -3.1688120365142822,
+   "kind": "rich_vs_short:listed",
+   "format": "rich_vs_short",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": -4.181019306182861,
+   "rejected": -1.5233039855957031,
+   "kind": "short_vs_rich:listed",
+   "format": "short_vs_rich",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 4.827610492706299,
+   "rejected": 3.318249464035034,
+   "kind": "schema_json:listed",
+   "format": "schema_json",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": -2.9145455360412598,
+   "rejected": -2.6058993339538574,
+   "kind": "bare_bool:listed",
+   "format": "bare_bool",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": -4.006392955780029,
+   "rejected": -2.226215362548828,
+   "kind": "one_word:listed",
+   "format": "one_word",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 3.518505334854126,
+   "rejected": -2.226215362548828,
+   "kind": "rich_vs_short:listed",
+   "format": "rich_vs_short",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": -4.006392955780029,
+   "rejected": 0.42919015884399414,
+   "kind": "short_vs_rich:listed",
+   "format": "short_vs_rich",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 8.739444732666016,
+   "rejected": 2.0576882362365723,
+   "kind": "schema_json:listed",
+   "format": "schema_json",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 0.05705380439758301,
+   "rejected": -1.048303484916687,
+   "kind": "bare_bool:listed",
+   "format": "bare_bool",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": -0.5632568597793579,
+   "rejected": -1.1521220207214355,
+   "kind": "one_word:listed",
+   "format": "one_word",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 7.702308177947998,
+   "rejected": -1.1521220207214355,
+   "kind": "rich_vs_short:listed",
+   "format": "rich_vs_short",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": -0.5632568597793579,
+   "rejected": 0.9042125940322876,
+   "kind": "short_vs_rich:listed",
+   "format": "short_vs_rich",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 3.411325693130493,
+   "rejected": 1.6553322076797485,
+   "kind": "schema_json:listed",
+   "format": "schema_json",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": -2.644627571105957,
+   "rejected": -3.046238422393799,
+   "kind": "bare_bool:listed",
+   "format": "bare_bool",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": -4.110102653503418,
+   "rejected": -3.594059944152832,
+   "kind": "one_word:listed",
+   "format": "one_word",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 1.5512280464172363,
+   "rejected": -3.594059944152832,
+   "kind": "rich_vs_short:listed",
+   "format": "rich_vs_short",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": -4.110102653503418,
+   "rejected": -1.5251491069793701,
+   "kind": "short_vs_rich:listed",
+   "format": "short_vs_rich",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 7.135546684265137,
+   "rejected": 3.712128162384033,
+   "kind": "schema_json:listed",
+   "format": "schema_json",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": -4.901716709136963,
+   "rejected": -4.509920597076416,
+   "kind": "bare_bool:listed",
+   "format": "bare_bool",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": -5.118758201599121,
+   "rejected": -3.7369256019592285,
+   "kind": "one_word:listed",
+   "format": "one_word",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 2.634075164794922,
+   "rejected": -3.7369256019592285,
+   "kind": "rich_vs_short:listed",
+   "format": "rich_vs_short",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": -5.118758201599121,
+   "rejected": -2.0918328762054443,
+   "kind": "short_vs_rich:listed",
+   "format": "short_vs_rich",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 4.212462902069092,
+   "rejected": 1.8646265268325806,
+   "kind": "schema_json:listed",
+   "format": "schema_json",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": -1.7249990701675415,
+   "rejected": -1.6424760818481445,
+   "kind": "bare_bool:listed",
+   "format": "bare_bool",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": -4.100758075714111,
+   "rejected": -2.205416679382324,
+   "kind": "one_word:listed",
+   "format": "one_word",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 2.5672357082366943,
+   "rejected": -2.205416679382324,
+   "kind": "rich_vs_short:listed",
+   "format": "rich_vs_short",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": -4.100758075714111,
+   "rejected": -0.6586992144584656,
+   "kind": "short_vs_rich:listed",
+   "format": "short_vs_rich",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 5.06432580947876,
+   "rejected": 1.9087352752685547,
+   "kind": "schema_json:listed",
+   "format": "schema_json",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": -2.7411980628967285,
+   "rejected": -3.393165111541748,
+   "kind": "bare_bool:listed",
+   "format": "bare_bool",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": -3.8734827041625977,
+   "rejected": -3.5237555503845215,
+   "kind": "one_word:listed",
+   "format": "one_word",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 1.6938194036483765,
+   "rejected": -3.5237555503845215,
+   "kind": "rich_vs_short:listed",
+   "format": "rich_vs_short",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": -3.8734827041625977,
+   "rejected": -0.7726356983184814,
+   "kind": "short_vs_rich:listed",
+   "format": "short_vs_rich",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 10.437511444091797,
+   "rejected": 3.460759162902832,
+   "kind": "schema_json:listed",
+   "format": "schema_json",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": -3.696798324584961,
+   "rejected": -3.8912858963012695,
+   "kind": "bare_bool:listed",
+   "format": "bare_bool",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": -4.2661237716674805,
+   "rejected": -4.143721580505371,
+   "kind": "one_word:listed",
+   "format": "one_word",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 9.330928802490234,
+   "rejected": -4.143721580505371,
+   "kind": "rich_vs_short:listed",
+   "format": "rich_vs_short",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": -4.2661237716674805,
+   "rejected": 0.8948507905006409,
+   "kind": "short_vs_rich:listed",
+   "format": "short_vs_rich",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 0.7722849249839783,
+   "rejected": -0.2237350344657898,
+   "kind": "schema_json:unlisted",
+   "format": "schema_json",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": -2.5157968997955322,
+   "rejected": -2.7055575847625732,
+   "kind": "bare_bool:unlisted",
+   "format": "bare_bool",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": -3.4307775497436523,
+   "rejected": -4.440244197845459,
+   "kind": "one_word:unlisted",
+   "format": "one_word",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": -1.8267898559570312,
+   "rejected": -4.440244197845459,
+   "kind": "rich_vs_short:unlisted",
+   "format": "rich_vs_short",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": -3.4307775497436523,
+   "rejected": -1.84525465965271,
+   "kind": "short_vs_rich:unlisted",
+   "format": "short_vs_rich",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 1.892629623413086,
+   "rejected": 2.534170627593994,
+   "kind": "schema_json:unlisted",
+   "format": "schema_json",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": -1.8907191753387451,
+   "rejected": -2.2339119911193848,
+   "kind": "bare_bool:unlisted",
+   "format": "bare_bool",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": -2.508120059967041,
+   "rejected": -4.82782506942749,
+   "kind": "one_word:unlisted",
+   "format": "one_word",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": -1.2147762775421143,
+   "rejected": -4.82782506942749,
+   "kind": "rich_vs_short:unlisted",
+   "format": "rich_vs_short",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": -2.508120059967041,
+   "rejected": 1.041240930557251,
+   "kind": "short_vs_rich:unlisted",
+   "format": "short_vs_rich",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 1.6658642292022705,
+   "rejected": 0.38415539264678955,
+   "kind": "schema_json:unlisted",
+   "format": "schema_json",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": -2.579329252243042,
+   "rejected": -3.006376266479492,
+   "kind": "bare_bool:unlisted",
+   "format": "bare_bool",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": -2.5298521518707275,
+   "rejected": -4.406980991363525,
+   "kind": "one_word:unlisted",
+   "format": "one_word",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": -1.3727805614471436,
+   "rejected": -4.406980991363525,
+   "kind": "rich_vs_short:unlisted",
+   "format": "rich_vs_short",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": -2.5298521518707275,
+   "rejected": 0.40857529640197754,
+   "kind": "short_vs_rich:unlisted",
+   "format": "short_vs_rich",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 1.507878303527832,
+   "rejected": 2.9126415252685547,
+   "kind": "schema_json:unlisted",
+   "format": "schema_json",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": -3.57157039642334,
+   "rejected": -4.32751989364624,
+   "kind": "bare_bool:unlisted",
+   "format": "bare_bool",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": -3.553093194961548,
+   "rejected": -6.541074752807617,
+   "kind": "one_word:unlisted",
+   "format": "one_word",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": -2.146453619003296,
+   "rejected": -6.541074752807617,
+   "kind": "rich_vs_short:unlisted",
+   "format": "rich_vs_short",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": -3.553093194961548,
+   "rejected": 1.6288498640060425,
+   "kind": "short_vs_rich:unlisted",
+   "format": "short_vs_rich",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 1.3333442211151123,
+   "rejected": 2.3744897842407227,
+   "kind": "schema_json:unlisted",
+   "format": "schema_json",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": -2.741908311843872,
+   "rejected": -2.003730535507202,
+   "kind": "bare_bool:unlisted",
+   "format": "bare_bool",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": -3.250912666320801,
+   "rejected": -4.550539016723633,
+   "kind": "one_word:unlisted",
+   "format": "one_word",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": -0.8360397815704346,
+   "rejected": -4.550539016723633,
+   "kind": "rich_vs_short:unlisted",
+   "format": "rich_vs_short",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": -3.250912666320801,
+   "rejected": 2.0566837787628174,
+   "kind": "short_vs_rich:unlisted",
+   "format": "short_vs_rich",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 2.4538748264312744,
+   "rejected": 3.880502939224243,
+   "kind": "schema_json:unlisted",
+   "format": "schema_json",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": -1.3219985961914062,
+   "rejected": -1.749976396560669,
+   "kind": "bare_bool:unlisted",
+   "format": "bare_bool",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": -1.64626145362854,
+   "rejected": -3.3771753311157227,
+   "kind": "one_word:unlisted",
+   "format": "one_word",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": -0.5974553227424622,
+   "rejected": -3.3771753311157227,
+   "kind": "rich_vs_short:unlisted",
+   "format": "rich_vs_short",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": -1.64626145362854,
+   "rejected": 2.9952099323272705,
+   "kind": "short_vs_rich:unlisted",
+   "format": "short_vs_rich",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 1.6752818822860718,
+   "rejected": 2.9414799213409424,
+   "kind": "schema_json:unlisted",
+   "format": "schema_json",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": -2.1524250507354736,
+   "rejected": -1.5547125339508057,
+   "kind": "bare_bool:unlisted",
+   "format": "bare_bool",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": -2.3914358615875244,
+   "rejected": -2.647517681121826,
+   "kind": "one_word:unlisted",
+   "format": "one_word",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": -0.6216107606887817,
+   "rejected": -2.647517681121826,
+   "kind": "rich_vs_short:unlisted",
+   "format": "rich_vs_short",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": -2.3914358615875244,
+   "rejected": 1.8110271692276,
+   "kind": "short_vs_rich:unlisted",
+   "format": "short_vs_rich",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 1.5763310194015503,
+   "rejected": 0.7619833946228027,
+   "kind": "schema_json:unlisted",
+   "format": "schema_json",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": -2.085604190826416,
+   "rejected": -2.618955612182617,
+   "kind": "bare_bool:unlisted",
+   "format": "bare_bool",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": -2.5579824447631836,
+   "rejected": -5.059493541717529,
+   "kind": "one_word:unlisted",
+   "format": "one_word",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": -1.3555467128753662,
+   "rejected": -5.059493541717529,
+   "kind": "rich_vs_short:unlisted",
+   "format": "rich_vs_short",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": -2.5579824447631836,
+   "rejected": -0.059795498847961426,
+   "kind": "short_vs_rich:unlisted",
+   "format": "short_vs_rich",
+   "longer_is_chosen": false
+  }
+ ]
+}

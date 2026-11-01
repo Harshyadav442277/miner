@@ -1,0 +1,23 @@
+{
+ "commit": "43110d0861ae510dd6ed367ab0d6a9aaee17de17",
+ "results": [
+  {
+   "version": 4,
+   "url": "https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/43110d0861ae510dd6ed367ab0d6a9aaee17de17/season2/experiments/sanctions/v4/SANCTIONS_SCREENING_MATCH.safetensors",
+   "http_status": 200,
+   "bytes": 6776916,
+   "sha256": "8df207dc7b7829f49cad9fcdd88177a202360046e3104cf260a42bb66dfa93ac",
+   "matches_local_manifest": true,
+   "checked_at": "2026-11-01T18:32:57.820937+00:00"
+  },
+  {
+   "version": 5,
+   "url": "https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/43110d0861ae510dd6ed367ab0d6a9aaee17de17/season2/experiments/sanctions/v5/SANCTIONS_SCREENING_MATCH.safetensors",
+   "http_status": 200,
+   "bytes": 6776916,
+   "sha256": "a8c150904db82cb29eee115233b9707ccbb087b5511453d86dd1e423dbc80d25",
+   "matches_local_manifest": true,
+   "checked_at": "2026-11-01T18:32:58.705960+00:00"
+  }
+ ]
+}

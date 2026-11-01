@@ -1,0 +1,1448 @@
+{
+ "pairs": 200,
+ "accuracy": 0.96,
+ "ties": 0,
+ "length_baseline": 0.59,
+ "max_tokens": 256,
+ "source": "pairs/sanctions_v1/test.jsonl",
+ "seed": 7,
+ "identity": {
+  "foundation_hash": "",
+  "adapter_hash": "",
+  "tokenizer_hash": ""
+ },
+ "by_kind": {
+  "contradiction": {
+   "pairs": 37,
+   "accuracy": 1.0
+  },
+  "flipped": {
+   "pairs": 77,
+   "accuracy": 0.8961
+  },
+  "refusal": {
+   "pairs": 12,
+   "accuracy": 1.0
+  },
+  "wrong_entity": {
+   "pairs": 38,
+   "accuracy": 1.0
+  },
+  "wrong_match": {
+   "pairs": 36,
+   "accuracy": 1.0
+  }
+ },
+ "by_format": {
+  "json": {
+   "pairs": 73,
+   "accuracy": 0.9589
+  },
+  "prose": {
+   "pairs": 127,
+   "accuracy": 0.9606
+  }
+ },
+ "rows": [
+  {
+   "chosen": 21.765403747558594,
+   "rejected": 11.068196296691895,
+   "kind": "flipped",
+   "format": "json",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 9.845422744750977,
+   "rejected": 4.444201469421387,
+   "kind": "wrong_match",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 14.929819107055664,
+   "rejected": 12.110363006591797,
+   "kind": "flipped",
+   "format": "json",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 11.189886093139648,
+   "rejected": 5.389817237854004,
+   "kind": "wrong_match",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 19.82944679260254,
+   "rejected": 10.143753051757812,
+   "kind": "flipped",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 10.800619125366211,
+   "rejected": 0.06214675307273865,
+   "kind": "wrong_entity",
+   "format": "json",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 20.483917236328125,
+   "rejected": 10.96670150756836,
+   "kind": "wrong_match",
+   "format": "json",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 21.818132400512695,
+   "rejected": 10.86397933959961,
+   "kind": "flipped",
+   "format": "json",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 20.953441619873047,
+   "rejected": 7.40562629699707,
+   "kind": "wrong_match",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 10.968362808227539,
+   "rejected": 3.328868865966797,
+   "kind": "wrong_entity",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 20.618515014648438,
+   "rejected": 8.37795639038086,
+   "kind": "contradiction",
+   "format": "prose",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 11.938798904418945,
+   "rejected": 7.0181097984313965,
+   "kind": "flipped",
+   "format": "json",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 10.016603469848633,
+   "rejected": 2.638530969619751,
+   "kind": "wrong_match",
+   "format": "json",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 9.48835277557373,
+   "rejected": 4.248795986175537,
+   "kind": "wrong_match",
+   "format": "json",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 10.042771339416504,
+   "rejected": 2.6899819374084473,
+   "kind": "contradiction",
+   "format": "json",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 12.843095779418945,
+   "rejected": 8.623968124389648,
+   "kind": "flipped",
+   "format": "json",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 21.432912826538086,
+   "rejected": 6.749445915222168,
+   "kind": "refusal",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 8.737586975097656,
+   "rejected": 12.039196014404297,
+   "kind": "flipped",
+   "format": "json",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 7.3737945556640625,
+   "rejected": 0.697320818901062,
+   "kind": "wrong_entity",
+   "format": "prose",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 20.72542381286621,
+   "rejected": 9.229507446289062,
+   "kind": "flipped",
+   "format": "prose",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 16.127662658691406,
+   "rejected": 8.99532699584961,
+   "kind": "flipped",
+   "format": "prose",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 20.466236114501953,
+   "rejected": 11.18205451965332,
+   "kind": "flipped",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 10.228595733642578,
+   "rejected": 12.55573844909668,
+   "kind": "flipped",
+   "format": "prose",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 15.404369354248047,
+   "rejected": 10.073793411254883,
+   "kind": "flipped",
+   "format": "prose",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 9.323318481445312,
+   "rejected": 5.75622034072876,
+   "kind": "flipped",
+   "format": "json",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 9.024262428283691,
+   "rejected": -0.5120528340339661,
+   "kind": "wrong_entity",
+   "format": "prose",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 9.090021133422852,
+   "rejected": 6.620497703552246,
+   "kind": "flipped",
+   "format": "prose",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 13.421663284301758,
+   "rejected": 3.6804962158203125,
+   "kind": "flipped",
+   "format": "json",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 8.517864227294922,
+   "rejected": 4.90914249420166,
+   "kind": "flipped",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 18.986244201660156,
+   "rejected": 3.7525908946990967,
+   "kind": "wrong_match",
+   "format": "json",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 8.901220321655273,
+   "rejected": 0.8182218670845032,
+   "kind": "contradiction",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 20.517126083374023,
+   "rejected": 6.047654628753662,
+   "kind": "wrong_match",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 13.344145774841309,
+   "rejected": 5.438438892364502,
+   "kind": "flipped",
+   "format": "json",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 21.308700561523438,
+   "rejected": 2.394721269607544,
+   "kind": "contradiction",
+   "format": "prose",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 9.457018852233887,
+   "rejected": 5.058895111083984,
+   "kind": "flipped",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 9.544438362121582,
+   "rejected": 2.1433823108673096,
+   "kind": "wrong_entity",
+   "format": "prose",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 13.410520553588867,
+   "rejected": 0.5855689644813538,
+   "kind": "wrong_entity",
+   "format": "prose",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 11.689562797546387,
+   "rejected": 1.744865894317627,
+   "kind": "contradiction",
+   "format": "json",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 16.811166763305664,
+   "rejected": -0.395588755607605,
+   "kind": "contradiction",
+   "format": "prose",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 13.403775215148926,
+   "rejected": 10.372471809387207,
+   "kind": "flipped",
+   "format": "json",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 11.49893569946289,
+   "rejected": 0.8641622066497803,
+   "kind": "wrong_entity",
+   "format": "json",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 19.562576293945312,
+   "rejected": 10.716741561889648,
+   "kind": "flipped",
+   "format": "json",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 8.787736892700195,
+   "rejected": 5.730703353881836,
+   "kind": "wrong_match",
+   "format": "json",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 8.133398056030273,
+   "rejected": -1.0831249952316284,
+   "kind": "refusal",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 9.640064239501953,
+   "rejected": -0.7006813287734985,
+   "kind": "refusal",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 19.347938537597656,
+   "rejected": 10.418509483337402,
+   "kind": "contradiction",
+   "format": "json",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 17.73368263244629,
+   "rejected": -0.10268514603376389,
+   "kind": "wrong_entity",
+   "format": "json",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 8.470691680908203,
+   "rejected": 0.4993574619293213,
+   "kind": "contradiction",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 19.45748519897461,
+   "rejected": 0.7808365821838379,
+   "kind": "contradiction",
+   "format": "json",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 9.460224151611328,
+   "rejected": 3.612675905227661,
+   "kind": "contradiction",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 9.320372581481934,
+   "rejected": 1.6572095155715942,
+   "kind": "contradiction",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 10.36538314819336,
+   "rejected": 4.945087432861328,
+   "kind": "contradiction",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 16.573421478271484,
+   "rejected": -0.1579824835062027,
+   "kind": "wrong_entity",
+   "format": "json",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 17.49954605102539,
+   "rejected": 4.3793044090271,
+   "kind": "contradiction",
+   "format": "json",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 8.790360450744629,
+   "rejected": 5.37532901763916,
+   "kind": "flipped",
+   "format": "json",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 21.192411422729492,
+   "rejected": 0.34045660495758057,
+   "kind": "wrong_match",
+   "format": "prose",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 9.354996681213379,
+   "rejected": 3.8596575260162354,
+   "kind": "wrong_match",
+   "format": "prose",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 14.809288024902344,
+   "rejected": 10.484012603759766,
+   "kind": "flipped",
+   "format": "prose",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 6.973608016967773,
+   "rejected": 2.1271631717681885,
+   "kind": "flipped",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 11.074503898620605,
+   "rejected": 7.806194305419922,
+   "kind": "flipped",
+   "format": "prose",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 12.446344375610352,
+   "rejected": 3.8453145027160645,
+   "kind": "wrong_match",
+   "format": "json",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 22.920244216918945,
+   "rejected": 15.969792366027832,
+   "kind": "refusal",
+   "format": "json",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 10.107906341552734,
+   "rejected": 5.425077438354492,
+   "kind": "flipped",
+   "format": "json",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 17.021503448486328,
+   "rejected": 4.410356521606445,
+   "kind": "wrong_match",
+   "format": "prose",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 10.142047882080078,
+   "rejected": 9.700115203857422,
+   "kind": "flipped",
+   "format": "json",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 11.77216911315918,
+   "rejected": 1.8998279571533203,
+   "kind": "wrong_match",
+   "format": "json",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 18.626861572265625,
+   "rejected": 9.709321975708008,
+   "kind": "flipped",
+   "format": "json",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 9.118792533874512,
+   "rejected": 9.959155082702637,
+   "kind": "flipped",
+   "format": "json",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 10.415517807006836,
+   "rejected": 5.916018009185791,
+   "kind": "wrong_match",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 6.969701766967773,
+   "rejected": 1.163282871246338,
+   "kind": "wrong_match",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 19.59503936767578,
+   "rejected": -0.5834512114524841,
+   "kind": "refusal",
+   "format": "json",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 13.61918830871582,
+   "rejected": -2.9174530506134033,
+   "kind": "contradiction",
+   "format": "prose",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 21.698406219482422,
+   "rejected": 1.7783193588256836,
+   "kind": "wrong_entity",
+   "format": "json",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 9.087135314941406,
+   "rejected": 1.486236333847046,
+   "kind": "wrong_match",
+   "format": "prose",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 16.82607650756836,
+   "rejected": 8.903655052185059,
+   "kind": "flipped",
+   "format": "json",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 9.938835144042969,
+   "rejected": 9.646625518798828,
+   "kind": "flipped",
+   "format": "prose",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 8.551342010498047,
+   "rejected": 0.7861718535423279,
+   "kind": "wrong_entity",
+   "format": "prose",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 11.271371841430664,
+   "rejected": -4.236485481262207,
+   "kind": "contradiction",
+   "format": "prose",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 10.544939041137695,
+   "rejected": 2.847440242767334,
+   "kind": "contradiction",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 8.587838172912598,
+   "rejected": 0.21408283710479736,
+   "kind": "contradiction",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 16.81340980529785,
+   "rejected": 4.947477340698242,
+   "kind": "wrong_match",
+   "format": "json",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 10.906530380249023,
+   "rejected": 5.522915840148926,
+   "kind": "flipped",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 20.11878204345703,
+   "rejected": 0.9005182385444641,
+   "kind": "contradiction",
+   "format": "prose",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 7.033198356628418,
+   "rejected": 1.8396588563919067,
+   "kind": "wrong_entity",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 11.882525444030762,
+   "rejected": -2.3585801124572754,
+   "kind": "contradiction",
+   "format": "prose",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 9.952201843261719,
+   "rejected": 5.314370155334473,
+   "kind": "flipped",
+   "format": "prose",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 10.117584228515625,
+   "rejected": 14.179986953735352,
+   "kind": "flipped",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 21.847875595092773,
+   "rejected": 12.473176956176758,
+   "kind": "flipped",
+   "format": "json",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 19.70028305053711,
+   "rejected": 13.692392349243164,
+   "kind": "wrong_match",
+   "format": "prose",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 21.797412872314453,
+   "rejected": 0.1633833646774292,
+   "kind": "wrong_entity",
+   "format": "json",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 22.455272674560547,
+   "rejected": 8.739507675170898,
+   "kind": "refusal",
+   "format": "json",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 22.352018356323242,
+   "rejected": 9.455636978149414,
+   "kind": "flipped",
+   "format": "json",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 10.469038009643555,
+   "rejected": 2.880368709564209,
+   "kind": "contradiction",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 11.623149871826172,
+   "rejected": 0.08447172492742538,
+   "kind": "wrong_entity",
+   "format": "json",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 9.77153491973877,
+   "rejected": 1.5872793197631836,
+   "kind": "contradiction",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 10.835912704467773,
+   "rejected": 0.8811932802200317,
+   "kind": "contradiction",
+   "format": "json",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 8.50547981262207,
+   "rejected": 1.0894482135772705,
+   "kind": "contradiction",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 12.151935577392578,
+   "rejected": 11.225175857543945,
+   "kind": "flipped",
+   "format": "prose",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 12.379049301147461,
+   "rejected": 10.99944019317627,
+   "kind": "flipped",
+   "format": "json",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 19.506071090698242,
+   "rejected": 12.493199348449707,
+   "kind": "flipped",
+   "format": "json",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 8.293685913085938,
+   "rejected": 4.840451717376709,
+   "kind": "flipped",
+   "format": "prose",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 9.442862510681152,
+   "rejected": 3.849545478820801,
+   "kind": "wrong_match",
+   "format": "prose",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 18.96887969970703,
+   "rejected": 1.6525349617004395,
+   "kind": "wrong_entity",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 8.859075546264648,
+   "rejected": 7.367003440856934,
+   "kind": "flipped",
+   "format": "prose",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 11.965036392211914,
+   "rejected": 5.511870384216309,
+   "kind": "wrong_entity",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 18.98785400390625,
+   "rejected": 7.725210189819336,
+   "kind": "wrong_match",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 10.842741012573242,
+   "rejected": 4.041436195373535,
+   "kind": "contradiction",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 19.665294647216797,
+   "rejected": 8.598358154296875,
+   "kind": "flipped",
+   "format": "prose",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 8.809825897216797,
+   "rejected": -0.8013414144515991,
+   "kind": "refusal",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 20.726722717285156,
+   "rejected": 5.78408670425415,
+   "kind": "contradiction",
+   "format": "json",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 10.78567886352539,
+   "rejected": 7.0689897537231445,
+   "kind": "flipped",
+   "format": "json",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 5.888820171356201,
+   "rejected": 0.42456257343292236,
+   "kind": "wrong_entity",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 8.992382049560547,
+   "rejected": 6.177753448486328,
+   "kind": "flipped",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 18.100536346435547,
+   "rejected": 4.745835304260254,
+   "kind": "flipped",
+   "format": "json",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 10.97459888458252,
+   "rejected": 1.4234827756881714,
+   "kind": "wrong_entity",
+   "format": "prose",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 21.60598373413086,
+   "rejected": 13.89206600189209,
+   "kind": "flipped",
+   "format": "json",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 9.241909980773926,
+   "rejected": 5.798080921173096,
+   "kind": "flipped",
+   "format": "json",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 10.75749397277832,
+   "rejected": 4.1449737548828125,
+   "kind": "wrong_entity",
+   "format": "json",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 10.1993408203125,
+   "rejected": -0.45159846544265747,
+   "kind": "wrong_entity",
+   "format": "prose",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 10.492897033691406,
+   "rejected": 2.691791534423828,
+   "kind": "wrong_entity",
+   "format": "prose",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 9.468303680419922,
+   "rejected": 0.5564000010490417,
+   "kind": "wrong_entity",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 18.73505210876465,
+   "rejected": 4.778901100158691,
+   "kind": "wrong_match",
+   "format": "prose",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 7.670115947723389,
+   "rejected": 2.603430986404419,
+   "kind": "contradiction",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 9.519373893737793,
+   "rejected": 10.96608829498291,
+   "kind": "flipped",
+   "format": "json",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 9.485876083374023,
+   "rejected": 1.1369181871414185,
+   "kind": "wrong_entity",
+   "format": "prose",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 9.463714599609375,
+   "rejected": 7.022453308105469,
+   "kind": "flipped",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 5.844827651977539,
+   "rejected": 3.353799819946289,
+   "kind": "wrong_match",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 22.38969612121582,
+   "rejected": 0.9069406986236572,
+   "kind": "wrong_entity",
+   "format": "prose",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 10.091204643249512,
+   "rejected": 5.903314590454102,
+   "kind": "flipped",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 11.053524017333984,
+   "rejected": 3.0567245483398438,
+   "kind": "flipped",
+   "format": "json",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 16.869464874267578,
+   "rejected": 7.634366035461426,
+   "kind": "flipped",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 10.787450790405273,
+   "rejected": 6.825247287750244,
+   "kind": "flipped",
+   "format": "json",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 4.403565406799316,
+   "rejected": 7.6801629066467285,
+   "kind": "flipped",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 8.065879821777344,
+   "rejected": 1.17604660987854,
+   "kind": "wrong_match",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 9.15807056427002,
+   "rejected": 7.655672073364258,
+   "kind": "flipped",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 10.634181022644043,
+   "rejected": 5.324090003967285,
+   "kind": "flipped",
+   "format": "json",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 14.942734718322754,
+   "rejected": 3.0576233863830566,
+   "kind": "refusal",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 9.203393936157227,
+   "rejected": 7.399623870849609,
+   "kind": "flipped",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 11.20305061340332,
+   "rejected": 1.8062124252319336,
+   "kind": "wrong_entity",
+   "format": "prose",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 14.90481185913086,
+   "rejected": 1.8738274574279785,
+   "kind": "wrong_entity",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 17.864818572998047,
+   "rejected": 1.567415714263916,
+   "kind": "wrong_entity",
+   "format": "prose",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 11.541187286376953,
+   "rejected": 5.410111904144287,
+   "kind": "contradiction",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 21.08426284790039,
+   "rejected": 3.952902317047119,
+   "kind": "contradiction",
+   "format": "json",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 20.618610382080078,
+   "rejected": 0.9657930135726929,
+   "kind": "wrong_match",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 15.08143424987793,
+   "rejected": 0.40941163897514343,
+   "kind": "wrong_entity",
+   "format": "json",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 8.710933685302734,
+   "rejected": -2.605738878250122,
+   "kind": "refusal",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 8.423118591308594,
+   "rejected": 3.611602544784546,
+   "kind": "flipped",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 13.270196914672852,
+   "rejected": -0.4625645875930786,
+   "kind": "wrong_entity",
+   "format": "json",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 8.701696395874023,
+   "rejected": 4.234484672546387,
+   "kind": "flipped",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 8.0330171585083,
+   "rejected": 11.513187408447266,
+   "kind": "flipped",
+   "format": "prose",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 8.89738655090332,
+   "rejected": 4.302751541137695,
+   "kind": "wrong_match",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 12.782389640808105,
+   "rejected": 1.8536570072174072,
+   "kind": "wrong_match",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 12.681283950805664,
+   "rejected": -1.8189947605133057,
+   "kind": "contradiction",
+   "format": "prose",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 20.119487762451172,
+   "rejected": 1.521005392074585,
+   "kind": "wrong_entity",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 19.534366607666016,
+   "rejected": 2.3294434547424316,
+   "kind": "wrong_entity",
+   "format": "json",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 10.079994201660156,
+   "rejected": 8.634685516357422,
+   "kind": "flipped",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 9.971681594848633,
+   "rejected": 7.783957481384277,
+   "kind": "flipped",
+   "format": "json",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 11.50803279876709,
+   "rejected": 1.363145112991333,
+   "kind": "wrong_entity",
+   "format": "prose",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 16.552383422851562,
+   "rejected": 5.314345359802246,
+   "kind": "wrong_match",
+   "format": "json",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 17.78169059753418,
+   "rejected": 1.973809838294983,
+   "kind": "wrong_entity",
+   "format": "prose",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 10.924484252929688,
+   "rejected": 2.1644208431243896,
+   "kind": "contradiction",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 19.313810348510742,
+   "rejected": 9.119182586669922,
+   "kind": "wrong_match",
+   "format": "json",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 16.521251678466797,
+   "rejected": 0.4594710171222687,
+   "kind": "wrong_entity",
+   "format": "json",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 19.89593505859375,
+   "rejected": 9.57808780670166,
+   "kind": "flipped",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 9.987873077392578,
+   "rejected": 8.941314697265625,
+   "kind": "flipped",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 11.290072441101074,
+   "rejected": 3.6961557865142822,
+   "kind": "wrong_match",
+   "format": "prose",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 10.819211959838867,
+   "rejected": 6.588594436645508,
+   "kind": "flipped",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 10.816170692443848,
+   "rejected": 3.3878908157348633,
+   "kind": "contradiction",
+   "format": "json",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 18.896915435791016,
+   "rejected": 9.856426239013672,
+   "kind": "flipped",
+   "format": "prose",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 10.973464012145996,
+   "rejected": 5.597451686859131,
+   "kind": "flipped",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 21.42534828186035,
+   "rejected": 17.446598052978516,
+   "kind": "wrong_match",
+   "format": "json",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 7.538686752319336,
+   "rejected": -4.127571105957031,
+   "kind": "contradiction",
+   "format": "prose",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 11.531961441040039,
+   "rejected": 7.004875183105469,
+   "kind": "flipped",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 8.96096134185791,
+   "rejected": -0.28090590238571167,
+   "kind": "wrong_entity",
+   "format": "prose",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 10.389533996582031,
+   "rejected": 7.965333461761475,
+   "kind": "flipped",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 16.44140625,
+   "rejected": 3.600572347640991,
+   "kind": "refusal",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 9.45739459991455,
+   "rejected": 4.510723114013672,
+   "kind": "flipped",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 10.59943675994873,
+   "rejected": 3.926151752471924,
+   "kind": "contradiction",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 7.450878143310547,
+   "rejected": -1.4171851873397827,
+   "kind": "wrong_entity",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 11.488032341003418,
+   "rejected": 9.029427528381348,
+   "kind": "flipped",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 16.83913803100586,
+   "rejected": 8.20474910736084,
+   "kind": "flipped",
+   "format": "json",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 10.659862518310547,
+   "rejected": 10.016092300415039,
+   "kind": "flipped",
+   "format": "json",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 10.363276481628418,
+   "rejected": 6.976903438568115,
+   "kind": "flipped",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 15.052286148071289,
+   "rejected": 9.825428009033203,
+   "kind": "wrong_match",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 21.619821548461914,
+   "rejected": 8.464019775390625,
+   "kind": "flipped",
+   "format": "json",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 5.639225959777832,
+   "rejected": 9.017243385314941,
+   "kind": "flipped",
+   "format": "prose",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 12.63751220703125,
+   "rejected": 5.741545677185059,
+   "kind": "wrong_match",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 8.928817749023438,
+   "rejected": 2.720404863357544,
+   "kind": "refusal",
+   "format": "json",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 9.15747356414795,
+   "rejected": 2.9148459434509277,
+   "kind": "refusal",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 12.669149398803711,
+   "rejected": 8.556710243225098,
+   "kind": "contradiction",
+   "format": "json",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 7.935135841369629,
+   "rejected": 0.11891736090183258,
+   "kind": "wrong_entity",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 12.980270385742188,
+   "rejected": 11.406403541564941,
+   "kind": "contradiction",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 10.955574989318848,
+   "rejected": 7.2473955154418945,
+   "kind": "wrong_entity",
+   "format": "prose",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 14.000909805297852,
+   "rejected": 3.436129570007324,
+   "kind": "contradiction",
+   "format": "json",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 19.823713302612305,
+   "rejected": 5.4280500411987305,
+   "kind": "contradiction",
+   "format": "prose",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 20.91782569885254,
+   "rejected": 6.44804573059082,
+   "kind": "wrong_match",
+   "format": "json",
+   "longer_is_chosen": false
+  },
+  {
+   "chosen": 10.311664581298828,
+   "rejected": 6.010167121887207,
+   "kind": "flipped",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 21.3394775390625,
+   "rejected": 12.247699737548828,
+   "kind": "wrong_match",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 15.78438949584961,
+   "rejected": 7.7468109130859375,
+   "kind": "wrong_match",
+   "format": "prose",
+   "longer_is_chosen": true
+  },
+  {
+   "chosen": 10.939613342285156,
+   "rejected": 9.986823081970215,
+   "kind": "flipped",
+   "format": "json",
+   "longer_is_chosen": true
+  }
+ ]
+}

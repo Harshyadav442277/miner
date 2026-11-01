@@ -1,0 +1,99 @@
+{
+ "queries": 32,
+ "responses": 232,
+ "pairs": 24,
+ "paired_names": 8,
+ "pairs_by_kind": {
+  "listed": 24
+ },
+ "by_miner": {
+  "302": {
+   "abstain": 32
+  },
+  "4433": {
+   "correct": 32
+  },
+  "710637": {
+   "correct": 32
+  },
+  "78001": {
+   "abstain": 1
+  },
+  "78003": {
+   "abstain": 1
+  },
+  "78004": {
+   "abstain": 1
+  },
+  "78005": {
+   "abstain": 1
+  },
+  "78006": {
+   "abstain": 1
+  },
+  "78007": {
+   "abstain": 1
+  },
+  "78008": {
+   "abstain": 1
+  },
+  "78009": {
+   "abstain": 1
+  },
+  "78010": {
+   "abstain": 32
+  },
+  "78021": {
+   "incorrect": 8,
+   "abstain": 8,
+   "correct": 16
+  },
+  "78022": {
+   "abstain": 32
+  },
+  "9002": {
+   "correct": 30,
+   "abstain": 2
+  }
+ },
+ "agreement": {
+  "4433/710637": {
+   "compared": 32,
+   "agree": 32,
+   "rate": 1.0
+  },
+  "4433/78021": {
+   "compared": 24,
+   "agree": 16,
+   "rate": 0.6666666666666666
+  },
+  "4433/9002": {
+   "compared": 30,
+   "agree": 30,
+   "rate": 1.0
+  },
+  "710637/78021": {
+   "compared": 24,
+   "agree": 16,
+   "rate": 0.6666666666666666
+  },
+  "710637/9002": {
+   "compared": 30,
+   "agree": 30,
+   "rate": 1.0
+  },
+  "78021/9002": {
+   "compared": 22,
+   "agree": 14,
+   "rate": 0.6363636363636364
+  }
+ },
+ "longer_answer_baseline": 1.0,
+ "limitations": [
+  "Decision labels only, not verification of every response field",
+  "No fuzzy/other-list positive treated as wrong from exact-name absence",
+  "Cross-miner pairs share queries: pair count is not independent sample size",
+  "LiveCert is related-party; no adoption or miner superiority claim",
+  "Engine ids are catalog identities, not registration ids"
+ ]
+}

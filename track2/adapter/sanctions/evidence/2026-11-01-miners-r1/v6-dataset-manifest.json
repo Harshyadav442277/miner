@@ -1,0 +1,57 @@
+{
+ "seed": 620261101,
+ "splits": {
+  "train": {
+   "pairs": 5958,
+   "entities": 3000,
+   "sha256": "6a13d4d7bacb2a5593a38570da284461b0fe6bf5826060ee5dcb17000a5ad714",
+   "by_kind": {
+    "flipped": 3904,
+    "wrong_entity": 1514,
+    "wrong_record": 540
+   }
+  },
+  "val": {
+   "pairs": 795,
+   "entities": 400,
+   "sha256": "5af22dbe960391a5cd838f8b96d093ee7e102ca6048cf5b1a61bed350f7bed39",
+   "by_kind": {
+    "flipped": 560,
+    "wrong_entity": 172,
+    "wrong_record": 63
+   }
+  },
+  "test": {
+   "pairs": 794,
+   "entities": 400,
+   "sha256": "bbe92b4a68325191438c8bb545175836471f58982b6f6e10d276a69a948eed3a",
+   "by_kind": {
+    "flipped": 538,
+    "wrong_entity": 187,
+    "wrong_record": 69
+   }
+  }
+ },
+ "excluded_ids": [
+  "10903",
+  "11967",
+  "25144",
+  "26099",
+  "29798",
+  "36013",
+  "42020",
+  "45431",
+  "46049",
+  "48101",
+  "50345",
+  "51764",
+  "56306",
+  "7895",
+  "8138",
+  "8389"
+ ],
+ "excluded_query_sha256": "5f6d5477654559d557b078cd80768215e27d17cbf7ea97023baf81a0c40cb1f9",
+ "sdn_sha256": "5f240bed79d504e7a54788b4cd1c7f84e6afa56cd4778653b70b0771b6a8509d",
+ "alt_sha256": "b0e2811fbb49ba6e9941a497e6b05fa2c9037b45ae7923196a01e2363a402259",
+ "note": "Small exploratory v6 pilot; synthetic templates, not a registration gate"
+}
