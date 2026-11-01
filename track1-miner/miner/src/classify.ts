@@ -57,6 +57,13 @@ const UA = "livecert-miner/1.0 (+https://miner-wine.vercel.app)";
 
 export type ClassifyVerdict = "classified" | "ambiguous" | "unknown";
 
+/** The relatedness margin the word list needs to label alone when the model was expected but gave no reading (G244). */
+export const KEYLESS_ONLY_MARGIN = 3;
+
+export function keylessLabelHolds(margin: number, modelExpected: boolean): boolean {
+  return !modelExpected || margin >= KEYLESS_ONLY_MARGIN;
+}
+
 export interface ClassifyResult {
   verdict: ClassifyVerdict;
   label: string | null;
@@ -285,6 +292,21 @@ export async function classifyText(question: string, textParam = "", labelsParam
   if (said && clear) {
     return { verdict: "classified", label: said.label, reason: said.reason,
       confidence: clear && best?.label === said.label ? Number(Math.min(0.9, 0.5 + (best.score - (second?.score ?? 0)) / 12).toFixed(2)) : 0.7 };
+  }
+
+  /**
+   * With a model configured, a missing reading means it missed its deadline or declined,
+   * and the word list then stands alone. On its own it may label only with a strong
+   * margin (G244, owner 2026-11-01: "Answer ambiguous"): "The drone's left motor
+   * overheated" was labelled operator error at margin 1.6 when the model missed 350 ms
+   * by 2 ms, on every fresh deployment. Without a key nothing changes.
+   */
+  const margin = best ? best.score - (second?.score ?? 0) : 0;
+  if (best && clear && !keylessLabelHolds(margin, Boolean(process.env.GROQ_API_KEY))) {
+    return {
+      verdict: "ambiguous", label: null, confidence: 0.3,
+      reason: `This ${noun} is ambiguous: its wording leans towards ${best.label}, but too weakly to choose a label from word relatedness alone, so none is guessed.${via}`,
+    };
   }
 
   if (best && clear) {

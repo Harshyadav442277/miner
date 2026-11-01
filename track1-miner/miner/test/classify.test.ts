@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
-  classifiedText, classifyText, contentWords, parseLabels, placement, scoreLabels, splitLabels, stem, textWords,
+  classifiedText, classifyText, contentWords, keylessLabelHolds, KEYLESS_ONLY_MARGIN, parseLabels, placement, scoreLabels, splitLabels, stem, textWords,
 } from "../src/classify";
 
 /**
@@ -184,4 +184,28 @@ test("a head noun shared by the label list is spoken with every label", () => {
   assert.equal(placement("ticket", "billing", labels), "This ticket is a billing issue.");
   assert.equal(placement("ticket", "account issue", labels), "This ticket is an account issue.");
   assert.equal(placement("review", "shipping", ["quality", "shipping", "price"]), "This review belongs to the shipping category.");
+});
+
+test("with a model configured, the word list labels alone only on a strong margin (G244)", () => {
+  assert.equal(keylessLabelHolds(1.6, false), true, "no model: the keyless rule is unchanged");
+  assert.equal(keylessLabelHolds(1.6, true), false, "model expected, weak margin: ambiguous");
+  assert.equal(keylessLabelHolds(KEYLESS_ONLY_MARGIN, true), true, "model expected, strong margin: labelled");
+});
+
+test("(live) a missed model reading on a weak lean answers ambiguous, not a guess (G244)", async () => {
+  if (!(await datamuseUp())) return;
+  const real = globalThis.fetch;
+  const key = process.env.GROQ_API_KEY;
+  process.env.GROQ_API_KEY = "test-key-model-unreachable";
+  // The relatedness index answers for real; the model endpoint fails, as a missed deadline does.
+  globalThis.fetch = (async (u: string | URL | Request, init?: RequestInit) =>
+    String(u).includes("groq.com") ? new Response("unavailable", { status: 503 }) : real(u, init)) as typeof fetch;
+  try {
+    const r = await classifyText("Classify this field report as hardware fault, software fault, or operator error: 'The drone's left motor overheated and the propeller stopped spinning.'");
+    assert.notEqual(r.label, "operator error");
+    if (r.verdict === "ambiguous") assert.match(r.reason, /too weakly to choose a label/);
+  } finally {
+    globalThis.fetch = real;
+    if (key === undefined) delete process.env.GROQ_API_KEY; else process.env.GROQ_API_KEY = key;
+  }
 });
