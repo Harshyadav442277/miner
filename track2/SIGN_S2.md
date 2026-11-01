@@ -17,7 +17,13 @@ cases, 0 mismatches) with no pool pairs and no training.
 | Bond | 4.477 MACHINA (`entityBonds`, 18:24 UTC). Wallet 0.165 MACHINA; the allowance left from #46 is 5.165 |
 | Dry run | `registerWasm` reverts `ERC20InsufficientBalance(wallet, 0.165, 4.477)`: funding is the only blocker |
 
-**Steps (owner):** 1. Anjoman → Faucet → claim 5 MACHINA. 2. Anjoman → Evaluators: paste the file URL, Verify & hash
+**18:38 UTC:** the owner deregistered #46 and claimed contribution rewards (nonce 6). The wallet holds 3.547 MACHINA,
+**0.93 short** of the 4.477 bond. `releasedMinerBond` shows 4.835 MACHINA, locked until 2026-11-03 18:36:48 UTC
+(48 h). The faucet was already claimed today and reopens around 08:05 UTC on 2026-11-02. A fork test showed that
+minting 6 test USDC and swapping it at the 0.3% pool (SwapRouter02 `0x3bFA…e48E`) gives 5.479 MACHINA, after which
+the register call simulates as id 51.
+
+**Steps (owner):** 1. Fund ≥ 0.93 MACHINA more (faucet or USDC swap). 2. Anjoman → Evaluators: paste the file URL, Verify & hash
 (must show the keccak above), Family `FX_NOW`, the fee address, and the runnable URL; Publish; sign in MetaMask.
 
 ## V2, 2026-11-01: register the SANCTIONS_SCREENING_MATCH adapter (v3) — REJECTED #46 (7/15), deregister to free the bond
