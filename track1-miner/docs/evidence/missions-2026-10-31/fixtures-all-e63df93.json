@@ -1,0 +1,1473 @@
+{
+ "at": "2026-11-01T09:22:55.623Z",
+ "base": "https://miner-wine.vercel.app",
+ "missions": [
+  {
+   "mission": "exchange",
+   "full_pass": 0,
+   "full": 0,
+   "partial_pass": 2,
+   "partial": 2
+  },
+  {
+   "mission": "stablecoin",
+   "full_pass": 0,
+   "full": 0,
+   "partial_pass": 8,
+   "partial": 8
+  },
+  {
+   "mission": "institutional-markets",
+   "full_pass": 1,
+   "full": 1,
+   "partial_pass": 2,
+   "partial": 2
+  },
+  {
+   "mission": "legal",
+   "full_pass": 1,
+   "full": 1,
+   "partial_pass": 2,
+   "partial": 2
+  },
+  {
+   "mission": "conflict-intelligence",
+   "full_pass": 1,
+   "full": 1,
+   "partial_pass": 8,
+   "partial": 8
+  },
+  {
+   "mission": "resources-and-agriculture",
+   "full_pass": 0,
+   "full": 0,
+   "partial_pass": 3,
+   "partial": 4
+  },
+  {
+   "mission": "consumer-platform",
+   "full_pass": 1,
+   "full": 1,
+   "partial_pass": 6,
+   "partial": 6
+  },
+  {
+   "mission": "commodities",
+   "full_pass": 0,
+   "full": 0,
+   "partial_pass": 2,
+   "partial": 2
+  },
+  {
+   "mission": "personal-agent",
+   "full_pass": 1,
+   "full": 1,
+   "partial_pass": 3,
+   "partial": 3
+  },
+  {
+   "mission": "model-economy",
+   "full_pass": 0,
+   "full": 0,
+   "partial_pass": 6,
+   "partial": 6
+  },
+  {
+   "mission": "autonomous-systems",
+   "full_pass": 0,
+   "full": 0,
+   "partial_pass": 4,
+   "partial": 4
+  },
+  {
+   "mission": "mining-and-power",
+   "full_pass": 0,
+   "full": 0,
+   "partial_pass": 4,
+   "partial": 4
+  },
+  {
+   "mission": "asset-management",
+   "full_pass": 3,
+   "full": 3,
+   "partial_pass": 6,
+   "partial": 6
+  },
+  {
+   "mission": "web3-defi",
+   "full_pass": 1,
+   "full": 1,
+   "partial_pass": 0,
+   "partial": 0
+  },
+  {
+   "mission": "consumer-automation",
+   "full_pass": 0,
+   "full": 0,
+   "partial_pass": 1,
+   "partial": 1
+  }
+ ],
+ "full": [
+  {
+   "mission": "institutional-markets",
+   "build": "Pre-trade diligence between strangers",
+   "steps": [
+    "registry_unilever",
+    "sanctions_rosneft",
+    "sanctions_clean",
+    "financial_msft"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "legal",
+   "build": "The overnight diligence pack",
+   "steps": [
+    "registry_unilever",
+    "sanctions_rosneft",
+    "websearch_ceo",
+    "factcheck_boe",
+    "sentiment_earnings"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "conflict-intelligence",
+   "build": "Verified off-chain facts for on-chain execution",
+   "steps": [
+    "factcheck_eiffel",
+    "event_election",
+    "crosschain_live"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "consumer-platform",
+   "build": "The model that pays for what it does not know",
+   "steps": [
+    "qa_capital",
+    "websearch_ceo",
+    "factcheck_boe"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "personal-agent",
+   "build": "Give every OpenClaw instance a wallet and a market",
+   "steps": [
+    "websearch_ceo",
+    "qa_moons",
+    "weather_berlin",
+    "crypto_eth"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "asset-management",
+   "build": "Open research with the inputs attached",
+   "steps": [
+    "websearch_ceo",
+    "factcheck_eiffel",
+    "sec_apple",
+    "macro_cpi"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "asset-management",
+   "build": "A defensible mark on the venture book",
+   "steps": [
+    "websearch_founders",
+    "registry_unilever",
+    "factcheck_stripe_year"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "asset-management",
+   "build": "Forecast accountability, scored by machines",
+   "steps": [
+    "event_btc100k",
+    "factcheck_eiffel",
+    "websearch_ceo"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "web3-defi",
+   "build": "The self-settling conditional escrow",
+   "steps": [
+    "event_btc100k",
+    "transfer_first_eth"
+   ],
+   "state": "pass"
+  }
+ ],
+ "partial": [
+  {
+   "mission": "exchange",
+   "build": "The autonomous listings desk",
+   "families": [
+    "SANCTIONS_SCREENING_MATCH"
+   ],
+   "missing": [
+    "SMART_CONTRACT_AUDIT",
+    "ONCHAIN_METRIC_VERIFY",
+    "SOCIAL_BOT_DETECTION",
+    "CODE_REVIEW"
+   ],
+   "steps": [
+    "sanctions_rosneft",
+    "sanctions_clean"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "exchange",
+   "build": "The solvency handshake",
+   "families": [
+    "CROSS_CHAIN_STATE_VERIFY"
+   ],
+   "missing": [
+    "ASSET_RESERVE_ATTESTATION",
+    "ONCHAIN_METRIC_VERIFY"
+   ],
+   "steps": [
+    "crosschain_live"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "stablecoin",
+   "build": "The agent expense ledger",
+   "families": [
+    "CRYPTO_TRANSFER_VERIFY",
+    "GAS_PRICE"
+   ],
+   "missing": [
+    "TASK_EXECUTION_QUALITY"
+   ],
+   "steps": [
+    "transfer_first_eth",
+    "gas_eth"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "stablecoin",
+   "build": "Compliance attached to the payment itself",
+   "families": [
+    "SANCTIONS_SCREENING_MATCH",
+    "REGULATORY_FILING_MONITOR"
+   ],
+   "missing": [
+    "TRANSACTION_RISK",
+    "FRAUD_RISK"
+   ],
+   "steps": [
+    "sanctions_rosneft",
+    "sanctions_clean",
+    "sec_apple"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "stablecoin",
+   "build": "Treasury agents choosing on evidence",
+   "families": [
+    "CROSS_CHAIN_STATE_VERIFY"
+   ],
+   "missing": [
+    "ASSET_RESERVE_ATTESTATION",
+    "LIQUIDITY_DEPTH_VERIFY"
+   ],
+   "steps": [
+    "crosschain_live"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "stablecoin",
+   "build": "Edge agents that pay when they can reach the network",
+   "families": [
+    "QUESTION_ANSWERING",
+    "WEATHER_CHECK"
+   ],
+   "missing": [
+    "FX_NOW"
+   ],
+   "steps": [
+    "qa_capital",
+    "weather_berlin"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "stablecoin",
+   "build": "Gold-collateralised agent wallets",
+   "families": [
+    "CRYPTO_PRICE"
+   ],
+   "missing": [
+    "ASSET_RESERVE_ATTESTATION",
+    "FX_NOW"
+   ],
+   "steps": [
+    "crypto_eth"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "stablecoin",
+   "build": "A machine with a balance sheet",
+   "families": [
+    "FINANCIAL_DATA"
+   ],
+   "missing": [
+    "CRYPTO_YIELD_RATE",
+    "ONCHAIN_METRIC_VERIFY"
+   ],
+   "steps": [
+    "financial_msft"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "stablecoin",
+   "build": "Collateral quality bought per request",
+   "families": [
+    "FINANCIAL_DATA",
+    "CORPORATE_REGISTRY_LOOKUP"
+   ],
+   "missing": [
+    "ASSET_RESERVE_ATTESTATION"
+   ],
+   "steps": [
+    "financial_msft",
+    "registry_unilever"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "stablecoin",
+   "build": "A treasury that shows its working",
+   "families": [
+    "MACRO_ECONOMIC_INDICATOR"
+   ],
+   "missing": [
+    "LIQUIDITY_DEPTH_VERIFY",
+    "CRYPTO_YIELD_RATE",
+    "TEXT_SUMMARIZATION"
+   ],
+   "steps": [
+    "macro_cpi"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "institutional-markets",
+   "build": "A defensible mark on a private asset",
+   "families": [
+    "FINANCIAL_DATA",
+    "MACRO_ECONOMIC_INDICATOR"
+   ],
+   "missing": [
+    "LOAN_INTEREST_RATE_QUOTE",
+    "FX_NOW"
+   ],
+   "steps": [
+    "financial_msft",
+    "macro_cpi"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "institutional-markets",
+   "build": "The autonomous issuance desk",
+   "families": [
+    "CORPORATE_REGISTRY_LOOKUP",
+    "SANCTIONS_SCREENING_MATCH",
+    "MACRO_ECONOMIC_INDICATOR",
+    "REGULATORY_FILING_MONITOR"
+   ],
+   "missing": [
+    "LOAN_INTEREST_RATE_QUOTE"
+   ],
+   "steps": [
+    "registry_unilever",
+    "sanctions_rosneft",
+    "sanctions_clean",
+    "macro_cpi",
+    "sec_apple"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "legal",
+   "build": "Regulatory monitoring with a chain of custody",
+   "families": [
+    "REGULATORY_FILING_MONITOR",
+    "CONTENT_EXTRACTION",
+    "LANGUAGE_TRANSLATION"
+   ],
+   "missing": [
+    "TEXT_SUMMARIZATION"
+   ],
+   "steps": [
+    "sec_apple",
+    "extract_invoice",
+    "translate_shipment"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "legal",
+   "build": "Two agents negotiating with paid evidence",
+   "families": [
+    "QUESTION_ANSWERING",
+    "REGULATORY_FILING_MONITOR"
+   ],
+   "missing": [
+    "CONTRACT_OBLIGATION_AUDIT",
+    "SEMANTIC_SIMILARITY"
+   ],
+   "steps": [
+    "qa_capital",
+    "sec_apple"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "conflict-intelligence",
+   "build": "An escalation score you can trace to its source",
+   "families": [
+    "FACT_CHECK",
+    "WEB_SEARCH"
+   ],
+   "missing": [
+    "MEDIA_FORENSIC_VERIFY",
+    "SATELLITE_IMAGERY_ANALYSIS"
+   ],
+   "steps": [
+    "factcheck_boe",
+    "websearch_ceo"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "conflict-intelligence",
+   "build": "The gap between reported and observed",
+   "families": [
+    "MACRO_ECONOMIC_INDICATOR"
+   ],
+   "missing": [
+    "VESSEL_TELEMETRY_VERIFY",
+    "LIVE_PORT_CONGESTION",
+    "SATELLITE_IMAGERY_ANALYSIS"
+   ],
+   "steps": [
+    "macro_cpi"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "conflict-intelligence",
+   "build": "Research priced per fact",
+   "families": [
+    "FACT_CHECK",
+    "WEB_SEARCH"
+   ],
+   "missing": [
+    "TEXT_SUMMARIZATION"
+   ],
+   "steps": [
+    "factcheck_boe",
+    "websearch_ceo"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "conflict-intelligence",
+   "build": "Conflict to barrel",
+   "families": [
+    "WEB_SEARCH"
+   ],
+   "missing": [
+    "VESSEL_TELEMETRY_VERIFY",
+    "LIVE_PORT_CONGESTION",
+    "SATELLITE_IMAGERY_ANALYSIS"
+   ],
+   "steps": [
+    "websearch_ceo"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "conflict-intelligence",
+   "build": "Provenance before the position",
+   "families": [
+    "WEB_SEARCH"
+   ],
+   "missing": [
+    "MEDIA_FORENSIC_VERIFY",
+    "SOCIAL_BOT_DETECTION",
+    "IMAGE_CAPTIONING",
+    "SATELLITE_IMAGERY_ANALYSIS"
+   ],
+   "steps": [
+    "websearch_ceo"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "conflict-intelligence",
+   "build": "Paying for depth only at the tail",
+   "families": [
+    "FACT_CHECK"
+   ],
+   "missing": [
+    "VESSEL_TELEMETRY_VERIFY",
+    "MEDIA_FORENSIC_VERIFY"
+   ],
+   "steps": [
+    "factcheck_boe"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "conflict-intelligence",
+   "build": "One answer, three desks",
+   "families": [
+    "FACT_CHECK"
+   ],
+   "missing": [
+    "FX_NOW",
+    "LOAN_INTEREST_RATE_QUOTE",
+    "GRID_POWER_PRICE"
+   ],
+   "steps": [
+    "factcheck_boe"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "conflict-intelligence",
+   "build": "The fund as a miner",
+   "families": [
+    "FACT_CHECK",
+    "SENTIMENT_ANALYSIS"
+   ],
+   "missing": [
+    "TEXT_SUMMARIZATION"
+   ],
+   "steps": [
+    "factcheck_boe",
+    "sentiment_earnings"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "resources-and-agriculture",
+   "build": "Auditable machine decisions",
+   "families": [
+    "STOCK_PRICE"
+   ],
+   "missing": [
+    "WEATHER_FORECAST_VERIFY",
+    "SHIPMENT_DELAY_RISK",
+    "ROUTE_ETA"
+   ],
+   "steps": [
+    "stock_apple"
+   ],
+   "state": "refused"
+  },
+  {
+   "mission": "resources-and-agriculture",
+   "build": "Competitors trading intelligence anonymously",
+   "families": [
+    "WEATHER_CHECK"
+   ],
+   "missing": [
+    "SENSOR_TELEMETRY_VERIFY",
+    "AIR_QUALITY_INDEX"
+   ],
+   "steps": [
+    "weather_berlin"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "resources-and-agriculture",
+   "build": "Beating the official estimate",
+   "families": [
+    "MACRO_ECONOMIC_INDICATOR"
+   ],
+   "missing": [
+    "SATELLITE_IMAGERY_ANALYSIS",
+    "WEATHER_FORECAST_VERIFY",
+    "SENSOR_TELEMETRY_VERIFY"
+   ],
+   "steps": [
+    "macro_cpi"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "resources-and-agriculture",
+   "build": "Parametric payout without an adjuster",
+   "families": [
+    "EVENT_OUTCOME_RESOLUTION"
+   ],
+   "missing": [
+    "WEATHER_FORECAST_VERIFY",
+    "SATELLITE_IMAGERY_ANALYSIS"
+   ],
+   "steps": [
+    "event_btc100k"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "consumer-platform",
+   "build": "Receipts",
+   "families": [
+    "FACT_CHECK"
+   ],
+   "missing": [
+    "MEDIA_FORENSIC_VERIFY",
+    "SOCIAL_BOT_DETECTION"
+   ],
+   "steps": [
+    "factcheck_boe"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "consumer-platform",
+   "build": "Model versus market",
+   "families": [
+    "QUESTION_ANSWERING"
+   ],
+   "missing": [
+    "LLM_OUTPUT_EVALUATION"
+   ],
+   "steps": [
+    "qa_capital"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "consumer-platform",
+   "build": "A lens that tells you what is real",
+   "families": [
+    "FACT_CHECK"
+   ],
+   "missing": [
+    "MEDIA_FORENSIC_VERIFY",
+    "PRODUCT_AUTHENTICITY",
+    "IMAGE_CAPTIONING",
+    "LIVE_SHELF_PRICE"
+   ],
+   "steps": [
+    "factcheck_boe"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "consumer-platform",
+   "build": "Point, compare, buy",
+   "families": [
+    "URL_SAFE"
+   ],
+   "missing": [
+    "IMAGE_CAPTIONING",
+    "LIVE_SHELF_PRICE",
+    "SKU_IN_STOCK"
+   ],
+   "steps": [
+    "url_malware",
+    "url_clean"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "consumer-platform",
+   "build": "Glasses that buy context",
+   "families": [
+    "LANGUAGE_TRANSLATION",
+    "QUESTION_ANSWERING"
+   ],
+   "missing": [
+    "IMAGE_CAPTIONING"
+   ],
+   "steps": [
+    "translate_shipment",
+    "qa_capital"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "consumer-platform",
+   "build": "A machine-to-machine ad clearing",
+   "families": [
+    "TEXT_CLASSIFICATION"
+   ],
+   "missing": [
+    "SOCIAL_BOT_DETECTION",
+    "CONTENT_MODERATION"
+   ],
+   "steps": [
+    "classify_incident"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "commodities",
+   "build": "Intelligence ROI",
+   "families": [
+    "WEB_SEARCH"
+   ],
+   "missing": [
+    "LIVE_PORT_CONGESTION",
+    "VESSEL_TELEMETRY_VERIFY",
+    "WEATHER_FORECAST_VERIFY",
+    "SHIP_RATE_ETA"
+   ],
+   "steps": [
+    "websearch_ceo"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "commodities",
+   "build": "Cargo and counterparty provenance",
+   "families": [
+    "CORPORATE_REGISTRY_LOOKUP",
+    "SANCTIONS_SCREENING_MATCH"
+   ],
+   "missing": [
+    "VESSEL_TELEMETRY_VERIFY",
+    "DOCUMENT_AUTHENTICITY"
+   ],
+   "steps": [
+    "registry_unilever",
+    "sanctions_rosneft",
+    "sanctions_clean"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "personal-agent",
+   "build": "The assistant that earns while you sleep",
+   "families": [
+    "CONTENT_EXTRACTION"
+   ],
+   "missing": [
+    "TASK_EXECUTION_QUALITY"
+   ],
+   "steps": [
+    "extract_invoice"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "personal-agent",
+   "build": "Two assistants settling up in a group chat",
+   "families": [
+    "URL_SAFE"
+   ],
+   "missing": [
+    "TASK_EXECUTION_QUALITY"
+   ],
+   "steps": [
+    "url_malware",
+    "url_clean"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "personal-agent",
+   "build": "Priced, proved skills in the browser",
+   "families": [
+    "CONTENT_EXTRACTION",
+    "WEB_SEARCH"
+   ],
+   "missing": [
+    "LIVE_SHELF_PRICE"
+   ],
+   "steps": [
+    "extract_invoice",
+    "websearch_ceo"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "model-economy",
+   "build": "Cost per verified correct answer",
+   "families": [
+    "QUESTION_ANSWERING"
+   ],
+   "missing": [
+    "LLM_OUTPUT_EVALUATION",
+    "CODE_GENERATION"
+   ],
+   "steps": [
+    "qa_capital"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "model-economy",
+   "build": "Revenue for the long tail",
+   "families": [
+    "TEXT_CLASSIFICATION"
+   ],
+   "missing": [
+    "LLM_OUTPUT_EVALUATION"
+   ],
+   "steps": [
+    "classify_incident"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "model-economy",
+   "build": "The repository as a miner",
+   "families": [
+    "QUESTION_ANSWERING",
+    "RESEARCH_QUERY"
+   ],
+   "missing": [
+    "CODE_GENERATION"
+   ],
+   "steps": [
+    "qa_capital",
+    "research_lepodisiran"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "model-economy",
+   "build": "The coding agent that buys what it does not know",
+   "families": [
+    "QUESTION_ANSWERING"
+   ],
+   "missing": [
+    "CODE_GENERATION",
+    "CODE_PATCH_VERIFY",
+    "REGRESSION_VERIFY"
+   ],
+   "steps": [
+    "qa_capital"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "model-economy",
+   "build": "Verification on top of routing",
+   "families": [
+    "QUESTION_ANSWERING",
+    "FACT_CHECK"
+   ],
+   "missing": [
+    "LLM_OUTPUT_EVALUATION"
+   ],
+   "steps": [
+    "qa_capital",
+    "factcheck_boe"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "model-economy",
+   "build": "Buying inference with a wallet and no account",
+   "families": [
+    "QUESTION_ANSWERING",
+    "CRYPTO_TRANSFER_VERIFY"
+   ],
+   "missing": [
+    "CHATBOT_CONVERSATION"
+   ],
+   "steps": [
+    "qa_capital",
+    "transfer_first_eth"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "autonomous-systems",
+   "build": "The robot that bought a skill",
+   "families": [
+    "QUESTION_ANSWERING"
+   ],
+   "missing": [
+    "IMAGE_CAPTIONING"
+   ],
+   "steps": [
+    "qa_capital"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "autonomous-systems",
+   "build": "The robot that checks before it acts",
+   "families": [
+    "TEXT_CLASSIFICATION"
+   ],
+   "missing": [
+    "IMAGE_CAPTIONING"
+   ],
+   "steps": [
+    "classify_incident"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "autonomous-systems",
+   "build": "Experience sold between fleets",
+   "families": [
+    "TEXT_CLASSIFICATION"
+   ],
+   "missing": [
+    "IMAGE_CAPTIONING"
+   ],
+   "steps": [
+    "classify_incident"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "autonomous-systems",
+   "build": "Buying a skill it was never trained on",
+   "families": [
+    "QUESTION_ANSWERING"
+   ],
+   "missing": [
+    "IMAGE_CAPTIONING",
+    "CODE_GENERATION"
+   ],
+   "steps": [
+    "qa_capital"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "mining-and-power",
+   "build": "The allocation agent",
+   "families": [
+    "WEB_SEARCH"
+   ],
+   "missing": [
+    "MINING_HASHPRICE_VERIFY",
+    "GRID_POWER_PRICE"
+   ],
+   "steps": [
+    "websearch_ceo"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "mining-and-power",
+   "build": "Treasury moves with evidence attached",
+   "families": [
+    "CORPORATE_REGISTRY_LOOKUP",
+    "FINANCIAL_DATA"
+   ],
+   "missing": [
+    "ASSET_RESERVE_ATTESTATION"
+   ],
+   "steps": [
+    "registry_unilever",
+    "financial_msft"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "mining-and-power",
+   "build": "The site selection agent",
+   "families": [
+    "WEB_SEARCH",
+    "REGULATORY_FILING_MONITOR",
+    "SENTIMENT_ANALYSIS"
+   ],
+   "missing": [
+    "WEATHER_FORECAST_VERIFY"
+   ],
+   "steps": [
+    "websearch_ceo",
+    "sec_apple",
+    "sentiment_earnings"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "mining-and-power",
+   "build": "Better inputs into hash allocation",
+   "families": [
+    "WEATHER_CHECK"
+   ],
+   "missing": [
+    "GRID_POWER_PRICE",
+    "DATACENTER_TELEMETRY_VERIFY"
+   ],
+   "steps": [
+    "weather_berlin"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "asset-management",
+   "build": "The thematic screener that buys evidence",
+   "families": [
+    "WEB_SEARCH",
+    "REGULATORY_FILING_MONITOR"
+   ],
+   "missing": [
+    "ENTITY_EXTRACTION",
+    "PACKAGE_STATUS"
+   ],
+   "steps": [
+    "websearch_ceo",
+    "sec_apple"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "asset-management",
+   "build": "Tokenized fund NAV with the proof attached",
+   "families": [
+    "CRYPTO_PRICE"
+   ],
+   "missing": [
+    "ASSET_RESERVE_ATTESTATION",
+    "ONCHAIN_METRIC_VERIFY"
+   ],
+   "steps": [
+    "crypto_eth"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "asset-management",
+   "build": "The fake volume screen",
+   "families": [
+    "CRYPTO_PRICE"
+   ],
+   "missing": [
+    "WASH_TRADING_DETECTION",
+    "LIQUIDITY_DEPTH_VERIFY"
+   ],
+   "steps": [
+    "crypto_eth"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "asset-management",
+   "build": "The index as a miner",
+   "families": [
+    "CRYPTO_PRICE"
+   ],
+   "missing": [
+    "TOKEN_TOTAL_SUPPLY_VERIFY"
+   ],
+   "steps": [
+    "crypto_eth"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "asset-management",
+   "build": "Daily proof of holdings",
+   "families": [
+    "CRYPTO_TRANSFER_VERIFY"
+   ],
+   "missing": [
+    "ASSET_RESERVE_ATTESTATION",
+    "ONCHAIN_METRIC_VERIFY"
+   ],
+   "steps": [
+    "transfer_first_eth"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "asset-management",
+   "build": "The investor agent that does its own diligence",
+   "families": [
+    "CORPORATE_REGISTRY_LOOKUP"
+   ],
+   "missing": [
+    "ASSET_RESERVE_ATTESTATION",
+    "CONTRACT_OBLIGATION_AUDIT"
+   ],
+   "steps": [
+    "registry_unilever"
+   ],
+   "state": "pass"
+  },
+  {
+   "mission": "consumer-automation",
+   "build": "The peer-to-peer reality check",
+   "families": [
+    "URL_SAFE",
+    "CRYPTO_TRANSFER_VERIFY"
+   ],
+   "missing": [
+    "PRODUCT_AUTHENTICITY"
+   ],
+   "steps": [
+    "url_malware",
+    "url_clean",
+    "transfer_first_eth"
+   ],
+   "state": "pass"
+  }
+ ],
+ "steps": {
+  "registry_unilever": {
+   "intent": "CORPORATE_REGISTRY_LOOKUP",
+   "path": "/company-registry",
+   "params": {
+    "query": "Look up Unilever PLC in the company registry: its registered number, status and LEI"
+   },
+   "state": "pass",
+   "fails": [],
+   "ms": 1385,
+   "verdict": "found",
+   "answer": "UNILEVER PLC is active, registered with Companies House under company number 00041424 in GB, incorporated 1894-06-21."
+  },
+  "sanctions_rosneft": {
+   "intent": "SANCTIONS_SCREENING_MATCH",
+   "path": "/sanctions-screen",
+   "params": {
+    "query": "Is Rosneft on a sanctions list?"
+   },
+   "state": "pass",
+   "fails": [],
+   "ms": 5922,
+   "verdict": "match",
+   "answer": "Potential match: \"Rosneft\" matches OPEN JOINT-STOCK COMPANY ROSNEFT OIL COMPANY on the OFAC SDN list (UKRAINE-EO13662, RUSSIA-EO14024, entity, reference 17022), score 1."
+  },
+  "sanctions_clean": {
+   "intent": "SANCTIONS_SCREENING_MATCH",
+   "path": "/sanctions-screen",
+   "params": {
+    "query": "Screen the counterparty Unilever PLC against sanctions lists"
+   },
+   "state": "pass",
+   "fails": [],
+   "ms": 448,
+   "verdict": "no_match",
+   "answer": "No match: \"counterparty Unilever PLC\" does not closely match any name or alias on these lists."
+  },
+  "financial_msft": {
+   "intent": "FINANCIAL_DATA",
+   "path": "/financial",
+   "params": {
+    "query": "What were Microsoft's total revenues in its latest annual report?"
+   },
+   "state": "pass",
+   "fails": [],
+   "ms": 508,
+   "verdict": "financial_data",
+   "answer": "Microsoft Corporation reported revenue of $331.84 billion for fiscal year 2026, which ended 30 June 2026, according to its 10-K filed with the SEC."
+  },
+  "websearch_ceo": {
+   "intent": "WEB_SEARCH",
+   "path": "/web-search",
+   "params": {
+    "query": "Who is the current CEO of Stripe?"
+   },
+   "state": "pass",
+   "fails": [],
+   "ms": 689,
+   "verdict": "answered",
+   "answer": "The current CEO of Stripe is Patrick Collison."
+  },
+  "factcheck_boe": {
+   "intent": "FACT_CHECK",
+   "path": "/fact-check",
+   "params": {
+    "query": "Is it true that the Bank of England is headquartered in London?"
+   },
+   "state": "pass",
+   "fails": [],
+   "ms": 891,
+   "verdict": "supported",
+   "answer": "The claim \"the Bank of England is headquartered in London\" is supported by the reference source consulted."
+  },
+  "sentiment_earnings": {
+   "intent": "SENTIMENT_ANALYSIS",
+   "path": "/sentiment",
+   "params": {
+    "text": "The company beat earnings expectations and raised guidance; shares jumped 8%."
+   },
+   "state": "pass",
+   "fails": [],
+   "ms": 502,
+   "verdict": "positive",
+   "answer": "The sentiment of this text is positive."
+  },
+  "factcheck_eiffel": {
+   "intent": "FACT_CHECK",
+   "path": "/fact-check",
+   "params": {
+    "query": "Is it true that the Eiffel Tower is located in Paris?"
+   },
+   "state": "pass",
+   "fails": [],
+   "ms": 557,
+   "verdict": "supported",
+   "answer": "The claim \"the Eiffel Tower is located in Paris\" is supported by the reference source consulted."
+  },
+  "event_election": {
+   "intent": "EVENT_OUTCOME_RESOLUTION",
+   "path": "/event-outcome",
+   "params": {
+    "query": "Who won the 2024 United States presidential election?"
+   },
+   "state": "pass",
+   "fails": [],
+   "ms": 730,
+   "verdict": "resolved",
+   "answer": "Donald Trump won."
+  },
+  "crosschain_live": {
+   "intent": "CROSS_CHAIN_STATE_VERIFY",
+   "path": "/cross-chain",
+   "params": {
+    "tx_hash": "0x7c83d5f0444b5ccc4a0f66624c9d42d5bebcbffa498208b4b9cad1a40c1cbb99",
+    "query": "Did 0x7c83d5f0444b5ccc4a0f66624c9d42d5bebcbffa498208b4b9cad1a40c1cbb99 from orderly arrive on arbitrum?"
+   },
+   "state": "pass",
+   "fails": [],
+   "ms": 442,
+   "verdict": "unsupported",
+   "answer": "LayerZero message 0x2d3c294dbd611aa8e2b9d847897558c717d5a0515f8fc36e17c2ee0e29328273 (nonce 24969, endpoint 30213 to arbitrum) involves a chain whose RPC is not read here, so its delivery was not verified on-chain."
+  },
+  "qa_capital": {
+   "intent": "QUESTION_ANSWERING",
+   "path": "/answer",
+   "params": {
+    "query": "What is the capital of Australia?"
+   },
+   "state": "pass",
+   "fails": [],
+   "ms": 1007,
+   "verdict": "answered",
+   "answer": "Canberra is the capital of Australia [1]."
+  },
+  "qa_moons": {
+   "intent": "QUESTION_ANSWERING",
+   "path": "/answer",
+   "params": {
+    "query": "How many moons does Mars have?"
+   },
+   "state": "pass",
+   "fails": [],
+   "ms": 803,
+   "verdict": "answered",
+   "answer": "Mars has two moons[2]."
+  },
+  "weather_berlin": {
+   "intent": "WEATHER_CHECK",
+   "path": "/weather-forecast",
+   "params": {
+    "query": "What is the current temperature in Berlin?"
+   },
+   "state": "pass",
+   "fails": [],
+   "ms": 725,
+   "verdict": "clear",
+   "answer": "The current temperature in Berlin, Germany is 7.6°C, and it is clear, with no precipitation and wind at 4.3 km/h, as of 09:00 UTC on 2026-11-01, the model value for that hour from MET Norway (CC BY 4.0)."
+  },
+  "crypto_eth": {
+   "intent": "CRYPTO_PRICE",
+   "path": "/crypto-price",
+   "params": {
+    "query": "What is the current price of ETH in USD?"
+   },
+   "state": "pass",
+   "fails": [],
+   "ms": 288,
+   "verdict": "price",
+   "answer": "Ethereum (ETH) is $2,268.79 USD, the last Bitstamp trade at 2026-11-01 09:22:42 UTC."
+  },
+  "sec_apple": {
+   "intent": "REGULATORY_FILING_MONITOR",
+   "path": "/sec-filings",
+   "params": {
+    "query": "What was Apple's most recent 10-K filing date?"
+   },
+   "state": "pass",
+   "fails": [],
+   "ms": 518,
+   "verdict": "filed",
+   "answer": "Apple Inc.'s latest 10-K was filed on 2025-10-31 and accepted by EDGAR at 10:01 UTC, for the period ended 2025-09-27, accession 0000320193-25-000079."
+  },
+  "macro_cpi": {
+   "intent": "MACRO_ECONOMIC_INDICATOR",
+   "path": "/macro",
+   "params": {
+    "query": "What is the latest US CPI inflation rate?"
+   },
+   "state": "pass",
+   "fails": [],
+   "ms": 410,
+   "verdict": "reported",
+   "answer": "Consumer price inflation in the US was 3.7% year on year in September 2026 (US Bureau of Labor Statistics)."
+  },
+  "websearch_founders": {
+   "intent": "WEB_SEARCH",
+   "path": "/web-search",
+   "params": {
+    "query": "Who founded Stripe?"
+   },
+   "state": "pass",
+   "fails": [],
+   "ms": 1067,
+   "verdict": "answered",
+   "answer": "Stripe was co-founded by Patrick Collison and his younger brother John Collison in 2010 [2][3]."
+  },
+  "factcheck_stripe_year": {
+   "intent": "FACT_CHECK",
+   "path": "/fact-check",
+   "params": {
+    "query": "Is it true that Stripe was founded in 2010?"
+   },
+   "state": "pass",
+   "fails": [],
+   "ms": 959,
+   "verdict": "supported",
+   "answer": "The claim \"Stripe was founded in 2010\" is supported by the reference source consulted."
+  },
+  "event_btc100k": {
+   "intent": "EVENT_OUTCOME_RESOLUTION",
+   "path": "/event-outcome",
+   "params": {
+    "query": "Did Bitcoin reach $100k in 2024?"
+   },
+   "state": "pass",
+   "fails": [],
+   "ms": 524,
+   "verdict": "resolved",
+   "answer": "Resolved Yes: the Polymarket market \"Will Bitcoin hit $100k in 2024?\" has settled on Yes."
+  },
+  "transfer_first_eth": {
+   "intent": "CRYPTO_TRANSFER_VERIFY",
+   "path": "/transfer-verify",
+   "params": {
+    "hash": "0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060",
+    "chain": "ethereum",
+    "query": "Did this transfer settle?"
+   },
+   "state": "pass",
+   "fails": [],
+   "ms": 614,
+   "verdict": "confirmed",
+   "answer": "Transaction 0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060 on ethereum succeeded in block 46147."
+  },
+  "gas_eth": {
+   "intent": "GAS_PRICE",
+   "path": "/gas-price",
+   "params": {
+    "query": "What is the current gas price in Gwei on Ethereum?"
+   },
+   "state": "pass",
+   "fails": [],
+   "ms": 288,
+   "verdict": "gas_price",
+   "answer": "The current gas price on ethereum is 0.043106 Gwei, or about 0.043 Gwei, as of block 26,318,995."
+  },
+  "extract_invoice": {
+   "intent": "CONTENT_EXTRACTION",
+   "path": "/extract",
+   "params": {
+    "text": "Invoice INV-2041 from Acme Ltd, total $1,250.00, due 2026-11-30. Contact billing@acme.example.",
+    "query": "Extract the invoice number, total, due date and contact email."
+   },
+   "state": "pass",
+   "fails": [],
+   "ms": 278,
+   "verdict": "multiple",
+   "answer": "Invoice number: INV-2041."
+  },
+  "translate_shipment": {
+   "intent": "LANGUAGE_TRANSLATION",
+   "path": "/translate",
+   "params": {
+    "query": "Translate \"The shipment has arrived at the port\" into French."
+   },
+   "state": "pass",
+   "fails": [],
+   "ms": 808,
+   "verdict": "translated",
+   "answer": "La livraison est arrivée au port"
+  },
+  "stock_apple": {
+   "intent": "STOCK_PRICE",
+   "path": "/stock-price",
+   "params": {
+    "query": "What is Apple's share price?"
+   },
+   "state": "refused",
+   "fails": [
+    "refused: no licensed stock-price source (GAPS G230)"
+   ],
+   "ms": 267,
+   "verdict": "unknown",
+   "answer": "No share price is given: Yahoo Finance does not license its data for resale, and this is a paid service (terms: https://legal.yahoo.com/us/en/yahoo/terms/otos/index.html)."
+  },
+  "url_malware": {
+   "intent": "URL_SAFE",
+   "path": "/url-reputation",
+   "params": {
+    "query": "Before paying, check the merchant site malware.testcategory.com: is it on a blocklist?"
+   },
+   "state": "pass",
+   "fails": [],
+   "ms": 462,
+   "verdict": "unsafe",
+   "answer": "Listed: malware.testcategory.com is flagged as malicious by 1 of 2 threat sources checked: Cloudflare security DNS."
+  },
+  "url_clean": {
+   "intent": "URL_SAFE",
+   "path": "/url-reputation",
+   "params": {
+    "url": "https://github.com"
+   },
+   "state": "pass",
+   "fails": [],
+   "ms": 286,
+   "verdict": "safe",
+   "answer": "Not listed: github.com is on none of the 2 threat sources that answered: Cloudflare security DNS, Quad9 threat-blocking DNS."
+  },
+  "classify_incident": {
+   "intent": "TEXT_CLASSIFICATION",
+   "path": "/classify",
+   "params": {
+    "query": "Classify this field report as hardware fault, software fault, or operator error: 'The drone's left motor overheated and the propeller stopped spinning.'"
+   },
+   "state": "pass",
+   "fails": [],
+   "ms": 353,
+   "verdict": "classified",
+   "answer": "Hardware fault."
+  },
+  "research_lepodisiran": {
+   "intent": "RESEARCH_QUERY",
+   "path": "/research",
+   "params": {
+    "query": "Will Lepodisiran reduce coronary plaque?"
+   },
+   "state": "pass",
+   "fails": [],
+   "ms": 867,
+   "verdict": "evidence",
+   "answer": "Lepodisiran is the subject of one registered trial, NCT07613294, a Phase 3 study titled \"A Study to See if Lepodisiran Can Reduce Plaque in Coronary Arteries of Adults With Elevated Lp(a) Who Have Had Heart Events or Are at High Risk\", currently recruiting, primary completion 2029-12."
+  }
+ }
+}

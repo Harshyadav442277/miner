@@ -1,6 +1,17 @@
 # MEMORY.md — session continuity
 
-## 2026-11-01 ~08:15 UTC (13:45 IST): CURRENT — `130e16c` LIVE; mission builds full 9/9, partial 53/58
+## 2026-11-01 ~09:45 UTC (15:15 IST): CURRENT — `e63df93` LIVE (G244); mission builds 9/9 + 57/58
+
+Owner: "Answer ambiguous", "Yes, deploy it". Release: track1-miner/docs/evidence/release-2026-11-01-classify-ambiguous/.
+
+- **Production** `miner-jyh9t9upq` (`e63df93`). Rollback `miner-rbjurfgjl` (`130e16c`). Cold classify call →
+  ambiguous (was a wrong label); warm → hardware fault. Watch `active`, 369 ms.
+- **Mission builds:** full 9/9; partial 57 pass, 0 fail, 1 refused (STOCK_PRICE); 15/15 missions.
+- **Preflight 5/7 (G246):** badssl.com hosts `unreachable` from Vercel, also on the previous deployment; intent
+  answers 40/40 when re-run alone. Re-check before the next release.
+- Deploy tree detached at `e63df93`. Not pushed; nothing signed.
+
+## 2026-11-01 ~08:15 UTC (13:45 IST): `130e16c` LIVE; mission builds full 9/9, partial 53/58
 
 Owner: "Yes, deploy it". Release record: track1-miner/docs/evidence/release-2026-11-01-extraction/.
 

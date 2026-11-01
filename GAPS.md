@@ -42,7 +42,7 @@ fail, 2 unchecked (SEC needs a contact user agent). Evidence: `track1-miner/docs
 - **G243 — Event outcome misses a phrasing of a settled market. `FIXED, deployed 2026-10-31 (`a8abbcf`)`.** "United States" vs Polymarket's "US": `foldCountries()` folds both sides. "Who won the 2024 United States
   presidential election?" → `no_market_found`; Polymarket has a resolved market. Polymarket is unreachable from
   this machine (connect fails), so the search can be tested only through a deployment.
-- **G244 — TEXT_CLASSIFICATION misses its model deadline about 1 call in 10. `FIXED in code (`e63df93`), owner chose "Answer ambiguous" 2026-11-01; not on production`.** With a model key set and no model reading, the word list labels alone only at margin ≥ 3; below that the answer is `ambiguous` (drone report: margin 1.6 → ambiguous). No key: unchanged. Previews have no key, so only production can show it. The
+- **G244 — TEXT_CLASSIFICATION misses its model deadline about 1 call in 10. `FIXED, deployed 2026-11-01 (`e63df93`, `miner-jyh9t9upq`)`; owner chose "Answer ambiguous".** With a model key set and no model reading, the word list labels alone only at margin ≥ 3; below that the answer is `ambiguous` (drone report: margin 1.6 → ambiguous). No key: unchanged. Previews have no key, so only production can show it. The
   model has 350 ms (G209: the site target is under 400 ms). Today 1 of ~10 production model calls missed it (351 ms);
   the others took 164–247 ms. On a miss the keyless word-association fallback answers, and called a motor failure
   "operator error"; that answer is cached for 60 s. **2026-11-01:** it recurred on the first call to a fresh deployment (352 ms), so cold
@@ -51,6 +51,11 @@ fail, 2 unchecked (SEC needs a contact user agent). Evidence: `track1-miner/docs
 - **G245 — CONTENT_EXTRACTION ignored named fields when the text came in its own parameter. `FIXED, deployed 2026-11-01 (`130e16c`)`.** "Extract the invoice number, total, due date and contact email." named no
   field (the reader needed "… from …") and nothing read identifiers. Fixed in `content.ts`; 869/869 unit.
   Still open: a multi-category request repeats values across its "Also:" tails.
+- **G246 — Production cannot reach some badssl.com test hosts. `OPEN, external`.** From 2026-11-01 ~09:20 UTC
+  `/ssl-check` answers `unreachable` for expired, self-signed, wrong.host or untrusted-root.badssl.com, a different
+  host each run, on both `e63df93` and the previous `130e16c` deployment; all answer HTTP 200 from this machine.
+  Preflight is 5/7 because of it (intent answers 40/40 when re-run alone). Unknown whether Vercel egress or badssl
+  is at fault, and whether real hosts are affected (github.com answers `valid`). Re-check before the next release.
 
 ## 2026-10-31 "LiveCert is not on the rankings" — G235, G236, G237; G230 deployed
 

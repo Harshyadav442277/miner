@@ -59,7 +59,10 @@ commit.
 - [x] G245 deployed 2026-11-01 as `130e16c` (`miner-rbjurfgjl`, with the bounded field-list match): preflight 7/7;
       full 9/9, partial 53/58 (4 fail: G244; 1 refused), 15/15 missions.
 - [x] G244 decided 2026-11-01 ("Answer ambiguous") and fixed in `e63df93`: unit 871/871.
-- [ ] Owner: yes to deploying `e63df93` (G244); then Claude re-runs preflight and the mission builds on production.
+- [x] `e63df93` deployed 2026-11-01 (`miner-jyh9t9upq`): mission builds full 9/9, partial 57/58 (1 refused);
+      preflight 5/7 from badssl.com reachability (G246), not this release.
+- [ ] G246: re-check badssl.com reachability from production; if it persists, find whether real expired or
+      self-signed hosts are also reported `unreachable`, and pick other test hosts for the gates.
 - [x] ~~Owner: set `SEC_USER_AGENT`~~ Not needed: SEC accepts the miner's own identity (2026-10-31). Kept as an
       override. Original item: set `SEC_USER_AGENT` when running the fixtures, or accept the two SEC steps
       as unchecked.
