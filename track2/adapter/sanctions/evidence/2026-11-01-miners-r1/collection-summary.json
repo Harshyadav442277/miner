@@ -1,0 +1,97 @@
+{
+ "finished_at": "2026-11-01T18:21:23.199656+00:00",
+ "queries": 32,
+ "live_miners": 15,
+ "results": [
+  {
+   "id": "4433",
+   "queryable": true,
+   "requests": 32,
+   "http_200": 32
+  },
+  {
+   "id": "78021",
+   "queryable": true,
+   "requests": 32,
+   "http_200": 32
+  },
+  {
+   "id": "302",
+   "queryable": true,
+   "requests": 32,
+   "http_200": 32
+  },
+  {
+   "id": "78010",
+   "queryable": true,
+   "requests": 32,
+   "http_200": 0
+  },
+  {
+   "id": "78003",
+   "queryable": false,
+   "requests": 1,
+   "http_200": 0
+  },
+  {
+   "id": "78005",
+   "queryable": false,
+   "requests": 1,
+   "http_200": 1
+  },
+  {
+   "id": "78009",
+   "queryable": false,
+   "requests": 1,
+   "http_200": 1
+  },
+  {
+   "id": "78006",
+   "queryable": false,
+   "requests": 1,
+   "http_200": 1
+  },
+  {
+   "id": "78007",
+   "queryable": false,
+   "requests": 1,
+   "http_200": 1
+  },
+  {
+   "id": "78001",
+   "queryable": false,
+   "requests": 1,
+   "http_200": 1
+  },
+  {
+   "id": "78004",
+   "queryable": false,
+   "requests": 1,
+   "http_200": 1
+  },
+  {
+   "id": "78008",
+   "queryable": false,
+   "requests": 1,
+   "http_200": 1
+  },
+  {
+   "id": "78022",
+   "queryable": true,
+   "requests": 32,
+   "http_200": 32
+  },
+  {
+   "id": "9002",
+   "queryable": true,
+   "requests": 32,
+   "http_200": 32
+  },
+  {
+   "id": "710637",
+   "queryable": true,
+   "requests": 32,
+   "http_200": 32
+  }
+ ]
+}

@@ -1,0 +1,242 @@
+[
+ {
+  "name": "KALININ, Vadim Konstantinovich",
+  "expected": true,
+  "sdn_ids": [
+   "48101"
+  ],
+  "kind": "individual",
+  "program": "RUSSIA-EO14024"
+ },
+ {
+  "name": "YAKUT, Cumhur",
+  "expected": true,
+  "sdn_ids": [
+   "10903"
+  ],
+  "kind": "individual",
+  "program": "SDNTK"
+ },
+ {
+  "name": "SAUCEDA GAMBOA, Gregorio",
+  "expected": true,
+  "sdn_ids": [
+   "11967"
+  ],
+  "kind": "individual",
+  "program": "SDNTK"
+ },
+ {
+  "name": "SADIQABADI, Alireza",
+  "expected": true,
+  "sdn_ids": [
+   "29798"
+  ],
+  "kind": "individual",
+  "program": "SDGT] [IFSR"
+ },
+ {
+  "name": "MUBARAK, Umid Medhat",
+  "expected": true,
+  "sdn_ids": [
+   "8389"
+  ],
+  "kind": "individual",
+  "program": "IRAQ2"
+ },
+ {
+  "name": "GHALANDARI, Seyed Hamzeh",
+  "expected": true,
+  "sdn_ids": [
+   "45431"
+  ],
+  "kind": "individual",
+  "program": "IRAN-CON-ARMS-EO"
+ },
+ {
+  "name": "AL-AWADI, Hussein Qaid",
+  "expected": true,
+  "sdn_ids": [
+   "7895"
+  ],
+  "kind": "individual",
+  "program": "IRAQ2"
+ },
+ {
+  "name": "ARROYAVE RUIZ, Elkin Alberto",
+  "expected": true,
+  "sdn_ids": [
+   "8138"
+  ],
+  "kind": "individual",
+  "program": "SDNTK"
+ },
+ {
+  "name": "SOM PETROL TICARET ANONIM SIRKETI",
+  "expected": true,
+  "sdn_ids": [
+   "36013"
+  ],
+  "kind": "-0- ",
+  "program": "SDGT"
+ },
+ {
+  "name": "DIAMVILLE SAU",
+  "expected": true,
+  "sdn_ids": [
+   "42020"
+  ],
+  "kind": "-0- ",
+  "program": "RUSSIA-EO14024"
+ },
+ {
+  "name": "LLC TSENTRTEKHKHIMMASH",
+  "expected": true,
+  "sdn_ids": [
+   "46049"
+  ],
+  "kind": "-0- ",
+  "program": "RUSSIA-EO14024"
+ },
+ {
+  "name": "LAMA FOODS INTERNATIONAL OFFSHORE S.A.L.",
+  "expected": true,
+  "sdn_ids": [
+   "25144"
+  ],
+  "kind": "-0- ",
+  "program": "SDGT"
+ },
+ {
+  "name": "MAIWAND BEVERAGES LIMITED",
+  "expected": true,
+  "sdn_ids": [
+   "26099"
+  ],
+  "kind": "-0- ",
+  "program": "SDNTK"
+ },
+ {
+  "name": "LIMITED LIABILITY COMPANY MECHEL INFORMATSIONNYYE TEKHNOLOGII",
+  "expected": true,
+  "sdn_ids": [
+   "50345"
+  ],
+  "kind": "-0- ",
+  "program": "RUSSIA-EO14024"
+ },
+ {
+  "name": "FURQAN NOVIN PARS MANUFACTURING AND COMMERCIAL INDUSTRIES",
+  "expected": true,
+  "sdn_ids": [
+   "56306"
+  ],
+  "kind": "-0- ",
+  "program": "NPWMD] [IFSR"
+ },
+ {
+  "name": "COMMERCIAL JOINT STOCK BANK VIKING",
+  "expected": true,
+  "sdn_ids": [
+   "51764"
+  ],
+  "kind": "-0- ",
+  "program": "RUSSIA-EO14024"
+ },
+ {
+  "name": "Microsoft Corporation",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "real_negative"
+ },
+ {
+  "name": "Toyota Motor Corporation",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "real_negative"
+ },
+ {
+  "name": "Siemens AG",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "real_negative"
+ },
+ {
+  "name": "Apple Inc.",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "real_negative"
+ },
+ {
+  "name": "Alphabet Inc.",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "real_negative"
+ },
+ {
+  "name": "International Business Machines Corporation",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "real_negative"
+ },
+ {
+  "name": "Intel Corporation",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "real_negative"
+ },
+ {
+  "name": "Nintendo Co., Ltd.",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "real_negative"
+ },
+ {
+  "name": "Marie Curie",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "real_negative"
+ },
+ {
+  "name": "Albert Einstein",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "real_negative"
+ },
+ {
+  "name": "Ada Lovelace",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "real_negative"
+ },
+ {
+  "name": "Alan Turing",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "real_negative"
+ },
+ {
+  "name": "Charles Darwin",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "real_negative"
+ },
+ {
+  "name": "Isaac Newton",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "real_negative"
+ },
+ {
+  "name": "Katherine Johnson",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "real_negative"
+ },
+ {
+  "name": "Grace Hopper",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "real_negative"
+ }
+]

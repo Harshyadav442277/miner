@@ -1,0 +1,12 @@
+{
+ "url": "https://devnode.telegraphprotocol.com/api/miners/78008",
+ "method": "GET",
+ "request_body": null,
+ "started_at": "2026-11-01T18:18:48.099235+00:00",
+ "finished_at": "2026-11-01T18:18:48.828656+00:00",
+ "status": 404,
+ "curl_exit": 0,
+ "error": "",
+ "sha256": "ee2031f23fd8e4791ece69fb5b3bdcd4091715786eb9734309ae22d0557a09d0",
+ "body": "{\"error\":\"miner registration not found\"}\n"
+}

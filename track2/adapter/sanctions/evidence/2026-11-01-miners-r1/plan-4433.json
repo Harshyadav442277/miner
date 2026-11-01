@@ -1,0 +1,10 @@
+{
+ "base_url": "https://miner-wine.vercel.app",
+ "path": "/sanctions-screen",
+ "method": "GET",
+ "parameters": [
+  "name"
+ ],
+ "queryable": true,
+ "required": []
+}

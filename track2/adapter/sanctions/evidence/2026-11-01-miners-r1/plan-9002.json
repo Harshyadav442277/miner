@@ -1,0 +1,10 @@
+{
+ "base_url": "https://telegraph-onchain-tx-lookup-miner.onrender.com",
+ "path": "/sanctions-screening",
+ "method": "GET",
+ "parameters": [
+  "name"
+ ],
+ "queryable": true,
+ "required": []
+}

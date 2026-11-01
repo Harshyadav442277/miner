@@ -1,0 +1,8 @@
+{
+ "base_url": "https://cdn.jsdelivr.net",
+ "path": "/gh/everypolitician/everypolitician-data@master/countries.json",
+ "method": "GET",
+ "parameters": [],
+ "queryable": false,
+ "required": []
+}
