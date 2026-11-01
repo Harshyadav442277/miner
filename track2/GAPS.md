@@ -14,6 +14,14 @@ we trained on (training p99 154 tokens, pool max 279). `0x3035…` scored 9/15 o
 again on a self-written probe. First get a measurement whose answers we did not write: real sanctions miners'
 responses, or another public source. Bond 4.835 MACHINA stays locked until the owner deregisters 46.
 
+**v4 and v5 (not hosted):**
+- **v4** (name-shape cue removed) scored 60.0% on the probe.
+- **v5** (every SDN entity, twice, 77,936 pairs; keccak `0xddfdfcd0…a43e`) scored a 93.7% kit test. That is recall,
+  since every test entity is in training. Its probe score was **53.75%**: it calls nearly every name listed
+  (listed 87.5%, real unlisted names 12.5–37.5%).
+
+None of v1–v5 is fit to register. **Sanctions is paused** until a measurement exists on answers we did not write.
+
 **v3 (18:51 IST, keccak `0x49de4107…f2f0`, not hosted):** probe **72.5%** (80 pairs; one cell still 0/8: an
 unlisted name's detailed "no entries found" lost to a bare "Match"); held-out 200 pairs 93.0%, 0 ties, length
 50.5%. But bare verdicts on never-seen names scored 8/8, which knowledge cannot explain: name shape alone (word
