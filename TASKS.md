@@ -7,15 +7,13 @@ commit.
 
 ## Owner
 
-- [ ] **Before Nov 1 00:00 UTC (05:30 IST):** register for Season II with `harsh.2024a@vitstudent.ac.in`, if not
-      already done. One registration covers all three tracks.
+- [x] Registered for Season II (owner confirmed 2026-11-01). One registration covers all three tracks.
 - [ ] **Before Nov 1:** read the prize-payment terms when they appear: eligible countries (India?) and payout
       methods (G218).
 - [ ] Send the organisers the two questions in WINNING.md §8: the grace-period reset (G206, G220) and the
       payment terms (G218).
-- [ ] Say yes to pushing `codex/rank1-14-intents`, about 100 commits ahead of origin on 2026-10-29 after the
-      branch merges. Reviewers reproduce from the public repo. Also close the stale uptime issue #13. Updating
-      origin/main to it needs a PR.
+- [x] `codex/rank1-14-intents` pushed 2026-11-01 (owner: "push branch"), `b85e1ab..823d0ab`, 121 commits.
+- [ ] Close the stale uptime issue #13. Updating origin/main to the branch needs a PR.
 - [x] `claude/licensed-sources` merged 2026-10-29 (owner: "Merge it"), unit tests 852/852. Not deployed (GAPS
       G230–G234).
 - [ ] Archive the idle sessions whose worktrees were detached on 2026-10-29: project improvement strategy,
