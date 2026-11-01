@@ -1,6 +1,16 @@
 # MEMORY.md — session continuity
 
-## 2026-10-31 ~19:50 UTC (01:20 IST Nov 1): CURRENT — all 102 mission builds graded; G245 fixed on a preview
+## 2026-11-01 ~08:15 UTC (13:45 IST): CURRENT — `130e16c` LIVE; mission builds full 9/9, partial 53/58
+
+Owner: "Yes, deploy it". Release record: track1-miner/docs/evidence/release-2026-11-01-extraction/.
+
+- **Production** `miner-rbjurfgjl` (`130e16c`: G245 extraction + bounded field-list match from the security
+  review). Rollback `miner-htkhwofwv` (`a8abbcf`). Preflight 7/7; watch `active`, 376 ms.
+- **Mission builds:** full 9/9; partial 53 pass, 4 fail (all G244 classification), 1 refused (STOCK_PRICE); 15/15.
+- **G244** recurs on every fresh deployment's first classify call; owner decides deadline vs fallback.
+- **H2 is open** (since Nov 1 00:00 UTC). Not pushed; nothing signed. Deploy tree detached at `130e16c`.
+
+## 2026-10-31 ~19:50 UTC (01:20 IST Nov 1): all 102 mission builds graded; G245 fixed on a preview
 
 Owner: "Partial workflow tests".
 

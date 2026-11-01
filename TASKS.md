@@ -56,7 +56,8 @@ commit.
       unchecked (SEC).
 - [x] Fixtures for the partial workflows (2026-10-31): all 102 builds graded on production `a8abbcf`; full 9/9,
       partial 50/58 (7 fail: G244, G245; 1 honest licence refusal), 15/15 missions with a passing build.
-- [ ] Owner: yes to deploying the G245 extraction fix (preview `miner-ipk9a60l8` checked); then re-run the fixtures.
+- [x] G245 deployed 2026-11-01 as `130e16c` (`miner-rbjurfgjl`, with the bounded field-list match): preflight 7/7;
+      full 9/9, partial 53/58 (4 fail: G244; 1 refused), 15/15 missions.
 - [ ] Owner: decide G244 (classification deadline vs latency target).
 - [x] ~~Owner: set `SEC_USER_AGENT`~~ Not needed: SEC accepts the miner's own identity (2026-10-31). Kept as an
       override. Original item: set `SEC_USER_AGENT` when running the fixtures, or accept the two SEC steps
