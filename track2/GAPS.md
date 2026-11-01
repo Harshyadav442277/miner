@@ -4,6 +4,34 @@ The Season I gaps (G13–G27: rank_answer corpora, calibration thresholds, regis
 The modules they describe are retired: they were deleted from the tree, and the V2 registry no longer lists 1882.
 They are in `git log -p -- track2/GAPS.md`.
 
+## G41 — real-answer sanctions measurement exposes source/length confounding (2026-11-01) — `OPEN`
+
+Evidence: `adapter/sanctions/evidence/2026-11-01-miners-r1/`. Frozen 32-name queries, 15 YAML routes,
+232 responses; 32 unchanged answer pairs from 8 listed names. No negative-name pairs can be labeled
+defensibly from observed disagreements. LiveCert is our related miner, disclosed throughout.
+
+Node runtime: v3 29/32 (90.625%), v4 12/32 (37.5%), v5 24/32 (75%); length baseline **32/32**. All wrong
+decisions come from one short-response OFAC service. V3 wins every comparison on only 5/8 names; its
+diagnostic name-level Wilson 95% lower bound is 30.6%. This is not an 80% result with a defensible margin
+on a representative set. It cannot justify sanctions registration. The exploratory 24-pair run is separate.
+
+The snapshot proves exact-name membership/absence, not identity or all-list/fuzzy clearance. Labels
+assess a decision only; narrative/evidence fields are not comprehensively verified. Other-list/fuzzy
+positive alerts, transport errors, unknown status, wrong echoed names and conflicting verdicts abstain.
+Raw responses, labels and agreement denominators are replayable. Engine ids differ from registration
+ids; some detail API responses are missing or unrelated. Routing uses the catalog YAML's external_path
+and parameter mapping. v4/v5 are now hosted as experimental packages, not ready-to-sign candidates.
+
+V6 pilot: longer synthetic formats, 5,958/795/794 pairs, measured names/ids excluded, entity and query
+splits audited, dataset gate PASS. Serial training proceeds after memory failures. Final results and
+node measurement pending. Since the capture informed v6 design, results on it are development evidence.
+A readiness claim needs new independent answers, more names, both labels and source/length-balanced
+mistakes. Synthetic exact-absence labels also do not ground-truth every fuzzy-alert threshold.
+
+Concurrent session commit `33b692a` records owner deregistration of #46 and a released bond unlock at
+2026-11-03 18:36:48 UTC. This measurement run did not independently repeat that chain read. Preserve
+the current SIGN_S2 FX_NOW flow; this gap applies to sanctions adapters only.
+
 ## G40 — the first SANCTIONS_SCREENING_MATCH adapter only judged our own answer shapes (2026-11-01) — `OPEN: v3 REJECTED at 7/15`
 
 **Registration 46 (v3) rejected, 16:25:59 UTC:** "at its runnable URL the adapter ordered 7 of 15 public pairs

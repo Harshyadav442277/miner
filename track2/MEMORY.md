@@ -41,6 +41,43 @@ Runs alongside the Codex sanctions session (block below), in the same worktree. 
 - **No real money:** everything is on Sepolia (test ETH, test MACHINA, test USDC). Real money is only prizes.
 - **Live Evaluator rubric:** 40/15/10/10/5 plus growth 20 (RULES_SEASON2.md, commit 6b09093).
 
+## CURRENT sanctions work — 2026-11-01 18:42 UTC (Nov 2 IST): independent measurement; v6 training
+
+User supplied the handoff and authorized feature-branch commits/pushes. Work remains in
+`claude/evaluators-status-a51518`, `.claude/worktrees/evaluators-status-a51518`. Another active session
+added FX_NOW work and recorded #46 deregistration in SIGN_S2; preserve it. This session owns the
+sanctions measurement and documentation, not that session's wallet/funding/FX_NOW flow.
+
+- **Pushed `50abf15`:** public catalog/YAML/routing captures, 232 responses to 32 frozen names,
+  conservative labels and 9 passing label tests. Evidence: `adapter/sanctions/evidence/2026-11-01-miners-r1/`.
+  No pool rows queried, inferred, downloaded or trained on.
+- **Final node measurement:** 32 pairs, only 8 distinct listed names; v3 29/32 (90.625%), v4 12/32
+  (37.5%), v5 24/32 (75%). Zero ties; 31/64 rendered texts exceed 256 tokens. Length baseline **100%**;
+  all wrong responses come from one short-response service. No model establishes readiness or a margin.
+- **Agreement:** four substantive services agree on comparable decisions (26–32 names). Against the
+  terse OFAC service, 71.4–75%. Eight static sources are probed once. Abstentions are explicit.
+  LiveCert is related-party. Engine ids are not registration ids; per-id lookup anomalies are retained.
+- **Tooling:** collect_miners, label_miners, measure_miners and verify_evidence. Runtime checks every identity
+  and input root, stores exact bits, uses isolated ports 18081–18083 and stops its own workers.
+  Historical train/val/test bytes, builders, probe inputs and scores recovered, including v1 29/48.
+- **v4/v5 hosted for reproduction**, not registration: `telegraph-factscore` `season2-adapters-v2`
+  `43110d0`; both pinned downloads HTTP 200, 6,776,916 bytes, SHA-256 equal to manifests.
+- **v6 exploratory pilot:** longer synthetic answers from public SDN data, no captured response bodies;
+  measured names/ids excluded. Disjoint entities/query strings; 5,958/795/794 pairs, gate PASS
+  (length 53.3%, surface 60.5%, negative overlap 0.4%). Data:
+  `C:/Users/hyada/tg-eval/pairs/sanctions_v6_pilot_r1`; builder `build_structured.py`.
+- Batch 8 and 4 failed alongside CPU measurement. Serial batch-1 smoke reached step 10. With measurement
+  workers stopped, batch 4 / accumulation 4 / eval batch 1 progresses at ~2 s/optimizer step, 744 planned
+  steps/two epochs. Log `C:/Users/hyada/tg-eval/train_sanctions_v6.log`; two OOM logs retained.
+  **No v6 final score/package yet.** Finish, export, Stage 1, node measure and record limitations.
+- `WINNING.md` and ARCHITECTURE now use 40/15/10/10/5/20. `SUBMISSION_S2.md` is the honest draft;
+  `OUTREACH_S2.md` contains unsent update plans. No posts or independent activation claimed.
+- This session performed no wallet action, new registration, public tunnel, cast dry run or message send.
+  The other session's #46/FX_NOW changes are separately documented in SIGN_S2 and preserved.
+- A second 32-name public capture, `2026-11-01-miners-fresh`, is complete. Query selection excluded all
+  v6 split entities/alias groups and the first capture. No model/design changes from its responses;
+  label and node-measure it only after training. `audit_splits.py` checks ids, aliases and query names.
+
 ## CURRENT — 2026-11-01 ~07:15 UTC · V2 PIPELINE PROVEN; EVENT_OUTCOME_RESOLUTION ADAPTER TRAINING
 
 Owner: "start building whatever this track requires. do the work in phases". Worktree branch

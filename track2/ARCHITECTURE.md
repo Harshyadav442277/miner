@@ -6,7 +6,8 @@ Code must conform to this. **Update this file before deviating from it**, not af
 and harness. The node no longer accepts that kind (docs, 2026-10-21), so those decisions and the code built
 on them were deleted; they remain in git history. Protocol facts with their sources are in
 `../docs/TELEGRAPH_FACTS.md`, "Season II evaluators". Scoring is in `../RULES_SEASON2.md`: validity 40,
-with a minimum of 28; integrity 20; reproducibility 15; coverage 20; docs 5.
+with a minimum of 28; integrity 15; reproducibility 10; coverage 10; docs 5; growth 20
+(live Rules page, rechecked 2026-11-01).
 
 ## A1 — Two module kinds, chosen by the intent's class
 

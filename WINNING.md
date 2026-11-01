@@ -2,6 +2,9 @@
 
 Written 2026-10-22 ~17:10 UTC (22:40 IST); dates, prizes and protocol facts re-checked 2026-10-29; §4 rewritten 2026-10-31. This is the
 goal file. Every plan, task and review in this repo answers to it. Rules: [RULES_SEASON2.md](RULES_SEASON2.md).
+Evaluator weights and strategy reconciled 2026-11-01 against the live Rules page:
+validity 40 (minimum 28), integrity 15, reproducibility 10, coverage 10, docs 5, growth 20.
+Current measurement and registration limits: [Track 2 write-up](track2/SUBMISSION_S2.md).
 Season I post-mortem: [track1-miner/docs/S1_LESSONS.md](track1-miner/docs/S1_LESSONS.md).
 
 **Track names.** This repo calls the miner **Track 1** (`track1-miner/`, LiveCert, registration 4829) and
@@ -55,9 +58,13 @@ agree since the 2026-10-29 read (G203 closed). Judging runs Dec 2–8, and provi
 - **31 comparators**, one per mission-bought deterministic intent. They reproduce the node's own answer key
   on 234,848 cases. They are published and their hosted hashes match (`track2/comparator/`, merged here
   2026-10-29). They predate protocol V2 (track2 G33).
-- **Not registered.** `/api/evalpool/status` still returns 404.
-- **The LLM_OUTPUT_EVALUATION adapter was withdrawn.** It scored 96.9% in the kit but 81.0% as the node runs
-  it (G32). It is being retrained on the node's base.
+- **V2 is available; #46 was rejected.** The sanctions v3 remote check ordered 7/15 public pairs correctly.
+  The current read-only response is retained with the independent miner captures. No canonical status claimed.
+- **LLM_OUTPUT_EVALUATION was re-exported to V2.** Local node runtime: 98/100 own held-out pairs;
+  an incumbent exists and the replacement margin is unmeasured. Do not register on that number.
+- **Sanctions measurement comes before registration.** Real miner outputs are frozen, labels are replayable,
+  v3–v5 are measured in the node runtime, and a small v6 pilot tests longer evidence-bearing answers.
+  A source/length shortcut or a small one-sided sample cannot establish readiness, even above 80%.
 - **The kit refuses to package FACT_CHECK and WEB_SEARCH** (track2 G29, question to the organisers).
 
 ## 3. Decisions taken, and why each is needed to win
@@ -86,10 +93,11 @@ Each decision is tied to the rubric line it serves. Dates are when it was taken;
 | # | Decision | Why it is needed to win |
 |---|---|---|
 | D12 | **Stop `rank_answer` and calibration wrappers.** 2026-10-18 and 21. | The node rejects `rank_answer` modules ("retired"). A monotone wrapper changes no ordering, so it improves nothing that validity (40) measures. |
-| D13 | **31 comparators, each proved against the node's own reference rule in the node's runtime.** 2026-10-22 (track2 `0a88f02`). | Validity (40, floor 28) and reproducibility (15) need proof on the real pipeline. Coverage (20) rewards "credible new coverage", and 61 of the 76 mission-bought intents had no scorer. Delivery awards count missions enabled. |
-| D14 | **Withdraw the adapter that does not reproduce on the node.** 2026-10-22 (`ca368a5`). | Integrity (20) and validity: never submit a number the node will not reproduce. 96.9% in the kit against 81.0% on the node would have been caught by reviewers. |
-| D15 | **Adapter target: LLM_OUTPUT_EVALUATION.** The kit refuses FACT_CHECK; LLM_OUTPUT_EVALUATION is a judgment intent that it packages. | Coverage only counts where a module can actually be accepted. |
-| D16 | **Train only on pairs we never upload to the evaluation pool. No miner fingerprints in any scorer** (track2 rule 2). | Integrity (20). The rules disqualify leaked confidential material and collusive work, and we also run a miner. |
+| D13 | **Keep the 31 exact-rule comparator proofs as historical tooling.** 2026-10-22 (track2 `0a88f02`). | Validity 40 and reproducibility 10 require a repeatable method. These proofs do not establish current canonical status, new coverage or ranking changes; coverage is now 10. |
+| D14 | **Withdraw results that fail node-runtime or independent checks.** | Integrity 15 and validity 40. The October runtime mismatch and sanctions #46 are published failures, not successful integration claims. |
+| D15 | **SANCTIONS_SCREENING_MATCH is an experiment, not a race to sign.** | Validity 40 comes first: unseen real answers, defensible labels, baselines, uncertainty and an honest entity split before another registration. |
+| D16 | **No pool material in training, no miner fingerprints, and disclose our miner.** | Integrity 15. Public captures are measurement-only; v6 training excludes measured names and entities. No reward for our own output style. |
+| D17 | **Make the measurement useful to another developer.** | Growth 20: public explanation, reproducible tutorial, three original dated updates and independently evidenced developer actions. Drafts and our own replays do not establish activation. |
 
 ## 4. Asymmetric strategies — what we bet on, and why (rewritten 2026-10-31 ~19:30 UTC)
 
@@ -118,7 +126,7 @@ miner. These would also lose: a reviewer finds them, and the entry is disqualifi
 | S1 | **One-stop supplier for the 9 full workflows.** Each becomes a runnable fixture: the build's real inputs, every intent called on production, each answer checked against its primary source. Each also gets a copy-paste client. | An app team on any of those builds integrates one miner instead of stitching 3–5. Delivery awards count missions and workflows enabled, and reviewers want "a repeatable mission-specific test", which almost no miner will ship. | Delivery tie-breaks 1–2; coverage 15; integration 10 | Each intent passes its own test. A workflow is claimed only when every step passes |
 | S2 | **The owner's Apps entry is built on one of the 9 workflows.** | One app then feeds three tracks: the Apps entry itself, our related-party consumption evidence (the rules let "your own team's app" earn 1 point, plus repeat use, routing and accounting: up to 7 of 10), and mission-impact proof for both delivery awards. | Apps 35/30; Miner consumption 10 | Owner decides (G204). Labelled related-party everywhere; never counted as users or demand |
 | S3 | **Recruit independent consumers before Nov 14.** Post the S1 clients where H2 app teams are (Discord), aimed at the 7 missions. | Nov 14 is when app teams must show a first Telegraph request, so they want working suppliers that week. Each independent consuming group is +1 point (up to 3), and most miners do no developer relations. | Consumption 10; delivery tie-break 2 | Count only receipts from groups we do not control |
-| S4 | **Make our families scorable, honestly.** Contribute evaluation material for our intents (truth sources; attested preference pairs), and publish an open contributor kit so other participants can add theirs. | A family nobody can rank pays every miner nothing. We can be only one of the 5 contributors a judgment family needs, so the kit lets others become the other four. It is also a complete Evaluator entry that needs no foundation files. | Evaluator coverage 20, validity 40; December "reusable work" | One wallet, one contributor. Material is identity-blind and scores our own wrong answers down (track2 rule 2). Related party disclosed |
+| S4 | **Improve measurement before seeking activation.** Publish a repeatable contributor/measurement kit and useful, independently defensible tests. | The Rules allow useful evaluation work before activation. A clear tutorial also lets independent developers reproduce and critique the work. | Evaluator coverage 10, validity 40, reproducibility 10, growth 20 | One wallet, one contributor. No pool-derived training, no miner fingerprints, no inferred adoption. Related party disclosed |
 | S5 | **Enter a family that is ranked today, with work already paid for.** Candidate: LLM_OUTPUT_EVALUATION or TASK_EXECUTION_QUALITY as a miner intent. | It is the only path to a live H2 rank and routed demand (70/20/10). It completes 6 more builds. We already hold a trained judge for the domain, which competitors would have to build. | Quality 35; consumption (ranked routing 2); coverage 15 | Needs `updateMiner`, which issues a new registration id and may restart the grace period (G206). Gated on experiment E4 and the owner's yes |
 | S6 | **Get the blocked deterministic intents fixed.** Send one evidence-backed report: CRYPTO_PRICE_USD "no decimals"; WEATHER_CHECK_TEMPERATURE unscored though ready. | One message could turn on scoring for 51 + 24 miners, us among them. File it on the bounty board too, which makes it citable. | Reliability and quality become measurable by the network; December "verified fixes for mission-critical blockers" | Report facts only; claim nothing about ranks until the network shows them |
 | S7 | **Licence-clean supply** (former A3). We answer `not_licensed` where terms bar resale. | Most miners resell non-commercial APIs. If a reviewer checks licences, the field shrinks and we are left. | Quality 35 (accurate claims); §05 safe handling | Never claim "licensed" for terms we have not read (G202, G233) |
@@ -239,9 +247,12 @@ every export is used (checked 2026-10-22). Code leaves only with the intents abo
 | Consumption (10) | Receipts from H2 app requests: routed, repeated, accounted | none |
 | Cost and latency (10) | Per-request upstream cost (mostly 0) and p50/p90 latency | latency is in the feed, not written up |
 | Integration and docs (10) | Recipes, tutorial, video | recipes exist; no tutorial or video |
-| Evaluator validity (40, ≥ 28) | Node-runtime proof per module | 31 comparators proved; adapter retraining |
-| Evaluator integrity (20) | Adversarial pair results | pairs generated, results unpublished |
-| Evaluator coverage (20) | Intents newly covered, missions enabled | 31 intents |
+| Evaluator validity (40, ≥ 28) | Unseen-answer node-runtime measurement, credible labels, baselines and uncertainty | Real-answer captures and v3–v5 measurements; shortcut and sample limitations disclosed |
+| Evaluator integrity (15) | Split/leakage audit, no pool-derived training, no miner fingerprints | Public-source pipeline; v6 excludes measured names and SDN ids |
+| Evaluator reproducibility (10) | Frozen data, hashes, commands, per-pair scores and actual runtime identity | Capture, offline labeling and node-runtime scripts in track2/adapter/sanctions |
+| Evaluator coverage (10) | Measured useful new tests/improvement for a supported intent | One sanctions measurement; no newly activated intent or ranking improvement claimed |
+| Evaluator docs (5) | Clear entry point, tutorial, failure cases and limits | track2/SUBMISSION_S2.md and sanctions/README.md |
+| Evaluator growth (20) | Four 5-point components: education, adoption ease, distribution, activation | Drafts/tooling only; no three-date publication or independent activation evidence |
 
 Review this table at every checkpoint (Nov 1, Nov 8, Nov 15, Nov 22). Re-decide each time. Hours already
 spent are not an argument.
@@ -277,10 +288,9 @@ Option B: 4829 stays frozen for the season, fixes ship as code deploys, and unli
 - [ ] **Claude: a mission × intent matrix**, with one reproducible test fixture for each mission our intents
       enable. It earns coverage (15) and is the first delivery-award criterion.
 - [ ] **Claude: close G200**, or answer RESEARCH_QUERY as `not_served`.
-- [ ] **Track 2, on V2 (re-read 2026-10-31):** adapters are safetensors LoRA deltas on a shared Foundation Model,
-      registered per family with `registerWasm(hash, url, prefix, feeAddress, runnableUrl)`. Re-export ours when
-      Telegraph publishes `foundation.json` and the reference executor (GAPS G238). Comparators do not change
-      scoring (G237 killed). Meanwhile, evaluation material for our intents is the entry that can start now.
+- [ ] **Track 2:** foundation and executor are available. Complete real-answer measurements and the longer-answer
+      pilot. Re-register only with ≥80% plus a defensible margin on a sufficiently varied independent set.
+      No pool-derived training; no source/length shortcut accepted as validity evidence (track2 G41).
 
 ### Nov 1 – 7 (start in public)
 
@@ -291,7 +301,9 @@ Option B: 4829 stays frozen for the season, fixes ship as code deploys, and unli
 
 ### Every week until submission
 
-- [ ] **Owner:** one progress post tagging Telegraph, carrying that week's audit numbers.
+- [ ] **Owner:** useful original posts on at least three separate dates, linking reproducible evidence.
+      Proposed milestones: initial failure/measurement, improved method, independent reproduction. Drafts in
+      track2/OUTREACH_S2.md; do not backdate or count drafts. Growth is now scored (20 for Evaluators).
 - [ ] **Claude:** the audit re-run, the availability log, a fix for every failure found, and the replay of
       real routed questions ("Miners tune against real requests coming off real builds").
 
@@ -299,7 +311,8 @@ Option B: 4829 stays frozen for the season, fixes ship as code deploys, and unli
 
 - [ ] Bring the per-mission recipes to app teams, and ask on Discord which intents their builds buy.
       Independent consuming groups are worth up to 3 of the consumption points.
-- [ ] Show a milestone at the Nov 20 showcase: a verified quality gain or a registered comparator.
+- [ ] Show a milestone at the Nov 20 showcase: a reproducible measurement, a verified quality gain or useful
+      independent feedback. A registration alone is not a demonstrated improvement.
 
 ### Submission: Dec 1 23:59 UTC (Dec 2 05:29 IST), every track
 
@@ -342,7 +355,7 @@ rules (re-read 2026-10-29). They are listed so the work is not lost, not as Seas
 |---|---|---|---|
 | Miner excellence 1st, $500 | Highest total /100, with ≥ 70 overall and quality ≥ 24/35 | Production audit 110/154 on Oct 21; fixes deployed Oct 23, re-audit pending. No uptime record. No consumption | §5 items 1–8, in order |
 | Miner delivery, $300 (4 awarded) | Criteria in order: (1) missions materially enabled, (2) app workflows enabled, (3) missing mission-critical needs met, (4) quality | Our intents touch **15/15** missions; no per-mission proof yet | One reproducible fixture per mission showing a real workflow step answered correctly. Side-by-side proof where the field answers wrongly (E3) |
-| Evaluator excellence 1st, $500 | Highest total /100, with ≥ 70 overall and validity ≥ 28/40 | 31 comparators exact on 234,848 cases. Adapter at 96.6% as the node computes it, `verify_wide` PASS (track2 MEMORY, 2026-10-22) | Register the day the pool opens. Publish robustness results and a baseline comparison |
+| Evaluator excellence 1st, $500 | Highest total /100, with ≥ 70 overall and validity ≥ 28/40 | #46 rejected; independent sanctions measurement has a length/source shortcut. No readiness claim | Validity and robustness first; publish baseline failures, reproduction steps and honest growth evidence |
 | Evaluator delivery, $300 | Same order. Ties go to measurement improvement or new coverage | Modules touch **15/15** missions (`SIGN_S2.md` intents against the mission pages) | A mission-by-mission table of what each module lets reviewers measure |
 | December technical, $500 | A reusable capability that unblocks apps, or a verified fix to a documented mission-critical blocker | Track 2 G32: the adapter kit packages a different ModernBERT from the one it trains. We found it and our node-architecture retrain passes | The owner approves a report of G32 to the organisers. Publish the retrain recipe as the fix and claim it here, separately from the track entries |
 | December adoption, $500 | Independently confirmed downstream use: onboarding, reproduced integrations, retained users | None | Recipes to app teams at office hours. Get one independent team to reproduce an integration and say so publicly |

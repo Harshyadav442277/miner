@@ -7,6 +7,17 @@ commit.
 
 ## Owner
 
+### Sanctions measurement handoff (2026-11-01; Nov 2 IST)
+
+- [x] Freeze public miner answers/routes/timestamps; label by rule; form unchanged-response pairs.
+- [x] Measure v3/v4/v5 in node runtime; publish baseline and sample limitations (track2 G41).
+- [x] Reconcile Evaluator rubric; draft submission, tutorial and separate-date update plans.
+- [ ] Finish v6 serial pilot, export/check and node-measure it; record failure if it does not improve.
+- [ ] New independent final set: more names, both classes and source/length-balanced mistakes.
+- [ ] Only after sanctions quality gate: fresh hosted hash, public executor check, read-only cast dry run,
+      exact Anjoman values. Do not reuse the rejected v3 table. FX_NOW remains a separate session's flow.
+- [ ] Owner: actual separate-date publications, independent activation evidence, demo and final submission.
+
 - [ ] **Before Nov 1 00:00 UTC (05:30 IST):** register for Season II with `harsh.2024a@vitstudent.ac.in`, if not
       already done. One registration covers all three tracks.
 - [ ] **Before Nov 1:** read the prize-payment terms when they appear: eligible countries (India?) and payout

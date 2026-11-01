@@ -26,7 +26,25 @@ the register call simulates as id 51.
 **Steps (owner):** 1. Fund ≥ 0.93 MACHINA more (faucet or USDC swap). 2. Anjoman → Evaluators: paste the file URL, Verify & hash
 (must show the keccak above), Family `FX_NOW`, the fee address, and the runnable URL; Publish; sign in MetaMask.
 
-## V2, 2026-11-01: register the SANCTIONS_SCREENING_MATCH adapter (v3) — REJECTED #46 (7/15), deregister to free the bond
+## Sanctions only — no ready-to-sign adapter (2026-11-01 18:42 UTC; Nov 2 IST)
+
+**Do not reuse the historical v3 table or tunnel below.** Real-answer v3/v4/v5 scores are
+90.625% / 37.5% / 75%, but the longer-answer baseline is 100%. Only 8 listed names and no
+negative pairs contribute; G41 explains why these results do not establish readiness.
+V6 is an exploratory longer-answer pilot in training, not a ready-to-sign package.
+
+Only after a new independent set supports ≥80% with a defensible margin and passes
+source/length/coverage checks: host and re-download exact bytes, verify live class and
+Stage 1, start fresh identical executors/tunnel, check identity/root/bits through the
+tunnel, then make the **read-only** `cast call` from the owner's address. Prepare the
+five exact Anjoman fields only then. The owner signs; the agent never connects a wallet,
+signs, sends or uses keys. No sanctions tunnel or conditional dry run was performed here.
+
+The separate session's FX_NOW flow above remains separate. Commit `33b692a` records
+owner deregistration of #46; its bond/unlock notes supersede the older pending action.
+No new wallet action occurred in this sanctions measurement run.
+
+## V2, 2026-11-01: SANCTIONS_SCREENING_MATCH v3 — historical rejection #46 (7/15); owner deregistered per 33b692a
 
 **Result, 16:25:59 UTC:** rejected at the remote check, 7 of 15 public pairs (46.7%), GAPS G40. Executors, tunnel and
 signing page stopped at 16:27 UTC. **Owner:** Anjoman → My registrations → Evaluation WASMs → #46 → Deregister

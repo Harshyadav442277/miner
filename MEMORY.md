@@ -1,5 +1,13 @@
 # MEMORY.md — session continuity
 
+## 2026-11-01 18:42 UTC (Nov 2 IST): sanctions Evaluator handoff resumed
+
+On `claude/evaluators-status-a51518`: 232 public responses, 32 pairs; node v3/v4/v5 90.625%/37.5%/75%.
+The 100% length baseline and 8-name one-sided sample prevent a readiness claim. V6 longer-answer pilot
+trains serially. Rubric reconciled to 40/15/10/10/5/20. See track2 MEMORY, G41 and SUBMISSION_S2.
+Another session concurrently owns the FX_NOW flow and recorded #46 deregistration in SIGN_S2; preserved.
+This sanctions run performed no wallet action, new registration, miner deployment or message send.
+
 ## 2026-10-31 ~19:50 UTC (01:20 IST Nov 1): CURRENT — all 102 mission builds graded; G245 fixed on a preview
 
 Owner: "Partial workflow tests".

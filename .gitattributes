@@ -1,2 +1,2 @@
 # Preserve frozen evidence bytes, including JSONL line endings used in SHA-256 records.
-track2/adapter/sanctions/evidence/** -text
+track2/adapter/sanctions/evidence/** -text whitespace=cr-at-eol
