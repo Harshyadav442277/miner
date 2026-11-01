@@ -131,7 +131,7 @@ def unlisted_names(ents, listed_norms, rng, n):
         else:
             words[e["kind"]].extend(_PAREN.sub("", e["name"]).split())
     out = []
-    for e in rng.sample(ents, len(ents)) * 2:
+    for e in rng.sample(ents, len(ents)) * 4:
         raw = _PAREN.sub("", e["name"])
         if e["kind"] == "individual" and ", " in raw:
             last, first = raw.split(", ", 1)
@@ -227,6 +227,10 @@ def main():
     ap.add_argument("--alt", required=True)
     ap.add_argument("--out-dir", required=True)
     ap.add_argument("--seed", type=int, default=42)
+    # A screening evaluator should know the list: --train-all trains on every entity (val and test then measure
+    # recall, not generalisation; the out-of-template probe's unlisted names stay unseen).
+    ap.add_argument("--train-all", action="store_true")
+    ap.add_argument("--rows-per-entity", type=int, default=1)
     a = ap.parse_args()
     rng = random.Random(a.seed)
 
@@ -235,7 +239,7 @@ def main():
     listed_norms |= {norm(n) for e in ents for n in [e["name"], *e["aliases"]]}
     rng.shuffle(ents)
     n = len(ents)
-    splits = {"val": ents[: n // 10], "test": ents[n // 10: n // 5], "train": ents[n // 5:]}
+    splits = {"val": ents[: n // 10], "test": ents[n // 10: n // 5], "train": ents if a.train_all else ents[n // 5:]}
 
     os.makedirs(a.out_dir, exist_ok=True)
     stats = collections.Counter()
@@ -243,11 +247,12 @@ def main():
         rows = []
         for e in part:
             names = [e["name"]] + e["aliases"][:2]
-            q = display(rng.choice(names), e["kind"])
-            if rng.random() < 0.25:
-                q = typo(q, rng)
-            rows.append((q, e["kind"], e))
-        for q, k in unlisted_names(part, listed_norms, rng, len(part)):
+            for _ in range(a.rows_per_entity if split == "train" else 1):
+                q = display(rng.choice(names), e["kind"])
+                if rng.random() < 0.25:
+                    q = typo(q, rng)
+                rows.append((q, e["kind"], e))
+        for q, k in unlisted_names(part, listed_norms, rng, len(rows)):
             rows.append((typo(q, rng) if rng.random() < 0.25 else q, k, None))
         rng.shuffle(rows)
         with open(os.path.join(a.out_dir, f"{split}.jsonl"), "w", encoding="utf-8") as f:

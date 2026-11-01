@@ -1,6 +1,25 @@
 # Season II Track 2: publish commands and sign list
 
-## V2, 2026-11-01: register the EVENT_OUTCOME_RESOLUTION adapter — READY (owner: ETH, claim, register)
+## V2, 2026-11-01: register the SANCTIONS_SCREENING_MATCH adapter (v3) — READY (owner: claim, approve, register)
+
+Owner, 2026-11-01: "Automate everything … only call me to sign." **Prepared and checked by Claude; nothing signed or
+sent.** No champion for the family at 13:28 UTC; `0x3035…`'s registration 31 failed the public check at 9/15.
+
+| | |
+|---|---|
+| Package | v3, `SANCTIONS_SCREENING_MATCH.safetensors`, 6,776,916 B, sha256 `547a3f05…b3e6` |
+| keccak256 | `0x49de41078f6bb39ab183a715263c648543945565b4ce97c9a9214de59b09f2f0` |
+| Hosted at | `https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/1e4733c15875c5bf2eba86ea881cb9094c748f6a/season2/adapter/SANCTIONS_SCREENING_MATCH/SANCTIONS_SCREENING_MATCH.safetensors`: downloaded, sha256 equal; `adapterexec` loads it as keccak `0x49de4107…f2f0` |
+| Measured | held-out 200 pairs 93.0% (inflated by a name-shape cue, G40); out-of-template probe 72.5% on 80 pairs. **The public check needs 11/15: at a true 72.5% that is roughly a coin flip** |
+| Runnable URL | `https://medicaid-lat-maria-janet.trycloudflare.com/` → `fanout_exec.py` :8090 (now retries a dead worker's chunk; logs batch size and timing only) → 3 `adapterexec` on the hosted bytes. `check_executor.py` PASS through the tunnel, bits equal to loopback and to adapterbuild (`0x3e96ccda`); worst case 30 × 256 tokens 62.2 s while v5 trained on the GPU |
+| Bond | `entityBonds()` 14:40 UTC: 5.132 MACHINA. Wallet: 0.4025 ETH, **5.0 MACHINA: claim first** |
+| Dry run | `registerWasm` from the wallet reverts `ERC20InsufficientAllowance(diamond, 0, 5.132e18)`, as expected before the approval; calldata decoded back to the values above |
+
+**Steps (owner, MetaMask):** 1. Anjoman → Activity → Claim all. 2. Open `http://127.0.0.1:8095/` in the browser
+with MetaMask (served from `tg-eval\hosted\sanctions_v3\sign\`), Connect, Approve 10 MACHINA, Register. Claude then
+follows `/api/wasm` for the registration id to `canonical` or a rejection. The laptop stays awake and online until then.
+
+## V2, 2026-11-01: register the EVENT_OUTCOME_RESOLUTION adapter — SUPERSEDED (race lost to registration 39)
 
 Owner's yes to "set it up" (hosting and tunnel), 2026-11-01. **Prepared and checked by Claude; nothing signed or
 sent.** Transactions are the owner's, on Ethereum Sepolia.
