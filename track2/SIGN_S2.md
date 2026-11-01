@@ -1,5 +1,25 @@
 # Season II Track 2: publish commands and sign list
 
+## V2, 2026-11-01: register the FX_NOW comparator — READY (owner: 5 MACHINA from the faucet, then publish)
+
+FX_NOW is the only deterministic family without a champion at 18:22 UTC. The other five are taken:
+WEATHER_CHECK #45 (0xfec66e…), and CRYPTO_PRICE #47, CURRENCY_EXCHANGE #48, STOCK_PRICE #49 and SSL_VERIFICATION
+#50, all by 0xd4c73e99… between 16:08 and 16:14 UTC. A comparator passes the node's exact-match gate (#45: 1,120
+cases, 0 mismatches) with no pool pairs and no training.
+
+| | |
+|---|---|
+| File | `https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/2825b06f8ae7e4a0cd16e9e8824d66ef8b8fa5a9/season2/comparator/dist/FX_NOW.wasm`: HTTP 200, 0 redirects, sha256 `7aa1397d…80cc` |
+| keccak256 | `0xa92fd5769698ee985f3c505dae116e7341363d6eefdbc02c55079fd38e5813ca` (computed from the download; equals `dist/manifest.json`) |
+| Family / Fee | `FX_NOW` / `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e` |
+| Runnable URL | `https://livecert-comparator.vercel.app/FX_NOW/runnable` (Vercel production, commit 9483970). `node live-check.js`: 600/600 equal to the local scorer, slowest batch 467 ms; it serves the same sha256 |
+| Correctness | an exact port of `ReferenceScore`: 234,848 cases, 0 mismatches (2026-10-22). `reference.go` has no diff from the pinned kit `992f2650` to kit main `1ed063e`. `node --test runnable/test`: 7/7, FX_NOW exact twice |
+| Bond | 4.477 MACHINA (`entityBonds`, 18:24 UTC). Wallet 0.165 MACHINA; the allowance left from #46 is 5.165 |
+| Dry run | `registerWasm` reverts `ERC20InsufficientBalance(wallet, 0.165, 4.477)`: funding is the only blocker |
+
+**Steps (owner):** 1. Anjoman → Faucet → claim 5 MACHINA. 2. Anjoman → Evaluators: paste the file URL, Verify & hash
+(must show the keccak above), Family `FX_NOW`, the fee address, and the runnable URL; Publish; sign in MetaMask.
+
 ## V2, 2026-11-01: register the SANCTIONS_SCREENING_MATCH adapter (v3) — REJECTED #46 (7/15), deregister to free the bond
 
 **Result, 16:25:59 UTC:** rejected at the remote check, 7 of 15 public pairs (46.7%), GAPS G40. Executors, tunnel and
