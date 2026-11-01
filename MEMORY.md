@@ -1,10 +1,12 @@
 # MEMORY.md — session continuity
 
-## 2026-11-01 18:42 UTC (Nov 2 IST): sanctions Evaluator handoff resumed
+## 2026-11-01 19:13 UTC (Nov 2 IST): sanctions Evaluator measurements complete
 
 On `claude/evaluators-status-a51518`: 232 public responses, 32 pairs; node v3/v4/v5 90.625%/37.5%/75%.
-The 100% length baseline and 8-name one-sided sample prevent a readiness claim. V6 longer-answer pilot
-trains serially. Rubric reconciled to 40/15/10/10/5/20. See track2 MEMORY, G41 and SUBMISSION_S2.
+V6 completed: kit 90.18% on synthetic test; node initial 68.75%, fresh 79.17% (v3 fresh 83.33%).
+Two captures total 464 responses. The 100% length baseline and one-sided samples prevent readiness.
+Wrong-query controls v6 16/20, own format 3/4. Rubric reconciled to 40/15/10/10/5/20; write-up/tutorial,
+frozen data, exact scores, public packages and command logs in track2. G41 remains open.
 Another session concurrently owns the FX_NOW flow and recorded #46 deregistration in SIGN_S2; preserved.
 This sanctions run performed no wallet action, new registration, miner deployment or message send.
 

@@ -1,0 +1,112 @@
+23:56:01 INFO: ../pairs/sanctions_v6_pilot_r1/train.jsonl: 5958 pairs
+23:56:01 INFO: ../pairs/sanctions_v6_pilot_r1/val.jsonl: 795 pairs
+23:56:01 INFO: ../pairs/sanctions_v6_pilot_r1/test.jsonl: 794 pairs
+23:56:18 INFO: hyperparameters: Hyperparams(max_length=256, batch_size=8, grad_accum=2, grad_checkpointing=True, lora_rank=8, lora_alpha=32, lora_dropout=0.1, epochs=2, lr=0.0001, weight_decay=0.01, eval_split=0.15, seed=42, eval_batch=4, gate_min_acc=0.65, gate_min_margin_over_baseline=0.1, early_stopping=True, es_metric='val_loss', es_patience=1, es_min_delta=0.001, loss_floor=0.0001)
+23:57:16 INFO: tokenizer matches the node (88 vectors)
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+dataset gate: PASS (5958 pairs)
+  unique negatives    99.6%
+  largest single neg  0.1%
+  length shortcut     53.3%
+  held-out leak       0.4%
+  surface probe       60.5%  (50% = no tell)
+  mean length         chosen 427 / rejected 444 characters
+
+Loading weights:   0%|          | 0/136 [00:00<?, ?it/s]
+Loading weights:  18%|#7        | 24/136 [00:00<00:00, 217.37it/s]
+Loading weights:  46%|####6     | 63/136 [00:00<00:00, 308.80it/s]
+Loading weights:  74%|#######4  | 101/136 [00:00<00:00, 335.88it/s]
+Loading weights: 100%|##########| 136/136 [00:00<00:00, 339.77it/s]
+[transformers] ModernBertForSequenceClassification LOAD REPORT from: answerdotai/ModernBERT-base
+Key               | Status     | 
+------------------+------------+-
+decoder.bias      | UNEXPECTED | 
+classifier.bias   | MISSING    | 
+classifier.weight | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+23:57:17 INFO: answerdotai/ModernBERT-base | trainable 1,690,369 / 151,296,002 parameters
+23:57:17 INFO: device: cuda (NVIDIA GeForce RTX 3050 Laptop GPU)
+23:57:35 INFO: epoch 0 step 10/744 loss 0.7427
+Traceback (most recent call last):
+  File "C:\Users\hyada\tg-eval\.venv\Lib\site-packages\torch\random.py", line 235, in fork_rng
+    yield
+  File "C:\Users\hyada\tg-eval\.venv\Lib\site-packages\torch\utils\checkpoint.py", line 1962, in recompute_fn
+    fn(*args, **kwargs)
+  File "C:\Users\hyada\tg-eval\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hyada\tg-eval\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hyada\tg-eval\.venv\Lib\site-packages\transformers\models\modernbert\modeling_modernbert.py", line 314, in forward
+    attn_output, _ = self.attn(
+                     ^^^^^^^^^^
+  File "C:\Users\hyada\tg-eval\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hyada\tg-eval\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hyada\tg-eval\.venv\Lib\site-packages\transformers\models\modernbert\modeling_modernbert.py", line 269, in forward
+    query_states, key_states = apply_rotary_pos_emb(query_states, key_states, cos, sin, unsqueeze_dim=1)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hyada\tg-eval\.venv\Lib\site-packages\transformers\models\modernbert\modeling_modernbert.py", line 206, in apply_rotary_pos_emb
+    q_embed = (q.float() * cos) + (rotate_half(q.float()) * sin)
+                                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hyada\tg-eval\.venv\Lib\site-packages\transformers\models\modernbert\modeling_modernbert.py", line 181, in rotate_half
+    return torch.cat((-x2, x1), dim=-1)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.AcceleratorError: CUDA error: out of memory
+Search for `cudaErrorMemoryAllocation' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\Users\hyada\tg-eval\kit-v2\float_runtime\train_adapter.py", line 844, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "C:\Users\hyada\tg-eval\kit-v2\float_runtime\train_adapter.py", line 799, in main
+    model, tok, train_negatives = train(args.base_model, train_pairs, val_pairs,
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hyada\tg-eval\kit-v2\float_runtime\train_adapter.py", line 629, in train
+    (scaler.scale(loss).backward() if use_scaler else loss.backward())
+                                                      ^^^^^^^^^^^^^^^
+  File "C:\Users\hyada\tg-eval\.venv\Lib\site-packages\torch\_tensor.py", line 623, in backward
+    torch.autograd.backward(
+  File "C:\Users\hyada\tg-eval\.venv\Lib\site-packages\torch\autograd\__init__.py", line 395, in backward
+    _engine_run_backward(
+  File "C:\Users\hyada\tg-eval\.venv\Lib\site-packages\torch\autograd\graph.py", line 1072, in _engine_run_backward
+    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hyada\tg-eval\.venv\Lib\site-packages\torch\utils\checkpoint.py", line 1369, in unpack_hook
+    _run_fn_with_dynamo_disabled(frame.recompute_fn, *args)
+  File "C:\Users\hyada\tg-eval\.venv\Lib\site-packages\torch\_compile.py", line 54, in inner
+    return disable_fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hyada\tg-eval\.venv\Lib\site-packages\torch\_dynamo\eval_frame.py", line 1548, in _fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hyada\tg-eval\.venv\Lib\site-packages\torch\utils\checkpoint.py", line 1336, in _run_fn_with_dynamo_disabled
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hyada\tg-eval\.venv\Lib\site-packages\torch\utils\checkpoint.py", line 1936, in recompute_fn
+    with torch.random.fork_rng(
+  File "C:\Users\hyada\AppData\Local\Programs\Python\Python312\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "C:\Users\hyada\tg-eval\.venv\Lib\site-packages\torch\random.py", line 239, in fork_rng
+    device_mod.set_rng_state(device_rng_state, device)
+  File "C:\Users\hyada\tg-eval\.venv\Lib\site-packages\torch\cuda\random.py", line 76, in set_rng_state
+    _lazy_call(cb)
+  File "C:\Users\hyada\tg-eval\.venv\Lib\site-packages\torch\cuda\__init__.py", line 522, in _lazy_call
+    callable()
+  File "C:\Users\hyada\tg-eval\.venv\Lib\site-packages\torch\cuda\random.py", line 74, in cb
+    default_generator.set_state(new_state)
+torch.AcceleratorError: CUDA error: out of memory
+Search for `cudaErrorMemoryAllocation' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.
+

@@ -1,0 +1,12 @@
+{
+  "cwd": "C:\\Users\\hyada\\OneDrive\\Documents\\Work-Related\\Hackathons\\Telegraph\\.claude\\worktrees\\evaluators-status-a51518",
+  "executable": "C:\\Users\\hyada\\tg-eval\\.venv\\Scripts\\python.exe",
+  "arguments": [
+    "track2/adapter/sanctions/measure_miners.py",
+    "C:\\Users\\hyada\\OneDrive\\Documents\\Work-Related\\Hackathons\\Telegraph\\.claude\\worktrees\\evaluators-status-a51518\\track2\\adapter\\sanctions\\evidence\\2026-11-01-miners-r1",
+    "--home",
+    "C:/Users/hyada/tg-eval",
+    "--versions",
+    "6"
+  ]
+}

@@ -18,7 +18,7 @@ def main():
     ap.add_argument("capture", type=Path)
     a = ap.parse_args()
     p = a.capture
-    manifest = json.loads((p / "source-manifest.json").read_text())
+    manifest = json.loads((p / "source-manifest.json").read_text(encoding="utf-8"))
     for name, item in manifest.items():
         assert digest(gzip.decompress((p / (name + ".gz")).read_bytes())) == item["sha256"]
     raw_count = 0
@@ -39,7 +39,7 @@ def main():
             assert original["name"] == expected_name
     route_count = 0
     for plan_file in p.glob("plan-*.json"):
-        plan = json.loads(plan_file.read_text())
+        plan = json.loads(plan_file.read_text(encoding="utf-8"))
         if "error" in plan:
             continue
         file = p / plan_file.name.replace("plan-", "responses-")
@@ -57,7 +57,7 @@ def main():
     if route_count:
         print(f"PASS {route_count} declared request routes, parameter mappings and timestamp orders")
     for f in sorted(p.glob("v*-node-scores.json")):
-        data = json.loads(f.read_text())
+        data = json.loads(f.read_text(encoding="utf-8"))
         assert data["pairs_sha256"] == digest((p / "pairs.jsonl").read_bytes()), f
         correct = 0
         for row in data["rows"]:
@@ -73,13 +73,13 @@ def main():
     hist = p / "historical"
     if not (hist / "dataset-manifest.json").exists():
         return
-    data_manifest = json.loads((hist / "dataset-manifest.json").read_text())
+    data_manifest = json.loads((hist / "dataset-manifest.json").read_text(encoding="utf-8"))
     for version, item in data_manifest.items():
         for split, entry in item["files"].items():
             raw = gzip.decompress((hist / f"v{version}/{split}.jsonl.gz").read_bytes())
             assert digest(raw) == entry["sha256"]
         probe = hist / f"v{version}" / ("ood_probe48.json" if version == "1" else "ood_probe80.json")
-        data = json.loads(probe.read_text())
+        data = json.loads(probe.read_text(encoding="utf-8"))
         correct = sum(r["chosen"] > r["rejected"] for r in data["rows"])
         assert correct / len(data["rows"]) == data["accuracy"]
         print(f"PASS historical v{version} probe {correct}/{len(data['rows'])} = {data['accuracy']:.6f}")

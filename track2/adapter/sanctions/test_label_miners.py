@@ -43,6 +43,7 @@ class LabelTests(unittest.TestCase):
     def test_numeric_and_alternate_boolean(self):
         self.assertIs(self.check({"on_list": 0}), False)
         self.assertIs(self.check({"match": True}), True)
+        self.assertIs(self.check({"match": True, "verdict": None}), True)
         self.assertIsNone(self.check({"on_list": "0"}))
 
 

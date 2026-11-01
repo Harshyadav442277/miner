@@ -1,0 +1,507 @@
+{
+ "version": 6,
+ "started_at": "2026-11-01T19:06:37.174016+00:00",
+ "finished_at": "2026-11-01T19:08:19.398699+00:00",
+ "seconds": 102.22,
+ "runtime_commands": [
+  [
+   "C:\\Users\\hyada\\tg-eval\\bin-v2\\adapterexec.exe",
+   "-listen",
+   "127.0.0.1:18081",
+   "-package",
+   "C:\\Users\\hyada\\tg-eval\\runs-v2\\SANCTIONS_SCREENING_MATCH_v6\\SANCTIONS_SCREENING_MATCH.safetensors"
+  ],
+  [
+   "C:\\Users\\hyada\\tg-eval\\bin-v2\\adapterexec.exe",
+   "-listen",
+   "127.0.0.1:18082",
+   "-package",
+   "C:\\Users\\hyada\\tg-eval\\runs-v2\\SANCTIONS_SCREENING_MATCH_v6\\SANCTIONS_SCREENING_MATCH.safetensors"
+  ],
+  [
+   "C:\\Users\\hyada\\tg-eval\\bin-v2\\adapterexec.exe",
+   "-listen",
+   "127.0.0.1:18083",
+   "-package",
+   "C:\\Users\\hyada\\tg-eval\\runs-v2\\SANCTIONS_SCREENING_MATCH_v6\\SANCTIONS_SCREENING_MATCH.safetensors"
+  ]
+ ],
+ "package_sha256": "71cbf5d1812fbc240dfc3fc604e1f97c527ae45061feccc29850e5f000ac464a",
+ "identity": {
+  "foundation_hash": "0a49b325304bb4cf292e683929689d0457966be264f60bfc94d0072b614bf8e6",
+  "adapter_hash": "6b44ebdc9acd4b471c8a174be5f59a74e58ef245a56d34711accc20bd138981b",
+  "tokenizer_hash": "67bc76f8b9386efba1a761c1c8e5ad439fd0eaf1c2826e9dd1a205c7af4dc456"
+ },
+ "pairs_sha256": "39014a9003f4584e9339817c7a47be6265ea0b36d5c58ad7283b7533a25226f8",
+ "pairs": 32,
+ "accuracy": 0.6875,
+ "ties": 0,
+ "names": 8,
+ "all_comparisons_correct_names": 4,
+ "name_level_wilson_95_lower": 0.2152125268244419,
+ "registration_gate_pass": false,
+ "gate_note": "Requires >=80% point and name-level lower bound, both labels, length baseline <=65%",
+ "tokens": {
+  "max_tokens": 256,
+  "rendered_max_before_truncation": 993,
+  "texts_truncated": 31,
+  "texts": 64,
+  "unique_token_sequences": 40
+ },
+ "rows": [
+  {
+   "name": "KALININ, Vadim Konstantinovich",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 1091989882,
+    "value": 9.402704238891602
+   },
+   "rejected": {
+    "bits": 1082352888,
+    "value": 4.106075286865234
+   },
+   "correct": true
+  },
+  {
+   "name": "KALININ, Vadim Konstantinovich",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 1082772560,
+    "value": 4.306190490722656
+   },
+   "rejected": {
+    "bits": 1082352888,
+    "value": 4.106075286865234
+   },
+   "correct": true
+  },
+  {
+   "name": "KALININ, Vadim Konstantinovich",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 1090109360,
+    "value": 7.804649353027344
+   },
+   "rejected": {
+    "bits": 1082352888,
+    "value": 4.106075286865234
+   },
+   "correct": true
+  },
+  {
+   "name": "KALININ, Vadim Konstantinovich",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 1086511776,
+    "value": 6.0891876220703125
+   },
+   "rejected": {
+    "bits": 1082352888,
+    "value": 4.106075286865234
+   },
+   "correct": true
+  },
+  {
+   "name": "YAKUT, Cumhur",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 1091694290,
+    "value": 9.120805740356445
+   },
+   "rejected": {
+    "bits": 1087243680,
+    "value": 6.4381866455078125
+   },
+   "correct": true
+  },
+  {
+   "name": "YAKUT, Cumhur",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 1090946497,
+    "value": 8.407654762268066
+   },
+   "rejected": {
+    "bits": 1087243680,
+    "value": 6.4381866455078125
+   },
+   "correct": true
+  },
+  {
+   "name": "YAKUT, Cumhur",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 1095639743,
+    "value": 12.883482933044434
+   },
+   "rejected": {
+    "bits": 1087243680,
+    "value": 6.4381866455078125
+   },
+   "correct": true
+  },
+  {
+   "name": "YAKUT, Cumhur",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 1093124830,
+    "value": 10.485074996948242
+   },
+   "rejected": {
+    "bits": 1087243680,
+    "value": 6.4381866455078125
+   },
+   "correct": true
+  },
+  {
+   "name": "SAUCEDA GAMBOA, Gregorio",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 1091578238,
+    "value": 9.010129928588867
+   },
+   "rejected": {
+    "bits": 1086732056,
+    "value": 6.194225311279297
+   },
+   "correct": true
+  },
+  {
+   "name": "SAUCEDA GAMBOA, Gregorio",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 1082370980,
+    "value": 4.114702224731445
+   },
+   "rejected": {
+    "bits": 1086732056,
+    "value": 6.194225311279297
+   },
+   "correct": false
+  },
+  {
+   "name": "SAUCEDA GAMBOA, Gregorio",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 1087361566,
+    "value": 6.494399070739746
+   },
+   "rejected": {
+    "bits": 1086732056,
+    "value": 6.194225311279297
+   },
+   "correct": true
+  },
+  {
+   "name": "SAUCEDA GAMBOA, Gregorio",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 1092917388,
+    "value": 10.287242889404297
+   },
+   "rejected": {
+    "bits": 1086732056,
+    "value": 6.194225311279297
+   },
+   "correct": true
+  },
+  {
+   "name": "SADIQABADI, Alireza",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 1088127879,
+    "value": 6.859805583953857
+   },
+   "rejected": {
+    "bits": 1091119048,
+    "value": 8.572212219238281
+   },
+   "correct": false
+  },
+  {
+   "name": "SADIQABADI, Alireza",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 1085607683,
+    "value": 5.658082485198975
+   },
+   "rejected": {
+    "bits": 1091119048,
+    "value": 8.572212219238281
+   },
+   "correct": false
+  },
+  {
+   "name": "SADIQABADI, Alireza",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 1090010732,
+    "value": 7.757619857788086
+   },
+   "rejected": {
+    "bits": 1091119048,
+    "value": 8.572212219238281
+   },
+   "correct": false
+  },
+  {
+   "name": "SADIQABADI, Alireza",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 1084242838,
+    "value": 5.0072736740112305
+   },
+   "rejected": {
+    "bits": 1091119048,
+    "value": 8.572212219238281
+   },
+   "correct": false
+  },
+  {
+   "name": "MUBARAK, Umid Medhat",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 1091415590,
+    "value": 8.855016708374023
+   },
+   "rejected": {
+    "bits": 1091131780,
+    "value": 8.584354400634766
+   },
+   "correct": true
+  },
+  {
+   "name": "MUBARAK, Umid Medhat",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 1085302368,
+    "value": 5.5124969482421875
+   },
+   "rejected": {
+    "bits": 1091131780,
+    "value": 8.584354400634766
+   },
+   "correct": false
+  },
+  {
+   "name": "MUBARAK, Umid Medhat",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 1090001054,
+    "value": 7.753005027770996
+   },
+   "rejected": {
+    "bits": 1091131780,
+    "value": 8.584354400634766
+   },
+   "correct": false
+  },
+  {
+   "name": "MUBARAK, Umid Medhat",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 1090003464,
+    "value": 7.754154205322266
+   },
+   "rejected": {
+    "bits": 1091131780,
+    "value": 8.584354400634766
+   },
+   "correct": false
+  },
+  {
+   "name": "GHALANDARI, Seyed Hamzeh",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 1087237842,
+    "value": 6.435402870178223
+   },
+   "rejected": {
+    "bits": 1077562208,
+    "value": 2.9108505249023438
+   },
+   "correct": true
+  },
+  {
+   "name": "GHALANDARI, Seyed Hamzeh",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 1082515416,
+    "value": 4.183574676513672
+   },
+   "rejected": {
+    "bits": 1077562208,
+    "value": 2.9108505249023438
+   },
+   "correct": true
+  },
+  {
+   "name": "GHALANDARI, Seyed Hamzeh",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 1089524971,
+    "value": 7.525990962982178
+   },
+   "rejected": {
+    "bits": 1077562208,
+    "value": 2.9108505249023438
+   },
+   "correct": true
+  },
+  {
+   "name": "GHALANDARI, Seyed Hamzeh",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 1090507746,
+    "value": 7.994614601135254
+   },
+   "rejected": {
+    "bits": 1077562208,
+    "value": 2.9108505249023438
+   },
+   "correct": true
+  },
+  {
+   "name": "AL-AWADI, Hussein Qaid",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 1091998994,
+    "value": 9.411394119262695
+   },
+   "rejected": {
+    "bits": 1091704811,
+    "value": 9.130839347839355
+   },
+   "correct": true
+  },
+  {
+   "name": "AL-AWADI, Hussein Qaid",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 1087816192,
+    "value": 6.711181640625
+   },
+   "rejected": {
+    "bits": 1091704811,
+    "value": 9.130839347839355
+   },
+   "correct": false
+  },
+  {
+   "name": "AL-AWADI, Hussein Qaid",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 1091006225,
+    "value": 8.464615821838379
+   },
+   "rejected": {
+    "bits": 1091704811,
+    "value": 9.130839347839355
+   },
+   "correct": false
+  },
+  {
+   "name": "AL-AWADI, Hussein Qaid",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 1092616248,
+    "value": 10.000053405761719
+   },
+   "rejected": {
+    "bits": 1091704811,
+    "value": 9.130839347839355
+   },
+   "correct": true
+  },
+  {
+   "name": "ARROYAVE RUIZ, Elkin Alberto",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 1091234954,
+    "value": 8.682748794555664
+   },
+   "rejected": {
+    "bits": 1070000522,
+    "value": 1.554002046585083
+   },
+   "correct": true
+  },
+  {
+   "name": "ARROYAVE RUIZ, Elkin Alberto",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 1086919459,
+    "value": 6.283586025238037
+   },
+   "rejected": {
+    "bits": 1070000522,
+    "value": 1.554002046585083
+   },
+   "correct": true
+  },
+  {
+   "name": "ARROYAVE RUIZ, Elkin Alberto",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 1090740088,
+    "value": 8.210807800292969
+   },
+   "rejected": {
+    "bits": 1070000522,
+    "value": 1.554002046585083
+   },
+   "correct": true
+  },
+  {
+   "name": "ARROYAVE RUIZ, Elkin Alberto",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 1091721767,
+    "value": 9.14700984954834
+   },
+   "rejected": {
+    "bits": 1070000522,
+    "value": 1.554002046585083
+   },
+   "correct": true
+  }
+ ],
+ "by_kind": {
+  "listed": {
+   "pairs": 32,
+   "accuracy": 0.6875
+  }
+ }
+}

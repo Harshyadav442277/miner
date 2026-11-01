@@ -1,0 +1,11 @@
+PASS sources; 264 raw body hashes; 32 verbatim pairs
+PASS 232 declared request routes, parameter mappings and timestamp orders
+PASS v3 29/32 = 0.906250; gate=False
+PASS v4 12/32 = 0.375000; gate=False
+PASS v5 24/32 = 0.750000; gate=False
+PASS v6 22/32 = 0.687500; gate=False
+PASS historical v1 probe 29/48 = 0.604167
+PASS historical v2 probe 46/80 = 0.575000
+PASS historical v3 probe 58/80 = 0.725000
+PASS historical v4 probe 48/80 = 0.600000
+PASS historical v5 probe 43/80 = 0.537500

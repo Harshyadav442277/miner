@@ -27,6 +27,13 @@ if (!(Test-Path -LiteralPath (Join-Path $evalRun 'result.json'))) {
 $env:HF_HOME = Join-Path $EvalRoot 'hf'
 $env:HF_HUB_OFFLINE = '1'
 $env:LIVE_CLASS_INTENTS = 'SANCTIONS_SCREENING_MATCH'
+Set-Location -LiteralPath $taskWorktree
+Invoke-Recorded $evalPython @('track2/adapter/sanctions/check_tokenizer_parity.py','--trained',
+    (Join-Path $evalRun 'adapter/tokenizer.json'),'--pinned',(Join-Path $EvalRoot 'foundation/tokenizer.json'),
+    '--pairs',(Join-Path $EvalRoot 'pairs/sanctions_v6_pilot_r1/train.jsonl'),
+    (Join-Path $EvalRoot 'pairs/sanctions_v6_pilot_r1/val.jsonl'),
+    (Join-Path $EvalRoot 'pairs/sanctions_v6_pilot_r1/test.jsonl'),'--out',
+    (Join-Path $evidence 'v6-tokenizer-parity.json')) (Join-Path $evidence 'v6-tokenizer-parity-output.txt')
 Copy-Item -LiteralPath (Join-Path $EvalRoot 'foundation/tokenizer.json') `
     -Destination (Join-Path $evalRun 'adapter/tokenizer.json')
 Set-Location -LiteralPath (Join-Path $EvalRoot 'kit-v2')

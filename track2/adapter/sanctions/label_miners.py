@@ -37,7 +37,8 @@ def label(r, q):
     for k in ("matched", "match", "on_list", "sanctioned"):
         if k in d and type(d[k]) in (bool, int) and d[k] in (0, 1):
             claims.append(bool(d[k]))
-    verdict = d.get("verdict", "").lower()
+    verdict = d.get("verdict")
+    verdict = verdict.lower() if isinstance(verdict, str) else ""
     if verdict in ("match", "no_match"):
         claims.append(verdict == "match")
     if not claims or len(set(claims)) != 1:

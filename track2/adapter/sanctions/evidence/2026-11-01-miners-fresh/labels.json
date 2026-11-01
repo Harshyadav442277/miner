@@ -1,0 +1,2322 @@
+[
+ {
+  "capture": "responses-302.json",
+  "row": 0,
+  "miner_id": "302",
+  "name": "RADA, Samer Akil",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 1,
+  "miner_id": "302",
+  "name": "NAJAFZADEH, Sorush",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 2,
+  "miner_id": "302",
+  "name": "RAMIREZ TORRES, Jose de Jesus",
+  "expected": true,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "no matching name echo"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 3,
+  "miner_id": "302",
+  "name": "KASBAR, Samer",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 4,
+  "miner_id": "302",
+  "name": "CHEPIGA, Anatoliy Vladimirovich",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 5,
+  "miner_id": "302",
+  "name": "AL-QUBAYSI, Abd-al-Munim",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 6,
+  "miner_id": "302",
+  "name": "KARASAVIDI, Dmitrii",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 7,
+  "miner_id": "302",
+  "name": "BULGAKOV, Vadim Viktorovich",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 8,
+  "miner_id": "302",
+  "name": "LIMITED LIABILITY COMPANY YATEK INVEST",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 9,
+  "miner_id": "302",
+  "name": "OOO RUSKHIMALYANS",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 10,
+  "miner_id": "302",
+  "name": "ARIMERO HOLDING LIMITED",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 11,
+  "miner_id": "302",
+  "name": "WOODFORD ENTERPRISES LIMITED SASU",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 12,
+  "miner_id": "302",
+  "name": "INVERSORA PANACOL S.A.",
+  "expected": true,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "no matching name echo"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 13,
+  "miner_id": "302",
+  "name": "CELESTIAL STAR CORPORATION",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 14,
+  "miner_id": "302",
+  "name": "HAVANATUR S.A.",
+  "expected": true,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "no matching name echo"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 15,
+  "miner_id": "302",
+  "name": "AGUILAR ALVAREZ Y CIA. LTDA.",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 16,
+  "miner_id": "302",
+  "name": "Bank of America",
+  "expected": false,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "no matching name echo"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 17,
+  "miner_id": "302",
+  "name": "Bank of India",
+  "expected": false,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "no matching name echo"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 18,
+  "miner_id": "302",
+  "name": "Bank of Japan",
+  "expected": false,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "no matching name echo"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 19,
+  "miner_id": "302",
+  "name": "Reserve Bank of India",
+  "expected": false,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "no matching name echo"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 20,
+  "miner_id": "302",
+  "name": "Deutsche Bank AG",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 21,
+  "miner_id": "302",
+  "name": "BNP Paribas",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 22,
+  "miner_id": "302",
+  "name": "Barclays PLC",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 23,
+  "miner_id": "302",
+  "name": "Royal Bank of Canada",
+  "expected": false,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "no matching name echo"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 24,
+  "miner_id": "302",
+  "name": "Sony Group Corporation",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 25,
+  "miner_id": "302",
+  "name": "Canon Inc.",
+  "expected": false,
+  "claim": true,
+  "decision_label": "abstain",
+  "reason": "positive may be fuzzy or from another list"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 26,
+  "miner_id": "302",
+  "name": "Panasonic Holdings Corporation",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 27,
+  "miner_id": "302",
+  "name": "Honda Motor Co., Ltd.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 28,
+  "miner_id": "302",
+  "name": "Niels Bohr",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 29,
+  "miner_id": "302",
+  "name": "James Clerk Maxwell",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 30,
+  "miner_id": "302",
+  "name": "Rosalind Franklin",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 31,
+  "miner_id": "302",
+  "name": "Dorothy Hodgkin",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 0,
+  "miner_id": "4433",
+  "name": "RADA, Samer Akil",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 1,
+  "miner_id": "4433",
+  "name": "NAJAFZADEH, Sorush",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 2,
+  "miner_id": "4433",
+  "name": "RAMIREZ TORRES, Jose de Jesus",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 3,
+  "miner_id": "4433",
+  "name": "KASBAR, Samer",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 4,
+  "miner_id": "4433",
+  "name": "CHEPIGA, Anatoliy Vladimirovich",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 5,
+  "miner_id": "4433",
+  "name": "AL-QUBAYSI, Abd-al-Munim",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 6,
+  "miner_id": "4433",
+  "name": "KARASAVIDI, Dmitrii",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 7,
+  "miner_id": "4433",
+  "name": "BULGAKOV, Vadim Viktorovich",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 8,
+  "miner_id": "4433",
+  "name": "LIMITED LIABILITY COMPANY YATEK INVEST",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 9,
+  "miner_id": "4433",
+  "name": "OOO RUSKHIMALYANS",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 10,
+  "miner_id": "4433",
+  "name": "ARIMERO HOLDING LIMITED",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 11,
+  "miner_id": "4433",
+  "name": "WOODFORD ENTERPRISES LIMITED SASU",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 12,
+  "miner_id": "4433",
+  "name": "INVERSORA PANACOL S.A.",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 13,
+  "miner_id": "4433",
+  "name": "CELESTIAL STAR CORPORATION",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 14,
+  "miner_id": "4433",
+  "name": "HAVANATUR S.A.",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 15,
+  "miner_id": "4433",
+  "name": "AGUILAR ALVAREZ Y CIA. LTDA.",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 16,
+  "miner_id": "4433",
+  "name": "Bank of America",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 17,
+  "miner_id": "4433",
+  "name": "Bank of India",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 18,
+  "miner_id": "4433",
+  "name": "Bank of Japan",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 19,
+  "miner_id": "4433",
+  "name": "Reserve Bank of India",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 20,
+  "miner_id": "4433",
+  "name": "Deutsche Bank AG",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 21,
+  "miner_id": "4433",
+  "name": "BNP Paribas",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 22,
+  "miner_id": "4433",
+  "name": "Barclays PLC",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 23,
+  "miner_id": "4433",
+  "name": "Royal Bank of Canada",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 24,
+  "miner_id": "4433",
+  "name": "Sony Group Corporation",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 25,
+  "miner_id": "4433",
+  "name": "Canon Inc.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 26,
+  "miner_id": "4433",
+  "name": "Panasonic Holdings Corporation",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 27,
+  "miner_id": "4433",
+  "name": "Honda Motor Co., Ltd.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 28,
+  "miner_id": "4433",
+  "name": "Niels Bohr",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 29,
+  "miner_id": "4433",
+  "name": "James Clerk Maxwell",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 30,
+  "miner_id": "4433",
+  "name": "Rosalind Franklin",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 31,
+  "miner_id": "4433",
+  "name": "Dorothy Hodgkin",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 0,
+  "miner_id": "710637",
+  "name": "RADA, Samer Akil",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 1,
+  "miner_id": "710637",
+  "name": "NAJAFZADEH, Sorush",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 2,
+  "miner_id": "710637",
+  "name": "RAMIREZ TORRES, Jose de Jesus",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 3,
+  "miner_id": "710637",
+  "name": "KASBAR, Samer",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 4,
+  "miner_id": "710637",
+  "name": "CHEPIGA, Anatoliy Vladimirovich",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 5,
+  "miner_id": "710637",
+  "name": "AL-QUBAYSI, Abd-al-Munim",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 6,
+  "miner_id": "710637",
+  "name": "KARASAVIDI, Dmitrii",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 7,
+  "miner_id": "710637",
+  "name": "BULGAKOV, Vadim Viktorovich",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 8,
+  "miner_id": "710637",
+  "name": "LIMITED LIABILITY COMPANY YATEK INVEST",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 9,
+  "miner_id": "710637",
+  "name": "OOO RUSKHIMALYANS",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 10,
+  "miner_id": "710637",
+  "name": "ARIMERO HOLDING LIMITED",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 11,
+  "miner_id": "710637",
+  "name": "WOODFORD ENTERPRISES LIMITED SASU",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 12,
+  "miner_id": "710637",
+  "name": "INVERSORA PANACOL S.A.",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 13,
+  "miner_id": "710637",
+  "name": "CELESTIAL STAR CORPORATION",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 14,
+  "miner_id": "710637",
+  "name": "HAVANATUR S.A.",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 15,
+  "miner_id": "710637",
+  "name": "AGUILAR ALVAREZ Y CIA. LTDA.",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 16,
+  "miner_id": "710637",
+  "name": "Bank of America",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 17,
+  "miner_id": "710637",
+  "name": "Bank of India",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 18,
+  "miner_id": "710637",
+  "name": "Bank of Japan",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 19,
+  "miner_id": "710637",
+  "name": "Reserve Bank of India",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 20,
+  "miner_id": "710637",
+  "name": "Deutsche Bank AG",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 21,
+  "miner_id": "710637",
+  "name": "BNP Paribas",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 22,
+  "miner_id": "710637",
+  "name": "Barclays PLC",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 23,
+  "miner_id": "710637",
+  "name": "Royal Bank of Canada",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 24,
+  "miner_id": "710637",
+  "name": "Sony Group Corporation",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 25,
+  "miner_id": "710637",
+  "name": "Canon Inc.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 26,
+  "miner_id": "710637",
+  "name": "Panasonic Holdings Corporation",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 27,
+  "miner_id": "710637",
+  "name": "Honda Motor Co., Ltd.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 28,
+  "miner_id": "710637",
+  "name": "Niels Bohr",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 29,
+  "miner_id": "710637",
+  "name": "James Clerk Maxwell",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 30,
+  "miner_id": "710637",
+  "name": "Rosalind Franklin",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 31,
+  "miner_id": "710637",
+  "name": "Dorothy Hodgkin",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78001.json",
+  "row": 0,
+  "miner_id": "78001",
+  "name": "RADA, Samer Akil",
+  "expected": true,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "static upstream"
+ },
+ {
+  "capture": "responses-78003.json",
+  "row": 0,
+  "miner_id": "78003",
+  "name": "RADA, Samer Akil",
+  "expected": true,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "static upstream"
+ },
+ {
+  "capture": "responses-78004.json",
+  "row": 0,
+  "miner_id": "78004",
+  "name": "RADA, Samer Akil",
+  "expected": true,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "static upstream"
+ },
+ {
+  "capture": "responses-78005.json",
+  "row": 0,
+  "miner_id": "78005",
+  "name": "RADA, Samer Akil",
+  "expected": true,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "static upstream"
+ },
+ {
+  "capture": "responses-78006.json",
+  "row": 0,
+  "miner_id": "78006",
+  "name": "RADA, Samer Akil",
+  "expected": true,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "static upstream"
+ },
+ {
+  "capture": "responses-78007.json",
+  "row": 0,
+  "miner_id": "78007",
+  "name": "RADA, Samer Akil",
+  "expected": true,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "static upstream"
+ },
+ {
+  "capture": "responses-78008.json",
+  "row": 0,
+  "miner_id": "78008",
+  "name": "RADA, Samer Akil",
+  "expected": true,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "static upstream"
+ },
+ {
+  "capture": "responses-78009.json",
+  "row": 0,
+  "miner_id": "78009",
+  "name": "RADA, Samer Akil",
+  "expected": true,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "static upstream"
+ },
+ {
+  "capture": "responses-78010.json",
+  "row": 0,
+  "miner_id": "78010",
+  "name": "RADA, Samer Akil",
+  "expected": true,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "HTTP/transport failure"
+ },
+ {
+  "capture": "responses-78010.json",
+  "row": 1,
+  "miner_id": "78010",
+  "name": "NAJAFZADEH, Sorush",
+  "expected": true,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "HTTP/transport failure"
+ },
+ {
+  "capture": "responses-78010.json",
+  "row": 2,
+  "miner_id": "78010",
+  "name": "RAMIREZ TORRES, Jose de Jesus",
+  "expected": true,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "HTTP/transport failure"
+ },
+ {
+  "capture": "responses-78010.json",
+  "row": 3,
+  "miner_id": "78010",
+  "name": "KASBAR, Samer",
+  "expected": true,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "HTTP/transport failure"
+ },
+ {
+  "capture": "responses-78010.json",
+  "row": 4,
+  "miner_id": "78010",
+  "name": "CHEPIGA, Anatoliy Vladimirovich",
+  "expected": true,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "HTTP/transport failure"
+ },
+ {
+  "capture": "responses-78010.json",
+  "row": 5,
+  "miner_id": "78010",
+  "name": "AL-QUBAYSI, Abd-al-Munim",
+  "expected": true,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "HTTP/transport failure"
+ },
+ {
+  "capture": "responses-78010.json",
+  "row": 6,
+  "miner_id": "78010",
+  "name": "KARASAVIDI, Dmitrii",
+  "expected": true,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "HTTP/transport failure"
+ },
+ {
+  "capture": "responses-78010.json",
+  "row": 7,
+  "miner_id": "78010",
+  "name": "BULGAKOV, Vadim Viktorovich",
+  "expected": true,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "HTTP/transport failure"
+ },
+ {
+  "capture": "responses-78010.json",
+  "row": 8,
+  "miner_id": "78010",
+  "name": "LIMITED LIABILITY COMPANY YATEK INVEST",
+  "expected": true,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "HTTP/transport failure"
+ },
+ {
+  "capture": "responses-78010.json",
+  "row": 9,
+  "miner_id": "78010",
+  "name": "OOO RUSKHIMALYANS",
+  "expected": true,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "HTTP/transport failure"
+ },
+ {
+  "capture": "responses-78010.json",
+  "row": 10,
+  "miner_id": "78010",
+  "name": "ARIMERO HOLDING LIMITED",
+  "expected": true,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "HTTP/transport failure"
+ },
+ {
+  "capture": "responses-78010.json",
+  "row": 11,
+  "miner_id": "78010",
+  "name": "WOODFORD ENTERPRISES LIMITED SASU",
+  "expected": true,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "HTTP/transport failure"
+ },
+ {
+  "capture": "responses-78010.json",
+  "row": 12,
+  "miner_id": "78010",
+  "name": "INVERSORA PANACOL S.A.",
+  "expected": true,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "HTTP/transport failure"
+ },
+ {
+  "capture": "responses-78010.json",
+  "row": 13,
+  "miner_id": "78010",
+  "name": "CELESTIAL STAR CORPORATION",
+  "expected": true,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "HTTP/transport failure"
+ },
+ {
+  "capture": "responses-78010.json",
+  "row": 14,
+  "miner_id": "78010",
+  "name": "HAVANATUR S.A.",
+  "expected": true,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "HTTP/transport failure"
+ },
+ {
+  "capture": "responses-78010.json",
+  "row": 15,
+  "miner_id": "78010",
+  "name": "AGUILAR ALVAREZ Y CIA. LTDA.",
+  "expected": true,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "HTTP/transport failure"
+ },
+ {
+  "capture": "responses-78010.json",
+  "row": 16,
+  "miner_id": "78010",
+  "name": "Bank of America",
+  "expected": false,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "HTTP/transport failure"
+ },
+ {
+  "capture": "responses-78010.json",
+  "row": 17,
+  "miner_id": "78010",
+  "name": "Bank of India",
+  "expected": false,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "HTTP/transport failure"
+ },
+ {
+  "capture": "responses-78010.json",
+  "row": 18,
+  "miner_id": "78010",
+  "name": "Bank of Japan",
+  "expected": false,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "HTTP/transport failure"
+ },
+ {
+  "capture": "responses-78010.json",
+  "row": 19,
+  "miner_id": "78010",
+  "name": "Reserve Bank of India",
+  "expected": false,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "HTTP/transport failure"
+ },
+ {
+  "capture": "responses-78010.json",
+  "row": 20,
+  "miner_id": "78010",
+  "name": "Deutsche Bank AG",
+  "expected": false,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "HTTP/transport failure"
+ },
+ {
+  "capture": "responses-78010.json",
+  "row": 21,
+  "miner_id": "78010",
+  "name": "BNP Paribas",
+  "expected": false,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "HTTP/transport failure"
+ },
+ {
+  "capture": "responses-78010.json",
+  "row": 22,
+  "miner_id": "78010",
+  "name": "Barclays PLC",
+  "expected": false,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "HTTP/transport failure"
+ },
+ {
+  "capture": "responses-78010.json",
+  "row": 23,
+  "miner_id": "78010",
+  "name": "Royal Bank of Canada",
+  "expected": false,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "HTTP/transport failure"
+ },
+ {
+  "capture": "responses-78010.json",
+  "row": 24,
+  "miner_id": "78010",
+  "name": "Sony Group Corporation",
+  "expected": false,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "HTTP/transport failure"
+ },
+ {
+  "capture": "responses-78010.json",
+  "row": 25,
+  "miner_id": "78010",
+  "name": "Canon Inc.",
+  "expected": false,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "HTTP/transport failure"
+ },
+ {
+  "capture": "responses-78010.json",
+  "row": 26,
+  "miner_id": "78010",
+  "name": "Panasonic Holdings Corporation",
+  "expected": false,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "HTTP/transport failure"
+ },
+ {
+  "capture": "responses-78010.json",
+  "row": 27,
+  "miner_id": "78010",
+  "name": "Honda Motor Co., Ltd.",
+  "expected": false,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "HTTP/transport failure"
+ },
+ {
+  "capture": "responses-78010.json",
+  "row": 28,
+  "miner_id": "78010",
+  "name": "Niels Bohr",
+  "expected": false,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "HTTP/transport failure"
+ },
+ {
+  "capture": "responses-78010.json",
+  "row": 29,
+  "miner_id": "78010",
+  "name": "James Clerk Maxwell",
+  "expected": false,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "HTTP/transport failure"
+ },
+ {
+  "capture": "responses-78010.json",
+  "row": 30,
+  "miner_id": "78010",
+  "name": "Rosalind Franklin",
+  "expected": false,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "HTTP/transport failure"
+ },
+ {
+  "capture": "responses-78010.json",
+  "row": 31,
+  "miner_id": "78010",
+  "name": "Dorothy Hodgkin",
+  "expected": false,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "HTTP/transport failure"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 0,
+  "miner_id": "78021",
+  "name": "RADA, Samer Akil",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 1,
+  "miner_id": "78021",
+  "name": "NAJAFZADEH, Sorush",
+  "expected": true,
+  "claim": false,
+  "decision_label": "incorrect",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 2,
+  "miner_id": "78021",
+  "name": "RAMIREZ TORRES, Jose de Jesus",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 3,
+  "miner_id": "78021",
+  "name": "KASBAR, Samer",
+  "expected": true,
+  "claim": false,
+  "decision_label": "incorrect",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 4,
+  "miner_id": "78021",
+  "name": "CHEPIGA, Anatoliy Vladimirovich",
+  "expected": true,
+  "claim": false,
+  "decision_label": "incorrect",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 5,
+  "miner_id": "78021",
+  "name": "AL-QUBAYSI, Abd-al-Munim",
+  "expected": true,
+  "claim": false,
+  "decision_label": "incorrect",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 6,
+  "miner_id": "78021",
+  "name": "KARASAVIDI, Dmitrii",
+  "expected": true,
+  "claim": false,
+  "decision_label": "incorrect",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 7,
+  "miner_id": "78021",
+  "name": "BULGAKOV, Vadim Viktorovich",
+  "expected": true,
+  "claim": false,
+  "decision_label": "incorrect",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 8,
+  "miner_id": "78021",
+  "name": "LIMITED LIABILITY COMPANY YATEK INVEST",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 9,
+  "miner_id": "78021",
+  "name": "OOO RUSKHIMALYANS",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 10,
+  "miner_id": "78021",
+  "name": "ARIMERO HOLDING LIMITED",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 11,
+  "miner_id": "78021",
+  "name": "WOODFORD ENTERPRISES LIMITED SASU",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 12,
+  "miner_id": "78021",
+  "name": "INVERSORA PANACOL S.A.",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 13,
+  "miner_id": "78021",
+  "name": "CELESTIAL STAR CORPORATION",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 14,
+  "miner_id": "78021",
+  "name": "HAVANATUR S.A.",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 15,
+  "miner_id": "78021",
+  "name": "AGUILAR ALVAREZ Y CIA. LTDA.",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 16,
+  "miner_id": "78021",
+  "name": "Bank of America",
+  "expected": false,
+  "claim": true,
+  "decision_label": "abstain",
+  "reason": "positive may be fuzzy or from another list"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 17,
+  "miner_id": "78021",
+  "name": "Bank of India",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 18,
+  "miner_id": "78021",
+  "name": "Bank of Japan",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 19,
+  "miner_id": "78021",
+  "name": "Reserve Bank of India",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 20,
+  "miner_id": "78021",
+  "name": "Deutsche Bank AG",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 21,
+  "miner_id": "78021",
+  "name": "BNP Paribas",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 22,
+  "miner_id": "78021",
+  "name": "Barclays PLC",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 23,
+  "miner_id": "78021",
+  "name": "Royal Bank of Canada",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 24,
+  "miner_id": "78021",
+  "name": "Sony Group Corporation",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 25,
+  "miner_id": "78021",
+  "name": "Canon Inc.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 26,
+  "miner_id": "78021",
+  "name": "Panasonic Holdings Corporation",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 27,
+  "miner_id": "78021",
+  "name": "Honda Motor Co., Ltd.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 28,
+  "miner_id": "78021",
+  "name": "Niels Bohr",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 29,
+  "miner_id": "78021",
+  "name": "James Clerk Maxwell",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 30,
+  "miner_id": "78021",
+  "name": "Rosalind Franklin",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 31,
+  "miner_id": "78021",
+  "name": "Dorothy Hodgkin",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78022.json",
+  "row": 0,
+  "miner_id": "78022",
+  "name": "RADA, Samer Akil",
+  "expected": true,
+  "claim": false,
+  "decision_label": "abstain",
+  "reason": "no explicit OFAC SDN scope"
+ },
+ {
+  "capture": "responses-78022.json",
+  "row": 1,
+  "miner_id": "78022",
+  "name": "NAJAFZADEH, Sorush",
+  "expected": true,
+  "claim": false,
+  "decision_label": "abstain",
+  "reason": "no explicit OFAC SDN scope"
+ },
+ {
+  "capture": "responses-78022.json",
+  "row": 2,
+  "miner_id": "78022",
+  "name": "RAMIREZ TORRES, Jose de Jesus",
+  "expected": true,
+  "claim": false,
+  "decision_label": "abstain",
+  "reason": "no explicit OFAC SDN scope"
+ },
+ {
+  "capture": "responses-78022.json",
+  "row": 3,
+  "miner_id": "78022",
+  "name": "KASBAR, Samer",
+  "expected": true,
+  "claim": false,
+  "decision_label": "abstain",
+  "reason": "no explicit OFAC SDN scope"
+ },
+ {
+  "capture": "responses-78022.json",
+  "row": 4,
+  "miner_id": "78022",
+  "name": "CHEPIGA, Anatoliy Vladimirovich",
+  "expected": true,
+  "claim": false,
+  "decision_label": "abstain",
+  "reason": "no explicit OFAC SDN scope"
+ },
+ {
+  "capture": "responses-78022.json",
+  "row": 5,
+  "miner_id": "78022",
+  "name": "AL-QUBAYSI, Abd-al-Munim",
+  "expected": true,
+  "claim": false,
+  "decision_label": "abstain",
+  "reason": "no explicit OFAC SDN scope"
+ },
+ {
+  "capture": "responses-78022.json",
+  "row": 6,
+  "miner_id": "78022",
+  "name": "KARASAVIDI, Dmitrii",
+  "expected": true,
+  "claim": false,
+  "decision_label": "abstain",
+  "reason": "no explicit OFAC SDN scope"
+ },
+ {
+  "capture": "responses-78022.json",
+  "row": 7,
+  "miner_id": "78022",
+  "name": "BULGAKOV, Vadim Viktorovich",
+  "expected": true,
+  "claim": false,
+  "decision_label": "abstain",
+  "reason": "no explicit OFAC SDN scope"
+ },
+ {
+  "capture": "responses-78022.json",
+  "row": 8,
+  "miner_id": "78022",
+  "name": "LIMITED LIABILITY COMPANY YATEK INVEST",
+  "expected": true,
+  "claim": false,
+  "decision_label": "abstain",
+  "reason": "no explicit OFAC SDN scope"
+ },
+ {
+  "capture": "responses-78022.json",
+  "row": 9,
+  "miner_id": "78022",
+  "name": "OOO RUSKHIMALYANS",
+  "expected": true,
+  "claim": false,
+  "decision_label": "abstain",
+  "reason": "no explicit OFAC SDN scope"
+ },
+ {
+  "capture": "responses-78022.json",
+  "row": 10,
+  "miner_id": "78022",
+  "name": "ARIMERO HOLDING LIMITED",
+  "expected": true,
+  "claim": false,
+  "decision_label": "abstain",
+  "reason": "no explicit OFAC SDN scope"
+ },
+ {
+  "capture": "responses-78022.json",
+  "row": 11,
+  "miner_id": "78022",
+  "name": "WOODFORD ENTERPRISES LIMITED SASU",
+  "expected": true,
+  "claim": false,
+  "decision_label": "abstain",
+  "reason": "no explicit OFAC SDN scope"
+ },
+ {
+  "capture": "responses-78022.json",
+  "row": 12,
+  "miner_id": "78022",
+  "name": "INVERSORA PANACOL S.A.",
+  "expected": true,
+  "claim": false,
+  "decision_label": "abstain",
+  "reason": "no explicit OFAC SDN scope"
+ },
+ {
+  "capture": "responses-78022.json",
+  "row": 13,
+  "miner_id": "78022",
+  "name": "CELESTIAL STAR CORPORATION",
+  "expected": true,
+  "claim": false,
+  "decision_label": "abstain",
+  "reason": "no explicit OFAC SDN scope"
+ },
+ {
+  "capture": "responses-78022.json",
+  "row": 14,
+  "miner_id": "78022",
+  "name": "HAVANATUR S.A.",
+  "expected": true,
+  "claim": false,
+  "decision_label": "abstain",
+  "reason": "no explicit OFAC SDN scope"
+ },
+ {
+  "capture": "responses-78022.json",
+  "row": 15,
+  "miner_id": "78022",
+  "name": "AGUILAR ALVAREZ Y CIA. LTDA.",
+  "expected": true,
+  "claim": false,
+  "decision_label": "abstain",
+  "reason": "no explicit OFAC SDN scope"
+ },
+ {
+  "capture": "responses-78022.json",
+  "row": 16,
+  "miner_id": "78022",
+  "name": "Bank of America",
+  "expected": false,
+  "claim": false,
+  "decision_label": "abstain",
+  "reason": "no explicit OFAC SDN scope"
+ },
+ {
+  "capture": "responses-78022.json",
+  "row": 17,
+  "miner_id": "78022",
+  "name": "Bank of India",
+  "expected": false,
+  "claim": false,
+  "decision_label": "abstain",
+  "reason": "no explicit OFAC SDN scope"
+ },
+ {
+  "capture": "responses-78022.json",
+  "row": 18,
+  "miner_id": "78022",
+  "name": "Bank of Japan",
+  "expected": false,
+  "claim": false,
+  "decision_label": "abstain",
+  "reason": "no explicit OFAC SDN scope"
+ },
+ {
+  "capture": "responses-78022.json",
+  "row": 19,
+  "miner_id": "78022",
+  "name": "Reserve Bank of India",
+  "expected": false,
+  "claim": false,
+  "decision_label": "abstain",
+  "reason": "no explicit OFAC SDN scope"
+ },
+ {
+  "capture": "responses-78022.json",
+  "row": 20,
+  "miner_id": "78022",
+  "name": "Deutsche Bank AG",
+  "expected": false,
+  "claim": false,
+  "decision_label": "abstain",
+  "reason": "no explicit OFAC SDN scope"
+ },
+ {
+  "capture": "responses-78022.json",
+  "row": 21,
+  "miner_id": "78022",
+  "name": "BNP Paribas",
+  "expected": false,
+  "claim": false,
+  "decision_label": "abstain",
+  "reason": "no explicit OFAC SDN scope"
+ },
+ {
+  "capture": "responses-78022.json",
+  "row": 22,
+  "miner_id": "78022",
+  "name": "Barclays PLC",
+  "expected": false,
+  "claim": false,
+  "decision_label": "abstain",
+  "reason": "no explicit OFAC SDN scope"
+ },
+ {
+  "capture": "responses-78022.json",
+  "row": 23,
+  "miner_id": "78022",
+  "name": "Royal Bank of Canada",
+  "expected": false,
+  "claim": false,
+  "decision_label": "abstain",
+  "reason": "no explicit OFAC SDN scope"
+ },
+ {
+  "capture": "responses-78022.json",
+  "row": 24,
+  "miner_id": "78022",
+  "name": "Sony Group Corporation",
+  "expected": false,
+  "claim": false,
+  "decision_label": "abstain",
+  "reason": "no explicit OFAC SDN scope"
+ },
+ {
+  "capture": "responses-78022.json",
+  "row": 25,
+  "miner_id": "78022",
+  "name": "Canon Inc.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "abstain",
+  "reason": "no explicit OFAC SDN scope"
+ },
+ {
+  "capture": "responses-78022.json",
+  "row": 26,
+  "miner_id": "78022",
+  "name": "Panasonic Holdings Corporation",
+  "expected": false,
+  "claim": false,
+  "decision_label": "abstain",
+  "reason": "no explicit OFAC SDN scope"
+ },
+ {
+  "capture": "responses-78022.json",
+  "row": 27,
+  "miner_id": "78022",
+  "name": "Honda Motor Co., Ltd.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "abstain",
+  "reason": "no explicit OFAC SDN scope"
+ },
+ {
+  "capture": "responses-78022.json",
+  "row": 28,
+  "miner_id": "78022",
+  "name": "Niels Bohr",
+  "expected": false,
+  "claim": false,
+  "decision_label": "abstain",
+  "reason": "no explicit OFAC SDN scope"
+ },
+ {
+  "capture": "responses-78022.json",
+  "row": 29,
+  "miner_id": "78022",
+  "name": "James Clerk Maxwell",
+  "expected": false,
+  "claim": false,
+  "decision_label": "abstain",
+  "reason": "no explicit OFAC SDN scope"
+ },
+ {
+  "capture": "responses-78022.json",
+  "row": 30,
+  "miner_id": "78022",
+  "name": "Rosalind Franklin",
+  "expected": false,
+  "claim": false,
+  "decision_label": "abstain",
+  "reason": "no explicit OFAC SDN scope"
+ },
+ {
+  "capture": "responses-78022.json",
+  "row": 31,
+  "miner_id": "78022",
+  "name": "Dorothy Hodgkin",
+  "expected": false,
+  "claim": false,
+  "decision_label": "abstain",
+  "reason": "no explicit OFAC SDN scope"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 0,
+  "miner_id": "9002",
+  "name": "RADA, Samer Akil",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 1,
+  "miner_id": "9002",
+  "name": "NAJAFZADEH, Sorush",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 2,
+  "miner_id": "9002",
+  "name": "RAMIREZ TORRES, Jose de Jesus",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 3,
+  "miner_id": "9002",
+  "name": "KASBAR, Samer",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 4,
+  "miner_id": "9002",
+  "name": "CHEPIGA, Anatoliy Vladimirovich",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 5,
+  "miner_id": "9002",
+  "name": "AL-QUBAYSI, Abd-al-Munim",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 6,
+  "miner_id": "9002",
+  "name": "KARASAVIDI, Dmitrii",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 7,
+  "miner_id": "9002",
+  "name": "BULGAKOV, Vadim Viktorovich",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 8,
+  "miner_id": "9002",
+  "name": "LIMITED LIABILITY COMPANY YATEK INVEST",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 9,
+  "miner_id": "9002",
+  "name": "OOO RUSKHIMALYANS",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 10,
+  "miner_id": "9002",
+  "name": "ARIMERO HOLDING LIMITED",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 11,
+  "miner_id": "9002",
+  "name": "WOODFORD ENTERPRISES LIMITED SASU",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 12,
+  "miner_id": "9002",
+  "name": "INVERSORA PANACOL S.A.",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 13,
+  "miner_id": "9002",
+  "name": "CELESTIAL STAR CORPORATION",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 14,
+  "miner_id": "9002",
+  "name": "HAVANATUR S.A.",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 15,
+  "miner_id": "9002",
+  "name": "AGUILAR ALVAREZ Y CIA. LTDA.",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 16,
+  "miner_id": "9002",
+  "name": "Bank of America",
+  "expected": false,
+  "claim": true,
+  "decision_label": "abstain",
+  "reason": "positive may be fuzzy or from another list"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 17,
+  "miner_id": "9002",
+  "name": "Bank of India",
+  "expected": false,
+  "claim": true,
+  "decision_label": "abstain",
+  "reason": "positive may be fuzzy or from another list"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 18,
+  "miner_id": "9002",
+  "name": "Bank of Japan",
+  "expected": false,
+  "claim": true,
+  "decision_label": "abstain",
+  "reason": "positive may be fuzzy or from another list"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 19,
+  "miner_id": "9002",
+  "name": "Reserve Bank of India",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 20,
+  "miner_id": "9002",
+  "name": "Deutsche Bank AG",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 21,
+  "miner_id": "9002",
+  "name": "BNP Paribas",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 22,
+  "miner_id": "9002",
+  "name": "Barclays PLC",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 23,
+  "miner_id": "9002",
+  "name": "Royal Bank of Canada",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 24,
+  "miner_id": "9002",
+  "name": "Sony Group Corporation",
+  "expected": false,
+  "claim": true,
+  "decision_label": "abstain",
+  "reason": "positive may be fuzzy or from another list"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 25,
+  "miner_id": "9002",
+  "name": "Canon Inc.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 26,
+  "miner_id": "9002",
+  "name": "Panasonic Holdings Corporation",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 27,
+  "miner_id": "9002",
+  "name": "Honda Motor Co., Ltd.",
+  "expected": false,
+  "claim": true,
+  "decision_label": "abstain",
+  "reason": "positive may be fuzzy or from another list"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 28,
+  "miner_id": "9002",
+  "name": "Niels Bohr",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 29,
+  "miner_id": "9002",
+  "name": "James Clerk Maxwell",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 30,
+  "miner_id": "9002",
+  "name": "Rosalind Franklin",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 31,
+  "miner_id": "9002",
+  "name": "Dorothy Hodgkin",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ }
+]

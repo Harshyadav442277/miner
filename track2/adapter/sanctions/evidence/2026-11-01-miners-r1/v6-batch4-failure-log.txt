@@ -1,0 +1,56 @@
+23:58:27 INFO: ../pairs/sanctions_v6_pilot_r1/train.jsonl: 5958 pairs
+23:58:27 INFO: ../pairs/sanctions_v6_pilot_r1/val.jsonl: 795 pairs
+23:58:27 INFO: ../pairs/sanctions_v6_pilot_r1/test.jsonl: 794 pairs
+23:58:38 INFO: hyperparameters: Hyperparams(max_length=256, batch_size=4, grad_accum=4, grad_checkpointing=True, lora_rank=8, lora_alpha=32, lora_dropout=0.1, epochs=2, lr=0.0001, weight_decay=0.01, eval_split=0.15, seed=42, eval_batch=2, gate_min_acc=0.65, gate_min_margin_over_baseline=0.1, early_stopping=True, es_metric='val_loss', es_patience=1, es_min_delta=0.001, loss_floor=0.0001)
+23:58:49 INFO: tokenizer matches the node (88 vectors)
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+
+dataset gate: PASS (5958 pairs)
+  unique negatives    99.6%
+  largest single neg  0.1%
+  length shortcut     53.3%
+  held-out leak       0.4%
+  surface probe       60.5%  (50% = no tell)
+  mean length         chosen 427 / rejected 444 characters
+Loading weights:   0%|          | 0/136 [00:00<?, ?it/s]
+Loading weights:  13%|#3        | 18/136 [00:00<00:00, 175.92it/s]
+Loading weights:  32%|###2      | 44/136 [00:00<00:00, 219.59it/s]
+Loading weights:  50%|#####     | 68/136 [00:00<00:00, 226.03it/s]
+Loading weights:  70%|######9   | 95/136 [00:00<00:00, 241.07it/s]
+Loading weights:  88%|########8 | 120/136 [00:00<00:00, 230.20it/s]
+Loading weights: 100%|##########| 136/136 [00:00<00:00, 242.40it/s]
+[transformers] ModernBertForSequenceClassification LOAD REPORT from: answerdotai/ModernBERT-base
+Key               | Status     | 
+------------------+------------+-
+decoder.bias      | UNEXPECTED | 
+classifier.bias   | MISSING    | 
+classifier.weight | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+23:58:50 INFO: answerdotai/ModernBERT-base | trainable 1,690,369 / 151,296,002 parameters
+23:58:50 INFO: device: cuda (NVIDIA GeForce RTX 3050 Laptop GPU)
+23:59:08 INFO: epoch 0 step 10/744 loss 0.7418
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\Users\hyada\tg-eval\kit-v2\float_runtime\train_adapter.py", line 844, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "C:\Users\hyada\tg-eval\kit-v2\float_runtime\train_adapter.py", line 799, in main
+    model, tok, train_negatives = train(args.base_model, train_pairs, val_pairs,
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hyada\tg-eval\kit-v2\float_runtime\train_adapter.py", line 629, in train
+    (scaler.scale(loss).backward() if use_scaler else loss.backward())
+                                                      ^^^^^^^^^^^^^^^
+  File "C:\Users\hyada\tg-eval\.venv\Lib\site-packages\torch\_tensor.py", line 623, in backward
+    torch.autograd.backward(
+  File "C:\Users\hyada\tg-eval\.venv\Lib\site-packages\torch\autograd\__init__.py", line 395, in backward
+    _engine_run_backward(
+  File "C:\Users\hyada\tg-eval\.venv\Lib\site-packages\torch\autograd\graph.py", line 1072, in _engine_run_backward
+    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.AcceleratorError: CUDA error: out of memory
+Search for `cudaErrorMemoryAllocation' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.
+

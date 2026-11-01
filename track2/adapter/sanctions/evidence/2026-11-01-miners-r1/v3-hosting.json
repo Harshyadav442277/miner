@@ -1,0 +1,9 @@
+{
+ "version": 3,
+ "url": "https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/1e4733c15875c5bf2eba86ea881cb9094c748f6a/season2/adapter/SANCTIONS_SCREENING_MATCH/SANCTIONS_SCREENING_MATCH.safetensors",
+ "http_status": 200,
+ "bytes": 6776916,
+ "sha256": "547a3f05fcd9f0e49bcbd0685db65f6b099bb34cdb84d8a05d31efe308e5b3e6",
+ "matches_measured_package": true,
+ "checked_at": "2026-11-01T19:03:41.662082+00:00"
+}

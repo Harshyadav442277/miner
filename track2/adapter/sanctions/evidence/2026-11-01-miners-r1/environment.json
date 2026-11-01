@@ -1,0 +1,19 @@
+{
+ "python": "3.12.2 (tags/v3.12.2:6abddd9, Feb  6 2024, 21:26:36) [MSC v.1937 64 bit (AMD64)]",
+ "platform": "Windows-11-10.0.26300-SP0",
+ "packages": {
+  "torch": "2.14.1+cu126",
+  "transformers": "5.20.2",
+  "peft": "0.21.2",
+  "tokenizers": "0.23.3",
+  "PyYAML": "6.0.3",
+  "numpy": "2.5.4",
+  "safetensors": "0.8.0",
+  "pycryptodome": null
+ },
+ "kit_commit": "1ed063e2f0066cfaf0e124d66ec6a17b7a6121fd",
+ "binary_sha256": {
+  "adapterexec.exe": "dae81c057d7946c7506c310b50d1b88ce529a54cdc1caa5e948f61b1fc302a87",
+  "adapterbuild-live.exe": "1f78e0fbb1f5127646ea2822f0f243f280ddd3de80cd115d8cee2b9b7b2efc71"
+ }
+}

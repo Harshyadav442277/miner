@@ -146,3 +146,37 @@ same command without `--check-data`, with `--batch-size 4 --grad-accum 4 --eval-
 Two epochs and the same seed/rank/alpha/token cap are retained. Training log:
 `C:/Users/hyada/tg-eval/train_sanctions_v6.log`. Final output and package/node checks
 are to be appended after completion; nothing in this record implies they already passed.
+
+Additional checks before v6 export:
+
+```text
+audit_splits.py: train/val, train/test, val/test shared ids/primary-or-alias/query tokens = 0
+Both initial and fresh capture cohorts vs all v6 splits: shared ids/aliases/query tokens = 0
+check_tokenizer_parity.py: 15094 rendered texts, different_token_sequences=0, max_tokens=256
+Saved training tokenizer sha256 a4285a69e0471620769dce979c70a6994eb7ff1554da8fb4bdbc7ad3eb5ad666
+Pinned tokenizer sha256 67bc76f8b9386efba1a761c1c8e5ad439fd0eaf1c2826e9dd1a205c7af4dc456
+```
+
+The running finish script was launched before parity was added to it; parity was run manually while the epoch-0 checkpoint was stable, before any export/copy. Its report is retained. Future finish-script runs enforce the check directly. The final training save uses the same tokenizer.
+
+Historical v1/v2 packages were published at telegraph-factscore `680bfe98a4d6741092793241ea92f65ba24c3d9c`; both pinned downloads are HTTP 200, 6,776,916 bytes and match their local SHA-256 manifests (`historical-package-hosting.json`). Public-clone replay at `d3fc784` succeeded with core.autocrlf=true; `reviewer-replay-output.txt` records the command, scores and identical pair-file hash. This author replay is not independent activation.
+
+Final completed v6 results (2026-11-01 UTC):
+
+```text
+Kit: n_eval=794, pairwise_accuracy=0.9018, verdict=PASS
+Known final-message NameError: pkg caused CLI exit 1 after result/checkpoint write.
+Export: 6,776,916 bytes. Stage 1: live judgment class, loaded, repeated bits 0x407100f2.
+Post-Stage-1 sha256: 71cbf5d1812fbc240dfc3fc604e1f97c527ae45061feccc29850e5f000ac464a
+Initial real-answer set: v6 22/32 = 68.75%, 0 ties, gate=false.
+Fresh independent set: v3 20/24 = 83.33%, v6 19/24 = 79.17%, 0 ties, both gates=false.
+Fresh: 232 responses, 24 pairs/6 listed names, length baseline=1.0.
+Wrong-query controls: v6 16/20 = 80%, listed 10/10, absent 6/10, own format 3/4.
+Controls are synthetic context swaps, not miner errors or registration evidence.
+All three offline verifiers passed: source/body hashes, unchanged pair bodies, routes, timestamps and f32 score arithmetic.
+Local measurement listeners 18081/18082/18083 after cleanup: 0.
+```
+
+The exact argument arrays, cwd and full outputs are retained in the `.command.json` and output files for export, Stage 1, all measurements and verification. The running wrapper was the pre-parity version documented above; parity was performed manually beforehand. Export initially printed sha256 c3c87199eb5f398a71a1bf1c9280b8a2de181507324e3491187ac5a331f7f0e2; Stage 1 produced the final package hash above. All measurements and hosted checks use the post-Stage-1 bytes.
+
+V6 experimental package published at `182737e14423ec117918b92988e3767841e8bc5e`; pinned HTTP 200 download, 6,776,916 bytes, hash equal (`v6-hosting.json`). No sanctions tunnel, dry-run register call, wallet action, signature, registration, pool upload or message send. Signing remains gated because the independent result and validity checks fail.

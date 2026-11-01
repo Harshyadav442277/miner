@@ -26,12 +26,17 @@ the register call simulates as id 51.
 **Steps (owner):** 1. Fund ≥ 0.93 MACHINA more (faucet or USDC swap). 2. Anjoman → Evaluators: paste the file URL, Verify & hash
 (must show the keccak above), Family `FX_NOW`, the fee address, and the runnable URL; Publish; sign in MetaMask.
 
-## Sanctions only — no ready-to-sign adapter (2026-11-01 18:42 UTC; Nov 2 IST)
+## Sanctions only — no ready-to-sign adapter (2026-11-01; Nov 2 IST)
 
 **Do not reuse the historical v3 table or tunnel below.** Real-answer v3/v4/v5 scores are
 90.625% / 37.5% / 75%, but the longer-answer baseline is 100%. Only 8 listed names and no
 negative pairs contribute; G41 explains why these results do not establish readiness.
-V6 is an exploratory longer-answer pilot in training, not a ready-to-sign package.
+V6 completed its longer-answer pilot: kit 90.18% on synthetic test pairs, but node
+runtime 68.75% on the initial set and 79.17% on the fresh set. Fresh v3 scores 83.33%;
+the length baseline remains 100%, only 6 names contribute and there are no negative
+pairs. None is ready to sign. The v6 package is hosted solely for reproduction.
+Separate wrong-query controls score 16/20; only 3/4 in our own LiveCert format pass.
+That synthetic relevance failure also remains open; it is not an actual miner error.
 
 Only after a new independent set supports ≥80% with a defensible margin and passes
 source/length/coverage checks: host and re-download exact bytes, verify live class and

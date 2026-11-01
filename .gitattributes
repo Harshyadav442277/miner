@@ -1,2 +1,4 @@
 # Preserve frozen evidence bytes, including JSONL line endings used in SHA-256 records.
 track2/adapter/sanctions/evidence/** -text whitespace=cr-at-eol
+# Preserve renderer padding in verbatim CLI logs, including failed-run tracebacks.
+track2/adapter/sanctions/evidence/**/*.txt -whitespace

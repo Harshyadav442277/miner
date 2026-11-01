@@ -92,13 +92,17 @@ Against the terse OFAC service, agreement is 71.4–75.0% (28–32 comparable na
 | v3 | 29/32 = 90.625% | 5/8 |
 | v4 | 12/32 = 37.5% | 0/8 |
 | v5 | 24/32 = 75.0% | 2/8 |
+| v6 longer-answer pilot | 22/32 = 68.75% | 4/8 |
 | Pick the longer answer | 32/32 = 100% | 8/8 |
 
-All three adapters have zero ties. The token limit is 256; **31 of 64 rendered texts**
+All four adapters have zero ties. The token limit is 256; **31 of 64 rendered texts**
 are truncated, with a pre-truncation maximum of 993 tokens. Forty unique token sequences
 cover all comparisons; repeated inputs are scored once per package. Every batch checks
 foundation/adapter/tokenizer identity and input root and retains the exact f32 bits.
 The package hashes, worker commands and logs are retained.
+This benchmark scores the whole raw JSON response. The exact field extraction used
+for ranked judgment-miner responses remains unconfirmed (G37); these results do not
+resolve whether that path supplies prose or the full JSON to an adapter.
 
 **This is a diagnostic set, not a sufficient registration gate.** All wrong decisions
 come from one short-answer service. Length alone solves it. Repeating four comparisons
@@ -112,8 +116,21 @@ untouched final test. A future readiness claim needs a new independently authore
 A second 32-name capture, `2026-11-01-miners-fresh`, was frozen and collected while
 the v6 configuration was already fixed. None of its names, SDN ids or primary/alias
 groups intersects any v6 split. Responses were not consulted for model selection or
-training changes. Its labels and model results will be reported after training ends;
-the capture alone does not establish a better balanced benchmark.
+training changes. It adds 232 responses and **24 pairs from 6 names**, again all listed,
+again with a 100% longer-answer baseline. Results in the node runtime:
+
+| Adapter | Fresh independent set | Names with every comparison correct |
+|---|---:|---:|
+| v3, the strongest initial-set baseline | 20/24 = 83.33% | 2/6 |
+| v6 | 19/24 = 79.17% | 3/6 |
+
+There are zero ties; 23/48 rendered texts are truncated at 256 tokens, with a maximum
+of 1,013 before truncation. Pairwise agreement between the four substantive services is
+100% on their comparable 21–32 names; agreement against the terse OFAC service is
+73.9–80.6% on 23–31 comparable names. Exact denominators are in the fresh summary.
+The fresh set remains too narrow and confounded to support readiness. V6 also misses
+the requested 80% point threshold. V3's 83.33% does not establish a margin or beat the
+length baseline. No new sanctions registration is justified by these results.
 
 ## v6 longer-answer pilot
 
@@ -132,12 +149,45 @@ causes a quality improvement. Its synthetic test remains limited by template fam
 Synthetic absent names are checked for exact absence, not exhaustively labeled for
 every legitimate fuzzy-alert threshold; these labels are not universal screening judgments.
 
-Training/result status is recorded in the evidence command log and current Track 2
-MEMORY. Batch 8 and 4 attempts alongside CPU measurement exhausted memory; those failure
-logs are retained. A serial batch-1 smoke run made training progress. The serial full
-retry uses batch 4, accumulation 4 and evaluation batch 1; no parallel node workers.
-The effective training batch remains 16. Do not infer completion or an accuracy from
-the existence of this section; the final result and node measurement must be present.
+Training completed with **90.18% on 794 synthetic test pairs** in the kit. Batch 8 and
+4 attempts alongside CPU measurement exhausted memory. A serial batch-1 smoke run
+made progress; the completed serial retry used batch 4, accumulation 4, evaluation
+batch 1 and two epochs. The effective training batch stayed 16. Logs and `result.json`
+are retained. The kit exited 1 on its known final-message `NameError: pkg` after writing
+the successful result; export and actual node-runtime measurements independently ran.
+
+Tokenization parity: **15,094 rendered texts, zero differences** between the saved
+training tokenizer and the pinned tokenizer at 256 tokens. Export and live-class
+Stage 1 passed; the package loaded on the foundation and repeated the same bits twice.
+All scoring/hosting uses the post-Stage-1 bytes, SHA-256
+`71cbf5d1812fbc240dfc3fc604e1f97c527ae45061feccc29850e5f000ac464a`.
+The experimental package is published for reproduction, not registration. The kit's
+synthetic pass did not transfer to the real-answer gate. This pilot does not isolate
+which remaining shortcut or coverage gap causes the failure.
+
+## Provider-format robustness controls
+
+We also made **20 synthetic wrong-query controls across five services**, including
+LiveCert. Neither answer body was edited: an answer for a different name was paired
+with the current question. Each pair is reversed under the other name's question,
+within the same provider. A source/format-only or answer-only preference cannot exceed
+50% on these reversed controls. This tests question relevance, not factual verification
+or actual miner errors; it is explicitly excluded from registration eligibility.
+Twenty-two of 40 rendered control texts are truncated, so this does not isolate semantic
+question understanding from every input-length effect.
+
+V6 scores **16/20 = 80%**, zero ties: listed-name controls 10/10, exact-name-absent
+controls 6/10. LiveCert-format controls score **3/4**, so one deliberately wrong-query
+answer in our own format still wins. Specifically, for the Bank of America question,
+the Bank of India response scores 9.643579 versus 3.596127 for the correct response.
+The paired raw bodies and f32 bits are retained. This does not mean LiveCert answered
+the wrong question during the capture; the mismatch was introduced as a declared control.
+
+This closes no blanket source-independence or robustness claim. A concrete training
+coverage gap is visible in `build_structured.py`: its wrong-entity replacements always
+use a listed replacement, so swapping two no-match responses was not explicitly taught.
+That may contribute to the negative-control failures; it is not established as their
+only cause. A further model change would require another untouched final measurement.
 
 ## Reproduce and inspect
 
@@ -155,8 +205,11 @@ $capture = 'track2/adapter/sanctions/evidence/2026-11-01-miners-r1'
 The evidence log pastes commands and their outputs. Historical arithmetic can be checked
 offline from saved scores and source hashes; to rescore, decompress the relevant JSONL
 and use the corresponding package. v3 is pinned at `telegraph-factscore` `1e4733c`;
-v4/v5 experimental packages at `43110d0`, with download/hash checks in
-`package-hosting.json`. Package publication does not mean registration or activation.
+v4/v5 experimental packages at `43110d0`, historical v1/v2 at `680bfe9` and v6 at
+`182737e`, with commit-pinned download/hash checks in the hosting JSON records.
+Package publication does not mean registration or activation. A fresh public clone
+replayed the historical/current scores with identical evidence hashes even with
+Windows `core.autocrlf=true`; this is our replay, not independent activation.
 
 Runtime uses the local CPU and training the local GPU. Captures used direct public HTTP,
 not paid Engine routing. No transaction, wallet connection, key access, payment or pool

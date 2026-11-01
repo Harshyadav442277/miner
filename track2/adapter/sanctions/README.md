@@ -9,7 +9,7 @@ Start with [the write-up](../../SUBMISSION_S2.md). The frozen public measurement
 
 Prerequisites: Python 3.12, PyYAML and tokenizers for capture/replay; the training kit at
 `telegraphprotocol/telegraph-wasm-baseline` revision `1ed063e2f006`, its `adapterexec`,
-the published `modernbert-base-lora16-v1` foundation, and the three package files for
+the published `modernbert-base-lora16-v1` foundation, and the measured package files for
 runtime measurement. Original Windows setup: `C:/Users/hyada/tg-eval/.venv`.
 PyTorch/Transformers/PEFT and a suitable GPU are needed only to retrain.
 
@@ -30,6 +30,28 @@ The runtime script hashes the foundation, engine, tokenizer and packages, uses t
 node's rendering/truncation, validates every identity and input root, preserves f32
 bits, and stops only its own local workers. It refuses to replace an occupied port.
 `v*-node-scores.json` holds the measured scores and the registration-gate result.
+
+Add `--versions '3,4,5,6'` to reproduce all four models on the initial set. Use
+`evidence/2026-11-01-miners-fresh --versions '3,6'` for the fresh comparison:
+v3 20/24, v6 19/24, length baseline 24/24. V6's synthetic kit test was 90.18% on 794
+pairs; it does not clear the real-answer gate. Separate wrong-query controls score
+16/20, including 3/4 in LiveCert's format. These declared context swaps are not actual
+miner mistakes, independent-test additions or a registration gate.
+
+Copy each package and its `.safetensors.manifest.json` into
+`<home>/runs-v2/SANCTIONS_SCREENING_MATCH_vN/`. Exact download URLs/hashes are in
+`v3-hosting.json`, `package-hosting.json` (v4/v5), `v6-hosting.json`, and
+`historical-package-hosting.json` (v1/v2). The `telegraph-factscore` package repository
+also holds v3 under `season2/adapter/SANCTIONS_SCREENING_MATCH`, and the other versions
+under `season2/experiments/sanctions/vN`, on `season2-adapters-v2`. Use recorded commit
+pins. The observed library versions and binary hashes are in `environment.json`.
+
+To retrain, decompress `v6-training/{train,val,test}.jsonl.gz` outside OneDrive; the
+manifest records exact hashes. `COMMANDS.md` supplies the two-epoch recipe.
+`audit_splits.py` checks ids, aliases and query strings; `check_tokenizer_parity.py`
+compares every rendered text before export. The Windows `finish_v6.ps1` serializes
+export and node checks after training; it assumes the kit/foundation/run already exist
+and writes derived evidence. Preserve the original records before rerunning it.
 
 The default rerun writes derived labels/scores. Preserve a copy before intentionally
 changing labeling code; never rewrite the raw capture files. The preserved 24-pair

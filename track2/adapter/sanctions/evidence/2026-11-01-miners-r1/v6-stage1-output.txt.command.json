@@ -1,0 +1,19 @@
+{
+  "cwd": "C:\\Users\\hyada\\tg-eval\\kit-v2",
+  "executable": "C:\\Users\\hyada\\tg-eval\\bin-v2\\adapterbuild-live.exe",
+  "arguments": [
+    "lora",
+    "--intent",
+    "SANCTIONS_SCREENING_MATCH",
+    "--package",
+    "C:\\Users\\hyada\\tg-eval\\runs-v2\\SANCTIONS_SCREENING_MATCH_v6\\SANCTIONS_SCREENING_MATCH.safetensors",
+    "--out",
+    "C:\\Users\\hyada\\tg-eval\\runs-v2\\SANCTIONS_SCREENING_MATCH_v6",
+    "--foundation",
+    "C:\\Users\\hyada\\tg-eval\\foundation\\foundation.json",
+    "--foundation-onnx",
+    "C:\\Users\\hyada\\tg-eval\\foundation\\foundation_lora_fp32.onnx",
+    "--engine",
+    "C:\\Users\\hyada\\tg-eval\\foundation\\foundation_engine.wasm"
+  ]
+}

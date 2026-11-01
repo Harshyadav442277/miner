@@ -22,11 +22,21 @@ Raw responses, labels and agreement denominators are replayable. Engine ids diff
 ids; some detail API responses are missing or unrelated. Routing uses the catalog YAML's external_path
 and parameter mapping. v4/v5 are now hosted as experimental packages, not ready-to-sign candidates.
 
-V6 pilot: longer synthetic formats, 5,958/795/794 pairs, measured names/ids excluded, entity and query
-splits audited, dataset gate PASS. Serial training proceeds after memory failures. Final results and
-node measurement pending. Since the capture informed v6 design, results on it are development evidence.
+V6 pilot completed: longer synthetic formats, 5,958/795/794 pairs, measured names/ids excluded, entity,
+alias and query splits audited. Kit test 90.18% on 794 pairs; export/Stage 1 PASS. Actual node runtime:
+22/32 (68.75%) on the initial set; 19/24 (79.17%) on a fresh 32-name capture (6 names contribute pairs).
+V3 scores 20/24 (83.33%) there, but length alone scores 24/24. Both sets remain one-sided/source-confounded.
+Since the initial capture informed v6 design, its results are development evidence. The fresh capture
+was frozen while v6's configuration was fixed, with no training/model changes from its answers.
 A readiness claim needs new independent answers, more names, both labels and source/length-balanced
 mistakes. Synthetic exact-absence labels also do not ground-truth every fuzzy-alert threshold.
+
+Wrong-query controls: v6 16/20 (80%), listed 10/10, absent 6/10; our LiveCert-format controls 3/4.
+For the Bank of America question, a deliberately paired Bank of India response outranks the correct
+answer (9.643579 vs 3.596127). This is a synthetic relevance failure, not an actual miner mistake.
+The v6 builder's wrong-entity negatives always use listed replacements, leaving two-no-match swaps
+untaught. No causal claim is established. These controls are not training or a registration gate.
+No v6 claim of robust factual discrimination, safe own-style rejection or readiness is supported.
 
 Concurrent session commit `33b692a` records owner deregistration of #46 and a released bond unlock at
 2026-11-03 18:36:48 UTC. This measurement run did not independently repeat that chain read. Preserve

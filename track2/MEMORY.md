@@ -41,7 +41,7 @@ Runs alongside the Codex sanctions session (block below), in the same worktree. 
 - **No real money:** everything is on Sepolia (test ETH, test MACHINA, test USDC). Real money is only prizes.
 - **Live Evaluator rubric:** 40/15/10/10/5 plus growth 20 (RULES_SEASON2.md, commit 6b09093).
 
-## CURRENT sanctions work — 2026-11-01 18:42 UTC (Nov 2 IST): independent measurement; v6 training
+## CURRENT sanctions work — 2026-11-01 19:13 UTC (Nov 2 IST): measurements complete; no ready adapter
 
 User supplied the handoff and authorized feature-branch commits/pushes. Work remains in
 `claude/evaluators-status-a51518`, `.claude/worktrees/evaluators-status-a51518`. Another active session
@@ -69,14 +69,24 @@ sanctions measurement and documentation, not that session's wallet/funding/FX_NO
 - Batch 8 and 4 failed alongside CPU measurement. Serial batch-1 smoke reached step 10. With measurement
   workers stopped, batch 4 / accumulation 4 / eval batch 1 progresses at ~2 s/optimizer step, 744 planned
   steps/two epochs. Log `C:/Users/hyada/tg-eval/train_sanctions_v6.log`; two OOM logs retained.
-  **No v6 final score/package yet.** Finish, export, Stage 1, node measure and record limitations.
+  **Completed:** kit test 90.18% (794 synthetic pairs), export/Stage 1 PASS. Node runtime v6 initial
+  22/32 (68.75%); fresh 19/24 (79.17%). Experimental package at `telegraph-factscore` `182737e`,
+  SHA-256 `71cbf5d1812fbc240dfc3fc604e1f97c527ae45061feccc29850e5f000ac464a`; pinned download equal.
+  Kit's known final-message `NameError: pkg` caused exit 1 after result/checkpoint completion; independent
+  export, foundation load and actual runtime scoring passed. No misleading CLI-success claim.
 - `WINNING.md` and ARCHITECTURE now use 40/15/10/10/5/20. `SUBMISSION_S2.md` is the honest draft;
   `OUTREACH_S2.md` contains unsent update plans. No posts or independent activation claimed.
 - This session performed no wallet action, new registration, public tunnel, cast dry run or message send.
   The other session's #46/FX_NOW changes are separately documented in SIGN_S2 and preserved.
-- A second 32-name public capture, `2026-11-01-miners-fresh`, is complete. Query selection excluded all
-  v6 split entities/alias groups and the first capture. No model/design changes from its responses;
-  label and node-measure it only after training. `audit_splits.py` checks ids, aliases and query names.
+- Fresh capture: another 232 responses, 24 pairs/6 listed names. V3 20/24 (83.33%), v6 19/24 (79.17%),
+  length baseline 100%. No negative pairs. Names/ids/aliases/query strings are disjoint from all v6 splits.
+  No model/design changes from fresh responses; labeling and scoring followed training completion.
+- Wrong-query controls: v6 16/20 (80%); listed 10/10, absent 6/10; own LiveCert format 3/4. A deliberately
+  wrong Bank of India response beats the correct Bank of America response for that question. This is a
+  synthetic context swap, not an actual miner error. G41 remains open; no readiness/factual robustness claim.
+- Tokenizer parity: 15,094 rendered texts, zero token-id differences. Public shallow-clone replay passed
+  with core.autocrlf=true and identical pair hashes. All raw hashes/route mappings/score arithmetic pass;
+  local measurement ports 18081–18083 have zero listeners after cleanup. Author replay is not activation.
 
 ## CURRENT — 2026-11-01 ~07:15 UTC · V2 PIPELINE PROVEN; EVENT_OUTCOME_RESOLUTION ADAPTER TRAINING
 

@@ -1,0 +1,8 @@
+{
+ "texts": 15094,
+ "different_token_sequences": 0,
+ "max_tokens": 256,
+ "trained_sha256": "a4285a69e0471620769dce979c70a6994eb7ff1554da8fb4bdbc7ad3eb5ad666",
+ "pinned_sha256": "67bc76f8b9386efba1a761c1c8e5ad439fd0eaf1c2826e9dd1a205c7af4dc456",
+ "pass": true
+}

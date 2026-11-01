@@ -1,0 +1,18 @@
+2026/11/02 00:38:24 loaded C:\Users\hyada\tg-eval\runs-v2\SANCTIONS_SCREENING_MATCH_v3\SANCTIONS_SCREENING_MATCH.safetensors: intent SANCTIONS_SCREENING_MATCH, class judgment, keccak256 0x49de41078f6bb39ab183a715263c648543945565b4ce97c9a9214de59b09f2f0, foundation 0a49b325304bb4cf292e683929689d0457966be264f60bfc94d0072b614bf8e6, tokenizer 67bc76f8b9386efba1a761c1c8e5ad439fd0eaf1c2826e9dd1a205c7af4dc456
+2026/11/02 00:38:24 adapterexec listening on 127.0.0.1:18081
+2026/11/02 00:38:31 item 0: tokens_len=256 -> score=1088688613 (0x40e411e5)
+2026/11/02 00:38:33 item 1: tokens_len=74 -> score=1060114750 (0x3f30113e)
+2026/11/02 00:38:40 item 2: tokens_len=256 -> score=3209671223 (0xbf4fb237)
+2026/11/02 00:38:47 item 3: tokens_len=256 -> score=1070779752 (0x3fd2cd68)
+2026/11/02 00:38:54 item 4: tokens_len=256 -> score=1082896138 (0x408baf0a)
+2026/11/02 00:39:01 item 5: tokens_len=234 -> score=1082653108 (0x4087f9b4)
+2026/11/02 00:39:03 item 6: tokens_len=68 -> score=1063854760 (0x3f6922a8)
+2026/11/02 00:39:10 item 7: tokens_len=256 -> score=3230355510 (0xc08b5036)
+2026/11/02 00:39:10 batch of 8 scored in 45.409s
+2026/11/02 00:39:17 item 0: tokens_len=256 -> score=1082910559 (0x408be75f)
+2026/11/02 00:39:24 item 1: tokens_len=256 -> score=1077585704 (0x403aa728)
+2026/11/02 00:39:26 item 2: tokens_len=80 -> score=3231803500 (0xc0a1686c)
+2026/11/02 00:39:33 item 3: tokens_len=256 -> score=3218764228 (0xbfda71c4)
+2026/11/02 00:39:40 item 4: tokens_len=256 -> score=1084490572 (0x40a4034c)
+2026/11/02 00:39:47 item 5: tokens_len=256 -> score=1086348605 (0x40c05d3d)
+2026/11/02 00:39:47 batch of 6 scored in 37.347s

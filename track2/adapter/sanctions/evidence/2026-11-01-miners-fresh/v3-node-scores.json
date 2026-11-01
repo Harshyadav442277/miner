@@ -1,0 +1,395 @@
+{
+ "version": 3,
+ "started_at": "2026-11-01T19:08:21.605718+00:00",
+ "finished_at": "2026-11-01T19:09:47.534504+00:00",
+ "seconds": 85.93,
+ "runtime_commands": [
+  [
+   "C:\\Users\\hyada\\tg-eval\\bin-v2\\adapterexec.exe",
+   "-listen",
+   "127.0.0.1:18081",
+   "-package",
+   "C:\\Users\\hyada\\tg-eval\\runs-v2\\SANCTIONS_SCREENING_MATCH_v3\\SANCTIONS_SCREENING_MATCH.safetensors"
+  ],
+  [
+   "C:\\Users\\hyada\\tg-eval\\bin-v2\\adapterexec.exe",
+   "-listen",
+   "127.0.0.1:18082",
+   "-package",
+   "C:\\Users\\hyada\\tg-eval\\runs-v2\\SANCTIONS_SCREENING_MATCH_v3\\SANCTIONS_SCREENING_MATCH.safetensors"
+  ],
+  [
+   "C:\\Users\\hyada\\tg-eval\\bin-v2\\adapterexec.exe",
+   "-listen",
+   "127.0.0.1:18083",
+   "-package",
+   "C:\\Users\\hyada\\tg-eval\\runs-v2\\SANCTIONS_SCREENING_MATCH_v3\\SANCTIONS_SCREENING_MATCH.safetensors"
+  ]
+ ],
+ "package_sha256": "547a3f05fcd9f0e49bcbd0685db65f6b099bb34cdb84d8a05d31efe308e5b3e6",
+ "identity": {
+  "foundation_hash": "0a49b325304bb4cf292e683929689d0457966be264f60bfc94d0072b614bf8e6",
+  "adapter_hash": "49de41078f6bb39ab183a715263c648543945565b4ce97c9a9214de59b09f2f0",
+  "tokenizer_hash": "67bc76f8b9386efba1a761c1c8e5ad439fd0eaf1c2826e9dd1a205c7af4dc456"
+ },
+ "pairs_sha256": "213296ddd4f8683d55150226a4d6310f0222c7cc1761da370abb2fd22f98e5db",
+ "pairs": 24,
+ "accuracy": 0.8333333333333334,
+ "ties": 0,
+ "names": 6,
+ "all_comparisons_correct_names": 2,
+ "name_level_wilson_95_lower": 0.09676933255921684,
+ "registration_gate_pass": false,
+ "gate_note": "Requires >=80% point and name-level lower bound, both labels, length baseline <=65%",
+ "tokens": {
+  "max_tokens": 256,
+  "rendered_max_before_truncation": 1013,
+  "texts_truncated": 23,
+  "texts": 48,
+  "unique_token_sequences": 30
+ },
+ "rows": [
+  {
+   "name": "NAJAFZADEH, Sorush",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 1088688613,
+    "value": 7.1271843910217285
+   },
+   "rejected": {
+    "bits": 1060114750,
+    "value": 0.6877630949020386
+   },
+   "correct": true
+  },
+  {
+   "name": "NAJAFZADEH, Sorush",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 3209671223,
+    "value": -0.8113130927085876
+   },
+   "rejected": {
+    "bits": 1060114750,
+    "value": 0.6877630949020386
+   },
+   "correct": false
+  },
+  {
+   "name": "NAJAFZADEH, Sorush",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 1070779752,
+    "value": 1.6468935012817383
+   },
+   "rejected": {
+    "bits": 1060114750,
+    "value": 0.6877630949020386
+   },
+   "correct": true
+  },
+  {
+   "name": "NAJAFZADEH, Sorush",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 1082896138,
+    "value": 4.365117073059082
+   },
+   "rejected": {
+    "bits": 1060114750,
+    "value": 0.6877630949020386
+   },
+   "correct": true
+  },
+  {
+   "name": "KASBAR, Samer",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 1082653108,
+    "value": 4.249231338500977
+   },
+   "rejected": {
+    "bits": 1063854760,
+    "value": 0.9106850624084473
+   },
+   "correct": true
+  },
+  {
+   "name": "KASBAR, Samer",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 3230355510,
+    "value": -4.353541374206543
+   },
+   "rejected": {
+    "bits": 1063854760,
+    "value": 0.9106850624084473
+   },
+   "correct": false
+  },
+  {
+   "name": "KASBAR, Samer",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 1083387610,
+    "value": 4.599469184875488
+   },
+   "rejected": {
+    "bits": 1063854760,
+    "value": 0.9106850624084473
+   },
+   "correct": true
+  },
+  {
+   "name": "KASBAR, Samer",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 1075868848,
+    "value": 2.507122039794922
+   },
+   "rejected": {
+    "bits": 1063854760,
+    "value": 0.9106850624084473
+   },
+   "correct": true
+  },
+  {
+   "name": "CHEPIGA, Anatoliy Vladimirovich",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 1077600322,
+    "value": 2.9199376106262207
+   },
+   "rejected": {
+    "bits": 3231589749,
+    "value": -4.94207239151001
+   },
+   "correct": true
+  },
+  {
+   "name": "CHEPIGA, Anatoliy Vladimirovich",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 3225276383,
+    "value": -2.9658124446868896
+   },
+   "rejected": {
+    "bits": 3231589749,
+    "value": -4.94207239151001
+   },
+   "correct": true
+  },
+  {
+   "name": "CHEPIGA, Anatoliy Vladimirovich",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 1084384886,
+    "value": 5.075007438659668
+   },
+   "rejected": {
+    "bits": 3231589749,
+    "value": -4.94207239151001
+   },
+   "correct": true
+  },
+  {
+   "name": "CHEPIGA, Anatoliy Vladimirovich",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 1072693332,
+    "value": 1.8750100135803223
+   },
+   "rejected": {
+    "bits": 3231589749,
+    "value": -4.94207239151001
+   },
+   "correct": true
+  },
+  {
+   "name": "AL-QUBAYSI, Abd-al-Munim",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 1058246018,
+    "value": 0.5763779878616333
+   },
+   "rejected": {
+    "bits": 3216206410,
+    "value": -1.4016811847686768
+   },
+   "correct": true
+  },
+  {
+   "name": "AL-QUBAYSI, Abd-al-Munim",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 3218412410,
+    "value": -1.6646568775177002
+   },
+   "rejected": {
+    "bits": 3216206410,
+    "value": -1.4016811847686768
+   },
+   "correct": false
+  },
+  {
+   "name": "AL-QUBAYSI, Abd-al-Munim",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 1032908040,
+    "value": 0.07076460123062134
+   },
+   "rejected": {
+    "bits": 3216206410,
+    "value": -1.4016811847686768
+   },
+   "correct": true
+  },
+  {
+   "name": "AL-QUBAYSI, Abd-al-Munim",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 1087691516,
+    "value": 6.651731491088867
+   },
+   "rejected": {
+    "bits": 3216206410,
+    "value": -1.4016811847686768
+   },
+   "correct": true
+  },
+  {
+   "name": "KARASAVIDI, Dmitrii",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 1075059975,
+    "value": 2.3142716884613037
+   },
+   "rejected": {
+    "bits": 3216841073,
+    "value": -1.4773389101028442
+   },
+   "correct": true
+  },
+  {
+   "name": "KARASAVIDI, Dmitrii",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 3225461643,
+    "value": -3.009981870651245
+   },
+   "rejected": {
+    "bits": 3216841073,
+    "value": -1.4773389101028442
+   },
+   "correct": false
+  },
+  {
+   "name": "KARASAVIDI, Dmitrii",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 1068142206,
+    "value": 1.3324735164642334
+   },
+   "rejected": {
+    "bits": 3216841073,
+    "value": -1.4773389101028442
+   },
+   "correct": true
+  },
+  {
+   "name": "KARASAVIDI, Dmitrii",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 1082910559,
+    "value": 4.371993541717529
+   },
+   "rejected": {
+    "bits": 3216841073,
+    "value": -1.4773389101028442
+   },
+   "correct": true
+  },
+  {
+   "name": "BULGAKOV, Vadim Viktorovich",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 1077585704,
+    "value": 2.916452407836914
+   },
+   "rejected": {
+    "bits": 3231803500,
+    "value": -5.043996810913086
+   },
+   "correct": true
+  },
+  {
+   "name": "BULGAKOV, Vadim Viktorovich",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 3218764228,
+    "value": -1.706596851348877
+   },
+   "rejected": {
+    "bits": 3231803500,
+    "value": -5.043996810913086
+   },
+   "correct": true
+  },
+  {
+   "name": "BULGAKOV, Vadim Viktorovich",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 1084490572,
+    "value": 5.125402450561523
+   },
+   "rejected": {
+    "bits": 3231803500,
+    "value": -5.043996810913086
+   },
+   "correct": true
+  },
+  {
+   "name": "BULGAKOV, Vadim Viktorovich",
+   "kind": "listed",
+   "source_id_metadata_only": null,
+   "chosen": {
+    "bits": 1086348605,
+    "value": 6.01138162612915
+   },
+   "rejected": {
+    "bits": 3231803500,
+    "value": -5.043996810913086
+   },
+   "correct": true
+  }
+ ],
+ "by_kind": {
+  "listed": {
+   "pairs": 24,
+   "accuracy": 0.8333333333333334
+  }
+ }
+}
