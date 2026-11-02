@@ -48,3 +48,11 @@ The old62 development failures and old reserved69 capture stay separate. New
 balanced measurements cannot erase a known failure stratum or establish readiness
 without adequate names, both classes, uncertainty and binding checks. No signing,
 registration, pool upload or submission occurs in this search.
+
+Fixed diagnostics before labels/model scores: v3 (strongest old factual result)
+and v8 (strongest binding result), both original256-token packages. Use only the
+maximum disjoint-name reversal subset if it contains at least4 blocks. Require
+complete machine claims at256, equal question-prefix lengths and opposing
+character/visible-token length preferences within each block. Fewer than4 blocks
+is an unsuccessful error search, not evidence to select a few favorable examples.
+Even a good new result cannot erase the failed old factual stratum.
