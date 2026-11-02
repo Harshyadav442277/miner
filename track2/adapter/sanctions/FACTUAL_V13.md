@@ -43,6 +43,11 @@ training blocks have exact prompt-token-length matches (93.49%). Residual
 distances remain reported. The stock dataset gate passes: 100% unique rejected
 answers, 0% internal rejected-answer leakage and surface probe 49.9%.
 Rebuilding from archived references reproduces all three JSONL byte hashes.
+The separate name-only membership audit fits thresholds on training only: character
+count scores 54.30% train /60.63% validation /59.38% test, word count 53.23% /
+58.75% /56.25%, and prompt-token count 51.55% /51.88% /51.75%. Residual shape
+differences remain. These classify membership, not external-answer preferences;
+they are not interchangeable with the answer-only surface probe or length baseline.
 
 Synthetic validation/test use distinct generic response forms and known positive
 facts; they measure representation transfer, not unseen-positive-fact accuracy.

@@ -1,0 +1,37 @@
+{
+ "scope": "Name-only membership classification diagnostics, not external-answer ranking. Thresholds fit on train only. Positive validation facts are source-exposed.",
+ "features": {
+  "characters": {
+   "threshold_fit_on_train_only": 29,
+   "predict_listed_if_greater_equal": true,
+   "accuracy": {
+    "train": 0.5430089512230147,
+    "val": 0.60625,
+    "test": 0.59375
+   }
+  },
+  "words": {
+   "threshold_fit_on_train_only": 4,
+   "predict_listed_if_greater_equal": true,
+   "accuracy": {
+    "train": 0.5322866306064813,
+    "val": 0.5875,
+    "test": 0.5625
+   }
+  },
+  "prompt_tokens": {
+   "threshold_fit_on_train_only": 49,
+   "predict_listed_if_greater_equal": true,
+   "accuracy": {
+    "train": 0.5155330046431478,
+    "val": 0.51875,
+    "test": 0.5175
+   }
+  }
+ },
+ "split_sha256": {
+  "train": "23365f614155d716621b20add95114b056ba7cd7f11007efe585705b6a44d39c",
+  "val": "6b92058970856e733cdcf7ec6f02c528c9a61c0f3b2c29ad5495ec07a72e6b84",
+  "test": "135ba850ce58e2d5797795c292e9f2c8f1a2a5bd1476f6261581daee62fd9527"
+ }
+}

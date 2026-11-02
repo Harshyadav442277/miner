@@ -1,0 +1,2 @@
+NOT USED FOR MODEL TRAINING. Independent CSV audit found missing nka alias coverage.
+Retained for provenance. The final input folder is training-inputs.

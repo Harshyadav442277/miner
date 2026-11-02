@@ -1,0 +1,2 @@
+NOT USED FOR MODEL TRAINING. Reuse cap 3 left 28% of training blocks outside exact prompt-token strata.
+Final cap 8 uses distinct semantic response forms and is archived in training-inputs.

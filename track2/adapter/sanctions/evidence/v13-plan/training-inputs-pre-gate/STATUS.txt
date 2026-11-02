@@ -1,0 +1,2 @@
+REJECTED BEFORE MODEL INITIALIZATION. Stock data gate found 18.6% internal rejected-answer leakage.
+Separate case audit found a 62.11% membership shortcut. Final inputs are in training-inputs.
