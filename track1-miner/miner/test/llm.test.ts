@@ -32,9 +32,13 @@ async function withGroq(
     calls.push(call);
     return stub(String(input), init, call);
   }) as unknown as typeof globalThis.fetch;
+  // AbortSignal.timeout's timer does not hold the event loop open, and a stubbed fetch that never settles
+  // holds nothing else, so Node 22 (CI) ended the loop mid-test and cancelled the rest of this file.
+  const keepAlive = setInterval(() => {}, 1_000);
   try {
     await fn(calls);
   } finally {
+    clearInterval(keepAlive);
     globalThis.fetch = realFetch;
     if (realKey === undefined) delete process.env.GROQ_API_KEY;
     else process.env.GROQ_API_KEY = realKey;
