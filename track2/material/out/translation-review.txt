@@ -1,0 +1,144 @@
+1 MISS fra | Today no one can imagine a life without television. | Can you imagine what life would be like without television?
+2 MISS fra | As usual, he was the last to arrive at the theater. | He loves going to the theater.
+3 LANG fra | He still says that he did nothing wrong. | (spa)
+4 MISS fra | It's a sharp axe, but the branch is not yielding. | History is a branch of the humanities.
+5 MISS fra | Tom will be able to do that today, I think. | I think that will be all for today.
+6 MISS fra | No one has the right to expel Dan from this country. | Politics in this country is shifting towards the right.
+7 MISS fra | Tom is the only one who really knows what happened. | No one really knows what happened.
+8 LANG fra | The air of Sydney is cleaner than that of Tokyo. | (deu)
+9 MISS fra | These scissors are not suited to cut hair. | The scissors are not sharp.
+10 LANG fra | As it was late, the decision was postponed until the following day. | (deu)
+11 MISS fra | After death, there is nothing, and death itself is nothing. | Nothing is impossible. The word itself says: "I'm possible!"
+12 MISS fra | I threw the strange package on the table. | I chose the cheapest package.
+13 LANG fra | The situation will soon revert to the way things were before. | (deu)
+14 MISS fra | I'm just trying to understand what's going on. | Don't you understand what I'm trying to tell you?
+15 MISS fra | Many people visited the shrine where the saint lay buried. | Is the museum visited by many people?
+16 MISS fra | Is Arnold Schwarzenegger still able to speak German? | I want to speak in German with Arnold Schwarzenegger.
+17 MISS fra | The coalition talks in Berlin fell through. | The Berlin Wall fell in November 1989.
+18 MISS fra | That was a difficult problem to foresee. | It was a difficult problem to solve.
+19 LANG fra | I'm looking for a flat in the city centre. | (deu)
+20 MISS fra | I recommend a thorough checkup for your husband. | Thank you for your thorough explanation.
+21 LANG fra | We want these criminals to be exemplarily punished. | (spa)
+22 MISS fra | My aunt's smile is sweeter than her loquat jam. | Your kiss is sweeter than honey.
+23 MISS fra | Did you enjoy yourself at the party last night? | Enjoy yourself at the party, John.
+24 LANG fra | The flu and the common cold are very contagious. | (deu)
+25 MISS fra | Take the elevator three floors down to the conference room. | We're decorating the conference room.
+26 MISS fra | Tom and Mary sang one of the songs they wrote together. | How many songs did Tom and Mary sing together?
+27 LANG fra | I haven't seen him for quite a long time. | (deu)
+28 MISS spa | The journey is more important than the destination. | Happiness isn't the destination. Happiness is the journey.
+29 MISS spa | Unless I am mistaken, I've seen that man before. | I believe Tom is mistaken about that.
+30 LANG spa | The city library underwent extensive renovations and can now accommodate twice as many books as before. | (fra)
+31 MISS spa | Tom burned a big wad of hundred dollar bills. | This is a hundred-dollar bill.
+32 MISS spa | There's a hole in the bottom of the bucket. | There's nothing left in the bottom of the drawer.
+33 LANG spa | I can't survive without air conditioning in the summer. | (fra)
+34 MISS spa | We just looked at a microscopic piece of sponge through a microscope. | Tom looked at a snowflake through his microscope.
+35 MISS spa | The newspaper said that a typhoon was approaching. | She signalled that a threat was approaching.
+36 LANG spa | I don't think Tom speaks French as well as I do. | (ita)
+37 MISS spa | Tom couldn't understand why no one else seemed to be happy. | Tom wanted Mary to understand why he couldn't live with her.
+38 MISS spa | Her new novel is really interesting as opposed to her last one. | The student body is opposed to the new rules.
+39 MISS spa | You ought to finish your homework at once. | "Did you finish your homework?" "I did."
+40 MISS spa | I want to be the one who spends the least. | I want to spend less money.
+41 MISS spa | Negative electrons attract positive electrons. | Electrons have a negative electrical charge.
+42 MISS spa | Sorry but I'm going to be late, I'm stuck in traffic! | Tom was stuck in traffic.
+43 MISS spa | The flood caused a disaster in their community. | He lives in a gated community.
+44 LANG spa | The well being of the nation is the government's responsibility. | (fra)
+45 MISS spa | Some people don't need a lot to be happy. | A lot of people don't vote.
+46 MISS spa | The place where he lives is far from town. | I think this must be the place where Tom lives.
+47 LANG spa | The news media is taking advantage of the situation. | (por)
+48 MISS spa | She used to train a lot for the competition. | He got a prize for winning the competition.
+49 MISS spa | When you cross the bridge, don't look down. | Don't cross this bridge.
+50 LANG spa | He said that he had told you to speak more slowly. | (fra)
+51 MISS spa | How many minutes are there in an hour? There are sixty minutes in an hour. | There are sixty seconds in a minute.
+52 MISS spa | He's been having trouble with back pain for years. | She's been having trouble with back pain for years.
+53 MISS spa | What is the population density of New York? | What is the population of Italy?
+54 MISS spa | I thought about getting a tattoo, but I gave up on that thought. | I thought that you had to get up by 7:30.
+55 MISS spa | Please tell me how to get to the airport. | Can you take me to the airport, please?
+56 LANG spa | Tom always complains about what Mary does. | (ita)
+57 MISS deu | When I was about to leave my house, I got a phone call from her. | I want you to leave my house.
+58 MISS deu | I think I've worked out how to mend this. | I think this is going to work.
+59 LANG deu | It was already late; my sister, however, had still not yet returned; and I grew slowly restless. | (spa)
+60 MISS deu | A stalled car impedes traffic in the left lane. | The negotiations stalled, resulting in a tense stalemate.
+61 MISS deu | I thought we could sit in a fast-food place. | I thought Tom had a place to live.
+62 LANG deu | Is there anything that makes your pain feel worse? | (fra)
+63 MISS deu | I thought that you said that you didn't like to do that. | I thought that you didn't like Australia.
+64 MISS deu | The lifetime of a butterfly is three days. | This is the opportunity of a lifetime.
+65 LANG deu | Tell her that I am talking on the phone. | (spa)
+66 MISS deu | It was the first of the one thousand cranes that Sadako had to make. | All Sadako could do now was to make paper cranes and hope for a miracle.
+67 MISS deu | I don't think this is any of your business. | "Is your father busy?" "No, I don't think he is."
+68 MISS deu | I don't think I have enough time to do that today. | I don't have enough food.
+69 MISS deu | He condemned racial discrimination as evil. | He's opposed to racial discrimination.
+70 MISS deu | Spain was one of the world's mightiest nations. | That's 20% of the world's population.
+71 LANG deu | Here's the magazine you were looking for. | (spa)
+72 MISS deu | By investing wisely, she accumulated a fortune. | Tom accumulated a large fortune.
+73 MISS deu | English and German are related languages. | My two strongest languages are French and English.
+74 LANG deu | I'm a regular at a restaurant in this neighborhood. Let's have lunch there today. | (fra)
+75 MISS deu | Tom asked Mary whether she liked the plan or not. | She asked me whether I liked the plan or not.
+76 MISS deu | I assume that you already know the answer. | I assume you've proofread this already.
+77 LANG deu | The work of a president is very interesting. | (fra)
+78 MISS deu | There is a good market for these articles. | What is a Christmas market?
+79 MISS deu | Doing nothing is the most difficult thing in the world, the most difficult and the most intellectual. | In the scientific world, there is a lot of intellectual hypocrisy.
+80 LANG deu | The slowest one to make a promise is the most faithful one in keeping it. | (fra)
+81 MISS deu | There is a strong bond between the brothers. | The bicycle is between the cars.
+82 MISS deu | I blushed because she was looking at me. | I blushed because Mary was looking at me.
+83 MISS deu | Tom embezzled more than a million dollars from his company. | Tom wanted a million dollars.
+84 MISS deu | Tom asked Mary to let him copy her homework. | Tom asked me to help him with his homework.
+85 MISS deu | You don't make peace with friends; you can only make peace with your enemies. | With friends like you, who needs enemies?
+86 LANG deu | I told her once and for all that I wouldn't go shopping with her. | (fra)
+87 MISS ita | The opening ceremony took place on schedule. | The ceremony will take place tomorrow.
+88 MISS ita | When I arrived at the house, I knocked at the front door. | Someone knocked on the door.
+89 LANG ita | I played football and my sister played tennis. | (spa)
+90 MISS ita | I am not used to drinking coffee without sugar. | I'm used to drinking coffee without sugar.
+91 MISS ita | We will have an English test this afternoon. | This afternoon, I am planning to study English.
+92 LANG ita | We cannot rule out the possibility that civil war will break out in that country. | (fra)
+93 MISS ita | English is often considered an international language. | Mary is an international student.
+94 MISS ita | He suggested I go with him to the party. | He enjoyed the party.
+95 MISS ita | It wasn't necessary for Tom to stay here until 2:30. | It wasn't necessary for him to bring an umbrella.
+96 MISS ita | You will never become a computer scientist. | I'm a computer scientist.
+97 MISS ita | Mennad goes to the mosque every weekend. | Tom goes surfing every weekend.
+98 LANG ita | I hope this won't affect our friendship. | (fra)
+99 MISS ita | Tom didn't know where the fire extinguisher was. | Tom grabbed the fire extinguisher and rushed toward the flames.
+100 MISS ita | This fish is full of bones; don't eat it. | I don't like fish with lots of bones.
+101 LANG ita | The wounded woman was a Brazilian tourist. | (spa)
+102 MISS ita | My father is going for a walk in the park. | My father is going bald.
+103 MISS ita | Tom and Mary looked like they were nervous. | They looked like they were nervous.
+104 MISS ita | I find joy in certain things and not in others. | In 2011, certain things make me smile.
+105 MISS ita | I wondered why he didn't have a girlfriend. | I wonder if Tom has a girlfriend.
+106 MISS ita | Scottish Gaelic is very interesting, isn’t it? | Celtic is still present in Irish, Welsh and Scottish Gaelic.
+107 LANG ita | The tape recorder has recorded his voice. | (fra)
+108 MISS ita | What do you intend to do with your life? | I intend to do so.
+109 MISS ita | This is something that I bought for you. | You bought something for Mary.
+110 MISS ita | Many people of the district are farmers. | There are many hotels in the city's business district.
+111 MISS ita | The plane was hit by a bolt of lightning. | Tom was hit by lightning.
+112 MISS ita | It is forbidden to eat or drink in the library. | It is forbidden to park here.
+113 MISS ita | It took me a little more time than usually to fall asleep. | I usually have a lot to do in little time.
+114 MISS ita | In this city finding a taxi is complicated. | Finding love in the Internet age is complicated.
+115 LANG ita | Have you got used to eating Japanese food yet? | (fra)
+116 MISS por | This is the pipeline which supplies the town with gas. | The school supplies the students with books.
+117 MISS por | This is the third time I've been to Boston. | This is my third wish.
+118 LANG por | I didn't get on the bus because it was crowded. | (deu)
+119 MISS por | Your French pronunciation is really good. | Tom's French pronunciation is very good.
+120 MISS por | I haven't eaten anything since this morning. | I haven't found anything.
+121 LANG por | On Tatoeba, you can't translate more than 15 sentences on a page. | (ita)
+122 MISS por | Health and intellect are the two blessings of life. | Chess is the gymnastic school of the intellect.
+123 MISS por | I had an imaginary friend too when I was a kid. | Mary has an imaginary friend.
+124 LANG por | He stopped smoking on his doctor's advice. | (fra)
+125 MISS por | Sami admitted he had been having an affair. | Mary asked Tom if he was having an affair.
+126 MISS por | Tom looked around, but didn't see anyone. | I looked around, but I didn't see anything.
+127 LANG por | When I'm with other furries, I don't have to worry about being judged. | (spa)
+128 MISS por | When I was a kid, I often read comic books. | I don't read comic books anymore.
+129 MISS por | I don't really know why, but they don't like me. | I really don't like chickens.
+130 LANG por | She was anxious to know the entrance exam results. | (deu)
+131 MISS por | Could you survive alone in the wilderness? | He believed in protecting the United States' wilderness areas.
+132 MISS por | Do you go there by bus, train or the metro? | I don't know if Mary's coming by metro or bus.
+133 MISS por | You can probably cut it with a pair of scissors. | I cut the paper with a pair of scissors.
+134 MISS por | What's the real reason that Tom didn't want to go to the party? | What's the real reason that Tom doesn't want to go to Boston with you?
+135 MISS por | How old are you? I'm twenty-six years old. | I think that you are twenty years old.
+136 MISS por | My brother is arriving tomorrow morning. | Tom is arriving tomorrow.
+137 MISS por | Do you have any free time during the week? | What do you eat during fasting?
+138 MISS por | I don't know what Tom wants to eat for dinner. | I don't know what to eat for dinner.
+139 MISS por | According to the Italians, translators are traitors. | All men are equal according to the law.
+140 MISS por | Tom said that he wanted to move to Boston. | I wanted to move to Boston.
+141 MISS por | The construction of a hydroelectric dam can damage the life of populations downstream and upstream. | In general, populations downstream and upstream must be relocated in order to build a hydroelectric dam.
+142 MISS por | Mexico is a neighbor of the United States. | The United States had a treaty of friendship with Mexico.
+143 MISS por | She can speak French, and fluently at that. | I can speak French fluently.
+144 LANG por | I'm happy, 'cause I'm learning some Dutch. | (fra)

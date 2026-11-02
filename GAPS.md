@@ -1,5 +1,14 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-01 evaluation material — G247
+
+- **G247 — Translation material: three things only the upload can confirm. `OPEN`.** (1) The node's 85%
+  near-duplicate measure is unpublished; `check-rows.mjs` fails at 80% on edit distance (worst pair 72.8%).
+  (2) `source_kind: "dataset"` with a Tatoeba link should make rows `attested` per the docs; unconfirmed until
+  the rows are read back. (3) Whether a "near-miss" is worse was judged by reading the English of both
+  sentences, not by a measured scorer; 6 of 150 were dropped as too close. The material's ability to separate
+  good from bad answers is not yet measured (rubric: 40 points); the next step is scoring it with a baseline.
+
 ## 2026-10-31 ~18:40 UTC docs and devnode re-check — G237 killed; G235 revised; G238–G240 new
 
 Facts and sources: docs/TELEGRAPH_FACTS.md, top section.
