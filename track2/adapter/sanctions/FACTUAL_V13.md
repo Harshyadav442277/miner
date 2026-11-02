@@ -20,9 +20,12 @@ had already failed its dataset gate before model initialization: reused absent
 answers caused18.6% internal random-split leakage. Canonicalize
 GLEIF names to uppercase (retaining the exact source spelling) before token
 matching; do not claim arbitrary-case robustness. Preserve earlier input builds.
-Cap training absent-name reuse at3 and choose response forms without replacement
+Cap training absent-name reuse at8 and choose response forms without replacement
 per absent name; use each validation/test absent name once. Preserve the stock
 dataset gate. No skip-gate flag or unique meaningless text is introduced.
+The cap3 pretraining build left28% of names outside exact token strata. Raise the
+cap to the8 distinct semantic forms available; rejected answer bodies stay unique.
+Record the resulting distances rather than claiming every block exactly matches.
 Exclude all exact primary/alias
 members of the complete SDN snapshot and all measured query names. Split negative
 names before pairing (400 validation,400 test, remainder training). Pair every

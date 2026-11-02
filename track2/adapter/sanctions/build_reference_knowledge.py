@@ -102,7 +102,7 @@ def main():
             candidates = buckets[nearest]
             neg = candidates.popleft()
             uses[(split, neg["key"])] += 1
-            if split == "train" and uses[(split, neg["key"])] < 3:
+            if split == "train" and uses[(split, neg["key"])] < 8:
                 candidates.append(neg)
             if not candidates:
                 del buckets[nearest]

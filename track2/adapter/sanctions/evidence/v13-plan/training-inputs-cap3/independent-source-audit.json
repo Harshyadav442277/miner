@@ -1,0 +1,31 @@
+{
+ "ok": true,
+ "splits": {
+  "train": {
+   "source_checked_pairs": 41782,
+   "all_pairs": 42382,
+   "unique_positive_names": 20891,
+   "unique_real_absent_names": 7309,
+   "sha256": "d94d1a4b1a7caa2ea471aa3790f25e10ba307d9465fd157d269bb106d83decdd"
+  },
+  "val": {
+   "source_checked_pairs": 800,
+   "all_pairs": 800,
+   "unique_positive_names": 400,
+   "unique_real_absent_names": 400,
+   "sha256": "3fb205427861fc02a8f91c13b9e1d07681c2be918e53ec651e101eee016cd49f"
+  },
+  "test": {
+   "source_checked_pairs": 800,
+   "all_pairs": 800,
+   "unique_positive_names": 400,
+   "unique_real_absent_names": 400,
+   "sha256": "27a171d2bca4a5d36276a8750855533e470bf121f5d867b7044de33baf052f76"
+  }
+ },
+ "complete_eligible_positive_coverage": true,
+ "negative_identity_splits_disjoint": true,
+ "measured_absent_queries_excluded": true,
+ "positive_validation_facts_seen_in_training": true,
+ "scope": "Source-derived knowledge fixtures; not independent positive facts"
+}
