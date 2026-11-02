@@ -1,0 +1,68 @@
+{"page": 7, "records": 200}
+{"page": 8, "records": 200}
+{"page": 9, "records": 200}
+{"page": 10, "records": 200}
+{"page": 11, "records": 200}
+{"page": 12, "records": 200}
+{"page": 13, "records": 200}
+{"page": 14, "records": 200}
+{"page": 15, "records": 200}
+{"page": 16, "records": 200}
+{"page": 17, "records": 200}
+{"page": 18, "records": 200}
+{"page": 19, "records": 200}
+{"page": 20, "records": 200}
+{"page": 21, "records": 200}
+{"page": 22, "records": 200}
+{"page": 24, "records": 200}
+{"page": 23, "records": 200}
+{"page": 25, "records": 200}
+{"page": 26, "records": 200}
+{"page": 27, "records": 200}
+{"page": 28, "records": 200}
+{"page": 29, "records": 200}
+{"page": 30, "records": 200}
+{"page": 31, "records": 200}
+{"page": 32, "records": 200}
+{"page": 33, "records": 200}
+{"page": 34, "records": 200}
+{"page": 35, "records": 200}
+{"page": 36, "records": 200}
+{"page": 37, "records": 200}
+{"page": 38, "records": 200}
+{"page": 39, "records": 200}
+{"page": 40, "records": 200}
+{"page": 41, "records": 200}
+{"page": 43, "records": 200}
+{"page": 44, "records": 200}
+{"page": 45, "records": 200}
+{"page": 46, "records": 200}
+{"page": 47, "records": 200}
+{"page": 48, "records": 200}
+{"page": 49, "records": 200}
+{"page": 50, "records": 200}
+{"page": 42, "records": 200}
+Traceback (most recent call last):
+  File "C:\Users\hyada\.codex\worktrees\sanctions-benchmark-v7\Telegraph\track2\adapter\sanctions\collect_reference_negatives.py", line 57, in <module>
+    main()
+  File "C:\Users\hyada\.codex\worktrees\sanctions-benchmark-v7\Telegraph\track2\adapter\sanctions\collect_reference_negatives.py", line 48, in main
+    for names, source in pool.map(page, range(a.start, a.start+a.pages)):
+  File "C:\Users\hyada\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 619, in result_iterator
+    yield _result_or_cancel(fs.pop())
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hyada\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 317, in _result_or_cancel
+    return fut.result(timeout)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hyada\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 456, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hyada\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "C:\Users\hyada\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hyada\.codex\worktrees\sanctions-benchmark-v7\Telegraph\track2\adapter\sanctions\collect_reference_negatives.py", line 36, in page
+    raise ValueError(f"GLEIF page {number}: HTTP {raw['status']} {raw['error']}")
+ValueError: GLEIF page 51: HTTP 0 curl: (28) Failed to connect to api.gleif.org:443 after 21048 ms: Could not connect to server
+
+

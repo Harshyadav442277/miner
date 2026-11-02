@@ -1,0 +1,12 @@
+{
+  "program": "C:\\Users\\hyada\\tg-eval\\.venv\\Scripts\\python.exe",
+  "arguments": [
+    "track2/adapter/sanctions/measure_miners.py",
+    "C:\\Users\\hyada\\.codex\\worktrees\\sanctions-benchmark-v7\\Telegraph\\track2\\adapter\\sanctions\\evidence\\2026-11-01-wrong-query-controls",
+    "--home",
+    "C:/Users/hyada/tg-eval",
+    "--versions",
+    "9"
+  ],
+  "cwd": "C:\\Users\\hyada\\.codex\\worktrees\\sanctions-benchmark-v7\\Telegraph"
+}

@@ -1,0 +1,8 @@
+{
+  "program": "C:\\Users\\hyada\\tg-eval\\.venv\\Scripts\\python.exe",
+  "arguments": [
+    "track2/adapter/sanctions/verify_evidence.py",
+    "C:\\Users\\hyada\\.codex\\worktrees\\sanctions-benchmark-v7\\Telegraph\\track2\\adapter\\sanctions\\evidence\\v7-miner-capture"
+  ],
+  "cwd": "C:\\Users\\hyada\\.codex\\worktrees\\sanctions-benchmark-v7\\Telegraph"
+}

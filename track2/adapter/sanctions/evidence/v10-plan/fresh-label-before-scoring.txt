@@ -1,0 +1,92 @@
+{
+ "queries": 128,
+ "responses": 640,
+ "pairs": 69,
+ "paired_names": 15,
+ "pairs_by_kind": {
+  "listed": 69
+ },
+ "by_miner": {
+  "302": {
+   "correct": 96,
+   "abstain": 22,
+   "incorrect": 10
+  },
+  "4433": {
+   "correct": 124,
+   "abstain": 4
+  },
+  "710637": {
+   "correct": 128
+  },
+  "78021": {
+   "correct": 124,
+   "incorrect": 4
+  },
+  "9002": {
+   "correct": 110,
+   "incorrect": 7,
+   "abstain": 11
+  }
+ },
+ "agreement": {
+  "302/4433": {
+   "compared": 103,
+   "agree": 93,
+   "rate": 0.9029126213592233
+  },
+  "302/710637": {
+   "compared": 106,
+   "agree": 96,
+   "rate": 0.9056603773584906
+  },
+  "302/78021": {
+   "compared": 106,
+   "agree": 94,
+   "rate": 0.8867924528301887
+  },
+  "302/9002": {
+   "compared": 99,
+   "agree": 94,
+   "rate": 0.9494949494949495
+  },
+  "4433/710637": {
+   "compared": 124,
+   "agree": 124,
+   "rate": 1.0
+  },
+  "4433/78021": {
+   "compared": 124,
+   "agree": 121,
+   "rate": 0.9758064516129032
+  },
+  "4433/9002": {
+   "compared": 113,
+   "agree": 106,
+   "rate": 0.9380530973451328
+  },
+  "710637/78021": {
+   "compared": 128,
+   "agree": 124,
+   "rate": 0.96875
+  },
+  "710637/9002": {
+   "compared": 117,
+   "agree": 110,
+   "rate": 0.9401709401709402
+  },
+  "78021/9002": {
+   "compared": 117,
+   "agree": 106,
+   "rate": 0.905982905982906
+  }
+ },
+ "longer_answer_baseline": 0.7536231884057971,
+ "limitations": [
+  "Decision labels only, not verification of every response field",
+  "No fuzzy/other-list positive treated as wrong from exact-name absence",
+  "Cross-miner pairs share queries: pair count is not independent sample size",
+  "LiveCert is related-party; no adoption or miner superiority claim",
+  "Engine ids are catalog identities, not registration ids"
+ ]
+}

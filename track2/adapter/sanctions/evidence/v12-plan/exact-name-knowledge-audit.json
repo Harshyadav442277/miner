@@ -1,0 +1,196 @@
+{
+ "exact_historical_rebuild": true,
+ "distinct_positive_training_queries": 15578,
+ "cohorts": {
+  "v7-miner-capture": {
+   "pairs": 62,
+   "distinct_queries": 14,
+   "exact_query_exposure_pairs": 10,
+   "exact_query_exposure_names": 2,
+   "query_coverage": [
+    {
+     "name": "AL-MUKHTAR COMPANIES",
+     "name_form": "alias",
+     "exact_positive_training_query": false,
+     "source_entity_in_training": true
+    },
+    {
+     "name": "ASIA SUN TRADING CO. LTD.",
+     "name_form": "primary",
+     "exact_positive_training_query": true,
+     "source_entity_in_training": true
+    },
+    {
+     "name": "BRILLIANCE BANKING CORPORATION, LTD.",
+     "name_form": "alias",
+     "exact_positive_training_query": false,
+     "source_entity_in_training": true
+    },
+    {
+     "name": "CEGESA",
+     "name_form": "alias",
+     "exact_positive_training_query": false,
+     "source_entity_in_training": false
+    },
+    {
+     "name": "CONFIDERI ADVISORY GROUP",
+     "name_form": "alias",
+     "exact_positive_training_query": false,
+     "source_entity_in_training": true
+    },
+    {
+     "name": "GHARCHAK PRISON",
+     "name_form": "alias",
+     "exact_positive_training_query": false,
+     "source_entity_in_training": true
+    },
+    {
+     "name": "HTOO GROUP",
+     "name_form": "alias",
+     "exact_positive_training_query": false,
+     "source_entity_in_training": true
+    },
+    {
+     "name": "LLC PSO RSB-GROUP",
+     "name_form": "alias",
+     "exact_positive_training_query": true,
+     "source_entity_in_training": true
+    },
+    {
+     "name": "MORE REKA SERVIS",
+     "name_form": "alias",
+     "exact_positive_training_query": false,
+     "source_entity_in_training": true
+    },
+    {
+     "name": "OOO 148ESEYCH",
+     "name_form": "alias",
+     "exact_positive_training_query": false,
+     "source_entity_in_training": false
+    },
+    {
+     "name": "RAD D.O.O.",
+     "name_form": "primary",
+     "exact_positive_training_query": false,
+     "source_entity_in_training": true
+    },
+    {
+     "name": "REBEL SECT",
+     "name_form": "alias",
+     "exact_positive_training_query": false,
+     "source_entity_in_training": true
+    },
+    {
+     "name": "TRY PHEAP TRAVEL & TOURS CO., LTD.",
+     "name_form": "primary",
+     "exact_positive_training_query": false,
+     "source_entity_in_training": false
+    },
+    {
+     "name": "YEMEN ABBOT TRADING CO., LTD.",
+     "name_form": "alias",
+     "exact_positive_training_query": false,
+     "source_entity_in_training": true
+    }
+   ]
+  },
+  "v9-miner-capture": {
+   "pairs": 69,
+   "distinct_queries": 15,
+   "exact_query_exposure_pairs": 13,
+   "exact_query_exposure_names": 3,
+   "query_coverage": [
+    {
+     "name": "CADY TECH HK LIMITED",
+     "name_form": "primary",
+     "exact_positive_training_query": true,
+     "source_entity_in_training": true
+    },
+    {
+     "name": "DOMINION TRADING GROUP LIMITED",
+     "name_form": "primary",
+     "exact_positive_training_query": false,
+     "source_entity_in_training": false
+    },
+    {
+     "name": "GARDESHGARI BANK",
+     "name_form": "alias",
+     "exact_positive_training_query": false,
+     "source_entity_in_training": true
+    },
+    {
+     "name": "GAZPROMNEFT MNPZ AO",
+     "name_form": "alias",
+     "exact_positive_training_query": false,
+     "source_entity_in_training": true
+    },
+    {
+     "name": "GENI SARL",
+     "name_form": "primary",
+     "exact_positive_training_query": false,
+     "source_entity_in_training": true
+    },
+    {
+     "name": "HASSAN DTO",
+     "name_form": "alias",
+     "exact_positive_training_query": false,
+     "source_entity_in_training": true
+    },
+    {
+     "name": "HOLISTIC WELLWAVES S. DE R.L. DE C.V.",
+     "name_form": "primary",
+     "exact_positive_training_query": true,
+     "source_entity_in_training": true
+    },
+    {
+     "name": "JING PIN INC.",
+     "name_form": "primary",
+     "exact_positive_training_query": false,
+     "source_entity_in_training": true
+    },
+    {
+     "name": "NIK LLC",
+     "name_form": "primary",
+     "exact_positive_training_query": false,
+     "source_entity_in_training": true
+    },
+    {
+     "name": "NINTH OCEAN GMBH & CO. KG",
+     "name_form": "primary",
+     "exact_positive_training_query": false,
+     "source_entity_in_training": true
+    },
+    {
+     "name": "NPO PROMODEL",
+     "name_form": "alias",
+     "exact_positive_training_query": true,
+     "source_entity_in_training": true
+    },
+    {
+     "name": "OBSHCHESTVO S OGRANICHENNOY OTVETSTVENNOSTYU UPRAVLYAYUSHCHAYA KOMPANIYA RVK",
+     "name_form": "alias",
+     "exact_positive_training_query": false,
+     "source_entity_in_training": true
+    },
+    {
+     "name": "STEP ISTANBUL",
+     "name_form": "alias",
+     "exact_positive_training_query": false,
+     "source_entity_in_training": true
+    },
+    {
+     "name": "TSNII RTK",
+     "name_form": "alias",
+     "exact_positive_training_query": false,
+     "source_entity_in_training": true
+    },
+    {
+     "name": "WORLDWIDE SHIPPING & TRANS",
+     "name_form": "alias",
+     "exact_positive_training_query": false,
+     "source_entity_in_training": true
+    }
+   ]
+  }
+ }
+}

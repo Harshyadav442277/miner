@@ -1,0 +1,11 @@
+{
+ "version": 11,
+ "commit": "b90dc26bad1c874f3ec428f7b9728c583aaed84f",
+ "url": "https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/b90dc26bad1c874f3ec428f7b9728c583aaed84f/season2/experiments/sanctions/v11/SANCTIONS_SCREENING_MATCH.safetensors",
+ "http_status": 200,
+ "bytes": 6776916,
+ "sha256": "2c67d9413228132b309f602e9b5ec93217017725b1bcfd6a5350e3859672a53f",
+ "matches_measured_post_stage1_package": true,
+ "checked_at": "2026-11-02T05:40:02.455825+00:00",
+ "status": "rejected factual experiment, replay only"
+}

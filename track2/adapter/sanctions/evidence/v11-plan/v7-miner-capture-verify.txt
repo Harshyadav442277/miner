@@ -1,0 +1,9 @@
+PASS sources; 936 raw body hashes; 62 verbatim pairs
+PASS 904 declared request routes, parameter mappings and timestamp orders
+PASS v10 20/62 = 0.322581; gate=False
+PASS v11 35/62 = 0.564516; gate=False
+PASS v3 41/62 = 0.661290; gate=False
+PASS v6 29/62 = 0.467742; gate=False
+PASS v7 20/62 = 0.322581; gate=False
+PASS v8 31/62 = 0.500000; gate=False
+PASS v9 13/62 = 0.209677; gate=False

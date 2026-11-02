@@ -28,6 +28,11 @@ the register call simulates as id 51.
 
 ## Sanctions only — no ready-to-sign adapter (2026-11-01; Nov 2 IST)
 
+Factual continuation: v9–v12 all failed the old62 development visible-length
+baseline. V13 is a frozen public snapshot knowledge experiment; no result yet.
+Its positive reference facts are deliberately source-exposed, and the reserved
+69 genuine pairs remain one-sided. No new registration values are prepared.
+
 **Do not reuse the historical v3 table or tunnel below.** Real-answer v3/v4/v5 scores are
 90.625% / 37.5% / 75%, but the longer-answer baseline is 100%. Only 8 listed names and no
 negative pairs contribute; G41 explains why these results do not establish readiness.

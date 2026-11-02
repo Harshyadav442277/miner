@@ -1,0 +1,2306 @@
+[
+ {
+  "miner_id": "302",
+  "name": "INDEPENDENT INSURANCE GROUP LTD",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=INDEPENDENT+INSURANCE+GROUP+LTD&query=INDEPENDENT+INSURANCE+GROUP+LTD",
+  "method": "POST",
+  "request_body": {
+   "name": "INDEPENDENT INSURANCE GROUP LTD",
+   "query": "INDEPENDENT INSURANCE GROUP LTD"
+  },
+  "started_at": "2026-11-02T04:28:47.452941+00:00",
+  "finished_at": "2026-11-02T04:28:53.453728+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "1569bc331562defebcdcd448d1a5f5340d9a73758b66b8f1df91e144becfce6a",
+  "body": "{\"signal\":\"The entity \\\"INDEPENDENT INSURANCE GROUP LTD\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"INDEPENDENT INSURANCE GROUP LTD\\\" under the RUSSIA-EO14024 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"INDEPENDENT INSURANCE GROUP LTD\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"INDEPENDENT INSURANCE GROUP LTD\\\" under the RUSSIA-EO14024 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"INDEPENDENT INSURANCE GROUP LTD\",\"matched_name\":\"INDEPENDENT INSURANCE GROUP LTD\",\"program\":\"RUSSIA-EO14024\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "CAPSOFT HEALTHCARE PRIVATE LIMITED",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=CAPSOFT+HEALTHCARE+PRIVATE+LIMITED&query=CAPSOFT+HEALTHCARE+PRIVATE+LIMITED",
+  "method": "POST",
+  "request_body": {
+   "name": "CAPSOFT HEALTHCARE PRIVATE LIMITED",
+   "query": "CAPSOFT HEALTHCARE PRIVATE LIMITED"
+  },
+  "started_at": "2026-11-02T04:28:54.454807+00:00",
+  "finished_at": "2026-11-02T04:29:05.456500+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "4cf01f0da2852bdbc0b62324ae88ab7f921dcb27880222d4d8702333f6480fed",
+  "body": "{\"signal\":\"No match for \\\"CAPSOFT HEALTHCARE PRIVATE LIMITED\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"CAPSOFT HEALTHCARE PRIVATE LIMITED\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"CAPSOFT HEALTHCARE PRIVATE LIMITED\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"CAPSOFT HEALTHCARE PRIVATE LIMITED\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"CAPSOFT HEALTHCARE PRIVATE LIMITED\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "SAONE SHIPPING CORP",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=SAONE+SHIPPING+CORP&query=SAONE+SHIPPING+CORP",
+  "method": "POST",
+  "request_body": {
+   "name": "SAONE SHIPPING CORP",
+   "query": "SAONE SHIPPING CORP"
+  },
+  "started_at": "2026-11-02T04:29:06.457158+00:00",
+  "finished_at": "2026-11-02T04:29:10.802077+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "3e0c32880180d8b63bea0b2bf67a7084e2ea329d991f56c635975f701f3228a8",
+  "body": "{\"signal\":\"The entity \\\"SAONE SHIPPING CORP\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"SAONE SHIPPING CORPORATION\\\" under the SDGT, IFSR program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"SAONE SHIPPING CORP\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"SAONE SHIPPING CORPORATION\\\" under the SDGT, IFSR program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"SAONE SHIPPING CORP\",\"matched_name\":\"SAONE SHIPPING CORPORATION\",\"program\":\"SDGT, IFSR\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "Nexo Holding B.V.",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=Nexo+Holding+B.V.&query=Nexo+Holding+B.V.",
+  "method": "POST",
+  "request_body": {
+   "name": "Nexo Holding B.V.",
+   "query": "Nexo Holding B.V."
+  },
+  "started_at": "2026-11-02T04:29:11.802621+00:00",
+  "finished_at": "2026-11-02T04:29:12.332757+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "3049fc605a4ae7528534e27db902a265a512ef55cc00987895b4cee6244fbaf1",
+  "body": "{\"signal\":\"No match for \\\"Nexo Holding B V\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"Nexo Holding B V\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"Nexo Holding B V\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"Nexo Holding B V\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"Nexo Holding B V\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "NEW EASTERN SHIPPING CO LTD",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=NEW+EASTERN+SHIPPING+CO+LTD&query=NEW+EASTERN+SHIPPING+CO+LTD",
+  "method": "POST",
+  "request_body": {
+   "name": "NEW EASTERN SHIPPING CO LTD",
+   "query": "NEW EASTERN SHIPPING CO LTD"
+  },
+  "started_at": "2026-11-02T04:29:13.333798+00:00",
+  "finished_at": "2026-11-02T04:29:19.392579+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "81e363ce6707731babb2c3dbed58e12a4b6900da7055a6358c08940d4b2418ea",
+  "body": "{\"signal\":\"The entity \\\"EASTERN SHIPPING CO LTD\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"NEW EASTERN SHIPPING CO LTD\\\" under the DPRK4 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"EASTERN SHIPPING CO LTD\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"NEW EASTERN SHIPPING CO LTD\\\" under the DPRK4 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"EASTERN SHIPPING CO LTD\",\"matched_name\":\"NEW EASTERN SHIPPING CO LTD\",\"program\":\"DPRK4\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "Vermeulen Ventures B.V.",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=Vermeulen+Ventures+B.V.&query=Vermeulen+Ventures+B.V.",
+  "method": "POST",
+  "request_body": {
+   "name": "Vermeulen Ventures B.V.",
+   "query": "Vermeulen Ventures B.V."
+  },
+  "started_at": "2026-11-02T04:29:20.393174+00:00",
+  "finished_at": "2026-11-02T04:29:24.941600+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "e52166c59896297278ea172fc52b0a7c24d73ceb17b52f3618c561d580418cc0",
+  "body": "{\"signal\":\"No match for \\\"Vermeulen Ventures B V\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"Vermeulen Ventures B V\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"Vermeulen Ventures B V\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"Vermeulen Ventures B V\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"Vermeulen Ventures B V\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "LA CROSSE GROUP INC",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=LA+CROSSE+GROUP+INC&query=LA+CROSSE+GROUP+INC",
+  "method": "POST",
+  "request_body": {
+   "name": "LA CROSSE GROUP INC",
+   "query": "LA CROSSE GROUP INC"
+  },
+  "started_at": "2026-11-02T04:29:25.942271+00:00",
+  "finished_at": "2026-11-02T04:29:29.351043+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "a1deee69d240ca03cfe50d856e5e28fc3c989856f56c8b17ab89ba3c35ab775e",
+  "body": "{\"signal\":\"The entity \\\"LA CROSSE GROUP INC\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"LA CROSSE GROUP INC\\\" under the SDNTK program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"LA CROSSE GROUP INC\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"LA CROSSE GROUP INC\\\" under the SDNTK program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"LA CROSSE GROUP INC\",\"matched_name\":\"LA CROSSE GROUP INC\",\"program\":\"SDNTK\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "HOTEL SUR 2010 SL",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=HOTEL+SUR+2010+SL&query=HOTEL+SUR+2010+SL",
+  "method": "POST",
+  "request_body": {
+   "name": "HOTEL SUR 2010 SL",
+   "query": "HOTEL SUR 2010 SL"
+  },
+  "started_at": "2026-11-02T04:29:30.352229+00:00",
+  "finished_at": "2026-11-02T04:29:34.262296+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "3c87724539213e4b24a01d0031f87b0c0ff9684a8c5b41d52fa5fc31df832756",
+  "body": "{\"signal\":\"No match for \\\"HOTEL SUR\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"HOTEL SUR\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"HOTEL SUR\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"HOTEL SUR\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"HOTEL SUR\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "HOLISTIC WELLWAVES S. DE R.L. DE C.V.",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=HOLISTIC+WELLWAVES+S.+DE+R.L.+DE+C.V.&query=HOLISTIC+WELLWAVES+S.+DE+R.L.+DE+C.V.",
+  "method": "POST",
+  "request_body": {
+   "name": "HOLISTIC WELLWAVES S. DE R.L. DE C.V.",
+   "query": "HOLISTIC WELLWAVES S. DE R.L. DE C.V."
+  },
+  "started_at": "2026-11-02T04:29:35.262861+00:00",
+  "finished_at": "2026-11-02T04:29:41.079428+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "91283f2b701d1fc81c04b9d0d0a043dfa1c32887a718cfc756815e1872e74052",
+  "body": "{\"signal\":\"The entity \\\"HOLISTIC WELLWAVES S DE R L DE C V\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"HOLISTIC WELLWAVES S. DE R.L. DE C.V.\\\" under the SDGT, ILLICIT-DRUGS-EO14059 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"HOLISTIC WELLWAVES S DE R L DE C V\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"HOLISTIC WELLWAVES S. DE R.L. DE C.V.\\\" under the SDGT, ILLICIT-DRUGS-EO14059 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"HOLISTIC WELLWAVES S DE R L DE C V\",\"matched_name\":\"HOLISTIC WELLWAVES S. DE R.L. DE C.V.\",\"program\":\"SDGT, ILLICIT-DRUGS-EO14059\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "ANNAPURNA SREERAM CHINA JAYARAMUDU JEWELLERIES",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=ANNAPURNA+SREERAM+CHINA+JAYARAMUDU+JEWELLERIES&query=ANNAPURNA+SREERAM+CHINA+JAYARAMUDU+JEWELLERIES",
+  "method": "POST",
+  "request_body": {
+   "name": "ANNAPURNA SREERAM CHINA JAYARAMUDU JEWELLERIES",
+   "query": "ANNAPURNA SREERAM CHINA JAYARAMUDU JEWELLERIES"
+  },
+  "started_at": "2026-11-02T04:29:42.080415+00:00",
+  "finished_at": "2026-11-02T04:29:55.855950+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "08c4abdfe7e05e7a81eb89c559189778a2b2f4b7af19d2b92aca1cee54a3aa9b",
+  "body": "{\"signal\":\"No match for \\\"ANNAPURNA SREERAM CHINA JAYARAMUDU JEWELLERIES\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"ANNAPURNA SREERAM CHINA JAYARAMUDU JEWELLERIES\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"ANNAPURNA SREERAM CHINA JAYARAMUDU JEWELLERIES\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"ANNAPURNA SREERAM CHINA JAYARAMUDU JEWELLERIES\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"ANNAPURNA SREERAM CHINA JAYARAMUDU JEWELLERIES\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "SABA STEEL",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=SABA+STEEL&query=SABA+STEEL",
+  "method": "POST",
+  "request_body": {
+   "name": "SABA STEEL",
+   "query": "SABA STEEL"
+  },
+  "started_at": "2026-11-02T04:29:56.857183+00:00",
+  "finished_at": "2026-11-02T04:29:58.726819+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "1f79ad3b68fb29b0e7fd3de5257bd5b9e8e4f2e913a427ee95d0921bc62d1ded",
+  "body": "{\"signal\":\"The entity \\\"SABA STEEL\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"SABA STEEL\\\" under the IRAN-EO13871 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"SABA STEEL\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"SABA STEEL\\\" under the IRAN-EO13871 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"SABA STEEL\",\"matched_name\":\"SABA STEEL\",\"program\":\"IRAN-EO13871\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "GOLDER AS",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=GOLDER+AS&query=GOLDER+AS",
+  "method": "POST",
+  "request_body": {
+   "name": "GOLDER AS",
+   "query": "GOLDER AS"
+  },
+  "started_at": "2026-11-02T04:29:59.728187+00:00",
+  "finished_at": "2026-11-02T04:30:01.968810+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "bf07f5f8998352af01d8204ecb7af301cc738f0c947f4d32d081341b1aa1a85b",
+  "body": "{\"signal\":\"The entity \\\"GOLDER AS\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"GOLD STAR 3\\\" under the DPRK program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"GOLDER AS\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"GOLD STAR 3\\\" under the DPRK program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"GOLDER AS\",\"matched_name\":\"GOLD STAR 3\",\"program\":\"DPRK\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "INFINITE FORCE CARGO SERVICE HK LIMITED",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=INFINITE+FORCE+CARGO+SERVICE+HK+LIMITED&query=INFINITE+FORCE+CARGO+SERVICE+HK+LIMITED",
+  "method": "POST",
+  "request_body": {
+   "name": "INFINITE FORCE CARGO SERVICE HK LIMITED",
+   "query": "INFINITE FORCE CARGO SERVICE HK LIMITED"
+  },
+  "started_at": "2026-11-02T04:30:02.970089+00:00",
+  "finished_at": "2026-11-02T04:30:10.960818+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "23383bcc54a1c8ac06b98af97bd0e63d06f5023ff2acf647c49c0004aad457f9",
+  "body": "{\"signal\":\"The entity \\\"INFINITE FORCE CARGO SERVICE HK LIMITED\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"INFINITE FORCE CARGO SERVICE HK LIMITED\\\" under the RUSSIA-EO14024 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"INFINITE FORCE CARGO SERVICE HK LIMITED\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"INFINITE FORCE CARGO SERVICE HK LIMITED\\\" under the RUSSIA-EO14024 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"INFINITE FORCE CARGO SERVICE HK LIMITED\",\"matched_name\":\"INFINITE FORCE CARGO SERVICE HK LIMITED\",\"program\":\"RUSSIA-EO14024\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "GS FAMILY HOLDING S.R.L.",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=GS+FAMILY+HOLDING+S.R.L.&query=GS+FAMILY+HOLDING+S.R.L.",
+  "method": "POST",
+  "request_body": {
+   "name": "GS FAMILY HOLDING S.R.L.",
+   "query": "GS FAMILY HOLDING S.R.L."
+  },
+  "started_at": "2026-11-02T04:30:11.961244+00:00",
+  "finished_at": "2026-11-02T04:30:14.491561+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "7376859d952a7eb2a749d0111cab3358670a5825601cbae7cd4fca1f64019ca1",
+  "body": "{\"signal\":\"The entity \\\"GS FAMILY HOLDING S R L\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"GERTLER FAMILY FOUNDATION\\\" under the GLOMAG program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"GS FAMILY HOLDING S R L\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"GERTLER FAMILY FOUNDATION\\\" under the GLOMAG program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"GS FAMILY HOLDING S R L\",\"matched_name\":\"GERTLER FAMILY FOUNDATION\",\"program\":\"GLOMAG\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "HASSAN DTO",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=HASSAN+DTO&query=HASSAN+DTO",
+  "method": "POST",
+  "request_body": {
+   "name": "HASSAN DTO",
+   "query": "HASSAN DTO"
+  },
+  "started_at": "2026-11-02T04:30:15.491806+00:00",
+  "finished_at": "2026-11-02T04:30:17.433813+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "8a26a875f74c95e6d5bfe07716657402c2b3bfb34cdfd67e746007c2df6b3485",
+  "body": "{\"signal\":\"No match for \\\"HASSAN DTO\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"HASSAN DTO\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"HASSAN DTO\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"HASSAN DTO\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"HASSAN DTO\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "AKL Bygg AB",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=AKL+Bygg+AB&query=AKL+Bygg+AB",
+  "method": "POST",
+  "request_body": {
+   "name": "AKL Bygg AB",
+   "query": "AKL Bygg AB"
+  },
+  "started_at": "2026-11-02T04:30:18.434132+00:00",
+  "finished_at": "2026-11-02T04:30:19.063913+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "e0c866c557b09285cf0e8d5e0ab7232f251d61d33ead2697a32d53b36ba590ae",
+  "body": "{\"signal\":\"No match for \\\"AKL Bygg AB\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"AKL Bygg AB\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"AKL Bygg AB\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"AKL Bygg AB\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"AKL Bygg AB\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "DOMINION TRADING GROUP LIMITED",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=DOMINION+TRADING+GROUP+LIMITED&query=DOMINION+TRADING+GROUP+LIMITED",
+  "method": "POST",
+  "request_body": {
+   "name": "DOMINION TRADING GROUP LIMITED",
+   "query": "DOMINION TRADING GROUP LIMITED"
+  },
+  "started_at": "2026-11-02T04:30:20.065034+00:00",
+  "finished_at": "2026-11-02T04:30:22.212222+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "5de6d6c37508ff8ffd1b036834dfb3d15951f808c01eaae08e2bed23066129f2",
+  "body": "{\"signal\":\"The entity \\\"DOMINION TRADING GROUP LIMITED\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"DOMINION TVERSKAYA YAROSLAVSKAYA LLC\\\" under the RUSSIA-EO14024 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"DOMINION TRADING GROUP LIMITED\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"DOMINION TVERSKAYA YAROSLAVSKAYA LLC\\\" under the RUSSIA-EO14024 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"DOMINION TRADING GROUP LIMITED\",\"matched_name\":\"DOMINION TVERSKAYA YAROSLAVSKAYA LLC\",\"program\":\"RUSSIA-EO14024\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "HMP GmbH High Melting Products",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=HMP+GmbH+High+Melting+Products&query=HMP+GmbH+High+Melting+Products",
+  "method": "POST",
+  "request_body": {
+   "name": "HMP GmbH High Melting Products",
+   "query": "HMP GmbH High Melting Products"
+  },
+  "started_at": "2026-11-02T04:30:23.212878+00:00",
+  "finished_at": "2026-11-02T04:30:29.369742+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "c5f5bb0c3656e3b7b540d7d61fd484f4014bdae2789705ed8a6400f18c128004",
+  "body": "{\"signal\":\"No match for \\\"HMP GmbH High Melting Products\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"HMP GmbH High Melting Products\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"HMP GmbH High Melting Products\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"HMP GmbH High Melting Products\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"HMP GmbH High Melting Products\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "MT TEVEL INCORPORATED",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=MT+TEVEL+INCORPORATED&query=MT+TEVEL+INCORPORATED",
+  "method": "POST",
+  "request_body": {
+   "name": "MT TEVEL INCORPORATED",
+   "query": "MT TEVEL INCORPORATED"
+  },
+  "started_at": "2026-11-02T04:30:30.370192+00:00",
+  "finished_at": "2026-11-02T04:30:33.385405+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "2999473c8239b3996a0a1eade1caa9b955836b0c70680d6df69286f523a8e4e7",
+  "body": "{\"signal\":\"The entity \\\"MT TEVEL INCORPORATED\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"MT TEVEL INCORPORATED\\\" under the SDGT program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"MT TEVEL INCORPORATED\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"MT TEVEL INCORPORATED\\\" under the SDGT program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"MT TEVEL INCORPORATED\",\"matched_name\":\"MT TEVEL INCORPORATED\",\"program\":\"SDGT\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "Sudarshan Switzerland HLD2 AG",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=Sudarshan+Switzerland+HLD2+AG&query=Sudarshan+Switzerland+HLD2+AG",
+  "method": "POST",
+  "request_body": {
+   "name": "Sudarshan Switzerland HLD2 AG",
+   "query": "Sudarshan Switzerland HLD2 AG"
+  },
+  "started_at": "2026-11-02T04:30:34.386593+00:00",
+  "finished_at": "2026-11-02T04:30:41.548772+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "19ff63275cfe8411c9bd5af248b534fa78a627254c8533a8a993990cc8a73bf0",
+  "body": "{\"signal\":\"No match for \\\"Sudarshan Switzerland HLD2 AG\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"Sudarshan Switzerland HLD2 AG\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"Sudarshan Switzerland HLD2 AG\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"Sudarshan Switzerland HLD2 AG\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"Sudarshan Switzerland HLD2 AG\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "GRUPO CINJAB, S.A. DE C.V.",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=GRUPO+CINJAB%2C+S.A.+DE+C.V.&query=GRUPO+CINJAB%2C+S.A.+DE+C.V.",
+  "method": "POST",
+  "request_body": {
+   "name": "GRUPO CINJAB, S.A. DE C.V.",
+   "query": "GRUPO CINJAB, S.A. DE C.V."
+  },
+  "started_at": "2026-11-02T04:30:42.549263+00:00",
+  "finished_at": "2026-11-02T04:30:46.317737+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "0750a11fe1c1eb4deaae833fbaca177e480057cc5d4ff0ca0446d76d5c477601",
+  "body": "{\"signal\":\"The entity \\\"GRUPO CINJAB S\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"GRUPO CINJAB, S.A. DE C.V.\\\" under the SDNTK program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"GRUPO CINJAB S\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"GRUPO CINJAB, S.A. DE C.V.\\\" under the SDNTK program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"GRUPO CINJAB S\",\"matched_name\":\"GRUPO CINJAB, S.A. DE C.V.\",\"program\":\"SDNTK\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "HEIDELBERG MATERIALS AUSTRALIA GROUP PTY LTD",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=HEIDELBERG+MATERIALS+AUSTRALIA+GROUP+PTY+LTD&query=HEIDELBERG+MATERIALS+AUSTRALIA+GROUP+PTY+LTD",
+  "method": "POST",
+  "request_body": {
+   "name": "HEIDELBERG MATERIALS AUSTRALIA GROUP PTY LTD",
+   "query": "HEIDELBERG MATERIALS AUSTRALIA GROUP PTY LTD"
+  },
+  "started_at": "2026-11-02T04:30:47.317938+00:00",
+  "finished_at": "2026-11-02T04:30:57.289278+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "fd4e18da5cbd7e68af27a1133e68bb313037ac2ae30beefbfda264e0599e414e",
+  "body": "{\"signal\":\"No match for \\\"HEIDELBERG MATERIALS AUSTRALIA GROUP PTY LTD\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"HEIDELBERG MATERIALS AUSTRALIA GROUP PTY LTD\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"HEIDELBERG MATERIALS AUSTRALIA GROUP PTY LTD\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"HEIDELBERG MATERIALS AUSTRALIA GROUP PTY LTD\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"HEIDELBERG MATERIALS AUSTRALIA GROUP PTY LTD\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "PEGASUS 88 LIMITED",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=PEGASUS+88+LIMITED&query=PEGASUS+88+LIMITED",
+  "method": "POST",
+  "request_body": {
+   "name": "PEGASUS 88 LIMITED",
+   "query": "PEGASUS 88 LIMITED"
+  },
+  "started_at": "2026-11-02T04:30:58.289586+00:00",
+  "finished_at": "2026-11-02T04:31:02.578038+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "f1a76f83cda66e8fd87871529aba123a48a81ceef0d006314e428283c5043bed",
+  "body": "{\"signal\":\"The entity \\\"PEGASUS\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"PEGASUS 88 LIMITED\\\" under the IRAN-EO13846 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"PEGASUS\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"PEGASUS 88 LIMITED\\\" under the IRAN-EO13846 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"PEGASUS\",\"matched_name\":\"PEGASUS 88 LIMITED\",\"program\":\"IRAN-EO13846\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "BICE INVERSIONES",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=BICE+INVERSIONES&query=BICE+INVERSIONES",
+  "method": "POST",
+  "request_body": {
+   "name": "BICE INVERSIONES",
+   "query": "BICE INVERSIONES"
+  },
+  "started_at": "2026-11-02T04:31:03.578818+00:00",
+  "finished_at": "2026-11-02T04:31:08.052242+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "ab3a34f3c79ac69622789154b4619a7e161118aeff03b41d6666fcfa13735835",
+  "body": "{\"signal\":\"No match for \\\"BICE INVERSIONES\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"BICE INVERSIONES\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"BICE INVERSIONES\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"BICE INVERSIONES\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"BICE INVERSIONES\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "AVA TARABAR DARYA CO LTD",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=AVA+TARABAR+DARYA+CO+LTD&query=AVA+TARABAR+DARYA+CO+LTD",
+  "method": "POST",
+  "request_body": {
+   "name": "AVA TARABAR DARYA CO LTD",
+   "query": "AVA TARABAR DARYA CO LTD"
+  },
+  "started_at": "2026-11-02T04:31:09.052830+00:00",
+  "finished_at": "2026-11-02T04:31:15.374361+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "80be42e020fe364b1e8dc366c01eda0e53dadb39a6d0c48431df423d5ae6da3c",
+  "body": "{\"signal\":\"The entity \\\"AVA TARABAR DARYA CO LTD\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"AVA TARABAR DARYA COMPANY\\\" under the IRAN-EO13902 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"AVA TARABAR DARYA CO LTD\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"AVA TARABAR DARYA COMPANY\\\" under the IRAN-EO13902 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"AVA TARABAR DARYA CO LTD\",\"matched_name\":\"AVA TARABAR DARYA COMPANY\",\"program\":\"IRAN-EO13902\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "JAIN BROTHERS INFRATECH PRIVATE LIMITED",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=JAIN+BROTHERS+INFRATECH+PRIVATE+LIMITED&query=JAIN+BROTHERS+INFRATECH+PRIVATE+LIMITED",
+  "method": "POST",
+  "request_body": {
+   "name": "JAIN BROTHERS INFRATECH PRIVATE LIMITED",
+   "query": "JAIN BROTHERS INFRATECH PRIVATE LIMITED"
+  },
+  "started_at": "2026-11-02T04:31:16.375172+00:00",
+  "finished_at": "2026-11-02T04:31:24.409403+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "48f754081211b7a98564894e8560babb3e5ca05c22dcc17fb5ebc29c4f07933b",
+  "body": "{\"signal\":\"No match for \\\"JAIN BROTHERS INFRATECH PRIVATE LIMITED\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"JAIN BROTHERS INFRATECH PRIVATE LIMITED\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"JAIN BROTHERS INFRATECH PRIVATE LIMITED\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"JAIN BROTHERS INFRATECH PRIVATE LIMITED\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"JAIN BROTHERS INFRATECH PRIVATE LIMITED\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "CADY TECH HK LIMITED",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=CADY+TECH+HK+LIMITED&query=CADY+TECH+HK+LIMITED",
+  "method": "POST",
+  "request_body": {
+   "name": "CADY TECH HK LIMITED",
+   "query": "CADY TECH HK LIMITED"
+  },
+  "started_at": "2026-11-02T04:31:25.409856+00:00",
+  "finished_at": "2026-11-02T04:31:26.459472+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "6fc0703f35dec8f3e18762dfe337bf8d3c3182837e93c5a33f94f59819dd5a26",
+  "body": "{\"signal\":\"No match for \\\"CADY TECH HK LIMITED\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"CADY TECH HK LIMITED\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"CADY TECH HK LIMITED\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"CADY TECH HK LIMITED\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"CADY TECH HK LIMITED\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "Juradin B.V.",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=Juradin+B.V.&query=Juradin+B.V.",
+  "method": "POST",
+  "request_body": {
+   "name": "Juradin B.V.",
+   "query": "Juradin B.V."
+  },
+  "started_at": "2026-11-02T04:31:27.460683+00:00",
+  "finished_at": "2026-11-02T04:31:29.614425+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "9f6c77f63ceeccdd65051c6001f34399bf3c8d42170f1c31599547136c64532e",
+  "body": "{\"signal\":\"No match for \\\"Juradin B V\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"Juradin B V\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"Juradin B V\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"Juradin B V\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"Juradin B V\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "BAOGANG DONGYING DONGGANG LOGISTICS AND WAREHOUSING CO., LTD.",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=BAOGANG+DONGYING+DONGGANG+LOGISTICS+AND+WAREHOUSING+CO.%2C+LTD.&query=BAOGANG+DONGYING+DONGGANG+LOGISTICS+AND+WAREHOUSING+CO.%2C+LTD.",
+  "method": "POST",
+  "request_body": {
+   "name": "BAOGANG DONGYING DONGGANG LOGISTICS AND WAREHOUSING CO., LTD.",
+   "query": "BAOGANG DONGYING DONGGANG LOGISTICS AND WAREHOUSING CO., LTD."
+  },
+  "started_at": "2026-11-02T04:31:30.614995+00:00",
+  "finished_at": "2026-11-02T04:31:40.286703+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "dc0b25dff63ffb0f017199458baf7937db8fdd33d06db3f8a67229eecc6c860a",
+  "body": "{\"signal\":\"The entity \\\"BAOGANG DONGYING DONGGANG LOGISTICS AND WAREHOUSING CO LTD\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"BAOGANG DONGYING DONGGANG LOGISTICS AND WAREHOUSING CO., LTD.\\\" under the IRAN-EO13902 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"BAOGANG DONGYING DONGGANG LOGISTICS AND WAREHOUSING CO LTD\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"BAOGANG DONGYING DONGGANG LOGISTICS AND WAREHOUSING CO., LTD.\\\" under the IRAN-EO13902 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"BAOGANG DONGYING DONGGANG LOGISTICS AND WAREHOUSING CO LTD\",\"matched_name\":\"BAOGANG DONGYING DONGGANG LOGISTICS AND WAREHOUSING CO., LTD.\",\"program\":\"IRAN-EO13902\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "CH REALTY IX-JV I TACOMA FRED310 G OWNER, L.P.",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=CH+REALTY+IX-JV+I+TACOMA+FRED310+G+OWNER%2C+L.P.&query=CH+REALTY+IX-JV+I+TACOMA+FRED310+G+OWNER%2C+L.P.",
+  "method": "POST",
+  "request_body": {
+   "name": "CH REALTY IX-JV I TACOMA FRED310 G OWNER, L.P.",
+   "query": "CH REALTY IX-JV I TACOMA FRED310 G OWNER, L.P."
+  },
+  "started_at": "2026-11-02T04:31:41.287425+00:00",
+  "finished_at": "2026-11-02T04:31:50.219750+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "ae7443a696491c2059cd0e9e3855746f7d04a6ef81e0c92a8569367f612194d3",
+  "body": "{\"signal\":\"No match for \\\"CH REALTY IX-JV I TACOMA FRED310 G OWNER L P\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"CH REALTY IX-JV I TACOMA FRED310 G OWNER L P\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"CH REALTY IX-JV I TACOMA FRED310 G OWNER L P\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"CH REALTY IX-JV I TACOMA FRED310 G OWNER L P\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"CH REALTY IX-JV I TACOMA FRED310 G OWNER L P\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "CAILAFANG PTE. LTD.",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=CAILAFANG+PTE.+LTD.&query=CAILAFANG+PTE.+LTD.",
+  "method": "POST",
+  "request_body": {
+   "name": "CAILAFANG PTE. LTD.",
+   "query": "CAILAFANG PTE. LTD."
+  },
+  "started_at": "2026-11-02T04:31:51.220602+00:00",
+  "finished_at": "2026-11-02T04:31:55.524199+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "0bd71b761d620cecc88a378f7d4d0c4099cd93bb66b8740fe9d3a2ab4de13f0c",
+  "body": "{\"signal\":\"The entity \\\"CAILAFANG PTE LTD\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"CAILAFANG PTE. LTD.\\\" under the IRAN-EO13902 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"CAILAFANG PTE LTD\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"CAILAFANG PTE. LTD.\\\" under the IRAN-EO13902 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"CAILAFANG PTE LTD\",\"matched_name\":\"CAILAFANG PTE. LTD.\",\"program\":\"IRAN-EO13902\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "MAHANT SUPPLY AGENCY",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=MAHANT+SUPPLY+AGENCY&query=MAHANT+SUPPLY+AGENCY",
+  "method": "POST",
+  "request_body": {
+   "name": "MAHANT SUPPLY AGENCY",
+   "query": "MAHANT SUPPLY AGENCY"
+  },
+  "started_at": "2026-11-02T04:31:56.525073+00:00",
+  "finished_at": "2026-11-02T04:32:05.876419+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "2b1b3c4621b3abb7a242734ff0759b151354fd773ada5cde6755ce3862ad3891",
+  "body": "{\"signal\":\"No match for \\\"MAHANT SUPPLY AGENCY\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"MAHANT SUPPLY AGENCY\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"MAHANT SUPPLY AGENCY\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"MAHANT SUPPLY AGENCY\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"MAHANT SUPPLY AGENCY\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "INDONESIA HILAL AHMAR SOCIETY FOR SYRIA",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=INDONESIA+HILAL+AHMAR+SOCIETY+FOR+SYRIA&query=INDONESIA+HILAL+AHMAR+SOCIETY+FOR+SYRIA",
+  "method": "POST",
+  "request_body": {
+   "name": "INDONESIA HILAL AHMAR SOCIETY FOR SYRIA",
+   "query": "INDONESIA HILAL AHMAR SOCIETY FOR SYRIA"
+  },
+  "started_at": "2026-11-02T04:32:06.877209+00:00",
+  "finished_at": "2026-11-02T04:32:18.240733+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "89015e7401dd3b376ab2f2740b9d3179eab7c96225d7671bdaa70c1eb4878975",
+  "body": "{\"signal\":\"The entity \\\"INDONESIA HILAL AHMAR SOCIETY\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"HILAL AHMAR SOCIETY INDONESIA\\\" under the SDGT program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"INDONESIA HILAL AHMAR SOCIETY\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"HILAL AHMAR SOCIETY INDONESIA\\\" under the SDGT program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"INDONESIA HILAL AHMAR SOCIETY\",\"matched_name\":\"HILAL AHMAR SOCIETY INDONESIA\",\"program\":\"SDGT\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "EXPLOTACIONES BENADRESA SOCIEDAD ANONIMA",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=EXPLOTACIONES+BENADRESA+SOCIEDAD+ANONIMA&query=EXPLOTACIONES+BENADRESA+SOCIEDAD+ANONIMA",
+  "method": "POST",
+  "request_body": {
+   "name": "EXPLOTACIONES BENADRESA SOCIEDAD ANONIMA",
+   "query": "EXPLOTACIONES BENADRESA SOCIEDAD ANONIMA"
+  },
+  "started_at": "2026-11-02T04:32:19.241496+00:00",
+  "finished_at": "2026-11-02T04:32:32.317894+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "1cc4352b4040669eaa1d110cdffb75fbd872cf59b88eb4887a9f821f2066976e",
+  "body": "{\"signal\":\"No match for \\\"EXPLOTACIONES BENADRESA SOCIEDAD ANONIMA\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"EXPLOTACIONES BENADRESA SOCIEDAD ANONIMA\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"EXPLOTACIONES BENADRESA SOCIEDAD ANONIMA\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"EXPLOTACIONES BENADRESA SOCIEDAD ANONIMA\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"EXPLOTACIONES BENADRESA SOCIEDAD ANONIMA\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "OBSHCHESTVO S OGRANICHENNOY OTVETSTVENNOSTYU UPRAVLYAYUSHCHAYA KOMPANIYA RVK",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=OBSHCHESTVO+S+OGRANICHENNOY+OTVETSTVENNOSTYU+UPRAVLYAYUSHCHAYA+KOMPANIYA+RVK&query=OBSHCHESTVO+S+OGRANICHENNOY+OTVETSTVENNOSTYU+UPRAVLYAYUSHCHAYA+KOMPANIYA+RVK",
+  "method": "POST",
+  "request_body": {
+   "name": "OBSHCHESTVO S OGRANICHENNOY OTVETSTVENNOSTYU UPRAVLYAYUSHCHAYA KOMPANIYA RVK",
+   "query": "OBSHCHESTVO S OGRANICHENNOY OTVETSTVENNOSTYU UPRAVLYAYUSHCHAYA KOMPANIYA RVK"
+  },
+  "started_at": "2026-11-02T04:32:33.318995+00:00",
+  "finished_at": "2026-11-02T04:32:48.431738+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "b7fd17849873fab8ff79616f3c37e23f71bb263543e376d4d13015a77bcbb257",
+  "body": "{\"signal\":\"The entity \\\"OBSHCHESTVO S OGRANICHENNOY OTVETSTVENNOSTYU UPRAVLYAYUSHCHAYA KOMPANIYA RVK\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"OBSHCHESTVO S OGRANICHENNOI OTVETSTVENNOSTYU KHOLDINGOVAYA KOMPANIYA YUESEM\\\" under the UKRAINE-EO13662, RUSSIA-EO14024 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"OBSHCHESTVO S OGRANICHENNOY OTVETSTVENNOSTYU UPRAVLYAYUSHCHAYA KOMPANIYA RVK\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"OBSHCHESTVO S OGRANICHENNOI OTVETSTVENNOSTYU KHOLDINGOVAYA KOMPANIYA YUESEM\\\" under the UKRAINE-EO13662, RUSSIA-EO14024 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"OBSHCHESTVO S OGRANICHENNOY OTVETSTVENNOSTYU UPRAVLYAYUSHCHAYA KOMPANIYA RVK\",\"matched_name\":\"OBSHCHESTVO S OGRANICHENNOI OTVETSTVENNOSTYU KHOLDINGOVAYA KOMPANIYA YUESEM\",\"program\":\"UKRAINE-EO13662, RUSSIA-EO14024\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "POHIT, za proizvodnju, promet, usluge, vanjsku i unutarnju trgovinu, d.o.o.",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=POHIT%2C+za+proizvodnju%2C+promet%2C+usluge%2C+vanjsku+i+unutarnju+trgovinu%2C+d.o.o.&query=POHIT%2C+za+proizvodnju%2C+promet%2C+usluge%2C+vanjsku+i+unutarnju+trgovinu%2C+d.o.o.",
+  "method": "POST",
+  "request_body": {
+   "name": "POHIT, za proizvodnju, promet, usluge, vanjsku i unutarnju trgovinu, d.o.o.",
+   "query": "POHIT, za proizvodnju, promet, usluge, vanjsku i unutarnju trgovinu, d.o.o."
+  },
+  "started_at": "2026-11-02T04:32:49.432285+00:00",
+  "finished_at": "2026-11-02T04:32:52.673707+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "1a985ba2ab0528e42ced7a286348217cb4724495ab65e73f6188390419c1f907",
+  "body": "{\"signal\":\"No match for \\\"POHIT\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"POHIT\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"POHIT\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"POHIT\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"POHIT\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "AKTAU PETROL TICARET ANONIM SIRKETI",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=AKTAU+PETROL+TICARET+ANONIM+SIRKETI&query=AKTAU+PETROL+TICARET+ANONIM+SIRKETI",
+  "method": "POST",
+  "request_body": {
+   "name": "AKTAU PETROL TICARET ANONIM SIRKETI",
+   "query": "AKTAU PETROL TICARET ANONIM SIRKETI"
+  },
+  "started_at": "2026-11-02T04:32:53.674377+00:00",
+  "finished_at": "2026-11-02T04:33:08.213893+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "9129dd18dd7f788671912b1b8c9d34b79e1c8d749a796105258a40f945a485ad",
+  "body": "{\"signal\":\"The entity \\\"AKTAU PETROL TICARET ANONIM SIRKETI\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"AKTAU PETROL TICARET ANONIM SIRKETI\\\" under the SDGT program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"AKTAU PETROL TICARET ANONIM SIRKETI\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"AKTAU PETROL TICARET ANONIM SIRKETI\\\" under the SDGT program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"AKTAU PETROL TICARET ANONIM SIRKETI\",\"matched_name\":\"AKTAU PETROL TICARET ANONIM SIRKETI\",\"program\":\"SDGT\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "LIDER CANARIAS CONTROL DE PLAGAS, S.L.",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=LIDER+CANARIAS+CONTROL+DE+PLAGAS%2C+S.L.&query=LIDER+CANARIAS+CONTROL+DE+PLAGAS%2C+S.L.",
+  "method": "POST",
+  "request_body": {
+   "name": "LIDER CANARIAS CONTROL DE PLAGAS, S.L.",
+   "query": "LIDER CANARIAS CONTROL DE PLAGAS, S.L."
+  },
+  "started_at": "2026-11-02T04:33:09.215548+00:00",
+  "finished_at": "2026-11-02T04:33:17.986612+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "65de6c66769c9504754b0251d49f3c9681b0f458381b813aa75fa8c696ff689f",
+  "body": "{\"signal\":\"No match for \\\"LIDER CANARIAS CONTROL DE PLAGAS S L\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"LIDER CANARIAS CONTROL DE PLAGAS S L\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"LIDER CANARIAS CONTROL DE PLAGAS S L\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"LIDER CANARIAS CONTROL DE PLAGAS S L\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"LIDER CANARIAS CONTROL DE PLAGAS S L\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "EMPRESA DE INGENIERIA Y PROYECTOS DEL NIQUEL",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=EMPRESA+DE+INGENIERIA+Y+PROYECTOS+DEL+NIQUEL&query=EMPRESA+DE+INGENIERIA+Y+PROYECTOS+DEL+NIQUEL",
+  "method": "POST",
+  "request_body": {
+   "name": "EMPRESA DE INGENIERIA Y PROYECTOS DEL NIQUEL",
+   "query": "EMPRESA DE INGENIERIA Y PROYECTOS DEL NIQUEL"
+  },
+  "started_at": "2026-11-02T04:33:18.988292+00:00",
+  "finished_at": "2026-11-02T04:33:26.832711+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "6088aeb4958b2c91f3b1baf3d5bc424350b267c8864f9c1dc04a86bd1809e326",
+  "body": "{\"signal\":\"The entity \\\"EMPRESA DE INGENIERIA Y PROYECTOS DEL NIQUEL\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"EMPRESA DE INGENIERIA Y PROYECTOS DEL NIQUEL\\\" under the CUBA-EO14404 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"EMPRESA DE INGENIERIA Y PROYECTOS DEL NIQUEL\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"EMPRESA DE INGENIERIA Y PROYECTOS DEL NIQUEL\\\" under the CUBA-EO14404 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"EMPRESA DE INGENIERIA Y PROYECTOS DEL NIQUEL\",\"matched_name\":\"EMPRESA DE INGENIERIA Y PROYECTOS DEL NIQUEL\",\"program\":\"CUBA-EO14404\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "Invesco CoinShares Tokenisation & Stablecoin UCITS ETF",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=Invesco+CoinShares+Tokenisation+%26+Stablecoin+UCITS+ETF&query=Invesco+CoinShares+Tokenisation+%26+Stablecoin+UCITS+ETF",
+  "method": "POST",
+  "request_body": {
+   "name": "Invesco CoinShares Tokenisation & Stablecoin UCITS ETF",
+   "query": "Invesco CoinShares Tokenisation & Stablecoin UCITS ETF"
+  },
+  "started_at": "2026-11-02T04:33:27.833109+00:00",
+  "finished_at": "2026-11-02T04:33:34.672165+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "9011816ca46da4a402e2c97ed9da6821a8d7f68edb4bdb4a6804321d8e5858fb",
+  "body": "{\"signal\":\"No match for \\\"Invesco CoinShares Tokenisation\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"Invesco CoinShares Tokenisation\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"Invesco CoinShares Tokenisation\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"Invesco CoinShares Tokenisation\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"Invesco CoinShares Tokenisation\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "GARDESHGARI BANK",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=GARDESHGARI+BANK&query=GARDESHGARI+BANK",
+  "method": "POST",
+  "request_body": {
+   "name": "GARDESHGARI BANK",
+   "query": "GARDESHGARI BANK"
+  },
+  "started_at": "2026-11-02T04:33:35.673190+00:00",
+  "finished_at": "2026-11-02T04:33:40.894652+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "ba5c1222df9ee6c5319f56477f3cedce0624c603a6076d72dad4127d74c22571",
+  "body": "{\"signal\":\"No match for \\\"GARDESHGARI BANK\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"GARDESHGARI BANK\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"GARDESHGARI BANK\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"GARDESHGARI BANK\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"GARDESHGARI BANK\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "XSIS RESIDENCY LLP",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=XSIS+RESIDENCY+LLP&query=XSIS+RESIDENCY+LLP",
+  "method": "POST",
+  "request_body": {
+   "name": "XSIS RESIDENCY LLP",
+   "query": "XSIS RESIDENCY LLP"
+  },
+  "started_at": "2026-11-02T04:33:41.895025+00:00",
+  "finished_at": "2026-11-02T04:33:46.511869+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "7198fa75d1eccd55dd6a87f3101e6959a240a7dd4b872842e9673f3e49f3ff45",
+  "body": "{\"signal\":\"No match for \\\"XSIS RESIDENCY LLP\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"XSIS RESIDENCY LLP\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"XSIS RESIDENCY LLP\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"XSIS RESIDENCY LLP\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"XSIS RESIDENCY LLP\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "LIMITED LIABILITY COMPANY INTER PODSHIPNIK GROUP",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=LIMITED+LIABILITY+COMPANY+INTER+PODSHIPNIK+GROUP&query=LIMITED+LIABILITY+COMPANY+INTER+PODSHIPNIK+GROUP",
+  "method": "POST",
+  "request_body": {
+   "name": "LIMITED LIABILITY COMPANY INTER PODSHIPNIK GROUP",
+   "query": "LIMITED LIABILITY COMPANY INTER PODSHIPNIK GROUP"
+  },
+  "started_at": "2026-11-02T04:33:47.512752+00:00",
+  "finished_at": "2026-11-02T04:33:54.785807+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "158df78eac4ac5b5697587604f3d301ad14aec2e3c64042264a5a15cdf7f2d77",
+  "body": "{\"signal\":\"The entity \\\"LIMITED LIABILITY COMPANY INTER PODSHIPNIK GROUP\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"LIMITED LIABILITY COMPANY INTER PODSHIPNIK GROUP\\\" under the RUSSIA-EO14024 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"LIMITED LIABILITY COMPANY INTER PODSHIPNIK GROUP\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"LIMITED LIABILITY COMPANY INTER PODSHIPNIK GROUP\\\" under the RUSSIA-EO14024 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"LIMITED LIABILITY COMPANY INTER PODSHIPNIK GROUP\",\"matched_name\":\"LIMITED LIABILITY COMPANY INTER PODSHIPNIK GROUP\",\"program\":\"RUSSIA-EO14024\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "YAMY HOLDINGS INTERNATIONAL PRIVATE LIMITED",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=YAMY+HOLDINGS+INTERNATIONAL+PRIVATE+LIMITED&query=YAMY+HOLDINGS+INTERNATIONAL+PRIVATE+LIMITED",
+  "method": "POST",
+  "request_body": {
+   "name": "YAMY HOLDINGS INTERNATIONAL PRIVATE LIMITED",
+   "query": "YAMY HOLDINGS INTERNATIONAL PRIVATE LIMITED"
+  },
+  "started_at": "2026-11-02T04:33:55.786127+00:00",
+  "finished_at": "2026-11-02T04:33:58.663736+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "fb2f340714c18a33146b050c4077174ddfe15a05664fac5f7b40f49f89194324",
+  "body": "{\"signal\":\"No match for \\\"YAMY HOLDINGS INTERNATIONAL PRIVATE LIMITED\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"YAMY HOLDINGS INTERNATIONAL PRIVATE LIMITED\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"YAMY HOLDINGS INTERNATIONAL PRIVATE LIMITED\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"YAMY HOLDINGS INTERNATIONAL PRIVATE LIMITED\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"YAMY HOLDINGS INTERNATIONAL PRIVATE LIMITED\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "RUSGAZALYANS",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=RUSGAZALYANS&query=RUSGAZALYANS",
+  "method": "POST",
+  "request_body": {
+   "name": "RUSGAZALYANS",
+   "query": "RUSGAZALYANS"
+  },
+  "started_at": "2026-11-02T04:33:59.664419+00:00",
+  "finished_at": "2026-11-02T04:34:04.309540+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "c5052c3a2aadd52e35874f0f35fa6b7b596f94d254130932361bca87864c3775",
+  "body": "{\"signal\":\"The entity \\\"RUSGAZALYANS\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"RUSGAZALYANS\\\" under the UKRAINE-EO13662, RUSSIA-EO14024 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"RUSGAZALYANS\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"RUSGAZALYANS\\\" under the UKRAINE-EO13662, RUSSIA-EO14024 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"RUSGAZALYANS\",\"matched_name\":\"RUSGAZALYANS\",\"program\":\"UKRAINE-EO13662, RUSSIA-EO14024\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "Birgitta Persson Holding AB",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=Birgitta+Persson+Holding+AB&query=Birgitta+Persson+Holding+AB",
+  "method": "POST",
+  "request_body": {
+   "name": "Birgitta Persson Holding AB",
+   "query": "Birgitta Persson Holding AB"
+  },
+  "started_at": "2026-11-02T04:34:05.310330+00:00",
+  "finished_at": "2026-11-02T04:34:10.852024+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "35372fd99c0b54a3ec35c6a80963885c373bbf83382dfcf34e7497de81970928",
+  "body": "{\"signal\":\"No match for \\\"Birgitta Persson Holding AB\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"Birgitta Persson Holding AB\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"Birgitta Persson Holding AB\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"Birgitta Persson Holding AB\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"Birgitta Persson Holding AB\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "LIMITED LIABILITY COMPANY GORA GOLDEN RATIO",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=LIMITED+LIABILITY+COMPANY+GORA+GOLDEN+RATIO&query=LIMITED+LIABILITY+COMPANY+GORA+GOLDEN+RATIO",
+  "method": "POST",
+  "request_body": {
+   "name": "LIMITED LIABILITY COMPANY GORA GOLDEN RATIO",
+   "query": "LIMITED LIABILITY COMPANY GORA GOLDEN RATIO"
+  },
+  "started_at": "2026-11-02T04:34:11.852657+00:00",
+  "finished_at": "2026-11-02T04:34:18.037366+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "a3b0cb293cdb7c80eb8b0a046adc5109bdde0c8c830f15161809944d155f442f",
+  "body": "{\"signal\":\"The entity \\\"LIMITED LIABILITY COMPANY GORA GOLDEN RATIO\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"LIMITED LIABILITY COMPANY GORA GOLDEN RATIO\\\" under the RUSSIA-EO14024 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"LIMITED LIABILITY COMPANY GORA GOLDEN RATIO\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"LIMITED LIABILITY COMPANY GORA GOLDEN RATIO\\\" under the RUSSIA-EO14024 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"LIMITED LIABILITY COMPANY GORA GOLDEN RATIO\",\"matched_name\":\"LIMITED LIABILITY COMPANY GORA GOLDEN RATIO\",\"program\":\"RUSSIA-EO14024\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "PADAKULA VASUDEVAREDDY",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=PADAKULA+VASUDEVAREDDY&query=PADAKULA+VASUDEVAREDDY",
+  "method": "POST",
+  "request_body": {
+   "name": "PADAKULA VASUDEVAREDDY",
+   "query": "PADAKULA VASUDEVAREDDY"
+  },
+  "started_at": "2026-11-02T04:34:19.038120+00:00",
+  "finished_at": "2026-11-02T04:34:27.095500+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "081ac0ed601b7d10c688b67f489d824d09fb3918b57429148af3c9b98ee8576b",
+  "body": "{\"signal\":\"No match for \\\"PADAKULA VASUDEVAREDDY\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"PADAKULA VASUDEVAREDDY\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"PADAKULA VASUDEVAREDDY\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"PADAKULA VASUDEVAREDDY\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"PADAKULA VASUDEVAREDDY\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "SHENZHEN BIGUANG TRADING CO., LTD",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=SHENZHEN+BIGUANG+TRADING+CO.%2C+LTD&query=SHENZHEN+BIGUANG+TRADING+CO.%2C+LTD",
+  "method": "POST",
+  "request_body": {
+   "name": "SHENZHEN BIGUANG TRADING CO., LTD",
+   "query": "SHENZHEN BIGUANG TRADING CO., LTD"
+  },
+  "started_at": "2026-11-02T04:34:28.095737+00:00",
+  "finished_at": "2026-11-02T04:34:32.814426+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "c1afe7a0c1ee11ce7180f118f5fc768e79e0eff8f8c04312a43301f7b0d3b7e5",
+  "body": "{\"signal\":\"The entity \\\"SHENZHEN BIGUANG TRADING CO LTD\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"SHENZHEN BIGUANG TRADING CO., LTD\\\" under the RUSSIA-EO14024 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"SHENZHEN BIGUANG TRADING CO LTD\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"SHENZHEN BIGUANG TRADING CO., LTD\\\" under the RUSSIA-EO14024 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"SHENZHEN BIGUANG TRADING CO LTD\",\"matched_name\":\"SHENZHEN BIGUANG TRADING CO., LTD\",\"program\":\"RUSSIA-EO14024\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "ROHIT DHANANJAY KAMALAKAR",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=ROHIT+DHANANJAY+KAMALAKAR&query=ROHIT+DHANANJAY+KAMALAKAR",
+  "method": "POST",
+  "request_body": {
+   "name": "ROHIT DHANANJAY KAMALAKAR",
+   "query": "ROHIT DHANANJAY KAMALAKAR"
+  },
+  "started_at": "2026-11-02T04:34:33.814778+00:00",
+  "finished_at": "2026-11-02T04:34:40.071882+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "79e70c0ee8f9dfb5313fa37c291dbe8d0f416124405692168bb632c9d05cca1c",
+  "body": "{\"signal\":\"No match for \\\"ROHIT DHANANJAY KAMALAKAR\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"ROHIT DHANANJAY KAMALAKAR\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"ROHIT DHANANJAY KAMALAKAR\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"ROHIT DHANANJAY KAMALAKAR\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"ROHIT DHANANJAY KAMALAKAR\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "GLOBAL TRADELINE SARL",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=GLOBAL+TRADELINE+SARL&query=GLOBAL+TRADELINE+SARL",
+  "method": "POST",
+  "request_body": {
+   "name": "GLOBAL TRADELINE SARL",
+   "query": "GLOBAL TRADELINE SARL"
+  },
+  "started_at": "2026-11-02T04:34:41.072484+00:00",
+  "finished_at": "2026-11-02T04:34:44.363010+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "17c8ce4766c805db87d9da8330955a39805dcc59be2d0a6d4575b517354801d8",
+  "body": "{\"signal\":\"The entity \\\"GLOBAL TRADELINE SARL\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"GLOBAL TRADELINE SARL\\\" under the SDGT program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"GLOBAL TRADELINE SARL\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"GLOBAL TRADELINE SARL\\\" under the SDGT program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"GLOBAL TRADELINE SARL\",\"matched_name\":\"GLOBAL TRADELINE SARL\",\"program\":\"SDGT\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "SUNIL KUMAR MAKHIJA",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=SUNIL+KUMAR+MAKHIJA&query=SUNIL+KUMAR+MAKHIJA",
+  "method": "POST",
+  "request_body": {
+   "name": "SUNIL KUMAR MAKHIJA",
+   "query": "SUNIL KUMAR MAKHIJA"
+  },
+  "started_at": "2026-11-02T04:34:45.363670+00:00",
+  "finished_at": "2026-11-02T04:34:53.881032+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "5ec07c1e658e8bf729acf5970488ebd4832ddfeeea296343f0fdef34c168dcd7",
+  "body": "{\"signal\":\"No match for \\\"SUNIL KUMAR MAKHIJA\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"SUNIL KUMAR MAKHIJA\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"SUNIL KUMAR MAKHIJA\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"SUNIL KUMAR MAKHIJA\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"SUNIL KUMAR MAKHIJA\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "STEP ISTANBUL",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=STEP+ISTANBUL&query=STEP+ISTANBUL",
+  "method": "POST",
+  "request_body": {
+   "name": "STEP ISTANBUL",
+   "query": "STEP ISTANBUL"
+  },
+  "started_at": "2026-11-02T04:34:54.882464+00:00",
+  "finished_at": "2026-11-02T04:34:57.939748+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "4714e92d89d1448370f01e0e8aa7b3d55e4f696276defa0d8d28d7cbae00de3e",
+  "body": "{\"signal\":\"No match for \\\"STEP ISTANBUL\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"STEP ISTANBUL\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"STEP ISTANBUL\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"STEP ISTANBUL\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"STEP ISTANBUL\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "J. K. CONSTRUCTION",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=J.+K.+CONSTRUCTION&query=J.+K.+CONSTRUCTION",
+  "method": "POST",
+  "request_body": {
+   "name": "J. K. CONSTRUCTION",
+   "query": "J. K. CONSTRUCTION"
+  },
+  "started_at": "2026-11-02T04:34:58.940217+00:00",
+  "finished_at": "2026-11-02T04:35:05.248961+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "ce97d0ff277c7b948fdcfee968fdb3d5e0e49c538cdf5c6498ada7798be6de64",
+  "body": "{\"signal\":\"The entity \\\"J K CONSTRUCTION\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"TET KHAM CONSTRUCTION COMPANY LIMITED\\\" under the SDNTK program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"J K CONSTRUCTION\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"TET KHAM CONSTRUCTION COMPANY LIMITED\\\" under the SDNTK program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"J K CONSTRUCTION\",\"matched_name\":\"TET KHAM CONSTRUCTION COMPANY LIMITED\",\"program\":\"SDNTK\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "EUROGROUP ENGINEERING AD",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=EUROGROUP+ENGINEERING+AD&query=EUROGROUP+ENGINEERING+AD",
+  "method": "POST",
+  "request_body": {
+   "name": "EUROGROUP ENGINEERING AD",
+   "query": "EUROGROUP ENGINEERING AD"
+  },
+  "started_at": "2026-11-02T04:35:06.249401+00:00",
+  "finished_at": "2026-11-02T04:35:14.025187+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "4cb9d52348a4594cabd3749128411667889a9f11b15064a294ebbb12ebe3078e",
+  "body": "{\"signal\":\"The entity \\\"EUROGROUP ENGINEERING AD\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"EUROGROUP ENGINEERING EAD\\\" under the GLOMAG program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"EUROGROUP ENGINEERING AD\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"EUROGROUP ENGINEERING EAD\\\" under the GLOMAG program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"EUROGROUP ENGINEERING AD\",\"matched_name\":\"EUROGROUP ENGINEERING EAD\",\"program\":\"GLOMAG\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "V S PRODUCTS PRIVATE LIMITED",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=V+S+PRODUCTS+PRIVATE+LIMITED&query=V+S+PRODUCTS+PRIVATE+LIMITED",
+  "method": "POST",
+  "request_body": {
+   "name": "V S PRODUCTS PRIVATE LIMITED",
+   "query": "V S PRODUCTS PRIVATE LIMITED"
+  },
+  "started_at": "2026-11-02T04:35:15.026462+00:00",
+  "finished_at": "2026-11-02T04:35:21.191529+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "57a1337474abaa263a7dd6194da32689de116ea33c86fa3879de52cb86d722b1",
+  "body": "{\"signal\":\"No match for \\\"V S PRODUCTS PRIVATE LIMITED\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"V S PRODUCTS PRIVATE LIMITED\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"V S PRODUCTS PRIVATE LIMITED\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"V S PRODUCTS PRIVATE LIMITED\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"V S PRODUCTS PRIVATE LIMITED\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "LIMITED LIABILITY COMPANY KRIOGENAVIA NN",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=LIMITED+LIABILITY+COMPANY+KRIOGENAVIA+NN&query=LIMITED+LIABILITY+COMPANY+KRIOGENAVIA+NN",
+  "method": "POST",
+  "request_body": {
+   "name": "LIMITED LIABILITY COMPANY KRIOGENAVIA NN",
+   "query": "LIMITED LIABILITY COMPANY KRIOGENAVIA NN"
+  },
+  "started_at": "2026-11-02T04:35:22.192630+00:00",
+  "finished_at": "2026-11-02T04:35:27.122060+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "4e219acbd022843eed9afe8ea256639dc757a182917f3a79457e894b5d1d1559",
+  "body": "{\"signal\":\"The entity \\\"LIMITED LIABILITY COMPANY KRIOGENAVIA NN\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"LIMITED LIABILITY COMPANY KRIOGENAVIA NN\\\" under the RUSSIA-EO14024 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"LIMITED LIABILITY COMPANY KRIOGENAVIA NN\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"LIMITED LIABILITY COMPANY KRIOGENAVIA NN\\\" under the RUSSIA-EO14024 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"LIMITED LIABILITY COMPANY KRIOGENAVIA NN\",\"matched_name\":\"LIMITED LIABILITY COMPANY KRIOGENAVIA NN\",\"program\":\"RUSSIA-EO14024\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "MONFLEX TECHNOLOGY CORP.",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=MONFLEX+TECHNOLOGY+CORP.&query=MONFLEX+TECHNOLOGY+CORP.",
+  "method": "POST",
+  "request_body": {
+   "name": "MONFLEX TECHNOLOGY CORP.",
+   "query": "MONFLEX TECHNOLOGY CORP."
+  },
+  "started_at": "2026-11-02T04:35:28.123370+00:00",
+  "finished_at": "2026-11-02T04:35:34.381099+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "637caeda8c3a552d2e8c44dbe19576148133e11d04009d154d660fef8ea7db06",
+  "body": "{\"signal\":\"No match for \\\"MONFLEX TECHNOLOGY CORP\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"MONFLEX TECHNOLOGY CORP\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"MONFLEX TECHNOLOGY CORP\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"MONFLEX TECHNOLOGY CORP\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"MONFLEX TECHNOLOGY CORP\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "YAZD AIRWAYS",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=YAZD+AIRWAYS&query=YAZD+AIRWAYS",
+  "method": "POST",
+  "request_body": {
+   "name": "YAZD AIRWAYS",
+   "query": "YAZD AIRWAYS"
+  },
+  "started_at": "2026-11-02T04:35:35.381887+00:00",
+  "finished_at": "2026-11-02T04:35:38.952712+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "951c6ef0b27244d8e4b6f6b9f14f518ce4d44128ee604c6363fb862ec7e83510",
+  "body": "{\"signal\":\"The entity \\\"YAZD AIRWAYS\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"YAZD INTERNATIONAL AIRWAYS COMPANY\\\" under the SDGT, IFSR program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"YAZD AIRWAYS\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"YAZD INTERNATIONAL AIRWAYS COMPANY\\\" under the SDGT, IFSR program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"YAZD AIRWAYS\",\"matched_name\":\"YAZD INTERNATIONAL AIRWAYS COMPANY\",\"program\":\"SDGT, IFSR\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "Ubuntu B.V.",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=Ubuntu+B.V.&query=Ubuntu+B.V.",
+  "method": "POST",
+  "request_body": {
+   "name": "Ubuntu B.V.",
+   "query": "Ubuntu B.V."
+  },
+  "started_at": "2026-11-02T04:35:39.953564+00:00",
+  "finished_at": "2026-11-02T04:35:42.828665+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "2cb9972eff909a60cd28e3c83cacb2e41a3d03fbd2e7e4375ff657238e9b3d97",
+  "body": "{\"signal\":\"No match for \\\"Ubuntu B V\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"Ubuntu B V\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"Ubuntu B V\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"Ubuntu B V\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"Ubuntu B V\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "UNIQUE STATION TRADING",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=UNIQUE+STATION+TRADING&query=UNIQUE+STATION+TRADING",
+  "method": "POST",
+  "request_body": {
+   "name": "UNIQUE STATION TRADING",
+   "query": "UNIQUE STATION TRADING"
+  },
+  "started_at": "2026-11-02T04:35:43.828805+00:00",
+  "finished_at": "2026-11-02T04:35:50.324074+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "72236d03825278af8903a8b9b5dfd1398a0d62f481ed069ddbdf3ffb8f39537b",
+  "body": "{\"signal\":\"The entity \\\"UNIQUE STATION TRADING\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"UNIQUE STATION TRADING\\\" under the SDGT, IFSR program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"UNIQUE STATION TRADING\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"UNIQUE STATION TRADING\\\" under the SDGT, IFSR program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"UNIQUE STATION TRADING\",\"matched_name\":\"UNIQUE STATION TRADING\",\"program\":\"SDGT, IFSR\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "Pinnacle 0726 Pte Ltd",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=Pinnacle+0726+Pte+Ltd&query=Pinnacle+0726+Pte+Ltd",
+  "method": "POST",
+  "request_body": {
+   "name": "Pinnacle 0726 Pte Ltd",
+   "query": "Pinnacle 0726 Pte Ltd"
+  },
+  "started_at": "2026-11-02T04:35:51.324822+00:00",
+  "finished_at": "2026-11-02T04:35:54.528339+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "14739276a2eb25280da274ac9b4da42b69708e953b9ee83380c409356b74936b",
+  "body": "{\"signal\":\"No match for \\\"Pinnacle\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"Pinnacle\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"Pinnacle\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"Pinnacle\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"Pinnacle\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "LOIRE SHIPPING INC.",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=LOIRE+SHIPPING+INC.&query=LOIRE+SHIPPING+INC.",
+  "method": "POST",
+  "request_body": {
+   "name": "LOIRE SHIPPING INC.",
+   "query": "LOIRE SHIPPING INC."
+  },
+  "started_at": "2026-11-02T04:35:55.528841+00:00",
+  "finished_at": "2026-11-02T04:35:59.395520+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "aee4f851f4338a89964e8dfec3f7e37567cc5a4e6752c23033f5317c4cc445c0",
+  "body": "{\"signal\":\"The entity \\\"LOIRE SHIPPING INC\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"LOIRE SHIPPING INC.\\\" under the SDGT, IFSR program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"LOIRE SHIPPING INC\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"LOIRE SHIPPING INC.\\\" under the SDGT, IFSR program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"LOIRE SHIPPING INC\",\"matched_name\":\"LOIRE SHIPPING INC.\",\"program\":\"SDGT, IFSR\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "INDMA STEEL PRIVATE LIMITED",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=INDMA+STEEL+PRIVATE+LIMITED&query=INDMA+STEEL+PRIVATE+LIMITED",
+  "method": "POST",
+  "request_body": {
+   "name": "INDMA STEEL PRIVATE LIMITED",
+   "query": "INDMA STEEL PRIVATE LIMITED"
+  },
+  "started_at": "2026-11-02T04:36:00.396352+00:00",
+  "finished_at": "2026-11-02T04:36:08.720765+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "6f990f31837b534049a2d87c9d723639ee0075d108d3315aab41739038d02039",
+  "body": "{\"signal\":\"No match for \\\"INDMA STEEL PRIVATE LIMITED\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"INDMA STEEL PRIVATE LIMITED\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"INDMA STEEL PRIVATE LIMITED\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"INDMA STEEL PRIVATE LIMITED\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"INDMA STEEL PRIVATE LIMITED\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "CLOSED JOINT STOCK COMPANY VOLOGDA BEARING PLANT",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=CLOSED+JOINT+STOCK+COMPANY+VOLOGDA+BEARING+PLANT&query=CLOSED+JOINT+STOCK+COMPANY+VOLOGDA+BEARING+PLANT",
+  "method": "POST",
+  "request_body": {
+   "name": "CLOSED JOINT STOCK COMPANY VOLOGDA BEARING PLANT",
+   "query": "CLOSED JOINT STOCK COMPANY VOLOGDA BEARING PLANT"
+  },
+  "started_at": "2026-11-02T04:36:09.721673+00:00",
+  "finished_at": "2026-11-02T04:36:17.984802+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "e9c7167800d2d38de1548ce5908e0cbad416ef7f023edf09ccd5495dd2541a20",
+  "body": "{\"signal\":\"The entity \\\"CLOSED JOINT STOCK COMPANY VOLOGDA BEARING PLANT\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"CLOSED JOINT STOCK COMPANY VOLOGDA BEARING PLANT\\\" under the RUSSIA-EO14024 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"CLOSED JOINT STOCK COMPANY VOLOGDA BEARING PLANT\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"CLOSED JOINT STOCK COMPANY VOLOGDA BEARING PLANT\\\" under the RUSSIA-EO14024 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"CLOSED JOINT STOCK COMPANY VOLOGDA BEARING PLANT\",\"matched_name\":\"CLOSED JOINT STOCK COMPANY VOLOGDA BEARING PLANT\",\"program\":\"RUSSIA-EO14024\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "SHRI VIGNESH COCONUT POWDERS PRIVATE LIMITED",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=SHRI+VIGNESH+COCONUT+POWDERS+PRIVATE+LIMITED&query=SHRI+VIGNESH+COCONUT+POWDERS+PRIVATE+LIMITED",
+  "method": "POST",
+  "request_body": {
+   "name": "SHRI VIGNESH COCONUT POWDERS PRIVATE LIMITED",
+   "query": "SHRI VIGNESH COCONUT POWDERS PRIVATE LIMITED"
+  },
+  "started_at": "2026-11-02T04:36:18.985401+00:00",
+  "finished_at": "2026-11-02T04:36:26.621709+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "e79210b10ba47a3163afd8acd9d83ae46edd5f5e1b7404d536338befe05866c2",
+  "body": "{\"signal\":\"No match for \\\"SHRI VIGNESH COCONUT POWDERS PRIVATE LIMITED\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"SHRI VIGNESH COCONUT POWDERS PRIVATE LIMITED\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"SHRI VIGNESH COCONUT POWDERS PRIVATE LIMITED\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"SHRI VIGNESH COCONUT POWDERS PRIVATE LIMITED\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"SHRI VIGNESH COCONUT POWDERS PRIVATE LIMITED\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "WORLDWIDE SHIPPING & TRANS",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=WORLDWIDE+SHIPPING+%26+TRANS&query=WORLDWIDE+SHIPPING+%26+TRANS",
+  "method": "POST",
+  "request_body": {
+   "name": "WORLDWIDE SHIPPING & TRANS",
+   "query": "WORLDWIDE SHIPPING & TRANS"
+  },
+  "started_at": "2026-11-02T04:36:27.623265+00:00",
+  "finished_at": "2026-11-02T04:36:32.830366+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "dee6ff6b9cd038feda95a1b984f9ab9ca349e057f4f3c296082aa71a50550eac",
+  "body": "{\"signal\":\"The entity \\\"WORLDWIDE SHIPPING\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"WORLDWIDE SHIPPING & TRANSPORTATION LIMITED\\\" under the IRAN program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"WORLDWIDE SHIPPING\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"WORLDWIDE SHIPPING & TRANSPORTATION LIMITED\\\" under the IRAN program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"WORLDWIDE SHIPPING\",\"matched_name\":\"WORLDWIDE SHIPPING & TRANSPORTATION LIMITED\",\"program\":\"IRAN\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "K.K RESIDENCY PRIVATE LIMITED",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=K.K+RESIDENCY+PRIVATE+LIMITED&query=K.K+RESIDENCY+PRIVATE+LIMITED",
+  "method": "POST",
+  "request_body": {
+   "name": "K.K RESIDENCY PRIVATE LIMITED",
+   "query": "K.K RESIDENCY PRIVATE LIMITED"
+  },
+  "started_at": "2026-11-02T04:36:33.831321+00:00",
+  "finished_at": "2026-11-02T04:36:38.668166+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "e2ff850625cad3cc03d6e3c389b5c484ad0783796458c336c056c8c97970f073",
+  "body": "{\"signal\":\"No match for \\\"K K RESIDENCY PRIVATE LIMITED\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"K K RESIDENCY PRIVATE LIMITED\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"K K RESIDENCY PRIVATE LIMITED\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"K K RESIDENCY PRIVATE LIMITED\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"K K RESIDENCY PRIVATE LIMITED\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "NPO PROMODEL",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=NPO+PROMODEL&query=NPO+PROMODEL",
+  "method": "POST",
+  "request_body": {
+   "name": "NPO PROMODEL",
+   "query": "NPO PROMODEL"
+  },
+  "started_at": "2026-11-02T04:36:39.668275+00:00",
+  "finished_at": "2026-11-02T04:36:42.093309+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "82585d6303d24ebe5a60e4a548178385e2fd1592fe89445d3e780627f5859046",
+  "body": "{\"signal\":\"No match for \\\"NPO PROMODEL\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"NPO PROMODEL\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"NPO PROMODEL\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"NPO PROMODEL\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"NPO PROMODEL\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "INTRASENZE AB",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=INTRASENZE+AB&query=INTRASENZE+AB",
+  "method": "POST",
+  "request_body": {
+   "name": "INTRASENZE AB",
+   "query": "INTRASENZE AB"
+  },
+  "started_at": "2026-11-02T04:36:43.094076+00:00",
+  "finished_at": "2026-11-02T04:36:47.112118+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "6f6fb5a5418968d17d2912f94c9fa427fb1d0f2fa2db506cc610c70be46c3dd8",
+  "body": "{\"signal\":\"No match for \\\"INTRASENZE AB\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"INTRASENZE AB\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"INTRASENZE AB\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"INTRASENZE AB\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"INTRASENZE AB\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "BBR BANK CLOSED JOINT STOCK COMPANY",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=BBR+BANK+CLOSED+JOINT+STOCK+COMPANY&query=BBR+BANK+CLOSED+JOINT+STOCK+COMPANY",
+  "method": "POST",
+  "request_body": {
+   "name": "BBR BANK CLOSED JOINT STOCK COMPANY",
+   "query": "BBR BANK CLOSED JOINT STOCK COMPANY"
+  },
+  "started_at": "2026-11-02T04:36:48.113072+00:00",
+  "finished_at": "2026-11-02T04:36:51.486783+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "086b44d6b8a072f35fd842c87ed33c6bf89010ea745530c72ce75b0a49a1cd01",
+  "body": "{\"signal\":\"The entity \\\"BBR BANK CLOSED JOINT STOCK COMPANY\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"VTB BANK BELARUS CLOSED JOINT STOCK COMPANY\\\" under the UKRAINE-EO13662, RUSSIA-EO14024 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"BBR BANK CLOSED JOINT STOCK COMPANY\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"VTB BANK BELARUS CLOSED JOINT STOCK COMPANY\\\" under the UKRAINE-EO13662, RUSSIA-EO14024 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"BBR BANK CLOSED JOINT STOCK COMPANY\",\"matched_name\":\"VTB BANK BELARUS CLOSED JOINT STOCK COMPANY\",\"program\":\"UKRAINE-EO13662, RUSSIA-EO14024\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "EQUIPOINFRA SOLUTIONS PRIVATE LIMITED",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=EQUIPOINFRA+SOLUTIONS+PRIVATE+LIMITED&query=EQUIPOINFRA+SOLUTIONS+PRIVATE+LIMITED",
+  "method": "POST",
+  "request_body": {
+   "name": "EQUIPOINFRA SOLUTIONS PRIVATE LIMITED",
+   "query": "EQUIPOINFRA SOLUTIONS PRIVATE LIMITED"
+  },
+  "started_at": "2026-11-02T04:36:52.487189+00:00",
+  "finished_at": "2026-11-02T04:37:04.291650+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "26c720559af28d5b60924637bc48273aabc3e4a9422dcb2acd54f9bafd6a88cb",
+  "body": "{\"signal\":\"The entity \\\"EQUIPOINFRA SOLUTIONS PRIVATE LIMITED\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"OCEAN SPEEDSTAR SOLUTIONS OPC PRIVATE LIMITED\\\" under the RUSSIA-EO14024 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"EQUIPOINFRA SOLUTIONS PRIVATE LIMITED\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"OCEAN SPEEDSTAR SOLUTIONS OPC PRIVATE LIMITED\\\" under the RUSSIA-EO14024 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"EQUIPOINFRA SOLUTIONS PRIVATE LIMITED\",\"matched_name\":\"OCEAN SPEEDSTAR SOLUTIONS OPC PRIVATE LIMITED\",\"program\":\"RUSSIA-EO14024\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "LIMITED LIABILITY COMPANY NEW DECISIONS 2",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=LIMITED+LIABILITY+COMPANY+NEW+DECISIONS+2&query=LIMITED+LIABILITY+COMPANY+NEW+DECISIONS+2",
+  "method": "POST",
+  "request_body": {
+   "name": "LIMITED LIABILITY COMPANY NEW DECISIONS 2",
+   "query": "LIMITED LIABILITY COMPANY NEW DECISIONS 2"
+  },
+  "started_at": "2026-11-02T04:37:05.291842+00:00",
+  "finished_at": "2026-11-02T04:37:09.114032+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "d5886015c4da627a47d3fc3b3ab2a396f1d932f0bc74ce0a9a72a4aabf7959a5",
+  "body": "{\"signal\":\"The entity \\\"LIMITED LIABILITY COMPANY\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"THE LIMITED LIABILITY COMPANY INVESTMENT COMPANY ABROS\\\" under the UKRAINE-EO13661 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"LIMITED LIABILITY COMPANY\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"THE LIMITED LIABILITY COMPANY INVESTMENT COMPANY ABROS\\\" under the UKRAINE-EO13661 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"LIMITED LIABILITY COMPANY\",\"matched_name\":\"THE LIMITED LIABILITY COMPANY INVESTMENT COMPANY ABROS\",\"program\":\"UKRAINE-EO13661\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "Aming Beheer B.V.",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=Aming+Beheer+B.V.&query=Aming+Beheer+B.V.",
+  "method": "POST",
+  "request_body": {
+   "name": "Aming Beheer B.V.",
+   "query": "Aming Beheer B.V."
+  },
+  "started_at": "2026-11-02T04:37:10.114912+00:00",
+  "finished_at": "2026-11-02T04:37:14.705401+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "0243c6ec32731cdc3fd8ec9466ad99bae753b41d762226cb9c10c48092e1dc45",
+  "body": "{\"signal\":\"No match for \\\"Aming Beheer B V\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"Aming Beheer B V\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"Aming Beheer B V\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"Aming Beheer B V\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"Aming Beheer B V\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "DANDONG HONGXIANG INDUSTRIAL DEVELOPMENT CO LTD",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=DANDONG+HONGXIANG+INDUSTRIAL+DEVELOPMENT+CO+LTD&query=DANDONG+HONGXIANG+INDUSTRIAL+DEVELOPMENT+CO+LTD",
+  "method": "POST",
+  "request_body": {
+   "name": "DANDONG HONGXIANG INDUSTRIAL DEVELOPMENT CO LTD",
+   "query": "DANDONG HONGXIANG INDUSTRIAL DEVELOPMENT CO LTD"
+  },
+  "started_at": "2026-11-02T04:37:15.706199+00:00",
+  "finished_at": "2026-11-02T04:37:27.423147+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "9df254e0700f5f191b6b14891bc7fdf454a5fa84ff5333971343cf3c9fce78c4",
+  "body": "{\"signal\":\"The entity \\\"DANDONG HONGXIANG INDUSTRIAL DEVELOPMENT CO LTD\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"DANDONG HONGXIANG INDUSTRIAL DEVELOPMENT CO LTD\\\" under the NPWMD program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"DANDONG HONGXIANG INDUSTRIAL DEVELOPMENT CO LTD\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"DANDONG HONGXIANG INDUSTRIAL DEVELOPMENT CO LTD\\\" under the NPWMD program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"DANDONG HONGXIANG INDUSTRIAL DEVELOPMENT CO LTD\",\"matched_name\":\"DANDONG HONGXIANG INDUSTRIAL DEVELOPMENT CO LTD\",\"program\":\"NPWMD\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "TALAIA CONTANINERS E INFRAESTRUCTURAS SL",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=TALAIA+CONTANINERS+E+INFRAESTRUCTURAS+SL&query=TALAIA+CONTANINERS+E+INFRAESTRUCTURAS+SL",
+  "method": "POST",
+  "request_body": {
+   "name": "TALAIA CONTANINERS E INFRAESTRUCTURAS SL",
+   "query": "TALAIA CONTANINERS E INFRAESTRUCTURAS SL"
+  },
+  "started_at": "2026-11-02T04:37:28.423715+00:00",
+  "finished_at": "2026-11-02T04:37:39.179550+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "0cc3b8675f677e8c635ffd280a831ca879d847d209125bef851c6a74e75ac10d",
+  "body": "{\"signal\":\"No match for \\\"TALAIA CONTANINERS E INFRAESTRUCTURAS SL\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"TALAIA CONTANINERS E INFRAESTRUCTURAS SL\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"TALAIA CONTANINERS E INFRAESTRUCTURAS SL\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"TALAIA CONTANINERS E INFRAESTRUCTURAS SL\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"TALAIA CONTANINERS E INFRAESTRUCTURAS SL\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "JOINT STOCK COMPANY SPECIAL RELAY SYSTEM DESIGN AND ENGINEERING BUREAU",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=JOINT+STOCK+COMPANY+SPECIAL+RELAY+SYSTEM+DESIGN+AND+ENGINEERING+BUREAU&query=JOINT+STOCK+COMPANY+SPECIAL+RELAY+SYSTEM+DESIGN+AND+ENGINEERING+BUREAU",
+  "method": "POST",
+  "request_body": {
+   "name": "JOINT STOCK COMPANY SPECIAL RELAY SYSTEM DESIGN AND ENGINEERING BUREAU",
+   "query": "JOINT STOCK COMPANY SPECIAL RELAY SYSTEM DESIGN AND ENGINEERING BUREAU"
+  },
+  "started_at": "2026-11-02T04:37:40.180798+00:00",
+  "finished_at": "2026-11-02T04:37:54.983591+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "0cc2b52625d78a61539c2754689ab116e3492166b0de7331fd4b540acc276e5d",
+  "body": "{\"signal\":\"The entity \\\"JOINT STOCK COMPANY SPECIAL RELAY SYSTEM DESIGN AND ENGINEERING BUREAU\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"JOINT STOCK COMPANY SPECIAL RELAY SYSTEM DESIGN AND ENGINEERING BUREAU\\\" under the RUSSIA-EO14024 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"JOINT STOCK COMPANY SPECIAL RELAY SYSTEM DESIGN AND ENGINEERING BUREAU\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"JOINT STOCK COMPANY SPECIAL RELAY SYSTEM DESIGN AND ENGINEERING BUREAU\\\" under the RUSSIA-EO14024 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"JOINT STOCK COMPANY SPECIAL RELAY SYSTEM DESIGN AND ENGINEERING BUREAU\",\"matched_name\":\"JOINT STOCK COMPANY SPECIAL RELAY SYSTEM DESIGN AND ENGINEERING BUREAU\",\"program\":\"RUSSIA-EO14024\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "INNOVATIVE CONNECTIVITY AND SENSING SOLUTIONS PRIVATE LIMITED",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=INNOVATIVE+CONNECTIVITY+AND+SENSING+SOLUTIONS+PRIVATE+LIMITED&query=INNOVATIVE+CONNECTIVITY+AND+SENSING+SOLUTIONS+PRIVATE+LIMITED",
+  "method": "POST",
+  "request_body": {
+   "name": "INNOVATIVE CONNECTIVITY AND SENSING SOLUTIONS PRIVATE LIMITED",
+   "query": "INNOVATIVE CONNECTIVITY AND SENSING SOLUTIONS PRIVATE LIMITED"
+  },
+  "started_at": "2026-11-02T04:37:55.984112+00:00",
+  "finished_at": "2026-11-02T04:38:10.693902+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "7417c2df1597f9de6deffe9d959258ce8a0524cac4b0241908884f8f35c336a0",
+  "body": "{\"signal\":\"No match for \\\"INNOVATIVE CONNECTIVITY AND SENSING SOLUTIONS PRIVATE LIMITED\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"INNOVATIVE CONNECTIVITY AND SENSING SOLUTIONS PRIVATE LIMITED\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"INNOVATIVE CONNECTIVITY AND SENSING SOLUTIONS PRIVATE LIMITED\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"INNOVATIVE CONNECTIVITY AND SENSING SOLUTIONS PRIVATE LIMITED\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"INNOVATIVE CONNECTIVITY AND SENSING SOLUTIONS PRIVATE LIMITED\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "EASTERN TURKISTAN ISLAMIC PARTY",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=EASTERN+TURKISTAN+ISLAMIC+PARTY&query=EASTERN+TURKISTAN+ISLAMIC+PARTY",
+  "method": "POST",
+  "request_body": {
+   "name": "EASTERN TURKISTAN ISLAMIC PARTY",
+   "query": "EASTERN TURKISTAN ISLAMIC PARTY"
+  },
+  "started_at": "2026-11-02T04:38:11.694284+00:00",
+  "finished_at": "2026-11-02T04:38:22.672296+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "8c0e52fbdaf108c24b864d53d6e54788deffe71527207276b6867fce79a86b53",
+  "body": "{\"signal\":\"The entity \\\"EASTERN TURKISTAN ISLAMIC PARTY\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"EASTERN TURKISTAN ISLAMIC MOVEMENT\\\" under the SDGT program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"EASTERN TURKISTAN ISLAMIC PARTY\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"EASTERN TURKISTAN ISLAMIC MOVEMENT\\\" under the SDGT program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"EASTERN TURKISTAN ISLAMIC PARTY\",\"matched_name\":\"EASTERN TURKISTAN ISLAMIC MOVEMENT\",\"program\":\"SDGT\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "Shri Panchmahal Anusuchit Jati Education Trust",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=Shri+Panchmahal+Anusuchit+Jati+Education+Trust&query=Shri+Panchmahal+Anusuchit+Jati+Education+Trust",
+  "method": "POST",
+  "request_body": {
+   "name": "Shri Panchmahal Anusuchit Jati Education Trust",
+   "query": "Shri Panchmahal Anusuchit Jati Education Trust"
+  },
+  "started_at": "2026-11-02T04:38:23.673527+00:00",
+  "finished_at": "2026-11-02T04:38:34.740713+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "7b1ac9568e373995ee716bea8bf3dd99541a9ee78cb66842db945a1ca09832c8",
+  "body": "{\"signal\":\"No match for \\\"Shri Panchmahal Anusuchit Jati Education Trust\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"Shri Panchmahal Anusuchit Jati Education Trust\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"Shri Panchmahal Anusuchit Jati Education Trust\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"Shri Panchmahal Anusuchit Jati Education Trust\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"Shri Panchmahal Anusuchit Jati Education Trust\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "GAZPROMNEFT MNPZ AO",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=GAZPROMNEFT+MNPZ+AO&query=GAZPROMNEFT+MNPZ+AO",
+  "method": "POST",
+  "request_body": {
+   "name": "GAZPROMNEFT MNPZ AO",
+   "query": "GAZPROMNEFT MNPZ AO"
+  },
+  "started_at": "2026-11-02T04:38:35.741700+00:00",
+  "finished_at": "2026-11-02T04:38:39.469446+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "b14f8762ea82fcb4e044d555ec20874eacec553b4ab7ed86ae744561ad1d0c36",
+  "body": "{\"signal\":\"No match for \\\"GAZPROMNEFT MNPZ AO\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"GAZPROMNEFT MNPZ AO\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"GAZPROMNEFT MNPZ AO\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"GAZPROMNEFT MNPZ AO\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"GAZPROMNEFT MNPZ AO\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "SOLARX ENERGY PRIVATE LIMITED",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=SOLARX+ENERGY+PRIVATE+LIMITED&query=SOLARX+ENERGY+PRIVATE+LIMITED",
+  "method": "POST",
+  "request_body": {
+   "name": "SOLARX ENERGY PRIVATE LIMITED",
+   "query": "SOLARX ENERGY PRIVATE LIMITED"
+  },
+  "started_at": "2026-11-02T04:38:40.470389+00:00",
+  "finished_at": "2026-11-02T04:38:50.306031+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "5dfd20a12d095e687659417897d490ab0f00b89bbb852abe3a71fb8953edd14f",
+  "body": "{\"signal\":\"The entity \\\"SOLARX ENERGY PRIVATE LIMITED\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"GHADIR SOLAR ELECTRICITY AND ENERGY\\\" under the IRAN program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"SOLARX ENERGY PRIVATE LIMITED\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"GHADIR SOLAR ELECTRICITY AND ENERGY\\\" under the IRAN program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"SOLARX ENERGY PRIVATE LIMITED\",\"matched_name\":\"GHADIR SOLAR ELECTRICITY AND ENERGY\",\"program\":\"IRAN\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "MEDIA LAND TECHNOLOGY LIMITED LIABILITY COMPANY",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=MEDIA+LAND+TECHNOLOGY+LIMITED+LIABILITY+COMPANY&query=MEDIA+LAND+TECHNOLOGY+LIMITED+LIABILITY+COMPANY",
+  "method": "POST",
+  "request_body": {
+   "name": "MEDIA LAND TECHNOLOGY LIMITED LIABILITY COMPANY",
+   "query": "MEDIA LAND TECHNOLOGY LIMITED LIABILITY COMPANY"
+  },
+  "started_at": "2026-11-02T04:38:51.306776+00:00",
+  "finished_at": "2026-11-02T04:38:56.914418+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "8696201f126fde933fd2dc98a974d9abc5a9d068d8667ac5f7953defb426d214",
+  "body": "{\"signal\":\"The entity \\\"MEDIA LAND TECHNOLOGY LIMITED LIABILITY COMPANY\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"MEDIA LAND TECHNOLOGY LIMITED LIABILITY COMPANY\\\" under the CAATSA - RUSSIA, CYBER4 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"MEDIA LAND TECHNOLOGY LIMITED LIABILITY COMPANY\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"MEDIA LAND TECHNOLOGY LIMITED LIABILITY COMPANY\\\" under the CAATSA - RUSSIA, CYBER4 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"MEDIA LAND TECHNOLOGY LIMITED LIABILITY COMPANY\",\"matched_name\":\"MEDIA LAND TECHNOLOGY LIMITED LIABILITY COMPANY\",\"program\":\"CAATSA - RUSSIA, CYBER4\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "ST SUMAL AGRO VENTURE PRIVATE LIMITED",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=ST+SUMAL+AGRO+VENTURE+PRIVATE+LIMITED&query=ST+SUMAL+AGRO+VENTURE+PRIVATE+LIMITED",
+  "method": "POST",
+  "request_body": {
+   "name": "ST SUMAL AGRO VENTURE PRIVATE LIMITED",
+   "query": "ST SUMAL AGRO VENTURE PRIVATE LIMITED"
+  },
+  "started_at": "2026-11-02T04:38:57.915013+00:00",
+  "finished_at": "2026-11-02T04:39:11.713742+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "fe5fb706023813b9b62810b61d73328015938cc0a7594abc944b537b31afaa5f",
+  "body": "{\"signal\":\"No match for \\\"ST SUMAL AGRO VENTURE PRIVATE LIMITED\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"ST SUMAL AGRO VENTURE PRIVATE LIMITED\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"ST SUMAL AGRO VENTURE PRIVATE LIMITED\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"ST SUMAL AGRO VENTURE PRIVATE LIMITED\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"ST SUMAL AGRO VENTURE PRIVATE LIMITED\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "LIMITED LIABILITY COMPANY YANSKAYA GORNAYA KOMPANIYA",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=LIMITED+LIABILITY+COMPANY+YANSKAYA+GORNAYA+KOMPANIYA&query=LIMITED+LIABILITY+COMPANY+YANSKAYA+GORNAYA+KOMPANIYA",
+  "method": "POST",
+  "request_body": {
+   "name": "LIMITED LIABILITY COMPANY YANSKAYA GORNAYA KOMPANIYA",
+   "query": "LIMITED LIABILITY COMPANY YANSKAYA GORNAYA KOMPANIYA"
+  },
+  "started_at": "2026-11-02T04:39:12.714077+00:00",
+  "finished_at": "2026-11-02T04:39:25.188771+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "cc883867b3a05366107009271c6e924309432ee906b6d6bf51eda0852d10c083",
+  "body": "{\"signal\":\"The entity \\\"LIMITED LIABILITY COMPANY YANSKAYA GORNAYA KOMPANIYA\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"LIMITED LIABILITY COMPANY YANSKAYA GORNAYA KOMPANIYA\\\" under the RUSSIA-EO14024 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"LIMITED LIABILITY COMPANY YANSKAYA GORNAYA KOMPANIYA\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"LIMITED LIABILITY COMPANY YANSKAYA GORNAYA KOMPANIYA\\\" under the RUSSIA-EO14024 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"LIMITED LIABILITY COMPANY YANSKAYA GORNAYA KOMPANIYA\",\"matched_name\":\"LIMITED LIABILITY COMPANY YANSKAYA GORNAYA KOMPANIYA\",\"program\":\"RUSSIA-EO14024\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "FONTANA DANILO E C. S.N.C.",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=FONTANA+DANILO+E+C.+S.N.C.&query=FONTANA+DANILO+E+C.+S.N.C.",
+  "method": "POST",
+  "request_body": {
+   "name": "FONTANA DANILO E C. S.N.C.",
+   "query": "FONTANA DANILO E C. S.N.C."
+  },
+  "started_at": "2026-11-02T04:39:26.189528+00:00",
+  "finished_at": "2026-11-02T04:39:32.957160+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "3bf0cff15c0b291949721068a34dea6c405359e371f165177532fccb8790c419",
+  "body": "{\"signal\":\"No match for \\\"FONTANA DANILO E C S N C\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"FONTANA DANILO E C S N C\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"FONTANA DANILO E C S N C\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"FONTANA DANILO E C S N C\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"FONTANA DANILO E C S N C\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "TSNII RTK",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=TSNII+RTK&query=TSNII+RTK",
+  "method": "POST",
+  "request_body": {
+   "name": "TSNII RTK",
+   "query": "TSNII RTK"
+  },
+  "started_at": "2026-11-02T04:39:33.957845+00:00",
+  "finished_at": "2026-11-02T04:39:36.369018+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "5997e81214cafe1c7c661928601de8701a7bf47a14743f948b9658b337934b26",
+  "body": "{\"signal\":\"No match for \\\"TSNII RTK\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"TSNII RTK\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"TSNII RTK\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"TSNII RTK\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"TSNII RTK\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "Namrata Developers",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=Namrata+Developers&query=Namrata+Developers",
+  "method": "POST",
+  "request_body": {
+   "name": "Namrata Developers",
+   "query": "Namrata Developers"
+  },
+  "started_at": "2026-11-02T04:39:37.369766+00:00",
+  "finished_at": "2026-11-02T04:39:43.405381+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "8c7008d79191ca6f262e6a80fd1d1fe1311e54ea4eaa8b6ce8dac43bacc8b493",
+  "body": "{\"signal\":\"No match for \\\"Namrata Developers\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"Namrata Developers\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"Namrata Developers\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"Namrata Developers\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"Namrata Developers\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "NINTH OCEAN GMBH & CO. KG",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=NINTH+OCEAN+GMBH+%26+CO.+KG&query=NINTH+OCEAN+GMBH+%26+CO.+KG",
+  "method": "POST",
+  "request_body": {
+   "name": "NINTH OCEAN GMBH & CO. KG",
+   "query": "NINTH OCEAN GMBH & CO. KG"
+  },
+  "started_at": "2026-11-02T04:39:44.406444+00:00",
+  "finished_at": "2026-11-02T04:39:48.732179+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "426023bf610b4c981713d0274371b19f19a58a5ea56e1abb5f234d15f464b467",
+  "body": "{\"signal\":\"The entity \\\"NINTH OCEAN GMBH\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"NINTH OCEAN GMBH & CO. KG\\\" under the IRAN program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"NINTH OCEAN GMBH\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"NINTH OCEAN GMBH & CO. KG\\\" under the IRAN program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"NINTH OCEAN GMBH\",\"matched_name\":\"NINTH OCEAN GMBH & CO. KG\",\"program\":\"IRAN\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "AKSHAY INFRASYS INDUSTRIES PRIVATE LIMITED",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=AKSHAY+INFRASYS+INDUSTRIES+PRIVATE+LIMITED&query=AKSHAY+INFRASYS+INDUSTRIES+PRIVATE+LIMITED",
+  "method": "POST",
+  "request_body": {
+   "name": "AKSHAY INFRASYS INDUSTRIES PRIVATE LIMITED",
+   "query": "AKSHAY INFRASYS INDUSTRIES PRIVATE LIMITED"
+  },
+  "started_at": "2026-11-02T04:39:49.732868+00:00",
+  "finished_at": "2026-11-02T04:40:03.192254+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "0ac51ca984fa5698b916e4bb2f124daed6b7700f4a942d9ba32d1f5bd0f50608",
+  "body": "{\"signal\":\"No match for \\\"AKSHAY INFRASYS INDUSTRIES PRIVATE LIMITED\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"AKSHAY INFRASYS INDUSTRIES PRIVATE LIMITED\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"AKSHAY INFRASYS INDUSTRIES PRIVATE LIMITED\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"AKSHAY INFRASYS INDUSTRIES PRIVATE LIMITED\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"AKSHAY INFRASYS INDUSTRIES PRIVATE LIMITED\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "CRIMINALISTICS INSTITUTE",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=CRIMINALISTICS+INSTITUTE&query=CRIMINALISTICS+INSTITUTE",
+  "method": "POST",
+  "request_body": {
+   "name": "CRIMINALISTICS INSTITUTE",
+   "query": "CRIMINALISTICS INSTITUTE"
+  },
+  "started_at": "2026-11-02T04:40:04.193265+00:00",
+  "finished_at": "2026-11-02T04:40:12.318656+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "3f9abca5c436ee2760d71a1af9ec7431975a6804dd9070fbd4c94bca9505e6ae",
+  "body": "{\"signal\":\"The entity \\\"CRIMINALISTICS INSTITUTE\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"FSB CRIMINALISTICS INSTITUTE\\\" under the NPWMD program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"CRIMINALISTICS INSTITUTE\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"FSB CRIMINALISTICS INSTITUTE\\\" under the NPWMD program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"CRIMINALISTICS INSTITUTE\",\"matched_name\":\"FSB CRIMINALISTICS INSTITUTE\",\"program\":\"NPWMD\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "LATHA BALASUNDARAM",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=LATHA+BALASUNDARAM&query=LATHA+BALASUNDARAM",
+  "method": "POST",
+  "request_body": {
+   "name": "LATHA BALASUNDARAM",
+   "query": "LATHA BALASUNDARAM"
+  },
+  "started_at": "2026-11-02T04:40:13.319826+00:00",
+  "finished_at": "2026-11-02T04:40:21.112105+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "bbaf26cc51e0f7ebc062539e60ab1176e52a41c7a44a6a202dbe69fd4349e44e",
+  "body": "{\"signal\":\"No match for \\\"LATHA BALASUNDARAM\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"LATHA BALASUNDARAM\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"LATHA BALASUNDARAM\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"LATHA BALASUNDARAM\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"LATHA BALASUNDARAM\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "KAI HENG LONG GLOBAL ENERGY LIMITED",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=KAI+HENG+LONG+GLOBAL+ENERGY+LIMITED&query=KAI+HENG+LONG+GLOBAL+ENERGY+LIMITED",
+  "method": "POST",
+  "request_body": {
+   "name": "KAI HENG LONG GLOBAL ENERGY LIMITED",
+   "query": "KAI HENG LONG GLOBAL ENERGY LIMITED"
+  },
+  "started_at": "2026-11-02T04:40:22.113271+00:00",
+  "finished_at": "2026-11-02T04:40:25.464942+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "da12d1c9faaf14c4681ce91a2c6cbd4ab7d5f30aa131c6d9ce48479fd3c95311",
+  "body": "{\"signal\":\"The entity \\\"KAI HENG LONG GLOBAL ENERGY LIMITED\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"KAI HENG LONG GLOBAL ENERGY LIMITED\\\" under the SDGT program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"KAI HENG LONG GLOBAL ENERGY LIMITED\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"KAI HENG LONG GLOBAL ENERGY LIMITED\\\" under the SDGT program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"KAI HENG LONG GLOBAL ENERGY LIMITED\",\"matched_name\":\"KAI HENG LONG GLOBAL ENERGY LIMITED\",\"program\":\"SDGT\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "VIPRA SIDDHI ENERGY PRIVATE LIMITED",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=VIPRA+SIDDHI+ENERGY+PRIVATE+LIMITED&query=VIPRA+SIDDHI+ENERGY+PRIVATE+LIMITED",
+  "method": "POST",
+  "request_body": {
+   "name": "VIPRA SIDDHI ENERGY PRIVATE LIMITED",
+   "query": "VIPRA SIDDHI ENERGY PRIVATE LIMITED"
+  },
+  "started_at": "2026-11-02T04:40:26.466051+00:00",
+  "finished_at": "2026-11-02T04:40:38.106900+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "d7a89bb898e304f48f9c9b5231d8e839ee706080c0a3f46df178b776d6704069",
+  "body": "{\"signal\":\"No match for \\\"VIPRA SIDDHI ENERGY PRIVATE LIMITED\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"VIPRA SIDDHI ENERGY PRIVATE LIMITED\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"VIPRA SIDDHI ENERGY PRIVATE LIMITED\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"VIPRA SIDDHI ENERGY PRIVATE LIMITED\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"VIPRA SIDDHI ENERGY PRIVATE LIMITED\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "STRATIM LIMITED LIABILITY COMPANY",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=STRATIM+LIMITED+LIABILITY+COMPANY&query=STRATIM+LIMITED+LIABILITY+COMPANY",
+  "method": "POST",
+  "request_body": {
+   "name": "STRATIM LIMITED LIABILITY COMPANY",
+   "query": "STRATIM LIMITED LIABILITY COMPANY"
+  },
+  "started_at": "2026-11-02T04:40:39.107142+00:00",
+  "finished_at": "2026-11-02T04:40:45.588707+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "926c2e453e3baedcfc1a75e99ea789b469352031ac4e980e115e0eeb94686c9d",
+  "body": "{\"signal\":\"The entity \\\"STRATIM LIMITED LIABILITY COMPANY\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"STRATIM LIMITED LIABILITY COMPANY\\\" under the RUSSIA-EO14024 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"STRATIM LIMITED LIABILITY COMPANY\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"STRATIM LIMITED LIABILITY COMPANY\\\" under the RUSSIA-EO14024 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"STRATIM LIMITED LIABILITY COMPANY\",\"matched_name\":\"STRATIM LIMITED LIABILITY COMPANY\",\"program\":\"RUSSIA-EO14024\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "V.K.CASTINGS",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=V.K.CASTINGS&query=V.K.CASTINGS",
+  "method": "POST",
+  "request_body": {
+   "name": "V.K.CASTINGS",
+   "query": "V.K.CASTINGS"
+  },
+  "started_at": "2026-11-02T04:40:46.589404+00:00",
+  "finished_at": "2026-11-02T04:40:50.511365+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "0e97cafdd1627efb15682df315471426c87903dd3d3ba789de7c30151dce08f8",
+  "body": "{\"signal\":\"No match for \\\"V K CASTINGS\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"V K CASTINGS\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"V K CASTINGS\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"V K CASTINGS\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"V K CASTINGS\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "AQUAQUASAR HOLDING LIMITED",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=AQUAQUASAR+HOLDING+LIMITED&query=AQUAQUASAR+HOLDING+LIMITED",
+  "method": "POST",
+  "request_body": {
+   "name": "AQUAQUASAR HOLDING LIMITED",
+   "query": "AQUAQUASAR HOLDING LIMITED"
+  },
+  "started_at": "2026-11-02T04:40:51.512905+00:00",
+  "finished_at": "2026-11-02T04:40:55.651541+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "7cc8d4c6ae253a86fbe9af8ea7ff9c3548c0ac67903559d7d37eaa45be55bb23",
+  "body": "{\"signal\":\"The entity \\\"AQUAQUASAR HOLDING LIMITED\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"AQUAQUASAR HOLDING LIMITED\\\" under the UKRAINE-EO13662, RUSSIA-EO14024 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"AQUAQUASAR HOLDING LIMITED\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"AQUAQUASAR HOLDING LIMITED\\\" under the UKRAINE-EO13662, RUSSIA-EO14024 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"AQUAQUASAR HOLDING LIMITED\",\"matched_name\":\"AQUAQUASAR HOLDING LIMITED\",\"program\":\"UKRAINE-EO13662, RUSSIA-EO14024\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "SHRI BAJRANG RICE MILL",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=SHRI+BAJRANG+RICE+MILL&query=SHRI+BAJRANG+RICE+MILL",
+  "method": "POST",
+  "request_body": {
+   "name": "SHRI BAJRANG RICE MILL",
+   "query": "SHRI BAJRANG RICE MILL"
+  },
+  "started_at": "2026-11-02T04:40:56.652346+00:00",
+  "finished_at": "2026-11-02T04:41:00.343552+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "0ab77fa8f94270445fe78694e32e265f1b5dd67615ed19c56ffaa8d8036768a7",
+  "body": "{\"signal\":\"No match for \\\"SHRI BAJRANG RICE MILL\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"SHRI BAJRANG RICE MILL\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"SHRI BAJRANG RICE MILL\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"SHRI BAJRANG RICE MILL\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"SHRI BAJRANG RICE MILL\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "AUSTINSHIP MANAGEMENT PVT LTD",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=AUSTINSHIP+MANAGEMENT+PVT+LTD&query=AUSTINSHIP+MANAGEMENT+PVT+LTD",
+  "method": "POST",
+  "request_body": {
+   "name": "AUSTINSHIP MANAGEMENT PVT LTD",
+   "query": "AUSTINSHIP MANAGEMENT PVT LTD"
+  },
+  "started_at": "2026-11-02T04:41:01.343901+00:00",
+  "finished_at": "2026-11-02T04:41:09.485527+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "fa2e5a56b8b2c46ffd0fc9f2ed0e1596a1f669e6238c2572ae52550ca28bd3b6",
+  "body": "{\"signal\":\"The entity \\\"AUSTINSHIP MANAGEMENT PVT LTD\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"SALINA SHIP MANAGEMENT PVT LTD\\\" under the SDGT program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"AUSTINSHIP MANAGEMENT PVT LTD\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"SALINA SHIP MANAGEMENT PVT LTD\\\" under the SDGT program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"AUSTINSHIP MANAGEMENT PVT LTD\",\"matched_name\":\"SALINA SHIP MANAGEMENT PVT LTD\",\"program\":\"SDGT\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "MIPL SOLAR KAKANWANI PRIVATE LIMITED",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=MIPL+SOLAR+KAKANWANI+PRIVATE+LIMITED&query=MIPL+SOLAR+KAKANWANI+PRIVATE+LIMITED",
+  "method": "POST",
+  "request_body": {
+   "name": "MIPL SOLAR KAKANWANI PRIVATE LIMITED",
+   "query": "MIPL SOLAR KAKANWANI PRIVATE LIMITED"
+  },
+  "started_at": "2026-11-02T04:41:10.486217+00:00",
+  "finished_at": "2026-11-02T04:41:19.935570+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "156c43ca929e0a0b85fa7ccfe09b1a06bc8ce6c7b0dcf7ccc7bf72f722551ab2",
+  "body": "{\"signal\":\"No match for \\\"MIPL SOLAR KAKANWANI PRIVATE LIMITED\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"MIPL SOLAR KAKANWANI PRIVATE LIMITED\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"MIPL SOLAR KAKANWANI PRIVATE LIMITED\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"MIPL SOLAR KAKANWANI PRIVATE LIMITED\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"MIPL SOLAR KAKANWANI PRIVATE LIMITED\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "PETRO PARSA CASPIAN IRANIAN COMPANY",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=PETRO+PARSA+CASPIAN+IRANIAN+COMPANY&query=PETRO+PARSA+CASPIAN+IRANIAN+COMPANY",
+  "method": "POST",
+  "request_body": {
+   "name": "PETRO PARSA CASPIAN IRANIAN COMPANY",
+   "query": "PETRO PARSA CASPIAN IRANIAN COMPANY"
+  },
+  "started_at": "2026-11-02T04:41:20.936236+00:00",
+  "finished_at": "2026-11-02T04:41:33.521715+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "db2e90ed0c003f4cad9db80e3240c925716545a5a40a62c2556b09cec4ecd2dc",
+  "body": "{\"signal\":\"The entity \\\"PETRO PARSA CASPIAN IRANIAN COMPANY\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"PETRO PARSA CASPIAN IRANIAN COMPANY\\\" under the IRAN-EO13902 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"PETRO PARSA CASPIAN IRANIAN COMPANY\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"PETRO PARSA CASPIAN IRANIAN COMPANY\\\" under the IRAN-EO13902 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"PETRO PARSA CASPIAN IRANIAN COMPANY\",\"matched_name\":\"PETRO PARSA CASPIAN IRANIAN COMPANY\",\"program\":\"IRAN-EO13902\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "EOT COUPLINGS AND CONNECTIONS PRIVATE LIMITED",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=EOT+COUPLINGS+AND+CONNECTIONS+PRIVATE+LIMITED&query=EOT+COUPLINGS+AND+CONNECTIONS+PRIVATE+LIMITED",
+  "method": "POST",
+  "request_body": {
+   "name": "EOT COUPLINGS AND CONNECTIONS PRIVATE LIMITED",
+   "query": "EOT COUPLINGS AND CONNECTIONS PRIVATE LIMITED"
+  },
+  "started_at": "2026-11-02T04:41:34.522271+00:00",
+  "finished_at": "2026-11-02T04:41:43.371720+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "5506040490732dde315b160f1bf1d676fd705c39e73f0a9f51ac79b01995ce41",
+  "body": "{\"signal\":\"No match for \\\"EOT COUPLINGS AND CONNECTIONS PRIVATE LIMITED\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"EOT COUPLINGS AND CONNECTIONS PRIVATE LIMITED\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"EOT COUPLINGS AND CONNECTIONS PRIVATE LIMITED\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"EOT COUPLINGS AND CONNECTIONS PRIVATE LIMITED\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"EOT COUPLINGS AND CONNECTIONS PRIVATE LIMITED\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "ZARUBEZHGEOLOGIYA AO",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=ZARUBEZHGEOLOGIYA+AO&query=ZARUBEZHGEOLOGIYA+AO",
+  "method": "POST",
+  "request_body": {
+   "name": "ZARUBEZHGEOLOGIYA AO",
+   "query": "ZARUBEZHGEOLOGIYA AO"
+  },
+  "started_at": "2026-11-02T04:41:44.372080+00:00",
+  "finished_at": "2026-11-02T04:41:50.078084+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "e19c52d3621f57d7eba11613ca21cf5f018dc6d2f870d3fad358caede3a7b9d3",
+  "body": "{\"signal\":\"The entity \\\"ZARUBEZHGEOLOGIYA AO\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"ZARUBEZHGEOLOGIYA AO\\\" under the RUSSIA-EO14024 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"ZARUBEZHGEOLOGIYA AO\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"ZARUBEZHGEOLOGIYA AO\\\" under the RUSSIA-EO14024 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"ZARUBEZHGEOLOGIYA AO\",\"matched_name\":\"ZARUBEZHGEOLOGIYA AO\",\"program\":\"RUSSIA-EO14024\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "PRAVEEN KUMAR AGARWAL",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=PRAVEEN+KUMAR+AGARWAL&query=PRAVEEN+KUMAR+AGARWAL",
+  "method": "POST",
+  "request_body": {
+   "name": "PRAVEEN KUMAR AGARWAL",
+   "query": "PRAVEEN KUMAR AGARWAL"
+  },
+  "started_at": "2026-11-02T04:41:51.078605+00:00",
+  "finished_at": "2026-11-02T04:42:00.072527+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "f32e811543cfba30fd23428a2b6cff3565fe31e108df3778f4b9a4fc5a4ff737",
+  "body": "{\"signal\":\"No match for \\\"PRAVEEN KUMAR AGARWAL\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"PRAVEEN KUMAR AGARWAL\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"PRAVEEN KUMAR AGARWAL\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"PRAVEEN KUMAR AGARWAL\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"PRAVEEN KUMAR AGARWAL\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "ALL-PCB SOLUTIONS LTD",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=ALL-PCB+SOLUTIONS+LTD&query=ALL-PCB+SOLUTIONS+LTD",
+  "method": "POST",
+  "request_body": {
+   "name": "ALL-PCB SOLUTIONS LTD",
+   "query": "ALL-PCB SOLUTIONS LTD"
+  },
+  "started_at": "2026-11-02T04:42:01.073212+00:00",
+  "finished_at": "2026-11-02T04:42:05.631389+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "37453f07e4c85ec0ba48366bc6824fdb808d5f703507fa619ff1c870eeaca33a",
+  "body": "{\"signal\":\"The entity \\\"ALL-PCB SOLUTIONS LTD\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"ROCKET PCB SOLUTION LTD\\\" under the NPWMD, IFSR program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"ALL-PCB SOLUTIONS LTD\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"ROCKET PCB SOLUTION LTD\\\" under the NPWMD, IFSR program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"ALL-PCB SOLUTIONS LTD\",\"matched_name\":\"ROCKET PCB SOLUTION LTD\",\"program\":\"NPWMD, IFSR\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "IGPN TEXFAB PRIVATE LIMITED",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=IGPN+TEXFAB+PRIVATE+LIMITED&query=IGPN+TEXFAB+PRIVATE+LIMITED",
+  "method": "POST",
+  "request_body": {
+   "name": "IGPN TEXFAB PRIVATE LIMITED",
+   "query": "IGPN TEXFAB PRIVATE LIMITED"
+  },
+  "started_at": "2026-11-02T04:42:06.632277+00:00",
+  "finished_at": "2026-11-02T04:42:13.544779+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "918def100a29eaa3b6e119e789d68542146e0af3a41043cab6cdcfe51c5c19f6",
+  "body": "{\"signal\":\"No match for \\\"IGPN TEXFAB PRIVATE LIMITED\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"IGPN TEXFAB PRIVATE LIMITED\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"IGPN TEXFAB PRIVATE LIMITED\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"IGPN TEXFAB PRIVATE LIMITED\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"IGPN TEXFAB PRIVATE LIMITED\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "YANGON AIRWAYS COMPANY LIMITED",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=YANGON+AIRWAYS+COMPANY+LIMITED&query=YANGON+AIRWAYS+COMPANY+LIMITED",
+  "method": "POST",
+  "request_body": {
+   "name": "YANGON AIRWAYS COMPANY LIMITED",
+   "query": "YANGON AIRWAYS COMPANY LIMITED"
+  },
+  "started_at": "2026-11-02T04:42:14.545292+00:00",
+  "finished_at": "2026-11-02T04:42:20.547911+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "fcebd437725abe689027eaf1f5fe6287c58026f97a1b04ecb06e3bd618ea702b",
+  "body": "{\"signal\":\"The entity \\\"YANGON AIRWAYS COMPANY LIMITED\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"YANGON AIRWAYS COMPANY LIMITED\\\" under the SDNTK program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"YANGON AIRWAYS COMPANY LIMITED\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"YANGON AIRWAYS COMPANY LIMITED\\\" under the SDNTK program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"YANGON AIRWAYS COMPANY LIMITED\",\"matched_name\":\"YANGON AIRWAYS COMPANY LIMITED\",\"program\":\"SDNTK\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "WHITELINE POLYMERS",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=WHITELINE+POLYMERS&query=WHITELINE+POLYMERS",
+  "method": "POST",
+  "request_body": {
+   "name": "WHITELINE POLYMERS",
+   "query": "WHITELINE POLYMERS"
+  },
+  "started_at": "2026-11-02T04:42:21.549307+00:00",
+  "finished_at": "2026-11-02T04:42:27.709763+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "64692fd87baa6ef89fced30f7c2577381effef3e62dbbf42673937bbce413094",
+  "body": "{\"signal\":\"No match for \\\"WHITELINE POLYMERS\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"WHITELINE POLYMERS\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"WHITELINE POLYMERS\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"WHITELINE POLYMERS\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"WHITELINE POLYMERS\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "EDE 2 EOOD",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=EDE+2+EOOD&query=EDE+2+EOOD",
+  "method": "POST",
+  "request_body": {
+   "name": "EDE 2 EOOD",
+   "query": "EDE 2 EOOD"
+  },
+  "started_at": "2026-11-02T04:42:28.711362+00:00",
+  "finished_at": "2026-11-02T04:42:29.791269+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "a52521939f6852e9bd1041d786fc56fe028a33cf9bd87846c7bfdff96188cdb9",
+  "body": "{\"signal\":\"No match for \\\"EOOD\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"EOOD\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"EOOD\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"EOOD\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"EOOD\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "Magnus CNC Support AB",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=Magnus+CNC+Support+AB&query=Magnus+CNC+Support+AB",
+  "method": "POST",
+  "request_body": {
+   "name": "Magnus CNC Support AB",
+   "query": "Magnus CNC Support AB"
+  },
+  "started_at": "2026-11-02T04:42:30.792175+00:00",
+  "finished_at": "2026-11-02T04:42:37.230496+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "afe41d00b0d9fe999467715784c16852740a9980430c836f0ae9ebcf15c7af11",
+  "body": "{\"signal\":\"No match for \\\"Magnus CNC Support AB\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"Magnus CNC Support AB\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"Magnus CNC Support AB\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"Magnus CNC Support AB\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"Magnus CNC Support AB\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "JING PIN INC.",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=JING+PIN+INC.&query=JING+PIN+INC.",
+  "method": "POST",
+  "request_body": {
+   "name": "JING PIN INC.",
+   "query": "JING PIN INC."
+  },
+  "started_at": "2026-11-02T04:42:38.232429+00:00",
+  "finished_at": "2026-11-02T04:42:38.757694+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "ada9332cd0453bcb397235fb27e693abc9df8031c6df0ede1207bbdbcf9d470a",
+  "body": "{\"signal\":\"No match for \\\"JING PIN INC\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"JING PIN INC\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"JING PIN INC\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"JING PIN INC\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"JING PIN INC\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "S K CONSTRUCTION",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=S+K+CONSTRUCTION&query=S+K+CONSTRUCTION",
+  "method": "POST",
+  "request_body": {
+   "name": "S K CONSTRUCTION",
+   "query": "S K CONSTRUCTION"
+  },
+  "started_at": "2026-11-02T04:42:39.758072+00:00",
+  "finished_at": "2026-11-02T04:42:44.385059+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "b5f6e238b424a8a0d2356bb237e4f7e91225896e0d3829f2d22278185a353a7f",
+  "body": "{\"signal\":\"The entity \\\"S K CONSTRUCTION\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"TET KHAM CONSTRUCTION COMPANY LIMITED\\\" under the SDNTK program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"S K CONSTRUCTION\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"TET KHAM CONSTRUCTION COMPANY LIMITED\\\" under the SDNTK program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"S K CONSTRUCTION\",\"matched_name\":\"TET KHAM CONSTRUCTION COMPANY LIMITED\",\"program\":\"SDNTK\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "ZAVOD LIPETSKTEKHNOLIT",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=ZAVOD+LIPETSKTEKHNOLIT&query=ZAVOD+LIPETSKTEKHNOLIT",
+  "method": "POST",
+  "request_body": {
+   "name": "ZAVOD LIPETSKTEKHNOLIT",
+   "query": "ZAVOD LIPETSKTEKHNOLIT"
+  },
+  "started_at": "2026-11-02T04:42:45.385716+00:00",
+  "finished_at": "2026-11-02T04:42:53.461775+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "9015cf9e3d3afc4f069b685e1510c64646bc7116bf78cc4dd58462ab6972cbbd",
+  "body": "{\"signal\":\"The entity \\\"ZAVOD LIPETSKTEKHNOLIT\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"ZAVOD LIPETSKTEKHNOLIT\\\" under the RUSSIA-EO14024 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"ZAVOD LIPETSKTEKHNOLIT\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"ZAVOD LIPETSKTEKHNOLIT\\\" under the RUSSIA-EO14024 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"ZAVOD LIPETSKTEKHNOLIT\",\"matched_name\":\"ZAVOD LIPETSKTEKHNOLIT\",\"program\":\"RUSSIA-EO14024\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "GR ASSET INVESTMENTS, S.L.",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=GR+ASSET+INVESTMENTS%2C+S.L.&query=GR+ASSET+INVESTMENTS%2C+S.L.",
+  "method": "POST",
+  "request_body": {
+   "name": "GR ASSET INVESTMENTS, S.L.",
+   "query": "GR ASSET INVESTMENTS, S.L."
+  },
+  "started_at": "2026-11-02T04:42:54.463163+00:00",
+  "finished_at": "2026-11-02T04:43:01.109881+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "47db851b6f0793aad0cc9f1a4609d95f162f53a9376acf3570c1efd99fa6d9a6",
+  "body": "{\"signal\":\"No match for \\\"GR ASSET INVESTMENTS S L\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"GR ASSET INVESTMENTS S L\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"GR ASSET INVESTMENTS S L\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"GR ASSET INVESTMENTS S L\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"GR ASSET INVESTMENTS S L\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "JOINT STOCK COMPANY OMUTNINSK METALLURGICAL PLANT",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=JOINT+STOCK+COMPANY+OMUTNINSK+METALLURGICAL+PLANT&query=JOINT+STOCK+COMPANY+OMUTNINSK+METALLURGICAL+PLANT",
+  "method": "POST",
+  "request_body": {
+   "name": "JOINT STOCK COMPANY OMUTNINSK METALLURGICAL PLANT",
+   "query": "JOINT STOCK COMPANY OMUTNINSK METALLURGICAL PLANT"
+  },
+  "started_at": "2026-11-02T04:43:02.110632+00:00",
+  "finished_at": "2026-11-02T04:43:12.902044+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "42c693f27fd78c0fa98fe3f032211b74afcdebead4d49ab2083f712ff669f537",
+  "body": "{\"signal\":\"The entity \\\"JOINT STOCK COMPANY OMUTNINSK METALLURGICAL PLANT\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"JOINT STOCK COMPANY OMUTNINSK METALLURGICAL PLANT\\\" under the RUSSIA-EO14024 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"JOINT STOCK COMPANY OMUTNINSK METALLURGICAL PLANT\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"JOINT STOCK COMPANY OMUTNINSK METALLURGICAL PLANT\\\" under the RUSSIA-EO14024 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"JOINT STOCK COMPANY OMUTNINSK METALLURGICAL PLANT\",\"matched_name\":\"JOINT STOCK COMPANY OMUTNINSK METALLURGICAL PLANT\",\"program\":\"RUSSIA-EO14024\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "SRI LAKSHMI VENKATESWARA ENTERPRISES",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=SRI+LAKSHMI+VENKATESWARA+ENTERPRISES&query=SRI+LAKSHMI+VENKATESWARA+ENTERPRISES",
+  "method": "POST",
+  "request_body": {
+   "name": "SRI LAKSHMI VENKATESWARA ENTERPRISES",
+   "query": "SRI LAKSHMI VENKATESWARA ENTERPRISES"
+  },
+  "started_at": "2026-11-02T04:43:13.903078+00:00",
+  "finished_at": "2026-11-02T04:43:25.126893+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "42692e30072f03925f02a1a32b87f9a349d61724466580bca80fc51e5aa7fb28",
+  "body": "{\"signal\":\"No match for \\\"SRI LAKSHMI VENKATESWARA ENTERPRISES\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"SRI LAKSHMI VENKATESWARA ENTERPRISES\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"SRI LAKSHMI VENKATESWARA ENTERPRISES\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"SRI LAKSHMI VENKATESWARA ENTERPRISES\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"SRI LAKSHMI VENKATESWARA ENTERPRISES\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "WOODHAVEN DRC SASU",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=WOODHAVEN+DRC+SASU&query=WOODHAVEN+DRC+SASU",
+  "method": "POST",
+  "request_body": {
+   "name": "WOODHAVEN DRC SASU",
+   "query": "WOODHAVEN DRC SASU"
+  },
+  "started_at": "2026-11-02T04:43:26.128566+00:00",
+  "finished_at": "2026-11-02T04:43:30.183442+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "094cdca1d2356839e9ac62dcec3f3ad12aa63e8508dfb2e26448f3d38f2a56fe",
+  "body": "{\"signal\":\"The entity \\\"WOODHAVEN DRC SASU\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"WOODHAVEN DRC SASU\\\" under the GLOMAG program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"WOODHAVEN DRC SASU\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"WOODHAVEN DRC SASU\\\" under the GLOMAG program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"WOODHAVEN DRC SASU\",\"matched_name\":\"WOODHAVEN DRC SASU\",\"program\":\"GLOMAG\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "KALPAH MOTORS PRIVATE LIMITED",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=KALPAH+MOTORS+PRIVATE+LIMITED&query=KALPAH+MOTORS+PRIVATE+LIMITED",
+  "method": "POST",
+  "request_body": {
+   "name": "KALPAH MOTORS PRIVATE LIMITED",
+   "query": "KALPAH MOTORS PRIVATE LIMITED"
+  },
+  "started_at": "2026-11-02T04:43:31.184845+00:00",
+  "finished_at": "2026-11-02T04:43:41.095660+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "7425fcd9f2608ab49a361a6c5b10aff6c493e365300198364bc79d3ac21c294b",
+  "body": "{\"signal\":\"The entity \\\"KALPAH MOTORS PRIVATE LIMITED\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"SANAYE MOTORSAZI ALVAND PRIVATE COMPANY\\\" under the NPWMD, IFSR program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"KALPAH MOTORS PRIVATE LIMITED\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"SANAYE MOTORSAZI ALVAND PRIVATE COMPANY\\\" under the NPWMD, IFSR program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"KALPAH MOTORS PRIVATE LIMITED\",\"matched_name\":\"SANAYE MOTORSAZI ALVAND PRIVATE COMPANY\",\"program\":\"NPWMD, IFSR\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "GENI SARL",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=GENI+SARL&query=GENI+SARL",
+  "method": "POST",
+  "request_body": {
+   "name": "GENI SARL",
+   "query": "GENI SARL"
+  },
+  "started_at": "2026-11-02T04:43:42.096864+00:00",
+  "finished_at": "2026-11-02T04:43:42.672498+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "b2a645de23c19e4060803d44c758ac9afaee2cdcb30ac57e290f63073df901e1",
+  "body": "{\"signal\":\"No match for \\\"GENI SARL\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"GENI SARL\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"GENI SARL\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"GENI SARL\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"GENI SARL\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "Latein Capital GmbH",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=Latein+Capital+GmbH&query=Latein+Capital+GmbH",
+  "method": "POST",
+  "request_body": {
+   "name": "Latein Capital GmbH",
+   "query": "Latein Capital GmbH"
+  },
+  "started_at": "2026-11-02T04:43:43.673601+00:00",
+  "finished_at": "2026-11-02T04:43:50.797191+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "f6c0f30f2b0afbdb70fbc53bef18c2149411da7ab30b656c67fe3cf88419ac1c",
+  "body": "{\"signal\":\"No match for \\\"Latein Capital GmbH\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"Latein Capital GmbH\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"Latein Capital GmbH\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"Latein Capital GmbH\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"Latein Capital GmbH\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "LORENA DEL MAR, S.A. DE C.V.",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=LORENA+DEL+MAR%2C+S.A.+DE+C.V.&query=LORENA+DEL+MAR%2C+S.A.+DE+C.V.",
+  "method": "POST",
+  "request_body": {
+   "name": "LORENA DEL MAR, S.A. DE C.V.",
+   "query": "LORENA DEL MAR, S.A. DE C.V."
+  },
+  "started_at": "2026-11-02T04:43:51.797831+00:00",
+  "finished_at": "2026-11-02T04:43:55.402118+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "6dd10ee892e06933f33b3075958d432655774bea43c7380b724e15a5746262e4",
+  "body": "{\"signal\":\"The entity \\\"LORENA DEL MAR S\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"LORENA DEL MAR, S.A. DE C.V.\\\" under the SDNTK program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"LORENA DEL MAR S\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"LORENA DEL MAR, S.A. DE C.V.\\\" under the SDNTK program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"LORENA DEL MAR S\",\"matched_name\":\"LORENA DEL MAR, S.A. DE C.V.\",\"program\":\"SDNTK\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "Luftsport-Club Marienberg e.V. (LCM)",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=Luftsport-Club+Marienberg+e.V.+%28LCM%29&query=Luftsport-Club+Marienberg+e.V.+%28LCM%29",
+  "method": "POST",
+  "request_body": {
+   "name": "Luftsport-Club Marienberg e.V. (LCM)",
+   "query": "Luftsport-Club Marienberg e.V. (LCM)"
+  },
+  "started_at": "2026-11-02T04:43:56.403435+00:00",
+  "finished_at": "2026-11-02T04:44:03.804477+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "b302e8aea0492c9e4c56daf0939a57e5e962e0e8bbeaa39f54c4adad7bcd13b7",
+  "body": "{\"signal\":\"No match for \\\"Luftsport-Club Marienberg\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"Luftsport-Club Marienberg\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"Luftsport-Club Marienberg\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"Luftsport-Club Marienberg\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"Luftsport-Club Marienberg\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "A LEVEL AEROSYSTEMS CST LLC",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=A+LEVEL+AEROSYSTEMS+CST+LLC&query=A+LEVEL+AEROSYSTEMS+CST+LLC",
+  "method": "POST",
+  "request_body": {
+   "name": "A LEVEL AEROSYSTEMS CST LLC",
+   "query": "A LEVEL AEROSYSTEMS CST LLC"
+  },
+  "started_at": "2026-11-02T04:44:04.805540+00:00",
+  "finished_at": "2026-11-02T04:44:12.661454+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "e9aabeda0c9eb1aeb096aefef64daf68742f225ec326b346aa51e0e090bd1e91",
+  "body": "{\"signal\":\"The entity \\\"LEVEL AEROSYSTEMS CST LLC\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"A LEVEL AEROSYSTEMS CST LLC\\\" under the RUSSIA-EO14024 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"LEVEL AEROSYSTEMS CST LLC\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"A LEVEL AEROSYSTEMS CST LLC\\\" under the RUSSIA-EO14024 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"LEVEL AEROSYSTEMS CST LLC\",\"matched_name\":\"A LEVEL AEROSYSTEMS CST LLC\",\"program\":\"RUSSIA-EO14024\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "SHREE RADHA KRISHNA INFRASTRUCTURE",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=SHREE+RADHA+KRISHNA+INFRASTRUCTURE&query=SHREE+RADHA+KRISHNA+INFRASTRUCTURE",
+  "method": "POST",
+  "request_body": {
+   "name": "SHREE RADHA KRISHNA INFRASTRUCTURE",
+   "query": "SHREE RADHA KRISHNA INFRASTRUCTURE"
+  },
+  "started_at": "2026-11-02T04:44:13.662021+00:00",
+  "finished_at": "2026-11-02T04:44:28.038693+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "e879deded800fce55a254bb7845ecbc07d78719cb89eea9e561eea283b099153",
+  "body": "{\"signal\":\"No match for \\\"SHREE RADHA KRISHNA INFRASTRUCTURE\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"SHREE RADHA KRISHNA INFRASTRUCTURE\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"SHREE RADHA KRISHNA INFRASTRUCTURE\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"SHREE RADHA KRISHNA INFRASTRUCTURE\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"SHREE RADHA KRISHNA INFRASTRUCTURE\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "PROTEH CO LTD",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=PROTEH+CO+LTD&query=PROTEH+CO+LTD",
+  "method": "POST",
+  "request_body": {
+   "name": "PROTEH CO LTD",
+   "query": "PROTEH CO LTD"
+  },
+  "started_at": "2026-11-02T04:44:29.039185+00:00",
+  "finished_at": "2026-11-02T04:44:32.716011+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "819b73b83fcbff6038c5e1e074863d15f8a7934d6e6e4aa5c1781bf6d7076eb2",
+  "body": "{\"signal\":\"The entity \\\"PROTEH CO LTD\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"PROTEH CO LTD\\\" under the RUSSIA-EO14024 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"answer\":\"The entity \\\"PROTEH CO LTD\\\" appears on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list: it closely matches \\\"PROTEH CO LTD\\\" under the RUSSIA-EO14024 program. As a designated party it is subject to U.S. sanctions, its assets are blocked, and U.S. persons are generally prohibited from dealing with it.\",\"match\":true,\"entity\":\"PROTEH CO LTD\",\"matched_name\":\"PROTEH CO LTD\",\"program\":\"RUSSIA-EO14024\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "PPT-Rendite",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=PPT-Rendite&query=PPT-Rendite",
+  "method": "POST",
+  "request_body": {
+   "name": "PPT-Rendite",
+   "query": "PPT-Rendite"
+  },
+  "started_at": "2026-11-02T04:44:33.716278+00:00",
+  "finished_at": "2026-11-02T04:44:37.863054+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "53d42ff1356c7b1d7ad0af5dd64b811e0d8053b39844f4f92ae3184952625170",
+  "body": "{\"signal\":\"No match for \\\"PPT-Rendite\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"PPT-Rendite\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"PPT-Rendite\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"PPT-Rendite\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"PPT-Rendite\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "NIK LLC",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=NIK+LLC&query=NIK+LLC",
+  "method": "POST",
+  "request_body": {
+   "name": "NIK LLC",
+   "query": "NIK LLC"
+  },
+  "started_at": "2026-11-02T04:44:38.863502+00:00",
+  "finished_at": "2026-11-02T04:44:39.670712+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "bf2fed4b1af1668a022d37b5c08ff1d83c54b0fc4a8c5f6ddc13bf5f17379e55",
+  "body": "{\"signal\":\"No match for \\\"NIK LLC\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"NIK LLC\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"NIK LLC\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"NIK LLC\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"NIK LLC\",\"source\":\"ofac-sdn\"}"
+ },
+ {
+  "miner_id": "302",
+  "name": "Weip Foundation",
+  "queryable": true,
+  "url": "https://hub.shadrakbessanh.me/sanctions?name=Weip+Foundation&query=Weip+Foundation",
+  "method": "POST",
+  "request_body": {
+   "name": "Weip Foundation",
+   "query": "Weip Foundation"
+  },
+  "started_at": "2026-11-02T04:44:40.671906+00:00",
+  "finished_at": "2026-11-02T04:44:45.414709+00:00",
+  "status": 200,
+  "curl_exit": 0,
+  "error": "",
+  "sha256": "44ef07219c84b03bb050de7b2cccae543f5203ccff89c8daaa70d5dc1e064d25",
+  "body": "{\"signal\":\"No match for \\\"Weip Foundation\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"Weip Foundation\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"answer\":\"No match for \\\"Weip Foundation\\\" was found on the U.S. Treasury OFAC Specially Designated Nationals (SDN) list, the primary U.S. sanctions list. Based on this screening \\\"Weip Foundation\\\" does not appear to be a currently OFAC-designated party; this screening covers the OFAC SDN list and not every global watchlist.\",\"match\":false,\"entity\":\"Weip Foundation\",\"source\":\"ofac-sdn\"}"
+ }
+]

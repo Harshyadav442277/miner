@@ -1,0 +1,19 @@
+{
+  "arguments": [
+    "lora",
+    "--intent",
+    "SANCTIONS_SCREENING_MATCH",
+    "--package",
+    "C:\\Users\\hyada\\tg-eval\\runs-v2\\SANCTIONS_SCREENING_MATCH_v10\\SANCTIONS_SCREENING_MATCH.safetensors",
+    "--out",
+    "C:\\Users\\hyada\\tg-eval\\runs-v2\\SANCTIONS_SCREENING_MATCH_v10",
+    "--foundation",
+    "C:\\Users\\hyada\\tg-eval\\foundation\\foundation.json",
+    "--foundation-onnx",
+    "C:\\Users\\hyada\\tg-eval\\foundation\\foundation_lora_fp32.onnx",
+    "--engine",
+    "C:\\Users\\hyada\\tg-eval\\foundation\\foundation_engine.wasm"
+  ],
+  "program": "C:\\Users\\hyada\\tg-eval\\bin-v2\\adapterbuild-live.exe",
+  "cwd": "C:\\Users\\hyada\\tg-eval\\kit-v2"
+}

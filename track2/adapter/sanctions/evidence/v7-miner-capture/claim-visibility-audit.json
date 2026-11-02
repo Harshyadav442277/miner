@@ -61,6 +61,11 @@
    "correct": 15
   }
  },
+ "observable_visible_length_baseline_tie_aware": 0.5697674418604651,
+ "observable_visible_length_tied_pairs": 5,
+ "observable_pair_kinds": {
+  "listed": 43
+ },
  "scope": "Complete machine claims visible; prose-only claims not audited. Original dataset unchanged.",
  "rows": [
   {

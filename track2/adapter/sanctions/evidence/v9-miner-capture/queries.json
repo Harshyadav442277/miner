@@ -1,0 +1,1474 @@
+[
+ {
+  "name": "INDEPENDENT INSURANCE GROUP LTD",
+  "expected": true,
+  "sdn_ids": [
+   "40878"
+  ],
+  "kind": "entity",
+  "program": "RUSSIA-EO14024",
+  "name_form": "primary",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=40878",
+  "role": "final",
+  "prefix_tokens": 35
+ },
+ {
+  "name": "CAPSOFT HEALTHCARE PRIVATE LIMITED",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/648800GLQCK3N17OZ591",
+  "lei": "648800GLQCK3N17OZ591",
+  "role": "final",
+  "prefix_tokens": 35
+ },
+ {
+  "name": "SAONE SHIPPING CORP",
+  "expected": true,
+  "sdn_ids": [
+   "48694"
+  ],
+  "kind": "entity",
+  "program": "SDGT] [IFSR",
+  "name_form": "alias",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=48694",
+  "role": "final",
+  "prefix_tokens": 32
+ },
+ {
+  "name": "Nexo Holding B.V.",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/724500CYE7J34U3CN967",
+  "lei": "724500CYE7J34U3CN967",
+  "role": "final",
+  "prefix_tokens": 32
+ },
+ {
+  "name": "NEW EASTERN SHIPPING CO LTD",
+  "expected": true,
+  "sdn_ids": [
+   "39356"
+  ],
+  "kind": "entity",
+  "program": "DPRK4",
+  "name_form": "primary",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=39356",
+  "role": "final",
+  "prefix_tokens": 35
+ },
+ {
+  "name": "Vermeulen Ventures B.V.",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/724500DBVGW0XC2S3E72",
+  "lei": "724500DBVGW0XC2S3E72",
+  "role": "final",
+  "prefix_tokens": 35
+ },
+ {
+  "name": "LA CROSSE GROUP INC",
+  "expected": true,
+  "sdn_ids": [
+   "11403"
+  ],
+  "kind": "entity",
+  "program": "SDNTK",
+  "name_form": "primary",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=11403",
+  "role": "final",
+  "prefix_tokens": 31
+ },
+ {
+  "name": "HOTEL SUR 2010 SL",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/959800TFKL95PVKY2U04",
+  "lei": "959800TFKL95PVKY2U04",
+  "role": "final",
+  "prefix_tokens": 31
+ },
+ {
+  "name": "HOLISTIC WELLWAVES S. DE R.L. DE C.V.",
+  "expected": true,
+  "sdn_ids": [
+   "58726"
+  ],
+  "kind": "entity",
+  "program": "SDGT] [ILLICIT-DRUGS-EO14059",
+  "name_form": "primary",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=58726",
+  "role": "final",
+  "prefix_tokens": 46
+ },
+ {
+  "name": "ANNAPURNA SREERAM CHINA JAYARAMUDU JEWELLERIES",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/3358005WTA0HLTTFKH57",
+  "lei": "3358005WTA0HLTTFKH57",
+  "role": "final",
+  "prefix_tokens": 46
+ },
+ {
+  "name": "SABA STEEL",
+  "expected": true,
+  "sdn_ids": [
+   "28303"
+  ],
+  "kind": "entity",
+  "program": "IRAN-EO13871",
+  "name_form": "primary",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=28303",
+  "role": "final",
+  "prefix_tokens": 29
+ },
+ {
+  "name": "GOLDER AS",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/636700M216ITATA79C74",
+  "lei": "636700M216ITATA79C74",
+  "role": "final",
+  "prefix_tokens": 29
+ },
+ {
+  "name": "INFINITE FORCE CARGO SERVICE HK LIMITED",
+  "expected": true,
+  "sdn_ids": [
+   "49354"
+  ],
+  "kind": "entity",
+  "program": "RUSSIA-EO14024",
+  "name_form": "primary",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=49354",
+  "role": "final",
+  "prefix_tokens": 36
+ },
+ {
+  "name": "GS FAMILY HOLDING S.R.L.",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/815600E520E3D2C2DD31",
+  "lei": "815600E520E3D2C2DD31",
+  "role": "final",
+  "prefix_tokens": 36
+ },
+ {
+  "name": "HASSAN DTO",
+  "expected": true,
+  "sdn_ids": [
+   "19429"
+  ],
+  "kind": "entity",
+  "program": "SDNTK",
+  "name_form": "alias",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=19429",
+  "role": "final",
+  "prefix_tokens": 30
+ },
+ {
+  "name": "AKL Bygg AB",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/648800MVMJWVI7OMEZ21",
+  "lei": "648800MVMJWVI7OMEZ21",
+  "role": "final",
+  "prefix_tokens": 30
+ },
+ {
+  "name": "DOMINION TRADING GROUP LIMITED",
+  "expected": true,
+  "sdn_ids": [
+   "58778"
+  ],
+  "kind": "entity",
+  "program": "IRAN-EO13902",
+  "name_form": "primary",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=58778",
+  "role": "final",
+  "prefix_tokens": 32
+ },
+ {
+  "name": "HMP GmbH High Melting Products",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/391200GEV6FINW647344",
+  "lei": "391200GEV6FINW647344",
+  "role": "final",
+  "prefix_tokens": 32
+ },
+ {
+  "name": "MT TEVEL INCORPORATED",
+  "expected": true,
+  "sdn_ids": [
+   "55383"
+  ],
+  "kind": "entity",
+  "program": "SDGT",
+  "name_form": "primary",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=55383",
+  "role": "final",
+  "prefix_tokens": 33
+ },
+ {
+  "name": "Sudarshan Switzerland HLD2 AG",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/984500FA880399D1AE94",
+  "lei": "984500FA880399D1AE94",
+  "role": "final",
+  "prefix_tokens": 33
+ },
+ {
+  "name": "GRUPO CINJAB, S.A. DE C.V.",
+  "expected": true,
+  "sdn_ids": [
+   "13419"
+  ],
+  "kind": "entity",
+  "program": "SDNTK",
+  "name_form": "primary",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=13419",
+  "role": "final",
+  "prefix_tokens": 42
+ },
+ {
+  "name": "HEIDELBERG MATERIALS AUSTRALIA GROUP PTY LTD",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/529900QYXZ9MC5QJO395",
+  "lei": "529900QYXZ9MC5QJO395",
+  "role": "final",
+  "prefix_tokens": 42
+ },
+ {
+  "name": "PEGASUS 88 LIMITED",
+  "expected": true,
+  "sdn_ids": [
+   "27466"
+  ],
+  "kind": "entity",
+  "program": "IRAN-EO13846",
+  "name_form": "primary",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=27466",
+  "role": "final",
+  "prefix_tokens": 30
+ },
+ {
+  "name": "BICE INVERSIONES",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/391200D2UUQGV9PVIV54",
+  "lei": "391200D2UUQGV9PVIV54",
+  "role": "final",
+  "prefix_tokens": 30
+ },
+ {
+  "name": "AVA TARABAR DARYA CO LTD",
+  "expected": true,
+  "sdn_ids": [
+   "58093"
+  ],
+  "kind": "entity",
+  "program": "IRAN-EO13902",
+  "name_form": "alias",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=58093",
+  "role": "final",
+  "prefix_tokens": 37
+ },
+ {
+  "name": "JAIN BROTHERS INFRATECH PRIVATE LIMITED",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/648800FOJGGMIU6RNS48",
+  "lei": "648800FOJGGMIU6RNS48",
+  "role": "final",
+  "prefix_tokens": 37
+ },
+ {
+  "name": "CADY TECH HK LIMITED",
+  "expected": true,
+  "sdn_ids": [
+   "46716"
+  ],
+  "kind": "entity",
+  "program": "RUSSIA-EO14024",
+  "name_form": "primary",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=46716",
+  "role": "final",
+  "prefix_tokens": 31
+ },
+ {
+  "name": "Juradin B.V.",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/724500QKD5SC2OYWOR58",
+  "lei": "724500QKD5SC2OYWOR58",
+  "role": "final",
+  "prefix_tokens": 31
+ },
+ {
+  "name": "BAOGANG DONGYING DONGGANG LOGISTICS AND WAREHOUSING CO., LTD.",
+  "expected": true,
+  "sdn_ids": [
+   "54137"
+  ],
+  "kind": "entity",
+  "program": "IRAN-EO13902",
+  "name_form": "primary",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=54137",
+  "role": "final",
+  "prefix_tokens": 47
+ },
+ {
+  "name": "CH REALTY IX-JV I TACOMA FRED310 G OWNER, L.P.",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/254900JAH8N6R9CCT595",
+  "lei": "254900JAH8N6R9CCT595",
+  "role": "final",
+  "prefix_tokens": 47
+ },
+ {
+  "name": "CAILAFANG PTE. LTD.",
+  "expected": true,
+  "sdn_ids": [
+   "58271"
+  ],
+  "kind": "entity",
+  "program": "IRAN-EO13902",
+  "name_form": "primary",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=58271",
+  "role": "final",
+  "prefix_tokens": 35
+ },
+ {
+  "name": "MAHANT SUPPLY AGENCY",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/335800LWKUQ9SW8HXG57",
+  "lei": "335800LWKUQ9SW8HXG57",
+  "role": "final",
+  "prefix_tokens": 35
+ },
+ {
+  "name": "INDONESIA HILAL AHMAR SOCIETY FOR SYRIA",
+  "expected": true,
+  "sdn_ids": [
+   "17269"
+  ],
+  "kind": "entity",
+  "program": "SDGT",
+  "name_form": "alias",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=17269",
+  "role": "final",
+  "prefix_tokens": 43
+ },
+ {
+  "name": "EXPLOTACIONES BENADRESA SOCIEDAD ANONIMA",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/5299003PDX5NB6CZ7R85",
+  "lei": "5299003PDX5NB6CZ7R85",
+  "role": "final",
+  "prefix_tokens": 43
+ },
+ {
+  "name": "OBSHCHESTVO S OGRANICHENNOY OTVETSTVENNOSTYU UPRAVLYAYUSHCHAYA KOMPANIYA RVK",
+  "expected": true,
+  "sdn_ids": [
+   "35244"
+  ],
+  "kind": "entity",
+  "program": "RUSSIA-EO14024",
+  "name_form": "alias",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=35244",
+  "role": "final",
+  "prefix_tokens": 64
+ },
+ {
+  "name": "POHIT, za proizvodnju, promet, usluge, vanjsku i unutarnju trgovinu, d.o.o.",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/7478AJZY4Q55V96D1703",
+  "lei": "7478AJZY4Q55V96D1703",
+  "role": "final",
+  "prefix_tokens": 64
+ },
+ {
+  "name": "AKTAU PETROL TICARET ANONIM SIRKETI",
+  "expected": true,
+  "sdn_ids": [
+   "36074"
+  ],
+  "kind": "entity",
+  "program": "SDGT",
+  "name_form": "primary",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=36074",
+  "role": "final",
+  "prefix_tokens": 43
+ },
+ {
+  "name": "LIDER CANARIAS CONTROL DE PLAGAS, S.L.",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/959800GHT8DKTQ75HS69",
+  "lei": "959800GHT8DKTQ75HS69",
+  "role": "final",
+  "prefix_tokens": 43
+ },
+ {
+  "name": "EMPRESA DE INGENIERIA Y PROYECTOS DEL NIQUEL",
+  "expected": true,
+  "sdn_ids": [
+   "58615"
+  ],
+  "kind": "entity",
+  "program": "CUBA-EO14404",
+  "name_form": "primary",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=58615",
+  "role": "final",
+  "prefix_tokens": 42
+ },
+ {
+  "name": "Invesco CoinShares Tokenisation & Stablecoin UCITS ETF",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/2549000X2UJ04716CF87",
+  "lei": "2549000X2UJ04716CF87",
+  "role": "final",
+  "prefix_tokens": 42
+ },
+ {
+  "name": "GARDESHGARI BANK",
+  "expected": true,
+  "sdn_ids": [
+   "13141"
+  ],
+  "kind": "entity",
+  "program": "IRAN] [IRAN-EO13902",
+  "name_form": "alias",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=13141",
+  "role": "final",
+  "prefix_tokens": 33
+ },
+ {
+  "name": "XSIS RESIDENCY LLP",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/648800C19MU5VTLSKX31",
+  "lei": "648800C19MU5VTLSKX31",
+  "role": "final",
+  "prefix_tokens": 33
+ },
+ {
+  "name": "LIMITED LIABILITY COMPANY INTER PODSHIPNIK GROUP",
+  "expected": true,
+  "sdn_ids": [
+   "51180"
+  ],
+  "kind": "entity",
+  "program": "RUSSIA-EO14024",
+  "name_form": "primary",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=51180",
+  "role": "final",
+  "prefix_tokens": 36
+ },
+ {
+  "name": "YAMY HOLDINGS INTERNATIONAL PRIVATE LIMITED",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/335800MBZLH2H6A6O438",
+  "lei": "335800MBZLH2H6A6O438",
+  "role": "final",
+  "prefix_tokens": 36
+ },
+ {
+  "name": "RUSGAZALYANS",
+  "expected": true,
+  "sdn_ids": [
+   "51542"
+  ],
+  "kind": "entity",
+  "program": "UKRAINE-EO13662] [RUSSIA-EO14024",
+  "name_form": "primary",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=51542",
+  "role": "final",
+  "prefix_tokens": 32
+ },
+ {
+  "name": "Birgitta Persson Holding AB",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/648800FUZKYPK6VNWL15",
+  "lei": "648800FUZKYPK6VNWL15",
+  "role": "final",
+  "prefix_tokens": 32
+ },
+ {
+  "name": "LIMITED LIABILITY COMPANY GORA GOLDEN RATIO",
+  "expected": true,
+  "sdn_ids": [
+   "47827"
+  ],
+  "kind": "entity",
+  "program": "RUSSIA-EO14024",
+  "name_form": "primary",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=47827",
+  "role": "final",
+  "prefix_tokens": 37
+ },
+ {
+  "name": "PADAKULA VASUDEVAREDDY",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/648800JN8LHSGMRFP110",
+  "lei": "648800JN8LHSGMRFP110",
+  "role": "final",
+  "prefix_tokens": 37
+ },
+ {
+  "name": "SHENZHEN BIGUANG TRADING CO., LTD",
+  "expected": true,
+  "sdn_ids": [
+   "47702"
+  ],
+  "kind": "entity",
+  "program": "RUSSIA-EO14024",
+  "name_form": "primary",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=47702",
+  "role": "final",
+  "prefix_tokens": 39
+ },
+ {
+  "name": "ROHIT DHANANJAY KAMALAKAR",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/6488006KSAT2R47N8E27",
+  "lei": "6488006KSAT2R47N8E27",
+  "role": "final",
+  "prefix_tokens": 39
+ },
+ {
+  "name": "GLOBAL TRADELINE SARL",
+  "expected": true,
+  "sdn_ids": [
+   "51067"
+  ],
+  "kind": "entity",
+  "program": "SDGT",
+  "name_form": "primary",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=51067",
+  "role": "final",
+  "prefix_tokens": 34
+ },
+ {
+  "name": "SUNIL KUMAR MAKHIJA",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/648800STWLEL2TXXOF06",
+  "lei": "648800STWLEL2TXXOF06",
+  "role": "final",
+  "prefix_tokens": 34
+ },
+ {
+  "name": "STEP ISTANBUL",
+  "expected": true,
+  "sdn_ids": [
+   "12551"
+  ],
+  "kind": "entity",
+  "program": "NPWMD] [IFSR",
+  "name_form": "alias",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=12551",
+  "role": "final",
+  "prefix_tokens": 32
+ },
+ {
+  "name": "J. K. CONSTRUCTION",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/648800DPKKCSO518RZ24",
+  "lei": "648800DPKKCSO518RZ24",
+  "role": "final",
+  "prefix_tokens": 32
+ },
+ {
+  "name": "EUROGROUP ENGINEERING AD",
+  "expected": true,
+  "sdn_ids": [
+   "32127"
+  ],
+  "kind": "entity",
+  "program": "GLOMAG",
+  "name_form": "alias",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=32127",
+  "role": "final",
+  "prefix_tokens": 33
+ },
+ {
+  "name": "V S PRODUCTS PRIVATE LIMITED",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/8945007MIT73FFBTKO17",
+  "lei": "8945007MIT73FFBTKO17",
+  "role": "final",
+  "prefix_tokens": 33
+ },
+ {
+  "name": "LIMITED LIABILITY COMPANY KRIOGENAVIA NN",
+  "expected": true,
+  "sdn_ids": [
+   "50769"
+  ],
+  "kind": "entity",
+  "program": "RUSSIA-EO14024",
+  "name_form": "primary",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=50769",
+  "role": "final",
+  "prefix_tokens": 36
+ },
+ {
+  "name": "MONFLEX TECHNOLOGY CORP.",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/254900561AFVH7ORCQ25",
+  "lei": "254900561AFVH7ORCQ25",
+  "role": "final",
+  "prefix_tokens": 36
+ },
+ {
+  "name": "YAZD AIRWAYS",
+  "expected": true,
+  "sdn_ids": [
+   "50827"
+  ],
+  "kind": "entity",
+  "program": "SDGT] [IFSR",
+  "name_form": "alias",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=50827",
+  "role": "final",
+  "prefix_tokens": 30
+ },
+ {
+  "name": "Ubuntu B.V.",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/724500WAE033ZLXTH069",
+  "lei": "724500WAE033ZLXTH069",
+  "role": "final",
+  "prefix_tokens": 30
+ },
+ {
+  "name": "UNIQUE STATION TRADING",
+  "expected": true,
+  "sdn_ids": [
+   "55477"
+  ],
+  "kind": "entity",
+  "program": "SDGT] [IFSR",
+  "name_form": "primary",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=55477",
+  "role": "final",
+  "prefix_tokens": 33
+ },
+ {
+  "name": "Pinnacle 0726 Pte Ltd",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/391200OVUN7KFZTHRG54",
+  "lei": "391200OVUN7KFZTHRG54",
+  "role": "final",
+  "prefix_tokens": 33
+ },
+ {
+  "name": "LOIRE SHIPPING INC.",
+  "expected": true,
+  "sdn_ids": [
+   "56423"
+  ],
+  "kind": "entity",
+  "program": "SDGT] [IFSR",
+  "name_form": "primary",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=56423",
+  "role": "final",
+  "prefix_tokens": 32
+ },
+ {
+  "name": "INDMA STEEL PRIVATE LIMITED",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/648800GH37QVA2D16O09",
+  "lei": "648800GH37QVA2D16O09",
+  "role": "final",
+  "prefix_tokens": 32
+ },
+ {
+  "name": "CLOSED JOINT STOCK COMPANY VOLOGDA BEARING PLANT",
+  "expected": true,
+  "sdn_ids": [
+   "46658"
+  ],
+  "kind": "entity",
+  "program": "RUSSIA-EO14024",
+  "name_form": "primary",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=46658",
+  "role": "final",
+  "prefix_tokens": 41
+ },
+ {
+  "name": "SHRI VIGNESH COCONUT POWDERS PRIVATE LIMITED",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/335800PQI8BT1P48FG88",
+  "lei": "335800PQI8BT1P48FG88",
+  "role": "final",
+  "prefix_tokens": 41
+ },
+ {
+  "name": "WORLDWIDE SHIPPING & TRANS",
+  "expected": true,
+  "sdn_ids": [
+   "25857"
+  ],
+  "kind": "entity",
+  "program": "IRAN",
+  "name_form": "alias",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=25857",
+  "role": "final",
+  "prefix_tokens": 35
+ },
+ {
+  "name": "K.K RESIDENCY PRIVATE LIMITED",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/648800POQE26BP058672",
+  "lei": "648800POQE26BP058672",
+  "role": "final",
+  "prefix_tokens": 35
+ },
+ {
+  "name": "NPO PROMODEL",
+  "expected": true,
+  "sdn_ids": [
+   "45765"
+  ],
+  "kind": "entity",
+  "program": "RUSSIA-EO14024",
+  "name_form": "alias",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=45765",
+  "role": "final",
+  "prefix_tokens": 31
+ },
+ {
+  "name": "INTRASENZE AB",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/6367003V58G7OAM0QB86",
+  "lei": "6367003V58G7OAM0QB86",
+  "role": "final",
+  "prefix_tokens": 31
+ },
+ {
+  "name": "BBR BANK CLOSED JOINT STOCK COMPANY",
+  "expected": true,
+  "sdn_ids": [
+   "51662"
+  ],
+  "kind": "entity",
+  "program": "RUSSIA-EO14024",
+  "name_form": "alias",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=51662",
+  "role": "final",
+  "prefix_tokens": 37
+ },
+ {
+  "name": "EQUIPOINFRA SOLUTIONS PRIVATE LIMITED",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/648800AWOWM5OSPNS675",
+  "lei": "648800AWOWM5OSPNS675",
+  "role": "final",
+  "prefix_tokens": 37
+ },
+ {
+  "name": "LIMITED LIABILITY COMPANY NEW DECISIONS 2",
+  "expected": true,
+  "sdn_ids": [
+   "45965"
+  ],
+  "kind": "entity",
+  "program": "RUSSIA-EO14024",
+  "name_form": "primary",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=45965",
+  "role": "final",
+  "prefix_tokens": 33
+ },
+ {
+  "name": "Aming Beheer B.V.",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/724500E0BWUZJZ1BG472",
+  "lei": "724500E0BWUZJZ1BG472",
+  "role": "final",
+  "prefix_tokens": 33
+ },
+ {
+  "name": "DANDONG HONGXIANG INDUSTRIAL DEVELOPMENT CO LTD",
+  "expected": true,
+  "sdn_ids": [
+   "20564"
+  ],
+  "kind": "entity",
+  "program": "NPWMD",
+  "name_form": "primary",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=20564",
+  "role": "final",
+  "prefix_tokens": 43
+ },
+ {
+  "name": "TALAIA CONTANINERS E INFRAESTRUCTURAS SL",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/959800YP9BAL9YHXLZ03",
+  "lei": "959800YP9BAL9YHXLZ03",
+  "role": "final",
+  "prefix_tokens": 43
+ },
+ {
+  "name": "JOINT STOCK COMPANY SPECIAL RELAY SYSTEM DESIGN AND ENGINEERING BUREAU",
+  "expected": true,
+  "sdn_ids": [
+   "37775"
+  ],
+  "kind": "entity",
+  "program": "RUSSIA-EO14024",
+  "name_form": "primary",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=37775",
+  "role": "final",
+  "prefix_tokens": 44
+ },
+ {
+  "name": "INNOVATIVE CONNECTIVITY AND SENSING SOLUTIONS PRIVATE LIMITED",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/648800RY8NVJKWQKPO55",
+  "lei": "648800RY8NVJKWQKPO55",
+  "role": "final",
+  "prefix_tokens": 44
+ },
+ {
+  "name": "EASTERN TURKISTAN ISLAMIC PARTY",
+  "expected": true,
+  "sdn_ids": [
+   "7262"
+  ],
+  "kind": "entity",
+  "program": "SDGT",
+  "name_form": "alias",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=7262",
+  "role": "final",
+  "prefix_tokens": 39
+ },
+ {
+  "name": "Shri Panchmahal Anusuchit Jati Education Trust",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/6488000RGC3G7Z2JF477",
+  "lei": "6488000RGC3G7Z2JF477",
+  "role": "final",
+  "prefix_tokens": 39
+ },
+ {
+  "name": "GAZPROMNEFT MNPZ AO",
+  "expected": true,
+  "sdn_ids": [
+   "52125"
+  ],
+  "kind": "entity",
+  "program": "UKRAINE-EO13662] [RUSSIA-EO14024",
+  "name_form": "alias",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=52125",
+  "role": "final",
+  "prefix_tokens": 34
+ },
+ {
+  "name": "SOLARX ENERGY PRIVATE LIMITED",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/648800TLC8ZRJ9YJTV81",
+  "lei": "648800TLC8ZRJ9YJTV81",
+  "role": "final",
+  "prefix_tokens": 34
+ },
+ {
+  "name": "MEDIA LAND TECHNOLOGY LIMITED LIABILITY COMPANY",
+  "expected": true,
+  "sdn_ids": [
+   "56303"
+  ],
+  "kind": "entity",
+  "program": "CAATSA - RUSSIA] [CYBER4",
+  "name_form": "primary",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=56303",
+  "role": "final",
+  "prefix_tokens": 37
+ },
+ {
+  "name": "ST SUMAL AGRO VENTURE PRIVATE LIMITED",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/6488008USB051UM1EX90",
+  "lei": "6488008USB051UM1EX90",
+  "role": "final",
+  "prefix_tokens": 37
+ },
+ {
+  "name": "LIMITED LIABILITY COMPANY YANSKAYA GORNAYA KOMPANIYA",
+  "expected": true,
+  "sdn_ids": [
+   "45012"
+  ],
+  "kind": "entity",
+  "program": "RUSSIA-EO14024",
+  "name_form": "primary",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=45012",
+  "role": "final",
+  "prefix_tokens": 42
+ },
+ {
+  "name": "FONTANA DANILO E C. S.N.C.",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/5299007ONGXE14UNFQ19",
+  "lei": "5299007ONGXE14UNFQ19",
+  "role": "final",
+  "prefix_tokens": 42
+ },
+ {
+  "name": "TSNII RTK",
+  "expected": true,
+  "sdn_ids": [
+   "49318"
+  ],
+  "kind": "entity",
+  "program": "RUSSIA-EO14024",
+  "name_form": "alias",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=49318",
+  "role": "final",
+  "prefix_tokens": 30
+ },
+ {
+  "name": "Namrata Developers",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/64880005OFLRRCNVD488",
+  "lei": "64880005OFLRRCNVD488",
+  "role": "final",
+  "prefix_tokens": 30
+ },
+ {
+  "name": "NINTH OCEAN GMBH & CO. KG",
+  "expected": true,
+  "sdn_ids": [
+   "25459"
+  ],
+  "kind": "entity",
+  "program": "IRAN",
+  "name_form": "primary",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=25459",
+  "role": "final",
+  "prefix_tokens": 39
+ },
+ {
+  "name": "AKSHAY INFRASYS INDUSTRIES PRIVATE LIMITED",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/3358006BWMKAERKYP427",
+  "lei": "3358006BWMKAERKYP427",
+  "role": "final",
+  "prefix_tokens": 39
+ },
+ {
+  "name": "CRIMINALISTICS INSTITUTE",
+  "expected": true,
+  "sdn_ids": [
+   "32739"
+  ],
+  "kind": "entity",
+  "program": "NPWMD",
+  "name_form": "alias",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=32739",
+  "role": "final",
+  "prefix_tokens": 33
+ },
+ {
+  "name": "LATHA BALASUNDARAM",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/6488005BO36UZ2ICZ348",
+  "lei": "6488005BO36UZ2ICZ348",
+  "role": "final",
+  "prefix_tokens": 33
+ },
+ {
+  "name": "KAI HENG LONG GLOBAL ENERGY LIMITED",
+  "expected": true,
+  "sdn_ids": [
+   "50452"
+  ],
+  "kind": "entity",
+  "program": "SDGT",
+  "name_form": "primary",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=50452",
+  "role": "final",
+  "prefix_tokens": 37
+ },
+ {
+  "name": "VIPRA SIDDHI ENERGY PRIVATE LIMITED",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/335800P8I7RHIIJ30245",
+  "lei": "335800P8I7RHIIJ30245",
+  "role": "final",
+  "prefix_tokens": 37
+ },
+ {
+  "name": "STRATIM LIMITED LIABILITY COMPANY",
+  "expected": true,
+  "sdn_ids": [
+   "50274"
+  ],
+  "kind": "entity",
+  "program": "RUSSIA-EO14024",
+  "name_form": "primary",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=50274",
+  "role": "final",
+  "prefix_tokens": 31
+ },
+ {
+  "name": "V.K.CASTINGS",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/335800BC2SJPZHKY5D12",
+  "lei": "335800BC2SJPZHKY5D12",
+  "role": "final",
+  "prefix_tokens": 31
+ },
+ {
+  "name": "AQUAQUASAR HOLDING LIMITED",
+  "expected": true,
+  "sdn_ids": [
+   "51923"
+  ],
+  "kind": "entity",
+  "program": "UKRAINE-EO13662] [RUSSIA-EO14024",
+  "name_form": "primary",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=51923",
+  "role": "final",
+  "prefix_tokens": 34
+ },
+ {
+  "name": "SHRI BAJRANG RICE MILL",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/648800TLYX7SFRACV736",
+  "lei": "648800TLYX7SFRACV736",
+  "role": "final",
+  "prefix_tokens": 34
+ },
+ {
+  "name": "AUSTINSHIP MANAGEMENT PVT LTD",
+  "expected": true,
+  "sdn_ids": [
+   "52679"
+  ],
+  "kind": "entity",
+  "program": "IRAN-EO13846",
+  "name_form": "alias",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=52679",
+  "role": "final",
+  "prefix_tokens": 38
+ },
+ {
+  "name": "MIPL SOLAR KAKANWANI PRIVATE LIMITED",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/335800ID26DQQAT0EK61",
+  "lei": "335800ID26DQQAT0EK61",
+  "role": "final",
+  "prefix_tokens": 38
+ },
+ {
+  "name": "PETRO PARSA CASPIAN IRANIAN COMPANY",
+  "expected": true,
+  "sdn_ids": [
+   "52509"
+  ],
+  "kind": "entity",
+  "program": "IRAN-EO13902",
+  "name_form": "primary",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=52509",
+  "role": "final",
+  "prefix_tokens": 36
+ },
+ {
+  "name": "EOT COUPLINGS AND CONNECTIONS PRIVATE LIMITED",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/648800FGNFPXE2AD7C55",
+  "lei": "648800FGNFPXE2AD7C55",
+  "role": "final",
+  "prefix_tokens": 36
+ },
+ {
+  "name": "ZARUBEZHGEOLOGIYA AO",
+  "expected": true,
+  "sdn_ids": [
+   "47860"
+  ],
+  "kind": "entity",
+  "program": "RUSSIA-EO14024",
+  "name_form": "primary",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=47860",
+  "role": "final",
+  "prefix_tokens": 35
+ },
+ {
+  "name": "PRAVEEN KUMAR AGARWAL",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/648800Q6MKV556ECNV21",
+  "lei": "648800Q6MKV556ECNV21",
+  "role": "final",
+  "prefix_tokens": 35
+ },
+ {
+  "name": "ALL-PCB SOLUTIONS LTD",
+  "expected": true,
+  "sdn_ids": [
+   "55458"
+  ],
+  "kind": "entity",
+  "program": "NPWMD] [IFSR",
+  "name_form": "alias",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=55458",
+  "role": "final",
+  "prefix_tokens": 34
+ },
+ {
+  "name": "IGPN TEXFAB PRIVATE LIMITED",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/984500D7F38E8851DC09",
+  "lei": "984500D7F38E8851DC09",
+  "role": "final",
+  "prefix_tokens": 34
+ },
+ {
+  "name": "YANGON AIRWAYS COMPANY LIMITED",
+  "expected": true,
+  "sdn_ids": [
+   "11308"
+  ],
+  "kind": "entity",
+  "program": "SDNTK",
+  "name_form": "primary",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=11308",
+  "role": "final",
+  "prefix_tokens": 32
+ },
+ {
+  "name": "WHITELINE POLYMERS",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/648800K4VM08R38ZXL39",
+  "lei": "648800K4VM08R38ZXL39",
+  "role": "final",
+  "prefix_tokens": 32
+ },
+ {
+  "name": "EDE 2 EOOD",
+  "expected": true,
+  "sdn_ids": [
+   "32022"
+  ],
+  "kind": "entity",
+  "program": "GLOMAG",
+  "name_form": "primary",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=32022",
+  "role": "final",
+  "prefix_tokens": 31
+ },
+ {
+  "name": "Magnus CNC Support AB",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/9845002FY46D069E0432",
+  "lei": "9845002FY46D069E0432",
+  "role": "final",
+  "prefix_tokens": 31
+ },
+ {
+  "name": "JING PIN INC.",
+  "expected": true,
+  "sdn_ids": [
+   "55954"
+  ],
+  "kind": "entity",
+  "program": "TCO",
+  "name_form": "primary",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=55954",
+  "role": "final",
+  "prefix_tokens": 30
+ },
+ {
+  "name": "S K CONSTRUCTION",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/8945007F4QU8SBHM6049",
+  "lei": "8945007F4QU8SBHM6049",
+  "role": "final",
+  "prefix_tokens": 30
+ },
+ {
+  "name": "ZAVOD LIPETSKTEKHNOLIT",
+  "expected": true,
+  "sdn_ids": [
+   "47651"
+  ],
+  "kind": "entity",
+  "program": "RUSSIA-EO14024",
+  "name_form": "primary",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=47651",
+  "role": "final",
+  "prefix_tokens": 37
+ },
+ {
+  "name": "GR ASSET INVESTMENTS, S.L.",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/959800EEBYTSMM04B076",
+  "lei": "959800EEBYTSMM04B076",
+  "role": "final",
+  "prefix_tokens": 37
+ },
+ {
+  "name": "JOINT STOCK COMPANY OMUTNINSK METALLURGICAL PLANT",
+  "expected": true,
+  "sdn_ids": [
+   "45529"
+  ],
+  "kind": "entity",
+  "program": "RUSSIA-EO14024",
+  "name_form": "primary",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=45529",
+  "role": "final",
+  "prefix_tokens": 42
+ },
+ {
+  "name": "SRI LAKSHMI VENKATESWARA ENTERPRISES",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/8945007BQSRCQQ89RS85",
+  "lei": "8945007BQSRCQQ89RS85",
+  "role": "final",
+  "prefix_tokens": 42
+ },
+ {
+  "name": "WOODHAVEN DRC SASU",
+  "expected": true,
+  "sdn_ids": [
+   "34065"
+  ],
+  "kind": "entity",
+  "program": "GLOMAG",
+  "name_form": "primary",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=34065",
+  "role": "final",
+  "prefix_tokens": 34
+ },
+ {
+  "name": "KALPAH MOTORS PRIVATE LIMITED",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/648800DW73WNJS7QQ072",
+  "lei": "648800DW73WNJS7QQ072",
+  "role": "final",
+  "prefix_tokens": 34
+ },
+ {
+  "name": "GENI SARL",
+  "expected": true,
+  "sdn_ids": [
+   "33940"
+  ],
+  "kind": "entity",
+  "program": "GLOMAG",
+  "name_form": "primary",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=33940",
+  "role": "final",
+  "prefix_tokens": 29
+ },
+ {
+  "name": "Latein Capital GmbH",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/391200WIA711I48DU924",
+  "lei": "391200WIA711I48DU924",
+  "role": "final",
+  "prefix_tokens": 29
+ },
+ {
+  "name": "LORENA DEL MAR, S.A. DE C.V.",
+  "expected": true,
+  "sdn_ids": [
+   "12274"
+  ],
+  "kind": "entity",
+  "program": "SDNTK",
+  "name_form": "primary",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=12274",
+  "role": "final",
+  "prefix_tokens": 40
+ },
+ {
+  "name": "Luftsport-Club Marienberg e.V. (LCM)",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/98450067388F5DA8M766",
+  "lei": "98450067388F5DA8M766",
+  "role": "final",
+  "prefix_tokens": 40
+ },
+ {
+  "name": "A LEVEL AEROSYSTEMS CST LLC",
+  "expected": true,
+  "sdn_ids": [
+   "45928"
+  ],
+  "kind": "entity",
+  "program": "RUSSIA-EO14024",
+  "name_form": "primary",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=45928",
+  "role": "final",
+  "prefix_tokens": 38
+ },
+ {
+  "name": "SHREE RADHA KRISHNA INFRASTRUCTURE",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/335800IXOGJPRA4QL786",
+  "lei": "335800IXOGJPRA4QL786",
+  "role": "final",
+  "prefix_tokens": 38
+ },
+ {
+  "name": "PROTEH CO LTD",
+  "expected": true,
+  "sdn_ids": [
+   "49958"
+  ],
+  "kind": "entity",
+  "program": "RUSSIA-EO14024",
+  "name_form": "primary",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=49958",
+  "role": "final",
+  "prefix_tokens": 31
+ },
+ {
+  "name": "PPT-Rendite",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/5299002S9JIO9AAMYL70",
+  "lei": "5299002S9JIO9AAMYL70",
+  "role": "final",
+  "prefix_tokens": 31
+ },
+ {
+  "name": "NIK LLC",
+  "expected": true,
+  "sdn_ids": [
+   "45760"
+  ],
+  "kind": "entity",
+  "program": "RUSSIA-EO14024",
+  "name_form": "primary",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=45760",
+  "role": "final",
+  "prefix_tokens": 28
+ },
+ {
+  "name": "Weip Foundation",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "legal_entity_exact_absent",
+  "source_url": "https://api.gleif.org/api/v1/lei-records/39120010DUXY5XQPRP52",
+  "lei": "39120010DUXY5XQPRP52",
+  "role": "final",
+  "prefix_tokens": 28
+ }
+]

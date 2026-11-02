@@ -119,3 +119,17 @@ Large training runs and model files live outside OneDrive, in `C:\Users\hyada\tg
   and fits only the existing 769-parameter reward head on the same source-audited data. Preserve
   the original pairwise objective and node runtime. Verify all 176 saved LoRA tensors are exactly
   unchanged, and retain the inherited-source-knowledge disclosure. No score wrapper is introduced.
+- V12 also failed (4/62). Float32 training-model rankings exactly match actual-node rankings;
+  export fidelity is not the observed cause. Exact positive training-query coverage in v3 is
+  only 2/14 old and 3/15 reserved names, despite broader source-entity overlap.
+- V13 may ingest the complete ASCII organization primary/alias vocabulary of the public SDN
+  snapshot as factual knowledge, with public GLEIF legal names checked absent from that snapshot.
+  This explicitly supersedes the entity/query holdout for POSITIVE REFERENCE FACTS in A7/A8.
+  Captured answer bodies remain measurement-only; exclude measured absent queries from negatives.
+  Disclose this as known-snapshot factual discrimination on unseen external answer bodies, never
+  unseen-entity generalization. Do not call source-exposed validation a held-out factual test.
+- Pair listed and real absent names in equal tokenizer-length strata, independently balance
+  verdicts/formats, and retain binding examples. Freeze the recipe before training: v3 parent,
+  one epoch, learning rate 0.00005, stock objective, rank8/alpha32, max256. Select only on synthetic
+  validation loss. Preserve all v9-v12 failures. Passing length still cannot establish submission
+  readiness without genuine errors in both classes and stronger independent name coverage.

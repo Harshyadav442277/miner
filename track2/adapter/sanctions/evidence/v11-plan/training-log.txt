@@ -1,0 +1,70 @@
+10:40:17 INFO: C:\Users\hyada\tg-eval\pairs\sanctions_v10_alias_schema\train.jsonl: 2400 pairs
+10:40:17 INFO: C:\Users\hyada\tg-eval\pairs\sanctions_v10_alias_schema\val.jsonl: 400 pairs
+10:40:17 INFO: C:\Users\hyada\tg-eval\pairs\sanctions_v10_alias_schema\test.jsonl: 400 pairs
+dataset gate: PASS (2400 pairs)
+  unique negatives    100.0%
+  largest single neg  0.0%
+  length shortcut     50.3%
+  held-out leak       0.0%
+  surface probe       54.4%  (50% = no tell)
+  mean length         chosen 340 / rejected 349 characters
+10:40:22 INFO: hyperparameters: Hyperparams(max_length=256, batch_size=4, grad_accum=4, grad_checkpointing=True, lora_rank=8, lora_alpha=32, lora_dropout=0.1, epochs=1, lr=1e-05, weight_decay=0.01, eval_split=0.15, seed=42, eval_batch=1, gate_min_acc=0.65, gate_min_margin_over_baseline=0.1, early_stopping=True, es_metric='val_loss', es_patience=1, es_min_delta=0.001, loss_floor=0.0001)
+10:40:23 INFO: tokenizer matches the node (88 vectors)
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+
+Loading weights:   0%|          | 0/136 [00:00<?, ?it/s]
+Loading weights:  18%|#8        | 25/136 [00:00<00:00, 244.32it/s]
+Loading weights:  46%|####6     | 63/136 [00:00<00:00, 315.47it/s]
+Loading weights:  77%|#######7  | 105/136 [00:00<00:00, 356.44it/s]
+Loading weights: 100%|##########| 136/136 [00:00<00:00, 353.27it/s]
+[transformers] ModernBertForSequenceClassification LOAD REPORT from: answerdotai/ModernBERT-base
+Key               | Status     | 
+------------------+------------+-
+decoder.bias      | UNEXPECTED | 
+classifier.weight | MISSING    | 
+classifier.bias   | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+10:40:24 INFO: answerdotai/ModernBERT-base | trainable 1,690,369 / 151,296,002 parameters
+C:\Users\hyada\tg-eval\.venv\Lib\site-packages\peft\utils\save_and_load.py:313: UserWarning: Could not find a config file in answerdotai/ModernBERT-base - will assume that the vocabulary was not modified.
+  warnings.warn(
+{"warm_start": {"parent_checkpoint": "C:\\Users\\hyada\\tg-eval\\runs-v2\\SANCTIONS_SCREENING_MATCH_v3\\adapter", "tensors_verified": 178, "parent_checkpoint_sha256": "b3ae99c2a2c4afcdece4b8acfe412cb3465c0c16ee40c8b26388110af975cd5d"}}
+10:40:24 INFO: device: cuda (NVIDIA GeForce RTX 3050 Laptop GPU)
+10:40:44 INFO: epoch 0 step 10/150 loss 2.2893
+10:41:02 INFO: epoch 0 step 20/150 loss 1.9070
+10:41:20 INFO: epoch 0 step 30/150 loss 1.6964
+10:41:38 INFO: epoch 0 step 40/150 loss 1.4945
+10:41:57 INFO: epoch 0 step 50/150 loss 1.4016
+10:42:15 INFO: epoch 0 step 60/150 loss 1.3104
+10:42:34 INFO: epoch 0 step 70/150 loss 1.2182
+10:42:53 INFO: epoch 0 step 80/150 loss 1.1661
+10:43:11 INFO: epoch 0 step 90/150 loss 1.1101
+10:43:29 INFO: epoch 0 step 100/150 loss 1.0598
+10:43:48 INFO: epoch 0 step 110/150 loss 1.0214
+10:44:07 INFO: epoch 0 step 120/150 loss 0.9781
+10:44:26 INFO: epoch 0 step 130/150 loss 0.9448
+10:44:44 INFO: epoch 0 step 140/150 loss 0.9235
+10:45:02 INFO: epoch 0 step 150/150 loss 0.8963
+10:45:02 INFO: epoch 0 done: train loss 0.8963
+10:45:31 INFO: epoch 0 validation: accuracy 0.7550, loss 0.5140
+10:45:31 INFO: epoch 0: new best val_loss 0.5140, adapter saved
+{
+  "intent": "SANCTIONS_SCREENING_MATCH",
+  "base_model": "answerdotai/ModernBERT-base",
+  "base_model_sha256": "340ac08b74eef0d7bdec2d7981a6a3d4249bf0e6aab60634b72ad02c2b8023a9",
+  "tokenizer_sha256": "9fd55248d51d33976b324fc11592e28071da7d41e0e9401dfb7082e30574b7b1",
+  "adapter_dir": "C:\\Users\\hyada\\tg-eval\\runs-v2\\SANCTIONS_SCREENING_MATCH_v11\\adapter",
+  "reward_head": "C:\\Users\\hyada\\tg-eval\\runs-v2\\SANCTIONS_SCREENING_MATCH_v11\\adapter\\reward_head.pt",
+  "train_pairs": 2400,
+  "gate_split": "test",
+  "n_eval": 400,
+  "pairwise_accuracy": 0.765,
+  "val_loss": 0.52295,
+  "length_baseline": 0.5012,
+  "beats_length_baseline": true,
+  "verdict": "PASS",
+  "negative_memorisation": 0.0
+}
+Recorded known kit post-write NameError: pkg; result and checkpoint exist.

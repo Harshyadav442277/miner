@@ -1,0 +1,79 @@
+{
+ "seed": 1320261102,
+ "splits": {
+  "train": {
+   "pairs": 42348,
+   "knowledge_blocks": 20874,
+   "token_bucket_distances": {
+    "0": 20708,
+    "1": 94,
+    "2": 13,
+    "3": 17,
+    "4": 16,
+    "5": 6,
+    "7": 4,
+    "8": 2,
+    "9": 2,
+    "10": 2,
+    "11": 3,
+    "12": 2,
+    "15": 2,
+    "17": 1,
+    "21": 1,
+    "22": 1
+   },
+   "unique_absent_queries": 6871,
+   "max_absent_reuse": 60,
+   "sha256": "017e9d26c787ec91025817c1aec491fc610a699e131240d574628a967a730adb",
+   "visible_length_baseline_tie_aware": 0.5
+  },
+  "val": {
+   "pairs": 800,
+   "knowledge_blocks": 400,
+   "token_bucket_distances": {
+    "0": 376,
+    "1": 16,
+    "2": 2,
+    "3": 1,
+    "4": 3,
+    "6": 2
+   },
+   "unique_absent_queries": 236,
+   "max_absent_reuse": 8,
+   "sha256": "a47ce7fd703fc6cbd9982e6c27b7e4de53e70f10cca93efe75d7eef055fdd203",
+   "visible_length_baseline_tie_aware": 0.5
+  },
+  "test": {
+   "pairs": 800,
+   "knowledge_blocks": 400,
+   "token_bucket_distances": {
+    "0": 374,
+    "1": 14,
+    "2": 2,
+    "3": 4,
+    "6": 1,
+    "8": 2,
+    "9": 1,
+    "10": 1,
+    "27": 1
+   },
+   "unique_absent_queries": 239,
+   "max_absent_reuse": 14,
+   "sha256": "a148ee037b133133db67bdb74c366ec7351c58aa18fee71abdc684e58056481f",
+   "visible_length_baseline_tie_aware": 0.5
+  }
+ },
+ "positive_reference_names": 20874,
+ "eligible_real_absent_names": 8107,
+ "sdn_sha256": "5f240bed79d504e7a54788b4cd1c7f84e6afa56cd4778653b70b0771b6a8509d",
+ "alt_sha256": "b0e2811fbb49ba6e9941a497e6b05fa2c9037b45ae7923196a01e2363a402259",
+ "negative_reference_sha256": "8ac27c83d801df9f67ca2d6e02b838c0e77e105dec037dc3ac0763bf39e3cfee",
+ "excluded_measured_absent_queries": [
+  "track2\\adapter\\sanctions\\evidence\\2026-11-01-miners-r1\\queries.json",
+  "track2\\adapter\\sanctions\\evidence\\2026-11-01-miners-fresh\\queries.json",
+  "track2\\adapter\\sanctions\\evidence\\v7-miner-capture\\queries.json",
+  "track2\\adapter\\sanctions\\evidence\\v8-bank-final\\queries.json",
+  "track2\\adapter\\sanctions\\evidence\\v9-miner-capture\\queries.json"
+ ],
+ "scope": "All eligible positive facts exposed in train. Validation/test positive facts are KNOWN; answer forms differ. Negative identities are split. No captured answers or pool material."
+}

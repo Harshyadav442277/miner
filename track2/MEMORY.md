@@ -8,6 +8,24 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 
 ---
 
+## 2026-11-02: factual experiments v9-v13
+
+Old62 genuine comparisons: v3 reference41, v8 31, v9 13, v10 20, v11 35,
+v12 4 correct. All miss42/62 actual visible-length baseline; none ready to sign.
+V12 preserved all176 encoder tensors. HF float32 reproduces actual-node pair
+orderings100%; fixed encoder/head crossovers show no gain. Exact positive training
+query coverage in v3 is only2/14 old names and3/15 reserved names.
+New capture:128 names,640/640 HTTP200,69 pairs/15 names,all listed; baseline71.74%.
+Still unscored. Machine-verdict visibility audit now identifies43/62 old observable
+pairs; keep full slice and subset separate, do not silently shorten/drop answers.
+V13 explicitly ingests20,891 eligible public SDN organization primary/alias names,
+including previously omitted nka aliases, with real GLEIF exact-absent names.
+Independent CSV audit passes42,382/800/800 pairs; visible-length baseline50%.
+All positive reference facts are training-exposed; synthetic val/test measure known
+positive representations, not unseen entities. Captured bodies remain measurement-only.
+Frozen v3-parent1epoch/lr0.00005 recipe in FACTUAL_V13.md; no result yet.
+Preserve the independent FX_NOW block. No wallet or pool actions.
+
 ## 2026-11-02 IST: v8 fixes the target regression; factual quality remains open
 
 - Worktree: `C:/Users/hyada/.codex/worktrees/sanctions-benchmark-v7/Telegraph`, branch

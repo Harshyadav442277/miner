@@ -43,3 +43,19 @@ $base = 'track2/adapter/sanctions'
 Restore the exact archived v10 inputs first; use fresh output locations when
 replaying so original evidence is preserved. Model/checkpoint hashes and actual
 node f32 scores are retained for verification. No wallet or pool action occurs.
+
+Result: synthetic test 333/400 (83.25%), actual-node development 4/62 (6.45%).
+Rejected; the 69 reserved pairs remain unscored. All 176 saved encoder/LoRA tensors
+are bit-identical to v3. The head-only intervention did not help.
+
+Float32 fidelity checks used the exact pinned-tokenizer IDs on 66 unique inputs.
+V3 reproduces 41/62 and v12 reproduces 4/62, with 100% pair-order agreement between
+HF and the actual node; maximum absolute score differences are 0.000133 and
+0.000082 respectively. Export/pooling mismatch does not explain these failures.
+Fixed encoder/head crossovers give no HF-screen gain (v3 encoder:41/62 with either
+head, v8 encoder:31/62 with either head). They were not exported as candidates.
+
+Exact historical reconstruction further shows only 2/14 development and 3/15
+reserved names appeared as exact positive training queries. Entity exposure does
+not establish alias coverage. This audit does not rule out strings appearing in
+other response fields. See the three diagnostic JSON files in `evidence/v12-plan`.

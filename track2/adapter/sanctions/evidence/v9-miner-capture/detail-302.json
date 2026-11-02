@@ -1,0 +1,12 @@
+{
+ "url": "https://devnode.telegraphprotocol.com/api/miners/302",
+ "method": "GET",
+ "request_body": null,
+ "started_at": "2026-11-02T04:28:45.523038+00:00",
+ "finished_at": "2026-11-02T04:28:46.291353+00:00",
+ "status": 200,
+ "curl_exit": 0,
+ "error": "",
+ "sha256": "a18e0c0abf9eaba338c144606515910f968502482910f7399ea9e94798c35b40",
+ "body": "{\"miner\":{\"registration_id\":302,\"slug\":\"koinmix-crypto-price\",\"miner_address\":\"0x8348f644389a80e853047c3bced7bfb1b74c582a\",\"activation_status\":\"superseded\",\"yaml_url\":\"https://gateway.pinata.cloud/ipfs/QmZ2xmBXaxAY8vFJWAXvG4TCJ3wnLcPqMos1o7ps8pyyXq\",\"yaml_hash\":\"4a74c1df8cdfb2d8a52f2e49f9815990a598aa92b7e5e46ef6a9855dd8b94039\",\"supported_intents\":[\"CRYPTO_PRICE_USD\"],\"fee_address\":\"0x8348f644389a80e853047c3bced7bfb1b74c582a\",\"min_price_usdc\":10000,\"rejection_reason\":null,\"fetch_attempts\":0,\"retrying\":false,\"registered_at\":\"2026-10-24T23:21:33Z\",\"updated_at\":\"2026-10-24T23:21:39Z\"}}\n"
+}

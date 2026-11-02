@@ -1,0 +1,39 @@
+{
+ "fixed_candidates": "3-encoder/8-head and 8-encoder/3-head; no weight search or fitting",
+ "results": {
+  "encoder3_head3": {
+   "encoder": 3,
+   "head": 3,
+   "pairs": 62,
+   "hf_correct": 41,
+   "hf_accuracy": 0.6612903225806451,
+   "scope": "HF development screen only; requires export and actual-node verification",
+   "self_reference_max_abs_node_difference": 0.000133514404296875
+  },
+  "encoder3_head8": {
+   "encoder": 3,
+   "head": 8,
+   "pairs": 62,
+   "hf_correct": 41,
+   "hf_accuracy": 0.6612903225806451,
+   "scope": "HF development screen only; requires export and actual-node verification"
+  },
+  "encoder8_head3": {
+   "encoder": 8,
+   "head": 3,
+   "pairs": 62,
+   "hf_correct": 31,
+   "hf_accuracy": 0.5,
+   "scope": "HF development screen only; requires export and actual-node verification"
+  },
+  "encoder8_head8": {
+   "encoder": 8,
+   "head": 8,
+   "pairs": 62,
+   "hf_correct": 31,
+   "hf_accuracy": 0.5,
+   "scope": "HF development screen only; requires export and actual-node verification",
+   "self_reference_max_abs_node_difference": 8.296966552734375e-05
+  }
+ }
+}

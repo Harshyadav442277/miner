@@ -1,0 +1,88 @@
+10:16:04 INFO: C:\Users\hyada\tg-eval\pairs\sanctions_v10_alias_schema\train.jsonl: 2400 pairs
+10:16:04 INFO: C:\Users\hyada\tg-eval\pairs\sanctions_v10_alias_schema\val.jsonl: 400 pairs
+10:16:04 INFO: C:\Users\hyada\tg-eval\pairs\sanctions_v10_alias_schema\test.jsonl: 400 pairs
+dataset gate: PASS (2400 pairs)
+  unique negatives    100.0%
+  largest single neg  0.0%
+  length shortcut     50.3%
+  held-out leak       0.0%
+  surface probe       54.4%  (50% = no tell)
+  mean length         chosen 340 / rejected 349 characters
+10:16:10 INFO: hyperparameters: Hyperparams(max_length=256, batch_size=4, grad_accum=4, grad_checkpointing=True, lora_rank=8, lora_alpha=32, lora_dropout=0.1, epochs=2, lr=5e-05, weight_decay=0.01, eval_split=0.15, seed=42, eval_batch=1, gate_min_acc=0.65, gate_min_margin_over_baseline=0.1, early_stopping=True, es_metric='val_loss', es_patience=1, es_min_delta=0.001, loss_floor=0.0001)
+10:16:10 INFO: tokenizer matches the node (88 vectors)
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+
+Loading weights:   0%|          | 0/136 [00:00<?, ?it/s]
+Loading weights:  18%|#7        | 24/136 [00:00<00:00, 238.72it/s]
+Loading weights:  46%|####6     | 63/136 [00:00<00:00, 317.36it/s]
+Loading weights:  76%|#######6  | 104/136 [00:00<00:00, 336.76it/s]
+Loading weights: 100%|##########| 136/136 [00:00<00:00, 353.57it/s]
+[transformers] ModernBertForSequenceClassification LOAD REPORT from: answerdotai/ModernBERT-base
+Key               | Status     | 
+------------------+------------+-
+decoder.bias      | UNEXPECTED | 
+classifier.weight | MISSING    | 
+classifier.bias   | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+10:16:11 INFO: answerdotai/ModernBERT-base | trainable 1,690,369 / 151,296,002 parameters
+C:\Users\hyada\tg-eval\.venv\Lib\site-packages\peft\utils\save_and_load.py:313: UserWarning: Could not find a config file in answerdotai/ModernBERT-base - will assume that the vocabulary was not modified.
+  warnings.warn(
+{"warm_start": {"parent_checkpoint": "C:\\Users\\hyada\\tg-eval\\runs-v2\\SANCTIONS_SCREENING_MATCH_v8\\adapter", "tensors_verified": 178, "parent_checkpoint_sha256": "add915ef67df28aa0be3e5a0836b5b41a7fcbe58ce9715fb77954318a2724e1e"}}
+10:16:11 INFO: device: cuda (NVIDIA GeForce RTX 3050 Laptop GPU)
+10:16:31 INFO: epoch 0 step 10/300 loss 0.5288
+10:16:49 INFO: epoch 0 step 20/300 loss 0.6414
+10:17:08 INFO: epoch 0 step 30/300 loss 0.6022
+10:17:26 INFO: epoch 0 step 40/300 loss 0.5067
+10:17:45 INFO: epoch 0 step 50/300 loss 0.4683
+10:18:02 INFO: epoch 0 step 60/300 loss 0.4315
+10:18:21 INFO: epoch 0 step 70/300 loss 0.4049
+10:18:39 INFO: epoch 0 step 80/300 loss 0.3819
+10:18:58 INFO: epoch 0 step 90/300 loss 0.3706
+10:19:16 INFO: epoch 0 step 100/300 loss 0.3571
+10:19:35 INFO: epoch 0 step 110/300 loss 0.3586
+10:19:54 INFO: epoch 0 step 120/300 loss 0.3489
+10:20:12 INFO: epoch 0 step 130/300 loss 0.3399
+10:20:31 INFO: epoch 0 step 140/300 loss 0.3299
+10:20:49 INFO: epoch 0 step 150/300 loss 0.3240
+10:20:49 INFO: epoch 0 done: train loss 0.3240
+10:21:18 INFO: epoch 0 validation: accuracy 0.8950, loss 0.2453
+10:21:18 INFO: epoch 0: new best val_loss 0.2453, adapter saved
+10:21:36 INFO: epoch 1 step 160/300 loss 0.1216
+10:21:55 INFO: epoch 1 step 170/300 loss 0.1607
+10:22:13 INFO: epoch 1 step 180/300 loss 0.1732
+10:22:32 INFO: epoch 1 step 190/300 loss 0.1611
+10:22:50 INFO: epoch 1 step 200/300 loss 0.1768
+10:23:08 INFO: epoch 1 step 210/300 loss 0.1703
+10:23:26 INFO: epoch 1 step 220/300 loss 0.1603
+10:23:46 INFO: epoch 1 step 230/300 loss 0.1555
+10:24:05 INFO: epoch 1 step 240/300 loss 0.1598
+10:24:26 INFO: epoch 1 step 250/300 loss 0.1654
+10:24:45 INFO: epoch 1 step 260/300 loss 0.1619
+10:25:06 INFO: epoch 1 step 270/300 loss 0.1609
+10:25:23 INFO: epoch 1 step 280/300 loss 0.1584
+10:25:42 INFO: epoch 1 step 290/300 loss 0.1638
+10:26:00 INFO: epoch 1 step 300/300 loss 0.1621
+10:26:00 INFO: epoch 1 done: train loss 0.1621
+10:26:29 INFO: epoch 1 validation: accuracy 0.8850, loss 0.2270
+10:26:29 INFO: epoch 1: new best val_loss 0.2270, adapter saved
+{
+  "intent": "SANCTIONS_SCREENING_MATCH",
+  "base_model": "answerdotai/ModernBERT-base",
+  "base_model_sha256": "340ac08b74eef0d7bdec2d7981a6a3d4249bf0e6aab60634b72ad02c2b8023a9",
+  "tokenizer_sha256": "9fd55248d51d33976b324fc11592e28071da7d41e0e9401dfb7082e30574b7b1",
+  "adapter_dir": "C:\\Users\\hyada\\tg-eval\\runs-v2\\SANCTIONS_SCREENING_MATCH_v10\\adapter",
+  "reward_head": "C:\\Users\\hyada\\tg-eval\\runs-v2\\SANCTIONS_SCREENING_MATCH_v10\\adapter\\reward_head.pt",
+  "train_pairs": 2400,
+  "gate_split": "test",
+  "n_eval": 400,
+  "pairwise_accuracy": 0.8875,
+  "val_loss": 0.243194,
+  "length_baseline": 0.5012,
+  "beats_length_baseline": true,
+  "verdict": "PASS",
+  "negative_memorisation": 0.0
+}
+Recorded known kit post-write NameError: pkg; result and checkpoint exist.

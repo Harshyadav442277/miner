@@ -20,6 +20,8 @@ def main():
     ap.add_argument("--lr", type=float, default=0.00005)
     ap.add_argument("--epochs", type=int, default=2)
     ap.add_argument("--head-only", action="store_true")
+    ap.add_argument("--batch-size", type=int, default=4)
+    ap.add_argument("--grad-accum", type=int, default=4)
     a = ap.parse_args()
     sys.path.insert(0, str(a.home / "kit-v2"))
     from float_runtime import train_adapter as kit
@@ -71,7 +73,7 @@ def main():
     data = a.home / "pairs" / a.data_dir
     argv = ["--intent", "SANCTIONS_SCREENING_MATCH", "--data", str(data / "train.jsonl"),
             "--val-data", str(data / "val.jsonl"), "--test-data", str(data / "test.jsonl"),
-            "--out", str(out), "--max-length", "256", "--batch-size", "4", "--grad-accum", "4",
+            "--out", str(out), "--max-length", "256", "--batch-size", str(a.batch_size), "--grad-accum", str(a.grad_accum),
             "--eval-batch", "1", "--lora-rank", "8", "--lora-alpha", "32", "--epochs", str(a.epochs),
             "--lr", str(a.lr), "--seed", "42"]
     started = time.time()

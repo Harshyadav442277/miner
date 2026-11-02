@@ -1,0 +1,6402 @@
+[
+ {
+  "capture": "responses-302.json",
+  "row": 0,
+  "miner_id": "302",
+  "name": "INDEPENDENT INSURANCE GROUP LTD",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 1,
+  "miner_id": "302",
+  "name": "CAPSOFT HEALTHCARE PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 2,
+  "miner_id": "302",
+  "name": "SAONE SHIPPING CORP",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 3,
+  "miner_id": "302",
+  "name": "Nexo Holding B.V.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 4,
+  "miner_id": "302",
+  "name": "NEW EASTERN SHIPPING CO LTD",
+  "expected": true,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "no matching name echo"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 5,
+  "miner_id": "302",
+  "name": "Vermeulen Ventures B.V.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 6,
+  "miner_id": "302",
+  "name": "LA CROSSE GROUP INC",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 7,
+  "miner_id": "302",
+  "name": "HOTEL SUR 2010 SL",
+  "expected": false,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "no matching name echo"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 8,
+  "miner_id": "302",
+  "name": "HOLISTIC WELLWAVES S. DE R.L. DE C.V.",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 9,
+  "miner_id": "302",
+  "name": "ANNAPURNA SREERAM CHINA JAYARAMUDU JEWELLERIES",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 10,
+  "miner_id": "302",
+  "name": "SABA STEEL",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 11,
+  "miner_id": "302",
+  "name": "GOLDER AS",
+  "expected": false,
+  "claim": true,
+  "decision_label": "abstain",
+  "reason": "positive may be fuzzy or from another list"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 12,
+  "miner_id": "302",
+  "name": "INFINITE FORCE CARGO SERVICE HK LIMITED",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 13,
+  "miner_id": "302",
+  "name": "GS FAMILY HOLDING S.R.L.",
+  "expected": false,
+  "claim": true,
+  "decision_label": "abstain",
+  "reason": "positive may be fuzzy or from another list"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 14,
+  "miner_id": "302",
+  "name": "HASSAN DTO",
+  "expected": true,
+  "claim": false,
+  "decision_label": "incorrect",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 15,
+  "miner_id": "302",
+  "name": "AKL Bygg AB",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 16,
+  "miner_id": "302",
+  "name": "DOMINION TRADING GROUP LIMITED",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 17,
+  "miner_id": "302",
+  "name": "HMP GmbH High Melting Products",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 18,
+  "miner_id": "302",
+  "name": "MT TEVEL INCORPORATED",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 19,
+  "miner_id": "302",
+  "name": "Sudarshan Switzerland HLD2 AG",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 20,
+  "miner_id": "302",
+  "name": "GRUPO CINJAB, S.A. DE C.V.",
+  "expected": true,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "no matching name echo"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 21,
+  "miner_id": "302",
+  "name": "HEIDELBERG MATERIALS AUSTRALIA GROUP PTY LTD",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 22,
+  "miner_id": "302",
+  "name": "PEGASUS 88 LIMITED",
+  "expected": true,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "no matching name echo"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 23,
+  "miner_id": "302",
+  "name": "BICE INVERSIONES",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 24,
+  "miner_id": "302",
+  "name": "AVA TARABAR DARYA CO LTD",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 25,
+  "miner_id": "302",
+  "name": "JAIN BROTHERS INFRATECH PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 26,
+  "miner_id": "302",
+  "name": "CADY TECH HK LIMITED",
+  "expected": true,
+  "claim": false,
+  "decision_label": "incorrect",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 27,
+  "miner_id": "302",
+  "name": "Juradin B.V.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 28,
+  "miner_id": "302",
+  "name": "BAOGANG DONGYING DONGGANG LOGISTICS AND WAREHOUSING CO., LTD.",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 29,
+  "miner_id": "302",
+  "name": "CH REALTY IX-JV I TACOMA FRED310 G OWNER, L.P.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 30,
+  "miner_id": "302",
+  "name": "CAILAFANG PTE. LTD.",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 31,
+  "miner_id": "302",
+  "name": "MAHANT SUPPLY AGENCY",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 32,
+  "miner_id": "302",
+  "name": "INDONESIA HILAL AHMAR SOCIETY FOR SYRIA",
+  "expected": true,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "no matching name echo"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 33,
+  "miner_id": "302",
+  "name": "EXPLOTACIONES BENADRESA SOCIEDAD ANONIMA",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 34,
+  "miner_id": "302",
+  "name": "OBSHCHESTVO S OGRANICHENNOY OTVETSTVENNOSTYU UPRAVLYAYUSHCHAYA KOMPANIYA RVK",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 35,
+  "miner_id": "302",
+  "name": "POHIT, za proizvodnju, promet, usluge, vanjsku i unutarnju trgovinu, d.o.o.",
+  "expected": false,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "no matching name echo"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 36,
+  "miner_id": "302",
+  "name": "AKTAU PETROL TICARET ANONIM SIRKETI",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 37,
+  "miner_id": "302",
+  "name": "LIDER CANARIAS CONTROL DE PLAGAS, S.L.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 38,
+  "miner_id": "302",
+  "name": "EMPRESA DE INGENIERIA Y PROYECTOS DEL NIQUEL",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 39,
+  "miner_id": "302",
+  "name": "Invesco CoinShares Tokenisation & Stablecoin UCITS ETF",
+  "expected": false,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "no matching name echo"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 40,
+  "miner_id": "302",
+  "name": "GARDESHGARI BANK",
+  "expected": true,
+  "claim": false,
+  "decision_label": "incorrect",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 41,
+  "miner_id": "302",
+  "name": "XSIS RESIDENCY LLP",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 42,
+  "miner_id": "302",
+  "name": "LIMITED LIABILITY COMPANY INTER PODSHIPNIK GROUP",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 43,
+  "miner_id": "302",
+  "name": "YAMY HOLDINGS INTERNATIONAL PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 44,
+  "miner_id": "302",
+  "name": "RUSGAZALYANS",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 45,
+  "miner_id": "302",
+  "name": "Birgitta Persson Holding AB",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 46,
+  "miner_id": "302",
+  "name": "LIMITED LIABILITY COMPANY GORA GOLDEN RATIO",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 47,
+  "miner_id": "302",
+  "name": "PADAKULA VASUDEVAREDDY",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 48,
+  "miner_id": "302",
+  "name": "SHENZHEN BIGUANG TRADING CO., LTD",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 49,
+  "miner_id": "302",
+  "name": "ROHIT DHANANJAY KAMALAKAR",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 50,
+  "miner_id": "302",
+  "name": "GLOBAL TRADELINE SARL",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 51,
+  "miner_id": "302",
+  "name": "SUNIL KUMAR MAKHIJA",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 52,
+  "miner_id": "302",
+  "name": "STEP ISTANBUL",
+  "expected": true,
+  "claim": false,
+  "decision_label": "incorrect",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 53,
+  "miner_id": "302",
+  "name": "J. K. CONSTRUCTION",
+  "expected": false,
+  "claim": true,
+  "decision_label": "abstain",
+  "reason": "positive may be fuzzy or from another list"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 54,
+  "miner_id": "302",
+  "name": "EUROGROUP ENGINEERING AD",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 55,
+  "miner_id": "302",
+  "name": "V S PRODUCTS PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 56,
+  "miner_id": "302",
+  "name": "LIMITED LIABILITY COMPANY KRIOGENAVIA NN",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 57,
+  "miner_id": "302",
+  "name": "MONFLEX TECHNOLOGY CORP.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 58,
+  "miner_id": "302",
+  "name": "YAZD AIRWAYS",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 59,
+  "miner_id": "302",
+  "name": "Ubuntu B.V.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 60,
+  "miner_id": "302",
+  "name": "UNIQUE STATION TRADING",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 61,
+  "miner_id": "302",
+  "name": "Pinnacle 0726 Pte Ltd",
+  "expected": false,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "no matching name echo"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 62,
+  "miner_id": "302",
+  "name": "LOIRE SHIPPING INC.",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 63,
+  "miner_id": "302",
+  "name": "INDMA STEEL PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 64,
+  "miner_id": "302",
+  "name": "CLOSED JOINT STOCK COMPANY VOLOGDA BEARING PLANT",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 65,
+  "miner_id": "302",
+  "name": "SHRI VIGNESH COCONUT POWDERS PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 66,
+  "miner_id": "302",
+  "name": "WORLDWIDE SHIPPING & TRANS",
+  "expected": true,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "no matching name echo"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 67,
+  "miner_id": "302",
+  "name": "K.K RESIDENCY PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 68,
+  "miner_id": "302",
+  "name": "NPO PROMODEL",
+  "expected": true,
+  "claim": false,
+  "decision_label": "incorrect",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 69,
+  "miner_id": "302",
+  "name": "INTRASENZE AB",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 70,
+  "miner_id": "302",
+  "name": "BBR BANK CLOSED JOINT STOCK COMPANY",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 71,
+  "miner_id": "302",
+  "name": "EQUIPOINFRA SOLUTIONS PRIVATE LIMITED",
+  "expected": false,
+  "claim": true,
+  "decision_label": "abstain",
+  "reason": "positive may be fuzzy or from another list"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 72,
+  "miner_id": "302",
+  "name": "LIMITED LIABILITY COMPANY NEW DECISIONS 2",
+  "expected": true,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "no matching name echo"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 73,
+  "miner_id": "302",
+  "name": "Aming Beheer B.V.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 74,
+  "miner_id": "302",
+  "name": "DANDONG HONGXIANG INDUSTRIAL DEVELOPMENT CO LTD",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 75,
+  "miner_id": "302",
+  "name": "TALAIA CONTANINERS E INFRAESTRUCTURAS SL",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 76,
+  "miner_id": "302",
+  "name": "JOINT STOCK COMPANY SPECIAL RELAY SYSTEM DESIGN AND ENGINEERING BUREAU",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 77,
+  "miner_id": "302",
+  "name": "INNOVATIVE CONNECTIVITY AND SENSING SOLUTIONS PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 78,
+  "miner_id": "302",
+  "name": "EASTERN TURKISTAN ISLAMIC PARTY",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 79,
+  "miner_id": "302",
+  "name": "Shri Panchmahal Anusuchit Jati Education Trust",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 80,
+  "miner_id": "302",
+  "name": "GAZPROMNEFT MNPZ AO",
+  "expected": true,
+  "claim": false,
+  "decision_label": "incorrect",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 81,
+  "miner_id": "302",
+  "name": "SOLARX ENERGY PRIVATE LIMITED",
+  "expected": false,
+  "claim": true,
+  "decision_label": "abstain",
+  "reason": "positive may be fuzzy or from another list"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 82,
+  "miner_id": "302",
+  "name": "MEDIA LAND TECHNOLOGY LIMITED LIABILITY COMPANY",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 83,
+  "miner_id": "302",
+  "name": "ST SUMAL AGRO VENTURE PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 84,
+  "miner_id": "302",
+  "name": "LIMITED LIABILITY COMPANY YANSKAYA GORNAYA KOMPANIYA",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 85,
+  "miner_id": "302",
+  "name": "FONTANA DANILO E C. S.N.C.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 86,
+  "miner_id": "302",
+  "name": "TSNII RTK",
+  "expected": true,
+  "claim": false,
+  "decision_label": "incorrect",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 87,
+  "miner_id": "302",
+  "name": "Namrata Developers",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 88,
+  "miner_id": "302",
+  "name": "NINTH OCEAN GMBH & CO. KG",
+  "expected": true,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "no matching name echo"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 89,
+  "miner_id": "302",
+  "name": "AKSHAY INFRASYS INDUSTRIES PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 90,
+  "miner_id": "302",
+  "name": "CRIMINALISTICS INSTITUTE",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 91,
+  "miner_id": "302",
+  "name": "LATHA BALASUNDARAM",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 92,
+  "miner_id": "302",
+  "name": "KAI HENG LONG GLOBAL ENERGY LIMITED",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 93,
+  "miner_id": "302",
+  "name": "VIPRA SIDDHI ENERGY PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 94,
+  "miner_id": "302",
+  "name": "STRATIM LIMITED LIABILITY COMPANY",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 95,
+  "miner_id": "302",
+  "name": "V.K.CASTINGS",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 96,
+  "miner_id": "302",
+  "name": "AQUAQUASAR HOLDING LIMITED",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 97,
+  "miner_id": "302",
+  "name": "SHRI BAJRANG RICE MILL",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 98,
+  "miner_id": "302",
+  "name": "AUSTINSHIP MANAGEMENT PVT LTD",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 99,
+  "miner_id": "302",
+  "name": "MIPL SOLAR KAKANWANI PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 100,
+  "miner_id": "302",
+  "name": "PETRO PARSA CASPIAN IRANIAN COMPANY",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 101,
+  "miner_id": "302",
+  "name": "EOT COUPLINGS AND CONNECTIONS PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 102,
+  "miner_id": "302",
+  "name": "ZARUBEZHGEOLOGIYA AO",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 103,
+  "miner_id": "302",
+  "name": "PRAVEEN KUMAR AGARWAL",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 104,
+  "miner_id": "302",
+  "name": "ALL-PCB SOLUTIONS LTD",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 105,
+  "miner_id": "302",
+  "name": "IGPN TEXFAB PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 106,
+  "miner_id": "302",
+  "name": "YANGON AIRWAYS COMPANY LIMITED",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 107,
+  "miner_id": "302",
+  "name": "WHITELINE POLYMERS",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 108,
+  "miner_id": "302",
+  "name": "EDE 2 EOOD",
+  "expected": true,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "no matching name echo"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 109,
+  "miner_id": "302",
+  "name": "Magnus CNC Support AB",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 110,
+  "miner_id": "302",
+  "name": "JING PIN INC.",
+  "expected": true,
+  "claim": false,
+  "decision_label": "incorrect",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 111,
+  "miner_id": "302",
+  "name": "S K CONSTRUCTION",
+  "expected": false,
+  "claim": true,
+  "decision_label": "abstain",
+  "reason": "positive may be fuzzy or from another list"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 112,
+  "miner_id": "302",
+  "name": "ZAVOD LIPETSKTEKHNOLIT",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 113,
+  "miner_id": "302",
+  "name": "GR ASSET INVESTMENTS, S.L.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 114,
+  "miner_id": "302",
+  "name": "JOINT STOCK COMPANY OMUTNINSK METALLURGICAL PLANT",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 115,
+  "miner_id": "302",
+  "name": "SRI LAKSHMI VENKATESWARA ENTERPRISES",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 116,
+  "miner_id": "302",
+  "name": "WOODHAVEN DRC SASU",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 117,
+  "miner_id": "302",
+  "name": "KALPAH MOTORS PRIVATE LIMITED",
+  "expected": false,
+  "claim": true,
+  "decision_label": "abstain",
+  "reason": "positive may be fuzzy or from another list"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 118,
+  "miner_id": "302",
+  "name": "GENI SARL",
+  "expected": true,
+  "claim": false,
+  "decision_label": "incorrect",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 119,
+  "miner_id": "302",
+  "name": "Latein Capital GmbH",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 120,
+  "miner_id": "302",
+  "name": "LORENA DEL MAR, S.A. DE C.V.",
+  "expected": true,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "no matching name echo"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 121,
+  "miner_id": "302",
+  "name": "Luftsport-Club Marienberg e.V. (LCM)",
+  "expected": false,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "no matching name echo"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 122,
+  "miner_id": "302",
+  "name": "A LEVEL AEROSYSTEMS CST LLC",
+  "expected": true,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "no matching name echo"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 123,
+  "miner_id": "302",
+  "name": "SHREE RADHA KRISHNA INFRASTRUCTURE",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 124,
+  "miner_id": "302",
+  "name": "PROTEH CO LTD",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 125,
+  "miner_id": "302",
+  "name": "PPT-Rendite",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 126,
+  "miner_id": "302",
+  "name": "NIK LLC",
+  "expected": true,
+  "claim": false,
+  "decision_label": "incorrect",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-302.json",
+  "row": 127,
+  "miner_id": "302",
+  "name": "Weip Foundation",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 0,
+  "miner_id": "4433",
+  "name": "INDEPENDENT INSURANCE GROUP LTD",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 1,
+  "miner_id": "4433",
+  "name": "CAPSOFT HEALTHCARE PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 2,
+  "miner_id": "4433",
+  "name": "SAONE SHIPPING CORP",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 3,
+  "miner_id": "4433",
+  "name": "Nexo Holding B.V.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 4,
+  "miner_id": "4433",
+  "name": "NEW EASTERN SHIPPING CO LTD",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 5,
+  "miner_id": "4433",
+  "name": "Vermeulen Ventures B.V.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 6,
+  "miner_id": "4433",
+  "name": "LA CROSSE GROUP INC",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 7,
+  "miner_id": "4433",
+  "name": "HOTEL SUR 2010 SL",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 8,
+  "miner_id": "4433",
+  "name": "HOLISTIC WELLWAVES S. DE R.L. DE C.V.",
+  "expected": true,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "upstream/error status"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 9,
+  "miner_id": "4433",
+  "name": "ANNAPURNA SREERAM CHINA JAYARAMUDU JEWELLERIES",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 10,
+  "miner_id": "4433",
+  "name": "SABA STEEL",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 11,
+  "miner_id": "4433",
+  "name": "GOLDER AS",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 12,
+  "miner_id": "4433",
+  "name": "INFINITE FORCE CARGO SERVICE HK LIMITED",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 13,
+  "miner_id": "4433",
+  "name": "GS FAMILY HOLDING S.R.L.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 14,
+  "miner_id": "4433",
+  "name": "HASSAN DTO",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 15,
+  "miner_id": "4433",
+  "name": "AKL Bygg AB",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 16,
+  "miner_id": "4433",
+  "name": "DOMINION TRADING GROUP LIMITED",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 17,
+  "miner_id": "4433",
+  "name": "HMP GmbH High Melting Products",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 18,
+  "miner_id": "4433",
+  "name": "MT TEVEL INCORPORATED",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 19,
+  "miner_id": "4433",
+  "name": "Sudarshan Switzerland HLD2 AG",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 20,
+  "miner_id": "4433",
+  "name": "GRUPO CINJAB, S.A. DE C.V.",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 21,
+  "miner_id": "4433",
+  "name": "HEIDELBERG MATERIALS AUSTRALIA GROUP PTY LTD",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 22,
+  "miner_id": "4433",
+  "name": "PEGASUS 88 LIMITED",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 23,
+  "miner_id": "4433",
+  "name": "BICE INVERSIONES",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 24,
+  "miner_id": "4433",
+  "name": "AVA TARABAR DARYA CO LTD",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 25,
+  "miner_id": "4433",
+  "name": "JAIN BROTHERS INFRATECH PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 26,
+  "miner_id": "4433",
+  "name": "CADY TECH HK LIMITED",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 27,
+  "miner_id": "4433",
+  "name": "Juradin B.V.",
+  "expected": false,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "missing/contradictory machine verdict"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 28,
+  "miner_id": "4433",
+  "name": "BAOGANG DONGYING DONGGANG LOGISTICS AND WAREHOUSING CO., LTD.",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 29,
+  "miner_id": "4433",
+  "name": "CH REALTY IX-JV I TACOMA FRED310 G OWNER, L.P.",
+  "expected": false,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "upstream/error status"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 30,
+  "miner_id": "4433",
+  "name": "CAILAFANG PTE. LTD.",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 31,
+  "miner_id": "4433",
+  "name": "MAHANT SUPPLY AGENCY",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 32,
+  "miner_id": "4433",
+  "name": "INDONESIA HILAL AHMAR SOCIETY FOR SYRIA",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 33,
+  "miner_id": "4433",
+  "name": "EXPLOTACIONES BENADRESA SOCIEDAD ANONIMA",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 34,
+  "miner_id": "4433",
+  "name": "OBSHCHESTVO S OGRANICHENNOY OTVETSTVENNOSTYU UPRAVLYAYUSHCHAYA KOMPANIYA RVK",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 35,
+  "miner_id": "4433",
+  "name": "POHIT, za proizvodnju, promet, usluge, vanjsku i unutarnju trgovinu, d.o.o.",
+  "expected": false,
+  "claim": null,
+  "decision_label": "abstain",
+  "reason": "upstream/error status"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 36,
+  "miner_id": "4433",
+  "name": "AKTAU PETROL TICARET ANONIM SIRKETI",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 37,
+  "miner_id": "4433",
+  "name": "LIDER CANARIAS CONTROL DE PLAGAS, S.L.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 38,
+  "miner_id": "4433",
+  "name": "EMPRESA DE INGENIERIA Y PROYECTOS DEL NIQUEL",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 39,
+  "miner_id": "4433",
+  "name": "Invesco CoinShares Tokenisation & Stablecoin UCITS ETF",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 40,
+  "miner_id": "4433",
+  "name": "GARDESHGARI BANK",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 41,
+  "miner_id": "4433",
+  "name": "XSIS RESIDENCY LLP",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 42,
+  "miner_id": "4433",
+  "name": "LIMITED LIABILITY COMPANY INTER PODSHIPNIK GROUP",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 43,
+  "miner_id": "4433",
+  "name": "YAMY HOLDINGS INTERNATIONAL PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 44,
+  "miner_id": "4433",
+  "name": "RUSGAZALYANS",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 45,
+  "miner_id": "4433",
+  "name": "Birgitta Persson Holding AB",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 46,
+  "miner_id": "4433",
+  "name": "LIMITED LIABILITY COMPANY GORA GOLDEN RATIO",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 47,
+  "miner_id": "4433",
+  "name": "PADAKULA VASUDEVAREDDY",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 48,
+  "miner_id": "4433",
+  "name": "SHENZHEN BIGUANG TRADING CO., LTD",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 49,
+  "miner_id": "4433",
+  "name": "ROHIT DHANANJAY KAMALAKAR",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 50,
+  "miner_id": "4433",
+  "name": "GLOBAL TRADELINE SARL",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 51,
+  "miner_id": "4433",
+  "name": "SUNIL KUMAR MAKHIJA",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 52,
+  "miner_id": "4433",
+  "name": "STEP ISTANBUL",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 53,
+  "miner_id": "4433",
+  "name": "J. K. CONSTRUCTION",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 54,
+  "miner_id": "4433",
+  "name": "EUROGROUP ENGINEERING AD",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 55,
+  "miner_id": "4433",
+  "name": "V S PRODUCTS PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 56,
+  "miner_id": "4433",
+  "name": "LIMITED LIABILITY COMPANY KRIOGENAVIA NN",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 57,
+  "miner_id": "4433",
+  "name": "MONFLEX TECHNOLOGY CORP.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 58,
+  "miner_id": "4433",
+  "name": "YAZD AIRWAYS",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 59,
+  "miner_id": "4433",
+  "name": "Ubuntu B.V.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 60,
+  "miner_id": "4433",
+  "name": "UNIQUE STATION TRADING",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 61,
+  "miner_id": "4433",
+  "name": "Pinnacle 0726 Pte Ltd",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 62,
+  "miner_id": "4433",
+  "name": "LOIRE SHIPPING INC.",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 63,
+  "miner_id": "4433",
+  "name": "INDMA STEEL PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 64,
+  "miner_id": "4433",
+  "name": "CLOSED JOINT STOCK COMPANY VOLOGDA BEARING PLANT",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 65,
+  "miner_id": "4433",
+  "name": "SHRI VIGNESH COCONUT POWDERS PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 66,
+  "miner_id": "4433",
+  "name": "WORLDWIDE SHIPPING & TRANS",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 67,
+  "miner_id": "4433",
+  "name": "K.K RESIDENCY PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 68,
+  "miner_id": "4433",
+  "name": "NPO PROMODEL",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 69,
+  "miner_id": "4433",
+  "name": "INTRASENZE AB",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 70,
+  "miner_id": "4433",
+  "name": "BBR BANK CLOSED JOINT STOCK COMPANY",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 71,
+  "miner_id": "4433",
+  "name": "EQUIPOINFRA SOLUTIONS PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 72,
+  "miner_id": "4433",
+  "name": "LIMITED LIABILITY COMPANY NEW DECISIONS 2",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 73,
+  "miner_id": "4433",
+  "name": "Aming Beheer B.V.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 74,
+  "miner_id": "4433",
+  "name": "DANDONG HONGXIANG INDUSTRIAL DEVELOPMENT CO LTD",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 75,
+  "miner_id": "4433",
+  "name": "TALAIA CONTANINERS E INFRAESTRUCTURAS SL",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 76,
+  "miner_id": "4433",
+  "name": "JOINT STOCK COMPANY SPECIAL RELAY SYSTEM DESIGN AND ENGINEERING BUREAU",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 77,
+  "miner_id": "4433",
+  "name": "INNOVATIVE CONNECTIVITY AND SENSING SOLUTIONS PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 78,
+  "miner_id": "4433",
+  "name": "EASTERN TURKISTAN ISLAMIC PARTY",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 79,
+  "miner_id": "4433",
+  "name": "Shri Panchmahal Anusuchit Jati Education Trust",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 80,
+  "miner_id": "4433",
+  "name": "GAZPROMNEFT MNPZ AO",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 81,
+  "miner_id": "4433",
+  "name": "SOLARX ENERGY PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 82,
+  "miner_id": "4433",
+  "name": "MEDIA LAND TECHNOLOGY LIMITED LIABILITY COMPANY",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 83,
+  "miner_id": "4433",
+  "name": "ST SUMAL AGRO VENTURE PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 84,
+  "miner_id": "4433",
+  "name": "LIMITED LIABILITY COMPANY YANSKAYA GORNAYA KOMPANIYA",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 85,
+  "miner_id": "4433",
+  "name": "FONTANA DANILO E C. S.N.C.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 86,
+  "miner_id": "4433",
+  "name": "TSNII RTK",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 87,
+  "miner_id": "4433",
+  "name": "Namrata Developers",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 88,
+  "miner_id": "4433",
+  "name": "NINTH OCEAN GMBH & CO. KG",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 89,
+  "miner_id": "4433",
+  "name": "AKSHAY INFRASYS INDUSTRIES PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 90,
+  "miner_id": "4433",
+  "name": "CRIMINALISTICS INSTITUTE",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 91,
+  "miner_id": "4433",
+  "name": "LATHA BALASUNDARAM",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 92,
+  "miner_id": "4433",
+  "name": "KAI HENG LONG GLOBAL ENERGY LIMITED",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 93,
+  "miner_id": "4433",
+  "name": "VIPRA SIDDHI ENERGY PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 94,
+  "miner_id": "4433",
+  "name": "STRATIM LIMITED LIABILITY COMPANY",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 95,
+  "miner_id": "4433",
+  "name": "V.K.CASTINGS",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 96,
+  "miner_id": "4433",
+  "name": "AQUAQUASAR HOLDING LIMITED",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 97,
+  "miner_id": "4433",
+  "name": "SHRI BAJRANG RICE MILL",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 98,
+  "miner_id": "4433",
+  "name": "AUSTINSHIP MANAGEMENT PVT LTD",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 99,
+  "miner_id": "4433",
+  "name": "MIPL SOLAR KAKANWANI PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 100,
+  "miner_id": "4433",
+  "name": "PETRO PARSA CASPIAN IRANIAN COMPANY",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 101,
+  "miner_id": "4433",
+  "name": "EOT COUPLINGS AND CONNECTIONS PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 102,
+  "miner_id": "4433",
+  "name": "ZARUBEZHGEOLOGIYA AO",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 103,
+  "miner_id": "4433",
+  "name": "PRAVEEN KUMAR AGARWAL",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 104,
+  "miner_id": "4433",
+  "name": "ALL-PCB SOLUTIONS LTD",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 105,
+  "miner_id": "4433",
+  "name": "IGPN TEXFAB PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 106,
+  "miner_id": "4433",
+  "name": "YANGON AIRWAYS COMPANY LIMITED",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 107,
+  "miner_id": "4433",
+  "name": "WHITELINE POLYMERS",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 108,
+  "miner_id": "4433",
+  "name": "EDE 2 EOOD",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 109,
+  "miner_id": "4433",
+  "name": "Magnus CNC Support AB",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 110,
+  "miner_id": "4433",
+  "name": "JING PIN INC.",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 111,
+  "miner_id": "4433",
+  "name": "S K CONSTRUCTION",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 112,
+  "miner_id": "4433",
+  "name": "ZAVOD LIPETSKTEKHNOLIT",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 113,
+  "miner_id": "4433",
+  "name": "GR ASSET INVESTMENTS, S.L.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 114,
+  "miner_id": "4433",
+  "name": "JOINT STOCK COMPANY OMUTNINSK METALLURGICAL PLANT",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 115,
+  "miner_id": "4433",
+  "name": "SRI LAKSHMI VENKATESWARA ENTERPRISES",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 116,
+  "miner_id": "4433",
+  "name": "WOODHAVEN DRC SASU",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 117,
+  "miner_id": "4433",
+  "name": "KALPAH MOTORS PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 118,
+  "miner_id": "4433",
+  "name": "GENI SARL",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 119,
+  "miner_id": "4433",
+  "name": "Latein Capital GmbH",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 120,
+  "miner_id": "4433",
+  "name": "LORENA DEL MAR, S.A. DE C.V.",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 121,
+  "miner_id": "4433",
+  "name": "Luftsport-Club Marienberg e.V. (LCM)",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 122,
+  "miner_id": "4433",
+  "name": "A LEVEL AEROSYSTEMS CST LLC",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 123,
+  "miner_id": "4433",
+  "name": "SHREE RADHA KRISHNA INFRASTRUCTURE",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 124,
+  "miner_id": "4433",
+  "name": "PROTEH CO LTD",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 125,
+  "miner_id": "4433",
+  "name": "PPT-Rendite",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 126,
+  "miner_id": "4433",
+  "name": "NIK LLC",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-4433.json",
+  "row": 127,
+  "miner_id": "4433",
+  "name": "Weip Foundation",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 0,
+  "miner_id": "710637",
+  "name": "INDEPENDENT INSURANCE GROUP LTD",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 1,
+  "miner_id": "710637",
+  "name": "CAPSOFT HEALTHCARE PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 2,
+  "miner_id": "710637",
+  "name": "SAONE SHIPPING CORP",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 3,
+  "miner_id": "710637",
+  "name": "Nexo Holding B.V.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 4,
+  "miner_id": "710637",
+  "name": "NEW EASTERN SHIPPING CO LTD",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 5,
+  "miner_id": "710637",
+  "name": "Vermeulen Ventures B.V.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 6,
+  "miner_id": "710637",
+  "name": "LA CROSSE GROUP INC",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 7,
+  "miner_id": "710637",
+  "name": "HOTEL SUR 2010 SL",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 8,
+  "miner_id": "710637",
+  "name": "HOLISTIC WELLWAVES S. DE R.L. DE C.V.",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 9,
+  "miner_id": "710637",
+  "name": "ANNAPURNA SREERAM CHINA JAYARAMUDU JEWELLERIES",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 10,
+  "miner_id": "710637",
+  "name": "SABA STEEL",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 11,
+  "miner_id": "710637",
+  "name": "GOLDER AS",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 12,
+  "miner_id": "710637",
+  "name": "INFINITE FORCE CARGO SERVICE HK LIMITED",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 13,
+  "miner_id": "710637",
+  "name": "GS FAMILY HOLDING S.R.L.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 14,
+  "miner_id": "710637",
+  "name": "HASSAN DTO",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 15,
+  "miner_id": "710637",
+  "name": "AKL Bygg AB",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 16,
+  "miner_id": "710637",
+  "name": "DOMINION TRADING GROUP LIMITED",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 17,
+  "miner_id": "710637",
+  "name": "HMP GmbH High Melting Products",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 18,
+  "miner_id": "710637",
+  "name": "MT TEVEL INCORPORATED",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 19,
+  "miner_id": "710637",
+  "name": "Sudarshan Switzerland HLD2 AG",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 20,
+  "miner_id": "710637",
+  "name": "GRUPO CINJAB, S.A. DE C.V.",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 21,
+  "miner_id": "710637",
+  "name": "HEIDELBERG MATERIALS AUSTRALIA GROUP PTY LTD",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 22,
+  "miner_id": "710637",
+  "name": "PEGASUS 88 LIMITED",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 23,
+  "miner_id": "710637",
+  "name": "BICE INVERSIONES",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 24,
+  "miner_id": "710637",
+  "name": "AVA TARABAR DARYA CO LTD",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 25,
+  "miner_id": "710637",
+  "name": "JAIN BROTHERS INFRATECH PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 26,
+  "miner_id": "710637",
+  "name": "CADY TECH HK LIMITED",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 27,
+  "miner_id": "710637",
+  "name": "Juradin B.V.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 28,
+  "miner_id": "710637",
+  "name": "BAOGANG DONGYING DONGGANG LOGISTICS AND WAREHOUSING CO., LTD.",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 29,
+  "miner_id": "710637",
+  "name": "CH REALTY IX-JV I TACOMA FRED310 G OWNER, L.P.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 30,
+  "miner_id": "710637",
+  "name": "CAILAFANG PTE. LTD.",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 31,
+  "miner_id": "710637",
+  "name": "MAHANT SUPPLY AGENCY",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 32,
+  "miner_id": "710637",
+  "name": "INDONESIA HILAL AHMAR SOCIETY FOR SYRIA",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 33,
+  "miner_id": "710637",
+  "name": "EXPLOTACIONES BENADRESA SOCIEDAD ANONIMA",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 34,
+  "miner_id": "710637",
+  "name": "OBSHCHESTVO S OGRANICHENNOY OTVETSTVENNOSTYU UPRAVLYAYUSHCHAYA KOMPANIYA RVK",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 35,
+  "miner_id": "710637",
+  "name": "POHIT, za proizvodnju, promet, usluge, vanjsku i unutarnju trgovinu, d.o.o.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 36,
+  "miner_id": "710637",
+  "name": "AKTAU PETROL TICARET ANONIM SIRKETI",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 37,
+  "miner_id": "710637",
+  "name": "LIDER CANARIAS CONTROL DE PLAGAS, S.L.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 38,
+  "miner_id": "710637",
+  "name": "EMPRESA DE INGENIERIA Y PROYECTOS DEL NIQUEL",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 39,
+  "miner_id": "710637",
+  "name": "Invesco CoinShares Tokenisation & Stablecoin UCITS ETF",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 40,
+  "miner_id": "710637",
+  "name": "GARDESHGARI BANK",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 41,
+  "miner_id": "710637",
+  "name": "XSIS RESIDENCY LLP",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 42,
+  "miner_id": "710637",
+  "name": "LIMITED LIABILITY COMPANY INTER PODSHIPNIK GROUP",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 43,
+  "miner_id": "710637",
+  "name": "YAMY HOLDINGS INTERNATIONAL PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 44,
+  "miner_id": "710637",
+  "name": "RUSGAZALYANS",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 45,
+  "miner_id": "710637",
+  "name": "Birgitta Persson Holding AB",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 46,
+  "miner_id": "710637",
+  "name": "LIMITED LIABILITY COMPANY GORA GOLDEN RATIO",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 47,
+  "miner_id": "710637",
+  "name": "PADAKULA VASUDEVAREDDY",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 48,
+  "miner_id": "710637",
+  "name": "SHENZHEN BIGUANG TRADING CO., LTD",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 49,
+  "miner_id": "710637",
+  "name": "ROHIT DHANANJAY KAMALAKAR",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 50,
+  "miner_id": "710637",
+  "name": "GLOBAL TRADELINE SARL",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 51,
+  "miner_id": "710637",
+  "name": "SUNIL KUMAR MAKHIJA",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 52,
+  "miner_id": "710637",
+  "name": "STEP ISTANBUL",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 53,
+  "miner_id": "710637",
+  "name": "J. K. CONSTRUCTION",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 54,
+  "miner_id": "710637",
+  "name": "EUROGROUP ENGINEERING AD",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 55,
+  "miner_id": "710637",
+  "name": "V S PRODUCTS PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 56,
+  "miner_id": "710637",
+  "name": "LIMITED LIABILITY COMPANY KRIOGENAVIA NN",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 57,
+  "miner_id": "710637",
+  "name": "MONFLEX TECHNOLOGY CORP.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 58,
+  "miner_id": "710637",
+  "name": "YAZD AIRWAYS",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 59,
+  "miner_id": "710637",
+  "name": "Ubuntu B.V.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 60,
+  "miner_id": "710637",
+  "name": "UNIQUE STATION TRADING",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 61,
+  "miner_id": "710637",
+  "name": "Pinnacle 0726 Pte Ltd",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 62,
+  "miner_id": "710637",
+  "name": "LOIRE SHIPPING INC.",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 63,
+  "miner_id": "710637",
+  "name": "INDMA STEEL PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 64,
+  "miner_id": "710637",
+  "name": "CLOSED JOINT STOCK COMPANY VOLOGDA BEARING PLANT",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 65,
+  "miner_id": "710637",
+  "name": "SHRI VIGNESH COCONUT POWDERS PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 66,
+  "miner_id": "710637",
+  "name": "WORLDWIDE SHIPPING & TRANS",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 67,
+  "miner_id": "710637",
+  "name": "K.K RESIDENCY PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 68,
+  "miner_id": "710637",
+  "name": "NPO PROMODEL",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 69,
+  "miner_id": "710637",
+  "name": "INTRASENZE AB",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 70,
+  "miner_id": "710637",
+  "name": "BBR BANK CLOSED JOINT STOCK COMPANY",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 71,
+  "miner_id": "710637",
+  "name": "EQUIPOINFRA SOLUTIONS PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 72,
+  "miner_id": "710637",
+  "name": "LIMITED LIABILITY COMPANY NEW DECISIONS 2",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 73,
+  "miner_id": "710637",
+  "name": "Aming Beheer B.V.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 74,
+  "miner_id": "710637",
+  "name": "DANDONG HONGXIANG INDUSTRIAL DEVELOPMENT CO LTD",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 75,
+  "miner_id": "710637",
+  "name": "TALAIA CONTANINERS E INFRAESTRUCTURAS SL",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 76,
+  "miner_id": "710637",
+  "name": "JOINT STOCK COMPANY SPECIAL RELAY SYSTEM DESIGN AND ENGINEERING BUREAU",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 77,
+  "miner_id": "710637",
+  "name": "INNOVATIVE CONNECTIVITY AND SENSING SOLUTIONS PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 78,
+  "miner_id": "710637",
+  "name": "EASTERN TURKISTAN ISLAMIC PARTY",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 79,
+  "miner_id": "710637",
+  "name": "Shri Panchmahal Anusuchit Jati Education Trust",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 80,
+  "miner_id": "710637",
+  "name": "GAZPROMNEFT MNPZ AO",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 81,
+  "miner_id": "710637",
+  "name": "SOLARX ENERGY PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 82,
+  "miner_id": "710637",
+  "name": "MEDIA LAND TECHNOLOGY LIMITED LIABILITY COMPANY",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 83,
+  "miner_id": "710637",
+  "name": "ST SUMAL AGRO VENTURE PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 84,
+  "miner_id": "710637",
+  "name": "LIMITED LIABILITY COMPANY YANSKAYA GORNAYA KOMPANIYA",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 85,
+  "miner_id": "710637",
+  "name": "FONTANA DANILO E C. S.N.C.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 86,
+  "miner_id": "710637",
+  "name": "TSNII RTK",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 87,
+  "miner_id": "710637",
+  "name": "Namrata Developers",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 88,
+  "miner_id": "710637",
+  "name": "NINTH OCEAN GMBH & CO. KG",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 89,
+  "miner_id": "710637",
+  "name": "AKSHAY INFRASYS INDUSTRIES PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 90,
+  "miner_id": "710637",
+  "name": "CRIMINALISTICS INSTITUTE",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 91,
+  "miner_id": "710637",
+  "name": "LATHA BALASUNDARAM",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 92,
+  "miner_id": "710637",
+  "name": "KAI HENG LONG GLOBAL ENERGY LIMITED",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 93,
+  "miner_id": "710637",
+  "name": "VIPRA SIDDHI ENERGY PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 94,
+  "miner_id": "710637",
+  "name": "STRATIM LIMITED LIABILITY COMPANY",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 95,
+  "miner_id": "710637",
+  "name": "V.K.CASTINGS",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 96,
+  "miner_id": "710637",
+  "name": "AQUAQUASAR HOLDING LIMITED",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 97,
+  "miner_id": "710637",
+  "name": "SHRI BAJRANG RICE MILL",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 98,
+  "miner_id": "710637",
+  "name": "AUSTINSHIP MANAGEMENT PVT LTD",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 99,
+  "miner_id": "710637",
+  "name": "MIPL SOLAR KAKANWANI PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 100,
+  "miner_id": "710637",
+  "name": "PETRO PARSA CASPIAN IRANIAN COMPANY",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 101,
+  "miner_id": "710637",
+  "name": "EOT COUPLINGS AND CONNECTIONS PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 102,
+  "miner_id": "710637",
+  "name": "ZARUBEZHGEOLOGIYA AO",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 103,
+  "miner_id": "710637",
+  "name": "PRAVEEN KUMAR AGARWAL",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 104,
+  "miner_id": "710637",
+  "name": "ALL-PCB SOLUTIONS LTD",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 105,
+  "miner_id": "710637",
+  "name": "IGPN TEXFAB PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 106,
+  "miner_id": "710637",
+  "name": "YANGON AIRWAYS COMPANY LIMITED",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 107,
+  "miner_id": "710637",
+  "name": "WHITELINE POLYMERS",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 108,
+  "miner_id": "710637",
+  "name": "EDE 2 EOOD",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 109,
+  "miner_id": "710637",
+  "name": "Magnus CNC Support AB",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 110,
+  "miner_id": "710637",
+  "name": "JING PIN INC.",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 111,
+  "miner_id": "710637",
+  "name": "S K CONSTRUCTION",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 112,
+  "miner_id": "710637",
+  "name": "ZAVOD LIPETSKTEKHNOLIT",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 113,
+  "miner_id": "710637",
+  "name": "GR ASSET INVESTMENTS, S.L.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 114,
+  "miner_id": "710637",
+  "name": "JOINT STOCK COMPANY OMUTNINSK METALLURGICAL PLANT",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 115,
+  "miner_id": "710637",
+  "name": "SRI LAKSHMI VENKATESWARA ENTERPRISES",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 116,
+  "miner_id": "710637",
+  "name": "WOODHAVEN DRC SASU",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 117,
+  "miner_id": "710637",
+  "name": "KALPAH MOTORS PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 118,
+  "miner_id": "710637",
+  "name": "GENI SARL",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 119,
+  "miner_id": "710637",
+  "name": "Latein Capital GmbH",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 120,
+  "miner_id": "710637",
+  "name": "LORENA DEL MAR, S.A. DE C.V.",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 121,
+  "miner_id": "710637",
+  "name": "Luftsport-Club Marienberg e.V. (LCM)",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 122,
+  "miner_id": "710637",
+  "name": "A LEVEL AEROSYSTEMS CST LLC",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 123,
+  "miner_id": "710637",
+  "name": "SHREE RADHA KRISHNA INFRASTRUCTURE",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 124,
+  "miner_id": "710637",
+  "name": "PROTEH CO LTD",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 125,
+  "miner_id": "710637",
+  "name": "PPT-Rendite",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 126,
+  "miner_id": "710637",
+  "name": "NIK LLC",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-710637.json",
+  "row": 127,
+  "miner_id": "710637",
+  "name": "Weip Foundation",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 0,
+  "miner_id": "78021",
+  "name": "INDEPENDENT INSURANCE GROUP LTD",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 1,
+  "miner_id": "78021",
+  "name": "CAPSOFT HEALTHCARE PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 2,
+  "miner_id": "78021",
+  "name": "SAONE SHIPPING CORP",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 3,
+  "miner_id": "78021",
+  "name": "Nexo Holding B.V.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 4,
+  "miner_id": "78021",
+  "name": "NEW EASTERN SHIPPING CO LTD",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 5,
+  "miner_id": "78021",
+  "name": "Vermeulen Ventures B.V.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 6,
+  "miner_id": "78021",
+  "name": "LA CROSSE GROUP INC",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 7,
+  "miner_id": "78021",
+  "name": "HOTEL SUR 2010 SL",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 8,
+  "miner_id": "78021",
+  "name": "HOLISTIC WELLWAVES S. DE R.L. DE C.V.",
+  "expected": true,
+  "claim": false,
+  "decision_label": "incorrect",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 9,
+  "miner_id": "78021",
+  "name": "ANNAPURNA SREERAM CHINA JAYARAMUDU JEWELLERIES",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 10,
+  "miner_id": "78021",
+  "name": "SABA STEEL",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 11,
+  "miner_id": "78021",
+  "name": "GOLDER AS",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 12,
+  "miner_id": "78021",
+  "name": "INFINITE FORCE CARGO SERVICE HK LIMITED",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 13,
+  "miner_id": "78021",
+  "name": "GS FAMILY HOLDING S.R.L.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 14,
+  "miner_id": "78021",
+  "name": "HASSAN DTO",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 15,
+  "miner_id": "78021",
+  "name": "AKL Bygg AB",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 16,
+  "miner_id": "78021",
+  "name": "DOMINION TRADING GROUP LIMITED",
+  "expected": true,
+  "claim": false,
+  "decision_label": "incorrect",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 17,
+  "miner_id": "78021",
+  "name": "HMP GmbH High Melting Products",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 18,
+  "miner_id": "78021",
+  "name": "MT TEVEL INCORPORATED",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 19,
+  "miner_id": "78021",
+  "name": "Sudarshan Switzerland HLD2 AG",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 20,
+  "miner_id": "78021",
+  "name": "GRUPO CINJAB, S.A. DE C.V.",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 21,
+  "miner_id": "78021",
+  "name": "HEIDELBERG MATERIALS AUSTRALIA GROUP PTY LTD",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 22,
+  "miner_id": "78021",
+  "name": "PEGASUS 88 LIMITED",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 23,
+  "miner_id": "78021",
+  "name": "BICE INVERSIONES",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 24,
+  "miner_id": "78021",
+  "name": "AVA TARABAR DARYA CO LTD",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 25,
+  "miner_id": "78021",
+  "name": "JAIN BROTHERS INFRATECH PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 26,
+  "miner_id": "78021",
+  "name": "CADY TECH HK LIMITED",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 27,
+  "miner_id": "78021",
+  "name": "Juradin B.V.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 28,
+  "miner_id": "78021",
+  "name": "BAOGANG DONGYING DONGGANG LOGISTICS AND WAREHOUSING CO., LTD.",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 29,
+  "miner_id": "78021",
+  "name": "CH REALTY IX-JV I TACOMA FRED310 G OWNER, L.P.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 30,
+  "miner_id": "78021",
+  "name": "CAILAFANG PTE. LTD.",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 31,
+  "miner_id": "78021",
+  "name": "MAHANT SUPPLY AGENCY",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 32,
+  "miner_id": "78021",
+  "name": "INDONESIA HILAL AHMAR SOCIETY FOR SYRIA",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 33,
+  "miner_id": "78021",
+  "name": "EXPLOTACIONES BENADRESA SOCIEDAD ANONIMA",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 34,
+  "miner_id": "78021",
+  "name": "OBSHCHESTVO S OGRANICHENNOY OTVETSTVENNOSTYU UPRAVLYAYUSHCHAYA KOMPANIYA RVK",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 35,
+  "miner_id": "78021",
+  "name": "POHIT, za proizvodnju, promet, usluge, vanjsku i unutarnju trgovinu, d.o.o.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 36,
+  "miner_id": "78021",
+  "name": "AKTAU PETROL TICARET ANONIM SIRKETI",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 37,
+  "miner_id": "78021",
+  "name": "LIDER CANARIAS CONTROL DE PLAGAS, S.L.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 38,
+  "miner_id": "78021",
+  "name": "EMPRESA DE INGENIERIA Y PROYECTOS DEL NIQUEL",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 39,
+  "miner_id": "78021",
+  "name": "Invesco CoinShares Tokenisation & Stablecoin UCITS ETF",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 40,
+  "miner_id": "78021",
+  "name": "GARDESHGARI BANK",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 41,
+  "miner_id": "78021",
+  "name": "XSIS RESIDENCY LLP",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 42,
+  "miner_id": "78021",
+  "name": "LIMITED LIABILITY COMPANY INTER PODSHIPNIK GROUP",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 43,
+  "miner_id": "78021",
+  "name": "YAMY HOLDINGS INTERNATIONAL PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 44,
+  "miner_id": "78021",
+  "name": "RUSGAZALYANS",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 45,
+  "miner_id": "78021",
+  "name": "Birgitta Persson Holding AB",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 46,
+  "miner_id": "78021",
+  "name": "LIMITED LIABILITY COMPANY GORA GOLDEN RATIO",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 47,
+  "miner_id": "78021",
+  "name": "PADAKULA VASUDEVAREDDY",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 48,
+  "miner_id": "78021",
+  "name": "SHENZHEN BIGUANG TRADING CO., LTD",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 49,
+  "miner_id": "78021",
+  "name": "ROHIT DHANANJAY KAMALAKAR",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 50,
+  "miner_id": "78021",
+  "name": "GLOBAL TRADELINE SARL",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 51,
+  "miner_id": "78021",
+  "name": "SUNIL KUMAR MAKHIJA",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 52,
+  "miner_id": "78021",
+  "name": "STEP ISTANBUL",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 53,
+  "miner_id": "78021",
+  "name": "J. K. CONSTRUCTION",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 54,
+  "miner_id": "78021",
+  "name": "EUROGROUP ENGINEERING AD",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 55,
+  "miner_id": "78021",
+  "name": "V S PRODUCTS PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 56,
+  "miner_id": "78021",
+  "name": "LIMITED LIABILITY COMPANY KRIOGENAVIA NN",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 57,
+  "miner_id": "78021",
+  "name": "MONFLEX TECHNOLOGY CORP.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 58,
+  "miner_id": "78021",
+  "name": "YAZD AIRWAYS",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 59,
+  "miner_id": "78021",
+  "name": "Ubuntu B.V.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 60,
+  "miner_id": "78021",
+  "name": "UNIQUE STATION TRADING",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 61,
+  "miner_id": "78021",
+  "name": "Pinnacle 0726 Pte Ltd",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 62,
+  "miner_id": "78021",
+  "name": "LOIRE SHIPPING INC.",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 63,
+  "miner_id": "78021",
+  "name": "INDMA STEEL PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 64,
+  "miner_id": "78021",
+  "name": "CLOSED JOINT STOCK COMPANY VOLOGDA BEARING PLANT",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 65,
+  "miner_id": "78021",
+  "name": "SHRI VIGNESH COCONUT POWDERS PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 66,
+  "miner_id": "78021",
+  "name": "WORLDWIDE SHIPPING & TRANS",
+  "expected": true,
+  "claim": false,
+  "decision_label": "incorrect",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 67,
+  "miner_id": "78021",
+  "name": "K.K RESIDENCY PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 68,
+  "miner_id": "78021",
+  "name": "NPO PROMODEL",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 69,
+  "miner_id": "78021",
+  "name": "INTRASENZE AB",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 70,
+  "miner_id": "78021",
+  "name": "BBR BANK CLOSED JOINT STOCK COMPANY",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 71,
+  "miner_id": "78021",
+  "name": "EQUIPOINFRA SOLUTIONS PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 72,
+  "miner_id": "78021",
+  "name": "LIMITED LIABILITY COMPANY NEW DECISIONS 2",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 73,
+  "miner_id": "78021",
+  "name": "Aming Beheer B.V.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 74,
+  "miner_id": "78021",
+  "name": "DANDONG HONGXIANG INDUSTRIAL DEVELOPMENT CO LTD",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 75,
+  "miner_id": "78021",
+  "name": "TALAIA CONTANINERS E INFRAESTRUCTURAS SL",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 76,
+  "miner_id": "78021",
+  "name": "JOINT STOCK COMPANY SPECIAL RELAY SYSTEM DESIGN AND ENGINEERING BUREAU",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 77,
+  "miner_id": "78021",
+  "name": "INNOVATIVE CONNECTIVITY AND SENSING SOLUTIONS PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 78,
+  "miner_id": "78021",
+  "name": "EASTERN TURKISTAN ISLAMIC PARTY",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 79,
+  "miner_id": "78021",
+  "name": "Shri Panchmahal Anusuchit Jati Education Trust",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 80,
+  "miner_id": "78021",
+  "name": "GAZPROMNEFT MNPZ AO",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 81,
+  "miner_id": "78021",
+  "name": "SOLARX ENERGY PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 82,
+  "miner_id": "78021",
+  "name": "MEDIA LAND TECHNOLOGY LIMITED LIABILITY COMPANY",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 83,
+  "miner_id": "78021",
+  "name": "ST SUMAL AGRO VENTURE PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 84,
+  "miner_id": "78021",
+  "name": "LIMITED LIABILITY COMPANY YANSKAYA GORNAYA KOMPANIYA",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 85,
+  "miner_id": "78021",
+  "name": "FONTANA DANILO E C. S.N.C.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 86,
+  "miner_id": "78021",
+  "name": "TSNII RTK",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 87,
+  "miner_id": "78021",
+  "name": "Namrata Developers",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 88,
+  "miner_id": "78021",
+  "name": "NINTH OCEAN GMBH & CO. KG",
+  "expected": true,
+  "claim": false,
+  "decision_label": "incorrect",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 89,
+  "miner_id": "78021",
+  "name": "AKSHAY INFRASYS INDUSTRIES PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 90,
+  "miner_id": "78021",
+  "name": "CRIMINALISTICS INSTITUTE",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 91,
+  "miner_id": "78021",
+  "name": "LATHA BALASUNDARAM",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 92,
+  "miner_id": "78021",
+  "name": "KAI HENG LONG GLOBAL ENERGY LIMITED",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 93,
+  "miner_id": "78021",
+  "name": "VIPRA SIDDHI ENERGY PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 94,
+  "miner_id": "78021",
+  "name": "STRATIM LIMITED LIABILITY COMPANY",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 95,
+  "miner_id": "78021",
+  "name": "V.K.CASTINGS",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 96,
+  "miner_id": "78021",
+  "name": "AQUAQUASAR HOLDING LIMITED",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 97,
+  "miner_id": "78021",
+  "name": "SHRI BAJRANG RICE MILL",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 98,
+  "miner_id": "78021",
+  "name": "AUSTINSHIP MANAGEMENT PVT LTD",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 99,
+  "miner_id": "78021",
+  "name": "MIPL SOLAR KAKANWANI PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 100,
+  "miner_id": "78021",
+  "name": "PETRO PARSA CASPIAN IRANIAN COMPANY",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 101,
+  "miner_id": "78021",
+  "name": "EOT COUPLINGS AND CONNECTIONS PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 102,
+  "miner_id": "78021",
+  "name": "ZARUBEZHGEOLOGIYA AO",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 103,
+  "miner_id": "78021",
+  "name": "PRAVEEN KUMAR AGARWAL",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 104,
+  "miner_id": "78021",
+  "name": "ALL-PCB SOLUTIONS LTD",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 105,
+  "miner_id": "78021",
+  "name": "IGPN TEXFAB PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 106,
+  "miner_id": "78021",
+  "name": "YANGON AIRWAYS COMPANY LIMITED",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 107,
+  "miner_id": "78021",
+  "name": "WHITELINE POLYMERS",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 108,
+  "miner_id": "78021",
+  "name": "EDE 2 EOOD",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 109,
+  "miner_id": "78021",
+  "name": "Magnus CNC Support AB",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 110,
+  "miner_id": "78021",
+  "name": "JING PIN INC.",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 111,
+  "miner_id": "78021",
+  "name": "S K CONSTRUCTION",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 112,
+  "miner_id": "78021",
+  "name": "ZAVOD LIPETSKTEKHNOLIT",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 113,
+  "miner_id": "78021",
+  "name": "GR ASSET INVESTMENTS, S.L.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 114,
+  "miner_id": "78021",
+  "name": "JOINT STOCK COMPANY OMUTNINSK METALLURGICAL PLANT",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 115,
+  "miner_id": "78021",
+  "name": "SRI LAKSHMI VENKATESWARA ENTERPRISES",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 116,
+  "miner_id": "78021",
+  "name": "WOODHAVEN DRC SASU",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 117,
+  "miner_id": "78021",
+  "name": "KALPAH MOTORS PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 118,
+  "miner_id": "78021",
+  "name": "GENI SARL",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 119,
+  "miner_id": "78021",
+  "name": "Latein Capital GmbH",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 120,
+  "miner_id": "78021",
+  "name": "LORENA DEL MAR, S.A. DE C.V.",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 121,
+  "miner_id": "78021",
+  "name": "Luftsport-Club Marienberg e.V. (LCM)",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 122,
+  "miner_id": "78021",
+  "name": "A LEVEL AEROSYSTEMS CST LLC",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 123,
+  "miner_id": "78021",
+  "name": "SHREE RADHA KRISHNA INFRASTRUCTURE",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 124,
+  "miner_id": "78021",
+  "name": "PROTEH CO LTD",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 125,
+  "miner_id": "78021",
+  "name": "PPT-Rendite",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 126,
+  "miner_id": "78021",
+  "name": "NIK LLC",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-78021.json",
+  "row": 127,
+  "miner_id": "78021",
+  "name": "Weip Foundation",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 0,
+  "miner_id": "9002",
+  "name": "INDEPENDENT INSURANCE GROUP LTD",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 1,
+  "miner_id": "9002",
+  "name": "CAPSOFT HEALTHCARE PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 2,
+  "miner_id": "9002",
+  "name": "SAONE SHIPPING CORP",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 3,
+  "miner_id": "9002",
+  "name": "Nexo Holding B.V.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 4,
+  "miner_id": "9002",
+  "name": "NEW EASTERN SHIPPING CO LTD",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 5,
+  "miner_id": "9002",
+  "name": "Vermeulen Ventures B.V.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 6,
+  "miner_id": "9002",
+  "name": "LA CROSSE GROUP INC",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 7,
+  "miner_id": "9002",
+  "name": "HOTEL SUR 2010 SL",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 8,
+  "miner_id": "9002",
+  "name": "HOLISTIC WELLWAVES S. DE R.L. DE C.V.",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 9,
+  "miner_id": "9002",
+  "name": "ANNAPURNA SREERAM CHINA JAYARAMUDU JEWELLERIES",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 10,
+  "miner_id": "9002",
+  "name": "SABA STEEL",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 11,
+  "miner_id": "9002",
+  "name": "GOLDER AS",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 12,
+  "miner_id": "9002",
+  "name": "INFINITE FORCE CARGO SERVICE HK LIMITED",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 13,
+  "miner_id": "9002",
+  "name": "GS FAMILY HOLDING S.R.L.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 14,
+  "miner_id": "9002",
+  "name": "HASSAN DTO",
+  "expected": true,
+  "claim": false,
+  "decision_label": "incorrect",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 15,
+  "miner_id": "9002",
+  "name": "AKL Bygg AB",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 16,
+  "miner_id": "9002",
+  "name": "DOMINION TRADING GROUP LIMITED",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 17,
+  "miner_id": "9002",
+  "name": "HMP GmbH High Melting Products",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 18,
+  "miner_id": "9002",
+  "name": "MT TEVEL INCORPORATED",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 19,
+  "miner_id": "9002",
+  "name": "Sudarshan Switzerland HLD2 AG",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 20,
+  "miner_id": "9002",
+  "name": "GRUPO CINJAB, S.A. DE C.V.",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 21,
+  "miner_id": "9002",
+  "name": "HEIDELBERG MATERIALS AUSTRALIA GROUP PTY LTD",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 22,
+  "miner_id": "9002",
+  "name": "PEGASUS 88 LIMITED",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 23,
+  "miner_id": "9002",
+  "name": "BICE INVERSIONES",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 24,
+  "miner_id": "9002",
+  "name": "AVA TARABAR DARYA CO LTD",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 25,
+  "miner_id": "9002",
+  "name": "JAIN BROTHERS INFRATECH PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 26,
+  "miner_id": "9002",
+  "name": "CADY TECH HK LIMITED",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 27,
+  "miner_id": "9002",
+  "name": "Juradin B.V.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 28,
+  "miner_id": "9002",
+  "name": "BAOGANG DONGYING DONGGANG LOGISTICS AND WAREHOUSING CO., LTD.",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 29,
+  "miner_id": "9002",
+  "name": "CH REALTY IX-JV I TACOMA FRED310 G OWNER, L.P.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 30,
+  "miner_id": "9002",
+  "name": "CAILAFANG PTE. LTD.",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 31,
+  "miner_id": "9002",
+  "name": "MAHANT SUPPLY AGENCY",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 32,
+  "miner_id": "9002",
+  "name": "INDONESIA HILAL AHMAR SOCIETY FOR SYRIA",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 33,
+  "miner_id": "9002",
+  "name": "EXPLOTACIONES BENADRESA SOCIEDAD ANONIMA",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 34,
+  "miner_id": "9002",
+  "name": "OBSHCHESTVO S OGRANICHENNOY OTVETSTVENNOSTYU UPRAVLYAYUSHCHAYA KOMPANIYA RVK",
+  "expected": true,
+  "claim": false,
+  "decision_label": "incorrect",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 35,
+  "miner_id": "9002",
+  "name": "POHIT, za proizvodnju, promet, usluge, vanjsku i unutarnju trgovinu, d.o.o.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 36,
+  "miner_id": "9002",
+  "name": "AKTAU PETROL TICARET ANONIM SIRKETI",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 37,
+  "miner_id": "9002",
+  "name": "LIDER CANARIAS CONTROL DE PLAGAS, S.L.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 38,
+  "miner_id": "9002",
+  "name": "EMPRESA DE INGENIERIA Y PROYECTOS DEL NIQUEL",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 39,
+  "miner_id": "9002",
+  "name": "Invesco CoinShares Tokenisation & Stablecoin UCITS ETF",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 40,
+  "miner_id": "9002",
+  "name": "GARDESHGARI BANK",
+  "expected": true,
+  "claim": false,
+  "decision_label": "incorrect",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 41,
+  "miner_id": "9002",
+  "name": "XSIS RESIDENCY LLP",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 42,
+  "miner_id": "9002",
+  "name": "LIMITED LIABILITY COMPANY INTER PODSHIPNIK GROUP",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 43,
+  "miner_id": "9002",
+  "name": "YAMY HOLDINGS INTERNATIONAL PRIVATE LIMITED",
+  "expected": false,
+  "claim": true,
+  "decision_label": "abstain",
+  "reason": "positive may be fuzzy or from another list"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 44,
+  "miner_id": "9002",
+  "name": "RUSGAZALYANS",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 45,
+  "miner_id": "9002",
+  "name": "Birgitta Persson Holding AB",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 46,
+  "miner_id": "9002",
+  "name": "LIMITED LIABILITY COMPANY GORA GOLDEN RATIO",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 47,
+  "miner_id": "9002",
+  "name": "PADAKULA VASUDEVAREDDY",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 48,
+  "miner_id": "9002",
+  "name": "SHENZHEN BIGUANG TRADING CO., LTD",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 49,
+  "miner_id": "9002",
+  "name": "ROHIT DHANANJAY KAMALAKAR",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 50,
+  "miner_id": "9002",
+  "name": "GLOBAL TRADELINE SARL",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 51,
+  "miner_id": "9002",
+  "name": "SUNIL KUMAR MAKHIJA",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 52,
+  "miner_id": "9002",
+  "name": "STEP ISTANBUL",
+  "expected": true,
+  "claim": false,
+  "decision_label": "incorrect",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 53,
+  "miner_id": "9002",
+  "name": "J. K. CONSTRUCTION",
+  "expected": false,
+  "claim": true,
+  "decision_label": "abstain",
+  "reason": "positive may be fuzzy or from another list"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 54,
+  "miner_id": "9002",
+  "name": "EUROGROUP ENGINEERING AD",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 55,
+  "miner_id": "9002",
+  "name": "V S PRODUCTS PRIVATE LIMITED",
+  "expected": false,
+  "claim": true,
+  "decision_label": "abstain",
+  "reason": "positive may be fuzzy or from another list"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 56,
+  "miner_id": "9002",
+  "name": "LIMITED LIABILITY COMPANY KRIOGENAVIA NN",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 57,
+  "miner_id": "9002",
+  "name": "MONFLEX TECHNOLOGY CORP.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 58,
+  "miner_id": "9002",
+  "name": "YAZD AIRWAYS",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 59,
+  "miner_id": "9002",
+  "name": "Ubuntu B.V.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 60,
+  "miner_id": "9002",
+  "name": "UNIQUE STATION TRADING",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 61,
+  "miner_id": "9002",
+  "name": "Pinnacle 0726 Pte Ltd",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 62,
+  "miner_id": "9002",
+  "name": "LOIRE SHIPPING INC.",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 63,
+  "miner_id": "9002",
+  "name": "INDMA STEEL PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 64,
+  "miner_id": "9002",
+  "name": "CLOSED JOINT STOCK COMPANY VOLOGDA BEARING PLANT",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 65,
+  "miner_id": "9002",
+  "name": "SHRI VIGNESH COCONUT POWDERS PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 66,
+  "miner_id": "9002",
+  "name": "WORLDWIDE SHIPPING & TRANS",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 67,
+  "miner_id": "9002",
+  "name": "K.K RESIDENCY PRIVATE LIMITED",
+  "expected": false,
+  "claim": true,
+  "decision_label": "abstain",
+  "reason": "positive may be fuzzy or from another list"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 68,
+  "miner_id": "9002",
+  "name": "NPO PROMODEL",
+  "expected": true,
+  "claim": false,
+  "decision_label": "incorrect",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 69,
+  "miner_id": "9002",
+  "name": "INTRASENZE AB",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 70,
+  "miner_id": "9002",
+  "name": "BBR BANK CLOSED JOINT STOCK COMPANY",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 71,
+  "miner_id": "9002",
+  "name": "EQUIPOINFRA SOLUTIONS PRIVATE LIMITED",
+  "expected": false,
+  "claim": true,
+  "decision_label": "abstain",
+  "reason": "positive may be fuzzy or from another list"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 72,
+  "miner_id": "9002",
+  "name": "LIMITED LIABILITY COMPANY NEW DECISIONS 2",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 73,
+  "miner_id": "9002",
+  "name": "Aming Beheer B.V.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 74,
+  "miner_id": "9002",
+  "name": "DANDONG HONGXIANG INDUSTRIAL DEVELOPMENT CO LTD",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 75,
+  "miner_id": "9002",
+  "name": "TALAIA CONTANINERS E INFRAESTRUCTURAS SL",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 76,
+  "miner_id": "9002",
+  "name": "JOINT STOCK COMPANY SPECIAL RELAY SYSTEM DESIGN AND ENGINEERING BUREAU",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 77,
+  "miner_id": "9002",
+  "name": "INNOVATIVE CONNECTIVITY AND SENSING SOLUTIONS PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 78,
+  "miner_id": "9002",
+  "name": "EASTERN TURKISTAN ISLAMIC PARTY",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 79,
+  "miner_id": "9002",
+  "name": "Shri Panchmahal Anusuchit Jati Education Trust",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 80,
+  "miner_id": "9002",
+  "name": "GAZPROMNEFT MNPZ AO",
+  "expected": true,
+  "claim": false,
+  "decision_label": "incorrect",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 81,
+  "miner_id": "9002",
+  "name": "SOLARX ENERGY PRIVATE LIMITED",
+  "expected": false,
+  "claim": true,
+  "decision_label": "abstain",
+  "reason": "positive may be fuzzy or from another list"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 82,
+  "miner_id": "9002",
+  "name": "MEDIA LAND TECHNOLOGY LIMITED LIABILITY COMPANY",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 83,
+  "miner_id": "9002",
+  "name": "ST SUMAL AGRO VENTURE PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 84,
+  "miner_id": "9002",
+  "name": "LIMITED LIABILITY COMPANY YANSKAYA GORNAYA KOMPANIYA",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 85,
+  "miner_id": "9002",
+  "name": "FONTANA DANILO E C. S.N.C.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 86,
+  "miner_id": "9002",
+  "name": "TSNII RTK",
+  "expected": true,
+  "claim": false,
+  "decision_label": "incorrect",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 87,
+  "miner_id": "9002",
+  "name": "Namrata Developers",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 88,
+  "miner_id": "9002",
+  "name": "NINTH OCEAN GMBH & CO. KG",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 89,
+  "miner_id": "9002",
+  "name": "AKSHAY INFRASYS INDUSTRIES PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 90,
+  "miner_id": "9002",
+  "name": "CRIMINALISTICS INSTITUTE",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 91,
+  "miner_id": "9002",
+  "name": "LATHA BALASUNDARAM",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 92,
+  "miner_id": "9002",
+  "name": "KAI HENG LONG GLOBAL ENERGY LIMITED",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 93,
+  "miner_id": "9002",
+  "name": "VIPRA SIDDHI ENERGY PRIVATE LIMITED",
+  "expected": false,
+  "claim": true,
+  "decision_label": "abstain",
+  "reason": "positive may be fuzzy or from another list"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 94,
+  "miner_id": "9002",
+  "name": "STRATIM LIMITED LIABILITY COMPANY",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 95,
+  "miner_id": "9002",
+  "name": "V.K.CASTINGS",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 96,
+  "miner_id": "9002",
+  "name": "AQUAQUASAR HOLDING LIMITED",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 97,
+  "miner_id": "9002",
+  "name": "SHRI BAJRANG RICE MILL",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 98,
+  "miner_id": "9002",
+  "name": "AUSTINSHIP MANAGEMENT PVT LTD",
+  "expected": true,
+  "claim": true,
+  "decision_label": "abstain",
+  "reason": "positive lacks a verified SDN entry id"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 99,
+  "miner_id": "9002",
+  "name": "MIPL SOLAR KAKANWANI PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 100,
+  "miner_id": "9002",
+  "name": "PETRO PARSA CASPIAN IRANIAN COMPANY",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 101,
+  "miner_id": "9002",
+  "name": "EOT COUPLINGS AND CONNECTIONS PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 102,
+  "miner_id": "9002",
+  "name": "ZARUBEZHGEOLOGIYA AO",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 103,
+  "miner_id": "9002",
+  "name": "PRAVEEN KUMAR AGARWAL",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 104,
+  "miner_id": "9002",
+  "name": "ALL-PCB SOLUTIONS LTD",
+  "expected": true,
+  "claim": true,
+  "decision_label": "abstain",
+  "reason": "positive lacks a verified SDN entry id"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 105,
+  "miner_id": "9002",
+  "name": "IGPN TEXFAB PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 106,
+  "miner_id": "9002",
+  "name": "YANGON AIRWAYS COMPANY LIMITED",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 107,
+  "miner_id": "9002",
+  "name": "WHITELINE POLYMERS",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 108,
+  "miner_id": "9002",
+  "name": "EDE 2 EOOD",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 109,
+  "miner_id": "9002",
+  "name": "Magnus CNC Support AB",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 110,
+  "miner_id": "9002",
+  "name": "JING PIN INC.",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 111,
+  "miner_id": "9002",
+  "name": "S K CONSTRUCTION",
+  "expected": false,
+  "claim": true,
+  "decision_label": "abstain",
+  "reason": "positive may be fuzzy or from another list"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 112,
+  "miner_id": "9002",
+  "name": "ZAVOD LIPETSKTEKHNOLIT",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 113,
+  "miner_id": "9002",
+  "name": "GR ASSET INVESTMENTS, S.L.",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 114,
+  "miner_id": "9002",
+  "name": "JOINT STOCK COMPANY OMUTNINSK METALLURGICAL PLANT",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 115,
+  "miner_id": "9002",
+  "name": "SRI LAKSHMI VENKATESWARA ENTERPRISES",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 116,
+  "miner_id": "9002",
+  "name": "WOODHAVEN DRC SASU",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 117,
+  "miner_id": "9002",
+  "name": "KALPAH MOTORS PRIVATE LIMITED",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 118,
+  "miner_id": "9002",
+  "name": "GENI SARL",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 119,
+  "miner_id": "9002",
+  "name": "Latein Capital GmbH",
+  "expected": false,
+  "claim": true,
+  "decision_label": "abstain",
+  "reason": "positive may be fuzzy or from another list"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 120,
+  "miner_id": "9002",
+  "name": "LORENA DEL MAR, S.A. DE C.V.",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 121,
+  "miner_id": "9002",
+  "name": "Luftsport-Club Marienberg e.V. (LCM)",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 122,
+  "miner_id": "9002",
+  "name": "A LEVEL AEROSYSTEMS CST LLC",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 123,
+  "miner_id": "9002",
+  "name": "SHREE RADHA KRISHNA INFRASTRUCTURE",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 124,
+  "miner_id": "9002",
+  "name": "PROTEH CO LTD",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 125,
+  "miner_id": "9002",
+  "name": "PPT-Rendite",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 126,
+  "miner_id": "9002",
+  "name": "NIK LLC",
+  "expected": true,
+  "claim": true,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ },
+ {
+  "capture": "responses-9002.json",
+  "row": 127,
+  "miner_id": "9002",
+  "name": "Weip Foundation",
+  "expected": false,
+  "claim": false,
+  "decision_label": "correct",
+  "reason": "exact-name SDN decision only"
+ }
+]

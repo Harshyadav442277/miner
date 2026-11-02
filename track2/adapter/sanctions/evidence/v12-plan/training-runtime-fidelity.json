@@ -1,0 +1,898 @@
+{
+ "precision": "HF float32; original base/checkpoint weights loaded without bf16 conversion",
+ "inputs": "exact same pinned-tokenizer IDs used by actual node",
+ "versions": {
+  "3": {
+   "version": 3,
+   "unique_inputs": 66,
+   "pairs": 62,
+   "node_correct": 41,
+   "hf_correct": 41,
+   "ordering_agreement": 1.0,
+   "pearson": 0.9999999999812269,
+   "max_abs_score_difference": 0.00013256072998046875,
+   "rows": [
+    {
+     "name": "CEGESA",
+     "hf_chosen": -2.5456809997558594,
+     "hf_rejected": 1.4780908823013306,
+     "node_chosen": -2.545684337615967,
+     "node_rejected": 1.4780964851379395
+    },
+    {
+     "name": "CEGESA",
+     "hf_chosen": 0.20288074016571045,
+     "hf_rejected": 1.4780908823013306,
+     "node_chosen": 0.2028641700744629,
+     "node_rejected": 1.4780964851379395
+    },
+    {
+     "name": "CEGESA",
+     "hf_chosen": -2.5456809997558594,
+     "hf_rejected": 0.7529436349868774,
+     "node_chosen": -2.545684337615967,
+     "node_rejected": 0.7529276609420776
+    },
+    {
+     "name": "CEGESA",
+     "hf_chosen": -2.5456809997558594,
+     "hf_rejected": -1.8654159307479858,
+     "node_chosen": -2.545684337615967,
+     "node_rejected": -1.8654201030731201
+    },
+    {
+     "name": "CEGESA",
+     "hf_chosen": 0.20288074016571045,
+     "hf_rejected": 0.7529436349868774,
+     "node_chosen": 0.2028641700744629,
+     "node_rejected": 0.7529276609420776
+    },
+    {
+     "name": "CEGESA",
+     "hf_chosen": 0.20288074016571045,
+     "hf_rejected": -1.8654159307479858,
+     "node_chosen": 0.2028641700744629,
+     "node_rejected": -1.8654201030731201
+    },
+    {
+     "name": "LLC PSO RSB-GROUP",
+     "hf_chosen": 1.539534330368042,
+     "hf_rejected": 0.084663987159729,
+     "node_chosen": 1.5395325422286987,
+     "node_rejected": 0.08465361595153809
+    },
+    {
+     "name": "LLC PSO RSB-GROUP",
+     "hf_chosen": 4.297004699707031,
+     "hf_rejected": 0.084663987159729,
+     "node_chosen": 4.296989440917969,
+     "node_rejected": 0.08465361595153809
+    },
+    {
+     "name": "LLC PSO RSB-GROUP",
+     "hf_chosen": 0.4258507490158081,
+     "hf_rejected": 0.084663987159729,
+     "node_chosen": 0.42587506771087646,
+     "node_rejected": 0.08465361595153809
+    },
+    {
+     "name": "LLC PSO RSB-GROUP",
+     "hf_chosen": 1.539534330368042,
+     "hf_rejected": -0.07252657413482666,
+     "node_chosen": 1.5395325422286987,
+     "node_rejected": -0.07253110408782959
+    },
+    {
+     "name": "LLC PSO RSB-GROUP",
+     "hf_chosen": 4.297004699707031,
+     "hf_rejected": -0.07252657413482666,
+     "node_chosen": 4.296989440917969,
+     "node_rejected": -0.07253110408782959
+    },
+    {
+     "name": "LLC PSO RSB-GROUP",
+     "hf_chosen": 0.4258507490158081,
+     "hf_rejected": -0.07252657413482666,
+     "node_chosen": 0.42587506771087646,
+     "node_rejected": -0.07253110408782959
+    },
+    {
+     "name": "GHARCHAK PRISON",
+     "hf_chosen": -3.9045395851135254,
+     "hf_rejected": 0.1228184700012207,
+     "node_chosen": -3.9045348167419434,
+     "node_rejected": 0.12282979488372803
+    },
+    {
+     "name": "GHARCHAK PRISON",
+     "hf_chosen": 0.3854954242706299,
+     "hf_rejected": 0.1228184700012207,
+     "node_chosen": 0.38548386096954346,
+     "node_rejected": 0.12282979488372803
+    },
+    {
+     "name": "GHARCHAK PRISON",
+     "hf_chosen": -1.068809151649475,
+     "hf_rejected": 0.1228184700012207,
+     "node_chosen": -1.0688124895095825,
+     "node_rejected": 0.12282979488372803
+    },
+    {
+     "name": "GHARCHAK PRISON",
+     "hf_chosen": -3.9045395851135254,
+     "hf_rejected": -2.624269723892212,
+     "node_chosen": -3.9045348167419434,
+     "node_rejected": -2.624297618865967
+    },
+    {
+     "name": "GHARCHAK PRISON",
+     "hf_chosen": 0.3854954242706299,
+     "hf_rejected": -2.624269723892212,
+     "node_chosen": 0.38548386096954346,
+     "node_rejected": -2.624297618865967
+    },
+    {
+     "name": "GHARCHAK PRISON",
+     "hf_chosen": -1.068809151649475,
+     "hf_rejected": -2.624269723892212,
+     "node_chosen": -1.0688124895095825,
+     "node_rejected": -2.624297618865967
+    },
+    {
+     "name": "ASIA SUN TRADING CO. LTD.",
+     "hf_chosen": 1.0292519330978394,
+     "hf_rejected": 3.8827528953552246,
+     "node_chosen": 1.0292434692382812,
+     "node_rejected": 3.882746696472168
+    },
+    {
+     "name": "ASIA SUN TRADING CO. LTD.",
+     "hf_chosen": 5.152382850646973,
+     "hf_rejected": 3.8827528953552246,
+     "node_chosen": 5.1523661613464355,
+     "node_rejected": 3.882746696472168
+    },
+    {
+     "name": "ASIA SUN TRADING CO. LTD.",
+     "hf_chosen": 4.648698806762695,
+     "hf_rejected": 3.8827528953552246,
+     "node_chosen": 4.648683547973633,
+     "node_rejected": 3.882746696472168
+    },
+    {
+     "name": "ASIA SUN TRADING CO. LTD.",
+     "hf_chosen": 11.118024826049805,
+     "hf_rejected": 3.8827528953552246,
+     "node_chosen": 11.118029594421387,
+     "node_rejected": 3.882746696472168
+    },
+    {
+     "name": "YEMEN ABBOT TRADING CO., LTD.",
+     "hf_chosen": 3.7267513275146484,
+     "hf_rejected": 3.3924248218536377,
+     "node_chosen": 3.726731777191162,
+     "node_rejected": 3.392421007156372
+    },
+    {
+     "name": "YEMEN ABBOT TRADING CO., LTD.",
+     "hf_chosen": 8.470803260803223,
+     "hf_rejected": 3.3924248218536377,
+     "node_chosen": 8.470796585083008,
+     "node_rejected": 3.392421007156372
+    },
+    {
+     "name": "YEMEN ABBOT TRADING CO., LTD.",
+     "hf_chosen": 5.077373504638672,
+     "hf_rejected": 3.3924248218536377,
+     "node_chosen": 5.077368259429932,
+     "node_rejected": 3.392421007156372
+    },
+    {
+     "name": "YEMEN ABBOT TRADING CO., LTD.",
+     "hf_chosen": 7.627141952514648,
+     "hf_rejected": 3.3924248218536377,
+     "node_chosen": 7.627145767211914,
+     "node_rejected": 3.392421007156372
+    },
+    {
+     "name": "AL-MUKHTAR COMPANIES",
+     "hf_chosen": -4.0229034423828125,
+     "hf_rejected": 0.6012494564056396,
+     "node_chosen": -4.022902011871338,
+     "node_rejected": 0.6012636423110962
+    },
+    {
+     "name": "AL-MUKHTAR COMPANIES",
+     "hf_chosen": 1.9308334589004517,
+     "hf_rejected": 0.6012494564056396,
+     "node_chosen": 1.9308366775512695,
+     "node_rejected": 0.6012636423110962
+    },
+    {
+     "name": "AL-MUKHTAR COMPANIES",
+     "hf_chosen": -1.0176911354064941,
+     "hf_rejected": 0.6012494564056396,
+     "node_chosen": -1.017686128616333,
+     "node_rejected": 0.6012636423110962
+    },
+    {
+     "name": "AL-MUKHTAR COMPANIES",
+     "hf_chosen": 4.942461013793945,
+     "hf_rejected": 0.6012494564056396,
+     "node_chosen": 4.942593574523926,
+     "node_rejected": 0.6012636423110962
+    },
+    {
+     "name": "HTOO GROUP",
+     "hf_chosen": 1.0344427824020386,
+     "hf_rejected": 1.430096983909607,
+     "node_chosen": 1.0344387292861938,
+     "node_rejected": 1.4301002025604248
+    },
+    {
+     "name": "HTOO GROUP",
+     "hf_chosen": 4.762874126434326,
+     "hf_rejected": 1.430096983909607,
+     "node_chosen": 4.762882232666016,
+     "node_rejected": 1.4301002025604248
+    },
+    {
+     "name": "HTOO GROUP",
+     "hf_chosen": 2.890048027038574,
+     "hf_rejected": 1.430096983909607,
+     "node_chosen": 2.8900444507598877,
+     "node_rejected": 1.4301002025604248
+    },
+    {
+     "name": "HTOO GROUP",
+     "hf_chosen": 4.408998489379883,
+     "hf_rejected": 1.430096983909607,
+     "node_chosen": 4.409028053283691,
+     "node_rejected": 1.4301002025604248
+    },
+    {
+     "name": "CONFIDERI ADVISORY GROUP",
+     "hf_chosen": -3.8378968238830566,
+     "hf_rejected": 0.1992480754852295,
+     "node_chosen": -3.83788800239563,
+     "node_rejected": 0.19924592971801758
+    },
+    {
+     "name": "CONFIDERI ADVISORY GROUP",
+     "hf_chosen": 1.7319122552871704,
+     "hf_rejected": 0.1992480754852295,
+     "node_chosen": 1.7319145202636719,
+     "node_rejected": 0.19924592971801758
+    },
+    {
+     "name": "CONFIDERI ADVISORY GROUP",
+     "hf_chosen": -0.5925197601318359,
+     "hf_rejected": 0.1992480754852295,
+     "node_chosen": -0.5925064086914062,
+     "node_rejected": 0.19924592971801758
+    },
+    {
+     "name": "CONFIDERI ADVISORY GROUP",
+     "hf_chosen": -3.8378968238830566,
+     "hf_rejected": -2.758085250854492,
+     "node_chosen": -3.83788800239563,
+     "node_rejected": -2.7580885887145996
+    },
+    {
+     "name": "CONFIDERI ADVISORY GROUP",
+     "hf_chosen": 1.7319122552871704,
+     "hf_rejected": -2.758085250854492,
+     "node_chosen": 1.7319145202636719,
+     "node_rejected": -2.7580885887145996
+    },
+    {
+     "name": "CONFIDERI ADVISORY GROUP",
+     "hf_chosen": -0.5925197601318359,
+     "hf_rejected": -2.758085250854492,
+     "node_chosen": -0.5925064086914062,
+     "node_rejected": -2.7580885887145996
+    },
+    {
+     "name": "BRILLIANCE BANKING CORPORATION, LTD.",
+     "hf_chosen": 5.074738502502441,
+     "hf_rejected": 2.758798599243164,
+     "node_chosen": 5.074744701385498,
+     "node_rejected": 2.758793830871582
+    },
+    {
+     "name": "BRILLIANCE BANKING CORPORATION, LTD.",
+     "hf_chosen": 8.625916481018066,
+     "hf_rejected": 2.758798599243164,
+     "node_chosen": 8.625901222229004,
+     "node_rejected": 2.758793830871582
+    },
+    {
+     "name": "BRILLIANCE BANKING CORPORATION, LTD.",
+     "hf_chosen": 4.297943592071533,
+     "hf_rejected": 2.758798599243164,
+     "node_chosen": 4.297935485839844,
+     "node_rejected": 2.758793830871582
+    },
+    {
+     "name": "BRILLIANCE BANKING CORPORATION, LTD.",
+     "hf_chosen": 6.595026969909668,
+     "hf_rejected": 2.758798599243164,
+     "node_chosen": 6.5950140953063965,
+     "node_rejected": 2.758793830871582
+    },
+    {
+     "name": "REBEL SECT",
+     "hf_chosen": -3.69179105758667,
+     "hf_rejected": -0.5750833749771118,
+     "node_chosen": -3.691789150238037,
+     "node_rejected": -0.5750941634178162
+    },
+    {
+     "name": "REBEL SECT",
+     "hf_chosen": 0.06023824214935303,
+     "hf_rejected": -0.5750833749771118,
+     "node_chosen": 0.060236334800720215,
+     "node_rejected": -0.5750941634178162
+    },
+    {
+     "name": "REBEL SECT",
+     "hf_chosen": 0.5959100127220154,
+     "hf_rejected": -0.5750833749771118,
+     "node_chosen": 0.5959094762802124,
+     "node_rejected": -0.5750941634178162
+    },
+    {
+     "name": "REBEL SECT",
+     "hf_chosen": -3.69179105758667,
+     "hf_rejected": -2.4483983516693115,
+     "node_chosen": -3.691789150238037,
+     "node_rejected": -2.448404312133789
+    },
+    {
+     "name": "REBEL SECT",
+     "hf_chosen": 0.06023824214935303,
+     "hf_rejected": -2.4483983516693115,
+     "node_chosen": 0.060236334800720215,
+     "node_rejected": -2.448404312133789
+    },
+    {
+     "name": "REBEL SECT",
+     "hf_chosen": 0.5959100127220154,
+     "hf_rejected": -2.4483983516693115,
+     "node_chosen": 0.5959094762802124,
+     "node_rejected": -2.448404312133789
+    },
+    {
+     "name": "RAD D.O.O.",
+     "hf_chosen": 2.3502204418182373,
+     "hf_rejected": 1.7091628313064575,
+     "node_chosen": 2.3502285480499268,
+     "node_rejected": 1.7091500759124756
+    },
+    {
+     "name": "RAD D.O.O.",
+     "hf_chosen": 1.0794780254364014,
+     "hf_rejected": 1.7091628313064575,
+     "node_chosen": 1.0794779062271118,
+     "node_rejected": 1.7091500759124756
+    },
+    {
+     "name": "RAD D.O.O.",
+     "hf_chosen": 4.262908935546875,
+     "hf_rejected": 1.7091628313064575,
+     "node_chosen": 4.262876510620117,
+     "node_rejected": 1.7091500759124756
+    },
+    {
+     "name": "TRY PHEAP TRAVEL & TOURS CO., LTD.",
+     "hf_chosen": 0.8846039772033691,
+     "hf_rejected": -7.066598892211914,
+     "node_chosen": 0.8846195936203003,
+     "node_rejected": -7.066572666168213
+    },
+    {
+     "name": "TRY PHEAP TRAVEL & TOURS CO., LTD.",
+     "hf_chosen": 4.248825550079346,
+     "hf_rejected": -7.066598892211914,
+     "node_chosen": 4.2488203048706055,
+     "node_rejected": -7.066572666168213
+    },
+    {
+     "name": "TRY PHEAP TRAVEL & TOURS CO., LTD.",
+     "hf_chosen": 6.441763877868652,
+     "hf_rejected": -7.066598892211914,
+     "node_chosen": 6.441769123077393,
+     "node_rejected": -7.066572666168213
+    },
+    {
+     "name": "OOO 148ESEYCH",
+     "hf_chosen": -4.131107330322266,
+     "hf_rejected": -0.8558450937271118,
+     "node_chosen": -4.1311211585998535,
+     "node_rejected": -0.8558434844017029
+    },
+    {
+     "name": "OOO 148ESEYCH",
+     "hf_chosen": -0.679618239402771,
+     "hf_rejected": -0.8558450937271118,
+     "node_chosen": -0.6796255707740784,
+     "node_rejected": -0.8558434844017029
+    },
+    {
+     "name": "OOO 148ESEYCH",
+     "hf_chosen": 1.7684993743896484,
+     "hf_rejected": -0.8558450937271118,
+     "node_chosen": 1.7684991359710693,
+     "node_rejected": -0.8558434844017029
+    },
+    {
+     "name": "MORE REKA SERVIS",
+     "hf_chosen": -3.235215663909912,
+     "hf_rejected": -2.7855312824249268,
+     "node_chosen": -3.2351479530334473,
+     "node_rejected": -2.7855358123779297
+    },
+    {
+     "name": "MORE REKA SERVIS",
+     "hf_chosen": 1.5117924213409424,
+     "hf_rejected": -2.7855312824249268,
+     "node_chosen": 1.511804223060608,
+     "node_rejected": -2.7855358123779297
+    },
+    {
+     "name": "MORE REKA SERVIS",
+     "hf_chosen": -3.3094565868377686,
+     "hf_rejected": -2.7855312824249268,
+     "node_chosen": -3.3094661235809326,
+     "node_rejected": -2.7855358123779297
+    }
+   ]
+  },
+  "12": {
+   "version": 12,
+   "unique_inputs": 66,
+   "pairs": 62,
+   "node_correct": 4,
+   "hf_correct": 4,
+   "ordering_agreement": 1.0,
+   "pearson": 0.9999999999676515,
+   "max_abs_score_difference": 8.153915405273438e-05,
+   "rows": [
+    {
+     "name": "CEGESA",
+     "hf_chosen": 1.4146873950958252,
+     "hf_rejected": 5.1875529289245605,
+     "node_chosen": 1.414697289466858,
+     "node_rejected": 5.187555313110352
+    },
+    {
+     "name": "CEGESA",
+     "hf_chosen": 0.8393062353134155,
+     "hf_rejected": 5.1875529289245605,
+     "node_chosen": 0.8392984867095947,
+     "node_rejected": 5.187555313110352
+    },
+    {
+     "name": "CEGESA",
+     "hf_chosen": 1.4146873950958252,
+     "hf_rejected": 3.0758509635925293,
+     "node_chosen": 1.414697289466858,
+     "node_rejected": 3.0758588314056396
+    },
+    {
+     "name": "CEGESA",
+     "hf_chosen": 1.4146873950958252,
+     "hf_rejected": 2.808042526245117,
+     "node_chosen": 1.414697289466858,
+     "node_rejected": 2.808042049407959
+    },
+    {
+     "name": "CEGESA",
+     "hf_chosen": 0.8393062353134155,
+     "hf_rejected": 3.0758509635925293,
+     "node_chosen": 0.8392984867095947,
+     "node_rejected": 3.0758588314056396
+    },
+    {
+     "name": "CEGESA",
+     "hf_chosen": 0.8393062353134155,
+     "hf_rejected": 2.808042526245117,
+     "node_chosen": 0.8392984867095947,
+     "node_rejected": 2.808042049407959
+    },
+    {
+     "name": "LLC PSO RSB-GROUP",
+     "hf_chosen": 2.5410382747650146,
+     "hf_rejected": 5.021662712097168,
+     "node_chosen": 2.5410311222076416,
+     "node_rejected": 5.021656513214111
+    },
+    {
+     "name": "LLC PSO RSB-GROUP",
+     "hf_chosen": 2.471895694732666,
+     "hf_rejected": 5.021662712097168,
+     "node_chosen": 2.4718880653381348,
+     "node_rejected": 5.021656513214111
+    },
+    {
+     "name": "LLC PSO RSB-GROUP",
+     "hf_chosen": 1.796108603477478,
+     "hf_rejected": 5.021662712097168,
+     "node_chosen": 1.7961232662200928,
+     "node_rejected": 5.021656513214111
+    },
+    {
+     "name": "LLC PSO RSB-GROUP",
+     "hf_chosen": 2.5410382747650146,
+     "hf_rejected": 3.928130626678467,
+     "node_chosen": 2.5410311222076416,
+     "node_rejected": 3.9281351566314697
+    },
+    {
+     "name": "LLC PSO RSB-GROUP",
+     "hf_chosen": 2.471895694732666,
+     "hf_rejected": 3.928130626678467,
+     "node_chosen": 2.4718880653381348,
+     "node_rejected": 3.9281351566314697
+    },
+    {
+     "name": "LLC PSO RSB-GROUP",
+     "hf_chosen": 1.796108603477478,
+     "hf_rejected": 3.928130626678467,
+     "node_chosen": 1.7961232662200928,
+     "node_rejected": 3.9281351566314697
+    },
+    {
+     "name": "GHARCHAK PRISON",
+     "hf_chosen": 2.3633193969726562,
+     "hf_rejected": 4.437154769897461,
+     "node_chosen": 2.363327741622925,
+     "node_rejected": 4.437158584594727
+    },
+    {
+     "name": "GHARCHAK PRISON",
+     "hf_chosen": 1.986459493637085,
+     "hf_rejected": 4.437154769897461,
+     "node_chosen": 1.9864557981491089,
+     "node_rejected": 4.437158584594727
+    },
+    {
+     "name": "GHARCHAK PRISON",
+     "hf_chosen": 1.9091638326644897,
+     "hf_rejected": 4.437154769897461,
+     "node_chosen": 1.9091577529907227,
+     "node_rejected": 4.437158584594727
+    },
+    {
+     "name": "GHARCHAK PRISON",
+     "hf_chosen": 2.3633193969726562,
+     "hf_rejected": 2.922661304473877,
+     "node_chosen": 2.363327741622925,
+     "node_rejected": 2.9226553440093994
+    },
+    {
+     "name": "GHARCHAK PRISON",
+     "hf_chosen": 1.986459493637085,
+     "hf_rejected": 2.922661304473877,
+     "node_chosen": 1.9864557981491089,
+     "node_rejected": 2.9226553440093994
+    },
+    {
+     "name": "GHARCHAK PRISON",
+     "hf_chosen": 1.9091638326644897,
+     "hf_rejected": 2.922661304473877,
+     "node_chosen": 1.9091577529907227,
+     "node_rejected": 2.9226553440093994
+    },
+    {
+     "name": "ASIA SUN TRADING CO. LTD.",
+     "hf_chosen": 4.236665725708008,
+     "hf_rejected": 5.5815863609313965,
+     "node_chosen": 4.236661911010742,
+     "node_rejected": 5.5815815925598145
+    },
+    {
+     "name": "ASIA SUN TRADING CO. LTD.",
+     "hf_chosen": 3.3398003578186035,
+     "hf_rejected": 5.5815863609313965,
+     "node_chosen": 3.339794635772705,
+     "node_rejected": 5.5815815925598145
+    },
+    {
+     "name": "ASIA SUN TRADING CO. LTD.",
+     "hf_chosen": 1.2249722480773926,
+     "hf_rejected": 5.5815863609313965,
+     "node_chosen": 1.2249659299850464,
+     "node_rejected": 5.5815815925598145
+    },
+    {
+     "name": "ASIA SUN TRADING CO. LTD.",
+     "hf_chosen": 3.068942070007324,
+     "hf_rejected": 5.5815863609313965,
+     "node_chosen": 3.06894588470459,
+     "node_rejected": 5.5815815925598145
+    },
+    {
+     "name": "YEMEN ABBOT TRADING CO., LTD.",
+     "hf_chosen": 3.7568211555480957,
+     "hf_rejected": 5.534017562866211,
+     "node_chosen": 3.7568233013153076,
+     "node_rejected": 5.534011363983154
+    },
+    {
+     "name": "YEMEN ABBOT TRADING CO., LTD.",
+     "hf_chosen": 4.196086406707764,
+     "hf_rejected": 5.534017562866211,
+     "node_chosen": 4.1960835456848145,
+     "node_rejected": 5.534011363983154
+    },
+    {
+     "name": "YEMEN ABBOT TRADING CO., LTD.",
+     "hf_chosen": 1.1933860778808594,
+     "hf_rejected": 5.534017562866211,
+     "node_chosen": 1.1933876276016235,
+     "node_rejected": 5.534011363983154
+    },
+    {
+     "name": "YEMEN ABBOT TRADING CO., LTD.",
+     "hf_chosen": 3.4249134063720703,
+     "hf_rejected": 5.534017562866211,
+     "node_chosen": 3.424910545349121,
+     "node_rejected": 5.534011363983154
+    },
+    {
+     "name": "AL-MUKHTAR COMPANIES",
+     "hf_chosen": 3.0269269943237305,
+     "hf_rejected": 5.012551307678223,
+     "node_chosen": 3.0269274711608887,
+     "node_rejected": 5.012549877166748
+    },
+    {
+     "name": "AL-MUKHTAR COMPANIES",
+     "hf_chosen": 3.0239014625549316,
+     "hf_rejected": 5.012551307678223,
+     "node_chosen": 3.0239014625549316,
+     "node_rejected": 5.012549877166748
+    },
+    {
+     "name": "AL-MUKHTAR COMPANIES",
+     "hf_chosen": 1.7488133907318115,
+     "hf_rejected": 5.012551307678223,
+     "node_chosen": 1.7488179206848145,
+     "node_rejected": 5.012549877166748
+    },
+    {
+     "name": "AL-MUKHTAR COMPANIES",
+     "hf_chosen": 2.630828380584717,
+     "hf_rejected": 5.012551307678223,
+     "node_chosen": 2.6309099197387695,
+     "node_rejected": 5.012549877166748
+    },
+    {
+     "name": "HTOO GROUP",
+     "hf_chosen": 0.46684932708740234,
+     "hf_rejected": 5.001850128173828,
+     "node_chosen": 0.46685075759887695,
+     "node_rejected": 5.001852035522461
+    },
+    {
+     "name": "HTOO GROUP",
+     "hf_chosen": 1.918029546737671,
+     "hf_rejected": 5.001850128173828,
+     "node_chosen": 1.9180362224578857,
+     "node_rejected": 5.001852035522461
+    },
+    {
+     "name": "HTOO GROUP",
+     "hf_chosen": 1.5123968124389648,
+     "hf_rejected": 5.001850128173828,
+     "node_chosen": 1.5123900175094604,
+     "node_rejected": 5.001852035522461
+    },
+    {
+     "name": "HTOO GROUP",
+     "hf_chosen": 2.2436563968658447,
+     "hf_rejected": 5.001850128173828,
+     "node_chosen": 2.2436530590057373,
+     "node_rejected": 5.001852035522461
+    },
+    {
+     "name": "CONFIDERI ADVISORY GROUP",
+     "hf_chosen": 2.1314926147460938,
+     "hf_rejected": 4.51434326171875,
+     "node_chosen": 2.1314926147460938,
+     "node_rejected": 4.514334201812744
+    },
+    {
+     "name": "CONFIDERI ADVISORY GROUP",
+     "hf_chosen": 2.505873918533325,
+     "hf_rejected": 4.51434326171875,
+     "node_chosen": 2.5058698654174805,
+     "node_rejected": 4.514334201812744
+    },
+    {
+     "name": "CONFIDERI ADVISORY GROUP",
+     "hf_chosen": 0.7409758567810059,
+     "hf_rejected": 4.51434326171875,
+     "node_chosen": 0.7409838438034058,
+     "node_rejected": 4.514334201812744
+    },
+    {
+     "name": "CONFIDERI ADVISORY GROUP",
+     "hf_chosen": 2.1314926147460938,
+     "hf_rejected": 2.573267936706543,
+     "node_chosen": 2.1314926147460938,
+     "node_rejected": 2.5732674598693848
+    },
+    {
+     "name": "CONFIDERI ADVISORY GROUP",
+     "hf_chosen": 2.505873918533325,
+     "hf_rejected": 2.573267936706543,
+     "node_chosen": 2.5058698654174805,
+     "node_rejected": 2.5732674598693848
+    },
+    {
+     "name": "CONFIDERI ADVISORY GROUP",
+     "hf_chosen": 0.7409758567810059,
+     "hf_rejected": 2.573267936706543,
+     "node_chosen": 0.7409838438034058,
+     "node_rejected": 2.5732674598693848
+    },
+    {
+     "name": "BRILLIANCE BANKING CORPORATION, LTD.",
+     "hf_chosen": 3.280745267868042,
+     "hf_rejected": 5.969881057739258,
+     "node_chosen": 3.280740976333618,
+     "node_rejected": 5.969873905181885
+    },
+    {
+     "name": "BRILLIANCE BANKING CORPORATION, LTD.",
+     "hf_chosen": 2.306058883666992,
+     "hf_rejected": 5.969881057739258,
+     "node_chosen": 2.3060550689697266,
+     "node_rejected": 5.969873905181885
+    },
+    {
+     "name": "BRILLIANCE BANKING CORPORATION, LTD.",
+     "hf_chosen": 1.9931917190551758,
+     "hf_rejected": 5.969881057739258,
+     "node_chosen": 1.9931919574737549,
+     "node_rejected": 5.969873905181885
+    },
+    {
+     "name": "BRILLIANCE BANKING CORPORATION, LTD.",
+     "hf_chosen": 2.7093493938446045,
+     "hf_rejected": 5.969881057739258,
+     "node_chosen": 2.7093253135681152,
+     "node_rejected": 5.969873905181885
+    },
+    {
+     "name": "REBEL SECT",
+     "hf_chosen": 1.81392502784729,
+     "hf_rejected": 4.555712699890137,
+     "node_chosen": 1.81392240524292,
+     "node_rejected": 4.555703639984131
+    },
+    {
+     "name": "REBEL SECT",
+     "hf_chosen": 2.270094156265259,
+     "hf_rejected": 4.555712699890137,
+     "node_chosen": 2.2700936794281006,
+     "node_rejected": 4.555703639984131
+    },
+    {
+     "name": "REBEL SECT",
+     "hf_chosen": 2.7328736782073975,
+     "hf_rejected": 4.555712699890137,
+     "node_chosen": 2.7328739166259766,
+     "node_rejected": 4.555703639984131
+    },
+    {
+     "name": "REBEL SECT",
+     "hf_chosen": 1.81392502784729,
+     "hf_rejected": 2.484358072280884,
+     "node_chosen": 1.81392240524292,
+     "node_rejected": 2.4843502044677734
+    },
+    {
+     "name": "REBEL SECT",
+     "hf_chosen": 2.270094156265259,
+     "hf_rejected": 2.484358072280884,
+     "node_chosen": 2.2700936794281006,
+     "node_rejected": 2.4843502044677734
+    },
+    {
+     "name": "REBEL SECT",
+     "hf_chosen": 2.7328736782073975,
+     "hf_rejected": 2.484358072280884,
+     "node_chosen": 2.7328739166259766,
+     "node_rejected": 2.4843502044677734
+    },
+    {
+     "name": "RAD D.O.O.",
+     "hf_chosen": 3.3191699981689453,
+     "hf_rejected": 5.708003520965576,
+     "node_chosen": 3.319175958633423,
+     "node_rejected": 5.707988739013672
+    },
+    {
+     "name": "RAD D.O.O.",
+     "hf_chosen": 4.027742862701416,
+     "hf_rejected": 5.708003520965576,
+     "node_chosen": 4.027744770050049,
+     "node_rejected": 5.707988739013672
+    },
+    {
+     "name": "RAD D.O.O.",
+     "hf_chosen": 2.3551881313323975,
+     "hf_rejected": 5.708003520965576,
+     "node_chosen": 2.355181932449341,
+     "node_rejected": 5.707988739013672
+    },
+    {
+     "name": "TRY PHEAP TRAVEL & TOURS CO., LTD.",
+     "hf_chosen": 3.655141592025757,
+     "hf_rejected": -0.0030744075775146484,
+     "node_chosen": 3.655155658721924,
+     "node_rejected": -0.003055572509765625
+    },
+    {
+     "name": "TRY PHEAP TRAVEL & TOURS CO., LTD.",
+     "hf_chosen": 2.6989223957061768,
+     "hf_rejected": -0.0030744075775146484,
+     "node_chosen": 2.6989176273345947,
+     "node_rejected": -0.003055572509765625
+    },
+    {
+     "name": "TRY PHEAP TRAVEL & TOURS CO., LTD.",
+     "hf_chosen": 2.9006905555725098,
+     "hf_rejected": -0.0030744075775146484,
+     "node_chosen": 2.900696277618408,
+     "node_rejected": -0.003055572509765625
+    },
+    {
+     "name": "OOO 148ESEYCH",
+     "hf_chosen": 1.5372960567474365,
+     "hf_rejected": 3.2992658615112305,
+     "node_chosen": 1.5372951030731201,
+     "node_rejected": 3.2992589473724365
+    },
+    {
+     "name": "OOO 148ESEYCH",
+     "hf_chosen": 2.023190975189209,
+     "hf_rejected": 3.2992658615112305,
+     "node_chosen": 2.0231876373291016,
+     "node_rejected": 3.2992589473724365
+    },
+    {
+     "name": "OOO 148ESEYCH",
+     "hf_chosen": 3.0121068954467773,
+     "hf_rejected": 3.2992658615112305,
+     "node_chosen": 3.012112855911255,
+     "node_rejected": 3.2992589473724365
+    },
+    {
+     "name": "MORE REKA SERVIS",
+     "hf_chosen": -1.1707921028137207,
+     "hf_rejected": 2.551806688308716,
+     "node_chosen": -1.1707602739334106,
+     "node_rejected": 2.5518102645874023
+    },
+    {
+     "name": "MORE REKA SERVIS",
+     "hf_chosen": -0.8110661506652832,
+     "hf_rejected": 2.551806688308716,
+     "node_chosen": -0.8110781908035278,
+     "node_rejected": 2.5518102645874023
+    },
+    {
+     "name": "MORE REKA SERVIS",
+     "hf_chosen": -2.074885368347168,
+     "hf_rejected": 2.551806688308716,
+     "node_chosen": -2.0748960971832275,
+     "node_rejected": 2.5518102645874023
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,5 @@
+10:46:16 INFO: reward head from C:\Users\hyada\tg-eval\runs-v2\SANCTIONS_SCREENING_MATCH_v11\adapter\reward_head.pt
+10:46:16 INFO: wrote C:\Users\hyada\tg-eval\runs-v2\SANCTIONS_SCREENING_MATCH_v11\SANCTIONS_SCREENING_MATCH.safetensors (6776916 bytes, sha256 07c03d71174573fef574bf9633f08f17acf42e6b339084d392d742b3150b32dc, rank 8, 178 tensors)
+
+Next:
+  go run ./cmd/adapterbuild lora --intent SANCTIONS_SCREENING_MATCH --package C:/Users/hyada/tg-eval/runs-v2/SANCTIONS_SCREENING_MATCH_v11/SANCTIONS_SCREENING_MATCH.safetensors --out C:/Users/hyada/tg-eval/runs-v2/SANCTIONS_SCREENING_MATCH_v11 --foundation C:/Users/hyada/tg-eval/foundation/foundation.json

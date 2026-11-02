@@ -6,6 +6,17 @@ They are in `git log -p -- track2/GAPS.md`.
 
 ## G41 — real-answer sanctions measurement exposes source/length confounding (2026-11-01) — `OPEN`
 
+**Factual continuation:** old62 actual-node results v3 41/62, v9 13/62,
+v10 20/62,v11 35/62,v12 4/62. None beats42/62 visible length. V12 head-only
+updates preserve all176 encoder tensors; float32 HF and node orderings agree100%.
+New reserved capture69 genuine pairs/15 names is still unscored, all listed,
+71.74% visible-length baseline. Exact positive-query exposure in v3 is2/14 old
+names,3/15 reserved. V13 tests full public reference knowledge ingestion with
+real GLEIF absences. This explicitly exposes measured positive reference facts;
+do not describe its result as unseen-entity accuracy. Captured answers stay out
+of training. Source confounding, one-sided errors, truncation and thin independent
+name coverage remain unresolved. See FACTUAL_V12.md and FACTUAL_V13.md.
+
 **Nov 2 continuation:** v7's new query-binding final cohort scores 40/40 versus
 v6 36/40, with reversal-balanced providers/classes, 50% tie-aware length baselines,
 and identical visible answer tokens across reversed questions. This is relevance
