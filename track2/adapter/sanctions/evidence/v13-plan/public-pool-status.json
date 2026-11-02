@@ -1,0 +1,12 @@
+{
+ "url": "https://devnode.telegraphprotocol.com/api/evalpool/status?intent_id=SANCTIONS_SCREENING_MATCH_GENERAL",
+ "method": "GET",
+ "request_body": null,
+ "started_at": "2026-11-02T09:51:08.868930+00:00",
+ "finished_at": "2026-11-02T09:51:10.108293+00:00",
+ "status": 200,
+ "curl_exit": 0,
+ "error": "",
+ "sha256": "832ad54b1f5cc6ecb8e1bf41cb9236c1e18e6d319d3849ea36d54c0e6ebd39bf",
+ "body": "{\"intent_id\":\"SANCTIONS_SCREENING_MATCH_GENERAL\",\"counts\":[{\"status\":\"eligible\",\"count\":416},{\"status\":\"rejected\",\"reason\":\"near_duplicate\",\"count\":2}],\"by_state\":{\"eligible\":416,\"rejected\":2},\"submitters\":7,\"eligible_submitters\":7,\"snapshot\":{\"corpus_version\":\"1d53d852a4e4aa1296a6a0e19cff2275e0706332f5854ac59eaa63d399b57780\",\"rows\":416,\"submitters\":7,\"qualification\":210,\"ranking\":206,\"ranking_split_bps\":5000,\"quality_rules_version\":\"evalpool-quality-v1\",\"published_at\":\"2026-11-01T07:05:07.874909Z\",\"activation_epoch\":1958},\"active_snapshot\":{\"corpus_version\":\"1d53d852a4e4aa1296a6a0e19cff2275e0706332f5854ac59eaa63d399b57780\",\"rows\":416,\"submitters\":7,\"qualification\":210,\"ranking\":206,\"ranking_split_bps\":5000,\"quality_rules_version\":\"evalpool-quality-v1\",\"published_at\":\"2026-11-01T07:05:07.874909Z\",\"activation_epoch\":1958},\"current_epoch\":1986,\"min_submitters\":5}\n"
+}

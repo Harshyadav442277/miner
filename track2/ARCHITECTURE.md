@@ -133,3 +133,22 @@ Large training runs and model files live outside OneDrive, in `C:\Users\hyada\tg
   one epoch, learning rate 0.00005, stock objective, rank8/alpha32, max256. Select only on synthetic
   validation loss. Preserve all v9-v12 failures. Passing length still cannot establish submission
   readiness without genuine errors in both classes and stronger independent name coverage.
+
+## A9 — Context visibility experiment (2026-11-02 IST)
+
+- The pinned official kit allows 512 tokens; 256 is our training/package choice,
+  not the protocol maximum. Preserve every historical 256-token result and v13's
+  frozen recipe. Do not silently change tokenizer limits or overwrite baselines.
+- A source-independent visibility audit of the unchanged old62 pairs exposes both
+  complete machine verdicts in43 pairs at256, all62 at512. The visible-length
+  baseline changes from42/62 to46/62. These are input diagnostics, not model scores.
+- Freeze v14 before any reserved model scores: re-export the exact v3 weights with
+  max_tokens512, no optimization, no answer/pair editing. Verify all178 package
+  tensors exactly equal v3 after Stage1; measure in the actual node at512, against
+  its own baseline. This isolates the context effect for these deterministic scores.
+- V3 was trained at256. V14 is explicitly a context-transfer diagnostic, not a claim
+  of matching training/inference context or registration readiness. Any deployment
+  candidate still needs suitable training, binding checks and genuine two-class
+  factual evidence. No provider exceptions or inference wrappers are introduced.
+- Keep score/audit joins bound to pair hashes and matching runtime token limits.
+  Nondefault visibility reports require separate output paths. No pool rows are read.

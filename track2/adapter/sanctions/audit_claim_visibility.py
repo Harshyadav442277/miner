@@ -71,9 +71,13 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("capture", type=Path)
     ap.add_argument("--tokenizer", type=Path, required=True)
+    ap.add_argument("--max-tokens", type=int, choices=(256, 512), default=256)
+    ap.add_argument("--out", type=Path)
     a = ap.parse_args()
+    if a.max_tokens != 256 and not a.out:
+        ap.error("nondefault context requires --out to preserve the 256-token audit")
     tok = Tokenizer.from_file(str(a.tokenizer))
-    tok.enable_truncation(max_length=256)
+    tok.enable_truncation(max_length=a.max_tokens)
     pairs = [json.loads(l) for l in (a.capture / "pairs.jsonl").read_text(encoding="utf-8").splitlines()]
     records, indices = [], []
     for i, pair in enumerate(pairs):
@@ -84,22 +88,26 @@ def main():
         if item["both_machine_claims_visible"]:
             indices.append(i)
         records.append(item)
-    results = {}
+    results, excluded = {}, {}
     for file in sorted(a.capture.glob("v*-node-scores.json")):
         data = json.loads(file.read_text(encoding="utf-8"))
         assert data["pairs_sha256"] == hashlib.sha256((a.capture / "pairs.jsonl").read_bytes()).hexdigest(), file
         assert data["pairs"] == len(pairs) == len(data["rows"]), file
+        if data["tokens"]["max_tokens"] != a.max_tokens:
+            excluded[str(data["version"])] = "different runtime token limit"
+            continue
         results[str(data["version"])] = {"pairs": len(indices), "correct": sum(data["rows"][i]["correct"] for i in indices)}
     lengths = [(len(tok.encode(render(pairs[i]["prompt"], pairs[i]["chosen"])).ids),
                 len(tok.encode(render(pairs[i]["prompt"], pairs[i]["rejected"])).ids)) for i in indices]
     length_reference = sum((c > r)+.5*(c == r) for c, r in lengths)/len(lengths) if lengths else None
-    result = {"total_pairs": len(pairs), "observable_pair_indices": indices, "observable_pairs": len(indices),
+    result = {"max_tokens": a.max_tokens, "total_pairs": len(pairs), "observable_pair_indices": indices, "observable_pairs": len(indices),
               "observable_distinct_queries": len({pairs[i]["name"] for i in indices}), "scores": results,
               "observable_visible_length_baseline_tie_aware": length_reference,
               "observable_visible_length_tied_pairs": sum(c == r for c, r in lengths),
               "observable_pair_kinds": dict(collections.Counter(pairs[i]["kind"] for i in indices)),
+              "excluded_score_versions": excluded,
               "scope": "Complete machine claims visible; prose-only claims not audited. Original dataset unchanged.", "rows": records}
-    save(a.capture / "claim-visibility-audit.json", result)
+    save(a.out or a.capture / "claim-visibility-audit.json", result)
     print(json.dumps({k:v for k,v in result.items() if k != "rows"}))
 
 

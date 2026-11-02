@@ -67,6 +67,8 @@ def run_version(a, version, pairs, keys, all_keys, token_stats):
     pkg = run / "SANCTIONS_SCREENING_MATCH.safetensors"
     manifest = json.loads(pkg.with_suffix(pkg.suffix + ".manifest.json").read_text())
     assert sha(pkg) == manifest["package"]["sha256"]
+    if manifest["max_tokens"] != a.max_tokens:
+        raise ValueError("measurement token limit differs from package; set --max-tokens explicitly")
     identity = {"foundation_hash": manifest["foundation"]["hash"],
                 "adapter_hash": manifest["keccak256"].removeprefix("0x"),
                 "tokenizer_hash": manifest["tokenizer_hash"]}
@@ -161,6 +163,7 @@ def main():
     ap.add_argument("capture", type=Path)
     ap.add_argument("--home", type=Path, default=Path("C:/Users/hyada/tg-eval"))
     ap.add_argument("--versions", default="3,4,5")
+    ap.add_argument("--max-tokens", type=int, choices=(256, 512), default=256)
     a = ap.parse_args()
     foundation = json.loads((a.home / "foundation/foundation.json").read_text())
     assert sha(a.home / "foundation/foundation_lora_fp32.onnx") == foundation["foundation_hash"]
@@ -171,12 +174,12 @@ def main():
         raise ValueError("no defensible pairs; cannot measure")
     tok = Tokenizer.from_file(str(a.home / "foundation/tokenizer.json"))
     full_lengths = [len(tok.encode(render(p["prompt"], p[k])).ids) for p in pairs for k in ("chosen", "rejected")]
-    tok.enable_truncation(max_length=256)
+    tok.enable_truncation(max_length=a.max_tokens)
     keys = [(tuple(tok.encode(render(p["prompt"], p["chosen"])).ids),
              tuple(tok.encode(render(p["prompt"], p["rejected"])).ids)) for p in pairs]
     unique = list(dict.fromkeys(k for pair in keys for k in pair))
-    stats = {"max_tokens": 256, "rendered_max_before_truncation": max(full_lengths),
-             "texts_truncated": sum(n > 256 for n in full_lengths), "texts": len(full_lengths),
+    stats = {"max_tokens": a.max_tokens, "rendered_max_before_truncation": max(full_lengths),
+             "texts_truncated": sum(n > a.max_tokens for n in full_lengths), "texts": len(full_lengths),
              "unique_token_sequences": len(unique)}
     for v in a.versions.split(","):
         run_version(a, int(v), pairs, keys, unique, stats)
