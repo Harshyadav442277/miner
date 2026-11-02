@@ -11,6 +11,7 @@ from pathlib import Path
 from tokenizers import Tokenizer
 from binding_benchmark import visible
 from collect_miners import save
+from score_pairs import render
 
 
 def root_values(text):
@@ -86,8 +87,14 @@ def main():
     for file in sorted(a.capture.glob("v*-node-scores.json")):
         data = json.loads(file.read_text(encoding="utf-8"))
         results[str(data["version"])] = {"pairs": len(indices), "correct": sum(data["rows"][i]["correct"] for i in indices)}
+    lengths = [(len(tok.encode(render(pairs[i]["prompt"], pairs[i]["chosen"])).ids),
+                len(tok.encode(render(pairs[i]["prompt"], pairs[i]["rejected"])).ids)) for i in indices]
+    length_reference = sum((c > r)+.5*(c == r) for c, r in lengths)/len(lengths) if lengths else None
     result = {"total_pairs": len(pairs), "observable_pair_indices": indices, "observable_pairs": len(indices),
               "observable_distinct_queries": len({pairs[i]["name"] for i in indices}), "scores": results,
+              "observable_visible_length_baseline_tie_aware": length_reference,
+              "observable_visible_length_tied_pairs": sum(c == r for c, r in lengths),
+              "observable_pair_kinds": dict(collections.Counter(pairs[i]["kind"] for i in indices)),
               "scope": "Complete machine claims visible; prose-only claims not audited. Original dataset unchanged.", "rows": records}
     save(a.capture / "claim-visibility-audit.json", result)
     print(json.dumps({k:v for k,v in result.items() if k != "rows"}))

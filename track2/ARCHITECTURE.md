@@ -106,3 +106,7 @@ Large training runs and model files live outside OneDrive, in `C:\Users\hyada\tg
 - Beating the actual visible-input length baseline is necessary, not sufficient for submission.
   Retain class/source/truncation limitations; a constant-positive shortcut cannot establish factual
   correctness. Do not register, upload pool material or touch wallets as part of this work.
+- V9 regressed on development facts and is rejected before scoring the fresh cohort. V10 may start
+  again from v8 and add source-verified alias queries plus generic boolean/numeric/enum verdict
+  coverage. No external provider templates are copied. Preserve the rejected v9 data/results and
+  evaluate the next fixed model on the still-unscored reserved cohort.

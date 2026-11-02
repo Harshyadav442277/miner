@@ -10,6 +10,7 @@ import random
 from build_pairs import load, norm, unlisted_names, SOURCE
 from build_query_binding import answer, FORMATS, PROMPT
 from collect_miners import save
+from factual_formats import varied_answer
 
 
 def main():
@@ -18,10 +19,14 @@ def main():
     ap.add_argument("--exclude-queries", type=Path, nargs="+", required=True)
     ap.add_argument("--out", type=Path, required=True)
     ap.add_argument("--archive", type=Path, required=True)
+    ap.add_argument("--alias-fraction", type=float, default=0)
+    ap.add_argument("--vary-claims", action="store_true")
+    ap.add_argument("--seed", type=int, default=620261102)
     a = ap.parse_args()
     a.out.mkdir(parents=True, exist_ok=False)
     a.archive.mkdir(parents=True, exist_ok=False)
-    rng = random.Random(620261102)
+    rng = random.Random(a.seed)
+    render_answer = varied_answer if a.vary_claims else answer
     sdn, alt = [a.home / f"data/sanctions/{n}.csv" for n in ("sdn", "alt")]
     entries = {e["id"]: e for e in load(str(sdn), str(alt))}
     index = {norm(n) for e in entries.values() for n in [e["name"], *e["aliases"]]}
@@ -61,8 +66,14 @@ def main():
                     break
             assert total == quota, (split, kind, total, quota)
         rows = []
-        positives = [(e["name"], e) for e in part if norm(e["name"]) not in used]
-        negatives = [(q, rng.choice(part)) for q, _ in unlisted_names(part, index, rng, len(part)*3) if norm(q) not in used]
+        positives, shaped = [], []
+        for entry in part:
+            aliases = [n for n in entry["aliases"] if norm(n) != norm(entry["name"]) and norm(n) not in used]
+            q = rng.choice(aliases) if a.alias_fraction and aliases and rng.random() < a.alias_fraction else entry["name"]
+            if norm(q) not in used:
+                positives.append((q, entry))
+            shaped.append({**entry, "name": q})
+        negatives = [(q, rng.choice(part)) for q, _ in unlisted_names(shaped if a.alias_fraction else part, index, rng, len(part)*3) if norm(q) not in used]
         for hit, candidates in ((True, positives), (False, negatives)):
             rng.shuffle(candidates)
             count = 0
@@ -70,8 +81,8 @@ def main():
                 if norm(q) in used:
                     continue
                 good_fmt, bad_fmt = rng.choice(FORMATS), rng.choice(FORMATS)
-                chosen = answer(q, hit, entry, good_fmt, rng, snapshot)
-                rejected = answer(q, not hit, entry, bad_fmt, rng, snapshot)
+                chosen = render_answer(q, hit, entry, good_fmt, rng, snapshot)
+                rejected = render_answer(q, not hit, entry, bad_fmt, rng, snapshot)
                 rows.append({"prompt": PROMPT.format(q=q), "chosen": chosen, "rejected": rejected,
                              "query_name": q, "listed": hit, "kind": "factual_crossformat",
                              "label_kind": "preference_pair", "format": good_fmt+"/"+bad_fmt,
@@ -93,7 +104,8 @@ def main():
                          "listed_factual": facts//2, "absent_factual": facts//2,
                          "sha256": hashlib.sha256(raw).hexdigest(),
                          "longer_baseline_tie_aware": sum((len(r["chosen"]) > len(r["rejected"]))+.5*(len(r["chosen"]) == len(r["rejected"])) for r in rows)/len(rows)}
-    manifest = {"seed": 620261102, "splits": report, "sdn_sha256": snapshot,
+    manifest = {"seed": a.seed, "alias_fraction": a.alias_fraction, "vary_claims": a.vary_claims,
+                "splits": report, "sdn_sha256": snapshot,
                 "alt_sha256": hashlib.sha256(alt.read_bytes()).hexdigest(),
                 "excluded_queries": [str(p) for p in a.exclude_queries],
                 "scope": "Exact-name cross-format factual fixtures; no external answer or pool training"}

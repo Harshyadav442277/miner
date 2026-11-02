@@ -63,3 +63,16 @@ Exact generated inputs, source/split audits, command logs, package identities an
 f32 scores are retained alongside the results. The script refuses absent training
 results or occupied executor ports. Historical evidence must be preserved when
 replaying; rerun measurements in a copy.
+
+## Rejected development result
+
+V9 scores **13/62 (20.97%)**, below v8's 31/62 and the visible-length reference
+42/62. Its 94% synthetic test did not transfer. The pipeline was stopped before
+fresh-cohort model scoring; `v9-plan/rejection.json` records the stop. Any completed
+query-binding checks remain archived, not used to excuse the factual regression.
+
+The old slice contains 52 alias-query comparisons and 10 primary-name comparisons.
+V9 scores 9/52 and 4/10 respectively, versus v8 25/52 and 6/10. V9's positive
+training queries used primary names, and its machine verdicts used only `matched`
+booleans. These are concrete coverage gaps, not proof of the failure's sole cause.
+The still-unscored cohort is reserved for the next fixed candidate.

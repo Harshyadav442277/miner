@@ -1,0 +1,9 @@
+{
+ "status": "rejected_on_development_factual_regression",
+ "correct": 13,
+ "pairs": 62,
+ "visible_length_baseline": 0.6774193548387096,
+ "fresh_cohort_model_scores_exist": false,
+ "action": "Stopped v9 measurement orchestrator; current child allowed to finish and clean up its workers. Fresh external cohort remains reserved for the next fixed model.",
+ "recorded_at": "2026-11-02T04:42:39.760595+00:00"
+}

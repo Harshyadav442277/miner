@@ -1,0 +1,56 @@
+{
+ "train": {
+  "positive_query_forms": {
+   "primary": 673,
+   "alias": 227
+  },
+  "chosen_factual_claim_forms": {
+   "on_list:int": 149,
+   "on_list:bool": 122,
+   "prose": 430,
+   "sanctioned:bool": 151,
+   "sanctioned:int": 136,
+   "match:bool": 135,
+   "verdict:str": 286,
+   "matched:int": 134,
+   "matched:bool": 131,
+   "match:int": 126
+  }
+ },
+ "val": {
+  "positive_query_forms": {
+   "alias": 37,
+   "primary": 113
+  },
+  "chosen_factual_claim_forms": {
+   "on_list:int": 19,
+   "match:int": 15,
+   "on_list:bool": 27,
+   "matched:bool": 27,
+   "match:bool": 30,
+   "sanctioned:int": 20,
+   "prose": 77,
+   "verdict:str": 40,
+   "sanctioned:bool": 24,
+   "matched:int": 21
+  }
+ },
+ "test": {
+  "positive_query_forms": {
+   "primary": 114,
+   "alias": 36
+  },
+  "chosen_factual_claim_forms": {
+   "prose": 70,
+   "sanctioned:bool": 25,
+   "verdict:str": 55,
+   "on_list:int": 20,
+   "match:int": 27,
+   "on_list:bool": 15,
+   "match:bool": 29,
+   "matched:int": 18,
+   "sanctioned:int": 21,
+   "matched:bool": 20
+  }
+ }
+}

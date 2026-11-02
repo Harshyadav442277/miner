@@ -6,6 +6,7 @@ from pathlib import Path
 import re
 
 from build_pairs import load, norm
+from audit_claim_visibility import verdict_spans
 
 
 def main():
@@ -30,7 +31,7 @@ def main():
             text = row["chosen"]
             if text.startswith("{"):
                 body = json.loads(text)
-                assert body["matched"] == actual
+                assert {v for k, v, start, end in verdict_spans(text)} == {actual}
                 echoed = [body[k] for k in ("name", "entity", "screened_name") if k in body]
                 assert echoed == [q]
                 for match in body.get("matches", []):
