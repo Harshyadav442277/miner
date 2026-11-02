@@ -24,23 +24,34 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--home", type=Path, required=True)
     ap.add_argument("--out", type=Path, required=True)
+    ap.add_argument("--seed", type=int, default=720261102)
+    ap.add_argument("--gleif-page-start", type=int, default=1)
+    ap.add_argument("--raw-dir", type=Path)
+    ap.add_argument("--training-dirs", nargs="+", default=["sanctions_v6_pilot_r1"])
+    ap.add_argument("--exclude-queries", type=Path, nargs="+", default=[])
+    ap.add_argument("--all-final", action="store_true")
     a = ap.parse_args()
     a.out.mkdir(parents=True, exist_ok=False)
-    rng = random.Random(720261102)
+    rng = random.Random(a.seed)
     sdn, alt = a.home / "data/sanctions/sdn.csv", a.home / "data/sanctions/alt.csv"
     entities = load(str(sdn), str(alt))
     _, index = snapshot_index(sdn.read_bytes(), alt.read_bytes())
     used_ids, used_names = set(), set()
-    for split in ("train", "val", "test"):
-        file = a.home / f"pairs/sanctions_v6_pilot_r1/{split}.jsonl"
-        for line in file.read_text(encoding="utf-8").splitlines():
-            row = json.loads(line)
-            used_ids.update((row["sdn_entity_id"], row["other_entity_id"]))
-            used_names.add(norm(row["prompt"].removeprefix("Screen ").removesuffix(
-                " against the OFAC SDN list. Report name matches.")))
+    for directory in a.training_dirs:
+        for split in ("train", "val", "test"):
+            file = a.home / f"pairs/{directory}/{split}.jsonl"
+            for line in file.read_text(encoding="utf-8").splitlines():
+                row = json.loads(line)
+                used_ids.update((row["sdn_entity_id"], row["other_entity_id"]))
+                used_names.add(norm(row["prompt"].removeprefix("Screen ").removesuffix(
+                    " against the OFAC SDN list. Report name matches.")))
     old_evidence = Path(__file__).parent / "evidence"
     for cohort in ("2026-11-01-miners-r1", "2026-11-01-miners-fresh"):
         for q in json.loads((old_evidence / cohort / "queries.json").read_text(encoding="utf-8")):
+            used_ids.update(q["sdn_ids"])
+            used_names.add(norm(q["name"]))
+    for file in a.exclude_queries:
+        for q in json.loads(file.read_text(encoding="utf-8")):
             used_ids.update(q["sdn_ids"])
             used_names.add(norm(q["name"]))
     used_names.update(norm(n) for e in entities if e["id"] in used_ids for n in [e["name"], *e["aliases"]])
@@ -50,10 +61,10 @@ def main():
         return len(tok.encode(render(f"Screen {q} against the OFAC SDN list. Report name matches.", "")).ids)
 
     negative = collections.defaultdict(list)
-    local_raw = a.home / "data/v7-gleif"
+    local_raw = a.raw_dir or a.home / "data/v7-gleif"
     local_raw.mkdir(exist_ok=True)
     source_records = []
-    for page in (1, 2, 3):
+    for page in range(a.gleif_page_start, a.gleif_page_start+3):
         url = f"https://api.gleif.org/api/v1/lei-records?page%5Bsize%5D=200&page%5Bnumber%5D={page}"
         raw = fetch(url, max_bytes=5000000)
         if raw["status"] != 200 or raw["curl_exit"]:
@@ -96,20 +107,22 @@ def main():
     rng.shuffle(positive)
     queries = []
     for i, pair in enumerate(positive):
-        role = "development" if i < 32 else "final"
+        role = "final" if a.all_final else "development" if i < 32 else "final"
         for q in pair:
             queries.append({**q, "role": role, "prefix_tokens": bucket(q["name"])})
     save(a.out / "queries.json", queries)
     save(a.out / "selection-manifest.json", {
-        "seed": 720261102, "queries": len(queries), "roles": {"development": 64, "final": 64},
-        "classes_per_role": {"listed": 32, "exact_name_absent": 32}, "sdn_entity_names_only": True,
+        "seed": a.seed, "queries": len(queries), "roles": dict(collections.Counter(q["role"] for q in queries)),
+        "all_final": a.all_final,
+        "excluded_query_files": [str(p) for p in a.exclude_queries], "training_dirs": a.training_dirs,
+        "classes_per_role": {"listed": 64 if a.all_final else 32, "exact_name_absent": 64 if a.all_final else 32}, "sdn_entity_names_only": True,
         "negative_source": "GLEIF legal names, CC0; only name/LEI/source refs published",
         "terms_url": "https://www.gleif.org/en/meta/lei-data-terms-of-use", "source_fetches": source_records,
         "sdn_sha256": hashlib.sha256(sdn.read_bytes()).hexdigest(),
         "alt_sha256": hashlib.sha256(alt.read_bytes()).hexdigest(),
         "queries_sha256": hashlib.sha256((a.out / "queries.json").read_bytes()).hexdigest(),
         "note": "Exact absence is not all-list, fuzzy or ownership clearance. No miner answers consulted."})
-    print(json.dumps({"queries": len(queries), "development": 64, "final": 64,
+    print(json.dumps({"queries": len(queries), "roles": dict(collections.Counter(q["role"] for q in queries)),
                       "positive_aliases": sum(q.get("name_form") == "alias" for q in queries)}))
 
 

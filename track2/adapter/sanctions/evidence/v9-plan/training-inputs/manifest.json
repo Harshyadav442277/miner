@@ -1,0 +1,42 @@
+{
+ "seed": 620261102,
+ "splits": {
+  "train": {
+   "pairs": 2400,
+   "factual_pairs": 1800,
+   "binding_pairs": 600,
+   "listed_factual": 900,
+   "absent_factual": 900,
+   "sha256": "eb3822c74027e8e9dfe0d5c5ae509f0993e95571d440f4ba68a1fb780859aa07",
+   "longer_baseline_tie_aware": 0.48791666666666667
+  },
+  "val": {
+   "pairs": 400,
+   "factual_pairs": 300,
+   "binding_pairs": 100,
+   "listed_factual": 150,
+   "absent_factual": 150,
+   "sha256": "0921f8b9bf2d376c53359ce77a126c8e5ab7f92c02a08578b1d43d99da4d7e7c",
+   "longer_baseline_tie_aware": 0.4825
+  },
+  "test": {
+   "pairs": 400,
+   "factual_pairs": 300,
+   "binding_pairs": 100,
+   "listed_factual": 150,
+   "absent_factual": 150,
+   "sha256": "a414d3d415c5809c7082e6b3244b342108f4bfe79ce9ad91088013d162205dee",
+   "longer_baseline_tie_aware": 0.48875
+  }
+ },
+ "sdn_sha256": "5f240bed79d504e7a54788b4cd1c7f84e6afa56cd4778653b70b0771b6a8509d",
+ "alt_sha256": "b0e2811fbb49ba6e9941a497e6b05fa2c9037b45ae7923196a01e2363a402259",
+ "excluded_queries": [
+  "track2\\adapter\\sanctions\\evidence\\2026-11-01-miners-r1\\queries.json",
+  "track2\\adapter\\sanctions\\evidence\\2026-11-01-miners-fresh\\queries.json",
+  "track2\\adapter\\sanctions\\evidence\\v7-plan\\queries.json",
+  "track2\\adapter\\sanctions\\evidence\\v8-plan\\bank-queries.json",
+  "track2\\adapter\\sanctions\\evidence\\v9-plan\\queries.json"
+ ],
+ "scope": "Exact-name cross-format factual fixtures; no external answer or pool training"
+}

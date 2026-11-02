@@ -91,3 +91,18 @@ Large training runs and model files live outside OneDrive, in `C:\Users\hyada\tg
   the named bank regression itself. Candidate metadata must be computed from the public snapshot, never
   invented or copied from miner answers. A separate absent-name bank stratum may isolate this failure;
   report it separately from the balanced corpus. Previously evaluated v7 sets then become regression sets.
+
+## A8 — Factual discrimination continuation (2026-11-02 IST)
+
+- V9 addresses cross-format factual comparisons with source-derived synthetic fixtures. Correct and
+  incorrect same-query answers choose their format independently; balance exact members/absences and
+  short/long preferences. Preserve query-binding training and measure the v8 regressions unchanged.
+- This is a hypothesis about a training coverage gap, not a proven cause of factual errors. Keep
+  captured answer bodies, provider identifiers and provider-specific templates out of training.
+- Audit machine-verdict visibility using exact JSON value spans and pinned tokenizer offsets. Report
+  the observable subset separately; do not silently edit, shorten or drop the original 62 pairs.
+- Reserve all prior measured queries/entities and a newly frozen external cohort from new data.
+  Select the checkpoint on synthetic validation only. The old 62-pair slice is development evidence.
+- Beating the actual visible-input length baseline is necessary, not sufficient for submission.
+  Retain class/source/truncation limitations; a constant-positive shortcut cannot establish factual
+  correctness. Do not register, upload pool material or touch wallets as part of this work.

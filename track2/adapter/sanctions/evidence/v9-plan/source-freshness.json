@@ -1,0 +1,22 @@
+{
+ "checked_at": "2026-11-02T04:27:43.288945+00:00",
+ "sources": [
+  {
+   "file": "sdn.csv",
+   "url": "https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports/SDN.CSV",
+   "fresh_sha256": "5f240bed79d504e7a54788b4cd1c7f84e6afa56cd4778653b70b0771b6a8509d",
+   "frozen_sha256": "5f240bed79d504e7a54788b4cd1c7f84e6afa56cd4778653b70b0771b6a8509d",
+   "bytes": 5750799,
+   "equal": true
+  },
+  {
+   "file": "alt.csv",
+   "url": "https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports/ALT.CSV",
+   "fresh_sha256": "b0e2811fbb49ba6e9941a497e6b05fa2c9037b45ae7923196a01e2363a402259",
+   "frozen_sha256": "b0e2811fbb49ba6e9941a497e6b05fa2c9037b45ae7923196a01e2363a402259",
+   "bytes": 1064299,
+   "equal": true
+  }
+ ],
+ "all_equal": true
+}

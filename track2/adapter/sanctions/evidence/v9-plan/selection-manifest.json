@@ -1,0 +1,51 @@
+{
+ "seed": 1020261102,
+ "queries": 128,
+ "roles": {
+  "final": 128
+ },
+ "excluded_query_files": [
+  "track2\\adapter\\sanctions\\evidence\\v7-plan\\queries.json",
+  "track2\\adapter\\sanctions\\evidence\\v8-plan\\bank-queries.json"
+ ],
+ "training_dirs": [
+  "sanctions_v6_pilot_r1",
+  "sanctions_v7_binding",
+  "sanctions_v8_hard_binding_r2"
+ ],
+ "classes_per_role": {
+  "listed": 64,
+  "exact_name_absent": 64
+ },
+ "sdn_entity_names_only": true,
+ "negative_source": "GLEIF legal names, CC0; only name/LEI/source refs published",
+ "terms_url": "https://www.gleif.org/en/meta/lei-data-terms-of-use",
+ "source_fetches": [
+  {
+   "url": "https://api.gleif.org/api/v1/lei-records?page%5Bsize%5D=200&page%5Bnumber%5D=4",
+   "started_at": "2026-11-02T04:23:42.140134+00:00",
+   "finished_at": "2026-11-02T04:23:44.157672+00:00",
+   "sha256": "8511cf041f6ffb66bbf6a49f3edee417f5c394eaaca26c35e9bd42300d9fa457",
+   "status": 200
+  },
+  {
+   "url": "https://api.gleif.org/api/v1/lei-records?page%5Bsize%5D=200&page%5Bnumber%5D=5",
+   "started_at": "2026-11-02T04:23:45.175258+00:00",
+   "finished_at": "2026-11-02T04:23:47.298281+00:00",
+   "sha256": "f30e31031080a0e297dfafed5748d7a90cccb25d580d68349cca653c51e508f2",
+   "status": 200
+  },
+  {
+   "url": "https://api.gleif.org/api/v1/lei-records?page%5Bsize%5D=200&page%5Bnumber%5D=6",
+   "started_at": "2026-11-02T04:23:48.315164+00:00",
+   "finished_at": "2026-11-02T04:23:50.389468+00:00",
+   "sha256": "19542def39b5c6ca64d5388d296c7608c2a1499fbaf6d835fa3abda5cd524ad5",
+   "status": 200
+  }
+ ],
+ "sdn_sha256": "5f240bed79d504e7a54788b4cd1c7f84e6afa56cd4778653b70b0771b6a8509d",
+ "alt_sha256": "b0e2811fbb49ba6e9941a497e6b05fa2c9037b45ae7923196a01e2363a402259",
+ "queries_sha256": "4bb103dd6b382f563514c0984748a45f50ebb6ba0303c061ea474696d91ed362",
+ "note": "Exact absence is not all-list, fuzzy or ownership clearance. No miner answers consulted.",
+ "all_final": true
+}

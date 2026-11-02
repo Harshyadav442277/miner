@@ -1,0 +1,1228 @@
+{
+ "total_pairs": 62,
+ "observable_pair_indices": [
+  1,
+  4,
+  5,
+  7,
+  8,
+  10,
+  11,
+  13,
+  14,
+  16,
+  17,
+  19,
+  20,
+  21,
+  23,
+  24,
+  25,
+  27,
+  28,
+  29,
+  31,
+  32,
+  33,
+  35,
+  36,
+  38,
+  39,
+  41,
+  42,
+  43,
+  45,
+  46,
+  48,
+  49,
+  50,
+  51,
+  52,
+  54,
+  55,
+  57,
+  58,
+  60,
+  61
+ ],
+ "observable_pairs": 43,
+ "observable_distinct_queries": 14,
+ "scores": {
+  "6": {
+   "pairs": 43,
+   "correct": 21
+  },
+  "7": {
+   "pairs": 43,
+   "correct": 9
+  },
+  "8": {
+   "pairs": 43,
+   "correct": 15
+  }
+ },
+ "scope": "Complete machine claims visible; prose-only claims not audited. Original dataset unchanged.",
+ "rows": [
+  {
+   "pair_index": 0,
+   "name": "CEGESA",
+   "chosen": {
+    "body_characters_visible": 591,
+    "visible_claim_fields": [],
+    "all_machine_claims_visible": false
+   },
+   "rejected": {
+    "body_characters_visible": 675,
+    "visible_claim_fields": [
+     "match"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": false
+  },
+  {
+   "pair_index": 1,
+   "name": "CEGESA",
+   "chosen": {
+    "body_characters_visible": 637,
+    "visible_claim_fields": [
+     "matched"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "rejected": {
+    "body_characters_visible": 675,
+    "visible_claim_fields": [
+     "match"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": true
+  },
+  {
+   "pair_index": 2,
+   "name": "CEGESA",
+   "chosen": {
+    "body_characters_visible": 591,
+    "visible_claim_fields": [],
+    "all_machine_claims_visible": false
+   },
+   "rejected": {
+    "body_characters_visible": 77,
+    "visible_claim_fields": [
+     "on_list",
+     "sanctioned"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": false
+  },
+  {
+   "pair_index": 3,
+   "name": "CEGESA",
+   "chosen": {
+    "body_characters_visible": 591,
+    "visible_claim_fields": [],
+    "all_machine_claims_visible": false
+   },
+   "rejected": {
+    "body_characters_visible": 753,
+    "visible_claim_fields": [
+     "matched"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": false
+  },
+  {
+   "pair_index": 4,
+   "name": "CEGESA",
+   "chosen": {
+    "body_characters_visible": 637,
+    "visible_claim_fields": [
+     "matched"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "rejected": {
+    "body_characters_visible": 77,
+    "visible_claim_fields": [
+     "on_list",
+     "sanctioned"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": true
+  },
+  {
+   "pair_index": 5,
+   "name": "CEGESA",
+   "chosen": {
+    "body_characters_visible": 637,
+    "visible_claim_fields": [
+     "matched"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "rejected": {
+    "body_characters_visible": 753,
+    "visible_claim_fields": [
+     "matched"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": true
+  },
+  {
+   "pair_index": 6,
+   "name": "LLC PSO RSB-GROUP",
+   "chosen": {
+    "body_characters_visible": 669,
+    "visible_claim_fields": [],
+    "all_machine_claims_visible": false
+   },
+   "rejected": {
+    "body_characters_visible": 730,
+    "visible_claim_fields": [
+     "match"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": false
+  },
+  {
+   "pair_index": 7,
+   "name": "LLC PSO RSB-GROUP",
+   "chosen": {
+    "body_characters_visible": 677,
+    "visible_claim_fields": [
+     "matched"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "rejected": {
+    "body_characters_visible": 730,
+    "visible_claim_fields": [
+     "match"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": true
+  },
+  {
+   "pair_index": 8,
+   "name": "LLC PSO RSB-GROUP",
+   "chosen": {
+    "body_characters_visible": 88,
+    "visible_claim_fields": [
+     "on_list",
+     "sanctioned"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "rejected": {
+    "body_characters_visible": 730,
+    "visible_claim_fields": [
+     "match"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": true
+  },
+  {
+   "pair_index": 9,
+   "name": "LLC PSO RSB-GROUP",
+   "chosen": {
+    "body_characters_visible": 669,
+    "visible_claim_fields": [],
+    "all_machine_claims_visible": false
+   },
+   "rejected": {
+    "body_characters_visible": 796,
+    "visible_claim_fields": [
+     "matched"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": false
+  },
+  {
+   "pair_index": 10,
+   "name": "LLC PSO RSB-GROUP",
+   "chosen": {
+    "body_characters_visible": 677,
+    "visible_claim_fields": [
+     "matched"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "rejected": {
+    "body_characters_visible": 796,
+    "visible_claim_fields": [
+     "matched"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": true
+  },
+  {
+   "pair_index": 11,
+   "name": "LLC PSO RSB-GROUP",
+   "chosen": {
+    "body_characters_visible": 88,
+    "visible_claim_fields": [
+     "on_list",
+     "sanctioned"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "rejected": {
+    "body_characters_visible": 796,
+    "visible_claim_fields": [
+     "matched"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": true
+  },
+  {
+   "pair_index": 12,
+   "name": "GHARCHAK PRISON",
+   "chosen": {
+    "body_characters_visible": 668,
+    "visible_claim_fields": [],
+    "all_machine_claims_visible": false
+   },
+   "rejected": {
+    "body_characters_visible": 720,
+    "visible_claim_fields": [
+     "match"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": false
+  },
+  {
+   "pair_index": 13,
+   "name": "GHARCHAK PRISON",
+   "chosen": {
+    "body_characters_visible": 694,
+    "visible_claim_fields": [
+     "matched"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "rejected": {
+    "body_characters_visible": 720,
+    "visible_claim_fields": [
+     "match"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": true
+  },
+  {
+   "pair_index": 14,
+   "name": "GHARCHAK PRISON",
+   "chosen": {
+    "body_characters_visible": 86,
+    "visible_claim_fields": [
+     "on_list",
+     "sanctioned"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "rejected": {
+    "body_characters_visible": 720,
+    "visible_claim_fields": [
+     "match"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": true
+  },
+  {
+   "pair_index": 15,
+   "name": "GHARCHAK PRISON",
+   "chosen": {
+    "body_characters_visible": 668,
+    "visible_claim_fields": [],
+    "all_machine_claims_visible": false
+   },
+   "rejected": {
+    "body_characters_visible": 789,
+    "visible_claim_fields": [
+     "matched"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": false
+  },
+  {
+   "pair_index": 16,
+   "name": "GHARCHAK PRISON",
+   "chosen": {
+    "body_characters_visible": 694,
+    "visible_claim_fields": [
+     "matched"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "rejected": {
+    "body_characters_visible": 789,
+    "visible_claim_fields": [
+     "matched"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": true
+  },
+  {
+   "pair_index": 17,
+   "name": "GHARCHAK PRISON",
+   "chosen": {
+    "body_characters_visible": 86,
+    "visible_claim_fields": [
+     "on_list",
+     "sanctioned"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "rejected": {
+    "body_characters_visible": 789,
+    "visible_claim_fields": [
+     "matched"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": true
+  },
+  {
+   "pair_index": 18,
+   "name": "ASIA SUN TRADING CO. LTD.",
+   "chosen": {
+    "body_characters_visible": 621,
+    "visible_claim_fields": [],
+    "all_machine_claims_visible": false
+   },
+   "rejected": {
+    "body_characters_visible": 760,
+    "visible_claim_fields": [
+     "match"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": false
+  },
+  {
+   "pair_index": 19,
+   "name": "ASIA SUN TRADING CO. LTD.",
+   "chosen": {
+    "body_characters_visible": 645,
+    "visible_claim_fields": [
+     "matched"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "rejected": {
+    "body_characters_visible": 760,
+    "visible_claim_fields": [
+     "match"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": true
+  },
+  {
+   "pair_index": 20,
+   "name": "ASIA SUN TRADING CO. LTD.",
+   "chosen": {
+    "body_characters_visible": 96,
+    "visible_claim_fields": [
+     "on_list",
+     "sanctioned"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "rejected": {
+    "body_characters_visible": 760,
+    "visible_claim_fields": [
+     "match"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": true
+  },
+  {
+   "pair_index": 21,
+   "name": "ASIA SUN TRADING CO. LTD.",
+   "chosen": {
+    "body_characters_visible": 728,
+    "visible_claim_fields": [
+     "matched"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "rejected": {
+    "body_characters_visible": 760,
+    "visible_claim_fields": [
+     "match"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": true
+  },
+  {
+   "pair_index": 22,
+   "name": "YEMEN ABBOT TRADING CO., LTD.",
+   "chosen": {
+    "body_characters_visible": 604,
+    "visible_claim_fields": [],
+    "all_machine_claims_visible": false
+   },
+   "rejected": {
+    "body_characters_visible": 753,
+    "visible_claim_fields": [
+     "match"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": false
+  },
+  {
+   "pair_index": 23,
+   "name": "YEMEN ABBOT TRADING CO., LTD.",
+   "chosen": {
+    "body_characters_visible": 631,
+    "visible_claim_fields": [
+     "matched"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "rejected": {
+    "body_characters_visible": 753,
+    "visible_claim_fields": [
+     "match"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": true
+  },
+  {
+   "pair_index": 24,
+   "name": "YEMEN ABBOT TRADING CO., LTD.",
+   "chosen": {
+    "body_characters_visible": 100,
+    "visible_claim_fields": [
+     "on_list",
+     "sanctioned"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "rejected": {
+    "body_characters_visible": 753,
+    "visible_claim_fields": [
+     "match"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": true
+  },
+  {
+   "pair_index": 25,
+   "name": "YEMEN ABBOT TRADING CO., LTD.",
+   "chosen": {
+    "body_characters_visible": 695,
+    "visible_claim_fields": [
+     "matched"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "rejected": {
+    "body_characters_visible": 753,
+    "visible_claim_fields": [
+     "match"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": true
+  },
+  {
+   "pair_index": 26,
+   "name": "AL-MUKHTAR COMPANIES",
+   "chosen": {
+    "body_characters_visible": 607,
+    "visible_claim_fields": [],
+    "all_machine_claims_visible": false
+   },
+   "rejected": {
+    "body_characters_visible": 745,
+    "visible_claim_fields": [
+     "match"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": false
+  },
+  {
+   "pair_index": 27,
+   "name": "AL-MUKHTAR COMPANIES",
+   "chosen": {
+    "body_characters_visible": 642,
+    "visible_claim_fields": [
+     "matched"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "rejected": {
+    "body_characters_visible": 745,
+    "visible_claim_fields": [
+     "match"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": true
+  },
+  {
+   "pair_index": 28,
+   "name": "AL-MUKHTAR COMPANIES",
+   "chosen": {
+    "body_characters_visible": 91,
+    "visible_claim_fields": [
+     "on_list",
+     "sanctioned"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "rejected": {
+    "body_characters_visible": 745,
+    "visible_claim_fields": [
+     "match"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": true
+  },
+  {
+   "pair_index": 29,
+   "name": "AL-MUKHTAR COMPANIES",
+   "chosen": {
+    "body_characters_visible": 794,
+    "visible_claim_fields": [
+     "matched"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "rejected": {
+    "body_characters_visible": 745,
+    "visible_claim_fields": [
+     "match"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": true
+  },
+  {
+   "pair_index": 30,
+   "name": "HTOO GROUP",
+   "chosen": {
+    "body_characters_visible": 668,
+    "visible_claim_fields": [],
+    "all_machine_claims_visible": false
+   },
+   "rejected": {
+    "body_characters_visible": 695,
+    "visible_claim_fields": [
+     "match"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": false
+  },
+  {
+   "pair_index": 31,
+   "name": "HTOO GROUP",
+   "chosen": {
+    "body_characters_visible": 714,
+    "visible_claim_fields": [
+     "matched"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "rejected": {
+    "body_characters_visible": 695,
+    "visible_claim_fields": [
+     "match"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": true
+  },
+  {
+   "pair_index": 32,
+   "name": "HTOO GROUP",
+   "chosen": {
+    "body_characters_visible": 81,
+    "visible_claim_fields": [
+     "on_list",
+     "sanctioned"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "rejected": {
+    "body_characters_visible": 695,
+    "visible_claim_fields": [
+     "match"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": true
+  },
+  {
+   "pair_index": 33,
+   "name": "HTOO GROUP",
+   "chosen": {
+    "body_characters_visible": 754,
+    "visible_claim_fields": [
+     "matched"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "rejected": {
+    "body_characters_visible": 695,
+    "visible_claim_fields": [
+     "match"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": true
+  },
+  {
+   "pair_index": 34,
+   "name": "CONFIDERI ADVISORY GROUP",
+   "chosen": {
+    "body_characters_visible": 644,
+    "visible_claim_fields": [],
+    "all_machine_claims_visible": false
+   },
+   "rejected": {
+    "body_characters_visible": 765,
+    "visible_claim_fields": [
+     "match"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": false
+  },
+  {
+   "pair_index": 35,
+   "name": "CONFIDERI ADVISORY GROUP",
+   "chosen": {
+    "body_characters_visible": 679,
+    "visible_claim_fields": [
+     "matched"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "rejected": {
+    "body_characters_visible": 765,
+    "visible_claim_fields": [
+     "match"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": true
+  },
+  {
+   "pair_index": 36,
+   "name": "CONFIDERI ADVISORY GROUP",
+   "chosen": {
+    "body_characters_visible": 95,
+    "visible_claim_fields": [
+     "on_list",
+     "sanctioned"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "rejected": {
+    "body_characters_visible": 765,
+    "visible_claim_fields": [
+     "match"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": true
+  },
+  {
+   "pair_index": 37,
+   "name": "CONFIDERI ADVISORY GROUP",
+   "chosen": {
+    "body_characters_visible": 644,
+    "visible_claim_fields": [],
+    "all_machine_claims_visible": false
+   },
+   "rejected": {
+    "body_characters_visible": 825,
+    "visible_claim_fields": [
+     "matched"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": false
+  },
+  {
+   "pair_index": 38,
+   "name": "CONFIDERI ADVISORY GROUP",
+   "chosen": {
+    "body_characters_visible": 679,
+    "visible_claim_fields": [
+     "matched"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "rejected": {
+    "body_characters_visible": 825,
+    "visible_claim_fields": [
+     "matched"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": true
+  },
+  {
+   "pair_index": 39,
+   "name": "CONFIDERI ADVISORY GROUP",
+   "chosen": {
+    "body_characters_visible": 95,
+    "visible_claim_fields": [
+     "on_list",
+     "sanctioned"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "rejected": {
+    "body_characters_visible": 825,
+    "visible_claim_fields": [
+     "matched"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": true
+  },
+  {
+   "pair_index": 40,
+   "name": "BRILLIANCE BANKING CORPORATION, LTD.",
+   "chosen": {
+    "body_characters_visible": 619,
+    "visible_claim_fields": [],
+    "all_machine_claims_visible": false
+   },
+   "rejected": {
+    "body_characters_visible": 774,
+    "visible_claim_fields": [
+     "match"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": false
+  },
+  {
+   "pair_index": 41,
+   "name": "BRILLIANCE BANKING CORPORATION, LTD.",
+   "chosen": {
+    "body_characters_visible": 640,
+    "visible_claim_fields": [
+     "matched"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "rejected": {
+    "body_characters_visible": 774,
+    "visible_claim_fields": [
+     "match"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": true
+  },
+  {
+   "pair_index": 42,
+   "name": "BRILLIANCE BANKING CORPORATION, LTD.",
+   "chosen": {
+    "body_characters_visible": 107,
+    "visible_claim_fields": [
+     "on_list",
+     "sanctioned"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "rejected": {
+    "body_characters_visible": 774,
+    "visible_claim_fields": [
+     "match"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": true
+  },
+  {
+   "pair_index": 43,
+   "name": "BRILLIANCE BANKING CORPORATION, LTD.",
+   "chosen": {
+    "body_characters_visible": 729,
+    "visible_claim_fields": [
+     "matched"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "rejected": {
+    "body_characters_visible": 774,
+    "visible_claim_fields": [
+     "match"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": true
+  },
+  {
+   "pair_index": 44,
+   "name": "REBEL SECT",
+   "chosen": {
+    "body_characters_visible": 657,
+    "visible_claim_fields": [],
+    "all_machine_claims_visible": false
+   },
+   "rejected": {
+    "body_characters_visible": 695,
+    "visible_claim_fields": [
+     "match"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": false
+  },
+  {
+   "pair_index": 45,
+   "name": "REBEL SECT",
+   "chosen": {
+    "body_characters_visible": 681,
+    "visible_claim_fields": [
+     "matched"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "rejected": {
+    "body_characters_visible": 695,
+    "visible_claim_fields": [
+     "match"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": true
+  },
+  {
+   "pair_index": 46,
+   "name": "REBEL SECT",
+   "chosen": {
+    "body_characters_visible": 81,
+    "visible_claim_fields": [
+     "on_list",
+     "sanctioned"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "rejected": {
+    "body_characters_visible": 695,
+    "visible_claim_fields": [
+     "match"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": true
+  },
+  {
+   "pair_index": 47,
+   "name": "REBEL SECT",
+   "chosen": {
+    "body_characters_visible": 657,
+    "visible_claim_fields": [],
+    "all_machine_claims_visible": false
+   },
+   "rejected": {
+    "body_characters_visible": 769,
+    "visible_claim_fields": [
+     "matched"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": false
+  },
+  {
+   "pair_index": 48,
+   "name": "REBEL SECT",
+   "chosen": {
+    "body_characters_visible": 681,
+    "visible_claim_fields": [
+     "matched"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "rejected": {
+    "body_characters_visible": 769,
+    "visible_claim_fields": [
+     "matched"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": true
+  },
+  {
+   "pair_index": 49,
+   "name": "REBEL SECT",
+   "chosen": {
+    "body_characters_visible": 81,
+    "visible_claim_fields": [
+     "on_list",
+     "sanctioned"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "rejected": {
+    "body_characters_visible": 769,
+    "visible_claim_fields": [
+     "matched"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": true
+  },
+  {
+   "pair_index": 50,
+   "name": "RAD D.O.O.",
+   "chosen": {
+    "body_characters_visible": 652,
+    "visible_claim_fields": [
+     "matched"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "rejected": {
+    "body_characters_visible": 690,
+    "visible_claim_fields": [
+     "match"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": true
+  },
+  {
+   "pair_index": 51,
+   "name": "RAD D.O.O.",
+   "chosen": {
+    "body_characters_visible": 81,
+    "visible_claim_fields": [
+     "on_list",
+     "sanctioned"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "rejected": {
+    "body_characters_visible": 690,
+    "visible_claim_fields": [
+     "match"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": true
+  },
+  {
+   "pair_index": 52,
+   "name": "RAD D.O.O.",
+   "chosen": {
+    "body_characters_visible": 664,
+    "visible_claim_fields": [
+     "matched"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "rejected": {
+    "body_characters_visible": 690,
+    "visible_claim_fields": [
+     "match"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": true
+  },
+  {
+   "pair_index": 53,
+   "name": "TRY PHEAP TRAVEL & TOURS CO., LTD.",
+   "chosen": {
+    "body_characters_visible": 588,
+    "visible_claim_fields": [],
+    "all_machine_claims_visible": false
+   },
+   "rejected": {
+    "body_characters_visible": 105,
+    "visible_claim_fields": [
+     "on_list",
+     "sanctioned"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": false
+  },
+  {
+   "pair_index": 54,
+   "name": "TRY PHEAP TRAVEL & TOURS CO., LTD.",
+   "chosen": {
+    "body_characters_visible": 612,
+    "visible_claim_fields": [
+     "matched"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "rejected": {
+    "body_characters_visible": 105,
+    "visible_claim_fields": [
+     "on_list",
+     "sanctioned"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": true
+  },
+  {
+   "pair_index": 55,
+   "name": "TRY PHEAP TRAVEL & TOURS CO., LTD.",
+   "chosen": {
+    "body_characters_visible": 616,
+    "visible_claim_fields": [
+     "matched"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "rejected": {
+    "body_characters_visible": 105,
+    "visible_claim_fields": [
+     "on_list",
+     "sanctioned"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": true
+  },
+  {
+   "pair_index": 56,
+   "name": "OOO 148ESEYCH",
+   "chosen": {
+    "body_characters_visible": 658,
+    "visible_claim_fields": [],
+    "all_machine_claims_visible": false
+   },
+   "rejected": {
+    "body_characters_visible": 781,
+    "visible_claim_fields": [
+     "matched"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": false
+  },
+  {
+   "pair_index": 57,
+   "name": "OOO 148ESEYCH",
+   "chosen": {
+    "body_characters_visible": 681,
+    "visible_claim_fields": [
+     "matched"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "rejected": {
+    "body_characters_visible": 781,
+    "visible_claim_fields": [
+     "matched"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": true
+  },
+  {
+   "pair_index": 58,
+   "name": "OOO 148ESEYCH",
+   "chosen": {
+    "body_characters_visible": 84,
+    "visible_claim_fields": [
+     "on_list",
+     "sanctioned"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "rejected": {
+    "body_characters_visible": 781,
+    "visible_claim_fields": [
+     "matched"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": true
+  },
+  {
+   "pair_index": 59,
+   "name": "MORE REKA SERVIS",
+   "chosen": {
+    "body_characters_visible": 731,
+    "visible_claim_fields": [],
+    "all_machine_claims_visible": false
+   },
+   "rejected": {
+    "body_characters_visible": 793,
+    "visible_claim_fields": [
+     "matched"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": false
+  },
+  {
+   "pair_index": 60,
+   "name": "MORE REKA SERVIS",
+   "chosen": {
+    "body_characters_visible": 717,
+    "visible_claim_fields": [
+     "matched"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "rejected": {
+    "body_characters_visible": 793,
+    "visible_claim_fields": [
+     "matched"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": true
+  },
+  {
+   "pair_index": 61,
+   "name": "MORE REKA SERVIS",
+   "chosen": {
+    "body_characters_visible": 87,
+    "visible_claim_fields": [
+     "on_list",
+     "sanctioned"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "rejected": {
+    "body_characters_visible": 793,
+    "visible_claim_fields": [
+     "matched"
+    ],
+    "all_machine_claims_visible": true
+   },
+   "both_machine_claims_visible": true
+  }
+ ]
+}
