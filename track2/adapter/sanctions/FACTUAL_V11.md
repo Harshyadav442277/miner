@@ -40,3 +40,8 @@ Use the archived v10 inputs and an unused run directory. The pipeline halts befo
 fresh scoring if old development accuracy does not beat its actual-input reference.
 All scores use the standard packaged adapter in the node runtime. There is no
 provider exception, inference-time lookup, ensemble or score calibration wrapper.
+
+V11 was rejected at **35/62 (56.45%)** on development facts. Its 76.5% synthetic
+test and successful export/Stage 1 did not clear the actual-input reference.
+The automatic development gate stopped fresh scoring. The next controlled
+experiment freezes the v3 encoder and trains only the existing reward head.

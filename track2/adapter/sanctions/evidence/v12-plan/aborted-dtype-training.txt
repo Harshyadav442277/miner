@@ -1,0 +1,121 @@
+10:52:23 INFO: C:\Users\hyada\tg-eval\pairs\sanctions_v10_alias_schema\train.jsonl: 2400 pairs
+10:52:23 INFO: C:\Users\hyada\tg-eval\pairs\sanctions_v10_alias_schema\val.jsonl: 400 pairs
+10:52:23 INFO: C:\Users\hyada\tg-eval\pairs\sanctions_v10_alias_schema\test.jsonl: 400 pairs
+dataset gate: PASS (2400 pairs)
+  unique negatives    100.0%
+  largest single neg  0.0%
+  length shortcut     50.3%
+  held-out leak       0.0%
+  surface probe       54.4%  (50% = no tell)
+  mean length         chosen 340 / rejected 349 characters
+10:52:28 INFO: hyperparameters: Hyperparams(max_length=256, batch_size=4, grad_accum=4, grad_checkpointing=True, lora_rank=8, lora_alpha=32, lora_dropout=0.1, epochs=2, lr=0.001, weight_decay=0.01, eval_split=0.15, seed=42, eval_batch=1, gate_min_acc=0.65, gate_min_margin_over_baseline=0.1, early_stopping=True, es_metric='val_loss', es_patience=1, es_min_delta=0.001, loss_floor=0.0001)
+10:52:28 INFO: tokenizer matches the node (88 vectors)
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+
+Loading weights:   0%|          | 0/136 [00:00<?, ?it/s]
+Loading weights:  20%|#9        | 27/136 [00:00<00:00, 259.81it/s]
+Loading weights:  49%|####8     | 66/136 [00:00<00:00, 334.04it/s]
+Loading weights:  76%|#######5  | 103/136 [00:00<00:00, 344.38it/s]
+Loading weights: 100%|##########| 136/136 [00:00<00:00, 348.87it/s]
+[transformers] ModernBertForSequenceClassification LOAD REPORT from: answerdotai/ModernBERT-base
+Key               | Status     | 
+------------------+------------+-
+decoder.bias      | UNEXPECTED | 
+classifier.bias   | MISSING    | 
+classifier.weight | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+10:52:29 INFO: answerdotai/ModernBERT-base | trainable 1,690,369 / 151,296,002 parameters
+C:\Users\hyada\tg-eval\.venv\Lib\site-packages\peft\utils\save_and_load.py:313: UserWarning: Could not find a config file in answerdotai/ModernBERT-base - will assume that the vocabulary was not modified.
+  warnings.warn(
+{"warm_start": {"parent_checkpoint": "C:\\Users\\hyada\\tg-eval\\runs-v2\\SANCTIONS_SCREENING_MATCH_v3\\adapter", "tensors_verified": 178, "parent_checkpoint_sha256": "b3ae99c2a2c4afcdece4b8acfe412cb3465c0c16ee40c8b26388110af975cd5d", "head_only": true, "trainable_parameters": 769}}
+10:52:29 INFO: device: cuda (NVIDIA GeForce RTX 3050 Laptop GPU)
+10:52:42 INFO: epoch 0 step 10/300 loss 2.3190
+10:52:55 INFO: epoch 0 step 20/300 loss 1.9251
+10:53:07 INFO: epoch 0 step 30/300 loss 1.6661
+10:53:19 INFO: epoch 0 step 40/300 loss 1.4275
+10:53:31 INFO: epoch 0 step 50/300 loss 1.2686
+10:53:43 INFO: epoch 0 step 60/300 loss 1.1570
+10:53:56 INFO: epoch 0 step 70/300 loss 1.0605
+10:54:08 INFO: epoch 0 step 80/300 loss 0.9933
+10:54:21 INFO: epoch 0 step 90/300 loss 0.9377
+10:54:33 INFO: epoch 0 step 100/300 loss 0.8849
+10:54:45 INFO: epoch 0 step 110/300 loss 0.8545
+10:54:58 INFO: epoch 0 step 120/300 loss 0.8150
+10:55:10 INFO: epoch 0 step 130/300 loss 0.7842
+10:55:22 INFO: epoch 0 step 140/300 loss 0.7580
+10:55:34 INFO: epoch 0 step 150/300 loss 0.7321
+10:55:34 INFO: epoch 0 done: train loss 0.7321
+Traceback (most recent call last):
+  File "C:\Users\hyada\.codex\worktrees\sanctions-benchmark-v7\Telegraph\track2\adapter\sanctions\train_v7.py", line 103, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "C:\Users\hyada\.codex\worktrees\sanctions-benchmark-v7\Telegraph\track2\adapter\sanctions\train_v7.py", line 76, in main
+    code = kit.main(argv)
+           ^^^^^^^^^^^^^^
+  File "C:\Users\hyada\tg-eval\kit-v2\float_runtime\train_adapter.py", line 799, in main
+    model, tok, train_negatives = train(args.base_model, train_pairs, val_pairs,
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hyada\tg-eval\kit-v2\float_runtime\train_adapter.py", line 650, in train
+    val = evaluate(model, tok, val_pairs, hp, train_negatives)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hyada\tg-eval\kit-v2\float_runtime\train_adapter.py", line 512, in evaluate
+    rc = _reward(model, b["chosen_input_ids"].to(device), b["chosen_attention_mask"].to(device))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hyada\tg-eval\kit-v2\float_runtime\train_adapter.py", line 482, in _reward
+    return model(input_ids=ids, attention_mask=mask).logits.squeeze(-1)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hyada\tg-eval\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hyada\tg-eval\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hyada\tg-eval\.venv\Lib\site-packages\peft\peft_model.py", line 1922, in forward
+    return self.base_model(
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\hyada\tg-eval\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hyada\tg-eval\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hyada\tg-eval\.venv\Lib\site-packages\peft\tuners\tuners_utils.py", line 359, in forward
+    return self.model(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hyada\tg-eval\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hyada\tg-eval\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hyada\tg-eval\.venv\Lib\site-packages\transformers\utils\generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hyada\tg-eval\.venv\Lib\site-packages\transformers\models\modernbert\modeling_modernbert.py", line 605, in forward
+    logits = self.classifier(pooled_output)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hyada\tg-eval\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hyada\tg-eval\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hyada\tg-eval\.venv\Lib\site-packages\peft\utils\other.py", line 507, in forward
+    return self._forward_wrapped(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hyada\tg-eval\.venv\Lib\site-packages\peft\utils\other.py", line 617, in _forward_wrapped
+    return self.modules_to_save[self.active_adapters[0]](*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hyada\tg-eval\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hyada\tg-eval\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hyada\tg-eval\.venv\Lib\site-packages\torch\nn\modules\linear.py", line 134, in forward
+    return F.linear(input, self.weight, self.bias)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: mat1 and mat2 must have the same dtype, but got BFloat16 and Float

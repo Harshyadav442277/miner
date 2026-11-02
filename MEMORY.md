@@ -7,7 +7,10 @@ regressed to 13/62; v10 alias/boolean/numeric/enum coverage scored 20/62. Both r
 fresh model scoring stopped. Old visible-length reference is 42/62 (67.74%).
 V3 historical reference scores 41/62; exact original-data reconstruction proves
 inherited source-entity overlap in 50/62 old and 65/69 reserved comparisons.
-V11 is running from v3 with one epoch/lr 0.00001 using source-audited v10 inputs.
+V11 from v3 with one epoch/lr 0.00001 scored35/62 and was rejected. V12 freezes
+v3's encoder/LoRA and trains only the769-parameter head on v10 inputs (2epochs/lr0.001).
+First v12 attempt hit a validation dtype mismatch; training-only input cast fixed,
+aborted log retained. Wrapper verifies all176 saved LoRA tensors are unchanged.
 Measured entities remain excluded from NEW data; inherited knowledge is disclosed.
 Fresh reserved capture: 128 names, 640/640 HTTP200; 69 genuine pairs/15 names, all
 listed, visible-length baseline 71.74%. Still unscored; existing conservative labels.

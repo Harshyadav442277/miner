@@ -115,3 +115,7 @@ Large training runs and model files live outside OneDrive, in `C:\Users\hyada\tg
   exposure overlaps 50/62 old and 65/69 reserved comparisons. Exclude those entities from all NEW
   pairs, but disclose inherited knowledge: these results test unseen responses/representations,
   not unseen entities. Do not relabel the cohort or claim an entity-held-out result for v11.
+- V11 also missed the development baseline. V12 freezes every encoder/base/LoRA parameter of v3
+  and fits only the existing 769-parameter reward head on the same source-audited data. Preserve
+  the original pairwise objective and node runtime. Verify all 176 saved LoRA tensors are exactly
+  unchanged, and retain the inherited-source-knowledge disclosure. No score wrapper is introduced.

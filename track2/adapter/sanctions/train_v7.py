@@ -19,6 +19,7 @@ def main():
     ap.add_argument("--data-dir", default="sanctions_v7_binding")
     ap.add_argument("--lr", type=float, default=0.00005)
     ap.add_argument("--epochs", type=int, default=2)
+    ap.add_argument("--head-only", action="store_true")
     a = ap.parse_args()
     sys.path.insert(0, str(a.home / "kit-v2"))
     from float_runtime import train_adapter as kit
@@ -35,6 +36,14 @@ def main():
 
     def warm_model(base_model, hp):
         model, tok = original_builder(base_model, hp)
+        if a.head_only:
+            for name, module in model.named_modules():
+                if name.endswith(("classifier.modules_to_save.default", "score.modules_to_save.default")):
+                    module.to(dtype=torch.float32)
+                    # The kit evaluates without autocast; its frozen base can emit bf16.
+                    # This training-only cast keeps the ordinary linear head in fp32.
+                    module.register_forward_pre_hook(
+                        lambda layer, args: (args[0].to(dtype=layer.weight.dtype), *args[1:]))
         weights = load_peft_weights(str(parent), device="cpu")
         set_peft_model_state_dict(model, weights, adapter_name="default")
         loaded = get_peft_model_state_dict(model, adapter_name="default")
@@ -45,6 +54,16 @@ def main():
                 raise ValueError(f"parent tensor not restored: {key}")
         init_report.update(parent_checkpoint=str(parent), tensors_verified=len(loaded),
                            parent_checkpoint_sha256=hashlib.sha256((parent / "adapter_model.safetensors").read_bytes()).hexdigest())
+        if a.head_only:
+            for name, parameter in model.named_parameters():
+                parameter.requires_grad_(any(part in name for part in
+                    ("classifier.modules_to_save.default.", "score.modules_to_save.default.")))
+            model.gradient_checkpointing_disable()
+            model.disable_input_require_grads()
+            count = sum(p.numel() for p in model.parameters() if p.requires_grad)
+            if count != 769:
+                raise ValueError(f"unexpected trainable head size: {count}")
+            init_report.update(head_only=True, trainable_parameters=count)
         print(json.dumps({"warm_start": init_report}), flush=True)
         return model, tok
 
@@ -72,6 +91,14 @@ def main():
         print("Recorded known kit post-write NameError: pkg; result and checkpoint exist.", flush=True)
     init_report.update(kit_arguments=argv, known_kit_postwrite_nameerror=postwrite_bug,
                        wrapper_exit_code=code, seconds=round(time.time()-started, 2))
+    if a.head_only:
+        saved = load_peft_weights(str(out / "adapter"), device="cpu")
+        original = load_peft_weights(str(parent), device="cpu")
+        frozen = [key for key in original if "lora_" in key]
+        for key in frozen:
+            if not torch.equal(saved[key], original[key]):
+                raise ValueError(f"frozen encoder adapter changed: {key}")
+        init_report["unchanged_encoder_adapter_tensors"] = len(frozen)
     (out / "initialization.json").write_text(json.dumps(init_report, indent=1), encoding="utf-8")
     return code
 
