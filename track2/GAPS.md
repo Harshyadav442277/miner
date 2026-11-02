@@ -36,8 +36,10 @@ v6 29/62, v7 20/62, v8 31/62, versus length 46/62 and constant-match 62/62.
 Thus query binding is improved, while factual readiness remains **OPEN**. No
 pool-derived training, captured-answer training, wallet action or registration.
 At the actual token limit, the tie-aware length reference scores 42/62 (67.74%).
-57/124 factual texts are truncated; decisive-verdict visibility has not been fully
-audited there. Full-body length/verdict references may use fields hidden from the
+57/124 factual texts are truncated. The later machine-verdict audit identifies
+43/62 pairs with both complete claims visible: v3 36/43, v11 34/43, v12 3/43,
+versus visible length 24.5/43. Report this subset alongside the unchanged full set;
+prose-only claims remain unaudited. Full-body length/verdict references may use fields hidden from the
 scorer and are explicitly labeled as dataset diagnostics, not runtime implementations.
 
 Evidence: `adapter/sanctions/evidence/2026-11-01-miners-r1/`. Frozen 32-name queries, 15 YAML routes,

@@ -1,0 +1,11 @@
+{
+  "url": "https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/6928d33c6392c0d85a38678f4f8cbd9781856fd5/season2/experiments/sanctions/parent-checkpoints/v3/adapter_model.safetensors",
+  "matches_local_original": true,
+  "bytes": 6781570,
+  "http_status": 200,
+  "commit": "6928d33c6392c0d85a38678f4f8cbd9781856fd5",
+  "status": "Experiment reproducibility only; no registration readiness",
+  "sha256": "b3ae99c2a2c4afcdece4b8acfe412cb3465c0c16ee40c8b26388110af975cd5d",
+  "name": "v3-training-parent",
+  "checked_at": "2026-11-02T09:41:22.6884773Z"
+}

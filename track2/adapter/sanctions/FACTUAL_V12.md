@@ -59,3 +59,9 @@ Exact historical reconstruction further shows only 2/14 development and 3/15
 reserved names appeared as exact positive training queries. Entity exposure does
 not establish alias coverage. This audit does not rule out strings appearing in
 other response fields. See the three diagnostic JSON files in `evidence/v12-plan`.
+
+The independently declared machine-verdict-visible subset has 43/62 pairs.
+V3 scores 36/43 (83.72%), v11 34/43 (79.07%) and v12 3/43 (6.98%); its own
+tie-aware visible-length reference is 24.5/43 (56.98%). These are diagnostics,
+not replacements for the original 62-pair gate. The visibility auditor now checks
+each score file's pair-byte hash and row count before joining by pair index.

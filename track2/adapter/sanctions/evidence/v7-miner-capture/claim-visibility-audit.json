@@ -48,6 +48,22 @@
  "observable_pairs": 43,
  "observable_distinct_queries": 14,
  "scores": {
+  "10": {
+   "pairs": 43,
+   "correct": 5
+  },
+  "11": {
+   "pairs": 43,
+   "correct": 34
+  },
+  "12": {
+   "pairs": 43,
+   "correct": 3
+  },
+  "3": {
+   "pairs": 43,
+   "correct": 36
+  },
   "6": {
    "pairs": 43,
    "correct": 21
@@ -59,6 +75,10 @@
   "8": {
    "pairs": 43,
    "correct": 15
+  },
+  "9": {
+   "pairs": 43,
+   "correct": 3
   }
  },
  "observable_visible_length_baseline_tie_aware": 0.5697674418604651,

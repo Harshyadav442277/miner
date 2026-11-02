@@ -5,6 +5,7 @@ observable subset is reported separately, never substituted for the full benchma
 """
 import argparse
 import collections
+import hashlib
 import json
 from pathlib import Path
 
@@ -86,6 +87,8 @@ def main():
     results = {}
     for file in sorted(a.capture.glob("v*-node-scores.json")):
         data = json.loads(file.read_text(encoding="utf-8"))
+        assert data["pairs_sha256"] == hashlib.sha256((a.capture / "pairs.jsonl").read_bytes()).hexdigest(), file
+        assert data["pairs"] == len(pairs) == len(data["rows"]), file
         results[str(data["version"])] = {"pairs": len(indices), "correct": sum(data["rows"][i]["correct"] for i in indices)}
     lengths = [(len(tok.encode(render(pairs[i]["prompt"], pairs[i]["chosen"])).ids),
                 len(tok.encode(render(pairs[i]["prompt"], pairs[i]["rejected"])).ids)) for i in indices]

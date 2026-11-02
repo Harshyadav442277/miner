@@ -1,0 +1,17 @@
+{
+  "test": {
+    "replay_sha256": "135ba850ce58e2d5797795c292e9f2c8f1a2a5bd1476f6261581daee62fd9527",
+    "sha256": "135ba850ce58e2d5797795c292e9f2c8f1a2a5bd1476f6261581daee62fd9527",
+    "equal": true
+  },
+  "train": {
+    "replay_sha256": "23365f614155d716621b20add95114b056ba7cd7f11007efe585705b6a44d39c",
+    "sha256": "23365f614155d716621b20add95114b056ba7cd7f11007efe585705b6a44d39c",
+    "equal": true
+  },
+  "val": {
+    "replay_sha256": "6b92058970856e733cdcf7ec6f02c528c9a61c0f3b2c29ad5495ec07a72e6b84",
+    "sha256": "6b92058970856e733cdcf7ec6f02c528c9a61c0f3b2c29ad5495ec07a72e6b84",
+    "equal": true
+  }
+}

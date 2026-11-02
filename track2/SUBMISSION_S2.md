@@ -12,6 +12,17 @@ Network: Ethereum Sepolia / Telegraph devnode. The owner also operates LiveCert,
 sanctions miner included in the public captures. That relationship is disclosed; our
 calls are not independent adoption, paid demand or ranked-routing evidence.
 
+Factual continuation: actual-node scores on the newer 62-pair development slice
+are v3 41/62, v8 31/62, v9 13/62, v10 20/62, v11 35/62 and v12 4/62. None beats
+the actual visible-length reference of 42/62. Float32 HF/node ranking fidelity
+checks pass, so export mismatch does not explain those failures. A reserved capture
+contains 69 genuine pairs from 15 listed names and remains one-sided.
+V13 tests complete public SDN organization-name/alias knowledge with real GLEIF
+absences. Its positive reference facts deliberately overlap measured names; its
+results cannot be described as unseen-entity accuracy. Captured answer bodies
+remain measurement-only. Exact inputs and the parent checkpoint are public for
+reproduction; the in-progress method is `adapter/sanctions/FACTUAL_V13.md`.
+
 Telegraph uses an evaluator delta on a pinned shared ModernBERT foundation to order
 answers. Each answer is scored alone as `### Task:\n{prompt}\n\n### Answer:\n{answer}`;
 a preference pair wins only when chosen > rejected. Our contribution is a reproducible
