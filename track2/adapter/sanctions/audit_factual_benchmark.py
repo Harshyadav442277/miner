@@ -17,7 +17,11 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("capture", type=Path)
     ap.add_argument("--tokenizer", type=Path)
+    ap.add_argument("--max-tokens", type=int, choices=(256, 512), default=256)
+    ap.add_argument("--out", type=Path)
     a = ap.parse_args()
+    if a.max_tokens != 256 and not a.out:
+        ap.error("nondefault context requires --out to preserve the original audit")
     labels = {(r["capture"], r["row"]): r for r in json.loads((a.capture / "labels.json").read_text(encoding="utf-8"))}
     pairs = [json.loads(l) for l in (a.capture / "pairs.jsonl").read_text(encoding="utf-8").splitlines()]
     membership, preferred_match, source_roles, query_names = collections.Counter(), [], collections.defaultdict(collections.Counter), set()
@@ -40,9 +44,9 @@ def main():
         full = Tokenizer.from_file(str(a.tokenizer))
         lengths = [(len(full.encode(render(p["prompt"], p["chosen"])).ids),
                     len(full.encode(render(p["prompt"], p["rejected"])).ids)) for p in pairs]
-        shown = [(min(c, 256), min(r, 256)) for c, r in lengths]
-        runtime = {"max_tokens": 256, "texts": 2*len(pairs),
-                   "texts_truncated": sum(n > 256 for pair in lengths for n in pair),
+        shown = [(min(c, a.max_tokens), min(r, a.max_tokens)) for c, r in lengths]
+        runtime = {"max_tokens": a.max_tokens, "texts": 2*len(pairs),
+                   "texts_truncated": sum(n > a.max_tokens for pair in lengths for n in pair),
                    "visible_token_length_baseline_tie_aware": sum((c > r)+.5*(c == r) for c, r in shown)/len(shown) if shown else None,
                    "visible_length_tied_pairs": sum(c == r for c, r in shown),
                    "decisive_verdict_visibility": "not audited within truncated responses"}
@@ -71,7 +75,7 @@ def main():
               "source_roles": {k: dict(v) for k, v in source_roles.items()},
               "factual_readiness_supported": not reasons, "blocking_reasons": reasons,
               "scope": "observed exact-SDN decisions only; no fabricated errors or global clearance claims"}
-    save(a.capture / "factual-validity-audit.json", result)
+    save(a.out or a.capture / "factual-validity-audit.json", result)
     print(json.dumps(result))
 
 

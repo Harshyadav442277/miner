@@ -17,10 +17,11 @@ def main():
     ap.add_argument("--pinned", type=Path, required=True)
     ap.add_argument("--pairs", type=Path, nargs="+", required=True)
     ap.add_argument("--out", type=Path, required=True)
+    ap.add_argument("--max-tokens", type=int, choices=(256, 512), default=256)
     a = ap.parse_args()
     left, right = Tokenizer.from_file(str(a.trained)), Tokenizer.from_file(str(a.pinned))
-    left.enable_truncation(max_length=256)
-    right.enable_truncation(max_length=256)
+    left.enable_truncation(max_length=a.max_tokens)
+    right.enable_truncation(max_length=a.max_tokens)
     n, different = 0, 0
     for path in a.pairs:
         for line in path.read_text(encoding="utf-8").splitlines():
@@ -29,7 +30,7 @@ def main():
                 text = render(p["prompt"], p[key])
                 different += left.encode(text).ids != right.encode(text).ids
                 n += 1
-    report = {"texts": n, "different_token_sequences": different, "max_tokens": 256,
+    report = {"texts": n, "different_token_sequences": different, "max_tokens": a.max_tokens,
               "trained_sha256": hashlib.sha256(a.trained.read_bytes()).hexdigest(),
               "pinned_sha256": hashlib.sha256(a.pinned.read_bytes()).hexdigest(), "pass": different == 0}
     a.out.write_text(json.dumps(report, indent=1), encoding="utf-8")
