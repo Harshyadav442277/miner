@@ -1,0 +1,18 @@
+{
+ "sdn.csv": {
+  "http_status": 200,
+  "checked_at": "2026-11-02T19:53:13.2791971Z",
+  "url": "https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports/SDN.CSV",
+  "bytes": 5750799,
+  "file": "sdn.csv",
+  "sha256": "5f240bed79d504e7a54788b4cd1c7f84e6afa56cd4778653b70b0771b6a8509d"
+ },
+ "alt.csv": {
+  "http_status": 200,
+  "checked_at": "2026-11-02T19:53:17.9183577Z",
+  "url": "https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports/ALT.CSV",
+  "bytes": 1064299,
+  "file": "alt.csv",
+  "sha256": "b0e2811fbb49ba6e9941a497e6b05fa2c9037b45ae7923196a01e2363a402259"
+ }
+}

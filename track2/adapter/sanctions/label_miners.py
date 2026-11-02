@@ -61,10 +61,11 @@ def label(r, q):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("capture", type=Path)
+    ap.add_argument("--exact-removals", action="store_true", help="opt-in source-verified literal-membership rule; historical labels unchanged")
     a = ap.parse_args()
     p = a.capture
     queries = json.loads((p / "queries.json").read_text(encoding="utf-8"))
-    index = collections.defaultdict(set)
+    index, active_ids = collections.defaultdict(set), set()
     for filename, name_col in (("sdn.csv.gz", 1), ("alt.csv.gz", 3)):
         raw = gzip.decompress((p / filename).read_bytes())
         manifest = json.loads((p / "source-manifest.json").read_text())
@@ -72,9 +73,14 @@ def main():
         for row in csv.reader(raw.decode("latin-1").splitlines()):
             if len(row) > name_col and row[0].isdigit():
                 index[norm(row[name_col])].add(row[0])
+                if filename == "sdn.csv.gz":
+                    active_ids.add(row[0])
     for q in queries:
         assert q["expected"] == bool(index[norm(q["name"])])
         assert set(q["sdn_ids"]) == index[norm(q["name"])]
+    if a.exact_removals:
+        from removal_labels import verify_proofs, label_removed
+        verify_proofs(p, queries, index)
     by_name = collections.defaultdict(list)
     counts = collections.defaultdict(collections.Counter)
     labels = []
@@ -82,6 +88,8 @@ def main():
         for i, r in enumerate(json.loads(f.read_text(encoding="utf-8"))):
             q = next(q for q in queries if q["name"] == r["name"])
             ok, claim, reason = label(r, q)
+            if a.exact_removals:
+                ok, claim, reason = label_removed(r, q, (ok, claim, reason), active_ids)
             key = "abstain" if ok is None else "correct" if ok else "incorrect"
             counts[r["miner_id"]][key] += 1
             item = {"capture": f.name, "row": i, "miner_id": r["miner_id"], "name": r["name"],
@@ -108,6 +116,7 @@ def main():
                                   encoding="utf-8")
     save(p / "labels.json", labels)
     summary = {"queries": len(queries), "responses": len(labels), "pairs": len(pairs),
+               "label_rule": "source-confirmed-removals-v1" if a.exact_removals else "historical-conservative-v1",
                "paired_names": len({r["name"] for r in pairs}),
                "pairs_by_kind": dict(collections.Counter(r["kind"] for r in pairs)),
                "by_miner": {k: dict(v) for k, v in counts.items()},

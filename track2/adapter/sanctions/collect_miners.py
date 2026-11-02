@@ -13,6 +13,7 @@ import json
 from pathlib import Path
 import random
 import re
+import shutil
 import subprocess
 import time
 import urllib.parse
@@ -141,6 +142,8 @@ def main():
     ap.add_argument("--out", type=Path, required=True)
     ap.add_argument("--queries", type=Path, help="optional pre-frozen queries; validated against the same snapshot")
     ap.add_argument("--miner-ids", help="optional comma-separated catalog ids for a declared focused stratum")
+    ap.add_argument("--source-metadata", type=Path, help="recorded retrieval provenance for the exact snapshot bytes")
+    ap.add_argument("--query-proof-root", type=Path, help="pre-frozen removal-notice proofs, copied before calls")
     a = ap.parse_args()
     a.out.mkdir(parents=True, exist_ok=False)  # immutable captures; choose a new directory to re-collect
     snapshots = {}
@@ -151,6 +154,13 @@ def main():
                                 "source": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
                                 "note": "Existing local snapshot; original HTTP retrieval time not recorded"}
     save(a.out / "source-manifest.json", snapshots)
+    if a.source_metadata:
+        provenance = json.loads(a.source_metadata.read_text(encoding="utf-8-sig"))
+        for name, item in snapshots.items():
+            assert provenance[name]["sha256"] == item["sha256"] and provenance[name]["http_status"] == 200
+            item.update(source=provenance[name]["url"], retrieved_at=provenance[name]["checked_at"],
+                        note="Fresh official export; exact retrieval metadata recorded")
+        save(a.out / "source-manifest.json", snapshots)
     queries = (json.loads(a.queries.read_text(encoding="utf-8")) if a.queries else
                names(a.sdn.read_bytes(), a.alt.read_bytes()))
     _, index = snapshot_index(a.sdn.read_bytes(), a.alt.read_bytes())
@@ -158,6 +168,18 @@ def main():
         assert q["expected"] == bool(index.get(norm(q["name"])))
         assert set(q["sdn_ids"]) == set(index.get(norm(q["name"]), []))
     save(a.out / "queries.json", queries)
+    if a.query_proof_root:
+        selection = json.loads((a.query_proof_root / "selection-manifest.json").read_text(encoding="utf-8"))
+        assert hashlib.sha256((a.out / "queries.json").read_bytes()).hexdigest() == selection["queries_sha256"]
+        save(a.out / "selection-manifest.json", selection)
+        for q in queries:
+            if "removed_reference" not in q:
+                continue
+            relative = q["removed_reference"]["notice_capture"]
+            assert re.fullmatch(r"notices/\d{8}\.json", relative)
+            target = a.out / relative
+            target.parent.mkdir(exist_ok=True)
+            shutil.copyfile(a.query_proof_root / relative, target)
     catalog = fetch(NODE + "/api/miners", max_bytes=25000000)
     live = fetch(NODE + "/engine/v1/intents/" + INTENT)
     save(a.out / "catalog.json", catalog)
