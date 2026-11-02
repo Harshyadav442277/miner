@@ -1,6 +1,15 @@
 # MEMORY.md — session continuity
 
-## 2026-11-01 ~11:55 UTC (17:25 IST): CURRENT — `5939c49` LIVE (SSL prose, G246)
+## 2026-11-01 ~20:30 UTC (Nov 2 02:00 IST): CURRENT — main merged; translation material ready to sign
+
+- **main merged** via PR #14 (owner: "merge it then"), `7e8c747`; branch and main in step. Deploys nothing.
+- **Ahmed (Discord):** the unranked-intents issue is being resolved on Telegraph's side; meanwhile contribute
+  evaluation material via the bounties. Bond USDC comes from the anjoman.ai faucet.
+- **Built:** `track2/material/` — 144 Tatoeba preference pairs for LANGUAGE_TRANSLATION_GENERAL (empty pool, 21
+  miners, bounty #140), all read, rules pass. **Waiting on the owner** to upload and sign (README there), then
+  `/claim` and `/submit` on #140. Not measured against a baseline yet (G247).
+
+## 2026-11-01 ~11:55 UTC (17:25 IST): `5939c49` LIVE (SSL prose, G246)
 
 Owner: "Yes, deploy it". Release: track1-miner/docs/evidence/release-2026-11-01-ssl-prose/.
 

@@ -79,6 +79,9 @@ commit.
       hard-coded technical comparisons (`technical-research.ts`).
 - [x] Track 2 on V2: `/docs/scoring/*` read 2026-10-31. Comparators: unchanged and not needed for scoring.
       Adapter: must become a safetensors delta (G238).
+- [x] LANGUAGE_TRANSLATION_GENERAL material built 2026-11-01 (`track2/material/`): 144 Tatoeba preference pairs,
+      all read, every published rule passes. **Owner:** upload and sign at anjoman.ai/dashboard/eval (README there).
+- [ ] Next material: FACT_CHECK_GENERAL or WEB_SEARCH_GENERAL (empty pools, ready, 17 and 22 miners).
 - [ ] Track 2 entry that needs no foundation files: evaluation material for intents LiveCert serves. Truth
       sources for the deterministic ones with none (SSL_VERIFICATION_CERT), and attested preference pairs for a
       judgment family. Claude builds and checks the JSON Lines file; the owner signs the upload (EIP-191). One
