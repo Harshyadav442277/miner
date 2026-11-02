@@ -1,0 +1,25 @@
+14:35:54 INFO: C:\Users\hyada\tg-eval\pairs\sanctions_v13_reference\train.jsonl: 42382 pairs
+14:35:54 INFO: C:\Users\hyada\tg-eval\pairs\sanctions_v13_reference\val.jsonl: 800 pairs
+14:35:54 INFO: C:\Users\hyada\tg-eval\pairs\sanctions_v13_reference\test.jsonl: 800 pairs
+14:37:09 ERROR: the dataset gate failed (see above); fix the data, or pass --skip-dataset-gate to train anyway
+Traceback (most recent call last):
+dataset gate: FAIL (42382 pairs)
+  unique negatives    87.7%
+  largest single neg  0.0%
+  length shortcut     50.0%
+  held-out leak       18.6%
+  surface probe       50.5%  (50% = no tell)
+  mean length         chosen 99 / rejected 99 characters
+  x 18.6% of held-out negatives also appear in training (> 10%): the evaluation would measure memory, not judgement
+  File "C:\Users\hyada\.codex\worktrees\sanctions-benchmark-v7\Telegraph\track2\adapter\sanctions\train_v7.py", line 109, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "C:\Users\hyada\.codex\worktrees\sanctions-benchmark-v7\Telegraph\track2\adapter\sanctions\train_v7.py", line 104, in main
+    (out / "initialization.json").write_text(json.dumps(init_report, indent=1), encoding="utf-8")
+  File "C:\Users\hyada\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1047, in write_text
+    with self.open(mode='w', encoding=encoding, errors=errors, newline=newline) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hyada\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\hyada\\tg-eval\\runs-v2\\SANCTIONS_SCREENING_MATCH_v13\\initialization.json'

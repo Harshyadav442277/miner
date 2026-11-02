@@ -74,10 +74,11 @@ def main():
     reference = json.loads(a.negatives.read_text(encoding="utf-8"))
     negative = {}
     for record in reference["records"]:
-        name = record["name"]
+        original_name = record["name"]
+        name = original_name.upper()
         key = norm(name)
         if name.isascii() and 3 <= len(name) <= 160 and key not in index and key not in excluded:
-            negative.setdefault(key, {**record, "bucket": bucket(name)})
+            negative.setdefault(key, {**record, "name": name, "key": key, "source_name": original_name, "bucket": bucket(name)})
     negatives = list(negative.values())
     rng.shuffle(negatives)
     assert len(negatives) >= 2000, len(negatives)
@@ -89,6 +90,8 @@ def main():
         buckets = collections.defaultdict(list)
         for item in pools[split]:
             buckets[item["bucket"]].append(item)
+        buckets = {k: collections.deque(v) for k, v in buckets.items()}
+        forms_used = collections.defaultdict(set)
         selected = positives.copy()
         rng.shuffle(selected)
         if split != "train":
@@ -97,10 +100,17 @@ def main():
         for number, pos in enumerate(selected):
             nearest = min(buckets, key=lambda b: (abs(b-pos["bucket"]), b))
             candidates = buckets[nearest]
-            neg = candidates[number % len(candidates)]
+            neg = candidates.popleft()
+            uses[(split, neg["key"])] += 1
+            if split == "train" and uses[(split, neg["key"])] < 3:
+                candidates.append(neg)
+            if not candidates:
+                del buckets[nearest]
             distances[abs(nearest-pos["bucket"])] += 1
-            styles = ("boolean", "enum", "prose", "structured") if split == "train" else ("validation" if split == "val" else "test",)
-            style, field = rng.choice(styles), rng.choice(("matched", "match", "sanctioned"))
+            forms = [(style, field) for style in ("boolean", "structured") for field in ("matched", "match", "sanctioned")]+[("enum", "verdict"), ("prose", "")]
+            available = [f for f in forms if f not in forms_used[neg["key"]]]
+            style, field = rng.choice(available) if split == "train" else ("validation" if split == "val" else "test", "")
+            forms_used[neg["key"]].add((style, field))
             for hit, item in ((True, pos), (False, neg)):
                 q = item["name"]
                 good, bad = response(q, hit, style, field), response(q, not hit, style, field)
@@ -110,9 +120,8 @@ def main():
                              "sdn_entity_id": pos["id"] if hit else None,
                              "block_id": f"{split}-knowledge-{number}",
                              "provenance": {"source_url": item["source_url"], "lei": item.get("lei"),
+                                            "source_name": item.get("source_name", q),
                                             "source_kind": "public_reference_fact_not_miner_answer"}})
-                if not hit:
-                    uses[(split, norm(q))] += 1
         # Preserve prior binding behavior with a fixed source-derived retention sample.
         if split == "train":
             parent = a.home / "pairs/sanctions_v10_alias_schema/train.jsonl"
@@ -127,6 +136,7 @@ def main():
                          "token_bucket_distances": dict(sorted(distances.items())),
                          "unique_absent_queries": len({norm(r["query_name"]) for r in rows if not r["listed"]}),
                          "max_absent_reuse": max((n for (s, _), n in uses.items() if s == split), default=0),
+                         "uppercase_truth_reference": sum(r["query_name"].isupper() == r["listed"] for r in rows if r["kind"] == "reference_knowledge")/(2*len(selected)),
                          "sha256": hashlib.sha256(raw).hexdigest()}
     # Independently verify all knowledge labels and report actual visible length shortcuts.
     tok.enable_truncation(max_length=256)

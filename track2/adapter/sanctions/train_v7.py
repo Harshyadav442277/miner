@@ -91,7 +91,7 @@ def main():
         postwrite_bug = True
         code = 0 if report.get("verdict") == "PASS" else 1
         print("Recorded known kit post-write NameError: pkg; result and checkpoint exist.", flush=True)
-    init_report.update(kit_arguments=argv, known_kit_postwrite_nameerror=postwrite_bug,
+    init_report.update(initialization_completed=bool(init_report), kit_arguments=argv, known_kit_postwrite_nameerror=postwrite_bug,
                        wrapper_exit_code=code, seconds=round(time.time()-started, 2))
     if a.head_only:
         saved = load_peft_weights(str(out / "adapter"), device="cpu")
@@ -101,6 +101,7 @@ def main():
             if not torch.equal(saved[key], original[key]):
                 raise ValueError(f"frozen encoder adapter changed: {key}")
         init_report["unchanged_encoder_adapter_tensors"] = len(frozen)
+    out.mkdir(parents=True, exist_ok=True)
     (out / "initialization.json").write_text(json.dumps(init_report, indent=1), encoding="utf-8")
     return code
 

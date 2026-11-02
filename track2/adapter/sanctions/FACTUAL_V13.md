@@ -15,6 +15,14 @@ GLEIF pages7–50 supply real legal-name candidates. The initial7–86 plan hit 
 API's documented-in-response10,000-result pagination cap at page51; before any
 training, reduce to the full successfully fetched contiguous7–50 range. This is
 an API constraint, not selection by model or miner results. Preserve failed logs.
+The initial case audit found62.11% truth prediction from uppercase alone. Training
+had already failed its dataset gate before model initialization: reused absent
+answers caused18.6% internal random-split leakage. Canonicalize
+GLEIF names to uppercase (retaining the exact source spelling) before token
+matching; do not claim arbitrary-case robustness. Preserve earlier input builds.
+Cap training absent-name reuse at3 and choose response forms without replacement
+per absent name; use each validation/test absent name once. Preserve the stock
+dataset gate. No skip-gate flag or unique meaningless text is introduced.
 Exclude all exact primary/alias
 members of the complete SDN snapshot and all measured query names. Split negative
 names before pairing (400 validation,400 test, remainder training). Pair every

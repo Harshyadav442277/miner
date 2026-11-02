@@ -86,7 +86,8 @@ def main():
                 positives[split].add(key)
             else:
                 p = row["provenance"]
-                assert (p["lei"], q, p["source_url"]) in real_names
+                assert (p["lei"], p["source_name"], p["source_url"]) in real_names
+                assert q == p["source_name"].upper()
                 assert key not in excluded
                 negatives[split].add(key)
         assert all(len(v) == 2 and {r["listed"] for r in v} == {True, False}
