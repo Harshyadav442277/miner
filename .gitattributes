@@ -1,0 +1,2 @@
+# Evaluation-pool uploads are signed by their exact bytes: never convert line endings.
+track2/material/out/*.jsonl -text
