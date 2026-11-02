@@ -17,6 +17,8 @@ def main():
     ap.add_argument("--version", type=int, default=7)
     ap.add_argument("--parent-version", type=int, default=6)
     ap.add_argument("--data-dir", default="sanctions_v7_binding")
+    ap.add_argument("--lr", type=float, default=0.00005)
+    ap.add_argument("--epochs", type=int, default=2)
     a = ap.parse_args()
     sys.path.insert(0, str(a.home / "kit-v2"))
     from float_runtime import train_adapter as kit
@@ -51,8 +53,8 @@ def main():
     argv = ["--intent", "SANCTIONS_SCREENING_MATCH", "--data", str(data / "train.jsonl"),
             "--val-data", str(data / "val.jsonl"), "--test-data", str(data / "test.jsonl"),
             "--out", str(out), "--max-length", "256", "--batch-size", "4", "--grad-accum", "4",
-            "--eval-batch", "1", "--lora-rank", "8", "--lora-alpha", "32", "--epochs", "2",
-            "--lr", "0.00005", "--seed", "42"]
+            "--eval-batch", "1", "--lora-rank", "8", "--lora-alpha", "32", "--epochs", str(a.epochs),
+            "--lr", str(a.lr), "--seed", "42"]
     started = time.time()
     postwrite_bug = False
     try:

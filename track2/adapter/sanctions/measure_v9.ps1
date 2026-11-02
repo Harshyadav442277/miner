@@ -16,7 +16,7 @@ function Invoke-Logged {
 while (Get-CimInstance Win32_Process | Where-Object {
     $_.Name -eq 'python.exe' -and $_.CommandLine -like ("*train_v7.py*--version $Version *")
 }) { Start-Sleep -Seconds 5 }
-if (!(Test-Path -LiteralPath (Join-Path $evalRun 'initialization.json'))) { throw 'No completed v9 initialization report' }
+if (!(Test-Path -LiteralPath (Join-Path $evalRun 'initialization.json'))) { throw "No completed v$Version initialization report" }
 $result=Get-Content -LiteralPath (Join-Path $evalRun 'result.json') -Raw | ConvertFrom-Json
 if ($result.verdict -ne 'PASS') { throw 'Synthetic gate did not pass' }
 Copy-Item -LiteralPath (Join-Path $evalRun 'result.json') -Destination (Join-Path $plan 'training-result.json')

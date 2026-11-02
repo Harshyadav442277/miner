@@ -110,3 +110,8 @@ Large training runs and model files live outside OneDrive, in `C:\Users\hyada\tg
   again from v8 and add source-verified alias queries plus generic boolean/numeric/enum verdict
   coverage. No external provider templates are copied. Preserve the rejected v9 data/results and
   evaluate the next fixed model on the still-unscored reserved cohort.
+- V10 also failed development facts. V11 may use the older v3 checkpoint with a smaller update
+  (one epoch, learning rate 0.00001). Exact reconstruction proves v3 inherited public SDN-entity
+  exposure overlaps 50/62 old and 65/69 reserved comparisons. Exclude those entities from all NEW
+  pairs, but disclose inherited knowledge: these results test unseen responses/representations,
+  not unseen entities. Do not relabel the cohort or claim an entity-held-out result for v11.

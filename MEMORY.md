@@ -1,5 +1,19 @@
 # MEMORY.md — session continuity
 
+## 2026-11-02: factual-accuracy continuation in progress
+
+User asks to beat the factual baseline before submission. V9 cross-format training
+regressed to 13/62; v10 alias/boolean/numeric/enum coverage scored 20/62. Both rejected;
+fresh model scoring stopped. Old visible-length reference is 42/62 (67.74%).
+V3 historical reference scores 41/62; exact original-data reconstruction proves
+inherited source-entity overlap in 50/62 old and 65/69 reserved comparisons.
+V11 is running from v3 with one epoch/lr 0.00001 using source-audited v10 inputs.
+Measured entities remain excluded from NEW data; inherited knowledge is disclosed.
+Fresh reserved capture: 128 names, 640/640 HTTP200; 69 genuine pairs/15 names, all
+listed, visible-length baseline 71.74%. Still unscored; existing conservative labels.
+Method: `track2/adapter/sanctions/FACTUAL_V11.md`; generic runner `measure_v9.ps1`.
+No wallet, pool upload or registration; source/results feature branch only.
+
 ## 2026-11-02 IST: sanctions v8 target regression fixed; factual gate remains open
 
 Branch `codex/sanctions-benchmark-v7` uses a managed worktree outside the shared

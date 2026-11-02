@@ -14,6 +14,8 @@ commit.
 - [x] Reconcile Evaluator rubric; draft submission, tutorial and separate-date update plans.
 - [x] Finish v6 pilot, export/Stage 1 and node measurement. Fresh set: 79.17% vs v3 83.33%, length 100%.
 - [ ] Genuine factual final set: more names, both classes and source/length-balanced observed mistakes.
+- [ ] Factual accuracy: beat the actual visible-length baseline on development and new external answers.
+      V9 13/62 and v10 20/62 rejected; v11 smaller update from v3 is in progress. See FACTUAL_V11.md.
 - [x] Build and measure a separate reversal-balanced query-binding benchmark: v7 40/40 vs v6 36/40.
 - [x] Resolve the overlapping-bank-name regression in both directions; v8 old controls 20/20, own 4/4,
       balanced binding regression 40/40, fresh bank stratum 20/20 (v7 also 20/20).

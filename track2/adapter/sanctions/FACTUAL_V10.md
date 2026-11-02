@@ -45,3 +45,8 @@ Restore the archived inputs to the named external directory before replay, use a
 fresh run directory, and preserve original evidence. The generic builder flags
 are `--alias-fraction 0.5 --vary-claims --seed 1120261102`. All earlier measured
 queries and the reserved fresh cohort must be passed with `--exclude-queries`.
+
+V10 was rejected at **20/62 (32.26%)** on the old factual development slice.
+Its synthetic test was 88.75%; both tokenizer parity and Stage 1 passed, but the
+actual factual threshold did not. `v10-plan/development-gate.json` records the
+failure. The pipeline automatically stopped before fresh-cohort model scoring.
