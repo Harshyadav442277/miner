@@ -18,6 +18,10 @@ ASCII organization primary/aka/fka/nka names plus real GLEIF exact absences. No 
 answer training. Known positive facts are exposed, so no unseen-entity accuracy claim.
 42,382/800/800 pairs; independent CSV/source/split audit passes, length baselines50%.
 Frozen recipe: v3 parent,1epoch/lr0.00005,batch8/accum2,rank8alpha32,max256.
+Completed: synthetic test630/800, actual-node27/62; rejected, no fresh scoring.
+V14 fixed-weight context diagnostic is running: exact v3 tensors, standard512-token
+package. All62 old machine claims become visible (43 at256); its own length
+baseline is46/62. V3 trained at256, so disclose context transfer, not readiness.
 Fresh reserved capture: 128 names, 640/640 HTTP200; 69 genuine pairs/15 names, all
 listed, visible-length baseline 71.74%. Still unscored; existing conservative labels.
 Methods: `track2/adapter/sanctions/FACTUAL_V12.md`, `FACTUAL_V13.md`; runner `measure_v9.ps1`.

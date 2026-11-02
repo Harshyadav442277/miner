@@ -87,3 +87,18 @@ $env:LIVE_CLASS_INTENTS = 'SANCTIONS_SCREENING_MATCH'
 
 Completed run directories are intentionally protected. Choose fresh version,
 data and plan locations when replaying an already completed experiment.
+
+## Result
+
+Synthetic validation 673/800 (84.125%); test 630/800 (78.75%), both source-exposed
+positive facts. Actual-node old factual development: **27/62 (43.55%)**, versus
+42/62 visible length and v3's 41/62. Rejected. This intervention did not improve
+external answer ranking; broader source coverage alone was insufficient in this run.
+The reserved 69 pairs remain unscored. Binding regressions were not reached by the
+fixed pipeline after the failed factual gate. No readiness or query-binding claim.
+
+All 178 parent tensors restored; 87,964 rendered-text tokenizer checks have zero
+differences. Stage 1 passes. Post-Stage-1 package SHA-256
+`fd0e0cd3eeb9e9b1e25ac269f625e7de342182dd9b0c7b00573cf02ad8d69a27`,
+keccak `0xbd38052393dec527d3fe5d048b3139ff275b72bbb3caa97b9fa7c61f88b8ade1`.
+Training, export, node scores and the failed development gate are archived.

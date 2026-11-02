@@ -1,0 +1,14 @@
+{
+ "argv": [
+  "C:\\Users\\hyada\\tg-eval\\.venv\\Scripts\\python.exe",
+  "track2/adapter/sanctions/measure_miners.py",
+  "track2/adapter/sanctions/evidence/v7-miner-capture",
+  "--home",
+  "C:\\Users\\hyada\\tg-eval",
+  "--versions",
+  "14",
+  "--max-tokens",
+  "512"
+ ],
+ "cwd": "C:\\Users\\hyada\\.codex\\worktrees\\sanctions-benchmark-v7\\Telegraph"
+}

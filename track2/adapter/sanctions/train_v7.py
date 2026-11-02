@@ -22,6 +22,8 @@ def main():
     ap.add_argument("--head-only", action="store_true")
     ap.add_argument("--batch-size", type=int, default=4)
     ap.add_argument("--grad-accum", type=int, default=4)
+    ap.add_argument("--max-length", type=int, choices=(256, 512), default=256)
+    ap.add_argument("--class-breakdown", action="store_true")
     a = ap.parse_args()
     sys.path.insert(0, str(a.home / "kit-v2"))
     from float_runtime import train_adapter as kit
@@ -71,9 +73,51 @@ def main():
 
     kit.build_model = warm_model
     data = a.home / "pairs" / a.data_dir
+    if a.class_breakdown:
+        metadata = {}
+        for split in ("train", "val", "test"):
+            for line in (data / f"{split}.jsonl").read_text(encoding="utf-8").splitlines():
+                row = json.loads(line)
+                metadata[tuple(row[k] for k in ("prompt", "chosen", "rejected"))] = row
+        original_evaluate = kit.evaluate
+
+        def evaluate_by_class(model, tokenizer, pairs, hp, train_negatives=None):
+            captured = []
+            original_reward = kit._reward
+
+            def capture_reward(*args):
+                reward = original_reward(*args)
+                captured.append(reward.detach().float().cpu().tolist())
+                return reward
+
+            kit._reward = capture_reward
+            try:
+                report = original_evaluate(model, tokenizer, pairs, hp, train_negatives)
+            finally:
+                kit._reward = original_reward
+            assert len(captured) % 2 == 0
+            outcomes = [c > r for i in range(0, len(captured), 2)
+                        for c, r in zip(captured[i], captured[i+1], strict=True)]
+            assert len(outcomes) == len(pairs)
+            assert abs(sum(outcomes)/len(outcomes)-report["pairwise_accuracy"]) <= 0.000051
+            groups = {}
+            for pair, correct in zip(pairs, outcomes, strict=True):
+                row = metadata[tuple(pair[k] for k in ("prompt", "chosen", "rejected"))]
+                if row["kind"].startswith("wrong_query"):
+                    continue
+                group = groups.setdefault(str(row["listed"]), {"pairs": 0, "correct": 0})
+                group["pairs"] += 1
+                group["correct"] += int(correct)
+            for group in groups.values():
+                group["accuracy"] = group["correct"]/group["pairs"]
+            report["factual_by_membership"] = groups
+            print(json.dumps({"synthetic_class_diagnostics": groups}), flush=True)
+            return report
+
+        kit.evaluate = evaluate_by_class
     argv = ["--intent", "SANCTIONS_SCREENING_MATCH", "--data", str(data / "train.jsonl"),
             "--val-data", str(data / "val.jsonl"), "--test-data", str(data / "test.jsonl"),
-            "--out", str(out), "--max-length", "256", "--batch-size", str(a.batch_size), "--grad-accum", str(a.grad_accum),
+            "--out", str(out), "--max-length", str(a.max_length), "--batch-size", str(a.batch_size), "--grad-accum", str(a.grad_accum),
             "--eval-batch", "1", "--lora-rank", "8", "--lora-alpha", "32", "--epochs", str(a.epochs),
             "--lr", str(a.lr), "--seed", "42"]
     started = time.time()

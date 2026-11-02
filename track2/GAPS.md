@@ -6,6 +6,13 @@ They are in `git log -p -- track2/GAPS.md`.
 
 ## G41 — real-answer sanctions measurement exposes source/length confounding (2026-11-01) — `OPEN`
 
+**V13 result:** full public reference knowledge ingestion failed27/62 (43.55%)
+in the actual node, despite630/800 synthetic test. No reserved scores or binding
+claims follow. V14 is a fixed-weight context diagnostic: v3 tensors unchanged,
+512-token standard package. All62 machine verdicts are visible, versus43 at256;
+its own visible-length baseline rises to46/62. No result yet. The parent trained
+at256, so longer-context transfer must remain explicit. G41 stays OPEN.
+
 **Factual continuation:** old62 actual-node results v3 41/62, v9 13/62,
 v10 20/62,v11 35/62,v12 4/62. None beats42/62 visible length. V12 head-only
 updates preserve all176 encoder tensors; float32 HF and node orderings agree100%.

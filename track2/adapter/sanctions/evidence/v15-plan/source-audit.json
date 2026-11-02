@@ -1,0 +1,11 @@
+{
+ "pass": true,
+ "counts": {
+  "train": 3000,
+  "prose_comparisons": 35,
+  "json_comparisons": 61,
+  "val": 500,
+  "test": 500
+ },
+ "scope": "Chosen synthetic exact-name verdicts and source comparison fields; no external factual-readiness claim"
+}

@@ -16,7 +16,8 @@ commit.
 - [ ] Genuine factual final set: more names, both classes and source/length-balanced observed mistakes.
 - [ ] Factual accuracy: beat the actual visible-length baseline on development and new external answers.
       V9 13/62, v10 20/62, v11 35/62, v12 4/62 rejected; v3 reference41/62.
-      V13 public snapshot knowledge recipe frozen; positive-fact exposure explicit. See FACTUAL_V13.md.
+      V13 public snapshot knowledge scored27/62 and was rejected; positive-fact exposure explicit.
+      V14 fixed v3 weights/context512 diagnostic running, baseline46/62. See FACTUAL_V14.md.
 - [x] Build and measure a separate reversal-balanced query-binding benchmark: v7 40/40 vs v6 36/40.
 - [x] Resolve the overlapping-bank-name regression in both directions; v8 old controls 20/20, own 4/4,
       balanced binding regression 40/40, fresh bank stratum 20/20 (v7 also 20/20).

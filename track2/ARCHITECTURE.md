@@ -152,3 +152,23 @@ Large training runs and model files live outside OneDrive, in `C:\Users\hyada\tg
   factual evidence. No provider exceptions or inference wrappers are introduced.
 - Keep score/audit joins bound to pair hashes and matching runtime token limits.
   Nondefault visibility reports require separate output paths. No pool rows are read.
+
+## A10 — Repeated factual representations at the full context (2026-11-02 IST)
+
+- V13 scores27/62, v14 fixed-weight512 scores33/62; both rejected. V13's float32
+  synthetic diagnostic has listed233/400, absent392/400. Do not use its aggregate
+  score to imply strong listed recall. No model has scored the reserved69 bodies.
+- Freeze v15: v3 parent, stock loss/optimizer,1epoch,lr0.00001,rank8alpha32,
+  max512,batch2/accum8. Keep original256 and fixed-weight512 baselines distinct.
+- New training uses600 source queries from v10 (300 listed/300 absent), each in
+  four formats, plus its600 binding pairs. Val/test each use100 source queries in
+  four formats plus100 binding pairs. Keep v10 entity/query exclusions and splits.
+- Render generic source metadata only from the frozen CSVs, including real counts,
+  hashes and lookup limitations. Vary metadata order independently of truth and
+  put machine decisions before/after it. Every factual text must fit512 fully.
+  No provider templates, captured answers or invented source facts enter training.
+- Checkpoint selection stays validation loss. Capture per-class evaluation outputs
+  without changing loss/forward operations. Both synthetic factual classes must
+  reach65% before export. Old real answers must exceed their512 length baseline
+  (46/62), and binding regressions must retain their previous perfect scores,
+  before reserved scoring. Preserve failures; no registration readiness inference.

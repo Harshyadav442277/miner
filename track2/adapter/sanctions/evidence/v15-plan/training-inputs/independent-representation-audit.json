@@ -1,0 +1,21 @@
+{
+ "pass": true,
+ "splits": {
+  "train": {
+   "pairs": 3000,
+   "factual_groups": 600,
+   "max_factual_tokens": 512
+  },
+  "val": {
+   "pairs": 500,
+   "factual_groups": 100,
+   "max_factual_tokens": 512
+  },
+  "test": {
+   "pairs": 500,
+   "factual_groups": 100,
+   "max_factual_tokens": 512
+  }
+ },
+ "scope": "Independent CSV labels, neutral source counts/hashes, representation groups, complete512 inputs and split/archive checks"
+}

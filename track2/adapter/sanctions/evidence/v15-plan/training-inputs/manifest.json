@@ -1,0 +1,82 @@
+{
+ "seed": 1520261102,
+ "splits": {
+  "train": {
+   "pairs": 3000,
+   "factual_queries": 600,
+   "factual_pairs": 2400,
+   "binding_pairs": 600,
+   "unique_rejected": 3000,
+   "sha256": "236f8432cc3b8c2d04e2b969c8aacdac1173010636e335a50ffb9c225fc9e884",
+   "parent_sha256": "8f080cc0d8438f53c215890224490009b2e08a447e1bfbe443c1d512dbd3c7d8",
+   "visible_length_baseline_tie_aware": 0.49433333333333335,
+   "json_verdicts_after_token256": 685,
+   "json_verdicts": 3600,
+   "max_factual_verdict_token": 439
+  },
+  "val": {
+   "pairs": 500,
+   "factual_queries": 100,
+   "factual_pairs": 400,
+   "binding_pairs": 100,
+   "unique_rejected": 500,
+   "sha256": "07e30ec558d5db72f259243f752e5b82617ecf97024982271d0eb6a93a039749",
+   "parent_sha256": "229020fc6b60c9b4f3e70d577b4cfdf7756410835489f4b21e22f519b6c0b92e",
+   "visible_length_baseline_tie_aware": 0.49,
+   "json_verdicts_after_token256": 109,
+   "json_verdicts": 600,
+   "max_factual_verdict_token": 430
+  },
+  "test": {
+   "pairs": 500,
+   "factual_queries": 100,
+   "factual_pairs": 400,
+   "binding_pairs": 100,
+   "unique_rejected": 500,
+   "sha256": "095d0c6a90dd78574b38b5abefb308b64da73d3b631e3061913127dd1425f875",
+   "parent_sha256": "6c3155b1edb768b1413713982d94f3b11df1a53d251398770e03b65d4f8e825b",
+   "visible_length_baseline_tie_aware": 0.487,
+   "json_verdicts_after_token256": 109,
+   "json_verdicts": 600,
+   "max_factual_verdict_token": 445
+  }
+ },
+ "neutral_metadata": {
+  "dataset": "US Treasury OFAC Specially Designated Nationals snapshot",
+  "source_files": [
+   "SDN.CSV",
+   "ALT.CSV"
+  ],
+  "primary_records": 19484,
+  "alias_records": 20204,
+  "alias_type_counts": {
+   "aka": 19685,
+   "fka": 502,
+   "nka": 17
+  },
+  "entity_type_counts": {
+   "entity": 10045,
+   "individual": 7529,
+   "vessel": 1568,
+   "aircraft": 342
+  },
+  "sdn_sha256": "5f240bed79d504e7a54788b4cd1c7f84e6afa56cd4778653b70b0771b6a8509d",
+  "alt_sha256": "b0e2811fbb49ba6e9941a497e6b05fa2c9037b45ae7923196a01e2363a402259",
+  "source_urls": [
+   "https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports/SDN.CSV",
+   "https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports/ALT.CSV"
+  ],
+  "matching_rule": "Lowercase ASCII alphanumeric tokens, sorted; exact primary-name and alias lookup only.",
+  "identity_scope": "A name overlap alone does not establish identity; additional identifiers require separate review.",
+  "absence_scope": "Exact-name absence does not establish all-list, fuzzy, ownership-based or legal clearance.",
+  "snapshot_scope": "Results refer to these frozen source bytes; no original publication date is asserted."
+ },
+ "excluded_query_files": [
+  "track2\\adapter\\sanctions\\evidence\\2026-11-01-miners-r1\\queries.json",
+  "track2\\adapter\\sanctions\\evidence\\2026-11-01-miners-fresh\\queries.json",
+  "track2\\adapter\\sanctions\\evidence\\v7-plan\\queries.json",
+  "track2\\adapter\\sanctions\\evidence\\v8-plan\\bank-queries.json",
+  "track2\\adapter\\sanctions\\evidence\\v9-plan\\queries.json"
+ ],
+ "scope": "Source-derived four-representation factual groups; no captured-answer or pool training. Parent v3 inherited source knowledge disclosed separately."
+}
