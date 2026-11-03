@@ -1,0 +1,13 @@
+{
+ "encoder": {
+  "version": 22,
+  "tensors_verified": 178,
+  "checkpoint_sha256": "0de490fd171ef21a356cc172085f599f0fab1071a0dc30728af518a5ef92f767"
+ },
+ "classifier_version": 13,
+ "classifier_checkpoint_sha256": "7d27363d75cc00e55d7638d7ab5bbdb6b5e6ade009e0102584b0c8a694a7de72",
+ "source_inputs_sha256": "6e6ff79f65f64646d04acb43bb584c6303a568106a6f0abb31ea154d385bdf56",
+ "exact_encoder_tensors": 176,
+ "exact_original_classifier_tensors": 2,
+ "scope": "Fixed head restoration, no training; same v22 paired DEVELOPMENT cohort, not independent validation"
+}

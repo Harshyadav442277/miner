@@ -275,3 +275,110 @@ Large training runs and model files live outside OneDrive, in `C:\Users\hyada\tg
   as well as prior groups. Parent-validation exposure remains explicit. Retain
   all original class/alias/primary/retention/Cartesian gates and fixed final step.
   No full-corpus run, reserved scores, wallet, registration or submission.
+
+## A17 — Bounded direct ranking with the standard trainable reward head
+
+- V21 fails absence: early JSON28/48,late JSON25/48,late prose31/48. Reject it.
+- V22 uses the same64 verified source anchors, source-only five representations,
+  parent13,32 steps/lr/seed/max512 and recovery. Train all176 encoder LoRA tensors
+  plus the existing769-parameter head jointly. Objective is ordinary pairwise
+  softplus(wrong-correct), averaged across within-query Cartesian format pairs.
+  Remove teacher raw/margin MSE and consistency penalties. This tests a combined
+  ordinary-ranking recipe, not a causal attribution to either head or objective.
+- Freeze96 new repair-validation questions with seed2420261103 excluding v20/v21
+  and all prior groups. Retain parent-validation exposure disclosure and all class,
+  primary/alias, retention and Cartesian gates. No larger corpus, reserved scores,
+  inference changes, wallet or submission.
+
+## A18 — Fixed original-head restoration diagnostic
+
+- V22 preserves absent decisions but thin listed falls41/48 to34/48 and multiple
+  listed/alias forms fail. Reject it. Test head drift without more optimization:
+  v23 uses exactly v22's176 encoder tensors and parent13's two classifier tensors.
+- Verify all tensor identities and evaluate on unchanged v22 repair validation,
+  explicitly paired development evidence, not a new independent test. Retain all
+  class/alias/primary/retention/Cartesian gates. No model fitting, source lookup,
+  score wrapper, reserved scoring, full-corpus run or submission.
+
+## A19 — Fixed MLP/head restoration diagnostic
+
+- V23 restoring only the head fails listed/alias guards. V24 tests one narrower
+  encoder contribution: v22's88 attention LoRA tensors, parent13's88 MLP LoRA
+  tensors and two head tensors. Verify every identity before measurement.
+- Same unchanged v22 paired-development cohort and gates, no optimization or
+  independent-test claim. This tests whether MLP changes contribute to source-fact
+  forgetting; it does not presume where knowledge resides. No reserved/full run.
+
+## A20 — Correct source factual errors instead of filtering them out
+
+- V22-v24 fail listed/alias guards. Source alias controls show parent13 can recover
+  11/11 aliases with canonical-name/echo reference, versus9/11 thin. Every previous
+  repair anchor was parent-thin-correct, excluding direct factual-error correction.
+- Freeze v25 data:64 source-verified parent errors (16 primary,16 alias,32 absent)
+  plus unchanged64 correct replay. Teacher error labels come from source, never
+  model belief. Independent raw-CSV/split audit passes128 queries, no ties.
+- Same parent13, ordinary joint pairwise objective,178 trainable adapter/head
+  tensors,lr/seed/max512/recovery and32 steps. Present128 queries once, one hard
+  listed/hard absent/replay listed/replay absent per update. No teacher loss.
+- Reuse v22's disjoint cohort as paired DEVELOPMENT evidence, explicitly not a new
+  independent validation. All class/alias/primary/retention/Cartesian guards apply.
+  Canonical record fields remain provenance, not automatically rendered truth cues.
+  No full-corpus run, reserved scores, inference changes, wallet or submission.
+
+## A21 — Training-only factual and primary-verdict supervision
+
+- V25 hard replay fails late-JSON absent24/48 and qualified-prose listed24/48.
+  Correct source coverage alone has not resolved entangled membership/verdict roles.
+- V26 retains128 facts, balanced32-step schedule, parent13, ordinary178 exported
+  tensors,lr/seed/max512 and recovery. Add independent training-only linear heads:
+  query-name pooled features predict source membership; token features distinguish
+  primary MATCH/NO MATCH tokens from background, including identity negation.
+- Main loss is binary correctness BCE plus Cartesian pairwise logistic ranking,
+  with0.5 membership BCE and0.5 balanced primary/background token-role CE. Claims
+  are labeled from generated assertions, membership from raw source; both claim
+  polarities occur for every query. No model-belief labels or inference lookup.
+- Auxiliary heads are external to the deployed model and discarded for export.
+  Verify standard178 tensors and unchanged forward graph. All exact annotation
+  spans/token IDs must audit before optimization. Same paired-development cohort,
+  no independent-test claim. All factual/alias/retention/Cartesian guards remain;
+  no larger corpus, reserved scores, registration or submission.
+- New auxiliary heads use lr0.001; existing model lr0.0001. Add32 counterfactual
+  same-membership binding rows derived from the same facts,16 absent/16 listed,
+  prefix-matched and reversed. One binding row per update has loss weight0.25;
+  correctness includes aboutness, while membership/claimed-polarity labels stay
+  unchanged. No-match/no-match swaps are explicitly negative controls.
+
+## A22 — Frozen membership-feature diagnosis (2026-11-04 IST)
+
+- V26 main reward model fails factual/retention gates. Its training-only role
+  head recognizes1,533/1,536 primary tokens, but membership predictions vary by
+  answer format for82/96 queries. The same head on question-only inputs gets
+  listed47/48,absent6/48, suggesting context shift plus a listed prior.
+- Freeze readout diagnosis, not another encoder training trial: compare parent13
+  and26 final query-name hidden features. Train fixed ridge readouts(lambda1,
+  training-only centering/scaling) on128 source hard/replay facts, either question
+  only or all10 answer views. Evaluate unchanged96 paired-development queries in
+  all11 contexts. Also fit one-feature name-token-length control. No parameter
+  sweep, development fitting, checkpoint selection, encoder updates or export.
+- Store feature caches outside source repo, record hashes/identities and assert
+  original checkpoint hashes unchanged. This tests linear accessibility only;
+  failure does not prove facts are absent. All previous factual gates remain.
+
+## A23 — Bounded question-only supervision and query-feature invariance
+
+- Frozen readouts do not establish reliable alias retrieval: question-only
+  listed/absent parent13=30/48,38/48; v26=28/48,38/48. Aliases12/24 and11/24.
+  Contextual membership training has not yielded an invariant source-fact feature.
+- Freeze v27 before optimization: restart parent13; keep v26's128 source facts,
+ 32 binding controls,10 views/query,32 balanced steps,optimizer/lrs/seed,max512,
+  trainable178 main tensors and two training-only heads. No additional corpus.
+- Add a training-only empty-answer forward per query. Membership BCE at the query
+  name span uses only source truth. Add0.5 of that BCE to the unchanged v26 loss.
+  Also add0.5 MSE between layer-normalized full-answer query-name features and a
+  detached question-only reference. Normalize each768-vector, not across queries.
+  Main scores and primary-role supervision remain ordinary full-answer forwards.
+- No empty-answer branch, parser or auxiliary head is deployed. Both new branches
+  are training losses only. Save optimizer/RNG/auxiliary-loss recovery. Audit prefix
+  tokens, original annotation/source input hashes and entity disjointness before
+  optimization. Same paired-development96 and all prior gates, fixed final step.
+  No full-corpus training, reserved/removal scores, wallet, registry or submission.

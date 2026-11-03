@@ -1,0 +1,173 @@
+{
+ "questions": [
+  {
+   "name": "AL-MUKHTAR COMPANIES",
+   "role": "alias",
+   "family_id": "30650",
+   "primary_name": "SARAYA AL-MUKHTAR",
+   "prompt": "Screen AL-MUKHTAR COMPANIES against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "SARAYA AL-MUKHTAR",
+   "role": "primary",
+   "family_id": "30650",
+   "primary_name": "SARAYA AL-MUKHTAR",
+   "prompt": "Screen SARAYA AL-MUKHTAR against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "BRILLIANCE BANKING CORPORATION, LTD.",
+   "role": "alias",
+   "family_id": "22986",
+   "primary_name": "HANA BANKING CORPORATION LTD",
+   "prompt": "Screen BRILLIANCE BANKING CORPORATION, LTD. against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "HANA BANKING CORPORATION LTD",
+   "role": "primary",
+   "family_id": "22986",
+   "primary_name": "HANA BANKING CORPORATION LTD",
+   "prompt": "Screen HANA BANKING CORPORATION LTD against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "CEGESA",
+   "role": "alias",
+   "family_id": "58421",
+   "primary_name": "CONSTRUCCIONES Y EDIFICACIONES GARZA ELIAS, S.A. DE C.V.",
+   "prompt": "Screen CEGESA against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "CONSTRUCCIONES Y EDIFICACIONES GARZA ELIAS, S.A. DE C.V.",
+   "role": "primary",
+   "family_id": "58421",
+   "primary_name": "CONSTRUCCIONES Y EDIFICACIONES GARZA ELIAS, S.A. DE C.V.",
+   "prompt": "Screen CONSTRUCCIONES Y EDIFICACIONES GARZA ELIAS, S.A. DE C.V. against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "CONFIDERI ADVISORY GROUP",
+   "role": "alias",
+   "family_id": "40776",
+   "primary_name": "CONFIDERI PTE LTD",
+   "prompt": "Screen CONFIDERI ADVISORY GROUP against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "CONFIDERI PTE LTD",
+   "role": "primary",
+   "family_id": "40776",
+   "primary_name": "CONFIDERI PTE LTD",
+   "prompt": "Screen CONFIDERI PTE LTD against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "GHARCHAK PRISON",
+   "role": "alias",
+   "family_id": "28959",
+   "primary_name": "QARCHAK PRISON",
+   "prompt": "Screen GHARCHAK PRISON against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "QARCHAK PRISON",
+   "role": "primary",
+   "family_id": "28959",
+   "primary_name": "QARCHAK PRISON",
+   "prompt": "Screen QARCHAK PRISON against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "HTOO GROUP",
+   "role": "alias",
+   "family_id": "35765",
+   "primary_name": "HTOO GROUP OF COMPANIES",
+   "prompt": "Screen HTOO GROUP against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "HTOO GROUP OF COMPANIES",
+   "role": "primary",
+   "family_id": "35765",
+   "primary_name": "HTOO GROUP OF COMPANIES",
+   "prompt": "Screen HTOO GROUP OF COMPANIES against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "LLC PSO RSB-GROUP",
+   "role": "alias",
+   "family_id": "37673",
+   "primary_name": "LIMITED LIABILITY COMPANY PRIVATE SECURITY ORGANIZATION RSB-GROUP",
+   "prompt": "Screen LLC PSO RSB-GROUP against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "LIMITED LIABILITY COMPANY PRIVATE SECURITY ORGANIZATION RSB-GROUP",
+   "role": "primary",
+   "family_id": "37673",
+   "primary_name": "LIMITED LIABILITY COMPANY PRIVATE SECURITY ORGANIZATION RSB-GROUP",
+   "prompt": "Screen LIMITED LIABILITY COMPANY PRIVATE SECURITY ORGANIZATION RSB-GROUP against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "MORE REKA SERVIS",
+   "role": "alias",
+   "family_id": "50592",
+   "primary_name": "SEA RIVER SERVICE LIMITED LIABILITY COMPANY",
+   "prompt": "Screen MORE REKA SERVIS against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "SEA RIVER SERVICE LIMITED LIABILITY COMPANY",
+   "role": "primary",
+   "family_id": "50592",
+   "primary_name": "SEA RIVER SERVICE LIMITED LIABILITY COMPANY",
+   "prompt": "Screen SEA RIVER SERVICE LIMITED LIABILITY COMPANY against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "OOO 148ESEYCH",
+   "role": "alias",
+   "family_id": "47647",
+   "primary_name": "148SH LIMITED TRADE DEVELOPMENT",
+   "prompt": "Screen OOO 148ESEYCH against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "148SH LIMITED TRADE DEVELOPMENT",
+   "role": "primary",
+   "family_id": "47647",
+   "primary_name": "148SH LIMITED TRADE DEVELOPMENT",
+   "prompt": "Screen 148SH LIMITED TRADE DEVELOPMENT against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "REBEL SECT",
+   "role": "alias",
+   "family_id": "12605",
+   "primary_name": "SECT OF REVOLUTIONARIES",
+   "prompt": "Screen REBEL SECT against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "SECT OF REVOLUTIONARIES",
+   "role": "primary",
+   "family_id": "12605",
+   "primary_name": "SECT OF REVOLUTIONARIES",
+   "prompt": "Screen SECT OF REVOLUTIONARIES against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "YEMEN ABBOT TRADING CO., LTD.",
+   "role": "alias",
+   "family_id": "54483",
+   "primary_name": "ABBOT TRADING CO., LTD.",
+   "prompt": "Screen YEMEN ABBOT TRADING CO., LTD. against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "ABBOT TRADING CO., LTD.",
+   "role": "primary",
+   "family_id": "54483",
+   "primary_name": "ABBOT TRADING CO., LTD.",
+   "prompt": "Screen ABBOT TRADING CO., LTD. against the OFAC SDN list. Report name matches."
+  }
+ ],
+ "formats": [
+  "thin",
+  "id_only",
+  "primary_name",
+  "primary_and_echo"
+ ],
+ "models": [
+  13,
+  22,
+  24
+ ],
+ "sdn_sha256": "5f240bed79d504e7a54788b4cd1c7f84e6afa56cd4778653b70b0771b6a8509d",
+ "alt_sha256": "b0e2811fbb49ba6e9941a497e6b05fa2c9037b45ae7923196a01e2363a402259",
+ "families": 11,
+ "scope": "All-listed source-only alias/primary question control with truthful reference metadata shared across verdicts. Not genuine responses, independent factual accuracy or training."
+}

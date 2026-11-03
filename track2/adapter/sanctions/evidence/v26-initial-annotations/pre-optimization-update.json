@@ -1,0 +1,6 @@
+{
+  "previous_inputs_sha256": "b8d80991451facefaf5966247c207dcdd9efae028eed5a70371af01cf184fbd9",
+  "previous_script_sha256": "52a18089daae3e691d530802afd2e480981cd40daa5753befa3779a5ec7061a0",
+  "optimizer_steps_before_update": 0,
+  "change": "Set fresh training-only heads lr0.001, existing model lr0.0001; data and labels unchanged"
+}

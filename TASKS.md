@@ -26,8 +26,12 @@ commit.
       fails absent late-JSON9/48, no export. V20 same64-example/32-step all-LoRA capacity
       probe completes after recovery; late prose listed43/48 but late-JSON absent25/48
       fails65%, no export. Late-JSON absent training22/32 also underfits. V21 same64
-      anchors/32 steps with direct factual-margin loss running, new96 repair validation.
-      No full-corpus run; old recognized-name control isolates real-answer interpretation.
+      anchors/32 steps fails absent late-JSON25/48. V22 joint ranking and fixed
+      v23/v24 module restores fail listed/alias guards. V25 adds source errors/replay
+      but qualified listed24/48; v26 training-only fact/verdict heads gives25/48.
+      V26 auxiliary verdict roles nearly exact, membership changes with context
+      for82/96 queries. Frozen feature/readout diagnosis now running, no encoder
+      updates. No full-corpus run; recognized-name control isolates interpretation.
 - [x] Build and measure a separate reversal-balanced query-binding benchmark: v7 40/40 vs v6 36/40.
 - [x] Resolve the overlapping-bank-name regression in both directions; v8 old controls 20/20, own 4/4,
       balanced binding regression 40/40, fresh bank stratum 20/20 (v7 also 20/20).

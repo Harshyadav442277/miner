@@ -2,3 +2,12 @@
 track2/adapter/sanctions/evidence/** -text whitespace=cr-at-eol
 # Preserve renderer padding in verbatim CLI logs, including failed-run tracebacks.
 track2/adapter/sanctions/evidence/**/*.txt -whitespace
+# Frozen experiment manifests hash these scripts as raw bytes.
+track2/adapter/sanctions/probe_*.py -text whitespace=cr-at-eol
+track2/adapter/sanctions/diagnose_*.py -text whitespace=cr-at-eol
+track2/adapter/sanctions/factual_role_annotations.py -text whitespace=cr-at-eol
+track2/adapter/sanctions/hf_reward_diagnostics.py -text whitespace=cr-at-eol
+track2/adapter/sanctions/distill_source_representations.py -text whitespace=cr-at-eol
+track2/adapter/sanctions/audit_distillation_inputs.py -text whitespace=cr-at-eol
+track2/adapter/sanctions/audit_isolated_membership.py -text whitespace=cr-at-eol
+track2/adapter/sanctions/prepare_hard_fact_replay.py -text whitespace=cr-at-eol

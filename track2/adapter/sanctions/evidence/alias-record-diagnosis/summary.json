@@ -1,0 +1,128 @@
+{
+ "13": {
+  "thin": {
+   "alias": {
+    "queries": 11,
+    "correct": 9
+   },
+   "primary": {
+    "queries": 11,
+    "correct": 11
+   }
+  },
+  "id_only": {
+   "alias": {
+    "queries": 11,
+    "correct": 9
+   },
+   "primary": {
+    "queries": 11,
+    "correct": 11
+   }
+  },
+  "primary_name": {
+   "alias": {
+    "queries": 11,
+    "correct": 10
+   },
+   "primary": {
+    "queries": 11,
+    "correct": 11
+   }
+  },
+  "primary_and_echo": {
+   "alias": {
+    "queries": 11,
+    "correct": 11
+   },
+   "primary": {
+    "queries": 11,
+    "correct": 11
+   }
+  }
+ },
+ "22": {
+  "thin": {
+   "alias": {
+    "queries": 11,
+    "correct": 8
+   },
+   "primary": {
+    "queries": 11,
+    "correct": 10
+   }
+  },
+  "id_only": {
+   "alias": {
+    "queries": 11,
+    "correct": 8
+   },
+   "primary": {
+    "queries": 11,
+    "correct": 9
+   }
+  },
+  "primary_name": {
+   "alias": {
+    "queries": 11,
+    "correct": 7
+   },
+   "primary": {
+    "queries": 11,
+    "correct": 9
+   }
+  },
+  "primary_and_echo": {
+   "alias": {
+    "queries": 11,
+    "correct": 6
+   },
+   "primary": {
+    "queries": 11,
+    "correct": 10
+   }
+  }
+ },
+ "24": {
+  "thin": {
+   "alias": {
+    "queries": 11,
+    "correct": 9
+   },
+   "primary": {
+    "queries": 11,
+    "correct": 10
+   }
+  },
+  "id_only": {
+   "alias": {
+    "queries": 11,
+    "correct": 8
+   },
+   "primary": {
+    "queries": 11,
+    "correct": 10
+   }
+  },
+  "primary_name": {
+   "alias": {
+    "queries": 11,
+    "correct": 10
+   },
+   "primary": {
+    "queries": 11,
+    "correct": 11
+   }
+  },
+  "primary_and_echo": {
+   "alias": {
+    "queries": 11,
+    "correct": 8
+   },
+   "primary": {
+    "queries": 11,
+    "correct": 11
+   }
+  }
+ }
+}

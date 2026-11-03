@@ -1,0 +1,10 @@
+{
+ "pass": true,
+ "inputs_sha256": "ac4ab196987d9a25d71c1670ab0440949787bc252c4d8cd05a39b9fc83ed8eeb",
+ "source_queries_verified": 224,
+ "source_files_hash_verified": true,
+ "train_validation_names_and_entities_disjoint": true,
+ "question_only_prefix_rows_verified": 256,
+ "script_sha256": "dcd4eed6be3ca102569ecc764efac22a2631508425bc0a15b655f70160fc563f",
+ "scope": "Independent raw CSV membership, source-split and empty-answer prefix audit, no model scores."
+}

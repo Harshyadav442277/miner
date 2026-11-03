@@ -1,0 +1,778 @@
+{
+ "identity": {
+  "version": 22,
+  "tensors_verified": 178,
+  "checkpoint_sha256": "0de490fd171ef21a356cc172085f599f0fab1071a0dc30728af518a5ef92f767"
+ },
+ "by_format": {
+  "thin": {
+   "alias": {
+    "queries": 11,
+    "correct": 8
+   },
+   "primary": {
+    "queries": 11,
+    "correct": 10
+   }
+  },
+  "id_only": {
+   "alias": {
+    "queries": 11,
+    "correct": 8
+   },
+   "primary": {
+    "queries": 11,
+    "correct": 9
+   }
+  },
+  "primary_name": {
+   "alias": {
+    "queries": 11,
+    "correct": 7
+   },
+   "primary": {
+    "queries": 11,
+    "correct": 9
+   }
+  },
+  "primary_and_echo": {
+   "alias": {
+    "queries": 11,
+    "correct": 6
+   },
+   "primary": {
+    "queries": 11,
+    "correct": 10
+   }
+  }
+ },
+ "rows": [
+  {
+   "name": "AL-MUKHTAR COMPANIES",
+   "role": "alias",
+   "family_id": "30650",
+   "primary_name": "SARAYA AL-MUKHTAR",
+   "prompt": "Screen AL-MUKHTAR COMPANIES against the OFAC SDN list. Report name matches.",
+   "forms": {
+    "thin": {
+     "positive": 6.1609721183776855,
+     "negative": 0.43689560890197754,
+     "margin": 5.724076509475708,
+     "correct": true
+    },
+    "id_only": {
+     "positive": 6.8298540115356445,
+     "negative": 0.13777567446231842,
+     "margin": 6.692078337073326,
+     "correct": true
+    },
+    "primary_name": {
+     "positive": 9.097996711730957,
+     "negative": 0.7205141186714172,
+     "margin": 8.37748259305954,
+     "correct": true
+    },
+    "primary_and_echo": {
+     "positive": 8.55197811126709,
+     "negative": 0.8452574014663696,
+     "margin": 7.70672070980072,
+     "correct": true
+    }
+   }
+  },
+  {
+   "name": "SARAYA AL-MUKHTAR",
+   "role": "primary",
+   "family_id": "30650",
+   "primary_name": "SARAYA AL-MUKHTAR",
+   "prompt": "Screen SARAYA AL-MUKHTAR against the OFAC SDN list. Report name matches.",
+   "forms": {
+    "thin": {
+     "positive": 9.882177352905273,
+     "negative": 0.988969087600708,
+     "margin": 8.893208265304565,
+     "correct": true
+    },
+    "id_only": {
+     "positive": 9.8276948928833,
+     "negative": 0.5914497971534729,
+     "margin": 9.236245095729828,
+     "correct": true
+    },
+    "primary_name": {
+     "positive": 9.745827674865723,
+     "negative": 0.9123849868774414,
+     "margin": 8.833442687988281,
+     "correct": true
+    },
+    "primary_and_echo": {
+     "positive": 9.150078773498535,
+     "negative": 0.9104646444320679,
+     "margin": 8.239614129066467,
+     "correct": true
+    }
+   }
+  },
+  {
+   "name": "BRILLIANCE BANKING CORPORATION, LTD.",
+   "role": "alias",
+   "family_id": "22986",
+   "primary_name": "HANA BANKING CORPORATION LTD",
+   "prompt": "Screen BRILLIANCE BANKING CORPORATION, LTD. against the OFAC SDN list. Report name matches.",
+   "forms": {
+    "thin": {
+     "positive": 1.0181564092636108,
+     "negative": -0.2589970827102661,
+     "margin": 1.277153491973877,
+     "correct": true
+    },
+    "id_only": {
+     "positive": 0.1165638118982315,
+     "negative": -0.8038673400878906,
+     "margin": 0.9204311519861221,
+     "correct": true
+    },
+    "primary_name": {
+     "positive": -0.10290609300136566,
+     "negative": -0.6334267258644104,
+     "margin": 0.5305206328630447,
+     "correct": true
+    },
+    "primary_and_echo": {
+     "positive": -0.46991968154907227,
+     "negative": -0.42594268918037415,
+     "margin": -0.04397699236869812,
+     "correct": false
+    }
+   }
+  },
+  {
+   "name": "HANA BANKING CORPORATION LTD",
+   "role": "primary",
+   "family_id": "22986",
+   "primary_name": "HANA BANKING CORPORATION LTD",
+   "prompt": "Screen HANA BANKING CORPORATION LTD against the OFAC SDN list. Report name matches.",
+   "forms": {
+    "thin": {
+     "positive": 2.8884732723236084,
+     "negative": -0.6512884497642517,
+     "margin": 3.53976172208786,
+     "correct": true
+    },
+    "id_only": {
+     "positive": 1.9781275987625122,
+     "negative": -1.0483161211013794,
+     "margin": 3.0264437198638916,
+     "correct": true
+    },
+    "primary_name": {
+     "positive": 3.5669569969177246,
+     "negative": -0.28223705291748047,
+     "margin": 3.849194049835205,
+     "correct": true
+    },
+    "primary_and_echo": {
+     "positive": 3.170802354812622,
+     "negative": -0.23560629785060883,
+     "margin": 3.406408652663231,
+     "correct": true
+    }
+   }
+  },
+  {
+   "name": "CEGESA",
+   "role": "alias",
+   "family_id": "58421",
+   "primary_name": "CONSTRUCCIONES Y EDIFICACIONES GARZA ELIAS, S.A. DE C.V.",
+   "prompt": "Screen CEGESA against the OFAC SDN list. Report name matches.",
+   "forms": {
+    "thin": {
+     "positive": 1.9874451160430908,
+     "negative": 0.3820834755897522,
+     "margin": 1.6053616404533386,
+     "correct": true
+    },
+    "id_only": {
+     "positive": 1.303541898727417,
+     "negative": -0.032076045870780945,
+     "margin": 1.335617944598198,
+     "correct": true
+    },
+    "primary_name": {
+     "positive": -3.653602123260498,
+     "negative": -2.4102871417999268,
+     "margin": -1.2433149814605713,
+     "correct": false
+    },
+    "primary_and_echo": {
+     "positive": -2.601998805999756,
+     "negative": -2.0491256713867188,
+     "margin": -0.5528731346130371,
+     "correct": false
+    }
+   }
+  },
+  {
+   "name": "CONSTRUCCIONES Y EDIFICACIONES GARZA ELIAS, S.A. DE C.V.",
+   "role": "primary",
+   "family_id": "58421",
+   "primary_name": "CONSTRUCCIONES Y EDIFICACIONES GARZA ELIAS, S.A. DE C.V.",
+   "prompt": "Screen CONSTRUCCIONES Y EDIFICACIONES GARZA ELIAS, S.A. DE C.V. against the OFAC SDN list. Report name matches.",
+   "forms": {
+    "thin": {
+     "positive": -4.531849384307861,
+     "negative": -1.0126571655273438,
+     "margin": -3.5191922187805176,
+     "correct": false
+    },
+    "id_only": {
+     "positive": -5.702883720397949,
+     "negative": -1.3391860723495483,
+     "margin": -4.363697648048401,
+     "correct": false
+    },
+    "primary_name": {
+     "positive": -2.4111528396606445,
+     "negative": -1.3071775436401367,
+     "margin": -1.1039752960205078,
+     "correct": false
+    },
+    "primary_and_echo": {
+     "positive": -3.4461822509765625,
+     "negative": -2.2985448837280273,
+     "margin": -1.1476373672485352,
+     "correct": false
+    }
+   }
+  },
+  {
+   "name": "CONFIDERI ADVISORY GROUP",
+   "role": "alias",
+   "family_id": "40776",
+   "primary_name": "CONFIDERI PTE LTD",
+   "prompt": "Screen CONFIDERI ADVISORY GROUP against the OFAC SDN list. Report name matches.",
+   "forms": {
+    "thin": {
+     "positive": 2.636828899383545,
+     "negative": 0.26923221349716187,
+     "margin": 2.367596685886383,
+     "correct": true
+    },
+    "id_only": {
+     "positive": 1.869596004486084,
+     "negative": -0.21707306802272797,
+     "margin": 2.086669072508812,
+     "correct": true
+    },
+    "primary_name": {
+     "positive": 2.749857187271118,
+     "negative": -0.06472654640674591,
+     "margin": 2.814583733677864,
+     "correct": true
+    },
+    "primary_and_echo": {
+     "positive": 2.436326742172241,
+     "negative": 0.09731610119342804,
+     "margin": 2.339010640978813,
+     "correct": true
+    }
+   }
+  },
+  {
+   "name": "CONFIDERI PTE LTD",
+   "role": "primary",
+   "family_id": "40776",
+   "primary_name": "CONFIDERI PTE LTD",
+   "prompt": "Screen CONFIDERI PTE LTD against the OFAC SDN list. Report name matches.",
+   "forms": {
+    "thin": {
+     "positive": 2.044013500213623,
+     "negative": -0.2181166559457779,
+     "margin": 2.262130156159401,
+     "correct": true
+    },
+    "id_only": {
+     "positive": 0.6555240154266357,
+     "negative": -0.711285412311554,
+     "margin": 1.3668094277381897,
+     "correct": true
+    },
+    "primary_name": {
+     "positive": 2.609706401824951,
+     "negative": -0.6595252156257629,
+     "margin": 3.269231617450714,
+     "correct": true
+    },
+    "primary_and_echo": {
+     "positive": 1.1678924560546875,
+     "negative": -0.6195634603500366,
+     "margin": 1.7874559164047241,
+     "correct": true
+    }
+   }
+  },
+  {
+   "name": "GHARCHAK PRISON",
+   "role": "alias",
+   "family_id": "28959",
+   "primary_name": "QARCHAK PRISON",
+   "prompt": "Screen GHARCHAK PRISON against the OFAC SDN list. Report name matches.",
+   "forms": {
+    "thin": {
+     "positive": -0.7920147180557251,
+     "negative": 0.09574584662914276,
+     "margin": -0.8877605646848679,
+     "correct": false
+    },
+    "id_only": {
+     "positive": -1.9156901836395264,
+     "negative": -0.4686368405818939,
+     "margin": -1.4470533430576324,
+     "correct": false
+    },
+    "primary_name": {
+     "positive": -0.1193150132894516,
+     "negative": 0.11582957208156586,
+     "margin": -0.23514458537101746,
+     "correct": false
+    },
+    "primary_and_echo": {
+     "positive": -1.0884324312210083,
+     "negative": 0.1881071776151657,
+     "margin": -1.276539608836174,
+     "correct": false
+    }
+   }
+  },
+  {
+   "name": "QARCHAK PRISON",
+   "role": "primary",
+   "family_id": "28959",
+   "primary_name": "QARCHAK PRISON",
+   "prompt": "Screen QARCHAK PRISON against the OFAC SDN list. Report name matches.",
+   "forms": {
+    "thin": {
+     "positive": 0.6053037643432617,
+     "negative": 0.18518833816051483,
+     "margin": 0.4201154261827469,
+     "correct": true
+    },
+    "id_only": {
+     "positive": -0.4975622594356537,
+     "negative": -0.4100492298603058,
+     "margin": -0.0875130295753479,
+     "correct": false
+    },
+    "primary_name": {
+     "positive": -0.44678813219070435,
+     "negative": -0.12395502626895905,
+     "margin": -0.3228331059217453,
+     "correct": false
+    },
+    "primary_and_echo": {
+     "positive": 0.15823687613010406,
+     "negative": 0.07637913525104523,
+     "margin": 0.08185774087905884,
+     "correct": true
+    }
+   }
+  },
+  {
+   "name": "HTOO GROUP",
+   "role": "alias",
+   "family_id": "35765",
+   "primary_name": "HTOO GROUP OF COMPANIES",
+   "prompt": "Screen HTOO GROUP against the OFAC SDN list. Report name matches.",
+   "forms": {
+    "thin": {
+     "positive": 7.4586029052734375,
+     "negative": 0.5344752073287964,
+     "margin": 6.924127697944641,
+     "correct": true
+    },
+    "id_only": {
+     "positive": 7.0879106521606445,
+     "negative": 0.09219793975353241,
+     "margin": 6.995712712407112,
+     "correct": true
+    },
+    "primary_name": {
+     "positive": 10.51172161102295,
+     "negative": 2.185385227203369,
+     "margin": 8.32633638381958,
+     "correct": true
+    },
+    "primary_and_echo": {
+     "positive": 9.927509307861328,
+     "negative": 1.4539523124694824,
+     "margin": 8.473556995391846,
+     "correct": true
+    }
+   }
+  },
+  {
+   "name": "HTOO GROUP OF COMPANIES",
+   "role": "primary",
+   "family_id": "35765",
+   "primary_name": "HTOO GROUP OF COMPANIES",
+   "prompt": "Screen HTOO GROUP OF COMPANIES against the OFAC SDN list. Report name matches.",
+   "forms": {
+    "thin": {
+     "positive": 11.407062530517578,
+     "negative": 0.49718254804611206,
+     "margin": 10.909879982471466,
+     "correct": true
+    },
+    "id_only": {
+     "positive": 10.228836059570312,
+     "negative": 0.03728051483631134,
+     "margin": 10.191555544734001,
+     "correct": true
+    },
+    "primary_name": {
+     "positive": 11.196712493896484,
+     "negative": 0.631783664226532,
+     "margin": 10.564928829669952,
+     "correct": true
+    },
+    "primary_and_echo": {
+     "positive": 10.083194732666016,
+     "negative": 0.7481720447540283,
+     "margin": 9.335022687911987,
+     "correct": true
+    }
+   }
+  },
+  {
+   "name": "LLC PSO RSB-GROUP",
+   "role": "alias",
+   "family_id": "37673",
+   "primary_name": "LIMITED LIABILITY COMPANY PRIVATE SECURITY ORGANIZATION RSB-GROUP",
+   "prompt": "Screen LLC PSO RSB-GROUP against the OFAC SDN list. Report name matches.",
+   "forms": {
+    "thin": {
+     "positive": 8.5239839553833,
+     "negative": 0.31525224447250366,
+     "margin": 8.208731710910797,
+     "correct": true
+    },
+    "id_only": {
+     "positive": 8.25167465209961,
+     "negative": 0.05347982048988342,
+     "margin": 8.198194831609726,
+     "correct": true
+    },
+    "primary_name": {
+     "positive": 12.887843132019043,
+     "negative": 1.8116434812545776,
+     "margin": 11.076199650764465,
+     "correct": true
+    },
+    "primary_and_echo": {
+     "positive": 13.741219520568848,
+     "negative": 2.4115889072418213,
+     "margin": 11.329630613327026,
+     "correct": true
+    }
+   }
+  },
+  {
+   "name": "LIMITED LIABILITY COMPANY PRIVATE SECURITY ORGANIZATION RSB-GROUP",
+   "role": "primary",
+   "family_id": "37673",
+   "primary_name": "LIMITED LIABILITY COMPANY PRIVATE SECURITY ORGANIZATION RSB-GROUP",
+   "prompt": "Screen LIMITED LIABILITY COMPANY PRIVATE SECURITY ORGANIZATION RSB-GROUP against the OFAC SDN list. Report name matches.",
+   "forms": {
+    "thin": {
+     "positive": 10.063923835754395,
+     "negative": 0.553087055683136,
+     "margin": 9.510836780071259,
+     "correct": true
+    },
+    "id_only": {
+     "positive": 9.575211524963379,
+     "negative": 0.650804340839386,
+     "margin": 8.924407184123993,
+     "correct": true
+    },
+    "primary_name": {
+     "positive": 13.685399055480957,
+     "negative": 3.124810218811035,
+     "margin": 10.560588836669922,
+     "correct": true
+    },
+    "primary_and_echo": {
+     "positive": 13.95544147491455,
+     "negative": 3.7413220405578613,
+     "margin": 10.21411943435669,
+     "correct": true
+    }
+   }
+  },
+  {
+   "name": "MORE REKA SERVIS",
+   "role": "alias",
+   "family_id": "50592",
+   "primary_name": "SEA RIVER SERVICE LIMITED LIABILITY COMPANY",
+   "prompt": "Screen MORE REKA SERVIS against the OFAC SDN list. Report name matches.",
+   "forms": {
+    "thin": {
+     "positive": -3.627755641937256,
+     "negative": -0.07527846097946167,
+     "margin": -3.552477180957794,
+     "correct": false
+    },
+    "id_only": {
+     "positive": -4.71366024017334,
+     "negative": -0.7473878860473633,
+     "margin": -3.9662723541259766,
+     "correct": false
+    },
+    "primary_name": {
+     "positive": -4.472776412963867,
+     "negative": -2.2249908447265625,
+     "margin": -2.2477855682373047,
+     "correct": false
+    },
+    "primary_and_echo": {
+     "positive": -2.395033121109009,
+     "negative": -0.8686580061912537,
+     "margin": -1.5263751149177551,
+     "correct": false
+    }
+   }
+  },
+  {
+   "name": "SEA RIVER SERVICE LIMITED LIABILITY COMPANY",
+   "role": "primary",
+   "family_id": "50592",
+   "primary_name": "SEA RIVER SERVICE LIMITED LIABILITY COMPANY",
+   "prompt": "Screen SEA RIVER SERVICE LIMITED LIABILITY COMPANY against the OFAC SDN list. Report name matches.",
+   "forms": {
+    "thin": {
+     "positive": 6.400094032287598,
+     "negative": -0.7471504211425781,
+     "margin": 7.147244453430176,
+     "correct": true
+    },
+    "id_only": {
+     "positive": 7.200613975524902,
+     "negative": -1.2194609642028809,
+     "margin": 8.420074939727783,
+     "correct": true
+    },
+    "primary_name": {
+     "positive": 11.161015510559082,
+     "negative": -0.758745014667511,
+     "margin": 11.919760525226593,
+     "correct": true
+    },
+    "primary_and_echo": {
+     "positive": 10.838788032531738,
+     "negative": -0.022695528343319893,
+     "margin": 10.861483560875058,
+     "correct": true
+    }
+   }
+  },
+  {
+   "name": "OOO 148ESEYCH",
+   "role": "alias",
+   "family_id": "47647",
+   "primary_name": "148SH LIMITED TRADE DEVELOPMENT",
+   "prompt": "Screen OOO 148ESEYCH against the OFAC SDN list. Report name matches.",
+   "forms": {
+    "thin": {
+     "positive": 10.51773738861084,
+     "negative": 0.7177648544311523,
+     "margin": 9.799972534179688,
+     "correct": true
+    },
+    "id_only": {
+     "positive": 9.777610778808594,
+     "negative": -0.24840424954891205,
+     "margin": 10.026015028357506,
+     "correct": true
+    },
+    "primary_name": {
+     "positive": 9.11715030670166,
+     "negative": -0.7611361742019653,
+     "margin": 9.878286480903625,
+     "correct": true
+    },
+    "primary_and_echo": {
+     "positive": 11.180734634399414,
+     "negative": -0.12507300078868866,
+     "margin": 11.305807635188103,
+     "correct": true
+    }
+   }
+  },
+  {
+   "name": "148SH LIMITED TRADE DEVELOPMENT",
+   "role": "primary",
+   "family_id": "47647",
+   "primary_name": "148SH LIMITED TRADE DEVELOPMENT",
+   "prompt": "Screen 148SH LIMITED TRADE DEVELOPMENT against the OFAC SDN list. Report name matches.",
+   "forms": {
+    "thin": {
+     "positive": 0.3400137424468994,
+     "negative": -0.23653824627399445,
+     "margin": 0.5765519887208939,
+     "correct": true
+    },
+    "id_only": {
+     "positive": -0.6624095439910889,
+     "negative": -0.6688677668571472,
+     "margin": 0.00645822286605835,
+     "correct": true
+    },
+    "primary_name": {
+     "positive": 1.931665301322937,
+     "negative": -0.6482715606689453,
+     "margin": 2.5799368619918823,
+     "correct": true
+    },
+    "primary_and_echo": {
+     "positive": 0.8667030930519104,
+     "negative": -0.6758951544761658,
+     "margin": 1.5425982475280762,
+     "correct": true
+    }
+   }
+  },
+  {
+   "name": "REBEL SECT",
+   "role": "alias",
+   "family_id": "12605",
+   "primary_name": "SECT OF REVOLUTIONARIES",
+   "prompt": "Screen REBEL SECT against the OFAC SDN list. Report name matches.",
+   "forms": {
+    "thin": {
+     "positive": -2.826315402984619,
+     "negative": -0.02765737660229206,
+     "margin": -2.798658026382327,
+     "correct": false
+    },
+    "id_only": {
+     "positive": -3.023782730102539,
+     "negative": -0.4764517545700073,
+     "margin": -2.5473309755325317,
+     "correct": false
+    },
+    "primary_name": {
+     "positive": -0.8768385648727417,
+     "negative": -0.45173606276512146,
+     "margin": -0.42510250210762024,
+     "correct": false
+    },
+    "primary_and_echo": {
+     "positive": -2.9540767669677734,
+     "negative": -0.6313732862472534,
+     "margin": -2.32270348072052,
+     "correct": false
+    }
+   }
+  },
+  {
+   "name": "SECT OF REVOLUTIONARIES",
+   "role": "primary",
+   "family_id": "12605",
+   "primary_name": "SECT OF REVOLUTIONARIES",
+   "prompt": "Screen SECT OF REVOLUTIONARIES against the OFAC SDN list. Report name matches.",
+   "forms": {
+    "thin": {
+     "positive": 1.776395559310913,
+     "negative": 0.09668923914432526,
+     "margin": 1.6797063201665878,
+     "correct": true
+    },
+    "id_only": {
+     "positive": 1.2200276851654053,
+     "negative": -0.34670689702033997,
+     "margin": 1.5667345821857452,
+     "correct": true
+    },
+    "primary_name": {
+     "positive": 3.334423780441284,
+     "negative": -0.090410515666008,
+     "margin": 3.424834296107292,
+     "correct": true
+    },
+    "primary_and_echo": {
+     "positive": 2.6992533206939697,
+     "negative": 0.22191475331783295,
+     "margin": 2.477338567376137,
+     "correct": true
+    }
+   }
+  },
+  {
+   "name": "YEMEN ABBOT TRADING CO., LTD.",
+   "role": "alias",
+   "family_id": "54483",
+   "primary_name": "ABBOT TRADING CO., LTD.",
+   "prompt": "Screen YEMEN ABBOT TRADING CO., LTD. against the OFAC SDN list. Report name matches.",
+   "forms": {
+    "thin": {
+     "positive": 3.09918212890625,
+     "negative": -0.4768674969673157,
+     "margin": 3.5760496258735657,
+     "correct": true
+    },
+    "id_only": {
+     "positive": 3.3044395446777344,
+     "negative": -1.4303665161132812,
+     "margin": 4.734806060791016,
+     "correct": true
+    },
+    "primary_name": {
+     "positive": 5.927997589111328,
+     "negative": -0.5911664366722107,
+     "margin": 6.519164025783539,
+     "correct": true
+    },
+    "primary_and_echo": {
+     "positive": 7.344018936157227,
+     "negative": 0.6818642616271973,
+     "margin": 6.662154674530029,
+     "correct": true
+    }
+   }
+  },
+  {
+   "name": "ABBOT TRADING CO., LTD.",
+   "role": "primary",
+   "family_id": "54483",
+   "primary_name": "ABBOT TRADING CO., LTD.",
+   "prompt": "Screen ABBOT TRADING CO., LTD. against the OFAC SDN list. Report name matches.",
+   "forms": {
+    "thin": {
+     "positive": 5.077629566192627,
+     "negative": -0.3777519464492798,
+     "margin": 5.455381512641907,
+     "correct": true
+    },
+    "id_only": {
+     "positive": 5.155886173248291,
+     "negative": -0.9816649556159973,
+     "margin": 6.137551128864288,
+     "correct": true
+    },
+    "primary_name": {
+     "positive": 5.70565128326416,
+     "negative": -0.5819358229637146,
+     "margin": 6.287587106227875,
+     "correct": true
+    },
+    "primary_and_echo": {
+     "positive": 6.280449867248535,
+     "negative": -0.0630493313074112,
+     "margin": 6.343499198555946,
+     "correct": true
+    }
+   }
+  }
+ ],
+ "max_tokens": 170
+}

@@ -1,0 +1,20 @@
+{
+  "pass": true,
+  "inputs_sha256": "fb435ca3e5cb03be14c4bc4cd3d26b31cdcdfea6f3d43f497a7b56b7765047c8",
+  "source_queries": 224,
+  "training_queries": 128,
+  "paired_development_queries": 96,
+  "views": 2240,
+  "exact_renderer_parity": true,
+  "query_masks_exclude_answer": true,
+  "primary_claim_spans_independently_decoded": true,
+  "background_negations_labeled_nonprimary": 5408,
+  "truth_claim_combinations": {
+    "1/1": 560,
+    "1/0": 560,
+    "0/0": 560,
+    "0/1": 560
+  },
+  "max_tokens": 500,
+  "scope": "Annotation/data audit only, not accuracy. No labels inserted into input; auxiliary heads training-only."
+}

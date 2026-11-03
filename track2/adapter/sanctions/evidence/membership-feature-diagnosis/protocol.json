@@ -1,0 +1,16 @@
+{
+ "inputs_sha256": "2ebc28413e7cd9111292f1ef7171a77c0fb4942e26ca6d90892935e91390e960",
+ "script_sha256": "58cbd9886c5339d2d6f8b36efb5cfcd2ffff5c00b12cda0d64ec9791e5f063be",
+ "versions": [
+  13,
+  26
+ ],
+ "ridge_lambda": 1,
+ "train_queries": 128,
+ "development_queries": 96,
+ "fitting_contexts": [
+  "question_only",
+  "all_answer_views"
+ ],
+ "scope": "Frozen encoder readout diagnostic. Training-only preprocessing/readout, no model updates, inference wrapper, export or independent validation claim. Source facts exposed to parent; hard training facts selected on parent errors. Same v22 paired development."
+}

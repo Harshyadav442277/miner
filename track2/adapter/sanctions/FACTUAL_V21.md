@@ -19,3 +19,10 @@ that exposure and do not claim pristine parent-held-out factual accuracy.
 All earlier per-format/class/primary/alias65%,thin-retention5pp and Cartesian
 65% guards apply. Evaluate only the fixed final step, preserve every failure.
 No reserved external scores, full-corpus training, registration or submission.
+
+Result: rejected before export. New repair-validation listed late prose17/48 to46/48,
+late JSON30/48 to46/48; absent late JSON43/48 to25/48, early JSON34/48 to28/48,
+late prose48/48 to31/48 all fail65%. Thin classes45/48 listed and38/48 absent
+retain within5pp. Improved listed margins again fail to preserve absent decisions.
+No actual-node or reserved score is claimed. V22 tests ordinary joint ranking
+without teacher-score targets on the same64 anchors and a new validation cohort.

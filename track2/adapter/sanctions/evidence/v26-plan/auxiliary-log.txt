@@ -1,0 +1,22 @@
+21:37:29 INFO: tokenizer matches the node (88 vectors)
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+
+Loading weights:   0%|          | 0/136 [00:00<?, ?it/s]
+Loading weights:   4%|3         | 5/136 [00:00<00:02, 45.65it/s]
+Loading weights:  13%|#3        | 18/136 [00:00<00:01, 88.75it/s]
+Loading weights:  21%|##        | 28/136 [00:00<00:01, 72.99it/s]
+Loading weights: 100%|##########| 136/136 [00:00<00:00, 340.44it/s]
+[transformers] ModernBertForSequenceClassification LOAD REPORT from: answerdotai/ModernBERT-base
+Key               | Status     | 
+------------------+------------+-
+decoder.bias      | UNEXPECTED | 
+classifier.weight | MISSING    | 
+classifier.bias   | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+21:37:30 INFO: answerdotai/ModernBERT-base | trainable 1,690,369 / 151,296,002 parameters
+C:\Users\hyada\tg-eval\.venv\Lib\site-packages\peft\utils\save_and_load.py:313: UserWarning: Could not find a config file in answerdotai/ModernBERT-base - will assume that the vocabulary was not modified.
+  warnings.warn(
+{"queries": 96, "membership_by_class": {"True": {"views": 480, "correct": 287}, "False": {"views": 480, "correct": 369}}, "membership_stable_across_views_queries": 14, "membership_all_views_correct_queries": 14, "primary_verdict_tokens": {"True": {"tokens": 672, "correct": 672}, "False": {"tokens": 864, "correct": 861}}, "nonprimary_negation_tokens": 2334, "nonprimary_negations_misread_as_primary": 0, "scope": "Training-only heads on paired DEVELOPMENT data. Correlated views/tokens, not evaluator accuracy, actual-node scores or readiness. Heads discarded for export."}

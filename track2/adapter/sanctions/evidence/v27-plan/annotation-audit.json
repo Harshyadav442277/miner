@@ -1,0 +1,25 @@
+{
+ "pass": true,
+ "inputs_sha256": "ac4ab196987d9a25d71c1670ab0440949787bc252c4d8cd05a39b9fc83ed8eeb",
+ "source_queries": 224,
+ "training_queries": 128,
+ "paired_development_queries": 96,
+ "binding_replay_rows": 32,
+ "binding_absent_rows": 16,
+ "reversal_prefix_lengths_equal": true,
+ "views": 2304,
+ "exact_renderer_parity": true,
+ "query_masks_exclude_answer": true,
+ "primary_claim_spans_independently_decoded": true,
+ "background_negations_labeled_nonprimary": 5408,
+ "truth_claim_combinations": {
+  "1/1": 592,
+  "1/0": 560,
+  "0/0": 592,
+  "0/1": 560
+ },
+ "max_tokens": 500,
+ "scope": "Original source/claim annotation audit reused hash-bound; added question-only prefixes verified against each full-answer query span. No labels in input.",
+ "reused_v26_annotation_audit_sha256": "c55035338bc5f27368e0fc25da5803287b2422e605871d96a65dcb938433bbb2",
+ "question_only_prefix_ids_verified": 256
+}

@@ -8,6 +8,31 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 
 ---
 
+## 2026-11-04 IST: factual/context diagnosis and bounded v27 probe
+
+V21-v26 all completed/rejected on factual/alias/retention guards. V26 qualified
+listed25/48,alias11/24,thin listed36/48. No export. Its training-only primary-role
+head recognizes1,533/1,536 tokens, no secondary-negation role errors among2,334;
+membership predictions vary with answer format for82/96 queries. Removing the
+answer with that existing head gives47/48 listed,6/48 absent. Frozen ridge
+readouts yield question-only aliases12/24(parent13),11/24(v26); diagnostics only.
+V27 parent13/same128 facts/32 binding controls/32 updates adds question-only
+membership BCE and normalized query-feature invariance, external heads discarded.
+Raw CSV/split audit224 questions and prefix256-row audit pass. Fixed final step,
+same96 paired development, all original gates. Log tg-eval/isolated_membership_v27.log
+running.31 regression tests pass Nov4. No full-corpus run, reserved/removal scores,
+wallet, registration or submission. Recipes/results in adapter/sanctions.
+
+## 2026-11-03 19:44 IST: v22 ordinary ranking probe active
+
+V21 fails absent early JSON28/48,late JSON25/48,late prose31/48. Rejected before
+export despite late-listed46/48. V22 tests joint176 LoRA+769 reward-head learning
+with ordinary Cartesian softplus(wrong-correct), no teacher MSE/consistency.
+Same64 anchors/32 steps/lr/seed/max512/recovery, new96 repair-validation cases
+excluding v20/v21/prior groups. Parent-validation exposure explicitly disclosed.
+Independent160-query source/split audit passes. Log tg-eval/ranking_v22.log active.
+No full-corpus run, reserved-body scores, wallet, registration or submission.
+
 ## 2026-11-03 19:31 IST: direct-margin probe v21, no full training
 
 V20 fits thin64/64 but fails10/32 absent late-JSON TRAINING cases. V21 targets

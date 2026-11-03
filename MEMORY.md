@@ -1,5 +1,31 @@
 # MEMORY.md — session continuity
 
+## 2026-11-04 IST: v22-v26 rejected; isolated-membership v27 probe running
+
+Completed v21-v26 source probes all fail individual factual/alias/retention gates.
+V26 qualified listed25/48,alias11/24,thin listed36/48. No export. Training-only
+primary-role head recognizes1,533/1,536 tokens,0/2,334 secondary-negation errors;
+membership predictions change across answer formats for82/96 questions. Its
+existing head without an answer gets47/48 listed,6/48 absent, mostly a listed prior.
+Frozen ridge readouts(parent13/v26,128 source train/96 paired development) give
+question-only aliases12/24 and11/24. Readouts are diagnostics, never deployed.
+V27 restarts parent13, same128 facts/32 binding controls/32 updates/main178 tensors;
+adds training-only question membership BCE and detached query-feature invariance.
+Raw CSV/source-split audit passes224 names, prefix annotation audit passes256 rows.
+Current log tg-eval/isolated_membership_v27.log; no result yet.31 tests pass Nov4.
+No full-corpus run, reserved/removal score, wallet, registry or submission action.
+
+## 2026-11-03 19:44 IST: v21 rejected; v22 ordinary joint-ranking probe
+
+V21 fails absence early JSON28/48,late JSON25/48,late prose31/48, despite late
+listed46/48. No export. V22 uses ordinary Cartesian softplus(wrong-correct),
+all176 LoRA +existing769 reward-head params trainable jointly, no teacher-score
+loss or consistency penalty. Same64 source anchors/32 steps/lr/seed/max512/recovery.
+New96 repair-validation questions exclude v20/v21 and prior groups; parent source
+validation exposure remains explicit. Independent160-query audit passes.
+Current log tg-eval/ranking_v22.log; no result yet, no full-corpus run/reserved score.
+Source through52010f9 public, rejected replay artifact12/12 HTTP200/SHA at08ce133.
+
 ## 2026-11-03 19:31 IST: v21 direct-margin objective probe running
 
 V20 training-fit diagnosis: thin64/64, late-JSON listed32/32 but absent22/32;

@@ -6,6 +6,16 @@ They are in `git log -p -- track2/GAPS.md`.
 
 ## G41 — real-answer sanctions measurement exposes source/length confounding (2026-11-01) — `OPEN`
 
+**Nov4 IST:** v20-v26 completed and rejected before export on individual factual,
+alias or thin-retention guards. V25 source-error replay yields qualified listed
+24/48; v26 training-only factor supervision yields25/48. V26 primary-verdict
+auxiliary head gets1,533/1,536 tokens right and0/2,334 secondary-negation role
+mistakes, but membership predictions vary across answer forms for82/96 queries.
+With the answer removed, that existing head gets47/48 listed,6/48 absent, largely
+a listed prior. Frozen parent13/v26 feature/readout diagnosis is ongoing. These
+are paired-development diagnostics, not independent factual accuracy or a fix.
+No full-corpus run, reserved/removal scores, signing or submission occurred.
+
 **19:15 IST:** v19 late-JSON listed46/48 hides absent9/48 and thin-absent retention
 failure; rejected before export. V20 all-LoRA capacity comparison on the same64
 anchors/32-step recipe is in progress,head frozen. New96 repair-validation questions

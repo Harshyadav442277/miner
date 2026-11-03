@@ -1,0 +1,16 @@
+{
+  "pass": true,
+  "frozen_inputs_sha256": "d3bf41b298093ffb76ea1a1d42f364f5ead13bc1440da1b3dc71fab459e44ab4",
+  "source_fact_audit": "../hard-fact-replay-plan/independent-source-audit.json",
+  "training_queries": 128,
+  "listed": 64,
+  "absent": 64,
+  "balanced_update_groups": [
+    32,
+    32,
+    32,
+    32
+  ],
+  "development_disjoint_from_training_names_entities": true,
+  "scope": "Same v22 paired DEVELOPMENT cohort, no independent holdout claim"
+}

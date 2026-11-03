@@ -1,0 +1,22 @@
+19:53:07 INFO: tokenizer matches the node (88 vectors)
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+
+Loading weights:   0%|          | 0/136 [00:00<?, ?it/s]
+Loading weights:   4%|3         | 5/136 [00:00<00:03, 37.55it/s]
+Loading weights:  11%|#1        | 15/136 [00:00<00:01, 60.60it/s]
+Loading weights:  16%|#6        | 22/136 [00:00<00:02, 54.77it/s]
+Loading weights: 100%|##########| 136/136 [00:00<00:00, 329.99it/s]
+[transformers] ModernBertForSequenceClassification LOAD REPORT from: answerdotai/ModernBERT-base
+Key               | Status     | 
+------------------+------------+-
+decoder.bias      | UNEXPECTED | 
+classifier.weight | MISSING    | 
+classifier.bias   | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+19:53:08 INFO: answerdotai/ModernBERT-base | trainable 1,690,369 / 151,296,002 parameters
+C:\Users\hyada\tg-eval\.venv\Lib\site-packages\peft\utils\save_and_load.py:313: UserWarning: Could not find a config file in answerdotai/ModernBERT-base - will assume that the vocabulary was not modified.
+  warnings.warn(
+{"pass": false, "failures": ["thin_json/listed loss exceeds5pp", "json_early/listed below65%: 0.625", "json_early/alias below65%: 0.5416666666666666", "json_late/listed below65%: 0.625", "json_late/alias below65%: 0.5833333333333334", "prose_early/listed below65%: 0.625", "prose_early/alias below65%: 0.5416666666666666", "prose_late/alias below65%: 0.625", "heldout_prose/listed below65%: 0.5416666666666666", "heldout_prose/primary below65%: 0.5833333333333334", "heldout_prose/alias below65%: 0.5", "yes_no/listed below65%: 0.6041666666666666", "yes_no/alias below65%: 0.5"]}

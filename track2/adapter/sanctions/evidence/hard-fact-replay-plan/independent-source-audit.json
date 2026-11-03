@@ -1,0 +1,15 @@
+{
+  "pass": true,
+  "facts_sha256": "62d02b6089f73412f52c8851a798419aea0dbf7e7ba184a8d54c4f0f26c53def",
+  "source_queries_verified": 128,
+  "hard_source_failures": 64,
+  "correct_replay": 64,
+  "listed": 64,
+  "absent": 64,
+  "hard_primary": 16,
+  "hard_alias": 16,
+  "hard_absent": 32,
+  "max_thin_tokens": 149,
+  "ties_in_hard_subset": 0,
+  "scope": "Input preparation only, no model training, validation improvement or readiness claim. Canonical record fields are provenance, not automatically rendered truth cues."
+}

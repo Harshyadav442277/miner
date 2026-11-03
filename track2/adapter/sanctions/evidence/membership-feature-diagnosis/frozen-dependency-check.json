@@ -1,0 +1,125 @@
+{
+ "pass": true,
+ "checks": [
+  {
+   "version": 21,
+   "source": "probe_factual_margins.py",
+   "expected_sha256": "2cb6913e84905f7b593ff66ef1f164c690acfc31bea3f02b51dcfdee4c5b78c6",
+   "actual_sha256": "2cb6913e84905f7b593ff66ef1f164c690acfc31bea3f02b51dcfdee4c5b78c6",
+   "pass": true
+  },
+  {
+   "version": 21,
+   "source": "distill_source_representations.py",
+   "expected_sha256": "01669bb6b6e3ec7a942acac166bd79daa18f7b2c82c9e278eafc3676f225dc14",
+   "actual_sha256": "01669bb6b6e3ec7a942acac166bd79daa18f7b2c82c9e278eafc3676f225dc14",
+   "pass": true
+  },
+  {
+   "version": 21,
+   "source": "hf_reward_diagnostics.py",
+   "expected_sha256": "a36a0e095ff9d83fecb830b7b0816ae94579342acf4b7e05bb1a1166322aeba5",
+   "actual_sha256": "a36a0e095ff9d83fecb830b7b0816ae94579342acf4b7e05bb1a1166322aeba5",
+   "pass": true
+  },
+  {
+   "version": 22,
+   "source": "probe_joint_ranking.py",
+   "expected_sha256": "0db6ab3f1f00a36308d1fb2659e3534edaf1c21d7621bfec54ec71c75df883d8",
+   "actual_sha256": "0db6ab3f1f00a36308d1fb2659e3534edaf1c21d7621bfec54ec71c75df883d8",
+   "pass": true
+  },
+  {
+   "version": 22,
+   "source": "distill_source_representations.py",
+   "expected_sha256": "01669bb6b6e3ec7a942acac166bd79daa18f7b2c82c9e278eafc3676f225dc14",
+   "actual_sha256": "01669bb6b6e3ec7a942acac166bd79daa18f7b2c82c9e278eafc3676f225dc14",
+   "pass": true
+  },
+  {
+   "version": 22,
+   "source": "hf_reward_diagnostics.py",
+   "expected_sha256": "a36a0e095ff9d83fecb830b7b0816ae94579342acf4b7e05bb1a1166322aeba5",
+   "actual_sha256": "a36a0e095ff9d83fecb830b7b0816ae94579342acf4b7e05bb1a1166322aeba5",
+   "pass": true
+  },
+  {
+   "version": 25,
+   "source": "probe_hard_replay.py",
+   "expected_sha256": "1315a33611a415c40273c33acd7e0aee29fa7c9c72e9ad0f22358c0b7f3d73b2",
+   "actual_sha256": "1315a33611a415c40273c33acd7e0aee29fa7c9c72e9ad0f22358c0b7f3d73b2",
+   "pass": true
+  },
+  {
+   "version": 25,
+   "source": "distill_source_representations.py",
+   "expected_sha256": "01669bb6b6e3ec7a942acac166bd79daa18f7b2c82c9e278eafc3676f225dc14",
+   "actual_sha256": "01669bb6b6e3ec7a942acac166bd79daa18f7b2c82c9e278eafc3676f225dc14",
+   "pass": true
+  },
+  {
+   "version": 25,
+   "source": "hf_reward_diagnostics.py",
+   "expected_sha256": "a36a0e095ff9d83fecb830b7b0816ae94579342acf4b7e05bb1a1166322aeba5",
+   "actual_sha256": "a36a0e095ff9d83fecb830b7b0816ae94579342acf4b7e05bb1a1166322aeba5",
+   "pass": true
+  },
+  {
+   "version": 26,
+   "source": "probe_factual_roles.py",
+   "expected_sha256": "e6b2fe634774816758e98aeef248f7fe5d13dc02cd3b3eef9dce0a3e71425490",
+   "actual_sha256": "e6b2fe634774816758e98aeef248f7fe5d13dc02cd3b3eef9dce0a3e71425490",
+   "pass": true
+  },
+  {
+   "version": 26,
+   "source": "factual_role_annotations.py",
+   "expected_sha256": "d0bc6da7727399987031e038964f786ec5fb4803f3b996df89ea82e61643283a",
+   "actual_sha256": "d0bc6da7727399987031e038964f786ec5fb4803f3b996df89ea82e61643283a",
+   "pass": true
+  },
+  {
+   "version": 26,
+   "source": "distill_source_representations.py",
+   "expected_sha256": "01669bb6b6e3ec7a942acac166bd79daa18f7b2c82c9e278eafc3676f225dc14",
+   "actual_sha256": "01669bb6b6e3ec7a942acac166bd79daa18f7b2c82c9e278eafc3676f225dc14",
+   "pass": true
+  },
+  {
+   "version": 26,
+   "source": "hf_reward_diagnostics.py",
+   "expected_sha256": "a36a0e095ff9d83fecb830b7b0816ae94579342acf4b7e05bb1a1166322aeba5",
+   "actual_sha256": "a36a0e095ff9d83fecb830b7b0816ae94579342acf4b7e05bb1a1166322aeba5",
+   "pass": true
+  },
+  {
+   "version": 27,
+   "source": "probe_isolated_membership.py",
+   "expected_sha256": "29b4d7f6da974470d6b1e9c624ac0401507fd33e23323bd9655bc1f3dffb58a6",
+   "actual_sha256": "29b4d7f6da974470d6b1e9c624ac0401507fd33e23323bd9655bc1f3dffb58a6",
+   "pass": true
+  },
+  {
+   "version": 27,
+   "source": "factual_role_annotations.py",
+   "expected_sha256": "d0bc6da7727399987031e038964f786ec5fb4803f3b996df89ea82e61643283a",
+   "actual_sha256": "d0bc6da7727399987031e038964f786ec5fb4803f3b996df89ea82e61643283a",
+   "pass": true
+  },
+  {
+   "version": 27,
+   "source": "distill_source_representations.py",
+   "expected_sha256": "01669bb6b6e3ec7a942acac166bd79daa18f7b2c82c9e278eafc3676f225dc14",
+   "actual_sha256": "01669bb6b6e3ec7a942acac166bd79daa18f7b2c82c9e278eafc3676f225dc14",
+   "pass": true
+  },
+  {
+   "version": 27,
+   "source": "hf_reward_diagnostics.py",
+   "expected_sha256": "a36a0e095ff9d83fecb830b7b0816ae94579342acf4b7e05bb1a1166322aeba5",
+   "actual_sha256": "a36a0e095ff9d83fecb830b7b0816ae94579342acf4b7e05bb1a1166322aeba5",
+   "pass": true
+  }
+ ],
+ "scope": "Frozen dependency bytes in Git index"
+}

@@ -34,8 +34,10 @@ length. V15 fails its synthetic listed-class gate (58.5%), so was not exported.
 V16 is a bounded scope-negation repair diagnostic, not another full training run.
 V17 hard-anchor synthetic pass does not transfer:22/62 actual at256; exact-weight
 v18 context512 scores14/62. Both rejected. V19 andv20 fail late-JSON absence
-guards; v21 bounded direct-margin objective probe is running. No ready-to-sign
-values or full-corpus training run.
+guards; v21 throughv26 also fail factual/alias/retention guards. V26 auxiliary
+role recognition is strong but membership changes across answer formats for82/96
+queries. Frozen feature/readout diagnosis is ongoing, no deployable fix claimed.
+No ready-to-sign values or full-corpus training run.
 New removal collection gives11 strict pairs but0 balanced blocks; no model scores.
 Its positive reference facts are deliberately source-exposed, and the reserved
 69 genuine pairs remain one-sided. No new registration values are prepared.

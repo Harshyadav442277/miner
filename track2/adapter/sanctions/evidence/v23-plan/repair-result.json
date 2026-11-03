@@ -1,0 +1,20 @@
+{
+ "pass": false,
+ "failures": [
+  "thin_json/listed loss exceeds5pp",
+  "json_early/listed below65%: 0.625",
+  "json_early/alias below65%: 0.5416666666666666",
+  "json_late/listed below65%: 0.625",
+  "json_late/alias below65%: 0.5833333333333334",
+  "prose_early/listed below65%: 0.625",
+  "prose_early/alias below65%: 0.5416666666666666",
+  "prose_late/alias below65%: 0.625",
+  "heldout_prose/listed below65%: 0.5416666666666666",
+  "heldout_prose/primary below65%: 0.5833333333333334",
+  "heldout_prose/alias below65%: 0.5",
+  "yes_no/listed below65%: 0.6041666666666666",
+  "yes_no/alias below65%: 0.5"
+ ],
+ "checkpoint_sha256": "b86e5955ebf8be8ad876a3aee491320c980fb0473c33cd25d299ed967845412e",
+ "scope": "Paired DEVELOPMENT head-restoration diagnosis, no optimization or readiness claim"
+}

@@ -29,8 +29,11 @@ V17 hard-anchor repair passes fresh synthetic class gates but actual old62 is22/
 v18 exact-weight512 context transfer gives14/62. Both rejected. On the same old14
 questions, v17 gets12/14 thin JSON decisions right, yet wins only22/53 real pairs
 for those recognized names. Interpretation of actual answer representations remains
-weak. V19/v20 bounded distillation fail late-JSON absent guards; v21 tests a direct
-factual-margin objective before a full-corpus run. No candidate quality pass claimed.
+weak. V19 throughv26 bounded repairs fail individual factual/alias/retention
+guards. V26's training-only verdict-role head identifies1,533/1,536 primary tokens,
+but its membership predictions vary by answer format for82/96 queries. These
+correlated-token/view diagnostics are not evaluator accuracy. Frozen readout
+analysis is ongoing before any full-corpus run. No candidate quality pass claimed.
 Separately,320 new source-stable removal responses yield11 strict pairs across
 3 names but0 frozen source-role reversal blocks. These bodies have no model scores.
 
