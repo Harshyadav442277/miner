@@ -1,5 +1,14 @@
 # MEMORY.md — session continuity
 
+## 2026-11-03: required account and LiveCert wallet pinned
+
+- Owner: "for this repo - use only hyadav42774@gmail.com and the wallet which is connected with livecert only".
+- Fixed email: `hyadav42774@gmail.com`; fixed LiveCert wallet:
+  `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e` (already identified in the root and Track 1 READMEs).
+- [AGENTS.md](AGENTS.md) and [CLAUDE.md](CLAUDE.md) require identity verification before authenticated
+  actions and forbid fallback accounts, signers or payout wallets. This overrides older email guidance.
+- Account guidance and the signing runbook were aligned. No external account links or wallet state changed.
+
 ## 2026-11-01 ~20:30 UTC (Nov 2 02:00 IST): CURRENT — main merged; translation material ready to sign
 
 - **main merged** via PR #14 (owner: "merge it then"), `7e8c747`; branch and main in step. Deploys nothing.
@@ -413,7 +422,8 @@ branch is fast-forwarded and **not pushed**.
 ## Durable facts (true across sessions; re-verify protocol facts against live docs)
 
 **Identity.**
-- Hackathon signup: `harsh.2024a@vitstudent.ac.in`. X: `@hyadav42774`.
+- Required account: `hyadav42774@gmail.com` only (owner instruction, 2026-11-03; supersedes older signup
+  email guidance). X: `@hyadav42774`.
 - Miner, fee and Track 2 script wallet: `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e`. Wallet operations
   are the owner's: Claude drafts and validates, the owner signs.
 - Chain: Base Sepolia testnet, Diamond `0x5a2324aA18613FAD4e44bDF0d6c73Ec1f6D87ff8` (V2 docs, 2026-10-27).

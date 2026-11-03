@@ -47,6 +47,9 @@ commit.
 
 ## Claude
 
+- [x] Pin the owner's required account (`hyadav42774@gmail.com`) and LiveCert wallet in repository instructions;
+      remove conflicting email and alternate-payout guidance (owner instruction, 2026-11-03).
+
 - [x] Mission × intent matrix at build level, and fixtures for the 9 fully-served workflows (2026-10-31,
       `tools/mission-matrix.mjs`, `tools/mission-fixtures.mjs`): 3/9 pass on production.
 - [x] Fix G241, G242, G243 (2026-10-31): unit 866/866; every failing step passes on preview `miner-d881p4yiz`.

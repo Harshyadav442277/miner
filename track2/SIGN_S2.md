@@ -1,5 +1,9 @@
 # Season II Track 2: publish commands and sign list
 
+**Required identity (owner instruction, 2026-11-03):** account `hyadav42774@gmail.com` and LiveCert
+wallet `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e` only, including the signer and fee/payout address.
+Verify both before any authenticated action; no alternate identity is permitted. See [../AGENTS.md](../AGENTS.md).
+
 ## V2, 2026-10-31: register the CRYPTO_PRICE comparator — WITHDRAWN 18:40 UTC, do not run
 
 **Do not sign this.** Re-checked the same evening: FX_NOW_EUR is scored at epoch 1945 with every FX_NOW comparator
@@ -112,9 +116,8 @@ Prepared 2026-10-22. **Nothing in this file has been run.**
    At 2026-10-22 07:45 UTC it was still 404. Until it answers, any registration is judged by the Season I gate and
    rejected.
 2. **Row 1 only: the packaged adapter check has passed.** `verify_wide` must print `PASS`. See [GAPS.md](GAPS.md) G31.4.
-3. **The fee address is chosen.** It is where MACHINA earnings go, and it can be a cold wallet. The default below is
-   the Track 2 wallet `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e`. Replace it if you want a different payout
-   address.
+3. **The fee address is fixed.** MACHINA earnings must go to the LiveCert wallet
+   `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e`. Do not replace it with another payout address.
 
 ## 1. Publish
 

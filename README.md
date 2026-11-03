@@ -1,6 +1,8 @@
 # LiveCert — Telegraph Hackathon Season II
 
 A Telegraph miner and its evaluators, from wallet `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e`.
+Required account: `hyadav42774@gmail.com`. Only this account and the LiveCert wallet above may
+be used for this repo; see [AGENTS.md](AGENTS.md).
 Season II (H2) runs Nov 1 00:00 UTC – Dec 1 23:59 UTC 2026, on the Ethereum Sepolia testnet (V2). Rules, read
 2026-10-29: [RULES_SEASON2.md](RULES_SEASON2.md). Protocol docs: <https://anjoman.ai/docs>.
 
