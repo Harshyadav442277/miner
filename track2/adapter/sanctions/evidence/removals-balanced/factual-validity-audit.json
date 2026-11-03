@@ -1,0 +1,48 @@
+{
+ "pairs": 11,
+ "distinct_queries": 3,
+ "membership_counts": {
+  "False": 7,
+  "True": 4
+ },
+ "always_prefer_match_baseline": 0.36363636363636365,
+ "always_prefer_no_match_baseline": 0.6363636363636364,
+ "length_baseline": 0.9090909090909091,
+ "full_body_character_length_baseline_tie_aware": 0.9090909090909091,
+ "baseline_note": "Raw character length and full-response verdict preference are dataset diagnostics; they may use fields outside the scorer token window",
+ "runtime_visibility": {
+  "max_tokens": 256,
+  "texts": 22,
+  "texts_truncated": 13,
+  "visible_token_length_baseline_tie_aware": 0.7727272727272727,
+  "visible_length_tied_pairs": 3,
+  "decisive_verdict_visibility": "not audited within truncated responses"
+ },
+ "source_roles": {
+  "302": {
+   "chosen": 1,
+   "rejected": 4
+  },
+  "78021": {
+   "rejected": 7,
+   "chosen": 1
+  },
+  "4433": {
+   "chosen": 3
+  },
+  "710637": {
+   "chosen": 3
+  },
+  "9002": {
+   "chosen": 3
+  }
+ },
+ "factual_readiness_supported": false,
+ "blocking_reasons": [
+  "full-body character length confounds the dataset",
+  "visible-token-length preference exceeds 65%",
+  "fewer than 30 distinct disagreement queries",
+  "decisive-claim visibility within the token budget is not fully audited"
+ ],
+ "scope": "observed exact-SDN decisions only; no fabricated errors or global clearance claims"
+}

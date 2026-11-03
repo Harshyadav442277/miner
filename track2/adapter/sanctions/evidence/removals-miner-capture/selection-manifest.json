@@ -1,0 +1,60 @@
+{
+ "seed": 1620261103,
+ "queries": 64,
+ "classes": {
+  "listed": 32,
+  "official_removed_exact_absent": 32
+ },
+ "eligible_removed_families": 48,
+ "excluded_consolidated_names": [
+  "abdul haniya ismail salah",
+  "abdullah al hassan hersi turki",
+  "ahmed aw mohamed",
+  "aktsionernoe obedinenie obshchestvo otkrytoe tekhnopromeksport vneshneekonomicheskoe",
+  "arzamassky company imeni joint plandina priborostroitelny stock zavod",
+  "atia hachim k",
+  "aweys dahir hassan",
+  "center oao repair ship zvezdochka",
+  "cis company consulting korus liability limited",
+  "company corporation engine joint stock united",
+  "company joint polema stock",
+  "company liability limited photonics special systems",
+  "company liability limited sovremennye tekhnologii",
+  "corporation korea tangun trading",
+  "csoft development",
+  "tasca",
+  "ustinov vasilyevich vladimir"
+ ],
+ "excluded_new_data_dirs": [
+  "sanctions_v6_pilot_r1",
+  "sanctions_v7_binding",
+  "sanctions_v8_hard_binding_r2",
+  "sanctions_v10_alias_schema",
+  "sanctions_v15_representations"
+ ],
+ "notices": [
+  {
+   "url": "https://ofac.treasury.gov/recent-actions/20260727",
+   "status": 200,
+   "sha256": "9857653b6dc27960c19eb585ad6f93142c267e279bae88d3aae39d7404fe1346",
+   "started_at": "2026-11-02T19:48:27.864853+00:00",
+   "finished_at": "2026-11-02T19:48:28.717797+00:00"
+  },
+  {
+   "url": "https://ofac.treasury.gov/recent-actions/20260903",
+   "status": 200,
+   "sha256": "68df5f789e1cc9c9e73d0787a8f2e5169fa6e31cead238bbb0d3b3de013960fc",
+   "started_at": "2026-11-02T19:48:29.285933+00:00",
+   "finished_at": "2026-11-02T19:48:29.651675+00:00"
+  },
+  {
+   "url": "https://ofac.treasury.gov/recent-actions/20260918",
+   "status": 200,
+   "sha256": "a90a59a76670732e9b1068e56d12d62e23c48b8bcc18267a6d8329de06cfb7d3",
+   "started_at": "2026-11-02T19:48:28.718796+00:00",
+   "finished_at": "2026-11-02T19:48:29.285933+00:00"
+  }
+ ],
+ "queries_sha256": "4be6c37f5d260afa2a38b3a74cb73063a0bf83eeb72bab319021f1f35d112c2c",
+ "scope": "Fresh answer bodies, not unseen public facts. Source-confirmed removals are not global/ownership clearance. No miner response or model score used in selection."
+}

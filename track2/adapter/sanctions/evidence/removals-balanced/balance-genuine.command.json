@@ -1,0 +1,12 @@
+{
+ "argv": [
+  "C:\\Users\\hyada\\tg-eval\\.venv\\Scripts\\python.exe",
+  "track2/adapter/sanctions/balance_genuine_removals.py",
+  "C:\\Users\\hyada\\.codex\\worktrees\\sanctions-benchmark-v7\\Telegraph\\track2\\adapter\\sanctions\\evidence\\removals-miner-capture",
+  "--tokenizer",
+  "C:\\Users\\hyada\\tg-eval\\foundation\\tokenizer.json",
+  "--out",
+  "C:\\Users\\hyada\\.codex\\worktrees\\sanctions-benchmark-v7\\Telegraph\\track2\\adapter\\sanctions\\evidence\\removals-balanced"
+ ],
+ "cwd": "C:\\Users\\hyada\\.codex\\worktrees\\sanctions-benchmark-v7\\Telegraph"
+}

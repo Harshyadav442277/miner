@@ -1,0 +1,253 @@
+{
+ "identity": {
+  "version": 13,
+  "tensors_verified": 178,
+  "checkpoint_sha256": "7d27363d75cc00e55d7638d7ab5bbdb6b5e6ade009e0102584b0c8a694a7de72"
+ },
+ "queries": [
+  {
+   "name": "ALSHIVAN LINE TRADING FZE",
+   "listed": true,
+   "source_form": "primary"
+  },
+  {
+   "name": "LIMITED LIABILITY COMPANY ZALA AERO",
+   "listed": true,
+   "source_form": "primary"
+  },
+  {
+   "name": "LIMITED LIABILITY COMPANY FEDOROVO MINERALZ",
+   "listed": true,
+   "source_form": "primary"
+  },
+  {
+   "name": "ZHEJIANG GFIR TECHNOLOGY AND INDUSTRIAL CO LTD",
+   "listed": true,
+   "source_form": "primary"
+  },
+  {
+   "name": "UMMC NONFERROUS METALS PROCESSING LIMITED LIABILITY COMPANY",
+   "listed": true,
+   "source_form": "primary"
+  },
+  {
+   "name": "ALFA-LIZING OOO",
+   "listed": true,
+   "source_form": "primary"
+  },
+  {
+   "name": "INFORMATION SYSTEMS IRAN",
+   "listed": true,
+   "source_form": "primary"
+  },
+  {
+   "name": "KOURF OOO",
+   "listed": true,
+   "source_form": "primary"
+  },
+  {
+   "name": "ISLAMIC REVOLUTION GUARDS CORPS RESISTANCE FORCE",
+   "listed": true,
+   "source_form": "alias"
+  },
+  {
+   "name": "THAI SOUTH SUDAN CRUSHER, AGGREGATES, AND BUILDING MATERIALS COMPANY",
+   "listed": true,
+   "source_form": "alias"
+  },
+  {
+   "name": "KVARTA VK OOO",
+   "listed": true,
+   "source_form": "alias"
+  },
+  {
+   "name": "BONUM KEPITAL OOO",
+   "listed": true,
+   "source_form": "alias"
+  },
+  {
+   "name": "STROYPROEKT",
+   "listed": true,
+   "source_form": "alias"
+  },
+  {
+   "name": "OBSHCHESTVO S OGRANICHENNOI OTVETSTVENNOSTYU TAIMYRNEFTEGAZ-PORT",
+   "listed": true,
+   "source_form": "alias"
+  },
+  {
+   "name": "MEDIASINTEZ LLC",
+   "listed": true,
+   "source_form": "alias"
+  },
+  {
+   "name": "RIHS-BANGLADESH",
+   "listed": true,
+   "source_form": "alias"
+  },
+  {
+   "name": "SHIVAY IMPEX",
+   "listed": false,
+   "source_form": "absent"
+  },
+  {
+   "name": "GHV STAR MINI DEVELOPERS",
+   "listed": false,
+   "source_form": "absent"
+  },
+  {
+   "name": "OM SAI TRADERS",
+   "listed": false,
+   "source_form": "absent"
+  },
+  {
+   "name": "THYLE IMMO",
+   "listed": false,
+   "source_form": "absent"
+  },
+  {
+   "name": "GURU NANAK CASTING WORKS",
+   "listed": false,
+   "source_form": "absent"
+  },
+  {
+   "name": "ESCANDIC ATLANTIC S.L.",
+   "listed": false,
+   "source_form": "absent"
+  },
+  {
+   "name": "UNIVISION GLOBAL SOURCING PRIVATE LIMITED",
+   "listed": false,
+   "source_form": "absent"
+  },
+  {
+   "name": "GROSSGLOCKNER GMBH",
+   "listed": false,
+   "source_form": "absent"
+  },
+  {
+   "name": "SITARAM STONE CRUSHER",
+   "listed": false,
+   "source_form": "absent"
+  },
+  {
+   "name": "GREE LINDEWITT GMBH & CO. KG",
+   "listed": false,
+   "source_form": "absent"
+  },
+  {
+   "name": "GUJJAR LOKESHA MANJUNATHA",
+   "listed": false,
+   "source_form": "absent"
+  },
+  {
+   "name": "SUNDYNAMO RENEWABLE PROJECTS PRIVATE LIMITED",
+   "listed": false,
+   "source_form": "absent"
+  },
+  {
+   "name": "DEVI ENTERPRISES",
+   "listed": false,
+   "source_form": "absent"
+  },
+  {
+   "name": "HERMANN SEWERIN EGBR",
+   "listed": false,
+   "source_form": "absent"
+  },
+  {
+   "name": "MAV CONSTRUCT",
+   "listed": false,
+   "source_form": "absent"
+  },
+  {
+   "name": "OPULENCE CONVENTION CENTRE PRIVATE LIMITED",
+   "listed": false,
+   "source_form": "absent"
+  }
+ ],
+ "results": {
+  "upper/none/False": {
+   "True": {
+    "queries": 16,
+    "correct": 15
+   },
+   "False": {
+    "queries": 16,
+    "correct": 16
+   }
+  },
+  "upper/not/False": {
+   "True": {
+    "queries": 16,
+    "correct": 9
+   },
+   "False": {
+    "queries": 16,
+    "correct": 16
+   }
+  },
+  "upper/affirmative/False": {
+   "True": {
+    "queries": 16,
+    "correct": 14
+   },
+   "False": {
+    "queries": 16,
+    "correct": 16
+   }
+  },
+  "lower/none/False": {
+   "True": {
+    "queries": 16,
+    "correct": 16
+   },
+   "False": {
+    "queries": 16,
+    "correct": 16
+   }
+  },
+  "lower/not/False": {
+   "True": {
+    "queries": 16,
+    "correct": 11
+   },
+   "False": {
+    "queries": 16,
+    "correct": 16
+   }
+  },
+  "lower/affirmative/False": {
+   "True": {
+    "queries": 16,
+    "correct": 15
+   },
+   "False": {
+    "queries": 16,
+    "correct": 16
+   }
+  },
+  "upper/none/True": {
+   "True": {
+    "queries": 16,
+    "correct": 14
+   },
+   "False": {
+    "queries": 16,
+    "correct": 16
+   }
+  },
+  "lower/none/True": {
+   "True": {
+    "queries": 16,
+    "correct": 14
+   },
+   "False": {
+    "queries": 16,
+    "correct": 14
+   }
+  }
+ },
+ "singleton_batch_max_abs_difference": 5.9604644775390625e-06,
+ "scope": "HF paired wording ablation conditional on correct thin-format facts; same names, no truncation or training"
+}

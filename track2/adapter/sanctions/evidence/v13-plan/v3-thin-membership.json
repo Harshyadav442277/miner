@@ -1,0 +1,21 @@
+{
+ "version": 3,
+ "precision": "HF float32, singleton inputs, pinned tokenizer256",
+ "input_sha256": "810cb5daeb0728eb65d7e635653596a7acc887fcceb1561d8b6e2c7f917fd93f",
+ "pairs": 128,
+ "correct": 74,
+ "accuracy": 0.578125,
+ "by_membership": {
+  "True": {
+   "pairs": 64,
+   "correct": 63,
+   "accuracy": 0.984375
+  },
+  "False": {
+   "pairs": 64,
+   "correct": 11,
+   "accuracy": 0.171875
+  }
+ },
+ "scope": "Synthetic diagnostic only. Positive facts are present in v13 training; v3 has partial inherited exposure. Negative identities split from v13 training. Not actual-node or external-answer accuracy."
+}

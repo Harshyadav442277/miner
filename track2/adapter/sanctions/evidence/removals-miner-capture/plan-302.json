@@ -1,0 +1,13 @@
+{
+ "base_url": "https://hub.shadrakbessanh.me",
+ "path": "/sanctions",
+ "method": "POST",
+ "parameters": [
+  "query"
+ ],
+ "queryable": true,
+ "required": [
+  "query"
+ ],
+ "min_interval_seconds": 1.0
+}

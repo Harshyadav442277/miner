@@ -1,0 +1,428 @@
+{
+ "3": {
+  "thin_json": {
+   "primary": {
+    "queries": 32,
+    "correct": 32
+   },
+   "alias": {
+    "queries": 32,
+    "correct": 31
+   },
+   "absent": {
+    "queries": 64,
+    "correct": 5
+   },
+   "margin_vs_thin": {
+    "pearson": 1.0,
+    "slope": 0.9999999999999997,
+    "intercept": -2.624941514943698e-16,
+    "thin_correct_but_form_wrong": 0
+   }
+  },
+  "training_prose": {
+   "primary": {
+    "queries": 32,
+    "correct": 32
+   },
+   "alias": {
+    "queries": 32,
+    "correct": 32
+   },
+   "absent": {
+    "queries": 64,
+    "correct": 0
+   },
+   "margin_vs_thin": {
+    "pearson": 0.8932530556064121,
+    "slope": 0.5725652145454877,
+    "intercept": 2.9595083328469154,
+    "thin_correct_but_form_wrong": 5
+   }
+  },
+  "heldout_prose": {
+   "primary": {
+    "queries": 32,
+    "correct": 17
+   },
+   "alias": {
+    "queries": 32,
+    "correct": 7
+   },
+   "absent": {
+    "queries": 64,
+    "correct": 47
+   },
+   "margin_vs_thin": {
+    "pearson": 0.8628360486110102,
+    "slope": 0.9194058453639529,
+    "intercept": -6.7384760261327825,
+    "thin_correct_but_form_wrong": 39
+   }
+  },
+  "enum_json": {
+   "primary": {
+    "queries": 32,
+    "correct": 32
+   },
+   "alias": {
+    "queries": 32,
+    "correct": 32
+   },
+   "absent": {
+    "queries": 64,
+    "correct": 0
+   },
+   "margin_vs_thin": {
+    "pearson": 0.7705014223911116,
+    "slope": 0.6514208674749662,
+    "intercept": 4.205129512246545,
+    "thin_correct_but_form_wrong": 5
+   }
+  },
+  "numeric_json": {
+   "primary": {
+    "queries": 32,
+    "correct": 32
+   },
+   "alias": {
+    "queries": 32,
+    "correct": 31
+   },
+   "absent": {
+    "queries": 64,
+    "correct": 3
+   },
+   "margin_vs_thin": {
+    "pearson": 0.9216214881990263,
+    "slope": 0.7798280913753441,
+    "intercept": 1.323256118642236,
+    "thin_correct_but_form_wrong": 4
+   }
+  },
+  "explicit_negation": {
+   "primary": {
+    "queries": 32,
+    "correct": 32
+   },
+   "alias": {
+    "queries": 32,
+    "correct": 30
+   },
+   "absent": {
+    "queries": 64,
+    "correct": 7
+   },
+   "margin_vs_thin": {
+    "pearson": 0.8058029717803863,
+    "slope": 0.5995404944323481,
+    "intercept": 1.583142564967836,
+    "thin_correct_but_form_wrong": 6
+   }
+  },
+  "yes_no": {
+   "primary": {
+    "queries": 32,
+    "correct": 32
+   },
+   "alias": {
+    "queries": 32,
+    "correct": 28
+   },
+   "absent": {
+    "queries": 64,
+    "correct": 11
+   },
+   "margin_vs_thin": {
+    "pearson": 0.8990528806414737,
+    "slope": 0.7118389546006159,
+    "intercept": -0.3375134461387102,
+    "thin_correct_but_form_wrong": 4
+   }
+  }
+ },
+ "13": {
+  "thin_json": {
+   "primary": {
+    "queries": 32,
+    "correct": 30
+   },
+   "alias": {
+    "queries": 32,
+    "correct": 24
+   },
+   "absent": {
+    "queries": 64,
+    "correct": 56
+   },
+   "margin_vs_thin": {
+    "pearson": 1.0,
+    "slope": 1.0000000000000004,
+    "intercept": 3.2284724061558737e-16,
+    "thin_correct_but_form_wrong": 0
+   }
+  },
+  "training_prose": {
+   "primary": {
+    "queries": 32,
+    "correct": 30
+   },
+   "alias": {
+    "queries": 32,
+    "correct": 24
+   },
+   "absent": {
+    "queries": 64,
+    "correct": 56
+   },
+   "margin_vs_thin": {
+    "pearson": 0.9843953228227736,
+    "slope": 0.9352523100222797,
+    "intercept": -0.10915506310878988,
+    "thin_correct_but_form_wrong": 3
+   }
+  },
+  "heldout_prose": {
+   "primary": {
+    "queries": 32,
+    "correct": 23
+   },
+   "alias": {
+    "queries": 32,
+    "correct": 11
+   },
+   "absent": {
+    "queries": 64,
+    "correct": 63
+   },
+   "margin_vs_thin": {
+    "pearson": 0.948041775873405,
+    "slope": 0.6520286933242723,
+    "intercept": -1.2341725696500248,
+    "thin_correct_but_form_wrong": 20
+   }
+  },
+  "enum_json": {
+   "primary": {
+    "queries": 32,
+    "correct": 30
+   },
+   "alias": {
+    "queries": 32,
+    "correct": 25
+   },
+   "absent": {
+    "queries": 64,
+    "correct": 56
+   },
+   "margin_vs_thin": {
+    "pearson": 0.9964244216303542,
+    "slope": 1.0250285584585817,
+    "intercept": -0.11642504225715296,
+    "thin_correct_but_form_wrong": 0
+   }
+  },
+  "numeric_json": {
+   "primary": {
+    "queries": 32,
+    "correct": 30
+   },
+   "alias": {
+    "queries": 32,
+    "correct": 24
+   },
+   "absent": {
+    "queries": 64,
+    "correct": 56
+   },
+   "margin_vs_thin": {
+    "pearson": 0.9946226203111777,
+    "slope": 1.0562537268892311,
+    "intercept": -0.09498239195242571,
+    "thin_correct_but_form_wrong": 0
+   }
+  },
+  "explicit_negation": {
+   "primary": {
+    "queries": 32,
+    "correct": 30
+   },
+   "alias": {
+    "queries": 32,
+    "correct": 24
+   },
+   "absent": {
+    "queries": 64,
+    "correct": 57
+   },
+   "margin_vs_thin": {
+    "pearson": 0.9757827430512094,
+    "slope": 0.9032891068329844,
+    "intercept": -0.1141316139956124,
+    "thin_correct_but_form_wrong": 2
+   }
+  },
+  "yes_no": {
+   "primary": {
+    "queries": 32,
+    "correct": 30
+   },
+   "alias": {
+    "queries": 32,
+    "correct": 20
+   },
+   "absent": {
+    "queries": 64,
+    "correct": 58
+   },
+   "margin_vs_thin": {
+    "pearson": 0.9718157554243233,
+    "slope": 0.9474983949840124,
+    "intercept": -0.604427912622675,
+    "thin_correct_but_form_wrong": 4
+   }
+  }
+ },
+ "15": {
+  "thin_json": {
+   "primary": {
+    "queries": 32,
+    "correct": 28
+   },
+   "alias": {
+    "queries": 32,
+    "correct": 24
+   },
+   "absent": {
+    "queries": 64,
+    "correct": 27
+   },
+   "margin_vs_thin": {
+    "pearson": 1.0,
+    "slope": 0.9999999999999996,
+    "intercept": 4.292763191792617e-16,
+    "thin_correct_but_form_wrong": 0
+   }
+  },
+  "training_prose": {
+   "primary": {
+    "queries": 32,
+    "correct": 27
+   },
+   "alias": {
+    "queries": 32,
+    "correct": 22
+   },
+   "absent": {
+    "queries": 64,
+    "correct": 25
+   },
+   "margin_vs_thin": {
+    "pearson": 0.9017538944516202,
+    "slope": 0.646406942939308,
+    "intercept": -0.024864935302189778,
+    "thin_correct_but_form_wrong": 9
+   }
+  },
+  "heldout_prose": {
+   "primary": {
+    "queries": 32,
+    "correct": 0
+   },
+   "alias": {
+    "queries": 32,
+    "correct": 3
+   },
+   "absent": {
+    "queries": 64,
+    "correct": 63
+   },
+   "margin_vs_thin": {
+    "pearson": 0.4889071355394541,
+    "slope": 0.36685009823086595,
+    "intercept": -3.3315317866833025,
+    "thin_correct_but_form_wrong": 49
+   }
+  },
+  "enum_json": {
+   "primary": {
+    "queries": 32,
+    "correct": 31
+   },
+   "alias": {
+    "queries": 32,
+    "correct": 29
+   },
+   "absent": {
+    "queries": 64,
+    "correct": 10
+   },
+   "margin_vs_thin": {
+    "pearson": 0.9468550089710978,
+    "slope": 1.029213093576883,
+    "intercept": 0.49309048410052636,
+    "thin_correct_but_form_wrong": 17
+   }
+  },
+  "numeric_json": {
+   "primary": {
+    "queries": 32,
+    "correct": 22
+   },
+   "alias": {
+    "queries": 32,
+    "correct": 13
+   },
+   "absent": {
+    "queries": 64,
+    "correct": 44
+   },
+   "margin_vs_thin": {
+    "pearson": 0.9640862507829692,
+    "slope": 0.9517492729183706,
+    "intercept": -0.7348799288378894,
+    "thin_correct_but_form_wrong": 17
+   }
+  },
+  "explicit_negation": {
+   "primary": {
+    "queries": 32,
+    "correct": 24
+   },
+   "alias": {
+    "queries": 32,
+    "correct": 15
+   },
+   "absent": {
+    "queries": 64,
+    "correct": 38
+   },
+   "margin_vs_thin": {
+    "pearson": 0.9270508912279869,
+    "slope": 0.8527572880926177,
+    "intercept": -0.3306439464047405,
+    "thin_correct_but_form_wrong": 16
+   }
+  },
+  "yes_no": {
+   "primary": {
+    "queries": 32,
+    "correct": 14
+   },
+   "alias": {
+    "queries": 32,
+    "correct": 12
+   },
+   "absent": {
+    "queries": 64,
+    "correct": 39
+   },
+   "margin_vs_thin": {
+    "pearson": 0.7340200615982455,
+    "slope": 0.5093056262752594,
+    "intercept": -0.6793677507305194,
+    "thin_correct_but_form_wrong": 26
+   }
+  }
+ }
+}

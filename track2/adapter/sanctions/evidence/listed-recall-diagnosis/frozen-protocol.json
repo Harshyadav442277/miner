@@ -1,0 +1,787 @@
+{
+ "seed": 1820261103,
+ "queries": [
+  {
+   "name": "ALSHIVAN LINE TRADING FZE",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen ALSHIVAN LINE TRADING FZE against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "LIMITED LIABILITY COMPANY ZALA AERO",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen LIMITED LIABILITY COMPANY ZALA AERO against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "LIMITED LIABILITY COMPANY FEDOROVO MINERALZ",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen LIMITED LIABILITY COMPANY FEDOROVO MINERALZ against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "ZHEJIANG GFIR TECHNOLOGY AND INDUSTRIAL CO LTD",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen ZHEJIANG GFIR TECHNOLOGY AND INDUSTRIAL CO LTD against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "UMMC NONFERROUS METALS PROCESSING LIMITED LIABILITY COMPANY",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen UMMC NONFERROUS METALS PROCESSING LIMITED LIABILITY COMPANY against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "ALFA-LIZING OOO",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen ALFA-LIZING OOO against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "INFORMATION SYSTEMS IRAN",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen INFORMATION SYSTEMS IRAN against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "KOURF OOO",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen KOURF OOO against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "PETROCHEMICAL COMMERCIAL COMPANY (U.K.) LIMITED",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen PETROCHEMICAL COMMERCIAL COMPANY (U.K.) LIMITED against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "SUZAN GENERAL TRADING PVT LTD",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen SUZAN GENERAL TRADING PVT LTD against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "XINJIANG PRODUCTION AND CONSTRUCTION CORPS",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen XINJIANG PRODUCTION AND CONSTRUCTION CORPS against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "LIMITED LIABILITY COMPANY NSKH AZIYA DRILLING",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen LIMITED LIABILITY COMPANY NSKH AZIYA DRILLING against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "IBEX SHIPPING INC",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen IBEX SHIPPING INC against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "KINOATIS LLC",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen KINOATIS LLC against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "JOINT STOCK COMMERCIAL BANK SLAVIA JOINT STOCK COMPANY",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen JOINT STOCK COMMERCIAL BANK SLAVIA JOINT STOCK COMPANY against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "SHENYANG GEUMPUNGRI NETWORK TECHNOLOGY CO., LTD",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen SHENYANG GEUMPUNGRI NETWORK TECHNOLOGY CO., LTD against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "IRAN SPACE RESEARCH CENTER",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen IRAN SPACE RESEARCH CENTER against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "LIMITED LIABILITY CORPORATION TRADING HOUSE EPK",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen LIMITED LIABILITY CORPORATION TRADING HOUSE EPK against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "NAUCHNO ISSLEDOVATELSKAYA LABORATORIYA AEROKOSMICHESKOI TEKHNIKI DOSAAF",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen NAUCHNO ISSLEDOVATELSKAYA LABORATORIYA AEROKOSMICHESKOI TEKHNIKI DOSAAF against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "PUBLIC JOINT STOCK COMPANY CHELYABINSK FORGE AND PRESS PLANT",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen PUBLIC JOINT STOCK COMPANY CHELYABINSK FORGE AND PRESS PLANT against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "AL KAWTHAR",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen AL KAWTHAR against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "AVIEK LIMITED LIABILITY COMPANY",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen AVIEK LIMITED LIABILITY COMPANY against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "PERSIAN GULF APADANA PETROCHEMICAL COMPANY",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen PERSIAN GULF APADANA PETROCHEMICAL COMPANY against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "HUNTSMAN INVESTMENTS PTE. LTD.",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen HUNTSMAN INVESTMENTS PTE. LTD. against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "VTB FACTORING LTD",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen VTB FACTORING LTD against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "DALIAN GOLDEN SUN IMPORT AND EXPORT CO., LTD.",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen DALIAN GOLDEN SUN IMPORT AND EXPORT CO., LTD. against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "INMOBILIARIA TIJUANA COSTA S.A. DE C.V.",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen INMOBILIARIA TIJUANA COSTA S.A. DE C.V. against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "FANAVARI ELECTRO MOJ MOBIN COMPANY",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen FANAVARI ELECTRO MOJ MOBIN COMPANY against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "YASON GENERAL MACHINERY CO., LTD.",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen YASON GENERAL MACHINERY CO., LTD. against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "EUROPEAN BEARING CORPORATION",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen EUROPEAN BEARING CORPORATION against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "KOMOTKO",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen KOMOTKO against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "HAMOON SEPAHAN COMMERCIAL TRADING",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen HAMOON SEPAHAN COMMERCIAL TRADING against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "ISLAMIC REVOLUTION GUARDS CORPS RESISTANCE FORCE",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen ISLAMIC REVOLUTION GUARDS CORPS RESISTANCE FORCE against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "THAI SOUTH SUDAN CRUSHER, AGGREGATES, AND BUILDING MATERIALS COMPANY",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen THAI SOUTH SUDAN CRUSHER, AGGREGATES, AND BUILDING MATERIALS COMPANY against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "KVARTA VK OOO",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen KVARTA VK OOO against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "BONUM KEPITAL OOO",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen BONUM KEPITAL OOO against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "BETTERI SERVIS",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen BETTERI SERVIS against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "STROYPROEKT",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen STROYPROEKT against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "OBSHCHESTVO S OGRANICHENNOI OTVETSTVENNOSTYU TAIMYRNEFTEGAZ-PORT",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen OBSHCHESTVO S OGRANICHENNOI OTVETSTVENNOSTYU TAIMYRNEFTEGAZ-PORT against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "MEDIASINTEZ LLC",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen MEDIASINTEZ LLC against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "RIHS-BANGLADESH",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen RIHS-BANGLADESH against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "ELECTRONIC KATRANGI GROUP",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen ELECTRONIC KATRANGI GROUP against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "NPP PLANT ISKRA",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen NPP PLANT ISKRA against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "DANESHGAH-E SANA'TI-YE MALEK-E ASHTAR",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen DANESHGAH-E SANA'TI-YE MALEK-E ASHTAR against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "EL VIEJO LUIS",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen EL VIEJO LUIS against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "ORBIT PETROCHEMICALS LLC",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen ORBIT PETROCHEMICALS LLC against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "AO NPP RADIY",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen AO NPP RADIY against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "HAFEZ-E DARYAY-E ARIA SHIPPING LINES",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen HAFEZ-E DARYAY-E ARIA SHIPPING LINES against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "IK VELES KAPITAL OOO",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen IK VELES KAPITAL OOO against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "ENERGY GOSTAR SINA COMPANY",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen ENERGY GOSTAR SINA COMPANY against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "ROSSIJA 1",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen ROSSIJA 1 against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "JOINT STOCK COMPANY DIULBER SANATORIUM",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen JOINT STOCK COMPANY DIULBER SANATORIUM against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "AMT-SPETSAVIA",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen AMT-SPETSAVIA against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "SOCIETE GENERALE DES PAINS",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen SOCIETE GENERALE DES PAINS against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "ERVIN DANESH",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen ERVIN DANESH against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "ZAVOLZHSKY TRACKED TRACTOR PLANT",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen ZAVOLZHSKY TRACKED TRACTOR PLANT against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "AUM SUPREME TRUTH",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen AUM SUPREME TRUTH against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "ANSAR FINANCE AND CREDIT FUND",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen ANSAR FINANCE AND CREDIT FUND against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "DV INK LLC",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen DV INK LLC against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "ZEYNABIYUN BRIGADE",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen ZEYNABIYUN BRIGADE against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "BALTIC SHIPYARD",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen BALTIC SHIPYARD against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "SBERBANK INVESTMENTS OOO",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen SBERBANK INVESTMENTS OOO against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "RANA INSTITUTE",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen RANA INSTITUTE against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "IRAQ ENERGY INTERNATIONAL FOR IMPORTING AND SELLING OIL PRODUCTS COMPANY LTD",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen IRAQ ENERGY INTERNATIONAL FOR IMPORTING AND SELLING OIL PRODUCTS COMPANY LTD against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "SHIVAY IMPEX",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen SHIVAY IMPEX against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "GHV STAR MINI DEVELOPERS",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen GHV STAR MINI DEVELOPERS against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "FLASHTRONICS TECHNOLOGIES",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen FLASHTRONICS TECHNOLOGIES against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "OM SAI TRADERS",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen OM SAI TRADERS against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "THYLE IMMO",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen THYLE IMMO against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "GURU NANAK CASTING WORKS",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen GURU NANAK CASTING WORKS against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "ESCANDIC ATLANTIC S.L.",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen ESCANDIC ATLANTIC S.L. against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "UNIVISION GLOBAL SOURCING PRIVATE LIMITED",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen UNIVISION GLOBAL SOURCING PRIVATE LIMITED against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "SUPREME GUARDS SECURITY AND CONSULTANCY SERVICES LTD",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen SUPREME GUARDS SECURITY AND CONSULTANCY SERVICES LTD against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "GROSSGLOCKNER GMBH",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen GROSSGLOCKNER GMBH against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "SITARAM STONE CRUSHER",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen SITARAM STONE CRUSHER against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "GREE LINDEWITT GMBH & CO. KG",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen GREE LINDEWITT GMBH & CO. KG against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "GUJJAR LOKESHA MANJUNATHA",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen GUJJAR LOKESHA MANJUNATHA against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "SUNDYNAMO RENEWABLE PROJECTS PRIVATE LIMITED",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen SUNDYNAMO RENEWABLE PROJECTS PRIVATE LIMITED against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "DEVI ENTERPRISES",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen DEVI ENTERPRISES against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "HERMANN SEWERIN EGBR",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen HERMANN SEWERIN EGBR against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "MAV CONSTRUCT",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen MAV CONSTRUCT against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "OPULENCE CONVENTION CENTRE PRIVATE LIMITED",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen OPULENCE CONVENTION CENTRE PRIVATE LIMITED against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "VKG STRUCTURE & ARCH CONSULTANTS PRIVATE LIMITED",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen VKG STRUCTURE & ARCH CONSULTANTS PRIVATE LIMITED against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "NEELGUND DEVELOPERS LLP",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen NEELGUND DEVELOPERS LLP against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "FURE",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen FURE against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "VANGUARD FIDUCIARY TRUST COMPANY TARGET RETIREMENT LIFETIME INCOME TRUST 2075",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen VANGUARD FIDUCIARY TRUST COMPANY TARGET RETIREMENT LIFETIME INCOME TRUST 2075 against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "THOLDI B.V.",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen THOLDI B.V. against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "VRK LANDMARKS LLP",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen VRK LANDMARKS LLP against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "ENHANCESYS INNOVATIONS PRIVATE LIMITED",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen ENHANCESYS INNOVATIONS PRIVATE LIMITED against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "SWF REAL ESTATE B.V.",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen SWF REAL ESTATE B.V. against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "PUNKTMED GMBH",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen PUNKTMED GMBH against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "MIELKE VERWALTUNGS GMBH",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen MIELKE VERWALTUNGS GMBH against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "EURAZEO LOOP BIDCO APS",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen EURAZEO LOOP BIDCO APS against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "SINGH TRANSPORT GOODS CARRIER",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen SINGH TRANSPORT GOODS CARRIER against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "VEERABHADRA INDUSTRIES",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen VEERABHADRA INDUSTRIES against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "SC RESIDENCES MARTIN-CLEARY",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen SC RESIDENCES MARTIN-CLEARY against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "BENGTSSON FINANCE APS",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen BENGTSSON FINANCE APS against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "ALABAMA COURTAGE",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen ALABAMA COURTAGE against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "FARON CIEL",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen FARON CIEL against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "CAPITALTREE HEALTH CARE PRIVATE LIMITED",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen CAPITALTREE HEALTH CARE PRIVATE LIMITED against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "PERMIRA VIII AIV LP1 L.P.",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen PERMIRA VIII AIV LP1 L.P. against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "DEEKAY ASSOCIATES",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen DEEKAY ASSOCIATES against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "MINAL ASHITBHAI SHAH",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen MINAL ASHITBHAI SHAH against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "SPACECON",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen SPACECON against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "KAANHA COTT FAB PRIVATE LIMITED",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen KAANHA COTT FAB PRIVATE LIMITED against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "LANTHANUM CAPITAL MASTER FUND L.P.",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen LANTHANUM CAPITAL MASTER FUND L.P. against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "IDETECH EUROPE S.L.",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen IDETECH EUROPE S.L. against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "URANIA RENOVABLES SOCIEDAD LIMITADA",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen URANIA RENOVABLES SOCIEDAD LIMITADA against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "ANURADHA AGENCIES",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen ANURADHA AGENCIES against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "CIVF VII - GB2B01, LLC",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen CIVF VII - GB2B01, LLC against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "FEDERAZIONE ITALIANA METALMECCANICI",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen FEDERAZIONE ITALIANA METALMECCANICI against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "CRVRK VENTURES PRIVATE LIMITED",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen CRVRK VENTURES PRIVATE LIMITED against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "THE TRUSTEE FOR FLAG INDEX PLUS FUND VI",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen THE TRUSTEE FOR FLAG INDEX PLUS FUND VI against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "GLOBAL AGORA PROPERTIES, LLC",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen GLOBAL AGORA PROPERTIES, LLC against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "AGRIPIVOT VENTURES PRIVATE LIMITED",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen AGRIPIVOT VENTURES PRIVATE LIMITED against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "MEDITERRANEO S.R.L.",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen MEDITERRANEO S.R.L. against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "MANOJ KACHOLIYA",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen MANOJ KACHOLIYA against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "G.F.L. S.R.L.",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen G.F.L. S.R.L. against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "FIDEICOMISO INDUSTRIAL F-IV AM-A BM/5245",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen FIDEICOMISO INDUSTRIAL F-IV AM-A BM/5245 against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "MADANGANJ STONES",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen MADANGANJ STONES against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "ROUNAK LILADHAR KARIYA",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen ROUNAK LILADHAR KARIYA against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "ARGOO MIDRANGE INVENTIVE SOLUTIONS",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen ARGOO MIDRANGE INVENTIVE SOLUTIONS against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "KOLIBRIE ADVIES, BEHEER & ONDERHOUD B.V.",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen KOLIBRIE ADVIES, BEHEER & ONDERHOUD B.V. against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "ABDELJELIK CAPITAL CORP",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen ABDELJELIK CAPITAL CORP against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "V P BEDEKAR AND SONS PRIVATE LIMITED",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen V P BEDEKAR AND SONS PRIVATE LIMITED against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "MAD S.R.L. MARCO ART. DESIGNER",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen MAD S.R.L. MARCO ART. DESIGNER against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "ALICIA ZABALEGUI PROTESIS SLP",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen ALICIA ZABALEGUI PROTESIS SLP against the OFAC SDN list. Report name matches."
+  },
+  {
+   "name": "LA MARINA OLITE SL",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen LA MARINA OLITE SL against the OFAC SDN list. Report name matches."
+  }
+ ],
+ "formats": [
+  "thin_json",
+  "training_prose",
+  "heldout_prose",
+  "enum_json",
+  "numeric_json",
+  "explicit_negation",
+  "yes_no"
+ ],
+ "source_data_sha256": "135ba850ce58e2d5797795c292e9f2c8f1a2a5bd1476f6261581daee62fd9527",
+ "sdn_sha256": "5f240bed79d504e7a54788b4cd1c7f84e6afa56cd4778653b70b0771b6a8509d",
+ "alt_sha256": "b0e2811fbb49ba6e9941a497e6b05fa2c9037b45ae7923196a01e2363a402259",
+ "rendered_max_tokens": 117,
+ "scope": "Same questions across all forms; no text truncation, training or external-answer claim"
+}

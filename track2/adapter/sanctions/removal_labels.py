@@ -12,6 +12,9 @@ from removal_notices import deletion_records, organization_names
 def verify_proofs(capture, queries, index):
     stability = json.loads((capture / "source-stability.json").read_text(encoding="utf-8-sig"))
     assert stability["stable"] is True, "Source changed or was not rechecked after capture"
+    recorded = stability["response_files"]
+    assert {f.name for f in capture.glob("responses-*.json")} == set(recorded)
+    assert all(hashlib.sha256((capture / name).read_bytes()).hexdigest() == value for name, value in recorded.items())
     manifest = json.loads((capture / "selection-manifest.json").read_text(encoding="utf-8"))
     assert hashlib.sha256((capture / "queries.json").read_bytes()).hexdigest() == manifest["queries_sha256"]
     for q in queries:

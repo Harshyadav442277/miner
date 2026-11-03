@@ -1,0 +1,9 @@
+{
+ "argv": [
+  "C:\\Users\\hyada\\tg-eval\\.venv\\Scripts\\python.exe",
+  "track2/adapter/sanctions/label_miners.py",
+  "C:\\Users\\hyada\\.codex\\worktrees\\sanctions-benchmark-v7\\Telegraph\\track2\\adapter\\sanctions\\evidence\\removals-miner-capture",
+  "--exact-removals"
+ ],
+ "cwd": "C:\\Users\\hyada\\.codex\\worktrees\\sanctions-benchmark-v7\\Telegraph"
+}

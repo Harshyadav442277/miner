@@ -8,6 +8,37 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 
 ---
 
+## 2026-11-03 IST: listed-recall mechanism, bounded repair below gate
+
+User requests listed-name diagnosis before another full run. Same128 complete
+questions isolate severe representation bias: v13 listed54/64 thin versus34/64
+qualified prose; v15 listed52/64 versus3/64. V13 primary30/32 versus alias24/32
+in thin JSON also shows incomplete factual recall. On32 thin-correct anchors,
+adding an unrelated negated identity clause drops listed15/16 to9/16 while absent
+stays16/16. See evidence/listed-recall-diagnosis; HF diagnostics only.
+One frozen32-step repair, v16 fromv13, only final-two-layer LoRA weights; source
+examples exclude diagnostic/external entities, no provider answers or wrappers.
+FACTUAL_V16.md defines strict both-class/retention gates. Result: listed prose
+34/64 to41/64, absent63/64 to60/64; thin54/64 and56/64 unchanged. Fails65% listed
+gate; no export/external score. Independent audit verifies162 frozen tensors.
+No full run or submission. Training-anchor coverage diagnosis is next.
+Removal capture complete320/320 and source stable;11 strict comparisons across
+3 names,7 absent/4 listed. Frozen reversal matching yields0 blocks; no model score.
+
+## 2026-11-03 IST: factual failures retained, historical collection state
+
+V13 full public-name ingestion: actual27/62 at256, rejected. V14 fixed v3 tensors
+at512:33/62 vs46/62 length, rejected. All62 machine claims become visible, which
+alone does not improve rankings. V15 context-matched representation training:
+synthetic70%, listed58.5% /absent75%; predeclared per-class gate fails. No v15
+export or external score. Old reserved69 still unscored; no registration readiness.
+Source-confirmed removal search freezes32 removed and32 current organizations
+from official notices/current CSVs before calls. Labels add only narrow literal
+membership predicates; all fuzzy/other-list protections and historical labels stay.
+DELISTING_BENCHMARK.md defines matching provider-role reversals before model scores.
+Four of five response files returned; final freshness/label checks pending.
+31 tests pass. No new-capture model scores, wallet or pool action. Preserve FX_NOW.
+
 ## 2026-11-02: factual experiments v9-v13
 
 Old62 genuine comparisons: v3 reference41, v8 31, v9 13, v10 20, v11 35,

@@ -172,3 +172,24 @@ Large training runs and model files live outside OneDrive, in `C:\Users\hyada\tg
   reach65% before export. Old real answers must exceed their512 length baseline
   (46/62), and binding regressions must retain their previous perfect scores,
   before reserved scoring. Preserve failures; no registration readiness inference.
+
+## A11 — Bounded listed-recall repair (2026-11-03 IST)
+
+- V15 fails its listed class gate. Before any further full training, use same-query
+  factorial diagnostics to distinguish source recall, verdict format and truncation.
+  These are HF diagnostics, not actual-node factual scores or calibration rules.
+- The v13 paired ablation isolates an unrelated negated identity qualification:
+  listed15/16 without it,9/16 with it; absent16/16 in both. Retain the separate
+  primary/alias knowledge weakness. Never compensate with inference score shifts.
+- Permit one bounded v16 repair from v13:64 source-training query groups,32 AdamW
+  steps,lr0.0001,only encoder LoRA layers20/21 trainable. Freeze base, classifier
+  and all other LoRA tensors; verify identity after saving. Max256,fp32,dropout off.
+- Use four generic equivalent answer forms per truth, full Cartesian pairwise loss,
+  within-truth consistency and thin-answer teacher retention. No captured answer
+  bodies, provider fingerprints, pool rows or diagnostic query entities in repair.
+  Freeze all inputs and recipe before optimization; no hyperparameter sweep.
+- Evaluate separate64 source-training query groups and the existing128-query
+  diagnostic. Require65% per class in every form and no more than5 percentage
+  points loss in thin-format class recall before any node/export check. Even a
+  pass only justifies a local repair claim; old factual/binding and genuine balanced
+  evidence gates still apply. Do not score the reserved69 or submit this trial.

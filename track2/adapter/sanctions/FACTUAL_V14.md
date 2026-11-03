@@ -27,3 +27,8 @@ readiness follows from these one-sided errors, and no pool rows are accessed.
 
 Serialize Stage1/node execution after the v13 pipeline finishes. No GPU training
 and foundation workers run together. Preserve hashes, commands and failures.
+
+Result: actual node **33/62 (53.23%)**, below the 46/62 (74.19%) visible-length
+reference. Rejected; all178 tensors match v3 exactly. More visible context alone
+did not improve this sample. The reserved69 capture was not scored.
+Post-Stage-1 SHA-256 `792d07d736e48afcaeac9c8c7aed5c418de4d510e1c8ca11452d2e6cba866170`.

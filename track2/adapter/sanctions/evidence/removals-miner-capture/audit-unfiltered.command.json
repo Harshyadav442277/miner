@@ -1,0 +1,10 @@
+{
+ "argv": [
+  "C:\\Users\\hyada\\tg-eval\\.venv\\Scripts\\python.exe",
+  "track2/adapter/sanctions/audit_factual_benchmark.py",
+  "C:\\Users\\hyada\\.codex\\worktrees\\sanctions-benchmark-v7\\Telegraph\\track2\\adapter\\sanctions\\evidence\\removals-miner-capture",
+  "--tokenizer",
+  "C:\\Users\\hyada\\tg-eval\\foundation\\tokenizer.json"
+ ],
+ "cwd": "C:\\Users\\hyada\\.codex\\worktrees\\sanctions-benchmark-v7\\Telegraph"
+}

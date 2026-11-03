@@ -21,7 +21,12 @@ V13 tests complete public SDN organization-name/alias knowledge with real GLEIF
 absences. Its positive reference facts deliberately overlap measured names; its
 results cannot be described as unseen-entity accuracy. Captured answer bodies
 remain measurement-only. Exact inputs and the parent checkpoint are public for
-reproduction; the in-progress method is `adapter/sanctions/FACTUAL_V13.md`.
+reproduction; its actual-node result27/62 fails. V14's unchanged v3 tensors at512
+score33/62 against46/62 length. V15 fails its synthetic listed-class gate (58.5%)
+and is not exported. Same-query diagnostics isolate response-format/scope-negation
+confusion; FACTUAL_V16.md freezes a bounded repair before any further full run.
+Separately,320 new source-stable removal responses yield11 strict pairs across
+3 names but0 frozen source-role reversal blocks. These bodies have no model scores.
 
 Telegraph uses an evaluator delta on a pinned shared ModernBERT foundation to order
 answers. Each answer is scored alone as `### Task:\n{prompt}\n\n### Answer:\n{answer}`;

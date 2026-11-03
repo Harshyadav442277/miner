@@ -1,0 +1,20 @@
+{
+ "seed": 1720261103,
+ "unfiltered_pairs": 11,
+ "eligible_visible_pairs": 9,
+ "blocks": 0,
+ "pairs": 0,
+ "distinct_names": 0,
+ "provider_roles": {},
+ "excluded": {
+  "machine claim not fully visible256": 2
+ },
+ "diagnostic_models": [
+  3,
+  8
+ ],
+ "minimum_blocks_for_scoring": 4,
+ "score_allowed": false,
+ "max_tokens": 256,
+ "scope": "Maximum-cardinality disjoint-name matching, no model scores used; unchanged response bodies"
+}

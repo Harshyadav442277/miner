@@ -37,3 +37,10 @@ pool rows are read. The reserved69 bodies remain unused until these fixed gates.
 Select only on synthetic validation loss. A genuine one-sided result still cannot
 establish broad factual validity or registration readiness. Preserve every failure
 and the original v3/v13/v14 packages. No wallet, pool upload or submission action.
+
+Result: synthetic test350/500 (70%). Factual listed117/200 (58.5%), absent150/200
+(75%). The overall kit gate passes, but the predeclared65% per-class gate fails.
+The pipeline stops before export or external scoring; no actual-node factual
+score or binding result is claimed for v15. The original reserved69 remains unscored.
+All4,000 source fixtures pass chosen-source and independent representation audits.
+This failure is preserved in `evidence/v15-plan/synthetic-class-gate.json`.

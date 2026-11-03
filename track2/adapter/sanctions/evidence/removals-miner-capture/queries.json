@@ -1,0 +1,1176 @@
+[
+ {
+  "name": "PERSIAN GULF APADANA PETROCHEMICAL COMPANY",
+  "expected": true,
+  "sdn_ids": [
+   "26842"
+  ],
+  "kind": "current_organization_primary",
+  "role": "final",
+  "program": "NPWMD] [IFSR",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=26842",
+  "prefix_tokens": 41
+ },
+ {
+  "name": "MAQUINARIA TECNICA Y TIERRAS LTDA.",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "official_removed_organization",
+  "role": "final",
+  "source_url": "https://ofac.treasury.gov/recent-actions/20260727",
+  "removed_reference": {
+   "primary": "MAQUINARIA TECNICA Y TIERRAS LTDA.",
+   "names": [
+    "MAQUINARIA TECNICA Y TIERRAS LTDA.",
+    "M.T.T. LTDA."
+   ],
+   "record": "MAQUINARIA TECNICA Y TIERRAS LTDA. (a.k.a. M.T.T. LTDA.), Carrera 4A No. 16-04, Cartago, Colombia; Carrera 42 No. 5B-81, Cali, Colombia; NIT # 800084233-1 (Colombia) [SDNT].",
+   "record_index": 28,
+   "notice_url": "https://ofac.treasury.gov/recent-actions/20260727",
+   "notice_date": "20260727",
+   "notice_body_sha256": "9857653b6dc27960c19eb585ad6f93142c267e279bae88d3aae39d7404fe1346",
+   "notice_capture": "notices/20260727.json"
+  },
+  "removed_family_names": [
+   "ltda m t t",
+   "ltda maquinaria tecnica tierras y"
+  ],
+  "prefix_tokens": 41
+ },
+ {
+  "name": "HYPEREL FZCO",
+  "expected": true,
+  "sdn_ids": [
+   "45745"
+  ],
+  "kind": "current_organization_primary",
+  "role": "final",
+  "program": "RUSSIA-EO14024",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=45745",
+  "prefix_tokens": 31
+ },
+ {
+  "name": "KEENCLOUD LIMITED",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "official_removed_organization",
+  "role": "final",
+  "source_url": "https://ofac.treasury.gov/recent-actions/20260727",
+  "removed_reference": {
+   "primary": "KEENCLOUD LIMITED",
+   "names": [
+    "KEENCLOUD LIMITED"
+   ],
+   "record": "KEENCLOUD LIMITED, 11 Catherine Place, Westminister, London, United Kingdom [IRAQ2].",
+   "record_index": 123,
+   "notice_url": "https://ofac.treasury.gov/recent-actions/20260727",
+   "notice_date": "20260727",
+   "notice_body_sha256": "9857653b6dc27960c19eb585ad6f93142c267e279bae88d3aae39d7404fe1346",
+   "notice_capture": "notices/20260727.json"
+  },
+  "removed_family_names": [
+   "keencloud limited"
+  ],
+  "prefix_tokens": 31
+ },
+ {
+  "name": "LLC ABZ BELYI RAST",
+  "expected": true,
+  "sdn_ids": [
+   "46034"
+  ],
+  "kind": "current_organization_primary",
+  "role": "final",
+  "program": "RUSSIA-EO14024",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=46034",
+  "prefix_tokens": 33
+ },
+ {
+  "name": "JARACO S.A.",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "official_removed_organization",
+  "role": "final",
+  "source_url": "https://ofac.treasury.gov/recent-actions/20260727",
+  "removed_reference": {
+   "primary": "JARACO S.A.",
+   "names": [
+    "JARACO S.A.",
+    "SOKTAR",
+    "TRADACO S.A."
+   ],
+   "record": "JARACO S.A. (a.k.a. SOKTAR; a.k.a. TRADACO S.A.), 45 Route de Frontenex, Geneva CH-1207, Switzerland [IRAQ2].",
+   "record_index": 120,
+   "notice_url": "https://ofac.treasury.gov/recent-actions/20260727",
+   "notice_date": "20260727",
+   "notice_body_sha256": "9857653b6dc27960c19eb585ad6f93142c267e279bae88d3aae39d7404fe1346",
+   "notice_capture": "notices/20260727.json"
+  },
+  "removed_family_names": [
+   "a jaraco s",
+   "a s tradaco",
+   "soktar"
+  ],
+  "prefix_tokens": 33
+ },
+ {
+  "name": "JOINT STOCK COMPANY BOR GLASSWORKS",
+  "expected": true,
+  "sdn_ids": [
+   "49466"
+  ],
+  "kind": "current_organization_primary",
+  "role": "final",
+  "program": "RUSSIA-EO14024",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=49466",
+  "prefix_tokens": 36
+ },
+ {
+  "name": "TRADING & MARITIME INVESTMENTS",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "official_removed_organization",
+  "role": "final",
+  "source_url": "https://ofac.treasury.gov/recent-actions/20260727",
+  "removed_reference": {
+   "primary": "TRADING & MARITIME INVESTMENTS",
+   "names": [
+    "TRADING & MARITIME INVESTMENTS",
+    "TRADING AND MARITIME INVESTMENTS"
+   ],
+   "record": "TRADING & MARITIME INVESTMENTS (a.k.a. TRADING AND MARITIME INVESTMENTS), San Lorenzo, Honduras [IRAQ2].",
+   "record_index": 134,
+   "notice_url": "https://ofac.treasury.gov/recent-actions/20260727",
+   "notice_date": "20260727",
+   "notice_body_sha256": "9857653b6dc27960c19eb585ad6f93142c267e279bae88d3aae39d7404fe1346",
+   "notice_capture": "notices/20260727.json"
+  },
+  "removed_family_names": [
+   "and investments maritime trading",
+   "investments maritime trading"
+  ],
+  "prefix_tokens": 36
+ },
+ {
+  "name": "DOLL EXPORT LTDA.",
+  "expected": true,
+  "sdn_ids": [
+   "11870"
+  ],
+  "kind": "current_organization_primary",
+  "role": "final",
+  "program": "SDNTK",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=11870",
+  "prefix_tokens": 32
+ },
+ {
+  "name": "U.I. INTERNATIONAL",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "official_removed_organization",
+  "role": "final",
+  "source_url": "https://ofac.treasury.gov/recent-actions/20260727",
+  "removed_reference": {
+   "primary": "U.I. INTERNATIONAL",
+   "names": [
+    "U.I. INTERNATIONAL"
+   ],
+   "record": "U.I. INTERNATIONAL, United Kingdom [IRAQ2].",
+   "record_index": 136,
+   "notice_url": "https://ofac.treasury.gov/recent-actions/20260727",
+   "notice_date": "20260727",
+   "notice_body_sha256": "9857653b6dc27960c19eb585ad6f93142c267e279bae88d3aae39d7404fe1346",
+   "notice_capture": "notices/20260727.json"
+  },
+  "removed_family_names": [
+   "i international u"
+  ],
+  "prefix_tokens": 32
+ },
+ {
+  "name": "LIMITED LIABILITY COMPANY TBS",
+  "expected": true,
+  "sdn_ids": [
+   "42981"
+  ],
+  "kind": "current_organization_primary",
+  "role": "final",
+  "program": "RUSSIA-EO14024",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=42981",
+  "prefix_tokens": 30
+ },
+ {
+  "name": "HIDRI TRUST",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "official_removed_organization",
+  "role": "final",
+  "source_url": "https://ofac.treasury.gov/recent-actions/20260918",
+  "removed_reference": {
+   "primary": "HIDRI TRUST",
+   "names": [
+    "HIDRI TRUST"
+   ],
+   "record": "HIDRI TRUST, Felket Street, Asmara, Eritrea; Organization Established Date 1994 [ETHIOPIA-EO14046].",
+   "record_index": 10,
+   "notice_url": "https://ofac.treasury.gov/recent-actions/20260918",
+   "notice_date": "20260918",
+   "notice_body_sha256": "a90a59a76670732e9b1068e56d12d62e23c48b8bcc18267a6d8329de06cfb7d3",
+   "notice_capture": "notices/20260918.json"
+  },
+  "removed_family_names": [
+   "hidri trust"
+  ],
+  "prefix_tokens": 30
+ },
+ {
+  "name": "NATWIN FOUNDATION",
+  "expected": true,
+  "sdn_ids": [
+   "49477"
+  ],
+  "kind": "current_organization_primary",
+  "role": "final",
+  "program": "RUSSIA-EO14024",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=49477",
+  "prefix_tokens": 30
+ },
+ {
+  "name": "RAJBROOK LIMITED",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "official_removed_organization",
+  "role": "final",
+  "source_url": "https://ofac.treasury.gov/recent-actions/20260727",
+  "removed_reference": {
+   "primary": "RAJBROOK LIMITED",
+   "names": [
+    "RAJBROOK LIMITED"
+   ],
+   "record": "RAJBROOK LIMITED, United Kingdom [IRAQ2].",
+   "record_index": 130,
+   "notice_url": "https://ofac.treasury.gov/recent-actions/20260727",
+   "notice_date": "20260727",
+   "notice_body_sha256": "9857653b6dc27960c19eb585ad6f93142c267e279bae88d3aae39d7404fe1346",
+   "notice_capture": "notices/20260727.json"
+  },
+  "removed_family_names": [
+   "limited rajbrook"
+  ],
+  "prefix_tokens": 30
+ },
+ {
+  "name": "M. D. S. IMPORT EXPORT CO., LTD.",
+  "expected": true,
+  "sdn_ids": [
+   "28044"
+  ],
+  "kind": "current_organization_primary",
+  "role": "final",
+  "program": "GLOMAG",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=28044",
+  "prefix_tokens": 40
+ },
+ {
+  "name": "ADVANCED ELECTRONICS DEVELOPMENT, LTD",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "official_removed_organization",
+  "role": "final",
+  "source_url": "https://ofac.treasury.gov/recent-actions/20260727",
+  "removed_reference": {
+   "primary": "ADVANCED ELECTRONICS DEVELOPMENT, LTD",
+   "names": [
+    "ADVANCED ELECTRONICS DEVELOPMENT, LTD"
+   ],
+   "record": "ADVANCED ELECTRONICS DEVELOPMENT, LTD, 3 Mandeville Place, London, United Kingdom [IRAQ2].",
+   "record_index": 100,
+   "notice_url": "https://ofac.treasury.gov/recent-actions/20260727",
+   "notice_date": "20260727",
+   "notice_body_sha256": "9857653b6dc27960c19eb585ad6f93142c267e279bae88d3aae39d7404fe1346",
+   "notice_capture": "notices/20260727.json"
+  },
+  "removed_family_names": [
+   "advanced development electronics ltd"
+  ],
+  "prefix_tokens": 40
+ },
+ {
+  "name": "JATRONICS SDN BHD",
+  "expected": true,
+  "sdn_ids": [
+   "48850"
+  ],
+  "kind": "current_organization_primary",
+  "role": "final",
+  "program": "RUSSIA-EO14024",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=48850",
+  "prefix_tokens": 33
+ },
+ {
+  "name": "ATLAS EQUIPMENT COMPANY LIMITED",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "official_removed_organization",
+  "role": "final",
+  "source_url": "https://ofac.treasury.gov/recent-actions/20260727",
+  "removed_reference": {
+   "primary": "ATLAS EQUIPMENT COMPANY LIMITED",
+   "names": [
+    "ATLAS EQUIPMENT COMPANY LIMITED"
+   ],
+   "record": "ATLAS EQUIPMENT COMPANY LIMITED, 55 Roebuck House, Palace Street, London, United Kingdom [IRAQ2].",
+   "record_index": 108,
+   "notice_url": "https://ofac.treasury.gov/recent-actions/20260727",
+   "notice_date": "20260727",
+   "notice_body_sha256": "9857653b6dc27960c19eb585ad6f93142c267e279bae88d3aae39d7404fe1346",
+   "notice_capture": "notices/20260727.json"
+  },
+  "removed_family_names": [
+   "atlas company equipment limited"
+  ],
+  "prefix_tokens": 33
+ },
+ {
+  "name": "AKTSIONERNOE OBSHCHESTVO AVIA FED SERVICE",
+  "expected": true,
+  "sdn_ids": [
+   "47608"
+  ],
+  "kind": "current_organization_primary",
+  "role": "final",
+  "program": "RUSSIA-EO14024",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=47608",
+  "prefix_tokens": 42
+ },
+ {
+  "name": "COMPANIA AGROINVERSORA HENAGRO LTDA.",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "official_removed_organization",
+  "role": "final",
+  "source_url": "https://ofac.treasury.gov/recent-actions/20260727",
+  "removed_reference": {
+   "primary": "COMPANIA AGROINVERSORA HENAGRO LTDA.",
+   "names": [
+    "COMPANIA AGROINVERSORA HENAGRO LTDA."
+   ],
+   "record": "COMPANIA AGROINVERSORA HENAGRO LTDA., Carrera 1 No. 13-08, Cartago, Colombia; Hacienda Coque, Cartago, Colombia; Km. 5 Via Aeropuerto, Cartago, Colombia; NIT # 800084326-8 (Colombia) [SDNT].",
+   "record_index": 26,
+   "notice_url": "https://ofac.treasury.gov/recent-actions/20260727",
+   "notice_date": "20260727",
+   "notice_body_sha256": "9857653b6dc27960c19eb585ad6f93142c267e279bae88d3aae39d7404fe1346",
+   "notice_capture": "notices/20260727.json"
+  },
+  "removed_family_names": [
+   "agroinversora compania henagro ltda"
+  ],
+  "prefix_tokens": 42
+ },
+ {
+  "name": "ALKARAM DANISMANLIK GAYRIMENKUL IC VE DIS GENEL TICARET LIMITED SIRKETI",
+  "expected": true,
+  "sdn_ids": [
+   "57967"
+  ],
+  "kind": "current_organization_primary",
+  "role": "final",
+  "program": "SDGT",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=57967",
+  "prefix_tokens": 57
+ },
+ {
+  "name": "DESARROLLOS COMERCIALES E INDUSTRIALES HENAO GONZALEZ Y CIA. S.C.S.",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "official_removed_organization",
+  "role": "final",
+  "source_url": "https://ofac.treasury.gov/recent-actions/20260727",
+  "removed_reference": {
+   "primary": "DESARROLLOS COMERCIALES E INDUSTRIALES HENAO GONZALEZ Y CIA. S.C.S.",
+   "names": [
+    "DESARROLLOS COMERCIALES E INDUSTRIALES HENAO GONZALEZ Y CIA. S.C.S."
+   ],
+   "record": "DESARROLLOS COMERCIALES E INDUSTRIALES HENAO GONZALEZ Y CIA. S.C.S., Carrera 4A No. 16-04 apt. 303, Cartago, Colombia; NIT # 800160475-2 (Colombia) [SDNT].",
+   "record_index": 27,
+   "notice_url": "https://ofac.treasury.gov/recent-actions/20260727",
+   "notice_date": "20260727",
+   "notice_body_sha256": "9857653b6dc27960c19eb585ad6f93142c267e279bae88d3aae39d7404fe1346",
+   "notice_capture": "notices/20260727.json"
+  },
+  "removed_family_names": [
+   "c cia comerciales desarrollos e gonzalez henao industriales s s y"
+  ],
+  "prefix_tokens": 57
+ },
+ {
+  "name": "REVOLUTIONARY STRUGGLE",
+  "expected": true,
+  "sdn_ids": [
+   "11496"
+  ],
+  "kind": "current_organization_primary",
+  "role": "final",
+  "program": "FTO] [SDGT",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=11496",
+  "prefix_tokens": 33
+ },
+ {
+  "name": "ENDSHIRE EXPORT MARKETING",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "official_removed_organization",
+  "role": "final",
+  "source_url": "https://ofac.treasury.gov/recent-actions/20260727",
+  "removed_reference": {
+   "primary": "ENDSHIRE EXPORT MARKETING",
+   "names": [
+    "ENDSHIRE EXPORT MARKETING"
+   ],
+   "record": "ENDSHIRE EXPORT MARKETING, United Kingdom [IRAQ2].",
+   "record_index": 110,
+   "notice_url": "https://ofac.treasury.gov/recent-actions/20260727",
+   "notice_date": "20260727",
+   "notice_body_sha256": "9857653b6dc27960c19eb585ad6f93142c267e279bae88d3aae39d7404fe1346",
+   "notice_capture": "notices/20260727.json"
+  },
+  "removed_family_names": [
+   "endshire export marketing"
+  ],
+  "prefix_tokens": 33
+ },
+ {
+  "name": "SHARQ WHITE CEMENT",
+  "expected": true,
+  "sdn_ids": [
+   "25934"
+  ],
+  "kind": "current_organization_primary",
+  "role": "final",
+  "program": "IRAN",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=25934",
+  "prefix_tokens": 32
+ },
+ {
+  "name": "ASSOCIATED ENGINEERS",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "official_removed_organization",
+  "role": "final",
+  "source_url": "https://ofac.treasury.gov/recent-actions/20260727",
+  "removed_reference": {
+   "primary": "ASSOCIATED ENGINEERS",
+   "names": [
+    "ASSOCIATED ENGINEERS"
+   ],
+   "record": "ASSOCIATED ENGINEERS, United Kingdom [IRAQ2].",
+   "record_index": 104,
+   "notice_url": "https://ofac.treasury.gov/recent-actions/20260727",
+   "notice_date": "20260727",
+   "notice_body_sha256": "9857653b6dc27960c19eb585ad6f93142c267e279bae88d3aae39d7404fe1346",
+   "notice_capture": "notices/20260727.json"
+  },
+  "removed_family_names": [
+   "associated engineers"
+  ],
+  "prefix_tokens": 32
+ },
+ {
+  "name": "LIMITED LIABILITY COMPANY EKSIKYUSHN ER DI SI",
+  "expected": true,
+  "sdn_ids": [
+   "49940"
+  ],
+  "kind": "current_organization_primary",
+  "role": "final",
+  "program": "RUSSIA-EO14024",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=49940",
+  "prefix_tokens": 37
+ },
+ {
+  "name": "A.T.E. INTERNATIONAL LTD.",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "official_removed_organization",
+  "role": "final",
+  "source_url": "https://ofac.treasury.gov/recent-actions/20260727",
+  "removed_reference": {
+   "primary": "A.T.E. INTERNATIONAL LTD.",
+   "names": [
+    "A.T.E. INTERNATIONAL LTD.",
+    "RWR INTERNATIONAL COMMODITIES"
+   ],
+   "record": "A.T.E. INTERNATIONAL LTD. (a.k.a. RWR INTERNATIONAL COMMODITIES), 3 Mandeville Place, London, United Kingdom [IRAQ2].",
+   "record_index": 138,
+   "notice_url": "https://ofac.treasury.gov/recent-actions/20260727",
+   "notice_date": "20260727",
+   "notice_body_sha256": "9857653b6dc27960c19eb585ad6f93142c267e279bae88d3aae39d7404fe1346",
+   "notice_capture": "notices/20260727.json"
+  },
+  "removed_family_names": [
+   "a e international ltd t",
+   "commodities international rwr"
+  ],
+  "prefix_tokens": 37
+ },
+ {
+  "name": "RUHMEER DIAMONDS DMCC",
+  "expected": true,
+  "sdn_ids": [
+   "52101"
+  ],
+  "kind": "current_organization_primary",
+  "role": "final",
+  "program": "GLOMAG",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=52101",
+  "prefix_tokens": 35
+ },
+ {
+  "name": "I.P.C. INTERNATIONAL LIMITED",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "official_removed_organization",
+  "role": "final",
+  "source_url": "https://ofac.treasury.gov/recent-actions/20260727",
+  "removed_reference": {
+   "primary": "I.P.C. INTERNATIONAL LIMITED",
+   "names": [
+    "I.P.C. INTERNATIONAL LIMITED"
+   ],
+   "record": "I.P.C. INTERNATIONAL LIMITED, United Kingdom [IRAQ2].",
+   "record_index": 114,
+   "notice_url": "https://ofac.treasury.gov/recent-actions/20260727",
+   "notice_date": "20260727",
+   "notice_body_sha256": "9857653b6dc27960c19eb585ad6f93142c267e279bae88d3aae39d7404fe1346",
+   "notice_capture": "notices/20260727.json"
+  },
+  "removed_family_names": [
+   "c i international limited p"
+  ],
+  "prefix_tokens": 35
+ },
+ {
+  "name": "FORENINGEN AL-AQSA",
+  "expected": true,
+  "sdn_ids": [
+   "7637",
+   "7638",
+   "7639",
+   "7640",
+   "7641",
+   "7642",
+   "7643",
+   "7644",
+   "7645"
+  ],
+  "kind": "current_organization_primary",
+  "role": "final",
+  "program": "SDGT",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=7640",
+  "prefix_tokens": 33
+ },
+ {
+  "name": "LA TIENDA DE MINGO",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "official_removed_organization",
+  "role": "final",
+  "source_url": "https://ofac.treasury.gov/recent-actions/20260727",
+  "removed_reference": {
+   "primary": "LA TIENDA DE MINGO",
+   "names": [
+    "LA TIENDA DE MINGO"
+   ],
+   "record": "LA TIENDA DE MINGO, Calle 5 D No. 6 125, Medellin, Colombia; Matricula Mercantil No 16218702 (Medellin) [SDNTK].",
+   "record_index": 237,
+   "notice_url": "https://ofac.treasury.gov/recent-actions/20260727",
+   "notice_date": "20260727",
+   "notice_body_sha256": "9857653b6dc27960c19eb585ad6f93142c267e279bae88d3aae39d7404fe1346",
+   "notice_capture": "notices/20260727.json"
+  },
+  "removed_family_names": [
+   "de la mingo tienda"
+  ],
+  "prefix_tokens": 33
+ },
+ {
+  "name": "MAGUS HOLDINGS USA, CORP.",
+  "expected": true,
+  "sdn_ids": [
+   "26205"
+  ],
+  "kind": "current_organization_primary",
+  "role": "final",
+  "program": "VENEZUELA-EO13850",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=26205",
+  "prefix_tokens": 34
+ },
+ {
+  "name": "RED SEA TRADING CORPORATION",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "official_removed_organization",
+  "role": "final",
+  "source_url": "https://ofac.treasury.gov/recent-actions/20260918",
+  "removed_reference": {
+   "primary": "RED SEA TRADING CORPORATION",
+   "names": [
+    "RED SEA TRADING CORPORATION"
+   ],
+   "record": "RED SEA TRADING CORPORATION, Felket Street, Asmara, Eritrea; Dubai, United Arab Emirates; Organization Established Date 1984 [ETHIOPIA-EO14046].",
+   "record_index": 9,
+   "notice_url": "https://ofac.treasury.gov/recent-actions/20260918",
+   "notice_date": "20260918",
+   "notice_body_sha256": "a90a59a76670732e9b1068e56d12d62e23c48b8bcc18267a6d8329de06cfb7d3",
+   "notice_capture": "notices/20260918.json"
+  },
+  "removed_family_names": [
+   "corporation red sea trading"
+  ],
+  "prefix_tokens": 34
+ },
+ {
+  "name": "ASOCIACION DE LIDERES LIMONENSES DEL SECTOR PESQUERO",
+  "expected": true,
+  "sdn_ids": [
+   "56742"
+  ],
+  "kind": "current_organization_primary",
+  "role": "final",
+  "program": "ILLICIT-DRUGS-EO14059",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=56742",
+  "prefix_tokens": 46
+ },
+ {
+  "name": "INVERSIONES C.P.C.L. Y CIA. S. EN C.S.",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "official_removed_organization",
+  "role": "final",
+  "source_url": "https://ofac.treasury.gov/recent-actions/20260727",
+  "removed_reference": {
+   "primary": "INVERSIONES C.P.C.L. Y CIA. S. EN C.S.",
+   "names": [
+    "INVERSIONES C.P.C.L. Y CIA. S. EN C.S."
+   ],
+   "record": "INVERSIONES C.P.C.L. Y CIA. S. EN C.S., Carrera 48 No. 25 B Sur 12, Envigado, Antioquia, Colombia; NIT # 900315175-8 (Colombia) [SDNTK].",
+   "record_index": 238,
+   "notice_url": "https://ofac.treasury.gov/recent-actions/20260727",
+   "notice_date": "20260727",
+   "notice_body_sha256": "9857653b6dc27960c19eb585ad6f93142c267e279bae88d3aae39d7404fe1346",
+   "notice_capture": "notices/20260727.json"
+  },
+  "removed_family_names": [
+   "c c c cia en inversiones l p s s y"
+  ],
+  "prefix_tokens": 46
+ },
+ {
+  "name": "LIMITED LIABILITY COMPANY OKTYABR",
+  "expected": true,
+  "sdn_ids": [
+   "47966"
+  ],
+  "kind": "current_organization_primary",
+  "role": "final",
+  "program": "RUSSIA-EO14024",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=47966",
+  "prefix_tokens": 32
+ },
+ {
+  "name": "ATLAS AIR CONDITIONING COMPANY LIMITED",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "official_removed_organization",
+  "role": "final",
+  "source_url": "https://ofac.treasury.gov/recent-actions/20260727",
+  "removed_reference": {
+   "primary": "ATLAS AIR CONDITIONING COMPANY LIMITED",
+   "names": [
+    "ATLAS AIR CONDITIONING COMPANY LIMITED"
+   ],
+   "record": "ATLAS AIR CONDITIONING COMPANY LIMITED, 55 Roebuck House, Palace Street, London, United Kingdom [IRAQ2].",
+   "record_index": 107,
+   "notice_url": "https://ofac.treasury.gov/recent-actions/20260727",
+   "notice_date": "20260727",
+   "notice_body_sha256": "9857653b6dc27960c19eb585ad6f93142c267e279bae88d3aae39d7404fe1346",
+   "notice_capture": "notices/20260727.json"
+  },
+  "removed_family_names": [
+   "air atlas company conditioning limited"
+  ],
+  "prefix_tokens": 32
+ },
+ {
+  "name": "MUFFLIN TRADING L.L.C.",
+  "expected": true,
+  "sdn_ids": [
+   "49671"
+  ],
+  "kind": "current_organization_primary",
+  "role": "final",
+  "program": "SDGT] [IFSR",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=49671",
+  "prefix_tokens": 37
+ },
+ {
+  "name": "REYNOLDS AND WILSON, LTD.",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "official_removed_organization",
+  "role": "final",
+  "source_url": "https://ofac.treasury.gov/recent-actions/20260727",
+  "removed_reference": {
+   "primary": "REYNOLDS AND WILSON, LTD.",
+   "names": [
+    "REYNOLDS AND WILSON, LTD."
+   ],
+   "record": "REYNOLDS AND WILSON, LTD., 21 Victoria Road, Surbiton, Surrey KT6 4LK, United Kingdom [IRAQ2].",
+   "record_index": 131,
+   "notice_url": "https://ofac.treasury.gov/recent-actions/20260727",
+   "notice_date": "20260727",
+   "notice_body_sha256": "9857653b6dc27960c19eb585ad6f93142c267e279bae88d3aae39d7404fe1346",
+   "notice_capture": "notices/20260727.json"
+  },
+  "removed_family_names": [
+   "and ltd reynolds wilson"
+  ],
+  "prefix_tokens": 37
+ },
+ {
+  "name": "SWISS LUXURY FZE",
+  "expected": true,
+  "sdn_ids": [
+   "49905"
+  ],
+  "kind": "current_organization_primary",
+  "role": "final",
+  "program": "RUSSIA-EO14024",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=49905",
+  "prefix_tokens": 33
+ },
+ {
+  "name": "T N K FABRICS LIMITED",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "official_removed_organization",
+  "role": "final",
+  "source_url": "https://ofac.treasury.gov/recent-actions/20260727",
+  "removed_reference": {
+   "primary": "T N K FABRICS LIMITED",
+   "names": [
+    "T N K FABRICS LIMITED"
+   ],
+   "record": "T N K FABRICS LIMITED, United Kingdom [IRAQ2].",
+   "record_index": 132,
+   "notice_url": "https://ofac.treasury.gov/recent-actions/20260727",
+   "notice_date": "20260727",
+   "notice_body_sha256": "9857653b6dc27960c19eb585ad6f93142c267e279bae88d3aae39d7404fe1346",
+   "notice_capture": "notices/20260727.json"
+  },
+  "removed_family_names": [
+   "fabrics k limited n t"
+  ],
+  "prefix_tokens": 33
+ },
+ {
+  "name": "GHORB KARBALA",
+  "expected": true,
+  "sdn_ids": [
+   "10490"
+  ],
+  "kind": "current_organization_primary",
+  "role": "final",
+  "program": "SDGT] [NPWMD] [IRGC] [IFSR",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=10490",
+  "prefix_tokens": 32
+ },
+ {
+  "name": "IRAQI FREIGHT SERVICES LIMITED",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "official_removed_organization",
+  "role": "final",
+  "source_url": "https://ofac.treasury.gov/recent-actions/20260727",
+  "removed_reference": {
+   "primary": "IRAQI FREIGHT SERVICES LIMITED",
+   "names": [
+    "IRAQI FREIGHT SERVICES LIMITED"
+   ],
+   "record": "IRAQI FREIGHT SERVICES LIMITED, United Kingdom [IRAQ2].",
+   "record_index": 118,
+   "notice_url": "https://ofac.treasury.gov/recent-actions/20260727",
+   "notice_date": "20260727",
+   "notice_body_sha256": "9857653b6dc27960c19eb585ad6f93142c267e279bae88d3aae39d7404fe1346",
+   "notice_capture": "notices/20260727.json"
+  },
+  "removed_family_names": [
+   "freight iraqi limited services"
+  ],
+  "prefix_tokens": 32
+ },
+ {
+  "name": "CLOSED JOINT STOCK COMPANY RSK TECHNOLOGIES",
+  "expected": true,
+  "sdn_ids": [
+   "41068"
+  ],
+  "kind": "current_organization_primary",
+  "role": "final",
+  "program": "RUSSIA-EO14024",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=41068",
+  "prefix_tokens": 40
+ },
+ {
+  "name": "INVESTACAST PRECISION CASTINGS, LTD.",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "official_removed_organization",
+  "role": "final",
+  "source_url": "https://ofac.treasury.gov/recent-actions/20260727",
+  "removed_reference": {
+   "primary": "INVESTACAST PRECISION CASTINGS, LTD.",
+   "names": [
+    "INVESTACAST PRECISION CASTINGS, LTD."
+   ],
+   "record": "INVESTACAST PRECISION CASTINGS, LTD., 112 City Road, London, United Kingdom [IRAQ2].",
+   "record_index": 116,
+   "notice_url": "https://ofac.treasury.gov/recent-actions/20260727",
+   "notice_date": "20260727",
+   "notice_body_sha256": "9857653b6dc27960c19eb585ad6f93142c267e279bae88d3aae39d7404fe1346",
+   "notice_capture": "notices/20260727.json"
+  },
+  "removed_family_names": [
+   "castings investacast ltd precision"
+  ],
+  "prefix_tokens": 40
+ },
+ {
+  "name": "UNIDAS S.A.",
+  "expected": true,
+  "sdn_ids": [
+   "7600"
+  ],
+  "kind": "current_organization_primary",
+  "role": "final",
+  "program": "SDNT",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=7600",
+  "prefix_tokens": 32
+ },
+ {
+  "name": "ARIZONA S.A.",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "official_removed_organization",
+  "role": "final",
+  "source_url": "https://ofac.treasury.gov/recent-actions/20260727",
+  "removed_reference": {
+   "primary": "ARIZONA S.A.",
+   "names": [
+    "ARIZONA S.A."
+   ],
+   "record": "ARIZONA S.A., Carrera 8N No. 17A-12, Cartago, Colombia; NIT # 836000489-0 (Colombia) [SDNT].",
+   "record_index": 86,
+   "notice_url": "https://ofac.treasury.gov/recent-actions/20260727",
+   "notice_date": "20260727",
+   "notice_body_sha256": "9857653b6dc27960c19eb585ad6f93142c267e279bae88d3aae39d7404fe1346",
+   "notice_capture": "notices/20260727.json"
+  },
+  "removed_family_names": [
+   "a arizona s"
+  ],
+  "prefix_tokens": 32
+ },
+ {
+  "name": "LAMA FOODS S.A.R.L.",
+  "expected": true,
+  "sdn_ids": [
+   "25143"
+  ],
+  "kind": "current_organization_primary",
+  "role": "final",
+  "program": "SDGT",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=25143",
+  "prefix_tokens": 38
+ },
+ {
+  "name": "ARCHI CENTRE I.C.E. LIMITED",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "official_removed_organization",
+  "role": "final",
+  "source_url": "https://ofac.treasury.gov/recent-actions/20260727",
+  "removed_reference": {
+   "primary": "ARCHI CENTRE I.C.E. LIMITED",
+   "names": [
+    "ARCHI CENTRE I.C.E. LIMITED"
+   ],
+   "record": "ARCHI CENTRE I.C.E. LIMITED, 3 Mandeville Place, London, United Kingdom [IRAQ2].",
+   "record_index": 102,
+   "notice_url": "https://ofac.treasury.gov/recent-actions/20260727",
+   "notice_date": "20260727",
+   "notice_body_sha256": "9857653b6dc27960c19eb585ad6f93142c267e279bae88d3aae39d7404fe1346",
+   "notice_capture": "notices/20260727.json"
+  },
+  "removed_family_names": [
+   "archi c centre e i limited"
+  ],
+  "prefix_tokens": 38
+ },
+ {
+  "name": "AKHMAT MMA",
+  "expected": true,
+  "sdn_ids": [
+   "30608"
+  ],
+  "kind": "current_organization_primary",
+  "role": "final",
+  "program": "GLOMAG",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=30608",
+  "prefix_tokens": 29
+ },
+ {
+  "name": "ADMINCHECK LIMITED",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "official_removed_organization",
+  "role": "final",
+  "source_url": "https://ofac.treasury.gov/recent-actions/20260727",
+  "removed_reference": {
+   "primary": "ADMINCHECK LIMITED",
+   "names": [
+    "ADMINCHECK LIMITED"
+   ],
+   "record": "ADMINCHECK LIMITED, 1 Old Burlington Street, London, United Kingdom [IRAQ2].",
+   "record_index": 99,
+   "notice_url": "https://ofac.treasury.gov/recent-actions/20260727",
+   "notice_date": "20260727",
+   "notice_body_sha256": "9857653b6dc27960c19eb585ad6f93142c267e279bae88d3aae39d7404fe1346",
+   "notice_capture": "notices/20260727.json"
+  },
+  "removed_family_names": [
+   "admincheck limited"
+  ],
+  "prefix_tokens": 29
+ },
+ {
+  "name": "CHIPS RESOURCES LIMITED",
+  "expected": true,
+  "sdn_ids": [
+   "51165"
+  ],
+  "kind": "current_organization_primary",
+  "role": "final",
+  "program": "RUSSIA-EO14024",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=51165",
+  "prefix_tokens": 30
+ },
+ {
+  "name": "FALCON SYSTEMS",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "official_removed_organization",
+  "role": "final",
+  "source_url": "https://ofac.treasury.gov/recent-actions/20260727",
+  "removed_reference": {
+   "primary": "FALCON SYSTEMS",
+   "names": [
+    "FALCON SYSTEMS"
+   ],
+   "record": "FALCON SYSTEMS, United Kingdom [IRAQ2].",
+   "record_index": 111,
+   "notice_url": "https://ofac.treasury.gov/recent-actions/20260727",
+   "notice_date": "20260727",
+   "notice_body_sha256": "9857653b6dc27960c19eb585ad6f93142c267e279bae88d3aae39d7404fe1346",
+   "notice_capture": "notices/20260727.json"
+  },
+  "removed_family_names": [
+   "falcon systems"
+  ],
+  "prefix_tokens": 30
+ },
+ {
+  "name": "IMEN SANAT ZAMAN FARA COMPANY",
+  "expected": true,
+  "sdn_ids": [
+   "40317"
+  ],
+  "kind": "current_organization_primary",
+  "role": "final",
+  "program": "IRAN-HR",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=40317",
+  "prefix_tokens": 35
+ },
+ {
+  "name": "I.P.C. MARKETING LIMITED",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "official_removed_organization",
+  "role": "final",
+  "source_url": "https://ofac.treasury.gov/recent-actions/20260727",
+  "removed_reference": {
+   "primary": "I.P.C. MARKETING LIMITED",
+   "names": [
+    "I.P.C. MARKETING LIMITED"
+   ],
+   "record": "I.P.C. MARKETING LIMITED, United Kingdom [IRAQ2].",
+   "record_index": 115,
+   "notice_url": "https://ofac.treasury.gov/recent-actions/20260727",
+   "notice_date": "20260727",
+   "notice_body_sha256": "9857653b6dc27960c19eb585ad6f93142c267e279bae88d3aae39d7404fe1346",
+   "notice_capture": "notices/20260727.json"
+  },
+  "removed_family_names": [
+   "c i limited marketing p"
+  ],
+  "prefix_tokens": 35
+ },
+ {
+  "name": "NASHVILLE HK LIMITED",
+  "expected": true,
+  "sdn_ids": [
+   "40957"
+  ],
+  "kind": "current_organization_primary",
+  "role": "final",
+  "program": "IRAN-EO13846",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=40957",
+  "prefix_tokens": 31
+ },
+ {
+  "name": "MEED INTERNATIONAL LIMITED",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "official_removed_organization",
+  "role": "final",
+  "source_url": "https://ofac.treasury.gov/recent-actions/20260727",
+  "removed_reference": {
+   "primary": "MEED INTERNATIONAL LIMITED",
+   "names": [
+    "MEED INTERNATIONAL LIMITED"
+   ],
+   "record": "MEED INTERNATIONAL LIMITED, 3 Mandeville Place, London, United Kingdom [IRAQ2].",
+   "record_index": 124,
+   "notice_url": "https://ofac.treasury.gov/recent-actions/20260727",
+   "notice_date": "20260727",
+   "notice_body_sha256": "9857653b6dc27960c19eb585ad6f93142c267e279bae88d3aae39d7404fe1346",
+   "notice_capture": "notices/20260727.json"
+  },
+  "removed_family_names": [
+   "international limited meed"
+  ],
+  "prefix_tokens": 31
+ },
+ {
+  "name": "ROCKET PCB SOLUTION LTD",
+  "expected": true,
+  "sdn_ids": [
+   "55444"
+  ],
+  "kind": "current_organization_primary",
+  "role": "final",
+  "program": "NPWMD] [IFSR",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=55444",
+  "prefix_tokens": 33
+ },
+ {
+  "name": "WHALE SHIPPING LTD.",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "official_removed_organization",
+  "role": "final",
+  "source_url": "https://ofac.treasury.gov/recent-actions/20260727",
+  "removed_reference": {
+   "primary": "WHALE SHIPPING LTD.",
+   "names": [
+    "WHALE SHIPPING LTD."
+   ],
+   "record": "WHALE SHIPPING LTD., c/o Government of Iraq, State Organization of Ports, Maqal, Basrah, Iraq [IRAQ2].",
+   "record_index": 137,
+   "notice_url": "https://ofac.treasury.gov/recent-actions/20260727",
+   "notice_date": "20260727",
+   "notice_body_sha256": "9857653b6dc27960c19eb585ad6f93142c267e279bae88d3aae39d7404fe1346",
+   "notice_capture": "notices/20260727.json"
+  },
+  "removed_family_names": [
+   "ltd shipping whale"
+  ],
+  "prefix_tokens": 33
+ },
+ {
+  "name": "SDM-BANK PUBLIC JOINT STOCK COMPANY",
+  "expected": true,
+  "sdn_ids": [
+   "39396"
+  ],
+  "kind": "current_organization_primary",
+  "role": "final",
+  "program": "UKRAINE-EO13662] [RUSSIA-EO14024",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=39396",
+  "prefix_tokens": 36
+ },
+ {
+  "name": "A.W.A. ENGINEERING LIMITED",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "official_removed_organization",
+  "role": "final",
+  "source_url": "https://ofac.treasury.gov/recent-actions/20260727",
+  "removed_reference": {
+   "primary": "A.W.A. ENGINEERING LIMITED",
+   "names": [
+    "A.W.A. ENGINEERING LIMITED"
+   ],
+   "record": "A.W.A. ENGINEERING LIMITED, 3 Mandeville Place, London, United Kingdom [IRAQ2].",
+   "record_index": 98,
+   "notice_url": "https://ofac.treasury.gov/recent-actions/20260727",
+   "notice_date": "20260727",
+   "notice_body_sha256": "9857653b6dc27960c19eb585ad6f93142c267e279bae88d3aae39d7404fe1346",
+   "notice_capture": "notices/20260727.json"
+  },
+  "removed_family_names": [
+   "a a engineering limited w"
+  ],
+  "prefix_tokens": 36
+ },
+ {
+  "name": "AKTSIONERNOE OBSHCHESTVO NAVIS GRUPP",
+  "expected": true,
+  "sdn_ids": [
+   "47572"
+  ],
+  "kind": "current_organization_primary",
+  "role": "final",
+  "program": "RUSSIA-EO14024",
+  "source_url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=47572",
+  "prefix_tokens": 42
+ },
+ {
+  "name": "PETRA NAVIGATION & INTERNATIONAL TRADING CO. LTD.",
+  "expected": false,
+  "sdn_ids": [],
+  "kind": "official_removed_organization",
+  "role": "final",
+  "source_url": "https://ofac.treasury.gov/recent-actions/20260727",
+  "removed_reference": {
+   "primary": "PETRA NAVIGATION & INTERNATIONAL TRADING CO. LTD.",
+   "names": [
+    "PETRA NAVIGATION & INTERNATIONAL TRADING CO. LTD.",
+    "AL PETRA COMPANY FOR GOODS TRANSPORT LTD",
+    "PETRA NAVIGATION AND INTERNATIONAL TRADING CO. LTD."
+   ],
+   "record": "PETRA NAVIGATION & INTERNATIONAL TRADING CO. LTD. (a.k.a. AL PETRA COMPANY FOR GOODS TRANSPORT LTD; a.k.a. PETRA NAVIGATION AND INTERNATIONAL TRADING CO. LTD.), Hai Al Wahda Mahalat 906, 906 Zulak 50, House 14, Baghdad, Iraq [IRAQ2].",
+   "record_index": 127,
+   "notice_url": "https://ofac.treasury.gov/recent-actions/20260727",
+   "notice_date": "20260727",
+   "notice_body_sha256": "9857653b6dc27960c19eb585ad6f93142c267e279bae88d3aae39d7404fe1346",
+   "notice_capture": "notices/20260727.json"
+  },
+  "removed_family_names": [
+   "al company for goods ltd petra transport",
+   "and co international ltd navigation petra trading",
+   "co international ltd navigation petra trading"
+  ],
+  "prefix_tokens": 42
+ }
+]

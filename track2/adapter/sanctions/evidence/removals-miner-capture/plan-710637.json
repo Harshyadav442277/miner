@@ -1,0 +1,13 @@
+{
+ "base_url": "https://telegraph-s2-sanctions.margyn.workers.dev",
+ "path": "/screen",
+ "method": "GET",
+ "parameters": [
+  "name"
+ ],
+ "queryable": true,
+ "required": [
+  "name"
+ ],
+ "min_interval_seconds": 1.0
+}

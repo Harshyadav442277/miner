@@ -1,0 +1,117 @@
+{
+ "source_stable": true,
+ "unfiltered": {
+  "queries": 64,
+  "responses": 320,
+  "pairs": 11,
+  "label_rule": "source-confirmed-removals-v1",
+  "paired_names": 3,
+  "pairs_by_kind": {
+   "exact_name_absent": 7,
+   "listed": 4
+  },
+  "by_miner": {
+   "302": {
+    "correct": 51,
+    "abstain": 12,
+    "incorrect": 1
+   },
+   "4433": {
+    "correct": 56,
+    "abstain": 8
+   },
+   "710637": {
+    "correct": 64
+   },
+   "78021": {
+    "correct": 62,
+    "incorrect": 2
+   },
+   "9002": {
+    "correct": 50,
+    "abstain": 14
+   }
+  },
+  "agreement": {
+   "302/4433": {
+    "compared": 47,
+    "agree": 46,
+    "rate": 0.9787234042553191
+   },
+   "302/710637": {
+    "compared": 52,
+    "agree": 51,
+    "rate": 0.9807692307692307
+   },
+   "302/78021": {
+    "compared": 52,
+    "agree": 50,
+    "rate": 0.9615384615384616
+   },
+   "302/9002": {
+    "compared": 45,
+    "agree": 44,
+    "rate": 0.9777777777777777
+   },
+   "4433/710637": {
+    "compared": 56,
+    "agree": 56,
+    "rate": 1.0
+   },
+   "4433/78021": {
+    "compared": 56,
+    "agree": 54,
+    "rate": 0.9642857142857143
+   },
+   "4433/9002": {
+    "compared": 46,
+    "agree": 46,
+    "rate": 1.0
+   },
+   "710637/78021": {
+    "compared": 64,
+    "agree": 62,
+    "rate": 0.96875
+   },
+   "710637/9002": {
+    "compared": 50,
+    "agree": 50,
+    "rate": 1.0
+   },
+   "78021/9002": {
+    "compared": 50,
+    "agree": 48,
+    "rate": 0.96
+   }
+  },
+  "longer_answer_baseline": 0.9090909090909091,
+  "limitations": [
+   "Decision labels only, not verification of every response field",
+   "No fuzzy/other-list positive treated as wrong from exact-name absence",
+   "Cross-miner pairs share queries: pair count is not independent sample size",
+   "LiveCert is related-party; no adoption or miner superiority claim",
+   "Engine ids are catalog identities, not registration ids"
+  ]
+ },
+ "balanced": {
+  "seed": 1720261103,
+  "unfiltered_pairs": 11,
+  "eligible_visible_pairs": 9,
+  "blocks": 0,
+  "pairs": 0,
+  "distinct_names": 0,
+  "provider_roles": {},
+  "excluded": {
+   "machine claim not fully visible256": 2
+  },
+  "diagnostic_models": [
+   3,
+   8
+  ],
+  "minimum_blocks_for_scoring": 4,
+  "score_allowed": false,
+  "max_tokens": 256,
+  "scope": "Maximum-cardinality disjoint-name matching, no model scores used; unchanged response bodies"
+ },
+ "scope": "Diagnostic only; old factual failures and registration gap remain"
+}

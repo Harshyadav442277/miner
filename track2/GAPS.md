@@ -6,6 +6,27 @@ They are in `git log -p -- track2/GAPS.md`.
 
 ## G41 — real-answer sanctions measurement exposes source/length confounding (2026-11-01) — `OPEN`
 
+**Listed-recall diagnosis Nov3:** same128 complete questions: v13 listed54/64 in
+thin JSON,34/64 in qualified MATCH prose; v15 listed52/64 versus3/64. Scope-negation
+ablation on32 known anchors gives listed15/16 without identity clause,9/16 with
+negated identity clause, absent16/16 both. HF development evidence only. V13 thin
+primary30/32,alias24/32 also shows knowledge weakness. One bounded32-step v16
+repair in FACTUAL_V16.md improves listed prose34/64 to41/64, below65% gate; thin
+class counts unchanged. No export, further full training or external accuracy claim.
+Removal collection is now complete320/320, source hashes stable. Strict labels
+give11 pairs (7 absent/4 listed), only3 names; frozen role reversals give0 blocks.
+score_allowed=false; all those bodies remain unscored. No relaxed post-hoc filters.
+
+**Nov3 IST:** v14 context-only512 failed33/62 against46/62 length. V15's stock
+70% synthetic aggregate hides listed58.5% /absent75%; frozen per-class guard blocks
+export/external scoring. No factual baseline win is claimed. A new64-query removal
+search is collecting genuine responses from32 currently listed and32 officially
+removed organizations. The legacy rule structurally abstains on every absent-name
+positive; an opt-in source-verified literal-membership rule may identify false
+positives while fuzzy/other-list alerts still abstain. All historical scores and
+labels stay unchanged. No new data has model scores. Final source stability,
+opposite-class errors and balanced-source blocks remain unverified.
+
 **V13 result:** full public reference knowledge ingestion failed27/62 (43.55%)
 in the actual node, despite630/800 synthetic test. No reserved scores or binding
 claims follow. V14 is a fixed-weight context diagnostic: v3 tensors unchanged,

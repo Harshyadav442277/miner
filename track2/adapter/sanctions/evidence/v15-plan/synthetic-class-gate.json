@@ -1,0 +1,16 @@
+{
+  "factual_by_membership": {
+    "True": {
+      "accuracy": 0.585,
+      "pairs": 200,
+      "correct": 117
+    },
+    "False": {
+      "accuracy": 0.75,
+      "pairs": 200,
+      "correct": 150
+    }
+  },
+  "scope": "Synthetic class gates only",
+  "pass": false
+}

@@ -1,5 +1,39 @@
 # MEMORY.md — session continuity
 
+## 2026-11-03 IST: listed recall diagnosis; bounded repair in progress
+
+Same128 questions, complete under256 tokens: v13 listed54/64 in thin JSON but
+34/64 in qualified MATCH/NO MATCH prose; absent56/64 and63/64 respectively.
+V15 falls52/64 to3/64 listed in those forms. Paired wording ablation on32 thin-correct
+anchors isolates negated identity scope: v13 listed15/16 without qualification,
+9/16 with "Identity is not established by name alone"; absent16/16 in both.
+Source recall also weak: v13 thin primary30/32 versus alias24/32. These are HF
+development diagnostics, not node scores. No inference correction introduced.
+FACTUAL_V16.md freezes one32-step final-two-layer LoRA repair, no full training.
+Inputs:64 thin-correct source-training queries,64 entity-disjoint validation,
+excluding diagnostic/external entities. Result: prose listed34/64 to41/64, absent
+63/64 to60/64; thin54/64 and56/64 unchanged. Fails65% listed gate, no export or
+external score. Independent saved-weight audit verifies162 unchanged tensors.
+
+Removal capture completed320/320 HTTP200, unchanged before/after source hashes.
+Strict opt-in labels yield11 comparisons (7 absent,4 listed), only3 distinct names.
+Frozen source-role reversal matching yields0 blocks, so score_allowed=false.
+No model scores from this capture; do not relax filters after seeing this result.
+
+## 2026-11-03 IST: factual failures; removal search historical collection state
+
+V13 actual27/62 rejected at256; v14 unchanged v3 tensors at512 scored33/62 versus
+46/62 length, also rejected. V15 trained512 with four response forms per source
+query; kit70% but listed58.5% /absent75%, failing the frozen65%-each gate. No v15
+export or external score. The original69 reserved bodies remain unscored.
+New opt-in source-confirmed removal search:64 frozen queries (32 removed/current
+organizations each), matched prefix length, official notices and fresh SDN/ALT
+bytes verified. Four of five provider files returned; final source recheck/labels
+pending. Legacy labels remain unchanged. Literal on_list false positives require
+official removal/current absence, exclusive OFAC SDN and no fuzzy/ownership cues.
+31 tests pass. Method: DELISTING_BENCHMARK.md. No model has scored the new capture.
+Wallet, FX_NOW, pool upload, registration and submission remain untouched.
+
 ## 2026-11-02: factual-accuracy continuation in progress
 
 User asks to beat the factual baseline before submission. V9 cross-format training

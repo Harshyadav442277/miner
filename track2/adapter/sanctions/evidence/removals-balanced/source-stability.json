@@ -1,0 +1,27 @@
+{
+ "stable": true,
+ "checked_at": "2026-11-02T20:19:16.454020+00:00",
+ "sources": {
+  "sdn.csv": {
+   "url": "https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports/SDN.CSV",
+   "http_status": 200,
+   "before_sha256": "5f240bed79d504e7a54788b4cd1c7f84e6afa56cd4778653b70b0771b6a8509d",
+   "after_sha256": "5f240bed79d504e7a54788b4cd1c7f84e6afa56cd4778653b70b0771b6a8509d",
+   "bytes": 5750799
+  },
+  "alt.csv": {
+   "url": "https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports/ALT.CSV",
+   "http_status": 200,
+   "before_sha256": "b0e2811fbb49ba6e9941a497e6b05fa2c9037b45ae7923196a01e2363a402259",
+   "after_sha256": "b0e2811fbb49ba6e9941a497e6b05fa2c9037b45ae7923196a01e2363a402259",
+   "bytes": 1064299
+  }
+ },
+ "response_files": {
+  "responses-302.json": "f2846033866389d3a10ce0df3dce2d582050ff9ff2abf2a30f7ceb3031ff88f5",
+  "responses-4433.json": "c94bb088175325d5498381d4adab87fce5ac4a54983a8876e468fc6fe83d0fce",
+  "responses-710637.json": "6650ce122c78dc172beb24e51711f6a7eb4da112cdfd3622df7d24ec91f48085",
+  "responses-78021.json": "9d924951ee4952a3a754819016a3c4526b35c3025c3f5f81182e174317a137d7",
+  "responses-9002.json": "30a9963fe97458b5e42407bb1903c1dc9d4e1f40de7ea0eb1927a78b8fbc9161"
+ }
+}

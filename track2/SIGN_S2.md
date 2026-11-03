@@ -28,8 +28,11 @@ the register call simulates as id 51.
 
 ## Sanctions only — no ready-to-sign adapter (2026-11-01; Nov 2 IST)
 
-Factual continuation: v9–v12 all failed the old62 development visible-length
-baseline. V13 is a frozen public snapshot knowledge experiment; no result yet.
+Factual continuation: v9–v13 all failed the old62 development visible-length
+baseline; v13 scored27/62. V14 fixed v3 weights at512 scored33/62 against46/62
+length. V15 fails its synthetic listed-class gate (58.5%), so was not exported.
+V16 is a bounded scope-negation repair diagnostic, not another full training run.
+New removal collection gives11 strict pairs but0 balanced blocks; no model scores.
 Its positive reference facts are deliberately source-exposed, and the reserved
 69 genuine pairs remain one-sided. No new registration values are prepared.
 

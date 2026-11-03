@@ -1,0 +1,2 @@
+PASS sources; 332 raw body hashes; 11 verbatim pairs
+PASS 320 declared request routes, parameter mappings and timestamp orders

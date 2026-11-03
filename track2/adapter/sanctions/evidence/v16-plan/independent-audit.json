@@ -1,0 +1,26 @@
+{
+  "source_training_facts_verified": 128,
+  "disjoint_train_validation_names": true,
+  "disjoint_train_validation_entities": true,
+  "saved_tensors": 178,
+  "changed_tensors": [
+    "base_model.model.model.layers.20.attn.Wo.lora_A.weight",
+    "base_model.model.model.layers.20.attn.Wo.lora_B.weight",
+    "base_model.model.model.layers.20.attn.Wqkv.lora_A.weight",
+    "base_model.model.model.layers.20.attn.Wqkv.lora_B.weight",
+    "base_model.model.model.layers.20.mlp.Wi.lora_A.weight",
+    "base_model.model.model.layers.20.mlp.Wi.lora_B.weight",
+    "base_model.model.model.layers.20.mlp.Wo.lora_A.weight",
+    "base_model.model.model.layers.20.mlp.Wo.lora_B.weight",
+    "base_model.model.model.layers.21.attn.Wo.lora_A.weight",
+    "base_model.model.model.layers.21.attn.Wo.lora_B.weight",
+    "base_model.model.model.layers.21.attn.Wqkv.lora_A.weight",
+    "base_model.model.model.layers.21.attn.Wqkv.lora_B.weight",
+    "base_model.model.model.layers.21.mlp.Wi.lora_A.weight",
+    "base_model.model.model.layers.21.mlp.Wi.lora_B.weight",
+    "base_model.model.model.layers.21.mlp.Wo.lora_A.weight",
+    "base_model.model.model.layers.21.mlp.Wo.lora_B.weight"
+  ],
+  "unchanged_saved_tensors": 162,
+  "scope": "Independent saved-weight/source-membership audit. Source facts exposed to parent; validation conditions on parent thin correctness."
+}
