@@ -1,0 +1,70 @@
+{
+ "identity": {
+  "version": 20,
+  "tensors_verified": 178,
+  "checkpoint_sha256": "8945ae657b8da68bd07df4d491a6917243b84f4c5df5b9e418bfacf612609eb1"
+ },
+ "by_format": {
+  "thin_json": {
+   "True": {
+    "queries": 32,
+    "correct": 32,
+    "mean_margin": 4.342869604937732
+   },
+   "False": {
+    "queries": 32,
+    "correct": 32,
+    "mean_margin": 3.578890143427998
+   }
+  },
+  "json_early": {
+   "True": {
+    "queries": 32,
+    "correct": 31,
+    "mean_margin": 2.921239098533988
+   },
+   "False": {
+    "queries": 32,
+    "correct": 31,
+    "mean_margin": 2.759681448340416
+   }
+  },
+  "json_late": {
+   "True": {
+    "queries": 32,
+    "correct": 32,
+    "mean_margin": 1.0671826004981995
+   },
+   "False": {
+    "queries": 32,
+    "correct": 22,
+    "mean_margin": 0.2232449585571885
+   }
+  },
+  "prose_early": {
+   "True": {
+    "queries": 32,
+    "correct": 30,
+    "mean_margin": 3.4940643422305584
+   },
+   "False": {
+    "queries": 32,
+    "correct": 32,
+    "mean_margin": 3.0466350354254246
+   }
+  },
+  "prose_late": {
+   "True": {
+    "queries": 32,
+    "correct": 30,
+    "mean_margin": 2.8773226607590914
+   },
+   "False": {
+    "queries": 32,
+    "correct": 28,
+    "mean_margin": 1.8075334345921874
+   }
+  }
+ },
+ "scope": "Training-fit diagnostic only. No held-out accuracy or actual-node claim."
+}

@@ -1,0 +1,8 @@
+{
+ "max_abs_eval_train_difference": 0.0,
+ "dropout_modules_disabled": 112,
+ "trainable_tensors": 176,
+ "trainable_parameters": 1689600,
+ "checkpointing": "nonreentrant",
+ "scope": "Training-only memory/dropout settings; ordinary inference unchanged"
+}

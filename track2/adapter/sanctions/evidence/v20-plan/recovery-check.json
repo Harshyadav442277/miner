@@ -1,0 +1,10 @@
+{
+  "pass": true,
+  "checkpoint_step": 20,
+  "saved_tensors": 178,
+  "optimizer_parameter_states": 176,
+  "rng_state_saved": true,
+  "compared_restart_steps": 20,
+  "max_loss_difference_from_original_trajectory": 0.0,
+  "scope": "Recovery-state serialization and identical restart trajectory; not a final training or accuracy result"
+}

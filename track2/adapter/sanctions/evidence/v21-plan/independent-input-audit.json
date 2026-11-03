@@ -1,0 +1,8 @@
+{
+  "pass": true,
+  "frozen_inputs_sha256": "56f7d9e33e4cc92241a3e273eb461184c0dae96a9c10d40894c04edda740c53d",
+  "source_queries_verified": 160,
+  "same_training_facts_targets_and_metadata_as_v20": true,
+  "new_validation_disjoint_from_training_and_v20": true,
+  "scope": "Repair validation only; parent source-validation exposure disclosed"
+}

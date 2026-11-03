@@ -1,5 +1,31 @@
 # MEMORY.md — session continuity
 
+## 2026-11-03 19:31 IST: v21 direct-margin objective probe running
+
+V20 training-fit diagnosis: thin64/64, late-JSON listed32/32 but absent22/32;
+10 absent training failures show underfit even before transfer. V21 changes only
+the loss on same64 anchors/teacher targets,176 LoRA tensors,head/base frozen,
+same32 steps/seed/lr/max512/recovery: per-format factual-margin MSE against parent
+thin margin +0.1 within-truth variance +0.2 Cartesian ranking. No inference change.
+New96 repair-validation queries from v13 val exclude v20 and prior groups; parent
+validation exposure explicit. Independent160-query source/split audit passes.
+Current log tg-eval/margins_v21.log; run active, no result. No full-corpus run,
+reserved scores or submission. Twelve rejected replay files HTTP200/SHA verified
+at factscore08ce133; portable manifest paths/public JSON hashes corrected.
+
+## 2026-11-03 19:25 IST: v20 completed but still fails absent late-JSON gate
+
+V20 restarted fixed32-step capacity comparison completed. New repair validation
+late prose listed19/48 to43/48,alias11/24 to23/24; late JSON listed25/48 to46/48
+but absent45/48 to25/48 fails65%. Generic qualified prose primary15/24 also fails.
+Thin listed42/48 to44/48,absent42/48 to40/48 within5pp. No export/node/reserved
+scoring. All176 LoRA tensors changed, both head tensors unchanged. Recovery saved
+178 tensors/176 optimizer states/RNG; restart first20 loss values exactly match.
+Training-fit diagnostic now running: tg-eval/training_fit_v20.log, model20, train64,
+five forms, not a held-out result. Source through9147c3a pushed feature branch.
+Failed replay artifacts/parent13 hosted on factscore branch, portable paths fixed
+at08ce133; fresh public SHA checks pending. No full-corpus run or submission.
+
 ## 2026-11-03 19:15 IST: v19 fails; v20 capacity test restarted with recovery
 
 V19 rejected before export: late-JSON listed27/48 to46/48 but absent45/48 to9/48;

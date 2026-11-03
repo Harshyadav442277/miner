@@ -1,0 +1,353 @@
+{
+ "pass": false,
+ "failures": [
+  "json_late/absent below65%: 0.5208333333333334",
+  "heldout_prose/primary below65%: 0.625"
+ ],
+ "steps": [
+  {
+   "step": 1,
+   "loss": 23.19676971435547,
+   "gradient_norm": 945.8612670898438
+  },
+  {
+   "step": 2,
+   "loss": 13.593372166156769,
+   "gradient_norm": 835.0829467773438
+  },
+  {
+   "step": 3,
+   "loss": 9.3384290933609,
+   "gradient_norm": 483.7878112792969
+  },
+  {
+   "step": 4,
+   "loss": 7.96568763256073,
+   "gradient_norm": 113.7951889038086
+  },
+  {
+   "step": 5,
+   "loss": 6.668576300144196,
+   "gradient_norm": 70.756103515625
+  },
+  {
+   "step": 6,
+   "loss": 3.2608369290828705,
+   "gradient_norm": 228.94070434570312
+  },
+  {
+   "step": 7,
+   "loss": 6.9081553518772125,
+   "gradient_norm": 230.2729034423828
+  },
+  {
+   "step": 8,
+   "loss": 5.796610236167908,
+   "gradient_norm": 267.91448974609375
+  },
+  {
+   "step": 9,
+   "loss": 6.5798450112342834,
+   "gradient_norm": 232.5127716064453
+  },
+  {
+   "step": 10,
+   "loss": 6.011273622512817,
+   "gradient_norm": 306.3577575683594
+  },
+  {
+   "step": 11,
+   "loss": 2.5776150822639465,
+   "gradient_norm": 70.74854278564453
+  },
+  {
+   "step": 12,
+   "loss": 5.001926615834236,
+   "gradient_norm": 227.94012451171875
+  },
+  {
+   "step": 13,
+   "loss": 3.1713468432426453,
+   "gradient_norm": 64.78470611572266
+  },
+  {
+   "step": 14,
+   "loss": 2.6602021157741547,
+   "gradient_norm": 45.003536224365234
+  },
+  {
+   "step": 15,
+   "loss": 5.774650484323502,
+   "gradient_norm": 104.78498840332031
+  },
+  {
+   "step": 16,
+   "loss": 1.9546140134334564,
+   "gradient_norm": 40.83796310424805
+  },
+  {
+   "step": 17,
+   "loss": 3.9220955073833466,
+   "gradient_norm": 38.62623977661133
+  },
+  {
+   "step": 18,
+   "loss": 3.346194088459015,
+   "gradient_norm": 129.47885131835938
+  },
+  {
+   "step": 19,
+   "loss": 4.250094026327133,
+   "gradient_norm": 226.58282470703125
+  },
+  {
+   "step": 20,
+   "loss": 3.217405527830124,
+   "gradient_norm": 76.12602996826172
+  },
+  {
+   "step": 21,
+   "loss": 2.1379237920045853,
+   "gradient_norm": 64.43798828125
+  },
+  {
+   "step": 22,
+   "loss": 4.372851133346558,
+   "gradient_norm": 142.8506317138672
+  },
+  {
+   "step": 23,
+   "loss": 10.720395296812057,
+   "gradient_norm": 644.8145141601562
+  },
+  {
+   "step": 24,
+   "loss": 3.520354136824608,
+   "gradient_norm": 171.34536743164062
+  },
+  {
+   "step": 25,
+   "loss": 3.7129838168621063,
+   "gradient_norm": 51.4981803894043
+  },
+  {
+   "step": 26,
+   "loss": 2.338689625263214,
+   "gradient_norm": 62.78728485107422
+  },
+  {
+   "step": 27,
+   "loss": 1.738728865981102,
+   "gradient_norm": 116.45645141601562
+  },
+  {
+   "step": 28,
+   "loss": 3.1996857821941376,
+   "gradient_norm": 92.06986236572266
+  },
+  {
+   "step": 29,
+   "loss": 1.1179562360048294,
+   "gradient_norm": 47.70309829711914
+  },
+  {
+   "step": 30,
+   "loss": 1.4834631085395813,
+   "gradient_norm": 49.21858596801758
+  },
+  {
+   "step": 31,
+   "loss": 1.6004291102290154,
+   "gradient_norm": 68.20425415039062
+  },
+  {
+   "step": 32,
+   "loss": 2.6296371519565582,
+   "gradient_norm": 68.36427307128906
+  }
+ ],
+ "changed_tensors": [
+  "base_model.model.model.layers.0.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.0.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.0.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.0.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.0.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.0.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.0.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.0.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.1.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.1.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.1.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.1.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.1.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.1.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.1.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.1.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.2.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.2.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.2.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.2.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.2.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.2.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.2.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.2.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.3.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.3.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.3.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.3.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.3.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.3.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.3.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.3.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.4.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.4.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.4.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.4.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.4.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.4.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.4.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.4.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.5.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.5.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.5.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.5.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.5.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.5.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.5.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.5.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.6.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.6.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.6.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.6.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.6.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.6.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.6.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.6.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.7.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.7.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.7.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.7.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.7.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.7.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.7.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.7.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.8.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.8.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.8.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.8.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.8.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.8.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.8.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.8.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.9.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.9.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.9.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.9.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.9.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.9.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.9.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.9.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.10.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.10.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.10.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.10.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.10.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.10.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.10.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.10.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.11.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.11.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.11.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.11.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.11.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.11.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.11.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.11.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.12.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.12.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.12.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.12.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.12.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.12.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.12.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.12.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.13.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.13.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.13.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.13.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.13.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.13.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.13.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.13.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.14.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.14.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.14.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.14.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.14.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.14.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.14.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.14.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.15.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.15.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.15.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.15.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.15.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.15.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.15.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.15.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.16.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.16.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.16.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.16.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.16.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.16.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.16.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.16.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.17.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.17.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.17.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.17.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.17.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.17.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.17.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.17.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.18.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.18.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.18.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.18.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.18.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.18.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.18.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.18.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.19.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.19.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.19.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.19.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.19.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.19.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.19.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.19.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.20.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.20.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.20.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.20.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.20.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.20.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.20.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.20.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.21.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.21.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.21.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.21.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.21.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.21.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.21.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.21.mlp.Wo.lora_B.weight"
+ ],
+ "unchanged_classifier_tensors": [
+  "base_model.model.classifier.weight",
+  "base_model.model.classifier.bias"
+ ],
+ "checkpoint_sha256": "8945ae657b8da68bd07df4d491a6917243b84f4c5df5b9e418bfacf612609eb1",
+ "scope": "Bounded all-LoRA capacity counterfactual, not full corpus training or independent parent-held-out factual score"
+}

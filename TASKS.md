@@ -24,7 +24,9 @@ commit.
       gate. V17 hard-anchor trial passes fresh synthetic gates but actual22/62 at256;
       v18 identical tensors512 score14/62. Rejected. V19 bounded source-only distillation
       fails absent late-JSON9/48, no export. V20 same64-example/32-step all-LoRA capacity
-      probe running; first process interrupted at20, restarted with recovery checkpoints.
+      probe completes after recovery; late prose listed43/48 but late-JSON absent25/48
+      fails65%, no export. Late-JSON absent training22/32 also underfits. V21 same64
+      anchors/32 steps with direct factual-margin loss running, new96 repair validation.
       No full-corpus run; old recognized-name control isolates real-answer interpretation.
 - [x] Build and measure a separate reversal-balanced query-binding benchmark: v7 40/40 vs v6 36/40.
 - [x] Resolve the overlapping-bank-name regression in both directions; v8 old controls 20/20, own 4/4,

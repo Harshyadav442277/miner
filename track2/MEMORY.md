@@ -8,6 +8,28 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 
 ---
 
+## 2026-11-03 19:31 IST: direct-margin probe v21, no full training
+
+V20 fits thin64/64 but fails10/32 absent late-JSON TRAINING cases. V21 targets
+the decision margin directly rather than raw response scores, retaining same64
+anchors/teacher targets,176 LoRA,head frozen,32 steps/lr/seed/max512/recovery.
+Loss: factual-margin MSE +0.1 within-truth variance +0.2 Cartesian ranking.
+New96 repair-validation questions exclude v20/prior groups, parent-validation
+exposure explicit. Independent160-query audit passes. Log tg-eval/margins_v21.log
+active; no result, full-corpus run, reserved score, wallet or submission.
+Rejected replay checkpoints/packages: factscore08ce133,12/12 HTTP200/SHA verified.
+
+## 2026-11-03 19:25 IST: capacity probe completed, late-JSON false positives remain
+
+V20 new repair validation: late prose listed19/48 to43/48,alias11/24 to23/24;
+late JSON listed25/48 to46/48 but absent45/48 to25/48 (52.08%), failing65%.
+Qualified prose primary15/24 (62.5%) also fails. Thin classes retain within5pp.
+All176 LoRA tensors changed, both head tensors unchanged. Rejected before export.
+Recovery verified178 saved tensors/176 optimizer states/RNG and first20 restarted
+losses exactly equal original. Training-fit diagnostic running to distinguish
+underfit from transfer failure; not a held-out factual result. No full-corpus run,
+reserved scoring, registration or submission. Source feature pushed through9147c3a.
+
 ## 2026-11-03 19:15 IST: v20 capacity probe in progress, full run blocked
 
 V19 distillation fails before export: late-JSON listed46/48,absent9/48; thin

@@ -35,3 +35,14 @@ provenance changes for atomic recovery checkpoints every4 steps. Checkpoints bin
 the input hash and persist all178 adapter/head tensors, optimizer, RNG and completed
 step logs. A resume restores exactly that state. No new checkpoint selection or
 additional optimization steps beyond the fixed32-step trajectory are introduced.
+
+Completed result: rejected before export. New repair validation late prose listed
+19/48 to43/48,alias11/24 to23/24; late JSON listed25/48 to46/48. But late-JSON
+absent45/48 to25/48 (52.08%) fails65%; generic qualified prose primary15/24
+(62.5%) also fails. Thin listed42/48 to44/48,absent42/48 to40/48 stays within5pp.
+All176 encoder tensors changed; both classifier tensors remain exactly unchanged.
+No actual-node factual score, reserved score or submission follows this result.
+Recovery serialization verifies178 tensors,176 optimizer states and saved RNG;
+the restarted first20 step losses match the interrupted trajectory exactly (0 error).
+Training-fit diagnosis is separate from validation and is used to distinguish
+underfitting from failure to transfer across source names, not as an accuracy claim.

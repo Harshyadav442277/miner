@@ -261,3 +261,17 @@ Large training runs and model files live outside OneDrive, in `C:\Users\hyada\tg
   evidence only. Gate fresh repair validation with the same per-format/class,
   primary/alias, thin-retention and cross-format guards. No parameter sweep,
   reserved-body scores, full-corpus training or submission.
+
+## A16 — Direct factual-margin repair (2026-11-03 IST)
+
+- V20 fails late-JSON absent25/48. It also misses10/32 absent training cases in
+  that form, while thin training is64/64. Diagnose underfit, not just transfer.
+- Freeze v21: same64 anchors, parent13,176 encoder LoRA tensors,head/base frozen,
+  same32 steps/lr/seed/order/max512/checkpointing. Change only training objective:
+  mean squared error of each form's correct-minus-wrong margin against the frozen
+  parent's thin margin, plus0.1 within-truth score variance and0.2 Cartesian
+  softplus(1-correct+wrong). No raw-score MSE or inference correction.
+- Fresh96 repair-validation queries use seed2320261103 and exclude v20 validation
+  as well as prior groups. Parent-validation exposure remains explicit. Retain
+  all original class/alias/primary/retention/Cartesian gates and fixed final step.
+  No full-corpus run, reserved scores, wallet, registration or submission.

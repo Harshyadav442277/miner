@@ -33,8 +33,9 @@ baseline; v13 scored27/62. V14 fixed v3 weights at512 scored33/62 against46/62
 length. V15 fails its synthetic listed-class gate (58.5%), so was not exported.
 V16 is a bounded scope-negation repair diagnostic, not another full training run.
 V17 hard-anchor synthetic pass does not transfer:22/62 actual at256; exact-weight
-v18 context512 scores14/62. Both rejected. V19 bounded source-only distillation
-is pending; no ready-to-sign values or full training run.
+v18 context512 scores14/62. Both rejected. V19 andv20 fail late-JSON absence
+guards; v21 bounded direct-margin objective probe is running. No ready-to-sign
+values or full-corpus training run.
 New removal collection gives11 strict pairs but0 balanced blocks; no model scores.
 Its positive reference facts are deliberately source-exposed, and the reserved
 69 genuine pairs remain one-sided. No new registration values are prepared.

@@ -1,0 +1,91 @@
+{
+  "pass": true,
+  "commit": "08ce133b8513770a2f84fcd95af1bf94e0b17359",
+  "files": [
+    {
+      "url": "https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/08ce133b8513770a2f84fcd95af1bf94e0b17359/season2/experiments/sanctions/parent-checkpoints/v13/adapter_config.json",
+      "status": 200,
+      "sha256": "dbd705be08709aea38e3e01ad4bf0a204ebb51918251c04e511831614299bfdd",
+      "bytes": 1168,
+      "pass": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/08ce133b8513770a2f84fcd95af1bf94e0b17359/season2/experiments/sanctions/parent-checkpoints/v13/adapter_model.safetensors",
+      "status": 200,
+      "sha256": "7d27363d75cc00e55d7638d7ab5bbdb6b5e6ade009e0102584b0c8a694a7de72",
+      "bytes": 6781570,
+      "pass": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/08ce133b8513770a2f84fcd95af1bf94e0b17359/season2/experiments/sanctions/v16/adapter/adapter_config.json",
+      "status": 200,
+      "sha256": "dbd705be08709aea38e3e01ad4bf0a204ebb51918251c04e511831614299bfdd",
+      "bytes": 1168,
+      "pass": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/08ce133b8513770a2f84fcd95af1bf94e0b17359/season2/experiments/sanctions/v16/adapter/adapter_model.safetensors",
+      "status": 200,
+      "sha256": "5f80a42afdc7967e77f22c31ddd41b5a95a347111ab591942123471164e72327",
+      "bytes": 6783092,
+      "pass": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/08ce133b8513770a2f84fcd95af1bf94e0b17359/season2/experiments/sanctions/v17/SANCTIONS_SCREENING_MATCH.safetensors",
+      "status": 200,
+      "sha256": "f09baab9ad799e7d361c51b0146c755ce1059353d4fb0d362e6605a5a7b0bdf5",
+      "bytes": 6776916,
+      "pass": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/08ce133b8513770a2f84fcd95af1bf94e0b17359/season2/experiments/sanctions/v17/SANCTIONS_SCREENING_MATCH.safetensors.manifest.json",
+      "status": 200,
+      "sha256": "3e2768676894be9410264d61a17bde7b0079c356142e3f3dda5482998990d63d",
+      "bytes": 1091,
+      "pass": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/08ce133b8513770a2f84fcd95af1bf94e0b17359/season2/experiments/sanctions/v17/adapter/adapter_config.json",
+      "status": 200,
+      "sha256": "dbd705be08709aea38e3e01ad4bf0a204ebb51918251c04e511831614299bfdd",
+      "bytes": 1168,
+      "pass": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/08ce133b8513770a2f84fcd95af1bf94e0b17359/season2/experiments/sanctions/v17/adapter/adapter_model.safetensors",
+      "status": 200,
+      "sha256": "45393cb7b7c022fabc8b25e39c476bb669e8614f1b1e20d0a603837f04324c9c",
+      "bytes": 6783092,
+      "pass": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/08ce133b8513770a2f84fcd95af1bf94e0b17359/season2/experiments/sanctions/v18/SANCTIONS_SCREENING_MATCH.safetensors",
+      "status": 200,
+      "sha256": "a6feb2ef07299d31a0fce5eff38b38d78fb3d3ebd9afb4bb4b9c30c3d4251890",
+      "bytes": 6776916,
+      "pass": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/08ce133b8513770a2f84fcd95af1bf94e0b17359/season2/experiments/sanctions/v18/SANCTIONS_SCREENING_MATCH.safetensors.manifest.json",
+      "status": 200,
+      "sha256": "52f3714d46e48ef326e5c6a28d67052e2af5a1c17375adee416c0f78e9d8cf46",
+      "bytes": 1091,
+      "pass": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/08ce133b8513770a2f84fcd95af1bf94e0b17359/season2/experiments/sanctions/v19/adapter/adapter_config.json",
+      "status": 200,
+      "sha256": "d6ebae50ae26d8c0ab8e9f7c73e2cbe01c54d8a7b7bd12c7d5ac751879bc98bb",
+      "bytes": 1168,
+      "pass": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/08ce133b8513770a2f84fcd95af1bf94e0b17359/season2/experiments/sanctions/v19/adapter/adapter_model.safetensors",
+      "status": 200,
+      "sha256": "52b3f847c652fb0cf3bbce7936df44b61056b2701f834b496d0e22424cdb913f",
+      "bytes": 6783092,
+      "pass": true
+    }
+  ],
+  "scope": "Rejected replay artifacts only; no registration claim. Corrected Windows manifest paths and public JSON byte hashes."
+}
