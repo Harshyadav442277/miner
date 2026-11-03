@@ -6,6 +6,20 @@ They are in `git log -p -- track2/GAPS.md`.
 
 ## G41 — real-answer sanctions measurement exposes source/length confounding (2026-11-01) — `OPEN`
 
+**Nov4 v27 result:** rejected: qualified listed28/48 but late-JSON absent0/48;
+the same form is0/64 absent even on source TRAINING examples. Question-only
+auxiliary membership34/48 listed,37/48 absent does not rescue main ranking.
+Qualified-prose positive primary-token recognition48/192(v26),101/192(v27),
+negative288/288 each. Earlier near-perfect role counts apply to training forms,
+not this wording. Main diagnostic margins match the ordinary qualified gate.
+Source-training fit for simpler v25 is being measured; no new full-corpus run.
+
+V25 source fit subsequently measured thin listed34/64,alias16/32,late absent28/64.
+V28 now tests only duration on the same128 source facts, fixed128 updates/four
+passes, no development scoring before the final step. Require exact v25 tensor/loss
+replay at32 and95% final source-fit strata as well as all original development gates.
+This is not a full-corpus run or a factual-success claim; result pending.
+
 **Nov4 IST:** v20-v26 completed and rejected before export on individual factual,
 alias or thin-retention guards. V25 source-error replay yields qualified listed
 24/48; v26 training-only factor supervision yields25/48. V26 primary-verdict

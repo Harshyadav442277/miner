@@ -8,6 +8,22 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 
 ---
 
+## 2026-11-04 IST: v27 rejected; v28 fixed source-fit duration control
+
+V27 source TRAINING and paired-development late-JSON absent0/64 and0/48; no export.
+Qualified listed28/48. V26/v27 primary-positive token readouts on this exact form
+are48/192,101/192 versus288/288 negative tokens. Earlier near-perfect role evidence
+was limited to training forms; it does not establish interpretation transfer.
+V25 ordinary ranking itself underfits: thin listed34/64,alias16/32,late absent28/64.
+V28 same128 facts/parent13/ordinary loss/lr/seed/max512/178 tensors, fixed128 total
+updates/four passes, no new corpus. Require exact v25 loss/tensor reproduction at32;
+final-step-only training/development measures.95% training strata plus previous
+65% development/5pp thin retention/Cartesian gates; no independent-test claim.
+Hash-bound224-question source audit passes. Current log tg-eval/fit_duration_v28.log.
+Source0eff6b2 pushed,17 dependency references match, two public script downloads
+SHA verified.31 regression tests pass. No full corpus, reserved/removal score,
+wallet, registry or submission. No factual model ready; actual baseline unbeaten.
+
 ## 2026-11-04 IST: factual/context diagnosis and bounded v27 probe
 
 V21-v26 all completed/rejected on factual/alias/retention guards. V26 qualified

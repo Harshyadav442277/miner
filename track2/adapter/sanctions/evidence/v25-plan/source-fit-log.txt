@@ -1,0 +1,21 @@
+02:19:20 INFO: tokenizer matches the node (88 vectors)
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+
+Loading weights:   0%|          | 0/136 [00:00<?, ?it/s]
+Loading weights:   7%|6         | 9/136 [00:00<00:01, 80.80it/s]
+Loading weights:  13%|#3        | 18/136 [00:00<00:01, 83.91it/s]
+Loading weights: 100%|##########| 136/136 [00:00<00:00, 510.48it/s]
+[transformers] ModernBertForSequenceClassification LOAD REPORT from: answerdotai/ModernBERT-base
+Key               | Status     | 
+------------------+------------+-
+decoder.bias      | UNEXPECTED | 
+classifier.bias   | MISSING    | 
+classifier.weight | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+02:19:21 INFO: answerdotai/ModernBERT-base | trainable 1,690,369 / 151,296,002 parameters
+C:\Users\hyada\tg-eval\.venv\Lib\site-packages\peft\utils\save_and_load.py:313: UserWarning: Could not find a config file in answerdotai/ModernBERT-base - will assume that the vocabulary was not modified.
+  warnings.warn(
+{"thin_json": {"listed": {"queries": 64, "correct": 34}, "hard": {"queries": 64, "correct": 36}, "primary": {"queries": 32, "correct": 18}, "alias": {"queries": 32, "correct": 16}, "absent": {"queries": 64, "correct": 63}, "replay": {"queries": 64, "correct": 61}}, "json_early": {"listed": {"queries": 64, "correct": 41}, "hard": {"queries": 64, "correct": 40}, "primary": {"queries": 32, "correct": 20}, "alias": {"queries": 32, "correct": 21}, "absent": {"queries": 64, "correct": 59}, "replay": {"queries": 64, "correct": 60}}, "json_late": {"listed": {"queries": 64, "correct": 63}, "hard": {"queries": 64, "correct": 34}, "primary": {"queries": 32, "correct": 31}, "alias": {"queries": 32, "correct": 32}, "absent": {"queries": 64, "correct": 28}, "replay": {"queries": 64, "correct": 57}}, "prose_early": {"listed": {"queries": 64, "correct": 34}, "hard": {"queries": 64, "correct": 35}, "primary": {"queries": 32, "correct": 17}, "alias": {"queries": 32, "correct": 17}, "absent": {"queries": 64, "correct": 61}, "replay": {"queries": 64, "correct": 60}}, "prose_late": {"listed": {"queries": 64, "correct": 38}, "hard": {"queries": 64, "correct": 38}, "primary": {"queries": 32, "correct": 20}, "alias": {"queries": 32, "correct": 18}, "absent": {"queries": 64, "correct": 59}, "replay": {"queries": 64, "correct": 59}}}

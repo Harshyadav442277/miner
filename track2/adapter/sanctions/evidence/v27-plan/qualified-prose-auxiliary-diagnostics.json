@@ -1,0 +1,1114 @@
+{
+ "identity": {
+  "version": 27,
+  "tensors_verified": 178,
+  "checkpoint_sha256": "4e617a7d541705ffb34925a11b4404c4e1561d19f87418faca8dcb3f944880aa"
+ },
+ "queries": 96,
+ "membership_by_class": {
+  "True": {
+   "views": 96,
+   "correct": 60
+  },
+  "False": {
+   "views": 96,
+   "correct": 86
+  }
+ },
+ "membership_stable_across_views_queries": 64,
+ "membership_all_views_correct_queries": 57,
+ "primary_verdict_tokens": {
+  "True": {
+   "tokens": 192,
+   "correct": 101
+  },
+  "False": {
+   "tokens": 288,
+   "correct": 288
+  }
+ },
+ "nonprimary_negation_tokens": 198,
+ "nonprimary_negations_misread_as_primary": 0,
+ "rows": [
+  {
+   "name": "VISION SHIP MANAGEMENT LLP",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": -0.4422956220805645
+   }
+  },
+  {
+   "name": "TRANSSERVICE LLC",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": -0.3413977660238743
+   }
+  },
+  {
+   "name": "FIDAR FOOLAD RADMAN",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": -0.035927802324295044
+   }
+  },
+  {
+   "name": "PIONEER BENCONT STAR REAL ESTATE",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": -0.23842077143490314
+   }
+  },
+  {
+   "name": "PSB INNOVATIONS AND INVESTMENTS LIMITED LIABILITY COMPANY",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": 0.4283429980278015
+   }
+  },
+  {
+   "name": "NABAH LTD",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": -0.04104399587959051
+   }
+  },
+  {
+   "name": "BONYAD SHIPPING AGENCIES COMPANY",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true
+   ],
+   "main_margins": {
+    "heldout_prose": 0.33575212955474854
+   }
+  },
+  {
+   "name": "AERIALIA",
+   "listed": true,
+   "membership_view_predictions": [
+    false,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": -0.5055968910455704
+   }
+  },
+  {
+   "name": "LIMITED LIABILITY COMPANY ELGA FACTORIES 3",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": 0.6953545957803726
+   }
+  },
+  {
+   "name": "NEW HORIZONS TRADING LIMITED",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true
+   ],
+   "main_margins": {
+    "heldout_prose": -0.004292920231819153
+   }
+  },
+  {
+   "name": "SO TVERNEFTEPRODUKT OOO",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": 1.3921641111373901
+   }
+  },
+  {
+   "name": "JOINT STOCK COMPANY SVETLOVSKY ENTERPRISE ERA",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true
+   ],
+   "main_margins": {
+    "heldout_prose": 0.6956949234008789
+   }
+  },
+  {
+   "name": "KOREA ANSAN SHIPPING COMPANY",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true
+   ],
+   "main_margins": {
+    "heldout_prose": 0.3761054277420044
+   }
+  },
+  {
+   "name": "ADDAMEER PRISONER SUPPORT AND HUMAN RIGHTS ASSOCIATION",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": 0.06783495843410492
+   }
+  },
+  {
+   "name": "CHAM HOLDING",
+   "listed": true,
+   "membership_view_predictions": [
+    false,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": -0.6476493328809738
+   }
+  },
+  {
+   "name": "DIVERSIONES LOS MOCHIS S.A. DE C.V.",
+   "listed": true,
+   "membership_view_predictions": [
+    false,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": 0.34535497426986694
+   }
+  },
+  {
+   "name": "Z AXIS LLC",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": -0.25308017432689667
+   }
+  },
+  {
+   "name": "LIMITED LIABILITY COMPANY CARBONTEX",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true
+   ],
+   "main_margins": {
+    "heldout_prose": 0.5035484582185745
+   }
+  },
+  {
+   "name": "EXPOBANK JOINT STOCK COMPANY",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true
+   ],
+   "main_margins": {
+    "heldout_prose": 0.7184479236602783
+   }
+  },
+  {
+   "name": "JOINT STOCK COMPANY SIBUGOLINVEST",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true
+   ],
+   "main_margins": {
+    "heldout_prose": 0.8427718877792358
+   }
+  },
+  {
+   "name": "JOINT STOCK COMPANY 63 ARSENAL",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": -0.00786764919757843
+   }
+  },
+  {
+   "name": "LIMITED LIABILITY COMPANY RESEARCH AND PRODUCTION COMPANY MAKROOPTIKA",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true
+   ],
+   "main_margins": {
+    "heldout_prose": 1.5006263256072998
+   }
+  },
+  {
+   "name": "AO PROTON IMPULS",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": 0.2278665006160736
+   }
+  },
+  {
+   "name": "AL HARAM FOREIGN EXCHANGE CO. LTD",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true
+   ],
+   "main_margins": {
+    "heldout_prose": 0.5863134860992432
+   }
+  },
+  {
+   "name": "JOSON PAEKHO MUYOK HOESA",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": -0.41989363729953766
+   }
+  },
+  {
+   "name": "BANK-E BEINAMELALI JAZIREH",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": -0.05262196063995361
+   }
+  },
+  {
+   "name": "THE INTERNATIONAL AL QUDS FOUNDATION",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": 0.0750495195388794
+   }
+  },
+  {
+   "name": "SOVFRAKHT",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": -0.15250010788440704
+   }
+  },
+  {
+   "name": "HENAN JIAYUAN ALUMINUM INDUSTRY COMPANY, LIMITED",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": -0.1149402093142271
+   }
+  },
+  {
+   "name": "LAJNAT AL DAAWA AL ISLAMIYA",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": 0.9937070608139038
+   }
+  },
+  {
+   "name": "AKTSIONERNOE OBSHCHESTVO FPK TRANSAGENTSTVO",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true
+   ],
+   "main_margins": {
+    "heldout_prose": 0.9847773313522339
+   }
+  },
+  {
+   "name": "STRAIT SHIPBROKERS SINGAPORE PTE. LTD.",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true
+   ],
+   "main_margins": {
+    "heldout_prose": 0.31407642364501953
+   }
+  },
+  {
+   "name": "SOVREMENNYE TEKHNOLOGII LLC",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": -0.22191721200942993
+   }
+  },
+  {
+   "name": "EDDAR INTERNATIONAL COMPANY",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true
+   ],
+   "main_margins": {
+    "heldout_prose": -0.21180231869220734
+   }
+  },
+  {
+   "name": "AO SIGNALTEK",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": 0.20990708470344543
+   }
+  },
+  {
+   "name": "TRAST KONG OOO",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true
+   ],
+   "main_margins": {
+    "heldout_prose": 0.5808522701263428
+   }
+  },
+  {
+   "name": "MARINE SOLUTION PRIVATE LIMITED",
+   "listed": true,
+   "membership_view_predictions": [
+    false,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": -0.7852825224399567
+   }
+  },
+  {
+   "name": "PROTON SHIPPING CO",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true
+   ],
+   "main_margins": {
+    "heldout_prose": 0.5412082672119141
+   }
+  },
+  {
+   "name": "BPKH OOO",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": 0.3576065003871918
+   }
+  },
+  {
+   "name": "GRUPO INDUSTRIAL GAXIOLA",
+   "listed": true,
+   "membership_view_predictions": [
+    false,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": -0.350314736366272
+   }
+  },
+  {
+   "name": "SOLDIERS OF THE CALIPHATE IN ALGERIA",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": 0.17366552352905273
+   }
+  },
+  {
+   "name": "OBSHCHESTVO S ORGANICHENNOI OTVETSTVENNOSTYU UNIVERSALNY MORSKOI PORT INDIGA",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": 1.4606455564498901
+   }
+  },
+  {
+   "name": "GUANGXIA ZHOUSHAN ENERGY SOURCES GROUP CO., LTD.",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true
+   ],
+   "main_margins": {
+    "heldout_prose": 0.49475955963134766
+   }
+  },
+  {
+   "name": "QASIYUN SECURITY COMPANY",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true
+   ],
+   "main_margins": {
+    "heldout_prose": 0.22399336099624634
+   }
+  },
+  {
+   "name": "ELEHSSAN SOCIETY AND BIRR",
+   "listed": true,
+   "membership_view_predictions": [
+    false,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": -0.2972225062549114
+   }
+  },
+  {
+   "name": "AL-RAHMA FOUNDATION",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true
+   ],
+   "main_margins": {
+    "heldout_prose": 0.4801241159439087
+   }
+  },
+  {
+   "name": "REVIVAL OF MARITIME TRADITIONS",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": -0.02802222967147827
+   }
+  },
+  {
+   "name": "PASARGAD ARYAN ARVAND INFORMATION AND COMMUNICATION TECHNOLOGY PROCESS COMPANY",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true
+   ],
+   "main_margins": {
+    "heldout_prose": 0.4622819423675537
+   }
+  },
+  {
+   "name": "ARINA FABRICS",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": 0.390267476439476
+   }
+  },
+  {
+   "name": "ANUPREET SINGH",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": 0.4810290038585663
+   }
+  },
+  {
+   "name": "ASLEEP",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    true
+   ],
+   "main_margins": {
+    "heldout_prose": 0.33603087067604065
+   }
+  },
+  {
+   "name": "SOMAKASHI STONE WORKS",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": 0.6124595552682877
+   }
+  },
+  {
+   "name": "VALMIERA CONSULTING, S.L.",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": 1.2144215255975723
+   }
+  },
+  {
+   "name": "VIJAYKUMAR AND COMPANY",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": 0.6226635538041592
+   }
+  },
+  {
+   "name": "FOSPOL MINING A.S.",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": 0.2549520768225193
+   }
+  },
+  {
+   "name": "SAS LIAIGRE ENERGIES",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": 0.29709184169769287
+   }
+  },
+  {
+   "name": "DANIEL. B NY INC.",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": 1.285464882850647
+   }
+  },
+  {
+   "name": "BROACH TECHNOLOGY (INDIA) PRIVATE LIMITED",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": 1.5628009736537933
+   }
+  },
+  {
+   "name": "INFINITY BPO SERVICES PRIVATE LIMITED",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": 0.8029920756816864
+   }
+  },
+  {
+   "name": "SUGANDHA SEHGAL",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": 0.9264112710952759
+   }
+  },
+  {
+   "name": "ATRILUM ALLIANCE",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": 0.4349155128002167
+   }
+  },
+  {
+   "name": "COGNIOS GMBH",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": 0.8313986212015152
+   }
+  },
+  {
+   "name": "QUIENTESSENTIAL VENTURE PRIVATE LIMITED",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    true
+   ],
+   "main_margins": {
+    "heldout_prose": 0.39965957403182983
+   }
+  },
+  {
+   "name": "HAMLET HOLDING APS",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": 0.6157679259777069
+   }
+  },
+  {
+   "name": "SAN MARTINO SOCIETA' A RESPONSABILITA' LIMITATA IN BREVE SAN MARTINO S.R.L.",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    true
+   ],
+   "main_margins": {
+    "heldout_prose": 0.5867996215820312
+   }
+  },
+  {
+   "name": "LEPICH",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": 0.704630970954895
+   }
+  },
+  {
+   "name": "MEDIOBANCA ORIZZONTE 2030 - PRIMA EDIZIONE",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": -0.0891728401184082
+   }
+  },
+  {
+   "name": "SOCIETE D'ORGANISATION ET DEVELOPPEMENT EN ALLERGOLOGIE",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    true
+   ],
+   "main_margins": {
+    "heldout_prose": -0.2200208306312561
+   }
+  },
+  {
+   "name": "SELLACON GMBH",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": 0.9864799082279205
+   }
+  },
+  {
+   "name": "MOVE2HEALTH B.V.",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": 1.1236558258533478
+   }
+  },
+  {
+   "name": "BREATH DE BENAHAVIS SL",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": 0.6127923876047134
+   }
+  },
+  {
+   "name": "SHITAL DHANANJAY SUTARIYA",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": 0.26122942566871643
+   }
+  },
+  {
+   "name": "OPTIQUE BFR",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    true
+   ],
+   "main_margins": {
+    "heldout_prose": -0.0318976491689682
+   }
+  },
+  {
+   "name": "PAYROLL2MORROW B.V.",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": 0.7724288105964661
+   }
+  },
+  {
+   "name": "\"MACROCOM S.R.L.\"",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": 0.8693368434906006
+   }
+  },
+  {
+   "name": "MOHAN HANUMAGOUDA PATIL",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": 0.5312521951273084
+   }
+  },
+  {
+   "name": "GRINDERLAB SOCIETA' A RESPONSABILITA' LIMITATA",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": 0.7790110260248184
+   }
+  },
+  {
+   "name": "SHANTI MILLS",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": 0.9778880178928375
+   }
+  },
+  {
+   "name": "INFLEXION BUYOUT FUND IV GENERAL PARTNER GUERNSEY LIMITED",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": 1.0960283875465393
+   }
+  },
+  {
+   "name": "G.A. COSTRUZIONI SRLS IN LIQUIDAZIONE",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": 0.49354617297649384
+   }
+  },
+  {
+   "name": "PORTUM III B.V.",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": 0.8616564869880676
+   }
+  },
+  {
+   "name": "KRAMER BETONSERVICE B.V.",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": 0.9670569598674774
+   }
+  },
+  {
+   "name": "MC IMMOBILIARE S.R.L.",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": 1.1063560247421265
+   }
+  },
+  {
+   "name": "FUSION PRACTICES HOLDINGS LTD",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    true
+   ],
+   "main_margins": {
+    "heldout_prose": 0.25050970911979675
+   }
+  },
+  {
+   "name": "FIBOIS 07.26",
+   "listed": false,
+   "membership_view_predictions": [
+    true,
+    true
+   ],
+   "main_margins": {
+    "heldout_prose": 0.22990719974040985
+   }
+  },
+  {
+   "name": "BHADLA MINIGRID SOLAR 7 PRIVATE LIMITED",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": 1.362563818693161
+   }
+  },
+  {
+   "name": "OOTY VIRGIN EARTH TOURIST VILLAGE PRIVATE LIMITED",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": 0.6662693750113249
+   }
+  },
+  {
+   "name": "COCCINELLA - S.R.L.",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": 1.4411632269620895
+   }
+  },
+  {
+   "name": "PINTECOM",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    true
+   ],
+   "main_margins": {
+    "heldout_prose": 0.24743389897048473
+   }
+  },
+  {
+   "name": "SAMA SOCIETA' SEMPLICE",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": 0.4846985638141632
+   }
+  },
+  {
+   "name": "GIRNAR MACHINE PRIVATE LIMITED",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": 1.1525558531284332
+   }
+  },
+  {
+   "name": "4183088 CANADA INC.",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": 0.7660895101726055
+   }
+  },
+  {
+   "name": "UK SL PROPCO 2 LIMITED",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": 0.7608455419540405
+   }
+  },
+  {
+   "name": "CMI ESSEX PROPERTY, LLC",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": 0.2530366778373718
+   }
+  },
+  {
+   "name": "MS CORPORATION",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    true
+   ],
+   "main_margins": {
+    "heldout_prose": 0.35369492787867785
+   }
+  },
+  {
+   "name": "ESCHWEGE HOLDING B.V.",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false
+   ],
+   "main_margins": {
+    "heldout_prose": 1.1749902367591858
+   }
+  }
+ ],
+ "inputs_sha256": "ac4ab196987d9a25d71c1670ab0440949787bc252c4d8cd05a39b9fc83ed8eeb",
+ "script_sha256": "7bfe9ad649804fd0ffdde7c6d67b4b545a168f0ff795a7e9bf2e3d65c4f7747e",
+ "context": "heldout_prose",
+ "main_by_format": {
+  "heldout_prose": {
+   "listed": {
+    "queries": 48,
+    "correct": 28
+   },
+   "primary": {
+    "queries": 24,
+    "correct": 14
+   },
+   "alias": {
+    "queries": 24,
+    "correct": 14
+   },
+   "absent": {
+    "queries": 48,
+    "correct": 45
+   }
+  }
+ },
+ "scope": "Paired DEVELOPMENT diagnostics. Correlated views/tokens; auxiliary counts are not evaluator accuracy. Main margins are HF, not actual-node scores/readiness. Heads discarded for export."
+}

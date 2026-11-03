@@ -1,0 +1,1125 @@
+{
+ "rows": [
+  {
+   "name": "SWIRU TRUSTEE LTD",
+   "listed": true,
+   "question_only_bce": 1.3117201328277588,
+   "normalized_feature_mse": 0.5961595177650452,
+   "contextual_loss": 4.369193077087402
+  },
+  {
+   "name": "GANNET REAL ESTATE LENDING S.I.C.C., S.A.",
+   "listed": false,
+   "question_only_bce": 0.16046011447906494,
+   "normalized_feature_mse": 0.556269109249115,
+   "contextual_loss": 3.3588931560516357
+  },
+  {
+   "name": "DARYANAVARD KISH SHIPPING COMPANY",
+   "listed": true,
+   "question_only_bce": 0.6980910301208496,
+   "normalized_feature_mse": 0.7379106283187866,
+   "contextual_loss": 2.1801276206970215
+  },
+  {
+   "name": "\"CONSORZIO STABILE OPERAE - TECNOLOGIE E SISTEMI INTEGRATI DI COSTRUZIONE\" - IN FORMA ABBREVIATA \"CONSORZIO STABILE OPERAE\"",
+   "listed": false,
+   "question_only_bce": 0.4029664993286133,
+   "normalized_feature_mse": 0.26740795373916626,
+   "contextual_loss": 4.121103286743164
+  },
+  {
+   "name": "KB LINES LIMITED",
+   "listed": true,
+   "question_only_bce": 1.1024950742721558,
+   "normalized_feature_mse": 0.2435862123966217,
+   "contextual_loss": 1.621492862701416
+  },
+  {
+   "name": "POWER ANCHOR LIMITED",
+   "listed": true,
+   "question_only_bce": 0.47323793172836304,
+   "normalized_feature_mse": 0.6100953817367554,
+   "contextual_loss": 2.402482032775879
+  },
+  {
+   "name": "VAM MANAGEMENT",
+   "listed": false,
+   "question_only_bce": 0.6564807891845703,
+   "normalized_feature_mse": 0.4943638741970062,
+   "contextual_loss": 2.822904109954834
+  },
+  {
+   "name": "ALCOTECH INTERNATIONAL TRADING DMCC",
+   "listed": true,
+   "question_only_bce": 0.41514843702316284,
+   "normalized_feature_mse": 0.5106363296508789,
+   "contextual_loss": 2.220958709716797
+  },
+  {
+   "name": "E.M.I. SERVICE SOCIETA' A RESPONSABILITA' LIMITATA",
+   "listed": false,
+   "question_only_bce": 0.6529651880264282,
+   "normalized_feature_mse": 0.6556351780891418,
+   "contextual_loss": 1.5771484375
+  },
+  {
+   "name": "QUANTUM LEGACY FAMILY OFFICE SOCIEDAD LIMITADA",
+   "listed": false,
+   "question_only_bce": 0.5403333902359009,
+   "normalized_feature_mse": 0.9744930267333984,
+   "contextual_loss": 1.1214107275009155
+  },
+  {
+   "name": "TRANSMART AG",
+   "listed": true,
+   "question_only_bce": 0.45450425148010254,
+   "normalized_feature_mse": 0.4423680901527405,
+   "contextual_loss": 1.9318227767944336
+  },
+  {
+   "name": "AGARWAL LOGISTICS",
+   "listed": false,
+   "question_only_bce": 1.0819188356399536,
+   "normalized_feature_mse": 0.4878773093223572,
+   "contextual_loss": 2.8685641288757324
+  },
+  {
+   "name": "KUNLUN HOLDING COMPANY LTD.",
+   "listed": true,
+   "question_only_bce": 0.2427871823310852,
+   "normalized_feature_mse": 0.444955974817276,
+   "contextual_loss": 2.013274669647217
+  },
+  {
+   "name": "RP CONSULTANCY B.V.",
+   "listed": false,
+   "question_only_bce": 0.8314825296401978,
+   "normalized_feature_mse": 0.6262387037277222,
+   "contextual_loss": 1.6442797183990479
+  },
+  {
+   "name": "MAKSTECH",
+   "listed": true,
+   "question_only_bce": 0.5075507164001465,
+   "normalized_feature_mse": 0.36611807346343994,
+   "contextual_loss": 1.4620429277420044
+  },
+  {
+   "name": "BANDES",
+   "listed": true,
+   "question_only_bce": 0.5876244306564331,
+   "normalized_feature_mse": 0.48415517807006836,
+   "contextual_loss": 2.3419623374938965
+  },
+  {
+   "name": "BENISHA COMMUNICATION",
+   "listed": false,
+   "question_only_bce": 0.9264630079269409,
+   "normalized_feature_mse": 0.4324554204940796,
+   "contextual_loss": 2.314342737197876
+  },
+  {
+   "name": "VYMPEL-SODEISTVIE",
+   "listed": true,
+   "question_only_bce": 0.507499635219574,
+   "normalized_feature_mse": 0.566966712474823,
+   "contextual_loss": 1.8817405700683594
+  },
+  {
+   "name": "LUKMAN CONSTRUCTION PRIVATE LIMITED",
+   "listed": false,
+   "question_only_bce": 0.9587602615356445,
+   "normalized_feature_mse": 0.6515017151832581,
+   "contextual_loss": 1.7727017402648926
+  },
+  {
+   "name": "MADHAVSOLAR (UDAIGARH) PRIVATE LIMITED",
+   "listed": false,
+   "question_only_bce": 0.94649338722229,
+   "normalized_feature_mse": 0.9736247062683105,
+   "contextual_loss": 0.9459823966026306
+  },
+  {
+   "name": "MAD KANDALU SHIPBUILDING COOPERATIVE QESHM",
+   "listed": true,
+   "question_only_bce": 0.4985603392124176,
+   "normalized_feature_mse": 0.5702958703041077,
+   "contextual_loss": 1.940159797668457
+  },
+  {
+   "name": "WILLIAM INTERNATIONAL LTD.",
+   "listed": false,
+   "question_only_bce": 0.8917899131774902,
+   "normalized_feature_mse": 0.7294242978096008,
+   "contextual_loss": 2.3120782375335693
+  },
+  {
+   "name": "KB LINES LIMITED",
+   "listed": true,
+   "question_only_bce": 0.5582407712936401,
+   "normalized_feature_mse": 0.4630524218082428,
+   "contextual_loss": 2.1667861938476562
+  },
+  {
+   "name": "IBIZATOURS & ISLANDBUS, S.L.",
+   "listed": false,
+   "question_only_bce": 0.26110148429870605,
+   "normalized_feature_mse": 0.5461958646774292,
+   "contextual_loss": 1.4159847497940063
+  },
+  {
+   "name": "ALCARDINAL PETROLEUM COMPANY LIMITED",
+   "listed": true,
+   "question_only_bce": 0.4325176179409027,
+   "normalized_feature_mse": 0.3642497956752777,
+   "contextual_loss": 0.5582940578460693
+  },
+  {
+   "name": "THRACE FOUNDATION",
+   "listed": true,
+   "question_only_bce": 0.5642914175987244,
+   "normalized_feature_mse": 0.44271546602249146,
+   "contextual_loss": 2.0218656063079834
+  },
+  {
+   "name": "MYRTILLE CONSULTING LIMITED PARTNERSHIP",
+   "listed": false,
+   "question_only_bce": 1.1649997234344482,
+   "normalized_feature_mse": 0.6996930241584778,
+   "contextual_loss": 2.2992730140686035
+  },
+  {
+   "name": "SKOLKOVO INSTITUTE OF SCIENCE AND TECHNOLOGY",
+   "listed": true,
+   "question_only_bce": 0.6133737564086914,
+   "normalized_feature_mse": 0.4394043982028961,
+   "contextual_loss": 1.907952070236206
+  },
+  {
+   "name": "AIKYA APPARELS PRIVATE LIMITED",
+   "listed": false,
+   "question_only_bce": 0.6112946271896362,
+   "normalized_feature_mse": 0.5507189631462097,
+   "contextual_loss": 1.503239393234253
+  },
+  {
+   "name": "ELVO LAUSNIR EHF.",
+   "listed": false,
+   "question_only_bce": 0.8442702889442444,
+   "normalized_feature_mse": 0.7989159822463989,
+   "contextual_loss": 1.2560389041900635
+  },
+  {
+   "name": "SAINT PETERSBURG IMPERIAL LEGION",
+   "listed": true,
+   "question_only_bce": 1.4103724956512451,
+   "normalized_feature_mse": 0.7864568829536438,
+   "contextual_loss": 2.0957062244415283
+  },
+  {
+   "name": "ANJOTE - SOCIEDADE DE INVESTIMENTOS, S.A.",
+   "listed": false,
+   "question_only_bce": 0.3350260257720947,
+   "normalized_feature_mse": 0.43253669142723083,
+   "contextual_loss": 1.7736802101135254
+  },
+  {
+   "name": "SHAHED AVIATION INDUSTRIES COMPLEX",
+   "listed": true,
+   "question_only_bce": 0.9168071746826172,
+   "normalized_feature_mse": 0.5138171315193176,
+   "contextual_loss": 1.901578664779663
+  },
+  {
+   "name": "P K BARBER DOV TRUST FOR CHRISTOPHER",
+   "listed": false,
+   "question_only_bce": 0.1119694709777832,
+   "normalized_feature_mse": 0.7062047123908997,
+   "contextual_loss": 1.3229432106018066
+  },
+  {
+   "name": "SALINA SHIP MANAGEMENT PRIVATE LIMITED",
+   "listed": true,
+   "question_only_bce": 1.156951904296875,
+   "normalized_feature_mse": 0.5129635334014893,
+   "contextual_loss": 0.9989568591117859
+  },
+  {
+   "name": "CEC BELARUS",
+   "listed": true,
+   "question_only_bce": 0.6775781512260437,
+   "normalized_feature_mse": 0.3938937783241272,
+   "contextual_loss": 1.9941966533660889
+  },
+  {
+   "name": "FRIENDS OF MANCHESTER CATHEDRAL",
+   "listed": false,
+   "question_only_bce": 0.2950061559677124,
+   "normalized_feature_mse": 0.5948741436004639,
+   "contextual_loss": 1.861135721206665
+  },
+  {
+   "name": "LLC NNK EAST",
+   "listed": true,
+   "question_only_bce": 0.43763458728790283,
+   "normalized_feature_mse": 0.440016508102417,
+   "contextual_loss": 1.5728247165679932
+  },
+  {
+   "name": "Y P ACCUMULATORS PRIVATE LIMITED",
+   "listed": false,
+   "question_only_bce": 0.23292028903961182,
+   "normalized_feature_mse": 0.6400728821754456,
+   "contextual_loss": 1.3819868564605713
+  },
+  {
+   "name": "HARI NARAYAN MEENA",
+   "listed": false,
+   "question_only_bce": 0.44410425424575806,
+   "normalized_feature_mse": 0.8579773306846619,
+   "contextual_loss": 1.1455450057983398
+  },
+  {
+   "name": "MAKSTECH",
+   "listed": true,
+   "question_only_bce": 0.42455166578292847,
+   "normalized_feature_mse": 0.4169800579547882,
+   "contextual_loss": 1.7749706506729126
+  },
+  {
+   "name": "LUXMI ELECTRIC SALES",
+   "listed": false,
+   "question_only_bce": 0.5081162452697754,
+   "normalized_feature_mse": 0.42534640431404114,
+   "contextual_loss": 2.034862756729126
+  },
+  {
+   "name": "PACIFIC OCEAN SHIPPING LIMITED",
+   "listed": true,
+   "question_only_bce": 0.17949669063091278,
+   "normalized_feature_mse": 0.4615727663040161,
+   "contextual_loss": 1.5332083702087402
+  },
+  {
+   "name": "LES ATELIERS DU PETIT MONT BLANC",
+   "listed": false,
+   "question_only_bce": 0.06422114372253418,
+   "normalized_feature_mse": 0.8304124474525452,
+   "contextual_loss": 1.313545823097229
+  },
+  {
+   "name": "FINANCIERA CIMEX S.A",
+   "listed": true,
+   "question_only_bce": 1.4428695440292358,
+   "normalized_feature_mse": 0.2063215970993042,
+   "contextual_loss": 1.154068112373352
+  },
+  {
+   "name": "PRODUCTION UNITARY ENTERPRISE PLANT SVT",
+   "listed": true,
+   "question_only_bce": 0.6509331464767456,
+   "normalized_feature_mse": 0.5218921899795532,
+   "contextual_loss": 1.9408375024795532
+  },
+  {
+   "name": "ASHUTOSH ANAND",
+   "listed": false,
+   "question_only_bce": 0.46964603662490845,
+   "normalized_feature_mse": 0.6266158223152161,
+   "contextual_loss": 2.008204936981201
+  },
+  {
+   "name": "LIMITED LIABILITY COMPANY TRADE HOUSE KYUTEK",
+   "listed": true,
+   "question_only_bce": 0.41614729166030884,
+   "normalized_feature_mse": 0.8063178062438965,
+   "contextual_loss": 1.3504250049591064
+  },
+  {
+   "name": "POUPINVEST",
+   "listed": false,
+   "question_only_bce": 0.7827521562576294,
+   "normalized_feature_mse": 0.41911324858665466,
+   "contextual_loss": 1.9010255336761475
+  },
+  {
+   "name": "THE MAYUR COLLECTION II",
+   "listed": false,
+   "question_only_bce": 0.48736000061035156,
+   "normalized_feature_mse": 0.4031660556793213,
+   "contextual_loss": 1.12197744846344
+  },
+  {
+   "name": "PLAZA VIRREYES",
+   "listed": true,
+   "question_only_bce": 0.9077491760253906,
+   "normalized_feature_mse": 0.38427212834358215,
+   "contextual_loss": 1.9399300813674927
+  },
+  {
+   "name": "AMARINA INTERNATIONAL AG",
+   "listed": false,
+   "question_only_bce": 0.6740441918373108,
+   "normalized_feature_mse": 0.4115470349788666,
+   "contextual_loss": 1.9662556648254395
+  },
+  {
+   "name": "OOO MAKRO GRUPP",
+   "listed": true,
+   "question_only_bce": 0.3758189380168915,
+   "normalized_feature_mse": 0.5646381378173828,
+   "contextual_loss": 1.3000410795211792
+  },
+  {
+   "name": "YEB-JAN YPMA HOLDING B.V.",
+   "listed": false,
+   "question_only_bce": 0.12318205833435059,
+   "normalized_feature_mse": 0.5959951281547546,
+   "contextual_loss": 1.2063002586364746
+  },
+  {
+   "name": "AL-FALAH SOCIETY GAZA",
+   "listed": true,
+   "question_only_bce": 1.3035197257995605,
+   "normalized_feature_mse": 0.23151922225952148,
+   "contextual_loss": 0.8215458393096924
+  },
+  {
+   "name": "SEA HERMES",
+   "listed": true,
+   "question_only_bce": 0.660931408405304,
+   "normalized_feature_mse": 0.34608468413352966,
+   "contextual_loss": 2.031844139099121
+  },
+  {
+   "name": "ROTHESAY PROPERTY COMPANY 2 LIMITED",
+   "listed": false,
+   "question_only_bce": 0.523741602897644,
+   "normalized_feature_mse": 0.47599533200263977,
+   "contextual_loss": 1.8538390398025513
+  },
+  {
+   "name": "LIMITED LIABILITY COMPANY AXALIT LAB",
+   "listed": true,
+   "question_only_bce": 0.3973288834095001,
+   "normalized_feature_mse": 0.5983731150627136,
+   "contextual_loss": 1.4558777809143066
+  },
+  {
+   "name": "HARI NARAYAN MEENA",
+   "listed": false,
+   "question_only_bce": 0.3857421278953552,
+   "normalized_feature_mse": 0.6888623833656311,
+   "contextual_loss": 1.6054009199142456
+  },
+  {
+   "name": "AKSHAR INDUSTRIES",
+   "listed": false,
+   "question_only_bce": 0.7272544503211975,
+   "normalized_feature_mse": 0.3944728374481201,
+   "contextual_loss": 1.0802172422409058
+  },
+  {
+   "name": "NEST WISE PETROLEUM L.L.C",
+   "listed": true,
+   "question_only_bce": 2.6960670948028564,
+   "normalized_feature_mse": 0.5494675040245056,
+   "contextual_loss": 3.6351842880249023
+  },
+  {
+   "name": "SIMRAN ASIAN AND AFRICAN FOODS",
+   "listed": false,
+   "question_only_bce": 0.7203329205513,
+   "normalized_feature_mse": 0.4182289242744446,
+   "contextual_loss": 1.770930290222168
+  },
+  {
+   "name": "AZARPAD QESHM",
+   "listed": true,
+   "question_only_bce": 0.2577553689479828,
+   "normalized_feature_mse": 0.33786541223526,
+   "contextual_loss": 1.5011378526687622
+  },
+  {
+   "name": "ISTITUTO SUPERIORE INTERNAZIONALE SALESIANO DI RICERCA EDUCATIVA CON DENOMINAZIONE \"ISRE\"",
+   "listed": false,
+   "question_only_bce": 0.1307814121246338,
+   "normalized_feature_mse": 0.6218770742416382,
+   "contextual_loss": 1.5534669160842896
+  },
+  {
+   "name": "DOTONE",
+   "listed": true,
+   "question_only_bce": 0.3725566864013672,
+   "normalized_feature_mse": 0.1490272879600525,
+   "contextual_loss": 1.0723730325698853
+  },
+  {
+   "name": "HTTS HANSEATIC TRADE TRUST & SHIPPING GMBH",
+   "listed": true,
+   "question_only_bce": 0.4385673999786377,
+   "normalized_feature_mse": 0.49622842669487,
+   "contextual_loss": 1.8427925109863281
+  },
+  {
+   "name": "BELZ INSTITUTIONS OF LAKEWOOD INC.",
+   "listed": false,
+   "question_only_bce": 0.3336341381072998,
+   "normalized_feature_mse": 0.39924904704093933,
+   "contextual_loss": 1.6209640502929688
+  },
+  {
+   "name": "RHINE SHIPPING DMCC",
+   "listed": true,
+   "question_only_bce": 0.3551313579082489,
+   "normalized_feature_mse": 0.40411829948425293,
+   "contextual_loss": 1.2902061939239502
+  },
+  {
+   "name": "INMINER INGENIERIA, S.L",
+   "listed": false,
+   "question_only_bce": 0.15569806098937988,
+   "normalized_feature_mse": 0.4233149290084839,
+   "contextual_loss": 1.25556480884552
+  },
+  {
+   "name": "WILLIAM INTERNATIONAL LTD.",
+   "listed": false,
+   "question_only_bce": 0.2896827459335327,
+   "normalized_feature_mse": 0.7763006091117859,
+   "contextual_loss": 1.0274271965026855
+  },
+  {
+   "name": "ALPHAONE PHARMACEUTICAL B.V.",
+   "listed": true,
+   "question_only_bce": 1.016003966331482,
+   "normalized_feature_mse": 0.36239826679229736,
+   "contextual_loss": 2.9904985427856445
+  },
+  {
+   "name": "RAMESH MANCHHALAL PUROHIT",
+   "listed": false,
+   "question_only_bce": 0.7800038456916809,
+   "normalized_feature_mse": 0.39122140407562256,
+   "contextual_loss": 1.7721648216247559
+  },
+  {
+   "name": "VALOR Y PRINCIPIO DE DAR, A.C.",
+   "listed": true,
+   "question_only_bce": 1.5275541543960571,
+   "normalized_feature_mse": 0.4395696222782135,
+   "contextual_loss": 2.3404483795166016
+  },
+  {
+   "name": "CONGREGAZIONE MISSIONARIA DELLA PASSIONE DI NOSTRO SIGNORE GESU' CRISTO",
+   "listed": false,
+   "question_only_bce": 0.21377885341644287,
+   "normalized_feature_mse": 0.47251003980636597,
+   "contextual_loss": 1.263159990310669
+  },
+  {
+   "name": "CAGL",
+   "listed": true,
+   "question_only_bce": 0.39661774039268494,
+   "normalized_feature_mse": 0.13288205862045288,
+   "contextual_loss": 1.0228147506713867
+  },
+  {
+   "name": "EVY BLUE LTD",
+   "listed": true,
+   "question_only_bce": 0.4179550111293793,
+   "normalized_feature_mse": 0.30511242151260376,
+   "contextual_loss": 1.5609298944473267
+  },
+  {
+   "name": "ALOKA GREEN ENERGY LTD",
+   "listed": false,
+   "question_only_bce": 0.7872714996337891,
+   "normalized_feature_mse": 0.4568212628364563,
+   "contextual_loss": 2.2074875831604004
+  },
+  {
+   "name": "LLC BSP GLOBAL",
+   "listed": true,
+   "question_only_bce": 0.17162518203258514,
+   "normalized_feature_mse": 0.3092128336429596,
+   "contextual_loss": 1.4277487993240356
+  },
+  {
+   "name": "ALL IN TRANSPORT STOCKHOLM AB",
+   "listed": false,
+   "question_only_bce": 0.385434091091156,
+   "normalized_feature_mse": 0.4644033908843994,
+   "contextual_loss": 1.2402889728546143
+  },
+  {
+   "name": "MCLELLAN & CO LTD",
+   "listed": false,
+   "question_only_bce": 0.9032087922096252,
+   "normalized_feature_mse": 0.5760705471038818,
+   "contextual_loss": 0.872769832611084
+  },
+  {
+   "name": "GREEN ENERGY CHEMICALS",
+   "listed": true,
+   "question_only_bce": 0.45259296894073486,
+   "normalized_feature_mse": 0.34294402599334717,
+   "contextual_loss": 1.9266419410705566
+  },
+  {
+   "name": "RECTANGLE BOX",
+   "listed": false,
+   "question_only_bce": 1.3702675104141235,
+   "normalized_feature_mse": 0.24547654390335083,
+   "contextual_loss": 2.299405097961426
+  },
+  {
+   "name": "SLAVKALI IOOO",
+   "listed": true,
+   "question_only_bce": 0.5699781179428101,
+   "normalized_feature_mse": 0.4605277478694916,
+   "contextual_loss": 1.5746264457702637
+  },
+  {
+   "name": "WS KEYRIDGE MAP CAUTIOUS FUND",
+   "listed": false,
+   "question_only_bce": 0.8591021299362183,
+   "normalized_feature_mse": 0.4294728934764862,
+   "contextual_loss": 1.7779606580734253
+  },
+  {
+   "name": "DIMOND TOWN SHIPPING CO",
+   "listed": true,
+   "question_only_bce": 0.08964844048023224,
+   "normalized_feature_mse": 0.2513417601585388,
+   "contextual_loss": 1.557877540588379
+  },
+  {
+   "name": "SISU PRIME LIMITED",
+   "listed": true,
+   "question_only_bce": 0.3335636556148529,
+   "normalized_feature_mse": 0.33103153109550476,
+   "contextual_loss": 1.68351411819458
+  },
+  {
+   "name": "A&G FLOTA",
+   "listed": false,
+   "question_only_bce": 1.0698657035827637,
+   "normalized_feature_mse": 0.32001858949661255,
+   "contextual_loss": 2.303196668624878
+  },
+  {
+   "name": "TETHYS PRO JSC",
+   "listed": true,
+   "question_only_bce": 0.21419991552829742,
+   "normalized_feature_mse": 0.288218230009079,
+   "contextual_loss": 1.4854341745376587
+  },
+  {
+   "name": "MADHAVSOLAR (UDAIGARH) PRIVATE LIMITED",
+   "listed": false,
+   "question_only_bce": 0.3600696325302124,
+   "normalized_feature_mse": 0.47128620743751526,
+   "contextual_loss": 1.0807808637619019
+  },
+  {
+   "name": "DEFINE CAPITAL INC.",
+   "listed": false,
+   "question_only_bce": 1.051122784614563,
+   "normalized_feature_mse": 0.3204191327095032,
+   "contextual_loss": 0.8307462930679321
+  },
+  {
+   "name": "Dionicio Loya Plancarte",
+   "listed": true,
+   "question_only_bce": 0.9297550320625305,
+   "normalized_feature_mse": 0.370866596698761,
+   "contextual_loss": 2.039065361022949
+  },
+  {
+   "name": "THE MAYUR COLLECTION II",
+   "listed": false,
+   "question_only_bce": 0.5643516778945923,
+   "normalized_feature_mse": 0.33842432498931885,
+   "contextual_loss": 1.7732632160186768
+  },
+  {
+   "name": "KOSAR COMPANY",
+   "listed": true,
+   "question_only_bce": 0.22024120390415192,
+   "normalized_feature_mse": 0.24228717386722565,
+   "contextual_loss": 1.4137639999389648
+  },
+  {
+   "name": "DEFINE CAPITAL INC.",
+   "listed": false,
+   "question_only_bce": 0.9079522490501404,
+   "normalized_feature_mse": 0.2821059823036194,
+   "contextual_loss": 1.8149358034133911
+  },
+  {
+   "name": "PACIFIC OCEAN SHIPPING LIMITED",
+   "listed": true,
+   "question_only_bce": 0.07844506949186325,
+   "normalized_feature_mse": 0.20281124114990234,
+   "contextual_loss": 0.8910163044929504
+  },
+  {
+   "name": "YUK TUNG ENERGY PTE LTD",
+   "listed": true,
+   "question_only_bce": 0.5285183191299438,
+   "normalized_feature_mse": 0.3365035355091095,
+   "contextual_loss": 1.581455111503601
+  },
+  {
+   "name": "ELVO LAUSNIR EHF.",
+   "listed": false,
+   "question_only_bce": 0.7578167915344238,
+   "normalized_feature_mse": 0.37045398354530334,
+   "contextual_loss": 1.8010294437408447
+  },
+  {
+   "name": "KATEEB AL MUHAJIREEN WAL ANSAR",
+   "listed": true,
+   "question_only_bce": 1.772559642791748,
+   "normalized_feature_mse": 0.5833903551101685,
+   "contextual_loss": 2.548429012298584
+  },
+  {
+   "name": "REDDY DRUGS LIFE SCIENCES",
+   "listed": false,
+   "question_only_bce": 0.578008234500885,
+   "normalized_feature_mse": 0.36637187004089355,
+   "contextual_loss": 1.322397232055664
+  },
+  {
+   "name": "HUNGRY BOYS",
+   "listed": false,
+   "question_only_bce": 0.7586657404899597,
+   "normalized_feature_mse": 0.26865190267562866,
+   "contextual_loss": 0.9780727624893188
+  },
+  {
+   "name": "DOTONE",
+   "listed": true,
+   "question_only_bce": 0.3553411364555359,
+   "normalized_feature_mse": 0.28133970499038696,
+   "contextual_loss": 1.5091354846954346
+  },
+  {
+   "name": "MAKAW LIMITED",
+   "listed": false,
+   "question_only_bce": 0.8393169641494751,
+   "normalized_feature_mse": 0.33543285727500916,
+   "contextual_loss": 2.017296075820923
+  },
+  {
+   "name": "PUBLIC JOINT STOCK COMPANY BANK ALEXANDROVSKY",
+   "listed": true,
+   "question_only_bce": 0.5693671703338623,
+   "normalized_feature_mse": 0.35650619864463806,
+   "contextual_loss": 1.419284462928772
+  },
+  {
+   "name": "HUNGRY BOYS",
+   "listed": false,
+   "question_only_bce": 0.6738916635513306,
+   "normalized_feature_mse": 0.30106961727142334,
+   "contextual_loss": 1.440278172492981
+  },
+  {
+   "name": "NOVO BLOCKCHAIN CONSULTORIA LDA",
+   "listed": true,
+   "question_only_bce": 0.7171989679336548,
+   "normalized_feature_mse": 0.17360126972198486,
+   "contextual_loss": 1.09541916847229
+  },
+  {
+   "name": "NOVO BLOCKCHAIN CONSULTORIA LDA",
+   "listed": true,
+   "question_only_bce": 0.6938787698745728,
+   "normalized_feature_mse": 0.2682075500488281,
+   "contextual_loss": 2.1245648860931396
+  },
+  {
+   "name": "KJP KOERIER",
+   "listed": false,
+   "question_only_bce": 1.0251173973083496,
+   "normalized_feature_mse": 0.3604260981082916,
+   "contextual_loss": 1.9635194540023804
+  },
+  {
+   "name": "M STAR INTERNATIONAL TRADING CO LIMITED",
+   "listed": true,
+   "question_only_bce": 0.5242798328399658,
+   "normalized_feature_mse": 0.3511806130409241,
+   "contextual_loss": 1.4347596168518066
+  },
+  {
+   "name": "GABINETE JURIDICO MEXICO 100 SOCIEDAD LIMITADA PROFESIONAL",
+   "listed": false,
+   "question_only_bce": 0.20069849491119385,
+   "normalized_feature_mse": 0.39586323499679565,
+   "contextual_loss": 1.2532715797424316
+  },
+  {
+   "name": "RBM STUDIO LLC",
+   "listed": false,
+   "question_only_bce": 1.0910634994506836,
+   "normalized_feature_mse": 0.265520304441452,
+   "contextual_loss": 0.84637850522995
+  },
+  {
+   "name": "CAPITAL TAP MANAGEMENT CONSULTANCIES",
+   "listed": true,
+   "question_only_bce": 1.0632685422897339,
+   "normalized_feature_mse": 0.3154541254043579,
+   "contextual_loss": 2.352011203765869
+  },
+  {
+   "name": "MASTER ENGINEERING",
+   "listed": false,
+   "question_only_bce": 0.7755871415138245,
+   "normalized_feature_mse": 0.3219413161277771,
+   "contextual_loss": 1.8996013402938843
+  },
+  {
+   "name": "JOINT STOCK COMPANY ELEKTRONNAYA MOSKVA",
+   "listed": true,
+   "question_only_bce": 0.9746653437614441,
+   "normalized_feature_mse": 0.4640190899372101,
+   "contextual_loss": 1.57012939453125
+  },
+  {
+   "name": "CASTELL 2026-2 PLC",
+   "listed": false,
+   "question_only_bce": 0.7382205724716187,
+   "normalized_feature_mse": 0.29163163900375366,
+   "contextual_loss": 1.4809538125991821
+  },
+  {
+   "name": "PRODUCTION UNITARY ENTERPRISE PLANT SVT",
+   "listed": true,
+   "question_only_bce": 0.5045608282089233,
+   "normalized_feature_mse": 0.17271718382835388,
+   "contextual_loss": 0.6568955779075623
+  },
+  {
+   "name": "RISEONIC HOLDINGS LTD",
+   "listed": true,
+   "question_only_bce": 0.800713300704956,
+   "normalized_feature_mse": 0.22913861274719238,
+   "contextual_loss": 1.7741260528564453
+  },
+  {
+   "name": "ACADEMOS EDUTECH",
+   "listed": false,
+   "question_only_bce": 0.5429641008377075,
+   "normalized_feature_mse": 0.3379318416118622,
+   "contextual_loss": 1.654720425605774
+  },
+  {
+   "name": "FINANCIERA CIMEX S.A",
+   "listed": true,
+   "question_only_bce": 0.6350377202033997,
+   "normalized_feature_mse": 0.17382530868053436,
+   "contextual_loss": 1.7432122230529785
+  },
+  {
+   "name": "AKSHAR INDUSTRIES",
+   "listed": false,
+   "question_only_bce": 0.459667444229126,
+   "normalized_feature_mse": 0.30720922350883484,
+   "contextual_loss": 1.5490834712982178
+  },
+  {
+   "name": "MASTER ENGINEERING",
+   "listed": false,
+   "question_only_bce": 0.7491582632064819,
+   "normalized_feature_mse": 0.25100836157798767,
+   "contextual_loss": 0.8766193985939026
+  },
+  {
+   "name": "SHINE. X INVESTMENTS PVT LTD",
+   "listed": true,
+   "question_only_bce": 1.0242656469345093,
+   "normalized_feature_mse": 0.23864221572875977,
+   "contextual_loss": 1.9886362552642822
+  },
+  {
+   "name": "MCLELLAN & CO LTD",
+   "listed": false,
+   "question_only_bce": 0.3043910264968872,
+   "normalized_feature_mse": 0.29754701256752014,
+   "contextual_loss": 1.651916742324829
+  },
+  {
+   "name": "ROSATOM MICROELECTRONICS JOINT STOCK COMPANY",
+   "listed": true,
+   "question_only_bce": 0.32173192501068115,
+   "normalized_feature_mse": 0.30289798974990845,
+   "contextual_loss": 1.4694912433624268
+  },
+  {
+   "name": "STEVIN PARTNERS S.R.L.",
+   "listed": false,
+   "question_only_bce": 0.3743945360183716,
+   "normalized_feature_mse": 0.30285125970840454,
+   "contextual_loss": 1.286673903465271
+  },
+  {
+   "name": "CAPITAL TAP MANAGEMENT CONSULTANCIES",
+   "listed": true,
+   "question_only_bce": 0.939720869064331,
+   "normalized_feature_mse": 0.23255407810211182,
+   "contextual_loss": 1.205488920211792
+  },
+  {
+   "name": "FARTON MITEX SDN BHD",
+   "listed": true,
+   "question_only_bce": 0.3664582371711731,
+   "normalized_feature_mse": 0.23536041378974915,
+   "contextual_loss": 1.6371030807495117
+  },
+  {
+   "name": "PROMTEKHNOLOGIYA IRAN CUBANACAN RMB ARMED BUSINESS TRANSNATIONAL",
+   "listed": false,
+   "question_only_bce": 0.8215616941452026,
+   "normalized_feature_mse": 0.4380964934825897,
+   "contextual_loss": 2.8409600257873535
+  },
+  {
+   "name": "AL-FALAH SOCIETY GAZA",
+   "listed": true,
+   "question_only_bce": 0.8131754398345947,
+   "normalized_feature_mse": 0.4290008246898651,
+   "contextual_loss": 1.674774169921875
+  },
+  {
+   "name": "GCA INVEST AB",
+   "listed": false,
+   "question_only_bce": 0.3012363910675049,
+   "normalized_feature_mse": 0.2929936349391937,
+   "contextual_loss": 1.3820019960403442
+  },
+  {
+   "name": "SWETA INDUSTRIES",
+   "listed": false,
+   "question_only_bce": 0.4801320731639862,
+   "normalized_feature_mse": 0.26338791847229004,
+   "contextual_loss": 0.6826918125152588
+  },
+  {
+   "name": "CAGL",
+   "listed": true,
+   "question_only_bce": 0.5793684124946594,
+   "normalized_feature_mse": 0.27337101101875305,
+   "contextual_loss": 1.6237342357635498
+  },
+  {
+   "name": "OMS INTERNATIONAL",
+   "listed": false,
+   "question_only_bce": 0.5665668249130249,
+   "normalized_feature_mse": 0.29373639822006226,
+   "contextual_loss": 1.9228829145431519
+  },
+  {
+   "name": "ALCARDINAL PETROLEUM COMPANY LIMITED",
+   "listed": true,
+   "question_only_bce": 1.120421290397644,
+   "normalized_feature_mse": 0.4046603739261627,
+   "contextual_loss": 1.642605185508728
+  },
+  {
+   "name": "BRINGELANDS MASKINHANDEL AB",
+   "listed": false,
+   "question_only_bce": 0.13407421112060547,
+   "normalized_feature_mse": 0.3782428503036499,
+   "contextual_loss": 1.3528393507003784
+  },
+  {
+   "name": "KATEEB AL MUHAJIREEN WAL ANSAR",
+   "listed": true,
+   "question_only_bce": 1.3017362356185913,
+   "normalized_feature_mse": 0.3088868260383606,
+   "contextual_loss": 0.8835427761077881
+  },
+  {
+   "name": "SVR ROSSII FKU",
+   "listed": true,
+   "question_only_bce": 0.5039479732513428,
+   "normalized_feature_mse": 0.2780485153198242,
+   "contextual_loss": 1.733647346496582
+  },
+  {
+   "name": "RICHIELD FINANCIAL SERVICES INC.",
+   "listed": false,
+   "question_only_bce": 0.3547457456588745,
+   "normalized_feature_mse": 0.2677572965621948,
+   "contextual_loss": 1.7807822227478027
+  },
+  {
+   "name": "TGOK ILMENITE JSC",
+   "listed": true,
+   "question_only_bce": 0.5263615250587463,
+   "normalized_feature_mse": 0.26104307174682617,
+   "contextual_loss": 1.6275147199630737
+  },
+  {
+   "name": "SWETA INDUSTRIES",
+   "listed": false,
+   "question_only_bce": 0.47913751006126404,
+   "normalized_feature_mse": 0.2814940810203552,
+   "contextual_loss": 1.591562271118164
+  },
+  {
+   "name": "ACADEMOS EDUTECH",
+   "listed": false,
+   "question_only_bce": 0.494670569896698,
+   "normalized_feature_mse": 0.2748405337333679,
+   "contextual_loss": 0.5217039585113525
+  },
+  {
+   "name": "MIRIM COLLEGE",
+   "listed": true,
+   "question_only_bce": 1.050365924835205,
+   "normalized_feature_mse": 0.40517139434814453,
+   "contextual_loss": 1.6893045902252197
+  },
+  {
+   "name": "NAPATREE TECHNOLOGY LLC",
+   "listed": false,
+   "question_only_bce": 0.901004433631897,
+   "normalized_feature_mse": 0.21583832800388336,
+   "contextual_loss": 2.0971431732177734
+  },
+  {
+   "name": "DIMOND TOWN SHIPPING CO",
+   "listed": true,
+   "question_only_bce": 0.16561327874660492,
+   "normalized_feature_mse": 0.2872695326805115,
+   "contextual_loss": 1.513879418373108
+  },
+  {
+   "name": "HIMEM AB",
+   "listed": false,
+   "question_only_bce": 0.6236922144889832,
+   "normalized_feature_mse": 0.2312929779291153,
+   "contextual_loss": 1.5927748680114746
+  },
+  {
+   "name": "NEST WISE PETROLEUM L.L.C",
+   "listed": true,
+   "question_only_bce": 1.2373707294464111,
+   "normalized_feature_mse": 0.16585181653499603,
+   "contextual_loss": 0.865537703037262
+  },
+  {
+   "name": "STUDIA PIXAGIO",
+   "listed": true,
+   "question_only_bce": 0.5930023789405823,
+   "normalized_feature_mse": 0.34656742215156555,
+   "contextual_loss": 1.7121636867523193
+  },
+  {
+   "name": "RBM STUDIO LLC",
+   "listed": false,
+   "question_only_bce": 0.8753358125686646,
+   "normalized_feature_mse": 0.21066677570343018,
+   "contextual_loss": 2.0668439865112305
+  },
+  {
+   "name": "LIMITED LIABILITY COMPANY ALABUGA DEVELOPMENT",
+   "listed": true,
+   "question_only_bce": 0.5236528515815735,
+   "normalized_feature_mse": 0.2906053066253662,
+   "contextual_loss": 1.4211986064910889
+  },
+  {
+   "name": "LEIW ASIA OPPORTUNITIES MASTER FUND",
+   "listed": false,
+   "question_only_bce": 0.43784797191619873,
+   "normalized_feature_mse": 0.26918405294418335,
+   "contextual_loss": 1.5572985410690308
+  },
+  {
+   "name": "RICHIELD FINANCIAL SERVICES INC.",
+   "listed": false,
+   "question_only_bce": 0.35825419425964355,
+   "normalized_feature_mse": 0.2032518982887268,
+   "contextual_loss": 0.5810054540634155
+  },
+  {
+   "name": "SARIL OVERSEAS LIMITED",
+   "listed": true,
+   "question_only_bce": 1.014697790145874,
+   "normalized_feature_mse": 0.4317801296710968,
+   "contextual_loss": 1.9521757364273071
+  },
+  {
+   "name": "MAA NEW AGRO PRODUCT",
+   "listed": false,
+   "question_only_bce": 1.0647220611572266,
+   "normalized_feature_mse": 0.18514403700828552,
+   "contextual_loss": 1.8309813737869263
+  },
+  {
+   "name": "VELIKOLUKSKII AKKUMULYATORNYI ZAVOD IMPULS",
+   "listed": true,
+   "question_only_bce": 0.7920123338699341,
+   "normalized_feature_mse": 0.46471935510635376,
+   "contextual_loss": 1.7698204517364502
+  },
+  {
+   "name": "BENS FUELS LTD",
+   "listed": false,
+   "question_only_bce": 0.6196396350860596,
+   "normalized_feature_mse": 0.22423575818538666,
+   "contextual_loss": 1.7915501594543457
+  },
+  {
+   "name": "SHAHED AVIATION INDUSTRIES COMPLEX",
+   "listed": true,
+   "question_only_bce": 0.7660990953445435,
+   "normalized_feature_mse": 0.12097030878067017,
+   "contextual_loss": 0.7010366320610046
+  },
+  {
+   "name": "SALINA SHIP MANAGEMENT PRIVATE LIMITED",
+   "listed": true,
+   "question_only_bce": 0.9712495803833008,
+   "normalized_feature_mse": 0.4801288843154907,
+   "contextual_loss": 1.6430776119232178
+  },
+  {
+   "name": "AMJAD ALI PANWAR",
+   "listed": false,
+   "question_only_bce": 0.4167788624763489,
+   "normalized_feature_mse": 0.6654331088066101,
+   "contextual_loss": 1.7381712198257446
+  },
+  {
+   "name": "LIMITED LIABILITY COMPANY DV HOLDING",
+   "listed": true,
+   "question_only_bce": 0.28726446628570557,
+   "normalized_feature_mse": 0.3626302480697632,
+   "contextual_loss": 1.4691003561019897
+  },
+  {
+   "name": "QUANTUM LEGACY FAMILY OFFICE SOCIEDAD LIMITADA",
+   "listed": false,
+   "question_only_bce": 0.544589638710022,
+   "normalized_feature_mse": 0.316120445728302,
+   "contextual_loss": 1.8057019710540771
+  },
+  {
+   "name": "RP CONSULTANCY B.V.",
+   "listed": false,
+   "question_only_bce": 0.4851061701774597,
+   "normalized_feature_mse": 0.18669208884239197,
+   "contextual_loss": 0.6166495084762573
+  }
+ ],
+ "scope": "Training losses, not independent accuracy."
+}

@@ -28,6 +28,19 @@ parent source-validation exposure disclosed. Keep65% per format, membership,
 primary/alias and Cartesian guards plus5pp thin retention. Fixed final step only.
 No full-corpus training, reserved/removal scores, signing or submission.
 
+Completed and rejected after32 updates. Qualified prose listed25/48(v26) to28/48,
+but absent late JSON0/48,early JSON14/48 and thin35/48 fail. No export. Source
+TRAINING fit also has late-JSON absent0/64 and thin absent35/64, so this is not
+only a generalization failure. Main checkpoint remains178 standard tensors.
+
+Question-only membership becomes34/48 listed,37/48 absent, versus v26's47/48,
+6/48 with its context-shifted head. That auxiliary improvement does not rescue
+main ranking. On the exact qualified-prose gate, v26/v27 positive primary-role
+tokens are48/192 and101/192 correct, versus288/288 negative tokens for both.
+Thus near-perfect role decoding in five training forms does not generalize to
+this form. These are correlated-token readouts, not primary-answer accuracy or
+proof of a causal mechanism. Main counts match the ordinary HF gate exactly.
+
 ```powershell
 $env:HF_HOME='C:/Users/hyada/tg-eval/hf'
 $env:HF_HUB_OFFLINE='1'

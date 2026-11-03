@@ -382,3 +382,24 @@ Large training runs and model files live outside OneDrive, in `C:\Users\hyada\tg
   tokens, original annotation/source input hashes and entity disjointness before
   optimization. Same paired-development96 and all prior gates, fixed final step.
   No full-corpus training, reserved/removal scores, wallet, registry or submission.
+
+## A24 — Fixed source-fit duration control after failed auxiliary repair
+
+- V27 fails late-JSON absent0/48, including0/64 on source TRAINING. Its qualified
+  positive primary-role tokens101/192 still fail to transfer from training forms.
+  V26 is48/192 on this exact form despite near-perfect training-form role counts.
+  Neither auxiliary result establishes general role parsing or main-score validity.
+- V25 ordinary-ranking source fit is also weak: thin listed34/64,aliases16/32;
+  late-JSON absent28/64. Many32-step repairs were not fitted even to their128 facts.
+  Test duration before inventing more losses: v28 keeps v25's exact128 source facts,
+  parent13,ordinary Cartesian objective,178 trainable tensors,lr/seed/max512,
+  optimizer/checkpointing/dropout and same96 paired-development cohort.
+- Freeze128 total updates, four balanced source passes. Rerun first32 and require
+  all178 tensors and the loss trajectory to reproduce v25 exactly before further
+  updates. Reuse the hash-bound independent224-query source audit with exact query
+  identity/current source-file hash checks. No new corpus or auxiliary objective.
+- No development scoring/checkpoint selection during optimization; evaluate only
+  the fixed final step. Record final source-training fit and require95% per trained
+  format/class/primary/alias, plus all original development/retention/Cartesian
+  gates. Passing these still needs actual-node/binding and balanced external proof.
+  This is a128-fact fit control, not full-corpus training or a submission action.

@@ -1,0 +1,598 @@
+{
+ "identity": {
+  "version": 27,
+  "tensors_verified": 178,
+  "checkpoint_sha256": "4e617a7d541705ffb34925a11b4404c4e1561d19f87418faca8dcb3f944880aa"
+ },
+ "by_membership": {
+  "True": {
+   "queries": 48,
+   "correct": 34
+  },
+  "False": {
+   "queries": 48,
+   "correct": 37
+  }
+ },
+ "rows": [
+  {
+   "name": "VISION SHIP MANAGEMENT LLP",
+   "listed": true,
+   "score": 0.21245598793029785,
+   "correct": true
+  },
+  {
+   "name": "TRANSSERVICE LLC",
+   "listed": true,
+   "score": 0.27143630385398865,
+   "correct": true
+  },
+  {
+   "name": "FIDAR FOOLAD RADMAN",
+   "listed": true,
+   "score": -0.23134583234786987,
+   "correct": false
+  },
+  {
+   "name": "PIONEER BENCONT STAR REAL ESTATE",
+   "listed": true,
+   "score": 0.23662367463111877,
+   "correct": true
+  },
+  {
+   "name": "PSB INNOVATIONS AND INVESTMENTS LIMITED LIABILITY COMPANY",
+   "listed": true,
+   "score": 0.7238114476203918,
+   "correct": true
+  },
+  {
+   "name": "NABAH LTD",
+   "listed": true,
+   "score": 0.7314438223838806,
+   "correct": true
+  },
+  {
+   "name": "BONYAD SHIPPING AGENCIES COMPANY",
+   "listed": true,
+   "score": 0.8557087779045105,
+   "correct": true
+  },
+  {
+   "name": "AERIALIA",
+   "listed": true,
+   "score": -0.5564157366752625,
+   "correct": false
+  },
+  {
+   "name": "LIMITED LIABILITY COMPANY ELGA FACTORIES 3",
+   "listed": true,
+   "score": 0.4634917378425598,
+   "correct": true
+  },
+  {
+   "name": "NEW HORIZONS TRADING LIMITED",
+   "listed": true,
+   "score": 0.5655974745750427,
+   "correct": true
+  },
+  {
+   "name": "SO TVERNEFTEPRODUKT OOO",
+   "listed": true,
+   "score": 0.8568812608718872,
+   "correct": true
+  },
+  {
+   "name": "JOINT STOCK COMPANY SVETLOVSKY ENTERPRISE ERA",
+   "listed": true,
+   "score": 0.8168826699256897,
+   "correct": true
+  },
+  {
+   "name": "KOREA ANSAN SHIPPING COMPANY",
+   "listed": true,
+   "score": 1.0452715158462524,
+   "correct": true
+  },
+  {
+   "name": "ADDAMEER PRISONER SUPPORT AND HUMAN RIGHTS ASSOCIATION",
+   "listed": true,
+   "score": 0.3825855851173401,
+   "correct": true
+  },
+  {
+   "name": "CHAM HOLDING",
+   "listed": true,
+   "score": 0.08102867007255554,
+   "correct": true
+  },
+  {
+   "name": "DIVERSIONES LOS MOCHIS S.A. DE C.V.",
+   "listed": true,
+   "score": -0.5389572381973267,
+   "correct": false
+  },
+  {
+   "name": "Z AXIS LLC",
+   "listed": true,
+   "score": 0.2200464904308319,
+   "correct": true
+  },
+  {
+   "name": "LIMITED LIABILITY COMPANY CARBONTEX",
+   "listed": true,
+   "score": 1.1904494762420654,
+   "correct": true
+  },
+  {
+   "name": "EXPOBANK JOINT STOCK COMPANY",
+   "listed": true,
+   "score": 0.7044278979301453,
+   "correct": true
+  },
+  {
+   "name": "JOINT STOCK COMPANY SIBUGOLINVEST",
+   "listed": true,
+   "score": 0.665756106376648,
+   "correct": true
+  },
+  {
+   "name": "JOINT STOCK COMPANY 63 ARSENAL",
+   "listed": true,
+   "score": -0.2000662386417389,
+   "correct": false
+  },
+  {
+   "name": "LIMITED LIABILITY COMPANY RESEARCH AND PRODUCTION COMPANY MAKROOPTIKA",
+   "listed": true,
+   "score": 1.1953927278518677,
+   "correct": true
+  },
+  {
+   "name": "AO PROTON IMPULS",
+   "listed": true,
+   "score": 0.16121932864189148,
+   "correct": true
+  },
+  {
+   "name": "AL HARAM FOREIGN EXCHANGE CO. LTD",
+   "listed": true,
+   "score": 0.7726392149925232,
+   "correct": true
+  },
+  {
+   "name": "JOSON PAEKHO MUYOK HOESA",
+   "listed": true,
+   "score": -0.1423054039478302,
+   "correct": false
+  },
+  {
+   "name": "BANK-E BEINAMELALI JAZIREH",
+   "listed": true,
+   "score": -0.09888261556625366,
+   "correct": false
+  },
+  {
+   "name": "THE INTERNATIONAL AL QUDS FOUNDATION",
+   "listed": true,
+   "score": 0.2620619535446167,
+   "correct": true
+  },
+  {
+   "name": "SOVFRAKHT",
+   "listed": true,
+   "score": 1.3183342218399048,
+   "correct": true
+  },
+  {
+   "name": "HENAN JIAYUAN ALUMINUM INDUSTRY COMPANY, LIMITED",
+   "listed": true,
+   "score": -1.0826903581619263,
+   "correct": false
+  },
+  {
+   "name": "LAJNAT AL DAAWA AL ISLAMIYA",
+   "listed": true,
+   "score": -0.3587976098060608,
+   "correct": false
+  },
+  {
+   "name": "AKTSIONERNOE OBSHCHESTVO FPK TRANSAGENTSTVO",
+   "listed": true,
+   "score": 1.0320297479629517,
+   "correct": true
+  },
+  {
+   "name": "STRAIT SHIPBROKERS SINGAPORE PTE. LTD.",
+   "listed": true,
+   "score": 0.21308791637420654,
+   "correct": true
+  },
+  {
+   "name": "SOVREMENNYE TEKHNOLOGII LLC",
+   "listed": true,
+   "score": -0.02787451446056366,
+   "correct": false
+  },
+  {
+   "name": "EDDAR INTERNATIONAL COMPANY",
+   "listed": true,
+   "score": 0.1927228569984436,
+   "correct": true
+  },
+  {
+   "name": "AO SIGNALTEK",
+   "listed": true,
+   "score": 0.16168221831321716,
+   "correct": true
+  },
+  {
+   "name": "TRAST KONG OOO",
+   "listed": true,
+   "score": 0.5633344650268555,
+   "correct": true
+  },
+  {
+   "name": "MARINE SOLUTION PRIVATE LIMITED",
+   "listed": true,
+   "score": -1.0055919885635376,
+   "correct": false
+  },
+  {
+   "name": "PROTON SHIPPING CO",
+   "listed": true,
+   "score": 1.371058702468872,
+   "correct": true
+  },
+  {
+   "name": "BPKH OOO",
+   "listed": true,
+   "score": 0.771968424320221,
+   "correct": true
+  },
+  {
+   "name": "GRUPO INDUSTRIAL GAXIOLA",
+   "listed": true,
+   "score": -0.3582210838794708,
+   "correct": false
+  },
+  {
+   "name": "SOLDIERS OF THE CALIPHATE IN ALGERIA",
+   "listed": true,
+   "score": -0.03226771205663681,
+   "correct": false
+  },
+  {
+   "name": "OBSHCHESTVO S ORGANICHENNOI OTVETSTVENNOSTYU UNIVERSALNY MORSKOI PORT INDIGA",
+   "listed": true,
+   "score": 0.0914575532078743,
+   "correct": true
+  },
+  {
+   "name": "GUANGXIA ZHOUSHAN ENERGY SOURCES GROUP CO., LTD.",
+   "listed": true,
+   "score": -0.22507914900779724,
+   "correct": false
+  },
+  {
+   "name": "QASIYUN SECURITY COMPANY",
+   "listed": true,
+   "score": 0.8545786142349243,
+   "correct": true
+  },
+  {
+   "name": "ELEHSSAN SOCIETY AND BIRR",
+   "listed": true,
+   "score": -0.21383431553840637,
+   "correct": false
+  },
+  {
+   "name": "AL-RAHMA FOUNDATION",
+   "listed": true,
+   "score": 0.8070037364959717,
+   "correct": true
+  },
+  {
+   "name": "REVIVAL OF MARITIME TRADITIONS",
+   "listed": true,
+   "score": 0.2544836103916168,
+   "correct": true
+  },
+  {
+   "name": "PASARGAD ARYAN ARVAND INFORMATION AND COMMUNICATION TECHNOLOGY PROCESS COMPANY",
+   "listed": true,
+   "score": 0.2921704649925232,
+   "correct": true
+  },
+  {
+   "name": "ARINA FABRICS",
+   "listed": false,
+   "score": -0.014874190092086792,
+   "correct": true
+  },
+  {
+   "name": "ANUPREET SINGH",
+   "listed": false,
+   "score": -0.5219996571540833,
+   "correct": true
+  },
+  {
+   "name": "ASLEEP",
+   "listed": false,
+   "score": 1.055362582206726,
+   "correct": false
+  },
+  {
+   "name": "SOMAKASHI STONE WORKS",
+   "listed": false,
+   "score": 0.4781181812286377,
+   "correct": false
+  },
+  {
+   "name": "VALMIERA CONSULTING, S.L.",
+   "listed": false,
+   "score": -0.8786224126815796,
+   "correct": true
+  },
+  {
+   "name": "VIJAYKUMAR AND COMPANY",
+   "listed": false,
+   "score": -0.5658553838729858,
+   "correct": true
+  },
+  {
+   "name": "FOSPOL MINING A.S.",
+   "listed": false,
+   "score": -0.18517163395881653,
+   "correct": true
+  },
+  {
+   "name": "SAS LIAIGRE ENERGIES",
+   "listed": false,
+   "score": -0.462088406085968,
+   "correct": true
+  },
+  {
+   "name": "DANIEL. B NY INC.",
+   "listed": false,
+   "score": -1.6246174573898315,
+   "correct": true
+  },
+  {
+   "name": "BROACH TECHNOLOGY (INDIA) PRIVATE LIMITED",
+   "listed": false,
+   "score": -0.5607820749282837,
+   "correct": true
+  },
+  {
+   "name": "INFINITY BPO SERVICES PRIVATE LIMITED",
+   "listed": false,
+   "score": -0.7469442486763,
+   "correct": true
+  },
+  {
+   "name": "SUGANDHA SEHGAL",
+   "listed": false,
+   "score": -0.48365169763565063,
+   "correct": true
+  },
+  {
+   "name": "ATRILUM ALLIANCE",
+   "listed": false,
+   "score": -0.7400587797164917,
+   "correct": true
+  },
+  {
+   "name": "COGNIOS GMBH",
+   "listed": false,
+   "score": -0.2268924117088318,
+   "correct": true
+  },
+  {
+   "name": "QUIENTESSENTIAL VENTURE PRIVATE LIMITED",
+   "listed": false,
+   "score": -0.008797936141490936,
+   "correct": true
+  },
+  {
+   "name": "HAMLET HOLDING APS",
+   "listed": false,
+   "score": 0.0784180611371994,
+   "correct": false
+  },
+  {
+   "name": "SAN MARTINO SOCIETA' A RESPONSABILITA' LIMITATA IN BREVE SAN MARTINO S.R.L.",
+   "listed": false,
+   "score": -0.11455833166837692,
+   "correct": true
+  },
+  {
+   "name": "LEPICH",
+   "listed": false,
+   "score": -0.2568930387496948,
+   "correct": true
+  },
+  {
+   "name": "MEDIOBANCA ORIZZONTE 2030 - PRIMA EDIZIONE",
+   "listed": false,
+   "score": -0.2558212876319885,
+   "correct": true
+  },
+  {
+   "name": "SOCIETE D'ORGANISATION ET DEVELOPPEMENT EN ALLERGOLOGIE",
+   "listed": false,
+   "score": 0.38748061656951904,
+   "correct": false
+  },
+  {
+   "name": "SELLACON GMBH",
+   "listed": false,
+   "score": -0.2919851541519165,
+   "correct": true
+  },
+  {
+   "name": "MOVE2HEALTH B.V.",
+   "listed": false,
+   "score": -0.4409748315811157,
+   "correct": true
+  },
+  {
+   "name": "BREATH DE BENAHAVIS SL",
+   "listed": false,
+   "score": -0.7428387999534607,
+   "correct": true
+  },
+  {
+   "name": "SHITAL DHANANJAY SUTARIYA",
+   "listed": false,
+   "score": 0.11661580950021744,
+   "correct": false
+  },
+  {
+   "name": "OPTIQUE BFR",
+   "listed": false,
+   "score": 0.0972982794046402,
+   "correct": false
+  },
+  {
+   "name": "PAYROLL2MORROW B.V.",
+   "listed": false,
+   "score": -0.7243272662162781,
+   "correct": true
+  },
+  {
+   "name": "\"MACROCOM S.R.L.\"",
+   "listed": false,
+   "score": -0.9374276399612427,
+   "correct": true
+  },
+  {
+   "name": "MOHAN HANUMAGOUDA PATIL",
+   "listed": false,
+   "score": -0.3388776481151581,
+   "correct": true
+  },
+  {
+   "name": "GRINDERLAB SOCIETA' A RESPONSABILITA' LIMITATA",
+   "listed": false,
+   "score": -0.07384473830461502,
+   "correct": true
+  },
+  {
+   "name": "SHANTI MILLS",
+   "listed": false,
+   "score": -0.4298846125602722,
+   "correct": true
+  },
+  {
+   "name": "INFLEXION BUYOUT FUND IV GENERAL PARTNER GUERNSEY LIMITED",
+   "listed": false,
+   "score": -0.7096765041351318,
+   "correct": true
+  },
+  {
+   "name": "G.A. COSTRUZIONI SRLS IN LIQUIDAZIONE",
+   "listed": false,
+   "score": 0.09773200005292892,
+   "correct": false
+  },
+  {
+   "name": "PORTUM III B.V.",
+   "listed": false,
+   "score": -0.9649291634559631,
+   "correct": true
+  },
+  {
+   "name": "KRAMER BETONSERVICE B.V.",
+   "listed": false,
+   "score": -0.16458654403686523,
+   "correct": true
+  },
+  {
+   "name": "MC IMMOBILIARE S.R.L.",
+   "listed": false,
+   "score": -0.625221312046051,
+   "correct": true
+  },
+  {
+   "name": "FUSION PRACTICES HOLDINGS LTD",
+   "listed": false,
+   "score": 0.6422677040100098,
+   "correct": false
+  },
+  {
+   "name": "FIBOIS 07.26",
+   "listed": false,
+   "score": 0.5047227740287781,
+   "correct": false
+  },
+  {
+   "name": "BHADLA MINIGRID SOLAR 7 PRIVATE LIMITED",
+   "listed": false,
+   "score": -0.6740579009056091,
+   "correct": true
+  },
+  {
+   "name": "OOTY VIRGIN EARTH TOURIST VILLAGE PRIVATE LIMITED",
+   "listed": false,
+   "score": -0.5778293609619141,
+   "correct": true
+  },
+  {
+   "name": "COCCINELLA - S.R.L.",
+   "listed": false,
+   "score": -0.9665457606315613,
+   "correct": true
+  },
+  {
+   "name": "PINTECOM",
+   "listed": false,
+   "score": 0.4952983260154724,
+   "correct": false
+  },
+  {
+   "name": "SAMA SOCIETA' SEMPLICE",
+   "listed": false,
+   "score": -0.37092021107673645,
+   "correct": true
+  },
+  {
+   "name": "GIRNAR MACHINE PRIVATE LIMITED",
+   "listed": false,
+   "score": -1.2002402544021606,
+   "correct": true
+  },
+  {
+   "name": "4183088 CANADA INC.",
+   "listed": false,
+   "score": -0.5179453492164612,
+   "correct": true
+  },
+  {
+   "name": "UK SL PROPCO 2 LIMITED",
+   "listed": false,
+   "score": -0.48331964015960693,
+   "correct": true
+  },
+  {
+   "name": "CMI ESSEX PROPERTY, LLC",
+   "listed": false,
+   "score": -0.33033958077430725,
+   "correct": true
+  },
+  {
+   "name": "MS CORPORATION",
+   "listed": false,
+   "score": 0.7832642197608948,
+   "correct": false
+  },
+  {
+   "name": "ESCHWEGE HOLDING B.V.",
+   "listed": false,
+   "score": -0.17964038252830505,
+   "correct": true
+  }
+ ],
+ "inputs_sha256": "ac4ab196987d9a25d71c1670ab0440949787bc252c4d8cd05a39b9fc83ed8eeb",
+ "script_sha256": "7bfe9ad649804fd0ffdde7c6d67b4b545a168f0ff795a7e9bf2e3d65c4f7747e",
+ "scope": "Paired DEVELOPMENT existing training-only auxiliary head under question-only context shift. No evaluator score or inference change."
+}

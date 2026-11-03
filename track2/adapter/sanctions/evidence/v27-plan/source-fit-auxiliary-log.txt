@@ -1,0 +1,21 @@
+02:16:45 INFO: tokenizer matches the node (88 vectors)
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+
+Loading weights:   0%|          | 0/136 [00:00<?, ?it/s]
+Loading weights:   7%|6         | 9/136 [00:00<00:01, 83.04it/s]
+Loading weights:  14%|#3        | 19/136 [00:00<00:01, 76.57it/s]
+Loading weights: 100%|##########| 136/136 [00:00<00:00, 515.64it/s]
+[transformers] ModernBertForSequenceClassification LOAD REPORT from: answerdotai/ModernBERT-base
+Key               | Status     | 
+------------------+------------+-
+decoder.bias      | UNEXPECTED | 
+classifier.bias   | MISSING    | 
+classifier.weight | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+02:16:45 INFO: answerdotai/ModernBERT-base | trainable 1,690,369 / 151,296,002 parameters
+C:\Users\hyada\tg-eval\.venv\Lib\site-packages\peft\utils\save_and_load.py:313: UserWarning: Could not find a config file in answerdotai/ModernBERT-base - will assume that the vocabulary was not modified.
+  warnings.warn(
+{"queries": 128, "membership_by_class": {"True": {"views": 640, "correct": 458}, "False": {"views": 640, "correct": 526}}, "membership_stable_across_views_queries": 64, "membership_all_views_correct_queries": 59, "primary_verdict_tokens": {"True": {"tokens": 896, "correct": 896}, "False": {"tokens": 1152, "correct": 1149}}, "nonprimary_negation_tokens": 3074, "nonprimary_negations_misread_as_primary": 0, "inputs_sha256": "ac4ab196987d9a25d71c1670ab0440949787bc252c4d8cd05a39b9fc83ed8eeb", "script_sha256": "7bfe9ad649804fd0ffdde7c6d67b4b545a168f0ff795a7e9bf2e3d65c4f7747e", "context": "five_training_forms", "main_by_format": {"thin_json": {"listed": {"queries": 64, "correct": 56}, "primary": {"queries": 32, "correct": 29}, "alias": {"queries": 32, "correct": 27}, "absent": {"queries": 64, "correct": 35}}, "json_early": {"listed": {"queries": 64, "correct": 62}, "primary": {"queries": 32, "correct": 31}, "alias": {"queries": 32, "correct": 31}, "absent": {"queries": 64, "correct": 26}}, "json_late": {"listed": {"queries": 64, "correct": 64}, "primary": {"queries": 32, "correct": 32}, "alias": {"queries": 32, "correct": 32}, "absent": {"queries": 64, "correct": 0}}, "prose_early": {"listed": {"queries": 64, "correct": 43}, "primary": {"queries": 32, "correct": 21}, "alias": {"queries": 32, "correct": 22}, "absent": {"queries": 64, "correct": 53}}, "prose_late": {"listed": {"queries": 64, "correct": 28}, "primary": {"queries": 32, "correct": 13}, "alias": {"queries": 32, "correct": 15}, "absent": {"queries": 64, "correct": 57}}}, "scope": "Source TRAINING diagnostics. Correlated views/tokens; auxiliary counts are not evaluator accuracy. Main margins are HF, not actual-node scores/readiness. Heads discarded for export."}

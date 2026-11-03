@@ -32,8 +32,11 @@ for those recognized names. Interpretation of actual answer representations rema
 weak. V19 throughv26 bounded repairs fail individual factual/alias/retention
 guards. V26's training-only verdict-role head identifies1,533/1,536 primary tokens,
 but its membership predictions vary by answer format for82/96 queries. These
-correlated-token/view diagnostics are not evaluator accuracy. Frozen readout
-analysis is ongoing before any full-corpus run. No candidate quality pass claimed.
+correlated-token/view diagnostics are not evaluator accuracy. The same v26 role
+head gets only48/192 positive primary tokens right in qualified prose, so its
+training-form recognition does not establish transfer. V27 question-only/invariance
+probe improves qualified listed to28/48 but collapses absent late JSON to0/48,
+including0/64 source-training cases. No candidate quality pass or full run claimed.
 Separately,320 new source-stable removal responses yield11 strict pairs across
 3 names but0 frozen source-role reversal blocks. These bodies have no model scores.
 

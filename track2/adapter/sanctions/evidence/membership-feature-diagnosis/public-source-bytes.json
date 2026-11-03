@@ -1,0 +1,21 @@
+{
+ "commit": "0eff6b296d63f2b632d5151a30786ae6e7ead7b3",
+ "pass": true,
+ "files": [
+  {
+   "url": "https://raw.githubusercontent.com/Harshyadav442277/miner/0eff6b296d63f2b632d5151a30786ae6e7ead7b3/track2/adapter/sanctions/probe_factual_margins.py",
+   "status": 200,
+   "expected_sha256": "2cb6913e84905f7b593ff66ef1f164c690acfc31bea3f02b51dcfdee4c5b78c6",
+   "download_sha256": "2cb6913e84905f7b593ff66ef1f164c690acfc31bea3f02b51dcfdee4c5b78c6",
+   "pass": true
+  },
+  {
+   "url": "https://raw.githubusercontent.com/Harshyadav442277/miner/0eff6b296d63f2b632d5151a30786ae6e7ead7b3/track2/adapter/sanctions/probe_isolated_membership.py",
+   "status": 200,
+   "expected_sha256": "29b4d7f6da974470d6b1e9c624ac0401507fd33e23323bd9655bc1f3dffb58a6",
+   "download_sha256": "29b4d7f6da974470d6b1e9c624ac0401507fd33e23323bd9655bc1f3dffb58a6",
+   "pass": true
+  }
+ ],
+ "scope": "Public source byte preservation only, not evaluator acceptance or quality."
+}

@@ -1,5 +1,21 @@
 # MEMORY.md — session continuity
 
+## 2026-11-04 IST: v27 rejected; fixed source-fit duration control v28 active
+
+V27 qualified listed28/48 but late-JSON absent0/48, including0/64 source TRAINING.
+Rejected before export. Qualified-prose positive primary-role tokens48/192(v26),
+101/192(v27),negative288/288 both; prior near-perfect role result covered only
+five training forms. Main auxiliary diagnostics reproduce ordinary gate counts.
+V25 ordinary-ranking source fit: thin listed34/64,alias16/32,late absent28/64.
+V28 tests duration only: exact same128 facts/parent13/loss/optimizer/seed/max512,
+four balanced passes/128 total updates. First32 must reproduce all178 v25 tensors
+and loss curve before continuing. Final step only development96; require95% each
+training stratum plus original65%/thin-retention/Cartesian gates. No full corpus.
+Source audit224 queries reused hash-bound, source bytes rechecked. Current log
+tg-eval/fit_duration_v28.log; result pending. Source0eff6b2 pushed;17 frozen script
+references match Git bytes, v21/v27 public downloads SHA verified.31 tests pass.
+Reserved/removal bodies still unscored; no wallet, registry or submission action.
+
 ## 2026-11-04 IST: v22-v26 rejected; isolated-membership v27 probe running
 
 Completed v21-v26 source probes all fail individual factual/alias/retention gates.

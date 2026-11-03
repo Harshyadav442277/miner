@@ -1,0 +1,7 @@
+{
+ "pass": true,
+ "inputs_sha256": "e054d160d6fd003aab348c7d0c5ccd98cb036d2b9d4a06b5a515326ed378186f",
+ "queries": 224,
+ "reused_v27_independent_audit_sha256": "b8780701267139cd99aae401aa38be56803f0b6c9fadae2631b6dd386ade8c1e",
+ "scope": "Hash-bound reuse of v27 independent raw-CSV/split audit; exact source-query identity and current CSV/train/val hashes rechecked. No new rows or labels."
+}

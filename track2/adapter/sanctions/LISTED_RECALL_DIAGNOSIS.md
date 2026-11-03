@@ -83,9 +83,21 @@ The10-view fit repeats correlated source facts and uses the same absolute ridge
 penalty, so differences between readouts are not a controlled causal attribution
 to context coverage alone. No encoder/checkpoint changed during this diagnostic.
 
-V27 now tests training-only question membership and normalized query-feature
-invariance, preserving the same128 facts/32 updates and standard inference path.
-It is a bounded probe; no result or repair claim yet. See FACTUAL_V27.md.
+V27 tested training-only question membership and normalized query-feature
+invariance with the same128 facts/32 updates and standard inference. It fails:
+qualified listed28/48, late-JSON absent0/48. Source TRAINING late-JSON absent0/64
+shows the objective has not even fitted those examples. No export. Question-only
+auxiliary membership improves to listed34/48,absent37/48, but is not the scorer.
+
+On the exact qualified-prose gate, positive primary-role token recognition is
+48/192(v26),101/192(v27), while negative primary tokens are288/288 for both.
+The earlier near-perfect role result covered only the five training forms and
+cannot establish qualified-prose decoding. Wording/context transfer remains
+unresolved. These are correlated-token diagnostics, not answer accuracy or proof
+that this readout causes the main failure. Main margins reproduce the original
+qualified-prose gate counts exactly. See FACTUAL_V27.md and qualified-prose auxiliary
+diagnostics in each plan. A source-fit diagnosis of the simpler v25 ranking probe
+is now running to distinguish short-budget underfit from failures of added losses.
 
 Frozen dependency hashes use raw script bytes. Git attributes now preserve those
 bytes, including v21's original CRLF source; no code behavior changed in that

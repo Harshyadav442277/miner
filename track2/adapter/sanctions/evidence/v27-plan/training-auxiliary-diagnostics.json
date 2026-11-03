@@ -1,0 +1,3074 @@
+{
+ "identity": {
+  "version": 27,
+  "tensors_verified": 178,
+  "checkpoint_sha256": "4e617a7d541705ffb34925a11b4404c4e1561d19f87418faca8dcb3f944880aa"
+ },
+ "queries": 128,
+ "membership_by_class": {
+  "True": {
+   "views": 640,
+   "correct": 458
+  },
+  "False": {
+   "views": 640,
+   "correct": 526
+  }
+ },
+ "membership_stable_across_views_queries": 64,
+ "membership_all_views_correct_queries": 59,
+ "primary_verdict_tokens": {
+  "True": {
+   "tokens": 896,
+   "correct": 896
+  },
+  "False": {
+   "tokens": 1152,
+   "correct": 1149
+  }
+ },
+ "nonprimary_negation_tokens": 3074,
+ "nonprimary_negations_misread_as_primary": 0,
+ "rows": [
+  {
+   "name": "HTTS HANSEATIC TRADE TRUST & SHIPPING GMBH",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "main_margins": {
+    "thin_json": 1.333806037902832,
+    "json_early": 0.2533610314130783,
+    "json_late": 0.028292745351791382,
+    "prose_early": 0.13998045027256012,
+    "prose_late": 0.2036098837852478
+   }
+  },
+  {
+   "name": "YUK TUNG ENERGY PTE LTD",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "main_margins": {
+    "thin_json": 0.4175584614276886,
+    "json_early": 0.13489631190896034,
+    "json_late": 0.027670294046401978,
+    "prose_early": 0.024752079509198666,
+    "prose_late": 0.029627829790115356
+   }
+  },
+  {
+   "name": "EVY BLUE LTD",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    false,
+    true,
+    true,
+    true
+   ],
+   "main_margins": {
+    "thin_json": 0.22986972332000732,
+    "json_early": 0.03076156973838806,
+    "json_late": 0.01319032907485962,
+    "prose_early": 0.007530301809310913,
+    "prose_late": -0.0020838084165006876
+   }
+  },
+  {
+   "name": "SHINE. X INVESTMENTS PVT LTD",
+   "listed": true,
+   "membership_view_predictions": [
+    false,
+    false,
+    true,
+    false,
+    true,
+    false,
+    false,
+    true,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": 0.32572491466999054,
+    "json_early": 0.10439353808760643,
+    "json_late": 0.021762730553746223,
+    "prose_early": -0.044309020042419434,
+    "prose_late": -0.024658231995999813
+   }
+  },
+  {
+   "name": "NEST WISE PETROLEUM L.L.C",
+   "listed": true,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": 0.5521142482757568,
+    "json_early": 0.1349399359896779,
+    "json_late": 0.02154397964477539,
+    "prose_early": 0.040505350567400455,
+    "prose_late": -0.034540711902081966
+   }
+  },
+  {
+   "name": "Dionicio Loya Plancarte",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    false,
+    false,
+    true,
+    false,
+    true
+   ],
+   "main_margins": {
+    "thin_json": -0.061945319175720215,
+    "json_early": 0.035402968525886536,
+    "json_late": 0.024854853749275208,
+    "prose_early": -0.16317085921764374,
+    "prose_late": -0.005781024694442749
+   }
+  },
+  {
+   "name": "RISEONIC HOLDINGS LTD",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "main_margins": {
+    "thin_json": 0.29609090089797974,
+    "json_early": 0.10795068368315697,
+    "json_late": 0.02784356102347374,
+    "prose_early": 0.013320326805114746,
+    "prose_late": -0.017495691776275635
+   }
+  },
+  {
+   "name": "FARTON MITEX SDN BHD",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    false,
+    false,
+    true,
+    false,
+    true
+   ],
+   "main_margins": {
+    "thin_json": 0.4846040606498718,
+    "json_early": 0.16799173038452864,
+    "json_late": 0.02872931957244873,
+    "prose_early": 0.03937050700187683,
+    "prose_late": -0.03328618407249451
+   }
+  },
+  {
+   "name": "NOVO BLOCKCHAIN CONSULTORIA LDA",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    false,
+    true,
+    true,
+    true,
+    true
+   ],
+   "main_margins": {
+    "thin_json": 0.538947343826294,
+    "json_early": 0.12919688411056995,
+    "json_late": 0.026480942964553833,
+    "prose_early": -0.028209090931341052,
+    "prose_late": -0.01762068271636963
+   }
+  },
+  {
+   "name": "PRODUCTION UNITARY ENTERPRISE PLANT SVT",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "main_margins": {
+    "thin_json": 1.0848873853683472,
+    "json_early": 0.2259810585528612,
+    "json_late": 0.029226064682006836,
+    "prose_early": 0.07080769538879395,
+    "prose_late": 0.02284225821495056
+   }
+  },
+  {
+   "name": "THRACE FOUNDATION",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    false,
+    false,
+    true,
+    false,
+    true
+   ],
+   "main_margins": {
+    "thin_json": 0.33792823553085327,
+    "json_early": 0.092321602627635,
+    "json_late": 0.013556327670812607,
+    "prose_early": -0.021350950002670288,
+    "prose_late": -0.03931760787963867
+   }
+  },
+  {
+   "name": "ALPHAONE PHARMACEUTICAL B.V.",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    false,
+    false,
+    true,
+    false,
+    true
+   ],
+   "main_margins": {
+    "thin_json": 0.30174994468688965,
+    "json_early": 0.1342398263514042,
+    "json_late": 0.017505615949630737,
+    "prose_early": -0.046244025230407715,
+    "prose_late": -0.061147959902882576
+   }
+  },
+  {
+   "name": "SISU PRIME LIMITED",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": 0.06953169405460358,
+    "json_early": 0.027856022119522095,
+    "json_late": 0.02191530168056488,
+    "prose_early": -0.12133409082889557,
+    "prose_late": -0.10327507555484772
+   }
+  },
+  {
+   "name": "SARIL OVERSEAS LIMITED",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": -0.08745431900024414,
+    "json_early": -0.04737365245819092,
+    "json_late": 0.021299809217453003,
+    "prose_early": -0.15940631926059723,
+    "prose_late": -0.18191881477832794
+   }
+  },
+  {
+   "name": "SEA HERMES",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": -0.09794853907078505,
+    "json_early": 0.06497910246253014,
+    "json_late": 0.02110782265663147,
+    "prose_early": -0.09914989769458771,
+    "prose_late": -0.06613153219223022
+   }
+  },
+  {
+   "name": "POWER ANCHOR LIMITED",
+   "listed": true,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    true,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": 0.12779194116592407,
+    "json_early": 0.08339539170265198,
+    "json_late": 0.03358592092990875,
+    "prose_early": -0.07386325299739838,
+    "prose_late": -4.056096076965332e-05
+   }
+  },
+  {
+   "name": "SWIRU TRUSTEE LTD",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    false,
+    true,
+    true,
+    true,
+    false,
+    false,
+    false,
+    false,
+    true
+   ],
+   "main_margins": {
+    "thin_json": 0.1829928420484066,
+    "json_early": 0.06914016604423523,
+    "json_late": 0.01699313148856163,
+    "prose_early": -0.002940356731414795,
+    "prose_late": -0.017374219372868538
+   }
+  },
+  {
+   "name": "GREEN ENERGY CHEMICALS",
+   "listed": true,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": -0.1418016729876399,
+    "json_early": -0.0021677613258361816,
+    "json_late": 0.026824653148651123,
+    "prose_early": -0.12425421178340912,
+    "prose_late": -0.05548873543739319
+   }
+  },
+  {
+   "name": "MAKSTECH",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    false,
+    false,
+    true,
+    false,
+    true
+   ],
+   "main_margins": {
+    "thin_json": -0.009082615375518799,
+    "json_early": 0.029656470753252506,
+    "json_late": 0.022625981830060482,
+    "prose_early": -0.0025424063205718994,
+    "prose_late": -0.06972694140858948
+   }
+  },
+  {
+   "name": "MAD KANDALU SHIPBUILDING COOPERATIVE QESHM",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    false,
+    true
+   ],
+   "main_margins": {
+    "thin_json": 0.9246108531951904,
+    "json_early": 0.2460878361016512,
+    "json_late": 0.03279125690460205,
+    "prose_early": 0.10234898328781128,
+    "prose_late": 0.13446320593357086
+   }
+  },
+  {
+   "name": "TRANSMART AG",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    false,
+    true
+   ],
+   "main_margins": {
+    "thin_json": 0.15021483600139618,
+    "json_early": 0.09063691087067127,
+    "json_late": 0.01981767942197621,
+    "prose_early": -0.020187854766845703,
+    "prose_late": -0.0490836463868618
+   }
+  },
+  {
+   "name": "CAGL",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    false,
+    true
+   ],
+   "main_margins": {
+    "thin_json": 0.154326930642128,
+    "json_early": 0.10643338900990784,
+    "json_late": 0.01419693254865706,
+    "prose_early": 0.06608659029006958,
+    "prose_late": 0.0011055171489715576
+   }
+  },
+  {
+   "name": "SAINT PETERSBURG IMPERIAL LEGION",
+   "listed": true,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": 0.16766467969864607,
+    "json_early": 0.1273828719276935,
+    "json_late": 0.02002587914466858,
+    "prose_early": -0.032102614641189575,
+    "prose_late": -0.052267905324697495
+   }
+  },
+  {
+   "name": "SVR ROSSII FKU",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    false,
+    true,
+    true,
+    false,
+    true
+   ],
+   "main_margins": {
+    "thin_json": -0.24675501883029938,
+    "json_early": 0.050826938822865486,
+    "json_late": 0.014586031436920166,
+    "prose_early": -0.023428797721862793,
+    "prose_late": -0.026659490540623665
+   }
+  },
+  {
+   "name": "CEC BELARUS",
+   "listed": true,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": 0.07976531982421875,
+    "json_early": 0.0834782151505351,
+    "json_late": 0.019326448440551758,
+    "prose_early": -0.01760482764802873,
+    "prose_late": -0.01627194881439209
+   }
+  },
+  {
+   "name": "SALINA SHIP MANAGEMENT PRIVATE LIMITED",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    false,
+    true,
+    true,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": 0.44500063359737396,
+    "json_early": 0.2019810974597931,
+    "json_late": 0.04637390747666359,
+    "prose_early": -0.08980567753314972,
+    "prose_late": -0.02075185999274254
+   }
+  },
+  {
+   "name": "CAPITAL TAP MANAGEMENT CONSULTANCIES",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    false,
+    false,
+    true,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": 0.5390284657478333,
+    "json_early": 0.1525173168629408,
+    "json_late": 0.033159228041768074,
+    "prose_early": -0.0413641594350338,
+    "prose_late": -0.007894396781921387
+   }
+  },
+  {
+   "name": "DOTONE",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "main_margins": {
+    "thin_json": 0.2257189005613327,
+    "json_early": 0.07272758893668652,
+    "json_late": 0.02092793956398964,
+    "prose_early": 0.08027755934745073,
+    "prose_late": -0.015631170012056828
+   }
+  },
+  {
+   "name": "STUDIA PIXAGIO",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    false,
+    false,
+    true,
+    false,
+    true
+   ],
+   "main_margins": {
+    "thin_json": 0.034192442893981934,
+    "json_early": 0.09556701499968767,
+    "json_late": 0.017883361084386706,
+    "prose_early": 0.014526963233947754,
+    "prose_late": 0.014728426001966
+   }
+  },
+  {
+   "name": "PLAZA VIRREYES",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    false,
+    false,
+    true,
+    false,
+    true
+   ],
+   "main_margins": {
+    "thin_json": 0.13609826564788818,
+    "json_early": 0.011237293481826782,
+    "json_late": 0.01720494031906128,
+    "prose_early": -0.02130061388015747,
+    "prose_late": -0.04078596644103527
+   }
+  },
+  {
+   "name": "BANDES",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "main_margins": {
+    "thin_json": -0.20588214322924614,
+    "json_early": 0.07414063555188477,
+    "json_late": 0.02283468935638666,
+    "prose_early": 0.023182451725006104,
+    "prose_late": -0.04560437425971031
+   }
+  },
+  {
+   "name": "MIRIM COLLEGE",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    false,
+    false,
+    true,
+    false,
+    true
+   ],
+   "main_margins": {
+    "thin_json": -0.06299658119678497,
+    "json_early": 0.08286911062896252,
+    "json_late": 0.01970905065536499,
+    "prose_early": 0.014109611511230469,
+    "prose_late": -0.03564021084457636
+   }
+  },
+  {
+   "name": "A&G FLOTA",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    true,
+    false,
+    false,
+    true,
+    true,
+    true,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": -0.01144176721572876,
+    "json_early": -0.08236384205520153,
+    "json_late": -0.027473152615129948,
+    "prose_early": 0.060371994972229004,
+    "prose_late": 0.03969469666481018
+   }
+  },
+  {
+   "name": "RICHIELD FINANCIAL SERVICES INC.",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": -0.016257256269454956,
+    "json_early": -0.09698053821921349,
+    "json_late": -0.03660744056105614,
+    "prose_early": 0.12754371389746666,
+    "prose_late": 0.049864708445966244
+   }
+  },
+  {
+   "name": "AMJAD ALI PANWAR",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    true
+   ],
+   "main_margins": {
+    "thin_json": -0.0367133766412735,
+    "json_early": -0.10982134938240051,
+    "json_late": -0.026751670986413956,
+    "prose_early": -0.09466579556465149,
+    "prose_late": 0.023787825368344784
+   }
+  },
+  {
+   "name": "MYRTILLE CONSULTING LIMITED PARTNERSHIP",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    true,
+    false,
+    false,
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "main_margins": {
+    "thin_json": 0.07483415305614471,
+    "json_early": -0.04310163855552673,
+    "json_late": -0.02510318160057068,
+    "prose_early": 0.19973278045654297,
+    "prose_late": 0.08984032273292542
+   }
+  },
+  {
+   "name": "VAM MANAGEMENT",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": -0.012049704790115356,
+    "json_early": -0.03741723299026489,
+    "json_late": -0.0173816978931427,
+    "prose_early": 0.018336117267608643,
+    "prose_late": 0.02735912799835205
+   }
+  },
+  {
+   "name": "ACADEMOS EDUTECH",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": 0.10426351428031921,
+    "json_early": 0.01745089516043663,
+    "json_late": -0.024503231048583984,
+    "prose_early": 0.10267040133476257,
+    "prose_late": 0.07478373870253563
+   }
+  },
+  {
+   "name": "BELZ INSTITUTIONS OF LAKEWOOD INC.",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": 0.4578931927680969,
+    "json_early": -0.00804254412651062,
+    "json_late": -0.02168041467666626,
+    "prose_early": 0.20341461896896362,
+    "prose_late": 0.06784774363040924
+   }
+  },
+  {
+   "name": "ELVO LAUSNIR EHF.",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true
+   ],
+   "main_margins": {
+    "thin_json": -0.14701548218727112,
+    "json_early": -0.052673219703137875,
+    "json_late": -0.024295393377542496,
+    "prose_early": 0.014294568449258804,
+    "prose_late": 0.02446308732032776
+   }
+  },
+  {
+   "name": "WILLIAM INTERNATIONAL LTD.",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": 0.6529841423034668,
+    "json_early": 0.06808075308799744,
+    "json_late": -0.03033590316772461,
+    "prose_early": 0.21005412936210632,
+    "prose_late": 0.08054022490978241
+   }
+  },
+  {
+   "name": "RBM STUDIO LLC",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    true,
+    false,
+    false,
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "main_margins": {
+    "thin_json": -0.3217202425003052,
+    "json_early": -0.15617013350129128,
+    "json_late": -0.01841762661933899,
+    "prose_early": -0.023692842572927475,
+    "prose_late": 0.03881558892317116
+   }
+  },
+  {
+   "name": "FRIENDS OF MANCHESTER CATHEDRAL",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": 0.4757438749074936,
+    "json_early": 0.05905662477016449,
+    "json_late": -0.028320997953414917,
+    "prose_early": 0.2514379173517227,
+    "prose_late": 0.18267299234867096
+   }
+  },
+  {
+   "name": "PROMTEKHNOLOGIYA IRAN CUBANACAN RMB ARMED BUSINESS TRANSNATIONAL",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    true,
+    true,
+    false,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "main_margins": {
+    "thin_json": -1.5984172224998474,
+    "json_early": -0.3471894860267639,
+    "json_late": -0.05050438642501831,
+    "prose_early": -0.2237861454486847,
+    "prose_late": -0.19073885679244995
+   }
+  },
+  {
+   "name": "LUXMI ELECTRIC SALES",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "main_margins": {
+    "thin_json": -0.17403607070446014,
+    "json_early": -0.12702593463473022,
+    "json_late": -0.03336670994758606,
+    "prose_early": -0.012946277856826782,
+    "prose_late": -0.0285780131816864
+   }
+  },
+  {
+   "name": "ALOKA GREEN ENERGY LTD",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    true,
+    false,
+    true,
+    false,
+    false,
+    true,
+    true,
+    true
+   ],
+   "main_margins": {
+    "thin_json": -0.22298446483910084,
+    "json_early": -0.10877033788710833,
+    "json_late": -0.021007834933698177,
+    "prose_early": -0.07294839364476502,
+    "prose_late": 0.004799991846084595
+   }
+  },
+  {
+   "name": "BENISHA COMMUNICATION",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true
+   ],
+   "main_margins": {
+    "thin_json": 0.20524345710873604,
+    "json_early": -0.04103657230734825,
+    "json_late": -0.024745162576436996,
+    "prose_early": 0.11313637718558311,
+    "prose_late": 0.044753577560186386
+   }
+  },
+  {
+   "name": "SIMRAN ASIAN AND AFRICAN FOODS",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true
+   ],
+   "main_margins": {
+    "thin_json": -0.01406884379684925,
+    "json_early": -0.06666210200637579,
+    "json_late": -0.02607918158173561,
+    "prose_early": 0.0355170089751482,
+    "prose_late": 0.04343178868293762
+   }
+  },
+  {
+   "name": "MAKAW LIMITED",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    true,
+    true,
+    false
+   ],
+   "main_margins": {
+    "thin_json": -0.23681020364165306,
+    "json_early": -0.03818800672888756,
+    "json_late": -0.036573054268956184,
+    "prose_early": 0.036874350160360336,
+    "prose_late": 0.07773444056510925
+   }
+  },
+  {
+   "name": "KJP KOERIER",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    true,
+    true,
+    true
+   ],
+   "main_margins": {
+    "thin_json": 0.15355558693408966,
+    "json_early": -0.04544219467788935,
+    "json_late": -0.013309361413121223,
+    "prose_early": 0.041637297719717026,
+    "prose_late": 0.04207751271314919
+   }
+  },
+  {
+   "name": "GANNET REAL ESTATE LENDING S.I.C.C., S.A.",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": -0.461771160364151,
+    "json_early": -0.15500148758292198,
+    "json_late": -0.02999699115753174,
+    "prose_early": -0.019846527837216854,
+    "prose_late": -0.032185941003263
+   }
+  },
+  {
+   "name": "MASTER ENGINEERING",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    true,
+    false,
+    true,
+    false,
+    true,
+    true,
+    true,
+    true
+   ],
+   "main_margins": {
+    "thin_json": -0.09175655245780945,
+    "json_early": -0.0762957613915205,
+    "json_late": -0.01783815212547779,
+    "prose_early": 0.02326926589012146,
+    "prose_late": 0.042073698714375496
+   }
+  },
+  {
+   "name": "NAPATREE TECHNOLOGY LLC",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    true,
+    false,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "main_margins": {
+    "thin_json": -0.4084910750389099,
+    "json_early": -0.07803511619567871,
+    "json_late": -0.027138561010360718,
+    "prose_early": 0.048678312450647354,
+    "prose_late": -0.011347562074661255
+   }
+  },
+  {
+   "name": "MCLELLAN & CO LTD",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": 0.10763628780841827,
+    "json_early": -0.05490833707153797,
+    "json_late": -0.026490925811231136,
+    "prose_early": 0.03814283013343811,
+    "prose_late": 0.029833253473043442
+   }
+  },
+  {
+   "name": "ASHUTOSH ANAND",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": 0.09043508768081665,
+    "json_early": 0.020344676449894905,
+    "json_late": -0.026110769249498844,
+    "prose_early": 0.07276248931884766,
+    "prose_late": 0.008034050464630127
+   }
+  },
+  {
+   "name": "RAMESH MANCHHALAL PUROHIT",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true
+   ],
+   "main_margins": {
+    "thin_json": -0.2868301272392273,
+    "json_early": 9.766221046447754e-05,
+    "json_late": -0.020627856254577637,
+    "prose_early": 0.09260013699531555,
+    "prose_late": 0.008310884237289429
+   }
+  },
+  {
+   "name": "AMARINA INTERNATIONAL AG",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    true,
+    true,
+    false
+   ],
+   "main_margins": {
+    "thin_json": -0.3050607740879059,
+    "json_early": -0.07490780763328075,
+    "json_late": -0.022834568517282605,
+    "prose_early": 0.020651012659072876,
+    "prose_late": 0.048874348402023315
+   }
+  },
+  {
+   "name": "THE MAYUR COLLECTION II",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": -0.09304964542388916,
+    "json_early": -0.08048875629901886,
+    "json_late": -0.019658327102661133,
+    "prose_early": 0.11695106327533722,
+    "prose_late": 0.03088286519050598
+   }
+  },
+  {
+   "name": "MAA NEW AGRO PRODUCT",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    true
+   ],
+   "main_margins": {
+    "thin_json": -0.34796325862407684,
+    "json_early": -0.12298005633056164,
+    "json_late": -0.03127411101013422,
+    "prose_early": 0.023839499801397324,
+    "prose_late": 0.009857624769210815
+   }
+  },
+  {
+   "name": "RECTANGLE BOX",
+   "listed": false,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "main_margins": {
+    "thin_json": -0.3756176829338074,
+    "json_early": -0.11918428912758827,
+    "json_late": -0.011786550283432007,
+    "prose_early": -0.032961995573714375,
+    "prose_late": 0.0050685107707977295
+   }
+  },
+  {
+   "name": "AGARWAL LOGISTICS",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    true,
+    false,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "main_margins": {
+    "thin_json": -0.3149334788322449,
+    "json_early": -0.10161283425986767,
+    "json_late": -0.01745283603668213,
+    "prose_early": -0.00258791446685791,
+    "prose_late": -0.011370569234713912
+   }
+  },
+  {
+   "name": "ROTHESAY PROPERTY COMPANY 2 LIMITED",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false
+   ],
+   "main_margins": {
+    "thin_json": 0.00469285249710083,
+    "json_early": -0.09477132558822632,
+    "json_late": -0.023988187313079834,
+    "prose_early": 0.003054410219192505,
+    "prose_late": 0.18261504173278809
+   }
+  },
+  {
+   "name": "OMS INTERNATIONAL",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    true,
+    false,
+    false,
+    true,
+    false,
+    true,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": -0.4554525911808014,
+    "json_early": -0.1262669824063778,
+    "json_late": -0.023692963644862175,
+    "prose_early": -0.03289532661437988,
+    "prose_late": 0.015141129493713379
+   }
+  },
+  {
+   "name": "ANJOTE - SOCIEDADE DE INVESTIMENTOS, S.A.",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": -0.1981123387813568,
+    "json_early": -0.04552003741264343,
+    "json_late": -0.01889139413833618,
+    "prose_early": 0.16699804365634918,
+    "prose_late": 0.15155000984668732
+   }
+  },
+  {
+   "name": "LIMITED LIABILITY COMPANY TRADE HOUSE KYUTEK",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    false,
+    true,
+    false,
+    true
+   ],
+   "main_margins": {
+    "thin_json": 4.109628811478615,
+    "json_early": 0.42273731529712677,
+    "json_late": 0.06541508808732033,
+    "prose_early": 0.3715790659189224,
+    "prose_late": 0.04490864276885986
+   }
+  },
+  {
+   "name": "SKOLKOVO INSTITUTE OF SCIENCE AND TECHNOLOGY",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "main_margins": {
+    "thin_json": 1.4275315999984741,
+    "json_early": 0.19958645105361938,
+    "json_late": 0.04421013593673706,
+    "prose_early": 0.18945232033729553,
+    "prose_late": 0.18612068891525269
+   }
+  },
+  {
+   "name": "LIMITED LIABILITY COMPANY DV HOLDING",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "main_margins": {
+    "thin_json": 1.0473145674914122,
+    "json_early": 0.21110625565052032,
+    "json_late": 0.04998917877674103,
+    "prose_early": 0.039459019899368286,
+    "prose_late": -0.02243952453136444
+   }
+  },
+  {
+   "name": "ALCOTECH INTERNATIONAL TRADING DMCC",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "main_margins": {
+    "thin_json": 1.0920567512512207,
+    "json_early": 0.22780345380306244,
+    "json_late": 0.03418084979057312,
+    "prose_early": 0.12789267301559448,
+    "prose_late": 0.07314716279506683
+   }
+  },
+  {
+   "name": "PUBLIC JOINT STOCK COMPANY BANK ALEXANDROVSKY",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "main_margins": {
+    "thin_json": 1.2631464004516602,
+    "json_early": 0.2184085249900818,
+    "json_late": 0.03942751884460449,
+    "prose_early": 0.1918315589427948,
+    "prose_late": 0.14110082387924194
+   }
+  },
+  {
+   "name": "OOO MAKRO GRUPP",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    false,
+    true,
+    true,
+    true
+   ],
+   "main_margins": {
+    "thin_json": 1.9354757070541382,
+    "json_early": 0.418631836771965,
+    "json_late": 0.04747974872589111,
+    "prose_early": 0.3306441903114319,
+    "prose_late": 0.14538854360580444
+   }
+  },
+  {
+   "name": "JOINT STOCK COMPANY ELEKTRONNAYA MOSKVA",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "main_margins": {
+    "thin_json": 2.222749948501587,
+    "json_early": 0.41029298305511475,
+    "json_late": 0.056613802909851074,
+    "prose_early": 0.3764447569847107,
+    "prose_late": 0.17064416408538818
+   }
+  },
+  {
+   "name": "FINANCIERA CIMEX S.A",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "main_margins": {
+    "thin_json": 0.6376737356185913,
+    "json_early": 0.1012592762708664,
+    "json_late": 0.021683230996131897,
+    "prose_early": 0.018094390630722046,
+    "prose_late": -0.010023131966590881
+   }
+  },
+  {
+   "name": "ROSATOM MICROELECTRONICS JOINT STOCK COMPANY",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "main_margins": {
+    "thin_json": 1.3050962686538696,
+    "json_early": 0.2485285997390747,
+    "json_late": 0.04381406307220459,
+    "prose_early": 0.19149082899093628,
+    "prose_late": 0.09632343053817749
+   }
+  },
+  {
+   "name": "KUNLUN HOLDING COMPANY LTD.",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "main_margins": {
+    "thin_json": 0.5729962438344955,
+    "json_early": 0.14651498198509216,
+    "json_late": 0.03861749544739723,
+    "prose_early": 0.07478094287216663,
+    "prose_late": -0.003355860710144043
+   }
+  },
+  {
+   "name": "KB LINES LIMITED",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": 0.10982763767242432,
+    "json_early": 0.056814223527908325,
+    "json_late": 0.020929545164108276,
+    "prose_early": -0.08638498187065125,
+    "prose_late": -0.07598821818828583
+   }
+  },
+  {
+   "name": "ALCARDINAL PETROLEUM COMPANY LIMITED",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "main_margins": {
+    "thin_json": 0.6005449593067169,
+    "json_early": 0.16353672742843628,
+    "json_late": 0.03317499067634344,
+    "prose_early": -0.017756670713424683,
+    "prose_late": -0.01694098487496376
+   }
+  },
+  {
+   "name": "AL-FALAH SOCIETY GAZA",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    false,
+    false,
+    true,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": 0.6476857662200928,
+    "json_early": 0.386651873588562,
+    "json_late": 0.042844951152801514,
+    "prose_early": 0.33624497056007385,
+    "prose_late": 0.120181143283844
+   }
+  },
+  {
+   "name": "RHINE SHIPPING DMCC",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "main_margins": {
+    "thin_json": 1.1396121978759766,
+    "json_early": 0.2295227348804474,
+    "json_late": 0.03440549969673157,
+    "prose_early": 0.15278424322605133,
+    "prose_late": 0.10843676328659058
+   }
+  },
+  {
+   "name": "LIMITED LIABILITY COMPANY AXALIT LAB",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    false,
+    false,
+    true,
+    false,
+    true
+   ],
+   "main_margins": {
+    "thin_json": 1.7358010709285736,
+    "json_early": 0.22638291120529175,
+    "json_late": 0.049061477184295654,
+    "prose_early": 0.2942649004980922,
+    "prose_late": -0.001513749361038208
+   }
+  },
+  {
+   "name": "PACIFIC OCEAN SHIPPING LIMITED",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "main_margins": {
+    "thin_json": 0.9518212080001831,
+    "json_early": 0.20286956429481506,
+    "json_late": 0.04554164409637451,
+    "prose_early": 0.12383164465427399,
+    "prose_late": 0.07732999324798584
+   }
+  },
+  {
+   "name": "LLC BSP GLOBAL",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "main_margins": {
+    "thin_json": 1.1224735975265503,
+    "json_early": 0.19353249669075012,
+    "json_late": 0.026922225952148438,
+    "prose_early": 0.05941006727516651,
+    "prose_late": -0.00537717342376709
+   }
+  },
+  {
+   "name": "TETHYS PRO JSC",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "main_margins": {
+    "thin_json": 0.5309438109397888,
+    "json_early": 0.1380113959312439,
+    "json_late": 0.020168423652648926,
+    "prose_early": 0.04224902763962746,
+    "prose_late": -0.01387903094291687
+   }
+  },
+  {
+   "name": "SLAVKALI IOOO",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    false,
+    false,
+    true,
+    false,
+    true
+   ],
+   "main_margins": {
+    "thin_json": 0.4785168766975403,
+    "json_early": 0.09968101978302002,
+    "json_late": 0.031442731618881226,
+    "prose_early": 0.034384846687316895,
+    "prose_late": 0.01876792311668396
+   }
+  },
+  {
+   "name": "LLC NNK EAST",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    false,
+    false,
+    true,
+    false,
+    true
+   ],
+   "main_margins": {
+    "thin_json": 1.250938057899475,
+    "json_early": 0.26259079575538635,
+    "json_late": 0.03830438852310181,
+    "prose_early": 0.061758220195770264,
+    "prose_late": -0.02194160223007202
+   }
+  },
+  {
+   "name": "DARYANAVARD KISH SHIPPING COMPANY",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "main_margins": {
+    "thin_json": 0.9423002004623413,
+    "json_early": 0.21963782608509064,
+    "json_late": 0.03429344296455383,
+    "prose_early": 0.07644686102867126,
+    "prose_late": 0.08282190561294556
+   }
+  },
+  {
+   "name": "DIMOND TOWN SHIPPING CO",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "main_margins": {
+    "thin_json": 1.1582331657409668,
+    "json_early": 0.24899904429912567,
+    "json_late": 0.03840780258178711,
+    "prose_early": 0.1345594972372055,
+    "prose_late": 0.10394233465194702
+   }
+  },
+  {
+   "name": "TGOK ILMENITE JSC",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    false,
+    false,
+    true,
+    false,
+    true
+   ],
+   "main_margins": {
+    "thin_json": 0.7970113754272461,
+    "json_early": 0.15720410645008087,
+    "json_late": 0.025139957666397095,
+    "prose_early": 0.10058324038982391,
+    "prose_late": 0.00861869752407074
+   }
+  },
+  {
+   "name": "VELIKOLUKSKII AKKUMULYATORNYI ZAVOD IMPULS",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    false,
+    false,
+    true,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": 1.3341882228851318,
+    "json_early": 0.23546668887138367,
+    "json_late": 0.039493560791015625,
+    "prose_early": 0.12708696722984314,
+    "prose_late": 0.013439446687698364
+   }
+  },
+  {
+   "name": "KATEEB AL MUHAJIREEN WAL ANSAR",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": 0.7579095363616943,
+    "json_early": 0.1263693869113922,
+    "json_late": 0.029351860284805298,
+    "prose_early": 0.07448197901248932,
+    "prose_late": -0.043785154819488525
+   }
+  },
+  {
+   "name": "AZARPAD QESHM",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    false,
+    true,
+    false,
+    true
+   ],
+   "main_margins": {
+    "thin_json": 0.557953953742981,
+    "json_early": 0.18646304309368134,
+    "json_late": 0.019789665937423706,
+    "prose_early": 0.16723720729351044,
+    "prose_late": 0.04512538015842438
+   }
+  },
+  {
+   "name": "M STAR INTERNATIONAL TRADING CO LIMITED",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "main_margins": {
+    "thin_json": 0.8413681983947754,
+    "json_early": 0.23030351102352142,
+    "json_late": 0.03678929805755615,
+    "prose_early": 0.1491732920985669,
+    "prose_late": 0.06074681878089905
+   }
+  },
+  {
+   "name": "SHAHED AVIATION INDUSTRIES COMPLEX",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    false,
+    false,
+    true,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": 0.6363039612770081,
+    "json_early": 0.1549512129276991,
+    "json_late": 0.02590978075750172,
+    "prose_early": 0.03447002172470093,
+    "prose_late": 0.006978631019592285
+   }
+  },
+  {
+   "name": "VALOR Y PRINCIPIO DE DAR, A.C.",
+   "listed": true,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": 0.35716062784194946,
+    "json_early": 0.13436437025666237,
+    "json_late": 0.03190314769744873,
+    "prose_early": 0.009298205375671387,
+    "prose_late": 0.015739528462290764
+   }
+  },
+  {
+   "name": "VYMPEL-SODEISTVIE",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    false,
+    false,
+    true,
+    false,
+    true
+   ],
+   "main_margins": {
+    "thin_json": 0.5898112058639526,
+    "json_early": 0.14547614753246307,
+    "json_late": 0.02777397632598877,
+    "prose_early": 0.07092303037643433,
+    "prose_late": 0.02193063497543335
+   }
+  },
+  {
+   "name": "LIMITED LIABILITY COMPANY ALABUGA DEVELOPMENT",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "main_margins": {
+    "thin_json": 2.0076350271701813,
+    "json_early": 0.2610796093940735,
+    "json_late": 0.04474705457687378,
+    "prose_early": 0.21592121943831444,
+    "prose_late": 0.023026585578918457
+   }
+  },
+  {
+   "name": "KOSAR COMPANY",
+   "listed": true,
+   "membership_view_predictions": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    false,
+    true,
+    true,
+    true
+   ],
+   "main_margins": {
+    "thin_json": 0.5105026662349701,
+    "json_early": 0.19573071785271168,
+    "json_late": 0.028752774000167847,
+    "prose_early": 0.08350345864892006,
+    "prose_late": 0.003711193799972534
+   }
+  },
+  {
+   "name": "E.M.I. SERVICE SOCIETA' A RESPONSABILITA' LIMITATA",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": 0.29767364263534546,
+    "json_early": 0.15935426950454712,
+    "json_late": -0.01746189594268799,
+    "prose_early": 0.3839992582798004,
+    "prose_late": 0.3097865581512451
+   }
+  },
+  {
+   "name": "DEFINE CAPITAL INC.",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": 0.18668340146541595,
+    "json_early": 0.019207924604415894,
+    "json_late": -0.022327393293380737,
+    "prose_early": 0.06066882610321045,
+    "prose_late": 0.031921835616230965
+   }
+  },
+  {
+   "name": "ISTITUTO SUPERIORE INTERNAZIONALE SALESIANO DI RICERCA EDUCATIVA CON DENOMINAZIONE \"ISRE\"",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    true
+   ],
+   "main_margins": {
+    "thin_json": -0.2974148988723755,
+    "json_early": -0.08029791992157698,
+    "json_late": -0.024023711681365967,
+    "prose_early": 0.31661124527454376,
+    "prose_late": 0.10276784002780914
+   }
+  },
+  {
+   "name": "BENS FUELS LTD",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    true,
+    false,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "main_margins": {
+    "thin_json": -0.021923180669546127,
+    "json_early": -0.0744526069611311,
+    "json_late": -0.03213730547577143,
+    "prose_early": 0.012611359357833862,
+    "prose_late": 0.029963823035359383
+   }
+  },
+  {
+   "name": "MADHAVSOLAR (UDAIGARH) PRIVATE LIMITED",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": 1.5480066537857056,
+    "json_early": 0.34313279390335083,
+    "json_late": -0.02822279930114746,
+    "prose_early": 0.875733956694603,
+    "prose_late": 0.4837888479232788
+   }
+  },
+  {
+   "name": "GABINETE JURIDICO MEXICO 100 SOCIEDAD LIMITADA PROFESIONAL",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    true
+   ],
+   "main_margins": {
+    "thin_json": -0.3586881160736084,
+    "json_early": -0.06581809930503368,
+    "json_late": -0.028458651155233383,
+    "prose_early": 0.25102755427360535,
+    "prose_late": 0.09240454435348511
+   }
+  },
+  {
+   "name": "Y P ACCUMULATORS PRIVATE LIMITED",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": 0.35168713331222534,
+    "json_early": 0.1742115020751953,
+    "json_late": -0.009922027587890625,
+    "prose_early": 0.5555909276008606,
+    "prose_late": 0.2537652254104614
+   }
+  },
+  {
+   "name": "LEIW ASIA OPPORTUNITIES MASTER FUND",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": 0.15990352630615234,
+    "json_early": -0.06352216005325317,
+    "json_late": -0.022402018308639526,
+    "prose_early": 0.17907240986824036,
+    "prose_late": 0.3216269314289093
+   }
+  },
+  {
+   "name": "SWETA INDUSTRIES",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": 0.36957966908812523,
+    "json_early": 0.07567672431468964,
+    "json_late": -0.014533758163452148,
+    "prose_early": 0.1491401195526123,
+    "prose_late": 0.08664825558662415
+   }
+  },
+  {
+   "name": "IBIZATOURS & ISLANDBUS, S.L.",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": 1.0121098756790161,
+    "json_early": 0.037091970443725586,
+    "json_late": -0.011576414108276367,
+    "prose_early": 0.337682381272316,
+    "prose_late": 0.28300437331199646
+   }
+  },
+  {
+   "name": "RP CONSULTANCY B.V.",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": 0.41623520851135254,
+    "json_early": -0.01865243911743164,
+    "json_late": -0.012707710266113281,
+    "prose_early": 0.22039927542209625,
+    "prose_late": 0.1141030341386795
+   }
+  },
+  {
+   "name": "GCA INVEST AB",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": 1.012846201658249,
+    "json_early": 0.13793811202049255,
+    "json_late": -0.008874446153640747,
+    "prose_early": 0.21266402304172516,
+    "prose_late": 0.13578583300113678
+   }
+  },
+  {
+   "name": "WS KEYRIDGE MAP CAUTIOUS FUND",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": -0.21340879797935486,
+    "json_early": -0.09523771703243256,
+    "json_late": -0.02540847659111023,
+    "prose_early": 0.06471514701843262,
+    "prose_late": 0.05093473196029663
+   }
+  },
+  {
+   "name": "CONGREGAZIONE MISSIONARIA DELLA PASSIONE DI NOSTRO SIGNORE GESU' CRISTO",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    true
+   ],
+   "main_margins": {
+    "thin_json": -0.1265440583229065,
+    "json_early": 0.07782076299190521,
+    "json_late": -0.0261610746383667,
+    "prose_early": 0.3893115036189556,
+    "prose_late": 0.2828874886035919
+   }
+  },
+  {
+   "name": "BRINGELANDS MASKINHANDEL AB",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": 1.5641840696334839,
+    "json_early": 0.13185203075408936,
+    "json_late": -0.0026584863662719727,
+    "prose_early": 0.521745890378952,
+    "prose_late": 0.22619152069091797
+   }
+  },
+  {
+   "name": "POUPINVEST",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": 0.00918695330619812,
+    "json_early": -0.049225181341171265,
+    "json_late": -0.01669958233833313,
+    "prose_early": 0.04421553015708923,
+    "prose_late": 0.05094834789633751
+   }
+  },
+  {
+   "name": "\"CONSORZIO STABILE OPERAE - TECNOLOGIE E SISTEMI INTEGRATI DI COSTRUZIONE\" - IN FORMA ABBREVIATA \"CONSORZIO STABILE OPERAE\"",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    true,
+    true,
+    true,
+    false,
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "main_margins": {
+    "thin_json": -0.7776025533676147,
+    "json_early": -0.2554168403148651,
+    "json_late": -0.027533292770385742,
+    "prose_early": -0.11892521381378174,
+    "prose_late": -0.09414392709732056
+   }
+  },
+  {
+   "name": "REDDY DRUGS LIFE SCIENCES",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": 0.5674450695514679,
+    "json_early": 0.0844508707523346,
+    "json_late": -0.021066278219223022,
+    "prose_early": 0.3130427747964859,
+    "prose_late": 0.15510337054729462
+   }
+  },
+  {
+   "name": "HARI NARAYAN MEENA",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": 0.467375248670578,
+    "json_early": 0.06902801990509033,
+    "json_late": -0.029069960117340088,
+    "prose_early": 0.17021729052066803,
+    "prose_late": 0.07609101850539446
+   }
+  },
+  {
+   "name": "AIKYA APPARELS PRIVATE LIMITED",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": 0.2780650556087494,
+    "json_early": 0.016626954078674316,
+    "json_late": -0.02425152063369751,
+    "prose_early": 0.3493177592754364,
+    "prose_late": 0.21097861230373383
+   }
+  },
+  {
+   "name": "LES ATELIERS DU PETIT MONT BLANC",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": 0.42295271158218384,
+    "json_early": -0.036171168088912964,
+    "json_late": -0.022803425788879395,
+    "prose_early": 0.31483203172683716,
+    "prose_late": 0.1893470585346222
+   }
+  },
+  {
+   "name": "AKSHAR INDUSTRIES",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": 0.4313702695071697,
+    "json_early": 0.07139511406421661,
+    "json_late": -0.01681932806968689,
+    "prose_early": 0.11297447979450226,
+    "prose_late": 0.09122991561889648
+   }
+  },
+  {
+   "name": "YEB-JAN YPMA HOLDING B.V.",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": 0.10798375308513641,
+    "json_early": -0.0583135187625885,
+    "json_late": -0.020700067281723022,
+    "prose_early": 0.11640137434005737,
+    "prose_late": 0.09764065966010094
+   }
+  },
+  {
+   "name": "QUANTUM LEGACY FAMILY OFFICE SOCIEDAD LIMITADA",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    true
+   ],
+   "main_margins": {
+    "thin_json": -0.43625031667761505,
+    "json_early": -0.17513268999755383,
+    "json_late": -0.028842299012467265,
+    "prose_early": -0.01628869865089655,
+    "prose_late": -0.07637649774551392
+   }
+  },
+  {
+   "name": "INMINER INGENIERIA, S.L",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": 0.42104595713317394,
+    "json_early": 0.014248579740524292,
+    "json_late": -0.013410300016403198,
+    "prose_early": 0.39085011184215546,
+    "prose_late": 0.10137549042701721
+   }
+  },
+  {
+   "name": "HIMEM AB",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": 0.5140427649021149,
+    "json_early": 0.022836297750473022,
+    "json_late": -0.01222217082977295,
+    "prose_early": 0.1619659811258316,
+    "prose_late": 0.0962257832288742
+   }
+  },
+  {
+   "name": "CASTELL 2026-2 PLC",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": 1.3321307860314846,
+    "json_early": 0.09705331921577454,
+    "json_late": -0.0125943124294281,
+    "prose_early": 0.18736429512500763,
+    "prose_late": 0.09756630659103394
+   }
+  },
+  {
+   "name": "ALL IN TRANSPORT STOCKHOLM AB",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": 1.0474594235420227,
+    "json_early": 0.02697652578353882,
+    "json_late": -0.0037657618522644043,
+    "prose_early": 0.44307804107666016,
+    "prose_late": 0.16131332516670227
+   }
+  },
+  {
+   "name": "STEVIN PARTNERS S.R.L.",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": 0.7234893590211868,
+    "json_early": 0.1278669238090515,
+    "json_late": -0.008887052536010742,
+    "prose_early": 0.4244568645954132,
+    "prose_late": 0.17827418446540833
+   }
+  },
+  {
+   "name": "P K BARBER DOV TRUST FOR CHRISTOPHER",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": 1.2019296288490295,
+    "json_early": 0.0499534010887146,
+    "json_late": -0.013184189796447754,
+    "prose_early": 0.3377515375614166,
+    "prose_late": 0.15034639835357666
+   }
+  },
+  {
+   "name": "LUKMAN CONSTRUCTION PRIVATE LIMITED",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": 0.6500015258789062,
+    "json_early": 0.15958690643310547,
+    "json_late": -0.0068111419677734375,
+    "prose_early": 0.5229877233505249,
+    "prose_late": 0.2727491855621338
+   }
+  },
+  {
+   "name": "HUNGRY BOYS",
+   "listed": false,
+   "membership_view_predictions": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "main_margins": {
+    "thin_json": 1.1061245054006577,
+    "json_early": 0.20547811686992645,
+    "json_late": -0.016626745462417603,
+    "prose_early": 0.26013466715812683,
+    "prose_late": 0.13002993166446686
+   }
+  }
+ ],
+ "inputs_sha256": "ac4ab196987d9a25d71c1670ab0440949787bc252c4d8cd05a39b9fc83ed8eeb",
+ "script_sha256": "7bfe9ad649804fd0ffdde7c6d67b4b545a168f0ff795a7e9bf2e3d65c4f7747e",
+ "context": "five_training_forms",
+ "main_by_format": {
+  "thin_json": {
+   "listed": {
+    "queries": 64,
+    "correct": 56
+   },
+   "primary": {
+    "queries": 32,
+    "correct": 29
+   },
+   "alias": {
+    "queries": 32,
+    "correct": 27
+   },
+   "absent": {
+    "queries": 64,
+    "correct": 35
+   }
+  },
+  "json_early": {
+   "listed": {
+    "queries": 64,
+    "correct": 62
+   },
+   "primary": {
+    "queries": 32,
+    "correct": 31
+   },
+   "alias": {
+    "queries": 32,
+    "correct": 31
+   },
+   "absent": {
+    "queries": 64,
+    "correct": 26
+   }
+  },
+  "json_late": {
+   "listed": {
+    "queries": 64,
+    "correct": 64
+   },
+   "primary": {
+    "queries": 32,
+    "correct": 32
+   },
+   "alias": {
+    "queries": 32,
+    "correct": 32
+   },
+   "absent": {
+    "queries": 64,
+    "correct": 0
+   }
+  },
+  "prose_early": {
+   "listed": {
+    "queries": 64,
+    "correct": 43
+   },
+   "primary": {
+    "queries": 32,
+    "correct": 21
+   },
+   "alias": {
+    "queries": 32,
+    "correct": 22
+   },
+   "absent": {
+    "queries": 64,
+    "correct": 53
+   }
+  },
+  "prose_late": {
+   "listed": {
+    "queries": 64,
+    "correct": 28
+   },
+   "primary": {
+    "queries": 32,
+    "correct": 13
+   },
+   "alias": {
+    "queries": 32,
+    "correct": 15
+   },
+   "absent": {
+    "queries": 64,
+    "correct": 57
+   }
+  }
+ },
+ "scope": "Source TRAINING diagnostics. Correlated views/tokens; auxiliary counts are not evaluator accuracy. Main margins are HF, not actual-node scores/readiness. Heads discarded for export."
+}

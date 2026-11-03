@@ -29,9 +29,12 @@ commit.
       anchors/32 steps fails absent late-JSON25/48. V22 joint ranking and fixed
       v23/v24 module restores fail listed/alias guards. V25 adds source errors/replay
       but qualified listed24/48; v26 training-only fact/verdict heads gives25/48.
-      V26 auxiliary verdict roles nearly exact, membership changes with context
-      for82/96 queries. Frozen feature/readout diagnosis now running, no encoder
-      updates. No full-corpus run; recognized-name control isolates interpretation.
+      V26 verdict-role recognition near-exact only in training forms; qualified
+      primary-positive tokens48/192. V27 adds question-only/invariance losses but
+      late-JSON absent0/48,including0/64 source training. Rejected. V25 ordinary
+      source fit thin listed34/64,alias16/32. V28 duration-only128-step/four-pass
+      control on SAME128 facts running; exact v25 tensor/loss replay required at32.
+      No full-corpus run; recognized-name control isolates interpretation.
 - [x] Build and measure a separate reversal-balanced query-binding benchmark: v7 40/40 vs v6 36/40.
 - [x] Resolve the overlapping-bank-name regression in both directions; v8 old controls 20/20, own 4/4,
       balanced binding regression 40/40, fresh bank stratum 20/20 (v7 also 20/20).

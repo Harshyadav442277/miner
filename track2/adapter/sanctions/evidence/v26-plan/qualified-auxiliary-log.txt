@@ -1,0 +1,21 @@
+02:16:31 INFO: tokenizer matches the node (88 vectors)
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+
+Loading weights:   0%|          | 0/136 [00:00<?, ?it/s]
+Loading weights:   7%|6         | 9/136 [00:00<00:01, 70.57it/s]
+Loading weights:  26%|##5       | 35/136 [00:00<00:00, 169.38it/s]
+Loading weights: 100%|##########| 136/136 [00:00<00:00, 523.82it/s]
+[transformers] ModernBertForSequenceClassification LOAD REPORT from: answerdotai/ModernBERT-base
+Key               | Status     | 
+------------------+------------+-
+decoder.bias      | UNEXPECTED | 
+classifier.weight | MISSING    | 
+classifier.bias   | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+02:16:32 INFO: answerdotai/ModernBERT-base | trainable 1,690,369 / 151,296,002 parameters
+C:\Users\hyada\tg-eval\.venv\Lib\site-packages\peft\utils\save_and_load.py:313: UserWarning: Could not find a config file in answerdotai/ModernBERT-base - will assume that the vocabulary was not modified.
+  warnings.warn(
+{"queries": 96, "membership_by_class": {"True": {"views": 96, "correct": 51}, "False": {"views": 96, "correct": 79}}, "membership_stable_across_views_queries": 40, "membership_all_views_correct_queries": 37, "primary_verdict_tokens": {"True": {"tokens": 192, "correct": 48}, "False": {"tokens": 288, "correct": 288}}, "nonprimary_negation_tokens": 198, "nonprimary_negations_misread_as_primary": 0, "inputs_sha256": "2ebc28413e7cd9111292f1ef7171a77c0fb4942e26ca6d90892935e91390e960", "script_sha256": "7bfe9ad649804fd0ffdde7c6d67b4b545a168f0ff795a7e9bf2e3d65c4f7747e", "context": "heldout_prose", "main_by_format": {"heldout_prose": {"listed": {"queries": 48, "correct": 25}, "primary": {"queries": 24, "correct": 14}, "alias": {"queries": 24, "correct": 11}, "absent": {"queries": 48, "correct": 47}}}, "scope": "Paired DEVELOPMENT diagnostics. Correlated views/tokens; auxiliary counts are not evaluator accuracy. Main margins are HF, not actual-node scores/readiness. Heads discarded for export."}

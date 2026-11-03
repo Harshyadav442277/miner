@@ -1,0 +1,1680 @@
+{
+ "identity": {
+  "version": 25,
+  "tensors_verified": 178,
+  "checkpoint_sha256": "ad4034ec105edce822603d50140dc8925a9d5a05ed3d4193c185d9d7fdf6a38d"
+ },
+ "inputs_sha256": "d3bf41b298093ffb76ea1a1d42f364f5ead13bc1440da1b3dc71fab459e44ab4",
+ "script_sha256": "e678e1f59c110b9d0fde0551fba7cb3c9a4ac1f1ce332df77194b62cc77a24ed",
+ "by_format": {
+  "thin_json": {
+   "listed": {
+    "queries": 64,
+    "correct": 34
+   },
+   "hard": {
+    "queries": 64,
+    "correct": 36
+   },
+   "primary": {
+    "queries": 32,
+    "correct": 18
+   },
+   "alias": {
+    "queries": 32,
+    "correct": 16
+   },
+   "absent": {
+    "queries": 64,
+    "correct": 63
+   },
+   "replay": {
+    "queries": 64,
+    "correct": 61
+   }
+  },
+  "json_early": {
+   "listed": {
+    "queries": 64,
+    "correct": 41
+   },
+   "hard": {
+    "queries": 64,
+    "correct": 40
+   },
+   "primary": {
+    "queries": 32,
+    "correct": 20
+   },
+   "alias": {
+    "queries": 32,
+    "correct": 21
+   },
+   "absent": {
+    "queries": 64,
+    "correct": 59
+   },
+   "replay": {
+    "queries": 64,
+    "correct": 60
+   }
+  },
+  "json_late": {
+   "listed": {
+    "queries": 64,
+    "correct": 63
+   },
+   "hard": {
+    "queries": 64,
+    "correct": 34
+   },
+   "primary": {
+    "queries": 32,
+    "correct": 31
+   },
+   "alias": {
+    "queries": 32,
+    "correct": 32
+   },
+   "absent": {
+    "queries": 64,
+    "correct": 28
+   },
+   "replay": {
+    "queries": 64,
+    "correct": 57
+   }
+  },
+  "prose_early": {
+   "listed": {
+    "queries": 64,
+    "correct": 34
+   },
+   "hard": {
+    "queries": 64,
+    "correct": 35
+   },
+   "primary": {
+    "queries": 32,
+    "correct": 17
+   },
+   "alias": {
+    "queries": 32,
+    "correct": 17
+   },
+   "absent": {
+    "queries": 64,
+    "correct": 61
+   },
+   "replay": {
+    "queries": 64,
+    "correct": 60
+   }
+  },
+  "prose_late": {
+   "listed": {
+    "queries": 64,
+    "correct": 38
+   },
+   "hard": {
+    "queries": 64,
+    "correct": 38
+   },
+   "primary": {
+    "queries": 32,
+    "correct": 20
+   },
+   "alias": {
+    "queries": 32,
+    "correct": 18
+   },
+   "absent": {
+    "queries": 64,
+    "correct": 59
+   },
+   "replay": {
+    "queries": 64,
+    "correct": 59
+   }
+  }
+ },
+ "rows": [
+  {
+   "name": "HTTS HANSEATIC TRADE TRUST & SHIPPING GMBH",
+   "listed": true,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": 1.3363972306251526,
+    "json_early": 0.5889786779880524,
+    "json_late": 0.08123362064361572,
+    "prose_early": 0.2872742712497711,
+    "prose_late": 0.5799902081489563
+   }
+  },
+  {
+   "name": "YUK TUNG ENERGY PTE LTD",
+   "listed": true,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": 0.5529932677745819,
+    "json_early": 0.45404180884361267,
+    "json_late": 0.06725150346755981,
+    "prose_early": 0.23125451803207397,
+    "prose_late": 0.20295679569244385
+   }
+  },
+  {
+   "name": "EVY BLUE LTD",
+   "listed": true,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": -0.21590938419103622,
+    "json_early": 0.12480892241001129,
+    "json_late": 0.03896191716194153,
+    "prose_early": 0.1135779321193695,
+    "prose_late": 0.09928721189498901
+   }
+  },
+  {
+   "name": "SHINE. X INVESTMENTS PVT LTD",
+   "listed": true,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": -0.6945784837007523,
+    "json_early": -0.2908954992890358,
+    "json_late": 0.025920569896697998,
+    "prose_early": -0.6457088142633438,
+    "prose_late": -0.1235978975892067
+   }
+  },
+  {
+   "name": "NEST WISE PETROLEUM L.L.C",
+   "listed": true,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": -0.7233425378799438,
+    "json_early": -0.4363623186945915,
+    "json_late": 0.001708298921585083,
+    "prose_early": -0.5801085382699966,
+    "prose_late": -0.34741176664829254
+   }
+  },
+  {
+   "name": "Dionicio Loya Plancarte",
+   "listed": true,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": -0.7537511587142944,
+    "json_early": -0.4466088265180588,
+    "json_late": 0.03945110738277435,
+    "prose_early": -0.48139937222003937,
+    "prose_late": -0.09656468778848648
+   }
+  },
+  {
+   "name": "RISEONIC HOLDINGS LTD",
+   "listed": true,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": -0.4577104523777962,
+    "json_early": -0.3281153738498688,
+    "json_late": 0.029236525297164917,
+    "prose_early": -0.33897943049669266,
+    "prose_late": -0.05926886200904846
+   }
+  },
+  {
+   "name": "FARTON MITEX SDN BHD",
+   "listed": true,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": 0.05280381441116333,
+    "json_early": 0.07876181602478027,
+    "json_late": 0.050755590200424194,
+    "prose_early": -0.043231189250946045,
+    "prose_late": 0.018960624933242798
+   }
+  },
+  {
+   "name": "NOVO BLOCKCHAIN CONSULTORIA LDA",
+   "listed": true,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": -0.3529857099056244,
+    "json_early": -0.03116147220134735,
+    "json_late": 0.04425498843193054,
+    "prose_early": -0.2979821115732193,
+    "prose_late": -0.004241645336151123
+   }
+  },
+  {
+   "name": "PRODUCTION UNITARY ENTERPRISE PLANT SVT",
+   "listed": true,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": 0.7464645504951477,
+    "json_early": 0.10472425818443298,
+    "json_late": 0.040311217308044434,
+    "prose_early": -0.014225363731384277,
+    "prose_late": 0.055825263261795044
+   }
+  },
+  {
+   "name": "THRACE FOUNDATION",
+   "listed": true,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": -0.04654860496520996,
+    "json_early": 0.03873424977064133,
+    "json_late": 0.017368078231811523,
+    "prose_early": -0.22690901905298233,
+    "prose_late": -0.060615889728069305
+   }
+  },
+  {
+   "name": "ALPHAONE PHARMACEUTICAL B.V.",
+   "listed": true,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": -1.5064060613512993,
+    "json_early": -0.8373435363173485,
+    "json_late": -0.03356581926345825,
+    "prose_early": -1.2613509148359299,
+    "prose_late": -0.4819544851779938
+   }
+  },
+  {
+   "name": "SISU PRIME LIMITED",
+   "listed": true,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": -0.4898156076669693,
+    "json_early": -0.5440062507987022,
+    "json_late": 0.008189141750335693,
+    "prose_early": -0.5577351301908493,
+    "prose_late": -0.14484365284442902
+   }
+  },
+  {
+   "name": "SARIL OVERSEAS LIMITED",
+   "listed": true,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": -0.4719668850302696,
+    "json_early": -0.39640408009290695,
+    "json_late": 0.014654725790023804,
+    "prose_early": -0.47167061269283295,
+    "prose_late": -0.24529819190502167
+   }
+  },
+  {
+   "name": "SEA HERMES",
+   "listed": true,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": -0.6647261381149292,
+    "json_early": -0.0997418463230133,
+    "json_late": 0.0010567009449005127,
+    "prose_early": -0.47433899343013763,
+    "prose_late": -0.26897551864385605
+   }
+  },
+  {
+   "name": "POWER ANCHOR LIMITED",
+   "listed": true,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": -0.07450015097856522,
+    "json_early": -0.26400523632764816,
+    "json_late": 0.029631853103637695,
+    "prose_early": -0.2986166402697563,
+    "prose_late": 0.05942913889884949
+   }
+  },
+  {
+   "name": "SWIRU TRUSTEE LTD",
+   "listed": true,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": -0.5226695090532303,
+    "json_early": -0.11335181444883347,
+    "json_late": 0.039362482726573944,
+    "prose_early": -0.19301743060350418,
+    "prose_late": -0.03885906934738159
+   }
+  },
+  {
+   "name": "GREEN ENERGY CHEMICALS",
+   "listed": true,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": -0.7902187556028366,
+    "json_early": -0.5001645535230637,
+    "json_late": 0.015826955437660217,
+    "prose_early": -0.603166401386261,
+    "prose_late": -0.20366673916578293
+   }
+  },
+  {
+   "name": "MAKSTECH",
+   "listed": true,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": -0.15947335958480835,
+    "json_early": 0.11048948764801025,
+    "json_late": 0.02045649290084839,
+    "prose_early": -0.010513663291931152,
+    "prose_late": -0.1167159378528595
+   }
+  },
+  {
+   "name": "MAD KANDALU SHIPBUILDING COOPERATIVE QESHM",
+   "listed": true,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": 1.5950632691383362,
+    "json_early": 0.5885626077651978,
+    "json_late": 0.08037018775939941,
+    "prose_early": 0.4079812169075012,
+    "prose_late": 0.44656914472579956
+   }
+  },
+  {
+   "name": "TRANSMART AG",
+   "listed": true,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": -0.3976615443825722,
+    "json_early": -0.17762892693281174,
+    "json_late": 0.011239945888519287,
+    "prose_early": -0.1655801609158516,
+    "prose_late": -0.23875274509191513
+   }
+  },
+  {
+   "name": "CAGL",
+   "listed": true,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": -0.24937855452299118,
+    "json_early": 0.09800001233816147,
+    "json_late": 0.033123552799224854,
+    "prose_early": -0.037547796964645386,
+    "prose_late": 0.03925281763076782
+   }
+  },
+  {
+   "name": "SAINT PETERSBURG IMPERIAL LEGION",
+   "listed": true,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": -0.43576065450906754,
+    "json_early": 0.24346758425235748,
+    "json_late": 0.05519780516624451,
+    "prose_early": 0.0977819561958313,
+    "prose_late": 0.14305080473423004
+   }
+  },
+  {
+   "name": "SVR ROSSII FKU",
+   "listed": true,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": -0.9194393455982208,
+    "json_early": -0.04852341115474701,
+    "json_late": 0.027434051036834717,
+    "prose_early": -0.2162376567721367,
+    "prose_late": -0.0201951265335083
+   }
+  },
+  {
+   "name": "CEC BELARUS",
+   "listed": true,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": -0.5330711081624031,
+    "json_early": 0.0011897385120391846,
+    "json_late": 0.024221166968345642,
+    "prose_early": -0.1075749397277832,
+    "prose_late": -0.06076060235500336
+   }
+  },
+  {
+   "name": "SALINA SHIP MANAGEMENT PRIVATE LIMITED",
+   "listed": true,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": -0.11908411234617233,
+    "json_early": 0.11866475641727448,
+    "json_late": 0.043461874127388,
+    "prose_early": -0.48366376012563705,
+    "prose_late": 0.1482245847582817
+   }
+  },
+  {
+   "name": "CAPITAL TAP MANAGEMENT CONSULTANCIES",
+   "listed": true,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": -0.46256106346845627,
+    "json_early": -0.31962207704782486,
+    "json_late": 0.045708537101745605,
+    "prose_early": -0.31897836178541183,
+    "prose_late": -0.23457739502191544
+   }
+  },
+  {
+   "name": "DOTONE",
+   "listed": true,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": -0.2906244173645973,
+    "json_early": 0.14421407878398895,
+    "json_late": 0.029995650053024292,
+    "prose_early": 0.003204554319381714,
+    "prose_late": -0.06045427918434143
+   }
+  },
+  {
+   "name": "STUDIA PIXAGIO",
+   "listed": true,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": -0.464999221265316,
+    "json_early": -0.055812060832977295,
+    "json_late": 0.02828902006149292,
+    "prose_early": -0.1616155058145523,
+    "prose_late": -0.07224209606647491
+   }
+  },
+  {
+   "name": "PLAZA VIRREYES",
+   "listed": true,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": -0.12308835983276367,
+    "json_early": -0.002615004777908325,
+    "json_late": 0.020404726266860962,
+    "prose_early": -0.06309086084365845,
+    "prose_late": 0.012632131576538086
+   }
+  },
+  {
+   "name": "BANDES",
+   "listed": true,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": -0.48823030292987823,
+    "json_early": -0.04429769515991211,
+    "json_late": 0.008814483880996704,
+    "prose_early": -0.17657683044672012,
+    "prose_late": -0.15075182169675827
+   }
+  },
+  {
+   "name": "MIRIM COLLEGE",
+   "listed": true,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": -0.19467605650424957,
+    "json_early": -0.0045227110385894775,
+    "json_late": 0.036906421184539795,
+    "prose_early": -0.1707378402352333,
+    "prose_late": -0.03604680299758911
+   }
+  },
+  {
+   "name": "A&G FLOTA",
+   "listed": false,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": 0.7748227417469025,
+    "json_early": 0.3002934455871582,
+    "json_late": -0.010233938694000244,
+    "prose_early": 0.7933660298585892,
+    "prose_late": 0.2772878035902977
+   }
+  },
+  {
+   "name": "RICHIELD FINANCIAL SERVICES INC.",
+   "listed": false,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": 0.9042609333992004,
+    "json_early": 0.48432816565036774,
+    "json_late": -0.0284540057182312,
+    "prose_early": 0.998033195734024,
+    "prose_late": 0.19455156475305557
+   }
+  },
+  {
+   "name": "AMJAD ALI PANWAR",
+   "listed": false,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": 0.07913967967033386,
+    "json_early": -0.10013577342033386,
+    "json_late": -0.05871903896331787,
+    "prose_early": -0.1899661123752594,
+    "prose_late": -0.1633022427558899
+   }
+  },
+  {
+   "name": "MYRTILLE CONSULTING LIMITED PARTNERSHIP",
+   "listed": false,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": 1.404553085565567,
+    "json_early": 0.6037896499037743,
+    "json_late": -0.01727735996246338,
+    "prose_early": 0.9788738042116165,
+    "prose_late": 0.3318130597472191
+   }
+  },
+  {
+   "name": "VAM MANAGEMENT",
+   "listed": false,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": 0.44712652266025543,
+    "json_early": 0.14397016167640686,
+    "json_late": -0.012155294651165605,
+    "prose_early": 0.1581312194466591,
+    "prose_late": 0.09096848964691162
+   }
+  },
+  {
+   "name": "ACADEMOS EDUTECH",
+   "listed": false,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": 0.5455585047602654,
+    "json_early": 0.2681597098708153,
+    "json_late": -0.024691641330718994,
+    "prose_early": 0.313139446079731,
+    "prose_late": 0.15657561272382736
+   }
+  },
+  {
+   "name": "BELZ INSTITUTIONS OF LAKEWOOD INC.",
+   "listed": false,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": 1.4236889407038689,
+    "json_early": 0.8467616064008325,
+    "json_late": 0.001781761646270752,
+    "prose_early": 1.1497888714075089,
+    "prose_late": 0.13032159954309464
+   }
+  },
+  {
+   "name": "ELVO LAUSNIR EHF.",
+   "listed": false,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": 0.39656755328178406,
+    "json_early": 0.31423626095056534,
+    "json_late": -0.03845056891441345,
+    "prose_early": 0.3903849199414253,
+    "prose_late": 0.1392616480588913
+   }
+  },
+  {
+   "name": "WILLIAM INTERNATIONAL LTD.",
+   "listed": false,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": 1.7057942599058151,
+    "json_early": 0.9298227652907372,
+    "json_late": -0.023220539093017578,
+    "prose_early": 1.0317465290427208,
+    "prose_late": 0.39356793463230133
+   }
+  },
+  {
+   "name": "RBM STUDIO LLC",
+   "listed": false,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": 0.048212647438049316,
+    "json_early": 0.13659237325191498,
+    "json_late": -0.041454046964645386,
+    "prose_early": 0.10071960091590881,
+    "prose_late": 0.05172508955001831
+   }
+  },
+  {
+   "name": "FRIENDS OF MANCHESTER CATHEDRAL",
+   "listed": false,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": 1.9422772377729416,
+    "json_early": 1.1335825845599174,
+    "json_late": -0.019622623920440674,
+    "prose_early": 1.2381116300821304,
+    "prose_late": 0.4313717409968376
+   }
+  },
+  {
+   "name": "PROMTEKHNOLOGIYA IRAN CUBANACAN RMB ARMED BUSINESS TRANSNATIONAL",
+   "listed": false,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": -1.9137998223304749,
+    "json_early": -1.0625432133674622,
+    "json_late": -0.12390172481536865,
+    "prose_early": -0.7361749410629272,
+    "prose_late": -0.7340569496154785
+   }
+  },
+  {
+   "name": "LUXMI ELECTRIC SALES",
+   "listed": false,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": 0.5848997086286545,
+    "json_early": 0.10905839502811432,
+    "json_late": -0.0325278639793396,
+    "prose_early": 0.17737354338169098,
+    "prose_late": 0.05481599271297455
+   }
+  },
+  {
+   "name": "ALOKA GREEN ENERGY LTD",
+   "listed": false,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": 0.400649756193161,
+    "json_early": -0.009323716163635254,
+    "json_late": -0.03379102051258087,
+    "prose_early": -0.007360309362411499,
+    "prose_late": -0.10182946920394897
+   }
+  },
+  {
+   "name": "BENISHA COMMUNICATION",
+   "listed": false,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": 0.7883622944355011,
+    "json_early": 0.34335386753082275,
+    "json_late": -0.025704331696033478,
+    "prose_early": 0.5836029648780823,
+    "prose_late": 0.2661149278283119
+   }
+  },
+  {
+   "name": "SIMRAN ASIAN AND AFRICAN FOODS",
+   "listed": false,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": 0.4526939317584038,
+    "json_early": 0.3384130969643593,
+    "json_late": -0.03417983651161194,
+    "prose_early": 0.5340763702988625,
+    "prose_late": -0.04850122332572937
+   }
+  },
+  {
+   "name": "MAKAW LIMITED",
+   "listed": false,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": 0.21168041974306107,
+    "json_early": 0.11793364584445953,
+    "json_late": -0.031543076038360596,
+    "prose_early": 0.17404897511005402,
+    "prose_late": 0.2501024678349495
+   }
+  },
+  {
+   "name": "KJP KOERIER",
+   "listed": false,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": 0.3474624305963516,
+    "json_early": 0.03280624747276306,
+    "json_late": -0.026827380061149597,
+    "prose_early": 0.09364217519760132,
+    "prose_late": -0.01192060112953186
+   }
+  },
+  {
+   "name": "GANNET REAL ESTATE LENDING S.I.C.C., S.A.",
+   "listed": false,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": 3.4571578726172447,
+    "json_early": 1.320260763168335,
+    "json_late": 0.047978878021240234,
+    "prose_early": 1.9378494545817375,
+    "prose_late": 1.202979862689972
+   }
+  },
+  {
+   "name": "MASTER ENGINEERING",
+   "listed": false,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": 0.5533688962459564,
+    "json_early": 0.09051086753606796,
+    "json_late": -0.005867362022399902,
+    "prose_early": 0.11140115559101105,
+    "prose_late": 0.0658935010433197
+   }
+  },
+  {
+   "name": "NAPATREE TECHNOLOGY LLC",
+   "listed": false,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": 0.23542973399162292,
+    "json_early": 0.33161238580942154,
+    "json_late": -0.044097453355789185,
+    "prose_early": 0.5568406134843826,
+    "prose_late": 0.05672915279865265
+   }
+  },
+  {
+   "name": "MCLELLAN & CO LTD",
+   "listed": false,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": 1.750373736023903,
+    "json_early": 0.6470957249403,
+    "json_late": -0.006973952054977417,
+    "prose_early": 0.8114809542894363,
+    "prose_late": 0.20093123614788055
+   }
+  },
+  {
+   "name": "ASHUTOSH ANAND",
+   "listed": false,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": 0.575125552713871,
+    "json_early": 0.24778486043214798,
+    "json_late": -0.024196267127990723,
+    "prose_early": 0.16235071420669556,
+    "prose_late": 0.0053868889808654785
+   }
+  },
+  {
+   "name": "RAMESH MANCHHALAL PUROHIT",
+   "listed": false,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": 0.5468022897839546,
+    "json_early": 0.43029527366161346,
+    "json_late": -0.02888748049736023,
+    "prose_early": 0.45532480627298355,
+    "prose_late": 0.08049005270004272
+   }
+  },
+  {
+   "name": "AMARINA INTERNATIONAL AG",
+   "listed": false,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": 1.1004853546619415,
+    "json_early": 0.3388136625289917,
+    "json_late": -0.022330373292788863,
+    "prose_early": 0.30755413323640823,
+    "prose_late": 0.3516460657119751
+   }
+  },
+  {
+   "name": "THE MAYUR COLLECTION II",
+   "listed": false,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": 0.9863364696502686,
+    "json_early": 0.5607624873518944,
+    "json_late": -0.01734471321105957,
+    "prose_early": 0.9607736617326736,
+    "prose_late": 0.15954288840293884
+   }
+  },
+  {
+   "name": "MAA NEW AGRO PRODUCT",
+   "listed": false,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": 0.13066831231117249,
+    "json_early": 0.21114078909158707,
+    "json_late": -0.039106450974941254,
+    "prose_early": 0.24880187213420868,
+    "prose_late": 0.011692315340042114
+   }
+  },
+  {
+   "name": "RECTANGLE BOX",
+   "listed": false,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": 0.09279835224151611,
+    "json_early": -0.0610845685005188,
+    "json_late": -0.03173738718032837,
+    "prose_early": 0.10911029577255249,
+    "prose_late": 0.026998847723007202
+   }
+  },
+  {
+   "name": "AGARWAL LOGISTICS",
+   "listed": false,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": 0.11693012714385986,
+    "json_early": -0.027022182941436768,
+    "json_late": -0.03352287411689758,
+    "prose_early": 0.08105415105819702,
+    "prose_late": 0.023497015237808228
+   }
+  },
+  {
+   "name": "ROTHESAY PROPERTY COMPANY 2 LIMITED",
+   "listed": false,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": 1.1690650209784508,
+    "json_early": 0.37894316762685776,
+    "json_late": -0.027703672647476196,
+    "prose_early": 0.543779693543911,
+    "prose_late": 0.13352707028388977
+   }
+  },
+  {
+   "name": "OMS INTERNATIONAL",
+   "listed": false,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": 0.2011893093585968,
+    "json_early": 0.12034711241722107,
+    "json_late": -0.029825985431671143,
+    "prose_early": 0.26566291600465775,
+    "prose_late": 0.13307588547468185
+   }
+  },
+  {
+   "name": "ANJOTE - SOCIEDADE DE INVESTIMENTOS, S.A.",
+   "listed": false,
+   "curriculum": "hard",
+   "margins": {
+    "thin_json": 2.4392454028129578,
+    "json_early": 1.2111612781882286,
+    "json_late": 0.030568242073059082,
+    "prose_early": 2.1980869621038437,
+    "prose_late": 0.8861343860626221
+   }
+  },
+  {
+   "name": "LIMITED LIABILITY COMPANY TRADE HOUSE KYUTEK",
+   "listed": true,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 8.527908623218536,
+    "json_early": 4.325393557548523,
+    "json_late": 0.19433879852294922,
+    "prose_early": 4.272779226303101,
+    "prose_late": 1.7509737014770508
+   }
+  },
+  {
+   "name": "SKOLKOVO INSTITUTE OF SCIENCE AND TECHNOLOGY",
+   "listed": true,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 3.1150349974632263,
+    "json_early": 0.8610020279884338,
+    "json_late": 0.09267711639404297,
+    "prose_early": 0.9649339914321899,
+    "prose_late": 0.8510076403617859
+   }
+  },
+  {
+   "name": "LIMITED LIABILITY COMPANY DV HOLDING",
+   "listed": true,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 2.5486220568418503,
+    "json_early": 1.5117362514138222,
+    "json_late": 0.1192784309387207,
+    "prose_early": 1.594694346189499,
+    "prose_late": 0.5677158832550049
+   }
+  },
+  {
+   "name": "ALCOTECH INTERNATIONAL TRADING DMCC",
+   "listed": true,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 1.9181880354881287,
+    "json_early": 0.8603436648845673,
+    "json_late": 0.07685613632202148,
+    "prose_early": 0.6351543068885803,
+    "prose_late": 0.3811463713645935
+   }
+  },
+  {
+   "name": "PUBLIC JOINT STOCK COMPANY BANK ALEXANDROVSKY",
+   "listed": true,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 5.616025507450104,
+    "json_early": 2.8652565479278564,
+    "json_late": 0.23672771453857422,
+    "prose_early": 3.7965633869171143,
+    "prose_late": 2.3139491081237793
+   }
+  },
+  {
+   "name": "OOO MAKRO GRUPP",
+   "listed": true,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 3.255890190601349,
+    "json_early": 2.168795645236969,
+    "json_late": 0.1560816764831543,
+    "prose_early": 2.2477107644081116,
+    "prose_late": 0.8877785205841064
+   }
+  },
+  {
+   "name": "JOINT STOCK COMPANY ELEKTRONNAYA MOSKVA",
+   "listed": true,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 7.849287033081055,
+    "json_early": 3.974705934524536,
+    "json_late": 0.19087505340576172,
+    "prose_early": 4.673490285873413,
+    "prose_late": 2.1595380306243896
+   }
+  },
+  {
+   "name": "FINANCIERA CIMEX S.A",
+   "listed": true,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": -0.6086835637688637,
+    "json_early": -0.31021926552057266,
+    "json_late": 0.024331659078598022,
+    "prose_early": -0.5054500475525856,
+    "prose_late": -0.22820765525102615
+   }
+  },
+  {
+   "name": "ROSATOM MICROELECTRONICS JOINT STOCK COMPANY",
+   "listed": true,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 3.0924915075302124,
+    "json_early": 1.4418439269065857,
+    "json_late": 0.1273026466369629,
+    "prose_early": 1.442814290523529,
+    "prose_late": 0.6245002746582031
+   }
+  },
+  {
+   "name": "KUNLUN HOLDING COMPANY LTD.",
+   "listed": true,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 1.1519963443279266,
+    "json_early": 1.2870989441871643,
+    "json_late": 0.1034693717956543,
+    "prose_early": 1.8044954538345337,
+    "prose_late": 0.5742896795272827
+   }
+  },
+  {
+   "name": "KB LINES LIMITED",
+   "listed": true,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": -0.33541757613420486,
+    "json_early": -0.4091527387499809,
+    "json_late": 0.009093523025512695,
+    "prose_early": -0.44512101262807846,
+    "prose_late": -0.06570620834827423
+   }
+  },
+  {
+   "name": "ALCARDINAL PETROLEUM COMPANY LIMITED",
+   "listed": true,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 0.8400343060493469,
+    "json_early": 0.9423625469207764,
+    "json_late": 0.09090304374694824,
+    "prose_early": 0.513809084892273,
+    "prose_late": 0.7871077656745911
+   }
+  },
+  {
+   "name": "AL-FALAH SOCIETY GAZA",
+   "listed": true,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 0.3435509204864502,
+    "json_early": 0.9966545701026917,
+    "json_late": 0.08253538608551025,
+    "prose_early": 1.1472932696342468,
+    "prose_late": 0.3874748945236206
+   }
+  },
+  {
+   "name": "RHINE SHIPPING DMCC",
+   "listed": true,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 2.6110541224479675,
+    "json_early": 1.2982995510101318,
+    "json_late": 0.11366569995880127,
+    "prose_early": 1.1597509384155273,
+    "prose_late": 0.5468223094940186
+   }
+  },
+  {
+   "name": "LIMITED LIABILITY COMPANY AXALIT LAB",
+   "listed": true,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 3.565223291516304,
+    "json_early": 1.8693080246448517,
+    "json_late": 0.14657211303710938,
+    "prose_early": 2.8792110085487366,
+    "prose_late": 1.3085811138153076
+   }
+  },
+  {
+   "name": "PACIFIC OCEAN SHIPPING LIMITED",
+   "listed": true,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 2.499976873397827,
+    "json_early": 1.0410436987876892,
+    "json_late": 0.11245417594909668,
+    "prose_early": 1.239727795124054,
+    "prose_late": 0.8531103134155273
+   }
+  },
+  {
+   "name": "LLC BSP GLOBAL",
+   "listed": true,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 1.5375414490699768,
+    "json_early": 0.7610441446304321,
+    "json_late": 0.09522294998168945,
+    "prose_early": 0.36798545718193054,
+    "prose_late": 0.1506478190422058
+   }
+  },
+  {
+   "name": "TETHYS PRO JSC",
+   "listed": true,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 0.23992329835891724,
+    "json_early": 0.19111013412475586,
+    "json_late": 0.041088223457336426,
+    "prose_early": 0.18544074892997742,
+    "prose_late": 0.04407581686973572
+   }
+  },
+  {
+   "name": "SLAVKALI IOOO",
+   "listed": true,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 0.7014905214309692,
+    "json_early": 0.1458764672279358,
+    "json_late": 0.05284586548805237,
+    "prose_early": 0.040539324283599854,
+    "prose_late": 0.1306925117969513
+   }
+  },
+  {
+   "name": "LLC NNK EAST",
+   "listed": true,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 1.416911244392395,
+    "json_early": 0.9863077998161316,
+    "json_late": 0.11105692386627197,
+    "prose_early": 0.618678092956543,
+    "prose_late": 0.23712795972824097
+   }
+  },
+  {
+   "name": "DARYANAVARD KISH SHIPPING COMPANY",
+   "listed": true,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 3.0110433101654053,
+    "json_early": 1.6949252486228943,
+    "json_late": 0.14141130447387695,
+    "prose_early": 1.8480160236358643,
+    "prose_late": 0.7865880727767944
+   }
+  },
+  {
+   "name": "DIMOND TOWN SHIPPING CO",
+   "listed": true,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 3.715885639190674,
+    "json_early": 1.6476420760154724,
+    "json_late": 0.1144721508026123,
+    "prose_early": 1.863283097743988,
+    "prose_late": 1.0839463472366333
+   }
+  },
+  {
+   "name": "TGOK ILMENITE JSC",
+   "listed": true,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 0.9935895800590515,
+    "json_early": 0.7351205050945282,
+    "json_late": 0.07547962665557861,
+    "prose_early": 0.7943274974822998,
+    "prose_late": 0.30392736196517944
+   }
+  },
+  {
+   "name": "VELIKOLUKSKII AKKUMULYATORNYI ZAVOD IMPULS",
+   "listed": true,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 1.4668172597885132,
+    "json_early": 0.42112553119659424,
+    "json_late": 0.08899974822998047,
+    "prose_early": 0.2248968482017517,
+    "prose_late": 0.09430122375488281
+   }
+  },
+  {
+   "name": "KATEEB AL MUHAJIREEN WAL ANSAR",
+   "listed": true,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 1.0046645998954773,
+    "json_early": 0.5965087711811066,
+    "json_late": 0.03951740264892578,
+    "prose_early": 0.8362136483192444,
+    "prose_late": 0.1491481065750122
+   }
+  },
+  {
+   "name": "AZARPAD QESHM",
+   "listed": true,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 0.5260325074195862,
+    "json_early": 0.39809438586235046,
+    "json_late": 0.04459577798843384,
+    "prose_early": 0.4053982198238373,
+    "prose_late": 0.1707519292831421
+   }
+  },
+  {
+   "name": "M STAR INTERNATIONAL TRADING CO LIMITED",
+   "listed": true,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 2.8285515308380127,
+    "json_early": 1.574640691280365,
+    "json_late": 0.1080472469329834,
+    "prose_early": 1.8150534629821777,
+    "prose_late": 0.9063303470611572
+   }
+  },
+  {
+   "name": "SHAHED AVIATION INDUSTRIES COMPLEX",
+   "listed": true,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 0.04272240400314331,
+    "json_early": -0.004932433366775513,
+    "json_late": 0.03462877869606018,
+    "prose_early": -0.221339650452137,
+    "prose_late": -0.10081680119037628
+   }
+  },
+  {
+   "name": "VALOR Y PRINCIPIO DE DAR, A.C.",
+   "listed": true,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": -1.1547369956970215,
+    "json_early": -0.5702998265624046,
+    "json_late": 0.016391843557357788,
+    "prose_early": -0.7933953553438187,
+    "prose_late": -0.39000608026981354
+   }
+  },
+  {
+   "name": "VYMPEL-SODEISTVIE",
+   "listed": true,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 0.8799424767494202,
+    "json_early": 0.3867020308971405,
+    "json_late": 0.05377078056335449,
+    "prose_early": 0.1799711287021637,
+    "prose_late": -0.015155434608459473
+   }
+  },
+  {
+   "name": "LIMITED LIABILITY COMPANY ALABUGA DEVELOPMENT",
+   "listed": true,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 5.512323200702667,
+    "json_early": 2.4921324104070663,
+    "json_late": 0.14837408065795898,
+    "prose_early": 3.1313077807426453,
+    "prose_late": 1.3039253950119019
+   }
+  },
+  {
+   "name": "KOSAR COMPANY",
+   "listed": true,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 0.30487707257270813,
+    "json_early": 0.29595947265625,
+    "json_late": 0.06269055604934692,
+    "prose_early": 0.314598023891449,
+    "prose_late": 0.10264599323272705
+   }
+  },
+  {
+   "name": "E.M.I. SERVICE SOCIETA' A RESPONSABILITA' LIMITATA",
+   "listed": false,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 3.2808666303753853,
+    "json_early": 1.860292136669159,
+    "json_late": 0.047682762145996094,
+    "prose_early": 2.017925947904587,
+    "prose_late": 1.9223175346851349
+   }
+  },
+  {
+   "name": "DEFINE CAPITAL INC.",
+   "listed": false,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 1.1744713336229324,
+    "json_early": 0.8135849460959435,
+    "json_late": 0.0023074746131896973,
+    "prose_early": 0.6599924564361572,
+    "prose_late": 0.1427140161395073
+   }
+  },
+  {
+   "name": "ISTITUTO SUPERIORE INTERNAZIONALE SALESIANO DI RICERCA EDUCATIVA CON DENOMINAZIONE \"ISRE\"",
+   "listed": false,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 1.1820514500141144,
+    "json_early": 0.5361514687538147,
+    "json_late": 0.0012995004653930664,
+    "prose_early": 1.16852468252182,
+    "prose_late": 1.4035871550440788
+   }
+  },
+  {
+   "name": "BENS FUELS LTD",
+   "listed": false,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 0.6524544358253479,
+    "json_early": 0.17524795979261398,
+    "json_late": -0.022630929946899414,
+    "prose_early": 0.2583002522587776,
+    "prose_late": 0.12049403041601181
+   }
+  },
+  {
+   "name": "MADHAVSOLAR (UDAIGARH) PRIVATE LIMITED",
+   "listed": false,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 3.2862131595611572,
+    "json_early": 2.2783193811774254,
+    "json_late": 0.02193737030029297,
+    "prose_early": 2.4061439260840416,
+    "prose_late": 1.299716055393219
+   }
+  },
+  {
+   "name": "GABINETE JURIDICO MEXICO 100 SOCIEDAD LIMITADA PROFESIONAL",
+   "listed": false,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 2.239833742380142,
+    "json_early": 0.9980568513274193,
+    "json_late": -0.008595466613769531,
+    "prose_early": 1.3718710243701935,
+    "prose_late": 0.4273277148604393
+   }
+  },
+  {
+   "name": "Y P ACCUMULATORS PRIVATE LIMITED",
+   "listed": false,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 2.897704988718033,
+    "json_early": 2.430621862411499,
+    "json_late": 0.04006052017211914,
+    "prose_early": 2.6349938809871674,
+    "prose_late": 0.8604154586791992
+   }
+  },
+  {
+   "name": "LEIW ASIA OPPORTUNITIES MASTER FUND",
+   "listed": false,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 2.1670952513813972,
+    "json_early": 0.8312339708209038,
+    "json_late": -0.018090665340423584,
+    "prose_early": 1.2987079843878746,
+    "prose_late": 0.7119386345148087
+   }
+  },
+  {
+   "name": "SWETA INDUSTRIES",
+   "listed": false,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 1.5147507786750793,
+    "json_early": 0.5014474615454674,
+    "json_late": 0.00772431492805481,
+    "prose_early": 0.6936270818114281,
+    "prose_late": 0.37481750547885895
+   }
+  },
+  {
+   "name": "IBIZATOURS & ISLANDBUS, S.L.",
+   "listed": false,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 4.398062616586685,
+    "json_early": 1.4886541590094566,
+    "json_late": 0.056737661361694336,
+    "prose_early": 2.175754629075527,
+    "prose_late": 1.071931540966034
+   }
+  },
+  {
+   "name": "RP CONSULTANCY B.V.",
+   "listed": false,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 2.5647552236914635,
+    "json_early": 1.1548851653933525,
+    "json_late": 0.020433664321899414,
+    "prose_early": 1.5883782729506493,
+    "prose_late": 0.7285194993019104
+   }
+  },
+  {
+   "name": "GCA INVEST AB",
+   "listed": false,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 2.815215267241001,
+    "json_early": 1.4750950559973717,
+    "json_late": 0.04467332363128662,
+    "prose_early": 1.509464405477047,
+    "prose_late": 0.398945152759552
+   }
+  },
+  {
+   "name": "WS KEYRIDGE MAP CAUTIOUS FUND",
+   "listed": false,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 1.6131941378116608,
+    "json_early": 1.0854495984967798,
+    "json_late": 0.001389145851135254,
+    "prose_early": 1.5135728269815445,
+    "prose_late": 0.7816438227891922
+   }
+  },
+  {
+   "name": "CONGREGAZIONE MISSIONARIA DELLA PASSIONE DI NOSTRO SIGNORE GESU' CRISTO",
+   "listed": false,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 2.3844923079013824,
+    "json_early": 1.1176292896270752,
+    "json_late": 0.005246162414550781,
+    "prose_early": 1.4234703183174133,
+    "prose_late": 1.2002080082893372
+   }
+  },
+  {
+   "name": "BRINGELANDS MASKINHANDEL AB",
+   "listed": false,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 4.829107046127319,
+    "json_early": 2.4108119010925293,
+    "json_late": 0.06535172462463379,
+    "prose_early": 2.8276113122701645,
+    "prose_late": 1.2832860946655273
+   }
+  },
+  {
+   "name": "POUPINVEST",
+   "listed": false,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 0.37986109405755997,
+    "json_early": 0.16075772047042847,
+    "json_late": -0.022481083869934082,
+    "prose_early": 0.24122225493192673,
+    "prose_late": 0.12324505299329758
+   }
+  },
+  {
+   "name": "\"CONSORZIO STABILE OPERAE - TECNOLOGIE E SISTEMI INTEGRATI DI COSTRUZIONE\" - IN FORMA ABBREVIATA \"CONSORZIO STABILE OPERAE\"",
+   "listed": false,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 0.47893479466438293,
+    "json_early": 0.18739140033721924,
+    "json_late": 0.006124675273895264,
+    "prose_early": 0.7781881913542747,
+    "prose_late": 0.9567064866423607
+   }
+  },
+  {
+   "name": "REDDY DRUGS LIFE SCIENCES",
+   "listed": false,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 1.8470144495368004,
+    "json_early": 1.2314421758055687,
+    "json_late": 0.019493818283081055,
+    "prose_early": 1.2978699952363968,
+    "prose_late": 0.45200100541114807
+   }
+  },
+  {
+   "name": "HARI NARAYAN MEENA",
+   "listed": false,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 1.3237577378749847,
+    "json_early": 0.37781036645174026,
+    "json_late": -0.042622655630111694,
+    "prose_early": 0.4202810898423195,
+    "prose_late": 0.20089206844568253
+   }
+  },
+  {
+   "name": "AIKYA APPARELS PRIVATE LIMITED",
+   "listed": false,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 2.2142310217022896,
+    "json_early": 1.4034726843237877,
+    "json_late": 0.007011294364929199,
+    "prose_early": 2.0330351814627647,
+    "prose_late": 0.7669814229011536
+   }
+  },
+  {
+   "name": "LES ATELIERS DU PETIT MONT BLANC",
+   "listed": false,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 3.0536772310733795,
+    "json_early": 1.1945520862936974,
+    "json_late": 0.010799884796142578,
+    "prose_early": 1.5329262763261795,
+    "prose_late": 0.49430960416793823
+   }
+  },
+  {
+   "name": "AKSHAR INDUSTRIES",
+   "listed": false,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 1.5644952058792114,
+    "json_early": 0.3483629524707794,
+    "json_late": -0.010785102844238281,
+    "prose_early": 0.4509434700012207,
+    "prose_late": 0.30060211569070816
+   }
+  },
+  {
+   "name": "YEB-JAN YPMA HOLDING B.V.",
+   "listed": false,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 2.0035035610198975,
+    "json_early": 0.8471003323793411,
+    "json_late": 0.009375274181365967,
+    "prose_early": 1.3310583382844925,
+    "prose_late": 0.520101398229599
+   }
+  },
+  {
+   "name": "QUANTUM LEGACY FAMILY OFFICE SOCIEDAD LIMITADA",
+   "listed": false,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 1.0818198025226593,
+    "json_early": 0.21915914863348007,
+    "json_late": -0.04897129535675049,
+    "prose_early": 0.3608359470963478,
+    "prose_late": 0.1268023697193712
+   }
+  },
+  {
+   "name": "INMINER INGENIERIA, S.L",
+   "listed": false,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 2.6529448702931404,
+    "json_early": 1.2679996713995934,
+    "json_late": 0.0410999059677124,
+    "prose_early": 1.6864354237914085,
+    "prose_late": 0.7119628489017487
+   }
+  },
+  {
+   "name": "HIMEM AB",
+   "listed": false,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 1.8720735311508179,
+    "json_early": 1.0270256623625755,
+    "json_late": 0.03950268030166626,
+    "prose_early": 1.1839773282408714,
+    "prose_late": 0.5741409659385681
+   }
+  },
+  {
+   "name": "CASTELL 2026-2 PLC",
+   "listed": false,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 2.564566910266876,
+    "json_early": 1.335068717598915,
+    "json_late": 0.04502856731414795,
+    "prose_early": 1.3850769698619843,
+    "prose_late": 0.5295584499835968
+   }
+  },
+  {
+   "name": "ALL IN TRANSPORT STOCKHOLM AB",
+   "listed": false,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 2.866277731722221,
+    "json_early": 1.9080459997057915,
+    "json_late": 0.052935242652893066,
+    "prose_early": 2.424905978143215,
+    "prose_late": 0.9182260632514954
+   }
+  },
+  {
+   "name": "STEVIN PARTNERS S.R.L.",
+   "listed": false,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 3.3913761228322983,
+    "json_early": 1.6089203879237175,
+    "json_late": 0.06379878520965576,
+    "prose_early": 2.132854960858822,
+    "prose_late": 0.8513696193695068
+   }
+  },
+  {
+   "name": "P K BARBER DOV TRUST FOR CHRISTOPHER",
+   "listed": false,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 3.8959124833345413,
+    "json_early": 1.8264301046729088,
+    "json_late": 0.04249918460845947,
+    "prose_early": 2.302087925374508,
+    "prose_late": 0.5804138779640198
+   }
+  },
+  {
+   "name": "LUKMAN CONSTRUCTION PRIVATE LIMITED",
+   "listed": false,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 2.6971510350704193,
+    "json_early": 2.149184837937355,
+    "json_late": 0.042447566986083984,
+    "prose_early": 2.1958997398614883,
+    "prose_late": 0.8053066730499268
+   }
+  },
+  {
+   "name": "HUNGRY BOYS",
+   "listed": false,
+   "curriculum": "replay",
+   "margins": {
+    "thin_json": 2.1009452268481255,
+    "json_early": 1.0595053359866142,
+    "json_late": 0.009239494800567627,
+    "prose_early": 1.19608124345541,
+    "prose_late": 0.48049475252628326
+   }
+  }
+ ],
+ "scope": "Source TRAINING fit, ordinary HF scorer. No model updates, independent-test, node score or readiness claim."
+}

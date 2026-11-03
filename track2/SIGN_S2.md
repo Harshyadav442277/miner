@@ -36,8 +36,10 @@ V17 hard-anchor synthetic pass does not transfer:22/62 actual at256; exact-weigh
 v18 context512 scores14/62. Both rejected. V19 andv20 fail late-JSON absence
 guards; v21 throughv26 also fail factual/alias/retention guards. V26 auxiliary
 role recognition is strong but membership changes across answer formats for82/96
-queries. Frozen feature/readout diagnosis is ongoing, no deployable fix claimed.
-No ready-to-sign values or full-corpus training run.
+queries. V27 question-only/invariance probe also fails: late-JSON absent0/48,
+qualified listed28/48; no deployable fix claimed.
+V28 tests only source-fit duration on128 facts, not a full-corpus run; result
+pending. No ready-to-sign values.
 New removal collection gives11 strict pairs but0 balanced blocks; no model scores.
 Its positive reference facts are deliberately source-exposed, and the reserved
 69 genuine pairs remain one-sided. No new registration values are prepared.

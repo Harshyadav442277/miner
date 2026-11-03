@@ -24,3 +24,8 @@ and independent factual/binding evidence; no full-corpus run or submission here.
 Completed and rejected: thin listed36/48 fails retention; late-JSON absent24/48,
 qualified-prose listed24/48 and alias11/24 fail. More direct source-error coverage
 alone has not fixed transfer. No export, node/reserved score or full-corpus run.
+
+Read-only source TRAINING fit: thin listed34/64,alias16/32; early-prose listed34/64;
+late-JSON absent28/64. The32-step budget has not fitted these facts. This is not
+only a development-transfer failure. V28 freezes a duration-only four-pass control
+on exactly these128 facts, with first32 tensor/loss reproduction required.

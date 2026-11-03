@@ -4,10 +4,14 @@ This Season II Evaluator experiment uses the shared Telegraph foundation and nod
 It has **not established registration readiness**. Registration #46 (v3) failed 7/15 at
 the remote check. No pool questions or answers are in this directory or training data.
 
-Latest: [benchmark validity and query binding](BENCHMARK_VALIDITY.md). V7 improves
-the new balanced binding cohort to 40/40, but retains a bank-name regression and
-does not establish factual readiness. The genuine disagreement slice remains
-one-sided. See the report before interpreting any aggregate score.
+Latest: [listed-name recall diagnosis](LISTED_RECALL_DIAGNOSIS.md) and
+[benchmark validity/query binding](BENCHMARK_VALIDITY.md). V8 resolves the original
+binding regression, but factual accuracy still fails. V21-v27 repairs fail individual
+class/alias/retention gates. V28 tests fixed duration on the same128 source facts
+because the simpler ranking probe underfits its training examples. This is not a
+full-corpus run or readiness claim. Genuine disagreements remain one-sided, and
+the removal capture has zero balanced reversal blocks. See the evidence before
+interpreting any aggregate score.
 
 Start with [the write-up](../../SUBMISSION_S2.md). The frozen public measurement is
 [`evidence/2026-11-01-miners-r1`](evidence/2026-11-01-miners-r1).
