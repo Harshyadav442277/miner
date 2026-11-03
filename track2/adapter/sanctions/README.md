@@ -27,7 +27,7 @@ From the repository root in PowerShell:
 ```powershell
 $evalPython = 'C:/Users/hyada/tg-eval/.venv/Scripts/python.exe'
 $capture = 'track2/adapter/sanctions/evidence/2026-11-01-miners-r1'
-& $evalPython -m unittest discover -s track2/adapter/sanctions -p test_label_miners.py -v
+& $evalPython -m unittest discover -s track2/adapter/sanctions -p 'test_*.py' -v
 & $evalPython track2/adapter/sanctions/label_miners.py $capture
 & $evalPython track2/adapter/sanctions/measure_miners.py $capture --home C:/Users/hyada/tg-eval
 ```

@@ -20,6 +20,13 @@ passes, no development scoring before the final step. Require exact v25 tensor/l
 replay at32 and95% final source-fit strata as well as all original development gates.
 This is not a full-corpus run or a factual-success claim; result pending.
 
+**Measurement guard Nov4:** direct measure_miners.py previously ignored the
+balanced-block audit, permitting a nonempty1-3-block cohort despite score_allowed
+false. It now enforces frozen permission/minimum4/context before model loading.
+The existing0-block cohort refuses, no worker/model scores. Five new CLI tests,
+36 total pass. Evidence: adapter/sanctions/evidence/scoring-permission-guard.
+This closes an execution guard, not the missing balanced factual evidence.
+
 **Nov4 IST:** v20-v26 completed and rejected before export on individual factual,
 alias or thin-retention guards. V25 source-error replay yields qualified listed
 24/48; v26 training-only factor supervision yields25/48. V26 primary-verdict

@@ -8,12 +8,14 @@ Rejected before export. Qualified-prose positive primary-role tokens48/192(v26),
 five training forms. Main auxiliary diagnostics reproduce ordinary gate counts.
 V25 ordinary-ranking source fit: thin listed34/64,alias16/32,late absent28/64.
 V28 tests duration only: exact same128 facts/parent13/loss/optimizer/seed/max512,
-four balanced passes/128 total updates. First32 must reproduce all178 v25 tensors
-and loss curve before continuing. Final step only development96; require95% each
+four balanced passes/128 total updates. First32 reproduced all178 v25 tensors
+and loss curve exactly; extra duration running. Final step only development96; require95% each
 training stratum plus original65%/thin-retention/Cartesian gates. No full corpus.
 Source audit224 queries reused hash-bound, source bytes rechecked. Current log
 tg-eval/fit_duration_v28.log; result pending. Source0eff6b2 pushed;17 frozen script
-references match Git bytes, v21/v27 public downloads SHA verified.31 tests pass.
+references match Git bytes, v21/v27 public downloads SHA verified.36 tests pass.
+Direct node measurement now honors frozen balanced-block permission/minimum4/context
+before loading a model; existing0-block removal cohort refuses, still unscored.
 Reserved/removal bodies still unscored; no wallet, registry or submission action.
 
 ## 2026-11-04 IST: v22-v26 rejected; isolated-membership v27 probe running

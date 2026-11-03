@@ -403,3 +403,17 @@ Large training runs and model files live outside OneDrive, in `C:\Users\hyada\tg
   format/class/primary/alias, plus all original development/retention/Cartesian
   gates. Passing these still needs actual-node/binding and balanced external proof.
   This is a128-fact fit control, not full-corpus training or a submission action.
+
+## A25 — Enforce frozen balanced-cohort permission at measurement entry
+
+- The capture finisher checked score_allowed, but direct measure_miners.py ignored
+  balanced-block-audit.json. A nonempty1-3-block cohort could therefore be scored
+  through that entry point despite its frozen prohibition. The actual removal
+  cohort has0 blocks/0 pairs and has never been model-scored.
+- Read the frozen audit before foundation/model loading. Require score_allowed
+  literally true, at least4 blocks(or a stricter declared minimum), and the same
+  frozen token limit. Legacy diagnostic cohorts without this audit retain their
+  existing narrow measurement path. This does not establish balanced validity.
+- Five CLI regression cases cover frozen refusal, insufficient blocks despite a
+  true flag, changed context, legacy behavior and permitted four-block preflight.
+  All36 tests pass; existing zero-block cohort refuses before any worker starts.

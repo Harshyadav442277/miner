@@ -25,6 +25,9 @@ primary and alias stratum; keep original65% development per-format/class/alias,
 with parent source-validation exposure disclosed. Any pass still needs actual-node,
 binding and balanced genuine external evidence. No full-corpus run or submission.
 
+Update32 replay passed: all178 tensors exactly equal v25; maximum loss difference
+0 across all32 steps. Additional duration is running; no final result yet.
+
 ```powershell
 $env:HF_HOME='C:/Users/hyada/tg-eval/hf'
 $env:HF_HUB_OFFLINE='1'

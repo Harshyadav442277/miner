@@ -1,0 +1,6 @@
+{
+ "pass": true,
+ "exact_saved_tensors": 178,
+ "max_loss_difference": 0.0,
+ "scope": "Same first32 updates as v25 before extra duration, not quality."
+}

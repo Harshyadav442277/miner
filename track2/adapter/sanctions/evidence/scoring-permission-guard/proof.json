@@ -1,0 +1,15 @@
+{
+ "pass": true,
+ "argv": [
+  "C:\\Users\\hyada\\tg-eval\\.venv\\Scripts\\python.exe",
+  "track2\\adapter\\sanctions\\measure_miners.py",
+  "track2\\adapter\\sanctions\\evidence\\removals-balanced",
+  "--home",
+  "C:/Users/hyada/tg-eval",
+  "--versions",
+  "3,8"
+ ],
+ "exit_code": 1,
+ "expected_refusal": "frozen balanced-block gate forbids scoring this cohort",
+ "scope": "Existing zero-block removal cohort rejected before foundation/model loading; no model scores or workers."
+}

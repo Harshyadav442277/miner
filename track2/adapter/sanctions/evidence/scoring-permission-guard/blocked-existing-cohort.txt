@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "C:\Users\hyada\.codex\worktrees\sanctions-benchmark-v7\Telegraph\track2\adapter\sanctions\measure_miners.py", line 204, in <module>
+    main()
+  File "C:\Users\hyada\.codex\worktrees\sanctions-benchmark-v7\Telegraph\track2\adapter\sanctions\measure_miners.py", line 182, in main
+    require_frozen_scoring_permission(a.capture, a.max_tokens)
+  File "C:\Users\hyada\.codex\worktrees\sanctions-benchmark-v7\Telegraph\track2\adapter\sanctions\measure_miners.py", line 47, in require_frozen_scoring_permission
+    raise ValueError("frozen balanced-block gate forbids scoring this cohort")
+ValueError: frozen balanced-block gate forbids scoring this cohort

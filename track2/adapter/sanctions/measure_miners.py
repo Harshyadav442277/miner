@@ -38,6 +38,20 @@ def wilson(hits, total):
     return (p + z*z/(2*total) - z*math.sqrt(p*(1-p)/total + z*z/(4*total*total))) / (1+z*z/total)
 
 
+def require_frozen_scoring_permission(capture, max_tokens):
+    audit_path = capture / "balanced-block-audit.json"
+    if not audit_path.exists():
+        return  # Legacy diagnostic cohorts have their own explicitly narrow scope.
+    audit = json.loads(audit_path.read_text(encoding="utf-8"))
+    if audit.get("score_allowed") is not True:
+        raise ValueError("frozen balanced-block gate forbids scoring this cohort")
+    minimum = max(4, int(audit["minimum_blocks_for_scoring"]))
+    if audit["blocks"] < minimum:
+        raise ValueError("frozen balanced-block gate requires at least four reversal blocks")
+    if audit["max_tokens"] != max_tokens:
+        raise ValueError("frozen balanced-block token limit differs from measurement")
+
+
 def score(url, chunks, identity):
     scores = {}
     for chunk in chunks:
@@ -165,6 +179,7 @@ def main():
     ap.add_argument("--versions", default="3,4,5")
     ap.add_argument("--max-tokens", type=int, choices=(256, 512), default=256)
     a = ap.parse_args()
+    require_frozen_scoring_permission(a.capture, a.max_tokens)
     foundation = json.loads((a.home / "foundation/foundation.json").read_text())
     assert sha(a.home / "foundation/foundation_lora_fp32.onnx") == foundation["foundation_hash"]
     assert sha(a.home / "foundation/foundation_engine.wasm") == ENGINE_HASH
