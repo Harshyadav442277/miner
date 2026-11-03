@@ -1,0 +1,10 @@
+{
+ "pass": true,
+ "inputs_sha256": "07dc294d780283b252be667e18c476367a5b73c45abd38c556dd654454865955",
+ "training_queries": 64,
+ "paired_development_queries": 96,
+ "binding_rows": 32,
+ "primary_spans_decoded": true,
+ "source_audit_reused_sha256": "b8780701267139cd99aae401aa38be56803f0b6c9fadae2631b6dd386ade8c1e",
+ "scope": "Hash-bound subset of independently source-audited facts; inherited exact-token annotations, new binding spans independently decoded. No labels in input."
+}

@@ -1,0 +1,8 @@
+{
+ "pass": true,
+ "url": "https://raw.githubusercontent.com/Harshyadav442277/miner/49caab1083f2cf9b312dfaa6010b14717d10ecbb/track2/adapter/sanctions/probe_fit_duration.py",
+ "status": 200,
+ "expected_sha256": "c1501fc796b1c262e5effa82088b5c9dbe01298d71bf4026a76cb31814bdc2ed",
+ "download_sha256": "c1501fc796b1c262e5effa82088b5c9dbe01298d71bf4026a76cb31814bdc2ed",
+ "scope": "Published frozen duration-probe source bytes, not model quality."
+}

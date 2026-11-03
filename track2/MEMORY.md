@@ -8,6 +8,20 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 
 ---
 
+## 2026-11-04 IST: v28/v29 rejected; v30 primary-quality attention-only probe
+
+V28 source thin listed63/64,aliases32/32 versus v25's34/64,16/32, but development
+thin34/48/alias15/24; qualified23/48/alias10/24 and both thin retention gates fail.
+First32 loss/all178 tensor replay exactly matches v25. V29 parent MLP/head restore
+on v28 attention also fails(qualified27/48,alias12/24,thin retention). No export.
+V30 same64 known-source replay facts/parent13,32 balanced steps/32 binding rows;
+train88 attention tensors only, preserve90 MLP/head. Main ordinary ranking plus
+0.5 training-only primary-token correctness ranking through SAME frozen head.
+No extra head/runtime parser/pooling changes. Source/annotation and forward parity
+pass, log tg-eval/primary_quality_v30.log active. Same96 paired development/gates.
+36 tests pass; frozen scoring-permission guard pushed49caab1. Actual factual
+baseline still unbeaten. No full corpus, reserved/removal scores, wallet or submission.
+
 ## 2026-11-04 IST: v27 rejected; v28 fixed source-fit duration control
 
 V27 source TRAINING and paired-development late-JSON absent0/64 and0/48; no export.

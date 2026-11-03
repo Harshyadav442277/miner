@@ -26,7 +26,11 @@ with parent source-validation exposure disclosed. Any pass still needs actual-no
 binding and balanced genuine external evidence. No full-corpus run or submission.
 
 Update32 replay passed: all178 tensors exactly equal v25; maximum loss difference
-0 across all32 steps. Additional duration is running; no final result yet.
+0 across all32 steps. Completed128 updates and rejected. Training thin listed63/64,
+aliases32/32; late-prose aliases30/32 narrowly fail95%. More substantially,
+development thin listed34/48,aliases15/24; qualified listed23/48,aliases10/24,
+and both thin membership classes lose>5pp. This is source-fit improvement with
+poor transfer/retention, not a factual repair. No export or actual-node score.
 
 ```powershell
 $env:HF_HOME='C:/Users/hyada/tg-eval/hf'

@@ -7,8 +7,9 @@ the remote check. No pool questions or answers are in this directory or training
 Latest: [listed-name recall diagnosis](LISTED_RECALL_DIAGNOSIS.md) and
 [benchmark validity/query binding](BENCHMARK_VALIDITY.md). V8 resolves the original
 binding regression, but factual accuracy still fails. V21-v27 repairs fail individual
-class/alias/retention gates. V28 tests fixed duration on the same128 source facts
-because the simpler ranking probe underfits its training examples. This is not a
+class/alias/retention gates. V28 improves source fit but loses development accuracy;
+v29 restoration also fails. V30 tests primary-claim correctness supervision with
+only attention LoRA trainable and original MLP/head frozen. This is not a
 full-corpus run or readiness claim. Genuine disagreements remain one-sided, and
 the removal capture has zero balanced reversal blocks. See the evidence before
 interpreting any aggregate score.

@@ -104,6 +104,20 @@ bytes, including v21's original CRLF source; no code behavior changed in that
 preservation. Verify published source with `python track2/adapter/sanctions/verify_probe_sources.py`.
 All17 dependency references forv21,v22,v25,v26,v27 match staged Git blobs.
 
+V28 fixed-duration control reproduced v25's first32 losses and all178 tensors
+exactly, then trained to128 updates on the same facts. Source thin listed34/64
+to63/64 and aliases16/32 to32/32 shows that32 steps underfit these examples.
+But development thin listed34/48,aliases15/24 and qualified23/48,aliases10/24 fail;
+both thin membership classes lose>5pp. Extra source fitting does not transfer.
+V29 restores parent13 MLP/head on v28 attention without optimization, but still
+fails qualified aliases12/24 and thin retention. Neither is exported.
+
+V30 targets correctness at the primary decision span with the existing frozen
+head, exclusively during training. Only88 attention LoRA tensors can change;
+MLP/head90 remain fixed.64 known-source replay facts,32 updates, same development
+and gates. No new head or deployed pooling/parser. This is a hypothesis under test,
+not a fix. Standard mean-pooled inference remains unchanged.
+
 Recipes: FACTUAL_V16.md, FACTUAL_V17.md, FACTUAL_V19.md, FACTUAL_V20.md,
 FACTUAL_V21.md, FACTUAL_V22.md, FACTUAL_V25.md, FACTUAL_V26.md. Raw results: evidence/listed-recall-diagnosis,
 evidence/old-query-form-diagnosis and each version's plan. Regression suite:

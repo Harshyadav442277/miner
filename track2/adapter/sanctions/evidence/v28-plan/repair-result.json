@@ -1,0 +1,847 @@
+{
+ "pass": false,
+ "failures": [
+  "training_fit/prose_late/alias below95%",
+  "thin_json/alias below65%: 0.625",
+  "thin_json/listed loss exceeds5pp",
+  "thin_json/absent loss exceeds5pp",
+  "json_early/listed below65%: 0.6458333333333334",
+  "json_early/alias below65%: 0.5833333333333334",
+  "json_late/listed below65%: 0.6458333333333334",
+  "json_late/alias below65%: 0.5416666666666666",
+  "prose_early/alias below65%: 0.625",
+  "prose_late/alias below65%: 0.625",
+  "training_prose/alias below65%: 0.625",
+  "heldout_prose/listed below65%: 0.4791666666666667",
+  "heldout_prose/primary below65%: 0.5416666666666666",
+  "heldout_prose/alias below65%: 0.4166666666666667",
+  "numeric_json/alias below65%: 0.625",
+  "yes_no/listed below65%: 0.5625",
+  "yes_no/alias below65%: 0.4583333333333333"
+ ],
+ "steps": [
+  {
+   "step": 1,
+   "loss": 0.831554189324379,
+   "gradient_norm": 12.696003913879395
+  },
+  {
+   "step": 2,
+   "loss": 0.6230785846710205,
+   "gradient_norm": 7.455665111541748
+  },
+  {
+   "step": 3,
+   "loss": 0.5538446716964245,
+   "gradient_norm": 10.643989562988281
+  },
+  {
+   "step": 4,
+   "loss": 0.7217877209186554,
+   "gradient_norm": 8.700307846069336
+  },
+  {
+   "step": 5,
+   "loss": 0.650876596570015,
+   "gradient_norm": 5.277562141418457
+  },
+  {
+   "step": 6,
+   "loss": 0.5710850693285465,
+   "gradient_norm": 6.687647342681885
+  },
+  {
+   "step": 7,
+   "loss": 0.5682213604450226,
+   "gradient_norm": 6.348903656005859
+  },
+  {
+   "step": 8,
+   "loss": 0.46657104045152664,
+   "gradient_norm": 3.4752748012542725
+  },
+  {
+   "step": 9,
+   "loss": 0.5376559868454933,
+   "gradient_norm": 2.9137017726898193
+  },
+  {
+   "step": 10,
+   "loss": 0.7504093647003174,
+   "gradient_norm": 7.133094787597656
+  },
+  {
+   "step": 11,
+   "loss": 0.5210538022220135,
+   "gradient_norm": 2.9585330486297607
+  },
+  {
+   "step": 12,
+   "loss": 0.5719543546438217,
+   "gradient_norm": 4.696658134460449
+  },
+  {
+   "step": 13,
+   "loss": 1.0440861135721207,
+   "gradient_norm": 11.259126663208008
+  },
+  {
+   "step": 14,
+   "loss": 0.5560974329710007,
+   "gradient_norm": 10.660906791687012
+  },
+  {
+   "step": 15,
+   "loss": 1.3581710383296013,
+   "gradient_norm": 15.669535636901855
+  },
+  {
+   "step": 16,
+   "loss": 0.5493820160627365,
+   "gradient_norm": 2.6865711212158203
+  },
+  {
+   "step": 17,
+   "loss": 0.7058671116828918,
+   "gradient_norm": 3.246793270111084
+  },
+  {
+   "step": 18,
+   "loss": 0.6484619826078415,
+   "gradient_norm": 3.2826364040374756
+  },
+  {
+   "step": 19,
+   "loss": 0.7113665044307709,
+   "gradient_norm": 3.5684010982513428
+  },
+  {
+   "step": 20,
+   "loss": 0.5873025432229042,
+   "gradient_norm": 5.615602016448975
+  },
+  {
+   "step": 21,
+   "loss": 0.5597334429621696,
+   "gradient_norm": 3.497122287750244
+  },
+  {
+   "step": 22,
+   "loss": 0.6326506361365318,
+   "gradient_norm": 2.9713668823242188
+  },
+  {
+   "step": 23,
+   "loss": 0.5978587158024311,
+   "gradient_norm": 3.0905535221099854
+  },
+  {
+   "step": 24,
+   "loss": 0.7638798207044601,
+   "gradient_norm": 2.9872310161590576
+  },
+  {
+   "step": 25,
+   "loss": 0.5358081310987473,
+   "gradient_norm": 3.4967422485351562
+  },
+  {
+   "step": 26,
+   "loss": 0.8509543538093567,
+   "gradient_norm": 8.464515686035156
+  },
+  {
+   "step": 27,
+   "loss": 0.5738853439688683,
+   "gradient_norm": 2.968172073364258
+  },
+  {
+   "step": 28,
+   "loss": 0.6090463697910309,
+   "gradient_norm": 2.2268455028533936
+  },
+  {
+   "step": 29,
+   "loss": 0.5619720816612244,
+   "gradient_norm": 2.4473609924316406
+  },
+  {
+   "step": 30,
+   "loss": 0.5493152588605881,
+   "gradient_norm": 2.5229580402374268
+  },
+  {
+   "step": 31,
+   "loss": 0.6930446177721024,
+   "gradient_norm": 2.973637819290161
+  },
+  {
+   "step": 32,
+   "loss": 0.6223750337958336,
+   "gradient_norm": 4.3174519538879395
+  },
+  {
+   "step": 33,
+   "loss": 0.42913585156202316,
+   "gradient_norm": 3.113309383392334
+  },
+  {
+   "step": 34,
+   "loss": 0.6166504397988319,
+   "gradient_norm": 3.3793282508850098
+  },
+  {
+   "step": 35,
+   "loss": 0.4676884487271309,
+   "gradient_norm": 1.919991135597229
+  },
+  {
+   "step": 36,
+   "loss": 0.537627212703228,
+   "gradient_norm": 3.848951578140259
+  },
+  {
+   "step": 37,
+   "loss": 0.5305270664393902,
+   "gradient_norm": 2.5645105838775635
+  },
+  {
+   "step": 38,
+   "loss": 0.5756714791059494,
+   "gradient_norm": 2.55892276763916
+  },
+  {
+   "step": 39,
+   "loss": 0.60905203782022,
+   "gradient_norm": 4.829898357391357
+  },
+  {
+   "step": 40,
+   "loss": 0.42714342661201954,
+   "gradient_norm": 2.4002320766448975
+  },
+  {
+   "step": 41,
+   "loss": 0.6348695494234562,
+   "gradient_norm": 11.351014137268066
+  },
+  {
+   "step": 42,
+   "loss": 0.5263950191438198,
+   "gradient_norm": 12.396048545837402
+  },
+  {
+   "step": 43,
+   "loss": 0.38231731578707695,
+   "gradient_norm": 9.149803161621094
+  },
+  {
+   "step": 44,
+   "loss": 0.4358915574848652,
+   "gradient_norm": 5.992290496826172
+  },
+  {
+   "step": 45,
+   "loss": 0.4901331998407841,
+   "gradient_norm": 5.382830619812012
+  },
+  {
+   "step": 46,
+   "loss": 0.4805530160665512,
+   "gradient_norm": 4.01967191696167
+  },
+  {
+   "step": 47,
+   "loss": 0.39577283058315516,
+   "gradient_norm": 6.702174186706543
+  },
+  {
+   "step": 48,
+   "loss": 0.5978369303047657,
+   "gradient_norm": 9.204286575317383
+  },
+  {
+   "step": 49,
+   "loss": 0.48396763391792774,
+   "gradient_norm": 10.21219253540039
+  },
+  {
+   "step": 50,
+   "loss": 0.4784317295998335,
+   "gradient_norm": 5.163387298583984
+  },
+  {
+   "step": 51,
+   "loss": 0.3837105166167021,
+   "gradient_norm": 13.539728164672852
+  },
+  {
+   "step": 52,
+   "loss": 0.4638197310268879,
+   "gradient_norm": 5.618534564971924
+  },
+  {
+   "step": 53,
+   "loss": 0.7798189111053944,
+   "gradient_norm": 27.9073543548584
+  },
+  {
+   "step": 54,
+   "loss": 0.5059172427281737,
+   "gradient_norm": 7.6809515953063965
+  },
+  {
+   "step": 55,
+   "loss": 0.19389193318784237,
+   "gradient_norm": 3.0121076107025146
+  },
+  {
+   "step": 56,
+   "loss": 0.7888590786606073,
+   "gradient_norm": 19.001705169677734
+  },
+  {
+   "step": 57,
+   "loss": 0.3287746529094875,
+   "gradient_norm": 9.896102905273438
+  },
+  {
+   "step": 58,
+   "loss": 0.6657071895897388,
+   "gradient_norm": 10.555601119995117
+  },
+  {
+   "step": 59,
+   "loss": 0.23834406910464168,
+   "gradient_norm": 3.8151814937591553
+  },
+  {
+   "step": 60,
+   "loss": 0.3503678608685732,
+   "gradient_norm": 10.847745895385742
+  },
+  {
+   "step": 61,
+   "loss": 0.3582156382035464,
+   "gradient_norm": 7.588250637054443
+  },
+  {
+   "step": 62,
+   "loss": 0.5562291378155351,
+   "gradient_norm": 6.692228317260742
+  },
+  {
+   "step": 63,
+   "loss": 0.16000505536794662,
+   "gradient_norm": 4.462150573730469
+  },
+  {
+   "step": 64,
+   "loss": 0.7768198177218437,
+   "gradient_norm": 16.416194915771484
+  },
+  {
+   "step": 65,
+   "loss": 0.3868979252874851,
+   "gradient_norm": 9.587071418762207
+  },
+  {
+   "step": 66,
+   "loss": 0.5490816631936468,
+   "gradient_norm": 11.615072250366211
+  },
+  {
+   "step": 67,
+   "loss": 0.37797908135689795,
+   "gradient_norm": 8.232161521911621
+  },
+  {
+   "step": 68,
+   "loss": 0.17184293339960277,
+   "gradient_norm": 6.490679740905762
+  },
+  {
+   "step": 69,
+   "loss": 0.34022792684845626,
+   "gradient_norm": 7.114515781402588
+  },
+  {
+   "step": 70,
+   "loss": 0.3264605449512601,
+   "gradient_norm": 8.532440185546875
+  },
+  {
+   "step": 71,
+   "loss": 0.31463109189644456,
+   "gradient_norm": 13.47222900390625
+  },
+  {
+   "step": 72,
+   "loss": 0.266898509580642,
+   "gradient_norm": 8.39101505279541
+  },
+  {
+   "step": 73,
+   "loss": 0.6376981292851269,
+   "gradient_norm": 15.347926139831543
+  },
+  {
+   "step": 74,
+   "loss": 0.20914389827521518,
+   "gradient_norm": 5.451371192932129
+  },
+  {
+   "step": 75,
+   "loss": 0.35705266147851944,
+   "gradient_norm": 6.053811073303223
+  },
+  {
+   "step": 76,
+   "loss": 0.18632938712835312,
+   "gradient_norm": 4.888265609741211
+  },
+  {
+   "step": 77,
+   "loss": 0.3240868021530332,
+   "gradient_norm": 5.525654315948486
+  },
+  {
+   "step": 78,
+   "loss": 0.19921400491148233,
+   "gradient_norm": 4.021240711212158
+  },
+  {
+   "step": 79,
+   "loss": 0.3371967887505889,
+   "gradient_norm": 5.539248466491699
+  },
+  {
+   "step": 80,
+   "loss": 0.05733866523951292,
+   "gradient_norm": 1.9799860715866089
+  },
+  {
+   "step": 81,
+   "loss": 0.0358830745681189,
+   "gradient_norm": 1.5700374841690063
+  },
+  {
+   "step": 82,
+   "loss": 0.7000973648391664,
+   "gradient_norm": 14.099878311157227
+  },
+  {
+   "step": 83,
+   "loss": 0.03320384523249231,
+   "gradient_norm": 1.8053405284881592
+  },
+  {
+   "step": 84,
+   "loss": 0.3460435464512557,
+   "gradient_norm": 14.18028450012207
+  },
+  {
+   "step": 85,
+   "loss": 0.24914035623078234,
+   "gradient_norm": 11.562459945678711
+  },
+  {
+   "step": 86,
+   "loss": 0.40674562312779017,
+   "gradient_norm": 31.14113426208496
+  },
+  {
+   "step": 87,
+   "loss": 0.02657106803962961,
+   "gradient_norm": 2.8933444023132324
+  },
+  {
+   "step": 88,
+   "loss": 0.12796951237032772,
+   "gradient_norm": 9.119063377380371
+  },
+  {
+   "step": 89,
+   "loss": 0.00736437106388621,
+   "gradient_norm": 0.6152615547180176
+  },
+  {
+   "step": 90,
+   "loss": 0.13343396128038876,
+   "gradient_norm": 10.270889282226562
+  },
+  {
+   "step": 91,
+   "loss": 0.6991712817398366,
+   "gradient_norm": 42.1225700378418
+  },
+  {
+   "step": 92,
+   "loss": 0.13785945122072008,
+   "gradient_norm": 14.02951431274414
+  },
+  {
+   "step": 93,
+   "loss": 0.26602514595288085,
+   "gradient_norm": 22.421302795410156
+  },
+  {
+   "step": 94,
+   "loss": 0.002908808943175245,
+   "gradient_norm": 0.35685431957244873
+  },
+  {
+   "step": 95,
+   "loss": 0.020076007534953533,
+   "gradient_norm": 2.552534580230713
+  },
+  {
+   "step": 96,
+   "loss": 0.07247041786831687,
+   "gradient_norm": 6.5897698402404785
+  },
+  {
+   "step": 97,
+   "loss": 0.008017481859496911,
+   "gradient_norm": 0.5750657916069031
+  },
+  {
+   "step": 98,
+   "loss": 0.0200579054580885,
+   "gradient_norm": 0.9832155108451843
+  },
+  {
+   "step": 99,
+   "loss": 0.004131142426558654,
+   "gradient_norm": 0.4481385350227356
+  },
+  {
+   "step": 100,
+   "loss": 0.06140219803637592,
+   "gradient_norm": 9.4628267288208
+  },
+  {
+   "step": 101,
+   "loss": 0.08669927989103599,
+   "gradient_norm": 8.72921085357666
+  },
+  {
+   "step": 102,
+   "loss": 0.02200575506685709,
+   "gradient_norm": 3.7955825328826904
+  },
+  {
+   "step": 103,
+   "loss": 0.12494047616928583,
+   "gradient_norm": 13.46678352355957
+  },
+  {
+   "step": 104,
+   "loss": 0.24226373744932062,
+   "gradient_norm": 44.050575256347656
+  },
+  {
+   "step": 105,
+   "loss": 1.032316621949576,
+   "gradient_norm": 55.3912353515625
+  },
+  {
+   "step": 106,
+   "loss": 0.08766609148096904,
+   "gradient_norm": 14.32762622833252
+  },
+  {
+   "step": 107,
+   "loss": 0.002689772174562677,
+   "gradient_norm": 0.34045013785362244
+  },
+  {
+   "step": 108,
+   "loss": 0.8364260058015134,
+   "gradient_norm": 37.01384735107422
+  },
+  {
+   "step": 109,
+   "loss": 1.537488424617095,
+   "gradient_norm": 66.9259033203125
+  },
+  {
+   "step": 110,
+   "loss": 1.0962914882165933,
+   "gradient_norm": 71.30403900146484
+  },
+  {
+   "step": 111,
+   "loss": 1.6052231187438792,
+   "gradient_norm": 69.79943084716797
+  },
+  {
+   "step": 112,
+   "loss": 1.1234535610115017,
+   "gradient_norm": 59.44449234008789
+  },
+  {
+   "step": 113,
+   "loss": 0.008012241101738482,
+   "gradient_norm": 1.308843731880188
+  },
+  {
+   "step": 114,
+   "loss": 0.18260292697323166,
+   "gradient_norm": 16.374319076538086
+  },
+  {
+   "step": 115,
+   "loss": 0.06837418879149482,
+   "gradient_norm": 12.082074165344238
+  },
+  {
+   "step": 116,
+   "loss": 0.046253637032350525,
+   "gradient_norm": 3.83268404006958
+  },
+  {
+   "step": 117,
+   "loss": 0.03327881595578219,
+   "gradient_norm": 3.3613440990448
+  },
+  {
+   "step": 118,
+   "loss": 0.009054679954715539,
+   "gradient_norm": 1.6441739797592163
+  },
+  {
+   "step": 119,
+   "loss": 0.022448194329626858,
+   "gradient_norm": 2.8825843334198
+  },
+  {
+   "step": 120,
+   "loss": 0.003072114759561373,
+   "gradient_norm": 0.35806137323379517
+  },
+  {
+   "step": 121,
+   "loss": 0.38538055550634454,
+   "gradient_norm": 34.366546630859375
+  },
+  {
+   "step": 122,
+   "loss": 0.0001312589160988864,
+   "gradient_norm": 0.015024489723145962
+  },
+  {
+   "step": 123,
+   "loss": 0.0010396714460512158,
+   "gradient_norm": 0.18212592601776123
+  },
+  {
+   "step": 124,
+   "loss": 0.6156058131309692,
+   "gradient_norm": 40.61762237548828
+  },
+  {
+   "step": 125,
+   "loss": 0.00498059336496226,
+   "gradient_norm": 0.6171920895576477
+  },
+  {
+   "step": 126,
+   "loss": 1.0647126300318632,
+   "gradient_norm": 34.29061508178711
+  },
+  {
+   "step": 127,
+   "loss": 0.7357557797076879,
+   "gradient_norm": 54.143558502197266
+  },
+  {
+   "step": 128,
+   "loss": 0.3659266388276592,
+   "gradient_norm": 22.9374942779541
+  }
+ ],
+ "changed_tensors": [
+  "base_model.model.model.layers.0.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.0.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.0.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.0.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.0.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.0.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.0.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.0.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.1.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.1.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.1.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.1.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.1.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.1.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.1.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.1.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.2.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.2.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.2.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.2.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.2.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.2.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.2.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.2.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.3.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.3.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.3.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.3.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.3.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.3.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.3.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.3.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.4.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.4.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.4.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.4.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.4.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.4.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.4.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.4.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.5.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.5.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.5.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.5.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.5.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.5.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.5.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.5.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.6.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.6.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.6.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.6.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.6.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.6.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.6.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.6.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.7.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.7.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.7.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.7.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.7.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.7.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.7.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.7.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.8.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.8.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.8.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.8.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.8.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.8.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.8.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.8.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.9.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.9.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.9.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.9.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.9.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.9.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.9.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.9.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.10.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.10.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.10.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.10.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.10.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.10.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.10.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.10.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.11.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.11.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.11.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.11.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.11.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.11.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.11.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.11.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.12.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.12.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.12.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.12.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.12.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.12.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.12.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.12.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.13.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.13.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.13.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.13.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.13.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.13.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.13.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.13.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.14.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.14.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.14.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.14.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.14.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.14.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.14.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.14.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.15.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.15.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.15.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.15.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.15.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.15.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.15.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.15.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.16.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.16.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.16.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.16.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.16.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.16.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.16.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.16.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.17.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.17.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.17.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.17.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.17.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.17.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.17.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.17.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.18.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.18.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.18.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.18.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.18.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.18.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.18.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.18.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.19.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.19.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.19.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.19.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.19.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.19.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.19.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.19.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.20.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.20.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.20.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.20.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.20.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.20.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.20.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.20.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.21.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.21.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.21.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.21.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.21.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.21.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.21.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.21.mlp.Wo.lora_B.weight",
+  "base_model.model.classifier.weight",
+  "base_model.model.classifier.bias"
+ ],
+ "unchanged_saved_tensors": [],
+ "checkpoint_sha256": "816c9b7894a3408224d35ccf8a41f61dd74e2a8c97947081a1648dfd6d8babaf",
+ "scope": "Fixed four-pass duration control on128 source facts; final-step paired DEVELOPMENT, not full corpus training or independent parent-held-out factual score"
+}

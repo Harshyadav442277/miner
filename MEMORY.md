@@ -1,5 +1,21 @@
 # MEMORY.md — session continuity
 
+## 2026-11-04 IST: source fitting overfits; attention-only primary-quality v30 active
+
+V28 first32 exactly reproduced v25(178 tensors/losses), then128 updates: training
+thin listed63/64,aliases32/32, but development thin34/48,aliases15/24; qualified
+23/48,aliases10/24, both thin classes lose>5pp. Rejected. V29 restores parent13
+MLP/head on v28 attention, verified178 identities, still qualified27/48/alias12/24
+and thin retention fail. No export/node score. More source fitting is not transfer.
+V30 starts parent13 with64 original known-source facts,32 updates/32 binding controls,
+ONLY88 attention tensors trainable(811,008 params), MLP88/head2 fixed. Adds0.5
+Cartesian correctness ranking at primary-token pooling through existing frozen
+head; this branch is TRAINING ONLY. Ordinary178-tensor inference unchanged.
+Source/annotation preflight passes, full-score eval/train parity passes. Log:
+tg-eval/primary_quality_v30.log. Fixed final step/same96 paired development/gates.
+36 regression tests pass; frozen balanced-cohort node guard fixed and pushed49caab1.
+No full-corpus run, reserved/removal score, wallet, registry or submission action.
+
 ## 2026-11-04 IST: v27 rejected; fixed source-fit duration control v28 active
 
 V27 qualified listed28/48 but late-JSON absent0/48, including0/64 source TRAINING.

@@ -37,6 +37,10 @@ head gets only48/192 positive primary tokens right in qualified prose, so its
 training-form recognition does not establish transfer. V27 question-only/invariance
 probe improves qualified listed to28/48 but collapses absent late JSON to0/48,
 including0/64 source-training cases. No candidate quality pass or full run claimed.
+V28's four passes improve source thin listed63/64 and aliases32/32 but fail
+development qualified23/48/aliases10/24 and thin retention. V29 restoring the
+parent MLP/head also fails. V30 tests training-only primary correctness with
+attention LoRA alone trainable; no quality result or inference change is claimed.
 Separately,320 new source-stable removal responses yield11 strict pairs across
 3 names but0 frozen source-role reversal blocks. These bodies have no model scores.
 

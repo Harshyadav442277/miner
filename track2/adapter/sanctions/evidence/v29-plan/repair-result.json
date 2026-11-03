@@ -1,0 +1,19 @@
+{
+ "pass": false,
+ "failures": [
+  "thin_json/listed loss exceeds5pp",
+  "json_early/listed below65%: 0.625",
+  "json_early/alias below65%: 0.5833333333333334",
+  "prose_early/listed below65%: 0.5625",
+  "prose_early/primary below65%: 0.625",
+  "prose_early/alias below65%: 0.5",
+  "prose_late/listed below65%: 0.6458333333333334",
+  "prose_late/alias below65%: 0.625",
+  "heldout_prose/listed below65%: 0.5625",
+  "heldout_prose/primary below65%: 0.625",
+  "heldout_prose/alias below65%: 0.5",
+  "yes_no/alias below65%: 0.625"
+ ],
+ "checkpoint_sha256": "92262e7ff80c751fdb2d77164e6fdb47625ae7ee32622ccf45f30a2d04e11a05",
+ "scope": "Paired DEVELOPMENT module-restoration diagnosis, no optimization/readiness claim"
+}

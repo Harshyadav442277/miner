@@ -38,8 +38,9 @@ guards; v21 throughv26 also fail factual/alias/retention guards. V26 auxiliary
 role recognition is strong but membership changes across answer formats for82/96
 queries. V27 question-only/invariance probe also fails: late-JSON absent0/48,
 qualified listed28/48; no deployable fix claimed.
-V28 tests only source-fit duration on128 facts, not a full-corpus run; result
-pending. No ready-to-sign values.
+V28 source fitting and v29 restoration fail development/retention gates. V30 is
+a bounded attention-only primary-quality probe, no full-corpus run or inference
+change. No ready-to-sign values.
 New removal collection gives11 strict pairs but0 balanced blocks; no model scores.
 Its positive reference facts are deliberately source-exposed, and the reserved
 69 genuine pairs remain one-sided. No new registration values are prepared.

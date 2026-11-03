@@ -6,6 +6,12 @@ They are in `git log -p -- track2/GAPS.md`.
 
 ## G41 — real-answer sanctions measurement exposes source/length confounding (2026-11-01) — `OPEN`
 
+**V28-v30 Nov4:** four source passes largely fit training(thin listed63/64,
+alias32/32), but v28 development qualified23/48/alias10/24 and thin retention fail.
+V29 fixed MLP/head restoration also fails. V30 now tests attention-only training
+with primary-token correctness ranking through the existing frozen head.64 known
+source facts/32 steps, no full corpus or inference modification. Result pending.
+
 **Nov4 v27 result:** rejected: qualified listed28/48 but late-JSON absent0/48;
 the same form is0/64 absent even on source TRAINING examples. Question-only
 auxiliary membership34/48 listed,37/48 absent does not rescue main ranking.

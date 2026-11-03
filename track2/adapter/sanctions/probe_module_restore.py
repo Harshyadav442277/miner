@@ -19,18 +19,23 @@ def main():
     ap.add_argument("--home",type=Path,required=True)
     ap.add_argument("--plan",type=Path,required=True)
     ap.add_argument("--version",type=int,required=True)
+    ap.add_argument("--source-version",type=int,default=22)
     ap.add_argument("--restore",choices=("head","mlp_head"),required=True)
     a=ap.parse_args()
+    assert a.version not in (13,a.source_version)
     a.plan.mkdir(exist_ok=False)
     evidence=Path(__file__).parent/"evidence"
-    source=evidence/"v22-plan/frozen-inputs.json"
+    source=evidence/f"v{a.source_version}-plan/frozen-inputs.json"
     p=json.loads(source.read_text())
     baseline=json.loads((source.parent/"before.json").read_text())
-    model,tok,identity=load_model(a.home,22)
+    model,tok,identity=load_model(a.home,a.source_version)
+    recorded=json.loads((source.parent/"repair-result.json").read_text())
+    assert identity["checkpoint_sha256"]==recorded["checkpoint_sha256"]
     weights=get_peft_model_state_dict(model)
     original={k:v.detach().cpu().clone() for k,v in weights.items()}
     parent_path=a.home/"runs-v2/SANCTIONS_SCREENING_MATCH_v13/adapter/adapter_model.safetensors"
     parent=load_file(str(parent_path))
+    assert sha(parent_path)==p["parent"]["checkpoint_sha256"]
     restored=[k for k in weights if "classifier" in k or (a.restore=="mlp_head" and ".mlp." in k)]
     assert len(restored)==(90 if a.restore=="mlp_head" else 2)
     for k in restored:
@@ -44,7 +49,8 @@ def main():
     save(a.plan/"frozen-protocol.json",{"base_adapter":identity,"restored_version":13,
          "restored_checkpoint_sha256":sha(parent_path),"restored_tensors":restored,
          "retained_tensors":178-len(restored),"source_inputs_sha256":sha(source),
-         "scope":"Fixed module restoration. No optimization. Same v22 paired DEVELOPMENT cohort, not an independent test."})
+         "script_sha256":sha(Path(__file__)),
+         "scope":f"Fixed module restoration from v{a.source_version}. No optimization. Same paired DEVELOPMENT cohort, not an independent test."})
     out=a.home/f"runs-v2/SANCTIONS_SCREENING_MATCH_v{a.version}/adapter"
     out.mkdir(parents=True,exist_ok=False)
     model.save_pretrained(out)

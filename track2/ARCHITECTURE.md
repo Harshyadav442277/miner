@@ -417,3 +417,38 @@ Large training runs and model files live outside OneDrive, in `C:\Users\hyada\tg
 - Five CLI regression cases cover frozen refusal, insufficient blocks despite a
   true flag, changed context, legacy behavior and permitted four-block preflight.
   All36 tests pass; existing zero-block cohort refuses before any worker starts.
+
+## A26 — Fixed MLP/head restoration after source-fit overfitting
+
+- V28 largely fits training(thin listed63/64,aliases32/32) but fails development:
+  thin listed34/48,aliases15/24; qualified listed23/48,aliases10/24, and both thin
+  membership classes lose>5pp. Extra duration alone is not a transferable repair.
+- Freeze v29 without optimization: retain exactly v28's88 attention LoRA tensors;
+  restore parent13's88 MLP LoRA tensors and two head tensors. Verify every saved
+  value plus source/parent checkpoint hashes. Ordinary178-tensor forward only.
+- Same96 paired-development questions and original per-class/alias/retention/
+  Cartesian gates; no independent-test claim. This checks whether the fixed
+  restoration recovers broad source facts while retaining changed attention.
+  It cannot localize knowledge or prove a training recipe. No full-corpus run,
+  reserved/removal scores, wallet or submission. Actual-node proof still required.
+
+## A27 — Training-only primary-claim quality with frozen MLP/head
+
+- V29 restoration still fails thin retention and qualified aliases12/24. Source
+  fitting alone and post-training restoration have not repaired interpretation.
+- Freeze v30: parent13,64 original thin-correct replay facts,32 balanced updates,
+  lr0.0001,fp32,max512,no decay,clip1,seed2120261103,dropout off/recovery. Train only
+  88 attention LoRA tensors(811,008 parameters); preserve MLP88/head2 exactly.
+- Standard full-answer Cartesian ranking remains. Add0.5 Cartesian ranking using
+  the existing frozen head at the mean primary-decision token features. Labels
+  are correctness(source membership plus query binding), not asserted polarity.
+  This targets local fact/claim interaction and avoids creating a polarity parser.
+- The extra pooling/head application is training-only; ordinary178-tensor inference
+  stays unchanged. No new head, feature lookup, runtime parser or score wrapper.
+  One binding control per step,weight0.25, from the same64 facts(16 absent/16 listed).
+  Primary spans are inherited exact-token annotations and independently decoded;
+  source audit is a hash-bound subset of previously verified224 source questions.
+- Same96 paired-development questions and original65% class/alias/primary,5pp thin
+  retention/Cartesian guards. Fixed final step, verify at least90 untouched tensors.
+  No full-corpus run, reserved/removal score, wallet or submission. Actual-node and
+  balanced external evidence remain required after any synthetic pass.
