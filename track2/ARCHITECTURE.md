@@ -193,3 +193,71 @@ Large training runs and model files live outside OneDrive, in `C:\Users\hyada\tg
   points loss in thin-format class recall before any node/export check. Even a
   pass only justifies a local repair claim; old factual/binding and genuine balanced
   evidence gates still apply. Do not score the reserved69 or submit this trial.
+
+## A12 — Hard source-anchor coverage intervention (2026-11-03 IST)
+
+- V16 improves listed qualified prose34/64 to41/64 but fails65%; preserve it.
+  Its parent already gets25/32 listed repair anchors right in qualified prose.
+  Test the data-coverage hypothesis with v17, not more steps or a parameter sweep.
+- Keep v13 parent and v16's32-step optimizer/loss/frozen-layer recipe exactly.
+  New64 source anchors:16 primary/16 alias with parent thin correct but generic
+  qualified prose wrong;32 verified absences with both correct, weakest joint
+  margin first. Use no measured queries, captured answers or diagnostic phrases.
+- Freeze a fresh128-query synthetic holdout from v13 test before anchor selection;
+  exclude its entities/names, prior repair groups, diagnostic and external queries.
+  Parent knowledge exposure remains explicit. No conditioning holdout on scores.
+- Require every holdout form/class>=65% and thin class loss<=5pp. Report original
+  diagnostic separately as development, not checkpoint selection. One fixed final
+  step; no new full training, registration or reserved/new external-body scoring.
+  After a synthetic pass, standard export and frozen historical development/binding
+  rechecks are permitted to verify the repair in the actual runtime.
+
+## A13 — Repaired weights, context-only falsification (2026-11-03 IST)
+
+- V17 passes fresh synthetic class gates but actual old62 scores22/62 at256,
+  below parent13's27/62 and42/62 length. Reject it as a factual candidate.
+- V18 is not training: export exactly v17's178 tensors at512 using A9's unchanged
+  context-transfer procedure, and verify tensor identity. V17 trained256; label
+  v18 accordingly. Score only unchanged historical old62 against46/62 length.
+  No reserved capture, new model fitting, provider exceptions or submission.
+
+## A14 — Distill known decisions into complete source-only answers (2026-11-03 IST)
+
+- V18 context-only512 fails14/62. Old14 generic-question control shows v13/v17
+  recognize12/14 names in thin JSON; v17 wins22/53 real pairs for those recognized
+  names,18/37 when both claims are visible256. Missing facts/truncation alone do
+  not explain the remaining format failure. HF/node export fidelity passes.
+- V19 is one further bounded32-step test, not full-corpus training. Parent13,
+  final-two-layer16 LoRA tensors only,head/base/others frozen,fp32,lr0.0001,
+  AdamW no decay,gradient clip1,four questions/step,max512,dropout disabled.
+- Distill each verified thin-correct training question's two frozen parent logits
+  into five equivalent generic forms, including truthful neutral source metadata
+  before/after JSON and prose verdicts. Objective: mean squared score error across
+  every form plus0.2 full-Cartesian pairwise softplus(1-correct+wrong). This is a
+  training objective, never an inference calibration, adapter wrapper or lookup.
+- Freeze96 new unconditioned source-test queries (24 primary,24 alias,48 absent)
+  before parent scores. Exclude all prior diagnostic/external/repair query groups
+  and entity IDs from new training/holdout. Parent public-source knowledge exposed.
+  Train64 source-training questions (16 primary,16 alias,32 absent), thin-correct
+  anchors only. Neutral metadata comes unchanged from audited v15 source counts.
+- Every rendered answer must fit512 completely. Require>=65% in each membership,
+  primary and alias stratum for every fresh synthetic format, thin class loss<=5pp,
+  before export. No checkpoint/parameter sweep, reserved scoring or full training.
+  Actual historical512 factual/binding gates still determine whether it is usable.
+
+## A15 — Bounded encoder-capacity counterfactual (2026-11-03 IST)
+
+- V19 fails: JSON-late listed27/48 to46/48 but absent45/48 to9/48; thin absent
+  loses3/48, exceeding5pp. No export. Higher listed recall alone is rejected.
+- V20 changes only trainable encoder capacity: all176 LoRA tensors instead of
+  final16. Keep v19's64 anchors, teacher targets, neutral text, objective, lr,
+  training seed/order and32-step budget. Head/base stay frozen. It is not a
+  full-corpus run. Checkpoint activations; disable training-only dropout and verify
+  unchanged eval/train forward scores before optimization. Ordinary inference.
+- Freeze96 new repair-validation queries from v13 val (24 primary,24 alias,48 absent),
+  excluding all prior groups/external IDs, before scores. Parent13 previously used
+  this source split for checkpoint validation; disclose it as repair validation,
+  not a pristine parent-held-out test. Original v19 test is paired development
+  evidence only. Gate fresh repair validation with the same per-format/class,
+  primary/alias, thin-retention and cross-format guards. No parameter sweep,
+  reserved-body scores, full-corpus training or submission.

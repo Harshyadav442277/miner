@@ -1,0 +1,22 @@
+15:59:33 INFO: tokenizer matches the node (88 vectors)
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+
+Loading weights:   0%|          | 0/136 [00:00<?, ?it/s]
+Loading weights:   6%|5         | 8/136 [00:00<00:01, 71.00it/s]
+Loading weights:  12%|#1        | 16/136 [00:00<00:01, 66.34it/s]
+Loading weights:  18%|#8        | 25/136 [00:00<00:01, 72.35it/s]
+Loading weights: 100%|##########| 136/136 [00:00<00:00, 369.09it/s]
+[transformers] ModernBertForSequenceClassification LOAD REPORT from: answerdotai/ModernBERT-base
+Key               | Status     | 
+------------------+------------+-
+decoder.bias      | UNEXPECTED | 
+classifier.bias   | MISSING    | 
+classifier.weight | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+15:59:33 INFO: answerdotai/ModernBERT-base | trainable 1,690,369 / 151,296,002 parameters
+C:\Users\hyada\tg-eval\.venv\Lib\site-packages\peft\utils\save_and_load.py:313: UserWarning: Could not find a config file in answerdotai/ModernBERT-base - will assume that the vocabulary was not modified.
+  warnings.warn(
+{"anchors": 64, "holdout": 128, "eligible": {"primary": 123, "alias": 119, "absent": 222}}

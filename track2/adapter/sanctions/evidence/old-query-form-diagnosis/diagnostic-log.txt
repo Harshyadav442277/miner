@@ -1,0 +1,57 @@
+16:29:40 INFO: tokenizer matches the node (88 vectors)
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+
+Loading weights:   0%|          | 0/136 [00:00<?, ?it/s]
+Loading weights:  15%|#4        | 20/136 [00:00<00:00, 199.11it/s]
+Loading weights:  29%|##9       | 40/136 [00:00<00:00, 125.44it/s]
+Loading weights: 100%|##########| 136/136 [00:00<00:00, 425.35it/s]
+[transformers] ModernBertForSequenceClassification LOAD REPORT from: answerdotai/ModernBERT-base
+Key               | Status     | 
+------------------+------------+-
+decoder.bias      | UNEXPECTED | 
+classifier.bias   | MISSING    | 
+classifier.weight | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+16:29:40 INFO: answerdotai/ModernBERT-base | trainable 1,690,369 / 151,296,002 parameters
+C:\Users\hyada\tg-eval\.venv\Lib\site-packages\peft\utils\save_and_load.py:313: UserWarning: Could not find a config file in answerdotai/ModernBERT-base - will assume that the vocabulary was not modified.
+  warnings.warn(
+{"version": 3, "by_format": {"thin_json": {"listed": {"queries": 14, "correct": 13}, "primary": {"queries": 3, "correct": 3}, "alias": {"queries": 11, "correct": 10}}, "training_prose": {"listed": {"queries": 14, "correct": 14}, "primary": {"queries": 3, "correct": 3}, "alias": {"queries": 11, "correct": 11}}, "heldout_prose": {"listed": {"queries": 14, "correct": 3}, "primary": {"queries": 3, "correct": 2}, "alias": {"queries": 11, "correct": 1}}, "enum_json": {"listed": {"queries": 14, "correct": 14}, "primary": {"queries": 3, "correct": 3}, "alias": {"queries": 11, "correct": 11}}, "numeric_json": {"listed": {"queries": 14, "correct": 12}, "primary": {"queries": 3, "correct": 3}, "alias": {"queries": 11, "correct": 9}}, "explicit_negation": {"listed": {"queries": 14, "correct": 13}, "primary": {"queries": 3, "correct": 3}, "alias": {"queries": 11, "correct": 10}}, "yes_no": {"listed": {"queries": 14, "correct": 12}, "primary": {"queries": 3, "correct": 3}, "alias": {"queries": 11, "correct": 9}}}}
+16:29:43 INFO: tokenizer matches the node (88 vectors)
+
+Loading weights:   0%|          | 0/136 [00:00<?, ?it/s]
+Loading weights:  10%|#         | 14/136 [00:00<00:00, 129.09it/s]
+Loading weights:  20%|#9        | 27/136 [00:00<00:01, 88.23it/s] 
+Loading weights: 100%|##########| 136/136 [00:00<00:00, 462.03it/s]
+[transformers] ModernBertForSequenceClassification LOAD REPORT from: answerdotai/ModernBERT-base
+Key               | Status     | 
+------------------+------------+-
+decoder.bias      | UNEXPECTED | 
+classifier.bias   | MISSING    | 
+classifier.weight | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+16:29:44 INFO: answerdotai/ModernBERT-base | trainable 1,690,369 / 151,296,002 parameters
+{"version": 13, "by_format": {"thin_json": {"listed": {"queries": 14, "correct": 12}, "primary": {"queries": 3, "correct": 3}, "alias": {"queries": 11, "correct": 9}}, "training_prose": {"listed": {"queries": 14, "correct": 11}, "primary": {"queries": 3, "correct": 3}, "alias": {"queries": 11, "correct": 8}}, "heldout_prose": {"listed": {"queries": 14, "correct": 7}, "primary": {"queries": 3, "correct": 2}, "alias": {"queries": 11, "correct": 5}}, "enum_json": {"listed": {"queries": 14, "correct": 12}, "primary": {"queries": 3, "correct": 3}, "alias": {"queries": 11, "correct": 9}}, "numeric_json": {"listed": {"queries": 14, "correct": 11}, "primary": {"queries": 3, "correct": 3}, "alias": {"queries": 11, "correct": 8}}, "explicit_negation": {"listed": {"queries": 14, "correct": 12}, "primary": {"queries": 3, "correct": 3}, "alias": {"queries": 11, "correct": 9}}, "yes_no": {"listed": {"queries": 14, "correct": 11}, "primary": {"queries": 3, "correct": 3}, "alias": {"queries": 11, "correct": 8}}}}
+16:29:46 INFO: tokenizer matches the node (88 vectors)
+
+Loading weights:   0%|          | 0/136 [00:00<?, ?it/s]
+Loading weights:   8%|8         | 11/136 [00:00<00:01, 92.59it/s]
+Loading weights:  26%|##5       | 35/136 [00:00<00:00, 168.12it/s]
+Loading weights: 100%|##########| 136/136 [00:00<00:00, 461.81it/s]
+[transformers] ModernBertForSequenceClassification LOAD REPORT from: answerdotai/ModernBERT-base
+Key               | Status     | 
+------------------+------------+-
+decoder.bias      | UNEXPECTED | 
+classifier.bias   | MISSING    | 
+classifier.weight | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+16:29:46 INFO: answerdotai/ModernBERT-base | trainable 1,690,369 / 151,296,002 parameters
+{"version": 17, "by_format": {"thin_json": {"listed": {"queries": 14, "correct": 12}, "primary": {"queries": 3, "correct": 3}, "alias": {"queries": 11, "correct": 9}}, "training_prose": {"listed": {"queries": 14, "correct": 11}, "primary": {"queries": 3, "correct": 3}, "alias": {"queries": 11, "correct": 8}}, "heldout_prose": {"listed": {"queries": 14, "correct": 8}, "primary": {"queries": 3, "correct": 2}, "alias": {"queries": 11, "correct": 6}}, "enum_json": {"listed": {"queries": 14, "correct": 12}, "primary": {"queries": 3, "correct": 3}, "alias": {"queries": 11, "correct": 9}}, "numeric_json": {"listed": {"queries": 14, "correct": 10}, "primary": {"queries": 3, "correct": 3}, "alias": {"queries": 11, "correct": 7}}, "explicit_negation": {"listed": {"queries": 14, "correct": 11}, "primary": {"queries": 3, "correct": 3}, "alias": {"queries": 11, "correct": 8}}, "yes_no": {"listed": {"queries": 14, "correct": 11}, "primary": {"queries": 3, "correct": 3}, "alias": {"queries": 11, "correct": 8}}}}

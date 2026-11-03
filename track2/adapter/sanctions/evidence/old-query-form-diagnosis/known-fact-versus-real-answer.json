@@ -1,0 +1,72 @@
+{
+  "max_tokens": 256,
+  "results": {
+    "3": {
+      "all": {
+        "pairs": 62,
+        "correct": 41,
+        "names": 14
+      },
+      "thin_correct_names": {
+        "pairs": 58,
+        "correct": 39,
+        "names": 13
+      },
+      "visible256": {
+        "pairs": 43,
+        "correct": 36,
+        "names": 14
+      },
+      "thin_correct_visible256": {
+        "pairs": 40,
+        "correct": 34,
+        "names": 13
+      }
+    },
+    "13": {
+      "all": {
+        "pairs": 62,
+        "correct": 27,
+        "names": 14
+      },
+      "thin_correct_names": {
+        "pairs": 53,
+        "correct": 25,
+        "names": 12
+      },
+      "visible256": {
+        "pairs": 43,
+        "correct": 23,
+        "names": 14
+      },
+      "thin_correct_visible256": {
+        "pairs": 37,
+        "correct": 21,
+        "names": 12
+      }
+    },
+    "17": {
+      "all": {
+        "pairs": 62,
+        "correct": 22,
+        "names": 14
+      },
+      "thin_correct_names": {
+        "pairs": 53,
+        "correct": 22,
+        "names": 12
+      },
+      "visible256": {
+        "pairs": 43,
+        "correct": 18,
+        "names": 14
+      },
+      "thin_correct_visible256": {
+        "pairs": 37,
+        "correct": 18,
+        "names": 12
+      }
+    }
+  },
+  "scope": "Development conditional diagnostic, not replacement benchmark. Thin source membership can be right while real answer ranking is wrong; conditioning is disclosed."
+}

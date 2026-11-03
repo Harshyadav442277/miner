@@ -1,0 +1,6020 @@
+{
+ "by_format": {
+  "thin_json": {
+   "listed": {
+    "queries": 48,
+    "correct": 42,
+    "accuracy": 0.875
+   },
+   "absent": {
+    "queries": 48,
+    "correct": 42,
+    "accuracy": 0.875
+   },
+   "primary": {
+    "queries": 24,
+    "correct": 19,
+    "accuracy": 0.7916666666666666
+   },
+   "alias": {
+    "queries": 24,
+    "correct": 23,
+    "accuracy": 0.9583333333333334
+   }
+  },
+  "json_early": {
+   "listed": {
+    "queries": 48,
+    "correct": 45,
+    "accuracy": 0.9375
+   },
+   "absent": {
+    "queries": 48,
+    "correct": 41,
+    "accuracy": 0.8541666666666666
+   },
+   "primary": {
+    "queries": 24,
+    "correct": 21,
+    "accuracy": 0.875
+   },
+   "alias": {
+    "queries": 24,
+    "correct": 24,
+    "accuracy": 1.0
+   }
+  },
+  "json_late": {
+   "listed": {
+    "queries": 48,
+    "correct": 25,
+    "accuracy": 0.5208333333333334
+   },
+   "absent": {
+    "queries": 48,
+    "correct": 45,
+    "accuracy": 0.9375
+   },
+   "primary": {
+    "queries": 24,
+    "correct": 12,
+    "accuracy": 0.5
+   },
+   "alias": {
+    "queries": 24,
+    "correct": 13,
+    "accuracy": 0.5416666666666666
+   }
+  },
+  "prose_early": {
+   "listed": {
+    "queries": 48,
+    "correct": 24,
+    "accuracy": 0.5
+   },
+   "absent": {
+    "queries": 48,
+    "correct": 48,
+    "accuracy": 1.0
+   },
+   "primary": {
+    "queries": 24,
+    "correct": 10,
+    "accuracy": 0.4166666666666667
+   },
+   "alias": {
+    "queries": 24,
+    "correct": 14,
+    "accuracy": 0.5833333333333334
+   }
+  },
+  "prose_late": {
+   "listed": {
+    "queries": 48,
+    "correct": 19,
+    "accuracy": 0.3958333333333333
+   },
+   "absent": {
+    "queries": 48,
+    "correct": 48,
+    "accuracy": 1.0
+   },
+   "primary": {
+    "queries": 24,
+    "correct": 8,
+    "accuracy": 0.3333333333333333
+   },
+   "alias": {
+    "queries": 24,
+    "correct": 11,
+    "accuracy": 0.4583333333333333
+   }
+  },
+  "training_prose": {
+   "listed": {
+    "queries": 48,
+    "correct": 42,
+    "accuracy": 0.875
+   },
+   "absent": {
+    "queries": 48,
+    "correct": 42,
+    "accuracy": 0.875
+   },
+   "primary": {
+    "queries": 24,
+    "correct": 19,
+    "accuracy": 0.7916666666666666
+   },
+   "alias": {
+    "queries": 24,
+    "correct": 23,
+    "accuracy": 0.9583333333333334
+   }
+  },
+  "heldout_prose": {
+   "listed": {
+    "queries": 48,
+    "correct": 31,
+    "accuracy": 0.6458333333333334
+   },
+   "absent": {
+    "queries": 48,
+    "correct": 48,
+    "accuracy": 1.0
+   },
+   "primary": {
+    "queries": 24,
+    "correct": 14,
+    "accuracy": 0.5833333333333334
+   },
+   "alias": {
+    "queries": 24,
+    "correct": 17,
+    "accuracy": 0.7083333333333334
+   }
+  },
+  "enum_json": {
+   "listed": {
+    "queries": 48,
+    "correct": 42,
+    "accuracy": 0.875
+   },
+   "absent": {
+    "queries": 48,
+    "correct": 43,
+    "accuracy": 0.8958333333333334
+   },
+   "primary": {
+    "queries": 24,
+    "correct": 19,
+    "accuracy": 0.7916666666666666
+   },
+   "alias": {
+    "queries": 24,
+    "correct": 23,
+    "accuracy": 0.9583333333333334
+   }
+  },
+  "numeric_json": {
+   "listed": {
+    "queries": 48,
+    "correct": 42,
+    "accuracy": 0.875
+   },
+   "absent": {
+    "queries": 48,
+    "correct": 43,
+    "accuracy": 0.8958333333333334
+   },
+   "primary": {
+    "queries": 24,
+    "correct": 19,
+    "accuracy": 0.7916666666666666
+   },
+   "alias": {
+    "queries": 24,
+    "correct": 23,
+    "accuracy": 0.9583333333333334
+   }
+  },
+  "explicit_negation": {
+   "listed": {
+    "queries": 48,
+    "correct": 41,
+    "accuracy": 0.8541666666666666
+   },
+   "absent": {
+    "queries": 48,
+    "correct": 44,
+    "accuracy": 0.9166666666666666
+   },
+   "primary": {
+    "queries": 24,
+    "correct": 18,
+    "accuracy": 0.75
+   },
+   "alias": {
+    "queries": 24,
+    "correct": 23,
+    "accuracy": 0.9583333333333334
+   }
+  },
+  "yes_no": {
+   "listed": {
+    "queries": 48,
+    "correct": 42,
+    "accuracy": 0.875
+   },
+   "absent": {
+    "queries": 48,
+    "correct": 44,
+    "accuracy": 0.9166666666666666
+   },
+   "primary": {
+    "queries": 24,
+    "correct": 19,
+    "accuracy": 0.7916666666666666
+   },
+   "alias": {
+    "queries": 24,
+    "correct": 23,
+    "accuracy": 0.9583333333333334
+   }
+  }
+ },
+ "cross_format": {
+  "listed": {
+   "pairs": 5808,
+   "correct": 3966,
+   "accuracy": 0.6828512396694215
+  },
+  "absent": {
+   "pairs": 5808,
+   "correct": 4701,
+   "accuracy": 0.809400826446281
+  }
+ },
+ "rows": [
+  {
+   "name": "SYRONICS",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen SYRONICS against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "13374"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "SYRONICS",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 0.3050144910812378,
+     "wrong_score": 0.3696072995662689
+    },
+    "json_early": {
+     "correct_score": -2.6020708084106445,
+     "wrong_score": -3.0994796752929688
+    },
+    "json_late": {
+     "correct_score": -2.4815056324005127,
+     "wrong_score": -2.4145357608795166
+    },
+    "prose_early": {
+     "correct_score": -3.354475975036621,
+     "wrong_score": -2.0391170978546143
+    },
+    "prose_late": {
+     "correct_score": -3.102449655532837,
+     "wrong_score": -2.5924949645996094
+    },
+    "training_prose": {
+     "correct_score": -0.0818394124507904,
+     "wrong_score": 0.25752800703048706
+    },
+    "heldout_prose": {
+     "correct_score": -1.434822916984558,
+     "wrong_score": 0.04523658752441406
+    },
+    "enum_json": {
+     "correct_score": 0.1923944056034088,
+     "wrong_score": 0.4898148477077484
+    },
+    "numeric_json": {
+     "correct_score": -0.045682668685913086,
+     "wrong_score": 0.3629950284957886
+    },
+    "explicit_negation": {
+     "correct_score": -0.17626342177391052,
+     "wrong_score": 0.5264370441436768
+    },
+    "yes_no": {
+     "correct_score": 0.2256004810333252,
+     "wrong_score": 0.5426737070083618
+    }
+   }
+  },
+  {
+   "name": "DONGGUAN SHENGYIN CNC EQUIPMENT CO LTD",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen DONGGUAN SHENGYIN CNC EQUIPMENT CO LTD against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "50366"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "DONGGUAN SHENGYIN CNC EQUIPMENT CO LTD",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 9.230424880981445,
+     "wrong_score": 1.6292468309402466
+    },
+    "json_early": {
+     "correct_score": 2.3531172275543213,
+     "wrong_score": -1.7012403011322021
+    },
+    "json_late": {
+     "correct_score": 2.6075143814086914,
+     "wrong_score": 2.558465003967285
+    },
+    "prose_early": {
+     "correct_score": 1.9653730392456055,
+     "wrong_score": -0.45950961112976074
+    },
+    "prose_late": {
+     "correct_score": 0.5961571931838989,
+     "wrong_score": 0.41661369800567627
+    },
+    "training_prose": {
+     "correct_score": 8.270014762878418,
+     "wrong_score": 1.234508752822876
+    },
+    "heldout_prose": {
+     "correct_score": 5.815974712371826,
+     "wrong_score": 0.2639560401439667
+    },
+    "enum_json": {
+     "correct_score": 8.789164543151855,
+     "wrong_score": 1.4133398532867432
+    },
+    "numeric_json": {
+     "correct_score": 8.972328186035156,
+     "wrong_score": 1.3320175409317017
+    },
+    "explicit_negation": {
+     "correct_score": 9.182498931884766,
+     "wrong_score": 2.0499672889709473
+    },
+    "yes_no": {
+     "correct_score": 8.633543968200684,
+     "wrong_score": 0.19146257638931274
+    }
+   }
+  },
+  {
+   "name": "INTERSEAS SHIPYARD LTD",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen INTERSEAS SHIPYARD LTD against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "25835"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "INTERSEAS SHIPYARD LTD",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 0.41858890652656555,
+     "wrong_score": -0.06608912348747253
+    },
+    "json_early": {
+     "correct_score": -2.6335151195526123,
+     "wrong_score": -2.972959518432617
+    },
+    "json_late": {
+     "correct_score": -2.6420040130615234,
+     "wrong_score": -2.6248743534088135
+    },
+    "prose_early": {
+     "correct_score": -3.2208480834960938,
+     "wrong_score": -1.9142165184020996
+    },
+    "prose_late": {
+     "correct_score": -3.1424551010131836,
+     "wrong_score": -2.780364751815796
+    },
+    "training_prose": {
+     "correct_score": 0.5429344773292542,
+     "wrong_score": -0.38184210658073425
+    },
+    "heldout_prose": {
+     "correct_score": -1.0455262660980225,
+     "wrong_score": -0.3388237953186035
+    },
+    "enum_json": {
+     "correct_score": 0.2588135600090027,
+     "wrong_score": -0.1736915111541748
+    },
+    "numeric_json": {
+     "correct_score": 0.22048377990722656,
+     "wrong_score": -0.15722033381462097
+    },
+    "explicit_negation": {
+     "correct_score": 1.2778067588806152,
+     "wrong_score": 0.19790154695510864
+    },
+    "yes_no": {
+     "correct_score": 0.7110574245452881,
+     "wrong_score": -0.1567566990852356
+    }
+   }
+  },
+  {
+   "name": "CS YONETIM VE DESTEK HIZMETLERI LIMITED SIRKETI",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen CS YONETIM VE DESTEK HIZMETLERI LIMITED SIRKETI against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "52229"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "CS YONETIM VE DESTEK HIZMETLERI LIMITED SIRKETI",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 5.006589889526367,
+     "wrong_score": 1.406440019607544
+    },
+    "json_early": {
+     "correct_score": -0.6747108697891235,
+     "wrong_score": -2.0692505836486816
+    },
+    "json_late": {
+     "correct_score": -0.8668838739395142,
+     "wrong_score": -0.9017857909202576
+    },
+    "prose_early": {
+     "correct_score": -0.6379529237747192,
+     "wrong_score": -0.9253630638122559
+    },
+    "prose_late": {
+     "correct_score": -0.872134804725647,
+     "wrong_score": -1.5840470790863037
+    },
+    "training_prose": {
+     "correct_score": 4.759175777435303,
+     "wrong_score": 0.705904483795166
+    },
+    "heldout_prose": {
+     "correct_score": 1.952585220336914,
+     "wrong_score": 0.48017245531082153
+    },
+    "enum_json": {
+     "correct_score": 5.429172515869141,
+     "wrong_score": 1.0930860042572021
+    },
+    "numeric_json": {
+     "correct_score": 5.017953395843506,
+     "wrong_score": 0.9377498030662537
+    },
+    "explicit_negation": {
+     "correct_score": 5.452403545379639,
+     "wrong_score": 1.2698160409927368
+    },
+    "yes_no": {
+     "correct_score": 3.11808443069458,
+     "wrong_score": 1.036860704421997
+    }
+   }
+  },
+  {
+   "name": "SOLUCIONES TECNOLOGICAS Y PAQUETERIA TRES, SOCIEDAD ANONIMA DE CAPITAL VARIABLE",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen SOLUCIONES TECNOLOGICAS Y PAQUETERIA TRES, SOCIEDAD ANONIMA DE CAPITAL VARIABLE against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "50707"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "SOLUCIONES TECNOLOGICAS Y PAQUETERIA TRES, SOCIEDAD ANONIMA DE CAPITAL VARIABLE",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": -2.2257139682769775,
+     "wrong_score": -0.7049177885055542
+    },
+    "json_early": {
+     "correct_score": -6.290606498718262,
+     "wrong_score": -5.432615280151367
+    },
+    "json_late": {
+     "correct_score": -6.065285682678223,
+     "wrong_score": -6.025665283203125
+    },
+    "prose_early": {
+     "correct_score": -6.562536239624023,
+     "wrong_score": -3.520998239517212
+    },
+    "prose_late": {
+     "correct_score": -7.5674543380737305,
+     "wrong_score": -5.919010639190674
+    },
+    "training_prose": {
+     "correct_score": -2.5400099754333496,
+     "wrong_score": -1.2151885032653809
+    },
+    "heldout_prose": {
+     "correct_score": -4.515942096710205,
+     "wrong_score": -1.3514444828033447
+    },
+    "enum_json": {
+     "correct_score": -2.047323226928711,
+     "wrong_score": -0.6837450265884399
+    },
+    "numeric_json": {
+     "correct_score": -2.7992663383483887,
+     "wrong_score": -1.3121281862258911
+    },
+    "explicit_negation": {
+     "correct_score": -2.8971657752990723,
+     "wrong_score": -1.6375679969787598
+    },
+    "yes_no": {
+     "correct_score": -4.102812767028809,
+     "wrong_score": 0.08068829774856567
+    }
+   }
+  },
+  {
+   "name": "ASIA ENERGY GENERAL TRADING (LLC)",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen ASIA ENERGY GENERAL TRADING (LLC) against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "15696"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "ASIA ENERGY GENERAL TRADING (LLC)",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 1.8246607780456543,
+     "wrong_score": 0.2997971773147583
+    },
+    "json_early": {
+     "correct_score": -1.8431313037872314,
+     "wrong_score": -2.8063740730285645
+    },
+    "json_late": {
+     "correct_score": -1.7405802011489868,
+     "wrong_score": -1.729769229888916
+    },
+    "prose_early": {
+     "correct_score": -2.1553919315338135,
+     "wrong_score": -1.1650457382202148
+    },
+    "prose_late": {
+     "correct_score": -2.9393720626831055,
+     "wrong_score": -2.3528623580932617
+    },
+    "training_prose": {
+     "correct_score": 1.59690260887146,
+     "wrong_score": -0.08537942171096802
+    },
+    "heldout_prose": {
+     "correct_score": -1.1523598432540894,
+     "wrong_score": 0.11095041036605835
+    },
+    "enum_json": {
+     "correct_score": 1.7023781538009644,
+     "wrong_score": 0.1443350613117218
+    },
+    "numeric_json": {
+     "correct_score": 1.8801069259643555,
+     "wrong_score": 0.39689376950263977
+    },
+    "explicit_negation": {
+     "correct_score": 2.486759662628174,
+     "wrong_score": 0.5919036865234375
+    },
+    "yes_no": {
+     "correct_score": 1.667769432067871,
+     "wrong_score": -0.007456362247467041
+    }
+   }
+  },
+  {
+   "name": "JSC SUEK",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen JSC SUEK against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "47681"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "JSC SUEK",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 4.705684661865234,
+     "wrong_score": 1.4861087799072266
+    },
+    "json_early": {
+     "correct_score": -0.532158374786377,
+     "wrong_score": -2.839738368988037
+    },
+    "json_late": {
+     "correct_score": -0.6393828988075256,
+     "wrong_score": -0.649300754070282
+    },
+    "prose_early": {
+     "correct_score": -1.0848286151885986,
+     "wrong_score": -1.8448758125305176
+    },
+    "prose_late": {
+     "correct_score": -1.0439658164978027,
+     "wrong_score": -1.6383163928985596
+    },
+    "training_prose": {
+     "correct_score": 4.359027862548828,
+     "wrong_score": 1.8588260412216187
+    },
+    "heldout_prose": {
+     "correct_score": 2.6414151191711426,
+     "wrong_score": 0.9467977285385132
+    },
+    "enum_json": {
+     "correct_score": 4.508559703826904,
+     "wrong_score": 1.3138245344161987
+    },
+    "numeric_json": {
+     "correct_score": 4.838855743408203,
+     "wrong_score": 1.5180232524871826
+    },
+    "explicit_negation": {
+     "correct_score": 5.0877485275268555,
+     "wrong_score": 1.6066330671310425
+    },
+    "yes_no": {
+     "correct_score": 4.236551284790039,
+     "wrong_score": 1.502576231956482
+    }
+   }
+  },
+  {
+   "name": "AGENCIA DE CONTRATACION A REPRESENTACIONES COMERCIALES S.A.",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen AGENCIA DE CONTRATACION A REPRESENTACIONES COMERCIALES S.A. against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "58453"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "AGENCIA DE CONTRATACION A REPRESENTACIONES COMERCIALES S.A.",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 3.1094961166381836,
+     "wrong_score": 0.8811010122299194
+    },
+    "json_early": {
+     "correct_score": -2.065230369567871,
+     "wrong_score": -2.806922435760498
+    },
+    "json_late": {
+     "correct_score": -1.9126949310302734,
+     "wrong_score": -1.9178358316421509
+    },
+    "prose_early": {
+     "correct_score": -2.485983371734619,
+     "wrong_score": -1.2217645645141602
+    },
+    "prose_late": {
+     "correct_score": -5.148821830749512,
+     "wrong_score": -3.8164777755737305
+    },
+    "training_prose": {
+     "correct_score": 0.3329065144062042,
+     "wrong_score": 0.21304771304130554
+    },
+    "heldout_prose": {
+     "correct_score": -0.4989979565143585,
+     "wrong_score": 0.3717288672924042
+    },
+    "enum_json": {
+     "correct_score": 3.187267780303955,
+     "wrong_score": 0.9783973693847656
+    },
+    "numeric_json": {
+     "correct_score": 2.921743631362915,
+     "wrong_score": 0.6559571027755737
+    },
+    "explicit_negation": {
+     "correct_score": -0.03226029872894287,
+     "wrong_score": 0.6763491630554199
+    },
+    "yes_no": {
+     "correct_score": 1.3395800590515137,
+     "wrong_score": 0.7637143135070801
+    }
+   }
+  },
+  {
+   "name": "KINAHAN ORGANIZED CRIME GROUP",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen KINAHAN ORGANIZED CRIME GROUP against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "34979"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "KINAHAN ORGANIZED CRIME GROUP",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 4.452299118041992,
+     "wrong_score": 1.2091989517211914
+    },
+    "json_early": {
+     "correct_score": -2.0443177223205566,
+     "wrong_score": -2.5988783836364746
+    },
+    "json_late": {
+     "correct_score": -2.163154363632202,
+     "wrong_score": -2.1438541412353516
+    },
+    "prose_early": {
+     "correct_score": -2.962757110595703,
+     "wrong_score": -1.5345441102981567
+    },
+    "prose_late": {
+     "correct_score": -2.606215238571167,
+     "wrong_score": -2.2620840072631836
+    },
+    "training_prose": {
+     "correct_score": 4.150449275970459,
+     "wrong_score": 1.094666838645935
+    },
+    "heldout_prose": {
+     "correct_score": 1.9520840644836426,
+     "wrong_score": 0.7736169099807739
+    },
+    "enum_json": {
+     "correct_score": 3.9437248706817627,
+     "wrong_score": 1.1850353479385376
+    },
+    "numeric_json": {
+     "correct_score": 4.337704181671143,
+     "wrong_score": 1.1418445110321045
+    },
+    "explicit_negation": {
+     "correct_score": 4.386637210845947,
+     "wrong_score": 1.6621739864349365
+    },
+    "yes_no": {
+     "correct_score": 3.9418811798095703,
+     "wrong_score": 0.9236098527908325
+    }
+   }
+  },
+  {
+   "name": "JANE SHANG CO., LIMITED",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen JANE SHANG CO., LIMITED against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "30149"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "JANE SHANG CO., LIMITED",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 2.333980083465576,
+     "wrong_score": 0.4290687143802643
+    },
+    "json_early": {
+     "correct_score": 0.6535612940788269,
+     "wrong_score": -2.443007469177246
+    },
+    "json_late": {
+     "correct_score": 0.7825537919998169,
+     "wrong_score": 0.7186000347137451
+    },
+    "prose_early": {
+     "correct_score": 1.6450344324111938,
+     "wrong_score": -0.9440646171569824
+    },
+    "prose_late": {
+     "correct_score": 0.3459986448287964,
+     "wrong_score": -0.2966073751449585
+    },
+    "training_prose": {
+     "correct_score": 2.2797162532806396,
+     "wrong_score": 0.11205369234085083
+    },
+    "heldout_prose": {
+     "correct_score": 1.1176173686981201,
+     "wrong_score": -0.044963300228118896
+    },
+    "enum_json": {
+     "correct_score": 2.0070600509643555,
+     "wrong_score": 0.0462498664855957
+    },
+    "numeric_json": {
+     "correct_score": 2.3172991275787354,
+     "wrong_score": 0.27727988362312317
+    },
+    "explicit_negation": {
+     "correct_score": 3.2855186462402344,
+     "wrong_score": 1.406973123550415
+    },
+    "yes_no": {
+     "correct_score": 1.3123424053192139,
+     "wrong_score": -0.23703324794769287
+    }
+   }
+  },
+  {
+   "name": "FLY PERSIA AIRLINES",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen FLY PERSIA AIRLINES against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "58531"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "FLY PERSIA AIRLINES",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 1.5068998336791992,
+     "wrong_score": 0.14498288929462433
+    },
+    "json_early": {
+     "correct_score": -2.3223087787628174,
+     "wrong_score": -2.9627692699432373
+    },
+    "json_late": {
+     "correct_score": -2.3264389038085938,
+     "wrong_score": -2.317474842071533
+    },
+    "prose_early": {
+     "correct_score": -2.6514015197753906,
+     "wrong_score": -1.9560376405715942
+    },
+    "prose_late": {
+     "correct_score": -2.574997663497925,
+     "wrong_score": -2.076943874359131
+    },
+    "training_prose": {
+     "correct_score": 0.8209104537963867,
+     "wrong_score": -0.004000931978225708
+    },
+    "heldout_prose": {
+     "correct_score": -1.0568310022354126,
+     "wrong_score": 0.0607316792011261
+    },
+    "enum_json": {
+     "correct_score": 1.422947883605957,
+     "wrong_score": 0.1909036785364151
+    },
+    "numeric_json": {
+     "correct_score": 1.234974980354309,
+     "wrong_score": 0.3383956551551819
+    },
+    "explicit_negation": {
+     "correct_score": 1.5843333005905151,
+     "wrong_score": 0.5316058993339539
+    },
+    "yes_no": {
+     "correct_score": 0.4535873234272003,
+     "wrong_score": 0.12257304787635803
+    }
+   }
+  },
+  {
+   "name": "CONSTRUCTORA H.L.T.",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen CONSTRUCTORA H.L.T. against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "13433"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "CONSTRUCTORA H.L.T.",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": -6.450809478759766,
+     "wrong_score": -1.1750366687774658
+    },
+    "json_early": {
+     "correct_score": -5.30310583114624,
+     "wrong_score": -2.9784369468688965
+    },
+    "json_late": {
+     "correct_score": -5.528834342956543,
+     "wrong_score": -5.4449896812438965
+    },
+    "prose_early": {
+     "correct_score": -5.626698970794678,
+     "wrong_score": -1.9242173433303833
+    },
+    "prose_late": {
+     "correct_score": -4.930551528930664,
+     "wrong_score": -3.6479363441467285
+    },
+    "training_prose": {
+     "correct_score": -7.610072135925293,
+     "wrong_score": -2.0607001781463623
+    },
+    "heldout_prose": {
+     "correct_score": -5.453766822814941,
+     "wrong_score": -0.9485096335411072
+    },
+    "enum_json": {
+     "correct_score": -6.7895097732543945,
+     "wrong_score": -0.9986859560012817
+    },
+    "numeric_json": {
+     "correct_score": -6.448535442352295,
+     "wrong_score": -0.7508202791213989
+    },
+    "explicit_negation": {
+     "correct_score": -6.707067966461182,
+     "wrong_score": -1.6731467247009277
+    },
+    "yes_no": {
+     "correct_score": -7.4054646492004395,
+     "wrong_score": -0.8555982112884521
+    }
+   }
+  },
+  {
+   "name": "JOINT STOCK COMPANY LASERSERVICE",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen JOINT STOCK COMPANY LASERSERVICE against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "50767"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "JOINT STOCK COMPANY LASERSERVICE",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 10.77655029296875,
+     "wrong_score": 2.911720037460327
+    },
+    "json_early": {
+     "correct_score": 3.4912140369415283,
+     "wrong_score": -1.1487022638320923
+    },
+    "json_late": {
+     "correct_score": 4.366596221923828,
+     "wrong_score": 4.338944435119629
+    },
+    "prose_early": {
+     "correct_score": 2.5043420791625977,
+     "wrong_score": -0.5448696613311768
+    },
+    "prose_late": {
+     "correct_score": 0.3616294860839844,
+     "wrong_score": 0.04331660270690918
+    },
+    "training_prose": {
+     "correct_score": 10.126469612121582,
+     "wrong_score": 3.8432955741882324
+    },
+    "heldout_prose": {
+     "correct_score": 7.181391716003418,
+     "wrong_score": 0.6840894222259521
+    },
+    "enum_json": {
+     "correct_score": 10.757711410522461,
+     "wrong_score": 2.8236067295074463
+    },
+    "numeric_json": {
+     "correct_score": 10.593851089477539,
+     "wrong_score": 1.9405019283294678
+    },
+    "explicit_negation": {
+     "correct_score": 10.255239486694336,
+     "wrong_score": 6.4140496253967285
+    },
+    "yes_no": {
+     "correct_score": 9.190088272094727,
+     "wrong_score": 0.7316269874572754
+    }
+   }
+  },
+  {
+   "name": "MOSCOW EXCHANGE",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen MOSCOW EXCHANGE against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "46526"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "MOSCOW EXCHANGE",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 4.090325355529785,
+     "wrong_score": 0.6700795888900757
+    },
+    "json_early": {
+     "correct_score": -1.637251853942871,
+     "wrong_score": -2.7136170864105225
+    },
+    "json_late": {
+     "correct_score": -1.7781004905700684,
+     "wrong_score": -1.7370277643203735
+    },
+    "prose_early": {
+     "correct_score": -2.329861879348755,
+     "wrong_score": -1.493151307106018
+    },
+    "prose_late": {
+     "correct_score": -2.592827558517456,
+     "wrong_score": -2.131126642227173
+    },
+    "training_prose": {
+     "correct_score": 3.5355634689331055,
+     "wrong_score": 0.655971348285675
+    },
+    "heldout_prose": {
+     "correct_score": 0.2902272939682007,
+     "wrong_score": 0.2775760293006897
+    },
+    "enum_json": {
+     "correct_score": 3.8597359657287598,
+     "wrong_score": 0.5920203924179077
+    },
+    "numeric_json": {
+     "correct_score": 3.87152099609375,
+     "wrong_score": 0.6049520373344421
+    },
+    "explicit_negation": {
+     "correct_score": 4.0924153327941895,
+     "wrong_score": 0.8874844312667847
+    },
+    "yes_no": {
+     "correct_score": 3.594355821609497,
+     "wrong_score": 0.914509654045105
+    }
+   }
+  },
+  {
+   "name": "JOINT STOCK COMPANY KRONSHTADT",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen JOINT STOCK COMPANY KRONSHTADT against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "35854"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "JOINT STOCK COMPANY KRONSHTADT",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 11.064164161682129,
+     "wrong_score": 4.2437968254089355
+    },
+    "json_early": {
+     "correct_score": 4.380728721618652,
+     "wrong_score": -0.2519826292991638
+    },
+    "json_late": {
+     "correct_score": 4.515485763549805,
+     "wrong_score": 4.479669570922852
+    },
+    "prose_early": {
+     "correct_score": 2.780024528503418,
+     "wrong_score": -0.2636982202529907
+    },
+    "prose_late": {
+     "correct_score": 1.2852596044540405,
+     "wrong_score": 0.5200765132904053
+    },
+    "training_prose": {
+     "correct_score": 10.578489303588867,
+     "wrong_score": 5.073719501495361
+    },
+    "heldout_prose": {
+     "correct_score": 8.410985946655273,
+     "wrong_score": 0.9946677684783936
+    },
+    "enum_json": {
+     "correct_score": 10.895845413208008,
+     "wrong_score": 4.042028427124023
+    },
+    "numeric_json": {
+     "correct_score": 10.818561553955078,
+     "wrong_score": 3.168757438659668
+    },
+    "explicit_negation": {
+     "correct_score": 10.455915451049805,
+     "wrong_score": 7.478986740112305
+    },
+    "yes_no": {
+     "correct_score": 9.592630386352539,
+     "wrong_score": 0.27416935563087463
+    }
+   }
+  },
+  {
+   "name": "LASTSIX TRADING LIMITED",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen LASTSIX TRADING LIMITED against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "54243"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "LASTSIX TRADING LIMITED",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 2.503035306930542,
+     "wrong_score": 0.713257372379303
+    },
+    "json_early": {
+     "correct_score": -2.933781623840332,
+     "wrong_score": -3.2186951637268066
+    },
+    "json_late": {
+     "correct_score": -2.8655052185058594,
+     "wrong_score": -2.862407684326172
+    },
+    "prose_early": {
+     "correct_score": -2.6344690322875977,
+     "wrong_score": -1.730437994003296
+    },
+    "prose_late": {
+     "correct_score": -3.3273396492004395,
+     "wrong_score": -2.7067995071411133
+    },
+    "training_prose": {
+     "correct_score": 2.2222039699554443,
+     "wrong_score": 0.47108155488967896
+    },
+    "heldout_prose": {
+     "correct_score": -0.47067415714263916,
+     "wrong_score": 0.032222598791122437
+    },
+    "enum_json": {
+     "correct_score": 2.59454083442688,
+     "wrong_score": 0.7463029623031616
+    },
+    "numeric_json": {
+     "correct_score": 2.5492827892303467,
+     "wrong_score": 0.5962238907814026
+    },
+    "explicit_negation": {
+     "correct_score": 2.200794219970703,
+     "wrong_score": 0.8783029317855835
+    },
+    "yes_no": {
+     "correct_score": 2.018592357635498,
+     "wrong_score": 0.4456953704357147
+    }
+   }
+  },
+  {
+   "name": "WHITELEAVE HOLDINGS LIMITED",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen WHITELEAVE HOLDINGS LIMITED against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "40578"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "WHITELEAVE HOLDINGS LIMITED",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": -1.1845524311065674,
+     "wrong_score": -0.3889453411102295
+    },
+    "json_early": {
+     "correct_score": -5.389426231384277,
+     "wrong_score": -3.795884132385254
+    },
+    "json_late": {
+     "correct_score": -5.464919090270996,
+     "wrong_score": -5.431858539581299
+    },
+    "prose_early": {
+     "correct_score": -5.508318901062012,
+     "wrong_score": -2.244649887084961
+    },
+    "prose_late": {
+     "correct_score": -5.643162727355957,
+     "wrong_score": -4.761349678039551
+    },
+    "training_prose": {
+     "correct_score": -2.4753878116607666,
+     "wrong_score": -1.373668909072876
+    },
+    "heldout_prose": {
+     "correct_score": -3.503157377243042,
+     "wrong_score": -0.26286590099334717
+    },
+    "enum_json": {
+     "correct_score": -0.9206854701042175,
+     "wrong_score": -0.14540094137191772
+    },
+    "numeric_json": {
+     "correct_score": -0.9381014108657837,
+     "wrong_score": -0.14715281128883362
+    },
+    "explicit_negation": {
+     "correct_score": -0.7867878675460815,
+     "wrong_score": 0.1443471759557724
+    },
+    "yes_no": {
+     "correct_score": -1.9540364742279053,
+     "wrong_score": -0.4753325581550598
+    }
+   }
+  },
+  {
+   "name": "MB PTERA",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen MB PTERA against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "51407"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "MB PTERA",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": -0.2445799708366394,
+     "wrong_score": 0.3962048590183258
+    },
+    "json_early": {
+     "correct_score": -3.1540892124176025,
+     "wrong_score": -3.220587730407715
+    },
+    "json_late": {
+     "correct_score": -3.103585720062256,
+     "wrong_score": -3.0459132194519043
+    },
+    "prose_early": {
+     "correct_score": -3.630976676940918,
+     "wrong_score": -2.366079330444336
+    },
+    "prose_late": {
+     "correct_score": -3.7751598358154297,
+     "wrong_score": -3.14315128326416
+    },
+    "training_prose": {
+     "correct_score": -0.9790598154067993,
+     "wrong_score": -0.11424830555915833
+    },
+    "heldout_prose": {
+     "correct_score": -1.9256324768066406,
+     "wrong_score": -0.05926567316055298
+    },
+    "enum_json": {
+     "correct_score": -0.605661153793335,
+     "wrong_score": 0.38420116901397705
+    },
+    "numeric_json": {
+     "correct_score": -0.5598796606063843,
+     "wrong_score": 0.5026156306266785
+    },
+    "explicit_negation": {
+     "correct_score": -0.9231704473495483,
+     "wrong_score": 0.3549897074699402
+    },
+    "yes_no": {
+     "correct_score": -0.9335663318634033,
+     "wrong_score": 0.32392820715904236
+    }
+   }
+  },
+  {
+   "name": "MUHAMMAD JAMAL NETWORK",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen MUHAMMAD JAMAL NETWORK against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "16278"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "MUHAMMAD JAMAL NETWORK",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 5.1470232009887695,
+     "wrong_score": 1.2259860038757324
+    },
+    "json_early": {
+     "correct_score": -0.5167854428291321,
+     "wrong_score": -1.8430594205856323
+    },
+    "json_late": {
+     "correct_score": -0.544070303440094,
+     "wrong_score": -0.5461679697036743
+    },
+    "prose_early": {
+     "correct_score": -0.7904396057128906,
+     "wrong_score": -0.9023205637931824
+    },
+    "prose_late": {
+     "correct_score": -1.4431910514831543,
+     "wrong_score": -1.1609153747558594
+    },
+    "training_prose": {
+     "correct_score": 4.540688514709473,
+     "wrong_score": 0.8945618867874146
+    },
+    "heldout_prose": {
+     "correct_score": 1.6000728607177734,
+     "wrong_score": 0.5432206392288208
+    },
+    "enum_json": {
+     "correct_score": 4.953545570373535,
+     "wrong_score": 0.8857817053794861
+    },
+    "numeric_json": {
+     "correct_score": 5.299203395843506,
+     "wrong_score": 1.1659917831420898
+    },
+    "explicit_negation": {
+     "correct_score": 5.161391258239746,
+     "wrong_score": 1.1371855735778809
+    },
+    "yes_no": {
+     "correct_score": 3.8329386711120605,
+     "wrong_score": 0.7007623910903931
+    }
+   }
+  },
+  {
+   "name": "LIMITED LIABILITY COMPANY ALTEGRITY",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen LIMITED LIABILITY COMPANY ALTEGRITY against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "48869"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "LIMITED LIABILITY COMPANY ALTEGRITY",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 9.195350646972656,
+     "wrong_score": 1.2124431133270264
+    },
+    "json_early": {
+     "correct_score": 1.521368384361267,
+     "wrong_score": -2.9566121101379395
+    },
+    "json_late": {
+     "correct_score": 1.995650291442871,
+     "wrong_score": 1.847294569015503
+    },
+    "prose_early": {
+     "correct_score": 2.071444272994995,
+     "wrong_score": -1.0789875984191895
+    },
+    "prose_late": {
+     "correct_score": -0.25202637910842896,
+     "wrong_score": 0.1457350254058838
+    },
+    "training_prose": {
+     "correct_score": 7.071677207946777,
+     "wrong_score": 0.6989615559577942
+    },
+    "heldout_prose": {
+     "correct_score": 4.880128383636475,
+     "wrong_score": 0.2587001919746399
+    },
+    "enum_json": {
+     "correct_score": 9.006535530090332,
+     "wrong_score": 0.09156543016433716
+    },
+    "numeric_json": {
+     "correct_score": 8.867754936218262,
+     "wrong_score": 0.6956725120544434
+    },
+    "explicit_negation": {
+     "correct_score": 8.113508224487305,
+     "wrong_score": 3.0135388374328613
+    },
+    "yes_no": {
+     "correct_score": 6.717452049255371,
+     "wrong_score": -0.13577580451965332
+    }
+   }
+  },
+  {
+   "name": "BANK BELVEB OJSC",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen BANK BELVEB OJSC against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "18291"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "BANK BELVEB OJSC",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 5.914084434509277,
+     "wrong_score": 1.1409010887145996
+    },
+    "json_early": {
+     "correct_score": -0.31223607063293457,
+     "wrong_score": -2.2115976810455322
+    },
+    "json_late": {
+     "correct_score": -0.3277021646499634,
+     "wrong_score": -0.42549312114715576
+    },
+    "prose_early": {
+     "correct_score": -1.1836918592453003,
+     "wrong_score": -1.372390866279602
+    },
+    "prose_late": {
+     "correct_score": -1.349073886871338,
+     "wrong_score": -1.352828860282898
+    },
+    "training_prose": {
+     "correct_score": 4.944478511810303,
+     "wrong_score": 1.1373358964920044
+    },
+    "heldout_prose": {
+     "correct_score": 2.0042033195495605,
+     "wrong_score": 0.37328511476516724
+    },
+    "enum_json": {
+     "correct_score": 5.563924789428711,
+     "wrong_score": 0.9492373466491699
+    },
+    "numeric_json": {
+     "correct_score": 5.774497985839844,
+     "wrong_score": 0.8113460540771484
+    },
+    "explicit_negation": {
+     "correct_score": 5.747159957885742,
+     "wrong_score": 1.0758335590362549
+    },
+    "yes_no": {
+     "correct_score": 4.727477073669434,
+     "wrong_score": 0.7735322117805481
+    }
+   }
+  },
+  {
+   "name": "JUI PANG SHIPPING CO LTD",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen JUI PANG SHIPPING CO LTD against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "26929"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "JUI PANG SHIPPING CO LTD",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 10.363533020019531,
+     "wrong_score": 3.7919275760650635
+    },
+    "json_early": {
+     "correct_score": 3.942072629928589,
+     "wrong_score": -0.3536776304244995
+    },
+    "json_late": {
+     "correct_score": 4.172675132751465,
+     "wrong_score": 4.0915446281433105
+    },
+    "prose_early": {
+     "correct_score": 4.38586950302124,
+     "wrong_score": -0.24709975719451904
+    },
+    "prose_late": {
+     "correct_score": 2.0201773643493652,
+     "wrong_score": 1.15576171875
+    },
+    "training_prose": {
+     "correct_score": 11.039434432983398,
+     "wrong_score": 4.811313629150391
+    },
+    "heldout_prose": {
+     "correct_score": 7.089511394500732,
+     "wrong_score": 1.6374270915985107
+    },
+    "enum_json": {
+     "correct_score": 10.526927947998047,
+     "wrong_score": 3.359405040740967
+    },
+    "numeric_json": {
+     "correct_score": 10.354452133178711,
+     "wrong_score": 3.1370110511779785
+    },
+    "explicit_negation": {
+     "correct_score": 11.218890190124512,
+     "wrong_score": 4.288474082946777
+    },
+    "yes_no": {
+     "correct_score": 10.741850852966309,
+     "wrong_score": 2.505725145339966
+    }
+   }
+  },
+  {
+   "name": "TUNISIAN COMBAT GROUP",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen TUNISIAN COMBAT GROUP against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "7268"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "TUNISIAN COMBAT GROUP",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 3.8281090259552,
+     "wrong_score": 1.2337350845336914
+    },
+    "json_early": {
+     "correct_score": -1.8796929121017456,
+     "wrong_score": -2.5593416690826416
+    },
+    "json_late": {
+     "correct_score": -2.089630603790283,
+     "wrong_score": -2.0915544033050537
+    },
+    "prose_early": {
+     "correct_score": -2.0638034343719482,
+     "wrong_score": -1.3076577186584473
+    },
+    "prose_late": {
+     "correct_score": -1.9125322103500366,
+     "wrong_score": -1.7277750968933105
+    },
+    "training_prose": {
+     "correct_score": 3.96079683303833,
+     "wrong_score": 1.8596868515014648
+    },
+    "heldout_prose": {
+     "correct_score": 1.579567790031433,
+     "wrong_score": 0.8232681751251221
+    },
+    "enum_json": {
+     "correct_score": 3.874671697616577,
+     "wrong_score": 1.359452724456787
+    },
+    "numeric_json": {
+     "correct_score": 3.728445053100586,
+     "wrong_score": 1.424404501914978
+    },
+    "explicit_negation": {
+     "correct_score": 4.200460910797119,
+     "wrong_score": 1.8693466186523438
+    },
+    "yes_no": {
+     "correct_score": 3.4359259605407715,
+     "wrong_score": 1.2100163698196411
+    }
+   }
+  },
+  {
+   "name": "CONSPIRACY OF FIRE NUCLEI",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen CONSPIRACY OF FIRE NUCLEI against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "12928"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "CONSPIRACY OF FIRE NUCLEI",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 2.5508673191070557,
+     "wrong_score": 0.6604040265083313
+    },
+    "json_early": {
+     "correct_score": -1.636737585067749,
+     "wrong_score": -2.6676759719848633
+    },
+    "json_late": {
+     "correct_score": -1.877908706665039,
+     "wrong_score": -1.8055905103683472
+    },
+    "prose_early": {
+     "correct_score": -2.2448785305023193,
+     "wrong_score": -1.3858633041381836
+    },
+    "prose_late": {
+     "correct_score": -3.113797664642334,
+     "wrong_score": -2.345108985900879
+    },
+    "training_prose": {
+     "correct_score": 2.975841999053955,
+     "wrong_score": 0.8319888114929199
+    },
+    "heldout_prose": {
+     "correct_score": 0.7164884209632874,
+     "wrong_score": 0.22809509932994843
+    },
+    "enum_json": {
+     "correct_score": 2.4084489345550537,
+     "wrong_score": 0.6874991655349731
+    },
+    "numeric_json": {
+     "correct_score": 2.5057146549224854,
+     "wrong_score": 0.8487014770507812
+    },
+    "explicit_negation": {
+     "correct_score": 1.6459987163543701,
+     "wrong_score": 1.0257846117019653
+    },
+    "yes_no": {
+     "correct_score": 2.0532889366149902,
+     "wrong_score": 0.5804564356803894
+    }
+   }
+  },
+  {
+   "name": "CJSC ENERGO-OIL",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen CJSC ENERGO-OIL against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "32732"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "CJSC ENERGO-OIL",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 6.649728775024414,
+     "wrong_score": 1.2684326171875
+    },
+    "json_early": {
+     "correct_score": -0.9226400852203369,
+     "wrong_score": -2.534357786178589
+    },
+    "json_late": {
+     "correct_score": -1.0950005054473877,
+     "wrong_score": -1.0845566987991333
+    },
+    "prose_early": {
+     "correct_score": -0.998741090297699,
+     "wrong_score": -1.4174944162368774
+    },
+    "prose_late": {
+     "correct_score": -1.4702086448669434,
+     "wrong_score": -1.7802543640136719
+    },
+    "training_prose": {
+     "correct_score": 6.586976051330566,
+     "wrong_score": 1.1104247570037842
+    },
+    "heldout_prose": {
+     "correct_score": 3.1546592712402344,
+     "wrong_score": 0.6535971164703369
+    },
+    "enum_json": {
+     "correct_score": 6.724114418029785,
+     "wrong_score": 1.4394030570983887
+    },
+    "numeric_json": {
+     "correct_score": 6.696903228759766,
+     "wrong_score": 1.3014589548110962
+    },
+    "explicit_negation": {
+     "correct_score": 7.984968185424805,
+     "wrong_score": 0.9949991106987
+    },
+    "yes_no": {
+     "correct_score": 6.605219841003418,
+     "wrong_score": 1.0455451011657715
+    }
+   }
+  },
+  {
+   "name": "AKTSIONERNOE OBSHCHESTVO REMVOORUZHENIE",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen AKTSIONERNOE OBSHCHESTVO REMVOORUZHENIE against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "51129"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "AKTSIONERNOE OBSHCHESTVO REMVOORUZHENIE",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 11.987205505371094,
+     "wrong_score": 2.1731529235839844
+    },
+    "json_early": {
+     "correct_score": 1.1933541297912598,
+     "wrong_score": -1.7142761945724487
+    },
+    "json_late": {
+     "correct_score": 1.2597949504852295,
+     "wrong_score": 1.1372718811035156
+    },
+    "prose_early": {
+     "correct_score": 1.0904514789581299,
+     "wrong_score": 0.2674584984779358
+    },
+    "prose_late": {
+     "correct_score": -1.1227818727493286,
+     "wrong_score": -1.8263565301895142
+    },
+    "training_prose": {
+     "correct_score": 9.2256441116333,
+     "wrong_score": 0.8378422260284424
+    },
+    "heldout_prose": {
+     "correct_score": 3.83443284034729,
+     "wrong_score": 1.1714717149734497
+    },
+    "enum_json": {
+     "correct_score": 11.982152938842773,
+     "wrong_score": 2.0225441455841064
+    },
+    "numeric_json": {
+     "correct_score": 11.180543899536133,
+     "wrong_score": 1.6519455909729004
+    },
+    "explicit_negation": {
+     "correct_score": 11.130574226379395,
+     "wrong_score": 1.526884913444519
+    },
+    "yes_no": {
+     "correct_score": 7.460799217224121,
+     "wrong_score": 1.2757318019866943
+    }
+   }
+  },
+  {
+   "name": "WE FREIGHT INVESTMENT FZCO",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen WE FREIGHT INVESTMENT FZCO against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "58137"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "WE FREIGHT INVESTMENT FZCO",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 2.3195266723632812,
+     "wrong_score": 0.48333850502967834
+    },
+    "json_early": {
+     "correct_score": -0.256679892539978,
+     "wrong_score": -1.9883983135223389
+    },
+    "json_late": {
+     "correct_score": -0.6373551487922668,
+     "wrong_score": -0.6352147459983826
+    },
+    "prose_early": {
+     "correct_score": -1.3302032947540283,
+     "wrong_score": -0.9486885070800781
+    },
+    "prose_late": {
+     "correct_score": -2.277522563934326,
+     "wrong_score": -1.7814879417419434
+    },
+    "training_prose": {
+     "correct_score": 1.068593978881836,
+     "wrong_score": 0.0035357773303985596
+    },
+    "heldout_prose": {
+     "correct_score": 0.04945111274719238,
+     "wrong_score": 0.29357409477233887
+    },
+    "enum_json": {
+     "correct_score": 1.7858177423477173,
+     "wrong_score": 0.28152427077293396
+    },
+    "numeric_json": {
+     "correct_score": 2.511138677597046,
+     "wrong_score": 0.4011434018611908
+    },
+    "explicit_negation": {
+     "correct_score": 1.0797114372253418,
+     "wrong_score": 0.5212208032608032
+    },
+    "yes_no": {
+     "correct_score": 0.702427327632904,
+     "wrong_score": 0.18805748224258423
+    }
+   }
+  },
+  {
+   "name": "RED EAGLE GROUP",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen RED EAGLE GROUP against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "4709"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "RED EAGLE GROUP",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 1.85389244556427,
+     "wrong_score": 0.40850239992141724
+    },
+    "json_early": {
+     "correct_score": -2.212662696838379,
+     "wrong_score": -3.303499937057495
+    },
+    "json_late": {
+     "correct_score": -2.049887180328369,
+     "wrong_score": -2.0043702125549316
+    },
+    "prose_early": {
+     "correct_score": -2.7642788887023926,
+     "wrong_score": -2.100839376449585
+    },
+    "prose_late": {
+     "correct_score": -2.8286519050598145,
+     "wrong_score": -2.328383684158325
+    },
+    "training_prose": {
+     "correct_score": 1.4090198278427124,
+     "wrong_score": 0.21869680285453796
+    },
+    "heldout_prose": {
+     "correct_score": 0.05012047290802002,
+     "wrong_score": 0.124449223279953
+    },
+    "enum_json": {
+     "correct_score": 1.6312109231948853,
+     "wrong_score": 0.41292181611061096
+    },
+    "numeric_json": {
+     "correct_score": 1.80850088596344,
+     "wrong_score": 0.36621156334877014
+    },
+    "explicit_negation": {
+     "correct_score": 2.1097419261932373,
+     "wrong_score": 0.6798388361930847
+    },
+    "yes_no": {
+     "correct_score": 0.8316568732261658,
+     "wrong_score": 0.340992271900177
+    }
+   }
+  },
+  {
+   "name": "JOINT STOCK COMPANY SBERBANK-AUTOMATED SYSTEM FOR TRADING",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen JOINT STOCK COMPANY SBERBANK-AUTOMATED SYSTEM FOR TRADING against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "18743"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "JOINT STOCK COMPANY SBERBANK-AUTOMATED SYSTEM FOR TRADING",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 12.027113914489746,
+     "wrong_score": 3.5947682857513428
+    },
+    "json_early": {
+     "correct_score": 4.599198341369629,
+     "wrong_score": 0.944670557975769
+    },
+    "json_late": {
+     "correct_score": 4.527219295501709,
+     "wrong_score": 4.412967205047607
+    },
+    "prose_early": {
+     "correct_score": 4.007576942443848,
+     "wrong_score": -0.0477980375289917
+    },
+    "prose_late": {
+     "correct_score": 2.9461865425109863,
+     "wrong_score": 1.35861337184906
+    },
+    "training_prose": {
+     "correct_score": 11.86623477935791,
+     "wrong_score": 2.721865177154541
+    },
+    "heldout_prose": {
+     "correct_score": 9.461925506591797,
+     "wrong_score": 1.0720419883728027
+    },
+    "enum_json": {
+     "correct_score": 12.1881103515625,
+     "wrong_score": 3.636590003967285
+    },
+    "numeric_json": {
+     "correct_score": 11.99828815460205,
+     "wrong_score": 2.8628079891204834
+    },
+    "explicit_negation": {
+     "correct_score": 12.286243438720703,
+     "wrong_score": 7.43438720703125
+    },
+    "yes_no": {
+     "correct_score": 10.298933029174805,
+     "wrong_score": 0.8125460147857666
+    }
+   }
+  },
+  {
+   "name": "OBSHCHESTVO S OGRANICHENNOI OTVETSTVENNOSTYU ALBATROS",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen OBSHCHESTVO S OGRANICHENNOI OTVETSTVENNOSTYU ALBATROS against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "45709"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "OBSHCHESTVO S OGRANICHENNOI OTVETSTVENNOSTYU ALBATROS",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 9.863043785095215,
+     "wrong_score": 3.069072723388672
+    },
+    "json_early": {
+     "correct_score": -0.9174195528030396,
+     "wrong_score": -1.83224356174469
+    },
+    "json_late": {
+     "correct_score": -0.6613936424255371,
+     "wrong_score": -0.6574674844741821
+    },
+    "prose_early": {
+     "correct_score": -0.8297023177146912,
+     "wrong_score": -0.24150705337524414
+    },
+    "prose_late": {
+     "correct_score": -0.9998281002044678,
+     "wrong_score": -0.9117103815078735
+    },
+    "training_prose": {
+     "correct_score": 9.40638542175293,
+     "wrong_score": 2.2049946784973145
+    },
+    "heldout_prose": {
+     "correct_score": 4.967065811157227,
+     "wrong_score": 1.032197117805481
+    },
+    "enum_json": {
+     "correct_score": 10.154496192932129,
+     "wrong_score": 2.3674850463867188
+    },
+    "numeric_json": {
+     "correct_score": 9.536365509033203,
+     "wrong_score": 1.881380319595337
+    },
+    "explicit_negation": {
+     "correct_score": 8.988046646118164,
+     "wrong_score": 2.731753349304199
+    },
+    "yes_no": {
+     "correct_score": 6.6815948486328125,
+     "wrong_score": 1.58125901222229
+    }
+   }
+  },
+  {
+   "name": "MINISTRY OF DEFENSE LEGION EXPORT",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen MINISTRY OF DEFENSE LEGION EXPORT against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "13156"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "MINISTRY OF DEFENSE LEGION EXPORT",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 6.0095038414001465,
+     "wrong_score": 0.5404670238494873
+    },
+    "json_early": {
+     "correct_score": -0.21518933773040771,
+     "wrong_score": -2.4579625129699707
+    },
+    "json_late": {
+     "correct_score": -0.2654987573623657,
+     "wrong_score": -0.25173890590667725
+    },
+    "prose_early": {
+     "correct_score": -1.2361942529678345,
+     "wrong_score": -1.1719449758529663
+    },
+    "prose_late": {
+     "correct_score": -3.323657989501953,
+     "wrong_score": -2.4537031650543213
+    },
+    "training_prose": {
+     "correct_score": 4.8445539474487305,
+     "wrong_score": 0.512718915939331
+    },
+    "heldout_prose": {
+     "correct_score": 1.8666843175888062,
+     "wrong_score": 0.3511897325515747
+    },
+    "enum_json": {
+     "correct_score": 6.00280237197876,
+     "wrong_score": 0.5971716642379761
+    },
+    "numeric_json": {
+     "correct_score": 5.970097541809082,
+     "wrong_score": 0.7515227794647217
+    },
+    "explicit_negation": {
+     "correct_score": 6.130773067474365,
+     "wrong_score": 1.790922999382019
+    },
+    "yes_no": {
+     "correct_score": 4.220580577850342,
+     "wrong_score": 0.17956113815307617
+    }
+   }
+  },
+  {
+   "name": "AO INFRAVEB",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen AO INFRAVEB against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "35001"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "AO INFRAVEB",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 7.208888053894043,
+     "wrong_score": 1.3526432514190674
+    },
+    "json_early": {
+     "correct_score": 3.418931484222412,
+     "wrong_score": -2.0081441402435303
+    },
+    "json_late": {
+     "correct_score": 3.77921986579895,
+     "wrong_score": 3.670262336730957
+    },
+    "prose_early": {
+     "correct_score": 3.7254862785339355,
+     "wrong_score": -0.6254650950431824
+    },
+    "prose_late": {
+     "correct_score": 1.1561453342437744,
+     "wrong_score": 0.17357254028320312
+    },
+    "training_prose": {
+     "correct_score": 7.807920455932617,
+     "wrong_score": 2.238534688949585
+    },
+    "heldout_prose": {
+     "correct_score": 2.2630739212036133,
+     "wrong_score": 0.49309390783309937
+    },
+    "enum_json": {
+     "correct_score": 7.374692916870117,
+     "wrong_score": 1.234893560409546
+    },
+    "numeric_json": {
+     "correct_score": 7.505805969238281,
+     "wrong_score": 1.1991684436798096
+    },
+    "explicit_negation": {
+     "correct_score": 5.833677768707275,
+     "wrong_score": 1.0613088607788086
+    },
+    "yes_no": {
+     "correct_score": 6.576164722442627,
+     "wrong_score": 1.3327524662017822
+    }
+   }
+  },
+  {
+   "name": "INDUSTRIAL FACTORIES OF PRECISION-MACHINERY",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen INDUSTRIAL FACTORIES OF PRECISION-MACHINERY against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "10388"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "INDUSTRIAL FACTORIES OF PRECISION-MACHINERY",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 4.22272253036499,
+     "wrong_score": 0.3545111417770386
+    },
+    "json_early": {
+     "correct_score": -2.2251057624816895,
+     "wrong_score": -2.8886208534240723
+    },
+    "json_late": {
+     "correct_score": -2.2954208850860596,
+     "wrong_score": -2.281376600265503
+    },
+    "prose_early": {
+     "correct_score": -2.6665306091308594,
+     "wrong_score": -1.3297067880630493
+    },
+    "prose_late": {
+     "correct_score": -3.1316988468170166,
+     "wrong_score": -2.46933650970459
+    },
+    "training_prose": {
+     "correct_score": 3.2012414932250977,
+     "wrong_score": 0.363018661737442
+    },
+    "heldout_prose": {
+     "correct_score": 1.2176605463027954,
+     "wrong_score": 0.3845728635787964
+    },
+    "enum_json": {
+     "correct_score": 4.091581344604492,
+     "wrong_score": 0.5661125183105469
+    },
+    "numeric_json": {
+     "correct_score": 4.180227756500244,
+     "wrong_score": 0.5071099996566772
+    },
+    "explicit_negation": {
+     "correct_score": 3.915377616882324,
+     "wrong_score": 0.8596354126930237
+    },
+    "yes_no": {
+     "correct_score": 3.267324447631836,
+     "wrong_score": 0.37719911336898804
+    }
+   }
+  },
+  {
+   "name": "YALTA MERCHANT SEA PORT",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen YALTA MERCHANT SEA PORT against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "18315"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "YALTA MERCHANT SEA PORT",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 2.338101863861084,
+     "wrong_score": 0.18413953483104706
+    },
+    "json_early": {
+     "correct_score": -0.13829469680786133,
+     "wrong_score": -2.3627254962921143
+    },
+    "json_late": {
+     "correct_score": -0.21833902597427368,
+     "wrong_score": -0.24427646398544312
+    },
+    "prose_early": {
+     "correct_score": -0.8262048959732056,
+     "wrong_score": -1.2139008045196533
+    },
+    "prose_late": {
+     "correct_score": -2.508169651031494,
+     "wrong_score": -1.8020457029342651
+    },
+    "training_prose": {
+     "correct_score": 1.3144714832305908,
+     "wrong_score": -0.2516823410987854
+    },
+    "heldout_prose": {
+     "correct_score": -1.0734341144561768,
+     "wrong_score": -0.1579960286617279
+    },
+    "enum_json": {
+     "correct_score": 1.879016637802124,
+     "wrong_score": 0.21112138032913208
+    },
+    "numeric_json": {
+     "correct_score": 2.2581405639648438,
+     "wrong_score": 0.3934675455093384
+    },
+    "explicit_negation": {
+     "correct_score": 1.5622642040252686,
+     "wrong_score": 0.34067898988723755
+    },
+    "yes_no": {
+     "correct_score": 0.8077027201652527,
+     "wrong_score": -0.009364873170852661
+    }
+   }
+  },
+  {
+   "name": "AL-SANDUQ AL-FILISTINI LIL-IGHATHA WA AL-TANMIYA",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen AL-SANDUQ AL-FILISTINI LIL-IGHATHA WA AL-TANMIYA against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "7917"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "AL-SANDUQ AL-FILISTINI LIL-IGHATHA WA AL-TANMIYA",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 9.29848575592041,
+     "wrong_score": 3.243391752243042
+    },
+    "json_early": {
+     "correct_score": 3.842480182647705,
+     "wrong_score": 0.8226460218429565
+    },
+    "json_late": {
+     "correct_score": 4.47337532043457,
+     "wrong_score": 4.4267730712890625
+    },
+    "prose_early": {
+     "correct_score": 4.817158222198486,
+     "wrong_score": 1.4468975067138672
+    },
+    "prose_late": {
+     "correct_score": 1.6015946865081787,
+     "wrong_score": 1.1472883224487305
+    },
+    "training_prose": {
+     "correct_score": 8.883214950561523,
+     "wrong_score": 2.2636914253234863
+    },
+    "heldout_prose": {
+     "correct_score": 4.656684398651123,
+     "wrong_score": 1.9455578327178955
+    },
+    "enum_json": {
+     "correct_score": 10.078542709350586,
+     "wrong_score": 2.942267894744873
+    },
+    "numeric_json": {
+     "correct_score": 8.631149291992188,
+     "wrong_score": 2.403103828430176
+    },
+    "explicit_negation": {
+     "correct_score": 9.448587417602539,
+     "wrong_score": 2.834949493408203
+    },
+    "yes_no": {
+     "correct_score": 7.074680328369141,
+     "wrong_score": 1.53935968875885
+    }
+   }
+  },
+  {
+   "name": "FORCES DEMOCRATIQUES ALLIEES-ARMEE NATIONALE DE LIBERATION DE L'OUGANDA",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen FORCES DEMOCRATIQUES ALLIEES-ARMEE NATIONALE DE LIBERATION DE L'OUGANDA against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "16696"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "FORCES DEMOCRATIQUES ALLIEES-ARMEE NATIONALE DE LIBERATION DE L'OUGANDA",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 5.832270622253418,
+     "wrong_score": 1.6920125484466553
+    },
+    "json_early": {
+     "correct_score": -1.4445679187774658,
+     "wrong_score": -3.5607991218566895
+    },
+    "json_late": {
+     "correct_score": -0.6120213270187378,
+     "wrong_score": -0.6215215921401978
+    },
+    "prose_early": {
+     "correct_score": -3.273341655731201,
+     "wrong_score": -2.173410654067993
+    },
+    "prose_late": {
+     "correct_score": -4.062967777252197,
+     "wrong_score": -3.376291036605835
+    },
+    "training_prose": {
+     "correct_score": 5.26108980178833,
+     "wrong_score": 1.2703821659088135
+    },
+    "heldout_prose": {
+     "correct_score": 0.4915418028831482,
+     "wrong_score": 0.3384362459182739
+    },
+    "enum_json": {
+     "correct_score": 5.51627254486084,
+     "wrong_score": 1.4531073570251465
+    },
+    "numeric_json": {
+     "correct_score": 6.045409202575684,
+     "wrong_score": 1.7545552253723145
+    },
+    "explicit_negation": {
+     "correct_score": 4.808112144470215,
+     "wrong_score": 0.8446572422981262
+    },
+    "yes_no": {
+     "correct_score": 5.362093925476074,
+     "wrong_score": 1.5834206342697144
+    }
+   }
+  },
+  {
+   "name": "JSC BELSHINA",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen JSC BELSHINA against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "12863"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "JSC BELSHINA",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 3.940436363220215,
+     "wrong_score": 1.3548948764801025
+    },
+    "json_early": {
+     "correct_score": -0.09277606010437012,
+     "wrong_score": -2.527378559112549
+    },
+    "json_late": {
+     "correct_score": -0.3240910768508911,
+     "wrong_score": -0.32823967933654785
+    },
+    "prose_early": {
+     "correct_score": -0.8464024662971497,
+     "wrong_score": -1.6132389307022095
+    },
+    "prose_late": {
+     "correct_score": -0.4478715658187866,
+     "wrong_score": -1.2333338260650635
+    },
+    "training_prose": {
+     "correct_score": 3.3406784534454346,
+     "wrong_score": 1.6142066717147827
+    },
+    "heldout_prose": {
+     "correct_score": 2.0410122871398926,
+     "wrong_score": 0.9083992838859558
+    },
+    "enum_json": {
+     "correct_score": 3.8457789421081543,
+     "wrong_score": 1.344260334968567
+    },
+    "numeric_json": {
+     "correct_score": 4.272621154785156,
+     "wrong_score": 1.5384113788604736
+    },
+    "explicit_negation": {
+     "correct_score": 4.191369533538818,
+     "wrong_score": 1.6335030794143677
+    },
+    "yes_no": {
+     "correct_score": 3.236788272857666,
+     "wrong_score": 1.49470853805542
+    }
+   }
+  },
+  {
+   "name": "MOHSEN KHANDAN AND PARTNERS COMPANY",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen MOHSEN KHANDAN AND PARTNERS COMPANY against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "57933"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "MOHSEN KHANDAN AND PARTNERS COMPANY",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 5.928384304046631,
+     "wrong_score": 1.0645458698272705
+    },
+    "json_early": {
+     "correct_score": 0.3767543435096741,
+     "wrong_score": -2.1713387966156006
+    },
+    "json_late": {
+     "correct_score": 0.12698721885681152,
+     "wrong_score": 0.09611040353775024
+    },
+    "prose_early": {
+     "correct_score": -0.3502742052078247,
+     "wrong_score": -1.0967707633972168
+    },
+    "prose_late": {
+     "correct_score": -1.4707783460617065,
+     "wrong_score": -1.4917011260986328
+    },
+    "training_prose": {
+     "correct_score": 6.073720932006836,
+     "wrong_score": 0.8130887746810913
+    },
+    "heldout_prose": {
+     "correct_score": 2.768646717071533,
+     "wrong_score": 0.5386649370193481
+    },
+    "enum_json": {
+     "correct_score": 6.062463760375977,
+     "wrong_score": 1.1227086782455444
+    },
+    "numeric_json": {
+     "correct_score": 6.3517560958862305,
+     "wrong_score": 1.0084335803985596
+    },
+    "explicit_negation": {
+     "correct_score": 6.636496543884277,
+     "wrong_score": 2.0952868461608887
+    },
+    "yes_no": {
+     "correct_score": 5.060347080230713,
+     "wrong_score": 0.38018491864204407
+    }
+   }
+  },
+  {
+   "name": "YANGSHAN SHENGANG INTERNATIONAL OIL STORAGE CO. LTD.",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen YANGSHAN SHENGANG INTERNATIONAL OIL STORAGE CO. LTD. against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "55262"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "YANGSHAN SHENGANG INTERNATIONAL OIL STORAGE CO. LTD.",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 9.035541534423828,
+     "wrong_score": 4.5030694007873535
+    },
+    "json_early": {
+     "correct_score": 3.7576420307159424,
+     "wrong_score": -0.5927557349205017
+    },
+    "json_late": {
+     "correct_score": 3.3737871646881104,
+     "wrong_score": 3.294511556625366
+    },
+    "prose_early": {
+     "correct_score": 4.526506423950195,
+     "wrong_score": 0.24574095010757446
+    },
+    "prose_late": {
+     "correct_score": 2.6840498447418213,
+     "wrong_score": 1.390616774559021
+    },
+    "training_prose": {
+     "correct_score": 9.288984298706055,
+     "wrong_score": 3.289694309234619
+    },
+    "heldout_prose": {
+     "correct_score": 8.148069381713867,
+     "wrong_score": 1.5660380125045776
+    },
+    "enum_json": {
+     "correct_score": 9.110895156860352,
+     "wrong_score": 4.086338996887207
+    },
+    "numeric_json": {
+     "correct_score": 9.432380676269531,
+     "wrong_score": 3.2017574310302734
+    },
+    "explicit_negation": {
+     "correct_score": 9.902215003967285,
+     "wrong_score": 5.4290595054626465
+    },
+    "yes_no": {
+     "correct_score": 8.969058990478516,
+     "wrong_score": 1.2920517921447754
+    }
+   }
+  },
+  {
+   "name": "VYATKA MACHINERY PLANT AVITEC JSC",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen VYATKA MACHINERY PLANT AVITEC JSC against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "37718"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "VYATKA MACHINERY PLANT AVITEC JSC",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 6.468847274780273,
+     "wrong_score": 1.3347196578979492
+    },
+    "json_early": {
+     "correct_score": 1.250176191329956,
+     "wrong_score": -2.0164313316345215
+    },
+    "json_late": {
+     "correct_score": 1.2624213695526123,
+     "wrong_score": 1.1859080791473389
+    },
+    "prose_early": {
+     "correct_score": 0.5634548664093018,
+     "wrong_score": -0.7738000750541687
+    },
+    "prose_late": {
+     "correct_score": -1.2093727588653564,
+     "wrong_score": -1.0774922370910645
+    },
+    "training_prose": {
+     "correct_score": 5.859374046325684,
+     "wrong_score": 0.8963577747344971
+    },
+    "heldout_prose": {
+     "correct_score": 1.8873509168624878,
+     "wrong_score": 0.4395773708820343
+    },
+    "enum_json": {
+     "correct_score": 6.033740997314453,
+     "wrong_score": 1.1036005020141602
+    },
+    "numeric_json": {
+     "correct_score": 6.721707344055176,
+     "wrong_score": 0.9258739948272705
+    },
+    "explicit_negation": {
+     "correct_score": 6.834987640380859,
+     "wrong_score": 1.7317136526107788
+    },
+    "yes_no": {
+     "correct_score": 5.461907386779785,
+     "wrong_score": 0.7555103302001953
+    }
+   }
+  },
+  {
+   "name": "AVTONOMNAYA NEKOMMERCHESKAYA ORGANIZATSIYA DOPOLNITELNOGO PROFESSIONALNOGO OBRAZOVANIYA UCHEBNYI TSENTR ESHELON",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen AVTONOMNAYA NEKOMMERCHESKAYA ORGANIZATSIYA DOPOLNITELNOGO PROFESSIONALNOGO OBRAZOVANIYA UCHEBNYI TSENTR ESHELON against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "47931"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "AVTONOMNAYA NEKOMMERCHESKAYA ORGANIZATSIYA DOPOLNITELNOGO PROFESSIONALNOGO OBRAZOVANIYA UCHEBNYI TSENTR ESHELON",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 11.233024597167969,
+     "wrong_score": 4.980314254760742
+    },
+    "json_early": {
+     "correct_score": 0.22856712341308594,
+     "wrong_score": -0.9989572763442993
+    },
+    "json_late": {
+     "correct_score": -0.023782968521118164,
+     "wrong_score": -0.08183932304382324
+    },
+    "prose_early": {
+     "correct_score": 0.22862458229064941,
+     "wrong_score": -0.12560904026031494
+    },
+    "prose_late": {
+     "correct_score": -0.998055636882782,
+     "wrong_score": -1.2410939931869507
+    },
+    "training_prose": {
+     "correct_score": 9.864616394042969,
+     "wrong_score": 3.4254791736602783
+    },
+    "heldout_prose": {
+     "correct_score": 8.129963874816895,
+     "wrong_score": 2.2592833042144775
+    },
+    "enum_json": {
+     "correct_score": 10.956515312194824,
+     "wrong_score": 3.489286422729492
+    },
+    "numeric_json": {
+     "correct_score": 10.75528335571289,
+     "wrong_score": 3.456937789916992
+    },
+    "explicit_negation": {
+     "correct_score": 10.556486129760742,
+     "wrong_score": 5.309295177459717
+    },
+    "yes_no": {
+     "correct_score": 9.11483383178711,
+     "wrong_score": 1.9515410661697388
+    }
+   }
+  },
+  {
+   "name": "ASYAF GROUP",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen ASYAF GROUP against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "18536"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "ASYAF GROUP",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 1.895124912261963,
+     "wrong_score": 0.42725566029548645
+    },
+    "json_early": {
+     "correct_score": -2.2484006881713867,
+     "wrong_score": -3.423865795135498
+    },
+    "json_late": {
+     "correct_score": -2.2974853515625,
+     "wrong_score": -2.262371063232422
+    },
+    "prose_early": {
+     "correct_score": -3.010227918624878,
+     "wrong_score": -2.4104666709899902
+    },
+    "prose_late": {
+     "correct_score": -3.246868371963501,
+     "wrong_score": -2.852297067642212
+    },
+    "training_prose": {
+     "correct_score": 1.4380605220794678,
+     "wrong_score": 0.4849538207054138
+    },
+    "heldout_prose": {
+     "correct_score": -0.2913739085197449,
+     "wrong_score": 0.11582857370376587
+    },
+    "enum_json": {
+     "correct_score": 1.814659833908081,
+     "wrong_score": 0.5692816972732544
+    },
+    "numeric_json": {
+     "correct_score": 2.075260877609253,
+     "wrong_score": 0.4940010607242584
+    },
+    "explicit_negation": {
+     "correct_score": 1.924241065979004,
+     "wrong_score": 0.6625082492828369
+    },
+    "yes_no": {
+     "correct_score": 1.1181187629699707,
+     "wrong_score": 0.5698901414871216
+    }
+   }
+  },
+  {
+   "name": "TRANSPORTES LC",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen TRANSPORTES LC against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "13431"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "TRANSPORTES LC",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 0.3750547170639038,
+     "wrong_score": 0.4196323752403259
+    },
+    "json_early": {
+     "correct_score": -2.2236180305480957,
+     "wrong_score": -3.108189582824707
+    },
+    "json_late": {
+     "correct_score": -2.2935709953308105,
+     "wrong_score": -2.2477245330810547
+    },
+    "prose_early": {
+     "correct_score": -1.6850686073303223,
+     "wrong_score": -1.9161620140075684
+    },
+    "prose_late": {
+     "correct_score": -3.413447380065918,
+     "wrong_score": -2.861264228820801
+    },
+    "training_prose": {
+     "correct_score": 0.1151418685913086,
+     "wrong_score": 0.31066346168518066
+    },
+    "heldout_prose": {
+     "correct_score": -1.0915775299072266,
+     "wrong_score": 0.06666040420532227
+    },
+    "enum_json": {
+     "correct_score": 0.28483372926712036,
+     "wrong_score": 0.45750442147254944
+    },
+    "numeric_json": {
+     "correct_score": 0.31022924184799194,
+     "wrong_score": 0.5918595194816589
+    },
+    "explicit_negation": {
+     "correct_score": 0.1704806685447693,
+     "wrong_score": 0.569217324256897
+    },
+    "yes_no": {
+     "correct_score": 0.5787109136581421,
+     "wrong_score": 0.5979592800140381
+    }
+   }
+  },
+  {
+   "name": "JOINT STOCK COMPANY NIIMA PROGRESS",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen JOINT STOCK COMPANY NIIMA PROGRESS against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "38177"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "JOINT STOCK COMPANY NIIMA PROGRESS",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 11.80473518371582,
+     "wrong_score": 2.8949596881866455
+    },
+    "json_early": {
+     "correct_score": 4.3119611740112305,
+     "wrong_score": -1.784254550933838
+    },
+    "json_late": {
+     "correct_score": 4.166194438934326,
+     "wrong_score": 4.141855239868164
+    },
+    "prose_early": {
+     "correct_score": 3.6454803943634033,
+     "wrong_score": -0.2135220766067505
+    },
+    "prose_late": {
+     "correct_score": 0.4383387565612793,
+     "wrong_score": -0.108925461769104
+    },
+    "training_prose": {
+     "correct_score": 10.499017715454102,
+     "wrong_score": 2.7663512229919434
+    },
+    "heldout_prose": {
+     "correct_score": 7.105301380157471,
+     "wrong_score": 0.6334426403045654
+    },
+    "enum_json": {
+     "correct_score": 11.54948616027832,
+     "wrong_score": 2.345139980316162
+    },
+    "numeric_json": {
+     "correct_score": 11.390975952148438,
+     "wrong_score": 2.1534855365753174
+    },
+    "explicit_negation": {
+     "correct_score": 11.892932891845703,
+     "wrong_score": 5.512945175170898
+    },
+    "yes_no": {
+     "correct_score": 9.103641510009766,
+     "wrong_score": 0.7028715014457703
+    }
+   }
+  },
+  {
+   "name": "CRYOGENMASH",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen CRYOGENMASH against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "20306"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "CRYOGENMASH",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 1.0837167501449585,
+     "wrong_score": 0.3830317258834839
+    },
+    "json_early": {
+     "correct_score": -3.0041956901550293,
+     "wrong_score": -3.3370819091796875
+    },
+    "json_late": {
+     "correct_score": -3.1894350051879883,
+     "wrong_score": -3.1157901287078857
+    },
+    "prose_early": {
+     "correct_score": -3.645249366760254,
+     "wrong_score": -2.032227039337158
+    },
+    "prose_late": {
+     "correct_score": -3.879840135574341,
+     "wrong_score": -3.180286169052124
+    },
+    "training_prose": {
+     "correct_score": 0.5600024461746216,
+     "wrong_score": 0.28914302587509155
+    },
+    "heldout_prose": {
+     "correct_score": -1.0421311855316162,
+     "wrong_score": -0.05014395713806152
+    },
+    "enum_json": {
+     "correct_score": 0.7890219688415527,
+     "wrong_score": 0.3665092885494232
+    },
+    "numeric_json": {
+     "correct_score": 0.6926871538162231,
+     "wrong_score": 0.2423083782196045
+    },
+    "explicit_negation": {
+     "correct_score": 0.8140848875045776,
+     "wrong_score": 0.39259886741638184
+    },
+    "yes_no": {
+     "correct_score": 1.018100380897522,
+     "wrong_score": 0.6641061305999756
+    }
+   }
+  },
+  {
+   "name": "PRIUS ELEKTRONICS",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen PRIUS ELEKTRONICS against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "46695"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "PRIUS ELEKTRONICS",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 1.2570421695709229,
+     "wrong_score": 0.2712341845035553
+    },
+    "json_early": {
+     "correct_score": -2.494795083999634,
+     "wrong_score": -2.822448492050171
+    },
+    "json_late": {
+     "correct_score": -2.8879640102386475,
+     "wrong_score": -2.812124252319336
+    },
+    "prose_early": {
+     "correct_score": -2.8916258811950684,
+     "wrong_score": -1.6892889738082886
+    },
+    "prose_late": {
+     "correct_score": -3.1360247135162354,
+     "wrong_score": -2.5726118087768555
+    },
+    "training_prose": {
+     "correct_score": 0.5359287261962891,
+     "wrong_score": -0.0014638751745224
+    },
+    "heldout_prose": {
+     "correct_score": -0.9494762420654297,
+     "wrong_score": -0.02739006280899048
+    },
+    "enum_json": {
+     "correct_score": 1.1917082071304321,
+     "wrong_score": 0.22570538520812988
+    },
+    "numeric_json": {
+     "correct_score": 1.2026619911193848,
+     "wrong_score": 0.1645989716053009
+    },
+    "explicit_negation": {
+     "correct_score": 1.0680334568023682,
+     "wrong_score": 0.22832471132278442
+    },
+    "yes_no": {
+     "correct_score": 0.8566344976425171,
+     "wrong_score": 0.2729322612285614
+    }
+   }
+  },
+  {
+   "name": "JSC ICC MILANDR",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen JSC ICC MILANDR against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "35199"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "JSC ICC MILANDR",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 4.809150218963623,
+     "wrong_score": 0.9919699430465698
+    },
+    "json_early": {
+     "correct_score": -0.534559965133667,
+     "wrong_score": -2.6440818309783936
+    },
+    "json_late": {
+     "correct_score": -0.9675513505935669,
+     "wrong_score": -0.9617722034454346
+    },
+    "prose_early": {
+     "correct_score": -1.699595332145691,
+     "wrong_score": -1.4626121520996094
+    },
+    "prose_late": {
+     "correct_score": -2.0037834644317627,
+     "wrong_score": -2.068159580230713
+    },
+    "training_prose": {
+     "correct_score": 4.200118541717529,
+     "wrong_score": 1.328342080116272
+    },
+    "heldout_prose": {
+     "correct_score": 0.8257707357406616,
+     "wrong_score": -0.008115977048873901
+    },
+    "enum_json": {
+     "correct_score": 4.57421875,
+     "wrong_score": 0.8956844806671143
+    },
+    "numeric_json": {
+     "correct_score": 4.390852928161621,
+     "wrong_score": 0.946436882019043
+    },
+    "explicit_negation": {
+     "correct_score": 4.387837886810303,
+     "wrong_score": 1.0868802070617676
+    },
+    "yes_no": {
+     "correct_score": 4.020114421844482,
+     "wrong_score": 0.4296451210975647
+    }
+   }
+  },
+  {
+   "name": "BANK OF INDUSTRY & MINE",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen BANK OF INDUSTRY & MINE against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "25685"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "BANK OF INDUSTRY & MINE",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 5.286264419555664,
+     "wrong_score": 0.4488382637500763
+    },
+    "json_early": {
+     "correct_score": 1.2116140127182007,
+     "wrong_score": -2.0744452476501465
+    },
+    "json_late": {
+     "correct_score": 1.3461527824401855,
+     "wrong_score": 1.3458365201950073
+    },
+    "prose_early": {
+     "correct_score": -0.7639247179031372,
+     "wrong_score": -1.6082656383514404
+    },
+    "prose_late": {
+     "correct_score": -2.3635482788085938,
+     "wrong_score": -2.210120439529419
+    },
+    "training_prose": {
+     "correct_score": 3.970926523208618,
+     "wrong_score": 0.7011098861694336
+    },
+    "heldout_prose": {
+     "correct_score": 2.2528748512268066,
+     "wrong_score": 0.5342389941215515
+    },
+    "enum_json": {
+     "correct_score": 5.242309093475342,
+     "wrong_score": 0.7610106468200684
+    },
+    "numeric_json": {
+     "correct_score": 5.562017917633057,
+     "wrong_score": 0.7650609016418457
+    },
+    "explicit_negation": {
+     "correct_score": 4.781566143035889,
+     "wrong_score": 0.9629119634628296
+    },
+    "yes_no": {
+     "correct_score": 3.229893445968628,
+     "wrong_score": 0.05103212594985962
+    }
+   }
+  },
+  {
+   "name": "NEWNEEDS CONSULTING SL",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen NEWNEEDS CONSULTING SL against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/98450051479Z6C8D8F80",
+    "lei": "98450051479Z6C8D8F80",
+    "source_name": "NEWNEEDS CONSULTING SL",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": -0.6586666703224182,
+     "wrong_score": -5.132353782653809
+    },
+    "json_early": {
+     "correct_score": -3.0616650581359863,
+     "wrong_score": -5.434588432312012
+    },
+    "json_late": {
+     "correct_score": -5.47833776473999,
+     "wrong_score": -5.504968166351318
+    },
+    "prose_early": {
+     "correct_score": -1.846606969833374,
+     "wrong_score": -5.435846328735352
+    },
+    "prose_late": {
+     "correct_score": -5.31282901763916,
+     "wrong_score": -6.520053863525391
+    },
+    "training_prose": {
+     "correct_score": -0.9553149938583374,
+     "wrong_score": -3.7568612098693848
+    },
+    "heldout_prose": {
+     "correct_score": -0.3362046480178833,
+     "wrong_score": -3.3064539432525635
+    },
+    "enum_json": {
+     "correct_score": -0.6233866214752197,
+     "wrong_score": -5.878704071044922
+    },
+    "numeric_json": {
+     "correct_score": 0.07491041719913483,
+     "wrong_score": -4.827130317687988
+    },
+    "explicit_negation": {
+     "correct_score": -0.32994067668914795,
+     "wrong_score": -4.307971000671387
+    },
+    "yes_no": {
+     "correct_score": -0.3266032338142395,
+     "wrong_score": -3.2977747917175293
+    }
+   }
+  },
+  {
+   "name": "D.T. IMMOBILIARE SRL",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen D.T. IMMOBILIARE SRL against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/815600E7CCDB9CA29119",
+    "lei": "815600E7CCDB9CA29119",
+    "source_name": "D.T. IMMOBILIARE SRL",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": -0.25493037700653076,
+     "wrong_score": -5.944794654846191
+    },
+    "json_early": {
+     "correct_score": -2.550485610961914,
+     "wrong_score": -5.008553504943848
+    },
+    "json_late": {
+     "correct_score": -4.517117500305176,
+     "wrong_score": -4.5770416259765625
+    },
+    "prose_early": {
+     "correct_score": -1.3149456977844238,
+     "wrong_score": -5.661612033843994
+    },
+    "prose_late": {
+     "correct_score": -3.968994617462158,
+     "wrong_score": -5.1692938804626465
+    },
+    "training_prose": {
+     "correct_score": -1.1889806985855103,
+     "wrong_score": -5.977783203125
+    },
+    "heldout_prose": {
+     "correct_score": -0.7776474952697754,
+     "wrong_score": -5.266958236694336
+    },
+    "enum_json": {
+     "correct_score": -0.2744087874889374,
+     "wrong_score": -5.608770370483398
+    },
+    "numeric_json": {
+     "correct_score": -0.1460261046886444,
+     "wrong_score": -5.7636871337890625
+    },
+    "explicit_negation": {
+     "correct_score": -0.6969289183616638,
+     "wrong_score": -5.928223609924316
+    },
+    "yes_no": {
+     "correct_score": -0.6384263038635254,
+     "wrong_score": -5.761178970336914
+    }
+   }
+  },
+  {
+   "name": "VASAVI BIOTECH PRIVATE LIMITED",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen VASAVI BIOTECH PRIVATE LIMITED against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/6488002QX0VL9QSNZV30",
+    "lei": "6488002QX0VL9QSNZV30",
+    "source_name": "VASAVI BIOTECH PRIVATE LIMITED",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": -0.5949678421020508,
+     "wrong_score": -4.766166687011719
+    },
+    "json_early": {
+     "correct_score": -3.606113910675049,
+     "wrong_score": -6.004925727844238
+    },
+    "json_late": {
+     "correct_score": -6.275809288024902,
+     "wrong_score": -6.343446731567383
+    },
+    "prose_early": {
+     "correct_score": -2.4482316970825195,
+     "wrong_score": -7.3271379470825195
+    },
+    "prose_late": {
+     "correct_score": -5.186525344848633,
+     "wrong_score": -6.530903339385986
+    },
+    "training_prose": {
+     "correct_score": -1.745300531387329,
+     "wrong_score": -6.241450786590576
+    },
+    "heldout_prose": {
+     "correct_score": -0.6653871536254883,
+     "wrong_score": -3.5358221530914307
+    },
+    "enum_json": {
+     "correct_score": -0.5202140808105469,
+     "wrong_score": -4.435131072998047
+    },
+    "numeric_json": {
+     "correct_score": -0.47388121485710144,
+     "wrong_score": -4.190896511077881
+    },
+    "explicit_negation": {
+     "correct_score": -0.5542539954185486,
+     "wrong_score": -4.353141784667969
+    },
+    "yes_no": {
+     "correct_score": -0.7798216938972473,
+     "wrong_score": -5.238438606262207
+    }
+   }
+  },
+  {
+   "name": "CUBE INFRASTRUCTURE OPPORTUNITIES TRUST",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen CUBE INFRASTRUCTURE OPPORTUNITIES TRUST against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/9845000BAE2C1HC4PB09",
+    "lei": "9845000BAE2C1HC4PB09",
+    "source_name": "CUBE INFRASTRUCTURE OPPORTUNITIES TRUST",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 0.016013219952583313,
+     "wrong_score": -2.752767562866211
+    },
+    "json_early": {
+     "correct_score": -3.322887659072876,
+     "wrong_score": -4.394225120544434
+    },
+    "json_late": {
+     "correct_score": -4.068454265594482,
+     "wrong_score": -4.12361478805542
+    },
+    "prose_early": {
+     "correct_score": -1.798189640045166,
+     "wrong_score": -5.050686836242676
+    },
+    "prose_late": {
+     "correct_score": -4.108589172363281,
+     "wrong_score": -5.5168304443359375
+    },
+    "training_prose": {
+     "correct_score": -0.45907360315322876,
+     "wrong_score": -3.1199822425842285
+    },
+    "heldout_prose": {
+     "correct_score": -0.07844175398349762,
+     "wrong_score": -2.2195446491241455
+    },
+    "enum_json": {
+     "correct_score": 0.08435869216918945,
+     "wrong_score": -2.99418044090271
+    },
+    "numeric_json": {
+     "correct_score": -0.0016689002513885498,
+     "wrong_score": -2.977573871612549
+    },
+    "explicit_negation": {
+     "correct_score": 0.10554429888725281,
+     "wrong_score": -1.8692326545715332
+    },
+    "yes_no": {
+     "correct_score": -0.15210601687431335,
+     "wrong_score": -3.515707492828369
+    }
+   }
+  },
+  {
+   "name": "R K PHARMA DISTRIBUTORS PRIVATE LIMITED",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen R K PHARMA DISTRIBUTORS PRIVATE LIMITED against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/648800Z5K28TQV3LL219",
+    "lei": "648800Z5K28TQV3LL219",
+    "source_name": "R K PHARMA DISTRIBUTORS PRIVATE LIMITED",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": -1.537503957748413,
+     "wrong_score": -8.387523651123047
+    },
+    "json_early": {
+     "correct_score": -4.283246040344238,
+     "wrong_score": -8.749536514282227
+    },
+    "json_late": {
+     "correct_score": -8.841875076293945,
+     "wrong_score": -8.90859603881836
+    },
+    "prose_early": {
+     "correct_score": -2.7681221961975098,
+     "wrong_score": -9.875616073608398
+    },
+    "prose_late": {
+     "correct_score": -7.451542854309082,
+     "wrong_score": -8.565476417541504
+    },
+    "training_prose": {
+     "correct_score": -3.2790794372558594,
+     "wrong_score": -9.983200073242188
+    },
+    "heldout_prose": {
+     "correct_score": -1.3381078243255615,
+     "wrong_score": -6.376518726348877
+    },
+    "enum_json": {
+     "correct_score": -1.350287914276123,
+     "wrong_score": -8.470560073852539
+    },
+    "numeric_json": {
+     "correct_score": -1.3359720706939697,
+     "wrong_score": -8.636391639709473
+    },
+    "explicit_negation": {
+     "correct_score": -1.9611690044403076,
+     "wrong_score": -8.770275115966797
+    },
+    "yes_no": {
+     "correct_score": -1.8998792171478271,
+     "wrong_score": -9.054250717163086
+    }
+   }
+  },
+  {
+   "name": "GRANGEFROST LIMITED",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen GRANGEFROST LIMITED against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/213800QPJ1H9CH3SO827",
+    "lei": "213800QPJ1H9CH3SO827",
+    "source_name": "GRANGEFROST LIMITED",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": -0.24545878171920776,
+     "wrong_score": -0.8668497800827026
+    },
+    "json_early": {
+     "correct_score": -3.8671233654022217,
+     "wrong_score": -4.682446002960205
+    },
+    "json_late": {
+     "correct_score": -4.647406578063965,
+     "wrong_score": -4.718896865844727
+    },
+    "prose_early": {
+     "correct_score": -2.4523203372955322,
+     "wrong_score": -5.044939994812012
+    },
+    "prose_late": {
+     "correct_score": -4.159252166748047,
+     "wrong_score": -4.972149848937988
+    },
+    "training_prose": {
+     "correct_score": -0.10249349474906921,
+     "wrong_score": -0.6537067294120789
+    },
+    "heldout_prose": {
+     "correct_score": -0.285254567861557,
+     "wrong_score": -2.426614999771118
+    },
+    "enum_json": {
+     "correct_score": -0.08784103393554688,
+     "wrong_score": -0.8798895478248596
+    },
+    "numeric_json": {
+     "correct_score": -0.08857583999633789,
+     "wrong_score": -0.9972090125083923
+    },
+    "explicit_negation": {
+     "correct_score": 0.22362929582595825,
+     "wrong_score": -0.5122471451759338
+    },
+    "yes_no": {
+     "correct_score": 0.4152768552303314,
+     "wrong_score": -0.29933977127075195
+    }
+   }
+  },
+  {
+   "name": "DS LIQUID DIV RVA ASTG LLC",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen DS LIQUID DIV RVA ASTG LLC against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/25490092TVQZATI0AB12",
+    "lei": "25490092TVQZATI0AB12",
+    "source_name": "DS LIQUID DIV RVA ASTG LLC",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 0.599047839641571,
+     "wrong_score": -1.2353787422180176
+    },
+    "json_early": {
+     "correct_score": -2.4765305519104004,
+     "wrong_score": -3.052832841873169
+    },
+    "json_late": {
+     "correct_score": -3.321073532104492,
+     "wrong_score": -3.3444480895996094
+    },
+    "prose_early": {
+     "correct_score": -1.2262283563613892,
+     "wrong_score": -3.694941997528076
+    },
+    "prose_late": {
+     "correct_score": -3.1482460498809814,
+     "wrong_score": -4.086569309234619
+    },
+    "training_prose": {
+     "correct_score": -0.5074754953384399,
+     "wrong_score": -2.11333966255188
+    },
+    "heldout_prose": {
+     "correct_score": -0.14953908324241638,
+     "wrong_score": -2.548875331878662
+    },
+    "enum_json": {
+     "correct_score": 0.4838804006576538,
+     "wrong_score": -0.8448628783226013
+    },
+    "numeric_json": {
+     "correct_score": 0.42079660296440125,
+     "wrong_score": -0.7249579429626465
+    },
+    "explicit_negation": {
+     "correct_score": 0.3044775724411011,
+     "wrong_score": -0.3238179087638855
+    },
+    "yes_no": {
+     "correct_score": -0.08452445268630981,
+     "wrong_score": -2.3192567825317383
+    }
+   }
+  },
+  {
+   "name": "SPINOS LIFE SCIENCE AND RESEARCH PRIVATE LIMITED",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen SPINOS LIFE SCIENCE AND RESEARCH PRIVATE LIMITED against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/648800OQW0LV4XVPWZ24",
+    "lei": "648800OQW0LV4XVPWZ24",
+    "source_name": "SPINOS LIFE SCIENCE AND RESEARCH PRIVATE LIMITED",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": -0.13956016302108765,
+     "wrong_score": -4.030217170715332
+    },
+    "json_early": {
+     "correct_score": -3.6890010833740234,
+     "wrong_score": -5.348221778869629
+    },
+    "json_late": {
+     "correct_score": -5.213864326477051,
+     "wrong_score": -5.259335517883301
+    },
+    "prose_early": {
+     "correct_score": -1.7321927547454834,
+     "wrong_score": -6.497175216674805
+    },
+    "prose_late": {
+     "correct_score": -4.610322952270508,
+     "wrong_score": -6.03994607925415
+    },
+    "training_prose": {
+     "correct_score": -1.5043232440948486,
+     "wrong_score": -5.518912315368652
+    },
+    "heldout_prose": {
+     "correct_score": -0.3196643888950348,
+     "wrong_score": -4.504976272583008
+    },
+    "enum_json": {
+     "correct_score": -0.42323586344718933,
+     "wrong_score": -4.574533462524414
+    },
+    "numeric_json": {
+     "correct_score": -0.16269417107105255,
+     "wrong_score": -4.545759677886963
+    },
+    "explicit_negation": {
+     "correct_score": -0.25483983755111694,
+     "wrong_score": -3.3073339462280273
+    },
+    "yes_no": {
+     "correct_score": -0.5851709842681885,
+     "wrong_score": -5.495962619781494
+    }
+   }
+  },
+  {
+   "name": "VOLT - POWER YOUR POTENTIAL",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen VOLT - POWER YOUR POTENTIAL against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/648800BRYXZT37R72Q11",
+    "lei": "648800BRYXZT37R72Q11",
+    "source_name": "Volt - Power your potential",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": -0.045828476548194885,
+     "wrong_score": 0.5693181157112122
+    },
+    "json_early": {
+     "correct_score": -2.887922763824463,
+     "wrong_score": -2.9037418365478516
+    },
+    "json_late": {
+     "correct_score": -3.207615375518799,
+     "wrong_score": -3.24576997756958
+    },
+    "prose_early": {
+     "correct_score": -1.88673996925354,
+     "wrong_score": -4.01550817489624
+    },
+    "prose_late": {
+     "correct_score": -3.0558114051818848,
+     "wrong_score": -3.88615345954895
+    },
+    "training_prose": {
+     "correct_score": -0.8915920257568359,
+     "wrong_score": -1.0833512544631958
+    },
+    "heldout_prose": {
+     "correct_score": -0.12907370924949646,
+     "wrong_score": -2.1512093544006348
+    },
+    "enum_json": {
+     "correct_score": -0.14459480345249176,
+     "wrong_score": 0.46796441078186035
+    },
+    "numeric_json": {
+     "correct_score": 0.07915809750556946,
+     "wrong_score": 0.5411285758018494
+    },
+    "explicit_negation": {
+     "correct_score": -0.31231021881103516,
+     "wrong_score": -1.324284315109253
+    },
+    "yes_no": {
+     "correct_score": -0.11800068616867065,
+     "wrong_score": -1.206709623336792
+    }
+   }
+  },
+  {
+   "name": "LEADPEAK GMBH",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen LEADPEAK GMBH against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/391200DMUF7V5ZXW0130",
+    "lei": "391200DMUF7V5ZXW0130",
+    "source_name": "Leadpeak GmbH",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": -0.038518473505973816,
+     "wrong_score": -3.6643624305725098
+    },
+    "json_early": {
+     "correct_score": -3.4166617393493652,
+     "wrong_score": -5.699727535247803
+    },
+    "json_late": {
+     "correct_score": -5.563788414001465,
+     "wrong_score": -5.648959159851074
+    },
+    "prose_early": {
+     "correct_score": -2.1354129314422607,
+     "wrong_score": -5.952847480773926
+    },
+    "prose_late": {
+     "correct_score": -4.758485794067383,
+     "wrong_score": -5.942713737487793
+    },
+    "training_prose": {
+     "correct_score": -1.0862603187561035,
+     "wrong_score": -5.257830619812012
+    },
+    "heldout_prose": {
+     "correct_score": -0.47467124462127686,
+     "wrong_score": -4.817043304443359
+    },
+    "enum_json": {
+     "correct_score": -0.22555038332939148,
+     "wrong_score": -3.8948323726654053
+    },
+    "numeric_json": {
+     "correct_score": -0.16822943091392517,
+     "wrong_score": -4.356549263000488
+    },
+    "explicit_negation": {
+     "correct_score": -0.15521007776260376,
+     "wrong_score": -4.675600528717041
+    },
+    "yes_no": {
+     "correct_score": -0.6873369216918945,
+     "wrong_score": -4.966009616851807
+    }
+   }
+  },
+  {
+   "name": "HARTMANN VERWALTUNGS GMBH",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen HARTMANN VERWALTUNGS GMBH against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/984500D7C6A71F6A3E86",
+    "lei": "984500D7C6A71F6A3E86",
+    "source_name": "Hartmann Verwaltungs GmbH",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": -0.8734107613563538,
+     "wrong_score": -6.776736736297607
+    },
+    "json_early": {
+     "correct_score": -3.232151746749878,
+     "wrong_score": -6.363317489624023
+    },
+    "json_late": {
+     "correct_score": -5.947537422180176,
+     "wrong_score": -5.987738609313965
+    },
+    "prose_early": {
+     "correct_score": -1.5293822288513184,
+     "wrong_score": -6.564044952392578
+    },
+    "prose_late": {
+     "correct_score": -5.1671648025512695,
+     "wrong_score": -6.4380083084106445
+    },
+    "training_prose": {
+     "correct_score": -1.7506632804870605,
+     "wrong_score": -6.974632263183594
+    },
+    "heldout_prose": {
+     "correct_score": -0.8031023740768433,
+     "wrong_score": -5.837708473205566
+    },
+    "enum_json": {
+     "correct_score": -0.920303463935852,
+     "wrong_score": -7.044832229614258
+    },
+    "numeric_json": {
+     "correct_score": -0.8396742343902588,
+     "wrong_score": -7.33814001083374
+    },
+    "explicit_negation": {
+     "correct_score": -1.0532044172286987,
+     "wrong_score": -6.845309257507324
+    },
+    "yes_no": {
+     "correct_score": -0.857306182384491,
+     "wrong_score": -7.3231353759765625
+    }
+   }
+  },
+  {
+   "name": "M/S SHREE SHYAMJI INDUSTRIES",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen M/S SHREE SHYAMJI INDUSTRIES against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/648800ISQ3LO3F0TU636",
+    "lei": "648800ISQ3LO3F0TU636",
+    "source_name": "M/S SHREE SHYAMJI INDUSTRIES",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 0.17350691556930542,
+     "wrong_score": -4.433635234832764
+    },
+    "json_early": {
+     "correct_score": -2.9294962882995605,
+     "wrong_score": -4.335667610168457
+    },
+    "json_late": {
+     "correct_score": -4.03241491317749,
+     "wrong_score": -4.121425628662109
+    },
+    "prose_early": {
+     "correct_score": -1.5262988805770874,
+     "wrong_score": -4.622370719909668
+    },
+    "prose_late": {
+     "correct_score": -3.6254734992980957,
+     "wrong_score": -5.117280960083008
+    },
+    "training_prose": {
+     "correct_score": -0.5066530108451843,
+     "wrong_score": -3.775099277496338
+    },
+    "heldout_prose": {
+     "correct_score": 0.057151585817337036,
+     "wrong_score": -2.5014700889587402
+    },
+    "enum_json": {
+     "correct_score": -0.2054554522037506,
+     "wrong_score": -4.865285396575928
+    },
+    "numeric_json": {
+     "correct_score": -0.10188090801239014,
+     "wrong_score": -4.541662693023682
+    },
+    "explicit_negation": {
+     "correct_score": 0.24399250745773315,
+     "wrong_score": -2.7057290077209473
+    },
+    "yes_no": {
+     "correct_score": -0.14405420422554016,
+     "wrong_score": -4.167565822601318
+    }
+   }
+  },
+  {
+   "name": "MATRACHAYA LAND DEVELOPERS PRIVATE LIMITED",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen MATRACHAYA LAND DEVELOPERS PRIVATE LIMITED against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/648800XCZRGZR86VX997",
+    "lei": "648800XCZRGZR86VX997",
+    "source_name": "MATRACHAYA LAND DEVELOPERS PRIVATE LIMITED",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": -1.5441310405731201,
+     "wrong_score": -7.244751930236816
+    },
+    "json_early": {
+     "correct_score": -4.284335136413574,
+     "wrong_score": -7.6730499267578125
+    },
+    "json_late": {
+     "correct_score": -7.657070636749268,
+     "wrong_score": -7.693554401397705
+    },
+    "prose_early": {
+     "correct_score": -2.126514434814453,
+     "wrong_score": -7.535226345062256
+    },
+    "prose_late": {
+     "correct_score": -5.760949611663818,
+     "wrong_score": -7.395471096038818
+    },
+    "training_prose": {
+     "correct_score": -2.694357395172119,
+     "wrong_score": -8.366453170776367
+    },
+    "heldout_prose": {
+     "correct_score": -0.8187159299850464,
+     "wrong_score": -5.822788715362549
+    },
+    "enum_json": {
+     "correct_score": -1.3516101837158203,
+     "wrong_score": -7.217451095581055
+    },
+    "numeric_json": {
+     "correct_score": -1.3009445667266846,
+     "wrong_score": -7.476545333862305
+    },
+    "explicit_negation": {
+     "correct_score": -1.2759225368499756,
+     "wrong_score": -6.156618595123291
+    },
+    "yes_no": {
+     "correct_score": -1.3583440780639648,
+     "wrong_score": -7.487634181976318
+    }
+   }
+  },
+  {
+   "name": "OBSIDO HOLDING B.V.",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen OBSIDO HOLDING B.V. against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/72450066CXYX3HDA2I51",
+    "lei": "72450066CXYX3HDA2I51",
+    "source_name": "Obsido Holding B.V.",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": -1.366983413696289,
+     "wrong_score": -5.55618953704834
+    },
+    "json_early": {
+     "correct_score": -3.6952333450317383,
+     "wrong_score": -7.459453582763672
+    },
+    "json_late": {
+     "correct_score": -7.640677452087402,
+     "wrong_score": -7.725131988525391
+    },
+    "prose_early": {
+     "correct_score": -2.6507153511047363,
+     "wrong_score": -8.800722122192383
+    },
+    "prose_late": {
+     "correct_score": -5.830347061157227,
+     "wrong_score": -7.253763675689697
+    },
+    "training_prose": {
+     "correct_score": -3.4611849784851074,
+     "wrong_score": -8.185688018798828
+    },
+    "heldout_prose": {
+     "correct_score": -1.1215007305145264,
+     "wrong_score": -6.085816383361816
+    },
+    "enum_json": {
+     "correct_score": -1.4841645956039429,
+     "wrong_score": -6.143871784210205
+    },
+    "numeric_json": {
+     "correct_score": -0.8128179311752319,
+     "wrong_score": -5.865562438964844
+    },
+    "explicit_negation": {
+     "correct_score": -1.8656418323516846,
+     "wrong_score": -7.53611421585083
+    },
+    "yes_no": {
+     "correct_score": -1.5820530652999878,
+     "wrong_score": -7.229100227355957
+    }
+   }
+  },
+  {
+   "name": "JL GRUPPEN AS",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen JL GRUPPEN AS against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/648800H59U7CHWHNVU65",
+    "lei": "648800H59U7CHWHNVU65",
+    "source_name": "JL GRUPPEN AS",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": -0.3423837125301361,
+     "wrong_score": -3.6173150539398193
+    },
+    "json_early": {
+     "correct_score": -3.4829938411712646,
+     "wrong_score": -4.345702171325684
+    },
+    "json_late": {
+     "correct_score": -4.214732646942139,
+     "wrong_score": -4.19834041595459
+    },
+    "prose_early": {
+     "correct_score": -2.1966843605041504,
+     "wrong_score": -4.00296688079834
+    },
+    "prose_late": {
+     "correct_score": -4.538646697998047,
+     "wrong_score": -5.1777801513671875
+    },
+    "training_prose": {
+     "correct_score": -1.0370533466339111,
+     "wrong_score": -3.6882972717285156
+    },
+    "heldout_prose": {
+     "correct_score": -0.12146666646003723,
+     "wrong_score": -3.0870394706726074
+    },
+    "enum_json": {
+     "correct_score": -0.3511316180229187,
+     "wrong_score": -3.457336902618408
+    },
+    "numeric_json": {
+     "correct_score": -0.39699050784111023,
+     "wrong_score": -4.159932613372803
+    },
+    "explicit_negation": {
+     "correct_score": -0.49407339096069336,
+     "wrong_score": -2.2782955169677734
+    },
+    "yes_no": {
+     "correct_score": -0.19243338704109192,
+     "wrong_score": -3.17236328125
+    }
+   }
+  },
+  {
+   "name": "RCC INFRATECH PRIVATE LIMITED",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen RCC INFRATECH PRIVATE LIMITED against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/6488000B8QKNCK290P23",
+    "lei": "6488000B8QKNCK290P23",
+    "source_name": "RCC INFRATECH PRIVATE LIMITED",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": -0.6516213417053223,
+     "wrong_score": -4.223050117492676
+    },
+    "json_early": {
+     "correct_score": -3.4078948497772217,
+     "wrong_score": -5.835922718048096
+    },
+    "json_late": {
+     "correct_score": -5.927940845489502,
+     "wrong_score": -5.970691680908203
+    },
+    "prose_early": {
+     "correct_score": -2.2035863399505615,
+     "wrong_score": -6.861572265625
+    },
+    "prose_late": {
+     "correct_score": -5.424319744110107,
+     "wrong_score": -6.4043426513671875
+    },
+    "training_prose": {
+     "correct_score": -1.9160313606262207,
+     "wrong_score": -5.676078796386719
+    },
+    "heldout_prose": {
+     "correct_score": -0.8152228593826294,
+     "wrong_score": -3.8889517784118652
+    },
+    "enum_json": {
+     "correct_score": -0.6959476470947266,
+     "wrong_score": -4.377725601196289
+    },
+    "numeric_json": {
+     "correct_score": -0.761821985244751,
+     "wrong_score": -4.251330852508545
+    },
+    "explicit_negation": {
+     "correct_score": -0.7580074071884155,
+     "wrong_score": -4.2310333251953125
+    },
+    "yes_no": {
+     "correct_score": -1.3530726432800293,
+     "wrong_score": -5.204103946685791
+    }
+   }
+  },
+  {
+   "name": "GRUPO CASTEMU SL",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen GRUPO CASTEMU SL against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/959800VM89TKBXAPJ976",
+    "lei": "959800VM89TKBXAPJ976",
+    "source_name": "GRUPO CASTEMU SL",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 0.12510016560554504,
+     "wrong_score": -4.0539140701293945
+    },
+    "json_early": {
+     "correct_score": -3.515446424484253,
+     "wrong_score": -5.625922203063965
+    },
+    "json_late": {
+     "correct_score": -5.942788124084473,
+     "wrong_score": -5.93471622467041
+    },
+    "prose_early": {
+     "correct_score": -1.9430001974105835,
+     "wrong_score": -5.020337104797363
+    },
+    "prose_late": {
+     "correct_score": -6.039834022521973,
+     "wrong_score": -6.381672382354736
+    },
+    "training_prose": {
+     "correct_score": -1.1001360416412354,
+     "wrong_score": -4.386792182922363
+    },
+    "heldout_prose": {
+     "correct_score": -0.4119696617126465,
+     "wrong_score": -2.9369137287139893
+    },
+    "enum_json": {
+     "correct_score": -0.0809020847082138,
+     "wrong_score": -4.320172309875488
+    },
+    "numeric_json": {
+     "correct_score": -0.11364586651325226,
+     "wrong_score": -4.522964954376221
+    },
+    "explicit_negation": {
+     "correct_score": -0.0008364617824554443,
+     "wrong_score": -3.929391860961914
+    },
+    "yes_no": {
+     "correct_score": -0.539592981338501,
+     "wrong_score": -3.7100489139556885
+    }
+   }
+  },
+  {
+   "name": "DN LEAD MEDIA UAB",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen DN LEAD MEDIA UAB against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/98450031095664E00T84",
+    "lei": "98450031095664E00T84",
+    "source_name": "DN Lead Media UAB",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 0.1408175826072693,
+     "wrong_score": -1.2483768463134766
+    },
+    "json_early": {
+     "correct_score": -2.7227964401245117,
+     "wrong_score": -2.571462631225586
+    },
+    "json_late": {
+     "correct_score": -2.3552324771881104,
+     "wrong_score": -2.361485481262207
+    },
+    "prose_early": {
+     "correct_score": -1.5031217336654663,
+     "wrong_score": -2.588956832885742
+    },
+    "prose_late": {
+     "correct_score": -3.666173219680786,
+     "wrong_score": -4.60481071472168
+    },
+    "training_prose": {
+     "correct_score": -0.2825663685798645,
+     "wrong_score": -1.672532081604004
+    },
+    "heldout_prose": {
+     "correct_score": -0.18652501702308655,
+     "wrong_score": -2.1422605514526367
+    },
+    "enum_json": {
+     "correct_score": 0.15994742512702942,
+     "wrong_score": -1.7010018825531006
+    },
+    "numeric_json": {
+     "correct_score": -0.060343578457832336,
+     "wrong_score": -1.6255346536636353
+    },
+    "explicit_negation": {
+     "correct_score": 0.01828262209892273,
+     "wrong_score": -0.8990710377693176
+    },
+    "yes_no": {
+     "correct_score": -0.39555639028549194,
+     "wrong_score": -2.1731150150299072
+    }
+   }
+  },
+  {
+   "name": "ESTACION DE SERVICIO DE SANTACARA SL",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen ESTACION DE SERVICIO DE SANTACARA SL against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/959800STR5DVH9U45Z90",
+    "lei": "959800STR5DVH9U45Z90",
+    "source_name": "ESTACION DE SERVICIO DE SANTACARA SL",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 0.6608084440231323,
+     "wrong_score": -1.415755271911621
+    },
+    "json_early": {
+     "correct_score": -2.5631020069122314,
+     "wrong_score": -3.330132007598877
+    },
+    "json_late": {
+     "correct_score": -3.1413960456848145,
+     "wrong_score": -3.1786532402038574
+    },
+    "prose_early": {
+     "correct_score": -0.8250117301940918,
+     "wrong_score": -3.071404457092285
+    },
+    "prose_late": {
+     "correct_score": -3.8547072410583496,
+     "wrong_score": -4.6996541023254395
+    },
+    "training_prose": {
+     "correct_score": 0.5397741794586182,
+     "wrong_score": -1.2641878128051758
+    },
+    "heldout_prose": {
+     "correct_score": 0.5252475142478943,
+     "wrong_score": -1.5623266696929932
+    },
+    "enum_json": {
+     "correct_score": 0.7234890460968018,
+     "wrong_score": -2.320460796356201
+    },
+    "numeric_json": {
+     "correct_score": 0.8248357772827148,
+     "wrong_score": -1.4177358150482178
+    },
+    "explicit_negation": {
+     "correct_score": 1.0954227447509766,
+     "wrong_score": -0.519698441028595
+    },
+    "yes_no": {
+     "correct_score": 0.4037359952926636,
+     "wrong_score": -2.4715514183044434
+    }
+   }
+  },
+  {
+   "name": "CONCEPT S D.O.O. ZA TRGOVINU, USLUGE I PROIZVODNJU",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen CONCEPT S D.O.O. ZA TRGOVINU, USLUGE I PROIZVODNJU against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/48510090WNYCPDTBV616",
+    "lei": "48510090WNYCPDTBV616",
+    "source_name": "CONCEPT S d.o.o. za trgovinu, usluge i proizvodnju",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": -0.8700305223464966,
+     "wrong_score": -1.4152233600616455
+    },
+    "json_early": {
+     "correct_score": -3.534942388534546,
+     "wrong_score": -3.9959323406219482
+    },
+    "json_late": {
+     "correct_score": -3.3409504890441895,
+     "wrong_score": -3.406350612640381
+    },
+    "prose_early": {
+     "correct_score": -1.97613525390625,
+     "wrong_score": -3.8847289085388184
+    },
+    "prose_late": {
+     "correct_score": -4.130788803100586,
+     "wrong_score": -5.072565078735352
+    },
+    "training_prose": {
+     "correct_score": -1.480882167816162,
+     "wrong_score": -3.6264700889587402
+    },
+    "heldout_prose": {
+     "correct_score": -0.8567959666252136,
+     "wrong_score": -2.939971446990967
+    },
+    "enum_json": {
+     "correct_score": -0.878099799156189,
+     "wrong_score": -1.1995118856430054
+    },
+    "numeric_json": {
+     "correct_score": -1.2603920698165894,
+     "wrong_score": -2.5081071853637695
+    },
+    "explicit_negation": {
+     "correct_score": -1.0788118839263916,
+     "wrong_score": -3.045330047607422
+    },
+    "yes_no": {
+     "correct_score": -0.32386863231658936,
+     "wrong_score": -4.766077995300293
+    }
+   }
+  },
+  {
+   "name": "VEGINI CONVENTION CENTER",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen VEGINI CONVENTION CENTER against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/3358006FQNK9I3E69K39",
+    "lei": "3358006FQNK9I3E69K39",
+    "source_name": "VEGINI CONVENTION CENTER",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 0.44967585802078247,
+     "wrong_score": 1.9705243110656738
+    },
+    "json_early": {
+     "correct_score": -2.9575657844543457,
+     "wrong_score": -2.393523931503296
+    },
+    "json_late": {
+     "correct_score": -2.585907220840454,
+     "wrong_score": -2.6169729232788086
+    },
+    "prose_early": {
+     "correct_score": -1.6937847137451172,
+     "wrong_score": -2.4552154541015625
+    },
+    "prose_late": {
+     "correct_score": -2.2180895805358887,
+     "wrong_score": -2.519465923309326
+    },
+    "training_prose": {
+     "correct_score": 0.49971944093704224,
+     "wrong_score": 2.086500406265259
+    },
+    "heldout_prose": {
+     "correct_score": 0.0536077618598938,
+     "wrong_score": -0.3161395490169525
+    },
+    "enum_json": {
+     "correct_score": 0.471124529838562,
+     "wrong_score": 1.7970637083053589
+    },
+    "numeric_json": {
+     "correct_score": 0.5032559633255005,
+     "wrong_score": 1.7787915468215942
+    },
+    "explicit_negation": {
+     "correct_score": 0.9445434808731079,
+     "wrong_score": 2.476500988006592
+    },
+    "yes_no": {
+     "correct_score": 0.6099894046783447,
+     "wrong_score": 1.9399663209915161
+    }
+   }
+  },
+  {
+   "name": "SRI SAI INFRA",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen SRI SAI INFRA against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/648800P1XPMMM7DC2C10",
+    "lei": "648800P1XPMMM7DC2C10",
+    "source_name": "SRI SAI INFRA",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 0.012150987982749939,
+     "wrong_score": -1.5661866664886475
+    },
+    "json_early": {
+     "correct_score": -2.9248619079589844,
+     "wrong_score": -2.9884188175201416
+    },
+    "json_late": {
+     "correct_score": -3.1038944721221924,
+     "wrong_score": -3.1612086296081543
+    },
+    "prose_early": {
+     "correct_score": -1.7483028173446655,
+     "wrong_score": -3.348982572555542
+    },
+    "prose_late": {
+     "correct_score": -2.991279125213623,
+     "wrong_score": -4.024420738220215
+    },
+    "training_prose": {
+     "correct_score": -0.6088910698890686,
+     "wrong_score": -2.4560253620147705
+    },
+    "heldout_prose": {
+     "correct_score": -0.5805642604827881,
+     "wrong_score": -2.388195514678955
+    },
+    "enum_json": {
+     "correct_score": -0.06572197377681732,
+     "wrong_score": -1.1806514263153076
+    },
+    "numeric_json": {
+     "correct_score": -0.13924673199653625,
+     "wrong_score": -1.8915879726409912
+    },
+    "explicit_negation": {
+     "correct_score": 0.06435838341712952,
+     "wrong_score": -1.1983513832092285
+    },
+    "yes_no": {
+     "correct_score": -0.5701841115951538,
+     "wrong_score": -3.1271162033081055
+    }
+   }
+  },
+  {
+   "name": "BR POULTRY FEEDS",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen BR POULTRY FEEDS against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/648800J7PZTC9YA9PV45",
+    "lei": "648800J7PZTC9YA9PV45",
+    "source_name": "BR POULTRY FEEDS",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": -0.035175859928131104,
+     "wrong_score": -1.5671898126602173
+    },
+    "json_early": {
+     "correct_score": -3.135139226913452,
+     "wrong_score": -4.482721328735352
+    },
+    "json_late": {
+     "correct_score": -4.259472846984863,
+     "wrong_score": -4.300158500671387
+    },
+    "prose_early": {
+     "correct_score": -2.0905373096466064,
+     "wrong_score": -5.288235664367676
+    },
+    "prose_late": {
+     "correct_score": -3.656775951385498,
+     "wrong_score": -4.682846546173096
+    },
+    "training_prose": {
+     "correct_score": -0.6730325222015381,
+     "wrong_score": -2.2773890495300293
+    },
+    "heldout_prose": {
+     "correct_score": -0.3523680567741394,
+     "wrong_score": -1.8586454391479492
+    },
+    "enum_json": {
+     "correct_score": -0.23769903182983398,
+     "wrong_score": -1.8688946962356567
+    },
+    "numeric_json": {
+     "correct_score": 0.03029799461364746,
+     "wrong_score": -2.019413948059082
+    },
+    "explicit_negation": {
+     "correct_score": 0.08581927418708801,
+     "wrong_score": -1.811161756515503
+    },
+    "yes_no": {
+     "correct_score": -0.4683592617511749,
+     "wrong_score": -2.306163787841797
+    }
+   }
+  },
+  {
+   "name": "PANCHA RAM BISHNOI",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen PANCHA RAM BISHNOI against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/6488001PHPJJT977QF43",
+    "lei": "6488001PHPJJT977QF43",
+    "source_name": "PANCHA RAM BISHNOI",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 0.21382549405097961,
+     "wrong_score": -0.36048418283462524
+    },
+    "json_early": {
+     "correct_score": -3.0815463066101074,
+     "wrong_score": -3.2405543327331543
+    },
+    "json_late": {
+     "correct_score": -3.533296823501587,
+     "wrong_score": -3.575350761413574
+    },
+    "prose_early": {
+     "correct_score": -1.804030418395996,
+     "wrong_score": -3.91940975189209
+    },
+    "prose_late": {
+     "correct_score": -3.4133529663085938,
+     "wrong_score": -4.501889228820801
+    },
+    "training_prose": {
+     "correct_score": 0.18247929215431213,
+     "wrong_score": 0.3936566710472107
+    },
+    "heldout_prose": {
+     "correct_score": -0.3334277272224426,
+     "wrong_score": -1.8330512046813965
+    },
+    "enum_json": {
+     "correct_score": 0.3027125597000122,
+     "wrong_score": -0.4824399948120117
+    },
+    "numeric_json": {
+     "correct_score": 0.27768123149871826,
+     "wrong_score": -0.7806521654129028
+    },
+    "explicit_negation": {
+     "correct_score": 0.42017731070518494,
+     "wrong_score": -0.47959446907043457
+    },
+    "yes_no": {
+     "correct_score": 0.1516968309879303,
+     "wrong_score": -0.15712514519691467
+    }
+   }
+  },
+  {
+   "name": "RAY LIFE SPACES LLP",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen RAY LIFE SPACES LLP against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/648800J4WLRCGFUI3852",
+    "lei": "648800J4WLRCGFUI3852",
+    "source_name": "RAY LIFE SPACES LLP",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": -0.045959144830703735,
+     "wrong_score": -5.2479658126831055
+    },
+    "json_early": {
+     "correct_score": -4.007229328155518,
+     "wrong_score": -8.059066772460938
+    },
+    "json_late": {
+     "correct_score": -8.150482177734375,
+     "wrong_score": -8.194740295410156
+    },
+    "prose_early": {
+     "correct_score": -2.333817958831787,
+     "wrong_score": -8.240483283996582
+    },
+    "prose_late": {
+     "correct_score": -6.257482528686523,
+     "wrong_score": -7.946998119354248
+    },
+    "training_prose": {
+     "correct_score": -1.2054011821746826,
+     "wrong_score": -6.2890729904174805
+    },
+    "heldout_prose": {
+     "correct_score": -0.5951772332191467,
+     "wrong_score": -5.698220252990723
+    },
+    "enum_json": {
+     "correct_score": -0.3972747325897217,
+     "wrong_score": -5.902966499328613
+    },
+    "numeric_json": {
+     "correct_score": -0.3682873845100403,
+     "wrong_score": -6.339038848876953
+    },
+    "explicit_negation": {
+     "correct_score": -0.22422271966934204,
+     "wrong_score": -4.871349811553955
+    },
+    "yes_no": {
+     "correct_score": -0.5021663308143616,
+     "wrong_score": -7.1107378005981445
+    }
+   }
+  },
+  {
+   "name": "LPO HOLIDAYS PRIVATE LIMITED",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen LPO HOLIDAYS PRIVATE LIMITED against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/335800HR1V0RPTDJKI94",
+    "lei": "335800HR1V0RPTDJKI94",
+    "source_name": "LPO HOLIDAYS PRIVATE LIMITED",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": -0.5547129511833191,
+     "wrong_score": -4.3286452293396
+    },
+    "json_early": {
+     "correct_score": -3.454502582550049,
+     "wrong_score": -6.3652215003967285
+    },
+    "json_late": {
+     "correct_score": -6.744739532470703,
+     "wrong_score": -6.796982765197754
+    },
+    "prose_early": {
+     "correct_score": -2.3766276836395264,
+     "wrong_score": -6.980196475982666
+    },
+    "prose_late": {
+     "correct_score": -5.6623077392578125,
+     "wrong_score": -6.680102825164795
+    },
+    "training_prose": {
+     "correct_score": -1.9771604537963867,
+     "wrong_score": -6.487875461578369
+    },
+    "heldout_prose": {
+     "correct_score": -0.6878179907798767,
+     "wrong_score": -3.9758071899414062
+    },
+    "enum_json": {
+     "correct_score": -0.5806185007095337,
+     "wrong_score": -3.9704601764678955
+    },
+    "numeric_json": {
+     "correct_score": -0.6967765688896179,
+     "wrong_score": -4.102811813354492
+    },
+    "explicit_negation": {
+     "correct_score": -0.5380902290344238,
+     "wrong_score": -4.4969048500061035
+    },
+    "yes_no": {
+     "correct_score": -1.4659289121627808,
+     "wrong_score": -6.017511367797852
+    }
+   }
+  },
+  {
+   "name": "MN COPPER STRIPS PRIVATE LIMITED",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen MN COPPER STRIPS PRIVATE LIMITED against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/8945007BFPNTGRKIGO05",
+    "lei": "8945007BFPNTGRKIGO05",
+    "source_name": "MN COPPER STRIPS PRIVATE LIMITED",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": -1.179091215133667,
+     "wrong_score": -7.898284435272217
+    },
+    "json_early": {
+     "correct_score": -3.625683307647705,
+     "wrong_score": -6.979580879211426
+    },
+    "json_late": {
+     "correct_score": -7.01222562789917,
+     "wrong_score": -7.071766376495361
+    },
+    "prose_early": {
+     "correct_score": -1.9483309984207153,
+     "wrong_score": -7.422417163848877
+    },
+    "prose_late": {
+     "correct_score": -6.113874912261963,
+     "wrong_score": -7.027932643890381
+    },
+    "training_prose": {
+     "correct_score": -2.6923458576202393,
+     "wrong_score": -8.996472358703613
+    },
+    "heldout_prose": {
+     "correct_score": -0.8213359713554382,
+     "wrong_score": -3.9820985794067383
+    },
+    "enum_json": {
+     "correct_score": -1.2168339490890503,
+     "wrong_score": -7.979618549346924
+    },
+    "numeric_json": {
+     "correct_score": -1.3614798784255981,
+     "wrong_score": -8.261248588562012
+    },
+    "explicit_negation": {
+     "correct_score": -1.2914667129516602,
+     "wrong_score": -7.288110733032227
+    },
+    "yes_no": {
+     "correct_score": -1.7912129163742065,
+     "wrong_score": -8.575092315673828
+    }
+   }
+  },
+  {
+   "name": "CAMADERA",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen CAMADERA against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/89450077W815S6ZAEW67",
+    "lei": "89450077W815S6ZAEW67",
+    "source_name": "Camadera",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 0.5645146369934082,
+     "wrong_score": 0.27907657623291016
+    },
+    "json_early": {
+     "correct_score": -3.2868034839630127,
+     "wrong_score": -2.4294958114624023
+    },
+    "json_late": {
+     "correct_score": -2.286557197570801,
+     "wrong_score": -2.3728556632995605
+    },
+    "prose_early": {
+     "correct_score": -2.231137275695801,
+     "wrong_score": -2.817688465118408
+    },
+    "prose_late": {
+     "correct_score": -2.6177496910095215,
+     "wrong_score": -3.1654839515686035
+    },
+    "training_prose": {
+     "correct_score": 0.6653213500976562,
+     "wrong_score": 0.4991546869277954
+    },
+    "heldout_prose": {
+     "correct_score": 0.11170542240142822,
+     "wrong_score": -1.1254799365997314
+    },
+    "enum_json": {
+     "correct_score": 0.4935923218727112,
+     "wrong_score": 0.034384071826934814
+    },
+    "numeric_json": {
+     "correct_score": 0.5945015549659729,
+     "wrong_score": -0.10657155513763428
+    },
+    "explicit_negation": {
+     "correct_score": 0.8141026496887207,
+     "wrong_score": 0.6279454231262207
+    },
+    "yes_no": {
+     "correct_score": 0.950754702091217,
+     "wrong_score": 0.9071741700172424
+    }
+   }
+  },
+  {
+   "name": "KONARK VEG RESTAURANT",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen KONARK VEG RESTAURANT against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/335800MDE40T1Q7UU915",
+    "lei": "335800MDE40T1Q7UU915",
+    "source_name": "KONARK VEG RESTAURANT",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 0.11525003612041473,
+     "wrong_score": -0.11922399699687958
+    },
+    "json_early": {
+     "correct_score": -2.939046859741211,
+     "wrong_score": -3.5543086528778076
+    },
+    "json_late": {
+     "correct_score": -3.6228604316711426,
+     "wrong_score": -3.70548939704895
+    },
+    "prose_early": {
+     "correct_score": -1.7112621068954468,
+     "wrong_score": -3.458061695098877
+    },
+    "prose_late": {
+     "correct_score": -3.143721580505371,
+     "wrong_score": -3.985430955886841
+    },
+    "training_prose": {
+     "correct_score": -0.32823851704597473,
+     "wrong_score": -0.8362984657287598
+    },
+    "heldout_prose": {
+     "correct_score": -0.20050007104873657,
+     "wrong_score": -1.5797605514526367
+    },
+    "enum_json": {
+     "correct_score": 0.12224546074867249,
+     "wrong_score": -0.19782818853855133
+    },
+    "numeric_json": {
+     "correct_score": 0.10135984420776367,
+     "wrong_score": -0.5613622665405273
+    },
+    "explicit_negation": {
+     "correct_score": 0.2151927947998047,
+     "wrong_score": 0.14876285195350647
+    },
+    "yes_no": {
+     "correct_score": -0.032570332288742065,
+     "wrong_score": -0.7149546146392822
+    }
+   }
+  },
+  {
+   "name": "VACUAPPS S. R. O.",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen VACUAPPS S. R. O. against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/097900CAKA0000359069",
+    "lei": "097900CAKA0000359069",
+    "source_name": "Vacuapps s. r. o.",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 0.06621018052101135,
+     "wrong_score": -3.1664609909057617
+    },
+    "json_early": {
+     "correct_score": -3.655184030532837,
+     "wrong_score": -6.517794132232666
+    },
+    "json_late": {
+     "correct_score": -6.662020206451416,
+     "wrong_score": -6.686423301696777
+    },
+    "prose_early": {
+     "correct_score": -2.4886608123779297,
+     "wrong_score": -7.756869792938232
+    },
+    "prose_late": {
+     "correct_score": -4.947667121887207,
+     "wrong_score": -5.979595184326172
+    },
+    "training_prose": {
+     "correct_score": -1.791395664215088,
+     "wrong_score": -4.855452537536621
+    },
+    "heldout_prose": {
+     "correct_score": -1.1537002325057983,
+     "wrong_score": -5.622197151184082
+    },
+    "enum_json": {
+     "correct_score": -0.43749335408210754,
+     "wrong_score": -3.9891233444213867
+    },
+    "numeric_json": {
+     "correct_score": -0.205400288105011,
+     "wrong_score": -3.733160972595215
+    },
+    "explicit_negation": {
+     "correct_score": -1.007636308670044,
+     "wrong_score": -4.109972953796387
+    },
+    "yes_no": {
+     "correct_score": -0.772253155708313,
+     "wrong_score": -3.4340298175811768
+    }
+   }
+  },
+  {
+   "name": "SHEKAR POOJARY",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen SHEKAR POOJARY against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/648800HXEZ1X94CK9862",
+    "lei": "648800HXEZ1X94CK9862",
+    "source_name": "SHEKAR POOJARY",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 0.32763031125068665,
+     "wrong_score": 1.2772761583328247
+    },
+    "json_early": {
+     "correct_score": -2.8300352096557617,
+     "wrong_score": -2.82763671875
+    },
+    "json_late": {
+     "correct_score": -3.0540807247161865,
+     "wrong_score": -3.07340145111084
+    },
+    "prose_early": {
+     "correct_score": -1.971210241317749,
+     "wrong_score": -3.141648769378662
+    },
+    "prose_late": {
+     "correct_score": -2.9175662994384766,
+     "wrong_score": -3.538078546524048
+    },
+    "training_prose": {
+     "correct_score": -0.11660018563270569,
+     "wrong_score": 0.08204793930053711
+    },
+    "heldout_prose": {
+     "correct_score": -0.11459243297576904,
+     "wrong_score": -1.1936345100402832
+    },
+    "enum_json": {
+     "correct_score": 0.13996660709381104,
+     "wrong_score": 0.877922534942627
+    },
+    "numeric_json": {
+     "correct_score": 0.11532366275787354,
+     "wrong_score": 0.837713897228241
+    },
+    "explicit_negation": {
+     "correct_score": 0.4208756685256958,
+     "wrong_score": 1.366732120513916
+    },
+    "yes_no": {
+     "correct_score": 0.1802278757095337,
+     "wrong_score": 0.21706971526145935
+    }
+   }
+  },
+  {
+   "name": "LANDVOLK NIEDERSACHSEN, KREISVERBAND MITTELWESER E.V",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen LANDVOLK NIEDERSACHSEN, KREISVERBAND MITTELWESER E.V against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/391200JUY6XDKUDMDY62",
+    "lei": "391200JUY6XDKUDMDY62",
+    "source_name": "Landvolk Niedersachsen, Kreisverband Mittelweser e.V",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": -1.426222324371338,
+     "wrong_score": -7.45750617980957
+    },
+    "json_early": {
+     "correct_score": -4.248675346374512,
+     "wrong_score": -7.043693542480469
+    },
+    "json_late": {
+     "correct_score": -6.873395919799805,
+     "wrong_score": -7.004583358764648
+    },
+    "prose_early": {
+     "correct_score": -2.0615389347076416,
+     "wrong_score": -6.1892194747924805
+    },
+    "prose_late": {
+     "correct_score": -4.3775224685668945,
+     "wrong_score": -6.472172737121582
+    },
+    "training_prose": {
+     "correct_score": -2.298767566680908,
+     "wrong_score": -7.749908447265625
+    },
+    "heldout_prose": {
+     "correct_score": -0.8167585134506226,
+     "wrong_score": -4.801399230957031
+    },
+    "enum_json": {
+     "correct_score": -0.8791711330413818,
+     "wrong_score": -6.661236763000488
+    },
+    "numeric_json": {
+     "correct_score": -0.9885258078575134,
+     "wrong_score": -7.905420780181885
+    },
+    "explicit_negation": {
+     "correct_score": -1.1382787227630615,
+     "wrong_score": -6.755411148071289
+    },
+    "yes_no": {
+     "correct_score": -0.5079784393310547,
+     "wrong_score": -8.311531066894531
+    }
+   }
+  },
+  {
+   "name": "SHANKAR RAMKISAN TAMBE",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen SHANKAR RAMKISAN TAMBE against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/648800KSLBDO6QUM6X59",
+    "lei": "648800KSLBDO6QUM6X59",
+    "source_name": "SHANKAR RAMKISAN TAMBE",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 0.5823038220405579,
+     "wrong_score": 1.3064278364181519
+    },
+    "json_early": {
+     "correct_score": -2.713839054107666,
+     "wrong_score": -2.4067094326019287
+    },
+    "json_late": {
+     "correct_score": -2.513577461242676,
+     "wrong_score": -2.563861846923828
+    },
+    "prose_early": {
+     "correct_score": -1.569272518157959,
+     "wrong_score": -3.0021090507507324
+    },
+    "prose_late": {
+     "correct_score": -2.266221046447754,
+     "wrong_score": -2.9533753395080566
+    },
+    "training_prose": {
+     "correct_score": 0.25103089213371277,
+     "wrong_score": 0.8260979056358337
+    },
+    "heldout_prose": {
+     "correct_score": 0.2018996924161911,
+     "wrong_score": -0.6223721504211426
+    },
+    "enum_json": {
+     "correct_score": 0.49698442220687866,
+     "wrong_score": 1.0609019994735718
+    },
+    "numeric_json": {
+     "correct_score": 0.4663407802581787,
+     "wrong_score": 0.7361545562744141
+    },
+    "explicit_negation": {
+     "correct_score": 0.783737063407898,
+     "wrong_score": 1.3304839134216309
+    },
+    "yes_no": {
+     "correct_score": 0.5872496366500854,
+     "wrong_score": 0.871595025062561
+    }
+   }
+  },
+  {
+   "name": "BHANU SCOOTER PARTS",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen BHANU SCOOTER PARTS against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/648800WRQEE9K9UY0E27",
+    "lei": "648800WRQEE9K9UY0E27",
+    "source_name": "BHANU SCOOTER PARTS",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 0.5866305828094482,
+     "wrong_score": 0.46564435958862305
+    },
+    "json_early": {
+     "correct_score": -2.4174938201904297,
+     "wrong_score": -3.471252918243408
+    },
+    "json_late": {
+     "correct_score": -3.6152443885803223,
+     "wrong_score": -3.658017158508301
+    },
+    "prose_early": {
+     "correct_score": -1.5487258434295654,
+     "wrong_score": -4.657242298126221
+    },
+    "prose_late": {
+     "correct_score": -3.0251479148864746,
+     "wrong_score": -4.097500801086426
+    },
+    "training_prose": {
+     "correct_score": 0.02374643087387085,
+     "wrong_score": -0.5865159034729004
+    },
+    "heldout_prose": {
+     "correct_score": 0.15357139706611633,
+     "wrong_score": -1.3126494884490967
+    },
+    "enum_json": {
+     "correct_score": 0.4772636294364929,
+     "wrong_score": -0.038394734263420105
+    },
+    "numeric_json": {
+     "correct_score": 0.6341015696525574,
+     "wrong_score": 0.16669371724128723
+    },
+    "explicit_negation": {
+     "correct_score": 0.5974228978157043,
+     "wrong_score": -0.6700820326805115
+    },
+    "yes_no": {
+     "correct_score": 0.37072277069091797,
+     "wrong_score": -0.3456712067127228
+    }
+   }
+  },
+  {
+   "name": "JAGDISH KUMAR",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen JAGDISH KUMAR against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/648800MHGWR4XTGNZX76",
+    "lei": "648800MHGWR4XTGNZX76",
+    "source_name": "JAGDISH KUMAR",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": -0.12456797063350677,
+     "wrong_score": -2.2825405597686768
+    },
+    "json_early": {
+     "correct_score": -2.997427225112915,
+     "wrong_score": -3.2079708576202393
+    },
+    "json_late": {
+     "correct_score": -3.176248073577881,
+     "wrong_score": -3.1981873512268066
+    },
+    "prose_early": {
+     "correct_score": -1.9545701742172241,
+     "wrong_score": -3.662081480026245
+    },
+    "prose_late": {
+     "correct_score": -3.151681900024414,
+     "wrong_score": -3.8427817821502686
+    },
+    "training_prose": {
+     "correct_score": -0.4209785461425781,
+     "wrong_score": -2.4945130348205566
+    },
+    "heldout_prose": {
+     "correct_score": -0.24904903769493103,
+     "wrong_score": -2.321993350982666
+    },
+    "enum_json": {
+     "correct_score": -0.12211160361766815,
+     "wrong_score": -2.5874571800231934
+    },
+    "numeric_json": {
+     "correct_score": -0.08255438506603241,
+     "wrong_score": -2.693355083465576
+    },
+    "explicit_negation": {
+     "correct_score": 0.2546594440937042,
+     "wrong_score": -1.9065771102905273
+    },
+    "yes_no": {
+     "correct_score": -0.17302772402763367,
+     "wrong_score": -2.8803555965423584
+    }
+   }
+  },
+  {
+   "name": "DELFT CIRCUITS B.V.",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen DELFT CIRCUITS B.V. against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/724500CGDZOWZM03QO50",
+    "lei": "724500CGDZOWZM03QO50",
+    "source_name": "Delft Circuits B.V.",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": -1.31046724319458,
+     "wrong_score": -5.887035369873047
+    },
+    "json_early": {
+     "correct_score": -3.722623109817505,
+     "wrong_score": -6.727753639221191
+    },
+    "json_late": {
+     "correct_score": -7.02684211730957,
+     "wrong_score": -7.081174850463867
+    },
+    "prose_early": {
+     "correct_score": -2.6050593852996826,
+     "wrong_score": -8.175182342529297
+    },
+    "prose_late": {
+     "correct_score": -5.014056205749512,
+     "wrong_score": -6.145493507385254
+    },
+    "training_prose": {
+     "correct_score": -2.8024380207061768,
+     "wrong_score": -8.276851654052734
+    },
+    "heldout_prose": {
+     "correct_score": -1.0137078762054443,
+     "wrong_score": -5.702605724334717
+    },
+    "enum_json": {
+     "correct_score": -1.42940354347229,
+     "wrong_score": -6.645418167114258
+    },
+    "numeric_json": {
+     "correct_score": -0.8483515977859497,
+     "wrong_score": -6.23699951171875
+    },
+    "explicit_negation": {
+     "correct_score": -1.7282179594039917,
+     "wrong_score": -7.482611656188965
+    },
+    "yes_no": {
+     "correct_score": -1.3977782726287842,
+     "wrong_score": -6.578482627868652
+    }
+   }
+  },
+  {
+   "name": "VANDANA GOENKA",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen VANDANA GOENKA against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/648800PW6RV1VB8KPL76",
+    "lei": "648800PW6RV1VB8KPL76",
+    "source_name": "VANDANA GOENKA",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 0.5230433344841003,
+     "wrong_score": 1.533421516418457
+    },
+    "json_early": {
+     "correct_score": -2.7592740058898926,
+     "wrong_score": -2.336594343185425
+    },
+    "json_late": {
+     "correct_score": -2.5061066150665283,
+     "wrong_score": -2.532303810119629
+    },
+    "prose_early": {
+     "correct_score": -1.6436915397644043,
+     "wrong_score": -2.720287799835205
+    },
+    "prose_late": {
+     "correct_score": -2.492417812347412,
+     "wrong_score": -2.892139434814453
+    },
+    "training_prose": {
+     "correct_score": 0.4756018817424774,
+     "wrong_score": 0.7634690403938293
+    },
+    "heldout_prose": {
+     "correct_score": 0.1381467580795288,
+     "wrong_score": -0.8107001781463623
+    },
+    "enum_json": {
+     "correct_score": 0.43325650691986084,
+     "wrong_score": 1.2076637744903564
+    },
+    "numeric_json": {
+     "correct_score": 0.64711993932724,
+     "wrong_score": 1.1130592823028564
+    },
+    "explicit_negation": {
+     "correct_score": 0.8456670045852661,
+     "wrong_score": 1.801731824874878
+    },
+    "yes_no": {
+     "correct_score": 0.8322116136550903,
+     "wrong_score": 1.0107536315917969
+    }
+   }
+  },
+  {
+   "name": "OLEUM SYNTHETIC GREASES AND LUBES LLP",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen OLEUM SYNTHETIC GREASES AND LUBES LLP against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/335800UYHC0BULU4JR41",
+    "lei": "335800UYHC0BULU4JR41",
+    "source_name": "OLEUM SYNTHETIC GREASES AND LUBES LLP",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": -1.0274507999420166,
+     "wrong_score": -6.030178070068359
+    },
+    "json_early": {
+     "correct_score": -3.417886972427368,
+     "wrong_score": -5.94185733795166
+    },
+    "json_late": {
+     "correct_score": -6.1360626220703125,
+     "wrong_score": -6.189454078674316
+    },
+    "prose_early": {
+     "correct_score": -1.5767874717712402,
+     "wrong_score": -5.819861888885498
+    },
+    "prose_late": {
+     "correct_score": -4.416203498840332,
+     "wrong_score": -5.763250350952148
+    },
+    "training_prose": {
+     "correct_score": -2.4526209831237793,
+     "wrong_score": -5.780054092407227
+    },
+    "heldout_prose": {
+     "correct_score": -0.5247176885604858,
+     "wrong_score": -4.905844688415527
+    },
+    "enum_json": {
+     "correct_score": -1.20579993724823,
+     "wrong_score": -5.85869026184082
+    },
+    "numeric_json": {
+     "correct_score": -1.1611201763153076,
+     "wrong_score": -6.23555850982666
+    },
+    "explicit_negation": {
+     "correct_score": -2.468859910964966,
+     "wrong_score": -5.151983737945557
+    },
+    "yes_no": {
+     "correct_score": -0.9173180460929871,
+     "wrong_score": -7.190581321716309
+    }
+   }
+  },
+  {
+   "name": "SOCIETA' SEMPLICE AGRICOLA S. SOFIA",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen SOCIETA' SEMPLICE AGRICOLA S. SOFIA against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/815600F1E1BDD0BC5D33",
+    "lei": "815600F1E1BDD0BC5D33",
+    "source_name": "SOCIETA' SEMPLICE AGRICOLA S. SOFIA",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": -0.20351576805114746,
+     "wrong_score": -7.352119445800781
+    },
+    "json_early": {
+     "correct_score": -3.418684959411621,
+     "wrong_score": -5.7722930908203125
+    },
+    "json_late": {
+     "correct_score": -5.574850082397461,
+     "wrong_score": -5.678416728973389
+    },
+    "prose_early": {
+     "correct_score": -1.3713276386260986,
+     "wrong_score": -6.6432952880859375
+    },
+    "prose_late": {
+     "correct_score": -5.2128071784973145,
+     "wrong_score": -6.515364646911621
+    },
+    "training_prose": {
+     "correct_score": -1.5230073928833008,
+     "wrong_score": -6.85151481628418
+    },
+    "heldout_prose": {
+     "correct_score": -0.5590859651565552,
+     "wrong_score": -4.751689434051514
+    },
+    "enum_json": {
+     "correct_score": 0.2126326858997345,
+     "wrong_score": -6.790541172027588
+    },
+    "numeric_json": {
+     "correct_score": -0.23638352751731873,
+     "wrong_score": -7.448554992675781
+    },
+    "explicit_negation": {
+     "correct_score": -0.9955293536186218,
+     "wrong_score": -7.282573699951172
+    },
+    "yes_no": {
+     "correct_score": -0.3151942789554596,
+     "wrong_score": -7.001310348510742
+    }
+   }
+  },
+  {
+   "name": "R. ALBERTI HOLDING B.V.",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen R. ALBERTI HOLDING B.V. against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/724500N2UV6PQFGBR455",
+    "lei": "724500N2UV6PQFGBR455",
+    "source_name": "R. Alberti Holding B.V.",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": -1.5474965572357178,
+     "wrong_score": -7.1664276123046875
+    },
+    "json_early": {
+     "correct_score": -4.245848178863525,
+     "wrong_score": -7.898655414581299
+    },
+    "json_late": {
+     "correct_score": -7.961939811706543,
+     "wrong_score": -8.015183448791504
+    },
+    "prose_early": {
+     "correct_score": -2.261842727661133,
+     "wrong_score": -9.038223266601562
+    },
+    "prose_late": {
+     "correct_score": -6.425815105438232,
+     "wrong_score": -7.9024128913879395
+    },
+    "training_prose": {
+     "correct_score": -3.2262091636657715,
+     "wrong_score": -9.664058685302734
+    },
+    "heldout_prose": {
+     "correct_score": -1.3043475151062012,
+     "wrong_score": -6.129169464111328
+    },
+    "enum_json": {
+     "correct_score": -1.2373785972595215,
+     "wrong_score": -7.675440788269043
+    },
+    "numeric_json": {
+     "correct_score": -1.001215934753418,
+     "wrong_score": -7.5367045402526855
+    },
+    "explicit_negation": {
+     "correct_score": -2.307657241821289,
+     "wrong_score": -9.405821800231934
+    },
+    "yes_no": {
+     "correct_score": -1.1036434173583984,
+     "wrong_score": -8.361444473266602
+    }
+   }
+  },
+  {
+   "name": "SMAI S.R.L.",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen SMAI S.R.L. against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/81560082287E088B9763",
+    "lei": "81560082287E088B9763",
+    "source_name": "SMAI S.R.L.",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": -0.6094669699668884,
+     "wrong_score": -6.8560004234313965
+    },
+    "json_early": {
+     "correct_score": -3.1602673530578613,
+     "wrong_score": -6.366830348968506
+    },
+    "json_late": {
+     "correct_score": -6.863327503204346,
+     "wrong_score": -6.923677921295166
+    },
+    "prose_early": {
+     "correct_score": -2.0444114208221436,
+     "wrong_score": -6.849751949310303
+    },
+    "prose_late": {
+     "correct_score": -4.858386993408203,
+     "wrong_score": -6.158684730529785
+    },
+    "training_prose": {
+     "correct_score": -2.103247880935669,
+     "wrong_score": -8.48444652557373
+    },
+    "heldout_prose": {
+     "correct_score": -0.929634690284729,
+     "wrong_score": -5.96965217590332
+    },
+    "enum_json": {
+     "correct_score": -0.9304184913635254,
+     "wrong_score": -7.586676597595215
+    },
+    "numeric_json": {
+     "correct_score": -0.611054539680481,
+     "wrong_score": -7.263888359069824
+    },
+    "explicit_negation": {
+     "correct_score": -1.2173681259155273,
+     "wrong_score": -7.954600811004639
+    },
+    "yes_no": {
+     "correct_score": -0.7219303846359253,
+     "wrong_score": -7.809571266174316
+    }
+   }
+  },
+  {
+   "name": "DHANA JEWELLERY MART",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen DHANA JEWELLERY MART against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/648800015ZW13LAQ8A72",
+    "lei": "648800015ZW13LAQ8A72",
+    "source_name": "DHANA JEWELLERY MART",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 0.036145374178886414,
+     "wrong_score": -1.6824426651000977
+    },
+    "json_early": {
+     "correct_score": -2.6296133995056152,
+     "wrong_score": -3.4091286659240723
+    },
+    "json_late": {
+     "correct_score": -3.4765756130218506,
+     "wrong_score": -3.530076026916504
+    },
+    "prose_early": {
+     "correct_score": -1.3987964391708374,
+     "wrong_score": -3.3674378395080566
+    },
+    "prose_late": {
+     "correct_score": -2.8849616050720215,
+     "wrong_score": -3.889260768890381
+    },
+    "training_prose": {
+     "correct_score": -0.5773154497146606,
+     "wrong_score": -2.9663631916046143
+    },
+    "heldout_prose": {
+     "correct_score": -0.2004307508468628,
+     "wrong_score": -1.4907475709915161
+    },
+    "enum_json": {
+     "correct_score": -0.08590483665466309,
+     "wrong_score": -2.628396987915039
+    },
+    "numeric_json": {
+     "correct_score": 0.013061612844467163,
+     "wrong_score": -3.0853850841522217
+    },
+    "explicit_negation": {
+     "correct_score": 0.17295652627944946,
+     "wrong_score": -1.4252283573150635
+    },
+    "yes_no": {
+     "correct_score": -0.2261630892753601,
+     "wrong_score": -2.634350299835205
+    }
+   }
+  },
+  {
+   "name": "TRY",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen TRY against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/969500JPDGEROGY2MM87",
+    "lei": "969500JPDGEROGY2MM87",
+    "source_name": "TRY",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 0.2732805013656616,
+     "wrong_score": 0.5634278655052185
+    },
+    "json_early": {
+     "correct_score": -3.172994375228882,
+     "wrong_score": -2.93092679977417
+    },
+    "json_late": {
+     "correct_score": -2.8199589252471924,
+     "wrong_score": -2.8596315383911133
+    },
+    "prose_early": {
+     "correct_score": -2.6351006031036377,
+     "wrong_score": -4.1092071533203125
+    },
+    "prose_late": {
+     "correct_score": -3.520673990249634,
+     "wrong_score": -4.077640533447266
+    },
+    "training_prose": {
+     "correct_score": -0.07144778966903687,
+     "wrong_score": 0.15746235847473145
+    },
+    "heldout_prose": {
+     "correct_score": -0.49783098697662354,
+     "wrong_score": -2.49381160736084
+    },
+    "enum_json": {
+     "correct_score": 0.0769595205783844,
+     "wrong_score": -0.014879882335662842
+    },
+    "numeric_json": {
+     "correct_score": 0.2789141535758972,
+     "wrong_score": 0.11905920505523682
+    },
+    "explicit_negation": {
+     "correct_score": -0.028788775205612183,
+     "wrong_score": -1.5448752641677856
+    },
+    "yes_no": {
+     "correct_score": 0.2340392768383026,
+     "wrong_score": -0.001245737075805664
+    }
+   }
+  },
+  {
+   "name": "HOLDING FALGUIERE 35",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen HOLDING FALGUIERE 35 against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/8945006LQ0YLUVGO6W63",
+    "lei": "8945006LQ0YLUVGO6W63",
+    "source_name": "HOLDING FALGUIERE 35",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": 0.09417659044265747,
+     "wrong_score": -0.9777131080627441
+    },
+    "json_early": {
+     "correct_score": -3.596982479095459,
+     "wrong_score": -4.750324249267578
+    },
+    "json_late": {
+     "correct_score": -4.756889343261719,
+     "wrong_score": -4.814481735229492
+    },
+    "prose_early": {
+     "correct_score": -2.813075304031372,
+     "wrong_score": -5.332534313201904
+    },
+    "prose_late": {
+     "correct_score": -3.9642984867095947,
+     "wrong_score": -4.812084674835205
+    },
+    "training_prose": {
+     "correct_score": -0.6091891527175903,
+     "wrong_score": -1.6937415599822998
+    },
+    "heldout_prose": {
+     "correct_score": -0.24349495768547058,
+     "wrong_score": -3.2482452392578125
+    },
+    "enum_json": {
+     "correct_score": -0.07119950652122498,
+     "wrong_score": -1.273788571357727
+    },
+    "numeric_json": {
+     "correct_score": 0.2542349696159363,
+     "wrong_score": -1.3748571872711182
+    },
+    "explicit_negation": {
+     "correct_score": -0.03414517641067505,
+     "wrong_score": -2.392086982727051
+    },
+    "yes_no": {
+     "correct_score": -0.21977055072784424,
+     "wrong_score": -2.0017621517181396
+    }
+   }
+  },
+  {
+   "name": "CLOUD 9 INVEST GMBH & CO. KG",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen CLOUD 9 INVEST GMBH & CO. KG against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/5299004GNGUM72OXZ024",
+    "lei": "5299004GNGUM72OXZ024",
+    "source_name": "Cloud 9 Invest GmbH & Co. KG",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": -1.7198762893676758,
+     "wrong_score": -5.860400199890137
+    },
+    "json_early": {
+     "correct_score": -3.8575496673583984,
+     "wrong_score": -6.06639289855957
+    },
+    "json_late": {
+     "correct_score": -6.136048793792725,
+     "wrong_score": -6.131612300872803
+    },
+    "prose_early": {
+     "correct_score": -1.748352289199829,
+     "wrong_score": -5.72770881652832
+    },
+    "prose_late": {
+     "correct_score": -5.933291435241699,
+     "wrong_score": -6.97471809387207
+    },
+    "training_prose": {
+     "correct_score": -2.107252597808838,
+     "wrong_score": -6.2189483642578125
+    },
+    "heldout_prose": {
+     "correct_score": -1.1690901517868042,
+     "wrong_score": -6.731118202209473
+    },
+    "enum_json": {
+     "correct_score": -1.5540270805358887,
+     "wrong_score": -5.862431049346924
+    },
+    "numeric_json": {
+     "correct_score": -1.3202459812164307,
+     "wrong_score": -5.695664882659912
+    },
+    "explicit_negation": {
+     "correct_score": -1.9095349311828613,
+     "wrong_score": -6.8785624504089355
+    },
+    "yes_no": {
+     "correct_score": -1.1910252571105957,
+     "wrong_score": -6.0524139404296875
+    }
+   }
+  },
+  {
+   "name": "TOPSAIL CAPITAL LIMITED",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen TOPSAIL CAPITAL LIMITED against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/254900AWSBMNE7JFT662",
+    "lei": "254900AWSBMNE7JFT662",
+    "source_name": "Topsail Capital Limited",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": -0.5295870900154114,
+     "wrong_score": -1.8553996086120605
+    },
+    "json_early": {
+     "correct_score": -3.5231292247772217,
+     "wrong_score": -5.085987091064453
+    },
+    "json_late": {
+     "correct_score": -4.861363410949707,
+     "wrong_score": -4.944397926330566
+    },
+    "prose_early": {
+     "correct_score": -1.7790462970733643,
+     "wrong_score": -5.429731369018555
+    },
+    "prose_late": {
+     "correct_score": -4.846554756164551,
+     "wrong_score": -5.892696380615234
+    },
+    "training_prose": {
+     "correct_score": -1.1146094799041748,
+     "wrong_score": -2.8392586708068848
+    },
+    "heldout_prose": {
+     "correct_score": -0.5013864636421204,
+     "wrong_score": -3.134437084197998
+    },
+    "enum_json": {
+     "correct_score": -0.49262675642967224,
+     "wrong_score": -2.0960044860839844
+    },
+    "numeric_json": {
+     "correct_score": -0.409062922000885,
+     "wrong_score": -2.2073848247528076
+    },
+    "explicit_negation": {
+     "correct_score": -0.2233024537563324,
+     "wrong_score": -1.6408751010894775
+    },
+    "yes_no": {
+     "correct_score": -0.45922523736953735,
+     "wrong_score": -2.3797600269317627
+    }
+   }
+  },
+  {
+   "name": "FULLSTALL LIMITED",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen FULLSTALL LIMITED against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/254900CHAXCD0Y5YVE10",
+    "lei": "254900CHAXCD0Y5YVE10",
+    "source_name": "FULLSTALL LIMITED",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": -0.335460364818573,
+     "wrong_score": -1.6062349081039429
+    },
+    "json_early": {
+     "correct_score": -3.6023473739624023,
+     "wrong_score": -4.393309593200684
+    },
+    "json_late": {
+     "correct_score": -4.29942512512207,
+     "wrong_score": -4.377446174621582
+    },
+    "prose_early": {
+     "correct_score": -2.284600257873535,
+     "wrong_score": -4.92161750793457
+    },
+    "prose_late": {
+     "correct_score": -4.113864898681641,
+     "wrong_score": -4.9133710861206055
+    },
+    "training_prose": {
+     "correct_score": -0.5004258155822754,
+     "wrong_score": -1.804394006729126
+    },
+    "heldout_prose": {
+     "correct_score": -0.32519543170928955,
+     "wrong_score": -3.1768341064453125
+    },
+    "enum_json": {
+     "correct_score": -0.12900665402412415,
+     "wrong_score": -1.3897802829742432
+    },
+    "numeric_json": {
+     "correct_score": -0.10994768142700195,
+     "wrong_score": -1.721323013305664
+    },
+    "explicit_negation": {
+     "correct_score": 0.09455230832099915,
+     "wrong_score": -1.82254159450531
+    },
+    "yes_no": {
+     "correct_score": 0.29660332202911377,
+     "wrong_score": -1.0155110359191895
+    }
+   }
+  },
+  {
+   "name": "BUYTENDIJK HOLDING B.V.",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen BUYTENDIJK HOLDING B.V. against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/724500LPR8JOQJV3QL73",
+    "lei": "724500LPR8JOQJV3QL73",
+    "source_name": "Buytendijk Holding B.V.",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "forms": {
+    "thin_json": {
+     "correct_score": -1.2299329042434692,
+     "wrong_score": -5.7598066329956055
+    },
+    "json_early": {
+     "correct_score": -3.741926431655884,
+     "wrong_score": -7.4721574783325195
+    },
+    "json_late": {
+     "correct_score": -7.413437366485596,
+     "wrong_score": -7.500777721405029
+    },
+    "prose_early": {
+     "correct_score": -2.3999743461608887,
+     "wrong_score": -8.722710609436035
+    },
+    "prose_late": {
+     "correct_score": -5.729503631591797,
+     "wrong_score": -7.210559844970703
+    },
+    "training_prose": {
+     "correct_score": -3.0430920124053955,
+     "wrong_score": -8.015137672424316
+    },
+    "heldout_prose": {
+     "correct_score": -1.217301845550537,
+     "wrong_score": -5.928528785705566
+    },
+    "enum_json": {
+     "correct_score": -1.222439169883728,
+     "wrong_score": -6.568090438842773
+    },
+    "numeric_json": {
+     "correct_score": -0.8899775743484497,
+     "wrong_score": -6.24586296081543
+    },
+    "explicit_negation": {
+     "correct_score": -1.4435279369354248,
+     "wrong_score": -8.386964797973633
+    },
+    "yes_no": {
+     "correct_score": -1.306404948234558,
+     "wrong_score": -7.3751301765441895
+    }
+   }
+  }
+ ]
+}

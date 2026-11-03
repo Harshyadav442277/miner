@@ -1,0 +1,754 @@
+{
+ "identity": {
+  "version": 17,
+  "tensors_verified": 178,
+  "checkpoint_sha256": "45393cb7b7c022fabc8b25e39c476bb669e8614f1b1e20d0a603837f04324c9c"
+ },
+ "by_format": {
+  "thin_json": {
+   "listed": {
+    "queries": 14,
+    "correct": 12
+   },
+   "primary": {
+    "queries": 3,
+    "correct": 3
+   },
+   "alias": {
+    "queries": 11,
+    "correct": 9
+   }
+  },
+  "training_prose": {
+   "listed": {
+    "queries": 14,
+    "correct": 11
+   },
+   "primary": {
+    "queries": 3,
+    "correct": 3
+   },
+   "alias": {
+    "queries": 11,
+    "correct": 8
+   }
+  },
+  "heldout_prose": {
+   "listed": {
+    "queries": 14,
+    "correct": 8
+   },
+   "primary": {
+    "queries": 3,
+    "correct": 2
+   },
+   "alias": {
+    "queries": 11,
+    "correct": 6
+   }
+  },
+  "enum_json": {
+   "listed": {
+    "queries": 14,
+    "correct": 12
+   },
+   "primary": {
+    "queries": 3,
+    "correct": 3
+   },
+   "alias": {
+    "queries": 11,
+    "correct": 9
+   }
+  },
+  "numeric_json": {
+   "listed": {
+    "queries": 14,
+    "correct": 10
+   },
+   "primary": {
+    "queries": 3,
+    "correct": 3
+   },
+   "alias": {
+    "queries": 11,
+    "correct": 7
+   }
+  },
+  "explicit_negation": {
+   "listed": {
+    "queries": 14,
+    "correct": 11
+   },
+   "primary": {
+    "queries": 3,
+    "correct": 3
+   },
+   "alias": {
+    "queries": 11,
+    "correct": 8
+   }
+  },
+  "yes_no": {
+   "listed": {
+    "queries": 14,
+    "correct": 11
+   },
+   "primary": {
+    "queries": 3,
+    "correct": 3
+   },
+   "alias": {
+    "queries": 11,
+    "correct": 8
+   }
+  }
+ },
+ "rows": [
+  {
+   "name": "AL-MUKHTAR COMPANIES",
+   "prompt": "Screen AL-MUKHTAR COMPANIES against the OFAC SDN list. Report name matches.",
+   "listed": true,
+   "source_form": "alias",
+   "sdn_ids": [
+    "30650"
+   ],
+   "forms": {
+    "thin_json": {
+     "positive": 3.984764575958252,
+     "negative": 0.8667308688163757,
+     "correct": true
+    },
+    "training_prose": {
+     "positive": 4.440737724304199,
+     "negative": 1.3238954544067383,
+     "correct": true
+    },
+    "heldout_prose": {
+     "positive": 2.139172077178955,
+     "negative": 0.821793794631958,
+     "correct": true
+    },
+    "enum_json": {
+     "positive": 3.8517212867736816,
+     "negative": 0.9968051314353943,
+     "correct": true
+    },
+    "numeric_json": {
+     "positive": 4.071857929229736,
+     "negative": 1.047749400138855,
+     "correct": true
+    },
+    "explicit_negation": {
+     "positive": 5.43911075592041,
+     "negative": 1.224919319152832,
+     "correct": true
+    },
+    "yes_no": {
+     "positive": 3.617466926574707,
+     "negative": 1.2521129846572876,
+     "correct": true
+    }
+   }
+  },
+  {
+   "name": "ASIA SUN TRADING CO. LTD.",
+   "prompt": "Screen ASIA SUN TRADING CO. LTD. against the OFAC SDN list. Report name matches.",
+   "listed": true,
+   "source_form": "primary",
+   "sdn_ids": [
+    "41536"
+   ],
+   "forms": {
+    "thin_json": {
+     "positive": 6.039971351623535,
+     "negative": 1.7620940208435059,
+     "correct": true
+    },
+    "training_prose": {
+     "positive": 7.36456298828125,
+     "negative": 3.659838914871216,
+     "correct": true
+    },
+    "heldout_prose": {
+     "positive": 3.7884583473205566,
+     "negative": 0.607221245765686,
+     "correct": true
+    },
+    "enum_json": {
+     "positive": 5.945596694946289,
+     "negative": 2.6274003982543945,
+     "correct": true
+    },
+    "numeric_json": {
+     "positive": 6.289837837219238,
+     "negative": 1.3553416728973389,
+     "correct": true
+    },
+    "explicit_negation": {
+     "positive": 8.070055961608887,
+     "negative": 3.568510055541992,
+     "correct": true
+    },
+    "yes_no": {
+     "positive": 7.019784450531006,
+     "negative": 1.7295408248901367,
+     "correct": true
+    }
+   }
+  },
+  {
+   "name": "BRILLIANCE BANKING CORPORATION, LTD.",
+   "prompt": "Screen BRILLIANCE BANKING CORPORATION, LTD. against the OFAC SDN list. Report name matches.",
+   "listed": true,
+   "source_form": "alias",
+   "sdn_ids": [
+    "22986"
+   ],
+   "forms": {
+    "thin_json": {
+     "positive": 2.4039406776428223,
+     "negative": 1.0671226978302002,
+     "correct": true
+    },
+    "training_prose": {
+     "positive": 2.9000508785247803,
+     "negative": 1.150514006614685,
+     "correct": true
+    },
+    "heldout_prose": {
+     "positive": 0.6705589294433594,
+     "negative": 0.4842936396598816,
+     "correct": true
+    },
+    "enum_json": {
+     "positive": 1.9195835590362549,
+     "negative": 0.7792682647705078,
+     "correct": true
+    },
+    "numeric_json": {
+     "positive": 2.25433349609375,
+     "negative": 0.9115710854530334,
+     "correct": true
+    },
+    "explicit_negation": {
+     "positive": 3.13362979888916,
+     "negative": 1.5223528146743774,
+     "correct": true
+    },
+    "yes_no": {
+     "positive": 2.8533339500427246,
+     "negative": 0.6806463599205017,
+     "correct": true
+    }
+   }
+  },
+  {
+   "name": "CEGESA",
+   "prompt": "Screen CEGESA against the OFAC SDN list. Report name matches.",
+   "listed": true,
+   "source_form": "alias",
+   "sdn_ids": [
+    "58421"
+   ],
+   "forms": {
+    "thin_json": {
+     "positive": 0.7096565961837769,
+     "negative": 0.5440589785575867,
+     "correct": true
+    },
+    "training_prose": {
+     "positive": 0.3097774386405945,
+     "negative": 0.676831841468811,
+     "correct": false
+    },
+    "heldout_prose": {
+     "positive": -0.46904292702674866,
+     "negative": 0.364338219165802,
+     "correct": false
+    },
+    "enum_json": {
+     "positive": 0.6356285214424133,
+     "negative": 0.606497049331665,
+     "correct": true
+    },
+    "numeric_json": {
+     "positive": 0.28117120265960693,
+     "negative": 0.5715407729148865,
+     "correct": false
+    },
+    "explicit_negation": {
+     "positive": 0.7542247772216797,
+     "negative": 0.8223205804824829,
+     "correct": false
+    },
+    "yes_no": {
+     "positive": 0.4633011221885681,
+     "negative": 0.7922067642211914,
+     "correct": false
+    }
+   }
+  },
+  {
+   "name": "CONFIDERI ADVISORY GROUP",
+   "prompt": "Screen CONFIDERI ADVISORY GROUP against the OFAC SDN list. Report name matches.",
+   "listed": true,
+   "source_form": "alias",
+   "sdn_ids": [
+    "40776"
+   ],
+   "forms": {
+    "thin_json": {
+     "positive": 1.9048386812210083,
+     "negative": 0.6723936796188354,
+     "correct": true
+    },
+    "training_prose": {
+     "positive": 2.0813164710998535,
+     "negative": 1.0320063829421997,
+     "correct": true
+    },
+    "heldout_prose": {
+     "positive": 0.5435909032821655,
+     "negative": 0.7784602642059326,
+     "correct": false
+    },
+    "enum_json": {
+     "positive": 1.8705329895019531,
+     "negative": 0.8497001528739929,
+     "correct": true
+    },
+    "numeric_json": {
+     "positive": 1.7339811325073242,
+     "negative": 0.8211261034011841,
+     "correct": true
+    },
+    "explicit_negation": {
+     "positive": 2.005951166152954,
+     "negative": 1.0890995264053345,
+     "correct": true
+    },
+    "yes_no": {
+     "positive": 1.2099379301071167,
+     "negative": 0.7887141704559326,
+     "correct": true
+    }
+   }
+  },
+  {
+   "name": "GHARCHAK PRISON",
+   "prompt": "Screen GHARCHAK PRISON against the OFAC SDN list. Report name matches.",
+   "listed": true,
+   "source_form": "alias",
+   "sdn_ids": [
+    "28959"
+   ],
+   "forms": {
+    "thin_json": {
+     "positive": 0.7801458835601807,
+     "negative": 0.3891389071941376,
+     "correct": true
+    },
+    "training_prose": {
+     "positive": 1.215061902999878,
+     "negative": 0.7431959509849548,
+     "correct": true
+    },
+    "heldout_prose": {
+     "positive": -0.25460898876190186,
+     "negative": 0.47388625144958496,
+     "correct": false
+    },
+    "enum_json": {
+     "positive": 0.5670493841171265,
+     "negative": 0.39100176095962524,
+     "correct": true
+    },
+    "numeric_json": {
+     "positive": 0.3473159074783325,
+     "negative": 0.43186983466148376,
+     "correct": false
+    },
+    "explicit_negation": {
+     "positive": 1.280834674835205,
+     "negative": 0.7783650755882263,
+     "correct": true
+    },
+    "yes_no": {
+     "positive": 1.1677149534225464,
+     "negative": 0.9451236724853516,
+     "correct": true
+    }
+   }
+  },
+  {
+   "name": "HTOO GROUP",
+   "prompt": "Screen HTOO GROUP against the OFAC SDN list. Report name matches.",
+   "listed": true,
+   "source_form": "alias",
+   "sdn_ids": [
+    "35765"
+   ],
+   "forms": {
+    "thin_json": {
+     "positive": 3.1964430809020996,
+     "negative": 0.9643993377685547,
+     "correct": true
+    },
+    "training_prose": {
+     "positive": 3.486055850982666,
+     "negative": 1.7395533323287964,
+     "correct": true
+    },
+    "heldout_prose": {
+     "positive": 1.8571434020996094,
+     "negative": 0.871619462966919,
+     "correct": true
+    },
+    "enum_json": {
+     "positive": 3.0684421062469482,
+     "negative": 1.1013929843902588,
+     "correct": true
+    },
+    "numeric_json": {
+     "positive": 3.208494186401367,
+     "negative": 0.8971469402313232,
+     "correct": true
+    },
+    "explicit_negation": {
+     "positive": 3.603119373321533,
+     "negative": 1.2603912353515625,
+     "correct": true
+    },
+    "yes_no": {
+     "positive": 3.268608331680298,
+     "negative": 1.4106707572937012,
+     "correct": true
+    }
+   }
+  },
+  {
+   "name": "LLC PSO RSB-GROUP",
+   "prompt": "Screen LLC PSO RSB-GROUP against the OFAC SDN list. Report name matches.",
+   "listed": true,
+   "source_form": "alias",
+   "sdn_ids": [
+    "37673"
+   ],
+   "forms": {
+    "thin_json": {
+     "positive": 5.535904407501221,
+     "negative": 1.1842924356460571,
+     "correct": true
+    },
+    "training_prose": {
+     "positive": 5.62253475189209,
+     "negative": 1.2339286804199219,
+     "correct": true
+    },
+    "heldout_prose": {
+     "positive": 1.585676908493042,
+     "negative": 0.6481888294219971,
+     "correct": true
+    },
+    "enum_json": {
+     "positive": 5.859023094177246,
+     "negative": 1.0364383459091187,
+     "correct": true
+    },
+    "numeric_json": {
+     "positive": 5.312424659729004,
+     "negative": 0.892616868019104,
+     "correct": true
+    },
+    "explicit_negation": {
+     "positive": 4.871220111846924,
+     "negative": 1.3242571353912354,
+     "correct": true
+    },
+    "yes_no": {
+     "positive": 4.940502643585205,
+     "negative": 0.8306029438972473,
+     "correct": true
+    }
+   }
+  },
+  {
+   "name": "MORE REKA SERVIS",
+   "prompt": "Screen MORE REKA SERVIS against the OFAC SDN list. Report name matches.",
+   "listed": true,
+   "source_form": "alias",
+   "sdn_ids": [
+    "50592"
+   ],
+   "forms": {
+    "thin_json": {
+     "positive": -0.41023850440979004,
+     "negative": 0.19460707902908325,
+     "correct": false
+    },
+    "training_prose": {
+     "positive": -0.826564371585846,
+     "negative": -0.21324004232883453,
+     "correct": false
+    },
+    "heldout_prose": {
+     "positive": -1.5972967147827148,
+     "negative": -0.011165380477905273,
+     "correct": false
+    },
+    "enum_json": {
+     "positive": -0.6825819611549377,
+     "negative": 0.14062580466270447,
+     "correct": false
+    },
+    "numeric_json": {
+     "positive": -0.783889651298523,
+     "negative": 0.11396592855453491,
+     "correct": false
+    },
+    "explicit_negation": {
+     "positive": -0.1675475388765335,
+     "negative": 0.4145731031894684,
+     "correct": false
+    },
+    "yes_no": {
+     "positive": -0.7254424095153809,
+     "negative": 0.28629928827285767,
+     "correct": false
+    }
+   }
+  },
+  {
+   "name": "OOO 148ESEYCH",
+   "prompt": "Screen OOO 148ESEYCH against the OFAC SDN list. Report name matches.",
+   "listed": true,
+   "source_form": "alias",
+   "sdn_ids": [
+    "47647"
+   ],
+   "forms": {
+    "thin_json": {
+     "positive": 6.113455772399902,
+     "negative": 1.2542192935943604,
+     "correct": true
+    },
+    "training_prose": {
+     "positive": 6.102457046508789,
+     "negative": 1.5209884643554688,
+     "correct": true
+    },
+    "heldout_prose": {
+     "positive": 3.2147297859191895,
+     "negative": 0.7483187913894653,
+     "correct": true
+    },
+    "enum_json": {
+     "positive": 6.177572250366211,
+     "negative": 1.07655668258667,
+     "correct": true
+    },
+    "numeric_json": {
+     "positive": 5.978274822235107,
+     "negative": 0.9206931591033936,
+     "correct": true
+    },
+    "explicit_negation": {
+     "positive": 6.9279561042785645,
+     "negative": 1.5650219917297363,
+     "correct": true
+    },
+    "yes_no": {
+     "positive": 6.171091556549072,
+     "negative": 1.2095911502838135,
+     "correct": true
+    }
+   }
+  },
+  {
+   "name": "RAD D.O.O.",
+   "prompt": "Screen RAD D.O.O. against the OFAC SDN list. Report name matches.",
+   "listed": true,
+   "source_form": "primary",
+   "sdn_ids": [
+    "33992"
+   ],
+   "forms": {
+    "thin_json": {
+     "positive": 3.1602578163146973,
+     "negative": 0.8749969601631165,
+     "correct": true
+    },
+    "training_prose": {
+     "positive": 0.7763917446136475,
+     "negative": 0.692237377166748,
+     "correct": true
+    },
+    "heldout_prose": {
+     "positive": -0.24833780527114868,
+     "negative": 0.3790696859359741,
+     "correct": false
+    },
+    "enum_json": {
+     "positive": 2.8763253688812256,
+     "negative": 0.7312011122703552,
+     "correct": true
+    },
+    "numeric_json": {
+     "positive": 3.0228865146636963,
+     "negative": 0.6166277527809143,
+     "correct": true
+    },
+    "explicit_negation": {
+     "positive": 2.399493455886841,
+     "negative": 0.8501102924346924,
+     "correct": true
+    },
+    "yes_no": {
+     "positive": 1.8670060634613037,
+     "negative": 0.6428461074829102,
+     "correct": true
+    }
+   }
+  },
+  {
+   "name": "REBEL SECT",
+   "prompt": "Screen REBEL SECT against the OFAC SDN list. Report name matches.",
+   "listed": true,
+   "source_form": "alias",
+   "sdn_ids": [
+    "12605"
+   ],
+   "forms": {
+    "thin_json": {
+     "positive": -1.1766583919525146,
+     "negative": 0.05178968608379364,
+     "correct": false
+    },
+    "training_prose": {
+     "positive": -1.8761825561523438,
+     "negative": -0.13803628087043762,
+     "correct": false
+    },
+    "heldout_prose": {
+     "positive": -1.7214343547821045,
+     "negative": -0.0485287606716156,
+     "correct": false
+    },
+    "enum_json": {
+     "positive": -1.4331377744674683,
+     "negative": 0.013657838106155396,
+     "correct": false
+    },
+    "numeric_json": {
+     "positive": -1.5262877941131592,
+     "negative": 0.07384568452835083,
+     "correct": false
+    },
+    "explicit_negation": {
+     "positive": -1.5311803817749023,
+     "negative": 0.24322599172592163,
+     "correct": false
+    },
+    "yes_no": {
+     "positive": -1.1834187507629395,
+     "negative": 0.294569730758667,
+     "correct": false
+    }
+   }
+  },
+  {
+   "name": "TRY PHEAP TRAVEL & TOURS CO., LTD.",
+   "prompt": "Screen TRY PHEAP TRAVEL & TOURS CO., LTD. against the OFAC SDN list. Report name matches.",
+   "listed": true,
+   "source_form": "primary",
+   "sdn_ids": [
+    "28051"
+   ],
+   "forms": {
+    "thin_json": {
+     "positive": 1.8318809270858765,
+     "negative": -0.2350303828716278,
+     "correct": true
+    },
+    "training_prose": {
+     "positive": 3.9293699264526367,
+     "negative": 0.2883555293083191,
+     "correct": true
+    },
+    "heldout_prose": {
+     "positive": 2.7590560913085938,
+     "negative": 0.05699998140335083,
+     "correct": true
+    },
+    "enum_json": {
+     "positive": 1.7889235019683838,
+     "negative": -0.37257134914398193,
+     "correct": true
+    },
+    "numeric_json": {
+     "positive": 2.606952667236328,
+     "negative": -0.375632107257843,
+     "correct": true
+    },
+    "explicit_negation": {
+     "positive": 4.546703338623047,
+     "negative": 1.3427214622497559,
+     "correct": true
+    },
+    "yes_no": {
+     "positive": 3.872835397720337,
+     "negative": 0.3307434320449829,
+     "correct": true
+    }
+   }
+  },
+  {
+   "name": "YEMEN ABBOT TRADING CO., LTD.",
+   "prompt": "Screen YEMEN ABBOT TRADING CO., LTD. against the OFAC SDN list. Report name matches.",
+   "listed": true,
+   "source_form": "alias",
+   "sdn_ids": [
+    "54483"
+   ],
+   "forms": {
+    "thin_json": {
+     "positive": 5.905609130859375,
+     "negative": 2.217076063156128,
+     "correct": true
+    },
+    "training_prose": {
+     "positive": 6.272385597229004,
+     "negative": 3.2539021968841553,
+     "correct": true
+    },
+    "heldout_prose": {
+     "positive": 3.820615530014038,
+     "negative": 0.856783390045166,
+     "correct": true
+    },
+    "enum_json": {
+     "positive": 5.407582759857178,
+     "negative": 2.7720401287078857,
+     "correct": true
+    },
+    "numeric_json": {
+     "positive": 5.5799784660339355,
+     "negative": 1.6046669483184814,
+     "correct": true
+    },
+    "explicit_negation": {
+     "positive": 6.681558609008789,
+     "negative": 3.4512534141540527,
+     "correct": true
+    },
+    "yes_no": {
+     "positive": 5.763734340667725,
+     "negative": 1.0773152112960815,
+     "correct": true
+    }
+   }
+  }
+ ],
+ "scope": "HF float32, old development questions, complete generic answers, no actual-node factual score"
+}

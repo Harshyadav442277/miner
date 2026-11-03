@@ -21,7 +21,11 @@ commit.
       V15 synthetic listed58.5% fails per-class gate; no external score. Removal320 responses,
       11 pairs/3 names but0 balanced blocks, unscored. Same-query diagnostics isolate scope-negation
       bias; bounded32-step v16 repair raises listed prose34/64 to41/64, but fails65%
-      gate. No full run or export; audit training coverage next (FACTUAL_V16.md).
+      gate. V17 hard-anchor trial passes fresh synthetic gates but actual22/62 at256;
+      v18 identical tensors512 score14/62. Rejected. V19 bounded source-only distillation
+      fails absent late-JSON9/48, no export. V20 same64-example/32-step all-LoRA capacity
+      probe running; first process interrupted at20, restarted with recovery checkpoints.
+      No full-corpus run; old recognized-name control isolates real-answer interpretation.
 - [x] Build and measure a separate reversal-balanced query-binding benchmark: v7 40/40 vs v6 36/40.
 - [x] Resolve the overlapping-bank-name regression in both directions; v8 old controls 20/20, own 4/4,
       balanced binding regression 40/40, fresh bank stratum 20/20 (v7 also 20/20).

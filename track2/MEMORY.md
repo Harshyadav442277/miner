@@ -8,6 +8,35 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 
 ---
 
+## 2026-11-03 19:15 IST: v20 capacity probe in progress, full run blocked
+
+V19 distillation fails before export: late-JSON listed46/48,absent9/48; thin
+absence loses3/48, beyond5pp. V20 tests all176 encoder LoRA tensors on exactly
+the same64 anchors/targets/32-step recipe, head/base frozen. New96 repair validation
+from parent13 val is explicitly not pristine parent-held-out data. Initial process
+stopped afterstep20 without saving a final adapter/result. Preserved v20-interrupted;
+same inputs/seeds restarted with atomic4-step recovery checkpoints for weights,
+optimizer,RNG and logs. Eval/train forward check had zero pre-update difference.
+Current log C:/Users/hyada/tg-eval/capacity_v20.log; no quality result yet.
+Full-corpus training, reserved scores, registration and submission remain blocked.
+
+## 2026-11-03 IST: source recognition versus real-answer interpretation
+
+V17 hard-anchor bounded32-step trial passes fresh synthetic gates, prose listed
+36/64 to44/64,absent63/64 stable. Actual old62 falls to22/62 at256; rejected.
+V18 exact178 tensor context transfer at512 falls14/62 vs46/62 length. All claims
+visible; more context does not fix it. Old questions are3 primary/11 aliases;
+v13/v17 get12/14 in thin JSON yetv17 wins22/53 real comparisons for those names,
+18/37 with both claims visible256. The remaining failure includes interpretation
+of real answer representations, not just missing names. HF/node fidelity passes
+32 synthetic pairs/model, max logit error<0.00003. Old benchmarks unchanged.
+V19 bounded32-step distillation running: source-only64 known-thin anchors,96 new
+unconditioned source-test questions,full512 metadata before/after decisions.
+Parent13,only final-two-layer LoRA; objective in FACTUAL_V19.md. Not a full run.
+Mandatory independent input gate passes; DOS EOF marker audit correction and
+aborted pre-optimizer attempt retained in evidence/v19-preflight-aborted.
+Reserved69 and new removal captures unscored; no wallet, pool or submission.
+
 ## 2026-11-03 IST: listed-recall mechanism, bounded repair below gate
 
 User requests listed-name diagnosis before another full run. Same128 complete

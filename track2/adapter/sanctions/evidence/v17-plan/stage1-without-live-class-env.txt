@@ -1,0 +1,1 @@
+adapterbuild lora: FAILED: adapterbuild lora: Stage 1: class_mismatch: class "judgment", the intent needs "hybrid"

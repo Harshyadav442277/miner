@@ -25,6 +25,11 @@ reproduction; its actual-node result27/62 fails. V14's unchanged v3 tensors at51
 score33/62 against46/62 length. V15 fails its synthetic listed-class gate (58.5%)
 and is not exported. Same-query diagnostics isolate response-format/scope-negation
 confusion; FACTUAL_V16.md freezes a bounded repair before any further full run.
+V17 hard-anchor repair passes fresh synthetic class gates but actual old62 is22/62;
+v18 exact-weight512 context transfer gives14/62. Both rejected. On the same old14
+questions, v17 gets12/14 thin JSON decisions right, yet wins only22/53 real pairs
+for those recognized names. Interpretation of actual answer representations remains
+weak. V19 bounded source-only distillation tests that failure before a full run.
 Separately,320 new source-stable removal responses yield11 strict pairs across
 3 names but0 frozen source-role reversal blocks. These bodies have no model scores.
 

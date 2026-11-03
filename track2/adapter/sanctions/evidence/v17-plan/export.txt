@@ -1,0 +1,4 @@
+16:15:14 INFO: wrote C:\Users\hyada\tg-eval\runs-v2\SANCTIONS_SCREENING_MATCH_v17\SANCTIONS_SCREENING_MATCH.safetensors (6776916 bytes, sha256 6b117dc3f426ab6e8defb7ad144a234528ebd25e8d33751b05848a8586b4fc1e, rank 8, 178 tensors)
+
+Next:
+  go run ./cmd/adapterbuild lora --intent SANCTIONS_SCREENING_MATCH --package C:/Users/hyada/tg-eval/runs-v2/SANCTIONS_SCREENING_MATCH_v17/SANCTIONS_SCREENING_MATCH.safetensors --out C:/Users/hyada/tg-eval/runs-v2/SANCTIONS_SCREENING_MATCH_v17 --foundation C:/Users/hyada/tg-eval/foundation/foundation.json

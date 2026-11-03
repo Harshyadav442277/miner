@@ -1,0 +1,9 @@
+{
+ "parent_version": 17,
+ "parent_package_sha256": "f09baab9ad799e7d361c51b0146c755ce1059353d4fb0d362e6605a5a7b0bdf5",
+ "package_sha256": "a6feb2ef07299d31a0fce5eff38b38d78fb3d3ebd9afb4bb4b9c30c3d4251890",
+ "exact_equal_tensors": 178,
+ "parent_training_max_tokens": 256,
+ "runtime_max_tokens": 512,
+ "scope": "Fixed-weight context-transfer diagnostic, no training or readiness claim"
+}

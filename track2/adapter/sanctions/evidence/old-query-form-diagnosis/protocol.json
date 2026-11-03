@@ -1,0 +1,143 @@
+{
+ "queries": [
+  {
+   "name": "AL-MUKHTAR COMPANIES",
+   "prompt": "Screen AL-MUKHTAR COMPANIES against the OFAC SDN list. Report name matches.",
+   "listed": true,
+   "source_form": "alias",
+   "sdn_ids": [
+    "30650"
+   ]
+  },
+  {
+   "name": "ASIA SUN TRADING CO. LTD.",
+   "prompt": "Screen ASIA SUN TRADING CO. LTD. against the OFAC SDN list. Report name matches.",
+   "listed": true,
+   "source_form": "primary",
+   "sdn_ids": [
+    "41536"
+   ]
+  },
+  {
+   "name": "BRILLIANCE BANKING CORPORATION, LTD.",
+   "prompt": "Screen BRILLIANCE BANKING CORPORATION, LTD. against the OFAC SDN list. Report name matches.",
+   "listed": true,
+   "source_form": "alias",
+   "sdn_ids": [
+    "22986"
+   ]
+  },
+  {
+   "name": "CEGESA",
+   "prompt": "Screen CEGESA against the OFAC SDN list. Report name matches.",
+   "listed": true,
+   "source_form": "alias",
+   "sdn_ids": [
+    "58421"
+   ]
+  },
+  {
+   "name": "CONFIDERI ADVISORY GROUP",
+   "prompt": "Screen CONFIDERI ADVISORY GROUP against the OFAC SDN list. Report name matches.",
+   "listed": true,
+   "source_form": "alias",
+   "sdn_ids": [
+    "40776"
+   ]
+  },
+  {
+   "name": "GHARCHAK PRISON",
+   "prompt": "Screen GHARCHAK PRISON against the OFAC SDN list. Report name matches.",
+   "listed": true,
+   "source_form": "alias",
+   "sdn_ids": [
+    "28959"
+   ]
+  },
+  {
+   "name": "HTOO GROUP",
+   "prompt": "Screen HTOO GROUP against the OFAC SDN list. Report name matches.",
+   "listed": true,
+   "source_form": "alias",
+   "sdn_ids": [
+    "35765"
+   ]
+  },
+  {
+   "name": "LLC PSO RSB-GROUP",
+   "prompt": "Screen LLC PSO RSB-GROUP against the OFAC SDN list. Report name matches.",
+   "listed": true,
+   "source_form": "alias",
+   "sdn_ids": [
+    "37673"
+   ]
+  },
+  {
+   "name": "MORE REKA SERVIS",
+   "prompt": "Screen MORE REKA SERVIS against the OFAC SDN list. Report name matches.",
+   "listed": true,
+   "source_form": "alias",
+   "sdn_ids": [
+    "50592"
+   ]
+  },
+  {
+   "name": "OOO 148ESEYCH",
+   "prompt": "Screen OOO 148ESEYCH against the OFAC SDN list. Report name matches.",
+   "listed": true,
+   "source_form": "alias",
+   "sdn_ids": [
+    "47647"
+   ]
+  },
+  {
+   "name": "RAD D.O.O.",
+   "prompt": "Screen RAD D.O.O. against the OFAC SDN list. Report name matches.",
+   "listed": true,
+   "source_form": "primary",
+   "sdn_ids": [
+    "33992"
+   ]
+  },
+  {
+   "name": "REBEL SECT",
+   "prompt": "Screen REBEL SECT against the OFAC SDN list. Report name matches.",
+   "listed": true,
+   "source_form": "alias",
+   "sdn_ids": [
+    "12605"
+   ]
+  },
+  {
+   "name": "TRY PHEAP TRAVEL & TOURS CO., LTD.",
+   "prompt": "Screen TRY PHEAP TRAVEL & TOURS CO., LTD. against the OFAC SDN list. Report name matches.",
+   "listed": true,
+   "source_form": "primary",
+   "sdn_ids": [
+    "28051"
+   ]
+  },
+  {
+   "name": "YEMEN ABBOT TRADING CO., LTD.",
+   "prompt": "Screen YEMEN ABBOT TRADING CO., LTD. against the OFAC SDN list. Report name matches.",
+   "listed": true,
+   "source_form": "alias",
+   "sdn_ids": [
+    "54483"
+   ]
+  }
+ ],
+ "formats": [
+  "thin_json",
+  "training_prose",
+  "heldout_prose",
+  "enum_json",
+  "numeric_json",
+  "explicit_negation",
+  "yes_no"
+ ],
+ "old_pairs_sha256": "770f201729650039fdacfe3582ef0a2d06271ed01e0a74ba8d440cd8e691ecb6",
+ "sdn_sha256": "5f240bed79d504e7a54788b4cd1c7f84e6afa56cd4778653b70b0771b6a8509d",
+ "alt_sha256": "b0e2811fbb49ba6e9941a497e6b05fa2c9037b45ae7923196a01e2363a402259",
+ "scope": "Known old development questions only, generic synthetic responses; all listed, no population factual estimate. Captured responses never rendered or trained."
+}

@@ -1,0 +1,11 @@
+{
+  "source_facts_verified": 192,
+  "train_holdout_disjoint_entities": true,
+  "train_holdout_disjoint_names": true,
+  "all_listed_anchors_have_diagnosed_generic_scope_failure": true,
+  "no_holdout_score_conditioning": "holdout-before-scores.json written before model initialization",
+  "counts": {
+    "train": 64,
+    "holdout": 128
+  }
+}

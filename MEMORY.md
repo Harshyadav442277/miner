@@ -1,5 +1,36 @@
 # MEMORY.md — session continuity
 
+## 2026-11-03 19:15 IST: v19 fails; v20 capacity test restarted with recovery
+
+V19 rejected before export: late-JSON listed27/48 to46/48 but absent45/48 to9/48;
+thin absent40/48 to37/48 exceeds5pp retention loss. Not a valid factual repair.
+V20 changes only encoder capacity: same64 anchors/targets,32 steps,all176 LoRA
+tensors trainable,head/base frozen; new96 repair-validation questions from v13 val,
+explicit parent-validation exposure. Eval/train pre-update logits identical after
+training dropout disabled. Original process disappeared afterstep20, no adapter or
+result. Archived v20-interrupted. Restarted same inputs/seeds/recipe with atomic
+4-step model/optimizer/RNG checkpoints, input-hash bound. Current log:
+C:/Users/hyada/tg-eval/capacity_v20.log. Still no full-corpus run or reserved scoring.
+
+## 2026-11-03 IST: short-form repairs fail real answers; bounded distillation running
+
+V17 hard-source-anchor32-step repair passes fresh synthetic class gates: listed
+qualified prose36/64 to44/64, absent63/64 unchanged; thin listed54/64 to51/64,
+within5pp retention. But actual-node old62 scores22/62 at256 (parent13=27/62),
+so rejected. V18 exact same178 tensors at512 scores14/62 vs46/62 length, despite
+all claims visible. Neither missing facts nor truncation alone explains failure.
+Old14 question control:3 primary/11 aliases; v13/v17 thin12/14 correct. V17
+still wins22/53 real pairs for those recognized names,18/37 with visible256 claims.
+HF/node fidelity32 synthetic pairs/model passes, max logit error<0.00003.
+V19 is a bounded source-only32-step distillation trial, not full training:
+parent13,final-two-layer LoRA,512,64 thin-correct source anchors,96 new unconditioned
+test questions, truthful source metadata before/after verdict. Exact recipe in
+FACTUAL_V19.md. Current run log tg-eval/distill_v19.log, result pending.
+Initial CSV audit counted trailing DOS EOF marker; fixed, mandatory bound preflight
+passes160 source questions. Aborted pre-optimization attempt retained, inputs
+refrozen identically except audit-guard provenance. No source/model fact defect.
+Original reserved69 and removal captures remain unscored. No wallet or submission.
+
 ## 2026-11-03 IST: listed recall diagnosis; bounded repair in progress
 
 Same128 questions, complete under256 tokens: v13 listed54/64 in thin JSON but

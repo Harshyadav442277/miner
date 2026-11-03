@@ -1,0 +1,187 @@
+{
+ "pass": true,
+ "failures": [],
+ "steps": [
+  {
+   "step": 1,
+   "loss": 1.0371065735816956,
+   "gradient_norm": 2.0271785259246826
+  },
+  {
+   "step": 2,
+   "loss": 1.3642608076334,
+   "gradient_norm": 3.416536808013916
+  },
+  {
+   "step": 3,
+   "loss": 1.1471570581197739,
+   "gradient_norm": 2.071354866027832
+  },
+  {
+   "step": 4,
+   "loss": 1.3625684678554535,
+   "gradient_norm": 1.686517357826233
+  },
+  {
+   "step": 5,
+   "loss": 1.2456886321306229,
+   "gradient_norm": 1.3515392541885376
+  },
+  {
+   "step": 6,
+   "loss": 1.1477905809879303,
+   "gradient_norm": 2.275007486343384
+  },
+  {
+   "step": 7,
+   "loss": 1.243477076292038,
+   "gradient_norm": 2.2659497261047363
+  },
+  {
+   "step": 8,
+   "loss": 1.0311957150697708,
+   "gradient_norm": 1.5220187902450562
+  },
+  {
+   "step": 9,
+   "loss": 1.0615677684545517,
+   "gradient_norm": 1.868489384651184
+  },
+  {
+   "step": 10,
+   "loss": 1.0553124248981476,
+   "gradient_norm": 3.5691397190093994
+  },
+  {
+   "step": 11,
+   "loss": 1.1204956769943237,
+   "gradient_norm": 2.047503709793091
+  },
+  {
+   "step": 12,
+   "loss": 1.0910131186246872,
+   "gradient_norm": 2.1118242740631104
+  },
+  {
+   "step": 13,
+   "loss": 1.201242670416832,
+   "gradient_norm": 1.711426019668579
+  },
+  {
+   "step": 14,
+   "loss": 1.2492449581623077,
+   "gradient_norm": 3.242281913757324
+  },
+  {
+   "step": 15,
+   "loss": 0.8799891918897629,
+   "gradient_norm": 1.6214412450790405
+  },
+  {
+   "step": 16,
+   "loss": 1.3682024478912354,
+   "gradient_norm": 2.2262229919433594
+  },
+  {
+   "step": 17,
+   "loss": 1.0505205988883972,
+   "gradient_norm": 1.9328203201293945
+  },
+  {
+   "step": 18,
+   "loss": 1.3638756573200226,
+   "gradient_norm": 5.589632987976074
+  },
+  {
+   "step": 19,
+   "loss": 1.077076107263565,
+   "gradient_norm": 1.7192516326904297
+  },
+  {
+   "step": 20,
+   "loss": 0.9485651552677155,
+   "gradient_norm": 1.7996878623962402
+  },
+  {
+   "step": 21,
+   "loss": 1.0297279357910156,
+   "gradient_norm": 1.5860857963562012
+  },
+  {
+   "step": 22,
+   "loss": 0.9331706166267395,
+   "gradient_norm": 1.7812602519989014
+  },
+  {
+   "step": 23,
+   "loss": 0.8757693767547607,
+   "gradient_norm": 1.8897743225097656
+  },
+  {
+   "step": 24,
+   "loss": 1.0278688222169876,
+   "gradient_norm": 2.341444492340088
+  },
+  {
+   "step": 25,
+   "loss": 0.8990213125944138,
+   "gradient_norm": 0.9433749914169312
+  },
+  {
+   "step": 26,
+   "loss": 1.337347611784935,
+   "gradient_norm": 3.5990257263183594
+  },
+  {
+   "step": 27,
+   "loss": 1.1208439320325851,
+   "gradient_norm": 2.0444631576538086
+  },
+  {
+   "step": 28,
+   "loss": 1.2487720847129822,
+   "gradient_norm": 1.4580250978469849
+  },
+  {
+   "step": 29,
+   "loss": 1.0875376164913177,
+   "gradient_norm": 1.4285391569137573
+  },
+  {
+   "step": 30,
+   "loss": 1.1919794976711273,
+   "gradient_norm": 2.550250291824341
+  },
+  {
+   "step": 31,
+   "loss": 1.038999781012535,
+   "gradient_norm": 2.523566722869873
+  },
+  {
+   "step": 32,
+   "loss": 0.9820955395698547,
+   "gradient_norm": 1.8654690980911255
+  }
+ ],
+ "changed_tensors": [
+  "base_model.model.model.layers.20.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.20.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.20.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.20.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.20.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.20.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.20.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.20.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.21.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.21.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.21.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.21.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.21.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.21.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.21.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.21.mlp.Wo.lora_B.weight"
+ ],
+ "unchanged_saved_tensors": 162,
+ "checkpoint_sha256": "45393cb7b7c022fabc8b25e39c476bb669e8614f1b1e20d0a603837f04324c9c",
+ "scope": "HF synthetic repair only; no export, actual-node, reserved-body or submission claim"
+}

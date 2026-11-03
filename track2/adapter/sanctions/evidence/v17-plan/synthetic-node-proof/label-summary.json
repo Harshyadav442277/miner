@@ -1,0 +1,9 @@
+{
+ "registration_eligible": false,
+ "pairs_by_kind": {
+  "listed": 16,
+  "exact_name_absent": 16
+ },
+ "longer_answer_baseline": 0.5,
+ "scope": "Synthetic export fidelity only; no captured miner response or registration claim"
+}

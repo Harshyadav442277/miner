@@ -1,0 +1,12 @@
+{
+ "pass": true,
+ "frozen_inputs_sha256": "c10e01918318f3d6b29ff3a09fa3315859a4f79fa0c92d194c69aa2de98535b1",
+ "source_fact_queries_verified": 160,
+ "raw_csv_rows": 19485,
+ "valid_primary_records": 19484,
+ "ignored_nonrecord_rows": 1,
+ "train_holdout_disjoint_names": true,
+ "train_holdout_disjoint_entities": true,
+ "max_rendered_tokens": 500,
+ "scope": "Raw CSV/source split and conditional-teacher input audit, no accuracy claim"
+}

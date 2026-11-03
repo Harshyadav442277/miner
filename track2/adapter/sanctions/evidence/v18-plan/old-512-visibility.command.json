@@ -1,0 +1,14 @@
+{
+ "argv": [
+  "C:\\Users\\hyada\\tg-eval\\.venv\\Scripts\\python.exe",
+  "track2/adapter/sanctions/audit_claim_visibility.py",
+  "track2/adapter/sanctions/evidence/v7-miner-capture",
+  "--tokenizer",
+  "C:\\Users\\hyada\\tg-eval\\foundation\\tokenizer.json",
+  "--max-tokens",
+  "512",
+  "--out",
+  "C:\\Users\\hyada\\.codex\\worktrees\\sanctions-benchmark-v7\\Telegraph\\track2\\adapter\\sanctions\\evidence\\v18-plan\\old-512-visibility.json"
+ ],
+ "cwd": "C:\\Users\\hyada\\.codex\\worktrees\\sanctions-benchmark-v7\\Telegraph"
+}

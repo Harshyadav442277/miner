@@ -1,0 +1,2419 @@
+{
+ "training_seed": 2120261103,
+ "validation_seed": 2220261103,
+ "v19_inputs_sha256": "c10e01918318f3d6b29ff3a09fa3315859a4f79fa0c92d194c69aa2de98535b1",
+ "parent": {
+  "version": 13,
+  "tensors_verified": 178,
+  "checkpoint_sha256": "7d27363d75cc00e55d7638d7ab5bbdb6b5e6ade009e0102584b0c8a694a7de72"
+ },
+ "train": [
+  {
+   "name": "LIMITED LIABILITY COMPANY TRADE HOUSE KYUTEK",
+   "listed": true,
+   "prompt": "Screen LIMITED LIABILITY COMPANY TRADE HOUSE KYUTEK against the OFAC SDN list. Report name matches.",
+   "source_form": "primary",
+   "sdn_ids": [
+    "47991"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "LIMITED LIABILITY COMPANY TRADE HOUSE KYUTEK",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": 11.405782699584961,
+   "teacher_wrong": 0.4309234619140625
+  },
+  {
+   "name": "SKOLKOVO INSTITUTE OF SCIENCE AND TECHNOLOGY",
+   "listed": true,
+   "prompt": "Screen SKOLKOVO INSTITUTE OF SCIENCE AND TECHNOLOGY against the OFAC SDN list. Report name matches.",
+   "source_form": "primary",
+   "sdn_ids": [
+    "38222"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "SKOLKOVO INSTITUTE OF SCIENCE AND TECHNOLOGY",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": 10.674263000488281,
+   "teacher_wrong": 3.3320772647857666
+  },
+  {
+   "name": "LIMITED LIABILITY COMPANY DV HOLDING",
+   "listed": true,
+   "prompt": "Screen LIMITED LIABILITY COMPANY DV HOLDING against the OFAC SDN list. Report name matches.",
+   "source_form": "primary",
+   "sdn_ids": [
+    "46753"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "LIMITED LIABILITY COMPANY DV HOLDING",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": 4.502753734588623,
+   "teacher_wrong": -0.2265215516090393
+  },
+  {
+   "name": "ALCOTECH INTERNATIONAL TRADING DMCC",
+   "listed": true,
+   "prompt": "Screen ALCOTECH INTERNATIONAL TRADING DMCC against the OFAC SDN list. Report name matches.",
+   "source_form": "primary",
+   "sdn_ids": [
+    "45746"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "ALCOTECH INTERNATIONAL TRADING DMCC",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": 6.049618721008301,
+   "teacher_wrong": 1.1988894939422607
+  },
+  {
+   "name": "PUBLIC JOINT STOCK COMPANY BANK ALEXANDROVSKY",
+   "listed": true,
+   "prompt": "Screen PUBLIC JOINT STOCK COMPANY BANK ALEXANDROVSKY against the OFAC SDN list. Report name matches.",
+   "source_form": "primary",
+   "sdn_ids": [
+    "51738"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "PUBLIC JOINT STOCK COMPANY BANK ALEXANDROVSKY",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": 12.14963150024414,
+   "teacher_wrong": 3.5854170322418213
+  },
+  {
+   "name": "OOO MAKRO GRUPP",
+   "listed": true,
+   "prompt": "Screen OOO MAKRO GRUPP against the OFAC SDN list. Report name matches.",
+   "source_form": "primary",
+   "sdn_ids": [
+    "44844"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "OOO MAKRO GRUPP",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": 7.7412309646606445,
+   "teacher_wrong": 1.6036155223846436
+  },
+  {
+   "name": "JOINT STOCK COMPANY ELEKTRONNAYA MOSKVA",
+   "listed": true,
+   "prompt": "Screen JOINT STOCK COMPANY ELEKTRONNAYA MOSKVA against the OFAC SDN list. Report name matches.",
+   "source_form": "primary",
+   "sdn_ids": [
+    "47945"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "JOINT STOCK COMPANY ELEKTRONNAYA MOSKVA",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": 14.191608428955078,
+   "teacher_wrong": 3.433140277862549
+  },
+  {
+   "name": "FINANCIERA CIMEX S.A",
+   "listed": true,
+   "prompt": "Screen FINANCIERA CIMEX S.A against the OFAC SDN list. Report name matches.",
+   "source_form": "primary",
+   "sdn_ids": [
+    "30630"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "FINANCIERA CIMEX S.A",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": 1.2037670612335205,
+   "teacher_wrong": 0.4693390130996704
+  },
+  {
+   "name": "ROSATOM MICROELECTRONICS JOINT STOCK COMPANY",
+   "listed": true,
+   "prompt": "Screen ROSATOM MICROELECTRONICS JOINT STOCK COMPANY against the OFAC SDN list. Report name matches.",
+   "source_form": "primary",
+   "sdn_ids": [
+    "51225"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "ROSATOM MICROELECTRONICS JOINT STOCK COMPANY",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": 8.865936279296875,
+   "teacher_wrong": 1.7065341472625732
+  },
+  {
+   "name": "KUNLUN HOLDING COMPANY LTD.",
+   "listed": true,
+   "prompt": "Screen KUNLUN HOLDING COMPANY LTD. against the OFAC SDN list. Report name matches.",
+   "source_form": "primary",
+   "sdn_ids": [
+    "27468"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "KUNLUN HOLDING COMPANY LTD.",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": 3.9703803062438965,
+   "teacher_wrong": 0.7828493118286133
+  },
+  {
+   "name": "KB LINES LIMITED",
+   "listed": true,
+   "prompt": "Screen KB LINES LIMITED against the OFAC SDN list. Report name matches.",
+   "source_form": "primary",
+   "sdn_ids": [
+    "23208"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "KB LINES LIMITED",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": -0.24440357089042664,
+   "teacher_wrong": -0.2485455870628357
+  },
+  {
+   "name": "ALCARDINAL PETROLEUM COMPANY LIMITED",
+   "listed": true,
+   "prompt": "Screen ALCARDINAL PETROLEUM COMPANY LIMITED against the OFAC SDN list. Report name matches.",
+   "source_form": "primary",
+   "sdn_ids": [
+    "27594"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "ALCARDINAL PETROLEUM COMPANY LIMITED",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": 3.9241042137145996,
+   "teacher_wrong": 0.6759474873542786
+  },
+  {
+   "name": "AL-FALAH SOCIETY GAZA",
+   "listed": true,
+   "prompt": "Screen AL-FALAH SOCIETY GAZA against the OFAC SDN list. Report name matches.",
+   "source_form": "primary",
+   "sdn_ids": [
+    "56271"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "AL-FALAH SOCIETY GAZA",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": 5.231525897979736,
+   "teacher_wrong": 1.0619254112243652
+  },
+  {
+   "name": "RHINE SHIPPING DMCC",
+   "listed": true,
+   "prompt": "Screen RHINE SHIPPING DMCC against the OFAC SDN list. Report name matches.",
+   "source_form": "primary",
+   "sdn_ids": [
+    "54412"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "RHINE SHIPPING DMCC",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": 5.60832405090332,
+   "teacher_wrong": 0.8406935334205627
+  },
+  {
+   "name": "LIMITED LIABILITY COMPANY AXALIT LAB",
+   "listed": true,
+   "prompt": "Screen LIMITED LIABILITY COMPANY AXALIT LAB against the OFAC SDN list. Report name matches.",
+   "source_form": "primary",
+   "sdn_ids": [
+    "50898"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "LIMITED LIABILITY COMPANY AXALIT LAB",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": 6.658649921417236,
+   "teacher_wrong": -0.07962685823440552
+  },
+  {
+   "name": "PACIFIC OCEAN SHIPPING LIMITED",
+   "listed": true,
+   "prompt": "Screen PACIFIC OCEAN SHIPPING LIMITED against the OFAC SDN list. Report name matches.",
+   "source_form": "primary",
+   "sdn_ids": [
+    "25851"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "PACIFIC OCEAN SHIPPING LIMITED",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": 6.724218368530273,
+   "teacher_wrong": 2.7361297607421875
+  },
+  {
+   "name": "LLC BSP GLOBAL",
+   "listed": true,
+   "prompt": "Screen LLC BSP GLOBAL against the OFAC SDN list. Report name matches.",
+   "source_form": "alias",
+   "sdn_ids": [
+    "41986"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "LLC BSP GLOBAL",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": 3.8292908668518066,
+   "teacher_wrong": 0.7047931551933289
+  },
+  {
+   "name": "TETHYS PRO JSC",
+   "listed": true,
+   "prompt": "Screen TETHYS PRO JSC against the OFAC SDN list. Report name matches.",
+   "source_form": "alias",
+   "sdn_ids": [
+    "46757"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "TETHYS PRO JSC",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": 2.229294538497925,
+   "teacher_wrong": 0.7230856418609619
+  },
+  {
+   "name": "SLAVKALI IOOO",
+   "listed": true,
+   "prompt": "Screen SLAVKALI IOOO against the OFAC SDN list. Report name matches.",
+   "source_form": "alias",
+   "sdn_ids": [
+    "33371"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "SLAVKALI IOOO",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": 3.479095458984375,
+   "teacher_wrong": 1.0346218347549438
+  },
+  {
+   "name": "LLC NNK EAST",
+   "listed": true,
+   "prompt": "Screen LLC NNK EAST against the OFAC SDN list. Report name matches.",
+   "source_form": "alias",
+   "sdn_ids": [
+    "32681"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "LLC NNK EAST",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": 5.350489616394043,
+   "teacher_wrong": 0.9143210053443909
+  },
+  {
+   "name": "DARYANAVARD KISH SHIPPING COMPANY",
+   "listed": true,
+   "prompt": "Screen DARYANAVARD KISH SHIPPING COMPANY against the OFAC SDN list. Report name matches.",
+   "source_form": "alias",
+   "sdn_ids": [
+    "25861"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "DARYANAVARD KISH SHIPPING COMPANY",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": 7.574151992797852,
+   "teacher_wrong": 2.3631277084350586
+  },
+  {
+   "name": "DIMOND TOWN SHIPPING CO",
+   "listed": true,
+   "prompt": "Screen DIMOND TOWN SHIPPING CO against the OFAC SDN list. Report name matches.",
+   "source_form": "alias",
+   "sdn_ids": [
+    "55875"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "DIMOND TOWN SHIPPING CO",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": 9.048032760620117,
+   "teacher_wrong": 2.2396154403686523
+  },
+  {
+   "name": "TGOK ILMENITE JSC",
+   "listed": true,
+   "prompt": "Screen TGOK ILMENITE JSC against the OFAC SDN list. Report name matches.",
+   "source_form": "alias",
+   "sdn_ids": [
+    "52573"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "TGOK ILMENITE JSC",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": 4.816059112548828,
+   "teacher_wrong": 0.9760205745697021
+  },
+  {
+   "name": "VELIKOLUKSKII AKKUMULYATORNYI ZAVOD IMPULS",
+   "listed": true,
+   "prompt": "Screen VELIKOLUKSKII AKKUMULYATORNYI ZAVOD IMPULS against the OFAC SDN list. Report name matches.",
+   "source_form": "alias",
+   "sdn_ids": [
+    "46577"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "VELIKOLUKSKII AKKUMULYATORNYI ZAVOD IMPULS",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": 5.826425552368164,
+   "teacher_wrong": 1.6462857723236084
+  },
+  {
+   "name": "KATEEB AL MUHAJIREEN WAL ANSAR",
+   "listed": true,
+   "prompt": "Screen KATEEB AL MUHAJIREEN WAL ANSAR against the OFAC SDN list. Report name matches.",
+   "source_form": "alias",
+   "sdn_ids": [
+    "17289"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "KATEEB AL MUHAJIREEN WAL ANSAR",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": 4.072948455810547,
+   "teacher_wrong": 0.967803955078125
+  },
+  {
+   "name": "AZARPAD QESHM",
+   "listed": true,
+   "prompt": "Screen AZARPAD QESHM against the OFAC SDN list. Report name matches.",
+   "source_form": "alias",
+   "sdn_ids": [
+    "25858"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "AZARPAD QESHM",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": 2.633835792541504,
+   "teacher_wrong": 0.9314695000648499
+  },
+  {
+   "name": "M STAR INTERNATIONAL TRADING CO LIMITED",
+   "listed": true,
+   "prompt": "Screen M STAR INTERNATIONAL TRADING CO LIMITED against the OFAC SDN list. Report name matches.",
+   "source_form": "alias",
+   "sdn_ids": [
+    "50424"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "M STAR INTERNATIONAL TRADING CO LIMITED",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": 6.535070896148682,
+   "teacher_wrong": 2.9119741916656494
+  },
+  {
+   "name": "SHAHED AVIATION INDUSTRIES COMPLEX",
+   "listed": true,
+   "prompt": "Screen SHAHED AVIATION INDUSTRIES COMPLEX against the OFAC SDN list. Report name matches.",
+   "source_form": "alias",
+   "sdn_ids": [
+    "39637"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "SHAHED AVIATION INDUSTRIES COMPLEX",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": 1.5270155668258667,
+   "teacher_wrong": 0.001773536205291748
+  },
+  {
+   "name": "VALOR Y PRINCIPIO DE DAR, A.C.",
+   "listed": true,
+   "prompt": "Screen VALOR Y PRINCIPIO DE DAR, A.C. against the OFAC SDN list. Report name matches.",
+   "source_form": "alias",
+   "sdn_ids": [
+    "25433"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "VALOR Y PRINCIPIO DE DAR, A.C.",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": 2.6181514263153076,
+   "teacher_wrong": 0.5687944889068604
+  },
+  {
+   "name": "VYMPEL-SODEISTVIE",
+   "listed": true,
+   "prompt": "Screen VYMPEL-SODEISTVIE against the OFAC SDN list. Report name matches.",
+   "source_form": "alias",
+   "sdn_ids": [
+    "37084"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "VYMPEL-SODEISTVIE",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": 3.9769864082336426,
+   "teacher_wrong": 1.1549957990646362
+  },
+  {
+   "name": "LIMITED LIABILITY COMPANY ALABUGA DEVELOPMENT",
+   "listed": true,
+   "prompt": "Screen LIMITED LIABILITY COMPANY ALABUGA DEVELOPMENT against the OFAC SDN list. Report name matches.",
+   "source_form": "alias",
+   "sdn_ids": [
+    "45714"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "LIMITED LIABILITY COMPANY ALABUGA DEVELOPMENT",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": 10.35223388671875,
+   "teacher_wrong": 3.437178611755371
+  },
+  {
+   "name": "KOSAR COMPANY",
+   "listed": true,
+   "prompt": "Screen KOSAR COMPANY against the OFAC SDN list. Report name matches.",
+   "source_form": "alias",
+   "sdn_ids": [
+    "28702"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "KOSAR COMPANY",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": 2.311478614807129,
+   "teacher_wrong": 0.3970218300819397
+  },
+  {
+   "name": "E.M.I. SERVICE SOCIETA' A RESPONSABILITA' LIMITATA",
+   "listed": false,
+   "prompt": "Screen E.M.I. SERVICE SOCIETA' A RESPONSABILITA' LIMITATA against the OFAC SDN list. Report name matches.",
+   "source_form": "absent",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/815600BD866B358B3268",
+    "lei": "815600BD866B358B3268",
+    "source_name": "E.M.I. SERVICE SOCIETA' A RESPONSABILITA' LIMITATA",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": -1.1234781742095947,
+   "teacher_wrong": -8.009279251098633
+  },
+  {
+   "name": "DEFINE CAPITAL INC.",
+   "listed": false,
+   "prompt": "Screen DEFINE CAPITAL INC. against the OFAC SDN list. Report name matches.",
+   "source_form": "absent",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/254900AZPNDZRL7H5P98",
+    "lei": "254900AZPNDZRL7H5P98",
+    "source_name": "Define Capital Inc.",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": 0.025825917720794678,
+   "teacher_wrong": -0.5590454339981079
+  },
+  {
+   "name": "ISTITUTO SUPERIORE INTERNAZIONALE SALESIANO DI RICERCA EDUCATIVA CON DENOMINAZIONE \"ISRE\"",
+   "listed": false,
+   "prompt": "Screen ISTITUTO SUPERIORE INTERNAZIONALE SALESIANO DI RICERCA EDUCATIVA CON DENOMINAZIONE \"ISRE\" against the OFAC SDN list. Report name matches.",
+   "source_form": "absent",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/529900D4N7RDX8KA9O41",
+    "lei": "529900D4N7RDX8KA9O41",
+    "source_name": "ISTITUTO SUPERIORE INTERNAZIONALE SALESIANO DI RICERCA EDUCATIVA CON DENOMINAZIONE \"ISRE\"",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": -2.63517427444458,
+   "teacher_wrong": -3.383795738220215
+  },
+  {
+   "name": "BENS FUELS LTD",
+   "listed": false,
+   "prompt": "Screen BENS FUELS LTD against the OFAC SDN list. Report name matches.",
+   "source_form": "absent",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/8945006YCJZK7CIRUG57",
+    "lei": "8945006YCJZK7CIRUG57",
+    "source_name": "BENS FUELS LTD",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": 0.1273152232170105,
+   "teacher_wrong": -0.37033408880233765
+  },
+  {
+   "name": "MADHAVSOLAR (UDAIGARH) PRIVATE LIMITED",
+   "listed": false,
+   "prompt": "Screen MADHAVSOLAR (UDAIGARH) PRIVATE LIMITED against the OFAC SDN list. Report name matches.",
+   "source_form": "absent",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/3358001KHOZNJ78VXM74",
+    "lei": "3358001KHOZNJ78VXM74",
+    "source_name": "MADHAVSOLAR (UDAIGARH) PRIVATE LIMITED",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": -0.14033709466457367,
+   "teacher_wrong": -6.636132717132568
+  },
+  {
+   "name": "GABINETE JURIDICO MEXICO 100 SOCIEDAD LIMITADA PROFESIONAL",
+   "listed": false,
+   "prompt": "Screen GABINETE JURIDICO MEXICO 100 SOCIEDAD LIMITADA PROFESIONAL against the OFAC SDN list. Report name matches.",
+   "source_form": "absent",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/959800MN98CTDLGQAU42",
+    "lei": "959800MN98CTDLGQAU42",
+    "source_name": "GABINETE JURIDICO MEXICO 100 SOCIEDAD LIMITADA PROFESIONAL",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": -0.7088761329650879,
+   "teacher_wrong": -5.852588653564453
+  },
+  {
+   "name": "Y P ACCUMULATORS PRIVATE LIMITED",
+   "listed": false,
+   "prompt": "Screen Y P ACCUMULATORS PRIVATE LIMITED against the OFAC SDN list. Report name matches.",
+   "source_form": "absent",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/335800W2POYEQNF08Z34",
+    "lei": "335800W2POYEQNF08Z34",
+    "source_name": "Y P ACCUMULATORS PRIVATE LIMITED",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": -1.150699257850647,
+   "teacher_wrong": -7.159207820892334
+  },
+  {
+   "name": "LEIW ASIA OPPORTUNITIES MASTER FUND",
+   "listed": false,
+   "prompt": "Screen LEIW ASIA OPPORTUNITIES MASTER FUND against the OFAC SDN list. Report name matches.",
+   "source_form": "absent",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/25490012N28D6B9UEF53",
+    "lei": "25490012N28D6B9UEF53",
+    "source_name": "Leiw Asia Opportunities Master Fund",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": -0.7227760553359985,
+   "teacher_wrong": -4.907742023468018
+  },
+  {
+   "name": "SWETA INDUSTRIES",
+   "listed": false,
+   "prompt": "Screen SWETA INDUSTRIES against the OFAC SDN list. Report name matches.",
+   "source_form": "absent",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/335800J1J7QL7SK7UL94",
+    "lei": "335800J1J7QL7SK7UL94",
+    "source_name": "SWETA INDUSTRIES",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": 0.0374428927898407,
+   "teacher_wrong": -1.5649211406707764
+  },
+  {
+   "name": "IBIZATOURS & ISLANDBUS, S.L.",
+   "listed": false,
+   "prompt": "Screen IBIZATOURS & ISLANDBUS, S.L. against the OFAC SDN list. Report name matches.",
+   "source_form": "absent",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/959800TUEK548P3WZ864",
+    "lei": "959800TUEK548P3WZ864",
+    "source_name": "IBIZATOURS & ISLANDBUS, S.L.",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": -0.6630699634552002,
+   "teacher_wrong": -7.143733978271484
+  },
+  {
+   "name": "RP CONSULTANCY B.V.",
+   "listed": false,
+   "prompt": "Screen RP CONSULTANCY B.V. against the OFAC SDN list. Report name matches.",
+   "source_form": "absent",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/724500IYSPJUR0ES0R42",
+    "lei": "724500IYSPJUR0ES0R42",
+    "source_name": "RP Consultancy B.V.",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": -0.9238830804824829,
+   "teacher_wrong": -4.93292236328125
+  },
+  {
+   "name": "GCA INVEST AB",
+   "listed": false,
+   "prompt": "Screen GCA INVEST AB against the OFAC SDN list. Report name matches.",
+   "source_form": "absent",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/984500D08B67E6K7CB78",
+    "lei": "984500D08B67E6K7CB78",
+    "source_name": "GCA Invest AB",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": -0.6608388423919678,
+   "teacher_wrong": -5.769067764282227
+  },
+  {
+   "name": "WS KEYRIDGE MAP CAUTIOUS FUND",
+   "listed": false,
+   "prompt": "Screen WS KEYRIDGE MAP CAUTIOUS FUND against the OFAC SDN list. Report name matches.",
+   "source_form": "absent",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/2138008BI88MXS9TZ177",
+    "lei": "2138008BI88MXS9TZ177",
+    "source_name": "WS KEYRIDGE MAP CAUTIOUS FUND",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": 0.24494317173957825,
+   "teacher_wrong": -1.1285598278045654
+  },
+  {
+   "name": "CONGREGAZIONE MISSIONARIA DELLA PASSIONE DI NOSTRO SIGNORE GESU' CRISTO",
+   "listed": false,
+   "prompt": "Screen CONGREGAZIONE MISSIONARIA DELLA PASSIONE DI NOSTRO SIGNORE GESU' CRISTO against the OFAC SDN list. Report name matches.",
+   "source_form": "absent",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/815600691745A3635824",
+    "lei": "815600691745A3635824",
+    "source_name": "CONGREGAZIONE MISSIONARIA DELLA PASSIONE DI NOSTRO SIGNORE GESU' CRISTO",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": -1.755867838859558,
+   "teacher_wrong": -6.202602386474609
+  },
+  {
+   "name": "BRINGELANDS MASKINHANDEL AB",
+   "listed": false,
+   "prompt": "Screen BRINGELANDS MASKINHANDEL AB against the OFAC SDN list. Report name matches.",
+   "source_form": "absent",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/984500C689765B101B39",
+    "lei": "984500C689765B101B39",
+    "source_name": "Bringelands maskinhandel AB",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": -1.1411296129226685,
+   "teacher_wrong": -8.013138771057129
+  },
+  {
+   "name": "POUPINVEST",
+   "listed": false,
+   "prompt": "Screen POUPINVEST against the OFAC SDN list. Report name matches.",
+   "source_form": "absent",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/9695003WQM99K8TNXU30",
+    "lei": "9695003WQM99K8TNXU30",
+    "source_name": "POUPINVEST",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": 0.38284969329833984,
+   "teacher_wrong": 0.21864435076713562
+  },
+  {
+   "name": "\"CONSORZIO STABILE OPERAE - TECNOLOGIE E SISTEMI INTEGRATI DI COSTRUZIONE\" - IN FORMA ABBREVIATA \"CONSORZIO STABILE OPERAE\"",
+   "listed": false,
+   "prompt": "Screen \"CONSORZIO STABILE OPERAE - TECNOLOGIE E SISTEMI INTEGRATI DI COSTRUZIONE\" - IN FORMA ABBREVIATA \"CONSORZIO STABILE OPERAE\" against the OFAC SDN list. Report name matches.",
+   "source_form": "absent",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/81560099068B9B5AB805",
+    "lei": "81560099068B9B5AB805",
+    "source_name": "\"CONSORZIO STABILE OPERAE - TECNOLOGIE E SISTEMI INTEGRATI DI COSTRUZIONE\" - IN FORMA ABBREVIATA \"CONSORZIO STABILE OPERAE\"",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": -3.357402801513672,
+   "teacher_wrong": -6.374392986297607
+  },
+  {
+   "name": "REDDY DRUGS LIFE SCIENCES",
+   "listed": false,
+   "prompt": "Screen REDDY DRUGS LIFE SCIENCES against the OFAC SDN list. Report name matches.",
+   "source_form": "absent",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/6488005AXJEI71T45L44",
+    "lei": "6488005AXJEI71T45L44",
+    "source_name": "REDDY DRUGS LIFE SCIENCES",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": -0.20347997546195984,
+   "teacher_wrong": -2.9936583042144775
+  },
+  {
+   "name": "HARI NARAYAN MEENA",
+   "listed": false,
+   "prompt": "Screen HARI NARAYAN MEENA against the OFAC SDN list. Report name matches.",
+   "source_form": "absent",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/98450093C47B54QDEC98",
+    "lei": "98450093C47B54QDEC98",
+    "source_name": "HARI NARAYAN MEENA",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": 0.057908907532691956,
+   "teacher_wrong": -0.021041184663772583
+  },
+  {
+   "name": "AIKYA APPARELS PRIVATE LIMITED",
+   "listed": false,
+   "prompt": "Screen AIKYA APPARELS PRIVATE LIMITED against the OFAC SDN list. Report name matches.",
+   "source_form": "absent",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/335800XGMUURHDID3Q40",
+    "lei": "335800XGMUURHDID3Q40",
+    "source_name": "AIKYA APPARELS PRIVATE LIMITED",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": -0.438429057598114,
+   "teacher_wrong": -4.404174327850342
+  },
+  {
+   "name": "LES ATELIERS DU PETIT MONT BLANC",
+   "listed": false,
+   "prompt": "Screen LES ATELIERS DU PETIT MONT BLANC against the OFAC SDN list. Report name matches.",
+   "source_form": "absent",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/969500G7IK23D03T6D46",
+    "lei": "969500G7IK23D03T6D46",
+    "source_name": "LES ATELIERS DU PETIT MONT BLANC",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": -0.2509113550186157,
+   "teacher_wrong": -2.4158847332000732
+  },
+  {
+   "name": "AKSHAR INDUSTRIES",
+   "listed": false,
+   "prompt": "Screen AKSHAR INDUSTRIES against the OFAC SDN list. Report name matches.",
+   "source_form": "absent",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/3358003DSAKSHNNSY231",
+    "lei": "3358003DSAKSHNNSY231",
+    "source_name": "AKSHAR INDUSTRIES",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": 0.15981315076351166,
+   "teacher_wrong": -1.3554000854492188
+  },
+  {
+   "name": "YEB-JAN YPMA HOLDING B.V.",
+   "listed": false,
+   "prompt": "Screen YEB-JAN YPMA HOLDING B.V. against the OFAC SDN list. Report name matches.",
+   "source_form": "absent",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/7245006TXQN59DRE2F03",
+    "lei": "7245006TXQN59DRE2F03",
+    "source_name": "Yeb-Jan Ypma Holding B.V.",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": -0.12910033762454987,
+   "teacher_wrong": -2.7839179039001465
+  },
+  {
+   "name": "QUANTUM LEGACY FAMILY OFFICE SOCIEDAD LIMITADA",
+   "listed": false,
+   "prompt": "Screen QUANTUM LEGACY FAMILY OFFICE SOCIEDAD LIMITADA against the OFAC SDN list. Report name matches.",
+   "source_form": "absent",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/959800JTUADYN75NN889",
+    "lei": "959800JTUADYN75NN889",
+    "source_name": "QUANTUM LEGACY FAMILY OFFICE SOCIEDAD LIMITADA",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": -0.02394251525402069,
+   "teacher_wrong": -3.187710762023926
+  },
+  {
+   "name": "INMINER INGENIERIA, S.L",
+   "listed": false,
+   "prompt": "Screen INMINER INGENIERIA, S.L against the OFAC SDN list. Report name matches.",
+   "source_form": "absent",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/959800TQ0MN908D0A441",
+    "lei": "959800TQ0MN908D0A441",
+    "source_name": "INMINER INGENIERIA, S.L",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": -0.7352523803710938,
+   "teacher_wrong": -5.8261003494262695
+  },
+  {
+   "name": "HIMEM AB",
+   "listed": false,
+   "prompt": "Screen HIMEM AB against the OFAC SDN list. Report name matches.",
+   "source_form": "absent",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/648800QV4V633NQH9I91",
+    "lei": "648800QV4V633NQH9I91",
+    "source_name": "Himem AB",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": -0.002863869071006775,
+   "teacher_wrong": -2.8925323486328125
+  },
+  {
+   "name": "CASTELL 2026-2 PLC",
+   "listed": false,
+   "prompt": "Screen CASTELL 2026-2 PLC against the OFAC SDN list. Report name matches.",
+   "source_form": "absent",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/2138003TMXREQF6JCR42",
+    "lei": "2138003TMXREQF6JCR42",
+    "source_name": "CASTELL 2026-2 PLC",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": 0.24452251195907593,
+   "teacher_wrong": -3.0204544067382812
+  },
+  {
+   "name": "ALL IN TRANSPORT STOCKHOLM AB",
+   "listed": false,
+   "prompt": "Screen ALL IN TRANSPORT STOCKHOLM AB against the OFAC SDN list. Report name matches.",
+   "source_form": "absent",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/636700U1LAJ2SZP6W746",
+    "lei": "636700U1LAJ2SZP6W746",
+    "source_name": "All in transport Stockholm AB",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": -0.7207205891609192,
+   "teacher_wrong": -5.831726551055908
+  },
+  {
+   "name": "STEVIN PARTNERS S.R.L.",
+   "listed": false,
+   "prompt": "Screen STEVIN PARTNERS S.R.L. against the OFAC SDN list. Report name matches.",
+   "source_form": "absent",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/529900VGRACZ4FHSL045",
+    "lei": "529900VGRACZ4FHSL045",
+    "source_name": "STEVIN PARTNERS S.R.L.",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": -0.8428280353546143,
+   "teacher_wrong": -5.099173069000244
+  },
+  {
+   "name": "P K BARBER DOV TRUST FOR CHRISTOPHER",
+   "listed": false,
+   "prompt": "Screen P K BARBER DOV TRUST FOR CHRISTOPHER against the OFAC SDN list. Report name matches.",
+   "source_form": "absent",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/2549006LVCTMENVI9O52",
+    "lei": "2549006LVCTMENVI9O52",
+    "source_name": "P K Barber DOV Trust For Christopher",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": -0.7208545804023743,
+   "teacher_wrong": -5.6080169677734375
+  },
+  {
+   "name": "LUKMAN CONSTRUCTION PRIVATE LIMITED",
+   "listed": false,
+   "prompt": "Screen LUKMAN CONSTRUCTION PRIVATE LIMITED against the OFAC SDN list. Report name matches.",
+   "source_form": "absent",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/335800WGXW999QG6ZS34",
+    "lei": "335800WGXW999QG6ZS34",
+    "source_name": "LUKMAN CONSTRUCTION PRIVATE LIMITED",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": -1.471462607383728,
+   "teacher_wrong": -6.5068254470825195
+  },
+  {
+   "name": "HUNGRY BOYS",
+   "listed": false,
+   "prompt": "Screen HUNGRY BOYS against the OFAC SDN list. Report name matches.",
+   "source_form": "absent",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/9695003I2L8XSB8MS053",
+    "lei": "9695003I2L8XSB8MS053",
+    "source_name": "HUNGRY BOYS",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   },
+   "teacher_correct": -0.08360390365123749,
+   "teacher_wrong": -3.5864791870117188
+  }
+ ],
+ "validation": [
+  {
+   "name": "SYRONICS",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen SYRONICS against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "13374"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "SYRONICS",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "DONGGUAN SHENGYIN CNC EQUIPMENT CO LTD",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen DONGGUAN SHENGYIN CNC EQUIPMENT CO LTD against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "50366"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "DONGGUAN SHENGYIN CNC EQUIPMENT CO LTD",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "INTERSEAS SHIPYARD LTD",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen INTERSEAS SHIPYARD LTD against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "25835"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "INTERSEAS SHIPYARD LTD",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "CS YONETIM VE DESTEK HIZMETLERI LIMITED SIRKETI",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen CS YONETIM VE DESTEK HIZMETLERI LIMITED SIRKETI against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "52229"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "CS YONETIM VE DESTEK HIZMETLERI LIMITED SIRKETI",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "SOLUCIONES TECNOLOGICAS Y PAQUETERIA TRES, SOCIEDAD ANONIMA DE CAPITAL VARIABLE",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen SOLUCIONES TECNOLOGICAS Y PAQUETERIA TRES, SOCIEDAD ANONIMA DE CAPITAL VARIABLE against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "50707"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "SOLUCIONES TECNOLOGICAS Y PAQUETERIA TRES, SOCIEDAD ANONIMA DE CAPITAL VARIABLE",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "ASIA ENERGY GENERAL TRADING (LLC)",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen ASIA ENERGY GENERAL TRADING (LLC) against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "15696"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "ASIA ENERGY GENERAL TRADING (LLC)",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "JSC SUEK",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen JSC SUEK against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "47681"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "JSC SUEK",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "AGENCIA DE CONTRATACION A REPRESENTACIONES COMERCIALES S.A.",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen AGENCIA DE CONTRATACION A REPRESENTACIONES COMERCIALES S.A. against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "58453"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "AGENCIA DE CONTRATACION A REPRESENTACIONES COMERCIALES S.A.",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "KINAHAN ORGANIZED CRIME GROUP",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen KINAHAN ORGANIZED CRIME GROUP against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "34979"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "KINAHAN ORGANIZED CRIME GROUP",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "JANE SHANG CO., LIMITED",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen JANE SHANG CO., LIMITED against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "30149"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "JANE SHANG CO., LIMITED",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "FLY PERSIA AIRLINES",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen FLY PERSIA AIRLINES against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "58531"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "FLY PERSIA AIRLINES",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "CONSTRUCTORA H.L.T.",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen CONSTRUCTORA H.L.T. against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "13433"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "CONSTRUCTORA H.L.T.",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "JOINT STOCK COMPANY LASERSERVICE",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen JOINT STOCK COMPANY LASERSERVICE against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "50767"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "JOINT STOCK COMPANY LASERSERVICE",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "MOSCOW EXCHANGE",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen MOSCOW EXCHANGE against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "46526"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "MOSCOW EXCHANGE",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "JOINT STOCK COMPANY KRONSHTADT",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen JOINT STOCK COMPANY KRONSHTADT against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "35854"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "JOINT STOCK COMPANY KRONSHTADT",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "LASTSIX TRADING LIMITED",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen LASTSIX TRADING LIMITED against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "54243"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "LASTSIX TRADING LIMITED",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "WHITELEAVE HOLDINGS LIMITED",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen WHITELEAVE HOLDINGS LIMITED against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "40578"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "WHITELEAVE HOLDINGS LIMITED",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "MB PTERA",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen MB PTERA against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "51407"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "MB PTERA",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "MUHAMMAD JAMAL NETWORK",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen MUHAMMAD JAMAL NETWORK against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "16278"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "MUHAMMAD JAMAL NETWORK",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "LIMITED LIABILITY COMPANY ALTEGRITY",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen LIMITED LIABILITY COMPANY ALTEGRITY against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "48869"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "LIMITED LIABILITY COMPANY ALTEGRITY",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "BANK BELVEB OJSC",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen BANK BELVEB OJSC against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "18291"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "BANK BELVEB OJSC",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "JUI PANG SHIPPING CO LTD",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen JUI PANG SHIPPING CO LTD against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "26929"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "JUI PANG SHIPPING CO LTD",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "TUNISIAN COMBAT GROUP",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen TUNISIAN COMBAT GROUP against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "7268"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "TUNISIAN COMBAT GROUP",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "CONSPIRACY OF FIRE NUCLEI",
+   "listed": true,
+   "source_form": "primary",
+   "prompt": "Screen CONSPIRACY OF FIRE NUCLEI against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "12928"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "CONSPIRACY OF FIRE NUCLEI",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "CJSC ENERGO-OIL",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen CJSC ENERGO-OIL against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "32732"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "CJSC ENERGO-OIL",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "AKTSIONERNOE OBSHCHESTVO REMVOORUZHENIE",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen AKTSIONERNOE OBSHCHESTVO REMVOORUZHENIE against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "51129"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "AKTSIONERNOE OBSHCHESTVO REMVOORUZHENIE",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "WE FREIGHT INVESTMENT FZCO",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen WE FREIGHT INVESTMENT FZCO against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "58137"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "WE FREIGHT INVESTMENT FZCO",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "RED EAGLE GROUP",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen RED EAGLE GROUP against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "4709"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "RED EAGLE GROUP",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "JOINT STOCK COMPANY SBERBANK-AUTOMATED SYSTEM FOR TRADING",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen JOINT STOCK COMPANY SBERBANK-AUTOMATED SYSTEM FOR TRADING against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "18743"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "JOINT STOCK COMPANY SBERBANK-AUTOMATED SYSTEM FOR TRADING",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "OBSHCHESTVO S OGRANICHENNOI OTVETSTVENNOSTYU ALBATROS",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen OBSHCHESTVO S OGRANICHENNOI OTVETSTVENNOSTYU ALBATROS against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "45709"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "OBSHCHESTVO S OGRANICHENNOI OTVETSTVENNOSTYU ALBATROS",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "MINISTRY OF DEFENSE LEGION EXPORT",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen MINISTRY OF DEFENSE LEGION EXPORT against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "13156"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "MINISTRY OF DEFENSE LEGION EXPORT",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "AO INFRAVEB",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen AO INFRAVEB against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "35001"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "AO INFRAVEB",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "INDUSTRIAL FACTORIES OF PRECISION-MACHINERY",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen INDUSTRIAL FACTORIES OF PRECISION-MACHINERY against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "10388"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "INDUSTRIAL FACTORIES OF PRECISION-MACHINERY",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "YALTA MERCHANT SEA PORT",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen YALTA MERCHANT SEA PORT against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "18315"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "YALTA MERCHANT SEA PORT",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "AL-SANDUQ AL-FILISTINI LIL-IGHATHA WA AL-TANMIYA",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen AL-SANDUQ AL-FILISTINI LIL-IGHATHA WA AL-TANMIYA against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "7917"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "AL-SANDUQ AL-FILISTINI LIL-IGHATHA WA AL-TANMIYA",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "FORCES DEMOCRATIQUES ALLIEES-ARMEE NATIONALE DE LIBERATION DE L'OUGANDA",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen FORCES DEMOCRATIQUES ALLIEES-ARMEE NATIONALE DE LIBERATION DE L'OUGANDA against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "16696"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "FORCES DEMOCRATIQUES ALLIEES-ARMEE NATIONALE DE LIBERATION DE L'OUGANDA",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "JSC BELSHINA",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen JSC BELSHINA against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "12863"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "JSC BELSHINA",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "MOHSEN KHANDAN AND PARTNERS COMPANY",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen MOHSEN KHANDAN AND PARTNERS COMPANY against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "57933"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "MOHSEN KHANDAN AND PARTNERS COMPANY",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "YANGSHAN SHENGANG INTERNATIONAL OIL STORAGE CO. LTD.",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen YANGSHAN SHENGANG INTERNATIONAL OIL STORAGE CO. LTD. against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "55262"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "YANGSHAN SHENGANG INTERNATIONAL OIL STORAGE CO. LTD.",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "VYATKA MACHINERY PLANT AVITEC JSC",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen VYATKA MACHINERY PLANT AVITEC JSC against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "37718"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "VYATKA MACHINERY PLANT AVITEC JSC",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "AVTONOMNAYA NEKOMMERCHESKAYA ORGANIZATSIYA DOPOLNITELNOGO PROFESSIONALNOGO OBRAZOVANIYA UCHEBNYI TSENTR ESHELON",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen AVTONOMNAYA NEKOMMERCHESKAYA ORGANIZATSIYA DOPOLNITELNOGO PROFESSIONALNOGO OBRAZOVANIYA UCHEBNYI TSENTR ESHELON against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "47931"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "AVTONOMNAYA NEKOMMERCHESKAYA ORGANIZATSIYA DOPOLNITELNOGO PROFESSIONALNOGO OBRAZOVANIYA UCHEBNYI TSENTR ESHELON",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "ASYAF GROUP",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen ASYAF GROUP against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "18536"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "ASYAF GROUP",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "TRANSPORTES LC",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen TRANSPORTES LC against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "13431"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "TRANSPORTES LC",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "JOINT STOCK COMPANY NIIMA PROGRESS",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen JOINT STOCK COMPANY NIIMA PROGRESS against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "38177"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "JOINT STOCK COMPANY NIIMA PROGRESS",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "CRYOGENMASH",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen CRYOGENMASH against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "20306"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "CRYOGENMASH",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "PRIUS ELEKTRONICS",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen PRIUS ELEKTRONICS against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "46695"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "PRIUS ELEKTRONICS",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "JSC ICC MILANDR",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen JSC ICC MILANDR against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "35199"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "JSC ICC MILANDR",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "BANK OF INDUSTRY & MINE",
+   "listed": true,
+   "source_form": "alias",
+   "prompt": "Screen BANK OF INDUSTRY & MINE against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [
+    "25685"
+   ],
+   "provenance": {
+    "source_url": "https://sanctionslist.ofac.treas.gov/Home/SdnList",
+    "lei": null,
+    "source_name": "BANK OF INDUSTRY & MINE",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "NEWNEEDS CONSULTING SL",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen NEWNEEDS CONSULTING SL against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/98450051479Z6C8D8F80",
+    "lei": "98450051479Z6C8D8F80",
+    "source_name": "NEWNEEDS CONSULTING SL",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "D.T. IMMOBILIARE SRL",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen D.T. IMMOBILIARE SRL against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/815600E7CCDB9CA29119",
+    "lei": "815600E7CCDB9CA29119",
+    "source_name": "D.T. IMMOBILIARE SRL",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "VASAVI BIOTECH PRIVATE LIMITED",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen VASAVI BIOTECH PRIVATE LIMITED against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/6488002QX0VL9QSNZV30",
+    "lei": "6488002QX0VL9QSNZV30",
+    "source_name": "VASAVI BIOTECH PRIVATE LIMITED",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "CUBE INFRASTRUCTURE OPPORTUNITIES TRUST",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen CUBE INFRASTRUCTURE OPPORTUNITIES TRUST against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/9845000BAE2C1HC4PB09",
+    "lei": "9845000BAE2C1HC4PB09",
+    "source_name": "CUBE INFRASTRUCTURE OPPORTUNITIES TRUST",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "R K PHARMA DISTRIBUTORS PRIVATE LIMITED",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen R K PHARMA DISTRIBUTORS PRIVATE LIMITED against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/648800Z5K28TQV3LL219",
+    "lei": "648800Z5K28TQV3LL219",
+    "source_name": "R K PHARMA DISTRIBUTORS PRIVATE LIMITED",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "GRANGEFROST LIMITED",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen GRANGEFROST LIMITED against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/213800QPJ1H9CH3SO827",
+    "lei": "213800QPJ1H9CH3SO827",
+    "source_name": "GRANGEFROST LIMITED",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "DS LIQUID DIV RVA ASTG LLC",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen DS LIQUID DIV RVA ASTG LLC against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/25490092TVQZATI0AB12",
+    "lei": "25490092TVQZATI0AB12",
+    "source_name": "DS LIQUID DIV RVA ASTG LLC",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "SPINOS LIFE SCIENCE AND RESEARCH PRIVATE LIMITED",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen SPINOS LIFE SCIENCE AND RESEARCH PRIVATE LIMITED against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/648800OQW0LV4XVPWZ24",
+    "lei": "648800OQW0LV4XVPWZ24",
+    "source_name": "SPINOS LIFE SCIENCE AND RESEARCH PRIVATE LIMITED",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "VOLT - POWER YOUR POTENTIAL",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen VOLT - POWER YOUR POTENTIAL against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/648800BRYXZT37R72Q11",
+    "lei": "648800BRYXZT37R72Q11",
+    "source_name": "Volt - Power your potential",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "LEADPEAK GMBH",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen LEADPEAK GMBH against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/391200DMUF7V5ZXW0130",
+    "lei": "391200DMUF7V5ZXW0130",
+    "source_name": "Leadpeak GmbH",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "HARTMANN VERWALTUNGS GMBH",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen HARTMANN VERWALTUNGS GMBH against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/984500D7C6A71F6A3E86",
+    "lei": "984500D7C6A71F6A3E86",
+    "source_name": "Hartmann Verwaltungs GmbH",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "M/S SHREE SHYAMJI INDUSTRIES",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen M/S SHREE SHYAMJI INDUSTRIES against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/648800ISQ3LO3F0TU636",
+    "lei": "648800ISQ3LO3F0TU636",
+    "source_name": "M/S SHREE SHYAMJI INDUSTRIES",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "MATRACHAYA LAND DEVELOPERS PRIVATE LIMITED",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen MATRACHAYA LAND DEVELOPERS PRIVATE LIMITED against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/648800XCZRGZR86VX997",
+    "lei": "648800XCZRGZR86VX997",
+    "source_name": "MATRACHAYA LAND DEVELOPERS PRIVATE LIMITED",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "OBSIDO HOLDING B.V.",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen OBSIDO HOLDING B.V. against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/72450066CXYX3HDA2I51",
+    "lei": "72450066CXYX3HDA2I51",
+    "source_name": "Obsido Holding B.V.",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "JL GRUPPEN AS",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen JL GRUPPEN AS against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/648800H59U7CHWHNVU65",
+    "lei": "648800H59U7CHWHNVU65",
+    "source_name": "JL GRUPPEN AS",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "RCC INFRATECH PRIVATE LIMITED",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen RCC INFRATECH PRIVATE LIMITED against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/6488000B8QKNCK290P23",
+    "lei": "6488000B8QKNCK290P23",
+    "source_name": "RCC INFRATECH PRIVATE LIMITED",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "GRUPO CASTEMU SL",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen GRUPO CASTEMU SL against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/959800VM89TKBXAPJ976",
+    "lei": "959800VM89TKBXAPJ976",
+    "source_name": "GRUPO CASTEMU SL",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "DN LEAD MEDIA UAB",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen DN LEAD MEDIA UAB against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/98450031095664E00T84",
+    "lei": "98450031095664E00T84",
+    "source_name": "DN Lead Media UAB",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "ESTACION DE SERVICIO DE SANTACARA SL",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen ESTACION DE SERVICIO DE SANTACARA SL against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/959800STR5DVH9U45Z90",
+    "lei": "959800STR5DVH9U45Z90",
+    "source_name": "ESTACION DE SERVICIO DE SANTACARA SL",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "CONCEPT S D.O.O. ZA TRGOVINU, USLUGE I PROIZVODNJU",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen CONCEPT S D.O.O. ZA TRGOVINU, USLUGE I PROIZVODNJU against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/48510090WNYCPDTBV616",
+    "lei": "48510090WNYCPDTBV616",
+    "source_name": "CONCEPT S d.o.o. za trgovinu, usluge i proizvodnju",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "VEGINI CONVENTION CENTER",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen VEGINI CONVENTION CENTER against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/3358006FQNK9I3E69K39",
+    "lei": "3358006FQNK9I3E69K39",
+    "source_name": "VEGINI CONVENTION CENTER",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "SRI SAI INFRA",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen SRI SAI INFRA against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/648800P1XPMMM7DC2C10",
+    "lei": "648800P1XPMMM7DC2C10",
+    "source_name": "SRI SAI INFRA",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "BR POULTRY FEEDS",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen BR POULTRY FEEDS against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/648800J7PZTC9YA9PV45",
+    "lei": "648800J7PZTC9YA9PV45",
+    "source_name": "BR POULTRY FEEDS",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "PANCHA RAM BISHNOI",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen PANCHA RAM BISHNOI against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/6488001PHPJJT977QF43",
+    "lei": "6488001PHPJJT977QF43",
+    "source_name": "PANCHA RAM BISHNOI",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "RAY LIFE SPACES LLP",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen RAY LIFE SPACES LLP against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/648800J4WLRCGFUI3852",
+    "lei": "648800J4WLRCGFUI3852",
+    "source_name": "RAY LIFE SPACES LLP",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "LPO HOLIDAYS PRIVATE LIMITED",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen LPO HOLIDAYS PRIVATE LIMITED against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/335800HR1V0RPTDJKI94",
+    "lei": "335800HR1V0RPTDJKI94",
+    "source_name": "LPO HOLIDAYS PRIVATE LIMITED",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "MN COPPER STRIPS PRIVATE LIMITED",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen MN COPPER STRIPS PRIVATE LIMITED against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/8945007BFPNTGRKIGO05",
+    "lei": "8945007BFPNTGRKIGO05",
+    "source_name": "MN COPPER STRIPS PRIVATE LIMITED",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "CAMADERA",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen CAMADERA against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/89450077W815S6ZAEW67",
+    "lei": "89450077W815S6ZAEW67",
+    "source_name": "Camadera",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "KONARK VEG RESTAURANT",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen KONARK VEG RESTAURANT against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/335800MDE40T1Q7UU915",
+    "lei": "335800MDE40T1Q7UU915",
+    "source_name": "KONARK VEG RESTAURANT",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "VACUAPPS S. R. O.",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen VACUAPPS S. R. O. against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/097900CAKA0000359069",
+    "lei": "097900CAKA0000359069",
+    "source_name": "Vacuapps s. r. o.",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "SHEKAR POOJARY",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen SHEKAR POOJARY against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/648800HXEZ1X94CK9862",
+    "lei": "648800HXEZ1X94CK9862",
+    "source_name": "SHEKAR POOJARY",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "LANDVOLK NIEDERSACHSEN, KREISVERBAND MITTELWESER E.V",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen LANDVOLK NIEDERSACHSEN, KREISVERBAND MITTELWESER E.V against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/391200JUY6XDKUDMDY62",
+    "lei": "391200JUY6XDKUDMDY62",
+    "source_name": "Landvolk Niedersachsen, Kreisverband Mittelweser e.V",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "SHANKAR RAMKISAN TAMBE",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen SHANKAR RAMKISAN TAMBE against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/648800KSLBDO6QUM6X59",
+    "lei": "648800KSLBDO6QUM6X59",
+    "source_name": "SHANKAR RAMKISAN TAMBE",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "BHANU SCOOTER PARTS",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen BHANU SCOOTER PARTS against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/648800WRQEE9K9UY0E27",
+    "lei": "648800WRQEE9K9UY0E27",
+    "source_name": "BHANU SCOOTER PARTS",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "JAGDISH KUMAR",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen JAGDISH KUMAR against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/648800MHGWR4XTGNZX76",
+    "lei": "648800MHGWR4XTGNZX76",
+    "source_name": "JAGDISH KUMAR",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "DELFT CIRCUITS B.V.",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen DELFT CIRCUITS B.V. against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/724500CGDZOWZM03QO50",
+    "lei": "724500CGDZOWZM03QO50",
+    "source_name": "Delft Circuits B.V.",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "VANDANA GOENKA",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen VANDANA GOENKA against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/648800PW6RV1VB8KPL76",
+    "lei": "648800PW6RV1VB8KPL76",
+    "source_name": "VANDANA GOENKA",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "OLEUM SYNTHETIC GREASES AND LUBES LLP",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen OLEUM SYNTHETIC GREASES AND LUBES LLP against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/335800UYHC0BULU4JR41",
+    "lei": "335800UYHC0BULU4JR41",
+    "source_name": "OLEUM SYNTHETIC GREASES AND LUBES LLP",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "SOCIETA' SEMPLICE AGRICOLA S. SOFIA",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen SOCIETA' SEMPLICE AGRICOLA S. SOFIA against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/815600F1E1BDD0BC5D33",
+    "lei": "815600F1E1BDD0BC5D33",
+    "source_name": "SOCIETA' SEMPLICE AGRICOLA S. SOFIA",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "R. ALBERTI HOLDING B.V.",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen R. ALBERTI HOLDING B.V. against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/724500N2UV6PQFGBR455",
+    "lei": "724500N2UV6PQFGBR455",
+    "source_name": "R. Alberti Holding B.V.",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "SMAI S.R.L.",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen SMAI S.R.L. against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/81560082287E088B9763",
+    "lei": "81560082287E088B9763",
+    "source_name": "SMAI S.R.L.",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "DHANA JEWELLERY MART",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen DHANA JEWELLERY MART against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/648800015ZW13LAQ8A72",
+    "lei": "648800015ZW13LAQ8A72",
+    "source_name": "DHANA JEWELLERY MART",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "TRY",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen TRY against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/969500JPDGEROGY2MM87",
+    "lei": "969500JPDGEROGY2MM87",
+    "source_name": "TRY",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "HOLDING FALGUIERE 35",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen HOLDING FALGUIERE 35 against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/8945006LQ0YLUVGO6W63",
+    "lei": "8945006LQ0YLUVGO6W63",
+    "source_name": "HOLDING FALGUIERE 35",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "CLOUD 9 INVEST GMBH & CO. KG",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen CLOUD 9 INVEST GMBH & CO. KG against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/5299004GNGUM72OXZ024",
+    "lei": "5299004GNGUM72OXZ024",
+    "source_name": "Cloud 9 Invest GmbH & Co. KG",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "TOPSAIL CAPITAL LIMITED",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen TOPSAIL CAPITAL LIMITED against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/254900AWSBMNE7JFT662",
+    "lei": "254900AWSBMNE7JFT662",
+    "source_name": "Topsail Capital Limited",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "FULLSTALL LIMITED",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen FULLSTALL LIMITED against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/254900CHAXCD0Y5YVE10",
+    "lei": "254900CHAXCD0Y5YVE10",
+    "source_name": "FULLSTALL LIMITED",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  },
+  {
+   "name": "BUYTENDIJK HOLDING B.V.",
+   "listed": false,
+   "source_form": "absent",
+   "prompt": "Screen BUYTENDIJK HOLDING B.V. against the OFAC SDN list. Report name matches.",
+   "sdn_ids": [],
+   "provenance": {
+    "source_url": "https://api.gleif.org/api/v1/lei-records/724500LPR8JOQJV3QL73",
+    "lei": "724500LPR8JOQJV3QL73",
+    "source_name": "Buytendijk Holding B.V.",
+    "source_kind": "public_reference_fact_not_miner_answer"
+   }
+  }
+ ],
+ "neutral_metadata": {
+  "dataset": "US Treasury OFAC Specially Designated Nationals snapshot",
+  "source_files": [
+   "SDN.CSV",
+   "ALT.CSV"
+  ],
+  "primary_records": 19484,
+  "alias_records": 20204,
+  "alias_type_counts": {
+   "aka": 19685,
+   "fka": 502,
+   "nka": 17
+  },
+  "entity_type_counts": {
+   "entity": 10045,
+   "individual": 7529,
+   "vessel": 1568,
+   "aircraft": 342
+  },
+  "sdn_sha256": "5f240bed79d504e7a54788b4cd1c7f84e6afa56cd4778653b70b0771b6a8509d",
+  "alt_sha256": "b0e2811fbb49ba6e9941a497e6b05fa2c9037b45ae7923196a01e2363a402259",
+  "source_urls": [
+   "https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports/SDN.CSV",
+   "https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports/ALT.CSV"
+  ],
+  "matching_rule": "Lowercase ASCII alphanumeric tokens, sorted; exact primary-name and alias lookup only.",
+  "identity_scope": "A name overlap alone does not establish identity; additional identifiers require separate review.",
+  "absence_scope": "Exact-name absence does not establish all-list, fuzzy, ownership-based or legal clearance.",
+  "snapshot_scope": "Results refer to these frozen source bytes; no original publication date is asserted."
+ },
+ "source_val_sha256": "6b92058970856e733cdcf7ec6f02c528c9a61c0f3b2c29ad5495ec07a72e6b84",
+ "dependencies": {
+  "probe_scope_capacity.py": "f261a6ac0b70874b811d3ce1b2676abbae36e3f2e914fbea16c47d9bae54f74b",
+  "distill_source_representations.py": "01669bb6b6e3ec7a942acac166bd79daa18f7b2c82c9e278eafc3676f225dc14",
+  "hf_reward_diagnostics.py": "a36a0e095ff9d83fecb830b7b0816ae94579342acf4b7e05bb1a1166322aeba5"
+ },
+ "scope": "New repair validation from parent13 validation source; parent exposure disclosed, not pristine parent holdout. Same training facts/targets as v19."
+}

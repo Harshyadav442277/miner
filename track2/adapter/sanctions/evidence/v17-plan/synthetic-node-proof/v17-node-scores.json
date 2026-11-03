@@ -1,0 +1,553 @@
+{
+ "version": 17,
+ "started_at": "2026-11-03T11:00:43.436493+00:00",
+ "finished_at": "2026-11-03T11:01:28.614180+00:00",
+ "seconds": 45.18,
+ "runtime_commands": [
+  [
+   "C:\\Users\\hyada\\tg-eval\\bin-v2\\adapterexec.exe",
+   "-listen",
+   "127.0.0.1:18081",
+   "-package",
+   "C:\\Users\\hyada\\tg-eval\\runs-v2\\SANCTIONS_SCREENING_MATCH_v17\\SANCTIONS_SCREENING_MATCH.safetensors"
+  ],
+  [
+   "C:\\Users\\hyada\\tg-eval\\bin-v2\\adapterexec.exe",
+   "-listen",
+   "127.0.0.1:18082",
+   "-package",
+   "C:\\Users\\hyada\\tg-eval\\runs-v2\\SANCTIONS_SCREENING_MATCH_v17\\SANCTIONS_SCREENING_MATCH.safetensors"
+  ],
+  [
+   "C:\\Users\\hyada\\tg-eval\\bin-v2\\adapterexec.exe",
+   "-listen",
+   "127.0.0.1:18083",
+   "-package",
+   "C:\\Users\\hyada\\tg-eval\\runs-v2\\SANCTIONS_SCREENING_MATCH_v17\\SANCTIONS_SCREENING_MATCH.safetensors"
+  ]
+ ],
+ "package_sha256": "f09baab9ad799e7d361c51b0146c755ce1059353d4fb0d362e6605a5a7b0bdf5",
+ "identity": {
+  "foundation_hash": "0a49b325304bb4cf292e683929689d0457966be264f60bfc94d0072b614bf8e6",
+  "adapter_hash": "3418ba34fd0c7457b63d722770589e4a763050a45c24929170f67ec53a0959aa",
+  "tokenizer_hash": "67bc76f8b9386efba1a761c1c8e5ad439fd0eaf1c2826e9dd1a205c7af4dc456"
+ },
+ "pairs_sha256": "9ecbfa61ab3caf8aaf2d4206c7771de03c8ee54305d5f1baf8f882dcfc92a82f",
+ "pairs": 32,
+ "accuracy": 0.84375,
+ "ties": 0,
+ "names": 16,
+ "all_comparisons_correct_names": 13,
+ "name_level_wilson_95_lower": 0.5699064013154177,
+ "registration_gate_pass": false,
+ "gate_note": "Requires >=80% point and name-level lower bound, both labels, length baseline <=65%",
+ "tokens": {
+  "max_tokens": 256,
+  "rendered_max_before_truncation": 97,
+  "texts_truncated": 0,
+  "texts": 64,
+  "unique_token_sequences": 64
+ },
+ "rows": [
+  {
+   "name": "G&G INTERNACIONAL S.A.S.",
+   "kind": "listed",
+   "block_id": null,
+   "source_id_metadata_only": "thin_json",
+   "chosen": {
+    "bits": 1080127586,
+    "value": 3.522484302520752
+   },
+   "rejected": {
+    "bits": 1054962489,
+    "value": 0.44033220410346985
+   },
+   "correct": true
+  },
+  {
+   "name": "G&G INTERNACIONAL S.A.S.",
+   "kind": "listed",
+   "block_id": null,
+   "source_id_metadata_only": "heldout_prose",
+   "chosen": {
+    "bits": 1066613891,
+    "value": 1.1502841711044312
+   },
+   "rejected": {
+    "bits": 1057819052,
+    "value": 0.5509288311004639
+   },
+   "correct": true
+  },
+  {
+   "name": "SINO SHIP MANAGEMENT COMPANY LIMITED",
+   "kind": "listed",
+   "block_id": null,
+   "source_id_metadata_only": "thin_json",
+   "chosen": {
+    "bits": 1087880427,
+    "value": 6.741811275482178
+   },
+   "rejected": {
+    "bits": 1075689023,
+    "value": 2.4642484188079834
+   },
+   "correct": true
+  },
+  {
+   "name": "SINO SHIP MANAGEMENT COMPANY LIMITED",
+   "kind": "listed",
+   "block_id": null,
+   "source_id_metadata_only": "heldout_prose",
+   "chosen": {
+    "bits": 1076936653,
+    "value": 2.761706590652466
+   },
+   "rejected": {
+    "bits": 1060478682,
+    "value": 0.709455132484436
+   },
+   "correct": true
+  },
+  {
+   "name": "SARMAD ELECTRONIC SEPAHAN COMPANY",
+   "kind": "listed",
+   "block_id": null,
+   "source_id_metadata_only": "thin_json",
+   "chosen": {
+    "bits": 1089468980,
+    "value": 7.499292373657227
+   },
+   "rejected": {
+    "bits": 1070345286,
+    "value": 1.5951011180877686
+   },
+   "correct": true
+  },
+  {
+   "name": "SARMAD ELECTRONIC SEPAHAN COMPANY",
+   "kind": "listed",
+   "block_id": null,
+   "source_id_metadata_only": "heldout_prose",
+   "chosen": {
+    "bits": 1084494384,
+    "value": 5.127220153808594
+   },
+   "rejected": {
+    "bits": 1066551482,
+    "value": 1.1428444385528564
+   },
+   "correct": true
+  },
+  {
+   "name": "VALETUDO LIMITED",
+   "kind": "listed",
+   "block_id": null,
+   "source_id_metadata_only": "thin_json",
+   "chosen": {
+    "bits": 3184496632,
+    "value": -0.10134881734848022
+   },
+   "rejected": {
+    "bits": 1023881552,
+    "value": 0.03300601243972778
+   },
+   "correct": false
+  },
+  {
+   "name": "VALETUDO LIMITED",
+   "kind": "listed",
+   "block_id": null,
+   "source_id_metadata_only": "heldout_prose",
+   "chosen": {
+    "bits": 3216548080,
+    "value": -1.4424114227294922
+   },
+   "rejected": {
+    "bits": 1043371790,
+    "value": 0.1724512279033661
+   },
+   "correct": false
+  },
+  {
+   "name": "ALPHALOGIC",
+   "kind": "listed",
+   "block_id": null,
+   "source_id_metadata_only": "thin_json",
+   "chosen": {
+    "bits": 1050628608,
+    "value": 0.3111724853515625
+   },
+   "rejected": {
+    "bits": 1052744157,
+    "value": 0.37422075867652893
+   },
+   "correct": false
+  },
+  {
+   "name": "ALPHALOGIC",
+   "kind": "listed",
+   "block_id": null,
+   "source_id_metadata_only": "heldout_prose",
+   "chosen": {
+    "bits": 3191013772,
+    "value": -0.17481058835983276
+   },
+   "rejected": {
+    "bits": 1056931857,
+    "value": 0.4990239441394806
+   },
+   "correct": false
+  },
+  {
+   "name": "OPEN JOINT STOCK COMPANY STOCK COMMERCIAL BANK METALLURGICAL INVESTMENT BANK",
+   "kind": "listed",
+   "block_id": null,
+   "source_id_metadata_only": "thin_json",
+   "chosen": {
+    "bits": 1093356686,
+    "value": 10.70619010925293
+   },
+   "rejected": {
+    "bits": 1082445389,
+    "value": 4.150183200836182
+   },
+   "correct": true
+  },
+  {
+   "name": "OPEN JOINT STOCK COMPANY STOCK COMMERCIAL BANK METALLURGICAL INVESTMENT BANK",
+   "kind": "listed",
+   "block_id": null,
+   "source_id_metadata_only": "heldout_prose",
+   "chosen": {
+    "bits": 1091321872,
+    "value": 8.765640258789062
+   },
+   "rejected": {
+    "bits": 1071661275,
+    "value": 1.7519792318344116
+   },
+   "correct": true
+  },
+  {
+   "name": "LIMITED LIABILITY COMPANY YUMAK",
+   "kind": "listed",
+   "block_id": null,
+   "source_id_metadata_only": "thin_json",
+   "chosen": {
+    "bits": 1092523276,
+    "value": 9.911388397216797
+   },
+   "rejected": {
+    "bits": 1057811132,
+    "value": 0.5504567623138428
+   },
+   "correct": true
+  },
+  {
+   "name": "LIMITED LIABILITY COMPANY YUMAK",
+   "kind": "listed",
+   "block_id": null,
+   "source_id_metadata_only": "heldout_prose",
+   "chosen": {
+    "bits": 1087767203,
+    "value": 6.687821865081787
+   },
+   "rejected": {
+    "bits": 1053092490,
+    "value": 0.384601891040802
+   },
+   "correct": true
+  },
+  {
+   "name": "AL-SAKSUK COMPANY",
+   "kind": "listed",
+   "block_id": null,
+   "source_id_metadata_only": "thin_json",
+   "chosen": {
+    "bits": 1087551292,
+    "value": 6.584867477416992
+   },
+   "rejected": {
+    "bits": 1067957350,
+    "value": 1.3104369640350342
+   },
+   "correct": true
+  },
+  {
+   "name": "AL-SAKSUK COMPANY",
+   "kind": "listed",
+   "block_id": null,
+   "source_id_metadata_only": "heldout_prose",
+   "chosen": {
+    "bits": 1081242186,
+    "value": 3.7882256507873535
+   },
+   "rejected": {
+    "bits": 1067681938,
+    "value": 1.2776052951812744
+   },
+   "correct": true
+  },
+  {
+   "name": "FERMAN COSTA INTERNACIONAL SL",
+   "kind": "exact_name_absent",
+   "block_id": null,
+   "source_id_metadata_only": "thin_json",
+   "chosen": {
+    "bits": 1035709500,
+    "value": 0.09163710474967957
+   },
+   "rejected": {
+    "bits": 3226709884,
+    "value": -3.3075857162475586
+   },
+   "correct": true
+  },
+  {
+   "name": "FERMAN COSTA INTERNACIONAL SL",
+   "kind": "exact_name_absent",
+   "block_id": null,
+   "source_id_metadata_only": "heldout_prose",
+   "chosen": {
+    "bits": 1042992284,
+    "value": 0.16679614782333374
+   },
+   "rejected": {
+    "bits": 3222720138,
+    "value": -2.356356143951416
+   },
+   "correct": true
+  },
+  {
+   "name": "JYOTI FEEDS & PHARMACEUTICALS",
+   "kind": "exact_name_absent",
+   "block_id": null,
+   "source_id_metadata_only": "thin_json",
+   "chosen": {
+    "bits": 3167484640,
+    "value": -0.02489989995956421
+   },
+   "rejected": {
+    "bits": 3224719948,
+    "value": -2.8331480026245117
+   },
+   "correct": true
+  },
+  {
+   "name": "JYOTI FEEDS & PHARMACEUTICALS",
+   "kind": "exact_name_absent",
+   "block_id": null,
+   "source_id_metadata_only": "heldout_prose",
+   "chosen": {
+    "bits": 1042149686,
+    "value": 0.1542404592037201
+   },
+   "rejected": {
+    "bits": 3223468868,
+    "value": -2.534867286682129
+   },
+   "correct": true
+  },
+  {
+   "name": "BE COAL GMBH",
+   "kind": "exact_name_absent",
+   "block_id": null,
+   "source_id_metadata_only": "thin_json",
+   "chosen": {
+    "bits": 1040361455,
+    "value": 0.1275937408208847
+   },
+   "rejected": {
+    "bits": 3225046164,
+    "value": -2.910923957824707
+   },
+   "correct": true
+  },
+  {
+   "name": "BE COAL GMBH",
+   "kind": "exact_name_absent",
+   "block_id": null,
+   "source_id_metadata_only": "heldout_prose",
+   "chosen": {
+    "bits": 3196899760,
+    "value": -0.2750372886657715
+   },
+   "rejected": {
+    "bits": 3226052580,
+    "value": -3.150872230529785
+   },
+   "correct": true
+  },
+  {
+   "name": "DCCYCLES",
+   "kind": "exact_name_absent",
+   "block_id": null,
+   "source_id_metadata_only": "thin_json",
+   "chosen": {
+    "bits": 1056458283,
+    "value": 0.48491033911705017
+   },
+   "rejected": {
+    "bits": 3214982570,
+    "value": -1.2557880878448486
+   },
+   "correct": true
+  },
+  {
+   "name": "DCCYCLES",
+   "kind": "exact_name_absent",
+   "block_id": null,
+   "source_id_metadata_only": "heldout_prose",
+   "chosen": {
+    "bits": 1046991828,
+    "value": 0.22639399766921997
+   },
+   "rejected": {
+    "bits": 3216436593,
+    "value": -1.4291211366653442
+   },
+   "correct": true
+  },
+  {
+   "name": "MAVERIX GMBH",
+   "kind": "exact_name_absent",
+   "block_id": null,
+   "source_id_metadata_only": "thin_json",
+   "chosen": {
+    "bits": 1047073972,
+    "value": 0.2276180386543274
+   },
+   "rejected": {
+    "bits": 3230644429,
+    "value": -4.491308689117432
+   },
+   "correct": true
+  },
+  {
+   "name": "MAVERIX GMBH",
+   "kind": "exact_name_absent",
+   "block_id": null,
+   "source_id_metadata_only": "heldout_prose",
+   "chosen": {
+    "bits": 3184748508,
+    "value": -0.10322543978691101
+   },
+   "rejected": {
+    "bits": 3230018406,
+    "value": -4.192797660827637
+   },
+   "correct": true
+  },
+  {
+   "name": "NORDIC MANAGEMENT CONSULTING GMBH",
+   "kind": "exact_name_absent",
+   "block_id": null,
+   "source_id_metadata_only": "thin_json",
+   "chosen": {
+    "bits": 3202511700,
+    "value": -0.4422861337661743
+   },
+   "rejected": {
+    "bits": 3224999328,
+    "value": -2.8997573852539062
+   },
+   "correct": true
+  },
+  {
+   "name": "NORDIC MANAGEMENT CONSULTING GMBH",
+   "kind": "exact_name_absent",
+   "block_id": null,
+   "source_id_metadata_only": "heldout_prose",
+   "chosen": {
+    "bits": 3195650298,
+    "value": -0.24390020966529846
+   },
+   "rejected": {
+    "bits": 3223761276,
+    "value": -2.6045827865600586
+   },
+   "correct": true
+  },
+  {
+   "name": "FONCIERE IMPACT EDUCATION",
+   "kind": "exact_name_absent",
+   "block_id": null,
+   "source_id_metadata_only": "thin_json",
+   "chosen": {
+    "bits": 1053764133,
+    "value": 0.40461841225624084
+   },
+   "rejected": {
+    "bits": 1061754761,
+    "value": 0.7855153679847717
+   },
+   "correct": false
+  },
+  {
+   "name": "FONCIERE IMPACT EDUCATION",
+   "kind": "exact_name_absent",
+   "block_id": null,
+   "source_id_metadata_only": "heldout_prose",
+   "chosen": {
+    "bits": 1050035504,
+    "value": 0.29349660873413086
+   },
+   "rejected": {
+    "bits": 3206245074,
+    "value": -0.6070986986160278
+   },
+   "correct": true
+  },
+  {
+   "name": "MICHFAST KARLSTEDT AB",
+   "kind": "exact_name_absent",
+   "block_id": null,
+   "source_id_metadata_only": "thin_json",
+   "chosen": {
+    "bits": 3204853654,
+    "value": -0.5241636037826538
+   },
+   "rejected": {
+    "bits": 3235458342,
+    "value": -6.786761283874512
+   },
+   "correct": true
+  },
+  {
+   "name": "MICHFAST KARLSTEDT AB",
+   "kind": "exact_name_absent",
+   "block_id": null,
+   "source_id_metadata_only": "heldout_prose",
+   "chosen": {
+    "bits": 3194554480,
+    "value": -0.2275712490081787
+   },
+   "rejected": {
+    "bits": 3228865194,
+    "value": -3.8214516639709473
+   },
+   "correct": true
+  }
+ ],
+ "by_kind": {
+  "exact_name_absent": {
+   "pairs": 16,
+   "accuracy": 0.9375
+  },
+  "listed": {
+   "pairs": 16,
+   "accuracy": 0.75
+  }
+ },
+ "by_source_id_metadata_only": {
+  "heldout_prose": {
+   "pairs": 16,
+   "accuracy": 0.875
+  },
+  "thin_json": {
+   "pairs": 16,
+   "accuracy": 0.8125
+  }
+ }
+}

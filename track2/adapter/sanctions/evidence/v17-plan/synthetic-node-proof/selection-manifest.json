@@ -1,0 +1,10 @@
+{
+ "rule": "First4 primary,4 alias,8 absent in frozen fresh holdout; two forms each, no score-conditioned selection",
+ "pairs_sha256": "9ecbfa61ab3caf8aaf2d4206c7771de03c8ee54305d5f1baf8f882dcfc92a82f",
+ "parent_inputs_sha256": "d9b9dd27416a47650343416585dfd4160ea92f5636bbd33112ea4678e5274c34",
+ "models": [
+  13,
+  17
+ ],
+ "scope": "HF/node agreement only, not a new factual accuracy benchmark"
+}

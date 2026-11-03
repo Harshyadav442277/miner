@@ -1,0 +1,302 @@
+{
+ "3": {
+  "thin_json": {
+   "listed": {
+    "queries": 14,
+    "correct": 13
+   },
+   "primary": {
+    "queries": 3,
+    "correct": 3
+   },
+   "alias": {
+    "queries": 11,
+    "correct": 10
+   }
+  },
+  "training_prose": {
+   "listed": {
+    "queries": 14,
+    "correct": 14
+   },
+   "primary": {
+    "queries": 3,
+    "correct": 3
+   },
+   "alias": {
+    "queries": 11,
+    "correct": 11
+   }
+  },
+  "heldout_prose": {
+   "listed": {
+    "queries": 14,
+    "correct": 3
+   },
+   "primary": {
+    "queries": 3,
+    "correct": 2
+   },
+   "alias": {
+    "queries": 11,
+    "correct": 1
+   }
+  },
+  "enum_json": {
+   "listed": {
+    "queries": 14,
+    "correct": 14
+   },
+   "primary": {
+    "queries": 3,
+    "correct": 3
+   },
+   "alias": {
+    "queries": 11,
+    "correct": 11
+   }
+  },
+  "numeric_json": {
+   "listed": {
+    "queries": 14,
+    "correct": 12
+   },
+   "primary": {
+    "queries": 3,
+    "correct": 3
+   },
+   "alias": {
+    "queries": 11,
+    "correct": 9
+   }
+  },
+  "explicit_negation": {
+   "listed": {
+    "queries": 14,
+    "correct": 13
+   },
+   "primary": {
+    "queries": 3,
+    "correct": 3
+   },
+   "alias": {
+    "queries": 11,
+    "correct": 10
+   }
+  },
+  "yes_no": {
+   "listed": {
+    "queries": 14,
+    "correct": 12
+   },
+   "primary": {
+    "queries": 3,
+    "correct": 3
+   },
+   "alias": {
+    "queries": 11,
+    "correct": 9
+   }
+  }
+ },
+ "13": {
+  "thin_json": {
+   "listed": {
+    "queries": 14,
+    "correct": 12
+   },
+   "primary": {
+    "queries": 3,
+    "correct": 3
+   },
+   "alias": {
+    "queries": 11,
+    "correct": 9
+   }
+  },
+  "training_prose": {
+   "listed": {
+    "queries": 14,
+    "correct": 11
+   },
+   "primary": {
+    "queries": 3,
+    "correct": 3
+   },
+   "alias": {
+    "queries": 11,
+    "correct": 8
+   }
+  },
+  "heldout_prose": {
+   "listed": {
+    "queries": 14,
+    "correct": 7
+   },
+   "primary": {
+    "queries": 3,
+    "correct": 2
+   },
+   "alias": {
+    "queries": 11,
+    "correct": 5
+   }
+  },
+  "enum_json": {
+   "listed": {
+    "queries": 14,
+    "correct": 12
+   },
+   "primary": {
+    "queries": 3,
+    "correct": 3
+   },
+   "alias": {
+    "queries": 11,
+    "correct": 9
+   }
+  },
+  "numeric_json": {
+   "listed": {
+    "queries": 14,
+    "correct": 11
+   },
+   "primary": {
+    "queries": 3,
+    "correct": 3
+   },
+   "alias": {
+    "queries": 11,
+    "correct": 8
+   }
+  },
+  "explicit_negation": {
+   "listed": {
+    "queries": 14,
+    "correct": 12
+   },
+   "primary": {
+    "queries": 3,
+    "correct": 3
+   },
+   "alias": {
+    "queries": 11,
+    "correct": 9
+   }
+  },
+  "yes_no": {
+   "listed": {
+    "queries": 14,
+    "correct": 11
+   },
+   "primary": {
+    "queries": 3,
+    "correct": 3
+   },
+   "alias": {
+    "queries": 11,
+    "correct": 8
+   }
+  }
+ },
+ "17": {
+  "thin_json": {
+   "listed": {
+    "queries": 14,
+    "correct": 12
+   },
+   "primary": {
+    "queries": 3,
+    "correct": 3
+   },
+   "alias": {
+    "queries": 11,
+    "correct": 9
+   }
+  },
+  "training_prose": {
+   "listed": {
+    "queries": 14,
+    "correct": 11
+   },
+   "primary": {
+    "queries": 3,
+    "correct": 3
+   },
+   "alias": {
+    "queries": 11,
+    "correct": 8
+   }
+  },
+  "heldout_prose": {
+   "listed": {
+    "queries": 14,
+    "correct": 8
+   },
+   "primary": {
+    "queries": 3,
+    "correct": 2
+   },
+   "alias": {
+    "queries": 11,
+    "correct": 6
+   }
+  },
+  "enum_json": {
+   "listed": {
+    "queries": 14,
+    "correct": 12
+   },
+   "primary": {
+    "queries": 3,
+    "correct": 3
+   },
+   "alias": {
+    "queries": 11,
+    "correct": 9
+   }
+  },
+  "numeric_json": {
+   "listed": {
+    "queries": 14,
+    "correct": 10
+   },
+   "primary": {
+    "queries": 3,
+    "correct": 3
+   },
+   "alias": {
+    "queries": 11,
+    "correct": 7
+   }
+  },
+  "explicit_negation": {
+   "listed": {
+    "queries": 14,
+    "correct": 11
+   },
+   "primary": {
+    "queries": 3,
+    "correct": 3
+   },
+   "alias": {
+    "queries": 11,
+    "correct": 8
+   }
+  },
+  "yes_no": {
+   "listed": {
+    "queries": 14,
+    "correct": 11
+   },
+   "primary": {
+    "queries": 3,
+    "correct": 3
+   },
+   "alias": {
+    "queries": 11,
+    "correct": 8
+   }
+  }
+ }
+}

@@ -1,0 +1,8 @@
+{
+  "pass": true,
+  "frozen_inputs_sha256": "2488670179555e09816960ccdd6a25755b0f6a79746ea482326a93a9c7a0088e",
+  "source_queries_verified": 160,
+  "same_v19_training_facts_targets_and_metadata": true,
+  "disjoint_validation_train_and_prior_v19_test_names_entities": true,
+  "scope": "New repair validation, parent previously used source split for checkpoint validation; parent exposure not hidden"
+}

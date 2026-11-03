@@ -1,0 +1,9 @@
+{
+  "pass": true,
+  "frozen_inputs_sha256": "fe2fa3aef9511a406c32ace4d29d2e4ca7098e8147b229d1861c275df59c6938",
+  "source_queries_verified": 160,
+  "same_v19_training_facts_targets_and_metadata": true,
+  "disjoint_validation_train_and_prior_v19_test_names_entities": true,
+  "scope": "New repair validation, parent previously used source split for checkpoint validation; parent exposure not hidden",
+  "recovery_refreeze": "Exact same verified questions/targets/source/seed; only recovery checkpoint implementation provenance changes"
+}

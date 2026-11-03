@@ -6,6 +6,23 @@ They are in `git log -p -- track2/GAPS.md`.
 
 ## G41 — real-answer sanctions measurement exposes source/length confounding (2026-11-01) — `OPEN`
 
+**19:15 IST:** v19 late-JSON listed46/48 hides absent9/48 and thin-absent retention
+failure; rejected before export. V20 all-LoRA capacity comparison on the same64
+anchors/32-step recipe is in progress,head frozen. New96 repair-validation questions
+retain parent-validation exposure disclosure. Initial process vanished at20 with no
+final adapter; archived and restarted identically with atomic recovery checkpoints.
+No new factual success, full-corpus run, reserved score or submission is claimed.
+
+**Real-answer transfer Nov3:** v17 hard-anchor bounded repair passes fresh synthetic
+class gates but actual old62 is22/62 at256. V18 exact178 tensor context transfer at512
+is14/62 vs46/62 length, all claims visible. Rejected. Old14 question control includes
+11 aliases/3 primary names; v13/v17 get12/14 thin decisions right, butv17 wins22/53
+real pairs for recognized names,18/37 with both claims visible256. Thus poor factual
+recognition/visibility alone is insufficient. HF/node fidelity is exact in ordering
+on32 synthetic pairs/model, max logit error<0.00003. V19 bounded32-step source-only
+distillation is running with64 anchors/96 new unconditioned source-test questions;
+no full training or reserved scoring. Mandatory raw-CSV/split audit passes160 names.
+
 **Listed-recall diagnosis Nov3:** same128 complete questions: v13 listed54/64 in
 thin JSON,34/64 in qualified MATCH prose; v15 listed52/64 versus3/64. Scope-negation
 ablation on32 known anchors gives listed15/16 without identity clause,9/16 with
