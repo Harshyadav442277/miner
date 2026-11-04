@@ -8,6 +8,7 @@
  */
 import { lookupDns } from "./dns";
 import { monitorFilings } from "./filings";
+import { registryIntentFields, sanctionsIntentFields } from "./intent-fields";
 import { extractKeywords } from "./keywords";
 import { answerQuestion } from "./qa";
 import { macroIndicators } from "./macro";
@@ -32,12 +33,12 @@ export const MISSION_ROUTES: Record<string, MissionRoute> = {
   "/sanctions-screen": {
     what: "A sanctions screening",
     params: ["name", "wallet"],
-    run: (q, p) => screenSanctions(q, p("name", "wallet")),
+    run: (q, p) => screenSanctions(q, p("name", "wallet")).then(sanctionsIntentFields),
   },
   "/company-registry": {
     what: "A company register lookup",
     params: ["company", "company_number", "lei"],
-    run: (q, p) => lookupRegistry(q, p("company", "lei"), p("company_number")),
+    run: (q, p) => lookupRegistry(q, p("company", "lei"), p("company_number")).then(registryIntentFields),
   },
   "/sec-filings": {
     what: "An SEC filing check",

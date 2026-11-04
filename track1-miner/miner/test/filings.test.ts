@@ -74,9 +74,17 @@ test("a filed 10-Q answers its date, acceptance time, accession, link and margin
   assert.equal(eightK.verdict, "filed");
   assert.match(eightK.reason, /^Yes: Tesla, Inc\. has filed an 8-K since 2026-09-14/);
   assert.match(eightK.reason, /item 2\.02 \(Results of Operations and Financial Condition\)/);
+  assert.equal(eightK.filing_count, 1);
+  assert.equal(eightK.entity, "Tesla, Inc.");
+
+  const year = await monitorFilings("How many filings did Tesla make in the last 12 months?", "Tesla", "", NOW);
+  assert.equal(year.filing_count, 2);
+  assert.deepEqual(year.filings, ["8-K filed 2026-10-02, event dated 2026-10-02, items 2.02, 9.01", "10-Q filed 2026-07-23 for the period ended 2026-06-30"]);
+  assert.match(year.reason, /^Tesla, Inc\. has filed 2 material filings since 2025-10-14; the latest, an 8-K, was filed on 2026-10-02/);
 
   const none = await monitorFilings("Has Tesla filed a 10-K since 2026-09-01?", "", "", NOW);
   assert.equal(none.verdict, "not_filed");
+  assert.equal(none.filing_count, 0);
 });
 
 // G210, 2026-10-25: SEC answered Coca-Cola's Revenues concept with "USD": {} and the
