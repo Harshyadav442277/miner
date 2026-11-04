@@ -29,6 +29,9 @@ export function leadSentence(text: string): string {
   for (let m = end.exec(s); m && m.index < 2_000; m = end.exec(s)) {
     const before = s.slice(Math.max(0, m.index - 10), m.index);
     if (m[0][0] === "." && ABBREVIATION.test(before)) continue;
+    // "Here are 5 papers on X: 1) … 2) …": a numbered item continues the sentence that introduced the list.
+    // Breaking there answered "Here are 5 papers" with one paper (audit replay 2026-11-04, rows 25 and 27).
+    if (/^\d{1,2}\)\s/.test(s.slice(end.lastIndex))) continue;
     return s.slice(0, m.index + m[0].trimEnd().length);
   }
   return s;
