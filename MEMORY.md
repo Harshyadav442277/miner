@@ -1,5 +1,12 @@
 # MEMORY.md — session continuity
 
+## 2026-11-05: Evaluator rubric reconciled on `claude/winning-tracks-overview-3f735a`
+
+- Owner: "Yes, update both". `RULES_SEASON2.md` gets the 2026-11-01 Evaluator rubric (cherry-pick of `6b09093`);
+  `WINNING.md` moves to validity 40, integrity 15, reproducibility 10, coverage 10, docs 5, growth 20 (D17 added).
+- Rubric-only change. `codex/sanctions-benchmark-v7` (48 commits ahead of main, no PR) carries its own fuller
+  WINNING.md rewrite with sanctions status; expect overlapping hunks when it merges. Live Rules page not re-read today.
+
 ## 2026-11-01 ~20:30 UTC (Nov 2 02:00 IST): CURRENT — main merged; translation material ready to sign
 
 - **main merged** via PR #14 (owner: "merge it then"), `7e8c747`; branch and main in step. Deploys nothing.
