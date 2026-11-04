@@ -13,12 +13,15 @@ Ordered by rubric points. Live ranks on 2026-11-04 (epoch 2013): 32 of 36 intent
 - [x] R1 Reliability 20: availability sweep of all 39 endpoints every 30 minutes on GitHub (`tools/availability.mjs`,
       `uptime` workflow; run history plus artifacts). Capacity: 58 req/s at 20 concurrent callers, 0 errors, on
       `/ssl-check` (`docs/evidence/capacity-2026-11-04/`). LLM routes not load-tested (quota-bound).
-- [ ] Q1 Quality 35: re-run the 154-question production audit; publish pass/partial/fail with failures.
-- [ ] C1 Cost/latency 10: p50/p90 latency per intent and upstream cost per request, written up.
+- [x] Q1 Quality 35: audit replay 2026-11-04, 154/154 answered; 61 re-checked: 12 pass, 23 partial, 3 fail, 15
+      licence refusals. Rows 25, 27, 29, 30 fixed and deployed (`aa110f8`, preflight 7/7). Re-run weekly.
+- [ ] C1 Cost/latency 10: `tools/availability-report.mjs` builds the table from the sweeps; publish it once a
+      week of sweeps exists (Nov 11). Upstream cost per request is $0 (keyless or free keys).
 - [ ] Q2 Near-miss correctness (only where the reference is the true answer): weather temperature, weather
       forecast, corporate registry, gas price. Deploy via the release-miner gates.
 - [ ] D1 Docs 10 + Evaluator docs 5: beginner tutorial (network, cost, limits), video script.
-- [ ] G1 Growth 20 + consumption: Discord recipe post for app teams; three dated X posts; Evaluator explainer.
+- [x] G1 drafts: `docs/OUTREACH.md` (Discord recipe post, X update 1, templates for 2 and 3). Guide updated.
+      Evaluator explainer drafts are Codex's (`track2/OUTREACH_S2.md`).
 - [ ] N1 New intents: prototype TEXT_SUMMARIZATION, TASK_EXECUTION_QUALITY, IMAGE_CAPTIONING,
       ASSET_RESERVE_ATTESTATION; audit before any updateMiner. Cut EVENT_OUTCOME, CRYPTO_PRICE, NEWS_HEADLINES,
       STORM_ALERT in the same update.
@@ -26,7 +29,8 @@ Ordered by rubric points. Live ranks on 2026-11-04 (epoch 2013): 32 of 36 intent
 **Owner (human needed)**
 - [x] Questions sent to Ahmed 2026-11-04 UTC (grace period, 4 unscored intents, tie-breaks, judging, receipts,
       sandbox). Waiting.
-- [ ] Post the Discord recipe message and the X updates once drafted (Claude drafts).
+- [ ] Post the Discord message and X update 1 from `docs/OUTREACH.md` (after PR #17 merges, so links resolve).
+- [ ] Check the Vercel plan in the dashboard: Hobby bars commercial use (G249).
 - [x] Sign and upload the 144 translation pairs: done, all 144 admitted at epoch 2013 (MEMORY, Codex block).
 - [ ] Record the 2–5 minute video from the script.
 - [ ] Sign the one `updateMiner` once N1 passes its audit and Ahmed answers G206.
