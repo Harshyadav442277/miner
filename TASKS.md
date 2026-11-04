@@ -5,13 +5,14 @@ Season II (H2): Nov 1 00:00 UTC – **Dec 1 23:59 UTC** 2026, every track (`RULE
 items were cut on 2026-10-17 and 2026-10-29; they are in `git log -p -- TASKS.md`. One task = one change = one
 commit.
 
-## Winning push — started 2026-11-05 (owner: "i give you permission to take action on all of these")
+## Winning push — started 2026-11-04 ~20:30 UTC (Nov 5 IST) (owner: "i give you permission to take action on all of these")
 
-Ordered by rubric points. Live ranks on 2026-11-05: 32 of 36 intents scored, 3 at rank 1, 13 in the top 3.
+Ordered by rubric points. Live ranks on 2026-11-04 (epoch 2013): 32 of 36 intents scored, 3 at rank 1, 13 in the top 3.
 
 **Claude**
-- [ ] R1 Reliability 20: resume an availability record (a 30-minute sweep of every endpoint, run on GitHub, kept
-      as run history and artifacts) plus one capacity test at a stated concurrency (G205, E6).
+- [x] R1 Reliability 20: availability sweep of all 39 endpoints every 30 minutes on GitHub (`tools/availability.mjs`,
+      `uptime` workflow; run history plus artifacts). Capacity: 58 req/s at 20 concurrent callers, 0 errors, on
+      `/ssl-check` (`docs/evidence/capacity-2026-11-04/`). LLM routes not load-tested (quota-bound).
 - [ ] Q1 Quality 35: re-run the 154-question production audit; publish pass/partial/fail with failures.
 - [ ] C1 Cost/latency 10: p50/p90 latency per intent and upstream cost per request, written up.
 - [ ] Q2 Near-miss correctness (only where the reference is the true answer): weather temperature, weather
@@ -23,7 +24,7 @@ Ordered by rubric points. Live ranks on 2026-11-05: 32 of 36 intents scored, 3 a
       STORM_ALERT in the same update.
 
 **Owner (human needed)**
-- [x] Questions sent to Ahmed 2026-11-05 (grace period, 4 unscored intents, tie-breaks, judging, receipts,
+- [x] Questions sent to Ahmed 2026-11-04 UTC (grace period, 4 unscored intents, tie-breaks, judging, receipts,
       sandbox). Waiting.
 - [ ] Post the Discord recipe message and the X updates once drafted (Claude drafts).
 - [ ] Sign and upload the 144 translation pairs (`track2/material/README`).

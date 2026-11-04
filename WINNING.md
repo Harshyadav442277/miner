@@ -2,7 +2,7 @@
 
 Written 2026-10-22 ~17:10 UTC (22:40 IST); dates, prizes and protocol facts re-checked 2026-10-29; §4 rewritten 2026-10-31. This is the
 goal file. Every plan, task and review in this repo answers to it. Rules: [RULES_SEASON2.md](RULES_SEASON2.md).
-Evaluator weights reconciled 2026-11-05 with the live Rules page as read 2026-11-01:
+Evaluator weights reconciled 2026-11-04 UTC with the live Rules page as read 2026-11-01:
 validity 40 (minimum 28), integrity 15, reproducibility 10, coverage 10, docs 5, growth 20.
 Season I post-mortem: [track1-miner/docs/S1_LESSONS.md](track1-miner/docs/S1_LESSONS.md).
 

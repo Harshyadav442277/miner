@@ -1,6 +1,6 @@
 # MEMORY.md — session continuity
 
-## 2026-11-05: Evaluator rubric reconciled on `claude/winning-tracks-overview-3f735a`
+## 2026-11-04 ~20:30 UTC (Nov 5 IST): Evaluator rubric reconciled on `claude/winning-tracks-overview-3f735a`
 
 - Owner: "Yes, update both". `RULES_SEASON2.md` gets the 2026-11-01 Evaluator rubric (cherry-pick of `6b09093`);
   `WINNING.md` moves to validity 40, integrity 15, reproducibility 10, coverage 10, docs 5, growth 20 (D17 added).
