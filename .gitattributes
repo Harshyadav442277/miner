@@ -11,3 +11,7 @@ track2/adapter/sanctions/distill_source_representations.py -text whitespace=cr-a
 track2/adapter/sanctions/audit_distillation_inputs.py -text whitespace=cr-at-eol
 track2/adapter/sanctions/audit_isolated_membership.py -text whitespace=cr-at-eol
 track2/adapter/sanctions/prepare_hard_fact_replay.py -text whitespace=cr-at-eol
+track2/adapter/sanctions/scope_curriculum.py -text whitespace=cr-at-eol
+track2/adapter/sanctions/audit_scope_curriculum.py -text whitespace=cr-at-eol
+track2/adapter/sanctions/prepare_late_json_patch.py -text whitespace=cr-at-eol
+track2/adapter/sanctions/audit_late_json_patch.py -text whitespace=cr-at-eol

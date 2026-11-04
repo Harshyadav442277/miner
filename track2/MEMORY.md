@@ -8,6 +8,20 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 
 ---
 
+## 2026-11-04 IST: v30 narrow failure; v31 varied grammar/fresh cohort active
+
+V30 only fails qualified listed31/48,primary14/24. Qualified alias17/24,absent48/48
+and every other original gate pass; no export. Exactly88 attention tensors changed,
+90 MLP/head tensors remain parent13, independently audited. V31 same64 source facts,
+32 steps,loss/lr/88 attention tensors;3 JSON views exact,2 prose views now varied
+across6 claim frames/7 scope clauses, short/long/before/after, balanced by class.
+Fresh96 repair questions exclude all old experiments/external names/entities,4 unused
+paraphrases frozen before scores. Source/span/grammar/loss-AST audit160 facts passes.
+Parent source-validation exposure disclosed. Parent thin42/48 listed,alias22/24;
+qualified29/48,alias15/24. Candidate pending, log tg-eval/scope_curriculum_v31.log.
+15-form final gates include unused paraphrases. No full corpus or reserved/removal
+score, wallet, registry or submission.36 tests pass; prior source pushed59e6c1e.
+
 ## 2026-11-04 IST: v28/v29 rejected; v30 primary-quality attention-only probe
 
 V28 source thin listed63/64,aliases32/32 versus v25's34/64,16/32, but development

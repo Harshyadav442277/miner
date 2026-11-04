@@ -41,6 +41,10 @@ V28's four passes improve source thin listed63/64 and aliases32/32 but fail
 development qualified23/48/aliases10/24 and thin retention. V29 restoring the
 parent MLP/head also fails. V30 tests training-only primary correctness with
 attention LoRA alone trainable; no quality result or inference change is claimed.
+V30 subsequently passes all guards except qualified listed31/48 and primary14/24;
+qualified aliases17/24 pass. No export. V31 tests generic grammar variation on the
+same64 source facts, with96 fresh repair questions and4 unused paraphrases frozen
+before scores. Source exposure remains disclosed; no independent miner claim follows.
 Separately,320 new source-stable removal responses yield11 strict pairs across
 3 names but0 frozen source-role reversal blocks. These bodies have no model scores.
 

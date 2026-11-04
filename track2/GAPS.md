@@ -6,6 +6,14 @@ They are in `git log -p -- track2/GAPS.md`.
 
 ## G41 — real-answer sanctions measurement exposes source/length confounding (2026-11-01) — `OPEN`
 
+**V30/v31 Nov4:** v30 attention-only primary-quality fails only qualified listed
+31/48 and primary14/24; aliases17/24,absent48/48 and all other original guards pass.
+No export. Saved-weight audit verifies88 changed attention/90 original MLP-head
+tensors. V31 broadens generic claim/scope grammar with the same64 facts/32 updates,
+fresh96 source repair questions excluding all prior/external entities and4 unused
+paraphrases frozen before scores. Source/span/grammar/loss-AST audit passes160 facts.
+Parent source-validation exposure disclosed; no independent actual-miner claim.
+
 **V28-v30 Nov4:** four source passes largely fit training(thin listed63/64,
 alias32/32), but v28 development qualified23/48/alias10/24 and thin retention fail.
 V29 fixed MLP/head restoration also fails. V30 now tests attention-only training

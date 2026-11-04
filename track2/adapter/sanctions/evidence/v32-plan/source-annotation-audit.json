@@ -1,0 +1,14 @@
+{
+ "pass": true,
+ "inputs_sha256": "bf801a254aff02c079ebeffd4efa0e0016196092cd7e7b82b82ccb2f5c213f1b",
+ "source_training_queries": 128,
+ "new_source_anchors": 64,
+ "paired_development_queries_unchanged": 96,
+ "prior_external_entities_disjoint": true,
+ "new_absent_anchors_thin_correct_late_wrong": 32,
+ "teacher_only_retains_source_correct_formats": true,
+ "retained_view_logits": 1162,
+ "primary_spans_decoded": true,
+ "script_sha256": "cf6bb2981ccc0c746e3f01b9abca680eb78395f6f218bafb3dc50879b862394f",
+ "scope": "Independent raw-CSV/split/span/mining-condition/retention-mask audit; teacher is not ground truth; same v31 DEVELOPMENT is not independent."
+}

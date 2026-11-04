@@ -1,0 +1,13 @@
+{
+ "source_inputs_sha256": "c283e0f4ca073b033a1cf3202bed711f03792bcefdc538c49382b86d001a8981",
+ "candidate_pool_sizes": {
+  "primary": 256,
+  "alias": 256,
+  "absent": 256
+ },
+ "seed": 3220261104,
+ "source_train_sha256": "23365f614155d716621b20add95114b056ba7cd7f11007efe585705b6a44d39c",
+ "exclusion_names": 1502,
+ "exclusion_entities": 727,
+ "scope": "Before model scoring:32 absent thin-correct/late-wrong plus16 primary/16 alias thin-and-late-correct source anchors; all prior/external entities excluded. No optimizer."
+}

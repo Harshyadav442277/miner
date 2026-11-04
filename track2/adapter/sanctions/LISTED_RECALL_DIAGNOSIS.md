@@ -116,7 +116,19 @@ V30 targets correctness at the primary decision span with the existing frozen
 head, exclusively during training. Only88 attention LoRA tensors can change;
 MLP/head90 remain fixed.64 known-source replay facts,32 updates, same development
 and gates. No new head or deployed pooling/parser. This is a hypothesis under test,
-not a fix. Standard mean-pooled inference remains unchanged.
+not a fix. Standard mean-pooled inference remains unchanged. Completed result:
+v30 passes all guards except qualified listed31/48 and primary14/24; aliases17/24
+and thin retention pass. JSON listed41/48,aliases22/24. Independent audit verifies
+exactly88 attention changes and90 unchanged MLP/head tensors. Still no export.
+
+V31 tests broader generic claim/scope grammar with the same64 source facts,
+attention-only loss and32 updates. Original three JSON token views remain exact;
+grammar/scope/claim counts are matched between membership classes.96 fresh repair
+questions exclude prior experiments/external query metadata. Four unused scope
+paraphrases are frozen before scores. Raw-CSV/span/source-split/loss-AST audit
+passes160 questions. Parent13 source-validation exposure remains explicit.
+Fresh parent baseline: thin listed42/48,alias22/24 versus qualified29/48,alias15/24.
+The representation gap persists on this cohort. Candidate result is pending.
 
 Recipes: FACTUAL_V16.md, FACTUAL_V17.md, FACTUAL_V19.md, FACTUAL_V20.md,
 FACTUAL_V21.md, FACTUAL_V22.md, FACTUAL_V25.md, FACTUAL_V26.md. Raw results: evidence/listed-recall-diagnosis,

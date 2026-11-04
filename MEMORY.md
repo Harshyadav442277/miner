@@ -1,5 +1,20 @@
 # MEMORY.md — session continuity
 
+## 2026-11-04 IST: v30 almost passes; fresh grammar/source-cohort v31 running
+
+V30 only fails qualified listed31/48 and primary14/24; alias17/24,absent48/48
+and ALL other original format/stratum/thin-retention/Cartesian gates pass. No export.
+Independent saved-weight audit verifies88 attention changes,90 exact parent MLP/head.
+V31 changes curriculum only(same64 facts/32 updates/attention-only quality loss),
+keeps3 JSON forms exact, varies6 claim frames/7 independent scope clauses short/long,
+counterbalanced across membership classes. Freeze fresh96 repair questions excluding
+all previous/external metadata names/entities, plus4 unused paraphrases BEFORE scores.
+Raw-CSV/source/span/grammar-balance/unchanged loss-AST audit passes160 facts/640 views.
+Parent source-validation exposure explicit, not pristine parent-held-out knowledge.
+Fresh parent thin42/48 listed/22/24 alias; qualified29/48/15/24, showing same gap.
+Current log tg-eval/scope_curriculum_v31.log running; fixed final step/gates,15 forms.
+No full-corpus run, reserved/removal score, wallet, registry or submission.36 tests pass.
+
 ## 2026-11-04 IST: source fitting overfits; attention-only primary-quality v30 active
 
 V28 first32 exactly reproduced v25(178 tensors/losses), then128 updates: training

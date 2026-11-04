@@ -1,0 +1,9 @@
+{
+ "pass": true,
+ "saved_tensors": 178,
+ "changed_attention_tensors": 88,
+ "exact_parent_mlp_head_tensors": 90,
+ "all_finite": true,
+ "checkpoint_sha256": "4c3b8f4ec5c63e00af0d16cae7c6bd8e2403df95238958b79fcbacf4f2cc8616",
+ "scope": "Independent saved-weight identity audit, not accuracy or export readiness."
+}

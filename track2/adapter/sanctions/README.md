@@ -8,8 +8,9 @@ Latest: [listed-name recall diagnosis](LISTED_RECALL_DIAGNOSIS.md) and
 [benchmark validity/query binding](BENCHMARK_VALIDITY.md). V8 resolves the original
 binding regression, but factual accuracy still fails. V21-v27 repairs fail individual
 class/alias/retention gates. V28 improves source fit but loses development accuracy;
-v29 restoration also fails. V30 tests primary-claim correctness supervision with
-only attention LoRA trainable and original MLP/head frozen. This is not a
+v29 restoration also fails. V30 primary-quality supervision narrowly fails qualified
+prose; v31 tests varied scope grammar and fresh source questions while preserving
+the original MLP/head. This is not a
 full-corpus run or readiness claim. Genuine disagreements remain one-sided, and
 the removal capture has zero balanced reversal blocks. See the evidence before
 interpreting any aggregate score.

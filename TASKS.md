@@ -35,6 +35,10 @@ commit.
       source fit thin listed34/64,alias16/32. V28 duration-only128-step/four-pass
       control on SAME128 facts running; exact v25 tensor/loss replay required at32.
       No full-corpus run; recognized-name control isolates interpretation.
+      V28 replay passes but development loses retention; v29 restoration fails.
+      V30 attention-only primary-quality almost passes: only qualified listed31/48,
+      primary14/24 fail. V31 varies generic scope grammar, same64 facts/32 updates,
+      fresh96 repair questions plus4 unused paraphrases frozen before scores.
 - [x] Build and measure a separate reversal-balanced query-binding benchmark: v7 40/40 vs v6 36/40.
 - [x] Resolve the overlapping-bank-name regression in both directions; v8 old controls 20/20, own 4/4,
       balanced binding regression 40/40, fresh bank stratum 20/20 (v7 also 20/20).

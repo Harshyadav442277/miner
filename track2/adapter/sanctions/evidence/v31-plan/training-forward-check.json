@@ -1,0 +1,8 @@
+{
+ "max_abs_eval_train_difference": 0.0,
+ "trainable_tensors": 88,
+ "trainable_parameters": 811008,
+ "head_and_mlp_frozen": true,
+ "baseline_scope": "New repair cohort, parent source-validation exposure disclosed",
+ "scope": "Extra local pooling exists only in training loss."
+}

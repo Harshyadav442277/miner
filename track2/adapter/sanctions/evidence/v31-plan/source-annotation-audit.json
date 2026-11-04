@@ -1,0 +1,16 @@
+{
+ "pass": true,
+ "inputs_sha256": "c283e0f4ca073b033a1cf3202bed711f03792bcefdc538c49382b86d001a8981",
+ "source_queries": 160,
+ "train_views": 640,
+ "new_repair_validation": 96,
+ "unused_paraphrases": 4,
+ "membership_balanced_grammar_scope_claim_counts": true,
+ "exact_original_json_views": true,
+ "all_prior_experimental_external_names_entities_disjoint": true,
+ "unchanged_primary_quality_loss_ast": true,
+ "max_standard_validation_tokens": 496,
+ "max_unused_validation_tokens": 142,
+ "script_sha256": "31dc792c488ab51ea49b09c468e2927c14709ed4bfdefd21720842c519112b32",
+ "scope": "Raw-CSV/source split, primary-span and grammar-balance audit before scores; parent source-validation exposure disclosed."
+}

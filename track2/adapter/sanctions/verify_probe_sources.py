@@ -17,7 +17,7 @@ def main():
     def blob(path):
         return subprocess.check_output(["git", "show", prefix+":"+path], cwd=root)
     checks = []
-    for version in (21, 22, 25, 26, 27, 28, 30):
+    for version in (21, 22, 25, 26, 27, 28, 30, 31, 32):
         inputs = json.loads(blob(f"{base}/evidence/v{version}-plan/frozen-inputs.json"))
         for name, expected in inputs["dependencies"].items():
             actual = hashlib.sha256(blob(f"{base}/{name}")).hexdigest()

@@ -1,0 +1,15 @@
+{
+ "parent": {
+  "version": 31,
+  "tensors_verified": 178,
+  "checkpoint_sha256": "041365693f284cfd52f2fcd7b1268240d0118ecbe4b7f5c0fa7ea644174a1390"
+ },
+ "eligible": {
+  "primary": 208,
+  "alias": 223,
+  "absent": 78
+ },
+ "new_source_anchors": 64,
+ "replay_queries": 64,
+ "scope": "Own source train facts only. New absent anchors thin-correct/late-wrong; listed controls thin/late correct. No validation rows, bodies or scores used for selection."
+}

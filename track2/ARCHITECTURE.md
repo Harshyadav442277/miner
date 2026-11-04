@@ -452,3 +452,47 @@ Large training runs and model files live outside OneDrive, in `C:\Users\hyada\tg
   retention/Cartesian guards. Fixed final step, verify at least90 untouched tensors.
   No full-corpus run, reserved/removal score, wallet or submission. Actual-node and
   balanced external evidence remain required after any synthetic pass.
+
+## A28 — Varied scope grammar with fresh repair validation
+
+- V30 passes all original guards except qualified prose listed31/48 and primary
+  14/24. Alias17/24 and thin retention pass. Independent saved-weight audit confirms
+  exactly88 attention changes and90 original MLP/head tensors; no export follows.
+- Freeze v31 before scores: keep v30's64 source facts,32 updates,88 attention-only
+  tensors,loss/lr/seed/binding controls. Keep original three JSON forms exactly;
+  replace the two prose views with six generic claim frames and seven separate
+  scope clauses, short/long and before/after placement. Assign the SAME grammar,
+  scope and claim counts by index in both membership classes. Trim long reference
+  metadata jointly for both verdicts. Never train on the exact heldout-prose clause.
+- Freeze96 fresh source-validation questions(24 primary,24 alias,48 absent), exclude
+  prior query names/entities and external query metadata, allow unambiguous source
+  lookups only. Parent13 source-validation exposure remains explicit. Also freeze
+  four unused paraphrases before any model score, not an independent miner sample.
+- Independent raw-CSV/split/span audit verifies160 source queries,640 training
+  views, balanced grammar counts, exact JSON IDs and unchanged quality-loss AST.
+  Max standard validation496 tokens, unused paraphrases142. Evaluate15 forms with
+  all original class/alias/primary65%,thin retention5pp and Cartesian65% gates.
+  Fixed final step; no full corpus, reserved/removal scores, runtime changes or
+  submission. All actual-node and external validity requirements still apply.
+
+## A29 — Source-only hard-format anchors and final-global-attention correction
+
+- V31 fixes all qualified/unseen-paraphrase guards: qualified listed29/48 to36/48,
+  alias15/24 to20/24; all four unused forms pass. Only late-JSON absent30/48 fails.
+  Preserve this result as rejected, do not lower the65% guard or export it.
+- Freeze v32 mining before source scores: exclude all prior/external names/entities;
+  sample256 each primary/alias/absent from original source train. Select16 primary
+  and16 alias thin/late-correct controls,32 absent thin-correct/late-wrong anchors,
+  margin buffer0.0001. Labels remain raw-CSV source facts, not teacher beliefs.
+  Add unchanged64 v31 replay facts, same varied views/binding controls. No validation
+  names or bodies are used to mine these source errors.
+- Start v31, train ONLY four attention LoRA tensors in final global layer21,
+  36,864 parameters; preserve other174 exactly.32 balanced updates,lr0.000025,
+  no decay/clip1/fp32/max512/seed2120261103/dropout off/recovery. Keep ordinary
+  global+0.5 local-quality ranking and0.25 binding replay. Add0.1 raw-score MSE
+  only for source-truth-correct teacher formats, both claims together; never pin
+  an incorrect teacher preference. This is a training loss, no runtime calibration.
+- Same v31 cohort is now paired DEVELOPMENT, not independent. Keep all15-form
+  original65%/thin-retention/Cartesian gates against original parent13 baseline.
+  Audit raw source, splits, primary spans, mining conditions and retention masks
+  before optimization. No full corpus, reserved/removal scores or submission.

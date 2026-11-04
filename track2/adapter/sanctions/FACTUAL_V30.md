@@ -26,6 +26,14 @@ independent test. Keep original65% every format/class/primary/alias and Cartesia
 guards plus5pp thin retention. Fixed final step. Any pass still needs actual-node,
 binding and balanced genuine external proof. No full-corpus run or submission.
 
+Completed, narrowly rejected: only qualified prose listed31/48 and primary14/24
+fail65%; qualified alias17/24 and absent48/48 pass. All other per-format/stratum,
+thin-retention and Cartesian guards pass. Thin listed39/48,absent43/48; early/late
+JSON listed41/48 and aliases22/24. Independent saved-weight audit verifies exactly
+88 attention tensors changed and all90 MLP/head tensors match parent13. No export.
+V31 broadens generic claim/scope grammar and freezes fresh repair questions plus
+unused paraphrases before scores; it does not lower these failed thresholds.
+
 ```powershell
 $env:HF_HOME='C:/Users/hyada/tg-eval/hf'
 $env:HF_HUB_OFFLINE='1'

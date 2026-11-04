@@ -1,0 +1,8 @@
+{
+ "max_abs_eval_train_difference": 0.0,
+ "trainable_tensors": 88,
+ "trainable_parameters": 811008,
+ "head_and_mlp_frozen": true,
+ "baseline_reused_sha256": "4422344f3710954b04377baa8acef4049db5abf542695894b188f01fbb826d30",
+ "scope": "Extra local pooling exists only in training loss."
+}
