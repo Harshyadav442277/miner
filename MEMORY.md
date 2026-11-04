@@ -11,7 +11,11 @@
 - **Audit replay:** 154/154 answered; 61 re-checked rows: 12 pass, 23 partial, 3 fail, 15 licence refusals
   (`docs/evidence/audit-replay-2026-11-04/`). Devnode ranks STOCK_PRICE 1st while we refuse every stock request.
 - **Deployed** `aa110f8` (fixes rows 25, 27, 29, 30) as `miner-iwc9rd2yv`, preflight 7/7; rollback `miner-1aoi3y0wt`.
-- Next: latency/cost table, Discord recipe and X drafts for the owner, then N1 intent prototypes.
+- Since: availability report tool; guide corrected; outreach drafts (`docs/OUTREACH.md`); GAPS G248–G253 (STOCK_PRICE
+  ranked 1st while refusing; Vercel plan unknown, Hobby bars commercial use). PR #17 open, CI pending, not merged.
+- Next (Claude): merge PR #17 when CI is green; N1 intent prototypes (summarisation, task-execution quality,
+  image captioning, asset reserve) with audits; tutorial and video script (D1); Nov 11 weekly audit + report.
+- Owner: post Discord + X update 1 after #17 merges; check the Vercel plan (G249); Ahmed's answers pending.
 
 ## 2026-11-04 ~20:30 UTC (Nov 5 IST): Evaluator rubric reconciled on `claude/winning-tracks-overview-3f735a`
 
