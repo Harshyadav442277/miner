@@ -83,7 +83,8 @@ commit.
 - [x] Track 2 on V2: `/docs/scoring/*` read 2026-10-31. Comparators: unchanged and not needed for scoring.
       Adapter: must become a safetensors delta (G238).
 - [x] LANGUAGE_TRANSLATION_GENERAL material built 2026-11-01 (`track2/material/`): 144 Tatoeba preference pairs,
-      all read, every published rule passes. **Owner:** upload and sign at anjoman.ai/dashboard/eval (README there).
+      all read, every published rule passes. Owner signed and uploaded Nov 5 IST. All 144 confirmed admitted.
+- [ ] Verify translation eligibility after the epoch rolls over before reporting an eligible count on bounty #140.
 - [ ] First evaluator candidate to investigate: `URL_SCAN_VERDICT`. Verify the exact registration target,
       hybrid truth-source support and a reproducible workflow against generic scoring before building the adapter.
       `WEB_SEARCH_GENERAL` had 1 of 5 eligible contributors on Nov 5 IST.

@@ -1,5 +1,11 @@
 # MEMORY.md — session continuity
 
+## 2026-11-05 IST: translation material admitted
+
+- Owner signed and uploaded 144 `LANGUAGE_TRANSLATION_GENERAL` pairs. Anjoman reported 144 stored,
+  zero duplicates and zero refused. Public wallet readback confirms all 144 admitted at epoch 2013.
+  Eligibility is pending. The pool has one submitter, zero eligible submitters and a five-contributor minimum.
+
 ## 2026-11-05 IST: translation signature ready; URL Scan leads the evaluator shortlist
 
 - Restored the translation file's LF bytes from the checkout's CRLF representation. All 144 rows pass the
