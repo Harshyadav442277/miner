@@ -1,5 +1,18 @@
 # MEMORY.md — session continuity
 
+## 2026-11-04 ~21:20 UTC (Nov 5 02:50 IST): CURRENT — winning push started; `aa110f8` LIVE
+
+- Owner: "i give you permission to take action on all of these … whenever you need my human involved, lmk".
+  Ahmed was messaged by the owner (6 questions: grace period, 4 unscored intents, tie-breaks, judging, receipts,
+  sandbox). Board: TASKS.md "Winning push".
+- **Uptime record ON** from 2026-11-04 ~21:10 UTC: `uptime` workflow every 30 min on main (PR #16, `3d354e6`),
+  `tools/availability.mjs`, artifacts kept 90 days. First run all green.
+- **Capacity:** 58 req/s at 20 callers, 0 errors, `/ssl-check` (`docs/evidence/capacity-2026-11-04/`).
+- **Audit replay:** 154/154 answered; 61 re-checked rows: 12 pass, 23 partial, 3 fail, 15 licence refusals
+  (`docs/evidence/audit-replay-2026-11-04/`). Devnode ranks STOCK_PRICE 1st while we refuse every stock request.
+- **Deployed** `aa110f8` (fixes rows 25, 27, 29, 30) as `miner-iwc9rd2yv`, preflight 7/7; rollback `miner-1aoi3y0wt`.
+- Next: latency/cost table, Discord recipe and X drafts for the owner, then N1 intent prototypes.
+
 ## 2026-11-04 ~20:30 UTC (Nov 5 IST): Evaluator rubric reconciled on `claude/winning-tracks-overview-3f735a`
 
 - Owner: "Yes, update both". `RULES_SEASON2.md` gets the 2026-11-01 Evaluator rubric (cherry-pick of `6b09093`);
