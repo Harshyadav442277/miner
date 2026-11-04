@@ -1,0 +1,6 @@
+{
+ "pass": true,
+ "inputs_sha256": "e4c218a8666a8a485eacb872565869eaaf1a510a2d735799fedc55e1dd1ed50f",
+ "reused_v32_source_audit_sha256": "52ba56886f17536fc9ecb2eeac76072fb1187da3221945a8505132b13904b443",
+ "scope": "Same audited source rows, view IDs and development questions. Each training question has at least one eligible non-late retention view."
+}

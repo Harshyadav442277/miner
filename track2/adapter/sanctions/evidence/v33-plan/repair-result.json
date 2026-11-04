@@ -1,0 +1,352 @@
+{
+ "pass": false,
+ "failures": [
+  "json_late/absent below65%"
+ ],
+ "steps": [
+  {
+   "step": 1,
+   "loss": 0.6608434036663531,
+   "gradient_norm": 0.5897135734558105
+  },
+  {
+   "step": 2,
+   "loss": 0.6181278261356056,
+   "gradient_norm": 0.6822558641433716
+  },
+  {
+   "step": 3,
+   "loss": 0.681478653814338,
+   "gradient_norm": 0.47314977645874023
+  },
+  {
+   "step": 4,
+   "loss": 0.8314913621870801,
+   "gradient_norm": 1.0210981369018555
+  },
+  {
+   "step": 5,
+   "loss": 0.9890814059690456,
+   "gradient_norm": 0.9552044868469238
+  },
+  {
+   "step": 6,
+   "loss": 0.7402418467681855,
+   "gradient_norm": 0.6055099964141846
+  },
+  {
+   "step": 7,
+   "loss": 0.818759937550567,
+   "gradient_norm": 0.7397049069404602
+  },
+  {
+   "step": 8,
+   "loss": 0.7614854089915752,
+   "gradient_norm": 0.8525583148002625
+  },
+  {
+   "step": 9,
+   "loss": 0.6332018894759202,
+   "gradient_norm": 0.7332606315612793
+  },
+  {
+   "step": 10,
+   "loss": 0.6588683552108705,
+   "gradient_norm": 0.9580095410346985
+  },
+  {
+   "step": 11,
+   "loss": 0.6686155303400483,
+   "gradient_norm": 0.6044768691062927
+  },
+  {
+   "step": 12,
+   "loss": 0.6344460304826498,
+   "gradient_norm": 0.6072316765785217
+  },
+  {
+   "step": 13,
+   "loss": 0.7772748219929024,
+   "gradient_norm": 0.7287781834602356
+  },
+  {
+   "step": 14,
+   "loss": 0.6751176789402962,
+   "gradient_norm": 0.46220001578330994
+  },
+  {
+   "step": 15,
+   "loss": 0.8295748177497444,
+   "gradient_norm": 0.9226924777030945
+  },
+  {
+   "step": 16,
+   "loss": 0.7254134844988585,
+   "gradient_norm": 0.5154138207435608
+  },
+  {
+   "step": 17,
+   "loss": 0.6893347429695329,
+   "gradient_norm": 0.6408178806304932
+  },
+  {
+   "step": 18,
+   "loss": 0.7146620474522933,
+   "gradient_norm": 0.7364755272865295
+  },
+  {
+   "step": 19,
+   "loss": 0.6478560984104433,
+   "gradient_norm": 0.49604976177215576
+  },
+  {
+   "step": 20,
+   "loss": 0.8225294456351548,
+   "gradient_norm": 0.6745041012763977
+  },
+  {
+   "step": 21,
+   "loss": 0.6155127832691676,
+   "gradient_norm": 0.7355804443359375
+  },
+  {
+   "step": 22,
+   "loss": 0.7328055242542177,
+   "gradient_norm": 0.6731952428817749
+  },
+  {
+   "step": 23,
+   "loss": 0.60687764864889,
+   "gradient_norm": 0.7547842860221863
+  },
+  {
+   "step": 24,
+   "loss": 0.8655257895588875,
+   "gradient_norm": 0.7004435658454895
+  },
+  {
+   "step": 25,
+   "loss": 0.5928894141792844,
+   "gradient_norm": 0.4146070182323456
+  },
+  {
+   "step": 26,
+   "loss": 0.6225513406097889,
+   "gradient_norm": 0.4466959834098816
+  },
+  {
+   "step": 27,
+   "loss": 0.6239669562802419,
+   "gradient_norm": 0.5385625958442688
+  },
+  {
+   "step": 28,
+   "loss": 0.7113024978898466,
+   "gradient_norm": 0.9049463868141174
+  },
+  {
+   "step": 29,
+   "loss": 0.6507895283430116,
+   "gradient_norm": 0.7700667381286621
+  },
+  {
+   "step": 30,
+   "loss": 0.8576985523104668,
+   "gradient_norm": 0.6106158494949341
+  },
+  {
+   "step": 31,
+   "loss": 0.6858354154974222,
+   "gradient_norm": 0.8004004955291748
+  },
+  {
+   "step": 32,
+   "loss": 0.8613120317459106,
+   "gradient_norm": 0.6504908204078674
+  }
+ ],
+ "changed_tensors": [
+  "base_model.model.model.layers.21.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.21.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.21.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.21.attn.Wo.lora_B.weight"
+ ],
+ "unchanged_saved_tensors": [
+  "base_model.model.model.layers.0.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.0.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.0.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.0.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.0.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.0.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.0.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.0.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.1.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.1.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.1.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.1.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.1.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.1.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.1.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.1.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.2.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.2.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.2.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.2.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.2.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.2.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.2.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.2.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.3.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.3.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.3.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.3.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.3.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.3.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.3.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.3.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.4.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.4.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.4.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.4.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.4.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.4.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.4.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.4.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.5.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.5.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.5.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.5.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.5.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.5.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.5.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.5.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.6.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.6.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.6.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.6.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.6.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.6.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.6.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.6.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.7.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.7.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.7.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.7.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.7.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.7.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.7.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.7.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.8.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.8.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.8.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.8.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.8.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.8.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.8.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.8.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.9.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.9.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.9.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.9.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.9.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.9.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.9.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.9.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.10.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.10.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.10.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.10.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.10.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.10.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.10.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.10.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.11.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.11.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.11.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.11.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.11.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.11.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.11.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.11.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.12.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.12.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.12.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.12.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.12.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.12.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.12.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.12.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.13.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.13.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.13.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.13.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.13.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.13.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.13.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.13.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.14.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.14.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.14.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.14.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.14.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.14.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.14.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.14.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.15.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.15.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.15.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.15.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.15.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.15.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.15.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.15.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.16.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.16.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.16.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.16.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.16.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.16.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.16.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.16.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.17.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.17.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.17.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.17.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.17.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.17.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.17.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.17.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.18.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.18.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.18.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.18.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.18.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.18.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.18.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.18.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.19.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.19.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.19.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.19.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.19.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.19.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.19.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.19.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.20.attn.Wqkv.lora_A.weight",
+  "base_model.model.model.layers.20.attn.Wqkv.lora_B.weight",
+  "base_model.model.model.layers.20.attn.Wo.lora_A.weight",
+  "base_model.model.model.layers.20.attn.Wo.lora_B.weight",
+  "base_model.model.model.layers.20.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.20.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.20.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.20.mlp.Wo.lora_B.weight",
+  "base_model.model.model.layers.21.mlp.Wi.lora_A.weight",
+  "base_model.model.model.layers.21.mlp.Wi.lora_B.weight",
+  "base_model.model.model.layers.21.mlp.Wo.lora_A.weight",
+  "base_model.model.model.layers.21.mlp.Wo.lora_B.weight",
+  "base_model.model.classifier.weight",
+  "base_model.model.classifier.bias"
+ ],
+ "checkpoint_sha256": "0150d71554ae5dc895c93671f445cad8a896e550e30b36076324e3983f7cba22",
+ "scope": "Source-only late-format hard anchors plus correct-score replay, final-global-attention4 tensors. Standard178 inference, same v31 paired DEVELOPMENT; no readiness claim."
+}

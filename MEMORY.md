@@ -1,5 +1,13 @@
 # MEMORY.md — session continuity
 
+## Nov 4 factual repair results through V34
+
+V31 improves fresh qualified listed 29/48 to 36/48 and alias 15/24 to 20/24.
+All four unused paraphrases pass. V32–V34 reuse that cohort as paired development.
+V33 gets late-JSON absent 31/48 and thin listed 40/48. V34 gets 33/48 and 39/48.
+The gates require 32 and 40 respectively. No export, actual-node score, full corpus
+run or reserved scoring follows. Baseline remains unbeaten. 36 regression tests pass.
+
 ## 2026-11-04 IST: v30 almost passes; fresh grammar/source-cohort v31 running
 
 V30 only fails qualified listed31/48 and primary14/24; alias17/24,absent48/48

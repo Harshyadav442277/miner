@@ -34,3 +34,19 @@ $plan='track2/adapter/sanctions/evidence/v32-plan'
 # Require a passing input-hash-bound audit before run.
 & $py track2/adapter/sanctions/probe_late_json_patch.py run --home C:/Users/hyada/tg-eval --plan $plan
 ```
+
+V32 completed. Late-JSON absent rose from 30/48 to 31/48. Thin listed fell
+from 40/48 to 39/48 against the original parent baseline of 42/48. Qualified
+prose stayed at 36/48 listed and 20/24 aliases. Both failing gates block export.
+
+V33 restarts V31 with the same audited source facts and four trainable tensors.
+It applies direct ranking to late JSON and weight-1 score retention to other
+source formats with correct teacher orderings. Binding replay is unchanged.
+The 32-step budget and all 15 development gates remain in force.
+
+V33 finished at 31/48 late-JSON absent and 40/48 thin listed. V34 doubled
+absent late-JSON correction weight and retained correct teacher scores in all
+formats. It reached 33/48 late-JSON absent and 39/48 thin listed. Qualified
+prose stayed at 36/48 listed and 20/24 aliases in both runs. V33 fails the
+late-JSON gate. V34 fails the original thin retention gate. All counts come
+from the same paired development cohort. Both adapters remain unexported.

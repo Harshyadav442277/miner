@@ -1,0 +1,53 @@
+13:18:58 INFO: tokenizer matches the node (88 vectors)
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+
+Loading weights:   0%|          | 0/136 [00:00<?, ?it/s]
+Loading weights:   6%|5         | 8/136 [00:00<00:01, 75.93it/s]
+Loading weights:  20%|#9        | 27/136 [00:00<00:00, 135.19it/s]
+Loading weights: 100%|##########| 136/136 [00:00<00:00, 437.64it/s]
+[transformers] ModernBertForSequenceClassification LOAD REPORT from: answerdotai/ModernBERT-base
+Key               | Status     | 
+------------------+------------+-
+decoder.bias      | UNEXPECTED | 
+classifier.weight | MISSING    | 
+classifier.bias   | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+13:18:59 INFO: answerdotai/ModernBERT-base | trainable 1,690,369 / 151,296,002 parameters
+C:\Users\hyada\tg-eval\.venv\Lib\site-packages\peft\utils\save_and_load.py:313: UserWarning: Could not find a config file in answerdotai/ModernBERT-base - will assume that the vocabulary was not modified.
+  warnings.warn(
+{"step": 1, "loss": 0.16663181188616738, "gradient_norm": 0.45690464973449707}
+{"step": 2, "loss": 0.232387998374179, "gradient_norm": 0.418562650680542}
+{"step": 3, "loss": 0.4340332287374622, "gradient_norm": 1.4866414070129395}
+{"step": 4, "loss": 0.5143023341079243, "gradient_norm": 0.8927204608917236}
+{"step": 5, "loss": 0.49113856857002247, "gradient_norm": 1.4958416223526}
+{"step": 6, "loss": 0.2775650676339865, "gradient_norm": 0.5979310870170593}
+{"step": 7, "loss": 0.38666124202427454, "gradient_norm": 0.9619089365005493}
+{"step": 8, "loss": 0.25751093216240406, "gradient_norm": 0.4961771070957184}
+{"step": 9, "loss": 0.4131225403348395, "gradient_norm": 1.727535367012024}
+{"step": 10, "loss": 0.38951813662424684, "gradient_norm": 1.3741191625595093}
+{"step": 11, "loss": 0.27005856191317434, "gradient_norm": 0.9486451745033264}
+{"step": 12, "loss": 0.361003577709198, "gradient_norm": 1.0884685516357422}
+{"step": 13, "loss": 0.27063514721838544, "gradient_norm": 0.81190425157547}
+{"step": 14, "loss": 0.2789864782243967, "gradient_norm": 0.7373470664024353}
+{"step": 15, "loss": 0.4221913936139572, "gradient_norm": 1.0749253034591675}
+{"step": 16, "loss": 0.1888327756896615, "gradient_norm": 0.3065398037433624}
+{"step": 17, "loss": 0.20822657296740177, "gradient_norm": 0.3695307970046997}
+{"step": 18, "loss": 0.5117665913421661, "gradient_norm": 1.0554847717285156}
+{"step": 19, "loss": 0.26749417243934204, "gradient_norm": 1.0504266023635864}
+{"step": 20, "loss": 0.40429597318870947, "gradient_norm": 0.9221503138542175}
+{"step": 21, "loss": 0.5327910783281382, "gradient_norm": 1.3256601095199585}
+{"step": 22, "loss": 0.38564625033177435, "gradient_norm": 0.8471877574920654}
+{"step": 23, "loss": 0.14962611262501468, "gradient_norm": 0.38375014066696167}
+{"step": 24, "loss": 0.42131806910037994, "gradient_norm": 0.7813368439674377}
+{"step": 25, "loss": 0.3304431326366941, "gradient_norm": 0.5237165093421936}
+{"step": 26, "loss": 0.24039792735129595, "gradient_norm": 0.6511012315750122}
+{"step": 27, "loss": 0.2949536113389968, "gradient_norm": 0.8521741032600403}
+{"step": 28, "loss": 0.31198805500753224, "gradient_norm": 1.1754509210586548}
+{"step": 29, "loss": 0.2343558323518664, "gradient_norm": 0.8677662014961243}
+{"step": 30, "loss": 0.3916384242475033, "gradient_norm": 0.5735247731208801}
+{"step": 31, "loss": 0.5513921880628914, "gradient_norm": 1.7834538221359253}
+{"step": 32, "loss": 0.5247482880949974, "gradient_norm": 1.0047343969345093}
+{"pass": false, "failures": ["thin_json/listed loss exceeds5pp", "json_late/absent below65%"]}
