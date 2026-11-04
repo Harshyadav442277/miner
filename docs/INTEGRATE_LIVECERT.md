@@ -1,14 +1,16 @@
 # Call LiveCert from an app
 
-LiveCert is miner **4433** (slug `livecert`, registration 2750) on `devnode.telegraphprotocol.com`.
-Callers need no API key. A call costs $0.01 USDC (`min_price_usdc: 10000`) over Telegraph's payment
-rails.
+LiveCert is miner **4433** (slug `livecert`, registration 4829) on `devnode.telegraphprotocol.com`.
+Callers need no API key. A call costs $0.01 USDC (`min_price_usdc: 10000`), paid per request over x402
+in Telegraph's test USDC on **Ethereum Sepolia** (`0xcc194e1a843B658526D0D5C431f670028582Ae17`, from the
+anjoman.ai faucet), or from escrow. Payment details: https://anjoman.ai/docs/using/x402-inference (read
+2026-11-04, page updated 2026-11-01).
 
-**State on 2026-10-14.** The pending manifest declares **36 intents from 35 endpoints**: seven
-mission intents added and seven low-value ones dropped (TVL, Telegraph knowledge, AI-text detection,
-text authenticity, content verification, game result, sports score). The seven intents marked *new*
-below answer at the base URL today, but Telegraph will not route to them until the pending
-`updateMiner` is signed and mined.
+**State on 2026-11-04.** Registration 4829 declares **36 intents**. On devnode's epoch 2013, 32 are scored:
+3 at rank 1, 13 in the top 3. Some intents answer every request, or some questions, with `error:
+"not_licensed"`, because their only source forbids resale: STOCK_PRICE, NEWS_HEADLINES, NEWS_SEARCH,
+IP_GEOLOCATION, news questions under WEB_SEARCH, and listed-company prices under FINANCIAL_DATA. They are
+marked *refuses* below. Do not buy them for those questions.
 
 ## Machine-readable description
 
@@ -58,23 +60,23 @@ Mission counts are from the fifteen mission pages at hackathon.telegraphprotocol
 
 | Intent | Missions | Endpoint | Send | Key fields back |
 |---|---:|---|---|---|
-| WEB_SEARCH | 7 | `/web-search` | `query` | `articles` (title, publisher, date), `background` |
-| SANCTIONS_SCREENING_MATCH *new* | 5 | `/sanctions-screen` | `name` or `wallet`, `query` | `matches` (list, id, matched name, programmes, score, birth-year check, OFAC URL), `lists_checked` with editions, `lists_not_checked` |
-| CORPORATE_REGISTRY_LOOKUP *new* | 5 | `/company-registry` | `company`, `company_number`, `query` | `entity_status`, `company_number`, `register`, `registered_address`, `registered_agent`, `incorporated`, `direct_parent`, `ultimate_parent`, `lei`, `us_filer` |
-| QUESTION_ANSWERING *new* | 5 | `/answer` | `query`, optional `context` | `citations` (title, URL), `method` (model-phrased or extracted) |
+| WEB_SEARCH (*refuses news questions*) | 7 | `/web-search` | `query` | `articles` (title, publisher, date), `background` |
+| SANCTIONS_SCREENING_MATCH | 5 | `/sanctions-screen` | `name` or `wallet`, `query` | `matches` (list, id, matched name, programmes, score, birth-year check, OFAC URL), `lists_checked` with editions, `lists_not_checked` |
+| CORPORATE_REGISTRY_LOOKUP | 5 | `/company-registry` | `company`, `company_number`, `query` | `entity_status`, `company_number`, `register`, `registered_address`, `registered_agent`, `incorporated`, `direct_parent`, `ultimate_parent`, `lei`, `us_filer` |
+| QUESTION_ANSWERING | 5 | `/answer` | `query`, optional `context` | `citations` (title, URL), `method` (model-phrased or extracted) |
 | FACT_CHECK | 4 | `/fact-check` | `claim`, `query` | `verdict`, `source_url`, `evidence` |
-| FINANCIAL_DATA | 4 | `/financial` | `symbol` or `address`, `query` | `data` (price, market cap, volume, ranges), `fundamentals` from the 10-K |
-| REGULATORY_FILING_MONITOR *new* | 4 | `/sec-filings` | `company`, `form`, `query` | `filing` (form, filed, accepted, accession, period, 8-K items, URL), `figures` from its XBRL, `prior_year_figures` |
-| CRYPTO_TRANSFER_VERIFY *new* | 3 | `/transfer-verify` | `hash`, `chain` | `transaction` (status, from, to, value, block, `confirmations`, `fee_wei`, `base_fee_wei`, `base_fee_burned`) |
-| MACRO_ECONOMIC_INDICATOR *new* | 3 | `/macro` | `indicator`, `country`, `query` | `indicators` (value, `value_high` for a range, period, frequency, series, source) |
-| URL_SAFE *new* | 2 | `/url-reputation` | `url` | `listed`, `sources` (each source and its result), `flagged_by`, `checks` |
+| FINANCIAL_DATA (*refuses listed-company prices*) | 4 | `/financial` | `symbol` or `address`, `query` | `data` (price, market cap, volume, ranges), `fundamentals` from the 10-K |
+| REGULATORY_FILING_MONITOR | 4 | `/sec-filings` | `company`, `form`, `query` | `filing` (form, filed, accepted, accession, period, 8-K items, URL), `figures` from its XBRL, `prior_year_figures` |
+| CRYPTO_TRANSFER_VERIFY | 3 | `/transfer-verify` | `hash`, `chain` | `transaction` (status, from, to, value, block, `confirmations`, `fee_wei`, `base_fee_wei`, `base_fee_burned`) |
+| MACRO_ECONOMIC_INDICATOR | 3 | `/macro` | `indicator`, `country`, `query` | `indicators` (value, `value_high` for a range, period, frequency, series, source) |
+| URL_SAFE | 2 | `/url-reputation` | `url` | `listed`, `sources` (each source and its result), `flagged_by`, `checks` |
 | CRYPTO_PRICE | 2 | `/crypto-price` | `symbol`, `query` | `price`, `quote`, `price_at`, `source` |
 | CONTENT_EXTRACTION | 2 | `/extract` | `text` | `extracted` |
 | WEATHER_CHECK | 2 | `/weather-forecast` with `hours=0` | `location` | temperatures, precipitation, wind |
 | EVENT_OUTCOME_RESOLUTION | 2 | `/event-outcome` | `event` | `outcome`, `winner`, `market`, `venue`, `closes_at` |
 | CROSS_CHAIN_STATE_VERIFY | 2 | `/cross-chain` | `tx_hash` | `message` (chains, sender, receiver, both transactions) |
 | TEXT_CLASSIFICATION | 2 | `/classify` | `text`, `labels` | `label` |
-| STOCK_PRICE | 1 | `/stock-price` | `symbol` | `price`, `currency`, `exchange`, `market_open` |
+| STOCK_PRICE (*refuses every request*) | 1 | `/stock-price` | `symbol` | `price`, `currency`, `exchange`, `market_open` |
 | GAS_PRICE | 1 | `/gas-price` | `chain` | Gwei, base and priority fee, block |
 | SENTIMENT_ANALYSIS | 1 | `/sentiment` | `text` | `positive_words`, `negative_words`, `tones` |
 | LANGUAGE_TRANSLATION | 1 | `/translate` | `text`, `target_language` | `translation`, `source_text`, `target_language`, `target_code` |
@@ -85,7 +87,8 @@ both. Every endpoint also accepts the bare sentence in `query` alone and reads t
 
 ## Recipes for the mission intents
 
-Each is a direct call (below), and every example was answered by production on 2026-10-14.
+Each is a direct call (below). Every example was answered by production on 2026-10-14; the 154-question audit
+replay of 2026-11-04 is in `track1-miner/docs/evidence/audit-replay-2026-11-04/`.
 
 ```jsonc
 // Sanctions: screen a counterparty before onboarding it
@@ -120,7 +123,8 @@ POST https://devnode.telegraphprotocol.com/engine/v1/ask
 { "query": "What is the market cap and 24h volume of Solana?" }
 ```
 
-**Direct:** name the miner. `payload` becomes the query string, because every endpoint is `GET`:
+**Direct:** name the miner. `payload` becomes the query string, because every endpoint is `GET`. Under the
+Season II rules a direct request can earn use, repeat-use and accounting evidence, but not ranked-routing points:
 
 ```http
 POST https://devnode.telegraphprotocol.com/engine/v1/ask/4433
