@@ -1,5 +1,12 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-05 IST evaluator activation
+
+- **URL_SCAN_VERDICT preflight. `OPEN`.** The live catalog says hybrid and ready. The pool has 5 eligible
+  contributors and 65 eligible rows (36 qualification). Registry resolution reports routed generic fallback.
+  The exact registration target, compatible hybrid reference material and improvement on a repeatable
+  mission workflow still need verification.
+
 ## 2026-11-01 evaluation material — G247
 
 - **G247 — Translation material: three things only the upload can confirm. `OPEN`.** (1) The node's 85%

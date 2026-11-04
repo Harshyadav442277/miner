@@ -1,5 +1,14 @@
 # MEMORY.md — session continuity
 
+## 2026-11-05 IST: translation signature ready; URL Scan leads the evaluator shortlist
+
+- Restored the translation file's LF bytes from the checkout's CRLF representation. All 144 rows pass the
+  local checker and SHA-256 matches the upload runbook. The devnode returned zero rows for the owner wallet.
+  Owner signs the Sepolia EIP-191 upload using the fixed identity in AGENTS.md.
+- Public registry and pool scan across 196 intent and family IDs: Web Search has 1 of 5 eligible contributors.
+  URL Scan has 5, 65 eligible rows, and generic fallback. Sanctions has 8 contributors under the `_GENERAL`
+  child and no dedicated champion, but our candidate still lacks baseline-beating evidence. See TASKS and GAPS.
+
 ## 2026-11-03: required account and LiveCert wallet pinned
 
 - Owner: "for this repo - use only hyadav42774@gmail.com and the wallet which is connected with livecert only".

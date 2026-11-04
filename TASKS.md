@@ -84,7 +84,9 @@ commit.
       Adapter: must become a safetensors delta (G238).
 - [x] LANGUAGE_TRANSLATION_GENERAL material built 2026-11-01 (`track2/material/`): 144 Tatoeba preference pairs,
       all read, every published rule passes. **Owner:** upload and sign at anjoman.ai/dashboard/eval (README there).
-- [ ] Next material: FACT_CHECK_GENERAL or WEB_SEARCH_GENERAL (empty pools, ready, 17 and 22 miners).
+- [ ] First evaluator candidate to investigate: `URL_SCAN_VERDICT`. Verify the exact registration target,
+      hybrid truth-source support and a reproducible workflow against generic scoring before building the adapter.
+      `WEB_SEARCH_GENERAL` had 1 of 5 eligible contributors on Nov 5 IST.
 - [ ] Track 2 entry that needs no foundation files: evaluation material for intents LiveCert serves. Truth
       sources for the deterministic ones with none (SSL_VERIFICATION_CERT), and attested preference pairs for a
       judgment family. Claude builds and checks the JSON Lines file; the owner signs the upload (EIP-191). One
