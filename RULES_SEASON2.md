@@ -121,15 +121,27 @@ The 10 consumption points are awarded once per Provider, across all its Miner–
 - "Direct requests can earn use, repeat-use, and accounting points if verified."
 - "Development-stage use counts when reviewers can verify the underlying mission work and requests."
 
-**Evaluators**, minimum 28/40 on validity
+**Evaluators**, minimum 28/40 on validity. **Re-read live 2026-11-01 ~17:00 UTC** (Rules page, Evaluators tab in
+the scoring section). The weights changed from the 2026-10-29 read (40/20/15/20/5), and growth is new:
 
 | Points | Criterion |
 |---:|---|
-| 40 | Valid measurements, ability to distinguish quality, and baseline evidence |
-| 20 | Integrity and resistance to manipulation |
-| 15 | Repeatable results and protocol compatibility |
-| 20 | Useful coverage and demonstrated improvement |
-| 5 | Documentation and integration |
+| 40 | Measurement validity, quality discrimination, and baseline evidence (minimum 28/40) |
+| 15 | Integrity and robustness |
+| 10 | Reproducibility and protocol compatibility |
+| 10 | Useful evaluation coverage and demonstrated improvement |
+| 5 | Documentation and integration clarity |
+| 20 | Organic growth, education, and developer activation |
+
+Validity: "Judges will test evaluators using repeatable methods, appropriate unseen examples, and credible reference
+answers or other defensible checks. If a baseline exists, compare against it under similar conditions." Growth (20)
+splits into four 5-point parts:
+- **Content and education:** a public explanation (2), a tutorial on Telegraph's role (2), honest limitations (1).
+- **Ease of adoption:** steps with an example (2), something another developer can test (2), troubleshooting and costs (1).
+- **Organic distribution:** "At least three meaningful original updates on separate dates" (2), sharing beyond our own team (2), follow-up (1).
+- **Community activation:** an invitation with a next step (1), an independent developer acting on it (2), a further verified contribution (2).
+
+"Posting alone does not earn all 20 points." Tag @Telegraphprotoc on X.
 
 A result that confirms an existing ranking can still be valuable. Adapter-only, material-only and combined
 entries are each judged on what they actually contribute.

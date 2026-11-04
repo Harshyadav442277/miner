@@ -11,9 +11,13 @@
 
 name: uptime
 
-# Manual only: recurring checks and automatic commits were stopped at the
-# owner's request on 2026-10-01.
+# Every 30 minutes from 2026-11-05 (owner: "i give you permission to take action on
+# all of these"; GAPS G205). No commits: the record is the run history plus the
+# `availability-*` artifacts. The heavier live-tests and scores jobs run on manual
+# dispatch only, so an upstream blip in the test suite never reads as downtime.
 on:
+  schedule:
+    - cron: "7,37 * * * *"
   workflow_dispatch:
     inputs:
       test_alarm:
@@ -22,7 +26,30 @@ on:
         default: false
 
 jobs:
+  availability:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Sweep every endpoint once
+        env:
+          MINER_BASE_URL: ${{ vars.MINER_BASE_URL }}
+        run: node track1-miner/tools/availability.mjs "$MINER_BASE_URL" availability.jsonl
+      - name: Keep the sweep
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: availability-${{ github.run_id }}
+          path: availability.jsonl
+          retention-days: 90
+          if-no-files-found: warn
+
   check:
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     # Explicit, because the alarm depends on them: the issue-opening step needs
     # issues: write, and this had never been stated (or seen to work) before.
@@ -59,8 +86,9 @@ jobs:
         run: node track1-miner/tools/verify-deploy.mjs "${{ vars.MINER_BASE_URL }}"
 
   live-tests:
-    # The network-dependent half of the suite, on the uptime cadence rather than
+    # The network-dependent half of the suite, on manual dispatch rather than
     # on every push, so an upstream blip never blocks a merge.
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -80,6 +108,7 @@ jobs:
     # Scoring runs on the network's schedule and the API exposes only the latest
     # epoch, so a score not captured when it appears is lost. This keeps a durable
     # per-epoch artifact to reason from instead of polling by hand.
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -106,7 +135,7 @@ jobs:
     # `resolve` below is the other half. Without it an alarm never clears, and
     # because this step reuses `existing[0]`, one stale issue silently downgrades
     # every later outage into a comment on a thread nobody is watching.
-    needs: [check, live-tests, scores]
+    needs: [availability, check, live-tests, scores]
     if: ${{ always() && contains(join(needs.*.result, ','), 'failure') }}
     runs-on: ubuntu-latest
     permissions:
@@ -126,7 +155,7 @@ jobs:
             });
             const body = `Failed jobs: ${failed.join(', ')} at ${new Date().toISOString()}.\n\n` +
               `Run: ${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}\n\n` +
-              `Spot checks run every ~20s and routing is revoked on a 20% score drop, ` +
+              `Telegraph spot-checks each intent about once an hour, and consecutive failures revoke routing, ` +
               `so a failing endpoint is likely already costing score.`;
             if (existing.length === 0) {
               await github.rest.issues.create({
@@ -146,7 +175,7 @@ jobs:
     # a stale issue that suppresses the next real one into a comment. Closing on a
     # clean run keeps the alarm self-resetting, so an open `uptime` issue always
     # means "failing right now".
-    needs: [check, live-tests, scores]
+    needs: [availability, check, live-tests, scores]
     if: ${{ always() && !contains(join(needs.*.result, ','), 'failure') && !contains(join(needs.*.result, ','), 'cancelled') }}
     runs-on: ubuntu-latest
     permissions:
