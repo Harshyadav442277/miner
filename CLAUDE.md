@@ -28,6 +28,14 @@ Morse, is the separate repo `../telegraph-morse`. **Not this project:** the Midn
 - X posts: one useful progress update per active week, tagging Telegraph (WINNING.md §8). The Season II
   rules encourage it but do not score it.
 
+## Required account and wallet
+
+The owner's fixed identity restriction is in [AGENTS.md](AGENTS.md): use only
+`hyadav42774@gmail.com` and LiveCert wallet `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e`
+for every track. Verify the identity before authenticated actions. Never substitute another
+account, signer or payout wallet, including when the required session is unavailable. This
+overrides older account guidance and the parent framework's college-email default.
+
 ## Hard rules
 
 1. **Claude never touches the wallet.** No connecting, no signing, no sending transactions, no

@@ -27,7 +27,7 @@ Ordered by rubric points. Live ranks on 2026-11-04 (epoch 2013): 32 of 36 intent
 - [x] Questions sent to Ahmed 2026-11-04 UTC (grace period, 4 unscored intents, tie-breaks, judging, receipts,
       sandbox). Waiting.
 - [ ] Post the Discord recipe message and the X updates once drafted (Claude drafts).
-- [ ] Sign and upload the 144 translation pairs (`track2/material/README`).
+- [x] Sign and upload the 144 translation pairs: done, all 144 admitted at epoch 2013 (MEMORY, Codex block).
 - [ ] Record the 2–5 minute video from the script.
 - [ ] Sign the one `updateMiner` once N1 passes its audit and Ahmed answers G206.
 
@@ -73,6 +73,9 @@ Ordered by rubric points. Live ranks on 2026-11-04 (epoch 2013): 32 of 36 intent
 
 ## Claude
 
+- [x] Pin the owner's required account (`hyadav42774@gmail.com`) and LiveCert wallet in repository instructions;
+      remove conflicting email and alternate-payout guidance (owner instruction, 2026-11-03).
+
 - [x] Mission × intent matrix at build level, and fixtures for the 9 fully-served workflows (2026-10-31,
       `tools/mission-matrix.mjs`, `tools/mission-fixtures.mjs`): 3/9 pass on production.
 - [x] Fix G241, G242, G243 (2026-10-31): unit 866/866; every failing step passes on preview `miner-d881p4yiz`.
@@ -106,8 +109,11 @@ Ordered by rubric points. Live ranks on 2026-11-04 (epoch 2013): 32 of 36 intent
 - [x] Track 2 on V2: `/docs/scoring/*` read 2026-10-31. Comparators: unchanged and not needed for scoring.
       Adapter: must become a safetensors delta (G238).
 - [x] LANGUAGE_TRANSLATION_GENERAL material built 2026-11-01 (`track2/material/`): 144 Tatoeba preference pairs,
-      all read, every published rule passes. **Owner:** upload and sign at anjoman.ai/dashboard/eval (README there).
-- [ ] Next material: FACT_CHECK_GENERAL or WEB_SEARCH_GENERAL (empty pools, ready, 17 and 22 miners).
+      all read, every published rule passes. Owner signed and uploaded Nov 5 IST. All 144 confirmed admitted.
+- [ ] Verify translation eligibility after the epoch rolls over before reporting an eligible count on bounty #140.
+- [ ] First evaluator candidate to investigate: `URL_SCAN_VERDICT`. Verify the exact registration target,
+      hybrid truth-source support and a reproducible workflow against generic scoring before building the adapter.
+      `WEB_SEARCH_GENERAL` had 1 of 5 eligible contributors on Nov 5 IST.
 - [ ] Track 2 entry that needs no foundation files: evaluation material for intents LiveCert serves. Truth
       sources for the deterministic ones with none (SSL_VERIFICATION_CERT), and attested preference pairs for a
       judgment family. Claude builds and checks the JSON Lines file; the owner signs the upload (EIP-191). One

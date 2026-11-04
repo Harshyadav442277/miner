@@ -7,6 +7,30 @@
 - Rubric-only change. `codex/sanctions-benchmark-v7` (48 commits ahead of main, no PR) carries its own fuller
   WINNING.md rewrite with sanctions status; expect overlapping hunks when it merges. Live Rules page not re-read today.
 
+## 2026-11-05 IST: translation material admitted
+
+- Owner signed and uploaded 144 `LANGUAGE_TRANSLATION_GENERAL` pairs. Anjoman reported 144 stored,
+  zero duplicates and zero refused. Public wallet readback confirms all 144 admitted at epoch 2013.
+  Eligibility is pending. The pool has one submitter, zero eligible submitters and a five-contributor minimum.
+
+## 2026-11-05 IST: translation signature ready; URL Scan leads the evaluator shortlist
+
+- Restored the translation file's LF bytes from the checkout's CRLF representation. All 144 rows pass the
+  local checker and SHA-256 matches the upload runbook. The devnode returned zero rows for the owner wallet.
+  Owner signs the Sepolia EIP-191 upload using the fixed identity in AGENTS.md.
+- Public registry and pool scan across 196 intent and family IDs: Web Search has 1 of 5 eligible contributors.
+  URL Scan has 5, 65 eligible rows, and generic fallback. Sanctions has 8 contributors under the `_GENERAL`
+  child and no dedicated champion, but our candidate still lacks baseline-beating evidence. See TASKS and GAPS.
+
+## 2026-11-03: required account and LiveCert wallet pinned
+
+- Owner: "for this repo - use only hyadav42774@gmail.com and the wallet which is connected with livecert only".
+- Fixed email: `hyadav42774@gmail.com`; fixed LiveCert wallet:
+  `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e` (already identified in the root and Track 1 READMEs).
+- [AGENTS.md](AGENTS.md) and [CLAUDE.md](CLAUDE.md) require identity verification before authenticated
+  actions and forbid fallback accounts, signers or payout wallets. This overrides older email guidance.
+- Account guidance and the signing runbook were aligned. No external account links or wallet state changed.
+
 ## 2026-11-01 ~20:30 UTC (Nov 2 02:00 IST): CURRENT — main merged; translation material ready to sign
 
 - **main merged** via PR #14 (owner: "merge it then"), `7e8c747`; branch and main in step. Deploys nothing.
@@ -420,7 +444,8 @@ branch is fast-forwarded and **not pushed**.
 ## Durable facts (true across sessions; re-verify protocol facts against live docs)
 
 **Identity.**
-- Hackathon signup: `harsh.2024a@vitstudent.ac.in`. X: `@hyadav42774`.
+- Required account: `hyadav42774@gmail.com` only (owner instruction, 2026-11-03; supersedes older signup
+  email guidance). X: `@hyadav42774`.
 - Miner, fee and Track 2 script wallet: `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e`. Wallet operations
   are the owner's: Claude drafts and validates, the owner signs.
 - Chain: Base Sepolia testnet, Diamond `0x5a2324aA18613FAD4e44bDF0d6c73Ec1f6D87ff8` (V2 docs, 2026-10-27).

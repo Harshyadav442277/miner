@@ -269,7 +269,7 @@ Option B: 4829 stays frozen for the season, fixes ship as code deploys, and unli
 
 ### Before Nov 1 00:00 UTC (Nov 1 05:30 IST)
 
-- [ ] **Owner: register for Season II** on the site with `harsh.2024a@vitstudent.ac.in`, if not already done.
+- [ ] **Owner: register for Season II** on the site with `hyadav42774@gmail.com` only, if not already done.
       It is the "Register for Season II" button; one registration covers all three tracks.
 - [ ] **Owner: read the prize-payment terms** once they appear. /rules says they "must be available before the
       competition opens". Check that India is an eligible country and which payout methods exist (G218).
