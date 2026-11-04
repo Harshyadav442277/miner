@@ -1,5 +1,38 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-04 ~21:00 UTC sanctions, registry and filings intents — G235 superseded; G254–G256
+
+Evidence: `track1-miner/docs/evidence/intents-2026-11-04/`. Facts: docs/TELEGRAPH_FACTS.md, top section.
+
+- **G235 — SUPERSEDED: scoring is live.** 1,938 of 1,986 registrations are `scored: true` at epoch 2013
+  (2026-11-04 ~20:38 UTC); 4829 carries 34 intent scores. Ranks below; the rest of 4829's ranks were not read.
+- **G254 — Our three compliance answers lacked the intents' scored field names. `FIXED IN CODE, NOT DEPLOYED`.**
+  SANCTIONS_SCREENING_MATCH_GENERAL scores `matched` (we sent `verdict`), CORPORATE_REGISTRY_LOOKUP_GENERAL
+  scores `active` (we sent `entity_status`), REGULATORY_FILING_MONITOR_GENERAL scores `filing_count` (we sent no
+  count at all). 4829 has no `intent_mapping`, so the node's parser model has to find each value. The answers
+  now carry the intent's own fields as well; unit 875/875, local probes in the evidence folder.
+  - **Ranks before the change (epoch 2013):** sanctions 11th (0.9981; 1st 1.0), registry 4th (0.9423; 3rd 0.9683),
+    filings 8th (0.9781; 3rd 0.998). Routed demand goes to the top three only (70/20/10), so all three earn us
+    no routed requests today.
+  - **Not known:** whether naming the fields moves the score. The reference is the median of up to 3 truth
+    sources, and the pools are not public (`/api/evalpool/submissions` without a submitter answers 405).
+  - **Assumptions:** a `possible_match` counts as `matched: true` (the intent includes near-matches on spelling);
+    `filing_count` counts the form asked, else material forms only (10-K, 10-Q, 8-K, 20-F, 6-K, 40-F, DEF 14A,
+    S-1, S-4, F-1, 10-KT), never Form 4s. If the reference counts every form, our count is low. The period
+    reaches us only through `query`: the endpoint declares no `period` param, and adding one needs `updateMiner`.
+  - **Measure after deploy:** the three ranks and scores for 3 epochs (1 h each), against the numbers above.
+- **G255 — One wallet holds 1,673 of 1,986 registrations, and the top routed slots in two of these intents.
+  `OPEN, question for Telegraph`.** Wallet `0xbd6f696096cceeaff7406d802ba04500eeaf6976`, registered
+  2026-10-24 23:27 – 2026-11-02 06:06 UTC, covers all 136 intents with one-intent miners whose `base_url` is a
+  raw public source (data.opensanctions.org, federalregister.gov, api.gleif.org, treasury.gov). They hold
+  registry ranks 1–3 (an OFAC sanctions index ranks 1st as a company register) and filings rank 1. That wallet
+  has no evaluation rows in either intent (`/submissions/mine`, 0 rows), so "they score themselves" is **not**
+  supported. Whether these are Telegraph's own reference miners, and whether they take routed traffic, is
+  unknown. Ask before spending effort to outrank them.
+- **G256 — "These intents get many requests" is not checked. `OPEN`.** No public endpoint gives requests per
+  intent: `/api/miners` has `total_requests_served` per registration only (4829: 383; TxLens 413). The owner saw
+  the figure somewhere not named; a screenshot or the page would let it be recorded here.
+
 ## 2026-11-04 ~21:30 UTC (Nov 5 03:00 IST) winning push — G248–G253
 
 - **G248 — Devnode ranks STOCK_PRICE_US_EQUITY 1st (0.9987, epoch 2013) while every stock request is refused

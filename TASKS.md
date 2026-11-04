@@ -37,6 +37,11 @@ Ordered by rubric points. Live ranks on 2026-11-04 (epoch 2013): 32 of 36 intent
 
 ## Owner
 
+- [ ] **G254: yes or no to deploying the scored-field change** (branch `claude/screening-registry-intents-f6ab6b`):
+      sanctions, registry and filings answers name `matched`, `active`, `filing_count`. Ranks today 11th, 4th, 8th.
+- [ ] **G255: ask Telegraph (Ahmed)** who wallet `0xbd6f696096cceeaff7406d802ba04500eeaf6976` is (1,673 one-intent
+      miners on raw public URLs; registry ranks 1–3), and whether those miners take routed requests.
+- [ ] G256: where did the "many requests" figure for these intents come from? Send the page or a screenshot.
 - [x] Registered for Season II (owner confirmed 2026-11-01). One registration covers all three tracks.
 - [ ] **Before Nov 1:** read the prize-payment terms when they appear: eligible countries (India?) and payout
       methods (G218).
