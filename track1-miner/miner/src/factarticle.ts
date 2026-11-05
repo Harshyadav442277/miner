@@ -8,7 +8,8 @@
  * its own beyond the timeout it is handed.
  */
 
-import { extractSubject, sentencesOf, settle } from "./factsubject";
+import { conjuncts } from "./factevent";
+import { extractSubject, sentencesOf, settle, type Settlement } from "./factsubject";
 import { contentTokens } from "./factwords";
 
 export interface SubjectFinding {
@@ -104,14 +105,14 @@ export async function findSubjectEvidence(
   // well rule the claim out, which says nothing about the thing the asker meant.
   let resolved = "";
   let sentences: string[] = [];
-  let settled: ReturnType<typeof settle> = null;
+  let settled: ReturnType<typeof settleClaim> = null;
   for (const [k, cand] of ranked.slice(0, 4).entries()) {
     const article = await readArticle(cand.t, getJson, timeoutMs);
     if (!article) return null;
     if (DISAMBIGUATION.test(article.text.slice(0, 300))) continue;
     resolved = article.title;
     sentences = sentencesOf(article.text);
-    settled = settle(claim, subject, sentences);
+    settled = settleClaim(claim, subject, sentences);
     if (k > 0 && settled?.verdict !== "supported") settled = null;
     if (settled || k === 0) break;
   }
@@ -129,4 +130,21 @@ export async function findSubjectEvidence(
     verdict: settled.verdict,
     evidence: evidence.slice(0, 400),
   };
+}
+
+/**
+ * settle() for a claim that may join several statements with "and" (G262): "The Eiffel Tower is located in Berlin
+ * and was completed in 1889" was SUPPORTED by its true half. Each part is settled alone; one part ruled out rules
+ * the claim out, and support needs every part, quoting each part's sentence.
+ */
+export function settleClaim(claim: string, subject: string, sentences: string[]): Settlement | null {
+  const parts = conjuncts(claim, subject);
+  if (parts.length < 2) return settle(claim, subject, sentences);
+  const found = parts.map((p) => settle(p, subject, sentences));
+  const against = found.find((f) => f?.verdict === "contradicted");
+  if (against) return against;
+  if (!found.every((f) => f?.verdict === "supported")) return null;
+  const all = found as Settlement[];
+  const evidence = [...new Set(all.map((f) => f.evidence))].join(" ");
+  return { verdict: "supported", evidence, at: (all[0] as Settlement).at };
 }

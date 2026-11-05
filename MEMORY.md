@@ -1,6 +1,21 @@
 # MEMORY.md — session continuity
 
-## 2026-11-05 ~19:20 UTC (Nov 6 00:50 IST): CURRENT — filings fix G257/G263 LIVE as `9b82d08`
+## 2026-11-05 ~20:35 UTC (Nov 6 02:05 IST): CURRENT — FACT_CHECK fix G262 committed, NOT deployed
+
+- Owner: "Yes, fix G262", then "Yes, finish and commit". Built on `claude/winning-tracks-overview-3f735a` on top of
+  `2065195`: new `src/factevent.ts`, changes in `factsubject.ts`, `factarticle.ts`, `factcheck.ts`, `factwords.ts`;
+  tests `test/factevent.test.ts`; replay tool `tools/factcheck-replay.mjs`.
+- Verified 2026-11-05 20:24–20:27 UTC against live Wikipedia (`docs/evidence/factcheck-real-claims-2026-11-05/`):
+  37 real paid claims right 7 → 14, wrong 3 → 0; 31 regression claims right 19 → 17, wrong 2 → 0. Unit 903/903 and
+  live fact-check tests 5/5 in `C:/Users/hyada/tg-deploy/fc-dev` (a dev tree outside OneDrive, at `9b82d08` plus
+  these files).
+- Production is still the block below (`9b82d08`), whose fact-check code equals `4fb477e`'s, so production still
+  gives the "before" answers. Deploying the tip changes FACT_CHECK only against `9b82d08` (`git diff 9b82d08` on
+  `track1-miner/miner/src` = the fact files).
+- Next: owner yes/no to deploy G262 (release-miner skill; rollback `miner-f28bzjwiw`). Remaining G262 gaps are in
+  GAPS.
+
+## 2026-11-05 ~19:20 UTC (Nov 6 00:50 IST): filings fix G257/G263 LIVE as `9b82d08`
 
 - **Production:** `9b82d08`, `https://miner-f28bzjwiw-wukong4.vercel.app` (`dpl_BmcKxGSMKRuwAcY6P22sBzhvojD6`),
   aliased ~19:10 UTC. Owner: "Yes, deploy it". **Rollback target:** `miner-mztwjxnqa` (`4fb477e`, the sanctions

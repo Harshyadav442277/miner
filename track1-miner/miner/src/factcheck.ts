@@ -37,6 +37,7 @@
 
 import { findSubjectEvidence } from "./factarticle";
 import { chooseArticle, searchTerms } from "./factsearch";
+import { contentTokens, fold } from "./factwords";
 
 const WIKI_SEARCH = "https://en.wikipedia.org/w/api.php";
 const DEFAULT_TIMEOUT_MS = 7000;
@@ -65,15 +66,26 @@ export interface FactCheckResult {
   error?: string;
 }
 
+/** Words of an instruction wrapped around a quoted claim: 'Please verify "..." for me'. */
+const WRAPPER = new Set(
+  ["please", "verify", "check", "fact", "factcheck", "confirm", "true", "false", "claim", "statement", "me",
+    "this", "following", "can", "you", "whether", "that", "tell", "said", "say", "says"].map(fold),
+);
+
 /**
  * The claim itself, separated from the instruction wrapped around it.
  * "Is it true that X?" and "Fact-check the following claim: X" both carry X.
+ *
+ * A quoted span is the claim only when nothing but an instruction surrounds it. A title quoted INSIDE a claim is
+ * part of the claim: "The transformer architecture was introduced in 2017 in the paper \"Attention Is All You
+ * Need\"" was checked as the bare title, which asserts nothing (G262).
  */
 export function extractClaim(raw: string): string {
   let s = String(raw ?? "").trim();
   if (!s) return "";
   const quoted = s.match(/["“']([^"”']{12,})["”']/);
-  if (quoted?.[1]) return quoted[1].trim();
+  const outside = quoted ? contentTokens(s.replace(quoted[0], " ")).filter((t) => !WRAPPER.has(t)) : [];
+  if (quoted?.[1] && outside.length === 0) return quoted[1].trim();
   s = s.replace(/^\s*(?:please\s+)?(?:can you\s+)?(?:fact[- ]?check|verify|check|confirm|is it true)\b[:,]?\s*/i, "");
   s = s.replace(/^\s*(?:that|whether|if|the claim)\b[:,]?\s*/i, "");
   s = s.replace(/^\s*(?:the following (?:claim|statement)|this (?:claim|statement))\b[:,]?\s*/i, "");

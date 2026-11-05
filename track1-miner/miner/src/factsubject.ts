@@ -22,6 +22,9 @@
  * its honest `unverified`.
  */
 
+import {
+  PRONOUN_LEAD, canon, complementTokens, criticalKeys, eventSentence, listLike, quantitiesAgree, statesEvent,
+} from "./factevent";
 import { assertedKeys, clausesOf, foundingSentence, placeKeys, presentClaim, rivalPlace } from "./factrelation";
 import { contentTokens, fold } from "./factwords";
 
@@ -35,7 +38,7 @@ import { contentTokens, fold } from "./factwords";
  * *Water*, displacing the `Boiling_point` article that case is pinned on.
  */
 const PREDICATE_HEAD =
-  /\b(?:isn't|is|aren't|are|wasn't|was|weren't|were|hasn't|has|haven't|have|hadn't|had|cannot|can't|can|couldn't|could|won't|will|wouldn't|would|shouldn't|should|doesn't|does|don't|do|didn't|did|may|might|must|only|never|always|causes|cause|caused|contains|contain|contained|consists|consist|makes|make|made|uses|use|used|lives|live|lived|eats|eat|orbits|orbit|emits|emit|kills|kill|holds|hold|weighs|weigh|measures|measure|produces|produce|becomes|become|became|remains|remain|means|mean|meant|comes|come|came)\b/i;
+  /\b(?:isn't|is|aren't|are|wasn't|was|weren't|were|hasn't|has|haven't|have|hadn't|had|cannot|can't|can|couldn't|could|won't|will|wouldn't|would|shouldn't|should|doesn't|does|don't|do|didn't|did|may|might|must|only|never|always|causes|cause|caused|contains|contain|contained|consists|consist|makes|make|made|uses|use|used|lives|live|lived|eats|eat|orbits|orbit|emits|emit|kills|kill|holds|hold|weighs|weigh|measures|measure|produces|produce|becomes|become|became|remains|remain|means|mean|meant|comes|come|came|opened|won|fell|released|launched|introduced|founded|built|completed|invented|discovered|published)\b/i;
 
 /**
  * The grammatical subject of the claim, as a search phrase.
@@ -49,6 +52,10 @@ const PREDICATE_HEAD =
 export function extractSubject(claim: string): string {
   const s = String(claim ?? "").replace(/\s+/g, " ").trim();
   if (!s) return "";
+  // A quoted title opening the claim is the subject, whatever verbs it holds:
+  // "\"Attention Is All You Need\" is a research paper" is about the paper, not about "Attention" (G262).
+  const titled = s.match(/^["“]([^"”]{2,80})["”]\s+(?:is|was|are|were|has|had)\b/i);
+  if (titled?.[1]) return titled[1].trim();
   const m = s.match(PREDICATE_HEAD);
   if (!m || m.index === undefined || m.index === 0) return "";
   let head = s.slice(0, m.index);
@@ -161,11 +168,18 @@ for (let row = 0; row < CLASS_ROWS.length; row++) {
 export function sentencesOf(text: string): string[] {
   const out: string[] = [];
   let open = false;
-  for (const part of String(text ?? "")
+  // An article ends where its link lists begin. "See also" and "External links" read as one long sentence of
+  // titles and dates, and the iPhone article's ("... (archived June 29, 2007) \"Apple Reinvents the Phone with
+  // iPhone\" - Apple press release") SUPPORTED "the first iPhone was released by Apple in 2007" (G262).
+  const body = String(text ?? "").split(/\n\s*={2,}\s*(?:See also|References|External links|Further reading|Notes|Footnotes|Bibliography|Sources|Citations)\s*={2,}/i)[0] ?? "";
+  for (const part of body
     .slice(0, 120000)
     .replace(/={2,}[^=\n]*={2,}/g, " ")
     .replace(/\s+/g, " ")
-    .split(/(?<=[.!?])\s+(?=[A-Z0-9"'(“])/)) {
+    // "iPhone" and "eBay" open sentences too: without them, "...in September 2007 ... system. iPhone OS 2 was
+    // released ... Apple's App Store" was one sentence, and it SUPPORTED "the first iPhone was released by Apple
+    // in 2007" (G262).
+    .split(/(?<=[.!?])\s+(?=[A-Z0-9"'(“]|[ie][A-Z])/)) {
     if (open) out[out.length - 1] += ` ${part}`;
     else out.push(part);
     const s = out[out.length - 1] as string;
@@ -191,6 +205,7 @@ export function settle(claim: string, subject: string, sentences: string[]): Set
   const subjectTokens = new Set(contentTokens(subject));
   if (subjectTokens.size === 0) return null;
   const keys = [...new Set(contentTokens(claim))].filter((t) => !subjectTokens.has(t) && !LIGHT.has(t));
+  const critical = criticalKeys(claim, subjectTokens);
   if (keys.length === 0) return null;
   const need = Math.max(1, Math.ceil(keys.length * (2 / 3)));
   const claimNegated = NEGATION.test(claim);
@@ -211,7 +226,9 @@ export function settle(claim: string, subject: string, sentences: string[]): Set
 
   for (let i = 0; i < sentences.length; i++) {
     const sentence = sentences[i] as string;
-    const tokens = new Set(contentTokens(sentence));
+    // In the lead, "It" is the subject: Kilimanjaro's "It is the highest mountain in Africa" (G262).
+    const text = i < PRONOUN_LEAD ? sentence.replace(/^(?:It|They|He|She)\b/, subject) : sentence;
+    const tokens = new Set(contentTokens(text).map(canon));
     // Every sentence in this article is about the subject, but requiring the
     // subject to be NAMED keeps a stray aside from being quoted as the finding.
     // "Microbats" counts for "bats": the article's own compound of the subject.
@@ -222,29 +239,40 @@ export function settle(claim: string, subject: string, sentences: string[]): Set
 
     // A claim that puts the subject in a CLASS may only be settled by a sentence
     // that says what the subject is. Any sentence mentioning the class word will
-    // not do — see classifiesSubject().
-    const classifies = claimClass === undefined || classifiesSubject(sentence, subjectTokens);
+    // not do — see classifiesSubject(). The class word must be what the copula
+    // puts the subject in: "Kilimanjaro is drained by a network of rivers" names
+    // rivers and SUPPORTED "Mount Kilimanjaro is a river" (G262).
+    const classifies = claimClass === undefined ||
+      (classifiesSubject(text, subjectTokens) && complementTokens(text, subjectTokens).includes(claimClassTerm as string));
 
-    const asserted = thin ? assertedKeys(sentence, subjectTokens, keys, places, present) : null;
-    const hit = thin ? (asserted?.hit ?? 0) : keys.filter((k) => tokens.has(k)).length;
+    const asserted = thin ? assertedKeys(text, subjectTokens, keys, places, present) : null;
+    const hit = thin ? (asserted?.hit ?? 0) : keys.filter((k) => tokens.has(canon(k))).length;
     if (classifies && hit >= need && hit > bestHit) {
       // Judge polarity on the clause that carries the relation, not on the whole
       // sentence: the Shark lead ends "...pectoral fins that are NOT fused to the
       // head", which would otherwise read as a negation of everything before it.
-      let clause = asserted?.clause ?? sentence;
+      let clause = asserted?.clause ?? text;
       if (!asserted) {
         let clauseHit = -1;
-        for (const c of clausesOf(sentence)) {
-          const ct = new Set(contentTokens(c));
-          const n = keys.filter((k) => ct.has(k)).length;
+        for (const c of clausesOf(text)) {
+          const ct = new Set(contentTokens(c).map(canon));
+          const n = keys.filter((k) => ct.has(canon(k))).length;
           if (n > clauseHit) { clauseHit = n; clause = c; }
         }
       }
       const evidenceNegated = NEGATION.test(clause);
+      // Either verdict needs a sentence about what the claim states: its names, numbers and superlatives, its
+      // event verb, and a statement rather than a list. A quoted "I see no reason why the Soviet Union ..." beside
+      // "United States" CONTRADICTED "the Berlin Wall was built by the United States" without being about it.
+      const about = !listLike(sentence) && critical.every((k) => tokens.has(k)) && statesEvent(claim, subject, text);
+      if (!about) continue;
       if (evidenceNegated !== claimNegated) {
         best = { verdict: "contradicted", evidence: sentence, at: i };
         bestHit = hit;
-      } else if (!REPORTED.test(sentence)) {
+      } else if (!REPORTED.test(sentence) && quantitiesAgree(claim, text)) {
+        // Support needs the claim's numbers, superlatives and names, not two thirds of its words: "one of the four
+        // terrestrial planets in the Solar System" is not "the largest planet in the Solar System" (G262). Its
+        // event verb, its figures as the sentence's own, and a statement rather than a list: see factevent.ts.
         best = { verdict: "supported", evidence: sentence, at: i };
         bestHit = hit;
       }
@@ -255,8 +283,10 @@ export function settle(claim: string, subject: string, sentences: string[]): Set
     // of the same mutually exclusive set, in words the claim never uses. This is
     // how "sharks are mammals" is refuted by a sentence about cartilaginous
     // fishes. Consulted only when nothing matched the claim's own terms.
-    if (classHit === null && claimClass !== undefined && classifiesSubject(sentence, subjectTokens)) {
-      const rival = [...tokens].find((t) => CLASS_OF.get(t) === claimClass && t !== claimClassTerm);
+    if (classHit === null && claimClass !== undefined && classifiesSubject(text, subjectTokens)) {
+      // The rival must be what the subject IS: "Kilimanjaro is drained by a network of rivers" names a river and
+      // puts the mountain in no class at all (G262).
+      const rival = complementTokens(text, subjectTokens).find((t) => CLASS_OF.get(t) === claimClass && t !== claimClassTerm);
       if (rival) {
         classHit = { verdict: claimNegated ? "supported" : "contradicted", evidence: sentence, at: i };
       }
@@ -270,6 +300,11 @@ export function settle(claim: string, subject: string, sentences: string[]): Set
   const founded = foundingSentence(claim, subject, sentences);
   if (founded >= 0 && !REPORTED.test(sentences[founded] as string)) {
     return { verdict: "supported", evidence: sentences[founded] as string, at: founded };
+  }
+  // "X opened in 1937", against "The bridge opened to the public on May 27, 1937" (G262; see eventSentence()).
+  const event = eventSentence(claim, subject, sentences);
+  if (event >= 0 && !REPORTED.test(sentences[event] as string)) {
+    return { verdict: "supported", evidence: sentences[event] as string, at: event };
   }
 
   // Nothing states the claim. For "X is in Y", the lead may still put X in a

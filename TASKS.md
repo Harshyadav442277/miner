@@ -24,8 +24,9 @@ Ordered by rubric points. **Miner weights re-read 2026-11-05:** quality 35, reli
       letters; 3 false positives removed. On the 180 real inputs, unknown 7 → 0, match 85 → 107; unit 885/885.
       `e19df9e` + `853da09`. **Deployed 2026-11-05 ~18:28 UTC** as `4fb477e` (`miner-mztwjxnqa`); record in
       `track1-miner/docs/evidence/release-2026-11-05-sanctions-names/`. Read the sanctions rank after three epochs.
-- [ ] Q4 FACT_CHECK (G262), next: real callers got "Venus is the largest planet" as `supported` and a true
-      Kilimanjaro claim as `contradicted`. Four missions buy it.
+- [x] Q4 FACT_CHECK (G262): fixed in code 2026-11-05. On the 37 real claims, right 7 → 14 and wrong 3 → 0; on 31
+      regression claims, wrong 2 → 0 (`docs/evidence/factcheck-real-claims-2026-11-05/`). Unit 903/903.
+      **Not deployed:** needs the owner's yes, then the release-miner gates.
 - [ ] C1 Cost/latency 5: `tools/availability-report.mjs` builds the table from the sweeps; publish it once a
       week of sweeps exists (Nov 11). Upstream cost per request is $0 (keyless or free keys).
 - [ ] Q2 Near-miss correctness (only where the reference is the true answer): weather temperature, weather

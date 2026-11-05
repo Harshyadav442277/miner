@@ -41,7 +41,15 @@ Evidence: `track1-miner/docs/evidence/release-2026-11-05-scored-fields/` (`epoch
 Sources: Ahmed's reply (TELEGRAPH_FACTS items 12–17), the live Rules page re-read 2026-11-05, and the Daemon feed plus
 signal records for every paid request routed to `livecert` since Nov 1 (`track1-miner/docs/evidence/consumption-2026-11-05/`).
 
-- **G262 — FACT_CHECK gets common-knowledge claims wrong for real paying callers. `OPEN, fix next`.** Of 37 distinct
+- **G262 — FACT_CHECK gets common-knowledge claims wrong for real paying callers. `FIXED IN CODE, NOT DEPLOYED`
+  (2026-11-05 ~20:30 UTC).** Record: `track1-miner/docs/evidence/factcheck-real-claims-2026-11-05/`. On the 37 real
+  claims: right 7 → 14, wrong 3 → 0. On 31 regression claims (audit, gate and built false claims): right 19 → 17,
+  wrong 2 → 0; the three lost were right before only on a sentence that does not address them. Causes:
+  two-thirds word overlap read as support; compound claims; a class read off any word near a copula; the lead's "It"
+  and "5,895" not read; lists and link sections read as statements; quoted titles taken as the whole claim. Still
+  open: 9 of 21 true real claims stay `unverified`; a different year or value is never read as a refutation; the
+  fallback `judge()` path is unchanged. The evaluator's labels are unknown; ours are general reference knowledge.
+  The original report follows. Of 37 distinct
   claims from wallet `0x1046…508a` (2026-11-03): "Venus is the largest planet in the Solar System" → `supported` 0.7;
   "The Eiffel Tower is located in Berlin and was completed in 1889" → `supported` 0.7; "Mount Kilimanjaro is the
   tallest mountain in Africa at 5895 metres" (true) → `contradicted` 0.7. "Water boils at 90 degrees Celsius at sea
