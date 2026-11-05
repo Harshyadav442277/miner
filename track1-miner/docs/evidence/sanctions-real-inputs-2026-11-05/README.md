@@ -6,7 +6,7 @@ Engine routed to `livecert` between 2026-11-01 and 2026-11-04, read from the pub
 (`0x66fb…4a83`, 287 requests), and read like a robustness benchmark: listed names written in Cyrillic, with
 Cyrillic look-alike letters, abbreviated, with digits for letters, as a domain, beside clean companies.
 
-**Runs.** Both on 2026-11-05 ~10:30 UTC, against the same live OFAC SDN and UN editions, with
+**Runs.** Both on 2026-11-05 between ~09:50 and ~10:00 UTC, against the same live OFAC SDN and UN editions, with
 `node track1-miner/tools/sanctions-replay.mjs <dist-test> inputs.json <out>` (IPv4 first):
 - `before.json`: the production tree `aa110f8`.
 - `after.json`: the release tree `C:/Users/hyada/tg-deploy/m3df11ef` with `src/sanctions-names.ts` and the

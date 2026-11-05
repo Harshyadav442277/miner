@@ -1,7 +1,8 @@
 # MEMORY.md — session continuity
 
-## 2026-11-05 ~11:00 UTC (16:30 IST): CURRENT — Ahmed answered; real paid traffic read; sanctions fix ready, not deployed
+## 2026-11-05 ~10:05 UTC (15:35 IST): CURRENT — Ahmed answered; real paid traffic read; sanctions fix ready, not deployed
 
+- **Production (probed 10:03 UTC):** Cyrillic names still answer `no_subject` and "Tesla, Inc." reads `matched: true` there.
 - **Production:** `3c5e8ff` (`miner-5arlzhkv6`), the scored-fields release of the parallel session (block below),
   not this session's work; rollback `miner-iwc9rd2yv` (`aa110f8`). PR #17 merged into main (`2b5a9a1`, CI green).
 - **Ahmed, 2026-11-05** (TELEGRAPH_FACTS 12–17):
