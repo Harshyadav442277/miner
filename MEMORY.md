@@ -11,7 +11,10 @@
   `filing_count: null` for Ozempic and for a no-period "latest 10-Q" question.
 - Epochs at ~19:18 UTC: filings not scored since 2019 (0.8145); sanctions 9th 0.9859 at 2021 (first after the
   sanctions release); registry 4th 0.9962 at 2021.
-- Next: read the next filings epochs with `tools/epoch-history.mjs` (G263); then Q4 FACT_CHECK (G262). Not pushed.
+- **Pushed** `codex/rank1-14-intents` `2a02d88..099e742` (36 commits) at ~19:40 UTC. Owner: "Yes, push it". Checked
+  first: account `Harshyadav442277`, no tracked `.env`, no secret-like strings, no attribution lines. GitHub `main`
+  is 15 commits behind the branch; no PR is open for it.
+- Next: read the next filings epochs with `tools/epoch-history.mjs` (G263); then Q4 FACT_CHECK (G262).
 
 ## 2026-11-05 ~18:35 UTC (Nov 6 00:05 IST): sanctions fix G258 LIVE as `4fb477e`; filings fix still pending
 
