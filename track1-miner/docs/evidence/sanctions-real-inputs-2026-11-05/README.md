@@ -1,4 +1,4 @@
-# Sanctions screening on the inputs paying callers sent — 2026-11-05 (GAPS G255)
+# Sanctions screening on the inputs paying callers sent — 2026-11-05 (GAPS G258)
 
 **Inputs.** `inputs.json`: the 180 distinct sanctions inputs (`name`, `query`, `wallet`) in the paid requests the
 Engine routed to `livecert` between 2026-11-01 and 2026-11-04, read from the public Daemon feed

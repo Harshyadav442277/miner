@@ -31,7 +31,7 @@ Sepolia receipts from `https://ethereum-sepolia-rpc.publicnode.com`.
 
 ## Against the consumption rubric (10 points, Rules §06)
 
-- **App users (4):** not claimable yet. No wallet is tied to a registered H2 mission app (GAPS G256).
+- **App users (4):** not claimable yet. No wallet is tied to a registered H2 mission app (GAPS G259).
 - **Repeat use (2):** 6 wallets sent ≥ 3 distinct inputs; 3 used us on ≥ 2 UTC dates. They count only once a wallet is tied to a qualifying app.
 - **Ranked routing (2):** 24 requests went through the ranking path.
 - **Accounting (2):** every row has a signal record matching request, miner and intent; 341 payments are verified on-chain.

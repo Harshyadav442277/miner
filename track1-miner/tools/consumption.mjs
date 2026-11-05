@@ -12,7 +12,7 @@
  *
  * What this proves: the network recorded these requests, our answers, and their payments. What it does not:
  * who the payers are. A wallet is not an H2 app. Tie each one to a registered H2 App before claiming consumption
- * points (GAPS G256). Question text is left out on purpose; anyone can re-read it from the feed by `signal_hash`.
+ * points (GAPS G259). Question text is left out on purpose; anyone can re-read it from the feed by `signal_hash`.
  */
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
@@ -120,7 +120,7 @@ const md = [
   ``,
   `## Against the consumption rubric (10 points, Rules §06)`,
   ``,
-  `- **App users (4):** not claimable yet. No wallet is tied to a registered H2 mission app (GAPS G256).`,
+  `- **App users (4):** not claimable yet. No wallet is tied to a registered H2 mission app (GAPS G259).`,
   `- **Repeat use (2):** ${repeatWallets.length} wallets sent ≥ 3 distinct inputs; ${twoDayWallets.length} used us on ≥ 2 UTC dates.` +
     ` They count only once a wallet is tied to a qualifying app.`,
   `- **Ranked routing (2):** ${ranked.length} requests went through the ranking path.`,

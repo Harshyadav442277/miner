@@ -1,0 +1,749 @@
+{
+ "fetched_at_utc": "2026-11-04T20:58Z..21:05Z",
+ "sources": [
+  "https://devnode.telegraphprotocol.com/api/miners",
+  "/engine/v1/intents/<id>",
+  "/api/evalpool/status?intent_id=<id>",
+  "/api/miners/4829"
+ ],
+ "catalog": {
+  "registrations": 1986,
+  "scored": 1938,
+  "by_wallet_0xbd6f696096cceeaff7406d802ba04500eeaf6976": 1673
+ },
+ "registration_4829": {
+  "registration_id": 4829,
+  "activation_status": "active",
+  "n_intents": 36,
+  "has_the_three": true,
+  "yaml_url": "https://raw.githubusercontent.com/Harshyadav442277/miner/2e8d1cfd418dab47694e2fd5d2f8f4c0fee6f5cc/track1-miner/miner.yaml",
+  "updated_at": "2026-10-25T00:48:50Z"
+ },
+ "intents": {
+  "SANCTIONS_SCREENING_MATCH_GENERAL": {
+   "class": "judgment",
+   "request_params": [
+    "name"
+   ],
+   "scored_fields": [
+    {
+     "name": "matched",
+     "type": "bool",
+     "true_when": [
+      "true",
+      "yes",
+      "match",
+      "matched",
+      "1"
+     ],
+     "false_when": [
+      "false",
+      "no",
+      "0",
+      "no match",
+      "not matched",
+      "clear"
+     ]
+    }
+   ],
+   "evalpool": {
+    "intent_id": "SANCTIONS_SCREENING_MATCH_GENERAL",
+    "counts": [
+     {
+      "status": "eligible",
+      "count": 645
+     },
+     {
+      "status": "rejected",
+      "reason": "near_duplicate",
+      "count": 2
+     },
+     {
+      "status": "rejected",
+      "reason": "source_unparseable",
+      "count": 1
+     }
+    ],
+    "by_state": {
+     "eligible": 645,
+     "rejected": 3
+    },
+    "submitters": 9,
+    "eligible_submitters": 9,
+    "snapshot": {
+     "corpus_version": "e88cc78aa9f739e62294e6ac8183a4d8e62f6a5da87dafb0a6e330b2af86fbe6",
+     "rows": 645,
+     "submitters": 9,
+     "qualification": 334,
+     "ranking": 311,
+     "ranking_split_bps": 5000,
+     "quality_rules_version": "evalpool-quality-v1",
+     "published_at": "2026-11-04T20:40:11.029005Z",
+     "activation_epoch": 2014
+    },
+    "active_snapshot": {
+     "corpus_version": "e88cc78aa9f739e62294e6ac8183a4d8e62f6a5da87dafb0a6e330b2af86fbe6",
+     "rows": 645,
+     "submitters": 9,
+     "qualification": 334,
+     "ranking": 311,
+     "ranking_split_bps": 5000,
+     "quality_rules_version": "evalpool-quality-v1",
+     "published_at": "2026-11-04T20:40:11.029005Z",
+     "activation_epoch": 2014
+    },
+    "current_epoch": 2014,
+    "min_submitters": 5
+   },
+   "ranking": [
+    {
+     "rank": 1,
+     "score": 1,
+     "epoch": 2013,
+     "slug": "txlens",
+     "wallet": "0xb3fb14fecac09efbd0c74fc07d50d7ed1eef2b53",
+     "base_url": "https://telegraph-onchain-tx-lookup-miner.onrender.com",
+     "n_intents": 79,
+     "registered_at": "2026-11-04T00:01:45Z"
+    },
+    {
+     "rank": 2,
+     "score": 1,
+     "epoch": 2013,
+     "slug": "san-os-au",
+     "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+     "base_url": "https://data.opensanctions.org",
+     "n_intents": 1,
+     "registered_at": "2026-10-25T00:10:04Z"
+    },
+    {
+     "rank": 3,
+     "score": 1,
+     "epoch": 2013,
+     "slug": "san-un-list",
+     "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+     "base_url": "https://omni-chat.13.237.89.59.sslip.io",
+     "n_intents": 1,
+     "registered_at": "2026-10-24T23:28:13Z"
+    },
+    {
+     "rank": 4,
+     "score": 1,
+     "epoch": 2013,
+     "slug": "chainsight-oracle",
+     "wallet": "0xd4c73e9986c0b48eac22db24b5eef0c8ecef8ef9",
+     "base_url": "https://hub.shadrakbessanh.me",
+     "n_intents": 115,
+     "registered_at": "2026-11-02T22:19:26Z"
+    },
+    {
+     "rank": 5,
+     "score": 0.9999,
+     "epoch": 2013,
+     "slug": "san-os-ofac",
+     "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+     "base_url": "https://data.opensanctions.org",
+     "n_intents": 1,
+     "registered_at": "2026-10-25T00:10:11Z"
+    },
+    {
+     "rank": 6,
+     "score": 0.9999,
+     "epoch": 2013,
+     "slug": "san-ofac-entity",
+     "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+     "base_url": "https://omni-chat.13.237.89.59.sslip.io",
+     "n_intents": 1,
+     "registered_at": "2026-10-24T23:28:13Z"
+    },
+    {
+     "rank": 7,
+     "score": 0.9997,
+     "epoch": 2013,
+     "slug": "zk-sanctions",
+     "wallet": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+     "base_url": "https://telegraph-s2-sanctions.margyn.workers.dev",
+     "n_intents": 1,
+     "registered_at": "2026-11-01T00:27:18Z"
+    },
+    {
+     "rank": 8,
+     "score": 0.9993,
+     "epoch": 2013,
+     "slug": "san-opensanc-stats",
+     "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+     "base_url": "https://data.opensanctions.org",
+     "n_intents": 1,
+     "registered_at": "2026-10-25T00:10:00Z"
+    },
+    {
+     "rank": 9,
+     "score": 0.999,
+     "epoch": 2013,
+     "slug": "san-opensanc-idx",
+     "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+     "base_url": "https://data.opensanctions.org",
+     "n_intents": 1,
+     "registered_at": "2026-10-25T00:09:53Z"
+    },
+    {
+     "rank": 10,
+     "score": 0.999,
+     "epoch": 2013,
+     "slug": "san-opensanc-issues",
+     "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+     "base_url": "https://data.opensanctions.org",
+     "n_intents": 1,
+     "registered_at": "2026-10-25T00:09:56Z"
+    },
+    {
+     "rank": 11,
+     "score": 0.9981,
+     "epoch": 2013,
+     "slug": "livecert",
+     "wallet": "0xdad201ef02f5c1fbb8f9e931ae9b7c1bf493a39e",
+     "base_url": "https://miner-wine.vercel.app",
+     "n_intents": 36,
+     "registered_at": "2026-10-25T00:48:49Z"
+    },
+    {
+     "rank": 12,
+     "score": 0.9883,
+     "epoch": 2013,
+     "slug": "san-os-eu",
+     "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+     "base_url": "https://data.opensanctions.org",
+     "n_intents": 1,
+     "registered_at": "2026-10-25T00:10:07Z"
+    },
+    {
+     "rank": 13,
+     "score": 0.9799,
+     "epoch": 2013,
+     "slug": "san-peps",
+     "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+     "base_url": "https://cdn.jsdelivr.net",
+     "n_intents": 1,
+     "registered_at": "2026-10-25T00:10:15Z"
+    },
+    {
+     "rank": 14,
+     "score": 0.9326,
+     "epoch": 2013,
+     "slug": "counterproof-sanctions-screener",
+     "wallet": "0x8d1a7ca01fc8fa84000a7c7a1cf9e01f644a84b7",
+     "base_url": "https://counterproof-screener.vercel.app",
+     "n_intents": 1,
+     "registered_at": "2026-11-03T22:13:02Z"
+    },
+    {
+     "rank": 15,
+     "score": 0,
+     "epoch": 2013,
+     "slug": "san-courtlistener",
+     "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+     "base_url": "https://www.courtlistener.com",
+     "n_intents": 1,
+     "registered_at": "2026-10-25T00:09:46Z"
+    },
+    {
+     "rank": 16,
+     "score": 0,
+     "epoch": 2013,
+     "slug": "san-ofac-sdn",
+     "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+     "base_url": "https://www.treasury.gov",
+     "n_intents": 1,
+     "registered_at": "2026-10-25T00:09:50Z"
+    }
+   ]
+  },
+  "CORPORATE_REGISTRY_LOOKUP_GENERAL": {
+   "class": "deterministic",
+   "request_params": [
+    "company",
+    "jurisdiction"
+   ],
+   "scored_fields": [
+    {
+     "name": "active",
+     "type": "bool",
+     "true_when": [
+      "true",
+      "yes",
+      "active",
+      "1"
+     ],
+     "false_when": [
+      "false",
+      "no",
+      "0",
+      "inactive",
+      "dissolved",
+      "struck off",
+      "closed"
+     ]
+    }
+   ],
+   "evalpool": {
+    "intent_id": "CORPORATE_REGISTRY_LOOKUP_GENERAL",
+    "counts": [
+     {
+      "status": "eligible",
+      "count": 630
+     },
+     {
+      "status": "quarantine",
+      "reason": "rate_limited",
+      "count": 163
+     }
+    ],
+    "by_state": {
+     "eligible": 630,
+     "quarantine": 163
+    },
+    "submitters": 4,
+    "eligible_submitters": 4,
+    "snapshot": {
+     "corpus_version": "4e883cb7d0940d22f5075eb8a6f1359fd6a5ffe2635f2f59dc2ea48b6399715f",
+     "rows": 630,
+     "submitters": 4,
+     "qualification": 313,
+     "ranking": 317,
+     "ranking_split_bps": 5000,
+     "quality_rules_version": "evalpool-quality-v1",
+     "published_at": "2026-11-04T17:40:10.593214Z",
+     "activation_epoch": 2013
+    },
+    "active_snapshot": {
+     "corpus_version": "4e883cb7d0940d22f5075eb8a6f1359fd6a5ffe2635f2f59dc2ea48b6399715f",
+     "rows": 630,
+     "submitters": 4,
+     "qualification": 313,
+     "ranking": 317,
+     "ranking_split_bps": 5000,
+     "quality_rules_version": "evalpool-quality-v1",
+     "published_at": "2026-11-04T17:40:10.593214Z",
+     "activation_epoch": 2013
+    },
+    "current_epoch": 2014,
+    "min_submitters": 5
+   },
+   "ranking": [
+    {
+     "rank": 1,
+     "score": 0.998,
+     "epoch": 2013,
+     "slug": "corp-os-ofac",
+     "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+     "base_url": "https://data.opensanctions.org",
+     "n_intents": 1,
+     "registered_at": "2026-10-24T23:38:14Z"
+    },
+    {
+     "rank": 2,
+     "score": 0.988,
+     "epoch": 2013,
+     "slug": "corp-os-default",
+     "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+     "base_url": "https://data.opensanctions.org",
+     "n_intents": 1,
+     "registered_at": "2026-10-24T23:38:07Z"
+    },
+    {
+     "rank": 3,
+     "score": 0.9683,
+     "epoch": 2013,
+     "slug": "corp-fedreg",
+     "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+     "base_url": "https://www.federalregister.gov",
+     "n_intents": 1,
+     "registered_at": "2026-10-24T23:37:53Z"
+    },
+    {
+     "rank": 4,
+     "score": 0.9423,
+     "epoch": 2013,
+     "slug": "livecert",
+     "wallet": "0xdad201ef02f5c1fbb8f9e931ae9b7c1bf493a39e",
+     "base_url": "https://miner-wine.vercel.app",
+     "n_intents": 36,
+     "registered_at": "2026-10-25T00:48:49Z"
+    },
+    {
+     "rank": 5,
+     "score": 0.9186,
+     "epoch": 2013,
+     "slug": "corp-brandfetch",
+     "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+     "base_url": "https://api.brandfetch.io",
+     "n_intents": 1,
+     "registered_at": "2026-10-24T23:37:46Z"
+    },
+    {
+     "rank": 6,
+     "score": 0.9041,
+     "epoch": 2013,
+     "slug": "datawire-corporate-registry-lookup",
+     "wallet": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+     "base_url": "https://telegraph-data.margyn.workers.dev",
+     "n_intents": 1,
+     "registered_at": "2026-10-25T00:42:43Z"
+    },
+    {
+     "rank": 7,
+     "score": 0.8721,
+     "epoch": 2013,
+     "slug": "corp-os-eu",
+     "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+     "base_url": "https://data.opensanctions.org",
+     "n_intents": 1,
+     "registered_at": "2026-10-24T23:38:11Z"
+    },
+    {
+     "rank": 8,
+     "score": 0.7652,
+     "epoch": 2013,
+     "slug": "txlens",
+     "wallet": "0xb3fb14fecac09efbd0c74fc07d50d7ed1eef2b53",
+     "base_url": "https://telegraph-onchain-tx-lookup-miner.onrender.com",
+     "n_intents": 79,
+     "registered_at": "2026-11-04T00:01:45Z"
+    },
+    {
+     "rank": 9,
+     "score": 0.5598,
+     "epoch": 2013,
+     "slug": "corp-gleif",
+     "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+     "base_url": "https://api.gleif.org",
+     "n_intents": 1,
+     "registered_at": "2026-10-24T23:37:58Z"
+    },
+    {
+     "rank": 10,
+     "score": 0.5598,
+     "epoch": 2013,
+     "slug": "corp-gleif-apple",
+     "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+     "base_url": "https://api.gleif.org",
+     "n_intents": 1,
+     "registered_at": "2026-10-24T23:38:00Z"
+    },
+    {
+     "rank": 11,
+     "score": 0.5598,
+     "epoch": 2013,
+     "slug": "corp-gleif-msft",
+     "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+     "base_url": "https://api.gleif.org",
+     "n_intents": 1,
+     "registered_at": "2026-10-24T23:38:03Z"
+    },
+    {
+     "rank": 12,
+     "score": 0.4194,
+     "epoch": 2013,
+     "slug": "chainsight-oracle",
+     "wallet": "0xd4c73e9986c0b48eac22db24b5eef0c8ecef8ef9",
+     "base_url": "https://hub.shadrakbessanh.me",
+     "n_intents": 115,
+     "registered_at": "2026-11-02T22:19:26Z"
+    },
+    {
+     "rank": 13,
+     "score": 0.1038,
+     "epoch": 2013,
+     "slug": "corp-brreg",
+     "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+     "base_url": "https://omni-chat.13.237.89.59.sslip.io",
+     "n_intents": 1,
+     "registered_at": "2026-10-24T23:29:24Z"
+    },
+    {
+     "rank": 14,
+     "score": 0.0924,
+     "epoch": 2013,
+     "slug": "corp-prh-fi",
+     "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+     "base_url": "https://avoindata.prh.fi",
+     "n_intents": 1,
+     "registered_at": "2026-10-25T00:46:04Z"
+    },
+    {
+     "rank": 15,
+     "score": 0.0074,
+     "epoch": 2013,
+     "slug": "corp-clearbit",
+     "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+     "base_url": "https://autocomplete.clearbit.com",
+     "n_intents": 1,
+     "registered_at": "2026-10-24T23:37:48Z"
+    },
+    {
+     "rank": 16,
+     "score": 0,
+     "epoch": 2013,
+     "slug": "corp-brreg-no",
+     "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+     "base_url": "https://data.brreg.no",
+     "n_intents": 1,
+     "registered_at": "2026-10-25T00:46:01Z"
+    },
+    {
+     "rank": 17,
+     "score": 0,
+     "epoch": 2013,
+     "slug": "corp-court",
+     "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+     "base_url": "https://www.courtlistener.com",
+     "n_intents": 1,
+     "registered_at": "2026-10-24T23:37:51Z"
+    },
+    {
+     "rank": 18,
+     "score": 0,
+     "epoch": 2013,
+     "slug": "corp-fr-recherche",
+     "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+     "base_url": "https://omni-chat.13.237.89.59.sslip.io",
+     "n_intents": 1,
+     "registered_at": "2026-10-24T23:28:14Z"
+    },
+    {
+     "rank": 19,
+     "score": 0,
+     "epoch": 2013,
+     "slug": "corp-gleif-status",
+     "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+     "base_url": "https://omni-chat.13.237.89.59.sslip.io",
+     "n_intents": 1,
+     "registered_at": "2026-10-24T23:28:14Z"
+    },
+    {
+     "rank": 20,
+     "score": 0,
+     "epoch": 2013,
+     "slug": "corp-krs-pl",
+     "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+     "base_url": "https://api-krs.ms.gov.pl",
+     "n_intents": 1,
+     "registered_at": "2026-10-25T00:46:03Z"
+    }
+   ]
+  },
+  "REGULATORY_FILING_MONITOR_GENERAL": {
+   "class": "deterministic",
+   "request_params": [
+    "entity",
+    "period"
+   ],
+   "scored_fields": [
+    {
+     "name": "filing_count",
+     "type": "number"
+    }
+   ],
+   "evalpool": {
+    "intent_id": "REGULATORY_FILING_MONITOR_GENERAL",
+    "counts": [
+     {
+      "status": "eligible",
+      "count": 53
+     }
+    ],
+    "by_state": {
+     "eligible": 53
+    },
+    "submitters": 1,
+    "eligible_submitters": 1,
+    "snapshot": {
+     "corpus_version": "e57575070704327831f16670f1a04790dd3d92d37acbc121b080912bbb38d421",
+     "rows": 53,
+     "submitters": 1,
+     "qualification": 25,
+     "ranking": 28,
+     "ranking_split_bps": 5000,
+     "quality_rules_version": "evalpool-quality-v1",
+     "published_at": "2026-11-03T09:34:14.887265Z",
+     "activation_epoch": 2003
+    },
+    "active_snapshot": {
+     "corpus_version": "e57575070704327831f16670f1a04790dd3d92d37acbc121b080912bbb38d421",
+     "rows": 53,
+     "submitters": 1,
+     "qualification": 25,
+     "ranking": 28,
+     "ranking_split_bps": 5000,
+     "quality_rules_version": "evalpool-quality-v1",
+     "published_at": "2026-11-03T09:34:14.887265Z",
+     "activation_epoch": 2003
+    },
+    "current_epoch": 2014,
+    "min_submitters": 5
+   },
+   "ranking": [
+    {
+     "rank": 1,
+     "score": 0.9999,
+     "epoch": 2013,
+     "slug": "reg-fedreg-search",
+     "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+     "base_url": "https://www.federalregister.gov",
+     "n_intents": 1,
+     "registered_at": "2026-10-25T00:05:52Z"
+    },
+    {
+     "rank": 2,
+     "score": 0.9999,
+     "epoch": 2013,
+     "slug": "txlens",
+     "wallet": "0xb3fb14fecac09efbd0c74fc07d50d7ed1eef2b53",
+     "base_url": "https://telegraph-onchain-tx-lookup-miner.onrender.com",
+     "n_intents": 79,
+     "registered_at": "2026-11-04T00:01:45Z"
+    },
+    {
+     "rank": 3,
+     "score": 0.998,
+     "epoch": 2013,
+     "slug": "zk-filing",
+     "wallet": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+     "base_url": "https://telegraph-s2-filing.margyn.workers.dev",
+     "n_intents": 1,
+     "registered_at": "2026-11-01T23:29:42Z"
+    },
+    {
+     "rank": 4,
+     "score": 0.9933,
+     "epoch": 2013,
+     "slug": "reg-uk-leg",
+     "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+     "base_url": "https://www.legislation.gov.uk",
+     "n_intents": 1,
+     "registered_at": "2026-10-25T00:05:58Z"
+    },
+    {
+     "rank": 5,
+     "score": 0.9923,
+     "epoch": 2013,
+     "slug": "reg-fedreg-pi",
+     "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+     "base_url": "https://www.federalregister.gov",
+     "n_intents": 1,
+     "registered_at": "2026-10-25T00:05:49Z"
+    },
+    {
+     "rank": 6,
+     "score": 0.9888,
+     "epoch": 2013,
+     "slug": "reg-fedreg-agencies",
+     "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+     "base_url": "https://www.federalregister.gov",
+     "n_intents": 1,
+     "registered_at": "2026-10-25T00:05:46Z"
+    },
+    {
+     "rank": 7,
+     "score": 0.9878,
+     "epoch": 2013,
+     "slug": "reg-eurostat",
+     "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+     "base_url": "https://ec.europa.eu",
+     "n_intents": 1,
+     "registered_at": "2026-10-25T00:05:37Z"
+    },
+    {
+     "rank": 8,
+     "score": 0.9781,
+     "epoch": 2013,
+     "slug": "livecert",
+     "wallet": "0xdad201ef02f5c1fbb8f9e931ae9b7c1bf493a39e",
+     "base_url": "https://miner-wine.vercel.app",
+     "n_intents": 36,
+     "registered_at": "2026-10-25T00:48:49Z"
+    },
+    {
+     "rank": 9,
+     "score": 0.9763,
+     "epoch": 2013,
+     "slug": "chainsight-oracle",
+     "wallet": "0xd4c73e9986c0b48eac22db24b5eef0c8ecef8ef9",
+     "base_url": "https://hub.shadrakbessanh.me",
+     "n_intents": 115,
+     "registered_at": "2026-11-02T22:19:26Z"
+    },
+    {
+     "rank": 10,
+     "score": 0.9653,
+     "epoch": 2013,
+     "slug": "reg-fedreg",
+     "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+     "base_url": "https://www.federalregister.gov",
+     "n_intents": 1,
+     "registered_at": "2026-10-25T00:05:40Z"
+    },
+    {
+     "rank": 11,
+     "score": 0.8794,
+     "epoch": 2013,
+     "slug": "reg-bis",
+     "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+     "base_url": "https://stats.bis.org",
+     "n_intents": 1,
+     "registered_at": "2026-10-25T00:05:30Z"
+    },
+    {
+     "rank": 12,
+     "score": 0.8516,
+     "epoch": 2013,
+     "slug": "reg-sec-edgar",
+     "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+     "base_url": "https://omni-chat.13.237.89.59.sslip.io",
+     "n_intents": 1,
+     "registered_at": "2026-10-24T23:28:15Z"
+    },
+    {
+     "rank": 13,
+     "score": 0.5572,
+     "epoch": 2013,
+     "slug": "reg-imf",
+     "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+     "base_url": "https://www.imf.org",
+     "n_intents": 1,
+     "registered_at": "2026-10-25T00:05:55Z"
+    },
+    {
+     "rank": 14,
+     "score": 0.4647,
+     "epoch": 2013,
+     "slug": "reg-worldbank",
+     "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+     "base_url": "https://api.worldbank.org",
+     "n_intents": 1,
+     "registered_at": "2026-10-25T00:06:01Z"
+    },
+    {
+     "rank": 15,
+     "score": 0,
+     "epoch": 2013,
+     "slug": "filing-sec-submissions",
+     "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+     "base_url": "https://data.sec.gov",
+     "n_intents": 1,
+     "registered_at": "2026-10-25T00:45:51Z"
+    },
+    {
+     "rank": 16,
+     "score": 0,
+     "epoch": 2013,
+     "slug": "reg-court",
+     "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+     "base_url": "https://www.courtlistener.com",
+     "n_intents": 1,
+     "registered_at": "2026-10-25T00:05:34Z"
+    }
+   ]
+  }
+ }
+}

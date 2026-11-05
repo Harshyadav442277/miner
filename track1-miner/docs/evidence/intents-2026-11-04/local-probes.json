@@ -1,0 +1,731 @@
+{
+ "build": "working tree on 737d6ec + this change, node dist/server.js on 127.0.0.1, 2026-11-04 ~21:05 UTC; OFAC SDN unreadable from this machine at the time",
+ "probes": {
+  "f_apple12": {
+   "answer": "Apple Inc. has filed 13 material filings since 2025-11-04; the latest, a 10-K, was filed on 2026-11-03 and accepted by EDGAR at 13:05 UTC, for the period ended 2026-09-26, accession 0000320193-26-000026.",
+   "company": "Apple Inc.",
+   "form_asked": null,
+   "since": "2025-11-04",
+   "entity": "Apple Inc.",
+   "filing_count": 13,
+   "cik": 320193,
+   "tickers": [
+    "AAPL"
+   ],
+   "source_url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0000320193",
+   "recent_filings": [
+    {
+     "form": "10-K",
+     "filed": "2026-11-03",
+     "accepted": "2026-11-03T13:05:15.000Z",
+     "accession": "0000320193-26-000026",
+     "period": "2026-09-26",
+     "items": [],
+     "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000026/aapl-20260926.htm"
+    },
+    {
+     "form": "8-K",
+     "filed": "2026-11-02",
+     "accepted": "2026-11-02T21:30:23.000Z",
+     "accession": "0000320193-26-000024",
+     "period": "2026-11-02",
+     "items": [
+      {
+       "item": "2.02",
+       "name": "Results of Operations and Financial Condition"
+      },
+      {
+       "item": "9.01",
+       "name": "Financial Statements and Exhibits"
+      }
+     ],
+     "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000024/aapl-20261102.htm"
+    },
+    {
+     "form": "10-Q",
+     "filed": "2026-07-31",
+     "accepted": "2026-07-31T10:01:02.000Z",
+     "accession": "0000320193-26-000020",
+     "period": "2026-06-27",
+     "items": [],
+     "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/aapl-20260627.htm"
+    },
+    {
+     "form": "8-K",
+     "filed": "2026-07-30",
+     "accepted": "2026-07-30T20:30:28.000Z",
+     "accession": "0000320193-26-000018",
+     "period": "2026-07-30",
+     "items": [
+      {
+       "item": "2.02",
+       "name": "Results of Operations and Financial Condition"
+      },
+      {
+       "item": "9.01",
+       "name": "Financial Statements and Exhibits"
+      }
+     ],
+     "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000018/aapl-20260730.htm"
+    },
+    {
+     "form": "10-Q",
+     "filed": "2026-05-01",
+     "accepted": "2026-05-01T10:01:00.000Z",
+     "accession": "0000320193-26-000013",
+     "period": "2026-03-28",
+     "items": [],
+     "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000013/aapl-20260328.htm"
+    }
+   ],
+   "filings": [
+    "10-K filed 2026-11-03 for the period ended 2026-09-26",
+    "8-K filed 2026-11-02, event dated 2026-11-02, items 2.02, 9.01",
+    "10-Q filed 2026-07-31 for the period ended 2026-06-27",
+    "8-K filed 2026-07-30, event dated 2026-07-30, items 2.02, 9.01",
+    "10-Q filed 2026-05-01 for the period ended 2026-03-28",
+    "8-K filed 2026-04-30, event dated 2026-04-30, items 2.02, 9.01",
+    "8-K filed 2026-04-20, event dated 2026-04-17, item 5.02",
+    "8-K filed 2026-02-24, event dated 2026-02-24, items 5.07, 9.01",
+    "10-Q filed 2026-01-30 for the period ended 2025-12-27",
+    "8-K filed 2026-01-29, event dated 2026-01-29, items 2.02, 9.01",
+    "DEF 14A filed 2026-01-08 for the period ended 2026-02-24",
+    "8-K filed 2026-01-02, event dated 2025-12-30, item 5.02",
+    "8-K filed 2025-12-05, event dated 2025-12-04, item 5.02"
+   ],
+   "urls": [
+    "https://www.sec.gov/Archives/edgar/data/320193/000032019326000026/aapl-20260926.htm",
+    "https://www.sec.gov/Archives/edgar/data/320193/000032019326000024/aapl-20261102.htm",
+    "https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/aapl-20260627.htm",
+    "https://www.sec.gov/Archives/edgar/data/320193/000032019326000018/aapl-20260730.htm",
+    "https://www.sec.gov/Archives/edgar/data/320193/000032019326000013/aapl-20260328.htm",
+    "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/aapl-20260430.htm",
+    "https://www.sec.gov/Archives/edgar/data/320193/000114036126015711/ef20071035_8k.htm",
+    "https://www.sec.gov/Archives/edgar/data/320193/000114036126006577/ef20060722_8k.htm",
+    "https://www.sec.gov/Archives/edgar/data/320193/000032019326000006/aapl-20251227.htm",
+    "https://www.sec.gov/Archives/edgar/data/320193/000032019326000005/aapl-20260129.htm",
+    "https://www.sec.gov/Archives/edgar/data/320193/000130817926000008/aapl014016-def14a.htm",
+    "https://www.sec.gov/Archives/edgar/data/320193/000114036126000199/ef20060722_8k.htm",
+    "https://www.sec.gov/Archives/edgar/data/320193/000114036125044561/ef20060722_8k.htm"
+   ],
+   "counted_since": "2025-11-04",
+   "verdict": "filed",
+   "confidence": 0.95,
+   "filing": {
+    "form": "10-K",
+    "filed": "2026-11-03",
+    "accepted": "2026-11-03T13:05:15.000Z",
+    "accession": "0000320193-26-000026",
+    "period": "2026-09-26",
+    "items": [],
+    "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000026/aapl-20260926.htm"
+   },
+   "figures": {
+    "period_start": "2025-09-28",
+    "period_end": "2026-09-26",
+    "revenue": 478834000000,
+    "gross_profit": 233602000000,
+    "gross_margin_pct": 48.8,
+    "operating_income": 158063000000,
+    "net_income": 132175000000
+   },
+   "prior_year_figures": {
+    "period_start": "2024-09-29",
+    "period_end": "2025-09-27",
+    "revenue": 416161000000,
+    "gross_profit": 195201000000,
+    "gross_margin_pct": 46.9,
+    "operating_income": 133050000000,
+    "net_income": 112010000000
+   },
+   "reason": "Apple Inc. has filed 13 material filings since 2025-11-04; the latest, a 10-K, was filed on 2026-11-03 and accepted by EDGAR at 13:05 UTC, for the period ended 2026-09-26, accession 0000320193-26-000026. For 2025-09-28 to 2026-09-26 it reports revenue of $478.83 billion, a gross margin of 48.8% against 46.9% a year earlier, operating income of $158.06 billion and net income of $132.18 billion, as tagged in the filing's XBRL. Filing: https://www.sec.gov/Archives/edgar/data/320193/000032019326000026/aapl-20260926.htm",
+   "checked_at": "2026-11-04T21:07:37.216Z"
+  },
+  "f_msft8k": {
+   "answer": "MICROSOFT CORP has filed 7 8-Ks since 2026-05-04; the latest was filed on 2026-11-04 and accepted by EDGAR at 21:01 UTC, reporting an event dated 2026-10-29, accession 0001193125-26-447173.",
+   "company": "MICROSOFT CORP",
+   "form_asked": "8-K",
+   "since": "2026-05-04",
+   "entity": "MICROSOFT CORP",
+   "filing_count": 7,
+   "cik": 789019,
+   "tickers": [
+    "MSFT"
+   ],
+   "source_url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0000789019",
+   "recent_filings": [
+    {
+     "form": "8-K",
+     "filed": "2026-11-04",
+     "accepted": "2026-11-04T21:01:27.000Z",
+     "accession": "0001193125-26-447173",
+     "period": "2026-10-29",
+     "items": [
+      {
+       "item": "8.01",
+       "name": "Other Events"
+      },
+      {
+       "item": "9.01",
+       "name": "Financial Statements and Exhibits"
+      }
+     ],
+     "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526447173/d178557d8k.htm"
+    },
+    {
+     "form": "8-K",
+     "filed": "2026-10-28",
+     "accepted": "2026-10-28T20:11:03.000Z",
+     "accession": "0001193125-26-436149",
+     "period": "2026-10-28",
+     "items": [
+      {
+       "item": "8.01",
+       "name": "Other Events"
+      },
+      {
+       "item": "9.01",
+       "name": "Financial Statements and Exhibits"
+      }
+     ],
+     "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526436149/msft-20261028.htm"
+    },
+    {
+     "form": "8-K",
+     "filed": "2026-10-28",
+     "accepted": "2026-10-28T20:04:44.000Z",
+     "accession": "0001193125-26-436122",
+     "period": "2026-10-28",
+     "items": [
+      {
+       "item": "2.02",
+       "name": "Results of Operations and Financial Condition"
+      },
+      {
+       "item": "9.01",
+       "name": "Financial Statements and Exhibits"
+      }
+     ],
+     "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526436122/msft-20261028.htm"
+    },
+    {
+     "form": "8-K",
+     "filed": "2026-09-02",
+     "accepted": "2026-09-02T20:30:24.000Z",
+     "accession": "0001193125-26-380280",
+     "period": "2026-09-02",
+     "items": [
+      {
+       "item": "7.01",
+       "name": "Regulation FD Disclosure"
+      },
+      {
+       "item": "9.01",
+       "name": "Financial Statements and Exhibits"
+      }
+     ],
+     "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526380280/d291965d8k.htm"
+    },
+    {
+     "form": "8-K",
+     "filed": "2026-07-29",
+     "accepted": "2026-07-29T20:04:53.000Z",
+     "accession": "0001193125-26-323632",
+     "period": "2026-07-29",
+     "items": [
+      {
+       "item": "2.02",
+       "name": "Results of Operations and Financial Condition"
+      },
+      {
+       "item": "9.01",
+       "name": "Financial Statements and Exhibits"
+      }
+     ],
+     "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323632/msft-20260729.htm"
+    }
+   ],
+   "filings": [
+    "8-K filed 2026-11-04, event dated 2026-10-29, items 8.01, 9.01",
+    "8-K filed 2026-10-28, event dated 2026-10-28, items 8.01, 9.01",
+    "8-K filed 2026-10-28, event dated 2026-10-28, items 2.02, 9.01",
+    "8-K filed 2026-09-02, event dated 2026-09-02, items 7.01, 9.01",
+    "8-K filed 2026-07-29, event dated 2026-07-29, items 2.02, 9.01",
+    "8-K filed 2026-06-05, event dated 2026-06-02, item 5.02",
+    "8-K filed 2026-05-14, event dated 2026-05-13, items 5.02, 9.01"
+   ],
+   "urls": [
+    "https://www.sec.gov/Archives/edgar/data/789019/000119312526447173/d178557d8k.htm",
+    "https://www.sec.gov/Archives/edgar/data/789019/000119312526436149/msft-20261028.htm",
+    "https://www.sec.gov/Archives/edgar/data/789019/000119312526436122/msft-20261028.htm",
+    "https://www.sec.gov/Archives/edgar/data/789019/000119312526380280/d291965d8k.htm",
+    "https://www.sec.gov/Archives/edgar/data/789019/000119312526323632/msft-20260729.htm",
+    "https://www.sec.gov/Archives/edgar/data/789019/000119312526258667/d26760d8k.htm",
+    "https://www.sec.gov/Archives/edgar/data/789019/000119312526224155/d125909d8k.htm"
+   ],
+   "counted_since": "2026-05-04",
+   "verdict": "filed",
+   "confidence": 0.95,
+   "filing": {
+    "form": "8-K",
+    "filed": "2026-11-04",
+    "accepted": "2026-11-04T21:01:27.000Z",
+    "accession": "0001193125-26-447173",
+    "period": "2026-10-29",
+    "items": [
+     {
+      "item": "8.01",
+      "name": "Other Events"
+     },
+     {
+      "item": "9.01",
+      "name": "Financial Statements and Exhibits"
+     }
+    ],
+    "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526447173/d178557d8k.htm"
+   },
+   "figures": null,
+   "prior_year_figures": null,
+   "reason": "MICROSOFT CORP has filed 7 8-Ks since 2026-05-04; the latest was filed on 2026-11-04 and accepted by EDGAR at 21:01 UTC, reporting an event dated 2026-10-29, accession 0001193125-26-447173. It reports item 8.01 (Other Events), item 9.01 (Financial Statements and Exhibits). Filing: https://www.sec.gov/Archives/edgar/data/789019/000119312526447173/d178557d8k.htm",
+   "checked_at": "2026-11-04T21:07:39.688Z"
+  },
+  "f_tesla": {
+   "answer": "Yes: Tesla, Inc.'s latest 10-Q was filed on 2026-10-22 and accepted by EDGAR at 00:12 UTC, for the period ended 2026-09-30, accession 0001628280-26-066775.",
+   "company": "Tesla, Inc.",
+   "form_asked": "10-Q",
+   "since": null,
+   "entity": "Tesla, Inc.",
+   "filing_count": 26,
+   "cik": 1318605,
+   "tickers": [
+    "TSLA"
+   ],
+   "source_url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001318605",
+   "recent_filings": [
+    {
+     "form": "10-Q",
+     "filed": "2026-10-22",
+     "accepted": "2026-10-22T00:12:41.000Z",
+     "accession": "0001628280-26-066775",
+     "period": "2026-09-30",
+     "items": [],
+     "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026066775/tsla-20260930.htm"
+    },
+    {
+     "form": "10-Q",
+     "filed": "2026-07-23",
+     "accepted": "2026-07-23T01:02:31.000Z",
+     "accession": "0001628280-26-049270",
+     "period": "2026-06-30",
+     "items": [],
+     "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049270/tsla-20260630.htm"
+    },
+    {
+     "form": "10-Q",
+     "filed": "2026-04-23",
+     "accepted": "2026-04-23T01:43:00.000Z",
+     "accession": "0001628280-26-026673",
+     "period": "2026-03-31",
+     "items": [],
+     "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026026673/tsla-20260331.htm"
+    },
+    {
+     "form": "10-Q",
+     "filed": "2025-10-23",
+     "accepted": "2025-10-23T01:08:43.000Z",
+     "accession": "0001628280-25-045968",
+     "period": "2025-09-30",
+     "items": [],
+     "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828025045968/tsla-20250930.htm"
+    },
+    {
+     "form": "10-Q",
+     "filed": "2025-07-24",
+     "accepted": "2025-07-24T00:23:31.000Z",
+     "accession": "0001628280-25-035806",
+     "period": "2025-06-30",
+     "items": [],
+     "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828025035806/tsla-20250630.htm"
+    }
+   ],
+   "filings": [
+    "10-Q filed 2026-10-22 for the period ended 2026-09-30",
+    "10-Q filed 2026-07-23 for the period ended 2026-06-30",
+    "10-Q filed 2026-04-23 for the period ended 2026-03-31",
+    "10-Q filed 2025-10-23 for the period ended 2025-09-30",
+    "10-Q filed 2025-07-24 for the period ended 2025-06-30",
+    "10-Q filed 2025-04-23 for the period ended 2025-03-31",
+    "10-Q filed 2024-10-24 for the period ended 2024-09-30",
+    "10-Q filed 2024-07-24 for the period ended 2024-06-30",
+    "10-Q filed 2024-04-24 for the period ended 2024-03-31",
+    "10-Q filed 2023-10-23 for the period ended 2023-09-30",
+    "10-Q filed 2023-07-24 for the period ended 2023-06-30",
+    "10-Q filed 2023-04-24 for the period ended 2023-03-31",
+    "10-Q filed 2022-10-24 for the period ended 2022-09-30",
+    "10-Q filed 2022-07-25 for the period ended 2022-06-30",
+    "10-Q filed 2022-04-25 for the period ended 2022-03-31",
+    "10-Q filed 2021-10-25 for the period ended 2021-09-30",
+    "10-Q filed 2021-07-27 for the period ended 2021-06-30",
+    "10-Q filed 2021-04-28 for the period ended 2021-03-31",
+    "10-Q filed 2020-10-26 for the period ended 2020-09-30",
+    "10-Q filed 2020-07-28 for the period ended 2020-06-30",
+    "10-Q filed 2020-04-30 for the period ended 2020-03-31",
+    "10-Q filed 2019-10-29 for the period ended 2019-09-30",
+    "10-Q filed 2019-07-29 for the period ended 2019-06-30",
+    "10-Q filed 2019-04-29 for the period ended 2019-03-31",
+    "10-Q filed 2018-11-02 for the period ended 2018-09-30",
+    "10-Q filed 2018-08-06 for the period ended 2018-06-30"
+   ],
+   "urls": [
+    "https://www.sec.gov/Archives/edgar/data/1318605/000162828026066775/tsla-20260930.htm",
+    "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049270/tsla-20260630.htm",
+    "https://www.sec.gov/Archives/edgar/data/1318605/000162828026026673/tsla-20260331.htm",
+    "https://www.sec.gov/Archives/edgar/data/1318605/000162828025045968/tsla-20250930.htm",
+    "https://www.sec.gov/Archives/edgar/data/1318605/000162828025035806/tsla-20250630.htm",
+    "https://www.sec.gov/Archives/edgar/data/1318605/000162828025018911/tsla-20250331.htm",
+    "https://www.sec.gov/Archives/edgar/data/1318605/000162828024043486/tsla-20240930.htm",
+    "https://www.sec.gov/Archives/edgar/data/1318605/000162828024032662/tsla-20240630.htm",
+    "https://www.sec.gov/Archives/edgar/data/1318605/000162828024017503/tsla-20240331.htm",
+    "https://www.sec.gov/Archives/edgar/data/1318605/000162828023034847/tsla-20230930.htm",
+    "https://www.sec.gov/Archives/edgar/data/1318605/000095017023033872/tsla-20230630.htm",
+    "https://www.sec.gov/Archives/edgar/data/1318605/000095017023013890/tsla-20230331.htm",
+    "https://www.sec.gov/Archives/edgar/data/1318605/000095017022019867/tsla-20220930.htm",
+    "https://www.sec.gov/Archives/edgar/data/1318605/000095017022012936/tsla-20220630.htm",
+    "https://www.sec.gov/Archives/edgar/data/1318605/000095017022006034/tsla-20220331.htm",
+    "https://www.sec.gov/Archives/edgar/data/1318605/000095017021002253/tsla-20210930.htm",
+    "https://www.sec.gov/Archives/edgar/data/1318605/000095017021000524/tsla-20210630.htm",
+    "https://www.sec.gov/Archives/edgar/data/1318605/000095017021000046/tsla-20210331.htm",
+    "https://www.sec.gov/Archives/edgar/data/1318605/000156459020047486/tsla-10q_20200930.htm",
+    "https://www.sec.gov/Archives/edgar/data/1318605/000156459020033670/tsla-10q_20200630.htm",
+    "https://www.sec.gov/Archives/edgar/data/1318605/000156459020019931/tsla-10q_20200331.htm",
+    "https://www.sec.gov/Archives/edgar/data/1318605/000156459019038256/tsla-10q_20190930.htm",
+    "https://www.sec.gov/Archives/edgar/data/1318605/000156459019026445/tsla-10q_20190630.htm",
+    "https://www.sec.gov/Archives/edgar/data/1318605/000156459019013462/tsla-10q_20190331.htm",
+    "https://www.sec.gov/Archives/edgar/data/1318605/000156459018026353/tsla-10q_20180930.htm",
+    "https://www.sec.gov/Archives/edgar/data/1318605/000156459018019254/tsla-10q_20180630.htm"
+   ],
+   "counted_since": "2018-06-14",
+   "count_complete": false,
+   "verdict": "filed",
+   "confidence": 0.95,
+   "filing": {
+    "form": "10-Q",
+    "filed": "2026-10-22",
+    "accepted": "2026-10-22T00:12:41.000Z",
+    "accession": "0001628280-26-066775",
+    "period": "2026-09-30",
+    "items": [],
+    "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026066775/tsla-20260930.htm"
+   },
+   "figures": {
+    "period_start": "2026-07-01",
+    "period_end": "2026-09-30",
+    "revenue": 28046000000,
+    "gross_profit": 5494000000,
+    "gross_margin_pct": 19.6,
+    "operating_income": 718000000,
+    "net_income": 787000000
+   },
+   "prior_year_figures": {
+    "period_start": "2025-07-01",
+    "period_end": "2025-09-30",
+    "revenue": 28095000000,
+    "gross_profit": 5054000000,
+    "gross_margin_pct": 18,
+    "operating_income": 1624000000,
+    "net_income": 1373000000
+   },
+   "reason": "Yes: Tesla, Inc.'s latest 10-Q was filed on 2026-10-22 and accepted by EDGAR at 00:12 UTC, for the period ended 2026-09-30, accession 0001628280-26-066775. For 2026-07-01 to 2026-09-30 it reports revenue of $28.05 billion, a gross margin of 19.6% against 18.0% a year earlier, operating income of $718.0 million and net income of $787.0 million, as tagged in the filing's XBRL. Filing: https://www.sec.gov/Archives/edgar/data/1318605/000162828026066775/tsla-20260930.htm",
+   "checked_at": "2026-11-04T21:07:38.961Z"
+  },
+  "r_barclays": {
+   "answer": "BARCLAYS BANK PLC is active, registered with Companies House under company number 01026167 in GB, incorporated 1971-10-04.",
+   "subject": "Barclays Bank PLC",
+   "not_in_sources": [
+    "directors and officers",
+    "beneficial owners (GLEIF records accounting-consolidation parents only)"
+   ],
+   "sources": [
+    "https://search.gleif.org/#/record/G5GSEF7VJP5I7OUK5573",
+    "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0000312070"
+   ],
+   "verdict": "found",
+   "confidence": 0.92,
+   "legal_name": "BARCLAYS BANK PLC",
+   "lei": "G5GSEF7VJP5I7OUK5573",
+   "entity_status": "ACTIVE",
+   "lei_registration_status": "ISSUED",
+   "jurisdiction": "GB",
+   "legal_form": "Public Limited Company",
+   "company_number": "01026167",
+   "register": "Companies House",
+   "registered_address": "1 CHURCHILL PLACE, LONDON, GB-LND, E14 5HP, GB",
+   "registered_agent": null,
+   "headquarters_address": "1 CHURCHILL PLACE, LONDON, GB-LND, E14 5HP, GB",
+   "incorporated": "1971-10-04",
+   "other_names": [],
+   "direct_parent": {
+    "name": "BARCLAYS PLC",
+    "lei": "213800LBQA1Y9L22JB70"
+   },
+   "ultimate_parent": {
+    "name": "BARCLAYS PLC",
+    "lei": "213800LBQA1Y9L22JB70"
+   },
+   "us_filer": {
+    "cik": 312070,
+    "name": "BARCLAYS BANK PLC",
+    "tickers": [
+     "ATMP",
+     "BWVTF",
+     "DJP",
+     "GBUG",
+     "GRN",
+     "JJETF",
+     "TAPR",
+     "VXX",
+     "VXZ"
+    ],
+    "exchanges": [
+     "CBOE",
+     "OTC",
+     "NYSE",
+     "Nasdaq",
+     "NYSE",
+     "OTC",
+     "CBOE",
+     "CBOE",
+     "CBOE"
+    ],
+    "sic": "6029",
+    "sic_description": "Commercial Banks, NEC",
+    "state_of_incorporation": "United Kingdom",
+    "business_address": "1 CHURCHILL PLACE, CANARY WHARF, LONDON, United Kingdom, E14 5HP",
+    "mailing_address": "1 CHURCHILL PLACE, CANARY WHARF, LONDON, United Kingdom, E14 5HP",
+    "former_names": [
+     {
+      "name": "BARCLAYS BANK PLC",
+      "from": "2013-07-05",
+      "to": "2026-11-04"
+     },
+     {
+      "name": "BARCLAYS BANK PLC /ENG/",
+      "from": "2000-03-17",
+      "to": "2013-11-27"
+     }
+    ],
+    "lei": null,
+    "filer_category": "Non-accelerated filer",
+    "source_url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0000312070"
+   },
+   "other_candidates": [
+    {
+     "name": "BARCLAYS BANK UK PLC",
+     "lei": "213800UUGANOMFJ9X769",
+     "jurisdiction": "GB",
+     "status": "ACTIVE"
+    },
+    {
+     "name": "BARCLAYS BANK PLC",
+     "lei": "2549003Q5J2G7ALNU316",
+     "jurisdiction": "GB",
+     "status": "ACTIVE"
+    },
+    {
+     "name": "BARCLAYS BANK PLC PARIS BRANCH",
+     "lei": "213800BOHWWKDL36W902",
+     "jurisdiction": "GB",
+     "status": "ACTIVE"
+    }
+   ],
+   "reason": "BARCLAYS BANK PLC is active, registered with Companies House under company number 01026167 in GB, incorporated 1971-10-04. Registered address: 1 CHURCHILL PLACE, LONDON, GB-LND, E14 5HP, GB; legal form Public Limited Company; LEI G5GSEF7VJP5I7OUK5573 (issued). Its direct parent is BARCLAYS PLC. SEC EDGAR lists it as incorporated in United Kingdom, industry Commercial Banks, NEC, formerly BARCLAYS BANK PLC. Directors and beneficial owners are not in these sources.",
+   "active": true,
+   "registration_id": "01026167",
+   "checked_at": "2026-11-04T21:07:33.807Z"
+  },
+  "r_lehman": {
+   "answer": "LEHMAN BROTHERS HOLDINGS INC. is active, registered with Division of Corporations, Department of State under company number 2024634 in US-DE, incorporated 1983-12-29.",
+   "subject": "Lehman Brothers Holdings Inc.",
+   "not_in_sources": [
+    "directors and officers",
+    "beneficial owners (GLEIF records accounting-consolidation parents only)"
+   ],
+   "sources": [
+    "https://search.gleif.org/#/record/549300FDK6ZP3YIHRJ47"
+   ],
+   "verdict": "found",
+   "confidence": 0.92,
+   "legal_name": "LEHMAN BROTHERS HOLDINGS INC.",
+   "lei": "549300FDK6ZP3YIHRJ47",
+   "entity_status": "ACTIVE",
+   "lei_registration_status": "LAPSED",
+   "jurisdiction": "US-DE",
+   "legal_form": "Corporation",
+   "company_number": "2024634",
+   "register": "Division of Corporations, Department of State",
+   "registered_address": "C/O CORPORATION SERVICE COMPANY, 251 LITTLE FALLS DRIVE, WILMINGTON, US-DE, 19808, US",
+   "registered_agent": "C/O CORPORATION SERVICE COMPANY",
+   "headquarters_address": "2711 Centerville Road, Suite 400, Wilmington, US-DE, 19808, US",
+   "incorporated": "1983-12-29",
+   "other_names": [],
+   "direct_parent": null,
+   "ultimate_parent": null,
+   "us_filer": null,
+   "other_candidates": [],
+   "reason": "LEHMAN BROTHERS HOLDINGS INC. is active, registered with Division of Corporations, Department of State under company number 2024634 in US-DE, incorporated 1983-12-29. Registered address: C/O CORPORATION SERVICE COMPANY, 251 LITTLE FALLS DRIVE, WILMINGTON, US-DE, 19808, US; legal form Corporation; LEI 549300FDK6ZP3YIHRJ47 (lapsed). GLEIF records no parent for it. Directors and beneficial owners are not in these sources.",
+   "active": true,
+   "registration_id": "2024634",
+   "checked_at": "2026-11-04T21:07:35.234Z"
+  },
+  "r_none": {
+   "answer": "No register record matching Zzqx Nonexistent Widgets Ltd was found in the GLEIF LEI register.",
+   "subject": "Zzqx Nonexistent Widgets Ltd",
+   "not_in_sources": [
+    "directors and officers",
+    "beneficial owners (GLEIF records accounting-consolidation parents only)"
+   ],
+   "sources": [],
+   "verdict": "not_found",
+   "confidence": 0.6,
+   "reason": "No register record matching Zzqx Nonexistent Widgets Ltd was found in the GLEIF LEI register. Only legal entities that hold an LEI are covered, so this is not proof that no such company exists.",
+   "active": null,
+   "registration_id": null,
+   "checked_at": "2026-11-04T21:07:35.630Z"
+  },
+  "s_but": {
+   "answer": "Possible match: \"Viktor But\" is close to BOUT, Viktor Anatolijevitch on the OFAC SDN list (DRCONGO, individual, born 1967 or 1970, reference 8279), score 0.914.",
+   "subject": "Viktor But",
+   "subject_type": null,
+   "dob_year": null,
+   "matches": [
+    {
+     "list": "OFAC SDN",
+     "id": "8279",
+     "name": "BOUT, Viktor Anatolijevitch",
+     "matched_name": "BOUT, Viktor Anatolijevitch",
+     "type": "individual",
+     "programs": [
+      "DRCONGO"
+     ],
+     "score": 0.914,
+     "dob_years": [
+      1967,
+      1970
+     ],
+     "dob_check": "not_given",
+     "nationalities": [],
+     "listed_on": null,
+     "url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=8279"
+    }
+   ],
+   "closest": {
+    "list": "OFAC SDN",
+    "id": "8279",
+    "name": "BOUT, Viktor Anatolijevitch",
+    "matched_name": "BOUT, Viktor Anatolijevitch",
+    "type": "individual",
+    "programs": [
+     "DRCONGO"
+    ],
+    "score": 0.914,
+    "dob_years": [
+     1967,
+     1970
+    ],
+    "dob_check": "not_given",
+    "nationalities": [],
+    "listed_on": null,
+    "url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=8279"
+   },
+   "lists_checked": [
+    {
+     "list": "OFAC SDN",
+     "published": "2026-11-02",
+     "entries": 19499
+    },
+    {
+     "list": "UN Security Council Consolidated",
+     "published": "2026-11-03",
+     "entries": 1007
+    }
+   ],
+   "lists_not_checked": [
+    "EU consolidated financial sanctions list",
+    "UK HMT consolidated list"
+   ],
+   "verdict": "possible_match",
+   "confidence": 0.6,
+   "reason": "Possible match: \"Viktor But\" is close to BOUT, Viktor Anatolijevitch on the OFAC SDN list (DRCONGO, individual, born 1967 or 1970, reference 8279), score 0.914. Review it before treating it as either a match or a clearance. Screened against OFAC SDN (published 2026-11-02, 19,499 entries) and UN Security Council Consolidated (generated 2026-11-03, 1,007 entries), names and aliases; the EU and UK lists were not screened.",
+   "name": "Viktor But",
+   "matched": true,
+   "lists": [
+    "OFAC SDN",
+    "UN Security Council Consolidated"
+   ],
+   "match_score": 0.914,
+   "checked_at": "2026-11-04T21:07:28.883Z"
+  },
+  "s_rosneft": {
+   "answer": "Not cleared: \"Rosneft\" does not closely match any entry on the UN Security Council Consolidated list, but the OFAC SDN list could not be read, so this is not a clearance.",
+   "subject": "Rosneft",
+   "subject_type": null,
+   "dob_year": null,
+   "matches": [],
+   "closest": null,
+   "lists_checked": [
+    {
+     "list": "UN Security Council Consolidated",
+     "published": "2026-11-03",
+     "entries": 1007
+    }
+   ],
+   "lists_not_checked": [
+    "OFAC SDN",
+    "EU consolidated financial sanctions list",
+    "UK HMT consolidated list"
+   ],
+   "verdict": "unknown",
+   "confidence": 0,
+   "error": "list_unavailable",
+   "reason": "Not cleared: \"Rosneft\" does not closely match any entry on the UN Security Council Consolidated list, but the OFAC SDN list could not be read, so this is not a clearance. Screened against UN Security Council Consolidated (generated 2026-11-03, 1,007 entries), names and aliases; the EU and UK lists were not screened. The OFAC SDN list could not be read, so it was not screened.",
+   "name": "Rosneft",
+   "matched": null,
+   "lists": [
+    "UN Security Council Consolidated"
+   ],
+   "match_score": null,
+   "checked_at": "2026-11-04T21:07:10.967Z"
+  },
+  "s_unilever": {
+   "answer": "Not cleared: \"Unilever PLC\" does not closely match any entry on the UN Security Council Consolidated list, but the OFAC SDN list could not be read, so this is not a clearance.",
+   "subject": "Unilever PLC",
+   "subject_type": null,
+   "dob_year": null,
+   "matches": [],
+   "closest": null,
+   "lists_checked": [
+    {
+     "list": "UN Security Council Consolidated",
+     "published": "2026-11-03",
+     "entries": 1007
+    }
+   ],
+   "lists_not_checked": [
+    "OFAC SDN",
+    "EU consolidated financial sanctions list",
+    "UK HMT consolidated list"
+   ],
+   "verdict": "unknown",
+   "confidence": 0,
+   "error": "list_unavailable",
+   "reason": "Not cleared: \"Unilever PLC\" does not closely match any entry on the UN Security Council Consolidated list, but the OFAC SDN list could not be read, so this is not a clearance. Screened against UN Security Council Consolidated (generated 2026-11-03, 1,007 entries), names and aliases; the EU and UK lists were not screened. The OFAC SDN list could not be read, so it was not screened.",
+   "name": "Unilever PLC",
+   "matched": null,
+   "lists": [
+    "UN Security Council Consolidated"
+   ],
+   "match_score": null,
+   "checked_at": "2026-11-04T21:07:20.123Z"
+  }
+ }
+}

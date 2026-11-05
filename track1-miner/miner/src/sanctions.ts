@@ -56,7 +56,7 @@ export function jaroWinkler(a: string, b: string): number {
  * middle name) scores a little lower, and a one-word subject cannot reach a
  * possible match against a longer name on its own.
  *
- * `screening` adds two rules for sanctions (GAPS G255), off for registry and
+ * `screening` adds two rules for sanctions (GAPS G258), off for registry and
  * EDGAR lookups:
  * - a descriptor the caller added ("Grinex Exchange" for GRINEX) may match
  *   nothing, and the score then stays below a match;

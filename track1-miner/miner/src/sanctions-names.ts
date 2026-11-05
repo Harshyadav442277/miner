@@ -4,7 +4,7 @@
  * Callers write names the way they read them, not the way a list prints them: in Cyrillic ("Сбербанк"),
  * with Cyrillic look-alike letters inside a Latin word, abbreviated ("Lazarus Grp."), with digits for
  * letters ("Gr1nex"), or as a domain ("Suex dot io"). Every such form, measured on paid requests of
- * 2026-11-01/02 (GAPS G255), is folded here into the same words the list's own spelling gives.
+ * 2026-11-01/02 (GAPS G258), is folded here into the same words the list's own spelling gives.
  */
 
 // BGN/PCGN romanisation, the one OFAC's Russian names mostly follow ("OBSHCHESTVO", "SBERBANK").

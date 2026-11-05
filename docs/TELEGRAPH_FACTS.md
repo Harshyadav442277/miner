@@ -4,6 +4,25 @@
 verification date. Re-verify anything older than a few days — the canonical intent set and
 contract parameters change on-chain.
 
+**Scoring and three compliance intents, checked 2026-11-04 ~20:40–21:10 UTC** (devnode `/api/miners`,
+`/api/miners/4829`, `/engine/v1/intents/<id>`, `/api/evalpool/status?intent_id=`; anjoman.ai/docs
+`miners/miner-overview`, `miners/miner-registration` (updated Nov 1) and `miners/yaml-config` (updated Nov 3).
+Extract: `track1-miner/docs/evidence/intents-2026-11-04/`):
+- **Scoring is live:** 1,938 of 1,986 registrations `scored: true`, epoch 2013. 4829 is `active` with 36 intents,
+  including SANCTIONS_SCREENING_MATCH_GENERAL, CORPORATE_REGISTRY_LOOKUP_GENERAL and REGULATORY_FILING_MONITOR_GENERAL.
+- **Routing:** "Top-ranked miner receives 70% of routed requests. Second-ranked receives 20%. Third-ranked receives
+  10%" (miner-overview, Nov 1). Fourth and below get no routed requests.
+- **The three intents** (class; request params; scored field; miners; eval pool rows/contributors):
+  sanctions judgment, `name`, `matched` bool, 17, 645/9; registry deterministic, `company`+`jurisdiction`,
+  `active` bool, 21, 630/4; filings deterministic, `entity`+`period`, `filing_count` number, 16, 53/1.
+  4829's ranks at epoch 2013: 11th, 4th, 8th.
+- **Without an `intent_mapping` the node asks a model to find the values** in the answer; with one it reads them
+  by path and computes numbers in code. A mapping is validated at registration, so adding one needs `updateMiner`.
+  Missing endpoint `params` make the node "guess your field names" (yaml-config, Nov 3).
+- **Truth sources:** each epoch the node calls up to 3 from the ranking half and takes the median of the values
+  it can read (contribute-evaluation-data, Nov 1). `/api/evalpool/submissions?intent_id=` answers 405; pools are
+  not public.
+
 **Evaluation material, checked 2026-11-01 ~19:10 UTC** (anjoman.ai/docs/scoring/contribute-evaluation-data,
 updated Nov 1; devnode `/api/evalpool/status`, `/engine/v1/intents/<id>`; github.com/telegraphprotocol/bounties):
 - Upload = signed JSON Lines, one intent per upload, EIP-191 over a 5-line message (body sha256, nonce, chain id

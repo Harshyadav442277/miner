@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { parseOfac } from "../src/sanctions-lists";
 import { nameScore, nameTokens, screenParties } from "../src/sanctions";
 
-// The forms paying callers sent on 2026-11-01/02 (GAPS G255), against rows in sdn.csv's format. The listed
+// The forms paying callers sent on 2026-11-01/02 (GAPS G258), against rows in sdn.csv's format. The listed
 // names and the two websites are copied from the live SDN list of 2026-11-05.
 const SDN = [
   `50641,"CRYPTEX",-0- ,"CYBER2] [RUSSIA-EO14024",-0- ,-0- ,-0- ,-0- ,-0- ,-0- ,-0- ,"Website cryptex.net; Organization Type: Activities auxiliary to financial services."`,

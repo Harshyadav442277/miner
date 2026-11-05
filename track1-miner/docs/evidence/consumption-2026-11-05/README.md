@@ -1,4 +1,4 @@
-# Paid requests routed to LiveCert, Nov 1–4 — from the network's records (GAPS G256)
+# Paid requests routed to LiveCert, Nov 1–4 — from the network's records (GAPS G259)
 
 Produced 2026-11-05 ~09:45 UTC by
 `node track1-miner/tools/consumption.mjs 2026-11-01T00:00:00Z track1-miner/docs/evidence/consumption-2026-11-05 livecert`.
@@ -27,4 +27,4 @@ Anyone can re-run it: every source is public and needs no key.
 - **Our own traffic is not in this feed.** The availability sweep, the audits and the capacity test call
   `miner-wine.vercel.app` directly, not the Engine.
 - The two biggest payers sent test-like sets: 287 sanctions names (a robustness benchmark) and 55 fact-check
-  claims. What they found is in `../sanctions-real-inputs-2026-11-05/` and GAPS G254.
+  claims. What they found is in `../sanctions-real-inputs-2026-11-05/` and GAPS G257.

@@ -1,0 +1,79 @@
+import { test } from "node:test";
+import assert from "node:assert/strict";
+import { countFields, filingTitle } from "../src/filings";
+import type { Filing } from "../src/edgar";
+import { registryIntentFields, sanctionsIntentFields } from "../src/intent-fields";
+import type { RegistryResult } from "../src/registry";
+import type { Match, SanctionsResult } from "../src/sanctions";
+
+// The scored names come from GET /engine/v1/intents/<id> response.fields, read 2026-11-04 UTC:
+// SANCTIONS_SCREENING_MATCH_GENERAL `matched`, CORPORATE_REGISTRY_LOOKUP_GENERAL `active`,
+// REGULATORY_FILING_MONITOR_GENERAL `filing_count`.
+
+const hit = (score: number): Match => ({
+  list: "OFAC SDN", id: "1", name: "ROSNEFT", matched_name: "ROSNEFT", type: "entity", programs: [], score,
+  dob_years: [], dob_check: "not_given", nationalities: [], listed_on: null, url: null,
+});
+const screened = (verdict: SanctionsResult["verdict"], matches: Match[] = [], closest: Match | null = null): SanctionsResult => ({
+  subject: "Rosneft", subject_type: null, dob_year: null, verdict, confidence: 0.9, reason: "", matches, closest,
+  lists_checked: [{ list: "OFAC SDN", published: "2026-11-03", entries: 18_000 }, { list: "UN Security Council Consolidated", published: null, entries: 1_000 }],
+  lists_not_checked: [],
+});
+
+test("sanctions: matched follows the verdict, and an unscreened subject is not cleared", () => {
+  const m = sanctionsIntentFields(screened("match", [hit(0.97)], hit(0.97)));
+  assert.equal(m.matched, true);
+  assert.equal(m.name, "Rosneft");
+  assert.deepEqual(m.lists, ["OFAC SDN", "UN Security Council Consolidated"]);
+  assert.equal(m.match_score, 0.97);
+  assert.equal(m.verdict, "match", "the existing fields stay");
+  // The intent counts near-matches on spelling or transliteration.
+  assert.equal(sanctionsIntentFields(screened("possible_match", [hit(0.91)])).matched, true);
+  const clear = sanctionsIntentFields(screened("no_match", [], hit(0.84)));
+  assert.equal(clear.matched, false);
+  assert.equal(clear.match_score, 0.84);
+  const outage = sanctionsIntentFields(screened("unknown"));
+  assert.equal(outage.matched, null);
+  assert.equal(outage.match_score, null);
+});
+
+const record = (over: Partial<RegistryResult>): RegistryResult => ({
+  subject: "x", verdict: "found", confidence: 0.92, reason: "", not_in_sources: [], sources: [], ...over,
+});
+
+test("registry: active is GLEIF's entity status, and no record means unknown", () => {
+  const live = registryIntentFields(record({ entity_status: "ACTIVE", lei_registration_status: "LAPSED", company_number: "2024634", lei: "549300FDK6ZP3YIHRJ47" }));
+  assert.equal(live.active, true, "a lapsed LEI is a data-renewal status, not the company's");
+  assert.equal(live.registration_id, "2024634");
+  const gone = registryIntentFields(record({ entity_status: "INACTIVE", lei: "L" }));
+  assert.equal(gone.active, false);
+  assert.equal(gone.registration_id, "L");
+  assert.equal(registryIntentFields(record({ verdict: "not_found" })).active, null);
+  assert.equal(registryIntentFields(record({ verdict: "found", entity_status: undefined })).active, null, "an EDGAR-only answer reads no register status");
+});
+
+const filing = (form: string, filed: string, extra: Partial<Filing> = {}): Filing => ({
+  form, filed, accepted: null, accession: `a-${filed}`, period: null, items: [], url: `https://sec.example/${filed}`, ...extra,
+});
+
+test("filings: titles name the form, date, period or 8-K items", () => {
+  assert.equal(filingTitle(filing("10-Q", "2026-10-31", { period: "2026-09-27" })), "10-Q filed 2026-10-31 for the period ended 2026-09-27");
+  assert.equal(filingTitle(filing("8-K", "2026-10-30", { period: "2026-10-30", items: [{ item: "2.02", name: "" }, { item: "9.01", name: "" }] })),
+    "8-K filed 2026-10-30, event dated 2026-10-30, items 2.02, 9.01");
+});
+
+test("filings: filing_count counts the window, and says when EDGAR's index cut it short", () => {
+  const index = [filing("8-K", "2026-10-30"), filing("10-Q", "2026-07-31"), filing("10-K", "2025-11-01")];
+  const window = index.slice(0, 2);
+  const c = countFields(window, index, "2026-01-01");
+  assert.equal(c.filing_count, 2);
+  assert.deepEqual(c.urls, ["https://sec.example/2026-10-30", "https://sec.example/2026-07-31"]);
+  assert.equal(c.counted_since, "2026-01-01");
+  assert.equal(c.count_complete, undefined);
+  assert.equal(countFields([], index, null).counted_since, "2025-11-01", "no window counts from the oldest filing read");
+
+  const full = Array.from({ length: 1_000 }, (_, i) => filing("4", `2026-${String(12 - Math.floor(i / 100)).padStart(2, "0")}-01`));
+  assert.equal(countFields(full, full, "2020-01-01").count_complete, false);
+  assert.equal(countFields(full, full, "2026-12-01").count_complete, undefined);
+  assert.equal(countFields(full.concat(full), full.concat(full), null).filings!.length, 100, "the list is capped, the count is not");
+});

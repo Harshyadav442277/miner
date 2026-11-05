@@ -48,7 +48,7 @@
   actions and forbid fallback accounts, signers or payout wallets. This overrides older email guidance.
 - Account guidance and the signing runbook were aligned. No external account links or wallet state changed.
 
-## 2026-11-01 ~20:30 UTC (Nov 2 02:00 IST): CURRENT — main merged; translation material ready to sign
+## 2026-11-01 ~20:30 UTC (Nov 2 02:00 IST): main merged; translation material ready to sign
 
 - **main merged** via PR #14 (owner: "merge it then"), `7e8c747`; branch and main in step. Deploys nothing.
 - **Ahmed (Discord):** the unranked-intents issue is being resolved on Telegraph's side; meanwhile contribute

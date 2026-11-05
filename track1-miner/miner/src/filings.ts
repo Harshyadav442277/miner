@@ -131,13 +131,53 @@ export interface FilingResult {
   prior_year_figures?: Figures | null;
   source_url?: string;
   not_covered?: string;
+  /**
+   * REGULATORY_FILING_MONITOR_GENERAL's response format, under its own names:
+   * `filing_count` is the scored field. It counts the form asked, or every
+   * material form, filed on or after `counted_since`; `null` when EDGAR could not
+   * be read. `filings` and `urls` list the same filings newest first, up to 100.
+   */
+  entity?: string | null;
+  filing_count?: number | null;
+  filings?: string[];
+  urls?: string[];
+  counted_since?: string | null;
+  /** False when the window reaches past the 1,000 filings EDGAR's index returns, so the count is a lower bound. */
+  count_complete?: boolean;
+}
+
+/** EDGAR's submissions index returns at least a year of filings, or the newest 1,000. */
+const INDEX_CAP = 1_000;
+const LISTED = 100;
+
+/** "10-Q filed 2026-10-31 for the period ended 2026-09-27", "8-K filed 2026-10-30, items 2.02, 9.01". Pure. */
+export function filingTitle(f: Filing): string {
+  const when = f.period ? (f.form === "8-K" || f.form === "6-K" ? `, event dated ${f.period}` : ` for the period ended ${f.period}`) : "";
+  const items = f.items.length ? `, item${f.items.length > 1 ? "s" : ""} ${f.items.map((i) => i.item).join(", ")}` : "";
+  return `${f.form} filed ${f.filed}${when}${items}`;
+}
+
+/** The intent's count fields over the filings in the window, newest first. Pure. */
+export function countFields(inWindow: Filing[], index: Filing[], since: string | null): Pick<FilingResult, "filing_count" | "filings" | "urls" | "counted_since" | "count_complete"> {
+  const oldest = index.at(-1)?.filed ?? null;
+  const complete = !(index.length >= INDEX_CAP && oldest !== null && (since === null || since < oldest));
+  return {
+    filing_count: inWindow.length,
+    filings: inWindow.slice(0, LISTED).map(filingTitle),
+    urls: inWindow.slice(0, LISTED).map((f) => f.url),
+    counted_since: since ?? oldest,
+    ...(complete ? {} : { count_complete: false }),
+  };
 }
 
 export async function monitorFilings(question: string, companyParam = "", formParam = "", now = new Date()): Promise<FilingResult> {
   const ask = filingAsk(question, companyParam, formParam, now);
   const other = String(question ?? "").match(OTHER_REGULATOR)?.[0];
   const notCovered = other ? `Only SEC EDGAR is read; ${other} disclosures are not covered.` : undefined;
-  const base = { company: ask.company || null, form_asked: ask.form, since: ask.since, ...(notCovered ? { not_covered: notCovered } : {}) };
+  const base = {
+    company: ask.company || null, form_asked: ask.form, since: ask.since, ...(notCovered ? { not_covered: notCovered } : {}),
+    entity: ask.company || null, filing_count: null,
+  };
   if (!ask.company) {
     return { ...base, verdict: "unknown", confidence: 0, error: "no_subject",
       reason: "No issuer was named, so no filing was looked up. Name the company or ticker, for example: Has Tesla filed its latest 10-Q on SEC EDGAR?" };
@@ -148,7 +188,7 @@ export async function monitorFilings(question: string, companyParam = "", formPa
       reason: `${ask.company}'s filings could not be checked because SEC EDGAR did not answer. This is an availability problem, not a finding that nothing was filed.` };
   }
   if (cik === null) {
-    return { ...base, verdict: "not_found", confidence: 0.6,
+    return { ...base, verdict: "not_found", confidence: 0.6, filing_count: 0, filings: [], urls: [], counted_since: ask.since,
       reason: `No SEC registrant matching ${ask.company} was found, so it has no EDGAR filings to report.${notCovered ? ` ${notCovered}` : " Issuers that file only with regulators outside the US are not covered."}` };
   }
   const co: EdgarCompany | null | undefined = await submissions(cik.cik);
@@ -165,7 +205,10 @@ export async function monitorFilings(question: string, companyParam = "", formPa
   const all = co.filings.filter((f) => ofForm(f) && inYear(f));
   const fiscal = ask.fiscal_year ? ` for fiscal ${ask.fiscal_year}` : "";
   const inWindow = ask.since ? all.filter((f) => f.filed >= ask.since!) : all;
-  const ident = { company: co.name, cik: co.cik, tickers: co.tickers, source_url: co.source_url, recent_filings: inWindow.slice(0, 5) };
+  const ident = {
+    company: co.name, cik: co.cik, tickers: co.tickers, source_url: co.source_url, recent_filings: inWindow.slice(0, 5),
+    entity: co.name, ...countFields(inWindow, co.filings, ask.since),
+  };
   const what = ask.form ?? "material filing";
   const f = inWindow[0];
   if (!f) {
@@ -194,7 +237,9 @@ export async function monitorFilings(question: string, companyParam = "", formPa
   const yes = /^\s*(?:has|have|did|is|was|were|does)\b/i.test(String(question ?? "")) ? "Yes: " : "";
   const lead = ask.latest
     ? `${co.name}'s latest ${ask.form ? `${ask.form} was filed` : `filing is ${article(f.form)}, filed`}`
-    : `${co.name} has filed ${article(f.form)} since ${ask.since}; the latest was filed`;
+    : inWindow.length === 1 ? `${co.name} has filed ${article(f.form)} since ${ask.since}; the latest was filed`
+    // A window is a count question as well: "how many filings in the last 12 months".
+    : `${co.name} has filed ${inWindow.length} ${ask.form ? `${ask.form}s` : "material filings"} since ${ask.since}; the latest${ask.form ? "" : `, ${article(f.form)},`} was filed`;
   return {
     ...base, ...ident, verdict: "filed", confidence: 0.95, filing: f, figures: c ?? null, prior_year_figures: p ?? null,
     reason: `${yes}${lead} on ${f.filed}${accepted}${dated}, accession ${f.accession}.${items}${numbers}` +

@@ -1,18 +1,18 @@
 # GAPS.md — honesty ledger
 
-## 2026-11-05 ~10:00 UTC (15:30 IST) organiser answers and real paid traffic — G254–G258; G206 closed
+## 2026-11-05 ~10:00 UTC (15:30 IST) organiser answers and real paid traffic — G257–G261; G206 closed
 
 Sources: Ahmed's reply (TELEGRAPH_FACTS items 12–17), the live Rules page re-read 2026-11-05, and the Daemon feed plus
 signal records for every paid request routed to `livecert` since Nov 1 (`track1-miner/docs/evidence/consumption-2026-11-05/`).
 
-- **G254 — FACT_CHECK gets common-knowledge claims wrong for real paying callers. `OPEN, fix next`.** Of 37 distinct
+- **G257 — FACT_CHECK gets common-knowledge claims wrong for real paying callers. `OPEN, fix next`.** Of 37 distinct
   claims from wallet `0x1046…508a` (2026-11-03): "Venus is the largest planet in the Solar System" → `supported` 0.7;
   "The Eiffel Tower is located in Berlin and was completed in 1889" → `supported` 0.7; "Mount Kilimanjaro is the
   tallest mountain in Africa at 5895 metres" (true) → `contradicted` 0.7. "Water boils at 90 degrees Celsius at sea
   level" and "BERT was introduced by Meta in 2012" → `unverified`, and so are most true claims (Berlin Wall 1989,
   Golden Gate 1937, Python 3.0 2008). Devnode ranks the intent 5th (0.9791, epoch 2017), so the rank hides this.
   Four missions buy FACT_CHECK. Cause not yet read in the code.
-- **G255 — Sanctions screening misses listed entities written the way people write them. `OPEN, fix next`.** From
+- **G258 — Sanctions screening misses listed entities written the way people write them. `OPEN, fix next`.** From
   wallet `0x66fB…4a83` (287 requests, 175 distinct names, 2026-11-01/02), and from others:
   - Cyrillic names are not read as names: "Сбербанк", "Гарантекс", "Тинькофф Банк" → `unknown`, "No person,
     company or wallet was named", so nothing was screened.
@@ -24,19 +24,57 @@ signal records for every paid request routed to `livecert` since Nov 1 (`track1-
     in March 2025, not re-checked today).
   Five missions buy this intent. Each "should match" above still needs its SDN entry confirmed before it becomes a
   test, because the requests are someone else's benchmark, not our reference.
-- **G256 — Paid traffic exists, but none of it is yet tied to a registered H2 mission app. `OPEN, owner + Ahmed`.**
+- **G259 — Paid traffic exists, but none of it is yet tied to a registered H2 mission app. `OPEN, owner + Ahmed`.**
   385 `source: user` requests reached `livecert` from Nov 1 to Nov 4, from 16 wallets; 13 of them were ranked-routed,
   from 5 wallets. None of the wallets appears in this repo or on `codex/sanctions-benchmark-v7`. That does not prove
   independence: the owner's Anjoman smart wallet, the owner's second entry or a Codex run would also be unknown
   here. Consumption points need "a qualifying H2 mission app", so each wallet must be tied to a registered H2 App
   before it is claimed. Until then, report the requests only as network-recorded paid use, of unknown origin.
-- **G257 — SENTIMENT_ANALYSIS_GENERAL is unscored for us while 14 other miners are scored. `OPEN`.** So it is not
+- **G260 — SENTIMENT_ANALYSIS_GENERAL is unscored for us while 14 other miners are scored. `OPEN`.** So it is not
   missing evaluation coverage (Ahmed's point 2) but something about our answers or our sampling. Not investigated.
-- **G258 — The registration guide still describes a 7-day grace period. `OPEN, docs vs organiser`.** "Step 7: The
+- **G261 — The registration guide still describes a 7-day grace period. `OPEN, docs vs organiser`.** "Step 7: The
   grace period" (updated 2026-11-01) against Ahmed's "There is no seven-day grace period for a new or updated
   Miner" (2026-11-05). We plan on the organiser's statement. If routed share after an update looks throttled, this
   is the first suspect.
 - **G206 closed 2026-11-05** by the organiser: no grace period on update (TELEGRAPH_FACTS item 12).
+- **Renumbered on merge:** these entries were first written as G254–G258, numbers the parallel 2026-11-04 block
+  below had already used; they are G257–G261 everywhere.
+
+## 2026-11-04 ~21:00 UTC sanctions, registry and filings intents — G235 superseded; G254–G256
+
+Evidence: `track1-miner/docs/evidence/intents-2026-11-04/`. Facts: docs/TELEGRAPH_FACTS.md, top section.
+
+- **G235 — SUPERSEDED: scoring is live.** 1,938 of 1,986 registrations are `scored: true` at epoch 2013
+  (2026-11-04 ~20:38 UTC); 4829 carries 34 intent scores. Ranks below; the rest of 4829's ranks were not read.
+- **G254 — Our three compliance answers lacked the intents' scored field names. `FIXED IN CODE, NOT DEPLOYED`.**
+  SANCTIONS_SCREENING_MATCH_GENERAL scores `matched` (we sent `verdict`), CORPORATE_REGISTRY_LOOKUP_GENERAL
+  scores `active` (we sent `entity_status`), REGULATORY_FILING_MONITOR_GENERAL scores `filing_count` (we sent no
+  count at all). 4829 has no `intent_mapping`, so the node's parser model has to find each value. The answers
+  now carry the intent's own fields as well; unit 875/875, local probes in the evidence folder.
+  - **Ranks before the change (epoch 2013):** sanctions 11th (0.9981; 1st 1.0), registry 4th (0.9423; 3rd 0.9683),
+    filings 8th (0.9781; 3rd 0.998). Routed demand goes to the top three only (70/20/10), so all three earn us
+    no routed requests today.
+  - **Not known:** whether naming the fields moves the score. The reference is the median of up to 3 truth
+    sources, and the pools are not public (`/api/evalpool/submissions` without a submitter answers 405).
+  - **Assumptions:** a `possible_match` counts as `matched: true` (the intent includes near-matches on spelling);
+    `filing_count` counts the form asked, else material forms only (10-K, 10-Q, 8-K, 20-F, 6-K, 40-F, DEF 14A,
+    S-1, S-4, F-1, 10-KT), never Form 4s. If the reference counts every form, our count is low. The period
+    reaches us only through `query`: the endpoint declares no `period` param, and adding one needs `updateMiner`.
+  - **Measure after deploy:** the three ranks and scores for 3 epochs (1 h each), against the numbers above.
+- **G255 — One wallet holds 1,673 of 1,986 registrations, and the top routed slots in two of these intents.
+  `OPEN, question for Telegraph`.** Wallet `0xbd6f696096cceeaff7406d802ba04500eeaf6976`, registered
+  2026-10-24 23:27 – 2026-11-02 06:06 UTC, covers all 136 intents with one-intent miners whose `base_url` is a
+  raw public source (data.opensanctions.org, federalregister.gov, api.gleif.org, treasury.gov). They hold
+  registry ranks 1–3 (an OFAC sanctions index ranks 1st as a company register) and filings rank 1. That wallet
+  has no evaluation rows in either intent (`/submissions/mine`, 0 rows), so "they score themselves" is **not**
+  supported. Whether these are Telegraph's own reference miners, and whether they take routed traffic, is
+  unknown. Ask before spending effort to outrank them.
+- **G256 — "These intents get many requests" is not checked. `OPEN`.** No public endpoint gives requests per
+  intent: `/api/miners` has `total_requests_served` per registration only (4829: 383; TxLens 413). The owner saw
+  the figure somewhere not named; a screenshot or the page would let it be recorded here.
+  - **Partly answered 2026-11-05 for our own miner:** the Daemon feed names the miner and intent of every paid
+    request. Nov 1–4: 385 to `livecert`, 306 of them sanctions screening (G259, `consumption-2026-11-05/`). The same
+    tool run with another slug gives that miner's count; across intents it has not been run.
 
 ## 2026-11-04 ~21:30 UTC (Nov 5 03:00 IST) winning push — G248–G253
 
