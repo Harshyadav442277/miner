@@ -83,9 +83,10 @@ test("a filed 10-Q answers its date, acceptance time, accession, link and margin
     }
     if (u.includes("/submissions/")) {
       return Response.json({ name: "Tesla, Inc.", tickers: ["TSLA"], filings: { recent: {
-        form: ["8-K", "10-Q"], filingDate: ["2026-10-02", "2026-07-23"], acceptanceDateTime: ["2026-10-02T13:04:26.000Z", "2026-07-23T01:02:31.000Z"],
-        accessionNumber: ["0001628280-26-064366", ACC], reportDate: ["2026-10-02", "2026-06-30"], items: ["2.02,9.01", ""],
-        primaryDocument: ["tsla-20261002.htm", "tsla-20260630.htm"],
+        form: ["4", "8-K", "10-Q"], filingDate: ["2026-10-10", "2026-10-02", "2026-07-23"],
+        acceptanceDateTime: ["2026-10-10T20:01:00.000Z", "2026-10-02T13:04:26.000Z", "2026-07-23T01:02:31.000Z"],
+        accessionNumber: ["0001104659-26-090001", "0001628280-26-064366", ACC], reportDate: ["2026-10-08", "2026-10-02", "2026-06-30"],
+        items: ["", "2.02,9.01", ""], primaryDocument: ["xslF345X05/form4.xml", "tsla-20261002.htm", "tsla-20260630.htm"],
       } } });
     }
     const tag = u.match(/us-gaap\/(\w+)\.json/)?.[1] ?? "";
@@ -107,14 +108,22 @@ test("a filed 10-Q answers its date, acceptance time, accession, link and margin
   assert.equal(eightK.filing_count, 1);
   assert.equal(eightK.entity, "Tesla, Inc.");
 
+  // G263: every form counts, insider Form 4s included; the answer's own filing is still the latest material one.
   const year = await monitorFilings("How many filings did Tesla make in the last 12 months?", "Tesla", "", NOW);
-  assert.equal(year.filing_count, 2);
-  assert.deepEqual(year.filings, ["8-K filed 2026-10-02, event dated 2026-10-02, items 2.02, 9.01", "10-Q filed 2026-07-23 for the period ended 2026-06-30"]);
-  assert.match(year.reason, /^Tesla, Inc\. has filed 2 material filings since 2025-10-14; the latest, an 8-K, was filed on 2026-10-02/);
+  assert.equal(year.filing_count, 3);
+  assert.deepEqual(year.filings, ["Form 4 filed 2026-10-10 for the period ended 2026-10-08",
+    "8-K filed 2026-10-02, event dated 2026-10-02, items 2.02, 9.01", "10-Q filed 2026-07-23 for the period ended 2026-06-30"]);
+  assert.match(year.reason, /^Tesla, Inc\. has made 3 EDGAR filings since 2025-10-14, 2 of them material \(10-K, 10-Q, 8-K and the like\); the latest material one, an 8-K, was filed on 2026-10-02/);
+  assert.equal(year.filing!.form, "8-K");
 
   const none = await monitorFilings("Has Tesla filed a 10-K since 2026-09-01?", "", "", NOW);
   assert.equal(none.verdict, "not_filed");
-  assert.equal(none.filing_count, 0);
+  assert.equal(none.filing_count, 0, "a named form counts that form only");
+
+  const quiet = await monitorFilings("Did Tesla file anything since 2026-10-05?", "", "", NOW);
+  assert.equal(quiet.verdict, "not_filed", "a Form 4 alone is not a material filing");
+  assert.equal(quiet.filing_count, 1);
+  assert.match(quiet.reason, /it made 1 other EDGAR filing in that window, the latest a Form 4 on 2026-10-10/);
 });
 
 // G210, 2026-10-25: SEC answered Coca-Cola's Revenues concept with "USD": {} and the

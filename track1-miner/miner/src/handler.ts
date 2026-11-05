@@ -6,10 +6,11 @@ import { alertAnswer, asksAlert, officialAlertAnswer, type AlertCheckResult } fr
 import { translate, type TranslationResult } from "./translate";
 import { academicAnswer, findPapers, type PaperResult } from "./papers";
 import { envelope } from "./envelope";
+import { scoredFields } from "./intent-fields";
 import { currentReceipt, installRecorder, readsSoFar, replayFromCache, withReceipt, type UpstreamRead } from "./receipt";
 import { MISSION_ROUTES, type MissionAnswer } from "./mission-routes";
 import { getForecast, type ForecastResult } from "./forecast";
-import { asksCurrentConditions, getCurrentConditions } from "./currentweather";
+import { asksCurrentConditions, asksTemperatureNow, getCurrentConditions } from "./currentweather";
 import { geolocate, type GeoResult } from "./geo";
 import { extractContent } from "./content";
 import { getHeadlines } from "./news";
@@ -223,8 +224,10 @@ function send(res: ServerResponse, status: number, body: unknown): void {
  */
 function sendAnswer(res: ServerResponse, _question: string, body: unknown): void {
   const now = new Date();
-  const wrapped = envelope(body, now, currentReceipt(now));
-  const licensing = licensingFor(pathOf.get(res) ?? "");
+  const path = pathOf.get(res) ?? "";
+  const scored = scoredFields(path, body);
+  const wrapped = envelope(Object.keys(scored).length ? { ...(body as object), ...scored } : body, now, currentReceipt(now));
+  const licensing = licensingFor(path);
   send(res, 200, licensing && wrapped && typeof wrapped === "object" && !Array.isArray(wrapped) ? { ...wrapped, licensing } : wrapped);
 }
 
@@ -599,7 +602,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
      * answer opens by naming the subject and the reading, so the prefix would
      * spend the start of a ~32-word budget repeating the question.
      */
-    if (hoursRaw === "0" || (hoursRaw === "" && !daysRequested && asksCurrentConditions(q))) {
+    if (hoursRaw === "0" || (hoursRaw === "" && !daysRequested && (asksCurrentConditions(q) || asksTemperatureNow(q)))) {
       const nowKey = `wcnow:${q.trim().toLowerCase()}`;
       const nowHit = fromCache(nowKey);
       if (nowHit) {

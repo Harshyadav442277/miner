@@ -139,7 +139,9 @@ export function figuresFor(facts: Record<string, Fact[]>, accession: string, per
 }
 
 /** "an 8-K", "an S-1", "a 10-Q". */
-const article = (form: string): string => /^(?:8|11|18|S|F)/.test(form) ? `an ${form}` : `a ${form}`;
+/** "Form 4" for a form type that is only a number (insider reports 3, 4 and 5, notices 144). */
+const formName = (form: string): string => (/^\d+(?:\/A)?$/.test(form) ? `Form ${form}` : form);
+const article = (form: string): string => /^(?:8|11|18|S|F)/.test(form) ? `an ${form}` : `a ${formName(form)}`;
 
 const money = (v: number | null): string =>
   v === null ? "not tagged" : `${v < 0 ? "-" : ""}$${(Math.abs(v) / 1e9 >= 1 ? `${(Math.abs(v) / 1e9).toFixed(2)} billion` : `${(Math.abs(v) / 1e6).toFixed(1)} million`)}`;
@@ -183,7 +185,7 @@ const LISTED = 100;
 export function filingTitle(f: Filing): string {
   const when = f.period ? (f.form === "8-K" || f.form === "6-K" ? `, event dated ${f.period}` : ` for the period ended ${f.period}`) : "";
   const items = f.items.length ? `, item${f.items.length > 1 ? "s" : ""} ${f.items.map((i) => i.item).join(", ")}` : "";
-  return `${f.form} filed ${f.filed}${when}${items}`;
+  return `${formName(f.form)} filed ${f.filed}${when}${items}`;
 }
 
 /**
@@ -239,19 +241,25 @@ export async function monitorFilings(question: string, companyParam = "", formPa
   const all = co.filings.filter((f) => ofForm(f) && inYear(f));
   const fiscal = ask.fiscal_year ? ` for fiscal ${ask.fiscal_year}` : "";
   const inWindow = ask.since ? all.filter((f) => f.filed >= ask.since!) : all;
+  // `filing_count` counts every form in the window unless a form was asked, as zk-filing does ("defaults to all
+  // forms"). Counting material forms only, we scored 0.8145 and 0.8749 against zk-filing's 0.9975 (epochs 2019,
+  // 2021; GAPS G263). The answer's own filing is still the latest material one.
+  const counted = co.filings.filter((f) => (ask.form ? f.form === ask.form : true) && inYear(f) && (!ask.since || f.filed >= ask.since));
   const ident = {
     company: co.name, cik: co.cik, tickers: co.tickers, source_url: co.source_url, recent_filings: inWindow.slice(0, 5),
     // A fiscal year's filings are all filed on or after 1 January of that year: the bound for completeness.
-    entity: co.name, ...countFields(inWindow, co.filings, ask.since ?? (ask.fiscal_year ? `${ask.fiscal_year}-01-01` : null),
+    entity: co.name, ...countFields(counted, co.filings, ask.since ?? (ask.fiscal_year ? `${ask.fiscal_year}-01-01` : null),
       Boolean(ask.since || ask.fiscal_year)),
   };
   const what = ask.form ?? "material filing";
   const f = inWindow[0];
   if (!f) {
     const last = co.filings.find(ofForm);
+    const others = !ask.form && ask.since && counted.length
+      ? `; it made ${counted.length} other EDGAR filing${counted.length === 1 ? "" : "s"} in that window, the latest ${article(counted[0]!.form)} on ${counted[0]!.filed}` : "";
     return { ...base, ...ident, verdict: "not_filed", confidence: 0.85, filing: last ?? null,
       reason: `No: ${co.name} has filed no ${what === "material filing" ? "material filing" : what}${fiscal}${ask.since ? ` since ${ask.since}` : " among its recent EDGAR filings"}` +
-        `${last ? `; its last one was filed on ${last.filed}${last.period ? ` for the period ended ${last.period}` : ""}` : ""}.${notCovered ? ` ${notCovered}` : ""}` };
+        `${others}${last ? `; its last${ask.form ? "" : " material"} one was filed on ${last.filed}${last.period ? ` for the period ended ${last.period}` : ""}` : ""}.${notCovered ? ` ${notCovered}` : ""}` };
   }
   let figures: { current: Figures; prior: Figures | null } | null = null;
   if (["10-Q", "10-K", "20-F", "10-KT"].includes(f.form) && f.period) {
@@ -271,11 +279,15 @@ export async function monitorFilings(question: string, companyParam = "", formPa
       `, operating income of ${money(c.operating_income)} and net income of ${money(c.net_income)}, as tagged in the filing's XBRL.`
     : "";
   const yes = /^\s*(?:has|have|did|is|was|were|does)\b/i.test(String(question ?? "")) ? "Yes: " : "";
+  // A window is a count question as well: "how many filings in the last 12 months". The count leads, and it is
+  // the same number as `filing_count`.
   const lead = ask.latest
     ? `${co.name}'s latest ${ask.form ? `${ask.form} was filed` : `filing is ${article(f.form)}, filed`}`
-    : inWindow.length === 1 ? `${co.name} has filed ${article(f.form)} since ${ask.since}; the latest was filed`
-    // A window is a count question as well: "how many filings in the last 12 months".
-    : `${co.name} has filed ${inWindow.length} ${ask.form ? `${ask.form}s` : "material filings"} since ${ask.since}; the latest${ask.form ? "" : `, ${article(f.form)},`} was filed`;
+    : ask.form
+      ? inWindow.length === 1 ? `${co.name} has filed ${article(f.form)} since ${ask.since}; the latest was filed`
+        : `${co.name} has filed ${inWindow.length} ${ask.form}s since ${ask.since}; the latest was filed`
+      : `${co.name} has made ${counted.length} EDGAR filing${counted.length === 1 ? "" : "s"} since ${ask.since}, ` +
+        `${inWindow.length} of them material (10-K, 10-Q, 8-K and the like); the latest material one, ${article(f.form)}, was filed`;
   return {
     ...base, ...ident, verdict: "filed", confidence: 0.95, filing: f, figures: c ?? null, prior_year_figures: p ?? null,
     reason: `${yes}${lead} on ${f.filed}${accepted}${dated}, accession ${f.accession}.${items}${numbers}` +

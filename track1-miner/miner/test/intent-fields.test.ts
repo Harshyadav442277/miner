@@ -2,7 +2,8 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { countFields, filingTitle } from "../src/filings";
 import type { Filing } from "../src/edgar";
-import { registryIntentFields, sanctionsIntentFields } from "../src/intent-fields";
+import { registryIntentFields, sanctionsIntentFields, scoredFields } from "../src/intent-fields";
+import { asksTemperatureNow } from "../src/currentweather";
 import type { RegistryResult } from "../src/registry";
 import type { Match, SanctionsResult } from "../src/sanctions";
 
@@ -84,4 +85,50 @@ test("filings: filing_count counts the window, and says when EDGAR's index cut i
   const capped = countFields(full.concat(full), full.concat(full), "2020-01-01");
   assert.equal(capped.filing_count, 2_000);
   assert.equal(capped.filings!.length, 100, "the list is capped, the count is not");
+});
+
+// The answer shapes below are production's own (probed 2026-11-05 ~21:30 UTC, docs/evidence/scored-fields-2026-11-05/).
+test("each route names its intent's scored field, from a value it already states", () => {
+  assert.deepEqual(scoredFields("/ssl-check", { valid: true }), { certificate_valid: true });
+  assert.deepEqual(scoredFields("/ssl-check", { verdict: "unknown" }), { certificate_valid: null });
+  assert.deepEqual(scoredFields("/gas-price", { gwei: 0.240449294 }), { gas_price_gwei: 0.240449294 });
+  assert.deepEqual(scoredFields("/convert", { rate: 88.2, converted: null }), { converted_amount: null }, "a rate is not a converted amount");
+  assert.deepEqual(scoredFields("/convert", { converted: 8820.5 }), { converted_amount: 8820.5 });
+  assert.deepEqual(scoredFields("/token-holders", { holders: 9_561_593 }), { holders_count: 9_561_593 });
+  assert.deepEqual(scoredFields("/crypto-price", { price: 2240.56, quote: "USD" }), { price_usd: 2240.56 });
+  assert.deepEqual(scoredFields("/crypto-price", { price: 1910.1, quote: "EUR", usd_price: 2240.56 }), { price_usd: 2240.56 });
+  assert.deepEqual(scoredFields("/tx-lookup", { transaction: { block_number: 46147 } }), { block_number: 46147 });
+  assert.deepEqual(scoredFields("/tx-lookup", { verdict: "contract_activity" }), { block_number: null });
+  assert.deepEqual(scoredFields("/wallet-balance", { balance_eth: 5.78044104 }), { balance: 5.78044104 });
+  assert.deepEqual(scoredFields("/wallet-balance", { balance_eth: null, token_balances: [{ symbol: "USDC", contract: "0xa0", amount: "39.192124" }] }),
+    { balance: 39.192124 }, "the one token asked for, in whole units");
+  assert.deepEqual(scoredFields("/event-outcome", { verdict: "resolved", outcome: "Yes" }), { resolved_yes: true });
+  assert.deepEqual(scoredFields("/event-outcome", { verdict: "resolved", outcome: "No" }), { resolved_yes: false });
+  assert.deepEqual(scoredFields("/event-outcome", { verdict: "resolved", outcome: "Arsenal" }), { resolved_yes: null });
+  assert.deepEqual(scoredFields("/event-outcome", { verdict: "open", outcome: null }), { resolved_yes: null });
+  assert.deepEqual(scoredFields("/url-scan", { verdict: "safe" }), { safe: true });
+  assert.deepEqual(scoredFields("/url-scan", { verdict: "suspicious" }), { safe: false });
+  assert.deepEqual(scoredFields("/url-scan", { verdict: "unreachable" }), { safe: null });
+  const src = (result: string) => ({ source: "s", kind: "DNS blocklist", result });
+  assert.deepEqual(scoredFields("/url-reputation", { sources: [src("not_listed"), src("not_listed")] }), { detections: 0 });
+  assert.deepEqual(scoredFields("/url-reputation", { sources: [src("listed"), src("unavailable")] }), { detections: 1 });
+  assert.deepEqual(scoredFields("/url-reputation", { sources: [src("unavailable"), src("unknown")] }), { detections: null }, "no source answered");
+  assert.deepEqual(scoredFields("/weather-forecast", { window_hours: 0, temp_min_c: 28.4, temp_max_c: 28.4 }), { temperature_c: 28.4 });
+  assert.deepEqual(scoredFields("/weather-forecast", { window_hours: 24, temp_min_c: 24.1, temp_max_c: 31 }), { temperature_c: null },
+    "a range is not the current temperature");
+});
+
+test("a route's own field of the same name is never overwritten, and unknown paths add nothing", () => {
+  assert.deepEqual(scoredFields("/url-scan", { verdict: "unsafe", safe: "kept" }), {});
+  assert.deepEqual(scoredFields("/storm-alert", { risk_score: 0.2 }), {});
+  assert.deepEqual(scoredFields("/ssl-check", null), {});
+});
+
+test("a plain temperature question asks for the current reading; a high, low or forecast does not", () => {
+  assert.equal(asksTemperatureNow("What is the temperature in Lagos?"), true);
+  assert.equal(asksTemperatureNow("How hot is it in Cairo?"), true);
+  assert.equal(asksTemperatureNow("What will the temperature be in Paris tomorrow?"), false);
+  assert.equal(asksTemperatureNow("What is the high temperature in Paris today?"), false);
+  assert.equal(asksTemperatureNow("24-hour temperature forecast for Sydney"), false);
+  assert.equal(asksTemperatureNow("Is it raining in London?"), false);
 });
