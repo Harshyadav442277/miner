@@ -104,7 +104,11 @@ Ordered by rubric points. **Miner weights re-read 2026-11-05:** quality 35, reli
 
 - [ ] G254: after three epochs scored past 2026-11-05 09:40 UTC, run `tools/epoch-history.mjs` for the sanctions,
       registry and filings intents and compare with `release-2026-11-05-scored-fields/epochs-before.json`.
-- [ ] G257: find the issuer in a filings question that names no `company` ("How many filings did Apple make…").
+      Epoch 2019 read 18:13 UTC: filings fell to 11th, 0.8145, with the whole field (GAPS G254); two more to go.
+- [x] G257: find the issuer in a filings question that names no `company` (fixed in code 2026-11-05, unit 879/879).
+- [ ] Owner: deploy the G257 + G263 filings change? Not deployed; it answers more count questions and sends a null
+      count instead of 0 or an all-history count.
+- [ ] G263: count every SEC form, as zk-filing does, or keep material forms? Decide from epochs after the next deploy.
 - [x] Pin the owner's required account (`hyadav42774@gmail.com`) and LiveCert wallet in repository instructions;
       remove conflicting email and alternate-payout guidance (owner instruction, 2026-11-03).
 

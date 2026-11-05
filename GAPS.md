@@ -1,5 +1,30 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-05 ~18:20 UTC first epoch after the scored-fields release — G254 read; G257 fixed in code; G263 new
+
+Evidence: `track1-miner/docs/evidence/release-2026-11-05-scored-fields/` (`epochs-after-2019.json`,
+`filings-field-2015-2019.json`) and `track1-miner/docs/evidence/filings-issuer-2026-11-05/local-probes.txt`.
+
+- **G254 — epoch 2019 (the only one scored after the deploy, by 18:13 UTC).** Sanctions 12th, 0.997 (inside
+  3rd–12th); registry **3rd, 0.9979**, tied with third place and its best score (before: 0.942–0.992); filings
+  **11th, 0.8145**, far below its 0.976–0.980 range. The whole filings field fell that epoch (txlens 0.9998 →
+  0.9953, zk-filing 0.9949 → 0.9839, chainsight-oracle 0.960 → 0.737, reg-sec-edgar 0.816 → 0.620), so the
+  scored sample changed. How much of our drop the deploy caused is not known from one epoch. Still `OPEN`.
+- **G257 — FIXED IN CODE, NOT DEPLOYED.** The issuer is found in "How many filings did Apple make in the last 12
+  months?", "Microsoft 8-K filings in the last 6 months", "filings were made by Nvidia over the past year" and
+  "Johnson & Johnson" (local server, live EDGAR). The route also reads the intent's own `entity` and `period`;
+  they are not declared in the frozen YAML, so only a caller using the intent's names sends them. Windows now
+  include quarters, years and "the past year".
+- **G263 — How the filings scorer treats a missing count. `OPEN, guess`.** Miners that by their catalogue
+  descriptions cannot count filings score about 0.98 at epoch 2019 (reg-fedreg-agencies 0.9787, "US Federal
+  Register agencies list"; reg-eurostat 0.9775, "Eurostat GDP dataset"), while reg-worldbank scores 0.2255 and
+  reg-imf 0.1447. Their answers were not read. If a missing count is scored leniently
+  and a wrong one is punished, our new explicit counts can lower the score where the reference counts something
+  else. Two such cases are changed in code (not deployed): an issuer not in EDGAR now has `filing_count: null`
+  (was 0), and a question with no period or fiscal year has `null` (was a count of the whole index, 26–171).
+  Two definitions are unconfirmed. **Which forms:** zk-filing, an EDGAR counter that scores above us, counts every
+  form by default; we count material forms only. **Which source:** rank 1 is a raw Federal Register search.
+
 ## 2026-11-05 ~10:00 UTC (15:30 IST) organiser answers and real paid traffic — G258–G262; G206 closed
 
 Sources: Ahmed's reply (TELEGRAPH_FACTS items 12–17), the live Rules page re-read 2026-11-05, and the Daemon feed plus
@@ -54,7 +79,7 @@ Evidence: `track1-miner/docs/evidence/release-2026-11-05-scored-fields/`.
   before the deploy (`epochs-before.json`): sanctions 3rd–12th over 21 epochs, so one epoch says nothing;
   registry 4, 3, 4; filings 8th–10th with a steady ~0.02 gap to third place. Read again once three epochs scored
   after 09:40 UTC exist, with `tools/epoch-history.mjs`. A move inside those ranges is not an effect.
-- **G257 — The filings route finds no issuer in a question alone. `OPEN`.** "How many filings did Apple make in
+- **G257 — The filings route finds no issuer in a question alone. `FIXED IN CODE 2026-11-05, see above`.** "How many filings did Apple make in
   the last 12 months?" and "Microsoft 8-K filings in the last 6 months" without `company` answer "No issuer was
   named" on production before this release and on its preview; "Has Apple filed a 10-K this year?" and "Latest
   SEC filings for Tesla" do find the issuer (preview). If the node sends only `query` for REGULATORY_FILING_MONITOR, these questions

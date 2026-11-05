@@ -1,0 +1,377 @@
+{
+ "fetched_at_utc": "2026-11-05T18:13:40.912Z",
+ "source": "https://devnode.telegraphprotocol.com/scores?intent=<id>&limit=100&offset=<n>",
+ "slug": "livecert",
+ "intents": {
+  "SANCTIONS_SCREENING_MATCH_GENERAL": {
+   "rows_read": 341,
+   "total": 341,
+   "epochs": [
+    {
+     "epoch": 1990,
+     "field": 15,
+     "third": 0.9982,
+     "ours": {
+      "rank": 8,
+      "score": 0.9875,
+      "scored_at": "2026-11-02T11:31:40.122111Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 1993,
+     "field": 15,
+     "third": 0.9991,
+     "ours": {
+      "rank": 9,
+      "score": 0.9917,
+      "scored_at": "2026-11-02T12:32:22.470466Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 1994,
+     "field": 15,
+     "third": 0.9983,
+     "ours": {
+      "rank": 3,
+      "score": 0.9983,
+      "scored_at": "2026-11-02T13:50:05.293423Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 1996,
+     "field": 15,
+     "third": 0.9988,
+     "ours": {
+      "rank": 7,
+      "score": 0.9718,
+      "scored_at": "2026-11-02T16:30:07.237163Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 1998,
+     "field": 15,
+     "third": 0.9989,
+     "ours": {
+      "rank": 4,
+      "score": 0.9953,
+      "scored_at": "2026-11-02T19:08:34.178246Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 1999,
+     "field": 15,
+     "third": 0.9996,
+     "ours": {
+      "rank": 7,
+      "score": 0.9992,
+      "scored_at": "2026-11-02T23:12:11.731626Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2000,
+     "field": 15,
+     "third": 0.9991,
+     "ours": {
+      "rank": 10,
+      "score": 0.9809,
+      "scored_at": "2026-11-03T01:59:26.247504Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2001,
+     "field": 15,
+     "third": 0.9996,
+     "ours": {
+      "rank": 5,
+      "score": 0.9994,
+      "scored_at": "2026-11-03T05:13:58.18159Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2002,
+     "field": 15,
+     "third": 0.9998,
+     "ours": {
+      "rank": 9,
+      "score": 0.9975,
+      "scored_at": "2026-11-03T07:57:25.212587Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2003,
+     "field": 15,
+     "third": 0.9991,
+     "ours": {
+      "rank": 11,
+      "score": 0.9878,
+      "scored_at": "2026-11-03T10:12:05.537832Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2004,
+     "field": 15,
+     "third": 0.9985,
+     "ours": {
+      "rank": 7,
+      "score": 0.9599,
+      "scored_at": "2026-11-03T13:16:22.45946Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2005,
+     "field": 15,
+     "third": 0.9994,
+     "ours": {
+      "rank": 5,
+      "score": 0.9985,
+      "scored_at": "2026-11-03T18:22:45.229768Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2006,
+     "field": 15,
+     "third": 0.9986,
+     "ours": {
+      "rank": 10,
+      "score": 0.9691,
+      "scored_at": "2026-11-03T20:50:26.476107Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2007,
+     "field": 15,
+     "third": 0.9991,
+     "ours": {
+      "rank": 7,
+      "score": 0.9963,
+      "scored_at": "2026-11-04T00:16:21.009144Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2008,
+     "field": 16,
+     "third": 0.999,
+     "ours": {
+      "rank": 11,
+      "score": 0.9937,
+      "scored_at": "2026-11-04T04:04:23.394773Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2009,
+     "field": 16,
+     "third": 0.9991,
+     "ours": {
+      "rank": 7,
+      "score": 0.9979,
+      "scored_at": "2026-11-04T06:31:52.604344Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2010,
+     "field": 16,
+     "third": 0.9993,
+     "ours": {
+      "rank": 11,
+      "score": 0.9959,
+      "scored_at": "2026-11-04T10:10:56.675507Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2011,
+     "field": 16,
+     "third": 0.9996,
+     "ours": {
+      "rank": 8,
+      "score": 0.9933,
+      "scored_at": "2026-11-04T12:42:27.418696Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2013,
+     "field": 16,
+     "third": 1,
+     "ours": {
+      "rank": 11,
+      "score": 0.9981,
+      "scored_at": "2026-11-04T17:49:09.469021Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2015,
+     "field": 17,
+     "third": 0.9999,
+     "ours": {
+      "rank": 12,
+      "score": 0.9972,
+      "scored_at": "2026-11-05T02:45:15.075001Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2017,
+     "field": 17,
+     "third": 0.9969,
+     "ours": {
+      "rank": 4,
+      "score": 0.9968,
+      "scored_at": "2026-11-05T08:35:11.109328Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2019,
+     "field": 17,
+     "third": 0.9998,
+     "ours": {
+      "rank": 12,
+      "score": 0.997,
+      "scored_at": "2026-11-05T13:46:10.989607Z",
+      "failure_reason": null
+     }
+    }
+   ]
+  },
+  "CORPORATE_REGISTRY_LOOKUP_GENERAL": {
+   "rows_read": 85,
+   "total": 85,
+   "epochs": [
+    {
+     "epoch": 2013,
+     "field": 20,
+     "third": 0.9683,
+     "ours": {
+      "rank": 4,
+      "score": 0.9423,
+      "scored_at": "2026-11-04T19:07:59.272743Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2015,
+     "field": 21,
+     "third": 0.9654,
+     "ours": {
+      "rank": 3,
+      "score": 0.9654,
+      "scored_at": "2026-11-05T00:21:22.562702Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2017,
+     "field": 22,
+     "third": 0.9969,
+     "ours": {
+      "rank": 4,
+      "score": 0.9922,
+      "scored_at": "2026-11-05T06:43:51.179811Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2019,
+     "field": 22,
+     "third": 0.9979,
+     "ours": {
+      "rank": 3,
+      "score": 0.9979,
+      "scored_at": "2026-11-05T12:22:15.508076Z",
+      "failure_reason": null
+     }
+    }
+   ]
+  },
+  "REGULATORY_FILING_MONITOR_GENERAL": {
+   "rows_read": 97,
+   "total": 97,
+   "epochs": [
+    {
+     "epoch": 1996,
+     "field": 16,
+     "third": 0.9963,
+     "ours": {
+      "rank": 8,
+      "score": 0.9801,
+      "scored_at": "2026-11-02T15:33:35.321692Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 1997,
+     "field": 16,
+     "third": 0.9983,
+     "ours": {
+      "rank": 9,
+      "score": 0.9783,
+      "scored_at": "2026-11-02T17:27:33.522137Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2013,
+     "field": 16,
+     "third": 0.998,
+     "ours": {
+      "rank": 8,
+      "score": 0.9781,
+      "scored_at": "2026-11-04T19:24:10.685101Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2015,
+     "field": 16,
+     "third": 0.995,
+     "ours": {
+      "rank": 10,
+      "score": 0.9757,
+      "scored_at": "2026-11-05T02:06:20.995025Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2017,
+     "field": 16,
+     "third": 0.9949,
+     "ours": {
+      "rank": 9,
+      "score": 0.9767,
+      "scored_at": "2026-11-05T08:44:31.876661Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2019,
+     "field": 17,
+     "third": 0.9933,
+     "ours": {
+      "rank": 11,
+      "score": 0.8145,
+      "scored_at": "2026-11-05T14:07:28.089033Z",
+      "failure_reason": null
+     }
+    }
+   ]
+  }
+ }
+}

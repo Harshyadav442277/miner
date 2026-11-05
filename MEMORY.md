@@ -1,6 +1,21 @@
 # MEMORY.md — session continuity
 
-## 2026-11-05 ~10:05 UTC (15:35 IST): CURRENT — Ahmed answered; real paid traffic read; sanctions fix ready, not deployed
+## 2026-11-05 ~18:20 UTC (23:50 IST): CURRENT — G257 filings fix built, NOT deployed; filings fell at epoch 2019
+
+- Owner: "Yes, fix G257". Built on `claude/screening-registry-intents-f6ab6b`: the filings route finds the issuer
+  in a question alone, reads the intent's `entity`/`period`, reads quarter/year windows, and sends `filing_count:
+  null` (not 0, not an all-history count) when the issuer is not in EDGAR or no period was read. Unit 879/879;
+  local probes against live EDGAR in `track1-miner/docs/evidence/filings-issuer-2026-11-05/`. Rebased onto
+  `4fb477e`, which also carries the parallel session's undeployed sanctions fix (G258): one deploy of the tip ships
+  both. The filings change touches only `filings.ts` and `mission-routes.ts`, so the filings read stays separable.
+- **Epoch 2019** (first after the `3c5e8ff` deploy): registry 3rd (0.9979, a routed slot), sanctions 12th (0.997,
+  in range), filings 11th (0.8145, far below 0.976–0.980). Every filings miner fell that epoch; the deploy's share
+  is not known (GAPS G254, G263). Production is still `3c5e8ff` (`miner-5arlzhkv6`); rollback `miner-iwc9rd2yv`.
+- Next: owner yes/no to deploying the G257 + G263 change (TASKS); then read two more epochs with
+  `tools/epoch-history.mjs`. If filings stays low after both, consider removing `filing_count` and deciding the
+  all-forms question (G263) from the numbers, not from this guess.
+
+## 2026-11-05 ~10:05 UTC (15:35 IST): Ahmed answered; real paid traffic read; sanctions fix ready, not deployed
 
 - **Production (probed 10:03 UTC):** Cyrillic names still answer `no_subject` and "Tesla, Inc." reads `matched: true` there.
 - **Production:** `3c5e8ff` (`miner-5arlzhkv6`), the scored-fields release of the parallel session (block below),
