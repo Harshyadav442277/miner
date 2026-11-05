@@ -10,6 +10,11 @@ Evidence: `track1-miner/docs/evidence/release-2026-11-05-filings-issuer/`.
 - **G263 — the null counts are live. `OPEN, measuring`.** An issuer not in EDGAR and a question with no period now
   send `filing_count: null`. No filings epoch was scored after 2019 by ~19:18 UTC; read the next ones against
   0.8145 (2019) and 0.976–0.980 (before `filing_count` existed). The form and source questions stay open.
+  - **Epoch 2021, scored 19:50 UTC, after this release:** 10th, **0.8749**. The field recovered from 2019: third
+    place 0.9975 (zk-filing, which counts every SEC form), and miners that cannot count filings at all score
+    0.974–0.976 (reg-fedreg-agencies, reg-eurostat). Two epochs with our count (0.8145, 0.8749) against five
+    without it (0.976–0.980): our `filing_count` now most likely disagrees with the reference. Next: count every
+    form, as zk-filing does, or send no count; decide on one more epoch (`/api/miners`, read 21:05 UTC).
 
 ## 2026-11-05 ~18:20 UTC first epoch after the scored-fields release — G254 read; G257 fixed in code; G263 new
 
