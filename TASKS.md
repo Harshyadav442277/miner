@@ -22,7 +22,8 @@ Ordered by rubric points. **Miner weights re-read 2026-11-05:** quality 35, reli
       No wallet is tied to an H2 app yet (G259).
 - [x] Q3 Sanctions, from that real traffic (G258): Cyrillic, abbreviations, domains, digits for letters, look-alike
       letters; 3 false positives removed. On the 180 real inputs, unknown 7 → 0, match 85 → 107; unit 885/885.
-      `e19df9e` + `853da09`. **Not deployed:** waits on the owner's yes (G254 shipped separately as `3c5e8ff`).
+      `e19df9e` + `853da09`. **Deployed 2026-11-05 ~18:28 UTC** as `4fb477e` (`miner-mztwjxnqa`); record in
+      `track1-miner/docs/evidence/release-2026-11-05-sanctions-names/`. Read the sanctions rank after three epochs.
 - [ ] Q4 FACT_CHECK (G262), next: real callers got "Venus is the largest planet" as `supported` and a true
       Kilimanjaro claim as `contradicted`. Four missions buy it.
 - [ ] C1 Cost/latency 5: `tools/availability-report.mjs` builds the table from the sweeps; publish it once a
@@ -44,8 +45,8 @@ Ordered by rubric points. **Miner weights re-read 2026-11-05:** quality 35, reli
 
 **Owner (human needed)**
 - [x] Questions sent to Ahmed 2026-11-04 UTC; **answered 2026-11-05** (TELEGRAPH_FACTS items 12–17).
-- [ ] **Yes or no: release the sanctions fix (G258).** Unit tests 885/885 on the merged tree. It changes sanctions answers
-      before G254's three-epoch read, so that read can no longer separate the two changes; registry and filings stay clean.
+- [x] Release the sanctions fix (G258). Owner: "Yes, deploy now"; live 2026-11-05 ~18:28 UTC as `4fb477e`. The
+      filings change `bb07266` (G257, G263) was not in it and needs its own yes.
 - [ ] Post the Discord message and X update 1 from `docs/OUTREACH.md`. PR #17 is merged and the audit link resolves
       (checked 2026-11-05). Growth is now 20 points in the Miner track too.
 - [ ] Ask Ahmed which of the 16 payer wallets in `docs/evidence/consumption-2026-11-05/summary.md` belong to

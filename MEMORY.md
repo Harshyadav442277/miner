@@ -1,6 +1,20 @@
 # MEMORY.md — session continuity
 
-## 2026-11-05 ~18:20 UTC (23:50 IST): CURRENT — G257 filings fix built, NOT deployed; filings fell at epoch 2019
+## 2026-11-05 ~18:35 UTC (Nov 6 00:05 IST): CURRENT — sanctions fix G258 LIVE as `4fb477e`; filings fix still pending
+
+- **Production:** `4fb477e`, `https://miner-mztwjxnqa-wukong4.vercel.app` (`dpl_HdLrLG7mb9pdfMPFDzF2PMSavUtv`),
+  aliased to `miner-wine.vercel.app` at ~18:28 UTC. Owner: "Yes, deploy now" (G258 only). **Rollback target:**
+  `miner-5arlzhkv6` (`3c5e8ff`). Record: `track1-miner/docs/evidence/release-2026-11-05-sanctions-names/`.
+- Verified on production: 9/9 sanctions probes as expected ("Сбербанк" match, "Tesla, Inc." no_match, "AEZA Grp",
+  "suex.io", "Gr1nex" match, "Hamaz" possible, Arabic `unsupported_script`), registry and ssl-check unchanged;
+  registration 4829 `active` (18:31 UTC). Preflight 5/7, then 7/7 after re-running the two OpenAlex
+  gates alone (paperfraud live test, ACADEMIC_SEARCH; untouched by this release).
+- **Not in this release:** `bb07266` (G257 issuer, G263 null counts), the block below. Deploying the branch tip now
+  ships the filings change alone against `4fb477e`, so the filings read stays separable; it needs its own yes.
+- Next: read sanctions, registry and filings after three epochs past 18:28 UTC
+  (`tools/epoch-history.mjs`); then Q4 FACT_CHECK (G262).
+
+## 2026-11-05 ~18:20 UTC (23:50 IST): G257 filings fix built, NOT deployed; filings fell at epoch 2019
 
 - Owner: "Yes, fix G257". Built on `claude/screening-registry-intents-f6ab6b`: the filings route finds the issuer
   in a question alone, reads the intent's `entity`/`period`, reads quarter/year windows, and sends `filing_count:
@@ -10,7 +24,8 @@
   both. The filings change touches only `filings.ts` and `mission-routes.ts`, so the filings read stays separable.
 - **Epoch 2019** (first after the `3c5e8ff` deploy): registry 3rd (0.9979, a routed slot), sanctions 12th (0.997,
   in range), filings 11th (0.8145, far below 0.976–0.980). Every filings miner fell that epoch; the deploy's share
-  is not known (GAPS G254, G263). Production is still `3c5e8ff` (`miner-5arlzhkv6`); rollback `miner-iwc9rd2yv`.
+  is not known (GAPS G254, G263). Production was then `3c5e8ff` (`miner-5arlzhkv6`); since ~18:28 UTC it is
+  `4fb477e` (block above).
 - Next: owner yes/no to deploying the G257 + G263 change (TASKS); then read two more epochs with
   `tools/epoch-history.mjs`. If filings stays low after both, consider removing `filing_count` and deciding the
   all-forms question (G263) from the numbers, not from this guess.

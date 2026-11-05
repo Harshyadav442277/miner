@@ -37,10 +37,11 @@ signal records for every paid request routed to `livecert` since Nov 1 (`track1-
   level" and "BERT was introduced by Meta in 2012" → `unverified`, and so are most true claims (Berlin Wall 1989,
   Golden Gate 1937, Python 3.0 2008). Devnode ranks the intent 5th (0.9791, epoch 2017), so the rank hides this.
   Four missions buy FACT_CHECK. Cause not yet read in the code.
-- **G258 — Sanctions screening misses listed entities written the way people write them. `FIXED IN CODE, NOT
-  DEPLOYED`.** Fix and replay: `track1-miner/docs/evidence/sanctions-real-inputs-2026-11-05/` (on the 180 real
-  inputs, unknown 7 → 0, match 85 → 107, three false positives gone; unit 885/885). It waits on the owner's yes
-  (G254 shipped on its own as `3c5e8ff`). Still open: a name mixing Arabic or Chinese script with Latin words is
+- **G258 — Sanctions screening misses listed entities written the way people write them. `DEPLOYED 2026-11-05
+  ~18:28 UTC` (`4fb477e`, `miner-mztwjxnqa`; record `track1-miner/docs/evidence/release-2026-11-05-sanctions-names/`;
+  rollback `miner-5arlzhkv6`).** Fix and replay: `track1-miner/docs/evidence/sanctions-real-inputs-2026-11-05/` (on
+  the 180 real inputs, unknown 7 → 0, match 85 → 107, three false positives gone; unit 885/885). Not yet known:
+  whether the sanctions rank moves (read three epochs after 18:28 UTC). Still open: a name mixing Arabic or Chinese script with Latin words is
   screened on its Latin words only. From
   wallet `0x66fB…4a83` (287 requests, 175 distinct names, 2026-11-01/02), and from others:
   - Cyrillic names are not read as names: "Сбербанк", "Гарантекс", "Тинькофф Банк" → `unknown`, "No person,
@@ -504,7 +505,7 @@ branch `claude/correctness-audit-2026-10-21`, not yet merged here.
   - We plan to 1 Dec 23:59 UTC and the /rules prizes until the organisers confirm in writing. The message is
     drafted in WINNING.md §8.
 - **G206 — Does `updateMiner` restart the 7-day grace period? `CLOSED 2026-11-05`: the organiser says there is no
-  grace period for a new or updated miner (TELEGRAPH_FACTS item 12; the docs disagree, G258).** The
+  grace period for a new or updated miner (TELEGRAPH_FACTS item 12; the docs disagree, G261).** The
   Oct 24 Option A window passed unsigned, so 4829 is frozen for the season unless this is answered. The V2 import
   may itself have reset the date (G220). The same
   reply settled that miners carry over to v2 unchanged (TELEGRAPH_FACTS item 10), so the v2 migration itself costs
