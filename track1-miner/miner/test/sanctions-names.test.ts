@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { parseOfac } from "../src/sanctions-lists";
-import { nameScore, nameTokens, screenParties } from "../src/sanctions";
+import { nameScore, nameTokens, screenParties, screenSanctions } from "../src/sanctions";
 
 // The forms paying callers sent on 2026-11-01/02 (GAPS G258), against rows in sdn.csv's format. The listed
 // names and the two websites are copied from the live SDN list of 2026-11-05.
@@ -62,6 +62,29 @@ test("a one-word name one letter from a listed word is not a hit when screening"
   }
   // Registry and EDGAR lookups keep the looser rule.
   assert.ok(nameScore(nameTokens("Tesla"), nameTokens("TELA")) > 0.9);
+});
+
+test("look-alike letters match whichever way the scripts are mixed", () => {
+  // Three Latin and three Cyrillic letters: read by sound this is "grinekh", by shape "grinex".
+  const balanced = "Grіnех";
+  assert.equal(top(balanced)?.id, "40002");
+  assert.ok(top(balanced)!.score >= 0.95, String(top(balanced)!.score));
+  // Greek capitals Alpha and Tau inside a Latin word.
+  assert.equal(top("ΑΤLΑS")?.id, "40004");
+  assert.ok(top("ΑΤLΑS")!.score >= 0.95);
+});
+
+test("one letter off a short listed name stays a possible match for review", () => {
+  const m = top("Grinez");
+  assert.equal(m?.id, "40002");
+  assert.ok(m!.score >= 0.9 && m!.score < 0.95, String(m!.score));
+});
+
+test("a name in a script this screen cannot read is not called unnamed", async () => {
+  const r = await screenSanctions("", "بنك ملي");
+  assert.equal(r.verdict, "unknown");
+  assert.equal(r.error, "unsupported_script");
+  assert.equal((await screenSanctions("", "Ltd")).error, "no_subject");
 });
 
 test("the listed website is read as an alias", () => {

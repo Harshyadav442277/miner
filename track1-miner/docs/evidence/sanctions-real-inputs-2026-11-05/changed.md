@@ -1,7 +1,7 @@
 | Input | Before | After | Closest listed name (score) |
 |---|---|---|---|
 | Vladimir Putin | unknown | match | PUTIN, Vladimir (1) |
-| Kraken | match | no_match | KRAKERN LIMITED (0.85) |
+| Kraken | match | possible_match | KRAKERN LIMITED (0.94) |
 | AEZA Grp | no_match | match | AEZA GROUP LLC (1) |
 | Сбербанк | unknown | match | PJSC SBERBANK (1) |
 | Lazarus Grp. | no_match | match | LAZARUS GROUP (1) |

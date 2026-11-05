@@ -60,8 +60,10 @@ export function jaroWinkler(a: string, b: string): number {
  * EDGAR lookups:
  * - a descriptor the caller added ("Grinex Exchange" for GRINEX) may match
  *   nothing, and the score then stays below a match;
- * - a name that decides on one word must spell that word near-exactly, so
- *   Tesla is not TELA and Atlassian is not ATLAS.
+ * - a name that decides on one word is a match only if it spells that word
+ *   near-exactly. One letter off in a word of 5–6 letters ("Hamaz") stays a
+ *   possible match for review; anything looser, or a word of 4 letters or
+ *   fewer, is not a hit, so Tesla is not TELA and Atlassian is not ATLAS.
  */
 export function nameScore(subject: string[], listed: string[], screening = false): number {
   if (!subject.length || !listed.length) return 0;
@@ -87,15 +89,17 @@ export function nameScore(subject: string[], listed: string[], screening = false
   let score = (sum / used) * (0.85 + 0.15 * Math.min(1, used / listed.length));
   if (used === 1 && listed.length > 1) score = Math.min(score, 0.85);
   if (!screening) return score;
-  if (used === 1 && single && !nearExact(...single)) score = Math.min(score, 0.85);
+  if (used === 1 && single) score = Math.min(score, oneWordCap(...single));
   return skipped ? Math.min(score, 0.94) : score;
 }
 
-function nearExact(a: string, b: string): boolean {
-  if (a === b) return true;
+/** The highest score a name deciding on one word can reach (see nameScore). */
+function oneWordCap(a: string, b: string): number {
+  if (a === b) return 1;
   const shorter = Math.min(a.length, b.length);
   const d = editDistance(a, b);
-  return (shorter >= 7 && d <= 1) || (shorter >= 8 && d <= 2);
+  if ((shorter >= 7 && d <= 1) || (shorter >= 8 && d <= 2)) return 1;
+  return shorter >= 5 && d <= 1 ? 0.94 : 0.85;
 }
 
 export interface Subject { name: string; dob_year: number | null; kind: "individual" | "entity" | null; wallet: string | null }
@@ -152,10 +156,15 @@ let index: { lists: SanctionsLists; tokens: string[][][] } | null = null;
 
 /** The scored candidates, best first. Pure given the lists. */
 export function screenParties(subject: Subject, lists: SanctionsLists): Match[] {
-  if (index?.lists !== lists) index = { lists, tokens: lists.parties.map((p) => [p.name, ...p.aliases].map(nameTokens)) };
-  // screenSanctions refuses a subject over MAX_WORDS; the cap here only bounds
-  // direct callers.
-  const want = nameTokens(subject.name).slice(0, MAX_WORDS);
+  if (index?.lists !== lists) index = { lists, tokens: lists.parties.map((p) => [p.name, ...p.aliases].map((n) => nameTokens(n))) };
+  // A word mixing scripts is read by sound and by shape, and the better
+  // reading counts, so a balanced mix of look-alike letters cannot pick the
+  // reading that misses. screenSanctions refuses a subject over MAX_WORDS;
+  // the cap here only bounds direct callers.
+  const wants = [...new Map((["auto", "phonetic", "lookalike"] as const).map((f) => {
+    const t = nameTokens(subject.name, f).slice(0, MAX_WORDS);
+    return [t.join(" "), t] as const;
+  })).values()];
   const out: Match[] = [];
   lists.parties.forEach((p: ListedParty, i) => {
     if (subject.kind === "individual" && p.type !== "individual") return;
@@ -163,8 +172,10 @@ export function screenParties(subject: Subject, lists: SanctionsLists): Match[] 
     let score = 0;
     let matched = p.name;
     index!.tokens[i]!.forEach((t, k) => {
-      const v = nameScore(want, t, true);
-      if (v > score) { score = v; matched = k === 0 ? p.name : p.aliases[k - 1]!; }
+      for (const want of wants) {
+        const v = nameScore(want, t, true);
+        if (v > score) { score = v; matched = k === 0 ? p.name : p.aliases[k - 1]!; }
+      }
     });
     if (score < 0.8) return;
     const dob_check = subject.dob_year === null ? "not_given" : p.dob_years.length === 0 ? "not_listed"
@@ -194,6 +205,13 @@ export async function screenSanctions(question: string, nameParam = ""): Promise
     lists_not_checked: NOT_SCREENED,
   };
   const words = nameTokens(subject.name).length;
+  // A name in a script read here as nothing (Arabic, Persian, Chinese) was
+  // named, just not screened: say so, rather than "no party was named".
+  const otherScript = /\p{L}/u.test(subject.name.replace(/[\p{Script=Latin}\p{Script=Cyrillic}\p{Script=Greek}]/gu, ""));
+  if (!subject.wallet && words === 0 && otherScript) {
+    return { ...base, verdict: "unknown", confidence: 0, error: "unsupported_script",
+      reason: `Nothing was screened: "${subject.name.slice(0, 80)}" is written in a script this screen does not read. It reads Latin, Cyrillic and Greek letters. Send the name romanised, as the OFAC and UN lists print it.` };
+  }
   if (!subject.wallet && words === 0) {
     return { ...base, verdict: "unknown", confidence: 0, error: "no_subject",
       reason: "No person, company or wallet was named, so nothing was screened. Name the party, for example: Screen 'Ivan Petrov, DOB 1974' against the OFAC SDN list." };

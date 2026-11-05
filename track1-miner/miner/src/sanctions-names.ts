@@ -13,25 +13,37 @@ const CYRILLIC: Record<string, string> = {
   м: "m", н: "n", о: "o", п: "p", р: "r", с: "s", т: "t", у: "u", ф: "f", х: "kh", ц: "ts", ч: "ch",
   ш: "sh", щ: "shch", ъ: "", ы: "y", ь: "", э: "e", ю: "yu", я: "ya", є: "ye", і: "i", ї: "yi", ґ: "g", ј: "j",
 };
-// The letters that look Latin: in a mostly Latin word ("Gаrаntex" with Cyrillic а) they stand for the look-alike.
+// Cyrillic and Greek letters that look Latin ("Gаrаntex" with Cyrillic а, "ΑΤLΑS" with Greek Α and Τ).
 const LOOKALIKE: Record<string, string> = {
   а: "a", в: "b", е: "e", ё: "e", к: "k", м: "m", н: "h", о: "o", р: "p", с: "c", т: "t", у: "y", х: "x",
   і: "i", ј: "j", ѕ: "s",
+  α: "a", β: "b", ε: "e", ζ: "z", η: "h", ι: "i", κ: "k", μ: "m", ν: "v", ο: "o", ρ: "p", τ: "t", υ: "u", χ: "x",
+  Ν: "n", Υ: "y", // capitals whose lower case looks like another letter
 };
+const FOREIGN = /[Ͱ-ϿЀ-ӿ]/g;
 
-function latinWord(w: string): string {
-  const cyr = (w.match(/[Ѐ-ӿ]/g) ?? []).length;
-  if (!cyr) return w;
+/**
+ * How a word mixing scripts is read: by sound (phonetic), by shape (lookalike), or by whichever its letters
+ * mostly are (auto). A word with no Latin letter is always read by sound.
+ */
+export type Fold = "auto" | "phonetic" | "lookalike";
+
+function latinWord(w: string, fold: Fold): string {
+  const foreign = (w.match(FOREIGN) ?? []).length;
+  if (!foreign) return w;
   const lat = (w.match(/[a-z]/gi) ?? []).length;
-  const map = lat > cyr ? LOOKALIKE : CYRILLIC;
+  const byShape = lat > 0 && (fold === "lookalike" || (fold === "auto" && lat > foreign));
+  const first = byShape ? LOOKALIKE : CYRILLIC;
+  const second = byShape ? CYRILLIC : LOOKALIKE;
   return [...w].map((c) => {
     const lower = c.toLowerCase();
-    return lower in map ? map[lower]! : c;
+    return first[c] ?? first[lower] ?? second[c] ?? second[lower] ?? c;
   }).join("");
 }
 
-/** Cyrillic to Latin, word by word. Before NFKD, which would turn й into и. */
-export const latinise = (s: string): string => s.split(/(\s+)/).map(latinWord).join("");
+/** Cyrillic and Greek to Latin, word by word. Before NFKD, which would turn й into и. */
+export const latinise = (s: string, fold: Fold = "auto"): string =>
+  s.split(/(\s+)/).map((w) => latinWord(w, fold)).join("");
 
 /** Legal forms, honorifics and connectives: they say what a party is, not which one. */
 const NOISE = new Set(["mr", "mrs", "ms", "dr", "the", "ltd", "llc", "inc", "co", "corp", "corporation",
@@ -46,8 +58,8 @@ const ABBREVIATIONS: Record<string, string> = {
 // Digits written for letters inside a word: "gr1nex", "l4zarus". A leading digit ("3m") stays a digit.
 const LEET: Record<string, string> = { "0": "o", "1": "i", "3": "e", "4": "a", "5": "s", "7": "t" };
 
-export function nameTokens(s: string): string[] {
-  const folded = latinise(String(s ?? "").slice(0, 2_000)).normalize("NFKD").replace(/\p{M}/gu, "").toLowerCase()
+export function nameTokens(s: string, fold: Fold = "auto"): string[] {
+  const folded = latinise(String(s ?? "").slice(0, 2_000), fold).normalize("NFKD").replace(/\p{M}/gu, "").toLowerCase()
     // "Limited liability company" in Russian: one legal form of four words.
     .replace(/\bs\s+ogranichenn\w*\s+otvetstvennost\w*/g, " ")
     .replace(/(?<=[a-z])[013457](?=[a-z])/g, (d) => LEET[d]!);

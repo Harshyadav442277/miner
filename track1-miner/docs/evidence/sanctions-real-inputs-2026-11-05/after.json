@@ -337,8 +337,8 @@
  },
  {
   "input": "Kraken",
-  "verdict": "no_match",
-  "score": 0.85,
+  "verdict": "possible_match",
+  "score": 0.94,
   "matched": "KRAKERN LIMITED",
   "error": null
  },

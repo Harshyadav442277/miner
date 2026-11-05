@@ -12,7 +12,11 @@ signal records for every paid request routed to `livecert` since Nov 1 (`track1-
   level" and "BERT was introduced by Meta in 2012" → `unverified`, and so are most true claims (Berlin Wall 1989,
   Golden Gate 1937, Python 3.0 2008). Devnode ranks the intent 5th (0.9791, epoch 2017), so the rank hides this.
   Four missions buy FACT_CHECK. Cause not yet read in the code.
-- **G258 — Sanctions screening misses listed entities written the way people write them. `OPEN, fix next`.** From
+- **G258 — Sanctions screening misses listed entities written the way people write them. `FIXED IN CODE, NOT
+  DEPLOYED`.** Fix and replay: `track1-miner/docs/evidence/sanctions-real-inputs-2026-11-05/` (on the 180 real
+  inputs, unknown 7 → 0, match 85 → 107, three false positives gone; unit 885/885). It waits on the same release
+  as G254, which waits on the owner's yes. Still open: a name mixing Arabic or Chinese script with Latin words is
+  screened on its Latin words only. From
   wallet `0x66fB…4a83` (287 requests, 175 distinct names, 2026-11-01/02), and from others:
   - Cyrillic names are not read as names: "Сбербанк", "Гарантекс", "Тинькофф Банк" → `unknown`, "No person,
     company or wallet was named", so nothing was screened.
@@ -22,8 +26,8 @@ signal records for every paid request routed to `livecert` since Nov 1 (`track1-
   - One false positive: "Atlassian" → `possible_match` with ATLAS.
   - Correct: listed entities written as listed, the clean companies, and Tornado Cash (`no_match`; OFAC delisted it
     in March 2025, not re-checked today).
-  Five missions buy this intent. Each "should match" above still needs its SDN entry confirmed before it becomes a
-  test, because the requests are someone else's benchmark, not our reference.
+  Five missions buy this intent. Each "should match" above was confirmed against the live SDN list on 2026-11-05
+  (the closest listed name is the party named); these are still someone else's benchmark, not reference labels.
 - **G259 — Paid traffic exists, but none of it is yet tied to a registered H2 mission app. `OPEN, owner + Ahmed`.**
   385 `source: user` requests reached `livecert` from Nov 1 to Nov 4, from 16 wallets; 13 of them were ranked-routed,
   from 5 wallets. None of the wallets appears in this repo or on `codex/sanctions-benchmark-v7`. That does not prove
