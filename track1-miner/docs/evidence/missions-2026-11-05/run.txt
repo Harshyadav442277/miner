@@ -1,0 +1,120 @@
+pass      registry_unilever      
+pass      sanctions_rosneft      
+pass      sanctions_clean        
+pass      financial_msft         
+pass      websearch_ceo          
+pass      factcheck_boe          
+pass      sentiment_earnings     
+pass      factcheck_eiffel       
+pass      event_election         
+pass      crosschain_live        
+pass      qa_capital             
+pass      qa_moons               
+pass      weather_berlin         
+unchecked crypto_eth             unchecked: reference or request failed: fetch failed
+pass      sec_apple              
+pass      macro_cpi              
+unchecked websearch_founders     unchecked: reference or request failed: fetch failed
+pass      factcheck_stripe_year  
+pass      event_btc100k          
+pass      transfer_first_eth     
+pass      gas_eth                
+pass      extract_invoice        
+pass      translate_shipment     
+refused   stock_apple            refused: no licensed stock-price source (GAPS G230)
+pass      url_malware            
+pass      url_clean              
+pass      classify_incident      
+pass      research_lepodisiran   
+
+FULL builds (every family served by LiveCert):
+  pass      institutional-markets | Pre-trade diligence between strangers
+  pass      legal | The overnight diligence pack
+  pass      conflict-intelligence | Verified off-chain facts for on-chain execution
+  pass      consumer-platform | The model that pays for what it does not know
+  unchecked personal-agent | Give every OpenClaw instance a wallet and a market
+  pass      asset-management | Open research with the inputs attached
+  unchecked asset-management | A defensible mark on the venture book
+  pass      asset-management | Forecast accountability, scored by machines
+  pass      web3-defi | The self-settling conditional escrow
+
+PARTIAL builds (LiveCert's part only):
+  pass      exchange | The autonomous listings desk | ours: SANCTIONS_SCREENING_MATCH
+  pass      exchange | The solvency handshake | ours: CROSS_CHAIN_STATE_VERIFY
+  pass      stablecoin | The agent expense ledger | ours: CRYPTO_TRANSFER_VERIFY, GAS_PRICE
+  pass      stablecoin | Compliance attached to the payment itself | ours: SANCTIONS_SCREENING_MATCH, REGULATORY_FILING_MONITOR
+  pass      stablecoin | Treasury agents choosing on evidence | ours: CROSS_CHAIN_STATE_VERIFY
+  pass      stablecoin | Edge agents that pay when they can reach the network | ours: QUESTION_ANSWERING, WEATHER_CHECK
+  unchecked stablecoin | Gold-collateralised agent wallets | ours: CRYPTO_PRICE
+  pass      stablecoin | A machine with a balance sheet | ours: FINANCIAL_DATA
+  pass      stablecoin | Collateral quality bought per request | ours: FINANCIAL_DATA, CORPORATE_REGISTRY_LOOKUP
+  pass      stablecoin | A treasury that shows its working | ours: MACRO_ECONOMIC_INDICATOR
+  pass      institutional-markets | A defensible mark on a private asset | ours: FINANCIAL_DATA, MACRO_ECONOMIC_INDICATOR
+  pass      institutional-markets | The autonomous issuance desk | ours: CORPORATE_REGISTRY_LOOKUP, SANCTIONS_SCREENING_MATCH, MACRO_ECONOMIC_INDICATOR, REGULATORY_FILING_MONITOR
+  pass      legal | Regulatory monitoring with a chain of custody | ours: REGULATORY_FILING_MONITOR, CONTENT_EXTRACTION, LANGUAGE_TRANSLATION
+  pass      legal | Two agents negotiating with paid evidence | ours: QUESTION_ANSWERING, REGULATORY_FILING_MONITOR
+  pass      conflict-intelligence | An escalation score you can trace to its source | ours: FACT_CHECK, WEB_SEARCH
+  pass      conflict-intelligence | The gap between reported and observed | ours: MACRO_ECONOMIC_INDICATOR
+  pass      conflict-intelligence | Research priced per fact | ours: FACT_CHECK, WEB_SEARCH
+  pass      conflict-intelligence | Conflict to barrel | ours: WEB_SEARCH
+  pass      conflict-intelligence | Provenance before the position | ours: WEB_SEARCH
+  pass      conflict-intelligence | Paying for depth only at the tail | ours: FACT_CHECK
+  pass      conflict-intelligence | One answer, three desks | ours: FACT_CHECK
+  pass      conflict-intelligence | The fund as a miner | ours: FACT_CHECK, SENTIMENT_ANALYSIS
+  refused   resources-and-agriculture | Auditable machine decisions | ours: STOCK_PRICE
+  pass      resources-and-agriculture | Competitors trading intelligence anonymously | ours: WEATHER_CHECK
+  pass      resources-and-agriculture | Beating the official estimate | ours: MACRO_ECONOMIC_INDICATOR
+  pass      resources-and-agriculture | Parametric payout without an adjuster | ours: EVENT_OUTCOME_RESOLUTION
+  pass      consumer-platform | Receipts | ours: FACT_CHECK
+  pass      consumer-platform | Model versus market | ours: QUESTION_ANSWERING
+  pass      consumer-platform | A lens that tells you what is real | ours: FACT_CHECK
+  pass      consumer-platform | Point, compare, buy | ours: URL_SAFE
+  pass      consumer-platform | Glasses that buy context | ours: LANGUAGE_TRANSLATION, QUESTION_ANSWERING
+  pass      consumer-platform | A machine-to-machine ad clearing | ours: TEXT_CLASSIFICATION
+  pass      commodities | Intelligence ROI | ours: WEB_SEARCH
+  pass      commodities | Cargo and counterparty provenance | ours: CORPORATE_REGISTRY_LOOKUP, SANCTIONS_SCREENING_MATCH
+  pass      personal-agent | The assistant that earns while you sleep | ours: CONTENT_EXTRACTION
+  pass      personal-agent | Two assistants settling up in a group chat | ours: URL_SAFE
+  pass      personal-agent | Priced, proved skills in the browser | ours: CONTENT_EXTRACTION, WEB_SEARCH
+  pass      model-economy | Cost per verified correct answer | ours: QUESTION_ANSWERING
+  pass      model-economy | Revenue for the long tail | ours: TEXT_CLASSIFICATION
+  pass      model-economy | The repository as a miner | ours: QUESTION_ANSWERING, RESEARCH_QUERY
+  pass      model-economy | The coding agent that buys what it does not know | ours: QUESTION_ANSWERING
+  pass      model-economy | Verification on top of routing | ours: QUESTION_ANSWERING, FACT_CHECK
+  pass      model-economy | Buying inference with a wallet and no account | ours: QUESTION_ANSWERING, CRYPTO_TRANSFER_VERIFY
+  pass      autonomous-systems | The robot that bought a skill | ours: QUESTION_ANSWERING
+  pass      autonomous-systems | The robot that checks before it acts | ours: TEXT_CLASSIFICATION
+  pass      autonomous-systems | Experience sold between fleets | ours: TEXT_CLASSIFICATION
+  pass      autonomous-systems | Buying a skill it was never trained on | ours: QUESTION_ANSWERING
+  pass      mining-and-power | The allocation agent | ours: WEB_SEARCH
+  pass      mining-and-power | Treasury moves with evidence attached | ours: CORPORATE_REGISTRY_LOOKUP, FINANCIAL_DATA
+  pass      mining-and-power | The site selection agent | ours: WEB_SEARCH, REGULATORY_FILING_MONITOR, SENTIMENT_ANALYSIS
+  pass      mining-and-power | Better inputs into hash allocation | ours: WEATHER_CHECK
+  pass      asset-management | The thematic screener that buys evidence | ours: WEB_SEARCH, REGULATORY_FILING_MONITOR
+  unchecked asset-management | Tokenized fund NAV with the proof attached | ours: CRYPTO_PRICE
+  unchecked asset-management | The fake volume screen | ours: CRYPTO_PRICE
+  unchecked asset-management | The index as a miner | ours: CRYPTO_PRICE
+  pass      asset-management | Daily proof of holdings | ours: CRYPTO_TRANSFER_VERIFY
+  pass      asset-management | The investor agent that does its own diligence | ours: CORPORATE_REGISTRY_LOOKUP
+  pass      consumer-automation | The peer-to-peer reality check | ours: URL_SAFE, CRYPTO_TRANSFER_VERIFY
+
+by mission: full builds passing / full builds; partial builds whose LiveCert part passes / partial builds
+  exchange                   full 0/0   partial 2/2
+  stablecoin                 full 0/0   partial 7/8
+  institutional-markets      full 1/1   partial 2/2
+  legal                      full 1/1   partial 2/2
+  conflict-intelligence      full 1/1   partial 8/8
+  resources-and-agriculture  full 0/0   partial 3/4
+  consumer-platform          full 1/1   partial 6/6
+  commodities                full 0/0   partial 2/2
+  personal-agent             full 0/1   partial 3/3
+  model-economy              full 0/0   partial 6/6
+  autonomous-systems         full 0/0   partial 4/4
+  mining-and-power           full 0/0   partial 4/4
+  asset-management           full 2/3   partial 3/6
+  web3-defi                  full 1/1   partial 0/0
+  consumer-automation        full 0/0   partial 1/1
+
+full: 7 pass, 0 fail, 2 unchecked of 9
+partial: 53 pass, 0 fail, 4 unchecked, 1 refused of 58
+missions with at least one passing build (full or LiveCert's part of a partial): 15/15
