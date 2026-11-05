@@ -22,8 +22,8 @@ Ordered by rubric points. **Miner weights re-read 2026-11-05:** quality 35, reli
       No wallet is tied to an H2 app yet (G259).
 - [x] Q3 Sanctions, from that real traffic (G258): Cyrillic, abbreviations, domains, digits for letters, look-alike
       letters; 3 false positives removed. On the 180 real inputs, unknown 7 → 0, match 85 → 107; unit 885/885.
-      `e19df9e` + `853da09`. **Not deployed:** the release also carries G254 and waits on the owner's yes.
-- [ ] Q4 FACT_CHECK (G257), next: real callers got "Venus is the largest planet" as `supported` and a true
+      `e19df9e` + `853da09`. **Not deployed:** waits on the owner's yes (G254 shipped separately as `3c5e8ff`).
+- [ ] Q4 FACT_CHECK (G262), next: real callers got "Venus is the largest planet" as `supported` and a true
       Kilimanjaro claim as `contradicted`. Four missions buy it.
 - [ ] C1 Cost/latency 5: `tools/availability-report.mjs` builds the table from the sweeps; publish it once a
       week of sweeps exists (Nov 11). Upstream cost per request is $0 (keyless or free keys).
@@ -44,8 +44,8 @@ Ordered by rubric points. **Miner weights re-read 2026-11-05:** quality 35, reli
 
 **Owner (human needed)**
 - [x] Questions sent to Ahmed 2026-11-04 UTC; **answered 2026-11-05** (TELEGRAPH_FACTS items 12–17).
-- [ ] **Yes or no: one release carrying the sanctions fix (G258) and the scored-field change (G254).** Both are on
-      `codex/rank1-14-intents` after the merge. Unit tests 885/885 on the merged tree `C:/Users/hyada/tg-deploy/m3df11ef`.
+- [ ] **Yes or no: release the sanctions fix (G258).** Unit tests 885/885 on the merged tree. It changes sanctions answers
+      before G254's three-epoch read, so that read can no longer separate the two changes; registry and filings stay clean.
 - [ ] Post the Discord message and X update 1 from `docs/OUTREACH.md`. PR #17 is merged and the audit link resolves
       (checked 2026-11-05). Growth is now 20 points in the Miner track too.
 - [ ] Ask Ahmed which of the 16 payer wallets in `docs/evidence/consumption-2026-11-05/summary.md` belong to
@@ -57,8 +57,8 @@ Ordered by rubric points. **Miner weights re-read 2026-11-05:** quality 35, reli
 
 ## Owner
 
-- [ ] **G254: yes or no to deploying the scored-field change** (branch `claude/screening-registry-intents-f6ab6b`):
-      sanctions, registry and filings answers name `matched`, `active`, `filing_count`. Ranks today 11th, 4th, 8th.
+- [x] G254: deploy the scored-field change. Owner: "Yes, deploy it"; live 2026-11-05 as `3c5e8ff`
+      (`miner-5arlzhkv6`), record in `track1-miner/docs/evidence/release-2026-11-05-scored-fields/`.
 - [ ] **G255: ask Telegraph (Ahmed)** who wallet `0xbd6f696096cceeaff7406d802ba04500eeaf6976` is (1,673 one-intent
       miners on raw public URLs; registry ranks 1–3), and whether those miners take routed requests.
 - [ ] G256: where did the "many requests" figure for these intents come from? Send the page or a screenshot.
@@ -102,6 +102,9 @@ Ordered by rubric points. **Miner weights re-read 2026-11-05:** quality 35, reli
 
 ## Claude
 
+- [ ] G254: after three epochs scored past 2026-11-05 09:40 UTC, run `tools/epoch-history.mjs` for the sanctions,
+      registry and filings intents and compare with `release-2026-11-05-scored-fields/epochs-before.json`.
+- [ ] G257: find the issuer in a filings question that names no `company` ("How many filings did Apple make…").
 - [x] Pin the owner's required account (`hyadav42774@gmail.com`) and LiveCert wallet in repository instructions;
       remove conflicting email and alternate-payout guidance (owner instruction, 2026-11-03).
 

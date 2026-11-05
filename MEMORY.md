@@ -2,8 +2,8 @@
 
 ## 2026-11-05 ~11:00 UTC (16:30 IST): CURRENT — Ahmed answered; real paid traffic read; sanctions fix ready, not deployed
 
-- **Production unchanged:** `aa110f8` (`miner-iwc9rd2yv`); rollback `miner-1aoi3y0wt`. PR #17 merged into main
-  (`2b5a9a1`, CI green).
+- **Production:** `3c5e8ff` (`miner-5arlzhkv6`), the scored-fields release of the parallel session (block below),
+  not this session's work; rollback `miner-iwc9rd2yv` (`aa110f8`). PR #17 merged into main (`2b5a9a1`, CI green).
 - **Ahmed, 2026-11-05** (TELEGRAPH_FACTS 12–17):
   - no grace period on `updateMiner` (G206 closed; the docs still show one, G261);
   - claim only what passes its tests;
@@ -16,27 +16,45 @@
   - 24 ranked-routed; 341 x402 payments verified on Sepolia;
   - no wallet tied to an H2 app (G259).
 - **The real callers found defects:**
-  - FACT_CHECK wrong on common facts (G257, open, next);
+  - FACT_CHECK wrong on common facts (G262, open, next);
   - sanctions misses on Cyrillic, abbreviated and domain forms (G258, fixed in code: `e19df9e`, then `853da09` after
     a security review).
-- **Merged `codex/rank1-14-intents`** into this branch (`3df11ef`). It brought the other session's scored-field
-  change (G254, which waits on the owner's yes) and its G254–G256. This session's new entries were renumbered
-  G257–G261.
+- **Merged `codex/rank1-14-intents` twice** (`3df11ef`, then the release record `86a7bce`). The parallel session
+  holds G254–G257. This session's entries are G258–G262 (fact-check is G262).
 - **Verified:**
-  - unit 885/885 in `C:/Users/hyada/tg-deploy/m3df11ef` (the merged tree plus `853da09`'s files);
+  - unit 885/885 in `C:/Users/hyada/tg-deploy/m3df11ef` (`3df11ef` plus `853da09`'s files; `86a7bce` changes no
+    miner source);
   - the replay of 180 real sanctions inputs against the live lists: unknown 7 → 0, match 85 → 107
     (`docs/evidence/sanctions-real-inputs-2026-11-05/`).
-- **Blocked on the owner:** a yes to one release carrying G258 and G254 (TASKS, Owner). After the yes:
-  1. fast-forward `codex/rank1-14-intents` to this branch's tip;
-  2. make a fresh deploy tree at that commit;
-  3. run the release-miner skill.
-- **Next (Claude):** G257 fact-check fix, then N1 (one `updateMiner`: cut STOCK_PRICE, NEWS_HEADLINES, NEWS_SEARCH,
+- **Blocked on the owner:** a yes to release G258.
+  - **Trade-off:** it changes sanctions answers while G254's three-epoch read of the sanctions rank is still open, so
+    that read can no longer separate the two changes. Registry and filings stay clean.
+  - **After the yes:**
+    1. fast-forward `codex/rank1-14-intents` to this branch's tip;
+    2. make a fresh deploy tree at that commit;
+    3. run the release-miner skill (rollback target `miner-5arlzhkv6`).
+- **Next (Claude):** G262 fact-check fix, then N1 (one `updateMiner`: cut STOCK_PRICE, NEWS_HEADLINES, NEWS_SEARCH,
   IP_GEOLOCATION and EVENT_OUTCOME; fix the descriptions; audit any addition first).
 - **Owner:**
-  - the release yes;
+  - the release yes for G258;
   - post Discord and X update 1 (the links resolve now);
   - ask Ahmed which payer wallets are H2 apps, and say which are ours;
   - check the Vercel plan (G249).
+
+## 2026-11-05 ~10:00 UTC (15:30 IST): scored fields LIVE as `3c5e8ff`; measuring (G254)
+
+- Owner asked to "add" SANCTIONS_SCREENING_MATCH, CORPORATE_REGISTRY_LOOKUP and REGULATORY_FILING_MONITOR (`_GENERAL`)
+  for their demand. They were already served and registered on 4829; only the top 3 per intent get routed requests.
+  Fix: answers carry each intent's scored field (`matched`, `active`, `filing_count`). Owner: "Yes, deploy it".
+- **Deployed** `3c5e8ff` as `miner-5arlzhkv6` (`dpl_6irxTNbbNRkgny3gXiyyMcMxLJ6T`) ~09:39 UTC; rollback
+  `miner-iwc9rd2yv` (`aa110f8`). Preflight 4/7 first run, 6/7 after re-running alone; the last failure is a local
+  OpenAlex live test (G231). 4829 active. Record: `track1-miner/docs/evidence/release-2026-11-05-scored-fields/`.
+- `claude/screening-registry-intents-f6ab6b` was rebased onto `ca3742f`; its gaps renumbered G254–G256 (the
+  winning push took G248–G253). `codex/rank1-14-intents` fast-forwarded; nothing pushed, nothing signed.
+- Next (Claude): once three epochs scored after 09:40 UTC exist, run `node track1-miner/tools/epoch-history.mjs
+  <out.json> SANCTIONS_SCREENING_MATCH_GENERAL CORPORATE_REGISTRY_LOOKUP_GENERAL REGULATORY_FILING_MONITOR_GENERAL`
+  and compare with `epochs-before.json`. G257: the filings route needs `company`; a question alone often misses.
+- Owner: G255 (ask Ahmed who wallet `0xbd6f…6976` is), G256 (source of the demand figure), G231 (OpenAlex key).
 
 ## 2026-11-04 ~21:20 UTC (Nov 5 02:50 IST): winning push started; `aa110f8` LIVE
 
@@ -477,7 +495,6 @@ branch is fast-forwarded and **not pushed**.
     (read by hand), 4 still weak. Unit tests 804/804.
 
 ### Earlier the same morning
-
 
 - **Every answer now ends with a `receipt`:** the upstream requests actually made, with credentials redacted, the
   status, the time, `from_cache` and the deployment. Code: `src/receipt.ts`.

@@ -244,7 +244,7 @@ every export is used (checked 2026-10-22). Code leaves only with the intents abo
 
 | Criterion | Evidence we must hold by the deadline | Today |
 |---|---|---|
-| Miner quality (35, ≥ 24) | Audit pass rate on production, every claimed intent, against primary sources, dated | audit replayed 2026-11-04 (12 pass, 23 partial, 3 fail of 61 re-checked); real callers found fact-check and sanctions misses 2026-11-05 (G257, G258) |
+| Miner quality (35, ≥ 24) | Audit pass rate on production, every claimed intent, against primary sources, dated | audit replayed 2026-11-04 (12 pass, 23 partial, 3 fail of 61 re-checked); real callers found fact-check and sanctions misses 2026-11-05 (G262, G258) |
 | Reliability (15) | Availability log from Nov 1; a capacity result | sweep every 30 min since 2026-11-04; 58 req/s at c20, one route |
 | Coverage (10) | Mission × intent matrix with a fixture per mission | counts only, no matrix |
 | Consumption (10) | Receipts from H2 app requests: routed, repeated, accounted | 385 paid requests from 16 wallets since Nov 1, 13 ranked-routed; none yet tied to a registered H2 app (`consumption-2026-11-05/`) |
