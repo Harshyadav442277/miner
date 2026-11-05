@@ -37,8 +37,8 @@ Ordered by rubric points. Live ranks on 2026-11-04 (epoch 2013): 32 of 36 intent
 
 ## Owner
 
-- [ ] **G254: yes or no to deploying the scored-field change** (branch `claude/screening-registry-intents-f6ab6b`):
-      sanctions, registry and filings answers name `matched`, `active`, `filing_count`. Ranks today 11th, 4th, 8th.
+- [x] G254: deploy the scored-field change. Owner: "Yes, deploy it"; live 2026-11-05 as `3c5e8ff`
+      (`miner-5arlzhkv6`), record in `track1-miner/docs/evidence/release-2026-11-05-scored-fields/`.
 - [ ] **G255: ask Telegraph (Ahmed)** who wallet `0xbd6f696096cceeaff7406d802ba04500eeaf6976` is (1,673 one-intent
       miners on raw public URLs; registry ranks 1–3), and whether those miners take routed requests.
 - [ ] G256: where did the "many requests" figure for these intents come from? Send the page or a screenshot.
@@ -82,6 +82,9 @@ Ordered by rubric points. Live ranks on 2026-11-04 (epoch 2013): 32 of 36 intent
 
 ## Claude
 
+- [ ] G254: after three epochs scored past 2026-11-05 09:40 UTC, run `tools/epoch-history.mjs` for the sanctions,
+      registry and filings intents and compare with `release-2026-11-05-scored-fields/epochs-before.json`.
+- [ ] G257: find the issuer in a filings question that names no `company` ("How many filings did Apple make…").
 - [x] Pin the owner's required account (`hyadav42774@gmail.com`) and LiveCert wallet in repository instructions;
       remove conflicting email and alternate-payout guidance (owner instruction, 2026-11-03).
 

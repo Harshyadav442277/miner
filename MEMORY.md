@@ -1,6 +1,21 @@
 # MEMORY.md — session continuity
 
-## 2026-11-04 ~21:20 UTC (Nov 5 02:50 IST): CURRENT — winning push started; `aa110f8` LIVE
+## 2026-11-05 ~10:00 UTC (15:30 IST): CURRENT — scored fields LIVE as `3c5e8ff`; measuring (G254)
+
+- Owner asked to "add" SANCTIONS_SCREENING_MATCH, CORPORATE_REGISTRY_LOOKUP and REGULATORY_FILING_MONITOR (`_GENERAL`)
+  for their demand. They were already served and registered on 4829; only the top 3 per intent get routed requests.
+  Fix: answers carry each intent's scored field (`matched`, `active`, `filing_count`). Owner: "Yes, deploy it".
+- **Deployed** `3c5e8ff` as `miner-5arlzhkv6` (`dpl_6irxTNbbNRkgny3gXiyyMcMxLJ6T`) ~09:39 UTC; rollback
+  `miner-iwc9rd2yv` (`aa110f8`). Preflight 4/7 first run, 6/7 after re-running alone; the last failure is a local
+  OpenAlex live test (G231). 4829 active. Record: `track1-miner/docs/evidence/release-2026-11-05-scored-fields/`.
+- `claude/screening-registry-intents-f6ab6b` was rebased onto `ca3742f`; its gaps renumbered G254–G256 (the
+  winning push took G248–G253). `codex/rank1-14-intents` fast-forwarded; nothing pushed, nothing signed.
+- Next (Claude): once three epochs scored after 09:40 UTC exist, run `node track1-miner/tools/epoch-history.mjs
+  <out.json> SANCTIONS_SCREENING_MATCH_GENERAL CORPORATE_REGISTRY_LOOKUP_GENERAL REGULATORY_FILING_MONITOR_GENERAL`
+  and compare with `epochs-before.json`. G257: the filings route needs `company`; a question alone often misses.
+- Owner: G255 (ask Ahmed who wallet `0xbd6f…6976` is), G256 (source of the demand figure), G231 (OpenAlex key).
+
+## 2026-11-04 ~21:20 UTC (Nov 5 02:50 IST): winning push started; `aa110f8` LIVE
 
 - Owner: "i give you permission to take action on all of these … whenever you need my human involved, lmk".
   Ahmed was messaged by the owner (6 questions: grace period, 4 unscored intents, tie-breaks, judging, receipts,

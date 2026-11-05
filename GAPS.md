@@ -1,12 +1,30 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-05 ~10:00 UTC scored-fields release — G254 deployed; G257 new
+
+Evidence: `track1-miner/docs/evidence/release-2026-11-05-scored-fields/`.
+
+- **G254 — DEPLOYED 2026-11-05 ~09:39 UTC (`3c5e8ff`, `miner-5arlzhkv6`), `OPEN, measuring`.** Production
+  answers carry `matched`, `active` and `filing_count` (probes 09:52 UTC). The baseline is every epoch scored
+  before the deploy (`epochs-before.json`): sanctions 3rd–12th over 21 epochs, so one epoch says nothing;
+  registry 4, 3, 4; filings 8th–10th with a steady ~0.02 gap to third place. Read again once three epochs scored
+  after 09:40 UTC exist, with `tools/epoch-history.mjs`. A move inside those ranges is not an effect.
+- **G257 — The filings route finds no issuer in a question alone. `OPEN`.** "How many filings did Apple make in
+  the last 12 months?" and "Microsoft 8-K filings in the last 6 months" without `company` answer "No issuer was
+  named" on production before this release and on its preview; "Has Apple filed a 10-K this year?" and "Latest
+  SEC filings for Tesla" do find the issuer (preview). If the node sends only `query` for REGULATORY_FILING_MONITOR, these questions
+  score as misses. Whether it fills our declared `company` param is not known.
+- **G231 — seen again.** Preflight's first run failed `/papers` (1–2 papers) and RESEARCH_SYNTHESIS; both passed
+  a minute later. The `paperfraud` live test fails from this machine because OpenAlex is unreadable on the keyless
+  per-IP budget. Production still sets no `OPENALEX_*` variable (`vercel env ls production`, 2026-11-05).
+
 ## 2026-11-04 ~21:00 UTC sanctions, registry and filings intents — G235 superseded; G254–G256
 
 Evidence: `track1-miner/docs/evidence/intents-2026-11-04/`. Facts: docs/TELEGRAPH_FACTS.md, top section.
 
 - **G235 — SUPERSEDED: scoring is live.** 1,938 of 1,986 registrations are `scored: true` at epoch 2013
   (2026-11-04 ~20:38 UTC); 4829 carries 34 intent scores. Ranks below; the rest of 4829's ranks were not read.
-- **G254 — Our three compliance answers lacked the intents' scored field names. `FIXED IN CODE, NOT DEPLOYED`.**
+- **G254 — Our three compliance answers lacked the intents' scored field names. `DEPLOYED 2026-11-05, see above`.**
   SANCTIONS_SCREENING_MATCH_GENERAL scores `matched` (we sent `verdict`), CORPORATE_REGISTRY_LOOKUP_GENERAL
   scores `active` (we sent `entity_status`), REGULATORY_FILING_MONITOR_GENERAL scores `filing_count` (we sent no
   count at all). 4829 has no `intent_mapping`, so the node's parser model has to find each value. The answers
@@ -20,7 +38,8 @@ Evidence: `track1-miner/docs/evidence/intents-2026-11-04/`. Facts: docs/TELEGRAP
     `filing_count` counts the form asked, else material forms only (10-K, 10-Q, 8-K, 20-F, 6-K, 40-F, DEF 14A,
     S-1, S-4, F-1, 10-KT), never Form 4s. If the reference counts every form, our count is low. The period
     reaches us only through `query`: the endpoint declares no `period` param, and adding one needs `updateMiner`.
-  - **Measure after deploy:** the three ranks and scores for 3 epochs (1 h each), against the numbers above.
+  - **Measure after deploy:** the three ranks and scores for 3 epochs, against the full pre-deploy history
+    (epochs arrive every 2–6 hours, not every hour).
 - **G255 — One wallet holds 1,673 of 1,986 registrations, and the top routed slots in two of these intents.
   `OPEN, question for Telegraph`.** Wallet `0xbd6f696096cceeaff7406d802ba04500eeaf6976`, registered
   2026-10-24 23:27 – 2026-11-02 06:06 UTC, covers all 136 intents with one-intent miners whose `base_url` is a
