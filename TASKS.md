@@ -26,7 +26,8 @@ Ordered by rubric points. **Miner weights re-read 2026-11-05:** quality 35, reli
       `track1-miner/docs/evidence/release-2026-11-05-sanctions-names/`. Read the sanctions rank after three epochs.
 - [x] Q4 FACT_CHECK (G262): fixed in code 2026-11-05. On the 37 real claims, right 7 → 14 and wrong 3 → 0; on 31
       regression claims, wrong 2 → 0 (`docs/evidence/factcheck-real-claims-2026-11-05/`). Unit 903/903.
-      **Not deployed:** needs the owner's yes, then the release-miner gates.
+      **Deployed 2026-11-05 ~21:09 UTC** as `e501a57` (`miner-mzapr28vo`), owner: "Yes, deploy it"; preflight 7/7.
+      Read FACT_CHECK_GENERAL after three epochs.
 - [ ] C1 Cost/latency 5: `tools/availability-report.mjs` builds the table from the sweeps; publish it once a
       week of sweeps exists (Nov 11). Upstream cost per request is $0 (keyless or free keys).
 - [ ] Q2 Near-miss correctness (only where the reference is the true answer): weather temperature, weather

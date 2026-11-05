@@ -1,6 +1,16 @@
 # MEMORY.md — session continuity
 
-## 2026-11-05 ~20:35 UTC (Nov 6 02:05 IST): CURRENT — FACT_CHECK fix G262 committed, NOT deployed
+## 2026-11-05 ~21:20 UTC (Nov 6 02:50 IST): CURRENT — FACT_CHECK fix G262 LIVE as `e501a57`
+
+- **Production:** `e501a57`, `https://miner-mzapr28vo-wukong4.vercel.app` (`dpl_3rEwsNuVz6tkfnjQ4p5KAUy2qQJw`),
+  aliased ~21:09 UTC. Owner: "Yes, deploy it". **Rollback target:** `miner-f28bzjwiw` (`9b82d08`). Miner diff
+  against it: the fact-check files only. Record: `track1-miner/docs/evidence/release-2026-11-05-factcheck/`.
+- Verified: unit 903/903 in the deploy tree; preview 9/9; production 9/9 (Venus unverified, Eiffel-Berlin compound
+  contradicted, Kilimanjaro 5895 m, Golden Gate 1937, Curie 1903 supported); preflight **7/7 first run**; 4829
+  `active` (21:17 UTC). The branch tip's miner code equals production's (`15d2829`).
+- Next: read FACT_CHECK_GENERAL after three epochs past 21:09 UTC (`tools/epoch-history.mjs`).
+
+## 2026-11-05 ~20:35 UTC (Nov 6 02:05 IST): FACT_CHECK fix G262 committed (deployed ~21:09, block above)
 
 - Owner: "Yes, fix G262", then "Yes, finish and commit". Built on `claude/winning-tracks-overview-3f735a` on top of
   `2065195`: new `src/factevent.ts`, changes in `factsubject.ts`, `factarticle.ts`, `factcheck.ts`, `factwords.ts`;

@@ -46,8 +46,9 @@ Evidence: `track1-miner/docs/evidence/release-2026-11-05-scored-fields/` (`epoch
 Sources: Ahmed's reply (TELEGRAPH_FACTS items 12–17), the live Rules page re-read 2026-11-05, and the Daemon feed plus
 signal records for every paid request routed to `livecert` since Nov 1 (`track1-miner/docs/evidence/consumption-2026-11-05/`).
 
-- **G262 — FACT_CHECK gets common-knowledge claims wrong for real paying callers. `FIXED IN CODE, NOT DEPLOYED`
-  (2026-11-05 ~20:30 UTC).** Record: `track1-miner/docs/evidence/factcheck-real-claims-2026-11-05/`. On the 37 real
+- **G262 — FACT_CHECK gets common-knowledge claims wrong for real paying callers. `DEPLOYED 2026-11-05 ~21:09 UTC`
+  (`e501a57`, `miner-mzapr28vo`; preflight 7/7 first run; record
+  `track1-miner/docs/evidence/release-2026-11-05-factcheck/`; rollback `miner-f28bzjwiw`).** Record: `track1-miner/docs/evidence/factcheck-real-claims-2026-11-05/`. On the 37 real
   claims: right 7 → 14, wrong 3 → 0. On 31 regression claims (audit, gate and built false claims): right 19 → 17,
   wrong 2 → 0; the three lost were right before only on a sentence that does not address them. Causes:
   two-thirds word overlap read as support; compound claims; a class read off any word near a copula; the lead's "It"
