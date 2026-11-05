@@ -1,0 +1,1262 @@
+[
+ {
+  "input": "Vladimir Putin",
+  "verdict": "match",
+  "score": 1,
+  "matched": "PUTIN, Vladimir",
+  "error": null
+ },
+ {
+  "input": "Apple Inc.",
+  "verdict": "no_match",
+  "score": 0.85,
+  "matched": "LLC APPLIED MECHANICS",
+  "error": null
+ },
+ {
+  "input": "Garantex Europe OU",
+  "verdict": "match",
+  "score": 1,
+  "matched": "GARANTEX EUROPE OU",
+  "error": null
+ },
+ {
+  "input": "Aeza Group",
+  "verdict": "match",
+  "score": 1,
+  "matched": "AEZA GROUP LLC",
+  "error": null
+ },
+ {
+  "input": "Sberbank of Russia",
+  "verdict": "match",
+  "score": 1,
+  "matched": "PUBLIC JOINT STOCK COMPANY SBERBANK OF RUSSIA",
+  "error": null
+ },
+ {
+  "input": "Sberbank",
+  "verdict": "match",
+  "score": 1,
+  "matched": "PJSC SBERBANK",
+  "error": null
+ },
+ {
+  "input": "Lazarus Group",
+  "verdict": "match",
+  "score": 1,
+  "matched": "LAZARUS GROUP",
+  "error": null
+ },
+ {
+  "input": "Stripe, Inc.",
+  "verdict": "no_match",
+  "score": 0.85,
+  "matched": "OBSHCHESTVO S OGRANICHENNOI OTVETSTVENNOSTYU STIRER",
+  "error": null
+ },
+ {
+  "input": "Bank of America",
+  "verdict": "no_match",
+  "score": null,
+  "matched": null,
+  "error": null
+ },
+ {
+  "input": "Tornado Cash",
+  "verdict": "no_match",
+  "score": null,
+  "matched": null,
+  "error": null
+ },
+ {
+  "input": "Circle Internet Financial",
+  "verdict": "no_match",
+  "score": null,
+  "matched": null,
+  "error": null
+ },
+ {
+  "input": "Sber Bank",
+  "verdict": "match",
+  "score": 1,
+  "matched": "SBER BANK",
+  "error": null
+ },
+ {
+  "input": "LIMITED LIABILITY COMPANY RADIOIZMERENIYA",
+  "verdict": "match",
+  "score": 1,
+  "matched": "LIMITED LIABILITY COMPANY RADIOIZMERENIYA",
+  "error": null
+ },
+ {
+  "input": "IC VELES CAPITAL LLC",
+  "verdict": "match",
+  "score": 1,
+  "matched": "IC VELES CAPITAL LLC",
+  "error": null
+ },
+ {
+  "input": "TEJARAT GOSTAR FARDAD",
+  "verdict": "match",
+  "score": 1,
+  "matched": "TEJARAT GOSTAR FARDAD",
+  "error": null
+ },
+ {
+  "input": "JSC ALL RUSSIAN RESEARCH INSTITUTE OF RADIO ENGINEERING",
+  "verdict": "match",
+  "score": 1,
+  "matched": "JSC ALL RUSSIAN RESEARCH INSTITUTE OF RADIO ENGINEERING",
+  "error": null
+ },
+ {
+  "input": "SPICY CODE COMPANY LIMITED",
+  "verdict": "match",
+  "score": 1,
+  "matched": "SPICY CODE COMPANY LIMITED",
+  "error": null
+ },
+ {
+  "input": "ALMACEN JUNIOR NO. 2",
+  "verdict": "match",
+  "score": 0.975,
+  "matched": "ALMACEN JUNIOR NO. 2",
+  "error": null
+ },
+ {
+  "input": "ALSHIVAN LINE TRADING FZE",
+  "verdict": "match",
+  "score": 1,
+  "matched": "ALSHIVAN LINE TRADING FZE",
+  "error": null
+ },
+ {
+  "input": "SINA TILE AND CERAMIC INDUSTRIES COMPANY",
+  "verdict": "match",
+  "score": 1,
+  "matched": "SINA TILE AND CERAMIC INDUSTRIES COMPANY",
+  "error": null
+ },
+ {
+  "input": "JOINT STOCK COMPANY HMS GROUP",
+  "verdict": "match",
+  "score": 1,
+  "matched": "JOINT STOCK COMPANY HMS GROUP",
+  "error": null
+ },
+ {
+  "input": "LIMITED LIABILITY COMPANY SKAY17",
+  "verdict": "match",
+  "score": 1,
+  "matched": "LIMITED LIABILITY COMPANY SKAY17",
+  "error": null
+ },
+ {
+  "input": "LIMITED LIABILITY COMPANY SEVERNAYA ALMAZNAYA KOMPANIYA",
+  "verdict": "match",
+  "score": 1,
+  "matched": "LIMITED LIABILITY COMPANY SEVERNAYA ALMAZNAYA KOMPANIYA",
+  "error": null
+ },
+ {
+  "input": "LORENA DEL MAR, S.A. DE C.V.",
+  "verdict": "match",
+  "score": 0.967,
+  "matched": "LORENA DEL MAR, S.A. DE C.V.",
+  "error": null
+ },
+ {
+  "input": "TRANS GAZELLE",
+  "verdict": "match",
+  "score": 1,
+  "matched": "TRANS GAZELLE",
+  "error": null
+ },
+ {
+  "input": "COMERCIALIZADORA EMPRESARIAL TEAM BUSINESS S.A.",
+  "verdict": "match",
+  "score": 1,
+  "matched": "COMERCIALIZADORA EMPRESARIAL TEAM BUSINESS S.A.",
+  "error": null
+ },
+ {
+  "input": "AMG RICAS PIZZA",
+  "verdict": "match",
+  "score": 1,
+  "matched": "AMG RICAS PIZZA",
+  "error": null
+ },
+ {
+  "input": "SAAB CERTAIN & COMPANIA S. EN C.",
+  "verdict": "match",
+  "score": 0.967,
+  "matched": "SAAB CERTAIN & COMPANIA S. EN C.",
+  "error": null
+ },
+ {
+  "input": "TAJCO",
+  "verdict": "match",
+  "score": 1,
+  "matched": "TAJCO",
+  "error": null
+ },
+ {
+  "input": "AUDIO ALARMAS, S.A. DE C.V.",
+  "verdict": "match",
+  "score": 0.96,
+  "matched": "AUDIO ALARMAS, S.A. DE C.V.",
+  "error": null
+ },
+ {
+  "input": "KONSTRUKTORSKOE BYURO PRIBOROSTROENIYA OTKRYTOE AKTSIONERNOE OBSHCHESTVO",
+  "verdict": "match",
+  "score": 1,
+  "matched": "KONSTRUKTORSKOE BYURO PRIBOROSTROENIYA OTKRYTOE AKTSIONERNOE OBSHCHESTVO",
+  "error": null
+ },
+ {
+  "input": "JOINT STOCK COMPANY URAL MINING AND METALLURGICAL COMPANY",
+  "verdict": "match",
+  "score": 1,
+  "matched": "JOINT STOCK COMPANY URAL MINING AND METALLURGICAL COMPANY",
+  "error": null
+ },
+ {
+  "input": "Safaricom PLC",
+  "verdict": "no_match",
+  "score": 0.85,
+  "matched": "SAFARI, Amirhossein",
+  "error": null
+ },
+ {
+  "input": "Cloudflare, Inc.",
+  "verdict": "no_match",
+  "score": 0.85,
+  "matched": "CLOUDRUN LLC",
+  "error": null
+ },
+ {
+  "input": "Shopify Inc.",
+  "verdict": "no_match",
+  "score": 0.823,
+  "matched": "PLOYDAENG JEWELRY SHOP",
+  "error": null
+ },
+ {
+  "input": "Siemens AG",
+  "verdict": "no_match",
+  "score": null,
+  "matched": null,
+  "error": null
+ },
+ {
+  "input": "Infosys Limited",
+  "verdict": "no_match",
+  "score": 0.85,
+  "matched": "INFOROS, OOO",
+  "error": null
+ },
+ {
+  "input": "Deutsche Bank",
+  "verdict": "no_match",
+  "score": null,
+  "matched": null,
+  "error": null
+ },
+ {
+  "input": "Grab Holdings",
+  "verdict": "no_match",
+  "score": 0.848,
+  "matched": "RAB FORCES",
+  "error": null
+ },
+ {
+  "input": "GitHub, Inc.",
+  "verdict": "no_match",
+  "score": 0.817,
+  "matched": "GIT SISTEMS",
+  "error": null
+ },
+ {
+  "input": "Rippling",
+  "verdict": "no_match",
+  "score": null,
+  "matched": null,
+  "error": null
+ },
+ {
+  "input": "Wise PLC",
+  "verdict": "no_match",
+  "score": 0.85,
+  "matched": "WISSER, Gerhard",
+  "error": null
+ },
+ {
+  "input": "Paystack",
+  "verdict": "no_match",
+  "score": 0.817,
+  "matched": "PAYA PARTOV CO.",
+  "error": null
+ },
+ {
+  "input": "Sony Group",
+  "verdict": "no_match",
+  "score": 0.85,
+  "matched": "ALMACEN ELECTRO SONY STAR",
+  "error": null
+ },
+ {
+  "input": "Airbus SE",
+  "verdict": "no_match",
+  "score": 0.858,
+  "matched": "Abu Seta",
+  "error": null
+ },
+ {
+  "input": "Flutterwave",
+  "verdict": "no_match",
+  "score": null,
+  "matched": null,
+  "error": null
+ },
+ {
+  "input": "Microsoft Corporation",
+  "verdict": "no_match",
+  "score": 0.85,
+  "matched": "MICROEM",
+  "error": null
+ },
+ {
+  "input": "Nestle S.A.",
+  "verdict": "no_match",
+  "score": 0.84,
+  "matched": "NEST WISE PETROLEUM L.L.C",
+  "error": null
+ },
+ {
+  "input": "Kraken",
+  "verdict": "no_match",
+  "score": 0.85,
+  "matched": "KRAKERN LIMITED",
+  "error": null
+ },
+ {
+  "input": "Costco Wholesale",
+  "verdict": "no_match",
+  "score": null,
+  "matched": null,
+  "error": null
+ },
+ {
+  "input": "Garantex",
+  "verdict": "match",
+  "score": 1,
+  "matched": "GARANTEX",
+  "error": null
+ },
+ {
+  "input": "AEZA Grp",
+  "verdict": "match",
+  "score": 1,
+  "matched": "AEZA GROUP LLC",
+  "error": null
+ },
+ {
+  "input": "Сбербанк",
+  "verdict": "match",
+  "score": 1,
+  "matched": "PJSC SBERBANK",
+  "error": null
+ },
+ {
+  "input": "Sberbnak",
+  "verdict": "match",
+  "score": 0.975,
+  "matched": "PJSC SBERBANK",
+  "error": null
+ },
+ {
+  "input": "Lazarus Grp.",
+  "verdict": "match",
+  "score": 1,
+  "matched": "LAZARUS GROUP",
+  "error": null
+ },
+ {
+  "input": "PAO Sberbank Rossii",
+  "verdict": "match",
+  "score": 1,
+  "matched": "SBERBANK ROSSII",
+  "error": null
+ },
+ {
+  "input": "L4zarus Group",
+  "verdict": "match",
+  "score": 1,
+  "matched": "LAZARUS GROUP",
+  "error": null
+ },
+ {
+  "input": "Lazaruss Group",
+  "verdict": "match",
+  "score": 0.988,
+  "matched": "LAZARUS GROUP",
+  "error": null
+ },
+ {
+  "input": "Grinex Exchange",
+  "verdict": "possible_match",
+  "score": 0.94,
+  "matched": "GRINEX",
+  "error": null
+ },
+ {
+  "input": "Blender io",
+  "verdict": "match",
+  "score": 1,
+  "matched": "BLENDER.IO",
+  "error": null
+ },
+ {
+  "input": "Hydra Marketplace",
+  "verdict": "match",
+  "score": 1,
+  "matched": "HYDRA MARKETPLACE",
+  "error": null
+ },
+ {
+  "input": "Gr1nex",
+  "verdict": "match",
+  "score": 1,
+  "matched": "GRINEX",
+  "error": null
+ },
+ {
+  "input": "Blender dot io",
+  "verdict": "match",
+  "score": 1,
+  "matched": "BLENDER.IO",
+  "error": null
+ },
+ {
+  "input": "aeza group",
+  "verdict": "match",
+  "score": 1,
+  "matched": "AEZA GROUP LLC",
+  "error": null
+ },
+ {
+  "input": "lazarus group",
+  "verdict": "match",
+  "score": 1,
+  "matched": "LAZARUS GROUP",
+  "error": null
+ },
+ {
+  "input": "sberbank",
+  "verdict": "match",
+  "score": 1,
+  "matched": "PJSC SBERBANK",
+  "error": null
+ },
+ {
+  "input": "grinex",
+  "verdict": "match",
+  "score": 1,
+  "matched": "GRINEX",
+  "error": null
+ },
+ {
+  "input": "blender.io",
+  "verdict": "match",
+  "score": 1,
+  "matched": "BLENDER.IO",
+  "error": null
+ },
+ {
+  "input": "garanteks",
+  "verdict": "possible_match",
+  "score": 0.931,
+  "matched": "GARANTEX",
+  "error": null
+ },
+ {
+  "input": "Гарантекс",
+  "verdict": "possible_match",
+  "score": 0.931,
+  "matched": "GARANTEX",
+  "error": null
+ },
+ {
+  "input": "Cryptex Platform",
+  "verdict": "possible_match",
+  "score": 0.94,
+  "matched": "CRYPTEX",
+  "error": null
+ },
+ {
+  "input": "Bitzlato Services",
+  "verdict": "no_match",
+  "score": 0.803,
+  "matched": "BITZIOS, Felix",
+  "error": null
+ },
+ {
+  "input": "Hydra Mkt",
+  "verdict": "match",
+  "score": 1,
+  "matched": "HYDRA MARKET",
+  "error": null
+ },
+ {
+  "input": "cryptex",
+  "verdict": "match",
+  "score": 1,
+  "matched": "CRYPTEX",
+  "error": null
+ },
+ {
+  "input": "bitzlato",
+  "verdict": "no_match",
+  "score": 0.803,
+  "matched": "BITZIOS, Felix",
+  "error": null
+ },
+ {
+  "input": "hydra market",
+  "verdict": "match",
+  "score": 1,
+  "matched": "HYDRA MARKET",
+  "error": null
+ },
+ {
+  "input": "Suex dot io",
+  "verdict": "match",
+  "score": 1,
+  "matched": "suex.io",
+  "error": null
+ },
+ {
+  "input": "Chatex Exchange",
+  "verdict": "match",
+  "score": 0.95,
+  "matched": "CTEX EXCHANGE",
+  "error": null
+ },
+ {
+  "input": "suex.io",
+  "verdict": "match",
+  "score": 1,
+  "matched": "suex.io",
+  "error": null
+ },
+ {
+  "input": "chatex",
+  "verdict": "match",
+  "score": 1,
+  "matched": "CHATEX",
+  "error": null
+ },
+ {
+  "input": "tinkoff bank",
+  "verdict": "match",
+  "score": 1,
+  "matched": "JSC TINKOFF BANK",
+  "error": null
+ },
+ {
+  "input": "Тинькофф Банк",
+  "verdict": "match",
+  "score": 1,
+  "matched": "JSC TINKOFF BANK",
+  "error": null
+ },
+ {
+  "input": "rosneft company",
+  "verdict": "match",
+  "score": 1,
+  "matched": "ROSNEFT",
+  "error": null
+ },
+ {
+  "input": "Rosneft Co",
+  "verdict": "match",
+  "score": 1,
+  "matched": "ROSNEFT",
+  "error": null
+ },
+ {
+  "input": "stripe inc",
+  "verdict": "no_match",
+  "score": 0.85,
+  "matched": "OBSHCHESTVO S OGRANICHENNOI OTVETSTVENNOSTYU STIRER",
+  "error": null
+ },
+ {
+  "input": "stripe",
+  "verdict": "no_match",
+  "score": 0.85,
+  "matched": "OBSHCHESTVO S OGRANICHENNOI OTVETSTVENNOSTYU STIRER",
+  "error": null
+ },
+ {
+  "input": "apple",
+  "verdict": "no_match",
+  "score": 0.85,
+  "matched": "LLC APPLIED MECHANICS",
+  "error": null
+ },
+ {
+  "input": "shopify",
+  "verdict": "no_match",
+  "score": 0.823,
+  "matched": "PLOYDAENG JEWELRY SHOP",
+  "error": null
+ },
+ {
+  "input": "shopify inc",
+  "verdict": "no_match",
+  "score": 0.823,
+  "matched": "PLOYDAENG JEWELRY SHOP",
+  "error": null
+ },
+ {
+  "input": "apple inc",
+  "verdict": "no_match",
+  "score": 0.85,
+  "matched": "LLC APPLIED MECHANICS",
+  "error": null
+ },
+ {
+  "input": "deel",
+  "verdict": "no_match",
+  "score": 0.85,
+  "matched": "LIMITED LIABILITY COMPANY NR-DEL",
+  "error": null
+ },
+ {
+  "input": "deel inc",
+  "verdict": "no_match",
+  "score": 0.85,
+  "matched": "LIMITED LIABILITY COMPANY NR-DEL",
+  "error": null
+ },
+ {
+  "input": "Deel Inc.",
+  "verdict": "no_match",
+  "score": 0.85,
+  "matched": "LIMITED LIABILITY COMPANY NR-DEL",
+  "error": null
+ },
+ {
+  "input": "revolut",
+  "verdict": "no_match",
+  "score": 0.85,
+  "matched": "THE REVOLUTION BRIGADE",
+  "error": null
+ },
+ {
+  "input": "Revolut Ltd",
+  "verdict": "no_match",
+  "score": 0.85,
+  "matched": "THE REVOLUTION BRIGADE",
+  "error": null
+ },
+ {
+  "input": "Coinbase Global",
+  "verdict": "no_match",
+  "score": 0.85,
+  "matched": "COIBA",
+  "error": null
+ },
+ {
+  "input": "vercel inc",
+  "verdict": "no_match",
+  "score": 0.818,
+  "matched": "GANADERIA EL VERGEL LTDA.",
+  "error": null
+ },
+ {
+  "input": "vercel",
+  "verdict": "no_match",
+  "score": 0.818,
+  "matched": "GANADERIA EL VERGEL LTDA.",
+  "error": null
+ },
+ {
+  "input": "github inc",
+  "verdict": "no_match",
+  "score": 0.817,
+  "matched": "GIT SISTEMS",
+  "error": null
+ },
+ {
+  "input": "cloudflare",
+  "verdict": "no_match",
+  "score": 0.85,
+  "matched": "CLOUDRUN LLC",
+  "error": null
+ },
+ {
+  "input": "cloudflare inc",
+  "verdict": "no_match",
+  "score": 0.85,
+  "matched": "CLOUDRUN LLC",
+  "error": null
+ },
+ {
+  "input": "Vercel Inc.",
+  "verdict": "no_match",
+  "score": 0.818,
+  "matched": "GANADERIA EL VERGEL LTDA.",
+  "error": null
+ },
+ {
+  "input": "github",
+  "verdict": "no_match",
+  "score": 0.817,
+  "matched": "GIT SISTEMS",
+  "error": null
+ },
+ {
+  "input": "Atlassian",
+  "verdict": "no_match",
+  "score": 0.85,
+  "matched": "ATLAS",
+  "error": null
+ },
+ {
+  "input": "Toyota Motor Corporation",
+  "verdict": "no_match",
+  "score": null,
+  "matched": null,
+  "error": null
+ },
+ {
+  "input": "Maersk",
+  "verdict": "no_match",
+  "score": 0.85,
+  "matched": "OBSHCHESTVO S OGRANICHENNOI OTVETSTVENNOSTYU MARKUS",
+  "error": null
+ },
+ {
+  "input": "SAP SE",
+  "verdict": "no_match",
+  "score": null,
+  "matched": null,
+  "error": null
+ },
+ {
+  "input": "nestle s.a",
+  "verdict": "no_match",
+  "score": 0.84,
+  "matched": "NEST WISE PETROLEUM L.L.C",
+  "error": null
+ },
+ {
+  "input": "Unilever PLC",
+  "verdict": "no_match",
+  "score": 0.85,
+  "matched": "UNISERVICE LIMITED LIABILITY COMPANY",
+  "error": null
+ },
+ {
+  "input": "HSBC Holdings",
+  "verdict": "no_match",
+  "score": 0.848,
+  "matched": "SBC TELEVISION",
+  "error": null
+ },
+ {
+  "input": "Barclays PLC",
+  "verdict": "no_match",
+  "score": 0.85,
+  "matched": "Baryaly",
+  "error": null
+ },
+ {
+  "input": "Standard Chartered",
+  "verdict": "no_match",
+  "score": null,
+  "matched": null,
+  "error": null
+ },
+ {
+  "input": "Mercado Libre",
+  "verdict": "no_match",
+  "score": null,
+  "matched": null,
+  "error": null
+ },
+ {
+  "input": "MTN Group",
+  "verdict": "no_match",
+  "score": 0.843,
+  "matched": "MT TEVEL INCORPORATED",
+  "error": null
+ },
+ {
+  "input": "tata consultancy",
+  "verdict": "no_match",
+  "score": null,
+  "matched": null,
+  "error": null
+ },
+ {
+  "input": "infosys",
+  "verdict": "no_match",
+  "score": 0.85,
+  "matched": "INFOROS, OOO",
+  "error": null
+ },
+ {
+  "input": "Tata Consultancy Services",
+  "verdict": "no_match",
+  "score": null,
+  "matched": null,
+  "error": null
+ },
+ {
+  "input": "Samsung Electronics",
+  "verdict": "no_match",
+  "score": 0.824,
+  "matched": "PUYA ELECTRO SAMAN NIRU",
+  "error": null
+ },
+ {
+  "input": "walmart inc",
+  "verdict": "no_match",
+  "score": 0.846,
+  "matched": "WELMART GROUP LP",
+  "error": null
+ },
+ {
+  "input": "walmart",
+  "verdict": "no_match",
+  "score": 0.846,
+  "matched": "WELMART GROUP LP",
+  "error": null
+ },
+ {
+  "input": "Walmart Inc.",
+  "verdict": "no_match",
+  "score": 0.846,
+  "matched": "WELMART GROUP LP",
+  "error": null
+ },
+ {
+  "input": "Boeing Company",
+  "verdict": "no_match",
+  "score": 0.85,
+  "matched": "BERING",
+  "error": null
+ },
+ {
+  "input": "Pepe (anonymous team)",
+  "verdict": "no_match",
+  "score": null,
+  "matched": null,
+  "error": null
+ },
+ {
+  "input": "0x0000000000000000000000000000000000000000",
+  "verdict": "no_match",
+  "score": null,
+  "matched": null,
+  "error": null
+ },
+ {
+  "input": "PUTIN, Vladimir Vladimirovich",
+  "verdict": "match",
+  "score": 1,
+  "matched": "PUTIN, Vladimir Vladimirovich",
+  "error": null
+ },
+ {
+  "input": "Putin Vladimir",
+  "verdict": "match",
+  "score": 1,
+  "matched": "PUTIN, Vladimir",
+  "error": null
+ },
+ {
+  "input": "putin vladimir vladimirovich",
+  "verdict": "match",
+  "score": 1,
+  "matched": "PUTIN, Vladimir Vladimirovich",
+  "error": null
+ },
+ {
+  "input": "Владимир Путин",
+  "verdict": "match",
+  "score": 1,
+  "matched": "PUTIN, Vladimir",
+  "error": null
+ },
+ {
+  "input": "Roman Semenov",
+  "verdict": "match",
+  "score": 1,
+  "matched": "SEMENOV, Roman",
+  "error": null
+ },
+ {
+  "input": "Ali Khamenei",
+  "verdict": "match",
+  "score": 0.95,
+  "matched": "KHAMENEI, Ali Husseini",
+  "error": null
+ },
+ {
+  "input": "vladimir putin",
+  "verdict": "match",
+  "score": 1,
+  "matched": "PUTIN, Vladimir",
+  "error": null
+ },
+ {
+  "input": "Aliaksandr Mikhajlavich LASIAKIN",
+  "verdict": "match",
+  "score": 1,
+  "matched": "LASIAKIN, Aliaksandr Mikhajlavich",
+  "error": null
+ },
+ {
+  "input": "Ivan Rafael HERNANDEZ DALA",
+  "verdict": "match",
+  "score": 1,
+  "matched": "HERNANDEZ DALA, Ivan Rafael",
+  "error": null
+ },
+ {
+  "input": "Faouzi Ben Mohamed Ben Ahmed JENDOUBI",
+  "verdict": "match",
+  "score": 1,
+  "matched": "JENDOUBI, Faouzi Ben Mohamed Ben Ahmed",
+  "error": null
+ },
+ {
+  "input": "Mhd Amer ALCHWIKI",
+  "verdict": "match",
+  "score": 1,
+  "matched": "ALCHWIKI, Mhd Amer",
+  "error": null
+ },
+ {
+  "input": "Jose de Jesus AMEZCUA CONTRERAS",
+  "verdict": "match",
+  "score": 1,
+  "matched": "AMEZCUA CONTRERAS, Jose de Jesus",
+  "error": null
+ },
+ {
+  "input": "Mohamed Mohamed FARRARA LASHTAR",
+  "verdict": "match",
+  "score": 1,
+  "matched": "FARRARA LASHTAR, Mohamed Mohamed",
+  "error": null
+ },
+ {
+  "input": "Noureddine ADAM",
+  "verdict": "match",
+  "score": 1,
+  "matched": "ADAM, Noureddine",
+  "error": null
+ },
+ {
+  "input": "Gholamreza BAGHBANI",
+  "verdict": "match",
+  "score": 1,
+  "matched": "BAGHBANI, Gholamreza",
+  "error": null
+ },
+ {
+  "input": "Mohammad YAZDI",
+  "verdict": "match",
+  "score": 1,
+  "matched": "YAZDI, Mohammad",
+  "error": null
+ },
+ {
+  "input": "TGR WEALTH SOLUTIONS LTD",
+  "verdict": "match",
+  "score": 1,
+  "matched": "TGR WEALTH SOLUTIONS LTD",
+  "error": null
+ },
+ {
+  "input": "MAJILIS MUJAHIDIN INDONESIA",
+  "verdict": "match",
+  "score": 1,
+  "matched": "MAJILIS MUJAHIDIN INDONESIA",
+  "error": null
+ },
+ {
+  "input": "tgr wealth solutions",
+  "verdict": "match",
+  "score": 1,
+  "matched": "TGR WEALTH SOLUTIONS LTD",
+  "error": null
+ },
+ {
+  "input": "Flavio MENDEZ SANTIAGO",
+  "verdict": "match",
+  "score": 1,
+  "matched": "MENDEZ SANTIAGO, Flavio",
+  "error": null
+ },
+ {
+  "input": "TAI LUNG HOTEL",
+  "verdict": "match",
+  "score": 1,
+  "matched": "TAI LUNG HOTEL",
+  "error": null
+ },
+ {
+  "input": "GASOLINERA ROSARIO",
+  "verdict": "match",
+  "score": 1,
+  "matched": "GASOLINERA ROSARIO",
+  "error": null
+ },
+ {
+  "input": "RIHS-KOSOVO",
+  "verdict": "match",
+  "score": 1,
+  "matched": "RIHS-KOSOVO",
+  "error": null
+ },
+ {
+  "input": "Zzyzx Fictional Holdings Ltd",
+  "verdict": "no_match",
+  "score": null,
+  "matched": null,
+  "error": null
+ },
+ {
+  "input": "SHERKAT SANAYEH ELECTRONICS IRAN",
+  "verdict": "match",
+  "score": 1,
+  "matched": "SHERKAT SANAYEH ELECTRONICS IRAN",
+  "error": null
+ },
+ {
+  "input": "RIHS-SOMALIA",
+  "verdict": "match",
+  "score": 1,
+  "matched": "RIHS-SOMALIA",
+  "error": null
+ },
+ {
+  "input": "zzyzx fictional holdings",
+  "verdict": "no_match",
+  "score": null,
+  "matched": null,
+  "error": null
+ },
+ {
+  "input": "JOINT STOCK COMPANY AIR AND SPACE DEFENSE CONCERN ALMAZ-ANTEY",
+  "verdict": "match",
+  "score": 1,
+  "matched": "JOINT STOCK COMPANY AIR AND SPACE DEFENSE CONCERN ALMAZ-ANTEY",
+  "error": null
+ },
+ {
+  "input": "nasser ghasemi rad and associates partnership company",
+  "verdict": "match",
+  "score": 1,
+  "matched": "NASSER GHASEMI RAD AND ASSOCIATES PARTNERSHIP COMPANY",
+  "error": null
+ },
+ {
+  "input": "MOJTAMAE SANATE HAFTOME TIR",
+  "verdict": "match",
+  "score": 1,
+  "matched": "MOJTAMAE SANATE HAFTOME TIR",
+  "error": null
+ },
+ {
+  "input": "нассер гhасеми рад анд ассоcиатес партнершип cомпанй",
+  "verdict": "match",
+  "score": 1,
+  "matched": "NASSER GHASEMI RAD AND ASSOCIATES PARTNERSHIP COMPANY",
+  "error": null
+ },
+ {
+  "input": "MARSHALL CAPITAL",
+  "verdict": "match",
+  "score": 1,
+  "matched": "MARSHALL CAPITAL",
+  "error": null
+ },
+ {
+  "input": "спеcтрум инвестмент гроуп hолдинг сал",
+  "verdict": "match",
+  "score": 1,
+  "matched": "SPECTRUM INVESTMENT GROUP HOLDING SAL",
+  "error": null
+ },
+ {
+  "input": "общество с ограниченнои отвецтвенностю втб форекс",
+  "verdict": "match",
+  "score": 1,
+  "matched": "OBSHCHESTVO S OGRANICHENNOI OTVETSTVENNOSTYU VTB FOREKS",
+  "error": null
+ },
+ {
+  "input": "spectrum investment group holding sal",
+  "verdict": "match",
+  "score": 1,
+  "matched": "SPECTRUM INVESTMENT GROUP HOLDING SAL",
+  "error": null
+ },
+ {
+  "input": "obshchestvo s ogranichennoi otvetstvennostyu vtb foreks",
+  "verdict": "match",
+  "score": 1,
+  "matched": "OBSHCHESTVO S OGRANICHENNOI OTVETSTVENNOSTYU VTB FOREKS",
+  "error": null
+ },
+ {
+  "input": "oao epk samara",
+  "verdict": "match",
+  "score": 1,
+  "matched": "OAO EPK SAMARA",
+  "error": null
+ },
+ {
+  "input": "оао епк самара",
+  "verdict": "match",
+  "score": 1,
+  "matched": "OAO EPK SAMARA",
+  "error": null
+ },
+ {
+  "input": "Goldman Sachs International",
+  "verdict": "no_match",
+  "score": null,
+  "matched": null,
+  "error": null
+ },
+ {
+  "input": "сепанир оил анд гас енгинееринг cомпанй",
+  "verdict": "match",
+  "score": 1,
+  "matched": "SEPANIR OIL AND GAS ENGINEERING COMPANY",
+  "error": null
+ },
+ {
+  "input": "sepanir oil and gas engineering company",
+  "verdict": "match",
+  "score": 1,
+  "matched": "SEPANIR OIL AND GAS ENGINEERING COMPANY",
+  "error": null
+ },
+ {
+  "input": "motojen auto industry company",
+  "verdict": "match",
+  "score": 1,
+  "matched": "MOTOJEN AUTO INDUSTRY COMPANY",
+  "error": null
+ },
+ {
+  "input": "мотоjен ауто индустрй cомпанй",
+  "verdict": "match",
+  "score": 1,
+  "matched": "MOTOJEN AUTO INDUSTRY COMPANY",
+  "error": null
+ },
+ {
+  "input": "исламиc револутион мостазафан фоундатион",
+  "verdict": "match",
+  "score": 1,
+  "matched": "ISLAMIC REVOLUTION MOSTAZAFAN FOUNDATION",
+  "error": null
+ },
+ {
+  "input": "islamic revolution mostazafan foundation",
+  "verdict": "match",
+  "score": 1,
+  "matched": "ISLAMIC REVOLUTION MOSTAZAFAN FOUNDATION",
+  "error": null
+ },
+ {
+  "input": "garantex europe",
+  "verdict": "match",
+  "score": 1,
+  "matched": "GARANTEX EUROPE OU",
+  "error": null
+ },
+ {
+  "input": "лимитед лиабилитй cомпанй емергенcй дигитал солутионс",
+  "verdict": "match",
+  "score": 1,
+  "matched": "LIMITED LIABILITY COMPANY EMERGENCY DIGITAL SOLUTIONS",
+  "error": null
+ },
+ {
+  "input": "limited liability company emergency digital solutions",
+  "verdict": "match",
+  "score": 1,
+  "matched": "LIMITED LIABILITY COMPANY EMERGENCY DIGITAL SOLUTIONS",
+  "error": null
+ },
+ {
+  "input": "мянма еcономиc hолдингс публиc cомпанй лимитед",
+  "verdict": "match",
+  "score": 1,
+  "matched": "MYANMA ECONOMIC HOLDINGS PUBLIC COMPANY LIMITED",
+  "error": null
+ },
+ {
+  "input": "myanma economic holdings public company limited",
+  "verdict": "match",
+  "score": 1,
+  "matched": "MYANMA ECONOMIC HOLDINGS PUBLIC COMPANY LIMITED",
+  "error": null
+ },
+ {
+  "input": "amc service fze",
+  "verdict": "match",
+  "score": 1,
+  "matched": "AMC SERVICE FZE",
+  "error": null
+ },
+ {
+  "input": "амc сервиcе фзе",
+  "verdict": "match",
+  "score": 1,
+  "matched": "AMC SERVICE FZE",
+  "error": null
+ },
+ {
+  "input": "myanma economic holdings public company",
+  "verdict": "match",
+  "score": 1,
+  "matched": "MYANMA ECONOMIC HOLDINGS PUBLIC COMPANY LIMITED",
+  "error": null
+ },
+ {
+  "input": "Banco Nacional de Cuba",
+  "verdict": "match",
+  "score": 1,
+  "matched": "BANCO NACIONAL DE CUBA",
+  "error": null
+ },
+ {
+  "input": "Tesla, Inc.",
+  "verdict": "no_match",
+  "score": 0.85,
+  "matched": "TELA",
+  "error": null
+ },
+ {
+  "input": "ADF",
+  "verdict": "match",
+  "score": 1,
+  "matched": "ADF",
+  "error": null
+ }
+]

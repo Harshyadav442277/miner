@@ -89,9 +89,13 @@ export function parseOfac(sdn: string, alt: string): ListedParty[] {
     const kind = val(r[2]).toLowerCase();
     const remarks = val(r[11]);
     const dob = [...remarks.matchAll(/\bDOB ([^;]+)/g)].map((m) => m[1] ?? "").join(" ");
+    // "Website suex.io": callers name exchanges and mixers by their domain, so the listed site is an alias.
+    const sites = [...remarks.matchAll(/\bWebsite\s+([^\s;,]+)/gi)]
+      .map((m) => (m[1] ?? "").replace(/^https?:\/\//i, "").replace(/^www\./i, "").replace(/[./]+$/, ""))
+      .filter((w) => w.includes("."));
     out.push({
       list: "OFAC SDN", id, name,
-      aliases: aliases.get(id) ?? [],
+      aliases: [...(aliases.get(id) ?? []), ...sites],
       type: kind === "individual" || kind === "vessel" || kind === "aircraft" ? kind : "entity",
       programs: val(r[3]).split(/\]\s*\[/).map((p) => p.replace(/[[\]]/g, "").trim()).filter(Boolean),
       dob_years: years(dob),

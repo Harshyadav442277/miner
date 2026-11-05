@@ -1,0 +1,1082 @@
+[
+ {
+  "name": "Vladimir Putin",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "Apple Inc.",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "Garantex Europe OU",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "Aeza Group",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "Sberbank of Russia",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "Sberbank",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "Lazarus Group",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "Stripe, Inc.",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "Bank of America",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "Tornado Cash",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "Circle Internet Financial",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "Sber Bank",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "LIMITED LIABILITY COMPANY RADIOIZMERENIYA",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "IC VELES CAPITAL LLC",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "TEJARAT GOSTAR FARDAD",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "JSC ALL RUSSIAN RESEARCH INSTITUTE OF RADIO ENGINEERING",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "SPICY CODE COMPANY LIMITED",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "ALMACEN JUNIOR NO. 2",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "ALSHIVAN LINE TRADING FZE",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "SINA TILE AND CERAMIC INDUSTRIES COMPANY",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "JOINT STOCK COMPANY HMS GROUP",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "LIMITED LIABILITY COMPANY SKAY17",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "LIMITED LIABILITY COMPANY SEVERNAYA ALMAZNAYA KOMPANIYA",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "LORENA DEL MAR, S.A. DE C.V.",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "TRANS GAZELLE",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "COMERCIALIZADORA EMPRESARIAL TEAM BUSINESS S.A.",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "AMG RICAS PIZZA",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "SAAB CERTAIN & COMPANIA S. EN C.",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "TAJCO",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "AUDIO ALARMAS, S.A. DE C.V.",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "KONSTRUKTORSKOE BYURO PRIBOROSTROENIYA OTKRYTOE AKTSIONERNOE OBSHCHESTVO",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "JOINT STOCK COMPANY URAL MINING AND METALLURGICAL COMPANY",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "Safaricom PLC",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "Cloudflare, Inc.",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "Shopify Inc.",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "Siemens AG",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "Infosys Limited",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "Deutsche Bank",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "Grab Holdings",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "GitHub, Inc.",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "Rippling",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "Wise PLC",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "Paystack",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "Sony Group",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "Airbus SE",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "Flutterwave",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "Microsoft Corporation",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "Nestle S.A.",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "Kraken",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "Costco Wholesale",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "Garantex",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "AEZA Grp",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "Сбербанк",
+  "query": "",
+  "wallet": "",
+  "prod": "unknown"
+ },
+ {
+  "name": "Sberbnak",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "Lazarus Grp.",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "PAO Sberbank Rossii",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "L4zarus Group",
+  "query": "",
+  "wallet": "",
+  "prod": "possible_match"
+ },
+ {
+  "name": "Lazaruss Group",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "Grinex Exchange",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "Blender io",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "Hydra Marketplace",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "Gr1nex",
+  "query": "",
+  "wallet": "",
+  "prod": "possible_match"
+ },
+ {
+  "name": "Blender dot io",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "aeza group",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "lazarus group",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "sberbank",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "grinex",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "blender.io",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "garanteks",
+  "query": "",
+  "wallet": "",
+  "prod": "possible_match"
+ },
+ {
+  "name": "Гарантекс",
+  "query": "",
+  "wallet": "",
+  "prod": "unknown"
+ },
+ {
+  "name": "Cryptex Platform",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "Bitzlato Services",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "Hydra Mkt",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "cryptex",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "bitzlato",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "hydra market",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "Suex dot io",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "Chatex Exchange",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "suex.io",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "chatex",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "tinkoff bank",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "Тинькофф Банк",
+  "query": "",
+  "wallet": "",
+  "prod": "unknown"
+ },
+ {
+  "name": "rosneft company",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "Rosneft Co",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "stripe inc",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "stripe",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "apple",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "shopify",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "shopify inc",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "apple inc",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "deel",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "deel inc",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "Deel Inc.",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "revolut",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "Revolut Ltd",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "Coinbase Global",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "vercel inc",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "vercel",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "github inc",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "cloudflare",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "cloudflare inc",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "Vercel Inc.",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "github",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "Atlassian",
+  "query": "",
+  "wallet": "",
+  "prod": "possible_match"
+ },
+ {
+  "name": "Toyota Motor Corporation",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "Maersk",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "SAP SE",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "nestle s.a",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "Unilever PLC",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "HSBC Holdings",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "Barclays PLC",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "Standard Chartered",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "Mercado Libre",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "MTN Group",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "tata consultancy",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "infosys",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "Tata Consultancy Services",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "Samsung Electronics",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "walmart inc",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "walmart",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "Walmart Inc.",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "Boeing Company",
+  "query": "",
+  "wallet": "",
+  "prod": "possible_match"
+ },
+ {
+  "name": "Pepe (anonymous team)",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "",
+  "query": "",
+  "wallet": "0x0000000000000000000000000000000000000000",
+  "prod": "no_match"
+ },
+ {
+  "name": "PUTIN, Vladimir Vladimirovich",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "Putin Vladimir",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "putin vladimir vladimirovich",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "Владимир Путин",
+  "query": "",
+  "wallet": "",
+  "prod": "unknown"
+ },
+ {
+  "name": "Roman Semenov",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "Ali Khamenei",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "vladimir putin",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "Aliaksandr Mikhajlavich LASIAKIN",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "Ivan Rafael HERNANDEZ DALA",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "Faouzi Ben Mohamed Ben Ahmed JENDOUBI",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "Mhd Amer ALCHWIKI",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "Jose de Jesus AMEZCUA CONTRERAS",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "Mohamed Mohamed FARRARA LASHTAR",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "Noureddine ADAM",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "Gholamreza BAGHBANI",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "Mohammad YAZDI",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "TGR WEALTH SOLUTIONS LTD",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "MAJILIS MUJAHIDIN INDONESIA",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "tgr wealth solutions",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "Flavio MENDEZ SANTIAGO",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "TAI LUNG HOTEL",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "GASOLINERA ROSARIO",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "RIHS-KOSOVO",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "Zzyzx Fictional Holdings Ltd",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "SHERKAT SANAYEH ELECTRONICS IRAN",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "RIHS-SOMALIA",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "zzyzx fictional holdings",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "JOINT STOCK COMPANY AIR AND SPACE DEFENSE CONCERN ALMAZ-ANTEY",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "nasser ghasemi rad and associates partnership company",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "MOJTAMAE SANATE HAFTOME TIR",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "нассер гhасеми рад анд ассоcиатес партнершип cомпанй",
+  "query": "",
+  "wallet": "",
+  "prod": "possible_match"
+ },
+ {
+  "name": "MARSHALL CAPITAL",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "спеcтрум инвестмент гроуп hолдинг сал",
+  "query": "",
+  "wallet": "",
+  "prod": "possible_match"
+ },
+ {
+  "name": "общество с ограниченнои отвецтвенностю втб форекс",
+  "query": "",
+  "wallet": "",
+  "prod": "unknown"
+ },
+ {
+  "name": "spectrum investment group holding sal",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "obshchestvo s ogranichennoi otvetstvennostyu vtb foreks",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "oao epk samara",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "оао епк самара",
+  "query": "",
+  "wallet": "",
+  "prod": "unknown"
+ },
+ {
+  "name": "Goldman Sachs International",
+  "query": "",
+  "wallet": "",
+  "prod": "no_match"
+ },
+ {
+  "name": "сепанир оил анд гас енгинееринг cомпанй",
+  "query": "",
+  "wallet": "",
+  "prod": "possible_match"
+ },
+ {
+  "name": "sepanir oil and gas engineering company",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "motojen auto industry company",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "мотоjен ауто индустрй cомпанй",
+  "query": "",
+  "wallet": "",
+  "prod": "possible_match"
+ },
+ {
+  "name": "исламиc револутион мостазафан фоундатион",
+  "query": "",
+  "wallet": "",
+  "prod": "possible_match"
+ },
+ {
+  "name": "islamic revolution mostazafan foundation",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "garantex europe",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "лимитед лиабилитй cомпанй емергенcй дигитал солутионс",
+  "query": "",
+  "wallet": "",
+  "prod": "possible_match"
+ },
+ {
+  "name": "limited liability company emergency digital solutions",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "мянма еcономиc hолдингс публиc cомпанй лимитед",
+  "query": "",
+  "wallet": "",
+  "prod": "possible_match"
+ },
+ {
+  "name": "myanma economic holdings public company limited",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "amc service fze",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "амc сервиcе фзе",
+  "query": "",
+  "wallet": "",
+  "prod": "possible_match"
+ },
+ {
+  "name": "myanma economic holdings public company",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "Banco Nacional de Cuba",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ },
+ {
+  "name": "Tesla, Inc.",
+  "query": "",
+  "wallet": "",
+  "prod": "possible_match"
+ },
+ {
+  "name": "ADF",
+  "query": "",
+  "wallet": "",
+  "prod": "match"
+ }
+]

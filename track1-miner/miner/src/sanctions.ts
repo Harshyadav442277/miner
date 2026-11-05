@@ -10,6 +10,9 @@
  * its edition, and the lists that were not.
  */
 import { sanctionsLists, type Edition, type ListedParty, type SanctionsLists } from "./sanctions-lists";
+import { DESCRIPTORS, editDistance, nameTokens } from "./sanctions-names";
+
+export { nameTokens };
 
 const MATCH = 0.95;
 // "Ivan Petrov" reached 0.887 against "IVANOV, Victor Petrovich" through the
@@ -17,24 +20,6 @@ const MATCH = 0.95;
 const POSSIBLE = 0.9;
 const MAX_WORDS = 8;
 const NOT_SCREENED = ["EU consolidated financial sanctions list", "UK HMT consolidated list"];
-
-/** Legal forms and honorifics: they say what a party is, not which one. */
-const NOISE = new Set(["mr", "mrs", "ms", "dr", "the", "ltd", "llc", "inc", "co", "corp", "company", "limited", "plc",
-  "jsc", "pjsc", "ojsc", "ooo", "oao", "zao", "gmbh", "ag", "sa", "srl", "bv", "llp", "lp", "fzc", "fze", "of", "and"]);
-
-export function nameTokens(s: string): string[] {
-  const words = String(s ?? "").normalize("NFKD").replace(/\p{M}/gu, "").toLowerCase()
-    .replace(/[^a-z0-9]+/g, " ").trim().split(" ").filter(Boolean).map((t) => t.slice(0, 40));
-  // "S.A." arrives as "s" "a": joined, it is a legal form and goes; initials stay.
-  const out: string[] = [];
-  for (let i = 0; i < words.length; i++) {
-    let j = i;
-    while (j < words.length && words[j]!.length === 1) j++;
-    if (j - i > 1 && NOISE.has(words.slice(i, j).join(""))) { i = j - 1; continue; }
-    if (!NOISE.has(words[i]!)) out.push(words[i]!);
-  }
-  return out;
-}
 
 export function jaroWinkler(a: string, b: string): number {
   if (a === b) return 1;
@@ -70,21 +55,47 @@ export function jaroWinkler(a: string, b: string): number {
  * find a close listed word; a listed name with extra words (a patronymic, a
  * middle name) scores a little lower, and a one-word subject cannot reach a
  * possible match against a longer name on its own.
+ *
+ * `screening` adds two rules for sanctions (GAPS G255), off for registry and
+ * EDGAR lookups:
+ * - a descriptor the caller added ("Grinex Exchange" for GRINEX) may match
+ *   nothing, and the score then stays below a match;
+ * - a name that decides on one word must spell that word near-exactly, so
+ *   Tesla is not TELA and Atlassian is not ATLAS.
  */
-export function nameScore(subject: string[], listed: string[]): number {
+export function nameScore(subject: string[], listed: string[], screening = false): number {
   if (!subject.length || !listed.length) return 0;
   let sum = 0;
+  let used = 0;
+  let skipped = 0;
+  let single: [string, string] | null = null;
   for (const s of subject) {
     let best = 0;
+    let bestWord = "";
     for (const l of listed) {
       const v = s.length === 1 ? (l.startsWith(s) ? 0.9 : 0) : jaroWinkler(s, l);
-      if (v > best) best = v;
+      if (v > best) { best = v; bestWord = l; }
     }
-    if (best < 0.85) return 0;
+    if (best < 0.85) {
+      if (screening && DESCRIPTORS.has(s) && subject.length - skipped > 1) { skipped++; continue; }
+      return 0;
+    }
     sum += best;
+    used++;
+    single = [s, bestWord];
   }
-  const score = (sum / subject.length) * (0.85 + 0.15 * Math.min(1, subject.length / listed.length));
-  return subject.length === 1 && listed.length > 1 ? Math.min(score, 0.85) : score;
+  let score = (sum / used) * (0.85 + 0.15 * Math.min(1, used / listed.length));
+  if (used === 1 && listed.length > 1) score = Math.min(score, 0.85);
+  if (!screening) return score;
+  if (used === 1 && single && !nearExact(...single)) score = Math.min(score, 0.85);
+  return skipped ? Math.min(score, 0.94) : score;
+}
+
+function nearExact(a: string, b: string): boolean {
+  if (a === b) return true;
+  const shorter = Math.min(a.length, b.length);
+  const d = editDistance(a, b);
+  return (shorter >= 7 && d <= 1) || (shorter >= 8 && d <= 2);
 }
 
 export interface Subject { name: string; dob_year: number | null; kind: "individual" | "entity" | null; wallet: string | null }
@@ -152,7 +163,7 @@ export function screenParties(subject: Subject, lists: SanctionsLists): Match[] 
     let score = 0;
     let matched = p.name;
     index!.tokens[i]!.forEach((t, k) => {
-      const v = nameScore(want, t);
+      const v = nameScore(want, t, true);
       if (v > score) { score = v; matched = k === 0 ? p.name : p.aliases[k - 1]!; }
     });
     if (score < 0.8) return;
