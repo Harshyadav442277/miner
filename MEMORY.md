@@ -1,6 +1,44 @@
 # MEMORY.md — session continuity
 
-## 2026-11-04 ~21:20 UTC (Nov 5 02:50 IST): CURRENT — winning push started; `aa110f8` LIVE
+## 2026-11-05 ~11:00 UTC (16:30 IST): CURRENT — Ahmed answered; real paid traffic read; sanctions fix ready, not deployed
+
+- **Production unchanged:** `aa110f8` (`miner-iwc9rd2yv`); rollback `miner-1aoi3y0wt`. PR #17 merged into main
+  (`2b5a9a1`, CI green).
+- **Ahmed, 2026-11-05** (TELEGRAPH_FACTS 12–17):
+  - no grace period on `updateMiner` (G206 closed; the docs still show one, G261);
+  - claim only what passes its tests;
+  - latency and price are not tie-breakers;
+  - consumption evidence must tell paid requests from test traffic.
+- **Rules re-read live 2026-11-05:** the Miner rubric is now 35/15/10/10/5/5 **+ growth 20** (RULES_SEASON2.md,
+  WINNING.md header).
+- **Network records** (`tools/consumption.mjs`, `docs/evidence/consumption-2026-11-05/`):
+  - 385 paid requests to `livecert` Nov 1–4, from 16 wallets;
+  - 24 ranked-routed; 341 x402 payments verified on Sepolia;
+  - no wallet tied to an H2 app (G259).
+- **The real callers found defects:**
+  - FACT_CHECK wrong on common facts (G257, open, next);
+  - sanctions misses on Cyrillic, abbreviated and domain forms (G258, fixed in code: `e19df9e`, then `853da09` after
+    a security review).
+- **Merged `codex/rank1-14-intents`** into this branch (`3df11ef`). It brought the other session's scored-field
+  change (G254, which waits on the owner's yes) and its G254–G256. This session's new entries were renumbered
+  G257–G261.
+- **Verified:**
+  - unit 885/885 in `C:/Users/hyada/tg-deploy/m3df11ef` (the merged tree plus `853da09`'s files);
+  - the replay of 180 real sanctions inputs against the live lists: unknown 7 → 0, match 85 → 107
+    (`docs/evidence/sanctions-real-inputs-2026-11-05/`).
+- **Blocked on the owner:** a yes to one release carrying G258 and G254 (TASKS, Owner). After the yes:
+  1. fast-forward `codex/rank1-14-intents` to this branch's tip;
+  2. make a fresh deploy tree at that commit;
+  3. run the release-miner skill.
+- **Next (Claude):** G257 fact-check fix, then N1 (one `updateMiner`: cut STOCK_PRICE, NEWS_HEADLINES, NEWS_SEARCH,
+  IP_GEOLOCATION and EVENT_OUTCOME; fix the descriptions; audit any addition first).
+- **Owner:**
+  - the release yes;
+  - post Discord and X update 1 (the links resolve now);
+  - ask Ahmed which payer wallets are H2 apps, and say which are ours;
+  - check the Vercel plan (G249).
+
+## 2026-11-04 ~21:20 UTC (Nov 5 02:50 IST): winning push started; `aa110f8` LIVE
 
 - Owner: "i give you permission to take action on all of these … whenever you need my human involved, lmk".
   Ahmed was messaged by the owner (6 questions: grace period, 4 unscored intents, tie-breaks, judging, receipts,

@@ -7,33 +7,53 @@ commit.
 
 ## Winning push — started 2026-11-04 ~20:30 UTC (Nov 5 IST) (owner: "i give you permission to take action on all of these")
 
-Ordered by rubric points. Live ranks on 2026-11-04 (epoch 2013): 32 of 36 intents scored, 3 at rank 1, 13 in the top 3.
+Ordered by rubric points. **Miner weights re-read 2026-11-05:** quality 35, reliability 15, coverage 10, consumption
+10, cost/latency 5, docs 5, growth 20. Live ranks on 2026-11-05 (epoch 2017): 35 of 36 intents scored; 1 at rank 1
+(STOCK_PRICE, which refuses every request), 8 in the top 3.
 
 **Claude**
-- [x] R1 Reliability 20: availability sweep of all 39 endpoints every 30 minutes on GitHub (`tools/availability.mjs`,
+- [x] R1 Reliability: availability sweep of all 39 endpoints every 30 minutes on GitHub (`tools/availability.mjs`,
       `uptime` workflow; run history plus artifacts). Capacity: 58 req/s at 20 concurrent callers, 0 errors, on
       `/ssl-check` (`docs/evidence/capacity-2026-11-04/`). LLM routes not load-tested (quota-bound).
 - [x] Q1 Quality 35: audit replay 2026-11-04, 154/154 answered; 61 re-checked: 12 pass, 23 partial, 3 fail, 15
       licence refusals. Rows 25, 27, 29, 30 fixed and deployed (`aa110f8`, preflight 7/7). Re-run weekly.
-- [ ] C1 Cost/latency 10: `tools/availability-report.mjs` builds the table from the sweeps; publish it once a
+- [x] C2 Consumption: `tools/consumption.mjs` reads the network's own records. Nov 1–4: 385 paid requests from 16
+      wallets, 24 ranked-routed, 341 x402 payments verified on Sepolia (`docs/evidence/consumption-2026-11-05/`).
+      No wallet is tied to an H2 app yet (G259).
+- [x] Q3 Sanctions, from that real traffic (G258): Cyrillic, abbreviations, domains, digits for letters, look-alike
+      letters; 3 false positives removed. On the 180 real inputs, unknown 7 → 0, match 85 → 107; unit 885/885.
+      `e19df9e` + `853da09`. **Not deployed:** the release also carries G254 and waits on the owner's yes.
+- [ ] Q4 FACT_CHECK (G257), next: real callers got "Venus is the largest planet" as `supported` and a true
+      Kilimanjaro claim as `contradicted`. Four missions buy it.
+- [ ] C1 Cost/latency 5: `tools/availability-report.mjs` builds the table from the sweeps; publish it once a
       week of sweeps exists (Nov 11). Upstream cost per request is $0 (keyless or free keys).
 - [ ] Q2 Near-miss correctness (only where the reference is the true answer): weather temperature, weather
       forecast, corporate registry, gas price. Deploy via the release-miner gates.
-- [ ] D1 Docs 10 + Evaluator docs 5: beginner tutorial (network, cost, limits), video script.
+- [ ] D1 Docs 5 + growth 20 (now in both tracks): beginner tutorial (network, cost, limits), video script.
 - [x] G1 drafts: `docs/OUTREACH.md` (Discord recipe post, X update 1, templates for 2 and 3). Guide updated.
       Evaluator explainer drafts are Codex's (`track2/OUTREACH_S2.md`).
-- [ ] N1 New intents: prototype TEXT_SUMMARIZATION, TASK_EXECUTION_QUALITY, IMAGE_CAPTIONING,
-      ASSET_RESERVE_ATTESTATION; audit before any updateMiner. Cut EVENT_OUTCOME, CRYPTO_PRICE, NEWS_HEADLINES,
-      STORM_ALERT in the same update.
+- [ ] N1 One `updateMiner`, now unblocked (G206 closed 2026-11-05: no grace period on update). Ahmed: "submit the
+      capabilities you can reliably demonstrate rather than claiming everything".
+      - Cut what refuses or fails: STOCK_PRICE, NEWS_HEADLINES, NEWS_SEARCH and IP_GEOLOCATION (licence refusals),
+        and EVENT_OUTCOME (score 0.0289, rank 12).
+      - Decide by audit: CRYPTO_PRICE and STORM_ALERT.
+      - Fix the descriptions (G250).
+      - Add an intent only if it passes its audit first: TEXT_SUMMARIZATION, IMAGE_CAPTIONING and
+        ASSET_RESERVE_ATTESTATION are candidates.
+      - Before the owner signs, validate and sandbox-test the YAML on anjoman.ai/dashboard/earn (owner's session).
 
 **Owner (human needed)**
-- [x] Questions sent to Ahmed 2026-11-04 UTC (grace period, 4 unscored intents, tie-breaks, judging, receipts,
-      sandbox). Waiting.
-- [ ] Post the Discord message and X update 1 from `docs/OUTREACH.md` (after PR #17 merges, so links resolve).
+- [x] Questions sent to Ahmed 2026-11-04 UTC; **answered 2026-11-05** (TELEGRAPH_FACTS items 12–17).
+- [ ] **Yes or no: one release carrying the sanctions fix (G258) and the scored-field change (G254).** Both are on
+      `codex/rank1-14-intents` after the merge. Unit tests 885/885 on the merged tree `C:/Users/hyada/tg-deploy/m3df11ef`.
+- [ ] Post the Discord message and X update 1 from `docs/OUTREACH.md`. PR #17 is merged and the audit link resolves
+      (checked 2026-11-05). Growth is now 20 points in the Miner track too.
+- [ ] Ask Ahmed which of the 16 payer wallets in `docs/evidence/consumption-2026-11-05/summary.md` belong to
+      registered H2 apps (G259). Tell Claude which are ours (an Anjoman smart wallet, any test calls).
 - [ ] Check the Vercel plan in the dashboard: Hobby bars commercial use (G249).
 - [x] Sign and upload the 144 translation pairs: done, all 144 admitted at epoch 2013 (MEMORY, Codex block).
 - [ ] Record the 2–5 minute video from the script.
-- [ ] Sign the one `updateMiner` once N1 passes its audit and Ahmed answers G206.
+- [ ] Validate the N1 YAML on anjoman.ai/dashboard/earn, then sign the one `updateMiner`.
 
 ## Owner
 
