@@ -1,6 +1,19 @@
 # MEMORY.md — session continuity
 
-## 2026-11-05 ~18:35 UTC (Nov 6 00:05 IST): CURRENT — sanctions fix G258 LIVE as `4fb477e`; filings fix still pending
+## 2026-11-05 ~19:20 UTC (Nov 6 00:50 IST): CURRENT — filings fix G257/G263 LIVE as `9b82d08`
+
+- **Production:** `9b82d08`, `https://miner-f28bzjwiw-wukong4.vercel.app` (`dpl_BmcKxGSMKRuwAcY6P22sBzhvojD6`),
+  aliased ~19:10 UTC. Owner: "Yes, deploy it". **Rollback target:** `miner-mztwjxnqa` (`4fb477e`, the sanctions
+  release). Miner diff against it: `filings.ts`, `mission-routes.ts` and their tests. Record:
+  `track1-miner/docs/evidence/release-2026-11-05-filings-issuer/`.
+- Verified: unit 887/887 in the deploy tree; preview 9/9; preflight **7/7 first run**; 4829 `active` (19:16 UTC);
+  production finds Apple (13), Microsoft 8-Ks (8), `entity=Tesla&period=last 12 months` (15), and sends
+  `filing_count: null` for Ozempic and for a no-period "latest 10-Q" question.
+- Epochs at ~19:18 UTC: filings not scored since 2019 (0.8145); sanctions 9th 0.9859 at 2021 (first after the
+  sanctions release); registry 4th 0.9962 at 2021.
+- Next: read the next filings epochs with `tools/epoch-history.mjs` (G263); then Q4 FACT_CHECK (G262). Not pushed.
+
+## 2026-11-05 ~18:35 UTC (Nov 6 00:05 IST): sanctions fix G258 LIVE as `4fb477e`; filings fix still pending
 
 - **Production:** `4fb477e`, `https://miner-mztwjxnqa-wukong4.vercel.app` (`dpl_HdLrLG7mb9pdfMPFDzF2PMSavUtv`),
   aliased to `miner-wine.vercel.app` at ~18:28 UTC. Owner: "Yes, deploy now" (G258 only). **Rollback target:**

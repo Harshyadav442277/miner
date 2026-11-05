@@ -107,9 +107,10 @@ Ordered by rubric points. **Miner weights re-read 2026-11-05:** quality 35, reli
       registry and filings intents and compare with `release-2026-11-05-scored-fields/epochs-before.json`.
       Epoch 2019 read 18:13 UTC: filings fell to 11th, 0.8145, with the whole field (GAPS G254); two more to go.
 - [x] G257: find the issuer in a filings question that names no `company` (fixed in code 2026-11-05, unit 879/879).
-- [ ] Owner: deploy the G257 + G263 filings change? Not deployed; it answers more count questions and sends a null
-      count instead of 0 or an all-history count.
-- [ ] G263: count every SEC form, as zk-filing does, or keep material forms? Decide from epochs after the next deploy.
+- [x] Deploy the G257 + G263 filings change. Owner: "Yes, deploy it"; live 2026-11-05 ~19:10 UTC as `9b82d08`
+      (`miner-f28bzjwiw`), preflight 7/7, record in `track1-miner/docs/evidence/release-2026-11-05-filings-issuer/`.
+- [ ] G263: read the next filings epochs against 0.8145; then count every SEC form, as zk-filing does, or keep
+      material forms? Decide from those numbers.
 - [x] Pin the owner's required account (`hyadav42774@gmail.com`) and LiveCert wallet in repository instructions;
       remove conflicting email and alternate-payout guidance (owner instruction, 2026-11-03).
 

@@ -1,5 +1,16 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-05 ~19:20 UTC filings release — G257 deployed; G263 measuring
+
+Evidence: `track1-miner/docs/evidence/release-2026-11-05-filings-issuer/`.
+
+- **G257 — DEPLOYED 2026-11-05 ~19:10 UTC (`9b82d08`, `miner-f28bzjwiw`), preflight 7/7.** Production now finds the
+  issuer in "How many filings did Apple make in the last 12 months?" (13) and reads `entity=Tesla&period=last 12
+  months` (15); before this release both answered "No issuer was named". `CLOSED` for the cases probed.
+- **G263 — the null counts are live. `OPEN, measuring`.** An issuer not in EDGAR and a question with no period now
+  send `filing_count: null`. No filings epoch was scored after 2019 by ~19:18 UTC; read the next ones against
+  0.8145 (2019) and 0.976–0.980 (before `filing_count` existed). The form and source questions stay open.
+
 ## 2026-11-05 ~18:20 UTC first epoch after the scored-fields release — G254 read; G257 fixed in code; G263 new
 
 Evidence: `track1-miner/docs/evidence/release-2026-11-05-scored-fields/` (`epochs-after-2019.json`,
