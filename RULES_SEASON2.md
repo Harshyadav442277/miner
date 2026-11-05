@@ -94,18 +94,26 @@ sale using the supported Telegraph flow". A supported testnet implementation can
 
 ## Rubric (§06): out of 100; a winner needs ≥ 70 and the track minimum
 
-**Miners / Providers**, minimum 24/35 on quality
+**Miners / Providers**, minimum 24/35 on quality. **Re-read live 2026-11-05 ~09:40 UTC** at
+https://anjoman.ai/dashboard/hackathon/season-2/rules (Miners tab in §05, §06 and §08). The weights changed
+from the 2026-10-29 read (35/20/15/10/10/10), and growth (20) is new for Miners too:
 
-| Points | Criterion |
-|---:|---|
-| 35 | Independently tested intelligence quality |
-| 20 | Reliability, uptime, and capacity |
-| 15 | Useful Intent coverage and apps enabled |
-| 10 | Verified use by H2 mission apps |
-| 10 | Cost, latency, and serving economics |
-| 10 | Integration and documentation |
+| Points | Criterion | 2026-10-29 |
+|---:|---|---:|
+| 35 | Independently evaluated intelligence quality (minimum 24) | 35 |
+| 15 | Reliability, availability, and capacity | 20 |
+| 10 | Verified Intent coverage and application enablement | 15 |
+| 10 | Verified H2 mission application consumption | 10 |
+| 5 | Cost, latency, and serving economics | 10 |
+| 5 | Integration and documentation | 10 |
+| 20 | Organic growth, education, and developer activation (same 5/5/5/5 table as the Evaluators) | — |
 
-The 15 coverage points reward "useful Miner–Intent capabilities, especially ones needed by the 15 missions".
+§05 for Miners, 2026-11-05: "Your service must answer real calls for a supported Intent. Judges will check
+correctness, independently measured quality, uptime, capacity, speed, costs, useful Intent coverage, and whether
+it helped H2 mission apps. Each Miner–Intent pair is tested for its specific task and against relevant same-Intent
+competition. Only claim live rankings, routed use, or earnings when the network records support them."
+
+The 10 coverage points reward "useful Miner–Intent capabilities, especially ones needed by the 15 missions".
 "Creating lots of Intents or generating meaningless traffic does not earn extra points."
 
 The 10 consumption points are awarded once per Provider, across all its Miner–Intent pairs:
@@ -188,11 +196,12 @@ mission-specific tests or applications the service enables.
 **Evaluator evidence:** the Intent, the adapter or material version, the results, and a fair baseline
 comparison or credible new coverage. Show which mission-specific tests or applications it enables.
 
-**Public posts:** encouraged, not scored. Aim for one useful update each active week, tagging Telegraph.
-"Social posts, tags, views, and likes are not required for technical eligibility and do not change the judging
-weights or prize amounts." In the final-week Anjoman session, participants show what they actually did, such
-as exploring an Intent, reading rankings or connecting a service, and say whether it was on testnet or
-production.
+**Public posts:** scored since the growth criterion (20) was added to every track (Evaluators read
+2026-11-01, Miners 2026-11-05). Organic distribution (5) asks for "at least three meaningful original updates on
+separate dates covering progress and results", sharing beyond our own team, and follow-up to feedback. Followers,
+stars and reposts earn nothing; an independent developer acting on the work earns up to 4 of the 5 community
+points. The links go in the public summary or the evidence field (§08). In the final-week Anjoman session,
+participants show what they actually did and say whether it was on testnet or production.
 
 ## Verification (§09) and fair play (§10)
 

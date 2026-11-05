@@ -228,6 +228,46 @@ to v2 (and does an update restart the 7-day grace period)?
 Not answered: whether `updateMiner` restarts the 7-day grace period (GAPS G206). It was asked as part of
 question 2, and the reply covered only the carry-over.
 
+## Organiser answers — 2026-11-05 (Ahmed, to the owner; pasted into the session ~09:30 UTC)
+
+Six questions were sent 2026-11-04 UTC (TASKS.md, winning push). Quoted or closely paraphrased:
+
+12. **No grace period on update.** "There is no seven-day grace period for a new or updated Miner.
+    updateMiner creates a new registration ID, and the Miner follows the normal evaluation and ranking
+    process. Updating does not create a reserved period of traffic or reset a grace-period clock." Closes
+    GAPS G206. **Conflict:** the registration guide (anjoman.ai/docs/miners/miner-registration, "Updated
+    November 1, 2026", read 2026-11-05) still has "Step 7: The grace period" (5% shared traffic for 7 days).
+    The organiser's statement is the later and more specific one; the docs page is recorded, not followed.
+13. **Missing scores mean missing evaluation coverage.** An Intent is scored only with "a working evaluation
+    adapter, and sufficient evaluation material or reference data". He invites Track 2 work on those Intents:
+    bounties at github.com/telegraphprotocol/bounties/issues, docs at anjoman.ai/docs/scoring/build-a-scoring-module,
+    submissions at anjoman.ai/dashboard/eval. "Multiple contributors can work on the same Intent."
+14. **Close scores.** Displayed scores may be rounded. "Latency and price are not tie-breakers in the ranking."
+15. **Judging is separate from live rankings** (Rules §5–7). "Each Intent you claim must pass its relevant
+    tests, so i'd recommend submitting the capabilities you can reliably demonstrate rather than claiming
+    everything. A failed Intent isn't automatically a fixed deduction from an average, but it can affect your
+    technical assessment and what counts as verified."
+16. **Consumption evidence:** "real request and response records, delivery receipts or transaction evidence
+    where available, and your own service logs showing successful requests", reproducible, and "distinguish
+    actual paid requests from evaluation or test traffic".
+17. **YAML:** validate and sandbox-test on Anjoman before updating the registration (anjoman.ai/dashboard/earn,
+    the owner's wallet session). The public `dashboard/validate` endpoint answers 404 (registration guide).
+
+## Network records of paid requests — checked 2026-11-05 ~10:00 UTC
+
+- **The Daemon feed lists paid user requests.** `GET https://devnode.telegraphprotocol.com/daemon/api/questions`
+  (no auth). "Rows with source: user are requests people paid for through the Engine", each with `routing.miner_slug`,
+  `routing.intent`, `routing_mode`, `routing.reasoning`, `execution.result` and a `signal_hash`
+  (anjoman.ai/docs/using/daemon-signals, updated 2026-11-01). Rows the Daemon itself asks are internal traffic.
+- **`GET /engine/v1/signal/{hash}` names the paying wallet** (`wallet_address`) and, for x402, the payment
+  `tx_hash`, beside the request and the miner's whole answer.
+- **How a row says who chose the miner** (read from `routing.reasoning` on our rows): "miner livecert given by
+  the caller" and "user-directed" are named-miner requests; "intent given by the caller", or a model's intent
+  classification, means the engine picked the miner by rank. Only the second kind can earn ranked-routing points.
+- **Scores per intent:** `GET /api/miners` carries `scores[]` per miner (intent, epoch, rank, score, scored_at)
+  and `total_requests_served`. Epoch 2017 (2026-11-05 ~08:44 UTC): 4433 scored on 35 of 36 intents; the
+  unscored one, SENTIMENT_ANALYSIS_GENERAL, is scored for 14 other miners. `total_requests_served` 387.
+
 ---
 
 ## The single most important fact
@@ -442,6 +482,12 @@ A rejection **releases the slug immediately** — someone else can claim it. Fix
 `updateMiner(uint256 oldRegistrationId, ...)` deregisters and re-registers atomically. You get a
 **new `registrationId` and a new `intentId`** — anything holding the old `intentId` breaks.
 Only the registering address can update or deregister. No admin override.
+
+Re-read 2026-11-05 (registration guide, updated 2026-11-01): a non-canonical intent reverts the whole update and
+leaves the original registration untouched. The node's request-contract checks (every endpoint needs a
+description; an endpoint's intents must be in `supported_intents`) apply on the next update; "If a
+re-submission is refused, your existing registration keeps serving and keeps your slug." Each update leaves the
+old entry behind in `/miner-dispatcher/miners/address/<wallet>/yamls`. No grace period on update (item 12).
 
 ## Live endpoints
 

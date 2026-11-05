@@ -1,5 +1,43 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-05 ~10:00 UTC (15:30 IST) organiser answers and real paid traffic — G254–G258; G206 closed
+
+Sources: Ahmed's reply (TELEGRAPH_FACTS items 12–17), the live Rules page re-read 2026-11-05, and the Daemon feed plus
+signal records for every paid request routed to `livecert` since Nov 1 (`track1-miner/docs/evidence/consumption-2026-11-05/`).
+
+- **G254 — FACT_CHECK gets common-knowledge claims wrong for real paying callers. `OPEN, fix next`.** Of 37 distinct
+  claims from wallet `0x1046…508a` (2026-11-03): "Venus is the largest planet in the Solar System" → `supported` 0.7;
+  "The Eiffel Tower is located in Berlin and was completed in 1889" → `supported` 0.7; "Mount Kilimanjaro is the
+  tallest mountain in Africa at 5895 metres" (true) → `contradicted` 0.7. "Water boils at 90 degrees Celsius at sea
+  level" and "BERT was introduced by Meta in 2012" → `unverified`, and so are most true claims (Berlin Wall 1989,
+  Golden Gate 1937, Python 3.0 2008). Devnode ranks the intent 5th (0.9791, epoch 2017), so the rank hides this.
+  Four missions buy FACT_CHECK. Cause not yet read in the code.
+- **G255 — Sanctions screening misses listed entities written the way people write them. `OPEN, fix next`.** From
+  wallet `0x66fB…4a83` (287 requests, 175 distinct names, 2026-11-01/02), and from others:
+  - Cyrillic names are not read as names: "Сбербанк", "Гарантекс", "Тинькофф Банк" → `unknown`, "No person,
+    company or wallet was named", so nothing was screened.
+  - Abbreviated or reworded forms miss: "AEZA Grp", "Lazarus Grp.", "Hydra Mkt", "PAO Sberbank Rossii",
+    "Suex dot io", "suex.io", "Blender dot io", "Cryptex Platform", "Grinex Exchange" → `no_match`. "Gr1nex",
+    "L4zarus Group" and "garanteks" do reach `possible_match`.
+  - One false positive: "Atlassian" → `possible_match` with ATLAS.
+  - Correct: listed entities written as listed, the clean companies, and Tornado Cash (`no_match`; OFAC delisted it
+    in March 2025, not re-checked today).
+  Five missions buy this intent. Each "should match" above still needs its SDN entry confirmed before it becomes a
+  test, because the requests are someone else's benchmark, not our reference.
+- **G256 — Paid traffic exists, but none of it is yet tied to a registered H2 mission app. `OPEN, owner + Ahmed`.**
+  385 `source: user` requests reached `livecert` from Nov 1 to Nov 4, from 16 wallets; 13 of them were ranked-routed,
+  from 5 wallets. None of the wallets appears in this repo or on `codex/sanctions-benchmark-v7`. That does not prove
+  independence: the owner's Anjoman smart wallet, the owner's second entry or a Codex run would also be unknown
+  here. Consumption points need "a qualifying H2 mission app", so each wallet must be tied to a registered H2 App
+  before it is claimed. Until then, report the requests only as network-recorded paid use, of unknown origin.
+- **G257 — SENTIMENT_ANALYSIS_GENERAL is unscored for us while 14 other miners are scored. `OPEN`.** So it is not
+  missing evaluation coverage (Ahmed's point 2) but something about our answers or our sampling. Not investigated.
+- **G258 — The registration guide still describes a 7-day grace period. `OPEN, docs vs organiser`.** "Step 7: The
+  grace period" (updated 2026-11-01) against Ahmed's "There is no seven-day grace period for a new or updated
+  Miner" (2026-11-05). We plan on the organiser's statement. If routed share after an update looks throttled, this
+  is the first suspect.
+- **G206 closed 2026-11-05** by the organiser: no grace period on update (TELEGRAPH_FACTS item 12).
+
 ## 2026-11-04 ~21:30 UTC (Nov 5 03:00 IST) winning push — G248–G253
 
 - **G248 — Devnode ranks STOCK_PRICE_US_EQUITY 1st (0.9987, epoch 2013) while every stock request is refused
@@ -378,7 +416,8 @@ branch `claude/correctness-audit-2026-10-21`, not yet merged here.
   - /judging carries an older Apps rubric.
   - We plan to 1 Dec 23:59 UTC and the /rules prizes until the organisers confirm in writing. The message is
     drafted in WINNING.md §8.
-- **G206 — Does `updateMiner` restart the 7-day grace period? `OPEN; asked again 2026-10-25, not answered`.** The
+- **G206 — Does `updateMiner` restart the 7-day grace period? `CLOSED 2026-11-05`: the organiser says there is no
+  grace period for a new or updated miner (TELEGRAPH_FACTS item 12; the docs disagree, G258).** The
   Oct 24 Option A window passed unsigned, so 4829 is frozen for the season unless this is answered. The V2 import
   may itself have reset the date (G220). The same
   reply settled that miners carry over to v2 unchanged (TELEGRAPH_FACTS item 10), so the v2 migration itself costs
