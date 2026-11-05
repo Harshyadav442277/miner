@@ -21,34 +21,63 @@ export interface FilingAsk { company: string; form: string | null; since: string
 
 const FORM = /\b(10-K|10-Q|8-K|20-F|6-K|40-F|S-1|S-3|S-4|F-1|DEF\s?14A|13F-HR|11-K|10-KT)(\/A)?\b/i;
 
-/** The issuer, the form and the time window, read from the declared parameters and the question. */
-export function filingAsk(question: string, companyParam = "", formParam = "", now = new Date()): FilingAsk {
+const COUNT: Record<string, number> = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10,
+  eleven: 11, twelve: 12, eighteen: 18, "twenty-four": 24 };
+
+/** The start of a window such as "in the last 12 months", "past two quarters" or "over the past year". */
+function windowStart(w: string, now: Date): string | null {
+  const rel = w.match(/\b(?:last|past)\s+(\d{1,3}|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|eighteen|twenty-four)\s+(day|week|month|quarter|year)s?\b/i)
+    // Without a number only after a preposition: "versus the last quarter" compares, it is not a window.
+    ?? w.match(/\b(?:in|over|during|within|for)\s+the\s+(?:last|past)\s+()(day|week|month|quarter|year)\b/i);
+  if (rel) {
+    const d = new Date(now);
+    const n = !rel[1] ? 1 : /^\d+$/.test(rel[1]) ? Number(rel[1]) : COUNT[rel[1].toLowerCase()] ?? 1;
+    const unit = rel[2]!.toLowerCase();
+    if (unit === "day") d.setUTCDate(d.getUTCDate() - n);
+    else if (unit === "week") d.setUTCDate(d.getUTCDate() - 7 * n);
+    else if (unit === "month") d.setUTCMonth(d.getUTCMonth() - n);
+    else if (unit === "quarter") d.setUTCMonth(d.getUTCMonth() - 3 * n);
+    else d.setUTCFullYear(d.getUTCFullYear() - n);
+    return d.toISOString().slice(0, 10);
+  }
+  if (/\btoday\b/i.test(w)) return now.toISOString().slice(0, 10);
+  if (/\bthis\s+week\b/i.test(w)) return new Date(now.getTime() - 7 * 86_400_000).toISOString().slice(0, 10);
+  // "This month" is the calendar month: Nvidia's September 8-K was answered
+  // "Yes" to "Has Nvidia filed an 8-K this month?" on 2026-10-21.
+  if (/\bthis\s+month\b/i.test(w)) return `${now.toISOString().slice(0, 7)}-01`;
+  if (/\bthis\s+year\b/i.test(w)) return `${now.toISOString().slice(0, 4)}-01-01`;
+  return w.match(/\bsince\s+(\d{4}-\d{2}-\d{2})\b/i)?.[1] ?? null;
+}
+
+// Where a question names the issuer, tried in order. The node's request builder may send only `query`, so
+// "How many filings did Apple make in the last 12 months?" must find Apple on its own (GAPS G257).
+const ISSUER: RegExp[] = [
+  /\b(?:has|have|did|when\s+did|when\s+was)\s+(.+?)\s+(?:filed|file|submit(?:ted)?|publish(?:ed)?|release[sd]?|make|made|had)\b/i,
+  /\b(?:filings?|10-K|10-Q|8-K|20-F|6-K|annual\s+report|quarterly\s+report|current\s+report)s?\s+(?:made\s+|filed\s+|submitted\s+)?(?:for|from|of|by)\s+(.+?)(?:[?,]|\s+(?:on|in|with|and|since|this|last|past|filed|over|during|within|between)\b|$)/i,
+  /\b([A-Z][\w&.'-]*(?:,?\s+[A-Z][\w&.'-]*){0,4})(?:'s|’s)\s+(?:latest|last|most\s+recent|recent|newest|new)?\s*(?:10-K|10-Q|8-K|20-F|6-K|annual|quarterly|current|filing)/,
+  /\b(?:made|filed|submitted|published)\s+by\s+(.+?)(?:[?,]|\s+(?:on|in|with|and|since|this|last|past|over|during|within|between)\b|$)/i,
+  // A name in front of the form: "Microsoft 8-K filings in the last 6 months", "How many Tesla filings…".
+  /(?:^|\b(?:[Ll]ist|[Ss]how|[Cc]ount|[Gg]et|[Ff]ind|[Hh]ow\s+many)\s+(?:all\s+|the\s+|of\s+)?)(?!(?:SEC|EDGAR|US|U\.S\.|List|Show|Count|Get|Find|How|What|Which|Recent|Latest|New|All|Any|Total|Regulatory|Annual|Quarterly|Current|The)\b)([A-Z][\w&.'-]*(?:,?\s+[A-Z][\w&.'-]*){0,4})\s+(?:SEC\s+|EDGAR\s+|regulatory\s+)?(?:10-K|10-Q|8-K|20-F|6-K|40-F|S-1|DEF\s?14A|filings?|annual\s+reports?|quarterly\s+reports?)/,
+];
+
+/**
+ * The issuer, the form and the time window, read from the declared parameters and the question. `periodParam` is
+ * the intent's own `period` ("last 12 months"); when given it sets the window instead of the question.
+ */
+export function filingAsk(question: string, companyParam = "", formParam = "", now = new Date(), periodParam = ""): FilingAsk {
   const q = String(question ?? "").slice(0, 600);
   const fm = (formParam.match(FORM) ?? q.match(FORM));
   const named = fm ? `${fm[1]!.toUpperCase().replace(/^DEF\s?14A$/, "DEF 14A")}${fm[2] ? "/A" : ""}` : null;
   const form = named ?? (/\bannual report\b/i.test(q) ? "10-K" : /\bquarterly report\b/i.test(q) ? "10-Q"
     : /\bcurrent report\b/i.test(q) ? "8-K" : /\bproxy\b/i.test(q) ? "DEF 14A" : null);
-  let since: string | null = q.match(/\bsince\s+(\d{4}-\d{2}-\d{2})\b/i)?.[1] ?? null;
-  const rel = q.match(/\b(?:in\s+the\s+)?(?:last|past)\s+(\d{1,3})\s+(day|week|month)s?\b/i);
-  if (rel) {
-    const d = new Date(now);
-    const n = Number(rel[1]);
-    if (/day/i.test(rel[2]!)) d.setUTCDate(d.getUTCDate() - n);
-    else if (/week/i.test(rel[2]!)) d.setUTCDate(d.getUTCDate() - 7 * n);
-    else d.setUTCMonth(d.getUTCMonth() - n);
-    since = d.toISOString().slice(0, 10);
-  } else if (/\b(?:today)\b/i.test(q)) since = now.toISOString().slice(0, 10);
-  else if (/\bthis\s+week\b/i.test(q)) since = new Date(now.getTime() - 7 * 86_400_000).toISOString().slice(0, 10);
-  // "This month" is the calendar month: Nvidia's September 8-K was answered
-  // "Yes" to "Has Nvidia filed an 8-K this month?" on 2026-10-21.
-  else if (/\bthis\s+month\b/i.test(q)) since = `${now.toISOString().slice(0, 7)}-01`;
-  else if (/\bthis\s+year\b/i.test(q)) since = `${now.toISOString().slice(0, 4)}-01-01`;
+  const period = periodParam.trim().slice(0, 200);
+  const since = (period && windowStart(`in the ${period.replace(/^(?:(?:in|over|during|within|for)\s+)?(?:the\s+)?/i, "")}`, now))
+    || windowStart(q, now);
   const fy = q.match(/\b(?:fiscal(?:\s+year)?\s*|FY\s?)((?:19|20)\d{2})\b/i)?.[1];
-  const m =
-    q.match(/\b(?:has|have|did|when\s+did|when\s+was)\s+(.+?)\s+(?:filed|file|submit(?:ted)?|publish(?:ed)?|release[sd]?)\b/i) ??
-    q.match(/\b(?:filings?|10-K|10-Q|8-K|20-F|6-K|annual\s+report|quarterly\s+report|current\s+report)\s+(?:for|from|of|by)\s+(.+?)(?:[?,]|\s+(?:on|in|with|and|since|this|last|filed)\b|$)/i) ??
-    q.match(/\b([A-Z][\w&.'-]*(?:,?\s+[A-Z][\w&.'-]*){0,4})(?:'s|’s)\s+(?:latest|last|most\s+recent|recent|newest|new)?\s*(?:10-K|10-Q|8-K|20-F|6-K|annual|quarterly|current|filing)/);
-  const company = (companyParam.trim() || (m?.[1] ?? "")).replace(/^(?:the|a)\s+/i, "").replace(/(?:'s|’s)$/, "").replace(/[?!]+$/, "").trim();
+  let m: RegExpMatchArray | null = null;
+  for (const re of ISSUER) if ((m = q.match(re))) break;
+  const company = (companyParam.trim() || (m?.[1] ?? "")).replace(/^(?:the|a)\s+/i, "").replace(/(?:'s|’s)$/, "")
+    .replace(/[?!]+$/, "").replace(/\s*\([^)]*\)$/, "").trim();
   return { company, form, since, latest: !since, ...(fy ? { fiscal_year: Number(fy) } : {}) };
 }
 
@@ -157,21 +186,25 @@ export function filingTitle(f: Filing): string {
   return `${f.form} filed ${f.filed}${when}${items}`;
 }
 
-/** The intent's count fields over the filings in the window, newest first. Pure. */
-export function countFields(inWindow: Filing[], index: Filing[], since: string | null): Pick<FilingResult, "filing_count" | "filings" | "urls" | "counted_since" | "count_complete"> {
+/**
+ * The intent's count fields over the filings in the window, newest first. Pure. `windowed` is false when the
+ * question gave no period or fiscal year: the count is then null, because a count of the whole index answers
+ * no question that was asked.
+ */
+export function countFields(inWindow: Filing[], index: Filing[], since: string | null, windowed = since !== null): Pick<FilingResult, "filing_count" | "filings" | "urls" | "counted_since" | "count_complete"> {
   const oldest = index.at(-1)?.filed ?? null;
   const complete = !(index.length >= INDEX_CAP && oldest !== null && (since === null || since < oldest));
   return {
-    filing_count: inWindow.length,
+    filing_count: windowed ? inWindow.length : null,
     filings: inWindow.slice(0, LISTED).map(filingTitle),
     urls: inWindow.slice(0, LISTED).map((f) => f.url),
-    counted_since: since ?? oldest,
-    ...(complete ? {} : { count_complete: false }),
+    counted_since: since,
+    ...(complete || !windowed ? {} : { count_complete: false }),
   };
 }
 
-export async function monitorFilings(question: string, companyParam = "", formParam = "", now = new Date()): Promise<FilingResult> {
-  const ask = filingAsk(question, companyParam, formParam, now);
+export async function monitorFilings(question: string, companyParam = "", formParam = "", now = new Date(), periodParam = ""): Promise<FilingResult> {
+  const ask = filingAsk(question, companyParam, formParam, now, periodParam);
   const other = String(question ?? "").match(OTHER_REGULATOR)?.[0];
   const notCovered = other ? `Only SEC EDGAR is read; ${other} disclosures are not covered.` : undefined;
   const base = {
@@ -188,7 +221,8 @@ export async function monitorFilings(question: string, companyParam = "", formPa
       reason: `${ask.company}'s filings could not be checked because SEC EDGAR did not answer. This is an availability problem, not a finding that nothing was filed.` };
   }
   if (cik === null) {
-    return { ...base, verdict: "not_found", confidence: 0.6, filing_count: 0, filings: [], urls: [], counted_since: ask.since,
+    // Not a count of 0: the intent covers any regulator's filings, and only SEC EDGAR was read.
+    return { ...base, verdict: "not_found", confidence: 0.6, filings: [], urls: [], counted_since: ask.since,
       reason: `No SEC registrant matching ${ask.company} was found, so it has no EDGAR filings to report.${notCovered ? ` ${notCovered}` : " Issuers that file only with regulators outside the US are not covered."}` };
   }
   const co: EdgarCompany | null | undefined = await submissions(cik.cik);
@@ -207,7 +241,9 @@ export async function monitorFilings(question: string, companyParam = "", formPa
   const inWindow = ask.since ? all.filter((f) => f.filed >= ask.since!) : all;
   const ident = {
     company: co.name, cik: co.cik, tickers: co.tickers, source_url: co.source_url, recent_filings: inWindow.slice(0, 5),
-    entity: co.name, ...countFields(inWindow, co.filings, ask.since),
+    // A fiscal year's filings are all filed on or after 1 January of that year: the bound for completeness.
+    entity: co.name, ...countFields(inWindow, co.filings, ask.since ?? (ask.fiscal_year ? `${ask.fiscal_year}-01-01` : null),
+      Boolean(ask.since || ask.fiscal_year)),
   };
   const what = ask.form ?? "material filing";
   const f = inWindow[0];

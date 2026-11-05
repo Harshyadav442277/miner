@@ -42,8 +42,9 @@ export const MISSION_ROUTES: Record<string, MissionRoute> = {
   },
   "/sec-filings": {
     what: "An SEC filing check",
-    params: ["company", "form"],
-    run: (q, p) => monitorFilings(q, p("company"), p("form")),
+    // `entity` and `period` are REGULATORY_FILING_MONITOR's own request names (GET /engine/v1/intents/<id>).
+    params: ["company", "entity", "form", "period"],
+    run: (q, p) => monitorFilings(q, p("company", "entity"), p("form"), new Date(), p("period")),
   },
   "/macro": {
     what: "A macroeconomic statistic lookup",

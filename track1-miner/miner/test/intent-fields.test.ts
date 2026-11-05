@@ -70,10 +70,18 @@ test("filings: filing_count counts the window, and says when EDGAR's index cut i
   assert.deepEqual(c.urls, ["https://sec.example/2026-10-30", "https://sec.example/2026-07-31"]);
   assert.equal(c.counted_since, "2026-01-01");
   assert.equal(c.count_complete, undefined);
-  assert.equal(countFields([], index, null).counted_since, "2025-11-01", "no window counts from the oldest filing read");
+  // A count of the whole index answers no question that was asked (epoch 2019, 2026-11-05: filings fell to 0.8145).
+  const open = countFields(index, index, null);
+  assert.equal(open.filing_count, null, "no window is no count");
+  assert.equal(open.counted_since, null);
+  assert.equal(open.filings!.length, 3, "the filings read are still listed");
+  assert.equal(countFields(index.slice(2), index, null, true).filing_count, 1, "a fiscal year is a window without a since date");
 
   const full = Array.from({ length: 1_000 }, (_, i) => filing("4", `2026-${String(12 - Math.floor(i / 100)).padStart(2, "0")}-01`));
   assert.equal(countFields(full, full, "2020-01-01").count_complete, false);
   assert.equal(countFields(full, full, "2026-12-01").count_complete, undefined);
-  assert.equal(countFields(full.concat(full), full.concat(full), null).filings!.length, 100, "the list is capped, the count is not");
+  assert.equal(countFields(full, full, null).count_complete, undefined, "no count, so nothing to call incomplete");
+  const capped = countFields(full.concat(full), full.concat(full), "2020-01-01");
+  assert.equal(capped.filing_count, 2_000);
+  assert.equal(capped.filings!.length, 100, "the list is capped, the count is not");
 });

@@ -14,6 +14,36 @@ test("the issuer, form and window are read from the question", () => {
   assert.equal(filingAsk("anything", "AAPL", "10-k/a", NOW).form, "10-K/A");
 });
 
+// G257: the request builder may send only `query`. These answered "No issuer was named" on production
+// (`3c5e8ff`, 2026-11-05) unless `company` was passed.
+test("count questions name the issuer without a company param", () => {
+  const ask = (q: string, period = "") => filingAsk(q, "", "", NOW, period);
+  assert.deepEqual(ask("How many filings did Apple make in the last 12 months?"),
+    { company: "Apple", form: null, since: "2025-10-14", latest: false });
+  assert.deepEqual(ask("Microsoft 8-K filings in the last 6 months"),
+    { company: "Microsoft", form: "8-K", since: "2026-04-14", latest: false });
+  assert.equal(ask("How many SEC filings has Johnson & Johnson made since 2026-01-01?").company, "Johnson & Johnson");
+  assert.deepEqual(ask("How many filings were made by Nvidia over the past year?"),
+    { company: "Nvidia", form: null, since: "2025-10-14", latest: false });
+  assert.deepEqual(ask("Number of regulatory filings for Apple Inc. (AAPL) during the last 3 months"),
+    { company: "Apple Inc.", form: null, since: "2026-07-14", latest: false });
+  assert.deepEqual(ask("List Tesla 10-Q filings in the past two quarters"),
+    { company: "Tesla", form: "10-Q", since: "2026-04-14", latest: false });
+  assert.equal(ask("How many Tesla filings were there in the last 12 months?").company, "Tesla");
+  assert.equal(ask("Recent 8-K filings?").company, "", "a sentence's first word is not an issuer");
+});
+
+test("the window: the intent's period wins, and a comparison is not a window", () => {
+  const ask = (q: string, period = "") => filingAsk(q, "", "", NOW, period);
+  assert.equal(ask("How many filings did Apple make?", "last 12 months").since, "2025-10-14");
+  assert.equal(ask("How many filings did Apple make?", "the past year").since, "2025-10-14");
+  assert.equal(ask("Did Apple file an 8-K in the last 30 days?", "last 6 months").since, "2026-04-14");
+  assert.equal(ask("Did Apple file an 8-K in the last 30 days?", "FY2025").since, "2026-09-14", "an unread period falls back to the question");
+  const latest = ask("Has Tesla filed its latest 10-Q, and how did margins compare with the last quarter?");
+  assert.equal(latest.since, null);
+  assert.equal(latest.latest, true);
+});
+
 // Tesla's GrossProfit facts as tagged in its Q2 2026 10-Q (accession 0001628280-26-049270, read 2026-10-14).
 const ACC = "0001628280-26-049270";
 const fact = (start: string, end: string, val: number, accn = ACC) => ({ start, end, val, accn });
