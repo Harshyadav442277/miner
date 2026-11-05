@@ -38,13 +38,15 @@ as either answer.
 
 ## Upload (the owner signs; Claude never touches the key)
 
-1. Sign in at https://anjoman.ai/dashboard/eval with the contributor wallet, a burner per the root CLAUDE.md
-   (its address is credited with the rows).
+1. Sign in at https://anjoman.ai/dashboard/eval and verify `hyadav42774@gmail.com` and the connected LiveCert
+   wallet `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e` before proceeding. The signer is credited with the rows.
 2. Add material under exactly `LANGUAGE_TRANSLATION_GENERAL`, upload `out/LANGUAGE_TRANSLATION_GENERAL.jsonl`, and
-   sign the EIP-191 message the page shows. No fee or bond.
+   sign the `Telegraph eval-pool submission v1` EIP-191 message. Check the intent, body SHA-256 above,
+   and Sepolia chain ID `11155111`. No fee or bond.
 3. Check the rows: `curl -s "https://devnode.telegraphprotocol.com/api/evalpool/submissions/mine?submitter=<address>&intent_id=LANGUAGE_TRANSLATION_GENERAL"`.
-   Every row should reach `admitted`, then `eligible` at the next epoch rollover (epochs are 1 hour).
-4. On bounty #140: `/claim`, then `/submit <address> — 150 preference pairs ...` once the rows are eligible.
+   Check the receipt and confirm how many rows progress from `admitted` to `eligible` after an epoch rollover.
+4. On bounty #140, use `/claim`, then `/submit <address> — <verified eligible count> preference pairs ...`
+   once the rows are eligible.
 
 The pool uses an intent's questions only once 5 different contributors have material in it. One honest
 contributor: never extra wallets to reach that number.

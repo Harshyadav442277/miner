@@ -1,5 +1,34 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-04 ~21:30 UTC (Nov 5 03:00 IST) winning push — G248–G253
+
+- **G248 — Devnode ranks STOCK_PRICE_US_EQUITY 1st (0.9987, epoch 2013) while every stock request is refused
+  `not_licensed`. `OPEN`.** So a devnode rank does not prove a correct answer, and routed stock buyers reach a
+  miner that refuses them. Remove STOCK_PRICE at the next `updateMiner`; never cite that rank. Evidence:
+  `track1-miner/docs/evidence/audit-replay-2026-11-04/` rows 101–104 and the catalog read of epoch 2013.
+- **G249 — Which Vercel plan serves the miner? `OPEN, owner checks the dashboard`.** Vercel's fair-use page
+  (read 2026-11-04) says "Hobby teams are restricted to non-commercial personal use only" and commercial use needs
+  Pro. The miner sells answers through Telegraph. The CLI and the Vercel MCP did not return the plan.
+- **G250 — WEB_SEARCH's first manifest example is a news question, which is refused (G194). `OPEN, next
+  updateMiner`.** Lead the description with a question it answers ("Who is the CEO of OpenAI?").
+- **G251 — Weather failures name the whole question as the place. `OPEN, wording`.** "A storm risk forecast for
+  Is there a storm risk in Miami…" (audit replay rows 7, 15; both fine when asked again minutes later). The two
+  fast failures (~760 ms) were not traced to an upstream.
+- **G252 — Extraction does not read "1,200 units" as a quantity. `OPEN`.** Row 30 now names the date, the
+  amount and the organisations, not the unit count.
+- **G253 — The capacity figure covers one route. `OPEN, by design`.** 58 req/s at 20 callers on `/ssl-check`
+  with no errors; LLM routes are bounded by the Groq free tier and were not load-tested
+  (`track1-miner/docs/evidence/capacity-2026-11-04/`).
+- **G205 — CLOSED 2026-11-04.** The `uptime` workflow sweeps every endpoint every 30 minutes from main
+  (`3d354e6`); `tools/availability-report.mjs` turns the artifacts into the reliability table.
+
+## 2026-11-05 IST evaluator activation
+
+- **URL_SCAN_VERDICT preflight. `OPEN`.** The live catalog says hybrid and ready. The pool has 5 eligible
+  contributors and 65 eligible rows (36 qualification). Registry resolution reports routed generic fallback.
+  The exact registration target, compatible hybrid reference material and improvement on a repeatable
+  mission workflow still need verification.
+
 ## 2026-11-01 evaluation material — G247
 
 - **G247 — Translation material: three things only the upload can confirm. `OPEN`.** (1) The node's 85%

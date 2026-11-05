@@ -179,6 +179,16 @@ test("sentence-initial words are not people and a title's tail is not a place (2
   assert.deepEqual(acme.fields["places"], ["London"]);
 });
 
+test("a request for several kinds answers every kind once (audit replay 2026-11-04, rows 29-30)", () => {
+  const acme = extractContent("Extract the dates, amounts and organisations from: On 3 March 2025, Acme Corp paid $4.2 million to Beta Ltd in London for 1,200 units.");
+  for (const v of ["Acme Corp", "Beta Ltd", "March 3, 2025", "$4.2 million"]) assert.ok(acme.summary.includes(v), `${v} missing: ${acme.summary}`);
+  for (const v of ["$4.2 million", "March 3, 2025"]) {
+    assert.equal(acme.summary.split(v).length - 1, 1, `${v} repeated: ${acme.summary}`);
+  }
+  const bert = extractContent("Extract the dates, quantities, named entities and events from: BERT stands for Bidirectional Encoder Representations from Transformers. It pushes the GLUE score to 80.5% (7.7% point absolute improvement).");
+  for (const v of ["Transformers", "80.5%"]) assert.ok(bert.summary.includes(v), `${v} missing: ${bert.summary}`);
+});
+
 describe("named fields when the text comes in its own parameter (G245)", () => {
   const invoice = "Invoice INV-2041 from Acme Ltd, total $1,250.00, due 2026-11-30. Contact billing@acme.example.";
 

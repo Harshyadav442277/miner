@@ -1,11 +1,52 @@
 # MEMORY.md — session continuity
 
+## 2026-11-04 ~21:20 UTC (Nov 5 02:50 IST): CURRENT — winning push started; `aa110f8` LIVE
+
+- Owner: "i give you permission to take action on all of these … whenever you need my human involved, lmk".
+  Ahmed was messaged by the owner (6 questions: grace period, 4 unscored intents, tie-breaks, judging, receipts,
+  sandbox). Board: TASKS.md "Winning push".
+- **Uptime record ON** from 2026-11-04 ~21:10 UTC: `uptime` workflow every 30 min on main (PR #16, `3d354e6`),
+  `tools/availability.mjs`, artifacts kept 90 days. First run all green.
+- **Capacity:** 58 req/s at 20 callers, 0 errors, `/ssl-check` (`docs/evidence/capacity-2026-11-04/`).
+- **Audit replay:** 154/154 answered; 61 re-checked rows: 12 pass, 23 partial, 3 fail, 15 licence refusals
+  (`docs/evidence/audit-replay-2026-11-04/`). Devnode ranks STOCK_PRICE 1st while we refuse every stock request.
+- **Deployed** `aa110f8` (fixes rows 25, 27, 29, 30) as `miner-iwc9rd2yv`, preflight 7/7; rollback `miner-1aoi3y0wt`.
+- Since: availability report tool; guide corrected; outreach drafts (`docs/OUTREACH.md`); GAPS G248–G253 (STOCK_PRICE
+  ranked 1st while refusing; Vercel plan unknown, Hobby bars commercial use). PR #17 open, CI pending, not merged.
+- Next (Claude): merge PR #17 when CI is green; N1 intent prototypes (summarisation, task-execution quality,
+  image captioning, asset reserve) with audits; tutorial and video script (D1); Nov 11 weekly audit + report.
+- Owner: post Discord + X update 1 after #17 merges; check the Vercel plan (G249); Ahmed's answers pending.
+
 ## 2026-11-04 ~20:30 UTC (Nov 5 IST): Evaluator rubric reconciled on `claude/winning-tracks-overview-3f735a`
 
 - Owner: "Yes, update both". `RULES_SEASON2.md` gets the 2026-11-01 Evaluator rubric (cherry-pick of `6b09093`);
   `WINNING.md` moves to validity 40, integrity 15, reproducibility 10, coverage 10, docs 5, growth 20 (D17 added).
 - Rubric-only change. `codex/sanctions-benchmark-v7` (48 commits ahead of main, no PR) carries its own fuller
   WINNING.md rewrite with sanctions status; expect overlapping hunks when it merges. Live Rules page not re-read today.
+
+## 2026-11-05 IST: translation material admitted
+
+- Owner signed and uploaded 144 `LANGUAGE_TRANSLATION_GENERAL` pairs. Anjoman reported 144 stored,
+  zero duplicates and zero refused. Public wallet readback confirms all 144 admitted at epoch 2013.
+  Eligibility is pending. The pool has one submitter, zero eligible submitters and a five-contributor minimum.
+
+## 2026-11-05 IST: translation signature ready; URL Scan leads the evaluator shortlist
+
+- Restored the translation file's LF bytes from the checkout's CRLF representation. All 144 rows pass the
+  local checker and SHA-256 matches the upload runbook. The devnode returned zero rows for the owner wallet.
+  Owner signs the Sepolia EIP-191 upload using the fixed identity in AGENTS.md.
+- Public registry and pool scan across 196 intent and family IDs: Web Search has 1 of 5 eligible contributors.
+  URL Scan has 5, 65 eligible rows, and generic fallback. Sanctions has 8 contributors under the `_GENERAL`
+  child and no dedicated champion, but our candidate still lacks baseline-beating evidence. See TASKS and GAPS.
+
+## 2026-11-03: required account and LiveCert wallet pinned
+
+- Owner: "for this repo - use only hyadav42774@gmail.com and the wallet which is connected with livecert only".
+- Fixed email: `hyadav42774@gmail.com`; fixed LiveCert wallet:
+  `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e` (already identified in the root and Track 1 READMEs).
+- [AGENTS.md](AGENTS.md) and [CLAUDE.md](CLAUDE.md) require identity verification before authenticated
+  actions and forbid fallback accounts, signers or payout wallets. This overrides older email guidance.
+- Account guidance and the signing runbook were aligned. No external account links or wallet state changed.
 
 ## 2026-11-01 ~20:30 UTC (Nov 2 02:00 IST): CURRENT — main merged; translation material ready to sign
 
@@ -420,7 +461,8 @@ branch is fast-forwarded and **not pushed**.
 ## Durable facts (true across sessions; re-verify protocol facts against live docs)
 
 **Identity.**
-- Hackathon signup: `harsh.2024a@vitstudent.ac.in`. X: `@hyadav42774`.
+- Required account: `hyadav42774@gmail.com` only (owner instruction, 2026-11-03; supersedes older signup
+  email guidance). X: `@hyadav42774`.
 - Miner, fee and Track 2 script wallet: `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e`. Wallet operations
   are the owner's: Claude drafts and validates, the owner signs.
 - Chain: Base Sepolia testnet, Diamond `0x5a2324aA18613FAD4e44bDF0d6c73Ec1f6D87ff8` (V2 docs, 2026-10-27).

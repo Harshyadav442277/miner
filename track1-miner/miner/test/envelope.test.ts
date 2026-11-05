@@ -18,6 +18,14 @@ test("the lead sentence ends at the first full stop that ends a sentence", () =>
   assert.equal(leadSentence('He said "stop." Then left.'), 'He said "stop."');
 });
 
+test("a numbered list stays in the sentence that introduced it (audit replay 2026-11-04)", () => {
+  assert.equal(
+    leadSentence("Here are 2 papers on X: 1) A by B (2026), cited 0 times. 2) C by D (2025), cited 3 times. Source: OpenAlex."),
+    "Here are 2 papers on X: 1) A by B (2026), cited 0 times. 2) C by D (2025), cited 3 times.",
+  );
+  assert.equal(leadSentence("Revenue was 4 USD. 2024 was a weak year."), "Revenue was 4 USD.");
+});
+
 test("the envelope puts answer first, keeps every field and always dates the answer", () => {
   const now = new Date("2026-10-13T19:00:00Z");
   const out = envelope({ verdict: "valid", confidence: 1, reason: "It is valid. More detail.", issuer: "X" }, now) as Record<string, unknown>;

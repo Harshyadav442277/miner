@@ -51,8 +51,14 @@ async function probe(path) {
     const body = await res.text();
     const ms = Math.round(performance.now() - started);
     let answer = "";
-    try { answer = String(JSON.parse(body).answer ?? ""); } catch { /* not JSON */ }
-    return { path, status: res.status, ms, up: res.status === 200 && answer.trim().length > 0 };
+    let refused = false;
+    try {
+      const j = JSON.parse(body);
+      answer = String(j.answer ?? "");
+      refused = j.error === "not_licensed";
+    } catch { /* not JSON */ }
+    // A licence refusal passes the spot-check bar, so it is "up"; `refused` keeps it from reading as service.
+    return { path, status: res.status, ms, up: res.status === 200 && answer.trim().length > 0, ...(refused ? { refused } : {}) };
   } catch (e) {
     return { path, status: 0, ms: Math.round(performance.now() - started), up: false, error: e.name };
   }

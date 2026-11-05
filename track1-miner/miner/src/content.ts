@@ -452,16 +452,19 @@ export function extractContent(question: string, suppliedText?: string): Extract
   const byName = named.length ? extractFields(named, source) : null;
   if (byName) return byName;
   const kinds = requestedKinds(instruction);
-  const results = kinds.map(want => extractForKind(want, source));
-  if (results.length === 1) return results[0]!;
+  if (kinds.length === 1) return extractForKind(kinds[0]!, source);
+  // Each kind without its own "Also: …" remainder, then one remainder for the whole answer. Joining the
+  // per-kind remainders repeated the same values three times (audit replay 2026-11-04, row 30).
+  const results = kinds.map(want => extractForKind(want, source, false));
   const fields: Record<string, string[]> = {};
   for (const result of results) {
     for (const [key, values] of Object.entries(result.fields)) fields[key] = [...new Set([...(fields[key] ?? []), ...values])];
   }
-  return { want: "multiple", source, fields, summary: results.map(r => r.summary).join(" ") };
+  const sentences = [...new Set(results.map(r => r.summary))];
+  return { want: "multiple", source, fields, summary: withRemainder(sentences.join(" "), source) };
 }
 
-function extractForKind(want: Want, source: string): Extraction {
+function extractForKind(want: Want, source: string, remainder = true): Extraction {
   const fields: Record<string, string[]> = {};
   let summary = "";
 
@@ -573,7 +576,7 @@ function extractForKind(want: Want, source: string): Extraction {
     }
   }
 
-  return { want, source, fields, summary: want === "generic" ? summary : withRemainder(summary, source) };
+  return { want, source, fields, summary: want === "generic" || !remainder ? summary : withRemainder(summary, source) };
 }
 
 /**

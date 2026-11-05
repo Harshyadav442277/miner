@@ -1523,6 +1523,9 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     const instruction = firstValue(url, "query", "q", "question", "input");
     const e = suppliedText ? extractContent(instruction, suppliedText) : extractContent(q);
     sendAnswer(res, q, {
+      // The whole extraction is the answer. Its lead sentence alone dropped the dates and amounts that came
+      // after "Organization: … Place: …" (audit replay 2026-11-04, row 30).
+      answer: e.summary,
       verdict: e.want,
       extracted: e.fields,
       confidence: 1,
