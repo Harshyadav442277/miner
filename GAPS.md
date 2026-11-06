@@ -18,8 +18,10 @@ Evidence: `track1-miner/docs/evidence/scored-fields-2026-11-05/` (the audit) and
   X?" used to get a 24-hour range. Scores were 0.56–0.68 over the last four epochs.
 - **G249 — CONFIRMED: the miner's Vercel team is on Hobby.** `vercel api /v2/teams/<id>` on 2026-11-06 ~16:20 UTC:
   team `wukong4`, `billing.plan: "hobby"`, `status: "active"`. Vercel's fair-use page (read 2026-11-04) bars
-  commercial use on Hobby, and the miner sells answers through Telegraph. `OPEN, owner decision`: upgrade to Pro
-  (paid) or accept the risk. Moving host changes `base_url`, which needs `updateMiner`.
+  commercial use on Hobby, and the miner sells answers through Telegraph. **DECIDED 2026-11-06, owner: stay on
+  Hobby** ("i dont have money to pay … miner is hackathon thing as of now. we can change paid when they shift
+  telegraph to mainnet"). Every payment so far is testnet USDC on Sepolia, so the miner earns no real money.
+  Revisit when Telegraph moves to mainnet. Moving host changes `base_url`, which needs `updateMiner`.
 - **G218 — re-checked 2026-11-06 ~16:25 UTC: still unpublished.** The rules page still says payout is "governed by
   the official prize-payment terms" and links none; `anjoman.ai/terms` (updated 2026-11-02) has no prize terms.
   Whether India is eligible is unknown. `OPEN, ask the organiser`.

@@ -54,8 +54,7 @@ Ordered by rubric points. **Miner weights re-read 2026-11-05:** quality 35, reli
 - [ ] Ask Ahmed which of the 16 payer wallets in `docs/evidence/consumption-2026-11-05/summary.md` belong to
       registered H2 apps (G259). Tell Claude which are ours (an Anjoman smart wallet, any test calls).
 - [x] Check the Vercel plan: **Hobby**, confirmed by API 2026-11-06 (G249).
-- [ ] G249: upgrade team `wukong4` to Pro (paid), or accept that Hobby bars commercial use. Moving host instead
-      changes `base_url` and needs `updateMiner`.
+- [x] G249: stay on Hobby while payments are testnet (owner, 2026-11-06). Revisit when Telegraph moves to mainnet.
 - [x] Sign and upload the 144 translation pairs: done, all 144 admitted at epoch 2013 (MEMORY, Codex block).
 - [ ] Record the 2–5 minute video from the script.
 - [ ] Validate the N1 YAML on anjoman.ai/dashboard/earn, then sign the one `updateMiner`.
