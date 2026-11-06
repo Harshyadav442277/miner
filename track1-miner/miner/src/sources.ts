@@ -155,7 +155,7 @@ export const ENDPOINT_SOURCES: Record<string, string[]> = {
   "/crypto-price": ["bitstamp", "ecb", "frankfurter"],
   "/stock-price": ["bitstamp", "coingecko", "ecb", "frankfurter", "nasdaq", "sec", "yahoo"],
   "/cross-chain": ["4byte", "chain-rpcs", "drpc", "layerzero", "merkle", "openchain", "publicnode"],
-  "/event-outcome": ["manifold", "polymarket"],
+  "/event-outcome": ["manifold", "polymarket", "wikidata"],
   "/url-scan": ["dns-resolvers"],
   "/web-search": ["clinicaltrials", "ebi", "endoflife", "google-news", "groq", "tech-docs", "wikidata", "wikipedia"],
   "/sentiment": ["groq"],
