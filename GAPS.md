@@ -1,5 +1,32 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-06 ~16:50 UTC intent push by earnings — G265–G268; non-SDN list deployed (`192aecc`)
+
+Evidence: `track1-miner/docs/evidence/intent-ranks-2026-11-06/` (ranks at epoch 2026, 12:40 UTC, before the
+`7301474` release) and `track1-miner/docs/evidence/release-2026-11-06-ofac-nonsdn/`.
+
+- **G265 — The sanctions scorer ranks a constant non-answer above a real screen. `OPEN, owner reports`.**
+  Epoch 2026: `san-os-au` 0.9997 (rank 2) and `san-os-ofac` 0.9987 (rank 3) take no input
+  (`input_schema.properties {}`) and return OpenSanctions dataset metadata (4.3 KB, the same for every question).
+  LiveCert screens the named party and was rank 8 at 0.9827. No champion evaluator exists for the family, so the
+  scorer is presumably the generic foundation reward model (not confirmed from docs). Same direction as G248.
+  Unknown: what the node actually sends and receives; how many of the 387 ranking questions this covers.
+  Draft for Ahmed (owner sends, organiser only): "SANCTIONS_SCREENING_MATCH_GENERAL, epoch 2026: ranks 2 and 3
+  (san-os-au 0.9997, san-os-ofac 0.9987) have an empty input schema and call OpenSanctions'
+  `/datasets/latest/<dataset>/index.json`, which returns the same 4 KB of dataset metadata for every question.
+  No name is screened. LiveCert screens the named party against OFAC and UN and is rank 8 at 0.9827. The family
+  has no champion evaluator. Is this the generic scorer, and is a fix planned?"
+- **G266 — CORPORATE_REGISTRY: seven miners tie at 1.0000; we are listed 7th. `OPEN`.** What orders a tie
+  (registration time, latency, stake) is unknown; it is one of the questions sent to Ahmed 2026-11-04.
+- **G267 — WEB_SEARCH_GENERAL and NEWS_SEARCH_GENERAL have no scored miner at all (0 of 25, 0 of 18).
+  `OPEN`.** How Telegraph routes an unscored intent is unknown, so quality work there cannot be measured by rank.
+- **G268 — Production cleared parties on OFAC's non-SDN list. `DEPLOYED 2026-11-06 ~16:45 UTC as 192aecc`.**
+  "Mohammed Abu Tair" (ABU TEIR, NS-PLC, ref 9640) → `no_match` on production at ~16:15 UTC; `match` on the
+  `192aecc` production deployment at 16:49 UTC. EU and UK lists remain unscreened, as answers say (TASKS P1c).
+- Correction, same session: the advertised `/query` URLs of the `0xbd6f6960` miners 404, but the node calls each
+  YAML's `external_path`, and most of those pass the question to a real search API. Only the two `san-os-*`
+  entries are confirmed constant. `gas-publicnode-rpc` (GET `/`, no input) is unverified.
+
 ## 2026-11-06 ~16:20 UTC scored-fields release — G263 acted on; G249 confirmed; G218 re-checked; G264 new
 
 Evidence: `track1-miner/docs/evidence/scored-fields-2026-11-05/` (the audit) and

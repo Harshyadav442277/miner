@@ -5,6 +5,40 @@ Season II (H2): Nov 1 00:00 UTC – **Dec 1 23:59 UTC** 2026, every track (`RULE
 items were cut on 2026-10-17 and 2026-10-29; they are in `git log -p -- TASKS.md`. One task = one change = one
 commit.
 
+## Intent push — by Anjoman's 30-day earnings, started 2026-11-06 (owner: "priortize from the highest one. leave chat completion")
+
+Ranks: devnode epoch 2026, 2026-11-06 12:40 UTC, before the `7301474` release
+(`track1-miner/docs/evidence/intent-ranks-2026-11-06/`). Routing pays ranks 1–3 only (70/20/10). Earnings are
+Anjoman's estimate for the whole intent (owner's screenshot), not ours. None of these families has a champion
+evaluator, and the sanctions scorer ranks a constant metadata file above a real screen (G265), so a correctness
+fix scores on the quality rubric but may not move the devnode rank.
+
+| Part | Intent | $/30d | Ours | Leader | Kind of work |
+|---|---|---|---|---|---|
+| P1 | SANCTIONS_SCREENING_MATCH | 13.35 | 8 / 17, 0.9827 | 0.9999 | code + report |
+| P2 | WEB_SEARCH | 8.60 | unscored (0 of 25 scored) | — | code (G207, G250) |
+| P3 | RESEARCH_QUERY | 6.12 | 6 / 20, 0.9539 | 0.9996 | side-by-side, code |
+| P4 | CORPORATE_REGISTRY_LOOKUP | 3.98 | 7 / 13, 1.0000 | 1.0000 (7-way tie) | none until the tie rule is known (G266) |
+| P5 | NEWS_SEARCH | 3.77 | unscored (0 of 18 scored) | — | owner licence decision (G194) |
+| P6 | FACT_CHECK | 2.77 | 4 / 17, 0.9746 | 0.9999 | side-by-side, code |
+| P7 | CODE_REVIEW | 2.43 | not registered | 1.0000 | new endpoint + `updateMiner` |
+| P8 | TEXT_GENERATION | 1.94 | not registered | 0.9981 | new endpoint + `updateMiner` |
+| P9 | ACADEMIC_SEARCH | 1.53 | 11 / 17, 0.8762 | 0.9866 | side-by-side, code |
+| P10 | REGULATORY_FILING_MONITOR | 1.23 | 13 / 18, 0.8701 | 0.9996 | side-by-side, code |
+| P11 | GAS_PRICE | 1.15 | 4 / 27, 0.9339 | 0.9992 | side-by-side, code |
+
+- [x] P1a Screen OFAC's non-SDN Consolidated list (486 parties). Deployed 2026-11-06 as `192aecc`
+      (`release-2026-11-06-ofac-nonsdn/`); ABU TEIR (ref 9640) now `match`, was `no_match` (G268).
+- [ ] P1c EU and UK lists: too large to read per request (18.6 MB, 16.6 MB). Build a compact name index on a
+      schedule and read that. The #1 miner screens UK and EU entities.
+- [ ] P1d Owner sends Ahmed the G265 draft (in GAPS G265).
+- [ ] Read sanctions epochs after ~16:45 UTC and record the rank change, if any.
+- [ ] P2 WEB_SEARCH: fix G207 (wrong Wikipedia article) and G250 (manifest example is a news question).
+- [ ] P3, P6, P9, P10, P11: capture 15 questions per intent, our answer next to the top 3, fix the gaps found.
+      Gap to rank 3 at epoch 2026: P6 fact check 0.012, P3 research 0.020, P11 gas 0.059, P9 academic 0.107,
+      P10 filings 0.123. Re-read after `7301474`, which changed gas and filings answers.
+- [ ] P7, P8: add to the one `updateMiner` planned in N1 only if an endpoint passes an audit first. Owner signs.
+
 ## Winning push — started 2026-11-04 ~20:30 UTC (Nov 5 IST) (owner: "i give you permission to take action on all of these")
 
 Ordered by rubric points. **Miner weights re-read 2026-11-05:** quality 35, reliability 15, coverage 10, consumption

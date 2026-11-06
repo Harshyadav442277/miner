@@ -1,0 +1,1635 @@
+{
+ "epoch": 2026,
+ "out": {
+  "SANCTIONS_SCREENING_MATCH_GENERAL": [
+   {
+    "slug": "zk-sanctions",
+    "id": "710637",
+    "wallet": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "base": "https://telegraph-s2-sanctions.margyn.workers.dev",
+    "ep": "/screen",
+    "n_intents": 1,
+    "rank": 1,
+    "score": 0.9999
+   },
+   {
+    "slug": "san-os-au",
+    "id": "78007",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://data.opensanctions.org",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 2,
+    "score": 0.9997
+   },
+   {
+    "slug": "san-os-ofac",
+    "id": "78004",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://data.opensanctions.org",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 3,
+    "score": 0.9987
+   },
+   {
+    "slug": "san-opensanc-stats",
+    "id": "78006",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://data.opensanctions.org",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 4,
+    "score": 0.9981
+   },
+   {
+    "slug": "san-opensanc-idx",
+    "id": "78005",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://data.opensanctions.org",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 5,
+    "score": 0.9965
+   },
+   {
+    "slug": "san-opensanc-issues",
+    "id": "78009",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://data.opensanctions.org",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 6,
+    "score": 0.9965
+   },
+   {
+    "slug": "txlens",
+    "id": "9002",
+    "wallet": "0xb3fb14fecac09efbd0c74fc07d50d7ed1eef2b53",
+    "base": "https://telegraph-onchain-tx-lookup-miner.onrender.com",
+    "ep": "/check-tx",
+    "n_intents": 123,
+    "rank": 7,
+    "score": 0.9947
+   },
+   {
+    "slug": "livecert",
+    "id": "4433",
+    "wallet": "0xdad201ef02f5c1fbb8f9e931ae9b7c1bf493a39e",
+    "base": "https://miner-wine.vercel.app",
+    "ep": "/ssl-check",
+    "n_intents": 36,
+    "rank": 8,
+    "score": 0.9827
+   },
+   {
+    "slug": "preflight-ssl-verification",
+    "id": "1900999043",
+    "wallet": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "base": "https://preflight-ssl-verification.vercel.app",
+    "ep": "/weather",
+    "n_intents": 1,
+    "rank": 9,
+    "score": 0.9796
+   },
+   {
+    "slug": "san-os-eu",
+    "id": "78001",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://data.opensanctions.org",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 10,
+    "score": 0.958
+   },
+   {
+    "slug": "san-un-list",
+    "id": "78022",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://omni-chat.13.237.89.59.sslip.io",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 11,
+    "score": 0.9541
+   },
+   {
+    "slug": "chainsight-oracle",
+    "id": "302",
+    "wallet": "0xd4c73e9986c0b48eac22db24b5eef0c8ecef8ef9",
+    "base": "https://hub.shadrakbessanh.me",
+    "ep": "/price",
+    "n_intents": 115,
+    "rank": 12,
+    "score": 0.9203
+   },
+   {
+    "slug": "san-ofac-entity",
+    "id": "78021",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://omni-chat.13.237.89.59.sslip.io",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 13,
+    "score": 0.9087
+   },
+   {
+    "slug": "san-peps",
+    "id": "78008",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://cdn.jsdelivr.net",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 14,
+    "score": 0.8195
+   },
+   {
+    "slug": "counterproof-sanctions-screener",
+    "id": "731002",
+    "wallet": "0x8d1a7ca01fc8fa84000a7c7a1cf9e01f644a84b7",
+    "base": "https://counterproof-screener.vercel.app",
+    "ep": "/screen",
+    "n_intents": 1,
+    "rank": 15,
+    "score": 0.7458
+   },
+   {
+    "slug": "san-courtlistener",
+    "id": "78010",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://www.courtlistener.com",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 16,
+    "score": 0
+   },
+   {
+    "slug": "san-ofac-sdn",
+    "id": "78003",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://www.treasury.gov",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 17,
+    "score": 0
+   }
+  ],
+  "WEB_SEARCH_GENERAL": [],
+  "RESEARCH_QUERY_GENERAL": [
+   {
+    "slug": "rq-fedreg",
+    "id": "130009",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://www.federalregister.gov",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 1,
+    "score": 0.9996
+   },
+   {
+    "slug": "rq-zenodo",
+    "id": "130004",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://zenodo.org",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 2,
+    "score": 0.9765
+   },
+   {
+    "slug": "telegraph-verity-intelligence",
+    "id": "5530",
+    "wallet": "0xa5600c2bcc8f8c7d712d7e3895b1cc9e5eecb436",
+    "base": "https://telegraph-verity-intelligence-api.onrender.com",
+    "ep": "/v1/intent",
+    "n_intents": 35,
+    "rank": 3,
+    "score": 0.9742
+   },
+   {
+    "slug": "rq-hn",
+    "id": "130010",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://hacker-news.firebaseio.com",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 4,
+    "score": 0.9652
+   },
+   {
+    "slug": "zk-scholar-rq",
+    "id": "77326",
+    "wallet": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "base": "https://telegraph-scholar.margyn.workers.dev",
+    "ep": "/research",
+    "n_intents": 1,
+    "rank": 5,
+    "score": 0.9614
+   },
+   {
+    "slug": "livecert",
+    "id": "4433",
+    "wallet": "0xdad201ef02f5c1fbb8f9e931ae9b7c1bf493a39e",
+    "base": "https://miner-wine.vercel.app",
+    "ep": "/ssl-check",
+    "n_intents": 36,
+    "rank": 6,
+    "score": 0.9539
+   },
+   {
+    "slug": "rq-crossref",
+    "id": "130003",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://api.crossref.org",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 7,
+    "score": 0.9197
+   },
+   {
+    "slug": "preflight-ssl-verification",
+    "id": "1900999043",
+    "wallet": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "base": "https://preflight-ssl-verification.vercel.app",
+    "ep": "/weather",
+    "n_intents": 1,
+    "rank": 8,
+    "score": 0.9159
+   },
+   {
+    "slug": "scholarwire-research-query",
+    "id": "7326",
+    "wallet": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "base": "https://telegraph-scholar.margyn.workers.dev",
+    "ep": "/research",
+    "n_intents": 1,
+    "rank": 9,
+    "score": 0.9013
+   },
+   {
+    "slug": "chainsight-oracle",
+    "id": "302",
+    "wallet": "0xd4c73e9986c0b48eac22db24b5eef0c8ecef8ef9",
+    "base": "https://hub.shadrakbessanh.me",
+    "ep": "/price",
+    "n_intents": 115,
+    "rank": 10,
+    "score": 0.8601
+   },
+   {
+    "slug": "zk-scholar-rqg",
+    "id": "783267",
+    "wallet": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "base": "https://telegraph-scholar.margyn.workers.dev",
+    "ep": "/research",
+    "n_intents": 1,
+    "rank": 11,
+    "score": 0.7597
+   },
+   {
+    "slug": "txlens",
+    "id": "9002",
+    "wallet": "0xb3fb14fecac09efbd0c74fc07d50d7ed1eef2b53",
+    "base": "https://telegraph-onchain-tx-lookup-miner.onrender.com",
+    "ep": "/check-tx",
+    "n_intents": 123,
+    "rank": 12,
+    "score": 0.7521
+   },
+   {
+    "slug": "rq-imf",
+    "id": "130006",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://www.imf.org",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 13,
+    "score": 0.1516
+   },
+   {
+    "slug": "community-memory",
+    "id": "23",
+    "wallet": "0xeab927400a69c0566e92db247232b2eaba2cf735",
+    "base": "https://community-memory-production.up.railway.app",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 14,
+    "score": 0
+   },
+   {
+    "slug": "kriterion-pramagraph",
+    "id": "152",
+    "wallet": "0xbea5a23d74ca851133ba6260412bbede9fa8ae45",
+    "base": "https://kriterion-research-h1-production.up.railway.app",
+    "ep": "/research/query",
+    "n_intents": 10,
+    "rank": 15,
+    "score": 0
+   },
+   {
+    "slug": "rq-openalex",
+    "id": "130001",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://api.openalex.org",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 16,
+    "score": 0
+   },
+   {
+    "slug": "rq-openalex-a",
+    "id": "130002",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://api.openalex.org",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 17,
+    "score": 0
+   },
+   {
+    "slug": "rq-openalex-s",
+    "id": "130007",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://api.openalex.org",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 18,
+    "score": 0
+   },
+   {
+    "slug": "rq-wb",
+    "id": "130005",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://api.worldbank.org",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 19,
+    "score": 0
+   },
+   {
+    "slug": "sarzops-transaction-risk",
+    "id": "91001",
+    "wallet": "0xcc886a72f79baed0098432704a65373f52131c54",
+    "base": "https://telegraph-intelligence-stack-production.up.railway.app",
+    "ep": "/fraud",
+    "n_intents": 2,
+    "rank": 20,
+    "score": 0
+   }
+  ],
+  "CORPORATE_REGISTRY_LOOKUP_GENERAL": [
+   {
+    "slug": "corp-brreg",
+    "id": "170114",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://omni-chat.13.237.89.59.sslip.io",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 1,
+    "score": 1
+   },
+   {
+    "slug": "corp-gleif",
+    "id": "98001",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://api.gleif.org",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 2,
+    "score": 1
+   },
+   {
+    "slug": "corp-gleif-apple",
+    "id": "98002",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://api.gleif.org",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 3,
+    "score": 1
+   },
+   {
+    "slug": "corp-gleif-msft",
+    "id": "98008",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://api.gleif.org",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 4,
+    "score": 1
+   },
+   {
+    "slug": "corp-gleif-status",
+    "id": "79011",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://omni-chat.13.237.89.59.sslip.io",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 5,
+    "score": 1
+   },
+   {
+    "slug": "datawire-corporate-registry-lookup",
+    "id": "7393",
+    "wallet": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "base": "https://telegraph-data.margyn.workers.dev",
+    "ep": "/company",
+    "n_intents": 1,
+    "rank": 6,
+    "score": 1
+   },
+   {
+    "slug": "livecert",
+    "id": "4433",
+    "wallet": "0xdad201ef02f5c1fbb8f9e931ae9b7c1bf493a39e",
+    "base": "https://miner-wine.vercel.app",
+    "ep": "/ssl-check",
+    "n_intents": 36,
+    "rank": 7,
+    "score": 1
+   },
+   {
+    "slug": "preflight-ssl-verification",
+    "id": "1900999043",
+    "wallet": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "base": "https://preflight-ssl-verification.vercel.app",
+    "ep": "/weather",
+    "n_intents": 1,
+    "rank": 8,
+    "score": 1
+   },
+   {
+    "slug": "txlens",
+    "id": "9002",
+    "wallet": "0xb3fb14fecac09efbd0c74fc07d50d7ed1eef2b53",
+    "base": "https://telegraph-onchain-tx-lookup-miner.onrender.com",
+    "ep": "/check-tx",
+    "n_intents": 123,
+    "rank": 9,
+    "score": 1
+   },
+   {
+    "slug": "chainsight-oracle",
+    "id": "302",
+    "wallet": "0xd4c73e9986c0b48eac22db24b5eef0c8ecef8ef9",
+    "base": "https://hub.shadrakbessanh.me",
+    "ep": "/price",
+    "n_intents": 115,
+    "rank": 10,
+    "score": 0
+   },
+   {
+    "slug": "corp-os-default",
+    "id": "98003",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://data.opensanctions.org",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 11,
+    "score": 0
+   },
+   {
+    "slug": "corp-os-eu",
+    "id": "98004",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://data.opensanctions.org",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 12,
+    "score": 0
+   },
+   {
+    "slug": "corp-os-ofac",
+    "id": "98005",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://data.opensanctions.org",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 13,
+    "score": 0
+   }
+  ],
+  "NEWS_SEARCH_GENERAL": [],
+  "FACT_CHECK_GENERAL": [
+   {
+    "slug": "factwire-fact-check",
+    "id": "7420",
+    "wallet": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "base": "https://telegraph-fact.margyn.workers.dev",
+    "ep": "/fact-check",
+    "n_intents": 1,
+    "rank": 1,
+    "score": 0.9999
+   },
+   {
+    "slug": "telegraph-verity-intelligence",
+    "id": "5530",
+    "wallet": "0xa5600c2bcc8f8c7d712d7e3895b1cc9e5eecb436",
+    "base": "https://telegraph-verity-intelligence-api.onrender.com",
+    "ep": "/v1/intent",
+    "n_intents": 35,
+    "rank": 2,
+    "score": 0.9965
+   },
+   {
+    "slug": "fact-zenodo",
+    "id": "75005",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://zenodo.org",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 3,
+    "score": 0.9868
+   },
+   {
+    "slug": "livecert",
+    "id": "4433",
+    "wallet": "0xdad201ef02f5c1fbb8f9e931ae9b7c1bf493a39e",
+    "base": "https://miner-wine.vercel.app",
+    "ep": "/ssl-check",
+    "n_intents": 36,
+    "rank": 4,
+    "score": 0.9746
+   },
+   {
+    "slug": "fact-ddg",
+    "id": "75001",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://api.duckduckgo.com",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 5,
+    "score": 0.974
+   },
+   {
+    "slug": "fact-ddg-pop",
+    "id": "75009",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://api.duckduckgo.com",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 6,
+    "score": 0.974
+   },
+   {
+    "slug": "txlens",
+    "id": "9002",
+    "wallet": "0xb3fb14fecac09efbd0c74fc07d50d7ed1eef2b53",
+    "base": "https://telegraph-onchain-tx-lookup-miner.onrender.com",
+    "ep": "/check-tx",
+    "n_intents": 123,
+    "rank": 7,
+    "score": 0.956
+   },
+   {
+    "slug": "fact-crossref",
+    "id": "75003",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://api.crossref.org",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 8,
+    "score": 0.9519
+   },
+   {
+    "slug": "fact-crossref-space",
+    "id": "75007",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://api.crossref.org",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 9,
+    "score": 0.9519
+   },
+   {
+    "slug": "fact-core",
+    "id": "75006",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://api.core.ac.uk",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 10,
+    "score": 0.9455
+   },
+   {
+    "slug": "chainsight-oracle",
+    "id": "302",
+    "wallet": "0xd4c73e9986c0b48eac22db24b5eef0c8ecef8ef9",
+    "base": "https://hub.shadrakbessanh.me",
+    "ep": "/price",
+    "n_intents": 115,
+    "rank": 11,
+    "score": 0.5391
+   },
+   {
+    "slug": "assay-miner",
+    "id": "1188",
+    "wallet": "0x75cc548c8c0470309754d8bb9e5f1e048c639acb",
+    "base": "https://raw.githubusercontent.com/GreatSage-dev/Assay/main",
+    "ep": "/miner.py",
+    "n_intents": 1,
+    "rank": 12,
+    "score": 0
+   },
+   {
+    "slug": "fact-courtlistener",
+    "id": "75010",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://www.courtlistener.com",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 13,
+    "score": 0
+   },
+   {
+    "slug": "fact-openalex",
+    "id": "75002",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://api.openalex.org",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 14,
+    "score": 0
+   },
+   {
+    "slug": "fact-openalex-health",
+    "id": "75004",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://api.openalex.org",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 15,
+    "score": 0
+   },
+   {
+    "slug": "fact-openalex-space",
+    "id": "75008",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://api.openalex.org",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 16,
+    "score": 0
+   },
+   {
+    "slug": "qarinah-proofpack",
+    "id": "717190",
+    "wallet": "0x06f66ce53ef70bdc9f98803851f7ad7eea1228d7",
+    "base": "https://qarinah-proofpack.vercel.app",
+    "ep": "/v1/proof",
+    "n_intents": 2,
+    "rank": 17,
+    "score": 0
+   }
+  ],
+  "CODE_REVIEW_GENERAL": [
+   {
+    "slug": "txlens",
+    "id": "9002",
+    "wallet": "0xb3fb14fecac09efbd0c74fc07d50d7ed1eef2b53",
+    "base": "https://telegraph-onchain-tx-lookup-miner.onrender.com",
+    "ep": "/check-tx",
+    "n_intents": 123,
+    "rank": 1,
+    "score": 1
+   },
+   {
+    "slug": "zk-codereview",
+    "id": "7310045",
+    "wallet": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "base": "https://telegraph-code.margyn.workers.dev",
+    "ep": "/code-review",
+    "n_intents": 1,
+    "rank": 2,
+    "score": 1
+   },
+   {
+    "slug": "codewire-code-review",
+    "id": "1900999004",
+    "wallet": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "base": "https://telegraph-code.margyn.workers.dev",
+    "ep": "/code-review",
+    "n_intents": 1,
+    "rank": 3,
+    "score": 1
+   },
+   {
+    "slug": "chainsight-oracle",
+    "id": "302",
+    "wallet": "0xd4c73e9986c0b48eac22db24b5eef0c8ecef8ef9",
+    "base": "https://hub.shadrakbessanh.me",
+    "ep": "/price",
+    "n_intents": 115,
+    "rank": 4,
+    "score": 1
+   },
+   {
+    "slug": "telegraph-verity-intelligence",
+    "id": "5530",
+    "wallet": "0xa5600c2bcc8f8c7d712d7e3895b1cc9e5eecb436",
+    "base": "https://telegraph-verity-intelligence-api.onrender.com",
+    "ep": "/v1/intent",
+    "n_intents": 35,
+    "rank": 5,
+    "score": 1
+   },
+   {
+    "slug": "preflight-ssl-verification",
+    "id": "1900999043",
+    "wallet": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "base": "https://preflight-ssl-verification.vercel.app",
+    "ep": "/weather",
+    "n_intents": 1,
+    "rank": 6,
+    "score": 0.9808
+   },
+   {
+    "slug": "code-codeberg-pr",
+    "id": "60009",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://codeberg.org",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 7,
+    "score": 0
+   },
+   {
+    "slug": "code-gh-commits",
+    "id": "60005",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://api.github.com",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 8,
+    "score": 0
+   },
+   {
+    "slug": "code-gh-compare",
+    "id": "60003",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://api.github.com",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 9,
+    "score": 0
+   },
+   {
+    "slug": "code-gh-contents",
+    "id": "60006",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://api.github.com",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 10,
+    "score": 0
+   },
+   {
+    "slug": "code-gh-files",
+    "id": "60002",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://api.github.com",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 11,
+    "score": 0
+   },
+   {
+    "slug": "code-gh-languages",
+    "id": "60004",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://api.github.com",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 12,
+    "score": 0
+   },
+   {
+    "slug": "code-gh-pull",
+    "id": "60001",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://api.github.com",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 13,
+    "score": 0
+   },
+   {
+    "slug": "code-gh-review-comments",
+    "id": "60007",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://api.github.com",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 14,
+    "score": 0
+   },
+   {
+    "slug": "code-gitlab-mr",
+    "id": "60008",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://gitlab.com",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 15,
+    "score": 0
+   },
+   {
+    "slug": "code-npm-pkg",
+    "id": "60010",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://registry.npmjs.org",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 16,
+    "score": 0
+   }
+  ],
+  "TEXT_GENERATION_GENERAL": [
+   {
+    "slug": "chainsight-oracle",
+    "id": "302",
+    "wallet": "0xd4c73e9986c0b48eac22db24b5eef0c8ecef8ef9",
+    "base": "https://hub.shadrakbessanh.me",
+    "ep": "/price",
+    "n_intents": 115,
+    "rank": 1,
+    "score": 0.9981
+   },
+   {
+    "slug": "tgen-bbc-tech",
+    "id": "155005",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://feeds.bbci.co.uk",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 2,
+    "score": 0.9981
+   },
+   {
+    "slug": "tgen-bbc",
+    "id": "155004",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://feeds.bbci.co.uk",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 3,
+    "score": 0.9973
+   },
+   {
+    "slug": "zk-drafttext",
+    "id": "789421",
+    "wallet": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "base": "https://telegraph-s2-drafttext.margyn.workers.dev",
+    "ep": "/generate",
+    "n_intents": 1,
+    "rank": 4,
+    "score": 0.9892
+   },
+   {
+    "slug": "tgen-hn-show",
+    "id": "155003",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://hacker-news.firebaseio.com",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 5,
+    "score": 0.957
+   },
+   {
+    "slug": "tgen-crossref",
+    "id": "155007",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://api.crossref.org",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 6,
+    "score": 0.9531
+   },
+   {
+    "slug": "txlens",
+    "id": "9002",
+    "wallet": "0xb3fb14fecac09efbd0c74fc07d50d7ed1eef2b53",
+    "base": "https://telegraph-onchain-tx-lookup-miner.onrender.com",
+    "ep": "/check-tx",
+    "n_intents": 123,
+    "rank": 7,
+    "score": 0.9432
+   },
+   {
+    "slug": "tgen-fedreg",
+    "id": "155009",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://www.federalregister.gov",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 8,
+    "score": 0.8287
+   },
+   {
+    "slug": "tgen-hn-ask",
+    "id": "155002",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://hacker-news.firebaseio.com",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 9,
+    "score": 0.697
+   },
+   {
+    "slug": "groq-llama31-instant-miner",
+    "id": "901",
+    "wallet": "0x5658c7ca1f8c0f47cd1bafcb85c1873ed48d4080",
+    "base": "https://telegraph-miner-node.onrender.com",
+    "ep": "/chat",
+    "n_intents": 3,
+    "rank": 10,
+    "score": 0.4097
+   },
+   {
+    "slug": "telegraph-ai-miner-node",
+    "id": "121262",
+    "wallet": "0x63e4040220c53b4d07aa0c75523ac5e037edafd5",
+    "base": "https://legwarmer-yearbook-symphonic.ngrok-free.dev",
+    "ep": "/generate",
+    "n_intents": 5,
+    "rank": 11,
+    "score": 0
+   },
+   {
+    "slug": "tgen-court",
+    "id": "155010",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://www.courtlistener.com",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 12,
+    "score": 0
+   },
+   {
+    "slug": "tgen-hn",
+    "id": "155001",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://hacker-news.firebaseio.com",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 13,
+    "score": 0
+   },
+   {
+    "slug": "tgen-openalex",
+    "id": "155006",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://api.openalex.org",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 14,
+    "score": 0
+   },
+   {
+    "slug": "tgen-zenodo",
+    "id": "155008",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://zenodo.org",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 15,
+    "score": 0
+   },
+   {
+    "slug": "weerakorn-miner",
+    "id": "5893375",
+    "wallet": "0x63e4040220c53b4d07aa0c75523ac5e037edafd5",
+    "base": "https://legwarmer-yearbook-symphonic.ngrok-free.dev",
+    "ep": "/generate",
+    "n_intents": 4,
+    "rank": 16,
+    "score": 0
+   }
+  ],
+  "ACADEMIC_SEARCH_GENERAL": [
+   {
+    "slug": "acad-pubmed",
+    "id": "48007",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://eutils.ncbi.nlm.nih.gov",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 1,
+    "score": 0.9866
+   },
+   {
+    "slug": "scholarwire-academic-search",
+    "id": "7325",
+    "wallet": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "base": "https://telegraph-scholar.margyn.workers.dev",
+    "ep": "/papers",
+    "n_intents": 1,
+    "rank": 2,
+    "score": 0.9858
+   },
+   {
+    "slug": "acad-datacite",
+    "id": "48009",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://api.datacite.org",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 3,
+    "score": 0.9834
+   },
+   {
+    "slug": "telegraph-verity-intelligence",
+    "id": "5530",
+    "wallet": "0xa5600c2bcc8f8c7d712d7e3895b1cc9e5eecb436",
+    "base": "https://telegraph-verity-intelligence-api.onrender.com",
+    "ep": "/v1/intent",
+    "n_intents": 35,
+    "rank": 4,
+    "score": 0.9793
+   },
+   {
+    "slug": "zk-scholar",
+    "id": "78251",
+    "wallet": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "base": "https://telegraph-scholar.margyn.workers.dev",
+    "ep": "/papers",
+    "n_intents": 1,
+    "rank": 5,
+    "score": 0.9745
+   },
+   {
+    "slug": "acad-zenodo",
+    "id": "48010",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://zenodo.org",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 6,
+    "score": 0.9703
+   },
+   {
+    "slug": "txlens",
+    "id": "9002",
+    "wallet": "0xb3fb14fecac09efbd0c74fc07d50d7ed1eef2b53",
+    "base": "https://telegraph-onchain-tx-lookup-miner.onrender.com",
+    "ep": "/check-tx",
+    "n_intents": 123,
+    "rank": 7,
+    "score": 0.9523
+   },
+   {
+    "slug": "acad-crossref",
+    "id": "48004",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://api.crossref.org",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 8,
+    "score": 0.9231
+   },
+   {
+    "slug": "chainsight-oracle",
+    "id": "302",
+    "wallet": "0xd4c73e9986c0b48eac22db24b5eef0c8ecef8ef9",
+    "base": "https://hub.shadrakbessanh.me",
+    "ep": "/price",
+    "n_intents": 115,
+    "rank": 9,
+    "score": 0.8931
+   },
+   {
+    "slug": "preflight-ssl-verification",
+    "id": "1900999043",
+    "wallet": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "base": "https://preflight-ssl-verification.vercel.app",
+    "ep": "/weather",
+    "n_intents": 1,
+    "rank": 10,
+    "score": 0.8773
+   },
+   {
+    "slug": "livecert",
+    "id": "4433",
+    "wallet": "0xdad201ef02f5c1fbb8f9e931ae9b7c1bf493a39e",
+    "base": "https://miner-wine.vercel.app",
+    "ep": "/ssl-check",
+    "n_intents": 36,
+    "rank": 11,
+    "score": 0.8762
+   },
+   {
+    "slug": "acad-doaj",
+    "id": "48008",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://doaj.org",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 12,
+    "score": 0.7947
+   },
+   {
+    "slug": "acad-crossref-doi",
+    "id": "48005",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://api.crossref.org",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 13,
+    "score": 0
+   },
+   {
+    "slug": "acad-europepmc",
+    "id": "48006",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://www.ebi.ac.uk",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 14,
+    "score": 0
+   },
+   {
+    "slug": "acad-openalex-authors",
+    "id": "48002",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://api.openalex.org",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 15,
+    "score": 0
+   },
+   {
+    "slug": "acad-openalex-sources",
+    "id": "48003",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://api.openalex.org",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 16,
+    "score": 0
+   },
+   {
+    "slug": "acad-openalex-works",
+    "id": "48001",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://api.openalex.org",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 17,
+    "score": 0
+   }
+  ],
+  "REGULATORY_FILING_MONITOR_GENERAL": [
+   {
+    "slug": "reg-fedreg-search",
+    "id": "84002",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://www.federalregister.gov",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 1,
+    "score": 0.9996
+   },
+   {
+    "slug": "txlens",
+    "id": "9002",
+    "wallet": "0xb3fb14fecac09efbd0c74fc07d50d7ed1eef2b53",
+    "base": "https://telegraph-onchain-tx-lookup-miner.onrender.com",
+    "ep": "/check-tx",
+    "n_intents": 123,
+    "rank": 2,
+    "score": 0.9989
+   },
+   {
+    "slug": "reg-fedreg-pi",
+    "id": "84004",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://www.federalregister.gov",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 3,
+    "score": 0.9935
+   },
+   {
+    "slug": "preflight-ssl-verification",
+    "id": "1900999043",
+    "wallet": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "base": "https://preflight-ssl-verification.vercel.app",
+    "ep": "/weather",
+    "n_intents": 1,
+    "rank": 4,
+    "score": 0.9907
+   },
+   {
+    "slug": "reg-uk-leg",
+    "id": "84009",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://www.legislation.gov.uk",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 5,
+    "score": 0.9881
+   },
+   {
+    "slug": "reg-fedreg-agencies",
+    "id": "84003",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://www.federalregister.gov",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 6,
+    "score": 0.9773
+   },
+   {
+    "slug": "reg-eurostat",
+    "id": "84008",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://ec.europa.eu",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 7,
+    "score": 0.9752
+   },
+   {
+    "slug": "reg-worldbank",
+    "id": "84006",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://api.worldbank.org",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 8,
+    "score": 0.9702
+   },
+   {
+    "slug": "zk-reg-window",
+    "id": "79946",
+    "wallet": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "base": "https://telegraph-s2-filing.margyn.workers.dev",
+    "ep": "/monitor",
+    "n_intents": 1,
+    "rank": 9,
+    "score": 0.9673
+   },
+   {
+    "slug": "reg-fedreg",
+    "id": "84001",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://www.federalregister.gov",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 10,
+    "score": 0.9658
+   },
+   {
+    "slug": "zk-filing",
+    "id": "77131",
+    "wallet": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "base": "https://telegraph-s2-filing.margyn.workers.dev",
+    "ep": "/filings",
+    "n_intents": 1,
+    "rank": 11,
+    "score": 0.9636
+   },
+   {
+    "slug": "chainsight-oracle",
+    "id": "302",
+    "wallet": "0xd4c73e9986c0b48eac22db24b5eef0c8ecef8ef9",
+    "base": "https://hub.shadrakbessanh.me",
+    "ep": "/price",
+    "n_intents": 115,
+    "rank": 12,
+    "score": 0.8981
+   },
+   {
+    "slug": "livecert",
+    "id": "4433",
+    "wallet": "0xdad201ef02f5c1fbb8f9e931ae9b7c1bf493a39e",
+    "base": "https://miner-wine.vercel.app",
+    "ep": "/ssl-check",
+    "n_intents": 36,
+    "rank": 13,
+    "score": 0.8701
+   },
+   {
+    "slug": "reg-bis",
+    "id": "84010",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://stats.bis.org",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 14,
+    "score": 0.8455
+   },
+   {
+    "slug": "reg-sec-edgar",
+    "id": "80011",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://omni-chat.13.237.89.59.sslip.io",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 15,
+    "score": 0.5292
+   },
+   {
+    "slug": "reg-imf",
+    "id": "84007",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://www.imf.org",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 16,
+    "score": 0.276
+   },
+   {
+    "slug": "filing-sec-submissions",
+    "id": "190160",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://data.sec.gov",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 17,
+    "score": 0
+   },
+   {
+    "slug": "reg-court",
+    "id": "84005",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://www.courtlistener.com",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 18,
+    "score": 0
+   }
+  ],
+  "GAS_PRICE_GENERAL": [
+   {
+    "slug": "gas-publicnode-rpc",
+    "id": "190172",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://ethereum-rpc.publicnode.com",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 1,
+    "score": 0.9992
+   },
+   {
+    "slug": "truvian-onchain-truth",
+    "id": "8453",
+    "wallet": "0xcd0a2370f2dc12c1802707b7d9ab3fec891e3c02",
+    "base": "https://miner.truvian.xyz",
+    "ep": "/tx",
+    "n_intents": 2,
+    "rank": 2,
+    "score": 0.9984
+   },
+   {
+    "slug": "gas-drpc-rpc",
+    "id": "190171",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://eth.drpc.org",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 3,
+    "score": 0.9928
+   },
+   {
+    "slug": "livecert",
+    "id": "4433",
+    "wallet": "0xdad201ef02f5c1fbb8f9e931ae9b7c1bf493a39e",
+    "base": "https://miner-wine.vercel.app",
+    "ep": "/ssl-check",
+    "n_intents": 36,
+    "rank": 4,
+    "score": 0.9339
+   },
+   {
+    "slug": "chainsight-oracle",
+    "id": "302",
+    "wallet": "0xd4c73e9986c0b48eac22db24b5eef0c8ecef8ef9",
+    "base": "https://hub.shadrakbessanh.me",
+    "ep": "/price",
+    "n_intents": 115,
+    "rank": 5,
+    "score": 0.9214
+   },
+   {
+    "slug": "onchain-intel-miner",
+    "id": "900",
+    "wallet": "0x9319b3c6b01df3e375abdb3be42da19c558d3e69",
+    "base": "https://telegraph-onchain-miner-production.up.railway.app",
+    "ep": "/ask",
+    "n_intents": 6,
+    "rank": 6,
+    "score": 0.9113
+   },
+   {
+    "slug": "preflight-ssl-verification",
+    "id": "1900999043",
+    "wallet": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "base": "https://preflight-ssl-verification.vercel.app",
+    "ep": "/weather",
+    "n_intents": 1,
+    "rank": 7,
+    "score": 0.8851
+   },
+   {
+    "slug": "gas-1rpc",
+    "id": "190170",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://1rpc.io",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 8,
+    "score": 0.6273
+   },
+   {
+    "slug": "gas-etherscan-v2",
+    "id": "41009",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://api.etherscan.io",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 9,
+    "score": 0.6001
+   },
+   {
+    "slug": "gas-llama-eth",
+    "id": "41010",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://coins.llama.fi",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 10,
+    "score": 0.4011
+   },
+   {
+    "slug": "optivis-gas",
+    "id": "7313",
+    "wallet": "0x3c4c9ca967532882bd4dcb9ab9a391fa73253fdc",
+    "base": "https://base-rpc.publicnode.com",
+    "ep": "/gas",
+    "n_intents": 1,
+    "rank": 11,
+    "score": 0.3864
+   },
+   {
+    "slug": "txlens",
+    "id": "9002",
+    "wallet": "0xb3fb14fecac09efbd0c74fc07d50d7ed1eef2b53",
+    "base": "https://telegraph-onchain-tx-lookup-miner.onrender.com",
+    "ep": "/check-tx",
+    "n_intents": 123,
+    "rank": 12,
+    "score": 0.1313
+   },
+   {
+    "slug": "agentfeed-base-crypto",
+    "id": "20260829",
+    "wallet": "0x22db3a9686ee5261e7bf3ed4f91277232e8076e6",
+    "base": "https://x402.ochinimus.app",
+    "ep": "/telegraph/api/eth-price",
+    "n_intents": 3,
+    "rank": 13,
+    "score": 0
+   },
+   {
+    "slug": "atlas-telegraph",
+    "id": "7310043",
+    "wallet": "0x89eb73695af44980d217ae71abbc2f1337c43266",
+    "base": "https://atlas-telegraph.jiacpunk.workers.dev",
+    "ep": "/route",
+    "n_intents": 11,
+    "rank": 14,
+    "score": 0
+   },
+   {
+    "slug": "gas-bs-arb",
+    "id": "41008",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://arbitrum.blockscout.com",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 15,
+    "score": 0
+   },
+   {
+    "slug": "gas-bs-base",
+    "id": "41006",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://base.blockscout.com",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 16,
+    "score": 0
+   },
+   {
+    "slug": "gas-bs-eth",
+    "id": "41005",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://eth.blockscout.com",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 17,
+    "score": 0
+   },
+   {
+    "slug": "gas-bs-op",
+    "id": "41007",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://optimism.blockscout.com",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 18,
+    "score": 0
+   },
+   {
+    "slug": "gas-metamask",
+    "id": "170044",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://omni-chat.13.237.89.59.sslip.io",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 19,
+    "score": 0
+   },
+   {
+    "slug": "gas-owlracle-arb",
+    "id": "41002",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://owlracle.info",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 20,
+    "score": 0
+   },
+   {
+    "slug": "gas-owlracle-base",
+    "id": "41003",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://owlracle.info",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 21,
+    "score": 0
+   },
+   {
+    "slug": "gas-owlracle-bsc",
+    "id": "41001",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://owlracle.info",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 22,
+    "score": 0
+   },
+   {
+    "slug": "gas-owlracle-poly",
+    "id": "41004",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://owlracle.info",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 23,
+    "score": 0
+   },
+   {
+    "slug": "gas-polygon",
+    "id": "170046",
+    "wallet": "0xbd6f696096cceeaff7406d802ba04500eeaf6976",
+    "base": "https://omni-chat.13.237.89.59.sslip.io",
+    "ep": "/query",
+    "n_intents": 1,
+    "rank": 24,
+    "score": 0
+   },
+   {
+    "slug": "gaswire-evm-fees",
+    "id": "7301",
+    "wallet": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "base": "https://telegraph-gas.margyn.workers.dev",
+    "ep": "/gas",
+    "n_intents": 1,
+    "rank": 25,
+    "score": 0
+   },
+   {
+    "slug": "kriterion-pramagraph",
+    "id": "152",
+    "wallet": "0xbea5a23d74ca851133ba6260412bbede9fa8ae45",
+    "base": "https://kriterion-research-h1-production.up.railway.app",
+    "ep": "/research/query",
+    "n_intents": 10,
+    "rank": 26,
+    "score": 0
+   },
+   {
+    "slug": "zk-gasfees",
+    "id": "730101",
+    "wallet": "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287",
+    "base": "https://telegraph-gas.margyn.workers.dev",
+    "ep": "/gas",
+    "n_intents": 1,
+    "rank": 27,
+    "score": 0
+   }
+  ]
+ }
+}

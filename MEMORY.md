@@ -1,6 +1,21 @@
 # MEMORY.md — session continuity
 
-## 2026-11-06 ~16:25 UTC (21:55 IST): CURRENT — every intent's scored field LIVE as `7301474`
+## 2026-11-06 ~16:50 UTC (22:20 IST): CURRENT — OFAC non-SDN list LIVE as `192aecc`; intent push P1–P11
+
+- Owner: "divide the task in parts and improve in these intents. priortize from the highest one. leave chat
+  completion" (Anjoman's 11 highest-earning intents), then "Yes, deploy it". Board: TASKS.md "Intent push".
+- **Production:** `192aecc`, `https://miner-p429gtksx-wukong4.vercel.app` (`dpl_6JPiQ4ErcYzrrmQMRmSg9mWd1dgJ`).
+  **Rollback target:** `miner-qbdf1756n` (`7301474`). Record: `track1-miner/docs/evidence/release-2026-11-06-ofac-nonsdn/`.
+  Unit 907/907; preview 6 routes; production ABU TEIR (ref 9640) `match` (was `no_match`, G268); 4829 `active`.
+  Preflight 6/7 first run; the sanctions gate expected exactly two lists. Gate updated to require all three and
+  the ABU TEIR match; re-run alone 40/40.
+- **G265:** sanctions ranks 2–3 (`san-os-*`) return constant OpenSanctions metadata and outrank our screen. The
+  draft for Ahmed is in GAPS G265; the owner sends it.
+- Session branch `claude/task-breakdown-prioritize-e2b048` holds the same work on the old `main` base
+  (`76823a5`, `9b63f23`, G254–G257 numbering); superseded by this line. Not pushed.
+- Next: read sanctions epochs after 16:48 UTC; P1c EU/UK name index; side-by-side captures for P6, P3, P11.
+
+## 2026-11-06 ~16:25 UTC (21:55 IST): every intent's scored field LIVE as `7301474`
 
 - Owner: "dont worry about outreach. and about other things, take required actions" (2026-11-05), then "Try
   again" (2026-11-06). Outreach is off the list for Claude.
