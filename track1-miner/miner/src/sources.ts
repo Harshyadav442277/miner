@@ -74,8 +74,6 @@ export const SOURCES: Source[] = [
   // Security
   { id: "nvd", name: "NIST NVD", hosts: ["services.nvd.nist.gov", "nvd.nist.gov"], status: "conditional", licence: "NVD API terms", terms: "https://nvd.nist.gov/developers/terms-of-use", read: R, basis: "Use permitted; a prominent notice is asked of services using the API.", condition: { text: "Show the NVD's requested notice", met: "yes", notice: "This product uses the NVD API but is not endorsed or certified by the NVD." } },
   { id: "cve", name: "CVE Program (MITRE)", hosts: ["cveawg.mitre.org"], status: "conditional", licence: "CVE Terms of Use", terms: "https://www.cve.org/Legal/TermsOfUse", read: R, basis: "Perpetual, royalty-free licence to reproduce and distribute CVE.", condition: { text: "Reproduce MITRE's copyright designation and the licence; answers carry the designation and link the licence rather than reproduce it", met: "partly", notice: "CVE content is copyright 1999-2026 The MITRE Corporation, used under the CVE Terms of Use: https://www.cve.org/Legal/TermsOfUse" } },
-  { id: "cisa-kev", name: "CISA Known Exploited Vulnerabilities catalog", hosts: ["www.cisa.gov"], status: "unread", licence: "Not read", terms: "https://www.cisa.gov/known-exploited-vulnerabilities-catalog", read: null, basis: "Added 2026-10-29 when /vuln-triage met the ledger; terms not yet read (GAPS G233)." },
-  { id: "first-epss", name: "FIRST EPSS", hosts: ["api.first.org"], status: "unread", licence: "Not read", terms: "https://www.first.org/epss/", read: null, basis: "Added 2026-10-29 when /vuln-triage met the ledger; terms not yet read (GAPS G233)." },
   { id: "dns-resolvers", name: "Public DNS resolvers (Cloudflare, Google, Quad9)", hosts: ["cloudflare-dns.com", "security.cloudflare-dns.com", "dns.google", "dns.quad9.net", "dns10.quad9.net"], status: "unclear", licence: "Service terms", terms: "https://developers.google.com/speed/public-dns/terms", read: R, basis: "Resolver service terms; no clause on relaying DNS answers was found." },
   { id: "ofac-list", name: "OFAC addresses list (0xB10C, GitHub)", hosts: ["raw.githubusercontent.com"], status: "licensed", licence: "MIT; data from OFAC (US Government)", terms: "https://github.com/0xB10C/ofac-sanctioned-digital-currency-addresses", read: R, basis: "MIT-licensed extract of OFAC's SDN list (GitHub API licence field)." },
   // Sanctions and registries
@@ -169,8 +167,7 @@ export const ENDPOINT_SOURCES: Record<string, string[]> = {
   "/answer": ["groq", "wikipedia"],
   "/dns": ["dns-resolvers"],
   "/token-supply": ["1rpc", "blockscout", "chain-rpcs", "coingecko", "drpc", "ensideas", "flashbots", "merkle", "publicnode"],
-  "/keywords": [],
-  "/vuln-triage": ["cisa-kev", "cve", "first-epss"],
+  "/onchain-metric": ["1rpc", "blockscout", "chain-rpcs", "coingecko", "drpc", "ensideas", "flashbots", "merkle", "publicnode"],
 };
 
 /**

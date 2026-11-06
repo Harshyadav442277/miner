@@ -5,7 +5,7 @@ slug: livecert
 protocol: generic
 name: LiveCert — Sourced Answers for Agents
 description: >-
-  Sourced answers for agents and apps across 40 intents, each read live from a
+  Sourced answers for agents and apps across 39 intents, each read live from a
   named primary source so the caller can check it. Every answer opens with a
   one-sentence answer, then returns the values as fields, the source and the time
   it was checked. Compliance: sanctions screening of people, companies and wallets
@@ -22,11 +22,12 @@ description: >-
   and ECB rates). On-chain: transfer verification with confirmations and the
   burned base fee, transaction and contract activity across EVM chains, wallet
   balances, gas, token holders, ERC-20 total supply and burned balance read at a
-  pinned block from two RPCs, and cross-chain messages. Security: live TLS
-  certificates, URL scans, CVE records, CVE sets ranked for triage by CISA KEV,
-  EPSS and CVSS, DNS records compared across two resolvers, and fraud signals.
+  pinned block from two RPCs, any named value read at a stated block height
+  (receipt gas and Transfer amounts, storage slots, balances, block gas), and
+  cross-chain messages. Security: live TLS
+  certificates, URL scans, CVE records, DNS records compared across two resolvers, and fraud signals.
   Weather: forecasts, current conditions and storm risk. Also translation, IP
-  geolocation, prediction market outcomes, text and keyword extraction, sentiment
+  geolocation, prediction market outcomes, text extraction, sentiment
   and classification. Only the
   question-answering, sentiment and classification sentences are phrased by a
   model, each with a keyless fallback, and a phrased answer is kept only when every
@@ -1296,68 +1297,50 @@ endpoints:
             intents: ["*"]
             description: "The user's original question, verbatim."
 
-  - path: /keywords
-    external_path: /keywords
+  - path: /onchain-metric
+    external_path: /onchain-metric
     method: GET
-    intents: [KEYWORD_EXTRACTION]
+    intents: [ONCHAIN_METRIC_VERIFY]
     description: >-
-      The keyphrases of a text, extracted with YAKE, the unsupervised statistical
-      method: each word is scored on casing, position, frequency, context and
-      spread, phrases of one to three words are ranked, and near-duplicates are
-      dropped. No model and no upstream: the same text always gives the same
-      ranking. Example questions: "Extract the top 5 keywords: <text>", "What are
-      the key phrases in this article? <text>". Returns verdict (extracted or
-      insufficient_input), keywords (each with keyword, score where lower is more
-      relevant, and count), method and words_in_text. English text; up to 30
-      keyphrases, 10 by default.
+      One named value read from chain nodes at a stated block height or at
+      "latest", with the block it was read at. Example questions: "At block
+      21000000 on ethereum, what amount did the Transfer log in tx 0x… carry, and
+      how much gas did that tx use?", "What was USDC's total supply at block
+      21000000?", "How much ETH did 0x… hold at block 21000000?", "What is storage
+      slot 0 of 0x… at block 21000000?", "How much gas did block 21000000 use?".
+      Reads: a transaction receipt (gas used, status, fee and every ERC-20 or
+      ERC-721 Transfer log), eth_getStorageAt, totalSupply(), a token's
+      balanceOf() for a holder, the native balance, or a block's gas used, gas
+      limit, base fee and transaction count. "latest" is pinned a few blocks
+      behind the head so two providers read the same block. Every RPC of the
+      chain is asked and the first two answers are compared; old state needs an
+      archive node, so an answer read from one provider says so, and no answer
+      is unknown, never zero. A block not yet produced is refused. Chains:
+      Ethereum, Base, Arbitrum, Optimism, Polygon and BNB Chain; Ethereum when
+      none is named. Returns verdict (verified, providers_disagree, not_found,
+      insufficient_input or unknown), metric, block_number, block_anchor (stated
+      or latest), value (exact, in token or coin units where they apply),
+      value_raw, unit, providers, providers_agree, and for a transaction
+      tx_hash, tx_status, gas_used, fee and transfers.
     params:
       query:
         optional:
-          - name: text
+          - name: chain
             type: string
             intents: ["*"]
-            description: "The body text. When absent, the text after the question's colon, or quoted text, is used."
-          - name: top
-            type: integer
-            intents: ["*"]
-            description: "How many keyphrases to return, 1 to 30. Read from the question (\"top 5\") when absent; 10 otherwise."
-          - name: query
+            description: "ethereum, base, arbitrum, optimism, polygon or bsc. Read from the question when absent; ethereum otherwise."
+          - name: block
             type: string
             intents: ["*"]
-            description: "The user's original question, verbatim."
-
-  - path: /vuln-triage
-    external_path: /vuln-triage
-    method: GET
-    intents: [VULNERABILITY_TRIAGE]
-    description: >-
-      Ranks a supplied set of CVEs by what to fix first. Each CVE's facts are read
-      live: its CVSS score from the CVE Program record (the CNA's, else CISA's ADP
-      score), whether it is on CISA's Known Exploited Vulnerabilities catalog and
-      with known ransomware use, CISA's SSVC exploitation status, and its EPSS
-      exploit probability from FIRST. The ordering rule is returned in method:
-      known exploited first, then high exploit probability or a public exploit
-      with high severity, then high severity, adjusted one tier for a critical or
-      non-critical asset read from the question. Example questions: "Rank these
-      findings on an internet-facing payments service by exploitability and
-      business impact: CVE-2024-3094, CVE-2023-4863, CVE-2021-44228". Returns
-      verdict (ranked, insufficient_input or unknown), ranked (each with rank,
-      priority act_now, high, medium, low or unknown, why, cve_id, cvss_score,
-      cvss_version, severity, scored_by, epss, epss_percentile, kev,
-      kev_date_added, known_ransomware_use, exploitation, automatable and
-      summary), asset_criticality, method and sources. Up to 25 CVEs; findings
-      without a CVE id are refused by name.
-    params:
-      query:
-        optional:
-          - name: cves
+            description: "Block number, or latest. Read from the question when absent."
+          - name: tx_hash
             type: string
             intents: ["*"]
-            description: "Comma-separated CVE ids, e.g. CVE-2024-3094,CVE-2023-4863. Read from the question when absent."
-          - name: asset_criticality
+            description: "Transaction hash (0x + 64 hex) whose receipt and Transfer logs to read. Read from the question when absent."
+          - name: address
             type: string
             intents: ["*"]
-            description: "high or low. Read from the question (internet-facing, production, staging…) when absent."
+            description: "Contract or holder address (0x…). Read from the question when absent."
           - name: query
             type: string
             intents: ["*"]
@@ -1407,8 +1390,7 @@ semantics:
     - QUESTION_ANSWERING
     - DNS_RECORD_LOOKUP
     - TOKEN_TOTAL_SUPPLY_VERIFY
-    - KEYWORD_EXTRACTION
-    - VULNERABILITY_TRIAGE
+    - ONCHAIN_METRIC_VERIFY
 
 # input_schema is a single top-level block covering every endpoint — the schema
 # refuses it inside endpoints[], and the node does not enforce it against requests.
@@ -1738,43 +1720,31 @@ output_schema:
         properties:
           provider: { type: string }
           total_supply_raw: { type: [string, "null"] }
+          value_raw: { type: [string, "null"], description: "/onchain-metric: the value this provider returned." }
 
-    # /keywords
-    method: { type: [string, "null"], description: "How the answer was produced, stated so it can be checked." }
-    words_in_text: { type: [integer, "null"] }
-    keywords:
+    # /onchain-metric
+    metric: { type: [string, "null"], description: "tx_receipt, storage, total_supply, token_balance, native_balance or block." }
+    block_anchor: { type: [string, "null"], description: "stated, or latest (pinned behind the head)." }
+    value: { type: [string, "null"], description: "Exact, in token or coin units where they apply; a 32-byte word for storage; gas for a receipt or block." }
+    value_raw: { type: [string, "null"] }
+    unit: { type: [string, "null"] }
+    tx_hash: { type: [string, "null"] }
+    tx_status: { type: [string, "null"], description: "success or reverted." }
+    gas_used: { type: [string, "null"] }
+    fee: { type: [string, "null"], description: "gas used x effective gas price, in the chain's native coin." }
+    transfers:
       type: [array, "null"]
       items:
         type: object
         properties:
-          keyword: { type: string }
-          score: { type: number, description: "YAKE score; lower is more relevant." }
-          count: { type: integer }
-
-    # /vuln-triage
-    asset_criticality: { type: [string, "null"], description: "high, low or unspecified." }
-    sources: { type: [array, "null"], items: { type: string } }
-    ranked:
-      type: [array, "null"]
-      items:
-        type: object
-        properties:
-          rank: { type: integer }
-          cve_id: { type: string }
-          priority: { type: string, description: "act_now, high, medium, low or unknown." }
-          why: { type: string }
-          cvss_score: { type: [number, "null"] }
-          cvss_version: { type: [string, "null"] }
-          severity: { type: [string, "null"] }
-          scored_by: { type: [string, "null"] }
-          epss: { type: [number, "null"] }
-          epss_percentile: { type: [number, "null"] }
-          kev: { type: [boolean, "null"] }
-          kev_date_added: { type: [string, "null"] }
-          known_ransomware_use: { type: [boolean, "null"] }
-          exploitation: { type: [string, "null"], description: "CISA SSVC: none, poc or active." }
-          automatable: { type: [boolean, "null"] }
-          summary: { type: [string, "null"] }
+          token: { type: string }
+          symbol: { type: [string, "null"] }
+          from: { type: string }
+          to: { type: string }
+          amount: { type: [string, "null"], description: "Exact, in token units; null for an ERC-721 transfer." }
+          amount_raw: { type: [string, "null"] }
+          token_id: { type: [string, "null"], description: "ERC-721 token id." }
+          log_index: { type: integer }
 
 docs:
   repository: https://github.com/Harshyadav442277/miner

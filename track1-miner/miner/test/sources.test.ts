@@ -48,7 +48,7 @@ const ENTRY: Record<string, string[]> = {
   "/event-outcome": ["eventoutcome"], "/url-scan": ["urlscan"], "/web-search": ["websearch"], "/sentiment": ["sentiment", "prose-phrase"],
   "/classify": ["classify"], "/research-synthesis": ["synthesis"], "/sanctions-screen": ["sanctions"], "/company-registry": ["registry"],
   "/sec-filings": ["filings"], "/macro": ["macro"], "/url-reputation": ["urlsafe"], "/answer": ["qa"],
-  "/dns": ["dns"], "/token-supply": ["token-supply"], "/keywords": ["keywords"], "/vuln-triage": ["vulntriage"],
+  "/dns": ["dns"], "/token-supply": ["token-supply"], "/onchain-metric": ["onchain-metric"],
 };
 
 test("every declared endpoint has an entry module here", () => {
