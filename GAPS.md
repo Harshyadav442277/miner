@@ -1,5 +1,28 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-06 ~22:55 UTC (Nov 7 04:25 IST) quality release `bee3f6a` — G276, G277, G252, G251, G214 acted on; G278–G279 new
+
+Release record: `track1-miner/docs/evidence/release-2026-11-06-quality-fixes/`. Added-intents audit:
+`track1-miner/docs/evidence/n1-added-intents-audit-2026-11-06/results.md`.
+
+- **G276 — DEPLOYED.** A FINANCIAL_DATA figure it cannot give is named in the first sentence with the reason; a
+  product's sales question says filings cover the whole company before giving company revenue (G200, partly).
+- **G277 — CLOSED for DNS and token supply: 10/10 against sources** (Cloudflare DoH, `eth_call totalSupply`),
+  production 2026-11-06 ~22:57 UTC. Keyword extraction and vulnerability triage left the draft (`6aebe0f`).
+  ONCHAIN_METRIC_VERIFY has one sourced read (block 21000000 gas = Blockscout 13,952,884); audit it before signing.
+- **G252, G251 — DEPLOYED.** Counted goods and tonnes are quantities; outage messages no longer echo the question.
+- **G214 — fixed in code, then dropped with the route.** The verb filter was merged away when Codex deleted
+  `keywords.ts`; recoverable from `044d8fb` if the intent returns.
+- **G278 — EVENT_OUTCOME scores near zero because the scorer's questions are results, not markets. `OPEN, measuring`.**
+  Epochs 1959–2028: ours 0.001–0.05, third place 0.07–0.44; ranks 1–2 are F1 (Jolpica) and Bundesliga (OpenLigaDB)
+  results feeds. `bee3f6a` adds a Wikidata winner fallback for finished events. Read the score after three epochs.
+  Unknown: whether the scorer's questions are who-won questions at all. "Did X happen?" is still market-only.
+- **G279 — The New York Fed API failed with a redirect to `/errors/500` at 22:55 UTC. `OPEN, upstream`.** The
+  fed-funds answer reports the publisher unavailable (honest). If it persists, add a second source for the target
+  range (Federal Reserve Board H.15).
+- **Topic classification with no labels stays refused.** A default label set mislabelled "NASA confirms water ice on
+  the Moon" as environment on a preview, so it was withdrawn before production.
+
 ## 2026-11-06 ~22:10 UTC (Nov 7 03:40 IST) N1 intent picks — G269–G274; `/onchain-metric` built (`6aebe0f`), not deployed
 
 Evidence: `track1-miner/docs/evidence/n1-new-intents-2026-11-07/`.

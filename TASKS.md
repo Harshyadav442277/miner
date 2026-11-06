@@ -85,7 +85,8 @@ Ordered by rubric points. **Miner weights re-read 2026-11-05:** quality 35, reli
       - [x] 2026-11-06: cut STOCK_PRICE, NEWS_HEADLINES, NEWS_SEARCH and IP_GEOLOCATION from `miner.yaml`; narrow
         FINANCIAL_DATA to 10-K figures; fix the WEB_SEARCH description (G250). Manifest diff PASS, unit 907/907
         (`track1-miner/docs/evidence/n1-cut-2026-11-06/`). EVENT_OUTCOME kept: its audit passes (GAPS, G275 block).
-      - [ ] Audit the four added intents against sources, 5 questions each (G277).
+      - [x] Audit the added intents against sources: DNS and token supply 10/10 (G277). ONCHAIN_METRIC_VERIFY
+        still needs its own five.
       - [ ] Owner decides on CRYPTO_PRICE's Bitstamp licence (G275). Decide STORM_ALERT by audit.
       - [ ] After the signature: delete the four retired routes' code and empty `RETIRED` in `test/manifest.test.ts`.
       - Add an intent only if it passes its audit first: TEXT_SUMMARIZATION, IMAGE_CAPTIONING and

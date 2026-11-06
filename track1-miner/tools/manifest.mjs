@@ -68,10 +68,17 @@ export function readManifest(path = MANIFEST_PATH) {
  * for an intent we do not declare is also fatal, because it means the tool is
  * measuring something the network will never route to us.
  */
+/**
+ * Intents cut from miner.yaml that registration 4829 still claims until the owner signs
+ * the updateMiner that drops them. Their routes still serve, so the gates keep checking
+ * them. Mirror of RETIRED in miner/test/manifest.test.ts; empty both after the signature.
+ */
+export const RETIRED_INTENTS = new Set(["IP_GEOLOCATION", "NEWS_HEADLINES", "NEWS_SEARCH", "STOCK_PRICE"]);
+
 export function assertCoversDeclaredIntents(covered, { label = "coverage", manifest = readManifest() } = {}) {
   const have = new Set(covered);
   const missing = [...manifest.intents].filter((i) => !have.has(i)).sort();
-  const extra = [...have].filter((i) => !manifest.intents.has(i)).sort();
+  const extra = [...have].filter((i) => !manifest.intents.has(i) && !RETIRED_INTENTS.has(i)).sort();
   if (missing.length || extra.length) {
     const parts = [];
     if (missing.length) parts.push(`declared in miner.yaml but not covered by ${label}: ${missing.join(", ")}`);

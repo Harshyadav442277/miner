@@ -1,5 +1,19 @@
 # MEMORY.md — session continuity
 
+## 2026-11-06 ~22:58 UTC (Nov 7 04:28 IST): CURRENT — quality release `bee3f6a` LIVE; N1 YAML cut, not signed
+
+- Owner: "take all the required actions, required for winning. focus on improving quality of present intents".
+- **Production:** `bee3f6a`, `miner-beo9nyatq` (`dpl_BzBqpAUR5YJTNwdp78YFaGekwGe2`). **Rollback:** `miner-p429gtksx`
+  (`192aecc`). Record: `track1-miner/docs/evidence/release-2026-11-06-quality-fixes/`. Unit 914/914; gates 6/7, the
+  seventh 38/39 with the NY Fed upstream down (G279); 4829 `active`.
+- Also live: Codex's `/onchain-metric` (`6aebe0f`), served but not registered.
+- **N1 YAML** (`miner.yaml` at `bee3f6a`): 35 intents — cuts STOCK_PRICE, NEWS_HEADLINES, NEWS_SEARCH, IP_GEOLOCATION;
+  adds DNS_RECORD_LOOKUP, TOKEN_TOTAL_SUPPLY_VERIFY, ONCHAIN_METRIC_VERIFY. Manifest diff PASS. Codex's G270 (V2
+  `_GENERAL` ids) still blocks validation. Not signed.
+- GAPS numbering: Codex took G269–G274 the same hour; this branch's became G275–G277. Check the top before numbering.
+- Next: read EVENT_OUTCOME after three epochs (G278); rename the YAML to V2 ids (G270); owner decides CRYPTO_PRICE's
+  licence (G275), then validates on anjoman.ai/dashboard/earn and signs.
+
 ## 2026-11-06 ~22:15 UTC (Nov 7 03:45 IST): CURRENT — N1 intent picks; `/onchain-metric` built, NOT deployed
 
 - Owner: "keep improving. and let's add more intents", then "pick intents which would help us in winning".
