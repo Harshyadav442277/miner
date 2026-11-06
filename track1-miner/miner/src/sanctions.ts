@@ -2,8 +2,8 @@
  * SANCTIONS_SCREENING_MATCH: is this person, company or wallet on a sanctions
  * list, including near-matches on spelling or transliteration?
  *
- * Every name and alias on the OFAC SDN and UN Security Council lists
- * (sanctions-lists.ts) is scored against the subject with Jaro-Winkler per
+ * Every name and alias on the OFAC SDN, OFAC Consolidated (non-SDN) and UN
+ * Security Council lists (sanctions-lists.ts) is scored against the subject with Jaro-Winkler per
  * word, so word order, a missing middle name and a transliterated spelling
  * ("Petrof" for "Petrov") still score high. A birth year in the question is
  * checked against the listed ones. The answer names every list screened and
@@ -194,8 +194,12 @@ const describe = (m: Match): string =>
   `${m.dob_years.length ? `, born ${m.dob_years.join(" or ")}` : ""}` +
   `${m.nationalities.length ? `, ${m.nationalities.slice(0, 2).join(" / ")}` : ""}, reference ${m.id})`;
 
+/** "A", "A and B", "A, B and C". */
+const series = (items: string[], word: string): string =>
+  items.length < 2 ? items.join("") : `${items.slice(0, -1).join(", ")} ${word} ${items[items.length - 1]}`;
+
 const editionText = (e: Edition[]): string =>
-  e.map((x) => `${x.list} (${x.published ? `${x.list.startsWith("OFAC") ? "published" : "generated"} ${x.published}, ` : ""}${x.entries.toLocaleString("en-US")} entries)`).join(" and ");
+  series(e.map((x) => `${x.list} (${x.published ? `${x.list.startsWith("OFAC") ? "published" : "generated"} ${x.published}, ` : ""}${x.entries.toLocaleString("en-US")} entries)`), "and");
 
 export async function screenSanctions(question: string, nameParam = ""): Promise<SanctionsResult> {
   const subject = screeningSubject(question, nameParam);
@@ -226,9 +230,11 @@ export async function screenSanctions(question: string, nameParam = ""): Promise
   const checked = { ...base, lists_checked: lists.editions, lists_not_checked: [...lists.unavailable, ...NOT_SCREENED] };
   if (lists.parties.length === 0) {
     return { ...checked, verdict: "unknown", confidence: 0, error: "upstream_unavailable",
-      reason: `${base.subject} could not be screened because neither the OFAC SDN list nor the UN Security Council list could be read. This is an availability problem, not a finding that the party is unlisted.` };
+      reason: `${base.subject} could not be screened because none of the OFAC SDN, OFAC non-SDN and UN Security Council lists could be read. This is an availability problem, not a finding that the party is unlisted.` };
   }
-  const partial = lists.unavailable.length ? ` The ${lists.unavailable.join(" and ")} list could not be read, so it was not screened.` : "";
+  const many = lists.unavailable.length > 1;
+  const partial = lists.unavailable.length
+    ? ` The ${series(lists.unavailable, "and")} list${many ? "s" : ""} could not be read, so ${many ? "they were" : "it was"} not screened.` : "";
   const screened = ` Screened against ${editionText(lists.editions)}, names and aliases; the EU and UK lists were not screened.${partial}`;
 
   if (subject.wallet) {
@@ -267,7 +273,7 @@ export async function screenSanctions(question: string, nameParam = ""): Promise
   // match" on the UN list alone would have cleared him (measured 2026-10-13).
   if (lists.unavailable.length) {
     return { ...checked, verdict: "unknown", confidence: 0, error: "list_unavailable", matches: [], closest: near,
-      reason: `Not cleared: "${subject.name}" does not closely match any entry on the ${lists.editions.map((e) => e.list).join(" or ")} list, but the ${lists.unavailable.join(" and ")} list could not be read, so this is not a clearance.${screened}` };
+      reason: `Not cleared: "${subject.name}" does not closely match any entry on the ${series(lists.editions.map((e) => e.list), "or")} list, but the ${series(lists.unavailable, "and")} list${lists.unavailable.length > 1 ? "s" : ""} could not be read, so this is not a clearance.${screened}` };
   }
   return { ...checked, verdict: "no_match", confidence: 0.85, matches: [], closest: near,
     reason: `No match: "${subject.name}" does not closely match any name or alias on these lists${near ? `; the closest was ${near.matched_name} (score ${near.score}), below the ${POSSIBLE} threshold for a possible match` : ""}.${screened}` };

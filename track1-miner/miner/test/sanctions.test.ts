@@ -11,6 +11,9 @@ const SDN = [
   `12345,"IVANOV, Victor Petrovich","individual","RUSSIA-EO14024",-0- ,-0- ,-0- ,-0- ,-0- ,-0- ,-0- ,"DOB 12 May 1952."`,
 ].join("\r\n");
 const ALT = `306,220,"aka","NATIONAL BANK OF CUBA",-0- \r\n9999,1,"aka","BUT, Victor",-0- `;
+// cons_prim.csv and cons_alt.csv, the non-SDN Consolidated list (read 2026-11-06): same layout as sdn.csv.
+const CONS = `9640,"ABU TEIR, Mohammed","individual","NS-PLC",-0- ,-0- ,-0- ,-0- ,-0- ,-0- ,-0- ,"DOB 1951; POB Umm Tuba."`;
+const CONS_ALT = `9640,9152,"aka","ABU TAIR, Mohammed Mahmud",-0- `;
 const UN = `<?xml version="1.0"?><CONSOLIDATED_LIST dateGenerated="2026-10-12T23:00:04.896Z"><INDIVIDUALS>
 <INDIVIDUAL><DATAID>1</DATAID><FIRST_NAME>ERIC</FIRST_NAME><SECOND_NAME>BADEGE</SECOND_NAME><UN_LIST_TYPE>DRC</UN_LIST_TYPE>
 <REFERENCE_NUMBER>CDi.001</REFERENCE_NUMBER><LISTED_ON>2012-12-31</LISTED_ON><NATIONALITY><VALUE>Democratic Republic of the Congo</VALUE></NATIONALITY>
@@ -76,10 +79,13 @@ test("a near name with a different birth year is not a match", () => {
 function stubLists(t: { after: (fn: () => void) => void }): void {
   const original = globalThis.fetch;
   const sdnFiller = Array.from({ length: 1_100 }, (_, i) => `${100_000 + i},"FILLER ${i}",-0- ,"X",-0- ,-0- ,-0- ,-0- ,-0- ,-0- ,-0- ,-0- `);
+  const consFiller = Array.from({ length: 150 }, (_, i) => `${200_000 + i},"NONSDN FILLER ${i}",-0- ,"X",-0- ,-0- ,-0- ,-0- ,-0- ,-0- ,-0- ,-0- `);
   const unFiller = Array.from({ length: 120 }, (_, i) => `<INDIVIDUAL><FIRST_NAME>FILLER</FIRST_NAME><SECOND_NAME>N${i}</SECOND_NAME></INDIVIDUAL>`);
   globalThis.fetch = (async (url: string) => {
     const u = String(url);
-    const body = u.endsWith("SDN.CSV") ? [SDN, ...sdnFiller].join("\r\n")
+    const body = u.endsWith("CONS_PRIM.CSV") ? [CONS, ...consFiller].join("\r\n")
+      : u.endsWith("CONS_ALT.CSV") ? CONS_ALT
+      : u.endsWith("SDN.CSV") ? [SDN, ...sdnFiller].join("\r\n")
       : u.endsWith("ALT.CSV") ? ALT
       : u.endsWith(".xml") ? UN.replace("<INDIVIDUALS>", `<INDIVIDUALS>${unFiller.join("")}`)
       : "";
@@ -93,9 +99,20 @@ test("a listed person is a potential match with every list and its edition named
   const r = await screenSanctions("Is Viktor Bout sanctioned?");
   assert.equal(r.verdict, "match");
   assert.equal(r.matches[0]!.name, "BOUT, Viktor Anatolijevitch");
-  assert.deepEqual(r.lists_checked.map((e) => e.list), ["OFAC SDN", "UN Security Council Consolidated"]);
+  assert.deepEqual(r.lists_checked.map((e) => e.list), ["OFAC SDN", "OFAC Consolidated (non-SDN)", "UN Security Council Consolidated"]);
   assert.match(r.reason, /^Potential match: "Viktor Bout" matches BOUT, Viktor Anatolijevitch on the OFAC SDN list/);
+  assert.match(r.reason, /Screened against OFAC SDN \([^)]*\), OFAC Consolidated \(non-SDN\) \([^)]*\) and UN Security Council/);
   assert.match(r.reason, /EU and UK lists were not screened/);
+});
+
+test("a party only on OFAC's non-SDN Consolidated list matches under that list's name (2026-11-06)", async (t) => {
+  stubLists(t);
+  const r = await screenSanctions("Is Mohammed Abu Tair on a sanctions list?");
+  assert.equal(r.verdict, "match");
+  assert.equal(r.closest!.list, "OFAC Consolidated (non-SDN)");
+  assert.equal(r.closest!.id, "9640");
+  assert.deepEqual(r.closest!.programs, ["NS-PLC"]);
+  assert.match(r.reason, /on the OFAC Consolidated \(non-SDN\) list \(NS-PLC, individual, born 1951/);
 });
 
 test("an unlisted name is no match and names the closest entry; a listed wallet matches", async (t) => {
