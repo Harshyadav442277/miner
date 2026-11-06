@@ -1,5 +1,32 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-06 ~16:20 UTC scored-fields release — G263 acted on; G249 confirmed; G218 re-checked; G264 new
+
+Evidence: `track1-miner/docs/evidence/scored-fields-2026-11-05/` (the audit) and
+`track1-miner/docs/evidence/release-2026-11-06-scored-fields-all/` (the release, `7301474`, preflight 7/7).
+
+- **Eleven intents' answers lacked their scored field. `DEPLOYED 2026-11-06 ~16:09 UTC, measuring`.** The audit of
+  all 36 intents against `GET /engine/v1/intents/<id>` found the G254 gap again in SSL, gas, currency conversion,
+  token holders, crypto price, on-chain lookup, wallet balance, event outcome, URL scan, URL reputation and
+  current temperature. Each answer now carries the field under the intent's name, copied from the route's own
+  value. FRAUD_DETECTION `risk_score` and FINANCIAL_DATA `market_cap_usd` are left out on purpose. Read the
+  epochs after 16:09 UTC against the release's `epochs-before.json`.
+- **G263 — acted on: `filing_count` counts every form.** zk-filing's public endpoint and ours both give Apple 89
+  (2026-11-05) and 91 (2026-11-06) filings for the last 12 months. Filings stayed at 0.815–0.906 over four epochs
+  after the null-count release; the next epochs test the all-forms count. Still `OPEN, measuring`.
+- **WEATHER_CHECK_TEMPERATURE — plain temperature questions get the current reading.** "What is the temperature in
+  X?" used to get a 24-hour range. Scores were 0.56–0.68 over the last four epochs.
+- **G249 — CONFIRMED: the miner's Vercel team is on Hobby.** `vercel api /v2/teams/<id>` on 2026-11-06 ~16:20 UTC:
+  team `wukong4`, `billing.plan: "hobby"`, `status: "active"`. Vercel's fair-use page (read 2026-11-04) bars
+  commercial use on Hobby, and the miner sells answers through Telegraph. `OPEN, owner decision`: upgrade to Pro
+  (paid) or accept the risk. Moving host changes `base_url`, which needs `updateMiner`.
+- **G218 — re-checked 2026-11-06 ~16:25 UTC: still unpublished.** The rules page still says payout is "governed by
+  the official prize-payment terms" and links none; `anjoman.ai/terms` (updated 2026-11-02) has no prize terms.
+  Whether India is eligible is unknown. `OPEN, ask the organiser`.
+- **G264 — CRYPTO_PRICE_USD has not scored us since epoch 2021. `OPEN`.** We were 10th at 0.973 (2021,
+  2026-11-05 17:55 UTC); epochs 2022, 2024 and 2026 have no row for us while 46–48 miners are scored. Cause not
+  read. `price_usd` is now named in the answer (this release).
+
 ## 2026-11-05 ~19:20 UTC filings release — G257 deployed; G263 measuring
 
 Evidence: `track1-miner/docs/evidence/release-2026-11-05-filings-issuer/`.

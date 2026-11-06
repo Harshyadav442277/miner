@@ -53,7 +53,9 @@ Ordered by rubric points. **Miner weights re-read 2026-11-05:** quality 35, reli
       (checked 2026-11-05). Growth is now 20 points in the Miner track too.
 - [ ] Ask Ahmed which of the 16 payer wallets in `docs/evidence/consumption-2026-11-05/summary.md` belong to
       registered H2 apps (G259). Tell Claude which are ours (an Anjoman smart wallet, any test calls).
-- [ ] Check the Vercel plan in the dashboard: Hobby bars commercial use (G249).
+- [x] Check the Vercel plan: **Hobby**, confirmed by API 2026-11-06 (G249).
+- [ ] G249: upgrade team `wukong4` to Pro (paid), or accept that Hobby bars commercial use. Moving host instead
+      changes `base_url` and needs `updateMiner`.
 - [x] Sign and upload the 144 translation pairs: done, all 144 admitted at epoch 2013 (MEMORY, Codex block).
 - [ ] Record the 2–5 minute video from the script.
 - [ ] Validate the N1 YAML on anjoman.ai/dashboard/earn, then sign the one `updateMiner`.
@@ -111,8 +113,11 @@ Ordered by rubric points. **Miner weights re-read 2026-11-05:** quality 35, reli
 - [x] G257: find the issuer in a filings question that names no `company` (fixed in code 2026-11-05, unit 879/879).
 - [x] Deploy the G257 + G263 filings change. Owner: "Yes, deploy it"; live 2026-11-05 ~19:10 UTC as `9b82d08`
       (`miner-f28bzjwiw`), preflight 7/7, record in `track1-miner/docs/evidence/release-2026-11-05-filings-issuer/`.
-- [ ] G263: read the next filings epochs against 0.8145; then count every SEC form, as zk-filing does, or keep
-      material forms? Decide from those numbers.
+- [x] G263: count every SEC form, as zk-filing does. Live 2026-11-06 ~16:09 UTC as `7301474` (`miner-qbdf1756n`),
+      with the scored field of eleven more intents and current temperature; preflight 7/7.
+- [ ] Read the epochs after 2026-11-06 16:09 UTC for filings, temperature, on-chain lookup, SSL and crypto price
+      against `release-2026-11-06-scored-fields-all/epochs-before.json` (`tools/epoch-history.mjs`).
+- [ ] G264: find why CRYPTO_PRICE_USD has no score for us since epoch 2021.
 - [x] Pin the owner's required account (`hyadav42774@gmail.com`) and LiveCert wallet in repository instructions;
       remove conflicting email and alternate-payout guidance (owner instruction, 2026-11-03).
 

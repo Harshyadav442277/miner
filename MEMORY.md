@@ -1,6 +1,21 @@
 # MEMORY.md — session continuity
 
-## 2026-11-05 ~21:20 UTC (Nov 6 02:50 IST): CURRENT — FACT_CHECK fix G262 LIVE as `e501a57`
+## 2026-11-06 ~16:25 UTC (21:55 IST): CURRENT — every intent's scored field LIVE as `7301474`
+
+- Owner: "dont worry about outreach. and about other things, take required actions" (2026-11-05), then "Try
+  again" (2026-11-06). Outreach is off the list for Claude.
+- **Production:** `7301474`, `https://miner-qbdf1756n-wukong4.vercel.app` (`dpl_GpEmJonx142NQZfeGTHNeVcNqGyt`),
+  aliased ~16:09 UTC. **Rollback target:** `miner-mzapr28vo` (`e501a57`). Record:
+  `track1-miner/docs/evidence/release-2026-11-06-scored-fields-all/`. Unit 906/906, preview 15/15, preflight
+  **7/7 first run**, 4829 `active` (16:15 UTC).
+- Shipped: eleven intents now name their scored field (audit: `docs/evidence/scored-fields-2026-11-05/`); a plain
+  temperature question gets the current reading; `filing_count` counts every form (Apple 91 = zk-filing's 91).
+- Checked: Vercel plan is **Hobby** (G249, owner decision); prize-payment terms still unpublished (G218).
+- The commit-time security review failed on HTTP 429; a manual review of `7301474` found nothing. The push review
+  runs on the next push.
+- Next: read epochs after 16:09 UTC (TASKS); G264 crypto price unscored since epoch 2021; N1 `updateMiner` prep.
+
+## 2026-11-05 ~21:20 UTC (Nov 6 02:50 IST): FACT_CHECK fix G262 LIVE as `e501a57`
 
 - **Production:** `e501a57`, `https://miner-mzapr28vo-wukong4.vercel.app` (`dpl_3rEwsNuVz6tkfnjQ4p5KAUy2qQJw`),
   aliased ~21:09 UTC. Owner: "Yes, deploy it". **Rollback target:** `miner-f28bzjwiw` (`9b82d08`). Miner diff

@@ -1,0 +1,1025 @@
+{
+ "at": "2026-11-06T16:17:25.117Z",
+ "base": "https://miner-wine.vercel.app",
+ "rows": [
+  {
+   "intent": "SSL_VERIFICATION_CERT",
+   "class": "deterministic",
+   "ready": true,
+   "params": [
+    "host"
+   ],
+   "scored": [
+    {
+     "name": "certificate_valid",
+     "type": "bool"
+    }
+   ],
+   "path": "/ssl-check",
+   "question": "Can you investigate the current SSL/TLS certificate presented by openai.com as though you were deciding whether an autonomous agent should establish a secure connection to it? Please verify DNS/TLS connectivity, hostname matching, certificate-chain trust, validity dates, issuer information, SAN coverage, negotiated TLS protocol, and whether any observable certificate condition would cause a conventional HTTPS client to reject the connection. Give me a decisive verdict supported by the observed certificate facts rather than a generic statement that HTTPS is enabled.",
+   "verdict": "valid",
+   "error": null,
+   "present": {
+    "certificate_valid": true
+   },
+   "top_keys": [
+    "answer",
+    "domain",
+    "verdict",
+    "valid",
+    "chain_complete",
+    "issuer",
+    "valid_to",
+    "days_remaining",
+    "confidence",
+    "reason",
+    "checked_at",
+    "certificate_valid",
+    "receipt",
+    "licensing"
+   ]
+  },
+  {
+   "intent": "STORM_ALERT_GENERAL",
+   "class": "judgment",
+   "ready": true,
+   "params": [
+    "location",
+    "window_hours"
+   ],
+   "scored": [
+    {
+     "name": "risk_score",
+     "type": "number"
+    }
+   ],
+   "path": "/storm-alert",
+   "question": "Is there a storm risk in Mumbai over the next 48 hours?",
+   "verdict": "none",
+   "error": null,
+   "present": {
+    "risk_score": 0.13
+   },
+   "top_keys": [
+    "answer",
+    "location",
+    "verdict",
+    "risk_score",
+    "wind_direction",
+    "max_wind_gust_kmh",
+    "max_wind_speed_kmh",
+    "max_precipitation_mm",
+    "thunderstorm",
+    "window_hours",
+    "valid_at",
+    "peak_at",
+    "latitude",
+    "longitude",
+    "confidence",
+    "threshold_exceeded",
+    "threshold_hours",
+    "reason",
+    "checked_at",
+    "receipt",
+    "licensing"
+   ]
+  },
+  {
+   "intent": "WEATHER_FORECAST_GENERAL",
+   "class": "judgment",
+   "ready": true,
+   "params": [
+    "location",
+    "window_hours"
+   ],
+   "scored": [
+    {
+     "name": "temp_max_c",
+     "type": "number"
+    }
+   ],
+   "path": "/weather-forecast",
+   "question": "Return the 1-day weather forecast for Lagos. Classify this as WEATHER_FORECAST.",
+   "verdict": "light rain",
+   "error": null,
+   "present": {
+    "temp_max_c": 30.4
+   },
+   "top_keys": [
+    "answer",
+    "location",
+    "verdict",
+    "window_hours",
+    "span_days",
+    "start_time",
+    "end_time",
+    "hourly_count",
+    "temp_min_c",
+    "temp_max_c",
+    "total_precipitation_mm",
+    "precipitation_probability_max_pct",
+    "max_wind_speed_kmh",
+    "precipitation_hours",
+    "latitude",
+    "longitude",
+    "confidence",
+    "reason",
+    "checked_at",
+    "temperature_c",
+    "receipt",
+    "licensing"
+   ]
+  },
+  {
+   "intent": "IP_GEOLOCATION_GENERAL",
+   "class": "deterministic",
+   "ready": false,
+   "params": [],
+   "scored": [],
+   "path": "/ip-geolocate",
+   "question": "Please analyze the public IP address 94.140.14.14 from an IP-geolocation perspective and report the country, region, city if available, approximate coordinates, timezone, ISP or organization, and autonomous system details.",
+   "verdict": "unknown",
+   "error": "not_licensed",
+   "present": {},
+   "top_keys": [
+    "answer",
+    "ip",
+    "verdict",
+    "city",
+    "region",
+    "country",
+    "country_code",
+    "latitude",
+    "longitude",
+    "timezone",
+    "asn",
+    "organisation",
+    "confidence",
+    "reason",
+    "checked_at",
+    "error",
+    "receipt",
+    "licensing"
+   ]
+  },
+  {
+   "intent": "LANGUAGE_TRANSLATION_GENERAL",
+   "class": "judgment",
+   "ready": true,
+   "params": [
+    "text",
+    "target_language"
+   ],
+   "scored": [],
+   "path": "/translate",
+   "question": "Translate the following English passage into natural Hebrew while preserving the original meaning, professional tone, technical terminology, numbers, names, and URLs exactly where appropriate. Do not summarize or explain the passage; I want a faithful translation that sounds like something a fluent Hindi speaker would actually write rather than a word-for-word machine translation: “Artificial intelligence systems are increasingly being deployed in cybersecurity operations to identify suspicious network activity, prioritize alerts, and assist analysts in investigating potential threats.",
+   "verdict": "translated",
+   "error": null,
+   "present": {},
+   "top_keys": [
+    "answer",
+    "source_text",
+    "target_language",
+    "target_code",
+    "translation",
+    "source",
+    "verdict",
+    "confidence",
+    "reason",
+    "checked_at",
+    "receipt",
+    "licensing"
+   ]
+  },
+  {
+   "intent": "ACADEMIC_SEARCH_GENERAL",
+   "class": "judgment",
+   "ready": true,
+   "params": [
+    "query"
+   ],
+   "scored": [],
+   "path": "/papers",
+   "question": "Find five relevant academic papers on privacy attacks against federated-learning systems, including membership inference, model inversion, gradient leakage, or reconstruction attacks.",
+   "verdict": "papers",
+   "error": null,
+   "present": {},
+   "top_keys": [
+    "answer",
+    "topic",
+    "from_date",
+    "to_date",
+    "verdict",
+    "papers",
+    "count",
+    "confidence",
+    "reason",
+    "checked_at",
+    "receipt",
+    "licensing"
+   ]
+  },
+  {
+   "intent": "CONTENT_EXTRACTION_GENERAL",
+   "class": "judgment",
+   "ready": true,
+   "params": [
+    "content",
+    "fields"
+   ],
+   "scored": [],
+   "path": "/extract",
+   "question": "Extract faculty details from vtop",
+   "verdict": "generic",
+   "error": null,
+   "present": {},
+   "top_keys": [
+    "answer",
+    "verdict",
+    "extracted",
+    "confidence",
+    "reason",
+    "checked_at",
+    "receipt",
+    "licensing"
+   ]
+  },
+  {
+   "intent": "NEWS_HEADLINES_GENERAL",
+   "class": "judgment",
+   "ready": true,
+   "params": [
+    "topic"
+   ],
+   "scored": [],
+   "path": "/headlines",
+   "question": "find latest headlines for uk vs russia",
+   "verdict": "unknown",
+   "error": "not_licensed",
+   "present": {},
+   "top_keys": [
+    "answer",
+    "topic",
+    "region",
+    "verdict",
+    "headlines",
+    "count",
+    "confidence",
+    "checked_at",
+    "error",
+    "reason",
+    "receipt",
+    "licensing"
+   ]
+  },
+  {
+   "intent": "WALLET_BALANCE_CHECK_GENERAL",
+   "class": "deterministic",
+   "ready": true,
+   "params": [
+    "address",
+    "chain",
+    "token"
+   ],
+   "scored": [
+    {
+     "name": "balance",
+     "type": "number"
+    }
+   ],
+   "path": "/wallet-balance",
+   "question": "What is the ETH balance of vitalik.eth?",
+   "verdict": "5.78044104 ETH",
+   "error": null,
+   "present": {
+    "balance": 5.78044104219721
+   },
+   "top_keys": [
+    "answer",
+    "address",
+    "chain",
+    "balance_eth",
+    "symbol",
+    "verdict",
+    "confidence",
+    "reason",
+    "checked_at",
+    "balance",
+    "receipt",
+    "licensing"
+   ]
+  },
+  {
+   "intent": "WEATHER_CHECK_TEMPERATURE",
+   "class": "deterministic",
+   "ready": true,
+   "params": [
+    "location"
+   ],
+   "scored": [
+    {
+     "name": "temperature_c",
+     "type": "number"
+    }
+   ],
+   "path": "/weather-forecast",
+   "question": "Return current weather conditions for Lagos. Classify this as WEATHER_CHECK.",
+   "verdict": "clear",
+   "error": null,
+   "present": {
+    "temperature_c": 29.1
+   },
+   "top_keys": [
+    "answer",
+    "location",
+    "verdict",
+    "window_hours",
+    "temp_min_c",
+    "temp_max_c",
+    "total_precipitation_mm",
+    "precipitation_probability_max_pct",
+    "max_wind_speed_kmh",
+    "precipitation_hours",
+    "latitude",
+    "longitude",
+    "confidence",
+    "reason",
+    "checked_at",
+    "start_time",
+    "end_time",
+    "hourly_count",
+    "temperature_c",
+    "receipt",
+    "licensing"
+   ]
+  },
+  {
+   "intent": "FACT_CHECK_GENERAL",
+   "class": "judgment",
+   "ready": true,
+   "params": [
+    "claim"
+   ],
+   "scored": [],
+   "path": "/fact-check",
+   "question": "Is it true that the Eiffel Tower is in Berlin?",
+   "verdict": "contradicted",
+   "error": null,
+   "present": {},
+   "top_keys": [
+    "answer",
+    "claim",
+    "verdict",
+    "confidence",
+    "source",
+    "source_url",
+    "evidence",
+    "reason",
+    "checked_at",
+    "receipt",
+    "licensing"
+   ]
+  },
+  {
+   "intent": "ONCHAIN_TX_LOOKUP_GENERAL",
+   "class": "deterministic",
+   "ready": true,
+   "params": [
+    "tx_hash",
+    "chain"
+   ],
+   "scored": [
+    {
+     "name": "block_number",
+     "type": "number"
+    }
+   ],
+   "path": "/tx-lookup",
+   "question": "For the contract address 0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D on ethereum, report its on-chain activity: the date it was deployed and the total number of transactions it has received.",
+   "verdict": "contract_activity",
+   "error": null,
+   "present": {
+    "block_number": null
+   },
+   "top_keys": [
+    "answer",
+    "address",
+    "chain",
+    "is_contract",
+    "name",
+    "deployed_at",
+    "deployment_tx",
+    "transactions",
+    "sent",
+    "last_activity",
+    "verdict",
+    "confidence",
+    "reason",
+    "block_number",
+    "checked_at",
+    "receipt",
+    "licensing"
+   ]
+  },
+  {
+   "intent": "CVE_LOOKUP_CVSS",
+   "class": "deterministic",
+   "ready": true,
+   "params": [
+    "cve_id"
+   ],
+   "scored": [
+    {
+     "name": "cvss_score",
+     "type": "number"
+    }
+   ],
+   "path": "/cve",
+   "question": "Look up this CVE identifier and report its severity (LOW/MEDIUM/HIGH/CRITICAL) and CVSS score: CVE-2021-44228",
+   "verdict": "critical",
+   "error": null,
+   "present": {
+    "cvss_score": 10
+   },
+   "top_keys": [
+    "answer",
+    "cve_id",
+    "verdict",
+    "confidence",
+    "severity",
+    "cvss_score",
+    "cvss_version",
+    "scored_by",
+    "affected_product",
+    "affected_versions",
+    "other_products_affected",
+    "cwe",
+    "status",
+    "published",
+    "description",
+    "source",
+    "source_url",
+    "reason",
+    "checked_at",
+    "receipt",
+    "licensing"
+   ]
+  },
+  {
+   "intent": "NEWS_SEARCH_GENERAL",
+   "class": "judgment",
+   "ready": true,
+   "params": [
+    "query"
+   ],
+   "scored": [],
+   "path": "/news-search",
+   "question": "News Headlines",
+   "verdict": "unknown",
+   "error": "no_subject",
+   "present": {},
+   "top_keys": [
+    "answer",
+    "subject",
+    "window_days",
+    "verdict",
+    "articles",
+    "count",
+    "confidence",
+    "reason",
+    "error",
+    "checked_at",
+    "receipt",
+    "licensing"
+   ]
+  },
+  {
+   "intent": "CURRENCY_EXCHANGE_CONVERT",
+   "class": "deterministic",
+   "ready": false,
+   "params": [
+    "from_currency",
+    "to_currency",
+    "amount"
+   ],
+   "scored": [
+    {
+     "name": "converted_amount",
+     "type": "number"
+    }
+   ],
+   "path": "/convert",
+   "question": "what's the usd to inr",
+   "verdict": "rate",
+   "error": null,
+   "present": {
+    "converted_amount": null
+   },
+   "top_keys": [
+    "answer",
+    "from",
+    "to",
+    "amount",
+    "rate",
+    "converted",
+    "kind",
+    "as_of",
+    "verdict",
+    "confidence",
+    "reason",
+    "converted_amount",
+    "checked_at",
+    "receipt",
+    "licensing"
+   ]
+  },
+  {
+   "intent": "GAS_PRICE_GENERAL",
+   "class": "deterministic",
+   "ready": true,
+   "params": [
+    "chain"
+   ],
+   "scored": [
+    {
+     "name": "gas_price_gwei",
+     "type": "number"
+    }
+   ],
+   "path": "/gas-price",
+   "question": "What is the 24-hour weather forecast for Sydney, Australia starting today, including temperature, precipitation probability, and wind speed?",
+   "verdict": "unknown",
+   "error": "not_a_fee_question",
+   "present": {
+    "gas_price_gwei": null
+   },
+   "top_keys": [
+    "answer",
+    "chain",
+    "gwei",
+    "base_fee_gwei",
+    "priority_gwei",
+    "block",
+    "verdict",
+    "confidence",
+    "error",
+    "reason",
+    "gas_price_gwei",
+    "checked_at",
+    "receipt",
+    "licensing"
+   ]
+  },
+  {
+   "intent": "FINANCIAL_DATA_GENERAL",
+   "class": "deterministic",
+   "ready": true,
+   "params": [
+    "asset"
+   ],
+   "scored": [
+    {
+     "name": "market_cap_usd",
+     "type": "number"
+    }
+   ],
+   "path": "/financial",
+   "question": "Will Hitachi CO2 heat pumps sell well?",
+   "verdict": "unknown",
+   "error": "not_licensed",
+   "present": {
+    "market_cap_usd": "<missing>"
+   },
+   "top_keys": [
+    "answer",
+    "subject",
+    "name",
+    "chain",
+    "verdict",
+    "confidence",
+    "error",
+    "reason",
+    "checked_at",
+    "receipt",
+    "licensing"
+   ]
+  },
+  {
+   "intent": "FRAUD_DETECTION_GENERAL",
+   "class": "judgment",
+   "ready": true,
+   "params": [
+    "subject"
+   ],
+   "scored": [
+    {
+     "name": "risk_score",
+     "type": "number"
+    }
+   ],
+   "path": "/fraud-check",
+   "question": "replay probe",
+   "verdict": "unknown",
+   "error": "no_subject",
+   "present": {
+    "risk_score": "<missing>"
+   },
+   "top_keys": [
+    "answer",
+    "subject",
+    "verdict",
+    "confidence",
+    "reason",
+    "error",
+    "checked_at",
+    "receipt",
+    "licensing"
+   ]
+  },
+  {
+   "intent": "TOKEN_HOLDER_COUNT_GENERAL",
+   "class": "deterministic",
+   "ready": true,
+   "params": [
+    "token",
+    "chain"
+   ],
+   "scored": [
+    {
+     "name": "holders_count",
+     "type": "number"
+    }
+   ],
+   "path": "/token-holders",
+   "question": "How many addresses hold usdc on base?",
+   "verdict": "unknown",
+   "error": "upstream_unavailable",
+   "present": {
+    "holders_count": null
+   },
+   "top_keys": [
+    "answer",
+    "symbol",
+    "name",
+    "address",
+    "chain",
+    "holders",
+    "top_holder_percent",
+    "verdict",
+    "confidence",
+    "reason",
+    "error",
+    "holders_count",
+    "checked_at",
+    "receipt",
+    "licensing"
+   ]
+  },
+  {
+   "intent": "RESEARCH_QUERY_GENERAL",
+   "class": "judgment",
+   "ready": true,
+   "params": [
+    "question"
+   ],
+   "scored": [],
+   "path": "/research",
+   "question": "Will Nivolumab show improved bladder cancer outcomes?",
+   "verdict": "evidence",
+   "error": null,
+   "present": {},
+   "top_keys": [
+    "answer",
+    "subject",
+    "trials",
+    "citations",
+    "verdict",
+    "confidence",
+    "reason",
+    "checked_at",
+    "receipt",
+    "licensing"
+   ]
+  },
+  {
+   "intent": "CRYPTO_PRICE_USD",
+   "class": "deterministic",
+   "ready": false,
+   "params": [
+    "symbol"
+   ],
+   "scored": [
+    {
+     "name": "price_usd",
+     "type": "number"
+    }
+   ],
+   "path": "/crypto-price",
+   "question": "What is the price of dogecoin of elon right now?",
+   "verdict": "price",
+   "error": null,
+   "present": {
+    "price_usd": 0.07257
+   },
+   "top_keys": [
+    "answer",
+    "asset",
+    "symbol",
+    "verdict",
+    "confidence",
+    "price",
+    "quote",
+    "price_at",
+    "source",
+    "bid",
+    "ask",
+    "volume_24h",
+    "reason",
+    "price_usd",
+    "checked_at",
+    "receipt",
+    "licensing"
+   ]
+  },
+  {
+   "intent": "STOCK_PRICE_US_EQUITY",
+   "class": "deterministic",
+   "ready": false,
+   "params": [
+    "ticker"
+   ],
+   "scored": [
+    {
+     "name": "price_usd",
+     "type": "number"
+    }
+   ],
+   "path": null,
+   "question": null
+  },
+  {
+   "intent": "CROSS_CHAIN_STATE_VERIFY_GENERAL",
+   "class": "deterministic",
+   "ready": false,
+   "params": [],
+   "scored": [],
+   "path": "/cross-chain",
+   "question": null
+  },
+  {
+   "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "class": "judgment",
+   "ready": true,
+   "params": [
+    "event"
+   ],
+   "scored": [
+    {
+     "name": "resolved_yes",
+     "type": "bool"
+    }
+   ],
+   "path": "/event-outcome",
+   "question": "Will Vertex's VX-522 enter Phase 2?",
+   "verdict": "no_market_found",
+   "error": null,
+   "present": {
+    "resolved_yes": null
+   },
+   "top_keys": [
+    "answer",
+    "verdict",
+    "confidence",
+    "reason",
+    "resolved_yes",
+    "checked_at",
+    "receipt",
+    "licensing"
+   ]
+  },
+  {
+   "intent": "URL_SCAN_VERDICT",
+   "class": "hybrid",
+   "ready": true,
+   "params": [
+    "url"
+   ],
+   "scored": [
+    {
+     "name": "safe",
+     "type": "bool"
+    }
+   ],
+   "path": "/url-scan",
+   "question": "website safety check",
+   "verdict": "unknown",
+   "error": "no_url",
+   "present": {
+    "safe": null
+   },
+   "top_keys": [
+    "answer",
+    "url",
+    "verdict",
+    "confidence",
+    "error",
+    "reason",
+    "safe",
+    "checked_at",
+    "receipt",
+    "licensing"
+   ]
+  },
+  {
+   "intent": "WEB_SEARCH_GENERAL",
+   "class": "judgment",
+   "ready": true,
+   "params": [
+    "query"
+   ],
+   "scored": [],
+   "path": "/web-search",
+   "question": "Will John Deere expand self-repair services?",
+   "verdict": "unknown",
+   "error": "not_licensed",
+   "present": {},
+   "top_keys": [
+    "answer",
+    "articles",
+    "background",
+    "verdict",
+    "confidence",
+    "error",
+    "reason",
+    "checked_at",
+    "receipt",
+    "licensing"
+   ]
+  },
+  {
+   "intent": "SENTIMENT_ANALYSIS_GENERAL",
+   "class": "judgment",
+   "ready": true,
+   "params": [
+    "text"
+   ],
+   "scored": [],
+   "path": "/sentiment",
+   "question": "Will \"Sorry, I'm in a meeting\" go viral?",
+   "verdict": "negative",
+   "error": null,
+   "present": {},
+   "top_keys": [
+    "answer",
+    "verdict",
+    "compound",
+    "positive_words",
+    "negative_words",
+    "tones",
+    "confidence",
+    "reason",
+    "checked_at",
+    "receipt",
+    "licensing"
+   ]
+  },
+  {
+   "intent": "TEXT_CLASSIFICATION_GENERAL",
+   "class": "judgment",
+   "ready": true,
+   "params": [
+    "text",
+    "categories"
+   ],
+   "scored": [],
+   "path": "/classify",
+   "question": null
+  },
+  {
+   "intent": "RESEARCH_SYNTHESIS_GENERAL",
+   "class": "judgment",
+   "ready": true,
+   "params": [
+    "question"
+   ],
+   "scored": [],
+   "path": "/research-synthesis",
+   "question": "Summarise these notes on how to destroy belarus with help over bears research in one paragraph of about 150 words in plain English, keeping the attributions in parentheses and adding nothing that is not in the notes.\n\nNotes:\n- Introductory remarks by Commissioner Hoekstra during an exchange of views with the European Parliament's Committee on the Environment, Climate and Food Safety (ENVI) (European Commission, 2026-09-10)\n- Opening remarks by Commissioner Albuquerque at the structured dialogue with the Committee on Economic and Monetary Affairs and presentation of the Report on the competitiveness of the EU banking sector (European Commission, 2026-09-10)\n- Commission sets out next chapter for European Capitals of Culture after over 40 years of success (European Commission, 2026-09-10)\n- Dust Storm Sweeps Over Mali (NASA, 2026-09-10)\n- Press remarks by Executive Vice-President Fitto on the Outermost Regions Strategy (European Commission, 2026-09-10)\n\nNow write that paragraph.",
+   "verdict": "synthesis",
+   "error": null,
+   "present": {},
+   "top_keys": [
+    "answer",
+    "verdict",
+    "confidence",
+    "sources",
+    "reason",
+    "checked_at",
+    "receipt",
+    "licensing"
+   ]
+  },
+  {
+   "intent": "SANCTIONS_SCREENING_MATCH_GENERAL",
+   "class": "judgment",
+   "ready": true,
+   "params": [
+    "name"
+   ],
+   "scored": [
+    {
+     "name": "matched",
+     "type": "bool"
+    }
+   ],
+   "path": "/sanctions-screen",
+   "question": null
+  },
+  {
+   "intent": "CORPORATE_REGISTRY_LOOKUP_GENERAL",
+   "class": "deterministic",
+   "ready": true,
+   "params": [
+    "company",
+    "jurisdiction"
+   ],
+   "scored": [
+    {
+     "name": "active",
+     "type": "bool"
+    }
+   ],
+   "path": "/company-registry",
+   "question": null
+  },
+  {
+   "intent": "REGULATORY_FILING_MONITOR_GENERAL",
+   "class": "deterministic",
+   "ready": true,
+   "params": [
+    "entity",
+    "period"
+   ],
+   "scored": [
+    {
+     "name": "filing_count",
+     "type": "number"
+    }
+   ],
+   "path": "/sec-filings",
+   "question": null
+  },
+  {
+   "intent": "CRYPTO_TRANSFER_VERIFY_GENERAL",
+   "class": "deterministic",
+   "ready": false,
+   "params": [],
+   "scored": [],
+   "path": "/transfer-verify",
+   "question": null
+  },
+  {
+   "intent": "MACRO_ECONOMIC_INDICATOR_GENERAL",
+   "class": "deterministic",
+   "ready": true,
+   "params": [
+    "indicator",
+    "country",
+    "year"
+   ],
+   "scored": [
+    {
+     "name": "rate_pct",
+     "type": "number"
+    }
+   ],
+   "path": "/macro",
+   "question": null
+  },
+  {
+   "intent": "URL_SAFE_GENERAL",
+   "class": "judgment",
+   "ready": true,
+   "params": [
+    "url"
+   ],
+   "scored": [
+    {
+     "name": "detections",
+     "type": "number"
+    }
+   ],
+   "path": "/url-reputation",
+   "question": null
+  },
+  {
+   "intent": "QUESTION_ANSWERING_GENERAL",
+   "class": "judgment",
+   "ready": false,
+   "params": [],
+   "scored": [],
+   "path": "/answer",
+   "question": null
+  }
+ ]
+}
