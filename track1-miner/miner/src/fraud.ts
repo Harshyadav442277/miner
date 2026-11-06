@@ -334,11 +334,12 @@ export async function assessFraud(text: string): Promise<FraudResult> {
         `${facts.nonce.toLocaleString("en-US")} outgoing transaction${facts.nonce === 1 ? "" : "s"} ` +
         `and a balance of ${facts.balanceEth.toFixed(4)} ETH`,
       );
-      // A brand-new, empty account being pointed at money is the shape of a
-      // throwaway address, though it is equally the shape of a new user.
+      // An empty, unused account is the shape of a throwaway address and equally of
+      // a new user, so it is reported as no history rather than as a risk. It was a
+      // risk flag until 2026-11-06: a documentation placeholder address with no
+      // activity came back "elevated risk" (audit replay 2026-11-04 row 137).
       if (facts.nonce === 0 && facts.balanceEth === 0 && facts.kind !== "contract") {
-        elevated = true;
-        evidence.push("it has never sent a transaction and holds no balance, which is consistent with a newly created throwaway address");
+        evidence.push("it has never sent a transaction and holds no balance, so it has no history to judge either way");
       }
     }
   }
@@ -368,10 +369,13 @@ export async function assessFraud(text: string): Promise<FraudResult> {
   const verdict: FraudVerdict = high ? "high_risk" : elevated ? "elevated_risk" : "no_indicators";
   const gap = notChecked.length ? ` Not checked: ${notChecked.join("; ")}.` : "";
 
+  // The lead names why, because it is the answer field: "This shows elevated risk
+  // indicators." alone told the caller nothing it could act on.
+  const highWhy = evidence.filter((e) => /appears on the OFAC|is blocked as malware/.test(e));
   const lead = high
-    ? "This is high risk."
+    ? `This is high risk: ${highWhy.join("; ")}.`
     : elevated
-      ? "This shows elevated risk indicators."
+      ? `This shows elevated risk indicators: the message ${markers.join("; it ")}.`
       : "No fraud indicators were found among the checks performed.";
 
   // The clean case is the one worth being careful about: it must not read as a
