@@ -1,5 +1,29 @@
 # MEMORY.md — session continuity
 
+## 2026-11-06 ~22:15 UTC (Nov 7 03:45 IST): CURRENT — N1 intent picks; `/onchain-metric` built, NOT deployed
+
+- Owner: "keep improving. and let's add more intents", then "pick intents which would help us in winning".
+- **Branch `claude/n1-new-intents`** (deploy tree `C:/Users/hyada/tg-deploy/m-nonsdn`), on `cee126e`:
+  - `6aebe0f`: adds ONCHAIN_METRIC_VERIFY at `/onchain-metric`; deletes the `/keywords` and `/vuln-triage` routes.
+  - The docs commit after it.
+  - Unit 906/906. Live local reads match Blockscout. Not pushed, not deployed.
+- **Production unchanged:** `192aecc` (`miner-p429gtksx`), 4829 `active` 21:38 UTC.
+- **Picks:**
+  - Added: ONCHAIN_METRIC, plus TOKEN_TOTAL_SUPPLY and DNS (both already live).
+  - Dropped: KEYWORD_EXTRACTION and VULNERABILITY_TRIAGE.
+  - Reasons per intent: `track1-miner/docs/evidence/n1-new-intents-2026-11-07/`.
+  - **G269:** ONCHAIN_METRIC's top 3 answer the block-gas question wrongly, so its ranks may not follow correctness.
+- **Ranks, epoch 2028:**
+  - Research is at rank 3.
+  - Fact check is 0.003 from rank 3.
+  - Academic search fell to 0.636 (G274).
+  - Sanctions has not been re-scored since epoch 2026.
+- **Next:**
+  - Owner's yes to deploy `6aebe0f`.
+  - G270: rename to V2 intent ids.
+  - Validate on Anjoman; the owner signs.
+  - Then G274, P6 and ASSET_RESERVE.
+
 ## 2026-11-06 ~16:50 UTC (22:20 IST): CURRENT — OFAC non-SDN list LIVE as `192aecc`; intent push P1–P11
 
 - Owner: "divide the task in parts and improve in these intents. priortize from the highest one. leave chat

@@ -1,0 +1,54 @@
+{
+ "checked_at": "2026-11-06T22:12:01Z",
+ "facts": {
+  "mx": [
+   "github-com.mail.protection.outlook.com"
+  ],
+  "supply_raw": 46222392906886742,
+  "supply": 46222392906.88674,
+  "block_gas": 13952884
+ },
+ "competitor_endpoints_by_grade": {
+  "DNS_RECORD_LOOKUP": {
+   "raw_api": {
+    "wrong": 1,
+    "error": 1,
+    "pass": 1
+   },
+   "service": {
+    "pass": 4,
+    "wrong": 2
+   }
+  },
+  "ONCHAIN_METRIC_VERIFY": {
+   "service": {
+    "error": 6,
+    "wrong": 8,
+    "pass": 1
+   },
+   "raw_api": {
+    "wrong": 6,
+    "auth": 5,
+    "error": 3
+   }
+  },
+  "TOKEN_TOTAL_SUPPLY_VERIFY": {
+   "raw_api": {
+    "error": 4,
+    "pass": 1,
+    "wrong": 3,
+    "auth": 1
+   },
+   "service": {
+    "pass": 3,
+    "error": 4,
+    "wrong": 2
+   }
+  }
+ },
+ "livecert_control": {
+  "DNS_RECORD_LOOKUP": "pass",
+  "ONCHAIN_METRIC_VERIFY": "error",
+  "TOKEN_TOTAL_SUPPLY_VERIFY": "pass"
+ }
+}

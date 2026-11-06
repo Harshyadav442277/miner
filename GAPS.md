@@ -1,5 +1,27 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-06 ~22:10 UTC (Nov 7 03:40 IST) N1 intent picks — G269–G274; `/onchain-metric` built (`6aebe0f`), not deployed
+
+Evidence: `track1-miner/docs/evidence/n1-new-intents-2026-11-07/`.
+
+- **G269 — ONCHAIN_METRIC_VERIFY's ranks 1–3 answer a block-gas question wrongly. `OPEN`.** Asked "How much gas did
+  block 21000000 on ethereum use?" (Blockscout: 13,952,884), the 0.997, 0.977 and 0.927 endpoints did not return
+  it; the one correct endpoint of 28 ranks 9th at 0.399 (epoch 2028). Same shape as G265. A correct answer may not
+  rank. One question only.
+- **G270 — The N1 YAML names families V1-style. `OPEN`, blocks validation.** `miner.yaml` lists
+  `ONCHAIN_METRIC_VERIFY`, `DNS_RECORD_LOOKUP`, …; V2 registers listed intents (`…_GENERAL`, `CVE_LOOKUP_CVSS`).
+  `tools/manifest.mjs`, `intent-answers.mjs` and the manifest tests key on the V1 names, so the rename touches them
+  too. Whether the validator still maps V1 names was not tested.
+- **G271 — Old on-chain state comes from one provider. `OPEN`, stated in every answer.** On 2026-11-07 at block
+  21000000: publicnode "Archive requests require a personal token", flashbots "state … is pruned", merkle rate
+  limited; only drpc answered. Receipts and blocks still read from two.
+- **G272 — WEATHER_FORECAST_VERIFY has no licence-clean global rain source found. `OPEN`.** NOAA NCEI global-hourly
+  returned no rows for Lisbon for 2026-11-04 to 06; METARs outside the US carry no rain amounts. Not built.
+- **G273 — FX_NOW asks for a live mid-market rate; we have ECB's daily one. `CLOSED, not added`.** The leader serves
+  the same ECB rate and the top six tie at 0.880 (EUR). Reopen only with a licensed live source.
+- **G274 — ACADEMIC_SEARCH fell from 0.8762 (epoch 2026) to 0.6358 (epoch 2028), rank 12 of 17. `OPEN`.** Cause
+  not investigated. `192aecc` changed only sanctions files; `7301474` and the eval questions are the suspects.
+
 ## 2026-11-06 ~16:50 UTC intent push by earnings — G265–G268; non-SDN list deployed (`192aecc`)
 
 Evidence: `track1-miner/docs/evidence/intent-ranks-2026-11-06/` (ranks at epoch 2026, 12:40 UTC, before the
