@@ -1,5 +1,16 @@
 # MEMORY.md — session continuity
 
+## 2026-11-06 ~22:15 UTC (Nov 7 03:45 IST): CURRENT — N1 cut prepared on `claude/hackathon-quality-focus-2e9d6e`; not signed
+
+- Trigger: Ahmed's Discord DM to the owner (2026-11-06): quality over quantity; intents a miner cannot deliver
+  "won't qualify for those claims". Rules re-read live ~22:00 UTC: unchanged since the 2026-11-05 read.
+- Branch fast-forwarded to local `codex/rank1-14-intents` (`cee126e`, 4 commits ahead of origin), then:
+  `miner.yaml` drops STOCK_PRICE, NEWS_HEADLINES, NEWS_SEARCH, IP_GEOLOCATION; FINANCIAL_DATA and WEB_SEARCH
+  descriptions now match the code. Manifest diff PASS, unit 907/907. Evidence: `track1-miner/docs/evidence/n1-cut-2026-11-06/`.
+- Production unchanged (`192aecc`). Nothing deployed or signed.
+- Next (Claude): sourced audit of the 4 added intents (G271). Owner: CRYPTO_PRICE licence (G269), then sandbox
+  the YAML and sign `updateMiner`. After the signature, delete the retired routes' code.
+
 ## 2026-11-06 ~16:50 UTC (22:20 IST): CURRENT — OFAC non-SDN list LIVE as `192aecc`; intent push P1–P11
 
 - Owner: "divide the task in parts and improve in these intents. priortize from the highest one. leave chat

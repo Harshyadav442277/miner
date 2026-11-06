@@ -94,6 +94,10 @@ sale using the supported Telegraph flow". A supported testnet implementation can
 
 ## Rubric (§06): out of 100; a winner needs ≥ 70 and the track minimum
 
+**Re-read 2026-11-06 ~22:00 UTC** at hackathon.telegraphprotocol.com/rules, Miners and Evaluators tabs: weights,
+consumption points and §07 unchanged from the tables here. Still there: "Each claimed Intent must pass its own
+relevant tests" and "Creating lots of Intents or generating meaningless traffic does not earn extra points."
+
 **Miners / Providers**, minimum 24/35 on quality. **Re-read live 2026-11-05 ~09:40 UTC** at
 https://anjoman.ai/dashboard/hackathon/season-2/rules (Miners tab in §05, §06 and §08). The weights changed
 from the 2026-10-29 read (35/20/15/10/10/10), and growth (20) is new for Miners too:

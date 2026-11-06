@@ -71,10 +71,12 @@ Ordered by rubric points. **Miner weights re-read 2026-11-05:** quality 35, reli
       Evaluator explainer drafts are Codex's (`track2/OUTREACH_S2.md`).
 - [ ] N1 One `updateMiner`, now unblocked (G206 closed 2026-11-05: no grace period on update). Ahmed: "submit the
       capabilities you can reliably demonstrate rather than claiming everything".
-      - Cut what refuses or fails: STOCK_PRICE, NEWS_HEADLINES, NEWS_SEARCH and IP_GEOLOCATION (licence refusals),
-        and EVENT_OUTCOME (score 0.0289, rank 12).
-      - Decide by audit: CRYPTO_PRICE and STORM_ALERT.
-      - Fix the descriptions (G250).
+      - [x] 2026-11-06: cut STOCK_PRICE, NEWS_HEADLINES, NEWS_SEARCH and IP_GEOLOCATION from `miner.yaml`; narrow
+        FINANCIAL_DATA to 10-K figures; fix the WEB_SEARCH description (G250). Manifest diff PASS, unit 907/907
+        (`track1-miner/docs/evidence/n1-cut-2026-11-06/`). EVENT_OUTCOME kept: its audit passes (GAPS, G269 block).
+      - [ ] Audit the four added intents against sources, 5 questions each (G271).
+      - [ ] Owner decides on CRYPTO_PRICE's Bitstamp licence (G269). Decide STORM_ALERT by audit.
+      - [ ] After the signature: delete the four retired routes' code and empty `RETIRED` in `test/manifest.test.ts`.
       - Add an intent only if it passes its audit first: TEXT_SUMMARIZATION, IMAGE_CAPTIONING and
         ASSET_RESERVE_ATTESTATION are candidates.
       - Before the owner signs, validate and sandbox-test the YAML on anjoman.ai/dashboard/earn (owner's session).

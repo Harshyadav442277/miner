@@ -196,6 +196,10 @@ Each experiment has a cost, a measurement and a kill rule. Results go in GAPS.md
 
 ## 6. What to remove
 
+**2026-11-06:** STOCK_PRICE, NEWS_HEADLINES, NEWS_SEARCH and IP_GEOLOCATION are cut from the pending `miner.yaml`
+(`track1-miner/docs/evidence/n1-cut-2026-11-06/`), waiting for the owner's `updateMiner` signature. Ahmed (DM,
+2026-11-06): "one properly functioning Miner is worth far more than ten that don't work."
+
 The rule behind every cut: each claimed intent is reviewed on its own, and registrations earn nothing.
 Remove an intent when it fails on quality or licence and no mission needs it. Our 36 intents: 20 are bought
 by at least one mission, 16 by none.

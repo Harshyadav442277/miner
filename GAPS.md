@@ -1,5 +1,26 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-06 ~22:10 UTC (Nov 7 IST) N1 cut prepared — G269–G271; G250 fixed in the pending YAML
+
+Ahmed (DM, 2026-11-06): registering intents "without actually supporting their functionality won't help". Pending
+manifest and checks: `track1-miner/docs/evidence/n1-cut-2026-11-06/`. Not signed.
+
+- **G269 — Licences of what stays claimed. `OPEN, owner decision`.** CRYPTO_PRICE reads Bitstamp, whose commercial
+  redistribution needs a signed Data License Agreement we do not have (`sources.ts`: `conditional`, met `no`). That
+  is the same class of problem as the four intents cut. Sign the agreement, find a licensed price source, or cut
+  CRYPTO_PRICE in the same update.
+- **G270 — FINANCIAL_DATA answers SEC 10-K figures only, and drops what it cannot answer. `OPEN`.** "Apple's
+  revenue and P/E" returned revenue and said nothing about the P/E (production, 2026-11-06 ~22:05 UTC). An answer
+  should name each requested figure it could not give. The description now claims filings only.
+- **G271 — The four added intents have smoke probes, not a sourced audit. `OPEN, before signing`.** DNS matched
+  Cloudflare DoH; token supply, MX and the KEV dates were not checked against a source; keyword phrases cross
+  word boundaries (G214).
+- **G250 — FIXED IN THE PENDING YAML.** WEB_SEARCH now leads with a question it answers and no longer claims Google
+  News. It takes effect when the update is signed.
+- **EVENT_OUTCOME is not cut.** TASKS N1 proposed cutting it on its devnode score (0.0289, rank 12). The audit
+  replay has it 4 of 4 (1 re-checked pass, 3 carried), and G248 shows a devnode score does not measure correctness.
+  Find why it scores low (scored field?) before cutting.
+
 ## 2026-11-06 ~16:50 UTC intent push by earnings — G265–G268; non-SDN list deployed (`192aecc`)
 
 Evidence: `track1-miner/docs/evidence/intent-ranks-2026-11-06/` (ranks at epoch 2026, 12:40 UTC, before the
