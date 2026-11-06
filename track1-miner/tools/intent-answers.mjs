@@ -1110,10 +1110,18 @@ const CHECKS = {
     if (kim.body.error) return [`errored: ${kim.body.error}`]; // a list did not download; re-run alone.
     if (kim.body.verdict !== "match") bad.push(`Kim Jong Un -> ${kim.body.verdict}, want match`);
     if (kim.body.matches?.[0]?.id !== "20157") bad.push(`top match id ${kim.body.matches?.[0]?.id}, want OFAC 20157`);
-    if ((kim.body.lists_checked ?? []).length !== 2) bad.push("both lists were not screened");
+    const screened = (kim.body.lists_checked ?? []).map((e) => e.list).join(" | ");
+    if (screened !== "OFAC SDN | OFAC Consolidated (non-SDN) | UN Security Council Consolidated") {
+      bad.push(`lists screened: ${screened || "none"}; want OFAC SDN, OFAC non-SDN and UN`);
+    }
     if (!/EU and UK lists were not screened/.test(String(kim.body.reason))) bad.push("the unscreened lists are not named");
     const near = await get("/sanctions-screen", { query: "Is Viktor But sanctioned?" });
     if (!/^(?:match|possible_match)$/.test(String(near.body.verdict))) bad.push(`Viktor But -> ${near.body.verdict}, want a near-match on Bout`);
+    // ABU TEIR, Mohammed (NS-PLC) is on OFAC's non-SDN list only; production cleared him before 192aecc (G268).
+    const nonSdn = await get("/sanctions-screen", { query: "Is Mohammed Abu Tair on a sanctions list?" });
+    if (nonSdn.body.verdict !== "match" || nonSdn.body.closest?.id !== "9640") {
+      bad.push(`Mohammed Abu Tair -> ${nonSdn.body.verdict} ${nonSdn.body.closest?.id ?? ""}, want match on OFAC non-SDN 9640`);
+    }
     const none = await get("/sanctions-screen", { name: "Zzyzx Quillfeather" });
     if (none.body.verdict !== "no_match") bad.push(`an invented name -> ${none.body.verdict}, want no_match`);
     return bad;
