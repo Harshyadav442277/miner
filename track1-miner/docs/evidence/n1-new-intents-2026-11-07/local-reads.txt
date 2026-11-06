@@ -1,0 +1,18 @@
+Fri Nov  6 22:12:40 UTC 2026
+6aebe0f (the run used this tree before the commit; nothing changed between)
+[1916 ms] verified | Transaction 0x24e20c506fd16546178a03c955bca381376f97b9ff5aefb726abf84dea6c8913 on Ethereum, block 21,000,000, success: it used 264,493 gas for a fee of 0.00537746619932309 ETH. Its Transfer logs carry 333.11 IMX (exact: 333.1055) from 0xd91efec7e42f80156d1d9f660a69847188950747 to 0xfcb00ad97b21862a7d1081f5f17c6e5d49f0025e; 38,250,000 PEPE (exact: 38250000) from 0xd91efec7e42f80156d1d9f660a69847188950747 to 0x91a9a5ca520eb1804feaff869f87e382702edcbc; 79,807 1INCH (exact: 79807) from 0xd91efec7e42f80156d1d9f660a69847188950747 to 0xc2c5cb69e70ff273e6d7d7add109253865425f75; 7,534.66 USDC (exact: 7534.65946) from 0xd91efec7e42f80156d1d9f660a69847188950747 to 0x3974549dc16bf72af6fc3668d5f6c092c9e91c2b; 252.23 USDT (exact: 252.227809) from 0xd91efec7e42f80156d1d9f660a69847188950747 to 0x2a64fade5f1b27589189ad1cfa33fbebd7c11f1d; 41.24 USDT (exact: 41.242569) from 0xd91efec7e42f80156d1d9f660a69847188950747 to 0x4a75162035f79c53273ff71c1ccb06237acc0c36; 6,770.83 USDT (exact: 6770.825029) from 0xd91efec7e42f80156d1d9f660a69847188950747 to 0x963a8d7f1c8faec9d527c60ed07e51dc7308cd7c. Read from one provider.
+
+[664 ms] verified | USDC's total supply (0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48) at block 21,000,000 on Ethereum is 25,822,595,541.21 USDC (exact: 25822595541.206649). Read from one provider (eth.drpc.org); no second one answered for that block.
+
+[501 ms] verified | 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045's ETH balance at block 21,000,000 on Ethereum is 1,146.64 ETH (exact: 1146.641417679066653164). Read from one provider (eth.drpc.org); no second one answered for that block.
+
+[700 ms] verified | The USDC (0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48) balance held by 0xBA12222222228d8Ba445958a75a0704d566BF2C8 at block 26,358,718 on Ethereum (latest, pinned 1 behind the head so both providers read the same block) is 261,036.04 USDC (exact: 261036.036004). Both providers return the same value.
+
+[397 ms] verified | Storage slot 0 of 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48 at block 21,000,000 on Ethereum (no chain was named, so Ethereum was read) is 0x000000000000000000000000fcb19e6a322b27c06842a71e8c725399f049ae3a. Read from one provider (eth.drpc.org); no second one answered for that block.
+
+[437 ms] verified | Block 21,000,000 on Ethereum (2024-10-19T13:45:47.000Z) used 13,952,884 gas of a 30,000,000 limit (46.5%), held 181 transactions and had a base fee of 18.191470273 gwei. Both providers return the same block hash.
+
+[463 ms] not_found | Block 99,999,999,999 has not been produced on Base; the head is 54,063,954.
+
+[0 ms] insufficient_input | No readable on-chain value was named. Name a transaction hash, a contract's storage slot or total supply, an address's balance, or a block number, and the block to read it at (or 'latest').
+

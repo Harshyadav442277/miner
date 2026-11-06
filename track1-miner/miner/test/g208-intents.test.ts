@@ -3,8 +3,6 @@ import assert from "node:assert/strict";
 import { cleanData, compare, queryName, readAnswer, recordType } from "../src/dns";
 import { KNOWN_TOKENS } from "../src/known-tokens";
 import { abiString, readable, units, verdictFor } from "../src/token-supply";
-import { bodyOf, extractKeywords, verbLike, wanted, yake } from "../src/keywords";
-import { criticality, cveIds, priority, rank, recordFacts, type Facts } from "../src/vulntriage";
 
 test("dns: the name and record type are read from the question", () => {
   assert.equal(queryName("", "What are the MX records for github.com?"), "github.com");
@@ -80,88 +78,6 @@ test("token supply: agreeing providers verify; a disagreement and a non-token ar
   assert.match(unnamed.reason, /no chain was named/);
 });
 
-test("keywords: the body and the count are read from the question", () => {
-  assert.equal(bodyOf("", "Extract the keywords from this: Solar panels convert sunlight into electricity."), "Solar panels convert sunlight into electricity.");
-  assert.equal(bodyOf("given text", "ignored"), "given text");
-  assert.equal(wanted("", "List the top 5 keywords"), 5);
-  assert.equal(wanted("", "Give me 3 keyphrases"), 3);
-  assert.equal(wanted("99", ""), 30);
-  assert.equal(wanted("", "keywords please"), 10);
-});
-
-test("keywords: YAKE ranks the repeated topical phrase first and is deterministic", () => {
-  const text = "Ethereum validators stake ETH to secure the network. Validators that go offline lose part of their stake. " +
-    "Staking rewards are paid to validators every epoch. The Ethereum network moved to proof of stake in 2022.";
-  const a = yake(text, 5);
-  assert.deepEqual(a, yake(text, 5));
-  assert.ok(a.length === 5);
-  assert.ok(a.slice(0, 3).some((k) => /validators|ethereum/.test(k.keyword)), JSON.stringify(a));
-  assert.ok(!a.some((k) => /^(?:the|to|of)\b|\b(?:the|to|of)$/.test(k.keyword)));
-  assert.equal(extractKeywords("keywords:").verdict, "insufficient_input");
-  const ecb = yake("The European Central Bank kept rates unchanged on Thursday, saying inflation is near target. " +
-    "ECB President Christine Lagarde said inflation is falling.", 10);
-  assert.ok(!ecb.some((k) => k.keyword === "thursday saying" || k.keyword.startsWith("thursday saying")), JSON.stringify(ecb));
-});
-
-const fact = (over: Partial<Facts>): Facts => ({ cve_id: "CVE-2024-0001", cvss_score: null, cvss_version: null, severity: null,
-  scored_by: null, epss: null, epss_percentile: null, kev: false, kev_date_added: null, known_ransomware_use: null,
-  exploitation: null, automatable: null, summary: null, found: true, ...over });
-
-test("triage: ids and asset criticality are read from the question", () => {
-  assert.deepEqual(cveIds("Rank cve-2024-3094, CVE-2023-4863 and CVE-2024-3094"), ["CVE-2024-3094", "CVE-2023-4863"]);
-  assert.equal(criticality("", "on an internet-facing payments service"), "high");
-  assert.equal(criticality("", "on our staging box"), "low");
-  assert.equal(criticality("", "rank these"), "unspecified");
-  assert.equal(criticality("critical", ""), "high");
-});
-
-test("triage: exploited first, then probability, then severity; asset shifts but never into act_now", () => {
-  assert.equal(priority(fact({ kev: true }), "low").priority, "act_now");
-  assert.equal(priority(fact({ exploitation: "active" }), "unspecified").priority, "act_now");
-  assert.equal(priority(fact({ epss: 0.5 }), "high").priority, "high");
-  assert.equal(priority(fact({ cvss_score: 9.8 }), "unspecified").priority, "medium");
-  assert.equal(priority(fact({ cvss_score: 9.8 }), "high").priority, "high");
-  assert.equal(priority(fact({ cvss_score: 9.8 }), "low").priority, "low");
-  assert.equal(priority(fact({ cvss_score: 4 }), "unspecified").priority, "low");
-  assert.equal(priority(fact({ found: false }), "high").priority, "unknown");
-  const ranked = rank([
-    fact({ cve_id: "CVE-A", cvss_score: 9.8 }),
-    fact({ cve_id: "CVE-B", kev: true, cvss_score: 5 }),
-    fact({ cve_id: "CVE-C", found: false }),
-    fact({ cve_id: "CVE-D", epss: 0.3, cvss_score: 6 }),
-  ], "unspecified");
-  assert.deepEqual(ranked.map((r) => r.cve_id), ["CVE-B", "CVE-D", "CVE-A", "CVE-C"]);
-  assert.deepEqual(ranked.map((r) => r.rank), [1, 2, 3, 4]);
-});
-
-test("triage: a ranked answer's lead sentence carries the ranking, not a bare list number", async () => {
-  const { leadSentence } = await import("../src/envelope");
-  const reason = "Fix first: CVE-2021-44228 (act now: on CISA's Known Exploited Vulnerabilities list since 2021-12-10), then CVE-2024-3094 (high: EPSS gives a 90.9% chance of exploitation in the next 30 days). The asset was read as critical.";
-  assert.match(leadSentence(reason), /CVE-2024-3094/);
-});
-
-test("triage: a CVE record's CNA score is preferred, CISA-ADP fills the gap, SSVC and KEV are read", () => {
-  const rec = {
-    cveMetadata: { cveId: "CVE-2023-4863", state: "PUBLISHED", assignerShortName: "Chrome" },
-    containers: {
-      cna: { descriptions: [{ lang: "en", value: "Heap buffer overflow in libwebp." }], metrics: [] },
-      adp: [{ providerMetadata: { shortName: "CISA-ADP" }, metrics: [
-        { cvssV3_1: { baseScore: 8.8, baseSeverity: "HIGH", version: "3.1" } },
-        { other: { type: "ssvc", content: { options: [{ Exploitation: "active" }, { Automatable: "no" }] } } },
-        { other: { type: "kev", content: { dateAdded: "2023-09-13" } } },
-      ] }],
-    },
-  };
-  const f = recordFacts("CVE-2023-4863", rec);
-  assert.equal(f.cvss_score, 8.8);
-  assert.equal(f.scored_by, "CISA-ADP");
-  assert.equal(f.exploitation, "active");
-  assert.equal(f.automatable, false);
-  assert.equal(f.kev, true);
-  assert.equal(f.kev_date_added, "2023-09-13");
-  assert.equal(recordFacts("CVE-2023-4863", null).found, false);
-});
-
 test("token supply: every listed contract is a well-formed address on a supported chain", () => {
   for (const [chain, tokens] of Object.entries(KNOWN_TOKENS)) {
     assert.ok(["ethereum", "base", "arbitrum", "optimism", "polygon"].includes(chain), chain);
@@ -171,13 +87,4 @@ test("token supply: every listed contract is a well-formed address on a supporte
     }
   }
   assert.equal(KNOWN_TOKENS.polygon!.USDC, "0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359");
-});
-
-test("keyphrases do not run through a verb (G214, audit 2026-11-06)", () => {
-  const k = yake("The Federal Reserve held interest rates steady while inflation cooled and unemployment edged higher in October.", 5).map((x) => x.keyword);
-  assert.ok(k.includes("federal reserve"), k.join(" | "));
-  assert.ok(!k.some((p) => /\b(held|cooled|edged)\b/.test(p)), k.join(" | "));
-  assert.equal(verbLike("held"), true);
-  assert.equal(verbLike("speed"), false);
-  assert.equal(verbLike("supply"), false);
 });

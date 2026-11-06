@@ -38,6 +38,17 @@ fix scores on the quality rubric but may not move the devnode rank.
       Gap to rank 3 at epoch 2026: P6 fact check 0.012, P3 research 0.020, P11 gas 0.059, P9 academic 0.107,
       P10 filings 0.123. Re-read after `7301474`, which changed gas and filings answers.
 - [ ] P7, P8: add to the one `updateMiner` planned in N1 only if an endpoint passes an audit first. Owner signs.
+      2026-11-07: not added. These would be model wrappers, and Groq bars reselling (`n1-new-intents-2026-11-07/`).
+      Gap to rank 3 at epoch 2028: P3 research is at rank 3; P6 fact check 0.003; P5 news 0.023; P11 gas 0.039;
+      P10 filings 0.084; P9 academic 0.338 after a fall (G274).
+- [x] N1 picks (owner: "pick intents which would help us in winning"): add ONCHAIN_METRIC_VERIFY (`/onchain-metric`,
+      built `6aebe0f`), TOKEN_TOTAL_SUPPLY_VERIFY and DNS_RECORD_LOOKUP (live since 2026-10-26); drop KEYWORD_EXTRACTION
+      and VULNERABILITY_TRIAGE (routes deleted). Not added: FX_NOW (G273), WEATHER_FORECAST_VERIFY (G272), and the
+      model wrappers. Evidence: `track1-miner/docs/evidence/n1-new-intents-2026-11-07/`.
+- [ ] Deploy `6aebe0f` (owner's yes needed), then rename the N1 YAML to V2 intent ids (G270), then validate on
+      Anjoman, then the owner signs.
+- [ ] Next candidate: ASSET_RESERVE_ATTESTATION (8 builds, completes 2): read and license issuer attestation sources.
+- [ ] G274: find why academic search fell to 0.636.
 
 ## Winning push — started 2026-11-04 ~20:30 UTC (Nov 5 IST) (owner: "i give you permission to take action on all of these")
 
@@ -73,9 +84,9 @@ Ordered by rubric points. **Miner weights re-read 2026-11-05:** quality 35, reli
       capabilities you can reliably demonstrate rather than claiming everything".
       - [x] 2026-11-06: cut STOCK_PRICE, NEWS_HEADLINES, NEWS_SEARCH and IP_GEOLOCATION from `miner.yaml`; narrow
         FINANCIAL_DATA to 10-K figures; fix the WEB_SEARCH description (G250). Manifest diff PASS, unit 907/907
-        (`track1-miner/docs/evidence/n1-cut-2026-11-06/`). EVENT_OUTCOME kept: its audit passes (GAPS, G269 block).
-      - [ ] Audit the four added intents against sources, 5 questions each (G271).
-      - [ ] Owner decides on CRYPTO_PRICE's Bitstamp licence (G269). Decide STORM_ALERT by audit.
+        (`track1-miner/docs/evidence/n1-cut-2026-11-06/`). EVENT_OUTCOME kept: its audit passes (GAPS, G275 block).
+      - [ ] Audit the four added intents against sources, 5 questions each (G277).
+      - [ ] Owner decides on CRYPTO_PRICE's Bitstamp licence (G275). Decide STORM_ALERT by audit.
       - [ ] After the signature: delete the four retired routes' code and empty `RETIRED` in `test/manifest.test.ts`.
       - Add an intent only if it passes its audit first: TEXT_SUMMARIZATION, IMAGE_CAPTIONING and
         ASSET_RESERVE_ATTESTATION are candidates.

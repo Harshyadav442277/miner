@@ -1,18 +1,40 @@
 # GAPS.md — honesty ledger
 
-## 2026-11-06 ~22:10 UTC (Nov 7 IST) N1 cut prepared — G269–G271; G250 fixed in the pending YAML
+## 2026-11-06 ~22:10 UTC (Nov 7 03:40 IST) N1 intent picks — G269–G274; `/onchain-metric` built (`6aebe0f`), not deployed
+
+Evidence: `track1-miner/docs/evidence/n1-new-intents-2026-11-07/`.
+
+- **G269 — ONCHAIN_METRIC_VERIFY's ranks 1–3 answer a block-gas question wrongly. `OPEN`.** Asked "How much gas did
+  block 21000000 on ethereum use?" (Blockscout: 13,952,884), the 0.997, 0.977 and 0.927 endpoints did not return
+  it; the one correct endpoint of 28 ranks 9th at 0.399 (epoch 2028). Same shape as G265. A correct answer may not
+  rank. One question only.
+- **G270 — The N1 YAML names families V1-style. `OPEN`, blocks validation.** `miner.yaml` lists
+  `ONCHAIN_METRIC_VERIFY`, `DNS_RECORD_LOOKUP`, …; V2 registers listed intents (`…_GENERAL`, `CVE_LOOKUP_CVSS`).
+  `tools/manifest.mjs`, `intent-answers.mjs` and the manifest tests key on the V1 names, so the rename touches them
+  too. Whether the validator still maps V1 names was not tested.
+- **G271 — Old on-chain state comes from one provider. `OPEN`, stated in every answer.** On 2026-11-07 at block
+  21000000: publicnode "Archive requests require a personal token", flashbots "state … is pruned", merkle rate
+  limited; only drpc answered. Receipts and blocks still read from two.
+- **G272 — WEATHER_FORECAST_VERIFY has no licence-clean global rain source found. `OPEN`.** NOAA NCEI global-hourly
+  returned no rows for Lisbon for 2026-11-04 to 06; METARs outside the US carry no rain amounts. Not built.
+- **G273 — FX_NOW asks for a live mid-market rate; we have ECB's daily one. `CLOSED, not added`.** The leader serves
+  the same ECB rate and the top six tie at 0.880 (EUR). Reopen only with a licensed live source.
+- **G274 — ACADEMIC_SEARCH fell from 0.8762 (epoch 2026) to 0.6358 (epoch 2028), rank 12 of 17. `OPEN`.** Cause
+  not investigated. `192aecc` changed only sanctions files; `7301474` and the eval questions are the suspects.
+
+## 2026-11-06 ~22:10 UTC (Nov 7 IST) N1 cut prepared — G275–G277; G250 fixed in the pending YAML
 
 Ahmed (DM, 2026-11-06): registering intents "without actually supporting their functionality won't help". Pending
 manifest and checks: `track1-miner/docs/evidence/n1-cut-2026-11-06/`. Not signed.
 
-- **G269 — Licences of what stays claimed. `OPEN, owner decision`.** CRYPTO_PRICE reads Bitstamp, whose commercial
+- **G275 — Licences of what stays claimed. `OPEN, owner decision`.** CRYPTO_PRICE reads Bitstamp, whose commercial
   redistribution needs a signed Data License Agreement we do not have (`sources.ts`: `conditional`, met `no`). That
   is the same class of problem as the four intents cut. Sign the agreement, find a licensed price source, or cut
   CRYPTO_PRICE in the same update.
-- **G270 — FINANCIAL_DATA answers SEC 10-K figures only, and drops what it cannot answer. `OPEN`.** "Apple's
+- **G276 — FINANCIAL_DATA answers SEC 10-K figures only, and drops what it cannot answer. `OPEN`.** "Apple's
   revenue and P/E" returned revenue and said nothing about the P/E (production, 2026-11-06 ~22:05 UTC). An answer
   should name each requested figure it could not give. The description now claims filings only.
-- **G271 — The four added intents have smoke probes, not a sourced audit. `OPEN, before signing`.** DNS matched
+- **G277 — The four added intents have smoke probes, not a sourced audit. `OPEN, before signing`.** DNS matched
   Cloudflare DoH; token supply, MX and the KEV dates were not checked against a source; keyword phrases cross
   word boundaries (G214).
 - **G250 — FIXED IN THE PENDING YAML.** WEB_SEARCH now leads with a question it answers and no longer claims Google
