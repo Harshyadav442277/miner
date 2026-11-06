@@ -38,6 +38,7 @@ import { getFundamentals, knownCompany, marketCap, metricAsked } from "./fundame
 import type { FundamentalFigures } from "./fundamentals";
 import { knownAsset, type Asset } from "./cryptoprice";
 import { notLicensedReason, permitted } from "./sources";
+import { leadSentence } from "./envelope";
 
 const TIMEOUT_MS = Number(process.env.FINANCIAL_TIMEOUT_MS ?? 5_000);
 // Yahoo returns 401 to an unfamiliar user-agent, in the same way ESPN does.
@@ -628,9 +629,21 @@ async function withUnfiledGaps(r: FinancialResult, query: string, ticker: string
       unfiled = unfiled.filter((f) => f !== "price-to-earnings ratio");
     }
   }
-  if (unfiled.length) notes.push(`The ${unfiled.join(" and ")} ${unfiled.length > 1 ? "were" : "was"} not retrieved.`);
   if (r.verdict === "financial_data" && /\bquarter(?:ly)?\b|\bq[1-4]\b/i.test(query) && r.fundamentals?.fiscal_quarter === undefined) {
     notes.push("Quarterly figures were not retrieved; this is the annual figure.");
   }
-  return notes.length ? { ...r, reason: `${r.reason} ${notes.join(" ")}` } : r;
+  // A requested figure that is missing belongs in the first sentence, which is the
+  // answer field; as a later sentence, "Apple's revenue and P/E" read as revenue
+  // alone (GAPS G270).
+  let reason = r.reason;
+  if (unfiled.length) {
+    const why = unfiled.map((f) => f === "price-to-earnings ratio"
+      ? "the price-to-earnings ratio was not retrieved, because share prices come only from sources that do not license resale"
+      : `the ${f} ${f.endsWith("s") ? "were" : "was"} not retrieved, because ${f.endsWith("s") ? "they are" : "it is"} not filed as a figure`);
+    const lead = leadSentence(reason);
+    reason = lead.endsWith(".") && reason.startsWith(lead)
+      ? `${lead.slice(0, -1)}; ${why.join("; ")}.${reason.slice(lead.length)}`
+      : `${reason} ${why.join("; ")}.`;
+  }
+  return notes.length || reason !== r.reason ? { ...r, reason: notes.length ? `${reason} ${notes.join(" ")}` : reason } : r;
 }

@@ -109,6 +109,12 @@ function orgOf(name: Record<string, unknown> | undefined): string | null {
 }
 
 function unreachable(domain: string, why: string): SslResult {
+  // A name that does not resolve has no certificate at all, and saying so is the
+  // answer (audit replay 2026-11-04 row 3: amaz0n-login.ru was NXDOMAIN, and the
+  // reply opened with an openssl how-to). The fact is one short sentence, so the
+  // method below still falls inside the first ~32 words.
+  const nxdomain = /DNS lookup failed: (ENOTFOUND|ENODATA)|\bENOTFOUND\b/.test(why);
+  const lead = nxdomain ? `${domain} does not resolve in DNS, so it serves no certificate. ` : "";
   return {
     domain,
     verdict: "unreachable",
@@ -121,7 +127,7 @@ function unreachable(domain: string, why: string): SslResult {
     // Routed through describe() so an unreachable host still names the checks that
     // could not be performed and how to perform them — the reachability failure is
     // recorded in unreachable_reason rather than being the whole answer.
-    reason: describe(domain, "unreachable", null, null, null, null, null, null, null, null, null, null),
+    reason: lead + describe(domain, "unreachable", null, null, null, null, null, null, null, null, null, null),
     unreachable_reason: why,
     checked_at: new Date().toISOString(),
   };

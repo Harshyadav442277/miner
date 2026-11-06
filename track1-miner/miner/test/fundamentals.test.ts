@@ -1,6 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { getFinancialData } from "../src/financial";
+import { leadSentence } from "../src/envelope";
 import {
   annualFacts, fiscalYearAsked, fiscalYearOf, knownCompany, metricAsked, quarterAsked, quarterlyFacts, type Fact,
 } from "../src/fundamentals";
@@ -169,7 +170,8 @@ test("a P/E asked alongside revenue growth is still named as not retrieved", asy
   await withFetch(appleSec, async () => {
     const r = await getFinancialData("What is Apple's P/E ratio and revenue growth this quarter?");
     assert.match(r.reason, /up 6\.43%/);
-    assert.match(r.reason, /The price-to-earnings ratio was not retrieved\./);
+    // In the first sentence, which is the answer field (G270).
+    assert.match(leadSentence(r.reason), /up 6\.43%[^]*; the price-to-earnings ratio was not retrieved, because share prices come only from sources that do not license resale\.$/);
     assert.match(r.reason, /Quarterly figures were not retrieved/);
   });
 });

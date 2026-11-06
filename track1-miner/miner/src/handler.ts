@@ -11,6 +11,7 @@ import { currentReceipt, installRecorder, readsSoFar, replayFromCache, withRecei
 import { MISSION_ROUTES, type MissionAnswer } from "./mission-routes";
 import { getForecast, type ForecastResult } from "./forecast";
 import { asksCurrentConditions, asksTemperatureNow, getCurrentConditions } from "./currentweather";
+import { temperatureThreshold, thresholdSentence } from "./threshold";
 import { geolocate, type GeoResult } from "./geo";
 import { extractContent } from "./content";
 import { getHeadlines } from "./news";
@@ -342,13 +343,19 @@ function withSubject(question: string, subject: string): string {
  * "this could not be retrieved right now" is truthful and at least scoreable.
  */
 function upstreamUnavailable(res: ServerResponse, what: string, subject: string, question = ""): void {
+  // Many callers pass a slice of the question as the subject, which produced "A storm
+  // risk forecast for Is there a storm risk in Miami…" (GAPS G251). A subject that is
+  // just the question's own words is not named; a parsed subject (a host, a hash) is.
+  const echo = !subject.trim() || (question.trim() !== "" && question.trim().startsWith(subject.trim()));
+  const forWhat = echo ? "" : ` for ${subject}`;
+  const about = echo ? "the subject asked about" : subject;
   sendAnswer(res, question, {
     verdict: "unknown",
     confidence: 0,
     reason:
-      `${what} for ${subject} could not be retrieved right now because the upstream data ` +
+      `${what}${forWhat} could not be retrieved right now because the upstream data ` +
       `provider did not respond successfully. This is a temporary data availability problem, ` +
-      `not a statement about ${subject}. Retrying shortly should succeed.`,
+      `not a statement about ${about}. Retrying shortly should succeed.`,
     error: "upstream_unavailable",
   });
 }
@@ -626,8 +633,15 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     }
     getForecast(q, window, undefined, daysRequested)
       .then((result) => {
-        toCache(key, result);
-        sendAnswer(res, q, result);
+        // A yes/no threshold question gets yes or no first (audit replay row 14).
+        const t = temperatureThreshold(q);
+        const span = result.span_days ? `the next ${result.span_days} day${result.span_days > 1 ? "s" : ""}` : `the next ${result.window_hours} hours`;
+        const yesNo = t && result.verdict !== "unknown"
+          ? thresholdSentence(t, result.location.split(",")[0]!.trim(), span, result.temp_min_c, result.temp_max_c)
+          : null;
+        const answer = yesNo ? { ...result, reason: `${yesNo} ${result.reason}` } : result;
+        toCache(key, answer);
+        sendAnswer(res, q, answer);
       })
       .catch(() => upstreamUnavailable(res, "A weather forecast", q.slice(0, 80), q));
     return;

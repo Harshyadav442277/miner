@@ -163,6 +163,10 @@ export function scoreLabels(
 }
 
 const SENTIMENT_LABELS = new Set(["positive", "negative", "neutral", "mixed"]);
+/** The set a topic question is classified against when it names none: common news sections. */
+export const TOPIC_LABELS = [
+  "economy", "politics", "technology", "science", "health", "sports", "entertainment", "crime", "environment",
+];
 
 const INDEX_DOWN = " The relatedness index did not respond, so only direct matches with the label words were counted.";
 
@@ -171,6 +175,16 @@ export async function classifyText(question: string, textParam = "", labelsParam
   const declared = splitLabels(String(labelsParam ?? ""));
   const labels = declared.length ? declared : labelSet(q).labels;
   const text = classifiedText(q, textParam);
+  // "Classify the topic of this headline: …" names no labels, but a topic question
+  // has a conventional answer set, so it is classified against one and the set is
+  // named rather than refused (audit replay 2026-11-04 row 70).
+  if (labels.length < 2 && text && /\b(topic|subject|category|categor(?:y|ise|ize)|genre|section)\b/i.test(q)) {
+    const r = await classifyText(q, textParam, TOPIC_LABELS.join(", "));
+    return r.verdict === "unknown" ? r : {
+      ...r,
+      reason: `${r.reason} No labels were supplied, so the topic was chosen from a standard set: ${TOPIC_LABELS.join(", ")}.`,
+    };
+  }
   if (labels.length < 2) {
     return {
       verdict: "unknown", label: null, confidence: 0, error: "no_labels",

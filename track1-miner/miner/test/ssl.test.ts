@@ -167,7 +167,8 @@ test("an unreachable host leads with the verification method, not the failure (l
   const host = "no-such-host-xyz123-telegraph.invalid";
   const r = await checkCertificate(host);
   const first32 = r.reason.split(/\s+/).slice(0, 32).join(" ");
-  assert.match(first32, /^To analyze the TLS\/SSL certificate configuration for /);
+  // The fact comes first when the name does not resolve (audit replay row 3).
+  assert.match(first32, new RegExp(`^${host.replace(/\./g, "\\.")} does not resolve in DNS, so it serves no certificate\\. To analyze the TLS/SSL certificate configuration for `));
   assert.match(first32, new RegExp(`openssl s_client -connect ${host}:443 -showcerts`));
   // It must still be honest: no certificate state may be asserted, and the
   // answer has to say plainly that nothing was verified against the host.
