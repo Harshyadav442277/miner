@@ -23,6 +23,24 @@ const STOP = new Set((
   "without would yet you your yours yourself yourselves one two three many much new use used using get got also etc"
 ).split(" "));
 
+/**
+ * Verb forms that cannot open or close a keyphrase. Without a part-of-speech tagger
+ * (GAPS G214), "federal reserve held" and "held interest rates" were returned for "The
+ * Federal Reserve held interest rates steady" (audit 2026-11-06). A phrase may still
+ * carry one inside it. Past tense by suffix, irregulars and common finite verbs by list.
+ */
+const IRREGULAR = new Set((
+  "held fell grew rose made took said saw went came gave kept left led met paid put ran sent sold told won wrote " +
+  "built bought brought caught drew drove fought found hit lost meant shut spent stood struck taught thought beat " +
+  "began became broke chose fled flew hid knew lay rang sank shook sought spoke swore threw woke " +
+  "improves reduces shows says holds raises cuts makes takes gives helps allows enables needs wants expects plans " +
+  "warns adds remains seems becomes includes provides requires suggests indicates reveals announced announces"
+).split(" "));
+const ED_NOUNS = new Set("need speed seed feed bed red shed breed weed greed creed deed hundred kindred bred indeed".split(" "));
+export function verbLike(w: string): boolean {
+  return IRREGULAR.has(w) || (w.length >= 5 && /ed$/.test(w) && !ED_NOUNS.has(w));
+}
+
 export interface Keyword { keyword: string; score: number; count: number }
 
 export interface KeywordResult {
@@ -132,6 +150,8 @@ export function yake(text: string, top = 10, maxN = 3, window = 1): Keyword[] {
         if (gram.some((g) => STOP.has(g))) continue;
         const num = (g: string): boolean => /^\d[\d.,'’-]*$/.test(g);
         if (num(gram[0]!) || num(gram[n - 1]!) || gram.join(" ").length < 3) continue;
+        // A keyphrase is a noun phrase: no finite verb anywhere in it.
+        if (gram.some(verbLike)) continue;
         const key = gram.join(" ");
         const c = cands.get(key) ?? { words: gram, count: 0 };
         c.count++;

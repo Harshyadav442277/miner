@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { cleanData, compare, queryName, readAnswer, recordType } from "../src/dns";
 import { KNOWN_TOKENS } from "../src/known-tokens";
 import { abiString, readable, units, verdictFor } from "../src/token-supply";
-import { bodyOf, extractKeywords, wanted, yake } from "../src/keywords";
+import { bodyOf, extractKeywords, verbLike, wanted, yake } from "../src/keywords";
 import { criticality, cveIds, priority, rank, recordFacts, type Facts } from "../src/vulntriage";
 
 test("dns: the name and record type are read from the question", () => {
@@ -171,4 +171,13 @@ test("token supply: every listed contract is a well-formed address on a supporte
     }
   }
   assert.equal(KNOWN_TOKENS.polygon!.USDC, "0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359");
+});
+
+test("keyphrases do not run through a verb (G214, audit 2026-11-06)", () => {
+  const k = yake("The Federal Reserve held interest rates steady while inflation cooled and unemployment edged higher in October.", 5).map((x) => x.keyword);
+  assert.ok(k.includes("federal reserve"), k.join(" | "));
+  assert.ok(!k.some((p) => /\b(held|cooled|edged)\b/.test(p)), k.join(" | "));
+  assert.equal(verbLike("held"), true);
+  assert.equal(verbLike("speed"), false);
+  assert.equal(verbLike("supply"), false);
 });
