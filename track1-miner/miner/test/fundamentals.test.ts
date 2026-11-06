@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { getFinancialData } from "../src/financial";
+import { getFinancialData, productAsked } from "../src/financial";
 import { leadSentence } from "../src/envelope";
 import {
   annualFacts, fiscalYearAsked, fiscalYearOf, knownCompany, metricAsked, quarterAsked, quarterlyFacts, type Fact,
@@ -239,4 +239,12 @@ test("Apple's fiscal 2024 revenue from SEC EDGAR (live)", async () => {
   assert.equal(r.fundamentals.value, 391035000000);
   assert.equal(r.fundamentals.period_end, "2024-09-28");
   assert.match(r.reason, /\$391\.04 billion for fiscal year 2024, which ended 28 September 2024/);
+});
+
+test("a product's sales are not answered with the company's revenue unannounced (G200)", () => {
+  assert.equal(productAsked("Will Pfizer's ZAVZPRET sales exceed forecasts?"), "ZAVZPRET");
+  assert.equal(productAsked("What were sales of the iPhone 17 last year?"), "iPhone 17");
+  assert.equal(productAsked("What was Apple's revenue in its latest 10-K?"), null);
+  assert.equal(productAsked("What is Microsoft's Q3 revenue?"), null);
+  assert.equal(productAsked("What was Pfizer's total revenue?"), null);
 });

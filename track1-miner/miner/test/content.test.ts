@@ -219,3 +219,12 @@ test("a long, space-heavy instruction is read in bounded time (security review, 
   extractContent("extract" + " ".repeat(100000) + "x", "Invoice INV-1 total $1.00.");
   assert.ok(Date.now() - t < 500, `took ${Date.now() - t} ms`);
 });
+
+test("counted goods and trade mass are quantities (G252)", () => {
+  const r = extractContent("Extract the quantities from: The warehouse shipped 1,200 units and 35 pallets weighing 4.5 tonnes.");
+  assert.deepEqual(r.fields, { quantities: ["1,200 units", "35 pallets", "4.5 tonnes"] });
+  const mixed = extractContent("Extract the dates, amounts and organisations from: On 3 March 2025, Acme Corp paid $4.2 million to Beta Ltd in London for 1,200 units.");
+  assert.match(mixed.summary, /1,200 units/);
+  // A verb is not a unit: "can go" stays out.
+  assert.deepEqual(extractContent("Extract quantities from: we can go in 5 minutes.").fields, { quantities: ["5 minutes"] });
+});
