@@ -1,5 +1,25 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-08 IST evaluator targets — G282, G283
+
+- **G282 — In deterministic families, holding the champion slot reflects who registered last, not who scores best.
+  `OPEN` (the observation is checked; the node rule behind it is inferred).** Checked against `/api/wasm` on
+  2026-11-08. In WEATHER_CHECK, FX_NOW and CRYPTO_PRICE, wallets `0x8b224783…` and `0xb3fb14fe…` each re-registered
+  about 9 times, and each passing registration superseded the other's. Every champion scores 1.0, and the first
+  other-author champions (#45, #47) were superseded the same way. The inference is that a passing comparator
+  replaces the incumbent with no margin. On that basis, registering our 31 comparators would join a bond-paid
+  re-registration race that measures nothing. Not pursued. The families with 5 or more eligible contributors and
+  no champion are CORPORATE_REGISTRY_LOOKUP, LIQUIDITY_DEPTH_VERIFY, CRYPTO_TRANSFER_VERIFY, TOKEN_TOTAL_SUPPLY_VERIFY
+  and CVE_LOOKUP. All of them already have pending entries from those wallets, and all read "eval-pool: no
+  published snapshot".
+- **G283 — The only rank that depends on quality is in judgment and hybrid families. `OPEN`.** There, a challenger
+  must beat the champion by 2 points on the same hidden sample. Weakest champions: SECURITY_REVIEW #42 at 71.43%
+  on 21 pairs, VULNERABILITY_TRIAGE #37 at 83.33% on 30, OPTIMAL_EXECUTION_ROUTE #40 at 86.67% on 30. URL_SCAN has
+  no module (GENERIC fallback 900005) and 5 eligible contributors, so a first canonical at 70% or better is open.
+  Lanes started 2026-11-08: `claude/security-review-adapter` and `claude/url-scan-adapter`. Both are unmeasured.
+  Unverified: whether a judgment champion's rank survives a later challenger only at the 2-point margin, as the
+  CODE_REVIEW #188-over-#27 record suggests.
+
 ## 2026-11-07 ~03:05 UTC (08:35 IST) uptime alarm — G280
 
 - **G280 — The 23:29 UTC uptime run failed (issue #19) on two routes this branch deleted. `OPEN` until PR #18

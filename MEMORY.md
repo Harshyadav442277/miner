@@ -1,5 +1,22 @@
 # MEMORY.md — session continuity
 
+## 2026-11-08 IST: CURRENT — evaluator lanes running; nothing registered
+
+- Owner: "improve the present evaluators … focus on high quality evaluator. run parallel agent who will build
+  new evaluator".
+- **Live state (`/api/wasm`, 2026-11-08):** our wallet's only registration ever is #46 (SANCTIONS), which is
+  deregistered. We have 0 active evaluators.
+- **Deterministic comparators are not worth registering (G282).** Their champion slot goes to whoever registered
+  last. Quality-based rank exists only in judgment and hybrid families (G283).
+- **Two lanes in parallel worktrees.** Both share one GPU through `C:/Users/hyada/tg-eval/GPU.lock`. Neither may
+  sign, register or use pool rows.
+  - `claude/security-review-adapter`: challenger to #42 (71.43%, 21 pairs; needs ≥16/21).
+  - `claude/url-scan-adapter`: first canonical for URL_SCAN (≥70%).
+- **Codex's sanctions lane (`codex/sanctions-benchmark-v7`) is untouched.**
+- **Next:** review each lane's holdout against the incumbent or GENERIC. If one passes, the owner registers it on
+  Anjoman Evaluators. A durable runnable host is still needed; the laptop tunnel is fragile.
+- **Queued:** a VULNERABILITY_TRIAGE challenger to #37 (83.33%, 30 pairs).
+
 ## 2026-11-07 ~03:30 UTC (09:00 IST): CURRENT — `3f33508` LIVE (threshold regex fix); PR #18 open
 
 - Owner: "Yes, deploy it" for `3f33508`, the fix for the push security review's ReDoS finding in `src/threshold.ts`.
