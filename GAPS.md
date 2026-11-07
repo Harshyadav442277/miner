@@ -1,5 +1,19 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-07 ~03:05 UTC (08:35 IST) uptime alarm — G280
+
+- **G280 — The 23:29 UTC uptime run failed (issue #19) on two routes this branch deleted. `OPEN` until PR #18
+  merges.** Its result: 37 of 39 routes up; `/keywords` and `/vuln-triage` returned 404. Both routes were removed
+  on purpose in `6aebe0f`, which went live inside `bee3f6a`, and neither is in registration 4829.
+  The workflow checks out `main` and sweeps `main`'s `miner.yaml`, which is 41 commits behind production. The
+  same sweep using this branch's YAML (`628ca5c`) found 34 of 34 up at 03:00 UTC. Every scheduled run will fail
+  until `main` carries the current YAML.
+  Also checked at 03:00 UTC:
+  - The SHA-256 of `miner.yaml` at `628ca5c`, read from raw.githubusercontent, is `0xdb6e08…649a`, the same
+    hash recorded for signing.
+  - All 35 ids are canonical in `/engine/v1/intents`.
+  - On-chain `isCanonicalIntent` is still unchecked.
+
 ## 2026-11-07 ~02:50 UTC (08:20 IST) N1 YAML on V2 ids — G270 fixed; G279 recovered
 
 - **G270 — FIXED IN THE YAML (`5bef2be`), validation pending.** Every endpoint and `supported_intents` entry is
