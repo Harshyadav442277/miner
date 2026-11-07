@@ -2,8 +2,8 @@
 
 ## 2026-11-07 ~03:05 UTC (08:35 IST) uptime alarm — G280
 
-- **G280 — The 23:29 UTC uptime run failed (issue #19) on two routes this branch deleted. `OPEN` until PR #18
-  merges.** Its result: 37 of 39 routes up; `/keywords` and `/vuln-triage` returned 404. Both routes were removed
+- **G280 — The 23:29 UTC uptime run failed (issue #19) on two routes this branch deleted. `CLOSED 2026-11-07 03:32 UTC`:
+  PR #18 merged as `aad95d2`; dispatched run 42334338259 on `main` found 34/34 up, and the workflow closed #19.** Its result: 37 of 39 routes up; `/keywords` and `/vuln-triage` returned 404. Both routes were removed
   on purpose in `6aebe0f`, which went live inside `bee3f6a`, and neither is in registration 4829.
   The workflow checks out `main` and sweeps `main`'s `miner.yaml`, which is 41 commits behind production. The
   same sweep using this branch's YAML (`628ca5c`) found 34 of 34 up at 03:00 UTC. Every scheduled run will fail
