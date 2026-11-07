@@ -209,6 +209,8 @@ const OVERRIDE: Record<string, (b: Body) => Body> = {
   // EVENT_OUTCOME_RESOLUTION_GENERAL: yes | no | unresolved; a named winner stays in `winner`
   "/event-outcome": (b) => ({
     outcome: b.verdict === "resolved" ? (b.outcome === "No" ? "no" : "yes") : "unresolved",
+    // Kept in step with outcome: a resolved event with a named winner happened, so it resolved YES (2026-11-07).
+    resolved_yes: b.verdict === "resolved" ? b.outcome !== "No" : null,
     ...(typeof b.outcome === "string" && !/^(?:Yes|No)$/.test(b.outcome) ? { winner: b.winner ?? b.outcome } : {}),
   }),
   // TOKEN_TOTAL_SUPPLY_VERIFY_GENERAL: a number in whole tokens; the exact decimal string is kept beside it

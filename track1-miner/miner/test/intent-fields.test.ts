@@ -107,7 +107,7 @@ test("each route names its intent's scored field, from a value it already states
     { balance: 0, token_symbol: "" }), { balance: 39.192124, token_symbol: "USDC" }, "the one token asked for, in whole units, under its own symbol");
   assert.deepEqual(only(scoredFields("/event-outcome", { verdict: "resolved", outcome: "Yes" }), { resolved_yes: true }), { resolved_yes: true });
   assert.deepEqual(only(scoredFields("/event-outcome", { verdict: "resolved", outcome: "No" }), { resolved_yes: false }), { resolved_yes: false });
-  assert.deepEqual(only(scoredFields("/event-outcome", { verdict: "resolved", outcome: "Arsenal" }), { resolved_yes: null }), { resolved_yes: null });
+  assert.deepEqual(only(scoredFields("/event-outcome", { verdict: "resolved", outcome: "Arsenal" }), { resolved_yes: null }), { resolved_yes: true }, "a named winner: the event happened");
   assert.deepEqual(only(scoredFields("/event-outcome", { verdict: "open", outcome: null }), { resolved_yes: null }), { resolved_yes: null });
   assert.deepEqual(only(scoredFields("/url-scan", { verdict: "safe" }), { safe: true }), { safe: true });
   assert.deepEqual(only(scoredFields("/url-scan", { verdict: "suspicious" }), { safe: false }), { safe: false });
