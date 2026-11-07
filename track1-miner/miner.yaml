@@ -39,7 +39,7 @@ endpoints:
   - path: /ssl-check
     external_path: /ssl-check
     method: GET
-    intents: [SSL_VERIFICATION]
+    intents: [SSL_VERIFICATION_CERT]
     description: >-
       Example questions: "Is the TLS certificate for github.com valid?", "When does
       example.com's certificate expire?". Returns answer, verdict, confidence, reason,
@@ -62,7 +62,7 @@ endpoints:
   - path: /storm-alert
     external_path: /storm-alert
     method: GET
-    intents: [STORM_ALERT]
+    intents: [STORM_ALERT_GENERAL]
     description: >-
       Example questions: "Is there a storm risk in Chennai in the next 48 hours?",
       "Will gusts exceed 60 km/h in Miami tonight?". Returns answer, verdict,
@@ -99,7 +99,7 @@ endpoints:
   - path: /papers
     external_path: /papers
     method: GET
-    intents: [ACADEMIC_SEARCH]
+    intents: [ACADEMIC_SEARCH_GENERAL]
     description: >-
       Example questions: "Find recent peer-reviewed papers on CRISPR gene editing",
       "Most cited papers on transformer models since 2023". Returns answer, verdict,
@@ -122,7 +122,7 @@ endpoints:
   - path: /translate
     external_path: /translate
     method: GET
-    intents: [LANGUAGE_TRANSLATION]
+    intents: [LANGUAGE_TRANSLATION_GENERAL]
     description: >-
       Example questions: "Translate 'Good morning' into French", "Say hello in
       Spanish". Returns answer, verdict, confidence, reason, checked_at and
@@ -153,7 +153,7 @@ endpoints:
   - path: /weather-forecast
     external_path: /weather-forecast
     method: GET
-    intents: [WEATHER_FORECAST, WEATHER_CHECK]
+    intents: [WEATHER_FORECAST_GENERAL, WEATHER_CHECK_TEMPERATURE]
     description: >-
       Example questions: "What is the forecast for London tomorrow?", "What is the
       weather in Tokyo right now?". Returns answer, verdict, confidence, reason,
@@ -195,7 +195,7 @@ endpoints:
   - path: /extract
     external_path: /extract
     method: GET
-    intents: [CONTENT_EXTRACTION]
+    intents: [CONTENT_EXTRACTION_GENERAL]
     description: >-
       Example questions: "Extract the dates and amounts from this invoice: …". Returns
       answer, verdict, confidence, reason, checked_at and extracted.
@@ -220,7 +220,7 @@ endpoints:
   - path: /wallet-balance
     external_path: /wallet-balance
     method: GET
-    intents: [WALLET_BALANCE_CHECK]
+    intents: [WALLET_BALANCE_CHECK_GENERAL]
     description: >-
       Example questions: "What is the ETH balance of vitalik.eth?", "Balance of 0x… on
       Base". Returns answer, verdict, confidence, reason, checked_at and address,
@@ -246,7 +246,7 @@ endpoints:
   - path: /tx-lookup
     external_path: /tx-lookup
     method: GET
-    intents: [ONCHAIN_TX_LOOKUP]
+    intents: [ONCHAIN_TX_LOOKUP_GENERAL]
     description: >-
       On-chain activity, asked about a transaction or about an address. Example
       questions: "Did transaction 0x… succeed, and who sent it to whom?", "When was
@@ -294,7 +294,7 @@ endpoints:
   - path: /cve
     external_path: /cve
     method: GET
-    intents: [CVE_LOOKUP]
+    intents: [CVE_LOOKUP_CVSS]
     description: >-
       Example questions: "What is the severity and affected versions of
       CVE-2021-44228?". Returns answer, verdict, confidence, reason, checked_at and
@@ -332,7 +332,7 @@ endpoints:
   - path: /convert
     external_path: /convert
     method: GET
-    intents: [CURRENCY_EXCHANGE]
+    intents: [CURRENCY_EXCHANGE_CONVERT]
     description: >-
       Example questions: "Convert 100 USD to EUR", "What is 5,000 yen in dollars?".
       Returns answer, verdict, confidence, reason, checked_at and from, to, amount,
@@ -371,7 +371,7 @@ endpoints:
   - path: /gas-price
     external_path: /gas-price
     method: GET
-    intents: [GAS_PRICE]
+    intents: [GAS_PRICE_GENERAL]
     description: >-
       Example questions: "What is the gas price on Ethereum right now?", "Gas on Base
       in Gwei". Returns answer, verdict, confidence, reason, checked_at and chain,
@@ -400,7 +400,7 @@ endpoints:
   - path: /financial
     external_path: /financial
     method: GET
-    intents: [FINANCIAL_DATA]
+    intents: [FINANCIAL_DATA_GENERAL]
     description: >-
       Example questions: "What was Apple's revenue in its latest 10-K?", "Microsoft's
       net income and diluted earnings per share for its last fiscal year". Returns
@@ -433,7 +433,7 @@ endpoints:
   - path: /fraud-check
     external_path: /fraud-check
     method: GET
-    intents: [FRAUD_DETECTION]
+    intents: [FRAUD_DETECTION_GENERAL]
     description: >-
       Example questions: "Is 0x… a scam address?", "This email asks me to pay an
       invoice in gift cards: is it fraud?". Returns answer, verdict, confidence,
@@ -472,7 +472,7 @@ endpoints:
   - path: /token-holders
     external_path: /token-holders
     method: GET
-    intents: [TOKEN_HOLDER_COUNT]
+    intents: [TOKEN_HOLDER_COUNT_GENERAL]
     description: >-
       Example questions: "How many holders does USDC have on Ethereum?". Returns
       answer, verdict, confidence, reason, checked_at and symbol, name, address,
@@ -515,7 +515,7 @@ endpoints:
   - path: /research
     external_path: /research
     method: GET
-    intents: [RESEARCH_QUERY]
+    intents: [RESEARCH_QUERY_GENERAL]
     description: >-
       Example questions: "What clinical trials are testing semaglutide for
       Alzheimer's?". Returns answer, verdict, confidence, reason, checked_at and
@@ -550,7 +550,7 @@ endpoints:
   - path: /crypto-price
     external_path: /crypto-price
     method: GET
-    intents: [CRYPTO_PRICE]
+    intents: [CRYPTO_PRICE_USD]
     description: >-
       Example questions: "What is the price of ETH?", "BTC price in EUR on
       2025-01-01". Returns answer, verdict, confidence, reason, checked_at and asset,
@@ -588,7 +588,7 @@ endpoints:
   - path: /cross-chain
     external_path: /cross-chain
     method: GET
-    intents: [CROSS_CHAIN_STATE_VERIFY]
+    intents: [CROSS_CHAIN_STATE_VERIFY_GENERAL]
     description: >-
       Example questions: "Was LayerZero message 0x… delivered from Ethereum to
       Arbitrum?", "Did bridge transaction 0x… arrive on Base?". Returns answer,
@@ -631,7 +631,7 @@ endpoints:
   - path: /event-outcome
     external_path: /event-outcome
     method: GET
-    intents: [EVENT_OUTCOME_RESOLUTION]
+    intents: [EVENT_OUTCOME_RESOLUTION_GENERAL]
     description: >-
       Example questions: "Who won the 2024 US presidential election?", "Has the
       Polymarket market on … resolved?". Returns answer, verdict, confidence, reason,
@@ -666,7 +666,7 @@ endpoints:
   - path: /url-scan
     external_path: /url-scan
     method: GET
-    intents: [URL_SCAN]
+    intents: [URL_SCAN_VERDICT]
     description: >-
       Example questions: "Is https://example.com/offer safe to click?". Returns
       answer, verdict, confidence, reason, checked_at and url, flagged_by, checks.
@@ -701,7 +701,7 @@ endpoints:
   - path: /web-search
     external_path: /web-search
     method: GET
-    intents: [WEB_SEARCH]
+    intents: [WEB_SEARCH_GENERAL]
     description: >-
       Example questions: "Who is the CEO of OpenAI?", "What is the latest Node.js
       release?". Returns answer, verdict, confidence, reason, checked_at and
@@ -735,7 +735,7 @@ endpoints:
   - path: /sentiment
     external_path: /sentiment
     method: GET
-    intents: [SENTIMENT_ANALYSIS]
+    intents: [SENTIMENT_ANALYSIS_GENERAL]
     description: >-
       Example questions: "What is the sentiment of this review: 'The product broke
       after one day'?". Returns answer, verdict, confidence, reason, checked_at and
@@ -770,7 +770,7 @@ endpoints:
   - path: /classify
     external_path: /classify
     method: GET
-    intents: [TEXT_CLASSIFICATION]
+    intents: [TEXT_CLASSIFICATION_GENERAL]
     description: >-
       Example questions: "Classify this ticket as billing, technical or account: 'I
       was charged twice'". Returns answer, verdict, confidence, reason, checked_at and
@@ -811,7 +811,7 @@ endpoints:
   - path: /research-synthesis
     external_path: /research-synthesis
     method: GET
-    intents: [RESEARCH_SYNTHESIS]
+    intents: [RESEARCH_SYNTHESIS_GENERAL]
     description: >-
       Example questions: "Summarise the evidence on intermittent fasting and weight
       loss". Returns answer, verdict, confidence, reason, checked_at and sources.
@@ -849,7 +849,7 @@ endpoints:
   - path: /fact-check
     external_path: /fact-check
     method: GET
-    intents: [FACT_CHECK]
+    intents: [FACT_CHECK_GENERAL]
     description: >-
       Example questions: "Is it true that the Eiffel Tower is in Paris?", "Fact-check:
       water boils at 100 °C at sea level". Returns answer, verdict, confidence,
@@ -875,7 +875,7 @@ endpoints:
   - path: /sanctions-screen
     external_path: /sanctions-screen
     method: GET
-    intents: [SANCTIONS_SCREENING_MATCH]
+    intents: [SANCTIONS_SCREENING_MATCH_GENERAL]
     description: >-
       Screens a person, company or wallet against the OFAC SDN list and the UN
       Security Council Consolidated List, read live, including every listed alias
@@ -910,7 +910,7 @@ endpoints:
   - path: /company-registry
     external_path: /company-registry
     method: GET
-    intents: [CORPORATE_REGISTRY_LOOKUP]
+    intents: [CORPORATE_REGISTRY_LOOKUP_GENERAL]
     description: >-
       A company's official register record, read live from the GLEIF LEI
       register and, for a US filer, SEC EDGAR. Example questions: "What is the
@@ -945,7 +945,7 @@ endpoints:
   - path: /sec-filings
     external_path: /sec-filings
     method: GET
-    intents: [REGULATORY_FILING_MONITOR]
+    intents: [REGULATORY_FILING_MONITOR_GENERAL]
     description: >-
       Whether an issuer has filed a statutory filing on SEC EDGAR, when it was
       accepted, and what it reports, read live from the issuer's own EDGAR
@@ -980,7 +980,7 @@ endpoints:
   - path: /transfer-verify
     external_path: /transfer-verify
     method: GET
-    intents: [CRYPTO_TRANSFER_VERIFY]
+    intents: [CRYPTO_TRANSFER_VERIFY_GENERAL]
     description: >-
       Verifies one on-chain transfer by hash, read from public JSON-RPC on
       Ethereum, Base, Arbitrum, Optimism, Polygon, BNB Chain or Avalanche, with
@@ -1013,7 +1013,7 @@ endpoints:
   - path: /macro
     external_path: /macro
     method: GET
-    intents: [MACRO_ECONOMIC_INDICATOR]
+    intents: [MACRO_ECONOMIC_INDICATOR_GENERAL]
     description: >-
       The latest released value of a macroeconomic statistic, read from the agency
       that publishes it. Example questions: "What was the latest US CPI
@@ -1050,7 +1050,7 @@ endpoints:
   - path: /url-reputation
     external_path: /url-reputation
     method: GET
-    intents: [URL_SAFE]
+    intents: [URL_SAFE_GENERAL]
     description: >-
       Whether a URL or domain is listed as malicious, and by which sources, read
       live from two keyless threat sources: Cloudflare security DNS and Quad9
@@ -1080,7 +1080,7 @@ endpoints:
   - path: /answer
     external_path: /answer
     method: GET
-    intents: [QUESTION_ANSWERING]
+    intents: [QUESTION_ANSWERING_GENERAL]
     description: >-
       Answers an open-domain question, or a question about a passage supplied with
       it, with every factual claim cited to a numbered source. Example questions:
@@ -1111,7 +1111,7 @@ endpoints:
   - path: /dns
     external_path: /dns
     method: GET
-    intents: [DNS_RECORD_LOOKUP]
+    intents: [DNS_RECORD_LOOKUP_GENERAL]
     description: >-
       The DNS records a name publishes, read live from Cloudflare 1.1.1.1 and
       Google Public DNS over DNS-over-HTTPS and compared record by record. Example
@@ -1142,7 +1142,7 @@ endpoints:
   - path: /token-supply
     external_path: /token-supply
     method: GET
-    intents: [TOKEN_TOTAL_SUPPLY_VERIFY]
+    intents: [TOKEN_TOTAL_SUPPLY_VERIFY_GENERAL]
     description: >-
       An ERC-20 token's total supply and burned balance, read with eth_call at one
       pinned block from two independent public RPCs and compared. Example
@@ -1175,7 +1175,7 @@ endpoints:
   - path: /onchain-metric
     external_path: /onchain-metric
     method: GET
-    intents: [ONCHAIN_METRIC_VERIFY]
+    intents: [ONCHAIN_METRIC_VERIFY_GENERAL]
     description: >-
       One named value read from chain nodes at a stated block height or at
       "latest", with the block it was read at. Example questions: "At block
@@ -1227,41 +1227,41 @@ semantics:
     confidence_field: confidence
     reason_field: reason
   supported_intents:
-    - SSL_VERIFICATION
-    - STORM_ALERT
-    - WEATHER_FORECAST
-    - LANGUAGE_TRANSLATION
-    - ACADEMIC_SEARCH
-    - CONTENT_EXTRACTION
-    - WALLET_BALANCE_CHECK
-    - WEATHER_CHECK
-    - FACT_CHECK
-    - ONCHAIN_TX_LOOKUP
-    - CVE_LOOKUP
-    - CURRENCY_EXCHANGE
-    - GAS_PRICE
-    - FINANCIAL_DATA
-    - FRAUD_DETECTION
-    - TOKEN_HOLDER_COUNT
-    - RESEARCH_QUERY
-    - CRYPTO_PRICE
-    - CROSS_CHAIN_STATE_VERIFY
-    - EVENT_OUTCOME_RESOLUTION
-    - URL_SCAN
-    - WEB_SEARCH
-    - SENTIMENT_ANALYSIS
-    - TEXT_CLASSIFICATION
-    - RESEARCH_SYNTHESIS
-    - SANCTIONS_SCREENING_MATCH
-    - CORPORATE_REGISTRY_LOOKUP
-    - REGULATORY_FILING_MONITOR
-    - CRYPTO_TRANSFER_VERIFY
-    - MACRO_ECONOMIC_INDICATOR
-    - URL_SAFE
-    - QUESTION_ANSWERING
-    - DNS_RECORD_LOOKUP
-    - TOKEN_TOTAL_SUPPLY_VERIFY
-    - ONCHAIN_METRIC_VERIFY
+    - SSL_VERIFICATION_CERT
+    - STORM_ALERT_GENERAL
+    - WEATHER_FORECAST_GENERAL
+    - LANGUAGE_TRANSLATION_GENERAL
+    - ACADEMIC_SEARCH_GENERAL
+    - CONTENT_EXTRACTION_GENERAL
+    - WALLET_BALANCE_CHECK_GENERAL
+    - WEATHER_CHECK_TEMPERATURE
+    - FACT_CHECK_GENERAL
+    - ONCHAIN_TX_LOOKUP_GENERAL
+    - CVE_LOOKUP_CVSS
+    - CURRENCY_EXCHANGE_CONVERT
+    - GAS_PRICE_GENERAL
+    - FINANCIAL_DATA_GENERAL
+    - FRAUD_DETECTION_GENERAL
+    - TOKEN_HOLDER_COUNT_GENERAL
+    - RESEARCH_QUERY_GENERAL
+    - CRYPTO_PRICE_USD
+    - CROSS_CHAIN_STATE_VERIFY_GENERAL
+    - EVENT_OUTCOME_RESOLUTION_GENERAL
+    - URL_SCAN_VERDICT
+    - WEB_SEARCH_GENERAL
+    - SENTIMENT_ANALYSIS_GENERAL
+    - TEXT_CLASSIFICATION_GENERAL
+    - RESEARCH_SYNTHESIS_GENERAL
+    - SANCTIONS_SCREENING_MATCH_GENERAL
+    - CORPORATE_REGISTRY_LOOKUP_GENERAL
+    - REGULATORY_FILING_MONITOR_GENERAL
+    - CRYPTO_TRANSFER_VERIFY_GENERAL
+    - MACRO_ECONOMIC_INDICATOR_GENERAL
+    - URL_SAFE_GENERAL
+    - QUESTION_ANSWERING_GENERAL
+    - DNS_RECORD_LOOKUP_GENERAL
+    - TOKEN_TOTAL_SUPPLY_VERIFY_GENERAL
+    - ONCHAIN_METRIC_VERIFY_GENERAL
 
 # input_schema is a single top-level block covering every endpoint — the schema
 # refuses it inside endpoints[], and the node does not enforce it against requests.

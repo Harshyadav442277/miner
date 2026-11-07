@@ -20,7 +20,7 @@ const miners = Array.isArray(catalog) ? catalog : catalog.miners ?? catalog.data
 const us = miners.find(m => m.slug === registered.slug &&
   m.wallet_address?.toLowerCase() === registered.miner_address?.toLowerCase() && m.yaml_url === registered.yaml_url);
 if (!us) throw new Error("Catalog does not match registered slug, owner and YAML URL");
-const intents = [...readManifest().intents];
+const intents = [...readManifest().listed]; // V2 ids, as the node registers them
 if (intents.some(i => !registered.supported_intents.includes(i)) || registered.supported_intents.length !== intents.length) {
   throw new Error("Local and registered intent coverage differ");
 }
