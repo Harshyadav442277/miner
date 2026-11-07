@@ -1,5 +1,19 @@
 # MEMORY.md — session continuity
 
+## 2026-11-07 ~04:00 UTC (09:30 IST): CURRENT — barred sources ON again; N1 YAML is 39 intents (`fc041f4`)
+
+- Owner: "I'm not doing their commercial use. It's on testnet currency. I'm just participating in a hackathon."
+  RULES_SEASON2 has no data-licence rule, so `permitted()` (src/sources.ts) now calls barred sources unless
+  `LICENCE_GATE=on`. The ledger stays as a record of each source's terms.
+- IP_GEOLOCATION, NEWS_HEADLINES, NEWS_SEARCH and STOCK_PRICE_US_EQUITY are back in `miner.yaml`.
+  - Unit 914/914; manifest diff PASS (36 -> 39); all 39 canonical.
+  - Local gate 37/39. Failures are environment only: translation needs production's Groq key, and ip-api is
+    unreachable from this machine (HTTP 000).
+- **NOT DEPLOYED.** Production is still `3f33508`, which refuses those four. Deploy `fc041f4` before signing, so
+  the four answer when the update lands.
+- **Hash to sign is now `0xfc08c9ac530e9c7425ae7ca289e17fd46b2350be86567f67404e4e9b2219580c`** (YAML at
+  `fc041f4`). The `0xdb6e…` hash recorded earlier is stale.
+
 ## 2026-11-07 ~03:30 UTC (09:00 IST): CURRENT — `3f33508` LIVE (threshold regex fix); PR #18 open
 
 - Owner: "Yes, deploy it" for `3f33508`, the fix for the push security review's ReDoS finding in `src/threshold.ts`.
