@@ -1,5 +1,16 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-07 ~02:50 UTC (08:20 IST) N1 YAML on V2 ids — G270 fixed; G279 recovered
+
+- **G270 — FIXED IN THE YAML (`5bef2be`), validation pending.** Every endpoint and `supported_intents` entry is
+  the node's one canonical child of its family (`/engine/v1/intents`, 136 ids, all 35 `canonical_on_chain`, read
+  2026-11-07 ~02:40 UTC): 28 `_GENERAL`, plus SSL_VERIFICATION_CERT, WEATHER_CHECK_TEMPERATURE, CVE_LOOKUP_CVSS,
+  CURRENCY_EXCHANGE_CONVERT, CRYPTO_PRICE_USD, URL_SCAN_VERDICT. `tools/manifest.mjs` folds ids to families for the
+  tools; `manifest-diff.mjs` compares by family and fails on a bare family. Checks: unit 914/914, manifest diff
+  PASS, intent answers 39/39 against production (02:45 UTC). Not checked: `isCanonicalIntent` on chain (no `cast`
+  here) and the Anjoman validator, which is the owner's session.
+- **G279 — recovered.** The fed-funds check passed in the 02:45 UTC run.
+
 ## 2026-11-06 ~22:55 UTC (Nov 7 04:25 IST) quality release `bee3f6a` — G276, G277, G252, G251, G214 acted on; G278–G279 new
 
 Release record: `track1-miner/docs/evidence/release-2026-11-06-quality-fixes/`. Added-intents audit:

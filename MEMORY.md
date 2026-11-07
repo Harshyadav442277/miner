@@ -1,5 +1,13 @@
 # MEMORY.md — session continuity
 
+## 2026-11-07 ~02:50 UTC (08:20 IST): CURRENT — N1 YAML on V2 ids (`5bef2be`); ready for the owner to validate
+
+- Owner: "Yes, rename to V2". `miner.yaml` lists the node's canonical V2 ids (G270 fixed). Unit 914/914, manifest
+  diff PASS, intent answers 39/39 on production. Production unchanged (`bee3f6a`).
+- To sign: the pushed YAML at `5bef2be` or later, SHA-256 `0xdb6e08f4b2acb262654779a5dfad2cd8dd78d05509300a3aaa3d9715aa90649a`.
+- Next: owner decides CRYPTO_PRICE (G275), validates on anjoman.ai/dashboard/earn, signs `updateMiner`; then delete
+  the retired routes and empty `RETIRED` / `RETIRED_INTENTS`. Claude: EVENT_OUTCOME after three epochs (G278).
+
 ## 2026-11-06 ~22:58 UTC (Nov 7 04:28 IST): CURRENT — quality release `bee3f6a` LIVE; N1 YAML cut, not signed
 
 - Owner: "take all the required actions, required for winning. focus on improving quality of present intents".

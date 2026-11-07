@@ -45,8 +45,10 @@ fix scores on the quality rubric but may not move the devnode rank.
       built `6aebe0f`), TOKEN_TOTAL_SUPPLY_VERIFY and DNS_RECORD_LOOKUP (live since 2026-10-26); drop KEYWORD_EXTRACTION
       and VULNERABILITY_TRIAGE (routes deleted). Not added: FX_NOW (G273), WEATHER_FORECAST_VERIFY (G272), and the
       model wrappers. Evidence: `track1-miner/docs/evidence/n1-new-intents-2026-11-07/`.
-- [ ] Deploy `6aebe0f` (owner's yes needed), then rename the N1 YAML to V2 intent ids (G270), then validate on
-      Anjoman, then the owner signs.
+- [x] Deploy `6aebe0f`: live in `bee3f6a` (2026-11-06). Rename the N1 YAML to V2 intent ids (G270): `5bef2be`.
+- [ ] Owner: validate the N1 YAML on anjoman.ai/dashboard/earn, then sign `updateMiner` for 4829. YAML: the
+      pushed `track1-miner/miner.yaml` at `5bef2be` or later, SHA-256 of the committed file
+      `0xdb6e08f4b2acb262654779a5dfad2cd8dd78d05509300a3aaa3d9715aa90649a` (re-hash if the file changes). 35 intents. Decide CRYPTO_PRICE (G275) first.
 - [ ] Next candidate: ASSET_RESERVE_ATTESTATION (8 builds, completes 2): read and license issuer attestation sources.
 - [ ] G274: find why academic search fell to 0.636.
 
