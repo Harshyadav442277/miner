@@ -1,0 +1,30 @@
+== /tx-lookup?query=0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060
+{"hash":"0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060","chain":"ethereum","verdict":"confirmed","confidence":0.99,"transaction":"{status,from,to,value_wei,value,symbol,block_number,block_hash}"}
+   answer: Transaction 0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060 on ethereum succeeded in block 46147.
+== /event-outcome?query=Did%20Donald%20Trump%20win%20the%202024%20US%20presidential%20election%3F
+{"verdict":"resolved","confidence":0.9,"outcome":"Yes","winner":null,"market":"Will Donald Trump win the 2024 US Presidential Election?","event":"Presidential Election Winner 2024","venue":"Polymarket","play_money":false,"source":"Polymarket"}
+   answer: Resolved Yes: the Polymarket market "Will Donald Trump win the 2024 US Presidential Election?" has settled on Yes.
+== /url-scan?query=https%3A%2F%2Fwww.bbc.co.uk
+{"url":"https://www.bbc.co.uk/","verdict":"safe","confidence":0.8,"flagged_by":"[array 0]","checks":"{cloudflare_filter,quad9_filter,resolves,tls,lookalike_markers,redirects,final_url}"}
+   answer: Yes, https://www.bbc.co.uk/ appears safe to visit.
+== /fraud-check?query=Is%200x8589427373D6D84E98730D7795D8f6f8731FDA16%20a%20scam%20address%3F
+{"subject":"0x8589427373d6d84e98730d7795d8f6f8731fda16","verdict":"no_indicators","confidence":0.5,"evidence":"[array 2]","not_checked":"[array 0]","sanctioned":false,"flagged_hosts":"[array 0]","scam_markers":"[array 0]"}
+   answer: No fraud indicators were found among the checks performed.
+== /financial?query=What%20is%20the%20market%20cap%20of%20Bitcoin%3F
+{"subject":"coin","name":"Bitcoin","chain":null,"verdict":"unknown","confidence":0,"error":"not_licensed"}
+   answer: No market statistics are given for Bitcoin (BTC): CoinGecko / GeckoTerminal does not license its data for resale, and this is a paid service (terms: https://www
+== /macro?query=What%20is%20the%20unemployment%20rate%20in%20Germany%20in%202023%3F
+{"region":"DE","verdict":"reported","confidence":0.95,"indicators":"[array 1]","not_covered":"[array 0]"}
+   answer: Unemployment rate in Germany was 4.1% in September 2026 (Eurostat).
+== /url-reputation?query=https%3A%2F%2Fwww.bbc.co.uk
+{"url":"https://www.bbc.co.uk/","verdict":"safe","confidence":0.8,"flagged_by":"[array 0]","checks":"{cloudflare_filter,quad9_filter,resolves,tls,lookalike_markers,redirects,final_url}","listed":false,"sources":"[array 2]"}
+   answer: Not listed: www.bbc.co.uk is on none of the 2 threat sources that answered: Cloudflare security DNS, Quad9 threat-blocking DNS.
+== /token-holders?query=How%20many%20holders%20does%20USDC%20have%20on%20Ethereum%3F
+{"symbol":"USDC","name":"USDC","address":"0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48","chain":"ethereum","holders":9561593,"top_holder_percent":null,"verdict":"holder_count","confidence":0.95}
+   answer: USDC on Ethereum has 9,561,593 distinct holder addresses, read from the chain's own transfer index at contract 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48.
+== /wallet-balance?query=What%20is%20the%20USDC%20balance%20of%20vitalik.eth%3F
+{"address":"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045","chain":"ethereum","balance_eth":null,"symbol":"ETH","verdict":"39.192124 USDC","confidence":0.98,"token_balances":"[array 1]"}
+   answer: Current balances for vitalik.eth (0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045) on ethereum: 39.192124 USDC, read using eth_call balanceOf on contract 0xa0b86991c
+== /gas-price?query=What%20is%20the%20gas%20price%20on%20Ethereum%3F
+{"chain":"ethereum","gwei":0.240449294,"base_fee_gwei":0.24044929,"priority_gwei":3.999999997894577e-9,"block":26351361,"verdict":"gas_price","confidence":0.95}
+   answer: The current gas price on ethereum is 0.240449 Gwei, or about 0.24 Gwei, as of block 26,351,361.

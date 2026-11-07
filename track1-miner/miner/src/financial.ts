@@ -38,6 +38,7 @@ import { getFundamentals, knownCompany, marketCap, metricAsked } from "./fundame
 import type { FundamentalFigures } from "./fundamentals";
 import { knownAsset, type Asset } from "./cryptoprice";
 import { notLicensedReason, permitted } from "./sources";
+import { leadSentence } from "./envelope";
 
 const TIMEOUT_MS = Number(process.env.FINANCIAL_TIMEOUT_MS ?? 5_000);
 // Yahoo returns 401 to an unfamiliar user-agent, in the same way ESPN does.
@@ -618,6 +619,23 @@ async function trailingPE(ticker: string, quoteReason?: string): Promise<string 
  * a trailing P/E is computed and its inputs named; only when either part is
  * missing is the ratio declared not retrieved.
  */
+/**
+ * The product a sales question names, when it is not the company itself:
+ * "Pfizer's ZAVZPRET sales", "sales of the iPhone 17 at Apple". Null otherwise.
+ */
+export function productAsked(query: string): string | null {
+  // [a-z]? admits names like iPhone and eBay.
+  const possessive = query.match(/\b([A-Z][\w.&-]*)'s\s+((?:the\s+)?[a-z]?[A-Z][\w-]*(?:\s+[A-Z0-9][\w-]*){0,2})\s+(?:sales|unit sales|revenue|shipments|units sold)\b/);
+  const of = query.match(/\b(?:sales|unit sales|revenue|shipments) (?:of|from) (?:the\s+)?([a-z]?[A-Z][\w-]*(?:\s+[A-Z0-9][\w-]*){0,2})\b/);
+  const product = possessive?.[2]?.replace(/^the\s+/i, "") ?? of?.[1] ?? null;
+  if (!product) return null;
+  // "Apple's revenue", "Microsoft's Q3 revenue": a company or period, not a product.
+  if (possessive && possessive[1] && product.toLowerCase().startsWith(possessive[1].toLowerCase())) return null;
+  if (/^(?:Q[1-4]|FY\d*|Fiscal|Annual|Quarterly|Total|Net|Gross|Operating|Latest|Last|Recent|Inc|Corp)$/i.test(product.split(/\s+/)[0]!)) return null;
+  if (knownCompany(product)) return null;
+  return product;
+}
+
 async function withUnfiledGaps(r: FinancialResult, query: string, ticker: string): Promise<FinancialResult> {
   const notes: string[] = [];
   let unfiled = asksFundamentals(query).filter((f) => f === "price-to-earnings ratio" || f === "margins");
@@ -628,9 +646,29 @@ async function withUnfiledGaps(r: FinancialResult, query: string, ticker: string
       unfiled = unfiled.filter((f) => f !== "price-to-earnings ratio");
     }
   }
-  if (unfiled.length) notes.push(`The ${unfiled.join(" and ")} ${unfiled.length > 1 ? "were" : "was"} not retrieved.`);
   if (r.verdict === "financial_data" && /\bquarter(?:ly)?\b|\bq[1-4]\b/i.test(query) && r.fundamentals?.fiscal_quarter === undefined) {
     notes.push("Quarterly figures were not retrieved; this is the annual figure.");
   }
-  return notes.length ? { ...r, reason: `${r.reason} ${notes.join(" ")}` } : r;
+  // A requested figure that is missing belongs in the first sentence, which is the
+  // answer field; as a later sentence, "Apple's revenue and P/E" read as revenue
+  // alone (GAPS G270).
+  let reason = r.reason;
+  // "Pfizer's ZAVZPRET sales" asks for one product; the filings figure is the whole
+  // company's, so the answer says that before giving it (GAPS G200, audit row 108).
+  const product = productAsked(query);
+  const productNote = product && r.verdict === "financial_data"
+    ? `Sales of ${product} on their own are not given: the SEC filing figures read here cover the whole company, so what follows is company-wide.` +
+      `${/\b(will|forecast|expect|outlook|beat|exceed)\b/i.test(query) ? " Whether they will meet a forecast is not settled by filed figures either." : ""} `
+    : "";
+  if (unfiled.length) {
+    const why = unfiled.map((f) => f === "price-to-earnings ratio"
+      ? "the price-to-earnings ratio was not retrieved, because share prices come only from sources that do not license resale"
+      : `the ${f} ${f.endsWith("s") ? "were" : "was"} not retrieved, because ${f.endsWith("s") ? "they are" : "it is"} not filed as a figure`);
+    const lead = leadSentence(reason);
+    reason = lead.endsWith(".") && reason.startsWith(lead)
+      ? `${lead.slice(0, -1)}; ${why.join("; ")}.${reason.slice(lead.length)}`
+      : `${reason} ${why.join("; ")}.`;
+  }
+  reason = `${productNote}${reason}`;
+  return notes.length || reason !== r.reason ? { ...r, reason: notes.length ? `${reason} ${notes.join(" ")}` : reason } : r;
 }

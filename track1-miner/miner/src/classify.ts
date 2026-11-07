@@ -171,6 +171,9 @@ export async function classifyText(question: string, textParam = "", labelsParam
   const declared = splitLabels(String(labelsParam ?? ""));
   const labels = declared.length ? declared : labelSet(q).labels;
   const text = classifiedText(q, textParam);
+  // A topic question with no labels stays refused: classifying it against a default
+  // news-section set was tried on 2026-11-06 and labelled "NASA confirms water ice on
+  // the Moon" as environment on the preview. A wrong label is worse than asking for labels.
   if (labels.length < 2) {
     return {
       verdict: "unknown", label: null, confidence: 0, error: "no_labels",

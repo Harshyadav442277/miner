@@ -2,8 +2,12 @@
  * The sanctions lists SANCTIONS_SCREENING_MATCH screens against, read live.
  *
  *   OFAC SDN    sanctionslistservice.ofac.treas.gov SDN.CSV + ALT.CSV     5.7 MB + 1.1 MB
+ *   OFAC non-SDN  same service, CONS_PRIM.CSV + CONS_ALT.CSV            0.27 MB + 0.07 MB
  *   UN SC       scsanctions.un.org/resources/xml/en/consolidated.xml      2.2 MB
  *
+ * The non-SDN Consolidated list (sectoral SSI, NS-MBS, NS-PLC, CAPTA and
+ * similar programmes, ~480 parties) has the SDN files' layout; added 2026-11-06,
+ * when the leading SANCTIONS_SCREENING_MATCH miner screened it and we did not.
  * Measured 2026-10-13. The UK consolidated list (16.6 MB) and the EU financial
  * sanctions file (18.6 MB, 60 s from here) are too large to read inside a
  * serverless request, so they are not screened, and answers say which lists
@@ -18,7 +22,7 @@ const STALE_MS = 54 * 3_600_000;
 const TIMEOUT_MS = Number(process.env.SANCTIONS_TIMEOUT_MS ?? 9_000);
 const OFAC = "https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports";
 
-export type ListName = "OFAC SDN" | "UN Security Council Consolidated";
+export type ListName = "OFAC SDN" | "OFAC Consolidated (non-SDN)" | "UN Security Council Consolidated";
 
 export interface ListedParty {
   list: ListName;
@@ -73,8 +77,8 @@ const val = (s: string | undefined): string => {
 
 const years = (s: string): number[] => [...new Set([...s.matchAll(/\b(19\d{2}|20\d{2})\b/g)].map((m) => Number(m[1])))];
 
-/** sdn.csv and alt.csv, joined on the entity number. Pure. */
-export function parseOfac(sdn: string, alt: string): ListedParty[] {
+/** sdn.csv and alt.csv (or cons_prim.csv and cons_alt.csv), joined on the entity number. Pure. */
+export function parseOfac(sdn: string, alt: string, list: "OFAC SDN" | "OFAC Consolidated (non-SDN)" = "OFAC SDN"): ListedParty[] {
   const aliases = new Map<string, string[]>();
   for (const r of parseCsv(alt)) {
     const id = val(r[0]);
@@ -89,9 +93,13 @@ export function parseOfac(sdn: string, alt: string): ListedParty[] {
     const kind = val(r[2]).toLowerCase();
     const remarks = val(r[11]);
     const dob = [...remarks.matchAll(/\bDOB ([^;]+)/g)].map((m) => m[1] ?? "").join(" ");
+    // "Website suex.io": callers name exchanges and mixers by their domain, so the listed site is an alias.
+    const sites = [...remarks.matchAll(/\bWebsite\s+([^\s;,]+)/gi)]
+      .map((m) => (m[1] ?? "").replace(/^https?:\/\//i, "").replace(/^www\./i, "").replace(/[./]+$/, ""))
+      .filter((w) => w.includes("."));
     out.push({
-      list: "OFAC SDN", id, name,
-      aliases: aliases.get(id) ?? [],
+      list, id, name,
+      aliases: [...(aliases.get(id) ?? []), ...sites],
       type: kind === "individual" || kind === "vessel" || kind === "aircraft" ? kind : "entity",
       programs: val(r[3]).split(/\]\s*\[/).map((p) => p.replace(/[[\]]/g, "").trim()).filter(Boolean),
       dob_years: years(dob),
@@ -150,9 +158,11 @@ let cached: { at: number; lists: SanctionsLists } | null = null;
 let pending: Promise<SanctionsLists> | null = null;
 
 async function download(): Promise<SanctionsLists> {
-  const [sdn, alt, un] = await Promise.all([
+  const [sdn, alt, cons, consAlt, un] = await Promise.all([
     read(`${OFAC}/SDN.CSV`).catch(() => null),
     read(`${OFAC}/ALT.CSV`).catch(() => null),
+    read(`${OFAC}/CONS_PRIM.CSV`).catch(() => null),
+    read(`${OFAC}/CONS_ALT.CSV`).catch(() => null),
     read("https://scsanctions.un.org/resources/xml/en/consolidated.xml").catch(() => null),
   ]);
   const parties: ListedParty[] = [];
@@ -169,6 +179,12 @@ async function download(): Promise<SanctionsLists> {
     // OFAC redirects to a published file whose path carries its date.
     editions.push({ list: "OFAC SDN", published: sdn!.finalUrl.match(/\/(\d{4}-\d{2}-\d{2})\//)?.[1] ?? null, entries: ofac.length });
   } else unavailable.push("OFAC SDN");
+  // ~480 parties on 2026-11-06; under 100, or no aliases at all, is a broken read.
+  const nonSdn = cons && consAlt ? parseOfac(cons.text, consAlt.text, "OFAC Consolidated (non-SDN)") : [];
+  if (nonSdn.length > 100 && nonSdn.some((p) => p.aliases.length > 0)) {
+    parties.push(...nonSdn);
+    editions.push({ list: "OFAC Consolidated (non-SDN)", published: cons!.finalUrl.match(/\/(\d{4}-\d{2}-\d{2})\//)?.[1] ?? null, entries: nonSdn.length });
+  } else unavailable.push("OFAC Consolidated (non-SDN)");
   const unParties = un ? parseUn(un.text) : [];
   if (unParties.length > 100) {
     parties.push(...unParties);
@@ -182,7 +198,7 @@ async function download(): Promise<SanctionsLists> {
 }
 
 /**
- * Both lists. A complete read is kept for six hours, then served for up to two
+ * All three lists. A complete read is kept for six hours, then served for up to two
  * days more while a fresh copy downloads, and preferred over a partial fresh
  * read; its edition dates say how old it is.
  */

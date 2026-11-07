@@ -1,6 +1,244 @@
 # MEMORY.md — session continuity
 
-## 2026-11-04 ~21:20 UTC (Nov 5 02:50 IST): CURRENT — winning push started; `aa110f8` LIVE
+## 2026-11-07 ~03:30 UTC (09:00 IST): CURRENT — `3f33508` LIVE (threshold regex fix); PR #18 open
+
+- Owner: "Yes, deploy it" for `3f33508`, the fix for the push security review's ReDoS finding in `src/threshold.ts`.
+- **Production:** `3f33508`, `https://miner-eh2uav8mu-wukong4.vercel.app` (`dpl_5tARoxt3vuzowzZ98skdve4kBtJF`).
+  **Rollback target:** `miner-beo9nyatq` (`bee3f6a`). Record: `track1-miner/docs/evidence/release-2026-11-07-threshold-redos/`.
+  - Unit 914/914.
+  - Preflight 6/7 on the first run; intent answers re-run alone 39/39.
+  - 4829 `active`; 34/34 routes up.
+- **Uptime alarm (issue #19, G280):** a false alarm. `main`'s stale YAML probes `/keywords` and `/vuln-triage`, which
+  were deleted on purpose. It clears when PR #18 merges `codex/rank1-14-intents` into `main`. That merge needs the
+  owner's yes (default branch). Close #19 after it.
+- **N1 YAML:** V2 ids, verified 03:00 UTC.
+  - The SHA-256 is `0xdb6e08…649a` both from git and from raw GitHub.
+  - All 35 ids are canonical on devnode.
+  - The keyless validator is gone (G212), so the owner validates on Anjoman and signs.
+## 2026-11-07 IST: URL Scan generic baseline measured
+
+- The `URL_SCAN` hybrid family is on-chain. `URL_SCAN_VERDICT` has eight ranked miners at epoch 2030 and
+  resolves to `GENERIC` 900005. The exact generic delta got 8/16 controlled pairs in the kit runtime,
+  including 3/8 verdict flips and 5/8 wrong-URL pairs. No challenger measured or signed. Evidence is in
+  `track2/adapter/url_scan/`.
+- All 144 translation rows now read `eligible` under the LiveCert wallet.
+
+## 2026-11-07 ~02:50 UTC (08:20 IST): CURRENT — N1 YAML on V2 ids (`5bef2be`); ready for the owner to validate
+
+- Owner: "Yes, rename to V2". `miner.yaml` lists the node's canonical V2 ids (G270 fixed). Unit 914/914, manifest
+  diff PASS, intent answers 39/39 on production. Production unchanged (`bee3f6a`).
+- To sign: the pushed YAML at `5bef2be` or later, SHA-256 `0xdb6e08f4b2acb262654779a5dfad2cd8dd78d05509300a3aaa3d9715aa90649a`.
+- Next: owner decides CRYPTO_PRICE (G275), validates on anjoman.ai/dashboard/earn, signs `updateMiner`; then delete
+  the retired routes and empty `RETIRED` / `RETIRED_INTENTS`. Claude: EVENT_OUTCOME after three epochs (G278).
+
+## 2026-11-06 ~22:58 UTC (Nov 7 04:28 IST): CURRENT — quality release `bee3f6a` LIVE; N1 YAML cut, not signed
+
+- Owner: "take all the required actions, required for winning. focus on improving quality of present intents".
+- **Production:** `bee3f6a`, `miner-beo9nyatq` (`dpl_BzBqpAUR5YJTNwdp78YFaGekwGe2`). **Rollback:** `miner-p429gtksx`
+  (`192aecc`). Record: `track1-miner/docs/evidence/release-2026-11-06-quality-fixes/`. Unit 914/914; gates 6/7, the
+  seventh 38/39 with the NY Fed upstream down (G279); 4829 `active`.
+- Also live: Codex's `/onchain-metric` (`6aebe0f`), served but not registered.
+- **N1 YAML** (`miner.yaml` at `bee3f6a`): 35 intents — cuts STOCK_PRICE, NEWS_HEADLINES, NEWS_SEARCH, IP_GEOLOCATION;
+  adds DNS_RECORD_LOOKUP, TOKEN_TOTAL_SUPPLY_VERIFY, ONCHAIN_METRIC_VERIFY. Manifest diff PASS. Codex's G270 (V2
+  `_GENERAL` ids) still blocks validation. Not signed.
+- GAPS numbering: Codex took G269–G274 the same hour; this branch's became G275–G277. Check the top before numbering.
+- Next: read EVENT_OUTCOME after three epochs (G278); rename the YAML to V2 ids (G270); owner decides CRYPTO_PRICE's
+  licence (G275), then validates on anjoman.ai/dashboard/earn and signs.
+
+## 2026-11-06 ~22:15 UTC (Nov 7 03:45 IST): CURRENT — N1 intent picks; `/onchain-metric` built, NOT deployed
+
+- Owner: "keep improving. and let's add more intents", then "pick intents which would help us in winning".
+- **Branch `claude/n1-new-intents`** (deploy tree `C:/Users/hyada/tg-deploy/m-nonsdn`), on `cee126e`:
+  - `6aebe0f`: adds ONCHAIN_METRIC_VERIFY at `/onchain-metric`; deletes the `/keywords` and `/vuln-triage` routes.
+  - The docs commit after it.
+  - Unit 906/906. Live local reads match Blockscout. Not pushed, not deployed.
+- **Production unchanged:** `192aecc` (`miner-p429gtksx`), 4829 `active` 21:38 UTC.
+- **Picks:**
+  - Added: ONCHAIN_METRIC, plus TOKEN_TOTAL_SUPPLY and DNS (both already live).
+  - Dropped: KEYWORD_EXTRACTION and VULNERABILITY_TRIAGE.
+  - Reasons per intent: `track1-miner/docs/evidence/n1-new-intents-2026-11-07/`.
+  - **G269:** ONCHAIN_METRIC's top 3 answer the block-gas question wrongly, so its ranks may not follow correctness.
+- **Ranks, epoch 2028:**
+  - Research is at rank 3.
+  - Fact check is 0.003 from rank 3.
+  - Academic search fell to 0.636 (G274).
+  - Sanctions has not been re-scored since epoch 2026.
+- **Next:**
+  - Owner's yes to deploy `6aebe0f`.
+  - G270: rename to V2 intent ids.
+  - Validate on Anjoman; the owner signs.
+  - Then G274, P6 and ASSET_RESERVE.
+
+## 2026-11-06 ~22:15 UTC (Nov 7 03:45 IST): CURRENT — N1 cut prepared on `claude/hackathon-quality-focus-2e9d6e`; not signed
+
+- Trigger: Ahmed's Discord DM to the owner (2026-11-06): quality over quantity; intents a miner cannot deliver
+  "won't qualify for those claims". Rules re-read live ~22:00 UTC: unchanged since the 2026-11-05 read.
+- Branch fast-forwarded to local `codex/rank1-14-intents` (`cee126e`, 4 commits ahead of origin), then:
+  `miner.yaml` drops STOCK_PRICE, NEWS_HEADLINES, NEWS_SEARCH, IP_GEOLOCATION; FINANCIAL_DATA and WEB_SEARCH
+  descriptions now match the code. Manifest diff PASS, unit 907/907. Evidence: `track1-miner/docs/evidence/n1-cut-2026-11-06/`.
+- Production unchanged (`192aecc`). Nothing deployed or signed.
+- Next (Claude): sourced audit of the 4 added intents (G277). Owner: CRYPTO_PRICE licence (G275), then sandbox
+  the YAML and sign `updateMiner`. After the signature, delete the retired routes' code.
+
+## 2026-11-06 ~16:50 UTC (22:20 IST): CURRENT — OFAC non-SDN list LIVE as `192aecc`; intent push P1–P11
+
+- Owner: "divide the task in parts and improve in these intents. priortize from the highest one. leave chat
+  completion" (Anjoman's 11 highest-earning intents), then "Yes, deploy it". Board: TASKS.md "Intent push".
+- **Production:** `192aecc`, `https://miner-p429gtksx-wukong4.vercel.app` (`dpl_6JPiQ4ErcYzrrmQMRmSg9mWd1dgJ`).
+  **Rollback target:** `miner-qbdf1756n` (`7301474`). Record: `track1-miner/docs/evidence/release-2026-11-06-ofac-nonsdn/`.
+  Unit 907/907; preview 6 routes; production ABU TEIR (ref 9640) `match` (was `no_match`, G268); 4829 `active`.
+  Preflight 6/7 first run; the sanctions gate expected exactly two lists. Gate updated to require all three and
+  the ABU TEIR match; re-run alone 40/40.
+- **G265:** sanctions ranks 2–3 (`san-os-*`) return constant OpenSanctions metadata and outrank our screen. The
+  draft for Ahmed is in GAPS G265; the owner sends it.
+- Session branch `claude/task-breakdown-prioritize-e2b048` holds the same work on the old `main` base
+  (`76823a5`, `9b63f23`, G254–G257 numbering); superseded by this line. Not pushed.
+- Next: read sanctions epochs after 16:48 UTC; P1c EU/UK name index; side-by-side captures for P6, P3, P11.
+
+## 2026-11-06 ~16:25 UTC (21:55 IST): every intent's scored field LIVE as `7301474`
+
+- Owner: "dont worry about outreach. and about other things, take required actions" (2026-11-05), then "Try
+  again" (2026-11-06). Outreach is off the list for Claude.
+- **Production:** `7301474`, `https://miner-qbdf1756n-wukong4.vercel.app` (`dpl_GpEmJonx142NQZfeGTHNeVcNqGyt`),
+  aliased ~16:09 UTC. **Rollback target:** `miner-mzapr28vo` (`e501a57`). Record:
+  `track1-miner/docs/evidence/release-2026-11-06-scored-fields-all/`. Unit 906/906, preview 15/15, preflight
+  **7/7 first run**, 4829 `active` (16:15 UTC).
+- Shipped: eleven intents now name their scored field (audit: `docs/evidence/scored-fields-2026-11-05/`); a plain
+  temperature question gets the current reading; `filing_count` counts every form (Apple 91 = zk-filing's 91).
+- Checked: Vercel plan is **Hobby** (G249, owner decision); prize-payment terms still unpublished (G218).
+- The commit-time security review failed on HTTP 429; a manual review of `7301474` found nothing. The push review
+  runs on the next push.
+- Next: read epochs after 16:09 UTC (TASKS); G264 crypto price unscored since epoch 2021; N1 `updateMiner` prep.
+
+## 2026-11-05 ~21:20 UTC (Nov 6 02:50 IST): FACT_CHECK fix G262 LIVE as `e501a57`
+
+- **Production:** `e501a57`, `https://miner-mzapr28vo-wukong4.vercel.app` (`dpl_3rEwsNuVz6tkfnjQ4p5KAUy2qQJw`),
+  aliased ~21:09 UTC. Owner: "Yes, deploy it". **Rollback target:** `miner-f28bzjwiw` (`9b82d08`). Miner diff
+  against it: the fact-check files only. Record: `track1-miner/docs/evidence/release-2026-11-05-factcheck/`.
+- Verified: unit 903/903 in the deploy tree; preview 9/9; production 9/9 (Venus unverified, Eiffel-Berlin compound
+  contradicted, Kilimanjaro 5895 m, Golden Gate 1937, Curie 1903 supported); preflight **7/7 first run**; 4829
+  `active` (21:17 UTC). The branch tip's miner code equals production's (`15d2829`).
+- Next: read FACT_CHECK_GENERAL after three epochs past 21:09 UTC (`tools/epoch-history.mjs`).
+
+## 2026-11-05 ~20:35 UTC (Nov 6 02:05 IST): FACT_CHECK fix G262 committed (deployed ~21:09, block above)
+
+- Owner: "Yes, fix G262", then "Yes, finish and commit". Built on `claude/winning-tracks-overview-3f735a` on top of
+  `2065195`: new `src/factevent.ts`, changes in `factsubject.ts`, `factarticle.ts`, `factcheck.ts`, `factwords.ts`;
+  tests `test/factevent.test.ts`; replay tool `tools/factcheck-replay.mjs`.
+- Verified 2026-11-05 20:24–20:27 UTC against live Wikipedia (`docs/evidence/factcheck-real-claims-2026-11-05/`):
+  37 real paid claims right 7 → 14, wrong 3 → 0; 31 regression claims right 19 → 17, wrong 2 → 0. Unit 903/903 and
+  live fact-check tests 5/5 in `C:/Users/hyada/tg-deploy/fc-dev` (a dev tree outside OneDrive, at `9b82d08` plus
+  these files).
+- Production is still the block below (`9b82d08`), whose fact-check code equals `4fb477e`'s, so production still
+  gives the "before" answers. Deploying the tip changes FACT_CHECK only against `9b82d08` (`git diff 9b82d08` on
+  `track1-miner/miner/src` = the fact files).
+- Next: owner yes/no to deploy G262 (release-miner skill; rollback `miner-f28bzjwiw`). Remaining G262 gaps are in
+  GAPS.
+
+## 2026-11-05 ~19:20 UTC (Nov 6 00:50 IST): filings fix G257/G263 LIVE as `9b82d08`
+
+- **Production:** `9b82d08`, `https://miner-f28bzjwiw-wukong4.vercel.app` (`dpl_BmcKxGSMKRuwAcY6P22sBzhvojD6`),
+  aliased ~19:10 UTC. Owner: "Yes, deploy it". **Rollback target:** `miner-mztwjxnqa` (`4fb477e`, the sanctions
+  release). Miner diff against it: `filings.ts`, `mission-routes.ts` and their tests. Record:
+  `track1-miner/docs/evidence/release-2026-11-05-filings-issuer/`.
+- Verified: unit 887/887 in the deploy tree; preview 9/9; preflight **7/7 first run**; 4829 `active` (19:16 UTC);
+  production finds Apple (13), Microsoft 8-Ks (8), `entity=Tesla&period=last 12 months` (15), and sends
+  `filing_count: null` for Ozempic and for a no-period "latest 10-Q" question.
+- Epochs at ~19:18 UTC: filings not scored since 2019 (0.8145); sanctions 9th 0.9859 at 2021 (first after the
+  sanctions release); registry 4th 0.9962 at 2021.
+- **Pushed** `codex/rank1-14-intents` `2a02d88..099e742` (36 commits) at ~19:40 UTC. Owner: "Yes, push it". Checked
+  first: account `Harshyadav442277`, no tracked `.env`, no secret-like strings, no attribution lines. **PR #18**
+  (branch → `main`, owner: "Yes, open a PR") opened 20:25 UTC: mergeable, clean, Auto-fix on, not merged.
+- Next: read the next filings epochs with `tools/epoch-history.mjs` (G263); then Q4 FACT_CHECK (G262).
+
+## 2026-11-05 ~18:35 UTC (Nov 6 00:05 IST): sanctions fix G258 LIVE as `4fb477e`; filings fix still pending
+
+- **Production:** `4fb477e`, `https://miner-mztwjxnqa-wukong4.vercel.app` (`dpl_HdLrLG7mb9pdfMPFDzF2PMSavUtv`),
+  aliased to `miner-wine.vercel.app` at ~18:28 UTC. Owner: "Yes, deploy now" (G258 only). **Rollback target:**
+  `miner-5arlzhkv6` (`3c5e8ff`). Record: `track1-miner/docs/evidence/release-2026-11-05-sanctions-names/`.
+- Verified on production: 9/9 sanctions probes as expected ("Сбербанк" match, "Tesla, Inc." no_match, "AEZA Grp",
+  "suex.io", "Gr1nex" match, "Hamaz" possible, Arabic `unsupported_script`), registry and ssl-check unchanged;
+  registration 4829 `active` (18:31 UTC). Preflight 5/7, then 7/7 after re-running the two OpenAlex
+  gates alone (paperfraud live test, ACADEMIC_SEARCH; untouched by this release).
+- **Not in this release:** `bb07266` (G257 issuer, G263 null counts), the block below. Deploying the branch tip now
+  ships the filings change alone against `4fb477e`, so the filings read stays separable; it needs its own yes.
+- Next: read sanctions, registry and filings after three epochs past 18:28 UTC
+  (`tools/epoch-history.mjs`); then Q4 FACT_CHECK (G262).
+
+## 2026-11-05 ~18:20 UTC (23:50 IST): G257 filings fix built, NOT deployed; filings fell at epoch 2019
+
+- Owner: "Yes, fix G257". Built on `claude/screening-registry-intents-f6ab6b`: the filings route finds the issuer
+  in a question alone, reads the intent's `entity`/`period`, reads quarter/year windows, and sends `filing_count:
+  null` (not 0, not an all-history count) when the issuer is not in EDGAR or no period was read. Unit 879/879;
+  local probes against live EDGAR in `track1-miner/docs/evidence/filings-issuer-2026-11-05/`. Rebased onto
+  `4fb477e`, which also carries the parallel session's undeployed sanctions fix (G258): one deploy of the tip ships
+  both. The filings change touches only `filings.ts` and `mission-routes.ts`, so the filings read stays separable.
+- **Epoch 2019** (first after the `3c5e8ff` deploy): registry 3rd (0.9979, a routed slot), sanctions 12th (0.997,
+  in range), filings 11th (0.8145, far below 0.976–0.980). Every filings miner fell that epoch; the deploy's share
+  is not known (GAPS G254, G263). Production was then `3c5e8ff` (`miner-5arlzhkv6`); since ~18:28 UTC it is
+  `4fb477e` (block above).
+- Next: owner yes/no to deploying the G257 + G263 change (TASKS); then read two more epochs with
+  `tools/epoch-history.mjs`. If filings stays low after both, consider removing `filing_count` and deciding the
+  all-forms question (G263) from the numbers, not from this guess.
+
+## 2026-11-05 ~10:05 UTC (15:35 IST): Ahmed answered; real paid traffic read; sanctions fix ready, not deployed
+
+- **Production (probed 10:03 UTC):** Cyrillic names still answer `no_subject` and "Tesla, Inc." reads `matched: true` there.
+- **Production:** `3c5e8ff` (`miner-5arlzhkv6`), the scored-fields release of the parallel session (block below),
+  not this session's work; rollback `miner-iwc9rd2yv` (`aa110f8`). PR #17 merged into main (`2b5a9a1`, CI green).
+- **Ahmed, 2026-11-05** (TELEGRAPH_FACTS 12–17):
+  - no grace period on `updateMiner` (G206 closed; the docs still show one, G261);
+  - claim only what passes its tests;
+  - latency and price are not tie-breakers;
+  - consumption evidence must tell paid requests from test traffic.
+- **Rules re-read live 2026-11-05:** the Miner rubric is now 35/15/10/10/5/5 **+ growth 20** (RULES_SEASON2.md,
+  WINNING.md header).
+- **Network records** (`tools/consumption.mjs`, `docs/evidence/consumption-2026-11-05/`):
+  - 385 paid requests to `livecert` Nov 1–4, from 16 wallets;
+  - 24 ranked-routed; 341 x402 payments verified on Sepolia;
+  - no wallet tied to an H2 app (G259).
+- **The real callers found defects:**
+  - FACT_CHECK wrong on common facts (G262, open, next);
+  - sanctions misses on Cyrillic, abbreviated and domain forms (G258, fixed in code: `e19df9e`, then `853da09` after
+    a security review).
+- **Merged `codex/rank1-14-intents` twice** (`3df11ef`, then the release record `86a7bce`). The parallel session
+  holds G254–G257. This session's entries are G258–G262 (fact-check is G262).
+- **Verified:**
+  - unit 885/885 in `C:/Users/hyada/tg-deploy/m3df11ef` (`3df11ef` plus `853da09`'s files; `86a7bce` changes no
+    miner source);
+  - the replay of 180 real sanctions inputs against the live lists: unknown 7 → 0, match 85 → 107
+    (`docs/evidence/sanctions-real-inputs-2026-11-05/`).
+- **Blocked on the owner:** a yes to release G258.
+  - **Trade-off:** it changes sanctions answers while G254's three-epoch read of the sanctions rank is still open, so
+    that read can no longer separate the two changes. Registry and filings stay clean.
+  - **After the yes:**
+    1. fast-forward `codex/rank1-14-intents` to this branch's tip;
+    2. make a fresh deploy tree at that commit;
+    3. run the release-miner skill (rollback target `miner-5arlzhkv6`).
+- **Next (Claude):** G262 fact-check fix, then N1 (one `updateMiner`: cut STOCK_PRICE, NEWS_HEADLINES, NEWS_SEARCH,
+  IP_GEOLOCATION and EVENT_OUTCOME; fix the descriptions; audit any addition first).
+- **Owner:**
+  - the release yes for G258;
+  - post Discord and X update 1 (the links resolve now);
+  - ask Ahmed which payer wallets are H2 apps, and say which are ours;
+  - check the Vercel plan (G249).
+
+## 2026-11-05 ~10:00 UTC (15:30 IST): scored fields LIVE as `3c5e8ff`; measuring (G254)
+
+- Owner asked to "add" SANCTIONS_SCREENING_MATCH, CORPORATE_REGISTRY_LOOKUP and REGULATORY_FILING_MONITOR (`_GENERAL`)
+  for their demand. They were already served and registered on 4829; only the top 3 per intent get routed requests.
+  Fix: answers carry each intent's scored field (`matched`, `active`, `filing_count`). Owner: "Yes, deploy it".
+- **Deployed** `3c5e8ff` as `miner-5arlzhkv6` (`dpl_6irxTNbbNRkgny3gXiyyMcMxLJ6T`) ~09:39 UTC; rollback
+  `miner-iwc9rd2yv` (`aa110f8`). Preflight 4/7 first run, 6/7 after re-running alone; the last failure is a local
+  OpenAlex live test (G231). 4829 active. Record: `track1-miner/docs/evidence/release-2026-11-05-scored-fields/`.
+- `claude/screening-registry-intents-f6ab6b` was rebased onto `ca3742f`; its gaps renumbered G254–G256 (the
+  winning push took G248–G253). `codex/rank1-14-intents` fast-forwarded; nothing pushed, nothing signed.
+- Next (Claude): once three epochs scored after 09:40 UTC exist, run `node track1-miner/tools/epoch-history.mjs
+  <out.json> SANCTIONS_SCREENING_MATCH_GENERAL CORPORATE_REGISTRY_LOOKUP_GENERAL REGULATORY_FILING_MONITOR_GENERAL`
+  and compare with `epochs-before.json`. G257: the filings route needs `company`; a question alone often misses.
+- Owner: G255 (ask Ahmed who wallet `0xbd6f…6976` is), G256 (source of the demand figure), G231 (OpenAlex key).
+
+## 2026-11-04 ~21:20 UTC (Nov 5 02:50 IST): winning push started; `aa110f8` LIVE
 
 - Owner: "i give you permission to take action on all of these … whenever you need my human involved, lmk".
   Ahmed was messaged by the owner (6 questions: grace period, 4 unscored intents, tie-breaks, judging, receipts,
@@ -48,7 +286,7 @@
   actions and forbid fallback accounts, signers or payout wallets. This overrides older email guidance.
 - Account guidance and the signing runbook were aligned. No external account links or wallet state changed.
 
-## 2026-11-01 ~20:30 UTC (Nov 2 02:00 IST): CURRENT — main merged; translation material ready to sign
+## 2026-11-01 ~20:30 UTC (Nov 2 02:00 IST): main merged; translation material ready to sign
 
 - **main merged** via PR #14 (owner: "merge it then"), `7e8c747`; branch and main in step. Deploys nothing.
 - **Ahmed (Discord):** the unranked-intents issue is being resolved on Telegraph's side; meanwhile contribute
@@ -439,7 +677,6 @@ branch is fast-forwarded and **not pushed**.
     (read by hand), 4 still weak. Unit tests 804/804.
 
 ### Earlier the same morning
-
 
 - **Every answer now ends with a `receipt`:** the upstream requests actually made, with credentials redacted, the
   status, the time, `from_cache` and the deployment. Code: `src/receipt.ts`.

@@ -27,7 +27,22 @@ import { fileURLToPath } from "node:url";
 const TOOLS = dirname(fileURLToPath(import.meta.url));
 export const MANIFEST_PATH = join(TOOLS, "..", "miner.yaml");
 
-/** `{ baseUrl, endpoints: [{ path, intents }], intents: Set, supported: Set }` */
+/**
+ * The family of a V2 intent id: the id less its one suffix segment.
+ * WEATHER_CHECK_TEMPERATURE → WEATHER_CHECK, CVE_LOOKUP_CVSS → CVE_LOOKUP, WEB_SEARCH_GENERAL → WEB_SEARCH.
+ * miner.yaml lists V2 ids since 2026-11-06 (V2 rejects a bare family, "a prefix is not an intent"); the tools key
+ * their cases by family, so ids are folded here. A name that is already a family comes back unchanged, which is how
+ * the V1-named registered YAML (2e8d1cf) is still read.
+ */
+const SUFFIX = /_(?:GENERAL|CERT|CVSS|TEMPERATURE|CONVERT|USD|VERDICT)$/;
+export function family(id) {
+  return id.replace(SUFFIX, "");
+}
+
+/**
+ * `{ baseUrl, endpoints: [{ path, intents, listed }], intents: Set, supported: Set, listed: Set }`.
+ * `intents` and `supported` are families; `listed` holds the V2 ids exactly as written.
+ */
 export function readManifest(path = MANIFEST_PATH) {
   const yaml = readFileSync(path, "utf8");
 
@@ -40,10 +55,12 @@ export function readManifest(path = MANIFEST_PATH) {
   const endpoints = [];
   for (const line of yaml.split(/\r?\n/)) {
     const p = line.match(/^ {2}- path: (\/\S*)$/);
-    if (p) { endpoints.push({ path: p[1], intents: [] }); continue; }
+    if (p) { endpoints.push({ path: p[1], intents: [], listed: [] }); continue; }
     const i = line.match(/^ {4}intents: \[([^\]]+)\]$/);
     if (i && endpoints.length) {
-      endpoints.at(-1).intents.push(...i[1].split(",").map((s) => s.trim()).filter(Boolean));
+      const ids = i[1].split(",").map((s) => s.trim()).filter(Boolean);
+      endpoints.at(-1).listed.push(...ids);
+      endpoints.at(-1).intents.push(...ids.map(family));
     }
   }
   if (endpoints.length === 0) throw new Error(`${path}: no endpoints found`);
@@ -51,13 +68,14 @@ export function readManifest(path = MANIFEST_PATH) {
   // `supported_intents:` is the list the chain actually registers. It is
   // checked against the per-endpoint intents by miner/test/manifest.test.ts;
   // both are returned here so a tool can assert on whichever it means.
-  const supported = new Set([...yaml.matchAll(/^ {4}- ([A-Z][A-Z0-9_]+)$/gm)].map((m) => m[1]));
-  if (supported.size === 0) throw new Error(`${path}: no supported_intents found`);
+  const listed = new Set([...yaml.matchAll(/^ {4}- ([A-Z][A-Z0-9_]+)\r?$/gm)].map((m) => m[1]));
+  if (listed.size === 0) throw new Error(`${path}: no supported_intents found`);
+  const supported = new Set([...listed].map(family));
 
   const intents = new Set(endpoints.flatMap((e) => e.intents));
   if (intents.size === 0) throw new Error(`${path}: endpoints declare no intents`);
 
-  return { baseUrl, endpoints, intents, supported, paths: endpoints.map((e) => e.path) };
+  return { baseUrl, endpoints, intents, supported, listed, paths: endpoints.map((e) => e.path) };
 }
 
 /**
@@ -68,10 +86,17 @@ export function readManifest(path = MANIFEST_PATH) {
  * for an intent we do not declare is also fatal, because it means the tool is
  * measuring something the network will never route to us.
  */
+/**
+ * Intents cut from miner.yaml that registration 4829 still claims until the owner signs
+ * the updateMiner that drops them. Their routes still serve, so the gates keep checking
+ * them. Mirror of RETIRED in miner/test/manifest.test.ts; empty both after the signature.
+ */
+export const RETIRED_INTENTS = new Set(["IP_GEOLOCATION", "NEWS_HEADLINES", "NEWS_SEARCH", "STOCK_PRICE"]);
+
 export function assertCoversDeclaredIntents(covered, { label = "coverage", manifest = readManifest() } = {}) {
   const have = new Set(covered);
   const missing = [...manifest.intents].filter((i) => !have.has(i)).sort();
-  const extra = [...have].filter((i) => !manifest.intents.has(i)).sort();
+  const extra = [...have].filter((i) => !manifest.intents.has(i) && !RETIRED_INTENTS.has(i)).sort();
   if (missing.length || extra.length) {
     const parts = [];
     if (missing.length) parts.push(`declared in miner.yaml but not covered by ${label}: ${missing.join(", ")}`);

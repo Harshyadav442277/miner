@@ -26,6 +26,7 @@
 
 
 import { permitted } from "./sources";
+import { andList, findEventWinner } from "./eventwinner";
 
 const TIMEOUT_MS = Number(process.env.EVENT_TIMEOUT_MS ?? 5_000);
 const GAMMA = "https://gamma-api.polymarket.com/public-search";
@@ -324,6 +325,16 @@ export async function resolveEvent(question: string): Promise<EventOutcomeResult
   // of the FIFA World Cup win the 2022 FIFA World Cup?" and reported Yes.
   const pool = [...(pm ?? []), ...(mf ?? [])].filter((c) => !who || namedWinner(c) !== null);
   const best = bestMatch(q, pool);
+  // A finished event with no settled market still has a recorded result.
+  if (who && (!best || !best.c.settled)) {
+    const record = await findEventWinner(q).catch(() => null);
+    if (record) {
+      return { verdict: "resolved", confidence: 0.85, outcome: andList(record.winners), winner: andList(record.winners),
+        market: null, event: record.event, venue: "Wikidata", play_money: false, source: record.source_url,
+        reason: `${andList(record.winners)} won ${/^\d/.test(record.event) ? "the " : ""}${record.event}${record.ended ? `, which ended ${record.ended.length === 4 ? `in ${record.ended}` : record.ended}` : ""}, as recorded on the event's Wikidata item (${record.event_id}, ${record.source_url}).` +
+          `${best ? "" : pm ? " No prediction market on it was found on Polymarket." : " Polymarket did not respond, so no market was compared."}` };
+    }
+  }
   if (!best) {
     if (!pm && (!mf || !MANIFOLD_OK)) {
       return { verdict: "unknown", confidence: 0, error: "upstream_unavailable",
@@ -341,7 +352,8 @@ export async function resolveEvent(question: string): Promise<EventOutcomeResult
     return { verdict: "resolved", confidence: c.venue === "Polymarket" ? 0.9 : 0.7,
       outcome: c.outcome, winner, market: c.question, event: c.context ?? null,
       venue: c.venue, play_money: c.venue === "Manifold", source: c.venue,
-      reason: `${winner ? `${winner} won. ` : ""}Resolved ${c.outcome}: the ${c.venue} market${play} "${c.question}" has settled on ${c.outcome}.` +
+      // The winner's sentence names its source, because it is the answer field: "Spain won." alone could not be checked.
+      reason: `${winner ? `${winner} won, according to the settled ${c.venue} market "${c.question}". ` : ""}Resolved ${c.outcome}: the ${c.venue} market${play} "${c.question}" has settled on ${c.outcome}.` +
         `${c.context && c.context !== c.question ? ` It belongs to the event "${c.context}".` : ""} This is the market's settlement, which follows its own stated resolution source.` };
   }
   return { verdict: "unresolved", confidence: 0.8,

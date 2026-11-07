@@ -60,7 +60,7 @@ test("assessFraud answers scenarios without a network call, and still checks add
     assert.equal(r.verdict, "high_risk");
     assert.equal(r.subject, "business email compromise (CEO fraud)");
     const m = await assessFraud("Does this email asking me to wire money to a new account urgently look like a scam?");
-    assert.match(m.reason, /^This shows elevated risk indicators\./);
+    assert.match(m.reason, /^This shows elevated risk indicators: the message /);
   } finally {
     globalThis.fetch = real;
   }

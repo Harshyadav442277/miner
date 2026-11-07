@@ -97,7 +97,12 @@ const UNITS =
   "cups?|teaspoons?|tablespoons?|tsp|tbsp|grams?|kilograms?|kg|g|mg|ounces?|oz|pounds?|lbs?|" +
   "litres?|liters?|millilitres?|milliliters?|ml|l|metres?|meters?|m|cm|mm|kilometres?|kilometers?|km/h|km|" +
   "miles?|feet|foot|inches|inch|hours?|minutes?|seconds?|days?|weeks?|months?|years?|degrees?|" +
-  "gb|mb|tb|mph|kph";
+  "gb|mb|tb|mph|kph|" +
+  // Counted goods and mass in trade: "1,200 units", "35 pallets", "4.5 tonnes" were
+  // reported as "No quantities" (GAPS G252, audit replay 2026-11-04 row 30).
+  "tonnes?|tons?|metric tons?|barrels?|bbl|units?|pieces?|pcs|items?|boxes|box|cartons?|pallets?|containers?|" +
+  "crates?|bags?|bottles?|cans|packs?|packages?|parcels?|shipments?|shares?|copies|doses?|tablets?|vehicles?|" +
+  "devices?|employees?|workers?|staff|users?|customers?|orders?|seats?|rooms?|beds?";
 
 function quantities(s: string): string[] {
   const out: string[] = [];

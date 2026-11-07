@@ -8,14 +8,14 @@
  */
 import { lookupDns } from "./dns";
 import { monitorFilings } from "./filings";
-import { extractKeywords } from "./keywords";
+import { registryIntentFields, sanctionsIntentFields } from "./intent-fields";
+import { verifyOnchainMetric } from "./onchain-metric";
 import { answerQuestion } from "./qa";
 import { macroIndicators } from "./macro";
 import { lookupRegistry } from "./registry";
 import { screenSanctions } from "./sanctions";
 import { verifyTokenSupply } from "./token-supply";
 import { urlReputation } from "./urlsafe";
-import { triageVulnerabilities } from "./vulntriage";
 
 export interface MissionAnswer { verdict: string; confidence: number; reason: string; error?: string }
 
@@ -32,17 +32,18 @@ export const MISSION_ROUTES: Record<string, MissionRoute> = {
   "/sanctions-screen": {
     what: "A sanctions screening",
     params: ["name", "wallet"],
-    run: (q, p) => screenSanctions(q, p("name", "wallet")),
+    run: (q, p) => screenSanctions(q, p("name", "wallet")).then(sanctionsIntentFields),
   },
   "/company-registry": {
     what: "A company register lookup",
     params: ["company", "company_number", "lei"],
-    run: (q, p) => lookupRegistry(q, p("company", "lei"), p("company_number")),
+    run: (q, p) => lookupRegistry(q, p("company", "lei"), p("company_number")).then(registryIntentFields),
   },
   "/sec-filings": {
     what: "An SEC filing check",
-    params: ["company", "form"],
-    run: (q, p) => monitorFilings(q, p("company"), p("form")),
+    // `entity` and `period` are REGULATORY_FILING_MONITOR's own request names (GET /engine/v1/intents/<id>).
+    params: ["company", "entity", "form", "period"],
+    run: (q, p) => monitorFilings(q, p("company", "entity"), p("form"), new Date(), p("period")),
   },
   "/macro": {
     what: "A macroeconomic statistic lookup",
@@ -69,14 +70,9 @@ export const MISSION_ROUTES: Record<string, MissionRoute> = {
     params: ["token", "contract", "address", "chain"],
     run: (q, p) => verifyTokenSupply(q, p("token", "contract", "address"), p("chain")),
   },
-  "/keywords": {
-    what: "A keyword extraction",
-    params: ["text", "content", "top", "limit"],
-    run: async (q, p) => extractKeywords(q, p("text", "content"), p("top", "limit")),
-  },
-  "/vuln-triage": {
-    what: "A vulnerability triage",
-    params: ["cves", "cve_ids", "asset_criticality", "asset"],
-    run: (q, p) => triageVulnerabilities(q, p("cves", "cve_ids"), p("asset_criticality", "asset")),
+  "/onchain-metric": {
+    what: "An on-chain metric read",
+    params: ["chain", "block", "block_number", "address", "contract", "tx_hash"],
+    run: (q, p) => verifyOnchainMetric(q, p("chain"), p("block", "block_number"), p("tx_hash", "contract", "address")),
   },
 };

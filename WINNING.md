@@ -4,6 +4,11 @@ Written 2026-10-22 ~17:10 UTC (22:40 IST); dates, prizes and protocol facts re-c
 goal file. Every plan, task and review in this repo answers to it. Rules: [RULES_SEASON2.md](RULES_SEASON2.md).
 Evaluator weights reconciled 2026-11-04 UTC with the live Rules page as read 2026-11-01:
 validity 40 (minimum 28), integrity 15, reproducibility 10, coverage 10, docs 5, growth 20.
+**Miner weights changed; re-read live 2026-11-05 ~09:40 UTC:** quality 35 (minimum 24), reliability 15,
+coverage 10, consumption 10, cost and latency 5, docs 5, **growth 20**. Older "(20)", "(15)" and "(10)" tags
+below for reliability, coverage, cost and docs date from the 2026-10-29 rubric; this line wins.
+Organiser answers of 2026-11-05 (Ahmed): no grace period on `updateMiner`, which closes G206;
+"submit the capabilities you can reliably demonstrate rather than claiming everything".
 Season I post-mortem: [track1-miner/docs/S1_LESSONS.md](track1-miner/docs/S1_LESSONS.md).
 
 **Track names.** This repo calls the miner **Track 1** (`track1-miner/`, LiveCert, registration 4829) and
@@ -191,6 +196,10 @@ Each experiment has a cost, a measurement and a kill rule. Results go in GAPS.md
 
 ## 6. What to remove
 
+**2026-11-06:** STOCK_PRICE, NEWS_HEADLINES, NEWS_SEARCH and IP_GEOLOCATION are cut from the pending `miner.yaml`
+(`track1-miner/docs/evidence/n1-cut-2026-11-06/`), waiting for the owner's `updateMiner` signature. Ahmed (DM,
+2026-11-06): "one properly functioning Miner is worth far more than ten that don't work."
+
 The rule behind every cut: each claimed intent is reviewed on its own, and registrations earn nothing.
 Remove an intent when it fails on quality or licence and no mission needs it. Our 36 intents: 20 are bought
 by at least one mission, 16 by none.
@@ -239,12 +248,13 @@ every export is used (checked 2026-10-22). Code leaves only with the intents abo
 
 | Criterion | Evidence we must hold by the deadline | Today |
 |---|---|---|
-| Miner quality (35, ≥ 24) | Audit pass rate on production, every claimed intent, against primary sources, dated | 110/154 on production (Oct 21); 22 fixes deployed Oct 23; audit not yet re-run |
-| Reliability (20) | Availability log from Nov 1; a capacity result | none (monitor off) |
-| Coverage (15) | Mission × intent matrix with a fixture per mission | counts only, no matrix |
-| Consumption (10) | Receipts from H2 app requests: routed, repeated, accounted | none |
-| Cost and latency (10) | Per-request upstream cost (mostly 0) and p50/p90 latency | latency is in the feed, not written up |
-| Integration and docs (10) | Recipes, tutorial, video | recipes exist; no tutorial or video |
+| Miner quality (35, ≥ 24) | Audit pass rate on production, every claimed intent, against primary sources, dated | audit replayed 2026-11-04 (12 pass, 23 partial, 3 fail of 61 re-checked); real callers found fact-check and sanctions misses 2026-11-05 (G262, G258) |
+| Reliability (15) | Availability log from Nov 1; a capacity result | sweep every 30 min since 2026-11-04; 58 req/s at c20, one route |
+| Coverage (10) | Mission × intent matrix with a fixture per mission | counts only, no matrix |
+| Consumption (10) | Receipts from H2 app requests: routed, repeated, accounted | 385 paid requests from 16 wallets since Nov 1, 13 ranked-routed; none yet tied to a registered H2 app (`consumption-2026-11-05/`) |
+| Cost and latency (5) | Per-request upstream cost (mostly 0) and p50/p90 latency | report tool built; table due once a week of sweeps exists |
+| Integration and docs (5) | Recipes, tutorial, video | recipes exist; no tutorial or video |
+| Miner growth (20) | The same growth table as the Evaluators | drafts in docs/OUTREACH.md; nothing posted |
 | Evaluator validity (40, ≥ 28) | Node-runtime proof per module | 31 comparators proved; adapter retraining |
 | Evaluator integrity (15) | Adversarial pair results; no pool material in training; no miner fingerprints | pairs generated, results unpublished |
 | Evaluator reproducibility (10) | Frozen data, hashes, commands and per-pair scores in the node runtime | comparator hashes match; adapter not yet reproduced on V2 |
@@ -278,8 +288,10 @@ Option B: 4829 stays frozen for the season, fixes ship as code deploys, and unli
 - [ ] **Owner: yes to push `codex/rank1-14-intents`.** Reviewers reproduce from the public repo.
 - [ ] **Owner yes, then Claude: an availability record from Nov 1 (G205)**, plus one capacity test at a
       stated concurrency.
-- [ ] **No `updateMiner` during Nov 1 – Dec 1** unless the organisers confirm the grace period does not
-      restart (G206). Devnode shows 4829 `registered_at` 2026-10-25 00:48 UTC, the V2 import (G220).
+- [x] ~~**No `updateMiner` during Nov 1 – Dec 1** unless the organisers confirm the grace period does not
+      restart (G206).~~ **Answered 2026-11-05 (Ahmed): there is no grace period for a new or updated miner;
+      the new registration follows the normal evaluation and ranking.** One `updateMiner` is now the plan:
+      cut what refuses or fails, fix the descriptions (G250), add only audited intents (TASKS N1).
 
 ### Nov 1 – 13 (pick intents, build)
 

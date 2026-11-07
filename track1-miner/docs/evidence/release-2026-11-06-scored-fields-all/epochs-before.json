@@ -1,0 +1,1276 @@
+{
+ "fetched_at_utc": "2026-11-06T16:18:35.355Z",
+ "source": "https://devnode.telegraphprotocol.com/scores?intent=<id>&limit=100&offset=<n>",
+ "slug": "livecert",
+ "intents": {
+  "REGULATORY_FILING_MONITOR_GENERAL": {
+   "rows_read": 166,
+   "total": 166,
+   "epochs": [
+    {
+     "epoch": 1996,
+     "field": 16,
+     "third": 0.9963,
+     "ours": {
+      "rank": 8,
+      "score": 0.9801,
+      "scored_at": "2026-11-02T15:33:35.321692Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 1997,
+     "field": 16,
+     "third": 0.9983,
+     "ours": {
+      "rank": 9,
+      "score": 0.9783,
+      "scored_at": "2026-11-02T17:27:33.522137Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2013,
+     "field": 16,
+     "third": 0.998,
+     "ours": {
+      "rank": 8,
+      "score": 0.9781,
+      "scored_at": "2026-11-04T19:24:10.685101Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2015,
+     "field": 16,
+     "third": 0.995,
+     "ours": {
+      "rank": 10,
+      "score": 0.9757,
+      "scored_at": "2026-11-05T02:06:20.995025Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2017,
+     "field": 16,
+     "third": 0.9949,
+     "ours": {
+      "rank": 9,
+      "score": 0.9767,
+      "scored_at": "2026-11-05T08:44:31.876661Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2019,
+     "field": 17,
+     "third": 0.9933,
+     "ours": {
+      "rank": 11,
+      "score": 0.8145,
+      "scored_at": "2026-11-05T14:07:28.089033Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2021,
+     "field": 17,
+     "third": 0.9975,
+     "ours": {
+      "rank": 10,
+      "score": 0.8749,
+      "scored_at": "2026-11-05T19:50:52.288347Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2022,
+     "field": 17,
+     "third": 0.9935,
+     "ours": {
+      "rank": 12,
+      "score": 0.8154,
+      "scored_at": "2026-11-05T22:59:15.696982Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2024,
+     "field": 17,
+     "third": 0.9981,
+     "ours": {
+      "rank": 10,
+      "score": 0.9063,
+      "scored_at": "2026-11-06T07:19:48.398276Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2026,
+     "field": 18,
+     "third": 0.9935,
+     "ours": {
+      "rank": 13,
+      "score": 0.8701,
+      "scored_at": "2026-11-06T12:14:35.269581Z",
+      "failure_reason": null
+     }
+    }
+   ]
+  },
+  "WEATHER_CHECK_TEMPERATURE": {
+   "rows_read": 285,
+   "total": 285,
+   "epochs": [
+    {
+     "epoch": 1996,
+     "field": 9,
+     "third": 0.55,
+     "ours": {
+      "rank": 5,
+      "score": 0.52500004,
+      "scored_at": "2026-11-02T15:17:36.328362Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 1997,
+     "field": 9,
+     "third": 0.9083333,
+     "ours": {
+      "rank": 1,
+      "score": 0.95,
+      "scored_at": "2026-11-02T17:17:36.59851Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 1998,
+     "field": 9,
+     "third": 0.6,
+     "ours": {
+      "rank": 8,
+      "score": 0.575,
+      "scored_at": "2026-11-02T18:35:12.270348Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 1999,
+     "field": 7,
+     "third": 1,
+     "ours": {
+      "rank": 5,
+      "score": 0.95,
+      "scored_at": "2026-11-02T21:35:36.956675Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2000,
+     "field": 9,
+     "third": 0.73333335,
+     "ours": {
+      "rank": 4,
+      "score": 0.65000004,
+      "scored_at": "2026-11-03T00:36:00.211183Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2001,
+     "field": 9,
+     "third": 0.9583333,
+     "ours": {
+      "rank": 6,
+      "score": 0.7166667,
+      "scored_at": "2026-11-03T03:36:21.202714Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2002,
+     "field": 11,
+     "third": 0.95,
+     "ours": {
+      "rank": 6,
+      "score": 0.85,
+      "scored_at": "2026-11-03T06:35:41.781482Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2003,
+     "field": 11,
+     "third": 0.8833334,
+     "ours": {
+      "rank": 6,
+      "score": 0.76666665,
+      "scored_at": "2026-11-03T09:36:17.625118Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2004,
+     "field": 10,
+     "third": 0.46666667,
+     "ours": {
+      "rank": 6,
+      "score": 0.35833335,
+      "scored_at": "2026-11-03T12:35:52.893605Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2005,
+     "field": 11,
+     "third": 0.575,
+     "ours": {
+      "rank": 6,
+      "score": 0.5,
+      "scored_at": "2026-11-03T17:27:31.977965Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2006,
+     "field": 12,
+     "third": 0.7,
+     "ours": {
+      "rank": 8,
+      "score": 0.5833333,
+      "scored_at": "2026-11-03T20:27:50.15395Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2007,
+     "field": 11,
+     "third": 0.9916666,
+     "ours": {
+      "rank": 6,
+      "score": 0.93333334,
+      "scored_at": "2026-11-03T23:27:44.668881Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2008,
+     "field": 11,
+     "third": 0.9916666,
+     "ours": {
+      "rank": 7,
+      "score": 0.825,
+      "scored_at": "2026-11-04T02:27:26.155884Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2009,
+     "field": 12,
+     "third": 0.4416667,
+     "ours": {
+      "rank": 6,
+      "score": 0.4416667,
+      "scored_at": "2026-11-04T05:28:13.377098Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2010,
+     "field": 12,
+     "third": 0.6666667,
+     "ours": {
+      "rank": 9,
+      "score": 0.55833334,
+      "scored_at": "2026-11-04T08:27:28.279941Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2011,
+     "field": 11,
+     "third": 0.5,
+     "ours": {
+      "rank": 10,
+      "score": 0.45,
+      "scored_at": "2026-11-04T11:28:32.631828Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2012,
+     "field": 13,
+     "third": 0.8666666,
+     "ours": {
+      "rank": 8,
+      "score": 0.7583334,
+      "scored_at": "2026-11-04T14:27:50.212683Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2013,
+     "field": 12,
+     "third": 0.8416667,
+     "ours": {
+      "rank": 6,
+      "score": 0.80833334,
+      "scored_at": "2026-11-04T17:42:22.832743Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2015,
+     "field": 13,
+     "third": 0.6166667,
+     "ours": {
+      "rank": 2,
+      "score": 0.82500005,
+      "scored_at": "2026-11-04T23:50:24.440346Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2017,
+     "field": 14,
+     "third": 0.8416667,
+     "ours": {
+      "rank": 9,
+      "score": 0.68333334,
+      "scored_at": "2026-11-05T05:50:11.785267Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2019,
+     "field": 14,
+     "third": 0.625,
+     "ours": {
+      "rank": 3,
+      "score": 0.625,
+      "scored_at": "2026-11-05T11:50:50.954398Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2021,
+     "field": 14,
+     "third": 0.73333335,
+     "ours": {
+      "rank": 10,
+      "score": 0.60833335,
+      "scored_at": "2026-11-05T17:50:03.338311Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2022,
+     "field": 14,
+     "third": 0.90000004,
+     "ours": {
+      "rank": 8,
+      "score": 0.675,
+      "scored_at": "2026-11-05T22:55:09.405745Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2024,
+     "field": 14,
+     "third": 0.5416667,
+     "ours": {
+      "rank": 2,
+      "score": 0.5625,
+      "scored_at": "2026-11-06T04:54:55.610333Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2026,
+     "field": 13,
+     "third": 0.69166666,
+     "ours": {
+      "rank": 9,
+      "score": 0.6,
+      "scored_at": "2026-11-06T10:55:01.24078Z",
+      "failure_reason": null
+     }
+    }
+   ]
+  },
+  "ONCHAIN_TX_LOOKUP_GENERAL": {
+   "rows_read": 184,
+   "total": 184,
+   "epochs": [
+    {
+     "epoch": 2013,
+     "field": 22,
+     "third": 0.9638,
+     "ours": {
+      "rank": 3,
+      "score": 0.9638,
+      "scored_at": "2026-11-04T19:37:54.13168Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2015,
+     "field": 22,
+     "third": 0.9648,
+     "ours": {
+      "rank": 4,
+      "score": 0.9483,
+      "scored_at": "2026-11-05T02:13:01.947625Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2017,
+     "field": 23,
+     "third": 0.9513,
+     "ours": {
+      "rank": 4,
+      "score": 0.9378,
+      "scored_at": "2026-11-05T07:39:46.747325Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2019,
+     "field": 23,
+     "third": 0.9482,
+     "ours": {
+      "rank": 3,
+      "score": 0.9482,
+      "scored_at": "2026-11-05T13:17:28.114611Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2021,
+     "field": 23,
+     "third": 0.3277,
+     "ours": {
+      "rank": 2,
+      "score": 0.5697,
+      "scored_at": "2026-11-05T19:51:36.26538Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2022,
+     "field": 23,
+     "third": 0.5209,
+     "ours": {
+      "rank": 2,
+      "score": 0.6674,
+      "scored_at": "2026-11-06T01:08:18.650852Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2024,
+     "field": 24,
+     "third": 0.5594,
+     "ours": {
+      "rank": 3,
+      "score": 0.5594,
+      "scored_at": "2026-11-06T07:28:53.079271Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2026,
+     "field": 24,
+     "third": 0.8332,
+     "ours": {
+      "rank": 1,
+      "score": 0.8624,
+      "scored_at": "2026-11-06T12:36:18.895247Z",
+      "failure_reason": null
+     }
+    }
+   ]
+  },
+  "SSL_VERIFICATION_CERT": {
+   "rows_read": 147,
+   "total": 147,
+   "epochs": [
+    {
+     "epoch": 2013,
+     "field": 21,
+     "third": 0.9872,
+     "ours": {
+      "rank": 3,
+      "score": 0.9872,
+      "scored_at": "2026-11-04T18:19:45.603255Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2015,
+     "field": 21,
+     "third": 0.9904,
+     "ours": {
+      "rank": 4,
+      "score": 0.9858,
+      "scored_at": "2026-11-05T00:42:07.159364Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2017,
+     "field": 21,
+     "third": 0.9907,
+     "ours": {
+      "rank": 4,
+      "score": 0.984,
+      "scored_at": "2026-11-05T06:58:25.035465Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2019,
+     "field": 21,
+     "third": 0.9928,
+     "ours": {
+      "rank": 3,
+      "score": 0.9928,
+      "scored_at": "2026-11-05T14:47:16.876443Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2022,
+     "field": 21,
+     "third": 0.9807,
+     "ours": {
+      "rank": 3,
+      "score": 0.9807,
+      "scored_at": "2026-11-05T23:40:48.204207Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2024,
+     "field": 21,
+     "third": 0.9898,
+     "ours": {
+      "rank": 3,
+      "score": 0.9898,
+      "scored_at": "2026-11-06T06:51:56.001382Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2026,
+     "field": 21,
+     "third": 0.996,
+     "ours": {
+      "rank": 3,
+      "score": 0.996,
+      "scored_at": "2026-11-06T12:31:30.89184Z",
+      "failure_reason": null
+     }
+    }
+   ]
+  },
+  "CRYPTO_PRICE_USD": {
+   "rows_read": 2518,
+   "total": 2518,
+   "epochs": [
+    {
+     "epoch": 1951,
+     "field": 25,
+     "third": 0.99,
+     "ours": {
+      "rank": 7,
+      "score": 0.985,
+      "scored_at": "2026-11-01T00:10:49.238827Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 1952,
+     "field": 27,
+     "third": 0.985,
+     "ours": {
+      "rank": 7,
+      "score": 0.979,
+      "scored_at": "2026-11-01T01:09:39.776794Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 1953,
+     "field": 25,
+     "third": 0.9875,
+     "ours": {
+      "rank": 4,
+      "score": 0.978,
+      "scored_at": "2026-11-01T02:11:35.172071Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 1954,
+     "field": 27,
+     "third": 0.9940001,
+     "ours": {
+      "rank": 3,
+      "score": 0.9940001,
+      "scored_at": "2026-11-01T03:09:58.458014Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 1955,
+     "field": 26,
+     "third": 0.985,
+     "ours": {
+      "rank": 4,
+      "score": 0.984,
+      "scored_at": "2026-11-01T04:11:15.630975Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 1956,
+     "field": 27,
+     "third": 0.992,
+     "ours": {
+      "rank": 3,
+      "score": 0.992,
+      "scored_at": "2026-11-01T05:09:58.355381Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 1957,
+     "field": 26,
+     "third": 0.995,
+     "ours": {
+      "rank": 11,
+      "score": 0.978,
+      "scored_at": "2026-11-01T06:10:39.104831Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 1958,
+     "field": 26,
+     "third": 0.985,
+     "ours": {
+      "rank": 6,
+      "score": 0.983,
+      "scored_at": "2026-11-01T07:08:49.486001Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 1959,
+     "field": 27,
+     "third": 0.985,
+     "ours": {
+      "rank": 16,
+      "score": 0.956,
+      "scored_at": "2026-11-01T08:10:21.239466Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 1960,
+     "field": 26,
+     "third": 0.98599994,
+     "ours": {
+      "rank": 8,
+      "score": 0.972,
+      "scored_at": "2026-11-01T09:10:11.206656Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 1961,
+     "field": 26,
+     "third": 0.99,
+     "ours": {
+      "rank": 8,
+      "score": 0.974,
+      "scored_at": "2026-11-01T10:09:31.57447Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 1962,
+     "field": 26,
+     "third": 0.98625004,
+     "ours": {
+      "rank": 5,
+      "score": 0.98,
+      "scored_at": "2026-11-01T11:09:44.24024Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 1963,
+     "field": 35,
+     "third": 0.995,
+     "ours": {
+      "rank": 14,
+      "score": 0.97800004,
+      "scored_at": "2026-11-01T12:09:49.740149Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 1964,
+     "field": 34,
+     "third": 0.99799997,
+     "ours": {
+      "rank": 7,
+      "score": 0.99300003,
+      "scored_at": "2026-11-01T13:10:19.819929Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 1965,
+     "field": 35,
+     "third": 0.995,
+     "ours": {
+      "rank": 15,
+      "score": 0.98,
+      "scored_at": "2026-11-01T14:11:01.067429Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 1966,
+     "field": 34,
+     "third": 0.995,
+     "ours": {
+      "rank": 6,
+      "score": 0.99300003,
+      "scored_at": "2026-11-01T15:09:58.708609Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 1967,
+     "field": 36,
+     "third": 0.992,
+     "ours": {
+      "rank": 12,
+      "score": 0.984,
+      "scored_at": "2026-11-01T16:10:27.109529Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 1968,
+     "field": 37,
+     "third": 0.99249995,
+     "ours": {
+      "rank": 9,
+      "score": 0.982,
+      "scored_at": "2026-11-01T17:10:44.070285Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 1969,
+     "field": 36,
+     "third": 0.99700004,
+     "ours": {
+      "rank": 4,
+      "score": 0.99700004,
+      "scored_at": "2026-11-01T18:10:29.934582Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 1970,
+     "field": 36,
+     "third": 0.995,
+     "ours": {
+      "rank": 8,
+      "score": 0.98599994,
+      "scored_at": "2026-11-01T19:10:17.627836Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 1971,
+     "field": 36,
+     "third": 0.99700004,
+     "ours": {
+      "rank": 10,
+      "score": 0.992,
+      "scored_at": "2026-11-01T20:10:24.509431Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 1972,
+     "field": 35,
+     "third": 0.99799997,
+     "ours": {
+      "rank": 13,
+      "score": 0.987,
+      "scored_at": "2026-11-01T21:09:03.888142Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 1973,
+     "field": 36,
+     "third": 0.987,
+     "ours": {
+      "rank": 12,
+      "score": 0.96400005,
+      "scored_at": "2026-11-01T22:10:11.826673Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 1974,
+     "field": 36,
+     "third": 0.987,
+     "ours": {
+      "rank": 6,
+      "score": 0.98600006,
+      "scored_at": "2026-11-01T23:10:19.632151Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 1975,
+     "field": 35,
+     "third": 0.992,
+     "ours": {
+      "rank": 7,
+      "score": 0.987,
+      "scored_at": "2026-11-02T00:10:04.678256Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 1976,
+     "field": 37,
+     "third": 0.996,
+     "ours": {
+      "rank": 13,
+      "score": 0.97199994,
+      "scored_at": "2026-11-02T01:09:27.605173Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 1977,
+     "field": 36,
+     "third": 1,
+     "ours": {
+      "rank": 10,
+      "score": 0.98999995,
+      "scored_at": "2026-11-02T02:10:22.630251Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 1978,
+     "field": 36,
+     "third": 0.9940001,
+     "ours": {
+      "rank": 15,
+      "score": 0.97699994,
+      "scored_at": "2026-11-02T03:10:28.789223Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 1979,
+     "field": 36,
+     "third": 0.99300003,
+     "ours": {
+      "rank": 4,
+      "score": 0.99300003,
+      "scored_at": "2026-11-02T04:10:12.401934Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 1980,
+     "field": 38,
+     "third": 0.99799997,
+     "ours": {
+      "rank": 7,
+      "score": 0.995,
+      "scored_at": "2026-11-02T05:10:36.321968Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 1981,
+     "field": 46,
+     "third": 0.99300003,
+     "ours": {
+      "rank": 7,
+      "score": 0.99000007,
+      "scored_at": "2026-11-02T06:09:33.473512Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 1982,
+     "field": 47,
+     "third": 0.99,
+     "ours": {
+      "rank": 7,
+      "score": 0.98899996,
+      "scored_at": "2026-11-02T07:11:28.962237Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 1983,
+     "field": 45,
+     "third": 0.995,
+     "ours": {
+      "rank": 13,
+      "score": 0.982,
+      "scored_at": "2026-11-02T08:10:49.90423Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 1984,
+     "field": 45,
+     "third": 0.995,
+     "ours": {
+      "rank": 7,
+      "score": 0.99300003,
+      "scored_at": "2026-11-02T09:09:47.384112Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 1985,
+     "field": 46,
+     "third": 1,
+     "ours": {
+      "rank": 11,
+      "score": 0.985,
+      "scored_at": "2026-11-02T09:49:15.171414Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 1990,
+     "field": 44,
+     "third": 0.9975,
+     "ours": {
+      "rank": 9,
+      "score": 0.99399996,
+      "scored_at": "2026-11-02T11:28:47.915762Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 1993,
+     "field": 45,
+     "third": 0.99799997,
+     "ours": {
+      "rank": 7,
+      "score": 0.996,
+      "scored_at": "2026-11-02T12:28:07.176272Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 1994,
+     "field": 46,
+     "third": 0.995,
+     "ours": {
+      "rank": 12,
+      "score": 0.989,
+      "scored_at": "2026-11-02T13:31:54.366736Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 1995,
+     "field": 45,
+     "third": 0.995,
+     "ours": {
+      "rank": 7,
+      "score": 0.989,
+      "scored_at": "2026-11-02T14:32:56.048611Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 1996,
+     "field": 45,
+     "third": 0.99,
+     "ours": {
+      "rank": 9,
+      "score": 0.982,
+      "scored_at": "2026-11-02T15:21:19.547028Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 1997,
+     "field": 45,
+     "third": 0.995,
+     "ours": {
+      "rank": 7,
+      "score": 0.982,
+      "scored_at": "2026-11-02T17:21:16.729387Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 1998,
+     "field": 45,
+     "third": 0.99,
+     "ours": {
+      "rank": 7,
+      "score": 0.98800004,
+      "scored_at": "2026-11-02T18:37:48.876835Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 1999,
+     "field": 45,
+     "third": 0.995,
+     "ours": {
+      "rank": 10,
+      "score": 0.976,
+      "scored_at": "2026-11-02T21:40:56.938493Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2000,
+     "field": 45,
+     "third": 0.9975,
+     "ours": {
+      "rank": 14,
+      "score": 0.9940001,
+      "scored_at": "2026-11-03T00:39:00.364981Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2001,
+     "field": 45,
+     "third": 0.99300003,
+     "ours": {
+      "rank": 12,
+      "score": 0.98,
+      "scored_at": "2026-11-03T03:39:16.122215Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2002,
+     "field": 46,
+     "third": 0.99799997,
+     "ours": {
+      "rank": 20,
+      "score": 0.96800005,
+      "scored_at": "2026-11-03T06:40:15.775774Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2003,
+     "field": 47,
+     "third": 0.99300003,
+     "ours": {
+      "rank": 10,
+      "score": 0.98599994,
+      "scored_at": "2026-11-03T09:39:12.389748Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2004,
+     "field": 48,
+     "third": 0.99700004,
+     "ours": {
+      "rank": 12,
+      "score": 0.982,
+      "scored_at": "2026-11-03T12:40:16.319248Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2005,
+     "field": 47,
+     "third": 0.995,
+     "ours": {
+      "rank": 15,
+      "score": 0.98599994,
+      "scored_at": "2026-11-03T17:31:27.877767Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2006,
+     "field": 47,
+     "third": 1,
+     "ours": {
+      "rank": 13,
+      "score": 0.99300003,
+      "scored_at": "2026-11-03T20:30:48.153659Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2007,
+     "field": 44,
+     "third": 1,
+     "ours": {
+      "rank": 6,
+      "score": 0.9940001,
+      "scored_at": "2026-11-03T23:31:58.881667Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2008,
+     "field": 48,
+     "third": 0.99,
+     "ours": {
+      "rank": 12,
+      "score": 0.97299993,
+      "scored_at": "2026-11-04T02:30:25.61361Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2009,
+     "field": 46,
+     "third": 0.995,
+     "ours": {
+      "rank": 8,
+      "score": 0.985,
+      "scored_at": "2026-11-04T05:31:51.959591Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2010,
+     "field": 45,
+     "third": 0.995,
+     "ours": {
+      "rank": 21,
+      "score": 0.76600003,
+      "scored_at": "2026-11-04T08:31:57.553969Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2011,
+     "field": 47,
+     "third": 0.99700004,
+     "ours": {
+      "rank": 20,
+      "score": 0.98,
+      "scored_at": "2026-11-04T11:31:31.203251Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2012,
+     "field": 45,
+     "third": 0.99399996,
+     "ours": {
+      "rank": 12,
+      "score": 0.98800004,
+      "scored_at": "2026-11-04T14:32:54.44585Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2013,
+     "field": 45,
+     "third": 0.995,
+     "ours": {
+      "rank": 18,
+      "score": 0.79300004,
+      "scored_at": "2026-11-04T17:46:54.017521Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2015,
+     "field": 47,
+     "third": 0.99,
+     "ours": {
+      "rank": 15,
+      "score": 0.79,
+      "scored_at": "2026-11-04T23:53:31.432128Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2017,
+     "field": 47,
+     "third": 0.9975,
+     "ours": {
+      "rank": 5,
+      "score": 0.9969999,
+      "scored_at": "2026-11-05T05:55:24.148157Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2019,
+     "field": 46,
+     "third": 0.99625003,
+     "ours": {
+      "rank": 15,
+      "score": 0.989,
+      "scored_at": "2026-11-05T11:54:39.941684Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2021,
+     "field": 46,
+     "third": 0.985,
+     "ours": {
+      "rank": 10,
+      "score": 0.97299993,
+      "scored_at": "2026-11-05T17:55:44.626634Z",
+      "failure_reason": null
+     }
+    },
+    {
+     "epoch": 2022,
+     "field": 46,
+     "third": 0.985,
+     "ours": null
+    },
+    {
+     "epoch": 2024,
+     "field": 46,
+     "third": 0.975,
+     "ours": null
+    },
+    {
+     "epoch": 2026,
+     "field": 48,
+     "third": 0.983,
+     "ours": null
+    }
+   ]
+  }
+ }
+}

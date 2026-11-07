@@ -1,5 +1,303 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-07 ~03:05 UTC (08:35 IST) uptime alarm — G280
+
+- **G280 — The 23:29 UTC uptime run failed (issue #19) on two routes this branch deleted. `OPEN` until PR #18
+  merges.** Its result: 37 of 39 routes up; `/keywords` and `/vuln-triage` returned 404. Both routes were removed
+  on purpose in `6aebe0f`, which went live inside `bee3f6a`, and neither is in registration 4829.
+  The workflow checks out `main` and sweeps `main`'s `miner.yaml`, which is 41 commits behind production. The
+  same sweep using this branch's YAML (`628ca5c`) found 34 of 34 up at 03:00 UTC. Every scheduled run will fail
+  until `main` carries the current YAML.
+  Also checked at 03:00 UTC:
+  - The SHA-256 of `miner.yaml` at `628ca5c`, read from raw.githubusercontent, is `0xdb6e08…649a`, the same
+    hash recorded for signing.
+  - All 35 ids are canonical in `/engine/v1/intents`.
+  - On-chain `isCanonicalIntent` is still unchecked.
+
+## 2026-11-07 ~02:50 UTC (08:20 IST) N1 YAML on V2 ids — G270 fixed; G279 recovered
+
+- **G270 — FIXED IN THE YAML (`5bef2be`), validation pending.** Every endpoint and `supported_intents` entry is
+  the node's one canonical child of its family (`/engine/v1/intents`, 136 ids, all 35 `canonical_on_chain`, read
+  2026-11-07 ~02:40 UTC): 28 `_GENERAL`, plus SSL_VERIFICATION_CERT, WEATHER_CHECK_TEMPERATURE, CVE_LOOKUP_CVSS,
+  CURRENCY_EXCHANGE_CONVERT, CRYPTO_PRICE_USD, URL_SCAN_VERDICT. `tools/manifest.mjs` folds ids to families for the
+  tools; `manifest-diff.mjs` compares by family and fails on a bare family. Checks: unit 914/914, manifest diff
+  PASS, intent answers 39/39 against production (02:45 UTC). Not checked: `isCanonicalIntent` on chain (no `cast`
+  here) and the Anjoman validator, which is the owner's session.
+- **G279 — recovered.** The fed-funds check passed in the 02:45 UTC run.
+
+## 2026-11-06 ~22:55 UTC (Nov 7 04:25 IST) quality release `bee3f6a` — G276, G277, G252, G251, G214 acted on; G278–G279 new
+
+Release record: `track1-miner/docs/evidence/release-2026-11-06-quality-fixes/`. Added-intents audit:
+`track1-miner/docs/evidence/n1-added-intents-audit-2026-11-06/results.md`.
+
+- **G276 — DEPLOYED.** A FINANCIAL_DATA figure it cannot give is named in the first sentence with the reason; a
+  product's sales question says filings cover the whole company before giving company revenue (G200, partly).
+- **G277 — CLOSED for DNS and token supply: 10/10 against sources** (Cloudflare DoH, `eth_call totalSupply`),
+  production 2026-11-06 ~22:57 UTC. Keyword extraction and vulnerability triage left the draft (`6aebe0f`).
+  ONCHAIN_METRIC_VERIFY has one sourced read (block 21000000 gas = Blockscout 13,952,884); audit it before signing.
+- **G252, G251 — DEPLOYED.** Counted goods and tonnes are quantities; outage messages no longer echo the question.
+- **G214 — fixed in code, then dropped with the route.** The verb filter was merged away when Codex deleted
+  `keywords.ts`; recoverable from `044d8fb` if the intent returns.
+- **G278 — EVENT_OUTCOME scores near zero because the scorer's questions are results, not markets. `OPEN, measuring`.**
+  Epochs 1959–2028: ours 0.001–0.05, third place 0.07–0.44; ranks 1–2 are F1 (Jolpica) and Bundesliga (OpenLigaDB)
+  results feeds. `bee3f6a` adds a Wikidata winner fallback for finished events. Read the score after three epochs.
+  Unknown: whether the scorer's questions are who-won questions at all. "Did X happen?" is still market-only.
+- **G279 — The New York Fed API failed with a redirect to `/errors/500` at 22:55 UTC. `OPEN, upstream`.** The
+  fed-funds answer reports the publisher unavailable (honest). If it persists, add a second source for the target
+  range (Federal Reserve Board H.15).
+- **Topic classification with no labels stays refused.** A default label set mislabelled "NASA confirms water ice on
+  the Moon" as environment on a preview, so it was withdrawn before production.
+
+## 2026-11-06 ~22:10 UTC (Nov 7 03:40 IST) N1 intent picks — G269–G274; `/onchain-metric` built (`6aebe0f`), not deployed
+
+Evidence: `track1-miner/docs/evidence/n1-new-intents-2026-11-07/`.
+
+- **G269 — ONCHAIN_METRIC_VERIFY's ranks 1–3 answer a block-gas question wrongly. `OPEN`.** Asked "How much gas did
+  block 21000000 on ethereum use?" (Blockscout: 13,952,884), the 0.997, 0.977 and 0.927 endpoints did not return
+  it; the one correct endpoint of 28 ranks 9th at 0.399 (epoch 2028). Same shape as G265. A correct answer may not
+  rank. One question only.
+- **G270 — The N1 YAML names families V1-style. `OPEN`, blocks validation.** `miner.yaml` lists
+  `ONCHAIN_METRIC_VERIFY`, `DNS_RECORD_LOOKUP`, …; V2 registers listed intents (`…_GENERAL`, `CVE_LOOKUP_CVSS`).
+  `tools/manifest.mjs`, `intent-answers.mjs` and the manifest tests key on the V1 names, so the rename touches them
+  too. Whether the validator still maps V1 names was not tested.
+- **G271 — Old on-chain state comes from one provider. `OPEN`, stated in every answer.** On 2026-11-07 at block
+  21000000: publicnode "Archive requests require a personal token", flashbots "state … is pruned", merkle rate
+  limited; only drpc answered. Receipts and blocks still read from two.
+- **G272 — WEATHER_FORECAST_VERIFY has no licence-clean global rain source found. `OPEN`.** NOAA NCEI global-hourly
+  returned no rows for Lisbon for 2026-11-04 to 06; METARs outside the US carry no rain amounts. Not built.
+- **G273 — FX_NOW asks for a live mid-market rate; we have ECB's daily one. `CLOSED, not added`.** The leader serves
+  the same ECB rate and the top six tie at 0.880 (EUR). Reopen only with a licensed live source.
+- **G274 — ACADEMIC_SEARCH fell from 0.8762 (epoch 2026) to 0.6358 (epoch 2028), rank 12 of 17. `OPEN`.** Cause
+  not investigated. `192aecc` changed only sanctions files; `7301474` and the eval questions are the suspects.
+
+## 2026-11-06 ~22:10 UTC (Nov 7 IST) N1 cut prepared — G275–G277; G250 fixed in the pending YAML
+
+Ahmed (DM, 2026-11-06): registering intents "without actually supporting their functionality won't help". Pending
+manifest and checks: `track1-miner/docs/evidence/n1-cut-2026-11-06/`. Not signed.
+
+- **G275 — Licences of what stays claimed. `OPEN, owner decision`.** CRYPTO_PRICE reads Bitstamp, whose commercial
+  redistribution needs a signed Data License Agreement we do not have (`sources.ts`: `conditional`, met `no`). That
+  is the same class of problem as the four intents cut. Sign the agreement, find a licensed price source, or cut
+  CRYPTO_PRICE in the same update.
+- **G276 — FINANCIAL_DATA answers SEC 10-K figures only, and drops what it cannot answer. `OPEN`.** "Apple's
+  revenue and P/E" returned revenue and said nothing about the P/E (production, 2026-11-06 ~22:05 UTC). An answer
+  should name each requested figure it could not give. The description now claims filings only.
+- **G277 — The four added intents have smoke probes, not a sourced audit. `OPEN, before signing`.** DNS matched
+  Cloudflare DoH; token supply, MX and the KEV dates were not checked against a source; keyword phrases cross
+  word boundaries (G214).
+- **G250 — FIXED IN THE PENDING YAML.** WEB_SEARCH now leads with a question it answers and no longer claims Google
+  News. It takes effect when the update is signed.
+- **EVENT_OUTCOME is not cut.** TASKS N1 proposed cutting it on its devnode score (0.0289, rank 12). The audit
+  replay has it 4 of 4 (1 re-checked pass, 3 carried), and G248 shows a devnode score does not measure correctness.
+  Find why it scores low (scored field?) before cutting.
+
+## 2026-11-06 ~16:50 UTC intent push by earnings — G265–G268; non-SDN list deployed (`192aecc`)
+
+Evidence: `track1-miner/docs/evidence/intent-ranks-2026-11-06/` (ranks at epoch 2026, 12:40 UTC, before the
+`7301474` release) and `track1-miner/docs/evidence/release-2026-11-06-ofac-nonsdn/`.
+
+- **G265 — The sanctions scorer ranks a constant non-answer above a real screen. `OPEN, owner reports`.**
+  Epoch 2026: `san-os-au` 0.9997 (rank 2) and `san-os-ofac` 0.9987 (rank 3) take no input
+  (`input_schema.properties {}`) and return OpenSanctions dataset metadata (4.3 KB, the same for every question).
+  LiveCert screens the named party and was rank 8 at 0.9827. No champion evaluator exists for the family, so the
+  scorer is presumably the generic foundation reward model (not confirmed from docs). Same direction as G248.
+  Unknown: what the node actually sends and receives; how many of the 387 ranking questions this covers.
+  Draft for Ahmed (owner sends, organiser only): "SANCTIONS_SCREENING_MATCH_GENERAL, epoch 2026: ranks 2 and 3
+  (san-os-au 0.9997, san-os-ofac 0.9987) have an empty input schema and call OpenSanctions'
+  `/datasets/latest/<dataset>/index.json`, which returns the same 4 KB of dataset metadata for every question.
+  No name is screened. LiveCert screens the named party against OFAC and UN and is rank 8 at 0.9827. The family
+  has no champion evaluator. Is this the generic scorer, and is a fix planned?"
+- **G266 — CORPORATE_REGISTRY: seven miners tie at 1.0000; we are listed 7th. `OPEN`.** What orders a tie
+  (registration time, latency, stake) is unknown; it is one of the questions sent to Ahmed 2026-11-04.
+- **G267 — WEB_SEARCH_GENERAL and NEWS_SEARCH_GENERAL have no scored miner at all (0 of 25, 0 of 18).
+  `OPEN`.** How Telegraph routes an unscored intent is unknown, so quality work there cannot be measured by rank.
+- **G268 — Production cleared parties on OFAC's non-SDN list. `DEPLOYED 2026-11-06 ~16:45 UTC as 192aecc`.**
+  "Mohammed Abu Tair" (ABU TEIR, NS-PLC, ref 9640) → `no_match` on production at ~16:15 UTC; `match` on the
+  `192aecc` production deployment at 16:49 UTC. EU and UK lists remain unscreened, as answers say (TASKS P1c).
+- Correction, same session: the advertised `/query` URLs of the `0xbd6f6960` miners 404, but the node calls each
+  YAML's `external_path`, and most of those pass the question to a real search API. Only the two `san-os-*`
+  entries are confirmed constant. `gas-publicnode-rpc` (GET `/`, no input) is unverified.
+
+## 2026-11-06 ~16:20 UTC scored-fields release — G263 acted on; G249 confirmed; G218 re-checked; G264 new
+
+Evidence: `track1-miner/docs/evidence/scored-fields-2026-11-05/` (the audit) and
+`track1-miner/docs/evidence/release-2026-11-06-scored-fields-all/` (the release, `7301474`, preflight 7/7).
+
+- **Eleven intents' answers lacked their scored field. `DEPLOYED 2026-11-06 ~16:09 UTC, measuring`.** The audit of
+  all 36 intents against `GET /engine/v1/intents/<id>` found the G254 gap again in SSL, gas, currency conversion,
+  token holders, crypto price, on-chain lookup, wallet balance, event outcome, URL scan, URL reputation and
+  current temperature. Each answer now carries the field under the intent's name, copied from the route's own
+  value. FRAUD_DETECTION `risk_score` and FINANCIAL_DATA `market_cap_usd` are left out on purpose. Read the
+  epochs after 16:09 UTC against the release's `epochs-before.json`.
+- **G263 — acted on: `filing_count` counts every form.** zk-filing's public endpoint and ours both give Apple 89
+  (2026-11-05) and 91 (2026-11-06) filings for the last 12 months. Filings stayed at 0.815–0.906 over four epochs
+  after the null-count release; the next epochs test the all-forms count. Still `OPEN, measuring`.
+- **WEATHER_CHECK_TEMPERATURE — plain temperature questions get the current reading.** "What is the temperature in
+  X?" used to get a 24-hour range. Scores were 0.56–0.68 over the last four epochs.
+- **G249 — CONFIRMED: the miner's Vercel team is on Hobby.** `vercel api /v2/teams/<id>` on 2026-11-06 ~16:20 UTC:
+  team `wukong4`, `billing.plan: "hobby"`, `status: "active"`. Vercel's fair-use page (read 2026-11-04) bars
+  commercial use on Hobby, and the miner sells answers through Telegraph. **DECIDED 2026-11-06, owner: stay on
+  Hobby** ("i dont have money to pay … miner is hackathon thing as of now. we can change paid when they shift
+  telegraph to mainnet"). Every payment so far is testnet USDC on Sepolia, so the miner earns no real money.
+  Revisit when Telegraph moves to mainnet. Moving host changes `base_url`, which needs `updateMiner`.
+- **G218 — re-checked 2026-11-06 ~16:25 UTC: still unpublished.** The rules page still says payout is "governed by
+  the official prize-payment terms" and links none; `anjoman.ai/terms` (updated 2026-11-02) has no prize terms.
+  Whether India is eligible is unknown. `OPEN, ask the organiser`.
+- **G264 — CRYPTO_PRICE_USD has not scored us since epoch 2021. `OPEN`.** We were 10th at 0.973 (2021,
+  2026-11-05 17:55 UTC); epochs 2022, 2024 and 2026 have no row for us while 46–48 miners are scored. Cause not
+  read. `price_usd` is now named in the answer (this release).
+
+## 2026-11-05 ~19:20 UTC filings release — G257 deployed; G263 measuring
+
+Evidence: `track1-miner/docs/evidence/release-2026-11-05-filings-issuer/`.
+
+- **G257 — DEPLOYED 2026-11-05 ~19:10 UTC (`9b82d08`, `miner-f28bzjwiw`), preflight 7/7.** Production now finds the
+  issuer in "How many filings did Apple make in the last 12 months?" (13) and reads `entity=Tesla&period=last 12
+  months` (15); before this release both answered "No issuer was named". `CLOSED` for the cases probed.
+- **G263 — the null counts are live. `OPEN, measuring`.** An issuer not in EDGAR and a question with no period now
+  send `filing_count: null`. No filings epoch was scored after 2019 by ~19:18 UTC; read the next ones against
+  0.8145 (2019) and 0.976–0.980 (before `filing_count` existed). The form and source questions stay open.
+  - **Epoch 2021, scored 19:50 UTC, after this release:** 10th, **0.8749**. The field recovered from 2019: third
+    place 0.9975 (zk-filing, which counts every SEC form), and miners that cannot count filings at all score
+    0.974–0.976 (reg-fedreg-agencies, reg-eurostat). Two epochs with our count (0.8145, 0.8749) against five
+    without it (0.976–0.980): our `filing_count` now most likely disagrees with the reference. Next: count every
+    form, as zk-filing does, or send no count; decide on one more epoch (`/api/miners`, read 21:05 UTC).
+
+## 2026-11-05 ~18:20 UTC first epoch after the scored-fields release — G254 read; G257 fixed in code; G263 new
+
+Evidence: `track1-miner/docs/evidence/release-2026-11-05-scored-fields/` (`epochs-after-2019.json`,
+`filings-field-2015-2019.json`) and `track1-miner/docs/evidence/filings-issuer-2026-11-05/local-probes.txt`.
+
+- **G254 — epoch 2019 (the only one scored after the deploy, by 18:13 UTC).** Sanctions 12th, 0.997 (inside
+  3rd–12th); registry **3rd, 0.9979**, tied with third place and its best score (before: 0.942–0.992); filings
+  **11th, 0.8145**, far below its 0.976–0.980 range. The whole filings field fell that epoch (txlens 0.9998 →
+  0.9953, zk-filing 0.9949 → 0.9839, chainsight-oracle 0.960 → 0.737, reg-sec-edgar 0.816 → 0.620), so the
+  scored sample changed. How much of our drop the deploy caused is not known from one epoch. Still `OPEN`.
+- **G257 — FIXED IN CODE, NOT DEPLOYED.** The issuer is found in "How many filings did Apple make in the last 12
+  months?", "Microsoft 8-K filings in the last 6 months", "filings were made by Nvidia over the past year" and
+  "Johnson & Johnson" (local server, live EDGAR). The route also reads the intent's own `entity` and `period`;
+  they are not declared in the frozen YAML, so only a caller using the intent's names sends them. Windows now
+  include quarters, years and "the past year".
+- **G263 — How the filings scorer treats a missing count. `OPEN, guess`.** Miners that by their catalogue
+  descriptions cannot count filings score about 0.98 at epoch 2019 (reg-fedreg-agencies 0.9787, "US Federal
+  Register agencies list"; reg-eurostat 0.9775, "Eurostat GDP dataset"), while reg-worldbank scores 0.2255 and
+  reg-imf 0.1447. Their answers were not read. If a missing count is scored leniently
+  and a wrong one is punished, our new explicit counts can lower the score where the reference counts something
+  else. Two such cases are changed in code (not deployed): an issuer not in EDGAR now has `filing_count: null`
+  (was 0), and a question with no period or fiscal year has `null` (was a count of the whole index, 26–171).
+  Two definitions are unconfirmed. **Which forms:** zk-filing, an EDGAR counter that scores above us, counts every
+  form by default; we count material forms only. **Which source:** rank 1 is a raw Federal Register search.
+
+## 2026-11-05 ~10:00 UTC (15:30 IST) organiser answers and real paid traffic — G258–G262; G206 closed
+
+Sources: Ahmed's reply (TELEGRAPH_FACTS items 12–17), the live Rules page re-read 2026-11-05, and the Daemon feed plus
+signal records for every paid request routed to `livecert` since Nov 1 (`track1-miner/docs/evidence/consumption-2026-11-05/`).
+
+- **G262 — FACT_CHECK gets common-knowledge claims wrong for real paying callers. `DEPLOYED 2026-11-05 ~21:09 UTC`
+  (`e501a57`, `miner-mzapr28vo`; preflight 7/7 first run; record
+  `track1-miner/docs/evidence/release-2026-11-05-factcheck/`; rollback `miner-f28bzjwiw`).** Record: `track1-miner/docs/evidence/factcheck-real-claims-2026-11-05/`. On the 37 real
+  claims: right 7 → 14, wrong 3 → 0. On 31 regression claims (audit, gate and built false claims): right 19 → 17,
+  wrong 2 → 0; the three lost were right before only on a sentence that does not address them. Causes:
+  two-thirds word overlap read as support; compound claims; a class read off any word near a copula; the lead's "It"
+  and "5,895" not read; lists and link sections read as statements; quoted titles taken as the whole claim. Still
+  open: 9 of 21 true real claims stay `unverified`; a different year or value is never read as a refutation; the
+  fallback `judge()` path is unchanged. The evaluator's labels are unknown; ours are general reference knowledge.
+  The original report follows. Of 37 distinct
+  claims from wallet `0x1046…508a` (2026-11-03): "Venus is the largest planet in the Solar System" → `supported` 0.7;
+  "The Eiffel Tower is located in Berlin and was completed in 1889" → `supported` 0.7; "Mount Kilimanjaro is the
+  tallest mountain in Africa at 5895 metres" (true) → `contradicted` 0.7. "Water boils at 90 degrees Celsius at sea
+  level" and "BERT was introduced by Meta in 2012" → `unverified`, and so are most true claims (Berlin Wall 1989,
+  Golden Gate 1937, Python 3.0 2008). Devnode ranks the intent 5th (0.9791, epoch 2017), so the rank hides this.
+  Four missions buy FACT_CHECK. Cause not yet read in the code.
+- **G258 — Sanctions screening misses listed entities written the way people write them. `DEPLOYED 2026-11-05
+  ~18:28 UTC` (`4fb477e`, `miner-mztwjxnqa`; record `track1-miner/docs/evidence/release-2026-11-05-sanctions-names/`;
+  rollback `miner-5arlzhkv6`).** Fix and replay: `track1-miner/docs/evidence/sanctions-real-inputs-2026-11-05/` (on
+  the 180 real inputs, unknown 7 → 0, match 85 → 107, three false positives gone; unit 885/885). Not yet known:
+  whether the sanctions rank moves (read three epochs after 18:28 UTC). Still open: a name mixing Arabic or Chinese script with Latin words is
+  screened on its Latin words only. From
+  wallet `0x66fB…4a83` (287 requests, 175 distinct names, 2026-11-01/02), and from others:
+  - Cyrillic names are not read as names: "Сбербанк", "Гарантекс", "Тинькофф Банк" → `unknown`, "No person,
+    company or wallet was named", so nothing was screened.
+  - Abbreviated or reworded forms miss: "AEZA Grp", "Lazarus Grp.", "Hydra Mkt", "PAO Sberbank Rossii",
+    "Suex dot io", "suex.io", "Blender dot io", "Cryptex Platform", "Grinex Exchange" → `no_match`. "Gr1nex",
+    "L4zarus Group" and "garanteks" do reach `possible_match`.
+  - One false positive: "Atlassian" → `possible_match` with ATLAS.
+  - Correct: listed entities written as listed, the clean companies, and Tornado Cash (`no_match`; OFAC delisted it
+    in March 2025, not re-checked today).
+  Five missions buy this intent. Each "should match" above was confirmed against the live SDN list on 2026-11-05
+  (the closest listed name is the party named); these are still someone else's benchmark, not reference labels.
+- **G259 — Paid traffic exists, but none of it is yet tied to a registered H2 mission app. `OPEN, owner + Ahmed`.**
+  385 `source: user` requests reached `livecert` from Nov 1 to Nov 4, from 16 wallets; 13 of them were ranked-routed,
+  from 5 wallets. None of the wallets appears in this repo or on `codex/sanctions-benchmark-v7`. That does not prove
+  independence: the owner's Anjoman smart wallet, the owner's second entry or a Codex run would also be unknown
+  here. Consumption points need "a qualifying H2 mission app", so each wallet must be tied to a registered H2 App
+  before it is claimed. Until then, report the requests only as network-recorded paid use, of unknown origin.
+- **G260 — SENTIMENT_ANALYSIS_GENERAL is unscored for us while 14 other miners are scored. `OPEN`.** So it is not
+  missing evaluation coverage (Ahmed's point 2) but something about our answers or our sampling. Not investigated.
+- **G261 — The registration guide still describes a 7-day grace period. `OPEN, docs vs organiser`.** "Step 7: The
+  grace period" (updated 2026-11-01) against Ahmed's "There is no seven-day grace period for a new or updated
+  Miner" (2026-11-05). We plan on the organiser's statement. If routed share after an update looks throttled, this
+  is the first suspect.
+- **G206 closed 2026-11-05** by the organiser: no grace period on update (TELEGRAPH_FACTS item 12).
+- **Renumbered on merge:** these entries were first written as G254–G258, numbers the parallel 2026-11-04 block
+  below had already used; they are G258–G262 everywhere; the fact-check entry became G262
+  when the scored-fields release (below) took G257.
+
+## 2026-11-05 ~10:00 UTC scored-fields release — G254 deployed; G257 new
+
+Evidence: `track1-miner/docs/evidence/release-2026-11-05-scored-fields/`.
+
+- **G254 — DEPLOYED 2026-11-05 ~09:39 UTC (`3c5e8ff`, `miner-5arlzhkv6`), `OPEN, measuring`.** Production
+  answers carry `matched`, `active` and `filing_count` (probes 09:52 UTC). The baseline is every epoch scored
+  before the deploy (`epochs-before.json`): sanctions 3rd–12th over 21 epochs, so one epoch says nothing;
+  registry 4, 3, 4; filings 8th–10th with a steady ~0.02 gap to third place. Read again once three epochs scored
+  after 09:40 UTC exist, with `tools/epoch-history.mjs`. A move inside those ranges is not an effect.
+- **G257 — The filings route finds no issuer in a question alone. `FIXED IN CODE 2026-11-05, see above`.** "How many filings did Apple make in
+  the last 12 months?" and "Microsoft 8-K filings in the last 6 months" without `company` answer "No issuer was
+  named" on production before this release and on its preview; "Has Apple filed a 10-K this year?" and "Latest
+  SEC filings for Tesla" do find the issuer (preview). If the node sends only `query` for REGULATORY_FILING_MONITOR, these questions
+  score as misses. Whether it fills our declared `company` param is not known.
+- **G231 — seen again.** Preflight's first run failed `/papers` (1–2 papers) and RESEARCH_SYNTHESIS; both passed
+  a minute later. The `paperfraud` live test fails from this machine because OpenAlex is unreadable on the keyless
+  per-IP budget. Production still sets no `OPENALEX_*` variable (`vercel env ls production`, 2026-11-05).
+
+## 2026-11-04 ~21:00 UTC sanctions, registry and filings intents — G235 superseded; G254–G256
+
+Evidence: `track1-miner/docs/evidence/intents-2026-11-04/`. Facts: docs/TELEGRAPH_FACTS.md, top section.
+
+- **G235 — SUPERSEDED: scoring is live.** 1,938 of 1,986 registrations are `scored: true` at epoch 2013
+  (2026-11-04 ~20:38 UTC); 4829 carries 34 intent scores. Ranks below; the rest of 4829's ranks were not read.
+- **G254 — Our three compliance answers lacked the intents' scored field names. `DEPLOYED 2026-11-05, see above`.**
+  SANCTIONS_SCREENING_MATCH_GENERAL scores `matched` (we sent `verdict`), CORPORATE_REGISTRY_LOOKUP_GENERAL
+  scores `active` (we sent `entity_status`), REGULATORY_FILING_MONITOR_GENERAL scores `filing_count` (we sent no
+  count at all). 4829 has no `intent_mapping`, so the node's parser model has to find each value. The answers
+  now carry the intent's own fields as well; unit 875/875, local probes in the evidence folder.
+  - **Ranks before the change (epoch 2013):** sanctions 11th (0.9981; 1st 1.0), registry 4th (0.9423; 3rd 0.9683),
+    filings 8th (0.9781; 3rd 0.998). Routed demand goes to the top three only (70/20/10), so all three earn us
+    no routed requests today.
+  - **Not known:** whether naming the fields moves the score. The reference is the median of up to 3 truth
+    sources, and the pools are not public (`/api/evalpool/submissions` without a submitter answers 405).
+  - **Assumptions:** a `possible_match` counts as `matched: true` (the intent includes near-matches on spelling);
+    `filing_count` counts the form asked, else material forms only (10-K, 10-Q, 8-K, 20-F, 6-K, 40-F, DEF 14A,
+    S-1, S-4, F-1, 10-KT), never Form 4s. If the reference counts every form, our count is low. The period
+    reaches us only through `query`: the endpoint declares no `period` param, and adding one needs `updateMiner`.
+  - **Measure after deploy:** the three ranks and scores for 3 epochs, against the full pre-deploy history
+    (epochs arrive every 2–6 hours, not every hour).
+- **G255 — One wallet holds 1,673 of 1,986 registrations, and the top routed slots in two of these intents.
+  `OPEN, question for Telegraph`.** Wallet `0xbd6f696096cceeaff7406d802ba04500eeaf6976`, registered
+  2026-10-24 23:27 – 2026-11-02 06:06 UTC, covers all 136 intents with one-intent miners whose `base_url` is a
+  raw public source (data.opensanctions.org, federalregister.gov, api.gleif.org, treasury.gov). They hold
+  registry ranks 1–3 (an OFAC sanctions index ranks 1st as a company register) and filings rank 1. That wallet
+  has no evaluation rows in either intent (`/submissions/mine`, 0 rows), so "they score themselves" is **not**
+  supported. Whether these are Telegraph's own reference miners, and whether they take routed traffic, is
+  unknown. Ask before spending effort to outrank them.
+- **G256 — "These intents get many requests" is not checked. `OPEN`.** No public endpoint gives requests per
+  intent: `/api/miners` has `total_requests_served` per registration only (4829: 383; TxLens 413). The owner saw
+  the figure somewhere not named; a screenshot or the page would let it be recorded here.
+  - **Partly answered 2026-11-05 for our own miner:** the Daemon feed names the miner and intent of every paid
+    request. Nov 1–4: 385 to `livecert`, 306 of them sanctions screening (G259, `consumption-2026-11-05/`). The same
+    tool run with another slug gives that miner's count; across intents it has not been run.
+
 ## 2026-11-04 ~21:30 UTC (Nov 5 03:00 IST) winning push — G248–G253
 
 - **G248 — Devnode ranks STOCK_PRICE_US_EQUITY 1st (0.9987, epoch 2013) while every stock request is refused
@@ -24,10 +322,11 @@
 
 ## 2026-11-05 IST evaluator activation
 
-- **URL_SCAN_VERDICT preflight. `OPEN`.** The live catalog says hybrid and ready. The pool has 5 eligible
-  contributors and 65 eligible rows (36 qualification). Registry resolution reports routed generic fallback.
-  The exact registration target, compatible hybrid reference material and improvement on a repeatable
-  mission workflow still need verification.
+- **URL_SCAN_VERDICT preflight. `OPEN`.** Sepolia confirmed `URL_SCAN` is the hybrid prefix on Nov 7 IST.
+  The epoch 2030 leaderboard listed eight miners, and routing resolves to `GENERIC`. The public pool
+  counts do not identify the hybrid reference material. The generic judgment component scored 8/16 on
+  controlled pairs. A challenger, fused scores and workflow improvement still need verification.
+  See [the replay evidence](track2/adapter/url_scan/README.md).
 
 ## 2026-11-01 evaluation material — G247
 
@@ -378,7 +677,8 @@ branch `claude/correctness-audit-2026-10-21`, not yet merged here.
   - /judging carries an older Apps rubric.
   - We plan to 1 Dec 23:59 UTC and the /rules prizes until the organisers confirm in writing. The message is
     drafted in WINNING.md §8.
-- **G206 — Does `updateMiner` restart the 7-day grace period? `OPEN; asked again 2026-10-25, not answered`.** The
+- **G206 — Does `updateMiner` restart the 7-day grace period? `CLOSED 2026-11-05`: the organiser says there is no
+  grace period for a new or updated miner (TELEGRAPH_FACTS item 12; the docs disagree, G261).** The
   Oct 24 Option A window passed unsigned, so 4829 is frozen for the season unless this is answered. The V2 import
   may itself have reset the date (G220). The same
   reply settled that miners carry over to v2 unchanged (TELEGRAPH_FACTS item 10), so the v2 migration itself costs

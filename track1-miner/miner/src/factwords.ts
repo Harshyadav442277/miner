@@ -39,6 +39,8 @@ export function contentTokens(s: string): string[] {
   return String(s ?? "")
     .toLowerCase()
     .replace(/%/g, " percent ")
+    // "5,895 m" is the claim's "5895 metres": thousands separators go before punctuation splits the number (G262).
+    .replace(/(\d),(?=\d{3}\b)/g, "$1")
     .replace(/[^a-z0-9\s]/g, " ")
     .split(/\s+/)
     .filter((w) => w.length > 1 && !STOP.has(w))

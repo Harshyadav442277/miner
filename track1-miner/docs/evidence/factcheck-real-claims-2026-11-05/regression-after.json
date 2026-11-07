@@ -1,0 +1,320 @@
+{
+ "tally": {
+  "right": 17,
+  "wrong": 0,
+  "open": 14,
+  "settled_non_claim": 0
+ },
+ "results": [
+  {
+   "claim": "Is it true that the Eiffel Tower is in Berlin?",
+   "truth": false,
+   "verdict": "contradicted",
+   "confidence": 0.7,
+   "grade": "right",
+   "article": "Eiffel Tower",
+   "evidence": "The Eiffel Tower ( EYE-fəl; French: Tour Eiffel [tuʁ ɛfɛl] ) is a lattice tower on the Champ de Mars in Paris, France.",
+   "error": null
+  },
+  {
+   "claim": "Fact-check: The Great Wall of China is visible from space with the naked eye.",
+   "truth": false,
+   "verdict": "unverified",
+   "confidence": 0.3,
+   "grade": "open",
+   "article": "Artificial structures visible from space",
+   "evidence": "Artificial structures visible from space without magnification include highways, dams, and cities.",
+   "error": null
+  },
+  {
+   "claim": "Is it true that Mount Everest is the highest mountain on Earth above sea level?",
+   "truth": true,
+   "verdict": "supported",
+   "confidence": 0.7,
+   "grade": "right",
+   "article": "Mount Everest",
+   "evidence": "Mount Everest (known in Nepali as Sagarmāthā, in Sherpa as Chamolangma, and in Tibetan as Jomolangma/Čhomolangma) is the highest mountain on Earth above sea level.",
+   "error": null
+  },
+  {
+   "claim": "Fact-check: Canberra is the capital of Australia.",
+   "truth": true,
+   "verdict": "supported",
+   "confidence": 0.7,
+   "grade": "right",
+   "article": "Canberra",
+   "evidence": "Canberra ( KAN-brə; Ngunawal: Kanbarra) is the capital city of Australia and the largest population centre in the Australian Capital Territory.",
+   "error": null
+  },
+  {
+   "claim": "Will Sudan violence escalate further?",
+   "truth": null,
+   "verdict": "unverified",
+   "confidence": 0.3,
+   "grade": "open",
+   "article": "Violence begets violence",
+   "evidence": "The phrase \"violence begets violence\" means that violent behavior promotes other violent behavior in return. The phrase has been used since the early 19th century.",
+   "error": null
+  },
+  {
+   "claim": "Fact-check: vaccines cause autism.",
+   "truth": false,
+   "verdict": "unverified",
+   "confidence": 0.3,
+   "grade": "open",
+   "article": "Vaccines and autism",
+   "evidence": "Extensive investigation into vaccines and autism spectrum disorder has shown that there is no relationship between the two, causal or otherwise, and that vaccine ingredients do not cause autism. Major health authorities, including the World Health Organization, the National Health Service, the Centers for Disease Control and Prevention and the United States Food and Drug Administration, along with",
+   "error": null
+  },
+  {
+   "claim": "Is it true that the Eiffel Tower is located in Paris?",
+   "truth": true,
+   "verdict": "supported",
+   "confidence": 0.7,
+   "grade": "right",
+   "article": "Eiffel Tower",
+   "evidence": "The Eiffel Tower ( EYE-fəl; French: Tour Eiffel [tuʁ ɛfɛl] ) is a lattice tower on the Champ de Mars in Paris, France.",
+   "error": null
+  },
+  {
+   "claim": "Bats are the only mammals capable of sustained flight",
+   "truth": true,
+   "verdict": "supported",
+   "confidence": 0.7,
+   "grade": "right",
+   "article": "Bat",
+   "evidence": "Bats (order Chiroptera ) are winged mammals, the only mammals capable of true and sustained flight.",
+   "error": null
+  },
+  {
+   "claim": "sharks are mammals",
+   "truth": false,
+   "verdict": "contradicted",
+   "confidence": 0.7,
+   "grade": "right",
+   "article": "Shark",
+   "evidence": "Sharks are a group of elasmobranch cartilaginous fishes characterized by a ribless endoskeleton, dermal denticles, five to seven gill slits on each side, and pectoral fins that are not fused to the head.",
+   "error": null
+  },
+  {
+   "claim": "bats are blind",
+   "truth": false,
+   "verdict": "contradicted",
+   "confidence": 0.7,
+   "grade": "right",
+   "article": "Bat",
+   "evidence": "Microbats tend to have small eyes but are still sensitive to light, and no species is truly blind.",
+   "error": null
+  },
+  {
+   "claim": "humans only use 10% of their brains",
+   "truth": false,
+   "verdict": "contradicted",
+   "confidence": 0.75,
+   "grade": "right",
+   "article": "Ten-percent-of-the-brain myth",
+   "evidence": "The ten-percent-of-the-brain myth states that humans generally use only one-tenth of their brains. It has been misattributed to many famous scientists and historical figures, notably Albert Einstein. By extrapolation, it is suggested that a person may 'harness' or 'unlock' this unused potential and increase their intelligence.",
+   "error": null
+  },
+  {
+   "claim": "water boils at 100 degrees Celsius at sea level",
+   "truth": true,
+   "verdict": "unverified",
+   "confidence": 0.3,
+   "grade": "open",
+   "article": "Celsius",
+   "evidence": "The degree Celsius is the unit of temperature on the Celsius temperature scale, one of two temperature scales used in the International System of Units (SI), the other being the closely related Kelvin scale. The degree Celsius can refer to a specific point on the Celsius temperature scale or to a difference or range between two temperatures. It is named after the Swedish astronomer Anders Celsius ",
+   "error": null
+  },
+  {
+   "claim": "The Taj Mahal is in India",
+   "truth": true,
+   "verdict": "supported",
+   "confidence": 0.7,
+   "grade": "right",
+   "article": "Taj Mahal",
+   "evidence": "The Taj Mahal ( TAHJ mə-HAHL, TAHZH -⁠; Hindustani: [t̪ɑːd͡ʒ ˈmɛɦ(ɛ)l]; lit. 'Crown of the Palace') is an ivory-white marble mausoleum on the right bank of the river Yamuna in Agra, Uttar Pradesh, India.",
+   "error": null
+  },
+  {
+   "claim": "The Statue of Liberty is in Paris",
+   "truth": false,
+   "verdict": "contradicted",
+   "confidence": 0.7,
+   "grade": "right",
+   "article": "Statue of Liberty",
+   "evidence": "The Statue of Liberty (Liberty Enlightening the World, French: La Liberté éclairant le monde) is a colossal neoclassical sculpture of a robed and crowned woman located on Liberty Island, part of New York City, in New York Harbor.",
+   "error": null
+  },
+  {
+   "claim": "The Colosseum is in Rome",
+   "truth": true,
+   "verdict": "supported",
+   "confidence": 0.7,
+   "grade": "right",
+   "article": "Colosseum",
+   "evidence": "The Colosseum ( KOL-ə-SEE-əm; Italian: Colosseo [kolosˈsɛːo]) is an elliptical amphitheatre in the centre of the city of Rome, Italy, just east of the Roman Forum.",
+   "error": null
+  },
+  {
+   "claim": "Stripe was founded in 2010",
+   "truth": true,
+   "verdict": "supported",
+   "confidence": 0.7,
+   "grade": "right",
+   "article": "Stripe, Inc.",
+   "evidence": "Irish entrepreneur brothers John and Patrick Collison founded Stripe in Palo Alto, California, in 2010, and serve as the company's president and CEO, respectively.",
+   "error": null
+  },
+  {
+   "claim": "The Eiffel Tower is located in Paris and was completed in 1889.",
+   "truth": true,
+   "verdict": "supported",
+   "confidence": 0.7,
+   "grade": "right",
+   "article": "Eiffel Tower",
+   "evidence": "The Eiffel Tower ( EYE-fəl; French: Tour Eiffel [tuʁ ɛfɛl] ) is a lattice tower on the Champ de Mars in Paris, France. The Eiffel Tower was the world's tallest structure when completed in 1889, a distinction it retained until 1929 when the Chrysler Building in New York City was topped out.",
+   "error": null
+  },
+  {
+   "claim": "The Golden Gate Bridge opened in 1964.",
+   "truth": false,
+   "verdict": "unverified",
+   "confidence": 0.3,
+   "grade": "open",
+   "article": "Golden Gate Bridge",
+   "evidence": "The Golden Gate Bridge is a suspension bridge spanning the Golden Gate, the one-mile-wide (1.6 km) strait connecting San Francisco Bay and the Pacific Ocean in California, United States. The structure links San Francisco—the northern tip of the San Francisco Peninsula—to Marin County, carrying both U.S. Route 101 and California State Route 1 across the strait. It also carries pedestrian and bicycl",
+   "error": null
+  },
+  {
+   "claim": "The Sydney Opera House opened in 1957.",
+   "truth": false,
+   "verdict": "unverified",
+   "confidence": 0.3,
+   "grade": "open",
+   "article": "Sydney Opera House",
+   "evidence": "The Sydney Opera House is a multi-venue performing arts centre in Sydney, New South Wales, Australia. Located on the foreshore of Sydney Harbour, it is widely regarded as one of the world's most famous and distinctive buildings, and a masterpiece of 20th-century architecture.",
+   "error": null
+  },
+  {
+   "claim": "YouTube was founded in 2010.",
+   "truth": false,
+   "verdict": "unverified",
+   "confidence": 0.3,
+   "grade": "open",
+   "article": "YouTube",
+   "evidence": "YouTube is an American online video-sharing platform owned by Google. YouTube was founded on February 14, 2005, by Chad Hurley, Jawed Karim, and Steve Chen, all of whom were former employees at PayPal. Headquartered in San Bruno, California, it is the second-most-visited website in the world, after Google itself. In January 2024, YouTube had reached more than 2.7 billion monthly active users, who ",
+   "error": null
+  },
+  {
+   "claim": "Facebook was founded by Bill Gates in 2004.",
+   "truth": false,
+   "verdict": "unverified",
+   "confidence": 0.3,
+   "grade": "open",
+   "article": "Facebook",
+   "evidence": "Facebook is an American social networking service owned by the American technology conglomerate Meta Platforms. It was founded in 2004 by Mark Zuckerberg, along with his Harvard College roommates and fellow students Eduardo Saverin, Andrew McCollum, Dustin Moskovitz, and Chris Hughes. The name Facebook derives from the face book directories often given to American university students.",
+   "error": null
+  },
+  {
+   "claim": "GPT-3 was released by Google in 2020.",
+   "truth": false,
+   "verdict": "unverified",
+   "confidence": 0.3,
+   "grade": "open",
+   "article": "GPT-3",
+   "evidence": "Generative Pre-trained Transformer 3 (GPT-3) was a large language model released by OpenAI in 2020 as part of the company's GPT series of models.",
+   "error": null
+  },
+  {
+   "claim": "Marie Curie won the Nobel Prize in Chemistry in 1903.",
+   "truth": false,
+   "verdict": "unverified",
+   "confidence": 0.3,
+   "grade": "open",
+   "article": "Nobel Prize in Chemistry",
+   "evidence": "The Nobel Prize in Chemistry is awarded annually by the Royal Swedish Academy of Sciences to scientists in the various fields of chemistry. It is one of the five Nobel Prizes established by the will of Alfred Nobel in 1895, awarded for outstanding contributions in chemistry, physics, literature, peace, and physiology or medicine. This award is administered by the Nobel Foundation and awarded by th",
+   "error": null
+  },
+  {
+   "claim": "Mount Kilimanjaro is the tallest mountain in Asia.",
+   "truth": false,
+   "verdict": "unverified",
+   "confidence": 0.3,
+   "grade": "open",
+   "article": "Mount Kilimanjaro",
+   "evidence": "Mount Kilimanjaro is a large dormant stratovolcano in Tanzania. It is the highest mountain in Africa and the highest free-standing mountain above sea level in the world, at 5,895 m (19,341 ft) above sea level and 4,900 m (16,100 ft) above its plateau base. It is also the highest volcano in the Eastern Hemisphere and the fourth most prominent peak on Earth.",
+   "error": null
+  },
+  {
+   "claim": "Mount Kilimanjaro is the tallest mountain in Africa at 4900 metres.",
+   "truth": false,
+   "verdict": "unverified",
+   "confidence": 0.2,
+   "grade": "open",
+   "article": null,
+   "evidence": null,
+   "error": null
+  },
+  {
+   "claim": "Mount Kilimanjaro is a river.",
+   "truth": false,
+   "verdict": "contradicted",
+   "confidence": 0.7,
+   "grade": "right",
+   "article": "Mount Kilimanjaro",
+   "evidence": "It is the highest mountain in Africa and the highest free-standing mountain above sea level in the world, at 5,895 m (19,341 ft) above sea level and 4,900 m (16,100 ft) above its plateau base.",
+   "error": null
+  },
+  {
+   "claim": "Venus is the second planet from the Sun.",
+   "truth": true,
+   "verdict": "supported",
+   "confidence": 0.7,
+   "grade": "right",
+   "article": "Venus",
+   "evidence": "Venus is the second planet from the Sun. Similar in size and mass to Earth, Venus has no liquid water, and its atmosphere is far thicker and denser than that of any other rocky body in the Solar System.",
+   "error": null
+  },
+  {
+   "claim": "Mars is the largest planet in the Solar System.",
+   "truth": false,
+   "verdict": "unverified",
+   "confidence": 0.3,
+   "grade": "open",
+   "article": "Fictional planets of the Solar System",
+   "evidence": "Fictional planets of the Solar System have been depicted since the 1700s—often but not always corresponding to hypothetical planets that have at one point or another been seriously proposed by real-world astronomers, though commonly persisting in fiction long after the underlying scientific theories have been refuted. Vulcan was a planet hypothesized to exist inside the orbit of Mercury between 18",
+   "error": null
+  },
+  {
+   "claim": "Jupiter is the largest planet in the Solar System.",
+   "truth": true,
+   "verdict": "supported",
+   "confidence": 0.7,
+   "grade": "right",
+   "article": "Jupiter",
+   "evidence": "Jupiter is the fifth planet from the Sun, and the largest in the Solar System. It is a gas giant with a mass nearly 2.5 times that of all the other planets in the Solar System combined and slightly less than one-thousandth the mass of the Sun.",
+   "error": null
+  },
+  {
+   "claim": "Bats are mammals.",
+   "truth": true,
+   "verdict": "supported",
+   "confidence": 0.7,
+   "grade": "right",
+   "article": "Bat",
+   "evidence": "Bats (order Chiroptera ) are winged mammals, the only mammals capable of true and sustained flight.",
+   "error": null
+  },
+  {
+   "claim": "The Berlin Wall was a guarded concrete barrier and was built by the United States.",
+   "truth": false,
+   "verdict": "unverified",
+   "confidence": 0.3,
+   "grade": "open",
+   "article": "Berlin Wall",
+   "evidence": "The Berlin Wall was a guarded concrete barrier that encircled West Berlin from 1961 to 1989, separating it from East Berlin and the German Democratic Republic. Construction of the Berlin Wall was commenced by the government of the GDR on 13 August 1961. It included guard towers placed along large concrete walls, accompanied by a wide area that contained anti-vehicle trenches, beds of nails and oth",
+   "error": null
+  }
+ ]
+}

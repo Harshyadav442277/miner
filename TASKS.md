@@ -5,38 +5,117 @@ Season II (H2): Nov 1 00:00 UTC – **Dec 1 23:59 UTC** 2026, every track (`RULE
 items were cut on 2026-10-17 and 2026-10-29; they are in `git log -p -- TASKS.md`. One task = one change = one
 commit.
 
+## Intent push — by Anjoman's 30-day earnings, started 2026-11-06 (owner: "priortize from the highest one. leave chat completion")
+
+Ranks: devnode epoch 2026, 2026-11-06 12:40 UTC, before the `7301474` release
+(`track1-miner/docs/evidence/intent-ranks-2026-11-06/`). Routing pays ranks 1–3 only (70/20/10). Earnings are
+Anjoman's estimate for the whole intent (owner's screenshot), not ours. None of these families has a champion
+evaluator, and the sanctions scorer ranks a constant metadata file above a real screen (G265), so a correctness
+fix scores on the quality rubric but may not move the devnode rank.
+
+| Part | Intent | $/30d | Ours | Leader | Kind of work |
+|---|---|---|---|---|---|
+| P1 | SANCTIONS_SCREENING_MATCH | 13.35 | 8 / 17, 0.9827 | 0.9999 | code + report |
+| P2 | WEB_SEARCH | 8.60 | unscored (0 of 25 scored) | — | code (G207, G250) |
+| P3 | RESEARCH_QUERY | 6.12 | 6 / 20, 0.9539 | 0.9996 | side-by-side, code |
+| P4 | CORPORATE_REGISTRY_LOOKUP | 3.98 | 7 / 13, 1.0000 | 1.0000 (7-way tie) | none until the tie rule is known (G266) |
+| P5 | NEWS_SEARCH | 3.77 | unscored (0 of 18 scored) | — | owner licence decision (G194) |
+| P6 | FACT_CHECK | 2.77 | 4 / 17, 0.9746 | 0.9999 | side-by-side, code |
+| P7 | CODE_REVIEW | 2.43 | not registered | 1.0000 | new endpoint + `updateMiner` |
+| P8 | TEXT_GENERATION | 1.94 | not registered | 0.9981 | new endpoint + `updateMiner` |
+| P9 | ACADEMIC_SEARCH | 1.53 | 11 / 17, 0.8762 | 0.9866 | side-by-side, code |
+| P10 | REGULATORY_FILING_MONITOR | 1.23 | 13 / 18, 0.8701 | 0.9996 | side-by-side, code |
+| P11 | GAS_PRICE | 1.15 | 4 / 27, 0.9339 | 0.9992 | side-by-side, code |
+
+- [x] P1a Screen OFAC's non-SDN Consolidated list (486 parties). Deployed 2026-11-06 as `192aecc`
+      (`release-2026-11-06-ofac-nonsdn/`); ABU TEIR (ref 9640) now `match`, was `no_match` (G268).
+- [ ] P1c EU and UK lists: too large to read per request (18.6 MB, 16.6 MB). Build a compact name index on a
+      schedule and read that. The #1 miner screens UK and EU entities.
+- [ ] P1d Owner sends Ahmed the G265 draft (in GAPS G265).
+- [ ] Read sanctions epochs after ~16:45 UTC and record the rank change, if any.
+- [ ] P2 WEB_SEARCH: fix G207 (wrong Wikipedia article) and G250 (manifest example is a news question).
+- [ ] P3, P6, P9, P10, P11: capture 15 questions per intent, our answer next to the top 3, fix the gaps found.
+      Gap to rank 3 at epoch 2026: P6 fact check 0.012, P3 research 0.020, P11 gas 0.059, P9 academic 0.107,
+      P10 filings 0.123. Re-read after `7301474`, which changed gas and filings answers.
+- [ ] P7, P8: add to the one `updateMiner` planned in N1 only if an endpoint passes an audit first. Owner signs.
+      2026-11-07: not added. These would be model wrappers, and Groq bars reselling (`n1-new-intents-2026-11-07/`).
+      Gap to rank 3 at epoch 2028: P3 research is at rank 3; P6 fact check 0.003; P5 news 0.023; P11 gas 0.039;
+      P10 filings 0.084; P9 academic 0.338 after a fall (G274).
+- [x] N1 picks (owner: "pick intents which would help us in winning"): add ONCHAIN_METRIC_VERIFY (`/onchain-metric`,
+      built `6aebe0f`), TOKEN_TOTAL_SUPPLY_VERIFY and DNS_RECORD_LOOKUP (live since 2026-10-26); drop KEYWORD_EXTRACTION
+      and VULNERABILITY_TRIAGE (routes deleted). Not added: FX_NOW (G273), WEATHER_FORECAST_VERIFY (G272), and the
+      model wrappers. Evidence: `track1-miner/docs/evidence/n1-new-intents-2026-11-07/`.
+- [x] Deploy `6aebe0f`: live in `bee3f6a` (2026-11-06). Rename the N1 YAML to V2 intent ids (G270): `5bef2be`.
+- [ ] Owner: validate the N1 YAML on anjoman.ai/dashboard/earn, then sign `updateMiner` for 4829. YAML: the
+      pushed `track1-miner/miner.yaml` at `5bef2be` or later, SHA-256 of the committed file
+      `0xdb6e08f4b2acb262654779a5dfad2cd8dd78d05509300a3aaa3d9715aa90649a` (re-hash if the file changes). 35 intents. Decide CRYPTO_PRICE (G275) first.
+- [ ] Next candidate: ASSET_RESERVE_ATTESTATION (8 builds, completes 2): read and license issuer attestation sources.
+- [ ] G274: find why academic search fell to 0.636.
+
 ## Winning push — started 2026-11-04 ~20:30 UTC (Nov 5 IST) (owner: "i give you permission to take action on all of these")
 
-Ordered by rubric points. Live ranks on 2026-11-04 (epoch 2013): 32 of 36 intents scored, 3 at rank 1, 13 in the top 3.
+Ordered by rubric points. **Miner weights re-read 2026-11-05:** quality 35, reliability 15, coverage 10, consumption
+10, cost/latency 5, docs 5, growth 20. Live ranks on 2026-11-05 (epoch 2017): 35 of 36 intents scored; 1 at rank 1
+(STOCK_PRICE, which refuses every request), 8 in the top 3.
 
 **Claude**
-- [x] R1 Reliability 20: availability sweep of all 39 endpoints every 30 minutes on GitHub (`tools/availability.mjs`,
+- [x] R1 Reliability: availability sweep of all 39 endpoints every 30 minutes on GitHub (`tools/availability.mjs`,
       `uptime` workflow; run history plus artifacts). Capacity: 58 req/s at 20 concurrent callers, 0 errors, on
       `/ssl-check` (`docs/evidence/capacity-2026-11-04/`). LLM routes not load-tested (quota-bound).
 - [x] Q1 Quality 35: audit replay 2026-11-04, 154/154 answered; 61 re-checked: 12 pass, 23 partial, 3 fail, 15
       licence refusals. Rows 25, 27, 29, 30 fixed and deployed (`aa110f8`, preflight 7/7). Re-run weekly.
-- [ ] C1 Cost/latency 10: `tools/availability-report.mjs` builds the table from the sweeps; publish it once a
+- [x] C2 Consumption: `tools/consumption.mjs` reads the network's own records. Nov 1–4: 385 paid requests from 16
+      wallets, 24 ranked-routed, 341 x402 payments verified on Sepolia (`docs/evidence/consumption-2026-11-05/`).
+      No wallet is tied to an H2 app yet (G259).
+- [x] Q3 Sanctions, from that real traffic (G258): Cyrillic, abbreviations, domains, digits for letters, look-alike
+      letters; 3 false positives removed. On the 180 real inputs, unknown 7 → 0, match 85 → 107; unit 885/885.
+      `e19df9e` + `853da09`. **Deployed 2026-11-05 ~18:28 UTC** as `4fb477e` (`miner-mztwjxnqa`); record in
+      `track1-miner/docs/evidence/release-2026-11-05-sanctions-names/`. Read the sanctions rank after three epochs.
+- [x] Q4 FACT_CHECK (G262): fixed in code 2026-11-05. On the 37 real claims, right 7 → 14 and wrong 3 → 0; on 31
+      regression claims, wrong 2 → 0 (`docs/evidence/factcheck-real-claims-2026-11-05/`). Unit 903/903.
+      **Deployed 2026-11-05 ~21:09 UTC** as `e501a57` (`miner-mzapr28vo`), owner: "Yes, deploy it"; preflight 7/7.
+      Read FACT_CHECK_GENERAL after three epochs.
+- [ ] C1 Cost/latency 5: `tools/availability-report.mjs` builds the table from the sweeps; publish it once a
       week of sweeps exists (Nov 11). Upstream cost per request is $0 (keyless or free keys).
 - [ ] Q2 Near-miss correctness (only where the reference is the true answer): weather temperature, weather
       forecast, corporate registry, gas price. Deploy via the release-miner gates.
-- [ ] D1 Docs 10 + Evaluator docs 5: beginner tutorial (network, cost, limits), video script.
+- [ ] D1 Docs 5 + growth 20 (now in both tracks): beginner tutorial (network, cost, limits), video script.
 - [x] G1 drafts: `docs/OUTREACH.md` (Discord recipe post, X update 1, templates for 2 and 3). Guide updated.
       Evaluator explainer drafts are Codex's (`track2/OUTREACH_S2.md`).
-- [ ] N1 New intents: prototype TEXT_SUMMARIZATION, TASK_EXECUTION_QUALITY, IMAGE_CAPTIONING,
-      ASSET_RESERVE_ATTESTATION; audit before any updateMiner. Cut EVENT_OUTCOME, CRYPTO_PRICE, NEWS_HEADLINES,
-      STORM_ALERT in the same update.
+- [ ] N1 One `updateMiner`, now unblocked (G206 closed 2026-11-05: no grace period on update). Ahmed: "submit the
+      capabilities you can reliably demonstrate rather than claiming everything".
+      - [x] 2026-11-06: cut STOCK_PRICE, NEWS_HEADLINES, NEWS_SEARCH and IP_GEOLOCATION from `miner.yaml`; narrow
+        FINANCIAL_DATA to 10-K figures; fix the WEB_SEARCH description (G250). Manifest diff PASS, unit 907/907
+        (`track1-miner/docs/evidence/n1-cut-2026-11-06/`). EVENT_OUTCOME kept: its audit passes (GAPS, G275 block).
+      - [x] Audit the added intents against sources: DNS and token supply 10/10 (G277). ONCHAIN_METRIC_VERIFY
+        still needs its own five.
+      - [ ] Owner decides on CRYPTO_PRICE's Bitstamp licence (G275). Decide STORM_ALERT by audit.
+      - [ ] After the signature: delete the four retired routes' code and empty `RETIRED` in `test/manifest.test.ts`.
+      - Add an intent only if it passes its audit first: TEXT_SUMMARIZATION, IMAGE_CAPTIONING and
+        ASSET_RESERVE_ATTESTATION are candidates.
+      - Before the owner signs, validate and sandbox-test the YAML on anjoman.ai/dashboard/earn (owner's session).
 
 **Owner (human needed)**
-- [x] Questions sent to Ahmed 2026-11-04 UTC (grace period, 4 unscored intents, tie-breaks, judging, receipts,
-      sandbox). Waiting.
-- [ ] Post the Discord message and X update 1 from `docs/OUTREACH.md` (after PR #17 merges, so links resolve).
-- [ ] Check the Vercel plan in the dashboard: Hobby bars commercial use (G249).
+- [x] Questions sent to Ahmed 2026-11-04 UTC; **answered 2026-11-05** (TELEGRAPH_FACTS items 12–17).
+- [x] Release the sanctions fix (G258). Owner: "Yes, deploy now"; live 2026-11-05 ~18:28 UTC as `4fb477e`. The
+      filings change `bb07266` (G257, G263) was not in it and needs its own yes.
+- [ ] Post the Discord message and X update 1 from `docs/OUTREACH.md`. PR #17 is merged and the audit link resolves
+      (checked 2026-11-05). Growth is now 20 points in the Miner track too.
+- [ ] Ask Ahmed which of the 16 payer wallets in `docs/evidence/consumption-2026-11-05/summary.md` belong to
+      registered H2 apps (G259). Tell Claude which are ours (an Anjoman smart wallet, any test calls).
+- [x] Check the Vercel plan: **Hobby**, confirmed by API 2026-11-06 (G249).
+- [x] G249: stay on Hobby while payments are testnet (owner, 2026-11-06). Revisit when Telegraph moves to mainnet.
 - [x] Sign and upload the 144 translation pairs: done, all 144 admitted at epoch 2013 (MEMORY, Codex block).
 - [ ] Record the 2–5 minute video from the script.
-- [ ] Sign the one `updateMiner` once N1 passes its audit and Ahmed answers G206.
+- [ ] Validate the N1 YAML on anjoman.ai/dashboard/earn, then sign the one `updateMiner`.
 
 ## Owner
 
+- [x] G254: deploy the scored-field change. Owner: "Yes, deploy it"; live 2026-11-05 as `3c5e8ff`
+      (`miner-5arlzhkv6`), record in `track1-miner/docs/evidence/release-2026-11-05-scored-fields/`.
+- [ ] **G255: ask Telegraph (Ahmed)** who wallet `0xbd6f696096cceeaff7406d802ba04500eeaf6976` is (1,673 one-intent
+      miners on raw public URLs; registry ranks 1–3), and whether those miners take routed requests.
+- [ ] G256: where did the "many requests" figure for these intents come from? Send the page or a screenshot.
 - [x] Registered for Season II (owner confirmed 2026-11-01). One registration covers all three tracks.
 - [ ] **Before Nov 1:** read the prize-payment terms when they appear: eligible countries (India?) and payout
       methods (G218).
@@ -77,6 +156,17 @@ Ordered by rubric points. Live ranks on 2026-11-04 (epoch 2013): 32 of 36 intent
 
 ## Claude
 
+- [ ] G254: after three epochs scored past 2026-11-05 09:40 UTC, run `tools/epoch-history.mjs` for the sanctions,
+      registry and filings intents and compare with `release-2026-11-05-scored-fields/epochs-before.json`.
+      Epoch 2019 read 18:13 UTC: filings fell to 11th, 0.8145, with the whole field (GAPS G254); two more to go.
+- [x] G257: find the issuer in a filings question that names no `company` (fixed in code 2026-11-05, unit 879/879).
+- [x] Deploy the G257 + G263 filings change. Owner: "Yes, deploy it"; live 2026-11-05 ~19:10 UTC as `9b82d08`
+      (`miner-f28bzjwiw`), preflight 7/7, record in `track1-miner/docs/evidence/release-2026-11-05-filings-issuer/`.
+- [x] G263: count every SEC form, as zk-filing does. Live 2026-11-06 ~16:09 UTC as `7301474` (`miner-qbdf1756n`),
+      with the scored field of eleven more intents and current temperature; preflight 7/7.
+- [ ] Read the epochs after 2026-11-06 16:09 UTC for filings, temperature, on-chain lookup, SSL and crypto price
+      against `release-2026-11-06-scored-fields-all/epochs-before.json` (`tools/epoch-history.mjs`).
+- [ ] G264: find why CRYPTO_PRICE_USD has no score for us since epoch 2021.
 - [x] Pin the owner's required account (`hyadav42774@gmail.com`) and LiveCert wallet in repository instructions;
       remove conflicting email and alternate-payout guidance (owner instruction, 2026-11-03).
 
@@ -114,10 +204,10 @@ Ordered by rubric points. Live ranks on 2026-11-04 (epoch 2013): 32 of 36 intent
       Adapter: must become a safetensors delta (G238).
 - [x] LANGUAGE_TRANSLATION_GENERAL material built 2026-11-01 (`track2/material/`): 144 Tatoeba preference pairs,
       all read, every published rule passes. Owner signed and uploaded Nov 5 IST. All 144 confirmed admitted.
-- [ ] Verify translation eligibility after the epoch rolls over before reporting an eligible count on bounty #140.
-- [ ] First evaluator candidate to investigate: `URL_SCAN_VERDICT`. Verify the exact registration target,
-      hybrid truth-source support and a reproducible workflow against generic scoring before building the adapter.
-      `WEB_SEARCH_GENERAL` had 1 of 5 eligible contributors on Nov 5 IST.
+- [x] Verified all 144 translation rows eligible after rollover. Bounty #140 reporting remains separate.
+- [x] URL Scan preflight: verified the `URL_SCAN` hybrid family on-chain and replayed the exact `GENERIC` adapter.
+- [ ] Compare a URL Scan challenger with the generic adapter and the boolean comparator on unseen miner answers.
+      Verify the check-before-opening workflow before preparing registration.
 - [ ] Track 2 entry that needs no foundation files: evaluation material for intents LiveCert serves. Truth
       sources for the deterministic ones with none (SSL_VERIFICATION_CERT), and attested preference pairs for a
       judgment family. Claude builds and checks the JSON Lines file; the owner signs the upload (EIP-191). One

@@ -1,6 +1,7 @@
 import * as tls from "node:tls";
 import { checkServerIdentity } from "node:tls";
 import { isIP } from "node:net";
+import { promises as dnsPromises } from "node:dns";
 import { extractHostname } from "./extract";
 import { assertPublicHost } from "./guard";
 import { noteRead } from "./receipt";
@@ -108,7 +109,26 @@ function orgOf(name: Record<string, unknown> | undefined): string | null {
   return typeof o === "string" && o.length > 0 ? o : null;
 }
 
-function unreachable(domain: string, why: string): SslResult {
+/**
+ * Whether the name does not exist, asked of DNS directly rather than read from the
+ * lookup error: on Vercel a nonexistent name fails getaddrinfo as EBUSY, not
+ * ENOTFOUND (preview of 33bec31, 2026-11-06). `resolve` sends a real query, and its
+ * ENOTFOUND is NXDOMAIN. No third-party service is involved.
+ */
+async function nonexistent(domain: string): Promise<boolean> {
+  const query = resolveAny(domain).then(() => false, (e: NodeJS.ErrnoException) => e.code === "ENOTFOUND");
+  const timeout = new Promise<boolean>((r) => setTimeout(() => r(false), 2_500).unref());
+  return Promise.race([query, timeout]);
+}
+const resolveAny = (d: string) => dnsPromises.resolve(d, "A").catch((e: NodeJS.ErrnoException) =>
+  e.code === "ENODATA" ? dnsPromises.resolve(d, "AAAA") : Promise.reject(e));
+
+function unreachable(domain: string, why: string, nxdomain = false): SslResult {
+  // A name that does not resolve has no certificate at all, and saying so is the
+  // answer (audit replay 2026-11-04 row 3: amaz0n-login.ru was NXDOMAIN, and the
+  // reply opened with an openssl how-to). The fact is one short sentence, so the
+  // method below still falls inside the first ~32 words.
+  const lead = nxdomain ? `${domain} does not resolve in DNS, so it serves no certificate. ` : "";
   return {
     domain,
     verdict: "unreachable",
@@ -121,7 +141,7 @@ function unreachable(domain: string, why: string): SslResult {
     // Routed through describe() so an unreachable host still names the checks that
     // could not be performed and how to perform them — the reachability failure is
     // recorded in unreachable_reason rather than being the whole answer.
-    reason: describe(domain, "unreachable", null, null, null, null, null, null, null, null, null, null),
+    reason: lead + describe(domain, "unreachable", null, null, null, null, null, null, null, null, null, null),
     unreachable_reason: why,
     checked_at: new Date().toISOString(),
   };
@@ -134,7 +154,10 @@ export async function checkCertificate(
 ): Promise<SslResult> {
   // Never open a socket to a non-public address — see guard.ts.
   const guard = await assertPublicHost(host);
-  if (!guard.allowed) return unreachable(host, guard.reason);
+  if (!guard.allowed) {
+    const nx = guard.reason.startsWith("DNS lookup failed") && (await nonexistent(host));
+    return unreachable(host, nx ? `${guard.reason} (NXDOMAIN, confirmed by Cloudflare DNS)` : guard.reason, nx);
+  }
 
   return new Promise((resolve) => {
     let settled = false;

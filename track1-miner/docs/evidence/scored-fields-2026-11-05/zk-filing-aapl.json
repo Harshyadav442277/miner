@@ -1,0 +1,7 @@
+{
+ "fetched_at_utc": "2026-11-05T21:45:39.004Z",
+ "request": "https://telegraph-s2-filing.margyn.workers.dev/filings?entity=AAPL&period=last%2012%20months",
+ "entity": "AAPL",
+ "filing_count": 89,
+ "summary": "Apple Inc. has 89 SEC EDGAR filings dated 2025-11-05 through 2026-11-05 (inclusive filing dates). The final day is still in progress; this is a count to date, not a finalized count for the requested period. Dates are selected by SEC filing date, not by reporting-period end or acceptance time. Forms: 3: 3, 4: 53, 144: 12, 424B2: 1, 10-K: 1, 8-K: 8, 8-K/A: 1, 10-Q: 3, SD: 1, SCHEDULE 13G: 1, SCHEDULE 13G/A: 1, PX14A6G: 1, DEFA14A: 1, DEF 14A: 1, 25-NSE: 1. Newest first:\n424B2; filed 2026-11-05 (0001140361-26-042046); SEC accepted 2026-11-05T13:14:16.000Z (UTC)\nSEC document: https://www.sec.gov/Archives/edgar/data/320193/000114036126042046/ny20084621x1_424b2.htm\n10-K — Annual report; filed 2026-11-03; reporting period ended 2026-09-26 (0000320193-26-000026); SEC accepted 2026-11-03T13:05:15.000Z (UTC)\nSEC document: https://www.sec.gov/Archives/edgar/data/320193/000032019326000026/aapl-20260926.htm\n8-K; filed 2026-11-02; SEC report date 2026-11-02 (0000320193-26-000024); SEC accepted 2026-11-02T21:30:23.000Z (UTC)\nSEC document: https://www.sec.gov/Archives/edgar/data/320193/000032019326000024/aapl-20261102.htm\nAll 89 matching filings and accession-specific metadata links are in filings and urls."
+}

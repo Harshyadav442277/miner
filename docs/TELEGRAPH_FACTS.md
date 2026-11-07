@@ -4,6 +4,25 @@
 verification date. Re-verify anything older than a few days — the canonical intent set and
 contract parameters change on-chain.
 
+**Scoring and three compliance intents, checked 2026-11-04 ~20:40–21:10 UTC** (devnode `/api/miners`,
+`/api/miners/4829`, `/engine/v1/intents/<id>`, `/api/evalpool/status?intent_id=`; anjoman.ai/docs
+`miners/miner-overview`, `miners/miner-registration` (updated Nov 1) and `miners/yaml-config` (updated Nov 3).
+Extract: `track1-miner/docs/evidence/intents-2026-11-04/`):
+- **Scoring is live:** 1,938 of 1,986 registrations `scored: true`, epoch 2013. 4829 is `active` with 36 intents,
+  including SANCTIONS_SCREENING_MATCH_GENERAL, CORPORATE_REGISTRY_LOOKUP_GENERAL and REGULATORY_FILING_MONITOR_GENERAL.
+- **Routing:** "Top-ranked miner receives 70% of routed requests. Second-ranked receives 20%. Third-ranked receives
+  10%" (miner-overview, Nov 1). Fourth and below get no routed requests.
+- **The three intents** (class; request params; scored field; miners; eval pool rows/contributors):
+  sanctions judgment, `name`, `matched` bool, 17, 645/9; registry deterministic, `company`+`jurisdiction`,
+  `active` bool, 21, 630/4; filings deterministic, `entity`+`period`, `filing_count` number, 16, 53/1.
+  4829's ranks at epoch 2013: 11th, 4th, 8th.
+- **Without an `intent_mapping` the node asks a model to find the values** in the answer; with one it reads them
+  by path and computes numbers in code. A mapping is validated at registration, so adding one needs `updateMiner`.
+  Missing endpoint `params` make the node "guess your field names" (yaml-config, Nov 3).
+- **Truth sources:** each epoch the node calls up to 3 from the ranking half and takes the median of the values
+  it can read (contribute-evaluation-data, Nov 1). `/api/evalpool/submissions?intent_id=` answers 405; pools are
+  not public.
+
 **Evaluation material, checked 2026-11-01 ~19:10 UTC** (anjoman.ai/docs/scoring/contribute-evaluation-data,
 updated Nov 1; devnode `/api/evalpool/status`, `/engine/v1/intents/<id>`; github.com/telegraphprotocol/bounties):
 - Upload = signed JSON Lines, one intent per upload, EIP-191 over a 5-line message (body sha256, nonce, chain id
@@ -228,6 +247,46 @@ to v2 (and does an update restart the 7-day grace period)?
 Not answered: whether `updateMiner` restarts the 7-day grace period (GAPS G206). It was asked as part of
 question 2, and the reply covered only the carry-over.
 
+## Organiser answers — 2026-11-05 (Ahmed, to the owner; pasted into the session ~09:30 UTC)
+
+Six questions were sent 2026-11-04 UTC (TASKS.md, winning push). Quoted or closely paraphrased:
+
+12. **No grace period on update.** "There is no seven-day grace period for a new or updated Miner.
+    updateMiner creates a new registration ID, and the Miner follows the normal evaluation and ranking
+    process. Updating does not create a reserved period of traffic or reset a grace-period clock." Closes
+    GAPS G206. **Conflict:** the registration guide (anjoman.ai/docs/miners/miner-registration, "Updated
+    November 1, 2026", read 2026-11-05) still has "Step 7: The grace period" (5% shared traffic for 7 days).
+    The organiser's statement is the later and more specific one; the docs page is recorded, not followed.
+13. **Missing scores mean missing evaluation coverage.** An Intent is scored only with "a working evaluation
+    adapter, and sufficient evaluation material or reference data". He invites Track 2 work on those Intents:
+    bounties at github.com/telegraphprotocol/bounties/issues, docs at anjoman.ai/docs/scoring/build-a-scoring-module,
+    submissions at anjoman.ai/dashboard/eval. "Multiple contributors can work on the same Intent."
+14. **Close scores.** Displayed scores may be rounded. "Latency and price are not tie-breakers in the ranking."
+15. **Judging is separate from live rankings** (Rules §5–7). "Each Intent you claim must pass its relevant
+    tests, so i'd recommend submitting the capabilities you can reliably demonstrate rather than claiming
+    everything. A failed Intent isn't automatically a fixed deduction from an average, but it can affect your
+    technical assessment and what counts as verified."
+16. **Consumption evidence:** "real request and response records, delivery receipts or transaction evidence
+    where available, and your own service logs showing successful requests", reproducible, and "distinguish
+    actual paid requests from evaluation or test traffic".
+17. **YAML:** validate and sandbox-test on Anjoman before updating the registration (anjoman.ai/dashboard/earn,
+    the owner's wallet session). The public `dashboard/validate` endpoint answers 404 (registration guide).
+
+## Network records of paid requests — checked 2026-11-05 ~10:00 UTC
+
+- **The Daemon feed lists paid user requests.** `GET https://devnode.telegraphprotocol.com/daemon/api/questions`
+  (no auth). "Rows with source: user are requests people paid for through the Engine", each with `routing.miner_slug`,
+  `routing.intent`, `routing_mode`, `routing.reasoning`, `execution.result` and a `signal_hash`
+  (anjoman.ai/docs/using/daemon-signals, updated 2026-11-01). Rows the Daemon itself asks are internal traffic.
+- **`GET /engine/v1/signal/{hash}` names the paying wallet** (`wallet_address`) and, for x402, the payment
+  `tx_hash`, beside the request and the miner's whole answer.
+- **How a row says who chose the miner** (read from `routing.reasoning` on our rows): "miner livecert given by
+  the caller" and "user-directed" are named-miner requests; "intent given by the caller", or a model's intent
+  classification, means the engine picked the miner by rank. Only the second kind can earn ranked-routing points.
+- **Scores per intent:** `GET /api/miners` carries `scores[]` per miner (intent, epoch, rank, score, scored_at)
+  and `total_requests_served`. Epoch 2017 (2026-11-05 ~08:44 UTC): 4433 scored on 35 of 36 intents; the
+  unscored one, SENTIMENT_ANALYSIS_GENERAL, is scored for 14 other miners. `total_requests_served` 387.
+
 ---
 
 ## The single most important fact
@@ -442,6 +501,12 @@ A rejection **releases the slug immediately** — someone else can claim it. Fix
 `updateMiner(uint256 oldRegistrationId, ...)` deregisters and re-registers atomically. You get a
 **new `registrationId` and a new `intentId`** — anything holding the old `intentId` breaks.
 Only the registering address can update or deregister. No admin override.
+
+Re-read 2026-11-05 (registration guide, updated 2026-11-01): a non-canonical intent reverts the whole update and
+leaves the original registration untouched. The node's request-contract checks (every endpoint needs a
+description; an endpoint's intents must be in `supported_intents`) apply on the next update; "If a
+re-submission is refused, your existing registration keeps serving and keeps your slug." Each update leaves the
+old entry behind in `/miner-dispatcher/miners/address/<wallet>/yamls`. No grace period on update (item 12).
 
 ## Live endpoints
 
@@ -844,3 +909,11 @@ Source: https://docs.telegraphprotocol.com/llms-full.txt, sections "Evaluator Ad
 - **Not verified:** whether the node follows the GitHub release-asset redirect, and whether the download
   finishes inside 30 minutes. The docs say nothing about redirects. Both can only be checked once the release
   exists: hash the release URL with `cmptool.exe hash`, as track2 SIGN_S2.md step 1b says.
+## 2026-11-07 IST: URL Scan resolution and live ranking
+
+- Sepolia Diamond `getPrefixes()` lists `URL_SCAN` with hybrid kind 2, and
+  `intentKind("URL_SCAN_VERDICT")` also returns 2. See the [intent catalog docs](https://anjoman.ai/docs/using/intents).
+- [Scorer resolution](https://devnode.telegraphprotocol.com/api/wasm?resolve=URL_SCAN_VERDICT) shows
+  `GENERIC` fallback and `routed: true`. [Epoch 2030 leaderboard](https://devnode.telegraphprotocol.com/leaderboard/miners)
+  listed eight ranked miners for the intent. [Pool status](https://devnode.telegraphprotocol.com/api/evalpool/status?intent_id=URL_SCAN_VERDICT)
+  showed five eligible contributors and 65 eligible rows. Those counts do not identify the ranking truth sources.

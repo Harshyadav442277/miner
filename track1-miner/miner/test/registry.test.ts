@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { lookupRegistry, rankRecords, registrySubject } from "../src/registry";
+import { askedSentence, lookupRegistry, rankRecords, registrySubject } from "../src/registry";
 
 test("the company, company number, LEI and country are read from the question", () => {
   assert.deepEqual(registrySubject("What is the incorporation status and registered agent for UK company number 12345678?"),
@@ -50,7 +50,8 @@ test("a register record answers status, number, register, agent and states what 
   assert.equal(r.company_number, "0805587591");
   assert.equal(r.register, "Texas Secretary of State");
   assert.equal(r.registered_agent, "C/O C T Corporation System");
-  assert.match(r.reason, /^TESLA, INC\. is active, registered with Texas Secretary of State under company number 0805587591 in US-TX, incorporated 2024-06-14\./);
+  // The agent was asked for, so it comes first; the status sentence follows.
+  assert.match(r.reason, /^For TESLA, INC\., its registered agent is C T Corporation System\. TESLA, INC\. is active, registered with Texas Secretary of State under company number 0805587591 in US-TX, incorporated 2024-06-14\./);
   assert.match(r.reason, /Directors and beneficial owners are not in these sources\.$/);
 });
 
@@ -73,4 +74,16 @@ test("an article or 'still' before the status word is not part of the name", () 
   assert.equal(registrySubject("Is Nvidia Corporation an active registered company?").name, "Nvidia Corporation");
   assert.equal(registrySubject("Is Shell plc a registered company?").name, "Shell plc");
   assert.equal(registrySubject("Is Barclays Bank PLC still registered?").name, "Barclays Bank PLC");
+});
+
+test("a question for the address or state of incorporation gets them first", () => {
+  const addr = "C/O C T Corporation System, 1999 Bryan Street, Suite 900, Dallas, US-TX, 75201, US";
+  assert.equal(
+    askedSentence("What is Tesla Inc's registered address and state of incorporation?", "TESLA, INC.", addr, "C/O C T Corporation System", "US-TX", "TX"),
+    "For TESLA, INC., its registered address is " + addr + " and it is incorporated in Texas (TX). ",
+  );
+  assert.equal(askedSentence("Is Tesla active?", "TESLA, INC.", addr, null, "US-TX", "TX"), "");
+  assert.equal(askedSentence("Where is Tesla headquartered, and what is its address?", "TESLA, INC.", addr, null, "US-TX", "TX"), "");
+  assert.match(askedSentence("Who is Acme's registered agent?", "ACME", addr, "C/O C T Corporation System", "US-DE", null), /registered agent is C T Corporation System/);
+  assert.match(askedSentence("Where is Siemens incorporated?", "SIEMENS AG", null, null, "DE", null), /incorporated in DE/);
 });

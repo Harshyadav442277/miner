@@ -1,0 +1,398 @@
+{
+ "fetched_at_utc": "2026-11-05T18:18:37.565Z",
+ "source": "https://devnode.telegraphprotocol.com/scores?intent=REGULATORY_FILING_MONITOR_GENERAL&limit=100&offset=0",
+ "rows": [
+  {
+   "epoch": 2019,
+   "slug": "reg-fedreg-search",
+   "rank": 1,
+   "score": 0.9983,
+   "failure": null,
+   "scored_at": "2026-11-05T14:07:28.089033Z"
+  },
+  {
+   "epoch": 2019,
+   "slug": "txlens",
+   "rank": 2,
+   "score": 0.9953,
+   "failure": null,
+   "scored_at": "2026-11-05T14:07:28.089033Z"
+  },
+  {
+   "epoch": 2019,
+   "slug": "reg-fedreg-pi",
+   "rank": 3,
+   "score": 0.9933,
+   "failure": null,
+   "scored_at": "2026-11-05T14:07:28.089033Z"
+  },
+  {
+   "epoch": 2019,
+   "slug": "reg-uk-leg",
+   "rank": 4,
+   "score": 0.9905,
+   "failure": null,
+   "scored_at": "2026-11-05T14:07:28.089033Z"
+  },
+  {
+   "epoch": 2019,
+   "slug": "zk-filing",
+   "rank": 5,
+   "score": 0.9839,
+   "failure": null,
+   "scored_at": "2026-11-05T14:07:28.089033Z"
+  },
+  {
+   "epoch": 2019,
+   "slug": "reg-fedreg-agencies",
+   "rank": 6,
+   "score": 0.9787,
+   "failure": null,
+   "scored_at": "2026-11-05T14:07:28.089033Z"
+  },
+  {
+   "epoch": 2019,
+   "slug": "reg-eurostat",
+   "rank": 7,
+   "score": 0.9775,
+   "failure": null,
+   "scored_at": "2026-11-05T14:07:28.089033Z"
+  },
+  {
+   "epoch": 2019,
+   "slug": "preflight-ssl-verification",
+   "rank": 8,
+   "score": 0.9748,
+   "failure": null,
+   "scored_at": "2026-11-05T14:07:28.089033Z"
+  },
+  {
+   "epoch": 2019,
+   "slug": "reg-fedreg",
+   "rank": 9,
+   "score": 0.9703,
+   "failure": null,
+   "scored_at": "2026-11-05T14:07:28.089033Z"
+  },
+  {
+   "epoch": 2019,
+   "slug": "reg-bis",
+   "rank": 10,
+   "score": 0.8807,
+   "failure": null,
+   "scored_at": "2026-11-05T14:07:28.089033Z"
+  },
+  {
+   "epoch": 2019,
+   "slug": "livecert",
+   "rank": 11,
+   "score": 0.8145,
+   "failure": null,
+   "scored_at": "2026-11-05T14:07:28.089033Z"
+  },
+  {
+   "epoch": 2019,
+   "slug": "chainsight-oracle",
+   "rank": 12,
+   "score": 0.7371,
+   "failure": null,
+   "scored_at": "2026-11-05T14:07:28.089033Z"
+  },
+  {
+   "epoch": 2019,
+   "slug": "reg-sec-edgar",
+   "rank": 13,
+   "score": 0.6195,
+   "failure": null,
+   "scored_at": "2026-11-05T14:07:28.089033Z"
+  },
+  {
+   "epoch": 2019,
+   "slug": "reg-worldbank",
+   "rank": 14,
+   "score": 0.2255,
+   "failure": null,
+   "scored_at": "2026-11-05T14:07:28.089033Z"
+  },
+  {
+   "epoch": 2019,
+   "slug": "reg-imf",
+   "rank": 15,
+   "score": 0.1447,
+   "failure": null,
+   "scored_at": "2026-11-05T14:07:28.089033Z"
+  },
+  {
+   "epoch": 2019,
+   "slug": "filing-sec-submissions",
+   "rank": 16,
+   "score": 0,
+   "failure": "call miner \"filing-sec-submissions\": upstream error 403: <!DOCTYPE html PUBLIC \"",
+   "scored_at": "2026-11-05T14:07:28.089033Z"
+  },
+  {
+   "epoch": 2019,
+   "slug": "reg-court",
+   "rank": 17,
+   "score": 0,
+   "failure": "call miner \"reg-court\": upstream error 401: {\"detail\":\"Authentication credential",
+   "scored_at": "2026-11-05T14:07:28.089033Z"
+  },
+  {
+   "epoch": 2017,
+   "slug": "txlens",
+   "rank": 1,
+   "score": 0.9998,
+   "failure": null,
+   "scored_at": "2026-11-05T08:44:31.876661Z"
+  },
+  {
+   "epoch": 2017,
+   "slug": "reg-fedreg-search",
+   "rank": 2,
+   "score": 0.9993,
+   "failure": null,
+   "scored_at": "2026-11-05T08:44:31.876661Z"
+  },
+  {
+   "epoch": 2017,
+   "slug": "zk-filing",
+   "rank": 3,
+   "score": 0.9949,
+   "failure": null,
+   "scored_at": "2026-11-05T08:44:31.876661Z"
+  },
+  {
+   "epoch": 2017,
+   "slug": "reg-uk-leg",
+   "rank": 4,
+   "score": 0.9924,
+   "failure": null,
+   "scored_at": "2026-11-05T08:44:31.876661Z"
+  },
+  {
+   "epoch": 2017,
+   "slug": "reg-fedreg-pi",
+   "rank": 5,
+   "score": 0.9921,
+   "failure": null,
+   "scored_at": "2026-11-05T08:44:31.876661Z"
+  },
+  {
+   "epoch": 2017,
+   "slug": "reg-fedreg",
+   "rank": 6,
+   "score": 0.9885,
+   "failure": null,
+   "scored_at": "2026-11-05T08:44:31.876661Z"
+  },
+  {
+   "epoch": 2017,
+   "slug": "reg-fedreg-agencies",
+   "rank": 7,
+   "score": 0.9862,
+   "failure": null,
+   "scored_at": "2026-11-05T08:44:31.876661Z"
+  },
+  {
+   "epoch": 2017,
+   "slug": "reg-eurostat",
+   "rank": 8,
+   "score": 0.9814,
+   "failure": null,
+   "scored_at": "2026-11-05T08:44:31.876661Z"
+  },
+  {
+   "epoch": 2017,
+   "slug": "livecert",
+   "rank": 9,
+   "score": 0.9767,
+   "failure": null,
+   "scored_at": "2026-11-05T08:44:31.876661Z"
+  },
+  {
+   "epoch": 2017,
+   "slug": "chainsight-oracle",
+   "rank": 10,
+   "score": 0.9598,
+   "failure": null,
+   "scored_at": "2026-11-05T08:44:31.876661Z"
+  },
+  {
+   "epoch": 2017,
+   "slug": "reg-bis",
+   "rank": 11,
+   "score": 0.8856,
+   "failure": null,
+   "scored_at": "2026-11-05T08:44:31.876661Z"
+  },
+  {
+   "epoch": 2017,
+   "slug": "reg-sec-edgar",
+   "rank": 12,
+   "score": 0.8155,
+   "failure": null,
+   "scored_at": "2026-11-05T08:44:31.876661Z"
+  },
+  {
+   "epoch": 2017,
+   "slug": "reg-imf",
+   "rank": 13,
+   "score": 0.6499,
+   "failure": null,
+   "scored_at": "2026-11-05T08:44:31.876661Z"
+  },
+  {
+   "epoch": 2017,
+   "slug": "reg-worldbank",
+   "rank": 14,
+   "score": 0.3834,
+   "failure": null,
+   "scored_at": "2026-11-05T08:44:31.876661Z"
+  },
+  {
+   "epoch": 2017,
+   "slug": "filing-sec-submissions",
+   "rank": 15,
+   "score": 0,
+   "failure": "call miner \"filing-sec-submissions\": upstream error 403: <!DOCTYPE html PUBLIC \"",
+   "scored_at": "2026-11-05T08:44:31.876661Z"
+  },
+  {
+   "epoch": 2017,
+   "slug": "reg-court",
+   "rank": 16,
+   "score": 0,
+   "failure": "call miner \"reg-court\": upstream error 401: {\"detail\":\"Authentication credential",
+   "scored_at": "2026-11-05T08:44:31.876661Z"
+  },
+  {
+   "epoch": 2015,
+   "slug": "txlens",
+   "rank": 1,
+   "score": 0.9998,
+   "failure": null,
+   "scored_at": "2026-11-05T02:06:20.995025Z"
+  },
+  {
+   "epoch": 2015,
+   "slug": "reg-fedreg-search",
+   "rank": 2,
+   "score": 0.9993,
+   "failure": null,
+   "scored_at": "2026-11-05T02:06:20.995025Z"
+  },
+  {
+   "epoch": 2015,
+   "slug": "reg-uk-leg",
+   "rank": 3,
+   "score": 0.995,
+   "failure": null,
+   "scored_at": "2026-11-05T02:06:20.995025Z"
+  },
+  {
+   "epoch": 2015,
+   "slug": "reg-fedreg-pi",
+   "rank": 4,
+   "score": 0.993,
+   "failure": null,
+   "scored_at": "2026-11-05T02:06:20.995025Z"
+  },
+  {
+   "epoch": 2015,
+   "slug": "reg-fedreg",
+   "rank": 5,
+   "score": 0.9904,
+   "failure": null,
+   "scored_at": "2026-11-05T02:06:20.995025Z"
+  },
+  {
+   "epoch": 2015,
+   "slug": "zk-filing",
+   "rank": 6,
+   "score": 0.9902,
+   "failure": null,
+   "scored_at": "2026-11-05T02:06:20.995025Z"
+  },
+  {
+   "epoch": 2015,
+   "slug": "reg-fedreg-agencies",
+   "rank": 7,
+   "score": 0.9899,
+   "failure": null,
+   "scored_at": "2026-11-05T02:06:20.995025Z"
+  },
+  {
+   "epoch": 2015,
+   "slug": "reg-eurostat",
+   "rank": 8,
+   "score": 0.9884,
+   "failure": null,
+   "scored_at": "2026-11-05T02:06:20.995025Z"
+  },
+  {
+   "epoch": 2015,
+   "slug": "reg-worldbank",
+   "rank": 9,
+   "score": 0.9802,
+   "failure": null,
+   "scored_at": "2026-11-05T02:06:20.995025Z"
+  },
+  {
+   "epoch": 2015,
+   "slug": "livecert",
+   "rank": 10,
+   "score": 0.9757,
+   "failure": null,
+   "scored_at": "2026-11-05T02:06:20.995025Z"
+  },
+  {
+   "epoch": 2015,
+   "slug": "chainsight-oracle",
+   "rank": 11,
+   "score": 0.9412,
+   "failure": null,
+   "scored_at": "2026-11-05T02:06:20.995025Z"
+  },
+  {
+   "epoch": 2015,
+   "slug": "reg-bis",
+   "rank": 12,
+   "score": 0.8888,
+   "failure": null,
+   "scored_at": "2026-11-05T02:06:20.995025Z"
+  },
+  {
+   "epoch": 2015,
+   "slug": "reg-sec-edgar",
+   "rank": 13,
+   "score": 0.7499,
+   "failure": null,
+   "scored_at": "2026-11-05T02:06:20.995025Z"
+  },
+  {
+   "epoch": 2015,
+   "slug": "reg-imf",
+   "rank": 14,
+   "score": 0.5157,
+   "failure": null,
+   "scored_at": "2026-11-05T02:06:20.995025Z"
+  },
+  {
+   "epoch": 2015,
+   "slug": "filing-sec-submissions",
+   "rank": 15,
+   "score": 0,
+   "failure": "call miner \"filing-sec-submissions\": upstream error 403: <!DOCTYPE html PUBLIC \"",
+   "scored_at": "2026-11-05T02:06:20.995025Z"
+  },
+  {
+   "epoch": 2015,
+   "slug": "reg-court",
+   "rank": 16,
+   "score": 0,
+   "failure": "call miner \"reg-court\": upstream error 401: {\"detail\":\"Authentication credential",
+   "scored_at": "2026-11-05T02:06:20.995025Z"
+  }
+ ]
+}

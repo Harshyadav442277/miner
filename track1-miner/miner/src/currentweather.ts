@@ -38,10 +38,24 @@ const DEFAULT_TIMEOUT_MS = 8000;
  * current forecast for the next three days" stay forecasts. A storm-alert
  * question never reaches this: the route answers those first.
  */
+const FUTURE = /\b(?:forecasts?|tomorrow|tonight|later|next|coming|upcoming|weekend|this (?:week|evening|afternoon|morning)|in \d+ (?:hours?|days?|minutes?)|will it|going to)\b/i;
+
 export function asksCurrentConditions(text: string): boolean {
   const s = String(text ?? "");
   if (!/\b(?:right now|currently|at the moment|at present|as of now|current|now)\b/i.test(s)) return false;
-  return !/\b(?:forecasts?|tomorrow|tonight|later|next|coming|upcoming|weekend|this (?:week|evening|afternoon|morning)|in \d+ (?:hours?|days?|minutes?)|will it|going to)\b/i.test(s);
+  return !FUTURE.test(s);
+}
+
+/**
+ * "What is the temperature in Lagos?" names no time at all. WEATHER_CHECK_TEMPERATURE scores the current air
+ * temperature (`temperature_c`, GET /engine/v1/intents/WEATHER_CHECK_TEMPERATURE, 2026-11-05), and a 24-hour range
+ * does not state one; we ranked 10th at 0.608 (epoch 2021) answering it with a range. A high, a low, an average or
+ * any future word keeps the forecast path.
+ */
+export function asksTemperatureNow(text: string): boolean {
+  const s = String(text ?? "");
+  if (!/\b(?:temperature|how (?:hot|cold|warm))\b/i.test(s)) return false;
+  return !FUTURE.test(s) && !/\b(?:highs?|lows?|max(?:imum)?|min(?:imum)?|average|mean|range|today|overnight|daily|hourly|will)\b/i.test(s);
 }
 
 const r1 = (n: number): number => Math.round(n * 10) / 10;

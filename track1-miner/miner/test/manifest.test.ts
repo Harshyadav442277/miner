@@ -4,10 +4,16 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { ENDPOINTS } from "../src/handler";
 
-test("miner.yaml declares exactly the routes the service supports", () => {
+// Routes that refuse every request on licence and are no longer declared. They
+// stay served until the updateMiner that drops them is signed, because the live
+// registration still points at them; delete their code after that, then empty this.
+const RETIRED = ["/headlines", "/ip-geolocate", "/news-search", "/stock-price"];
+
+test("miner.yaml declares exactly the routes the service supports, less the retired ones", () => {
   const yaml = readFileSync(resolve(process.cwd(), "../miner.yaml"), "utf8");
   const declared = [...yaml.matchAll(/^  - path: (\/\S+)$/gm)].map((m) => m[1]).sort();
-  assert.deepEqual(declared, [...ENDPOINTS].sort());
+  for (const r of RETIRED) assert.ok(ENDPOINTS.includes(r), `${r} is retired but no longer served; remove it from RETIRED`);
+  assert.deepEqual(declared, ENDPOINTS.filter((e) => !RETIRED.includes(e)).sort());
 });
 
 // A registration is effectively immutable and a rejection releases the slug, so

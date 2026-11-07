@@ -7,7 +7,7 @@ source, and records whether the answer carries it.
 
   DNS_RECORD_LOOKUP          MX of github.com, read from Google Public DNS
   TOKEN_TOTAL_SUPPLY_VERIFY  USDC totalSupply() on Ethereum, read by eth_call
-  VULNERABILITY_TRIAGE       of three CVEs only CVE-2021-44228 is on CISA KEV; is it ranked first?
+  ONCHAIN_METRIC_VERIFY      gas used by Ethereum block 21000000, read by eth_getBlockByNumber
 
 Grades: pass, wrong (answered without the fact), error (non-200, timeout or not
 an answer), paywalled (402), auth (401/403). Direct calls only: nothing is routed
@@ -37,14 +37,12 @@ RAW_API_HOSTS = re.compile(r"(^|\.)(coingecko\.com|coinpaprika\.com|binance\.com
                            r"mitre\.org|osv\.dev|circl\.lu|shodan\.io|redhat\.com|ubuntu\.com|alpinelinux\.org|cisa\.gov|"
                            r"first\.org|cloudflare-dns\.com|hackertarget\.com|dns\.google|nvd\.nist\.gov)$", re.I)
 OURS = "https://miner-wine.vercel.app"
-CVES = ["CVE-2024-26581", "CVE-2022-0001", "CVE-2021-44228"]
 USDC = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
 
 QUESTIONS = {
     "DNS_RECORD_LOOKUP": ("What are the MX records for github.com?", {"domain": "github.com", "type": "MX"}, "/dns"),
     "TOKEN_TOTAL_SUPPLY_VERIFY": (f"What is the total supply of USDC ({USDC}) on Ethereum?", {"token": USDC, "chain": "ethereum"}, "/token-supply"),
-    "VULNERABILITY_TRIAGE": ("Rank these CVEs for patching on an internet-facing payments service: " + ", ".join(CVES),
-                             {"cves": ",".join(CVES)}, "/vuln-triage"),
+    "ONCHAIN_METRIC_VERIFY": ("How much gas did block 21000000 on ethereum use?", {"block": "21000000", "chain": "ethereum"}, "/onchain-metric"),
 }
 QUESTION_PARAM = re.compile(r"^(query|q|question|prompt|text|input|message|request)$", re.I)
 FILL = [
@@ -52,7 +50,7 @@ FILL = [
     (re.compile(r"record|^type$|rrtype|qtype", re.I), "type"),
     (re.compile(r"token|contract|address", re.I), "token"),
     (re.compile(r"chain|network", re.I), "chain"),
-    (re.compile(r"cve|vuln|finding|ids", re.I), "cves"),
+    (re.compile(r"block|height", re.I), "block"),
 ]
 
 
@@ -68,13 +66,21 @@ def get(url, data=None, headers=None, timeout=20):
         return None, str(e)[:200], int((time.time() - t) * 1000)
 
 
+def names(intent, listed):
+    """V2 lists intents under a family (ONCHAIN_METRIC_VERIFY_GENERAL); older YAMLs name the family itself."""
+    return any(i == intent or str(i).startswith(intent + "_") for i in (listed or []))
+
+
 def truth():
     _, mx, _ = get("https://dns.google/resolve?name=github.com&type=MX", headers={"accept": "application/dns-json"})
     records = [a["data"].split()[-1].rstrip(".").lower() for a in json.loads(mx).get("Answer", []) if a.get("type") == 15]
     body = json.dumps({"jsonrpc": "2.0", "id": 1, "method": "eth_call", "params": [{"to": USDC, "data": "0x18160ddd"}, "latest"]}).encode()
     _, rpc, _ = get("https://ethereum-rpc.publicnode.com", data=body, headers={"content-type": "application/json"})
     supply = int(json.loads(rpc)["result"], 16)
-    return {"mx": records, "supply_raw": supply, "supply": supply / 1e6}
+    # Block gas is fixed once the block is final; Blockscout indexes it independently of the RPCs.
+    _, block, _ = get("https://eth.blockscout.com/api/v2/blocks/21000000")
+    gas = int(json.loads(block).get("gas_used") or 0)
+    return {"mx": records, "supply_raw": supply, "supply": supply / 1e6, "block_gas": gas}
 
 
 def numbers(text):
@@ -92,7 +98,7 @@ def numbers(text):
 def strip_echo(obj):
     """The answer without fields that only repeat the question back."""
     if isinstance(obj, dict):
-        return {k: strip_echo(v) for k, v in obj.items() if not QUESTION_PARAM.match(k) and k not in ("cves", "cve_ids", "input_cves", "receipt")}
+        return {k: strip_echo(v) for k, v in obj.items() if not QUESTION_PARAM.match(k) and k != "receipt"}
     if isinstance(obj, list):
         return [strip_echo(v) for v in obj]
     return obj
@@ -105,8 +111,6 @@ def grade(intent, status, text, facts):
         return "paywalled"
     if status != 200 or not text.strip():
         return "error"
-    # Unicode hyphens (U+2010 to U+2015, U+2212): one miner writes CVE ids with non-breaking hyphens.
-    text = re.sub("[\u2010-\u2015\u2212]", "-", text)
     low = text.lower()
     if intent == "DNS_RECORD_LOOKUP":
         return "pass" if facts["mx"] and all(r in low for r in facts["mx"]) else "wrong"
@@ -117,8 +121,8 @@ def grade(intent, status, text, facts):
         scan = json.dumps(strip_echo(json.loads(text)))
     except ValueError:
         scan = text
-    hits = sorted((scan.upper().find(c), c) for c in CVES if c in scan.upper())
-    return "pass" if hits and hits[0][1] == "CVE-2021-44228" else "wrong"
+    gas = facts["block_gas"]
+    return "pass" if gas and (str(gas) in scan or f"{gas:,}" in scan or hex(gas) in scan.lower()) else "wrong"
 
 
 def value_for(name, description, intent):
@@ -129,7 +133,7 @@ def value_for(name, description, intent):
     for text in (name, description):
         for rx, key in FILL:
             if rx.search(text or ""):
-                return values.get(key, question).split(",")[0] if key == "cves" and "{" in (name or "") else values.get(key, question)
+                return values.get(key, question)
     return question if QUESTION_PARAM.match(name or "") else None
 
 
@@ -155,8 +159,6 @@ def request_for(intent, ep, base):
     # Path templates such as /tokens/{address} or /cve/{cve_id}: the node fills them; so do we.
     for name in re.findall(r"\{([^}]+)\}", path):
         v = fill.pop(name, None) or value_for(name, "", intent) or question
-        if "cve" in name.lower():
-            v = v.split(",")[0]
         path = path.replace("{" + name + "}", urllib.parse.quote(str(v), safe=""))
     url = base.rstrip("/") + path
     if method == "GET":
@@ -173,7 +175,7 @@ def main(miners_path, out_dir):
         if m.get("activation_status") != "active":
             continue
         for intent in QUESTIONS:
-            if intent not in (m.get("supported_intents") or []):
+            if not names(intent, m.get("supported_intents")):
                 continue
             url = m.get("yaml_url") or ""
             if url not in yaml_cache:
@@ -187,7 +189,7 @@ def main(miners_path, out_dir):
                 targets.setdefault((intent, f"yaml:{url}"), {"intent": intent, "id": m["id"], "slug": m.get("slug"), "grade": "error", "note": "YAML unreadable"})
                 continue
             for ep in doc.get("endpoints") or []:
-                if not isinstance(ep, dict) or intent not in (ep.get("intents") or []):
+                if not isinstance(ep, dict) or not names(intent, ep.get("intents")):
                     continue
                 base = ep.get("endpoint_base_url") or doc.get("base_url") or m.get("base_url") or ""
                 if not base.startswith("https://") or base.startswith(OURS):

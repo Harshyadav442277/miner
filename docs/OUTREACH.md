@@ -4,8 +4,9 @@ Every figure here is from a dated evidence file. Re-check any figure older than 
 replace it rather than round it. Evaluator-track drafts are Codex's, in `track2/OUTREACH_S2.md` on
 `codex/sanctions-benchmark-v7`.
 
-Rubric lines served: Miner consumption 10 (independent app groups, up to 3 points), Evaluator growth 20
-(at least three original updates on separate dates, sharing beyond our team, an invitation with a next step).
+Rubric lines served: Miner consumption 10 (independent app groups, up to 3 points), and growth 20 in both the
+Miner track (added 2026-11-05) and the Evaluator track (at least three original updates on separate dates, sharing
+beyond our team, an invitation with a next step).
 Posts are not scored on their own; what counts is an independent team acting on them.
 
 ## 1. Discord, #season-2 or the builders channel — post before Nov 14 (owner)

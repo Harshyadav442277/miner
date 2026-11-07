@@ -1,0 +1,22 @@
+# What the top-ranked single-intent miners return, checked 2026-11-06 ~16:20 UTC with curl -4.
+# The node calls each endpoint's external_path from the registered YAML (yaml_url in /api/miners),
+# not the advertised /query path. Bare /query URLs 404 and prove nothing about scoring.
+
+## Confirmed: answer does not depend on the question
+san-os-au (SANCTIONS rank 2, 0.9997)   YAML https://paste.rs/WNwNj
+  input_schema properties {}; external_path /datasets/latest/au_dfat_sanctions/index.json
+  GET https://data.opensanctions.org/datasets/latest/au_dfat_sanctions/index.json -> 307 -> 200 application/json 4326 B
+  Body: dataset metadata (issue_levels, updated_at, resources[...]). Same body for every question. No name is screened.
+san-os-ofac (SANCTIONS rank 3, 0.9987)  YAML https://paste.rs/hfoHL
+  input_schema properties {}; external_path /datasets/latest/us_ofac_sdn/index.json -> 200 4455 B, dataset metadata.
+LiveCert (SANCTIONS rank 8, 0.9827): screens the named party against OFAC SDN + UN with near-match scores.
+
+## Not a constant answer: question passed to a real search API (raw upstream JSON)
+rq-fedreg, reg-fedreg-search  https://www.federalregister.gov/api/v1/documents.json  conditions[term], per_page
+acad-pubmed                   https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi  db, term, retmode, retmax
+corp-gleif-apple              https://api.gleif.org/api/v1/lei-records  filter[entity.legalName], page[size]
+fact-zenodo                   https://zenodo.org/api/records  q, size
+
+## Unverified
+gas-publicnode-rpc (GAS rank 1)  YAML on omni-chat.13.237.89.59.sslip.io; external_path /, input properties {}
+  GET https://ethereum-rpc.publicnode.com/ -> 301, 0 B. What the node receives after the redirect was not checked.

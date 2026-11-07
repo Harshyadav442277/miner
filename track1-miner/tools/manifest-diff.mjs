@@ -11,10 +11,11 @@
  * deregistration is stated in the command and an accidental one still fails.
  */
 import { readFileSync } from "node:fs";
+import { family } from "./manifest.mjs";
 
 function parse(path) {
   const yaml = readFileSync(path, "utf8");
-  const out = { file: path, endpoints: [], supported: [], scalars: {} };
+  const out = { file: path, endpoints: [], supported: [], listed: [], scalars: {} };
 
   for (const k of ["version", "kind", "id", "slug", "protocol", "base_url", "rate_limit_per_sec", "min_price_usdc", "fee_address"]) {
     const m = yaml.match(new RegExp(`^${k}:\\s*(.+)$`, "m"));
@@ -31,11 +32,13 @@ function parse(path) {
     const meth = line.match(/^ {4}method: (\S+)$/);
     if (meth) { current.method = meth[1]; continue; }
     const ints = line.match(/^ {4}intents: \[([^\]]+)\]$/);
-    if (ints) { current.intents = ints[1].split(",").map((s) => s.trim()); continue; }
+    // Compared by family: the registered YAML says WEB_SEARCH, the pending one WEB_SEARCH_GENERAL (V2 ids, 2026-11-06).
+    if (ints) { current.intents = ints[1].split(",").map((s) => family(s.trim())); continue; }
     const nm = line.match(/^ {10}- name: (\S+)$/);
     if (nm) current.params.push(nm[1]);
   }
-  out.supported = [...yaml.matchAll(/^ {4}- ([A-Z][A-Z0-9_]+)$/gm)].map((m) => m[1]);
+  out.listed = [...yaml.matchAll(/^ {4}- ([A-Z][A-Z0-9_]+)\r?$/gm)].map((m) => m[1]);
+  out.supported = out.listed.map(family);
   return out;
 }
 
@@ -95,6 +98,12 @@ else if (goneIntents.length) ok(`removed on purpose (--allow-removed): ${goneInt
 else ok(`all ${before.supported.length} registered intents preserved`);
 ok(`added: ${newIntents.join(", ")}`);
 console.log(`  registered ${before.supported.length} -> pending ${after.supported.length}`);
+
+// V2 registers listed intents only: a bare family ("a prefix is not an intent") reverts the whole registration.
+console.log("\n=== pending ids are V2 intents, not families ===");
+const bare = after.listed.filter((i) => family(i) === i);
+if (bare.length) fail(`bare family names: ${bare.join(", ")}`);
+else ok(`all ${after.listed.length} carry an intent suffix; check each with isCanonicalIntent before signing`);
 
 const removedOnPurpose = before.endpoints.filter((e) => !afterByPath.has(e.path)).length + goneIntents.length;
 const pass = removedOnPurpose

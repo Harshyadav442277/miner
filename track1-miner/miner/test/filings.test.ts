@@ -14,6 +14,36 @@ test("the issuer, form and window are read from the question", () => {
   assert.equal(filingAsk("anything", "AAPL", "10-k/a", NOW).form, "10-K/A");
 });
 
+// G257: the request builder may send only `query`. These answered "No issuer was named" on production
+// (`3c5e8ff`, 2026-11-05) unless `company` was passed.
+test("count questions name the issuer without a company param", () => {
+  const ask = (q: string, period = "") => filingAsk(q, "", "", NOW, period);
+  assert.deepEqual(ask("How many filings did Apple make in the last 12 months?"),
+    { company: "Apple", form: null, since: "2025-10-14", latest: false });
+  assert.deepEqual(ask("Microsoft 8-K filings in the last 6 months"),
+    { company: "Microsoft", form: "8-K", since: "2026-04-14", latest: false });
+  assert.equal(ask("How many SEC filings has Johnson & Johnson made since 2026-01-01?").company, "Johnson & Johnson");
+  assert.deepEqual(ask("How many filings were made by Nvidia over the past year?"),
+    { company: "Nvidia", form: null, since: "2025-10-14", latest: false });
+  assert.deepEqual(ask("Number of regulatory filings for Apple Inc. (AAPL) during the last 3 months"),
+    { company: "Apple Inc.", form: null, since: "2026-07-14", latest: false });
+  assert.deepEqual(ask("List Tesla 10-Q filings in the past two quarters"),
+    { company: "Tesla", form: "10-Q", since: "2026-04-14", latest: false });
+  assert.equal(ask("How many Tesla filings were there in the last 12 months?").company, "Tesla");
+  assert.equal(ask("Recent 8-K filings?").company, "", "a sentence's first word is not an issuer");
+});
+
+test("the window: the intent's period wins, and a comparison is not a window", () => {
+  const ask = (q: string, period = "") => filingAsk(q, "", "", NOW, period);
+  assert.equal(ask("How many filings did Apple make?", "last 12 months").since, "2025-10-14");
+  assert.equal(ask("How many filings did Apple make?", "the past year").since, "2025-10-14");
+  assert.equal(ask("Did Apple file an 8-K in the last 30 days?", "last 6 months").since, "2026-04-14");
+  assert.equal(ask("Did Apple file an 8-K in the last 30 days?", "FY2025").since, "2026-09-14", "an unread period falls back to the question");
+  const latest = ask("Has Tesla filed its latest 10-Q, and how did margins compare with the last quarter?");
+  assert.equal(latest.since, null);
+  assert.equal(latest.latest, true);
+});
+
 // Tesla's GrossProfit facts as tagged in its Q2 2026 10-Q (accession 0001628280-26-049270, read 2026-10-14).
 const ACC = "0001628280-26-049270";
 const fact = (start: string, end: string, val: number, accn = ACC) => ({ start, end, val, accn });
@@ -53,9 +83,10 @@ test("a filed 10-Q answers its date, acceptance time, accession, link and margin
     }
     if (u.includes("/submissions/")) {
       return Response.json({ name: "Tesla, Inc.", tickers: ["TSLA"], filings: { recent: {
-        form: ["8-K", "10-Q"], filingDate: ["2026-10-02", "2026-07-23"], acceptanceDateTime: ["2026-10-02T13:04:26.000Z", "2026-07-23T01:02:31.000Z"],
-        accessionNumber: ["0001628280-26-064366", ACC], reportDate: ["2026-10-02", "2026-06-30"], items: ["2.02,9.01", ""],
-        primaryDocument: ["tsla-20261002.htm", "tsla-20260630.htm"],
+        form: ["4", "8-K", "10-Q"], filingDate: ["2026-10-10", "2026-10-02", "2026-07-23"],
+        acceptanceDateTime: ["2026-10-10T20:01:00.000Z", "2026-10-02T13:04:26.000Z", "2026-07-23T01:02:31.000Z"],
+        accessionNumber: ["0001104659-26-090001", "0001628280-26-064366", ACC], reportDate: ["2026-10-08", "2026-10-02", "2026-06-30"],
+        items: ["", "2.02,9.01", ""], primaryDocument: ["xslF345X05/form4.xml", "tsla-20261002.htm", "tsla-20260630.htm"],
       } } });
     }
     const tag = u.match(/us-gaap\/(\w+)\.json/)?.[1] ?? "";
@@ -74,9 +105,25 @@ test("a filed 10-Q answers its date, acceptance time, accession, link and margin
   assert.equal(eightK.verdict, "filed");
   assert.match(eightK.reason, /^Yes: Tesla, Inc\. has filed an 8-K since 2026-09-14/);
   assert.match(eightK.reason, /item 2\.02 \(Results of Operations and Financial Condition\)/);
+  assert.equal(eightK.filing_count, 1);
+  assert.equal(eightK.entity, "Tesla, Inc.");
+
+  // G263: every form counts, insider Form 4s included; the answer's own filing is still the latest material one.
+  const year = await monitorFilings("How many filings did Tesla make in the last 12 months?", "Tesla", "", NOW);
+  assert.equal(year.filing_count, 3);
+  assert.deepEqual(year.filings, ["Form 4 filed 2026-10-10 for the period ended 2026-10-08",
+    "8-K filed 2026-10-02, event dated 2026-10-02, items 2.02, 9.01", "10-Q filed 2026-07-23 for the period ended 2026-06-30"]);
+  assert.match(year.reason, /^Tesla, Inc\. has made 3 EDGAR filings since 2025-10-14, 2 of them material \(10-K, 10-Q, 8-K and the like\); the latest material one, an 8-K, was filed on 2026-10-02/);
+  assert.equal(year.filing!.form, "8-K");
 
   const none = await monitorFilings("Has Tesla filed a 10-K since 2026-09-01?", "", "", NOW);
   assert.equal(none.verdict, "not_filed");
+  assert.equal(none.filing_count, 0, "a named form counts that form only");
+
+  const quiet = await monitorFilings("Did Tesla file anything since 2026-10-05?", "", "", NOW);
+  assert.equal(quiet.verdict, "not_filed", "a Form 4 alone is not a material filing");
+  assert.equal(quiet.filing_count, 1);
+  assert.match(quiet.reason, /it made 1 other EDGAR filing in that window, the latest a Form 4 on 2026-10-10/);
 });
 
 // G210, 2026-10-25: SEC answered Coca-Cola's Revenues concept with "USD": {} and the

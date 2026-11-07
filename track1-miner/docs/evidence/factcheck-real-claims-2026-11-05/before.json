@@ -1,0 +1,380 @@
+{
+ "tally": {
+  "right": 7,
+  "wrong": 3,
+  "open": 27,
+  "settled_non_claim": 0
+ },
+ "results": [
+  {
+   "claim": "GPT-3 was released by OpenAI in 2020 and has 175 billion parameters.",
+   "truth": true,
+   "verdict": "unverified",
+   "confidence": 0.3,
+   "grade": "open",
+   "article": "2020 in artificial intelligence",
+   "evidence": "The following is a list of events of the year 2020 in artificial intelligence.",
+   "error": null
+  },
+  {
+   "claim": "BERT was introduced by Meta in 2012.",
+   "truth": false,
+   "verdict": "unverified",
+   "confidence": 0.3,
+   "grade": "open",
+   "article": "YouTube",
+   "evidence": "YouTube is an American online video-sharing platform owned by Google. YouTube was founded on February 14, 2005, by Chad Hurley, Jawed Karim, and Steve Chen, all of whom were former employees at PayPal. Headquartered in San Bruno, California, it is the second-most-visited website in the world, after Google itself. In January 2024, YouTube had reached more than 2.7 billion monthly active users, who ",
+   "error": null
+  },
+  {
+   "claim": "The transformer architecture was introduced in 2017 in the paper \"Attention Is All You Need\".",
+   "truth": true,
+   "verdict": "unverified",
+   "confidence": 0.3,
+   "grade": "open",
+   "article": "Attention Is All You Need",
+   "evidence": "\"Attention Is All You Need\" is a 2017 research paper on machine learning authored by eight scientists and engineers working at Google. The paper introduced a new deep learning architecture known as the transformer, based on the attention mechanism proposed in 2014 by Bahdanau et al. The transformer approach it describes has become the main architecture of a wide variety of artificial intelligence ",
+   "error": null
+  },
+  {
+   "claim": "The Eiffel Tower is located in Berlin.",
+   "truth": false,
+   "verdict": "contradicted",
+   "confidence": 0.7,
+   "grade": "right",
+   "article": "Eiffel Tower",
+   "evidence": "The Eiffel Tower ( EYE-fəl; French: Tour Eiffel [tuʁ ɛfɛl] ) is a lattice tower on the Champ de Mars in Paris, France.",
+   "error": null
+  },
+  {
+   "claim": "Read the original paper on arXiv and the follow-up at arXiv 2399.99999.",
+   "truth": null,
+   "verdict": "unverified",
+   "confidence": 0.2,
+   "grade": "open",
+   "article": null,
+   "evidence": null,
+   "error": null
+  },
+  {
+   "claim": "The Transformer architecture was introduced in 2017 by Vaswani et al. at Google.",
+   "truth": true,
+   "verdict": "unverified",
+   "confidence": 0.3,
+   "grade": "open",
+   "article": "Generative pre-trained transformer",
+   "evidence": "A generative pre-trained transformer (GPT) is a type of large language model (LLM) that is widely used in generative artificial intelligence chatbots. GPTs are based on a deep learning architecture called the transformer. They are pre-trained on large datasets of unlabeled content, and are able to generate novel content.",
+   "error": null
+  },
+  {
+   "claim": "Google Brain and Google Research",
+   "truth": null,
+   "verdict": "unverified",
+   "confidence": 0.3,
+   "grade": "open",
+   "article": "Google Brain",
+   "evidence": "Google Brain was a deep learning artificial intelligence research team that served as the sole AI branch of Google before being incorporated under the newer umbrella of Google AI, a research division at Google dedicated to artificial intelligence. Formed in 2011, it combined open-ended machine learning research with information systems and large-scale computing resources. It created tools such as ",
+   "error": null
+  },
+  {
+   "claim": "Attention Is All You Need",
+   "truth": null,
+   "verdict": "unverified",
+   "confidence": 0.3,
+   "grade": "open",
+   "article": "Attention Is All You Need",
+   "evidence": "\"Attention Is All You Need\" is a 2017 research paper on machine learning authored by eight scientists and engineers working at Google. The paper introduced a new deep learning architecture known as the transformer, based on the attention mechanism proposed in 2014 by Bahdanau et al. The transformer approach it describes has become the main architecture of a wide variety of artificial intelligence ",
+   "error": null
+  },
+  {
+   "claim": "The Eiffel Tower is located in Berlin and was completed in 1889.",
+   "truth": false,
+   "verdict": "supported",
+   "confidence": 0.7,
+   "grade": "wrong",
+   "article": "Eiffel Tower",
+   "evidence": "The main structural work was completed at the end of March 1889 and, on 31 March, Eiffel celebrated by leading a group of government officials, accompanied by representatives of the press, to the top of the tower.",
+   "error": null
+  },
+  {
+   "claim": "It was designed by Gustave Eiffel's company.",
+   "truth": null,
+   "verdict": "unverified",
+   "confidence": 0.3,
+   "grade": "open",
+   "article": "Gustave Eiffel",
+   "evidence": "Alexandre Gustave Eiffel was a French civil engineer. A graduate of École Centrale des Arts et Métiers, he made his name with various bridges for the French railway network, most famously the Garabit Viaduct. He is best known for the Eiffel Tower, designed by his company and built for the 1889 Universal Exposition in Paris, and his contribution to building the Statue of Liberty in New York. After ",
+   "error": null
+  },
+  {
+   "claim": "It introduced the Transformer architecture, which became the foundation of modern large language models (LLMs), including GPT, BERT, and many other AI systems.",
+   "truth": null,
+   "verdict": "unverified",
+   "confidence": 0.3,
+   "grade": "open",
+   "article": "Large language model",
+   "evidence": "A large language model (LLM) is a machine learning model trained on a vast amount of text for natural language processing tasks, especially language generation. LLMs can typically generate, summarize, translate, and analyze text in many contexts. They are the basis for many modern chatbots, such as ChatGPT, Claude, Vibe, Gemini, Grok, Qwen and DeepSeek.",
+   "error": null
+  },
+  {
+   "claim": "\"Attention Is All You Need\" is a research paper published in 2017 by researchers at Google.",
+   "truth": true,
+   "verdict": "unverified",
+   "confidence": 0.3,
+   "grade": "open",
+   "article": "Attention Is All You Need",
+   "evidence": "\"Attention Is All You Need\" is a 2017 research paper on machine learning authored by eight scientists and engineers working at Google. The paper introduced a new deep learning architecture known as the transformer, based on the attention mechanism proposed in 2014 by Bahdanau et al. The transformer approach it describes has become the main architecture of a wide variety of artificial intelligence ",
+   "error": null
+  },
+  {
+   "claim": "One of the paper's most important innovations is Multi-Head Attention.",
+   "truth": null,
+   "verdict": "unverified",
+   "confidence": 0.3,
+   "grade": "open",
+   "article": "Chinese paper cutting",
+   "evidence": "The traditional art of paper cutting in China may date back to the 2nd century CE, when paper was invented by Cai Lun, a court official of the Eastern Han dynasty. On May 20, 2006, paper cutting has been officially listed as one of the earliest intangible cultural heritage of China, issue by Shanxi Culture Department. It was put on the UNESCO Representative List of the Intangible Cultural Heritage",
+   "error": null
+  },
+  {
+   "claim": "Attention Is All You Need (2017)",
+   "truth": null,
+   "verdict": "unverified",
+   "confidence": 0.3,
+   "grade": "open",
+   "article": "Attention Is All You Need",
+   "evidence": "\"Attention Is All You Need\" is a 2017 research paper on machine learning authored by eight scientists and engineers working at Google. The paper introduced a new deep learning architecture known as the transformer, based on the attention mechanism proposed in 2014 by Bahdanau et al. The transformer approach it describes has become the main architecture of a wide variety of artificial intelligence ",
+   "error": null
+  },
+  {
+   "claim": "The original Transformer used 8 attention heads.",
+   "truth": true,
+   "verdict": "unverified",
+   "confidence": 0.3,
+   "grade": "open",
+   "article": "Attention Is All You Need",
+   "evidence": "\"Attention Is All You Need\" is a 2017 research paper on machine learning authored by eight scientists and engineers working at Google. The paper introduced a new deep learning architecture known as the transformer, based on the attention mechanism proposed in 2014 by Bahdanau et al. The transformer approach it describes has become the main architecture of a wide variety of artificial intelligence ",
+   "error": null
+  },
+  {
+   "claim": "Dropout: 0.1 for the base model.",
+   "truth": null,
+   "verdict": "unverified",
+   "confidence": 0.3,
+   "grade": "open",
+   "article": "Attention Is All You Need",
+   "evidence": "\"Attention Is All You Need\" is a 2017 research paper on machine learning authored by eight scientists and engineers working at Google. The paper introduced a new deep learning architecture known as the transformer, based on the attention mechanism proposed in 2014 by Bahdanau et al. The transformer approach it describes has become the main architecture of a wide variety of artificial intelligence ",
+   "error": null
+  },
+  {
+   "claim": "The authors reported that the English-to-French model was trained for approximately 3.5 days on eight GPUs.",
+   "truth": true,
+   "verdict": "unverified",
+   "confidence": 0.3,
+   "grade": "open",
+   "article": "GPT-2",
+   "evidence": "Generative Pre-trained Transformer 2 (GPT-2) is a large language model (LLM) by OpenAI and the second in their foundational series of GPT models. GPT-2 was pre-trained on a dataset of 8 million web pages. It was partially released in February 2019, followed by full release of the 1.5-billion-parameter model on November 5, 2019.",
+   "error": null
+  },
+  {
+   "claim": "Mount Everest is 8849 metres tall.",
+   "truth": true,
+   "verdict": "unverified",
+   "confidence": 0.2,
+   "grade": "open",
+   "article": null,
+   "evidence": null,
+   "error": null
+  },
+  {
+   "claim": "The Python language was first released in 1991.",
+   "truth": true,
+   "verdict": "supported",
+   "confidence": 0.7,
+   "grade": "right",
+   "article": "Python (programming language)",
+   "evidence": "Van Rossum first released it in 1991 as Python 0.9.0. Van Rossum assumed sole responsibility for the project, as the lead developer, until 12 July 2018, when he announced his \"permanent vacation\" from responsibilities as Python's \"benevolent dictator for life\" (BDFL); this title was bestowed on him by the Python community to reflect his long-term commitment as the project's chief decision-maker.",
+   "error": null
+  },
+  {
+   "claim": "GPT-3 was released by OpenAI in 2020.",
+   "truth": true,
+   "verdict": "supported",
+   "confidence": 0.7,
+   "grade": "right",
+   "article": "GPT-3",
+   "evidence": "Generative Pre-trained Transformer 3 (GPT-3) was a large language model released by OpenAI in 2020 as part of the company's GPT series of models.",
+   "error": null
+  },
+  {
+   "claim": "BERT was introduced by Google in 2018.",
+   "truth": true,
+   "verdict": "unverified",
+   "confidence": 0.3,
+   "grade": "open",
+   "article": "Google Translate",
+   "evidence": "Google Translate is a multilingual neural machine translation service developed by Google to translate text, documents and websites from one language into another. It offers a website interface, a mobile app for Android and iOS, and an API that helps developers build browser extensions and software applications. As of October 2026, Google Translate supports 249 languages and language varieties at ",
+   "error": null
+  },
+  {
+   "claim": "The first iPhone was released by Apple in 2007.",
+   "truth": true,
+   "verdict": "supported",
+   "confidence": 0.7,
+   "grade": "right",
+   "article": "IPhone (1st generation)",
+   "evidence": "A v1.1 update alongside the introduction of the iPod Touch in September 2007 included an iTunes Store app that was the first new app to be added to the system. iPhone OS 2 was released on July 11, 2008, at the same time as the release of the iPhone 3G, and introduced Apple's App Store supporting native third-party applications (that were developed with the iPhone SDK), Microsoft Exchange support, ",
+   "error": null
+  },
+  {
+   "claim": "Water boils at 90 degrees Celsius at sea level.",
+   "truth": false,
+   "verdict": "unverified",
+   "confidence": 0.3,
+   "grade": "open",
+   "article": "Boiling water reactor",
+   "evidence": "A boiling water reactor (BWR) is a type of nuclear reactor used for the generation of electrical power. It is the second most common type of electricity-generating nuclear reactor after the pressurized water reactor (PWR).",
+   "error": null
+  },
+  {
+   "claim": "The Golden Gate Bridge opened in 1937.",
+   "truth": true,
+   "verdict": "unverified",
+   "confidence": 0.3,
+   "grade": "open",
+   "article": "Suicides at the Golden Gate Bridge",
+   "evidence": "Between 1937 and 2026, an estimated 2,000 people have jumped to their deaths from the Golden Gate Bridge, located in the San Francisco Bay Area in the United States. The number is high enough for statisticians to compile figures on the precise cause of death. Prior to the installation of suicide prevention barriers, most would die instantly from internal injuries upon hitting the water, while a fe",
+   "error": null
+  },
+  {
+   "claim": "Marie Curie won the Nobel Prize in Physics in 1903.",
+   "truth": true,
+   "verdict": "unverified",
+   "confidence": 0.3,
+   "grade": "open",
+   "article": "Marie Curie",
+   "evidence": "Maria Salomea Skłodowska Curie, better known as Marie Curie, was a Polish and naturalised-French physicist and chemist. She shared the 1903 Nobel Prize in Physics with her husband, Pierre Curie, \"for their joint researches on the radioactivity phenomena discovered by Professor Henri Becquerel\". She won the 1911 Nobel Prize in Chemistry \"[for] the discovery of the elements radium and polonium, by t",
+   "error": null
+  },
+  {
+   "claim": "Facebook was founded by Mark Zuckerberg in 2004.",
+   "truth": true,
+   "verdict": "supported",
+   "confidence": 0.7,
+   "grade": "right",
+   "article": "Facebook",
+   "evidence": "In January 2004, Zuckerberg coded a new site known as \"TheFacebook\", stating, \"It is clear that the technology needed to create a centralized Website is readily available ... the benefits are many.\" Zuckerberg met with Harvard student Eduardo Saverin, and each agreed to invest $1,000.",
+   "error": null
+  },
+  {
+   "claim": "The Wright brothers made their first powered flight in 1903.",
+   "truth": true,
+   "verdict": "supported",
+   "confidence": 0.7,
+   "grade": "right",
+   "article": "Wright brothers",
+   "evidence": "They made the first controlled, sustained flight of an engine-powered, heavier-than-air aircraft with the Wright Flyer on December 17, 1903, four miles (6 km) south of Kitty Hawk, North Carolina, at what is now known as Kill Devil Hills.",
+   "error": null
+  },
+  {
+   "claim": "Venus is the largest planet in the Solar System.",
+   "truth": false,
+   "verdict": "supported",
+   "confidence": 0.7,
+   "grade": "wrong",
+   "article": "Venus",
+   "evidence": "Venus is one of the four terrestrial planets in the Solar System, meaning that it is a rocky body like Earth.",
+   "error": null
+  },
+  {
+   "claim": "The Berlin Wall fell in 1989.",
+   "truth": true,
+   "verdict": "unverified",
+   "confidence": 0.3,
+   "grade": "open",
+   "article": "Berlin Wall",
+   "evidence": "The Berlin Wall was a guarded concrete barrier that encircled West Berlin from 1961 to 1989, separating it from East Berlin and the German Democratic Republic. Construction of the Berlin Wall was commenced by the government of the GDR on 13 August 1961. It included guard towers placed along large concrete walls, accompanied by a wide area that contained anti-vehicle trenches, beds of nails and oth",
+   "error": null
+  },
+  {
+   "claim": "YouTube was founded in 2005.",
+   "truth": true,
+   "verdict": "supported",
+   "confidence": 0.7,
+   "grade": "right",
+   "article": "YouTube",
+   "evidence": "YouTube was founded on February 14, 2005, by Chad Hurley, Jawed Karim, and Steve Chen, all of whom were former employees at PayPal.",
+   "error": null
+  },
+  {
+   "claim": "The Sydney Opera House opened in 1973.",
+   "truth": true,
+   "verdict": "unverified",
+   "confidence": 0.3,
+   "grade": "open",
+   "article": "Sydney Opera House",
+   "evidence": "The Sydney Opera House is a multi-venue performing arts centre in Sydney, New South Wales, Australia. Located on the foreshore of Sydney Harbour, it is widely regarded as one of the world's most famous and distinctive buildings, and a masterpiece of 20th-century architecture.",
+   "error": null
+  },
+  {
+   "claim": "Mount Kilimanjaro is the tallest mountain in Africa at 5895 metres.",
+   "truth": true,
+   "verdict": "contradicted",
+   "confidence": 0.7,
+   "grade": "wrong",
+   "article": "Mount Kilimanjaro",
+   "evidence": "Kilimanjaro is drained by a network of rivers and streams, especially on the wetter and more heavily eroded southern side and primarily above 1,200 m (3,900 ft).",
+   "error": null
+  },
+  {
+   "claim": "The Colosseum in Rome was completed in 80 AD.",
+   "truth": true,
+   "verdict": "unverified",
+   "confidence": 0.3,
+   "grade": "open",
+   "article": "Ancient Rome",
+   "evidence": "In modern historiography, ancient Rome is the Roman civilisation from the founding of the Italian city of Rome in the 8th century BC to the collapse of the Western Roman Empire in the 5th century AD. It encompasses the Roman Kingdom (753–509 BC), the Roman Republic (509‍–‍27 BC), and the Roman Empire until the fall of the western empire.",
+   "error": null
+  },
+  {
+   "claim": "Python 3.0 was released in 2008.",
+   "truth": true,
+   "verdict": "unverified",
+   "confidence": 0.3,
+   "grade": "open",
+   "article": "History of Python",
+   "evidence": "The programming language Python was conceived in the late 1980s, and its implementation was started in December 1989 by Guido van Rossum at CWI in the Netherlands as a successor to ABC capable of exception handling and interfacing with the Amoeba operating system. Van Rossum was Python's principal author and had a central role in deciding the direction of Python until stepping down as leader on Ju",
+   "error": null
+  },
+  {
+   "claim": "This is a fascinating development in AI research published on November 2, 2026.",
+   "truth": null,
+   "verdict": "unverified",
+   "confidence": 0.3,
+   "grade": "open",
+   "article": "United States",
+   "evidence": "The United States of America (USA), also known as the United States (U.S.) or America, is a country primarily located in North America. It is a federal republic consisting of 50 states and a federal capital district, Washington, D.C. The 48 contiguous states border Canada to the north and Mexico to the south, with the semi-exclave of Alaska in the northwest and the archipelago of Hawaii in the Pac",
+   "error": null
+  },
+  {
+   "claim": "You're probably referring to the new MIT research where OpenAI's GPT-6 Astra directly modified the internal weights of Alibaba's Qwen model, dramatically improving its mathematical performance without retraining it.",
+   "truth": null,
+   "verdict": "unverified",
+   "confidence": 0.3,
+   "grade": "open",
+   "article": "Referring expression generation",
+   "evidence": "Referring expression generation (REG) is the subtask of natural language generation (NLG) that received most scholarly attention. While NLG is concerned with the conversion of non-linguistic information into natural language, REG focuses only on the creation of referring expressions that identify specific entities called targets.",
+   "error": null
+  },
+  {
+   "claim": "They gave GPT-6 Astra access to Qwen3.5-0.8B's neural-network weights and asked it to improve the model's mathematical reasoning.",
+   "truth": null,
+   "verdict": "unverified",
+   "confidence": 0.3,
+   "grade": "open",
+   "article": "Large language model",
+   "evidence": "A large language model (LLM) is a machine learning model trained on a vast amount of text for natural language processing tasks, especially language generation. LLMs can typically generate, summarize, translate, and analyze text in many contexts. They are the basis for many modern chatbots, such as ChatGPT, Claude, Vibe, Gemini, Grok, Qwen and DeepSeek.",
+   "error": null
+  }
+ ]
+}

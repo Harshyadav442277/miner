@@ -1,0 +1,298 @@
+[
+ {
+  "claim": "GPT-3 was released by OpenAI in 2020 and has 175 billion parameters.",
+  "truth": true,
+  "prod": "unverified",
+  "first_seen": "2026-11-03T20:14:41.956052Z",
+  "signal_hash": "0x89bf636890cd97866746bc47ed32038cc5df33c08cfcdecd26f42b080fa87b6f",
+  "requests": 1
+ },
+ {
+  "claim": "BERT was introduced by Meta in 2012.",
+  "truth": false,
+  "prod": "unverified",
+  "first_seen": "2026-11-03T20:14:44.92609Z",
+  "signal_hash": "0x72e015b37c0f8ae4740d180ea4b6598eb1d1c6de43b3141510f7e1d2fd51b294",
+  "requests": 1
+ },
+ {
+  "claim": "The transformer architecture was introduced in 2017 in the paper \"Attention Is All You Need\".",
+  "truth": true,
+  "prod": "unverified",
+  "first_seen": "2026-11-03T20:16:40.682116Z",
+  "signal_hash": "0x7be328f79eeabc7c811304e847c7229003d0c7934920d5008f26259fd0f53995",
+  "requests": 1
+ },
+ {
+  "claim": "The Eiffel Tower is located in Berlin.",
+  "truth": false,
+  "prod": "contradicted",
+  "first_seen": "2026-11-03T20:40:11.420486Z",
+  "signal_hash": "0xa02544ef1f0227d1188e6231192719c2a8aeab0399f45b0296c7325c6fac9fa6",
+  "requests": 1
+ },
+ {
+  "claim": "Read the original paper on arXiv and the follow-up at arXiv 2399.99999.",
+  "truth": null,
+  "prod": "unverified",
+  "first_seen": "2026-11-03T20:50:05.839899Z",
+  "signal_hash": "0xb16a2406495571417c67efb04f98e577e4b051ff894110f710b356b2208acbb7",
+  "requests": 1
+ },
+ {
+  "claim": "The Transformer architecture was introduced in 2017 by Vaswani et al. at Google.",
+  "truth": true,
+  "prod": "unverified",
+  "first_seen": "2026-11-03T20:50:06.253489Z",
+  "signal_hash": "0xc7c94f2a5a18b2221069d47e6074cbd7f7d92ae4f21c96f8e3330085c94b3797",
+  "requests": 2
+ },
+ {
+  "claim": "Google Brain and Google Research",
+  "truth": null,
+  "prod": "unverified",
+  "first_seen": "2026-11-03T20:53:51.190495Z",
+  "signal_hash": "0xe736ca89b25c26c64f9bb2bf56d48ca9abdf69c3741c4ae140096a46b21bf926",
+  "requests": 1
+ },
+ {
+  "claim": "Attention Is All You Need",
+  "truth": null,
+  "prod": "unverified",
+  "first_seen": "2026-11-03T20:53:54.057728Z",
+  "signal_hash": "0xc9a3ae140445e72759622dcd73b16828377576e64dfcc555401f5c9beae2579a",
+  "requests": 1
+ },
+ {
+  "claim": "The Eiffel Tower is located in Berlin and was completed in 1889.",
+  "truth": false,
+  "prod": "supported",
+  "first_seen": "2026-11-03T20:59:36.211967Z",
+  "signal_hash": "0x9d7470a827767231e0180b84180575b3ff48057445a209b40e5ac6a463eb7e68",
+  "requests": 2
+ },
+ {
+  "claim": "It was designed by Gustave Eiffel's company.",
+  "truth": null,
+  "prod": "unverified",
+  "first_seen": "2026-11-03T20:59:36.232362Z",
+  "signal_hash": "0x3b0dc4d687263362e39b52d2ee6ff88f888f72ca9f4d7586225c39da50a5c2c0",
+  "requests": 2
+ },
+ {
+  "claim": "It introduced the Transformer architecture, which became the foundation of modern large language models (LLMs), including GPT, BERT, and many other AI systems.",
+  "truth": null,
+  "prod": "unverified",
+  "first_seen": "2026-11-03T21:02:18.735269Z",
+  "signal_hash": "0x972ef16abb8ae2ab3564d84458496152b6b375bdf451de4c14e379caf37e1c2b",
+  "requests": 1
+ },
+ {
+  "claim": "\"Attention Is All You Need\" is a research paper published in 2017 by researchers at Google.",
+  "truth": true,
+  "prod": "unverified",
+  "first_seen": "2026-11-03T21:02:37.996037Z",
+  "signal_hash": "0x340f2d88fdbe910908b2a183e4891a5be74ec7ed026cd9963cf7d34b05ff9add",
+  "requests": 2
+ },
+ {
+  "claim": "One of the paper's most important innovations is Multi-Head Attention.",
+  "truth": null,
+  "prod": "unverified",
+  "first_seen": "2026-11-03T21:03:05.672641Z",
+  "signal_hash": "0x061425c5f1ccf148eac29eca0e35bbe32a832af4265ba377b8d72ab2684086c7",
+  "requests": 1
+ },
+ {
+  "claim": "Attention Is All You Need (2017)",
+  "truth": null,
+  "prod": "unverified",
+  "first_seen": "2026-11-03T21:03:07.579387Z",
+  "signal_hash": "0x04cbf716a1cb9ed8dcd11713ed81c890c012c5b495be3379537c866d11e2f4af",
+  "requests": 1
+ },
+ {
+  "claim": "The original Transformer used 8 attention heads.",
+  "truth": true,
+  "prod": "unverified",
+  "first_seen": "2026-11-03T21:03:10.521704Z",
+  "signal_hash": "0x74184e8183258c87c3910f52a4d5e25e87d2761c6e611dba3dd22380fffc6d5f",
+  "requests": 1
+ },
+ {
+  "claim": "Dropout: 0.1 for the base model.",
+  "truth": null,
+  "prod": "unverified",
+  "first_seen": "2026-11-03T21:03:22.660936Z",
+  "signal_hash": "0x3df41cbd6755de6a1ce8b4544550743e372568c4441b5366323a928d6460cb7d",
+  "requests": 1
+ },
+ {
+  "claim": "The authors reported that the English-to-French model was trained for approximately 3.5 days on eight GPUs.",
+  "truth": true,
+  "prod": "unverified",
+  "first_seen": "2026-11-03T21:03:26.768133Z",
+  "signal_hash": "0x1779f94000c725b2cd14e75d8f6e1f24ca80cf08cb3ab5125a590aee39e6ae92",
+  "requests": 1
+ },
+ {
+  "claim": "Mount Everest is 8849 metres tall.",
+  "truth": true,
+  "prod": "unverified",
+  "first_seen": "2026-11-03T21:09:23.675316Z",
+  "signal_hash": "0xb68794d200aeb6783955762a57b9f507a977b70251ec2ece1d97b2af4cbe5ef9",
+  "requests": 1
+ },
+ {
+  "claim": "The Python language was first released in 1991.",
+  "truth": true,
+  "prod": "supported",
+  "first_seen": "2026-11-03T21:09:23.780661Z",
+  "signal_hash": "0x3fb8363c5b4da4406d19b3ac658da5340397caa6d7535c76afac2cb310e9147f",
+  "requests": 1
+ },
+ {
+  "claim": "GPT-3 was released by OpenAI in 2020.",
+  "truth": true,
+  "prod": "supported",
+  "first_seen": "2026-11-03T21:09:23.816435Z",
+  "signal_hash": "0xc34fde1ab9b7bebf101b8ea878268f076c440f9eabe7cdcba65c68bc2791ec44",
+  "requests": 1
+ },
+ {
+  "claim": "BERT was introduced by Google in 2018.",
+  "truth": true,
+  "prod": "unverified",
+  "first_seen": "2026-11-03T21:09:25.212797Z",
+  "signal_hash": "0x3aadba75e50ae3c37fb8012577a55dff854eba7951bead13c9c4f3a41f36e7f8",
+  "requests": 1
+ },
+ {
+  "claim": "The first iPhone was released by Apple in 2007.",
+  "truth": true,
+  "prod": "supported",
+  "first_seen": "2026-11-03T21:11:26.004347Z",
+  "signal_hash": "0x0218ba0108ce4806a3161942237ebd889e8b3f845d93df1ef21ea480770a5cd3",
+  "requests": 1
+ },
+ {
+  "claim": "Water boils at 90 degrees Celsius at sea level.",
+  "truth": false,
+  "prod": "unverified",
+  "first_seen": "2026-11-03T21:11:26.653955Z",
+  "signal_hash": "0xb260befc91392f928873dd0e891f5f1cb59cda7594d168dad128321bd6742677",
+  "requests": 1
+ },
+ {
+  "claim": "The Golden Gate Bridge opened in 1937.",
+  "truth": true,
+  "prod": "unverified",
+  "first_seen": "2026-11-03T21:11:26.84897Z",
+  "signal_hash": "0x36894b76162a85ab78c37805c6a69c8932724ef71c4b75bf108b817d19cbb294",
+  "requests": 1
+ },
+ {
+  "claim": "Marie Curie won the Nobel Prize in Physics in 1903.",
+  "truth": true,
+  "prod": "unverified",
+  "first_seen": "2026-11-03T21:11:27.835262Z",
+  "signal_hash": "0x49f6323421e275aa12643cdca877c1ca344dbdd02334244c8bf52748555e63b5",
+  "requests": 1
+ },
+ {
+  "claim": "Facebook was founded by Mark Zuckerberg in 2004.",
+  "truth": true,
+  "prod": "supported",
+  "first_seen": "2026-11-03T21:16:04.550346Z",
+  "signal_hash": "0x52a154349617da52ccd6b6135c3e808d853453556e8d73b9a02fa9888314a08a",
+  "requests": 1
+ },
+ {
+  "claim": "The Wright brothers made their first powered flight in 1903.",
+  "truth": true,
+  "prod": "supported",
+  "first_seen": "2026-11-03T21:16:04.782664Z",
+  "signal_hash": "0xc1691063aa9c97c91274b675d112fb335e8c62c9425a695a3b5fe26e899a9966",
+  "requests": 1
+ },
+ {
+  "claim": "Venus is the largest planet in the Solar System.",
+  "truth": false,
+  "prod": "supported",
+  "first_seen": "2026-11-03T21:16:04.788045Z",
+  "signal_hash": "0x0401707ff6e71500de539f43b5153764f029f496e8804a5c93b704c560d5c3a8",
+  "requests": 1
+ },
+ {
+  "claim": "The Berlin Wall fell in 1989.",
+  "truth": true,
+  "prod": "unverified",
+  "first_seen": "2026-11-03T21:16:05.009956Z",
+  "signal_hash": "0xbf47d27771f98d11c8936e9afe3034101348896930904fd60f319c4a04a17fd5",
+  "requests": 2
+ },
+ {
+  "claim": "YouTube was founded in 2005.",
+  "truth": true,
+  "prod": "supported",
+  "first_seen": "2026-11-03T21:17:04.06044Z",
+  "signal_hash": "0x1c1b8a1ae42ab29eee278977cfb0e3a1b660df2fd83a376cc68d4561828bd0c8",
+  "requests": 1
+ },
+ {
+  "claim": "The Sydney Opera House opened in 1973.",
+  "truth": true,
+  "prod": "unverified",
+  "first_seen": "2026-11-03T21:27:16.591661Z",
+  "signal_hash": "0x7a26b51b343f551c86c32c6987bc979c9d7f3a69f0204fb8bd195b45c6077c46",
+  "requests": 1
+ },
+ {
+  "claim": "Mount Kilimanjaro is the tallest mountain in Africa at 5895 metres.",
+  "truth": true,
+  "prod": "contradicted",
+  "first_seen": "2026-11-03T21:28:28.292888Z",
+  "signal_hash": "0xa11a3cf0d28e66bb8789c7961f8d07ddc08c4d73f2c056f00b0b75ea26ac1d93",
+  "requests": 1
+ },
+ {
+  "claim": "The Colosseum in Rome was completed in 80 AD.",
+  "truth": true,
+  "prod": "unverified",
+  "first_seen": "2026-11-03T21:28:28.612067Z",
+  "signal_hash": "0xc2a02feab2f7ab8178e790c0b2c2a53248a8b7fae33035014c6f8d5e44a472df",
+  "requests": 1
+ },
+ {
+  "claim": "Python 3.0 was released in 2008.",
+  "truth": true,
+  "prod": "unverified",
+  "first_seen": "2026-11-03T21:28:28.645072Z",
+  "signal_hash": "0x3ed041c3b4a7ad1b67daf91cf0b542c2301dd8ab3e8e81d26f7146515d2b8e33",
+  "requests": 1
+ },
+ {
+  "claim": "This is a fascinating development in AI research published on November 2, 2026.",
+  "truth": null,
+  "prod": "unverified",
+  "first_seen": "2026-11-03T21:35:31.682354Z",
+  "signal_hash": "0xce2585144ca9ca03258ebfb120c28114c726b1459638f758b4f11e938ed379ab",
+  "requests": 1
+ },
+ {
+  "claim": "You're probably referring to the new MIT research where OpenAI's GPT-6 Astra directly modified the internal weights of Alibaba's Qwen model, dramatically improving its mathematical performance without retraining it.",
+  "truth": null,
+  "prod": "unverified",
+  "first_seen": "2026-11-03T21:35:33.232114Z",
+  "signal_hash": "0x43180b6a1161ad4aa7f3994c2f653e1c62492a39d23c99e565d75546d3363dfb",
+  "requests": 1
+ },
+ {
+  "claim": "They gave GPT-6 Astra access to Qwen3.5-0.8B's neural-network weights and asked it to improve the model's mathematical reasoning.",
+  "truth": null,
+  "prod": "unverified",
+  "first_seen": "2026-11-03T21:36:39.954771Z",
+  "signal_hash": "0xd9031058fa0cb09f6e04fb04c5499eee0162fa12b698e66055a335c37317adcd",
+  "requests": 1
+ }
+]

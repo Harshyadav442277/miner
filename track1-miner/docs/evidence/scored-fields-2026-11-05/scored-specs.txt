@@ -1,0 +1,34 @@
+SSL_VERIFICATION_CERT deterministic ready=true params=host*
+    {"name":"certificate_valid","type":"bool","true_when":["true","yes","valid","trusted"],"scored":true} — Whether the TLS certificate of {key} is currently valid and trusted
+WALLET_BALANCE_CHECK_GENERAL deterministic ready=true params=address*,chain*,token
+    {"name":"balance","type":"number","unit":"whole token units","range":[0,1000000000000000],"scored":true,"decimals":6} — Balance held, in whole units of the coin or token (not wei)
+WEATHER_CHECK_TEMPERATURE deterministic ready=true params=location*
+    {"name":"temperature_c","type":"number","unit":"degrees Celsius","range":[-90,60],"scored":true} — Current air temperature in {key}, in degrees Celsius
+ONCHAIN_TX_LOOKUP_GENERAL deterministic ready=true params=tx_hash*,chain*
+    {"name":"block_number","type":"number","unit":"block height","range":[0,1000000000000],"scored":true,"decimals":0,"off_chain":true} — Block the transaction was included in
+CURRENCY_EXCHANGE_CONVERT deterministic ready=false params=from_currency*,to_currency*,amount*
+    {"name":"converted_amount","type":"number","unit":"{key}","range":[0.01,100000000],"scored":true} — What 100 US dollars convert to in {key}
+GAS_PRICE_GENERAL deterministic ready=true params=chain*
+    {"name":"gas_price_gwei","type":"number","unit":"gwei","unit_aliases":{"wei":1e-9},"range":[0,100000],"scored":true,"decimals":6} — Current gas price in gwei
+FINANCIAL_DATA_GENERAL deterministic ready=true params=asset*
+    {"name":"market_cap_usd","type":"number","unit":"USD","range":[0,1000000000000000],"scored":true,"decimals":6} — Market capitalisation in US dollars
+FRAUD_DETECTION_GENERAL judgment ready=true params=subject*
+    {"name":"risk_score","type":"number","unit":"fraction (0-1)","range":[0,1],"scored":true,"decimals":6} — Fraud risk score from 0 to 1
+TOKEN_HOLDER_COUNT_GENERAL deterministic ready=true params=token*,chain*
+    {"name":"holders_count","type":"number","unit":"addresses","range":[0,10000000000],"scored":true,"decimals":0} — Number of distinct addresses holding the token
+CRYPTO_PRICE_USD deterministic ready=false params=symbol*
+    {"name":"price_usd","type":"number","unit":"US dollars","range":[0.000001,10000000],"scored":true} — Current price of {key}, in US dollars
+EVENT_OUTCOME_RESOLUTION_GENERAL judgment ready=true params=event*
+    {"name":"resolved_yes","type":"bool","true_when":["true","yes","1"],"false_when":["false","no","0"],"scored":true} — Whether the event resolved YES (happened / passed / won)
+URL_SCAN_VERDICT hybrid ready=true params=url*
+    {"name":"safe","type":"bool","true_when":["true","yes","safe","clean"],"scored":true} — Whether the URL {key} is safe to visit
+MACRO_ECONOMIC_INDICATOR_GENERAL deterministic ready=true params=indicator*,country*,year*
+    {"name":"rate_pct","type":"number","unit":"percent","range":[0,100],"scored":true,"decimals":6} — Unemployment rate (% of total labour force, World Bank indicator {indicator}) for {country_name} ({country}) in {year}, in percent
+URL_SAFE_GENERAL judgment ready=true params=url*
+    {"name":"detections","type":"number","unit":"detections","range":[0,1000],"scored":true,"decimals":0} — Number of engines or databases flagging the URL
+STORM_ALERT_GENERAL judgment ready=true params=location*,window_hours*
+    {"name":"risk_score","type":"number","unit":"fraction (0-1)","range":[0,1],"scored":true,"decimals":6} — Overall storm or weather-disruption risk from 0 to 1
+WEATHER_FORECAST_GENERAL judgment ready=true params=location*,window_hours*
+    {"name":"temp_max_c","type":"number","unit":"degrees Celsius","range":[-90,60],"scored":true,"decimals":6} — Forecast high temperature, degrees Celsius
+CVE_LOOKUP_CVSS deterministic ready=true params=cve_id*
+    {"name":"cvss_score","type":"number","unit":"CVSS score (0-10)","range":[0,10],"scored":true,"decimals":6} — CVSS base score, 0.0 to 10.0

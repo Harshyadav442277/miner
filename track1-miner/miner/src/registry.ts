@@ -143,6 +143,37 @@ async function parent(lei: string, which: "direct-parent" | "ultimate-parent"): 
   return j?.data ? { name: j.data.attributes.entity.legalName.name, lei: j.data.id } : null;
 }
 
+const US_STATES: Record<string, string> = {
+  AL: "Alabama", AK: "Alaska", AZ: "Arizona", AR: "Arkansas", CA: "California", CO: "Colorado", CT: "Connecticut",
+  DE: "Delaware", FL: "Florida", GA: "Georgia", HI: "Hawaii", ID: "Idaho", IL: "Illinois", IN: "Indiana", IA: "Iowa",
+  KS: "Kansas", KY: "Kentucky", LA: "Louisiana", ME: "Maine", MD: "Maryland", MA: "Massachusetts", MI: "Michigan",
+  MN: "Minnesota", MS: "Mississippi", MO: "Missouri", MT: "Montana", NE: "Nebraska", NV: "Nevada", NH: "New Hampshire",
+  NJ: "New Jersey", NM: "New Mexico", NY: "New York", NC: "North Carolina", ND: "North Dakota", OH: "Ohio", OK: "Oklahoma",
+  OR: "Oregon", PA: "Pennsylvania", RI: "Rhode Island", SC: "South Carolina", SD: "South Dakota", TN: "Tennessee",
+  TX: "Texas", UT: "Utah", VT: "Vermont", VA: "Virginia", WA: "Washington", WV: "West Virginia", WI: "Wisconsin", WY: "Wyoming",
+  DC: "the District of Columbia",
+};
+
+/** The sentence answering the specific fields a question asks for, or "" when it asks for none of them. */
+export function askedSentence(
+  question: string, name: string, address: string | null, agent: string | null,
+  jurisdiction: string | null, edgarState: string | null,
+): string {
+  const parts: string[] = [];
+  if (/\baddress\b|\bregistered office\b/i.test(question) && !/\bheadquarter/i.test(question) && address) {
+    parts.push(`its registered address is ${address}`);
+  }
+  if (/\bregistered agent\b/i.test(question) && agent) parts.push(`its registered agent is ${agent.replace(/^c\/o\s+/i, "")}`);
+  if (/\b(state|jurisdiction|country|place) of (incorporation|registration|formation)|\bincorporated (in|where)|\bwhere\b.*\bincorporated\b/i.test(question)) {
+    const code = edgarState ?? (jurisdiction?.startsWith("US-") ? jurisdiction.slice(3) : null);
+    const place = code && US_STATES[code] ? `${US_STATES[code]} (${code})` : jurisdiction;
+    if (place) parts.push(`it is incorporated in ${place}`);
+  }
+  if (!parts.length) return "";
+  const joined = parts.length > 1 ? `${parts.slice(0, -1).join(", ")} and ${parts[parts.length - 1]}` : parts[0];
+  return `For ${name}, ${joined}. `;
+}
+
 export async function lookupRegistry(question: string, companyParam = "", numberParam = ""): Promise<RegistryResult> {
   const s = registrySubject(question, companyParam, numberParam);
   const subject = s.lei ?? s.number ?? (s.name || null);
@@ -198,6 +229,10 @@ export async function lookupRegistry(question: string, companyParam = "", number
     : " GLEIF records no parent for it.";
   const usLine = us ? ` SEC EDGAR lists it as incorporated in ${us.state_of_incorporation ?? "a state not stated"}, industry ${us.sic_description ?? "not stated"}` +
     `${us.former_names[0] ? `, formerly ${us.former_names[0].name}` : ""}.` : "";
+  // A question that asks for the address, agent or state of incorporation gets that
+  // first; the status sentence used to come first and the address only third
+  // (audit replay 2026-11-04 row 149, Tesla).
+  const asked = askedSentence(question, e.legalName.name, registered, agent, e.jurisdiction ?? null, us?.state_of_incorporation ?? null);
   return {
     ...base, verdict: "found", confidence: 0.92,
     legal_name: e.legalName.name, lei: best.id, entity_status: e.status, lei_registration_status: best.attributes.registration.status,
@@ -208,7 +243,7 @@ export async function lookupRegistry(question: string, companyParam = "", number
       name: r.attributes.entity.legalName.name, lei: r.id, jurisdiction: r.attributes.entity.jurisdiction ?? null, status: r.attributes.entity.status,
     })),
     sources: [`https://search.gleif.org/#/record/${best.id}`, ...(us ? [us.source_url] : [])],
-    reason: `${lead} Registered address: ${registered ?? "not stated"}${form ? `; legal form ${form}` : ""}; LEI ${best.id} (${best.attributes.registration.status.toLowerCase()}).` +
+    reason: `${asked}${lead} Registered address: ${registered ?? "not stated"}${form ? `; legal form ${form}` : ""}; LEI ${best.id} (${best.attributes.registration.status.toLowerCase()}).` +
       `${parents}${usLine} Directors and beneficial owners are not in these sources.`,
   };
 }

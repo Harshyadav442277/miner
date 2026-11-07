@@ -1110,10 +1110,18 @@ const CHECKS = {
     if (kim.body.error) return [`errored: ${kim.body.error}`]; // a list did not download; re-run alone.
     if (kim.body.verdict !== "match") bad.push(`Kim Jong Un -> ${kim.body.verdict}, want match`);
     if (kim.body.matches?.[0]?.id !== "20157") bad.push(`top match id ${kim.body.matches?.[0]?.id}, want OFAC 20157`);
-    if ((kim.body.lists_checked ?? []).length !== 2) bad.push("both lists were not screened");
+    const screened = (kim.body.lists_checked ?? []).map((e) => e.list).join(" | ");
+    if (screened !== "OFAC SDN | OFAC Consolidated (non-SDN) | UN Security Council Consolidated") {
+      bad.push(`lists screened: ${screened || "none"}; want OFAC SDN, OFAC non-SDN and UN`);
+    }
     if (!/EU and UK lists were not screened/.test(String(kim.body.reason))) bad.push("the unscreened lists are not named");
     const near = await get("/sanctions-screen", { query: "Is Viktor But sanctioned?" });
     if (!/^(?:match|possible_match)$/.test(String(near.body.verdict))) bad.push(`Viktor But -> ${near.body.verdict}, want a near-match on Bout`);
+    // ABU TEIR, Mohammed (NS-PLC) is on OFAC's non-SDN list only; production cleared him before 192aecc (G268).
+    const nonSdn = await get("/sanctions-screen", { query: "Is Mohammed Abu Tair on a sanctions list?" });
+    if (nonSdn.body.verdict !== "match" || nonSdn.body.closest?.id !== "9640") {
+      bad.push(`Mohammed Abu Tair -> ${nonSdn.body.verdict} ${nonSdn.body.closest?.id ?? ""}, want match on OFAC non-SDN 9640`);
+    }
     const none = await get("/sanctions-screen", { name: "Zzyzx Quillfeather" });
     if (none.body.verdict !== "no_match") bad.push(`an invented name -> ${none.body.verdict}, want no_match`);
     return bad;
@@ -1232,33 +1240,26 @@ const CHECKS = {
     return bad;
   },
 
-  async KEYWORD_EXTRACTION() {
+  async ONCHAIN_METRIC_VERIFY() {
     const bad = [];
-    const text = "Solar panels convert sunlight into electricity. Solar farms in India now supply cheap power to the grid, " +
-      "and rooftop solar panels let households sell surplus electricity. Battery storage keeps solar power available after sunset.";
-    const a = await get("/keywords", { text, top: "5" });
-    if (a.body.verdict !== "extracted") return [`-> ${a.body.verdict}, want extracted`];
-    const words = (a.body.keywords ?? []).map((k) => k.keyword);
-    if (words.length !== 5) bad.push(`${words.length} keyphrases, want 5`);
-    if (!words.slice(0, 3).some((w) => /solar/.test(w))) bad.push(`the repeated topic is not in the top three: ${words.join(", ")}`);
-    if (words.some((w) => /^(?:the|and|to|in|after)\b|\b(?:the|and|to|in|after)$/.test(w))) bad.push(`a phrase starts or ends on a stop word: ${words.join(", ")}`);
-    const b = await get("/keywords", { text, top: "5" });
-    if (JSON.stringify(b.body.keywords) !== JSON.stringify(a.body.keywords)) bad.push("the same text ranked differently twice");
-    return bad;
-  },
-
-  async VULNERABILITY_TRIAGE() {
-    const bad = [];
-    const r = await get("/vuln-triage", { query: "Rank these findings on an internet-facing payments service: CVE-2024-26581, CVE-2021-44228, CVE-2022-0001" });
-    if (r.body.verdict !== "ranked") return [`-> ${r.body.verdict}, want ranked`];
-    const first = (r.body.ranked ?? [])[0];
-    // Log4Shell is on CISA's KEV catalog (added 2021-12-10); the other two are not.
-    if (first?.cve_id !== "CVE-2021-44228") bad.push(`ranked first: ${first?.cve_id}, want CVE-2021-44228`);
-    if (first?.kev !== true || first?.priority !== "act_now") bad.push(`Log4Shell kev=${first?.kev} priority=${first?.priority}`);
-    if (r.body.asset_criticality !== "high") bad.push(`internet-facing payments read as ${r.body.asset_criticality}`);
-    if (!/EPSS/.test((r.body.sources ?? []).join(" "))) bad.push("EPSS (FIRST) is not credited in sources");
-    const none = await get("/vuln-triage", { query: "Rank these findings: SQL injection in login form, outdated jQuery" });
-    if (none.body.verdict !== "insufficient_input") bad.push(`findings with no CVE ids -> ${none.body.verdict}, want insufficient_input`);
+    // Blockscout indexes Ethereum independently of our RPCs; block 21000000 and this tx were read there on 2026-11-07:
+    // 13,952,884 gas in the block, 264,493 gas for the tx, which is in block 21000000.
+    const TX = "0x24e20c506fd16546178a03c955bca381376f97b9ff5aefb726abf84dea6c8913";
+    const scout = (path) => fetch(`https://eth.blockscout.com/api/v2/${path}`, { signal: AbortSignal.timeout(15000) }).then((x) => x.json()).catch(() => null);
+    const [block, tx, theirBlock, theirTx] = await Promise.all([
+      get("/onchain-metric", { query: "How much gas did block 21000000 on ethereum use?" }),
+      get("/onchain-metric", { query: `At block 21000000 on ethereum, what amount did the USDC Transfer log in tx ${TX} carry, and how much gas did that tx use?` }),
+      scout("blocks/21000000"), scout(`transactions/${TX}`),
+    ]);
+    if (block.body.verdict !== "verified") bad.push(`block 21000000 -> ${block.body.verdict}, want verified`);
+    if (!theirBlock?.gas_used) bad.push("Blockscout did not answer for block 21000000");
+    else if (block.body.value_raw !== String(theirBlock.gas_used)) bad.push(`block gas ${block.body.value_raw}, Blockscout ${theirBlock.gas_used}`);
+    if (tx.body.verdict !== "verified") bad.push(`tx receipt -> ${tx.body.verdict}, want verified`);
+    if (!theirTx?.gas_used) bad.push("Blockscout did not answer for the tx");
+    else if (tx.body.gas_used !== String(theirTx.gas_used)) bad.push(`tx gas ${tx.body.gas_used}, Blockscout ${theirTx.gas_used}`);
+    if (!(tx.body.transfers ?? []).some((t) => t.symbol === "USDC" && t.amount === "7534.65946")) bad.push("the 7,534.65946 USDC Transfer log is missing");
+    const future = await get("/onchain-metric", { query: "How much gas did block 99999999999 on ethereum use?" });
+    if (future.body.verdict !== "not_found") bad.push(`a future block -> ${future.body.verdict}, want not_found`);
     return bad;
   },
 };
