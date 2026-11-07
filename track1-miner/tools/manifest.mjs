@@ -91,7 +91,7 @@ export function readManifest(path = MANIFEST_PATH) {
  * the updateMiner that drops them. Their routes still serve, so the gates keep checking
  * them. Mirror of RETIRED in miner/test/manifest.test.ts; empty both after the signature.
  */
-export const RETIRED_INTENTS = new Set(); // the four cut on 2026-11-06 are declared again since 2026-11-07
+export const RETIRED_INTENTS = new Set(["EVENT_OUTCOME_RESOLUTION"]); // cut 2026-11-07 (G278); the four cut on 2026-11-06 are declared again
 
 export function assertCoversDeclaredIntents(covered, { label = "coverage", manifest = readManifest() } = {}) {
   const have = new Set(covered);

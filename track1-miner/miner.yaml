@@ -5,7 +5,7 @@ slug: livecert
 protocol: generic
 name: LiveCert — Sourced Answers for Agents
 description: >-
-  Sourced answers for agents and apps across 39 intents, each read live from a
+  Sourced answers for agents and apps across 38 intents, each read live from a
   named primary source so the caller can check it. Every answer opens with a
   one-sentence answer, then returns the values as fields, the source and the time
   it was checked. Compliance: sanctions screening of people, companies and wallets
@@ -27,7 +27,7 @@ description: >-
   cross-chain messages. Security: live TLS
   certificates, URL scans, CVE records, DNS records compared across two resolvers, and fraud signals.
   Weather: forecasts, current conditions and storm risk. Also translation, IP
-  geolocation, prediction market outcomes, text extraction, sentiment
+  geolocation, text extraction, sentiment
   and classification. Only the
   question-answering, sentiment and classification sentences are phrased by a
   model, each with a keyless fallback, and a phrased answer is kept only when every
@@ -752,41 +752,6 @@ endpoints:
             intents: ["*"]
             description: "The user's original question, verbatim. The reference, both chains and any nonce are read from it."
 
-  - path: /event-outcome
-    external_path: /event-outcome
-    method: GET
-    intents: [EVENT_OUTCOME_RESOLUTION_GENERAL]
-    description: >-
-      Example questions: "Who won the 2024 US presidential election?", "Has the
-      Polymarket market on … resolved?". Returns answer, verdict, confidence, reason,
-      checked_at and outcome, winner, event, source.
-      The actual outcome of a named, checkable event, as settled by a public
-      prediction market, for a market or conditional contract to resolve against.
-      Polymarket's real-money markets and Manifold's play-money markets are
-      searched, and a market is used only when it carries every name and number
-      in the question, asks about the same move (a cut, a rise or no change), and
-      is mostly about that event, so a market on a different subject or the
-      opposite proposition that shares most of the words is not used. A settled
-      market is reported with its settled outcome and the market's own wording,
-      and a Manifold settlement is labelled as play money. An unsettled market is
-      reported as unresolved with its scheduled close, and its trading odds are
-      never given as an outcome. Nothing is predicted: a request for an opinion or
-      forecast is declined by name, and a question that names no specific event is
-      asked to name one. Where no matching market exists the answer says so;
-      official sources such as flight trackers, election authorities and league
-      results are not read. A provider outage is reported as an outage.
-    params:
-      query:
-        optional:
-          - name: event
-            type: string
-            intents: ["*"]
-            description: "The event to resolve, e.g. Fed rate decision at the September 2025 meeting. Read from the question when absent."
-          - name: query
-            type: string
-            intents: ["*"]
-            description: "The user's original question, verbatim. The event, its names, numbers and dates are read from it."
-
   - path: /url-scan
     external_path: /url-scan
     method: GET
@@ -1371,7 +1336,6 @@ semantics:
     - RESEARCH_QUERY_GENERAL
     - CRYPTO_PRICE_USD
     - CROSS_CHAIN_STATE_VERIFY_GENERAL
-    - EVENT_OUTCOME_RESOLUTION_GENERAL
     - URL_SCAN_VERDICT
     - WEB_SEARCH_GENERAL
     - SENTIMENT_ANALYSIS_GENERAL
