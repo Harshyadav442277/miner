@@ -10,12 +10,12 @@ answer, rather than filling the gap.
 |---|---|
 | Slug | `livecert` |
 | Miner ID (catalog id, used by the submission form) | `4433` — not a registration id |
-| Active registration | `5123` — 39 intents, `active`, re-read 2026-11-07 (4829 superseded; 5122 superseded the same morning) |
+| Active registration | `5135` — 42 intents, `active`, re-read 2026-11-07 21:20 UTC (4829, 5122 and 5123 superseded) |
 | Author wallet | `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e` |
 | Production | <https://miner-wine.vercel.app> |
 | Manifest | [`miner.yaml`](miner.yaml); registered copy pinned at commit `2e8d1cf`, SHA-256 `0x84dd…6680` |
 
-Look a registration up by id (`/api/miners/5123`), never by slug or catalog id: `/api/miners/4433`
+Look a registration up by id (`/api/miners/5135`), never by slug or catalog id: `/api/miners/4433`
 returns a different miner.
 
 ## Registered surface

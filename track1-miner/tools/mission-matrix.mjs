@@ -1,5 +1,5 @@
 // Mission × intent matrix: every example build on the 15 Season II mission pages, the intent families it
-// buys, and which of them registration 5123 serves (4829 until 2026-11-07).
+// buys, and which of them registration 5135 serves (4829, then 5123, until 2026-11-07).
 // usage: node tools/mission-matrix.mjs <out-dir>
 // Writes <out-dir>/matrix.json and prints a summary. The mission data lives in a Next.js chunk on the H2
 // site, so the script finds the chunk that holds `slug:"exchange"` and parses the example objects out of it.
@@ -7,7 +7,7 @@ import { mkdir, writeFile } from "node:fs/promises";
 
 const SITE = "https://hackathon.telegraphprotocol.com";
 const NODE = "https://devnode.telegraphprotocol.com";
-const REGISTRATION = 5123;
+const REGISTRATION = 5135;
 const UA = { "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/130.0" };
 const outDir = process.argv[2];
 if (!outDir) throw new Error("usage: node tools/mission-matrix.mjs <out-dir>");
