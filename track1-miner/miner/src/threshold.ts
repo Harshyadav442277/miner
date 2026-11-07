@@ -14,7 +14,9 @@ export interface TemperatureThreshold {
   asked: string;
 }
 
-const NUMBER = String.raw`(-?\d{1,3}(?:\.\d+)?)\s*(?:°|º|degrees?\s*|deg\s*)?\s*(C|F|celsius|fahrenheit)\b`;
+// One way to match the spaces: adjacent `\s*` runs backtracked quadratically (331 ms on 32,000 spaces; push
+// security review, 2026-11-07).
+const NUMBER = String.raw`(-?\d{1,3}(?:\.\d+)?)\s*(?:(?:°|º|degrees?|deg)\s*)?(C|F|celsius|fahrenheit)\b`;
 const ABOVE = new RegExp(String.raw`\b(?:reach|exceed|hit|top|surpass|pass|go (?:above|over)|be (?:above|over)|rise (?:above|to)|climb (?:above|to)|get (?:above|to|up to)|above|over)\s+` + NUMBER, "i");
 const BELOW = new RegExp(String.raw`\b(?:drop|fall|dip|go|get|be)\s+(?:below|under|beneath|to)\s+` + NUMBER + String.raw`|\bbelow\s+` + NUMBER, "i");
 
@@ -26,7 +28,8 @@ function toThreshold(direction: "above" | "below", value: string, unit: string):
   return { direction, celsius, asked: `${value}°${f ? "F" : "C"}` };
 }
 
-export function temperatureThreshold(question: string): TemperatureThreshold | null {
+export function temperatureThreshold(text: string): TemperatureThreshold | null {
+  const question = text.slice(0, 500);
   const b = question.match(BELOW);
   if (b) {
     const value = b[1] ?? b[3];
