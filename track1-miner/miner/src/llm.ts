@@ -82,8 +82,16 @@ const envNumber = (name: string, fallback: number): number => {
   return Number.isFinite(v) && v > 0 ? v : fallback;
 };
 const longSpend: Array<{ at: number; tokens: number }> = [];
-/** The tokens a request can cost at most. Pure. */
-export const estimateTokens = (r: PhraseRequest): number => Math.ceil((r.system.length + r.user.length) / 4) + (r.maxTokens ?? 200);
+/**
+ * The tokens one attempt can cost at most. Pure. ASCII runs about four characters a token; any other code
+ * point (CJK, emoji) is counted as a whole token, since dividing those by four underestimated them about
+ * fourfold (security review, 2026-11-07).
+ */
+export function estimateTokens(r: PhraseRequest): number {
+  let ascii = 0, other = 0;
+  for (const ch of r.system + r.user) (ch.codePointAt(0)! < 128 ? ascii++ : other++);
+  return Math.ceil(ascii / 4) + other + (r.maxTokens ?? 200);
+}
 /** Whether a long request fits the minute and day budgets now; records it when it does. */
 function spendLong(tokens: number, now = Date.now()): boolean {
   while (longSpend.length && now - longSpend[0]!.at > 86_400_000) longSpend.shift();
@@ -200,7 +208,6 @@ export async function phrase(r: PhraseRequest): Promise<string | null> {
   const id = cacheKey(r);
   const hit = cache.get(id);
   if (hit && Date.now() - hit.at < CACHE_TTL_MS) return hit.text;
-  if (r.long && !spendLong(estimateTokens(r))) return null;
 
   const cap = r.long ? Math.max(budgetMs(), LONG_BUDGET_MS) : budgetMs();
   const deadline = Date.now() + Math.min(r.deadlineMs ?? cap, cap);
@@ -217,6 +224,8 @@ export async function phrase(r: PhraseRequest): Promise<string | null> {
     const left = deadline - Date.now();
     if (left < MIN_ATTEMPT_MS) break;
     const model = r.long ? LONG_MODELS[i]! : MODELS[(nextModel + i) % MODELS.length] ?? MODELS[0]!;
+    // Every attempt is charged, the fallbacks included: a timed-out call may still have spent tokens.
+    if (r.long && !spendLong(estimateTokens(r))) break;
     const out = await ask(model, r, key, left);
     if (out === "rate") { limited++; continue; }
     if (out) {

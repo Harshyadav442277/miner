@@ -130,6 +130,22 @@ test("genai: long calls are budgeted by tokens and their rate limits never park 
   }
 });
 
+test("genai: the token estimate counts non-ASCII characters whole, and every fallback attempt is charged", async () => {
+  const { estimateTokens } = await import("../src/llm");
+  assert.equal(estimateTokens({ system: "", user: "abcdefgh", maxTokens: 10 }), 12);
+  assert.equal(estimateTokens({ system: "", user: "日本語のテキスト", maxTokens: 10 }), 18);
+  // Three timed-out-style failures (HTTP 500 counts as a rate refusal) each spend the budget.
+  process.env.LLM_LONG_TOKENS_PER_MIN = "2000"; // one chat attempt (~900 tokens) twice, not three times
+  try {
+    await withModel(null, async (calls) => {
+      await chat("Why is the sky blue?");
+      assert.equal(calls.length, 2, "the third attempt is over budget");
+    });
+  } finally {
+    delete process.env.LLM_LONG_TOKENS_PER_MIN;
+  }
+});
+
 test("genai: generated text carries brief, word count and the requested count", async () => {
   const text = "Charge anywhere with sunlight. " + "Word ".repeat(55).trim() + ".";
   await withModel(JSON.stringify({ title: "", text }), async () => {
