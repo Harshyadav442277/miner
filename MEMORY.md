@@ -12,10 +12,16 @@ All three are `reward:unfunded`. Row states read live from devnode `/api/evalpoo
   **Decision: drop it.** The bot has no unclaim command. The claim releases automatically at
   **2026-11-07 19:17 UTC (Nov 8 00:47 IST)**, 72 h after our last `/progress`. That also ends the stale-warning
   emails. Do not post `/progress` here, because that would extend the claim.
-- **#140 LANGUAGE_TRANSLATION:** **never claimed.** We are the pool's only submitter: 144/144 `eligible/attested`
-  under the LiveCert wallet, active snapshot `e918f218…` (epoch 2014; 77 qualification / 67 ranking). Posting
-  `/claim` then `/submit` is public, so it waits for the owner's yes. The text is drafted in the session's reply.
-  Our miner serves this intent (miner.yaml l.125), so the post must disclose that.
+- **#140 LANGUAGE_TRANSLATION: claimed and submitted 2026-11-07 18:24 UTC** (owner: "do what you feel
+  recommend"). The bot moved it to `status:review` ([submit](https://github.com/telegraphprotocol/bounties/issues/140#issuecomment-6711294255)).
+  We are the pool's only submitter: 144/144 `eligible/attested` under the LiveCert wallet, re-read 18:23 UTC, active
+  snapshot `e918f218…` (epoch 2014; 77 qualification / 67 ranking). Scope: material only. The post discloses
+  that miner 4829 serves this intent. One stray comment, 6711267780, is an earlier `/claim` that Git Bash
+  rewrote into a path. It was edited back to `/claim`, and the bot ignores edits.
+- **Uptime alarm:** cleared. PR #18 merged at 03:30 UTC; every uptime run since has passed (10:39 and 16:49 UTC);
+  #19 is closed.
+- **Next:** at the next session, check that #167 shows the bot's release comment after 19:17 UTC. Then wait for
+  maintainer review on #140 and #168; neither needs a `/progress` once it is in review.
 - Gmail connector disconnected (search refused: "connection invalidated"); emails not read directly. The
   bounty-related ones were identified from GitHub notifications (`reason: mention` on #167, #168).
 

@@ -205,8 +205,7 @@ Ordered by rubric points. **Miner weights re-read 2026-11-05:** quality 35, reli
 - [x] LANGUAGE_TRANSLATION_GENERAL material built 2026-11-01 (`track2/material/`): 144 Tatoeba preference pairs,
       all read, every published rule passes. Owner signed and uploaded Nov 5 IST. All 144 confirmed admitted.
 - [x] Verified all 144 translation rows eligible after rollover. Bounty #140 reporting remains separate.
-- [ ] Bounty #140: post `/claim`, then `/submit` with the LiveCert address, 144 eligible, scope = material only, and
-      the miner disclosure. Needs the owner's yes (public post). Re-checked 2026-11-07 03:40 UTC: never claimed.
+- [x] Bounty #140: `/claim` + `/submit` posted 2026-11-07 18:24 UTC; the bot moved it to `status:review`.
 - [x] Bounty #167 STOCK_PRICE dropped 2026-11-07: row rejected, intent cut from the YAML, sources barred.
       The claim lapses on its own at 19:17 UTC.
 - [x] URL Scan preflight: verified the `URL_SCAN` hybrid family on-chain and replayed the exact `GENERIC` adapter.
