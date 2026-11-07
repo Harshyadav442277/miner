@@ -39,7 +39,7 @@ A deploy is not a push, and neither one is an `updateMiner`.
      - intent answers: six intents are graded as honest `not_licensed` refusals (GAPS G230), not failures;
      - upstream health: the merkle RPC answering 429 is a failover warning only.
    - Anything else failing means fix it, or roll back to the previous production URL with `vercel promote`.
-7. **Check the registration:** `node track1-miner/tools/watch.mjs --registration-id 4829 --base-url https://miner-wine.vercel.app --once`.
+7. **Check the registration:** `node track1-miner/tools/watch.mjs --registration-id 5123 --base-url https://miner-wine.vercel.app --once`.
    `--once` goes last.
 8. **Record the release** in `track1-miner/docs/evidence/release-<date>-<topic>/README.md`:
    - the build commit;

@@ -1,5 +1,21 @@
 # MEMORY.md — session continuity
 
+## 2026-11-07 ~18:40 UTC (Nov 8 00:10 IST): CURRENT — `fa4f954` LIVE; registration is now **5123**
+
+- **Production:** `fa4f954`, `miner-56hisxeau` (`dpl_HqN2jr1ddD8frUMXi1esvTtxpA1e`).
+  - Every source answers (licence gate off; owner: testnet).
+  - IP geolocation, headlines, news search and stock price are real again.
+  - Gates 7/7 after updating one stale check; 38/38 routes up, 0 refused.
+  - **Rollback target:** `miner-eh2uav8mu` (`3f33508`).
+  - Record: `track1-miner/docs/evidence/release-2026-11-07-sources-on/`.
+- **Registration 5123 is active.** The owner signed the 39-intent YAML at `fc041f4` (04:24 UTC); 4829 and 5122
+  are superseded. The repository variable `REGISTRATION_ID` is now 5123.
+  - Watch it with `watch.mjs --registration-id 5123 …`.
+  - The catalog id is still 4433.
+- **Next (owner's plan, "go in all of them"):** Phase 1, new routes for CHAT_COMPLETION, CODE_REVIEW and
+  TEXT_GENERATION on Groq, then a second `updateMiner` for 42 intents. Phase 2 closes the gaps in sanctions, fact
+  check, research, web search and filings.
+
 ## 2026-11-07 ~04:00 UTC (09:30 IST): CURRENT — barred sources ON again; N1 YAML is 39 intents (`fc041f4`)
 
 - Owner: "I'm not doing their commercial use. It's on testnet currency. I'm just participating in a hackathon."
