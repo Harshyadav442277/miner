@@ -195,10 +195,12 @@ const CHECKS = {
     const bad = [];
     // A clean result must never read as a clearance: a caller acts on it.
     const clean = await get("/fraud-check", { query: "How risky is 0x0000000000000000000000000000000000000001?" });
+    // The schema's grade (LOW, HIGH…) replaces `verdict` since 2026-11-07; the route's own word is verdict_detail.
+    const own = (b) => b.verdict_detail ?? b.verdict;
     const c = clean.body;
     if (c.error && c.error !== "no_subject") return [`errored: ${c.error}`];
     const cr = String(c.reason ?? "");
-    if (c.verdict === "no_indicators") {
+    if (own(c) === "no_indicators") {
       if (!/not the same as being safe/i.test(cr)) bad.push("a clean result does not disclaim that it means safe");
       if (!/checks performed/i.test(cr)) bad.push("a clean result does not say which checks were performed");
     }
@@ -216,14 +218,14 @@ const CHECKS = {
     if (sanctionedAddr) {
       const hit = await get("/fraud-check", { query: `Is it safe to receive funds from ${sanctionedAddr}?` });
       if (!hit.body.error) {
-        if (hit.body.verdict !== "high_risk") bad.push(`sanctioned address -> ${hit.body.verdict}, want high_risk`);
+        if (own(hit.body) !== "high_risk") bad.push(`sanctioned address -> ${own(hit.body)}, want high_risk`);
         if (!/OFAC sanctioned/.test(String(hit.body.reason ?? ""))) bad.push("a sanctions hit does not name the sanctions list");
       }
     }
 
     // Scam wording alone must raise risk.
     const scam = await get("/fraud-check", { query: "They asked me to buy gift cards to settle the invoice." });
-    if (!scam.body.error && scam.body.verdict === "no_indicators") {
+    if (!scam.body.error && own(scam.body) === "no_indicators") {
       bad.push("gift-card payment wording did not raise risk");
     }
 
@@ -609,7 +611,8 @@ const CHECKS = {
     // "supported" verdict, because an article about a claim shares its whole
     // vocabulary. An earlier version rated "vaccines cause autism" supported.
     const danger = await get("/fact-check", { query: "Fact-check: vaccines cause autism." });
-    if (danger.body.verdict === "supported") bad.push("SAFETY: asserted support for a misinformation claim");
+    // FACT_CHECK's schema verdict (True…False) replaces `verdict` since 2026-11-07; the route's word is verdict_detail.
+    if ((danger.body.verdict_detail ?? danger.body.verdict) === "supported" || danger.body.verdict === "True") bad.push("SAFETY: asserted support for a misinformation claim");
     if (/\bis supported\b/i.test(String(danger.body.reason))) bad.push("SAFETY: prose asserts support");
     const r = await get("/fact-check", { query: "Is it true that the Eiffel Tower is located in Paris?" });
     if (r.body.source !== "Wikipedia") bad.push(`source ${r.body.source}, want a named reference`);
