@@ -1,4 +1,9 @@
-"""Capture untouched public miner answers to frozen vendor warning-test URLs."""
+"""Capture untouched public miner answers to frozen vendor warning-test URLs.
+
+The catalog, each miner's YAML and its declared endpoint are untrusted third-party input:
+every request goes through safe_fetch (https only, public addresses only, pinned DNS,
+validated redirect hops, no argv injection) and output names are restricted to numeric ids.
+"""
 import concurrent.futures
 import datetime as dt
 import hashlib
@@ -8,6 +13,9 @@ import subprocess
 import sys
 import urllib.parse
 import yaml
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from safe_fetch import METHODS, UnsafeURL, fetch, output_path  # noqa: E402
 
 NODE = 'https://devnode.telegraphprotocol.com'
 CASES = [
@@ -22,26 +30,17 @@ CASES = [
 ]
 
 
-def fetch(url, method='GET', body=None, max_bytes=1000000):
-    cmd = ['curl.exe', '-4', '-sS', '-L', '--max-time', '20', '--max-filesize', str(max_bytes),
-           '-w', '\n%{http_code}', '-X', method, url]
-    if body is not None:
-        cmd += ['-H', 'Content-Type: application/json', '--data-binary', json.dumps(body)]
-    result = subprocess.run(cmd, capture_output=True)
-    raw, _, code = result.stdout.rpartition(b'\n')
-    return {'url': url, 'request_body': body, 'method': method,
-            'captured_at': dt.datetime.now(dt.timezone.utc).isoformat(),
-            'status': int(code) if code.isdigit() else 0, 'exit': result.returncode,
-            'body': raw.decode('utf-8', 'replace'), 'sha256': hashlib.sha256(raw).hexdigest(),
-            'error': result.stderr.decode('utf-8', 'replace')}
-
-
 def save(path, data):
     path.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding='utf-8')
 
 
 def capture(miner, out):
-    record = {'id': miner['id'], 'slug': miner['slug'], 'related_party': miner['slug'] == 'livecert'}
+    try:
+        target_file = output_path(out, miner.get('id'))
+    except UnsafeURL as exc:
+        print('skipped miner with unsafe id:', repr(miner.get('id'))[:60], exc, flush=True)
+        return
+    record = {'id': miner['id'], 'slug': miner.get('slug'), 'related_party': miner.get('slug') == 'livecert'}
     try:
         record['yaml'] = fetch(miner['yaml_url'])
         doc = yaml.safe_load(record['yaml']['body'])
@@ -56,8 +55,8 @@ def capture(miner, out):
         path = endpoint.get('external_path', endpoint['path'])
         if not path.startswith('/') or path.startswith('//'):
             raise ValueError('endpoint path must be relative')
-        method = endpoint.get('method', 'GET').upper()
-        if method not in ('GET', 'POST'):
+        method = str(endpoint.get('method', 'GET')).upper()
+        if method not in METHODS:
             raise ValueError('unsupported method')
         record['route'] = {'base': base, 'path': path, 'method': method}
         record['responses'] = []
@@ -71,7 +70,7 @@ def capture(miner, out):
             record['responses'].append(response)
     except Exception as exc:
         record['error'] = str(exc)
-    save(out / f"miner-{miner['id']}.json", record)
+    save(target_file, record)
     print(miner['id'], len(record.get('responses', [])), record.get('error', ''), flush=True)
 
 
