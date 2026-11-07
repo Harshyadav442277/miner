@@ -64,6 +64,10 @@ const budgetMs = (): number => {
 };
 /** Below this, there is no point starting another model: the reply would miss the budget. */
 const MIN_ATTEMPT_MS = 1_500;
+/** The cap for a `long` request: the handler's watchdog answers at 11 s, so the model must finish first. */
+const LONG_BUDGET_MS = 9_000;
+/** The order for a `long` request: the largest model writes the best review or text, then the other two. */
+const LONG_MODELS = ["openai/gpt-oss-120b", "qwen/qwen3.8-27b", "openai/gpt-oss-20b"];
 /** After every model has refused for rate, stop asking for a minute. */
 const COOLDOWN_MS = 60_000;
 const CACHE_TTL_MS = 10 * 60_000;
@@ -78,6 +82,13 @@ export interface PhraseRequest {
   fast?: boolean;
   /** Turns the model's raw reply into the answer, or null to reject it. Defaults to `sanitise`. */
   clean?: (raw: string) => string | null;
+  /**
+   * A generated answer (chat, code review, writing) rather than a phrased one: the budget may run to
+   * LONG_BUDGET_MS, still inside the 11 s watchdog, and gpt-oss-120b is tried first.
+   */
+  long?: boolean;
+  /** Ask for a JSON object (Groq `response_format: json_object`). */
+  json?: boolean;
 }
 
 interface Entry { text: string; at: number }
@@ -130,6 +141,7 @@ async function ask(model: string, r: PhraseRequest, key: string, ms: number): Pr
         temperature: 0.2,
         max_completion_tokens: r.maxTokens ?? 200,
         reasoning_effort: r.fast ? "none" : "low",
+        ...(r.json ? { response_format: { type: "json_object" } } : {}),
       }),
       signal: AbortSignal.timeout(ms),
     });
@@ -160,7 +172,8 @@ export async function phrase(r: PhraseRequest): Promise<string | null> {
   const hit = cache.get(id);
   if (hit && Date.now() - hit.at < CACHE_TTL_MS) return hit.text;
 
-  const deadline = Date.now() + Math.min(r.deadlineMs ?? budgetMs(), budgetMs());
+  const cap = r.long ? Math.max(budgetMs(), LONG_BUDGET_MS) : budgetMs();
+  const deadline = Date.now() + Math.min(r.deadlineMs ?? cap, cap);
   if (r.fast) {
     // Outside the rotation and the cooldown: one model, and a miss costs nothing but this answer.
     const out = await ask(FAST_MODEL, r, key, Math.max(1, deadline - Date.now()));
@@ -173,7 +186,7 @@ export async function phrase(r: PhraseRequest): Promise<string | null> {
   for (let i = 0; i < MODELS.length; i++) {
     const left = deadline - Date.now();
     if (left < MIN_ATTEMPT_MS) break;
-    const model = MODELS[(nextModel + i) % MODELS.length] ?? MODELS[0]!;
+    const model = r.long ? LONG_MODELS[i]! : MODELS[(nextModel + i) % MODELS.length] ?? MODELS[0]!;
     const out = await ask(model, r, key, left);
     if (out === "rate") { limited++; continue; }
     if (out) {

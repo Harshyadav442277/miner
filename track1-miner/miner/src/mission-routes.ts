@@ -9,6 +9,7 @@
 import { lookupDns } from "./dns";
 import { monitorFilings } from "./filings";
 import { registryIntentFields, sanctionsIntentFields } from "./intent-fields";
+import { chat, generateText, reviewCode } from "./genai";
 import { verifyOnchainMetric } from "./onchain-metric";
 import { answerQuestion } from "./qa";
 import { macroIndicators } from "./macro";
@@ -69,6 +70,21 @@ export const MISSION_ROUTES: Record<string, MissionRoute> = {
     what: "A token supply read",
     params: ["token", "contract", "address", "chain"],
     run: (q, p) => verifyTokenSupply(q, p("token", "contract", "address"), p("chain")),
+  },
+  "/chat": {
+    what: "A chat reply",
+    params: ["message"],
+    run: (q, p) => chat(q, p("message")),
+  },
+  "/code-review": {
+    what: "A code review",
+    params: ["code"],
+    run: (q, p) => reviewCode(q, p("code")),
+  },
+  "/generate": {
+    what: "The requested text",
+    params: ["prompt"],
+    run: (q, p) => generateText(q, p("prompt")),
   },
   "/onchain-metric": {
     what: "An on-chain metric read",
