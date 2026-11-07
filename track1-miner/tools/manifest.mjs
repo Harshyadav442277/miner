@@ -87,7 +87,7 @@ export function readManifest(path = MANIFEST_PATH) {
  * measuring something the network will never route to us.
  */
 /**
- * Intents cut from miner.yaml that registration 4829 still claims until the owner signs
+ * Intents cut from miner.yaml that the live registration still claims until the owner signs
  * the updateMiner that drops them. Their routes still serve, so the gates keep checking
  * them. Mirror of RETIRED in miner/test/manifest.test.ts; empty both after the signature.
  */

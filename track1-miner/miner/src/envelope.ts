@@ -31,7 +31,10 @@ export function leadSentence(text: string): string {
     if (m[0][0] === "." && ABBREVIATION.test(before)) continue;
     // "Here are 5 papers on X: 1) … 2) …": a numbered item continues the sentence that introduced the list.
     // Breaking there answered "Here are 5 papers" with one paper (audit replay 2026-11-04, rows 25 and 27).
-    if (/^\d{1,2}\)\s/.test(s.slice(end.lastIndex))) continue;
+    if (/^\d{1,2}[).]\s/.test(s.slice(end.lastIndex))) continue;
+    // "… headlines, as of November 7, are: 1. Title …": the stop after a list number is not a sentence end.
+    // Breaking there answered "are: 1." with no headline (preview of fc041f4, 2026-11-07).
+    if (m[0][0] === "." && /(?:^|[\s:])\d{1,2}$/.test(before)) continue;
     return s.slice(0, m.index + m[0].trimEnd().length);
   }
   return s;

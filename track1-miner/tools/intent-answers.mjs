@@ -505,10 +505,12 @@ const CHECKS = {
       if (g.body.verdict !== "anycast" || !/anycast/i.test(String(g.body.reason ?? ""))) {
         bad.push(`8.8.8.8 -> ${g.body.verdict}; an anycast address answered as one location`);
       }
-      // Only ip-api honours operator geofeeds and puts this in Tokyo; the
-      // ipwho.is fallback misplaces it in Mumbai. Tokyo proves the PRIMARY answered.
+      // The primary must answer, proven by the receipt rather than by a city: Google's geofeed moved this
+      // address from Tokyo (2026-10) to New Haven (ip-api from Vercel, 2026-11-07), so a pinned city goes stale.
       const geo = await get("/ip-geolocate", { ip: "142.251.42.174" });
-      if (!/tokyo|japan/i.test(geo.body.reason)) bad.push(`142.251.42.174 -> ${geo.body.verdict}; not Tokyo, so the primary provider is not answering`);
+      const primary = (geo.body.receipt?.upstream ?? []).find((u) => /ip-api\.com/.test(String(u.url)));
+      if (!primary || Number(primary.status) !== 200) bad.push(`142.251.42.174: ip-api did not answer (${primary ? `HTTP ${primary.status}` : "not called"})`);
+      if (!/google/i.test(String(geo.body.reason ?? ""))) bad.push("142.251.42.174 answer never names Google");
     }
     const priv = await get("/ip-geolocate", { ip: "192.168.1.10" });
     if (priv.body.verdict !== "private") bad.push(`192.168.1.10 -> ${priv.body.verdict}, want private`);
@@ -1237,6 +1239,45 @@ const CHECKS = {
     else if (Math.abs(ours - theirs) / theirs > 0.01) bad.push(`supply ${ours} differs from Blockscout's ${theirs} by more than 1%`);
     const eoa = await get("/token-supply", { token: VITALIK, chain: "ethereum" });
     if (eoa.body.verdict !== "not_a_token") bad.push(`a wallet address -> ${eoa.body.verdict}, want not_a_token`);
+    return bad;
+  },
+
+  async CHAT_COMPLETION() {
+    const bad = [];
+    const a = await get("/chat", { message: "What is the capital of Australia?" });
+    if (a.body.error === "upstream_unavailable") return ["the model did not answer (Groq quota or outage)"];
+    if (!/canberra/i.test(String(a.body.brief))) bad.push(`brief "${a.body.brief}" does not name Canberra`);
+    if (String(a.body.brief ?? "").length > 80) bad.push(`brief is ${String(a.body.brief).length} characters, over 80`);
+    if (!/canberra/i.test(String(a.body.reply))) bad.push("reply does not name Canberra");
+    const w = await get("/chat", { message: "Will the Sun rise in the east tomorrow?" });
+    if (!["Likely", "Unlikely", "Uncertain"].includes(w.body.verdict)) bad.push(`a will-question -> verdict ${w.body.verdict}`);
+    else if (w.body.verdict !== "Likely") bad.push(`sunrise tomorrow -> ${w.body.verdict}, want Likely`);
+    return bad;
+  },
+
+  async CODE_REVIEW() {
+    const bad = [];
+    const code = 'def get_user(db, uid):\n    q = "SELECT * FROM users WHERE id = " + uid\n    rows = db.execute(q)\n    for i in range(len(rows) + 1):\n        print(rows[i])\n';
+    const a = await get("/code-review", { code });
+    if (a.body.error === "upstream_unavailable") return ["the model did not answer (Groq quota or outage)"];
+    if (a.body.verdict !== "Request changes") bad.push(`planted SQL injection -> ${a.body.verdict}, want Request changes`);
+    const said = JSON.stringify(a.body.findings ?? []) + String(a.body.summary);
+    if (!/sql injection|injection/i.test(said)) bad.push("the SQL injection is not named");
+    if (!/off[- ]by[- ]one|index ?error|out of (?:range|bounds)|len\(rows\) \+ 1/i.test(said)) bad.push("the off-by-one read is not named");
+    const clean = await get("/code-review", { code: "def add(a: int, b: int) -> int:\n    return a + b\n" });
+    if (clean.body.verdict === "Request changes") bad.push("a correct two-line function -> Request changes");
+    return bad;
+  },
+
+  async TEXT_GENERATION() {
+    const bad = [];
+    const a = await get("/generate", { prompt: "Write a 60-word product description for a solar-powered phone charger. Mention that it is waterproof." });
+    if (a.body.error === "upstream_unavailable") return ["the model did not answer (Groq quota or outage)"];
+    const n = Number(a.body.word_count);
+    if (!(n >= 51 && n <= 69)) bad.push(`asked for 60 words, got ${n} (outside 15%)`);
+    if (!/waterproof/i.test(String(a.body.text))) bad.push("the required word 'waterproof' is missing");
+    if (/^(?:here is|here's|sure|certainly)\b/i.test(String(a.body.text))) bad.push("the text opens with a preamble");
+    if (String(a.body.brief ?? "").length > 80) bad.push(`brief is ${String(a.body.brief).length} characters, over 80`);
     return bad;
   },
 

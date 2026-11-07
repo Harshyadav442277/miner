@@ -64,6 +64,44 @@ const budgetMs = (): number => {
 };
 /** Below this, there is no point starting another model: the reply would miss the budget. */
 const MIN_ATTEMPT_MS = 1_500;
+/** The cap for a `long` request: the handler's watchdog answers at 11 s, so the model must finish first. */
+const LONG_BUDGET_MS = 9_000;
+/** The order for a `long` request: the largest model writes the best review or text, then the other two. */
+const LONG_MODELS = ["openai/gpt-oss-120b", "qwen/qwen3.8-27b", "openai/gpt-oss-20b"];
+/**
+ * Long requests share the free quota with the phrasing path that the ranked intents use: per model,
+ * 8K tokens a minute and 200K a day, three models (read 2026-09-19). A count of calls does not bound
+ * tokens (12 reviews a minute can be ~45K), so long calls are budgeted by estimated tokens, the prompt
+ * at ~4 characters a token plus the completion cap, and hold at most half of the minute and of the day:
+ * 12K a minute and 300K a day by default. Over budget is an `unknown` for the long route, never a
+ * rate limit on the phrasing path; they also keep their own cooldown (commit security reviews,
+ * 2026-11-07). Per instance: Vercel may run more than one.
+ */
+const envNumber = (name: string, fallback: number): number => {
+  const v = Number(process.env[name]);
+  return Number.isFinite(v) && v > 0 ? v : fallback;
+};
+const longSpend: Array<{ at: number; tokens: number }> = [];
+/**
+ * The tokens one attempt can cost at most. Pure. ASCII runs about four characters a token; any other code
+ * point (CJK, emoji) is counted as a whole token, since dividing those by four underestimated them about
+ * fourfold (security review, 2026-11-07).
+ */
+export function estimateTokens(r: PhraseRequest): number {
+  let ascii = 0, other = 0;
+  for (const ch of r.system + r.user) (ch.codePointAt(0)! < 128 ? ascii++ : other++);
+  return Math.ceil(ascii / 4) + other + (r.maxTokens ?? 200);
+}
+/** Whether a long request fits the minute and day budgets now; records it when it does. */
+function spendLong(tokens: number, now = Date.now()): boolean {
+  while (longSpend.length && now - longSpend[0]!.at > 86_400_000) longSpend.shift();
+  const minute = longSpend.reduce((a, s) => a + (now - s.at <= 60_000 ? s.tokens : 0), 0);
+  const day = longSpend.reduce((a, s) => a + s.tokens, 0);
+  if (minute + tokens > envNumber("LLM_LONG_TOKENS_PER_MIN", 12_000)) return false;
+  if (day + tokens > envNumber("LLM_LONG_TOKENS_PER_DAY", 300_000)) return false;
+  longSpend.push({ at: now, tokens });
+  return true;
+}
 /** After every model has refused for rate, stop asking for a minute. */
 const COOLDOWN_MS = 60_000;
 const CACHE_TTL_MS = 10 * 60_000;
@@ -78,12 +116,20 @@ export interface PhraseRequest {
   fast?: boolean;
   /** Turns the model's raw reply into the answer, or null to reject it. Defaults to `sanitise`. */
   clean?: (raw: string) => string | null;
+  /**
+   * A generated answer (chat, code review, writing) rather than a phrased one: the budget may run to
+   * LONG_BUDGET_MS, still inside the 11 s watchdog, and gpt-oss-120b is tried first.
+   */
+  long?: boolean;
+  /** Ask for a JSON object (Groq `response_format: json_object`). */
+  json?: boolean;
 }
 
 interface Entry { text: string; at: number }
 
 const cache = new Map<string, Entry>();
 let cooldownUntil = 0;
+let longCooldownUntil = 0;
 let nextModel = 0;
 
 /** Cache identity: the whole prompt, which carries both the intent and the input. */
@@ -94,6 +140,8 @@ const cacheKey = (r: PhraseRequest): string =>
 export function resetPhraseState(): void {
   cache.clear();
   cooldownUntil = 0;
+  longCooldownUntil = 0;
+  longSpend.length = 0;
   nextModel = 0;
 }
 
@@ -130,6 +178,7 @@ async function ask(model: string, r: PhraseRequest, key: string, ms: number): Pr
         temperature: 0.2,
         max_completion_tokens: r.maxTokens ?? 200,
         reasoning_effort: r.fast ? "none" : "low",
+        ...(r.json ? { response_format: { type: "json_object" } } : {}),
       }),
       signal: AbortSignal.timeout(ms),
     });
@@ -154,13 +203,14 @@ async function ask(model: string, r: PhraseRequest, key: string, ms: number): Pr
 export async function phrase(r: PhraseRequest): Promise<string | null> {
   const key = process.env.GROQ_API_KEY;
   if (!key) return null;
-  if (Date.now() < cooldownUntil) return null;
+  if (Date.now() < (r.long ? longCooldownUntil : cooldownUntil)) return null;
 
   const id = cacheKey(r);
   const hit = cache.get(id);
   if (hit && Date.now() - hit.at < CACHE_TTL_MS) return hit.text;
 
-  const deadline = Date.now() + Math.min(r.deadlineMs ?? budgetMs(), budgetMs());
+  const cap = r.long ? Math.max(budgetMs(), LONG_BUDGET_MS) : budgetMs();
+  const deadline = Date.now() + Math.min(r.deadlineMs ?? cap, cap);
   if (r.fast) {
     // Outside the rotation and the cooldown: one model, and a miss costs nothing but this answer.
     const out = await ask(FAST_MODEL, r, key, Math.max(1, deadline - Date.now()));
@@ -173,7 +223,9 @@ export async function phrase(r: PhraseRequest): Promise<string | null> {
   for (let i = 0; i < MODELS.length; i++) {
     const left = deadline - Date.now();
     if (left < MIN_ATTEMPT_MS) break;
-    const model = MODELS[(nextModel + i) % MODELS.length] ?? MODELS[0]!;
+    const model = r.long ? LONG_MODELS[i]! : MODELS[(nextModel + i) % MODELS.length] ?? MODELS[0]!;
+    // Every attempt is charged, the fallbacks included: a timed-out call may still have spent tokens.
+    if (r.long && !spendLong(estimateTokens(r))) break;
     const out = await ask(model, r, key, left);
     if (out === "rate") { limited++; continue; }
     if (out) {
@@ -184,6 +236,9 @@ export async function phrase(r: PhraseRequest): Promise<string | null> {
     }
   }
   nextModel = (nextModel + 1) % MODELS.length;
-  if (limited >= MODELS.length) cooldownUntil = Date.now() + COOLDOWN_MS;
+  if (limited >= MODELS.length) {
+    if (r.long) longCooldownUntil = Date.now() + COOLDOWN_MS;
+    else cooldownUntil = Date.now() + COOLDOWN_MS;
+  }
   return null;
 }

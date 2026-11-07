@@ -1,5 +1,50 @@
 # MEMORY.md — session continuity
 
+## 2026-11-07 ~19:20 UTC (Nov 8 00:50 IST): CURRENT — chat, code review and writing LIVE (`8b6e4d3`); 42-intent YAML ready to sign
+
+- **Production:** `8b6e4d3`, `miner-l6uql9dui` (`dpl_HZoxe8XB3iU2m1tWkXu1wGNejeHZ`).
+  - `/chat`, `/code-review` and `/generate` answer through Groq: Canberra right, both planted bugs found, a
+    60-word target met.
+  - **Rollback target:** `miner-56hisxeau` (`fa4f954`).
+  - Record: `track1-miner/docs/evidence/release-2026-11-07-genai/`.
+- **Sign next:** YAML at `8b6e4d3`, SHA-256 `0xc6515778bf0c27843f9d223d0b195ec9efa88a0f9f4985fe29bdc9230cdbaaca`,
+  42 intents. The manifest diff against 5123 passes. Registration 5123 is active (39 intents).
+- **Field:** CODE_REVIEW has only 2 of 12 miners scoring above 0, so rank 3 is open. CHAT's top 4 are RSS-feed
+  wrappers. TEXT_GENERATION's top five are 0.999–0.993.
+- **G281:** Routescan intermittently omits `transactionsCount`; one live test flaked.
+- `GROQ_API_KEY` is Production-only and Sensitive: model routes cannot be tested on a preview unless the owner
+  adds it to Preview.
+
+## 2026-11-07 ~18:40 UTC (Nov 8 00:10 IST): CURRENT — `fa4f954` LIVE; registration is now **5123**
+
+- **Production:** `fa4f954`, `miner-56hisxeau` (`dpl_HqN2jr1ddD8frUMXi1esvTtxpA1e`).
+  - Every source answers (licence gate off; owner: testnet).
+  - IP geolocation, headlines, news search and stock price are real again.
+  - Gates 7/7 after updating one stale check; 38/38 routes up, 0 refused.
+  - **Rollback target:** `miner-eh2uav8mu` (`3f33508`).
+  - Record: `track1-miner/docs/evidence/release-2026-11-07-sources-on/`.
+- **Registration 5123 is active.** The owner signed the 39-intent YAML at `fc041f4` (04:24 UTC); 4829 and 5122
+  are superseded. The repository variable `REGISTRATION_ID` is now 5123.
+  - Watch it with `watch.mjs --registration-id 5123 …`.
+  - The catalog id is still 4433.
+- **Next (owner's plan, "go in all of them"):** Phase 1, new routes for CHAT_COMPLETION, CODE_REVIEW and
+  TEXT_GENERATION on Groq, then a second `updateMiner` for 42 intents. Phase 2 closes the gaps in sanctions, fact
+  check, research, web search and filings.
+
+## 2026-11-07 ~04:00 UTC (09:30 IST): CURRENT — barred sources ON again; N1 YAML is 39 intents (`fc041f4`)
+
+- Owner: "I'm not doing their commercial use. It's on testnet currency. I'm just participating in a hackathon."
+  RULES_SEASON2 has no data-licence rule, so `permitted()` (src/sources.ts) now calls barred sources unless
+  `LICENCE_GATE=on`. The ledger stays as a record of each source's terms.
+- IP_GEOLOCATION, NEWS_HEADLINES, NEWS_SEARCH and STOCK_PRICE_US_EQUITY are back in `miner.yaml`.
+  - Unit 914/914; manifest diff PASS (36 -> 39); all 39 canonical.
+  - Local gate 37/39. Failures are environment only: translation needs production's Groq key, and ip-api is
+    unreachable from this machine (HTTP 000).
+- **NOT DEPLOYED.** Production is still `3f33508`, which refuses those four. Deploy `fc041f4` before signing, so
+  the four answer when the update lands.
+- **Hash to sign is now `0xfc08c9ac530e9c7425ae7ca289e17fd46b2350be86567f67404e4e9b2219580c`** (YAML at
+  `fc041f4`). The `0xdb6e…` hash recorded earlier is stale.
+
 ## 2026-11-07 ~18:55 UTC (Nov 8 00:25 IST): rank read after the quality releases
 
 `tools/epoch-history.mjs`. Our rank / score at the latest scored epoch (2034 or 2036):
