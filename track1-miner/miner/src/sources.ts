@@ -187,7 +187,8 @@ export function endpointStatus(path: string): LicenceStatus {
  * The `licensing` field added to every answer: the endpoint's weakest called
  * upstream and each upstream's own status, with the full ledger at /sources.
  * It covers the upstreams the endpoint can reach, not only those this answer
- * used. A barred upstream is listed with `called: false`, because it never is.
+ * used. A barred upstream is listed with `called: false` only while LICENCE_GATE=on; with the gate off
+ * (the default since 2026-11-07) it is called, and saying otherwise would be false.
  */
 export function licensingFor(path: string): {
   endpoint_status: LicenceStatus; upstreams: Array<{ source: string; status: LicenceStatus; called?: false }>; notices?: string[]; ledger: string;
@@ -198,7 +199,7 @@ export function licensingFor(path: string): {
   const notices = used.flatMap((s) => (s.status !== "barred" && s.condition?.notice ? [s.condition.notice] : []));
   return {
     endpoint_status: endpointStatus(path),
-    upstreams: used.map((s) => (s.status === "barred" ? { source: s.name, status: s.status, called: false as const } : { source: s.name, status: s.status })),
+    upstreams: used.map((s) => (s.status === "barred" && gateOn() ? { source: s.name, status: s.status, called: false as const } : { source: s.name, status: s.status })),
     ...(notices.length ? { notices } : {}),
     ledger: "/sources",
   };
@@ -212,7 +213,9 @@ export function ledger(): unknown {
       licensed: "the terms grant it, with no condition we fail",
       conditional: "granted on a condition; `condition.met` says whether our answers meet it",
       unclear: "the terms were read and neither clearly grant nor forbid it",
-      barred: "the terms forbid it, so it is never called; an endpoint is barred only when every source it has is",
+      barred: gateOn()
+        ? "the terms forbid it, so it is never called; an endpoint is barred only when every source it has is"
+        : "the terms forbid paid resale; it is still called, because payments are testnet (LICENCE_GATE is off)",
       unread: "not read yet",
     },
     sources: SOURCES,
@@ -227,8 +230,10 @@ export function ledger(): unknown {
  * restores the refusals for a mainnet or commercial deployment.
  * Unknown hosts are permitted, because test/sources.test.ts already fails on them.
  */
+const gateOn = (): boolean => process.env.LICENCE_GATE === "on";
+
 export function permitted(url: string): boolean {
-  if (process.env.LICENCE_GATE !== "on") return true;
+  if (!gateOn()) return true;
   let host: string;
   try {
     host = new URL(url).hostname.toLowerCase();

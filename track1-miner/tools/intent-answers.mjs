@@ -505,10 +505,12 @@ const CHECKS = {
       if (g.body.verdict !== "anycast" || !/anycast/i.test(String(g.body.reason ?? ""))) {
         bad.push(`8.8.8.8 -> ${g.body.verdict}; an anycast address answered as one location`);
       }
-      // Only ip-api honours operator geofeeds and puts this in Tokyo; the
-      // ipwho.is fallback misplaces it in Mumbai. Tokyo proves the PRIMARY answered.
+      // The primary must answer, proven by the receipt rather than by a city: Google's geofeed moved this
+      // address from Tokyo (2026-10) to New Haven (ip-api from Vercel, 2026-11-07), so a pinned city goes stale.
       const geo = await get("/ip-geolocate", { ip: "142.251.42.174" });
-      if (!/tokyo|japan/i.test(geo.body.reason)) bad.push(`142.251.42.174 -> ${geo.body.verdict}; not Tokyo, so the primary provider is not answering`);
+      const primary = (geo.body.receipt?.upstream ?? []).find((u) => /ip-api\.com/.test(String(u.url)));
+      if (!primary || Number(primary.status) !== 200) bad.push(`142.251.42.174: ip-api did not answer (${primary ? `HTTP ${primary.status}` : "not called"})`);
+      if (!/google/i.test(String(geo.body.reason ?? ""))) bad.push("142.251.42.174 answer never names Google");
     }
     const priv = await get("/ip-geolocate", { ip: "192.168.1.10" });
     if (priv.body.verdict !== "private") bad.push(`192.168.1.10 -> ${priv.body.verdict}, want private`);
