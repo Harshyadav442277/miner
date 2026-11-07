@@ -33,4 +33,11 @@ test("a code review is cached by the exact code: two snippets differing only in 
   const again = await get(`/code-review?code=${encodeURIComponent("x = uid")}`);
   assert.match(String(again.summary), /x = uid$/);
   assert.equal(calls, 2, "the identical snippet is served from the cache");
+
+  // A "|" in the input once let code "a|" + query "b" share a key with code "a" + query "|b".
+  const piped = await get(`/code-review?code=${encodeURIComponent("a|")}&query=b`);
+  const shifted = await get(`/code-review?code=a&query=${encodeURIComponent("|b")}`);
+  assert.match(String(piped.summary), /Reviewed: a\|$/);
+  assert.match(String(shifted.summary), /Reviewed: a$/);
+  assert.equal(calls, 4);
 });

@@ -69,16 +69,31 @@ const LONG_BUDGET_MS = 9_000;
 /** The order for a `long` request: the largest model writes the best review or text, then the other two. */
 const LONG_MODELS = ["openai/gpt-oss-120b", "qwen/qwen3.8-27b", "openai/gpt-oss-20b"];
 /**
- * Long requests share the free quota (8K tokens a minute per model) with the phrasing path that the
- * ranked intents use. So they get their own cooldown, and at most LONG_PER_MIN of them start a minute
- * per instance: a burst of /code-review calls then costs the long routes an `unknown`, not the phrasing
- * path its model (commit security review, 2026-11-07).
+ * Long requests share the free quota with the phrasing path that the ranked intents use: per model,
+ * 8K tokens a minute and 200K a day, three models (read 2026-09-19). A count of calls does not bound
+ * tokens (12 reviews a minute can be ~45K), so long calls are budgeted by estimated tokens, the prompt
+ * at ~4 characters a token plus the completion cap, and hold at most half of the minute and of the day:
+ * 12K a minute and 300K a day by default. Over budget is an `unknown` for the long route, never a
+ * rate limit on the phrasing path; they also keep their own cooldown (commit security reviews,
+ * 2026-11-07). Per instance: Vercel may run more than one.
  */
-const longPerMin = (): number => {
-  const v = Number(process.env.LLM_LONG_PER_MIN);
-  return Number.isFinite(v) && v > 0 ? v : 12;
+const envNumber = (name: string, fallback: number): number => {
+  const v = Number(process.env[name]);
+  return Number.isFinite(v) && v > 0 ? v : fallback;
 };
-const longStarts: number[] = [];
+const longSpend: Array<{ at: number; tokens: number }> = [];
+/** The tokens a request can cost at most. Pure. */
+export const estimateTokens = (r: PhraseRequest): number => Math.ceil((r.system.length + r.user.length) / 4) + (r.maxTokens ?? 200);
+/** Whether a long request fits the minute and day budgets now; records it when it does. */
+function spendLong(tokens: number, now = Date.now()): boolean {
+  while (longSpend.length && now - longSpend[0]!.at > 86_400_000) longSpend.shift();
+  const minute = longSpend.reduce((a, s) => a + (now - s.at <= 60_000 ? s.tokens : 0), 0);
+  const day = longSpend.reduce((a, s) => a + s.tokens, 0);
+  if (minute + tokens > envNumber("LLM_LONG_TOKENS_PER_MIN", 12_000)) return false;
+  if (day + tokens > envNumber("LLM_LONG_TOKENS_PER_DAY", 300_000)) return false;
+  longSpend.push({ at: now, tokens });
+  return true;
+}
 /** After every model has refused for rate, stop asking for a minute. */
 const COOLDOWN_MS = 60_000;
 const CACHE_TTL_MS = 10 * 60_000;
@@ -118,7 +133,7 @@ export function resetPhraseState(): void {
   cache.clear();
   cooldownUntil = 0;
   longCooldownUntil = 0;
-  longStarts.length = 0;
+  longSpend.length = 0;
   nextModel = 0;
 }
 
@@ -185,12 +200,7 @@ export async function phrase(r: PhraseRequest): Promise<string | null> {
   const id = cacheKey(r);
   const hit = cache.get(id);
   if (hit && Date.now() - hit.at < CACHE_TTL_MS) return hit.text;
-  if (r.long) {
-    const now = Date.now();
-    while (longStarts.length && now - longStarts[0]! > 60_000) longStarts.shift();
-    if (longStarts.length >= longPerMin()) return null;
-    longStarts.push(now);
-  }
+  if (r.long && !spendLong(estimateTokens(r))) return null;
 
   const cap = r.long ? Math.max(budgetMs(), LONG_BUDGET_MS) : budgetMs();
   const deadline = Date.now() + Math.min(r.deadlineMs ?? cap, cap);

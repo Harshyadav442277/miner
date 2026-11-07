@@ -93,8 +93,8 @@ test("genai: a review's verdict follows its findings and leads the answer", asyn
   });
 });
 
-test("genai: long calls are capped per minute and their rate limits never park the phrasing path", async () => {
-  process.env.LLM_LONG_PER_MIN = "1";
+test("genai: long calls are budgeted by tokens and their rate limits never park the phrasing path", async () => {
+  process.env.LLM_LONG_TOKENS_PER_MIN = "2500"; // one writing call (~2,000 tokens) fits, a second does not
   try {
     await withModel(JSON.stringify({ title: "", text: "One." }), async (calls) => {
       await generateText("", "Write one word.");
@@ -105,7 +105,7 @@ test("genai: long calls are capped per minute and their rate limits never park t
       assert.equal(again.verdict, "generated");
     });
   } finally {
-    delete process.env.LLM_LONG_PER_MIN;
+    delete process.env.LLM_LONG_TOKENS_PER_MIN;
   }
   // Every model answering 429 to a long call sets the long cooldown only.
   await withModel(null, async () => {

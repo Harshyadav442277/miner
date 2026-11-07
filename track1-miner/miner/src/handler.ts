@@ -1626,7 +1626,8 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     const subject = mission.params.map((n) => firstValue(url, n).trim()).filter(Boolean).join(" ");
     const q = firstValue(url, "query", "q", "question", "text", "input");
     const fold = (v: string): string => (mission.exact ? v : v.trim().toLowerCase());
-    const key = `${path}:${mission.params.map((n) => fold(firstValue(url, n))).join("|")}|${fold(q)}`;
+    // JSON, not a joined string: a "|" inside code or a prompt made two inputs share one key (security review, 2026-11-07).
+    const key = JSON.stringify([path, ...mission.params.map((n) => fold(firstValue(url, n))), fold(q)]);
     const hit = fromCache(key);
     if (hit) {
       sendAnswer(res, q, hit);
