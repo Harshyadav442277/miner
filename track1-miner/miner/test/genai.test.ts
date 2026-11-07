@@ -93,6 +93,43 @@ test("genai: a review's verdict follows its findings and leads the answer", asyn
   });
 });
 
+test("genai: long calls are capped per minute and their rate limits never park the phrasing path", async () => {
+  process.env.LLM_LONG_PER_MIN = "1";
+  try {
+    await withModel(JSON.stringify({ title: "", text: "One." }), async (calls) => {
+      await generateText("", "Write one word.");
+      const second = await generateText("", "Write two words.");
+      assert.equal(second.error, "upstream_unavailable");
+      assert.equal(calls.length, 1, "the capped call must not reach the model");
+      const again = await generateText("", "Write one word."); // a cached answer is still served
+      assert.equal(again.verdict, "generated");
+    });
+  } finally {
+    delete process.env.LLM_LONG_PER_MIN;
+  }
+  // Every model answering 429 to a long call sets the long cooldown only.
+  await withModel(null, async () => {
+    await chat("Why is the sky blue?");
+  });
+  const { phrase } = await import("../src/llm");
+  process.env.GROQ_API_KEY = "test-key";
+  const real = globalThis.fetch;
+  let rate = true;
+  globalThis.fetch = (async () => (rate
+    ? new Response("{}", { status: 429 })
+    : new Response(JSON.stringify({ choices: [{ message: { content: "Phrased." } }] }), { status: 200 }))) as typeof fetch;
+  try {
+    await chat("Why is the sky blue?"); // trips the long cooldown
+    rate = false;
+    assert.equal(await phrase({ system: "s", user: "u" }), "Phrased.", "the phrasing path must not be parked by a long call");
+    assert.equal((await chat("Why is grass green?")).error, "upstream_unavailable", "the long path is parked for its minute");
+  } finally {
+    globalThis.fetch = real;
+    delete process.env.GROQ_API_KEY;
+    resetPhraseState();
+  }
+});
+
 test("genai: generated text carries brief, word count and the requested count", async () => {
   const text = "Charge anywhere with sunlight. " + "Word ".repeat(55).trim() + ".";
   await withModel(JSON.stringify({ title: "", text }), async () => {

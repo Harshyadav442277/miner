@@ -1338,7 +1338,7 @@ endpoints:
       the code is correct and its most serious problem), findings in severity order
       (each with severity critical, high, medium, low or info, line where known, the
       issue by its technical name and the concrete fix) and finding_count. Links are
-      not fetched: send the code itself. Up to 12,000 characters.
+      not fetched: send the code itself. Up to 8,000 characters.
     params:
       query:
         required:

@@ -68,6 +68,17 @@ const MIN_ATTEMPT_MS = 1_500;
 const LONG_BUDGET_MS = 9_000;
 /** The order for a `long` request: the largest model writes the best review or text, then the other two. */
 const LONG_MODELS = ["openai/gpt-oss-120b", "qwen/qwen3.8-27b", "openai/gpt-oss-20b"];
+/**
+ * Long requests share the free quota (8K tokens a minute per model) with the phrasing path that the
+ * ranked intents use. So they get their own cooldown, and at most LONG_PER_MIN of them start a minute
+ * per instance: a burst of /code-review calls then costs the long routes an `unknown`, not the phrasing
+ * path its model (commit security review, 2026-11-07).
+ */
+const longPerMin = (): number => {
+  const v = Number(process.env.LLM_LONG_PER_MIN);
+  return Number.isFinite(v) && v > 0 ? v : 12;
+};
+const longStarts: number[] = [];
 /** After every model has refused for rate, stop asking for a minute. */
 const COOLDOWN_MS = 60_000;
 const CACHE_TTL_MS = 10 * 60_000;
@@ -95,6 +106,7 @@ interface Entry { text: string; at: number }
 
 const cache = new Map<string, Entry>();
 let cooldownUntil = 0;
+let longCooldownUntil = 0;
 let nextModel = 0;
 
 /** Cache identity: the whole prompt, which carries both the intent and the input. */
@@ -105,6 +117,8 @@ const cacheKey = (r: PhraseRequest): string =>
 export function resetPhraseState(): void {
   cache.clear();
   cooldownUntil = 0;
+  longCooldownUntil = 0;
+  longStarts.length = 0;
   nextModel = 0;
 }
 
@@ -166,11 +180,17 @@ async function ask(model: string, r: PhraseRequest, key: string, ms: number): Pr
 export async function phrase(r: PhraseRequest): Promise<string | null> {
   const key = process.env.GROQ_API_KEY;
   if (!key) return null;
-  if (Date.now() < cooldownUntil) return null;
+  if (Date.now() < (r.long ? longCooldownUntil : cooldownUntil)) return null;
 
   const id = cacheKey(r);
   const hit = cache.get(id);
   if (hit && Date.now() - hit.at < CACHE_TTL_MS) return hit.text;
+  if (r.long) {
+    const now = Date.now();
+    while (longStarts.length && now - longStarts[0]! > 60_000) longStarts.shift();
+    if (longStarts.length >= longPerMin()) return null;
+    longStarts.push(now);
+  }
 
   const cap = r.long ? Math.max(budgetMs(), LONG_BUDGET_MS) : budgetMs();
   const deadline = Date.now() + Math.min(r.deadlineMs ?? cap, cap);
@@ -197,6 +217,9 @@ export async function phrase(r: PhraseRequest): Promise<string | null> {
     }
   }
   nextModel = (nextModel + 1) % MODELS.length;
-  if (limited >= MODELS.length) cooldownUntil = Date.now() + COOLDOWN_MS;
+  if (limited >= MODELS.length) {
+    if (r.long) longCooldownUntil = Date.now() + COOLDOWN_MS;
+    else cooldownUntil = Date.now() + COOLDOWN_MS;
+  }
   return null;
 }

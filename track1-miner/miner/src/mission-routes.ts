@@ -25,6 +25,11 @@ export interface MissionRoute {
   what: string;
   /** Declared parameters that name the subject; they key the cache with the question. */
   params: readonly string[];
+  /**
+   * Key the cache on the exact input. Code and writing prompts are case-sensitive: lower-casing
+   * them served one snippet's review for another (commit security review, 2026-11-07).
+   */
+  exact?: boolean;
   /** `param(...names)` is the first of those parameters that carries a value, or "". */
   run: (question: string, param: (...names: string[]) => string) => Promise<MissionAnswer>;
 }
@@ -74,16 +79,19 @@ export const MISSION_ROUTES: Record<string, MissionRoute> = {
   "/chat": {
     what: "A chat reply",
     params: ["message"],
+    exact: true,
     run: (q, p) => chat(q, p("message")),
   },
   "/code-review": {
     what: "A code review",
     params: ["code"],
+    exact: true,
     run: (q, p) => reviewCode(q, p("code")),
   },
   "/generate": {
     what: "The requested text",
     params: ["prompt"],
+    exact: true,
     run: (q, p) => generateText(q, p("prompt")),
   },
   "/onchain-metric": {

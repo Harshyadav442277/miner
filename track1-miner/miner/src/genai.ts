@@ -21,7 +21,8 @@ export interface GenAnswer { verdict: string; confidence: number; reason: string
 const SOURCE = "Groq (gpt-oss-120b, falling back to qwen3.8-27b and gpt-oss-20b)";
 /** The model's own probability is not calibrated; this fixed value says so rather than inventing one. */
 const CONFIDENCE = 0.8;
-const MAX_INPUT = 12_000;
+/** About 2K tokens: with the reply, one call stays well under one model's 8K tokens a minute. */
+const MAX_INPUT = 8_000;
 
 /** The first JSON object in a reply, or null. Pure. */
 export function parseObject(raw: string): Record<string, unknown> | null {
