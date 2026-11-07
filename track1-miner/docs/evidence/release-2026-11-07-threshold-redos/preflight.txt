@@ -1,0 +1,28 @@
+preflight against https://miner-wine.vercel.app
+
+  unit + live suite                      PASS
+  verify-deploy                          PASS
+  param shapes (engine-shaped)           PASS
+  intent answers (correctness)           FAIL
+  hostile inputs                         PASS
+  upstream health                        PASS
+  no-regression (8 identical, 0 differ)  PASS
+
+--- intent answers (correctness) ---
+...
+  TEXT_CLASSIFICATION    PASS
+  RESEARCH_SYNTHESIS     PASS
+  SANCTIONS_SCREENING_MATCH PASS
+  CORPORATE_REGISTRY_LOOKUP PASS
+  REGULATORY_FILING_MONITOR PASS
+  CRYPTO_TRANSFER_VERIFY PASS
+  MACRO_ECONOMIC_INDICATOR PASS
+  URL_SAFE               PASS
+  QUESTION_ANSWERING     PASS
+  DNS_RECORD_LOOKUP      PASS
+  TOKEN_TOTAL_SUPPLY_VERIFY PASS
+  ONCHAIN_METRIC_VERIFY  PASS
+
+39/39 intents answering correctly.
+
+6/7 gates passed — re-run the failing gate alone before believing it.

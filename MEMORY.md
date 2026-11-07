@@ -1,5 +1,20 @@
 # MEMORY.md — session continuity
 
+## 2026-11-07 ~03:30 UTC (09:00 IST): CURRENT — `3f33508` LIVE (threshold regex fix); PR #18 open
+
+- Owner: "Yes, deploy it" for `3f33508`, the fix for the push security review's ReDoS finding in `src/threshold.ts`.
+- **Production:** `3f33508`, `https://miner-eh2uav8mu-wukong4.vercel.app` (`dpl_5tARoxt3vuzowzZ98skdve4kBtJF`).
+  **Rollback target:** `miner-beo9nyatq` (`bee3f6a`). Record: `track1-miner/docs/evidence/release-2026-11-07-threshold-redos/`.
+  - Unit 914/914.
+  - Preflight 6/7 on the first run; intent answers re-run alone 39/39.
+  - 4829 `active`; 34/34 routes up.
+- **Uptime alarm (issue #19, G280):** a false alarm. `main`'s stale YAML probes `/keywords` and `/vuln-triage`, which
+  were deleted on purpose. It clears when PR #18 merges `codex/rank1-14-intents` into `main`. That merge needs the
+  owner's yes (default branch). Close #19 after it.
+- **N1 YAML:** V2 ids, verified 03:00 UTC.
+  - The SHA-256 is `0xdb6e08…649a` both from git and from raw GitHub.
+  - All 35 ids are canonical on devnode.
+  - The keyless validator is gone (G212), so the owner validates on Anjoman and signs.
 ## 2026-11-07 IST: URL Scan generic baseline measured
 
 - The `URL_SCAN` hybrid family is on-chain. `URL_SCAN_VERDICT` has eight ranked miners at epoch 2030 and
