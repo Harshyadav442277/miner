@@ -1,0 +1,134 @@
+{
+  "pairs": 16,
+  "accuracy": 0.5,
+  "ties": 0,
+  "length_baseline": 0.5,
+  "max_tokens": 512,
+  "source": "build_preflight_pairs.py",
+  "seed": 7,
+  "by_kind": {
+    "verdict flip": {
+      "pairs": 8,
+      "accuracy": 0.375
+    },
+    "wrong URL": {
+      "pairs": 8,
+      "accuracy": 0.625
+    }
+  },
+  "rows": [
+    {
+      "chosen": 3.8363218307495117,
+      "rejected": 3.8616371154785156,
+      "kind": "verdict flip",
+      "format": null,
+      "longer_is_chosen": true
+    },
+    {
+      "chosen": 3.8363218307495117,
+      "rejected": 4.742232799530029,
+      "kind": "wrong URL",
+      "format": null,
+      "longer_is_chosen": false
+    },
+    {
+      "chosen": 5.321104049682617,
+      "rejected": 5.32993221282959,
+      "kind": "verdict flip",
+      "format": null,
+      "longer_is_chosen": true
+    },
+    {
+      "chosen": 5.321104049682617,
+      "rejected": 5.179873943328857,
+      "kind": "wrong URL",
+      "format": null,
+      "longer_is_chosen": true
+    },
+    {
+      "chosen": 0.40760254859924316,
+      "rejected": 0.3976324498653412,
+      "kind": "verdict flip",
+      "format": null,
+      "longer_is_chosen": false
+    },
+    {
+      "chosen": 0.40760254859924316,
+      "rejected": 0.4693950414657593,
+      "kind": "wrong URL",
+      "format": null,
+      "longer_is_chosen": false
+    },
+    {
+      "chosen": 0.3919217586517334,
+      "rejected": 0.33459073305130005,
+      "kind": "verdict flip",
+      "format": null,
+      "longer_is_chosen": false
+    },
+    {
+      "chosen": 0.3919217586517334,
+      "rejected": -0.06055104732513428,
+      "kind": "wrong URL",
+      "format": null,
+      "longer_is_chosen": true
+    },
+    {
+      "chosen": 2.669567584991455,
+      "rejected": 2.7321081161499023,
+      "kind": "verdict flip",
+      "format": null,
+      "longer_is_chosen": true
+    },
+    {
+      "chosen": 2.669567584991455,
+      "rejected": 1.8429913520812988,
+      "kind": "wrong URL",
+      "format": null,
+      "longer_is_chosen": true
+    },
+    {
+      "chosen": 1.498494029045105,
+      "rejected": 1.5719857215881348,
+      "kind": "verdict flip",
+      "format": null,
+      "longer_is_chosen": true
+    },
+    {
+      "chosen": 1.498494029045105,
+      "rejected": 1.4066627025604248,
+      "kind": "wrong URL",
+      "format": null,
+      "longer_is_chosen": false
+    },
+    {
+      "chosen": 0.11387211084365845,
+      "rejected": 0.1787441074848175,
+      "kind": "verdict flip",
+      "format": null,
+      "longer_is_chosen": false
+    },
+    {
+      "chosen": 0.11387211084365845,
+      "rejected": -0.11940902471542358,
+      "kind": "wrong URL",
+      "format": null,
+      "longer_is_chosen": false
+    },
+    {
+      "chosen": 1.5821611881256104,
+      "rejected": 1.5615588426589966,
+      "kind": "verdict flip",
+      "format": null,
+      "longer_is_chosen": false
+    },
+    {
+      "chosen": 1.5821611881256104,
+      "rejected": 1.598755121231079,
+      "kind": "wrong URL",
+      "format": null,
+      "longer_is_chosen": true
+    }
+  ],
+  "registry_adapter_keccak": "dc4f8bd55442407c9a7cc29b892d22ad136e326e07e21d37ed7e0f94adc2e2b1"
+}

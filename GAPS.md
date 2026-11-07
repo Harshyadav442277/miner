@@ -322,10 +322,11 @@ Evidence: `track1-miner/docs/evidence/intents-2026-11-04/`. Facts: docs/TELEGRAP
 
 ## 2026-11-05 IST evaluator activation
 
-- **URL_SCAN_VERDICT preflight. `OPEN`.** The live catalog says hybrid and ready. The pool has 5 eligible
-  contributors and 65 eligible rows (36 qualification). Registry resolution reports routed generic fallback.
-  The exact registration target, compatible hybrid reference material and improvement on a repeatable
-  mission workflow still need verification.
+- **URL_SCAN_VERDICT preflight. `OPEN`.** Sepolia confirmed `URL_SCAN` is the hybrid prefix on Nov 7 IST.
+  The epoch 2030 leaderboard listed eight miners, and routing resolves to `GENERIC`. The public pool
+  counts do not identify the hybrid reference material. The generic judgment component scored 8/16 on
+  controlled pairs. A challenger, fused scores and workflow improvement still need verification.
+  See [the replay evidence](track2/adapter/url_scan/README.md).
 
 ## 2026-11-01 evaluation material — G247
 

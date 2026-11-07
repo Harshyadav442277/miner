@@ -909,3 +909,11 @@ Source: https://docs.telegraphprotocol.com/llms-full.txt, sections "Evaluator Ad
 - **Not verified:** whether the node follows the GitHub release-asset redirect, and whether the download
   finishes inside 30 minutes. The docs say nothing about redirects. Both can only be checked once the release
   exists: hash the release URL with `cmptool.exe hash`, as track2 SIGN_S2.md step 1b says.
+## 2026-11-07 IST: URL Scan resolution and live ranking
+
+- Sepolia Diamond `getPrefixes()` lists `URL_SCAN` with hybrid kind 2, and
+  `intentKind("URL_SCAN_VERDICT")` also returns 2. See the [intent catalog docs](https://anjoman.ai/docs/using/intents).
+- [Scorer resolution](https://devnode.telegraphprotocol.com/api/wasm?resolve=URL_SCAN_VERDICT) shows
+  `GENERIC` fallback and `routed: true`. [Epoch 2030 leaderboard](https://devnode.telegraphprotocol.com/leaderboard/miners)
+  listed eight ranked miners for the intent. [Pool status](https://devnode.telegraphprotocol.com/api/evalpool/status?intent_id=URL_SCAN_VERDICT)
+  showed five eligible contributors and 65 eligible rows. Those counts do not identify the ranking truth sources.

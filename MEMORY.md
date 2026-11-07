@@ -1,5 +1,13 @@
 # MEMORY.md — session continuity
 
+## 2026-11-07 IST: URL Scan generic baseline measured
+
+- The `URL_SCAN` hybrid family is on-chain. `URL_SCAN_VERDICT` has eight ranked miners at epoch 2030 and
+  resolves to `GENERIC` 900005. The exact generic delta got 8/16 controlled pairs in the kit runtime,
+  including 3/8 verdict flips and 5/8 wrong-URL pairs. No challenger measured or signed. Evidence is in
+  `track2/adapter/url_scan/`.
+- All 144 translation rows now read `eligible` under the LiveCert wallet.
+
 ## 2026-11-07 ~02:50 UTC (08:20 IST): CURRENT — N1 YAML on V2 ids (`5bef2be`); ready for the owner to validate
 
 - Owner: "Yes, rename to V2". `miner.yaml` lists the node's canonical V2 ids (G270 fixed). Unit 914/914, manifest

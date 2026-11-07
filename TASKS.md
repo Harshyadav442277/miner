@@ -204,10 +204,10 @@ Ordered by rubric points. **Miner weights re-read 2026-11-05:** quality 35, reli
       Adapter: must become a safetensors delta (G238).
 - [x] LANGUAGE_TRANSLATION_GENERAL material built 2026-11-01 (`track2/material/`): 144 Tatoeba preference pairs,
       all read, every published rule passes. Owner signed and uploaded Nov 5 IST. All 144 confirmed admitted.
-- [ ] Verify translation eligibility after the epoch rolls over before reporting an eligible count on bounty #140.
-- [ ] First evaluator candidate to investigate: `URL_SCAN_VERDICT`. Verify the exact registration target,
-      hybrid truth-source support and a reproducible workflow against generic scoring before building the adapter.
-      `WEB_SEARCH_GENERAL` had 1 of 5 eligible contributors on Nov 5 IST.
+- [x] Verified all 144 translation rows eligible after rollover. Bounty #140 reporting remains separate.
+- [x] URL Scan preflight: verified the `URL_SCAN` hybrid family on-chain and replayed the exact `GENERIC` adapter.
+- [ ] Compare a URL Scan challenger with the generic adapter and the boolean comparator on unseen miner answers.
+      Verify the check-before-opening workflow before preparing registration.
 - [ ] Track 2 entry that needs no foundation files: evaluation material for intents LiveCert serves. Truth
       sources for the deterministic ones with none (SSL_VERIFICATION_CERT), and attested preference pairs for a
       judgment family. Claude builds and checks the JSON Lines file; the owner signs the upload (EIP-191). One
