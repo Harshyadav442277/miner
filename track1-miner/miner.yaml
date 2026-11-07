@@ -5,7 +5,7 @@ slug: livecert
 protocol: generic
 name: LiveCert — Sourced Answers for Agents
 description: >-
-  Sourced answers for agents and apps across 35 intents, each read live from a
+  Sourced answers for agents and apps across 39 intents, each read live from a
   named primary source so the caller can check it. Every answer opens with a
   one-sentence answer, then returns the values as fields, the source and the time
   it was checked. Compliance: sanctions screening of people, companies and wallets
@@ -14,11 +14,10 @@ description: >-
   parents) from GLEIF and SEC EDGAR; SEC filings with acceptance times and each
   10-Q or 10-K's own XBRL figures; URL reputation from Cloudflare and Quad9 threat
   DNS, each source named. Research: question answering with every
-  claim cited, web search over Wikipedia, Wikidata and official documentation,
-  fact checks with the source URL and evidence sentence, and academic and
-  clinical search; current news is not searched, because no news index is
-  licensed for paid use. Markets: coin prices, 10-K revenue and earnings of
-  US-listed companies, exchange rates and macroeconomic prints (US CPI and unemployment from BLS, the
+  claim cited, web search with dated reports, fact checks with the source URL and
+  evidence sentence, and academic, clinical and news search. Markets: prices and
+  market data for coins, tokens and listed companies, 10-K revenue and earnings,
+  exchange rates and macroeconomic prints (US CPI and unemployment from BLS, the
   federal funds target range from the New York Fed, euro-area HICP from Eurostat
   and ECB rates). On-chain: transfer verification with confirmations and the
   burned base fee, transaction and contract activity across EVM chains, wallet
@@ -27,8 +26,8 @@ description: >-
   (receipt gas and Transfer amounts, storage slots, balances, block gas), and
   cross-chain messages. Security: live TLS
   certificates, URL scans, CVE records, DNS records compared across two resolvers, and fraud signals.
-  Weather: forecasts, current conditions and storm risk. Also translation,
-  prediction market outcomes, text extraction, sentiment
+  Weather: forecasts, current conditions and storm risk. Also translation, IP
+  geolocation, prediction market outcomes, text extraction, sentiment
   and classification. Only the
   question-answering, sentiment and classification sentences are phrased by a
   model, each with a keyless fallback, and a phrased answer is kept only when every
@@ -150,6 +149,29 @@ endpoints:
             intents: ["*"]
             description: "The user's original question, verbatim, e.g. Translate \"Good morning\" into French."
 
+  - path: /ip-geolocate
+    external_path: /ip-geolocate
+    method: GET
+    intents: [IP_GEOLOCATION_GENERAL]
+    description: >-
+      Example questions: "Where is 8.8.8.8 located?", "Which network owns 1.1.1.1?".
+      Returns answer, verdict, confidence, reason, checked_at and ip, city, region,
+      country, country_code, latitude, longitude, timezone, asn, organisation.
+      Live IP geolocation. Accepts an IPv4 or IPv6 address, or a whole question
+      containing one.
+    params:
+      query:
+        required:
+          - name: ip
+            type: string
+            intents: ["*"]
+            description: "IPv4 or IPv6 address to geolocate, e.g. 8.8.8.8."
+        optional:
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim. The address is extracted from it."
+
   - path: /weather-forecast
     external_path: /weather-forecast
     method: GET
@@ -216,6 +238,31 @@ endpoints:
             type: string
             intents: ["*"]
             description: "The user's original question, verbatim. It names which fields to extract, e.g. Extract the contact details from: \"...\"."
+
+  - path: /headlines
+    external_path: /headlines
+    method: GET
+    intents: [NEWS_HEADLINES_GENERAL]
+    description: >-
+      Example questions: "What are today's technology headlines?", "Top business news
+      in Europe". Returns answer, verdict, confidence, reason, checked_at and topic,
+      region, headlines, count.
+      Current news headlines for a topic and optional region, read live from Google
+      News at request time and returned as a numbered list with each source named.
+      Honours a requested count such as "top 5". Headlines rotate, so the answer states
+      the date it was read.
+    params:
+      query:
+        required:
+          - name: topic
+            type: string
+            intents: ["*"]
+            description: "Subject to fetch headlines for, e.g. technology, business."
+        optional:
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim. Carries the region and any requested count."
 
   - path: /wallet-balance
     external_path: /wallet-balance
@@ -329,6 +376,42 @@ endpoints:
             intents: ["*"]
             description: "The user's original question, verbatim. An identifier, a year, a severity such as critical, or a product and vulnerability class are read from it."
 
+  - path: /news-search
+    external_path: /news-search
+    method: GET
+    intents: [NEWS_SEARCH_GENERAL]
+    description: >-
+      Example questions: "Latest news about the EU AI Act", "What happened with Boeing
+      this week?". Returns answer, verdict, confidence, reason, checked_at and
+      subject, window_days, articles, count.
+      News article coverage of a topic, entity or time period, searched rather
+      than browsed. Returns individual articles — each with its headline, the
+      publisher that ran it and its publication date, most relevant first — for a
+      subject read from the question, over a window the question may state
+      ("in the last 3 days", "this month"). A recency word with no explicit
+      window is treated as a request rather than a filter: the last 30 days are
+      searched first and the search is widened only if nothing on the subject was
+      published in them, and the answer says when that happened. Articles that
+      are not about the subject are dropped rather than used as padding, with the
+      acronym of a named entity counted as naming it. This is article coverage;
+      a plain list of current headlines is /headlines. A news index that does not
+      respond is reported as unknown, never as an absence of coverage.
+    params:
+      query:
+        optional:
+          - name: topic
+            type: string
+            intents: ["*"]
+            description: "The subject to search for: a topic, company, person or event. Read from the question when absent."
+          - name: days
+            type: number
+            intents: ["*"]
+            description: "Only return articles published within this many days. Read from the question when absent; omitted means no date restriction."
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim. The subject and the time window are read from it."
+
   - path: /convert
     external_path: /convert
     method: GET
@@ -402,18 +485,22 @@ endpoints:
     method: GET
     intents: [FINANCIAL_DATA_GENERAL]
     description: >-
-      Example questions: "What was Apple's revenue in its latest 10-K?", "Microsoft's
-      net income and diluted earnings per share for its last fiscal year". Returns
-      answer, verdict, confidence, reason, checked_at and subject, name, chain, data.
-      Financial statements of US-listed companies, read from the company's own SEC
-      filings: revenue, net income and earnings per share from the latest 10-K,
-      with the fiscal year and its end date. A company is named by ticker or by a
-      name in the built-in company table. Market data is not answered: coin and
-      token market statistics and share trading data (price, volume, ranges, P/E)
-      come only from sources that do not license resale, so such a request is
-      refused with the reason rather than estimated. A figure that could not be
-      retrieved, such as margins, is stated as not retrieved rather than
-      substituted.
+      Example questions: "What is Solana's market cap and 24-hour volume?", "Apple's
+      revenue and P/E from its 10-K". Returns answer, verdict, confidence, reason,
+      checked_at and subject, name, chain, data.
+      Market data and financial statistics for a coin, a token or a listed company,
+      deliberately beyond a single quoted price. A coin named in words, such as
+      Solana or Bitcoin, returns market capitalisation, 24-hour trading volume in
+      dollars, fully diluted valuation, 24-hour range and change. A token contract
+      address with its chain returns market capitalisation, 24-hour trading volume,
+      fully diluted valuation and last traded price. A ticker or company name
+      returns the day range, share volume, 52-week range and change against the
+      previous close, with the ticker resolved from the company name where only a
+      name is given. Revenue, net income and earnings per share come from the
+      company's latest 10-K, and a price-to-earnings ratio is computed from the
+      last traded price and the 10-K's diluted earnings per share, with both inputs
+      named. A figure that could not be retrieved, such as margins, is stated as
+      not retrieved rather than substituted.
     params:
       query:
         optional:
@@ -585,6 +672,43 @@ endpoints:
             intents: ["*"]
             description: "The user's original question, verbatim. The asset, the quote currency and any date are read from it."
 
+  - path: /stock-price
+    external_path: /stock-price
+    method: GET
+    intents: [STOCK_PRICE_US_EQUITY]
+    description: >-
+      Example questions: "What is Apple's share price?", "TSLA closing price on
+      2026-09-01". Returns answer, verdict, confidence, reason, checked_at and ticker,
+      name, price, currency, price_at, exchange, market_open, source.
+      The current or historical share price of one listed equity, given as a
+      ticker or a company name. Every answer states the exchange, the quote time
+      in the exchange's own time zone, and whether the regular trading session is
+      open right now; outside the session the figure is labelled as the last
+      session price and never presented as a live quote. A company name is
+      resolved to its ticker and accepted only when the listing carries every word
+      of the name asked about, so an unlisted subsidiary is answered as not found
+      rather than with a related company's price. A ticker is read only when it is
+      written as one in capitals, and a currency code such as (USD) is never taken
+      for a ticker. A question that does not ask about a share price, such as a
+      weather question naming a city, is refused rather than priced. An ISO date
+      returns that day's closing price, and a date with no session is said to have
+      none. A question asking whether a stock will rise or fall is answered with
+      the price and an explicit statement that no forecast is made. Company
+      fundamentals and statistics beyond one price are FINANCIAL_DATA. A provider
+      outage, including a failed ticker search, is reported as an outage and never
+      as the company not being listed.
+    params:
+      query:
+        optional:
+          - name: symbol
+            type: string
+            intents: ["*"]
+            description: "Ticker in capitals, e.g. AAPL, or a company name, e.g. Apple. Read from the question when absent."
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim. The company, ticker and any ISO date are read from it."
+
   - path: /cross-chain
     external_path: /cross-chain
     method: GET
@@ -703,22 +827,23 @@ endpoints:
     method: GET
     intents: [WEB_SEARCH_GENERAL]
     description: >-
-      Example questions: "Who is the CEO of OpenAI?", "What is the latest Node.js
-      release?". Returns answer, verdict, confidence, reason, checked_at and
-      articles, background.
-      Externally sourced facts about a named person, organisation, product, drug
-      trial or software release, read live from Wikipedia, Wikidata,
-      ClinicalTrials.gov, Europe PMC, endoflife.date and official documentation,
-      with the source named so every clause can be checked. Current news is not
-      searched: no news index licensed for paid use is available, so a question
-      about current events gets the background these sources hold with a note
-      that news was not searched, or a refusal with that reason when they hold
-      none. When the question names a product or trial
-      code such as MK-2870, the source must name that code. A TLS certificate
-      check, a scholarly literature search, a single CVE record or a request to
-      explain a concept from static knowledge is refused by name as the intent it
-      belongs to. When the sources read find nothing on the subject, that is
-      reported as an absence in those sources only.
+      Example questions: "What is the latest news on the Fed's rate decision?", "Who
+      is the CEO of OpenAI?". Returns answer, verdict, confidence, reason, checked_at
+      and articles, background.
+      Current, externally sourced information for a question that static
+      knowledge cannot answer, taken from Google News search and, when no current
+      report exists, from Wikipedia. The answer quotes the most relevant reports'
+      headlines with publisher and publication date, so every clause can be
+      checked; nothing is paraphrased by a model. A report is only cited when it
+      names the subject, and when the question names a product or trial code such
+      as MK-2870 the headline must name that code. A question about a future
+      outcome is answered with the current coverage and states that it is not a
+      prediction. A TLS certificate check, a scholarly literature search, a
+      single CVE record or a request to explain a concept from static knowledge
+      is refused by name as the intent it belongs to. When the sources that
+      answered find nothing on the subject, that is reported as an absence in
+      those sources only; when Google News does not answer, that is reported as an
+      outage.
     params:
       query:
         required:
@@ -1262,6 +1387,10 @@ semantics:
     - DNS_RECORD_LOOKUP_GENERAL
     - TOKEN_TOTAL_SUPPLY_VERIFY_GENERAL
     - ONCHAIN_METRIC_VERIFY_GENERAL
+    - IP_GEOLOCATION_GENERAL
+    - NEWS_HEADLINES_GENERAL
+    - NEWS_SEARCH_GENERAL
+    - STOCK_PRICE_US_EQUITY
 
 # input_schema is a single top-level block covering every endpoint — the schema
 # refuses it inside endpoints[], and the node does not enforce it against requests.
@@ -1356,6 +1485,10 @@ input_schema:
     topic:
       type: string
       description: /papers. Research subject to search for, e.g. "zero knowledge proofs".
+    ip:
+      type: string
+      description: /ip-geolocate. IPv4 or IPv6 address.
+      examples: ["8.8.8.8"]
     text:
       type: string
       description: >-
@@ -1430,9 +1563,13 @@ output_schema:
         self_signed, untrusted, unreachable); /storm-alert a storm-risk grade (none,
         low, moderate, high, severe); /weather-forecast a condition (clear, mostly
         clear, cloudy, fog, drizzle, rain, heavy rain, snow, thunderstorms);
-        /translate "translated"; /papers "papers"; and /ai-detect likely_human,
-        likely_ai or inconclusive. Any endpoint returns "unknown" when it could not
-        answer.
+        /translate "translated"; /papers "papers"; /ai-detect likely_human, likely_ai
+        or inconclusive; and /ip-geolocate the resolved place itself, or the class of
+        a special-use range (private, reserved, loopback, link_local, shared,
+        multicast, broadcast). Any endpoint returns "unknown" when it could not
+        answer. A closed enum was declared here previously and four endpoints did not
+        conform to it, /ip-geolocate least of all because a place name cannot be
+        enumerated.
     valid: { type: boolean }
     trusted: { type: boolean }
     expired: { type: boolean }
@@ -1478,10 +1615,15 @@ output_schema:
     precipitation_probability_max_pct: { type: [number, "null"] }
     span_days: { type: [integer, "null"], description: "Forecast span in days when the question asked in days." }
 
-    # /company-registry address parts.
+    # /ip-geolocate. `verdict` carries the resolved place, so these are its parts.
+    ip: { type: [string, "null"] }
     city: { type: [string, "null"] }
-    region: { type: [string, "null"], description: "Subdivision of a registered address." }
+    region: { type: [string, "null"], description: "Subdivision for an IP; requested news region for /headlines." }
     country: { type: [string, "null"] }
+    country_code: { type: [string, "null"] }
+    timezone: { type: [string, "null"] }
+    asn: { type: [string, "null"], description: "Autonomous system number of the announcing network." }
+    organisation: { type: [string, "null"], description: "Network operator the address is registered to." }
 
     # /translate. `reason` is the bare translation; this repeats it explicitly.
     translation: { type: [string, "null"] }
@@ -1502,7 +1644,7 @@ output_schema:
     topic: { type: [string, "null"], description: "Subject actually searched for, after parsing the question." }
     from_date: { type: [string, "null"] }
     to_date: { type: [string, "null"] }
-    count: { type: [integer, "null"], description: "Number of papers returned." }
+    count: { type: [integer, "null"], description: "Number of papers or headlines returned." }
 
     # /ai-detect. The measurements behind the verdict, so a reader can disagree
     # with it — the confidence is deliberately low and these are why.
@@ -1518,6 +1660,16 @@ output_schema:
     extracted:
       type: [object, "null"]
       description: "The fields the question asked for. Keys vary with the request — emails, phones, urls, quantities, dates, entities, action items."
+
+    # /headlines
+    headlines:
+      type: [array, "null"]
+      items:
+        type: object
+        properties:
+          title: { type: string }
+          source: { type: [string, "null"] }
+          published: { type: [string, "null"] }
 
     # /wallet-balance
     # /fact-check

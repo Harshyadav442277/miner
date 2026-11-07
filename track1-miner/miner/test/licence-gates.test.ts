@@ -4,8 +4,10 @@ import type { IncomingMessage, ServerResponse } from "node:http";
 import { handleRequest } from "../src/handler";
 import { SOURCES } from "../src/sources";
 
-// The production default: every barred source's gate is closed (GAPS G230).
-// No openGate here, and each test file runs in its own process.
+// With LICENCE_GATE=on every barred source's gate is closed (GAPS G230). Production runs with it off since
+// 2026-11-07 (owner: testnet, not commercial use); these tests keep the gate itself working for a mainnet switch.
+// Each test file runs in its own process, so setting it here touches no other file.
+process.env.LICENCE_GATE = "on";
 const BARRED = new Set(SOURCES.filter((s) => s.status === "barred").flatMap((s) => s.hosts));
 
 function get(url: string): Promise<Record<string, unknown>> {
