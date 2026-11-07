@@ -1,5 +1,12 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-07 ~19:15 UTC — G281
+
+- **G281 — Routescan intermittently omits an address's `transactionsCount`. `OPEN`.** A live test got
+  `count null` twice in a row, then passed 3 of 3, and a direct read returned 90,717,840. When it is missing,
+  /contract-activity has no fallback for Blockscout's undercount (Blockscout reports 772 transactions for the
+  Uniswap V2 router). Not caused by `8b6e4d3`.
+
 ## 2026-11-07 ~03:05 UTC (08:35 IST) uptime alarm — G280
 
 - **G280 — The 23:29 UTC uptime run failed (issue #19) on two routes this branch deleted. `CLOSED 2026-11-07 03:32 UTC`:
