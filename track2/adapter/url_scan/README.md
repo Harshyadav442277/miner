@@ -1,5 +1,9 @@
 # URL Scan evaluator preflight
 
+The trained V1 challenger, independent miner captures, integer conversion and
+comparator comparison are documented in [EXPERIMENT_V1.md](EXPERIMENT_V1.md).
+The smaller controlled probe below is the initial baseline.
+
 On November 7 IST, Sepolia `getPrefixes()` returned `URL_SCAN` with hybrid kind 2.
 `intentKind("URL_SCAN_VERDICT")` returned 2. The family is the dedicated adapter
 target. The child is the evaluation material target. The public registry had no
@@ -30,7 +34,6 @@ from `bd03fd1:track2/adapter/score_pairs.py` compared the raw float scores.
 All four unsafe controls ranked the false-safe answer above the supported unsafe
 answer. This is a diagnostic of the judgment component. The probe does not replay
 the validator's truth-source comparator, score fusion, or qualification pool.
-No challenger has been measured.
 
 Before registration, freeze an independent cohort with timestamped references,
 capture complete answers from unrelated public miners, and keep URLs and miner
