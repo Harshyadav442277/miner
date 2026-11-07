@@ -30,6 +30,11 @@ test("genai: helpers parse JSON, cut to 80 characters and read word targets", ()
   const long = cut("The quick brown fox jumps over the lazy dog and keeps running far beyond the hill until night falls.");
   assert.ok(long.length <= 80, long);
   assert.equal(opening("First one. Second one."), "First one.");
+  // Production, 2026-11-07: the old cut served "… breaking into smaller copies of."
+  assert.equal(cut("Recursion is when a problem solves itself by breaking into smaller copies of itself until it is simple."),
+    "Recursion is when a problem solves itself by breaking into smaller copies.");
+  assert.equal(cut("Recursion is like a set of Russian nesting dolls: each doll contains a smaller doll that looks just like the one before."),
+    "Recursion is like a set of Russian nesting dolls.");
   assert.equal(wordTarget("Write a 60-word product description"), 60);
   assert.equal(wordTarget("Summarise in 120 words"), 120);
   assert.equal(wordTarget("Write a haiku"), null);

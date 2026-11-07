@@ -44,9 +44,16 @@ export function cut(text: string, n = 80): string {
   const t = text.replace(/\s+/g, " ").trim();
   if (t.length <= n) return t;
   const head = t.slice(0, n - 1);
-  const at = head.lastIndexOf(" ");
-  return `${(at > 20 ? head.slice(0, at) : head).replace(/[,;:\s]+$/, "")}.`;
+  // A clause boundary reads as a sentence; a bare word boundary can leave "… smaller copies of." (2026-11-07).
+  const clause = Math.max(head.lastIndexOf(", "), head.lastIndexOf("; "), head.lastIndexOf(": "), head.lastIndexOf(" - "), head.lastIndexOf(" — "));
+  const at = clause >= 40 ? clause : head.lastIndexOf(" ");
+  let out = (at > 20 ? head.slice(0, at) : head).replace(/[,;:\s]+$/, "");
+  while (DANGLING.test(out)) out = out.replace(DANGLING, "");
+  return `${out}.`;
 }
+
+/** Words a cut sentence must not end on. */
+const DANGLING = /\s+(?:a|an|the|of|to|in|on|at|by|for|with|from|into|and|or|but|that|which|is|are|was|were|be|as|its|their|this|these)$/i;
 
 /** The opening sentence of `text`. Pure. */
 export function opening(text: string): string {
@@ -72,7 +79,7 @@ export function asksWillHappen(message: string): boolean {
 const CHAT_SYSTEM = `You answer one message from a user, correctly and directly. Reply with a JSON object:
 {"brief": the answer in one plain sentence of at most 80 characters, "reply": the full answer in at most 150 words, starting with that sentence, "verdict": null}
 For a question about whether something will happen, set "verdict" to "Likely", "Unlikely" or "Uncertain" and start both brief and reply with that word.
-No markdown in brief. Never say you are an AI. If a fact may have changed after your training, say what it was as of when.`;
+No markdown in brief. Never refer to yourself, your training or your last update. If a fact may have changed recently, give the year it dates from, as in \"as of 2024\".`;
 
 export async function chat(question: string, messageParam = ""): Promise<GenAnswer> {
   const message = (messageParam || question).trim().slice(0, MAX_INPUT);
@@ -84,9 +91,11 @@ export async function chat(question: string, messageParam = ""): Promise<GenAnsw
   if (!o || !reply) return unavailable("a reply", { reply: null, brief: null });
   const v = str(o.verdict);
   const verdict = will && /^(Likely|Unlikely|Uncertain)$/.test(v) ? v : will ? (reply.match(/^(Likely|Unlikely|Uncertain)\b/)?.[1] ?? "Uncertain") : null;
-  const brief = cut(str(o.brief) || opening(reply));
+  // The model's brief when it fits, else the reply's own opening sentence when that fits, else a clean cut.
+  const fits = [str(o.brief), opening(reply)].find((x) => x && x.length <= 80);
+  const brief = fits ?? cut(str(o.brief) || opening(reply));
   return { reply, brief, ...(verdict ? { verdict } : { verdict: "answered" }), confidence: CONFIDENCE, source: SOURCE,
-    reason: reply.startsWith(brief.replace(/\.$/, "")) ? reply : `${brief} ${reply}` };
+    reason: reply };
 }
 
 const SEVERITIES = ["critical", "high", "medium", "low", "info"] as const;
