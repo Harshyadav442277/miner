@@ -1,5 +1,24 @@
 # MEMORY.md — session continuity
 
+## 2026-11-07 ~03:40 UTC (09:10 IST): bounty board status (github.com/telegraphprotocol/bounties)
+
+All three are `reward:unfunded`. Row states read live from devnode `/api/evalpool/submissions/mine` at 03:40 UTC.
+
+- **#168 WEATHER_CHECK:** `/submit` posted 2026-11-02, now in `status:review`. Our NOAA METAR row is `eligible`
+  (pool: 5 eligible, 4 submitters). Waiting on a maintainer; nothing for us to do. The bounty emails here are the
+  bot's notices about other people's claims.
+- **#167 STOCK_PRICE:** our only row is `rejected source_unparseable`. The pool already has 3 eligible rows from
+  2 other people. The N1 YAML cut STOCK_PRICE, and our miner treats stock sources as barred (G248, GAPS ~l.623).
+  **Decision: drop it.** The bot has no unclaim command. The claim releases automatically at
+  **2026-11-07 19:17 UTC (Nov 8 00:47 IST)**, 72 h after our last `/progress`. That also ends the stale-warning
+  emails. Do not post `/progress` here, because that would extend the claim.
+- **#140 LANGUAGE_TRANSLATION:** **never claimed.** We are the pool's only submitter: 144/144 `eligible/attested`
+  under the LiveCert wallet, active snapshot `e918f218…` (epoch 2014; 77 qualification / 67 ranking). Posting
+  `/claim` then `/submit` is public, so it waits for the owner's yes. The text is drafted in the session's reply.
+  Our miner serves this intent (miner.yaml l.125), so the post must disclose that.
+- Gmail connector disconnected (search refused: "connection invalidated"); emails not read directly. The
+  bounty-related ones were identified from GitHub notifications (`reason: mention` on #167, #168).
+
 ## 2026-11-07 ~03:30 UTC (09:00 IST): CURRENT — `3f33508` LIVE (threshold regex fix); PR #18 open
 
 - Owner: "Yes, deploy it" for `3f33508`, the fix for the push security review's ReDoS finding in `src/threshold.ts`.
