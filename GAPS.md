@@ -42,6 +42,11 @@ Release record: `track1-miner/docs/evidence/release-2026-11-06-quality-fixes/`. 
   Epochs 1959–2028: ours 0.001–0.05, third place 0.07–0.44; ranks 1–2 are F1 (Jolpica) and Bundesliga (OpenLigaDB)
   results feeds. `bee3f6a` adds a Wikidata winner fallback for finished events. Read the score after three epochs.
   Unknown: whether the scorer's questions are who-won questions at all. "Did X happen?" is still market-only.
+  **Read 2026-11-07 ~18:55 UTC (`tools/epoch-history.mjs`, `EVENT_OUTCOME_RESOLUTION_GENERAL`):** the fallback did
+  not move the score. The epochs after `bee3f6a` went live (~22:58 UTC Nov 6) read: 2030 rank 14, 0.0198; 2032
+  rank 22, 0.0015; 2034 rank 23, 0.001 (field 33–34; third place 0.025–0.31). The epochs before it read 0.007–0.024.
+  Still `OPEN`. The next step is to learn what the scorer asks (its question set), or to cut the intent in the
+  one `updateMiner` (owner's call).
 - **G279 — The New York Fed API failed with a redirect to `/errors/500` at 22:55 UTC. `OPEN, upstream`.** The
   fed-funds answer reports the publisher unavailable (honest). If it persists, add a second source for the target
   range (Federal Reserve Board H.15).
@@ -69,6 +74,9 @@ Evidence: `track1-miner/docs/evidence/n1-new-intents-2026-11-07/`.
   the same ECB rate and the top six tie at 0.880 (EUR). Reopen only with a licensed live source.
 - **G274 — ACADEMIC_SEARCH fell from 0.8762 (epoch 2026) to 0.6358 (epoch 2028), rank 12 of 17. `OPEN`.** Cause
   not investigated. `192aecc` changed only sanctions files; `7301474` and the eval questions are the suspects.
+  **Read 2026-11-07 ~18:55 UTC: recovered, `CLOSED as a one-epoch dip`.** Epochs 2030–2036: 0.8544 (15),
+  0.9689 (12), 0.9881 (rank 3), 0.8997 (8), field 17. Cause still unread. The epoch-to-epoch swing (rank 3 → 8)
+  is the scorer's sampling, so do not read one epoch as a regression.
 
 ## 2026-11-06 ~22:10 UTC (Nov 7 IST) N1 cut prepared — G275–G277; G250 fixed in the pending YAML
 
@@ -146,6 +154,9 @@ Evidence: `track1-miner/docs/evidence/scored-fields-2026-11-05/` (the audit) and
 - **G264 — CRYPTO_PRICE_USD has not scored us since epoch 2021. `OPEN`.** We were 10th at 0.973 (2021,
   2026-11-05 17:55 UTC); epochs 2022, 2024 and 2026 have no row for us while 46–48 miners are scored. Cause not
   read. `price_usd` is now named in the answer (this release).
+  **Read 2026-11-07 ~18:55 UTC: scored again, `CLOSED`.** Epochs 2028–2036 have a row for us every time: rank
+  24 (0.824), 12 (0.98), 13 (0.975), 16 (0.792), 10 (0.796), field 47–48, third place 0.983–1.0. Why rows were
+  missing for 2022–2026 is still unread. The open problem is now quality: at 0.79–0.98 we sit outside the top 3.
 
 ## 2026-11-05 ~19:20 UTC filings release — G257 deployed; G263 measuring
 

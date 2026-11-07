@@ -1,5 +1,19 @@
 # MEMORY.md — session continuity
 
+## 2026-11-07 ~18:55 UTC (Nov 8 00:25 IST): rank read after the quality releases
+
+`tools/epoch-history.mjs`. Our rank / score at the latest scored epoch (2034 or 2036):
+
+- SSL cert: 4 / 0.987 of 21. Sanctions: 4 / 0.999 of 18. Academic search: 8 / 0.90 (rank 3 at 2034).
+- Weather temperature: 10 / 0.81 (rank 2 at 2034). Crypto price: 10 / 0.80 of 47. Filings: 10 / 0.83.
+- Event outcome: 23 / 0.001.
+
+G264 and G274 are closed. G278 is measured: the Wikidata fallback did nothing, so cutting EVENT_OUTCOME is the
+owner's call. Ranks swing several places from one epoch to the next, so judge on three or more epochs.
+`fc041f4` (Codex, on `codex/rank1-14-intents`, NOT on main or production) puts IP geolocation, headlines,
+news search and STOCK_PRICE back, and has barred sources answer by default. Its message says the owner decided
+this. It reverses the N1 cut described below. Production is still `3f33508`.
+
 ## 2026-11-07 ~03:40 UTC (09:10 IST): bounty board status (github.com/telegraphprotocol/bounties)
 
 All three are `reward:unfunded`. Row states read live from devnode `/api/evalpool/submissions/mine` at 03:40 UTC.

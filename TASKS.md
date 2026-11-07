@@ -50,7 +50,7 @@ fix scores on the quality rubric but may not move the devnode rank.
       pushed `track1-miner/miner.yaml` at `5bef2be` or later, SHA-256 of the committed file
       `0xdb6e08f4b2acb262654779a5dfad2cd8dd78d05509300a3aaa3d9715aa90649a` (re-hash if the file changes). 35 intents. Decide CRYPTO_PRICE (G275) first.
 - [ ] Next candidate: ASSET_RESERVE_ATTESTATION (8 builds, completes 2): read and license issuer attestation sources.
-- [ ] G274: find why academic search fell to 0.636.
+- [x] G274: academic search recovered (0.85–0.99 epochs 2030–2036); one-epoch dip.
 
 ## Winning push — started 2026-11-04 ~20:30 UTC (Nov 5 IST) (owner: "i give you permission to take action on all of these")
 
@@ -166,7 +166,7 @@ Ordered by rubric points. **Miner weights re-read 2026-11-05:** quality 35, reli
       with the scored field of eleven more intents and current temperature; preflight 7/7.
 - [ ] Read the epochs after 2026-11-06 16:09 UTC for filings, temperature, on-chain lookup, SSL and crypto price
       against `release-2026-11-06-scored-fields-all/epochs-before.json` (`tools/epoch-history.mjs`).
-- [ ] G264: find why CRYPTO_PRICE_USD has no score for us since epoch 2021.
+- [x] G264: CRYPTO_PRICE_USD scored again from epoch 2028 (rank 10–24).
 - [x] Pin the owner's required account (`hyadav42774@gmail.com`) and LiveCert wallet in repository instructions;
       remove conflicting email and alternate-payout guidance (owner instruction, 2026-11-03).
 
