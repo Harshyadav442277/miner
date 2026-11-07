@@ -54,6 +54,8 @@ Release record: `track1-miner/docs/evidence/release-2026-11-06-quality-fixes/`. 
   rank 22, 0.0015; 2034 rank 23, 0.001 (field 33–34; third place 0.025–0.31). The epochs before it read 0.007–0.024.
   Still `OPEN`. The next step is to learn what the scorer asks (its question set), or to cut the intent in the
   one `updateMiner` (owner's call).
+  **Owner 2026-11-07 ~21:00 UTC: "Yes, cut it." The cut is prepared at `c56032a`, not yet signed** (registration 5135
+  still claims the intent). `CLOSED` once the update dropping it is active.
 - **G279 — The New York Fed API failed with a redirect to `/errors/500` at 22:55 UTC. `OPEN, upstream`.** The
   fed-funds answer reports the publisher unavailable (honest). If it persists, add a second source for the target
   range (Federal Reserve Board H.15).

@@ -1,5 +1,26 @@
 # MEMORY.md — session continuity
 
+## 2026-11-07 ~21:30 UTC (Nov 8 03:00 IST): CURRENT — registration **5135** active (42 intents); EVENT_OUTCOME cut ready to sign
+
+- **Registration 5135** (catalog id 4433) is ours: wallet `0xdad201…a39e`, `active`, registered 19:52:02 UTC, YAML
+  at `8b6e4d3` (SHA-256 `0xc6515778…aaca`, which reproduces from raw GitHub). 5123 is `superseded`. The repo
+  variable `REGISTRATION_ID` is already 5135. 5135 still lists EVENT_OUTCOME_RESOLUTION_GENERAL.
+- **Owner: "Yes, cut it"** (EVENT_OUTCOME, G278). The cut sits on branch `claude/bounties-status-emails-aabea2`
+  @ `c56032a`, which is `claude/n1-v2-ids` @ `2aa0b85` + Codex `fc041f4` + the cut.
+  - The YAML differs from the registered one only by `/event-outcome` and its intent. 41 intents.
+  - `manifest-diff.mjs` (registered `8b6e4d3` vs pending, `--allow-removed=/event-outcome,EVENT_OUTCOME_RESOLUTION`,
+    family name, `MSYS_NO_PATHCONV=1`): **PASS**.
+  - Unit tests 923/923 on an export outside OneDrive (`C:/Users/hyada/tg-deploy/mc56032a`).
+  - `RETIRED` and `RETIRED_INTENTS` hold `/event-outcome` and `EVENT_OUTCOME_RESOLUTION`; empty both after the
+    signature, then delete the route code.
+- **To sign:** the YAML at `c56032a51ee1d16d9cc7ecf1dfdcaa9177fb54c7`, SHA-256
+  `0x9be408ac6c196942fbc7a7bdf21871c58238b62adfe9b20717291f6bd02d506c` (git blob = raw GitHub). Validate on
+  anjoman.ai/dashboard/earn first. No hurry: an extra update just to drop one intent costs a signature, so fold
+  it into the next update the owner signs anyway.
+- **Any session changing `miner.yaml` next:** start from `c56032a` (or merge it), or the cut is lost.
+- Flake seen: `onchain-request-shapes` "the hash is read whatever the parameter is called" failed 3× in a row,
+  then passed in both trees (live upstream read, ~11 s timeout). Same class as G281.
+
 ## 2026-11-07 ~19:20 UTC (Nov 8 00:50 IST): CURRENT — chat, code review and writing LIVE (`8b6e4d3`); 42-intent YAML ready to sign
 
 - **Production:** `8b6e4d3`, `miner-l6uql9dui` (`dpl_HZoxe8XB3iU2m1tWkXu1wGNejeHZ`).

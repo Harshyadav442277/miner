@@ -46,9 +46,11 @@ fix scores on the quality rubric but may not move the devnode rank.
       and VULNERABILITY_TRIAGE (routes deleted). Not added: FX_NOW (G273), WEATHER_FORECAST_VERIFY (G272), and the
       model wrappers. Evidence: `track1-miner/docs/evidence/n1-new-intents-2026-11-07/`.
 - [x] Deploy `6aebe0f`: live in `bee3f6a` (2026-11-06). Rename the N1 YAML to V2 intent ids (G270): `5bef2be`.
-- [ ] Owner: validate the N1 YAML on anjoman.ai/dashboard/earn, then sign `updateMiner` for 4829. YAML: the
-      pushed `track1-miner/miner.yaml` at `fc041f4` or later, SHA-256 of the committed file
-      `0xfc08c9ac530e9c7425ae7ca289e17fd46b2350be86567f67404e4e9b2219580c` (re-hash if the file changes). 39 intents. Decide CRYPTO_PRICE (G275) first.
+- [x] Owner signed the 39-intent YAML (`fc041f4`, registration 5123), then the 42-intent one (`8b6e4d3`, registration
+      **5135**, 19:52 UTC 2026-11-07).
+- [ ] Owner: in the next `updateMiner` for 5135, sign the YAML at `c56032a` (41 intents, EVENT_OUTCOME cut, G278),
+      SHA-256 `0x9be408ac6c196942fbc7a7bdf21871c58238b62adfe9b20717291f6bd02d506c`. Validate on anjoman.ai first. If
+      other YAML changes come first, merge `c56032a` and re-hash.
 - [ ] Next candidate: ASSET_RESERVE_ATTESTATION (8 builds, completes 2): read and license issuer attestation sources.
 - [x] G274: academic search recovered (0.85–0.99 epochs 2030–2036); one-epoch dip.
 
