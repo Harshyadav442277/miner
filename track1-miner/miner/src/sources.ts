@@ -221,11 +221,14 @@ export function ledger(): unknown {
 }
 
 /**
- * Whether `url` may be called at all: a barred source never is, so the ledger
- * and the code cannot disagree. Changing a source's status here is the switch.
+ * Whether `url` may be called. The ledger above records what each source's terms say; it is a record, not a
+ * hackathon rule (RULES_SEASON2 sets no data-licence requirement). The owner, 2026-11-07: "I'm not doing their
+ * commercial use. It's on testnet currency." So barred sources are called by default, and LICENCE_GATE=on
+ * restores the refusals for a mainnet or commercial deployment.
  * Unknown hosts are permitted, because test/sources.test.ts already fails on them.
  */
 export function permitted(url: string): boolean {
+  if (process.env.LICENCE_GATE !== "on") return true;
   let host: string;
   try {
     host = new URL(url).hostname.toLowerCase();

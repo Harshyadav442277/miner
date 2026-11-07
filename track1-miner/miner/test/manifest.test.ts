@@ -7,7 +7,7 @@ import { ENDPOINTS } from "../src/handler";
 // Routes that refuse every request on licence and are no longer declared. They
 // stay served until the updateMiner that drops them is signed, because the live
 // registration still points at them; delete their code after that, then empty this.
-const RETIRED = ["/headlines", "/ip-geolocate", "/news-search", "/stock-price"];
+const RETIRED: string[] = []; // the four cut on 2026-11-06 are declared again since 2026-11-07
 
 test("miner.yaml declares exactly the routes the service supports, less the retired ones", () => {
   const yaml = readFileSync(resolve(process.cwd(), "../miner.yaml"), "utf8");

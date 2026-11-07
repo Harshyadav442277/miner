@@ -204,13 +204,18 @@ test("an unlisted symbol resolves through the explorer's own search, never Gecko
     if (url === `https://eth.blockscout.com/api/v2/tokens/${CRV}`) return json(crv);
     return json({}, 500);
   };
-  await withUpstreams(answer, async (urls) => {
-    const r = await lookupHolders("How many addresses hold CRV on ethereum?");
-    assert.equal(r.verdict, "holder_count");
-    assert.equal(r.address, CRV);
-    assert.ok(!urls.some((u) => u.includes("geckoterminal")), urls.join(", "));
-    assert.doesNotMatch(r.reason, /Circle's native USDC/);
-  });
+  process.env.LICENCE_GATE = "on"; // the gated path; production runs with the gate off since 2026-11-07
+  try {
+    await withUpstreams(answer, async (urls) => {
+      const r = await lookupHolders("How many addresses hold CRV on ethereum?");
+      assert.equal(r.verdict, "holder_count");
+      assert.equal(r.address, CRV);
+      assert.ok(!urls.some((u) => u.includes("geckoterminal")), urls.join(", "));
+      assert.doesNotMatch(r.reason, /Circle's native USDC/);
+    });
+  } finally {
+    delete process.env.LICENCE_GATE;
+  }
 });
 
 test("with no chain named, a count from the chains that answered says which did not", async () => {
