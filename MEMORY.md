@@ -9,7 +9,11 @@
   234,848-case grid and tie on a 2,429-case adversarial set.
 - Preview `livecert-comparator-26zsvagif-wukong4.vercel.app` (behind Vercel login): 9/9 families 600/600, sha256
   equal. The deploy copy had lacked FX_NOW, which is now restored.
-- **Production returns 404 for the six until a prod deploy, which needs the owner's yes.**
+- **Prod deployed 19:3x UTC on the owner's "Yes, deploy prod".**
+  - Deployment `dpl_7F6Py7sM43gD1S2fw2v8NY6VfSPB` (`livecert-comparator-jrw7x4bho`), aliased to
+    `livecert-comparator.vercel.app`. Rollback target: `livecert-comparator-oftp140fv`.
+  - `node live-check.js` (prod), 19:38 UTC: 9/9 families ALL OK, 600/600 each, served sha256 = hosted.
+  - Next: the owner registers the six on Anjoman (`SIGN_HIGH_DEMAND.md`).
 - **Blocker:** every competitor in these families has read "eval-pool: no published snapshot" since Nov 3, even
   with 5 contributors. Registrations will sit `pending`.
 - Anomaly: `getPrefixes()` marks all six prefixes as kind 3. Whether that reverts a registration is untested.
