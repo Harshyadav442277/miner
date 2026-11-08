@@ -1,0 +1,67 @@
+{
+ "holdout": {
+  "pairs": 240,
+  "sha256": "b7e9f0e458430293a61e226392cfd64152b383a7bf5d44ae7fa920c422ca221d",
+  "counterfactual": 240,
+  "longer_is_chosen": 0.5,
+  "by_kind": {
+   "missed_finding": 48,
+   "false_positive": 48,
+   "false_no_issues": 68,
+   "false_positive_clean": 68,
+   "wrong_location": 8
+  },
+  "by_category": {
+   "code": 80,
+   "config": 48,
+   "dependency": 82,
+   "secret": 30
+  }
+ },
+ "train": {
+  "pairs": 4001,
+  "sha256": "51414085d43684e488d3faab39a51df8cb34fafa3541c4c3bf53de172cf73ea3",
+  "counterfactual": 3436,
+  "longer_is_chosen": 0.5156,
+  "by_kind": {
+   "missed_finding": 888,
+   "false_positive": 888,
+   "false_no_issues": 514,
+   "false_positive_clean": 514,
+   "hallucinated_cve": 64,
+   "wrong_location": 754,
+   "generic": 78,
+   "code_quality": 88,
+   "wrong_severity": 213
+  },
+  "by_category": {
+   "secret": 777,
+   "dependency": 1036,
+   "code": 1334,
+   "config": 854
+  }
+ },
+ "val": {
+  "pairs": 400,
+  "sha256": "18f1fcd6ea6b9b3392915fc83c9688979907f277ee97b40c4db456049c6e5b89",
+  "counterfactual": 324,
+  "longer_is_chosen": 0.54,
+  "by_kind": {
+   "wrong_severity": 36,
+   "false_no_issues": 28,
+   "false_positive_clean": 28,
+   "wrong_location": 100,
+   "missed_finding": 90,
+   "false_positive": 90,
+   "code_quality": 10,
+   "hallucinated_cve": 5,
+   "generic": 13
+  },
+  "by_category": {
+   "config": 96,
+   "code": 117,
+   "dependency": 105,
+   "secret": 82
+  }
+ }
+}

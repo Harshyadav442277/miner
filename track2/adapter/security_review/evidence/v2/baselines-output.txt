@@ -1,0 +1,1 @@
+{"val": {"pairs": 400, "length": 0.54, "bow": 0.55}, "holdout": {"pairs": 240, "length": 0.5, "bow": 0.5}, "v1holdout": {"pairs": 200, "length": 0.515, "bow": 0.575}, "oot": {"pairs": 30, "length": 0.4667, "bow": 0.6333}}

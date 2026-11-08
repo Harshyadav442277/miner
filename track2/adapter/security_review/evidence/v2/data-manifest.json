@@ -1,0 +1,94 @@
+{
+ "seed": 20261109,
+ "ghsa_sha256": "dc9658c87c9a408b1087600efaba20cb4f212b7c213a437abcb6d0f0ff081075",
+ "v1_manifest_sha256": "ea0e3969a99aa0889ac8e3d95b74fdc9ad1845882d0e6e052d01a77e0724a09b",
+ "reserved_packages": [
+  "flask",
+  "follow-redirects",
+  "lodash",
+  "minimist",
+  "node-fetch",
+  "nokogiri",
+  "org.apache.logging.log4j:log4j-core",
+  "org.yaml:snakeyaml",
+  "pyyaml",
+  "requests"
+ ],
+ "files": {
+  "holdout": {
+   "pairs": 240,
+   "sha256": "b7e9f0e458430293a61e226392cfd64152b383a7bf5d44ae7fa920c422ca221d",
+   "counterfactual": 240,
+   "longer_is_chosen": 0.5,
+   "by_kind": {
+    "missed_finding": 48,
+    "false_positive": 48,
+    "false_no_issues": 68,
+    "false_positive_clean": 68,
+    "wrong_location": 8
+   },
+   "by_category": {
+    "code": 80,
+    "config": 48,
+    "dependency": 82,
+    "secret": 30
+   }
+  },
+  "train": {
+   "pairs": 4001,
+   "sha256": "51414085d43684e488d3faab39a51df8cb34fafa3541c4c3bf53de172cf73ea3",
+   "counterfactual": 3436,
+   "longer_is_chosen": 0.5156,
+   "by_kind": {
+    "missed_finding": 888,
+    "false_positive": 888,
+    "false_no_issues": 514,
+    "false_positive_clean": 514,
+    "hallucinated_cve": 64,
+    "wrong_location": 754,
+    "generic": 78,
+    "code_quality": 88,
+    "wrong_severity": 213
+   },
+   "by_category": {
+    "secret": 777,
+    "dependency": 1036,
+    "code": 1334,
+    "config": 854
+   }
+  },
+  "val": {
+   "pairs": 400,
+   "sha256": "18f1fcd6ea6b9b3392915fc83c9688979907f277ee97b40c4db456049c6e5b89",
+   "counterfactual": 324,
+   "longer_is_chosen": 0.54,
+   "by_kind": {
+    "wrong_severity": 36,
+    "false_no_issues": 28,
+    "false_positive_clean": 28,
+    "wrong_location": 100,
+    "missed_finding": 90,
+    "false_positive": 90,
+    "code_quality": 10,
+    "hallucinated_cve": 5,
+    "generic": 13
+   },
+   "by_category": {
+    "config": 96,
+    "code": 117,
+    "dependency": 105,
+    "secret": 82
+   }
+  }
+ },
+ "entity_splits": "v1 MANIFEST entity_splits",
+ "builder_sha256": {
+  "build_cf.py": "c29cd410f01d16d967d3d2adaca9af9caae6c9658d19207da8aae2bf0f53a97e",
+  "sr_cf.py": "2b4301781ec2681405b91ee8c89ca63cafabb1a0b42e72de80b4533645b5ae5d",
+  "build_pairs.py": "1ef41694de487c1b4fedde71fabfd8c2ecf35cb97f9e32f42100c9266116c866",
+  "sr_deps.py": "850edcc518357a27ba87b3f1aa32ff5385c84a1da4d4a3f525404cf155e8811d",
+  "sr_code.py": "6b0914b6c2db03d9e5d2164a6769aeba4e77da5767b00ecd9a894f37af305837",
+  "sr_config.py": "50a8948dab1bdfc6edca925109e1d4fae826caf404c3c7babb460c3f8e0d55d4",
+  "sr_render.py": "034bc9bc63fcff3e4ddf3e0d034ed09b123a80f523b234912a0b3e0653712e13"
+ }
+}

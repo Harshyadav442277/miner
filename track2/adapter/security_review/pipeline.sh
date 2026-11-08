@@ -43,10 +43,18 @@ $REC "$EV/stage1-output.txt" --env LIVE_CLASS_INTENTS=SECURITY_REVIEW -- $HOME_/
   --foundation-onnx $HOME_/foundation/foundation_lora_fp32.onnx --engine $HOME_/foundation/foundation_engine.wasm
 cp "$PKG.manifest.json" "$EV/package-manifest.json"
 
+V2SET=""
+[ "$DATA" != security_review_v1 ] && V2SET="--pairs holdout_v2=$PAIRS/holdout.jsonl"
 $REC "$EV/measure-output.txt" -- $PY "$HERE/measure_node.py" --home $HOME_ \
-  --package "$VER=$PKG" ${EXTRA_PACKAGES:-} \
+  --package "$VER=$PKG" ${EXTRA_PACKAGES:-} $V2SET \
   --pairs "holdout=$HOME_/pairs/security_review_v1/holdout.jsonl" \
   --pairs "oot=$HOME_/pairs/security_review_oot_v1/oot.jsonl" --out "$EV/node-scores.json" --workers 4
+# GENERIC on the new holdout only (its v1-holdout and OOT scores are in evidence/v1)
+if [ -n "$V2SET" ]; then
+  $REC "$EV/measure-generic-output.txt" -- $PY "$HERE/measure_node.py" --home $HOME_ \
+    --package "generic=$HOME_/runs-v2/SECURITY_REVIEW_ref_generic/GENERIC.safetensors" $V2SET \
+    --out "$EV/node-scores-generic.json" --workers 4
+fi
 
 mkdir -p "$EV/bitcheck"
 $REC "$EV/bit-equality-output.txt" -- $PY "$HERE/bit_equality.py" --home $HOME_ --package "$PKG" \

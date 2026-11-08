@@ -22,6 +22,7 @@ def main():
     ap.add_argument("pairs", type=Path)
     ap.add_argument("--oot", type=Path)
     ap.add_argument("--out", type=Path)
+    ap.add_argument("--frozen", type=Path, help="an earlier holdout.jsonl that this train/val must not touch")
     a = ap.parse_args()
     man = json.loads((a.pairs / "MANIFEST.json").read_text(encoding="utf-8"))
     split = {s: load(a.pairs / f"{s}.jsonl") for s in ("train", "val", "holdout")}
@@ -60,6 +61,14 @@ def main():
     report["reserved_package_entities"] = len(hit)
     if hit:
         problems.append(f"reserved OOT packages used: {hit[:5]}")
+    if a.frozen:  # an earlier frozen holdout (v1) must stay unseen by this set's train and val
+        frozen = load(a.frozen)
+        fe = {e for r in frozen for e in r["entities"]}
+        hit = sorted(fe & (ent["train"] | ent["val"]))
+        fp = {r["prompt"] for r in frozen} & {r["prompt"] for s in ("train", "val") for r in split[s]}
+        report["frozen_holdout_entity_overlap"], report["frozen_holdout_prompt_overlap"] = len(hit), len(fp)
+        if hit or fp:
+            problems.append(f"frozen holdout overlap: {len(hit)} entities, {len(fp)} prompts")
     if a.oot:
         oot = {r["prompt"] for r in load(a.oot)}
         n = sum(r["prompt"] in oot for rows in split.values() for r in rows)

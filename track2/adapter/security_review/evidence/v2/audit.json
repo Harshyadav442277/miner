@@ -1,0 +1,59 @@
+{
+ "files": {
+  "train": {
+   "pairs": 4001,
+   "sha256": "51414085d43684e488d3faab39a51df8cb34fafa3541c4c3bf53de172cf73ea3"
+  },
+  "val": {
+   "pairs": 400,
+   "sha256": "18f1fcd6ea6b9b3392915fc83c9688979907f277ee97b40c4db456049c6e5b89"
+  },
+  "holdout": {
+   "pairs": 240,
+   "sha256": "b7e9f0e458430293a61e226392cfd64152b383a7bf5d44ae7fa920c422ca221d"
+  }
+ },
+ "entity_overlap": {
+  "holdout_train": 0,
+  "holdout_val": 0,
+  "val_train_packages_templates": 0
+ },
+ "entities": {
+  "train": {
+   "pkg:": 1291,
+   "tpl:": 24,
+   "cfg:": 5,
+   "secretfmt:": 6
+  },
+  "val": {
+   "pkg:": 139,
+   "tpl:": 4,
+   "cfg:": 5,
+   "secretfmt:": 6
+  },
+  "holdout": {
+   "pkg:": 145,
+   "tpl:": 9,
+   "cfg:": 2,
+   "secretfmt:": 2
+  }
+ },
+ "holdout_prompt_in_train_or_val": {
+  "no_findings_answers": 0,
+  "other": 0
+ },
+ "holdout_chosen_in_train_or_val": {
+  "no_findings_answers": 1,
+  "other": 0
+ },
+ "holdout_rejected_in_train_or_val": {
+  "no_findings_answers": 0,
+  "other": 0
+ },
+ "reserved_package_entities": 0,
+ "frozen_holdout_entity_overlap": 0,
+ "frozen_holdout_prompt_overlap": 0,
+ "oot_prompts_in_splits": 0,
+ "problems": [],
+ "verdict": "PASS"
+}
