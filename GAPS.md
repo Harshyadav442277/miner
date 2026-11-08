@@ -19,6 +19,19 @@
   Lanes started 2026-11-08: `claude/security-review-adapter` and `claude/url-scan-adapter`. Both are unmeasured.
   Unverified: whether a judgment champion's rank survives a later challenger only at the 2-point margin, as the
   CODE_REVIEW #188-over-#27 record suggests.
+- **G284 — The champions of SECURITY_REVIEW #42, VULNERABILITY_TRIAGE #37 and OPTIMAL_EXECUTION_ROUTE #40 serve
+  404. `OPEN`.** At 2026-11-08 ~08:55 UTC, `adapter-exec.13.237.89.59.sslip.io` returned 404 for the host root, for
+  each package `.safetensors` URL, and for #42's runnable URL. All three registrations were still `active` in
+  `/api/wasm`. We cannot download or verify those incumbents, so a challenger's margin over them cannot be measured
+  locally. Unknown: whether the node compares a challenger against a stored incumbent score or re-runs a runnable
+  that is down.
+- **Lane results, 2026-11-08 (node runtime, per-pair scores on each branch). Neither is ready to sign.**
+  - SECURITY_REVIEW v1 (`claude/security-review-adapter` `7a405bb`), holdout 200 pairs: v1 68.0%, GENERIC 58.5%,
+    length 51.5%, answer-only bag-of-words **73.0%**. Out-of-template probe, 30 pairs: v1 63.3%, bag-of-words
+    76.7%. v1 learned "more findings is better". It fails the bar, so v2 rebuilds the pairs counterfactually.
+  - URL_SCAN v2 (`claude/url-scan-adapter` `eb544c7`), H1 200 pairs: v2 69.0%, GENERIC 54.0%. On the 25 H2
+    real-answer decision pairs: v2 **1/25**, GENERIC 24/25. v2 scores answer format, not verdict. v3 is the final
+    iteration. H3 (`729bd23`) has no untemplated miners: every other public URL-scan route returned 400.
 
 ## 2026-11-07 ~03:05 UTC (08:35 IST) uptime alarm — G280
 
