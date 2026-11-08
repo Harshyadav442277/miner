@@ -209,3 +209,31 @@ test("(live) a missed model reading on a weak lean answers ambiguous, not a gues
     if (key === undefined) delete process.env.GROQ_API_KEY; else process.env.GROQ_API_KEY = key;
   }
 });
+
+test("an ambiguous answer given because the model answered 429 is marked degraded, so it is not cached (2026-11-08)", async () => {
+  const real = globalThis.fetch;
+  const key = process.env.GROQ_API_KEY;
+  const { resetPhraseState } = await import("../src/llm");
+  // Groq refuses for rate on both fast models; Datamuse knows none of the words.
+  globalThis.fetch = (async (u: string | URL | Request) =>
+    String(u).includes("groq.com") ? new Response("{}", { status: 429 }) : Response.json([])) as typeof fetch;
+  const ASK = "Classify this text as politics, sport or science: 'Quarterly zorbling of the flimflam resumed.'";
+  try {
+    process.env.GROQ_API_KEY = "test-key";
+    resetPhraseState();
+    const r = await classifyText(ASK);
+    assert.equal(r.verdict, "ambiguous");
+    assert.equal(r.label, null);
+    assert.equal(r.error, "degraded");
+    // Without a key the same answer is the keyless one, and stays cacheable.
+    delete process.env.GROQ_API_KEY;
+    resetPhraseState();
+    const k = await classifyText(ASK);
+    assert.equal(k.verdict, "ambiguous");
+    assert.equal(k.error, undefined);
+  } finally {
+    globalThis.fetch = real;
+    if (key === undefined) delete process.env.GROQ_API_KEY; else process.env.GROQ_API_KEY = key;
+    resetPhraseState();
+  }
+});

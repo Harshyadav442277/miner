@@ -53,9 +53,18 @@ const MODELS = ["openai/gpt-oss-20b", "openai/gpt-oss-120b", "qwen/qwen3.8-27b"]
  * three models above at "low" took 430–650 ms on a sentiment prompt. qwen3.8-27b
  * accepts "none" and took 155–170 ms from India, with sarcasm still read right
  * (2026-10-25, track1-miner/docs/evidence/conformance-2026-10-25/). It gets one
- * attempt; a miss is the keyless answer, never a slower model.
+ * attempt, and a miss is the keyless answer, except after a 429 with time left (below).
  */
 const FAST_MODEL = "qwen/qwen3.8-27b";
+/**
+ * The second fast attempt, after FAST_MODEL answers 429 (TEXT_CLASSIFICATION answered ambiguous on a 429,
+ * 2026-11-08). gpt-oss-20b has its own quota but rejects "none", so it runs at "low", measured at ~0.5 s
+ * (2026-09-19): inside a 350 ms classification deadline it will often miss. LLM_FAST_FALLBACK_MODEL names a
+ * faster model once one is confirmed on the account; none is confirmed here (GROQ_API_KEY is not local).
+ */
+const fastFallback = (): string => process.env.LLM_FAST_FALLBACK_MODEL || "openai/gpt-oss-20b";
+/** Below this, a second fast attempt cannot return inside the deadline. */
+const FAST_RETRY_MIN_MS = 150;
 
 /** Read per call rather than once at load, so a test can shorten them. */
 const budgetMs = (): number => {
@@ -194,7 +203,8 @@ async function ask(model: string, r: PhraseRequest, key: string, ms: number): Pr
         messages: [{ role: "system", content: r.system }, { role: "user", content: r.user }],
         temperature: 0.2,
         max_completion_tokens: r.maxTokens ?? 200,
-        reasoning_effort: r.fast ? "none" : "low",
+        // The gpt-oss pair rejects "none" with a 400, so a fast fallback to one of them runs at "low".
+        reasoning_effort: r.fast && !model.startsWith("openai/gpt-oss") ? "none" : "low",
         ...(r.json ? { response_format: { type: "json_object" } } : {}),
       }),
       signal: AbortSignal.timeout(ms),
@@ -230,8 +240,11 @@ export async function phrase(r: PhraseRequest): Promise<string | null> {
   const cap = r.long ? Math.max(budgetMs(), LONG_BUDGET_MS) : budgetMs();
   const deadline = Date.now() + Math.min(r.deadlineMs ?? cap, cap);
   if (r.fast) {
-    // Outside the rotation and the cooldown: one model, and a miss costs nothing but this answer.
-    const out = await ask(FAST_MODEL, r, key, Math.max(1, deadline - Date.now()));
+    // Outside the rotation and the cooldown. A 429 comes back fast and is one model's quota, so a second model
+    // with its own quota is tried while enough of the deadline is left; a timeout or a refusal is not retried.
+    let out = await ask(FAST_MODEL, r, key, Math.max(1, deadline - Date.now()));
+    const left = deadline - Date.now();
+    if (out === "rate" && left >= FAST_RETRY_MIN_MS) out = await ask(fastFallback(), r, key, left);
     if (!out || out === "rate") return null;
     if (cache.size >= CACHE_MAX) cache.delete(cache.keys().next().value as string);
     cache.set(id, { text: out, at: Date.now() });

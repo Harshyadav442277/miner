@@ -194,7 +194,7 @@ test("a malformed body is a fallback, not a crash", async () => {
 
 // G209, 2026-10-25: SENTIMENT_ANALYSIS and TEXT_CLASSIFICATION have 300 and 400 ms
 // targets that the reasoning models at "low" miss.
-test("a fast request makes one non-reasoning attempt and never falls through to a slower model", async () => {
+test("a fast request makes one non-reasoning attempt, and a second model only after a 429 with time left", async () => {
   const efforts: string[] = [];
   await withGroq(
     async (_u, init) => {
@@ -203,8 +203,30 @@ test("a fast request makes one non-reasoning attempt and never falls through to 
     },
     async (calls) => {
       assert.equal(await phrase({ ...REQ, fast: true, deadlineMs: 250 }), null);
-      assert.deepEqual(calls.map((c) => c.model), ["qwen/qwen3.8-27b"]);
-      assert.deepEqual(efforts, ["none"]);
+      // 2026-11-08: a 429 is one model's quota; the second model has its own, and rejects "none".
+      assert.deepEqual(calls.map((c) => c.model), ["qwen/qwen3.8-27b", "openai/gpt-oss-20b"]);
+      assert.deepEqual(efforts, ["none", "low"]);
+    },
+  );
+  await withGroq(
+    async (_u, _i, call) => (call.model === "qwen/qwen3.8-27b" ? new Response("{}", { status: 429 }) : ok("b | The passage is about b.")),
+    async () => {
+      assert.equal(await phrase({ ...REQ, fast: true, deadlineMs: 250 }), "b | The passage is about b.");
+    },
+  );
+  // Under 150 ms left after the 429, or a refusal rather than a 429: no second attempt.
+  await withGroq(
+    async () => new Response("{}", { status: 429 }),
+    async (calls) => {
+      assert.equal(await phrase({ ...REQ, fast: true, deadlineMs: 100 }), null);
+      assert.equal(calls.length, 1);
+    },
+  );
+  await withGroq(
+    async () => new Response("{}", { status: 401 }),
+    async (calls) => {
+      assert.equal(await phrase({ ...REQ, fast: true, deadlineMs: 250 }), null);
+      assert.equal(calls.length, 1);
     },
   );
   await withGroq(
