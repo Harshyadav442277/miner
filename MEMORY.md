@@ -1,5 +1,21 @@
 # MEMORY.md — session continuity
 
+## 2026-11-08 ~19:20 UTC (Nov 9 00:50 IST): CURRENT — `a2f911e` LIVE (4-agent fixes, 22 intents); 43-intent YAML to sign
+
+- **Production:** `a2f911e`, `miner-4hs6cb5jh` (`dpl_ABhFVKcsHHwJiqKgG38CJBSnVpRM`).
+  - **Rollback target:** `miner-7bo22h7r8` (`1f43311`).
+  - Record: `track1-miner/docs/evidence/release-2026-11-08-agent-fixes/`.
+  - The `brief` regression from `1f43311` is fixed.
+  - New `/contract-audit` route.
+  - Unit 959/959; gates 7/7 after a live gas-test fix (`61f1046`).
+- **Owner to sign:** YAML at `61f1046`, SHA-256 `0x700aca973e3afec3bd33e51684e9cbb927fdc502e260be8bf4b3932a778e7f66`,
+  43 intents (adds SMART_CONTRACT_AUDIT_GENERAL; `/macro` gains `year`). Registration 5135 is active until then.
+- **Open:**
+  - Web search's direct answer did not fire live for "Who won the 2026 FIFA World Cup?".
+  - Token holders on Base/Arbitrum/Polygon need a Blockscout PRO key (owner).
+  - UK sanctions list not added.
+- Worktrees `tg-deploy/fixC` and `fixD` (branches `claude/fix-drops`, `claude/fix-nearmiss`) are merged and can be removed.
+
 ## 2026-11-07 ~21:45 UTC (Nov 8 03:15 IST): CURRENT — schema fields LIVE (`1f43311`); registration **5135** (42 intents)
 
 - **Production:** `1f43311`, `miner-7bo22h7r8` (`dpl_9WvUyyb7o9uBqYpsXLSDz5dXjzTU`).
