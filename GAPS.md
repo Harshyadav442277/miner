@@ -1,5 +1,17 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-08 ~19:45 UTC — G282 request capture
+
+- **G282 — Request capture holds callers' questions, and is off until a store exists. `OPEN`, owner action.**
+  `src/capture.ts` records each answered request: route, query params, status, verdict, error, the answer's lead
+  sentence, user-agent and time taken. No IP addresses, cookies or authorisation headers. Records go to a Redis
+  list per UTC day with a 14-day expiry.
+  - **Personal data:** sanctions questions carry people's names, so the store holds personal data for up to 14
+    days. Exports from `tools/capture-pull.mjs` stay outside the repository.
+  - **Off until provisioned:** it does nothing until the owner adds a free Upstash Redis store through Vercel
+    (Storage → Upstash, which sets `KV_REST_API_URL` and `KV_REST_API_TOKEN`). Accepting Upstash's terms is the
+    owner's step.
+
 ## 2026-11-07 ~19:15 UTC — G281
 
 - **G281 — Routescan intermittently omits an address's `transactionsCount`. `OPEN`.** A live test got

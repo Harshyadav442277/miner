@@ -49,6 +49,7 @@ import { analyseSentimentPhrased } from "./prose-phrase";
 import { classifyText, type ClassifyResult } from "./classify";
 import { synthesise, type SynthesisResult } from "./synthesis";
 import { ledger, licensingFor } from "./sources";
+import { capture, captureEnabled, record } from "./capture";
 
 const CACHE_TTL_MS = Number(process.env.CACHE_TTL_MS ?? 60_000);
 const MAX_CACHE = 500;
@@ -209,7 +210,13 @@ function send(res: ServerResponse, status: number, body: unknown): void {
     "cache-control": "no-store",
   });
   res.end(payload);
+  // After the answer is written: a store that is slow or down never touches the response (capture.ts).
+  const asked = requestOf.get(res);
+  if (asked) void capture(record(asked.path, asked.params, status, body, asked.ua, asked.started));
 }
+
+/** What each request asked, kept only while request capture is configured (capture.ts). */
+const requestOf = new WeakMap<ServerResponse, { path: string; params: URLSearchParams; ua: string | null; started: number }>();
 
 /**
  * An answer exactly as the domain module produced it: every field the prose was
@@ -511,6 +518,10 @@ function route(req: IncomingMessage, res: ServerResponse): void {
   // through `send`.
   if (ENDPOINTS.includes(path)) {
     pathOf.set(res, path);
+    if (captureEnabled()) {
+      const ua = req.headers["user-agent"];
+      requestOf.set(res, { path, params: new URLSearchParams(url.searchParams), ua: typeof ua === "string" ? ua : null, started: Date.now() });
+    }
     armWatchdog(res, path, firstValue(url, "query", "q", "question", "text", "input"));
     // Preserve values and duplicate-parameter ordering: these can affect parsing.
     // Sorting parameter names allows equivalent engine requests to share work.
