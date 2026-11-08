@@ -3,13 +3,14 @@
  * list, including near-matches on spelling or transliteration?
  *
  * Every name and alias on the OFAC SDN, OFAC Consolidated (non-SDN) and UN
- * Security Council lists (sanctions-lists.ts) is scored against the subject with Jaro-Winkler per
+ * Security Council lists, and on the UK Sanctions List and EU financial sanctions
+ * list when the prebuilt index carries them (sanctions-lists.ts), is scored against the subject with Jaro-Winkler per
  * word, so word order, a missing middle name and a transliterated spelling
  * ("Petrof" for "Petrov") still score high. A birth year in the question is
  * checked against the listed ones. The answer names every list screened and
  * its edition, and the lists that were not.
  */
-import { sanctionsLists, type Edition, type ListedParty, type SanctionsLists } from "./sanctions-lists";
+import { CORE_LISTS, OPTIONAL_LISTS, sanctionsLists, type Edition, type ListedParty, type ListName, type SanctionsLists } from "./sanctions-lists";
 import { DESCRIPTORS, editDistance, nameTokens } from "./sanctions-names";
 
 export { nameTokens };
@@ -19,7 +20,7 @@ const MATCH = 0.95;
 // prefix bonus; 0.90 keeps it out and keeps "Viktor But" for Bout (0.914).
 const POSSIBLE = 0.9;
 const MAX_WORDS = 8;
-const NOT_SCREENED = ["EU consolidated financial sanctions list", "UK HMT consolidated list"];
+const SHORT: Partial<Record<ListName, string>> = { "UK Sanctions List": "UK", "EU Financial Sanctions Consolidated List": "EU" };
 
 export function jaroWinkler(a: string, b: string): number {
   if (a === b) return 1;
@@ -230,6 +231,10 @@ export function wordHits(subject: Subject, lists: SanctionsLists): { matches: Ma
     const personal = new Set<string>();
     const places = new Set<string>();
     lists.parties.forEach((p, i) => {
+      // WORD_PARTIES and GENERIC were measured on the OFAC and UN lists; the UK and EU lists repeat many of the
+      // same parties, so counting them would push distinctive words over the cap. Their names still score
+      // through screenParties, where an exact alias ("Hezbollah" on the UK list) is a match on its own.
+      if (!CORE_LISTS.includes(p.list)) return;
       for (const t of new Set([p.name, ...p.aliases].flatMap((n) => nameTokens(n)))) {
         if (p.type === "individual") personal.add(t);
         const at = parties.get(t);
@@ -278,7 +283,7 @@ export async function screenSanctions(question: string, nameParam = ""): Promise
   const base = {
     subject: subject.wallet ?? (subject.name || null), subject_type: subject.wallet ? "wallet" : subject.kind,
     dob_year: subject.dob_year, matches: [] as Match[], closest: null, lists_checked: [] as Edition[],
-    lists_not_checked: NOT_SCREENED,
+    lists_not_checked: OPTIONAL_LISTS as string[],
   };
   const words = nameTokens(subject.name).length;
   // A name in a script read here as nothing (Arabic, Persian, Chinese) was
@@ -299,7 +304,7 @@ export async function screenSanctions(question: string, nameParam = ""): Promise
       reason: `Nothing was screened: the subject read from this request has ${words} words, more than the ${MAX_WORDS} a name can have here. Send the name alone in the name parameter.` };
   }
   const lists = await sanctionsLists();
-  const checked = { ...base, lists_checked: lists.editions, lists_not_checked: [...lists.unavailable, ...NOT_SCREENED] };
+  const checked = { ...base, lists_checked: lists.editions, lists_not_checked: [...lists.unavailable, ...lists.not_screened] };
   if (lists.parties.length === 0) {
     return { ...checked, verdict: "unknown", confidence: 0, error: "upstream_unavailable",
       reason: `${base.subject} could not be screened because none of the OFAC SDN, OFAC non-SDN and UN Security Council lists could be read. This is an availability problem, not a finding that the party is unlisted.` };
@@ -307,7 +312,9 @@ export async function screenSanctions(question: string, nameParam = ""): Promise
   const many = lists.unavailable.length > 1;
   const partial = lists.unavailable.length
     ? ` The ${series(lists.unavailable, "and")} list${many ? "s" : ""} could not be read, so ${many ? "they were" : "it was"} not screened.` : "";
-  const screened = ` Screened against ${editionText(lists.editions)}, names and aliases; the EU and UK lists were not screened.${partial}`;
+  const skipped = lists.not_screened.map((l) => SHORT[l] ?? l);
+  const notScreened = skipped.length ? `; the ${series(skipped, "and")} list${skipped.length > 1 ? "s were" : " was"} not screened` : "";
+  const screened = ` Screened against ${editionText(lists.editions)}, names and aliases${notScreened}.${partial}`;
 
   if (subject.wallet) {
     const w = subject.wallet.toLowerCase();
@@ -323,7 +330,7 @@ export async function screenSanctions(question: string, nameParam = ""): Promise
         reason: `Not cleared: wallet ${subject.wallet} could not be screened, because the OFAC SDN list, the only one here that publishes wallet addresses, could not be read.${screened}` };
     }
     return { ...checked, verdict: "no_match", confidence: 0.85,
-      reason: `No match: wallet ${subject.wallet} is not among the digital currency addresses on the OFAC SDN list. The UN list publishes no wallet addresses, and an unlisted wallet can still belong to a sanctioned party.${screened}` };
+      reason: `No match: wallet ${subject.wallet} is not among the digital currency addresses on the OFAC SDN list. Wallet addresses are read from OFAC's lists only, and an unlisted wallet can still belong to a sanctioned party.${screened}` };
   }
 
   const all = screenParties(subject, lists);

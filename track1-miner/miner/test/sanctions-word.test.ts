@@ -14,7 +14,7 @@ const party = (id: string, name: string, aliases: string[] = [], type: ListedPar
 // Six banks, so "bank" and "lebanese" are common words; five carry "trading".
 const common = Array.from({ length: 6 }, (_, i) => party(`b${i}`, `LEBANESE TRADING BANK ${i}`));
 const lists = (): SanctionsLists => ({
-  editions: [], unavailable: [],
+  editions: [], unavailable: [], not_screened: [],
   parties: [
     ...common,
     party("4697", "HIZBALLAH", ["LEBANESE HEZBOLLAH", "PARTY OF GOD"]),
