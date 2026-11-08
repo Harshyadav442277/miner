@@ -1,0 +1,27 @@
+{
+  "_note": "Frozen reference anchors for the adversarial suite. Values were fetched once and copied here verbatim; the suite never refetches. Fixed-point scales come from devnode /engine/v1/intents/<id> (read 2026-11-08 15:4x UTC).",
+  "FX_NOW": {
+    "source": "European Central Bank euro foreign exchange reference rates (data-api.ecb.europa.eu, series EXR.D.{USD,CAD,SEK}.EUR.SP00.A)",
+    "licence": "ECB statistics; reuse terms not confirmed by fetch on 2026-11-08 (see README limits)",
+    "retrieved_at": "2026-11-08T15:41Z",
+    "intent_shape": "rate = {key} per USD, decimals 6, range [0.0001, 100000]; unit alias 'USD per {key}' means inverse",
+    "eur_based": {
+      "current": { "date": "2026-11-06", "USD": "1.1165", "CAD": "1.5705", "SEK": "11.026" },
+      "stale": { "date": "2026-10-01", "USD": "1.1298", "CAD": "1.6095", "SEK": "11.331" }
+    }
+  },
+  "CRYPTO_PRICE": {
+    "source": "CoinGecko public API /api/v3/simple/price (ids bitcoin, ethereum, solana, binancecoin, ripple; vs usd)",
+    "licence": "CoinGecko API terms (coingecko.com/en/api_terms, read 2026-11-08): use requires the attribution 'Powered by CoinGecko'. Not an open licence.",
+    "retrieved_at": "2026-11-08T15:39:53Z",
+    "intent_shape": "price_usd in US dollars, range [0.000001, 10000000]; on-chain layout has no decimals (ready:false), so the suite assumes 6 decimals and adds 8- and 18-decimal slices",
+    "usd": { "BTC": "75973", "ETH": "2238.35", "SOL": "89.59", "BNB": "696.96", "XRP": "1.16" }
+  },
+  "WEATHER_CHECK": {
+    "source": "Open-Meteo forecast API, current=temperature_2m (2026-11-08T15:30 UTC)",
+    "licence": "CC BY 4.0 (open-meteo.com/en/terms, read 2026-11-08). Attribution: Weather data by Open-Meteo.com",
+    "retrieved_at": "2026-11-08T15:39:53Z",
+    "intent_shape": "temp_c in degrees Celsius, decimals 6, range [-90, 60]",
+    "celsius": { "London": "11.1", "Tokyo": "10.3", "Lahore": "21.5", "New York": "13.0", "Sydney": "12.2", "Reykjavik": "6.7" }
+  }
+}
