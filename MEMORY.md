@@ -6,6 +6,17 @@
 - All three read `pending`, "awaiting_seed_epoch: no confirmed epoch recorded after the registration".
 - The champions are still #263, #261 and #266 (`0x8b224783…`).
 - Next: check `/api/wasm` by registration id after the next epoch. Expect `active`, then `superseded` under G282.
+  Still `pending` at 15:48 UTC.
+- **Comparator validity report** (`claude/comparator-validity` `c6e38c2`, `track2/comparator/evaluation/`):
+  - Live checks: 600/600 on all three runnables. The 234,848-case grid has 0 mismatches for ours and the
+    champions.
+  - The seeded adversarial suite (FX 474, crypto 1,577, weather 1,314) puts ours equal to the champions and to
+    ReferenceScore on every case. Six plausible wrong comparators fail on it, so the suite can catch errors.
+  - The rule itself: a truth of exactly 0 is refused, and 4 overflow cases score negative.
+  - Nothing to rebuild.
+- **The sanctions lane stopped at step 1** (`claude/sanctions-pool-measured` `ea1f668`): pool rows are not
+  publicly readable, so nothing was measured. #46's 7/15 was chance. Next: the owner decides whether to ask
+  Telegraph for a dev split.
 - Bonds stay locked while registered, and for 48 h after deregistering.
 
 ## 2026-11-08 ~13:15 UTC (18:45 IST): both adapter lanes closed; nothing to register
