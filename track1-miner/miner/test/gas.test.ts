@@ -165,6 +165,8 @@ test("every supported chain answers with a plausible fee (live)", async () => {
     if (r.base_fee_gwei !== null && r.priority_gwei !== null) {
       assert.ok(r.priority_gwei >= 0, `${chain} negative priority fee`);
     }
-    assert.ok(r.reason.includes(chain), `${chain} answer does not name the chain`);
+    // BSC and Avalanche are named by their proper names ("BNB Smart Chain", "Avalanche C-Chain"), not the id.
+    const name = ({ bsc: "BNB Smart Chain", avalanche: "Avalanche C-Chain" } as Record<string, string>)[chain] ?? chain;
+    assert.ok(r.reason.includes(name), `${chain} answer does not name the chain`);
   }
 });
