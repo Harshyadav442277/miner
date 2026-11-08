@@ -25,6 +25,15 @@
   `/api/wasm`. We cannot download or verify those incumbents, so a challenger's margin over them cannot be measured
   locally. Unknown: whether the node compares a challenger against a stored incumbent score or re-runs a runnable
   that is down.
+- **G285 — Both adapter lanes are CLOSED under their kill rules (2026-11-08 13:15 UTC). Nothing to register.**
+  - SECURITY_REVIEW v2 (`1b93a9a`) used 4,001 counterfactual pairs. Its dataset gate passed (surface 50.4%,
+    length 52.8%), but its training gate failed at 60.5% validation pairwise accuracy against the kit's 65%
+    minimum. It was not exported.
+  - URL_SCAN v3 (`7bae3d4`) is worse than v2. H1 67.5%, probe 5/16. Real-answer decisions: H2 4/25 and H3 9/33,
+    against GENERIC 24/25 and 32/33. Bit equality held (`0xbfa49c10`).
+  - What both showed: once the answer-only cues are removed, a rank-8 ModernBERT LoRA trained on synthetic pairs
+    does not learn to read the input. On real answers, GENERIC's ordering equals the length baseline.
+  - The lane READMEs still carry their v1/v2 status lines. This entry is the closure record.
 - **Lane results, 2026-11-08 (node runtime, per-pair scores on each branch). Neither is ready to sign.**
   - SECURITY_REVIEW v1 (`claude/security-review-adapter` `7a405bb`), holdout 200 pairs: v1 68.0%, GENERIC 58.5%,
     length 51.5%, answer-only bag-of-words **73.0%**. Out-of-template probe, 30 pairs: v1 63.3%, bag-of-words

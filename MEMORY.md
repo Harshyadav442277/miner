@@ -1,6 +1,23 @@
 # MEMORY.md — session continuity
 
-## 2026-11-08 IST: CURRENT — evaluator lanes running; nothing registered
+## 2026-11-08 ~13:15 UTC (18:45 IST): CURRENT — both adapter lanes closed; nothing to register
+
+- SECURITY_REVIEW (`claude/security-review-adapter` `1b93a9a`):
+  - v1 holdout 68.0%, against 73.0% for answer-only bag-of-words.
+  - v2's training gate failed at 60.5%.
+- URL_SCAN (`claude/url-scan-adapter` `7bae3d4`): v3 real-answer decisions 4/25 and 9/33, against GENERIC 24/25
+  and 32/33.
+- Detail and why: GAPS G284, G285.
+- Champions #42, #37 and #40 all serve 404 (G284).
+- No GPU lock is held and no agent is running. Both agents hit the 5-hour usage limit three times today.
+- **Owner decides next**:
+  - (a) a new lane that scores real public-miner answers with truth-source labels. Integrity question: miner
+    fingerprints.
+  - (b) shift Evaluator effort to the rubric lines we can earn now: material/coverage, docs, reproducibility,
+    growth.
+  - (c) stop.
+
+## 2026-11-08 IST: evaluator lanes started (superseded above)
 
 - Owner: "improve the present evaluators … focus on high quality evaluator. run parallel agent who will build
   new evaluator".
