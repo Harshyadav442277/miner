@@ -189,6 +189,78 @@ export function screenParties(subject: Subject, lists: SanctionsLists): Match[] 
   return out.sort((a, b) => b.score - a.score || (a.dob_check === "differs" ? 1 : 0) - (b.dob_check === "differs" ? 1 : 0));
 }
 
+/**
+ * A whole-word hit is reviewed only when the word is this rare across the lists, and at least this long.
+ * HEZBOLLAH is a word of four OFAC entities' names (HIZBALLAH, KATA'IB HIZBALLAH, ANSAR-E HEZBOLLAH, HARAKAT
+ * AL-NUJABA; lists of 2026-11-05), so three would miss it. "Bank" is in hundreds, "Shipping" in 399.
+ */
+const WORD_PARTIES = 5;
+const WORD_LENGTH = 6;
+/**
+ * English words that passed every other test below on the lists of 2026-11-05/08: each is in five or fewer
+ * listed names, but says what a party does, not which party it is ("Supreme" is a clothing brand, not SUPREME
+ * SHIPPING COMPANY). A name is a proper noun; these are not.
+ */
+const GENERIC = new Set(["academy", "agricultural", "aircraft", "ammunition", "auction", "battalion", "benevolence",
+  "brigade", "broker", "brokers", "bureau", "central", "complex", "compound", "devotees", "division", "eastern",
+  "efficiency", "engine", "equipment", "external", "financial", "helicopters", "instrument", "invest",
+  "investments", "leader", "leasing", "machine", "metallurgy", "ministry", "mobile", "mortgage", "northern",
+  "office", "peacekeeping", "personal", "pioneer", "planning", "presidency", "project", "railway", "railways",
+  "registrar", "relief", "resources", "righteous", "safety", "salvation", "satellite", "securities", "security",
+  "semiconductor", "sentinels", "shipbuilding", "soldiers", "southern", "supreme", "telecom", "telecommunications",
+  "transport", "transporting", "veiled", "western"]);
+let wordIndex: { lists: SanctionsLists; parties: Map<string, number[]>; personal: Set<string>; places: Set<string> } | null = null;
+
+/**
+ * A one-word subject that is a whole word of a listed organisation's name or alias ("Hezbollah" in LEBANESE
+ * HEZBOLLAH, an OFAC alias of HIZBALLAH), as possible matches. A one-word name scores at most 0.85 against a
+ * longer listed name (nameScore), below POSSIBLE, so "Hezbollah" was cleared on 2026-11-08. The word must be
+ * at least WORD_LENGTH letters, not a descriptor, and in at most WORD_PARTIES listed parties, so "Bank",
+ * "Trading" or "Group" is never a hit. It must be in no listed person's name, since one word of a person's
+ * name is a first name or a surname, not an identity ("Nelson", "Petrov"), and no listed nationality, since a
+ * country ("Kazakhstan") names a place, not a party. Pure given the lists.
+ */
+export function wordHits(subject: Subject, lists: SanctionsLists): { matches: Match[]; parties: number } {
+  const none = { matches: [], parties: 0 };
+  const words = nameTokens(subject.name);
+  const w = words[0];
+  if (words.length !== 1 || !w || w.length < WORD_LENGTH || DESCRIPTORS.has(w) || GENERIC.has(w) || subject.kind === "individual") return none;
+  if (wordIndex?.lists !== lists) {
+    const parties = new Map<string, number[]>();
+    const personal = new Set<string>();
+    const places = new Set<string>();
+    lists.parties.forEach((p, i) => {
+      for (const t of new Set([p.name, ...p.aliases].flatMap((n) => nameTokens(n)))) {
+        if (p.type === "individual") personal.add(t);
+        const at = parties.get(t);
+        if (!at) parties.set(t, [i]);
+        else if (at.length <= WORD_PARTIES) at.push(i);
+      }
+      for (const n of p.nationalities) for (const t of nameTokens(n)) places.add(t);
+    });
+    wordIndex = { lists, parties, personal, places };
+  }
+  const at = wordIndex.parties.get(w) ?? [];
+  if (!at.length || at.length > WORD_PARTIES || wordIndex.personal.has(w) || wordIndex.places.has(w)) return none;
+  // The word must be what tells the name apart: a short name whose other words are common across the lists
+  // (LEBANESE HEZBOLLAH, LAZARUS GROUP). "Platinum" in PLATINUM KNIGHTS LTD, or "Training" in IRISL MARITIME
+  // TRAINING INSTITUTE, is one word of a name that another word identifies.
+  const common = (t: string): boolean => t.length <= 2 || DESCRIPTORS.has(t) || (wordIndex!.parties.get(t)?.length ?? 0) > WORD_PARTIES;
+  const telling = (n: string): boolean => {
+    const t = nameTokens(n);
+    return t.length <= 3 && t.includes(w) && t.every((x) => x === w || common(x));
+  };
+  const matches = at.map((i) => lists.parties[i]!).filter((p) => [p.name, ...p.aliases].some(telling)).map((p): Match => {
+    const names = [p.name, ...p.aliases];
+    const k = Math.max(0, names.findIndex(telling));
+    const score = Math.max(...names.map((n) => nameScore(words, nameTokens(n), true)));
+    return { list: p.list, id: p.id, name: p.name, matched_name: names[k]!, type: p.type, programs: p.programs,
+      score: Number(score.toFixed(3)), dob_years: p.dob_years, dob_check: "not_given", nationalities: p.nationalities,
+      listed_on: p.listed_on, url: p.url };
+  });
+  return { matches, parties: at.length };
+}
+
 const describe = (m: Match): string =>
   `${m.name} on the ${m.list} list (${m.programs.join(", ") || "no programme stated"}, ${m.type}` +
   `${m.dob_years.length ? `, born ${m.dob_years.join(" or ")}` : ""}` +
@@ -267,6 +339,15 @@ export async function screenSanctions(question: string, nameParam = ""): Promise
     const why = best.dob_check === "differs" ? `, but its listed birth year ${best.dob_years.join(" or ")} differs from ${subject.dob_year}` : "";
     return { ...checked, verdict: "possible_match", confidence: conf(0.6), matches, closest: best,
       reason: `Possible match: "${subject.name}" is close to ${describe(best)}, score ${best.score}${why}. Review it before treating it as either a match or a clearance.${screened}` };
+  }
+  const word = wordHits(subject, lists);
+  if (word.matches.length) {
+    const w = word.matches[0]!;
+    const of = w.matched_name === w.name ? `the listed name ${describe(w)}` : `${w.matched_name}, a listed name of ${describe(w)}`;
+    return { ...checked, verdict: "possible_match", confidence: conf(0.6), matches: word.matches, closest: w,
+      reason: `Possible match: "${subject.name}" is a whole word of ${of}. ` +
+        `${word.parties === 1 ? "Only one listed party carries" : `Only ${word.parties} listed parties carry`} that word, so it is distinctive, but a one-word name ` +
+        `scores ${w.score} against a longer listed name, below the ${POSSIBLE} threshold. Review it before treating it as either a match or a clearance.${screened}` };
   }
   const near = all[0] ?? null;
   // Kim Jong Un is on the OFAC list and not the UN one: with OFAC unread, "no
