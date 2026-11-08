@@ -77,7 +77,11 @@ def capture(miner, out):
 if __name__ == '__main__':
     out = Path(sys.argv[1])
     out.mkdir(parents=True, exist_ok=True)
-    if len(sys.argv) > 2:
+    if len(sys.argv) > 2 and sys.argv[2].endswith('.json'):
+        # A cohort frozen beforehand by h2_cases.py: the cases file is copied, never edited.
+        frozen = json.loads(Path(sys.argv[2]).read_text(encoding='utf-8'))
+        CASES = [(c['case'], c['url'], c['expected_safe'], c['source']) for c in frozen]
+    elif len(sys.argv) > 2:
         # Optional second cohort. Freeze before any calls; never select on miner scores.
         listed = Path(sys.argv[2]).read_bytes()
         domains = sorted(set(listed.decode().splitlines()),
@@ -91,8 +95,11 @@ if __name__ == '__main__':
         raise SystemExit('capture already frozen; choose a new evidence directory')
     save(out / 'cases.json', [{'case': n, 'url': u, 'expected_safe': s, 'source': p}
                              for n, u, s, p in CASES])
-    sources = {p: fetch(p, max_bytes=30000000) for _, _, _, p in CASES}
-    save(out / 'sources.json', sources)
+    if len(sys.argv) > 2 and sys.argv[2].endswith('.json'):
+        (out / 'cases-frozen.json').write_bytes(Path(sys.argv[2]).read_bytes())  # sources are the r1 snapshot
+    else:
+        sources = {p: fetch(p, max_bytes=30000000) for _, _, _, p in CASES}
+        save(out / 'sources.json', sources)
     raw = fetch(NODE + '/api/miners', max_bytes=30000000)
     save(out / 'catalog.json', raw)
     if raw['exit'] or raw['status'] != 200:

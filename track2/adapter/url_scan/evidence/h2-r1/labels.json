@@ -1,0 +1,2045 @@
+{
+  "coverage": [
+    {
+      "case": "certpl-0",
+      "correct": 2,
+      "incorrect": 1
+    },
+    {
+      "case": "certpl-1",
+      "correct": 2,
+      "incorrect": 1
+    },
+    {
+      "case": "certpl-2",
+      "correct": 2,
+      "incorrect": 1
+    },
+    {
+      "case": "certpl-3",
+      "correct": 2,
+      "incorrect": 1
+    },
+    {
+      "case": "certpl-4",
+      "correct": 1,
+      "incorrect": 3
+    },
+    {
+      "case": "certpl-5",
+      "correct": 2,
+      "incorrect": 1
+    },
+    {
+      "case": "certpl-6",
+      "correct": 2,
+      "incorrect": 1
+    },
+    {
+      "case": "certpl-7",
+      "correct": 1,
+      "incorrect": 3
+    },
+    {
+      "case": "certpl-8",
+      "correct": 2,
+      "incorrect": 1
+    },
+    {
+      "case": "certpl-9",
+      "correct": 2,
+      "incorrect": 1
+    },
+    {
+      "case": "certpl-10",
+      "correct": 2,
+      "incorrect": 1
+    },
+    {
+      "case": "certpl-11",
+      "correct": 2,
+      "incorrect": 1
+    },
+    {
+      "case": "safe-12",
+      "correct": 4,
+      "incorrect": 0
+    },
+    {
+      "case": "safe-13",
+      "correct": 4,
+      "incorrect": 0
+    },
+    {
+      "case": "safe-14",
+      "correct": 4,
+      "incorrect": 0
+    },
+    {
+      "case": "safe-15",
+      "correct": 3,
+      "incorrect": 0
+    },
+    {
+      "case": "safe-16",
+      "correct": 3,
+      "incorrect": 0
+    },
+    {
+      "case": "safe-17",
+      "correct": 1,
+      "incorrect": 1
+    },
+    {
+      "case": "safe-18",
+      "correct": 4,
+      "incorrect": 0
+    },
+    {
+      "case": "safe-19",
+      "correct": 3,
+      "incorrect": 0
+    }
+  ],
+  "rows": [
+    {
+      "miner": "20260828",
+      "case": "certpl-0",
+      "sha256": "b1167c68be1e8565ed899c9b60c1108bdec3cedee7462fce0b8e89db0eb1dc0f",
+      "abstain": "missing or conflicting verdict"
+    },
+    {
+      "miner": "20260828",
+      "case": "certpl-1",
+      "sha256": "46682de79fd17408b5c2d3981a9175beb02fe037f7a714a5bea9adccb17b2379",
+      "abstain": "missing or conflicting verdict"
+    },
+    {
+      "miner": "20260828",
+      "case": "certpl-2",
+      "sha256": "d3fefeaa0d1b08a6ea1c4abedee6a932aa94cdc54d35da62f4a5bf985ec52630",
+      "abstain": "missing or conflicting verdict"
+    },
+    {
+      "miner": "20260828",
+      "case": "certpl-3",
+      "sha256": "b02d90c853f7a4829fd0b05788cf76b4a68b8640273213aaed14dde19089c48d",
+      "abstain": "missing or conflicting verdict"
+    },
+    {
+      "miner": "20260828",
+      "case": "certpl-4",
+      "sha256": "f8d87473e84e7a1986b861da6f2c687b26d0280823043f1b3a7304aebb82a515",
+      "safe": true
+    },
+    {
+      "miner": "20260828",
+      "case": "certpl-5",
+      "sha256": "42f8355d4c6d73d2b6b2884c34b71c6db96bb43633fb8c85f5f51c88e6aab301",
+      "abstain": "missing or conflicting verdict"
+    },
+    {
+      "miner": "20260828",
+      "case": "certpl-6",
+      "sha256": "3563942ff03228eecef6eee065471e063a6105da11a79db90e8a97bced399318",
+      "abstain": "missing or conflicting verdict"
+    },
+    {
+      "miner": "20260828",
+      "case": "certpl-7",
+      "sha256": "ff3718c0296e3059e95a96ea35dc852c246e922d67e951ae019a686b0c076574",
+      "safe": true
+    },
+    {
+      "miner": "20260828",
+      "case": "certpl-8",
+      "sha256": "1bef434f6ffc1ee6490a4e7cbd9f08134ea8b80dcebbe5ef9fa74c2100b7ac00",
+      "abstain": "missing or conflicting verdict"
+    },
+    {
+      "miner": "20260828",
+      "case": "certpl-9",
+      "sha256": "ad789ab73a9966ca18fe146f3cedec26a7afe6042ed2eeb8fb98f4775547880a",
+      "abstain": "missing or conflicting verdict"
+    },
+    {
+      "miner": "20260828",
+      "case": "certpl-10",
+      "sha256": "de06c7df55836498126ba5a5bfda834b852595c09aae2901becbbfab19490eef",
+      "abstain": "missing or conflicting verdict"
+    },
+    {
+      "miner": "20260828",
+      "case": "certpl-11",
+      "sha256": "7c94e411d0dc0065ed09ecc31f4d2caf1f95b3596dbb7a66f4d8a11f0db44bca",
+      "abstain": "missing or conflicting verdict"
+    },
+    {
+      "miner": "20260828",
+      "case": "safe-12",
+      "sha256": "558b7b93045ba6388b169dfb7773fb826d954622a5742457cf80a6a320a4ee0c",
+      "safe": true
+    },
+    {
+      "miner": "20260828",
+      "case": "safe-13",
+      "sha256": "8a5a2f1ebeaa912ef0568ffe345f3dd4663b6f35b0afdb439d98de5006ea4875",
+      "safe": true
+    },
+    {
+      "miner": "20260828",
+      "case": "safe-14",
+      "sha256": "ed665e9cf62f5cbb7d7c33d6188ff8622d91747bcd857da95fc71a5cfb8221d8",
+      "safe": true
+    },
+    {
+      "miner": "20260828",
+      "case": "safe-15",
+      "sha256": "a4d366a28a63ee76d6d505675fe83bbc5a3388c0cea86604a263148d7858d2c4",
+      "safe": true
+    },
+    {
+      "miner": "20260828",
+      "case": "safe-16",
+      "sha256": "0697233e7ecc6a0cfd5e78bba235ac4bc9f10f04ea7db3b3471db71e186b88f6",
+      "safe": true
+    },
+    {
+      "miner": "20260828",
+      "case": "safe-17",
+      "sha256": "a8bed2afe80eeb4fffa670ed0f52f405474a485abdb5950bc2633dfd0e9eb84e",
+      "abstain": "missing or conflicting verdict"
+    },
+    {
+      "miner": "20260828",
+      "case": "safe-18",
+      "sha256": "0924523ef01c475aee1ad16b77a434db82665ee4b0b5a00e9491ace478f9b0b2",
+      "safe": true
+    },
+    {
+      "miner": "20260828",
+      "case": "safe-19",
+      "sha256": "432fdec9464b9e11731baf174c1270bc4b7594fc5a1c9c2e878d6c47477ab702",
+      "safe": true
+    },
+    {
+      "miner": "302",
+      "case": "certpl-0",
+      "sha256": "e053353a7e54f8f67c5eea502def5f67b214a90d2fd2da7d7a96ce3b2d3de3a9",
+      "safe": true
+    },
+    {
+      "miner": "302",
+      "case": "certpl-1",
+      "sha256": "6ba2bb15ce6282aae1d88b71356f59f245dfc6bb11485806ba8888f1475c4aab",
+      "safe": true
+    },
+    {
+      "miner": "302",
+      "case": "certpl-2",
+      "sha256": "44e3ec8ee3a2c67cdd90dbb75fd7a380741f01e9c4c97802c852fa2a76936486",
+      "safe": true
+    },
+    {
+      "miner": "302",
+      "case": "certpl-3",
+      "sha256": "da646b82e80e8a8ca104ff6f09135aa7c0f6f18c3a96aa4cba73b4532c4676e8",
+      "safe": true
+    },
+    {
+      "miner": "302",
+      "case": "certpl-4",
+      "sha256": "48de35dfb7409db2bc0c8a42082c14c29f569409a5a760b6dc5d2251d8bb5742",
+      "safe": true
+    },
+    {
+      "miner": "302",
+      "case": "certpl-5",
+      "sha256": "fc4dc05628c2d377fa382e673aa852f6294a8ab4245215d7d7d3467f3932a890",
+      "safe": true
+    },
+    {
+      "miner": "302",
+      "case": "certpl-6",
+      "sha256": "97ac5f3ffb41db6f4a3e2b26e797b6351c8e9afc70a0fa9fc884732bf4105e53",
+      "safe": true
+    },
+    {
+      "miner": "302",
+      "case": "certpl-7",
+      "sha256": "f884ea2500322007f2406b0f5dcfdb463a457a0d8e61f1f0e70363ce81bceab6",
+      "safe": true
+    },
+    {
+      "miner": "302",
+      "case": "certpl-8",
+      "sha256": "eb7622d4c4a3dad6813ba5d0e79d88b28629ab7c7367b4770d308d144f6eded7",
+      "safe": true
+    },
+    {
+      "miner": "302",
+      "case": "certpl-9",
+      "sha256": "c89bd64d806e50b7bfd8ebaa6e89209b0dd5e68b0140a24f86ca83aa747497aa",
+      "safe": true
+    },
+    {
+      "miner": "302",
+      "case": "certpl-10",
+      "sha256": "2acdddc9d68fd8142b7bdd03e40a4f4e8b4739e81c1d7395b05864bcd2e188db",
+      "safe": true
+    },
+    {
+      "miner": "302",
+      "case": "certpl-11",
+      "sha256": "697e03197886311ea6f7db7c7cfea28020d199ba0f096fd31e7214625bc8c510",
+      "safe": true
+    },
+    {
+      "miner": "302",
+      "case": "safe-12",
+      "sha256": "659169c17afb2af632e9e6d8d633ae90989e771d459f892f37976dc855f80439",
+      "safe": true
+    },
+    {
+      "miner": "302",
+      "case": "safe-13",
+      "sha256": "c57a48301ef9db1dbeba1a2312515e9a8c14bbfe54dc4b9ac166b84059df3d7d",
+      "safe": true
+    },
+    {
+      "miner": "302",
+      "case": "safe-14",
+      "sha256": "415bdb322c552cbb2a4ddd44998848f9c407785913e2e345e6b8cb4ca344c5e1",
+      "safe": true
+    },
+    {
+      "miner": "302",
+      "case": "safe-15",
+      "sha256": "1d92e8a76e79c8d5cbad92c16bf7c1f7270a206a3b8bef2aac54c290f869453a",
+      "safe": true
+    },
+    {
+      "miner": "302",
+      "case": "safe-16",
+      "sha256": "95096aa7edcae01f7137a50b9ed87cbf2149bf608b991fc1531f5f7d2bac3e7e",
+      "safe": true
+    },
+    {
+      "miner": "302",
+      "case": "safe-17",
+      "sha256": "7f9abc5a13776b38202b2fbe2891c014253c87b6fa40e9d76d236d7ca93981d6",
+      "safe": true
+    },
+    {
+      "miner": "302",
+      "case": "safe-18",
+      "sha256": "2aaba49cc71319e08ecc65433f7a8afb3ad3317f6ac32ee9b1ceb14c888feb88",
+      "safe": true
+    },
+    {
+      "miner": "302",
+      "case": "safe-19",
+      "sha256": "8ac360d6c21469980a0932c320f5d747b5604b9e4c40c532e2f5f8712b66d358",
+      "safe": true
+    },
+    {
+      "miner": "4433",
+      "case": "certpl-0",
+      "sha256": "486de3b5834d94d353be9976235b1c2062434cd8da3ceed4041652563558eea5",
+      "safe": false,
+      "excluded": "related party"
+    },
+    {
+      "miner": "4433",
+      "case": "certpl-1",
+      "sha256": "6d63b573c2d2b258f926dc6461abc1df9152f6aa47ffb1fd9e12b668cb385ff8",
+      "safe": false,
+      "excluded": "related party"
+    },
+    {
+      "miner": "4433",
+      "case": "certpl-2",
+      "sha256": "8e9f6b5eed0c69dc92ccc4ef7c7e8ebe3af237c7c20c64018ac692c4c4f06ebd",
+      "abstain": "service error"
+    },
+    {
+      "miner": "4433",
+      "case": "certpl-3",
+      "sha256": "fcae0260d3f8f80f65a776da0abb2b0550a1f3647a9c46477c0951c62e627c23",
+      "safe": false,
+      "excluded": "related party"
+    },
+    {
+      "miner": "4433",
+      "case": "certpl-4",
+      "sha256": "db1554efe21d8b8be1d75954f94d9c2ae6971ea434e4387a1018f6ba2e30da3f",
+      "safe": false,
+      "excluded": "related party"
+    },
+    {
+      "miner": "4433",
+      "case": "certpl-5",
+      "sha256": "8fa490245f099d362be47fc48426df7fea17acbec51eabdd17987e926fb26e24",
+      "abstain": "service error"
+    },
+    {
+      "miner": "4433",
+      "case": "certpl-6",
+      "sha256": "f36e2c3b2923a54cf8a3e6171babc708922238eff9d6838ae124a072f6c5d3df",
+      "safe": false,
+      "excluded": "related party"
+    },
+    {
+      "miner": "4433",
+      "case": "certpl-7",
+      "sha256": "b03e2977281ea3a8acde1800ee44562bc5035ae0ac43b6f902c39f33000c6744",
+      "safe": false,
+      "excluded": "related party"
+    },
+    {
+      "miner": "4433",
+      "case": "certpl-8",
+      "sha256": "b0b8a9b093253c51a4467491d3f76c7aa9a70f3768560fe318b7d901205b8cc9",
+      "safe": false,
+      "excluded": "related party"
+    },
+    {
+      "miner": "4433",
+      "case": "certpl-9",
+      "sha256": "78a8330f88b636be844f18cb5a1ea30fa59a845101860126c1e785928eb3a75e",
+      "safe": false,
+      "excluded": "related party"
+    },
+    {
+      "miner": "4433",
+      "case": "certpl-10",
+      "sha256": "89e98e49b4db23a2a7b4a52fb3530a2990cfa1606c780c247073e90c6cf7010e",
+      "abstain": "service error"
+    },
+    {
+      "miner": "4433",
+      "case": "certpl-11",
+      "sha256": "cbdacbc3d8fe423f409a7d7046fc8bd9668f7bf2b5db52efcd20ec5f6d63b4ae",
+      "safe": false,
+      "excluded": "related party"
+    },
+    {
+      "miner": "4433",
+      "case": "safe-12",
+      "sha256": "9b4d7761a69fd6e523d7403f0c8e913711654c792383574875317ebf77d1a5d4",
+      "safe": true,
+      "excluded": "related party"
+    },
+    {
+      "miner": "4433",
+      "case": "safe-13",
+      "sha256": "fb441e0c160c8c4b15bd464273846dddc2fe63cf5d615f18f7de14e6ac98397d",
+      "safe": true,
+      "excluded": "related party"
+    },
+    {
+      "miner": "4433",
+      "case": "safe-14",
+      "sha256": "99a4ff372cd9af46c330dc8e24a622690db04fbe0d82d9e7e6f6d981f74d5c55",
+      "safe": true,
+      "excluded": "related party"
+    },
+    {
+      "miner": "4433",
+      "case": "safe-15",
+      "sha256": "68404d6f3d1459c4c3005052a9df38d0379d9686f00295255e45674268f4fc01",
+      "safe": true,
+      "excluded": "related party"
+    },
+    {
+      "miner": "4433",
+      "case": "safe-16",
+      "sha256": "11e7dc02a2379dcd5e6ddf18625d83c77993511416e4dd755baea63ef7827cbb",
+      "safe": true,
+      "excluded": "related party"
+    },
+    {
+      "miner": "4433",
+      "case": "safe-17",
+      "sha256": "cbfde77d9f86df6fbd0254ee0dc7fbfc98e7307e80acdbe3bee3d80c5c2c7624",
+      "safe": true,
+      "excluded": "related party"
+    },
+    {
+      "miner": "4433",
+      "case": "safe-18",
+      "sha256": "0ebd0c8f599418121396e729d791e36faaf691f8afce6145101f151ebf3a2124",
+      "safe": true,
+      "excluded": "related party"
+    },
+    {
+      "miner": "4433",
+      "case": "safe-19",
+      "sha256": "2fbdadac5bbc91faa3942e18b26b01cddd1e95dfd97c3ef60e728a8aa06b5bcd",
+      "safe": true,
+      "excluded": "related party"
+    },
+    {
+      "miner": "53001",
+      "case": "certpl-0",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53001",
+      "case": "certpl-1",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53001",
+      "case": "certpl-2",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53001",
+      "case": "certpl-3",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53001",
+      "case": "certpl-4",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53001",
+      "case": "certpl-5",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53001",
+      "case": "certpl-6",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53001",
+      "case": "certpl-7",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53001",
+      "case": "certpl-8",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53001",
+      "case": "certpl-9",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53001",
+      "case": "certpl-10",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53001",
+      "case": "certpl-11",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53001",
+      "case": "safe-12",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53001",
+      "case": "safe-13",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53001",
+      "case": "safe-14",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53001",
+      "case": "safe-15",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53001",
+      "case": "safe-16",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53001",
+      "case": "safe-17",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53001",
+      "case": "safe-18",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53001",
+      "case": "safe-19",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53002",
+      "case": "certpl-0",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53002",
+      "case": "certpl-1",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53002",
+      "case": "certpl-2",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53002",
+      "case": "certpl-3",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53002",
+      "case": "certpl-4",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53002",
+      "case": "certpl-5",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53002",
+      "case": "certpl-6",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53002",
+      "case": "certpl-7",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53002",
+      "case": "certpl-8",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53002",
+      "case": "certpl-9",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53002",
+      "case": "certpl-10",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53002",
+      "case": "certpl-11",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53002",
+      "case": "safe-12",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53002",
+      "case": "safe-13",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53002",
+      "case": "safe-14",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53002",
+      "case": "safe-15",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53002",
+      "case": "safe-16",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53002",
+      "case": "safe-17",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53002",
+      "case": "safe-18",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53002",
+      "case": "safe-19",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53003",
+      "case": "certpl-0",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53003",
+      "case": "certpl-1",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53003",
+      "case": "certpl-2",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53003",
+      "case": "certpl-3",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53003",
+      "case": "certpl-4",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53003",
+      "case": "certpl-5",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53003",
+      "case": "certpl-6",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53003",
+      "case": "certpl-7",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53003",
+      "case": "certpl-8",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53003",
+      "case": "certpl-9",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53003",
+      "case": "certpl-10",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53003",
+      "case": "certpl-11",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53003",
+      "case": "safe-12",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53003",
+      "case": "safe-13",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53003",
+      "case": "safe-14",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53003",
+      "case": "safe-15",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53003",
+      "case": "safe-16",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53003",
+      "case": "safe-17",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53003",
+      "case": "safe-18",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53003",
+      "case": "safe-19",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53004",
+      "case": "certpl-0",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53004",
+      "case": "certpl-1",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53004",
+      "case": "certpl-2",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53004",
+      "case": "certpl-3",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53004",
+      "case": "certpl-4",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53004",
+      "case": "certpl-5",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53004",
+      "case": "certpl-6",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53004",
+      "case": "certpl-7",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53004",
+      "case": "certpl-8",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53004",
+      "case": "certpl-9",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53004",
+      "case": "certpl-10",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53004",
+      "case": "certpl-11",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53004",
+      "case": "safe-12",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53004",
+      "case": "safe-13",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53004",
+      "case": "safe-14",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53004",
+      "case": "safe-15",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53004",
+      "case": "safe-16",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53004",
+      "case": "safe-17",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53004",
+      "case": "safe-18",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53004",
+      "case": "safe-19",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53005",
+      "case": "certpl-0",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53005",
+      "case": "certpl-1",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53005",
+      "case": "certpl-2",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53005",
+      "case": "certpl-3",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53005",
+      "case": "certpl-4",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53005",
+      "case": "certpl-5",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53005",
+      "case": "certpl-6",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53005",
+      "case": "certpl-7",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53005",
+      "case": "certpl-8",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53005",
+      "case": "certpl-9",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53005",
+      "case": "certpl-10",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53005",
+      "case": "certpl-11",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53005",
+      "case": "safe-12",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53005",
+      "case": "safe-13",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53005",
+      "case": "safe-14",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53005",
+      "case": "safe-15",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53005",
+      "case": "safe-16",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53005",
+      "case": "safe-17",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53005",
+      "case": "safe-18",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53005",
+      "case": "safe-19",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53006",
+      "case": "certpl-0",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53006",
+      "case": "certpl-1",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53006",
+      "case": "certpl-2",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53006",
+      "case": "certpl-3",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53006",
+      "case": "certpl-4",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53006",
+      "case": "certpl-5",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53006",
+      "case": "certpl-6",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53006",
+      "case": "certpl-7",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53006",
+      "case": "certpl-8",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53006",
+      "case": "certpl-9",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53006",
+      "case": "certpl-10",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53006",
+      "case": "certpl-11",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53006",
+      "case": "safe-12",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53006",
+      "case": "safe-13",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53006",
+      "case": "safe-14",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53006",
+      "case": "safe-15",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53006",
+      "case": "safe-16",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53006",
+      "case": "safe-17",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53006",
+      "case": "safe-18",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53006",
+      "case": "safe-19",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53007",
+      "case": "certpl-0",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53007",
+      "case": "certpl-1",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53007",
+      "case": "certpl-2",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53007",
+      "case": "certpl-3",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53007",
+      "case": "certpl-4",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53007",
+      "case": "certpl-5",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53007",
+      "case": "certpl-6",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53007",
+      "case": "certpl-7",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53007",
+      "case": "certpl-8",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53007",
+      "case": "certpl-9",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53007",
+      "case": "certpl-10",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53007",
+      "case": "certpl-11",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53007",
+      "case": "safe-12",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53007",
+      "case": "safe-13",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53007",
+      "case": "safe-14",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53007",
+      "case": "safe-15",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53007",
+      "case": "safe-16",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53007",
+      "case": "safe-17",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53007",
+      "case": "safe-18",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53007",
+      "case": "safe-19",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53008",
+      "case": "certpl-0",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53008",
+      "case": "certpl-1",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53008",
+      "case": "certpl-2",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53008",
+      "case": "certpl-3",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53008",
+      "case": "certpl-4",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53008",
+      "case": "certpl-5",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53008",
+      "case": "certpl-6",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53008",
+      "case": "certpl-7",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53008",
+      "case": "certpl-8",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53008",
+      "case": "certpl-9",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53008",
+      "case": "certpl-10",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53008",
+      "case": "certpl-11",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53008",
+      "case": "safe-12",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53008",
+      "case": "safe-13",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53008",
+      "case": "safe-14",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53008",
+      "case": "safe-15",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53008",
+      "case": "safe-16",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53008",
+      "case": "safe-17",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53008",
+      "case": "safe-18",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53008",
+      "case": "safe-19",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53009",
+      "case": "certpl-0",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53009",
+      "case": "certpl-1",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53009",
+      "case": "certpl-2",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53009",
+      "case": "certpl-3",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53009",
+      "case": "certpl-4",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53009",
+      "case": "certpl-5",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53009",
+      "case": "certpl-6",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53009",
+      "case": "certpl-7",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53009",
+      "case": "certpl-8",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53009",
+      "case": "certpl-9",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53009",
+      "case": "certpl-10",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53009",
+      "case": "certpl-11",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53009",
+      "case": "safe-12",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53009",
+      "case": "safe-13",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53009",
+      "case": "safe-14",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53009",
+      "case": "safe-15",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53009",
+      "case": "safe-16",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53009",
+      "case": "safe-17",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53009",
+      "case": "safe-18",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53009",
+      "case": "safe-19",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53010",
+      "case": "certpl-0",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53010",
+      "case": "certpl-1",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53010",
+      "case": "certpl-2",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53010",
+      "case": "certpl-3",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53010",
+      "case": "certpl-4",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53010",
+      "case": "certpl-5",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53010",
+      "case": "certpl-6",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53010",
+      "case": "certpl-7",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53010",
+      "case": "certpl-8",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53010",
+      "case": "certpl-9",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53010",
+      "case": "certpl-10",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53010",
+      "case": "certpl-11",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53010",
+      "case": "safe-12",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53010",
+      "case": "safe-13",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53010",
+      "case": "safe-14",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53010",
+      "case": "safe-15",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53010",
+      "case": "safe-16",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53010",
+      "case": "safe-17",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53010",
+      "case": "safe-18",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "53010",
+      "case": "safe-19",
+      "sha256": "be2c8b19a5c5e86c6784d4a0f4ca3e1cec4d9129f993f8e83a3d88251293bf80",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "5530",
+      "case": "certpl-0",
+      "sha256": "8ccbd5b0f9e184c4479f0d6e95cdf9b177831b664c40d561ef5b7480fe671062",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "5530",
+      "case": "certpl-1",
+      "sha256": "8ccbd5b0f9e184c4479f0d6e95cdf9b177831b664c40d561ef5b7480fe671062",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "5530",
+      "case": "certpl-2",
+      "sha256": "8ccbd5b0f9e184c4479f0d6e95cdf9b177831b664c40d561ef5b7480fe671062",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "5530",
+      "case": "certpl-3",
+      "sha256": "8ccbd5b0f9e184c4479f0d6e95cdf9b177831b664c40d561ef5b7480fe671062",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "5530",
+      "case": "certpl-4",
+      "sha256": "8ccbd5b0f9e184c4479f0d6e95cdf9b177831b664c40d561ef5b7480fe671062",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "5530",
+      "case": "certpl-5",
+      "sha256": "8ccbd5b0f9e184c4479f0d6e95cdf9b177831b664c40d561ef5b7480fe671062",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "5530",
+      "case": "certpl-6",
+      "sha256": "8ccbd5b0f9e184c4479f0d6e95cdf9b177831b664c40d561ef5b7480fe671062",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "5530",
+      "case": "certpl-7",
+      "sha256": "8ccbd5b0f9e184c4479f0d6e95cdf9b177831b664c40d561ef5b7480fe671062",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "5530",
+      "case": "certpl-8",
+      "sha256": "8ccbd5b0f9e184c4479f0d6e95cdf9b177831b664c40d561ef5b7480fe671062",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "5530",
+      "case": "certpl-9",
+      "sha256": "8ccbd5b0f9e184c4479f0d6e95cdf9b177831b664c40d561ef5b7480fe671062",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "5530",
+      "case": "certpl-10",
+      "sha256": "8ccbd5b0f9e184c4479f0d6e95cdf9b177831b664c40d561ef5b7480fe671062",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "5530",
+      "case": "certpl-11",
+      "sha256": "8ccbd5b0f9e184c4479f0d6e95cdf9b177831b664c40d561ef5b7480fe671062",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "5530",
+      "case": "safe-12",
+      "sha256": "8ccbd5b0f9e184c4479f0d6e95cdf9b177831b664c40d561ef5b7480fe671062",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "5530",
+      "case": "safe-13",
+      "sha256": "8ccbd5b0f9e184c4479f0d6e95cdf9b177831b664c40d561ef5b7480fe671062",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "5530",
+      "case": "safe-14",
+      "sha256": "8ccbd5b0f9e184c4479f0d6e95cdf9b177831b664c40d561ef5b7480fe671062",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "5530",
+      "case": "safe-15",
+      "sha256": "8ccbd5b0f9e184c4479f0d6e95cdf9b177831b664c40d561ef5b7480fe671062",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "5530",
+      "case": "safe-16",
+      "sha256": "8ccbd5b0f9e184c4479f0d6e95cdf9b177831b664c40d561ef5b7480fe671062",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "5530",
+      "case": "safe-17",
+      "sha256": "8ccbd5b0f9e184c4479f0d6e95cdf9b177831b664c40d561ef5b7480fe671062",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "5530",
+      "case": "safe-18",
+      "sha256": "8ccbd5b0f9e184c4479f0d6e95cdf9b177831b664c40d561ef5b7480fe671062",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "5530",
+      "case": "safe-19",
+      "sha256": "8ccbd5b0f9e184c4479f0d6e95cdf9b177831b664c40d561ef5b7480fe671062",
+      "abstain": "transport error"
+    },
+    {
+      "miner": "731440",
+      "case": "certpl-0",
+      "sha256": "e9c339150d92f2cf03054dd6dc3e883fa0b0aa3bcdc4eb23e9144d2963d93a56",
+      "safe": false
+    },
+    {
+      "miner": "731440",
+      "case": "certpl-1",
+      "sha256": "868ced321b8093823049d70393c3d5b77a42d8ea95dbbf25cba1964dab868d80",
+      "safe": false
+    },
+    {
+      "miner": "731440",
+      "case": "certpl-2",
+      "sha256": "63465b1dc51ec86e5ec82db1c2efc31741a825322c057258640cb17b544ff693",
+      "safe": false
+    },
+    {
+      "miner": "731440",
+      "case": "certpl-3",
+      "sha256": "a14bd545617db1c6d89678314a5f0bc5b4c457ab0af4a6019c7a5a73432384ea",
+      "safe": false
+    },
+    {
+      "miner": "731440",
+      "case": "certpl-4",
+      "sha256": "6f9160b212e49b2e9d7715e56b23b9614b779b38e847287b5de77aa8753a4528",
+      "safe": false
+    },
+    {
+      "miner": "731440",
+      "case": "certpl-5",
+      "sha256": "47fa47ab3e6f61b23526cfd1fe40b94182b0a818fbb805b4cf4720b782f74e38",
+      "safe": false
+    },
+    {
+      "miner": "731440",
+      "case": "certpl-6",
+      "sha256": "203587c28129b2cb01bd633b72b2fdf1a49973726e65a8cbc8f2b96bc23af532",
+      "safe": false
+    },
+    {
+      "miner": "731440",
+      "case": "certpl-7",
+      "sha256": "69b7a1a3a3762404430a3ff4ff6de96f7e154f45f59f279c3556288cc840ecd7",
+      "safe": false
+    },
+    {
+      "miner": "731440",
+      "case": "certpl-8",
+      "sha256": "8b44cfbe575bbea1ce760bed22447b87c7cb03a3112262635796d8858a5c3269",
+      "safe": false
+    },
+    {
+      "miner": "731440",
+      "case": "certpl-9",
+      "sha256": "3777684101af3c8f5016c032b4b642ceb961f85e5f62701913f776bad39101e3",
+      "safe": false
+    },
+    {
+      "miner": "731440",
+      "case": "certpl-10",
+      "sha256": "7fe6bbcabd71cd7146859aab71f8483c70c9e88776a0e346779bd303a4e1fc6d",
+      "safe": false
+    },
+    {
+      "miner": "731440",
+      "case": "certpl-11",
+      "sha256": "df6eec1b7f9982d7cf9921f391926987c57c941362e565a17a91adfd8b08ee45",
+      "safe": false
+    },
+    {
+      "miner": "731440",
+      "case": "safe-12",
+      "sha256": "5004f2f48b12448daba1179d43d9737698106e6012050698acf92be213ab2737",
+      "safe": true
+    },
+    {
+      "miner": "731440",
+      "case": "safe-13",
+      "sha256": "ec58350f2706f0b4982762b16cbfed0a97741ffb43d2ece06ddaa332633c97af",
+      "safe": true
+    },
+    {
+      "miner": "731440",
+      "case": "safe-14",
+      "sha256": "51d4bcb016f01671b5ec8ff3b92a1c0d2dfb0aa869f01ca8352b9b4e37944d4f",
+      "safe": true
+    },
+    {
+      "miner": "731440",
+      "case": "safe-15",
+      "sha256": "ba15bef8ba7f28dcfa9b16ca9b22091b76e4794ce9fc3020418eef848383ea12",
+      "abstain": "missing or conflicting verdict"
+    },
+    {
+      "miner": "731440",
+      "case": "safe-16",
+      "sha256": "4b49dfba257ff84ce9a9ac4458d8151c15e59d17e3f4afe63943d4eb845619c9",
+      "abstain": "missing or conflicting verdict"
+    },
+    {
+      "miner": "731440",
+      "case": "safe-17",
+      "sha256": "7b66cfbe5050cdb01be81ad3b439e5a35137ffb8a5ff8843b1c9b4d26d703343",
+      "abstain": "missing or conflicting verdict"
+    },
+    {
+      "miner": "731440",
+      "case": "safe-18",
+      "sha256": "c408d189c14a3ab3c776f4c9f61d595ac4b2b2ddca7f6605f7439d40eefa87c5",
+      "safe": true
+    },
+    {
+      "miner": "731440",
+      "case": "safe-19",
+      "sha256": "f719c29c73c8442b8ea3fec2a698fb09b2511c6b7206380187df86d325a9fdfd",
+      "abstain": "missing or conflicting verdict"
+    },
+    {
+      "miner": "9002",
+      "case": "certpl-0",
+      "sha256": "8e889cf6f2ad75cae43e82fa2e8f96960e0112599b4dbd9c745f91454d7e7dd2",
+      "safe": false
+    },
+    {
+      "miner": "9002",
+      "case": "certpl-1",
+      "sha256": "0f559ea108682c6c63377bf9a4eb37ca8defb888c4b9a577ad9e5ad9e4085822",
+      "safe": false
+    },
+    {
+      "miner": "9002",
+      "case": "certpl-2",
+      "sha256": "5fde790122de276254b53cb6be94223f17d32d0b84e52e999d5b6d84a714262e",
+      "safe": false
+    },
+    {
+      "miner": "9002",
+      "case": "certpl-3",
+      "sha256": "ef085536974aff5d2484baac89486c848154aec496176d18c575221f43e0c2e5",
+      "safe": false
+    },
+    {
+      "miner": "9002",
+      "case": "certpl-4",
+      "sha256": "e8ef6b6e7d0fb66acbdd65e851c595a5bc41387e6dae732c6790b8b3b4c37261",
+      "safe": true
+    },
+    {
+      "miner": "9002",
+      "case": "certpl-5",
+      "sha256": "8337eb2b2f3773205e053b422c6f2cb986ba6164b69e56520da92d0e3d2c3338",
+      "safe": false
+    },
+    {
+      "miner": "9002",
+      "case": "certpl-6",
+      "sha256": "3e919885d8a790afdd357ebd10522c1423dc535e2d5b7b6b07815e0fc9579d1c",
+      "safe": false
+    },
+    {
+      "miner": "9002",
+      "case": "certpl-7",
+      "sha256": "f6b96949af70ab64558e9d10a97f112673f3d03ec8e3b6cee06c50540e84b754",
+      "safe": true
+    },
+    {
+      "miner": "9002",
+      "case": "certpl-8",
+      "sha256": "131bf4fc9785c120306f30799c53743e54bc4ed686ce121a4bb4697e8c1ac34d",
+      "safe": false
+    },
+    {
+      "miner": "9002",
+      "case": "certpl-9",
+      "sha256": "09fd8555d8943e319a9df838b968da8782a86a3a82eedc96b641bb4661369026",
+      "safe": false
+    },
+    {
+      "miner": "9002",
+      "case": "certpl-10",
+      "sha256": "c9ea9067b70f2155272bea81ac2fd57ec96e670870a4193a14de7c802d1b95c4",
+      "safe": false
+    },
+    {
+      "miner": "9002",
+      "case": "certpl-11",
+      "sha256": "118cc63e26bd8d73b3add911d847df3c8952f3756f80a43dafa810517d95eda1",
+      "safe": false
+    },
+    {
+      "miner": "9002",
+      "case": "safe-12",
+      "sha256": "e6f0906b67dbe563d7c13a065e5b25cc8d6f61d051df8a23e49168f46ffb449e",
+      "safe": true
+    },
+    {
+      "miner": "9002",
+      "case": "safe-13",
+      "sha256": "56e89cdee900764de9aa618f44e76d2a67615cf3d65efc6f86fd1941ad24ef8a",
+      "safe": true
+    },
+    {
+      "miner": "9002",
+      "case": "safe-14",
+      "sha256": "a4a33ed2bcde2a63745242cf9c74c39e78382bab112bcd2d4c1e7884640cfca7",
+      "safe": true
+    },
+    {
+      "miner": "9002",
+      "case": "safe-15",
+      "sha256": "10e92f6d143c0bb0184f11aefed07a08e45115cba4c71a1e71b0b76ee4e6d2c3",
+      "safe": true
+    },
+    {
+      "miner": "9002",
+      "case": "safe-16",
+      "sha256": "942355b6df3a1f4b86e3f21b63a8268e1ac27632e777132dd30f3b5ae4fdf5ef",
+      "safe": true
+    },
+    {
+      "miner": "9002",
+      "case": "safe-17",
+      "sha256": "a2dd53d96cba3d1a5b9e1da2c534c2ebe61390acc8b13ec3149cb59e275e230f",
+      "safe": false
+    },
+    {
+      "miner": "9002",
+      "case": "safe-18",
+      "sha256": "37ac6bad57064740954832ca05c3342177ed60d5b67ab95362ad2d25b4333bc8",
+      "safe": true
+    },
+    {
+      "miner": "9002",
+      "case": "safe-19",
+      "sha256": "d2d88916c3d9480e652cd210405183febaf3d43b2d752a2f051e92c9fa173e47",
+      "safe": true
+    }
+  ],
+  "pairs": 62,
+  "pairs_sha256": "e38bcdae0ab293f740d902bbe8a3c43c8e87d87cefbab7f3ada62b160c3563e9"
+}
