@@ -1,0 +1,1 @@
+adapterbuild score_hex 0xbf82b1f3 / adapterexec verify-input bits 0xbf82b1f3 / equal: True

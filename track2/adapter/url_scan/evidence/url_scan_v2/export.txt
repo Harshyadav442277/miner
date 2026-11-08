@@ -1,0 +1,5 @@
+08:36:58 INFO: reward head from C:\Users\hyada\tg-eval\runs-v2\URL_SCAN_v2\adapter\reward_head.pt
+08:36:58 INFO: wrote C:\Users\hyada\tg-eval\runs-v2\URL_SCAN_v2\URL_SCAN.safetensors (6776900 bytes, sha256 8f0a4a0328b482a8952d2ea163b06fe91a1e802dcd71521511f465b6b578cacc, rank 8, 178 tensors)
+
+Next:
+  go run ./cmd/adapterbuild lora --intent URL_SCAN --package C:/Users/hyada/tg-eval/runs-v2/URL_SCAN_v2/URL_SCAN.safetensors --out C:/Users/hyada/tg-eval/runs-v2/URL_SCAN_v2 --foundation C:/Users/hyada/tg-eval/foundation/foundation.json
