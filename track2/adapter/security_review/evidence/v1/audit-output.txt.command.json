@@ -1,0 +1,16 @@
+{
+ "argv": [
+  "C:/Users/hyada/tg-eval/.venv/Scripts/python.exe",
+  "audit_splits.py",
+  "C:/Users/hyada/tg-eval/pairs/security_review_v1",
+  "--oot",
+  "C:/Users/hyada/tg-eval/pairs/security_review_oot_v1/oot.jsonl",
+  "--out",
+  "evidence/v1/audit.json"
+ ],
+ "cwd": "C:\\Users\\hyada\\OneDrive\\Documents\\Work-Related\\Hackathons\\Telegraph\\.claude\\worktrees\\agent-ab157a6de2e63631c\\track2\\adapter\\security_review",
+ "env_set": {},
+ "started_at": "2026-11-08T02:41:30.018241+00:00",
+ "exit_code": 0,
+ "finished_at": "2026-11-08T02:41:30.193410+00:00"
+}

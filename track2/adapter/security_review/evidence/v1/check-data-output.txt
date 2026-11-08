@@ -1,0 +1,9 @@
+08:11:30 INFO: C:/Users/hyada/tg-eval/pairs/security_review_v1/train.jsonl: 3600 pairs
+08:11:30 INFO: C:/Users/hyada/tg-eval/pairs/security_review_v1/val.jsonl: 360 pairs
+dataset gate: PASS (3600 pairs)
+  unique negatives    96.1%
+  largest single neg  0.4%
+  length shortcut     55.1%
+  held-out leak       5.4%
+  surface probe       64.8%  (50% = no tell)
+  mean length         chosen 448 / rejected 447 characters

@@ -1,0 +1,19 @@
+{
+ "argv": [
+  "C:/Users/hyada/tg-eval/.venv/Scripts/python.exe",
+  "-m",
+  "float_runtime.train_adapter",
+  "--intent",
+  "SECURITY_REVIEW",
+  "--data",
+  "C:/Users/hyada/tg-eval/pairs/security_review_v1/train.jsonl",
+  "--val-data",
+  "C:/Users/hyada/tg-eval/pairs/security_review_v1/val.jsonl",
+  "--check-data"
+ ],
+ "cwd": "C:\\Users\\hyada\\tg-eval\\kit-v2",
+ "env_set": {},
+ "started_at": "2026-11-08T02:41:30.324996+00:00",
+ "exit_code": 0,
+ "finished_at": "2026-11-08T02:41:39.771461+00:00"
+}

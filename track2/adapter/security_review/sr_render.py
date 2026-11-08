@@ -204,7 +204,10 @@ def pair_answers(rng, s, rejected, category):
     rng.shuffle(pool)
     # generic / code-quality items never get an elaboration: it would be a rejected-only phrase
     can = lambda items: [x["_i"] for x in items if x["kind"] not in ("generic", "code_quality")]
-    base_notes, checked = rng.choice([0, 0, 1]), rng.random() < 0.3
+    # hygiene sentences shared by both sides, so non-answer vocabulary is not rejected-only
+    pool = pool + [f"Also consider: {t} ({r}); {fx}." for r, t, fx in rng.sample(GENERIC + QUALITY, 2)]
+    rng.shuffle(pool)
+    base_notes, checked = rng.choice([0, 1, 1, 2]), rng.random() < 0.3
     c_pad = {"notes": pool[:base_notes], "checked": checked,
              "elab": {i: rng.choice([0, 0, 1, 2]) for i in can(s["findings"])}}
     r_pad = {"notes": pool[:base_notes], "checked": checked,
@@ -212,8 +215,9 @@ def pair_answers(rng, s, rejected, category):
 
     def grow(pad):
         """One padding step, chosen at random among the moves still available."""
+        # notes and the "checked" sentence stay identical on both sides: padding with them
+        # made them rejected-side words (bag-of-words probe 68-70%)
         moves = [("e", i) for i, v in pad["elab"].items() if v < 2]
-        moves += [("c", None)] * (not pad["checked"]) + [("n", None)] * (len(pad["notes"]) < len(pool))
         if not moves:
             return False
         m, i = rng.choice(moves)
@@ -227,7 +231,6 @@ def pair_answers(rng, s, rejected, category):
 
     def shrink(pad):
         moves = [("e", i) for i, v in pad["elab"].items() if v > 0]
-        moves += [("c", None)] * pad["checked"] + [("n", None)] * bool(pad["notes"])
         if not moves:
             return False
         m, i = rng.choice(moves)
@@ -248,5 +251,7 @@ def pair_answers(rng, s, rejected, category):
         short, long_ = (r_pad, c_pad) if gap > 0 else (c_pad, r_pad)
         # half the time shrink the longer side, so padding is not a property of one label
         if not ((rng.random() < 0.5 and shrink(long_)) or grow(short) or shrink(long_)):
-            return None
-    return None
+            break
+    # Unmatched pairs are kept: the gate tests the sign of the length gap, and dropping
+    # them would remove exactly the pairs (no-issues, missed finding) that cannot be padded.
+    return c, r, fmt

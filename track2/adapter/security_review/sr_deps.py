@@ -116,7 +116,7 @@ def dep_scenario(rng, pkgs_by_eco, by_pkg, n_vuln):
                 entities.append(name)
                 for h in hits:
                     findings.append({"sev": h["sev"], "loc": f"{name}@{ver}", "ref": h["cve"] or h["ghsa"],
-                                     "title": h["summary"], "fix": f"upgrade {name} to {h['patched']} or later",
+                                     "title": h["summary"], "fix": f"upgrade {name} to {h['patched']}" + rng.choice(["", " or later"]),
                                      "kind": "dependency", "cwe": (h["cwes"] or [None])[0]})
                 continue
         ver = safe_version(by_pkg[key])

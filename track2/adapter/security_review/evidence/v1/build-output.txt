@@ -1,0 +1,126 @@
+{
+ "holdout": {
+  "pairs": 200,
+  "sha256": "0ea88ee74d64223028811cb1187cb0076c5d9d78635b15cff1fc084823089adf",
+  "longer_is_chosen": 0.515,
+  "by_kind": {
+   "generic": 14,
+   "code_quality": 13,
+   "wrong_location": 38,
+   "false_positive": 33,
+   "false_no_issues": 23,
+   "hallucinated_cve": 16,
+   "wrong_severity": 32,
+   "missed_critical": 31
+  },
+  "by_category": {
+   "secret": 24,
+   "code+config": 9,
+   "code": 40,
+   "dependency": 63,
+   "config+dependency": 2,
+   "code+secret": 4,
+   "config+code": 3,
+   "config": 39,
+   "secret+config": 1,
+   "dependency+config": 7,
+   "dependency+code": 3,
+   "dependency+secret": 1,
+   "secret+code": 3,
+   "config+secret": 1
+  },
+  "by_format": {
+   "md": 71,
+   "plain": 38,
+   "json": 31,
+   "prose": 28,
+   "table": 32
+  },
+  "clean": 28,
+  "max_tokens": 498
+ },
+ "val": {
+  "pairs": 360,
+  "sha256": "63ddef2f20734b2e843c8de4ae0b8ba9bde437f3c63b19ba9bc1274d75870a97",
+  "longer_is_chosen": 0.5806,
+  "by_kind": {
+   "wrong_severity": 58,
+   "false_no_issues": 41,
+   "wrong_location": 70,
+   "code_quality": 23,
+   "hallucinated_cve": 29,
+   "generic": 23,
+   "missed_critical": 58,
+   "false_positive": 58
+  },
+  "by_category": {
+   "config": 68,
+   "dependency": 106,
+   "secret": 56,
+   "code+secret": 3,
+   "code": 87,
+   "secret+code": 2,
+   "config+dependency": 3,
+   "dependency+secret": 3,
+   "dependency+config": 4,
+   "secret+dependency": 3,
+   "code+dependency": 3,
+   "code+config": 5,
+   "dependency+code": 6,
+   "config+code": 7,
+   "secret+config": 2,
+   "config+secret": 2
+  },
+  "by_format": {
+   "md": 128,
+   "json": 51,
+   "prose": 59,
+   "table": 64,
+   "plain": 58
+  },
+  "clean": 32,
+  "max_tokens": 498
+ },
+ "train": {
+  "pairs": 3600,
+  "sha256": "a6089871ce7cef44c9f4d06ee5388bd83a0ee895a2fcd641960aba719e1982ee",
+  "longer_is_chosen": 0.515,
+  "by_kind": {
+   "false_positive": 581,
+   "code_quality": 233,
+   "hallucinated_cve": 291,
+   "false_no_issues": 406,
+   "wrong_severity": 580,
+   "missed_critical": 580,
+   "wrong_location": 696,
+   "generic": 233
+  },
+  "by_category": {
+   "config": 610,
+   "secret+code": 40,
+   "code+secret": 70,
+   "code": 944,
+   "dependency": 1037,
+   "secret": 504,
+   "dependency+secret": 15,
+   "dependency+code": 77,
+   "config+code": 49,
+   "dependency+config": 52,
+   "code+dependency": 63,
+   "config+secret": 24,
+   "code+config": 47,
+   "secret+dependency": 22,
+   "config+dependency": 29,
+   "secret+config": 17
+  },
+  "by_format": {
+   "table": 601,
+   "json": 554,
+   "plain": 605,
+   "md": 1232,
+   "prose": 608
+  },
+  "clean": 438,
+  "max_tokens": 500
+ }
+}

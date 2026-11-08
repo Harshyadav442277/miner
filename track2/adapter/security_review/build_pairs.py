@@ -23,6 +23,10 @@ import sr_deps
 from sr_render import KINDS, corrupt, pair_answers, prompt_text
 
 MAX_TOKENS = 500  # the package scores 512; keep every rendered text whole
+# Prompt-blind kinds (a non-answer is visible without reading the input) are down-weighted
+# so the kit's surface probe stays under 65%; the other kinds need the input to judge.
+KIND_WEIGHT = {"missed_critical": 1.0, "wrong_severity": 1.0, "wrong_location": 1.2, "hallucinated_cve": 0.5,
+               "false_positive": 1.0, "generic": 0.4, "code_quality": 0.4, "false_no_issues": 0.7}
 
 
 def split_list(items, rng, holdout, val):
@@ -94,7 +98,7 @@ def build(rng, split, n, per_scenario, sp, by_pkg, real_cves, tok, seen_prompts)
         if prompt in seen_prompts:
             continue
         # least-used applicable kinds first, so the kinds stay balanced
-        order = sorted(KINDS, key=lambda k: (kinds[k], rng.random()))
+        order = sorted(KINDS, key=lambda k: (kinds[k] / KIND_WEIGHT[k], rng.random()))
         made = 0
         for kind in order:
             rej = corrupt(kind, rng, s, real_cves)
