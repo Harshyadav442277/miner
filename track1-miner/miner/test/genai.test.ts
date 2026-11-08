@@ -67,8 +67,24 @@ test("genai: chat serves brief, reply and a will-verdict from the model's JSON",
   });
   await withModel(JSON.stringify({ brief: "Canberra is the capital of Australia.", reply: "Canberra is the capital of Australia.", verdict: null }), async () => {
     const a = await chat("", "What is the capital of Australia?");
-    assert.equal(a.verdict, "answered");
+    // The schema's verdict enum is Likely | Unlikely | Uncertain: a non-forecast answer carries none.
+    assert.equal("verdict" in a, false);
     assert.equal(a.brief, "Canberra is the capital of Australia.");
+  });
+});
+
+test("genai: a one-word forecast brief falls back to the reply's opening sentence, and hyphens are plain", async () => {
+  // Production shape, 2026-11-08: brief "Uncertain" alone on a forecast question.
+  await withModel(JSON.stringify({ brief: "Uncertain", verdict: "Uncertain",
+    reply: "Uncertain: the Fed‑funds path depends on 2027 inflation, which sits near −1 point of target. Markets price two cuts." }), async () => {
+    const a = await chat("Will the Fed cut rates in 2027?");
+    assert.equal(a.verdict, "Uncertain");
+    assert.match(String(a.brief), /^Uncertain: the Fed-funds path depends on 2027 inflation\b/);
+    assert.ok(String(a.brief).length <= 80);
+    assert.doesNotMatch(String(a.reply), /[‐‑−]/);
+  });
+  await withModel(JSON.stringify({ brief: "Likely.", verdict: "Likely", reply: "Likely. Launch windows open in 2027." }), async () => {
+    assert.equal((await chat("Will a Mars launch happen in 2027?")).brief, "Likely.");
   });
 });
 

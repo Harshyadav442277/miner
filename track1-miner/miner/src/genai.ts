@@ -16,7 +16,7 @@
  */
 import { phrase } from "./llm";
 
-export interface GenAnswer { verdict: string; confidence: number; reason: string; error?: string; [k: string]: unknown }
+export interface GenAnswer { verdict?: string; confidence: number; reason: string; error?: string; [k: string]: unknown }
 
 const SOURCE = "Groq (gpt-oss-120b, falling back to qwen3.8-27b and gpt-oss-20b)";
 /** The model's own probability is not calibrated; this fixed value says so rather than inventing one. */
@@ -81,21 +81,35 @@ const CHAT_SYSTEM = `You answer one message from a user, correctly and directly.
 For a question about whether something will happen, set "verdict" to "Likely", "Unlikely" or "Uncertain" and start both brief and reply with that word.
 No markdown in brief. Never refer to yourself, your training or your last update. If a fact may have changed recently, give the year it dates from, as in \"as of 2024\".`;
 
+/** Non-breaking (U+2011), plain Unicode (U+2010) and minus (U+2212) hyphens as "-". Pure. */
+export const plainHyphens = (t: string): string => t.replace(/[‐‑−]/g, "-");
+
+/**
+ * Whether the model's brief says something: at least four words, and not just the verdict word. A forecast
+ * brief of "Uncertain" alone was served as the scored field (comparison with the top miners, 2026-11-08). Pure.
+ */
+export function usableBrief(brief: string, verdict: string | null): boolean {
+  if (brief.split(/\s+/).filter(Boolean).length < 4) return false;
+  const bare = brief.replace(/[^A-Za-z]+/g, "").toLowerCase();
+  return !verdict || bare !== verdict.toLowerCase();
+}
+
 export async function chat(question: string, messageParam = ""): Promise<GenAnswer> {
   const message = (messageParam || question).trim().slice(0, MAX_INPUT);
   if (!message) return missing("message", "message", { reply: null, brief: null });
   const will = asksWillHappen(message);
   const raw = await phrase({ system: CHAT_SYSTEM, user: message, maxTokens: 700, long: true, json: true, clean: (r) => (parseObject(r) ? r : null) });
   const o = raw ? parseObject(raw) : null;
-  const reply = str(o?.reply);
+  const reply = plainHyphens(str(o?.reply));
   if (!o || !reply) return unavailable("a reply", { reply: null, brief: null });
   const v = str(o.verdict);
   const verdict = will && /^(Likely|Unlikely|Uncertain)$/.test(v) ? v : will ? (reply.match(/^(Likely|Unlikely|Uncertain)\b/)?.[1] ?? "Uncertain") : null;
-  // The model's brief when it fits, else the reply's own opening sentence when that fits, else a clean cut.
-  const fits = [str(o.brief), opening(reply)].find((x) => x && x.length <= 80);
-  const brief = fits ?? cut(str(o.brief) || opening(reply));
-  return { reply, brief, ...(verdict ? { verdict } : { verdict: "answered" }), confidence: CONFIDENCE, source: SOURCE,
-    reason: reply };
+  // The model's brief when it says something and fits, else the reply's own opening sentence, cut cleanly when long.
+  const model = plainHyphens(str(o.brief));
+  const first = opening(reply);
+  const brief = usableBrief(model, verdict) && model.length <= 80 ? model : first.length <= 80 ? first : cut(first);
+  // The schema's verdict is Likely | Unlikely | Uncertain only; a question that is not a forecast carries none.
+  return { reply, brief, ...(verdict ? { verdict } : {}), confidence: CONFIDENCE, source: SOURCE, reason: reply };
 }
 
 const SEVERITIES = ["critical", "high", "medium", "low", "info"] as const;

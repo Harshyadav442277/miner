@@ -18,7 +18,7 @@ import { screenSanctions } from "./sanctions";
 import { verifyTokenSupply } from "./token-supply";
 import { urlReputation } from "./urlsafe";
 
-export interface MissionAnswer { verdict: string; confidence: number; reason: string; error?: string }
+export interface MissionAnswer { verdict?: string; confidence: number; reason: string; error?: string }
 
 export interface MissionRoute {
   /** "A sanctions screening": the watchdog's sentence when the route runs out of time. */
