@@ -1,0 +1,34 @@
+Intent mapping (optional)
+intent_mapping tells the node, for each intent you serve, how to build your request from the user's request and where each field of the intent's response format sits in your answer. A miner without it is called and read exactly as before. With it, the node reads your answers precisely instead of asking a model to find the values.
+It needs the node to run the parser model (PARSER_LLM_ENABLED=true, with a NuExtract-style model recommended). Nodes where INTENT_MAPPING_ENABLED is off ignore it.
+yaml
+intent_mapping:
+  FX_NOW_EUR:
+    endpoint: /query                 # a declared endpoint path
+    vars:                            # values read from the request, not sent to you
+      quote: Quote currency of the pair, ISO 4217 code.
+    input:                           # your param -> how to fill it
+      from: { from: base, how: "Base currency code, upper case." }
+      to:   { from: quote }
+    output:                          # intent response field -> where it is in your answer
+      rate:  { path: "rates.{to}", unit: quote per base }
+      as_of: { path: date }
+How it is used:
+Requests. The extraction model fills your params from the question, using a typed template built from the endpoint's params, input_schema, and each param's how. Constants and time params are filled in code. The result is checked against your YAML before sending: every required param present, types, enum values and patterns. An optional value that fails is dropped; a required one that is missing or fails means the request is not sent and the router uses its fallback miner.
+Answers. Each field is located with its path. Numbers are computed in code: the located value, a series reduced with reduce, converted from unit, or a formula. Every other field comes from one model call that sees only the located values. Copied text and numbers must appear verbatim in them, and enums must be allowed values. A field the mapping does not list is reported missing.
+Arithmetic is never left to the model. On real answers it misconverted every Kelvin temperature and half the rouble cross rates, while it read located values correctly every time no arithmetic was needed.
+FieldTypeDescription
+intent_mapping.<INTENT>.endpointstringDeclared endpoint path that serves the intent
+...vars.<name>stringA value read from the request that is not sent to you but is needed to read your answer ({name} in a path or formula). The text describes it to the model
+...input.<param>.fromstring or string[]Where the value comes from: an intent input name (or several), const (with value), or a time: now (current hour), today or tomorrow (00:00 UTC)
+...input.<param>.valueanyThe constant for from: const
+...input.<param>.add_hours_from / default_hoursstring / numberTime params: hours to add, read from the request under this name; default_hours when the request gives none (for example a window end = now + hours)
+...input.<param>.time_formatrfc3339 or dateFormat of a time value. Default rfc3339
+...input.<param>.howstringHow to write the value (Solana -> solana, upper case). Shown to the model
+...output.<field>.pathstringDot path into your answer. A number indexes an array, * matches every key, x[] is every element of x, {name} is a request value (a param sent, a vars value, or the question key)
+...output.<field>.unitstringThe unit your answer gives the value in. Code converts it to the field's unit: one of the field's unit_aliases, or Kelvin / Fahrenheit / Celsius, fraction / percent / basis points, wei / gwei, km/h / m/s / mph / knots, Unix ms / s. A unit with no conversion is not guessed: the field is rejected, never stored as the raw number
+...output.<field>.reducemax min first last sum meanReduce a series to one value. Required when the path selects several numbers
+...output.<field>.formulastringArithmetic computed in code: + - * /, parentheses, numbers and answer paths (each resolving to one number); text after ; is a comment. It must read at least one answer path: a constant, or one built only from {name} request values, is rejected at registration
+...output.<field>.howstringAnything else about reading the value. Shown to the model
+Find the field names you map to from the intent itself: GET /engine/v1/intents/{intent} returns response.fields (what to produce) and request.params (what the user sends).
+An invalid mapping is rejected at registration with intent_mapping invalid registrationId=N errors=[...].
