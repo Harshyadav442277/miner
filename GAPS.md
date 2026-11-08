@@ -1,5 +1,20 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-08 ~19:15 UTC demand map — G286
+
+- **G286 — Evaluator targets ranked by paid requests. `OPEN`: the feed is a sample, and whether evaluator fees
+  scale with requests is unverified.** Source: the 5,000 most recent `daemon/api/questions` rows (since 2026-11-06
+  08:53 UTC), counted by `routing.intent`, joined to `/api/wasm`.
+  - **Top demand:** CODE_REVIEW 927 (champion #188 at 100%, unbeatable). REGULATORY_FILING_MONITOR 540 (none).
+    SANCTIONS_SCREENING_MATCH 565 across both ids (none). CHAT_COMPLETION 385 (none, no pool material).
+    WEB_SEARCH 333 (no family on-chain). CORPORATE_REGISTRY_LOOKUP 298 (none). SMART_CONTRACT_AUDIT 279 (no family).
+    TOKEN_HOLDER_COUNT 257 (none). WASH_TRADING 179 (100% champion). LIQUIDITY_DEPTH_VERIFY 139, GRID_POWER_PRICE 122,
+    MINING_HASHPRICE_VERIFY 85, FINANCIAL_DATA 65 (all none). Our CRYPTO_PRICE has 71.
+  - **We have a built comparator for 6 of the no-champion families:** REGULATORY_FILING_MONITOR,
+    CORPORATE_REGISTRY_LOOKUP, LIQUIDITY_DEPTH_VERIFY, GRID_POWER_PRICE, MINING_HASHPRICE_VERIFY and FINANCIAL_DATA.
+    Lane `claude/high-demand-comparators` adds runnables and a preview deploy, and writes sign blocks.
+  - Blocker for most of the six: fewer than 5 eligible pool contributors, so a registration waits for material.
+
 ## 2026-11-08 IST evaluator targets — G282, G283
 
 - **G282 — In deterministic families, holding the champion slot reflects who registered last, not who scores best.
