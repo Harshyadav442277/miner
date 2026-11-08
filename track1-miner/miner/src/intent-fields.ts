@@ -9,7 +9,7 @@
  * removes the guess. REGULATORY_FILING_MONITOR_GENERAL's `filing_count` is
  * built in filings.ts, which holds the whole filing window. Pure.
  */
-import { cut, opening } from "./genai";
+import { leadSentence } from "./envelope";
 import type { RegistryResult } from "./registry";
 import type { SanctionsResult } from "./sanctions";
 
@@ -50,8 +50,41 @@ export function registryIntentFields(r: RegistryResult): RegistryResult & Regist
 type Body = Record<string, unknown>;
 const num = (v: unknown): number | null => (typeof v === "number" && Number.isFinite(v) ? v : null);
 const list = (v: unknown): Body[] => (Array.isArray(v) ? (v.filter((x) => x && typeof x === "object") as Body[]) : []);
-/** The answer's opening sentence, at most `n` characters: what a `brief` field asks for. */
-const brief = (reason: unknown, n = 80): string | null => (typeof reason === "string" && reason.trim() ? cut(opening(reason), n) : null);
+const str = (v: unknown): string | null => (typeof v === "string" && v.trim() ? v.replace(/\s+/g, " ").trim() : null);
+/** Words a clipped brief must not end on. */
+const DANGLING = /\s+(?:a|an|the|of|to|in|on|at|by|for|with|from|into|and|or|but|that|which|is|are|was|were|be|as|its|their|this|these)$/i;
+
+/**
+ * At most `n` characters of `text`, ending at a word boundary, with nothing appended. Release 1f43311 cut at the
+ * first ": " and added a full stop, so briefs read "Recent coverage of OpenAI from the last 30 days includes."
+ */
+export function clip(text: string, n = 80): string {
+  const t = text.replace(/\s+/g, " ").trim();
+  if (t.length <= n) return t;
+  const at = t.slice(0, n + 1).lastIndexOf(" ");
+  let out = (at > n / 4 ? t.slice(0, at) : t.slice(0, n)).replace(/[\s,;:(\-–—“‘]+$/, "");
+  while (DANGLING.test(out)) out = out.replace(DANGLING, "");
+  return out;
+}
+
+/** The answer's lead sentence (envelope.ts, which knows "et al." and "Nov."), at most `n` characters. */
+const brief = (reason: unknown, n = 80): string | null => {
+  const s = str(reason);
+  return s ? clip(leadSentence(s), n) : null;
+};
+/** A headline with its publisher when both fit, else the headline alone. */
+const headline = (a: Body | undefined): string | null => {
+  const title = str(a?.title);
+  if (!title) return null;
+  const src = str(a?.source);
+  const both = src ? `${title} (${src})` : title;
+  return both.length <= 80 ? both : clip(title);
+};
+/** The first sentence quoted in `reason`: a synthesis quotes each finding from its study's abstract. */
+const firstQuote = (reason: unknown): string | null => {
+  const q = str(reason)?.match(/"([^"]{12,})"/)?.[1];
+  return q ? clip(q) : null;
+};
 const amount = (v: unknown): number | null => (typeof v === "string" && /^\d+(?:\.\d+)?$/.test(v) ? Number(v) : num(v));
 
 /**
@@ -106,23 +139,27 @@ const SCORED: Record<string, (b: Body) => Body> = {
   // ACADEMIC_SEARCH_GENERAL
   "/papers": (b) => {
     const papers = list(b.papers);
+    const top = str(papers[0]?.title);
     return { paper_titles: papers.map((p) => p.title).filter(Boolean), dois: papers.map((p) => p.doi ?? null),
-      total_matches: num(b.count), brief: brief(b.reason) };
+      total_matches: num(b.count), brief: top ? clip(`Top paper: ${top}`) : brief(b.reason) };
   },
-  // LANGUAGE_TRANSLATION_GENERAL: the translation itself when it fits
-  "/translate": (b) => ({ brief: typeof b.translation === "string" ? cut(b.translation) : null }),
+  // LANGUAGE_TRANSLATION_GENERAL: the translation itself, its first 80 characters when longer
+  "/translate": (b) => {
+    const t = str(b.translation);
+    return { brief: t ? clip(t) : null };
+  },
   // CONTENT_EXTRACTION_GENERAL: the values asked for as name: value pairs, and every value as an entity
   "/extract": (b) => {
     const ex = b.extracted && typeof b.extracted === "object" && !Array.isArray(b.extracted) ? (b.extracted as Record<string, unknown>) : {};
     const pairs = Object.entries(ex).filter(([, v]) => Array.isArray(v) && v.length).map(([k, v]) => `${k}: ${(v as unknown[]).join(", ")}`);
-    return { entities: Object.values(ex).flatMap((v) => (Array.isArray(v) ? v : [])), brief: pairs.length ? cut(pairs.join("; ")) : brief(b.reason) };
+    return { entities: Object.values(ex).flatMap((v) => (Array.isArray(v) ? v : [])), brief: pairs.length ? clip(pairs.join("; ")) : brief(b.reason) };
   },
   // NEWS_HEADLINES_GENERAL
   "/headlines": (b) => ({ top_headline: (list(b.headlines)[0]?.title as string | undefined) ?? null }),
   // NEWS_SEARCH_GENERAL
   "/news-search": (b) => {
     const a = list(b.articles);
-    return { result_count: num(b.count) ?? a.length, sources: a.map((x) => x.url ?? x.source).filter(Boolean), brief: brief(b.reason) };
+    return { result_count: num(b.count) ?? a.length, sources: a.map((x) => x.url ?? x.source).filter(Boolean), brief: headline(a[0]) ?? brief(b.reason) };
   },
   // FINANCIAL_DATA_GENERAL: a coin's or token's dollar figures as the route read them
   "/financial": (b) => {
@@ -134,12 +171,16 @@ const SCORED: Record<string, (b: Body) => Body> = {
   // RESEARCH_QUERY_GENERAL
   "/research": (b) => {
     const c = list(b.citations);
-    return { source_count: c.length, sources: c.map((x) => x.url ?? x.title).filter(Boolean), brief: brief(b.reason) };
+    const first = str(c[0]?.title) ?? str(list(b.trials)[0]?.title);
+    return { source_count: c.length, sources: c.map((x) => x.url ?? x.title).filter(Boolean), brief: first ? clip(first) : brief(b.reason) };
   },
   // STOCK_PRICE_US_EQUITY: a dollar quote only
   "/stock-price": (b) => ({ price_usd: b.currency === "USD" ? num(b.price) : null }),
   // WEB_SEARCH_GENERAL
-  "/web-search": (b) => ({ sources: list(b.articles).map((x) => x.url ?? x.source).filter(Boolean), brief: brief(b.reason) }),
+  "/web-search": (b) => {
+    const a = list(b.articles);
+    return { sources: a.map((x) => x.url ?? x.source).filter(Boolean), brief: headline(a[0]) ?? brief(b.background) ?? brief(b.reason) };
+  },
   // SENTIMENT_ANALYSIS_GENERAL: the label in the schema's case, and the compound score (-1 to 1)
   "/sentiment": (b) => ({
     sentiment: typeof b.verdict === "string" && /^(positive|negative|neutral|mixed)$/.test(b.verdict) ? b.verdict[0]!.toUpperCase() + b.verdict.slice(1) : null,
@@ -147,8 +188,11 @@ const SCORED: Record<string, (b: Body) => Body> = {
   }),
   // TEXT_CLASSIFICATION_GENERAL
   "/classify": (b) => ({ category: typeof b.label === "string" ? b.label : null }),
-  // RESEARCH_SYNTHESIS_GENERAL
-  "/research-synthesis": (b) => ({ source_count: Array.isArray(b.sources) ? b.sources.length : null, brief: brief(b.reason) }),
+  // RESEARCH_SYNTHESIS_GENERAL: the brief is the first finding quoted, or absent when none was
+  "/research-synthesis": (b) => {
+    const q = firstQuote(b.reason);
+    return { source_count: Array.isArray(b.sources) ? b.sources.length : null, ...(q ? { brief: q } : {}) };
+  },
   // FACT_CHECK_GENERAL
   "/fact-check": (b) => ({ reasoning: typeof b.reason === "string" ? b.reason : null, sources: typeof b.source_url === "string" ? [b.source_url] : [] }),
   // MACRO_ECONOMIC_INDICATOR_GENERAL: the first percentage reported

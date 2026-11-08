@@ -16,6 +16,9 @@ test("the lead sentence ends at the first full stop that ends a sentence", () =>
   assert.equal(leadSentence("Is it raining? No, it is dry in London."), "Is it raining?");
   assert.equal(leadSentence("Бонжур"), "Бонжур");
   assert.equal(leadSentence('He said "stop." Then left.'), 'He said "stop."');
+  // A month abbreviation is not a sentence end: briefs read "SpaceX sets Nov." (2026-11-08).
+  assert.equal(leadSentence("SpaceX sets Nov. 12 launch for Starship. More."), "SpaceX sets Nov. 12 launch for Starship.");
+  assert.equal(leadSentence("Filed Sept. 3 and Jan. 9 by the board. Next."), "Filed Sept. 3 and Jan. 9 by the board.");
 });
 
 test("a numbered list stays in the sentence that introduced it (audit replay 2026-11-04)", () => {

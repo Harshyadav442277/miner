@@ -169,3 +169,39 @@ test("format-version-3 fields: each copies what the route states, and the schema
   assert.equal(scoredFields("/onchain-metric", { metric: "native_balance", value_raw: "1146641417679066653164", block_number: 21000000 }).balance_gwei, 1146641417679);
   assert.equal(scoredFields("/sanctions-screen", {}).match_score, undefined, "sanctions fields are built in its route, not here");
 });
+
+// Release 1f43311 cut every brief at its first full stop or ": " and added a full stop (production, 2026-11-08):
+// "Recent coverage of OpenAI from the last 30 days includes." and "... (Hofseth LJ et." Each brief now says something.
+test("briefs carry content, end at a word boundary and never gain a full stop", () => {
+  const news = scoredFields("/news-search", { count: 2, reason: "Recent coverage of OpenAI from the last 30 days includes: \"A\" (Futurism, 7 November 2026).",
+    articles: [{ title: "OpenAI valued at $1.25 trillion, as rival Anthropic nears its IPO", source: "The Verge" }, { title: "B", source: "CNBC" }] });
+  assert.equal(news.brief, "OpenAI valued at $1.25 trillion, as rival Anthropic nears its IPO (The Verge)");
+  const long = scoredFields("/news-search", { articles: [{ title: "OpenAI Hears Voters' Overwhelming Rebuke To Data Centers, Vows to Build More of Them", source: "Futurism" }] });
+  assert.equal(long.brief, "OpenAI Hears Voters' Overwhelming Rebuke To Data Centers, Vows to Build More", "the headline alone when the publisher does not fit");
+  assert.equal(scoredFields("/news-search", { articles: [], reason: "No coverage of X was found in the last 30 days. Try a wider window." }).brief,
+    "No coverage of X was found in the last 30 days.");
+
+  const papers = scoredFields("/papers", { count: 1, papers: [{ title: "Single-sequence protein structure prediction using supervised transformer protein language models" }] });
+  assert.equal(papers.brief, "Top paper: Single-sequence protein structure prediction using supervised");
+
+  const research = scoredFields("/research", { trials: [], reason: "\"GLP-1 Receptor Agonists and Cancer Risk in Obesity Treatment\" (Hofseth LJ et al., 2026) concludes: X.",
+    citations: [{ title: "GLP-1 Receptor Agonists and Cancer Risk in Obesity Treatment" }] });
+  assert.equal(research.brief, "GLP-1 Receptor Agonists and Cancer Risk in Obesity Treatment");
+  assert.equal(scoredFields("/research", { citations: [], trials: [{ title: "RAFT eye trial" }] }).brief, "RAFT eye trial");
+  assert.equal(scoredFields("/research", { citations: [], trials: [], reason: "Smith et al. found no trial. Source: X." }).brief, "Smith et al. found no trial.",
+    "the lead sentence knows et al.");
+
+  const synth = scoredFields("/research-synthesis", { sources: ["a", "b"], reason: "Across two studies on antibiotic resistance, the findings are: Bhardwaj et al. (2022, PMID 35676839): \"Overuse of antibiotics drives resistance.\" Ogawara et al. (2019): \"Second.\"" });
+  assert.equal(synth.brief, "Overuse of antibiotics drives resistance.");
+  assert.equal("brief" in scoredFields("/research-synthesis", { sources: [], reason: "Neither Europe PMC nor PubMed answered." }), false, "no finding, no brief");
+
+  assert.equal(scoredFields("/translate", { translation: "Bonjour, comment allez-vous ?" }).brief, "Bonjour, comment allez-vous ?");
+  const tr = String(scoredFields("/translate", { translation: "Die Sitzung wurde auf nächsten Dienstag verschoben, weil der Vorstand noch nicht alle Unterlagen erhalten hat." }).brief);
+  assert.equal(tr, "Die Sitzung wurde auf nächsten Dienstag verschoben, weil der Vorstand noch nicht");
+  assert.ok(tr.length <= 80 && !tr.endsWith("."));
+
+  assert.equal(scoredFields("/web-search", { articles: [{ title: "Fed holds rates steady", source: "Reuters" }] }).brief, "Fed holds rates steady (Reuters)");
+  assert.equal(scoredFields("/web-search", { articles: [], background: "Paris is the capital of France. It has 2 million people.", reason: "According to Wikipedia: Paris." }).brief,
+    "Paris is the capital of France.");
+  assert.equal(scoredFields("/url-reputation", { sources: [], reason: "Safe: listed by none of 3 sources. Detail." }).summary, "Safe: listed by none of 3 sources.");
+});

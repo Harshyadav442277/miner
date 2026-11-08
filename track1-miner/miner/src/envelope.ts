@@ -14,8 +14,8 @@
  */
 import type { Receipt } from "./receipt";
 
-/** Words that end in a full stop without ending the sentence. */
-const ABBREVIATION = /(?:^|[\s(])(?:e\.g|i\.e|etc|vs|approx|est|cf|al|Fig|No|Nos|St|Mt|Mr|Mrs|Ms|Dr|Prof|Jr|Sr|Inc|Ltd|Co|Corp|U\.S|U\.K|U\.N|E\.U|[A-Z])$/;
+/** Words that end in a full stop without ending the sentence. Month abbreviations: "SpaceX sets Nov. 12 launch". */
+const ABBREVIATION = /(?:^|[\s(])(?:e\.g|i\.e|etc|vs|approx|est|cf|al|Fig|No|Nos|St|Mt|Mr|Mrs|Ms|Dr|Prof|Jr|Sr|Inc|Ltd|Co|Corp|U\.S|U\.K|U\.N|E\.U|Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec|[A-Z])$/;
 
 /**
  * The first sentence of `text`, or the whole of it when it has only one.
