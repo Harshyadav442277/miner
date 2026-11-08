@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { asksWillHappen, chat, cut, generateText, normaliseFindings, opening, parseObject, reviewCode, reviewVerdict, wordTarget } from "../src/genai";
+import { asksWillHappen, chat, cut, generateText, normaliseFindings, opening, parseObject, reviewCode, reviewSummary, reviewVerdict, wordTarget } from "../src/genai";
 import { resetPhraseState } from "../src/llm";
 
 /** Groq answering with `content` for every call; restores fetch and the key after. */
@@ -110,8 +110,55 @@ test("genai: a review's verdict follows its findings and leads the answer", asyn
     assert.equal(a.verdict, "Request changes");
     assert.equal(a.finding_count, 2);
     assert.equal((a.findings as Array<{ severity: string }>)[0]!.severity, "critical");
-    assert.match(String(a.reason), /^Request changes: The code is unsafe/);
+    // A summary without the correctness opener gets the one its verdict supports.
+    assert.match(String(a.reason), /^Request changes: The code is not correct\. The code is unsafe/);
   });
+});
+
+test("genai: the review summary opens with its correctness sentence and asks for 3-6 sentences", async () => {
+  assert.equal(reviewSummary("The code is correct. A buffer overflow at line 3.", "Request changes"), "The code is not correct. A buffer overflow at line 3.");
+  assert.equal(reviewSummary("The code is correct. Names are clear.", "Approve"), "The code is correct. Names are clear.");
+  assert.equal(reviewSummary("Clean and readable.", "Approve"), "The code is correct. Clean and readable.");
+  assert.equal(reviewSummary("One medium issue.", "Comment"), "One medium issue.");
+  await withModel(JSON.stringify({ verdict: "Approve", summary: "The code is correct. It sums a list.", findings: [] }), async (calls) => {
+    await reviewCode("", "def total(xs):\n  return sum(xs)\n");
+    assert.match(String((calls[0]!.messages as Array<{ content: string }>)[0]!.content), /three to six plain sentences that open with exactly "The code is correct\." or "The code is not correct\."/);
+  });
+});
+
+test("llm: a 400 moves to the next model at once, and a json_validate_failed generation is kept when it parses", async () => {
+  const real = globalThis.fetch;
+  const models: string[] = [];
+  let salvageable = true;
+  process.env.GROQ_API_KEY = "test-key";
+  resetPhraseState();
+  const review = { verdict: "Approve", summary: "The code is correct. It sums a list.", findings: [] };
+  globalThis.fetch = (async (_url: string, init: { body: string }) => {
+    const model = String((JSON.parse(init.body) as { model: string }).model);
+    models.push(model);
+    if (model === "openai/gpt-oss-120b") {
+      return new Response(JSON.stringify({ error: { code: "json_validate_failed", message: "Failed to generate JSON",
+        failed_generation: salvageable ? `Here is the review: ${JSON.stringify(review)}` : "not json at all" } }), { status: 400 });
+    }
+    return new Response(JSON.stringify({ choices: [{ message: { content: JSON.stringify(review) } }] }), { status: 200 });
+  }) as typeof fetch;
+  try {
+    const a = await reviewCode("", "def total(xs):\n  return sum(xs)\n");
+    assert.equal(a.verdict, "Approve");
+    assert.deepEqual(models, ["openai/gpt-oss-120b"], "the paid-for generation is used, no second model");
+    salvageable = false;
+    models.length = 0;
+    resetPhraseState();
+    const t0 = Date.now();
+    const b = await reviewCode("", "def total(xs):\n  return sum(xs)\n");
+    assert.equal(b.verdict, "Approve");
+    assert.deepEqual(models, ["openai/gpt-oss-120b", "qwen/qwen3.8-27b"]);
+    assert.ok(Date.now() - t0 < 1_000, "no wait between a 400 and the next model");
+  } finally {
+    globalThis.fetch = real;
+    delete process.env.GROQ_API_KEY;
+    resetPhraseState();
+  }
 });
 
 test("genai: long calls are budgeted by tokens and their rate limits never park the phrasing path", async () => {

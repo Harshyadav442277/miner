@@ -117,7 +117,7 @@ type Severity = (typeof SEVERITIES)[number];
 export interface Finding { severity: Severity; line: number | null; issue: string; fix: string }
 
 const REVIEW_SYSTEM = `You are a senior code reviewer. Review the code the user sends for correctness, security, performance and clarity. Reply with a JSON object:
-{"verdict": "Approve" | "Request changes" | "Comment", "summary": one or two sentences stating whether the code is correct and its most serious problem, "findings": [{"severity": "critical"|"high"|"medium"|"low"|"info", "line": line number or null, "issue": the problem by its technical name and why it matters, "fix": the concrete change, with corrected code where short}]}
+{"verdict": "Approve" | "Request changes" | "Comment", "summary": three to six plain sentences that open with exactly "The code is correct." or "The code is not correct.", then explain each serious issue in turn: what it is by its technical name, where it is, why it matters and how to fix it, "findings": [{"severity": "critical"|"high"|"medium"|"low"|"info", "line": line number or null, "issue": the problem by its technical name and why it matters, "fix": the concrete change, with corrected code where short}]}
 Order findings by severity, most serious first. Report only real problems; do not invent issues in correct code. "Request changes" when any finding is critical or high; "Approve" only when there is nothing above low.`;
 
 /** Findings as served: known severities only, most serious first. Pure. */
@@ -146,6 +146,21 @@ export function reviewVerdict(stated: string, findings: Finding[]): "Approve" | 
   return findings.length ? "Comment" : "Approve";
 }
 
+/**
+ * The summary opening with its correctness sentence. A model that skipped it gets the one its verdict supports:
+ * "Request changes" (a critical or high finding) is not correct, "Approve" is correct; "Comment" is left as
+ * written, since a medium finding does not settle correctness either way. Pure.
+ */
+export function reviewSummary(summary: string, verdict: string): string {
+  const s = plainHyphens(summary.replace(/\s+/g, " ").trim());
+  // A critical or high finding is never summarised as correct code.
+  if (verdict === "Request changes" && /^The code is correct\./.test(s)) return s.replace(/^The code is correct\./, "The code is not correct.");
+  if (/^The code is (?:not )?correct\./.test(s)) return s;
+  if (verdict === "Request changes") return `The code is not correct. ${s}`;
+  if (verdict === "Approve") return `The code is correct. ${s}`;
+  return s;
+}
+
 export async function reviewCode(question: string, codeParam = ""): Promise<GenAnswer> {
   const code = (codeParam || question).slice(0, MAX_INPUT);
   if (!code.trim()) return missing("code", "code", { findings: [], summary: null });
@@ -155,10 +170,11 @@ export async function reviewCode(question: string, codeParam = ""): Promise<GenA
   }
   const raw = await phrase({ system: REVIEW_SYSTEM, user: code, maxTokens: 1_400, long: true, json: true, clean: (r) => (parseObject(r) ? r : null) });
   const o = raw ? parseObject(raw) : null;
-  const summary = str(o?.summary);
-  if (!o || !summary) return unavailable("a review", { findings: [], summary: null });
+  const stated = str(o?.summary);
+  if (!o || !stated) return unavailable("a review", { findings: [], summary: null });
   const findings = normaliseFindings(o.findings);
   const verdict = reviewVerdict(str(o.verdict), findings);
+  const summary = reviewSummary(stated, verdict);
   const listed = findings.map((f, i) => `${i + 1}) ${f.severity}${f.line ? `, line ${f.line}` : ""}: ${f.issue}${f.fix ? ` Fix: ${f.fix}` : ""}`).join(" ");
   return { verdict, summary, findings, finding_count: findings.length, confidence: CONFIDENCE, source: SOURCE,
     reason: `${verdict}: ${summary}${listed ? ` Findings: ${listed}` : ""}` };
