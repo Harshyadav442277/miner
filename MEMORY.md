@@ -1,6 +1,21 @@
 # MEMORY.md — session continuity
 
-## 2026-11-08 19:09 UTC (Nov 9 00:39 IST): CURRENT — our three comparators are champions
+## 2026-11-08 ~19:45 UTC: CURRENT — six high-demand comparators ready; prod deploy needs the owner's yes
+
+- Branch `claude/high-demand-comparators` `c2f5394`, sign file `track2/runnable/SIGN_HIGH_DEMAND.md`. Families:
+  REGULATORY_FILING_MONITOR, CORPORATE_REGISTRY_LOOKUP, LIQUIDITY_DEPTH_VERIFY, GRID_POWER_PRICE,
+  MINING_HASHPRICE_VERIFY and FINANCIAL_DATA.
+- All six are `class: deterministic`, `intentKind` 1. Ours and the 7 pending competitors give 0 mismatches on the
+  234,848-case grid and tie on a 2,429-case adversarial set.
+- Preview `livecert-comparator-26zsvagif-wukong4.vercel.app` (behind Vercel login): 9/9 families 600/600, sha256
+  equal. The deploy copy had lacked FX_NOW, which is now restored.
+- **Production returns 404 for the six until a prod deploy, which needs the owner's yes.**
+- **Blocker:** every competitor in these families has read "eval-pool: no published snapshot" since Nov 3, even
+  with 5 contributors. Registrations will sit `pending`.
+- Anomaly: `getPrefixes()` marks all six prefixes as kind 3. Whether that reverts a registration is untested.
+- Wallet: 7.73 MACHINA at 19:45 UTC, down from 9.998 before #267–#269.
+
+## 2026-11-08 19:09 UTC (Nov 9 00:39 IST): our three comparators are champions
 
 - `/api/wasm`: FX_NOW #267, CRYPTO_PRICE #268 and WEATHER_CHECK #269 are `active`, `canonical`, champion,
   eval_score 1. Promoted 18:09:19–20 UTC.
