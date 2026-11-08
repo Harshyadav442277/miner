@@ -1,0 +1,7 @@
+dataset gate: PASS (4000 pairs)
+  unique negatives    100.0%
+  largest single neg  0.0%
+  length shortcut     51.1%
+  held-out leak       0.0%
+  surface probe       64.1%  (50% = no tell)
+  mean length         chosen 584 / rejected 584 characters

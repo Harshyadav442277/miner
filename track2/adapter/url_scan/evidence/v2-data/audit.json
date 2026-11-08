@@ -1,0 +1,50 @@
+{
+ "splits": {
+  "train": {
+   "pairs": 4000,
+   "registrable_domains": 4459
+  },
+  "val": {
+   "pairs": 400,
+   "registrable_domains": 435
+  },
+  "test": {
+   "pairs": 400,
+   "registrable_domains": 425
+  },
+  "holdout": {
+   "pairs": 200,
+   "registrable_domains": 230
+  }
+ },
+ "overlaps": {
+  "train|val": [],
+  "train|test": [],
+  "train|holdout": [],
+  "val|test": [],
+  "val|holdout": [],
+  "test|holdout": []
+ },
+ "reserved_hits": {
+  "train": [],
+  "val": [],
+  "test": [],
+  "holdout": []
+ },
+ "reserved": [
+  "brave-earnings.com",
+  "cert.pl",
+  "eicar.org",
+  "example.com",
+  "example.net",
+  "example.org",
+  "gudamispr.store",
+  "iana.org",
+  "microsoft.com",
+  "msft.net",
+  "oferta6213123451512.cfd",
+  "passtro.com",
+  "testsafebrowsing.appspot.com"
+ ],
+ "pass": true
+}
