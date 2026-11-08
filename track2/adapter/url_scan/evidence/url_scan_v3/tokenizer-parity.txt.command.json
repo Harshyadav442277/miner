@@ -1,0 +1,21 @@
+{
+  "cwd": "C:\\Users\\hyada\\OneDrive\\Documents\\Work-Related\\Hackathons\\Telegraph\\.claude\\worktrees\\agent-a1db5c9a99b1aabc7\\track2\\adapter\\url_scan",
+  "executable": "C:\\Users\\hyada\\tg-eval\\.venv\\Scripts\\python.exe",
+  "arguments": [
+    "check_tokenizer_parity.py",
+    "--trained",
+    "C:\\Users\\hyada\\tg-eval\\runs-v2\\URL_SCAN_v3\\adapter\\tokenizer.json",
+    "--pinned",
+    "C:\\Users\\hyada\\tg-eval\\foundation\\tokenizer.json",
+    "--pairs",
+    "C:\\Users\\hyada\\tg-eval\\pairs\\urlscan_v3/train.jsonl",
+    "C:\\Users\\hyada\\tg-eval\\pairs\\urlscan_v3/val.jsonl",
+    "C:\\Users\\hyada\\tg-eval\\pairs\\urlscan_v3/test.jsonl",
+    "C:\\Users\\hyada\\tg-eval\\pairs\\urlscan_v3\\holdout.jsonl",
+    "C:\\Users\\hyada\\tg-eval\\pairs\\urlscan_probe16.jsonl",
+    "C:\\Users\\hyada\\tg-eval\\urlscan-h2-r1\\pairs.jsonl",
+    "--out",
+    "C:\\Users\\hyada\\OneDrive\\Documents\\Work-Related\\Hackathons\\Telegraph\\.claude\\worktrees\\agent-a1db5c9a99b1aabc7\\track2\\adapter\\url_scan\\evidence\\url_scan_v3\\tokenizer-parity.json"
+  ],
+  "at": "2026-11-08T09:48:41Z"
+}

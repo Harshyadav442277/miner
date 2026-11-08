@@ -1,0 +1,22 @@
+{
+  "cwd": "C:\\Users\\hyada\\OneDrive\\Documents\\Work-Related\\Hackathons\\Telegraph\\.claude\\worktrees\\agent-a1db5c9a99b1aabc7\\track2\\adapter\\url_scan",
+  "executable": "C:\\Users\\hyada\\tg-eval\\.venv\\Scripts\\python.exe",
+  "arguments": [
+    "report_v2.py",
+    "--measure",
+    "C:\\Users\\hyada\\OneDrive\\Documents\\Work-Related\\Hackathons\\Telegraph\\.claude\\worktrees\\agent-a1db5c9a99b1aabc7\\track2\\adapter\\url_scan\\evidence\\url_scan_v3",
+    "--measure",
+    "C:\\Users\\hyada\\OneDrive\\Documents\\Work-Related\\Hackathons\\Telegraph\\.claude\\worktrees\\agent-a1db5c9a99b1aabc7\\track2\\adapter\\url_scan\\evidence\\generic-900005-h3",
+    "--train",
+    "C:\\Users\\hyada\\tg-eval\\pairs\\urlscan_v3/train.jsonl",
+    "--pairs",
+    "h1=C:\\Users\\hyada\\tg-eval\\pairs\\urlscan_v3\\holdout.jsonl",
+    "--pairs",
+    "probe=C:\\Users\\hyada\\tg-eval\\pairs\\urlscan_probe16.jsonl",
+    "--pairs",
+    "h2=C:\\Users\\hyada\\tg-eval\\urlscan-h2-r1\\pairs.jsonl",
+    "--pairs",
+    "h3=C:\\Users\\hyada\\tg-eval\\urlscan-h3-r1\\pairs.jsonl"
+  ],
+  "at": "2026-11-08T10:53:13Z"
+}

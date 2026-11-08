@@ -1,0 +1,1272 @@
+{
+ "package": "generic",
+ "path": "C:\\Users\\hyada\\tg-eval\\dl\\generic_900005\\adapter-GENERIC-dc4f8bd55442.safetensors",
+ "sha256": "e42b553315b32f4fb61600df2e86de7b48efdd28d2de03c59689c67d5dbec7e4",
+ "keccak256": "dc4f8bd55442407c9a7cc29b892d22ad136e326e07e21d37ed7e0f94adc2e2b1",
+ "runtime_reported_keccak": true,
+ "max_tokens": 512,
+ "identity": {
+  "foundation_hash": "0a49b325304bb4cf292e683929689d0457966be264f60bfc94d0072b614bf8e6",
+  "adapter_hash": "dc4f8bd55442407c9a7cc29b892d22ad136e326e07e21d37ed7e0f94adc2e2b1",
+  "tokenizer_hash": "67bc76f8b9386efba1a761c1c8e5ad439fd0eaf1c2826e9dd1a205c7af4dc456"
+ },
+ "verify_input_bits": "0x3f059cb7",
+ "unique_texts": 88,
+ "seconds": 261.4,
+ "sets": {
+  "h3": {
+   "pairs": 78,
+   "wins": 51,
+   "rows": [
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1090737336,
+      "value": 8.208183288574219
+     },
+     "rejected": {
+      "bits": 1077863933,
+      "value": 2.9827873706817627
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1086054924,
+      "value": 5.871343612670898
+     },
+     "rejected": {
+      "bits": 1077863933,
+      "value": 2.9827873706817627
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1090737336,
+      "value": 8.208183288574219
+     },
+     "rejected": {
+      "bits": 1089737700,
+      "value": 7.62742805480957
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1086054924,
+      "value": 5.871343612670898
+     },
+     "rejected": {
+      "bits": 1089737700,
+      "value": 7.62742805480957
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1090877316,
+      "value": 8.341678619384766
+     },
+     "rejected": {
+      "bits": 1084399376,
+      "value": 5.081916809082031
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1090877316,
+      "value": 8.341678619384766
+     },
+     "rejected": {
+      "bits": 1082262481,
+      "value": 4.0629658699035645
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1090309983,
+      "value": 7.900313854217529
+     },
+     "rejected": {
+      "bits": 1084399376,
+      "value": 5.081916809082031
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1090309983,
+      "value": 7.900313854217529
+     },
+     "rejected": {
+      "bits": 1082262481,
+      "value": 4.0629658699035645
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1090877316,
+      "value": 8.341678619384766
+     },
+     "rejected": {
+      "bits": 1090850077,
+      "value": 8.315701484680176
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1090309983,
+      "value": 7.900313854217529
+     },
+     "rejected": {
+      "bits": 1090850077,
+      "value": 8.315701484680176
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1092443053,
+      "value": 9.834881782531738
+     },
+     "rejected": {
+      "bits": 1081310383,
+      "value": 3.8044850826263428
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1087958016,
+      "value": 6.77880859375
+     },
+     "rejected": {
+      "bits": 1081310383,
+      "value": 3.8044850826263428
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1092443053,
+      "value": 9.834881782531738
+     },
+     "rejected": {
+      "bits": 1090899218,
+      "value": 8.362565994262695
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1087958016,
+      "value": 6.77880859375
+     },
+     "rejected": {
+      "bits": 1090899218,
+      "value": 8.362565994262695
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1090912299,
+      "value": 8.375041007995605
+     },
+     "rejected": {
+      "bits": 1082908537,
+      "value": 4.371029376983643
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1090912299,
+      "value": 8.375041007995605
+     },
+     "rejected": {
+      "bits": 1082055759,
+      "value": 3.982196569442749
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1090912299,
+      "value": 8.375041007995605
+     },
+     "rejected": {
+      "bits": 1090944403,
+      "value": 8.405657768249512
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1082564949,
+      "value": 4.207193851470947
+     },
+     "rejected": {
+      "bits": 1090744948,
+      "value": 8.215442657470703
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1091082249,
+      "value": 8.537117958068848
+     },
+     "rejected": {
+      "bits": 1090744948,
+      "value": 8.215442657470703
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1091930458,
+      "value": 9.346033096313477
+     },
+     "rejected": {
+      "bits": 1079062273,
+      "value": 3.268493890762329
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1086800210,
+      "value": 6.226723670959473
+     },
+     "rejected": {
+      "bits": 1079062273,
+      "value": 3.268493890762329
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1091930458,
+      "value": 9.346033096313477
+     },
+     "rejected": {
+      "bits": 1091112546,
+      "value": 8.566011428833008
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1086800210,
+      "value": 6.226723670959473
+     },
+     "rejected": {
+      "bits": 1091112546,
+      "value": 8.566011428833008
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1092549828,
+      "value": 9.936710357666016
+     },
+     "rejected": {
+      "bits": 1082185365,
+      "value": 4.026194095611572
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1089330194,
+      "value": 7.433114051818848
+     },
+     "rejected": {
+      "bits": 1082185365,
+      "value": 4.026194095611572
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1092549828,
+      "value": 9.936710357666016
+     },
+     "rejected": {
+      "bits": 1090657834,
+      "value": 8.132364273071289
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1089330194,
+      "value": 7.433114051818848
+     },
+     "rejected": {
+      "bits": 1090657834,
+      "value": 8.132364273071289
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1092065846,
+      "value": 9.475149154663086
+     },
+     "rejected": {
+      "bits": 1082657100,
+      "value": 4.251134872436523
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1083029043,
+      "value": 4.428491115570068
+     },
+     "rejected": {
+      "bits": 1082657100,
+      "value": 4.251134872436523
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1092065846,
+      "value": 9.475149154663086
+     },
+     "rejected": {
+      "bits": 1090658766,
+      "value": 8.13325309753418
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1083029043,
+      "value": 4.428491115570068
+     },
+     "rejected": {
+      "bits": 1090658766,
+      "value": 8.13325309753418
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1091420222,
+      "value": 8.859434127807617
+     },
+     "rejected": {
+      "bits": 1082037447,
+      "value": 3.977830648422241
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1079807054,
+      "value": 3.44606351852417
+     },
+     "rejected": {
+      "bits": 1082037447,
+      "value": 3.977830648422241
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1091420222,
+      "value": 8.859434127807617
+     },
+     "rejected": {
+      "bits": 1090882449,
+      "value": 8.346573829650879
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1079807054,
+      "value": 3.44606351852417
+     },
+     "rejected": {
+      "bits": 1090882449,
+      "value": 8.346573829650879
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1092919448,
+      "value": 10.289207458496094
+     },
+     "rejected": {
+      "bits": 1081629691,
+      "value": 3.8806140422821045
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1087126733,
+      "value": 6.382421970367432
+     },
+     "rejected": {
+      "bits": 1081629691,
+      "value": 3.8806140422821045
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1092919448,
+      "value": 10.289207458496094
+     },
+     "rejected": {
+      "bits": 1090999977,
+      "value": 8.458657264709473
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1087126733,
+      "value": 6.382421970367432
+     },
+     "rejected": {
+      "bits": 1090999977,
+      "value": 8.458657264709473
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1090542758,
+      "value": 8.022619247436523
+     },
+     "rejected": {
+      "bits": 1084944302,
+      "value": 5.341757774353027
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1090542758,
+      "value": 8.022619247436523
+     },
+     "rejected": {
+      "bits": 1080168432,
+      "value": 3.5322227478027344
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1090542758,
+      "value": 8.022619247436523
+     },
+     "rejected": {
+      "bits": 1090799500,
+      "value": 8.267467498779297
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1092203530,
+      "value": 9.606454849243164
+     },
+     "rejected": {
+      "bits": 1081384324,
+      "value": 3.8221139907836914
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1088315262,
+      "value": 6.949156761169434
+     },
+     "rejected": {
+      "bits": 1081384324,
+      "value": 3.8221139907836914
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1092203530,
+      "value": 9.606454849243164
+     },
+     "rejected": {
+      "bits": 1090604447,
+      "value": 8.081450462341309
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1088315262,
+      "value": 6.949156761169434
+     },
+     "rejected": {
+      "bits": 1090604447,
+      "value": 8.081450462341309
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1091597956,
+      "value": 9.028934478759766
+     },
+     "rejected": {
+      "bits": 1079019421,
+      "value": 3.258277177810669
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1087038148,
+      "value": 6.340181350708008
+     },
+     "rejected": {
+      "bits": 1079019421,
+      "value": 3.258277177810669
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1091597956,
+      "value": 9.028934478759766
+     },
+     "rejected": {
+      "bits": 1090734696,
+      "value": 8.205665588378906
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1087038148,
+      "value": 6.340181350708008
+     },
+     "rejected": {
+      "bits": 1090734696,
+      "value": 8.205665588378906
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1093601486,
+      "value": 10.93964958190918
+     },
+     "rejected": {
+      "bits": 1082290374,
+      "value": 4.076266288757324
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1089880326,
+      "value": 7.695437431335449
+     },
+     "rejected": {
+      "bits": 1082290374,
+      "value": 4.076266288757324
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1093601486,
+      "value": 10.93964958190918
+     },
+     "rejected": {
+      "bits": 1090824004,
+      "value": 8.290836334228516
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1089880326,
+      "value": 7.695437431335449
+     },
+     "rejected": {
+      "bits": 1090824004,
+      "value": 8.290836334228516
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1091732063,
+      "value": 9.156828880310059
+     },
+     "rejected": {
+      "bits": 1079854894,
+      "value": 3.4574694633483887
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1085575427,
+      "value": 5.642701625823975
+     },
+     "rejected": {
+      "bits": 1079854894,
+      "value": 3.4574694633483887
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1091732063,
+      "value": 9.156828880310059
+     },
+     "rejected": {
+      "bits": 1090693977,
+      "value": 8.16683292388916
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1085575427,
+      "value": 5.642701625823975
+     },
+     "rejected": {
+      "bits": 1090693977,
+      "value": 8.16683292388916
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1092005213,
+      "value": 9.417325019836426
+     },
+     "rejected": {
+      "bits": 1079528138,
+      "value": 3.3795647621154785
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1088795876,
+      "value": 7.17833137512207
+     },
+     "rejected": {
+      "bits": 1079528138,
+      "value": 3.3795647621154785
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1092005213,
+      "value": 9.417325019836426
+     },
+     "rejected": {
+      "bits": 1090683184,
+      "value": 8.156539916992188
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1088795876,
+      "value": 7.17833137512207
+     },
+     "rejected": {
+      "bits": 1090683184,
+      "value": 8.156539916992188
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1084904699,
+      "value": 5.322873592376709
+     },
+     "rejected": {
+      "bits": 1085769452,
+      "value": 5.735219955444336
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1079141658,
+      "value": 3.2874207496643066
+     },
+     "rejected": {
+      "bits": 1085769452,
+      "value": 5.735219955444336
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1086852037,
+      "value": 6.251436710357666
+     },
+     "rejected": {
+      "bits": 1084922996,
+      "value": 5.331598281860352
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1081270509,
+      "value": 3.794978380203247
+     },
+     "rejected": {
+      "bits": 1084922996,
+      "value": 5.331598281860352
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1085645720,
+      "value": 5.676219940185547
+     },
+     "rejected": {
+      "bits": 1084792817,
+      "value": 5.269524097442627
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1080365341,
+      "value": 3.579169511795044
+     },
+     "rejected": {
+      "bits": 1084792817,
+      "value": 5.269524097442627
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1081426468,
+      "value": 3.8321619033813477
+     },
+     "rejected": {
+      "bits": 1076154657,
+      "value": 2.5752642154693604
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1081426468,
+      "value": 3.8321619033813477
+     },
+     "rejected": {
+      "bits": 1084955446,
+      "value": 5.347071647644043
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1077490694,
+      "value": 2.8938002586364746
+     },
+     "rejected": {
+      "bits": 1084526786,
+      "value": 5.142670631408691
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1078983066,
+      "value": 3.2496094703674316
+     },
+     "rejected": {
+      "bits": 1084526786,
+      "value": 5.142670631408691
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1086329136,
+      "value": 6.002098083496094
+     },
+     "rejected": {
+      "bits": 1085308850,
+      "value": 5.51558780670166
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1080873611,
+      "value": 3.700350522994995
+     },
+     "rejected": {
+      "bits": 1085308850,
+      "value": 5.51558780670166
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1084973660,
+      "value": 5.355756759643555
+     },
+     "rejected": {
+      "bits": 1084405918,
+      "value": 5.085036277770996
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1079387002,
+      "value": 3.3459153175354004
+     },
+     "rejected": {
+      "bits": 1084405918,
+      "value": 5.085036277770996
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1088873630,
+      "value": 7.215407371520996
+     },
+     "rejected": {
+      "bits": 1084552760,
+      "value": 5.155055999755859
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1081003511,
+      "value": 3.731321096420288
+     },
+     "rejected": {
+      "bits": 1084552760,
+      "value": 5.155055999755859
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    }
+   ]
+  }
+ }
+}

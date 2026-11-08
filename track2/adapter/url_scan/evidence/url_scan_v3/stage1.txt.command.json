@@ -1,0 +1,20 @@
+{
+  "cwd": "C:\\Users\\hyada\\tg-eval\\kit-v2",
+  "executable": "C:\\Users\\hyada\\tg-eval\\bin-v2\\adapterbuild-urlscan.exe",
+  "arguments": [
+    "lora",
+    "--intent",
+    "URL_SCAN",
+    "--package",
+    "C:\\Users\\hyada\\tg-eval\\runs-v2\\URL_SCAN_v3\\URL_SCAN.safetensors",
+    "--out",
+    "C:\\Users\\hyada\\tg-eval\\runs-v2\\URL_SCAN_v3",
+    "--foundation",
+    "C:\\Users\\hyada\\tg-eval\\foundation\\foundation.json",
+    "--foundation-onnx",
+    "C:\\Users\\hyada\\tg-eval\\foundation\\foundation_lora_fp32.onnx",
+    "--engine",
+    "C:\\Users\\hyada\\tg-eval\\foundation\\foundation_engine.wasm"
+  ],
+  "at": "2026-11-08T10:28:56Z"
+}

@@ -1,0 +1,53 @@
+{
+  "intent": "URL_SCAN",
+  "base_model": "../base-node",
+  "base_model_sha256": "340ac08b74eef0d7bdec2d7981a6a3d4249bf0e6aab60634b72ad02c2b8023a9",
+  "tokenizer_sha256": "9fd55248d51d33976b324fc11592e28071da7d41e0e9401dfb7082e30574b7b1",
+  "adapter_dir": "..\\runs-v2\\URL_SCAN_v3\\adapter",
+  "reward_head": "..\\runs-v2\\URL_SCAN_v3\\adapter\\reward_head.pt",
+  "train_pairs": 5000,
+  "gate_split": "test",
+  "dataset_gate": {
+    "ok": true,
+    "n": 5000,
+    "metrics": {
+      "unique_rejected_frac": 1.0,
+      "top_rejected_share": 0.0002,
+      "length_shortcut_acc": 0.5192,
+      "eval_negative_leak": 0.0,
+      "surface_probe_acc": 0.6316,
+      "mean_len_chosen": 853.2,
+      "mean_len_rejected": 829.0
+    },
+    "failures": []
+  },
+  "n_eval": 400,
+  "pairwise_accuracy": 0.765,
+  "val_loss": 0.406196,
+  "length_baseline": 0.5175,
+  "beats_length_baseline": true,
+  "verdict": "PASS",
+  "negative_memorisation": 0.0,
+  "hyperparameters": {
+    "max_length": 512,
+    "batch_size": 2,
+    "grad_accum": 8,
+    "grad_checkpointing": true,
+    "lora_rank": 8,
+    "lora_alpha": 32,
+    "lora_dropout": 0.1,
+    "epochs": 3,
+    "lr": 0.0001,
+    "weight_decay": 0.01,
+    "eval_split": 0.15,
+    "seed": 42,
+    "eval_batch": 2,
+    "gate_min_acc": 0.65,
+    "gate_min_margin_over_baseline": 0.1,
+    "early_stopping": true,
+    "es_metric": "val_loss",
+    "es_patience": 1,
+    "es_min_delta": 0.001,
+    "loss_floor": 0.0001
+  }
+}
